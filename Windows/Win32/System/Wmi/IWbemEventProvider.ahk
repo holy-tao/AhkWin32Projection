@@ -70,7 +70,7 @@ export default struct IWbemEventProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ProvideEvents := CallbackCreate(GetMethod(implObj, "ProvideEvents"), flags, 3)
+        this.vtbl.ProvideEvents := CallbackCreate(ObjBindMethod(implObj, "ProvideEvents"), flags, 3)
     }
 
     Dispose() {

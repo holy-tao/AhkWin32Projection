@@ -22,7 +22,6 @@ export default struct VDMGETTHREADSELECTORENTRYPROC {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @param {HANDLE} param1 
      * @param {Integer} param2 

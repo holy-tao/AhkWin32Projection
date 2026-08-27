@@ -99,7 +99,6 @@ export default struct IADsO extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Description() {
@@ -109,7 +108,6 @@ export default struct IADsO extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDescription 
      * @returns {HRESULT} 
      */
@@ -121,7 +119,6 @@ export default struct IADsO extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LocalityName() {
@@ -131,7 +128,6 @@ export default struct IADsO extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrLocalityName 
      * @returns {HRESULT} 
      */
@@ -143,7 +139,6 @@ export default struct IADsO extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PostalAddress() {
@@ -153,7 +148,6 @@ export default struct IADsO extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPostalAddress 
      * @returns {HRESULT} 
      */
@@ -165,7 +159,6 @@ export default struct IADsO extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_TelephoneNumber() {
@@ -175,7 +168,6 @@ export default struct IADsO extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrTelephoneNumber 
      * @returns {HRESULT} 
      */
@@ -187,7 +179,6 @@ export default struct IADsO extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_FaxNumber() {
@@ -197,7 +188,6 @@ export default struct IADsO extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrFaxNumber 
      * @returns {HRESULT} 
      */
@@ -209,7 +199,6 @@ export default struct IADsO extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_SeeAlso() {
@@ -219,7 +208,6 @@ export default struct IADsO extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vSeeAlso 
      * @returns {HRESULT} 
      */
@@ -237,18 +225,18 @@ export default struct IADsO extends IADs {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
-        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
-        this.vtbl.get_LocalityName := CallbackCreate(GetMethod(implObj, "get_LocalityName"), flags, 2)
-        this.vtbl.put_LocalityName := CallbackCreate(GetMethod(implObj, "put_LocalityName"), flags, 2)
-        this.vtbl.get_PostalAddress := CallbackCreate(GetMethod(implObj, "get_PostalAddress"), flags, 2)
-        this.vtbl.put_PostalAddress := CallbackCreate(GetMethod(implObj, "put_PostalAddress"), flags, 2)
-        this.vtbl.get_TelephoneNumber := CallbackCreate(GetMethod(implObj, "get_TelephoneNumber"), flags, 2)
-        this.vtbl.put_TelephoneNumber := CallbackCreate(GetMethod(implObj, "put_TelephoneNumber"), flags, 2)
-        this.vtbl.get_FaxNumber := CallbackCreate(GetMethod(implObj, "get_FaxNumber"), flags, 2)
-        this.vtbl.put_FaxNumber := CallbackCreate(GetMethod(implObj, "put_FaxNumber"), flags, 2)
-        this.vtbl.get_SeeAlso := CallbackCreate(GetMethod(implObj, "get_SeeAlso"), flags, 2)
-        this.vtbl.put_SeeAlso := CallbackCreate(GetMethod(implObj, "put_SeeAlso"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(ObjBindMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(ObjBindMethod(implObj, "put_Description"), flags, 2)
+        this.vtbl.get_LocalityName := CallbackCreate(ObjBindMethod(implObj, "get_LocalityName"), flags, 2)
+        this.vtbl.put_LocalityName := CallbackCreate(ObjBindMethod(implObj, "put_LocalityName"), flags, 2)
+        this.vtbl.get_PostalAddress := CallbackCreate(ObjBindMethod(implObj, "get_PostalAddress"), flags, 2)
+        this.vtbl.put_PostalAddress := CallbackCreate(ObjBindMethod(implObj, "put_PostalAddress"), flags, 2)
+        this.vtbl.get_TelephoneNumber := CallbackCreate(ObjBindMethod(implObj, "get_TelephoneNumber"), flags, 2)
+        this.vtbl.put_TelephoneNumber := CallbackCreate(ObjBindMethod(implObj, "put_TelephoneNumber"), flags, 2)
+        this.vtbl.get_FaxNumber := CallbackCreate(ObjBindMethod(implObj, "get_FaxNumber"), flags, 2)
+        this.vtbl.put_FaxNumber := CallbackCreate(ObjBindMethod(implObj, "put_FaxNumber"), flags, 2)
+        this.vtbl.get_SeeAlso := CallbackCreate(ObjBindMethod(implObj, "get_SeeAlso"), flags, 2)
+        this.vtbl.put_SeeAlso := CallbackCreate(ObjBindMethod(implObj, "put_SeeAlso"), flags, 2)
     }
 
     Dispose() {

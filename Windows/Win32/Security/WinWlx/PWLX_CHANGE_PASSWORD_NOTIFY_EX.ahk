@@ -26,7 +26,6 @@ export default struct PWLX_CHANGE_PASSWORD_NOTIFY_EX {
     }
 
     /**
-     * 
      * @param {HANDLE} hWlx Specifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/w-gly">Winlogon</a> handle passed to GINA in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nf-winwlx-wlxinitialize">WlxInitialize</a> call.
      * @param {Pointer<WLX_MPR_NOTIFY_INFO>} pMprInfo Points to a 
@@ -40,7 +39,7 @@ export default struct PWLX_CHANGE_PASSWORD_NOTIFY_EX {
     Call(hWlx, pMprInfo, dwChangeInfo, ProviderName, Reserved) {
         ProviderName := ProviderName is String ? StrPtr(ProviderName) : ProviderName
 
-        ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
+        ReservedMarshal := Reserved is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, HANDLE, hWlx, WLX_MPR_NOTIFY_INFO.Ptr, pMprInfo, UInt32, dwChangeInfo, "ptr", ProviderName, ReservedMarshal, Reserved, Int32)
         return result

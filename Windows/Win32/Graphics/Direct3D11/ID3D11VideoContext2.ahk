@@ -61,7 +61,9 @@ export default struct ID3D11VideoContext2 extends ID3D11VideoContext1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/nf-d3d11_4-id3d11videocontext2-videoprocessorsetoutputhdrmetadata
      */
     VideoProcessorSetOutputHDRMetaData(pVideoProcessor, Type, _Size, pHDRMetaData) {
-        ComCall(79, this, "ptr", pVideoProcessor, DXGI_HDR_METADATA_TYPE, Type, UInt32, _Size, IntPtr, pHDRMetaData)
+        pHDRMetaDataMarshal := pHDRMetaData == 0 ? IntPtr : IntPtr
+
+        ComCall(79, this, "ptr", pVideoProcessor, DXGI_HDR_METADATA_TYPE, Type, UInt32, _Size, pHDRMetaDataMarshal, pHDRMetaData)
     }
 
     /**
@@ -80,9 +82,10 @@ export default struct ID3D11VideoContext2 extends ID3D11VideoContext1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/nf-d3d11_4-id3d11videocontext2-videoprocessorgetoutputhdrmetadata
      */
     VideoProcessorGetOutputHDRMetaData(pVideoProcessor, pType, _Size, pMetaData) {
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        pTypeMarshal := pType is VarRef ? "int*" : IntPtr
+        pMetaDataMarshal := pMetaData == 0 ? IntPtr : IntPtr
 
-        ComCall(80, this, "ptr", pVideoProcessor, pTypeMarshal, pType, UInt32, _Size, IntPtr, pMetaData)
+        ComCall(80, this, "ptr", pVideoProcessor, pTypeMarshal, pType, UInt32, _Size, pMetaDataMarshal, pMetaData)
     }
 
     /**
@@ -106,7 +109,9 @@ export default struct ID3D11VideoContext2 extends ID3D11VideoContext1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/nf-d3d11_4-id3d11videocontext2-videoprocessorsetstreamhdrmetadata
      */
     VideoProcessorSetStreamHDRMetaData(pVideoProcessor, StreamIndex, Type, _Size, pHDRMetaData) {
-        ComCall(81, this, "ptr", pVideoProcessor, UInt32, StreamIndex, DXGI_HDR_METADATA_TYPE, Type, UInt32, _Size, IntPtr, pHDRMetaData)
+        pHDRMetaDataMarshal := pHDRMetaData == 0 ? IntPtr : IntPtr
+
+        ComCall(81, this, "ptr", pVideoProcessor, UInt32, StreamIndex, DXGI_HDR_METADATA_TYPE, Type, UInt32, _Size, pHDRMetaDataMarshal, pHDRMetaData)
     }
 
     /**
@@ -126,9 +131,10 @@ export default struct ID3D11VideoContext2 extends ID3D11VideoContext1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/nf-d3d11_4-id3d11videocontext2-videoprocessorgetstreamhdrmetadata
      */
     VideoProcessorGetStreamHDRMetaData(pVideoProcessor, StreamIndex, pType, _Size, pMetaData) {
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        pTypeMarshal := pType is VarRef ? "int*" : IntPtr
+        pMetaDataMarshal := pMetaData == 0 ? IntPtr : IntPtr
 
-        ComCall(82, this, "ptr", pVideoProcessor, UInt32, StreamIndex, pTypeMarshal, pType, UInt32, _Size, IntPtr, pMetaData)
+        ComCall(82, this, "ptr", pVideoProcessor, UInt32, StreamIndex, pTypeMarshal, pType, UInt32, _Size, pMetaDataMarshal, pMetaData)
     }
 
     _Query(iid) {
@@ -140,10 +146,10 @@ export default struct ID3D11VideoContext2 extends ID3D11VideoContext1 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.VideoProcessorSetOutputHDRMetaData := CallbackCreate(GetMethod(implObj, "VideoProcessorSetOutputHDRMetaData"), flags, 5)
-        this.vtbl.VideoProcessorGetOutputHDRMetaData := CallbackCreate(GetMethod(implObj, "VideoProcessorGetOutputHDRMetaData"), flags, 5)
-        this.vtbl.VideoProcessorSetStreamHDRMetaData := CallbackCreate(GetMethod(implObj, "VideoProcessorSetStreamHDRMetaData"), flags, 6)
-        this.vtbl.VideoProcessorGetStreamHDRMetaData := CallbackCreate(GetMethod(implObj, "VideoProcessorGetStreamHDRMetaData"), flags, 6)
+        this.vtbl.VideoProcessorSetOutputHDRMetaData := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorSetOutputHDRMetaData"), flags, 5)
+        this.vtbl.VideoProcessorGetOutputHDRMetaData := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorGetOutputHDRMetaData"), flags, 5)
+        this.vtbl.VideoProcessorSetStreamHDRMetaData := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorSetStreamHDRMetaData"), flags, 6)
+        this.vtbl.VideoProcessorGetStreamHDRMetaData := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorGetStreamHDRMetaData"), flags, 6)
     }
 
     Dispose() {

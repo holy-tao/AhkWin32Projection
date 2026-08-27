@@ -21,7 +21,6 @@ export default struct WSMAN_PLUGIN_STARTUP {
     }
 
     /**
-     * 
      * @param {Integer} flags Reserved for future use. Must be zero.
      * @param {PWSTR} applicationIdentification A unique identifier for the hosted application. For the main WinRM service, the default is <b>wsman</b>. For an Internet Information Services (IIS) host, this identifier is related to the application endpoint for that host. For example, <b>wsman/MyCompany/MyApplication</b>.
      * @param {PWSTR} extraInfo A string that contains configuration information, if any information was stored when the plug-in was registered. When the plug-in is registered using the WinRM configuration, the plug-in can add extra configuration parameters that are useful during initialization to an optional node.  This information can be especially useful if a plug-in is used in different IIS hosting scenarios and requires slightly different run-time semantics during initialization.  This string is a copy of the XML from the configuration, if one is present.  Otherwise, this parameter is set to <b>NULL</b>.
@@ -32,9 +31,10 @@ export default struct WSMAN_PLUGIN_STARTUP {
         applicationIdentification := applicationIdentification is String ? StrPtr(applicationIdentification) : applicationIdentification
         extraInfo := extraInfo is String ? StrPtr(extraInfo) : extraInfo
 
-        pluginContextMarshal := pluginContext is VarRef ? "ptr*" : "ptr"
+        extraInfoMarshal := extraInfo == 0 ? IntPtr : PWSTR
+        pluginContextMarshal := pluginContext is VarRef ? "ptr*" : IntPtr
 
-        result := DllCall(this.value, UInt32, flags, "ptr", applicationIdentification, "ptr", extraInfo, pluginContextMarshal, pluginContext, UInt32)
+        result := DllCall(this.value, UInt32, flags, "ptr", applicationIdentification, extraInfoMarshal, extraInfo, pluginContextMarshal, pluginContext, UInt32)
         return result
     }
 

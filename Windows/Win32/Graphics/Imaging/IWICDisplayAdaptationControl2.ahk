@@ -42,7 +42,6 @@ export default struct IWICDisplayAdaptationControl2 extends IWICDisplayAdaptatio
     }
 
     /**
-     * 
      * @param {Float} fWhiteLevelInNits 
      * @returns {HRESULT} 
      */
@@ -52,7 +51,6 @@ export default struct IWICDisplayAdaptationControl2 extends IWICDisplayAdaptatio
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     GetSdrWhiteLevel() {
@@ -61,7 +59,6 @@ export default struct IWICDisplayAdaptationControl2 extends IWICDisplayAdaptatio
     }
 
     /**
-     * 
      * @param {WICBitmapToneMappingMode} _mode 
      * @returns {HRESULT} 
      */
@@ -71,7 +68,6 @@ export default struct IWICDisplayAdaptationControl2 extends IWICDisplayAdaptatio
     }
 
     /**
-     * 
      * @returns {WICBitmapToneMappingMode} 
      */
     GetToneMappingMode() {
@@ -80,7 +76,6 @@ export default struct IWICDisplayAdaptationControl2 extends IWICDisplayAdaptatio
     }
 
     /**
-     * 
      * @param {WICBitmapToneMappingMode} _mode 
      * @returns {BOOL} 
      */
@@ -98,11 +93,11 @@ export default struct IWICDisplayAdaptationControl2 extends IWICDisplayAdaptatio
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetSdrWhiteLevel := CallbackCreate(GetMethod(implObj, "SetSdrWhiteLevel"), flags, 2)
-        this.vtbl.GetSdrWhiteLevel := CallbackCreate(GetMethod(implObj, "GetSdrWhiteLevel"), flags, 2)
-        this.vtbl.SetToneMappingMode := CallbackCreate(GetMethod(implObj, "SetToneMappingMode"), flags, 2)
-        this.vtbl.GetToneMappingMode := CallbackCreate(GetMethod(implObj, "GetToneMappingMode"), flags, 2)
-        this.vtbl.DoesSupportToneMappingMode := CallbackCreate(GetMethod(implObj, "DoesSupportToneMappingMode"), flags, 3)
+        this.vtbl.SetSdrWhiteLevel := CallbackCreate(ObjBindMethod(implObj, "SetSdrWhiteLevel"), flags, 2)
+        this.vtbl.GetSdrWhiteLevel := CallbackCreate(ObjBindMethod(implObj, "GetSdrWhiteLevel"), flags, 2)
+        this.vtbl.SetToneMappingMode := CallbackCreate(ObjBindMethod(implObj, "SetToneMappingMode"), flags, 2)
+        this.vtbl.GetToneMappingMode := CallbackCreate(ObjBindMethod(implObj, "GetToneMappingMode"), flags, 2)
+        this.vtbl.DoesSupportToneMappingMode := CallbackCreate(ObjBindMethod(implObj, "DoesSupportToneMappingMode"), flags, 3)
     }
 
     Dispose() {

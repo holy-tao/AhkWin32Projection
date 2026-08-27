@@ -20,14 +20,13 @@ export default struct PFN_DrvStartDxInterop {
     }
 
     /**
-     * 
      * @param {Pointer<SURFOBJ>} param0 
      * @param {BOOL} param1 
      * @param {Pointer<Void>} KernelModeDeviceHandle 
      * @returns {BOOL} 
      */
     Call(param0, param1, KernelModeDeviceHandle) {
-        KernelModeDeviceHandleMarshal := KernelModeDeviceHandle is VarRef ? "ptr" : "ptr"
+        KernelModeDeviceHandleMarshal := KernelModeDeviceHandle is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, SURFOBJ.Ptr, param0, BOOL, param1, KernelModeDeviceHandleMarshal, KernelModeDeviceHandle, BOOL)
         return result

@@ -82,8 +82,8 @@ export default struct IMFVideoMediaType extends IMFMediaType {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetVideoFormat := CallbackCreate(GetMethod(implObj, "GetVideoFormat"), flags, 1)
-        this.vtbl.GetVideoRepresentation := CallbackCreate(GetMethod(implObj, "GetVideoRepresentation"), flags, 4)
+        this.vtbl.GetVideoFormat := CallbackCreate(ObjBindMethod(implObj, "GetVideoFormat"), flags, 1)
+        this.vtbl.GetVideoRepresentation := CallbackCreate(ObjBindMethod(implObj, "GetVideoRepresentation"), flags, 4)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct SpExtractTargetInfoFn {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} ClientRequest 
      * @param {Integer} ProtocolSubmitBuffer 
      * @param {Pointer<Void>} ClientBufferBase 
@@ -29,10 +28,12 @@ export default struct SpExtractTargetInfoFn {
      * @returns {NTSTATUS} 
      */
     Call(ClientRequest, ProtocolSubmitBuffer, ClientBufferBase, SubmitBufferLength, ppvTargetInfo, pcbTargetInfo) {
-        ClientRequestMarshal := ClientRequest is VarRef ? "ptr*" : "ptr"
-        ClientBufferBaseMarshal := ClientBufferBase is VarRef ? "ptr" : "ptr"
-        ppvTargetInfoMarshal := ppvTargetInfo is VarRef ? "ptr*" : "ptr"
-        pcbTargetInfoMarshal := pcbTargetInfo is VarRef ? "uint*" : "ptr"
+        ClientRequestMarshal := ClientRequest is VarRef ? "ptr*" : IntPtr
+        ClientRequestMarshal := ClientRequest == 0 ? IntPtr : "ptr*"
+        ClientBufferBaseMarshal := ClientBufferBase is VarRef ? "ptr" : IntPtr
+        ClientBufferBaseMarshal := ClientBufferBase == 0 ? IntPtr : "ptr"
+        ppvTargetInfoMarshal := ppvTargetInfo is VarRef ? "ptr*" : IntPtr
+        pcbTargetInfoMarshal := pcbTargetInfo is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, ClientRequestMarshal, ClientRequest, IntPtr, ProtocolSubmitBuffer, ClientBufferBaseMarshal, ClientBufferBase, UInt32, SubmitBufferLength, ppvTargetInfoMarshal, ppvTargetInfo, pcbTargetInfoMarshal, pcbTargetInfo, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

@@ -94,8 +94,8 @@ export default struct IUIAutomationPatternInstance extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 5)
-        this.vtbl.CallMethod := CallbackCreate(GetMethod(implObj, "CallMethod"), flags, 4)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 5)
+        this.vtbl.CallMethod := CallbackCreate(ObjBindMethod(implObj, "CallMethod"), flags, 4)
     }
 
     Dispose() {

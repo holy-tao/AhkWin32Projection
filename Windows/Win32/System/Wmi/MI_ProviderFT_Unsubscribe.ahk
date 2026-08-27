@@ -19,7 +19,6 @@ export default struct MI_ProviderFT_Unsubscribe {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} self 
      * @param {Pointer<MI_Context>} _context 
      * @param {Pointer<Integer>} nameSpace 
@@ -29,10 +28,12 @@ export default struct MI_ProviderFT_Unsubscribe {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(self, _context, nameSpace, className, subscriptionID, subscriptionSelf) {
-        selfMarshal := self is VarRef ? "ptr" : "ptr"
-        nameSpaceMarshal := nameSpace is VarRef ? "ushort*" : "ptr"
-        classNameMarshal := className is VarRef ? "ushort*" : "ptr"
-        subscriptionSelfMarshal := subscriptionSelf is VarRef ? "ptr" : "ptr"
+        selfMarshal := self is VarRef ? "ptr" : IntPtr
+        selfMarshal := self == 0 ? IntPtr : "ptr"
+        nameSpaceMarshal := nameSpace is VarRef ? "ushort*" : IntPtr
+        classNameMarshal := className is VarRef ? "ushort*" : IntPtr
+        subscriptionSelfMarshal := subscriptionSelf is VarRef ? "ptr" : IntPtr
+        subscriptionSelfMarshal := subscriptionSelf == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, selfMarshal, self, MI_Context.Ptr, _context, nameSpaceMarshal, nameSpace, classNameMarshal, className, Int64, subscriptionID, subscriptionSelfMarshal, subscriptionSelf)
     }

@@ -348,8 +348,8 @@ export default struct ID2D1CommandList extends ID2D1Image {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Stream := CallbackCreate(GetMethod(implObj, "Stream"), flags, 2)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.Stream := CallbackCreate(ObjBindMethod(implObj, "Stream"), flags, 2)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
     }
 
     Dispose() {

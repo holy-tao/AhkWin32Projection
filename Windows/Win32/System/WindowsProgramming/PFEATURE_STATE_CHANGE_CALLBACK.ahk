@@ -18,12 +18,12 @@ export default struct PFEATURE_STATE_CHANGE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_context) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+        _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, _contextMarshal, _context)
     }

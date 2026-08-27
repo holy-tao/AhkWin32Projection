@@ -93,8 +93,8 @@ export default struct IStorageProviderPropertyHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RetrieveProperties := CallbackCreate(GetMethod(implObj, "RetrieveProperties"), flags, 4)
-        this.vtbl.SaveProperties := CallbackCreate(GetMethod(implObj, "SaveProperties"), flags, 2)
+        this.vtbl.RetrieveProperties := CallbackCreate(ObjBindMethod(implObj, "RetrieveProperties"), flags, 4)
+        this.vtbl.SaveProperties := CallbackCreate(ObjBindMethod(implObj, "SaveProperties"), flags, 2)
     }
 
     Dispose() {

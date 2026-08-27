@@ -20,7 +20,6 @@ export default struct PSYMBOLSERVERSETHTTPAUTHHEADER {
     }
 
     /**
-     * 
      * @param {PWSTR} pszAuthHeader 
      * @returns {BOOL} 
      */

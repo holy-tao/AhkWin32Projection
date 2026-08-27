@@ -141,11 +141,11 @@ export default struct ITPrivateEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Address := CallbackCreate(GetMethod(implObj, "get_Address"), flags, 2)
-        this.vtbl.get_Call := CallbackCreate(GetMethod(implObj, "get_Call"), flags, 2)
-        this.vtbl.get_CallHub := CallbackCreate(GetMethod(implObj, "get_CallHub"), flags, 2)
-        this.vtbl.get_EventCode := CallbackCreate(GetMethod(implObj, "get_EventCode"), flags, 2)
-        this.vtbl.get_EventInterface := CallbackCreate(GetMethod(implObj, "get_EventInterface"), flags, 2)
+        this.vtbl.get_Address := CallbackCreate(ObjBindMethod(implObj, "get_Address"), flags, 2)
+        this.vtbl.get_Call := CallbackCreate(ObjBindMethod(implObj, "get_Call"), flags, 2)
+        this.vtbl.get_CallHub := CallbackCreate(ObjBindMethod(implObj, "get_CallHub"), flags, 2)
+        this.vtbl.get_EventCode := CallbackCreate(ObjBindMethod(implObj, "get_EventCode"), flags, 2)
+        this.vtbl.get_EventInterface := CallbackCreate(ObjBindMethod(implObj, "get_EventInterface"), flags, 2)
     }
 
     Dispose() {

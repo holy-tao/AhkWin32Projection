@@ -20,13 +20,12 @@ export default struct MI_Module_Load {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<MI_Module_Self>>} self 
      * @param {Pointer<MI_Context>} _context 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(self, _context) {
-        selfMarshal := self is VarRef ? "ptr*" : "ptr"
+        selfMarshal := self is VarRef ? "ptr*" : IntPtr
 
         DllCall(this.value, selfMarshal, self, MI_Context.Ptr, _context)
     }

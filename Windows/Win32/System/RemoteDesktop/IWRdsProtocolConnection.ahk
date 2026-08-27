@@ -116,8 +116,8 @@ export default struct IWRdsProtocolConnection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolconnection-getclientmonitordata
      */
     GetClientMonitorData(pNumMonitors, pPrimaryMonitor) {
-        pNumMonitorsMarshal := pNumMonitors is VarRef ? "uint*" : "ptr"
-        pPrimaryMonitorMarshal := pPrimaryMonitor is VarRef ? "uint*" : "ptr"
+        pNumMonitorsMarshal := pNumMonitors is VarRef ? "uint*" : IntPtr
+        pPrimaryMonitorMarshal := pPrimaryMonitor is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, pNumMonitorsMarshal, pNumMonitors, pPrimaryMonitorMarshal, pPrimaryMonitor, "HRESULT")
         return result
@@ -180,9 +180,9 @@ export default struct IWRdsProtocolConnection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolconnection-getinputhandles
      */
     GetInputHandles(pKeyboardHandle, pMouseHandle, pBeepHandle) {
-        pKeyboardHandleMarshal := pKeyboardHandle is VarRef ? "ptr*" : "ptr"
-        pMouseHandleMarshal := pMouseHandle is VarRef ? "ptr*" : "ptr"
-        pBeepHandleMarshal := pBeepHandle is VarRef ? "ptr*" : "ptr"
+        pKeyboardHandleMarshal := pKeyboardHandle is VarRef ? "ptr*" : IntPtr
+        pMouseHandleMarshal := pMouseHandle is VarRef ? "ptr*" : IntPtr
+        pBeepHandleMarshal := pBeepHandle is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(11, this, pKeyboardHandleMarshal, pKeyboardHandle, pMouseHandleMarshal, pMouseHandle, pBeepHandleMarshal, pBeepHandle, "HRESULT")
         return result
@@ -241,7 +241,7 @@ export default struct IWRdsProtocolConnection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolconnection-sessionarbitrationenumeration
      */
     SessionArbitrationEnumeration(hUserToken, bSingleSessionPerUserEnabled, pdwSessionIdentifierCount) {
-        pdwSessionIdentifierCountMarshal := pdwSessionIdentifierCount is VarRef ? "uint*" : "ptr"
+        pdwSessionIdentifierCountMarshal := pdwSessionIdentifierCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(15, this, HANDLE_PTR, hUserToken, BOOL, bSingleSessionPerUserEnabled, "uint*", &pSessionIdArray := 0, pdwSessionIdentifierCountMarshal, pdwSessionIdentifierCount, "HRESULT")
         return pSessionIdArray
@@ -399,30 +399,30 @@ export default struct IWRdsProtocolConnection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLogonErrorRedirector := CallbackCreate(GetMethod(implObj, "GetLogonErrorRedirector"), flags, 2)
-        this.vtbl.AcceptConnection := CallbackCreate(GetMethod(implObj, "AcceptConnection"), flags, 1)
-        this.vtbl.GetClientData := CallbackCreate(GetMethod(implObj, "GetClientData"), flags, 2)
-        this.vtbl.GetClientMonitorData := CallbackCreate(GetMethod(implObj, "GetClientMonitorData"), flags, 3)
-        this.vtbl.GetUserCredentials := CallbackCreate(GetMethod(implObj, "GetUserCredentials"), flags, 2)
-        this.vtbl.GetLicenseConnection := CallbackCreate(GetMethod(implObj, "GetLicenseConnection"), flags, 2)
-        this.vtbl.AuthenticateClientToSession := CallbackCreate(GetMethod(implObj, "AuthenticateClientToSession"), flags, 2)
-        this.vtbl.NotifySessionId := CallbackCreate(GetMethod(implObj, "NotifySessionId"), flags, 3)
-        this.vtbl.GetInputHandles := CallbackCreate(GetMethod(implObj, "GetInputHandles"), flags, 4)
-        this.vtbl.GetVideoHandle := CallbackCreate(GetMethod(implObj, "GetVideoHandle"), flags, 2)
-        this.vtbl.ConnectNotify := CallbackCreate(GetMethod(implObj, "ConnectNotify"), flags, 2)
-        this.vtbl.IsUserAllowedToLogon := CallbackCreate(GetMethod(implObj, "IsUserAllowedToLogon"), flags, 5)
-        this.vtbl.SessionArbitrationEnumeration := CallbackCreate(GetMethod(implObj, "SessionArbitrationEnumeration"), flags, 5)
-        this.vtbl.LogonNotify := CallbackCreate(GetMethod(implObj, "LogonNotify"), flags, 6)
-        this.vtbl.PreDisconnect := CallbackCreate(GetMethod(implObj, "PreDisconnect"), flags, 2)
-        this.vtbl.DisconnectNotify := CallbackCreate(GetMethod(implObj, "DisconnectNotify"), flags, 1)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
-        this.vtbl.GetProtocolStatus := CallbackCreate(GetMethod(implObj, "GetProtocolStatus"), flags, 2)
-        this.vtbl.GetLastInputTime := CallbackCreate(GetMethod(implObj, "GetLastInputTime"), flags, 2)
-        this.vtbl.SetErrorInfo := CallbackCreate(GetMethod(implObj, "SetErrorInfo"), flags, 2)
-        this.vtbl.CreateVirtualChannel := CallbackCreate(GetMethod(implObj, "CreateVirtualChannel"), flags, 5)
-        this.vtbl.QueryProperty := CallbackCreate(GetMethod(implObj, "QueryProperty"), flags, 6)
-        this.vtbl.GetShadowConnection := CallbackCreate(GetMethod(implObj, "GetShadowConnection"), flags, 2)
-        this.vtbl.NotifyCommandProcessCreated := CallbackCreate(GetMethod(implObj, "NotifyCommandProcessCreated"), flags, 2)
+        this.vtbl.GetLogonErrorRedirector := CallbackCreate(ObjBindMethod(implObj, "GetLogonErrorRedirector"), flags, 2)
+        this.vtbl.AcceptConnection := CallbackCreate(ObjBindMethod(implObj, "AcceptConnection"), flags, 1)
+        this.vtbl.GetClientData := CallbackCreate(ObjBindMethod(implObj, "GetClientData"), flags, 2)
+        this.vtbl.GetClientMonitorData := CallbackCreate(ObjBindMethod(implObj, "GetClientMonitorData"), flags, 3)
+        this.vtbl.GetUserCredentials := CallbackCreate(ObjBindMethod(implObj, "GetUserCredentials"), flags, 2)
+        this.vtbl.GetLicenseConnection := CallbackCreate(ObjBindMethod(implObj, "GetLicenseConnection"), flags, 2)
+        this.vtbl.AuthenticateClientToSession := CallbackCreate(ObjBindMethod(implObj, "AuthenticateClientToSession"), flags, 2)
+        this.vtbl.NotifySessionId := CallbackCreate(ObjBindMethod(implObj, "NotifySessionId"), flags, 3)
+        this.vtbl.GetInputHandles := CallbackCreate(ObjBindMethod(implObj, "GetInputHandles"), flags, 4)
+        this.vtbl.GetVideoHandle := CallbackCreate(ObjBindMethod(implObj, "GetVideoHandle"), flags, 2)
+        this.vtbl.ConnectNotify := CallbackCreate(ObjBindMethod(implObj, "ConnectNotify"), flags, 2)
+        this.vtbl.IsUserAllowedToLogon := CallbackCreate(ObjBindMethod(implObj, "IsUserAllowedToLogon"), flags, 5)
+        this.vtbl.SessionArbitrationEnumeration := CallbackCreate(ObjBindMethod(implObj, "SessionArbitrationEnumeration"), flags, 5)
+        this.vtbl.LogonNotify := CallbackCreate(ObjBindMethod(implObj, "LogonNotify"), flags, 6)
+        this.vtbl.PreDisconnect := CallbackCreate(ObjBindMethod(implObj, "PreDisconnect"), flags, 2)
+        this.vtbl.DisconnectNotify := CallbackCreate(ObjBindMethod(implObj, "DisconnectNotify"), flags, 1)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
+        this.vtbl.GetProtocolStatus := CallbackCreate(ObjBindMethod(implObj, "GetProtocolStatus"), flags, 2)
+        this.vtbl.GetLastInputTime := CallbackCreate(ObjBindMethod(implObj, "GetLastInputTime"), flags, 2)
+        this.vtbl.SetErrorInfo := CallbackCreate(ObjBindMethod(implObj, "SetErrorInfo"), flags, 2)
+        this.vtbl.CreateVirtualChannel := CallbackCreate(ObjBindMethod(implObj, "CreateVirtualChannel"), flags, 5)
+        this.vtbl.QueryProperty := CallbackCreate(ObjBindMethod(implObj, "QueryProperty"), flags, 6)
+        this.vtbl.GetShadowConnection := CallbackCreate(ObjBindMethod(implObj, "GetShadowConnection"), flags, 2)
+        this.vtbl.NotifyCommandProcessCreated := CallbackCreate(ObjBindMethod(implObj, "NotifyCommandProcessCreated"), flags, 2)
     }
 
     Dispose() {

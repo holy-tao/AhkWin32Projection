@@ -40,7 +40,6 @@ export default struct IInternetProtocolEx extends IInternetProtocol {
     }
 
     /**
-     * 
      * @param {IUri} pUri 
      * @param {IInternetProtocolSink} pOIProtSink 
      * @param {IInternetBindInfo} pOIBindInfo 
@@ -62,7 +61,7 @@ export default struct IInternetProtocolEx extends IInternetProtocol {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StartEx := CallbackCreate(GetMethod(implObj, "StartEx"), flags, 6)
+        this.vtbl.StartEx := CallbackCreate(ObjBindMethod(implObj, "StartEx"), flags, 6)
     }
 
     Dispose() {

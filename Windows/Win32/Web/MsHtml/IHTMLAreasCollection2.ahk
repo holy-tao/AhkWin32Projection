@@ -37,7 +37,6 @@ export default struct IHTMLAreasCollection2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} urn 
      * @returns {IDispatch} 
      */
@@ -55,7 +54,7 @@ export default struct IHTMLAreasCollection2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.urns := CallbackCreate(GetMethod(implObj, "urns"), flags, 3)
+        this.vtbl.urns := CallbackCreate(ObjBindMethod(implObj, "urns"), flags, 3)
     }
 
     Dispose() {

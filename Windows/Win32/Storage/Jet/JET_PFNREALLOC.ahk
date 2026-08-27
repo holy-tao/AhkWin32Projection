@@ -20,15 +20,16 @@ export default struct JET_PFNREALLOC {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvContext 
      * @param {Pointer<Void>} pv 
      * @param {Integer} cb 
      * @returns {Pointer<Void>} 
      */
     Call(pvContext, pv, cb) {
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
-        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
+        pvContextMarshal := pvContext == 0 ? IntPtr : "ptr"
+        pvMarshal := pv is VarRef ? "ptr" : IntPtr
+        pvMarshal := pv == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, pvContextMarshal, pvContext, pvMarshal, pv, UInt32, cb, IntPtr)
         return result

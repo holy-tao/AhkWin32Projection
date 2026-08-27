@@ -88,7 +88,7 @@ export default struct ITfLangBarItemSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnUpdate := CallbackCreate(GetMethod(implObj, "OnUpdate"), flags, 2)
+        this.vtbl.OnUpdate := CallbackCreate(ObjBindMethod(implObj, "OnUpdate"), flags, 2)
     }
 
     Dispose() {

@@ -29,7 +29,6 @@ export default struct WS_CREATE_DECODER_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} createContext The createContext that was specified in the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_channel_decoder">WS_CHANNEL_DECODER</a> used during channel creation.
      * @param {Pointer<WS_READ_CALLBACK>} readCallback The function that should be used to read the message data.  This callback
      *                     should only be used in response to the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_decoder_start_callback">WS_DECODER_START_CALLBACK</a>,
@@ -41,9 +40,10 @@ export default struct WS_CREATE_DECODER_CALLBACK {
      *                     passed to all of the decoder callbacks.
      */
     Call(createContext, readCallback, readContext, _error) {
-        createContextMarshal := createContext is VarRef ? "ptr" : "ptr"
-        readContextMarshal := readContext is VarRef ? "ptr" : "ptr"
-        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
+        createContextMarshal := createContext is VarRef ? "ptr" : IntPtr
+        readContextMarshal := readContext is VarRef ? "ptr" : IntPtr
+        _errorMarshal := _error is VarRef ? "ptr*" : IntPtr
+        _errorMarshal := _error == 0 ? IntPtr : WS_ERROR.Ptr
 
         result := DllCall(this.value, createContextMarshal, createContext, WS_READ_CALLBACK, readCallback, readContextMarshal, readContext, "ptr*", &decoderContext := 0, _errorMarshal, _error, "HRESULT")
         return decoderContext

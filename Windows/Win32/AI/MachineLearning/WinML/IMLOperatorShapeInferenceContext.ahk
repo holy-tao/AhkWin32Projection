@@ -44,7 +44,6 @@ export default struct IMLOperatorShapeInferenceContext extends IMLOperatorAttrib
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetInputCount() {
@@ -53,7 +52,6 @@ export default struct IMLOperatorShapeInferenceContext extends IMLOperatorAttrib
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetOutputCount() {
@@ -62,7 +60,6 @@ export default struct IMLOperatorShapeInferenceContext extends IMLOperatorAttrib
     }
 
     /**
-     * 
      * @param {Integer} inputIndex 
      * @returns {Boolean} 
      */
@@ -72,7 +69,6 @@ export default struct IMLOperatorShapeInferenceContext extends IMLOperatorAttrib
     }
 
     /**
-     * 
      * @param {Integer} outputIndex 
      * @returns {Boolean} 
      */
@@ -82,7 +78,6 @@ export default struct IMLOperatorShapeInferenceContext extends IMLOperatorAttrib
     }
 
     /**
-     * 
      * @param {Integer} inputIndex 
      * @returns {MLOperatorEdgeDescription} 
      */
@@ -93,7 +88,6 @@ export default struct IMLOperatorShapeInferenceContext extends IMLOperatorAttrib
     }
 
     /**
-     * 
      * @param {Integer} inputIndex 
      * @returns {Integer} 
      */
@@ -103,7 +97,6 @@ export default struct IMLOperatorShapeInferenceContext extends IMLOperatorAttrib
     }
 
     /**
-     * 
      * @param {Integer} inputIndex 
      * @param {Integer} dimensionCount 
      * @returns {Integer} 
@@ -114,14 +107,13 @@ export default struct IMLOperatorShapeInferenceContext extends IMLOperatorAttrib
     }
 
     /**
-     * 
      * @param {Integer} outputIndex 
      * @param {Integer} dimensionCount 
      * @param {Pointer<Integer>} dimensions 
      * @returns {HRESULT} 
      */
     SetOutputTensorShape(outputIndex, dimensionCount, dimensions) {
-        dimensionsMarshal := dimensions is VarRef ? "uint*" : "ptr"
+        dimensionsMarshal := dimensions is VarRef ? "uint*" : IntPtr
 
         result := ComCall(14, this, UInt32, outputIndex, UInt32, dimensionCount, dimensionsMarshal, dimensions, "HRESULT")
         return result
@@ -136,14 +128,14 @@ export default struct IMLOperatorShapeInferenceContext extends IMLOperatorAttrib
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetInputCount := CallbackCreate(GetMethod(implObj, "GetInputCount"), flags, 1)
-        this.vtbl.GetOutputCount := CallbackCreate(GetMethod(implObj, "GetOutputCount"), flags, 1)
-        this.vtbl.IsInputValid := CallbackCreate(GetMethod(implObj, "IsInputValid"), flags, 2)
-        this.vtbl.IsOutputValid := CallbackCreate(GetMethod(implObj, "IsOutputValid"), flags, 2)
-        this.vtbl.GetInputEdgeDescription := CallbackCreate(GetMethod(implObj, "GetInputEdgeDescription"), flags, 3)
-        this.vtbl.GetInputTensorDimensionCount := CallbackCreate(GetMethod(implObj, "GetInputTensorDimensionCount"), flags, 3)
-        this.vtbl.GetInputTensorShape := CallbackCreate(GetMethod(implObj, "GetInputTensorShape"), flags, 4)
-        this.vtbl.SetOutputTensorShape := CallbackCreate(GetMethod(implObj, "SetOutputTensorShape"), flags, 4)
+        this.vtbl.GetInputCount := CallbackCreate(ObjBindMethod(implObj, "GetInputCount"), flags, 1)
+        this.vtbl.GetOutputCount := CallbackCreate(ObjBindMethod(implObj, "GetOutputCount"), flags, 1)
+        this.vtbl.IsInputValid := CallbackCreate(ObjBindMethod(implObj, "IsInputValid"), flags, 2)
+        this.vtbl.IsOutputValid := CallbackCreate(ObjBindMethod(implObj, "IsOutputValid"), flags, 2)
+        this.vtbl.GetInputEdgeDescription := CallbackCreate(ObjBindMethod(implObj, "GetInputEdgeDescription"), flags, 3)
+        this.vtbl.GetInputTensorDimensionCount := CallbackCreate(ObjBindMethod(implObj, "GetInputTensorDimensionCount"), flags, 3)
+        this.vtbl.GetInputTensorShape := CallbackCreate(ObjBindMethod(implObj, "GetInputTensorShape"), flags, 4)
+        this.vtbl.SetOutputTensorShape := CallbackCreate(ObjBindMethod(implObj, "SetOutputTensorShape"), flags, 4)
     }
 
     Dispose() {

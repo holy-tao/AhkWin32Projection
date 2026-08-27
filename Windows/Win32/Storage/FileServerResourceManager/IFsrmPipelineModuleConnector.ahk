@@ -159,11 +159,11 @@ export default struct IFsrmPipelineModuleConnector extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ModuleImplementation := CallbackCreate(GetMethod(implObj, "get_ModuleImplementation"), flags, 2)
-        this.vtbl.get_ModuleName := CallbackCreate(GetMethod(implObj, "get_ModuleName"), flags, 2)
-        this.vtbl.get_HostingUserAccount := CallbackCreate(GetMethod(implObj, "get_HostingUserAccount"), flags, 2)
-        this.vtbl.get_HostingProcessPid := CallbackCreate(GetMethod(implObj, "get_HostingProcessPid"), flags, 2)
-        this.vtbl.Bind := CallbackCreate(GetMethod(implObj, "Bind"), flags, 3)
+        this.vtbl.get_ModuleImplementation := CallbackCreate(ObjBindMethod(implObj, "get_ModuleImplementation"), flags, 2)
+        this.vtbl.get_ModuleName := CallbackCreate(ObjBindMethod(implObj, "get_ModuleName"), flags, 2)
+        this.vtbl.get_HostingUserAccount := CallbackCreate(ObjBindMethod(implObj, "get_HostingUserAccount"), flags, 2)
+        this.vtbl.get_HostingProcessPid := CallbackCreate(ObjBindMethod(implObj, "get_HostingProcessPid"), flags, 2)
+        this.vtbl.Bind := CallbackCreate(ObjBindMethod(implObj, "Bind"), flags, 3)
     }
 
     Dispose() {

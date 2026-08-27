@@ -61,7 +61,6 @@ export default struct IWebWizardHost extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     FinalBack() {
@@ -70,7 +69,6 @@ export default struct IWebWizardHost extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     FinalNext() {
@@ -79,7 +77,6 @@ export default struct IWebWizardHost extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Cancel() {
@@ -88,7 +85,6 @@ export default struct IWebWizardHost extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrCaption 
      * @returns {HRESULT} 
      */
@@ -100,7 +96,6 @@ export default struct IWebWizardHost extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Caption() {
@@ -110,7 +105,6 @@ export default struct IWebWizardHost extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPropertyName 
      * @param {Pointer<VARIANT>} pvProperty 
      * @returns {HRESULT} 
@@ -123,7 +117,6 @@ export default struct IWebWizardHost extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPropertyName 
      * @returns {VARIANT} 
      */
@@ -136,7 +129,6 @@ export default struct IWebWizardHost extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} vfEnableBack 
      * @param {VARIANT_BOOL} vfEnableNext 
      * @param {VARIANT_BOOL} vfLastPage 
@@ -148,7 +140,6 @@ export default struct IWebWizardHost extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrHeaderTitle 
      * @param {BSTR} bstrHeaderSubtitle 
      * @returns {HRESULT} 
@@ -170,15 +161,15 @@ export default struct IWebWizardHost extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FinalBack := CallbackCreate(GetMethod(implObj, "FinalBack"), flags, 1)
-        this.vtbl.FinalNext := CallbackCreate(GetMethod(implObj, "FinalNext"), flags, 1)
-        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
-        this.vtbl.put_Caption := CallbackCreate(GetMethod(implObj, "put_Caption"), flags, 2)
-        this.vtbl.get_Caption := CallbackCreate(GetMethod(implObj, "get_Caption"), flags, 2)
-        this.vtbl.put_Property := CallbackCreate(GetMethod(implObj, "put_Property"), flags, 3)
-        this.vtbl.get_Property := CallbackCreate(GetMethod(implObj, "get_Property"), flags, 3)
-        this.vtbl.SetWizardButtons := CallbackCreate(GetMethod(implObj, "SetWizardButtons"), flags, 4)
-        this.vtbl.SetHeaderText := CallbackCreate(GetMethod(implObj, "SetHeaderText"), flags, 3)
+        this.vtbl.FinalBack := CallbackCreate(ObjBindMethod(implObj, "FinalBack"), flags, 1)
+        this.vtbl.FinalNext := CallbackCreate(ObjBindMethod(implObj, "FinalNext"), flags, 1)
+        this.vtbl.Cancel := CallbackCreate(ObjBindMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.put_Caption := CallbackCreate(ObjBindMethod(implObj, "put_Caption"), flags, 2)
+        this.vtbl.get_Caption := CallbackCreate(ObjBindMethod(implObj, "get_Caption"), flags, 2)
+        this.vtbl.put_Property := CallbackCreate(ObjBindMethod(implObj, "put_Property"), flags, 3)
+        this.vtbl.get_Property := CallbackCreate(ObjBindMethod(implObj, "get_Property"), flags, 3)
+        this.vtbl.SetWizardButtons := CallbackCreate(ObjBindMethod(implObj, "SetWizardButtons"), flags, 4)
+        this.vtbl.SetHeaderText := CallbackCreate(ObjBindMethod(implObj, "SetHeaderText"), flags, 3)
     }
 
     Dispose() {

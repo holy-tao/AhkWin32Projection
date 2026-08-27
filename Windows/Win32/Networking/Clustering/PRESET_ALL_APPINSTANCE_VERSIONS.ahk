@@ -18,7 +18,6 @@ export default struct PRESET_ALL_APPINSTANCE_VERSIONS {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Call() {

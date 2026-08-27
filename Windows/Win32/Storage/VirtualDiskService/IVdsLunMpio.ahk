@@ -137,8 +137,8 @@ export default struct IVdsLunMpio extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdslunmpio-getpathinfo
      */
     GetPathInfo(ppPaths, plNumberOfPaths) {
-        ppPathsMarshal := ppPaths is VarRef ? "ptr*" : "ptr"
-        plNumberOfPathsMarshal := plNumberOfPaths is VarRef ? "int*" : "ptr"
+        ppPathsMarshal := ppPaths is VarRef ? "ptr*" : IntPtr
+        plNumberOfPathsMarshal := plNumberOfPaths is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, ppPathsMarshal, ppPaths, plNumberOfPathsMarshal, plNumberOfPaths, "HRESULT")
         return result
@@ -230,9 +230,9 @@ export default struct IVdsLunMpio extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdslunmpio-getloadbalancepolicy
      */
     GetLoadBalancePolicy(pPolicy, ppPaths, plNumberOfPaths) {
-        pPolicyMarshal := pPolicy is VarRef ? "int*" : "ptr"
-        ppPathsMarshal := ppPaths is VarRef ? "ptr*" : "ptr"
-        plNumberOfPathsMarshal := plNumberOfPaths is VarRef ? "int*" : "ptr"
+        pPolicyMarshal := pPolicy is VarRef ? "int*" : IntPtr
+        ppPathsMarshal := ppPaths is VarRef ? "ptr*" : IntPtr
+        plNumberOfPathsMarshal := plNumberOfPaths is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, pPolicyMarshal, pPolicy, ppPathsMarshal, ppPaths, plNumberOfPathsMarshal, plNumberOfPaths, "HRESULT")
         return result
@@ -346,10 +346,10 @@ export default struct IVdsLunMpio extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPathInfo := CallbackCreate(GetMethod(implObj, "GetPathInfo"), flags, 3)
-        this.vtbl.GetLoadBalancePolicy := CallbackCreate(GetMethod(implObj, "GetLoadBalancePolicy"), flags, 4)
-        this.vtbl.SetLoadBalancePolicy := CallbackCreate(GetMethod(implObj, "SetLoadBalancePolicy"), flags, 4)
-        this.vtbl.GetSupportedLbPolicies := CallbackCreate(GetMethod(implObj, "GetSupportedLbPolicies"), flags, 2)
+        this.vtbl.GetPathInfo := CallbackCreate(ObjBindMethod(implObj, "GetPathInfo"), flags, 3)
+        this.vtbl.GetLoadBalancePolicy := CallbackCreate(ObjBindMethod(implObj, "GetLoadBalancePolicy"), flags, 4)
+        this.vtbl.SetLoadBalancePolicy := CallbackCreate(ObjBindMethod(implObj, "SetLoadBalancePolicy"), flags, 4)
+        this.vtbl.GetSupportedLbPolicies := CallbackCreate(ObjBindMethod(implObj, "GetSupportedLbPolicies"), flags, 2)
     }
 
     Dispose() {

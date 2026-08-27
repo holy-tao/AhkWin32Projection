@@ -41,7 +41,6 @@ export default struct IDxcOptimizerPass extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetOptionName() {
@@ -60,7 +59,6 @@ export default struct IDxcOptimizerPass extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetOptionArgCount() {
@@ -69,7 +67,6 @@ export default struct IDxcOptimizerPass extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} argIndex 
      * @returns {PWSTR} 
      */
@@ -79,7 +76,6 @@ export default struct IDxcOptimizerPass extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} argIndex 
      * @returns {PWSTR} 
      */
@@ -97,11 +93,11 @@ export default struct IDxcOptimizerPass extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOptionName := CallbackCreate(GetMethod(implObj, "GetOptionName"), flags, 2)
-        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 2)
-        this.vtbl.GetOptionArgCount := CallbackCreate(GetMethod(implObj, "GetOptionArgCount"), flags, 2)
-        this.vtbl.GetOptionArgName := CallbackCreate(GetMethod(implObj, "GetOptionArgName"), flags, 3)
-        this.vtbl.GetOptionArgDescription := CallbackCreate(GetMethod(implObj, "GetOptionArgDescription"), flags, 3)
+        this.vtbl.GetOptionName := CallbackCreate(ObjBindMethod(implObj, "GetOptionName"), flags, 2)
+        this.vtbl.GetDescription := CallbackCreate(ObjBindMethod(implObj, "GetDescription"), flags, 2)
+        this.vtbl.GetOptionArgCount := CallbackCreate(ObjBindMethod(implObj, "GetOptionArgCount"), flags, 2)
+        this.vtbl.GetOptionArgName := CallbackCreate(ObjBindMethod(implObj, "GetOptionArgName"), flags, 3)
+        this.vtbl.GetOptionArgDescription := CallbackCreate(ObjBindMethod(implObj, "GetOptionArgDescription"), flags, 3)
     }
 
     Dispose() {

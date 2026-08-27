@@ -57,7 +57,6 @@ export default struct IGPMBackupDir extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_BackupDirectory() {
@@ -104,9 +103,9 @@ export default struct IGPMBackupDir extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_BackupDirectory := CallbackCreate(GetMethod(implObj, "get_BackupDirectory"), flags, 2)
-        this.vtbl.GetBackup := CallbackCreate(GetMethod(implObj, "GetBackup"), flags, 3)
-        this.vtbl.SearchBackups := CallbackCreate(GetMethod(implObj, "SearchBackups"), flags, 3)
+        this.vtbl.get_BackupDirectory := CallbackCreate(ObjBindMethod(implObj, "get_BackupDirectory"), flags, 2)
+        this.vtbl.GetBackup := CallbackCreate(ObjBindMethod(implObj, "GetBackup"), flags, 3)
+        this.vtbl.SearchBackups := CallbackCreate(ObjBindMethod(implObj, "SearchBackups"), flags, 3)
     }
 
     Dispose() {

@@ -24,7 +24,6 @@ export default struct PWLX_CREATE_USER_DESKTOP {
     }
 
     /**
-     * 
      * @param {HANDLE} hWlx Specifies the Winlogon handle passed to GINA in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nf-winwlx-wlxinitialize">WlxInitialize</a> call.
      * @param {HANDLE} hToken Specifies the handle to the token of the user for whom the desktop is being created.
@@ -97,7 +96,7 @@ export default struct PWLX_CREATE_USER_DESKTOP {
     Call(hWlx, hToken, Flags, pszDesktopName, ppDesktop) {
         pszDesktopName := pszDesktopName is String ? StrPtr(pszDesktopName) : pszDesktopName
 
-        ppDesktopMarshal := ppDesktop is VarRef ? "ptr*" : "ptr"
+        ppDesktopMarshal := ppDesktop is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, HANDLE, hWlx, HANDLE, hToken, UInt32, Flags, "ptr", pszDesktopName, ppDesktopMarshal, ppDesktop, BOOL)
         return result

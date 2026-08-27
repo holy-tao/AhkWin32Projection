@@ -120,7 +120,7 @@ export default struct IMFTopologyServiceLookup extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imftopologyservicelookup-lookupservice
      */
     LookupService(Type, dwIndex, guidService, riid, pnObjects) {
-        pnObjectsMarshal := pnObjects is VarRef ? "uint*" : "ptr"
+        pnObjectsMarshal := pnObjects is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, MF_SERVICE_LOOKUP_TYPE, Type, UInt32, dwIndex, Guid.Ptr, guidService, Guid.Ptr, riid, "ptr*", &ppvObjects := 0, pnObjectsMarshal, pnObjects, "HRESULT")
         return ppvObjects
@@ -135,7 +135,7 @@ export default struct IMFTopologyServiceLookup extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LookupService := CallbackCreate(GetMethod(implObj, "LookupService"), flags, 7)
+        this.vtbl.LookupService := CallbackCreate(ObjBindMethod(implObj, "LookupService"), flags, 7)
     }
 
     Dispose() {

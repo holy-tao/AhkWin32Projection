@@ -104,8 +104,8 @@ export default struct IContentPrefetcherTaskTrigger extends IInspectable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.TriggerContentPrefetcherTask := CallbackCreate(GetMethod(implObj, "TriggerContentPrefetcherTask"), flags, 2)
-        this.vtbl.IsRegisteredForContentPrefetch := CallbackCreate(GetMethod(implObj, "IsRegisteredForContentPrefetch"), flags, 3)
+        this.vtbl.TriggerContentPrefetcherTask := CallbackCreate(ObjBindMethod(implObj, "TriggerContentPrefetcherTask"), flags, 2)
+        this.vtbl.IsRegisteredForContentPrefetch := CallbackCreate(ObjBindMethod(implObj, "IsRegisteredForContentPrefetch"), flags, 3)
     }
 
     Dispose() {

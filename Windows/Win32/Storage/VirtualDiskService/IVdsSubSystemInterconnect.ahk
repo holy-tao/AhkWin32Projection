@@ -56,7 +56,7 @@ export default struct IVdsSubSystemInterconnect extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSupportedInterconnects := CallbackCreate(GetMethod(implObj, "GetSupportedInterconnects"), flags, 2)
+        this.vtbl.GetSupportedInterconnects := CallbackCreate(ObjBindMethod(implObj, "GetSupportedInterconnects"), flags, 2)
     }
 
     Dispose() {

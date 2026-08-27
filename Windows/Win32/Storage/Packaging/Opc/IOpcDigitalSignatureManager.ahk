@@ -282,7 +282,7 @@ export default struct IOpcDigitalSignatureManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignaturemanager-replacesignaturexml
      */
     ReplaceSignatureXml(signaturePartName, newSignatureXml, count) {
-        newSignatureXmlMarshal := newSignatureXml is VarRef ? "char*" : "ptr"
+        newSignatureXmlMarshal := newSignatureXml is VarRef ? "char*" : IntPtr
 
         result := ComCall(10, this, "ptr", signaturePartName, newSignatureXmlMarshal, newSignatureXml, UInt32, count, "ptr*", &digitalSignature := 0, "HRESULT")
         return IOpcDigitalSignature(digitalSignature)
@@ -297,14 +297,14 @@ export default struct IOpcDigitalSignatureManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSignatureOriginPartName := CallbackCreate(GetMethod(implObj, "GetSignatureOriginPartName"), flags, 2)
-        this.vtbl.SetSignatureOriginPartName := CallbackCreate(GetMethod(implObj, "SetSignatureOriginPartName"), flags, 2)
-        this.vtbl.GetSignatureEnumerator := CallbackCreate(GetMethod(implObj, "GetSignatureEnumerator"), flags, 2)
-        this.vtbl.RemoveSignature := CallbackCreate(GetMethod(implObj, "RemoveSignature"), flags, 2)
-        this.vtbl.CreateSigningOptions := CallbackCreate(GetMethod(implObj, "CreateSigningOptions"), flags, 2)
-        this.vtbl.Validate := CallbackCreate(GetMethod(implObj, "Validate"), flags, 4)
-        this.vtbl.Sign := CallbackCreate(GetMethod(implObj, "Sign"), flags, 4)
-        this.vtbl.ReplaceSignatureXml := CallbackCreate(GetMethod(implObj, "ReplaceSignatureXml"), flags, 5)
+        this.vtbl.GetSignatureOriginPartName := CallbackCreate(ObjBindMethod(implObj, "GetSignatureOriginPartName"), flags, 2)
+        this.vtbl.SetSignatureOriginPartName := CallbackCreate(ObjBindMethod(implObj, "SetSignatureOriginPartName"), flags, 2)
+        this.vtbl.GetSignatureEnumerator := CallbackCreate(ObjBindMethod(implObj, "GetSignatureEnumerator"), flags, 2)
+        this.vtbl.RemoveSignature := CallbackCreate(ObjBindMethod(implObj, "RemoveSignature"), flags, 2)
+        this.vtbl.CreateSigningOptions := CallbackCreate(ObjBindMethod(implObj, "CreateSigningOptions"), flags, 2)
+        this.vtbl.Validate := CallbackCreate(ObjBindMethod(implObj, "Validate"), flags, 4)
+        this.vtbl.Sign := CallbackCreate(ObjBindMethod(implObj, "Sign"), flags, 4)
+        this.vtbl.ReplaceSignatureXml := CallbackCreate(ObjBindMethod(implObj, "ReplaceSignatureXml"), flags, 5)
     }
 
     Dispose() {

@@ -66,7 +66,6 @@ export default struct ICanvasImageData extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_width() {
@@ -75,7 +74,6 @@ export default struct ICanvasImageData extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_height() {
@@ -84,7 +82,6 @@ export default struct ICanvasImageData extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_data() {
@@ -102,9 +99,9 @@ export default struct ICanvasImageData extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_width := CallbackCreate(GetMethod(implObj, "get_width"), flags, 2)
-        this.vtbl.get_height := CallbackCreate(GetMethod(implObj, "get_height"), flags, 2)
-        this.vtbl.get_data := CallbackCreate(GetMethod(implObj, "get_data"), flags, 2)
+        this.vtbl.get_width := CallbackCreate(ObjBindMethod(implObj, "get_width"), flags, 2)
+        this.vtbl.get_height := CallbackCreate(ObjBindMethod(implObj, "get_height"), flags, 2)
+        this.vtbl.get_data := CallbackCreate(ObjBindMethod(implObj, "get_data"), flags, 2)
     }
 
     Dispose() {

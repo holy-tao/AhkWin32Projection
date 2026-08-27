@@ -22,13 +22,13 @@ export default struct PFN_CERT_CHAIN_FIND_BY_ISSUER_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<CERT_CONTEXT>} pCert A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure that contains the certificate in question.
      * @param {Pointer<Void>} pvFindArg A pointer to an application-defined value. This is the same value that was passed in the <i>pvFindArg</i> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_chain_find_by_issuer_para">CERT_CHAIN_FIND_BY_ISSUER_PARA</a> structure.
      * @returns {BOOL} Return <b>TRUE</b> to create a chain for the certificate specified in the <i>pCert</i> parameter, or <b>FALSE</b> otherwise.
      */
     Call(pCert, pvFindArg) {
-        pvFindArgMarshal := pvFindArg is VarRef ? "ptr" : "ptr"
+        pvFindArgMarshal := pvFindArg is VarRef ? "ptr" : IntPtr
+        pvFindArgMarshal := pvFindArg == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, CERT_CONTEXT.Ptr, pCert, pvFindArgMarshal, pvFindArg, BOOL)
         return result

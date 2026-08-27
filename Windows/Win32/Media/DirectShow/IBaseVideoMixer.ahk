@@ -42,7 +42,6 @@ export default struct IBaseVideoMixer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _iPin 
      * @returns {HRESULT} 
      */
@@ -52,7 +51,6 @@ export default struct IBaseVideoMixer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetLeadPin() {
@@ -61,7 +59,6 @@ export default struct IBaseVideoMixer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetInputPinCount() {
@@ -70,7 +67,6 @@ export default struct IBaseVideoMixer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     IsUsingClock() {
@@ -79,7 +75,6 @@ export default struct IBaseVideoMixer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} bValue 
      * @returns {HRESULT} 
      */
@@ -89,7 +84,6 @@ export default struct IBaseVideoMixer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetClockPeriod() {
@@ -98,7 +92,6 @@ export default struct IBaseVideoMixer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} bValue 
      * @returns {HRESULT} 
      */
@@ -116,13 +109,13 @@ export default struct IBaseVideoMixer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetLeadPin := CallbackCreate(GetMethod(implObj, "SetLeadPin"), flags, 2)
-        this.vtbl.GetLeadPin := CallbackCreate(GetMethod(implObj, "GetLeadPin"), flags, 2)
-        this.vtbl.GetInputPinCount := CallbackCreate(GetMethod(implObj, "GetInputPinCount"), flags, 2)
-        this.vtbl.IsUsingClock := CallbackCreate(GetMethod(implObj, "IsUsingClock"), flags, 2)
-        this.vtbl.SetUsingClock := CallbackCreate(GetMethod(implObj, "SetUsingClock"), flags, 2)
-        this.vtbl.GetClockPeriod := CallbackCreate(GetMethod(implObj, "GetClockPeriod"), flags, 2)
-        this.vtbl.SetClockPeriod := CallbackCreate(GetMethod(implObj, "SetClockPeriod"), flags, 2)
+        this.vtbl.SetLeadPin := CallbackCreate(ObjBindMethod(implObj, "SetLeadPin"), flags, 2)
+        this.vtbl.GetLeadPin := CallbackCreate(ObjBindMethod(implObj, "GetLeadPin"), flags, 2)
+        this.vtbl.GetInputPinCount := CallbackCreate(ObjBindMethod(implObj, "GetInputPinCount"), flags, 2)
+        this.vtbl.IsUsingClock := CallbackCreate(ObjBindMethod(implObj, "IsUsingClock"), flags, 2)
+        this.vtbl.SetUsingClock := CallbackCreate(ObjBindMethod(implObj, "SetUsingClock"), flags, 2)
+        this.vtbl.GetClockPeriod := CallbackCreate(ObjBindMethod(implObj, "GetClockPeriod"), flags, 2)
+        this.vtbl.SetClockPeriod := CallbackCreate(ObjBindMethod(implObj, "SetClockPeriod"), flags, 2)
     }
 
     Dispose() {

@@ -144,13 +144,13 @@ export default struct INetworkConnection extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNetwork := CallbackCreate(GetMethod(implObj, "GetNetwork"), flags, 2)
-        this.vtbl.get_IsConnectedToInternet := CallbackCreate(GetMethod(implObj, "get_IsConnectedToInternet"), flags, 2)
-        this.vtbl.get_IsConnected := CallbackCreate(GetMethod(implObj, "get_IsConnected"), flags, 2)
-        this.vtbl.GetConnectivity := CallbackCreate(GetMethod(implObj, "GetConnectivity"), flags, 2)
-        this.vtbl.GetConnectionId := CallbackCreate(GetMethod(implObj, "GetConnectionId"), flags, 2)
-        this.vtbl.GetAdapterId := CallbackCreate(GetMethod(implObj, "GetAdapterId"), flags, 2)
-        this.vtbl.GetDomainType := CallbackCreate(GetMethod(implObj, "GetDomainType"), flags, 2)
+        this.vtbl.GetNetwork := CallbackCreate(ObjBindMethod(implObj, "GetNetwork"), flags, 2)
+        this.vtbl.get_IsConnectedToInternet := CallbackCreate(ObjBindMethod(implObj, "get_IsConnectedToInternet"), flags, 2)
+        this.vtbl.get_IsConnected := CallbackCreate(ObjBindMethod(implObj, "get_IsConnected"), flags, 2)
+        this.vtbl.GetConnectivity := CallbackCreate(ObjBindMethod(implObj, "GetConnectivity"), flags, 2)
+        this.vtbl.GetConnectionId := CallbackCreate(ObjBindMethod(implObj, "GetConnectionId"), flags, 2)
+        this.vtbl.GetAdapterId := CallbackCreate(ObjBindMethod(implObj, "GetAdapterId"), flags, 2)
+        this.vtbl.GetDomainType := CallbackCreate(ObjBindMethod(implObj, "GetDomainType"), flags, 2)
     }
 
     Dispose() {

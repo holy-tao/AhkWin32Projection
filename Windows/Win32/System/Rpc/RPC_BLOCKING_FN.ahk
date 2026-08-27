@@ -19,16 +19,15 @@ export default struct RPC_BLOCKING_FN {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _hWnd 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<Void>} hSyncEvent 
      * @returns {RPC_STATUS} 
      */
     Call(_hWnd, _Context, hSyncEvent) {
-        _hWndMarshal := _hWnd is VarRef ? "ptr" : "ptr"
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        hSyncEventMarshal := hSyncEvent is VarRef ? "ptr" : "ptr"
+        _hWndMarshal := _hWnd is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        hSyncEventMarshal := hSyncEvent is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _hWndMarshal, _hWnd, _ContextMarshal, _Context, hSyncEventMarshal, hSyncEvent, RPC_STATUS)
         return result

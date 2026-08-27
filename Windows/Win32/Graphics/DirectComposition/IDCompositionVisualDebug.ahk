@@ -95,10 +95,10 @@ export default struct IDCompositionVisualDebug extends IDCompositionVisual2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnableHeatMap := CallbackCreate(GetMethod(implObj, "EnableHeatMap"), flags, 2)
-        this.vtbl.DisableHeatMap := CallbackCreate(GetMethod(implObj, "DisableHeatMap"), flags, 1)
-        this.vtbl.EnableRedrawRegions := CallbackCreate(GetMethod(implObj, "EnableRedrawRegions"), flags, 1)
-        this.vtbl.DisableRedrawRegions := CallbackCreate(GetMethod(implObj, "DisableRedrawRegions"), flags, 1)
+        this.vtbl.EnableHeatMap := CallbackCreate(ObjBindMethod(implObj, "EnableHeatMap"), flags, 2)
+        this.vtbl.DisableHeatMap := CallbackCreate(ObjBindMethod(implObj, "DisableHeatMap"), flags, 1)
+        this.vtbl.EnableRedrawRegions := CallbackCreate(ObjBindMethod(implObj, "EnableRedrawRegions"), flags, 1)
+        this.vtbl.DisableRedrawRegions := CallbackCreate(ObjBindMethod(implObj, "DisableRedrawRegions"), flags, 1)
     }
 
     Dispose() {

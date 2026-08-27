@@ -19,7 +19,6 @@ export default struct SpSetContextAttributesFn {
     }
 
     /**
-     * 
      * @param {Pointer} ContextHandle 
      * @param {Integer} ContextAttribute 
      * @param {Integer} _Buffer 

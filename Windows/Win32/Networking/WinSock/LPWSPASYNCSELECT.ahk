@@ -385,7 +385,6 @@ export default struct LPWSPASYNCSELECT {
     }
 
     /**
-     * 
      * @param {SOCKET} s Descriptor identifying the socket for which event notification is required.
      * @param {HWND} _hWnd Handle identifying the window that should receive a message when a network event occurs.
      * @param {Integer} wMsg Message to be sent when a network event occurs.
@@ -584,7 +583,7 @@ export default struct LPWSPASYNCSELECT {
      * See **Remarks** for info about additional error codes that can be set (in the high word of *lParam* within the message) when an application window receives a message.
      */
     Call(s, _hWnd, wMsg, lEvent, lpErrno) {
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, SOCKET, s, HWND, _hWnd, UInt32, wMsg, Int32, lEvent, lpErrnoMarshal, lpErrno, Int32)
         return result

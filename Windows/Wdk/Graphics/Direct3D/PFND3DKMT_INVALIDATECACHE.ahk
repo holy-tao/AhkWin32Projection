@@ -20,7 +20,6 @@ export default struct PFND3DKMT_INVALIDATECACHE {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_INVALIDATECACHE>} param0 
      * @returns {NTSTATUS} 
      */

@@ -38,19 +38,17 @@ export default struct IContextSecurityPerimeter extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BOOL>} pFlag 
      * @returns {HRESULT} 
      */
     GetPerimeterFlag(pFlag) {
-        pFlagMarshal := pFlag is VarRef ? "int*" : "ptr"
+        pFlagMarshal := pFlag is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, pFlagMarshal, pFlag, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {BOOL} fFlag 
      * @returns {HRESULT} 
      */
@@ -68,8 +66,8 @@ export default struct IContextSecurityPerimeter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPerimeterFlag := CallbackCreate(GetMethod(implObj, "GetPerimeterFlag"), flags, 2)
-        this.vtbl.SetPerimeterFlag := CallbackCreate(GetMethod(implObj, "SetPerimeterFlag"), flags, 2)
+        this.vtbl.GetPerimeterFlag := CallbackCreate(ObjBindMethod(implObj, "GetPerimeterFlag"), flags, 2)
+        this.vtbl.SetPerimeterFlag := CallbackCreate(ObjBindMethod(implObj, "SetPerimeterFlag"), flags, 2)
     }
 
     Dispose() {

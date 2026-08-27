@@ -139,9 +139,9 @@ export default struct IMSVidStreamBufferSource extends IMSVidFilePlayback {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersource-currentratings
      */
     CurrentRatings(pEnSystem, pEnRating, pBfEnAttr) {
-        pEnSystemMarshal := pEnSystem is VarRef ? "int*" : "ptr"
-        pEnRatingMarshal := pEnRating is VarRef ? "int*" : "ptr"
-        pBfEnAttrMarshal := pBfEnAttr is VarRef ? "int*" : "ptr"
+        pEnSystemMarshal := pEnSystem is VarRef ? "int*" : IntPtr
+        pEnRatingMarshal := pEnRating is VarRef ? "int*" : IntPtr
+        pBfEnAttrMarshal := pBfEnAttr is VarRef ? "int*" : IntPtr
 
         result := ComCall(36, this, pEnSystemMarshal, pEnSystem, pEnRatingMarshal, pEnRating, pBfEnAttrMarshal, pBfEnAttr, "HRESULT")
         return result
@@ -257,13 +257,13 @@ export default struct IMSVidStreamBufferSource extends IMSVidFilePlayback {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Start := CallbackCreate(GetMethod(implObj, "get_Start"), flags, 2)
-        this.vtbl.get_RecordingAttribute := CallbackCreate(GetMethod(implObj, "get_RecordingAttribute"), flags, 2)
-        this.vtbl.CurrentRatings := CallbackCreate(GetMethod(implObj, "CurrentRatings"), flags, 4)
-        this.vtbl.MaxRatingsLevel := CallbackCreate(GetMethod(implObj, "MaxRatingsLevel"), flags, 4)
-        this.vtbl.put_BlockUnrated := CallbackCreate(GetMethod(implObj, "put_BlockUnrated"), flags, 2)
-        this.vtbl.put_UnratedDelay := CallbackCreate(GetMethod(implObj, "put_UnratedDelay"), flags, 2)
-        this.vtbl.get_SBESource := CallbackCreate(GetMethod(implObj, "get_SBESource"), flags, 2)
+        this.vtbl.get_Start := CallbackCreate(ObjBindMethod(implObj, "get_Start"), flags, 2)
+        this.vtbl.get_RecordingAttribute := CallbackCreate(ObjBindMethod(implObj, "get_RecordingAttribute"), flags, 2)
+        this.vtbl.CurrentRatings := CallbackCreate(ObjBindMethod(implObj, "CurrentRatings"), flags, 4)
+        this.vtbl.MaxRatingsLevel := CallbackCreate(ObjBindMethod(implObj, "MaxRatingsLevel"), flags, 4)
+        this.vtbl.put_BlockUnrated := CallbackCreate(ObjBindMethod(implObj, "put_BlockUnrated"), flags, 2)
+        this.vtbl.put_UnratedDelay := CallbackCreate(ObjBindMethod(implObj, "put_UnratedDelay"), flags, 2)
+        this.vtbl.get_SBESource := CallbackCreate(ObjBindMethod(implObj, "get_SBESource"), flags, 2)
     }
 
     Dispose() {

@@ -36,7 +36,6 @@ export default struct IHTMLDOMChildrenCollection2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {IDispatch} 
      */
@@ -54,7 +53,7 @@ export default struct IHTMLDOMChildrenCollection2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.item := CallbackCreate(GetMethod(implObj, "item"), flags, 3)
+        this.vtbl.item := CallbackCreate(ObjBindMethod(implObj, "item"), flags, 3)
     }
 
     Dispose() {

@@ -22,7 +22,6 @@ export default struct LPOPENSTREAMONFILE {
     }
 
     /**
-     * 
      * @param {Pointer<LPALLOCATEBUFFER>} _lpAllocateBuffer 
      * @param {Pointer<LPFREEBUFFER>} _lpFreeBuffer 
      * @param {Integer} ulFlags 
@@ -31,8 +30,9 @@ export default struct LPOPENSTREAMONFILE {
      * @returns {IStream} 
      */
     Call(_lpAllocateBuffer, _lpFreeBuffer, ulFlags, lpszFileName, lpszPrefix) {
-        lpszFileNameMarshal := lpszFileName is VarRef ? "char*" : "ptr"
-        lpszPrefixMarshal := lpszPrefix is VarRef ? "char*" : "ptr"
+        lpszFileNameMarshal := lpszFileName is VarRef ? "char*" : IntPtr
+        lpszPrefixMarshal := lpszPrefix is VarRef ? "char*" : IntPtr
+        lpszPrefixMarshal := lpszPrefix == 0 ? IntPtr : "char*"
 
         result := DllCall(this.value, LPALLOCATEBUFFER, _lpAllocateBuffer, LPFREEBUFFER, _lpFreeBuffer, UInt32, ulFlags, lpszFileNameMarshal, lpszFileName, lpszPrefixMarshal, lpszPrefix, "ptr*", &lppStream := 0, "HRESULT")
         return IStream(lppStream)

@@ -48,7 +48,6 @@ export default struct LPFN_RIODEQUEUECOMPLETION {
     }
 
     /**
-     * 
      * @param {RIO_CQ} CQ A descriptor that identifies an I/O completion queue.
      * @param {Pointer<RIORESULT>} _Array An array of [**RIORESULT**](../mswsockdef/ns-mswsockdef-rioresult.md) structures to receive the description of the completions dequeued.
      * @param {Integer} ArraySize The maximum number of entries in the *Array* to write.

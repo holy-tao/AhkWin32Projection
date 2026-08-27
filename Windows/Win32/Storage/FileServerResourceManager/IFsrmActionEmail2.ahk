@@ -82,8 +82,8 @@ export default struct IFsrmActionEmail2 extends IFsrmActionEmail {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_AttachmentFileListSize := CallbackCreate(GetMethod(implObj, "get_AttachmentFileListSize"), flags, 2)
-        this.vtbl.put_AttachmentFileListSize := CallbackCreate(GetMethod(implObj, "put_AttachmentFileListSize"), flags, 2)
+        this.vtbl.get_AttachmentFileListSize := CallbackCreate(ObjBindMethod(implObj, "get_AttachmentFileListSize"), flags, 2)
+        this.vtbl.put_AttachmentFileListSize := CallbackCreate(ObjBindMethod(implObj, "put_AttachmentFileListSize"), flags, 2)
     }
 
     Dispose() {

@@ -97,9 +97,9 @@ export default struct IUIAutomationTogglePattern extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Toggle := CallbackCreate(GetMethod(implObj, "Toggle"), flags, 1)
-        this.vtbl.get_CurrentToggleState := CallbackCreate(GetMethod(implObj, "get_CurrentToggleState"), flags, 2)
-        this.vtbl.get_CachedToggleState := CallbackCreate(GetMethod(implObj, "get_CachedToggleState"), flags, 2)
+        this.vtbl.Toggle := CallbackCreate(ObjBindMethod(implObj, "Toggle"), flags, 1)
+        this.vtbl.get_CurrentToggleState := CallbackCreate(ObjBindMethod(implObj, "get_CurrentToggleState"), flags, 2)
+        this.vtbl.get_CachedToggleState := CallbackCreate(ObjBindMethod(implObj, "get_CachedToggleState"), flags, 2)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct PFNTVCOMPARE {
     }
 
     /**
-     * 
      * @param {LPARAM} lParam1 
      * @param {LPARAM} lParam2 
      * @param {LPARAM} lParamSort 

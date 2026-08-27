@@ -28,14 +28,13 @@ export default struct PFN_DEVICE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvParam A parameter passed in from  the <b>pvParam</b> member of the 
      * <a href="https://docs.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_select_device_params">BLUETOOTH_SELECT_DEVICE_PARAMS</a> structure through the <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nf-bluetoothapis-bluetoothselectdevices">BluetoothSelectDevices</a> function.
      * @param {Pointer<BLUETOOTH_DEVICE_INFO>} pDevice Remote Bluetooth address queried; this is the address inserted into the user-presented list of Bluetooth devices.
      * @returns {BOOL} Returning <b>FALSE</b> prevents the device from being added to the list view of Bluetooth devices.
      */
     Call(pvParam, pDevice) {
-        pvParamMarshal := pvParam is VarRef ? "ptr" : "ptr"
+        pvParamMarshal := pvParam is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, pvParamMarshal, pvParam, BLUETOOTH_DEVICE_INFO.Ptr, pDevice, BOOL)
         return result

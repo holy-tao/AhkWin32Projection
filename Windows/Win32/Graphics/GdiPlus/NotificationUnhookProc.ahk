@@ -18,7 +18,6 @@ export default struct NotificationUnhookProc {
     }
 
     /**
-     * 
      * @param {Pointer} token 
      * @returns {String} Nothing - always returns an empty string
      */

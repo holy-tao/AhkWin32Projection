@@ -20,7 +20,6 @@ export default struct PSHED_PI_FINALIZE_ERROR_RECORD {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} PluginContext 
      * @param {Pointer<WHEA_ERROR_SOURCE_DESCRIPTOR>} ErrorSource 
      * @param {Integer} BufferLength 
@@ -28,7 +27,8 @@ export default struct PSHED_PI_FINALIZE_ERROR_RECORD {
      * @returns {NTSTATUS} 
      */
     Call(PluginContext, ErrorSource, BufferLength, ErrorRecord) {
-        PluginContextMarshal := PluginContext is VarRef ? "ptr" : "ptr"
+        PluginContextMarshal := PluginContext is VarRef ? "ptr" : IntPtr
+        PluginContextMarshal := PluginContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, PluginContextMarshal, PluginContext, WHEA_ERROR_SOURCE_DESCRIPTOR.Ptr, ErrorSource, UInt32, BufferLength, IntPtr, ErrorRecord, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

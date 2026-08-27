@@ -19,15 +19,14 @@ export default struct PLSA_ALLOCATE_CLIENT_BUFFER {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} ClientRequest 
      * @param {Integer} LengthRequired 
      * @param {Pointer<Pointer<Void>>} ClientBaseAddress 
      * @returns {NTSTATUS} 
      */
     Call(ClientRequest, LengthRequired, ClientBaseAddress) {
-        ClientRequestMarshal := ClientRequest is VarRef ? "ptr*" : "ptr"
-        ClientBaseAddressMarshal := ClientBaseAddress is VarRef ? "ptr*" : "ptr"
+        ClientRequestMarshal := ClientRequest is VarRef ? "ptr*" : IntPtr
+        ClientBaseAddressMarshal := ClientBaseAddress is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, ClientRequestMarshal, ClientRequest, UInt32, LengthRequired, ClientBaseAddressMarshal, ClientBaseAddress, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

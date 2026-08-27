@@ -151,8 +151,8 @@ export default struct ITransferDestination extends IUnknown {
     CreateItem(pszName, dwAttributes, ullSize, flags, riidItem, ppvItem, riidResources, ppvResources) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        ppvItemMarshal := ppvItem is VarRef ? "ptr*" : "ptr"
-        ppvResourcesMarshal := ppvResources is VarRef ? "ptr*" : "ptr"
+        ppvItemMarshal := ppvItem is VarRef ? "ptr*" : IntPtr
+        ppvResourcesMarshal := ppvResources is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, "ptr", pszName, UInt32, dwAttributes, Int64, ullSize, UInt32, flags, Guid.Ptr, riidItem, ppvItemMarshal, ppvItem, Guid.Ptr, riidResources, ppvResourcesMarshal, ppvResources, "HRESULT")
         return result
@@ -167,9 +167,9 @@ export default struct ITransferDestination extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 3)
-        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 2)
-        this.vtbl.CreateItem := CallbackCreate(GetMethod(implObj, "CreateItem"), flags, 9)
+        this.vtbl.Advise := CallbackCreate(ObjBindMethod(implObj, "Advise"), flags, 3)
+        this.vtbl.Unadvise := CallbackCreate(ObjBindMethod(implObj, "Unadvise"), flags, 2)
+        this.vtbl.CreateItem := CallbackCreate(ObjBindMethod(implObj, "CreateItem"), flags, 9)
     }
 
     Dispose() {

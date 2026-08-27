@@ -19,7 +19,6 @@ export default struct LPDDHAL_DESTROYDDLOCAL {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_DESTROYDDLOCALDATA>} param0 
      * @returns {Integer} 
      */

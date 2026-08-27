@@ -60,14 +60,19 @@ export default struct ITableDefinition extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/createtable
      */
     CreateTable(pUnkOuter, pTableID, cColumnDescs, rgColumnDescs, riid, cPropertySets, rgPropertySets, ppTableID, ppRowset) {
-        ppTableIDMarshal := ppTableID is VarRef ? "ptr*" : "ptr"
+        pUnkOuterMarshal := pUnkOuter == 0 ? IntPtr : "ptr"
+        pTableIDMarshal := pTableID == 0 ? IntPtr : DBID.Ptr
+        rgColumnDescsMarshal := rgColumnDescs == 0 ? IntPtr : DBCOLUMNDESC.Ptr
+        rgPropertySetsMarshal := rgPropertySets == 0 ? IntPtr : DBPROPSET.Ptr
+        ppTableIDMarshal := ppTableID is VarRef ? "ptr*" : IntPtr
+        ppTableIDMarshal := ppTableID == 0 ? IntPtr : "ptr*"
+        ppRowsetMarshal := ppRowset == 0 ? IntPtr : IUnknown.Ptr
 
-        result := ComCall(3, this, "ptr", pUnkOuter, DBID.Ptr, pTableID, IntPtr, cColumnDescs, DBCOLUMNDESC.Ptr, rgColumnDescs, Guid.Ptr, riid, UInt32, cPropertySets, DBPROPSET.Ptr, rgPropertySets, ppTableIDMarshal, ppTableID, IUnknown.Ptr, ppRowset, "HRESULT")
+        result := ComCall(3, this, pUnkOuterMarshal, pUnkOuter, pTableIDMarshal, pTableID, IntPtr, cColumnDescs, rgColumnDescsMarshal, rgColumnDescs, Guid.Ptr, riid, UInt32, cPropertySets, rgPropertySetsMarshal, rgPropertySets, ppTableIDMarshal, ppTableID, ppRowsetMarshal, ppRowset, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<DBID>} pTableID 
      * @returns {HRESULT} 
      */
@@ -77,7 +82,6 @@ export default struct ITableDefinition extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DBID>} pTableID 
      * @param {Pointer<DBCOLUMNDESC>} pColumnDesc 
      * @returns {Pointer<DBID>} 
@@ -88,7 +92,6 @@ export default struct ITableDefinition extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DBID>} pTableID 
      * @param {Pointer<DBID>} pColumnID 
      * @returns {HRESULT} 
@@ -107,10 +110,10 @@ export default struct ITableDefinition extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateTable := CallbackCreate(GetMethod(implObj, "CreateTable"), flags, 10)
-        this.vtbl.DropTable := CallbackCreate(GetMethod(implObj, "DropTable"), flags, 2)
-        this.vtbl.AddColumn := CallbackCreate(GetMethod(implObj, "AddColumn"), flags, 4)
-        this.vtbl.DropColumn := CallbackCreate(GetMethod(implObj, "DropColumn"), flags, 3)
+        this.vtbl.CreateTable := CallbackCreate(ObjBindMethod(implObj, "CreateTable"), flags, 10)
+        this.vtbl.DropTable := CallbackCreate(ObjBindMethod(implObj, "DropTable"), flags, 2)
+        this.vtbl.AddColumn := CallbackCreate(ObjBindMethod(implObj, "AddColumn"), flags, 4)
+        this.vtbl.DropColumn := CallbackCreate(ObjBindMethod(implObj, "DropColumn"), flags, 3)
     }
 
     Dispose() {

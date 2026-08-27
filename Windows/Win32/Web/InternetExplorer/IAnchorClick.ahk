@@ -42,7 +42,6 @@ export default struct IAnchorClick extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ProcOnClick() {
@@ -59,7 +58,7 @@ export default struct IAnchorClick extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ProcOnClick := CallbackCreate(GetMethod(implObj, "ProcOnClick"), flags, 1)
+        this.vtbl.ProcOnClick := CallbackCreate(ObjBindMethod(implObj, "ProcOnClick"), flags, 1)
     }
 
     Dispose() {

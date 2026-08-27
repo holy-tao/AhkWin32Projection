@@ -245,17 +245,17 @@ export default struct IWMPEvents3 extends IWMPEvents2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CdromRipStateChange := CallbackCreate(GetMethod(implObj, "CdromRipStateChange"), flags, 3)
-        this.vtbl.CdromRipMediaError := CallbackCreate(GetMethod(implObj, "CdromRipMediaError"), flags, 3)
-        this.vtbl.CdromBurnStateChange := CallbackCreate(GetMethod(implObj, "CdromBurnStateChange"), flags, 3)
-        this.vtbl.CdromBurnMediaError := CallbackCreate(GetMethod(implObj, "CdromBurnMediaError"), flags, 3)
-        this.vtbl.CdromBurnError := CallbackCreate(GetMethod(implObj, "CdromBurnError"), flags, 3)
-        this.vtbl.LibraryConnect := CallbackCreate(GetMethod(implObj, "LibraryConnect"), flags, 2)
-        this.vtbl.LibraryDisconnect := CallbackCreate(GetMethod(implObj, "LibraryDisconnect"), flags, 2)
-        this.vtbl.FolderScanStateChange := CallbackCreate(GetMethod(implObj, "FolderScanStateChange"), flags, 2)
-        this.vtbl.StringCollectionChange := CallbackCreate(GetMethod(implObj, "StringCollectionChange"), flags, 4)
-        this.vtbl.MediaCollectionMediaAdded := CallbackCreate(GetMethod(implObj, "MediaCollectionMediaAdded"), flags, 2)
-        this.vtbl.MediaCollectionMediaRemoved := CallbackCreate(GetMethod(implObj, "MediaCollectionMediaRemoved"), flags, 2)
+        this.vtbl.CdromRipStateChange := CallbackCreate(ObjBindMethod(implObj, "CdromRipStateChange"), flags, 3)
+        this.vtbl.CdromRipMediaError := CallbackCreate(ObjBindMethod(implObj, "CdromRipMediaError"), flags, 3)
+        this.vtbl.CdromBurnStateChange := CallbackCreate(ObjBindMethod(implObj, "CdromBurnStateChange"), flags, 3)
+        this.vtbl.CdromBurnMediaError := CallbackCreate(ObjBindMethod(implObj, "CdromBurnMediaError"), flags, 3)
+        this.vtbl.CdromBurnError := CallbackCreate(ObjBindMethod(implObj, "CdromBurnError"), flags, 3)
+        this.vtbl.LibraryConnect := CallbackCreate(ObjBindMethod(implObj, "LibraryConnect"), flags, 2)
+        this.vtbl.LibraryDisconnect := CallbackCreate(ObjBindMethod(implObj, "LibraryDisconnect"), flags, 2)
+        this.vtbl.FolderScanStateChange := CallbackCreate(ObjBindMethod(implObj, "FolderScanStateChange"), flags, 2)
+        this.vtbl.StringCollectionChange := CallbackCreate(ObjBindMethod(implObj, "StringCollectionChange"), flags, 4)
+        this.vtbl.MediaCollectionMediaAdded := CallbackCreate(ObjBindMethod(implObj, "MediaCollectionMediaAdded"), flags, 2)
+        this.vtbl.MediaCollectionMediaRemoved := CallbackCreate(ObjBindMethod(implObj, "MediaCollectionMediaRemoved"), flags, 2)
     }
 
     Dispose() {

@@ -73,7 +73,7 @@ export default struct IResultDataCompareEx extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Compare := CallbackCreate(GetMethod(implObj, "Compare"), flags, 3)
+        this.vtbl.Compare := CallbackCreate(ObjBindMethod(implObj, "Compare"), flags, 3)
     }
 
     Dispose() {

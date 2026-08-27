@@ -21,7 +21,6 @@ export default struct alljoyn_aboutdatalistener_getaboutdata_ptr {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {alljoyn_msgarg} msgArg 
      * @param {PSTR} language 
@@ -30,7 +29,7 @@ export default struct alljoyn_aboutdatalistener_getaboutdata_ptr {
     Call(_context, msgArg, language) {
         language := language is String ? StrPtr(language) : language
 
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _contextMarshal, _context, alljoyn_msgarg, msgArg, "ptr", language, QStatus)
         return result

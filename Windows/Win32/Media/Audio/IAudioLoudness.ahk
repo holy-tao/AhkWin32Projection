@@ -75,7 +75,9 @@ export default struct IAudioLoudness extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iaudioloudness-setenabled
      */
     SetEnabled(bEnable, pguidEventContext) {
-        result := ComCall(4, this, BOOL, bEnable, Guid.Ptr, pguidEventContext, "HRESULT")
+        pguidEventContextMarshal := pguidEventContext == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(4, this, BOOL, bEnable, pguidEventContextMarshal, pguidEventContext, "HRESULT")
         return result
     }
 
@@ -88,8 +90,8 @@ export default struct IAudioLoudness extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetEnabled := CallbackCreate(GetMethod(implObj, "GetEnabled"), flags, 2)
-        this.vtbl.SetEnabled := CallbackCreate(GetMethod(implObj, "SetEnabled"), flags, 3)
+        this.vtbl.GetEnabled := CallbackCreate(ObjBindMethod(implObj, "GetEnabled"), flags, 2)
+        this.vtbl.SetEnabled := CallbackCreate(ObjBindMethod(implObj, "SetEnabled"), flags, 3)
     }
 
     Dispose() {

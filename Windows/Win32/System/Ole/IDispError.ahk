@@ -42,7 +42,6 @@ export default struct IDispError extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} guidErrorType 
      * @returns {IDispError} 
      */
@@ -52,7 +51,6 @@ export default struct IDispError extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDispError} 
      */
     GetNext() {
@@ -61,7 +59,6 @@ export default struct IDispError extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     GetHresult() {
@@ -70,7 +67,6 @@ export default struct IDispError extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetSource() {
@@ -80,13 +76,12 @@ export default struct IDispError extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrFileName 
      * @param {Pointer<Integer>} pdwContext 
      * @returns {HRESULT} 
      */
     GetHelpInfo(pbstrFileName, pdwContext) {
-        pdwContextMarshal := pdwContext is VarRef ? "uint*" : "ptr"
+        pdwContextMarshal := pdwContext is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, BSTR.Ptr, pbstrFileName, pdwContextMarshal, pdwContext, "HRESULT")
         return result
@@ -112,12 +107,12 @@ export default struct IDispError extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryErrorInfo := CallbackCreate(GetMethod(implObj, "QueryErrorInfo"), flags, 3)
-        this.vtbl.GetNext := CallbackCreate(GetMethod(implObj, "GetNext"), flags, 2)
-        this.vtbl.GetHresult := CallbackCreate(GetMethod(implObj, "GetHresult"), flags, 2)
-        this.vtbl.GetSource := CallbackCreate(GetMethod(implObj, "GetSource"), flags, 2)
-        this.vtbl.GetHelpInfo := CallbackCreate(GetMethod(implObj, "GetHelpInfo"), flags, 3)
-        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 2)
+        this.vtbl.QueryErrorInfo := CallbackCreate(ObjBindMethod(implObj, "QueryErrorInfo"), flags, 3)
+        this.vtbl.GetNext := CallbackCreate(ObjBindMethod(implObj, "GetNext"), flags, 2)
+        this.vtbl.GetHresult := CallbackCreate(ObjBindMethod(implObj, "GetHresult"), flags, 2)
+        this.vtbl.GetSource := CallbackCreate(ObjBindMethod(implObj, "GetSource"), flags, 2)
+        this.vtbl.GetHelpInfo := CallbackCreate(ObjBindMethod(implObj, "GetHelpInfo"), flags, 3)
+        this.vtbl.GetDescription := CallbackCreate(ObjBindMethod(implObj, "GetDescription"), flags, 2)
     }
 
     Dispose() {

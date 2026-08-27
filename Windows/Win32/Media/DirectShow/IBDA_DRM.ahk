@@ -78,8 +78,8 @@ export default struct IBDA_DRM extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_drm-getdrmpairingstatus
      */
     GetDRMPairingStatus(pdwStatus, phError) {
-        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
-        phErrorMarshal := phError is VarRef ? "int*" : "ptr"
+        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : IntPtr
+        phErrorMarshal := phError is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, pdwStatusMarshal, pdwStatus, phErrorMarshal, phError, "HRESULT")
         return result
@@ -107,8 +107,8 @@ export default struct IBDA_DRM extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDRMPairingStatus := CallbackCreate(GetMethod(implObj, "GetDRMPairingStatus"), flags, 3)
-        this.vtbl.PerformDRMPairing := CallbackCreate(GetMethod(implObj, "PerformDRMPairing"), flags, 2)
+        this.vtbl.GetDRMPairingStatus := CallbackCreate(ObjBindMethod(implObj, "GetDRMPairingStatus"), flags, 3)
+        this.vtbl.PerformDRMPairing := CallbackCreate(ObjBindMethod(implObj, "PerformDRMPairing"), flags, 2)
     }
 
     Dispose() {

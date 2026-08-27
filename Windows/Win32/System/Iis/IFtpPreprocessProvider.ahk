@@ -38,7 +38,6 @@ export default struct IFtpPreprocessProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PRE_PROCESS_PARAMETERS>} pPreProcessParameters 
      * @returns {FTP_PROCESS_STATUS} 
      */
@@ -56,7 +55,7 @@ export default struct IFtpPreprocessProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.HandlePreprocess := CallbackCreate(GetMethod(implObj, "HandlePreprocess"), flags, 3)
+        this.vtbl.HandlePreprocess := CallbackCreate(ObjBindMethod(implObj, "HandlePreprocess"), flags, 3)
     }
 
     Dispose() {

@@ -68,7 +68,7 @@ export default struct IEnumCERTVIEWATTRIBUTE extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-ienumcertviewattribute-next
      */
     Next(pIndex) {
-        pIndexMarshal := pIndex is VarRef ? "int*" : "ptr"
+        pIndexMarshal := pIndex is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, pIndexMarshal, pIndex, "HRESULT")
         return result
@@ -223,12 +223,12 @@ export default struct IEnumCERTVIEWATTRIBUTE extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 2)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
-        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 2)
-        this.vtbl.Skip := CallbackCreate(GetMethod(implObj, "Skip"), flags, 2)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.Next := CallbackCreate(ObjBindMethod(implObj, "Next"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetValue := CallbackCreate(ObjBindMethod(implObj, "GetValue"), flags, 2)
+        this.vtbl.Skip := CallbackCreate(ObjBindMethod(implObj, "Skip"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
     }
 
     Dispose() {

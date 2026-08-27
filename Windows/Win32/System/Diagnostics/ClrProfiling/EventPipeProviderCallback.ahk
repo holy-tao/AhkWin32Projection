@@ -19,7 +19,6 @@ export default struct EventPipeProviderCallback {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} source_id 
      * @param {Integer} is_enabled 
      * @param {Integer} level 
@@ -30,8 +29,8 @@ export default struct EventPipeProviderCallback {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(source_id, is_enabled, level, match_any_keywords, match_all_keywords, filter_data, callback_data) {
-        source_idMarshal := source_id is VarRef ? "char*" : "ptr"
-        callback_dataMarshal := callback_data is VarRef ? "ptr" : "ptr"
+        source_idMarshal := source_id is VarRef ? "char*" : IntPtr
+        callback_dataMarshal := callback_data is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, source_idMarshal, source_id, UInt32, is_enabled, Int8, level, Int64, match_any_keywords, Int64, match_all_keywords, COR_PRF_FILTER_DATA.Ptr, filter_data, callback_dataMarshal, callback_data)
     }

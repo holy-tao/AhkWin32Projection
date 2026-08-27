@@ -23,7 +23,6 @@ export default struct pD3DPreprocess {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pSrcData 
      * @param {Pointer} SrcDataSize 
      * @param {PSTR} pFileName 
@@ -36,7 +35,7 @@ export default struct pD3DPreprocess {
     Call(pSrcData, SrcDataSize, pFileName, pDefines, pInclude, ppCodeText, ppErrorMsgs) {
         pFileName := pFileName is String ? StrPtr(pFileName) : pFileName
 
-        pSrcDataMarshal := pSrcData is VarRef ? "ptr" : "ptr"
+        pSrcDataMarshal := pSrcData is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, pSrcDataMarshal, pSrcData, IntPtr, SrcDataSize, "ptr", pFileName, D3D_SHADER_MACRO.Ptr, pDefines, "ptr", pInclude, ID3DBlob.Ptr, ppCodeText, ID3DBlob.Ptr, ppErrorMsgs, "HRESULT")
         return result

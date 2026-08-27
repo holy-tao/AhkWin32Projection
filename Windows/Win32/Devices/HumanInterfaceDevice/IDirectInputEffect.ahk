@@ -84,7 +84,6 @@ export default struct IDirectInputEffect extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} param0 
      * @returns {HRESULT} 
      */
@@ -94,7 +93,6 @@ export default struct IDirectInputEffect extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DIEFFECT>} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 
@@ -105,7 +103,6 @@ export default struct IDirectInputEffect extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DIEFFECT>} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 
@@ -116,7 +113,6 @@ export default struct IDirectInputEffect extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 
@@ -127,7 +123,6 @@ export default struct IDirectInputEffect extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Stop() {
@@ -136,19 +131,17 @@ export default struct IDirectInputEffect extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @returns {HRESULT} 
      */
     GetEffectStatus(param0) {
-        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+        param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
         result := ComCall(9, this, param0Marshal, param0, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Download() {
@@ -157,7 +150,6 @@ export default struct IDirectInputEffect extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Unload() {
@@ -225,16 +217,16 @@ export default struct IDirectInputEffect extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
-        this.vtbl.GetEffectGuid := CallbackCreate(GetMethod(implObj, "GetEffectGuid"), flags, 2)
-        this.vtbl.GetParameters := CallbackCreate(GetMethod(implObj, "GetParameters"), flags, 3)
-        this.vtbl.SetParameters := CallbackCreate(GetMethod(implObj, "SetParameters"), flags, 3)
-        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 3)
-        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
-        this.vtbl.GetEffectStatus := CallbackCreate(GetMethod(implObj, "GetEffectStatus"), flags, 2)
-        this.vtbl.Download := CallbackCreate(GetMethod(implObj, "Download"), flags, 1)
-        this.vtbl.Unload := CallbackCreate(GetMethod(implObj, "Unload"), flags, 1)
-        this.vtbl.Escape := CallbackCreate(GetMethod(implObj, "Escape"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 4)
+        this.vtbl.GetEffectGuid := CallbackCreate(ObjBindMethod(implObj, "GetEffectGuid"), flags, 2)
+        this.vtbl.GetParameters := CallbackCreate(ObjBindMethod(implObj, "GetParameters"), flags, 3)
+        this.vtbl.SetParameters := CallbackCreate(ObjBindMethod(implObj, "SetParameters"), flags, 3)
+        this.vtbl.Start := CallbackCreate(ObjBindMethod(implObj, "Start"), flags, 3)
+        this.vtbl.Stop := CallbackCreate(ObjBindMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.GetEffectStatus := CallbackCreate(ObjBindMethod(implObj, "GetEffectStatus"), flags, 2)
+        this.vtbl.Download := CallbackCreate(ObjBindMethod(implObj, "Download"), flags, 1)
+        this.vtbl.Unload := CallbackCreate(ObjBindMethod(implObj, "Unload"), flags, 1)
+        this.vtbl.Escape := CallbackCreate(ObjBindMethod(implObj, "Escape"), flags, 2)
     }
 
     Dispose() {

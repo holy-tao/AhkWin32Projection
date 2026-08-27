@@ -79,7 +79,10 @@ export default struct IDXGIFactoryMedia extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgifactorymedia-createswapchainforcompositionsurfacehandle
      */
     CreateSwapChainForCompositionSurfaceHandle(pDevice, hSurface, pDesc, pRestrictToOutput) {
-        result := ComCall(3, this, "ptr", pDevice, HANDLE, hSurface, DXGI_SWAP_CHAIN_DESC1.Ptr, pDesc, "ptr", pRestrictToOutput, "ptr*", &ppSwapChain := 0, "HRESULT")
+        hSurfaceMarshal := hSurface == 0 ? IntPtr : HANDLE
+        pRestrictToOutputMarshal := pRestrictToOutput == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, "ptr", pDevice, hSurfaceMarshal, hSurface, DXGI_SWAP_CHAIN_DESC1.Ptr, pDesc, pRestrictToOutputMarshal, pRestrictToOutput, "ptr*", &ppSwapChain := 0, "HRESULT")
         return IDXGISwapChain1(ppSwapChain)
     }
 
@@ -113,7 +116,10 @@ export default struct IDXGIFactoryMedia extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgifactorymedia-createdecodeswapchainforcompositionsurfacehandle
      */
     CreateDecodeSwapChainForCompositionSurfaceHandle(pDevice, hSurface, pDesc, pYuvDecodeBuffers, pRestrictToOutput) {
-        result := ComCall(4, this, "ptr", pDevice, HANDLE, hSurface, DXGI_DECODE_SWAP_CHAIN_DESC.Ptr, pDesc, "ptr", pYuvDecodeBuffers, "ptr", pRestrictToOutput, "ptr*", &ppSwapChain := 0, "HRESULT")
+        hSurfaceMarshal := hSurface == 0 ? IntPtr : HANDLE
+        pRestrictToOutputMarshal := pRestrictToOutput == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, "ptr", pDevice, hSurfaceMarshal, hSurface, DXGI_DECODE_SWAP_CHAIN_DESC.Ptr, pDesc, "ptr", pYuvDecodeBuffers, pRestrictToOutputMarshal, pRestrictToOutput, "ptr*", &ppSwapChain := 0, "HRESULT")
         return IDXGIDecodeSwapChain(ppSwapChain)
     }
 
@@ -126,8 +132,8 @@ export default struct IDXGIFactoryMedia extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateSwapChainForCompositionSurfaceHandle := CallbackCreate(GetMethod(implObj, "CreateSwapChainForCompositionSurfaceHandle"), flags, 6)
-        this.vtbl.CreateDecodeSwapChainForCompositionSurfaceHandle := CallbackCreate(GetMethod(implObj, "CreateDecodeSwapChainForCompositionSurfaceHandle"), flags, 7)
+        this.vtbl.CreateSwapChainForCompositionSurfaceHandle := CallbackCreate(ObjBindMethod(implObj, "CreateSwapChainForCompositionSurfaceHandle"), flags, 6)
+        this.vtbl.CreateDecodeSwapChainForCompositionSurfaceHandle := CallbackCreate(ObjBindMethod(implObj, "CreateDecodeSwapChainForCompositionSurfaceHandle"), flags, 7)
     }
 
     Dispose() {

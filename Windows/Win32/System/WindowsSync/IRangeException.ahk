@@ -84,8 +84,8 @@ export default struct IRangeException extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-irangeexception-getclosedrangestart
      */
     GetClosedRangeStart(pbClosedRangeStart, pcbIdSize) {
-        pbClosedRangeStartMarshal := pbClosedRangeStart is VarRef ? "char*" : "ptr"
-        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
+        pbClosedRangeStartMarshal := pbClosedRangeStart is VarRef ? "char*" : IntPtr
+        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pbClosedRangeStartMarshal, pbClosedRangeStart, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
         return result
@@ -136,8 +136,8 @@ export default struct IRangeException extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-irangeexception-getclosedrangeend
      */
     GetClosedRangeEnd(pbClosedRangeEnd, pcbIdSize) {
-        pbClosedRangeEndMarshal := pbClosedRangeEnd is VarRef ? "char*" : "ptr"
-        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
+        pbClosedRangeEndMarshal := pbClosedRangeEnd is VarRef ? "char*" : IntPtr
+        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pbClosedRangeEndMarshal, pbClosedRangeEnd, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
         return result
@@ -193,7 +193,7 @@ export default struct IRangeException extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-irangeexception-getclockvector
      */
     GetClockVector(riid, ppUnk) {
-        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
+        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, Guid.Ptr, riid, ppUnkMarshal, ppUnk, "HRESULT")
         return result
@@ -208,9 +208,9 @@ export default struct IRangeException extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetClosedRangeStart := CallbackCreate(GetMethod(implObj, "GetClosedRangeStart"), flags, 3)
-        this.vtbl.GetClosedRangeEnd := CallbackCreate(GetMethod(implObj, "GetClosedRangeEnd"), flags, 3)
-        this.vtbl.GetClockVector := CallbackCreate(GetMethod(implObj, "GetClockVector"), flags, 3)
+        this.vtbl.GetClosedRangeStart := CallbackCreate(ObjBindMethod(implObj, "GetClosedRangeStart"), flags, 3)
+        this.vtbl.GetClosedRangeEnd := CallbackCreate(ObjBindMethod(implObj, "GetClosedRangeEnd"), flags, 3)
+        this.vtbl.GetClockVector := CallbackCreate(ObjBindMethod(implObj, "GetClockVector"), flags, 3)
     }
 
     Dispose() {

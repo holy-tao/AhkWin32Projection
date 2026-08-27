@@ -58,7 +58,6 @@ export default struct ISVGLocatable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGElement} 
      */
     get_nearestViewportElement() {
@@ -67,7 +66,6 @@ export default struct ISVGLocatable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGElement} 
      */
     get_farthestViewportElement() {
@@ -76,7 +74,6 @@ export default struct ISVGLocatable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGRect} 
      */
     getBBox() {
@@ -85,7 +82,6 @@ export default struct ISVGLocatable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGMatrix} 
      */
     getCTM() {
@@ -94,7 +90,6 @@ export default struct ISVGLocatable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGMatrix} 
      */
     getScreenCTM() {
@@ -103,7 +98,6 @@ export default struct ISVGLocatable extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGElement} pElement 
      * @returns {ISVGMatrix} 
      */
@@ -121,12 +115,12 @@ export default struct ISVGLocatable extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_nearestViewportElement := CallbackCreate(GetMethod(implObj, "get_nearestViewportElement"), flags, 2)
-        this.vtbl.get_farthestViewportElement := CallbackCreate(GetMethod(implObj, "get_farthestViewportElement"), flags, 2)
-        this.vtbl.getBBox := CallbackCreate(GetMethod(implObj, "getBBox"), flags, 2)
-        this.vtbl.getCTM := CallbackCreate(GetMethod(implObj, "getCTM"), flags, 2)
-        this.vtbl.getScreenCTM := CallbackCreate(GetMethod(implObj, "getScreenCTM"), flags, 2)
-        this.vtbl.getTransformToElement := CallbackCreate(GetMethod(implObj, "getTransformToElement"), flags, 3)
+        this.vtbl.get_nearestViewportElement := CallbackCreate(ObjBindMethod(implObj, "get_nearestViewportElement"), flags, 2)
+        this.vtbl.get_farthestViewportElement := CallbackCreate(ObjBindMethod(implObj, "get_farthestViewportElement"), flags, 2)
+        this.vtbl.getBBox := CallbackCreate(ObjBindMethod(implObj, "getBBox"), flags, 2)
+        this.vtbl.getCTM := CallbackCreate(ObjBindMethod(implObj, "getCTM"), flags, 2)
+        this.vtbl.getScreenCTM := CallbackCreate(ObjBindMethod(implObj, "getScreenCTM"), flags, 2)
+        this.vtbl.getTransformToElement := CallbackCreate(ObjBindMethod(implObj, "getTransformToElement"), flags, 3)
     }
 
     Dispose() {

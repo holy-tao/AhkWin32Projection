@@ -306,7 +306,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strAttributeName 
      * @param {VARIANT} AttributeValue 
      * @param {Integer} lFlags 
@@ -320,7 +319,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strAttributeName 
      * @param {Integer} lFlags 
      * @returns {VARIANT} 
@@ -334,7 +332,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strAttributeName 
      * @param {Integer} lFlags 
      * @returns {VARIANT_BOOL} 
@@ -347,7 +344,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -359,7 +355,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_propertyName() {
@@ -369,7 +364,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLBookmarkCollection} v 
      * @returns {HRESULT} 
      */
@@ -379,7 +373,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLBookmarkCollection} 
      */
     get_bookmarks() {
@@ -388,7 +381,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} v 
      * @returns {HRESULT} 
      */
@@ -398,7 +390,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_recordset() {
@@ -407,7 +398,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -419,7 +409,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_dataFld() {
@@ -429,7 +418,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLElementCollection} v 
      * @returns {HRESULT} 
      */
@@ -439,7 +427,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElementCollection} 
      */
     get_boundElements() {
@@ -448,7 +435,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -458,7 +444,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_repeat() {
@@ -467,7 +452,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -479,7 +463,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_srcUrn() {
@@ -489,7 +472,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLElement} v 
      * @returns {HRESULT} 
      */
@@ -499,7 +481,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_srcElement() {
@@ -508,7 +489,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -518,7 +498,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_altKey() {
@@ -527,7 +506,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -537,7 +515,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ctrlKey() {
@@ -546,7 +523,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -556,7 +532,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_shiftKey() {
@@ -565,7 +540,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLElement} v 
      * @returns {HRESULT} 
      */
@@ -575,7 +549,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_fromElement() {
@@ -584,7 +557,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLElement} v 
      * @returns {HRESULT} 
      */
@@ -594,7 +566,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_toElement() {
@@ -603,7 +574,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -613,7 +583,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_button() {
@@ -622,7 +591,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -634,7 +602,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -644,7 +611,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -656,7 +622,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_qualifier() {
@@ -666,7 +631,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -676,7 +640,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_reason() {
@@ -685,7 +648,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -695,7 +657,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_x() {
@@ -704,7 +665,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -714,7 +674,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_y() {
@@ -723,7 +682,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -733,7 +691,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_clientX() {
@@ -742,7 +699,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -752,7 +708,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_clientY() {
@@ -761,7 +716,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -771,7 +725,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_offsetX() {
@@ -780,7 +733,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -790,7 +742,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_offsetY() {
@@ -799,7 +750,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -809,7 +759,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_screenX() {
@@ -818,7 +767,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -828,7 +776,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_screenY() {
@@ -837,7 +784,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} v 
      * @returns {HRESULT} 
      */
@@ -847,7 +793,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_srcFilter() {
@@ -856,7 +801,6 @@ export default struct IHTMLEventObj2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDataTransfer} 
      */
     get_dataTransfer() {
@@ -873,62 +817,62 @@ export default struct IHTMLEventObj2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.setAttribute := CallbackCreate(GetMethod(implObj, "setAttribute"), flags, 4)
-        this.vtbl.getAttribute := CallbackCreate(GetMethod(implObj, "getAttribute"), flags, 4)
-        this.vtbl.removeAttribute := CallbackCreate(GetMethod(implObj, "removeAttribute"), flags, 4)
-        this.vtbl.put_propertyName := CallbackCreate(GetMethod(implObj, "put_propertyName"), flags, 2)
-        this.vtbl.get_propertyName := CallbackCreate(GetMethod(implObj, "get_propertyName"), flags, 2)
-        this.vtbl.putref_bookmarks := CallbackCreate(GetMethod(implObj, "putref_bookmarks"), flags, 2)
-        this.vtbl.get_bookmarks := CallbackCreate(GetMethod(implObj, "get_bookmarks"), flags, 2)
-        this.vtbl.putref_recordset := CallbackCreate(GetMethod(implObj, "putref_recordset"), flags, 2)
-        this.vtbl.get_recordset := CallbackCreate(GetMethod(implObj, "get_recordset"), flags, 2)
-        this.vtbl.put_dataFld := CallbackCreate(GetMethod(implObj, "put_dataFld"), flags, 2)
-        this.vtbl.get_dataFld := CallbackCreate(GetMethod(implObj, "get_dataFld"), flags, 2)
-        this.vtbl.putref_boundElements := CallbackCreate(GetMethod(implObj, "putref_boundElements"), flags, 2)
-        this.vtbl.get_boundElements := CallbackCreate(GetMethod(implObj, "get_boundElements"), flags, 2)
-        this.vtbl.put_repeat := CallbackCreate(GetMethod(implObj, "put_repeat"), flags, 2)
-        this.vtbl.get_repeat := CallbackCreate(GetMethod(implObj, "get_repeat"), flags, 2)
-        this.vtbl.put_srcUrn := CallbackCreate(GetMethod(implObj, "put_srcUrn"), flags, 2)
-        this.vtbl.get_srcUrn := CallbackCreate(GetMethod(implObj, "get_srcUrn"), flags, 2)
-        this.vtbl.putref_srcElement := CallbackCreate(GetMethod(implObj, "putref_srcElement"), flags, 2)
-        this.vtbl.get_srcElement := CallbackCreate(GetMethod(implObj, "get_srcElement"), flags, 2)
-        this.vtbl.put_altKey := CallbackCreate(GetMethod(implObj, "put_altKey"), flags, 2)
-        this.vtbl.get_altKey := CallbackCreate(GetMethod(implObj, "get_altKey"), flags, 2)
-        this.vtbl.put_ctrlKey := CallbackCreate(GetMethod(implObj, "put_ctrlKey"), flags, 2)
-        this.vtbl.get_ctrlKey := CallbackCreate(GetMethod(implObj, "get_ctrlKey"), flags, 2)
-        this.vtbl.put_shiftKey := CallbackCreate(GetMethod(implObj, "put_shiftKey"), flags, 2)
-        this.vtbl.get_shiftKey := CallbackCreate(GetMethod(implObj, "get_shiftKey"), flags, 2)
-        this.vtbl.putref_fromElement := CallbackCreate(GetMethod(implObj, "putref_fromElement"), flags, 2)
-        this.vtbl.get_fromElement := CallbackCreate(GetMethod(implObj, "get_fromElement"), flags, 2)
-        this.vtbl.putref_toElement := CallbackCreate(GetMethod(implObj, "putref_toElement"), flags, 2)
-        this.vtbl.get_toElement := CallbackCreate(GetMethod(implObj, "get_toElement"), flags, 2)
-        this.vtbl.put_button := CallbackCreate(GetMethod(implObj, "put_button"), flags, 2)
-        this.vtbl.get_button := CallbackCreate(GetMethod(implObj, "get_button"), flags, 2)
-        this.vtbl.put_type := CallbackCreate(GetMethod(implObj, "put_type"), flags, 2)
-        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
-        this.vtbl.put_qualifier := CallbackCreate(GetMethod(implObj, "put_qualifier"), flags, 2)
-        this.vtbl.get_qualifier := CallbackCreate(GetMethod(implObj, "get_qualifier"), flags, 2)
-        this.vtbl.put_reason := CallbackCreate(GetMethod(implObj, "put_reason"), flags, 2)
-        this.vtbl.get_reason := CallbackCreate(GetMethod(implObj, "get_reason"), flags, 2)
-        this.vtbl.put_x := CallbackCreate(GetMethod(implObj, "put_x"), flags, 2)
-        this.vtbl.get_x := CallbackCreate(GetMethod(implObj, "get_x"), flags, 2)
-        this.vtbl.put_y := CallbackCreate(GetMethod(implObj, "put_y"), flags, 2)
-        this.vtbl.get_y := CallbackCreate(GetMethod(implObj, "get_y"), flags, 2)
-        this.vtbl.put_clientX := CallbackCreate(GetMethod(implObj, "put_clientX"), flags, 2)
-        this.vtbl.get_clientX := CallbackCreate(GetMethod(implObj, "get_clientX"), flags, 2)
-        this.vtbl.put_clientY := CallbackCreate(GetMethod(implObj, "put_clientY"), flags, 2)
-        this.vtbl.get_clientY := CallbackCreate(GetMethod(implObj, "get_clientY"), flags, 2)
-        this.vtbl.put_offsetX := CallbackCreate(GetMethod(implObj, "put_offsetX"), flags, 2)
-        this.vtbl.get_offsetX := CallbackCreate(GetMethod(implObj, "get_offsetX"), flags, 2)
-        this.vtbl.put_offsetY := CallbackCreate(GetMethod(implObj, "put_offsetY"), flags, 2)
-        this.vtbl.get_offsetY := CallbackCreate(GetMethod(implObj, "get_offsetY"), flags, 2)
-        this.vtbl.put_screenX := CallbackCreate(GetMethod(implObj, "put_screenX"), flags, 2)
-        this.vtbl.get_screenX := CallbackCreate(GetMethod(implObj, "get_screenX"), flags, 2)
-        this.vtbl.put_screenY := CallbackCreate(GetMethod(implObj, "put_screenY"), flags, 2)
-        this.vtbl.get_screenY := CallbackCreate(GetMethod(implObj, "get_screenY"), flags, 2)
-        this.vtbl.putref_srcFilter := CallbackCreate(GetMethod(implObj, "putref_srcFilter"), flags, 2)
-        this.vtbl.get_srcFilter := CallbackCreate(GetMethod(implObj, "get_srcFilter"), flags, 2)
-        this.vtbl.get_dataTransfer := CallbackCreate(GetMethod(implObj, "get_dataTransfer"), flags, 2)
+        this.vtbl.setAttribute := CallbackCreate(ObjBindMethod(implObj, "setAttribute"), flags, 4)
+        this.vtbl.getAttribute := CallbackCreate(ObjBindMethod(implObj, "getAttribute"), flags, 4)
+        this.vtbl.removeAttribute := CallbackCreate(ObjBindMethod(implObj, "removeAttribute"), flags, 4)
+        this.vtbl.put_propertyName := CallbackCreate(ObjBindMethod(implObj, "put_propertyName"), flags, 2)
+        this.vtbl.get_propertyName := CallbackCreate(ObjBindMethod(implObj, "get_propertyName"), flags, 2)
+        this.vtbl.putref_bookmarks := CallbackCreate(ObjBindMethod(implObj, "putref_bookmarks"), flags, 2)
+        this.vtbl.get_bookmarks := CallbackCreate(ObjBindMethod(implObj, "get_bookmarks"), flags, 2)
+        this.vtbl.putref_recordset := CallbackCreate(ObjBindMethod(implObj, "putref_recordset"), flags, 2)
+        this.vtbl.get_recordset := CallbackCreate(ObjBindMethod(implObj, "get_recordset"), flags, 2)
+        this.vtbl.put_dataFld := CallbackCreate(ObjBindMethod(implObj, "put_dataFld"), flags, 2)
+        this.vtbl.get_dataFld := CallbackCreate(ObjBindMethod(implObj, "get_dataFld"), flags, 2)
+        this.vtbl.putref_boundElements := CallbackCreate(ObjBindMethod(implObj, "putref_boundElements"), flags, 2)
+        this.vtbl.get_boundElements := CallbackCreate(ObjBindMethod(implObj, "get_boundElements"), flags, 2)
+        this.vtbl.put_repeat := CallbackCreate(ObjBindMethod(implObj, "put_repeat"), flags, 2)
+        this.vtbl.get_repeat := CallbackCreate(ObjBindMethod(implObj, "get_repeat"), flags, 2)
+        this.vtbl.put_srcUrn := CallbackCreate(ObjBindMethod(implObj, "put_srcUrn"), flags, 2)
+        this.vtbl.get_srcUrn := CallbackCreate(ObjBindMethod(implObj, "get_srcUrn"), flags, 2)
+        this.vtbl.putref_srcElement := CallbackCreate(ObjBindMethod(implObj, "putref_srcElement"), flags, 2)
+        this.vtbl.get_srcElement := CallbackCreate(ObjBindMethod(implObj, "get_srcElement"), flags, 2)
+        this.vtbl.put_altKey := CallbackCreate(ObjBindMethod(implObj, "put_altKey"), flags, 2)
+        this.vtbl.get_altKey := CallbackCreate(ObjBindMethod(implObj, "get_altKey"), flags, 2)
+        this.vtbl.put_ctrlKey := CallbackCreate(ObjBindMethod(implObj, "put_ctrlKey"), flags, 2)
+        this.vtbl.get_ctrlKey := CallbackCreate(ObjBindMethod(implObj, "get_ctrlKey"), flags, 2)
+        this.vtbl.put_shiftKey := CallbackCreate(ObjBindMethod(implObj, "put_shiftKey"), flags, 2)
+        this.vtbl.get_shiftKey := CallbackCreate(ObjBindMethod(implObj, "get_shiftKey"), flags, 2)
+        this.vtbl.putref_fromElement := CallbackCreate(ObjBindMethod(implObj, "putref_fromElement"), flags, 2)
+        this.vtbl.get_fromElement := CallbackCreate(ObjBindMethod(implObj, "get_fromElement"), flags, 2)
+        this.vtbl.putref_toElement := CallbackCreate(ObjBindMethod(implObj, "putref_toElement"), flags, 2)
+        this.vtbl.get_toElement := CallbackCreate(ObjBindMethod(implObj, "get_toElement"), flags, 2)
+        this.vtbl.put_button := CallbackCreate(ObjBindMethod(implObj, "put_button"), flags, 2)
+        this.vtbl.get_button := CallbackCreate(ObjBindMethod(implObj, "get_button"), flags, 2)
+        this.vtbl.put_type := CallbackCreate(ObjBindMethod(implObj, "put_type"), flags, 2)
+        this.vtbl.get_type := CallbackCreate(ObjBindMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.put_qualifier := CallbackCreate(ObjBindMethod(implObj, "put_qualifier"), flags, 2)
+        this.vtbl.get_qualifier := CallbackCreate(ObjBindMethod(implObj, "get_qualifier"), flags, 2)
+        this.vtbl.put_reason := CallbackCreate(ObjBindMethod(implObj, "put_reason"), flags, 2)
+        this.vtbl.get_reason := CallbackCreate(ObjBindMethod(implObj, "get_reason"), flags, 2)
+        this.vtbl.put_x := CallbackCreate(ObjBindMethod(implObj, "put_x"), flags, 2)
+        this.vtbl.get_x := CallbackCreate(ObjBindMethod(implObj, "get_x"), flags, 2)
+        this.vtbl.put_y := CallbackCreate(ObjBindMethod(implObj, "put_y"), flags, 2)
+        this.vtbl.get_y := CallbackCreate(ObjBindMethod(implObj, "get_y"), flags, 2)
+        this.vtbl.put_clientX := CallbackCreate(ObjBindMethod(implObj, "put_clientX"), flags, 2)
+        this.vtbl.get_clientX := CallbackCreate(ObjBindMethod(implObj, "get_clientX"), flags, 2)
+        this.vtbl.put_clientY := CallbackCreate(ObjBindMethod(implObj, "put_clientY"), flags, 2)
+        this.vtbl.get_clientY := CallbackCreate(ObjBindMethod(implObj, "get_clientY"), flags, 2)
+        this.vtbl.put_offsetX := CallbackCreate(ObjBindMethod(implObj, "put_offsetX"), flags, 2)
+        this.vtbl.get_offsetX := CallbackCreate(ObjBindMethod(implObj, "get_offsetX"), flags, 2)
+        this.vtbl.put_offsetY := CallbackCreate(ObjBindMethod(implObj, "put_offsetY"), flags, 2)
+        this.vtbl.get_offsetY := CallbackCreate(ObjBindMethod(implObj, "get_offsetY"), flags, 2)
+        this.vtbl.put_screenX := CallbackCreate(ObjBindMethod(implObj, "put_screenX"), flags, 2)
+        this.vtbl.get_screenX := CallbackCreate(ObjBindMethod(implObj, "get_screenX"), flags, 2)
+        this.vtbl.put_screenY := CallbackCreate(ObjBindMethod(implObj, "put_screenY"), flags, 2)
+        this.vtbl.get_screenY := CallbackCreate(ObjBindMethod(implObj, "get_screenY"), flags, 2)
+        this.vtbl.putref_srcFilter := CallbackCreate(ObjBindMethod(implObj, "putref_srcFilter"), flags, 2)
+        this.vtbl.get_srcFilter := CallbackCreate(ObjBindMethod(implObj, "get_srcFilter"), flags, 2)
+        this.vtbl.get_dataTransfer := CallbackCreate(ObjBindMethod(implObj, "get_dataTransfer"), flags, 2)
     }
 
     Dispose() {

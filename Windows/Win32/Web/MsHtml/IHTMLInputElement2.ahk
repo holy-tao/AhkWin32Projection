@@ -56,7 +56,6 @@ export default struct IHTMLInputElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -68,7 +67,6 @@ export default struct IHTMLInputElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_accept() {
@@ -78,7 +76,6 @@ export default struct IHTMLInputElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -90,7 +87,6 @@ export default struct IHTMLInputElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_useMap() {
@@ -108,10 +104,10 @@ export default struct IHTMLInputElement2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_accept := CallbackCreate(GetMethod(implObj, "put_accept"), flags, 2)
-        this.vtbl.get_accept := CallbackCreate(GetMethod(implObj, "get_accept"), flags, 2)
-        this.vtbl.put_useMap := CallbackCreate(GetMethod(implObj, "put_useMap"), flags, 2)
-        this.vtbl.get_useMap := CallbackCreate(GetMethod(implObj, "get_useMap"), flags, 2)
+        this.vtbl.put_accept := CallbackCreate(ObjBindMethod(implObj, "put_accept"), flags, 2)
+        this.vtbl.get_accept := CallbackCreate(ObjBindMethod(implObj, "get_accept"), flags, 2)
+        this.vtbl.put_useMap := CallbackCreate(ObjBindMethod(implObj, "put_useMap"), flags, 2)
+        this.vtbl.get_useMap := CallbackCreate(ObjBindMethod(implObj, "get_useMap"), flags, 2)
     }
 
     Dispose() {

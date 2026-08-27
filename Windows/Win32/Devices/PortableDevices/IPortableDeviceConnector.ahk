@@ -201,9 +201,9 @@ export default struct IPortableDeviceConnector extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceconnectapi/nf-portabledeviceconnectapi-iportabledeviceconnector-getproperty
      */
     GetProperty(pPropertyKey, pPropertyType, ppData, pcbData) {
-        pPropertyTypeMarshal := pPropertyType is VarRef ? "uint*" : "ptr"
-        ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
-        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+        pPropertyTypeMarshal := pPropertyType is VarRef ? "uint*" : IntPtr
+        ppDataMarshal := ppData is VarRef ? "ptr*" : IntPtr
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, DEVPROPKEY.Ptr, pPropertyKey, pPropertyTypeMarshal, pPropertyType, ppDataMarshal, ppData, pcbDataMarshal, pcbData, "HRESULT")
         return result
@@ -250,7 +250,7 @@ export default struct IPortableDeviceConnector extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceconnectapi/nf-portabledeviceconnectapi-iportabledeviceconnector-setproperty
      */
     SetProperty(pPropertyKey, PropertyType, pData, cbData) {
-        pDataMarshal := pData is VarRef ? "char*" : "ptr"
+        pDataMarshal := pData is VarRef ? "char*" : IntPtr
 
         result := ComCall(7, this, DEVPROPKEY.Ptr, pPropertyKey, DEVPROPTYPE, PropertyType, pDataMarshal, pData, UInt32, cbData, "HRESULT")
         return result
@@ -279,12 +279,12 @@ export default struct IPortableDeviceConnector extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 2)
-        this.vtbl.Disconnect := CallbackCreate(GetMethod(implObj, "Disconnect"), flags, 2)
-        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 2)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 5)
-        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 5)
-        this.vtbl.GetPnPID := CallbackCreate(GetMethod(implObj, "GetPnPID"), flags, 2)
+        this.vtbl.Connect := CallbackCreate(ObjBindMethod(implObj, "Connect"), flags, 2)
+        this.vtbl.Disconnect := CallbackCreate(ObjBindMethod(implObj, "Disconnect"), flags, 2)
+        this.vtbl.Cancel := CallbackCreate(ObjBindMethod(implObj, "Cancel"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 5)
+        this.vtbl.SetProperty := CallbackCreate(ObjBindMethod(implObj, "SetProperty"), flags, 5)
+        this.vtbl.GetPnPID := CallbackCreate(ObjBindMethod(implObj, "GetPnPID"), flags, 2)
     }
 
     Dispose() {

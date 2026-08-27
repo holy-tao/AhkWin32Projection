@@ -30,7 +30,6 @@ export default struct LPWSPGETOVERLAPPEDRESULT {
     }
 
     /**
-     * 
      * @param {SOCKET} s Identifies the socket. This is the same socket that was specified when the overlapped operation was started by a call to <b><a href="https://docs.microsoft.com/windows/win32/api/ws2spi/nc-ws2spi-lpwsprecv">LPWSPRecv</a></b>, <b><a href="https://docs.microsoft.com/windows/win32/api/ws2spi/nc-ws2spi-lpwsprecvfrom">LPWSPRecvFrom</a></b>, <b><a href="https://docs.microsoft.com/windows/win32/api/ws2spi/nc-ws2spi-lpwspsend">LPWSPSend</a></b>, <b><a href="https://docs.microsoft.com/windows/win32/api/ws2spi/nc-ws2spi-lpwspsendto">LPWSPSendTo</a></b>, or <b><a href="https://docs.microsoft.com/windows/win32/api/ws2spi/nc-ws2spi-lpwspioctl">LPWSPIoctl</a></b>.
      * @param {Pointer<OVERLAPPED>} lpOverlapped Pointer to a <b><a href="https://docs.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsaoverlapped">WSAOverlapped</a></b> structure that was specified when the overlapped operation was started.
      * @param {Pointer<Integer>} lpcbTransfer Pointer to a 32-bit variable that receives the number of bytes that were actually transferred by a send or receive operation, or by <b><a href="https://docs.microsoft.com/windows/win32/api/ws2spi/nc-ws2spi-lpwspioctl">LPWSPIoctl</a></b>.
@@ -102,9 +101,9 @@ export default struct LPWSPGETOVERLAPPEDRESULT {
      * </table>
      */
     Call(s, lpOverlapped, lpcbTransfer, fWait, lpdwFlags, lpErrno) {
-        lpcbTransferMarshal := lpcbTransfer is VarRef ? "uint*" : "ptr"
-        lpdwFlagsMarshal := lpdwFlags is VarRef ? "uint*" : "ptr"
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        lpcbTransferMarshal := lpcbTransfer is VarRef ? "uint*" : IntPtr
+        lpdwFlagsMarshal := lpdwFlags is VarRef ? "uint*" : IntPtr
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, SOCKET, s, OVERLAPPED.Ptr, lpOverlapped, lpcbTransferMarshal, lpcbTransfer, BOOL, fWait, lpdwFlagsMarshal, lpdwFlags, lpErrnoMarshal, lpErrno, BOOL)
         return result

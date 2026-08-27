@@ -52,8 +52,8 @@ export default struct IMDServiceProvider2 extends IMDServiceProvider {
     CreateDevice(pwszDevicePath, pdwCount, pppDeviceArray) {
         pwszDevicePath := pwszDevicePath is String ? StrPtr(pwszDevicePath) : pwszDevicePath
 
-        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
-        pppDeviceArrayMarshal := pppDeviceArray is VarRef ? "ptr*" : "ptr"
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : IntPtr
+        pppDeviceArrayMarshal := pppDeviceArray is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, "ptr", pwszDevicePath, pdwCountMarshal, pdwCount, pppDeviceArrayMarshal, pppDeviceArray, "HRESULT")
         return result
@@ -68,7 +68,7 @@ export default struct IMDServiceProvider2 extends IMDServiceProvider {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateDevice := CallbackCreate(GetMethod(implObj, "CreateDevice"), flags, 4)
+        this.vtbl.CreateDevice := CallbackCreate(ObjBindMethod(implObj, "CreateDevice"), flags, 4)
     }
 
     Dispose() {

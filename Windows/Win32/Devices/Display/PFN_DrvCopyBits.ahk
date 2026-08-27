@@ -24,7 +24,6 @@ export default struct PFN_DrvCopyBits {
     }
 
     /**
-     * 
      * @param {Pointer<SURFOBJ>} param0 
      * @param {Pointer<SURFOBJ>} param1 
      * @param {Pointer<CLIPOBJ>} param2 

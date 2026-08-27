@@ -82,7 +82,7 @@ export default struct IMarshalingStream extends IStream {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMarshalingContextAttribute := CallbackCreate(GetMethod(implObj, "GetMarshalingContextAttribute"), flags, 3)
+        this.vtbl.GetMarshalingContextAttribute := CallbackCreate(ObjBindMethod(implObj, "GetMarshalingContextAttribute"), flags, 3)
     }
 
     Dispose() {

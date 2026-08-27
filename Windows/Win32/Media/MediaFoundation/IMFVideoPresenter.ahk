@@ -102,8 +102,8 @@ export default struct IMFVideoPresenter extends IMFClockStateSink {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ProcessMessage := CallbackCreate(GetMethod(implObj, "ProcessMessage"), flags, 3)
-        this.vtbl.GetCurrentMediaType := CallbackCreate(GetMethod(implObj, "GetCurrentMediaType"), flags, 2)
+        this.vtbl.ProcessMessage := CallbackCreate(ObjBindMethod(implObj, "ProcessMessage"), flags, 3)
+        this.vtbl.GetCurrentMediaType := CallbackCreate(ObjBindMethod(implObj, "GetCurrentMediaType"), flags, 2)
     }
 
     Dispose() {

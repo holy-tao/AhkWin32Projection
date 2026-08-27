@@ -131,9 +131,10 @@ export default struct IDWriteFont1 extends IDWriteFont {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefont1-getunicoderanges
      */
     GetUnicodeRanges(maxRangeCount, unicodeRanges, actualRangeCount) {
-        actualRangeCountMarshal := actualRangeCount is VarRef ? "uint*" : "ptr"
+        unicodeRangesMarshal := unicodeRanges == 0 ? IntPtr : DWRITE_UNICODE_RANGE.Ptr
+        actualRangeCountMarshal := actualRangeCount is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(16, this, UInt32, maxRangeCount, DWRITE_UNICODE_RANGE.Ptr, unicodeRanges, actualRangeCountMarshal, actualRangeCount, "HRESULT")
+        result := ComCall(16, this, UInt32, maxRangeCount, unicodeRangesMarshal, unicodeRanges, actualRangeCountMarshal, actualRangeCount, "HRESULT")
         return result
     }
 
@@ -158,10 +159,10 @@ export default struct IDWriteFont1 extends IDWriteFont {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMetrics := CallbackCreate(GetMethod(implObj, "GetMetrics"), flags, 2)
-        this.vtbl.GetPanose := CallbackCreate(GetMethod(implObj, "GetPanose"), flags, 2)
-        this.vtbl.GetUnicodeRanges := CallbackCreate(GetMethod(implObj, "GetUnicodeRanges"), flags, 4)
-        this.vtbl.IsMonospacedFont := CallbackCreate(GetMethod(implObj, "IsMonospacedFont"), flags, 1)
+        this.vtbl.GetMetrics := CallbackCreate(ObjBindMethod(implObj, "GetMetrics"), flags, 2)
+        this.vtbl.GetPanose := CallbackCreate(ObjBindMethod(implObj, "GetPanose"), flags, 2)
+        this.vtbl.GetUnicodeRanges := CallbackCreate(ObjBindMethod(implObj, "GetUnicodeRanges"), flags, 4)
+        this.vtbl.IsMonospacedFont := CallbackCreate(ObjBindMethod(implObj, "IsMonospacedFont"), flags, 1)
     }
 
     Dispose() {

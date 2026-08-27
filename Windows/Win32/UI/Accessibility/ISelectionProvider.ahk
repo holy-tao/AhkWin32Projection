@@ -108,9 +108,9 @@ export default struct ISelectionProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSelection := CallbackCreate(GetMethod(implObj, "GetSelection"), flags, 2)
-        this.vtbl.get_CanSelectMultiple := CallbackCreate(GetMethod(implObj, "get_CanSelectMultiple"), flags, 2)
-        this.vtbl.get_IsSelectionRequired := CallbackCreate(GetMethod(implObj, "get_IsSelectionRequired"), flags, 2)
+        this.vtbl.GetSelection := CallbackCreate(ObjBindMethod(implObj, "GetSelection"), flags, 2)
+        this.vtbl.get_CanSelectMultiple := CallbackCreate(ObjBindMethod(implObj, "get_CanSelectMultiple"), flags, 2)
+        this.vtbl.get_IsSelectionRequired := CallbackCreate(ObjBindMethod(implObj, "get_IsSelectionRequired"), flags, 2)
     }
 
     Dispose() {

@@ -136,9 +136,9 @@ export default struct IOleDocument extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateView := CallbackCreate(GetMethod(implObj, "CreateView"), flags, 5)
-        this.vtbl.GetDocMiscStatus := CallbackCreate(GetMethod(implObj, "GetDocMiscStatus"), flags, 2)
-        this.vtbl.EnumViews := CallbackCreate(GetMethod(implObj, "EnumViews"), flags, 3)
+        this.vtbl.CreateView := CallbackCreate(ObjBindMethod(implObj, "CreateView"), flags, 5)
+        this.vtbl.GetDocMiscStatus := CallbackCreate(ObjBindMethod(implObj, "GetDocMiscStatus"), flags, 2)
+        this.vtbl.EnumViews := CallbackCreate(ObjBindMethod(implObj, "EnumViews"), flags, 3)
     }
 
     Dispose() {

@@ -75,7 +75,10 @@ export default struct IMFMediaEngineSupportsSourceTransfer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaenginesupportssourcetransfer-attachmediasource
      */
     AttachMediaSource(pByteStream, pMediaSource, pMSE) {
-        result := ComCall(5, this, "ptr", pByteStream, "ptr", pMediaSource, "ptr", pMSE, "HRESULT")
+        pByteStreamMarshal := pByteStream == 0 ? IntPtr : "ptr"
+        pMSEMarshal := pMSE == 0 ? IntPtr : "ptr"
+
+        result := ComCall(5, this, pByteStreamMarshal, pByteStream, "ptr", pMediaSource, pMSEMarshal, pMSE, "HRESULT")
         return result
     }
 
@@ -88,9 +91,9 @@ export default struct IMFMediaEngineSupportsSourceTransfer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ShouldTransferSource := CallbackCreate(GetMethod(implObj, "ShouldTransferSource"), flags, 2)
-        this.vtbl.DetachMediaSource := CallbackCreate(GetMethod(implObj, "DetachMediaSource"), flags, 4)
-        this.vtbl.AttachMediaSource := CallbackCreate(GetMethod(implObj, "AttachMediaSource"), flags, 4)
+        this.vtbl.ShouldTransferSource := CallbackCreate(ObjBindMethod(implObj, "ShouldTransferSource"), flags, 2)
+        this.vtbl.DetachMediaSource := CallbackCreate(ObjBindMethod(implObj, "DetachMediaSource"), flags, 4)
+        this.vtbl.AttachMediaSource := CallbackCreate(ObjBindMethod(implObj, "AttachMediaSource"), flags, 4)
     }
 
     Dispose() {

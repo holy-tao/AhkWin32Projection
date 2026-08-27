@@ -18,7 +18,6 @@ export default struct PPCI_ROOT_BUS_CAPABILITY {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

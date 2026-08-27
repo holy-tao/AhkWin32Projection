@@ -83,7 +83,7 @@ export default struct IWSDAsyncCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AsyncOperationComplete := CallbackCreate(GetMethod(implObj, "AsyncOperationComplete"), flags, 3)
+        this.vtbl.AsyncOperationComplete := CallbackCreate(ObjBindMethod(implObj, "AsyncOperationComplete"), flags, 3)
     }
 
     Dispose() {

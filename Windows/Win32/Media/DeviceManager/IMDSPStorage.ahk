@@ -72,7 +72,9 @@ export default struct IMDSPStorage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorage-setattributes
      */
     SetAttributes(dwAttributes, pFormat) {
-        result := ComCall(3, this, UInt32, dwAttributes, WAVEFORMATEX.Ptr, pFormat, "HRESULT")
+        pFormatMarshal := pFormat == 0 ? IntPtr : WAVEFORMATEX.Ptr
+
+        result := ComCall(3, this, UInt32, dwAttributes, pFormatMarshal, pFormat, "HRESULT")
         return result
     }
 
@@ -105,7 +107,9 @@ export default struct IMDSPStorage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorage-getattributes
      */
     GetAttributes(pFormat) {
-        result := ComCall(5, this, "uint*", &pdwAttributes := 0, WAVEFORMATEX.Ptr, pFormat, "HRESULT")
+        pFormatMarshal := pFormat == 0 ? IntPtr : WAVEFORMATEX.Ptr
+
+        result := ComCall(5, this, "uint*", &pdwAttributes := 0, pFormatMarshal, pFormat, "HRESULT")
         return pdwAttributes
     }
 
@@ -170,8 +174,8 @@ export default struct IMDSPStorage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorage-getsize
      */
     GetSize(pdwSizeLow, pdwSizeHigh) {
-        pdwSizeLowMarshal := pdwSizeLow is VarRef ? "uint*" : "ptr"
-        pdwSizeHighMarshal := pdwSizeHigh is VarRef ? "uint*" : "ptr"
+        pdwSizeLowMarshal := pdwSizeLow is VarRef ? "uint*" : IntPtr
+        pdwSizeHighMarshal := pdwSizeHigh is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, pdwSizeLowMarshal, pdwSizeLow, pdwSizeHighMarshal, pdwSizeHigh, "HRESULT")
         return result
@@ -199,9 +203,9 @@ export default struct IMDSPStorage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorage-getrights
      */
     GetRights(ppRights, pnRightsCount, abMac) {
-        ppRightsMarshal := ppRights is VarRef ? "ptr*" : "ptr"
-        pnRightsCountMarshal := pnRightsCount is VarRef ? "uint*" : "ptr"
-        abMacMarshal := abMac is VarRef ? "char*" : "ptr"
+        ppRightsMarshal := ppRights is VarRef ? "ptr*" : IntPtr
+        pnRightsCountMarshal := pnRightsCount is VarRef ? "uint*" : IntPtr
+        abMacMarshal := abMac is VarRef ? "char*" : IntPtr
 
         result := ComCall(9, this, ppRightsMarshal, ppRights, pnRightsCountMarshal, pnRightsCount, abMacMarshal, abMac, "HRESULT")
         return result
@@ -337,7 +341,9 @@ export default struct IMDSPStorage extends IUnknown {
     CreateStorage(dwAttributes, pFormat, pwszName) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(10, this, UInt32, dwAttributes, WAVEFORMATEX.Ptr, pFormat, "ptr", pwszName, "ptr*", &ppNewStorage := 0, "HRESULT")
+        pFormatMarshal := pFormat == 0 ? IntPtr : WAVEFORMATEX.Ptr
+
+        result := ComCall(10, this, UInt32, dwAttributes, pFormatMarshal, pFormat, "ptr", pwszName, "ptr*", &ppNewStorage := 0, "HRESULT")
         return IMDSPStorage(ppNewStorage)
     }
 
@@ -386,16 +392,16 @@ export default struct IMDSPStorage extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAttributes := CallbackCreate(GetMethod(implObj, "SetAttributes"), flags, 3)
-        this.vtbl.GetStorageGlobals := CallbackCreate(GetMethod(implObj, "GetStorageGlobals"), flags, 2)
-        this.vtbl.GetAttributes := CallbackCreate(GetMethod(implObj, "GetAttributes"), flags, 3)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 3)
-        this.vtbl.GetDate := CallbackCreate(GetMethod(implObj, "GetDate"), flags, 2)
-        this.vtbl.GetSize := CallbackCreate(GetMethod(implObj, "GetSize"), flags, 3)
-        this.vtbl.GetRights := CallbackCreate(GetMethod(implObj, "GetRights"), flags, 4)
-        this.vtbl.CreateStorage := CallbackCreate(GetMethod(implObj, "CreateStorage"), flags, 5)
-        this.vtbl.EnumStorage := CallbackCreate(GetMethod(implObj, "EnumStorage"), flags, 2)
-        this.vtbl.SendOpaqueCommand := CallbackCreate(GetMethod(implObj, "SendOpaqueCommand"), flags, 2)
+        this.vtbl.SetAttributes := CallbackCreate(ObjBindMethod(implObj, "SetAttributes"), flags, 3)
+        this.vtbl.GetStorageGlobals := CallbackCreate(ObjBindMethod(implObj, "GetStorageGlobals"), flags, 2)
+        this.vtbl.GetAttributes := CallbackCreate(ObjBindMethod(implObj, "GetAttributes"), flags, 3)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 3)
+        this.vtbl.GetDate := CallbackCreate(ObjBindMethod(implObj, "GetDate"), flags, 2)
+        this.vtbl.GetSize := CallbackCreate(ObjBindMethod(implObj, "GetSize"), flags, 3)
+        this.vtbl.GetRights := CallbackCreate(ObjBindMethod(implObj, "GetRights"), flags, 4)
+        this.vtbl.CreateStorage := CallbackCreate(ObjBindMethod(implObj, "CreateStorage"), flags, 5)
+        this.vtbl.EnumStorage := CallbackCreate(ObjBindMethod(implObj, "EnumStorage"), flags, 2)
+        this.vtbl.SendOpaqueCommand := CallbackCreate(ObjBindMethod(implObj, "SendOpaqueCommand"), flags, 2)
     }
 
     Dispose() {

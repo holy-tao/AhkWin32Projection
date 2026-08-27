@@ -49,7 +49,6 @@ export default struct IWiaDrvItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetItemFlags() {
@@ -58,7 +57,6 @@ export default struct IWiaDrvItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<Integer>} 
      */
     GetDeviceSpecContext() {
@@ -67,7 +65,6 @@ export default struct IWiaDrvItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetFullItemName() {
@@ -77,7 +74,6 @@ export default struct IWiaDrvItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetItemName() {
@@ -87,17 +83,17 @@ export default struct IWiaDrvItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {IWiaDrvItem} __MIDL__IWiaDrvItem0004 
      * @returns {HRESULT} 
      */
     AddItemToFolder(__MIDL__IWiaDrvItem0004) {
-        result := ComCall(7, this, "ptr", __MIDL__IWiaDrvItem0004, "HRESULT")
+        __MIDL__IWiaDrvItem0004Marshal := __MIDL__IWiaDrvItem0004 == 0 ? IntPtr : "ptr"
+
+        result := ComCall(7, this, __MIDL__IWiaDrvItem0004Marshal, __MIDL__IWiaDrvItem0004, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} __MIDL__IWiaDrvItem0005 
      * @returns {HRESULT} 
      */
@@ -107,7 +103,6 @@ export default struct IWiaDrvItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} __MIDL__IWiaDrvItem0006 
      * @returns {HRESULT} 
      */
@@ -117,7 +112,6 @@ export default struct IWiaDrvItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} __MIDL__IWiaDrvItem0007 
      * @param {BSTR} __MIDL__IWiaDrvItem0008 
      * @returns {IWiaDrvItem} 
@@ -130,7 +124,6 @@ export default struct IWiaDrvItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} __MIDL__IWiaDrvItem0010 
      * @returns {IWiaDrvItem} 
      */
@@ -142,7 +135,6 @@ export default struct IWiaDrvItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IWiaDrvItem} 
      */
     GetParentItem() {
@@ -151,7 +143,6 @@ export default struct IWiaDrvItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IWiaDrvItem} 
      */
     GetFirstChildItem() {
@@ -160,7 +151,6 @@ export default struct IWiaDrvItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IWiaDrvItem} 
      */
     GetNextSiblingItem() {
@@ -169,7 +159,6 @@ export default struct IWiaDrvItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     DumpItemData() {
@@ -187,19 +176,19 @@ export default struct IWiaDrvItem extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetItemFlags := CallbackCreate(GetMethod(implObj, "GetItemFlags"), flags, 2)
-        this.vtbl.GetDeviceSpecContext := CallbackCreate(GetMethod(implObj, "GetDeviceSpecContext"), flags, 2)
-        this.vtbl.GetFullItemName := CallbackCreate(GetMethod(implObj, "GetFullItemName"), flags, 2)
-        this.vtbl.GetItemName := CallbackCreate(GetMethod(implObj, "GetItemName"), flags, 2)
-        this.vtbl.AddItemToFolder := CallbackCreate(GetMethod(implObj, "AddItemToFolder"), flags, 2)
-        this.vtbl.UnlinkItemTree := CallbackCreate(GetMethod(implObj, "UnlinkItemTree"), flags, 2)
-        this.vtbl.RemoveItemFromFolder := CallbackCreate(GetMethod(implObj, "RemoveItemFromFolder"), flags, 2)
-        this.vtbl.FindItemByName := CallbackCreate(GetMethod(implObj, "FindItemByName"), flags, 4)
-        this.vtbl.FindChildItemByName := CallbackCreate(GetMethod(implObj, "FindChildItemByName"), flags, 3)
-        this.vtbl.GetParentItem := CallbackCreate(GetMethod(implObj, "GetParentItem"), flags, 2)
-        this.vtbl.GetFirstChildItem := CallbackCreate(GetMethod(implObj, "GetFirstChildItem"), flags, 2)
-        this.vtbl.GetNextSiblingItem := CallbackCreate(GetMethod(implObj, "GetNextSiblingItem"), flags, 2)
-        this.vtbl.DumpItemData := CallbackCreate(GetMethod(implObj, "DumpItemData"), flags, 2)
+        this.vtbl.GetItemFlags := CallbackCreate(ObjBindMethod(implObj, "GetItemFlags"), flags, 2)
+        this.vtbl.GetDeviceSpecContext := CallbackCreate(ObjBindMethod(implObj, "GetDeviceSpecContext"), flags, 2)
+        this.vtbl.GetFullItemName := CallbackCreate(ObjBindMethod(implObj, "GetFullItemName"), flags, 2)
+        this.vtbl.GetItemName := CallbackCreate(ObjBindMethod(implObj, "GetItemName"), flags, 2)
+        this.vtbl.AddItemToFolder := CallbackCreate(ObjBindMethod(implObj, "AddItemToFolder"), flags, 2)
+        this.vtbl.UnlinkItemTree := CallbackCreate(ObjBindMethod(implObj, "UnlinkItemTree"), flags, 2)
+        this.vtbl.RemoveItemFromFolder := CallbackCreate(ObjBindMethod(implObj, "RemoveItemFromFolder"), flags, 2)
+        this.vtbl.FindItemByName := CallbackCreate(ObjBindMethod(implObj, "FindItemByName"), flags, 4)
+        this.vtbl.FindChildItemByName := CallbackCreate(ObjBindMethod(implObj, "FindChildItemByName"), flags, 3)
+        this.vtbl.GetParentItem := CallbackCreate(ObjBindMethod(implObj, "GetParentItem"), flags, 2)
+        this.vtbl.GetFirstChildItem := CallbackCreate(ObjBindMethod(implObj, "GetFirstChildItem"), flags, 2)
+        this.vtbl.GetNextSiblingItem := CallbackCreate(ObjBindMethod(implObj, "GetNextSiblingItem"), flags, 2)
+        this.vtbl.DumpItemData := CallbackCreate(ObjBindMethod(implObj, "DumpItemData"), flags, 2)
     }
 
     Dispose() {

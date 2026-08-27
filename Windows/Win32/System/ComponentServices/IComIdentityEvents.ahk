@@ -67,7 +67,7 @@ export default struct IComIdentityEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnIISRequestInfo := CallbackCreate(GetMethod(implObj, "OnIISRequestInfo"), flags, 6)
+        this.vtbl.OnIISRequestInfo := CallbackCreate(ObjBindMethod(implObj, "OnIISRequestInfo"), flags, 6)
     }
 
     Dispose() {

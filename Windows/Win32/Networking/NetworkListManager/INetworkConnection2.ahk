@@ -65,7 +65,7 @@ export default struct INetworkConnection2 extends INetworkConnection {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsDomainAuthenticatedBy := CallbackCreate(GetMethod(implObj, "IsDomainAuthenticatedBy"), flags, 3)
+        this.vtbl.IsDomainAuthenticatedBy := CallbackCreate(ObjBindMethod(implObj, "IsDomainAuthenticatedBy"), flags, 3)
     }
 
     Dispose() {

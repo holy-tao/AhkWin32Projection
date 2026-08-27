@@ -123,7 +123,7 @@ export default struct IDvbLinkageDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblinkagedescriptor-getprivatedata
      */
     GetPrivateData(pbLen) {
-        pbLenMarshal := pbLen is VarRef ? "char*" : "ptr"
+        pbLenMarshal := pbLen is VarRef ? "char*" : IntPtr
 
         result := ComCall(10, this, pbLenMarshal, pbLen, "char*", &pbData := 0, "HRESULT")
         return pbData
@@ -138,14 +138,14 @@ export default struct IDvbLinkageDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetTSId := CallbackCreate(GetMethod(implObj, "GetTSId"), flags, 2)
-        this.vtbl.GetONId := CallbackCreate(GetMethod(implObj, "GetONId"), flags, 2)
-        this.vtbl.GetServiceId := CallbackCreate(GetMethod(implObj, "GetServiceId"), flags, 2)
-        this.vtbl.GetLinkageType := CallbackCreate(GetMethod(implObj, "GetLinkageType"), flags, 2)
-        this.vtbl.GetPrivateDataLength := CallbackCreate(GetMethod(implObj, "GetPrivateDataLength"), flags, 2)
-        this.vtbl.GetPrivateData := CallbackCreate(GetMethod(implObj, "GetPrivateData"), flags, 3)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetTSId := CallbackCreate(ObjBindMethod(implObj, "GetTSId"), flags, 2)
+        this.vtbl.GetONId := CallbackCreate(ObjBindMethod(implObj, "GetONId"), flags, 2)
+        this.vtbl.GetServiceId := CallbackCreate(ObjBindMethod(implObj, "GetServiceId"), flags, 2)
+        this.vtbl.GetLinkageType := CallbackCreate(ObjBindMethod(implObj, "GetLinkageType"), flags, 2)
+        this.vtbl.GetPrivateDataLength := CallbackCreate(ObjBindMethod(implObj, "GetPrivateDataLength"), flags, 2)
+        this.vtbl.GetPrivateData := CallbackCreate(ObjBindMethod(implObj, "GetPrivateData"), flags, 3)
     }
 
     Dispose() {

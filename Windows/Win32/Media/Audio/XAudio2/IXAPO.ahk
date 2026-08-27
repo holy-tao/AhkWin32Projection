@@ -120,7 +120,9 @@ export default struct IXAPO extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xapo/nf-xapo-ixapo-initialize
      */
     Initialize(pData, DataByteSize) {
-        result := ComCall(6, this, IntPtr, pData, UInt32, DataByteSize, "HRESULT")
+        pDataMarshal := pData == 0 ? IntPtr : IntPtr
+
+        result := ComCall(6, this, pDataMarshal, pData, UInt32, DataByteSize, "HRESULT")
         return result
     }
 
@@ -185,7 +187,10 @@ export default struct IXAPO extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xapo/nf-xapo-ixapo-lockforprocess
      */
     LockForProcess(InputLockedParameterCount, pInputLockedParameters, OutputLockedParameterCount, pOutputLockedParameters) {
-        result := ComCall(8, this, UInt32, InputLockedParameterCount, XAPO_LOCKFORPROCESS_PARAMETERS.Ptr, pInputLockedParameters, UInt32, OutputLockedParameterCount, XAPO_LOCKFORPROCESS_PARAMETERS.Ptr, pOutputLockedParameters, "HRESULT")
+        pInputLockedParametersMarshal := pInputLockedParameters == 0 ? IntPtr : XAPO_LOCKFORPROCESS_PARAMETERS.Ptr
+        pOutputLockedParametersMarshal := pOutputLockedParameters == 0 ? IntPtr : XAPO_LOCKFORPROCESS_PARAMETERS.Ptr
+
+        result := ComCall(8, this, UInt32, InputLockedParameterCount, pInputLockedParametersMarshal, pInputLockedParameters, UInt32, OutputLockedParameterCount, pOutputLockedParametersMarshal, pOutputLockedParameters, "HRESULT")
         return result
     }
 
@@ -250,7 +255,10 @@ export default struct IXAPO extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xapo/nf-xapo-ixapo-process
      */
     Process(InputProcessParameterCount, pInputProcessParameters, OutputProcessParameterCount, pOutputProcessParameters, IsEnabled) {
-        ComCall(10, this, UInt32, InputProcessParameterCount, XAPO_PROCESS_BUFFER_PARAMETERS.Ptr, pInputProcessParameters, UInt32, OutputProcessParameterCount, XAPO_PROCESS_BUFFER_PARAMETERS.Ptr, pOutputProcessParameters, BOOL, IsEnabled)
+        pInputProcessParametersMarshal := pInputProcessParameters == 0 ? IntPtr : XAPO_PROCESS_BUFFER_PARAMETERS.Ptr
+        pOutputProcessParametersMarshal := pOutputProcessParameters == 0 ? IntPtr : XAPO_PROCESS_BUFFER_PARAMETERS.Ptr
+
+        ComCall(10, this, UInt32, InputProcessParameterCount, pInputProcessParametersMarshal, pInputProcessParameters, UInt32, OutputProcessParameterCount, pOutputProcessParametersMarshal, pOutputProcessParameters, BOOL, IsEnabled)
     }
 
     /**
@@ -306,16 +314,16 @@ export default struct IXAPO extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRegistrationProperties := CallbackCreate(GetMethod(implObj, "GetRegistrationProperties"), flags, 2)
-        this.vtbl.IsInputFormatSupported := CallbackCreate(GetMethod(implObj, "IsInputFormatSupported"), flags, 4)
-        this.vtbl.IsOutputFormatSupported := CallbackCreate(GetMethod(implObj, "IsOutputFormatSupported"), flags, 4)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.LockForProcess := CallbackCreate(GetMethod(implObj, "LockForProcess"), flags, 5)
-        this.vtbl.UnlockForProcess := CallbackCreate(GetMethod(implObj, "UnlockForProcess"), flags, 1)
-        this.vtbl.Process := CallbackCreate(GetMethod(implObj, "Process"), flags, 6)
-        this.vtbl.CalcInputFrames := CallbackCreate(GetMethod(implObj, "CalcInputFrames"), flags, 2)
-        this.vtbl.CalcOutputFrames := CallbackCreate(GetMethod(implObj, "CalcOutputFrames"), flags, 2)
+        this.vtbl.GetRegistrationProperties := CallbackCreate(ObjBindMethod(implObj, "GetRegistrationProperties"), flags, 2)
+        this.vtbl.IsInputFormatSupported := CallbackCreate(ObjBindMethod(implObj, "IsInputFormatSupported"), flags, 4)
+        this.vtbl.IsOutputFormatSupported := CallbackCreate(ObjBindMethod(implObj, "IsOutputFormatSupported"), flags, 4)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.LockForProcess := CallbackCreate(ObjBindMethod(implObj, "LockForProcess"), flags, 5)
+        this.vtbl.UnlockForProcess := CallbackCreate(ObjBindMethod(implObj, "UnlockForProcess"), flags, 1)
+        this.vtbl.Process := CallbackCreate(ObjBindMethod(implObj, "Process"), flags, 6)
+        this.vtbl.CalcInputFrames := CallbackCreate(ObjBindMethod(implObj, "CalcInputFrames"), flags, 2)
+        this.vtbl.CalcOutputFrames := CallbackCreate(ObjBindMethod(implObj, "CalcOutputFrames"), flags, 2)
     }
 
     Dispose() {

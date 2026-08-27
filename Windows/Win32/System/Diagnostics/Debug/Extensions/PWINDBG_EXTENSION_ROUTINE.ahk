@@ -20,7 +20,6 @@ export default struct PWINDBG_EXTENSION_ROUTINE {
     }
 
     /**
-     * 
      * @param {HANDLE} hCurrentProcess 
      * @param {HANDLE} hCurrentThread 
      * @param {Integer} dwCurrentPc 

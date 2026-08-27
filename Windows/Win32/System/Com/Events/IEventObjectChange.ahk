@@ -98,9 +98,9 @@ export default struct IEventObjectChange extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ChangedSubscription := CallbackCreate(GetMethod(implObj, "ChangedSubscription"), flags, 3)
-        this.vtbl.ChangedEventClass := CallbackCreate(GetMethod(implObj, "ChangedEventClass"), flags, 3)
-        this.vtbl.ChangedPublisher := CallbackCreate(GetMethod(implObj, "ChangedPublisher"), flags, 3)
+        this.vtbl.ChangedSubscription := CallbackCreate(ObjBindMethod(implObj, "ChangedSubscription"), flags, 3)
+        this.vtbl.ChangedEventClass := CallbackCreate(ObjBindMethod(implObj, "ChangedEventClass"), flags, 3)
+        this.vtbl.ChangedPublisher := CallbackCreate(ObjBindMethod(implObj, "ChangedPublisher"), flags, 3)
     }
 
     Dispose() {

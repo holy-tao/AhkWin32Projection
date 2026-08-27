@@ -60,7 +60,7 @@ export default struct IBDACreateTuneRequestEx extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateTuneRequestEx := CallbackCreate(GetMethod(implObj, "CreateTuneRequestEx"), flags, 3)
+        this.vtbl.CreateTuneRequestEx := CallbackCreate(ObjBindMethod(implObj, "CreateTuneRequestEx"), flags, 3)
     }
 
     Dispose() {

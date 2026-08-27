@@ -19,7 +19,6 @@ export default struct PREQUEST_DUMP_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer} ResourceHandle 
      * @param {BOOL} DumpDueToCallInProgress 
      * @param {Integer} DumpDelayInMs 

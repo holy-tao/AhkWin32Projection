@@ -88,7 +88,7 @@ export default struct IDsBrowseDomainTree extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dsclient/nf-dsclient-idsbrowsedomaintree-getdomains
      */
     GetDomains(ppDomainTree, dwFlags) {
-        ppDomainTreeMarshal := ppDomainTree is VarRef ? "ptr*" : "ptr"
+        ppDomainTreeMarshal := ppDomainTree is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, ppDomainTreeMarshal, ppDomainTree, UInt32, dwFlags, "HRESULT")
         return result
@@ -102,7 +102,7 @@ export default struct IDsBrowseDomainTree extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dsclient/nf-dsclient-idsbrowsedomaintree-freedomains
      */
     FreeDomains(ppDomainTree) {
-        ppDomainTreeMarshal := ppDomainTree is VarRef ? "ptr*" : "ptr"
+        ppDomainTreeMarshal := ppDomainTree is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, ppDomainTreeMarshal, ppDomainTree, "HRESULT")
         return result
@@ -151,11 +151,11 @@ export default struct IDsBrowseDomainTree extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BrowseTo := CallbackCreate(GetMethod(implObj, "BrowseTo"), flags, 4)
-        this.vtbl.GetDomains := CallbackCreate(GetMethod(implObj, "GetDomains"), flags, 3)
-        this.vtbl.FreeDomains := CallbackCreate(GetMethod(implObj, "FreeDomains"), flags, 2)
-        this.vtbl.FlushCachedDomains := CallbackCreate(GetMethod(implObj, "FlushCachedDomains"), flags, 1)
-        this.vtbl.SetComputer := CallbackCreate(GetMethod(implObj, "SetComputer"), flags, 4)
+        this.vtbl.BrowseTo := CallbackCreate(ObjBindMethod(implObj, "BrowseTo"), flags, 4)
+        this.vtbl.GetDomains := CallbackCreate(ObjBindMethod(implObj, "GetDomains"), flags, 3)
+        this.vtbl.FreeDomains := CallbackCreate(ObjBindMethod(implObj, "FreeDomains"), flags, 2)
+        this.vtbl.FlushCachedDomains := CallbackCreate(ObjBindMethod(implObj, "FlushCachedDomains"), flags, 1)
+        this.vtbl.SetComputer := CallbackCreate(ObjBindMethod(implObj, "SetComputer"), flags, 4)
     }
 
     Dispose() {

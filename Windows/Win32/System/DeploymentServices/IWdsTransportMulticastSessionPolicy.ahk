@@ -177,14 +177,14 @@ export default struct IWdsTransportMulticastSessionPolicy extends IWdsTransportC
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_SlowClientHandling := CallbackCreate(GetMethod(implObj, "get_SlowClientHandling"), flags, 2)
-        this.vtbl.put_SlowClientHandling := CallbackCreate(GetMethod(implObj, "put_SlowClientHandling"), flags, 2)
-        this.vtbl.get_AutoDisconnectThreshold := CallbackCreate(GetMethod(implObj, "get_AutoDisconnectThreshold"), flags, 2)
-        this.vtbl.put_AutoDisconnectThreshold := CallbackCreate(GetMethod(implObj, "put_AutoDisconnectThreshold"), flags, 2)
-        this.vtbl.get_MultistreamStreamCount := CallbackCreate(GetMethod(implObj, "get_MultistreamStreamCount"), flags, 2)
-        this.vtbl.put_MultistreamStreamCount := CallbackCreate(GetMethod(implObj, "put_MultistreamStreamCount"), flags, 2)
-        this.vtbl.get_SlowClientFallback := CallbackCreate(GetMethod(implObj, "get_SlowClientFallback"), flags, 2)
-        this.vtbl.put_SlowClientFallback := CallbackCreate(GetMethod(implObj, "put_SlowClientFallback"), flags, 2)
+        this.vtbl.get_SlowClientHandling := CallbackCreate(ObjBindMethod(implObj, "get_SlowClientHandling"), flags, 2)
+        this.vtbl.put_SlowClientHandling := CallbackCreate(ObjBindMethod(implObj, "put_SlowClientHandling"), flags, 2)
+        this.vtbl.get_AutoDisconnectThreshold := CallbackCreate(ObjBindMethod(implObj, "get_AutoDisconnectThreshold"), flags, 2)
+        this.vtbl.put_AutoDisconnectThreshold := CallbackCreate(ObjBindMethod(implObj, "put_AutoDisconnectThreshold"), flags, 2)
+        this.vtbl.get_MultistreamStreamCount := CallbackCreate(ObjBindMethod(implObj, "get_MultistreamStreamCount"), flags, 2)
+        this.vtbl.put_MultistreamStreamCount := CallbackCreate(ObjBindMethod(implObj, "put_MultistreamStreamCount"), flags, 2)
+        this.vtbl.get_SlowClientFallback := CallbackCreate(ObjBindMethod(implObj, "get_SlowClientFallback"), flags, 2)
+        this.vtbl.put_SlowClientFallback := CallbackCreate(ObjBindMethod(implObj, "put_SlowClientFallback"), flags, 2)
     }
 
     Dispose() {

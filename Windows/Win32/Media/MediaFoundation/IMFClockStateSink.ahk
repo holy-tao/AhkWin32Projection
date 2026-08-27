@@ -189,11 +189,11 @@ export default struct IMFClockStateSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnClockStart := CallbackCreate(GetMethod(implObj, "OnClockStart"), flags, 3)
-        this.vtbl.OnClockStop := CallbackCreate(GetMethod(implObj, "OnClockStop"), flags, 2)
-        this.vtbl.OnClockPause := CallbackCreate(GetMethod(implObj, "OnClockPause"), flags, 2)
-        this.vtbl.OnClockRestart := CallbackCreate(GetMethod(implObj, "OnClockRestart"), flags, 2)
-        this.vtbl.OnClockSetRate := CallbackCreate(GetMethod(implObj, "OnClockSetRate"), flags, 3)
+        this.vtbl.OnClockStart := CallbackCreate(ObjBindMethod(implObj, "OnClockStart"), flags, 3)
+        this.vtbl.OnClockStop := CallbackCreate(ObjBindMethod(implObj, "OnClockStop"), flags, 2)
+        this.vtbl.OnClockPause := CallbackCreate(ObjBindMethod(implObj, "OnClockPause"), flags, 2)
+        this.vtbl.OnClockRestart := CallbackCreate(ObjBindMethod(implObj, "OnClockRestart"), flags, 2)
+        this.vtbl.OnClockSetRate := CallbackCreate(ObjBindMethod(implObj, "OnClockSetRate"), flags, 3)
     }
 
     Dispose() {

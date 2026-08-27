@@ -102,8 +102,8 @@ export default struct IPortableDeviceManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getdevices
      */
     GetDevices(pPnPDeviceIDs, pcPnPDeviceIDs) {
-        pPnPDeviceIDsMarshal := pPnPDeviceIDs is VarRef ? "ptr*" : "ptr"
-        pcPnPDeviceIDsMarshal := pcPnPDeviceIDs is VarRef ? "uint*" : "ptr"
+        pPnPDeviceIDsMarshal := pPnPDeviceIDs is VarRef ? "ptr*" : IntPtr
+        pcPnPDeviceIDsMarshal := pcPnPDeviceIDs is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pPnPDeviceIDsMarshal, pPnPDeviceIDs, pcPnPDeviceIDsMarshal, pcPnPDeviceIDs, "HRESULT")
         return result
@@ -206,7 +206,7 @@ export default struct IPortableDeviceManager extends IUnknown {
         pszPnPDeviceID := pszPnPDeviceID is String ? StrPtr(pszPnPDeviceID) : pszPnPDeviceID
         pDeviceFriendlyName := pDeviceFriendlyName is String ? StrPtr(pDeviceFriendlyName) : pDeviceFriendlyName
 
-        pcchDeviceFriendlyNameMarshal := pcchDeviceFriendlyName is VarRef ? "uint*" : "ptr"
+        pcchDeviceFriendlyNameMarshal := pcchDeviceFriendlyName is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, "ptr", pszPnPDeviceID, "ptr", pDeviceFriendlyName, pcchDeviceFriendlyNameMarshal, pcchDeviceFriendlyName, "HRESULT")
         return result
@@ -275,7 +275,7 @@ export default struct IPortableDeviceManager extends IUnknown {
         pszPnPDeviceID := pszPnPDeviceID is String ? StrPtr(pszPnPDeviceID) : pszPnPDeviceID
         pDeviceDescription := pDeviceDescription is String ? StrPtr(pDeviceDescription) : pDeviceDescription
 
-        pcchDeviceDescriptionMarshal := pcchDeviceDescription is VarRef ? "uint*" : "ptr"
+        pcchDeviceDescriptionMarshal := pcchDeviceDescription is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, "ptr", pszPnPDeviceID, "ptr", pDeviceDescription, pcchDeviceDescriptionMarshal, pcchDeviceDescription, "HRESULT")
         return result
@@ -344,7 +344,7 @@ export default struct IPortableDeviceManager extends IUnknown {
         pszPnPDeviceID := pszPnPDeviceID is String ? StrPtr(pszPnPDeviceID) : pszPnPDeviceID
         pDeviceManufacturer := pDeviceManufacturer is String ? StrPtr(pDeviceManufacturer) : pDeviceManufacturer
 
-        pcchDeviceManufacturerMarshal := pcchDeviceManufacturer is VarRef ? "uint*" : "ptr"
+        pcchDeviceManufacturerMarshal := pcchDeviceManufacturer is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, "ptr", pszPnPDeviceID, "ptr", pDeviceManufacturer, pcchDeviceManufacturerMarshal, pcchDeviceManufacturer, "HRESULT")
         return result
@@ -408,9 +408,9 @@ export default struct IPortableDeviceManager extends IUnknown {
         pszPnPDeviceID := pszPnPDeviceID is String ? StrPtr(pszPnPDeviceID) : pszPnPDeviceID
         pszDevicePropertyName := pszDevicePropertyName is String ? StrPtr(pszDevicePropertyName) : pszDevicePropertyName
 
-        pDataMarshal := pData is VarRef ? "char*" : "ptr"
-        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
-        pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
+        pDataMarshal := pData is VarRef ? "char*" : IntPtr
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
+        pdwTypeMarshal := pdwType is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, "ptr", pszPnPDeviceID, "ptr", pszDevicePropertyName, pDataMarshal, pData, pcbDataMarshal, pcbData, pdwTypeMarshal, pdwType, "HRESULT")
         return result
@@ -472,8 +472,8 @@ export default struct IPortableDeviceManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getprivatedevices
      */
     GetPrivateDevices(pPnPDeviceIDs, pcPnPDeviceIDs) {
-        pPnPDeviceIDsMarshal := pPnPDeviceIDs is VarRef ? "ptr*" : "ptr"
-        pcPnPDeviceIDsMarshal := pcPnPDeviceIDs is VarRef ? "uint*" : "ptr"
+        pPnPDeviceIDsMarshal := pPnPDeviceIDs is VarRef ? "ptr*" : IntPtr
+        pcPnPDeviceIDsMarshal := pcPnPDeviceIDs is VarRef ? "uint*" : IntPtr
 
         result := ComCall(9, this, pPnPDeviceIDsMarshal, pPnPDeviceIDs, pcPnPDeviceIDsMarshal, pcPnPDeviceIDs, "HRESULT")
         return result
@@ -488,13 +488,13 @@ export default struct IPortableDeviceManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDevices := CallbackCreate(GetMethod(implObj, "GetDevices"), flags, 3)
-        this.vtbl.RefreshDeviceList := CallbackCreate(GetMethod(implObj, "RefreshDeviceList"), flags, 1)
-        this.vtbl.GetDeviceFriendlyName := CallbackCreate(GetMethod(implObj, "GetDeviceFriendlyName"), flags, 4)
-        this.vtbl.GetDeviceDescription := CallbackCreate(GetMethod(implObj, "GetDeviceDescription"), flags, 4)
-        this.vtbl.GetDeviceManufacturer := CallbackCreate(GetMethod(implObj, "GetDeviceManufacturer"), flags, 4)
-        this.vtbl.GetDeviceProperty := CallbackCreate(GetMethod(implObj, "GetDeviceProperty"), flags, 6)
-        this.vtbl.GetPrivateDevices := CallbackCreate(GetMethod(implObj, "GetPrivateDevices"), flags, 3)
+        this.vtbl.GetDevices := CallbackCreate(ObjBindMethod(implObj, "GetDevices"), flags, 3)
+        this.vtbl.RefreshDeviceList := CallbackCreate(ObjBindMethod(implObj, "RefreshDeviceList"), flags, 1)
+        this.vtbl.GetDeviceFriendlyName := CallbackCreate(ObjBindMethod(implObj, "GetDeviceFriendlyName"), flags, 4)
+        this.vtbl.GetDeviceDescription := CallbackCreate(ObjBindMethod(implObj, "GetDeviceDescription"), flags, 4)
+        this.vtbl.GetDeviceManufacturer := CallbackCreate(ObjBindMethod(implObj, "GetDeviceManufacturer"), flags, 4)
+        this.vtbl.GetDeviceProperty := CallbackCreate(ObjBindMethod(implObj, "GetDeviceProperty"), flags, 6)
+        this.vtbl.GetPrivateDevices := CallbackCreate(ObjBindMethod(implObj, "GetPrivateDevices"), flags, 3)
     }
 
     Dispose() {

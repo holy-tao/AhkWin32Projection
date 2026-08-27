@@ -68,8 +68,8 @@ export default struct IMFAsyncCallbackLogging extends IMFAsyncCallback {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetObjectPointer := CallbackCreate(GetMethod(implObj, "GetObjectPointer"), flags, 1)
-        this.vtbl.GetObjectTag := CallbackCreate(GetMethod(implObj, "GetObjectTag"), flags, 1)
+        this.vtbl.GetObjectPointer := CallbackCreate(ObjBindMethod(implObj, "GetObjectPointer"), flags, 1)
+        this.vtbl.GetObjectTag := CallbackCreate(ObjBindMethod(implObj, "GetObjectTag"), flags, 1)
     }
 
     Dispose() {

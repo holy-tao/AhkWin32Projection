@@ -94,7 +94,6 @@ export default struct IHTMLHRElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -106,7 +105,6 @@ export default struct IHTMLHRElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_align() {
@@ -116,7 +114,6 @@ export default struct IHTMLHRElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -126,7 +123,6 @@ export default struct IHTMLHRElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_color() {
@@ -136,7 +132,6 @@ export default struct IHTMLHRElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -146,7 +141,6 @@ export default struct IHTMLHRElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_noShade() {
@@ -155,7 +149,6 @@ export default struct IHTMLHRElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -165,7 +158,6 @@ export default struct IHTMLHRElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_width() {
@@ -175,7 +167,6 @@ export default struct IHTMLHRElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -185,7 +176,6 @@ export default struct IHTMLHRElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_size() {
@@ -203,16 +193,16 @@ export default struct IHTMLHRElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_align := CallbackCreate(GetMethod(implObj, "put_align"), flags, 2)
-        this.vtbl.get_align := CallbackCreate(GetMethod(implObj, "get_align"), flags, 2)
-        this.vtbl.put_color := CallbackCreate(GetMethod(implObj, "put_color"), flags, 2)
-        this.vtbl.get_color := CallbackCreate(GetMethod(implObj, "get_color"), flags, 2)
-        this.vtbl.put_noShade := CallbackCreate(GetMethod(implObj, "put_noShade"), flags, 2)
-        this.vtbl.get_noShade := CallbackCreate(GetMethod(implObj, "get_noShade"), flags, 2)
-        this.vtbl.put_width := CallbackCreate(GetMethod(implObj, "put_width"), flags, 2)
-        this.vtbl.get_width := CallbackCreate(GetMethod(implObj, "get_width"), flags, 2)
-        this.vtbl.put_size := CallbackCreate(GetMethod(implObj, "put_size"), flags, 2)
-        this.vtbl.get_size := CallbackCreate(GetMethod(implObj, "get_size"), flags, 2)
+        this.vtbl.put_align := CallbackCreate(ObjBindMethod(implObj, "put_align"), flags, 2)
+        this.vtbl.get_align := CallbackCreate(ObjBindMethod(implObj, "get_align"), flags, 2)
+        this.vtbl.put_color := CallbackCreate(ObjBindMethod(implObj, "put_color"), flags, 2)
+        this.vtbl.get_color := CallbackCreate(ObjBindMethod(implObj, "get_color"), flags, 2)
+        this.vtbl.put_noShade := CallbackCreate(ObjBindMethod(implObj, "put_noShade"), flags, 2)
+        this.vtbl.get_noShade := CallbackCreate(ObjBindMethod(implObj, "get_noShade"), flags, 2)
+        this.vtbl.put_width := CallbackCreate(ObjBindMethod(implObj, "put_width"), flags, 2)
+        this.vtbl.get_width := CallbackCreate(ObjBindMethod(implObj, "get_width"), flags, 2)
+        this.vtbl.put_size := CallbackCreate(ObjBindMethod(implObj, "put_size"), flags, 2)
+        this.vtbl.get_size := CallbackCreate(ObjBindMethod(implObj, "get_size"), flags, 2)
     }
 
     Dispose() {

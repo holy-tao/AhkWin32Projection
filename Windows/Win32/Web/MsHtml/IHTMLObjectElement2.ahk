@@ -58,7 +58,6 @@ export default struct IHTMLObjectElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} dataMember 
      * @param {Pointer<VARIANT>} hierarchy 
      * @returns {IDispatch} 
@@ -71,7 +70,6 @@ export default struct IHTMLObjectElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -83,7 +81,6 @@ export default struct IHTMLObjectElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_classid() {
@@ -93,7 +90,6 @@ export default struct IHTMLObjectElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -105,7 +101,6 @@ export default struct IHTMLObjectElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_data() {
@@ -123,11 +118,11 @@ export default struct IHTMLObjectElement2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.namedRecordset := CallbackCreate(GetMethod(implObj, "namedRecordset"), flags, 4)
-        this.vtbl.put_classid := CallbackCreate(GetMethod(implObj, "put_classid"), flags, 2)
-        this.vtbl.get_classid := CallbackCreate(GetMethod(implObj, "get_classid"), flags, 2)
-        this.vtbl.put_data := CallbackCreate(GetMethod(implObj, "put_data"), flags, 2)
-        this.vtbl.get_data := CallbackCreate(GetMethod(implObj, "get_data"), flags, 2)
+        this.vtbl.namedRecordset := CallbackCreate(ObjBindMethod(implObj, "namedRecordset"), flags, 4)
+        this.vtbl.put_classid := CallbackCreate(ObjBindMethod(implObj, "put_classid"), flags, 2)
+        this.vtbl.get_classid := CallbackCreate(ObjBindMethod(implObj, "get_classid"), flags, 2)
+        this.vtbl.put_data := CallbackCreate(ObjBindMethod(implObj, "put_data"), flags, 2)
+        this.vtbl.get_data := CallbackCreate(ObjBindMethod(implObj, "get_data"), flags, 2)
     }
 
     Dispose() {

@@ -28,7 +28,6 @@ export default struct PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FLUSH {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pContext Pointer to a provider defined object that contains information about this provider.
      * @param {Pointer<Pointer<CRYPT_INTEGER_BLOB>>} rgIdentifierOrNameList Pointer to an array of names or identifiers.
      * @param {Integer} dwIdentifierOrNameListCount The number of names or identifiers specified by the <i>rgIdentifierOrNameList</i> parameter.
@@ -37,8 +36,8 @@ export default struct PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FLUSH {
      * If the function fails, return zero (<b>FALSE</b>).
      */
     Call(pContext, rgIdentifierOrNameList, dwIdentifierOrNameListCount) {
-        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
-        rgIdentifierOrNameListMarshal := rgIdentifierOrNameList is VarRef ? "ptr*" : "ptr"
+        pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
+        rgIdentifierOrNameListMarshal := rgIdentifierOrNameList is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, pContextMarshal, pContext, rgIdentifierOrNameListMarshal, rgIdentifierOrNameList, UInt32, dwIdentifierOrNameListCount, BOOL)
         return result

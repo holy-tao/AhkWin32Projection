@@ -115,7 +115,9 @@ export default struct IInkRenderer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrenderer-getviewtransform
      */
     GetViewTransform(ViewTransform) {
-        result := ComCall(7, this, "ptr", ViewTransform, "HRESULT")
+        ViewTransformMarshal := ViewTransform == 0 ? IntPtr : "ptr"
+
+        result := ComCall(7, this, ViewTransformMarshal, ViewTransform, "HRESULT")
         return result
     }
 
@@ -188,7 +190,9 @@ export default struct IInkRenderer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrenderer-setviewtransform
      */
     SetViewTransform(ViewTransform) {
-        result := ComCall(8, this, "ptr", ViewTransform, "HRESULT")
+        ViewTransformMarshal := ViewTransform == 0 ? IntPtr : "ptr"
+
+        result := ComCall(8, this, ViewTransformMarshal, ViewTransform, "HRESULT")
         return result
     }
 
@@ -241,7 +245,9 @@ export default struct IInkRenderer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrenderer-getobjecttransform
      */
     GetObjectTransform(ObjectTransform) {
-        result := ComCall(9, this, "ptr", ObjectTransform, "HRESULT")
+        ObjectTransformMarshal := ObjectTransform == 0 ? IntPtr : "ptr"
+
+        result := ComCall(9, this, ObjectTransformMarshal, ObjectTransform, "HRESULT")
         return result
     }
 
@@ -312,7 +318,9 @@ export default struct IInkRenderer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrenderer-setobjecttransform
      */
     SetObjectTransform(ObjectTransform) {
-        result := ComCall(10, this, "ptr", ObjectTransform, "HRESULT")
+        ObjectTransformMarshal := ObjectTransform == 0 ? IntPtr : "ptr"
+
+        result := ComCall(10, this, ObjectTransformMarshal, ObjectTransform, "HRESULT")
         return result
     }
 
@@ -418,7 +426,9 @@ export default struct IInkRenderer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrenderer-draw
      */
     Draw(_hDC, Strokes) {
-        result := ComCall(11, this, IntPtr, _hDC, "ptr", Strokes, "HRESULT")
+        StrokesMarshal := Strokes == 0 ? IntPtr : "ptr"
+
+        result := ComCall(11, this, IntPtr, _hDC, StrokesMarshal, Strokes, "HRESULT")
         return result
     }
 
@@ -523,7 +533,10 @@ export default struct IInkRenderer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrenderer-drawstroke
      */
     DrawStroke(_hDC, Stroke, DrawingAttributes) {
-        result := ComCall(12, this, IntPtr, _hDC, "ptr", Stroke, "ptr", DrawingAttributes, "HRESULT")
+        StrokeMarshal := Stroke == 0 ? IntPtr : "ptr"
+        DrawingAttributesMarshal := DrawingAttributes == 0 ? IntPtr : "ptr"
+
+        result := ComCall(12, this, IntPtr, _hDC, StrokeMarshal, Stroke, DrawingAttributesMarshal, DrawingAttributes, "HRESULT")
         return result
     }
 
@@ -589,8 +602,8 @@ export default struct IInkRenderer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrenderer-pixeltoinkspace
      */
     PixelToInkSpace(_hDC, x, y) {
-        xMarshal := x is VarRef ? "int*" : "ptr"
-        yMarshal := y is VarRef ? "int*" : "ptr"
+        xMarshal := x is VarRef ? "int*" : IntPtr
+        yMarshal := y is VarRef ? "int*" : IntPtr
 
         result := ComCall(13, this, IntPtr, _hDC, xMarshal, x, yMarshal, y, "HRESULT")
         return result
@@ -669,8 +682,8 @@ export default struct IInkRenderer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrenderer-inkspacetopixel
      */
     InkSpaceToPixel(hdcDisplay, x, y) {
-        xMarshal := x is VarRef ? "int*" : "ptr"
-        yMarshal := y is VarRef ? "int*" : "ptr"
+        xMarshal := x is VarRef ? "int*" : IntPtr
+        yMarshal := y is VarRef ? "int*" : IntPtr
 
         result := ComCall(14, this, IntPtr, hdcDisplay, xMarshal, x, yMarshal, y, "HRESULT")
         return result
@@ -821,7 +834,9 @@ export default struct IInkRenderer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrenderer-measure
      */
     Measure(Strokes) {
-        result := ComCall(17, this, "ptr", Strokes, "ptr*", &Rectangle := 0, "HRESULT")
+        StrokesMarshal := Strokes == 0 ? IntPtr : "ptr"
+
+        result := ComCall(17, this, StrokesMarshal, Strokes, "ptr*", &Rectangle := 0, "HRESULT")
         return IInkRectangle(Rectangle)
     }
 
@@ -839,7 +854,10 @@ export default struct IInkRenderer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrenderer-measurestroke
      */
     MeasureStroke(Stroke, DrawingAttributes) {
-        result := ComCall(18, this, "ptr", Stroke, "ptr", DrawingAttributes, "ptr*", &Rectangle := 0, "HRESULT")
+        StrokeMarshal := Stroke == 0 ? IntPtr : "ptr"
+        DrawingAttributesMarshal := DrawingAttributes == 0 ? IntPtr : "ptr"
+
+        result := ComCall(18, this, StrokeMarshal, Stroke, DrawingAttributesMarshal, DrawingAttributes, "ptr*", &Rectangle := 0, "HRESULT")
         return IInkRectangle(Rectangle)
     }
 
@@ -950,21 +968,21 @@ export default struct IInkRenderer extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetViewTransform := CallbackCreate(GetMethod(implObj, "GetViewTransform"), flags, 2)
-        this.vtbl.SetViewTransform := CallbackCreate(GetMethod(implObj, "SetViewTransform"), flags, 2)
-        this.vtbl.GetObjectTransform := CallbackCreate(GetMethod(implObj, "GetObjectTransform"), flags, 2)
-        this.vtbl.SetObjectTransform := CallbackCreate(GetMethod(implObj, "SetObjectTransform"), flags, 2)
-        this.vtbl.Draw := CallbackCreate(GetMethod(implObj, "Draw"), flags, 3)
-        this.vtbl.DrawStroke := CallbackCreate(GetMethod(implObj, "DrawStroke"), flags, 4)
-        this.vtbl.PixelToInkSpace := CallbackCreate(GetMethod(implObj, "PixelToInkSpace"), flags, 4)
-        this.vtbl.InkSpaceToPixel := CallbackCreate(GetMethod(implObj, "InkSpaceToPixel"), flags, 4)
-        this.vtbl.PixelToInkSpaceFromPoints := CallbackCreate(GetMethod(implObj, "PixelToInkSpaceFromPoints"), flags, 3)
-        this.vtbl.InkSpaceToPixelFromPoints := CallbackCreate(GetMethod(implObj, "InkSpaceToPixelFromPoints"), flags, 3)
-        this.vtbl.Measure := CallbackCreate(GetMethod(implObj, "Measure"), flags, 3)
-        this.vtbl.MeasureStroke := CallbackCreate(GetMethod(implObj, "MeasureStroke"), flags, 4)
-        this.vtbl.Move := CallbackCreate(GetMethod(implObj, "Move"), flags, 3)
-        this.vtbl.Rotate := CallbackCreate(GetMethod(implObj, "Rotate"), flags, 4)
-        this.vtbl.ScaleTransform := CallbackCreate(GetMethod(implObj, "ScaleTransform"), flags, 4)
+        this.vtbl.GetViewTransform := CallbackCreate(ObjBindMethod(implObj, "GetViewTransform"), flags, 2)
+        this.vtbl.SetViewTransform := CallbackCreate(ObjBindMethod(implObj, "SetViewTransform"), flags, 2)
+        this.vtbl.GetObjectTransform := CallbackCreate(ObjBindMethod(implObj, "GetObjectTransform"), flags, 2)
+        this.vtbl.SetObjectTransform := CallbackCreate(ObjBindMethod(implObj, "SetObjectTransform"), flags, 2)
+        this.vtbl.Draw := CallbackCreate(ObjBindMethod(implObj, "Draw"), flags, 3)
+        this.vtbl.DrawStroke := CallbackCreate(ObjBindMethod(implObj, "DrawStroke"), flags, 4)
+        this.vtbl.PixelToInkSpace := CallbackCreate(ObjBindMethod(implObj, "PixelToInkSpace"), flags, 4)
+        this.vtbl.InkSpaceToPixel := CallbackCreate(ObjBindMethod(implObj, "InkSpaceToPixel"), flags, 4)
+        this.vtbl.PixelToInkSpaceFromPoints := CallbackCreate(ObjBindMethod(implObj, "PixelToInkSpaceFromPoints"), flags, 3)
+        this.vtbl.InkSpaceToPixelFromPoints := CallbackCreate(ObjBindMethod(implObj, "InkSpaceToPixelFromPoints"), flags, 3)
+        this.vtbl.Measure := CallbackCreate(ObjBindMethod(implObj, "Measure"), flags, 3)
+        this.vtbl.MeasureStroke := CallbackCreate(ObjBindMethod(implObj, "MeasureStroke"), flags, 4)
+        this.vtbl.Move := CallbackCreate(ObjBindMethod(implObj, "Move"), flags, 3)
+        this.vtbl.Rotate := CallbackCreate(ObjBindMethod(implObj, "Rotate"), flags, 4)
+        this.vtbl.ScaleTransform := CallbackCreate(ObjBindMethod(implObj, "ScaleTransform"), flags, 4)
     }
 
     Dispose() {

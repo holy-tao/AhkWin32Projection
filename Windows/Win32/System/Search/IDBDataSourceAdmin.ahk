@@ -42,7 +42,6 @@ export default struct IDBDataSourceAdmin extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cPropertySets 
      * @param {Pointer<DBPROPSET>} rgPropertySets 
      * @param {IUnknown} pUnkOuter 
@@ -50,12 +49,14 @@ export default struct IDBDataSourceAdmin extends IUnknown {
      * @returns {IUnknown} 
      */
     CreateDataSource(cPropertySets, rgPropertySets, pUnkOuter, riid) {
-        result := ComCall(3, this, UInt32, cPropertySets, DBPROPSET.Ptr, rgPropertySets, "ptr", pUnkOuter, Guid.Ptr, riid, "ptr*", &ppDBSession := 0, "HRESULT")
+        rgPropertySetsMarshal := rgPropertySets == 0 ? IntPtr : DBPROPSET.Ptr
+        pUnkOuterMarshal := pUnkOuter == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, UInt32, cPropertySets, rgPropertySetsMarshal, rgPropertySets, pUnkOuterMarshal, pUnkOuter, Guid.Ptr, riid, "ptr*", &ppDBSession := 0, "HRESULT")
         return IUnknown(ppDBSession)
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DestroyDataSource() {
@@ -64,7 +65,6 @@ export default struct IDBDataSourceAdmin extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cPropertyIDSets 
      * @param {Pointer<DBPROPIDSET>} rgPropertyIDSets 
      * @param {Pointer<Integer>} pcPropertyInfoSets 
@@ -73,22 +73,25 @@ export default struct IDBDataSourceAdmin extends IUnknown {
      * @returns {HRESULT} 
      */
     GetCreationProperties(cPropertyIDSets, rgPropertyIDSets, pcPropertyInfoSets, prgPropertyInfoSets, ppDescBuffer) {
-        pcPropertyInfoSetsMarshal := pcPropertyInfoSets is VarRef ? "uint*" : "ptr"
-        prgPropertyInfoSetsMarshal := prgPropertyInfoSets is VarRef ? "ptr*" : "ptr"
-        ppDescBufferMarshal := ppDescBuffer is VarRef ? "ptr*" : "ptr"
+        rgPropertyIDSetsMarshal := rgPropertyIDSets == 0 ? IntPtr : DBPROPIDSET.Ptr
+        pcPropertyInfoSetsMarshal := pcPropertyInfoSets is VarRef ? "uint*" : IntPtr
+        prgPropertyInfoSetsMarshal := prgPropertyInfoSets is VarRef ? "ptr*" : IntPtr
+        ppDescBufferMarshal := ppDescBuffer is VarRef ? "ptr*" : IntPtr
+        ppDescBufferMarshal := ppDescBuffer == 0 ? IntPtr : "ptr*"
 
-        result := ComCall(5, this, UInt32, cPropertyIDSets, DBPROPIDSET.Ptr, rgPropertyIDSets, pcPropertyInfoSetsMarshal, pcPropertyInfoSets, prgPropertyInfoSetsMarshal, prgPropertyInfoSets, ppDescBufferMarshal, ppDescBuffer, "HRESULT")
+        result := ComCall(5, this, UInt32, cPropertyIDSets, rgPropertyIDSetsMarshal, rgPropertyIDSets, pcPropertyInfoSetsMarshal, pcPropertyInfoSets, prgPropertyInfoSetsMarshal, prgPropertyInfoSets, ppDescBufferMarshal, ppDescBuffer, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} cPropertySets 
      * @param {Pointer<DBPROPSET>} rgPropertySets 
      * @returns {HRESULT} 
      */
     ModifyDataSource(cPropertySets, rgPropertySets) {
-        result := ComCall(6, this, UInt32, cPropertySets, DBPROPSET.Ptr, rgPropertySets, "HRESULT")
+        rgPropertySetsMarshal := rgPropertySets == 0 ? IntPtr : DBPROPSET.Ptr
+
+        result := ComCall(6, this, UInt32, cPropertySets, rgPropertySetsMarshal, rgPropertySets, "HRESULT")
         return result
     }
 
@@ -101,10 +104,10 @@ export default struct IDBDataSourceAdmin extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateDataSource := CallbackCreate(GetMethod(implObj, "CreateDataSource"), flags, 6)
-        this.vtbl.DestroyDataSource := CallbackCreate(GetMethod(implObj, "DestroyDataSource"), flags, 1)
-        this.vtbl.GetCreationProperties := CallbackCreate(GetMethod(implObj, "GetCreationProperties"), flags, 6)
-        this.vtbl.ModifyDataSource := CallbackCreate(GetMethod(implObj, "ModifyDataSource"), flags, 3)
+        this.vtbl.CreateDataSource := CallbackCreate(ObjBindMethod(implObj, "CreateDataSource"), flags, 6)
+        this.vtbl.DestroyDataSource := CallbackCreate(ObjBindMethod(implObj, "DestroyDataSource"), flags, 1)
+        this.vtbl.GetCreationProperties := CallbackCreate(ObjBindMethod(implObj, "GetCreationProperties"), flags, 6)
+        this.vtbl.ModifyDataSource := CallbackCreate(ObjBindMethod(implObj, "ModifyDataSource"), flags, 3)
     }
 
     Dispose() {

@@ -154,7 +154,6 @@ export default struct IFeedItem extends IDispatch {
     }
 
     /**
-     * 
      * @param {FEEDS_XML_INCLUDE_FLAGS} includeFlags 
      * @returns {BSTR} 
      */
@@ -165,7 +164,6 @@ export default struct IFeedItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Title() {
@@ -175,7 +173,6 @@ export default struct IFeedItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Link() {
@@ -185,7 +182,6 @@ export default struct IFeedItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Guid() {
@@ -195,7 +191,6 @@ export default struct IFeedItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Description() {
@@ -205,7 +200,6 @@ export default struct IFeedItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_PubDate() {
@@ -214,7 +208,6 @@ export default struct IFeedItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Comments() {
@@ -224,7 +217,6 @@ export default struct IFeedItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Author() {
@@ -234,7 +226,6 @@ export default struct IFeedItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Enclosure() {
@@ -243,7 +234,6 @@ export default struct IFeedItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsRead() {
@@ -252,7 +242,6 @@ export default struct IFeedItem extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} isRead 
      * @returns {HRESULT} 
      */
@@ -262,7 +251,6 @@ export default struct IFeedItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_LocalId() {
@@ -271,7 +259,6 @@ export default struct IFeedItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Parent() {
@@ -280,7 +267,6 @@ export default struct IFeedItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Delete() {
@@ -289,7 +275,6 @@ export default struct IFeedItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DownloadUrl() {
@@ -299,7 +284,6 @@ export default struct IFeedItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_LastDownloadTime() {
@@ -308,7 +292,6 @@ export default struct IFeedItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_Modified() {
@@ -325,23 +308,23 @@ export default struct IFeedItem extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Xml := CallbackCreate(GetMethod(implObj, "Xml"), flags, 3)
-        this.vtbl.get_Title := CallbackCreate(GetMethod(implObj, "get_Title"), flags, 2)
-        this.vtbl.get_Link := CallbackCreate(GetMethod(implObj, "get_Link"), flags, 2)
-        this.vtbl.get_Guid := CallbackCreate(GetMethod(implObj, "get_Guid"), flags, 2)
-        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
-        this.vtbl.get_PubDate := CallbackCreate(GetMethod(implObj, "get_PubDate"), flags, 2)
-        this.vtbl.get_Comments := CallbackCreate(GetMethod(implObj, "get_Comments"), flags, 2)
-        this.vtbl.get_Author := CallbackCreate(GetMethod(implObj, "get_Author"), flags, 2)
-        this.vtbl.get_Enclosure := CallbackCreate(GetMethod(implObj, "get_Enclosure"), flags, 2)
-        this.vtbl.get_IsRead := CallbackCreate(GetMethod(implObj, "get_IsRead"), flags, 2)
-        this.vtbl.put_IsRead := CallbackCreate(GetMethod(implObj, "put_IsRead"), flags, 2)
-        this.vtbl.get_LocalId := CallbackCreate(GetMethod(implObj, "get_LocalId"), flags, 2)
-        this.vtbl.get_Parent := CallbackCreate(GetMethod(implObj, "get_Parent"), flags, 2)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
-        this.vtbl.get_DownloadUrl := CallbackCreate(GetMethod(implObj, "get_DownloadUrl"), flags, 2)
-        this.vtbl.get_LastDownloadTime := CallbackCreate(GetMethod(implObj, "get_LastDownloadTime"), flags, 2)
-        this.vtbl.get_Modified := CallbackCreate(GetMethod(implObj, "get_Modified"), flags, 2)
+        this.vtbl.Xml := CallbackCreate(ObjBindMethod(implObj, "Xml"), flags, 3)
+        this.vtbl.get_Title := CallbackCreate(ObjBindMethod(implObj, "get_Title"), flags, 2)
+        this.vtbl.get_Link := CallbackCreate(ObjBindMethod(implObj, "get_Link"), flags, 2)
+        this.vtbl.get_Guid := CallbackCreate(ObjBindMethod(implObj, "get_Guid"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(ObjBindMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.get_PubDate := CallbackCreate(ObjBindMethod(implObj, "get_PubDate"), flags, 2)
+        this.vtbl.get_Comments := CallbackCreate(ObjBindMethod(implObj, "get_Comments"), flags, 2)
+        this.vtbl.get_Author := CallbackCreate(ObjBindMethod(implObj, "get_Author"), flags, 2)
+        this.vtbl.get_Enclosure := CallbackCreate(ObjBindMethod(implObj, "get_Enclosure"), flags, 2)
+        this.vtbl.get_IsRead := CallbackCreate(ObjBindMethod(implObj, "get_IsRead"), flags, 2)
+        this.vtbl.put_IsRead := CallbackCreate(ObjBindMethod(implObj, "put_IsRead"), flags, 2)
+        this.vtbl.get_LocalId := CallbackCreate(ObjBindMethod(implObj, "get_LocalId"), flags, 2)
+        this.vtbl.get_Parent := CallbackCreate(ObjBindMethod(implObj, "get_Parent"), flags, 2)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.get_DownloadUrl := CallbackCreate(ObjBindMethod(implObj, "get_DownloadUrl"), flags, 2)
+        this.vtbl.get_LastDownloadTime := CallbackCreate(ObjBindMethod(implObj, "get_LastDownloadTime"), flags, 2)
+        this.vtbl.get_Modified := CallbackCreate(ObjBindMethod(implObj, "get_Modified"), flags, 2)
     }
 
     Dispose() {

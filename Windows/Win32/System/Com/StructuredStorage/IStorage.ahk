@@ -152,7 +152,7 @@ export default struct IStorage extends IUnknown {
     OpenStorage(pwcsName, pstgPriority, grfMode, snbExclude, reserved) {
         pwcsName := pwcsName is String ? StrPtr(pwcsName) : pwcsName
 
-        snbExcludeMarshal := snbExclude is VarRef ? "ptr*" : "ptr"
+        snbExcludeMarshal := snbExclude is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(6, this, "ptr", pwcsName, "ptr", pstgPriority, STGM, grfMode, snbExcludeMarshal, snbExclude, UInt32, reserved, "ptr*", &ppstg := 0, "HRESULT")
         return IStorage(ppstg)
@@ -216,9 +216,11 @@ export default struct IStorage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-istorage-copyto
      */
     CopyTo(ciidExclude, rgiidExclude, snbExclude, pstgDest) {
-        snbExcludeMarshal := snbExclude is VarRef ? "ptr*" : "ptr"
+        rgiidExcludeMarshal := rgiidExclude == 0 ? IntPtr : Guid.Ptr
+        snbExcludeMarshal := snbExclude is VarRef ? "ptr*" : IntPtr
+        snbExcludeMarshal := snbExclude == 0 ? IntPtr : "ptr*"
 
-        result := ComCall(7, this, UInt32, ciidExclude, Guid.Ptr, rgiidExclude, snbExcludeMarshal, snbExclude, "ptr", pstgDest, "HRESULT")
+        result := ComCall(7, this, UInt32, ciidExclude, rgiidExcludeMarshal, rgiidExclude, snbExcludeMarshal, snbExclude, "ptr", pstgDest, "HRESULT")
         return result
     }
 
@@ -543,21 +545,21 @@ export default struct IStorage extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateStream := CallbackCreate(GetMethod(implObj, "CreateStream"), flags, 6)
-        this.vtbl.OpenStream := CallbackCreate(GetMethod(implObj, "OpenStream"), flags, 6)
-        this.vtbl.CreateStorage := CallbackCreate(GetMethod(implObj, "CreateStorage"), flags, 6)
-        this.vtbl.OpenStorage := CallbackCreate(GetMethod(implObj, "OpenStorage"), flags, 7)
-        this.vtbl.CopyTo := CallbackCreate(GetMethod(implObj, "CopyTo"), flags, 5)
-        this.vtbl.MoveElementTo := CallbackCreate(GetMethod(implObj, "MoveElementTo"), flags, 5)
-        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 2)
-        this.vtbl.Revert := CallbackCreate(GetMethod(implObj, "Revert"), flags, 1)
-        this.vtbl.EnumElements := CallbackCreate(GetMethod(implObj, "EnumElements"), flags, 5)
-        this.vtbl.DestroyElement := CallbackCreate(GetMethod(implObj, "DestroyElement"), flags, 2)
-        this.vtbl.RenameElement := CallbackCreate(GetMethod(implObj, "RenameElement"), flags, 3)
-        this.vtbl.SetElementTimes := CallbackCreate(GetMethod(implObj, "SetElementTimes"), flags, 5)
-        this.vtbl.SetClass := CallbackCreate(GetMethod(implObj, "SetClass"), flags, 2)
-        this.vtbl.SetStateBits := CallbackCreate(GetMethod(implObj, "SetStateBits"), flags, 3)
-        this.vtbl.Stat := CallbackCreate(GetMethod(implObj, "Stat"), flags, 3)
+        this.vtbl.CreateStream := CallbackCreate(ObjBindMethod(implObj, "CreateStream"), flags, 6)
+        this.vtbl.OpenStream := CallbackCreate(ObjBindMethod(implObj, "OpenStream"), flags, 6)
+        this.vtbl.CreateStorage := CallbackCreate(ObjBindMethod(implObj, "CreateStorage"), flags, 6)
+        this.vtbl.OpenStorage := CallbackCreate(ObjBindMethod(implObj, "OpenStorage"), flags, 7)
+        this.vtbl.CopyTo := CallbackCreate(ObjBindMethod(implObj, "CopyTo"), flags, 5)
+        this.vtbl.MoveElementTo := CallbackCreate(ObjBindMethod(implObj, "MoveElementTo"), flags, 5)
+        this.vtbl.Commit := CallbackCreate(ObjBindMethod(implObj, "Commit"), flags, 2)
+        this.vtbl.Revert := CallbackCreate(ObjBindMethod(implObj, "Revert"), flags, 1)
+        this.vtbl.EnumElements := CallbackCreate(ObjBindMethod(implObj, "EnumElements"), flags, 5)
+        this.vtbl.DestroyElement := CallbackCreate(ObjBindMethod(implObj, "DestroyElement"), flags, 2)
+        this.vtbl.RenameElement := CallbackCreate(ObjBindMethod(implObj, "RenameElement"), flags, 3)
+        this.vtbl.SetElementTimes := CallbackCreate(ObjBindMethod(implObj, "SetElementTimes"), flags, 5)
+        this.vtbl.SetClass := CallbackCreate(ObjBindMethod(implObj, "SetClass"), flags, 2)
+        this.vtbl.SetStateBits := CallbackCreate(ObjBindMethod(implObj, "SetStateBits"), flags, 3)
+        this.vtbl.Stat := CallbackCreate(ObjBindMethod(implObj, "Stat"), flags, 3)
     }
 
     Dispose() {

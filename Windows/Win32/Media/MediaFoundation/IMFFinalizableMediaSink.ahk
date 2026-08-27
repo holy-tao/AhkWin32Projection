@@ -117,8 +117,8 @@ export default struct IMFFinalizableMediaSink extends IMFMediaSink {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BeginFinalize := CallbackCreate(GetMethod(implObj, "BeginFinalize"), flags, 3)
-        this.vtbl.EndFinalize := CallbackCreate(GetMethod(implObj, "EndFinalize"), flags, 2)
+        this.vtbl.BeginFinalize := CallbackCreate(ObjBindMethod(implObj, "BeginFinalize"), flags, 3)
+        this.vtbl.EndFinalize := CallbackCreate(ObjBindMethod(implObj, "EndFinalize"), flags, 2)
     }
 
     Dispose() {

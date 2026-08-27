@@ -379,7 +379,7 @@ export default struct IEmailAction extends IAction {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iemailaction-get_attachments
      */
     get_Attachments(pAttachements) {
-        pAttachementsMarshal := pAttachements is VarRef ? "ptr*" : "ptr"
+        pAttachementsMarshal := pAttachements is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(28, this, pAttachementsMarshal, pAttachements, "HRESULT")
         return result
@@ -407,26 +407,26 @@ export default struct IEmailAction extends IAction {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Server := CallbackCreate(GetMethod(implObj, "get_Server"), flags, 2)
-        this.vtbl.put_Server := CallbackCreate(GetMethod(implObj, "put_Server"), flags, 2)
-        this.vtbl.get_Subject := CallbackCreate(GetMethod(implObj, "get_Subject"), flags, 2)
-        this.vtbl.put_Subject := CallbackCreate(GetMethod(implObj, "put_Subject"), flags, 2)
-        this.vtbl.get_To := CallbackCreate(GetMethod(implObj, "get_To"), flags, 2)
-        this.vtbl.put_To := CallbackCreate(GetMethod(implObj, "put_To"), flags, 2)
-        this.vtbl.get_Cc := CallbackCreate(GetMethod(implObj, "get_Cc"), flags, 2)
-        this.vtbl.put_Cc := CallbackCreate(GetMethod(implObj, "put_Cc"), flags, 2)
-        this.vtbl.get_Bcc := CallbackCreate(GetMethod(implObj, "get_Bcc"), flags, 2)
-        this.vtbl.put_Bcc := CallbackCreate(GetMethod(implObj, "put_Bcc"), flags, 2)
-        this.vtbl.get_ReplyTo := CallbackCreate(GetMethod(implObj, "get_ReplyTo"), flags, 2)
-        this.vtbl.put_ReplyTo := CallbackCreate(GetMethod(implObj, "put_ReplyTo"), flags, 2)
-        this.vtbl.get_From := CallbackCreate(GetMethod(implObj, "get_From"), flags, 2)
-        this.vtbl.put_From := CallbackCreate(GetMethod(implObj, "put_From"), flags, 2)
-        this.vtbl.get_HeaderFields := CallbackCreate(GetMethod(implObj, "get_HeaderFields"), flags, 2)
-        this.vtbl.put_HeaderFields := CallbackCreate(GetMethod(implObj, "put_HeaderFields"), flags, 2)
-        this.vtbl.get_Body := CallbackCreate(GetMethod(implObj, "get_Body"), flags, 2)
-        this.vtbl.put_Body := CallbackCreate(GetMethod(implObj, "put_Body"), flags, 2)
-        this.vtbl.get_Attachments := CallbackCreate(GetMethod(implObj, "get_Attachments"), flags, 2)
-        this.vtbl.put_Attachments := CallbackCreate(GetMethod(implObj, "put_Attachments"), flags, 2)
+        this.vtbl.get_Server := CallbackCreate(ObjBindMethod(implObj, "get_Server"), flags, 2)
+        this.vtbl.put_Server := CallbackCreate(ObjBindMethod(implObj, "put_Server"), flags, 2)
+        this.vtbl.get_Subject := CallbackCreate(ObjBindMethod(implObj, "get_Subject"), flags, 2)
+        this.vtbl.put_Subject := CallbackCreate(ObjBindMethod(implObj, "put_Subject"), flags, 2)
+        this.vtbl.get_To := CallbackCreate(ObjBindMethod(implObj, "get_To"), flags, 2)
+        this.vtbl.put_To := CallbackCreate(ObjBindMethod(implObj, "put_To"), flags, 2)
+        this.vtbl.get_Cc := CallbackCreate(ObjBindMethod(implObj, "get_Cc"), flags, 2)
+        this.vtbl.put_Cc := CallbackCreate(ObjBindMethod(implObj, "put_Cc"), flags, 2)
+        this.vtbl.get_Bcc := CallbackCreate(ObjBindMethod(implObj, "get_Bcc"), flags, 2)
+        this.vtbl.put_Bcc := CallbackCreate(ObjBindMethod(implObj, "put_Bcc"), flags, 2)
+        this.vtbl.get_ReplyTo := CallbackCreate(ObjBindMethod(implObj, "get_ReplyTo"), flags, 2)
+        this.vtbl.put_ReplyTo := CallbackCreate(ObjBindMethod(implObj, "put_ReplyTo"), flags, 2)
+        this.vtbl.get_From := CallbackCreate(ObjBindMethod(implObj, "get_From"), flags, 2)
+        this.vtbl.put_From := CallbackCreate(ObjBindMethod(implObj, "put_From"), flags, 2)
+        this.vtbl.get_HeaderFields := CallbackCreate(ObjBindMethod(implObj, "get_HeaderFields"), flags, 2)
+        this.vtbl.put_HeaderFields := CallbackCreate(ObjBindMethod(implObj, "put_HeaderFields"), flags, 2)
+        this.vtbl.get_Body := CallbackCreate(ObjBindMethod(implObj, "get_Body"), flags, 2)
+        this.vtbl.put_Body := CallbackCreate(ObjBindMethod(implObj, "put_Body"), flags, 2)
+        this.vtbl.get_Attachments := CallbackCreate(ObjBindMethod(implObj, "get_Attachments"), flags, 2)
+        this.vtbl.put_Attachments := CallbackCreate(ObjBindMethod(implObj, "put_Attachments"), flags, 2)
     }
 
     Dispose() {

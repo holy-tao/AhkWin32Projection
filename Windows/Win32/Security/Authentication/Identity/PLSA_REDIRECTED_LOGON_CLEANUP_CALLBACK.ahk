@@ -19,7 +19,6 @@ export default struct PLSA_REDIRECTED_LOGON_CLEANUP_CALLBACK {
     }
 
     /**
-     * 
      * @param {HANDLE} RedirectedLogonHandle 
      * @returns {String} Nothing - always returns an empty string
      */

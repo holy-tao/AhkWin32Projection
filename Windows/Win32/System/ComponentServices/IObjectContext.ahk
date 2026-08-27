@@ -134,7 +134,7 @@ export default struct IObjectContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iobjectcontext-createinstance
      */
     CreateInstance(rclsid, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+        ppvMarshal := ppv is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, Guid.Ptr, rclsid, Guid.Ptr, riid, ppvMarshal, ppv, "HRESULT")
         return result
@@ -416,7 +416,7 @@ export default struct IObjectContext extends IUnknown {
     IsCallerInRole(bstrRole, pfIsInRole) {
         bstrRole := bstrRole is String ? BSTR.Alloc(bstrRole).Value : bstrRole
 
-        pfIsInRoleMarshal := pfIsInRole is VarRef ? "int*" : "ptr"
+        pfIsInRoleMarshal := pfIsInRole is VarRef ? "int*" : IntPtr
 
         result := ComCall(10, this, BSTR, bstrRole, pfIsInRoleMarshal, pfIsInRole, "HRESULT")
         return result
@@ -431,14 +431,14 @@ export default struct IObjectContext extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateInstance := CallbackCreate(GetMethod(implObj, "CreateInstance"), flags, 4)
-        this.vtbl.SetComplete := CallbackCreate(GetMethod(implObj, "SetComplete"), flags, 1)
-        this.vtbl.SetAbort := CallbackCreate(GetMethod(implObj, "SetAbort"), flags, 1)
-        this.vtbl.EnableCommit := CallbackCreate(GetMethod(implObj, "EnableCommit"), flags, 1)
-        this.vtbl.DisableCommit := CallbackCreate(GetMethod(implObj, "DisableCommit"), flags, 1)
-        this.vtbl.IsInTransaction := CallbackCreate(GetMethod(implObj, "IsInTransaction"), flags, 1)
-        this.vtbl.IsSecurityEnabled := CallbackCreate(GetMethod(implObj, "IsSecurityEnabled"), flags, 1)
-        this.vtbl.IsCallerInRole := CallbackCreate(GetMethod(implObj, "IsCallerInRole"), flags, 3)
+        this.vtbl.CreateInstance := CallbackCreate(ObjBindMethod(implObj, "CreateInstance"), flags, 4)
+        this.vtbl.SetComplete := CallbackCreate(ObjBindMethod(implObj, "SetComplete"), flags, 1)
+        this.vtbl.SetAbort := CallbackCreate(ObjBindMethod(implObj, "SetAbort"), flags, 1)
+        this.vtbl.EnableCommit := CallbackCreate(ObjBindMethod(implObj, "EnableCommit"), flags, 1)
+        this.vtbl.DisableCommit := CallbackCreate(ObjBindMethod(implObj, "DisableCommit"), flags, 1)
+        this.vtbl.IsInTransaction := CallbackCreate(ObjBindMethod(implObj, "IsInTransaction"), flags, 1)
+        this.vtbl.IsSecurityEnabled := CallbackCreate(ObjBindMethod(implObj, "IsSecurityEnabled"), flags, 1)
+        this.vtbl.IsCallerInRole := CallbackCreate(ObjBindMethod(implObj, "IsCallerInRole"), flags, 3)
     }
 
     Dispose() {

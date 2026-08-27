@@ -100,7 +100,7 @@ export default struct ISupportErrorInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InterfaceSupportsErrorInfo := CallbackCreate(GetMethod(implObj, "InterfaceSupportsErrorInfo"), flags, 2)
+        this.vtbl.InterfaceSupportsErrorInfo := CallbackCreate(ObjBindMethod(implObj, "InterfaceSupportsErrorInfo"), flags, 2)
     }
 
     Dispose() {

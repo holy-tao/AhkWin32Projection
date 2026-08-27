@@ -397,17 +397,17 @@ export default struct IMediaPosition extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Duration := CallbackCreate(GetMethod(implObj, "get_Duration"), flags, 2)
-        this.vtbl.put_CurrentPosition := CallbackCreate(GetMethod(implObj, "put_CurrentPosition"), flags, 2)
-        this.vtbl.get_CurrentPosition := CallbackCreate(GetMethod(implObj, "get_CurrentPosition"), flags, 2)
-        this.vtbl.get_StopTime := CallbackCreate(GetMethod(implObj, "get_StopTime"), flags, 2)
-        this.vtbl.put_StopTime := CallbackCreate(GetMethod(implObj, "put_StopTime"), flags, 2)
-        this.vtbl.get_PrerollTime := CallbackCreate(GetMethod(implObj, "get_PrerollTime"), flags, 2)
-        this.vtbl.put_PrerollTime := CallbackCreate(GetMethod(implObj, "put_PrerollTime"), flags, 2)
-        this.vtbl.put_Rate := CallbackCreate(GetMethod(implObj, "put_Rate"), flags, 2)
-        this.vtbl.get_Rate := CallbackCreate(GetMethod(implObj, "get_Rate"), flags, 2)
-        this.vtbl.CanSeekForward := CallbackCreate(GetMethod(implObj, "CanSeekForward"), flags, 2)
-        this.vtbl.CanSeekBackward := CallbackCreate(GetMethod(implObj, "CanSeekBackward"), flags, 2)
+        this.vtbl.get_Duration := CallbackCreate(ObjBindMethod(implObj, "get_Duration"), flags, 2)
+        this.vtbl.put_CurrentPosition := CallbackCreate(ObjBindMethod(implObj, "put_CurrentPosition"), flags, 2)
+        this.vtbl.get_CurrentPosition := CallbackCreate(ObjBindMethod(implObj, "get_CurrentPosition"), flags, 2)
+        this.vtbl.get_StopTime := CallbackCreate(ObjBindMethod(implObj, "get_StopTime"), flags, 2)
+        this.vtbl.put_StopTime := CallbackCreate(ObjBindMethod(implObj, "put_StopTime"), flags, 2)
+        this.vtbl.get_PrerollTime := CallbackCreate(ObjBindMethod(implObj, "get_PrerollTime"), flags, 2)
+        this.vtbl.put_PrerollTime := CallbackCreate(ObjBindMethod(implObj, "put_PrerollTime"), flags, 2)
+        this.vtbl.put_Rate := CallbackCreate(ObjBindMethod(implObj, "put_Rate"), flags, 2)
+        this.vtbl.get_Rate := CallbackCreate(ObjBindMethod(implObj, "get_Rate"), flags, 2)
+        this.vtbl.CanSeekForward := CallbackCreate(ObjBindMethod(implObj, "CanSeekForward"), flags, 2)
+        this.vtbl.CanSeekBackward := CallbackCreate(ObjBindMethod(implObj, "CanSeekBackward"), flags, 2)
     }
 
     Dispose() {

@@ -22,7 +22,6 @@ export default struct pHalIoReadPartitionTable {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Integer} SectorSize 
      * @param {BOOLEAN} ReturnRecognizedPartitions 
@@ -30,7 +29,7 @@ export default struct pHalIoReadPartitionTable {
      * @returns {NTSTATUS} 
      */
     Call(DeviceObject, SectorSize, ReturnRecognizedPartitions, PartitionBuffer) {
-        PartitionBufferMarshal := PartitionBuffer is VarRef ? "ptr*" : "ptr"
+        PartitionBufferMarshal := PartitionBuffer is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, DEVICE_OBJECT.Ptr, DeviceObject, UInt32, SectorSize, BOOLEAN, ReturnRecognizedPartitions, PartitionBufferMarshal, PartitionBuffer, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

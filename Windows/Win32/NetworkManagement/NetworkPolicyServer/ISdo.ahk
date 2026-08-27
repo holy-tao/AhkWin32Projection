@@ -173,13 +173,13 @@ export default struct ISdo extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPropertyInfo := CallbackCreate(GetMethod(implObj, "GetPropertyInfo"), flags, 3)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
-        this.vtbl.PutProperty := CallbackCreate(GetMethod(implObj, "PutProperty"), flags, 3)
-        this.vtbl.ResetProperty := CallbackCreate(GetMethod(implObj, "ResetProperty"), flags, 2)
-        this.vtbl.Apply := CallbackCreate(GetMethod(implObj, "Apply"), flags, 1)
-        this.vtbl.Restore := CallbackCreate(GetMethod(implObj, "Restore"), flags, 1)
-        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.GetPropertyInfo := CallbackCreate(ObjBindMethod(implObj, "GetPropertyInfo"), flags, 3)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.PutProperty := CallbackCreate(ObjBindMethod(implObj, "PutProperty"), flags, 3)
+        this.vtbl.ResetProperty := CallbackCreate(ObjBindMethod(implObj, "ResetProperty"), flags, 2)
+        this.vtbl.Apply := CallbackCreate(ObjBindMethod(implObj, "Apply"), flags, 1)
+        this.vtbl.Restore := CallbackCreate(ObjBindMethod(implObj, "Restore"), flags, 1)
+        this.vtbl.get__NewEnum := CallbackCreate(ObjBindMethod(implObj, "get__NewEnum"), flags, 2)
     }
 
     Dispose() {

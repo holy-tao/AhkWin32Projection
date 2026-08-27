@@ -19,7 +19,6 @@ export default struct DRIVER_UNLOAD {
     }
 
     /**
-     * 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
      * @returns {String} Nothing - always returns an empty string
      */

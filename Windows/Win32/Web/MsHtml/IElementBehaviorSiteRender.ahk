@@ -39,7 +39,6 @@ export default struct IElementBehaviorSiteRender extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<RECT>} pRect 
      * @returns {HRESULT} 
      */
@@ -49,7 +48,6 @@ export default struct IElementBehaviorSiteRender extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     InvalidateRenderInfo() {
@@ -58,7 +56,6 @@ export default struct IElementBehaviorSiteRender extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     InvalidateStyle() {
@@ -75,9 +72,9 @@ export default struct IElementBehaviorSiteRender extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Invalidate := CallbackCreate(GetMethod(implObj, "Invalidate"), flags, 2)
-        this.vtbl.InvalidateRenderInfo := CallbackCreate(GetMethod(implObj, "InvalidateRenderInfo"), flags, 1)
-        this.vtbl.InvalidateStyle := CallbackCreate(GetMethod(implObj, "InvalidateStyle"), flags, 1)
+        this.vtbl.Invalidate := CallbackCreate(ObjBindMethod(implObj, "Invalidate"), flags, 2)
+        this.vtbl.InvalidateRenderInfo := CallbackCreate(ObjBindMethod(implObj, "InvalidateRenderInfo"), flags, 1)
+        this.vtbl.InvalidateStyle := CallbackCreate(ObjBindMethod(implObj, "InvalidateStyle"), flags, 1)
     }
 
     Dispose() {

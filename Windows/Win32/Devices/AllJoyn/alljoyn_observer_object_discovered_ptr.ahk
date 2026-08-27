@@ -19,13 +19,12 @@ export default struct alljoyn_observer_object_discovered_ptr {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {alljoyn_proxybusobject_ref} proxyref 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_context, proxyref) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _contextMarshal, _context, alljoyn_proxybusobject_ref, proxyref)
     }

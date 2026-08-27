@@ -68,7 +68,6 @@ export default struct IVBSAXLocator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_columnNumber() {
@@ -77,7 +76,6 @@ export default struct IVBSAXLocator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_lineNumber() {
@@ -86,7 +84,6 @@ export default struct IVBSAXLocator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_publicId() {
@@ -96,7 +93,6 @@ export default struct IVBSAXLocator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_systemId() {
@@ -114,10 +110,10 @@ export default struct IVBSAXLocator extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_columnNumber := CallbackCreate(GetMethod(implObj, "get_columnNumber"), flags, 2)
-        this.vtbl.get_lineNumber := CallbackCreate(GetMethod(implObj, "get_lineNumber"), flags, 2)
-        this.vtbl.get_publicId := CallbackCreate(GetMethod(implObj, "get_publicId"), flags, 2)
-        this.vtbl.get_systemId := CallbackCreate(GetMethod(implObj, "get_systemId"), flags, 2)
+        this.vtbl.get_columnNumber := CallbackCreate(ObjBindMethod(implObj, "get_columnNumber"), flags, 2)
+        this.vtbl.get_lineNumber := CallbackCreate(ObjBindMethod(implObj, "get_lineNumber"), flags, 2)
+        this.vtbl.get_publicId := CallbackCreate(ObjBindMethod(implObj, "get_publicId"), flags, 2)
+        this.vtbl.get_systemId := CallbackCreate(ObjBindMethod(implObj, "get_systemId"), flags, 2)
     }
 
     Dispose() {

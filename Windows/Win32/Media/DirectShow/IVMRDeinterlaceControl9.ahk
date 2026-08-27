@@ -85,7 +85,7 @@ export default struct IVMRDeinterlaceControl9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrdeinterlacecontrol9-getnumberofdeinterlacemodes
      */
     GetNumberOfDeinterlaceModes(lpVideoDescription, lpdwNumDeinterlaceModes) {
-        lpdwNumDeinterlaceModesMarshal := lpdwNumDeinterlaceModes is VarRef ? "uint*" : "ptr"
+        lpdwNumDeinterlaceModesMarshal := lpdwNumDeinterlaceModes is VarRef ? "uint*" : IntPtr
 
         lpDeinterlaceModes := Guid()
         result := ComCall(3, this, VMR9VideoDesc.Ptr, lpVideoDescription, lpdwNumDeinterlaceModesMarshal, lpdwNumDeinterlaceModes, Guid.Ptr, lpDeinterlaceModes, "HRESULT")
@@ -282,13 +282,13 @@ export default struct IVMRDeinterlaceControl9 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNumberOfDeinterlaceModes := CallbackCreate(GetMethod(implObj, "GetNumberOfDeinterlaceModes"), flags, 4)
-        this.vtbl.GetDeinterlaceModeCaps := CallbackCreate(GetMethod(implObj, "GetDeinterlaceModeCaps"), flags, 4)
-        this.vtbl.GetDeinterlaceMode := CallbackCreate(GetMethod(implObj, "GetDeinterlaceMode"), flags, 3)
-        this.vtbl.SetDeinterlaceMode := CallbackCreate(GetMethod(implObj, "SetDeinterlaceMode"), flags, 3)
-        this.vtbl.GetDeinterlacePrefs := CallbackCreate(GetMethod(implObj, "GetDeinterlacePrefs"), flags, 2)
-        this.vtbl.SetDeinterlacePrefs := CallbackCreate(GetMethod(implObj, "SetDeinterlacePrefs"), flags, 2)
-        this.vtbl.GetActualDeinterlaceMode := CallbackCreate(GetMethod(implObj, "GetActualDeinterlaceMode"), flags, 3)
+        this.vtbl.GetNumberOfDeinterlaceModes := CallbackCreate(ObjBindMethod(implObj, "GetNumberOfDeinterlaceModes"), flags, 4)
+        this.vtbl.GetDeinterlaceModeCaps := CallbackCreate(ObjBindMethod(implObj, "GetDeinterlaceModeCaps"), flags, 4)
+        this.vtbl.GetDeinterlaceMode := CallbackCreate(ObjBindMethod(implObj, "GetDeinterlaceMode"), flags, 3)
+        this.vtbl.SetDeinterlaceMode := CallbackCreate(ObjBindMethod(implObj, "SetDeinterlaceMode"), flags, 3)
+        this.vtbl.GetDeinterlacePrefs := CallbackCreate(ObjBindMethod(implObj, "GetDeinterlacePrefs"), flags, 2)
+        this.vtbl.SetDeinterlacePrefs := CallbackCreate(ObjBindMethod(implObj, "SetDeinterlacePrefs"), flags, 2)
+        this.vtbl.GetActualDeinterlaceMode := CallbackCreate(ObjBindMethod(implObj, "GetActualDeinterlaceMode"), flags, 3)
     }
 
     Dispose() {

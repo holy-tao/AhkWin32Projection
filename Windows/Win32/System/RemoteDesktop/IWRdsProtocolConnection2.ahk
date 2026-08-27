@@ -37,7 +37,6 @@ export default struct IWRdsProtocolConnection2 extends IWRdsProtocolConnection {
     }
 
     /**
-     * 
      * @returns {Pointer<WTS_SERIALIZED_USER_CREDENTIAL>} 
      */
     GetSerializedUserCredential() {
@@ -54,7 +53,7 @@ export default struct IWRdsProtocolConnection2 extends IWRdsProtocolConnection {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSerializedUserCredential := CallbackCreate(GetMethod(implObj, "GetSerializedUserCredential"), flags, 2)
+        this.vtbl.GetSerializedUserCredential := CallbackCreate(ObjBindMethod(implObj, "GetSerializedUserCredential"), flags, 2)
     }
 
     Dispose() {

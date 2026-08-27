@@ -36,7 +36,6 @@ export default struct IDebugCookie extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwDebugAppCookie 
      * @returns {HRESULT} 
      */
@@ -54,7 +53,7 @@ export default struct IDebugCookie extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetDebugCookie := CallbackCreate(GetMethod(implObj, "SetDebugCookie"), flags, 2)
+        this.vtbl.SetDebugCookie := CallbackCreate(ObjBindMethod(implObj, "SetDebugCookie"), flags, 2)
     }
 
     Dispose() {

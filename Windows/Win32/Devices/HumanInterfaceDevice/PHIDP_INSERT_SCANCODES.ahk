@@ -19,14 +19,14 @@ export default struct PHIDP_INSERT_SCANCODES {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Integer} NewScanCodes 
      * @param {Integer} Length 
      * @returns {BOOLEAN} 
      */
     Call(_Context, NewScanCodes, Length) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, IntPtr, NewScanCodes, UInt32, Length, BOOLEAN)
         return result

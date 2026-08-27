@@ -21,14 +21,15 @@ export default struct PCREATE_PROCESS_NOTIFY_ROUTINE_EX {
     }
 
     /**
-     * 
      * @param {PEPROCESS} Process 
      * @param {HANDLE} ProcessId 
      * @param {Pointer<PS_CREATE_NOTIFY_INFO>} CreateInfo 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(Process, ProcessId, CreateInfo) {
-        DllCall(this.value, PEPROCESS, Process, HANDLE, ProcessId, PS_CREATE_NOTIFY_INFO.Ptr, CreateInfo)
+        CreateInfoMarshal := CreateInfo == 0 ? IntPtr : PS_CREATE_NOTIFY_INFO.Ptr
+
+        DllCall(this.value, PEPROCESS, Process, HANDLE, ProcessId, CreateInfoMarshal, CreateInfo)
     }
 
     /**

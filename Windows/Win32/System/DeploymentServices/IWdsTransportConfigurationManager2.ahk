@@ -64,7 +64,7 @@ export default struct IWdsTransportConfigurationManager2 extends IWdsTransportCo
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_MulticastSessionPolicy := CallbackCreate(GetMethod(implObj, "get_MulticastSessionPolicy"), flags, 2)
+        this.vtbl.get_MulticastSessionPolicy := CallbackCreate(ObjBindMethod(implObj, "get_MulticastSessionPolicy"), flags, 2)
     }
 
     Dispose() {

@@ -63,7 +63,7 @@ export default struct IUserActivityInterop extends IInspectable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateSessionForWindow := CallbackCreate(GetMethod(implObj, "CreateSessionForWindow"), flags, 4)
+        this.vtbl.CreateSessionForWindow := CallbackCreate(ObjBindMethod(implObj, "CreateSessionForWindow"), flags, 4)
     }
 
     Dispose() {

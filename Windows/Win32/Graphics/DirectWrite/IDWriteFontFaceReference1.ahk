@@ -90,9 +90,9 @@ export default struct IDWriteFontFaceReference1 extends IDWriteFontFaceReference
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateFontFace := CallbackCreate(GetMethod(implObj, "CreateFontFace"), flags, 2)
-        this.vtbl.GetFontAxisValueCount := CallbackCreate(GetMethod(implObj, "GetFontAxisValueCount"), flags, 1)
-        this.vtbl.GetFontAxisValues := CallbackCreate(GetMethod(implObj, "GetFontAxisValues"), flags, 3)
+        this.vtbl.CreateFontFace := CallbackCreate(ObjBindMethod(implObj, "CreateFontFace"), flags, 2)
+        this.vtbl.GetFontAxisValueCount := CallbackCreate(ObjBindMethod(implObj, "GetFontAxisValueCount"), flags, 1)
+        this.vtbl.GetFontAxisValues := CallbackCreate(ObjBindMethod(implObj, "GetFontAxisValues"), flags, 3)
     }
 
     Dispose() {

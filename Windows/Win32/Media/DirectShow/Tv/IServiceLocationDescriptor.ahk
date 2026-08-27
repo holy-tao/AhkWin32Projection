@@ -106,11 +106,11 @@ export default struct IServiceLocationDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPCR_PID := CallbackCreate(GetMethod(implObj, "GetPCR_PID"), flags, 2)
-        this.vtbl.GetNumberOfElements := CallbackCreate(GetMethod(implObj, "GetNumberOfElements"), flags, 2)
-        this.vtbl.GetElementStreamType := CallbackCreate(GetMethod(implObj, "GetElementStreamType"), flags, 3)
-        this.vtbl.GetElementPID := CallbackCreate(GetMethod(implObj, "GetElementPID"), flags, 3)
-        this.vtbl.GetElementLanguageCode := CallbackCreate(GetMethod(implObj, "GetElementLanguageCode"), flags, 3)
+        this.vtbl.GetPCR_PID := CallbackCreate(ObjBindMethod(implObj, "GetPCR_PID"), flags, 2)
+        this.vtbl.GetNumberOfElements := CallbackCreate(ObjBindMethod(implObj, "GetNumberOfElements"), flags, 2)
+        this.vtbl.GetElementStreamType := CallbackCreate(ObjBindMethod(implObj, "GetElementStreamType"), flags, 3)
+        this.vtbl.GetElementPID := CallbackCreate(ObjBindMethod(implObj, "GetElementPID"), flags, 3)
+        this.vtbl.GetElementLanguageCode := CallbackCreate(ObjBindMethod(implObj, "GetElementLanguageCode"), flags, 3)
     }
 
     Dispose() {

@@ -80,7 +80,7 @@ export default struct IFsrmCommittableCollection extends IFsrmMutableCollection 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 3)
+        this.vtbl.Commit := CallbackCreate(ObjBindMethod(implObj, "Commit"), flags, 3)
     }
 
     Dispose() {

@@ -93,9 +93,9 @@ export default struct IXpsSignatureCollection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
-        this.vtbl.GetAt := CallbackCreate(GetMethod(implObj, "GetAt"), flags, 3)
-        this.vtbl.RemoveAt := CallbackCreate(GetMethod(implObj, "RemoveAt"), flags, 2)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetAt := CallbackCreate(ObjBindMethod(implObj, "GetAt"), flags, 3)
+        this.vtbl.RemoveAt := CallbackCreate(ObjBindMethod(implObj, "RemoveAt"), flags, 2)
     }
 
     Dispose() {

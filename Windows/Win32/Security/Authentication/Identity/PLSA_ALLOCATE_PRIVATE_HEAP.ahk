@@ -18,7 +18,6 @@ export default struct PLSA_ALLOCATE_PRIVATE_HEAP {
     }
 
     /**
-     * 
      * @param {Pointer} Length 
      * @returns {Pointer<Void>} 
      */

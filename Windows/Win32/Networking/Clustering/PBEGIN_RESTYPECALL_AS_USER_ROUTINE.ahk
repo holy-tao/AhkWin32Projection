@@ -21,7 +21,6 @@ export default struct PBEGIN_RESTYPECALL_AS_USER_ROUTINE {
     }
 
     /**
-     * 
      * @param {PWSTR} ResourceTypeName 
      * @param {HANDLE} TokenHandle 
      * @param {Integer} ControlCode 
@@ -37,10 +36,10 @@ export default struct PBEGIN_RESTYPECALL_AS_USER_ROUTINE {
     Call(ResourceTypeName, TokenHandle, ControlCode, InBuffer, InBufferSize, OutBuffer, OutBufferSize, BytesReturned, _context, ReturnedAsynchronously) {
         ResourceTypeName := ResourceTypeName is String ? StrPtr(ResourceTypeName) : ResourceTypeName
 
-        InBufferMarshal := InBuffer is VarRef ? "ptr" : "ptr"
-        OutBufferMarshal := OutBuffer is VarRef ? "ptr" : "ptr"
-        BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
-        ReturnedAsynchronouslyMarshal := ReturnedAsynchronously is VarRef ? "int*" : "ptr"
+        InBufferMarshal := InBuffer is VarRef ? "ptr" : IntPtr
+        OutBufferMarshal := OutBuffer is VarRef ? "ptr" : IntPtr
+        BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : IntPtr
+        ReturnedAsynchronouslyMarshal := ReturnedAsynchronously is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, "ptr", ResourceTypeName, HANDLE, TokenHandle, UInt32, ControlCode, InBufferMarshal, InBuffer, UInt32, InBufferSize, OutBufferMarshal, OutBuffer, UInt32, OutBufferSize, BytesReturnedMarshal, BytesReturned, Int64, _context, ReturnedAsynchronouslyMarshal, ReturnedAsynchronously, UInt32)
         return result

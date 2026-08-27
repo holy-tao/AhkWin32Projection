@@ -39,7 +39,6 @@ export default struct ID3D12DebugCommandList3 extends ID3D12DebugCommandList2 {
     }
 
     /**
-     * 
      * @param {ID3D12Resource} pResource 
      * @param {Integer} Subresource 
      * @param {D3D12_BARRIER_ACCESS} Access 
@@ -50,7 +49,6 @@ export default struct ID3D12DebugCommandList3 extends ID3D12DebugCommandList2 {
     }
 
     /**
-     * 
      * @param {ID3D12Resource} pResource 
      * @param {Integer} Subresource 
      * @param {D3D12_BARRIER_LAYOUT} Layout 
@@ -69,8 +67,8 @@ export default struct ID3D12DebugCommandList3 extends ID3D12DebugCommandList2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AssertResourceAccess := CallbackCreate(GetMethod(implObj, "AssertResourceAccess"), flags, 4)
-        this.vtbl.AssertTextureLayout := CallbackCreate(GetMethod(implObj, "AssertTextureLayout"), flags, 4)
+        this.vtbl.AssertResourceAccess := CallbackCreate(ObjBindMethod(implObj, "AssertResourceAccess"), flags, 4)
+        this.vtbl.AssertTextureLayout := CallbackCreate(ObjBindMethod(implObj, "AssertTextureLayout"), flags, 4)
     }
 
     Dispose() {

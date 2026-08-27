@@ -159,11 +159,11 @@ export default struct IMFCameraControlMonitor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 1)
-        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
-        this.vtbl.AddControlSubscription := CallbackCreate(GetMethod(implObj, "AddControlSubscription"), flags, 3)
-        this.vtbl.RemoveControlSubscription := CallbackCreate(GetMethod(implObj, "RemoveControlSubscription"), flags, 3)
-        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 1)
+        this.vtbl.Start := CallbackCreate(ObjBindMethod(implObj, "Start"), flags, 1)
+        this.vtbl.Stop := CallbackCreate(ObjBindMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.AddControlSubscription := CallbackCreate(ObjBindMethod(implObj, "AddControlSubscription"), flags, 3)
+        this.vtbl.RemoveControlSubscription := CallbackCreate(ObjBindMethod(implObj, "RemoveControlSubscription"), flags, 3)
+        this.vtbl.Shutdown := CallbackCreate(ObjBindMethod(implObj, "Shutdown"), flags, 1)
     }
 
     Dispose() {

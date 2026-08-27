@@ -75,8 +75,8 @@ export default struct IWPCProviderState extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Enable := CallbackCreate(GetMethod(implObj, "Enable"), flags, 1)
-        this.vtbl.Disable := CallbackCreate(GetMethod(implObj, "Disable"), flags, 1)
+        this.vtbl.Enable := CallbackCreate(ObjBindMethod(implObj, "Enable"), flags, 1)
+        this.vtbl.Disable := CallbackCreate(ObjBindMethod(implObj, "Disable"), flags, 1)
     }
 
     Dispose() {

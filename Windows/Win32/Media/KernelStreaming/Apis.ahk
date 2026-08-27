@@ -17,7 +17,6 @@
 
 ;@region Functions
 /**
- * 
  * @param {HANDLE} ConnectionHandle 
  * @param {Pointer<KSALLOCATOR_FRAMING>} AllocatorFraming 
  * @param {Pointer<HANDLE>} AllocatorHandle 
@@ -29,7 +28,6 @@ export KsCreateAllocator(ConnectionHandle, AllocatorFraming, AllocatorHandle) {
 }
 
 /**
- * 
  * @param {HANDLE} ConnectionHandle 
  * @param {Pointer<KSCLOCK_CREATE>} ClockCreate 
  * @param {Pointer<HANDLE>} ClockHandle 
@@ -41,7 +39,6 @@ export KsCreateClock(ConnectionHandle, ClockCreate, ClockHandle) {
 }
 
 /**
- * 
  * @param {HANDLE} FilterHandle 
  * @param {Pointer<KSPIN_CONNECT>} Connect 
  * @param {Integer} DesiredAccess 
@@ -54,7 +51,6 @@ export KsCreatePin(FilterHandle, Connect, DesiredAccess, ConnectionHandle) {
 }
 
 /**
- * 
  * @param {HANDLE} ParentHandle 
  * @param {Pointer<KSNODE_CREATE>} NodeCreate 
  * @param {Integer} DesiredAccess 
@@ -67,7 +63,6 @@ export KsCreateTopologyNode(ParentHandle, NodeCreate, DesiredAccess, NodeHandle)
 }
 
 /**
- * 
  * @param {HANDLE} ConnectionHandle 
  * @param {Pointer<KSALLOCATOR_FRAMING>} AllocatorFraming 
  * @returns {HANDLE} 
@@ -79,7 +74,6 @@ export KsCreateAllocator2(ConnectionHandle, AllocatorFraming) {
 }
 
 /**
- * 
  * @param {HANDLE} ConnectionHandle 
  * @param {Pointer<KSCLOCK_CREATE>} ClockCreate 
  * @returns {HANDLE} 
@@ -91,7 +85,6 @@ export KsCreateClock2(ConnectionHandle, ClockCreate) {
 }
 
 /**
- * 
  * @param {HANDLE} FilterHandle 
  * @param {Pointer<KSPIN_CONNECT>} Connect 
  * @param {Integer} DesiredAccess 
@@ -104,7 +97,6 @@ export KsCreatePin2(FilterHandle, Connect, DesiredAccess) {
 }
 
 /**
- * 
  * @param {HANDLE} ParentHandle 
  * @param {Pointer<KSNODE_CREATE>} NodeCreate 
  * @param {Integer} DesiredAccess 
@@ -117,18 +109,18 @@ export KsCreateTopologyNode2(ParentHandle, NodeCreate, DesiredAccess) {
 }
 
 /**
- * 
  * @param {Pointer<KSDATAFORMAT>} DataRange 
  * @param {Pointer<KSMULTIPLE_ITEM>} Attributes 
  * @returns {HRESULT} 
  */
 export KsResolveRequiredAttributes(DataRange, Attributes) {
-    result := DllCall("ksproxy.ax\KsResolveRequiredAttributes", KSDATAFORMAT.Ptr, DataRange, KSMULTIPLE_ITEM.Ptr, Attributes, "HRESULT")
+    AttributesMarshal := Attributes == 0 ? IntPtr : KSMULTIPLE_ITEM.Ptr
+
+    result := DllCall("ksproxy.ax\KsResolveRequiredAttributes", KSDATAFORMAT.Ptr, DataRange, AttributesMarshal, Attributes, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {Pointer<Guid>} Category 
  * @param {Integer} Access 
  * @returns {HANDLE} 
@@ -140,7 +132,6 @@ export KsOpenDefaultDevice(Category, Access) {
 }
 
 /**
- * 
  * @param {HANDLE} _Handle 
  * @param {Integer} IoControl 
  * @param {Integer} InBuffer 
@@ -151,14 +142,16 @@ export KsOpenDefaultDevice(Category, Access) {
  * @returns {HRESULT} 
  */
 export KsSynchronousDeviceControl(_Handle, IoControl, InBuffer, InLength, OutBuffer, OutLength, BytesReturned) {
-    BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
+    InBufferMarshal := InBuffer == 0 ? IntPtr : IntPtr
+    OutBufferMarshal := OutBuffer == 0 ? IntPtr : IntPtr
+    BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : IntPtr
+    BytesReturnedMarshal := BytesReturned == 0 ? IntPtr : "uint*"
 
-    result := DllCall("ksproxy.ax\KsSynchronousDeviceControl", HANDLE, _Handle, UInt32, IoControl, IntPtr, InBuffer, UInt32, InLength, IntPtr, OutBuffer, UInt32, OutLength, BytesReturnedMarshal, BytesReturned, "HRESULT")
+    result := DllCall("ksproxy.ax\KsSynchronousDeviceControl", HANDLE, _Handle, UInt32, IoControl, InBufferMarshal, InBuffer, UInt32, InLength, OutBufferMarshal, OutBuffer, UInt32, OutLength, BytesReturnedMarshal, BytesReturned, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {HANDLE} FilterHandle 
  * @param {Integer} PinFactoryId 
  * @param {Integer} PropertyId 
@@ -170,7 +163,6 @@ export KsGetMultiplePinFactoryItems(FilterHandle, PinFactoryId, PropertyId) {
 }
 
 /**
- * 
  * @param {HANDLE} FilterHandle 
  * @param {Integer} PinFactoryId 
  * @returns {Integer} 
@@ -181,7 +173,6 @@ export KsGetMediaTypeCount(FilterHandle, PinFactoryId) {
 }
 
 /**
- * 
  * @param {Integer} Position 
  * @param {Pointer<AM_MEDIA_TYPE>} AmMediaType 
  * @param {HANDLE} FilterHandle 

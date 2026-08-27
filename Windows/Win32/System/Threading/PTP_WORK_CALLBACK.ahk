@@ -20,14 +20,14 @@ export default struct PTP_WORK_CALLBACK {
     }
 
     /**
-     * 
      * @param {PTP_CALLBACK_INSTANCE} Instance 
      * @param {Pointer<Void>} _Context 
      * @param {PTP_WORK} Work 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(Instance, _Context, Work) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, PTP_CALLBACK_INSTANCE, Instance, _ContextMarshal, _Context, PTP_WORK, Work)
     }

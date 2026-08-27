@@ -27,7 +27,6 @@ export default struct PENUM_PAGE_FILE_CALLBACKA {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pContext The user-defined data passed from 
      * <a href="https://docs.microsoft.com/windows/desktop/api/psapi/nf-psapi-enumpagefilesa">EnumPageFiles</a>.
      * @param {Pointer<ENUM_PAGE_FILE_INFORMATION>} pPageFileInfo A pointer to an 
@@ -40,7 +39,7 @@ export default struct PENUM_PAGE_FILE_CALLBACKA {
     Call(pContext, pPageFileInfo, lpFilename) {
         lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
 
-        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+        pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, pContextMarshal, pContext, ENUM_PAGE_FILE_INFORMATION.Ptr, pPageFileInfo, "ptr", lpFilename, BOOL)
         return result

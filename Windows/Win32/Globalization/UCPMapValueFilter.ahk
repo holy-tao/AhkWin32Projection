@@ -18,13 +18,12 @@ export default struct UCPMapValueFilter {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {Integer} value 
      * @returns {Integer} 
      */
     Call(_context, value) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _contextMarshal, _context, UInt32, value, UInt32)
         return result

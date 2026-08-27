@@ -84,7 +84,6 @@ export default struct ISWbemMethod extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -94,7 +93,6 @@ export default struct ISWbemMethod extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Origin() {
@@ -104,7 +102,6 @@ export default struct ISWbemMethod extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemObject} 
      */
     get_InParameters() {
@@ -113,7 +110,6 @@ export default struct ISWbemMethod extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemObject} 
      */
     get_OutParameters() {
@@ -122,7 +118,6 @@ export default struct ISWbemMethod extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemQualifierSet} 
      */
     get_Qualifiers_() {
@@ -139,11 +134,11 @@ export default struct ISWbemMethod extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_Origin := CallbackCreate(GetMethod(implObj, "get_Origin"), flags, 2)
-        this.vtbl.get_InParameters := CallbackCreate(GetMethod(implObj, "get_InParameters"), flags, 2)
-        this.vtbl.get_OutParameters := CallbackCreate(GetMethod(implObj, "get_OutParameters"), flags, 2)
-        this.vtbl.get_Qualifiers_ := CallbackCreate(GetMethod(implObj, "get_Qualifiers_"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Origin := CallbackCreate(ObjBindMethod(implObj, "get_Origin"), flags, 2)
+        this.vtbl.get_InParameters := CallbackCreate(ObjBindMethod(implObj, "get_InParameters"), flags, 2)
+        this.vtbl.get_OutParameters := CallbackCreate(ObjBindMethod(implObj, "get_OutParameters"), flags, 2)
+        this.vtbl.get_Qualifiers_ := CallbackCreate(ObjBindMethod(implObj, "get_Qualifiers_"), flags, 2)
     }
 
     Dispose() {

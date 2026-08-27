@@ -230,11 +230,11 @@ export default struct IFsrmAction extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
-        this.vtbl.get_ActionType := CallbackCreate(GetMethod(implObj, "get_ActionType"), flags, 2)
-        this.vtbl.get_RunLimitInterval := CallbackCreate(GetMethod(implObj, "get_RunLimitInterval"), flags, 2)
-        this.vtbl.put_RunLimitInterval := CallbackCreate(GetMethod(implObj, "put_RunLimitInterval"), flags, 2)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.get_Id := CallbackCreate(ObjBindMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.get_ActionType := CallbackCreate(ObjBindMethod(implObj, "get_ActionType"), flags, 2)
+        this.vtbl.get_RunLimitInterval := CallbackCreate(ObjBindMethod(implObj, "get_RunLimitInterval"), flags, 2)
+        this.vtbl.put_RunLimitInterval := CallbackCreate(ObjBindMethod(implObj, "put_RunLimitInterval"), flags, 2)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 1)
     }
 
     Dispose() {

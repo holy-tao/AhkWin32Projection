@@ -19,7 +19,6 @@ export default struct PRESUTIL_SET_PRIVATE_PROPERTY_LIST {
     }
 
     /**
-     * 
      * @param {HKEY} hkeyClusterKey 
      * @param {Integer} pInPropertyList 
      * @param {Integer} cbInPropertyListSize 

@@ -23,7 +23,6 @@ export default struct PFE_EXPORT_FUNC {
     }
 
     /**
-     * 
      * @param {Integer} pbData A pointer to a block of the encrypted file's data to be backed up. This block of data is allocated by the 
      *       system.
      * @param {Pointer<Void>} pvCallbackContext A pointer to an application-defined and allocated context block. The application passes this pointer to 
@@ -40,7 +39,8 @@ export default struct PFE_EXPORT_FUNC {
      *        returned by <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for the failed API.
      */
     Call(pbData, pvCallbackContext, ulLength) {
-        pvCallbackContextMarshal := pvCallbackContext is VarRef ? "ptr" : "ptr"
+        pvCallbackContextMarshal := pvCallbackContext is VarRef ? "ptr" : IntPtr
+        pvCallbackContextMarshal := pvCallbackContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, IntPtr, pbData, pvCallbackContextMarshal, pvCallbackContext, UInt32, ulLength, UInt32)
         return result

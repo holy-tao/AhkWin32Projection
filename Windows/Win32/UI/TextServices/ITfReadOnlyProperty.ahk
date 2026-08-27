@@ -206,10 +206,10 @@ export default struct ITfReadOnlyProperty extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
-        this.vtbl.EnumRanges := CallbackCreate(GetMethod(implObj, "EnumRanges"), flags, 4)
-        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 4)
-        this.vtbl.GetContext := CallbackCreate(GetMethod(implObj, "GetContext"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(ObjBindMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.EnumRanges := CallbackCreate(ObjBindMethod(implObj, "EnumRanges"), flags, 4)
+        this.vtbl.GetValue := CallbackCreate(ObjBindMethod(implObj, "GetValue"), flags, 4)
+        this.vtbl.GetContext := CallbackCreate(ObjBindMethod(implObj, "GetContext"), flags, 2)
     }
 
     Dispose() {

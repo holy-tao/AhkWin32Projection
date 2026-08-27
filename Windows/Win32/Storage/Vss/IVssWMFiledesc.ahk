@@ -166,11 +166,11 @@ export default struct IVssWMFiledesc extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPath := CallbackCreate(GetMethod(implObj, "GetPath"), flags, 2)
-        this.vtbl.GetFilespec := CallbackCreate(GetMethod(implObj, "GetFilespec"), flags, 2)
-        this.vtbl.GetRecursive := CallbackCreate(GetMethod(implObj, "GetRecursive"), flags, 2)
-        this.vtbl.GetAlternateLocation := CallbackCreate(GetMethod(implObj, "GetAlternateLocation"), flags, 2)
-        this.vtbl.GetBackupTypeMask := CallbackCreate(GetMethod(implObj, "GetBackupTypeMask"), flags, 2)
+        this.vtbl.GetPath := CallbackCreate(ObjBindMethod(implObj, "GetPath"), flags, 2)
+        this.vtbl.GetFilespec := CallbackCreate(ObjBindMethod(implObj, "GetFilespec"), flags, 2)
+        this.vtbl.GetRecursive := CallbackCreate(ObjBindMethod(implObj, "GetRecursive"), flags, 2)
+        this.vtbl.GetAlternateLocation := CallbackCreate(ObjBindMethod(implObj, "GetAlternateLocation"), flags, 2)
+        this.vtbl.GetBackupTypeMask := CallbackCreate(ObjBindMethod(implObj, "GetBackupTypeMask"), flags, 2)
     }
 
     Dispose() {

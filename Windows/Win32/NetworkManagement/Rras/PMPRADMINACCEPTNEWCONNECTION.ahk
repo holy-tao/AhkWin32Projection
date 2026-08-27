@@ -21,7 +21,6 @@ export default struct PMPRADMINACCEPTNEWCONNECTION {
     }
 
     /**
-     * 
      * @param {Pointer<RAS_CONNECTION_0>} param0 
      * @param {Pointer<RAS_CONNECTION_1>} param1 
      * @returns {BOOL} 

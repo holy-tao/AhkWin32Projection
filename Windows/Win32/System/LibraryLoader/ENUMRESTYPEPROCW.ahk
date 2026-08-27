@@ -33,7 +33,6 @@ export default struct ENUMRESTYPEPROCW {
     }
 
     /**
-     * 
      * @param {HMODULE} _hModule Type: <b>HMODULE</b>
      * 
      * A handle to the module whose executable file contains the resources for which the types are to be enumerated. If this parameter is <b>NULL</b>, the function enumerates the resource types in the module used to create the current process.
@@ -52,7 +51,9 @@ export default struct ENUMRESTYPEPROCW {
     Call(_hModule, lpType, _lParam) {
         lpType := lpType is String ? StrPtr(lpType) : lpType
 
-        result := DllCall(this.value, HMODULE, _hModule, "ptr", lpType, IntPtr, _lParam, BOOL)
+        _hModuleMarshal := _hModule == 0 ? IntPtr : HMODULE
+
+        result := DllCall(this.value, _hModuleMarshal, _hModule, "ptr", lpType, IntPtr, _lParam, BOOL)
         return result
     }
 

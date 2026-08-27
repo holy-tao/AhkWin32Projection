@@ -177,7 +177,7 @@ export default struct IContactPropertyCollection extends IUnknown {
     GetPropertyName(pszPropertyName, cchPropertyName, pdwcchPropertyNameRequired) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
 
-        pdwcchPropertyNameRequiredMarshal := pdwcchPropertyNameRequired is VarRef ? "uint*" : "ptr"
+        pdwcchPropertyNameRequiredMarshal := pdwcchPropertyNameRequired is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, "ptr", pszPropertyName, UInt32, cchPropertyName, pdwcchPropertyNameRequiredMarshal, pdwcchPropertyNameRequired, "HRESULT")
         return result
@@ -259,7 +259,7 @@ export default struct IContactPropertyCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactpropertycollection-getpropertytype
      */
     GetPropertyType(pdwType) {
-        pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
+        pdwTypeMarshal := pdwType is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, pdwTypeMarshal, pdwType, "HRESULT")
         return result
@@ -294,7 +294,7 @@ export default struct IContactPropertyCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactpropertycollection-getpropertyversion
      */
     GetPropertyVersion(pdwVersion) {
-        pdwVersionMarshal := pdwVersion is VarRef ? "uint*" : "ptr"
+        pdwVersionMarshal := pdwVersion is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, pdwVersionMarshal, pdwVersion, "HRESULT")
         return result
@@ -397,7 +397,7 @@ export default struct IContactPropertyCollection extends IUnknown {
     GetPropertyArrayElementID(pszArrayElementID, cchArrayElementID, pdwcchArrayElementIDRequired) {
         pszArrayElementID := pszArrayElementID is String ? StrPtr(pszArrayElementID) : pszArrayElementID
 
-        pdwcchArrayElementIDRequiredMarshal := pdwcchArrayElementIDRequired is VarRef ? "uint*" : "ptr"
+        pdwcchArrayElementIDRequiredMarshal := pdwcchArrayElementIDRequired is VarRef ? "uint*" : IntPtr
 
         result := ComCall(9, this, "ptr", pszArrayElementID, UInt32, cchArrayElementID, pdwcchArrayElementIDRequiredMarshal, pdwcchArrayElementIDRequired, "HRESULT")
         return result
@@ -412,13 +412,13 @@ export default struct IContactPropertyCollection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 1)
-        this.vtbl.GetPropertyName := CallbackCreate(GetMethod(implObj, "GetPropertyName"), flags, 4)
-        this.vtbl.GetPropertyType := CallbackCreate(GetMethod(implObj, "GetPropertyType"), flags, 2)
-        this.vtbl.GetPropertyVersion := CallbackCreate(GetMethod(implObj, "GetPropertyVersion"), flags, 2)
-        this.vtbl.GetPropertyModificationDate := CallbackCreate(GetMethod(implObj, "GetPropertyModificationDate"), flags, 2)
-        this.vtbl.GetPropertyArrayElementID := CallbackCreate(GetMethod(implObj, "GetPropertyArrayElementID"), flags, 4)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Next := CallbackCreate(ObjBindMethod(implObj, "Next"), flags, 1)
+        this.vtbl.GetPropertyName := CallbackCreate(ObjBindMethod(implObj, "GetPropertyName"), flags, 4)
+        this.vtbl.GetPropertyType := CallbackCreate(ObjBindMethod(implObj, "GetPropertyType"), flags, 2)
+        this.vtbl.GetPropertyVersion := CallbackCreate(ObjBindMethod(implObj, "GetPropertyVersion"), flags, 2)
+        this.vtbl.GetPropertyModificationDate := CallbackCreate(ObjBindMethod(implObj, "GetPropertyModificationDate"), flags, 2)
+        this.vtbl.GetPropertyArrayElementID := CallbackCreate(ObjBindMethod(implObj, "GetPropertyArrayElementID"), flags, 4)
     }
 
     Dispose() {

@@ -67,7 +67,6 @@ export default struct IHTMLTableRowMetrics extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_clientHeight() {
@@ -76,7 +75,6 @@ export default struct IHTMLTableRowMetrics extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_clientWidth() {
@@ -85,7 +83,6 @@ export default struct IHTMLTableRowMetrics extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_clientTop() {
@@ -94,7 +91,6 @@ export default struct IHTMLTableRowMetrics extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_clientLeft() {
@@ -111,10 +107,10 @@ export default struct IHTMLTableRowMetrics extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_clientHeight := CallbackCreate(GetMethod(implObj, "get_clientHeight"), flags, 2)
-        this.vtbl.get_clientWidth := CallbackCreate(GetMethod(implObj, "get_clientWidth"), flags, 2)
-        this.vtbl.get_clientTop := CallbackCreate(GetMethod(implObj, "get_clientTop"), flags, 2)
-        this.vtbl.get_clientLeft := CallbackCreate(GetMethod(implObj, "get_clientLeft"), flags, 2)
+        this.vtbl.get_clientHeight := CallbackCreate(ObjBindMethod(implObj, "get_clientHeight"), flags, 2)
+        this.vtbl.get_clientWidth := CallbackCreate(ObjBindMethod(implObj, "get_clientWidth"), flags, 2)
+        this.vtbl.get_clientTop := CallbackCreate(ObjBindMethod(implObj, "get_clientTop"), flags, 2)
+        this.vtbl.get_clientLeft := CallbackCreate(ObjBindMethod(implObj, "get_clientLeft"), flags, 2)
     }
 
     Dispose() {

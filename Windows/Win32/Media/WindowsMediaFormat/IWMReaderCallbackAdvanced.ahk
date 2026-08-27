@@ -94,7 +94,7 @@ export default struct IWMReaderCallbackAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadercallbackadvanced-onstreamsample
      */
     OnStreamSample(wStreamNum, cnsSampleTime, cnsSampleDuration, dwFlags, pSample, pvContext) {
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, UInt16, wStreamNum, Int64, cnsSampleTime, Int64, cnsSampleDuration, UInt32, dwFlags, "ptr", pSample, pvContextMarshal, pvContext, "HRESULT")
         return result
@@ -110,7 +110,7 @@ export default struct IWMReaderCallbackAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadercallbackadvanced-ontime
      */
     OnTime(cnsCurrentTime, pvContext) {
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(4, this, Int64, cnsCurrentTime, pvContextMarshal, pvContext, "HRESULT")
         return result
@@ -130,9 +130,9 @@ export default struct IWMReaderCallbackAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadercallbackadvanced-onstreamselection
      */
     OnStreamSelection(wStreamCount, pStreamNumbers, pSelections, pvContext) {
-        pStreamNumbersMarshal := pStreamNumbers is VarRef ? "ushort*" : "ptr"
-        pSelectionsMarshal := pSelections is VarRef ? "int*" : "ptr"
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        pStreamNumbersMarshal := pStreamNumbers is VarRef ? "ushort*" : IntPtr
+        pSelectionsMarshal := pSelections is VarRef ? "int*" : IntPtr
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(5, this, UInt16, wStreamCount, pStreamNumbersMarshal, pStreamNumbers, pSelectionsMarshal, pSelections, pvContextMarshal, pvContext, "HRESULT")
         return result
@@ -149,7 +149,7 @@ export default struct IWMReaderCallbackAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadercallbackadvanced-onoutputpropschanged
      */
     OnOutputPropsChanged(dwOutputNum, pMediaType, pvContext) {
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(6, this, UInt32, dwOutputNum, WM_MEDIA_TYPE.Ptr, pMediaType, pvContextMarshal, pvContext, "HRESULT")
         return result
@@ -174,7 +174,7 @@ export default struct IWMReaderCallbackAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadercallbackadvanced-allocateforstream
      */
     AllocateForStream(wStreamNum, cbBuffer, pvContext) {
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(7, this, UInt16, wStreamNum, UInt32, cbBuffer, "ptr*", &ppBuffer := 0, pvContextMarshal, pvContext, "HRESULT")
         return INSSBuffer(ppBuffer)
@@ -197,7 +197,7 @@ export default struct IWMReaderCallbackAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadercallbackadvanced-allocateforoutput
      */
     AllocateForOutput(dwOutputNum, cbBuffer, pvContext) {
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(8, this, UInt32, dwOutputNum, UInt32, cbBuffer, "ptr*", &ppBuffer := 0, pvContextMarshal, pvContext, "HRESULT")
         return INSSBuffer(ppBuffer)
@@ -212,12 +212,12 @@ export default struct IWMReaderCallbackAdvanced extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnStreamSample := CallbackCreate(GetMethod(implObj, "OnStreamSample"), flags, 7)
-        this.vtbl.OnTime := CallbackCreate(GetMethod(implObj, "OnTime"), flags, 3)
-        this.vtbl.OnStreamSelection := CallbackCreate(GetMethod(implObj, "OnStreamSelection"), flags, 5)
-        this.vtbl.OnOutputPropsChanged := CallbackCreate(GetMethod(implObj, "OnOutputPropsChanged"), flags, 4)
-        this.vtbl.AllocateForStream := CallbackCreate(GetMethod(implObj, "AllocateForStream"), flags, 5)
-        this.vtbl.AllocateForOutput := CallbackCreate(GetMethod(implObj, "AllocateForOutput"), flags, 5)
+        this.vtbl.OnStreamSample := CallbackCreate(ObjBindMethod(implObj, "OnStreamSample"), flags, 7)
+        this.vtbl.OnTime := CallbackCreate(ObjBindMethod(implObj, "OnTime"), flags, 3)
+        this.vtbl.OnStreamSelection := CallbackCreate(ObjBindMethod(implObj, "OnStreamSelection"), flags, 5)
+        this.vtbl.OnOutputPropsChanged := CallbackCreate(ObjBindMethod(implObj, "OnOutputPropsChanged"), flags, 4)
+        this.vtbl.AllocateForStream := CallbackCreate(ObjBindMethod(implObj, "AllocateForStream"), flags, 5)
+        this.vtbl.AllocateForOutput := CallbackCreate(ObjBindMethod(implObj, "AllocateForOutput"), flags, 5)
     }
 
     Dispose() {

@@ -163,7 +163,7 @@ export default struct ICOMAdminCatalog extends IDispatch {
     GetCollectionByQuery(bstrCollName, ppsaVarQuery) {
         bstrCollName := bstrCollName is String ? BSTR.Alloc(bstrCollName).Value : bstrCollName
 
-        ppsaVarQueryMarshal := ppsaVarQuery is VarRef ? "ptr*" : "ptr"
+        ppsaVarQueryMarshal := ppsaVarQuery is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(11, this, BSTR, bstrCollName, ppsaVarQueryMarshal, ppsaVarQuery, "ptr*", &ppCatalogCollection := 0, "HRESULT")
         return IDispatch(ppCatalogCollection)
@@ -547,8 +547,8 @@ export default struct ICOMAdminCatalog extends IDispatch {
     InstallMultipleComponents(bstrApplIDOrName, ppsaVarFileNames, ppsaVarCLSIDs) {
         bstrApplIDOrName := bstrApplIDOrName is String ? BSTR.Alloc(bstrApplIDOrName).Value : bstrApplIDOrName
 
-        ppsaVarFileNamesMarshal := ppsaVarFileNames is VarRef ? "ptr*" : "ptr"
-        ppsaVarCLSIDsMarshal := ppsaVarCLSIDs is VarRef ? "ptr*" : "ptr"
+        ppsaVarFileNamesMarshal := ppsaVarFileNames is VarRef ? "ptr*" : IntPtr
+        ppsaVarCLSIDsMarshal := ppsaVarCLSIDs is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(22, this, BSTR, bstrApplIDOrName, ppsaVarFileNamesMarshal, ppsaVarFileNames, ppsaVarCLSIDsMarshal, ppsaVarCLSIDs, "HRESULT")
         return result
@@ -597,11 +597,11 @@ export default struct ICOMAdminCatalog extends IDispatch {
     GetMultipleComponentsInfo(bstrApplIdOrName, ppsaVarFileNames, ppsaVarCLSIDs, ppsaVarClassNames, ppsaVarFileFlags, ppsaVarComponentFlags) {
         bstrApplIdOrName := bstrApplIdOrName is String ? BSTR.Alloc(bstrApplIdOrName).Value : bstrApplIdOrName
 
-        ppsaVarFileNamesMarshal := ppsaVarFileNames is VarRef ? "ptr*" : "ptr"
-        ppsaVarCLSIDsMarshal := ppsaVarCLSIDs is VarRef ? "ptr*" : "ptr"
-        ppsaVarClassNamesMarshal := ppsaVarClassNames is VarRef ? "ptr*" : "ptr"
-        ppsaVarFileFlagsMarshal := ppsaVarFileFlags is VarRef ? "ptr*" : "ptr"
-        ppsaVarComponentFlagsMarshal := ppsaVarComponentFlags is VarRef ? "ptr*" : "ptr"
+        ppsaVarFileNamesMarshal := ppsaVarFileNames is VarRef ? "ptr*" : IntPtr
+        ppsaVarCLSIDsMarshal := ppsaVarCLSIDs is VarRef ? "ptr*" : IntPtr
+        ppsaVarClassNamesMarshal := ppsaVarClassNames is VarRef ? "ptr*" : IntPtr
+        ppsaVarFileFlagsMarshal := ppsaVarFileFlags is VarRef ? "ptr*" : IntPtr
+        ppsaVarComponentFlagsMarshal := ppsaVarComponentFlags is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(23, this, BSTR, bstrApplIdOrName, ppsaVarFileNamesMarshal, ppsaVarFileNames, ppsaVarCLSIDsMarshal, ppsaVarCLSIDs, ppsaVarClassNamesMarshal, ppsaVarClassNames, ppsaVarFileFlagsMarshal, ppsaVarFileFlags, ppsaVarComponentFlagsMarshal, ppsaVarComponentFlags, "HRESULT")
         return result
@@ -703,9 +703,9 @@ export default struct ICOMAdminCatalog extends IDispatch {
     QueryApplicationFile(bstrApplicationFile, pbstrApplicationName, pbstrApplicationDescription, pbHasUsers, pbIsProxy, ppsaVarFileNames) {
         bstrApplicationFile := bstrApplicationFile is String ? BSTR.Alloc(bstrApplicationFile).Value : bstrApplicationFile
 
-        pbHasUsersMarshal := pbHasUsers is VarRef ? "short*" : "ptr"
-        pbIsProxyMarshal := pbIsProxy is VarRef ? "short*" : "ptr"
-        ppsaVarFileNamesMarshal := ppsaVarFileNames is VarRef ? "ptr*" : "ptr"
+        pbHasUsersMarshal := pbHasUsers is VarRef ? "short*" : IntPtr
+        pbIsProxyMarshal := pbIsProxy is VarRef ? "short*" : IntPtr
+        ppsaVarFileNamesMarshal := ppsaVarFileNames is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(27, this, BSTR, bstrApplicationFile, BSTR.Ptr, pbstrApplicationName, BSTR.Ptr, pbstrApplicationDescription, pbHasUsersMarshal, pbHasUsers, pbIsProxyMarshal, pbIsProxy, ppsaVarFileNamesMarshal, ppsaVarFileNames, "HRESULT")
         return result
@@ -848,8 +848,8 @@ export default struct ICOMAdminCatalog extends IDispatch {
     InstallMultipleEventClasses(bstrApplIdOrName, ppsaVarFileNames, ppsaVarCLSIDS) {
         bstrApplIdOrName := bstrApplIdOrName is String ? BSTR.Alloc(bstrApplIdOrName).Value : bstrApplIdOrName
 
-        ppsaVarFileNamesMarshal := ppsaVarFileNames is VarRef ? "ptr*" : "ptr"
-        ppsaVarCLSIDSMarshal := ppsaVarCLSIDS is VarRef ? "ptr*" : "ptr"
+        ppsaVarFileNamesMarshal := ppsaVarFileNames is VarRef ? "ptr*" : IntPtr
+        ppsaVarCLSIDSMarshal := ppsaVarCLSIDS is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(30, this, BSTR, bstrApplIdOrName, ppsaVarFileNamesMarshal, ppsaVarFileNames, ppsaVarCLSIDSMarshal, ppsaVarCLSIDS, "HRESULT")
         return result
@@ -890,9 +890,9 @@ export default struct ICOMAdminCatalog extends IDispatch {
     GetEventClassesForIID(bstrIID, ppsaVarCLSIDs, ppsaVarProgIDs, ppsaVarDescriptions) {
         bstrIID := bstrIID is String ? BSTR.Alloc(bstrIID).Value : bstrIID
 
-        ppsaVarCLSIDsMarshal := ppsaVarCLSIDs is VarRef ? "ptr*" : "ptr"
-        ppsaVarProgIDsMarshal := ppsaVarProgIDs is VarRef ? "ptr*" : "ptr"
-        ppsaVarDescriptionsMarshal := ppsaVarDescriptions is VarRef ? "ptr*" : "ptr"
+        ppsaVarCLSIDsMarshal := ppsaVarCLSIDs is VarRef ? "ptr*" : IntPtr
+        ppsaVarProgIDsMarshal := ppsaVarProgIDs is VarRef ? "ptr*" : IntPtr
+        ppsaVarDescriptionsMarshal := ppsaVarDescriptions is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(32, this, BSTR, bstrIID, ppsaVarCLSIDsMarshal, ppsaVarCLSIDs, ppsaVarProgIDsMarshal, ppsaVarProgIDs, ppsaVarDescriptionsMarshal, ppsaVarDescriptions, "HRESULT")
         return result
@@ -907,32 +907,32 @@ export default struct ICOMAdminCatalog extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCollection := CallbackCreate(GetMethod(implObj, "GetCollection"), flags, 3)
-        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 3)
-        this.vtbl.get_MajorVersion := CallbackCreate(GetMethod(implObj, "get_MajorVersion"), flags, 2)
-        this.vtbl.get_MinorVersion := CallbackCreate(GetMethod(implObj, "get_MinorVersion"), flags, 2)
-        this.vtbl.GetCollectionByQuery := CallbackCreate(GetMethod(implObj, "GetCollectionByQuery"), flags, 4)
-        this.vtbl.ImportComponent := CallbackCreate(GetMethod(implObj, "ImportComponent"), flags, 3)
-        this.vtbl.InstallComponent := CallbackCreate(GetMethod(implObj, "InstallComponent"), flags, 5)
-        this.vtbl.ShutdownApplication := CallbackCreate(GetMethod(implObj, "ShutdownApplication"), flags, 2)
-        this.vtbl.ExportApplication := CallbackCreate(GetMethod(implObj, "ExportApplication"), flags, 4)
-        this.vtbl.InstallApplication := CallbackCreate(GetMethod(implObj, "InstallApplication"), flags, 7)
-        this.vtbl.StopRouter := CallbackCreate(GetMethod(implObj, "StopRouter"), flags, 1)
-        this.vtbl.RefreshRouter := CallbackCreate(GetMethod(implObj, "RefreshRouter"), flags, 1)
-        this.vtbl.StartRouter := CallbackCreate(GetMethod(implObj, "StartRouter"), flags, 1)
-        this.vtbl.Reserved1 := CallbackCreate(GetMethod(implObj, "Reserved1"), flags, 1)
-        this.vtbl.Reserved2 := CallbackCreate(GetMethod(implObj, "Reserved2"), flags, 1)
-        this.vtbl.InstallMultipleComponents := CallbackCreate(GetMethod(implObj, "InstallMultipleComponents"), flags, 4)
-        this.vtbl.GetMultipleComponentsInfo := CallbackCreate(GetMethod(implObj, "GetMultipleComponentsInfo"), flags, 7)
-        this.vtbl.RefreshComponents := CallbackCreate(GetMethod(implObj, "RefreshComponents"), flags, 1)
-        this.vtbl.BackupREGDB := CallbackCreate(GetMethod(implObj, "BackupREGDB"), flags, 2)
-        this.vtbl.RestoreREGDB := CallbackCreate(GetMethod(implObj, "RestoreREGDB"), flags, 2)
-        this.vtbl.QueryApplicationFile := CallbackCreate(GetMethod(implObj, "QueryApplicationFile"), flags, 7)
-        this.vtbl.StartApplication := CallbackCreate(GetMethod(implObj, "StartApplication"), flags, 2)
-        this.vtbl.ServiceCheck := CallbackCreate(GetMethod(implObj, "ServiceCheck"), flags, 3)
-        this.vtbl.InstallMultipleEventClasses := CallbackCreate(GetMethod(implObj, "InstallMultipleEventClasses"), flags, 4)
-        this.vtbl.InstallEventClass := CallbackCreate(GetMethod(implObj, "InstallEventClass"), flags, 5)
-        this.vtbl.GetEventClassesForIID := CallbackCreate(GetMethod(implObj, "GetEventClassesForIID"), flags, 5)
+        this.vtbl.GetCollection := CallbackCreate(ObjBindMethod(implObj, "GetCollection"), flags, 3)
+        this.vtbl.Connect := CallbackCreate(ObjBindMethod(implObj, "Connect"), flags, 3)
+        this.vtbl.get_MajorVersion := CallbackCreate(ObjBindMethod(implObj, "get_MajorVersion"), flags, 2)
+        this.vtbl.get_MinorVersion := CallbackCreate(ObjBindMethod(implObj, "get_MinorVersion"), flags, 2)
+        this.vtbl.GetCollectionByQuery := CallbackCreate(ObjBindMethod(implObj, "GetCollectionByQuery"), flags, 4)
+        this.vtbl.ImportComponent := CallbackCreate(ObjBindMethod(implObj, "ImportComponent"), flags, 3)
+        this.vtbl.InstallComponent := CallbackCreate(ObjBindMethod(implObj, "InstallComponent"), flags, 5)
+        this.vtbl.ShutdownApplication := CallbackCreate(ObjBindMethod(implObj, "ShutdownApplication"), flags, 2)
+        this.vtbl.ExportApplication := CallbackCreate(ObjBindMethod(implObj, "ExportApplication"), flags, 4)
+        this.vtbl.InstallApplication := CallbackCreate(ObjBindMethod(implObj, "InstallApplication"), flags, 7)
+        this.vtbl.StopRouter := CallbackCreate(ObjBindMethod(implObj, "StopRouter"), flags, 1)
+        this.vtbl.RefreshRouter := CallbackCreate(ObjBindMethod(implObj, "RefreshRouter"), flags, 1)
+        this.vtbl.StartRouter := CallbackCreate(ObjBindMethod(implObj, "StartRouter"), flags, 1)
+        this.vtbl.Reserved1 := CallbackCreate(ObjBindMethod(implObj, "Reserved1"), flags, 1)
+        this.vtbl.Reserved2 := CallbackCreate(ObjBindMethod(implObj, "Reserved2"), flags, 1)
+        this.vtbl.InstallMultipleComponents := CallbackCreate(ObjBindMethod(implObj, "InstallMultipleComponents"), flags, 4)
+        this.vtbl.GetMultipleComponentsInfo := CallbackCreate(ObjBindMethod(implObj, "GetMultipleComponentsInfo"), flags, 7)
+        this.vtbl.RefreshComponents := CallbackCreate(ObjBindMethod(implObj, "RefreshComponents"), flags, 1)
+        this.vtbl.BackupREGDB := CallbackCreate(ObjBindMethod(implObj, "BackupREGDB"), flags, 2)
+        this.vtbl.RestoreREGDB := CallbackCreate(ObjBindMethod(implObj, "RestoreREGDB"), flags, 2)
+        this.vtbl.QueryApplicationFile := CallbackCreate(ObjBindMethod(implObj, "QueryApplicationFile"), flags, 7)
+        this.vtbl.StartApplication := CallbackCreate(ObjBindMethod(implObj, "StartApplication"), flags, 2)
+        this.vtbl.ServiceCheck := CallbackCreate(ObjBindMethod(implObj, "ServiceCheck"), flags, 3)
+        this.vtbl.InstallMultipleEventClasses := CallbackCreate(ObjBindMethod(implObj, "InstallMultipleEventClasses"), flags, 4)
+        this.vtbl.InstallEventClass := CallbackCreate(ObjBindMethod(implObj, "InstallEventClass"), flags, 5)
+        this.vtbl.GetEventClassesForIID := CallbackCreate(ObjBindMethod(implObj, "GetEventClassesForIID"), flags, 5)
     }
 
     Dispose() {

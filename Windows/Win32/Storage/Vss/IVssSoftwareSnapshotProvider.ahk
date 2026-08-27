@@ -267,7 +267,7 @@ export default struct IVssSoftwareSnapshotProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsssoftwaresnapshotprovider-deletesnapshots
      */
     DeleteSnapshots(SourceObjectId, eSourceObjectType, bForceDelete, plDeletedSnapshots, pNondeletedSnapshotID) {
-        plDeletedSnapshotsMarshal := plDeletedSnapshots is VarRef ? "int*" : "ptr"
+        plDeletedSnapshotsMarshal := plDeletedSnapshots is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, Guid, SourceObjectId, VSS_OBJECT_TYPE, eSourceObjectType, BOOL, bForceDelete, plDeletedSnapshotsMarshal, plDeletedSnapshots, Guid.Ptr, pNondeletedSnapshotID, "HRESULT")
         return result
@@ -403,7 +403,7 @@ export default struct IVssSoftwareSnapshotProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsssoftwaresnapshotprovider-beginpreparesnapshot
      */
     BeginPrepareSnapshot(SnapshotSetId, SnapshotId, pwszVolumeName, lNewContext) {
-        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
+        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(7, this, Guid, SnapshotSetId, Guid, SnapshotId, pwszVolumeNameMarshal, pwszVolumeName, Int32, lNewContext, "HRESULT")
         return result
@@ -433,7 +433,7 @@ export default struct IVssSoftwareSnapshotProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsssoftwaresnapshotprovider-isvolumesupported
      */
     IsVolumeSupported(pwszVolumeName) {
-        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
+        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(8, this, pwszVolumeNameMarshal, pwszVolumeName, BOOL.Ptr, &pbSupportedByThisProvider := 0, "HRESULT")
         return pbSupportedByThisProvider
@@ -548,9 +548,9 @@ export default struct IVssSoftwareSnapshotProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsssoftwaresnapshotprovider-isvolumesnapshotted
      */
     IsVolumeSnapshotted(pwszVolumeName, pbSnapshotsPresent, plSnapshotCompatibility) {
-        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
-        pbSnapshotsPresentMarshal := pbSnapshotsPresent is VarRef ? "int*" : "ptr"
-        plSnapshotCompatibilityMarshal := plSnapshotCompatibility is VarRef ? "int*" : "ptr"
+        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : IntPtr
+        pbSnapshotsPresentMarshal := pbSnapshotsPresent is VarRef ? "int*" : IntPtr
+        plSnapshotCompatibilityMarshal := plSnapshotCompatibility is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, pwszVolumeNameMarshal, pwszVolumeName, pbSnapshotsPresentMarshal, pbSnapshotsPresent, plSnapshotCompatibilityMarshal, plSnapshotCompatibility, "HRESULT")
         return result
@@ -724,7 +724,7 @@ export default struct IVssSoftwareSnapshotProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsssoftwaresnapshotprovider-queryrevertstatus
      */
     QueryRevertStatus(pwszVolume) {
-        pwszVolumeMarshal := pwszVolume is VarRef ? "ushort*" : "ptr"
+        pwszVolumeMarshal := pwszVolume is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(12, this, pwszVolumeMarshal, pwszVolume, "ptr*", &ppAsync := 0, "HRESULT")
         return IVssAsync(ppAsync)
@@ -739,16 +739,16 @@ export default struct IVssSoftwareSnapshotProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetContext := CallbackCreate(GetMethod(implObj, "SetContext"), flags, 2)
-        this.vtbl.GetSnapshotProperties := CallbackCreate(GetMethod(implObj, "GetSnapshotProperties"), flags, 3)
-        this.vtbl.Query := CallbackCreate(GetMethod(implObj, "Query"), flags, 5)
-        this.vtbl.DeleteSnapshots := CallbackCreate(GetMethod(implObj, "DeleteSnapshots"), flags, 6)
-        this.vtbl.BeginPrepareSnapshot := CallbackCreate(GetMethod(implObj, "BeginPrepareSnapshot"), flags, 5)
-        this.vtbl.IsVolumeSupported := CallbackCreate(GetMethod(implObj, "IsVolumeSupported"), flags, 3)
-        this.vtbl.IsVolumeSnapshotted := CallbackCreate(GetMethod(implObj, "IsVolumeSnapshotted"), flags, 4)
-        this.vtbl.SetSnapshotProperty := CallbackCreate(GetMethod(implObj, "SetSnapshotProperty"), flags, 4)
-        this.vtbl.RevertToSnapshot := CallbackCreate(GetMethod(implObj, "RevertToSnapshot"), flags, 2)
-        this.vtbl.QueryRevertStatus := CallbackCreate(GetMethod(implObj, "QueryRevertStatus"), flags, 3)
+        this.vtbl.SetContext := CallbackCreate(ObjBindMethod(implObj, "SetContext"), flags, 2)
+        this.vtbl.GetSnapshotProperties := CallbackCreate(ObjBindMethod(implObj, "GetSnapshotProperties"), flags, 3)
+        this.vtbl.Query := CallbackCreate(ObjBindMethod(implObj, "Query"), flags, 5)
+        this.vtbl.DeleteSnapshots := CallbackCreate(ObjBindMethod(implObj, "DeleteSnapshots"), flags, 6)
+        this.vtbl.BeginPrepareSnapshot := CallbackCreate(ObjBindMethod(implObj, "BeginPrepareSnapshot"), flags, 5)
+        this.vtbl.IsVolumeSupported := CallbackCreate(ObjBindMethod(implObj, "IsVolumeSupported"), flags, 3)
+        this.vtbl.IsVolumeSnapshotted := CallbackCreate(ObjBindMethod(implObj, "IsVolumeSnapshotted"), flags, 4)
+        this.vtbl.SetSnapshotProperty := CallbackCreate(ObjBindMethod(implObj, "SetSnapshotProperty"), flags, 4)
+        this.vtbl.RevertToSnapshot := CallbackCreate(ObjBindMethod(implObj, "RevertToSnapshot"), flags, 2)
+        this.vtbl.QueryRevertStatus := CallbackCreate(ObjBindMethod(implObj, "QueryRevertStatus"), flags, 3)
     }
 
     Dispose() {

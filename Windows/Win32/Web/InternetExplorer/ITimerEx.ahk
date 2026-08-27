@@ -36,7 +36,6 @@ export default struct ITimerEx extends ITimer {
     }
 
     /**
-     * 
      * @param {Integer} dwMode 
      * @returns {HRESULT} 
      */
@@ -54,7 +53,7 @@ export default struct ITimerEx extends ITimer {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetMode := CallbackCreate(GetMethod(implObj, "SetMode"), flags, 2)
+        this.vtbl.SetMode := CallbackCreate(ObjBindMethod(implObj, "SetMode"), flags, 2)
     }
 
     Dispose() {

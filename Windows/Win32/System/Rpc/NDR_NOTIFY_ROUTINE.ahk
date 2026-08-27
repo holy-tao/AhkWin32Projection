@@ -18,7 +18,6 @@ export default struct NDR_NOTIFY_ROUTINE {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

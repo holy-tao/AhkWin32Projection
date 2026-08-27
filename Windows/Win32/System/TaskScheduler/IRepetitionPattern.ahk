@@ -156,7 +156,7 @@ export default struct IRepetitionPattern extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irepetitionpattern-get_stopatdurationend
      */
     get_StopAtDurationEnd(pStop) {
-        pStopMarshal := pStop is VarRef ? "short*" : "ptr"
+        pStopMarshal := pStop is VarRef ? "short*" : IntPtr
 
         result := ComCall(11, this, pStopMarshal, pStop, "HRESULT")
         return result
@@ -184,12 +184,12 @@ export default struct IRepetitionPattern extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Interval := CallbackCreate(GetMethod(implObj, "get_Interval"), flags, 2)
-        this.vtbl.put_Interval := CallbackCreate(GetMethod(implObj, "put_Interval"), flags, 2)
-        this.vtbl.get_Duration := CallbackCreate(GetMethod(implObj, "get_Duration"), flags, 2)
-        this.vtbl.put_Duration := CallbackCreate(GetMethod(implObj, "put_Duration"), flags, 2)
-        this.vtbl.get_StopAtDurationEnd := CallbackCreate(GetMethod(implObj, "get_StopAtDurationEnd"), flags, 2)
-        this.vtbl.put_StopAtDurationEnd := CallbackCreate(GetMethod(implObj, "put_StopAtDurationEnd"), flags, 2)
+        this.vtbl.get_Interval := CallbackCreate(ObjBindMethod(implObj, "get_Interval"), flags, 2)
+        this.vtbl.put_Interval := CallbackCreate(ObjBindMethod(implObj, "put_Interval"), flags, 2)
+        this.vtbl.get_Duration := CallbackCreate(ObjBindMethod(implObj, "get_Duration"), flags, 2)
+        this.vtbl.put_Duration := CallbackCreate(ObjBindMethod(implObj, "put_Duration"), flags, 2)
+        this.vtbl.get_StopAtDurationEnd := CallbackCreate(ObjBindMethod(implObj, "get_StopAtDurationEnd"), flags, 2)
+        this.vtbl.put_StopAtDurationEnd := CallbackCreate(ObjBindMethod(implObj, "put_StopAtDurationEnd"), flags, 2)
     }
 
     Dispose() {

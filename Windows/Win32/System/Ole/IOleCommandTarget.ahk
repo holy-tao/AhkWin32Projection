@@ -208,8 +208,8 @@ export default struct IOleCommandTarget extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryStatus := CallbackCreate(GetMethod(implObj, "QueryStatus"), flags, 5)
-        this.vtbl.Exec := CallbackCreate(GetMethod(implObj, "Exec"), flags, 6)
+        this.vtbl.QueryStatus := CallbackCreate(ObjBindMethod(implObj, "QueryStatus"), flags, 5)
+        this.vtbl.Exec := CallbackCreate(ObjBindMethod(implObj, "Exec"), flags, 6)
     }
 
     Dispose() {

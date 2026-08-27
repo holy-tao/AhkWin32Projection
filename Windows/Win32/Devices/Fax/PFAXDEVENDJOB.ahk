@@ -20,7 +20,6 @@ export default struct PFAXDEVENDJOB {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @returns {BOOL} 
      */

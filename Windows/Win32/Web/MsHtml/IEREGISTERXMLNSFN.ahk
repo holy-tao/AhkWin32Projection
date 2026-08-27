@@ -22,7 +22,6 @@ export default struct IEREGISTERXMLNSFN {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszURI 
      * @param {Guid} clsid 
      * @param {BOOL} fMachine 

@@ -39,7 +39,6 @@ export default struct IProvisioningDomain extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszwPathToFolder 
      * @returns {HRESULT} 
      */
@@ -76,8 +75,8 @@ export default struct IProvisioningDomain extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
-        this.vtbl.Query := CallbackCreate(GetMethod(implObj, "Query"), flags, 5)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Query := CallbackCreate(ObjBindMethod(implObj, "Query"), flags, 5)
     }
 
     Dispose() {

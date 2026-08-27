@@ -245,7 +245,7 @@ export default struct IDXGIOutputDuplication extends IDXGIObject {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgioutputduplication-getframepointershape
      */
     GetFramePointerShape(PointerShapeBufferSize, pPointerShapeBuffer, pPointerShapeBufferSizeRequired, pPointerShapeInfo) {
-        pPointerShapeBufferSizeRequiredMarshal := pPointerShapeBufferSizeRequired is VarRef ? "uint*" : "ptr"
+        pPointerShapeBufferSizeRequiredMarshal := pPointerShapeBufferSizeRequired is VarRef ? "uint*" : IntPtr
 
         result := ComCall(11, this, UInt32, PointerShapeBufferSize, IntPtr, pPointerShapeBuffer, pPointerShapeBufferSizeRequiredMarshal, pPointerShapeBufferSizeRequired, DXGI_OUTDUPL_POINTER_SHAPE_INFO.Ptr, pPointerShapeInfo, "HRESULT")
         return result
@@ -312,14 +312,14 @@ export default struct IDXGIOutputDuplication extends IDXGIObject {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDesc := CallbackCreate(GetMethod(implObj, "GetDesc"), flags, 2)
-        this.vtbl.AcquireNextFrame := CallbackCreate(GetMethod(implObj, "AcquireNextFrame"), flags, 4)
-        this.vtbl.GetFrameDirtyRects := CallbackCreate(GetMethod(implObj, "GetFrameDirtyRects"), flags, 4)
-        this.vtbl.GetFrameMoveRects := CallbackCreate(GetMethod(implObj, "GetFrameMoveRects"), flags, 4)
-        this.vtbl.GetFramePointerShape := CallbackCreate(GetMethod(implObj, "GetFramePointerShape"), flags, 5)
-        this.vtbl.MapDesktopSurface := CallbackCreate(GetMethod(implObj, "MapDesktopSurface"), flags, 2)
-        this.vtbl.UnMapDesktopSurface := CallbackCreate(GetMethod(implObj, "UnMapDesktopSurface"), flags, 1)
-        this.vtbl.ReleaseFrame := CallbackCreate(GetMethod(implObj, "ReleaseFrame"), flags, 1)
+        this.vtbl.GetDesc := CallbackCreate(ObjBindMethod(implObj, "GetDesc"), flags, 2)
+        this.vtbl.AcquireNextFrame := CallbackCreate(ObjBindMethod(implObj, "AcquireNextFrame"), flags, 4)
+        this.vtbl.GetFrameDirtyRects := CallbackCreate(ObjBindMethod(implObj, "GetFrameDirtyRects"), flags, 4)
+        this.vtbl.GetFrameMoveRects := CallbackCreate(ObjBindMethod(implObj, "GetFrameMoveRects"), flags, 4)
+        this.vtbl.GetFramePointerShape := CallbackCreate(ObjBindMethod(implObj, "GetFramePointerShape"), flags, 5)
+        this.vtbl.MapDesktopSurface := CallbackCreate(ObjBindMethod(implObj, "MapDesktopSurface"), flags, 2)
+        this.vtbl.UnMapDesktopSurface := CallbackCreate(ObjBindMethod(implObj, "UnMapDesktopSurface"), flags, 1)
+        this.vtbl.ReleaseFrame := CallbackCreate(ObjBindMethod(implObj, "ReleaseFrame"), flags, 1)
     }
 
     Dispose() {

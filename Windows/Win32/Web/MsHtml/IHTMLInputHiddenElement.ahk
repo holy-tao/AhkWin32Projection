@@ -97,7 +97,6 @@ export default struct IHTMLInputHiddenElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -107,7 +106,6 @@ export default struct IHTMLInputHiddenElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -119,7 +117,6 @@ export default struct IHTMLInputHiddenElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_value() {
@@ -129,7 +126,6 @@ export default struct IHTMLInputHiddenElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -141,7 +137,6 @@ export default struct IHTMLInputHiddenElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -151,7 +146,6 @@ export default struct IHTMLInputHiddenElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -161,7 +155,6 @@ export default struct IHTMLInputHiddenElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_status() {
@@ -171,7 +164,6 @@ export default struct IHTMLInputHiddenElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -181,7 +173,6 @@ export default struct IHTMLInputHiddenElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_disabled() {
@@ -190,7 +181,6 @@ export default struct IHTMLInputHiddenElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLFormElement} 
      */
     get_form() {
@@ -199,7 +189,6 @@ export default struct IHTMLInputHiddenElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLTxtRange} 
      */
     createTextRange() {
@@ -216,17 +205,17 @@ export default struct IHTMLInputHiddenElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
-        this.vtbl.put_value := CallbackCreate(GetMethod(implObj, "put_value"), flags, 2)
-        this.vtbl.get_value := CallbackCreate(GetMethod(implObj, "get_value"), flags, 2)
-        this.vtbl.put_name := CallbackCreate(GetMethod(implObj, "put_name"), flags, 2)
-        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
-        this.vtbl.put_status := CallbackCreate(GetMethod(implObj, "put_status"), flags, 2)
-        this.vtbl.get_status := CallbackCreate(GetMethod(implObj, "get_status"), flags, 2)
-        this.vtbl.put_disabled := CallbackCreate(GetMethod(implObj, "put_disabled"), flags, 2)
-        this.vtbl.get_disabled := CallbackCreate(GetMethod(implObj, "get_disabled"), flags, 2)
-        this.vtbl.get_form := CallbackCreate(GetMethod(implObj, "get_form"), flags, 2)
-        this.vtbl.createTextRange := CallbackCreate(GetMethod(implObj, "createTextRange"), flags, 2)
+        this.vtbl.get_type := CallbackCreate(ObjBindMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.put_value := CallbackCreate(ObjBindMethod(implObj, "put_value"), flags, 2)
+        this.vtbl.get_value := CallbackCreate(ObjBindMethod(implObj, "get_value"), flags, 2)
+        this.vtbl.put_name := CallbackCreate(ObjBindMethod(implObj, "put_name"), flags, 2)
+        this.vtbl.get_name := CallbackCreate(ObjBindMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.put_status := CallbackCreate(ObjBindMethod(implObj, "put_status"), flags, 2)
+        this.vtbl.get_status := CallbackCreate(ObjBindMethod(implObj, "get_status"), flags, 2)
+        this.vtbl.put_disabled := CallbackCreate(ObjBindMethod(implObj, "put_disabled"), flags, 2)
+        this.vtbl.get_disabled := CallbackCreate(ObjBindMethod(implObj, "get_disabled"), flags, 2)
+        this.vtbl.get_form := CallbackCreate(ObjBindMethod(implObj, "get_form"), flags, 2)
+        this.vtbl.createTextRange := CallbackCreate(ObjBindMethod(implObj, "createTextRange"), flags, 2)
     }
 
     Dispose() {

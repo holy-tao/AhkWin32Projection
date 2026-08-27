@@ -101,7 +101,6 @@ export default struct ISVGPathSegCurvetoCubicAbs extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -111,7 +110,6 @@ export default struct ISVGPathSegCurvetoCubicAbs extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_x() {
@@ -120,7 +118,6 @@ export default struct ISVGPathSegCurvetoCubicAbs extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -130,7 +127,6 @@ export default struct ISVGPathSegCurvetoCubicAbs extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_y() {
@@ -139,7 +135,6 @@ export default struct ISVGPathSegCurvetoCubicAbs extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -149,7 +144,6 @@ export default struct ISVGPathSegCurvetoCubicAbs extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_x1() {
@@ -158,7 +152,6 @@ export default struct ISVGPathSegCurvetoCubicAbs extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -168,7 +161,6 @@ export default struct ISVGPathSegCurvetoCubicAbs extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_y1() {
@@ -177,7 +169,6 @@ export default struct ISVGPathSegCurvetoCubicAbs extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -187,7 +178,6 @@ export default struct ISVGPathSegCurvetoCubicAbs extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_x2() {
@@ -196,7 +186,6 @@ export default struct ISVGPathSegCurvetoCubicAbs extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -206,7 +195,6 @@ export default struct ISVGPathSegCurvetoCubicAbs extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_y2() {
@@ -223,18 +211,18 @@ export default struct ISVGPathSegCurvetoCubicAbs extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_x := CallbackCreate(GetMethod(implObj, "put_x"), flags, 2)
-        this.vtbl.get_x := CallbackCreate(GetMethod(implObj, "get_x"), flags, 2)
-        this.vtbl.put_y := CallbackCreate(GetMethod(implObj, "put_y"), flags, 2)
-        this.vtbl.get_y := CallbackCreate(GetMethod(implObj, "get_y"), flags, 2)
-        this.vtbl.put_x1 := CallbackCreate(GetMethod(implObj, "put_x1"), flags, 2)
-        this.vtbl.get_x1 := CallbackCreate(GetMethod(implObj, "get_x1"), flags, 2)
-        this.vtbl.put_y1 := CallbackCreate(GetMethod(implObj, "put_y1"), flags, 2)
-        this.vtbl.get_y1 := CallbackCreate(GetMethod(implObj, "get_y1"), flags, 2)
-        this.vtbl.put_x2 := CallbackCreate(GetMethod(implObj, "put_x2"), flags, 2)
-        this.vtbl.get_x2 := CallbackCreate(GetMethod(implObj, "get_x2"), flags, 2)
-        this.vtbl.put_y2 := CallbackCreate(GetMethod(implObj, "put_y2"), flags, 2)
-        this.vtbl.get_y2 := CallbackCreate(GetMethod(implObj, "get_y2"), flags, 2)
+        this.vtbl.put_x := CallbackCreate(ObjBindMethod(implObj, "put_x"), flags, 2)
+        this.vtbl.get_x := CallbackCreate(ObjBindMethod(implObj, "get_x"), flags, 2)
+        this.vtbl.put_y := CallbackCreate(ObjBindMethod(implObj, "put_y"), flags, 2)
+        this.vtbl.get_y := CallbackCreate(ObjBindMethod(implObj, "get_y"), flags, 2)
+        this.vtbl.put_x1 := CallbackCreate(ObjBindMethod(implObj, "put_x1"), flags, 2)
+        this.vtbl.get_x1 := CallbackCreate(ObjBindMethod(implObj, "get_x1"), flags, 2)
+        this.vtbl.put_y1 := CallbackCreate(ObjBindMethod(implObj, "put_y1"), flags, 2)
+        this.vtbl.get_y1 := CallbackCreate(ObjBindMethod(implObj, "get_y1"), flags, 2)
+        this.vtbl.put_x2 := CallbackCreate(ObjBindMethod(implObj, "put_x2"), flags, 2)
+        this.vtbl.get_x2 := CallbackCreate(ObjBindMethod(implObj, "get_x2"), flags, 2)
+        this.vtbl.put_y2 := CallbackCreate(ObjBindMethod(implObj, "put_y2"), flags, 2)
+        this.vtbl.get_y2 := CallbackCreate(ObjBindMethod(implObj, "get_y2"), flags, 2)
     }
 
     Dispose() {

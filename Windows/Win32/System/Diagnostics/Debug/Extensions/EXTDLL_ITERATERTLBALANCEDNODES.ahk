@@ -19,7 +19,6 @@ export default struct EXTDLL_ITERATERTLBALANCEDNODES {
     }
 
     /**
-     * 
      * @param {Integer} RootNode 
      * @param {Integer} EntryOffset 
      * @param {Pointer<ENTRY_CALLBACK>} Callback 
@@ -27,7 +26,8 @@ export default struct EXTDLL_ITERATERTLBALANCEDNODES {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(RootNode, EntryOffset, Callback, CallbackContext) {
-        CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
+        CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : IntPtr
+        CallbackContextMarshal := CallbackContext == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, Int64, RootNode, UInt32, EntryOffset, ENTRY_CALLBACK, Callback, CallbackContextMarshal, CallbackContext)
     }

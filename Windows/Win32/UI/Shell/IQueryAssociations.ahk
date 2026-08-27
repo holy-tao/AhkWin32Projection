@@ -99,7 +99,11 @@ export default struct IQueryAssociations extends IUnknown {
     Init(flags, pszAssoc, hkProgid, _hwnd) {
         pszAssoc := pszAssoc is String ? StrPtr(pszAssoc) : pszAssoc
 
-        result := ComCall(3, this, ASSOCF, flags, "ptr", pszAssoc, HKEY, hkProgid, HWND, _hwnd, "HRESULT")
+        pszAssocMarshal := pszAssoc == 0 ? IntPtr : PWSTR
+        hkProgidMarshal := hkProgid == 0 ? IntPtr : HKEY
+        _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+
+        result := ComCall(3, this, ASSOCF, flags, pszAssocMarshal, pszAssoc, hkProgidMarshal, hkProgid, _hwndMarshal, _hwnd, "HRESULT")
         return result
     }
 
@@ -177,9 +181,11 @@ export default struct IQueryAssociations extends IUnknown {
         pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
         pszOut := pszOut is String ? StrPtr(pszOut) : pszOut
 
-        pcchOutMarshal := pcchOut is VarRef ? "uint*" : "ptr"
+        pszExtraMarshal := pszExtra == 0 ? IntPtr : PWSTR
+        pszOutMarshal := pszOut == 0 ? IntPtr : PWSTR
+        pcchOutMarshal := pcchOut is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(4, this, ASSOCF, flags, ASSOCSTR, str, "ptr", pszExtra, "ptr", pszOut, pcchOutMarshal, pcchOut, "HRESULT")
+        result := ComCall(4, this, ASSOCF, flags, ASSOCSTR, str, pszExtraMarshal, pszExtra, pszOutMarshal, pszOut, pcchOutMarshal, pcchOut, "HRESULT")
         return result
     }
 
@@ -202,8 +208,10 @@ export default struct IQueryAssociations extends IUnknown {
     GetKey(flags, key, pszExtra) {
         pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
 
+        pszExtraMarshal := pszExtra == 0 ? IntPtr : PWSTR
+
         phkeyOut := HKEY.Owned()
-        result := ComCall(5, this, ASSOCF, flags, ASSOCKEY, key, "ptr", pszExtra, HKEY.Ptr, phkeyOut, "HRESULT")
+        result := ComCall(5, this, ASSOCF, flags, ASSOCKEY, key, pszExtraMarshal, pszExtra, HKEY.Ptr, phkeyOut, "HRESULT")
         return phkeyOut
     }
 
@@ -232,9 +240,12 @@ export default struct IQueryAssociations extends IUnknown {
     GetData(flags, data, pszExtra, pvOut, pcbOut) {
         pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
 
-        pcbOutMarshal := pcbOut is VarRef ? "uint*" : "ptr"
+        pszExtraMarshal := pszExtra == 0 ? IntPtr : PWSTR
+        pvOutMarshal := pvOut == 0 ? IntPtr : IntPtr
+        pcbOutMarshal := pcbOut is VarRef ? "uint*" : IntPtr
+        pcbOutMarshal := pcbOut == 0 ? IntPtr : "uint*"
 
-        result := ComCall(6, this, ASSOCF, flags, ASSOCDATA, data, "ptr", pszExtra, IntPtr, pvOut, pcbOutMarshal, pcbOut, "HRESULT")
+        result := ComCall(6, this, ASSOCF, flags, ASSOCDATA, data, pszExtraMarshal, pszExtra, pvOutMarshal, pvOut, pcbOutMarshal, pcbOut, "HRESULT")
         return result
     }
 
@@ -250,7 +261,9 @@ export default struct IQueryAssociations extends IUnknown {
     GetEnum(flags, _assocenum, pszExtra, riid) {
         pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
 
-        result := ComCall(7, this, ASSOCF, flags, ASSOCENUM, _assocenum, "ptr", pszExtra, Guid.Ptr, riid, "ptr*", &ppvOut := 0, "HRESULT")
+        pszExtraMarshal := pszExtra == 0 ? IntPtr : PWSTR
+
+        result := ComCall(7, this, ASSOCF, flags, ASSOCENUM, _assocenum, pszExtraMarshal, pszExtra, Guid.Ptr, riid, "ptr*", &ppvOut := 0, "HRESULT")
         return ppvOut
     }
 
@@ -263,11 +276,11 @@ export default struct IQueryAssociations extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 5)
-        this.vtbl.GetString := CallbackCreate(GetMethod(implObj, "GetString"), flags, 6)
-        this.vtbl.GetKey := CallbackCreate(GetMethod(implObj, "GetKey"), flags, 5)
-        this.vtbl.GetData := CallbackCreate(GetMethod(implObj, "GetData"), flags, 6)
-        this.vtbl.GetEnum := CallbackCreate(GetMethod(implObj, "GetEnum"), flags, 6)
+        this.vtbl.Init := CallbackCreate(ObjBindMethod(implObj, "Init"), flags, 5)
+        this.vtbl.GetString := CallbackCreate(ObjBindMethod(implObj, "GetString"), flags, 6)
+        this.vtbl.GetKey := CallbackCreate(ObjBindMethod(implObj, "GetKey"), flags, 5)
+        this.vtbl.GetData := CallbackCreate(ObjBindMethod(implObj, "GetData"), flags, 6)
+        this.vtbl.GetEnum := CallbackCreate(ObjBindMethod(implObj, "GetEnum"), flags, 6)
     }
 
     Dispose() {

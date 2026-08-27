@@ -36,7 +36,6 @@ export default struct IDirectSound8 extends IDirectSound {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     VerifyCertification() {
@@ -53,7 +52,7 @@ export default struct IDirectSound8 extends IDirectSound {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.VerifyCertification := CallbackCreate(GetMethod(implObj, "VerifyCertification"), flags, 2)
+        this.vtbl.VerifyCertification := CallbackCreate(ObjBindMethod(implObj, "VerifyCertification"), flags, 2)
     }
 
     Dispose() {

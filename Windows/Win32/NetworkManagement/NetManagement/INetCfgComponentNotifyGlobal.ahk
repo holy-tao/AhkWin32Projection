@@ -41,7 +41,6 @@ export default struct INetCfgComponentNotifyGlobal extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetSupportedNotifications() {
@@ -50,7 +49,6 @@ export default struct INetCfgComponentNotifyGlobal extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwChangeFlag 
      * @param {INetCfgBindingPath} pIPath 
      * @returns {HRESULT} 
@@ -61,7 +59,6 @@ export default struct INetCfgComponentNotifyGlobal extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwChangeFlag 
      * @param {INetCfgBindingPath} pIPath 
      * @returns {HRESULT} 
@@ -72,7 +69,6 @@ export default struct INetCfgComponentNotifyGlobal extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwChangeFlag 
      * @param {INetCfgComponent} pIComp 
      * @returns {HRESULT} 
@@ -91,10 +87,10 @@ export default struct INetCfgComponentNotifyGlobal extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSupportedNotifications := CallbackCreate(GetMethod(implObj, "GetSupportedNotifications"), flags, 2)
-        this.vtbl.SysQueryBindingPath := CallbackCreate(GetMethod(implObj, "SysQueryBindingPath"), flags, 3)
-        this.vtbl.SysNotifyBindingPath := CallbackCreate(GetMethod(implObj, "SysNotifyBindingPath"), flags, 3)
-        this.vtbl.SysNotifyComponent := CallbackCreate(GetMethod(implObj, "SysNotifyComponent"), flags, 3)
+        this.vtbl.GetSupportedNotifications := CallbackCreate(ObjBindMethod(implObj, "GetSupportedNotifications"), flags, 2)
+        this.vtbl.SysQueryBindingPath := CallbackCreate(ObjBindMethod(implObj, "SysQueryBindingPath"), flags, 3)
+        this.vtbl.SysNotifyBindingPath := CallbackCreate(ObjBindMethod(implObj, "SysNotifyBindingPath"), flags, 3)
+        this.vtbl.SysNotifyComponent := CallbackCreate(ObjBindMethod(implObj, "SysNotifyComponent"), flags, 3)
     }
 
     Dispose() {

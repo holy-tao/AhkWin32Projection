@@ -19,7 +19,6 @@ export default struct LPWABALLOCATEMORE {
     }
 
     /**
-     * 
      * @param {IWABObject} lpWABObject 
      * @param {Integer} cbSize 
      * @param {Pointer<Void>} lpObject 
@@ -27,8 +26,8 @@ export default struct LPWABALLOCATEMORE {
      * @returns {Integer} 
      */
     Call(lpWABObject, cbSize, lpObject, lppBuffer) {
-        lpObjectMarshal := lpObject is VarRef ? "ptr" : "ptr"
-        lppBufferMarshal := lppBuffer is VarRef ? "ptr*" : "ptr"
+        lpObjectMarshal := lpObject is VarRef ? "ptr" : IntPtr
+        lppBufferMarshal := lppBuffer is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, "ptr", lpWABObject, UInt32, cbSize, lpObjectMarshal, lpObject, lppBufferMarshal, lppBuffer, Int32)
         return result

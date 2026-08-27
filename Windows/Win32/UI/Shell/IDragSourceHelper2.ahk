@@ -65,7 +65,7 @@ export default struct IDragSourceHelper2 extends IDragSourceHelper {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetFlags := CallbackCreate(GetMethod(implObj, "SetFlags"), flags, 2)
+        this.vtbl.SetFlags := CallbackCreate(ObjBindMethod(implObj, "SetFlags"), flags, 2)
     }
 
     Dispose() {

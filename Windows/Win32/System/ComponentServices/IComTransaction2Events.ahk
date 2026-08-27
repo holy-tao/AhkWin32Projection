@@ -103,10 +103,10 @@ export default struct IComTransaction2Events extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnTransactionStart2 := CallbackCreate(GetMethod(implObj, "OnTransactionStart2"), flags, 6)
-        this.vtbl.OnTransactionPrepare2 := CallbackCreate(GetMethod(implObj, "OnTransactionPrepare2"), flags, 4)
-        this.vtbl.OnTransactionAbort2 := CallbackCreate(GetMethod(implObj, "OnTransactionAbort2"), flags, 3)
-        this.vtbl.OnTransactionCommit2 := CallbackCreate(GetMethod(implObj, "OnTransactionCommit2"), flags, 3)
+        this.vtbl.OnTransactionStart2 := CallbackCreate(ObjBindMethod(implObj, "OnTransactionStart2"), flags, 6)
+        this.vtbl.OnTransactionPrepare2 := CallbackCreate(ObjBindMethod(implObj, "OnTransactionPrepare2"), flags, 4)
+        this.vtbl.OnTransactionAbort2 := CallbackCreate(ObjBindMethod(implObj, "OnTransactionAbort2"), flags, 3)
+        this.vtbl.OnTransactionCommit2 := CallbackCreate(ObjBindMethod(implObj, "OnTransactionCommit2"), flags, 3)
     }
 
     Dispose() {

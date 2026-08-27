@@ -52,7 +52,7 @@ export default struct ISettingsIdentity extends IUnknown {
     GetAttribute(Reserved, Name) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
+        ReservedMarshal := Reserved is VarRef ? "ptr" : IntPtr
 
         Value := BSTR.Owned()
         result := ComCall(3, this, ReservedMarshal, Reserved, "ptr", Name, BSTR.Ptr, Value, "HRESULT")
@@ -71,7 +71,7 @@ export default struct ISettingsIdentity extends IUnknown {
         Name := Name is String ? StrPtr(Name) : Name
         Value := Value is String ? StrPtr(Value) : Value
 
-        ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
+        ReservedMarshal := Reserved is VarRef ? "ptr" : IntPtr
 
         result := ComCall(4, this, ReservedMarshal, Reserved, "ptr", Name, "ptr", Value, "HRESULT")
         return result
@@ -107,10 +107,10 @@ export default struct ISettingsIdentity extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAttribute := CallbackCreate(GetMethod(implObj, "GetAttribute"), flags, 4)
-        this.vtbl.SetAttribute := CallbackCreate(GetMethod(implObj, "SetAttribute"), flags, 4)
-        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
-        this.vtbl.SetFlags := CallbackCreate(GetMethod(implObj, "SetFlags"), flags, 2)
+        this.vtbl.GetAttribute := CallbackCreate(ObjBindMethod(implObj, "GetAttribute"), flags, 4)
+        this.vtbl.SetAttribute := CallbackCreate(ObjBindMethod(implObj, "SetAttribute"), flags, 4)
+        this.vtbl.GetFlags := CallbackCreate(ObjBindMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.SetFlags := CallbackCreate(ObjBindMethod(implObj, "SetFlags"), flags, 2)
     }
 
     Dispose() {

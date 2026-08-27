@@ -18,7 +18,6 @@ export default struct PNS_CONTEXT_COMMIT_FN {
     }
 
     /**
-     * 
      * @param {Integer} dwAction 
      * @returns {Integer} 
      */

@@ -58,9 +58,10 @@ export default struct IWTSListenerCallback extends IUnknown {
     OnNewChannelConnection(pChannel, data, pbAccept, ppCallback) {
         data := data is String ? BSTR.Alloc(data).Value : data
 
-        pbAcceptMarshal := pbAccept is VarRef ? "int*" : "ptr"
+        dataMarshal := data == 0 ? IntPtr : BSTR
+        pbAcceptMarshal := pbAccept is VarRef ? "int*" : IntPtr
 
-        result := ComCall(3, this, "ptr", pChannel, BSTR, data, pbAcceptMarshal, pbAccept, IWTSVirtualChannelCallback.Ptr, ppCallback, "HRESULT")
+        result := ComCall(3, this, "ptr", pChannel, dataMarshal, data, pbAcceptMarshal, pbAccept, IWTSVirtualChannelCallback.Ptr, ppCallback, "HRESULT")
         return result
     }
 
@@ -73,7 +74,7 @@ export default struct IWTSListenerCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnNewChannelConnection := CallbackCreate(GetMethod(implObj, "OnNewChannelConnection"), flags, 5)
+        this.vtbl.OnNewChannelConnection := CallbackCreate(ObjBindMethod(implObj, "OnNewChannelConnection"), flags, 5)
     }
 
     Dispose() {

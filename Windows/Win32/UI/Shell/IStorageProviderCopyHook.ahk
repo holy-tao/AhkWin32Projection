@@ -87,7 +87,7 @@ export default struct IStorageProviderCopyHook extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CopyCallback := CallbackCreate(GetMethod(implObj, "CopyCallback"), flags, 9)
+        this.vtbl.CopyCallback := CallbackCreate(ObjBindMethod(implObj, "CopyCallback"), flags, 9)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct PWLDP_SETWINDOWSLOCKDOWNRESTRICTION_API {
     }
 
     /**
-     * 
      * @param {WLDP_WINDOWS_LOCKDOWN_RESTRICTION} LockdownRestriction 
      * @returns {HRESULT} 
      */

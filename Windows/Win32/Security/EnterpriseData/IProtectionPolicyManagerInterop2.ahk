@@ -129,11 +129,11 @@ export default struct IProtectionPolicyManagerInterop2 extends IInspectable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RequestAccessForAppWithWindowAsync := CallbackCreate(GetMethod(implObj, "RequestAccessForAppWithWindowAsync"), flags, 6)
-        this.vtbl.RequestAccessWithAuditingInfoForWindowAsync := CallbackCreate(GetMethod(implObj, "RequestAccessWithAuditingInfoForWindowAsync"), flags, 7)
-        this.vtbl.RequestAccessWithMessageForWindowAsync := CallbackCreate(GetMethod(implObj, "RequestAccessWithMessageForWindowAsync"), flags, 8)
-        this.vtbl.RequestAccessForAppWithAuditingInfoForWindowAsync := CallbackCreate(GetMethod(implObj, "RequestAccessForAppWithAuditingInfoForWindowAsync"), flags, 7)
-        this.vtbl.RequestAccessForAppWithMessageForWindowAsync := CallbackCreate(GetMethod(implObj, "RequestAccessForAppWithMessageForWindowAsync"), flags, 8)
+        this.vtbl.RequestAccessForAppWithWindowAsync := CallbackCreate(ObjBindMethod(implObj, "RequestAccessForAppWithWindowAsync"), flags, 6)
+        this.vtbl.RequestAccessWithAuditingInfoForWindowAsync := CallbackCreate(ObjBindMethod(implObj, "RequestAccessWithAuditingInfoForWindowAsync"), flags, 7)
+        this.vtbl.RequestAccessWithMessageForWindowAsync := CallbackCreate(ObjBindMethod(implObj, "RequestAccessWithMessageForWindowAsync"), flags, 8)
+        this.vtbl.RequestAccessForAppWithAuditingInfoForWindowAsync := CallbackCreate(ObjBindMethod(implObj, "RequestAccessForAppWithAuditingInfoForWindowAsync"), flags, 7)
+        this.vtbl.RequestAccessForAppWithMessageForWindowAsync := CallbackCreate(ObjBindMethod(implObj, "RequestAccessForAppWithMessageForWindowAsync"), flags, 8)
     }
 
     Dispose() {

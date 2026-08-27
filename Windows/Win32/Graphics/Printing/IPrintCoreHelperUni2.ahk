@@ -37,7 +37,6 @@ export default struct IPrintCoreHelperUni2 extends IPrintCoreHelperUni {
     }
 
     /**
-     * 
      * @param {Integer} pDevmode 
      * @param {Integer} cbSize 
      * @param {PWSTR} pszCommandName 
@@ -48,10 +47,11 @@ export default struct IPrintCoreHelperUni2 extends IPrintCoreHelperUni {
     GetNamedCommand(pDevmode, cbSize, pszCommandName, ppCommandBytes, pcbCommandSize) {
         pszCommandName := pszCommandName is String ? StrPtr(pszCommandName) : pszCommandName
 
-        ppCommandBytesMarshal := ppCommandBytes is VarRef ? "ptr*" : "ptr"
-        pcbCommandSizeMarshal := pcbCommandSize is VarRef ? "uint*" : "ptr"
+        pDevmodeMarshal := pDevmode == 0 ? IntPtr : IntPtr
+        ppCommandBytesMarshal := ppCommandBytes is VarRef ? "ptr*" : IntPtr
+        pcbCommandSizeMarshal := pcbCommandSize is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(14, this, IntPtr, pDevmode, UInt32, cbSize, "ptr", pszCommandName, ppCommandBytesMarshal, ppCommandBytes, pcbCommandSizeMarshal, pcbCommandSize, "HRESULT")
+        result := ComCall(14, this, pDevmodeMarshal, pDevmode, UInt32, cbSize, "ptr", pszCommandName, ppCommandBytesMarshal, ppCommandBytes, pcbCommandSizeMarshal, pcbCommandSize, "HRESULT")
         return result
     }
 
@@ -64,7 +64,7 @@ export default struct IPrintCoreHelperUni2 extends IPrintCoreHelperUni {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNamedCommand := CallbackCreate(GetMethod(implObj, "GetNamedCommand"), flags, 6)
+        this.vtbl.GetNamedCommand := CallbackCreate(ObjBindMethod(implObj, "GetNamedCommand"), flags, 6)
     }
 
     Dispose() {

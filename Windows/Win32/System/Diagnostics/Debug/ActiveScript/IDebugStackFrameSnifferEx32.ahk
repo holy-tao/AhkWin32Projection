@@ -37,7 +37,6 @@ export default struct IDebugStackFrameSnifferEx32 extends IDebugStackFrameSniffe
     }
 
     /**
-     * 
      * @param {Integer} dwSpMin 
      * @returns {IEnumDebugStackFrames} 
      */
@@ -55,7 +54,7 @@ export default struct IDebugStackFrameSnifferEx32 extends IDebugStackFrameSniffe
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumStackFramesEx32 := CallbackCreate(GetMethod(implObj, "EnumStackFramesEx32"), flags, 3)
+        this.vtbl.EnumStackFramesEx32 := CallbackCreate(ObjBindMethod(implObj, "EnumStackFramesEx32"), flags, 3)
     }
 
     Dispose() {

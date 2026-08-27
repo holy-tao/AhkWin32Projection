@@ -88,8 +88,8 @@ export default struct ITfRangeACP extends ITfRange {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrangeacp-getextent
      */
     GetExtent(pacpAnchor, pcch) {
-        pacpAnchorMarshal := pacpAnchor is VarRef ? "int*" : "ptr"
-        pcchMarshal := pcch is VarRef ? "int*" : "ptr"
+        pacpAnchorMarshal := pacpAnchor is VarRef ? "int*" : IntPtr
+        pcchMarshal := pcch is VarRef ? "int*" : IntPtr
 
         result := ComCall(25, this, pacpAnchorMarshal, pacpAnchor, pcchMarshal, pcch, "HRESULT")
         return result
@@ -158,8 +158,8 @@ export default struct ITfRangeACP extends ITfRange {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetExtent := CallbackCreate(GetMethod(implObj, "GetExtent"), flags, 3)
-        this.vtbl.SetExtent := CallbackCreate(GetMethod(implObj, "SetExtent"), flags, 3)
+        this.vtbl.GetExtent := CallbackCreate(ObjBindMethod(implObj, "GetExtent"), flags, 3)
+        this.vtbl.SetExtent := CallbackCreate(ObjBindMethod(implObj, "SetExtent"), flags, 3)
     }
 
     Dispose() {

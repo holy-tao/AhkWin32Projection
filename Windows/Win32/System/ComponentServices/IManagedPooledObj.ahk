@@ -58,7 +58,7 @@ export default struct IManagedPooledObj extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetHeld := CallbackCreate(GetMethod(implObj, "SetHeld"), flags, 2)
+        this.vtbl.SetHeld := CallbackCreate(ObjBindMethod(implObj, "SetHeld"), flags, 2)
     }
 
     Dispose() {

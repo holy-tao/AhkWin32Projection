@@ -9,19 +9,19 @@
 
 ;@region Functions
 /**
- * 
  * @param {Pointer<CORRELATION_VECTOR>} CorrelationVector 
  * @param {Integer} _Version 
  * @param {Pointer<Guid>} Guid 
  * @returns {Integer} 
  */
 export RtlInitializeCorrelationVector(CorrelationVector, _Version, Guid) {
-    result := DllCall("ntdll.dll\RtlInitializeCorrelationVector", CORRELATION_VECTOR.Ptr, CorrelationVector, Int32, _Version, Guid.Ptr, Guid, UInt32)
+    GuidMarshal := Guid == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("ntdll.dll\RtlInitializeCorrelationVector", CORRELATION_VECTOR.Ptr, CorrelationVector, Int32, _Version, GuidMarshal, Guid, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<CORRELATION_VECTOR>} CorrelationVector 
  * @returns {Integer} 
  */
@@ -31,7 +31,6 @@ export RtlIncrementCorrelationVector(CorrelationVector) {
 }
 
 /**
- * 
  * @param {Pointer<CORRELATION_VECTOR>} CorrelationVector 
  * @returns {Integer} 
  */
@@ -41,7 +40,6 @@ export RtlExtendCorrelationVector(CorrelationVector) {
 }
 
 /**
- * 
  * @param {Pointer<CORRELATION_VECTOR>} Vector 
  * @returns {Integer} 
  */

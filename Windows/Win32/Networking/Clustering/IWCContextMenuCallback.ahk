@@ -137,7 +137,7 @@ export default struct IWCContextMenuCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddExtensionMenuItem := CallbackCreate(GetMethod(implObj, "AddExtensionMenuItem"), flags, 6)
+        this.vtbl.AddExtensionMenuItem := CallbackCreate(ObjBindMethod(implObj, "AddExtensionMenuItem"), flags, 6)
     }
 
     Dispose() {

@@ -69,7 +69,9 @@ export default struct IRegisteredSyncProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-iregisteredsyncprovider-init
      */
     Init(pguidInstanceId, pguidContentType, pContextPropertyStore) {
-        result := ComCall(3, this, Guid.Ptr, pguidInstanceId, Guid.Ptr, pguidContentType, "ptr", pContextPropertyStore, "HRESULT")
+        pContextPropertyStoreMarshal := pContextPropertyStore == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, Guid.Ptr, pguidInstanceId, Guid.Ptr, pguidContentType, pContextPropertyStoreMarshal, pContextPropertyStore, "HRESULT")
         return result
     }
 
@@ -123,9 +125,9 @@ export default struct IRegisteredSyncProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 4)
-        this.vtbl.GetInstanceId := CallbackCreate(GetMethod(implObj, "GetInstanceId"), flags, 2)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Init := CallbackCreate(ObjBindMethod(implObj, "Init"), flags, 4)
+        this.vtbl.GetInstanceId := CallbackCreate(ObjBindMethod(implObj, "GetInstanceId"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
     }
 
     Dispose() {

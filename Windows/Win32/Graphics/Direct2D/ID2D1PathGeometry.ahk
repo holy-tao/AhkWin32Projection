@@ -112,10 +112,10 @@ export default struct ID2D1PathGeometry extends ID2D1Geometry {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 2)
-        this.vtbl.Stream := CallbackCreate(GetMethod(implObj, "Stream"), flags, 2)
-        this.vtbl.GetSegmentCount := CallbackCreate(GetMethod(implObj, "GetSegmentCount"), flags, 2)
-        this.vtbl.GetFigureCount := CallbackCreate(GetMethod(implObj, "GetFigureCount"), flags, 2)
+        this.vtbl.Open := CallbackCreate(ObjBindMethod(implObj, "Open"), flags, 2)
+        this.vtbl.Stream := CallbackCreate(ObjBindMethod(implObj, "Stream"), flags, 2)
+        this.vtbl.GetSegmentCount := CallbackCreate(ObjBindMethod(implObj, "GetSegmentCount"), flags, 2)
+        this.vtbl.GetFigureCount := CallbackCreate(ObjBindMethod(implObj, "GetFigureCount"), flags, 2)
     }
 
     Dispose() {

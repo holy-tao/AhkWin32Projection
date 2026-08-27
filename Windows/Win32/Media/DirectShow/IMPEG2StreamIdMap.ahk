@@ -66,7 +66,7 @@ export default struct IMPEG2StreamIdMap extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-impeg2streamidmap-unmapstreamid
      */
     UnmapStreamId(culStreamId, pulStreamId) {
-        pulStreamIdMarshal := pulStreamId is VarRef ? "uint*" : "ptr"
+        pulStreamIdMarshal := pulStreamId is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, UInt32, culStreamId, pulStreamIdMarshal, pulStreamId, "HRESULT")
         return result
@@ -93,9 +93,9 @@ export default struct IMPEG2StreamIdMap extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.MapStreamId := CallbackCreate(GetMethod(implObj, "MapStreamId"), flags, 5)
-        this.vtbl.UnmapStreamId := CallbackCreate(GetMethod(implObj, "UnmapStreamId"), flags, 3)
-        this.vtbl.EnumStreamIdMap := CallbackCreate(GetMethod(implObj, "EnumStreamIdMap"), flags, 2)
+        this.vtbl.MapStreamId := CallbackCreate(ObjBindMethod(implObj, "MapStreamId"), flags, 5)
+        this.vtbl.UnmapStreamId := CallbackCreate(ObjBindMethod(implObj, "UnmapStreamId"), flags, 3)
+        this.vtbl.EnumStreamIdMap := CallbackCreate(ObjBindMethod(implObj, "EnumStreamIdMap"), flags, 2)
     }
 
     Dispose() {

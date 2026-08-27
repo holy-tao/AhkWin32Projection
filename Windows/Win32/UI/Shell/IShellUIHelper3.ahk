@@ -51,7 +51,6 @@ export default struct IShellUIHelper3 extends IShellUIHelper2 {
     }
 
     /**
-     * 
      * @param {BSTR} URL 
      * @returns {HRESULT} 
      */
@@ -63,7 +62,6 @@ export default struct IShellUIHelper3 extends IShellUIHelper2 {
     }
 
     /**
-     * 
      * @param {BSTR} URL 
      * @param {BSTR} Verb 
      * @returns {Integer} 
@@ -77,7 +75,6 @@ export default struct IShellUIHelper3 extends IShellUIHelper2 {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     InPrivateFilteringEnabled() {
@@ -86,7 +83,6 @@ export default struct IShellUIHelper3 extends IShellUIHelper2 {
     }
 
     /**
-     * 
      * @param {BSTR} URL 
      * @param {BSTR} Title 
      * @param {Pointer<VARIANT>} Type 
@@ -101,7 +97,6 @@ export default struct IShellUIHelper3 extends IShellUIHelper2 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     BuildNewTabPage() {
@@ -110,7 +105,6 @@ export default struct IShellUIHelper3 extends IShellUIHelper2 {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fVisible 
      * @returns {HRESULT} 
      */
@@ -120,7 +114,6 @@ export default struct IShellUIHelper3 extends IShellUIHelper2 {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fVisible 
      * @returns {HRESULT} 
      */
@@ -130,7 +123,6 @@ export default struct IShellUIHelper3 extends IShellUIHelper2 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ContentDiscoveryReset() {
@@ -139,7 +131,6 @@ export default struct IShellUIHelper3 extends IShellUIHelper2 {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     IsSuggestedSitesEnabled() {
@@ -148,7 +139,6 @@ export default struct IShellUIHelper3 extends IShellUIHelper2 {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fEnable 
      * @returns {HRESULT} 
      */
@@ -158,7 +148,6 @@ export default struct IShellUIHelper3 extends IShellUIHelper2 {
     }
 
     /**
-     * 
      * @param {BSTR} bstrRelativeUrl 
      * @returns {HRESULT} 
      */
@@ -170,7 +159,6 @@ export default struct IShellUIHelper3 extends IShellUIHelper2 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ShowTabsHelp() {
@@ -179,7 +167,6 @@ export default struct IShellUIHelper3 extends IShellUIHelper2 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ShowInPrivateHelp() {
@@ -196,19 +183,19 @@ export default struct IShellUIHelper3 extends IShellUIHelper2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddService := CallbackCreate(GetMethod(implObj, "AddService"), flags, 2)
-        this.vtbl.IsServiceInstalled := CallbackCreate(GetMethod(implObj, "IsServiceInstalled"), flags, 4)
-        this.vtbl.InPrivateFilteringEnabled := CallbackCreate(GetMethod(implObj, "InPrivateFilteringEnabled"), flags, 2)
-        this.vtbl.AddToFavoritesBar := CallbackCreate(GetMethod(implObj, "AddToFavoritesBar"), flags, 4)
-        this.vtbl.BuildNewTabPage := CallbackCreate(GetMethod(implObj, "BuildNewTabPage"), flags, 1)
-        this.vtbl.SetRecentlyClosedVisible := CallbackCreate(GetMethod(implObj, "SetRecentlyClosedVisible"), flags, 2)
-        this.vtbl.SetActivitiesVisible := CallbackCreate(GetMethod(implObj, "SetActivitiesVisible"), flags, 2)
-        this.vtbl.ContentDiscoveryReset := CallbackCreate(GetMethod(implObj, "ContentDiscoveryReset"), flags, 1)
-        this.vtbl.IsSuggestedSitesEnabled := CallbackCreate(GetMethod(implObj, "IsSuggestedSitesEnabled"), flags, 2)
-        this.vtbl.EnableSuggestedSites := CallbackCreate(GetMethod(implObj, "EnableSuggestedSites"), flags, 2)
-        this.vtbl.NavigateToSuggestedSites := CallbackCreate(GetMethod(implObj, "NavigateToSuggestedSites"), flags, 2)
-        this.vtbl.ShowTabsHelp := CallbackCreate(GetMethod(implObj, "ShowTabsHelp"), flags, 1)
-        this.vtbl.ShowInPrivateHelp := CallbackCreate(GetMethod(implObj, "ShowInPrivateHelp"), flags, 1)
+        this.vtbl.AddService := CallbackCreate(ObjBindMethod(implObj, "AddService"), flags, 2)
+        this.vtbl.IsServiceInstalled := CallbackCreate(ObjBindMethod(implObj, "IsServiceInstalled"), flags, 4)
+        this.vtbl.InPrivateFilteringEnabled := CallbackCreate(ObjBindMethod(implObj, "InPrivateFilteringEnabled"), flags, 2)
+        this.vtbl.AddToFavoritesBar := CallbackCreate(ObjBindMethod(implObj, "AddToFavoritesBar"), flags, 4)
+        this.vtbl.BuildNewTabPage := CallbackCreate(ObjBindMethod(implObj, "BuildNewTabPage"), flags, 1)
+        this.vtbl.SetRecentlyClosedVisible := CallbackCreate(ObjBindMethod(implObj, "SetRecentlyClosedVisible"), flags, 2)
+        this.vtbl.SetActivitiesVisible := CallbackCreate(ObjBindMethod(implObj, "SetActivitiesVisible"), flags, 2)
+        this.vtbl.ContentDiscoveryReset := CallbackCreate(ObjBindMethod(implObj, "ContentDiscoveryReset"), flags, 1)
+        this.vtbl.IsSuggestedSitesEnabled := CallbackCreate(ObjBindMethod(implObj, "IsSuggestedSitesEnabled"), flags, 2)
+        this.vtbl.EnableSuggestedSites := CallbackCreate(ObjBindMethod(implObj, "EnableSuggestedSites"), flags, 2)
+        this.vtbl.NavigateToSuggestedSites := CallbackCreate(ObjBindMethod(implObj, "NavigateToSuggestedSites"), flags, 2)
+        this.vtbl.ShowTabsHelp := CallbackCreate(ObjBindMethod(implObj, "ShowTabsHelp"), flags, 1)
+        this.vtbl.ShowInPrivateHelp := CallbackCreate(ObjBindMethod(implObj, "ShowInPrivateHelp"), flags, 1)
     }
 
     Dispose() {

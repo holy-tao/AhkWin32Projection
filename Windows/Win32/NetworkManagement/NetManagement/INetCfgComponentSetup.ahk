@@ -56,7 +56,6 @@ export default struct INetCfgComponentSetup extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSetupFlags 
      * @param {Integer} dwUpgradeFomBuildNo 
      * @returns {HRESULT} 
@@ -67,7 +66,6 @@ export default struct INetCfgComponentSetup extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszwAnswerFile 
      * @param {PWSTR} pszwAnswerSections 
      * @returns {HRESULT} 
@@ -81,7 +79,6 @@ export default struct INetCfgComponentSetup extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Removing() {
@@ -98,10 +95,10 @@ export default struct INetCfgComponentSetup extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Install := CallbackCreate(GetMethod(implObj, "Install"), flags, 2)
-        this.vtbl.Upgrade := CallbackCreate(GetMethod(implObj, "Upgrade"), flags, 3)
-        this.vtbl.ReadAnswerFile := CallbackCreate(GetMethod(implObj, "ReadAnswerFile"), flags, 3)
-        this.vtbl.Removing := CallbackCreate(GetMethod(implObj, "Removing"), flags, 1)
+        this.vtbl.Install := CallbackCreate(ObjBindMethod(implObj, "Install"), flags, 2)
+        this.vtbl.Upgrade := CallbackCreate(ObjBindMethod(implObj, "Upgrade"), flags, 3)
+        this.vtbl.ReadAnswerFile := CallbackCreate(ObjBindMethod(implObj, "ReadAnswerFile"), flags, 3)
+        this.vtbl.Removing := CallbackCreate(ObjBindMethod(implObj, "Removing"), flags, 1)
     }
 
     Dispose() {

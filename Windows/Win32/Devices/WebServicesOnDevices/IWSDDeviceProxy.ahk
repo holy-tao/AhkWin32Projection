@@ -129,7 +129,10 @@ export default struct IWSDDeviceProxy extends IUnknown {
         pszDeviceId := pszDeviceId is String ? StrPtr(pszDeviceId) : pszDeviceId
         pszLocalId := pszLocalId is String ? StrPtr(pszLocalId) : pszLocalId
 
-        result := ComCall(3, this, "ptr", pszDeviceId, "ptr", pDeviceAddress, "ptr", pszLocalId, "ptr", pContext, "ptr", pSponsor, "HRESULT")
+        pContextMarshal := pContext == 0 ? IntPtr : "ptr"
+        pSponsorMarshal := pSponsor == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, "ptr", pszDeviceId, "ptr", pDeviceAddress, "ptr", pszLocalId, pContextMarshal, pContext, pSponsorMarshal, pSponsor, "HRESULT")
         return result
     }
 
@@ -328,16 +331,16 @@ export default struct IWSDDeviceProxy extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 6)
-        this.vtbl.BeginGetMetadata := CallbackCreate(GetMethod(implObj, "BeginGetMetadata"), flags, 2)
-        this.vtbl.EndGetMetadata := CallbackCreate(GetMethod(implObj, "EndGetMetadata"), flags, 2)
-        this.vtbl.GetHostMetadata := CallbackCreate(GetMethod(implObj, "GetHostMetadata"), flags, 2)
-        this.vtbl.GetThisModelMetadata := CallbackCreate(GetMethod(implObj, "GetThisModelMetadata"), flags, 2)
-        this.vtbl.GetThisDeviceMetadata := CallbackCreate(GetMethod(implObj, "GetThisDeviceMetadata"), flags, 2)
-        this.vtbl.GetAllMetadata := CallbackCreate(GetMethod(implObj, "GetAllMetadata"), flags, 2)
-        this.vtbl.GetServiceProxyById := CallbackCreate(GetMethod(implObj, "GetServiceProxyById"), flags, 3)
-        this.vtbl.GetServiceProxyByType := CallbackCreate(GetMethod(implObj, "GetServiceProxyByType"), flags, 3)
-        this.vtbl.GetEndpointProxy := CallbackCreate(GetMethod(implObj, "GetEndpointProxy"), flags, 2)
+        this.vtbl.Init := CallbackCreate(ObjBindMethod(implObj, "Init"), flags, 6)
+        this.vtbl.BeginGetMetadata := CallbackCreate(ObjBindMethod(implObj, "BeginGetMetadata"), flags, 2)
+        this.vtbl.EndGetMetadata := CallbackCreate(ObjBindMethod(implObj, "EndGetMetadata"), flags, 2)
+        this.vtbl.GetHostMetadata := CallbackCreate(ObjBindMethod(implObj, "GetHostMetadata"), flags, 2)
+        this.vtbl.GetThisModelMetadata := CallbackCreate(ObjBindMethod(implObj, "GetThisModelMetadata"), flags, 2)
+        this.vtbl.GetThisDeviceMetadata := CallbackCreate(ObjBindMethod(implObj, "GetThisDeviceMetadata"), flags, 2)
+        this.vtbl.GetAllMetadata := CallbackCreate(ObjBindMethod(implObj, "GetAllMetadata"), flags, 2)
+        this.vtbl.GetServiceProxyById := CallbackCreate(ObjBindMethod(implObj, "GetServiceProxyById"), flags, 3)
+        this.vtbl.GetServiceProxyByType := CallbackCreate(ObjBindMethod(implObj, "GetServiceProxyByType"), flags, 3)
+        this.vtbl.GetEndpointProxy := CallbackCreate(ObjBindMethod(implObj, "GetEndpointProxy"), flags, 2)
     }
 
     Dispose() {

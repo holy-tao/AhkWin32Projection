@@ -40,7 +40,6 @@ export default struct IMapMIMEToCLSID extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} bEnable 
      * @returns {HRESULT} 
      */
@@ -50,7 +49,6 @@ export default struct IMapMIMEToCLSID extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszMIMEType 
      * @param {Pointer<Guid>} pCLSID 
      * @returns {HRESULT} 
@@ -63,7 +61,6 @@ export default struct IMapMIMEToCLSID extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszMIMEType 
      * @param {Integer} dwMapMode 
      * @param {Pointer<Guid>} clsid 
@@ -85,9 +82,9 @@ export default struct IMapMIMEToCLSID extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnableDefaultMappings := CallbackCreate(GetMethod(implObj, "EnableDefaultMappings"), flags, 2)
-        this.vtbl.MapMIMEToCLSID := CallbackCreate(GetMethod(implObj, "MapMIMEToCLSID"), flags, 3)
-        this.vtbl.SetMapping := CallbackCreate(GetMethod(implObj, "SetMapping"), flags, 4)
+        this.vtbl.EnableDefaultMappings := CallbackCreate(ObjBindMethod(implObj, "EnableDefaultMappings"), flags, 2)
+        this.vtbl.MapMIMEToCLSID := CallbackCreate(ObjBindMethod(implObj, "MapMIMEToCLSID"), flags, 3)
+        this.vtbl.SetMapping := CallbackCreate(ObjBindMethod(implObj, "SetMapping"), flags, 4)
     }
 
     Dispose() {

@@ -39,7 +39,6 @@ export default struct ICLRMetaHostPolicy extends IUnknown {
     }
 
     /**
-     * 
      * @param {METAHOST_POLICY_FLAGS} dwPolicyFlags 
      * @param {PWSTR} pwzBinary 
      * @param {IStream} pCfgStream 
@@ -56,11 +55,13 @@ export default struct ICLRMetaHostPolicy extends IUnknown {
         pwzVersion := pwzVersion is String ? StrPtr(pwzVersion) : pwzVersion
         pwzImageVersion := pwzImageVersion is String ? StrPtr(pwzImageVersion) : pwzImageVersion
 
-        pcchVersionMarshal := pcchVersion is VarRef ? "uint*" : "ptr"
-        pcchImageVersionMarshal := pcchImageVersion is VarRef ? "uint*" : "ptr"
-        pdwConfigFlagsMarshal := pdwConfigFlags is VarRef ? "uint*" : "ptr"
+        pwzVersionMarshal := pwzVersion == 0 ? IntPtr : PWSTR
+        pcchVersionMarshal := pcchVersion is VarRef ? "uint*" : IntPtr
+        pwzImageVersionMarshal := pwzImageVersion == 0 ? IntPtr : PWSTR
+        pcchImageVersionMarshal := pcchImageVersion is VarRef ? "uint*" : IntPtr
+        pdwConfigFlagsMarshal := pdwConfigFlags is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(3, this, METAHOST_POLICY_FLAGS, dwPolicyFlags, "ptr", pwzBinary, "ptr", pCfgStream, "ptr", pwzVersion, pcchVersionMarshal, pcchVersion, "ptr", pwzImageVersion, pcchImageVersionMarshal, pcchImageVersion, pdwConfigFlagsMarshal, pdwConfigFlags, Guid.Ptr, riid, "ptr*", &ppRuntime := 0, "HRESULT")
+        result := ComCall(3, this, METAHOST_POLICY_FLAGS, dwPolicyFlags, "ptr", pwzBinary, "ptr", pCfgStream, pwzVersionMarshal, pwzVersion, pcchVersionMarshal, pcchVersion, pwzImageVersionMarshal, pwzImageVersion, pcchImageVersionMarshal, pcchImageVersion, pdwConfigFlagsMarshal, pdwConfigFlags, Guid.Ptr, riid, "ptr*", &ppRuntime := 0, "HRESULT")
         return ppRuntime
     }
 
@@ -73,7 +74,7 @@ export default struct ICLRMetaHostPolicy extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRequestedRuntime := CallbackCreate(GetMethod(implObj, "GetRequestedRuntime"), flags, 11)
+        this.vtbl.GetRequestedRuntime := CallbackCreate(ObjBindMethod(implObj, "GetRequestedRuntime"), flags, 11)
     }
 
     Dispose() {

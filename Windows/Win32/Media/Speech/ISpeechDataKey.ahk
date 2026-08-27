@@ -49,7 +49,6 @@ export default struct ISpeechDataKey extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _ValueName 
      * @param {VARIANT} Value 
      * @returns {HRESULT} 
@@ -62,7 +61,6 @@ export default struct ISpeechDataKey extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _ValueName 
      * @returns {VARIANT} 
      */
@@ -75,7 +73,6 @@ export default struct ISpeechDataKey extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _ValueName 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
@@ -89,7 +86,6 @@ export default struct ISpeechDataKey extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _ValueName 
      * @returns {BSTR} 
      */
@@ -102,7 +98,6 @@ export default struct ISpeechDataKey extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _ValueName 
      * @param {Integer} Value 
      * @returns {HRESULT} 
@@ -115,7 +110,6 @@ export default struct ISpeechDataKey extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _ValueName 
      * @returns {Integer} 
      */
@@ -127,7 +121,6 @@ export default struct ISpeechDataKey extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} SubKeyName 
      * @returns {ISpeechDataKey} 
      */
@@ -139,7 +132,6 @@ export default struct ISpeechDataKey extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} SubKeyName 
      * @returns {ISpeechDataKey} 
      */
@@ -151,7 +143,6 @@ export default struct ISpeechDataKey extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} SubKeyName 
      * @returns {HRESULT} 
      */
@@ -163,7 +154,6 @@ export default struct ISpeechDataKey extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _ValueName 
      * @returns {HRESULT} 
      */
@@ -175,7 +165,6 @@ export default struct ISpeechDataKey extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {BSTR} 
      */
@@ -186,7 +175,6 @@ export default struct ISpeechDataKey extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {BSTR} 
      */
@@ -205,18 +193,18 @@ export default struct ISpeechDataKey extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetBinaryValue := CallbackCreate(GetMethod(implObj, "SetBinaryValue"), flags, 3)
-        this.vtbl.GetBinaryValue := CallbackCreate(GetMethod(implObj, "GetBinaryValue"), flags, 3)
-        this.vtbl.SetStringValue := CallbackCreate(GetMethod(implObj, "SetStringValue"), flags, 3)
-        this.vtbl.GetStringValue := CallbackCreate(GetMethod(implObj, "GetStringValue"), flags, 3)
-        this.vtbl.SetLongValue := CallbackCreate(GetMethod(implObj, "SetLongValue"), flags, 3)
-        this.vtbl.GetLongValue := CallbackCreate(GetMethod(implObj, "GetLongValue"), flags, 3)
-        this.vtbl.OpenKey := CallbackCreate(GetMethod(implObj, "OpenKey"), flags, 3)
-        this.vtbl.CreateKey := CallbackCreate(GetMethod(implObj, "CreateKey"), flags, 3)
-        this.vtbl.DeleteKey := CallbackCreate(GetMethod(implObj, "DeleteKey"), flags, 2)
-        this.vtbl.DeleteValue := CallbackCreate(GetMethod(implObj, "DeleteValue"), flags, 2)
-        this.vtbl.EnumKeys := CallbackCreate(GetMethod(implObj, "EnumKeys"), flags, 3)
-        this.vtbl.EnumValues := CallbackCreate(GetMethod(implObj, "EnumValues"), flags, 3)
+        this.vtbl.SetBinaryValue := CallbackCreate(ObjBindMethod(implObj, "SetBinaryValue"), flags, 3)
+        this.vtbl.GetBinaryValue := CallbackCreate(ObjBindMethod(implObj, "GetBinaryValue"), flags, 3)
+        this.vtbl.SetStringValue := CallbackCreate(ObjBindMethod(implObj, "SetStringValue"), flags, 3)
+        this.vtbl.GetStringValue := CallbackCreate(ObjBindMethod(implObj, "GetStringValue"), flags, 3)
+        this.vtbl.SetLongValue := CallbackCreate(ObjBindMethod(implObj, "SetLongValue"), flags, 3)
+        this.vtbl.GetLongValue := CallbackCreate(ObjBindMethod(implObj, "GetLongValue"), flags, 3)
+        this.vtbl.OpenKey := CallbackCreate(ObjBindMethod(implObj, "OpenKey"), flags, 3)
+        this.vtbl.CreateKey := CallbackCreate(ObjBindMethod(implObj, "CreateKey"), flags, 3)
+        this.vtbl.DeleteKey := CallbackCreate(ObjBindMethod(implObj, "DeleteKey"), flags, 2)
+        this.vtbl.DeleteValue := CallbackCreate(ObjBindMethod(implObj, "DeleteValue"), flags, 2)
+        this.vtbl.EnumKeys := CallbackCreate(ObjBindMethod(implObj, "EnumKeys"), flags, 3)
+        this.vtbl.EnumValues := CallbackCreate(ObjBindMethod(implObj, "EnumValues"), flags, 3)
     }
 
     Dispose() {

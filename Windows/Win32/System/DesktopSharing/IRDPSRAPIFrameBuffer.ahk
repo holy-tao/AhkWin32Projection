@@ -121,10 +121,10 @@ export default struct IRDPSRAPIFrameBuffer extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Width := CallbackCreate(GetMethod(implObj, "get_Width"), flags, 2)
-        this.vtbl.get_Height := CallbackCreate(GetMethod(implObj, "get_Height"), flags, 2)
-        this.vtbl.get_Bpp := CallbackCreate(GetMethod(implObj, "get_Bpp"), flags, 2)
-        this.vtbl.GetFrameBufferBits := CallbackCreate(GetMethod(implObj, "GetFrameBufferBits"), flags, 6)
+        this.vtbl.get_Width := CallbackCreate(ObjBindMethod(implObj, "get_Width"), flags, 2)
+        this.vtbl.get_Height := CallbackCreate(ObjBindMethod(implObj, "get_Height"), flags, 2)
+        this.vtbl.get_Bpp := CallbackCreate(ObjBindMethod(implObj, "get_Bpp"), flags, 2)
+        this.vtbl.GetFrameBufferBits := CallbackCreate(ObjBindMethod(implObj, "GetFrameBufferBits"), flags, 6)
     }
 
     Dispose() {

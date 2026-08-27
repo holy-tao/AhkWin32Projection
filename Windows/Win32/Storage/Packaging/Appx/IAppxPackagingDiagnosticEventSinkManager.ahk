@@ -43,7 +43,6 @@ export default struct IAppxPackagingDiagnosticEventSinkManager extends IUnknown 
     }
 
     /**
-     * 
      * @param {IAppxPackagingDiagnosticEventSink} sink 
      * @returns {HRESULT} 
      */
@@ -61,7 +60,7 @@ export default struct IAppxPackagingDiagnosticEventSinkManager extends IUnknown 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetSinkForProcess := CallbackCreate(GetMethod(implObj, "SetSinkForProcess"), flags, 2)
+        this.vtbl.SetSinkForProcess := CallbackCreate(ObjBindMethod(implObj, "SetSinkForProcess"), flags, 2)
     }
 
     Dispose() {

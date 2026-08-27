@@ -37,7 +37,6 @@ export default struct IWinInetCacheHints2 extends IWinInetCacheHints {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzExt 
      * @param {PWSTR} pwzCacheFile 
      * @param {Pointer<Integer>} pcchCacheFile 
@@ -49,9 +48,9 @@ export default struct IWinInetCacheHints2 extends IWinInetCacheHints {
         pwzExt := pwzExt is String ? StrPtr(pwzExt) : pwzExt
         pwzCacheFile := pwzCacheFile is String ? StrPtr(pwzCacheFile) : pwzCacheFile
 
-        pcchCacheFileMarshal := pcchCacheFile is VarRef ? "uint*" : "ptr"
-        pdwWinInetErrorMarshal := pdwWinInetError is VarRef ? "uint*" : "ptr"
-        pdwReservedMarshal := pdwReserved is VarRef ? "uint*" : "ptr"
+        pcchCacheFileMarshal := pcchCacheFile is VarRef ? "uint*" : IntPtr
+        pdwWinInetErrorMarshal := pdwWinInetError is VarRef ? "uint*" : IntPtr
+        pdwReservedMarshal := pdwReserved is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, "ptr", pwzExt, "ptr", pwzCacheFile, pcchCacheFileMarshal, pcchCacheFile, pdwWinInetErrorMarshal, pdwWinInetError, pdwReservedMarshal, pdwReserved, "HRESULT")
         return result
@@ -66,7 +65,7 @@ export default struct IWinInetCacheHints2 extends IWinInetCacheHints {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetCacheExtension2 := CallbackCreate(GetMethod(implObj, "SetCacheExtension2"), flags, 6)
+        this.vtbl.SetCacheExtension2 := CallbackCreate(ObjBindMethod(implObj, "SetCacheExtension2"), flags, 6)
     }
 
     Dispose() {

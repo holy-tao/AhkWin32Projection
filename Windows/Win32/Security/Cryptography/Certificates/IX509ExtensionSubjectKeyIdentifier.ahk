@@ -154,9 +154,9 @@ export default struct IX509ExtensionSubjectKeyIdentifier extends IX509Extension 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeEncode := CallbackCreate(GetMethod(implObj, "InitializeEncode"), flags, 3)
-        this.vtbl.InitializeDecode := CallbackCreate(GetMethod(implObj, "InitializeDecode"), flags, 3)
-        this.vtbl.get_SubjectKeyIdentifier := CallbackCreate(GetMethod(implObj, "get_SubjectKeyIdentifier"), flags, 3)
+        this.vtbl.InitializeEncode := CallbackCreate(ObjBindMethod(implObj, "InitializeEncode"), flags, 3)
+        this.vtbl.InitializeDecode := CallbackCreate(ObjBindMethod(implObj, "InitializeDecode"), flags, 3)
+        this.vtbl.get_SubjectKeyIdentifier := CallbackCreate(ObjBindMethod(implObj, "get_SubjectKeyIdentifier"), flags, 3)
     }
 
     Dispose() {

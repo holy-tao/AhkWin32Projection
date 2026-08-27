@@ -79,7 +79,6 @@ export default struct IRTCParticipant extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_UserURI() {
@@ -89,7 +88,6 @@ export default struct IRTCParticipant extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -99,7 +97,6 @@ export default struct IRTCParticipant extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Removable() {
@@ -108,7 +105,6 @@ export default struct IRTCParticipant extends IUnknown {
     }
 
     /**
-     * 
      * @returns {RTC_PARTICIPANT_STATE} 
      */
     get_State() {
@@ -117,7 +113,6 @@ export default struct IRTCParticipant extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRTCSession} 
      */
     get_Session() {
@@ -134,11 +129,11 @@ export default struct IRTCParticipant extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_UserURI := CallbackCreate(GetMethod(implObj, "get_UserURI"), flags, 2)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_Removable := CallbackCreate(GetMethod(implObj, "get_Removable"), flags, 2)
-        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
-        this.vtbl.get_Session := CallbackCreate(GetMethod(implObj, "get_Session"), flags, 2)
+        this.vtbl.get_UserURI := CallbackCreate(ObjBindMethod(implObj, "get_UserURI"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Removable := CallbackCreate(ObjBindMethod(implObj, "get_Removable"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(ObjBindMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.get_Session := CallbackCreate(ObjBindMethod(implObj, "get_Session"), flags, 2)
     }
 
     Dispose() {

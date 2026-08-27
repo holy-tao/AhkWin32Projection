@@ -18,7 +18,6 @@ export default struct LPCREATECONVERSATIONINDEX {
     }
 
     /**
-     * 
      * @param {Integer} cbParent 
      * @param {Pointer<Integer>} lpbParent 
      * @param {Pointer<Integer>} lpcbConvIndex 
@@ -26,9 +25,9 @@ export default struct LPCREATECONVERSATIONINDEX {
      * @returns {Integer} 
      */
     Call(cbParent, lpbParent, lpcbConvIndex, lppbConvIndex) {
-        lpbParentMarshal := lpbParent is VarRef ? "char*" : "ptr"
-        lpcbConvIndexMarshal := lpcbConvIndex is VarRef ? "uint*" : "ptr"
-        lppbConvIndexMarshal := lppbConvIndex is VarRef ? "ptr*" : "ptr"
+        lpbParentMarshal := lpbParent is VarRef ? "char*" : IntPtr
+        lpcbConvIndexMarshal := lpcbConvIndex is VarRef ? "uint*" : IntPtr
+        lppbConvIndexMarshal := lppbConvIndex is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, UInt32, cbParent, lpbParentMarshal, lpbParent, lpcbConvIndexMarshal, lpcbConvIndex, lppbConvIndexMarshal, lppbConvIndex, Int32)
         return result

@@ -65,7 +65,7 @@ export default struct ITsSbPlacement extends ITsSbPlugin {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryEnvironmentForTarget := CallbackCreate(GetMethod(implObj, "QueryEnvironmentForTarget"), flags, 3)
+        this.vtbl.QueryEnvironmentForTarget := CallbackCreate(ObjBindMethod(implObj, "QueryEnvironmentForTarget"), flags, 3)
     }
 
     Dispose() {

@@ -96,7 +96,10 @@ export default struct IATSC_STT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_stt-initialize
      */
     Initialize(pSectionList, pMPEGData) {
-        result := ComCall(3, this, "ptr", pSectionList, "ptr", pMPEGData, "HRESULT")
+        pSectionListMarshal := pSectionList == 0 ? IntPtr : "ptr"
+        pMPEGDataMarshal := pMPEGData == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pSectionListMarshal, pSectionList, pMPEGDataMarshal, pMPEGData, "HRESULT")
         return result
     }
 
@@ -174,7 +177,7 @@ export default struct IATSC_STT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_stt-gettabledescriptorbytag
      */
     GetTableDescriptorByTag(bTag, pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : IntPtr
 
         result := ComCall(10, this, Int8, bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
@@ -189,14 +192,14 @@ export default struct IATSC_STT extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.GetProtocolVersion := CallbackCreate(GetMethod(implObj, "GetProtocolVersion"), flags, 2)
-        this.vtbl.GetSystemTime := CallbackCreate(GetMethod(implObj, "GetSystemTime"), flags, 2)
-        this.vtbl.GetGpsUtcOffset := CallbackCreate(GetMethod(implObj, "GetGpsUtcOffset"), flags, 2)
-        this.vtbl.GetDaylightSavings := CallbackCreate(GetMethod(implObj, "GetDaylightSavings"), flags, 2)
-        this.vtbl.GetCountOfTableDescriptors := CallbackCreate(GetMethod(implObj, "GetCountOfTableDescriptors"), flags, 2)
-        this.vtbl.GetTableDescriptorByIndex := CallbackCreate(GetMethod(implObj, "GetTableDescriptorByIndex"), flags, 3)
-        this.vtbl.GetTableDescriptorByTag := CallbackCreate(GetMethod(implObj, "GetTableDescriptorByTag"), flags, 4)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetProtocolVersion := CallbackCreate(ObjBindMethod(implObj, "GetProtocolVersion"), flags, 2)
+        this.vtbl.GetSystemTime := CallbackCreate(ObjBindMethod(implObj, "GetSystemTime"), flags, 2)
+        this.vtbl.GetGpsUtcOffset := CallbackCreate(ObjBindMethod(implObj, "GetGpsUtcOffset"), flags, 2)
+        this.vtbl.GetDaylightSavings := CallbackCreate(ObjBindMethod(implObj, "GetDaylightSavings"), flags, 2)
+        this.vtbl.GetCountOfTableDescriptors := CallbackCreate(ObjBindMethod(implObj, "GetCountOfTableDescriptors"), flags, 2)
+        this.vtbl.GetTableDescriptorByIndex := CallbackCreate(ObjBindMethod(implObj, "GetTableDescriptorByIndex"), flags, 3)
+        this.vtbl.GetTableDescriptorByTag := CallbackCreate(ObjBindMethod(implObj, "GetTableDescriptorByTag"), flags, 4)
     }
 
     Dispose() {

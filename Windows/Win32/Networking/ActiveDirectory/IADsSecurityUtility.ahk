@@ -142,11 +142,11 @@ export default struct IADsSecurityUtility extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSecurityDescriptor := CallbackCreate(GetMethod(implObj, "GetSecurityDescriptor"), flags, 5)
-        this.vtbl.SetSecurityDescriptor := CallbackCreate(GetMethod(implObj, "SetSecurityDescriptor"), flags, 5)
-        this.vtbl.ConvertSecurityDescriptor := CallbackCreate(GetMethod(implObj, "ConvertSecurityDescriptor"), flags, 5)
-        this.vtbl.get_SecurityMask := CallbackCreate(GetMethod(implObj, "get_SecurityMask"), flags, 2)
-        this.vtbl.put_SecurityMask := CallbackCreate(GetMethod(implObj, "put_SecurityMask"), flags, 2)
+        this.vtbl.GetSecurityDescriptor := CallbackCreate(ObjBindMethod(implObj, "GetSecurityDescriptor"), flags, 5)
+        this.vtbl.SetSecurityDescriptor := CallbackCreate(ObjBindMethod(implObj, "SetSecurityDescriptor"), flags, 5)
+        this.vtbl.ConvertSecurityDescriptor := CallbackCreate(ObjBindMethod(implObj, "ConvertSecurityDescriptor"), flags, 5)
+        this.vtbl.get_SecurityMask := CallbackCreate(ObjBindMethod(implObj, "get_SecurityMask"), flags, 2)
+        this.vtbl.put_SecurityMask := CallbackCreate(ObjBindMethod(implObj, "put_SecurityMask"), flags, 2)
     }
 
     Dispose() {

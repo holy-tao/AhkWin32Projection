@@ -124,8 +124,8 @@ export default struct ITfCompartment extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetValue := CallbackCreate(GetMethod(implObj, "SetValue"), flags, 3)
-        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 2)
+        this.vtbl.SetValue := CallbackCreate(ObjBindMethod(implObj, "SetValue"), flags, 3)
+        this.vtbl.GetValue := CallbackCreate(ObjBindMethod(implObj, "GetValue"), flags, 2)
     }
 
     Dispose() {

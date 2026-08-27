@@ -67,8 +67,8 @@ export default struct IDvbDefaultAuthorityDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbdefaultauthoritydescriptor-getdefaultauthority
      */
     GetDefaultAuthority(pbLength, ppbBytes) {
-        pbLengthMarshal := pbLength is VarRef ? "char*" : "ptr"
-        ppbBytesMarshal := ppbBytes is VarRef ? "ptr*" : "ptr"
+        pbLengthMarshal := pbLength is VarRef ? "char*" : IntPtr
+        ppbBytesMarshal := ppbBytes is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, pbLengthMarshal, pbLength, ppbBytesMarshal, ppbBytes, "HRESULT")
         return result
@@ -83,9 +83,9 @@ export default struct IDvbDefaultAuthorityDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetDefaultAuthority := CallbackCreate(GetMethod(implObj, "GetDefaultAuthority"), flags, 3)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetDefaultAuthority := CallbackCreate(ObjBindMethod(implObj, "GetDefaultAuthority"), flags, 3)
     }
 
     Dispose() {

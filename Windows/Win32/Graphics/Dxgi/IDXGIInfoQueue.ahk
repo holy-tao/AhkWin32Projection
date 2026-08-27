@@ -156,9 +156,10 @@ export default struct IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-getmessage
      */
     GetMessage(Producer, MessageIndex, pMessage, pMessageByteLength) {
-        pMessageByteLengthMarshal := pMessageByteLength is VarRef ? "ptr*" : "ptr"
+        pMessageMarshal := pMessage == 0 ? IntPtr : IntPtr
+        pMessageByteLengthMarshal := pMessageByteLength is VarRef ? "ptr*" : IntPtr
 
-        result := ComCall(5, this, Guid, Producer, Int64, MessageIndex, IntPtr, pMessage, pMessageByteLengthMarshal, pMessageByteLength, "HRESULT")
+        result := ComCall(5, this, Guid, Producer, Int64, MessageIndex, pMessageMarshal, pMessage, pMessageByteLengthMarshal, pMessageByteLength, "HRESULT")
         return result
     }
 
@@ -279,9 +280,10 @@ export default struct IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-getstoragefilter
      */
     GetStorageFilter(Producer, pFilter, pFilterByteLength) {
-        pFilterByteLengthMarshal := pFilterByteLength is VarRef ? "ptr*" : "ptr"
+        pFilterMarshal := pFilter == 0 ? IntPtr : IntPtr
+        pFilterByteLengthMarshal := pFilterByteLength is VarRef ? "ptr*" : IntPtr
 
-        result := ComCall(13, this, Guid, Producer, IntPtr, pFilter, pFilterByteLengthMarshal, pFilterByteLength, "HRESULT")
+        result := ComCall(13, this, Guid, Producer, pFilterMarshal, pFilter, pFilterByteLengthMarshal, pFilterByteLength, "HRESULT")
         return result
     }
 
@@ -413,9 +415,10 @@ export default struct IDXGIInfoQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-getretrievalfilter
      */
     GetRetrievalFilter(Producer, pFilter, pFilterByteLength) {
-        pFilterByteLengthMarshal := pFilterByteLength is VarRef ? "ptr*" : "ptr"
+        pFilterMarshal := pFilter == 0 ? IntPtr : IntPtr
+        pFilterByteLengthMarshal := pFilterByteLength is VarRef ? "ptr*" : IntPtr
 
-        result := ComCall(22, this, Guid, Producer, IntPtr, pFilter, pFilterByteLengthMarshal, pFilterByteLength, "HRESULT")
+        result := ComCall(22, this, Guid, Producer, pFilterMarshal, pFilter, pFilterByteLengthMarshal, pFilterByteLength, "HRESULT")
         return result
     }
 
@@ -687,43 +690,43 @@ export default struct IDXGIInfoQueue extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetMessageCountLimit := CallbackCreate(GetMethod(implObj, "SetMessageCountLimit"), flags, 3)
-        this.vtbl.ClearStoredMessages := CallbackCreate(GetMethod(implObj, "ClearStoredMessages"), flags, 2)
-        this.vtbl.GetMessage := CallbackCreate(GetMethod(implObj, "GetMessage"), flags, 5)
-        this.vtbl.GetNumStoredMessagesAllowedByRetrievalFilters := CallbackCreate(GetMethod(implObj, "GetNumStoredMessagesAllowedByRetrievalFilters"), flags, 2)
-        this.vtbl.GetNumStoredMessages := CallbackCreate(GetMethod(implObj, "GetNumStoredMessages"), flags, 2)
-        this.vtbl.GetNumMessagesDiscardedByMessageCountLimit := CallbackCreate(GetMethod(implObj, "GetNumMessagesDiscardedByMessageCountLimit"), flags, 2)
-        this.vtbl.GetMessageCountLimit := CallbackCreate(GetMethod(implObj, "GetMessageCountLimit"), flags, 2)
-        this.vtbl.GetNumMessagesAllowedByStorageFilter := CallbackCreate(GetMethod(implObj, "GetNumMessagesAllowedByStorageFilter"), flags, 2)
-        this.vtbl.GetNumMessagesDeniedByStorageFilter := CallbackCreate(GetMethod(implObj, "GetNumMessagesDeniedByStorageFilter"), flags, 2)
-        this.vtbl.AddStorageFilterEntries := CallbackCreate(GetMethod(implObj, "AddStorageFilterEntries"), flags, 3)
-        this.vtbl.GetStorageFilter := CallbackCreate(GetMethod(implObj, "GetStorageFilter"), flags, 4)
-        this.vtbl.ClearStorageFilter := CallbackCreate(GetMethod(implObj, "ClearStorageFilter"), flags, 2)
-        this.vtbl.PushEmptyStorageFilter := CallbackCreate(GetMethod(implObj, "PushEmptyStorageFilter"), flags, 2)
-        this.vtbl.PushDenyAllStorageFilter := CallbackCreate(GetMethod(implObj, "PushDenyAllStorageFilter"), flags, 2)
-        this.vtbl.PushCopyOfStorageFilter := CallbackCreate(GetMethod(implObj, "PushCopyOfStorageFilter"), flags, 2)
-        this.vtbl.PushStorageFilter := CallbackCreate(GetMethod(implObj, "PushStorageFilter"), flags, 3)
-        this.vtbl.PopStorageFilter := CallbackCreate(GetMethod(implObj, "PopStorageFilter"), flags, 2)
-        this.vtbl.GetStorageFilterStackSize := CallbackCreate(GetMethod(implObj, "GetStorageFilterStackSize"), flags, 2)
-        this.vtbl.AddRetrievalFilterEntries := CallbackCreate(GetMethod(implObj, "AddRetrievalFilterEntries"), flags, 3)
-        this.vtbl.GetRetrievalFilter := CallbackCreate(GetMethod(implObj, "GetRetrievalFilter"), flags, 4)
-        this.vtbl.ClearRetrievalFilter := CallbackCreate(GetMethod(implObj, "ClearRetrievalFilter"), flags, 2)
-        this.vtbl.PushEmptyRetrievalFilter := CallbackCreate(GetMethod(implObj, "PushEmptyRetrievalFilter"), flags, 2)
-        this.vtbl.PushDenyAllRetrievalFilter := CallbackCreate(GetMethod(implObj, "PushDenyAllRetrievalFilter"), flags, 2)
-        this.vtbl.PushCopyOfRetrievalFilter := CallbackCreate(GetMethod(implObj, "PushCopyOfRetrievalFilter"), flags, 2)
-        this.vtbl.PushRetrievalFilter := CallbackCreate(GetMethod(implObj, "PushRetrievalFilter"), flags, 3)
-        this.vtbl.PopRetrievalFilter := CallbackCreate(GetMethod(implObj, "PopRetrievalFilter"), flags, 2)
-        this.vtbl.GetRetrievalFilterStackSize := CallbackCreate(GetMethod(implObj, "GetRetrievalFilterStackSize"), flags, 2)
-        this.vtbl.AddMessage := CallbackCreate(GetMethod(implObj, "AddMessage"), flags, 6)
-        this.vtbl.AddApplicationMessage := CallbackCreate(GetMethod(implObj, "AddApplicationMessage"), flags, 3)
-        this.vtbl.SetBreakOnCategory := CallbackCreate(GetMethod(implObj, "SetBreakOnCategory"), flags, 4)
-        this.vtbl.SetBreakOnSeverity := CallbackCreate(GetMethod(implObj, "SetBreakOnSeverity"), flags, 4)
-        this.vtbl.SetBreakOnID := CallbackCreate(GetMethod(implObj, "SetBreakOnID"), flags, 4)
-        this.vtbl.GetBreakOnCategory := CallbackCreate(GetMethod(implObj, "GetBreakOnCategory"), flags, 3)
-        this.vtbl.GetBreakOnSeverity := CallbackCreate(GetMethod(implObj, "GetBreakOnSeverity"), flags, 3)
-        this.vtbl.GetBreakOnID := CallbackCreate(GetMethod(implObj, "GetBreakOnID"), flags, 3)
-        this.vtbl.SetMuteDebugOutput := CallbackCreate(GetMethod(implObj, "SetMuteDebugOutput"), flags, 3)
-        this.vtbl.GetMuteDebugOutput := CallbackCreate(GetMethod(implObj, "GetMuteDebugOutput"), flags, 2)
+        this.vtbl.SetMessageCountLimit := CallbackCreate(ObjBindMethod(implObj, "SetMessageCountLimit"), flags, 3)
+        this.vtbl.ClearStoredMessages := CallbackCreate(ObjBindMethod(implObj, "ClearStoredMessages"), flags, 2)
+        this.vtbl.GetMessage := CallbackCreate(ObjBindMethod(implObj, "GetMessage"), flags, 5)
+        this.vtbl.GetNumStoredMessagesAllowedByRetrievalFilters := CallbackCreate(ObjBindMethod(implObj, "GetNumStoredMessagesAllowedByRetrievalFilters"), flags, 2)
+        this.vtbl.GetNumStoredMessages := CallbackCreate(ObjBindMethod(implObj, "GetNumStoredMessages"), flags, 2)
+        this.vtbl.GetNumMessagesDiscardedByMessageCountLimit := CallbackCreate(ObjBindMethod(implObj, "GetNumMessagesDiscardedByMessageCountLimit"), flags, 2)
+        this.vtbl.GetMessageCountLimit := CallbackCreate(ObjBindMethod(implObj, "GetMessageCountLimit"), flags, 2)
+        this.vtbl.GetNumMessagesAllowedByStorageFilter := CallbackCreate(ObjBindMethod(implObj, "GetNumMessagesAllowedByStorageFilter"), flags, 2)
+        this.vtbl.GetNumMessagesDeniedByStorageFilter := CallbackCreate(ObjBindMethod(implObj, "GetNumMessagesDeniedByStorageFilter"), flags, 2)
+        this.vtbl.AddStorageFilterEntries := CallbackCreate(ObjBindMethod(implObj, "AddStorageFilterEntries"), flags, 3)
+        this.vtbl.GetStorageFilter := CallbackCreate(ObjBindMethod(implObj, "GetStorageFilter"), flags, 4)
+        this.vtbl.ClearStorageFilter := CallbackCreate(ObjBindMethod(implObj, "ClearStorageFilter"), flags, 2)
+        this.vtbl.PushEmptyStorageFilter := CallbackCreate(ObjBindMethod(implObj, "PushEmptyStorageFilter"), flags, 2)
+        this.vtbl.PushDenyAllStorageFilter := CallbackCreate(ObjBindMethod(implObj, "PushDenyAllStorageFilter"), flags, 2)
+        this.vtbl.PushCopyOfStorageFilter := CallbackCreate(ObjBindMethod(implObj, "PushCopyOfStorageFilter"), flags, 2)
+        this.vtbl.PushStorageFilter := CallbackCreate(ObjBindMethod(implObj, "PushStorageFilter"), flags, 3)
+        this.vtbl.PopStorageFilter := CallbackCreate(ObjBindMethod(implObj, "PopStorageFilter"), flags, 2)
+        this.vtbl.GetStorageFilterStackSize := CallbackCreate(ObjBindMethod(implObj, "GetStorageFilterStackSize"), flags, 2)
+        this.vtbl.AddRetrievalFilterEntries := CallbackCreate(ObjBindMethod(implObj, "AddRetrievalFilterEntries"), flags, 3)
+        this.vtbl.GetRetrievalFilter := CallbackCreate(ObjBindMethod(implObj, "GetRetrievalFilter"), flags, 4)
+        this.vtbl.ClearRetrievalFilter := CallbackCreate(ObjBindMethod(implObj, "ClearRetrievalFilter"), flags, 2)
+        this.vtbl.PushEmptyRetrievalFilter := CallbackCreate(ObjBindMethod(implObj, "PushEmptyRetrievalFilter"), flags, 2)
+        this.vtbl.PushDenyAllRetrievalFilter := CallbackCreate(ObjBindMethod(implObj, "PushDenyAllRetrievalFilter"), flags, 2)
+        this.vtbl.PushCopyOfRetrievalFilter := CallbackCreate(ObjBindMethod(implObj, "PushCopyOfRetrievalFilter"), flags, 2)
+        this.vtbl.PushRetrievalFilter := CallbackCreate(ObjBindMethod(implObj, "PushRetrievalFilter"), flags, 3)
+        this.vtbl.PopRetrievalFilter := CallbackCreate(ObjBindMethod(implObj, "PopRetrievalFilter"), flags, 2)
+        this.vtbl.GetRetrievalFilterStackSize := CallbackCreate(ObjBindMethod(implObj, "GetRetrievalFilterStackSize"), flags, 2)
+        this.vtbl.AddMessage := CallbackCreate(ObjBindMethod(implObj, "AddMessage"), flags, 6)
+        this.vtbl.AddApplicationMessage := CallbackCreate(ObjBindMethod(implObj, "AddApplicationMessage"), flags, 3)
+        this.vtbl.SetBreakOnCategory := CallbackCreate(ObjBindMethod(implObj, "SetBreakOnCategory"), flags, 4)
+        this.vtbl.SetBreakOnSeverity := CallbackCreate(ObjBindMethod(implObj, "SetBreakOnSeverity"), flags, 4)
+        this.vtbl.SetBreakOnID := CallbackCreate(ObjBindMethod(implObj, "SetBreakOnID"), flags, 4)
+        this.vtbl.GetBreakOnCategory := CallbackCreate(ObjBindMethod(implObj, "GetBreakOnCategory"), flags, 3)
+        this.vtbl.GetBreakOnSeverity := CallbackCreate(ObjBindMethod(implObj, "GetBreakOnSeverity"), flags, 3)
+        this.vtbl.GetBreakOnID := CallbackCreate(ObjBindMethod(implObj, "GetBreakOnID"), flags, 3)
+        this.vtbl.SetMuteDebugOutput := CallbackCreate(ObjBindMethod(implObj, "SetMuteDebugOutput"), flags, 3)
+        this.vtbl.GetMuteDebugOutput := CallbackCreate(ObjBindMethod(implObj, "GetMuteDebugOutput"), flags, 2)
     }
 
     Dispose() {

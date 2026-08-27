@@ -57,7 +57,9 @@ export default struct ITravelEntry extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravelentry-invoke
      */
     Invoke(punk) {
-        result := ComCall(3, this, "ptr", punk, "HRESULT")
+        punkMarshal := punk == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, punkMarshal, punk, "HRESULT")
         return result
     }
 
@@ -75,7 +77,9 @@ export default struct ITravelEntry extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravelentry-update
      */
     Update(punk, fIsLocalAnchor) {
-        result := ComCall(4, this, "ptr", punk, BOOL, fIsLocalAnchor, "HRESULT")
+        punkMarshal := punk == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, punkMarshal, punk, BOOL, fIsLocalAnchor, "HRESULT")
         return result
     }
 
@@ -100,9 +104,9 @@ export default struct ITravelEntry extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Invoke := CallbackCreate(GetMethod(implObj, "Invoke"), flags, 2)
-        this.vtbl.Update := CallbackCreate(GetMethod(implObj, "Update"), flags, 3)
-        this.vtbl.GetPidl := CallbackCreate(GetMethod(implObj, "GetPidl"), flags, 2)
+        this.vtbl.Invoke := CallbackCreate(ObjBindMethod(implObj, "Invoke"), flags, 2)
+        this.vtbl.Update := CallbackCreate(ObjBindMethod(implObj, "Update"), flags, 3)
+        this.vtbl.GetPidl := CallbackCreate(ObjBindMethod(implObj, "GetPidl"), flags, 2)
     }
 
     Dispose() {

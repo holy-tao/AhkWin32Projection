@@ -52,7 +52,9 @@ export default struct ID3D10EffectDepthStencilViewVariable extends ID3D10EffectV
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectdepthstencilviewvariable-setdepthstencil
      */
     SetDepthStencil(pResource) {
-        result := ComCall(25, this, "ptr", pResource, "HRESULT")
+        pResourceMarshal := pResource == 0 ? IntPtr : "ptr"
+
+        result := ComCall(25, this, pResourceMarshal, pResource, "HRESULT")
         return result
     }
 
@@ -116,10 +118,10 @@ export default struct ID3D10EffectDepthStencilViewVariable extends ID3D10EffectV
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetDepthStencil := CallbackCreate(GetMethod(implObj, "SetDepthStencil"), flags, 2)
-        this.vtbl.GetDepthStencil := CallbackCreate(GetMethod(implObj, "GetDepthStencil"), flags, 2)
-        this.vtbl.SetDepthStencilArray := CallbackCreate(GetMethod(implObj, "SetDepthStencilArray"), flags, 4)
-        this.vtbl.GetDepthStencilArray := CallbackCreate(GetMethod(implObj, "GetDepthStencilArray"), flags, 4)
+        this.vtbl.SetDepthStencil := CallbackCreate(ObjBindMethod(implObj, "SetDepthStencil"), flags, 2)
+        this.vtbl.GetDepthStencil := CallbackCreate(ObjBindMethod(implObj, "GetDepthStencil"), flags, 2)
+        this.vtbl.SetDepthStencilArray := CallbackCreate(ObjBindMethod(implObj, "SetDepthStencilArray"), flags, 4)
+        this.vtbl.GetDepthStencilArray := CallbackCreate(ObjBindMethod(implObj, "GetDepthStencilArray"), flags, 4)
     }
 
     Dispose() {

@@ -21,7 +21,6 @@ export default struct PFN_DrvStartDoc {
     }
 
     /**
-     * 
      * @param {Pointer<SURFOBJ>} pso 
      * @param {PWSTR} pwszDocName 
      * @param {Integer} dwJobId 

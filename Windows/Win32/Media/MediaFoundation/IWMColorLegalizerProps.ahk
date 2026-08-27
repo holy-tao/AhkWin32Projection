@@ -36,7 +36,6 @@ export default struct IWMColorLegalizerProps extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lquality 
      * @returns {HRESULT} 
      */
@@ -54,7 +53,7 @@ export default struct IWMColorLegalizerProps extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetColorLegalizerQuality := CallbackCreate(GetMethod(implObj, "SetColorLegalizerQuality"), flags, 2)
+        this.vtbl.SetColorLegalizerQuality := CallbackCreate(ObjBindMethod(implObj, "SetColorLegalizerQuality"), flags, 2)
     }
 
     Dispose() {

@@ -18,13 +18,12 @@ export default struct PFNCHECKCONNECTIONWIZARD {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<Integer>} param1 
      * @returns {Integer} 
      */
     Call(param0, param1) {
-        param1Marshal := param1 is VarRef ? "uint*" : "ptr"
+        param1Marshal := param1 is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, UInt32, param0, param1Marshal, param1, UInt32)
         return result

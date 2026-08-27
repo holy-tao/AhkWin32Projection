@@ -32,7 +32,6 @@ export default struct ISpNotifyCallback extends Win32ComInterface {
     }
 
     /**
-     * 
      * @param {WPARAM} _wParam 
      * @param {LPARAM} _lParam 
      * @returns {HRESULT} 

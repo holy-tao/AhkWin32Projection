@@ -388,12 +388,12 @@ export default struct IAMTimecodeGenerator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTCGMode := CallbackCreate(GetMethod(implObj, "GetTCGMode"), flags, 3)
-        this.vtbl.SetTCGMode := CallbackCreate(GetMethod(implObj, "SetTCGMode"), flags, 3)
-        this.vtbl.put_VITCLine := CallbackCreate(GetMethod(implObj, "put_VITCLine"), flags, 2)
-        this.vtbl.get_VITCLine := CallbackCreate(GetMethod(implObj, "get_VITCLine"), flags, 2)
-        this.vtbl.SetTimecode := CallbackCreate(GetMethod(implObj, "SetTimecode"), flags, 2)
-        this.vtbl.GetTimecode := CallbackCreate(GetMethod(implObj, "GetTimecode"), flags, 2)
+        this.vtbl.GetTCGMode := CallbackCreate(ObjBindMethod(implObj, "GetTCGMode"), flags, 3)
+        this.vtbl.SetTCGMode := CallbackCreate(ObjBindMethod(implObj, "SetTCGMode"), flags, 3)
+        this.vtbl.put_VITCLine := CallbackCreate(ObjBindMethod(implObj, "put_VITCLine"), flags, 2)
+        this.vtbl.get_VITCLine := CallbackCreate(ObjBindMethod(implObj, "get_VITCLine"), flags, 2)
+        this.vtbl.SetTimecode := CallbackCreate(ObjBindMethod(implObj, "SetTimecode"), flags, 2)
+        this.vtbl.GetTimecode := CallbackCreate(ObjBindMethod(implObj, "GetTimecode"), flags, 2)
     }
 
     Dispose() {

@@ -308,7 +308,9 @@ export default struct ICspInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-initializefromtype
      */
     InitializeFromType(Type, pAlgorithm, MachineContext) {
-        result := ComCall(8, this, X509ProviderType, Type, "ptr", pAlgorithm, VARIANT_BOOL, MachineContext, "HRESULT")
+        pAlgorithmMarshal := pAlgorithm == 0 ? IntPtr : "ptr"
+
+        result := ComCall(8, this, X509ProviderType, Type, pAlgorithmMarshal, pAlgorithm, VARIANT_BOOL, MachineContext, "HRESULT")
         return result
     }
 
@@ -781,7 +783,9 @@ export default struct ICspInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-getcspstatusfromoperations
      */
     GetCspStatusFromOperations(pAlgorithm, Operations) {
-        result := ComCall(23, this, "ptr", pAlgorithm, AlgorithmOperationFlags, Operations, "ptr*", &ppValue := 0, "HRESULT")
+        pAlgorithmMarshal := pAlgorithm == 0 ? IntPtr : "ptr"
+
+        result := ComCall(23, this, pAlgorithmMarshal, pAlgorithm, AlgorithmOperationFlags, Operations, "ptr*", &ppValue := 0, "HRESULT")
         return ICspStatus(ppValue)
     }
 
@@ -794,23 +798,23 @@ export default struct ICspInformation extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeFromName := CallbackCreate(GetMethod(implObj, "InitializeFromName"), flags, 2)
-        this.vtbl.InitializeFromType := CallbackCreate(GetMethod(implObj, "InitializeFromType"), flags, 4)
-        this.vtbl.get_CspAlgorithms := CallbackCreate(GetMethod(implObj, "get_CspAlgorithms"), flags, 2)
-        this.vtbl.get_HasHardwareRandomNumberGenerator := CallbackCreate(GetMethod(implObj, "get_HasHardwareRandomNumberGenerator"), flags, 2)
-        this.vtbl.get_IsHardwareDevice := CallbackCreate(GetMethod(implObj, "get_IsHardwareDevice"), flags, 2)
-        this.vtbl.get_IsRemovable := CallbackCreate(GetMethod(implObj, "get_IsRemovable"), flags, 2)
-        this.vtbl.get_IsSoftwareDevice := CallbackCreate(GetMethod(implObj, "get_IsSoftwareDevice"), flags, 2)
-        this.vtbl.get_Valid := CallbackCreate(GetMethod(implObj, "get_Valid"), flags, 2)
-        this.vtbl.get_MaxKeyContainerNameLength := CallbackCreate(GetMethod(implObj, "get_MaxKeyContainerNameLength"), flags, 2)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
-        this.vtbl.get_Version := CallbackCreate(GetMethod(implObj, "get_Version"), flags, 2)
-        this.vtbl.get_KeySpec := CallbackCreate(GetMethod(implObj, "get_KeySpec"), flags, 2)
-        this.vtbl.get_IsSmartCard := CallbackCreate(GetMethod(implObj, "get_IsSmartCard"), flags, 2)
-        this.vtbl.GetDefaultSecurityDescriptor := CallbackCreate(GetMethod(implObj, "GetDefaultSecurityDescriptor"), flags, 3)
-        this.vtbl.get_LegacyCsp := CallbackCreate(GetMethod(implObj, "get_LegacyCsp"), flags, 2)
-        this.vtbl.GetCspStatusFromOperations := CallbackCreate(GetMethod(implObj, "GetCspStatusFromOperations"), flags, 4)
+        this.vtbl.InitializeFromName := CallbackCreate(ObjBindMethod(implObj, "InitializeFromName"), flags, 2)
+        this.vtbl.InitializeFromType := CallbackCreate(ObjBindMethod(implObj, "InitializeFromType"), flags, 4)
+        this.vtbl.get_CspAlgorithms := CallbackCreate(ObjBindMethod(implObj, "get_CspAlgorithms"), flags, 2)
+        this.vtbl.get_HasHardwareRandomNumberGenerator := CallbackCreate(ObjBindMethod(implObj, "get_HasHardwareRandomNumberGenerator"), flags, 2)
+        this.vtbl.get_IsHardwareDevice := CallbackCreate(ObjBindMethod(implObj, "get_IsHardwareDevice"), flags, 2)
+        this.vtbl.get_IsRemovable := CallbackCreate(ObjBindMethod(implObj, "get_IsRemovable"), flags, 2)
+        this.vtbl.get_IsSoftwareDevice := CallbackCreate(ObjBindMethod(implObj, "get_IsSoftwareDevice"), flags, 2)
+        this.vtbl.get_Valid := CallbackCreate(ObjBindMethod(implObj, "get_Valid"), flags, 2)
+        this.vtbl.get_MaxKeyContainerNameLength := CallbackCreate(ObjBindMethod(implObj, "get_MaxKeyContainerNameLength"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(ObjBindMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_Version := CallbackCreate(ObjBindMethod(implObj, "get_Version"), flags, 2)
+        this.vtbl.get_KeySpec := CallbackCreate(ObjBindMethod(implObj, "get_KeySpec"), flags, 2)
+        this.vtbl.get_IsSmartCard := CallbackCreate(ObjBindMethod(implObj, "get_IsSmartCard"), flags, 2)
+        this.vtbl.GetDefaultSecurityDescriptor := CallbackCreate(ObjBindMethod(implObj, "GetDefaultSecurityDescriptor"), flags, 3)
+        this.vtbl.get_LegacyCsp := CallbackCreate(ObjBindMethod(implObj, "get_LegacyCsp"), flags, 2)
+        this.vtbl.GetCspStatusFromOperations := CallbackCreate(ObjBindMethod(implObj, "GetCspStatusFromOperations"), flags, 4)
     }
 
     Dispose() {

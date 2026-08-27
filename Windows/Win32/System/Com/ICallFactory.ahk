@@ -47,7 +47,9 @@ export default struct ICallFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-icallfactory-createcall
      */
     CreateCall(riid, pCtrlUnk, riid2) {
-        result := ComCall(3, this, Guid.Ptr, riid, "ptr", pCtrlUnk, Guid.Ptr, riid2, "ptr*", &ppv := 0, "HRESULT")
+        pCtrlUnkMarshal := pCtrlUnk == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, Guid.Ptr, riid, pCtrlUnkMarshal, pCtrlUnk, Guid.Ptr, riid2, "ptr*", &ppv := 0, "HRESULT")
         return IUnknown(ppv)
     }
 
@@ -60,7 +62,7 @@ export default struct ICallFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateCall := CallbackCreate(GetMethod(implObj, "CreateCall"), flags, 5)
+        this.vtbl.CreateCall := CallbackCreate(ObjBindMethod(implObj, "CreateCall"), flags, 5)
     }
 
     Dispose() {

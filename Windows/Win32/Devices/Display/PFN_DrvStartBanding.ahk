@@ -21,7 +21,6 @@ export default struct PFN_DrvStartBanding {
     }
 
     /**
-     * 
      * @param {Pointer<SURFOBJ>} param0 
      * @param {Pointer<POINTL>} ppointl 
      * @returns {BOOL} 

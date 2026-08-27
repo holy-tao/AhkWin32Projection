@@ -108,7 +108,7 @@ export default struct IDisplayHelp extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ShowTopic := CallbackCreate(GetMethod(implObj, "ShowTopic"), flags, 2)
+        this.vtbl.ShowTopic := CallbackCreate(ObjBindMethod(implObj, "ShowTopic"), flags, 2)
     }
 
     Dispose() {

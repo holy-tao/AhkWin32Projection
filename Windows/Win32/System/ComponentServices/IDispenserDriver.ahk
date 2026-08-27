@@ -59,8 +59,8 @@ export default struct IDispenserDriver extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-idispenserdriver-createresource
      */
     CreateResource(ResTypId, pResId, pSecsFreeBeforeDestroy) {
-        pResIdMarshal := pResId is VarRef ? "ptr*" : "ptr"
-        pSecsFreeBeforeDestroyMarshal := pSecsFreeBeforeDestroy is VarRef ? "int*" : "ptr"
+        pResIdMarshal := pResId is VarRef ? "ptr*" : IntPtr
+        pSecsFreeBeforeDestroyMarshal := pSecsFreeBeforeDestroy is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, IntPtr, ResTypId, pResIdMarshal, pResId, pSecsFreeBeforeDestroyMarshal, pSecsFreeBeforeDestroy, "HRESULT")
         return result
@@ -80,7 +80,7 @@ export default struct IDispenserDriver extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-idispenserdriver-rateresource
      */
     RateResource(ResTypId, ResId, fRequiresTransactionEnlistment, pRating) {
-        pRatingMarshal := pRating is VarRef ? "uint*" : "ptr"
+        pRatingMarshal := pRating is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, IntPtr, ResTypId, IntPtr, ResId, BOOL, fRequiresTransactionEnlistment, pRatingMarshal, pRating, "HRESULT")
         return result
@@ -300,7 +300,7 @@ export default struct IDispenserDriver extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-idispenserdriver-destroyresources
      */
     DestroyResourceS(ResId) {
-        ResIdMarshal := ResId is VarRef ? "ushort*" : "ptr"
+        ResIdMarshal := ResId is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(8, this, ResIdMarshal, ResId, "HRESULT")
         return result
@@ -315,12 +315,12 @@ export default struct IDispenserDriver extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateResource := CallbackCreate(GetMethod(implObj, "CreateResource"), flags, 4)
-        this.vtbl.RateResource := CallbackCreate(GetMethod(implObj, "RateResource"), flags, 5)
-        this.vtbl.EnlistResource := CallbackCreate(GetMethod(implObj, "EnlistResource"), flags, 3)
-        this.vtbl.ResetResource := CallbackCreate(GetMethod(implObj, "ResetResource"), flags, 2)
-        this.vtbl.DestroyResource := CallbackCreate(GetMethod(implObj, "DestroyResource"), flags, 2)
-        this.vtbl.DestroyResourceS := CallbackCreate(GetMethod(implObj, "DestroyResourceS"), flags, 2)
+        this.vtbl.CreateResource := CallbackCreate(ObjBindMethod(implObj, "CreateResource"), flags, 4)
+        this.vtbl.RateResource := CallbackCreate(ObjBindMethod(implObj, "RateResource"), flags, 5)
+        this.vtbl.EnlistResource := CallbackCreate(ObjBindMethod(implObj, "EnlistResource"), flags, 3)
+        this.vtbl.ResetResource := CallbackCreate(ObjBindMethod(implObj, "ResetResource"), flags, 2)
+        this.vtbl.DestroyResource := CallbackCreate(ObjBindMethod(implObj, "DestroyResource"), flags, 2)
+        this.vtbl.DestroyResourceS := CallbackCreate(ObjBindMethod(implObj, "DestroyResourceS"), flags, 2)
     }
 
     Dispose() {

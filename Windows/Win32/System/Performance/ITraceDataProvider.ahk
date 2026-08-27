@@ -388,7 +388,9 @@ export default struct ITraceDataProvider extends IDispatch {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
         bstrServer := bstrServer is String ? BSTR.Alloc(bstrServer).Value : bstrServer
 
-        result := ComCall(21, this, BSTR, bstrName, BSTR, bstrServer, "HRESULT")
+        bstrServerMarshal := bstrServer == 0 ? IntPtr : BSTR
+
+        result := ComCall(21, this, BSTR, bstrName, bstrServerMarshal, bstrServer, "HRESULT")
         return result
     }
 
@@ -401,7 +403,9 @@ export default struct ITraceDataProvider extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedataprovider-resolve
      */
     Resolve(pFrom) {
-        result := ComCall(22, this, "ptr", pFrom, "HRESULT")
+        pFromMarshal := pFrom == 0 ? IntPtr : "ptr"
+
+        result := ComCall(22, this, pFromMarshal, pFrom, "HRESULT")
         return result
     }
 
@@ -449,25 +453,25 @@ export default struct ITraceDataProvider extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_DisplayName := CallbackCreate(GetMethod(implObj, "get_DisplayName"), flags, 2)
-        this.vtbl.put_DisplayName := CallbackCreate(GetMethod(implObj, "put_DisplayName"), flags, 2)
-        this.vtbl.get_Guid := CallbackCreate(GetMethod(implObj, "get_Guid"), flags, 2)
-        this.vtbl.put_Guid := CallbackCreate(GetMethod(implObj, "put_Guid"), flags, 2)
-        this.vtbl.get_Level := CallbackCreate(GetMethod(implObj, "get_Level"), flags, 2)
-        this.vtbl.get_KeywordsAny := CallbackCreate(GetMethod(implObj, "get_KeywordsAny"), flags, 2)
-        this.vtbl.get_KeywordsAll := CallbackCreate(GetMethod(implObj, "get_KeywordsAll"), flags, 2)
-        this.vtbl.get_Properties := CallbackCreate(GetMethod(implObj, "get_Properties"), flags, 2)
-        this.vtbl.get_FilterEnabled := CallbackCreate(GetMethod(implObj, "get_FilterEnabled"), flags, 2)
-        this.vtbl.put_FilterEnabled := CallbackCreate(GetMethod(implObj, "put_FilterEnabled"), flags, 2)
-        this.vtbl.get_FilterType := CallbackCreate(GetMethod(implObj, "get_FilterType"), flags, 2)
-        this.vtbl.put_FilterType := CallbackCreate(GetMethod(implObj, "put_FilterType"), flags, 2)
-        this.vtbl.get_FilterData := CallbackCreate(GetMethod(implObj, "get_FilterData"), flags, 2)
-        this.vtbl.put_FilterData := CallbackCreate(GetMethod(implObj, "put_FilterData"), flags, 2)
-        this.vtbl.Query := CallbackCreate(GetMethod(implObj, "Query"), flags, 3)
-        this.vtbl.Resolve := CallbackCreate(GetMethod(implObj, "Resolve"), flags, 2)
-        this.vtbl.SetSecurity := CallbackCreate(GetMethod(implObj, "SetSecurity"), flags, 2)
-        this.vtbl.GetSecurity := CallbackCreate(GetMethod(implObj, "GetSecurity"), flags, 3)
-        this.vtbl.GetRegisteredProcesses := CallbackCreate(GetMethod(implObj, "GetRegisteredProcesses"), flags, 2)
+        this.vtbl.get_DisplayName := CallbackCreate(ObjBindMethod(implObj, "get_DisplayName"), flags, 2)
+        this.vtbl.put_DisplayName := CallbackCreate(ObjBindMethod(implObj, "put_DisplayName"), flags, 2)
+        this.vtbl.get_Guid := CallbackCreate(ObjBindMethod(implObj, "get_Guid"), flags, 2)
+        this.vtbl.put_Guid := CallbackCreate(ObjBindMethod(implObj, "put_Guid"), flags, 2)
+        this.vtbl.get_Level := CallbackCreate(ObjBindMethod(implObj, "get_Level"), flags, 2)
+        this.vtbl.get_KeywordsAny := CallbackCreate(ObjBindMethod(implObj, "get_KeywordsAny"), flags, 2)
+        this.vtbl.get_KeywordsAll := CallbackCreate(ObjBindMethod(implObj, "get_KeywordsAll"), flags, 2)
+        this.vtbl.get_Properties := CallbackCreate(ObjBindMethod(implObj, "get_Properties"), flags, 2)
+        this.vtbl.get_FilterEnabled := CallbackCreate(ObjBindMethod(implObj, "get_FilterEnabled"), flags, 2)
+        this.vtbl.put_FilterEnabled := CallbackCreate(ObjBindMethod(implObj, "put_FilterEnabled"), flags, 2)
+        this.vtbl.get_FilterType := CallbackCreate(ObjBindMethod(implObj, "get_FilterType"), flags, 2)
+        this.vtbl.put_FilterType := CallbackCreate(ObjBindMethod(implObj, "put_FilterType"), flags, 2)
+        this.vtbl.get_FilterData := CallbackCreate(ObjBindMethod(implObj, "get_FilterData"), flags, 2)
+        this.vtbl.put_FilterData := CallbackCreate(ObjBindMethod(implObj, "put_FilterData"), flags, 2)
+        this.vtbl.Query := CallbackCreate(ObjBindMethod(implObj, "Query"), flags, 3)
+        this.vtbl.Resolve := CallbackCreate(ObjBindMethod(implObj, "Resolve"), flags, 2)
+        this.vtbl.SetSecurity := CallbackCreate(ObjBindMethod(implObj, "SetSecurity"), flags, 2)
+        this.vtbl.GetSecurity := CallbackCreate(ObjBindMethod(implObj, "GetSecurity"), flags, 3)
+        this.vtbl.GetRegisteredProcesses := CallbackCreate(ObjBindMethod(implObj, "GetRegisteredProcesses"), flags, 2)
     }
 
     Dispose() {

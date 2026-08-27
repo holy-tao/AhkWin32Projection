@@ -45,7 +45,6 @@ export default struct LPFN_DISCONNECTEX {
     }
 
     /**
-     * 
      * @param {SOCKET} s A handle to a connected, connection-oriented socket.
      * @param {Pointer<OVERLAPPED>} lpOverlapped A pointer to an [**OVERLAPPED**](../minwinbase/ns-minwinbase-overlapped.md) structure. If the socket handle has been opened as overlapped, specifying this parameter results in an overlapped (asynchronous) I/O operation.
      * @param {Integer} dwFlags A set of flags that customizes processing of the function call. When this parameter is set to zero, no flags are set. The *dwFlags* parameter can have the following value.
@@ -62,7 +61,9 @@ export default struct LPFN_DISCONNECTEX {
      * | <dl> <dt>**[WSAENOTCONN](/windows/win32/winsock/windows-sockets-error-codes-2#wsaeisconn)**</dt> </dl> | The socket is not connected. This error is returned if the socket *s* parameter was not in a connected state. This error can also be returned if the socket was in the transmit closing state from a previous request and the *dwFlags* parameter was not set to **TF\_REUSE\_SOCKET** to request a reuse of the socket.<br/> |
      */
     Call(s, lpOverlapped, dwFlags, dwReserved) {
-        result := DllCall(this.value, SOCKET, s, OVERLAPPED.Ptr, lpOverlapped, UInt32, dwFlags, UInt32, dwReserved, BOOL)
+        lpOverlappedMarshal := lpOverlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+
+        result := DllCall(this.value, SOCKET, s, lpOverlappedMarshal, lpOverlapped, UInt32, dwFlags, UInt32, dwReserved, BOOL)
         return result
     }
 

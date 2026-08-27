@@ -188,10 +188,10 @@ export default struct IFsrmReportScheduler extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.VerifyNamespaces := CallbackCreate(GetMethod(implObj, "VerifyNamespaces"), flags, 2)
-        this.vtbl.CreateScheduleTask := CallbackCreate(GetMethod(implObj, "CreateScheduleTask"), flags, 4)
-        this.vtbl.ModifyScheduleTask := CallbackCreate(GetMethod(implObj, "ModifyScheduleTask"), flags, 4)
-        this.vtbl.DeleteScheduleTask := CallbackCreate(GetMethod(implObj, "DeleteScheduleTask"), flags, 2)
+        this.vtbl.VerifyNamespaces := CallbackCreate(ObjBindMethod(implObj, "VerifyNamespaces"), flags, 2)
+        this.vtbl.CreateScheduleTask := CallbackCreate(ObjBindMethod(implObj, "CreateScheduleTask"), flags, 4)
+        this.vtbl.ModifyScheduleTask := CallbackCreate(ObjBindMethod(implObj, "ModifyScheduleTask"), flags, 4)
+        this.vtbl.DeleteScheduleTask := CallbackCreate(ObjBindMethod(implObj, "DeleteScheduleTask"), flags, 2)
     }
 
     Dispose() {

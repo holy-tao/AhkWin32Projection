@@ -20,7 +20,6 @@ export default struct PALLOCATE_COMMON_BUFFER {
     }
 
     /**
-     * 
      * @param {Pointer<DMA_ADAPTER>} DmaAdapter 
      * @param {Integer} Length 
      * @param {Pointer<Integer>} LogicalAddress 
@@ -28,7 +27,7 @@ export default struct PALLOCATE_COMMON_BUFFER {
      * @returns {Pointer<Void>} 
      */
     Call(DmaAdapter, Length, LogicalAddress, CacheEnabled) {
-        LogicalAddressMarshal := LogicalAddress is VarRef ? "int64*" : "ptr"
+        LogicalAddressMarshal := LogicalAddress is VarRef ? "int64*" : IntPtr
 
         result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, UInt32, Length, LogicalAddressMarshal, LogicalAddress, BOOLEAN, CacheEnabled, IntPtr)
         return result

@@ -50,7 +50,7 @@ export default struct IAMDeviceRemoval extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdeviceremoval-deviceinfo
      */
     DeviceInfo(pclsidInterfaceClass, pwszSymbolicLink) {
-        pwszSymbolicLinkMarshal := pwszSymbolicLink is VarRef ? "ptr*" : "ptr"
+        pwszSymbolicLinkMarshal := pwszSymbolicLink is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, Guid.Ptr, pclsidInterfaceClass, pwszSymbolicLinkMarshal, pwszSymbolicLink, "HRESULT")
         return result
@@ -85,9 +85,9 @@ export default struct IAMDeviceRemoval extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DeviceInfo := CallbackCreate(GetMethod(implObj, "DeviceInfo"), flags, 3)
-        this.vtbl.Reassociate := CallbackCreate(GetMethod(implObj, "Reassociate"), flags, 1)
-        this.vtbl.Disassociate := CallbackCreate(GetMethod(implObj, "Disassociate"), flags, 1)
+        this.vtbl.DeviceInfo := CallbackCreate(ObjBindMethod(implObj, "DeviceInfo"), flags, 3)
+        this.vtbl.Reassociate := CallbackCreate(ObjBindMethod(implObj, "Reassociate"), flags, 1)
+        this.vtbl.Disassociate := CallbackCreate(ObjBindMethod(implObj, "Disassociate"), flags, 1)
     }
 
     Dispose() {

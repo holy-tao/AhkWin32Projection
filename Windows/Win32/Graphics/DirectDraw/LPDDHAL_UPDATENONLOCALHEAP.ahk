@@ -19,7 +19,6 @@ export default struct LPDDHAL_UPDATENONLOCALHEAP {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_UPDATENONLOCALHEAPDATA>} param0 
      * @returns {Integer} 
      */

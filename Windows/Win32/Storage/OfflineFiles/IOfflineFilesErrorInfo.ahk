@@ -71,8 +71,8 @@ export default struct IOfflineFilesErrorInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRawData := CallbackCreate(GetMethod(implObj, "GetRawData"), flags, 2)
-        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 2)
+        this.vtbl.GetRawData := CallbackCreate(ObjBindMethod(implObj, "GetRawData"), flags, 2)
+        this.vtbl.GetDescription := CallbackCreate(ObjBindMethod(implObj, "GetDescription"), flags, 2)
     }
 
     Dispose() {

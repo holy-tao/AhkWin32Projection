@@ -334,7 +334,6 @@ export default struct ITraceDataCollector extends IDataCollector {
     }
 
     /**
-     * 
      * @param {Integer} buffers 
      * @returns {HRESULT} 
      */
@@ -354,7 +353,6 @@ export default struct ITraceDataCollector extends IDataCollector {
     }
 
     /**
-     * 
      * @param {Integer} buffers 
      * @returns {HRESULT} 
      */
@@ -395,7 +393,6 @@ export default struct ITraceDataCollector extends IDataCollector {
     }
 
     /**
-     * 
      * @param {Integer} events 
      * @returns {HRESULT} 
      */
@@ -571,7 +568,6 @@ export default struct ITraceDataCollector extends IDataCollector {
     }
 
     /**
-     * 
      * @param {Integer} buffers 
      * @returns {HRESULT} 
      */
@@ -732,7 +728,6 @@ export default struct ITraceDataCollector extends IDataCollector {
     }
 
     /**
-     * 
      * @param {Integer} buffers 
      * @returns {HRESULT} 
      */
@@ -752,7 +747,6 @@ export default struct ITraceDataCollector extends IDataCollector {
     }
 
     /**
-     * 
      * @param {Integer} id 
      * @returns {HRESULT} 
      */
@@ -796,7 +790,6 @@ export default struct ITraceDataCollector extends IDataCollector {
     }
 
     /**
-     * 
      * @param {Integer} tid 
      * @returns {HRESULT} 
      */
@@ -847,46 +840,46 @@ export default struct ITraceDataCollector extends IDataCollector {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_BufferSize := CallbackCreate(GetMethod(implObj, "get_BufferSize"), flags, 2)
-        this.vtbl.put_BufferSize := CallbackCreate(GetMethod(implObj, "put_BufferSize"), flags, 2)
-        this.vtbl.get_BuffersLost := CallbackCreate(GetMethod(implObj, "get_BuffersLost"), flags, 2)
-        this.vtbl.put_BuffersLost := CallbackCreate(GetMethod(implObj, "put_BuffersLost"), flags, 2)
-        this.vtbl.get_BuffersWritten := CallbackCreate(GetMethod(implObj, "get_BuffersWritten"), flags, 2)
-        this.vtbl.put_BuffersWritten := CallbackCreate(GetMethod(implObj, "put_BuffersWritten"), flags, 2)
-        this.vtbl.get_ClockType := CallbackCreate(GetMethod(implObj, "get_ClockType"), flags, 2)
-        this.vtbl.put_ClockType := CallbackCreate(GetMethod(implObj, "put_ClockType"), flags, 2)
-        this.vtbl.get_EventsLost := CallbackCreate(GetMethod(implObj, "get_EventsLost"), flags, 2)
-        this.vtbl.put_EventsLost := CallbackCreate(GetMethod(implObj, "put_EventsLost"), flags, 2)
-        this.vtbl.get_ExtendedModes := CallbackCreate(GetMethod(implObj, "get_ExtendedModes"), flags, 2)
-        this.vtbl.put_ExtendedModes := CallbackCreate(GetMethod(implObj, "put_ExtendedModes"), flags, 2)
-        this.vtbl.get_FlushTimer := CallbackCreate(GetMethod(implObj, "get_FlushTimer"), flags, 2)
-        this.vtbl.put_FlushTimer := CallbackCreate(GetMethod(implObj, "put_FlushTimer"), flags, 2)
-        this.vtbl.get_FreeBuffers := CallbackCreate(GetMethod(implObj, "get_FreeBuffers"), flags, 2)
-        this.vtbl.put_FreeBuffers := CallbackCreate(GetMethod(implObj, "put_FreeBuffers"), flags, 2)
-        this.vtbl.get_Guid := CallbackCreate(GetMethod(implObj, "get_Guid"), flags, 2)
-        this.vtbl.put_Guid := CallbackCreate(GetMethod(implObj, "put_Guid"), flags, 2)
-        this.vtbl.get_IsKernelTrace := CallbackCreate(GetMethod(implObj, "get_IsKernelTrace"), flags, 2)
-        this.vtbl.get_MaximumBuffers := CallbackCreate(GetMethod(implObj, "get_MaximumBuffers"), flags, 2)
-        this.vtbl.put_MaximumBuffers := CallbackCreate(GetMethod(implObj, "put_MaximumBuffers"), flags, 2)
-        this.vtbl.get_MinimumBuffers := CallbackCreate(GetMethod(implObj, "get_MinimumBuffers"), flags, 2)
-        this.vtbl.put_MinimumBuffers := CallbackCreate(GetMethod(implObj, "put_MinimumBuffers"), flags, 2)
-        this.vtbl.get_NumberOfBuffers := CallbackCreate(GetMethod(implObj, "get_NumberOfBuffers"), flags, 2)
-        this.vtbl.put_NumberOfBuffers := CallbackCreate(GetMethod(implObj, "put_NumberOfBuffers"), flags, 2)
-        this.vtbl.get_PreallocateFile := CallbackCreate(GetMethod(implObj, "get_PreallocateFile"), flags, 2)
-        this.vtbl.put_PreallocateFile := CallbackCreate(GetMethod(implObj, "put_PreallocateFile"), flags, 2)
-        this.vtbl.get_ProcessMode := CallbackCreate(GetMethod(implObj, "get_ProcessMode"), flags, 2)
-        this.vtbl.put_ProcessMode := CallbackCreate(GetMethod(implObj, "put_ProcessMode"), flags, 2)
-        this.vtbl.get_RealTimeBuffersLost := CallbackCreate(GetMethod(implObj, "get_RealTimeBuffersLost"), flags, 2)
-        this.vtbl.put_RealTimeBuffersLost := CallbackCreate(GetMethod(implObj, "put_RealTimeBuffersLost"), flags, 2)
-        this.vtbl.get_SessionId := CallbackCreate(GetMethod(implObj, "get_SessionId"), flags, 2)
-        this.vtbl.put_SessionId := CallbackCreate(GetMethod(implObj, "put_SessionId"), flags, 2)
-        this.vtbl.get_SessionName := CallbackCreate(GetMethod(implObj, "get_SessionName"), flags, 2)
-        this.vtbl.put_SessionName := CallbackCreate(GetMethod(implObj, "put_SessionName"), flags, 2)
-        this.vtbl.get_SessionThreadId := CallbackCreate(GetMethod(implObj, "get_SessionThreadId"), flags, 2)
-        this.vtbl.put_SessionThreadId := CallbackCreate(GetMethod(implObj, "put_SessionThreadId"), flags, 2)
-        this.vtbl.get_StreamMode := CallbackCreate(GetMethod(implObj, "get_StreamMode"), flags, 2)
-        this.vtbl.put_StreamMode := CallbackCreate(GetMethod(implObj, "put_StreamMode"), flags, 2)
-        this.vtbl.get_TraceDataProviders := CallbackCreate(GetMethod(implObj, "get_TraceDataProviders"), flags, 2)
+        this.vtbl.get_BufferSize := CallbackCreate(ObjBindMethod(implObj, "get_BufferSize"), flags, 2)
+        this.vtbl.put_BufferSize := CallbackCreate(ObjBindMethod(implObj, "put_BufferSize"), flags, 2)
+        this.vtbl.get_BuffersLost := CallbackCreate(ObjBindMethod(implObj, "get_BuffersLost"), flags, 2)
+        this.vtbl.put_BuffersLost := CallbackCreate(ObjBindMethod(implObj, "put_BuffersLost"), flags, 2)
+        this.vtbl.get_BuffersWritten := CallbackCreate(ObjBindMethod(implObj, "get_BuffersWritten"), flags, 2)
+        this.vtbl.put_BuffersWritten := CallbackCreate(ObjBindMethod(implObj, "put_BuffersWritten"), flags, 2)
+        this.vtbl.get_ClockType := CallbackCreate(ObjBindMethod(implObj, "get_ClockType"), flags, 2)
+        this.vtbl.put_ClockType := CallbackCreate(ObjBindMethod(implObj, "put_ClockType"), flags, 2)
+        this.vtbl.get_EventsLost := CallbackCreate(ObjBindMethod(implObj, "get_EventsLost"), flags, 2)
+        this.vtbl.put_EventsLost := CallbackCreate(ObjBindMethod(implObj, "put_EventsLost"), flags, 2)
+        this.vtbl.get_ExtendedModes := CallbackCreate(ObjBindMethod(implObj, "get_ExtendedModes"), flags, 2)
+        this.vtbl.put_ExtendedModes := CallbackCreate(ObjBindMethod(implObj, "put_ExtendedModes"), flags, 2)
+        this.vtbl.get_FlushTimer := CallbackCreate(ObjBindMethod(implObj, "get_FlushTimer"), flags, 2)
+        this.vtbl.put_FlushTimer := CallbackCreate(ObjBindMethod(implObj, "put_FlushTimer"), flags, 2)
+        this.vtbl.get_FreeBuffers := CallbackCreate(ObjBindMethod(implObj, "get_FreeBuffers"), flags, 2)
+        this.vtbl.put_FreeBuffers := CallbackCreate(ObjBindMethod(implObj, "put_FreeBuffers"), flags, 2)
+        this.vtbl.get_Guid := CallbackCreate(ObjBindMethod(implObj, "get_Guid"), flags, 2)
+        this.vtbl.put_Guid := CallbackCreate(ObjBindMethod(implObj, "put_Guid"), flags, 2)
+        this.vtbl.get_IsKernelTrace := CallbackCreate(ObjBindMethod(implObj, "get_IsKernelTrace"), flags, 2)
+        this.vtbl.get_MaximumBuffers := CallbackCreate(ObjBindMethod(implObj, "get_MaximumBuffers"), flags, 2)
+        this.vtbl.put_MaximumBuffers := CallbackCreate(ObjBindMethod(implObj, "put_MaximumBuffers"), flags, 2)
+        this.vtbl.get_MinimumBuffers := CallbackCreate(ObjBindMethod(implObj, "get_MinimumBuffers"), flags, 2)
+        this.vtbl.put_MinimumBuffers := CallbackCreate(ObjBindMethod(implObj, "put_MinimumBuffers"), flags, 2)
+        this.vtbl.get_NumberOfBuffers := CallbackCreate(ObjBindMethod(implObj, "get_NumberOfBuffers"), flags, 2)
+        this.vtbl.put_NumberOfBuffers := CallbackCreate(ObjBindMethod(implObj, "put_NumberOfBuffers"), flags, 2)
+        this.vtbl.get_PreallocateFile := CallbackCreate(ObjBindMethod(implObj, "get_PreallocateFile"), flags, 2)
+        this.vtbl.put_PreallocateFile := CallbackCreate(ObjBindMethod(implObj, "put_PreallocateFile"), flags, 2)
+        this.vtbl.get_ProcessMode := CallbackCreate(ObjBindMethod(implObj, "get_ProcessMode"), flags, 2)
+        this.vtbl.put_ProcessMode := CallbackCreate(ObjBindMethod(implObj, "put_ProcessMode"), flags, 2)
+        this.vtbl.get_RealTimeBuffersLost := CallbackCreate(ObjBindMethod(implObj, "get_RealTimeBuffersLost"), flags, 2)
+        this.vtbl.put_RealTimeBuffersLost := CallbackCreate(ObjBindMethod(implObj, "put_RealTimeBuffersLost"), flags, 2)
+        this.vtbl.get_SessionId := CallbackCreate(ObjBindMethod(implObj, "get_SessionId"), flags, 2)
+        this.vtbl.put_SessionId := CallbackCreate(ObjBindMethod(implObj, "put_SessionId"), flags, 2)
+        this.vtbl.get_SessionName := CallbackCreate(ObjBindMethod(implObj, "get_SessionName"), flags, 2)
+        this.vtbl.put_SessionName := CallbackCreate(ObjBindMethod(implObj, "put_SessionName"), flags, 2)
+        this.vtbl.get_SessionThreadId := CallbackCreate(ObjBindMethod(implObj, "get_SessionThreadId"), flags, 2)
+        this.vtbl.put_SessionThreadId := CallbackCreate(ObjBindMethod(implObj, "put_SessionThreadId"), flags, 2)
+        this.vtbl.get_StreamMode := CallbackCreate(ObjBindMethod(implObj, "get_StreamMode"), flags, 2)
+        this.vtbl.put_StreamMode := CallbackCreate(ObjBindMethod(implObj, "put_StreamMode"), flags, 2)
+        this.vtbl.get_TraceDataProviders := CallbackCreate(ObjBindMethod(implObj, "get_TraceDataProviders"), flags, 2)
     }
 
     Dispose() {

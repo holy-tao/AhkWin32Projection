@@ -18,7 +18,6 @@ export default struct PGET_SDEV_IDENTIFIER {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Call() {

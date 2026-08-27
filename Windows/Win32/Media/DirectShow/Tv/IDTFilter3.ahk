@@ -86,9 +86,9 @@ export default struct IDTFilter3 extends IDTFilter2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProtectionType := CallbackCreate(GetMethod(implObj, "GetProtectionType"), flags, 2)
-        this.vtbl.LicenseHasExpirationDate := CallbackCreate(GetMethod(implObj, "LicenseHasExpirationDate"), flags, 2)
-        this.vtbl.SetRights := CallbackCreate(GetMethod(implObj, "SetRights"), flags, 2)
+        this.vtbl.GetProtectionType := CallbackCreate(ObjBindMethod(implObj, "GetProtectionType"), flags, 2)
+        this.vtbl.LicenseHasExpirationDate := CallbackCreate(ObjBindMethod(implObj, "LicenseHasExpirationDate"), flags, 2)
+        this.vtbl.SetRights := CallbackCreate(ObjBindMethod(implObj, "SetRights"), flags, 2)
     }
 
     Dispose() {

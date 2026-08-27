@@ -21,7 +21,6 @@ export default struct PFN_CPD_ADD_CERT {
     }
 
     /**
-     * 
      * @param {Pointer<CRYPT_PROVIDER_DATA>} pProvData 
      * @param {Integer} idxSigner 
      * @param {BOOL} fCounterSigner 
@@ -30,7 +29,9 @@ export default struct PFN_CPD_ADD_CERT {
      * @returns {BOOL} 
      */
     Call(pProvData, idxSigner, fCounterSigner, idxCounterSigner, pCert2Add) {
-        result := DllCall(this.value, CRYPT_PROVIDER_DATA.Ptr, pProvData, UInt32, idxSigner, BOOL, fCounterSigner, UInt32, idxCounterSigner, CERT_CONTEXT.Ptr, pCert2Add, BOOL)
+        idxCounterSignerMarshal := idxCounterSigner == 0 ? IntPtr : UInt32
+
+        result := DllCall(this.value, CRYPT_PROVIDER_DATA.Ptr, pProvData, UInt32, idxSigner, BOOL, fCounterSigner, idxCounterSignerMarshal, idxCounterSigner, CERT_CONTEXT.Ptr, pCert2Add, BOOL)
         return result
     }
 

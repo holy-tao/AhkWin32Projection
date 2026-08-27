@@ -48,7 +48,6 @@ export default struct ISpGrammarBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} NewLanguage 
      * @returns {HRESULT} 
      */
@@ -58,7 +57,6 @@ export default struct ISpGrammarBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszRuleName 
      * @param {Integer} dwRuleId 
      * @param {Integer} dwAttributes 
@@ -74,7 +72,6 @@ export default struct ISpGrammarBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {SPSTATEHANDLE} hState 
      * @returns {HRESULT} 
      */
@@ -84,7 +81,6 @@ export default struct ISpGrammarBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {SPSTATEHANDLE} hState 
      * @param {Pointer<SPSTATEHANDLE>} phState 
      * @returns {HRESULT} 
@@ -95,7 +91,6 @@ export default struct ISpGrammarBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {SPSTATEHANDLE} hFromState 
      * @param {SPSTATEHANDLE} hToState 
      * @param {PWSTR} psz 
@@ -109,12 +104,14 @@ export default struct ISpGrammarBuilder extends IUnknown {
         psz := psz is String ? StrPtr(psz) : psz
         pszSeparators := pszSeparators is String ? StrPtr(pszSeparators) : pszSeparators
 
-        result := ComCall(7, this, SPSTATEHANDLE, hFromState, SPSTATEHANDLE, hToState, "ptr", psz, "ptr", pszSeparators, SPGRAMMARWORDTYPE, eWordType, Float32, Weight, SPPROPERTYINFO.Ptr, pPropInfo, "HRESULT")
+        pszMarshal := psz == 0 ? IntPtr : PWSTR
+        pszSeparatorsMarshal := pszSeparators == 0 ? IntPtr : PWSTR
+
+        result := ComCall(7, this, SPSTATEHANDLE, hFromState, SPSTATEHANDLE, hToState, pszMarshal, psz, pszSeparatorsMarshal, pszSeparators, SPGRAMMARWORDTYPE, eWordType, Float32, Weight, SPPROPERTYINFO.Ptr, pPropInfo, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {SPSTATEHANDLE} hFromState 
      * @param {SPSTATEHANDLE} hToState 
      * @param {SPSTATEHANDLE} hRule 
@@ -128,7 +125,6 @@ export default struct ISpGrammarBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {SPSTATEHANDLE} hRuleState 
      * @param {PWSTR} pszResourceName 
      * @param {PWSTR} pszResourceValue 
@@ -138,12 +134,13 @@ export default struct ISpGrammarBuilder extends IUnknown {
         pszResourceName := pszResourceName is String ? StrPtr(pszResourceName) : pszResourceName
         pszResourceValue := pszResourceValue is String ? StrPtr(pszResourceValue) : pszResourceValue
 
-        result := ComCall(9, this, SPSTATEHANDLE, hRuleState, "ptr", pszResourceName, "ptr", pszResourceValue, "HRESULT")
+        pszResourceValueMarshal := pszResourceValue == 0 ? IntPtr : PWSTR
+
+        result := ComCall(9, this, SPSTATEHANDLE, hRuleState, "ptr", pszResourceName, pszResourceValueMarshal, pszResourceValue, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwReserved 
      * @returns {HRESULT} 
      */
@@ -161,14 +158,14 @@ export default struct ISpGrammarBuilder extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ResetGrammar := CallbackCreate(GetMethod(implObj, "ResetGrammar"), flags, 2)
-        this.vtbl.GetRule := CallbackCreate(GetMethod(implObj, "GetRule"), flags, 6)
-        this.vtbl.ClearRule := CallbackCreate(GetMethod(implObj, "ClearRule"), flags, 2)
-        this.vtbl.CreateNewState := CallbackCreate(GetMethod(implObj, "CreateNewState"), flags, 3)
-        this.vtbl.AddWordTransition := CallbackCreate(GetMethod(implObj, "AddWordTransition"), flags, 8)
-        this.vtbl.AddRuleTransition := CallbackCreate(GetMethod(implObj, "AddRuleTransition"), flags, 6)
-        this.vtbl.AddResource := CallbackCreate(GetMethod(implObj, "AddResource"), flags, 4)
-        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 2)
+        this.vtbl.ResetGrammar := CallbackCreate(ObjBindMethod(implObj, "ResetGrammar"), flags, 2)
+        this.vtbl.GetRule := CallbackCreate(ObjBindMethod(implObj, "GetRule"), flags, 6)
+        this.vtbl.ClearRule := CallbackCreate(ObjBindMethod(implObj, "ClearRule"), flags, 2)
+        this.vtbl.CreateNewState := CallbackCreate(ObjBindMethod(implObj, "CreateNewState"), flags, 3)
+        this.vtbl.AddWordTransition := CallbackCreate(ObjBindMethod(implObj, "AddWordTransition"), flags, 8)
+        this.vtbl.AddRuleTransition := CallbackCreate(ObjBindMethod(implObj, "AddRuleTransition"), flags, 6)
+        this.vtbl.AddResource := CallbackCreate(ObjBindMethod(implObj, "AddResource"), flags, 4)
+        this.vtbl.Commit := CallbackCreate(ObjBindMethod(implObj, "Commit"), flags, 2)
     }
 
     Dispose() {

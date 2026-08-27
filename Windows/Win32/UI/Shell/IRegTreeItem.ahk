@@ -75,8 +75,8 @@ export default struct IRegTreeItem extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCheckState := CallbackCreate(GetMethod(implObj, "GetCheckState"), flags, 2)
-        this.vtbl.SetCheckState := CallbackCreate(GetMethod(implObj, "SetCheckState"), flags, 2)
+        this.vtbl.GetCheckState := CallbackCreate(ObjBindMethod(implObj, "GetCheckState"), flags, 2)
+        this.vtbl.SetCheckState := CallbackCreate(ObjBindMethod(implObj, "SetCheckState"), flags, 2)
     }
 
     Dispose() {

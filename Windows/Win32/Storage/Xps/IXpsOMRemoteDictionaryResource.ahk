@@ -100,8 +100,8 @@ export default struct IXpsOMRemoteDictionaryResource extends IXpsOMResource {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDictionary := CallbackCreate(GetMethod(implObj, "GetDictionary"), flags, 2)
-        this.vtbl.SetDictionary := CallbackCreate(GetMethod(implObj, "SetDictionary"), flags, 2)
+        this.vtbl.GetDictionary := CallbackCreate(ObjBindMethod(implObj, "GetDictionary"), flags, 2)
+        this.vtbl.SetDictionary := CallbackCreate(ObjBindMethod(implObj, "SetDictionary"), flags, 2)
     }
 
     Dispose() {

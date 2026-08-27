@@ -110,7 +110,10 @@ export default struct ID2D1DeviceContext4 extends ID2D1DeviceContext3 {
     DrawText(_string, stringLength, textFormat, layoutRect, defaultFillBrush, svgGlyphStyle, colorPaletteIndex, options, measuringMode) {
         _string := _string is String ? StrPtr(_string) : _string
 
-        ComCall(109, this, "ptr", _string, UInt32, stringLength, "ptr", textFormat, D2D_RECT_F.Ptr, layoutRect, "ptr", defaultFillBrush, "ptr", svgGlyphStyle, UInt32, colorPaletteIndex, D2D1_DRAW_TEXT_OPTIONS, options, DWRITE_MEASURING_MODE, measuringMode)
+        defaultFillBrushMarshal := defaultFillBrush == 0 ? IntPtr : "ptr"
+        svgGlyphStyleMarshal := svgGlyphStyle == 0 ? IntPtr : "ptr"
+
+        ComCall(109, this, "ptr", _string, UInt32, stringLength, "ptr", textFormat, D2D_RECT_F.Ptr, layoutRect, defaultFillBrushMarshal, defaultFillBrush, svgGlyphStyleMarshal, svgGlyphStyle, UInt32, colorPaletteIndex, D2D1_DRAW_TEXT_OPTIONS, options, DWRITE_MEASURING_MODE, measuringMode)
     }
 
     /**
@@ -139,7 +142,10 @@ export default struct ID2D1DeviceContext4 extends ID2D1DeviceContext3 {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext4-drawtextlayout
      */
     DrawTextLayout(origin, textLayout, defaultFillBrush, svgGlyphStyle, colorPaletteIndex, options) {
-        ComCall(110, this, D2D_POINT_2F, origin, "ptr", textLayout, "ptr", defaultFillBrush, "ptr", svgGlyphStyle, UInt32, colorPaletteIndex, D2D1_DRAW_TEXT_OPTIONS, options)
+        defaultFillBrushMarshal := defaultFillBrush == 0 ? IntPtr : "ptr"
+        svgGlyphStyleMarshal := svgGlyphStyle == 0 ? IntPtr : "ptr"
+
+        ComCall(110, this, D2D_POINT_2F, origin, "ptr", textLayout, defaultFillBrushMarshal, defaultFillBrush, svgGlyphStyleMarshal, svgGlyphStyle, UInt32, colorPaletteIndex, D2D1_DRAW_TEXT_OPTIONS, options)
     }
 
     /**
@@ -195,7 +201,10 @@ export default struct ID2D1DeviceContext4 extends ID2D1DeviceContext3 {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext4-drawsvgglyphrun
      */
     DrawSvgGlyphRun(baselineOrigin, _glyphRun, defaultFillBrush, svgGlyphStyle, colorPaletteIndex, measuringMode) {
-        ComCall(112, this, D2D_POINT_2F, baselineOrigin, DWRITE_GLYPH_RUN.Ptr, _glyphRun, "ptr", defaultFillBrush, "ptr", svgGlyphStyle, UInt32, colorPaletteIndex, DWRITE_MEASURING_MODE, measuringMode)
+        defaultFillBrushMarshal := defaultFillBrush == 0 ? IntPtr : "ptr"
+        svgGlyphStyleMarshal := svgGlyphStyle == 0 ? IntPtr : "ptr"
+
+        ComCall(112, this, D2D_POINT_2F, baselineOrigin, DWRITE_GLYPH_RUN.Ptr, _glyphRun, defaultFillBrushMarshal, defaultFillBrush, svgGlyphStyleMarshal, svgGlyphStyle, UInt32, colorPaletteIndex, DWRITE_MEASURING_MODE, measuringMode)
     }
 
     /**
@@ -241,7 +250,9 @@ export default struct ID2D1DeviceContext4 extends ID2D1DeviceContext3 {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext4-getcolorbitmapglyphimage
      */
     GetColorBitmapGlyphImage(glyphImageFormat, glyphOrigin, fontFace, fontEmSize, glyphIndex, isSideways, worldTransform, dpiX, dpiY, glyphTransform, glyphImage) {
-        result := ComCall(113, this, DWRITE_GLYPH_IMAGE_FORMATS, glyphImageFormat, D2D_POINT_2F, glyphOrigin, "ptr", fontFace, Float32, fontEmSize, UInt16, glyphIndex, BOOL, isSideways, D2D_MATRIX_3X2_F.Ptr, worldTransform, Float32, dpiX, Float32, dpiY, D2D_MATRIX_3X2_F.Ptr, glyphTransform, ID2D1Image.Ptr, glyphImage, "HRESULT")
+        worldTransformMarshal := worldTransform == 0 ? IntPtr : D2D_MATRIX_3X2_F.Ptr
+
+        result := ComCall(113, this, DWRITE_GLYPH_IMAGE_FORMATS, glyphImageFormat, D2D_POINT_2F, glyphOrigin, "ptr", fontFace, Float32, fontEmSize, UInt16, glyphIndex, BOOL, isSideways, worldTransformMarshal, worldTransform, Float32, dpiX, Float32, dpiY, D2D_MATRIX_3X2_F.Ptr, glyphTransform, ID2D1Image.Ptr, glyphImage, "HRESULT")
         return result
     }
 
@@ -289,7 +300,11 @@ export default struct ID2D1DeviceContext4 extends ID2D1DeviceContext3 {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext4-getsvgglyphimage
      */
     GetSvgGlyphImage(glyphOrigin, fontFace, fontEmSize, glyphIndex, isSideways, worldTransform, defaultFillBrush, svgGlyphStyle, colorPaletteIndex, glyphTransform, glyphImage) {
-        result := ComCall(114, this, D2D_POINT_2F, glyphOrigin, "ptr", fontFace, Float32, fontEmSize, UInt16, glyphIndex, BOOL, isSideways, D2D_MATRIX_3X2_F.Ptr, worldTransform, "ptr", defaultFillBrush, "ptr", svgGlyphStyle, UInt32, colorPaletteIndex, D2D_MATRIX_3X2_F.Ptr, glyphTransform, ID2D1CommandList.Ptr, glyphImage, "HRESULT")
+        worldTransformMarshal := worldTransform == 0 ? IntPtr : D2D_MATRIX_3X2_F.Ptr
+        defaultFillBrushMarshal := defaultFillBrush == 0 ? IntPtr : "ptr"
+        svgGlyphStyleMarshal := svgGlyphStyle == 0 ? IntPtr : "ptr"
+
+        result := ComCall(114, this, D2D_POINT_2F, glyphOrigin, "ptr", fontFace, Float32, fontEmSize, UInt16, glyphIndex, BOOL, isSideways, worldTransformMarshal, worldTransform, defaultFillBrushMarshal, defaultFillBrush, svgGlyphStyleMarshal, svgGlyphStyle, UInt32, colorPaletteIndex, D2D_MATRIX_3X2_F.Ptr, glyphTransform, ID2D1CommandList.Ptr, glyphImage, "HRESULT")
         return result
     }
 
@@ -302,13 +317,13 @@ export default struct ID2D1DeviceContext4 extends ID2D1DeviceContext3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateSvgGlyphStyle := CallbackCreate(GetMethod(implObj, "CreateSvgGlyphStyle"), flags, 2)
-        this.vtbl.DrawText := CallbackCreate(GetMethod(implObj, "DrawText"), flags, 10)
-        this.vtbl.DrawTextLayout := CallbackCreate(GetMethod(implObj, "DrawTextLayout"), flags, 7)
-        this.vtbl.DrawColorBitmapGlyphRun := CallbackCreate(GetMethod(implObj, "DrawColorBitmapGlyphRun"), flags, 6)
-        this.vtbl.DrawSvgGlyphRun := CallbackCreate(GetMethod(implObj, "DrawSvgGlyphRun"), flags, 7)
-        this.vtbl.GetColorBitmapGlyphImage := CallbackCreate(GetMethod(implObj, "GetColorBitmapGlyphImage"), flags, 12)
-        this.vtbl.GetSvgGlyphImage := CallbackCreate(GetMethod(implObj, "GetSvgGlyphImage"), flags, 12)
+        this.vtbl.CreateSvgGlyphStyle := CallbackCreate(ObjBindMethod(implObj, "CreateSvgGlyphStyle"), flags, 2)
+        this.vtbl.DrawText := CallbackCreate(ObjBindMethod(implObj, "DrawText"), flags, 10)
+        this.vtbl.DrawTextLayout := CallbackCreate(ObjBindMethod(implObj, "DrawTextLayout"), flags, 7)
+        this.vtbl.DrawColorBitmapGlyphRun := CallbackCreate(ObjBindMethod(implObj, "DrawColorBitmapGlyphRun"), flags, 6)
+        this.vtbl.DrawSvgGlyphRun := CallbackCreate(ObjBindMethod(implObj, "DrawSvgGlyphRun"), flags, 7)
+        this.vtbl.GetColorBitmapGlyphImage := CallbackCreate(ObjBindMethod(implObj, "GetColorBitmapGlyphImage"), flags, 12)
+        this.vtbl.GetSvgGlyphImage := CallbackCreate(ObjBindMethod(implObj, "GetSvgGlyphImage"), flags, 12)
     }
 
     Dispose() {

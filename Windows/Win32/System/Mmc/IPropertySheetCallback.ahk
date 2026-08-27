@@ -86,8 +86,8 @@ export default struct IPropertySheetCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddPage := CallbackCreate(GetMethod(implObj, "AddPage"), flags, 2)
-        this.vtbl.RemovePage := CallbackCreate(GetMethod(implObj, "RemovePage"), flags, 2)
+        this.vtbl.AddPage := CallbackCreate(ObjBindMethod(implObj, "AddPage"), flags, 2)
+        this.vtbl.RemovePage := CallbackCreate(ObjBindMethod(implObj, "RemovePage"), flags, 2)
     }
 
     Dispose() {

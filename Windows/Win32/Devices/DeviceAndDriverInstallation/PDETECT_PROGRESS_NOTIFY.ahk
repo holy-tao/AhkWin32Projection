@@ -19,13 +19,12 @@ export default struct PDETECT_PROGRESS_NOTIFY {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} ProgressNotifyParam 
      * @param {Integer} DetectComplete 
      * @returns {BOOL} 
      */
     Call(ProgressNotifyParam, DetectComplete) {
-        ProgressNotifyParamMarshal := ProgressNotifyParam is VarRef ? "ptr" : "ptr"
+        ProgressNotifyParamMarshal := ProgressNotifyParam is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, ProgressNotifyParamMarshal, ProgressNotifyParam, UInt32, DetectComplete, BOOL)
         return result

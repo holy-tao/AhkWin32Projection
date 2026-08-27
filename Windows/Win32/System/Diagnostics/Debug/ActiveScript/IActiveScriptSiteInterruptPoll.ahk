@@ -36,7 +36,6 @@ export default struct IActiveScriptSiteInterruptPoll extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     QueryContinue() {
@@ -53,7 +52,7 @@ export default struct IActiveScriptSiteInterruptPoll extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryContinue := CallbackCreate(GetMethod(implObj, "QueryContinue"), flags, 1)
+        this.vtbl.QueryContinue := CallbackCreate(ObjBindMethod(implObj, "QueryContinue"), flags, 1)
     }
 
     Dispose() {

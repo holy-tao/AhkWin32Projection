@@ -38,7 +38,6 @@ export default struct IMFFaceDetectionTransform extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMFFaceDetectionTransformCallback} callback 
      * @returns {Pointer<Void>} 
      */
@@ -48,12 +47,11 @@ export default struct IMFFaceDetectionTransform extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} callbackToken 
      * @returns {HRESULT} 
      */
     ClearDetectionCallback(callbackToken) {
-        callbackTokenMarshal := callbackToken is VarRef ? "ptr" : "ptr"
+        callbackTokenMarshal := callbackToken is VarRef ? "ptr" : IntPtr
 
         result := ComCall(4, this, callbackTokenMarshal, callbackToken, "HRESULT")
         return result
@@ -68,8 +66,8 @@ export default struct IMFFaceDetectionTransform extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetDetectionCallback := CallbackCreate(GetMethod(implObj, "SetDetectionCallback"), flags, 3)
-        this.vtbl.ClearDetectionCallback := CallbackCreate(GetMethod(implObj, "ClearDetectionCallback"), flags, 2)
+        this.vtbl.SetDetectionCallback := CallbackCreate(ObjBindMethod(implObj, "SetDetectionCallback"), flags, 3)
+        this.vtbl.ClearDetectionCallback := CallbackCreate(ObjBindMethod(implObj, "ClearDetectionCallback"), flags, 2)
     }
 
     Dispose() {

@@ -143,7 +143,9 @@ export default struct IWICImagingFactory extends IUnknown {
     CreateDecoderFromFilename(wzFilename, pguidVendor, dwDesiredAccess, metadataOptions) {
         wzFilename := wzFilename is String ? StrPtr(wzFilename) : wzFilename
 
-        result := ComCall(3, this, "ptr", wzFilename, Guid.Ptr, pguidVendor, GENERIC_ACCESS_RIGHTS, dwDesiredAccess, WICDecodeOptions, metadataOptions, "ptr*", &ppIDecoder := 0, "HRESULT")
+        pguidVendorMarshal := pguidVendor == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(3, this, "ptr", wzFilename, pguidVendorMarshal, pguidVendor, GENERIC_ACCESS_RIGHTS, dwDesiredAccess, WICDecodeOptions, metadataOptions, "ptr*", &ppIDecoder := 0, "HRESULT")
         return IWICBitmapDecoder(ppIDecoder)
     }
 
@@ -774,7 +776,7 @@ export default struct IWICImagingFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createbitmapfrommemory
      */
     CreateBitmapFromMemory(uiWidth, uiHeight, pixelFormat, cbStride, cbBufferSize, pbBuffer) {
-        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(20, this, UInt32, uiWidth, UInt32, uiHeight, Guid.Ptr, pixelFormat, UInt32, cbStride, UInt32, cbBufferSize, pbBufferMarshal, pbBuffer, "ptr*", &ppIBitmap := 0, "HRESULT")
         return IWICBitmap(ppIBitmap)
@@ -917,31 +919,31 @@ export default struct IWICImagingFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateDecoderFromFilename := CallbackCreate(GetMethod(implObj, "CreateDecoderFromFilename"), flags, 6)
-        this.vtbl.CreateDecoderFromStream := CallbackCreate(GetMethod(implObj, "CreateDecoderFromStream"), flags, 5)
-        this.vtbl.CreateDecoderFromFileHandle := CallbackCreate(GetMethod(implObj, "CreateDecoderFromFileHandle"), flags, 5)
-        this.vtbl.CreateComponentInfo := CallbackCreate(GetMethod(implObj, "CreateComponentInfo"), flags, 3)
-        this.vtbl.CreateDecoder := CallbackCreate(GetMethod(implObj, "CreateDecoder"), flags, 4)
-        this.vtbl.CreateEncoder := CallbackCreate(GetMethod(implObj, "CreateEncoder"), flags, 4)
-        this.vtbl.CreatePalette := CallbackCreate(GetMethod(implObj, "CreatePalette"), flags, 2)
-        this.vtbl.CreateFormatConverter := CallbackCreate(GetMethod(implObj, "CreateFormatConverter"), flags, 2)
-        this.vtbl.CreateBitmapScaler := CallbackCreate(GetMethod(implObj, "CreateBitmapScaler"), flags, 2)
-        this.vtbl.CreateBitmapClipper := CallbackCreate(GetMethod(implObj, "CreateBitmapClipper"), flags, 2)
-        this.vtbl.CreateBitmapFlipRotator := CallbackCreate(GetMethod(implObj, "CreateBitmapFlipRotator"), flags, 2)
-        this.vtbl.CreateStream := CallbackCreate(GetMethod(implObj, "CreateStream"), flags, 2)
-        this.vtbl.CreateColorContext := CallbackCreate(GetMethod(implObj, "CreateColorContext"), flags, 2)
-        this.vtbl.CreateColorTransformer := CallbackCreate(GetMethod(implObj, "CreateColorTransformer"), flags, 2)
-        this.vtbl.CreateBitmap := CallbackCreate(GetMethod(implObj, "CreateBitmap"), flags, 6)
-        this.vtbl.CreateBitmapFromSource := CallbackCreate(GetMethod(implObj, "CreateBitmapFromSource"), flags, 4)
-        this.vtbl.CreateBitmapFromSourceRect := CallbackCreate(GetMethod(implObj, "CreateBitmapFromSourceRect"), flags, 7)
-        this.vtbl.CreateBitmapFromMemory := CallbackCreate(GetMethod(implObj, "CreateBitmapFromMemory"), flags, 8)
-        this.vtbl.CreateBitmapFromHBITMAP := CallbackCreate(GetMethod(implObj, "CreateBitmapFromHBITMAP"), flags, 5)
-        this.vtbl.CreateBitmapFromHICON := CallbackCreate(GetMethod(implObj, "CreateBitmapFromHICON"), flags, 3)
-        this.vtbl.CreateComponentEnumerator := CallbackCreate(GetMethod(implObj, "CreateComponentEnumerator"), flags, 4)
-        this.vtbl.CreateFastMetadataEncoderFromDecoder := CallbackCreate(GetMethod(implObj, "CreateFastMetadataEncoderFromDecoder"), flags, 3)
-        this.vtbl.CreateFastMetadataEncoderFromFrameDecode := CallbackCreate(GetMethod(implObj, "CreateFastMetadataEncoderFromFrameDecode"), flags, 3)
-        this.vtbl.CreateQueryWriter := CallbackCreate(GetMethod(implObj, "CreateQueryWriter"), flags, 4)
-        this.vtbl.CreateQueryWriterFromReader := CallbackCreate(GetMethod(implObj, "CreateQueryWriterFromReader"), flags, 4)
+        this.vtbl.CreateDecoderFromFilename := CallbackCreate(ObjBindMethod(implObj, "CreateDecoderFromFilename"), flags, 6)
+        this.vtbl.CreateDecoderFromStream := CallbackCreate(ObjBindMethod(implObj, "CreateDecoderFromStream"), flags, 5)
+        this.vtbl.CreateDecoderFromFileHandle := CallbackCreate(ObjBindMethod(implObj, "CreateDecoderFromFileHandle"), flags, 5)
+        this.vtbl.CreateComponentInfo := CallbackCreate(ObjBindMethod(implObj, "CreateComponentInfo"), flags, 3)
+        this.vtbl.CreateDecoder := CallbackCreate(ObjBindMethod(implObj, "CreateDecoder"), flags, 4)
+        this.vtbl.CreateEncoder := CallbackCreate(ObjBindMethod(implObj, "CreateEncoder"), flags, 4)
+        this.vtbl.CreatePalette := CallbackCreate(ObjBindMethod(implObj, "CreatePalette"), flags, 2)
+        this.vtbl.CreateFormatConverter := CallbackCreate(ObjBindMethod(implObj, "CreateFormatConverter"), flags, 2)
+        this.vtbl.CreateBitmapScaler := CallbackCreate(ObjBindMethod(implObj, "CreateBitmapScaler"), flags, 2)
+        this.vtbl.CreateBitmapClipper := CallbackCreate(ObjBindMethod(implObj, "CreateBitmapClipper"), flags, 2)
+        this.vtbl.CreateBitmapFlipRotator := CallbackCreate(ObjBindMethod(implObj, "CreateBitmapFlipRotator"), flags, 2)
+        this.vtbl.CreateStream := CallbackCreate(ObjBindMethod(implObj, "CreateStream"), flags, 2)
+        this.vtbl.CreateColorContext := CallbackCreate(ObjBindMethod(implObj, "CreateColorContext"), flags, 2)
+        this.vtbl.CreateColorTransformer := CallbackCreate(ObjBindMethod(implObj, "CreateColorTransformer"), flags, 2)
+        this.vtbl.CreateBitmap := CallbackCreate(ObjBindMethod(implObj, "CreateBitmap"), flags, 6)
+        this.vtbl.CreateBitmapFromSource := CallbackCreate(ObjBindMethod(implObj, "CreateBitmapFromSource"), flags, 4)
+        this.vtbl.CreateBitmapFromSourceRect := CallbackCreate(ObjBindMethod(implObj, "CreateBitmapFromSourceRect"), flags, 7)
+        this.vtbl.CreateBitmapFromMemory := CallbackCreate(ObjBindMethod(implObj, "CreateBitmapFromMemory"), flags, 8)
+        this.vtbl.CreateBitmapFromHBITMAP := CallbackCreate(ObjBindMethod(implObj, "CreateBitmapFromHBITMAP"), flags, 5)
+        this.vtbl.CreateBitmapFromHICON := CallbackCreate(ObjBindMethod(implObj, "CreateBitmapFromHICON"), flags, 3)
+        this.vtbl.CreateComponentEnumerator := CallbackCreate(ObjBindMethod(implObj, "CreateComponentEnumerator"), flags, 4)
+        this.vtbl.CreateFastMetadataEncoderFromDecoder := CallbackCreate(ObjBindMethod(implObj, "CreateFastMetadataEncoderFromDecoder"), flags, 3)
+        this.vtbl.CreateFastMetadataEncoderFromFrameDecode := CallbackCreate(ObjBindMethod(implObj, "CreateFastMetadataEncoderFromFrameDecode"), flags, 3)
+        this.vtbl.CreateQueryWriter := CallbackCreate(ObjBindMethod(implObj, "CreateQueryWriter"), flags, 4)
+        this.vtbl.CreateQueryWriterFromReader := CallbackCreate(ObjBindMethod(implObj, "CreateQueryWriterFromReader"), flags, 4)
     }
 
     Dispose() {

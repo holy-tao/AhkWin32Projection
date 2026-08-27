@@ -38,7 +38,6 @@ export default struct ID3D12GraphicsCommandList10 extends ID3D12GraphicsCommandL
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_SET_PROGRAM_DESC>} pDesc 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -47,7 +46,6 @@ export default struct ID3D12GraphicsCommandList10 extends ID3D12GraphicsCommandL
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_DISPATCH_GRAPH_DESC>} pDesc 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -64,8 +62,8 @@ export default struct ID3D12GraphicsCommandList10 extends ID3D12GraphicsCommandL
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetProgram := CallbackCreate(GetMethod(implObj, "SetProgram"), flags, 2)
-        this.vtbl.DispatchGraph := CallbackCreate(GetMethod(implObj, "DispatchGraph"), flags, 2)
+        this.vtbl.SetProgram := CallbackCreate(ObjBindMethod(implObj, "SetProgram"), flags, 2)
+        this.vtbl.DispatchGraph := CallbackCreate(ObjBindMethod(implObj, "DispatchGraph"), flags, 2)
     }
 
     Dispose() {

@@ -50,7 +50,7 @@ export default struct IMemoryData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/austream/nf-austream-imemorydata-setbuffer
      */
     SetBuffer(cbSize, pbData, dwFlags) {
-        pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
+        pbDataMarshal := pbData is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, UInt32, cbSize, pbDataMarshal, pbData, UInt32, dwFlags, "HRESULT")
         return result
@@ -67,9 +67,9 @@ export default struct IMemoryData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/austream/nf-austream-imemorydata-getinfo
      */
     GetInfo(pdwLength, ppbData, pcbActualData) {
-        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
-        ppbDataMarshal := ppbData is VarRef ? "ptr*" : "ptr"
-        pcbActualDataMarshal := pcbActualData is VarRef ? "uint*" : "ptr"
+        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : IntPtr
+        ppbDataMarshal := ppbData is VarRef ? "ptr*" : IntPtr
+        pcbActualDataMarshal := pcbActualData is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pdwLengthMarshal, pdwLength, ppbDataMarshal, ppbData, pcbActualDataMarshal, pcbActualData, "HRESULT")
         return result
@@ -97,9 +97,9 @@ export default struct IMemoryData extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetBuffer := CallbackCreate(GetMethod(implObj, "SetBuffer"), flags, 4)
-        this.vtbl.GetInfo := CallbackCreate(GetMethod(implObj, "GetInfo"), flags, 4)
-        this.vtbl.SetActual := CallbackCreate(GetMethod(implObj, "SetActual"), flags, 2)
+        this.vtbl.SetBuffer := CallbackCreate(ObjBindMethod(implObj, "SetBuffer"), flags, 4)
+        this.vtbl.GetInfo := CallbackCreate(ObjBindMethod(implObj, "GetInfo"), flags, 4)
+        this.vtbl.SetActual := CallbackCreate(ObjBindMethod(implObj, "SetActual"), flags, 2)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct LPWPUFDISSET {
     }
 
     /**
-     * 
      * @param {SOCKET} s 
      * @param {Pointer<FD_SET>} fdset 
      * @returns {Integer} 

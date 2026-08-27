@@ -97,7 +97,10 @@ export default struct IX509AttributeArchiveKey extends IX509Attribute {
     InitializeEncode(pKey, Encoding, strCAXCert, pAlgorithm, EncryptionStrength) {
         strCAXCert := strCAXCert is String ? BSTR.Alloc(strCAXCert).Value : strCAXCert
 
-        result := ComCall(10, this, "ptr", pKey, EncodingType, Encoding, BSTR, strCAXCert, "ptr", pAlgorithm, Int32, EncryptionStrength, "HRESULT")
+        pKeyMarshal := pKey == 0 ? IntPtr : "ptr"
+        pAlgorithmMarshal := pAlgorithm == 0 ? IntPtr : "ptr"
+
+        result := ComCall(10, this, pKeyMarshal, pKey, EncodingType, Encoding, BSTR, strCAXCert, pAlgorithmMarshal, pAlgorithm, Int32, EncryptionStrength, "HRESULT")
         return result
     }
 
@@ -207,11 +210,11 @@ export default struct IX509AttributeArchiveKey extends IX509Attribute {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeEncode := CallbackCreate(GetMethod(implObj, "InitializeEncode"), flags, 6)
-        this.vtbl.InitializeDecode := CallbackCreate(GetMethod(implObj, "InitializeDecode"), flags, 3)
-        this.vtbl.get_EncryptedKeyBlob := CallbackCreate(GetMethod(implObj, "get_EncryptedKeyBlob"), flags, 3)
-        this.vtbl.get_EncryptionAlgorithm := CallbackCreate(GetMethod(implObj, "get_EncryptionAlgorithm"), flags, 2)
-        this.vtbl.get_EncryptionStrength := CallbackCreate(GetMethod(implObj, "get_EncryptionStrength"), flags, 2)
+        this.vtbl.InitializeEncode := CallbackCreate(ObjBindMethod(implObj, "InitializeEncode"), flags, 6)
+        this.vtbl.InitializeDecode := CallbackCreate(ObjBindMethod(implObj, "InitializeDecode"), flags, 3)
+        this.vtbl.get_EncryptedKeyBlob := CallbackCreate(ObjBindMethod(implObj, "get_EncryptedKeyBlob"), flags, 3)
+        this.vtbl.get_EncryptionAlgorithm := CallbackCreate(ObjBindMethod(implObj, "get_EncryptionAlgorithm"), flags, 2)
+        this.vtbl.get_EncryptionStrength := CallbackCreate(ObjBindMethod(implObj, "get_EncryptionStrength"), flags, 2)
     }
 
     Dispose() {

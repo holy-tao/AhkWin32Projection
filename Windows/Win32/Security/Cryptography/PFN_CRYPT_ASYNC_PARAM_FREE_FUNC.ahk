@@ -19,7 +19,6 @@ export default struct PFN_CRYPT_ASYNC_PARAM_FREE_FUNC {
     }
 
     /**
-     * 
      * @param {PSTR} pszParamOid 
      * @param {Pointer<Void>} pvParam 
      * @returns {String} Nothing - always returns an empty string
@@ -27,7 +26,7 @@ export default struct PFN_CRYPT_ASYNC_PARAM_FREE_FUNC {
     Call(pszParamOid, pvParam) {
         pszParamOid := pszParamOid is String ? StrPtr(pszParamOid) : pszParamOid
 
-        pvParamMarshal := pvParam is VarRef ? "ptr" : "ptr"
+        pvParamMarshal := pvParam is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, "ptr", pszParamOid, pvParamMarshal, pvParam)
     }

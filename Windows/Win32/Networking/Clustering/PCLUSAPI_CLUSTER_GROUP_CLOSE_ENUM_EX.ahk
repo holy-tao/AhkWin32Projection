@@ -19,7 +19,6 @@ export default struct PCLUSAPI_CLUSTER_GROUP_CLOSE_ENUM_EX {
     }
 
     /**
-     * 
      * @param {HGROUPENUMEX} _hGroupEnumEx 
      * @returns {Integer} 
      */

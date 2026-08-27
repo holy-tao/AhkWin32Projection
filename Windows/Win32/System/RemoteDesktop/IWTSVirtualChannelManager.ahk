@@ -64,7 +64,7 @@ export default struct IWTSVirtualChannelManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateListener := CallbackCreate(GetMethod(implObj, "CreateListener"), flags, 5)
+        this.vtbl.CreateListener := CallbackCreate(ObjBindMethod(implObj, "CreateListener"), flags, 5)
     }
 
     Dispose() {

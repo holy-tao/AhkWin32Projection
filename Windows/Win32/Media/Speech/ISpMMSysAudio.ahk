@@ -40,19 +40,17 @@ export default struct ISpMMSysAudio extends ISpAudio {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} puDeviceId 
      * @returns {HRESULT} 
      */
     GetDeviceId(puDeviceId) {
-        puDeviceIdMarshal := puDeviceId is VarRef ? "uint*" : "ptr"
+        puDeviceIdMarshal := puDeviceId is VarRef ? "uint*" : IntPtr
 
         result := ComCall(26, this, puDeviceIdMarshal, puDeviceId, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} uDeviceId 
      * @returns {HRESULT} 
      */
@@ -62,31 +60,28 @@ export default struct ISpMMSysAudio extends ISpAudio {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} pHandle 
      * @returns {HRESULT} 
      */
     GetMMHandle(pHandle) {
-        pHandleMarshal := pHandle is VarRef ? "ptr*" : "ptr"
+        pHandleMarshal := pHandle is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(28, this, pHandleMarshal, pHandle, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} puLineId 
      * @returns {HRESULT} 
      */
     GetLineId(puLineId) {
-        puLineIdMarshal := puLineId is VarRef ? "uint*" : "ptr"
+        puLineIdMarshal := puLineId is VarRef ? "uint*" : IntPtr
 
         result := ComCall(29, this, puLineIdMarshal, puLineId, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} uLineId 
      * @returns {HRESULT} 
      */
@@ -104,11 +99,11 @@ export default struct ISpMMSysAudio extends ISpAudio {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDeviceId := CallbackCreate(GetMethod(implObj, "GetDeviceId"), flags, 2)
-        this.vtbl.SetDeviceId := CallbackCreate(GetMethod(implObj, "SetDeviceId"), flags, 2)
-        this.vtbl.GetMMHandle := CallbackCreate(GetMethod(implObj, "GetMMHandle"), flags, 2)
-        this.vtbl.GetLineId := CallbackCreate(GetMethod(implObj, "GetLineId"), flags, 2)
-        this.vtbl.SetLineId := CallbackCreate(GetMethod(implObj, "SetLineId"), flags, 2)
+        this.vtbl.GetDeviceId := CallbackCreate(ObjBindMethod(implObj, "GetDeviceId"), flags, 2)
+        this.vtbl.SetDeviceId := CallbackCreate(ObjBindMethod(implObj, "SetDeviceId"), flags, 2)
+        this.vtbl.GetMMHandle := CallbackCreate(ObjBindMethod(implObj, "GetMMHandle"), flags, 2)
+        this.vtbl.GetLineId := CallbackCreate(ObjBindMethod(implObj, "GetLineId"), flags, 2)
+        this.vtbl.SetLineId := CallbackCreate(ObjBindMethod(implObj, "SetLineId"), flags, 2)
     }
 
     Dispose() {

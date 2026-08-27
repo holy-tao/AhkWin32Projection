@@ -22,14 +22,13 @@ export default struct PFAXFREEBUFFER {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Buffer Type: <b>LPVOID</b>
      * 
      * Pointer to a buffer allocated on a previous call to one of the functions named in the following See Also section.
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Buffer) {
-        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _BufferMarshal, _Buffer)
     }

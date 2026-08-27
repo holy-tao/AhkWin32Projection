@@ -770,16 +770,16 @@ export default struct INetSharingConfiguration extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_SharingEnabled := CallbackCreate(GetMethod(implObj, "get_SharingEnabled"), flags, 2)
-        this.vtbl.get_SharingConnectionType := CallbackCreate(GetMethod(implObj, "get_SharingConnectionType"), flags, 2)
-        this.vtbl.DisableSharing := CallbackCreate(GetMethod(implObj, "DisableSharing"), flags, 1)
-        this.vtbl.EnableSharing := CallbackCreate(GetMethod(implObj, "EnableSharing"), flags, 2)
-        this.vtbl.get_InternetFirewallEnabled := CallbackCreate(GetMethod(implObj, "get_InternetFirewallEnabled"), flags, 2)
-        this.vtbl.DisableInternetFirewall := CallbackCreate(GetMethod(implObj, "DisableInternetFirewall"), flags, 1)
-        this.vtbl.EnableInternetFirewall := CallbackCreate(GetMethod(implObj, "EnableInternetFirewall"), flags, 1)
-        this.vtbl.get_EnumPortMappings := CallbackCreate(GetMethod(implObj, "get_EnumPortMappings"), flags, 3)
-        this.vtbl.AddPortMapping := CallbackCreate(GetMethod(implObj, "AddPortMapping"), flags, 9)
-        this.vtbl.RemovePortMapping := CallbackCreate(GetMethod(implObj, "RemovePortMapping"), flags, 2)
+        this.vtbl.get_SharingEnabled := CallbackCreate(ObjBindMethod(implObj, "get_SharingEnabled"), flags, 2)
+        this.vtbl.get_SharingConnectionType := CallbackCreate(ObjBindMethod(implObj, "get_SharingConnectionType"), flags, 2)
+        this.vtbl.DisableSharing := CallbackCreate(ObjBindMethod(implObj, "DisableSharing"), flags, 1)
+        this.vtbl.EnableSharing := CallbackCreate(ObjBindMethod(implObj, "EnableSharing"), flags, 2)
+        this.vtbl.get_InternetFirewallEnabled := CallbackCreate(ObjBindMethod(implObj, "get_InternetFirewallEnabled"), flags, 2)
+        this.vtbl.DisableInternetFirewall := CallbackCreate(ObjBindMethod(implObj, "DisableInternetFirewall"), flags, 1)
+        this.vtbl.EnableInternetFirewall := CallbackCreate(ObjBindMethod(implObj, "EnableInternetFirewall"), flags, 1)
+        this.vtbl.get_EnumPortMappings := CallbackCreate(ObjBindMethod(implObj, "get_EnumPortMappings"), flags, 3)
+        this.vtbl.AddPortMapping := CallbackCreate(ObjBindMethod(implObj, "AddPortMapping"), flags, 9)
+        this.vtbl.RemovePortMapping := CallbackCreate(ObjBindMethod(implObj, "RemovePortMapping"), flags, 2)
     }
 
     Dispose() {

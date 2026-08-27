@@ -34,7 +34,6 @@ export default struct IAsyncGetSrvReferralCookie extends IUnknown {
     }
 
     /**
-     * 
      * @param {HRESULT} param0 
      * @returns {HRESULT} 
      */
@@ -44,7 +43,6 @@ export default struct IAsyncGetSrvReferralCookie extends IUnknown {
     }
 
     /**
-     * 
      * @param {HRESULT} param0 
      * @returns {HRESULT} 
      */
@@ -54,7 +52,6 @@ export default struct IAsyncGetSrvReferralCookie extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @returns {HRESULT} 
      */
@@ -74,9 +71,9 @@ export default struct IAsyncGetSrvReferralCookie extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FinishAsyncCall := CallbackCreate(GetMethod(implObj, "FinishAsyncCall"), flags, 2)
-        this.vtbl.CancelAsyncCall := CallbackCreate(GetMethod(implObj, "CancelAsyncCall"), flags, 2)
-        this.vtbl.FinishAsyncCallWithData := CallbackCreate(GetMethod(implObj, "FinishAsyncCallWithData"), flags, 2)
+        this.vtbl.FinishAsyncCall := CallbackCreate(ObjBindMethod(implObj, "FinishAsyncCall"), flags, 2)
+        this.vtbl.CancelAsyncCall := CallbackCreate(ObjBindMethod(implObj, "CancelAsyncCall"), flags, 2)
+        this.vtbl.FinishAsyncCallWithData := CallbackCreate(ObjBindMethod(implObj, "FinishAsyncCallWithData"), flags, 2)
     }
 
     Dispose() {

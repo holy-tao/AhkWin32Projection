@@ -43,7 +43,6 @@ export default struct IWebApplicationScriptEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHTMLWindow2} htmlWindow 
      * @returns {HRESULT} 
      */
@@ -74,7 +73,9 @@ export default struct IWebApplicationScriptEvents extends IUnknown {
     ScriptError(htmlWindow, scriptError, url, errorHandled) {
         url := url is String ? StrPtr(url) : url
 
-        result := ComCall(4, this, "ptr", htmlWindow, "ptr", scriptError, "ptr", url, BOOL, errorHandled, "HRESULT")
+        htmlWindowMarshal := htmlWindow == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, htmlWindowMarshal, htmlWindow, "ptr", scriptError, "ptr", url, BOOL, errorHandled, "HRESULT")
         return result
     }
 
@@ -87,8 +88,8 @@ export default struct IWebApplicationScriptEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BeforeScriptExecute := CallbackCreate(GetMethod(implObj, "BeforeScriptExecute"), flags, 2)
-        this.vtbl.ScriptError := CallbackCreate(GetMethod(implObj, "ScriptError"), flags, 5)
+        this.vtbl.BeforeScriptExecute := CallbackCreate(ObjBindMethod(implObj, "BeforeScriptExecute"), flags, 2)
+        this.vtbl.ScriptError := CallbackCreate(ObjBindMethod(implObj, "ScriptError"), flags, 5)
     }
 
     Dispose() {

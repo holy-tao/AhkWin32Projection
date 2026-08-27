@@ -42,7 +42,6 @@ export default struct IEventTarget2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<SAFEARRAY>} 
      */
     GetRegisteredEventTypes() {
@@ -51,7 +50,6 @@ export default struct IEventTarget2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszEventType 
      * @returns {Pointer<SAFEARRAY>} 
      */
@@ -63,7 +61,6 @@ export default struct IEventTarget2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDOMEventRegistrationCallback} pCallback 
      * @returns {HRESULT} 
      */
@@ -73,7 +70,6 @@ export default struct IEventTarget2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDOMEventRegistrationCallback} pCallback 
      * @returns {HRESULT} 
      */
@@ -91,10 +87,10 @@ export default struct IEventTarget2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRegisteredEventTypes := CallbackCreate(GetMethod(implObj, "GetRegisteredEventTypes"), flags, 2)
-        this.vtbl.GetListenersForType := CallbackCreate(GetMethod(implObj, "GetListenersForType"), flags, 3)
-        this.vtbl.RegisterForDOMEventListeners := CallbackCreate(GetMethod(implObj, "RegisterForDOMEventListeners"), flags, 2)
-        this.vtbl.UnregisterForDOMEventListeners := CallbackCreate(GetMethod(implObj, "UnregisterForDOMEventListeners"), flags, 2)
+        this.vtbl.GetRegisteredEventTypes := CallbackCreate(ObjBindMethod(implObj, "GetRegisteredEventTypes"), flags, 2)
+        this.vtbl.GetListenersForType := CallbackCreate(ObjBindMethod(implObj, "GetListenersForType"), flags, 3)
+        this.vtbl.RegisterForDOMEventListeners := CallbackCreate(ObjBindMethod(implObj, "RegisterForDOMEventListeners"), flags, 2)
+        this.vtbl.UnregisterForDOMEventListeners := CallbackCreate(ObjBindMethod(implObj, "UnregisterForDOMEventListeners"), flags, 2)
     }
 
     Dispose() {

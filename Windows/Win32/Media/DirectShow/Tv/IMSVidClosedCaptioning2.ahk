@@ -97,8 +97,8 @@ export default struct IMSVidClosedCaptioning2 extends IMSVidClosedCaptioning {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Service := CallbackCreate(GetMethod(implObj, "get_Service"), flags, 2)
-        this.vtbl.put_Service := CallbackCreate(GetMethod(implObj, "put_Service"), flags, 2)
+        this.vtbl.get_Service := CallbackCreate(ObjBindMethod(implObj, "get_Service"), flags, 2)
+        this.vtbl.put_Service := CallbackCreate(ObjBindMethod(implObj, "put_Service"), flags, 2)
     }
 
     Dispose() {

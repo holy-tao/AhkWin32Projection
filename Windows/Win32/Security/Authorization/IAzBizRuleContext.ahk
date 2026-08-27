@@ -135,10 +135,10 @@ export default struct IAzBizRuleContext extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_BusinessRuleResult := CallbackCreate(GetMethod(implObj, "put_BusinessRuleResult"), flags, 2)
-        this.vtbl.put_BusinessRuleString := CallbackCreate(GetMethod(implObj, "put_BusinessRuleString"), flags, 2)
-        this.vtbl.get_BusinessRuleString := CallbackCreate(GetMethod(implObj, "get_BusinessRuleString"), flags, 2)
-        this.vtbl.GetParameter := CallbackCreate(GetMethod(implObj, "GetParameter"), flags, 3)
+        this.vtbl.put_BusinessRuleResult := CallbackCreate(ObjBindMethod(implObj, "put_BusinessRuleResult"), flags, 2)
+        this.vtbl.put_BusinessRuleString := CallbackCreate(ObjBindMethod(implObj, "put_BusinessRuleString"), flags, 2)
+        this.vtbl.get_BusinessRuleString := CallbackCreate(ObjBindMethod(implObj, "get_BusinessRuleString"), flags, 2)
+        this.vtbl.GetParameter := CallbackCreate(ObjBindMethod(implObj, "GetParameter"), flags, 3)
     }
 
     Dispose() {

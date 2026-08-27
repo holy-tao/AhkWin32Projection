@@ -143,12 +143,12 @@ export default struct IToolbar extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddBitmap := CallbackCreate(GetMethod(implObj, "AddBitmap"), flags, 6)
-        this.vtbl.AddButtons := CallbackCreate(GetMethod(implObj, "AddButtons"), flags, 3)
-        this.vtbl.InsertButton := CallbackCreate(GetMethod(implObj, "InsertButton"), flags, 3)
-        this.vtbl.DeleteButton := CallbackCreate(GetMethod(implObj, "DeleteButton"), flags, 2)
-        this.vtbl.GetButtonState := CallbackCreate(GetMethod(implObj, "GetButtonState"), flags, 4)
-        this.vtbl.SetButtonState := CallbackCreate(GetMethod(implObj, "SetButtonState"), flags, 4)
+        this.vtbl.AddBitmap := CallbackCreate(ObjBindMethod(implObj, "AddBitmap"), flags, 6)
+        this.vtbl.AddButtons := CallbackCreate(ObjBindMethod(implObj, "AddButtons"), flags, 3)
+        this.vtbl.InsertButton := CallbackCreate(ObjBindMethod(implObj, "InsertButton"), flags, 3)
+        this.vtbl.DeleteButton := CallbackCreate(ObjBindMethod(implObj, "DeleteButton"), flags, 2)
+        this.vtbl.GetButtonState := CallbackCreate(ObjBindMethod(implObj, "GetButtonState"), flags, 4)
+        this.vtbl.SetButtonState := CallbackCreate(ObjBindMethod(implObj, "SetButtonState"), flags, 4)
     }
 
     Dispose() {

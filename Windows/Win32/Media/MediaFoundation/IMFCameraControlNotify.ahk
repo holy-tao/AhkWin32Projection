@@ -83,8 +83,8 @@ export default struct IMFCameraControlNotify extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnChange := CallbackCreate(GetMethod(implObj, "OnChange"), flags, 3)
-        this.vtbl.OnError := CallbackCreate(GetMethod(implObj, "OnError"), flags, 2)
+        this.vtbl.OnChange := CallbackCreate(ObjBindMethod(implObj, "OnChange"), flags, 3)
+        this.vtbl.OnError := CallbackCreate(ObjBindMethod(implObj, "OnError"), flags, 2)
     }
 
     Dispose() {

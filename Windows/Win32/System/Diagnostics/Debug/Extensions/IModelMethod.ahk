@@ -38,7 +38,6 @@ export default struct IModelMethod extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} pContextObject 
      * @param {Integer} argCount 
      * @param {Pointer<IModelObject>} ppArguments 
@@ -47,7 +46,10 @@ export default struct IModelMethod extends IUnknown {
      * @returns {HRESULT} 
      */
     Call(pContextObject, argCount, ppArguments, ppResult, ppMetadata) {
-        result := ComCall(3, this, "ptr", pContextObject, Int64, argCount, IModelObject.Ptr, ppArguments, IModelObject.Ptr, ppResult, IKeyStore.Ptr, ppMetadata, "HRESULT")
+        pContextObjectMarshal := pContextObject == 0 ? IntPtr : "ptr"
+        ppMetadataMarshal := ppMetadata == 0 ? IntPtr : IKeyStore.Ptr
+
+        result := ComCall(3, this, pContextObjectMarshal, pContextObject, Int64, argCount, IModelObject.Ptr, ppArguments, IModelObject.Ptr, ppResult, ppMetadataMarshal, ppMetadata, "HRESULT")
         return result
     }
 
@@ -60,7 +62,7 @@ export default struct IModelMethod extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Call := CallbackCreate(GetMethod(implObj, "Call"), flags, 6)
+        this.vtbl.Call := CallbackCreate(ObjBindMethod(implObj, "Call"), flags, 6)
     }
 
     Dispose() {

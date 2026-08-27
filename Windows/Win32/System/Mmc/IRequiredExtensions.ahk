@@ -100,9 +100,9 @@ export default struct IRequiredExtensions extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnableAllExtensions := CallbackCreate(GetMethod(implObj, "EnableAllExtensions"), flags, 1)
-        this.vtbl.GetFirstExtension := CallbackCreate(GetMethod(implObj, "GetFirstExtension"), flags, 2)
-        this.vtbl.GetNextExtension := CallbackCreate(GetMethod(implObj, "GetNextExtension"), flags, 2)
+        this.vtbl.EnableAllExtensions := CallbackCreate(ObjBindMethod(implObj, "EnableAllExtensions"), flags, 1)
+        this.vtbl.GetFirstExtension := CallbackCreate(ObjBindMethod(implObj, "GetFirstExtension"), flags, 2)
+        this.vtbl.GetNextExtension := CallbackCreate(ObjBindMethod(implObj, "GetNextExtension"), flags, 2)
     }
 
     Dispose() {

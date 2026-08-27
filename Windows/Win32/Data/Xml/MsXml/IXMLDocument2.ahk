@@ -142,7 +142,6 @@ export default struct IXMLDocument2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLElement2} 
      */
     get_root() {
@@ -151,7 +150,6 @@ export default struct IXMLDocument2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fileSize() {
@@ -161,7 +159,6 @@ export default struct IXMLDocument2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fileModifiedDate() {
@@ -171,7 +168,6 @@ export default struct IXMLDocument2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fileUpdatedDate() {
@@ -181,7 +177,6 @@ export default struct IXMLDocument2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_URL() {
@@ -191,7 +186,6 @@ export default struct IXMLDocument2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} p 
      * @returns {HRESULT} 
      */
@@ -203,7 +197,6 @@ export default struct IXMLDocument2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_mimeType() {
@@ -213,7 +206,6 @@ export default struct IXMLDocument2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_readyState() {
@@ -222,7 +214,6 @@ export default struct IXMLDocument2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_charset() {
@@ -232,7 +223,6 @@ export default struct IXMLDocument2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} p 
      * @returns {HRESULT} 
      */
@@ -244,7 +234,6 @@ export default struct IXMLDocument2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_version() {
@@ -254,7 +243,6 @@ export default struct IXMLDocument2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_doctype() {
@@ -264,7 +252,6 @@ export default struct IXMLDocument2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_dtdURL() {
@@ -274,7 +261,6 @@ export default struct IXMLDocument2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} vType 
      * @param {VARIANT} var1 
      * @returns {IXMLElement2} 
@@ -285,7 +271,6 @@ export default struct IXMLDocument2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_async() {
@@ -294,7 +279,6 @@ export default struct IXMLDocument2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} f 
      * @returns {HRESULT} 
      */
@@ -312,22 +296,22 @@ export default struct IXMLDocument2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_root := CallbackCreate(GetMethod(implObj, "get_root"), flags, 2)
-        this.vtbl.get_fileSize := CallbackCreate(GetMethod(implObj, "get_fileSize"), flags, 2)
-        this.vtbl.get_fileModifiedDate := CallbackCreate(GetMethod(implObj, "get_fileModifiedDate"), flags, 2)
-        this.vtbl.get_fileUpdatedDate := CallbackCreate(GetMethod(implObj, "get_fileUpdatedDate"), flags, 2)
-        this.vtbl.get_URL := CallbackCreate(GetMethod(implObj, "get_URL"), flags, 2)
-        this.vtbl.put_URL := CallbackCreate(GetMethod(implObj, "put_URL"), flags, 2)
-        this.vtbl.get_mimeType := CallbackCreate(GetMethod(implObj, "get_mimeType"), flags, 2)
-        this.vtbl.get_readyState := CallbackCreate(GetMethod(implObj, "get_readyState"), flags, 2)
-        this.vtbl.get_charset := CallbackCreate(GetMethod(implObj, "get_charset"), flags, 2)
-        this.vtbl.put_charset := CallbackCreate(GetMethod(implObj, "put_charset"), flags, 2)
-        this.vtbl.get_version := CallbackCreate(GetMethod(implObj, "get_version"), flags, 2)
-        this.vtbl.get_doctype := CallbackCreate(GetMethod(implObj, "get_doctype"), flags, 2)
-        this.vtbl.get_dtdURL := CallbackCreate(GetMethod(implObj, "get_dtdURL"), flags, 2)
-        this.vtbl.createElement := CallbackCreate(GetMethod(implObj, "createElement"), flags, 4)
-        this.vtbl.get_async := CallbackCreate(GetMethod(implObj, "get_async"), flags, 2)
-        this.vtbl.put_async := CallbackCreate(GetMethod(implObj, "put_async"), flags, 2)
+        this.vtbl.get_root := CallbackCreate(ObjBindMethod(implObj, "get_root"), flags, 2)
+        this.vtbl.get_fileSize := CallbackCreate(ObjBindMethod(implObj, "get_fileSize"), flags, 2)
+        this.vtbl.get_fileModifiedDate := CallbackCreate(ObjBindMethod(implObj, "get_fileModifiedDate"), flags, 2)
+        this.vtbl.get_fileUpdatedDate := CallbackCreate(ObjBindMethod(implObj, "get_fileUpdatedDate"), flags, 2)
+        this.vtbl.get_URL := CallbackCreate(ObjBindMethod(implObj, "get_URL"), flags, 2)
+        this.vtbl.put_URL := CallbackCreate(ObjBindMethod(implObj, "put_URL"), flags, 2)
+        this.vtbl.get_mimeType := CallbackCreate(ObjBindMethod(implObj, "get_mimeType"), flags, 2)
+        this.vtbl.get_readyState := CallbackCreate(ObjBindMethod(implObj, "get_readyState"), flags, 2)
+        this.vtbl.get_charset := CallbackCreate(ObjBindMethod(implObj, "get_charset"), flags, 2)
+        this.vtbl.put_charset := CallbackCreate(ObjBindMethod(implObj, "put_charset"), flags, 2)
+        this.vtbl.get_version := CallbackCreate(ObjBindMethod(implObj, "get_version"), flags, 2)
+        this.vtbl.get_doctype := CallbackCreate(ObjBindMethod(implObj, "get_doctype"), flags, 2)
+        this.vtbl.get_dtdURL := CallbackCreate(ObjBindMethod(implObj, "get_dtdURL"), flags, 2)
+        this.vtbl.createElement := CallbackCreate(ObjBindMethod(implObj, "createElement"), flags, 4)
+        this.vtbl.get_async := CallbackCreate(ObjBindMethod(implObj, "get_async"), flags, 2)
+        this.vtbl.put_async := CallbackCreate(ObjBindMethod(implObj, "put_async"), flags, 2)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct PFND3DKMT_CREATECONTEXTVIRTUAL {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CREATECONTEXTVIRTUAL>} param0 
      * @returns {NTSTATUS} 
      */

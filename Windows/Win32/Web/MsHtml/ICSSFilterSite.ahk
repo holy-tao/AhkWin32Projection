@@ -38,7 +38,6 @@ export default struct ICSSFilterSite extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     GetElement() {
@@ -47,7 +46,6 @@ export default struct ICSSFilterSite extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     FireOnFilterChangeEvent() {
@@ -64,8 +62,8 @@ export default struct ICSSFilterSite extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetElement := CallbackCreate(GetMethod(implObj, "GetElement"), flags, 2)
-        this.vtbl.FireOnFilterChangeEvent := CallbackCreate(GetMethod(implObj, "FireOnFilterChangeEvent"), flags, 1)
+        this.vtbl.GetElement := CallbackCreate(ObjBindMethod(implObj, "GetElement"), flags, 2)
+        this.vtbl.FireOnFilterChangeEvent := CallbackCreate(ObjBindMethod(implObj, "FireOnFilterChangeEvent"), flags, 1)
     }
 
     Dispose() {

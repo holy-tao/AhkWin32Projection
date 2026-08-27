@@ -45,7 +45,6 @@ export default struct ICoreInputInterop2 extends IInspectable {
     }
 
     /**
-     * 
      * @returns {HWND} 
      */
     get_WindowHandle() {
@@ -55,7 +54,6 @@ export default struct ICoreInputInterop2 extends IInspectable {
     }
 
     /**
-     * 
      * @param {HWND} newParentWindow 
      * @param {Integer} newViewInstanceId 
      * @returns {HRESULT} 
@@ -74,8 +72,8 @@ export default struct ICoreInputInterop2 extends IInspectable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_WindowHandle := CallbackCreate(GetMethod(implObj, "get_WindowHandle"), flags, 2)
-        this.vtbl.ChangeHostingContext := CallbackCreate(GetMethod(implObj, "ChangeHostingContext"), flags, 3)
+        this.vtbl.get_WindowHandle := CallbackCreate(ObjBindMethod(implObj, "get_WindowHandle"), flags, 2)
+        this.vtbl.ChangeHostingContext := CallbackCreate(ObjBindMethod(implObj, "ChangeHostingContext"), flags, 3)
     }
 
     Dispose() {

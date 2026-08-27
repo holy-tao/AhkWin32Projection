@@ -38,41 +38,38 @@ export default struct ICLRAppDomainResourceMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwAppDomainId 
      * @param {Pointer<Integer>} pBytesAllocated 
      * @returns {HRESULT} 
      */
     GetCurrentAllocated(dwAppDomainId, pBytesAllocated) {
-        pBytesAllocatedMarshal := pBytesAllocated is VarRef ? "uint*" : "ptr"
+        pBytesAllocatedMarshal := pBytesAllocated is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, UInt32, dwAppDomainId, pBytesAllocatedMarshal, pBytesAllocated, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwAppDomainId 
      * @param {Pointer<Integer>} pAppDomainBytesSurvived 
      * @param {Pointer<Integer>} pTotalBytesSurvived 
      * @returns {HRESULT} 
      */
     GetCurrentSurvived(dwAppDomainId, pAppDomainBytesSurvived, pTotalBytesSurvived) {
-        pAppDomainBytesSurvivedMarshal := pAppDomainBytesSurvived is VarRef ? "uint*" : "ptr"
-        pTotalBytesSurvivedMarshal := pTotalBytesSurvived is VarRef ? "uint*" : "ptr"
+        pAppDomainBytesSurvivedMarshal := pAppDomainBytesSurvived is VarRef ? "uint*" : IntPtr
+        pTotalBytesSurvivedMarshal := pTotalBytesSurvived is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, UInt32, dwAppDomainId, pAppDomainBytesSurvivedMarshal, pAppDomainBytesSurvived, pTotalBytesSurvivedMarshal, pTotalBytesSurvived, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwAppDomainId 
      * @param {Pointer<Integer>} pMilliseconds 
      * @returns {HRESULT} 
      */
     GetCurrentCpuTime(dwAppDomainId, pMilliseconds) {
-        pMillisecondsMarshal := pMilliseconds is VarRef ? "uint*" : "ptr"
+        pMillisecondsMarshal := pMilliseconds is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, UInt32, dwAppDomainId, pMillisecondsMarshal, pMilliseconds, "HRESULT")
         return result
@@ -87,9 +84,9 @@ export default struct ICLRAppDomainResourceMonitor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCurrentAllocated := CallbackCreate(GetMethod(implObj, "GetCurrentAllocated"), flags, 3)
-        this.vtbl.GetCurrentSurvived := CallbackCreate(GetMethod(implObj, "GetCurrentSurvived"), flags, 4)
-        this.vtbl.GetCurrentCpuTime := CallbackCreate(GetMethod(implObj, "GetCurrentCpuTime"), flags, 3)
+        this.vtbl.GetCurrentAllocated := CallbackCreate(ObjBindMethod(implObj, "GetCurrentAllocated"), flags, 3)
+        this.vtbl.GetCurrentSurvived := CallbackCreate(ObjBindMethod(implObj, "GetCurrentSurvived"), flags, 4)
+        this.vtbl.GetCurrentCpuTime := CallbackCreate(ObjBindMethod(implObj, "GetCurrentCpuTime"), flags, 3)
     }
 
     Dispose() {

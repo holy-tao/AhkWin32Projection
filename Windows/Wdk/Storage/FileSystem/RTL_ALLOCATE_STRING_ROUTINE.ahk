@@ -18,7 +18,6 @@ export default struct RTL_ALLOCATE_STRING_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer} NumberOfBytes 
      * @returns {Pointer<Void>} 
      */

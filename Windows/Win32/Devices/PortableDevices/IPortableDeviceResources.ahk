@@ -102,7 +102,7 @@ export default struct IPortableDeviceResources extends IUnknown {
     GetStream(pszObjectID, Key, dwMode, pdwOptimalBufferSize) {
         pszObjectID := pszObjectID is String ? StrPtr(pszObjectID) : pszObjectID
 
-        pdwOptimalBufferSizeMarshal := pdwOptimalBufferSize is VarRef ? "uint*" : "ptr"
+        pdwOptimalBufferSizeMarshal := pdwOptimalBufferSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, "ptr", pszObjectID, PROPERTYKEY.Ptr, Key, UInt32, dwMode, pdwOptimalBufferSizeMarshal, pdwOptimalBufferSize, "ptr*", &ppStream := 0, "HRESULT")
         return IStream(ppStream)
@@ -223,8 +223,8 @@ export default struct IPortableDeviceResources extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceresources-createresource
      */
     CreateResource(pResourceAttributes, pdwOptimalWriteBufferSize, ppszCookie) {
-        pdwOptimalWriteBufferSizeMarshal := pdwOptimalWriteBufferSize is VarRef ? "uint*" : "ptr"
-        ppszCookieMarshal := ppszCookie is VarRef ? "ptr*" : "ptr"
+        pdwOptimalWriteBufferSizeMarshal := pdwOptimalWriteBufferSize is VarRef ? "uint*" : IntPtr
+        ppszCookieMarshal := ppszCookie is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(8, this, "ptr", pResourceAttributes, "ptr*", &ppData := 0, pdwOptimalWriteBufferSizeMarshal, pdwOptimalWriteBufferSize, ppszCookieMarshal, ppszCookie, "HRESULT")
         return IStream(ppData)
@@ -239,12 +239,12 @@ export default struct IPortableDeviceResources extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSupportedResources := CallbackCreate(GetMethod(implObj, "GetSupportedResources"), flags, 3)
-        this.vtbl.GetResourceAttributes := CallbackCreate(GetMethod(implObj, "GetResourceAttributes"), flags, 4)
-        this.vtbl.GetStream := CallbackCreate(GetMethod(implObj, "GetStream"), flags, 6)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 3)
-        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
-        this.vtbl.CreateResource := CallbackCreate(GetMethod(implObj, "CreateResource"), flags, 5)
+        this.vtbl.GetSupportedResources := CallbackCreate(ObjBindMethod(implObj, "GetSupportedResources"), flags, 3)
+        this.vtbl.GetResourceAttributes := CallbackCreate(ObjBindMethod(implObj, "GetResourceAttributes"), flags, 4)
+        this.vtbl.GetStream := CallbackCreate(ObjBindMethod(implObj, "GetStream"), flags, 6)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 3)
+        this.vtbl.Cancel := CallbackCreate(ObjBindMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.CreateResource := CallbackCreate(ObjBindMethod(implObj, "CreateResource"), flags, 5)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct PFN_CARD_GET_CONTAINER_INFO {
     }
 
     /**
-     * 
      * @param {Pointer<CARD_DATA>} pCardData 
      * @param {Integer} bContainerIndex 
      * @param {Integer} dwFlags 

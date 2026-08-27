@@ -21,13 +21,12 @@ export default struct PLSA_CHECK_PROTECTED_USER_BY_TOKEN {
     }
 
     /**
-     * 
      * @param {HANDLE} UserToken 
      * @param {Pointer<BOOLEAN>} ProtectedUser 
      * @returns {NTSTATUS} 
      */
     Call(UserToken, ProtectedUser) {
-        ProtectedUserMarshal := ProtectedUser is VarRef ? "char*" : "ptr"
+        ProtectedUserMarshal := ProtectedUser is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, HANDLE, UserToken, ProtectedUserMarshal, ProtectedUser, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

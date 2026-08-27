@@ -139,9 +139,9 @@ export default struct IApplicationDestinations extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAppID := CallbackCreate(GetMethod(implObj, "SetAppID"), flags, 2)
-        this.vtbl.RemoveDestination := CallbackCreate(GetMethod(implObj, "RemoveDestination"), flags, 2)
-        this.vtbl.RemoveAllDestinations := CallbackCreate(GetMethod(implObj, "RemoveAllDestinations"), flags, 1)
+        this.vtbl.SetAppID := CallbackCreate(ObjBindMethod(implObj, "SetAppID"), flags, 2)
+        this.vtbl.RemoveDestination := CallbackCreate(ObjBindMethod(implObj, "RemoveDestination"), flags, 2)
+        this.vtbl.RemoveAllDestinations := CallbackCreate(ObjBindMethod(implObj, "RemoveAllDestinations"), flags, 1)
     }
 
     Dispose() {

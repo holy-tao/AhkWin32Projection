@@ -99,8 +99,8 @@ export default struct IUIAnimationVariableIntegerChangeHandler2 extends IUnknown
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariableintegerchangehandler2-onintegervaluechanged
      */
     OnIntegerValueChanged(storyboard, variable, newValue, previousValue, cDimension) {
-        newValueMarshal := newValue is VarRef ? "int*" : "ptr"
-        previousValueMarshal := previousValue is VarRef ? "int*" : "ptr"
+        newValueMarshal := newValue is VarRef ? "int*" : IntPtr
+        previousValueMarshal := previousValue is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, "ptr", storyboard, "ptr", variable, newValueMarshal, newValue, previousValueMarshal, previousValue, UInt32, cDimension, "HRESULT")
         return result
@@ -115,7 +115,7 @@ export default struct IUIAnimationVariableIntegerChangeHandler2 extends IUnknown
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnIntegerValueChanged := CallbackCreate(GetMethod(implObj, "OnIntegerValueChanged"), flags, 6)
+        this.vtbl.OnIntegerValueChanged := CallbackCreate(ObjBindMethod(implObj, "OnIntegerValueChanged"), flags, 6)
     }
 
     Dispose() {

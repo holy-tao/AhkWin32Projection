@@ -285,16 +285,16 @@ export default struct ICredentialProviderCredentialEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetFieldState := CallbackCreate(GetMethod(implObj, "SetFieldState"), flags, 4)
-        this.vtbl.SetFieldInteractiveState := CallbackCreate(GetMethod(implObj, "SetFieldInteractiveState"), flags, 4)
-        this.vtbl.SetFieldString := CallbackCreate(GetMethod(implObj, "SetFieldString"), flags, 4)
-        this.vtbl.SetFieldCheckbox := CallbackCreate(GetMethod(implObj, "SetFieldCheckbox"), flags, 5)
-        this.vtbl.SetFieldBitmap := CallbackCreate(GetMethod(implObj, "SetFieldBitmap"), flags, 4)
-        this.vtbl.SetFieldComboBoxSelectedItem := CallbackCreate(GetMethod(implObj, "SetFieldComboBoxSelectedItem"), flags, 4)
-        this.vtbl.DeleteFieldComboBoxItem := CallbackCreate(GetMethod(implObj, "DeleteFieldComboBoxItem"), flags, 4)
-        this.vtbl.AppendFieldComboBoxItem := CallbackCreate(GetMethod(implObj, "AppendFieldComboBoxItem"), flags, 4)
-        this.vtbl.SetFieldSubmitButton := CallbackCreate(GetMethod(implObj, "SetFieldSubmitButton"), flags, 4)
-        this.vtbl.OnCreatingWindow := CallbackCreate(GetMethod(implObj, "OnCreatingWindow"), flags, 2)
+        this.vtbl.SetFieldState := CallbackCreate(ObjBindMethod(implObj, "SetFieldState"), flags, 4)
+        this.vtbl.SetFieldInteractiveState := CallbackCreate(ObjBindMethod(implObj, "SetFieldInteractiveState"), flags, 4)
+        this.vtbl.SetFieldString := CallbackCreate(ObjBindMethod(implObj, "SetFieldString"), flags, 4)
+        this.vtbl.SetFieldCheckbox := CallbackCreate(ObjBindMethod(implObj, "SetFieldCheckbox"), flags, 5)
+        this.vtbl.SetFieldBitmap := CallbackCreate(ObjBindMethod(implObj, "SetFieldBitmap"), flags, 4)
+        this.vtbl.SetFieldComboBoxSelectedItem := CallbackCreate(ObjBindMethod(implObj, "SetFieldComboBoxSelectedItem"), flags, 4)
+        this.vtbl.DeleteFieldComboBoxItem := CallbackCreate(ObjBindMethod(implObj, "DeleteFieldComboBoxItem"), flags, 4)
+        this.vtbl.AppendFieldComboBoxItem := CallbackCreate(ObjBindMethod(implObj, "AppendFieldComboBoxItem"), flags, 4)
+        this.vtbl.SetFieldSubmitButton := CallbackCreate(ObjBindMethod(implObj, "SetFieldSubmitButton"), flags, 4)
+        this.vtbl.OnCreatingWindow := CallbackCreate(ObjBindMethod(implObj, "OnCreatingWindow"), flags, 2)
     }
 
     Dispose() {

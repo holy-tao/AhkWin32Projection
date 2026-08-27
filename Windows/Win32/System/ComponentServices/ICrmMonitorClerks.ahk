@@ -148,13 +148,13 @@ export default struct ICrmMonitorClerks extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 3)
-        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.ProgIdCompensator := CallbackCreate(GetMethod(implObj, "ProgIdCompensator"), flags, 3)
-        this.vtbl.Description := CallbackCreate(GetMethod(implObj, "Description"), flags, 3)
-        this.vtbl.TransactionUOW := CallbackCreate(GetMethod(implObj, "TransactionUOW"), flags, 3)
-        this.vtbl.ActivityId := CallbackCreate(GetMethod(implObj, "ActivityId"), flags, 3)
+        this.vtbl.Item := CallbackCreate(ObjBindMethod(implObj, "Item"), flags, 3)
+        this.vtbl.get__NewEnum := CallbackCreate(ObjBindMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.ProgIdCompensator := CallbackCreate(ObjBindMethod(implObj, "ProgIdCompensator"), flags, 3)
+        this.vtbl.Description := CallbackCreate(ObjBindMethod(implObj, "Description"), flags, 3)
+        this.vtbl.TransactionUOW := CallbackCreate(ObjBindMethod(implObj, "TransactionUOW"), flags, 3)
+        this.vtbl.ActivityId := CallbackCreate(ObjBindMethod(implObj, "ActivityId"), flags, 3)
     }
 
     Dispose() {

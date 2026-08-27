@@ -36,16 +36,15 @@ export default struct IWinInetHttpTimeouts extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwConnectTimeout 
      * @param {Pointer<Integer>} pdwSendTimeout 
      * @param {Pointer<Integer>} pdwReceiveTimeout 
      * @returns {HRESULT} 
      */
     GetRequestTimeouts(pdwConnectTimeout, pdwSendTimeout, pdwReceiveTimeout) {
-        pdwConnectTimeoutMarshal := pdwConnectTimeout is VarRef ? "uint*" : "ptr"
-        pdwSendTimeoutMarshal := pdwSendTimeout is VarRef ? "uint*" : "ptr"
-        pdwReceiveTimeoutMarshal := pdwReceiveTimeout is VarRef ? "uint*" : "ptr"
+        pdwConnectTimeoutMarshal := pdwConnectTimeout is VarRef ? "uint*" : IntPtr
+        pdwSendTimeoutMarshal := pdwSendTimeout is VarRef ? "uint*" : IntPtr
+        pdwReceiveTimeoutMarshal := pdwReceiveTimeout is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pdwConnectTimeoutMarshal, pdwConnectTimeout, pdwSendTimeoutMarshal, pdwSendTimeout, pdwReceiveTimeoutMarshal, pdwReceiveTimeout, "HRESULT")
         return result
@@ -60,7 +59,7 @@ export default struct IWinInetHttpTimeouts extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRequestTimeouts := CallbackCreate(GetMethod(implObj, "GetRequestTimeouts"), flags, 4)
+        this.vtbl.GetRequestTimeouts := CallbackCreate(ObjBindMethod(implObj, "GetRequestTimeouts"), flags, 4)
     }
 
     Dispose() {

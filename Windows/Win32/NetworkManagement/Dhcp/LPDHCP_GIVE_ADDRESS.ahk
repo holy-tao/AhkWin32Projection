@@ -23,7 +23,6 @@ export default struct LPDHCP_GIVE_ADDRESS {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} Packet Buffer for the packet being processed.
      * @param {Integer} PacketSize Size of the <i>Packet</i> parameter, in bytes.
      * @param {Integer} ControlCode Specifies the type of lease being approved. If the acknowledgment is for a new lease, <i>ControlCode</i> is DHCP_GIVE_ADDRESS_NEW. If the acknowledgment is for the renewal of an existing lease, <i>ControlCode</i> is DHCP_GIVE_ADDRESS_OLD.
@@ -64,9 +63,9 @@ export default struct LPDHCP_GIVE_ADDRESS {
      * @returns {Integer} Return values are defined by the application providing the callback.
      */
     Call(Packet, PacketSize, ControlCode, IpAddress, AltAddress, AddrType, LeaseTime, Reserved, PktContext) {
-        PacketMarshal := Packet is VarRef ? "char*" : "ptr"
-        ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
-        PktContextMarshal := PktContext is VarRef ? "ptr" : "ptr"
+        PacketMarshal := Packet is VarRef ? "char*" : IntPtr
+        ReservedMarshal := Reserved is VarRef ? "ptr" : IntPtr
+        PktContextMarshal := PktContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, PacketMarshal, Packet, UInt32, PacketSize, UInt32, ControlCode, UInt32, IpAddress, UInt32, AltAddress, UInt32, AddrType, UInt32, LeaseTime, ReservedMarshal, Reserved, PktContextMarshal, PktContext, UInt32)
         return result

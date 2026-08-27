@@ -110,10 +110,10 @@ export default struct IComObjectPoolEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnObjPoolPutObject := CallbackCreate(GetMethod(implObj, "OnObjPoolPutObject"), flags, 6)
-        this.vtbl.OnObjPoolGetObject := CallbackCreate(GetMethod(implObj, "OnObjPoolGetObject"), flags, 6)
-        this.vtbl.OnObjPoolRecycleToTx := CallbackCreate(GetMethod(implObj, "OnObjPoolRecycleToTx"), flags, 6)
-        this.vtbl.OnObjPoolGetFromTx := CallbackCreate(GetMethod(implObj, "OnObjPoolGetFromTx"), flags, 6)
+        this.vtbl.OnObjPoolPutObject := CallbackCreate(ObjBindMethod(implObj, "OnObjPoolPutObject"), flags, 6)
+        this.vtbl.OnObjPoolGetObject := CallbackCreate(ObjBindMethod(implObj, "OnObjPoolGetObject"), flags, 6)
+        this.vtbl.OnObjPoolRecycleToTx := CallbackCreate(ObjBindMethod(implObj, "OnObjPoolRecycleToTx"), flags, 6)
+        this.vtbl.OnObjPoolGetFromTx := CallbackCreate(ObjBindMethod(implObj, "OnObjPoolGetFromTx"), flags, 6)
     }
 
     Dispose() {

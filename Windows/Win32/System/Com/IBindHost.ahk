@@ -42,7 +42,6 @@ export default struct IBindHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} szName 
      * @param {IBindCtx} pBC 
      * @param {Integer} dwReserved 
@@ -56,7 +55,6 @@ export default struct IBindHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMoniker} pMk 
      * @param {IBindCtx} pBC 
      * @param {IBindStatusCallback} pBSC 
@@ -69,7 +67,6 @@ export default struct IBindHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMoniker} pMk 
      * @param {IBindCtx} pBC 
      * @param {IBindStatusCallback} pBSC 
@@ -90,9 +87,9 @@ export default struct IBindHost extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateMoniker := CallbackCreate(GetMethod(implObj, "CreateMoniker"), flags, 5)
-        this.vtbl.MonikerBindToStorage := CallbackCreate(GetMethod(implObj, "MonikerBindToStorage"), flags, 6)
-        this.vtbl.MonikerBindToObject := CallbackCreate(GetMethod(implObj, "MonikerBindToObject"), flags, 6)
+        this.vtbl.CreateMoniker := CallbackCreate(ObjBindMethod(implObj, "CreateMoniker"), flags, 5)
+        this.vtbl.MonikerBindToStorage := CallbackCreate(ObjBindMethod(implObj, "MonikerBindToStorage"), flags, 6)
+        this.vtbl.MonikerBindToObject := CallbackCreate(ObjBindMethod(implObj, "MonikerBindToObject"), flags, 6)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct PFND3DKMT_SETGAMMARAMP {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SETGAMMARAMP>} param0 
      * @returns {NTSTATUS} 
      */

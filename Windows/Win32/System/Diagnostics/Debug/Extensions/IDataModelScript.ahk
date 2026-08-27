@@ -57,7 +57,6 @@ export default struct IDataModelScript extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} scriptName 
      * @returns {HRESULT} 
      */
@@ -69,7 +68,6 @@ export default struct IDataModelScript extends IUnknown {
     }
 
     /**
-     * 
      * @param {IStream} contentStream 
      * @returns {HRESULT} 
      */
@@ -79,7 +77,6 @@ export default struct IDataModelScript extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDataModelScriptClient} client 
      * @returns {HRESULT} 
      */
@@ -89,7 +86,6 @@ export default struct IDataModelScript extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Unlink() {
@@ -98,7 +94,6 @@ export default struct IDataModelScript extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Boolean} 
      */
     IsInvocable() {
@@ -107,7 +102,6 @@ export default struct IDataModelScript extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDataModelScriptClient} client 
      * @returns {HRESULT} 
      */
@@ -125,13 +119,13 @@ export default struct IDataModelScript extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
-        this.vtbl.Rename := CallbackCreate(GetMethod(implObj, "Rename"), flags, 2)
-        this.vtbl.Populate := CallbackCreate(GetMethod(implObj, "Populate"), flags, 2)
-        this.vtbl.Execute := CallbackCreate(GetMethod(implObj, "Execute"), flags, 2)
-        this.vtbl.Unlink := CallbackCreate(GetMethod(implObj, "Unlink"), flags, 1)
-        this.vtbl.IsInvocable := CallbackCreate(GetMethod(implObj, "IsInvocable"), flags, 2)
-        this.vtbl.InvokeMain := CallbackCreate(GetMethod(implObj, "InvokeMain"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.Rename := CallbackCreate(ObjBindMethod(implObj, "Rename"), flags, 2)
+        this.vtbl.Populate := CallbackCreate(ObjBindMethod(implObj, "Populate"), flags, 2)
+        this.vtbl.Execute := CallbackCreate(ObjBindMethod(implObj, "Execute"), flags, 2)
+        this.vtbl.Unlink := CallbackCreate(ObjBindMethod(implObj, "Unlink"), flags, 1)
+        this.vtbl.IsInvocable := CallbackCreate(ObjBindMethod(implObj, "IsInvocable"), flags, 2)
+        this.vtbl.InvokeMain := CallbackCreate(ObjBindMethod(implObj, "InvokeMain"), flags, 2)
     }
 
     Dispose() {

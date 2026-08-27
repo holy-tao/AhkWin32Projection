@@ -72,7 +72,7 @@ export default struct IActivateAudioInterfaceAsyncOperation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-iactivateaudiointerfaceasyncoperation-getactivateresult
      */
     GetActivateResult(activateResult, activatedInterface) {
-        activateResultMarshal := activateResult is VarRef ? "int*" : "ptr"
+        activateResultMarshal := activateResult is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, activateResultMarshal, activateResult, IUnknown.Ptr, activatedInterface, "HRESULT")
         return result
@@ -87,7 +87,7 @@ export default struct IActivateAudioInterfaceAsyncOperation extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetActivateResult := CallbackCreate(GetMethod(implObj, "GetActivateResult"), flags, 3)
+        this.vtbl.GetActivateResult := CallbackCreate(ObjBindMethod(implObj, "GetActivateResult"), flags, 3)
     }
 
     Dispose() {

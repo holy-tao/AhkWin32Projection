@@ -108,9 +108,9 @@ export default struct IWSManEnumerator extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ReadItem := CallbackCreate(GetMethod(implObj, "ReadItem"), flags, 2)
-        this.vtbl.get_AtEndOfStream := CallbackCreate(GetMethod(implObj, "get_AtEndOfStream"), flags, 2)
-        this.vtbl.get_Error := CallbackCreate(GetMethod(implObj, "get_Error"), flags, 2)
+        this.vtbl.ReadItem := CallbackCreate(ObjBindMethod(implObj, "ReadItem"), flags, 2)
+        this.vtbl.get_AtEndOfStream := CallbackCreate(ObjBindMethod(implObj, "get_AtEndOfStream"), flags, 2)
+        this.vtbl.get_Error := CallbackCreate(ObjBindMethod(implObj, "get_Error"), flags, 2)
     }
 
     Dispose() {

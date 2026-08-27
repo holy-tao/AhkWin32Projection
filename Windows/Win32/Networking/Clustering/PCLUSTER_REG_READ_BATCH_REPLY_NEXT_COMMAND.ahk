@@ -20,7 +20,6 @@ export default struct PCLUSTER_REG_READ_BATCH_REPLY_NEXT_COMMAND {
     }
 
     /**
-     * 
      * @param {HREGREADBATCHREPLY} _hRegReadBatchReply 
      * @param {Pointer<CLUSTER_READ_BATCH_COMMAND>} pBatchCommand 
      * @returns {Integer} 

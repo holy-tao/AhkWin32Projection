@@ -59,7 +59,7 @@ export default struct IWbemEventSink extends IWbemObjectSink {
      * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemeventsink-setsinksecurity
      */
     SetSinkSecurity(lSDLength, pSD) {
-        pSDMarshal := pSD is VarRef ? "char*" : "ptr"
+        pSDMarshal := pSD is VarRef ? "char*" : IntPtr
 
         result := ComCall(5, this, Int32, lSDLength, pSDMarshal, pSD, "HRESULT")
         return result
@@ -85,7 +85,7 @@ export default struct IWbemEventSink extends IWbemObjectSink {
      * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemeventsink-getrestrictedsink
      */
     GetRestrictedSink(lNumQueries, awszQueries, pCallback) {
-        awszQueriesMarshal := awszQueries is VarRef ? "ptr*" : "ptr"
+        awszQueriesMarshal := awszQueries is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(7, this, Int32, lNumQueries, awszQueriesMarshal, awszQueries, "ptr", pCallback, "ptr*", &ppSink := 0, "HRESULT")
         return IWbemEventSink(ppSink)
@@ -113,10 +113,10 @@ export default struct IWbemEventSink extends IWbemObjectSink {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetSinkSecurity := CallbackCreate(GetMethod(implObj, "SetSinkSecurity"), flags, 3)
-        this.vtbl.IsActive := CallbackCreate(GetMethod(implObj, "IsActive"), flags, 1)
-        this.vtbl.GetRestrictedSink := CallbackCreate(GetMethod(implObj, "GetRestrictedSink"), flags, 5)
-        this.vtbl.SetBatchingParameters := CallbackCreate(GetMethod(implObj, "SetBatchingParameters"), flags, 4)
+        this.vtbl.SetSinkSecurity := CallbackCreate(ObjBindMethod(implObj, "SetSinkSecurity"), flags, 3)
+        this.vtbl.IsActive := CallbackCreate(ObjBindMethod(implObj, "IsActive"), flags, 1)
+        this.vtbl.GetRestrictedSink := CallbackCreate(ObjBindMethod(implObj, "GetRestrictedSink"), flags, 5)
+        this.vtbl.SetBatchingParameters := CallbackCreate(ObjBindMethod(implObj, "SetBatchingParameters"), flags, 4)
     }
 
     Dispose() {

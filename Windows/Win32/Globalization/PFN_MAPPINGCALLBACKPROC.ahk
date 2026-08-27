@@ -26,7 +26,6 @@ export default struct PFN_MAPPINGCALLBACKPROC {
     }
 
     /**
-     * 
      * @param {Pointer<MAPPING_PROPERTY_BAG>} pBag Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/elscore/ns-elscore-mapping_property_bag">MAPPING_PROPERTY_BAG</a> structure containing the results of the call to <a href="https://docs.microsoft.com/windows/desktop/api/elscore/nf-elscore-mappingrecognizetext">MappingRecognizeText</a>.
      * @param {Pointer<Void>} data Pointer to private application data. This pointer is the same as that passed in the <b>pRecognizeCallerData</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/elscore/ns-elscore-mapping_options">MAPPING_OPTIONS</a> structure.
      * @param {Integer} dwDataSize Size, in bytes, of the private application data. This size is the same as that passed in the <b>dwRecognizeCallerDataSize</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/elscore/ns-elscore-mapping_options">MAPPING_OPTIONS</a> structure when the application calls <a href="https://docs.microsoft.com/windows/desktop/api/elscore/nf-elscore-mappingrecognizetext">MappingRecognizeText</a> asynchronously.
@@ -34,7 +33,7 @@ export default struct PFN_MAPPINGCALLBACKPROC {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(pBag, data, dwDataSize, Result) {
-        dataMarshal := data is VarRef ? "ptr" : "ptr"
+        dataMarshal := data is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, MAPPING_PROPERTY_BAG.Ptr, pBag, dataMarshal, data, UInt32, dwDataSize, "int", Result)
     }

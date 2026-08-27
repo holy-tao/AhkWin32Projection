@@ -20,7 +20,6 @@ export default struct POPLOCK_NOTIFY_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<OPLOCK_NOTIFY_PARAMS>} NotifyParams 
      * @returns {NTSTATUS} 
      */

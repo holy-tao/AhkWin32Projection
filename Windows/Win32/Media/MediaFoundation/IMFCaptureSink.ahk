@@ -180,7 +180,9 @@ export default struct IMFCaptureSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesink-addstream
      */
     AddStream(dwSourceStreamIndex, pMediaType, pAttributes) {
-        result := ComCall(5, this, UInt32, dwSourceStreamIndex, "ptr", pMediaType, "ptr", pAttributes, "uint*", &pdwSinkStreamIndex := 0, "HRESULT")
+        pAttributesMarshal := pAttributes == 0 ? IntPtr : "ptr"
+
+        result := ComCall(5, this, UInt32, dwSourceStreamIndex, "ptr", pMediaType, pAttributesMarshal, pAttributes, "uint*", &pdwSinkStreamIndex := 0, "HRESULT")
         return pdwSinkStreamIndex
     }
 
@@ -250,11 +252,11 @@ export default struct IMFCaptureSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOutputMediaType := CallbackCreate(GetMethod(implObj, "GetOutputMediaType"), flags, 3)
-        this.vtbl.GetService := CallbackCreate(GetMethod(implObj, "GetService"), flags, 5)
-        this.vtbl.AddStream := CallbackCreate(GetMethod(implObj, "AddStream"), flags, 5)
-        this.vtbl.Prepare := CallbackCreate(GetMethod(implObj, "Prepare"), flags, 1)
-        this.vtbl.RemoveAllStreams := CallbackCreate(GetMethod(implObj, "RemoveAllStreams"), flags, 1)
+        this.vtbl.GetOutputMediaType := CallbackCreate(ObjBindMethod(implObj, "GetOutputMediaType"), flags, 3)
+        this.vtbl.GetService := CallbackCreate(ObjBindMethod(implObj, "GetService"), flags, 5)
+        this.vtbl.AddStream := CallbackCreate(ObjBindMethod(implObj, "AddStream"), flags, 5)
+        this.vtbl.Prepare := CallbackCreate(ObjBindMethod(implObj, "Prepare"), flags, 1)
+        this.vtbl.RemoveAllStreams := CallbackCreate(ObjBindMethod(implObj, "RemoveAllStreams"), flags, 1)
     }
 
     Dispose() {

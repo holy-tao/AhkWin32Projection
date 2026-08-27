@@ -330,19 +330,19 @@ export default struct IWiaVideo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_PreviewVisible := CallbackCreate(GetMethod(implObj, "get_PreviewVisible"), flags, 2)
-        this.vtbl.put_PreviewVisible := CallbackCreate(GetMethod(implObj, "put_PreviewVisible"), flags, 2)
-        this.vtbl.get_ImagesDirectory := CallbackCreate(GetMethod(implObj, "get_ImagesDirectory"), flags, 2)
-        this.vtbl.put_ImagesDirectory := CallbackCreate(GetMethod(implObj, "put_ImagesDirectory"), flags, 2)
-        this.vtbl.CreateVideoByWiaDevID := CallbackCreate(GetMethod(implObj, "CreateVideoByWiaDevID"), flags, 5)
-        this.vtbl.CreateVideoByDevNum := CallbackCreate(GetMethod(implObj, "CreateVideoByDevNum"), flags, 5)
-        this.vtbl.CreateVideoByName := CallbackCreate(GetMethod(implObj, "CreateVideoByName"), flags, 5)
-        this.vtbl.DestroyVideo := CallbackCreate(GetMethod(implObj, "DestroyVideo"), flags, 1)
-        this.vtbl.Play := CallbackCreate(GetMethod(implObj, "Play"), flags, 1)
-        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
-        this.vtbl.TakePicture := CallbackCreate(GetMethod(implObj, "TakePicture"), flags, 2)
-        this.vtbl.ResizeVideo := CallbackCreate(GetMethod(implObj, "ResizeVideo"), flags, 2)
-        this.vtbl.GetCurrentState := CallbackCreate(GetMethod(implObj, "GetCurrentState"), flags, 2)
+        this.vtbl.get_PreviewVisible := CallbackCreate(ObjBindMethod(implObj, "get_PreviewVisible"), flags, 2)
+        this.vtbl.put_PreviewVisible := CallbackCreate(ObjBindMethod(implObj, "put_PreviewVisible"), flags, 2)
+        this.vtbl.get_ImagesDirectory := CallbackCreate(ObjBindMethod(implObj, "get_ImagesDirectory"), flags, 2)
+        this.vtbl.put_ImagesDirectory := CallbackCreate(ObjBindMethod(implObj, "put_ImagesDirectory"), flags, 2)
+        this.vtbl.CreateVideoByWiaDevID := CallbackCreate(ObjBindMethod(implObj, "CreateVideoByWiaDevID"), flags, 5)
+        this.vtbl.CreateVideoByDevNum := CallbackCreate(ObjBindMethod(implObj, "CreateVideoByDevNum"), flags, 5)
+        this.vtbl.CreateVideoByName := CallbackCreate(ObjBindMethod(implObj, "CreateVideoByName"), flags, 5)
+        this.vtbl.DestroyVideo := CallbackCreate(ObjBindMethod(implObj, "DestroyVideo"), flags, 1)
+        this.vtbl.Play := CallbackCreate(ObjBindMethod(implObj, "Play"), flags, 1)
+        this.vtbl.Pause := CallbackCreate(ObjBindMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.TakePicture := CallbackCreate(ObjBindMethod(implObj, "TakePicture"), flags, 2)
+        this.vtbl.ResizeVideo := CallbackCreate(ObjBindMethod(implObj, "ResizeVideo"), flags, 2)
+        this.vtbl.GetCurrentState := CallbackCreate(ObjBindMethod(implObj, "GetCurrentState"), flags, 2)
     }
 
     Dispose() {

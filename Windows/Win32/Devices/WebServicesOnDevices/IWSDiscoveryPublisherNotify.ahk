@@ -79,8 +79,8 @@ export default struct IWSDiscoveryPublisherNotify extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ProbeHandler := CallbackCreate(GetMethod(implObj, "ProbeHandler"), flags, 3)
-        this.vtbl.ResolveHandler := CallbackCreate(GetMethod(implObj, "ResolveHandler"), flags, 3)
+        this.vtbl.ProbeHandler := CallbackCreate(ObjBindMethod(implObj, "ProbeHandler"), flags, 3)
+        this.vtbl.ResolveHandler := CallbackCreate(ObjBindMethod(implObj, "ResolveHandler"), flags, 3)
     }
 
     Dispose() {

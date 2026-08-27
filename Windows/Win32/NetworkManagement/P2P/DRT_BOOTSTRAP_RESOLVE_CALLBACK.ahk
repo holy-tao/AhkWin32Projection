@@ -21,7 +21,6 @@ export default struct DRT_BOOTSTRAP_RESOLVE_CALLBACK {
     }
 
     /**
-     * 
      * @param {HRESULT} hr 
      * @param {Pointer<Void>} pvContext 
      * @param {Pointer<SOCKET_ADDRESS_LIST>} pAddresses 
@@ -29,7 +28,7 @@ export default struct DRT_BOOTSTRAP_RESOLVE_CALLBACK {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(hr, pvContext, pAddresses, fFatalError) {
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, "int", hr, pvContextMarshal, pvContext, SOCKET_ADDRESS_LIST.Ptr, pAddresses, BOOL, fFatalError)
     }

@@ -27,7 +27,7 @@
  * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-directdrawenumeratew
  */
 export DirectDrawEnumerateW(lpCallback, lpContext) {
-    lpContextMarshal := lpContext is VarRef ? "ptr" : "ptr"
+    lpContextMarshal := lpContext is VarRef ? "ptr" : IntPtr
 
     result := DllCall("DDRAW.dll\DirectDrawEnumerateW", LPDDENUMCALLBACKW, lpCallback, lpContextMarshal, lpContext, "HRESULT")
     return result
@@ -45,7 +45,7 @@ export DirectDrawEnumerateW(lpCallback, lpContext) {
  * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-directdrawenumeratea
  */
 export DirectDrawEnumerateA(lpCallback, lpContext) {
-    lpContextMarshal := lpContext is VarRef ? "ptr" : "ptr"
+    lpContextMarshal := lpContext is VarRef ? "ptr" : IntPtr
 
     result := DllCall("DDRAW.dll\DirectDrawEnumerateA", LPDDENUMCALLBACKA, lpCallback, lpContextMarshal, lpContext, "HRESULT")
     return result
@@ -76,7 +76,7 @@ export DirectDrawEnumerateA(lpCallback, lpContext) {
  * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-directdrawenumerateexw
  */
 export DirectDrawEnumerateExW(lpCallback, lpContext, dwFlags) {
-    lpContextMarshal := lpContext is VarRef ? "ptr" : "ptr"
+    lpContextMarshal := lpContext is VarRef ? "ptr" : IntPtr
 
     result := DllCall("DDRAW.dll\DirectDrawEnumerateExW", LPDDENUMCALLBACKEXW, lpCallback, lpContextMarshal, lpContext, UInt32, dwFlags, "HRESULT")
     return result
@@ -107,7 +107,7 @@ export DirectDrawEnumerateExW(lpCallback, lpContext, dwFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-directdrawenumerateexa
  */
 export DirectDrawEnumerateExA(lpCallback, lpContext, dwFlags) {
-    lpContextMarshal := lpContext is VarRef ? "ptr" : "ptr"
+    lpContextMarshal := lpContext is VarRef ? "ptr" : IntPtr
 
     result := DllCall("DDRAW.dll\DirectDrawEnumerateExA", LPDDENUMCALLBACKEXA, lpCallback, lpContextMarshal, lpContext, UInt32, dwFlags, "HRESULT")
     return result
@@ -160,7 +160,7 @@ export DirectDrawCreate(lpGUID, pUnkOuter) {
  * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-directdrawcreateex
  */
 export DirectDrawCreateEx(lpGuid, lplpDD, iid, pUnkOuter) {
-    lplpDDMarshal := lplpDD is VarRef ? "ptr*" : "ptr"
+    lplpDDMarshal := lplpDD is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("DDRAW.dll\DirectDrawCreateEx", Guid.Ptr, lpGuid, lplpDDMarshal, lplpDD, Guid.Ptr, iid, "ptr", pUnkOuter, "HRESULT")
     return result

@@ -20,7 +20,6 @@ export default struct PWLDP_ISPRODUCTIONCONFIGURATION_API {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     Call() {

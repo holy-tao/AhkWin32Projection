@@ -61,7 +61,6 @@ export default struct IRTCParticipantStateChangeEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCParticipant} 
      */
     get_Participant() {
@@ -70,7 +69,6 @@ export default struct IRTCParticipantStateChangeEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {RTC_PARTICIPANT_STATE} 
      */
     get_State() {
@@ -79,7 +77,6 @@ export default struct IRTCParticipantStateChangeEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_StatusCode() {
@@ -96,9 +93,9 @@ export default struct IRTCParticipantStateChangeEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Participant := CallbackCreate(GetMethod(implObj, "get_Participant"), flags, 2)
-        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
-        this.vtbl.get_StatusCode := CallbackCreate(GetMethod(implObj, "get_StatusCode"), flags, 2)
+        this.vtbl.get_Participant := CallbackCreate(ObjBindMethod(implObj, "get_Participant"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(ObjBindMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.get_StatusCode := CallbackCreate(ObjBindMethod(implObj, "get_StatusCode"), flags, 2)
     }
 
     Dispose() {

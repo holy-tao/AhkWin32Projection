@@ -107,7 +107,7 @@ export default struct IIsdbSeriesDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbseriesdescriptor-getexpiredate
      */
     GetExpireDate(pfValid, pmdtVal) {
-        pfValidMarshal := pfValid is VarRef ? "int*" : "ptr"
+        pfValidMarshal := pfValid is VarRef ? "int*" : IntPtr
 
         result := ComCall(8, this, pfValidMarshal, pfValid, MPEG_DATE_AND_TIME.Ptr, pmdtVal, "HRESULT")
         return result
@@ -154,15 +154,15 @@ export default struct IIsdbSeriesDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetSeriesId := CallbackCreate(GetMethod(implObj, "GetSeriesId"), flags, 2)
-        this.vtbl.GetRepeatLabel := CallbackCreate(GetMethod(implObj, "GetRepeatLabel"), flags, 2)
-        this.vtbl.GetProgramPattern := CallbackCreate(GetMethod(implObj, "GetProgramPattern"), flags, 2)
-        this.vtbl.GetExpireDate := CallbackCreate(GetMethod(implObj, "GetExpireDate"), flags, 3)
-        this.vtbl.GetEpisodeNumber := CallbackCreate(GetMethod(implObj, "GetEpisodeNumber"), flags, 2)
-        this.vtbl.GetLastEpisodeNumber := CallbackCreate(GetMethod(implObj, "GetLastEpisodeNumber"), flags, 2)
-        this.vtbl.GetSeriesNameW := CallbackCreate(GetMethod(implObj, "GetSeriesNameW"), flags, 3)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetSeriesId := CallbackCreate(ObjBindMethod(implObj, "GetSeriesId"), flags, 2)
+        this.vtbl.GetRepeatLabel := CallbackCreate(ObjBindMethod(implObj, "GetRepeatLabel"), flags, 2)
+        this.vtbl.GetProgramPattern := CallbackCreate(ObjBindMethod(implObj, "GetProgramPattern"), flags, 2)
+        this.vtbl.GetExpireDate := CallbackCreate(ObjBindMethod(implObj, "GetExpireDate"), flags, 3)
+        this.vtbl.GetEpisodeNumber := CallbackCreate(ObjBindMethod(implObj, "GetEpisodeNumber"), flags, 2)
+        this.vtbl.GetLastEpisodeNumber := CallbackCreate(ObjBindMethod(implObj, "GetLastEpisodeNumber"), flags, 2)
+        this.vtbl.GetSeriesNameW := CallbackCreate(ObjBindMethod(implObj, "GetSeriesNameW"), flags, 3)
     }
 
     Dispose() {

@@ -450,13 +450,13 @@ export default struct ITransferAdviseSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.UpdateProgress := CallbackCreate(GetMethod(implObj, "UpdateProgress"), flags, 7)
-        this.vtbl.UpdateTransferState := CallbackCreate(GetMethod(implObj, "UpdateTransferState"), flags, 2)
-        this.vtbl.ConfirmOverwrite := CallbackCreate(GetMethod(implObj, "ConfirmOverwrite"), flags, 4)
-        this.vtbl.ConfirmEncryptionLoss := CallbackCreate(GetMethod(implObj, "ConfirmEncryptionLoss"), flags, 2)
-        this.vtbl.FileFailure := CallbackCreate(GetMethod(implObj, "FileFailure"), flags, 6)
-        this.vtbl.SubStreamFailure := CallbackCreate(GetMethod(implObj, "SubStreamFailure"), flags, 4)
-        this.vtbl.PropertyFailure := CallbackCreate(GetMethod(implObj, "PropertyFailure"), flags, 4)
+        this.vtbl.UpdateProgress := CallbackCreate(ObjBindMethod(implObj, "UpdateProgress"), flags, 7)
+        this.vtbl.UpdateTransferState := CallbackCreate(ObjBindMethod(implObj, "UpdateTransferState"), flags, 2)
+        this.vtbl.ConfirmOverwrite := CallbackCreate(ObjBindMethod(implObj, "ConfirmOverwrite"), flags, 4)
+        this.vtbl.ConfirmEncryptionLoss := CallbackCreate(ObjBindMethod(implObj, "ConfirmEncryptionLoss"), flags, 2)
+        this.vtbl.FileFailure := CallbackCreate(ObjBindMethod(implObj, "FileFailure"), flags, 6)
+        this.vtbl.SubStreamFailure := CallbackCreate(ObjBindMethod(implObj, "SubStreamFailure"), flags, 4)
+        this.vtbl.PropertyFailure := CallbackCreate(ObjBindMethod(implObj, "PropertyFailure"), flags, 4)
     }
 
     Dispose() {

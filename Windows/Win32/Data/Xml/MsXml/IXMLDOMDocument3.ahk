@@ -40,7 +40,6 @@ export default struct IXMLDOMDocument3 extends IXMLDOMDocument2 {
     }
 
     /**
-     * 
      * @param {IXMLDOMNode} _node 
      * @returns {IXMLDOMParseError} 
      */
@@ -50,7 +49,6 @@ export default struct IXMLDOMDocument3 extends IXMLDOMDocument2 {
     }
 
     /**
-     * 
      * @param {IXMLDOMNode} _node 
      * @param {VARIANT_BOOL} deep 
      * @returns {IXMLDOMNode} 
@@ -69,8 +67,8 @@ export default struct IXMLDOMDocument3 extends IXMLDOMDocument2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.validateNode := CallbackCreate(GetMethod(implObj, "validateNode"), flags, 3)
-        this.vtbl.importNode := CallbackCreate(GetMethod(implObj, "importNode"), flags, 4)
+        this.vtbl.validateNode := CallbackCreate(ObjBindMethod(implObj, "validateNode"), flags, 3)
+        this.vtbl.importNode := CallbackCreate(ObjBindMethod(implObj, "importNode"), flags, 4)
     }
 
     Dispose() {

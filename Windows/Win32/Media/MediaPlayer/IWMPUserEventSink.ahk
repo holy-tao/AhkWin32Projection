@@ -76,7 +76,7 @@ export default struct IWMPUserEventSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.NotifyUserEvent := CallbackCreate(GetMethod(implObj, "NotifyUserEvent"), flags, 2)
+        this.vtbl.NotifyUserEvent := CallbackCreate(ObjBindMethod(implObj, "NotifyUserEvent"), flags, 2)
     }
 
     Dispose() {

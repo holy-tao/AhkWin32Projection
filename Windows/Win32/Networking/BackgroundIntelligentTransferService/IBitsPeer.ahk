@@ -89,9 +89,9 @@ export default struct IBitsPeer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPeerName := CallbackCreate(GetMethod(implObj, "GetPeerName"), flags, 2)
-        this.vtbl.IsAuthenticated := CallbackCreate(GetMethod(implObj, "IsAuthenticated"), flags, 2)
-        this.vtbl.IsAvailable := CallbackCreate(GetMethod(implObj, "IsAvailable"), flags, 2)
+        this.vtbl.GetPeerName := CallbackCreate(ObjBindMethod(implObj, "GetPeerName"), flags, 2)
+        this.vtbl.IsAuthenticated := CallbackCreate(ObjBindMethod(implObj, "IsAuthenticated"), flags, 2)
+        this.vtbl.IsAvailable := CallbackCreate(ObjBindMethod(implObj, "IsAvailable"), flags, 2)
     }
 
     Dispose() {

@@ -22,7 +22,6 @@ export default struct PETW_BUFFER_CALLBACK {
     }
 
     /**
-     * 
      * @param {Integer} _Buffer Pointer to the raw buffer data, which begins with an [ETW_BUFFER_HEADER](ns-evntrace-etw_buffer_header.md) struct and is followed by event data.
      * 
      * By default this buffer is available only until the callback returns. To use the buffer after the callback returns, call [ProcessTraceBufferIncrementReference](nf-evntrace-processtracebufferincrementreference.md). This will keep the buffer available until you call [ProcessTraceBufferDecrementReference](nf-evntrace-processtracebufferdecrementreference.md) on it.
@@ -34,7 +33,8 @@ export default struct PETW_BUFFER_CALLBACK {
      * @returns {BOOL} If **TRUE**, the processing will continue. If **FALSE**, trace processing will stop and [ProcessTrace](nf-evntrace-processtrace.md) will return.
      */
     Call(_Buffer, BufferSize, ConsumerInfo, CallbackContext) {
-        CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
+        CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : IntPtr
+        CallbackContextMarshal := CallbackContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, IntPtr, _Buffer, UInt32, BufferSize, ETW_BUFFER_CALLBACK_INFORMATION.Ptr, ConsumerInfo, CallbackContextMarshal, CallbackContext, BOOL)
         return result

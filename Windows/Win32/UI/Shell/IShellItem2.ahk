@@ -301,19 +301,19 @@ export default struct IShellItem2 extends IShellItem {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPropertyStore := CallbackCreate(GetMethod(implObj, "GetPropertyStore"), flags, 4)
-        this.vtbl.GetPropertyStoreWithCreateObject := CallbackCreate(GetMethod(implObj, "GetPropertyStoreWithCreateObject"), flags, 5)
-        this.vtbl.GetPropertyStoreForKeys := CallbackCreate(GetMethod(implObj, "GetPropertyStoreForKeys"), flags, 6)
-        this.vtbl.GetPropertyDescriptionList := CallbackCreate(GetMethod(implObj, "GetPropertyDescriptionList"), flags, 4)
-        this.vtbl.Update := CallbackCreate(GetMethod(implObj, "Update"), flags, 2)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
-        this.vtbl.GetCLSID := CallbackCreate(GetMethod(implObj, "GetCLSID"), flags, 3)
-        this.vtbl.GetFileTime := CallbackCreate(GetMethod(implObj, "GetFileTime"), flags, 3)
-        this.vtbl.GetInt32 := CallbackCreate(GetMethod(implObj, "GetInt32"), flags, 3)
-        this.vtbl.GetString := CallbackCreate(GetMethod(implObj, "GetString"), flags, 3)
-        this.vtbl.GetUInt32 := CallbackCreate(GetMethod(implObj, "GetUInt32"), flags, 3)
-        this.vtbl.GetUInt64 := CallbackCreate(GetMethod(implObj, "GetUInt64"), flags, 3)
-        this.vtbl.GetBool := CallbackCreate(GetMethod(implObj, "GetBool"), flags, 3)
+        this.vtbl.GetPropertyStore := CallbackCreate(ObjBindMethod(implObj, "GetPropertyStore"), flags, 4)
+        this.vtbl.GetPropertyStoreWithCreateObject := CallbackCreate(ObjBindMethod(implObj, "GetPropertyStoreWithCreateObject"), flags, 5)
+        this.vtbl.GetPropertyStoreForKeys := CallbackCreate(ObjBindMethod(implObj, "GetPropertyStoreForKeys"), flags, 6)
+        this.vtbl.GetPropertyDescriptionList := CallbackCreate(ObjBindMethod(implObj, "GetPropertyDescriptionList"), flags, 4)
+        this.vtbl.Update := CallbackCreate(ObjBindMethod(implObj, "Update"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.GetCLSID := CallbackCreate(ObjBindMethod(implObj, "GetCLSID"), flags, 3)
+        this.vtbl.GetFileTime := CallbackCreate(ObjBindMethod(implObj, "GetFileTime"), flags, 3)
+        this.vtbl.GetInt32 := CallbackCreate(ObjBindMethod(implObj, "GetInt32"), flags, 3)
+        this.vtbl.GetString := CallbackCreate(ObjBindMethod(implObj, "GetString"), flags, 3)
+        this.vtbl.GetUInt32 := CallbackCreate(ObjBindMethod(implObj, "GetUInt32"), flags, 3)
+        this.vtbl.GetUInt64 := CallbackCreate(ObjBindMethod(implObj, "GetUInt64"), flags, 3)
+        this.vtbl.GetBool := CallbackCreate(ObjBindMethod(implObj, "GetBool"), flags, 3)
     }
 
     Dispose() {

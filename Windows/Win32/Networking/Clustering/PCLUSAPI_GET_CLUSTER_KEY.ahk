@@ -20,7 +20,6 @@ export default struct PCLUSAPI_GET_CLUSTER_KEY {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {Integer} samDesired 
      * @returns {HKEY} 

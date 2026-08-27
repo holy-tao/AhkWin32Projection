@@ -52,7 +52,6 @@ export default struct IHTMLNextIdElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -64,7 +63,6 @@ export default struct IHTMLNextIdElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_n() {
@@ -82,8 +80,8 @@ export default struct IHTMLNextIdElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_n := CallbackCreate(GetMethod(implObj, "put_n"), flags, 2)
-        this.vtbl.get_n := CallbackCreate(GetMethod(implObj, "get_n"), flags, 2)
+        this.vtbl.put_n := CallbackCreate(ObjBindMethod(implObj, "put_n"), flags, 2)
+        this.vtbl.get_n := CallbackCreate(ObjBindMethod(implObj, "get_n"), flags, 2)
     }
 
     Dispose() {

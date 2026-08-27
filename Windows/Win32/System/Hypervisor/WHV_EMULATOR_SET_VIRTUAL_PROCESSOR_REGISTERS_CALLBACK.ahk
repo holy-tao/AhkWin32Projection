@@ -21,7 +21,6 @@ export default struct WHV_EMULATOR_SET_VIRTUAL_PROCESSOR_REGISTERS_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<WHV_REGISTER_NAME>} RegisterNames 
      * @param {Integer} RegisterCount 
@@ -29,8 +28,8 @@ export default struct WHV_EMULATOR_SET_VIRTUAL_PROCESSOR_REGISTERS_CALLBACK {
      * @returns {HRESULT} 
      */
     Call(_Context, RegisterNames, RegisterCount, RegisterValues) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        RegisterNamesMarshal := RegisterNames is VarRef ? "int*" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        RegisterNamesMarshal := RegisterNames is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, RegisterNamesMarshal, RegisterNames, UInt32, RegisterCount, WHV_REGISTER_VALUE.Ptr, RegisterValues, "HRESULT")
         return result

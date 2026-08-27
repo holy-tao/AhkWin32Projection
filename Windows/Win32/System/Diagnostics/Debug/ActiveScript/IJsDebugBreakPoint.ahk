@@ -105,7 +105,6 @@ export default struct IJsDebugBreakPoint extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Delete() {
@@ -114,16 +113,15 @@ export default struct IJsDebugBreakPoint extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pDocumentId 
      * @param {Pointer<Integer>} pCharacterOffset 
      * @param {Pointer<Integer>} pStatementCharCount 
      * @returns {HRESULT} 
      */
     GetDocumentPosition(pDocumentId, pCharacterOffset, pStatementCharCount) {
-        pDocumentIdMarshal := pDocumentId is VarRef ? "uint*" : "ptr"
-        pCharacterOffsetMarshal := pCharacterOffset is VarRef ? "uint*" : "ptr"
-        pStatementCharCountMarshal := pStatementCharCount is VarRef ? "uint*" : "ptr"
+        pDocumentIdMarshal := pDocumentId is VarRef ? "uint*" : IntPtr
+        pCharacterOffsetMarshal := pCharacterOffset is VarRef ? "uint*" : IntPtr
+        pStatementCharCountMarshal := pStatementCharCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, pDocumentIdMarshal, pDocumentId, pCharacterOffsetMarshal, pCharacterOffset, pStatementCharCountMarshal, pStatementCharCount, "HRESULT")
         return result
@@ -138,11 +136,11 @@ export default struct IJsDebugBreakPoint extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsEnabled := CallbackCreate(GetMethod(implObj, "IsEnabled"), flags, 2)
-        this.vtbl.Enable := CallbackCreate(GetMethod(implObj, "Enable"), flags, 1)
-        this.vtbl.Disable := CallbackCreate(GetMethod(implObj, "Disable"), flags, 1)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
-        this.vtbl.GetDocumentPosition := CallbackCreate(GetMethod(implObj, "GetDocumentPosition"), flags, 4)
+        this.vtbl.IsEnabled := CallbackCreate(ObjBindMethod(implObj, "IsEnabled"), flags, 2)
+        this.vtbl.Enable := CallbackCreate(ObjBindMethod(implObj, "Enable"), flags, 1)
+        this.vtbl.Disable := CallbackCreate(ObjBindMethod(implObj, "Disable"), flags, 1)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.GetDocumentPosition := CallbackCreate(ObjBindMethod(implObj, "GetDocumentPosition"), flags, 4)
     }
 
     Dispose() {

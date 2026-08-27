@@ -65,7 +65,9 @@ export default struct ID2D1ImageSourceFromWic extends ID2D1ImageSource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1imagesourcefromwic-ensurecached(constd2d1_rect_u_)
      */
     EnsureCached(rectangleToFill) {
-        result := ComCall(6, this, D2D_RECT_U.Ptr, rectangleToFill, "HRESULT")
+        rectangleToFillMarshal := rectangleToFill == 0 ? IntPtr : D2D_RECT_U.Ptr
+
+        result := ComCall(6, this, rectangleToFillMarshal, rectangleToFill, "HRESULT")
         return result
     }
 
@@ -91,7 +93,9 @@ export default struct ID2D1ImageSourceFromWic extends ID2D1ImageSource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1imagesourcefromwic-trimcache(constd2d1_rect_u)
      */
     TrimCache(rectangleToPreserve) {
-        result := ComCall(7, this, D2D_RECT_U.Ptr, rectangleToPreserve, "HRESULT")
+        rectangleToPreserveMarshal := rectangleToPreserve == 0 ? IntPtr : D2D_RECT_U.Ptr
+
+        result := ComCall(7, this, rectangleToPreserveMarshal, rectangleToPreserve, "HRESULT")
         return result
     }
 
@@ -116,9 +120,9 @@ export default struct ID2D1ImageSourceFromWic extends ID2D1ImageSource {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnsureCached := CallbackCreate(GetMethod(implObj, "EnsureCached"), flags, 2)
-        this.vtbl.TrimCache := CallbackCreate(GetMethod(implObj, "TrimCache"), flags, 2)
-        this.vtbl.GetSource := CallbackCreate(GetMethod(implObj, "GetSource"), flags, 2)
+        this.vtbl.EnsureCached := CallbackCreate(ObjBindMethod(implObj, "EnsureCached"), flags, 2)
+        this.vtbl.TrimCache := CallbackCreate(ObjBindMethod(implObj, "TrimCache"), flags, 2)
+        this.vtbl.GetSource := CallbackCreate(ObjBindMethod(implObj, "GetSource"), flags, 2)
     }
 
     Dispose() {

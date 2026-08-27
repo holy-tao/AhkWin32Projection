@@ -18,7 +18,6 @@ export default struct PIOMMU_DEVICE_FAULT_HANDLER {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

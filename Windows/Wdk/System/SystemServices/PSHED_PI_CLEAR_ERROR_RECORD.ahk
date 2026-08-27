@@ -19,14 +19,14 @@ export default struct PSHED_PI_CLEAR_ERROR_RECORD {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} PluginContext 
      * @param {Integer} Flags 
      * @param {Integer} ErrorRecordId 
      * @returns {NTSTATUS} 
      */
     Call(PluginContext, Flags, ErrorRecordId) {
-        PluginContextMarshal := PluginContext is VarRef ? "ptr" : "ptr"
+        PluginContextMarshal := PluginContext is VarRef ? "ptr" : IntPtr
+        PluginContextMarshal := PluginContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, PluginContextMarshal, PluginContext, UInt32, Flags, Int64, ErrorRecordId, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

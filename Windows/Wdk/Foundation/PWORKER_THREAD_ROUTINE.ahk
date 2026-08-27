@@ -18,7 +18,6 @@ export default struct PWORKER_THREAD_ROUTINE {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

@@ -20,7 +20,6 @@ export default struct LPWPUQUEUEAPC {
     }
 
     /**
-     * 
      * @param {Pointer<WSATHREADID>} lpThreadId 
      * @param {Pointer<LPWSAUSERAPC>} lpfnUserApc 
      * @param {Pointer} dwContext 
@@ -28,7 +27,7 @@ export default struct LPWPUQUEUEAPC {
      * @returns {Integer} 
      */
     Call(lpThreadId, lpfnUserApc, dwContext, lpErrno) {
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, WSATHREADID.Ptr, lpThreadId, LPWSAUSERAPC, lpfnUserApc, IntPtr, dwContext, lpErrnoMarshal, lpErrno, Int32)
         return result

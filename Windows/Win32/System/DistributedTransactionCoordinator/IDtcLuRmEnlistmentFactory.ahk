@@ -50,8 +50,8 @@ export default struct IDtcLuRmEnlistmentFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/Msi/create-time-date-summary
      */
     Create(pucLuPair, cbLuPair, pITransaction, pTransId, cbTransId, pRmEnlistmentSink) {
-        pucLuPairMarshal := pucLuPair is VarRef ? "char*" : "ptr"
-        pTransIdMarshal := pTransId is VarRef ? "char*" : "ptr"
+        pucLuPairMarshal := pucLuPair is VarRef ? "char*" : IntPtr
+        pTransIdMarshal := pTransId is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, pucLuPairMarshal, pucLuPair, UInt32, cbLuPair, "ptr", pITransaction, pTransIdMarshal, pTransId, UInt32, cbTransId, "ptr", pRmEnlistmentSink, "ptr*", &ppRmEnlistment := 0, "HRESULT")
         return IDtcLuRmEnlistment(ppRmEnlistment)
@@ -66,7 +66,7 @@ export default struct IDtcLuRmEnlistmentFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 8)
+        this.vtbl.Create := CallbackCreate(ObjBindMethod(implObj, "Create"), flags, 8)
     }
 
     Dispose() {

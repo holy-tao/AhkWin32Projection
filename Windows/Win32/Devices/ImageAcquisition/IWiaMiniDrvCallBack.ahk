@@ -37,7 +37,6 @@ export default struct IWiaMiniDrvCallBack extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lReason 
      * @param {Integer} lStatus 
      * @param {Integer} lPercentComplete 
@@ -61,7 +60,7 @@ export default struct IWiaMiniDrvCallBack extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.MiniDrvCallback := CallbackCreate(GetMethod(implObj, "MiniDrvCallback"), flags, 8)
+        this.vtbl.MiniDrvCallback := CallbackCreate(ObjBindMethod(implObj, "MiniDrvCallback"), flags, 8)
     }
 
     Dispose() {

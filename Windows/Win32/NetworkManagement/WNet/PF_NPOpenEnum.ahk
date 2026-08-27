@@ -20,7 +20,6 @@ export default struct PF_NPOpenEnum {
     }
 
     /**
-     * 
      * @param {Integer} dwScope 
      * @param {Integer} dwType 
      * @param {Integer} dwUsage 
@@ -29,7 +28,9 @@ export default struct PF_NPOpenEnum {
      * @returns {Integer} 
      */
     Call(dwScope, dwType, dwUsage, lpNetResource, lphEnum) {
-        result := DllCall(this.value, UInt32, dwScope, UInt32, dwType, UInt32, dwUsage, NETRESOURCEW.Ptr, lpNetResource, HANDLE.Ptr, lphEnum, UInt32)
+        lpNetResourceMarshal := lpNetResource == 0 ? IntPtr : NETRESOURCEW.Ptr
+
+        result := DllCall(this.value, UInt32, dwScope, UInt32, dwType, UInt32, dwUsage, lpNetResourceMarshal, lpNetResource, HANDLE.Ptr, lphEnum, UInt32)
         return result
     }
 

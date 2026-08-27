@@ -144,9 +144,9 @@ export default struct IWICBitmap extends IWICBitmapSource {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Lock := CallbackCreate(GetMethod(implObj, "Lock"), flags, 4)
-        this.vtbl.SetPalette := CallbackCreate(GetMethod(implObj, "SetPalette"), flags, 2)
-        this.vtbl.SetResolution := CallbackCreate(GetMethod(implObj, "SetResolution"), flags, 3)
+        this.vtbl.Lock := CallbackCreate(ObjBindMethod(implObj, "Lock"), flags, 4)
+        this.vtbl.SetPalette := CallbackCreate(ObjBindMethod(implObj, "SetPalette"), flags, 2)
+        this.vtbl.SetResolution := CallbackCreate(ObjBindMethod(implObj, "SetResolution"), flags, 3)
     }
 
     Dispose() {

@@ -21,7 +21,6 @@ export default struct PSYMBOLSERVERPINGPROCA {
     }
 
     /**
-     * 
      * @param {PSTR} param0 
      * @returns {BOOL} 
      */

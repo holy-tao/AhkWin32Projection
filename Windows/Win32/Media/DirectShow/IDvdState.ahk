@@ -73,8 +73,8 @@ export default struct IDvdState extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDiscID := CallbackCreate(GetMethod(implObj, "GetDiscID"), flags, 2)
-        this.vtbl.GetParentalLevel := CallbackCreate(GetMethod(implObj, "GetParentalLevel"), flags, 2)
+        this.vtbl.GetDiscID := CallbackCreate(ObjBindMethod(implObj, "GetDiscID"), flags, 2)
+        this.vtbl.GetParentalLevel := CallbackCreate(ObjBindMethod(implObj, "GetParentalLevel"), flags, 2)
     }
 
     Dispose() {

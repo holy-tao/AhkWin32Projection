@@ -121,7 +121,6 @@ export default struct IHTMLStyleElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -133,7 +132,6 @@ export default struct IHTMLStyleElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -143,7 +141,6 @@ export default struct IHTMLStyleElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_readyState() {
@@ -153,7 +150,6 @@ export default struct IHTMLStyleElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -163,7 +159,6 @@ export default struct IHTMLStyleElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onreadystatechange() {
@@ -173,7 +168,6 @@ export default struct IHTMLStyleElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -183,7 +177,6 @@ export default struct IHTMLStyleElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onload() {
@@ -193,7 +186,6 @@ export default struct IHTMLStyleElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -203,7 +195,6 @@ export default struct IHTMLStyleElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onerror() {
@@ -213,7 +204,6 @@ export default struct IHTMLStyleElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStyleSheet} 
      */
     get_styleSheet() {
@@ -222,7 +212,6 @@ export default struct IHTMLStyleElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -232,7 +221,6 @@ export default struct IHTMLStyleElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_disabled() {
@@ -241,7 +229,6 @@ export default struct IHTMLStyleElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -253,7 +240,6 @@ export default struct IHTMLStyleElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_media() {
@@ -271,20 +257,20 @@ export default struct IHTMLStyleElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_type := CallbackCreate(GetMethod(implObj, "put_type"), flags, 2)
-        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
-        this.vtbl.get_readyState := CallbackCreate(GetMethod(implObj, "get_readyState"), flags, 2)
-        this.vtbl.put_onreadystatechange := CallbackCreate(GetMethod(implObj, "put_onreadystatechange"), flags, 2)
-        this.vtbl.get_onreadystatechange := CallbackCreate(GetMethod(implObj, "get_onreadystatechange"), flags, 2)
-        this.vtbl.put_onload := CallbackCreate(GetMethod(implObj, "put_onload"), flags, 2)
-        this.vtbl.get_onload := CallbackCreate(GetMethod(implObj, "get_onload"), flags, 2)
-        this.vtbl.put_onerror := CallbackCreate(GetMethod(implObj, "put_onerror"), flags, 2)
-        this.vtbl.get_onerror := CallbackCreate(GetMethod(implObj, "get_onerror"), flags, 2)
-        this.vtbl.get_styleSheet := CallbackCreate(GetMethod(implObj, "get_styleSheet"), flags, 2)
-        this.vtbl.put_disabled := CallbackCreate(GetMethod(implObj, "put_disabled"), flags, 2)
-        this.vtbl.get_disabled := CallbackCreate(GetMethod(implObj, "get_disabled"), flags, 2)
-        this.vtbl.put_media := CallbackCreate(GetMethod(implObj, "put_media"), flags, 2)
-        this.vtbl.get_media := CallbackCreate(GetMethod(implObj, "get_media"), flags, 2)
+        this.vtbl.put_type := CallbackCreate(ObjBindMethod(implObj, "put_type"), flags, 2)
+        this.vtbl.get_type := CallbackCreate(ObjBindMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.get_readyState := CallbackCreate(ObjBindMethod(implObj, "get_readyState"), flags, 2)
+        this.vtbl.put_onreadystatechange := CallbackCreate(ObjBindMethod(implObj, "put_onreadystatechange"), flags, 2)
+        this.vtbl.get_onreadystatechange := CallbackCreate(ObjBindMethod(implObj, "get_onreadystatechange"), flags, 2)
+        this.vtbl.put_onload := CallbackCreate(ObjBindMethod(implObj, "put_onload"), flags, 2)
+        this.vtbl.get_onload := CallbackCreate(ObjBindMethod(implObj, "get_onload"), flags, 2)
+        this.vtbl.put_onerror := CallbackCreate(ObjBindMethod(implObj, "put_onerror"), flags, 2)
+        this.vtbl.get_onerror := CallbackCreate(ObjBindMethod(implObj, "get_onerror"), flags, 2)
+        this.vtbl.get_styleSheet := CallbackCreate(ObjBindMethod(implObj, "get_styleSheet"), flags, 2)
+        this.vtbl.put_disabled := CallbackCreate(ObjBindMethod(implObj, "put_disabled"), flags, 2)
+        this.vtbl.get_disabled := CallbackCreate(ObjBindMethod(implObj, "get_disabled"), flags, 2)
+        this.vtbl.put_media := CallbackCreate(ObjBindMethod(implObj, "put_media"), flags, 2)
+        this.vtbl.get_media := CallbackCreate(ObjBindMethod(implObj, "get_media"), flags, 2)
     }
 
     Dispose() {

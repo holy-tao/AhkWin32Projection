@@ -38,7 +38,6 @@ export default struct ID3D12SDKConfiguration1 extends ID3D12SDKConfiguration {
     }
 
     /**
-     * 
      * @param {Integer} SDKVersion 
      * @param {PSTR} SDKPath 
      * @param {Pointer<Guid>} riid 
@@ -52,7 +51,6 @@ export default struct ID3D12SDKConfiguration1 extends ID3D12SDKConfiguration {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     FreeUnusedSDKs() {
@@ -68,8 +66,8 @@ export default struct ID3D12SDKConfiguration1 extends ID3D12SDKConfiguration {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateDeviceFactory := CallbackCreate(GetMethod(implObj, "CreateDeviceFactory"), flags, 5)
-        this.vtbl.FreeUnusedSDKs := CallbackCreate(GetMethod(implObj, "FreeUnusedSDKs"), flags, 1)
+        this.vtbl.CreateDeviceFactory := CallbackCreate(ObjBindMethod(implObj, "CreateDeviceFactory"), flags, 5)
+        this.vtbl.FreeUnusedSDKs := CallbackCreate(ObjBindMethod(implObj, "FreeUnusedSDKs"), flags, 1)
     }
 
     Dispose() {

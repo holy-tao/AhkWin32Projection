@@ -102,10 +102,10 @@ export default struct IMILBitmapEffectConnectorInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetIndex := CallbackCreate(GetMethod(implObj, "GetIndex"), flags, 2)
-        this.vtbl.GetOptimalFormat := CallbackCreate(GetMethod(implObj, "GetOptimalFormat"), flags, 2)
-        this.vtbl.GetNumberFormats := CallbackCreate(GetMethod(implObj, "GetNumberFormats"), flags, 2)
-        this.vtbl.GetFormat := CallbackCreate(GetMethod(implObj, "GetFormat"), flags, 3)
+        this.vtbl.GetIndex := CallbackCreate(ObjBindMethod(implObj, "GetIndex"), flags, 2)
+        this.vtbl.GetOptimalFormat := CallbackCreate(ObjBindMethod(implObj, "GetOptimalFormat"), flags, 2)
+        this.vtbl.GetNumberFormats := CallbackCreate(ObjBindMethod(implObj, "GetNumberFormats"), flags, 2)
+        this.vtbl.GetFormat := CallbackCreate(ObjBindMethod(implObj, "GetFormat"), flags, 3)
     }
 
     Dispose() {

@@ -20,14 +20,14 @@ export default struct PCLUSAPI_CLUSTER_OPEN_ENUM_EX {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {Integer} dwType 
      * @param {Pointer<Void>} pOptions 
      * @returns {HCLUSENUMEX} 
      */
     Call(_hCluster, dwType, pOptions) {
-        pOptionsMarshal := pOptions is VarRef ? "ptr" : "ptr"
+        pOptionsMarshal := pOptions is VarRef ? "ptr" : IntPtr
+        pOptionsMarshal := pOptions == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, HCLUSTER, _hCluster, UInt32, dwType, pOptionsMarshal, pOptions, HCLUSENUMEX)
         return result

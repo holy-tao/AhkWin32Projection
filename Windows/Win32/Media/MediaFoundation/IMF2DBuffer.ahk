@@ -120,8 +120,8 @@ export default struct IMF2DBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imf2dbuffer-lock2d
      */
     Lock2D(ppbScanline0, plPitch) {
-        ppbScanline0Marshal := ppbScanline0 is VarRef ? "ptr*" : "ptr"
-        plPitchMarshal := plPitch is VarRef ? "int*" : "ptr"
+        ppbScanline0Marshal := ppbScanline0 is VarRef ? "ptr*" : IntPtr
+        plPitchMarshal := plPitch is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, ppbScanline0Marshal, ppbScanline0, plPitchMarshal, plPitch, "HRESULT")
         return result
@@ -194,8 +194,8 @@ export default struct IMF2DBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imf2dbuffer-getscanline0andpitch
      */
     GetScanline0AndPitch(pbScanline0, plPitch) {
-        pbScanline0Marshal := pbScanline0 is VarRef ? "ptr*" : "ptr"
-        plPitchMarshal := plPitch is VarRef ? "int*" : "ptr"
+        pbScanline0Marshal := pbScanline0 is VarRef ? "ptr*" : IntPtr
+        plPitchMarshal := plPitch is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, pbScanline0Marshal, pbScanline0, plPitchMarshal, plPitch, "HRESULT")
         return result
@@ -311,13 +311,13 @@ export default struct IMF2DBuffer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Lock2D := CallbackCreate(GetMethod(implObj, "Lock2D"), flags, 3)
-        this.vtbl.Unlock2D := CallbackCreate(GetMethod(implObj, "Unlock2D"), flags, 1)
-        this.vtbl.GetScanline0AndPitch := CallbackCreate(GetMethod(implObj, "GetScanline0AndPitch"), flags, 3)
-        this.vtbl.IsContiguousFormat := CallbackCreate(GetMethod(implObj, "IsContiguousFormat"), flags, 2)
-        this.vtbl.GetContiguousLength := CallbackCreate(GetMethod(implObj, "GetContiguousLength"), flags, 2)
-        this.vtbl.ContiguousCopyTo := CallbackCreate(GetMethod(implObj, "ContiguousCopyTo"), flags, 3)
-        this.vtbl.ContiguousCopyFrom := CallbackCreate(GetMethod(implObj, "ContiguousCopyFrom"), flags, 3)
+        this.vtbl.Lock2D := CallbackCreate(ObjBindMethod(implObj, "Lock2D"), flags, 3)
+        this.vtbl.Unlock2D := CallbackCreate(ObjBindMethod(implObj, "Unlock2D"), flags, 1)
+        this.vtbl.GetScanline0AndPitch := CallbackCreate(ObjBindMethod(implObj, "GetScanline0AndPitch"), flags, 3)
+        this.vtbl.IsContiguousFormat := CallbackCreate(ObjBindMethod(implObj, "IsContiguousFormat"), flags, 2)
+        this.vtbl.GetContiguousLength := CallbackCreate(ObjBindMethod(implObj, "GetContiguousLength"), flags, 2)
+        this.vtbl.ContiguousCopyTo := CallbackCreate(ObjBindMethod(implObj, "ContiguousCopyTo"), flags, 3)
+        this.vtbl.ContiguousCopyFrom := CallbackCreate(ObjBindMethod(implObj, "ContiguousCopyFrom"), flags, 3)
     }
 
     Dispose() {

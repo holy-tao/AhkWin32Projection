@@ -105,8 +105,8 @@ export default struct IMFTimedTextStyle extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getfontsize
      */
     GetFontSize(fontSize, unitType) {
-        fontSizeMarshal := fontSize is VarRef ? "double*" : "ptr"
-        unitTypeMarshal := unitType is VarRef ? "int*" : "ptr"
+        fontSizeMarshal := fontSize is VarRef ? "double*" : IntPtr
+        unitTypeMarshal := unitType is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, fontSizeMarshal, fontSize, unitTypeMarshal, unitType, "HRESULT")
         return result
@@ -230,9 +230,9 @@ export default struct IMFTimedTextStyle extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-gettextoutline
      */
     GetTextOutline(_color, thickness, blurRadius, unitType) {
-        thicknessMarshal := thickness is VarRef ? "double*" : "ptr"
-        blurRadiusMarshal := blurRadius is VarRef ? "double*" : "ptr"
-        unitTypeMarshal := unitType is VarRef ? "int*" : "ptr"
+        thicknessMarshal := thickness is VarRef ? "double*" : IntPtr
+        blurRadiusMarshal := blurRadius is VarRef ? "double*" : IntPtr
+        unitTypeMarshal := unitType is VarRef ? "int*" : IntPtr
 
         result := ComCall(15, this, MFARGB.Ptr, _color, thicknessMarshal, thickness, blurRadiusMarshal, blurRadius, unitTypeMarshal, unitType, "HRESULT")
         return result
@@ -247,19 +247,19 @@ export default struct IMFTimedTextStyle extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
-        this.vtbl.IsExternal := CallbackCreate(GetMethod(implObj, "IsExternal"), flags, 1)
-        this.vtbl.GetFontFamily := CallbackCreate(GetMethod(implObj, "GetFontFamily"), flags, 2)
-        this.vtbl.GetFontSize := CallbackCreate(GetMethod(implObj, "GetFontSize"), flags, 3)
-        this.vtbl.GetColor := CallbackCreate(GetMethod(implObj, "GetColor"), flags, 2)
-        this.vtbl.GetBackgroundColor := CallbackCreate(GetMethod(implObj, "GetBackgroundColor"), flags, 2)
-        this.vtbl.GetShowBackgroundAlways := CallbackCreate(GetMethod(implObj, "GetShowBackgroundAlways"), flags, 2)
-        this.vtbl.GetFontStyle := CallbackCreate(GetMethod(implObj, "GetFontStyle"), flags, 2)
-        this.vtbl.GetBold := CallbackCreate(GetMethod(implObj, "GetBold"), flags, 2)
-        this.vtbl.GetRightToLeft := CallbackCreate(GetMethod(implObj, "GetRightToLeft"), flags, 2)
-        this.vtbl.GetTextAlignment := CallbackCreate(GetMethod(implObj, "GetTextAlignment"), flags, 2)
-        this.vtbl.GetTextDecoration := CallbackCreate(GetMethod(implObj, "GetTextDecoration"), flags, 2)
-        this.vtbl.GetTextOutline := CallbackCreate(GetMethod(implObj, "GetTextOutline"), flags, 5)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.IsExternal := CallbackCreate(ObjBindMethod(implObj, "IsExternal"), flags, 1)
+        this.vtbl.GetFontFamily := CallbackCreate(ObjBindMethod(implObj, "GetFontFamily"), flags, 2)
+        this.vtbl.GetFontSize := CallbackCreate(ObjBindMethod(implObj, "GetFontSize"), flags, 3)
+        this.vtbl.GetColor := CallbackCreate(ObjBindMethod(implObj, "GetColor"), flags, 2)
+        this.vtbl.GetBackgroundColor := CallbackCreate(ObjBindMethod(implObj, "GetBackgroundColor"), flags, 2)
+        this.vtbl.GetShowBackgroundAlways := CallbackCreate(ObjBindMethod(implObj, "GetShowBackgroundAlways"), flags, 2)
+        this.vtbl.GetFontStyle := CallbackCreate(ObjBindMethod(implObj, "GetFontStyle"), flags, 2)
+        this.vtbl.GetBold := CallbackCreate(ObjBindMethod(implObj, "GetBold"), flags, 2)
+        this.vtbl.GetRightToLeft := CallbackCreate(ObjBindMethod(implObj, "GetRightToLeft"), flags, 2)
+        this.vtbl.GetTextAlignment := CallbackCreate(ObjBindMethod(implObj, "GetTextAlignment"), flags, 2)
+        this.vtbl.GetTextDecoration := CallbackCreate(ObjBindMethod(implObj, "GetTextDecoration"), flags, 2)
+        this.vtbl.GetTextOutline := CallbackCreate(ObjBindMethod(implObj, "GetTextOutline"), flags, 5)
     }
 
     Dispose() {

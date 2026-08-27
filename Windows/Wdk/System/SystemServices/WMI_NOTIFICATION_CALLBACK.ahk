@@ -18,7 +18,6 @@ export default struct WMI_NOTIFICATION_CALLBACK {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

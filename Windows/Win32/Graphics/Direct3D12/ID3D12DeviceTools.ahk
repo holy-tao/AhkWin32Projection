@@ -35,7 +35,6 @@ export default struct ID3D12DeviceTools extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nextAllocationVirtualAddress 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -52,7 +51,7 @@ export default struct ID3D12DeviceTools extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetNextAllocationAddress := CallbackCreate(GetMethod(implObj, "SetNextAllocationAddress"), flags, 2)
+        this.vtbl.SetNextAllocationAddress := CallbackCreate(ObjBindMethod(implObj, "SetNextAllocationAddress"), flags, 2)
     }
 
     Dispose() {

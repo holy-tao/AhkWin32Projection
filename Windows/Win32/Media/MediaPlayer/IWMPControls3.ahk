@@ -106,7 +106,7 @@ export default struct IWMPControls3 extends IWMPControls2 {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols3-get_audiolanguagecount
      */
     get_audioLanguageCount(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+        plCountMarshal := plCount is VarRef ? "int*" : IntPtr
 
         result := ComCall(24, this, plCountMarshal, plCount, "HRESULT")
         return result
@@ -146,7 +146,7 @@ export default struct IWMPControls3 extends IWMPControls2 {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols3-getaudiolanguageid
      */
     getAudioLanguageID(lIndex, plLangID) {
-        plLangIDMarshal := plLangID is VarRef ? "int*" : "ptr"
+        plLangIDMarshal := plLangID is VarRef ? "int*" : IntPtr
 
         result := ComCall(25, this, Int32, lIndex, plLangIDMarshal, plLangID, "HRESULT")
         return result
@@ -221,7 +221,7 @@ export default struct IWMPControls3 extends IWMPControls2 {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols3-get_currentaudiolanguage
      */
     get_currentAudioLanguage(plLangID) {
-        plLangIDMarshal := plLangID is VarRef ? "int*" : "ptr"
+        plLangIDMarshal := plLangID is VarRef ? "int*" : IntPtr
 
         result := ComCall(27, this, plLangIDMarshal, plLangID, "HRESULT")
         return result
@@ -295,7 +295,7 @@ export default struct IWMPControls3 extends IWMPControls2 {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols3-get_currentaudiolanguageindex
      */
     get_currentAudioLanguageIndex(plIndex) {
-        plIndexMarshal := plIndex is VarRef ? "int*" : "ptr"
+        plIndexMarshal := plIndex is VarRef ? "int*" : IntPtr
 
         result := ComCall(29, this, plIndexMarshal, plIndex, "HRESULT")
         return result
@@ -463,16 +463,16 @@ export default struct IWMPControls3 extends IWMPControls2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_audioLanguageCount := CallbackCreate(GetMethod(implObj, "get_audioLanguageCount"), flags, 2)
-        this.vtbl.getAudioLanguageID := CallbackCreate(GetMethod(implObj, "getAudioLanguageID"), flags, 3)
-        this.vtbl.getAudioLanguageDescription := CallbackCreate(GetMethod(implObj, "getAudioLanguageDescription"), flags, 3)
-        this.vtbl.get_currentAudioLanguage := CallbackCreate(GetMethod(implObj, "get_currentAudioLanguage"), flags, 2)
-        this.vtbl.put_currentAudioLanguage := CallbackCreate(GetMethod(implObj, "put_currentAudioLanguage"), flags, 2)
-        this.vtbl.get_currentAudioLanguageIndex := CallbackCreate(GetMethod(implObj, "get_currentAudioLanguageIndex"), flags, 2)
-        this.vtbl.put_currentAudioLanguageIndex := CallbackCreate(GetMethod(implObj, "put_currentAudioLanguageIndex"), flags, 2)
-        this.vtbl.getLanguageName := CallbackCreate(GetMethod(implObj, "getLanguageName"), flags, 3)
-        this.vtbl.get_currentPositionTimecode := CallbackCreate(GetMethod(implObj, "get_currentPositionTimecode"), flags, 2)
-        this.vtbl.put_currentPositionTimecode := CallbackCreate(GetMethod(implObj, "put_currentPositionTimecode"), flags, 2)
+        this.vtbl.get_audioLanguageCount := CallbackCreate(ObjBindMethod(implObj, "get_audioLanguageCount"), flags, 2)
+        this.vtbl.getAudioLanguageID := CallbackCreate(ObjBindMethod(implObj, "getAudioLanguageID"), flags, 3)
+        this.vtbl.getAudioLanguageDescription := CallbackCreate(ObjBindMethod(implObj, "getAudioLanguageDescription"), flags, 3)
+        this.vtbl.get_currentAudioLanguage := CallbackCreate(ObjBindMethod(implObj, "get_currentAudioLanguage"), flags, 2)
+        this.vtbl.put_currentAudioLanguage := CallbackCreate(ObjBindMethod(implObj, "put_currentAudioLanguage"), flags, 2)
+        this.vtbl.get_currentAudioLanguageIndex := CallbackCreate(ObjBindMethod(implObj, "get_currentAudioLanguageIndex"), flags, 2)
+        this.vtbl.put_currentAudioLanguageIndex := CallbackCreate(ObjBindMethod(implObj, "put_currentAudioLanguageIndex"), flags, 2)
+        this.vtbl.getLanguageName := CallbackCreate(ObjBindMethod(implObj, "getLanguageName"), flags, 3)
+        this.vtbl.get_currentPositionTimecode := CallbackCreate(ObjBindMethod(implObj, "get_currentPositionTimecode"), flags, 2)
+        this.vtbl.put_currentPositionTimecode := CallbackCreate(ObjBindMethod(implObj, "put_currentPositionTimecode"), flags, 2)
     }
 
     Dispose() {

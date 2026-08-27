@@ -45,7 +45,6 @@ export default struct IRadioInstance extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     GetRadioManagerSignature() {
@@ -55,7 +54,6 @@ export default struct IRadioInstance extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetInstanceSignature() {
@@ -65,7 +63,6 @@ export default struct IRadioInstance extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lcid 
      * @returns {BSTR} 
      */
@@ -76,7 +73,6 @@ export default struct IRadioInstance extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DEVICE_RADIO_STATE} 
      */
     GetRadioState() {
@@ -85,7 +81,6 @@ export default struct IRadioInstance extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEVICE_RADIO_STATE} radioState 
      * @param {Integer} uTimeoutSec 
      * @returns {HRESULT} 
@@ -96,7 +91,6 @@ export default struct IRadioInstance extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsMultiComm() {
@@ -105,7 +99,6 @@ export default struct IRadioInstance extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsAssociatingDevice() {
@@ -122,13 +115,13 @@ export default struct IRadioInstance extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRadioManagerSignature := CallbackCreate(GetMethod(implObj, "GetRadioManagerSignature"), flags, 2)
-        this.vtbl.GetInstanceSignature := CallbackCreate(GetMethod(implObj, "GetInstanceSignature"), flags, 2)
-        this.vtbl.GetFriendlyName := CallbackCreate(GetMethod(implObj, "GetFriendlyName"), flags, 3)
-        this.vtbl.GetRadioState := CallbackCreate(GetMethod(implObj, "GetRadioState"), flags, 2)
-        this.vtbl.SetRadioState := CallbackCreate(GetMethod(implObj, "SetRadioState"), flags, 3)
-        this.vtbl.IsMultiComm := CallbackCreate(GetMethod(implObj, "IsMultiComm"), flags, 1)
-        this.vtbl.IsAssociatingDevice := CallbackCreate(GetMethod(implObj, "IsAssociatingDevice"), flags, 1)
+        this.vtbl.GetRadioManagerSignature := CallbackCreate(ObjBindMethod(implObj, "GetRadioManagerSignature"), flags, 2)
+        this.vtbl.GetInstanceSignature := CallbackCreate(ObjBindMethod(implObj, "GetInstanceSignature"), flags, 2)
+        this.vtbl.GetFriendlyName := CallbackCreate(ObjBindMethod(implObj, "GetFriendlyName"), flags, 3)
+        this.vtbl.GetRadioState := CallbackCreate(ObjBindMethod(implObj, "GetRadioState"), flags, 2)
+        this.vtbl.SetRadioState := CallbackCreate(ObjBindMethod(implObj, "SetRadioState"), flags, 3)
+        this.vtbl.IsMultiComm := CallbackCreate(ObjBindMethod(implObj, "IsMultiComm"), flags, 1)
+        this.vtbl.IsAssociatingDevice := CallbackCreate(ObjBindMethod(implObj, "IsAssociatingDevice"), flags, 1)
     }
 
     Dispose() {

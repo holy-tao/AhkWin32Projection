@@ -308,17 +308,17 @@ export default struct ITLocationInfo extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_PermanentLocationID := CallbackCreate(GetMethod(implObj, "get_PermanentLocationID"), flags, 2)
-        this.vtbl.get_CountryCode := CallbackCreate(GetMethod(implObj, "get_CountryCode"), flags, 2)
-        this.vtbl.get_CountryID := CallbackCreate(GetMethod(implObj, "get_CountryID"), flags, 2)
-        this.vtbl.get_Options := CallbackCreate(GetMethod(implObj, "get_Options"), flags, 2)
-        this.vtbl.get_PreferredCardID := CallbackCreate(GetMethod(implObj, "get_PreferredCardID"), flags, 2)
-        this.vtbl.get_LocationName := CallbackCreate(GetMethod(implObj, "get_LocationName"), flags, 2)
-        this.vtbl.get_CityCode := CallbackCreate(GetMethod(implObj, "get_CityCode"), flags, 2)
-        this.vtbl.get_LocalAccessCode := CallbackCreate(GetMethod(implObj, "get_LocalAccessCode"), flags, 2)
-        this.vtbl.get_LongDistanceAccessCode := CallbackCreate(GetMethod(implObj, "get_LongDistanceAccessCode"), flags, 2)
-        this.vtbl.get_TollPrefixList := CallbackCreate(GetMethod(implObj, "get_TollPrefixList"), flags, 2)
-        this.vtbl.get_CancelCallWaitingCode := CallbackCreate(GetMethod(implObj, "get_CancelCallWaitingCode"), flags, 2)
+        this.vtbl.get_PermanentLocationID := CallbackCreate(ObjBindMethod(implObj, "get_PermanentLocationID"), flags, 2)
+        this.vtbl.get_CountryCode := CallbackCreate(ObjBindMethod(implObj, "get_CountryCode"), flags, 2)
+        this.vtbl.get_CountryID := CallbackCreate(ObjBindMethod(implObj, "get_CountryID"), flags, 2)
+        this.vtbl.get_Options := CallbackCreate(ObjBindMethod(implObj, "get_Options"), flags, 2)
+        this.vtbl.get_PreferredCardID := CallbackCreate(ObjBindMethod(implObj, "get_PreferredCardID"), flags, 2)
+        this.vtbl.get_LocationName := CallbackCreate(ObjBindMethod(implObj, "get_LocationName"), flags, 2)
+        this.vtbl.get_CityCode := CallbackCreate(ObjBindMethod(implObj, "get_CityCode"), flags, 2)
+        this.vtbl.get_LocalAccessCode := CallbackCreate(ObjBindMethod(implObj, "get_LocalAccessCode"), flags, 2)
+        this.vtbl.get_LongDistanceAccessCode := CallbackCreate(ObjBindMethod(implObj, "get_LongDistanceAccessCode"), flags, 2)
+        this.vtbl.get_TollPrefixList := CallbackCreate(ObjBindMethod(implObj, "get_TollPrefixList"), flags, 2)
+        this.vtbl.get_CancelCallWaitingCode := CallbackCreate(ObjBindMethod(implObj, "get_CancelCallWaitingCode"), flags, 2)
     }
 
     Dispose() {

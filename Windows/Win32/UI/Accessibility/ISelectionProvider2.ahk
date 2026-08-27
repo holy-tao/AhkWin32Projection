@@ -141,10 +141,10 @@ export default struct ISelectionProvider2 extends ISelectionProvider {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_FirstSelectedItem := CallbackCreate(GetMethod(implObj, "get_FirstSelectedItem"), flags, 2)
-        this.vtbl.get_LastSelectedItem := CallbackCreate(GetMethod(implObj, "get_LastSelectedItem"), flags, 2)
-        this.vtbl.get_CurrentSelectedItem := CallbackCreate(GetMethod(implObj, "get_CurrentSelectedItem"), flags, 2)
-        this.vtbl.get_ItemCount := CallbackCreate(GetMethod(implObj, "get_ItemCount"), flags, 2)
+        this.vtbl.get_FirstSelectedItem := CallbackCreate(ObjBindMethod(implObj, "get_FirstSelectedItem"), flags, 2)
+        this.vtbl.get_LastSelectedItem := CallbackCreate(ObjBindMethod(implObj, "get_LastSelectedItem"), flags, 2)
+        this.vtbl.get_CurrentSelectedItem := CallbackCreate(ObjBindMethod(implObj, "get_CurrentSelectedItem"), flags, 2)
+        this.vtbl.get_ItemCount := CallbackCreate(ObjBindMethod(implObj, "get_ItemCount"), flags, 2)
     }
 
     Dispose() {

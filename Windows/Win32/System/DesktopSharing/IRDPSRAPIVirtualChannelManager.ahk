@@ -106,9 +106,9 @@ export default struct IRDPSRAPIVirtualChannelManager extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
-        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
-        this.vtbl.CreateVirtualChannel := CallbackCreate(GetMethod(implObj, "CreateVirtualChannel"), flags, 5)
+        this.vtbl.get__NewEnum := CallbackCreate(ObjBindMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(ObjBindMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.CreateVirtualChannel := CallbackCreate(ObjBindMethod(implObj, "CreateVirtualChannel"), flags, 5)
     }
 
     Dispose() {

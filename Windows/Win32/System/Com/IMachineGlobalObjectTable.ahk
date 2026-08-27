@@ -40,7 +40,6 @@ export default struct IMachineGlobalObjectTable extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} clsid 
      * @param {PWSTR} identifier 
      * @param {IUnknown} _object 
@@ -79,7 +78,6 @@ export default struct IMachineGlobalObjectTable extends IUnknown {
     }
 
     /**
-     * 
      * @param {MachineGlobalObjectTableRegistrationToken} token 
      * @returns {HRESULT} 
      */
@@ -97,9 +95,9 @@ export default struct IMachineGlobalObjectTable extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterObject := CallbackCreate(GetMethod(implObj, "RegisterObject"), flags, 5)
-        this.vtbl.GetObject := CallbackCreate(GetMethod(implObj, "GetObject"), flags, 5)
-        this.vtbl.RevokeObject := CallbackCreate(GetMethod(implObj, "RevokeObject"), flags, 2)
+        this.vtbl.RegisterObject := CallbackCreate(ObjBindMethod(implObj, "RegisterObject"), flags, 5)
+        this.vtbl.GetObject := CallbackCreate(ObjBindMethod(implObj, "GetObject"), flags, 5)
+        this.vtbl.RevokeObject := CallbackCreate(ObjBindMethod(implObj, "RevokeObject"), flags, 2)
     }
 
     Dispose() {

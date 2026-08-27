@@ -92,7 +92,6 @@ export default struct IADsSession extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_User() {
@@ -102,7 +101,6 @@ export default struct IADsSession extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_UserPath() {
@@ -112,7 +110,6 @@ export default struct IADsSession extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Computer() {
@@ -122,7 +119,6 @@ export default struct IADsSession extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ComputerPath() {
@@ -132,7 +128,6 @@ export default struct IADsSession extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ConnectTime() {
@@ -141,7 +136,6 @@ export default struct IADsSession extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_IdleTime() {
@@ -158,12 +152,12 @@ export default struct IADsSession extends IADs {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_User := CallbackCreate(GetMethod(implObj, "get_User"), flags, 2)
-        this.vtbl.get_UserPath := CallbackCreate(GetMethod(implObj, "get_UserPath"), flags, 2)
-        this.vtbl.get_Computer := CallbackCreate(GetMethod(implObj, "get_Computer"), flags, 2)
-        this.vtbl.get_ComputerPath := CallbackCreate(GetMethod(implObj, "get_ComputerPath"), flags, 2)
-        this.vtbl.get_ConnectTime := CallbackCreate(GetMethod(implObj, "get_ConnectTime"), flags, 2)
-        this.vtbl.get_IdleTime := CallbackCreate(GetMethod(implObj, "get_IdleTime"), flags, 2)
+        this.vtbl.get_User := CallbackCreate(ObjBindMethod(implObj, "get_User"), flags, 2)
+        this.vtbl.get_UserPath := CallbackCreate(ObjBindMethod(implObj, "get_UserPath"), flags, 2)
+        this.vtbl.get_Computer := CallbackCreate(ObjBindMethod(implObj, "get_Computer"), flags, 2)
+        this.vtbl.get_ComputerPath := CallbackCreate(ObjBindMethod(implObj, "get_ComputerPath"), flags, 2)
+        this.vtbl.get_ConnectTime := CallbackCreate(ObjBindMethod(implObj, "get_ConnectTime"), flags, 2)
+        this.vtbl.get_IdleTime := CallbackCreate(ObjBindMethod(implObj, "get_IdleTime"), flags, 2)
     }
 
     Dispose() {

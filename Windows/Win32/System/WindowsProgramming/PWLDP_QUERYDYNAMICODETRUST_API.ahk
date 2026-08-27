@@ -20,14 +20,15 @@ export default struct PWLDP_QUERYDYNAMICODETRUST_API {
     }
 
     /**
-     * 
      * @param {HANDLE} fileHandle 
      * @param {Integer} baseImage 
      * @param {Integer} imageSize 
      * @returns {HRESULT} 
      */
     Call(fileHandle, baseImage, imageSize) {
-        result := DllCall(this.value, HANDLE, fileHandle, IntPtr, baseImage, UInt32, imageSize, "HRESULT")
+        baseImageMarshal := baseImage == 0 ? IntPtr : IntPtr
+
+        result := DllCall(this.value, HANDLE, fileHandle, baseImageMarshal, baseImage, UInt32, imageSize, "HRESULT")
         return result
     }
 

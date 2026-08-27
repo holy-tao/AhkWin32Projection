@@ -122,7 +122,7 @@ export default struct IDesktopGadget extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RunGadget := CallbackCreate(GetMethod(implObj, "RunGadget"), flags, 2)
+        this.vtbl.RunGadget := CallbackCreate(ObjBindMethod(implObj, "RunGadget"), flags, 2)
     }
 
     Dispose() {

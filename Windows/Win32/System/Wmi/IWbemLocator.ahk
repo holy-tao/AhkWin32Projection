@@ -120,7 +120,7 @@ export default struct IWbemLocator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ConnectServer := CallbackCreate(GetMethod(implObj, "ConnectServer"), flags, 9)
+        this.vtbl.ConnectServer := CallbackCreate(ObjBindMethod(implObj, "ConnectServer"), flags, 9)
     }
 
     Dispose() {

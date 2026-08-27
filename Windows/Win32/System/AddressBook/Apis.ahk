@@ -67,7 +67,7 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/createtable
  */
 export CreateTable(lpInterface, _lpAllocateBuffer, _lpAllocateMore, _lpFreeBuffer, lpvReserved, ulTableType, ulPropTagIndexColumn, lpSPropTagArrayColumns, lppTableData) {
-    lpvReservedMarshal := lpvReserved is VarRef ? "ptr" : "ptr"
+    lpvReservedMarshal := lpvReserved is VarRef ? "ptr" : IntPtr
 
     result := DllCall("rtm.dll\CreateTable", Guid.Ptr, lpInterface, LPALLOCATEBUFFER, _lpAllocateBuffer, LPALLOCATEMORE, _lpAllocateMore, LPFREEBUFFER, _lpFreeBuffer, lpvReservedMarshal, lpvReserved, UInt32, ulTableType, UInt32, ulPropTagIndexColumn, SPropTagArray.Ptr, lpSPropTagArrayColumns, ITableData.Ptr, lppTableData, Int32)
     return result
@@ -93,7 +93,7 @@ export CreateTable(lpInterface, _lpAllocateBuffer, _lpAllocateMore, _lpFreeBuffe
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/createiprop
  */
 export CreateIProp(lpInterface, _lpAllocateBuffer, _lpAllocateMore, _lpFreeBuffer, lpvReserved, lppPropData) {
-    lpvReservedMarshal := lpvReserved is VarRef ? "ptr" : "ptr"
+    lpvReservedMarshal := lpvReserved is VarRef ? "ptr" : IntPtr
 
     result := DllCall("MAPI32.dll\CreateIProp", Guid.Ptr, lpInterface, LPALLOCATEBUFFER, _lpAllocateBuffer, LPALLOCATEMORE, _lpAllocateMore, LPFREEBUFFER, _lpFreeBuffer, lpvReservedMarshal, lpvReserved, IPropData.Ptr, lppPropData, Int32)
     return result
@@ -123,14 +123,13 @@ export CreateIProp(lpInterface, _lpAllocateBuffer, _lpAllocateMore, _lpFreeBuffe
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/mapiinitidle
  */
 export MAPIInitIdle(lpvReserved) {
-    lpvReservedMarshal := lpvReserved is VarRef ? "ptr" : "ptr"
+    lpvReservedMarshal := lpvReserved is VarRef ? "ptr" : IntPtr
 
     result := DllCall("MAPI32.dll\MAPIInitIdle", lpvReservedMarshal, lpvReserved, Int32)
     return result
 }
 
 /**
- * 
  * @returns {String} Nothing - always returns an empty string
  */
 export MAPIDeinitIdle() {
@@ -201,7 +200,7 @@ export MAPIDeinitIdle() {
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ftgregisteridleroutine
  */
 export FtgRegisterIdleRoutine(lpfnIdle, lpvIdleParam, priIdle, csecIdle, iroIdle) {
-    lpvIdleParamMarshal := lpvIdleParam is VarRef ? "ptr" : "ptr"
+    lpvIdleParamMarshal := lpvIdleParam is VarRef ? "ptr" : IntPtr
 
     result := DllCall("MAPI32.dll\FtgRegisterIdleRoutine", PFNIDLE, lpfnIdle, lpvIdleParamMarshal, lpvIdleParam, Int16, priIdle, UInt32, csecIdle, UInt16, iroIdle, IntPtr)
     return result
@@ -233,7 +232,7 @@ export FtgRegisterIdleRoutine(lpfnIdle, lpvIdleParam, priIdle, csecIdle, iroIdle
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/deregisteridleroutine
  */
 export DeregisterIdleRoutine(ftg) {
-    ftgMarshal := ftg is VarRef ? "ptr" : "ptr"
+    ftgMarshal := ftg is VarRef ? "ptr" : IntPtr
 
     DllCall("MAPI32.dll\DeregisterIdleRoutine", ftgMarshal, ftg)
 }
@@ -261,7 +260,7 @@ export DeregisterIdleRoutine(ftg) {
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/enableidleroutine
  */
 export EnableIdleRoutine(ftg, fEnable) {
-    ftgMarshal := ftg is VarRef ? "ptr" : "ptr"
+    ftgMarshal := ftg is VarRef ? "ptr" : IntPtr
 
     DllCall("MAPI32.dll\EnableIdleRoutine", ftgMarshal, ftg, BOOL, fEnable)
 }
@@ -316,8 +315,8 @@ export EnableIdleRoutine(ftg, fEnable) {
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/changeidleroutine
  */
 export ChangeIdleRoutine(ftg, lpfnIdle, lpvIdleParam, priIdle, csecIdle, iroIdle, ircIdle) {
-    ftgMarshal := ftg is VarRef ? "ptr" : "ptr"
-    lpvIdleParamMarshal := lpvIdleParam is VarRef ? "ptr" : "ptr"
+    ftgMarshal := ftg is VarRef ? "ptr" : IntPtr
+    lpvIdleParamMarshal := lpvIdleParam is VarRef ? "ptr" : IntPtr
 
     DllCall("MAPI32.dll\ChangeIdleRoutine", ftgMarshal, ftg, PFNIDLE, lpfnIdle, lpvIdleParamMarshal, lpvIdleParam, Int16, priIdle, UInt32, csecIdle, UInt16, iroIdle, UInt16, ircIdle)
 }
@@ -374,8 +373,9 @@ export MAPIGetDefaultMalloc() {
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/openstreamonfile
  */
 export OpenStreamOnFile(_lpAllocateBuffer, _lpFreeBuffer, ulFlags, lpszFileName, lpszPrefix) {
-    lpszFileNameMarshal := lpszFileName is VarRef ? "char*" : "ptr"
-    lpszPrefixMarshal := lpszPrefix is VarRef ? "char*" : "ptr"
+    lpszFileNameMarshal := lpszFileName is VarRef ? "char*" : IntPtr
+    lpszPrefixMarshal := lpszPrefix is VarRef ? "char*" : IntPtr
+    lpszPrefixMarshal := lpszPrefix == 0 ? IntPtr : "char*"
 
     result := DllCall("MAPI32.dll\OpenStreamOnFile", LPALLOCATEBUFFER, _lpAllocateBuffer, LPFREEBUFFER, _lpFreeBuffer, UInt32, ulFlags, lpszFileNameMarshal, lpszFileName, lpszPrefixMarshal, lpszPrefix, "ptr*", &lppStream := 0, "HRESULT")
     return IStream(lppStream)
@@ -403,7 +403,7 @@ export OpenStreamOnFile(_lpAllocateBuffer, _lpFreeBuffer, ulFlags, lpszFileName,
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/propcopymore
  */
 export PropCopyMore(lpSPropValueDest, lpSPropValueSrc, lpfAllocMore, lpvObject) {
-    lpvObjectMarshal := lpvObject is VarRef ? "ptr" : "ptr"
+    lpvObjectMarshal := lpvObject is VarRef ? "ptr" : IntPtr
 
     result := DllCall("MAPI32.dll\PropCopyMore", SPropValue.Ptr, lpSPropValueDest, SPropValue.Ptr, lpSPropValueSrc, LPALLOCATEMORE, lpfAllocMore, lpvObjectMarshal, lpvObject, Int32)
     return result
@@ -592,7 +592,7 @@ export HrAddColumnsEx(lptbl, lpproptagColumnsNew, _lpAllocateBuffer, _lpFreeBuff
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/hrallocadvisesink
  */
 export HrAllocAdviseSink(lpfnCallback, lpvContext) {
-    lpvContextMarshal := lpvContext is VarRef ? "ptr" : "ptr"
+    lpvContextMarshal := lpvContext is VarRef ? "ptr" : IntPtr
 
     result := DllCall("MAPI32.dll\HrAllocAdviseSink", LPNOTIFCALLBACK, lpfnCallback, lpvContextMarshal, lpvContext, "ptr*", &lppAdviseSink := 0, "HRESULT")
     return IMAPIAdviseSink(lppAdviseSink)
@@ -689,7 +689,7 @@ export BuildDisplayTable(_lpAllocateBuffer, _lpAllocateMore, _lpFreeBuffer, lpMa
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sccountnotifications
  */
 export ScCountNotifications(cNotifications, lpNotifications, lpcb) {
-    lpcbMarshal := lpcb is VarRef ? "uint*" : "ptr"
+    lpcbMarshal := lpcb is VarRef ? "uint*" : IntPtr
 
     result := DllCall("MAPI32.dll\ScCountNotifications", Int32, cNotifications, NOTIFICATION.Ptr, lpNotifications, lpcbMarshal, lpcb, Int32)
     return result
@@ -713,8 +713,8 @@ export ScCountNotifications(cNotifications, lpNotifications, lpcb) {
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sccopynotifications
  */
 export ScCopyNotifications(cNotification, lpNotifications, lpvDst, lpcb) {
-    lpvDstMarshal := lpvDst is VarRef ? "ptr" : "ptr"
-    lpcbMarshal := lpcb is VarRef ? "uint*" : "ptr"
+    lpvDstMarshal := lpvDst is VarRef ? "ptr" : IntPtr
+    lpcbMarshal := lpcb is VarRef ? "uint*" : IntPtr
 
     result := DllCall("MAPI32.dll\ScCopyNotifications", Int32, cNotification, NOTIFICATION.Ptr, lpNotifications, lpvDstMarshal, lpvDst, lpcbMarshal, lpcb, Int32)
     return result
@@ -739,9 +739,9 @@ export ScCopyNotifications(cNotification, lpNotifications, lpvDst, lpcb) {
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/screlocnotifications
  */
 export ScRelocNotifications(cNotification, lpNotifications, lpvBaseOld, lpvBaseNew, lpcb) {
-    lpvBaseOldMarshal := lpvBaseOld is VarRef ? "ptr" : "ptr"
-    lpvBaseNewMarshal := lpvBaseNew is VarRef ? "ptr" : "ptr"
-    lpcbMarshal := lpcb is VarRef ? "uint*" : "ptr"
+    lpvBaseOldMarshal := lpvBaseOld is VarRef ? "ptr" : IntPtr
+    lpvBaseNewMarshal := lpvBaseNew is VarRef ? "ptr" : IntPtr
+    lpcbMarshal := lpcb is VarRef ? "uint*" : IntPtr
 
     result := DllCall("MAPI32.dll\ScRelocNotifications", Int32, cNotification, NOTIFICATION.Ptr, lpNotifications, lpvBaseOldMarshal, lpvBaseOld, lpvBaseNewMarshal, lpvBaseNew, lpcbMarshal, lpcb, Int32)
     return result
@@ -766,7 +766,7 @@ export ScRelocNotifications(cNotification, lpNotifications, lpvBaseOld, lpvBaseN
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sccountprops
  */
 export ScCountProps(cValues, lpPropArray, lpcb) {
-    lpcbMarshal := lpcb is VarRef ? "uint*" : "ptr"
+    lpcbMarshal := lpcb is VarRef ? "uint*" : IntPtr
 
     result := DllCall("MAPI32.dll\ScCountProps", Int32, cValues, SPropValue.Ptr, lpPropArray, lpcbMarshal, lpcb, Int32)
     return result
@@ -809,8 +809,8 @@ export LpValFindProp(ulPropTag, cValues, lpPropArray) {
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sccopyprops
  */
 export ScCopyProps(cValues, lpPropArray, lpvDst, lpcb) {
-    lpvDstMarshal := lpvDst is VarRef ? "ptr" : "ptr"
-    lpcbMarshal := lpcb is VarRef ? "uint*" : "ptr"
+    lpvDstMarshal := lpvDst is VarRef ? "ptr" : IntPtr
+    lpcbMarshal := lpcb is VarRef ? "uint*" : IntPtr
 
     result := DllCall("MAPI32.dll\ScCopyProps", Int32, cValues, SPropValue.Ptr, lpPropArray, lpvDstMarshal, lpvDst, lpcbMarshal, lpcb, Int32)
     return result
@@ -843,9 +843,9 @@ export ScCopyProps(cValues, lpPropArray, lpvDst, lpcb) {
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/screlocprops
  */
 export ScRelocProps(cValues, lpPropArray, lpvBaseOld, lpvBaseNew, lpcb) {
-    lpvBaseOldMarshal := lpvBaseOld is VarRef ? "ptr" : "ptr"
-    lpvBaseNewMarshal := lpvBaseNew is VarRef ? "ptr" : "ptr"
-    lpcbMarshal := lpcb is VarRef ? "uint*" : "ptr"
+    lpvBaseOldMarshal := lpvBaseOld is VarRef ? "ptr" : IntPtr
+    lpvBaseNewMarshal := lpvBaseNew is VarRef ? "ptr" : IntPtr
+    lpcbMarshal := lpcb is VarRef ? "uint*" : IntPtr
 
     result := DllCall("MAPI32.dll\ScRelocProps", Int32, cValues, SPropValue.Ptr, lpPropArray, lpvBaseOldMarshal, lpvBaseOld, lpvBaseNewMarshal, lpvBaseNew, lpcbMarshal, lpcb, Int32)
     return result
@@ -863,7 +863,7 @@ export ScRelocProps(cValues, lpPropArray, lpvBaseOld, lpvBaseNew, lpcb) {
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/scduppropset
  */
 export ScDupPropset(cValues, lpPropArray, _lpAllocateBuffer, lppPropArray) {
-    lppPropArrayMarshal := lppPropArray is VarRef ? "ptr*" : "ptr"
+    lppPropArrayMarshal := lppPropArray is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("MAPI32.dll\ScDupPropset", Int32, cValues, SPropValue.Ptr, lpPropArray, LPALLOCATEBUFFER, _lpAllocateBuffer, lppPropArrayMarshal, lppPropArray, Int32)
     return result
@@ -886,7 +886,7 @@ export ScDupPropset(cValues, lpPropArray, _lpAllocateBuffer, lppPropArray) {
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/uladdref
  */
 export UlAddRef(lpunk) {
-    lpunkMarshal := lpunk is VarRef ? "ptr" : "ptr"
+    lpunkMarshal := lpunk is VarRef ? "ptr" : IntPtr
 
     result := DllCall("MAPI32.dll\UlAddRef", lpunkMarshal, lpunk, UInt32)
     return result
@@ -913,7 +913,7 @@ export UlAddRef(lpunk) {
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ulrelease
  */
 export UlRelease(lpunk) {
-    lpunkMarshal := lpunk is VarRef ? "ptr" : "ptr"
+    lpunkMarshal := lpunk is VarRef ? "ptr" : IntPtr
 
     result := DllCall("MAPI32.dll\UlRelease", lpunkMarshal, lpunk, UInt32)
     return result
@@ -934,7 +934,7 @@ export UlRelease(lpunk) {
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/hrgetoneprop
  */
 export HrGetOneProp(lpMapiProp, ulPropTag, lppProp) {
-    lppPropMarshal := lppProp is VarRef ? "ptr*" : "ptr"
+    lppPropMarshal := lppProp is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("MAPI32.dll\HrGetOneProp", "ptr", lpMapiProp, UInt32, ulPropTag, lppPropMarshal, lppProp, "HRESULT")
     return result
@@ -1035,7 +1035,7 @@ export FreeProws(lpRows) {
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/hrqueryallrows
  */
 export HrQueryAllRows(lpTable, lpPropTags, lpRestriction, lpSortOrderSet, crowsMax, lppRows) {
-    lppRowsMarshal := lppRows is VarRef ? "ptr*" : "ptr"
+    lppRowsMarshal := lppRows is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("MAPI32.dll\HrQueryAllRows", "ptr", lpTable, SPropTagArray.Ptr, lpPropTags, SRestriction.Ptr, lpRestriction, SSortOrderSet.Ptr, lpSortOrderSet, Int32, crowsMax, lppRowsMarshal, lppRows, "HRESULT")
     return result
@@ -1051,7 +1051,7 @@ export HrQueryAllRows(lpTable, lpPropTags, lpRestriction, lpSortOrderSet, crowsM
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/szfindch
  */
 export SzFindCh(lpsz, ch) {
-    lpszMarshal := lpsz is VarRef ? "char*" : "ptr"
+    lpszMarshal := lpsz is VarRef ? "char*" : IntPtr
 
     result := DllCall("MAPI32.dll\SzFindCh", lpszMarshal, lpsz, UInt16, ch, IntPtr)
     return result
@@ -1067,7 +1067,7 @@ export SzFindCh(lpsz, ch) {
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/szfindlastch
  */
 export SzFindLastCh(lpsz, ch) {
-    lpszMarshal := lpsz is VarRef ? "char*" : "ptr"
+    lpszMarshal := lpsz is VarRef ? "char*" : IntPtr
 
     result := DllCall("MAPI32.dll\SzFindLastCh", lpszMarshal, lpsz, UInt16, ch, IntPtr)
     return result
@@ -1083,8 +1083,8 @@ export SzFindLastCh(lpsz, ch) {
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/szfindsz
  */
 export SzFindSz(lpsz, lpszKey) {
-    lpszMarshal := lpsz is VarRef ? "char*" : "ptr"
-    lpszKeyMarshal := lpszKey is VarRef ? "char*" : "ptr"
+    lpszMarshal := lpsz is VarRef ? "char*" : IntPtr
+    lpszKeyMarshal := lpszKey is VarRef ? "char*" : IntPtr
 
     result := DllCall("MAPI32.dll\SzFindSz", lpszMarshal, lpsz, lpszKeyMarshal, lpszKey, IntPtr)
     return result
@@ -1101,7 +1101,7 @@ export SzFindSz(lpsz, lpszKey) {
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ufromsz
  */
 export UFromSz(lpsz) {
-    lpszMarshal := lpsz is VarRef ? "char*" : "ptr"
+    lpszMarshal := lpsz is VarRef ? "char*" : IntPtr
 
     result := DllCall("MAPI32.dll\UFromSz", lpszMarshal, lpsz, UInt32)
     return result
@@ -1238,9 +1238,9 @@ export FtNegFt(ft) {
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sccreateconversationindex
  */
 export ScCreateConversationIndex(cbParent, lpbParent, lpcbConvIndex, lppbConvIndex) {
-    lpbParentMarshal := lpbParent is VarRef ? "char*" : "ptr"
-    lpcbConvIndexMarshal := lpcbConvIndex is VarRef ? "uint*" : "ptr"
-    lppbConvIndexMarshal := lppbConvIndex is VarRef ? "ptr*" : "ptr"
+    lpbParentMarshal := lpbParent is VarRef ? "char*" : IntPtr
+    lpcbConvIndexMarshal := lpcbConvIndex is VarRef ? "uint*" : IntPtr
+    lppbConvIndexMarshal := lppbConvIndex is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("MAPI32.dll\ScCreateConversationIndex", UInt32, cbParent, lpbParentMarshal, lpbParent, lpcbConvIndexMarshal, lpcbConvIndex, lppbConvIndexMarshal, lppbConvIndex, Int32)
     return result
@@ -1267,7 +1267,7 @@ export ScCreateConversationIndex(cbParent, lpbParent, lpcbConvIndex, lppbConvInd
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/wrapstoreentryid
  */
 export WrapStoreEntryID(ulFlags, lpszDLLName, cbOrigEntry, lpOrigEntry, lppWrappedEntry) {
-    lpszDLLNameMarshal := lpszDLLName is VarRef ? "char*" : "ptr"
+    lpszDLLNameMarshal := lpszDLLName is VarRef ? "char*" : IntPtr
 
     result := DllCall("MAPI32.dll\WrapStoreEntryID", UInt32, ulFlags, lpszDLLNameMarshal, lpszDLLName, UInt32, cbOrigEntry, IntPtr, lpOrigEntry, "uint*", &lpcbWrappedEntry := 0, IntPtr, lppWrappedEntry, "HRESULT")
     return lpcbWrappedEntry
@@ -1302,7 +1302,7 @@ export WrapStoreEntryID(ulFlags, lpszDLLName, cbOrigEntry, lpOrigEntry, lppWrapp
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/rtfsync
  */
 export RTFSync(lpMessage, ulFlags, lpfMessageUpdated) {
-    lpfMessageUpdatedMarshal := lpfMessageUpdated is VarRef ? "int*" : "ptr"
+    lpfMessageUpdatedMarshal := lpfMessageUpdated is VarRef ? "int*" : IntPtr
 
     result := DllCall("MAPI32.dll\RTFSync", "ptr", lpMessage, UInt32, ulFlags, lpfMessageUpdatedMarshal, lpfMessageUpdated, "HRESULT")
     return result

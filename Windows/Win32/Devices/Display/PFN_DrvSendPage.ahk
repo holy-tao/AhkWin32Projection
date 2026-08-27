@@ -20,7 +20,6 @@ export default struct PFN_DrvSendPage {
     }
 
     /**
-     * 
      * @param {Pointer<SURFOBJ>} param0 
      * @returns {BOOL} 
      */

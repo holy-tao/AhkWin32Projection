@@ -203,14 +203,14 @@ export default struct IWICComponentInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetComponentType := CallbackCreate(GetMethod(implObj, "GetComponentType"), flags, 2)
-        this.vtbl.GetCLSID := CallbackCreate(GetMethod(implObj, "GetCLSID"), flags, 2)
-        this.vtbl.GetSigningStatus := CallbackCreate(GetMethod(implObj, "GetSigningStatus"), flags, 2)
-        this.vtbl.GetAuthor := CallbackCreate(GetMethod(implObj, "GetAuthor"), flags, 4)
-        this.vtbl.GetVendorGUID := CallbackCreate(GetMethod(implObj, "GetVendorGUID"), flags, 2)
-        this.vtbl.GetVersion := CallbackCreate(GetMethod(implObj, "GetVersion"), flags, 4)
-        this.vtbl.GetSpecVersion := CallbackCreate(GetMethod(implObj, "GetSpecVersion"), flags, 4)
-        this.vtbl.GetFriendlyName := CallbackCreate(GetMethod(implObj, "GetFriendlyName"), flags, 4)
+        this.vtbl.GetComponentType := CallbackCreate(ObjBindMethod(implObj, "GetComponentType"), flags, 2)
+        this.vtbl.GetCLSID := CallbackCreate(ObjBindMethod(implObj, "GetCLSID"), flags, 2)
+        this.vtbl.GetSigningStatus := CallbackCreate(ObjBindMethod(implObj, "GetSigningStatus"), flags, 2)
+        this.vtbl.GetAuthor := CallbackCreate(ObjBindMethod(implObj, "GetAuthor"), flags, 4)
+        this.vtbl.GetVendorGUID := CallbackCreate(ObjBindMethod(implObj, "GetVendorGUID"), flags, 2)
+        this.vtbl.GetVersion := CallbackCreate(ObjBindMethod(implObj, "GetVersion"), flags, 4)
+        this.vtbl.GetSpecVersion := CallbackCreate(ObjBindMethod(implObj, "GetSpecVersion"), flags, 4)
+        this.vtbl.GetFriendlyName := CallbackCreate(ObjBindMethod(implObj, "GetFriendlyName"), flags, 4)
     }
 
     Dispose() {

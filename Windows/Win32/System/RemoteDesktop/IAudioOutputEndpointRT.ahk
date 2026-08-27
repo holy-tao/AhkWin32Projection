@@ -128,9 +128,9 @@ export default struct IAudioOutputEndpointRT extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOutputDataPointer := CallbackCreate(GetMethod(implObj, "GetOutputDataPointer"), flags, 3)
-        this.vtbl.ReleaseOutputDataPointer := CallbackCreate(GetMethod(implObj, "ReleaseOutputDataPointer"), flags, 2)
-        this.vtbl.PulseEndpoint := CallbackCreate(GetMethod(implObj, "PulseEndpoint"), flags, 1)
+        this.vtbl.GetOutputDataPointer := CallbackCreate(ObjBindMethod(implObj, "GetOutputDataPointer"), flags, 3)
+        this.vtbl.ReleaseOutputDataPointer := CallbackCreate(ObjBindMethod(implObj, "ReleaseOutputDataPointer"), flags, 2)
+        this.vtbl.PulseEndpoint := CallbackCreate(ObjBindMethod(implObj, "PulseEndpoint"), flags, 1)
     }
 
     Dispose() {

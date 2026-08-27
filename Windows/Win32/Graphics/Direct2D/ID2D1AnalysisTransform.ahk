@@ -57,7 +57,7 @@ export default struct ID2D1AnalysisTransform extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1analysistransform-processanalysisresults
      */
     ProcessAnalysisResults(analysisData, analysisDataCount) {
-        analysisDataMarshal := analysisData is VarRef ? "char*" : "ptr"
+        analysisDataMarshal := analysisData is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, analysisDataMarshal, analysisData, UInt32, analysisDataCount, "HRESULT")
         return result
@@ -72,7 +72,7 @@ export default struct ID2D1AnalysisTransform extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ProcessAnalysisResults := CallbackCreate(GetMethod(implObj, "ProcessAnalysisResults"), flags, 3)
+        this.vtbl.ProcessAnalysisResults := CallbackCreate(ObjBindMethod(implObj, "ProcessAnalysisResults"), flags, 3)
     }
 
     Dispose() {

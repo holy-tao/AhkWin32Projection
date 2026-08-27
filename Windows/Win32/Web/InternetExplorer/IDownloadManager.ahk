@@ -40,7 +40,6 @@ export default struct IDownloadManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMoniker} pmk 
      * @param {IBindCtx} pbc 
      * @param {Integer} dwBindVerb 
@@ -68,7 +67,7 @@ export default struct IDownloadManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Download := CallbackCreate(GetMethod(implObj, "Download"), flags, 9)
+        this.vtbl.Download := CallbackCreate(ObjBindMethod(implObj, "Download"), flags, 9)
     }
 
     Dispose() {

@@ -74,7 +74,7 @@ export default struct IMFNetCredentialCache extends IUnknown {
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
         pszRealm := pszRealm is String ? StrPtr(pszRealm) : pszRealm
 
-        pdwRequirementsFlagsMarshal := pdwRequirementsFlags is VarRef ? "uint*" : "ptr"
+        pdwRequirementsFlagsMarshal := pdwRequirementsFlags is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, "ptr", pszUrl, "ptr", pszRealm, UInt32, dwAuthenticationFlags, IMFNetCredential.Ptr, ppCred, pdwRequirementsFlagsMarshal, pdwRequirementsFlags, "HRESULT")
         return result
@@ -153,9 +153,9 @@ export default struct IMFNetCredentialCache extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCredential := CallbackCreate(GetMethod(implObj, "GetCredential"), flags, 6)
-        this.vtbl.SetGood := CallbackCreate(GetMethod(implObj, "SetGood"), flags, 3)
-        this.vtbl.SetUserOptions := CallbackCreate(GetMethod(implObj, "SetUserOptions"), flags, 3)
+        this.vtbl.GetCredential := CallbackCreate(ObjBindMethod(implObj, "GetCredential"), flags, 6)
+        this.vtbl.SetGood := CallbackCreate(ObjBindMethod(implObj, "SetGood"), flags, 3)
+        this.vtbl.SetUserOptions := CallbackCreate(ObjBindMethod(implObj, "SetUserOptions"), flags, 3)
     }
 
     Dispose() {

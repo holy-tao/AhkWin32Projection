@@ -150,7 +150,6 @@ export default struct ISpeechPhraseInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_LanguageId() {
@@ -159,7 +158,6 @@ export default struct ISpeechPhraseInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_GrammarId() {
@@ -169,7 +167,6 @@ export default struct ISpeechPhraseInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_StartTime() {
@@ -179,7 +176,6 @@ export default struct ISpeechPhraseInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_AudioStreamPosition() {
@@ -189,7 +185,6 @@ export default struct ISpeechPhraseInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AudioSizeBytes() {
@@ -198,7 +193,6 @@ export default struct ISpeechPhraseInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_RetainedSizeBytes() {
@@ -207,7 +201,6 @@ export default struct ISpeechPhraseInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AudioSizeTime() {
@@ -216,7 +209,6 @@ export default struct ISpeechPhraseInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechPhraseRule} 
      */
     get_Rule() {
@@ -225,7 +217,6 @@ export default struct ISpeechPhraseInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechPhraseProperties} 
      */
     get_Properties() {
@@ -234,7 +225,6 @@ export default struct ISpeechPhraseInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechPhraseElements} 
      */
     get_Elements() {
@@ -243,7 +233,6 @@ export default struct ISpeechPhraseInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechPhraseReplacements} 
      */
     get_Replacements() {
@@ -252,7 +241,6 @@ export default struct ISpeechPhraseInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_EngineId() {
@@ -262,7 +250,6 @@ export default struct ISpeechPhraseInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_EnginePrivateData() {
@@ -272,7 +259,6 @@ export default struct ISpeechPhraseInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     SaveToMemory() {
@@ -282,7 +268,6 @@ export default struct ISpeechPhraseInfo extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} StartElement 
      * @param {Integer} Elements 
      * @param {VARIANT_BOOL} UseReplacements 
@@ -295,7 +280,6 @@ export default struct ISpeechPhraseInfo extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} StartElement 
      * @param {Integer} Elements 
      * @param {VARIANT_BOOL} UseReplacements 
@@ -315,22 +299,22 @@ export default struct ISpeechPhraseInfo extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_LanguageId := CallbackCreate(GetMethod(implObj, "get_LanguageId"), flags, 2)
-        this.vtbl.get_GrammarId := CallbackCreate(GetMethod(implObj, "get_GrammarId"), flags, 2)
-        this.vtbl.get_StartTime := CallbackCreate(GetMethod(implObj, "get_StartTime"), flags, 2)
-        this.vtbl.get_AudioStreamPosition := CallbackCreate(GetMethod(implObj, "get_AudioStreamPosition"), flags, 2)
-        this.vtbl.get_AudioSizeBytes := CallbackCreate(GetMethod(implObj, "get_AudioSizeBytes"), flags, 2)
-        this.vtbl.get_RetainedSizeBytes := CallbackCreate(GetMethod(implObj, "get_RetainedSizeBytes"), flags, 2)
-        this.vtbl.get_AudioSizeTime := CallbackCreate(GetMethod(implObj, "get_AudioSizeTime"), flags, 2)
-        this.vtbl.get_Rule := CallbackCreate(GetMethod(implObj, "get_Rule"), flags, 2)
-        this.vtbl.get_Properties := CallbackCreate(GetMethod(implObj, "get_Properties"), flags, 2)
-        this.vtbl.get_Elements := CallbackCreate(GetMethod(implObj, "get_Elements"), flags, 2)
-        this.vtbl.get_Replacements := CallbackCreate(GetMethod(implObj, "get_Replacements"), flags, 2)
-        this.vtbl.get_EngineId := CallbackCreate(GetMethod(implObj, "get_EngineId"), flags, 2)
-        this.vtbl.get_EnginePrivateData := CallbackCreate(GetMethod(implObj, "get_EnginePrivateData"), flags, 2)
-        this.vtbl.SaveToMemory := CallbackCreate(GetMethod(implObj, "SaveToMemory"), flags, 2)
-        this.vtbl.GetText := CallbackCreate(GetMethod(implObj, "GetText"), flags, 5)
-        this.vtbl.GetDisplayAttributes := CallbackCreate(GetMethod(implObj, "GetDisplayAttributes"), flags, 5)
+        this.vtbl.get_LanguageId := CallbackCreate(ObjBindMethod(implObj, "get_LanguageId"), flags, 2)
+        this.vtbl.get_GrammarId := CallbackCreate(ObjBindMethod(implObj, "get_GrammarId"), flags, 2)
+        this.vtbl.get_StartTime := CallbackCreate(ObjBindMethod(implObj, "get_StartTime"), flags, 2)
+        this.vtbl.get_AudioStreamPosition := CallbackCreate(ObjBindMethod(implObj, "get_AudioStreamPosition"), flags, 2)
+        this.vtbl.get_AudioSizeBytes := CallbackCreate(ObjBindMethod(implObj, "get_AudioSizeBytes"), flags, 2)
+        this.vtbl.get_RetainedSizeBytes := CallbackCreate(ObjBindMethod(implObj, "get_RetainedSizeBytes"), flags, 2)
+        this.vtbl.get_AudioSizeTime := CallbackCreate(ObjBindMethod(implObj, "get_AudioSizeTime"), flags, 2)
+        this.vtbl.get_Rule := CallbackCreate(ObjBindMethod(implObj, "get_Rule"), flags, 2)
+        this.vtbl.get_Properties := CallbackCreate(ObjBindMethod(implObj, "get_Properties"), flags, 2)
+        this.vtbl.get_Elements := CallbackCreate(ObjBindMethod(implObj, "get_Elements"), flags, 2)
+        this.vtbl.get_Replacements := CallbackCreate(ObjBindMethod(implObj, "get_Replacements"), flags, 2)
+        this.vtbl.get_EngineId := CallbackCreate(ObjBindMethod(implObj, "get_EngineId"), flags, 2)
+        this.vtbl.get_EnginePrivateData := CallbackCreate(ObjBindMethod(implObj, "get_EnginePrivateData"), flags, 2)
+        this.vtbl.SaveToMemory := CallbackCreate(ObjBindMethod(implObj, "SaveToMemory"), flags, 2)
+        this.vtbl.GetText := CallbackCreate(ObjBindMethod(implObj, "GetText"), flags, 5)
+        this.vtbl.GetDisplayAttributes := CallbackCreate(ObjBindMethod(implObj, "GetDisplayAttributes"), flags, 5)
     }
 
     Dispose() {

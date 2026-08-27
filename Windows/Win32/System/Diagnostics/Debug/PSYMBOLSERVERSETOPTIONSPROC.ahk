@@ -19,7 +19,6 @@ export default struct PSYMBOLSERVERSETOPTIONSPROC {
     }
 
     /**
-     * 
      * @param {Pointer} param0 
      * @param {Integer} param1 
      * @returns {BOOL} 

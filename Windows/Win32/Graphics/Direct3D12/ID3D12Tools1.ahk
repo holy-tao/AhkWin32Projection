@@ -38,7 +38,6 @@ export default struct ID3D12Tools1 extends ID3D12Tools {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_GPU_VIRTUAL_ADDRESS_RANGE>} pRanges 
      * @param {Integer} uiNumRanges 
      * @returns {HRESULT} 
@@ -49,7 +48,6 @@ export default struct ID3D12Tools1 extends ID3D12Tools {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     ClearReservedGPUVARangesList() {
@@ -65,8 +63,8 @@ export default struct ID3D12Tools1 extends ID3D12Tools {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ReserveGPUVARangesAtCreate := CallbackCreate(GetMethod(implObj, "ReserveGPUVARangesAtCreate"), flags, 3)
-        this.vtbl.ClearReservedGPUVARangesList := CallbackCreate(GetMethod(implObj, "ClearReservedGPUVARangesList"), flags, 1)
+        this.vtbl.ReserveGPUVARangesAtCreate := CallbackCreate(ObjBindMethod(implObj, "ReserveGPUVARangesAtCreate"), flags, 3)
+        this.vtbl.ClearReservedGPUVARangesList := CallbackCreate(ObjBindMethod(implObj, "ClearReservedGPUVARangesList"), flags, 1)
     }
 
     Dispose() {

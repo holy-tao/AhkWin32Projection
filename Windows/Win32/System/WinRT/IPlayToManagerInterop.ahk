@@ -75,8 +75,8 @@ export default struct IPlayToManagerInterop extends IInspectable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetForWindow := CallbackCreate(GetMethod(implObj, "GetForWindow"), flags, 4)
-        this.vtbl.ShowPlayToUIForWindow := CallbackCreate(GetMethod(implObj, "ShowPlayToUIForWindow"), flags, 2)
+        this.vtbl.GetForWindow := CallbackCreate(ObjBindMethod(implObj, "GetForWindow"), flags, 4)
+        this.vtbl.ShowPlayToUIForWindow := CallbackCreate(ObjBindMethod(implObj, "ShowPlayToUIForWindow"), flags, 2)
     }
 
     Dispose() {

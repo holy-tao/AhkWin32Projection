@@ -20,7 +20,6 @@ export default struct PCLUSAPI_CLUSTER_REG_SET_VALUE {
     }
 
     /**
-     * 
      * @param {HKEY} _hKey 
      * @param {PWSTR} lpszValueName 
      * @param {Integer} dwType 
@@ -31,7 +30,7 @@ export default struct PCLUSAPI_CLUSTER_REG_SET_VALUE {
     Call(_hKey, lpszValueName, dwType, lpData, cbData) {
         lpszValueName := lpszValueName is String ? StrPtr(lpszValueName) : lpszValueName
 
-        lpDataMarshal := lpData is VarRef ? "char*" : "ptr"
+        lpDataMarshal := lpData is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, HKEY, _hKey, "ptr", lpszValueName, UInt32, dwType, lpDataMarshal, lpData, UInt32, cbData, UInt32)
         return result

@@ -121,8 +121,8 @@ export default struct IVdsAdvancedDisk extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsadvanceddisk-querypartitions
      */
     QueryPartitions(ppPartitionPropArray, plNumberOfPartitions) {
-        ppPartitionPropArrayMarshal := ppPartitionPropArray is VarRef ? "ptr*" : "ptr"
-        plNumberOfPartitionsMarshal := plNumberOfPartitions is VarRef ? "int*" : "ptr"
+        ppPartitionPropArrayMarshal := ppPartitionPropArray is VarRef ? "ptr*" : IntPtr
+        plNumberOfPartitionsMarshal := plNumberOfPartitions is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, ppPartitionPropArrayMarshal, ppPartitionPropArray, plNumberOfPartitionsMarshal, plNumberOfPartitions, "HRESULT")
         return result
@@ -619,16 +619,16 @@ export default struct IVdsAdvancedDisk extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPartitionProperties := CallbackCreate(GetMethod(implObj, "GetPartitionProperties"), flags, 3)
-        this.vtbl.QueryPartitions := CallbackCreate(GetMethod(implObj, "QueryPartitions"), flags, 3)
-        this.vtbl.CreatePartition := CallbackCreate(GetMethod(implObj, "CreatePartition"), flags, 5)
-        this.vtbl.DeletePartition := CallbackCreate(GetMethod(implObj, "DeletePartition"), flags, 4)
-        this.vtbl.ChangeAttributes := CallbackCreate(GetMethod(implObj, "ChangeAttributes"), flags, 3)
-        this.vtbl.AssignDriveLetter := CallbackCreate(GetMethod(implObj, "AssignDriveLetter"), flags, 3)
-        this.vtbl.DeleteDriveLetter := CallbackCreate(GetMethod(implObj, "DeleteDriveLetter"), flags, 3)
-        this.vtbl.GetDriveLetter := CallbackCreate(GetMethod(implObj, "GetDriveLetter"), flags, 3)
-        this.vtbl.FormatPartition := CallbackCreate(GetMethod(implObj, "FormatPartition"), flags, 9)
-        this.vtbl.Clean := CallbackCreate(GetMethod(implObj, "Clean"), flags, 5)
+        this.vtbl.GetPartitionProperties := CallbackCreate(ObjBindMethod(implObj, "GetPartitionProperties"), flags, 3)
+        this.vtbl.QueryPartitions := CallbackCreate(ObjBindMethod(implObj, "QueryPartitions"), flags, 3)
+        this.vtbl.CreatePartition := CallbackCreate(ObjBindMethod(implObj, "CreatePartition"), flags, 5)
+        this.vtbl.DeletePartition := CallbackCreate(ObjBindMethod(implObj, "DeletePartition"), flags, 4)
+        this.vtbl.ChangeAttributes := CallbackCreate(ObjBindMethod(implObj, "ChangeAttributes"), flags, 3)
+        this.vtbl.AssignDriveLetter := CallbackCreate(ObjBindMethod(implObj, "AssignDriveLetter"), flags, 3)
+        this.vtbl.DeleteDriveLetter := CallbackCreate(ObjBindMethod(implObj, "DeleteDriveLetter"), flags, 3)
+        this.vtbl.GetDriveLetter := CallbackCreate(ObjBindMethod(implObj, "GetDriveLetter"), flags, 3)
+        this.vtbl.FormatPartition := CallbackCreate(ObjBindMethod(implObj, "FormatPartition"), flags, 9)
+        this.vtbl.Clean := CallbackCreate(ObjBindMethod(implObj, "Clean"), flags, 5)
     }
 
     Dispose() {

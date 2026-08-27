@@ -130,7 +130,8 @@ export default struct IGetFrame extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-igetframe-setformat
      */
     SetFormat(lpbi, lpBits, x, y, dx, dy) {
-        lpBitsMarshal := lpBits is VarRef ? "ptr" : "ptr"
+        lpBitsMarshal := lpBits is VarRef ? "ptr" : IntPtr
+        lpBitsMarshal := lpBits == 0 ? IntPtr : "ptr"
 
         result := ComCall(6, this, BITMAPINFOHEADER.Ptr, lpbi, lpBitsMarshal, lpBits, Int32, x, Int32, y, Int32, dx, Int32, dy, "HRESULT")
         return result
@@ -145,10 +146,10 @@ export default struct IGetFrame extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFrame := CallbackCreate(GetMethod(implObj, "GetFrame"), flags, 2)
-        this.vtbl.Begin := CallbackCreate(GetMethod(implObj, "Begin"), flags, 4)
-        this.vtbl.End := CallbackCreate(GetMethod(implObj, "End"), flags, 1)
-        this.vtbl.SetFormat := CallbackCreate(GetMethod(implObj, "SetFormat"), flags, 7)
+        this.vtbl.GetFrame := CallbackCreate(ObjBindMethod(implObj, "GetFrame"), flags, 2)
+        this.vtbl.Begin := CallbackCreate(ObjBindMethod(implObj, "Begin"), flags, 4)
+        this.vtbl.End := CallbackCreate(ObjBindMethod(implObj, "End"), flags, 1)
+        this.vtbl.SetFormat := CallbackCreate(ObjBindMethod(implObj, "SetFormat"), flags, 7)
     }
 
     Dispose() {

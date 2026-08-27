@@ -21,7 +21,6 @@ export default struct NCryptIsAlgSupportedFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} _hProvider 
      * @param {PWSTR} pszAlgId 
      * @param {Integer} dwFlags 

@@ -52,7 +52,6 @@ export default struct IActiveScriptSiteWindow extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fEnable 
      * @returns {HRESULT} 
      */
@@ -70,8 +69,8 @@ export default struct IActiveScriptSiteWindow extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetWindow := CallbackCreate(GetMethod(implObj, "GetWindow"), flags, 2)
-        this.vtbl.EnableModeless := CallbackCreate(GetMethod(implObj, "EnableModeless"), flags, 2)
+        this.vtbl.GetWindow := CallbackCreate(ObjBindMethod(implObj, "GetWindow"), flags, 2)
+        this.vtbl.EnableModeless := CallbackCreate(ObjBindMethod(implObj, "EnableModeless"), flags, 2)
     }
 
     Dispose() {

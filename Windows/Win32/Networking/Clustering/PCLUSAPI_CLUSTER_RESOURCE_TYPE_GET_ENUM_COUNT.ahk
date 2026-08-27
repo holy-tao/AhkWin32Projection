@@ -19,7 +19,6 @@ export default struct PCLUSAPI_CLUSTER_RESOURCE_TYPE_GET_ENUM_COUNT {
     }
 
     /**
-     * 
      * @param {HRESTYPEENUM} _hResTypeEnum 
      * @returns {Integer} 
      */

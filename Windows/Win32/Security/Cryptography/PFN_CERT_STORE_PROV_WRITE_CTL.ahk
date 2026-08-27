@@ -23,7 +23,6 @@ export default struct PFN_CERT_STORE_PROV_WRITE_CTL {
     }
 
     /**
-     * 
      * @param {HCERTSTOREPROV} hStoreProv <b>HCERTSTOREPROV</b> handle to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
      * @param {Pointer<CTL_CONTEXT>} pCtlContext A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_context">CTL_CONTEXT</a> structure.

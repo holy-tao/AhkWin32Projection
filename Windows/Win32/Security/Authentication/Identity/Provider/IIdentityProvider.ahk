@@ -60,7 +60,10 @@ export default struct IIdentityProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/identityprovider/nf-identityprovider-iidentityprovider-getidentityenum
      */
     GetIdentityEnum(eIdentityType, pFilterkey, pFilterPropVarValue) {
-        result := ComCall(3, this, IDENTITY_TYPE, eIdentityType, PROPERTYKEY.Ptr, pFilterkey, PROPVARIANT.Ptr, pFilterPropVarValue, "ptr*", &ppIdentityEnum := 0, "HRESULT")
+        pFilterkeyMarshal := pFilterkey == 0 ? IntPtr : PROPERTYKEY.Ptr
+        pFilterPropVarValueMarshal := pFilterPropVarValue == 0 ? IntPtr : PROPVARIANT.Ptr
+
+        result := ComCall(3, this, IDENTITY_TYPE, eIdentityType, pFilterkeyMarshal, pFilterkey, pFilterPropVarValueMarshal, pFilterPropVarValue, "ptr*", &ppIdentityEnum := 0, "HRESULT")
         return IEnumUnknown(ppIdentityEnum)
     }
 
@@ -87,7 +90,9 @@ export default struct IIdentityProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/identityprovider/nf-identityprovider-iidentityprovider-import
      */
     Import(pPropertyStore) {
-        result := ComCall(5, this, "ptr", pPropertyStore, "HRESULT")
+        pPropertyStoreMarshal := pPropertyStore == 0 ? IntPtr : "ptr"
+
+        result := ComCall(5, this, pPropertyStoreMarshal, pPropertyStore, "HRESULT")
         return result
     }
 
@@ -138,7 +143,9 @@ export default struct IIdentityProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/identityprovider/nf-identityprovider-iidentityprovider-advise
      */
     Advise(pIdentityAdvise, dwIdentityUpdateEvents) {
-        result := ComCall(9, this, "ptr", pIdentityAdvise, UInt32, dwIdentityUpdateEvents, "uint*", &pdwCookie := 0, "HRESULT")
+        pIdentityAdviseMarshal := pIdentityAdvise == 0 ? IntPtr : "ptr"
+
+        result := ComCall(9, this, pIdentityAdviseMarshal, pIdentityAdvise, UInt32, dwIdentityUpdateEvents, "uint*", &pdwCookie := 0, "HRESULT")
         return pdwCookie
     }
 
@@ -164,14 +171,14 @@ export default struct IIdentityProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetIdentityEnum := CallbackCreate(GetMethod(implObj, "GetIdentityEnum"), flags, 5)
-        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 4)
-        this.vtbl.Import := CallbackCreate(GetMethod(implObj, "Import"), flags, 2)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 3)
-        this.vtbl.FindByUniqueID := CallbackCreate(GetMethod(implObj, "FindByUniqueID"), flags, 3)
-        this.vtbl.GetProviderPropertyStore := CallbackCreate(GetMethod(implObj, "GetProviderPropertyStore"), flags, 2)
-        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 4)
-        this.vtbl.UnAdvise := CallbackCreate(GetMethod(implObj, "UnAdvise"), flags, 2)
+        this.vtbl.GetIdentityEnum := CallbackCreate(ObjBindMethod(implObj, "GetIdentityEnum"), flags, 5)
+        this.vtbl.Create := CallbackCreate(ObjBindMethod(implObj, "Create"), flags, 4)
+        this.vtbl.Import := CallbackCreate(ObjBindMethod(implObj, "Import"), flags, 2)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 3)
+        this.vtbl.FindByUniqueID := CallbackCreate(ObjBindMethod(implObj, "FindByUniqueID"), flags, 3)
+        this.vtbl.GetProviderPropertyStore := CallbackCreate(ObjBindMethod(implObj, "GetProviderPropertyStore"), flags, 2)
+        this.vtbl.Advise := CallbackCreate(ObjBindMethod(implObj, "Advise"), flags, 4)
+        this.vtbl.UnAdvise := CallbackCreate(ObjBindMethod(implObj, "UnAdvise"), flags, 2)
     }
 
     Dispose() {

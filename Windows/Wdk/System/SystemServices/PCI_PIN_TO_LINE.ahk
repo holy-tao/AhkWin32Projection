@@ -19,13 +19,12 @@ export default struct PCI_PIN_TO_LINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<PCI_COMMON_CONFIG>} PciData 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Context, PciData) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _ContextMarshal, _Context, PCI_COMMON_CONFIG.Ptr, PciData)
     }

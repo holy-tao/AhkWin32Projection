@@ -18,7 +18,6 @@ export default struct PDEBUG_EXTENSION_NOTIFY {
     }
 
     /**
-     * 
      * @param {Integer} Notify 
      * @param {Integer} Argument 
      * @returns {String} Nothing - always returns an empty string

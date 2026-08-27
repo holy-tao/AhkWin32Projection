@@ -45,7 +45,6 @@ export default struct ISpITNProcessor extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszCLSID 
      * @returns {HRESULT} 
      */
@@ -57,7 +56,6 @@ export default struct ISpITNProcessor extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISpPhraseBuilder} pPhrase 
      * @returns {HRESULT} 
      */
@@ -75,8 +73,8 @@ export default struct ISpITNProcessor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LoadITNGrammar := CallbackCreate(GetMethod(implObj, "LoadITNGrammar"), flags, 2)
-        this.vtbl.ITNPhrase := CallbackCreate(GetMethod(implObj, "ITNPhrase"), flags, 2)
+        this.vtbl.LoadITNGrammar := CallbackCreate(ObjBindMethod(implObj, "LoadITNGrammar"), flags, 2)
+        this.vtbl.ITNPhrase := CallbackCreate(ObjBindMethod(implObj, "ITNPhrase"), flags, 2)
     }
 
     Dispose() {

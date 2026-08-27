@@ -246,9 +246,13 @@ export MetaDataGetDispenser(rclsid, riid) {
  * @since windows8.0
  */
 export RoGetMetaDataFile(name, metaDataDispenser, metaDataFilePath, metaDataImport, typeDefToken) {
-    typeDefTokenMarshal := typeDefToken is VarRef ? "uint*" : "ptr"
+    metaDataDispenserMarshal := metaDataDispenser == 0 ? IntPtr : "ptr"
+    metaDataFilePathMarshal := metaDataFilePath == 0 ? IntPtr : HSTRING.Ptr
+    metaDataImportMarshal := metaDataImport == 0 ? IntPtr : IMetaDataImport2.Ptr
+    typeDefTokenMarshal := typeDefToken is VarRef ? "uint*" : IntPtr
+    typeDefTokenMarshal := typeDefToken == 0 ? IntPtr : "uint*"
 
-    result := DllCall("api-ms-win-ro-typeresolution-l1-1-0.dll\RoGetMetaDataFile", HSTRING, name, "ptr", metaDataDispenser, HSTRING.Ptr, metaDataFilePath, IMetaDataImport2.Ptr, metaDataImport, typeDefTokenMarshal, typeDefToken, "HRESULT")
+    result := DllCall("api-ms-win-ro-typeresolution-l1-1-0.dll\RoGetMetaDataFile", HSTRING, name, metaDataDispenserMarshal, metaDataDispenser, metaDataFilePathMarshal, metaDataFilePath, metaDataImportMarshal, metaDataImport, typeDefTokenMarshal, typeDefToken, "HRESULT")
     return result
 }
 
@@ -427,8 +431,8 @@ export RoGetMetaDataFile(name, metaDataDispenser, metaDataFilePath, metaDataImpo
  * @since windows8.0
  */
 export RoParseTypeName(typeName, partsCount, typeNameParts) {
-    partsCountMarshal := partsCount is VarRef ? "uint*" : "ptr"
-    typeNamePartsMarshal := typeNameParts is VarRef ? "ptr*" : "ptr"
+    partsCountMarshal := partsCount is VarRef ? "uint*" : IntPtr
+    typeNamePartsMarshal := typeNameParts is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("api-ms-win-ro-typeresolution-l1-1-0.dll\RoParseTypeName", HSTRING, typeName, partsCountMarshal, partsCount, typeNamePartsMarshal, typeNameParts, "HRESULT")
     return result
@@ -524,12 +528,19 @@ export RoParseTypeName(typeName, partsCount, typeNameParts) {
  * @since windows8.0
  */
 export RoResolveNamespace(name, windowsMetaDataDir, packageGraphDirsCount, packageGraphDirs, metaDataFilePathsCount, metaDataFilePaths, subNamespacesCount, subNamespaces) {
-    metaDataFilePathsCountMarshal := metaDataFilePathsCount is VarRef ? "uint*" : "ptr"
-    metaDataFilePathsMarshal := metaDataFilePaths is VarRef ? "ptr*" : "ptr"
-    subNamespacesCountMarshal := subNamespacesCount is VarRef ? "uint*" : "ptr"
-    subNamespacesMarshal := subNamespaces is VarRef ? "ptr*" : "ptr"
+    nameMarshal := name == 0 ? IntPtr : HSTRING
+    windowsMetaDataDirMarshal := windowsMetaDataDir == 0 ? IntPtr : HSTRING
+    packageGraphDirsMarshal := packageGraphDirs == 0 ? IntPtr : HSTRING.Ptr
+    metaDataFilePathsCountMarshal := metaDataFilePathsCount is VarRef ? "uint*" : IntPtr
+    metaDataFilePathsCountMarshal := metaDataFilePathsCount == 0 ? IntPtr : "uint*"
+    metaDataFilePathsMarshal := metaDataFilePaths is VarRef ? "ptr*" : IntPtr
+    metaDataFilePathsMarshal := metaDataFilePaths == 0 ? IntPtr : "ptr*"
+    subNamespacesCountMarshal := subNamespacesCount is VarRef ? "uint*" : IntPtr
+    subNamespacesCountMarshal := subNamespacesCount == 0 ? IntPtr : "uint*"
+    subNamespacesMarshal := subNamespaces is VarRef ? "ptr*" : IntPtr
+    subNamespacesMarshal := subNamespaces == 0 ? IntPtr : "ptr*"
 
-    result := DllCall("api-ms-win-ro-typeresolution-l1-1-0.dll\RoResolveNamespace", HSTRING, name, HSTRING, windowsMetaDataDir, UInt32, packageGraphDirsCount, HSTRING.Ptr, packageGraphDirs, metaDataFilePathsCountMarshal, metaDataFilePathsCount, metaDataFilePathsMarshal, metaDataFilePaths, subNamespacesCountMarshal, subNamespacesCount, subNamespacesMarshal, subNamespaces, "HRESULT")
+    result := DllCall("api-ms-win-ro-typeresolution-l1-1-0.dll\RoResolveNamespace", nameMarshal, name, windowsMetaDataDirMarshal, windowsMetaDataDir, UInt32, packageGraphDirsCount, packageGraphDirsMarshal, packageGraphDirs, metaDataFilePathsCountMarshal, metaDataFilePathsCount, metaDataFilePathsMarshal, metaDataFilePaths, subNamespacesCountMarshal, subNamespacesCount, subNamespacesMarshal, subNamespaces, "HRESULT")
     return result
 }
 
@@ -583,7 +594,6 @@ export RoIsApiContractMajorVersionPresent(name, majorVersion) {
 }
 
 /**
- * 
  * @returns {Pointer} 
  */
 export RoCreateNonAgilePropertySet() {
@@ -592,7 +602,6 @@ export RoCreateNonAgilePropertySet() {
 }
 
 /**
- * 
  * @returns {Pointer} 
  */
 export RoCreatePropertySetSerializer() {
@@ -638,7 +647,7 @@ export RoCreatePropertySetSerializer() {
  * @since windows8.0
  */
 export RoGetParameterizedTypeInstanceIID(nameElementCount, nameElements, metaDataLocator, iid) {
-    nameElementsMarshal := nameElements is VarRef ? "ptr*" : "ptr"
+    nameElementsMarshal := nameElements is VarRef ? "ptr*" : IntPtr
 
     pExtra := ROPARAMIIDHANDLE.Owned()
     result := DllCall("api-ms-win-core-winrt-roparameterizediid-l1-1-0.dll\RoGetParameterizedTypeInstanceIID", UInt32, nameElementCount, nameElementsMarshal, nameElements, "ptr", metaDataLocator, Guid.Ptr, iid, ROPARAMIIDHANDLE.Ptr, pExtra, "HRESULT")

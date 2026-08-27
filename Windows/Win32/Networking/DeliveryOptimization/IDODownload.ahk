@@ -137,13 +137,13 @@ export default struct IDODownload extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 2)
-        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
-        this.vtbl.Abort := CallbackCreate(GetMethod(implObj, "Abort"), flags, 1)
-        this.vtbl.Finalize := CallbackCreate(GetMethod(implObj, "Finalize"), flags, 1)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
-        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 3)
+        this.vtbl.Start := CallbackCreate(ObjBindMethod(implObj, "Start"), flags, 2)
+        this.vtbl.Pause := CallbackCreate(ObjBindMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Abort := CallbackCreate(ObjBindMethod(implObj, "Abort"), flags, 1)
+        this.vtbl.Finalize := CallbackCreate(ObjBindMethod(implObj, "Finalize"), flags, 1)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.SetProperty := CallbackCreate(ObjBindMethod(implObj, "SetProperty"), flags, 3)
     }
 
     Dispose() {

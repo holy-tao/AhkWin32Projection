@@ -41,7 +41,6 @@ export default struct ISideShowEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} in_contentId 
      * @returns {ISideShowContent} 
      */
@@ -51,7 +50,6 @@ export default struct ISideShowEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISideShowCapabilities} in_pICapabilities 
      * @param {Integer} in_dwEventId 
      * @param {Integer} in_dwEventSize 
@@ -59,29 +57,33 @@ export default struct ISideShowEvents extends IUnknown {
      * @returns {HRESULT} 
      */
     ApplicationEvent(in_pICapabilities, in_dwEventId, in_dwEventSize, in_pbEventData) {
-        in_pbEventDataMarshal := in_pbEventData is VarRef ? "char*" : "ptr"
+        in_pICapabilitiesMarshal := in_pICapabilities == 0 ? IntPtr : "ptr"
+        in_pbEventDataMarshal := in_pbEventData is VarRef ? "char*" : IntPtr
+        in_pbEventDataMarshal := in_pbEventData == 0 ? IntPtr : "char*"
 
-        result := ComCall(4, this, "ptr", in_pICapabilities, UInt32, in_dwEventId, UInt32, in_dwEventSize, in_pbEventDataMarshal, in_pbEventData, "HRESULT")
+        result := ComCall(4, this, in_pICapabilitiesMarshal, in_pICapabilities, UInt32, in_dwEventId, UInt32, in_dwEventSize, in_pbEventDataMarshal, in_pbEventData, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {ISideShowCapabilities} in_pIDevice 
      * @returns {HRESULT} 
      */
     DeviceAdded(in_pIDevice) {
-        result := ComCall(5, this, "ptr", in_pIDevice, "HRESULT")
+        in_pIDeviceMarshal := in_pIDevice == 0 ? IntPtr : "ptr"
+
+        result := ComCall(5, this, in_pIDeviceMarshal, in_pIDevice, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {ISideShowCapabilities} in_pIDevice 
      * @returns {HRESULT} 
      */
     DeviceRemoved(in_pIDevice) {
-        result := ComCall(6, this, "ptr", in_pIDevice, "HRESULT")
+        in_pIDeviceMarshal := in_pIDevice == 0 ? IntPtr : "ptr"
+
+        result := ComCall(6, this, in_pIDeviceMarshal, in_pIDevice, "HRESULT")
         return result
     }
 
@@ -94,10 +96,10 @@ export default struct ISideShowEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ContentMissing := CallbackCreate(GetMethod(implObj, "ContentMissing"), flags, 3)
-        this.vtbl.ApplicationEvent := CallbackCreate(GetMethod(implObj, "ApplicationEvent"), flags, 5)
-        this.vtbl.DeviceAdded := CallbackCreate(GetMethod(implObj, "DeviceAdded"), flags, 2)
-        this.vtbl.DeviceRemoved := CallbackCreate(GetMethod(implObj, "DeviceRemoved"), flags, 2)
+        this.vtbl.ContentMissing := CallbackCreate(ObjBindMethod(implObj, "ContentMissing"), flags, 3)
+        this.vtbl.ApplicationEvent := CallbackCreate(ObjBindMethod(implObj, "ApplicationEvent"), flags, 5)
+        this.vtbl.DeviceAdded := CallbackCreate(ObjBindMethod(implObj, "DeviceAdded"), flags, 2)
+        this.vtbl.DeviceRemoved := CallbackCreate(ObjBindMethod(implObj, "DeviceRemoved"), flags, 2)
     }
 
     Dispose() {

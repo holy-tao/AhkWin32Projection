@@ -198,9 +198,9 @@ export default struct IStreamBufferSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LockProfile := CallbackCreate(GetMethod(implObj, "LockProfile"), flags, 2)
-        this.vtbl.CreateRecorder := CallbackCreate(GetMethod(implObj, "CreateRecorder"), flags, 4)
-        this.vtbl.IsProfileLocked := CallbackCreate(GetMethod(implObj, "IsProfileLocked"), flags, 1)
+        this.vtbl.LockProfile := CallbackCreate(ObjBindMethod(implObj, "LockProfile"), flags, 2)
+        this.vtbl.CreateRecorder := CallbackCreate(ObjBindMethod(implObj, "CreateRecorder"), flags, 4)
+        this.vtbl.IsProfileLocked := CallbackCreate(ObjBindMethod(implObj, "IsProfileLocked"), flags, 1)
     }
 
     Dispose() {

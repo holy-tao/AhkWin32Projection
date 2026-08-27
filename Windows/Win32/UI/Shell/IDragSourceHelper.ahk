@@ -100,7 +100,10 @@ export default struct IDragSourceHelper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idragsourcehelper-initializefromwindow
      */
     InitializeFromWindow(_hwnd, ppt, pDataObject) {
-        result := ComCall(4, this, HWND, _hwnd, POINT.Ptr, ppt, "ptr", pDataObject, "HRESULT")
+        _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+        pptMarshal := ppt == 0 ? IntPtr : POINT.Ptr
+
+        result := ComCall(4, this, _hwndMarshal, _hwnd, pptMarshal, ppt, "ptr", pDataObject, "HRESULT")
         return result
     }
 
@@ -113,8 +116,8 @@ export default struct IDragSourceHelper extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeFromBitmap := CallbackCreate(GetMethod(implObj, "InitializeFromBitmap"), flags, 3)
-        this.vtbl.InitializeFromWindow := CallbackCreate(GetMethod(implObj, "InitializeFromWindow"), flags, 4)
+        this.vtbl.InitializeFromBitmap := CallbackCreate(ObjBindMethod(implObj, "InitializeFromBitmap"), flags, 3)
+        this.vtbl.InitializeFromWindow := CallbackCreate(ObjBindMethod(implObj, "InitializeFromWindow"), flags, 4)
     }
 
     Dispose() {

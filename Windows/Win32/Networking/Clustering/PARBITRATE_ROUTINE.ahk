@@ -34,7 +34,6 @@ export default struct PARBITRATE_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Resource Resource identifier for the quorum resource to be owned.
      * @param {Pointer<PQUORUM_RESOURCE_LOST>} LostQuorumResource Address of a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-pquorum_resource_lost">QuorumResourceLost</a> callback 
      *        function that should be called if control of the quorum resource is lost after being successfully gained.
@@ -69,7 +68,7 @@ export default struct PARBITRATE_ROUTINE {
      * </table>
      */
     Call(Resource, LostQuorumResource) {
-        ResourceMarshal := Resource is VarRef ? "ptr" : "ptr"
+        ResourceMarshal := Resource is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, ResourceMarshal, Resource, PQUORUM_RESOURCE_LOST, LostQuorumResource, UInt32)
         return result

@@ -126,7 +126,7 @@ export default struct IWMIndexer extends IUnknown {
     StartIndexing(pwszURL, pCallback, pvContext) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, "ptr", pwszURL, "ptr", pCallback, pvContextMarshal, pvContext, "HRESULT")
         return result
@@ -151,8 +151,8 @@ export default struct IWMIndexer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StartIndexing := CallbackCreate(GetMethod(implObj, "StartIndexing"), flags, 4)
-        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.StartIndexing := CallbackCreate(ObjBindMethod(implObj, "StartIndexing"), flags, 4)
+        this.vtbl.Cancel := CallbackCreate(ObjBindMethod(implObj, "Cancel"), flags, 1)
     }
 
     Dispose() {

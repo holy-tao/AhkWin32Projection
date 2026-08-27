@@ -36,7 +36,6 @@ export default struct ID3D12Resource2 extends ID3D12Resource1 {
     }
 
     /**
-     * 
      * @returns {D3D12_RESOURCE_DESC1} 
      */
     GetDesc1() {
@@ -53,7 +52,7 @@ export default struct ID3D12Resource2 extends ID3D12Resource1 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDesc1 := CallbackCreate(GetMethod(implObj, "GetDesc1"), flags, 1)
+        this.vtbl.GetDesc1 := CallbackCreate(ObjBindMethod(implObj, "GetDesc1"), flags, 1)
     }
 
     Dispose() {

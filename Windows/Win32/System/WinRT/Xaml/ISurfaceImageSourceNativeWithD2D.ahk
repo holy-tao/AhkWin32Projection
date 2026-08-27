@@ -103,7 +103,7 @@ export default struct ISurfaceImageSourceNativeWithD2D extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.media.dxinterop/nf-windows-ui-xaml-media-dxinterop-isurfaceimagesourcenativewithd2d-begindraw
      */
     BeginDraw(updateRect, iid, updateObject, offset) {
-        updateObjectMarshal := updateObject is VarRef ? "ptr*" : "ptr"
+        updateObjectMarshal := updateObject is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, RECT.Ptr, updateRect, Guid.Ptr, iid, updateObjectMarshal, updateObject, POINT.Ptr, offset, "HRESULT")
         return result
@@ -150,11 +150,11 @@ export default struct ISurfaceImageSourceNativeWithD2D extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetDevice := CallbackCreate(GetMethod(implObj, "SetDevice"), flags, 2)
-        this.vtbl.BeginDraw := CallbackCreate(GetMethod(implObj, "BeginDraw"), flags, 5)
-        this.vtbl.EndDraw := CallbackCreate(GetMethod(implObj, "EndDraw"), flags, 1)
-        this.vtbl.SuspendDraw := CallbackCreate(GetMethod(implObj, "SuspendDraw"), flags, 1)
-        this.vtbl.ResumeDraw := CallbackCreate(GetMethod(implObj, "ResumeDraw"), flags, 1)
+        this.vtbl.SetDevice := CallbackCreate(ObjBindMethod(implObj, "SetDevice"), flags, 2)
+        this.vtbl.BeginDraw := CallbackCreate(ObjBindMethod(implObj, "BeginDraw"), flags, 5)
+        this.vtbl.EndDraw := CallbackCreate(ObjBindMethod(implObj, "EndDraw"), flags, 1)
+        this.vtbl.SuspendDraw := CallbackCreate(ObjBindMethod(implObj, "SuspendDraw"), flags, 1)
+        this.vtbl.ResumeDraw := CallbackCreate(ObjBindMethod(implObj, "ResumeDraw"), flags, 1)
     }
 
     Dispose() {

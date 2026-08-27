@@ -92,7 +92,10 @@ export default struct IMDSPStorage2 extends IMDSPStorage {
     CreateStorage2(dwAttributes, dwAttributesEx, pAudioFormat, pVideoFormat, pwszName, qwFileSize) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(14, this, UInt32, dwAttributes, UInt32, dwAttributesEx, WAVEFORMATEX.Ptr, pAudioFormat, VIDEOINFOHEADER.Ptr, pVideoFormat, "ptr", pwszName, Int64, qwFileSize, "ptr*", &ppNewStorage := 0, "HRESULT")
+        pAudioFormatMarshal := pAudioFormat == 0 ? IntPtr : WAVEFORMATEX.Ptr
+        pVideoFormatMarshal := pVideoFormat == 0 ? IntPtr : VIDEOINFOHEADER.Ptr
+
+        result := ComCall(14, this, UInt32, dwAttributes, UInt32, dwAttributesEx, pAudioFormatMarshal, pAudioFormat, pVideoFormatMarshal, pVideoFormat, "ptr", pwszName, Int64, qwFileSize, "ptr*", &ppNewStorage := 0, "HRESULT")
         return IMDSPStorage(ppNewStorage)
     }
 
@@ -117,7 +120,10 @@ export default struct IMDSPStorage2 extends IMDSPStorage {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorage2-setattributes2
      */
     SetAttributes2(dwAttributes, dwAttributesEx, pAudioFormat, pVideoFormat) {
-        result := ComCall(15, this, UInt32, dwAttributes, UInt32, dwAttributesEx, WAVEFORMATEX.Ptr, pAudioFormat, VIDEOINFOHEADER.Ptr, pVideoFormat, "HRESULT")
+        pAudioFormatMarshal := pAudioFormat == 0 ? IntPtr : WAVEFORMATEX.Ptr
+        pVideoFormatMarshal := pVideoFormat == 0 ? IntPtr : VIDEOINFOHEADER.Ptr
+
+        result := ComCall(15, this, UInt32, dwAttributes, UInt32, dwAttributesEx, pAudioFormatMarshal, pAudioFormat, pVideoFormatMarshal, pVideoFormat, "HRESULT")
         return result
     }
 
@@ -142,10 +148,12 @@ export default struct IMDSPStorage2 extends IMDSPStorage {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorage2-getattributes2
      */
     GetAttributes2(pdwAttributes, pdwAttributesEx, pAudioFormat, pVideoFormat) {
-        pdwAttributesMarshal := pdwAttributes is VarRef ? "uint*" : "ptr"
-        pdwAttributesExMarshal := pdwAttributesEx is VarRef ? "uint*" : "ptr"
+        pdwAttributesMarshal := pdwAttributes is VarRef ? "uint*" : IntPtr
+        pdwAttributesExMarshal := pdwAttributesEx is VarRef ? "uint*" : IntPtr
+        pAudioFormatMarshal := pAudioFormat == 0 ? IntPtr : WAVEFORMATEX.Ptr
+        pVideoFormatMarshal := pVideoFormat == 0 ? IntPtr : VIDEOINFOHEADER.Ptr
 
-        result := ComCall(16, this, pdwAttributesMarshal, pdwAttributes, pdwAttributesExMarshal, pdwAttributesEx, WAVEFORMATEX.Ptr, pAudioFormat, VIDEOINFOHEADER.Ptr, pVideoFormat, "HRESULT")
+        result := ComCall(16, this, pdwAttributesMarshal, pdwAttributes, pdwAttributesExMarshal, pdwAttributesEx, pAudioFormatMarshal, pAudioFormat, pVideoFormatMarshal, pVideoFormat, "HRESULT")
         return result
     }
 
@@ -158,10 +166,10 @@ export default struct IMDSPStorage2 extends IMDSPStorage {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStorage := CallbackCreate(GetMethod(implObj, "GetStorage"), flags, 3)
-        this.vtbl.CreateStorage2 := CallbackCreate(GetMethod(implObj, "CreateStorage2"), flags, 8)
-        this.vtbl.SetAttributes2 := CallbackCreate(GetMethod(implObj, "SetAttributes2"), flags, 5)
-        this.vtbl.GetAttributes2 := CallbackCreate(GetMethod(implObj, "GetAttributes2"), flags, 5)
+        this.vtbl.GetStorage := CallbackCreate(ObjBindMethod(implObj, "GetStorage"), flags, 3)
+        this.vtbl.CreateStorage2 := CallbackCreate(ObjBindMethod(implObj, "CreateStorage2"), flags, 8)
+        this.vtbl.SetAttributes2 := CallbackCreate(ObjBindMethod(implObj, "SetAttributes2"), flags, 5)
+        this.vtbl.GetAttributes2 := CallbackCreate(ObjBindMethod(implObj, "GetAttributes2"), flags, 5)
     }
 
     Dispose() {

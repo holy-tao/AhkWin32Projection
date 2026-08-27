@@ -60,7 +60,7 @@ export default struct ID3D11RasterizerState2 extends ID3D11RasterizerState1 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDesc2 := CallbackCreate(GetMethod(implObj, "GetDesc2"), flags, 2)
+        this.vtbl.GetDesc2 := CallbackCreate(ObjBindMethod(implObj, "GetDesc2"), flags, 2)
     }
 
     Dispose() {

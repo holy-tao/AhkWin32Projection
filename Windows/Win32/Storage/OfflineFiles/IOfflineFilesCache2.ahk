@@ -70,7 +70,7 @@ export default struct IOfflineFilesCache2 extends IOfflineFilesCache {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RenameItemEx := CallbackCreate(GetMethod(implObj, "RenameItemEx"), flags, 4)
+        this.vtbl.RenameItemEx := CallbackCreate(ObjBindMethod(implObj, "RenameItemEx"), flags, 4)
     }
 
     Dispose() {

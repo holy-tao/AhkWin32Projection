@@ -121,8 +121,8 @@ export default struct ID3D11Device4 extends ID3D11Device3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterDeviceRemovedEvent := CallbackCreate(GetMethod(implObj, "RegisterDeviceRemovedEvent"), flags, 3)
-        this.vtbl.UnregisterDeviceRemoved := CallbackCreate(GetMethod(implObj, "UnregisterDeviceRemoved"), flags, 2)
+        this.vtbl.RegisterDeviceRemovedEvent := CallbackCreate(ObjBindMethod(implObj, "RegisterDeviceRemovedEvent"), flags, 3)
+        this.vtbl.UnregisterDeviceRemoved := CallbackCreate(ObjBindMethod(implObj, "UnregisterDeviceRemoved"), flags, 2)
     }
 
     Dispose() {

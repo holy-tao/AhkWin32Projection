@@ -72,7 +72,7 @@ export default struct IMbnSignalEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnSignalStateChange := CallbackCreate(GetMethod(implObj, "OnSignalStateChange"), flags, 2)
+        this.vtbl.OnSignalStateChange := CallbackCreate(ObjBindMethod(implObj, "OnSignalStateChange"), flags, 2)
     }
 
     Dispose() {

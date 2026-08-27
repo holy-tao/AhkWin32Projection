@@ -21,7 +21,6 @@ export default struct alljoyn_busobject_prop_get_ptr {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {PSTR} ifcName 
      * @param {PSTR} propName 
@@ -32,7 +31,7 @@ export default struct alljoyn_busobject_prop_get_ptr {
         ifcName := ifcName is String ? StrPtr(ifcName) : ifcName
         propName := propName is String ? StrPtr(propName) : propName
 
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _contextMarshal, _context, "ptr", ifcName, "ptr", propName, alljoyn_msgarg, _val, QStatus)
         return result

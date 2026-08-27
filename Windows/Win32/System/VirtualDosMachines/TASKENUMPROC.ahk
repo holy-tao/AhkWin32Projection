@@ -20,7 +20,6 @@ export default struct TASKENUMPROC {
     }
 
     /**
-     * 
      * @param {Integer} dwThreadId 
      * @param {Integer} hMod16 
      * @param {Integer} hTask16 

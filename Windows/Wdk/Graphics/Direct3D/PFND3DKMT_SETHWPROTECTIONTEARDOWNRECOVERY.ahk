@@ -20,7 +20,6 @@ export default struct PFND3DKMT_SETHWPROTECTIONTEARDOWNRECOVERY {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SETHWPROTECTIONTEARDOWNRECOVERY>} param0 
      * @returns {NTSTATUS} 
      */

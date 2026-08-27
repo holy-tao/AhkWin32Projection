@@ -57,7 +57,7 @@ export default struct IQueueCommand extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-iqueuecommand-invokeatstreamtime
      */
     InvokeAtStreamTime(pCmd, time, iid, dispidMethod, wFlags, cArgs, pDispParams, pvarResult, puArgErr) {
-        puArgErrMarshal := puArgErr is VarRef ? "short*" : "ptr"
+        puArgErrMarshal := puArgErr is VarRef ? "short*" : IntPtr
 
         result := ComCall(3, this, IDeferredCommand.Ptr, pCmd, Float64, time, Guid.Ptr, iid, Int32, dispidMethod, Int16, wFlags, Int32, cArgs, VARIANT.Ptr, pDispParams, VARIANT.Ptr, pvarResult, puArgErrMarshal, puArgErr, "HRESULT")
         return result
@@ -82,7 +82,7 @@ export default struct IQueueCommand extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-iqueuecommand-invokeatpresentationtime
      */
     InvokeAtPresentationTime(pCmd, time, iid, dispidMethod, wFlags, cArgs, pDispParams, pvarResult, puArgErr) {
-        puArgErrMarshal := puArgErr is VarRef ? "short*" : "ptr"
+        puArgErrMarshal := puArgErr is VarRef ? "short*" : IntPtr
 
         result := ComCall(4, this, IDeferredCommand.Ptr, pCmd, Float64, time, Guid.Ptr, iid, Int32, dispidMethod, Int16, wFlags, Int32, cArgs, VARIANT.Ptr, pDispParams, VARIANT.Ptr, pvarResult, puArgErrMarshal, puArgErr, "HRESULT")
         return result
@@ -97,8 +97,8 @@ export default struct IQueueCommand extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InvokeAtStreamTime := CallbackCreate(GetMethod(implObj, "InvokeAtStreamTime"), flags, 10)
-        this.vtbl.InvokeAtPresentationTime := CallbackCreate(GetMethod(implObj, "InvokeAtPresentationTime"), flags, 10)
+        this.vtbl.InvokeAtStreamTime := CallbackCreate(ObjBindMethod(implObj, "InvokeAtStreamTime"), flags, 10)
+        this.vtbl.InvokeAtPresentationTime := CallbackCreate(ObjBindMethod(implObj, "InvokeAtPresentationTime"), flags, 10)
     }
 
     Dispose() {

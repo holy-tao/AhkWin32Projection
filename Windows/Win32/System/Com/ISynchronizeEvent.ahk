@@ -58,7 +58,7 @@ export default struct ISynchronizeEvent extends ISynchronizeHandle {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetEventHandle := CallbackCreate(GetMethod(implObj, "SetEventHandle"), flags, 2)
+        this.vtbl.SetEventHandle := CallbackCreate(ObjBindMethod(implObj, "SetEventHandle"), flags, 2)
     }
 
     Dispose() {

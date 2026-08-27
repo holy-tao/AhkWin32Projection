@@ -21,7 +21,6 @@ export default struct PAPPSTATE_CHANGE_ROUTINE {
     }
 
     /**
-     * 
      * @param {BOOLEAN} Quiesced Type: <b>BOOLEAN</b>
      * 
      * <b>TRUE</b> if the app is entering the suspended state; <b>FALSE</b> if the app is leaving the suspended state.
@@ -31,7 +30,7 @@ export default struct PAPPSTATE_CHANGE_ROUTINE {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(Quiesced, _Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, BOOLEAN, Quiesced, _ContextMarshal, _Context)
     }

@@ -224,7 +224,9 @@ export default struct IMediaFilter extends IPersist {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediafilter-setsyncsource
      */
     SetSyncSource(pClock) {
-        result := ComCall(8, this, "ptr", pClock, "HRESULT")
+        pClockMarshal := pClock == 0 ? IntPtr : "ptr"
+
+        result := ComCall(8, this, pClockMarshal, pClock, "HRESULT")
         return result
     }
 
@@ -251,12 +253,12 @@ export default struct IMediaFilter extends IPersist {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
-        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
-        this.vtbl.Run := CallbackCreate(GetMethod(implObj, "Run"), flags, 2)
-        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 3)
-        this.vtbl.SetSyncSource := CallbackCreate(GetMethod(implObj, "SetSyncSource"), flags, 2)
-        this.vtbl.GetSyncSource := CallbackCreate(GetMethod(implObj, "GetSyncSource"), flags, 2)
+        this.vtbl.Stop := CallbackCreate(ObjBindMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.Pause := CallbackCreate(ObjBindMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Run := CallbackCreate(ObjBindMethod(implObj, "Run"), flags, 2)
+        this.vtbl.GetState := CallbackCreate(ObjBindMethod(implObj, "GetState"), flags, 3)
+        this.vtbl.SetSyncSource := CallbackCreate(ObjBindMethod(implObj, "SetSyncSource"), flags, 2)
+        this.vtbl.GetSyncSource := CallbackCreate(ObjBindMethod(implObj, "GetSyncSource"), flags, 2)
     }
 
     Dispose() {

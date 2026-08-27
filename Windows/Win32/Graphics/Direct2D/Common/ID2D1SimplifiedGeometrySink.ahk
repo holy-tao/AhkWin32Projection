@@ -167,13 +167,13 @@ export default struct ID2D1SimplifiedGeometrySink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetFillMode := CallbackCreate(GetMethod(implObj, "SetFillMode"), flags, 2)
-        this.vtbl.SetSegmentFlags := CallbackCreate(GetMethod(implObj, "SetSegmentFlags"), flags, 2)
-        this.vtbl.BeginFigure := CallbackCreate(GetMethod(implObj, "BeginFigure"), flags, 3)
-        this.vtbl.AddLines := CallbackCreate(GetMethod(implObj, "AddLines"), flags, 3)
-        this.vtbl.AddBeziers := CallbackCreate(GetMethod(implObj, "AddBeziers"), flags, 3)
-        this.vtbl.EndFigure := CallbackCreate(GetMethod(implObj, "EndFigure"), flags, 2)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.SetFillMode := CallbackCreate(ObjBindMethod(implObj, "SetFillMode"), flags, 2)
+        this.vtbl.SetSegmentFlags := CallbackCreate(ObjBindMethod(implObj, "SetSegmentFlags"), flags, 2)
+        this.vtbl.BeginFigure := CallbackCreate(ObjBindMethod(implObj, "BeginFigure"), flags, 3)
+        this.vtbl.AddLines := CallbackCreate(ObjBindMethod(implObj, "AddLines"), flags, 3)
+        this.vtbl.AddBeziers := CallbackCreate(ObjBindMethod(implObj, "AddBeziers"), flags, 3)
+        this.vtbl.EndFigure := CallbackCreate(ObjBindMethod(implObj, "EndFigure"), flags, 2)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
     }
 
     Dispose() {

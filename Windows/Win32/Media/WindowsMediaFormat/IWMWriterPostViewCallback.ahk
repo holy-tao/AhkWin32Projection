@@ -78,7 +78,7 @@ export default struct IWMWriterPostViewCallback extends IWMStatusCallback {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterpostviewcallback-onpostviewsample
      */
     OnPostViewSample(wStreamNumber, cnsSampleTime, cnsSampleDuration, dwFlags, pSample, pvContext) {
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(4, this, UInt16, wStreamNumber, Int64, cnsSampleTime, Int64, cnsSampleDuration, UInt32, dwFlags, "ptr", pSample, pvContextMarshal, pvContext, "HRESULT")
         return result
@@ -93,7 +93,7 @@ export default struct IWMWriterPostViewCallback extends IWMStatusCallback {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterpostviewcallback-allocateforpostview
      */
     AllocateForPostView(wStreamNum, cbBuffer, pvContext) {
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(5, this, UInt16, wStreamNum, UInt32, cbBuffer, "ptr*", &ppBuffer := 0, pvContextMarshal, pvContext, "HRESULT")
         return INSSBuffer(ppBuffer)
@@ -108,8 +108,8 @@ export default struct IWMWriterPostViewCallback extends IWMStatusCallback {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnPostViewSample := CallbackCreate(GetMethod(implObj, "OnPostViewSample"), flags, 7)
-        this.vtbl.AllocateForPostView := CallbackCreate(GetMethod(implObj, "AllocateForPostView"), flags, 5)
+        this.vtbl.OnPostViewSample := CallbackCreate(ObjBindMethod(implObj, "OnPostViewSample"), flags, 7)
+        this.vtbl.AllocateForPostView := CallbackCreate(ObjBindMethod(implObj, "AllocateForPostView"), flags, 5)
     }
 
     Dispose() {

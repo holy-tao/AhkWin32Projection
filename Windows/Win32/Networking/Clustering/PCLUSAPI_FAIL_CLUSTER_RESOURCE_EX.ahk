@@ -20,7 +20,6 @@ export default struct PCLUSAPI_FAIL_CLUSTER_RESOURCE_EX {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
@@ -28,7 +27,9 @@ export default struct PCLUSAPI_FAIL_CLUSTER_RESOURCE_EX {
     Call(_hResource, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall(this.value, HRESOURCE, _hResource, "ptr", lpszReason, UInt32)
+        lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+        result := DllCall(this.value, HRESOURCE, _hResource, lpszReasonMarshal, lpszReason, UInt32)
         return result
     }
 

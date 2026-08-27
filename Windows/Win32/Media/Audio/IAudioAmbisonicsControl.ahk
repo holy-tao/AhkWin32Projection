@@ -41,7 +41,6 @@ export default struct IAudioAmbisonicsControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<AMBISONICS_PARAMS>} pAmbisonicsParams 
      * @param {Integer} cbAmbisonicsParams 
      * @returns {HRESULT} 
@@ -52,7 +51,6 @@ export default struct IAudioAmbisonicsControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} bEnableHeadTracking 
      * @returns {HRESULT} 
      */
@@ -62,7 +60,6 @@ export default struct IAudioAmbisonicsControl extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetHeadTracking() {
@@ -71,7 +68,6 @@ export default struct IAudioAmbisonicsControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} X 
      * @param {Float} Y 
      * @param {Float} Z 
@@ -92,10 +88,10 @@ export default struct IAudioAmbisonicsControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetData := CallbackCreate(GetMethod(implObj, "SetData"), flags, 3)
-        this.vtbl.SetHeadTracking := CallbackCreate(GetMethod(implObj, "SetHeadTracking"), flags, 2)
-        this.vtbl.GetHeadTracking := CallbackCreate(GetMethod(implObj, "GetHeadTracking"), flags, 2)
-        this.vtbl.SetRotation := CallbackCreate(GetMethod(implObj, "SetRotation"), flags, 5)
+        this.vtbl.SetData := CallbackCreate(ObjBindMethod(implObj, "SetData"), flags, 3)
+        this.vtbl.SetHeadTracking := CallbackCreate(ObjBindMethod(implObj, "SetHeadTracking"), flags, 2)
+        this.vtbl.GetHeadTracking := CallbackCreate(ObjBindMethod(implObj, "GetHeadTracking"), flags, 2)
+        this.vtbl.SetRotation := CallbackCreate(ObjBindMethod(implObj, "SetRotation"), flags, 5)
     }
 
     Dispose() {

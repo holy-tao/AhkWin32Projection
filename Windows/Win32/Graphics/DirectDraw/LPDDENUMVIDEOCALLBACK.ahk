@@ -20,13 +20,12 @@ export default struct LPDDENUMVIDEOCALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<DDVIDEOPORTCAPS>} param0 
      * @param {Pointer<Void>} param1 
      * @returns {HRESULT} 
      */
     Call(param0, param1) {
-        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+        param1Marshal := param1 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, DDVIDEOPORTCAPS.Ptr, param0, param1Marshal, param1, "HRESULT")
         return result

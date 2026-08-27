@@ -36,7 +36,6 @@ export default struct IActivationFilter extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwActivationType 
      * @param {Pointer<Guid>} rclsid 
      * @returns {Guid} 
@@ -56,7 +55,7 @@ export default struct IActivationFilter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.HandleActivation := CallbackCreate(GetMethod(implObj, "HandleActivation"), flags, 4)
+        this.vtbl.HandleActivation := CallbackCreate(ObjBindMethod(implObj, "HandleActivation"), flags, 4)
     }
 
     Dispose() {

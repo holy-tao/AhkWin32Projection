@@ -119,10 +119,10 @@ export default struct ITsSbEnvironment extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_ServerWeight := CallbackCreate(GetMethod(implObj, "get_ServerWeight"), flags, 2)
-        this.vtbl.get_EnvironmentPropertySet := CallbackCreate(GetMethod(implObj, "get_EnvironmentPropertySet"), flags, 2)
-        this.vtbl.put_EnvironmentPropertySet := CallbackCreate(GetMethod(implObj, "put_EnvironmentPropertySet"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_ServerWeight := CallbackCreate(ObjBindMethod(implObj, "get_ServerWeight"), flags, 2)
+        this.vtbl.get_EnvironmentPropertySet := CallbackCreate(ObjBindMethod(implObj, "get_EnvironmentPropertySet"), flags, 2)
+        this.vtbl.put_EnvironmentPropertySet := CallbackCreate(ObjBindMethod(implObj, "put_EnvironmentPropertySet"), flags, 2)
     }
 
     Dispose() {

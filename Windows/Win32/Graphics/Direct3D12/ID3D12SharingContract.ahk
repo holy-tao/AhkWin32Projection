@@ -74,7 +74,6 @@ export default struct ID3D12SharingContract extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} guid 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -83,7 +82,6 @@ export default struct ID3D12SharingContract extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} guid 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -100,10 +98,10 @@ export default struct ID3D12SharingContract extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Present := CallbackCreate(GetMethod(implObj, "Present"), flags, 4)
-        this.vtbl.SharedFenceSignal := CallbackCreate(GetMethod(implObj, "SharedFenceSignal"), flags, 3)
-        this.vtbl.BeginCapturableWork := CallbackCreate(GetMethod(implObj, "BeginCapturableWork"), flags, 2)
-        this.vtbl.EndCapturableWork := CallbackCreate(GetMethod(implObj, "EndCapturableWork"), flags, 2)
+        this.vtbl.Present := CallbackCreate(ObjBindMethod(implObj, "Present"), flags, 4)
+        this.vtbl.SharedFenceSignal := CallbackCreate(ObjBindMethod(implObj, "SharedFenceSignal"), flags, 3)
+        this.vtbl.BeginCapturableWork := CallbackCreate(ObjBindMethod(implObj, "BeginCapturableWork"), flags, 2)
+        this.vtbl.EndCapturableWork := CallbackCreate(ObjBindMethod(implObj, "EndCapturableWork"), flags, 2)
     }
 
     Dispose() {

@@ -36,14 +36,13 @@ export default struct IDirectMusicDownload extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} ppvBuffer 
      * @param {Pointer<Integer>} pdwSize 
      * @returns {HRESULT} 
      */
     GetBuffer(ppvBuffer, pdwSize) {
-        ppvBufferMarshal := ppvBuffer is VarRef ? "ptr*" : "ptr"
-        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+        ppvBufferMarshal := ppvBuffer is VarRef ? "ptr*" : IntPtr
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, ppvBufferMarshal, ppvBuffer, pdwSizeMarshal, pdwSize, "HRESULT")
         return result
@@ -58,7 +57,7 @@ export default struct IDirectMusicDownload extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetBuffer := CallbackCreate(GetMethod(implObj, "GetBuffer"), flags, 3)
+        this.vtbl.GetBuffer := CallbackCreate(ObjBindMethod(implObj, "GetBuffer"), flags, 3)
     }
 
     Dispose() {

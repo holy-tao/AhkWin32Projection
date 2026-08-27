@@ -19,7 +19,6 @@ export default struct PFN_CSP_PAD_DATA {
     }
 
     /**
-     * 
      * @param {Pointer<CARD_SIGNING_INFO>} pSigningInfo 
      * @param {Integer} cbMaxWidth 
      * @param {Pointer<Integer>} pcbPaddedBuffer 
@@ -27,8 +26,8 @@ export default struct PFN_CSP_PAD_DATA {
      * @returns {Integer} 
      */
     Call(pSigningInfo, cbMaxWidth, pcbPaddedBuffer, ppbPaddedBuffer) {
-        pcbPaddedBufferMarshal := pcbPaddedBuffer is VarRef ? "uint*" : "ptr"
-        ppbPaddedBufferMarshal := ppbPaddedBuffer is VarRef ? "ptr*" : "ptr"
+        pcbPaddedBufferMarshal := pcbPaddedBuffer is VarRef ? "uint*" : IntPtr
+        ppbPaddedBufferMarshal := ppbPaddedBuffer is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, CARD_SIGNING_INFO.Ptr, pSigningInfo, UInt32, cbMaxWidth, pcbPaddedBufferMarshal, pcbPaddedBuffer, ppbPaddedBufferMarshal, ppbPaddedBuffer, UInt32)
         return result

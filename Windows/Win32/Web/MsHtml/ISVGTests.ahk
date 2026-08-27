@@ -63,7 +63,6 @@ export default struct ISVGTests extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGStringList} 
      */
     get_requiredFeatures() {
@@ -72,7 +71,6 @@ export default struct ISVGTests extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGStringList} 
      */
     get_requiredExtensions() {
@@ -81,7 +79,6 @@ export default struct ISVGTests extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGStringList} 
      */
     get_systemLanguage() {
@@ -90,7 +87,6 @@ export default struct ISVGTests extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _extension 
      * @returns {VARIANT_BOOL} 
      */
@@ -110,10 +106,10 @@ export default struct ISVGTests extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_requiredFeatures := CallbackCreate(GetMethod(implObj, "get_requiredFeatures"), flags, 2)
-        this.vtbl.get_requiredExtensions := CallbackCreate(GetMethod(implObj, "get_requiredExtensions"), flags, 2)
-        this.vtbl.get_systemLanguage := CallbackCreate(GetMethod(implObj, "get_systemLanguage"), flags, 2)
-        this.vtbl.hasExtension := CallbackCreate(GetMethod(implObj, "hasExtension"), flags, 3)
+        this.vtbl.get_requiredFeatures := CallbackCreate(ObjBindMethod(implObj, "get_requiredFeatures"), flags, 2)
+        this.vtbl.get_requiredExtensions := CallbackCreate(ObjBindMethod(implObj, "get_requiredExtensions"), flags, 2)
+        this.vtbl.get_systemLanguage := CallbackCreate(ObjBindMethod(implObj, "get_systemLanguage"), flags, 2)
+        this.vtbl.hasExtension := CallbackCreate(ObjBindMethod(implObj, "hasExtension"), flags, 3)
     }
 
     Dispose() {

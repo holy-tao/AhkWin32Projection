@@ -404,9 +404,9 @@ export default struct IMFOutputPolicy extends IMFAttributes {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GenerateRequiredSchemas := CallbackCreate(GetMethod(implObj, "GenerateRequiredSchemas"), flags, 6)
-        this.vtbl.GetOriginatorID := CallbackCreate(GetMethod(implObj, "GetOriginatorID"), flags, 2)
-        this.vtbl.GetMinimumGRLVersion := CallbackCreate(GetMethod(implObj, "GetMinimumGRLVersion"), flags, 2)
+        this.vtbl.GenerateRequiredSchemas := CallbackCreate(ObjBindMethod(implObj, "GenerateRequiredSchemas"), flags, 6)
+        this.vtbl.GetOriginatorID := CallbackCreate(ObjBindMethod(implObj, "GetOriginatorID"), flags, 2)
+        this.vtbl.GetMinimumGRLVersion := CallbackCreate(ObjBindMethod(implObj, "GetMinimumGRLVersion"), flags, 2)
     }
 
     Dispose() {

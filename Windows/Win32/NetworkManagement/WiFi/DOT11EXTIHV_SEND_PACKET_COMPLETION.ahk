@@ -19,12 +19,13 @@ export default struct DOT11EXTIHV_SEND_PACKET_COMPLETION {
     }
 
     /**
-     * 
      * @param {HANDLE} hSendCompletion 
      * @returns {Integer} 
      */
     Call(hSendCompletion) {
-        result := DllCall(this.value, HANDLE, hSendCompletion, UInt32)
+        hSendCompletionMarshal := hSendCompletion == 0 ? IntPtr : HANDLE
+
+        result := DllCall(this.value, hSendCompletionMarshal, hSendCompletion, UInt32)
         return result
     }
 

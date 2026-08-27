@@ -23,7 +23,6 @@ export default struct PINSPECT_HSTRING_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context [in]
      * 
      * Custom context data provided to the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsinspectstring">WindowsInspectString</a> function.
@@ -38,7 +37,7 @@ export default struct PINSPECT_HSTRING_CALLBACK {
      * The buffer that receives a copy of the bytes that are read.
      */
     Call(_context, readAddress, length) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _contextMarshal, _context, IntPtr, readAddress, UInt32, length, "char*", &_buffer := 0, "HRESULT")
         return _buffer

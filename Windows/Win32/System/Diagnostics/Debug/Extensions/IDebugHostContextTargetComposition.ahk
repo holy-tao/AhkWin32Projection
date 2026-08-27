@@ -41,7 +41,6 @@ export default struct IDebugHostContextTargetComposition extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<IDebugServiceManager>} 
      */
     GetServiceManager() {
@@ -50,7 +49,6 @@ export default struct IDebugHostContextTargetComposition extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<ISvcProcess>} 
      */
     GetServiceProcess() {
@@ -59,7 +57,6 @@ export default struct IDebugHostContextTargetComposition extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<ISvcThread>} 
      */
     GetServiceThread() {
@@ -76,9 +73,9 @@ export default struct IDebugHostContextTargetComposition extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetServiceManager := CallbackCreate(GetMethod(implObj, "GetServiceManager"), flags, 2)
-        this.vtbl.GetServiceProcess := CallbackCreate(GetMethod(implObj, "GetServiceProcess"), flags, 2)
-        this.vtbl.GetServiceThread := CallbackCreate(GetMethod(implObj, "GetServiceThread"), flags, 2)
+        this.vtbl.GetServiceManager := CallbackCreate(ObjBindMethod(implObj, "GetServiceManager"), flags, 2)
+        this.vtbl.GetServiceProcess := CallbackCreate(ObjBindMethod(implObj, "GetServiceProcess"), flags, 2)
+        this.vtbl.GetServiceThread := CallbackCreate(ObjBindMethod(implObj, "GetServiceThread"), flags, 2)
     }
 
     Dispose() {

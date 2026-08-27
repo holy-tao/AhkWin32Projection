@@ -21,7 +21,6 @@ export default struct PGET_IRP_INFO {
     }
 
     /**
-     * 
      * @param {IDebugClient} Client 
      * @param {Integer} _Irp 
      * @param {Pointer<DEBUG_IRP_INFO>} IrpInfo 

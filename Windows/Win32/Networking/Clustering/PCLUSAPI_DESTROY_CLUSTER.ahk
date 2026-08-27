@@ -21,7 +21,6 @@ export default struct PCLUSAPI_DESTROY_CLUSTER {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {Pointer<PCLUSTER_SETUP_PROGRESS_CALLBACK>} pfnProgressCallback 
      * @param {Pointer<Void>} pvCallbackArg 
@@ -29,9 +28,11 @@ export default struct PCLUSAPI_DESTROY_CLUSTER {
      * @returns {Integer} 
      */
     Call(_hCluster, pfnProgressCallback, pvCallbackArg, fdeleteVirtualComputerObjects) {
-        pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
+        pfnProgressCallbackMarshal := pfnProgressCallback == 0 ? IntPtr : PCLUSTER_SETUP_PROGRESS_CALLBACK
+        pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : IntPtr
+        pvCallbackArgMarshal := pvCallbackArg == 0 ? IntPtr : "ptr"
 
-        result := DllCall(this.value, HCLUSTER, _hCluster, PCLUSTER_SETUP_PROGRESS_CALLBACK, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, BOOL, fdeleteVirtualComputerObjects, UInt32)
+        result := DllCall(this.value, HCLUSTER, _hCluster, pfnProgressCallbackMarshal, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, BOOL, fdeleteVirtualComputerObjects, UInt32)
         return result
     }
 

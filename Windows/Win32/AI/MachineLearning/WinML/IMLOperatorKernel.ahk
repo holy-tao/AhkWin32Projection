@@ -56,7 +56,7 @@ export default struct IMLOperatorKernel extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Compute := CallbackCreate(GetMethod(implObj, "Compute"), flags, 2)
+        this.vtbl.Compute := CallbackCreate(ObjBindMethod(implObj, "Compute"), flags, 2)
     }
 
     Dispose() {

@@ -77,7 +77,6 @@ export default struct IShellDispatch extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Application() {
@@ -86,7 +85,6 @@ export default struct IShellDispatch extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Parent() {
@@ -379,29 +377,29 @@ export default struct IShellDispatch extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Application := CallbackCreate(GetMethod(implObj, "get_Application"), flags, 2)
-        this.vtbl.get_Parent := CallbackCreate(GetMethod(implObj, "get_Parent"), flags, 2)
-        this.vtbl.NameSpace := CallbackCreate(GetMethod(implObj, "NameSpace"), flags, 3)
-        this.vtbl.BrowseForFolder := CallbackCreate(GetMethod(implObj, "BrowseForFolder"), flags, 6)
-        this.vtbl.Windows := CallbackCreate(GetMethod(implObj, "Windows"), flags, 2)
-        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 2)
-        this.vtbl.Explore := CallbackCreate(GetMethod(implObj, "Explore"), flags, 2)
-        this.vtbl.MinimizeAll := CallbackCreate(GetMethod(implObj, "MinimizeAll"), flags, 1)
-        this.vtbl.UndoMinimizeALL := CallbackCreate(GetMethod(implObj, "UndoMinimizeALL"), flags, 1)
-        this.vtbl.FileRun := CallbackCreate(GetMethod(implObj, "FileRun"), flags, 1)
-        this.vtbl.CascadeWindows := CallbackCreate(GetMethod(implObj, "CascadeWindows"), flags, 1)
-        this.vtbl.TileVertically := CallbackCreate(GetMethod(implObj, "TileVertically"), flags, 1)
-        this.vtbl.TileHorizontally := CallbackCreate(GetMethod(implObj, "TileHorizontally"), flags, 1)
-        this.vtbl.ShutdownWindows := CallbackCreate(GetMethod(implObj, "ShutdownWindows"), flags, 1)
-        this.vtbl.Suspend := CallbackCreate(GetMethod(implObj, "Suspend"), flags, 1)
-        this.vtbl.EjectPC := CallbackCreate(GetMethod(implObj, "EjectPC"), flags, 1)
-        this.vtbl.SetTime := CallbackCreate(GetMethod(implObj, "SetTime"), flags, 1)
-        this.vtbl.TrayProperties := CallbackCreate(GetMethod(implObj, "TrayProperties"), flags, 1)
-        this.vtbl.Help := CallbackCreate(GetMethod(implObj, "Help"), flags, 1)
-        this.vtbl.FindFiles := CallbackCreate(GetMethod(implObj, "FindFiles"), flags, 1)
-        this.vtbl.FindComputer := CallbackCreate(GetMethod(implObj, "FindComputer"), flags, 1)
-        this.vtbl.RefreshMenu := CallbackCreate(GetMethod(implObj, "RefreshMenu"), flags, 1)
-        this.vtbl.ControlPanelItem := CallbackCreate(GetMethod(implObj, "ControlPanelItem"), flags, 2)
+        this.vtbl.get_Application := CallbackCreate(ObjBindMethod(implObj, "get_Application"), flags, 2)
+        this.vtbl.get_Parent := CallbackCreate(ObjBindMethod(implObj, "get_Parent"), flags, 2)
+        this.vtbl.NameSpace := CallbackCreate(ObjBindMethod(implObj, "NameSpace"), flags, 3)
+        this.vtbl.BrowseForFolder := CallbackCreate(ObjBindMethod(implObj, "BrowseForFolder"), flags, 6)
+        this.vtbl.Windows := CallbackCreate(ObjBindMethod(implObj, "Windows"), flags, 2)
+        this.vtbl.Open := CallbackCreate(ObjBindMethod(implObj, "Open"), flags, 2)
+        this.vtbl.Explore := CallbackCreate(ObjBindMethod(implObj, "Explore"), flags, 2)
+        this.vtbl.MinimizeAll := CallbackCreate(ObjBindMethod(implObj, "MinimizeAll"), flags, 1)
+        this.vtbl.UndoMinimizeALL := CallbackCreate(ObjBindMethod(implObj, "UndoMinimizeALL"), flags, 1)
+        this.vtbl.FileRun := CallbackCreate(ObjBindMethod(implObj, "FileRun"), flags, 1)
+        this.vtbl.CascadeWindows := CallbackCreate(ObjBindMethod(implObj, "CascadeWindows"), flags, 1)
+        this.vtbl.TileVertically := CallbackCreate(ObjBindMethod(implObj, "TileVertically"), flags, 1)
+        this.vtbl.TileHorizontally := CallbackCreate(ObjBindMethod(implObj, "TileHorizontally"), flags, 1)
+        this.vtbl.ShutdownWindows := CallbackCreate(ObjBindMethod(implObj, "ShutdownWindows"), flags, 1)
+        this.vtbl.Suspend := CallbackCreate(ObjBindMethod(implObj, "Suspend"), flags, 1)
+        this.vtbl.EjectPC := CallbackCreate(ObjBindMethod(implObj, "EjectPC"), flags, 1)
+        this.vtbl.SetTime := CallbackCreate(ObjBindMethod(implObj, "SetTime"), flags, 1)
+        this.vtbl.TrayProperties := CallbackCreate(ObjBindMethod(implObj, "TrayProperties"), flags, 1)
+        this.vtbl.Help := CallbackCreate(ObjBindMethod(implObj, "Help"), flags, 1)
+        this.vtbl.FindFiles := CallbackCreate(ObjBindMethod(implObj, "FindFiles"), flags, 1)
+        this.vtbl.FindComputer := CallbackCreate(ObjBindMethod(implObj, "FindComputer"), flags, 1)
+        this.vtbl.RefreshMenu := CallbackCreate(ObjBindMethod(implObj, "RefreshMenu"), flags, 1)
+        this.vtbl.ControlPanelItem := CallbackCreate(ObjBindMethod(implObj, "ControlPanelItem"), flags, 2)
     }
 
     Dispose() {

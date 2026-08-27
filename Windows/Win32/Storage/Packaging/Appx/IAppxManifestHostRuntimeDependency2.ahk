@@ -59,7 +59,7 @@ export default struct IAppxManifestHostRuntimeDependency2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPackageFamilyName := CallbackCreate(GetMethod(implObj, "GetPackageFamilyName"), flags, 2)
+        this.vtbl.GetPackageFamilyName := CallbackCreate(ObjBindMethod(implObj, "GetPackageFamilyName"), flags, 2)
     }
 
     Dispose() {

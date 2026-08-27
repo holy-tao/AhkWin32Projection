@@ -58,7 +58,6 @@ export default struct IHTMLDocumentCompatibleInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_userAgent() {
@@ -68,7 +67,6 @@ export default struct IHTMLDocumentCompatibleInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_version() {
@@ -86,8 +84,8 @@ export default struct IHTMLDocumentCompatibleInfo extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_userAgent := CallbackCreate(GetMethod(implObj, "get_userAgent"), flags, 2)
-        this.vtbl.get_version := CallbackCreate(GetMethod(implObj, "get_version"), flags, 2)
+        this.vtbl.get_userAgent := CallbackCreate(ObjBindMethod(implObj, "get_userAgent"), flags, 2)
+        this.vtbl.get_version := CallbackCreate(ObjBindMethod(implObj, "get_version"), flags, 2)
     }
 
     Dispose() {

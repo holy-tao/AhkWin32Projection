@@ -57,7 +57,7 @@ export default struct IPlayToControlWithCapabilities extends IPlayToControl {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCapabilities := CallbackCreate(GetMethod(implObj, "GetCapabilities"), flags, 2)
+        this.vtbl.GetCapabilities := CallbackCreate(ObjBindMethod(implObj, "GetCapabilities"), flags, 2)
     }
 
     Dispose() {

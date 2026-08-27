@@ -18,7 +18,6 @@ export default struct PBAD_MEMORY_CALLBACK_ROUTINE {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

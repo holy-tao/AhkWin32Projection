@@ -85,7 +85,7 @@ export default struct IGPMAsyncProgress extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Status := CallbackCreate(GetMethod(implObj, "Status"), flags, 6)
+        this.vtbl.Status := CallbackCreate(ObjBindMethod(implObj, "Status"), flags, 6)
     }
 
     Dispose() {

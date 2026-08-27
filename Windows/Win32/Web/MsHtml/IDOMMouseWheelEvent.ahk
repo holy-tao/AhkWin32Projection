@@ -54,7 +54,6 @@ export default struct IDOMMouseWheelEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_wheelDelta() {
@@ -63,7 +62,6 @@ export default struct IDOMMouseWheelEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 
@@ -96,8 +94,8 @@ export default struct IDOMMouseWheelEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_wheelDelta := CallbackCreate(GetMethod(implObj, "get_wheelDelta"), flags, 2)
-        this.vtbl.initMouseWheelEvent := CallbackCreate(GetMethod(implObj, "initMouseWheelEvent"), flags, 14)
+        this.vtbl.get_wheelDelta := CallbackCreate(ObjBindMethod(implObj, "get_wheelDelta"), flags, 2)
+        this.vtbl.initMouseWheelEvent := CallbackCreate(ObjBindMethod(implObj, "initMouseWheelEvent"), flags, 14)
     }
 
     Dispose() {

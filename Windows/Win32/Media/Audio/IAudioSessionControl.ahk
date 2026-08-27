@@ -420,15 +420,15 @@ export default struct IAudioSessionControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 2)
-        this.vtbl.GetDisplayName := CallbackCreate(GetMethod(implObj, "GetDisplayName"), flags, 2)
-        this.vtbl.SetDisplayName := CallbackCreate(GetMethod(implObj, "SetDisplayName"), flags, 3)
-        this.vtbl.GetIconPath := CallbackCreate(GetMethod(implObj, "GetIconPath"), flags, 2)
-        this.vtbl.SetIconPath := CallbackCreate(GetMethod(implObj, "SetIconPath"), flags, 3)
-        this.vtbl.GetGroupingParam := CallbackCreate(GetMethod(implObj, "GetGroupingParam"), flags, 2)
-        this.vtbl.SetGroupingParam := CallbackCreate(GetMethod(implObj, "SetGroupingParam"), flags, 3)
-        this.vtbl.RegisterAudioSessionNotification := CallbackCreate(GetMethod(implObj, "RegisterAudioSessionNotification"), flags, 2)
-        this.vtbl.UnregisterAudioSessionNotification := CallbackCreate(GetMethod(implObj, "UnregisterAudioSessionNotification"), flags, 2)
+        this.vtbl.GetState := CallbackCreate(ObjBindMethod(implObj, "GetState"), flags, 2)
+        this.vtbl.GetDisplayName := CallbackCreate(ObjBindMethod(implObj, "GetDisplayName"), flags, 2)
+        this.vtbl.SetDisplayName := CallbackCreate(ObjBindMethod(implObj, "SetDisplayName"), flags, 3)
+        this.vtbl.GetIconPath := CallbackCreate(ObjBindMethod(implObj, "GetIconPath"), flags, 2)
+        this.vtbl.SetIconPath := CallbackCreate(ObjBindMethod(implObj, "SetIconPath"), flags, 3)
+        this.vtbl.GetGroupingParam := CallbackCreate(ObjBindMethod(implObj, "GetGroupingParam"), flags, 2)
+        this.vtbl.SetGroupingParam := CallbackCreate(ObjBindMethod(implObj, "SetGroupingParam"), flags, 3)
+        this.vtbl.RegisterAudioSessionNotification := CallbackCreate(ObjBindMethod(implObj, "RegisterAudioSessionNotification"), flags, 2)
+        this.vtbl.UnregisterAudioSessionNotification := CallbackCreate(ObjBindMethod(implObj, "UnregisterAudioSessionNotification"), flags, 2)
     }
 
     Dispose() {

@@ -79,8 +79,8 @@ export default struct ICompositionFramePresentStatistics extends IPresentStatist
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-icompositionframepresentstatistics-getdisplayinstancearray
      */
     GetDisplayInstanceArray(displayInstanceArrayCount, displayInstanceArray) {
-        displayInstanceArrayCountMarshal := displayInstanceArrayCount is VarRef ? "uint*" : "ptr"
-        displayInstanceArrayMarshal := displayInstanceArray is VarRef ? "ptr*" : "ptr"
+        displayInstanceArrayCountMarshal := displayInstanceArrayCount is VarRef ? "uint*" : IntPtr
+        displayInstanceArrayMarshal := displayInstanceArray is VarRef ? "ptr*" : IntPtr
 
         ComCall(7, this, displayInstanceArrayCountMarshal, displayInstanceArrayCount, displayInstanceArrayMarshal, displayInstanceArray)
     }
@@ -94,9 +94,9 @@ export default struct ICompositionFramePresentStatistics extends IPresentStatist
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetContentTag := CallbackCreate(GetMethod(implObj, "GetContentTag"), flags, 1)
-        this.vtbl.GetCompositionFrameId := CallbackCreate(GetMethod(implObj, "GetCompositionFrameId"), flags, 1)
-        this.vtbl.GetDisplayInstanceArray := CallbackCreate(GetMethod(implObj, "GetDisplayInstanceArray"), flags, 3)
+        this.vtbl.GetContentTag := CallbackCreate(ObjBindMethod(implObj, "GetContentTag"), flags, 1)
+        this.vtbl.GetCompositionFrameId := CallbackCreate(ObjBindMethod(implObj, "GetCompositionFrameId"), flags, 1)
+        this.vtbl.GetDisplayInstanceArray := CallbackCreate(ObjBindMethod(implObj, "GetDisplayInstanceArray"), flags, 3)
     }
 
     Dispose() {

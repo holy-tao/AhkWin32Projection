@@ -20,7 +20,6 @@ export default struct GameInputDeviceCallback {
     }
 
     /**
-     * 
      * @param {Integer} callbackToken 
      * @param {Pointer<Void>} _context 
      * @param {IGameInputDevice} device 
@@ -30,7 +29,7 @@ export default struct GameInputDeviceCallback {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(callbackToken, _context, device, _timestamp, currentStatus, previousStatus) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, Int64, callbackToken, _contextMarshal, _context, "ptr", device, Int64, _timestamp, GameInputDeviceStatus, currentStatus, GameInputDeviceStatus, previousStatus)
     }

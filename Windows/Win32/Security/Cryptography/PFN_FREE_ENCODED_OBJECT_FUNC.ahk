@@ -20,7 +20,6 @@ export default struct PFN_FREE_ENCODED_OBJECT_FUNC {
     }
 
     /**
-     * 
      * @param {PSTR} pszObjectOid 
      * @param {Pointer<CRYPT_BLOB_ARRAY>} pObject 
      * @param {Pointer<Void>} pvFreeContext 
@@ -29,9 +28,11 @@ export default struct PFN_FREE_ENCODED_OBJECT_FUNC {
     Call(pszObjectOid, pObject, pvFreeContext) {
         pszObjectOid := pszObjectOid is String ? StrPtr(pszObjectOid) : pszObjectOid
 
-        pvFreeContextMarshal := pvFreeContext is VarRef ? "ptr" : "ptr"
+        pszObjectOidMarshal := pszObjectOid == 0 ? IntPtr : PSTR
+        pvFreeContextMarshal := pvFreeContext is VarRef ? "ptr" : IntPtr
+        pvFreeContextMarshal := pvFreeContext == 0 ? IntPtr : "ptr"
 
-        DllCall(this.value, "ptr", pszObjectOid, CRYPT_BLOB_ARRAY.Ptr, pObject, pvFreeContextMarshal, pvFreeContext)
+        DllCall(this.value, pszObjectOidMarshal, pszObjectOid, CRYPT_BLOB_ARRAY.Ptr, pObject, pvFreeContextMarshal, pvFreeContext)
     }
 
     /**

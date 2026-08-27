@@ -209,7 +209,7 @@ export default struct IWMWriterNetworkSink extends IWMWriterSink {
     GetHostURL(pwszURL, pcchURL) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        pcchURLMarshal := pcchURL is VarRef ? "uint*" : "ptr"
+        pcchURLMarshal := pcchURL is VarRef ? "uint*" : IntPtr
 
         result := ComCall(12, this, "ptr", pwszURL, pcchURLMarshal, pcchURL, "HRESULT")
         return result
@@ -277,7 +277,7 @@ export default struct IWMWriterNetworkSink extends IWMWriterSink {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriternetworksink-open
      */
     Open(pdwPortNum) {
-        pdwPortNumMarshal := pdwPortNum is VarRef ? "uint*" : "ptr"
+        pdwPortNumMarshal := pdwPortNum is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, pdwPortNumMarshal, pdwPortNum, "HRESULT")
         return result
@@ -363,14 +363,14 @@ export default struct IWMWriterNetworkSink extends IWMWriterSink {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetMaximumClients := CallbackCreate(GetMethod(implObj, "SetMaximumClients"), flags, 2)
-        this.vtbl.GetMaximumClients := CallbackCreate(GetMethod(implObj, "GetMaximumClients"), flags, 2)
-        this.vtbl.SetNetworkProtocol := CallbackCreate(GetMethod(implObj, "SetNetworkProtocol"), flags, 2)
-        this.vtbl.GetNetworkProtocol := CallbackCreate(GetMethod(implObj, "GetNetworkProtocol"), flags, 2)
-        this.vtbl.GetHostURL := CallbackCreate(GetMethod(implObj, "GetHostURL"), flags, 3)
-        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 2)
-        this.vtbl.Disconnect := CallbackCreate(GetMethod(implObj, "Disconnect"), flags, 1)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.SetMaximumClients := CallbackCreate(ObjBindMethod(implObj, "SetMaximumClients"), flags, 2)
+        this.vtbl.GetMaximumClients := CallbackCreate(ObjBindMethod(implObj, "GetMaximumClients"), flags, 2)
+        this.vtbl.SetNetworkProtocol := CallbackCreate(ObjBindMethod(implObj, "SetNetworkProtocol"), flags, 2)
+        this.vtbl.GetNetworkProtocol := CallbackCreate(ObjBindMethod(implObj, "GetNetworkProtocol"), flags, 2)
+        this.vtbl.GetHostURL := CallbackCreate(ObjBindMethod(implObj, "GetHostURL"), flags, 3)
+        this.vtbl.Open := CallbackCreate(ObjBindMethod(implObj, "Open"), flags, 2)
+        this.vtbl.Disconnect := CallbackCreate(ObjBindMethod(implObj, "Disconnect"), flags, 1)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
     }
 
     Dispose() {

@@ -135,10 +135,10 @@ export default struct IWiaTransfer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Download := CallbackCreate(GetMethod(implObj, "Download"), flags, 3)
-        this.vtbl.Upload := CallbackCreate(GetMethod(implObj, "Upload"), flags, 4)
-        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
-        this.vtbl.EnumWIA_FORMAT_INFO := CallbackCreate(GetMethod(implObj, "EnumWIA_FORMAT_INFO"), flags, 2)
+        this.vtbl.Download := CallbackCreate(ObjBindMethod(implObj, "Download"), flags, 3)
+        this.vtbl.Upload := CallbackCreate(ObjBindMethod(implObj, "Upload"), flags, 4)
+        this.vtbl.Cancel := CallbackCreate(ObjBindMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.EnumWIA_FORMAT_INFO := CallbackCreate(ObjBindMethod(implObj, "EnumWIA_FORMAT_INFO"), flags, 2)
     }
 
     Dispose() {

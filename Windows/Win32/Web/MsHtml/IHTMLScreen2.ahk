@@ -67,7 +67,6 @@ export default struct IHTMLScreen2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_logicalXDPI() {
@@ -76,7 +75,6 @@ export default struct IHTMLScreen2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_logicalYDPI() {
@@ -85,7 +83,6 @@ export default struct IHTMLScreen2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_deviceXDPI() {
@@ -94,7 +91,6 @@ export default struct IHTMLScreen2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_deviceYDPI() {
@@ -111,10 +107,10 @@ export default struct IHTMLScreen2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_logicalXDPI := CallbackCreate(GetMethod(implObj, "get_logicalXDPI"), flags, 2)
-        this.vtbl.get_logicalYDPI := CallbackCreate(GetMethod(implObj, "get_logicalYDPI"), flags, 2)
-        this.vtbl.get_deviceXDPI := CallbackCreate(GetMethod(implObj, "get_deviceXDPI"), flags, 2)
-        this.vtbl.get_deviceYDPI := CallbackCreate(GetMethod(implObj, "get_deviceYDPI"), flags, 2)
+        this.vtbl.get_logicalXDPI := CallbackCreate(ObjBindMethod(implObj, "get_logicalXDPI"), flags, 2)
+        this.vtbl.get_logicalYDPI := CallbackCreate(ObjBindMethod(implObj, "get_logicalYDPI"), flags, 2)
+        this.vtbl.get_deviceXDPI := CallbackCreate(ObjBindMethod(implObj, "get_deviceXDPI"), flags, 2)
+        this.vtbl.get_deviceYDPI := CallbackCreate(ObjBindMethod(implObj, "get_deviceYDPI"), flags, 2)
     }
 
     Dispose() {

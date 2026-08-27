@@ -94,7 +94,9 @@ export default struct IShellIconOverlayManager extends IUnknown {
     GetReservedOverlayInfo(pwszPath, dwAttrib, dwflags, iReservedID) {
         pwszPath := pwszPath is String ? StrPtr(pwszPath) : pwszPath
 
-        result := ComCall(4, this, "ptr", pwszPath, UInt32, dwAttrib, "int*", &pIndex := 0, UInt32, dwflags, Int32, iReservedID, "HRESULT")
+        pwszPathMarshal := pwszPath == 0 ? IntPtr : PWSTR
+
+        result := ComCall(4, this, pwszPathMarshal, pwszPath, UInt32, dwAttrib, "int*", &pIndex := 0, UInt32, dwflags, Int32, iReservedID, "HRESULT")
         return pIndex
     }
 
@@ -181,11 +183,11 @@ export default struct IShellIconOverlayManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFileOverlayInfo := CallbackCreate(GetMethod(implObj, "GetFileOverlayInfo"), flags, 5)
-        this.vtbl.GetReservedOverlayInfo := CallbackCreate(GetMethod(implObj, "GetReservedOverlayInfo"), flags, 6)
-        this.vtbl.RefreshOverlayImages := CallbackCreate(GetMethod(implObj, "RefreshOverlayImages"), flags, 2)
-        this.vtbl.LoadNonloadedOverlayIdentifiers := CallbackCreate(GetMethod(implObj, "LoadNonloadedOverlayIdentifiers"), flags, 1)
-        this.vtbl.OverlayIndexFromImageIndex := CallbackCreate(GetMethod(implObj, "OverlayIndexFromImageIndex"), flags, 4)
+        this.vtbl.GetFileOverlayInfo := CallbackCreate(ObjBindMethod(implObj, "GetFileOverlayInfo"), flags, 5)
+        this.vtbl.GetReservedOverlayInfo := CallbackCreate(ObjBindMethod(implObj, "GetReservedOverlayInfo"), flags, 6)
+        this.vtbl.RefreshOverlayImages := CallbackCreate(ObjBindMethod(implObj, "RefreshOverlayImages"), flags, 2)
+        this.vtbl.LoadNonloadedOverlayIdentifiers := CallbackCreate(ObjBindMethod(implObj, "LoadNonloadedOverlayIdentifiers"), flags, 1)
+        this.vtbl.OverlayIndexFromImageIndex := CallbackCreate(ObjBindMethod(implObj, "OverlayIndexFromImageIndex"), flags, 4)
     }
 
     Dispose() {

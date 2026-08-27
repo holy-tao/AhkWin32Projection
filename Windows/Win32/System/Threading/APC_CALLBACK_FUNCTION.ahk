@@ -18,15 +18,14 @@ export default struct APC_CALLBACK_FUNCTION {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<Void>} param1 
      * @param {Pointer<Void>} param2 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(param0, param1, param2) {
-        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
-        param2Marshal := param2 is VarRef ? "ptr" : "ptr"
+        param1Marshal := param1 is VarRef ? "ptr" : IntPtr
+        param2Marshal := param2 is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, UInt32, param0, param1Marshal, param1, param2Marshal, param2)
     }

@@ -19,7 +19,6 @@ export default struct LPDDHALSURFCB_UPDATEOVERLAY {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_UPDATEOVERLAYDATA>} param0 
      * @returns {Integer} 
      */

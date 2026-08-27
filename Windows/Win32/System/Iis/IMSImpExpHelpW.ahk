@@ -37,7 +37,6 @@ export default struct IMSImpExpHelpW extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszFileName 
      * @param {PWSTR} pszKeyType 
      * @param {Integer} dwMDBufferSize 
@@ -49,7 +48,11 @@ export default struct IMSImpExpHelpW extends IUnknown {
         pszKeyType := pszKeyType is String ? StrPtr(pszKeyType) : pszKeyType
         pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
 
-        result := ComCall(3, this, "ptr", pszFileName, "ptr", pszKeyType, UInt32, dwMDBufferSize, "ptr", pszBuffer, "uint*", &pdwMDRequiredBufferSize := 0, "HRESULT")
+        pszFileNameMarshal := pszFileName == 0 ? IntPtr : PWSTR
+        pszKeyTypeMarshal := pszKeyType == 0 ? IntPtr : PWSTR
+        pszBufferMarshal := pszBuffer == 0 ? IntPtr : PWSTR
+
+        result := ComCall(3, this, pszFileNameMarshal, pszFileName, pszKeyTypeMarshal, pszKeyType, UInt32, dwMDBufferSize, pszBufferMarshal, pszBuffer, "uint*", &pdwMDRequiredBufferSize := 0, "HRESULT")
         return pdwMDRequiredBufferSize
     }
 
@@ -62,7 +65,7 @@ export default struct IMSImpExpHelpW extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumeratePathsInFile := CallbackCreate(GetMethod(implObj, "EnumeratePathsInFile"), flags, 6)
+        this.vtbl.EnumeratePathsInFile := CallbackCreate(ObjBindMethod(implObj, "EnumeratePathsInFile"), flags, 6)
     }
 
     Dispose() {

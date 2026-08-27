@@ -110,10 +110,10 @@ export default struct ID3D12VideoDevice extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CheckFeatureSupport := CallbackCreate(GetMethod(implObj, "CheckFeatureSupport"), flags, 4)
-        this.vtbl.CreateVideoDecoder := CallbackCreate(GetMethod(implObj, "CreateVideoDecoder"), flags, 4)
-        this.vtbl.CreateVideoDecoderHeap := CallbackCreate(GetMethod(implObj, "CreateVideoDecoderHeap"), flags, 4)
-        this.vtbl.CreateVideoProcessor := CallbackCreate(GetMethod(implObj, "CreateVideoProcessor"), flags, 7)
+        this.vtbl.CheckFeatureSupport := CallbackCreate(ObjBindMethod(implObj, "CheckFeatureSupport"), flags, 4)
+        this.vtbl.CreateVideoDecoder := CallbackCreate(ObjBindMethod(implObj, "CreateVideoDecoder"), flags, 4)
+        this.vtbl.CreateVideoDecoderHeap := CallbackCreate(ObjBindMethod(implObj, "CreateVideoDecoderHeap"), flags, 4)
+        this.vtbl.CreateVideoProcessor := CallbackCreate(ObjBindMethod(implObj, "CreateVideoProcessor"), flags, 7)
     }
 
     Dispose() {

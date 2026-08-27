@@ -75,11 +75,11 @@ export default struct IWMHeaderInfo2 extends IWMHeaderInfo {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
         pwszDescription := pwszDescription is String ? StrPtr(pwszDescription) : pwszDescription
 
-        pcchNameMarshal := pcchName is VarRef ? "ushort*" : "ptr"
-        pcchDescriptionMarshal := pcchDescription is VarRef ? "ushort*" : "ptr"
-        pCodecTypeMarshal := pCodecType is VarRef ? "int*" : "ptr"
-        pcbCodecInfoMarshal := pcbCodecInfo is VarRef ? "ushort*" : "ptr"
-        pbCodecInfoMarshal := pbCodecInfo is VarRef ? "char*" : "ptr"
+        pcchNameMarshal := pcchName is VarRef ? "ushort*" : IntPtr
+        pcchDescriptionMarshal := pcchDescription is VarRef ? "ushort*" : IntPtr
+        pCodecTypeMarshal := pCodecType is VarRef ? "int*" : IntPtr
+        pcbCodecInfoMarshal := pcbCodecInfo is VarRef ? "ushort*" : IntPtr
+        pbCodecInfoMarshal := pbCodecInfo is VarRef ? "char*" : IntPtr
 
         result := ComCall(16, this, UInt32, wIndex, pcchNameMarshal, pcchName, "ptr", pwszName, pcchDescriptionMarshal, pcchDescription, "ptr", pwszDescription, pCodecTypeMarshal, pCodecType, pcbCodecInfoMarshal, pcbCodecInfo, pbCodecInfoMarshal, pbCodecInfo, "HRESULT")
         return result
@@ -94,8 +94,8 @@ export default struct IWMHeaderInfo2 extends IWMHeaderInfo {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCodecInfoCount := CallbackCreate(GetMethod(implObj, "GetCodecInfoCount"), flags, 2)
-        this.vtbl.GetCodecInfo := CallbackCreate(GetMethod(implObj, "GetCodecInfo"), flags, 9)
+        this.vtbl.GetCodecInfoCount := CallbackCreate(ObjBindMethod(implObj, "GetCodecInfoCount"), flags, 2)
+        this.vtbl.GetCodecInfo := CallbackCreate(ObjBindMethod(implObj, "GetCodecInfo"), flags, 9)
     }
 
     Dispose() {

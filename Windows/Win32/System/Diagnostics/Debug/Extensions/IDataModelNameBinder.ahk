@@ -43,7 +43,6 @@ export default struct IDataModelNameBinder extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @param {PWSTR} name 
      * @param {Pointer<IModelObject>} value 
@@ -53,12 +52,13 @@ export default struct IDataModelNameBinder extends IUnknown {
     BindValue(contextObject, name, value, metadata) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(3, this, "ptr", contextObject, "ptr", name, IModelObject.Ptr, value, IKeyStore.Ptr, metadata, "HRESULT")
+        metadataMarshal := metadata == 0 ? IntPtr : IKeyStore.Ptr
+
+        result := ComCall(3, this, "ptr", contextObject, "ptr", name, IModelObject.Ptr, value, metadataMarshal, metadata, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @param {PWSTR} name 
      * @param {Pointer<IModelObject>} _reference 
@@ -68,12 +68,13 @@ export default struct IDataModelNameBinder extends IUnknown {
     BindReference(contextObject, name, _reference, metadata) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(4, this, "ptr", contextObject, "ptr", name, IModelObject.Ptr, _reference, IKeyStore.Ptr, metadata, "HRESULT")
+        metadataMarshal := metadata == 0 ? IntPtr : IKeyStore.Ptr
+
+        result := ComCall(4, this, "ptr", contextObject, "ptr", name, IModelObject.Ptr, _reference, metadataMarshal, metadata, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @returns {IKeyEnumerator} 
      */
@@ -83,7 +84,6 @@ export default struct IDataModelNameBinder extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @returns {IKeyEnumerator} 
      */
@@ -101,10 +101,10 @@ export default struct IDataModelNameBinder extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BindValue := CallbackCreate(GetMethod(implObj, "BindValue"), flags, 5)
-        this.vtbl.BindReference := CallbackCreate(GetMethod(implObj, "BindReference"), flags, 5)
-        this.vtbl.EnumerateValues := CallbackCreate(GetMethod(implObj, "EnumerateValues"), flags, 3)
-        this.vtbl.EnumerateReferences := CallbackCreate(GetMethod(implObj, "EnumerateReferences"), flags, 3)
+        this.vtbl.BindValue := CallbackCreate(ObjBindMethod(implObj, "BindValue"), flags, 5)
+        this.vtbl.BindReference := CallbackCreate(ObjBindMethod(implObj, "BindReference"), flags, 5)
+        this.vtbl.EnumerateValues := CallbackCreate(ObjBindMethod(implObj, "EnumerateValues"), flags, 3)
+        this.vtbl.EnumerateReferences := CallbackCreate(ObjBindMethod(implObj, "EnumerateReferences"), flags, 3)
     }
 
     Dispose() {

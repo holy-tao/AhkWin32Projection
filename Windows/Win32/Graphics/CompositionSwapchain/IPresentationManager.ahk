@@ -56,7 +56,6 @@ export default struct IPresentationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} resource 
      * @returns {IPresentationBuffer} 
      */
@@ -281,19 +280,19 @@ export default struct IPresentationManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddBufferFromResource := CallbackCreate(GetMethod(implObj, "AddBufferFromResource"), flags, 3)
-        this.vtbl.CreatePresentationSurface := CallbackCreate(GetMethod(implObj, "CreatePresentationSurface"), flags, 3)
-        this.vtbl.GetNextPresentId := CallbackCreate(GetMethod(implObj, "GetNextPresentId"), flags, 1)
-        this.vtbl.SetTargetTime := CallbackCreate(GetMethod(implObj, "SetTargetTime"), flags, 2)
-        this.vtbl.SetPreferredPresentDuration := CallbackCreate(GetMethod(implObj, "SetPreferredPresentDuration"), flags, 3)
-        this.vtbl.ForceVSyncInterrupt := CallbackCreate(GetMethod(implObj, "ForceVSyncInterrupt"), flags, 2)
-        this.vtbl.Present := CallbackCreate(GetMethod(implObj, "Present"), flags, 1)
-        this.vtbl.GetPresentRetiringFence := CallbackCreate(GetMethod(implObj, "GetPresentRetiringFence"), flags, 3)
-        this.vtbl.CancelPresentsFrom := CallbackCreate(GetMethod(implObj, "CancelPresentsFrom"), flags, 2)
-        this.vtbl.GetLostEvent := CallbackCreate(GetMethod(implObj, "GetLostEvent"), flags, 2)
-        this.vtbl.GetPresentStatisticsAvailableEvent := CallbackCreate(GetMethod(implObj, "GetPresentStatisticsAvailableEvent"), flags, 2)
-        this.vtbl.EnablePresentStatisticsKind := CallbackCreate(GetMethod(implObj, "EnablePresentStatisticsKind"), flags, 3)
-        this.vtbl.GetNextPresentStatistics := CallbackCreate(GetMethod(implObj, "GetNextPresentStatistics"), flags, 2)
+        this.vtbl.AddBufferFromResource := CallbackCreate(ObjBindMethod(implObj, "AddBufferFromResource"), flags, 3)
+        this.vtbl.CreatePresentationSurface := CallbackCreate(ObjBindMethod(implObj, "CreatePresentationSurface"), flags, 3)
+        this.vtbl.GetNextPresentId := CallbackCreate(ObjBindMethod(implObj, "GetNextPresentId"), flags, 1)
+        this.vtbl.SetTargetTime := CallbackCreate(ObjBindMethod(implObj, "SetTargetTime"), flags, 2)
+        this.vtbl.SetPreferredPresentDuration := CallbackCreate(ObjBindMethod(implObj, "SetPreferredPresentDuration"), flags, 3)
+        this.vtbl.ForceVSyncInterrupt := CallbackCreate(ObjBindMethod(implObj, "ForceVSyncInterrupt"), flags, 2)
+        this.vtbl.Present := CallbackCreate(ObjBindMethod(implObj, "Present"), flags, 1)
+        this.vtbl.GetPresentRetiringFence := CallbackCreate(ObjBindMethod(implObj, "GetPresentRetiringFence"), flags, 3)
+        this.vtbl.CancelPresentsFrom := CallbackCreate(ObjBindMethod(implObj, "CancelPresentsFrom"), flags, 2)
+        this.vtbl.GetLostEvent := CallbackCreate(ObjBindMethod(implObj, "GetLostEvent"), flags, 2)
+        this.vtbl.GetPresentStatisticsAvailableEvent := CallbackCreate(ObjBindMethod(implObj, "GetPresentStatisticsAvailableEvent"), flags, 2)
+        this.vtbl.EnablePresentStatisticsKind := CallbackCreate(ObjBindMethod(implObj, "EnablePresentStatisticsKind"), flags, 3)
+        this.vtbl.GetNextPresentStatistics := CallbackCreate(ObjBindMethod(implObj, "GetNextPresentStatistics"), flags, 2)
     }
 
     Dispose() {

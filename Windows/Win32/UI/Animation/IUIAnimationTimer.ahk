@@ -75,7 +75,9 @@ export default struct IUIAnimationTimer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtimer-settimerupdatehandler
      */
     SetTimerUpdateHandler(updateHandler, idleBehavior) {
-        result := ComCall(3, this, "ptr", updateHandler, UI_ANIMATION_IDLE_BEHAVIOR, idleBehavior, "HRESULT")
+        updateHandlerMarshal := updateHandler == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, updateHandlerMarshal, updateHandler, UI_ANIMATION_IDLE_BEHAVIOR, idleBehavior, "HRESULT")
         return result
     }
 
@@ -93,7 +95,9 @@ export default struct IUIAnimationTimer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtimer-settimereventhandler
      */
     SetTimerEventHandler(handler) {
-        result := ComCall(4, this, "ptr", handler, "HRESULT")
+        handlerMarshal := handler == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, handlerMarshal, handler, "HRESULT")
         return result
     }
 
@@ -162,13 +166,13 @@ export default struct IUIAnimationTimer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetTimerUpdateHandler := CallbackCreate(GetMethod(implObj, "SetTimerUpdateHandler"), flags, 3)
-        this.vtbl.SetTimerEventHandler := CallbackCreate(GetMethod(implObj, "SetTimerEventHandler"), flags, 2)
-        this.vtbl.Enable := CallbackCreate(GetMethod(implObj, "Enable"), flags, 1)
-        this.vtbl.Disable := CallbackCreate(GetMethod(implObj, "Disable"), flags, 1)
-        this.vtbl.IsEnabled := CallbackCreate(GetMethod(implObj, "IsEnabled"), flags, 1)
-        this.vtbl.GetTime := CallbackCreate(GetMethod(implObj, "GetTime"), flags, 2)
-        this.vtbl.SetFrameRateThreshold := CallbackCreate(GetMethod(implObj, "SetFrameRateThreshold"), flags, 2)
+        this.vtbl.SetTimerUpdateHandler := CallbackCreate(ObjBindMethod(implObj, "SetTimerUpdateHandler"), flags, 3)
+        this.vtbl.SetTimerEventHandler := CallbackCreate(ObjBindMethod(implObj, "SetTimerEventHandler"), flags, 2)
+        this.vtbl.Enable := CallbackCreate(ObjBindMethod(implObj, "Enable"), flags, 1)
+        this.vtbl.Disable := CallbackCreate(ObjBindMethod(implObj, "Disable"), flags, 1)
+        this.vtbl.IsEnabled := CallbackCreate(ObjBindMethod(implObj, "IsEnabled"), flags, 1)
+        this.vtbl.GetTime := CallbackCreate(ObjBindMethod(implObj, "GetTime"), flags, 2)
+        this.vtbl.SetFrameRateThreshold := CallbackCreate(ObjBindMethod(implObj, "SetFrameRateThreshold"), flags, 2)
     }
 
     Dispose() {

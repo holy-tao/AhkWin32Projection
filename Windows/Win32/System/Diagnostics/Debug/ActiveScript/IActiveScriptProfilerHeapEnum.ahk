@@ -42,22 +42,20 @@ export default struct IActiveScriptProfilerHeapEnum extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} celt 
      * @param {Pointer<Pointer<PROFILER_HEAP_OBJECT>>} heapObjects 
      * @param {Pointer<Integer>} pceltFetched 
      * @returns {HRESULT} 
      */
     Next(celt, heapObjects, pceltFetched) {
-        heapObjectsMarshal := heapObjects is VarRef ? "ptr*" : "ptr"
-        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
+        heapObjectsMarshal := heapObjects is VarRef ? "ptr*" : IntPtr
+        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, UInt32, celt, heapObjectsMarshal, heapObjects, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<PROFILER_HEAP_OBJECT>} heapObject 
      * @param {Integer} celt 
      * @returns {PROFILER_HEAP_OBJECT_OPTIONAL_INFO} 
@@ -69,27 +67,25 @@ export default struct IActiveScriptProfilerHeapEnum extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} celt 
      * @param {Pointer<Pointer<PROFILER_HEAP_OBJECT>>} heapObjects 
      * @returns {HRESULT} 
      */
     FreeObjectAndOptionalInfo(celt, heapObjects) {
-        heapObjectsMarshal := heapObjects is VarRef ? "ptr*" : "ptr"
+        heapObjectsMarshal := heapObjects is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, UInt32, celt, heapObjectsMarshal, heapObjects, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Pointer<PWSTR>>>} pNameList 
      * @param {Pointer<Integer>} pcelt 
      * @returns {HRESULT} 
      */
     GetNameIdMap(pNameList, pcelt) {
-        pNameListMarshal := pNameList is VarRef ? "ptr*" : "ptr"
-        pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
+        pNameListMarshal := pNameList is VarRef ? "ptr*" : IntPtr
+        pceltMarshal := pcelt is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, pNameListMarshal, pNameList, pceltMarshal, pcelt, "HRESULT")
         return result
@@ -104,10 +100,10 @@ export default struct IActiveScriptProfilerHeapEnum extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 4)
-        this.vtbl.GetOptionalInfo := CallbackCreate(GetMethod(implObj, "GetOptionalInfo"), flags, 4)
-        this.vtbl.FreeObjectAndOptionalInfo := CallbackCreate(GetMethod(implObj, "FreeObjectAndOptionalInfo"), flags, 3)
-        this.vtbl.GetNameIdMap := CallbackCreate(GetMethod(implObj, "GetNameIdMap"), flags, 3)
+        this.vtbl.Next := CallbackCreate(ObjBindMethod(implObj, "Next"), flags, 4)
+        this.vtbl.GetOptionalInfo := CallbackCreate(ObjBindMethod(implObj, "GetOptionalInfo"), flags, 4)
+        this.vtbl.FreeObjectAndOptionalInfo := CallbackCreate(ObjBindMethod(implObj, "FreeObjectAndOptionalInfo"), flags, 3)
+        this.vtbl.GetNameIdMap := CallbackCreate(ObjBindMethod(implObj, "GetNameIdMap"), flags, 3)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct PCLUSTER_REG_CLOSE_READ_BATCH_REPLY {
     }
 
     /**
-     * 
      * @param {HREGREADBATCHREPLY} _hRegReadBatchReply 
      * @returns {Integer} 
      */

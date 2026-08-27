@@ -94,8 +94,8 @@ export default struct IMSVidEncoder extends IMSVidFeature {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_VideoEncoderInterface := CallbackCreate(GetMethod(implObj, "get_VideoEncoderInterface"), flags, 2)
-        this.vtbl.get_AudioEncoderInterface := CallbackCreate(GetMethod(implObj, "get_AudioEncoderInterface"), flags, 2)
+        this.vtbl.get_VideoEncoderInterface := CallbackCreate(ObjBindMethod(implObj, "get_VideoEncoderInterface"), flags, 2)
+        this.vtbl.get_AudioEncoderInterface := CallbackCreate(ObjBindMethod(implObj, "get_AudioEncoderInterface"), flags, 2)
     }
 
     Dispose() {

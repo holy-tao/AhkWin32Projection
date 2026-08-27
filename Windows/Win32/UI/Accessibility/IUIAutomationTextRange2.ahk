@@ -62,7 +62,7 @@ export default struct IUIAutomationTextRange2 extends IUIAutomationTextRange {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ShowContextMenu := CallbackCreate(GetMethod(implObj, "ShowContextMenu"), flags, 1)
+        this.vtbl.ShowContextMenu := CallbackCreate(ObjBindMethod(implObj, "ShowContextMenu"), flags, 1)
     }
 
     Dispose() {

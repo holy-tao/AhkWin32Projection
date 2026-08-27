@@ -62,7 +62,7 @@ export default struct IVdsLunNumber extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLunNumber := CallbackCreate(GetMethod(implObj, "GetLunNumber"), flags, 2)
+        this.vtbl.GetLunNumber := CallbackCreate(ObjBindMethod(implObj, "GetLunNumber"), flags, 2)
     }
 
     Dispose() {

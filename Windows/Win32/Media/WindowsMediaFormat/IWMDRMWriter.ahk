@@ -54,7 +54,7 @@ export default struct IWMDRMWriter extends IUnknown {
     GenerateKeySeed(pwszKeySeed, pcwchLength) {
         pwszKeySeed := pwszKeySeed is String ? StrPtr(pwszKeySeed) : pwszKeySeed
 
-        pcwchLengthMarshal := pcwchLength is VarRef ? "uint*" : "ptr"
+        pcwchLengthMarshal := pcwchLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, "ptr", pwszKeySeed, pcwchLengthMarshal, pcwchLength, "HRESULT")
         return result
@@ -72,7 +72,7 @@ export default struct IWMDRMWriter extends IUnknown {
     GenerateKeyID(pwszKeyID, pcwchLength) {
         pwszKeyID := pwszKeyID is String ? StrPtr(pwszKeyID) : pwszKeyID
 
-        pcwchLengthMarshal := pcwchLength is VarRef ? "uint*" : "ptr"
+        pcwchLengthMarshal := pcwchLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, "ptr", pwszKeyID, pcwchLengthMarshal, pcwchLength, "HRESULT")
         return result
@@ -95,8 +95,8 @@ export default struct IWMDRMWriter extends IUnknown {
         pwszPrivKey := pwszPrivKey is String ? StrPtr(pwszPrivKey) : pwszPrivKey
         pwszPubKey := pwszPubKey is String ? StrPtr(pwszPubKey) : pwszPubKey
 
-        pcwchPrivKeyLengthMarshal := pcwchPrivKeyLength is VarRef ? "uint*" : "ptr"
-        pcwchPubKeyLengthMarshal := pcwchPubKeyLength is VarRef ? "uint*" : "ptr"
+        pcwchPrivKeyLengthMarshal := pcwchPrivKeyLength is VarRef ? "uint*" : IntPtr
+        pcwchPubKeyLengthMarshal := pcwchPubKeyLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, "ptr", pwszPrivKey, pcwchPrivKeyLengthMarshal, pcwchPrivKeyLength, "ptr", pwszPubKey, pcwchPubKeyLengthMarshal, pcwchPubKeyLength, "HRESULT")
         return result
@@ -128,7 +128,7 @@ export default struct IWMDRMWriter extends IUnknown {
     SetDRMAttribute(wStreamNum, pszName, Type, pValue, cbLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "char*" : IntPtr
 
         result := ComCall(6, this, UInt16, wStreamNum, "ptr", pszName, WMT_ATTR_DATATYPE, Type, pValueMarshal, pValue, UInt16, cbLength, "HRESULT")
         return result
@@ -143,10 +143,10 @@ export default struct IWMDRMWriter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GenerateKeySeed := CallbackCreate(GetMethod(implObj, "GenerateKeySeed"), flags, 3)
-        this.vtbl.GenerateKeyID := CallbackCreate(GetMethod(implObj, "GenerateKeyID"), flags, 3)
-        this.vtbl.GenerateSigningKeyPair := CallbackCreate(GetMethod(implObj, "GenerateSigningKeyPair"), flags, 5)
-        this.vtbl.SetDRMAttribute := CallbackCreate(GetMethod(implObj, "SetDRMAttribute"), flags, 6)
+        this.vtbl.GenerateKeySeed := CallbackCreate(ObjBindMethod(implObj, "GenerateKeySeed"), flags, 3)
+        this.vtbl.GenerateKeyID := CallbackCreate(ObjBindMethod(implObj, "GenerateKeyID"), flags, 3)
+        this.vtbl.GenerateSigningKeyPair := CallbackCreate(ObjBindMethod(implObj, "GenerateSigningKeyPair"), flags, 5)
+        this.vtbl.SetDRMAttribute := CallbackCreate(ObjBindMethod(implObj, "SetDRMAttribute"), flags, 6)
     }
 
     Dispose() {

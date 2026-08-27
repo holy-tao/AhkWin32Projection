@@ -182,7 +182,9 @@ export default struct ID3D10Debug extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/nf-d3d10sdklayers-id3d10debug-setswapchain
      */
     SetSwapChain(pSwapChain) {
-        result := ComCall(7, this, "ptr", pSwapChain, "HRESULT")
+        pSwapChainMarshal := pSwapChain == 0 ? IntPtr : "ptr"
+
+        result := ComCall(7, this, pSwapChainMarshal, pSwapChain, "HRESULT")
         return result
     }
 
@@ -223,13 +225,13 @@ export default struct ID3D10Debug extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetFeatureMask := CallbackCreate(GetMethod(implObj, "SetFeatureMask"), flags, 2)
-        this.vtbl.GetFeatureMask := CallbackCreate(GetMethod(implObj, "GetFeatureMask"), flags, 1)
-        this.vtbl.SetPresentPerRenderOpDelay := CallbackCreate(GetMethod(implObj, "SetPresentPerRenderOpDelay"), flags, 2)
-        this.vtbl.GetPresentPerRenderOpDelay := CallbackCreate(GetMethod(implObj, "GetPresentPerRenderOpDelay"), flags, 1)
-        this.vtbl.SetSwapChain := CallbackCreate(GetMethod(implObj, "SetSwapChain"), flags, 2)
-        this.vtbl.GetSwapChain := CallbackCreate(GetMethod(implObj, "GetSwapChain"), flags, 2)
-        this.vtbl.Validate := CallbackCreate(GetMethod(implObj, "Validate"), flags, 1)
+        this.vtbl.SetFeatureMask := CallbackCreate(ObjBindMethod(implObj, "SetFeatureMask"), flags, 2)
+        this.vtbl.GetFeatureMask := CallbackCreate(ObjBindMethod(implObj, "GetFeatureMask"), flags, 1)
+        this.vtbl.SetPresentPerRenderOpDelay := CallbackCreate(ObjBindMethod(implObj, "SetPresentPerRenderOpDelay"), flags, 2)
+        this.vtbl.GetPresentPerRenderOpDelay := CallbackCreate(ObjBindMethod(implObj, "GetPresentPerRenderOpDelay"), flags, 1)
+        this.vtbl.SetSwapChain := CallbackCreate(ObjBindMethod(implObj, "SetSwapChain"), flags, 2)
+        this.vtbl.GetSwapChain := CallbackCreate(ObjBindMethod(implObj, "GetSwapChain"), flags, 2)
+        this.vtbl.Validate := CallbackCreate(ObjBindMethod(implObj, "Validate"), flags, 1)
     }
 
     Dispose() {

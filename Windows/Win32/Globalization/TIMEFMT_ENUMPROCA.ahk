@@ -21,7 +21,6 @@ export default struct TIMEFMT_ENUMPROCA {
     }
 
     /**
-     * 
      * @param {PSTR} param0 
      * @returns {BOOL} 
      */

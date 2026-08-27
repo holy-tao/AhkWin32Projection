@@ -22,7 +22,6 @@ export default struct PFN_CRYPT_EXPORT_PUBLIC_KEY_INFO_FROM_BCRYPT_HANDLE_FUNC {
     }
 
     /**
-     * 
      * @param {BCRYPT_KEY_HANDLE} hBCryptKey 
      * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType 
      * @param {PSTR} pszPublicKeyObjId 
@@ -35,10 +34,12 @@ export default struct PFN_CRYPT_EXPORT_PUBLIC_KEY_INFO_FROM_BCRYPT_HANDLE_FUNC {
     Call(hBCryptKey, dwCertEncodingType, pszPublicKeyObjId, dwFlags, pvAuxInfo, pInfo, pcbInfo) {
         pszPublicKeyObjId := pszPublicKeyObjId is String ? StrPtr(pszPublicKeyObjId) : pszPublicKeyObjId
 
-        pvAuxInfoMarshal := pvAuxInfo is VarRef ? "ptr" : "ptr"
-        pcbInfoMarshal := pcbInfo is VarRef ? "uint*" : "ptr"
+        pvAuxInfoMarshal := pvAuxInfo is VarRef ? "ptr" : IntPtr
+        pvAuxInfoMarshal := pvAuxInfo == 0 ? IntPtr : "ptr"
+        pInfoMarshal := pInfo == 0 ? IntPtr : IntPtr
+        pcbInfoMarshal := pcbInfo is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, BCRYPT_KEY_HANDLE, hBCryptKey, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, "ptr", pszPublicKeyObjId, UInt32, dwFlags, pvAuxInfoMarshal, pvAuxInfo, IntPtr, pInfo, pcbInfoMarshal, pcbInfo, BOOL)
+        result := DllCall(this.value, BCRYPT_KEY_HANDLE, hBCryptKey, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, "ptr", pszPublicKeyObjId, UInt32, dwFlags, pvAuxInfoMarshal, pvAuxInfo, pInfoMarshal, pInfo, pcbInfoMarshal, pcbInfo, BOOL)
         return result
     }
 

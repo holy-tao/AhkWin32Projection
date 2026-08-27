@@ -18,12 +18,11 @@ export default struct FREE_FUNCTION {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Buffer 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Buffer) {
-        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _BufferMarshal, _Buffer)
     }

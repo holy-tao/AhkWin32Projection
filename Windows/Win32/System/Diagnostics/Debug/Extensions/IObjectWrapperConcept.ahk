@@ -38,14 +38,13 @@ export default struct IObjectWrapperConcept extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} pContextObject 
      * @param {Pointer<IModelObject>} wrappedObject 
      * @param {Pointer<WrappedObjectPreference>} pUsagePreference 
      * @returns {HRESULT} 
      */
     GetWrappedObject(pContextObject, wrappedObject, pUsagePreference) {
-        pUsagePreferenceMarshal := pUsagePreference is VarRef ? "int*" : "ptr"
+        pUsagePreferenceMarshal := pUsagePreference is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, "ptr", pContextObject, IModelObject.Ptr, wrappedObject, pUsagePreferenceMarshal, pUsagePreference, "HRESULT")
         return result
@@ -60,7 +59,7 @@ export default struct IObjectWrapperConcept extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetWrappedObject := CallbackCreate(GetMethod(implObj, "GetWrappedObject"), flags, 4)
+        this.vtbl.GetWrappedObject := CallbackCreate(ObjBindMethod(implObj, "GetWrappedObject"), flags, 4)
     }
 
     Dispose() {

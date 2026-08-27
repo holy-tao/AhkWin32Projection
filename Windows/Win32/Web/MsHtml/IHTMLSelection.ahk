@@ -97,7 +97,6 @@ export default struct IHTMLSelection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDOMNode} 
      */
     get_anchorNode() {
@@ -106,7 +105,6 @@ export default struct IHTMLSelection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_anchorOffset() {
@@ -115,7 +113,6 @@ export default struct IHTMLSelection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDOMNode} 
      */
     get_focusNode() {
@@ -124,7 +121,6 @@ export default struct IHTMLSelection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_focusOffset() {
@@ -133,7 +129,6 @@ export default struct IHTMLSelection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_isCollapsed() {
@@ -142,7 +137,6 @@ export default struct IHTMLSelection extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} parentNode 
      * @param {Integer} offfset 
      * @returns {HRESULT} 
@@ -153,7 +147,6 @@ export default struct IHTMLSelection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     collapseToStart() {
@@ -162,7 +155,6 @@ export default struct IHTMLSelection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     collapseToEnd() {
@@ -171,7 +163,6 @@ export default struct IHTMLSelection extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} parentNode 
      * @returns {HRESULT} 
      */
@@ -181,7 +172,6 @@ export default struct IHTMLSelection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     deleteFromDocument() {
@@ -190,7 +180,6 @@ export default struct IHTMLSelection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_rangeCount() {
@@ -199,7 +188,6 @@ export default struct IHTMLSelection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {IHTMLDOMRange} 
      */
@@ -209,7 +197,6 @@ export default struct IHTMLSelection extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} range 
      * @returns {HRESULT} 
      */
@@ -219,7 +206,6 @@ export default struct IHTMLSelection extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} range 
      * @returns {HRESULT} 
      */
@@ -229,7 +215,6 @@ export default struct IHTMLSelection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     removeAllRanges() {
@@ -238,7 +223,6 @@ export default struct IHTMLSelection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     toString() {
@@ -256,22 +240,22 @@ export default struct IHTMLSelection extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_anchorNode := CallbackCreate(GetMethod(implObj, "get_anchorNode"), flags, 2)
-        this.vtbl.get_anchorOffset := CallbackCreate(GetMethod(implObj, "get_anchorOffset"), flags, 2)
-        this.vtbl.get_focusNode := CallbackCreate(GetMethod(implObj, "get_focusNode"), flags, 2)
-        this.vtbl.get_focusOffset := CallbackCreate(GetMethod(implObj, "get_focusOffset"), flags, 2)
-        this.vtbl.get_isCollapsed := CallbackCreate(GetMethod(implObj, "get_isCollapsed"), flags, 2)
-        this.vtbl.collapse := CallbackCreate(GetMethod(implObj, "collapse"), flags, 3)
-        this.vtbl.collapseToStart := CallbackCreate(GetMethod(implObj, "collapseToStart"), flags, 1)
-        this.vtbl.collapseToEnd := CallbackCreate(GetMethod(implObj, "collapseToEnd"), flags, 1)
-        this.vtbl.selectAllChildren := CallbackCreate(GetMethod(implObj, "selectAllChildren"), flags, 2)
-        this.vtbl.deleteFromDocument := CallbackCreate(GetMethod(implObj, "deleteFromDocument"), flags, 1)
-        this.vtbl.get_rangeCount := CallbackCreate(GetMethod(implObj, "get_rangeCount"), flags, 2)
-        this.vtbl.getRangeAt := CallbackCreate(GetMethod(implObj, "getRangeAt"), flags, 3)
-        this.vtbl.addRange := CallbackCreate(GetMethod(implObj, "addRange"), flags, 2)
-        this.vtbl.removeRange := CallbackCreate(GetMethod(implObj, "removeRange"), flags, 2)
-        this.vtbl.removeAllRanges := CallbackCreate(GetMethod(implObj, "removeAllRanges"), flags, 1)
-        this.vtbl.toString := CallbackCreate(GetMethod(implObj, "toString"), flags, 2)
+        this.vtbl.get_anchorNode := CallbackCreate(ObjBindMethod(implObj, "get_anchorNode"), flags, 2)
+        this.vtbl.get_anchorOffset := CallbackCreate(ObjBindMethod(implObj, "get_anchorOffset"), flags, 2)
+        this.vtbl.get_focusNode := CallbackCreate(ObjBindMethod(implObj, "get_focusNode"), flags, 2)
+        this.vtbl.get_focusOffset := CallbackCreate(ObjBindMethod(implObj, "get_focusOffset"), flags, 2)
+        this.vtbl.get_isCollapsed := CallbackCreate(ObjBindMethod(implObj, "get_isCollapsed"), flags, 2)
+        this.vtbl.collapse := CallbackCreate(ObjBindMethod(implObj, "collapse"), flags, 3)
+        this.vtbl.collapseToStart := CallbackCreate(ObjBindMethod(implObj, "collapseToStart"), flags, 1)
+        this.vtbl.collapseToEnd := CallbackCreate(ObjBindMethod(implObj, "collapseToEnd"), flags, 1)
+        this.vtbl.selectAllChildren := CallbackCreate(ObjBindMethod(implObj, "selectAllChildren"), flags, 2)
+        this.vtbl.deleteFromDocument := CallbackCreate(ObjBindMethod(implObj, "deleteFromDocument"), flags, 1)
+        this.vtbl.get_rangeCount := CallbackCreate(ObjBindMethod(implObj, "get_rangeCount"), flags, 2)
+        this.vtbl.getRangeAt := CallbackCreate(ObjBindMethod(implObj, "getRangeAt"), flags, 3)
+        this.vtbl.addRange := CallbackCreate(ObjBindMethod(implObj, "addRange"), flags, 2)
+        this.vtbl.removeRange := CallbackCreate(ObjBindMethod(implObj, "removeRange"), flags, 2)
+        this.vtbl.removeAllRanges := CallbackCreate(ObjBindMethod(implObj, "removeAllRanges"), flags, 1)
+        this.vtbl.toString := CallbackCreate(ObjBindMethod(implObj, "toString"), flags, 2)
     }
 
     Dispose() {

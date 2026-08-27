@@ -19,7 +19,6 @@ export default struct PGET_DEVICE_RESET_STATUS {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

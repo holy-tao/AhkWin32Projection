@@ -18,12 +18,11 @@ export default struct PRESUTIL_FREE_ENVIRONMENT {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} lpEnvironment 
      * @returns {Integer} 
      */
     Call(lpEnvironment) {
-        lpEnvironmentMarshal := lpEnvironment is VarRef ? "ptr" : "ptr"
+        lpEnvironmentMarshal := lpEnvironment is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, lpEnvironmentMarshal, lpEnvironment, UInt32)
         return result

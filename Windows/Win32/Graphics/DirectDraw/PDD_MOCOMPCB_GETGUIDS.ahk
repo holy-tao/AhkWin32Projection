@@ -23,7 +23,6 @@ export default struct PDD_MOCOMPCB_GETGUIDS {
     }
 
     /**
-     * 
      * @param {Pointer<DD_GETMOCOMPGUIDSDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_getmocompguidsdata">DD_GETMOCOMPGUIDSDATA</a> structure that contains the GUID information.
      * @returns {Integer} <b>DdMoCompGetGuids</b> returns one of the following callback codes:
      */

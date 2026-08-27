@@ -104,9 +104,9 @@ export default struct IPublishedApp extends IShellApp {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Install := CallbackCreate(GetMethod(implObj, "Install"), flags, 2)
-        this.vtbl.GetPublishedAppInfo := CallbackCreate(GetMethod(implObj, "GetPublishedAppInfo"), flags, 2)
-        this.vtbl.Unschedule := CallbackCreate(GetMethod(implObj, "Unschedule"), flags, 1)
+        this.vtbl.Install := CallbackCreate(ObjBindMethod(implObj, "Install"), flags, 2)
+        this.vtbl.GetPublishedAppInfo := CallbackCreate(ObjBindMethod(implObj, "GetPublishedAppInfo"), flags, 2)
+        this.vtbl.Unschedule := CallbackCreate(ObjBindMethod(implObj, "Unschedule"), flags, 1)
     }
 
     Dispose() {

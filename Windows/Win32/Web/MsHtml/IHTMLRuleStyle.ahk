@@ -845,7 +845,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -857,7 +856,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fontFamily() {
@@ -867,7 +865,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -879,7 +876,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fontStyle() {
@@ -889,7 +885,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -901,7 +896,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fontVariant() {
@@ -911,7 +905,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -923,7 +916,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fontWeight() {
@@ -933,7 +925,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -943,7 +934,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_fontSize() {
@@ -953,7 +943,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -965,7 +954,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_font() {
@@ -975,7 +963,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -985,7 +972,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_color() {
@@ -995,7 +981,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1007,7 +992,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_background() {
@@ -1017,7 +1001,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1027,7 +1010,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_backgroundColor() {
@@ -1037,7 +1019,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1049,7 +1030,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_backgroundImage() {
@@ -1059,7 +1039,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1071,7 +1050,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_backgroundRepeat() {
@@ -1081,7 +1059,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1093,7 +1070,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_backgroundAttachment() {
@@ -1103,7 +1079,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1115,7 +1090,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_backgroundPosition() {
@@ -1125,7 +1099,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1135,7 +1108,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_backgroundPositionX() {
@@ -1145,7 +1117,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1155,7 +1126,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_backgroundPositionY() {
@@ -1165,7 +1135,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1175,7 +1144,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_wordSpacing() {
@@ -1185,7 +1153,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1195,7 +1162,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_letterSpacing() {
@@ -1205,7 +1171,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1217,7 +1182,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textDecoration() {
@@ -1227,7 +1191,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -1237,7 +1200,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_textDecorationNone() {
@@ -1246,7 +1208,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -1256,7 +1217,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_textDecorationUnderline() {
@@ -1265,7 +1225,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -1275,7 +1234,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_textDecorationOverline() {
@@ -1284,7 +1242,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -1294,7 +1251,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_textDecorationLineThrough() {
@@ -1303,7 +1259,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -1313,7 +1268,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_textDecorationBlink() {
@@ -1322,7 +1276,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1332,7 +1285,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_verticalAlign() {
@@ -1342,7 +1294,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1354,7 +1305,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textTransform() {
@@ -1364,7 +1314,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1376,7 +1325,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textAlign() {
@@ -1386,7 +1334,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1396,7 +1343,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_textIndent() {
@@ -1406,7 +1352,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1416,7 +1361,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_lineHeight() {
@@ -1426,7 +1370,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1436,7 +1379,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_marginTop() {
@@ -1446,7 +1388,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1456,7 +1397,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_marginRight() {
@@ -1466,7 +1406,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1476,7 +1415,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_marginBottom() {
@@ -1486,7 +1424,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1496,7 +1433,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_marginLeft() {
@@ -1506,7 +1442,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1518,7 +1453,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_margin() {
@@ -1528,7 +1462,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1538,7 +1471,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_paddingTop() {
@@ -1548,7 +1480,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1558,7 +1489,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_paddingRight() {
@@ -1568,7 +1498,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1578,7 +1507,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_paddingBottom() {
@@ -1588,7 +1516,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1598,7 +1525,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_paddingLeft() {
@@ -1608,7 +1534,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1620,7 +1545,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_padding() {
@@ -1630,7 +1554,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1642,7 +1565,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_border() {
@@ -1652,7 +1574,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1664,7 +1585,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderTop() {
@@ -1674,7 +1594,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1686,7 +1605,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderRight() {
@@ -1696,7 +1614,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1708,7 +1625,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderBottom() {
@@ -1718,7 +1634,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1730,7 +1645,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderLeft() {
@@ -1740,7 +1654,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1752,7 +1665,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderColor() {
@@ -1762,7 +1674,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1772,7 +1683,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_borderTopColor() {
@@ -1782,7 +1692,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1792,7 +1701,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_borderRightColor() {
@@ -1802,7 +1710,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1812,7 +1719,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_borderBottomColor() {
@@ -1822,7 +1728,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1832,7 +1737,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_borderLeftColor() {
@@ -1842,7 +1746,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1854,7 +1757,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderWidth() {
@@ -1864,7 +1766,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1874,7 +1775,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_borderTopWidth() {
@@ -1884,7 +1784,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1894,7 +1793,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_borderRightWidth() {
@@ -1904,7 +1802,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1914,7 +1811,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_borderBottomWidth() {
@@ -1924,7 +1820,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1934,7 +1829,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_borderLeftWidth() {
@@ -1944,7 +1838,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1956,7 +1849,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderStyle() {
@@ -1966,7 +1858,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1978,7 +1869,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderTopStyle() {
@@ -1988,7 +1878,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2000,7 +1889,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderRightStyle() {
@@ -2010,7 +1898,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2022,7 +1909,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderBottomStyle() {
@@ -2032,7 +1918,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2044,7 +1929,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderLeftStyle() {
@@ -2054,7 +1938,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -2064,7 +1947,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_width() {
@@ -2074,7 +1956,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -2084,7 +1965,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_height() {
@@ -2094,7 +1974,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2106,7 +1985,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_styleFloat() {
@@ -2116,7 +1994,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2128,7 +2005,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_clear() {
@@ -2138,7 +2014,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2150,7 +2025,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_display() {
@@ -2160,7 +2034,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2172,7 +2045,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_visibility() {
@@ -2182,7 +2054,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2194,7 +2065,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_listStyleType() {
@@ -2204,7 +2074,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2216,7 +2085,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_listStylePosition() {
@@ -2226,7 +2094,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2238,7 +2105,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_listStyleImage() {
@@ -2248,7 +2114,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2260,7 +2125,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_listStyle() {
@@ -2270,7 +2134,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2282,7 +2145,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_whiteSpace() {
@@ -2292,7 +2154,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -2302,7 +2163,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_top() {
@@ -2312,7 +2172,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -2322,7 +2181,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_left() {
@@ -2332,7 +2190,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_position() {
@@ -2342,7 +2199,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -2352,7 +2208,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_zIndex() {
@@ -2362,7 +2217,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2374,7 +2228,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_overflow() {
@@ -2384,7 +2237,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2396,7 +2248,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_pageBreakBefore() {
@@ -2406,7 +2257,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2418,7 +2268,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_pageBreakAfter() {
@@ -2428,7 +2277,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2440,7 +2288,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_cssText() {
@@ -2450,7 +2297,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2462,7 +2308,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_cursor() {
@@ -2472,7 +2317,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2484,7 +2328,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_clip() {
@@ -2494,7 +2337,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2506,7 +2348,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_filter() {
@@ -2516,7 +2357,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strAttributeName 
      * @param {VARIANT} AttributeValue 
      * @param {Integer} lFlags 
@@ -2530,7 +2370,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strAttributeName 
      * @param {Integer} lFlags 
      * @returns {VARIANT} 
@@ -2544,7 +2383,6 @@ export default struct IHTMLRuleStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strAttributeName 
      * @param {Integer} lFlags 
      * @returns {VARIANT_BOOL} 
@@ -2565,168 +2403,168 @@ export default struct IHTMLRuleStyle extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_fontFamily := CallbackCreate(GetMethod(implObj, "put_fontFamily"), flags, 2)
-        this.vtbl.get_fontFamily := CallbackCreate(GetMethod(implObj, "get_fontFamily"), flags, 2)
-        this.vtbl.put_fontStyle := CallbackCreate(GetMethod(implObj, "put_fontStyle"), flags, 2)
-        this.vtbl.get_fontStyle := CallbackCreate(GetMethod(implObj, "get_fontStyle"), flags, 2)
-        this.vtbl.put_fontVariant := CallbackCreate(GetMethod(implObj, "put_fontVariant"), flags, 2)
-        this.vtbl.get_fontVariant := CallbackCreate(GetMethod(implObj, "get_fontVariant"), flags, 2)
-        this.vtbl.put_fontWeight := CallbackCreate(GetMethod(implObj, "put_fontWeight"), flags, 2)
-        this.vtbl.get_fontWeight := CallbackCreate(GetMethod(implObj, "get_fontWeight"), flags, 2)
-        this.vtbl.put_fontSize := CallbackCreate(GetMethod(implObj, "put_fontSize"), flags, 2)
-        this.vtbl.get_fontSize := CallbackCreate(GetMethod(implObj, "get_fontSize"), flags, 2)
-        this.vtbl.put_font := CallbackCreate(GetMethod(implObj, "put_font"), flags, 2)
-        this.vtbl.get_font := CallbackCreate(GetMethod(implObj, "get_font"), flags, 2)
-        this.vtbl.put_color := CallbackCreate(GetMethod(implObj, "put_color"), flags, 2)
-        this.vtbl.get_color := CallbackCreate(GetMethod(implObj, "get_color"), flags, 2)
-        this.vtbl.put_background := CallbackCreate(GetMethod(implObj, "put_background"), flags, 2)
-        this.vtbl.get_background := CallbackCreate(GetMethod(implObj, "get_background"), flags, 2)
-        this.vtbl.put_backgroundColor := CallbackCreate(GetMethod(implObj, "put_backgroundColor"), flags, 2)
-        this.vtbl.get_backgroundColor := CallbackCreate(GetMethod(implObj, "get_backgroundColor"), flags, 2)
-        this.vtbl.put_backgroundImage := CallbackCreate(GetMethod(implObj, "put_backgroundImage"), flags, 2)
-        this.vtbl.get_backgroundImage := CallbackCreate(GetMethod(implObj, "get_backgroundImage"), flags, 2)
-        this.vtbl.put_backgroundRepeat := CallbackCreate(GetMethod(implObj, "put_backgroundRepeat"), flags, 2)
-        this.vtbl.get_backgroundRepeat := CallbackCreate(GetMethod(implObj, "get_backgroundRepeat"), flags, 2)
-        this.vtbl.put_backgroundAttachment := CallbackCreate(GetMethod(implObj, "put_backgroundAttachment"), flags, 2)
-        this.vtbl.get_backgroundAttachment := CallbackCreate(GetMethod(implObj, "get_backgroundAttachment"), flags, 2)
-        this.vtbl.put_backgroundPosition := CallbackCreate(GetMethod(implObj, "put_backgroundPosition"), flags, 2)
-        this.vtbl.get_backgroundPosition := CallbackCreate(GetMethod(implObj, "get_backgroundPosition"), flags, 2)
-        this.vtbl.put_backgroundPositionX := CallbackCreate(GetMethod(implObj, "put_backgroundPositionX"), flags, 2)
-        this.vtbl.get_backgroundPositionX := CallbackCreate(GetMethod(implObj, "get_backgroundPositionX"), flags, 2)
-        this.vtbl.put_backgroundPositionY := CallbackCreate(GetMethod(implObj, "put_backgroundPositionY"), flags, 2)
-        this.vtbl.get_backgroundPositionY := CallbackCreate(GetMethod(implObj, "get_backgroundPositionY"), flags, 2)
-        this.vtbl.put_wordSpacing := CallbackCreate(GetMethod(implObj, "put_wordSpacing"), flags, 2)
-        this.vtbl.get_wordSpacing := CallbackCreate(GetMethod(implObj, "get_wordSpacing"), flags, 2)
-        this.vtbl.put_letterSpacing := CallbackCreate(GetMethod(implObj, "put_letterSpacing"), flags, 2)
-        this.vtbl.get_letterSpacing := CallbackCreate(GetMethod(implObj, "get_letterSpacing"), flags, 2)
-        this.vtbl.put_textDecoration := CallbackCreate(GetMethod(implObj, "put_textDecoration"), flags, 2)
-        this.vtbl.get_textDecoration := CallbackCreate(GetMethod(implObj, "get_textDecoration"), flags, 2)
-        this.vtbl.put_textDecorationNone := CallbackCreate(GetMethod(implObj, "put_textDecorationNone"), flags, 2)
-        this.vtbl.get_textDecorationNone := CallbackCreate(GetMethod(implObj, "get_textDecorationNone"), flags, 2)
-        this.vtbl.put_textDecorationUnderline := CallbackCreate(GetMethod(implObj, "put_textDecorationUnderline"), flags, 2)
-        this.vtbl.get_textDecorationUnderline := CallbackCreate(GetMethod(implObj, "get_textDecorationUnderline"), flags, 2)
-        this.vtbl.put_textDecorationOverline := CallbackCreate(GetMethod(implObj, "put_textDecorationOverline"), flags, 2)
-        this.vtbl.get_textDecorationOverline := CallbackCreate(GetMethod(implObj, "get_textDecorationOverline"), flags, 2)
-        this.vtbl.put_textDecorationLineThrough := CallbackCreate(GetMethod(implObj, "put_textDecorationLineThrough"), flags, 2)
-        this.vtbl.get_textDecorationLineThrough := CallbackCreate(GetMethod(implObj, "get_textDecorationLineThrough"), flags, 2)
-        this.vtbl.put_textDecorationBlink := CallbackCreate(GetMethod(implObj, "put_textDecorationBlink"), flags, 2)
-        this.vtbl.get_textDecorationBlink := CallbackCreate(GetMethod(implObj, "get_textDecorationBlink"), flags, 2)
-        this.vtbl.put_verticalAlign := CallbackCreate(GetMethod(implObj, "put_verticalAlign"), flags, 2)
-        this.vtbl.get_verticalAlign := CallbackCreate(GetMethod(implObj, "get_verticalAlign"), flags, 2)
-        this.vtbl.put_textTransform := CallbackCreate(GetMethod(implObj, "put_textTransform"), flags, 2)
-        this.vtbl.get_textTransform := CallbackCreate(GetMethod(implObj, "get_textTransform"), flags, 2)
-        this.vtbl.put_textAlign := CallbackCreate(GetMethod(implObj, "put_textAlign"), flags, 2)
-        this.vtbl.get_textAlign := CallbackCreate(GetMethod(implObj, "get_textAlign"), flags, 2)
-        this.vtbl.put_textIndent := CallbackCreate(GetMethod(implObj, "put_textIndent"), flags, 2)
-        this.vtbl.get_textIndent := CallbackCreate(GetMethod(implObj, "get_textIndent"), flags, 2)
-        this.vtbl.put_lineHeight := CallbackCreate(GetMethod(implObj, "put_lineHeight"), flags, 2)
-        this.vtbl.get_lineHeight := CallbackCreate(GetMethod(implObj, "get_lineHeight"), flags, 2)
-        this.vtbl.put_marginTop := CallbackCreate(GetMethod(implObj, "put_marginTop"), flags, 2)
-        this.vtbl.get_marginTop := CallbackCreate(GetMethod(implObj, "get_marginTop"), flags, 2)
-        this.vtbl.put_marginRight := CallbackCreate(GetMethod(implObj, "put_marginRight"), flags, 2)
-        this.vtbl.get_marginRight := CallbackCreate(GetMethod(implObj, "get_marginRight"), flags, 2)
-        this.vtbl.put_marginBottom := CallbackCreate(GetMethod(implObj, "put_marginBottom"), flags, 2)
-        this.vtbl.get_marginBottom := CallbackCreate(GetMethod(implObj, "get_marginBottom"), flags, 2)
-        this.vtbl.put_marginLeft := CallbackCreate(GetMethod(implObj, "put_marginLeft"), flags, 2)
-        this.vtbl.get_marginLeft := CallbackCreate(GetMethod(implObj, "get_marginLeft"), flags, 2)
-        this.vtbl.put_margin := CallbackCreate(GetMethod(implObj, "put_margin"), flags, 2)
-        this.vtbl.get_margin := CallbackCreate(GetMethod(implObj, "get_margin"), flags, 2)
-        this.vtbl.put_paddingTop := CallbackCreate(GetMethod(implObj, "put_paddingTop"), flags, 2)
-        this.vtbl.get_paddingTop := CallbackCreate(GetMethod(implObj, "get_paddingTop"), flags, 2)
-        this.vtbl.put_paddingRight := CallbackCreate(GetMethod(implObj, "put_paddingRight"), flags, 2)
-        this.vtbl.get_paddingRight := CallbackCreate(GetMethod(implObj, "get_paddingRight"), flags, 2)
-        this.vtbl.put_paddingBottom := CallbackCreate(GetMethod(implObj, "put_paddingBottom"), flags, 2)
-        this.vtbl.get_paddingBottom := CallbackCreate(GetMethod(implObj, "get_paddingBottom"), flags, 2)
-        this.vtbl.put_paddingLeft := CallbackCreate(GetMethod(implObj, "put_paddingLeft"), flags, 2)
-        this.vtbl.get_paddingLeft := CallbackCreate(GetMethod(implObj, "get_paddingLeft"), flags, 2)
-        this.vtbl.put_padding := CallbackCreate(GetMethod(implObj, "put_padding"), flags, 2)
-        this.vtbl.get_padding := CallbackCreate(GetMethod(implObj, "get_padding"), flags, 2)
-        this.vtbl.put_border := CallbackCreate(GetMethod(implObj, "put_border"), flags, 2)
-        this.vtbl.get_border := CallbackCreate(GetMethod(implObj, "get_border"), flags, 2)
-        this.vtbl.put_borderTop := CallbackCreate(GetMethod(implObj, "put_borderTop"), flags, 2)
-        this.vtbl.get_borderTop := CallbackCreate(GetMethod(implObj, "get_borderTop"), flags, 2)
-        this.vtbl.put_borderRight := CallbackCreate(GetMethod(implObj, "put_borderRight"), flags, 2)
-        this.vtbl.get_borderRight := CallbackCreate(GetMethod(implObj, "get_borderRight"), flags, 2)
-        this.vtbl.put_borderBottom := CallbackCreate(GetMethod(implObj, "put_borderBottom"), flags, 2)
-        this.vtbl.get_borderBottom := CallbackCreate(GetMethod(implObj, "get_borderBottom"), flags, 2)
-        this.vtbl.put_borderLeft := CallbackCreate(GetMethod(implObj, "put_borderLeft"), flags, 2)
-        this.vtbl.get_borderLeft := CallbackCreate(GetMethod(implObj, "get_borderLeft"), flags, 2)
-        this.vtbl.put_borderColor := CallbackCreate(GetMethod(implObj, "put_borderColor"), flags, 2)
-        this.vtbl.get_borderColor := CallbackCreate(GetMethod(implObj, "get_borderColor"), flags, 2)
-        this.vtbl.put_borderTopColor := CallbackCreate(GetMethod(implObj, "put_borderTopColor"), flags, 2)
-        this.vtbl.get_borderTopColor := CallbackCreate(GetMethod(implObj, "get_borderTopColor"), flags, 2)
-        this.vtbl.put_borderRightColor := CallbackCreate(GetMethod(implObj, "put_borderRightColor"), flags, 2)
-        this.vtbl.get_borderRightColor := CallbackCreate(GetMethod(implObj, "get_borderRightColor"), flags, 2)
-        this.vtbl.put_borderBottomColor := CallbackCreate(GetMethod(implObj, "put_borderBottomColor"), flags, 2)
-        this.vtbl.get_borderBottomColor := CallbackCreate(GetMethod(implObj, "get_borderBottomColor"), flags, 2)
-        this.vtbl.put_borderLeftColor := CallbackCreate(GetMethod(implObj, "put_borderLeftColor"), flags, 2)
-        this.vtbl.get_borderLeftColor := CallbackCreate(GetMethod(implObj, "get_borderLeftColor"), flags, 2)
-        this.vtbl.put_borderWidth := CallbackCreate(GetMethod(implObj, "put_borderWidth"), flags, 2)
-        this.vtbl.get_borderWidth := CallbackCreate(GetMethod(implObj, "get_borderWidth"), flags, 2)
-        this.vtbl.put_borderTopWidth := CallbackCreate(GetMethod(implObj, "put_borderTopWidth"), flags, 2)
-        this.vtbl.get_borderTopWidth := CallbackCreate(GetMethod(implObj, "get_borderTopWidth"), flags, 2)
-        this.vtbl.put_borderRightWidth := CallbackCreate(GetMethod(implObj, "put_borderRightWidth"), flags, 2)
-        this.vtbl.get_borderRightWidth := CallbackCreate(GetMethod(implObj, "get_borderRightWidth"), flags, 2)
-        this.vtbl.put_borderBottomWidth := CallbackCreate(GetMethod(implObj, "put_borderBottomWidth"), flags, 2)
-        this.vtbl.get_borderBottomWidth := CallbackCreate(GetMethod(implObj, "get_borderBottomWidth"), flags, 2)
-        this.vtbl.put_borderLeftWidth := CallbackCreate(GetMethod(implObj, "put_borderLeftWidth"), flags, 2)
-        this.vtbl.get_borderLeftWidth := CallbackCreate(GetMethod(implObj, "get_borderLeftWidth"), flags, 2)
-        this.vtbl.put_borderStyle := CallbackCreate(GetMethod(implObj, "put_borderStyle"), flags, 2)
-        this.vtbl.get_borderStyle := CallbackCreate(GetMethod(implObj, "get_borderStyle"), flags, 2)
-        this.vtbl.put_borderTopStyle := CallbackCreate(GetMethod(implObj, "put_borderTopStyle"), flags, 2)
-        this.vtbl.get_borderTopStyle := CallbackCreate(GetMethod(implObj, "get_borderTopStyle"), flags, 2)
-        this.vtbl.put_borderRightStyle := CallbackCreate(GetMethod(implObj, "put_borderRightStyle"), flags, 2)
-        this.vtbl.get_borderRightStyle := CallbackCreate(GetMethod(implObj, "get_borderRightStyle"), flags, 2)
-        this.vtbl.put_borderBottomStyle := CallbackCreate(GetMethod(implObj, "put_borderBottomStyle"), flags, 2)
-        this.vtbl.get_borderBottomStyle := CallbackCreate(GetMethod(implObj, "get_borderBottomStyle"), flags, 2)
-        this.vtbl.put_borderLeftStyle := CallbackCreate(GetMethod(implObj, "put_borderLeftStyle"), flags, 2)
-        this.vtbl.get_borderLeftStyle := CallbackCreate(GetMethod(implObj, "get_borderLeftStyle"), flags, 2)
-        this.vtbl.put_width := CallbackCreate(GetMethod(implObj, "put_width"), flags, 2)
-        this.vtbl.get_width := CallbackCreate(GetMethod(implObj, "get_width"), flags, 2)
-        this.vtbl.put_height := CallbackCreate(GetMethod(implObj, "put_height"), flags, 2)
-        this.vtbl.get_height := CallbackCreate(GetMethod(implObj, "get_height"), flags, 2)
-        this.vtbl.put_styleFloat := CallbackCreate(GetMethod(implObj, "put_styleFloat"), flags, 2)
-        this.vtbl.get_styleFloat := CallbackCreate(GetMethod(implObj, "get_styleFloat"), flags, 2)
-        this.vtbl.put_clear := CallbackCreate(GetMethod(implObj, "put_clear"), flags, 2)
-        this.vtbl.get_clear := CallbackCreate(GetMethod(implObj, "get_clear"), flags, 2)
-        this.vtbl.put_display := CallbackCreate(GetMethod(implObj, "put_display"), flags, 2)
-        this.vtbl.get_display := CallbackCreate(GetMethod(implObj, "get_display"), flags, 2)
-        this.vtbl.put_visibility := CallbackCreate(GetMethod(implObj, "put_visibility"), flags, 2)
-        this.vtbl.get_visibility := CallbackCreate(GetMethod(implObj, "get_visibility"), flags, 2)
-        this.vtbl.put_listStyleType := CallbackCreate(GetMethod(implObj, "put_listStyleType"), flags, 2)
-        this.vtbl.get_listStyleType := CallbackCreate(GetMethod(implObj, "get_listStyleType"), flags, 2)
-        this.vtbl.put_listStylePosition := CallbackCreate(GetMethod(implObj, "put_listStylePosition"), flags, 2)
-        this.vtbl.get_listStylePosition := CallbackCreate(GetMethod(implObj, "get_listStylePosition"), flags, 2)
-        this.vtbl.put_listStyleImage := CallbackCreate(GetMethod(implObj, "put_listStyleImage"), flags, 2)
-        this.vtbl.get_listStyleImage := CallbackCreate(GetMethod(implObj, "get_listStyleImage"), flags, 2)
-        this.vtbl.put_listStyle := CallbackCreate(GetMethod(implObj, "put_listStyle"), flags, 2)
-        this.vtbl.get_listStyle := CallbackCreate(GetMethod(implObj, "get_listStyle"), flags, 2)
-        this.vtbl.put_whiteSpace := CallbackCreate(GetMethod(implObj, "put_whiteSpace"), flags, 2)
-        this.vtbl.get_whiteSpace := CallbackCreate(GetMethod(implObj, "get_whiteSpace"), flags, 2)
-        this.vtbl.put_top := CallbackCreate(GetMethod(implObj, "put_top"), flags, 2)
-        this.vtbl.get_top := CallbackCreate(GetMethod(implObj, "get_top"), flags, 2)
-        this.vtbl.put_left := CallbackCreate(GetMethod(implObj, "put_left"), flags, 2)
-        this.vtbl.get_left := CallbackCreate(GetMethod(implObj, "get_left"), flags, 2)
-        this.vtbl.get_position := CallbackCreate(GetMethod(implObj, "get_position"), flags, 2)
-        this.vtbl.put_zIndex := CallbackCreate(GetMethod(implObj, "put_zIndex"), flags, 2)
-        this.vtbl.get_zIndex := CallbackCreate(GetMethod(implObj, "get_zIndex"), flags, 2)
-        this.vtbl.put_overflow := CallbackCreate(GetMethod(implObj, "put_overflow"), flags, 2)
-        this.vtbl.get_overflow := CallbackCreate(GetMethod(implObj, "get_overflow"), flags, 2)
-        this.vtbl.put_pageBreakBefore := CallbackCreate(GetMethod(implObj, "put_pageBreakBefore"), flags, 2)
-        this.vtbl.get_pageBreakBefore := CallbackCreate(GetMethod(implObj, "get_pageBreakBefore"), flags, 2)
-        this.vtbl.put_pageBreakAfter := CallbackCreate(GetMethod(implObj, "put_pageBreakAfter"), flags, 2)
-        this.vtbl.get_pageBreakAfter := CallbackCreate(GetMethod(implObj, "get_pageBreakAfter"), flags, 2)
-        this.vtbl.put_cssText := CallbackCreate(GetMethod(implObj, "put_cssText"), flags, 2)
-        this.vtbl.get_cssText := CallbackCreate(GetMethod(implObj, "get_cssText"), flags, 2)
-        this.vtbl.put_cursor := CallbackCreate(GetMethod(implObj, "put_cursor"), flags, 2)
-        this.vtbl.get_cursor := CallbackCreate(GetMethod(implObj, "get_cursor"), flags, 2)
-        this.vtbl.put_clip := CallbackCreate(GetMethod(implObj, "put_clip"), flags, 2)
-        this.vtbl.get_clip := CallbackCreate(GetMethod(implObj, "get_clip"), flags, 2)
-        this.vtbl.put_filter := CallbackCreate(GetMethod(implObj, "put_filter"), flags, 2)
-        this.vtbl.get_filter := CallbackCreate(GetMethod(implObj, "get_filter"), flags, 2)
-        this.vtbl.setAttribute := CallbackCreate(GetMethod(implObj, "setAttribute"), flags, 4)
-        this.vtbl.getAttribute := CallbackCreate(GetMethod(implObj, "getAttribute"), flags, 4)
-        this.vtbl.removeAttribute := CallbackCreate(GetMethod(implObj, "removeAttribute"), flags, 4)
+        this.vtbl.put_fontFamily := CallbackCreate(ObjBindMethod(implObj, "put_fontFamily"), flags, 2)
+        this.vtbl.get_fontFamily := CallbackCreate(ObjBindMethod(implObj, "get_fontFamily"), flags, 2)
+        this.vtbl.put_fontStyle := CallbackCreate(ObjBindMethod(implObj, "put_fontStyle"), flags, 2)
+        this.vtbl.get_fontStyle := CallbackCreate(ObjBindMethod(implObj, "get_fontStyle"), flags, 2)
+        this.vtbl.put_fontVariant := CallbackCreate(ObjBindMethod(implObj, "put_fontVariant"), flags, 2)
+        this.vtbl.get_fontVariant := CallbackCreate(ObjBindMethod(implObj, "get_fontVariant"), flags, 2)
+        this.vtbl.put_fontWeight := CallbackCreate(ObjBindMethod(implObj, "put_fontWeight"), flags, 2)
+        this.vtbl.get_fontWeight := CallbackCreate(ObjBindMethod(implObj, "get_fontWeight"), flags, 2)
+        this.vtbl.put_fontSize := CallbackCreate(ObjBindMethod(implObj, "put_fontSize"), flags, 2)
+        this.vtbl.get_fontSize := CallbackCreate(ObjBindMethod(implObj, "get_fontSize"), flags, 2)
+        this.vtbl.put_font := CallbackCreate(ObjBindMethod(implObj, "put_font"), flags, 2)
+        this.vtbl.get_font := CallbackCreate(ObjBindMethod(implObj, "get_font"), flags, 2)
+        this.vtbl.put_color := CallbackCreate(ObjBindMethod(implObj, "put_color"), flags, 2)
+        this.vtbl.get_color := CallbackCreate(ObjBindMethod(implObj, "get_color"), flags, 2)
+        this.vtbl.put_background := CallbackCreate(ObjBindMethod(implObj, "put_background"), flags, 2)
+        this.vtbl.get_background := CallbackCreate(ObjBindMethod(implObj, "get_background"), flags, 2)
+        this.vtbl.put_backgroundColor := CallbackCreate(ObjBindMethod(implObj, "put_backgroundColor"), flags, 2)
+        this.vtbl.get_backgroundColor := CallbackCreate(ObjBindMethod(implObj, "get_backgroundColor"), flags, 2)
+        this.vtbl.put_backgroundImage := CallbackCreate(ObjBindMethod(implObj, "put_backgroundImage"), flags, 2)
+        this.vtbl.get_backgroundImage := CallbackCreate(ObjBindMethod(implObj, "get_backgroundImage"), flags, 2)
+        this.vtbl.put_backgroundRepeat := CallbackCreate(ObjBindMethod(implObj, "put_backgroundRepeat"), flags, 2)
+        this.vtbl.get_backgroundRepeat := CallbackCreate(ObjBindMethod(implObj, "get_backgroundRepeat"), flags, 2)
+        this.vtbl.put_backgroundAttachment := CallbackCreate(ObjBindMethod(implObj, "put_backgroundAttachment"), flags, 2)
+        this.vtbl.get_backgroundAttachment := CallbackCreate(ObjBindMethod(implObj, "get_backgroundAttachment"), flags, 2)
+        this.vtbl.put_backgroundPosition := CallbackCreate(ObjBindMethod(implObj, "put_backgroundPosition"), flags, 2)
+        this.vtbl.get_backgroundPosition := CallbackCreate(ObjBindMethod(implObj, "get_backgroundPosition"), flags, 2)
+        this.vtbl.put_backgroundPositionX := CallbackCreate(ObjBindMethod(implObj, "put_backgroundPositionX"), flags, 2)
+        this.vtbl.get_backgroundPositionX := CallbackCreate(ObjBindMethod(implObj, "get_backgroundPositionX"), flags, 2)
+        this.vtbl.put_backgroundPositionY := CallbackCreate(ObjBindMethod(implObj, "put_backgroundPositionY"), flags, 2)
+        this.vtbl.get_backgroundPositionY := CallbackCreate(ObjBindMethod(implObj, "get_backgroundPositionY"), flags, 2)
+        this.vtbl.put_wordSpacing := CallbackCreate(ObjBindMethod(implObj, "put_wordSpacing"), flags, 2)
+        this.vtbl.get_wordSpacing := CallbackCreate(ObjBindMethod(implObj, "get_wordSpacing"), flags, 2)
+        this.vtbl.put_letterSpacing := CallbackCreate(ObjBindMethod(implObj, "put_letterSpacing"), flags, 2)
+        this.vtbl.get_letterSpacing := CallbackCreate(ObjBindMethod(implObj, "get_letterSpacing"), flags, 2)
+        this.vtbl.put_textDecoration := CallbackCreate(ObjBindMethod(implObj, "put_textDecoration"), flags, 2)
+        this.vtbl.get_textDecoration := CallbackCreate(ObjBindMethod(implObj, "get_textDecoration"), flags, 2)
+        this.vtbl.put_textDecorationNone := CallbackCreate(ObjBindMethod(implObj, "put_textDecorationNone"), flags, 2)
+        this.vtbl.get_textDecorationNone := CallbackCreate(ObjBindMethod(implObj, "get_textDecorationNone"), flags, 2)
+        this.vtbl.put_textDecorationUnderline := CallbackCreate(ObjBindMethod(implObj, "put_textDecorationUnderline"), flags, 2)
+        this.vtbl.get_textDecorationUnderline := CallbackCreate(ObjBindMethod(implObj, "get_textDecorationUnderline"), flags, 2)
+        this.vtbl.put_textDecorationOverline := CallbackCreate(ObjBindMethod(implObj, "put_textDecorationOverline"), flags, 2)
+        this.vtbl.get_textDecorationOverline := CallbackCreate(ObjBindMethod(implObj, "get_textDecorationOverline"), flags, 2)
+        this.vtbl.put_textDecorationLineThrough := CallbackCreate(ObjBindMethod(implObj, "put_textDecorationLineThrough"), flags, 2)
+        this.vtbl.get_textDecorationLineThrough := CallbackCreate(ObjBindMethod(implObj, "get_textDecorationLineThrough"), flags, 2)
+        this.vtbl.put_textDecorationBlink := CallbackCreate(ObjBindMethod(implObj, "put_textDecorationBlink"), flags, 2)
+        this.vtbl.get_textDecorationBlink := CallbackCreate(ObjBindMethod(implObj, "get_textDecorationBlink"), flags, 2)
+        this.vtbl.put_verticalAlign := CallbackCreate(ObjBindMethod(implObj, "put_verticalAlign"), flags, 2)
+        this.vtbl.get_verticalAlign := CallbackCreate(ObjBindMethod(implObj, "get_verticalAlign"), flags, 2)
+        this.vtbl.put_textTransform := CallbackCreate(ObjBindMethod(implObj, "put_textTransform"), flags, 2)
+        this.vtbl.get_textTransform := CallbackCreate(ObjBindMethod(implObj, "get_textTransform"), flags, 2)
+        this.vtbl.put_textAlign := CallbackCreate(ObjBindMethod(implObj, "put_textAlign"), flags, 2)
+        this.vtbl.get_textAlign := CallbackCreate(ObjBindMethod(implObj, "get_textAlign"), flags, 2)
+        this.vtbl.put_textIndent := CallbackCreate(ObjBindMethod(implObj, "put_textIndent"), flags, 2)
+        this.vtbl.get_textIndent := CallbackCreate(ObjBindMethod(implObj, "get_textIndent"), flags, 2)
+        this.vtbl.put_lineHeight := CallbackCreate(ObjBindMethod(implObj, "put_lineHeight"), flags, 2)
+        this.vtbl.get_lineHeight := CallbackCreate(ObjBindMethod(implObj, "get_lineHeight"), flags, 2)
+        this.vtbl.put_marginTop := CallbackCreate(ObjBindMethod(implObj, "put_marginTop"), flags, 2)
+        this.vtbl.get_marginTop := CallbackCreate(ObjBindMethod(implObj, "get_marginTop"), flags, 2)
+        this.vtbl.put_marginRight := CallbackCreate(ObjBindMethod(implObj, "put_marginRight"), flags, 2)
+        this.vtbl.get_marginRight := CallbackCreate(ObjBindMethod(implObj, "get_marginRight"), flags, 2)
+        this.vtbl.put_marginBottom := CallbackCreate(ObjBindMethod(implObj, "put_marginBottom"), flags, 2)
+        this.vtbl.get_marginBottom := CallbackCreate(ObjBindMethod(implObj, "get_marginBottom"), flags, 2)
+        this.vtbl.put_marginLeft := CallbackCreate(ObjBindMethod(implObj, "put_marginLeft"), flags, 2)
+        this.vtbl.get_marginLeft := CallbackCreate(ObjBindMethod(implObj, "get_marginLeft"), flags, 2)
+        this.vtbl.put_margin := CallbackCreate(ObjBindMethod(implObj, "put_margin"), flags, 2)
+        this.vtbl.get_margin := CallbackCreate(ObjBindMethod(implObj, "get_margin"), flags, 2)
+        this.vtbl.put_paddingTop := CallbackCreate(ObjBindMethod(implObj, "put_paddingTop"), flags, 2)
+        this.vtbl.get_paddingTop := CallbackCreate(ObjBindMethod(implObj, "get_paddingTop"), flags, 2)
+        this.vtbl.put_paddingRight := CallbackCreate(ObjBindMethod(implObj, "put_paddingRight"), flags, 2)
+        this.vtbl.get_paddingRight := CallbackCreate(ObjBindMethod(implObj, "get_paddingRight"), flags, 2)
+        this.vtbl.put_paddingBottom := CallbackCreate(ObjBindMethod(implObj, "put_paddingBottom"), flags, 2)
+        this.vtbl.get_paddingBottom := CallbackCreate(ObjBindMethod(implObj, "get_paddingBottom"), flags, 2)
+        this.vtbl.put_paddingLeft := CallbackCreate(ObjBindMethod(implObj, "put_paddingLeft"), flags, 2)
+        this.vtbl.get_paddingLeft := CallbackCreate(ObjBindMethod(implObj, "get_paddingLeft"), flags, 2)
+        this.vtbl.put_padding := CallbackCreate(ObjBindMethod(implObj, "put_padding"), flags, 2)
+        this.vtbl.get_padding := CallbackCreate(ObjBindMethod(implObj, "get_padding"), flags, 2)
+        this.vtbl.put_border := CallbackCreate(ObjBindMethod(implObj, "put_border"), flags, 2)
+        this.vtbl.get_border := CallbackCreate(ObjBindMethod(implObj, "get_border"), flags, 2)
+        this.vtbl.put_borderTop := CallbackCreate(ObjBindMethod(implObj, "put_borderTop"), flags, 2)
+        this.vtbl.get_borderTop := CallbackCreate(ObjBindMethod(implObj, "get_borderTop"), flags, 2)
+        this.vtbl.put_borderRight := CallbackCreate(ObjBindMethod(implObj, "put_borderRight"), flags, 2)
+        this.vtbl.get_borderRight := CallbackCreate(ObjBindMethod(implObj, "get_borderRight"), flags, 2)
+        this.vtbl.put_borderBottom := CallbackCreate(ObjBindMethod(implObj, "put_borderBottom"), flags, 2)
+        this.vtbl.get_borderBottom := CallbackCreate(ObjBindMethod(implObj, "get_borderBottom"), flags, 2)
+        this.vtbl.put_borderLeft := CallbackCreate(ObjBindMethod(implObj, "put_borderLeft"), flags, 2)
+        this.vtbl.get_borderLeft := CallbackCreate(ObjBindMethod(implObj, "get_borderLeft"), flags, 2)
+        this.vtbl.put_borderColor := CallbackCreate(ObjBindMethod(implObj, "put_borderColor"), flags, 2)
+        this.vtbl.get_borderColor := CallbackCreate(ObjBindMethod(implObj, "get_borderColor"), flags, 2)
+        this.vtbl.put_borderTopColor := CallbackCreate(ObjBindMethod(implObj, "put_borderTopColor"), flags, 2)
+        this.vtbl.get_borderTopColor := CallbackCreate(ObjBindMethod(implObj, "get_borderTopColor"), flags, 2)
+        this.vtbl.put_borderRightColor := CallbackCreate(ObjBindMethod(implObj, "put_borderRightColor"), flags, 2)
+        this.vtbl.get_borderRightColor := CallbackCreate(ObjBindMethod(implObj, "get_borderRightColor"), flags, 2)
+        this.vtbl.put_borderBottomColor := CallbackCreate(ObjBindMethod(implObj, "put_borderBottomColor"), flags, 2)
+        this.vtbl.get_borderBottomColor := CallbackCreate(ObjBindMethod(implObj, "get_borderBottomColor"), flags, 2)
+        this.vtbl.put_borderLeftColor := CallbackCreate(ObjBindMethod(implObj, "put_borderLeftColor"), flags, 2)
+        this.vtbl.get_borderLeftColor := CallbackCreate(ObjBindMethod(implObj, "get_borderLeftColor"), flags, 2)
+        this.vtbl.put_borderWidth := CallbackCreate(ObjBindMethod(implObj, "put_borderWidth"), flags, 2)
+        this.vtbl.get_borderWidth := CallbackCreate(ObjBindMethod(implObj, "get_borderWidth"), flags, 2)
+        this.vtbl.put_borderTopWidth := CallbackCreate(ObjBindMethod(implObj, "put_borderTopWidth"), flags, 2)
+        this.vtbl.get_borderTopWidth := CallbackCreate(ObjBindMethod(implObj, "get_borderTopWidth"), flags, 2)
+        this.vtbl.put_borderRightWidth := CallbackCreate(ObjBindMethod(implObj, "put_borderRightWidth"), flags, 2)
+        this.vtbl.get_borderRightWidth := CallbackCreate(ObjBindMethod(implObj, "get_borderRightWidth"), flags, 2)
+        this.vtbl.put_borderBottomWidth := CallbackCreate(ObjBindMethod(implObj, "put_borderBottomWidth"), flags, 2)
+        this.vtbl.get_borderBottomWidth := CallbackCreate(ObjBindMethod(implObj, "get_borderBottomWidth"), flags, 2)
+        this.vtbl.put_borderLeftWidth := CallbackCreate(ObjBindMethod(implObj, "put_borderLeftWidth"), flags, 2)
+        this.vtbl.get_borderLeftWidth := CallbackCreate(ObjBindMethod(implObj, "get_borderLeftWidth"), flags, 2)
+        this.vtbl.put_borderStyle := CallbackCreate(ObjBindMethod(implObj, "put_borderStyle"), flags, 2)
+        this.vtbl.get_borderStyle := CallbackCreate(ObjBindMethod(implObj, "get_borderStyle"), flags, 2)
+        this.vtbl.put_borderTopStyle := CallbackCreate(ObjBindMethod(implObj, "put_borderTopStyle"), flags, 2)
+        this.vtbl.get_borderTopStyle := CallbackCreate(ObjBindMethod(implObj, "get_borderTopStyle"), flags, 2)
+        this.vtbl.put_borderRightStyle := CallbackCreate(ObjBindMethod(implObj, "put_borderRightStyle"), flags, 2)
+        this.vtbl.get_borderRightStyle := CallbackCreate(ObjBindMethod(implObj, "get_borderRightStyle"), flags, 2)
+        this.vtbl.put_borderBottomStyle := CallbackCreate(ObjBindMethod(implObj, "put_borderBottomStyle"), flags, 2)
+        this.vtbl.get_borderBottomStyle := CallbackCreate(ObjBindMethod(implObj, "get_borderBottomStyle"), flags, 2)
+        this.vtbl.put_borderLeftStyle := CallbackCreate(ObjBindMethod(implObj, "put_borderLeftStyle"), flags, 2)
+        this.vtbl.get_borderLeftStyle := CallbackCreate(ObjBindMethod(implObj, "get_borderLeftStyle"), flags, 2)
+        this.vtbl.put_width := CallbackCreate(ObjBindMethod(implObj, "put_width"), flags, 2)
+        this.vtbl.get_width := CallbackCreate(ObjBindMethod(implObj, "get_width"), flags, 2)
+        this.vtbl.put_height := CallbackCreate(ObjBindMethod(implObj, "put_height"), flags, 2)
+        this.vtbl.get_height := CallbackCreate(ObjBindMethod(implObj, "get_height"), flags, 2)
+        this.vtbl.put_styleFloat := CallbackCreate(ObjBindMethod(implObj, "put_styleFloat"), flags, 2)
+        this.vtbl.get_styleFloat := CallbackCreate(ObjBindMethod(implObj, "get_styleFloat"), flags, 2)
+        this.vtbl.put_clear := CallbackCreate(ObjBindMethod(implObj, "put_clear"), flags, 2)
+        this.vtbl.get_clear := CallbackCreate(ObjBindMethod(implObj, "get_clear"), flags, 2)
+        this.vtbl.put_display := CallbackCreate(ObjBindMethod(implObj, "put_display"), flags, 2)
+        this.vtbl.get_display := CallbackCreate(ObjBindMethod(implObj, "get_display"), flags, 2)
+        this.vtbl.put_visibility := CallbackCreate(ObjBindMethod(implObj, "put_visibility"), flags, 2)
+        this.vtbl.get_visibility := CallbackCreate(ObjBindMethod(implObj, "get_visibility"), flags, 2)
+        this.vtbl.put_listStyleType := CallbackCreate(ObjBindMethod(implObj, "put_listStyleType"), flags, 2)
+        this.vtbl.get_listStyleType := CallbackCreate(ObjBindMethod(implObj, "get_listStyleType"), flags, 2)
+        this.vtbl.put_listStylePosition := CallbackCreate(ObjBindMethod(implObj, "put_listStylePosition"), flags, 2)
+        this.vtbl.get_listStylePosition := CallbackCreate(ObjBindMethod(implObj, "get_listStylePosition"), flags, 2)
+        this.vtbl.put_listStyleImage := CallbackCreate(ObjBindMethod(implObj, "put_listStyleImage"), flags, 2)
+        this.vtbl.get_listStyleImage := CallbackCreate(ObjBindMethod(implObj, "get_listStyleImage"), flags, 2)
+        this.vtbl.put_listStyle := CallbackCreate(ObjBindMethod(implObj, "put_listStyle"), flags, 2)
+        this.vtbl.get_listStyle := CallbackCreate(ObjBindMethod(implObj, "get_listStyle"), flags, 2)
+        this.vtbl.put_whiteSpace := CallbackCreate(ObjBindMethod(implObj, "put_whiteSpace"), flags, 2)
+        this.vtbl.get_whiteSpace := CallbackCreate(ObjBindMethod(implObj, "get_whiteSpace"), flags, 2)
+        this.vtbl.put_top := CallbackCreate(ObjBindMethod(implObj, "put_top"), flags, 2)
+        this.vtbl.get_top := CallbackCreate(ObjBindMethod(implObj, "get_top"), flags, 2)
+        this.vtbl.put_left := CallbackCreate(ObjBindMethod(implObj, "put_left"), flags, 2)
+        this.vtbl.get_left := CallbackCreate(ObjBindMethod(implObj, "get_left"), flags, 2)
+        this.vtbl.get_position := CallbackCreate(ObjBindMethod(implObj, "get_position"), flags, 2)
+        this.vtbl.put_zIndex := CallbackCreate(ObjBindMethod(implObj, "put_zIndex"), flags, 2)
+        this.vtbl.get_zIndex := CallbackCreate(ObjBindMethod(implObj, "get_zIndex"), flags, 2)
+        this.vtbl.put_overflow := CallbackCreate(ObjBindMethod(implObj, "put_overflow"), flags, 2)
+        this.vtbl.get_overflow := CallbackCreate(ObjBindMethod(implObj, "get_overflow"), flags, 2)
+        this.vtbl.put_pageBreakBefore := CallbackCreate(ObjBindMethod(implObj, "put_pageBreakBefore"), flags, 2)
+        this.vtbl.get_pageBreakBefore := CallbackCreate(ObjBindMethod(implObj, "get_pageBreakBefore"), flags, 2)
+        this.vtbl.put_pageBreakAfter := CallbackCreate(ObjBindMethod(implObj, "put_pageBreakAfter"), flags, 2)
+        this.vtbl.get_pageBreakAfter := CallbackCreate(ObjBindMethod(implObj, "get_pageBreakAfter"), flags, 2)
+        this.vtbl.put_cssText := CallbackCreate(ObjBindMethod(implObj, "put_cssText"), flags, 2)
+        this.vtbl.get_cssText := CallbackCreate(ObjBindMethod(implObj, "get_cssText"), flags, 2)
+        this.vtbl.put_cursor := CallbackCreate(ObjBindMethod(implObj, "put_cursor"), flags, 2)
+        this.vtbl.get_cursor := CallbackCreate(ObjBindMethod(implObj, "get_cursor"), flags, 2)
+        this.vtbl.put_clip := CallbackCreate(ObjBindMethod(implObj, "put_clip"), flags, 2)
+        this.vtbl.get_clip := CallbackCreate(ObjBindMethod(implObj, "get_clip"), flags, 2)
+        this.vtbl.put_filter := CallbackCreate(ObjBindMethod(implObj, "put_filter"), flags, 2)
+        this.vtbl.get_filter := CallbackCreate(ObjBindMethod(implObj, "get_filter"), flags, 2)
+        this.vtbl.setAttribute := CallbackCreate(ObjBindMethod(implObj, "setAttribute"), flags, 4)
+        this.vtbl.getAttribute := CallbackCreate(ObjBindMethod(implObj, "getAttribute"), flags, 4)
+        this.vtbl.removeAttribute := CallbackCreate(ObjBindMethod(implObj, "removeAttribute"), flags, 4)
     }
 
     Dispose() {

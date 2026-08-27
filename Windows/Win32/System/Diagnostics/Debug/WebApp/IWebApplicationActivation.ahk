@@ -56,7 +56,7 @@ export default struct IWebApplicationActivation extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CancelPendingActivation := CallbackCreate(GetMethod(implObj, "CancelPendingActivation"), flags, 1)
+        this.vtbl.CancelPendingActivation := CallbackCreate(ObjBindMethod(implObj, "CancelPendingActivation"), flags, 1)
     }
 
     Dispose() {

@@ -88,7 +88,6 @@ export default struct Column extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Width() {
@@ -97,7 +96,6 @@ export default struct Column extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} Width 
      * @returns {HRESULT} 
      */
@@ -107,7 +105,6 @@ export default struct Column extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DisplayPosition() {
@@ -116,7 +113,6 @@ export default struct Column extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {HRESULT} 
      */
@@ -126,7 +122,6 @@ export default struct Column extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_Hidden() {
@@ -135,7 +130,6 @@ export default struct Column extends IDispatch {
     }
 
     /**
-     * 
      * @param {BOOL} Hidden 
      * @returns {HRESULT} 
      */
@@ -145,7 +139,6 @@ export default struct Column extends IDispatch {
     }
 
     /**
-     * 
      * @param {_ColumnSortOrder} SortOrder 
      * @returns {HRESULT} 
      */
@@ -155,7 +148,6 @@ export default struct Column extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsSortColumn() {
@@ -172,15 +164,15 @@ export default struct Column extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Name := CallbackCreate(GetMethod(implObj, "Name"), flags, 2)
-        this.vtbl.get_Width := CallbackCreate(GetMethod(implObj, "get_Width"), flags, 2)
-        this.vtbl.put_Width := CallbackCreate(GetMethod(implObj, "put_Width"), flags, 2)
-        this.vtbl.get_DisplayPosition := CallbackCreate(GetMethod(implObj, "get_DisplayPosition"), flags, 2)
-        this.vtbl.put_DisplayPosition := CallbackCreate(GetMethod(implObj, "put_DisplayPosition"), flags, 2)
-        this.vtbl.get_Hidden := CallbackCreate(GetMethod(implObj, "get_Hidden"), flags, 2)
-        this.vtbl.put_Hidden := CallbackCreate(GetMethod(implObj, "put_Hidden"), flags, 2)
-        this.vtbl.SetAsSortColumn := CallbackCreate(GetMethod(implObj, "SetAsSortColumn"), flags, 2)
-        this.vtbl.IsSortColumn := CallbackCreate(GetMethod(implObj, "IsSortColumn"), flags, 2)
+        this.vtbl.Name := CallbackCreate(ObjBindMethod(implObj, "Name"), flags, 2)
+        this.vtbl.get_Width := CallbackCreate(ObjBindMethod(implObj, "get_Width"), flags, 2)
+        this.vtbl.put_Width := CallbackCreate(ObjBindMethod(implObj, "put_Width"), flags, 2)
+        this.vtbl.get_DisplayPosition := CallbackCreate(ObjBindMethod(implObj, "get_DisplayPosition"), flags, 2)
+        this.vtbl.put_DisplayPosition := CallbackCreate(ObjBindMethod(implObj, "put_DisplayPosition"), flags, 2)
+        this.vtbl.get_Hidden := CallbackCreate(ObjBindMethod(implObj, "get_Hidden"), flags, 2)
+        this.vtbl.put_Hidden := CallbackCreate(ObjBindMethod(implObj, "put_Hidden"), flags, 2)
+        this.vtbl.SetAsSortColumn := CallbackCreate(ObjBindMethod(implObj, "SetAsSortColumn"), flags, 2)
+        this.vtbl.IsSortColumn := CallbackCreate(ObjBindMethod(implObj, "IsSortColumn"), flags, 2)
     }
 
     Dispose() {

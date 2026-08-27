@@ -445,7 +445,6 @@ export default struct IFaxDocument extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_CallHandle() {
@@ -454,7 +453,6 @@ export default struct IFaxDocument extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lCallHandle 
      * @returns {HRESULT} 
      */
@@ -593,7 +591,6 @@ export default struct IFaxDocument extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_TapiConnection() {
@@ -602,12 +599,13 @@ export default struct IFaxDocument extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} pTapiConnection 
      * @returns {HRESULT} 
      */
     putref_TapiConnection(pTapiConnection) {
-        result := ComCall(36, this, "ptr", pTapiConnection, "HRESULT")
+        pTapiConnectionMarshal := pTapiConnection == 0 ? IntPtr : "ptr"
+
+        result := ComCall(36, this, pTapiConnectionMarshal, pTapiConnection, "HRESULT")
         return result
     }
 
@@ -654,8 +652,10 @@ export default struct IFaxDocument extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-connectedsubmit
      */
     ConnectedSubmit(pFaxServer) {
+        pFaxServerMarshal := pFaxServer == 0 ? IntPtr : "ptr"
+
         pvFaxOutgoingJobIDs := VARIANT()
-        result := ComCall(38, this, "ptr", pFaxServer, VARIANT.Ptr, pvFaxOutgoingJobIDs, "HRESULT")
+        result := ComCall(38, this, pFaxServerMarshal, pFaxServer, VARIANT.Ptr, pvFaxOutgoingJobIDs, "HRESULT")
         return pvFaxOutgoingJobIDs
     }
 
@@ -697,40 +697,40 @@ export default struct IFaxDocument extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Body := CallbackCreate(GetMethod(implObj, "get_Body"), flags, 2)
-        this.vtbl.put_Body := CallbackCreate(GetMethod(implObj, "put_Body"), flags, 2)
-        this.vtbl.get_Sender := CallbackCreate(GetMethod(implObj, "get_Sender"), flags, 2)
-        this.vtbl.get_Recipients := CallbackCreate(GetMethod(implObj, "get_Recipients"), flags, 2)
-        this.vtbl.get_CoverPage := CallbackCreate(GetMethod(implObj, "get_CoverPage"), flags, 2)
-        this.vtbl.put_CoverPage := CallbackCreate(GetMethod(implObj, "put_CoverPage"), flags, 2)
-        this.vtbl.get_Subject := CallbackCreate(GetMethod(implObj, "get_Subject"), flags, 2)
-        this.vtbl.put_Subject := CallbackCreate(GetMethod(implObj, "put_Subject"), flags, 2)
-        this.vtbl.get_Note := CallbackCreate(GetMethod(implObj, "get_Note"), flags, 2)
-        this.vtbl.put_Note := CallbackCreate(GetMethod(implObj, "put_Note"), flags, 2)
-        this.vtbl.get_ScheduleTime := CallbackCreate(GetMethod(implObj, "get_ScheduleTime"), flags, 2)
-        this.vtbl.put_ScheduleTime := CallbackCreate(GetMethod(implObj, "put_ScheduleTime"), flags, 2)
-        this.vtbl.get_ReceiptAddress := CallbackCreate(GetMethod(implObj, "get_ReceiptAddress"), flags, 2)
-        this.vtbl.put_ReceiptAddress := CallbackCreate(GetMethod(implObj, "put_ReceiptAddress"), flags, 2)
-        this.vtbl.get_DocumentName := CallbackCreate(GetMethod(implObj, "get_DocumentName"), flags, 2)
-        this.vtbl.put_DocumentName := CallbackCreate(GetMethod(implObj, "put_DocumentName"), flags, 2)
-        this.vtbl.get_CallHandle := CallbackCreate(GetMethod(implObj, "get_CallHandle"), flags, 2)
-        this.vtbl.put_CallHandle := CallbackCreate(GetMethod(implObj, "put_CallHandle"), flags, 2)
-        this.vtbl.get_CoverPageType := CallbackCreate(GetMethod(implObj, "get_CoverPageType"), flags, 2)
-        this.vtbl.put_CoverPageType := CallbackCreate(GetMethod(implObj, "put_CoverPageType"), flags, 2)
-        this.vtbl.get_ScheduleType := CallbackCreate(GetMethod(implObj, "get_ScheduleType"), flags, 2)
-        this.vtbl.put_ScheduleType := CallbackCreate(GetMethod(implObj, "put_ScheduleType"), flags, 2)
-        this.vtbl.get_ReceiptType := CallbackCreate(GetMethod(implObj, "get_ReceiptType"), flags, 2)
-        this.vtbl.put_ReceiptType := CallbackCreate(GetMethod(implObj, "put_ReceiptType"), flags, 2)
-        this.vtbl.get_GroupBroadcastReceipts := CallbackCreate(GetMethod(implObj, "get_GroupBroadcastReceipts"), flags, 2)
-        this.vtbl.put_GroupBroadcastReceipts := CallbackCreate(GetMethod(implObj, "put_GroupBroadcastReceipts"), flags, 2)
-        this.vtbl.get_Priority := CallbackCreate(GetMethod(implObj, "get_Priority"), flags, 2)
-        this.vtbl.put_Priority := CallbackCreate(GetMethod(implObj, "put_Priority"), flags, 2)
-        this.vtbl.get_TapiConnection := CallbackCreate(GetMethod(implObj, "get_TapiConnection"), flags, 2)
-        this.vtbl.putref_TapiConnection := CallbackCreate(GetMethod(implObj, "putref_TapiConnection"), flags, 2)
-        this.vtbl.Submit := CallbackCreate(GetMethod(implObj, "Submit"), flags, 3)
-        this.vtbl.ConnectedSubmit := CallbackCreate(GetMethod(implObj, "ConnectedSubmit"), flags, 3)
-        this.vtbl.get_AttachFaxToReceipt := CallbackCreate(GetMethod(implObj, "get_AttachFaxToReceipt"), flags, 2)
-        this.vtbl.put_AttachFaxToReceipt := CallbackCreate(GetMethod(implObj, "put_AttachFaxToReceipt"), flags, 2)
+        this.vtbl.get_Body := CallbackCreate(ObjBindMethod(implObj, "get_Body"), flags, 2)
+        this.vtbl.put_Body := CallbackCreate(ObjBindMethod(implObj, "put_Body"), flags, 2)
+        this.vtbl.get_Sender := CallbackCreate(ObjBindMethod(implObj, "get_Sender"), flags, 2)
+        this.vtbl.get_Recipients := CallbackCreate(ObjBindMethod(implObj, "get_Recipients"), flags, 2)
+        this.vtbl.get_CoverPage := CallbackCreate(ObjBindMethod(implObj, "get_CoverPage"), flags, 2)
+        this.vtbl.put_CoverPage := CallbackCreate(ObjBindMethod(implObj, "put_CoverPage"), flags, 2)
+        this.vtbl.get_Subject := CallbackCreate(ObjBindMethod(implObj, "get_Subject"), flags, 2)
+        this.vtbl.put_Subject := CallbackCreate(ObjBindMethod(implObj, "put_Subject"), flags, 2)
+        this.vtbl.get_Note := CallbackCreate(ObjBindMethod(implObj, "get_Note"), flags, 2)
+        this.vtbl.put_Note := CallbackCreate(ObjBindMethod(implObj, "put_Note"), flags, 2)
+        this.vtbl.get_ScheduleTime := CallbackCreate(ObjBindMethod(implObj, "get_ScheduleTime"), flags, 2)
+        this.vtbl.put_ScheduleTime := CallbackCreate(ObjBindMethod(implObj, "put_ScheduleTime"), flags, 2)
+        this.vtbl.get_ReceiptAddress := CallbackCreate(ObjBindMethod(implObj, "get_ReceiptAddress"), flags, 2)
+        this.vtbl.put_ReceiptAddress := CallbackCreate(ObjBindMethod(implObj, "put_ReceiptAddress"), flags, 2)
+        this.vtbl.get_DocumentName := CallbackCreate(ObjBindMethod(implObj, "get_DocumentName"), flags, 2)
+        this.vtbl.put_DocumentName := CallbackCreate(ObjBindMethod(implObj, "put_DocumentName"), flags, 2)
+        this.vtbl.get_CallHandle := CallbackCreate(ObjBindMethod(implObj, "get_CallHandle"), flags, 2)
+        this.vtbl.put_CallHandle := CallbackCreate(ObjBindMethod(implObj, "put_CallHandle"), flags, 2)
+        this.vtbl.get_CoverPageType := CallbackCreate(ObjBindMethod(implObj, "get_CoverPageType"), flags, 2)
+        this.vtbl.put_CoverPageType := CallbackCreate(ObjBindMethod(implObj, "put_CoverPageType"), flags, 2)
+        this.vtbl.get_ScheduleType := CallbackCreate(ObjBindMethod(implObj, "get_ScheduleType"), flags, 2)
+        this.vtbl.put_ScheduleType := CallbackCreate(ObjBindMethod(implObj, "put_ScheduleType"), flags, 2)
+        this.vtbl.get_ReceiptType := CallbackCreate(ObjBindMethod(implObj, "get_ReceiptType"), flags, 2)
+        this.vtbl.put_ReceiptType := CallbackCreate(ObjBindMethod(implObj, "put_ReceiptType"), flags, 2)
+        this.vtbl.get_GroupBroadcastReceipts := CallbackCreate(ObjBindMethod(implObj, "get_GroupBroadcastReceipts"), flags, 2)
+        this.vtbl.put_GroupBroadcastReceipts := CallbackCreate(ObjBindMethod(implObj, "put_GroupBroadcastReceipts"), flags, 2)
+        this.vtbl.get_Priority := CallbackCreate(ObjBindMethod(implObj, "get_Priority"), flags, 2)
+        this.vtbl.put_Priority := CallbackCreate(ObjBindMethod(implObj, "put_Priority"), flags, 2)
+        this.vtbl.get_TapiConnection := CallbackCreate(ObjBindMethod(implObj, "get_TapiConnection"), flags, 2)
+        this.vtbl.putref_TapiConnection := CallbackCreate(ObjBindMethod(implObj, "putref_TapiConnection"), flags, 2)
+        this.vtbl.Submit := CallbackCreate(ObjBindMethod(implObj, "Submit"), flags, 3)
+        this.vtbl.ConnectedSubmit := CallbackCreate(ObjBindMethod(implObj, "ConnectedSubmit"), flags, 3)
+        this.vtbl.get_AttachFaxToReceipt := CallbackCreate(ObjBindMethod(implObj, "get_AttachFaxToReceipt"), flags, 2)
+        this.vtbl.put_AttachFaxToReceipt := CallbackCreate(ObjBindMethod(implObj, "put_AttachFaxToReceipt"), flags, 2)
     }
 
     Dispose() {

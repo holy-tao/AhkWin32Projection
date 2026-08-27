@@ -188,10 +188,10 @@ export default struct IPerPropertyBrowsing extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDisplayString := CallbackCreate(GetMethod(implObj, "GetDisplayString"), flags, 3)
-        this.vtbl.MapPropertyToPage := CallbackCreate(GetMethod(implObj, "MapPropertyToPage"), flags, 3)
-        this.vtbl.GetPredefinedStrings := CallbackCreate(GetMethod(implObj, "GetPredefinedStrings"), flags, 4)
-        this.vtbl.GetPredefinedValue := CallbackCreate(GetMethod(implObj, "GetPredefinedValue"), flags, 4)
+        this.vtbl.GetDisplayString := CallbackCreate(ObjBindMethod(implObj, "GetDisplayString"), flags, 3)
+        this.vtbl.MapPropertyToPage := CallbackCreate(ObjBindMethod(implObj, "MapPropertyToPage"), flags, 3)
+        this.vtbl.GetPredefinedStrings := CallbackCreate(ObjBindMethod(implObj, "GetPredefinedStrings"), flags, 4)
+        this.vtbl.GetPredefinedValue := CallbackCreate(ObjBindMethod(implObj, "GetPredefinedValue"), flags, 4)
     }
 
     Dispose() {

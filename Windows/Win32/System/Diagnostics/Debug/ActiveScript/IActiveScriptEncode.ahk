@@ -40,7 +40,6 @@ export default struct IActiveScriptEncode extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pchIn 
      * @param {Integer} cchIn 
      * @param {PWSTR} pchOut 
@@ -52,14 +51,13 @@ export default struct IActiveScriptEncode extends IUnknown {
         pchIn := pchIn is String ? StrPtr(pchIn) : pchIn
         pchOut := pchOut is String ? StrPtr(pchOut) : pchOut
 
-        pcchRetMarshal := pcchRet is VarRef ? "uint*" : "ptr"
+        pcchRetMarshal := pcchRet is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, "ptr", pchIn, UInt32, cchIn, "ptr", pchOut, UInt32, cchOut, pcchRetMarshal, pcchRet, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pchIn 
      * @param {Integer} cchIn 
      * @param {PWSTR} pchOut 
@@ -71,14 +69,13 @@ export default struct IActiveScriptEncode extends IUnknown {
         pchIn := pchIn is String ? StrPtr(pchIn) : pchIn
         pchOut := pchOut is String ? StrPtr(pchOut) : pchOut
 
-        pcchRetMarshal := pcchRet is VarRef ? "uint*" : "ptr"
+        pcchRetMarshal := pcchRet is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, "ptr", pchIn, UInt32, cchIn, "ptr", pchOut, UInt32, cchOut, pcchRetMarshal, pcchRet, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrOut 
      * @returns {HRESULT} 
      */
@@ -96,9 +93,9 @@ export default struct IActiveScriptEncode extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EncodeSection := CallbackCreate(GetMethod(implObj, "EncodeSection"), flags, 6)
-        this.vtbl.DecodeScript := CallbackCreate(GetMethod(implObj, "DecodeScript"), flags, 6)
-        this.vtbl.GetEncodeProgId := CallbackCreate(GetMethod(implObj, "GetEncodeProgId"), flags, 2)
+        this.vtbl.EncodeSection := CallbackCreate(ObjBindMethod(implObj, "EncodeSection"), flags, 6)
+        this.vtbl.DecodeScript := CallbackCreate(ObjBindMethod(implObj, "DecodeScript"), flags, 6)
+        this.vtbl.GetEncodeProgId := CallbackCreate(ObjBindMethod(implObj, "GetEncodeProgId"), flags, 2)
     }
 
     Dispose() {

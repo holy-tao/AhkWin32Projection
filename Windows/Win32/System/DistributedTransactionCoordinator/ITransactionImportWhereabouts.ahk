@@ -37,7 +37,6 @@ export default struct ITransactionImportWhereabouts extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetWhereaboutsSize() {
@@ -46,15 +45,14 @@ export default struct ITransactionImportWhereabouts extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cbWhereabouts 
      * @param {Pointer<Integer>} rgbWhereabouts 
      * @param {Pointer<Integer>} pcbUsed 
      * @returns {HRESULT} 
      */
     GetWhereabouts(cbWhereabouts, rgbWhereabouts, pcbUsed) {
-        rgbWhereaboutsMarshal := rgbWhereabouts is VarRef ? "char*" : "ptr"
-        pcbUsedMarshal := pcbUsed is VarRef ? "uint*" : "ptr"
+        rgbWhereaboutsMarshal := rgbWhereabouts is VarRef ? "char*" : IntPtr
+        pcbUsedMarshal := pcbUsed is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, UInt32, cbWhereabouts, rgbWhereaboutsMarshal, rgbWhereabouts, pcbUsedMarshal, pcbUsed, "HRESULT")
         return result
@@ -69,8 +67,8 @@ export default struct ITransactionImportWhereabouts extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetWhereaboutsSize := CallbackCreate(GetMethod(implObj, "GetWhereaboutsSize"), flags, 2)
-        this.vtbl.GetWhereabouts := CallbackCreate(GetMethod(implObj, "GetWhereabouts"), flags, 4)
+        this.vtbl.GetWhereaboutsSize := CallbackCreate(ObjBindMethod(implObj, "GetWhereaboutsSize"), flags, 2)
+        this.vtbl.GetWhereabouts := CallbackCreate(ObjBindMethod(implObj, "GetWhereabouts"), flags, 4)
     }
 
     Dispose() {

@@ -20,13 +20,12 @@ export default struct LPD3DENUMTEXTUREFORMATSCALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<DDSURFACEDESC>} lpDdsd 
      * @param {Pointer<Void>} lpContext 
      * @returns {HRESULT} 
      */
     Call(lpDdsd, lpContext) {
-        lpContextMarshal := lpContext is VarRef ? "ptr" : "ptr"
+        lpContextMarshal := lpContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, DDSURFACEDESC.Ptr, lpDdsd, lpContextMarshal, lpContext, "HRESULT")
         return result

@@ -93,7 +93,7 @@ export default struct IDWriteFontFace extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontface-getfiles
      */
     GetFiles(numberOfFiles) {
-        numberOfFilesMarshal := numberOfFiles is VarRef ? "uint*" : "ptr"
+        numberOfFilesMarshal := numberOfFiles is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, numberOfFilesMarshal, numberOfFiles, "ptr*", &fontFiles := 0, "HRESULT")
         return IDWriteFontFile(fontFiles)
@@ -182,7 +182,7 @@ export default struct IDWriteFontFace extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontface-getdesignglyphmetrics
      */
     GetDesignGlyphMetrics(glyphIndices, glyphCount, isSideways) {
-        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
+        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : IntPtr
 
         _glyphMetrics := DWRITE_GLYPH_METRICS()
         result := ComCall(10, this, glyphIndicesMarshal, glyphIndices, UInt32, glyphCount, DWRITE_GLYPH_METRICS.Ptr, _glyphMetrics, BOOL, isSideways, "HRESULT")
@@ -211,7 +211,7 @@ export default struct IDWriteFontFace extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontface-getglyphindices
      */
     GetGlyphIndices(codePoints, codePointCount) {
-        codePointsMarshal := codePoints is VarRef ? "uint*" : "ptr"
+        codePointsMarshal := codePoints is VarRef ? "uint*" : IntPtr
 
         result := ComCall(11, this, codePointsMarshal, codePoints, UInt32, codePointCount, "ushort*", &glyphIndices := 0, "HRESULT")
         return glyphIndices
@@ -255,10 +255,10 @@ export default struct IDWriteFontFace extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontface-trygetfonttable
      */
     TryGetFontTable(openTypeTableTag, tableData, tableSize, tableContext, exists) {
-        tableDataMarshal := tableData is VarRef ? "ptr*" : "ptr"
-        tableSizeMarshal := tableSize is VarRef ? "uint*" : "ptr"
-        tableContextMarshal := tableContext is VarRef ? "ptr*" : "ptr"
-        existsMarshal := exists is VarRef ? "int*" : "ptr"
+        tableDataMarshal := tableData is VarRef ? "ptr*" : IntPtr
+        tableSizeMarshal := tableSize is VarRef ? "uint*" : IntPtr
+        tableContextMarshal := tableContext is VarRef ? "ptr*" : IntPtr
+        existsMarshal := exists is VarRef ? "int*" : IntPtr
 
         result := ComCall(12, this, UInt32, openTypeTableTag, tableDataMarshal, tableData, tableSizeMarshal, tableSize, tableContextMarshal, tableContext, existsMarshal, exists, "HRESULT")
         return result
@@ -273,7 +273,7 @@ export default struct IDWriteFontFace extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontface-releasefonttable
      */
     ReleaseFontTable(tableContext) {
-        tableContextMarshal := tableContext is VarRef ? "ptr" : "ptr"
+        tableContextMarshal := tableContext is VarRef ? "ptr" : IntPtr
 
         ComCall(13, this, tableContextMarshal, tableContext)
     }
@@ -314,10 +314,12 @@ export default struct IDWriteFontFace extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontface-getglyphrunoutline
      */
     GetGlyphRunOutline(emSize, glyphIndices, glyphAdvances, glyphOffsets, glyphCount, isSideways, isRightToLeft, geometrySink) {
-        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
-        glyphAdvancesMarshal := glyphAdvances is VarRef ? "float*" : "ptr"
+        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : IntPtr
+        glyphAdvancesMarshal := glyphAdvances is VarRef ? "float*" : IntPtr
+        glyphAdvancesMarshal := glyphAdvances == 0 ? IntPtr : "float*"
+        glyphOffsetsMarshal := glyphOffsets == 0 ? IntPtr : DWRITE_GLYPH_OFFSET.Ptr
 
-        result := ComCall(14, this, Float32, emSize, glyphIndicesMarshal, glyphIndices, glyphAdvancesMarshal, glyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, glyphOffsets, UInt32, glyphCount, BOOL, isSideways, BOOL, isRightToLeft, "ptr", geometrySink, "HRESULT")
+        result := ComCall(14, this, Float32, emSize, glyphIndicesMarshal, glyphIndices, glyphAdvancesMarshal, glyphAdvances, glyphOffsetsMarshal, glyphOffsets, UInt32, glyphCount, BOOL, isSideways, BOOL, isRightToLeft, "ptr", geometrySink, "HRESULT")
         return result
     }
 
@@ -375,8 +377,10 @@ export default struct IDWriteFontFace extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritefontface-getgdicompatiblemetrics
      */
     GetGdiCompatibleMetrics(emSize, pixelsPerDip, transform) {
+        transformMarshal := transform == 0 ? IntPtr : DWRITE_MATRIX.Ptr
+
         fontFaceMetrics := DWRITE_FONT_METRICS()
-        result := ComCall(16, this, Float32, emSize, Float32, pixelsPerDip, DWRITE_MATRIX.Ptr, transform, DWRITE_FONT_METRICS.Ptr, fontFaceMetrics, "HRESULT")
+        result := ComCall(16, this, Float32, emSize, Float32, pixelsPerDip, transformMarshal, transform, DWRITE_FONT_METRICS.Ptr, fontFaceMetrics, "HRESULT")
         return fontFaceMetrics
     }
 
@@ -409,10 +413,11 @@ export default struct IDWriteFontFace extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritefontface-getgdicompatibleglyphmetrics
      */
     GetGdiCompatibleGlyphMetrics(emSize, pixelsPerDip, transform, useGdiNatural, glyphIndices, glyphCount, isSideways) {
-        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
+        transformMarshal := transform == 0 ? IntPtr : DWRITE_MATRIX.Ptr
+        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : IntPtr
 
         _glyphMetrics := DWRITE_GLYPH_METRICS()
-        result := ComCall(17, this, Float32, emSize, Float32, pixelsPerDip, DWRITE_MATRIX.Ptr, transform, BOOL, useGdiNatural, glyphIndicesMarshal, glyphIndices, UInt32, glyphCount, DWRITE_GLYPH_METRICS.Ptr, _glyphMetrics, BOOL, isSideways, "HRESULT")
+        result := ComCall(17, this, Float32, emSize, Float32, pixelsPerDip, transformMarshal, transform, BOOL, useGdiNatural, glyphIndicesMarshal, glyphIndices, UInt32, glyphCount, DWRITE_GLYPH_METRICS.Ptr, _glyphMetrics, BOOL, isSideways, "HRESULT")
         return _glyphMetrics
     }
 
@@ -425,21 +430,21 @@ export default struct IDWriteFontFace extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 1)
-        this.vtbl.GetFiles := CallbackCreate(GetMethod(implObj, "GetFiles"), flags, 3)
-        this.vtbl.GetIndex := CallbackCreate(GetMethod(implObj, "GetIndex"), flags, 1)
-        this.vtbl.GetSimulations := CallbackCreate(GetMethod(implObj, "GetSimulations"), flags, 1)
-        this.vtbl.IsSymbolFont := CallbackCreate(GetMethod(implObj, "IsSymbolFont"), flags, 1)
-        this.vtbl.GetMetrics := CallbackCreate(GetMethod(implObj, "GetMetrics"), flags, 2)
-        this.vtbl.GetGlyphCount := CallbackCreate(GetMethod(implObj, "GetGlyphCount"), flags, 1)
-        this.vtbl.GetDesignGlyphMetrics := CallbackCreate(GetMethod(implObj, "GetDesignGlyphMetrics"), flags, 5)
-        this.vtbl.GetGlyphIndices := CallbackCreate(GetMethod(implObj, "GetGlyphIndices"), flags, 4)
-        this.vtbl.TryGetFontTable := CallbackCreate(GetMethod(implObj, "TryGetFontTable"), flags, 6)
-        this.vtbl.ReleaseFontTable := CallbackCreate(GetMethod(implObj, "ReleaseFontTable"), flags, 2)
-        this.vtbl.GetGlyphRunOutline := CallbackCreate(GetMethod(implObj, "GetGlyphRunOutline"), flags, 9)
-        this.vtbl.GetRecommendedRenderingMode := CallbackCreate(GetMethod(implObj, "GetRecommendedRenderingMode"), flags, 6)
-        this.vtbl.GetGdiCompatibleMetrics := CallbackCreate(GetMethod(implObj, "GetGdiCompatibleMetrics"), flags, 5)
-        this.vtbl.GetGdiCompatibleGlyphMetrics := CallbackCreate(GetMethod(implObj, "GetGdiCompatibleGlyphMetrics"), flags, 9)
+        this.vtbl.GetType := CallbackCreate(ObjBindMethod(implObj, "GetType"), flags, 1)
+        this.vtbl.GetFiles := CallbackCreate(ObjBindMethod(implObj, "GetFiles"), flags, 3)
+        this.vtbl.GetIndex := CallbackCreate(ObjBindMethod(implObj, "GetIndex"), flags, 1)
+        this.vtbl.GetSimulations := CallbackCreate(ObjBindMethod(implObj, "GetSimulations"), flags, 1)
+        this.vtbl.IsSymbolFont := CallbackCreate(ObjBindMethod(implObj, "IsSymbolFont"), flags, 1)
+        this.vtbl.GetMetrics := CallbackCreate(ObjBindMethod(implObj, "GetMetrics"), flags, 2)
+        this.vtbl.GetGlyphCount := CallbackCreate(ObjBindMethod(implObj, "GetGlyphCount"), flags, 1)
+        this.vtbl.GetDesignGlyphMetrics := CallbackCreate(ObjBindMethod(implObj, "GetDesignGlyphMetrics"), flags, 5)
+        this.vtbl.GetGlyphIndices := CallbackCreate(ObjBindMethod(implObj, "GetGlyphIndices"), flags, 4)
+        this.vtbl.TryGetFontTable := CallbackCreate(ObjBindMethod(implObj, "TryGetFontTable"), flags, 6)
+        this.vtbl.ReleaseFontTable := CallbackCreate(ObjBindMethod(implObj, "ReleaseFontTable"), flags, 2)
+        this.vtbl.GetGlyphRunOutline := CallbackCreate(ObjBindMethod(implObj, "GetGlyphRunOutline"), flags, 9)
+        this.vtbl.GetRecommendedRenderingMode := CallbackCreate(ObjBindMethod(implObj, "GetRecommendedRenderingMode"), flags, 6)
+        this.vtbl.GetGdiCompatibleMetrics := CallbackCreate(ObjBindMethod(implObj, "GetGdiCompatibleMetrics"), flags, 5)
+        this.vtbl.GetGdiCompatibleGlyphMetrics := CallbackCreate(ObjBindMethod(implObj, "GetGdiCompatibleGlyphMetrics"), flags, 9)
     }
 
     Dispose() {

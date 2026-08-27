@@ -22,7 +22,6 @@ export default struct PFN_PRINTING_CONFIGUREPORT2 {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @param {PWSTR} param1 
      * @param {HWND} param2 

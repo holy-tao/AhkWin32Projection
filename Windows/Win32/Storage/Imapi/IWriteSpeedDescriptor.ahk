@@ -114,9 +114,9 @@ export default struct IWriteSpeedDescriptor extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_MediaType := CallbackCreate(GetMethod(implObj, "get_MediaType"), flags, 2)
-        this.vtbl.get_RotationTypeIsPureCAV := CallbackCreate(GetMethod(implObj, "get_RotationTypeIsPureCAV"), flags, 2)
-        this.vtbl.get_WriteSpeed := CallbackCreate(GetMethod(implObj, "get_WriteSpeed"), flags, 2)
+        this.vtbl.get_MediaType := CallbackCreate(ObjBindMethod(implObj, "get_MediaType"), flags, 2)
+        this.vtbl.get_RotationTypeIsPureCAV := CallbackCreate(ObjBindMethod(implObj, "get_RotationTypeIsPureCAV"), flags, 2)
+        this.vtbl.get_WriteSpeed := CallbackCreate(ObjBindMethod(implObj, "get_WriteSpeed"), flags, 2)
     }
 
     Dispose() {

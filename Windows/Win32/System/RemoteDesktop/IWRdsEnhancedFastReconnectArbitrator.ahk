@@ -45,7 +45,7 @@ export default struct IWRdsEnhancedFastReconnectArbitrator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsenhancedfastreconnectarbitrator-getsessionforenhancedfastreconnect
      */
     GetSessionForEnhancedFastReconnect(pSessionIdArray, dwSessionCount) {
-        pSessionIdArrayMarshal := pSessionIdArray is VarRef ? "int*" : "ptr"
+        pSessionIdArrayMarshal := pSessionIdArray is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, pSessionIdArrayMarshal, pSessionIdArray, UInt32, dwSessionCount, "int*", &pResultSessionId := 0, "HRESULT")
         return pResultSessionId
@@ -60,7 +60,7 @@ export default struct IWRdsEnhancedFastReconnectArbitrator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSessionForEnhancedFastReconnect := CallbackCreate(GetMethod(implObj, "GetSessionForEnhancedFastReconnect"), flags, 4)
+        this.vtbl.GetSessionForEnhancedFastReconnect := CallbackCreate(ObjBindMethod(implObj, "GetSessionForEnhancedFastReconnect"), flags, 4)
     }
 
     Dispose() {

@@ -41,15 +41,14 @@ export default struct IEnumManagerFrames extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} celt 
      * @param {Pointer<Pointer<HWND>>} ppWindows 
      * @param {Pointer<Integer>} pceltFetched 
      * @returns {HRESULT} 
      */
     Next(celt, ppWindows, pceltFetched) {
-        ppWindowsMarshal := ppWindows is VarRef ? "ptr*" : "ptr"
-        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
+        ppWindowsMarshal := ppWindows is VarRef ? "ptr*" : IntPtr
+        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, UInt32, celt, ppWindowsMarshal, ppWindows, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
@@ -72,7 +71,6 @@ export default struct IEnumManagerFrames extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} celt 
      * @returns {HRESULT} 
      */
@@ -82,7 +80,6 @@ export default struct IEnumManagerFrames extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -91,7 +88,6 @@ export default struct IEnumManagerFrames extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumManagerFrames} 
      */
     Clone() {
@@ -108,11 +104,11 @@ export default struct IEnumManagerFrames extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 4)
-        this.vtbl.Count := CallbackCreate(GetMethod(implObj, "Count"), flags, 2)
-        this.vtbl.Skip := CallbackCreate(GetMethod(implObj, "Skip"), flags, 2)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.Next := CallbackCreate(ObjBindMethod(implObj, "Next"), flags, 4)
+        this.vtbl.Count := CallbackCreate(ObjBindMethod(implObj, "Count"), flags, 2)
+        this.vtbl.Skip := CallbackCreate(ObjBindMethod(implObj, "Skip"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
     }
 
     Dispose() {

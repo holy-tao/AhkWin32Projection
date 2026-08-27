@@ -111,7 +111,7 @@ export default struct IParseDisplayName extends IUnknown {
     ParseDisplayName(pbc, pszDisplayName, pchEaten, ppmkOut) {
         pszDisplayName := pszDisplayName is String ? StrPtr(pszDisplayName) : pszDisplayName
 
-        pchEatenMarshal := pchEaten is VarRef ? "uint*" : "ptr"
+        pchEatenMarshal := pchEaten is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, "ptr", pbc, "ptr", pszDisplayName, pchEatenMarshal, pchEaten, IMoniker.Ptr, ppmkOut, "HRESULT")
         return result
@@ -126,7 +126,7 @@ export default struct IParseDisplayName extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ParseDisplayName := CallbackCreate(GetMethod(implObj, "ParseDisplayName"), flags, 5)
+        this.vtbl.ParseDisplayName := CallbackCreate(ObjBindMethod(implObj, "ParseDisplayName"), flags, 5)
     }
 
     Dispose() {

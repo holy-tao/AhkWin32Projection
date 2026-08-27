@@ -63,7 +63,7 @@ export default struct IVPNotify2 extends IVPNotify {
      * @see https://learn.microsoft.com/windows/win32/api/vpnotify/nf-vpnotify-ivpnotify2-getvpsyncmaster
      */
     GetVPSyncMaster(pbVPSyncMaster) {
-        pbVPSyncMasterMarshal := pbVPSyncMaster is VarRef ? "int*" : "ptr"
+        pbVPSyncMasterMarshal := pbVPSyncMaster is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, pbVPSyncMasterMarshal, pbVPSyncMaster, "HRESULT")
         return result
@@ -78,8 +78,8 @@ export default struct IVPNotify2 extends IVPNotify {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetVPSyncMaster := CallbackCreate(GetMethod(implObj, "SetVPSyncMaster"), flags, 2)
-        this.vtbl.GetVPSyncMaster := CallbackCreate(GetMethod(implObj, "GetVPSyncMaster"), flags, 2)
+        this.vtbl.SetVPSyncMaster := CallbackCreate(ObjBindMethod(implObj, "SetVPSyncMaster"), flags, 2)
+        this.vtbl.GetVPSyncMaster := CallbackCreate(ObjBindMethod(implObj, "GetVPSyncMaster"), flags, 2)
     }
 
     Dispose() {

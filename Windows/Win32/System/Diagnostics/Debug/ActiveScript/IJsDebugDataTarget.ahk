@@ -47,7 +47,6 @@ export default struct IJsDebugDataTarget extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _address 
      * @param {JsDebugReadMemoryFlags} flags 
      * @param {Pointer<Integer>} pBuffer 
@@ -56,29 +55,27 @@ export default struct IJsDebugDataTarget extends IUnknown {
      * @returns {HRESULT} 
      */
     ReadMemory(_address, flags, pBuffer, _size, pBytesRead) {
-        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
-        pBytesReadMarshal := pBytesRead is VarRef ? "uint*" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "char*" : IntPtr
+        pBytesReadMarshal := pBytesRead is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, Int64, _address, JsDebugReadMemoryFlags, flags, pBufferMarshal, pBuffer, UInt32, _size, pBytesReadMarshal, pBytesRead, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} _address 
      * @param {Pointer<Integer>} pMemory 
      * @param {Integer} _size 
      * @returns {HRESULT} 
      */
     WriteMemory(_address, pMemory, _size) {
-        pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+        pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
 
         result := ComCall(4, this, Int64, _address, pMemoryMarshal, pMemory, UInt32, _size, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} _address 
      * @param {Integer} _size 
      * @param {Integer} allocationType 
@@ -91,7 +88,6 @@ export default struct IJsDebugDataTarget extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _address 
      * @param {Integer} _size 
      * @param {Integer} freeType 
@@ -103,7 +99,6 @@ export default struct IJsDebugDataTarget extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} threadId 
      * @param {Integer} tlsIndex 
      * @returns {Integer} 
@@ -114,7 +109,6 @@ export default struct IJsDebugDataTarget extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _address 
      * @returns {BSTR} 
      */
@@ -125,7 +119,6 @@ export default struct IJsDebugDataTarget extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _address 
      * @param {Integer} characterSize 
      * @param {Integer} maxCharacters 
@@ -138,7 +131,6 @@ export default struct IJsDebugDataTarget extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} threadId 
      * @returns {IEnumJsStackFrames} 
      */
@@ -175,15 +167,15 @@ export default struct IJsDebugDataTarget extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ReadMemory := CallbackCreate(GetMethod(implObj, "ReadMemory"), flags, 6)
-        this.vtbl.WriteMemory := CallbackCreate(GetMethod(implObj, "WriteMemory"), flags, 4)
-        this.vtbl.AllocateVirtualMemory := CallbackCreate(GetMethod(implObj, "AllocateVirtualMemory"), flags, 6)
-        this.vtbl.FreeVirtualMemory := CallbackCreate(GetMethod(implObj, "FreeVirtualMemory"), flags, 4)
-        this.vtbl.GetTlsValue := CallbackCreate(GetMethod(implObj, "GetTlsValue"), flags, 4)
-        this.vtbl.ReadBSTR := CallbackCreate(GetMethod(implObj, "ReadBSTR"), flags, 3)
-        this.vtbl.ReadNullTerminatedString := CallbackCreate(GetMethod(implObj, "ReadNullTerminatedString"), flags, 5)
-        this.vtbl.CreateStackFrameEnumerator := CallbackCreate(GetMethod(implObj, "CreateStackFrameEnumerator"), flags, 3)
-        this.vtbl.GetThreadContext := CallbackCreate(GetMethod(implObj, "GetThreadContext"), flags, 5)
+        this.vtbl.ReadMemory := CallbackCreate(ObjBindMethod(implObj, "ReadMemory"), flags, 6)
+        this.vtbl.WriteMemory := CallbackCreate(ObjBindMethod(implObj, "WriteMemory"), flags, 4)
+        this.vtbl.AllocateVirtualMemory := CallbackCreate(ObjBindMethod(implObj, "AllocateVirtualMemory"), flags, 6)
+        this.vtbl.FreeVirtualMemory := CallbackCreate(ObjBindMethod(implObj, "FreeVirtualMemory"), flags, 4)
+        this.vtbl.GetTlsValue := CallbackCreate(ObjBindMethod(implObj, "GetTlsValue"), flags, 4)
+        this.vtbl.ReadBSTR := CallbackCreate(ObjBindMethod(implObj, "ReadBSTR"), flags, 3)
+        this.vtbl.ReadNullTerminatedString := CallbackCreate(ObjBindMethod(implObj, "ReadNullTerminatedString"), flags, 5)
+        this.vtbl.CreateStackFrameEnumerator := CallbackCreate(ObjBindMethod(implObj, "CreateStackFrameEnumerator"), flags, 3)
+        this.vtbl.GetThreadContext := CallbackCreate(ObjBindMethod(implObj, "GetThreadContext"), flags, 5)
     }
 
     Dispose() {

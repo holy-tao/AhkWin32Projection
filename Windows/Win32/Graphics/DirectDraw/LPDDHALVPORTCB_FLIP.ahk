@@ -19,7 +19,6 @@ export default struct LPDDHALVPORTCB_FLIP {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_FLIPVPORTDATA>} param0 
      * @returns {Integer} 
      */

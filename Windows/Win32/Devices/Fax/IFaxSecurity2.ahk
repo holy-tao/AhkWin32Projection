@@ -244,13 +244,13 @@ export default struct IFaxSecurity2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Descriptor := CallbackCreate(GetMethod(implObj, "get_Descriptor"), flags, 2)
-        this.vtbl.put_Descriptor := CallbackCreate(GetMethod(implObj, "put_Descriptor"), flags, 2)
-        this.vtbl.get_GrantedRights := CallbackCreate(GetMethod(implObj, "get_GrantedRights"), flags, 2)
-        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
-        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 1)
-        this.vtbl.get_InformationType := CallbackCreate(GetMethod(implObj, "get_InformationType"), flags, 2)
-        this.vtbl.put_InformationType := CallbackCreate(GetMethod(implObj, "put_InformationType"), flags, 2)
+        this.vtbl.get_Descriptor := CallbackCreate(ObjBindMethod(implObj, "get_Descriptor"), flags, 2)
+        this.vtbl.put_Descriptor := CallbackCreate(ObjBindMethod(implObj, "put_Descriptor"), flags, 2)
+        this.vtbl.get_GrantedRights := CallbackCreate(ObjBindMethod(implObj, "get_GrantedRights"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(ObjBindMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.Save := CallbackCreate(ObjBindMethod(implObj, "Save"), flags, 1)
+        this.vtbl.get_InformationType := CallbackCreate(ObjBindMethod(implObj, "get_InformationType"), flags, 2)
+        this.vtbl.put_InformationType := CallbackCreate(ObjBindMethod(implObj, "put_InformationType"), flags, 2)
     }
 
     Dispose() {

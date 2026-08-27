@@ -309,13 +309,13 @@ export default struct ITForwardInformation extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_NumRingsNoAnswer := CallbackCreate(GetMethod(implObj, "put_NumRingsNoAnswer"), flags, 2)
-        this.vtbl.get_NumRingsNoAnswer := CallbackCreate(GetMethod(implObj, "get_NumRingsNoAnswer"), flags, 2)
-        this.vtbl.SetForwardType := CallbackCreate(GetMethod(implObj, "SetForwardType"), flags, 4)
-        this.vtbl.get_ForwardTypeDestination := CallbackCreate(GetMethod(implObj, "get_ForwardTypeDestination"), flags, 3)
-        this.vtbl.get_ForwardTypeCaller := CallbackCreate(GetMethod(implObj, "get_ForwardTypeCaller"), flags, 3)
-        this.vtbl.GetForwardType := CallbackCreate(GetMethod(implObj, "GetForwardType"), flags, 4)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.put_NumRingsNoAnswer := CallbackCreate(ObjBindMethod(implObj, "put_NumRingsNoAnswer"), flags, 2)
+        this.vtbl.get_NumRingsNoAnswer := CallbackCreate(ObjBindMethod(implObj, "get_NumRingsNoAnswer"), flags, 2)
+        this.vtbl.SetForwardType := CallbackCreate(ObjBindMethod(implObj, "SetForwardType"), flags, 4)
+        this.vtbl.get_ForwardTypeDestination := CallbackCreate(ObjBindMethod(implObj, "get_ForwardTypeDestination"), flags, 3)
+        this.vtbl.get_ForwardTypeCaller := CallbackCreate(ObjBindMethod(implObj, "get_ForwardTypeCaller"), flags, 3)
+        this.vtbl.GetForwardType := CallbackCreate(ObjBindMethod(implObj, "GetForwardType"), flags, 4)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
     }
 
     Dispose() {

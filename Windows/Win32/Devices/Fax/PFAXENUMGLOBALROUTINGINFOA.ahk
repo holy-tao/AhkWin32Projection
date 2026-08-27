@@ -22,15 +22,14 @@ export default struct PFAXENUMGLOBALROUTINGINFOA {
     }
 
     /**
-     * 
      * @param {HANDLE} FaxHandle 
      * @param {Pointer<Pointer<FAX_GLOBAL_ROUTING_INFOA>>} RoutingInfo 
      * @param {Pointer<Integer>} MethodsReturned 
      * @returns {BOOL} 
      */
     Call(FaxHandle, RoutingInfo, MethodsReturned) {
-        RoutingInfoMarshal := RoutingInfo is VarRef ? "ptr*" : "ptr"
-        MethodsReturnedMarshal := MethodsReturned is VarRef ? "uint*" : "ptr"
+        RoutingInfoMarshal := RoutingInfo is VarRef ? "ptr*" : IntPtr
+        MethodsReturnedMarshal := MethodsReturned is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HANDLE, FaxHandle, RoutingInfoMarshal, RoutingInfo, MethodsReturnedMarshal, MethodsReturned, BOOL)
         return result

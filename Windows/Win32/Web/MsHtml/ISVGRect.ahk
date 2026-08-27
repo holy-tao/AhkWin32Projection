@@ -81,7 +81,6 @@ export default struct ISVGRect extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -91,7 +90,6 @@ export default struct ISVGRect extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_x() {
@@ -100,7 +98,6 @@ export default struct ISVGRect extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -110,7 +107,6 @@ export default struct ISVGRect extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_y() {
@@ -119,7 +115,6 @@ export default struct ISVGRect extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -129,7 +124,6 @@ export default struct ISVGRect extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_width() {
@@ -138,7 +132,6 @@ export default struct ISVGRect extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -148,7 +141,6 @@ export default struct ISVGRect extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_height() {
@@ -165,14 +157,14 @@ export default struct ISVGRect extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_x := CallbackCreate(GetMethod(implObj, "put_x"), flags, 2)
-        this.vtbl.get_x := CallbackCreate(GetMethod(implObj, "get_x"), flags, 2)
-        this.vtbl.put_y := CallbackCreate(GetMethod(implObj, "put_y"), flags, 2)
-        this.vtbl.get_y := CallbackCreate(GetMethod(implObj, "get_y"), flags, 2)
-        this.vtbl.put_width := CallbackCreate(GetMethod(implObj, "put_width"), flags, 2)
-        this.vtbl.get_width := CallbackCreate(GetMethod(implObj, "get_width"), flags, 2)
-        this.vtbl.put_height := CallbackCreate(GetMethod(implObj, "put_height"), flags, 2)
-        this.vtbl.get_height := CallbackCreate(GetMethod(implObj, "get_height"), flags, 2)
+        this.vtbl.put_x := CallbackCreate(ObjBindMethod(implObj, "put_x"), flags, 2)
+        this.vtbl.get_x := CallbackCreate(ObjBindMethod(implObj, "get_x"), flags, 2)
+        this.vtbl.put_y := CallbackCreate(ObjBindMethod(implObj, "put_y"), flags, 2)
+        this.vtbl.get_y := CallbackCreate(ObjBindMethod(implObj, "get_y"), flags, 2)
+        this.vtbl.put_width := CallbackCreate(ObjBindMethod(implObj, "put_width"), flags, 2)
+        this.vtbl.get_width := CallbackCreate(ObjBindMethod(implObj, "get_width"), flags, 2)
+        this.vtbl.put_height := CallbackCreate(ObjBindMethod(implObj, "put_height"), flags, 2)
+        this.vtbl.get_height := CallbackCreate(ObjBindMethod(implObj, "get_height"), flags, 2)
     }
 
     Dispose() {

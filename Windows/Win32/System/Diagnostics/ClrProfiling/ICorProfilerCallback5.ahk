@@ -36,7 +36,6 @@ export default struct ICorProfilerCallback5 extends ICorProfilerCallback4 {
     }
 
     /**
-     * 
      * @param {Integer} cRootRefs 
      * @param {Pointer<Pointer>} keyRefIds 
      * @param {Pointer<Pointer>} valueRefIds 
@@ -44,9 +43,9 @@ export default struct ICorProfilerCallback5 extends ICorProfilerCallback4 {
      * @returns {HRESULT} 
      */
     ConditionalWeakTableElementReferences(cRootRefs, keyRefIds, valueRefIds, rootIds) {
-        keyRefIdsMarshal := keyRefIds is VarRef ? "ptr*" : "ptr"
-        valueRefIdsMarshal := valueRefIds is VarRef ? "ptr*" : "ptr"
-        rootIdsMarshal := rootIds is VarRef ? "ptr*" : "ptr"
+        keyRefIdsMarshal := keyRefIds is VarRef ? "ptr*" : IntPtr
+        valueRefIdsMarshal := valueRefIds is VarRef ? "ptr*" : IntPtr
+        rootIdsMarshal := rootIds is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(89, this, UInt32, cRootRefs, keyRefIdsMarshal, keyRefIds, valueRefIdsMarshal, valueRefIds, rootIdsMarshal, rootIds, "HRESULT")
         return result
@@ -61,7 +60,7 @@ export default struct ICorProfilerCallback5 extends ICorProfilerCallback4 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ConditionalWeakTableElementReferences := CallbackCreate(GetMethod(implObj, "ConditionalWeakTableElementReferences"), flags, 5)
+        this.vtbl.ConditionalWeakTableElementReferences := CallbackCreate(ObjBindMethod(implObj, "ConditionalWeakTableElementReferences"), flags, 5)
     }
 
     Dispose() {

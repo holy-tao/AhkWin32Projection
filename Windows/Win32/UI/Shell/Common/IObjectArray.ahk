@@ -83,8 +83,8 @@ export default struct IObjectArray extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
-        this.vtbl.GetAt := CallbackCreate(GetMethod(implObj, "GetAt"), flags, 4)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetAt := CallbackCreate(ObjBindMethod(implObj, "GetAt"), flags, 4)
     }
 
     Dispose() {

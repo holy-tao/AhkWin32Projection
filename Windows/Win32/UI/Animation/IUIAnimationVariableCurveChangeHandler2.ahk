@@ -58,7 +58,7 @@ export default struct IUIAnimationVariableCurveChangeHandler2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnCurveChanged := CallbackCreate(GetMethod(implObj, "OnCurveChanged"), flags, 2)
+        this.vtbl.OnCurveChanged := CallbackCreate(ObjBindMethod(implObj, "OnCurveChanged"), flags, 2)
     }
 
     Dispose() {

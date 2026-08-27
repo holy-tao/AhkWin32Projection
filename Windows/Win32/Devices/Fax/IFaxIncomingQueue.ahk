@@ -157,12 +157,12 @@ export default struct IFaxIncomingQueue extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Blocked := CallbackCreate(GetMethod(implObj, "get_Blocked"), flags, 2)
-        this.vtbl.put_Blocked := CallbackCreate(GetMethod(implObj, "put_Blocked"), flags, 2)
-        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
-        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 1)
-        this.vtbl.GetJobs := CallbackCreate(GetMethod(implObj, "GetJobs"), flags, 2)
-        this.vtbl.GetJob := CallbackCreate(GetMethod(implObj, "GetJob"), flags, 3)
+        this.vtbl.get_Blocked := CallbackCreate(ObjBindMethod(implObj, "get_Blocked"), flags, 2)
+        this.vtbl.put_Blocked := CallbackCreate(ObjBindMethod(implObj, "put_Blocked"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(ObjBindMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.Save := CallbackCreate(ObjBindMethod(implObj, "Save"), flags, 1)
+        this.vtbl.GetJobs := CallbackCreate(ObjBindMethod(implObj, "GetJobs"), flags, 2)
+        this.vtbl.GetJob := CallbackCreate(ObjBindMethod(implObj, "GetJob"), flags, 3)
     }
 
     Dispose() {

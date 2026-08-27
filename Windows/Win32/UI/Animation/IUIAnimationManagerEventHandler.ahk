@@ -61,7 +61,7 @@ export default struct IUIAnimationManagerEventHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnManagerStatusChanged := CallbackCreate(GetMethod(implObj, "OnManagerStatusChanged"), flags, 3)
+        this.vtbl.OnManagerStatusChanged := CallbackCreate(ObjBindMethod(implObj, "OnManagerStatusChanged"), flags, 3)
     }
 
     Dispose() {

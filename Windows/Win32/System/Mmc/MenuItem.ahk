@@ -84,7 +84,6 @@ export default struct MenuItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DisplayName() {
@@ -94,7 +93,6 @@ export default struct MenuItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LanguageIndependentName() {
@@ -104,7 +102,6 @@ export default struct MenuItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Path() {
@@ -114,7 +111,6 @@ export default struct MenuItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LanguageIndependentPath() {
@@ -124,7 +120,6 @@ export default struct MenuItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Execute() {
@@ -133,7 +128,6 @@ export default struct MenuItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_Enabled() {
@@ -150,12 +144,12 @@ export default struct MenuItem extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_DisplayName := CallbackCreate(GetMethod(implObj, "get_DisplayName"), flags, 2)
-        this.vtbl.get_LanguageIndependentName := CallbackCreate(GetMethod(implObj, "get_LanguageIndependentName"), flags, 2)
-        this.vtbl.get_Path := CallbackCreate(GetMethod(implObj, "get_Path"), flags, 2)
-        this.vtbl.get_LanguageIndependentPath := CallbackCreate(GetMethod(implObj, "get_LanguageIndependentPath"), flags, 2)
-        this.vtbl.Execute := CallbackCreate(GetMethod(implObj, "Execute"), flags, 1)
-        this.vtbl.get_Enabled := CallbackCreate(GetMethod(implObj, "get_Enabled"), flags, 2)
+        this.vtbl.get_DisplayName := CallbackCreate(ObjBindMethod(implObj, "get_DisplayName"), flags, 2)
+        this.vtbl.get_LanguageIndependentName := CallbackCreate(ObjBindMethod(implObj, "get_LanguageIndependentName"), flags, 2)
+        this.vtbl.get_Path := CallbackCreate(ObjBindMethod(implObj, "get_Path"), flags, 2)
+        this.vtbl.get_LanguageIndependentPath := CallbackCreate(ObjBindMethod(implObj, "get_LanguageIndependentPath"), flags, 2)
+        this.vtbl.Execute := CallbackCreate(ObjBindMethod(implObj, "Execute"), flags, 1)
+        this.vtbl.get_Enabled := CallbackCreate(ObjBindMethod(implObj, "get_Enabled"), flags, 2)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct PFLT_CONTEXT_ALLOCATE_CALLBACK {
     }
 
     /**
-     * 
      * @param {POOL_TYPE} PoolType 
      * @param {Pointer} _Size 
      * @param {Integer} ContextType 

@@ -200,16 +200,16 @@ export default struct IDCompositionArithmeticCompositeEffect extends IDCompositi
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetCoefficients := CallbackCreate(GetMethod(implObj, "SetCoefficients"), flags, 2)
-        this.vtbl.SetClampOutput := CallbackCreate(GetMethod(implObj, "SetClampOutput"), flags, 2)
-        this.vtbl.SetCoefficient1 := CallbackCreate(GetMethod(implObj, "SetCoefficient1"), flags, 2)
-        this.vtbl.SetCoefficient11 := CallbackCreate(GetMethod(implObj, "SetCoefficient11"), flags, 2)
-        this.vtbl.SetCoefficient2 := CallbackCreate(GetMethod(implObj, "SetCoefficient2"), flags, 2)
-        this.vtbl.SetCoefficient21 := CallbackCreate(GetMethod(implObj, "SetCoefficient21"), flags, 2)
-        this.vtbl.SetCoefficient3 := CallbackCreate(GetMethod(implObj, "SetCoefficient3"), flags, 2)
-        this.vtbl.SetCoefficient31 := CallbackCreate(GetMethod(implObj, "SetCoefficient31"), flags, 2)
-        this.vtbl.SetCoefficient4 := CallbackCreate(GetMethod(implObj, "SetCoefficient4"), flags, 2)
-        this.vtbl.SetCoefficient41 := CallbackCreate(GetMethod(implObj, "SetCoefficient41"), flags, 2)
+        this.vtbl.SetCoefficients := CallbackCreate(ObjBindMethod(implObj, "SetCoefficients"), flags, 2)
+        this.vtbl.SetClampOutput := CallbackCreate(ObjBindMethod(implObj, "SetClampOutput"), flags, 2)
+        this.vtbl.SetCoefficient1 := CallbackCreate(ObjBindMethod(implObj, "SetCoefficient1"), flags, 2)
+        this.vtbl.SetCoefficient11 := CallbackCreate(ObjBindMethod(implObj, "SetCoefficient11"), flags, 2)
+        this.vtbl.SetCoefficient2 := CallbackCreate(ObjBindMethod(implObj, "SetCoefficient2"), flags, 2)
+        this.vtbl.SetCoefficient21 := CallbackCreate(ObjBindMethod(implObj, "SetCoefficient21"), flags, 2)
+        this.vtbl.SetCoefficient3 := CallbackCreate(ObjBindMethod(implObj, "SetCoefficient3"), flags, 2)
+        this.vtbl.SetCoefficient31 := CallbackCreate(ObjBindMethod(implObj, "SetCoefficient31"), flags, 2)
+        this.vtbl.SetCoefficient4 := CallbackCreate(ObjBindMethod(implObj, "SetCoefficient4"), flags, 2)
+        this.vtbl.SetCoefficient41 := CallbackCreate(ObjBindMethod(implObj, "SetCoefficient41"), flags, 2)
     }
 
     Dispose() {

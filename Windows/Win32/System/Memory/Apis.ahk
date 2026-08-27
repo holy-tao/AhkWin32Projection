@@ -246,7 +246,8 @@ export HeapAlloc(hHeap, dwFlags, dwBytes) {
  * @since windows5.1.2600
  */
 export HeapReAlloc(hHeap, dwFlags, lpMem, dwBytes) {
-    lpMemMarshal := lpMem is VarRef ? "ptr" : "ptr"
+    lpMemMarshal := lpMem is VarRef ? "ptr" : IntPtr
+    lpMemMarshal := lpMem == 0 ? IntPtr : "ptr"
 
     result := DllCall("KERNEL32.dll\HeapReAlloc", HANDLE, hHeap, HEAP_FLAGS, dwFlags, lpMemMarshal, lpMem, IntPtr, dwBytes, IntPtr)
     return result
@@ -306,7 +307,8 @@ export HeapReAlloc(hHeap, dwFlags, lpMem, dwBytes) {
  * @since windows5.1.2600
  */
 export HeapFree(hHeap, dwFlags, lpMem) {
-    lpMemMarshal := lpMem is VarRef ? "ptr" : "ptr"
+    lpMemMarshal := lpMem is VarRef ? "ptr" : IntPtr
+    lpMemMarshal := lpMem == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -386,7 +388,7 @@ export HeapFree(hHeap, dwFlags, lpMem) {
  * @since windows5.1.2600
  */
 export HeapSize(hHeap, dwFlags, lpMem) {
-    lpMemMarshal := lpMem is VarRef ? "ptr" : "ptr"
+    lpMemMarshal := lpMem is VarRef ? "ptr" : IntPtr
 
     result := DllCall("KERNEL32.dll\HeapSize", HANDLE, hHeap, HEAP_FLAGS, dwFlags, lpMemMarshal, lpMem, IntPtr)
     return result
@@ -517,9 +519,12 @@ export HeapCompact(hHeap, dwFlags) {
  * @since windows5.1.2600
  */
 export HeapSetInformation(HeapHandle, HeapInformationClass, HeapInformation, HeapInformationLength) {
+    HeapHandleMarshal := HeapHandle == 0 ? IntPtr : HANDLE
+    HeapInformationMarshal := HeapInformation == 0 ? IntPtr : IntPtr
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\HeapSetInformation", HANDLE, HeapHandle, HEAP_INFORMATION_CLASS, HeapInformationClass, IntPtr, HeapInformation, IntPtr, HeapInformationLength, BOOL)
+    result := DllCall("KERNEL32.dll\HeapSetInformation", HeapHandleMarshal, HeapHandle, HEAP_INFORMATION_CLASS, HeapInformationClass, HeapInformationMarshal, HeapInformation, IntPtr, HeapInformationLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -598,7 +603,8 @@ export HeapSetInformation(HeapHandle, HeapInformationClass, HeapInformation, Hea
  * @since windows5.1.2600
  */
 export HeapValidate(hHeap, dwFlags, lpMem) {
-    lpMemMarshal := lpMem is VarRef ? "ptr" : "ptr"
+    lpMemMarshal := lpMem is VarRef ? "ptr" : IntPtr
+    lpMemMarshal := lpMem == 0 ? IntPtr : "ptr"
 
     result := DllCall("KERNEL32.dll\HeapValidate", HANDLE, hHeap, HEAP_FLAGS, dwFlags, lpMemMarshal, lpMem, BOOL)
     return result
@@ -854,11 +860,14 @@ export HeapWalk(hHeap, lpEntry) {
  * @since windows5.1.2600
  */
 export HeapQueryInformation(HeapHandle, HeapInformationClass, HeapInformation, HeapInformationLength, ReturnLength) {
-    ReturnLengthMarshal := ReturnLength is VarRef ? "ptr*" : "ptr"
+    HeapHandleMarshal := HeapHandle == 0 ? IntPtr : HANDLE
+    HeapInformationMarshal := HeapInformation == 0 ? IntPtr : IntPtr
+    ReturnLengthMarshal := ReturnLength is VarRef ? "ptr*" : IntPtr
+    ReturnLengthMarshal := ReturnLength == 0 ? IntPtr : "ptr*"
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\HeapQueryInformation", HANDLE, HeapHandle, HEAP_INFORMATION_CLASS, HeapInformationClass, IntPtr, HeapInformation, IntPtr, HeapInformationLength, ReturnLengthMarshal, ReturnLength, BOOL)
+    result := DllCall("KERNEL32.dll\HeapQueryInformation", HeapHandleMarshal, HeapHandle, HEAP_INFORMATION_CLASS, HeapInformationClass, HeapInformationMarshal, HeapInformation, IntPtr, HeapInformationLength, ReturnLengthMarshal, ReturnLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -903,7 +912,8 @@ export HeapQueryInformation(HeapHandle, HeapInformationClass, HeapInformation, H
  * @since windows5.1.2600
  */
 export VirtualAlloc(lpAddress, dwSize, flAllocationType, flProtect) {
-    lpAddressMarshal := lpAddress is VarRef ? "ptr" : "ptr"
+    lpAddressMarshal := lpAddress is VarRef ? "ptr" : IntPtr
+    lpAddressMarshal := lpAddress == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -940,8 +950,8 @@ export VirtualAlloc(lpAddress, dwSize, flAllocationType, flProtect) {
  * @since windows5.1.2600
  */
 export VirtualProtect(lpAddress, dwSize, flNewProtect, lpflOldProtect) {
-    lpAddressMarshal := lpAddress is VarRef ? "ptr" : "ptr"
-    lpflOldProtectMarshal := lpflOldProtect is VarRef ? "uint*" : "ptr"
+    lpAddressMarshal := lpAddress is VarRef ? "ptr" : IntPtr
+    lpflOldProtectMarshal := lpflOldProtect is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -989,7 +999,7 @@ export VirtualProtect(lpAddress, dwSize, flNewProtect, lpflOldProtect) {
  * @since windows5.1.2600
  */
 export VirtualFree(lpAddress, dwSize, dwFreeType) {
-    lpAddressMarshal := lpAddress is VarRef ? "ptr" : "ptr"
+    lpAddressMarshal := lpAddress is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -1032,7 +1042,8 @@ export VirtualFree(lpAddress, dwSize, dwFreeType) {
  * @since windows5.1.2600
  */
 export VirtualQuery(lpAddress, lpBuffer, dwLength) {
-    lpAddressMarshal := lpAddress is VarRef ? "ptr" : "ptr"
+    lpAddressMarshal := lpAddress is VarRef ? "ptr" : IntPtr
+    lpAddressMarshal := lpAddress == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -1133,7 +1144,8 @@ export VirtualQuery(lpAddress, lpBuffer, dwLength) {
  * @since windows5.1.2600
  */
 export VirtualAllocEx(hProcess, lpAddress, dwSize, flAllocationType, flProtect) {
-    lpAddressMarshal := lpAddress is VarRef ? "ptr" : "ptr"
+    lpAddressMarshal := lpAddress is VarRef ? "ptr" : IntPtr
+    lpAddressMarshal := lpAddress == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -1171,8 +1183,8 @@ export VirtualAllocEx(hProcess, lpAddress, dwSize, flAllocationType, flProtect) 
  * @since windows5.1.2600
  */
 export VirtualProtectEx(hProcess, lpAddress, dwSize, flNewProtect, lpflOldProtect) {
-    lpAddressMarshal := lpAddress is VarRef ? "ptr" : "ptr"
-    lpflOldProtectMarshal := lpflOldProtect is VarRef ? "uint*" : "ptr"
+    lpAddressMarshal := lpAddress is VarRef ? "ptr" : IntPtr
+    lpflOldProtectMarshal := lpflOldProtect is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -1215,7 +1227,8 @@ export VirtualProtectEx(hProcess, lpAddress, dwSize, flNewProtect, lpflOldProtec
  * @since windows5.1.2600
  */
 export VirtualQueryEx(hProcess, lpAddress, lpBuffer, dwLength) {
-    lpAddressMarshal := lpAddress is VarRef ? "ptr" : "ptr"
+    lpAddressMarshal := lpAddress is VarRef ? "ptr" : IntPtr
+    lpAddressMarshal := lpAddress == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -1436,9 +1449,12 @@ export VirtualQueryEx(hProcess, lpAddress, lpBuffer, dwLength) {
 export CreateFileMappingW(hFile, lpFileMappingAttributes, flProtect, dwMaximumSizeHigh, dwMaximumSizeLow, lpName) {
     lpName := lpName is String ? StrPtr(lpName) : lpName
 
+    lpFileMappingAttributesMarshal := lpFileMappingAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpNameMarshal := lpName == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateFileMappingW", HANDLE, hFile, SECURITY_ATTRIBUTES.Ptr, lpFileMappingAttributes, PAGE_PROTECTION_FLAGS, flProtect, UInt32, dwMaximumSizeHigh, UInt32, dwMaximumSizeLow, "ptr", lpName, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateFileMappingW", HANDLE, hFile, lpFileMappingAttributesMarshal, lpFileMappingAttributes, PAGE_PROTECTION_FLAGS, flProtect, UInt32, dwMaximumSizeHigh, UInt32, dwMaximumSizeLow, lpNameMarshal, lpName, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1868,7 +1884,8 @@ export MapViewOfFile(hFileMappingObject, dwDesiredAccess, dwFileOffsetHigh, dwFi
  * @since windows5.1.2600
  */
 export MapViewOfFileEx(hFileMappingObject, dwDesiredAccess, dwFileOffsetHigh, dwFileOffsetLow, dwNumberOfBytesToMap, lpBaseAddress) {
-    lpBaseAddressMarshal := lpBaseAddress is VarRef ? "ptr" : "ptr"
+    lpBaseAddressMarshal := lpBaseAddress is VarRef ? "ptr" : IntPtr
+    lpBaseAddressMarshal := lpBaseAddress == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -1931,7 +1948,7 @@ export MapViewOfFileEx(hFileMappingObject, dwDesiredAccess, dwFileOffsetHigh, dw
  * @since windows5.1.2600
  */
 export VirtualFreeEx(hProcess, lpAddress, dwSize, dwFreeType) {
-    lpAddressMarshal := lpAddress is VarRef ? "ptr" : "ptr"
+    lpAddressMarshal := lpAddress is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -2025,7 +2042,7 @@ export VirtualFreeEx(hProcess, lpAddress, dwSize, dwFreeType) {
  * @since windows5.1.2600
  */
 export FlushViewOfFile(lpBaseAddress, dwNumberOfBytesToFlush) {
-    lpBaseAddressMarshal := lpBaseAddress is VarRef ? "ptr" : "ptr"
+    lpBaseAddressMarshal := lpBaseAddress is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -2207,9 +2224,9 @@ export GetLargePageMinimum() {
  * @since windows6.0.6000
  */
 export GetProcessWorkingSetSizeEx(hProcess, lpMinimumWorkingSetSize, lpMaximumWorkingSetSize, Flags) {
-    lpMinimumWorkingSetSizeMarshal := lpMinimumWorkingSetSize is VarRef ? "ptr*" : "ptr"
-    lpMaximumWorkingSetSizeMarshal := lpMaximumWorkingSetSize is VarRef ? "ptr*" : "ptr"
-    FlagsMarshal := Flags is VarRef ? "uint*" : "ptr"
+    lpMinimumWorkingSetSizeMarshal := lpMinimumWorkingSetSize is VarRef ? "ptr*" : IntPtr
+    lpMaximumWorkingSetSizeMarshal := lpMaximumWorkingSetSize is VarRef ? "ptr*" : IntPtr
+    FlagsMarshal := Flags is VarRef ? "uint*" : IntPtr
 
     result := DllCall("KERNEL32.dll\GetProcessWorkingSetSizeEx", HANDLE, hProcess, lpMinimumWorkingSetSizeMarshal, lpMinimumWorkingSetSize, lpMaximumWorkingSetSizeMarshal, lpMaximumWorkingSetSize, FlagsMarshal, Flags, BOOL)
     return result
@@ -2357,7 +2374,7 @@ export SetProcessWorkingSetSizeEx(hProcess, dwMinimumWorkingSetSize, dwMaximumWo
  * @since windows5.1.2600
  */
 export VirtualLock(lpAddress, dwSize) {
-    lpAddressMarshal := lpAddress is VarRef ? "ptr" : "ptr"
+    lpAddressMarshal := lpAddress is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -2387,7 +2404,7 @@ export VirtualLock(lpAddress, dwSize) {
  * @since windows5.1.2600
  */
 export VirtualUnlock(lpAddress, dwSize) {
-    lpAddressMarshal := lpAddress is VarRef ? "ptr" : "ptr"
+    lpAddressMarshal := lpAddress is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -2447,10 +2464,13 @@ export VirtualUnlock(lpAddress, dwSize) {
  * @since windows5.1.2600
  */
 export GetWriteWatch(dwFlags, lpBaseAddress, dwRegionSize, lpAddresses, lpdwCount, lpdwGranularity) {
-    lpBaseAddressMarshal := lpBaseAddress is VarRef ? "ptr" : "ptr"
-    lpAddressesMarshal := lpAddresses is VarRef ? "ptr*" : "ptr"
-    lpdwCountMarshal := lpdwCount is VarRef ? "ptr*" : "ptr"
-    lpdwGranularityMarshal := lpdwGranularity is VarRef ? "uint*" : "ptr"
+    lpBaseAddressMarshal := lpBaseAddress is VarRef ? "ptr" : IntPtr
+    lpAddressesMarshal := lpAddresses is VarRef ? "ptr*" : IntPtr
+    lpAddressesMarshal := lpAddresses == 0 ? IntPtr : "ptr*"
+    lpdwCountMarshal := lpdwCount is VarRef ? "ptr*" : IntPtr
+    lpdwCountMarshal := lpdwCount == 0 ? IntPtr : "ptr*"
+    lpdwGranularityMarshal := lpdwGranularity is VarRef ? "uint*" : IntPtr
+    lpdwGranularityMarshal := lpdwGranularity == 0 ? IntPtr : "uint*"
 
     result := DllCall("KERNEL32.dll\GetWriteWatch", UInt32, dwFlags, lpBaseAddressMarshal, lpBaseAddress, IntPtr, dwRegionSize, lpAddressesMarshal, lpAddresses, lpdwCountMarshal, lpdwCount, lpdwGranularityMarshal, lpdwGranularity, UInt32)
     return result
@@ -2487,7 +2507,7 @@ export GetWriteWatch(dwFlags, lpBaseAddress, dwRegionSize, lpAddresses, lpdwCoun
  * @since windows5.1.2600
  */
 export ResetWriteWatch(lpBaseAddress, dwRegionSize) {
-    lpBaseAddressMarshal := lpBaseAddress is VarRef ? "ptr" : "ptr"
+    lpBaseAddressMarshal := lpBaseAddress is VarRef ? "ptr" : IntPtr
 
     result := DllCall("KERNEL32.dll\ResetWriteWatch", lpBaseAddressMarshal, lpBaseAddress, IntPtr, dwRegionSize, UInt32)
     return result
@@ -2585,7 +2605,7 @@ export CreateMemoryResourceNotification(NotificationType) {
  * @since windows5.1.2600
  */
 export QueryMemoryResourceNotification(ResourceNotificationHandle, ResourceState) {
-    ResourceStateMarshal := ResourceState is VarRef ? "int*" : "ptr"
+    ResourceStateMarshal := ResourceState is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
@@ -2644,9 +2664,9 @@ export QueryMemoryResourceNotification(ResourceNotificationHandle, ResourceState
  * @since windows6.0.6000
  */
 export GetSystemFileCacheSize(lpMinimumFileCacheSize, lpMaximumFileCacheSize, lpFlags) {
-    lpMinimumFileCacheSizeMarshal := lpMinimumFileCacheSize is VarRef ? "ptr*" : "ptr"
-    lpMaximumFileCacheSizeMarshal := lpMaximumFileCacheSize is VarRef ? "ptr*" : "ptr"
-    lpFlagsMarshal := lpFlags is VarRef ? "uint*" : "ptr"
+    lpMinimumFileCacheSizeMarshal := lpMinimumFileCacheSize is VarRef ? "ptr*" : IntPtr
+    lpMaximumFileCacheSizeMarshal := lpMaximumFileCacheSize is VarRef ? "ptr*" : IntPtr
+    lpFlagsMarshal := lpFlags is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -2983,9 +3003,12 @@ export SetSystemFileCacheSize(MinimumFileCacheSize, MaximumFileCacheSize, Flags)
 export CreateFileMappingNumaW(hFile, lpFileMappingAttributes, flProtect, dwMaximumSizeHigh, dwMaximumSizeLow, lpName, nndPreferred) {
     lpName := lpName is String ? StrPtr(lpName) : lpName
 
+    lpFileMappingAttributesMarshal := lpFileMappingAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpNameMarshal := lpName == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateFileMappingNumaW", HANDLE, hFile, SECURITY_ATTRIBUTES.Ptr, lpFileMappingAttributes, PAGE_PROTECTION_FLAGS, flProtect, UInt32, dwMaximumSizeHigh, UInt32, dwMaximumSizeLow, "ptr", lpName, UInt32, nndPreferred, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateFileMappingNumaW", HANDLE, hFile, lpFileMappingAttributesMarshal, lpFileMappingAttributes, PAGE_PROTECTION_FLAGS, flProtect, UInt32, dwMaximumSizeHigh, UInt32, dwMaximumSizeLow, lpNameMarshal, lpName, UInt32, nndPreferred, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3185,9 +3208,12 @@ export PrefetchVirtualMemory(hProcess, NumberOfEntries, VirtualAddresses, Flags)
 export CreateFileMappingFromApp(hFile, SecurityAttributes, PageProtection, MaximumSize, Name) {
     Name := Name is String ? StrPtr(Name) : Name
 
+    SecurityAttributesMarshal := SecurityAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    NameMarshal := Name == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateFileMappingFromApp", HANDLE, hFile, SECURITY_ATTRIBUTES.Ptr, SecurityAttributes, PAGE_PROTECTION_FLAGS, PageProtection, Int64, MaximumSize, "ptr", Name, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateFileMappingFromApp", HANDLE, hFile, SecurityAttributesMarshal, SecurityAttributes, PAGE_PROTECTION_FLAGS, PageProtection, Int64, MaximumSize, NameMarshal, Name, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3313,8 +3339,8 @@ export UnmapViewOfFileEx(BaseAddress, UnmapFlags) {
  * @since windows5.1.2600
  */
 export AllocateUserPhysicalPages(hProcess, NumberOfPages, PageArray) {
-    NumberOfPagesMarshal := NumberOfPages is VarRef ? "ptr*" : "ptr"
-    PageArrayMarshal := PageArray is VarRef ? "ptr*" : "ptr"
+    NumberOfPagesMarshal := NumberOfPages is VarRef ? "ptr*" : IntPtr
+    PageArrayMarshal := PageArray is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -3351,8 +3377,8 @@ export AllocateUserPhysicalPages(hProcess, NumberOfPages, PageArray) {
  * @since windows5.1.2600
  */
 export FreeUserPhysicalPages(hProcess, NumberOfPages, PageArray) {
-    NumberOfPagesMarshal := NumberOfPages is VarRef ? "ptr*" : "ptr"
-    PageArrayMarshal := PageArray is VarRef ? "ptr*" : "ptr"
+    NumberOfPagesMarshal := NumberOfPages is VarRef ? "ptr*" : IntPtr
+    PageArrayMarshal := PageArray is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -3432,8 +3458,9 @@ export FreeUserPhysicalPages(hProcess, NumberOfPages, PageArray) {
  * @since windows5.1.2600
  */
 export MapUserPhysicalPages(VirtualAddress, NumberOfPages, PageArray) {
-    VirtualAddressMarshal := VirtualAddress is VarRef ? "ptr" : "ptr"
-    PageArrayMarshal := PageArray is VarRef ? "ptr*" : "ptr"
+    VirtualAddressMarshal := VirtualAddress is VarRef ? "ptr" : IntPtr
+    PageArrayMarshal := PageArray is VarRef ? "ptr*" : IntPtr
+    PageArrayMarshal := PageArray == 0 ? IntPtr : "ptr*"
 
     A_LastError := 0
 
@@ -3498,8 +3525,8 @@ export MapUserPhysicalPages(VirtualAddress, NumberOfPages, PageArray) {
  * @since windows6.0.6000
  */
 export AllocateUserPhysicalPagesNuma(hProcess, NumberOfPages, PageArray, nndPreferred) {
-    NumberOfPagesMarshal := NumberOfPages is VarRef ? "ptr*" : "ptr"
-    PageArrayMarshal := PageArray is VarRef ? "ptr*" : "ptr"
+    NumberOfPagesMarshal := NumberOfPages is VarRef ? "ptr*" : IntPtr
+    PageArrayMarshal := PageArray is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -3612,7 +3639,8 @@ export AllocateUserPhysicalPagesNuma(hProcess, NumberOfPages, PageArray, nndPref
  * @since windows6.0.6000
  */
 export VirtualAllocExNuma(hProcess, lpAddress, dwSize, flAllocationType, flProtect, nndPreferred) {
-    lpAddressMarshal := lpAddress is VarRef ? "ptr" : "ptr"
+    lpAddressMarshal := lpAddress is VarRef ? "ptr" : IntPtr
+    lpAddressMarshal := lpAddress == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -3657,7 +3685,7 @@ export VirtualAllocExNuma(hProcess, lpAddress, dwSize, flAllocationType, flProte
  * @since windows8.0
  */
 export GetMemoryErrorHandlingCapabilities(Capabilities) {
-    CapabilitiesMarshal := Capabilities is VarRef ? "uint*" : "ptr"
+    CapabilitiesMarshal := Capabilities is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -3706,7 +3734,7 @@ export RegisterBadMemoryNotification(Callback) {
  * @since windows8.0
  */
 export UnregisterBadMemoryNotification(RegistrationHandle) {
-    RegistrationHandleMarshal := RegistrationHandle is VarRef ? "ptr" : "ptr"
+    RegistrationHandleMarshal := RegistrationHandle is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -3739,7 +3767,7 @@ export UnregisterBadMemoryNotification(RegistrationHandle) {
  * @since windows8.1
  */
 export OfferVirtualMemory(VirtualAddress, _Size, _Priority) {
-    VirtualAddressMarshal := VirtualAddress is VarRef ? "ptr" : "ptr"
+    VirtualAddressMarshal := VirtualAddress is VarRef ? "ptr" : IntPtr
 
     result := DllCall("KERNEL32.dll\OfferVirtualMemory", VirtualAddressMarshal, VirtualAddress, IntPtr, _Size, OFFER_PRIORITY, _Priority, UInt32)
     return result
@@ -3764,7 +3792,7 @@ export OfferVirtualMemory(VirtualAddress, _Size, _Priority) {
  * @since windows8.1
  */
 export ReclaimVirtualMemory(VirtualAddress, _Size) {
-    VirtualAddressMarshal := VirtualAddress is VarRef ? "ptr" : "ptr"
+    VirtualAddressMarshal := VirtualAddress is VarRef ? "ptr" : IntPtr
 
     result := DllCall("KERNEL32.dll\ReclaimVirtualMemory", VirtualAddressMarshal, VirtualAddress, IntPtr, _Size, UInt32)
     return result
@@ -3788,7 +3816,7 @@ export ReclaimVirtualMemory(VirtualAddress, _Size) {
  * @since windows8.1
  */
 export DiscardVirtualMemory(VirtualAddress, _Size) {
-    VirtualAddressMarshal := VirtualAddress is VarRef ? "ptr" : "ptr"
+    VirtualAddressMarshal := VirtualAddress is VarRef ? "ptr" : IntPtr
 
     result := DllCall("KERNEL32.dll\DiscardVirtualMemory", VirtualAddressMarshal, VirtualAddress, IntPtr, _Size, UInt32)
     return result
@@ -3808,7 +3836,7 @@ export DiscardVirtualMemory(VirtualAddress, _Size) {
  * @since windows10.0.10240
  */
 export SetProcessValidCallTargets(hProcess, VirtualAddress, RegionSize, NumberOfOffsets, OffsetInformation) {
-    VirtualAddressMarshal := VirtualAddress is VarRef ? "ptr" : "ptr"
+    VirtualAddressMarshal := VirtualAddress is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -3821,7 +3849,6 @@ export SetProcessValidCallTargets(hProcess, VirtualAddress, RegionSize, NumberOf
 }
 
 /**
- * 
  * @param {HANDLE} Process 
  * @param {Pointer<Void>} VirtualAddress 
  * @param {Pointer} RegionSize 
@@ -3832,7 +3859,7 @@ export SetProcessValidCallTargets(hProcess, VirtualAddress, RegionSize, NumberOf
  * @returns {BOOL} 
  */
 export SetProcessValidCallTargetsForMappedView(Process, VirtualAddress, RegionSize, NumberOfOffsets, OffsetInformation, _Section, ExpectedFileOffset) {
-    VirtualAddressMarshal := VirtualAddress is VarRef ? "ptr" : "ptr"
+    VirtualAddressMarshal := VirtualAddress is VarRef ? "ptr" : IntPtr
 
     result := DllCall("api-ms-win-core-memory-l1-1-7.dll\SetProcessValidCallTargetsForMappedView", HANDLE, Process, VirtualAddressMarshal, VirtualAddress, IntPtr, RegionSize, UInt32, NumberOfOffsets, CFG_CALL_TARGET_INFO.Ptr, OffsetInformation, HANDLE, _Section, Int64, ExpectedFileOffset, BOOL)
     return result
@@ -3917,7 +3944,8 @@ export SetProcessValidCallTargetsForMappedView(Process, VirtualAddress, RegionSi
  * @since windows10.0.10240
  */
 export VirtualAllocFromApp(BaseAddress, _Size, AllocationType, Protection) {
-    BaseAddressMarshal := BaseAddress is VarRef ? "ptr" : "ptr"
+    BaseAddressMarshal := BaseAddress is VarRef ? "ptr" : IntPtr
+    BaseAddressMarshal := BaseAddress == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -4001,8 +4029,8 @@ export VirtualAllocFromApp(BaseAddress, _Size, AllocationType, Protection) {
  * @since windows10.0.10240
  */
 export VirtualProtectFromApp(_Address, _Size, NewProtection, OldProtection) {
-    _AddressMarshal := _Address is VarRef ? "ptr" : "ptr"
-    OldProtectionMarshal := OldProtection is VarRef ? "uint*" : "ptr"
+    _AddressMarshal := _Address is VarRef ? "ptr" : IntPtr
+    OldProtectionMarshal := OldProtection is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -4082,8 +4110,9 @@ export OpenFileMappingFromApp(DesiredAccess, InheritHandle, Name) {
  * @since windows10.0.14393
  */
 export QueryVirtualMemoryInformation(Process, VirtualAddress, MemoryInformationClass, MemoryInformation, MemoryInformationSize, ReturnSize) {
-    VirtualAddressMarshal := VirtualAddress is VarRef ? "ptr" : "ptr"
-    ReturnSizeMarshal := ReturnSize is VarRef ? "ptr*" : "ptr"
+    VirtualAddressMarshal := VirtualAddress is VarRef ? "ptr" : IntPtr
+    ReturnSizeMarshal := ReturnSize is VarRef ? "ptr*" : IntPtr
+    ReturnSizeMarshal := ReturnSize == 0 ? IntPtr : "ptr*"
 
     A_LastError := 0
 
@@ -4127,7 +4156,8 @@ export QueryVirtualMemoryInformation(Process, VirtualAddress, MemoryInformationC
  * @since windows10.0.15063
  */
 export MapViewOfFileNuma2(FileMappingHandle, ProcessHandle, Offset, BaseAddress, ViewSize, AllocationType, PageProtection, PreferredNode) {
-    BaseAddressMarshal := BaseAddress is VarRef ? "ptr" : "ptr"
+    BaseAddressMarshal := BaseAddress is VarRef ? "ptr" : IntPtr
+    BaseAddressMarshal := BaseAddress == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -4165,16 +4195,16 @@ export UnmapViewOfFile2(Process, BaseAddress, UnmapFlags) {
 }
 
 /**
- * 
  * @param {HANDLE} Process 
  * @param {Pointer<Void>} _Address 
  * @param {Pointer} _Size 
  * @returns {BOOL} 
  */
 export VirtualUnlockEx(Process, _Address, _Size) {
-    _AddressMarshal := _Address is VarRef ? "ptr" : "ptr"
+    ProcessMarshal := Process == 0 ? IntPtr : HANDLE
+    _AddressMarshal := _Address is VarRef ? "ptr" : IntPtr
 
-    result := DllCall("api-ms-win-core-memory-l1-1-5.dll\VirtualUnlockEx", HANDLE, Process, _AddressMarshal, _Address, IntPtr, _Size, BOOL)
+    result := DllCall("api-ms-win-core-memory-l1-1-5.dll\VirtualUnlockEx", ProcessMarshal, Process, _AddressMarshal, _Address, IntPtr, _Size, BOOL)
     return result
 }
 
@@ -4276,11 +4306,14 @@ export VirtualUnlockEx(Process, _Address, _Size) {
  * @since windows10.0.10240
  */
 export VirtualAlloc2(Process, BaseAddress, _Size, AllocationType, PageProtection, ExtendedParameters, ParameterCount) {
-    BaseAddressMarshal := BaseAddress is VarRef ? "ptr" : "ptr"
+    ProcessMarshal := Process == 0 ? IntPtr : HANDLE
+    BaseAddressMarshal := BaseAddress is VarRef ? "ptr" : IntPtr
+    BaseAddressMarshal := BaseAddress == 0 ? IntPtr : "ptr"
+    ExtendedParametersMarshal := ExtendedParameters == 0 ? IntPtr : MEM_EXTENDED_PARAMETER.Ptr
 
     A_LastError := 0
 
-    result := DllCall("api-ms-win-core-memory-l1-1-6.dll\VirtualAlloc2", HANDLE, Process, BaseAddressMarshal, BaseAddress, IntPtr, _Size, VIRTUAL_ALLOCATION_TYPE, AllocationType, UInt32, PageProtection, MEM_EXTENDED_PARAMETER.Ptr, ExtendedParameters, UInt32, ParameterCount, IntPtr)
+    result := DllCall("api-ms-win-core-memory-l1-1-6.dll\VirtualAlloc2", ProcessMarshal, Process, BaseAddressMarshal, BaseAddress, IntPtr, _Size, VIRTUAL_ALLOCATION_TYPE, AllocationType, UInt32, PageProtection, ExtendedParametersMarshal, ExtendedParameters, UInt32, ParameterCount, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4320,11 +4353,14 @@ export VirtualAlloc2(Process, BaseAddress, _Size, AllocationType, PageProtection
  * @since windows10.0.17134
  */
 export MapViewOfFile3(FileMapping, Process, BaseAddress, Offset, ViewSize, AllocationType, PageProtection, ExtendedParameters, ParameterCount) {
-    BaseAddressMarshal := BaseAddress is VarRef ? "ptr" : "ptr"
+    ProcessMarshal := Process == 0 ? IntPtr : HANDLE
+    BaseAddressMarshal := BaseAddress is VarRef ? "ptr" : IntPtr
+    BaseAddressMarshal := BaseAddress == 0 ? IntPtr : "ptr"
+    ExtendedParametersMarshal := ExtendedParameters == 0 ? IntPtr : MEM_EXTENDED_PARAMETER.Ptr
 
     A_LastError := 0
 
-    result := DllCall("api-ms-win-core-memory-l1-1-6.dll\MapViewOfFile3", HANDLE, FileMapping, HANDLE, Process, BaseAddressMarshal, BaseAddress, Int64, Offset, IntPtr, ViewSize, VIRTUAL_ALLOCATION_TYPE, AllocationType, UInt32, PageProtection, MEM_EXTENDED_PARAMETER.Ptr, ExtendedParameters, UInt32, ParameterCount, MEMORY_MAPPED_VIEW_ADDRESS)
+    result := DllCall("api-ms-win-core-memory-l1-1-6.dll\MapViewOfFile3", HANDLE, FileMapping, ProcessMarshal, Process, BaseAddressMarshal, BaseAddress, Int64, Offset, IntPtr, ViewSize, VIRTUAL_ALLOCATION_TYPE, AllocationType, UInt32, PageProtection, ExtendedParametersMarshal, ExtendedParameters, UInt32, ParameterCount, MEMORY_MAPPED_VIEW_ADDRESS)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4425,11 +4461,14 @@ export MapViewOfFile3(FileMapping, Process, BaseAddress, Offset, ViewSize, Alloc
  * @since windows10.0.10240
  */
 export VirtualAlloc2FromApp(Process, BaseAddress, _Size, AllocationType, PageProtection, ExtendedParameters, ParameterCount) {
-    BaseAddressMarshal := BaseAddress is VarRef ? "ptr" : "ptr"
+    ProcessMarshal := Process == 0 ? IntPtr : HANDLE
+    BaseAddressMarshal := BaseAddress is VarRef ? "ptr" : IntPtr
+    BaseAddressMarshal := BaseAddress == 0 ? IntPtr : "ptr"
+    ExtendedParametersMarshal := ExtendedParameters == 0 ? IntPtr : MEM_EXTENDED_PARAMETER.Ptr
 
     A_LastError := 0
 
-    result := DllCall("api-ms-win-core-memory-l1-1-6.dll\VirtualAlloc2FromApp", HANDLE, Process, BaseAddressMarshal, BaseAddress, IntPtr, _Size, VIRTUAL_ALLOCATION_TYPE, AllocationType, UInt32, PageProtection, MEM_EXTENDED_PARAMETER.Ptr, ExtendedParameters, UInt32, ParameterCount, IntPtr)
+    result := DllCall("api-ms-win-core-memory-l1-1-6.dll\VirtualAlloc2FromApp", ProcessMarshal, Process, BaseAddressMarshal, BaseAddress, IntPtr, _Size, VIRTUAL_ALLOCATION_TYPE, AllocationType, UInt32, PageProtection, ExtendedParametersMarshal, ExtendedParameters, UInt32, ParameterCount, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4482,11 +4521,14 @@ export VirtualAlloc2FromApp(Process, BaseAddress, _Size, AllocationType, PagePro
  * @since windows10.0.10240
  */
 export MapViewOfFile3FromApp(FileMapping, Process, BaseAddress, Offset, ViewSize, AllocationType, PageProtection, ExtendedParameters, ParameterCount) {
-    BaseAddressMarshal := BaseAddress is VarRef ? "ptr" : "ptr"
+    ProcessMarshal := Process == 0 ? IntPtr : HANDLE
+    BaseAddressMarshal := BaseAddress is VarRef ? "ptr" : IntPtr
+    BaseAddressMarshal := BaseAddress == 0 ? IntPtr : "ptr"
+    ExtendedParametersMarshal := ExtendedParameters == 0 ? IntPtr : MEM_EXTENDED_PARAMETER.Ptr
 
     A_LastError := 0
 
-    result := DllCall("api-ms-win-core-memory-l1-1-6.dll\MapViewOfFile3FromApp", HANDLE, FileMapping, HANDLE, Process, BaseAddressMarshal, BaseAddress, Int64, Offset, IntPtr, ViewSize, VIRTUAL_ALLOCATION_TYPE, AllocationType, UInt32, PageProtection, MEM_EXTENDED_PARAMETER.Ptr, ExtendedParameters, UInt32, ParameterCount, MEMORY_MAPPED_VIEW_ADDRESS)
+    result := DllCall("api-ms-win-core-memory-l1-1-6.dll\MapViewOfFile3FromApp", HANDLE, FileMapping, ProcessMarshal, Process, BaseAddressMarshal, BaseAddress, Int64, Offset, IntPtr, ViewSize, VIRTUAL_ALLOCATION_TYPE, AllocationType, UInt32, PageProtection, ExtendedParametersMarshal, ExtendedParameters, UInt32, ParameterCount, MEMORY_MAPPED_VIEW_ADDRESS)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4720,9 +4762,13 @@ export MapViewOfFile3FromApp(FileMapping, Process, BaseAddress, Offset, ViewSize
 export CreateFileMapping2(_File, SecurityAttributes, DesiredAccess, PageProtection, AllocationAttributes, MaximumSize, Name, ExtendedParameters, ParameterCount) {
     Name := Name is String ? StrPtr(Name) : Name
 
+    SecurityAttributesMarshal := SecurityAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    NameMarshal := Name == 0 ? IntPtr : PWSTR
+    ExtendedParametersMarshal := ExtendedParameters == 0 ? IntPtr : MEM_EXTENDED_PARAMETER.Ptr
+
     A_LastError := 0
 
-    result := DllCall("api-ms-win-core-memory-l1-1-7.dll\CreateFileMapping2", HANDLE, _File, SECURITY_ATTRIBUTES.Ptr, SecurityAttributes, UInt32, DesiredAccess, PAGE_PROTECTION_FLAGS, PageProtection, UInt32, AllocationAttributes, Int64, MaximumSize, "ptr", Name, MEM_EXTENDED_PARAMETER.Ptr, ExtendedParameters, UInt32, ParameterCount, HANDLE.Owned)
+    result := DllCall("api-ms-win-core-memory-l1-1-7.dll\CreateFileMapping2", HANDLE, _File, SecurityAttributesMarshal, SecurityAttributes, UInt32, DesiredAccess, PAGE_PROTECTION_FLAGS, PageProtection, UInt32, AllocationAttributes, Int64, MaximumSize, NameMarshal, Name, ExtendedParametersMarshal, ExtendedParameters, UInt32, ParameterCount, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4731,7 +4777,6 @@ export CreateFileMapping2(_File, SecurityAttributes, DesiredAccess, PageProtecti
 }
 
 /**
- * 
  * @param {HANDLE} ObjectHandle 
  * @param {Pointer<Pointer>} NumberOfPages 
  * @param {Pointer<Pointer>} PageArray 
@@ -4740,15 +4785,15 @@ export CreateFileMapping2(_File, SecurityAttributes, DesiredAccess, PageProtecti
  * @returns {BOOL} 
  */
 export AllocateUserPhysicalPages2(ObjectHandle, NumberOfPages, PageArray, ExtendedParameters, ExtendedParameterCount) {
-    NumberOfPagesMarshal := NumberOfPages is VarRef ? "ptr*" : "ptr"
-    PageArrayMarshal := PageArray is VarRef ? "ptr*" : "ptr"
+    NumberOfPagesMarshal := NumberOfPages is VarRef ? "ptr*" : IntPtr
+    PageArrayMarshal := PageArray is VarRef ? "ptr*" : IntPtr
+    ExtendedParametersMarshal := ExtendedParameters == 0 ? IntPtr : MEM_EXTENDED_PARAMETER.Ptr
 
-    result := DllCall("api-ms-win-core-memory-l1-1-8.dll\AllocateUserPhysicalPages2", HANDLE, ObjectHandle, NumberOfPagesMarshal, NumberOfPages, PageArrayMarshal, PageArray, MEM_EXTENDED_PARAMETER.Ptr, ExtendedParameters, UInt32, ExtendedParameterCount, BOOL)
+    result := DllCall("api-ms-win-core-memory-l1-1-8.dll\AllocateUserPhysicalPages2", HANDLE, ObjectHandle, NumberOfPagesMarshal, NumberOfPages, PageArrayMarshal, PageArray, ExtendedParametersMarshal, ExtendedParameters, UInt32, ExtendedParameterCount, BOOL)
     return result
 }
 
 /**
- * 
  * @param {HANDLE} Partition 
  * @param {Integer} DedicatedMemoryTypeId 
  * @param {Integer} DesiredAccess 
@@ -4761,7 +4806,6 @@ export OpenDedicatedMemoryPartition(Partition, DedicatedMemoryTypeId, DesiredAcc
 }
 
 /**
- * 
  * @param {HANDLE} Partition 
  * @param {WIN32_MEMORY_PARTITION_INFORMATION_CLASS} PartitionInformationClass 
  * @param {Integer} PartitionInformation 
@@ -4774,49 +4818,45 @@ export QueryPartitionInformation(Partition, PartitionInformationClass, Partition
 }
 
 /**
- * 
  * @param {Integer} TargetNodeNumber 
  * @param {Pointer<Integer>} InitiatorNodeNumber 
  * @returns {BOOL} 
  */
 export GetMemoryNumaClosestInitiatorNode(TargetNodeNumber, InitiatorNodeNumber) {
-    InitiatorNodeNumberMarshal := InitiatorNodeNumber is VarRef ? "uint*" : "ptr"
+    InitiatorNodeNumberMarshal := InitiatorNodeNumber is VarRef ? "uint*" : IntPtr
 
     result := DllCall("api-ms-win-core-memory-l1-1-9.dll\GetMemoryNumaClosestInitiatorNode", UInt32, TargetNodeNumber, InitiatorNodeNumberMarshal, InitiatorNodeNumber, BOOL)
     return result
 }
 
 /**
- * 
  * @param {Integer} NodeNumber 
  * @param {Integer} DataType 
  * @param {Pointer<Pointer<WIN32_MEMORY_NUMA_PERFORMANCE_INFORMATION_OUTPUT>>} PerfInfo 
  * @returns {BOOL} 
  */
 export GetMemoryNumaPerformanceInformation(NodeNumber, DataType, PerfInfo) {
-    PerfInfoMarshal := PerfInfo is VarRef ? "ptr*" : "ptr"
+    PerfInfoMarshal := PerfInfo is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("api-ms-win-core-memory-l1-1-9.dll\GetMemoryNumaPerformanceInformation", UInt32, NodeNumber, Int8, DataType, PerfInfoMarshal, PerfInfo, BOOL)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} Source1 
  * @param {Pointer<Void>} Source2 
  * @param {Pointer} Length 
  * @returns {Pointer} 
  */
 export RtlCompareMemory(Source1, Source2, Length) {
-    Source1Marshal := Source1 is VarRef ? "ptr" : "ptr"
-    Source2Marshal := Source2 is VarRef ? "ptr" : "ptr"
+    Source1Marshal := Source1 is VarRef ? "ptr" : IntPtr
+    Source2Marshal := Source2 is VarRef ? "ptr" : IntPtr
 
     result := DllCall("KERNEL32.dll\RtlCompareMemory", Source1Marshal, Source1, Source2Marshal, Source2, IntPtr, Length, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Integer} _Buffer 
  * @param {Pointer} _Size 
  * @param {Integer} InitialCrc 
@@ -4828,7 +4868,6 @@ export RtlCrc32(_Buffer, _Size, InitialCrc) {
 }
 
 /**
- * 
  * @param {Integer} _Buffer 
  * @param {Pointer} _Size 
  * @param {Integer} InitialCrc 
@@ -4840,13 +4879,12 @@ export RtlCrc64(_Buffer, _Size, InitialCrc) {
 }
 
 /**
- * 
  * @param {Pointer<Void>} _Buffer 
  * @param {Pointer} Length 
  * @returns {BOOLEAN} 
  */
 export RtlIsZeroMemory(_Buffer, Length) {
-    _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
+    _BufferMarshal := _Buffer is VarRef ? "ptr" : IntPtr
 
     result := DllCall("ntdll.dll\RtlIsZeroMemory", _BufferMarshal, _Buffer, IntPtr, Length, BOOLEAN)
     return result
@@ -5120,7 +5158,7 @@ export GlobalFlags(hMem) {
  * @since windows5.1.2600
  */
 export GlobalHandle(pMem) {
-    pMemMarshal := pMem is VarRef ? "ptr" : "ptr"
+    pMemMarshal := pMem is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -5236,9 +5274,11 @@ export LocalAlloc(uFlags, uBytes) {
  * @since windows5.1.2600
  */
 export LocalReAlloc(hMem, uBytes, uFlags) {
+    hMemMarshal := hMem == 0 ? IntPtr : HLOCAL
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\LocalReAlloc", HLOCAL, hMem, IntPtr, uBytes, UInt32, uFlags, HLOCAL.Owned)
+    result := DllCall("KERNEL32.dll\LocalReAlloc", hMemMarshal, hMem, IntPtr, uBytes, UInt32, uFlags, HLOCAL.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5299,7 +5339,7 @@ export LocalLock(hMem) {
  * @since windows5.1.2600
  */
 export LocalHandle(pMem) {
-    pMemMarshal := pMem is VarRef ? "ptr" : "ptr"
+    pMemMarshal := pMem is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -5613,9 +5653,12 @@ export LocalFlags(hMem) {
 export CreateFileMappingA(hFile, lpFileMappingAttributes, flProtect, dwMaximumSizeHigh, dwMaximumSizeLow, lpName) {
     lpName := lpName is String ? StrPtr(lpName) : lpName
 
+    lpFileMappingAttributesMarshal := lpFileMappingAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpNameMarshal := lpName == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateFileMappingA", HANDLE, hFile, SECURITY_ATTRIBUTES.Ptr, lpFileMappingAttributes, PAGE_PROTECTION_FLAGS, flProtect, UInt32, dwMaximumSizeHigh, UInt32, dwMaximumSizeLow, "ptr", lpName, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateFileMappingA", HANDLE, hFile, lpFileMappingAttributesMarshal, lpFileMappingAttributes, PAGE_PROTECTION_FLAGS, flProtect, UInt32, dwMaximumSizeHigh, UInt32, dwMaximumSizeLow, lpNameMarshal, lpName, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5850,9 +5893,12 @@ export CreateFileMappingA(hFile, lpFileMappingAttributes, flProtect, dwMaximumSi
 export CreateFileMappingNumaA(hFile, lpFileMappingAttributes, flProtect, dwMaximumSizeHigh, dwMaximumSizeLow, lpName, nndPreferred) {
     lpName := lpName is String ? StrPtr(lpName) : lpName
 
+    lpFileMappingAttributesMarshal := lpFileMappingAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpNameMarshal := lpName == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateFileMappingNumaA", HANDLE, hFile, SECURITY_ATTRIBUTES.Ptr, lpFileMappingAttributes, PAGE_PROTECTION_FLAGS, flProtect, UInt32, dwMaximumSizeHigh, UInt32, dwMaximumSizeLow, "ptr", lpName, UInt32, nndPreferred, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateFileMappingNumaA", HANDLE, hFile, lpFileMappingAttributesMarshal, lpFileMappingAttributes, PAGE_PROTECTION_FLAGS, flProtect, UInt32, dwMaximumSizeHigh, UInt32, dwMaximumSizeLow, lpNameMarshal, lpName, UInt32, nndPreferred, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6145,7 +6191,8 @@ export OpenFileMappingA(dwDesiredAccess, bInheritHandle, lpName) {
  * @since windows6.0.6000
  */
 export MapViewOfFileExNuma(hFileMappingObject, dwDesiredAccess, dwFileOffsetHigh, dwFileOffsetLow, dwNumberOfBytesToMap, lpBaseAddress, nndPreferred) {
-    lpBaseAddressMarshal := lpBaseAddress is VarRef ? "ptr" : "ptr"
+    lpBaseAddressMarshal := lpBaseAddress is VarRef ? "ptr" : IntPtr
+    lpBaseAddressMarshal := lpBaseAddress == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -6180,7 +6227,8 @@ export MapViewOfFileExNuma(hFileMappingObject, dwDesiredAccess, dwFileOffsetHigh
  * @since windows5.1.2600
  */
 export IsBadReadPtr(lp, ucb) {
-    lpMarshal := lp is VarRef ? "ptr" : "ptr"
+    lpMarshal := lp is VarRef ? "ptr" : IntPtr
+    lpMarshal := lp == 0 ? IntPtr : "ptr"
 
     result := DllCall("KERNEL32.dll\IsBadReadPtr", lpMarshal, lp, IntPtr, ucb, BOOL)
     return result
@@ -6211,7 +6259,8 @@ export IsBadReadPtr(lp, ucb) {
  * @since windows5.1.2600
  */
 export IsBadWritePtr(lp, ucb) {
-    lpMarshal := lp is VarRef ? "ptr" : "ptr"
+    lpMarshal := lp is VarRef ? "ptr" : IntPtr
+    lpMarshal := lp == 0 ? IntPtr : "ptr"
 
     result := DllCall("KERNEL32.dll\IsBadWritePtr", lpMarshal, lp, IntPtr, ucb, BOOL)
     return result
@@ -6232,9 +6281,11 @@ export IsBadWritePtr(lp, ucb) {
  * @since windows5.1.2600
  */
 export IsBadCodePtr(lpfn) {
+    lpfnMarshal := lpfn == 0 ? IntPtr : FARPROC
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\IsBadCodePtr", FARPROC, lpfn, BOOL)
+    result := DllCall("KERNEL32.dll\IsBadCodePtr", lpfnMarshal, lpfn, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6275,7 +6326,9 @@ export IsBadCodePtr(lpfn) {
 export IsBadStringPtrA(lpsz, ucchMax) {
     lpsz := lpsz is String ? StrPtr(lpsz) : lpsz
 
-    result := DllCall("KERNEL32.dll\IsBadStringPtrA", "ptr", lpsz, IntPtr, ucchMax, BOOL)
+    lpszMarshal := lpsz == 0 ? IntPtr : PSTR
+
+    result := DllCall("KERNEL32.dll\IsBadStringPtrA", lpszMarshal, lpsz, IntPtr, ucchMax, BOOL)
     return result
 }
 
@@ -6312,7 +6365,9 @@ export IsBadStringPtrA(lpsz, ucchMax) {
 export IsBadStringPtrW(lpsz, ucchMax) {
     lpsz := lpsz is String ? StrPtr(lpsz) : lpsz
 
-    result := DllCall("KERNEL32.dll\IsBadStringPtrW", "ptr", lpsz, IntPtr, ucchMax, BOOL)
+    lpszMarshal := lpsz == 0 ? IntPtr : PWSTR
+
+    result := DllCall("KERNEL32.dll\IsBadStringPtrW", lpszMarshal, lpsz, IntPtr, ucchMax, BOOL)
     return result
 }
 
@@ -6371,8 +6426,9 @@ export IsBadStringPtrW(lpsz, ucchMax) {
  * @since windows5.1.2600
  */
 export MapUserPhysicalPagesScatter(VirtualAddresses, NumberOfPages, PageArray) {
-    VirtualAddressesMarshal := VirtualAddresses is VarRef ? "ptr*" : "ptr"
-    PageArrayMarshal := PageArray is VarRef ? "ptr*" : "ptr"
+    VirtualAddressesMarshal := VirtualAddresses is VarRef ? "ptr*" : IntPtr
+    PageArrayMarshal := PageArray is VarRef ? "ptr*" : IntPtr
+    PageArrayMarshal := PageArray == 0 ? IntPtr : "ptr*"
 
     A_LastError := 0
 

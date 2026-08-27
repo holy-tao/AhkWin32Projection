@@ -23,7 +23,6 @@ export default struct FAST_IO_QUERY_NETWORK_OPEN_INFO {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {BOOLEAN} Wait 
      * @param {Pointer<FILE_NETWORK_OPEN_INFORMATION>} _Buffer 

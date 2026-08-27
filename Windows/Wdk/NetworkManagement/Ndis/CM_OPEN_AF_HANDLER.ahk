@@ -18,7 +18,6 @@ export default struct CM_OPEN_AF_HANDLER {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Call() {

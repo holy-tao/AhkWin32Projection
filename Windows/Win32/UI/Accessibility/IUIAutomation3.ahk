@@ -107,8 +107,8 @@ export default struct IUIAutomation3 extends IUIAutomation2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddTextEditTextChangedEventHandler := CallbackCreate(GetMethod(implObj, "AddTextEditTextChangedEventHandler"), flags, 6)
-        this.vtbl.RemoveTextEditTextChangedEventHandler := CallbackCreate(GetMethod(implObj, "RemoveTextEditTextChangedEventHandler"), flags, 3)
+        this.vtbl.AddTextEditTextChangedEventHandler := CallbackCreate(ObjBindMethod(implObj, "AddTextEditTextChangedEventHandler"), flags, 6)
+        this.vtbl.RemoveTextEditTextChangedEventHandler := CallbackCreate(ObjBindMethod(implObj, "RemoveTextEditTextChangedEventHandler"), flags, 3)
     }
 
     Dispose() {

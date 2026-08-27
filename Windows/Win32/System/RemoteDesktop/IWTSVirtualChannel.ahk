@@ -47,7 +47,7 @@ export default struct IWTSVirtualChannel extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nf-tsvirtualchannels-iwtsvirtualchannel-write
      */
     Write(cbSize, pBuffer, pReserved) {
-        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, UInt32, cbSize, pBufferMarshal, pBuffer, "ptr", pReserved, "HRESULT")
         return result
@@ -72,8 +72,8 @@ export default struct IWTSVirtualChannel extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Write := CallbackCreate(GetMethod(implObj, "Write"), flags, 4)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.Write := CallbackCreate(ObjBindMethod(implObj, "Write"), flags, 4)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
     }
 
     Dispose() {

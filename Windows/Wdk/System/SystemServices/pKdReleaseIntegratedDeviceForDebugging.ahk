@@ -20,7 +20,6 @@ export default struct pKdReleaseIntegratedDeviceForDebugging {
     }
 
     /**
-     * 
      * @param {Pointer<DEBUG_DEVICE_DESCRIPTOR>} IntegratedDevice 
      * @returns {NTSTATUS} 
      */

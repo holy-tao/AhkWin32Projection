@@ -61,7 +61,7 @@ export default struct IRDPSRAPIPerfCounterLoggingManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateLogger := CallbackCreate(GetMethod(implObj, "CreateLogger"), flags, 3)
+        this.vtbl.CreateLogger := CallbackCreate(ObjBindMethod(implObj, "CreateLogger"), flags, 3)
     }
 
     Dispose() {

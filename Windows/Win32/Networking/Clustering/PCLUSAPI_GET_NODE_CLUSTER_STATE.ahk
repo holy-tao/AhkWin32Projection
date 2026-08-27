@@ -19,7 +19,6 @@ export default struct PCLUSAPI_GET_NODE_CLUSTER_STATE {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszNodeName 
      * @param {Pointer<Integer>} pdwClusterState 
      * @returns {Integer} 
@@ -27,9 +26,10 @@ export default struct PCLUSAPI_GET_NODE_CLUSTER_STATE {
     Call(lpszNodeName, pdwClusterState) {
         lpszNodeName := lpszNodeName is String ? StrPtr(lpszNodeName) : lpszNodeName
 
-        pdwClusterStateMarshal := pdwClusterState is VarRef ? "uint*" : "ptr"
+        lpszNodeNameMarshal := lpszNodeName == 0 ? IntPtr : PWSTR
+        pdwClusterStateMarshal := pdwClusterState is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, "ptr", lpszNodeName, pdwClusterStateMarshal, pdwClusterState, UInt32)
+        result := DllCall(this.value, lpszNodeNameMarshal, lpszNodeName, pdwClusterStateMarshal, pdwClusterState, UInt32)
         return result
     }
 

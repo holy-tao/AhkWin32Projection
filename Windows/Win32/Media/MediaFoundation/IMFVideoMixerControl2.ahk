@@ -68,8 +68,8 @@ export default struct IMFVideoMixerControl2 extends IMFVideoMixerControl {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetMixingPrefs := CallbackCreate(GetMethod(implObj, "SetMixingPrefs"), flags, 2)
-        this.vtbl.GetMixingPrefs := CallbackCreate(GetMethod(implObj, "GetMixingPrefs"), flags, 2)
+        this.vtbl.SetMixingPrefs := CallbackCreate(ObjBindMethod(implObj, "SetMixingPrefs"), flags, 2)
+        this.vtbl.GetMixingPrefs := CallbackCreate(ObjBindMethod(implObj, "GetMixingPrefs"), flags, 2)
     }
 
     Dispose() {

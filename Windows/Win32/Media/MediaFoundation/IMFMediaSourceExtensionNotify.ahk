@@ -74,9 +74,9 @@ export default struct IMFMediaSourceExtensionNotify extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnSourceOpen := CallbackCreate(GetMethod(implObj, "OnSourceOpen"), flags, 1)
-        this.vtbl.OnSourceEnded := CallbackCreate(GetMethod(implObj, "OnSourceEnded"), flags, 1)
-        this.vtbl.OnSourceClose := CallbackCreate(GetMethod(implObj, "OnSourceClose"), flags, 1)
+        this.vtbl.OnSourceOpen := CallbackCreate(ObjBindMethod(implObj, "OnSourceOpen"), flags, 1)
+        this.vtbl.OnSourceEnded := CallbackCreate(ObjBindMethod(implObj, "OnSourceEnded"), flags, 1)
+        this.vtbl.OnSourceClose := CallbackCreate(ObjBindMethod(implObj, "OnSourceClose"), flags, 1)
     }
 
     Dispose() {

@@ -19,12 +19,11 @@ export default struct SslFreeBufferFn {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvInput 
      * @returns {HRESULT} 
      */
     Call(pvInput) {
-        pvInputMarshal := pvInput is VarRef ? "ptr" : "ptr"
+        pvInputMarshal := pvInput is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, pvInputMarshal, pvInput, "HRESULT")
         return result

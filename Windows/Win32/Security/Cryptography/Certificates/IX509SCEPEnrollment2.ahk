@@ -68,7 +68,6 @@ export default struct IX509SCEPEnrollment2 extends IX509SCEPEnrollment {
     }
 
     /**
-     * 
      * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      */
@@ -79,7 +78,6 @@ export default struct IX509SCEPEnrollment2 extends IX509SCEPEnrollment {
     }
 
     /**
-     * 
      * @param {X509SCEPProcessMessageFlags} Flags 
      * @param {BSTR} strResponse 
      * @param {EncodingType} Encoding 
@@ -93,7 +91,6 @@ export default struct IX509SCEPEnrollment2 extends IX509SCEPEnrollment {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ResultMessageText() {
@@ -103,7 +100,6 @@ export default struct IX509SCEPEnrollment2 extends IX509SCEPEnrollment {
     }
 
     /**
-     * 
      * @returns {DelayRetryAction} 
      */
     get_DelayRetry() {
@@ -112,7 +108,6 @@ export default struct IX509SCEPEnrollment2 extends IX509SCEPEnrollment {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ActivityId() {
@@ -122,7 +117,6 @@ export default struct IX509SCEPEnrollment2 extends IX509SCEPEnrollment {
     }
 
     /**
-     * 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
      */
@@ -142,12 +136,12 @@ export default struct IX509SCEPEnrollment2 extends IX509SCEPEnrollment {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateChallengeAnswerMessage := CallbackCreate(GetMethod(implObj, "CreateChallengeAnswerMessage"), flags, 3)
-        this.vtbl.ProcessResponseMessage2 := CallbackCreate(GetMethod(implObj, "ProcessResponseMessage2"), flags, 5)
-        this.vtbl.get_ResultMessageText := CallbackCreate(GetMethod(implObj, "get_ResultMessageText"), flags, 2)
-        this.vtbl.get_DelayRetry := CallbackCreate(GetMethod(implObj, "get_DelayRetry"), flags, 2)
-        this.vtbl.get_ActivityId := CallbackCreate(GetMethod(implObj, "get_ActivityId"), flags, 2)
-        this.vtbl.put_ActivityId := CallbackCreate(GetMethod(implObj, "put_ActivityId"), flags, 2)
+        this.vtbl.CreateChallengeAnswerMessage := CallbackCreate(ObjBindMethod(implObj, "CreateChallengeAnswerMessage"), flags, 3)
+        this.vtbl.ProcessResponseMessage2 := CallbackCreate(ObjBindMethod(implObj, "ProcessResponseMessage2"), flags, 5)
+        this.vtbl.get_ResultMessageText := CallbackCreate(ObjBindMethod(implObj, "get_ResultMessageText"), flags, 2)
+        this.vtbl.get_DelayRetry := CallbackCreate(ObjBindMethod(implObj, "get_DelayRetry"), flags, 2)
+        this.vtbl.get_ActivityId := CallbackCreate(ObjBindMethod(implObj, "get_ActivityId"), flags, 2)
+        this.vtbl.put_ActivityId := CallbackCreate(ObjBindMethod(implObj, "put_ActivityId"), flags, 2)
     }
 
     Dispose() {

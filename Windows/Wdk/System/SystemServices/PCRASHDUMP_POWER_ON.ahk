@@ -19,12 +19,12 @@ export default struct PCRASHDUMP_POWER_ON {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @returns {NTSTATUS} 
      */
     Call(_Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

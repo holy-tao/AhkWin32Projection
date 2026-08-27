@@ -127,7 +127,6 @@ export default struct IHTMLApplicationCache extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_status() {
@@ -136,7 +135,6 @@ export default struct IHTMLApplicationCache extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -146,7 +144,6 @@ export default struct IHTMLApplicationCache extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onchecking() {
@@ -156,7 +153,6 @@ export default struct IHTMLApplicationCache extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -166,7 +162,6 @@ export default struct IHTMLApplicationCache extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onerror() {
@@ -176,7 +171,6 @@ export default struct IHTMLApplicationCache extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -186,7 +180,6 @@ export default struct IHTMLApplicationCache extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onnoupdate() {
@@ -196,7 +189,6 @@ export default struct IHTMLApplicationCache extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -206,7 +198,6 @@ export default struct IHTMLApplicationCache extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondownloading() {
@@ -216,7 +207,6 @@ export default struct IHTMLApplicationCache extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -226,7 +216,6 @@ export default struct IHTMLApplicationCache extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onprogress() {
@@ -236,7 +225,6 @@ export default struct IHTMLApplicationCache extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -246,7 +234,6 @@ export default struct IHTMLApplicationCache extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onupdateready() {
@@ -256,7 +243,6 @@ export default struct IHTMLApplicationCache extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -266,7 +252,6 @@ export default struct IHTMLApplicationCache extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_oncached() {
@@ -276,7 +261,6 @@ export default struct IHTMLApplicationCache extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -286,7 +270,6 @@ export default struct IHTMLApplicationCache extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onobsolete() {
@@ -348,7 +331,6 @@ export default struct IHTMLApplicationCache extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     swapCache() {
@@ -381,26 +363,26 @@ export default struct IHTMLApplicationCache extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_status := CallbackCreate(GetMethod(implObj, "get_status"), flags, 2)
-        this.vtbl.put_onchecking := CallbackCreate(GetMethod(implObj, "put_onchecking"), flags, 2)
-        this.vtbl.get_onchecking := CallbackCreate(GetMethod(implObj, "get_onchecking"), flags, 2)
-        this.vtbl.put_onerror := CallbackCreate(GetMethod(implObj, "put_onerror"), flags, 2)
-        this.vtbl.get_onerror := CallbackCreate(GetMethod(implObj, "get_onerror"), flags, 2)
-        this.vtbl.put_onnoupdate := CallbackCreate(GetMethod(implObj, "put_onnoupdate"), flags, 2)
-        this.vtbl.get_onnoupdate := CallbackCreate(GetMethod(implObj, "get_onnoupdate"), flags, 2)
-        this.vtbl.put_ondownloading := CallbackCreate(GetMethod(implObj, "put_ondownloading"), flags, 2)
-        this.vtbl.get_ondownloading := CallbackCreate(GetMethod(implObj, "get_ondownloading"), flags, 2)
-        this.vtbl.put_onprogress := CallbackCreate(GetMethod(implObj, "put_onprogress"), flags, 2)
-        this.vtbl.get_onprogress := CallbackCreate(GetMethod(implObj, "get_onprogress"), flags, 2)
-        this.vtbl.put_onupdateready := CallbackCreate(GetMethod(implObj, "put_onupdateready"), flags, 2)
-        this.vtbl.get_onupdateready := CallbackCreate(GetMethod(implObj, "get_onupdateready"), flags, 2)
-        this.vtbl.put_oncached := CallbackCreate(GetMethod(implObj, "put_oncached"), flags, 2)
-        this.vtbl.get_oncached := CallbackCreate(GetMethod(implObj, "get_oncached"), flags, 2)
-        this.vtbl.put_onobsolete := CallbackCreate(GetMethod(implObj, "put_onobsolete"), flags, 2)
-        this.vtbl.get_onobsolete := CallbackCreate(GetMethod(implObj, "get_onobsolete"), flags, 2)
-        this.vtbl.update := CallbackCreate(GetMethod(implObj, "update"), flags, 1)
-        this.vtbl.swapCache := CallbackCreate(GetMethod(implObj, "swapCache"), flags, 1)
-        this.vtbl.abort := CallbackCreate(GetMethod(implObj, "abort"), flags, 1)
+        this.vtbl.get_status := CallbackCreate(ObjBindMethod(implObj, "get_status"), flags, 2)
+        this.vtbl.put_onchecking := CallbackCreate(ObjBindMethod(implObj, "put_onchecking"), flags, 2)
+        this.vtbl.get_onchecking := CallbackCreate(ObjBindMethod(implObj, "get_onchecking"), flags, 2)
+        this.vtbl.put_onerror := CallbackCreate(ObjBindMethod(implObj, "put_onerror"), flags, 2)
+        this.vtbl.get_onerror := CallbackCreate(ObjBindMethod(implObj, "get_onerror"), flags, 2)
+        this.vtbl.put_onnoupdate := CallbackCreate(ObjBindMethod(implObj, "put_onnoupdate"), flags, 2)
+        this.vtbl.get_onnoupdate := CallbackCreate(ObjBindMethod(implObj, "get_onnoupdate"), flags, 2)
+        this.vtbl.put_ondownloading := CallbackCreate(ObjBindMethod(implObj, "put_ondownloading"), flags, 2)
+        this.vtbl.get_ondownloading := CallbackCreate(ObjBindMethod(implObj, "get_ondownloading"), flags, 2)
+        this.vtbl.put_onprogress := CallbackCreate(ObjBindMethod(implObj, "put_onprogress"), flags, 2)
+        this.vtbl.get_onprogress := CallbackCreate(ObjBindMethod(implObj, "get_onprogress"), flags, 2)
+        this.vtbl.put_onupdateready := CallbackCreate(ObjBindMethod(implObj, "put_onupdateready"), flags, 2)
+        this.vtbl.get_onupdateready := CallbackCreate(ObjBindMethod(implObj, "get_onupdateready"), flags, 2)
+        this.vtbl.put_oncached := CallbackCreate(ObjBindMethod(implObj, "put_oncached"), flags, 2)
+        this.vtbl.get_oncached := CallbackCreate(ObjBindMethod(implObj, "get_oncached"), flags, 2)
+        this.vtbl.put_onobsolete := CallbackCreate(ObjBindMethod(implObj, "put_onobsolete"), flags, 2)
+        this.vtbl.get_onobsolete := CallbackCreate(ObjBindMethod(implObj, "get_onobsolete"), flags, 2)
+        this.vtbl.update := CallbackCreate(ObjBindMethod(implObj, "update"), flags, 1)
+        this.vtbl.swapCache := CallbackCreate(ObjBindMethod(implObj, "swapCache"), flags, 1)
+        this.vtbl.abort := CallbackCreate(ObjBindMethod(implObj, "abort"), flags, 1)
     }
 
     Dispose() {

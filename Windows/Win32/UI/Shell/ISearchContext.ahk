@@ -87,9 +87,9 @@ export default struct ISearchContext extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSearchUrl := CallbackCreate(GetMethod(implObj, "GetSearchUrl"), flags, 2)
-        this.vtbl.GetSearchText := CallbackCreate(GetMethod(implObj, "GetSearchText"), flags, 2)
-        this.vtbl.GetSearchStyle := CallbackCreate(GetMethod(implObj, "GetSearchStyle"), flags, 2)
+        this.vtbl.GetSearchUrl := CallbackCreate(ObjBindMethod(implObj, "GetSearchUrl"), flags, 2)
+        this.vtbl.GetSearchText := CallbackCreate(ObjBindMethod(implObj, "GetSearchText"), flags, 2)
+        this.vtbl.GetSearchStyle := CallbackCreate(ObjBindMethod(implObj, "GetSearchStyle"), flags, 2)
     }
 
     Dispose() {

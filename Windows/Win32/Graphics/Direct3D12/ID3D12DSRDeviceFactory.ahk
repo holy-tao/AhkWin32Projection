@@ -37,7 +37,6 @@ export default struct ID3D12DSRDeviceFactory extends IUnknown {
     }
 
     /**
-     * 
      * @param {ID3D12Device} pD3D12Device 
      * @param {Integer} NodeMask 
      * @param {Pointer<Guid>} riid 
@@ -57,7 +56,7 @@ export default struct ID3D12DSRDeviceFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateDSRDevice := CallbackCreate(GetMethod(implObj, "CreateDSRDevice"), flags, 5)
+        this.vtbl.CreateDSRDevice := CallbackCreate(ObjBindMethod(implObj, "CreateDSRDevice"), flags, 5)
     }
 
     Dispose() {

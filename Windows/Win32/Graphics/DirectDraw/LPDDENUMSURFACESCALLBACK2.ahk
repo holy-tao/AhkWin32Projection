@@ -25,7 +25,6 @@ export default struct LPDDENUMSURFACESCALLBACK2 {
     }
 
     /**
-     * 
      * @param {IDirectDrawSurface4} param0 A pointer to the <b>IDirectDrawSurface4</b> interface of the attached surface.
      * @param {Pointer<DDSURFACEDESC2>} param1 A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff550340(v=vs.85)">DDSURFACEDESC2</a> structure that describes the attached surface.
      * @param {Pointer<Void>} param2 A pointer to an application-defined structure to be passed to the callback function each time that the function is called.
@@ -34,7 +33,7 @@ export default struct LPDDENUMSURFACESCALLBACK2 {
      * It returns DDENUMRET_CANCEL to stop the enumeration.
      */
     Call(param0, param1, param2) {
-        param2Marshal := param2 is VarRef ? "ptr" : "ptr"
+        param2Marshal := param2 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, "ptr", param0, DDSURFACEDESC2.Ptr, param1, param2Marshal, param2, "HRESULT")
         return result

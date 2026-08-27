@@ -20,7 +20,6 @@ export default struct PFND3DKMT_GETRUNTIMEDATA {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_GETRUNTIMEDATA>} param0 
      * @returns {NTSTATUS} 
      */

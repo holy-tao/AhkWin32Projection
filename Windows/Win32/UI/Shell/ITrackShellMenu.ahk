@@ -110,8 +110,8 @@ export default struct ITrackShellMenu extends IShellMenu {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetObscured := CallbackCreate(GetMethod(implObj, "SetObscured"), flags, 4)
-        this.vtbl.Popup := CallbackCreate(GetMethod(implObj, "Popup"), flags, 5)
+        this.vtbl.SetObscured := CallbackCreate(ObjBindMethod(implObj, "SetObscured"), flags, 4)
+        this.vtbl.Popup := CallbackCreate(ObjBindMethod(implObj, "Popup"), flags, 5)
     }
 
     Dispose() {

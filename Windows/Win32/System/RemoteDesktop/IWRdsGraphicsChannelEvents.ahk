@@ -50,7 +50,7 @@ export default struct IWRdsGraphicsChannelEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wrdsgraphicschannels/nf-wrdsgraphicschannels-iwrdsgraphicschannelevents-ondatareceived
      */
     OnDataReceived(cbSize, pBuffer) {
-        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, UInt32, cbSize, pBufferMarshal, pBuffer, "HRESULT")
         return result
@@ -88,7 +88,7 @@ export default struct IWRdsGraphicsChannelEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wrdsgraphicschannels/nf-wrdsgraphicschannels-iwrdsgraphicschannelevents-ondatasent
      */
     OnDataSent(pWriteContext, bCancelled, pBuffer, cbBuffer) {
-        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(6, this, "ptr", pWriteContext, BOOL, bCancelled, pBufferMarshal, pBuffer, UInt32, cbBuffer, "HRESULT")
         return result
@@ -116,11 +116,11 @@ export default struct IWRdsGraphicsChannelEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnDataReceived := CallbackCreate(GetMethod(implObj, "OnDataReceived"), flags, 3)
-        this.vtbl.OnClose := CallbackCreate(GetMethod(implObj, "OnClose"), flags, 1)
-        this.vtbl.OnChannelOpened := CallbackCreate(GetMethod(implObj, "OnChannelOpened"), flags, 3)
-        this.vtbl.OnDataSent := CallbackCreate(GetMethod(implObj, "OnDataSent"), flags, 5)
-        this.vtbl.OnMetricsUpdate := CallbackCreate(GetMethod(implObj, "OnMetricsUpdate"), flags, 4)
+        this.vtbl.OnDataReceived := CallbackCreate(ObjBindMethod(implObj, "OnDataReceived"), flags, 3)
+        this.vtbl.OnClose := CallbackCreate(ObjBindMethod(implObj, "OnClose"), flags, 1)
+        this.vtbl.OnChannelOpened := CallbackCreate(ObjBindMethod(implObj, "OnChannelOpened"), flags, 3)
+        this.vtbl.OnDataSent := CallbackCreate(ObjBindMethod(implObj, "OnDataSent"), flags, 5)
+        this.vtbl.OnMetricsUpdate := CallbackCreate(ObjBindMethod(implObj, "OnMetricsUpdate"), flags, 4)
     }
 
     Dispose() {

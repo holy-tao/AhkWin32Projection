@@ -44,7 +44,6 @@ export default struct IDxcCompiler extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDxcBlob} pSource 
      * @param {PWSTR} pSourceName 
      * @param {PWSTR} pEntryPoint 
@@ -61,14 +60,17 @@ export default struct IDxcCompiler extends IUnknown {
         pEntryPoint := pEntryPoint is String ? StrPtr(pEntryPoint) : pEntryPoint
         pTargetProfile := pTargetProfile is String ? StrPtr(pTargetProfile) : pTargetProfile
 
-        pArgumentsMarshal := pArguments is VarRef ? "ptr*" : "ptr"
+        pSourceNameMarshal := pSourceName == 0 ? IntPtr : PWSTR
+        pEntryPointMarshal := pEntryPoint == 0 ? IntPtr : PWSTR
+        pArgumentsMarshal := pArguments is VarRef ? "ptr*" : IntPtr
+        pArgumentsMarshal := pArguments == 0 ? IntPtr : PWSTR.Ptr
+        pIncludeHandlerMarshal := pIncludeHandler == 0 ? IntPtr : "ptr"
 
-        result := ComCall(3, this, "ptr", pSource, "ptr", pSourceName, "ptr", pEntryPoint, "ptr", pTargetProfile, pArgumentsMarshal, pArguments, UInt32, argCount, DxcDefine.Ptr, pDefines, UInt32, defineCount, "ptr", pIncludeHandler, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pSource, pSourceNameMarshal, pSourceName, pEntryPointMarshal, pEntryPoint, "ptr", pTargetProfile, pArgumentsMarshal, pArguments, UInt32, argCount, DxcDefine.Ptr, pDefines, UInt32, defineCount, pIncludeHandlerMarshal, pIncludeHandler, "ptr*", &ppResult := 0, "HRESULT")
         return IDxcOperationResult(ppResult)
     }
 
     /**
-     * 
      * @param {IDxcBlob} pSource 
      * @param {PWSTR} pSourceName 
      * @param {Pointer<PWSTR>} pArguments 
@@ -81,14 +83,16 @@ export default struct IDxcCompiler extends IUnknown {
     Preprocess(pSource, pSourceName, pArguments, argCount, pDefines, defineCount, pIncludeHandler) {
         pSourceName := pSourceName is String ? StrPtr(pSourceName) : pSourceName
 
-        pArgumentsMarshal := pArguments is VarRef ? "ptr*" : "ptr"
+        pSourceNameMarshal := pSourceName == 0 ? IntPtr : PWSTR
+        pArgumentsMarshal := pArguments is VarRef ? "ptr*" : IntPtr
+        pArgumentsMarshal := pArguments == 0 ? IntPtr : PWSTR.Ptr
+        pIncludeHandlerMarshal := pIncludeHandler == 0 ? IntPtr : "ptr"
 
-        result := ComCall(4, this, "ptr", pSource, "ptr", pSourceName, pArgumentsMarshal, pArguments, UInt32, argCount, DxcDefine.Ptr, pDefines, UInt32, defineCount, "ptr", pIncludeHandler, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pSource, pSourceNameMarshal, pSourceName, pArgumentsMarshal, pArguments, UInt32, argCount, DxcDefine.Ptr, pDefines, UInt32, defineCount, pIncludeHandlerMarshal, pIncludeHandler, "ptr*", &ppResult := 0, "HRESULT")
         return IDxcOperationResult(ppResult)
     }
 
     /**
-     * 
      * @param {IDxcBlob} pSource 
      * @returns {IDxcBlobEncoding} 
      */
@@ -106,9 +110,9 @@ export default struct IDxcCompiler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Compile := CallbackCreate(GetMethod(implObj, "Compile"), flags, 11)
-        this.vtbl.Preprocess := CallbackCreate(GetMethod(implObj, "Preprocess"), flags, 9)
-        this.vtbl.Disassemble := CallbackCreate(GetMethod(implObj, "Disassemble"), flags, 3)
+        this.vtbl.Compile := CallbackCreate(ObjBindMethod(implObj, "Compile"), flags, 11)
+        this.vtbl.Preprocess := CallbackCreate(ObjBindMethod(implObj, "Preprocess"), flags, 9)
+        this.vtbl.Disassemble := CallbackCreate(ObjBindMethod(implObj, "Disassemble"), flags, 3)
     }
 
     Dispose() {

@@ -109,7 +109,9 @@ export default struct IDataAdviseHolder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-idataadviseholder-advise
      */
     Advise(pDataObject, pFetc, _advf, pAdvise) {
-        result := ComCall(3, this, "ptr", pDataObject, FORMATETC.Ptr, pFetc, UInt32, _advf, "ptr", pAdvise, "uint*", &pdwConnection := 0, "HRESULT")
+        pDataObjectMarshal := pDataObject == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pDataObjectMarshal, pDataObject, FORMATETC.Ptr, pFetc, UInt32, _advf, "ptr", pAdvise, "uint*", &pdwConnection := 0, "HRESULT")
         return pdwConnection
     }
 
@@ -185,10 +187,10 @@ export default struct IDataAdviseHolder extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 6)
-        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 2)
-        this.vtbl.EnumAdvise := CallbackCreate(GetMethod(implObj, "EnumAdvise"), flags, 2)
-        this.vtbl.SendOnDataChange := CallbackCreate(GetMethod(implObj, "SendOnDataChange"), flags, 4)
+        this.vtbl.Advise := CallbackCreate(ObjBindMethod(implObj, "Advise"), flags, 6)
+        this.vtbl.Unadvise := CallbackCreate(ObjBindMethod(implObj, "Unadvise"), flags, 2)
+        this.vtbl.EnumAdvise := CallbackCreate(ObjBindMethod(implObj, "EnumAdvise"), flags, 2)
+        this.vtbl.SendOnDataChange := CallbackCreate(ObjBindMethod(implObj, "SendOnDataChange"), flags, 4)
     }
 
     Dispose() {

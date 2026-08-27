@@ -20,7 +20,6 @@ export default struct PCLUSAPI_CLUSTER_REG_OPEN_KEY {
     }
 
     /**
-     * 
      * @param {HKEY} _hKey 
      * @param {PWSTR} lpszSubKey 
      * @param {Integer} samDesired 

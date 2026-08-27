@@ -39,7 +39,6 @@ export default struct IDataModelScript2 extends IDataModelScript {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetScriptFullFilePathName() {
@@ -49,7 +48,6 @@ export default struct IDataModelScript2 extends IDataModelScript {
     }
 
     /**
-     * 
      * @param {PWSTR} scriptFullPathName 
      * @returns {HRESULT} 
      */
@@ -69,8 +67,8 @@ export default struct IDataModelScript2 extends IDataModelScript {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetScriptFullFilePathName := CallbackCreate(GetMethod(implObj, "GetScriptFullFilePathName"), flags, 2)
-        this.vtbl.SetScriptFullFilePathName := CallbackCreate(GetMethod(implObj, "SetScriptFullFilePathName"), flags, 2)
+        this.vtbl.GetScriptFullFilePathName := CallbackCreate(ObjBindMethod(implObj, "GetScriptFullFilePathName"), flags, 2)
+        this.vtbl.SetScriptFullFilePathName := CallbackCreate(ObjBindMethod(implObj, "SetScriptFullFilePathName"), flags, 2)
     }
 
     Dispose() {

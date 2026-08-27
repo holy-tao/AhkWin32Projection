@@ -51,7 +51,6 @@ export default struct IHTMLScreen3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_systemXDPI() {
@@ -60,7 +59,6 @@ export default struct IHTMLScreen3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_systemYDPI() {
@@ -77,8 +75,8 @@ export default struct IHTMLScreen3 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_systemXDPI := CallbackCreate(GetMethod(implObj, "get_systemXDPI"), flags, 2)
-        this.vtbl.get_systemYDPI := CallbackCreate(GetMethod(implObj, "get_systemYDPI"), flags, 2)
+        this.vtbl.get_systemXDPI := CallbackCreate(ObjBindMethod(implObj, "get_systemXDPI"), flags, 2)
+        this.vtbl.get_systemYDPI := CallbackCreate(ObjBindMethod(implObj, "get_systemYDPI"), flags, 2)
     }
 
     Dispose() {

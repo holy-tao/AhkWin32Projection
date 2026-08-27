@@ -20,7 +20,6 @@ export default struct PFND3DKMT_CREATEALLOCATION2 {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CREATEALLOCATION>} param0 
      * @returns {NTSTATUS} 
      */

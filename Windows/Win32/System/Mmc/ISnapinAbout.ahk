@@ -118,7 +118,7 @@ export default struct ISnapinAbout extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-isnapinabout-getstaticfolderimage
      */
     GetStaticFolderImage(hSmallImage, hSmallImageOpen, hLargeImage, cMask) {
-        cMaskMarshal := cMask is VarRef ? "uint*" : "ptr"
+        cMaskMarshal := cMask is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, HBITMAP.Ptr, hSmallImage, HBITMAP.Ptr, hSmallImageOpen, HBITMAP.Ptr, hLargeImage, cMaskMarshal, cMask, "HRESULT")
         return result
@@ -133,11 +133,11 @@ export default struct ISnapinAbout extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSnapinDescription := CallbackCreate(GetMethod(implObj, "GetSnapinDescription"), flags, 2)
-        this.vtbl.GetProvider := CallbackCreate(GetMethod(implObj, "GetProvider"), flags, 2)
-        this.vtbl.GetSnapinVersion := CallbackCreate(GetMethod(implObj, "GetSnapinVersion"), flags, 2)
-        this.vtbl.GetSnapinImage := CallbackCreate(GetMethod(implObj, "GetSnapinImage"), flags, 2)
-        this.vtbl.GetStaticFolderImage := CallbackCreate(GetMethod(implObj, "GetStaticFolderImage"), flags, 5)
+        this.vtbl.GetSnapinDescription := CallbackCreate(ObjBindMethod(implObj, "GetSnapinDescription"), flags, 2)
+        this.vtbl.GetProvider := CallbackCreate(ObjBindMethod(implObj, "GetProvider"), flags, 2)
+        this.vtbl.GetSnapinVersion := CallbackCreate(ObjBindMethod(implObj, "GetSnapinVersion"), flags, 2)
+        this.vtbl.GetSnapinImage := CallbackCreate(ObjBindMethod(implObj, "GetSnapinImage"), flags, 2)
+        this.vtbl.GetStaticFolderImage := CallbackCreate(ObjBindMethod(implObj, "GetStaticFolderImage"), flags, 5)
     }
 
     Dispose() {

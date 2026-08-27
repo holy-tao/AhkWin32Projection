@@ -19,7 +19,6 @@ export default struct D3D12_PFN_TRIM_NOTIFICATION_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_TRIM_NOTIFICATION>} __MIDL____MIDL_itf_d3d12_0000_00640000 
      * @returns {String} Nothing - always returns an empty string
      */

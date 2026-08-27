@@ -178,8 +178,8 @@ export default struct IStreamBufferConfigure extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferconfigure-getbackingfilecount
      */
     GetBackingFileCount(pdwMin, pdwMax) {
-        pdwMinMarshal := pdwMin is VarRef ? "uint*" : "ptr"
-        pdwMaxMarshal := pdwMax is VarRef ? "uint*" : "ptr"
+        pdwMinMarshal := pdwMin is VarRef ? "uint*" : IntPtr
+        pdwMaxMarshal := pdwMax is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, pdwMinMarshal, pdwMin, pdwMaxMarshal, pdwMax, "HRESULT")
         return result
@@ -246,12 +246,12 @@ export default struct IStreamBufferConfigure extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetDirectory := CallbackCreate(GetMethod(implObj, "SetDirectory"), flags, 2)
-        this.vtbl.GetDirectory := CallbackCreate(GetMethod(implObj, "GetDirectory"), flags, 2)
-        this.vtbl.SetBackingFileCount := CallbackCreate(GetMethod(implObj, "SetBackingFileCount"), flags, 3)
-        this.vtbl.GetBackingFileCount := CallbackCreate(GetMethod(implObj, "GetBackingFileCount"), flags, 3)
-        this.vtbl.SetBackingFileDuration := CallbackCreate(GetMethod(implObj, "SetBackingFileDuration"), flags, 2)
-        this.vtbl.GetBackingFileDuration := CallbackCreate(GetMethod(implObj, "GetBackingFileDuration"), flags, 2)
+        this.vtbl.SetDirectory := CallbackCreate(ObjBindMethod(implObj, "SetDirectory"), flags, 2)
+        this.vtbl.GetDirectory := CallbackCreate(ObjBindMethod(implObj, "GetDirectory"), flags, 2)
+        this.vtbl.SetBackingFileCount := CallbackCreate(ObjBindMethod(implObj, "SetBackingFileCount"), flags, 3)
+        this.vtbl.GetBackingFileCount := CallbackCreate(ObjBindMethod(implObj, "GetBackingFileCount"), flags, 3)
+        this.vtbl.SetBackingFileDuration := CallbackCreate(ObjBindMethod(implObj, "SetBackingFileDuration"), flags, 2)
+        this.vtbl.GetBackingFileDuration := CallbackCreate(ObjBindMethod(implObj, "GetBackingFileDuration"), flags, 2)
     }
 
     Dispose() {

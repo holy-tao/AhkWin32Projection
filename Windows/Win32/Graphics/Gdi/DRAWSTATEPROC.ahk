@@ -24,7 +24,6 @@ export default struct DRAWSTATEPROC {
     }
 
     /**
-     * 
      * @param {HDC} _hdc A handle to the device context to draw in. The device context is a memory device context with a bitmap selected, the dimensions of which are at least as great as those specified by the <i>cx</i> and <i>cy</i> parameters.
      * @param {LPARAM} lData Specifies information about the image, which the application passed to <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-drawstatea">DrawState</a>.
      * @param {WPARAM} wData Specifies information about the image, which the application passed to <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-drawstatea">DrawState</a>.

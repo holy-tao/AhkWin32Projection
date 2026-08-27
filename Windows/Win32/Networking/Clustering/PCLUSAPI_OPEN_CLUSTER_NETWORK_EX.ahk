@@ -21,7 +21,6 @@ export default struct PCLUSAPI_OPEN_CLUSTER_NETWORK_EX {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszNetworkName 
      * @param {Integer} dwDesiredAccess 
@@ -31,9 +30,11 @@ export default struct PCLUSAPI_OPEN_CLUSTER_NETWORK_EX {
     Call(_hCluster, lpszNetworkName, dwDesiredAccess, lpdwGrantedAccess) {
         lpszNetworkName := lpszNetworkName is String ? StrPtr(lpszNetworkName) : lpszNetworkName
 
-        lpdwGrantedAccessMarshal := lpdwGrantedAccess is VarRef ? "uint*" : "ptr"
+        lpszNetworkNameMarshal := lpszNetworkName == 0 ? IntPtr : PWSTR
+        lpdwGrantedAccessMarshal := lpdwGrantedAccess is VarRef ? "uint*" : IntPtr
+        lpdwGrantedAccessMarshal := lpdwGrantedAccess == 0 ? IntPtr : "uint*"
 
-        result := DllCall(this.value, HCLUSTER, _hCluster, "ptr", lpszNetworkName, UInt32, dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, HNETWORK)
+        result := DllCall(this.value, HCLUSTER, _hCluster, lpszNetworkNameMarshal, lpszNetworkName, UInt32, dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, HNETWORK)
         return result
     }
 

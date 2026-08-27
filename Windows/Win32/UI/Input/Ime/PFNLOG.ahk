@@ -21,7 +21,6 @@ export default struct PFNLOG {
     }
 
     /**
-     * 
      * @param {Pointer<IMEDP>} param0 
      * @param {HRESULT} param1 
      * @returns {BOOL} 

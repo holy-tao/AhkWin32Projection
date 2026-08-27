@@ -46,7 +46,6 @@ export default struct IHTMLTableRow2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -56,7 +55,6 @@ export default struct IHTMLTableRow2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_height() {
@@ -74,8 +72,8 @@ export default struct IHTMLTableRow2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_height := CallbackCreate(GetMethod(implObj, "put_height"), flags, 2)
-        this.vtbl.get_height := CallbackCreate(GetMethod(implObj, "get_height"), flags, 2)
+        this.vtbl.put_height := CallbackCreate(ObjBindMethod(implObj, "put_height"), flags, 2)
+        this.vtbl.get_height := CallbackCreate(ObjBindMethod(implObj, "get_height"), flags, 2)
     }
 
     Dispose() {

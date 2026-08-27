@@ -37,14 +37,13 @@ export default struct ISpEventSource2 extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {Integer} ulCount 
      * @param {Pointer<SPEVENTEX>} pEventArray 
      * @param {Pointer<Integer>} pulFetched 
      * @returns {HRESULT} 
      */
     GetEventsEx(ulCount, pEventArray, pulFetched) {
-        pulFetchedMarshal := pulFetched is VarRef ? "uint*" : "ptr"
+        pulFetchedMarshal := pulFetched is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, UInt32, ulCount, SPEVENTEX.Ptr, pEventArray, pulFetchedMarshal, pulFetched, "HRESULT")
         return result
@@ -59,7 +58,7 @@ export default struct ISpEventSource2 extends ISpEventSource {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetEventsEx := CallbackCreate(GetMethod(implObj, "GetEventsEx"), flags, 4)
+        this.vtbl.GetEventsEx := CallbackCreate(ObjBindMethod(implObj, "GetEventsEx"), flags, 4)
     }
 
     Dispose() {

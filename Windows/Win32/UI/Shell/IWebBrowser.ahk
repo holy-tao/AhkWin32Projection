@@ -164,7 +164,6 @@ export default struct IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     GoBack() {
@@ -173,7 +172,6 @@ export default struct IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     GoForward() {
@@ -182,7 +180,6 @@ export default struct IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     GoHome() {
@@ -191,7 +188,6 @@ export default struct IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     GoSearch() {
@@ -212,12 +208,16 @@ export default struct IWebBrowser extends IDispatch {
     Navigate(URL, Flags, TargetFrameName, PostData, Headers) {
         URL := URL is String ? BSTR.Alloc(URL).Value : URL
 
-        result := ComCall(11, this, BSTR, URL, VARIANT.Ptr, Flags, VARIANT.Ptr, TargetFrameName, VARIANT.Ptr, PostData, VARIANT.Ptr, Headers, "HRESULT")
+        FlagsMarshal := Flags == 0 ? IntPtr : VARIANT.Ptr
+        TargetFrameNameMarshal := TargetFrameName == 0 ? IntPtr : VARIANT.Ptr
+        PostDataMarshal := PostData == 0 ? IntPtr : VARIANT.Ptr
+        HeadersMarshal := Headers == 0 ? IntPtr : VARIANT.Ptr
+
+        result := ComCall(11, this, BSTR, URL, FlagsMarshal, Flags, TargetFrameNameMarshal, TargetFrameName, PostDataMarshal, PostData, HeadersMarshal, Headers, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Refresh() {
@@ -226,17 +226,17 @@ export default struct IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} Level 
      * @returns {HRESULT} 
      */
     Refresh2(Level) {
-        result := ComCall(13, this, VARIANT.Ptr, Level, "HRESULT")
+        LevelMarshal := Level == 0 ? IntPtr : VARIANT.Ptr
+
+        result := ComCall(13, this, LevelMarshal, Level, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Stop() {
@@ -245,7 +245,6 @@ export default struct IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Application() {
@@ -254,7 +253,6 @@ export default struct IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Parent() {
@@ -263,7 +261,6 @@ export default struct IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Container() {
@@ -272,7 +269,6 @@ export default struct IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Document() {
@@ -281,7 +277,6 @@ export default struct IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_TopLevelContainer() {
@@ -290,7 +285,6 @@ export default struct IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Type() {
@@ -300,7 +294,6 @@ export default struct IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Left() {
@@ -309,7 +302,6 @@ export default struct IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} Left 
      * @returns {HRESULT} 
      */
@@ -319,7 +311,6 @@ export default struct IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Top() {
@@ -328,7 +319,6 @@ export default struct IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} Top 
      * @returns {HRESULT} 
      */
@@ -338,7 +328,6 @@ export default struct IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Width() {
@@ -347,7 +336,6 @@ export default struct IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} Width 
      * @returns {HRESULT} 
      */
@@ -357,7 +345,6 @@ export default struct IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Height() {
@@ -366,7 +353,6 @@ export default struct IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} Height 
      * @returns {HRESULT} 
      */
@@ -376,7 +362,6 @@ export default struct IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LocationName() {
@@ -386,7 +371,6 @@ export default struct IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LocationURL() {
@@ -396,7 +380,6 @@ export default struct IWebBrowser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Busy() {
@@ -413,31 +396,31 @@ export default struct IWebBrowser extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GoBack := CallbackCreate(GetMethod(implObj, "GoBack"), flags, 1)
-        this.vtbl.GoForward := CallbackCreate(GetMethod(implObj, "GoForward"), flags, 1)
-        this.vtbl.GoHome := CallbackCreate(GetMethod(implObj, "GoHome"), flags, 1)
-        this.vtbl.GoSearch := CallbackCreate(GetMethod(implObj, "GoSearch"), flags, 1)
-        this.vtbl.Navigate := CallbackCreate(GetMethod(implObj, "Navigate"), flags, 6)
-        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
-        this.vtbl.Refresh2 := CallbackCreate(GetMethod(implObj, "Refresh2"), flags, 2)
-        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
-        this.vtbl.get_Application := CallbackCreate(GetMethod(implObj, "get_Application"), flags, 2)
-        this.vtbl.get_Parent := CallbackCreate(GetMethod(implObj, "get_Parent"), flags, 2)
-        this.vtbl.get_Container := CallbackCreate(GetMethod(implObj, "get_Container"), flags, 2)
-        this.vtbl.get_Document := CallbackCreate(GetMethod(implObj, "get_Document"), flags, 2)
-        this.vtbl.get_TopLevelContainer := CallbackCreate(GetMethod(implObj, "get_TopLevelContainer"), flags, 2)
-        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
-        this.vtbl.get_Left := CallbackCreate(GetMethod(implObj, "get_Left"), flags, 2)
-        this.vtbl.put_Left := CallbackCreate(GetMethod(implObj, "put_Left"), flags, 2)
-        this.vtbl.get_Top := CallbackCreate(GetMethod(implObj, "get_Top"), flags, 2)
-        this.vtbl.put_Top := CallbackCreate(GetMethod(implObj, "put_Top"), flags, 2)
-        this.vtbl.get_Width := CallbackCreate(GetMethod(implObj, "get_Width"), flags, 2)
-        this.vtbl.put_Width := CallbackCreate(GetMethod(implObj, "put_Width"), flags, 2)
-        this.vtbl.get_Height := CallbackCreate(GetMethod(implObj, "get_Height"), flags, 2)
-        this.vtbl.put_Height := CallbackCreate(GetMethod(implObj, "put_Height"), flags, 2)
-        this.vtbl.get_LocationName := CallbackCreate(GetMethod(implObj, "get_LocationName"), flags, 2)
-        this.vtbl.get_LocationURL := CallbackCreate(GetMethod(implObj, "get_LocationURL"), flags, 2)
-        this.vtbl.get_Busy := CallbackCreate(GetMethod(implObj, "get_Busy"), flags, 2)
+        this.vtbl.GoBack := CallbackCreate(ObjBindMethod(implObj, "GoBack"), flags, 1)
+        this.vtbl.GoForward := CallbackCreate(ObjBindMethod(implObj, "GoForward"), flags, 1)
+        this.vtbl.GoHome := CallbackCreate(ObjBindMethod(implObj, "GoHome"), flags, 1)
+        this.vtbl.GoSearch := CallbackCreate(ObjBindMethod(implObj, "GoSearch"), flags, 1)
+        this.vtbl.Navigate := CallbackCreate(ObjBindMethod(implObj, "Navigate"), flags, 6)
+        this.vtbl.Refresh := CallbackCreate(ObjBindMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.Refresh2 := CallbackCreate(ObjBindMethod(implObj, "Refresh2"), flags, 2)
+        this.vtbl.Stop := CallbackCreate(ObjBindMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.get_Application := CallbackCreate(ObjBindMethod(implObj, "get_Application"), flags, 2)
+        this.vtbl.get_Parent := CallbackCreate(ObjBindMethod(implObj, "get_Parent"), flags, 2)
+        this.vtbl.get_Container := CallbackCreate(ObjBindMethod(implObj, "get_Container"), flags, 2)
+        this.vtbl.get_Document := CallbackCreate(ObjBindMethod(implObj, "get_Document"), flags, 2)
+        this.vtbl.get_TopLevelContainer := CallbackCreate(ObjBindMethod(implObj, "get_TopLevelContainer"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(ObjBindMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_Left := CallbackCreate(ObjBindMethod(implObj, "get_Left"), flags, 2)
+        this.vtbl.put_Left := CallbackCreate(ObjBindMethod(implObj, "put_Left"), flags, 2)
+        this.vtbl.get_Top := CallbackCreate(ObjBindMethod(implObj, "get_Top"), flags, 2)
+        this.vtbl.put_Top := CallbackCreate(ObjBindMethod(implObj, "put_Top"), flags, 2)
+        this.vtbl.get_Width := CallbackCreate(ObjBindMethod(implObj, "get_Width"), flags, 2)
+        this.vtbl.put_Width := CallbackCreate(ObjBindMethod(implObj, "put_Width"), flags, 2)
+        this.vtbl.get_Height := CallbackCreate(ObjBindMethod(implObj, "get_Height"), flags, 2)
+        this.vtbl.put_Height := CallbackCreate(ObjBindMethod(implObj, "put_Height"), flags, 2)
+        this.vtbl.get_LocationName := CallbackCreate(ObjBindMethod(implObj, "get_LocationName"), flags, 2)
+        this.vtbl.get_LocationURL := CallbackCreate(ObjBindMethod(implObj, "get_LocationURL"), flags, 2)
+        this.vtbl.get_Busy := CallbackCreate(ObjBindMethod(implObj, "get_Busy"), flags, 2)
     }
 
     Dispose() {

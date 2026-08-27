@@ -258,7 +258,7 @@ export default struct IRichEditOleCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/richole/nf-richole-iricheditolecallback-queryacceptdata
      */
     QueryAcceptData(lpdataobj, lpcfFormat, reco, fReally, hMetaPict) {
-        lpcfFormatMarshal := lpcfFormat is VarRef ? "ushort*" : "ptr"
+        lpcfFormatMarshal := lpcfFormat is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(8, this, "ptr", lpdataobj, lpcfFormatMarshal, lpcfFormat, RECO_FLAGS, reco, BOOL, fReally, HGLOBAL, hMetaPict, "HRESULT")
         return result
@@ -364,7 +364,7 @@ export default struct IRichEditOleCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/richole/nf-richole-iricheditolecallback-getdragdropeffect
      */
     GetDragDropEffect(fDrag, grfKeyState, pdwEffect) {
-        pdwEffectMarshal := pdwEffect is VarRef ? "uint*" : "ptr"
+        pdwEffectMarshal := pdwEffect is VarRef ? "uint*" : IntPtr
 
         result := ComCall(11, this, BOOL, fDrag, MODIFIERKEYS_FLAGS, grfKeyState, pdwEffectMarshal, pdwEffect, "HRESULT")
         return result
@@ -428,16 +428,16 @@ export default struct IRichEditOleCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNewStorage := CallbackCreate(GetMethod(implObj, "GetNewStorage"), flags, 2)
-        this.vtbl.GetInPlaceContext := CallbackCreate(GetMethod(implObj, "GetInPlaceContext"), flags, 4)
-        this.vtbl.ShowContainerUI := CallbackCreate(GetMethod(implObj, "ShowContainerUI"), flags, 2)
-        this.vtbl.QueryInsertObject := CallbackCreate(GetMethod(implObj, "QueryInsertObject"), flags, 4)
-        this.vtbl.DeleteObject := CallbackCreate(GetMethod(implObj, "DeleteObject"), flags, 2)
-        this.vtbl.QueryAcceptData := CallbackCreate(GetMethod(implObj, "QueryAcceptData"), flags, 6)
-        this.vtbl.ContextSensitiveHelp := CallbackCreate(GetMethod(implObj, "ContextSensitiveHelp"), flags, 2)
-        this.vtbl.GetClipboardData := CallbackCreate(GetMethod(implObj, "GetClipboardData"), flags, 4)
-        this.vtbl.GetDragDropEffect := CallbackCreate(GetMethod(implObj, "GetDragDropEffect"), flags, 4)
-        this.vtbl.GetContextMenu := CallbackCreate(GetMethod(implObj, "GetContextMenu"), flags, 5)
+        this.vtbl.GetNewStorage := CallbackCreate(ObjBindMethod(implObj, "GetNewStorage"), flags, 2)
+        this.vtbl.GetInPlaceContext := CallbackCreate(ObjBindMethod(implObj, "GetInPlaceContext"), flags, 4)
+        this.vtbl.ShowContainerUI := CallbackCreate(ObjBindMethod(implObj, "ShowContainerUI"), flags, 2)
+        this.vtbl.QueryInsertObject := CallbackCreate(ObjBindMethod(implObj, "QueryInsertObject"), flags, 4)
+        this.vtbl.DeleteObject := CallbackCreate(ObjBindMethod(implObj, "DeleteObject"), flags, 2)
+        this.vtbl.QueryAcceptData := CallbackCreate(ObjBindMethod(implObj, "QueryAcceptData"), flags, 6)
+        this.vtbl.ContextSensitiveHelp := CallbackCreate(ObjBindMethod(implObj, "ContextSensitiveHelp"), flags, 2)
+        this.vtbl.GetClipboardData := CallbackCreate(ObjBindMethod(implObj, "GetClipboardData"), flags, 4)
+        this.vtbl.GetDragDropEffect := CallbackCreate(ObjBindMethod(implObj, "GetDragDropEffect"), flags, 4)
+        this.vtbl.GetContextMenu := CallbackCreate(ObjBindMethod(implObj, "GetContextMenu"), flags, 5)
     }
 
     Dispose() {

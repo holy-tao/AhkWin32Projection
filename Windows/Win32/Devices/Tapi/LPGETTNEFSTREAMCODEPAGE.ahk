@@ -20,15 +20,14 @@ export default struct LPGETTNEFSTREAMCODEPAGE {
     }
 
     /**
-     * 
      * @param {IStream} lpStream 
      * @param {Pointer<Integer>} lpulCodepage 
      * @param {Pointer<Integer>} lpulSubCodepage 
      * @returns {HRESULT} 
      */
     Call(lpStream, lpulCodepage, lpulSubCodepage) {
-        lpulCodepageMarshal := lpulCodepage is VarRef ? "uint*" : "ptr"
-        lpulSubCodepageMarshal := lpulSubCodepage is VarRef ? "uint*" : "ptr"
+        lpulCodepageMarshal := lpulCodepage is VarRef ? "uint*" : IntPtr
+        lpulSubCodepageMarshal := lpulSubCodepage is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, "ptr", lpStream, lpulCodepageMarshal, lpulCodepage, lpulSubCodepageMarshal, lpulSubCodepage, "HRESULT")
         return result

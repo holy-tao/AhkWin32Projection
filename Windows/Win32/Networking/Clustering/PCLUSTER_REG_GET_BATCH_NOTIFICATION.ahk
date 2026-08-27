@@ -20,13 +20,12 @@ export default struct PCLUSTER_REG_GET_BATCH_NOTIFICATION {
     }
 
     /**
-     * 
      * @param {HREGBATCHPORT} hBatchNotify 
      * @param {Pointer<HREGBATCHNOTIFICATION>} phBatchNotification 
      * @returns {Integer} 
      */
     Call(hBatchNotify, phBatchNotification) {
-        phBatchNotificationMarshal := phBatchNotification is VarRef ? "ptr*" : "ptr"
+        phBatchNotificationMarshal := phBatchNotification is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, HREGBATCHPORT, hBatchNotify, phBatchNotificationMarshal, phBatchNotification, Int32)
         return result

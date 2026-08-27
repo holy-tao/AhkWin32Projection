@@ -173,11 +173,11 @@ export default struct IDistributorNotify extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
-        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
-        this.vtbl.Run := CallbackCreate(GetMethod(implObj, "Run"), flags, 2)
-        this.vtbl.SetSyncSource := CallbackCreate(GetMethod(implObj, "SetSyncSource"), flags, 2)
-        this.vtbl.NotifyGraphChange := CallbackCreate(GetMethod(implObj, "NotifyGraphChange"), flags, 1)
+        this.vtbl.Stop := CallbackCreate(ObjBindMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.Pause := CallbackCreate(ObjBindMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Run := CallbackCreate(ObjBindMethod(implObj, "Run"), flags, 2)
+        this.vtbl.SetSyncSource := CallbackCreate(ObjBindMethod(implObj, "SetSyncSource"), flags, 2)
+        this.vtbl.NotifyGraphChange := CallbackCreate(ObjBindMethod(implObj, "NotifyGraphChange"), flags, 1)
     }
 
     Dispose() {

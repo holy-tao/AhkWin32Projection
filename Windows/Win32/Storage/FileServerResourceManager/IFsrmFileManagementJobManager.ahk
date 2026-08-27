@@ -141,11 +141,11 @@ export default struct IFsrmFileManagementJobManager extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ActionVariables := CallbackCreate(GetMethod(implObj, "get_ActionVariables"), flags, 2)
-        this.vtbl.get_ActionVariableDescriptions := CallbackCreate(GetMethod(implObj, "get_ActionVariableDescriptions"), flags, 2)
-        this.vtbl.EnumFileManagementJobs := CallbackCreate(GetMethod(implObj, "EnumFileManagementJobs"), flags, 3)
-        this.vtbl.CreateFileManagementJob := CallbackCreate(GetMethod(implObj, "CreateFileManagementJob"), flags, 2)
-        this.vtbl.GetFileManagementJob := CallbackCreate(GetMethod(implObj, "GetFileManagementJob"), flags, 3)
+        this.vtbl.get_ActionVariables := CallbackCreate(ObjBindMethod(implObj, "get_ActionVariables"), flags, 2)
+        this.vtbl.get_ActionVariableDescriptions := CallbackCreate(ObjBindMethod(implObj, "get_ActionVariableDescriptions"), flags, 2)
+        this.vtbl.EnumFileManagementJobs := CallbackCreate(ObjBindMethod(implObj, "EnumFileManagementJobs"), flags, 3)
+        this.vtbl.CreateFileManagementJob := CallbackCreate(ObjBindMethod(implObj, "CreateFileManagementJob"), flags, 2)
+        this.vtbl.GetFileManagementJob := CallbackCreate(ObjBindMethod(implObj, "GetFileManagementJob"), flags, 3)
     }
 
     Dispose() {

@@ -75,7 +75,7 @@ export default struct IFolderViewSettings extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderviewsettings-getgroupbyproperty
      */
     GetGroupByProperty(pkey, pfGroupAscending) {
-        pfGroupAscendingMarshal := pfGroupAscending is VarRef ? "int*" : "ptr"
+        pfGroupAscendingMarshal := pfGroupAscending is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, PROPERTYKEY.Ptr, pkey, pfGroupAscendingMarshal, pfGroupAscending, "HRESULT")
         return result
@@ -119,8 +119,8 @@ export default struct IFolderViewSettings extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderviewsettings-getfolderflags
      */
     GetFolderFlags(pfolderMask, pfolderFlags) {
-        pfolderMaskMarshal := pfolderMask is VarRef ? "int*" : "ptr"
-        pfolderFlagsMarshal := pfolderFlags is VarRef ? "int*" : "ptr"
+        pfolderMaskMarshal := pfolderMask is VarRef ? "int*" : IntPtr
+        pfolderFlagsMarshal := pfolderFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, pfolderMaskMarshal, pfolderMask, pfolderFlagsMarshal, pfolderFlags, "HRESULT")
         return result
@@ -143,7 +143,7 @@ export default struct IFolderViewSettings extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderviewsettings-getsortcolumns
      */
     GetSortColumns(rgSortColumns, cColumnsIn, pcColumnsOut) {
-        pcColumnsOutMarshal := pcColumnsOut is VarRef ? "uint*" : "ptr"
+        pcColumnsOutMarshal := pcColumnsOut is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, SORTCOLUMN.Ptr, rgSortColumns, UInt32, cColumnsIn, pcColumnsOutMarshal, pcColumnsOut, "HRESULT")
         return result
@@ -170,13 +170,13 @@ export default struct IFolderViewSettings extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetColumnPropertyList := CallbackCreate(GetMethod(implObj, "GetColumnPropertyList"), flags, 3)
-        this.vtbl.GetGroupByProperty := CallbackCreate(GetMethod(implObj, "GetGroupByProperty"), flags, 3)
-        this.vtbl.GetViewMode := CallbackCreate(GetMethod(implObj, "GetViewMode"), flags, 2)
-        this.vtbl.GetIconSize := CallbackCreate(GetMethod(implObj, "GetIconSize"), flags, 2)
-        this.vtbl.GetFolderFlags := CallbackCreate(GetMethod(implObj, "GetFolderFlags"), flags, 3)
-        this.vtbl.GetSortColumns := CallbackCreate(GetMethod(implObj, "GetSortColumns"), flags, 4)
-        this.vtbl.GetGroupSubsetCount := CallbackCreate(GetMethod(implObj, "GetGroupSubsetCount"), flags, 2)
+        this.vtbl.GetColumnPropertyList := CallbackCreate(ObjBindMethod(implObj, "GetColumnPropertyList"), flags, 3)
+        this.vtbl.GetGroupByProperty := CallbackCreate(ObjBindMethod(implObj, "GetGroupByProperty"), flags, 3)
+        this.vtbl.GetViewMode := CallbackCreate(ObjBindMethod(implObj, "GetViewMode"), flags, 2)
+        this.vtbl.GetIconSize := CallbackCreate(ObjBindMethod(implObj, "GetIconSize"), flags, 2)
+        this.vtbl.GetFolderFlags := CallbackCreate(ObjBindMethod(implObj, "GetFolderFlags"), flags, 3)
+        this.vtbl.GetSortColumns := CallbackCreate(ObjBindMethod(implObj, "GetSortColumns"), flags, 4)
+        this.vtbl.GetGroupSubsetCount := CallbackCreate(ObjBindMethod(implObj, "GetGroupSubsetCount"), flags, 2)
     }
 
     Dispose() {

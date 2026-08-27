@@ -21,7 +21,6 @@ export default struct PCLUSAPI_CLUSTER_REG_CREATE_KEY_EX {
     }
 
     /**
-     * 
      * @param {HKEY} _hKey 
      * @param {PWSTR} lpszSubKey 
      * @param {Integer} dwOptions 
@@ -36,9 +35,12 @@ export default struct PCLUSAPI_CLUSTER_REG_CREATE_KEY_EX {
         lpszSubKey := lpszSubKey is String ? StrPtr(lpszSubKey) : lpszSubKey
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        lpdwDispositionMarshal := lpdwDisposition is VarRef ? "uint*" : "ptr"
+        lpSecurityAttributesMarshal := lpSecurityAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+        lpdwDispositionMarshal := lpdwDisposition is VarRef ? "uint*" : IntPtr
+        lpdwDispositionMarshal := lpdwDisposition == 0 ? IntPtr : "uint*"
+        lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
 
-        result := DllCall(this.value, HKEY, _hKey, "ptr", lpszSubKey, UInt32, dwOptions, UInt32, samDesired, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, HKEY.Ptr, phkResult, lpdwDispositionMarshal, lpdwDisposition, "ptr", lpszReason, Int32)
+        result := DllCall(this.value, HKEY, _hKey, "ptr", lpszSubKey, UInt32, dwOptions, UInt32, samDesired, lpSecurityAttributesMarshal, lpSecurityAttributes, HKEY.Ptr, phkResult, lpdwDispositionMarshal, lpdwDisposition, lpszReasonMarshal, lpszReason, Int32)
         return result
     }
 

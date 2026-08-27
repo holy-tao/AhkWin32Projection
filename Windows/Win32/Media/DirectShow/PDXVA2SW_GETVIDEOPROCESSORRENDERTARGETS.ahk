@@ -21,7 +21,6 @@ export default struct PDXVA2SW_GETVIDEOPROCESSORRENDERTARGETS {
     }
 
     /**
-     * 
      * @param {Pointer<DXVA2_VideoDesc>} pVideoDesc 
      * @param {Integer} Count 
      * @returns {D3DFORMAT} 

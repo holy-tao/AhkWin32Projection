@@ -665,14 +665,14 @@ export default struct ITfInputProcessorProfileMgr extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ActivateProfile := CallbackCreate(GetMethod(implObj, "ActivateProfile"), flags, 7)
-        this.vtbl.DeactivateProfile := CallbackCreate(GetMethod(implObj, "DeactivateProfile"), flags, 7)
-        this.vtbl.GetProfile := CallbackCreate(GetMethod(implObj, "GetProfile"), flags, 7)
-        this.vtbl.EnumProfiles := CallbackCreate(GetMethod(implObj, "EnumProfiles"), flags, 3)
-        this.vtbl.ReleaseInputProcessor := CallbackCreate(GetMethod(implObj, "ReleaseInputProcessor"), flags, 3)
-        this.vtbl.RegisterProfile := CallbackCreate(GetMethod(implObj, "RegisterProfile"), flags, 13)
-        this.vtbl.UnregisterProfile := CallbackCreate(GetMethod(implObj, "UnregisterProfile"), flags, 5)
-        this.vtbl.GetActiveProfile := CallbackCreate(GetMethod(implObj, "GetActiveProfile"), flags, 3)
+        this.vtbl.ActivateProfile := CallbackCreate(ObjBindMethod(implObj, "ActivateProfile"), flags, 7)
+        this.vtbl.DeactivateProfile := CallbackCreate(ObjBindMethod(implObj, "DeactivateProfile"), flags, 7)
+        this.vtbl.GetProfile := CallbackCreate(ObjBindMethod(implObj, "GetProfile"), flags, 7)
+        this.vtbl.EnumProfiles := CallbackCreate(ObjBindMethod(implObj, "EnumProfiles"), flags, 3)
+        this.vtbl.ReleaseInputProcessor := CallbackCreate(ObjBindMethod(implObj, "ReleaseInputProcessor"), flags, 3)
+        this.vtbl.RegisterProfile := CallbackCreate(ObjBindMethod(implObj, "RegisterProfile"), flags, 13)
+        this.vtbl.UnregisterProfile := CallbackCreate(ObjBindMethod(implObj, "UnregisterProfile"), flags, 5)
+        this.vtbl.GetActiveProfile := CallbackCreate(ObjBindMethod(implObj, "GetActiveProfile"), flags, 3)
     }
 
     Dispose() {

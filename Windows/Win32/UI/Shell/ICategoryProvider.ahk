@@ -189,12 +189,12 @@ export default struct ICategoryProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CanCategorizeOnSCID := CallbackCreate(GetMethod(implObj, "CanCategorizeOnSCID"), flags, 2)
-        this.vtbl.GetDefaultCategory := CallbackCreate(GetMethod(implObj, "GetDefaultCategory"), flags, 3)
-        this.vtbl.GetCategoryForSCID := CallbackCreate(GetMethod(implObj, "GetCategoryForSCID"), flags, 3)
-        this.vtbl.EnumCategories := CallbackCreate(GetMethod(implObj, "EnumCategories"), flags, 2)
-        this.vtbl.GetCategoryName := CallbackCreate(GetMethod(implObj, "GetCategoryName"), flags, 4)
-        this.vtbl.CreateCategory := CallbackCreate(GetMethod(implObj, "CreateCategory"), flags, 4)
+        this.vtbl.CanCategorizeOnSCID := CallbackCreate(ObjBindMethod(implObj, "CanCategorizeOnSCID"), flags, 2)
+        this.vtbl.GetDefaultCategory := CallbackCreate(ObjBindMethod(implObj, "GetDefaultCategory"), flags, 3)
+        this.vtbl.GetCategoryForSCID := CallbackCreate(ObjBindMethod(implObj, "GetCategoryForSCID"), flags, 3)
+        this.vtbl.EnumCategories := CallbackCreate(ObjBindMethod(implObj, "EnumCategories"), flags, 2)
+        this.vtbl.GetCategoryName := CallbackCreate(ObjBindMethod(implObj, "GetCategoryName"), flags, 4)
+        this.vtbl.CreateCategory := CallbackCreate(ObjBindMethod(implObj, "CreateCategory"), flags, 4)
     }
 
     Dispose() {

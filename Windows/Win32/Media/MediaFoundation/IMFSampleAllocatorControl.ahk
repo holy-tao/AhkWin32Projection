@@ -67,8 +67,8 @@ export default struct IMFSampleAllocatorControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsampleallocatorcontrol-getallocatorusage
      */
     GetAllocatorUsage(dwOutputStreamID, pdwInputStreamID, peUsage) {
-        pdwInputStreamIDMarshal := pdwInputStreamID is VarRef ? "uint*" : "ptr"
-        peUsageMarshal := peUsage is VarRef ? "int*" : "ptr"
+        pdwInputStreamIDMarshal := pdwInputStreamID is VarRef ? "uint*" : IntPtr
+        peUsageMarshal := peUsage is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, UInt32, dwOutputStreamID, pdwInputStreamIDMarshal, pdwInputStreamID, peUsageMarshal, peUsage, "HRESULT")
         return result
@@ -83,8 +83,8 @@ export default struct IMFSampleAllocatorControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetDefaultAllocator := CallbackCreate(GetMethod(implObj, "SetDefaultAllocator"), flags, 3)
-        this.vtbl.GetAllocatorUsage := CallbackCreate(GetMethod(implObj, "GetAllocatorUsage"), flags, 4)
+        this.vtbl.SetDefaultAllocator := CallbackCreate(ObjBindMethod(implObj, "SetDefaultAllocator"), flags, 3)
+        this.vtbl.GetAllocatorUsage := CallbackCreate(ObjBindMethod(implObj, "GetAllocatorUsage"), flags, 4)
     }
 
     Dispose() {

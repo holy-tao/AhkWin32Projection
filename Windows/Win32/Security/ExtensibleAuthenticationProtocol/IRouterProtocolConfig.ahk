@@ -39,7 +39,6 @@ export default struct IRouterProtocolConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszMachineName 
      * @param {Integer} dwTransportId 
      * @param {Integer} dwProtocolId 
@@ -57,7 +56,6 @@ export default struct IRouterProtocolConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszMachineName 
      * @param {Integer} dwTransportId 
      * @param {Integer} dwProtocolId 
@@ -83,8 +81,8 @@ export default struct IRouterProtocolConfig extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddProtocol := CallbackCreate(GetMethod(implObj, "AddProtocol"), flags, 8)
-        this.vtbl.RemoveProtocol := CallbackCreate(GetMethod(implObj, "RemoveProtocol"), flags, 8)
+        this.vtbl.AddProtocol := CallbackCreate(ObjBindMethod(implObj, "AddProtocol"), flags, 8)
+        this.vtbl.RemoveProtocol := CallbackCreate(ObjBindMethod(implObj, "RemoveProtocol"), flags, 8)
     }
 
     Dispose() {

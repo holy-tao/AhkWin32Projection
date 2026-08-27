@@ -33,7 +33,6 @@ export default struct LPWSPSENDDISCONNECT {
     }
 
     /**
-     * 
      * @param {SOCKET} s Descriptor identifying a socket.
      * @param {Pointer<WSABUF>} lpOutboundDisconnectData Pointer to the outgoing disconnect data.
      * @param {Pointer<Integer>} lpErrno Pointer to the error code.
@@ -113,9 +112,10 @@ export default struct LPWSPSENDDISCONNECT {
      * </table>
      */
     Call(s, lpOutboundDisconnectData, lpErrno) {
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        lpOutboundDisconnectDataMarshal := lpOutboundDisconnectData == 0 ? IntPtr : WSABUF.Ptr
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
-        result := DllCall(this.value, SOCKET, s, WSABUF.Ptr, lpOutboundDisconnectData, lpErrnoMarshal, lpErrno, Int32)
+        result := DllCall(this.value, SOCKET, s, lpOutboundDisconnectDataMarshal, lpOutboundDisconnectData, lpErrnoMarshal, lpErrno, Int32)
         return result
     }
 

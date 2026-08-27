@@ -56,7 +56,6 @@ export default struct IXMLDOMNodeList extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {IXMLDOMNode} 
      */
@@ -66,7 +65,6 @@ export default struct IXMLDOMNodeList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -75,7 +73,6 @@ export default struct IXMLDOMNodeList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLDOMNode} 
      */
     nextNode() {
@@ -84,7 +81,6 @@ export default struct IXMLDOMNodeList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     reset() {
@@ -93,7 +89,6 @@ export default struct IXMLDOMNodeList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__newEnum() {
@@ -110,11 +105,11 @@ export default struct IXMLDOMNodeList extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_item := CallbackCreate(GetMethod(implObj, "get_item"), flags, 3)
-        this.vtbl.get_length := CallbackCreate(GetMethod(implObj, "get_length"), flags, 2)
-        this.vtbl.nextNode := CallbackCreate(GetMethod(implObj, "nextNode"), flags, 2)
-        this.vtbl.reset := CallbackCreate(GetMethod(implObj, "reset"), flags, 1)
-        this.vtbl.get__newEnum := CallbackCreate(GetMethod(implObj, "get__newEnum"), flags, 2)
+        this.vtbl.get_item := CallbackCreate(ObjBindMethod(implObj, "get_item"), flags, 3)
+        this.vtbl.get_length := CallbackCreate(ObjBindMethod(implObj, "get_length"), flags, 2)
+        this.vtbl.nextNode := CallbackCreate(ObjBindMethod(implObj, "nextNode"), flags, 2)
+        this.vtbl.reset := CallbackCreate(ObjBindMethod(implObj, "reset"), flags, 1)
+        this.vtbl.get__newEnum := CallbackCreate(ObjBindMethod(implObj, "get__newEnum"), flags, 2)
     }
 
     Dispose() {

@@ -92,8 +92,8 @@ export default struct IBackgroundCopyJobHttpOptions2 extends IBackgroundCopyJobH
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetHttpMethod := CallbackCreate(GetMethod(implObj, "SetHttpMethod"), flags, 2)
-        this.vtbl.GetHttpMethod := CallbackCreate(GetMethod(implObj, "GetHttpMethod"), flags, 2)
+        this.vtbl.SetHttpMethod := CallbackCreate(ObjBindMethod(implObj, "SetHttpMethod"), flags, 2)
+        this.vtbl.GetHttpMethod := CallbackCreate(ObjBindMethod(implObj, "GetHttpMethod"), flags, 2)
     }
 
     Dispose() {

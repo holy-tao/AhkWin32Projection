@@ -73,7 +73,6 @@ export default struct IPMExtensionInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     get_SupplierPID() {
@@ -83,7 +82,6 @@ export default struct IPMExtensionInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pSupplierTID 
      * @returns {HRESULT} 
      */
@@ -93,7 +91,6 @@ export default struct IPMExtensionInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pTitle 
      * @returns {HRESULT} 
      */
@@ -103,7 +100,6 @@ export default struct IPMExtensionInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pIconPath 
      * @returns {HRESULT} 
      */
@@ -113,7 +109,6 @@ export default struct IPMExtensionInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pFilePath 
      * @returns {HRESULT} 
      */
@@ -123,7 +118,6 @@ export default struct IPMExtensionInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pImageUrn 
      * @param {Pointer<BSTR>} pParameters 
      * @returns {HRESULT} 
@@ -142,12 +136,12 @@ export default struct IPMExtensionInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_SupplierPID := CallbackCreate(GetMethod(implObj, "get_SupplierPID"), flags, 2)
-        this.vtbl.get_SupplierTaskID := CallbackCreate(GetMethod(implObj, "get_SupplierTaskID"), flags, 2)
-        this.vtbl.get_Title := CallbackCreate(GetMethod(implObj, "get_Title"), flags, 2)
-        this.vtbl.get_IconPath := CallbackCreate(GetMethod(implObj, "get_IconPath"), flags, 2)
-        this.vtbl.get_ExtraFile := CallbackCreate(GetMethod(implObj, "get_ExtraFile"), flags, 2)
-        this.vtbl.get_InvocationInfo := CallbackCreate(GetMethod(implObj, "get_InvocationInfo"), flags, 3)
+        this.vtbl.get_SupplierPID := CallbackCreate(ObjBindMethod(implObj, "get_SupplierPID"), flags, 2)
+        this.vtbl.get_SupplierTaskID := CallbackCreate(ObjBindMethod(implObj, "get_SupplierTaskID"), flags, 2)
+        this.vtbl.get_Title := CallbackCreate(ObjBindMethod(implObj, "get_Title"), flags, 2)
+        this.vtbl.get_IconPath := CallbackCreate(ObjBindMethod(implObj, "get_IconPath"), flags, 2)
+        this.vtbl.get_ExtraFile := CallbackCreate(ObjBindMethod(implObj, "get_ExtraFile"), flags, 2)
+        this.vtbl.get_InvocationInfo := CallbackCreate(ObjBindMethod(implObj, "get_InvocationInfo"), flags, 3)
     }
 
     Dispose() {

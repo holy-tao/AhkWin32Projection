@@ -37,7 +37,6 @@ export default struct IFClipNotificationHelper extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} titleText 
      * @param {BSTR} bodyText 
      * @returns {HRESULT} 
@@ -59,7 +58,7 @@ export default struct IFClipNotificationHelper extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ShowSystemDialog := CallbackCreate(GetMethod(implObj, "ShowSystemDialog"), flags, 3)
+        this.vtbl.ShowSystemDialog := CallbackCreate(ObjBindMethod(implObj, "ShowSystemDialog"), flags, 3)
     }
 
     Dispose() {

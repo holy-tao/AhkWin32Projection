@@ -63,7 +63,6 @@ export default struct IDocHostUIHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwID 
      * @param {Pointer<POINT>} ppt 
      * @param {IUnknown} pcmdtReserved 
@@ -76,7 +75,6 @@ export default struct IDocHostUIHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DOCHOSTUIINFO>} pInfo 
      * @returns {HRESULT} 
      */
@@ -86,7 +84,6 @@ export default struct IDocHostUIHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwID 
      * @param {IOleInPlaceActiveObject} pActiveObject 
      * @param {IOleCommandTarget} pCommandTarget 
@@ -100,7 +97,6 @@ export default struct IDocHostUIHandler extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     HideUI() {
@@ -109,7 +105,6 @@ export default struct IDocHostUIHandler extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     UpdateUI() {
@@ -118,7 +113,6 @@ export default struct IDocHostUIHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fEnable 
      * @returns {HRESULT} 
      */
@@ -128,7 +122,6 @@ export default struct IDocHostUIHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fActivate 
      * @returns {HRESULT} 
      */
@@ -138,7 +131,6 @@ export default struct IDocHostUIHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fActivate 
      * @returns {HRESULT} 
      */
@@ -148,7 +140,6 @@ export default struct IDocHostUIHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<RECT>} prcBorder 
      * @param {IOleInPlaceUIWindow} pUIWindow 
      * @param {BOOL} fRameWindow 
@@ -203,7 +194,6 @@ export default struct IDocHostUIHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dw 
      * @returns {PWSTR} 
      */
@@ -213,7 +203,6 @@ export default struct IDocHostUIHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDropTarget} pDropTarget 
      * @returns {IDropTarget} 
      */
@@ -223,7 +212,6 @@ export default struct IDocHostUIHandler extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     GetExternal() {
@@ -232,7 +220,6 @@ export default struct IDocHostUIHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwTranslate 
      * @param {PWSTR} pchURLIn 
      * @returns {PWSTR} 
@@ -245,7 +232,6 @@ export default struct IDocHostUIHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDataObject} pDO 
      * @returns {IDataObject} 
      */
@@ -263,21 +249,21 @@ export default struct IDocHostUIHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ShowContextMenu := CallbackCreate(GetMethod(implObj, "ShowContextMenu"), flags, 5)
-        this.vtbl.GetHostInfo := CallbackCreate(GetMethod(implObj, "GetHostInfo"), flags, 2)
-        this.vtbl.ShowUI := CallbackCreate(GetMethod(implObj, "ShowUI"), flags, 6)
-        this.vtbl.HideUI := CallbackCreate(GetMethod(implObj, "HideUI"), flags, 1)
-        this.vtbl.UpdateUI := CallbackCreate(GetMethod(implObj, "UpdateUI"), flags, 1)
-        this.vtbl.EnableModeless := CallbackCreate(GetMethod(implObj, "EnableModeless"), flags, 2)
-        this.vtbl.OnDocWindowActivate := CallbackCreate(GetMethod(implObj, "OnDocWindowActivate"), flags, 2)
-        this.vtbl.OnFrameWindowActivate := CallbackCreate(GetMethod(implObj, "OnFrameWindowActivate"), flags, 2)
-        this.vtbl.ResizeBorder := CallbackCreate(GetMethod(implObj, "ResizeBorder"), flags, 4)
-        this.vtbl.TranslateAccelerator := CallbackCreate(GetMethod(implObj, "TranslateAccelerator"), flags, 4)
-        this.vtbl.GetOptionKeyPath := CallbackCreate(GetMethod(implObj, "GetOptionKeyPath"), flags, 3)
-        this.vtbl.GetDropTarget := CallbackCreate(GetMethod(implObj, "GetDropTarget"), flags, 3)
-        this.vtbl.GetExternal := CallbackCreate(GetMethod(implObj, "GetExternal"), flags, 2)
-        this.vtbl.TranslateUrl := CallbackCreate(GetMethod(implObj, "TranslateUrl"), flags, 4)
-        this.vtbl.FilterDataObject := CallbackCreate(GetMethod(implObj, "FilterDataObject"), flags, 3)
+        this.vtbl.ShowContextMenu := CallbackCreate(ObjBindMethod(implObj, "ShowContextMenu"), flags, 5)
+        this.vtbl.GetHostInfo := CallbackCreate(ObjBindMethod(implObj, "GetHostInfo"), flags, 2)
+        this.vtbl.ShowUI := CallbackCreate(ObjBindMethod(implObj, "ShowUI"), flags, 6)
+        this.vtbl.HideUI := CallbackCreate(ObjBindMethod(implObj, "HideUI"), flags, 1)
+        this.vtbl.UpdateUI := CallbackCreate(ObjBindMethod(implObj, "UpdateUI"), flags, 1)
+        this.vtbl.EnableModeless := CallbackCreate(ObjBindMethod(implObj, "EnableModeless"), flags, 2)
+        this.vtbl.OnDocWindowActivate := CallbackCreate(ObjBindMethod(implObj, "OnDocWindowActivate"), flags, 2)
+        this.vtbl.OnFrameWindowActivate := CallbackCreate(ObjBindMethod(implObj, "OnFrameWindowActivate"), flags, 2)
+        this.vtbl.ResizeBorder := CallbackCreate(ObjBindMethod(implObj, "ResizeBorder"), flags, 4)
+        this.vtbl.TranslateAccelerator := CallbackCreate(ObjBindMethod(implObj, "TranslateAccelerator"), flags, 4)
+        this.vtbl.GetOptionKeyPath := CallbackCreate(ObjBindMethod(implObj, "GetOptionKeyPath"), flags, 3)
+        this.vtbl.GetDropTarget := CallbackCreate(ObjBindMethod(implObj, "GetDropTarget"), flags, 3)
+        this.vtbl.GetExternal := CallbackCreate(ObjBindMethod(implObj, "GetExternal"), flags, 2)
+        this.vtbl.TranslateUrl := CallbackCreate(ObjBindMethod(implObj, "TranslateUrl"), flags, 4)
+        this.vtbl.FilterDataObject := CallbackCreate(ObjBindMethod(implObj, "FilterDataObject"), flags, 3)
     }
 
     Dispose() {

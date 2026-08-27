@@ -20,7 +20,6 @@ export default struct PFN_D3D12_GET_INTERFACE {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} param0 
      * @param {Pointer<Guid>} param1 
      * @returns {Pointer<Void>} 

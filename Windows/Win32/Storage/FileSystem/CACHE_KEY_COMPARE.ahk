@@ -18,7 +18,6 @@ export default struct CACHE_KEY_COMPARE {
     }
 
     /**
-     * 
      * @param {Integer} cbKey1 
      * @param {Pointer<Integer>} lpbKey1 
      * @param {Integer} cbKey2 
@@ -26,8 +25,8 @@ export default struct CACHE_KEY_COMPARE {
      * @returns {Integer} 
      */
     Call(cbKey1, lpbKey1, cbKey2, lpbKey2) {
-        lpbKey1Marshal := lpbKey1 is VarRef ? "char*" : "ptr"
-        lpbKey2Marshal := lpbKey2 is VarRef ? "char*" : "ptr"
+        lpbKey1Marshal := lpbKey1 is VarRef ? "char*" : IntPtr
+        lpbKey2Marshal := lpbKey2 is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, UInt32, cbKey1, lpbKey1Marshal, lpbKey1, UInt32, cbKey2, lpbKey2Marshal, lpbKey2, Int32)
         return result

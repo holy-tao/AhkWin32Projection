@@ -22,7 +22,6 @@ export default struct PFSCE_SET_INFO {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} sceHandle Type: <b>SCE_HANDLE</b>
      * 
      * Specifies the opaque SCE handle passed to the attachment by the Security Configuration tool set during the call to 
@@ -182,9 +181,9 @@ export default struct PFSCE_SET_INFO {
      * </table>
      */
     Call(sceHandle, sceType, lpPrefix, bExact, pvInfo) {
-        sceHandleMarshal := sceHandle is VarRef ? "ptr" : "ptr"
-        lpPrefixMarshal := lpPrefix is VarRef ? "char*" : "ptr"
-        pvInfoMarshal := pvInfo is VarRef ? "ptr" : "ptr"
+        sceHandleMarshal := sceHandle is VarRef ? "ptr" : IntPtr
+        lpPrefixMarshal := lpPrefix is VarRef ? "char*" : IntPtr
+        pvInfoMarshal := pvInfo is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, sceHandleMarshal, sceHandle, SCESVC_INFO_TYPE, sceType, lpPrefixMarshal, lpPrefix, BOOL, bExact, pvInfoMarshal, pvInfo, UInt32)
         return result

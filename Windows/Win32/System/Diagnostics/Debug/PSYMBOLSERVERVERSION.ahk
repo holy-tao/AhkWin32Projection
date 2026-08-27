@@ -18,7 +18,6 @@ export default struct PSYMBOLSERVERVERSION {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Call() {

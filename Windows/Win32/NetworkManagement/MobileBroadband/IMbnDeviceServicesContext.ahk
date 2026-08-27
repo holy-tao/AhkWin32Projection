@@ -113,10 +113,10 @@ export default struct IMbnDeviceServicesContext extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumerateDeviceServices := CallbackCreate(GetMethod(implObj, "EnumerateDeviceServices"), flags, 2)
-        this.vtbl.GetDeviceService := CallbackCreate(GetMethod(implObj, "GetDeviceService"), flags, 3)
-        this.vtbl.get_MaxCommandSize := CallbackCreate(GetMethod(implObj, "get_MaxCommandSize"), flags, 2)
-        this.vtbl.get_MaxDataSize := CallbackCreate(GetMethod(implObj, "get_MaxDataSize"), flags, 2)
+        this.vtbl.EnumerateDeviceServices := CallbackCreate(ObjBindMethod(implObj, "EnumerateDeviceServices"), flags, 2)
+        this.vtbl.GetDeviceService := CallbackCreate(ObjBindMethod(implObj, "GetDeviceService"), flags, 3)
+        this.vtbl.get_MaxCommandSize := CallbackCreate(ObjBindMethod(implObj, "get_MaxCommandSize"), flags, 2)
+        this.vtbl.get_MaxDataSize := CallbackCreate(ObjBindMethod(implObj, "get_MaxDataSize"), flags, 2)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct PREPLACE_MAP_MEMORY {
     }
 
     /**
-     * 
      * @param {Integer} TargetPhysicalAddress 
      * @param {Integer} SparePhysicalAddress 
      * @param {Pointer<Integer>} NumberOfBytes 
@@ -28,9 +27,9 @@ export default struct PREPLACE_MAP_MEMORY {
      * @returns {NTSTATUS} 
      */
     Call(TargetPhysicalAddress, SparePhysicalAddress, NumberOfBytes, TargetAddress, SpareAddress) {
-        NumberOfBytesMarshal := NumberOfBytes is VarRef ? "int64*" : "ptr"
-        TargetAddressMarshal := TargetAddress is VarRef ? "ptr*" : "ptr"
-        SpareAddressMarshal := SpareAddress is VarRef ? "ptr*" : "ptr"
+        NumberOfBytesMarshal := NumberOfBytes is VarRef ? "int64*" : IntPtr
+        TargetAddressMarshal := TargetAddress is VarRef ? "ptr*" : IntPtr
+        SpareAddressMarshal := SpareAddress is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, Int64, TargetPhysicalAddress, Int64, SparePhysicalAddress, NumberOfBytesMarshal, NumberOfBytes, TargetAddressMarshal, TargetAddress, SpareAddressMarshal, SpareAddress, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

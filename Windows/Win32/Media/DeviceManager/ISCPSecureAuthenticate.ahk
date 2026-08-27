@@ -57,7 +57,7 @@ export default struct ISCPSecureAuthenticate extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSecureQuery := CallbackCreate(GetMethod(implObj, "GetSecureQuery"), flags, 2)
+        this.vtbl.GetSecureQuery := CallbackCreate(ObjBindMethod(implObj, "GetSecureQuery"), flags, 2)
     }
 
     Dispose() {

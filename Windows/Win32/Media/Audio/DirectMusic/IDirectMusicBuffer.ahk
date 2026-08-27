@@ -61,19 +61,17 @@ export default struct IDirectMusicBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} prtTime 
      * @returns {HRESULT} 
      */
     TotalTime(prtTime) {
-        prtTimeMarshal := prtTime is VarRef ? "int64*" : "ptr"
+        prtTimeMarshal := prtTime is VarRef ? "int64*" : IntPtr
 
         result := ComCall(4, this, prtTimeMarshal, prtTime, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} rt 
      * @param {Integer} dwChannelGroup 
      * @param {Integer} dwChannelMessage 
@@ -85,7 +83,6 @@ export default struct IDirectMusicBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} rt 
      * @param {Integer} dwChannelGroup 
      * @param {Integer} cb 
@@ -93,14 +90,13 @@ export default struct IDirectMusicBuffer extends IUnknown {
      * @returns {HRESULT} 
      */
     PackUnstructured(rt, dwChannelGroup, cb, lpb) {
-        lpbMarshal := lpb is VarRef ? "char*" : "ptr"
+        lpbMarshal := lpb is VarRef ? "char*" : IntPtr
 
         result := ComCall(6, this, Int64, rt, UInt32, dwChannelGroup, UInt32, cb, lpbMarshal, lpb, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ResetReadPtr() {
@@ -109,7 +105,6 @@ export default struct IDirectMusicBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} prt 
      * @param {Pointer<Integer>} pdwChannelGroup 
      * @param {Pointer<Integer>} pdwLength 
@@ -117,65 +112,60 @@ export default struct IDirectMusicBuffer extends IUnknown {
      * @returns {HRESULT} 
      */
     GetNextEvent(prt, pdwChannelGroup, pdwLength, ppData) {
-        prtMarshal := prt is VarRef ? "int64*" : "ptr"
-        pdwChannelGroupMarshal := pdwChannelGroup is VarRef ? "uint*" : "ptr"
-        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
-        ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
+        prtMarshal := prt is VarRef ? "int64*" : IntPtr
+        pdwChannelGroupMarshal := pdwChannelGroup is VarRef ? "uint*" : IntPtr
+        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : IntPtr
+        ppDataMarshal := ppData is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(8, this, prtMarshal, prt, pdwChannelGroupMarshal, pdwChannelGroup, pdwLengthMarshal, pdwLength, ppDataMarshal, ppData, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Integer>>} ppData 
      * @returns {HRESULT} 
      */
     GetRawBufferPtr(ppData) {
-        ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
+        ppDataMarshal := ppData is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(9, this, ppDataMarshal, ppData, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} prt 
      * @returns {HRESULT} 
      */
     GetStartTime(prt) {
-        prtMarshal := prt is VarRef ? "int64*" : "ptr"
+        prtMarshal := prt is VarRef ? "int64*" : IntPtr
 
         result := ComCall(10, this, prtMarshal, prt, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcb 
      * @returns {HRESULT} 
      */
     GetUsedBytes(pcb) {
-        pcbMarshal := pcb is VarRef ? "uint*" : "ptr"
+        pcbMarshal := pcb is VarRef ? "uint*" : IntPtr
 
         result := ComCall(11, this, pcbMarshal, pcb, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcb 
      * @returns {HRESULT} 
      */
     GetMaxBytes(pcb) {
-        pcbMarshal := pcb is VarRef ? "uint*" : "ptr"
+        pcbMarshal := pcb is VarRef ? "uint*" : IntPtr
 
         result := ComCall(12, this, pcbMarshal, pcb, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pGuidFormat 
      * @returns {HRESULT} 
      */
@@ -185,7 +175,6 @@ export default struct IDirectMusicBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} rt 
      * @returns {HRESULT} 
      */
@@ -195,7 +184,6 @@ export default struct IDirectMusicBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cb 
      * @returns {HRESULT} 
      */
@@ -213,19 +201,19 @@ export default struct IDirectMusicBuffer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Flush := CallbackCreate(GetMethod(implObj, "Flush"), flags, 1)
-        this.vtbl.TotalTime := CallbackCreate(GetMethod(implObj, "TotalTime"), flags, 2)
-        this.vtbl.PackStructured := CallbackCreate(GetMethod(implObj, "PackStructured"), flags, 4)
-        this.vtbl.PackUnstructured := CallbackCreate(GetMethod(implObj, "PackUnstructured"), flags, 5)
-        this.vtbl.ResetReadPtr := CallbackCreate(GetMethod(implObj, "ResetReadPtr"), flags, 1)
-        this.vtbl.GetNextEvent := CallbackCreate(GetMethod(implObj, "GetNextEvent"), flags, 5)
-        this.vtbl.GetRawBufferPtr := CallbackCreate(GetMethod(implObj, "GetRawBufferPtr"), flags, 2)
-        this.vtbl.GetStartTime := CallbackCreate(GetMethod(implObj, "GetStartTime"), flags, 2)
-        this.vtbl.GetUsedBytes := CallbackCreate(GetMethod(implObj, "GetUsedBytes"), flags, 2)
-        this.vtbl.GetMaxBytes := CallbackCreate(GetMethod(implObj, "GetMaxBytes"), flags, 2)
-        this.vtbl.GetBufferFormat := CallbackCreate(GetMethod(implObj, "GetBufferFormat"), flags, 2)
-        this.vtbl.SetStartTime := CallbackCreate(GetMethod(implObj, "SetStartTime"), flags, 2)
-        this.vtbl.SetUsedBytes := CallbackCreate(GetMethod(implObj, "SetUsedBytes"), flags, 2)
+        this.vtbl.Flush := CallbackCreate(ObjBindMethod(implObj, "Flush"), flags, 1)
+        this.vtbl.TotalTime := CallbackCreate(ObjBindMethod(implObj, "TotalTime"), flags, 2)
+        this.vtbl.PackStructured := CallbackCreate(ObjBindMethod(implObj, "PackStructured"), flags, 4)
+        this.vtbl.PackUnstructured := CallbackCreate(ObjBindMethod(implObj, "PackUnstructured"), flags, 5)
+        this.vtbl.ResetReadPtr := CallbackCreate(ObjBindMethod(implObj, "ResetReadPtr"), flags, 1)
+        this.vtbl.GetNextEvent := CallbackCreate(ObjBindMethod(implObj, "GetNextEvent"), flags, 5)
+        this.vtbl.GetRawBufferPtr := CallbackCreate(ObjBindMethod(implObj, "GetRawBufferPtr"), flags, 2)
+        this.vtbl.GetStartTime := CallbackCreate(ObjBindMethod(implObj, "GetStartTime"), flags, 2)
+        this.vtbl.GetUsedBytes := CallbackCreate(ObjBindMethod(implObj, "GetUsedBytes"), flags, 2)
+        this.vtbl.GetMaxBytes := CallbackCreate(ObjBindMethod(implObj, "GetMaxBytes"), flags, 2)
+        this.vtbl.GetBufferFormat := CallbackCreate(ObjBindMethod(implObj, "GetBufferFormat"), flags, 2)
+        this.vtbl.SetStartTime := CallbackCreate(ObjBindMethod(implObj, "SetStartTime"), flags, 2)
+        this.vtbl.SetUsedBytes := CallbackCreate(ObjBindMethod(implObj, "SetUsedBytes"), flags, 2)
     }
 
     Dispose() {

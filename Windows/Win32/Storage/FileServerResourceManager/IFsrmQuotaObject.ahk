@@ -163,12 +163,12 @@ export default struct IFsrmQuotaObject extends IFsrmQuotaBase {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Path := CallbackCreate(GetMethod(implObj, "get_Path"), flags, 2)
-        this.vtbl.get_UserSid := CallbackCreate(GetMethod(implObj, "get_UserSid"), flags, 2)
-        this.vtbl.get_UserAccount := CallbackCreate(GetMethod(implObj, "get_UserAccount"), flags, 2)
-        this.vtbl.get_SourceTemplateName := CallbackCreate(GetMethod(implObj, "get_SourceTemplateName"), flags, 2)
-        this.vtbl.get_MatchesSourceTemplate := CallbackCreate(GetMethod(implObj, "get_MatchesSourceTemplate"), flags, 2)
-        this.vtbl.ApplyTemplate := CallbackCreate(GetMethod(implObj, "ApplyTemplate"), flags, 2)
+        this.vtbl.get_Path := CallbackCreate(ObjBindMethod(implObj, "get_Path"), flags, 2)
+        this.vtbl.get_UserSid := CallbackCreate(ObjBindMethod(implObj, "get_UserSid"), flags, 2)
+        this.vtbl.get_UserAccount := CallbackCreate(ObjBindMethod(implObj, "get_UserAccount"), flags, 2)
+        this.vtbl.get_SourceTemplateName := CallbackCreate(ObjBindMethod(implObj, "get_SourceTemplateName"), flags, 2)
+        this.vtbl.get_MatchesSourceTemplate := CallbackCreate(ObjBindMethod(implObj, "get_MatchesSourceTemplate"), flags, 2)
+        this.vtbl.ApplyTemplate := CallbackCreate(ObjBindMethod(implObj, "ApplyTemplate"), flags, 2)
     }
 
     Dispose() {

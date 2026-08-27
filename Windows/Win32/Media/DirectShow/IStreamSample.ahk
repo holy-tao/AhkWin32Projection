@@ -90,9 +90,9 @@ export default struct IStreamSample extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-istreamsample-getsampletimes
      */
     GetSampleTimes(pStartTime, pEndTime, pCurrentTime) {
-        pStartTimeMarshal := pStartTime is VarRef ? "int64*" : "ptr"
-        pEndTimeMarshal := pEndTime is VarRef ? "int64*" : "ptr"
-        pCurrentTimeMarshal := pCurrentTime is VarRef ? "int64*" : "ptr"
+        pStartTimeMarshal := pStartTime is VarRef ? "int64*" : IntPtr
+        pEndTimeMarshal := pEndTime is VarRef ? "int64*" : IntPtr
+        pCurrentTimeMarshal := pCurrentTime is VarRef ? "int64*" : IntPtr
 
         result := ComCall(4, this, pStartTimeMarshal, pStartTime, pEndTimeMarshal, pEndTime, pCurrentTimeMarshal, pCurrentTime, "HRESULT")
         return result
@@ -110,8 +110,8 @@ export default struct IStreamSample extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-istreamsample-setsampletimes
      */
     SetSampleTimes(pStartTime, pEndTime) {
-        pStartTimeMarshal := pStartTime is VarRef ? "int64*" : "ptr"
-        pEndTimeMarshal := pEndTime is VarRef ? "int64*" : "ptr"
+        pStartTimeMarshal := pStartTime is VarRef ? "int64*" : IntPtr
+        pEndTimeMarshal := pEndTime is VarRef ? "int64*" : IntPtr
 
         result := ComCall(5, this, pStartTimeMarshal, pStartTime, pEndTimeMarshal, pEndTime, "HRESULT")
         return result
@@ -340,11 +340,11 @@ export default struct IStreamSample extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMediaStream := CallbackCreate(GetMethod(implObj, "GetMediaStream"), flags, 2)
-        this.vtbl.GetSampleTimes := CallbackCreate(GetMethod(implObj, "GetSampleTimes"), flags, 4)
-        this.vtbl.SetSampleTimes := CallbackCreate(GetMethod(implObj, "SetSampleTimes"), flags, 3)
-        this.vtbl.Update := CallbackCreate(GetMethod(implObj, "Update"), flags, 5)
-        this.vtbl.CompletionStatus := CallbackCreate(GetMethod(implObj, "CompletionStatus"), flags, 3)
+        this.vtbl.GetMediaStream := CallbackCreate(ObjBindMethod(implObj, "GetMediaStream"), flags, 2)
+        this.vtbl.GetSampleTimes := CallbackCreate(ObjBindMethod(implObj, "GetSampleTimes"), flags, 4)
+        this.vtbl.SetSampleTimes := CallbackCreate(ObjBindMethod(implObj, "SetSampleTimes"), flags, 3)
+        this.vtbl.Update := CallbackCreate(ObjBindMethod(implObj, "Update"), flags, 5)
+        this.vtbl.CompletionStatus := CallbackCreate(ObjBindMethod(implObj, "CompletionStatus"), flags, 3)
     }
 
     Dispose() {

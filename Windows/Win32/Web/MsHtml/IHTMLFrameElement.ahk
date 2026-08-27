@@ -52,7 +52,6 @@ export default struct IHTMLFrameElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -62,7 +61,6 @@ export default struct IHTMLFrameElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_borderColor() {
@@ -80,8 +78,8 @@ export default struct IHTMLFrameElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_borderColor := CallbackCreate(GetMethod(implObj, "put_borderColor"), flags, 2)
-        this.vtbl.get_borderColor := CallbackCreate(GetMethod(implObj, "get_borderColor"), flags, 2)
+        this.vtbl.put_borderColor := CallbackCreate(ObjBindMethod(implObj, "put_borderColor"), flags, 2)
+        this.vtbl.get_borderColor := CallbackCreate(ObjBindMethod(implObj, "get_borderColor"), flags, 2)
     }
 
     Dispose() {

@@ -21,7 +21,6 @@ export default struct PSYMBOLSERVERBYINDEXPROC {
     }
 
     /**
-     * 
      * @param {PSTR} param0 
      * @param {PSTR} param1 
      * @param {PSTR} param2 

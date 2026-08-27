@@ -20,7 +20,6 @@ export default struct PRESUTIL_IS_PATH_VALID {
     }
 
     /**
-     * 
      * @param {PWSTR} pszPath 
      * @returns {BOOL} 
      */

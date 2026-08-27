@@ -36,7 +36,6 @@ export default struct IConvertType extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} wFromType 
      * @param {Integer} wToType 
      * @param {Integer} dwConvertFlags 
@@ -56,7 +55,7 @@ export default struct IConvertType extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CanConvert := CallbackCreate(GetMethod(implObj, "CanConvert"), flags, 4)
+        this.vtbl.CanConvert := CallbackCreate(ObjBindMethod(implObj, "CanConvert"), flags, 4)
     }
 
     Dispose() {

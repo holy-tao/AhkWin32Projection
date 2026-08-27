@@ -74,7 +74,6 @@ export default struct IHTMLFrameElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_contentDocument() {
@@ -83,7 +82,6 @@ export default struct IHTMLFrameElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -95,7 +93,6 @@ export default struct IHTMLFrameElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_src() {
@@ -105,7 +102,6 @@ export default struct IHTMLFrameElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -117,7 +113,6 @@ export default struct IHTMLFrameElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_longDesc() {
@@ -127,7 +122,6 @@ export default struct IHTMLFrameElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -139,7 +133,6 @@ export default struct IHTMLFrameElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_frameBorder() {
@@ -157,13 +150,13 @@ export default struct IHTMLFrameElement3 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_contentDocument := CallbackCreate(GetMethod(implObj, "get_contentDocument"), flags, 2)
-        this.vtbl.put_src := CallbackCreate(GetMethod(implObj, "put_src"), flags, 2)
-        this.vtbl.get_src := CallbackCreate(GetMethod(implObj, "get_src"), flags, 2)
-        this.vtbl.put_longDesc := CallbackCreate(GetMethod(implObj, "put_longDesc"), flags, 2)
-        this.vtbl.get_longDesc := CallbackCreate(GetMethod(implObj, "get_longDesc"), flags, 2)
-        this.vtbl.put_frameBorder := CallbackCreate(GetMethod(implObj, "put_frameBorder"), flags, 2)
-        this.vtbl.get_frameBorder := CallbackCreate(GetMethod(implObj, "get_frameBorder"), flags, 2)
+        this.vtbl.get_contentDocument := CallbackCreate(ObjBindMethod(implObj, "get_contentDocument"), flags, 2)
+        this.vtbl.put_src := CallbackCreate(ObjBindMethod(implObj, "put_src"), flags, 2)
+        this.vtbl.get_src := CallbackCreate(ObjBindMethod(implObj, "get_src"), flags, 2)
+        this.vtbl.put_longDesc := CallbackCreate(ObjBindMethod(implObj, "put_longDesc"), flags, 2)
+        this.vtbl.get_longDesc := CallbackCreate(ObjBindMethod(implObj, "get_longDesc"), flags, 2)
+        this.vtbl.put_frameBorder := CallbackCreate(ObjBindMethod(implObj, "put_frameBorder"), flags, 2)
+        this.vtbl.get_frameBorder := CallbackCreate(ObjBindMethod(implObj, "get_frameBorder"), flags, 2)
     }
 
     Dispose() {

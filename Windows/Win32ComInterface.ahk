@@ -141,7 +141,9 @@ struct Win32ComInterface {
      * might be a reference cycle between it and the implementation object.
      */
     __Delete() {
-        if !this.owned
+        if !this.owned {
+            FileAppend("Releasing " this.__Class "`n", "*")
             this.Release()
+        }
     }
 }

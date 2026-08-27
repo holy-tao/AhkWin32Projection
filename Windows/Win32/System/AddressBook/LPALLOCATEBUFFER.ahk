@@ -18,13 +18,12 @@ export default struct LPALLOCATEBUFFER {
     }
 
     /**
-     * 
      * @param {Integer} cbSize 
      * @param {Pointer<Pointer<Void>>} lppBuffer 
      * @returns {Integer} 
      */
     Call(cbSize, lppBuffer) {
-        lppBufferMarshal := lppBuffer is VarRef ? "ptr*" : "ptr"
+        lppBufferMarshal := lppBuffer is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, UInt32, cbSize, lppBufferMarshal, lppBuffer, Int32)
         return result

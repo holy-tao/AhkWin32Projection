@@ -21,7 +21,6 @@ export default struct PCLUSAPI_GET_CLUSTER_RESOURCE_TYPE_KEY {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszTypeName 
      * @param {Integer} samDesired 

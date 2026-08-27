@@ -246,7 +246,7 @@ export default struct IVMRMonitorConfig9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmonitorconfig9-getavailablemonitors
      */
     GetAvailableMonitors(pInfo, dwMaxInfoArraySize, pdwNumDevices) {
-        pdwNumDevicesMarshal := pdwNumDevices is VarRef ? "uint*" : "ptr"
+        pdwNumDevicesMarshal := pdwNumDevices is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, VMR9MonitorInfo.Ptr, pInfo, UInt32, dwMaxInfoArraySize, pdwNumDevicesMarshal, pdwNumDevices, "HRESULT")
         return result
@@ -261,11 +261,11 @@ export default struct IVMRMonitorConfig9 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetMonitor := CallbackCreate(GetMethod(implObj, "SetMonitor"), flags, 2)
-        this.vtbl.GetMonitor := CallbackCreate(GetMethod(implObj, "GetMonitor"), flags, 2)
-        this.vtbl.SetDefaultMonitor := CallbackCreate(GetMethod(implObj, "SetDefaultMonitor"), flags, 2)
-        this.vtbl.GetDefaultMonitor := CallbackCreate(GetMethod(implObj, "GetDefaultMonitor"), flags, 2)
-        this.vtbl.GetAvailableMonitors := CallbackCreate(GetMethod(implObj, "GetAvailableMonitors"), flags, 4)
+        this.vtbl.SetMonitor := CallbackCreate(ObjBindMethod(implObj, "SetMonitor"), flags, 2)
+        this.vtbl.GetMonitor := CallbackCreate(ObjBindMethod(implObj, "GetMonitor"), flags, 2)
+        this.vtbl.SetDefaultMonitor := CallbackCreate(ObjBindMethod(implObj, "SetDefaultMonitor"), flags, 2)
+        this.vtbl.GetDefaultMonitor := CallbackCreate(ObjBindMethod(implObj, "GetDefaultMonitor"), flags, 2)
+        this.vtbl.GetAvailableMonitors := CallbackCreate(ObjBindMethod(implObj, "GetAvailableMonitors"), flags, 4)
     }
 
     Dispose() {

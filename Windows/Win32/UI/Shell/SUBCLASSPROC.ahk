@@ -24,7 +24,6 @@ export default struct SUBCLASSPROC {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd Type: <b>HWND</b>
      * 
      * The handle to the subclassed window.

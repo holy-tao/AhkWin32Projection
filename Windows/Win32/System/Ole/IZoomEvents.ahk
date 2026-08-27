@@ -36,7 +36,6 @@ export default struct IZoomEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulZoomPercent 
      * @returns {HRESULT} 
      */
@@ -54,7 +53,7 @@ export default struct IZoomEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnZoomPercentChanged := CallbackCreate(GetMethod(implObj, "OnZoomPercentChanged"), flags, 2)
+        this.vtbl.OnZoomPercentChanged := CallbackCreate(ObjBindMethod(implObj, "OnZoomPercentChanged"), flags, 2)
     }
 
     Dispose() {

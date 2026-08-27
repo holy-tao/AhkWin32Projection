@@ -21,7 +21,6 @@ export default struct PCLUSAPI_GET_CLUSTER_INFORMATION {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszClusterName 
      * @param {Pointer<Integer>} lpcchClusterName 
@@ -31,9 +30,10 @@ export default struct PCLUSAPI_GET_CLUSTER_INFORMATION {
     Call(_hCluster, lpszClusterName, lpcchClusterName, lpClusterInfo) {
         lpszClusterName := lpszClusterName is String ? StrPtr(lpszClusterName) : lpszClusterName
 
-        lpcchClusterNameMarshal := lpcchClusterName is VarRef ? "uint*" : "ptr"
+        lpcchClusterNameMarshal := lpcchClusterName is VarRef ? "uint*" : IntPtr
+        lpClusterInfoMarshal := lpClusterInfo == 0 ? IntPtr : CLUSTERVERSIONINFO.Ptr
 
-        result := DllCall(this.value, HCLUSTER, _hCluster, "ptr", lpszClusterName, lpcchClusterNameMarshal, lpcchClusterName, CLUSTERVERSIONINFO.Ptr, lpClusterInfo, UInt32)
+        result := DllCall(this.value, HCLUSTER, _hCluster, "ptr", lpszClusterName, lpcchClusterNameMarshal, lpcchClusterName, lpClusterInfoMarshal, lpClusterInfo, UInt32)
         return result
     }
 

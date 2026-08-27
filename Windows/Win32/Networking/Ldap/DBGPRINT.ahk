@@ -19,7 +19,6 @@ export default struct DBGPRINT {
     }
 
     /**
-     * 
      * @param {PSTR} Format 
      * @returns {Integer} 
      */

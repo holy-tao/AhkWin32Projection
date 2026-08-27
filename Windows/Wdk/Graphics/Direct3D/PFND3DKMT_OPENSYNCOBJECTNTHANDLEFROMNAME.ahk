@@ -20,7 +20,6 @@ export default struct PFND3DKMT_OPENSYNCOBJECTNTHANDLEFROMNAME {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_OPENSYNCOBJECTNTHANDLEFROMNAME>} param0 
      * @returns {NTSTATUS} 
      */

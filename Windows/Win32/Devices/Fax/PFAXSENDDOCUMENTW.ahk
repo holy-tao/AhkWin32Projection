@@ -24,7 +24,6 @@ export default struct PFAXSENDDOCUMENTW {
     }
 
     /**
-     * 
      * @param {HANDLE} FaxHandle 
      * @param {PWSTR} FileName 
      * @param {Pointer<FAX_JOB_PARAMW>} JobParams 
@@ -35,7 +34,7 @@ export default struct PFAXSENDDOCUMENTW {
     Call(FaxHandle, FileName, JobParams, CoverpageInfo, FaxJobId) {
         FileName := FileName is String ? StrPtr(FileName) : FileName
 
-        FaxJobIdMarshal := FaxJobId is VarRef ? "uint*" : "ptr"
+        FaxJobIdMarshal := FaxJobId is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HANDLE, FaxHandle, "ptr", FileName, FAX_JOB_PARAMW.Ptr, JobParams, FAX_COVERPAGE_INFOW.Ptr, CoverpageInfo, FaxJobIdMarshal, FaxJobId, BOOL)
         return result

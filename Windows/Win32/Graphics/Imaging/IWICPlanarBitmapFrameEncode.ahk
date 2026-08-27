@@ -259,8 +259,8 @@ export default struct IWICPlanarBitmapFrameEncode extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.WritePixels := CallbackCreate(GetMethod(implObj, "WritePixels"), flags, 4)
-        this.vtbl.WriteSource := CallbackCreate(GetMethod(implObj, "WriteSource"), flags, 4)
+        this.vtbl.WritePixels := CallbackCreate(ObjBindMethod(implObj, "WritePixels"), flags, 4)
+        this.vtbl.WriteSource := CallbackCreate(ObjBindMethod(implObj, "WriteSource"), flags, 4)
     }
 
     Dispose() {

@@ -109,8 +109,8 @@ export default struct IRealTimeStylus3 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_MultiTouchEnabled := CallbackCreate(GetMethod(implObj, "get_MultiTouchEnabled"), flags, 2)
-        this.vtbl.put_MultiTouchEnabled := CallbackCreate(GetMethod(implObj, "put_MultiTouchEnabled"), flags, 2)
+        this.vtbl.get_MultiTouchEnabled := CallbackCreate(ObjBindMethod(implObj, "get_MultiTouchEnabled"), flags, 2)
+        this.vtbl.put_MultiTouchEnabled := CallbackCreate(ObjBindMethod(implObj, "put_MultiTouchEnabled"), flags, 2)
     }
 
     Dispose() {

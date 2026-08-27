@@ -37,7 +37,6 @@ export default struct IRowsetFind extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hChapter 
      * @param {HACCESSOR} _hAccessor 
      * @param {Pointer<Void>} pFindValue 
@@ -50,9 +49,9 @@ export default struct IRowsetFind extends IUnknown {
      * @returns {Pointer<Pointer>} 
      */
     FindNextRow(hChapter, _hAccessor, pFindValue, CompareOp, cbBookmark, pBookmark, lRowsOffset, cRows, pcRowsObtained) {
-        pFindValueMarshal := pFindValue is VarRef ? "ptr" : "ptr"
-        pBookmarkMarshal := pBookmark is VarRef ? "char*" : "ptr"
-        pcRowsObtainedMarshal := pcRowsObtained is VarRef ? "ptr*" : "ptr"
+        pFindValueMarshal := pFindValue is VarRef ? "ptr" : IntPtr
+        pBookmarkMarshal := pBookmark is VarRef ? "char*" : IntPtr
+        pcRowsObtainedMarshal := pcRowsObtained is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, IntPtr, hChapter, HACCESSOR, _hAccessor, pFindValueMarshal, pFindValue, UInt32, CompareOp, IntPtr, cbBookmark, pBookmarkMarshal, pBookmark, IntPtr, lRowsOffset, IntPtr, cRows, pcRowsObtainedMarshal, pcRowsObtained, "ptr*", &prghRows := 0, "HRESULT")
         return prghRows
@@ -67,7 +66,7 @@ export default struct IRowsetFind extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FindNextRow := CallbackCreate(GetMethod(implObj, "FindNextRow"), flags, 11)
+        this.vtbl.FindNextRow := CallbackCreate(ObjBindMethod(implObj, "FindNextRow"), flags, 11)
     }
 
     Dispose() {

@@ -71,7 +71,7 @@ export default struct IAppxDigestProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDigest := CallbackCreate(GetMethod(implObj, "GetDigest"), flags, 2)
+        this.vtbl.GetDigest := CallbackCreate(ObjBindMethod(implObj, "GetDigest"), flags, 2)
     }
 
     Dispose() {

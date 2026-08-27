@@ -51,7 +51,6 @@ export default struct IInternetZoneManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwZone 
      * @param {Pointer<ZONEATTRIBUTES>} pZoneAttributes 
      * @returns {HRESULT} 
@@ -62,7 +61,6 @@ export default struct IInternetZoneManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwZone 
      * @param {Pointer<ZONEATTRIBUTES>} pZoneAttributes 
      * @returns {HRESULT} 
@@ -73,7 +71,6 @@ export default struct IInternetZoneManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwZone 
      * @param {Pointer<Guid>} guidKey 
      * @param {Pointer<Pointer<Integer>>} ppPolicy 
@@ -82,15 +79,14 @@ export default struct IInternetZoneManager extends IUnknown {
      * @returns {HRESULT} 
      */
     GetZoneCustomPolicy(dwZone, guidKey, ppPolicy, pcbPolicy, _urlZoneReg) {
-        ppPolicyMarshal := ppPolicy is VarRef ? "ptr*" : "ptr"
-        pcbPolicyMarshal := pcbPolicy is VarRef ? "uint*" : "ptr"
+        ppPolicyMarshal := ppPolicy is VarRef ? "ptr*" : IntPtr
+        pcbPolicyMarshal := pcbPolicy is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, UInt32, dwZone, Guid.Ptr, guidKey, ppPolicyMarshal, ppPolicy, pcbPolicyMarshal, pcbPolicy, URLZONEREG, _urlZoneReg, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwZone 
      * @param {Pointer<Guid>} guidKey 
      * @param {Pointer<Integer>} pPolicy 
@@ -99,14 +95,13 @@ export default struct IInternetZoneManager extends IUnknown {
      * @returns {HRESULT} 
      */
     SetZoneCustomPolicy(dwZone, guidKey, pPolicy, cbPolicy, _urlZoneReg) {
-        pPolicyMarshal := pPolicy is VarRef ? "char*" : "ptr"
+        pPolicyMarshal := pPolicy is VarRef ? "char*" : IntPtr
 
         result := ComCall(6, this, UInt32, dwZone, Guid.Ptr, guidKey, pPolicyMarshal, pPolicy, UInt32, cbPolicy, URLZONEREG, _urlZoneReg, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwZone 
      * @param {Integer} dwAction 
      * @param {Integer} cbPolicy 
@@ -119,7 +114,6 @@ export default struct IInternetZoneManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwZone 
      * @param {Integer} dwAction 
      * @param {Pointer<Integer>} pPolicy 
@@ -128,14 +122,13 @@ export default struct IInternetZoneManager extends IUnknown {
      * @returns {HRESULT} 
      */
     SetZoneActionPolicy(dwZone, dwAction, pPolicy, cbPolicy, _urlZoneReg) {
-        pPolicyMarshal := pPolicy is VarRef ? "char*" : "ptr"
+        pPolicyMarshal := pPolicy is VarRef ? "char*" : IntPtr
 
         result := ComCall(8, this, UInt32, dwZone, UInt32, dwAction, pPolicyMarshal, pPolicy, UInt32, cbPolicy, URLZONEREG, _urlZoneReg, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwAction 
      * @param {HWND} hwndParent 
      * @param {PWSTR} pwszUrl 
@@ -152,7 +145,6 @@ export default struct IInternetZoneManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwAction 
      * @param {PWSTR} pwszUrl 
      * @param {PWSTR} pwszText 
@@ -168,22 +160,20 @@ export default struct IInternetZoneManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwEnum 
      * @param {Pointer<Integer>} pdwCount 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
     CreateZoneEnumerator(pdwEnum, pdwCount, dwFlags) {
-        pdwEnumMarshal := pdwEnum is VarRef ? "uint*" : "ptr"
-        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+        pdwEnumMarshal := pdwEnum is VarRef ? "uint*" : IntPtr
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(11, this, pdwEnumMarshal, pdwEnum, pdwCountMarshal, pdwCount, UInt32, dwFlags, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwEnum 
      * @param {Integer} dwIndex 
      * @returns {Integer} 
@@ -194,7 +184,6 @@ export default struct IInternetZoneManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwEnum 
      * @returns {HRESULT} 
      */
@@ -204,7 +193,6 @@ export default struct IInternetZoneManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwTemplate 
      * @param {Integer} dwZone 
      * @param {Integer} dwReserved 
@@ -224,18 +212,18 @@ export default struct IInternetZoneManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetZoneAttributes := CallbackCreate(GetMethod(implObj, "GetZoneAttributes"), flags, 3)
-        this.vtbl.SetZoneAttributes := CallbackCreate(GetMethod(implObj, "SetZoneAttributes"), flags, 3)
-        this.vtbl.GetZoneCustomPolicy := CallbackCreate(GetMethod(implObj, "GetZoneCustomPolicy"), flags, 6)
-        this.vtbl.SetZoneCustomPolicy := CallbackCreate(GetMethod(implObj, "SetZoneCustomPolicy"), flags, 6)
-        this.vtbl.GetZoneActionPolicy := CallbackCreate(GetMethod(implObj, "GetZoneActionPolicy"), flags, 6)
-        this.vtbl.SetZoneActionPolicy := CallbackCreate(GetMethod(implObj, "SetZoneActionPolicy"), flags, 6)
-        this.vtbl.PromptAction := CallbackCreate(GetMethod(implObj, "PromptAction"), flags, 6)
-        this.vtbl.LogAction := CallbackCreate(GetMethod(implObj, "LogAction"), flags, 5)
-        this.vtbl.CreateZoneEnumerator := CallbackCreate(GetMethod(implObj, "CreateZoneEnumerator"), flags, 4)
-        this.vtbl.GetZoneAt := CallbackCreate(GetMethod(implObj, "GetZoneAt"), flags, 4)
-        this.vtbl.DestroyZoneEnumerator := CallbackCreate(GetMethod(implObj, "DestroyZoneEnumerator"), flags, 2)
-        this.vtbl.CopyTemplatePoliciesToZone := CallbackCreate(GetMethod(implObj, "CopyTemplatePoliciesToZone"), flags, 4)
+        this.vtbl.GetZoneAttributes := CallbackCreate(ObjBindMethod(implObj, "GetZoneAttributes"), flags, 3)
+        this.vtbl.SetZoneAttributes := CallbackCreate(ObjBindMethod(implObj, "SetZoneAttributes"), flags, 3)
+        this.vtbl.GetZoneCustomPolicy := CallbackCreate(ObjBindMethod(implObj, "GetZoneCustomPolicy"), flags, 6)
+        this.vtbl.SetZoneCustomPolicy := CallbackCreate(ObjBindMethod(implObj, "SetZoneCustomPolicy"), flags, 6)
+        this.vtbl.GetZoneActionPolicy := CallbackCreate(ObjBindMethod(implObj, "GetZoneActionPolicy"), flags, 6)
+        this.vtbl.SetZoneActionPolicy := CallbackCreate(ObjBindMethod(implObj, "SetZoneActionPolicy"), flags, 6)
+        this.vtbl.PromptAction := CallbackCreate(ObjBindMethod(implObj, "PromptAction"), flags, 6)
+        this.vtbl.LogAction := CallbackCreate(ObjBindMethod(implObj, "LogAction"), flags, 5)
+        this.vtbl.CreateZoneEnumerator := CallbackCreate(ObjBindMethod(implObj, "CreateZoneEnumerator"), flags, 4)
+        this.vtbl.GetZoneAt := CallbackCreate(ObjBindMethod(implObj, "GetZoneAt"), flags, 4)
+        this.vtbl.DestroyZoneEnumerator := CallbackCreate(ObjBindMethod(implObj, "DestroyZoneEnumerator"), flags, 2)
+        this.vtbl.CopyTemplatePoliciesToZone := CallbackCreate(ObjBindMethod(implObj, "CopyTemplatePoliciesToZone"), flags, 4)
     }
 
     Dispose() {

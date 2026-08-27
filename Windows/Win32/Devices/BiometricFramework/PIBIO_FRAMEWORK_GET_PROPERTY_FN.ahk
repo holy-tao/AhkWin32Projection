@@ -21,7 +21,6 @@ export default struct PIBIO_FRAMEWORK_GET_PROPERTY_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline 
      * @param {Integer} PropertyType 
      * @param {Integer} PropertyId 
@@ -32,10 +31,13 @@ export default struct PIBIO_FRAMEWORK_GET_PROPERTY_FN {
      * @returns {HRESULT} 
      */
     Call(Pipeline, PropertyType, PropertyId, Identity, SubFactor, PropertyBuffer, PropertyBufferSize) {
-        PropertyBufferMarshal := PropertyBuffer is VarRef ? "ptr*" : "ptr"
-        PropertyBufferSizeMarshal := PropertyBufferSize is VarRef ? "ptr*" : "ptr"
+        IdentityMarshal := Identity == 0 ? IntPtr : WINBIO_IDENTITY.Ptr
+        SubFactorMarshal := SubFactor == 0 ? IntPtr : Int8
+        PropertyBufferMarshal := PropertyBuffer is VarRef ? "ptr*" : IntPtr
+        PropertyBufferSizeMarshal := PropertyBufferSize is VarRef ? "ptr*" : IntPtr
+        PropertyBufferSizeMarshal := PropertyBufferSize == 0 ? IntPtr : "ptr*"
 
-        result := DllCall(this.value, WINBIO_PIPELINE.Ptr, Pipeline, UInt32, PropertyType, UInt32, PropertyId, WINBIO_IDENTITY.Ptr, Identity, Int8, SubFactor, PropertyBufferMarshal, PropertyBuffer, PropertyBufferSizeMarshal, PropertyBufferSize, "HRESULT")
+        result := DllCall(this.value, WINBIO_PIPELINE.Ptr, Pipeline, UInt32, PropertyType, UInt32, PropertyId, IdentityMarshal, Identity, SubFactorMarshal, SubFactor, PropertyBufferMarshal, PropertyBuffer, PropertyBufferSizeMarshal, PropertyBufferSize, "HRESULT")
         return result
     }
 

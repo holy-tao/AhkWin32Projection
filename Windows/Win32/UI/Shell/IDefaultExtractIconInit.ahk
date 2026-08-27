@@ -92,7 +92,9 @@ export default struct IDefaultExtractIconInit extends IUnknown {
     SetNormalIcon(pszFile, iIcon) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := ComCall(5, this, "ptr", pszFile, Int32, iIcon, "HRESULT")
+        pszFileMarshal := pszFile == 0 ? IntPtr : PWSTR
+
+        result := ComCall(5, this, pszFileMarshal, pszFile, Int32, iIcon, "HRESULT")
         return result
     }
 
@@ -112,7 +114,9 @@ export default struct IDefaultExtractIconInit extends IUnknown {
     SetOpenIcon(pszFile, iIcon) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := ComCall(6, this, "ptr", pszFile, Int32, iIcon, "HRESULT")
+        pszFileMarshal := pszFile == 0 ? IntPtr : PWSTR
+
+        result := ComCall(6, this, pszFileMarshal, pszFile, Int32, iIcon, "HRESULT")
         return result
     }
 
@@ -132,7 +136,9 @@ export default struct IDefaultExtractIconInit extends IUnknown {
     SetShortcutIcon(pszFile, iIcon) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := ComCall(7, this, "ptr", pszFile, Int32, iIcon, "HRESULT")
+        pszFileMarshal := pszFile == 0 ? IntPtr : PWSTR
+
+        result := ComCall(7, this, pszFileMarshal, pszFile, Int32, iIcon, "HRESULT")
         return result
     }
 
@@ -152,7 +158,9 @@ export default struct IDefaultExtractIconInit extends IUnknown {
     SetDefaultIcon(pszFile, iIcon) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := ComCall(8, this, "ptr", pszFile, Int32, iIcon, "HRESULT")
+        pszFileMarshal := pszFile == 0 ? IntPtr : PWSTR
+
+        result := ComCall(8, this, pszFileMarshal, pszFile, Int32, iIcon, "HRESULT")
         return result
     }
 
@@ -165,12 +173,12 @@ export default struct IDefaultExtractIconInit extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetFlags := CallbackCreate(GetMethod(implObj, "SetFlags"), flags, 2)
-        this.vtbl.SetKey := CallbackCreate(GetMethod(implObj, "SetKey"), flags, 2)
-        this.vtbl.SetNormalIcon := CallbackCreate(GetMethod(implObj, "SetNormalIcon"), flags, 3)
-        this.vtbl.SetOpenIcon := CallbackCreate(GetMethod(implObj, "SetOpenIcon"), flags, 3)
-        this.vtbl.SetShortcutIcon := CallbackCreate(GetMethod(implObj, "SetShortcutIcon"), flags, 3)
-        this.vtbl.SetDefaultIcon := CallbackCreate(GetMethod(implObj, "SetDefaultIcon"), flags, 3)
+        this.vtbl.SetFlags := CallbackCreate(ObjBindMethod(implObj, "SetFlags"), flags, 2)
+        this.vtbl.SetKey := CallbackCreate(ObjBindMethod(implObj, "SetKey"), flags, 2)
+        this.vtbl.SetNormalIcon := CallbackCreate(ObjBindMethod(implObj, "SetNormalIcon"), flags, 3)
+        this.vtbl.SetOpenIcon := CallbackCreate(ObjBindMethod(implObj, "SetOpenIcon"), flags, 3)
+        this.vtbl.SetShortcutIcon := CallbackCreate(ObjBindMethod(implObj, "SetShortcutIcon"), flags, 3)
+        this.vtbl.SetDefaultIcon := CallbackCreate(ObjBindMethod(implObj, "SetDefaultIcon"), flags, 3)
     }
 
     Dispose() {

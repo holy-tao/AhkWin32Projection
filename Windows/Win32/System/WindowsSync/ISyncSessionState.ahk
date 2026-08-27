@@ -83,7 +83,7 @@ export default struct ISyncSessionState extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncsessionstate-iscanceled
      */
     IsCanceled(pfIsCanceled) {
-        pfIsCanceledMarshal := pfIsCanceled is VarRef ? "int*" : "ptr"
+        pfIsCanceledMarshal := pfIsCanceled is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, pfIsCanceledMarshal, pfIsCanceled, "HRESULT")
         return result
@@ -145,8 +145,8 @@ export default struct ISyncSessionState extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncsessionstate-getinfoforchangeapplication
      */
     GetInfoForChangeApplication(pbChangeApplierInfo, pcbChangeApplierInfo) {
-        pbChangeApplierInfoMarshal := pbChangeApplierInfo is VarRef ? "char*" : "ptr"
-        pcbChangeApplierInfoMarshal := pcbChangeApplierInfo is VarRef ? "uint*" : "ptr"
+        pbChangeApplierInfoMarshal := pbChangeApplierInfo is VarRef ? "char*" : IntPtr
+        pcbChangeApplierInfoMarshal := pcbChangeApplierInfo is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pbChangeApplierInfoMarshal, pbChangeApplierInfo, pcbChangeApplierInfoMarshal, pcbChangeApplierInfo, "HRESULT")
         return result
@@ -211,7 +211,7 @@ export default struct ISyncSessionState extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncsessionstate-loadinfofromchangeapplication
      */
     LoadInfoFromChangeApplication(pbChangeApplierInfo, cbChangeApplierInfo) {
-        pbChangeApplierInfoMarshal := pbChangeApplierInfo is VarRef ? "char*" : "ptr"
+        pbChangeApplierInfoMarshal := pbChangeApplierInfo is VarRef ? "char*" : IntPtr
 
         result := ComCall(5, this, pbChangeApplierInfoMarshal, pbChangeApplierInfo, UInt32, cbChangeApplierInfo, "HRESULT")
         return result
@@ -265,8 +265,8 @@ export default struct ISyncSessionState extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncsessionstate-getforgottenknowledgerecoveryrangestart
      */
     GetForgottenKnowledgeRecoveryRangeStart(pbRangeStart, pcbRangeStart) {
-        pbRangeStartMarshal := pbRangeStart is VarRef ? "char*" : "ptr"
-        pcbRangeStartMarshal := pcbRangeStart is VarRef ? "uint*" : "ptr"
+        pbRangeStartMarshal := pbRangeStart is VarRef ? "char*" : IntPtr
+        pcbRangeStartMarshal := pcbRangeStart is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, pbRangeStartMarshal, pbRangeStart, pcbRangeStartMarshal, pcbRangeStart, "HRESULT")
         return result
@@ -320,8 +320,8 @@ export default struct ISyncSessionState extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncsessionstate-getforgottenknowledgerecoveryrangeend
      */
     GetForgottenKnowledgeRecoveryRangeEnd(pbRangeEnd, pcbRangeEnd) {
-        pbRangeEndMarshal := pbRangeEnd is VarRef ? "char*" : "ptr"
-        pcbRangeEndMarshal := pcbRangeEnd is VarRef ? "uint*" : "ptr"
+        pbRangeEndMarshal := pbRangeEnd is VarRef ? "char*" : IntPtr
+        pcbRangeEndMarshal := pcbRangeEnd is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, pbRangeEndMarshal, pbRangeEnd, pcbRangeEndMarshal, pcbRangeEnd, "HRESULT")
         return result
@@ -440,13 +440,13 @@ export default struct ISyncSessionState extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsCanceled := CallbackCreate(GetMethod(implObj, "IsCanceled"), flags, 2)
-        this.vtbl.GetInfoForChangeApplication := CallbackCreate(GetMethod(implObj, "GetInfoForChangeApplication"), flags, 3)
-        this.vtbl.LoadInfoFromChangeApplication := CallbackCreate(GetMethod(implObj, "LoadInfoFromChangeApplication"), flags, 3)
-        this.vtbl.GetForgottenKnowledgeRecoveryRangeStart := CallbackCreate(GetMethod(implObj, "GetForgottenKnowledgeRecoveryRangeStart"), flags, 3)
-        this.vtbl.GetForgottenKnowledgeRecoveryRangeEnd := CallbackCreate(GetMethod(implObj, "GetForgottenKnowledgeRecoveryRangeEnd"), flags, 3)
-        this.vtbl.SetForgottenKnowledgeRecoveryRange := CallbackCreate(GetMethod(implObj, "SetForgottenKnowledgeRecoveryRange"), flags, 2)
-        this.vtbl.OnProgress := CallbackCreate(GetMethod(implObj, "OnProgress"), flags, 5)
+        this.vtbl.IsCanceled := CallbackCreate(ObjBindMethod(implObj, "IsCanceled"), flags, 2)
+        this.vtbl.GetInfoForChangeApplication := CallbackCreate(ObjBindMethod(implObj, "GetInfoForChangeApplication"), flags, 3)
+        this.vtbl.LoadInfoFromChangeApplication := CallbackCreate(ObjBindMethod(implObj, "LoadInfoFromChangeApplication"), flags, 3)
+        this.vtbl.GetForgottenKnowledgeRecoveryRangeStart := CallbackCreate(ObjBindMethod(implObj, "GetForgottenKnowledgeRecoveryRangeStart"), flags, 3)
+        this.vtbl.GetForgottenKnowledgeRecoveryRangeEnd := CallbackCreate(ObjBindMethod(implObj, "GetForgottenKnowledgeRecoveryRangeEnd"), flags, 3)
+        this.vtbl.SetForgottenKnowledgeRecoveryRange := CallbackCreate(ObjBindMethod(implObj, "SetForgottenKnowledgeRecoveryRange"), flags, 2)
+        this.vtbl.OnProgress := CallbackCreate(ObjBindMethod(implObj, "OnProgress"), flags, 5)
     }
 
     Dispose() {

@@ -118,7 +118,6 @@ export default struct IDxcContainerReflection extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetPartCount() {
@@ -127,7 +126,6 @@ export default struct IDxcContainerReflection extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} idx 
      * @returns {Integer} 
      */
@@ -137,7 +135,6 @@ export default struct IDxcContainerReflection extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} idx 
      * @returns {IDxcBlob} 
      */
@@ -147,7 +144,6 @@ export default struct IDxcContainerReflection extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} kind 
      * @returns {Integer} 
      */
@@ -157,14 +153,13 @@ export default struct IDxcContainerReflection extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} idx 
      * @param {Pointer<Guid>} iid 
      * @param {Pointer<Pointer<Void>>} ppvObject 
      * @returns {HRESULT} 
      */
     GetPartReflection(idx, iid, ppvObject) {
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(8, this, UInt32, idx, Guid.Ptr, iid, ppvObjectMarshal, ppvObject, "HRESULT")
         return result
@@ -179,12 +174,12 @@ export default struct IDxcContainerReflection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Load := CallbackCreate(GetMethod(implObj, "Load"), flags, 2)
-        this.vtbl.GetPartCount := CallbackCreate(GetMethod(implObj, "GetPartCount"), flags, 2)
-        this.vtbl.GetPartKind := CallbackCreate(GetMethod(implObj, "GetPartKind"), flags, 3)
-        this.vtbl.GetPartContent := CallbackCreate(GetMethod(implObj, "GetPartContent"), flags, 3)
-        this.vtbl.FindFirstPartKind := CallbackCreate(GetMethod(implObj, "FindFirstPartKind"), flags, 3)
-        this.vtbl.GetPartReflection := CallbackCreate(GetMethod(implObj, "GetPartReflection"), flags, 4)
+        this.vtbl.Load := CallbackCreate(ObjBindMethod(implObj, "Load"), flags, 2)
+        this.vtbl.GetPartCount := CallbackCreate(ObjBindMethod(implObj, "GetPartCount"), flags, 2)
+        this.vtbl.GetPartKind := CallbackCreate(ObjBindMethod(implObj, "GetPartKind"), flags, 3)
+        this.vtbl.GetPartContent := CallbackCreate(ObjBindMethod(implObj, "GetPartContent"), flags, 3)
+        this.vtbl.FindFirstPartKind := CallbackCreate(ObjBindMethod(implObj, "FindFirstPartKind"), flags, 3)
+        this.vtbl.GetPartReflection := CallbackCreate(ObjBindMethod(implObj, "GetPartReflection"), flags, 4)
     }
 
     Dispose() {

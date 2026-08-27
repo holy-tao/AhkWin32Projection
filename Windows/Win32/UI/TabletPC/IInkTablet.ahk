@@ -273,10 +273,10 @@ export default struct IInkTablet extends IDispatch {
     GetPropertyMetrics(propertyName, Minimum, Maximum, Units, Resolution) {
         propertyName := propertyName is String ? BSTR.Alloc(propertyName).Value : propertyName
 
-        MinimumMarshal := Minimum is VarRef ? "int*" : "ptr"
-        MaximumMarshal := Maximum is VarRef ? "int*" : "ptr"
-        UnitsMarshal := Units is VarRef ? "int*" : "ptr"
-        ResolutionMarshal := Resolution is VarRef ? "float*" : "ptr"
+        MinimumMarshal := Minimum is VarRef ? "int*" : IntPtr
+        MaximumMarshal := Maximum is VarRef ? "int*" : IntPtr
+        UnitsMarshal := Units is VarRef ? "int*" : IntPtr
+        ResolutionMarshal := Resolution is VarRef ? "float*" : IntPtr
 
         result := ComCall(12, this, BSTR, propertyName, MinimumMarshal, Minimum, MaximumMarshal, Maximum, UnitsMarshal, Units, ResolutionMarshal, Resolution, "HRESULT")
         return result
@@ -291,12 +291,12 @@ export default struct IInkTablet extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_PlugAndPlayId := CallbackCreate(GetMethod(implObj, "get_PlugAndPlayId"), flags, 2)
-        this.vtbl.get_MaximumInputRectangle := CallbackCreate(GetMethod(implObj, "get_MaximumInputRectangle"), flags, 2)
-        this.vtbl.get_HardwareCapabilities := CallbackCreate(GetMethod(implObj, "get_HardwareCapabilities"), flags, 2)
-        this.vtbl.IsPacketPropertySupported := CallbackCreate(GetMethod(implObj, "IsPacketPropertySupported"), flags, 3)
-        this.vtbl.GetPropertyMetrics := CallbackCreate(GetMethod(implObj, "GetPropertyMetrics"), flags, 6)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_PlugAndPlayId := CallbackCreate(ObjBindMethod(implObj, "get_PlugAndPlayId"), flags, 2)
+        this.vtbl.get_MaximumInputRectangle := CallbackCreate(ObjBindMethod(implObj, "get_MaximumInputRectangle"), flags, 2)
+        this.vtbl.get_HardwareCapabilities := CallbackCreate(ObjBindMethod(implObj, "get_HardwareCapabilities"), flags, 2)
+        this.vtbl.IsPacketPropertySupported := CallbackCreate(ObjBindMethod(implObj, "IsPacketPropertySupported"), flags, 3)
+        this.vtbl.GetPropertyMetrics := CallbackCreate(ObjBindMethod(implObj, "GetPropertyMetrics"), flags, 6)
     }
 
     Dispose() {

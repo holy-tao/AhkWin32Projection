@@ -132,10 +132,10 @@ export default struct IRDPSRAPIInvitationManager extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
-        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.CreateInvitation := CallbackCreate(GetMethod(implObj, "CreateInvitation"), flags, 6)
+        this.vtbl.get__NewEnum := CallbackCreate(ObjBindMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(ObjBindMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.CreateInvitation := CallbackCreate(ObjBindMethod(implObj, "CreateInvitation"), flags, 6)
     }
 
     Dispose() {

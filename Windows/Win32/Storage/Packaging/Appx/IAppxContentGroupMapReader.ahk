@@ -69,8 +69,8 @@ export default struct IAppxContentGroupMapReader extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRequiredGroup := CallbackCreate(GetMethod(implObj, "GetRequiredGroup"), flags, 2)
-        this.vtbl.GetAutomaticGroups := CallbackCreate(GetMethod(implObj, "GetAutomaticGroups"), flags, 2)
+        this.vtbl.GetRequiredGroup := CallbackCreate(ObjBindMethod(implObj, "GetRequiredGroup"), flags, 2)
+        this.vtbl.GetAutomaticGroups := CallbackCreate(ObjBindMethod(implObj, "GetAutomaticGroups"), flags, 2)
     }
 
     Dispose() {

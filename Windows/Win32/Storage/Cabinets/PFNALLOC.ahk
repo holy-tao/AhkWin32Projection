@@ -18,7 +18,6 @@ export default struct PFNALLOC {
     }
 
     /**
-     * 
      * @param {Integer} cb 
      * @returns {Pointer<Void>} 
      */

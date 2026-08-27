@@ -182,8 +182,8 @@ export default struct IOleCache2 extends IOleCache {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.UpdateCache := CallbackCreate(GetMethod(implObj, "UpdateCache"), flags, 4)
-        this.vtbl.DiscardCache := CallbackCreate(GetMethod(implObj, "DiscardCache"), flags, 2)
+        this.vtbl.UpdateCache := CallbackCreate(ObjBindMethod(implObj, "UpdateCache"), flags, 4)
+        this.vtbl.DiscardCache := CallbackCreate(ObjBindMethod(implObj, "DiscardCache"), flags, 2)
     }
 
     Dispose() {

@@ -75,8 +75,8 @@ export default struct IMFVideoSampleAllocatorCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetCallback := CallbackCreate(GetMethod(implObj, "SetCallback"), flags, 2)
-        this.vtbl.GetFreeSampleCount := CallbackCreate(GetMethod(implObj, "GetFreeSampleCount"), flags, 2)
+        this.vtbl.SetCallback := CallbackCreate(ObjBindMethod(implObj, "SetCallback"), flags, 2)
+        this.vtbl.GetFreeSampleCount := CallbackCreate(ObjBindMethod(implObj, "GetFreeSampleCount"), flags, 2)
     }
 
     Dispose() {

@@ -53,7 +53,6 @@ export default struct IRTCBuddy extends IRTCPresenceContact {
     }
 
     /**
-     * 
      * @returns {RTC_PRESENCE_STATUS} 
      */
     get_Status() {
@@ -62,7 +61,6 @@ export default struct IRTCBuddy extends IRTCPresenceContact {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Notes() {
@@ -80,8 +78,8 @@ export default struct IRTCBuddy extends IRTCPresenceContact {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
-        this.vtbl.get_Notes := CallbackCreate(GetMethod(implObj, "get_Notes"), flags, 2)
+        this.vtbl.get_Status := CallbackCreate(ObjBindMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.get_Notes := CallbackCreate(ObjBindMethod(implObj, "get_Notes"), flags, 2)
     }
 
     Dispose() {

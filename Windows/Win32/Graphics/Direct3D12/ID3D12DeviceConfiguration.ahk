@@ -42,7 +42,6 @@ export default struct ID3D12DeviceConfiguration extends IUnknown {
     }
 
     /**
-     * 
      * @returns {D3D12_DEVICE_CONFIGURATION_DESC} 
      */
     GetDesc() {
@@ -51,7 +50,6 @@ export default struct ID3D12DeviceConfiguration extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} NumGuids 
      * @returns {Guid} 
      */
@@ -62,19 +60,19 @@ export default struct ID3D12DeviceConfiguration extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_VERSIONED_ROOT_SIGNATURE_DESC>} pDesc 
      * @param {Pointer<ID3DBlob>} ppResult 
      * @param {Pointer<ID3DBlob>} ppError 
      * @returns {HRESULT} 
      */
     SerializeVersionedRootSignature(pDesc, ppResult, ppError) {
-        result := ComCall(5, this, D3D12_VERSIONED_ROOT_SIGNATURE_DESC.Ptr, pDesc, ID3DBlob.Ptr, ppResult, ID3DBlob.Ptr, ppError, "HRESULT")
+        ppErrorMarshal := ppError == 0 ? IntPtr : ID3DBlob.Ptr
+
+        result := ComCall(5, this, D3D12_VERSIONED_ROOT_SIGNATURE_DESC.Ptr, pDesc, ID3DBlob.Ptr, ppResult, ppErrorMarshal, ppError, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} pBlob 
      * @param {Pointer} _Size 
      * @param {Pointer<Guid>} riid 
@@ -94,10 +92,10 @@ export default struct ID3D12DeviceConfiguration extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDesc := CallbackCreate(GetMethod(implObj, "GetDesc"), flags, 1)
-        this.vtbl.GetEnabledExperimentalFeatures := CallbackCreate(GetMethod(implObj, "GetEnabledExperimentalFeatures"), flags, 3)
-        this.vtbl.SerializeVersionedRootSignature := CallbackCreate(GetMethod(implObj, "SerializeVersionedRootSignature"), flags, 4)
-        this.vtbl.CreateVersionedRootSignatureDeserializer := CallbackCreate(GetMethod(implObj, "CreateVersionedRootSignatureDeserializer"), flags, 5)
+        this.vtbl.GetDesc := CallbackCreate(ObjBindMethod(implObj, "GetDesc"), flags, 1)
+        this.vtbl.GetEnabledExperimentalFeatures := CallbackCreate(ObjBindMethod(implObj, "GetEnabledExperimentalFeatures"), flags, 3)
+        this.vtbl.SerializeVersionedRootSignature := CallbackCreate(ObjBindMethod(implObj, "SerializeVersionedRootSignature"), flags, 4)
+        this.vtbl.CreateVersionedRootSignatureDeserializer := CallbackCreate(ObjBindMethod(implObj, "CreateVersionedRootSignatureDeserializer"), flags, 5)
     }
 
     Dispose() {

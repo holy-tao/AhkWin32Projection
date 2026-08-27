@@ -19,14 +19,13 @@ export default struct PIO_APC_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} ApcContext 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
      * @param {Integer} Reserved 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(ApcContext, IoStatusBlock, Reserved) {
-        ApcContextMarshal := ApcContext is VarRef ? "ptr" : "ptr"
+        ApcContextMarshal := ApcContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, ApcContextMarshal, ApcContext, IO_STATUS_BLOCK.Ptr, IoStatusBlock, UInt32, Reserved)
     }

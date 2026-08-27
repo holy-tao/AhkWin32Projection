@@ -89,9 +89,9 @@ export default struct IMILBitmapEffectGroupImpl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Preprocess := CallbackCreate(GetMethod(implObj, "Preprocess"), flags, 2)
-        this.vtbl.GetNumberChildren := CallbackCreate(GetMethod(implObj, "GetNumberChildren"), flags, 2)
-        this.vtbl.GetChildren := CallbackCreate(GetMethod(implObj, "GetChildren"), flags, 2)
+        this.vtbl.Preprocess := CallbackCreate(ObjBindMethod(implObj, "Preprocess"), flags, 2)
+        this.vtbl.GetNumberChildren := CallbackCreate(ObjBindMethod(implObj, "GetNumberChildren"), flags, 2)
+        this.vtbl.GetChildren := CallbackCreate(ObjBindMethod(implObj, "GetChildren"), flags, 2)
     }
 
     Dispose() {

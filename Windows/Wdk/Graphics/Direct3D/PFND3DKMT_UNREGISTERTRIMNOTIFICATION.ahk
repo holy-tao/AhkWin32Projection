@@ -20,7 +20,6 @@ export default struct PFND3DKMT_UNREGISTERTRIMNOTIFICATION {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_UNREGISTERTRIMNOTIFICATION>} param0 
      * @returns {NTSTATUS} 
      */

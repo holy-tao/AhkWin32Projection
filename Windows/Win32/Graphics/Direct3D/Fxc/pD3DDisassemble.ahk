@@ -21,7 +21,6 @@ export default struct pD3DDisassemble {
     }
 
     /**
-     * 
      * @param {Integer} pSrcData 
      * @param {Pointer} SrcDataSize 
      * @param {Integer} Flags 
@@ -31,7 +30,9 @@ export default struct pD3DDisassemble {
     Call(pSrcData, SrcDataSize, Flags, szComments) {
         szComments := szComments is String ? StrPtr(szComments) : szComments
 
-        result := DllCall(this.value, IntPtr, pSrcData, IntPtr, SrcDataSize, UInt32, Flags, "ptr", szComments, "ptr*", &ppDisassembly := 0, "HRESULT")
+        szCommentsMarshal := szComments == 0 ? IntPtr : PSTR
+
+        result := DllCall(this.value, IntPtr, pSrcData, IntPtr, SrcDataSize, UInt32, Flags, szCommentsMarshal, szComments, "ptr*", &ppDisassembly := 0, "HRESULT")
         return ID3DBlob(ppDisassembly)
     }
 

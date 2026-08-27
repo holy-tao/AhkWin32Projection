@@ -135,7 +135,9 @@ export default struct IDCompositionVisual3 extends IDCompositionVisualDebug {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual3-settransform(constd2d_matrix_4x4_f_)
      */
     SetTransform(transform) {
-        result := ComCall(31, this, "ptr", transform, "HRESULT")
+        transformMarshal := transform == 0 ? IntPtr : "ptr"
+
+        result := ComCall(31, this, transformMarshal, transform, "HRESULT")
         return result
     }
 
@@ -184,14 +186,14 @@ export default struct IDCompositionVisual3 extends IDCompositionVisualDebug {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetDepthMode := CallbackCreate(GetMethod(implObj, "SetDepthMode"), flags, 2)
-        this.vtbl.SetOffsetZ := CallbackCreate(GetMethod(implObj, "SetOffsetZ"), flags, 2)
-        this.vtbl.SetOffsetZ1 := CallbackCreate(GetMethod(implObj, "SetOffsetZ1"), flags, 2)
-        this.vtbl.SetOpacity := CallbackCreate(GetMethod(implObj, "SetOpacity"), flags, 2)
-        this.vtbl.SetOpacity1 := CallbackCreate(GetMethod(implObj, "SetOpacity1"), flags, 2)
-        this.vtbl.SetTransform := CallbackCreate(GetMethod(implObj, "SetTransform"), flags, 2)
-        this.vtbl.SetTransform1 := CallbackCreate(GetMethod(implObj, "SetTransform1"), flags, 2)
-        this.vtbl.SetVisible := CallbackCreate(GetMethod(implObj, "SetVisible"), flags, 2)
+        this.vtbl.SetDepthMode := CallbackCreate(ObjBindMethod(implObj, "SetDepthMode"), flags, 2)
+        this.vtbl.SetOffsetZ := CallbackCreate(ObjBindMethod(implObj, "SetOffsetZ"), flags, 2)
+        this.vtbl.SetOffsetZ1 := CallbackCreate(ObjBindMethod(implObj, "SetOffsetZ1"), flags, 2)
+        this.vtbl.SetOpacity := CallbackCreate(ObjBindMethod(implObj, "SetOpacity"), flags, 2)
+        this.vtbl.SetOpacity1 := CallbackCreate(ObjBindMethod(implObj, "SetOpacity1"), flags, 2)
+        this.vtbl.SetTransform := CallbackCreate(ObjBindMethod(implObj, "SetTransform"), flags, 2)
+        this.vtbl.SetTransform1 := CallbackCreate(ObjBindMethod(implObj, "SetTransform1"), flags, 2)
+        this.vtbl.SetVisible := CallbackCreate(ObjBindMethod(implObj, "SetVisible"), flags, 2)
     }
 
     Dispose() {

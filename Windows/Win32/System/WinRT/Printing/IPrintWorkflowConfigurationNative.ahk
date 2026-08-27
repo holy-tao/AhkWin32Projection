@@ -61,7 +61,6 @@ export default struct IPrintWorkflowConfigurationNative extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IPrinterQueue} 
      */
     get_PrinterQueue() {
@@ -70,7 +69,6 @@ export default struct IPrintWorkflowConfigurationNative extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IPrinterPropertyBag} 
      */
     get_DriverProperties() {
@@ -79,7 +77,6 @@ export default struct IPrintWorkflowConfigurationNative extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IPrinterPropertyBag} 
      */
     get_UserProperties() {
@@ -96,9 +93,9 @@ export default struct IPrintWorkflowConfigurationNative extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_PrinterQueue := CallbackCreate(GetMethod(implObj, "get_PrinterQueue"), flags, 2)
-        this.vtbl.get_DriverProperties := CallbackCreate(GetMethod(implObj, "get_DriverProperties"), flags, 2)
-        this.vtbl.get_UserProperties := CallbackCreate(GetMethod(implObj, "get_UserProperties"), flags, 2)
+        this.vtbl.get_PrinterQueue := CallbackCreate(ObjBindMethod(implObj, "get_PrinterQueue"), flags, 2)
+        this.vtbl.get_DriverProperties := CallbackCreate(ObjBindMethod(implObj, "get_DriverProperties"), flags, 2)
+        this.vtbl.get_UserProperties := CallbackCreate(ObjBindMethod(implObj, "get_UserProperties"), flags, 2)
     }
 
     Dispose() {

@@ -19,14 +19,13 @@ export default struct PFNFCIGETTEMPFILE {
     }
 
     /**
-     * 
      * @param {Integer} pszTempName 
      * @param {Integer} cbTempName 
      * @param {Pointer<Void>} pv 
      * @returns {BOOL} 
      */
     Call(pszTempName, cbTempName, pv) {
-        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+        pvMarshal := pv is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, IntPtr, pszTempName, Int32, cbTempName, pvMarshal, pv, BOOL)
         return result

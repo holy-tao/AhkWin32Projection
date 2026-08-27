@@ -38,29 +38,29 @@ export default struct IIdentityAuthentication extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} CredBuffer 
      * @param {Integer} CredBufferLength 
      * @returns {HRESULT} 
      */
     SetIdentityCredential(CredBuffer, CredBufferLength) {
-        CredBufferMarshal := CredBuffer is VarRef ? "char*" : "ptr"
+        CredBufferMarshal := CredBuffer is VarRef ? "char*" : IntPtr
+        CredBufferMarshal := CredBuffer == 0 ? IntPtr : "char*"
 
         result := ComCall(3, this, CredBufferMarshal, CredBuffer, UInt32, CredBufferLength, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} CredBuffer 
      * @param {Integer} CredBufferLength 
      * @param {Pointer<IPropertyStore>} ppIdentityProperties 
      * @returns {HRESULT} 
      */
     ValidateIdentityCredential(CredBuffer, CredBufferLength, ppIdentityProperties) {
-        CredBufferMarshal := CredBuffer is VarRef ? "char*" : "ptr"
+        CredBufferMarshal := CredBuffer is VarRef ? "char*" : IntPtr
+        ppIdentityPropertiesMarshal := ppIdentityProperties == 0 ? IntPtr : IPropertyStore.Ptr
 
-        result := ComCall(4, this, CredBufferMarshal, CredBuffer, UInt32, CredBufferLength, IPropertyStore.Ptr, ppIdentityProperties, "HRESULT")
+        result := ComCall(4, this, CredBufferMarshal, CredBuffer, UInt32, CredBufferLength, ppIdentityPropertiesMarshal, ppIdentityProperties, "HRESULT")
         return result
     }
 
@@ -73,8 +73,8 @@ export default struct IIdentityAuthentication extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetIdentityCredential := CallbackCreate(GetMethod(implObj, "SetIdentityCredential"), flags, 3)
-        this.vtbl.ValidateIdentityCredential := CallbackCreate(GetMethod(implObj, "ValidateIdentityCredential"), flags, 4)
+        this.vtbl.SetIdentityCredential := CallbackCreate(ObjBindMethod(implObj, "SetIdentityCredential"), flags, 3)
+        this.vtbl.ValidateIdentityCredential := CallbackCreate(ObjBindMethod(implObj, "ValidateIdentityCredential"), flags, 4)
     }
 
     Dispose() {

@@ -126,7 +126,7 @@ export default struct IWeeklyTrigger extends ITrigger {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iweeklytrigger-get_daysofweek
      */
     get_DaysOfWeek(pDays) {
-        pDaysMarshal := pDays is VarRef ? "short*" : "ptr"
+        pDaysMarshal := pDays is VarRef ? "short*" : IntPtr
 
         result := ComCall(20, this, pDaysMarshal, pDays, "HRESULT")
         return result
@@ -202,7 +202,7 @@ export default struct IWeeklyTrigger extends ITrigger {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iweeklytrigger-get_weeksinterval
      */
     get_WeeksInterval(pWeeks) {
-        pWeeksMarshal := pWeeks is VarRef ? "short*" : "ptr"
+        pWeeksMarshal := pWeeks is VarRef ? "short*" : IntPtr
 
         result := ComCall(22, this, pWeeksMarshal, pWeeks, "HRESULT")
         return result
@@ -256,12 +256,12 @@ export default struct IWeeklyTrigger extends ITrigger {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_DaysOfWeek := CallbackCreate(GetMethod(implObj, "get_DaysOfWeek"), flags, 2)
-        this.vtbl.put_DaysOfWeek := CallbackCreate(GetMethod(implObj, "put_DaysOfWeek"), flags, 2)
-        this.vtbl.get_WeeksInterval := CallbackCreate(GetMethod(implObj, "get_WeeksInterval"), flags, 2)
-        this.vtbl.put_WeeksInterval := CallbackCreate(GetMethod(implObj, "put_WeeksInterval"), flags, 2)
-        this.vtbl.get_RandomDelay := CallbackCreate(GetMethod(implObj, "get_RandomDelay"), flags, 2)
-        this.vtbl.put_RandomDelay := CallbackCreate(GetMethod(implObj, "put_RandomDelay"), flags, 2)
+        this.vtbl.get_DaysOfWeek := CallbackCreate(ObjBindMethod(implObj, "get_DaysOfWeek"), flags, 2)
+        this.vtbl.put_DaysOfWeek := CallbackCreate(ObjBindMethod(implObj, "put_DaysOfWeek"), flags, 2)
+        this.vtbl.get_WeeksInterval := CallbackCreate(ObjBindMethod(implObj, "get_WeeksInterval"), flags, 2)
+        this.vtbl.put_WeeksInterval := CallbackCreate(ObjBindMethod(implObj, "put_WeeksInterval"), flags, 2)
+        this.vtbl.get_RandomDelay := CallbackCreate(ObjBindMethod(implObj, "get_RandomDelay"), flags, 2)
+        this.vtbl.put_RandomDelay := CallbackCreate(ObjBindMethod(implObj, "put_RandomDelay"), flags, 2)
     }
 
     Dispose() {

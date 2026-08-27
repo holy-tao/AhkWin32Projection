@@ -77,7 +77,6 @@ export default struct IHTMLRuleStyle5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -89,7 +88,6 @@ export default struct IHTMLRuleStyle5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msInterpolationMode() {
@@ -99,7 +97,6 @@ export default struct IHTMLRuleStyle5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -109,7 +106,6 @@ export default struct IHTMLRuleStyle5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_maxHeight() {
@@ -119,7 +115,6 @@ export default struct IHTMLRuleStyle5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -129,7 +124,6 @@ export default struct IHTMLRuleStyle5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_minWidth() {
@@ -139,7 +133,6 @@ export default struct IHTMLRuleStyle5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -149,7 +142,6 @@ export default struct IHTMLRuleStyle5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_maxWidth() {
@@ -167,14 +159,14 @@ export default struct IHTMLRuleStyle5 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_msInterpolationMode := CallbackCreate(GetMethod(implObj, "put_msInterpolationMode"), flags, 2)
-        this.vtbl.get_msInterpolationMode := CallbackCreate(GetMethod(implObj, "get_msInterpolationMode"), flags, 2)
-        this.vtbl.put_maxHeight := CallbackCreate(GetMethod(implObj, "put_maxHeight"), flags, 2)
-        this.vtbl.get_maxHeight := CallbackCreate(GetMethod(implObj, "get_maxHeight"), flags, 2)
-        this.vtbl.put_minWidth := CallbackCreate(GetMethod(implObj, "put_minWidth"), flags, 2)
-        this.vtbl.get_minWidth := CallbackCreate(GetMethod(implObj, "get_minWidth"), flags, 2)
-        this.vtbl.put_maxWidth := CallbackCreate(GetMethod(implObj, "put_maxWidth"), flags, 2)
-        this.vtbl.get_maxWidth := CallbackCreate(GetMethod(implObj, "get_maxWidth"), flags, 2)
+        this.vtbl.put_msInterpolationMode := CallbackCreate(ObjBindMethod(implObj, "put_msInterpolationMode"), flags, 2)
+        this.vtbl.get_msInterpolationMode := CallbackCreate(ObjBindMethod(implObj, "get_msInterpolationMode"), flags, 2)
+        this.vtbl.put_maxHeight := CallbackCreate(ObjBindMethod(implObj, "put_maxHeight"), flags, 2)
+        this.vtbl.get_maxHeight := CallbackCreate(ObjBindMethod(implObj, "get_maxHeight"), flags, 2)
+        this.vtbl.put_minWidth := CallbackCreate(ObjBindMethod(implObj, "put_minWidth"), flags, 2)
+        this.vtbl.get_minWidth := CallbackCreate(ObjBindMethod(implObj, "get_minWidth"), flags, 2)
+        this.vtbl.put_maxWidth := CallbackCreate(ObjBindMethod(implObj, "put_maxWidth"), flags, 2)
+        this.vtbl.get_maxWidth := CallbackCreate(ObjBindMethod(implObj, "get_maxWidth"), flags, 2)
     }
 
     Dispose() {

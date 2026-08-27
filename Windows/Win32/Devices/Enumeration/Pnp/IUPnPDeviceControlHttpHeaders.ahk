@@ -37,7 +37,6 @@ export default struct IUPnPDeviceControlHttpHeaders extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetAdditionalResponseHeaders() {
@@ -55,7 +54,7 @@ export default struct IUPnPDeviceControlHttpHeaders extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAdditionalResponseHeaders := CallbackCreate(GetMethod(implObj, "GetAdditionalResponseHeaders"), flags, 2)
+        this.vtbl.GetAdditionalResponseHeaders := CallbackCreate(ObjBindMethod(implObj, "GetAdditionalResponseHeaders"), flags, 2)
     }
 
     Dispose() {

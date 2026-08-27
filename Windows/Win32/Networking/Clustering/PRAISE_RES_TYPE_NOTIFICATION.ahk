@@ -19,7 +19,6 @@ export default struct PRAISE_RES_TYPE_NOTIFICATION {
     }
 
     /**
-     * 
      * @param {PWSTR} _ResourceType 
      * @param {Integer} pPayload 
      * @param {Integer} payloadSize 

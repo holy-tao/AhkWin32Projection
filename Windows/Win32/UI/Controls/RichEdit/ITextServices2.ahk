@@ -204,9 +204,9 @@ export default struct ITextServices2 extends ITextServices {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itextservices2-txgetnaturalsize2
      */
     TxGetNaturalSize2(dwAspect, hdcDraw, hicTargetDev, ptd, dwMode, psizelExtent, pwidth, pheight, pascent) {
-        pwidthMarshal := pwidth is VarRef ? "int*" : "ptr"
-        pheightMarshal := pheight is VarRef ? "int*" : "ptr"
-        pascentMarshal := pascent is VarRef ? "int*" : "ptr"
+        pwidthMarshal := pwidth is VarRef ? "int*" : IntPtr
+        pheightMarshal := pheight is VarRef ? "int*" : IntPtr
+        pascentMarshal := pascent is VarRef ? "int*" : IntPtr
 
         result := ComCall(21, this, UInt32, dwAspect, HDC, hdcDraw, HDC, hicTargetDev, DVTARGETDEVICE.Ptr, ptd, UInt32, dwMode, SIZE.Ptr, psizelExtent, pwidthMarshal, pwidth, pheightMarshal, pheight, pascentMarshal, pascent, "HRESULT")
         return result
@@ -272,8 +272,8 @@ export default struct ITextServices2 extends ITextServices {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.TxGetNaturalSize2 := CallbackCreate(GetMethod(implObj, "TxGetNaturalSize2"), flags, 10)
-        this.vtbl.TxDrawD2D := CallbackCreate(GetMethod(implObj, "TxDrawD2D"), flags, 5)
+        this.vtbl.TxGetNaturalSize2 := CallbackCreate(ObjBindMethod(implObj, "TxGetNaturalSize2"), flags, 10)
+        this.vtbl.TxDrawD2D := CallbackCreate(ObjBindMethod(implObj, "TxDrawD2D"), flags, 5)
     }
 
     Dispose() {

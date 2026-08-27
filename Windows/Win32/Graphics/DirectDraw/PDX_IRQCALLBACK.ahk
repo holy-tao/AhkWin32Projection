@@ -23,7 +23,6 @@ export default struct PDX_IRQCALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<DX_IRQDATA>} pIrqData Points to the <a href="https://docs.microsoft.com/windows/desktop/api/dxmini/ns-dxmini-dx_irqdata">DX_IRQDATA</a> structure that is filled in with the video miniport driver's IRQ information.
      * @returns {String} Nothing - always returns an empty string
      */

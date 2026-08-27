@@ -37,7 +37,6 @@ export default struct IDebugHostModule3 extends IDebugHostModule2 {
     }
 
     /**
-     * 
      * @param {Pointer<Location>} moduleStart 
      * @param {Pointer<Location>} moduleEnd 
      * @returns {HRESULT} 
@@ -56,7 +55,7 @@ export default struct IDebugHostModule3 extends IDebugHostModule2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRange := CallbackCreate(GetMethod(implObj, "GetRange"), flags, 3)
+        this.vtbl.GetRange := CallbackCreate(ObjBindMethod(implObj, "GetRange"), flags, 3)
     }
 
     Dispose() {

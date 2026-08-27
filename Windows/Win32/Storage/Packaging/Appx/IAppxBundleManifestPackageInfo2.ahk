@@ -87,9 +87,9 @@ export default struct IAppxBundleManifestPackageInfo2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetIsPackageReference := CallbackCreate(GetMethod(implObj, "GetIsPackageReference"), flags, 2)
-        this.vtbl.GetIsNonQualifiedResourcePackage := CallbackCreate(GetMethod(implObj, "GetIsNonQualifiedResourcePackage"), flags, 2)
-        this.vtbl.GetIsDefaultApplicablePackage := CallbackCreate(GetMethod(implObj, "GetIsDefaultApplicablePackage"), flags, 2)
+        this.vtbl.GetIsPackageReference := CallbackCreate(ObjBindMethod(implObj, "GetIsPackageReference"), flags, 2)
+        this.vtbl.GetIsNonQualifiedResourcePackage := CallbackCreate(ObjBindMethod(implObj, "GetIsNonQualifiedResourcePackage"), flags, 2)
+        this.vtbl.GetIsDefaultApplicablePackage := CallbackCreate(ObjBindMethod(implObj, "GetIsDefaultApplicablePackage"), flags, 2)
     }
 
     Dispose() {

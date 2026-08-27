@@ -21,7 +21,6 @@ export default struct BCryptDeriveKeyCapiFn {
     }
 
     /**
-     * 
      * @param {BCRYPT_HASH_HANDLE} hHash 
      * @param {BCRYPT_ALG_HANDLE} hTargetAlg 
      * @param {Integer} pbDerivedKey 
@@ -30,7 +29,9 @@ export default struct BCryptDeriveKeyCapiFn {
      * @returns {NTSTATUS} 
      */
     Call(hHash, hTargetAlg, pbDerivedKey, cbDerivedKey, dwFlags) {
-        result := DllCall(this.value, BCRYPT_HASH_HANDLE, hHash, BCRYPT_ALG_HANDLE, hTargetAlg, IntPtr, pbDerivedKey, UInt32, cbDerivedKey, UInt32, dwFlags, NTSTATUS)
+        hTargetAlgMarshal := hTargetAlg == 0 ? IntPtr : BCRYPT_ALG_HANDLE
+
+        result := DllCall(this.value, BCRYPT_HASH_HANDLE, hHash, hTargetAlgMarshal, hTargetAlg, IntPtr, pbDerivedKey, UInt32, cbDerivedKey, UInt32, dwFlags, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

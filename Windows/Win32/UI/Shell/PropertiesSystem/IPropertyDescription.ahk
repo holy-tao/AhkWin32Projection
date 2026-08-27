@@ -282,8 +282,8 @@ export default struct IPropertyDescription extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getrelativedescription
      */
     GetRelativeDescription(propvar1, propvar2, ppszDesc1, ppszDesc2) {
-        ppszDesc1Marshal := ppszDesc1 is VarRef ? "ptr*" : "ptr"
-        ppszDesc2Marshal := ppszDesc2 is VarRef ? "ptr*" : "ptr"
+        ppszDesc1Marshal := ppszDesc1 is VarRef ? "ptr*" : IntPtr
+        ppszDesc2Marshal := ppszDesc2 is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(15, this, PROPVARIANT.Ptr, propvar1, PROPVARIANT.Ptr, propvar2, ppszDesc1Marshal, ppszDesc1, ppszDesc2Marshal, ppszDesc2, "HRESULT")
         return result
@@ -352,8 +352,8 @@ export default struct IPropertyDescription extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getconditiontype
      */
     GetConditionType(pcontype, popDefault) {
-        pcontypeMarshal := pcontype is VarRef ? "int*" : "ptr"
-        popDefaultMarshal := popDefault is VarRef ? "int*" : "ptr"
+        pcontypeMarshal := pcontype is VarRef ? "int*" : IntPtr
+        popDefaultMarshal := popDefault is VarRef ? "int*" : IntPtr
 
         result := ComCall(19, this, pcontypeMarshal, pcontype, popDefaultMarshal, popDefault, "HRESULT")
         return result
@@ -745,27 +745,27 @@ export default struct IPropertyDescription extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPropertyKey := CallbackCreate(GetMethod(implObj, "GetPropertyKey"), flags, 2)
-        this.vtbl.GetCanonicalName := CallbackCreate(GetMethod(implObj, "GetCanonicalName"), flags, 2)
-        this.vtbl.GetPropertyType := CallbackCreate(GetMethod(implObj, "GetPropertyType"), flags, 2)
-        this.vtbl.GetDisplayName := CallbackCreate(GetMethod(implObj, "GetDisplayName"), flags, 2)
-        this.vtbl.GetEditInvitation := CallbackCreate(GetMethod(implObj, "GetEditInvitation"), flags, 2)
-        this.vtbl.GetTypeFlags := CallbackCreate(GetMethod(implObj, "GetTypeFlags"), flags, 3)
-        this.vtbl.GetViewFlags := CallbackCreate(GetMethod(implObj, "GetViewFlags"), flags, 2)
-        this.vtbl.GetDefaultColumnWidth := CallbackCreate(GetMethod(implObj, "GetDefaultColumnWidth"), flags, 2)
-        this.vtbl.GetDisplayType := CallbackCreate(GetMethod(implObj, "GetDisplayType"), flags, 2)
-        this.vtbl.GetColumnState := CallbackCreate(GetMethod(implObj, "GetColumnState"), flags, 2)
-        this.vtbl.GetGroupingRange := CallbackCreate(GetMethod(implObj, "GetGroupingRange"), flags, 2)
-        this.vtbl.GetRelativeDescriptionType := CallbackCreate(GetMethod(implObj, "GetRelativeDescriptionType"), flags, 2)
-        this.vtbl.GetRelativeDescription := CallbackCreate(GetMethod(implObj, "GetRelativeDescription"), flags, 5)
-        this.vtbl.GetSortDescription := CallbackCreate(GetMethod(implObj, "GetSortDescription"), flags, 2)
-        this.vtbl.GetSortDescriptionLabel := CallbackCreate(GetMethod(implObj, "GetSortDescriptionLabel"), flags, 3)
-        this.vtbl.GetAggregationType := CallbackCreate(GetMethod(implObj, "GetAggregationType"), flags, 2)
-        this.vtbl.GetConditionType := CallbackCreate(GetMethod(implObj, "GetConditionType"), flags, 3)
-        this.vtbl.GetEnumTypeList := CallbackCreate(GetMethod(implObj, "GetEnumTypeList"), flags, 3)
-        this.vtbl.CoerceToCanonicalValue := CallbackCreate(GetMethod(implObj, "CoerceToCanonicalValue"), flags, 2)
-        this.vtbl.FormatForDisplay := CallbackCreate(GetMethod(implObj, "FormatForDisplay"), flags, 4)
-        this.vtbl.IsValueCanonical := CallbackCreate(GetMethod(implObj, "IsValueCanonical"), flags, 2)
+        this.vtbl.GetPropertyKey := CallbackCreate(ObjBindMethod(implObj, "GetPropertyKey"), flags, 2)
+        this.vtbl.GetCanonicalName := CallbackCreate(ObjBindMethod(implObj, "GetCanonicalName"), flags, 2)
+        this.vtbl.GetPropertyType := CallbackCreate(ObjBindMethod(implObj, "GetPropertyType"), flags, 2)
+        this.vtbl.GetDisplayName := CallbackCreate(ObjBindMethod(implObj, "GetDisplayName"), flags, 2)
+        this.vtbl.GetEditInvitation := CallbackCreate(ObjBindMethod(implObj, "GetEditInvitation"), flags, 2)
+        this.vtbl.GetTypeFlags := CallbackCreate(ObjBindMethod(implObj, "GetTypeFlags"), flags, 3)
+        this.vtbl.GetViewFlags := CallbackCreate(ObjBindMethod(implObj, "GetViewFlags"), flags, 2)
+        this.vtbl.GetDefaultColumnWidth := CallbackCreate(ObjBindMethod(implObj, "GetDefaultColumnWidth"), flags, 2)
+        this.vtbl.GetDisplayType := CallbackCreate(ObjBindMethod(implObj, "GetDisplayType"), flags, 2)
+        this.vtbl.GetColumnState := CallbackCreate(ObjBindMethod(implObj, "GetColumnState"), flags, 2)
+        this.vtbl.GetGroupingRange := CallbackCreate(ObjBindMethod(implObj, "GetGroupingRange"), flags, 2)
+        this.vtbl.GetRelativeDescriptionType := CallbackCreate(ObjBindMethod(implObj, "GetRelativeDescriptionType"), flags, 2)
+        this.vtbl.GetRelativeDescription := CallbackCreate(ObjBindMethod(implObj, "GetRelativeDescription"), flags, 5)
+        this.vtbl.GetSortDescription := CallbackCreate(ObjBindMethod(implObj, "GetSortDescription"), flags, 2)
+        this.vtbl.GetSortDescriptionLabel := CallbackCreate(ObjBindMethod(implObj, "GetSortDescriptionLabel"), flags, 3)
+        this.vtbl.GetAggregationType := CallbackCreate(ObjBindMethod(implObj, "GetAggregationType"), flags, 2)
+        this.vtbl.GetConditionType := CallbackCreate(ObjBindMethod(implObj, "GetConditionType"), flags, 3)
+        this.vtbl.GetEnumTypeList := CallbackCreate(ObjBindMethod(implObj, "GetEnumTypeList"), flags, 3)
+        this.vtbl.CoerceToCanonicalValue := CallbackCreate(ObjBindMethod(implObj, "CoerceToCanonicalValue"), flags, 2)
+        this.vtbl.FormatForDisplay := CallbackCreate(ObjBindMethod(implObj, "FormatForDisplay"), flags, 4)
+        this.vtbl.IsValueCanonical := CallbackCreate(ObjBindMethod(implObj, "IsValueCanonical"), flags, 2)
     }
 
     Dispose() {

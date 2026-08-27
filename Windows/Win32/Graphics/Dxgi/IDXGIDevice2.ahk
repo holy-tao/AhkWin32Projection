@@ -144,9 +144,9 @@ export default struct IDXGIDevice2 extends IDXGIDevice1 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OfferResources := CallbackCreate(GetMethod(implObj, "OfferResources"), flags, 4)
-        this.vtbl.ReclaimResources := CallbackCreate(GetMethod(implObj, "ReclaimResources"), flags, 4)
-        this.vtbl.EnqueueSetEvent := CallbackCreate(GetMethod(implObj, "EnqueueSetEvent"), flags, 2)
+        this.vtbl.OfferResources := CallbackCreate(ObjBindMethod(implObj, "OfferResources"), flags, 4)
+        this.vtbl.ReclaimResources := CallbackCreate(ObjBindMethod(implObj, "ReclaimResources"), flags, 4)
+        this.vtbl.EnqueueSetEvent := CallbackCreate(ObjBindMethod(implObj, "EnqueueSetEvent"), flags, 2)
     }
 
     Dispose() {

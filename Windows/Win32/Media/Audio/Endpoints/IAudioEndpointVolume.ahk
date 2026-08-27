@@ -446,8 +446,8 @@ export default struct IAudioEndpointVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudioendpointvolume-getvolumestepinfo
      */
     GetVolumeStepInfo(pnStep, pnStepCount) {
-        pnStepMarshal := pnStep is VarRef ? "uint*" : "ptr"
-        pnStepCountMarshal := pnStepCount is VarRef ? "uint*" : "ptr"
+        pnStepMarshal := pnStep is VarRef ? "uint*" : IntPtr
+        pnStepCountMarshal := pnStepCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(16, this, pnStepMarshal, pnStep, pnStepCountMarshal, pnStepCount, "HRESULT")
         return result
@@ -580,9 +580,9 @@ export default struct IAudioEndpointVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudioendpointvolume-getvolumerange
      */
     GetVolumeRange(pflVolumeMindB, pflVolumeMaxdB, pflVolumeIncrementdB) {
-        pflVolumeMindBMarshal := pflVolumeMindB is VarRef ? "float*" : "ptr"
-        pflVolumeMaxdBMarshal := pflVolumeMaxdB is VarRef ? "float*" : "ptr"
-        pflVolumeIncrementdBMarshal := pflVolumeIncrementdB is VarRef ? "float*" : "ptr"
+        pflVolumeMindBMarshal := pflVolumeMindB is VarRef ? "float*" : IntPtr
+        pflVolumeMaxdBMarshal := pflVolumeMaxdB is VarRef ? "float*" : IntPtr
+        pflVolumeIncrementdBMarshal := pflVolumeIncrementdB is VarRef ? "float*" : IntPtr
 
         result := ComCall(20, this, pflVolumeMindBMarshal, pflVolumeMindB, pflVolumeMaxdBMarshal, pflVolumeMaxdB, pflVolumeIncrementdBMarshal, pflVolumeIncrementdB, "HRESULT")
         return result
@@ -597,24 +597,24 @@ export default struct IAudioEndpointVolume extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterControlChangeNotify := CallbackCreate(GetMethod(implObj, "RegisterControlChangeNotify"), flags, 2)
-        this.vtbl.UnregisterControlChangeNotify := CallbackCreate(GetMethod(implObj, "UnregisterControlChangeNotify"), flags, 2)
-        this.vtbl.GetChannelCount := CallbackCreate(GetMethod(implObj, "GetChannelCount"), flags, 2)
-        this.vtbl.SetMasterVolumeLevel := CallbackCreate(GetMethod(implObj, "SetMasterVolumeLevel"), flags, 3)
-        this.vtbl.SetMasterVolumeLevelScalar := CallbackCreate(GetMethod(implObj, "SetMasterVolumeLevelScalar"), flags, 3)
-        this.vtbl.GetMasterVolumeLevel := CallbackCreate(GetMethod(implObj, "GetMasterVolumeLevel"), flags, 2)
-        this.vtbl.GetMasterVolumeLevelScalar := CallbackCreate(GetMethod(implObj, "GetMasterVolumeLevelScalar"), flags, 2)
-        this.vtbl.SetChannelVolumeLevel := CallbackCreate(GetMethod(implObj, "SetChannelVolumeLevel"), flags, 4)
-        this.vtbl.SetChannelVolumeLevelScalar := CallbackCreate(GetMethod(implObj, "SetChannelVolumeLevelScalar"), flags, 4)
-        this.vtbl.GetChannelVolumeLevel := CallbackCreate(GetMethod(implObj, "GetChannelVolumeLevel"), flags, 3)
-        this.vtbl.GetChannelVolumeLevelScalar := CallbackCreate(GetMethod(implObj, "GetChannelVolumeLevelScalar"), flags, 3)
-        this.vtbl.SetMute := CallbackCreate(GetMethod(implObj, "SetMute"), flags, 3)
-        this.vtbl.GetMute := CallbackCreate(GetMethod(implObj, "GetMute"), flags, 2)
-        this.vtbl.GetVolumeStepInfo := CallbackCreate(GetMethod(implObj, "GetVolumeStepInfo"), flags, 3)
-        this.vtbl.VolumeStepUp := CallbackCreate(GetMethod(implObj, "VolumeStepUp"), flags, 2)
-        this.vtbl.VolumeStepDown := CallbackCreate(GetMethod(implObj, "VolumeStepDown"), flags, 2)
-        this.vtbl.QueryHardwareSupport := CallbackCreate(GetMethod(implObj, "QueryHardwareSupport"), flags, 2)
-        this.vtbl.GetVolumeRange := CallbackCreate(GetMethod(implObj, "GetVolumeRange"), flags, 4)
+        this.vtbl.RegisterControlChangeNotify := CallbackCreate(ObjBindMethod(implObj, "RegisterControlChangeNotify"), flags, 2)
+        this.vtbl.UnregisterControlChangeNotify := CallbackCreate(ObjBindMethod(implObj, "UnregisterControlChangeNotify"), flags, 2)
+        this.vtbl.GetChannelCount := CallbackCreate(ObjBindMethod(implObj, "GetChannelCount"), flags, 2)
+        this.vtbl.SetMasterVolumeLevel := CallbackCreate(ObjBindMethod(implObj, "SetMasterVolumeLevel"), flags, 3)
+        this.vtbl.SetMasterVolumeLevelScalar := CallbackCreate(ObjBindMethod(implObj, "SetMasterVolumeLevelScalar"), flags, 3)
+        this.vtbl.GetMasterVolumeLevel := CallbackCreate(ObjBindMethod(implObj, "GetMasterVolumeLevel"), flags, 2)
+        this.vtbl.GetMasterVolumeLevelScalar := CallbackCreate(ObjBindMethod(implObj, "GetMasterVolumeLevelScalar"), flags, 2)
+        this.vtbl.SetChannelVolumeLevel := CallbackCreate(ObjBindMethod(implObj, "SetChannelVolumeLevel"), flags, 4)
+        this.vtbl.SetChannelVolumeLevelScalar := CallbackCreate(ObjBindMethod(implObj, "SetChannelVolumeLevelScalar"), flags, 4)
+        this.vtbl.GetChannelVolumeLevel := CallbackCreate(ObjBindMethod(implObj, "GetChannelVolumeLevel"), flags, 3)
+        this.vtbl.GetChannelVolumeLevelScalar := CallbackCreate(ObjBindMethod(implObj, "GetChannelVolumeLevelScalar"), flags, 3)
+        this.vtbl.SetMute := CallbackCreate(ObjBindMethod(implObj, "SetMute"), flags, 3)
+        this.vtbl.GetMute := CallbackCreate(ObjBindMethod(implObj, "GetMute"), flags, 2)
+        this.vtbl.GetVolumeStepInfo := CallbackCreate(ObjBindMethod(implObj, "GetVolumeStepInfo"), flags, 3)
+        this.vtbl.VolumeStepUp := CallbackCreate(ObjBindMethod(implObj, "VolumeStepUp"), flags, 2)
+        this.vtbl.VolumeStepDown := CallbackCreate(ObjBindMethod(implObj, "VolumeStepDown"), flags, 2)
+        this.vtbl.QueryHardwareSupport := CallbackCreate(ObjBindMethod(implObj, "QueryHardwareSupport"), flags, 2)
+        this.vtbl.GetVolumeRange := CallbackCreate(ObjBindMethod(implObj, "GetVolumeRange"), flags, 4)
     }
 
     Dispose() {

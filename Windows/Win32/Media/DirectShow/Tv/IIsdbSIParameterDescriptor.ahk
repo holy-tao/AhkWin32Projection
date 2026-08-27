@@ -126,7 +126,7 @@ export default struct IIsdbSIParameterDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbsiparameterdescriptor-gettabledescriptionbytes
      */
     GetTableDescriptionBytes(bRecordIndex, pbBufferLength) {
-        pbBufferLengthMarshal := pbBufferLength is VarRef ? "char*" : "ptr"
+        pbBufferLengthMarshal := pbBufferLength is VarRef ? "char*" : IntPtr
 
         result := ComCall(10, this, Int8, bRecordIndex, pbBufferLengthMarshal, pbBufferLength, "char*", &pbBuffer := 0, "HRESULT")
         return pbBuffer
@@ -141,14 +141,14 @@ export default struct IIsdbSIParameterDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetParameterVersion := CallbackCreate(GetMethod(implObj, "GetParameterVersion"), flags, 2)
-        this.vtbl.GetUpdateTime := CallbackCreate(GetMethod(implObj, "GetUpdateTime"), flags, 2)
-        this.vtbl.GetRecordNumberOfTable := CallbackCreate(GetMethod(implObj, "GetRecordNumberOfTable"), flags, 2)
-        this.vtbl.GetTableId := CallbackCreate(GetMethod(implObj, "GetTableId"), flags, 3)
-        this.vtbl.GetTableDescriptionLength := CallbackCreate(GetMethod(implObj, "GetTableDescriptionLength"), flags, 3)
-        this.vtbl.GetTableDescriptionBytes := CallbackCreate(GetMethod(implObj, "GetTableDescriptionBytes"), flags, 4)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetParameterVersion := CallbackCreate(ObjBindMethod(implObj, "GetParameterVersion"), flags, 2)
+        this.vtbl.GetUpdateTime := CallbackCreate(ObjBindMethod(implObj, "GetUpdateTime"), flags, 2)
+        this.vtbl.GetRecordNumberOfTable := CallbackCreate(ObjBindMethod(implObj, "GetRecordNumberOfTable"), flags, 2)
+        this.vtbl.GetTableId := CallbackCreate(ObjBindMethod(implObj, "GetTableId"), flags, 3)
+        this.vtbl.GetTableDescriptionLength := CallbackCreate(ObjBindMethod(implObj, "GetTableDescriptionLength"), flags, 3)
+        this.vtbl.GetTableDescriptionBytes := CallbackCreate(ObjBindMethod(implObj, "GetTableDescriptionBytes"), flags, 4)
     }
 
     Dispose() {

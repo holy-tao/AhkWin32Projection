@@ -37,7 +37,6 @@ export default struct IPrepareInfo2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetPrepareInfoSize() {
@@ -46,7 +45,6 @@ export default struct IPrepareInfo2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cbPrepareInfo 
      * @returns {Integer} 
      */
@@ -64,8 +62,8 @@ export default struct IPrepareInfo2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPrepareInfoSize := CallbackCreate(GetMethod(implObj, "GetPrepareInfoSize"), flags, 2)
-        this.vtbl.GetPrepareInfo := CallbackCreate(GetMethod(implObj, "GetPrepareInfo"), flags, 3)
+        this.vtbl.GetPrepareInfoSize := CallbackCreate(ObjBindMethod(implObj, "GetPrepareInfoSize"), flags, 2)
+        this.vtbl.GetPrepareInfo := CallbackCreate(ObjBindMethod(implObj, "GetPrepareInfo"), flags, 3)
     }
 
     Dispose() {

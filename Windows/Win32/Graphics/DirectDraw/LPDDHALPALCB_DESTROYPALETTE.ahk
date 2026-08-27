@@ -19,7 +19,6 @@ export default struct LPDDHALPALCB_DESTROYPALETTE {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_DESTROYPALETTEDATA>} param0 
      * @returns {Integer} 
      */

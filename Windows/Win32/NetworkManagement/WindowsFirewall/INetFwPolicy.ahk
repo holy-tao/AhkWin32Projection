@@ -93,8 +93,8 @@ export default struct INetFwPolicy extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_CurrentProfile := CallbackCreate(GetMethod(implObj, "get_CurrentProfile"), flags, 2)
-        this.vtbl.GetProfileByType := CallbackCreate(GetMethod(implObj, "GetProfileByType"), flags, 3)
+        this.vtbl.get_CurrentProfile := CallbackCreate(ObjBindMethod(implObj, "get_CurrentProfile"), flags, 2)
+        this.vtbl.GetProfileByType := CallbackCreate(ObjBindMethod(implObj, "GetProfileByType"), flags, 3)
     }
 
     Dispose() {

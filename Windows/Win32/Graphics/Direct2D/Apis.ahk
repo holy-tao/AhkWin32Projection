@@ -40,7 +40,9 @@
  * @since windows6.1
  */
 export D2D1CreateFactory(factoryType, riid, pFactoryOptions) {
-    result := DllCall("d2d1.dll\D2D1CreateFactory", D2D1_FACTORY_TYPE, factoryType, Guid.Ptr, riid, D2D1_FACTORY_OPTIONS.Ptr, pFactoryOptions, "ptr*", &ppIFactory := 0, "HRESULT")
+    pFactoryOptionsMarshal := pFactoryOptions == 0 ? IntPtr : D2D1_FACTORY_OPTIONS.Ptr
+
+    result := DllCall("d2d1.dll\D2D1CreateFactory", D2D1_FACTORY_TYPE, factoryType, Guid.Ptr, riid, pFactoryOptionsMarshal, pFactoryOptions, "ptr*", &ppIFactory := 0, "HRESULT")
     return ppIFactory
 }
 
@@ -132,7 +134,9 @@ export D2D1InvertMatrix(_matrix) {
  * @since windows8.0
  */
 export D2D1CreateDevice(dxgiDevice, creationProperties) {
-    result := DllCall("d2d1.dll\D2D1CreateDevice", "ptr", dxgiDevice, D2D1_CREATION_PROPERTIES.Ptr, creationProperties, "ptr*", &d2dDevice := 0, "HRESULT")
+    creationPropertiesMarshal := creationProperties == 0 ? IntPtr : D2D1_CREATION_PROPERTIES.Ptr
+
+    result := DllCall("d2d1.dll\D2D1CreateDevice", "ptr", dxgiDevice, creationPropertiesMarshal, creationProperties, "ptr*", &d2dDevice := 0, "HRESULT")
     return ID2D1Device(d2dDevice)
 }
 
@@ -153,7 +157,9 @@ export D2D1CreateDevice(dxgiDevice, creationProperties) {
  * @since windows8.0
  */
 export D2D1CreateDeviceContext(dxgiSurface, creationProperties) {
-    result := DllCall("d2d1.dll\D2D1CreateDeviceContext", "ptr", dxgiSurface, D2D1_CREATION_PROPERTIES.Ptr, creationProperties, "ptr*", &d2dDeviceContext := 0, "HRESULT")
+    creationPropertiesMarshal := creationProperties == 0 ? IntPtr : D2D1_CREATION_PROPERTIES.Ptr
+
+    result := DllCall("d2d1.dll\D2D1CreateDeviceContext", "ptr", dxgiSurface, creationPropertiesMarshal, creationProperties, "ptr*", &d2dDeviceContext := 0, "HRESULT")
     return ID2D1DeviceContext(d2dDeviceContext)
 }
 
@@ -193,8 +199,8 @@ export D2D1ConvertColorSpace(sourceColorSpace, destinationColorSpace, _color) {
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-d2d1sincos
  */
 export D2D1SinCos(angle, s, c) {
-    sMarshal := s is VarRef ? "float*" : "ptr"
-    cMarshal := c is VarRef ? "float*" : "ptr"
+    sMarshal := s is VarRef ? "float*" : IntPtr
+    cMarshal := c is VarRef ? "float*" : IntPtr
 
     DllCall("d2d1.dll\D2D1SinCos", Float32, angle, sMarshal, s, cMarshal, c)
 }

@@ -24,7 +24,6 @@ export default struct WS_VALIDATE_PASSWORD_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} passwordValidatorCallbackState The state to be passed back when invoking this callback.
      * @param {Pointer<WS_STRING>} username Received username.
      * @param {Pointer<WS_STRING>} password Received password.
@@ -33,10 +32,13 @@ export default struct WS_VALIDATE_PASSWORD_CALLBACK {
      * @returns {HRESULT} This callback function does not return a value.
      */
     Call(passwordValidatorCallbackState, username, password, asyncContext, _error) {
-        passwordValidatorCallbackStateMarshal := passwordValidatorCallbackState is VarRef ? "ptr" : "ptr"
-        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
+        passwordValidatorCallbackStateMarshal := passwordValidatorCallbackState is VarRef ? "ptr" : IntPtr
+        passwordValidatorCallbackStateMarshal := passwordValidatorCallbackState == 0 ? IntPtr : "ptr"
+        asyncContextMarshal := asyncContext == 0 ? IntPtr : WS_ASYNC_CONTEXT.Ptr
+        _errorMarshal := _error is VarRef ? "ptr*" : IntPtr
+        _errorMarshal := _error == 0 ? IntPtr : WS_ERROR.Ptr
 
-        result := DllCall(this.value, passwordValidatorCallbackStateMarshal, passwordValidatorCallbackState, WS_STRING.Ptr, username, WS_STRING.Ptr, password, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
+        result := DllCall(this.value, passwordValidatorCallbackStateMarshal, passwordValidatorCallbackState, WS_STRING.Ptr, username, WS_STRING.Ptr, password, asyncContextMarshal, asyncContext, _errorMarshal, _error, "HRESULT")
         return result
     }
 

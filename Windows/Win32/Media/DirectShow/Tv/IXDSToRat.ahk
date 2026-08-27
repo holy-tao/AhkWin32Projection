@@ -152,9 +152,9 @@ export default struct IXDSToRat extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tvratings/nf-tvratings-ixdstorat-parsexdsbytepair
      */
     ParseXDSBytePair(byte1, byte2, pEnSystem, pEnLevel, plBfEnAttributes) {
-        pEnSystemMarshal := pEnSystem is VarRef ? "int*" : "ptr"
-        pEnLevelMarshal := pEnLevel is VarRef ? "int*" : "ptr"
-        plBfEnAttributesMarshal := plBfEnAttributes is VarRef ? "int*" : "ptr"
+        pEnSystemMarshal := pEnSystem is VarRef ? "int*" : IntPtr
+        pEnLevelMarshal := pEnLevel is VarRef ? "int*" : IntPtr
+        plBfEnAttributesMarshal := plBfEnAttributes is VarRef ? "int*" : IntPtr
 
         result := ComCall(8, this, Int8, byte1, Int8, byte2, pEnSystemMarshal, pEnSystem, pEnLevelMarshal, pEnLevel, plBfEnAttributesMarshal, plBfEnAttributes, "HRESULT")
         return result
@@ -169,8 +169,8 @@ export default struct IXDSToRat extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 1)
-        this.vtbl.ParseXDSBytePair := CallbackCreate(GetMethod(implObj, "ParseXDSBytePair"), flags, 6)
+        this.vtbl.Init := CallbackCreate(ObjBindMethod(implObj, "Init"), flags, 1)
+        this.vtbl.ParseXDSBytePair := CallbackCreate(ObjBindMethod(implObj, "ParseXDSBytePair"), flags, 6)
     }
 
     Dispose() {

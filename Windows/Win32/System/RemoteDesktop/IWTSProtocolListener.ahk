@@ -86,8 +86,8 @@ export default struct IWTSProtocolListener extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StartListen := CallbackCreate(GetMethod(implObj, "StartListen"), flags, 2)
-        this.vtbl.StopListen := CallbackCreate(GetMethod(implObj, "StopListen"), flags, 1)
+        this.vtbl.StartListen := CallbackCreate(ObjBindMethod(implObj, "StartListen"), flags, 2)
+        this.vtbl.StopListen := CallbackCreate(ObjBindMethod(implObj, "StopListen"), flags, 1)
     }
 
     Dispose() {

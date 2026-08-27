@@ -83,9 +83,9 @@ export default struct IWMCodecProps extends IUnknown {
     GetFormatProp(pmt, pszName, pType, pValue, pdwSize) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
-        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+        pTypeMarshal := pType is VarRef ? "int*" : IntPtr
+        pValueMarshal := pValue is VarRef ? "char*" : IntPtr
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, DMO_MEDIA_TYPE.Ptr, pmt, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "HRESULT")
         return result
@@ -156,9 +156,9 @@ export default struct IWMCodecProps extends IUnknown {
     GetCodecProp(dwFormat, pszName, pType, pValue, pdwSize) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
-        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+        pTypeMarshal := pType is VarRef ? "int*" : IntPtr
+        pValueMarshal := pValue is VarRef ? "char*" : IntPtr
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, UInt32, dwFormat, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "HRESULT")
         return result
@@ -173,8 +173,8 @@ export default struct IWMCodecProps extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFormatProp := CallbackCreate(GetMethod(implObj, "GetFormatProp"), flags, 6)
-        this.vtbl.GetCodecProp := CallbackCreate(GetMethod(implObj, "GetCodecProp"), flags, 6)
+        this.vtbl.GetFormatProp := CallbackCreate(ObjBindMethod(implObj, "GetFormatProp"), flags, 6)
+        this.vtbl.GetCodecProp := CallbackCreate(ObjBindMethod(implObj, "GetCodecProp"), flags, 6)
     }
 
     Dispose() {

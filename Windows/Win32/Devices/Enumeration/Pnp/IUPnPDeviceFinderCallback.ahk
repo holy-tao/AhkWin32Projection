@@ -102,9 +102,9 @@ export default struct IUPnPDeviceFinderCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DeviceAdded := CallbackCreate(GetMethod(implObj, "DeviceAdded"), flags, 3)
-        this.vtbl.DeviceRemoved := CallbackCreate(GetMethod(implObj, "DeviceRemoved"), flags, 3)
-        this.vtbl.SearchComplete := CallbackCreate(GetMethod(implObj, "SearchComplete"), flags, 2)
+        this.vtbl.DeviceAdded := CallbackCreate(ObjBindMethod(implObj, "DeviceAdded"), flags, 3)
+        this.vtbl.DeviceRemoved := CallbackCreate(ObjBindMethod(implObj, "DeviceRemoved"), flags, 3)
+        this.vtbl.SearchComplete := CallbackCreate(ObjBindMethod(implObj, "SearchComplete"), flags, 2)
     }
 
     Dispose() {

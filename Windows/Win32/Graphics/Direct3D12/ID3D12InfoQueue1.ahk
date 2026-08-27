@@ -39,7 +39,6 @@ export default struct ID3D12InfoQueue1 extends ID3D12InfoQueue {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12MessageFunc>} CallbackFunc 
      * @param {D3D12_MESSAGE_CALLBACK_FLAGS} CallbackFilterFlags 
      * @param {Pointer<Void>} pContext 
@@ -47,15 +46,14 @@ export default struct ID3D12InfoQueue1 extends ID3D12InfoQueue {
      * @returns {HRESULT} 
      */
     RegisterMessageCallback(CallbackFunc, CallbackFilterFlags, pContext, pCallbackCookie) {
-        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
-        pCallbackCookieMarshal := pCallbackCookie is VarRef ? "uint*" : "ptr"
+        pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
+        pCallbackCookieMarshal := pCallbackCookie is VarRef ? "uint*" : IntPtr
 
         result := ComCall(38, this, D3D12MessageFunc, CallbackFunc, D3D12_MESSAGE_CALLBACK_FLAGS, CallbackFilterFlags, pContextMarshal, pContext, pCallbackCookieMarshal, pCallbackCookie, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} CallbackCookie 
      * @returns {HRESULT} 
      */
@@ -73,8 +71,8 @@ export default struct ID3D12InfoQueue1 extends ID3D12InfoQueue {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterMessageCallback := CallbackCreate(GetMethod(implObj, "RegisterMessageCallback"), flags, 5)
-        this.vtbl.UnregisterMessageCallback := CallbackCreate(GetMethod(implObj, "UnregisterMessageCallback"), flags, 2)
+        this.vtbl.RegisterMessageCallback := CallbackCreate(ObjBindMethod(implObj, "RegisterMessageCallback"), flags, 5)
+        this.vtbl.UnregisterMessageCallback := CallbackCreate(ObjBindMethod(implObj, "UnregisterMessageCallback"), flags, 2)
     }
 
     Dispose() {

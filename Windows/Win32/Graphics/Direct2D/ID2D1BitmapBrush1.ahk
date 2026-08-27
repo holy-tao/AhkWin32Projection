@@ -71,8 +71,8 @@ export default struct ID2D1BitmapBrush1 extends ID2D1BitmapBrush {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetInterpolationMode1 := CallbackCreate(GetMethod(implObj, "SetInterpolationMode1"), flags, 2)
-        this.vtbl.GetInterpolationMode1 := CallbackCreate(GetMethod(implObj, "GetInterpolationMode1"), flags, 1)
+        this.vtbl.SetInterpolationMode1 := CallbackCreate(ObjBindMethod(implObj, "SetInterpolationMode1"), flags, 2)
+        this.vtbl.GetInterpolationMode1 := CallbackCreate(ObjBindMethod(implObj, "GetInterpolationMode1"), flags, 1)
     }
 
     Dispose() {

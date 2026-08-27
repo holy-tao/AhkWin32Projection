@@ -38,7 +38,6 @@ export default struct IColumnsInfo2 extends IColumnsInfo {
     }
 
     /**
-     * 
      * @param {Pointer} cColumnIDMasks 
      * @param {Pointer<DBID>} rgColumnIDMasks 
      * @param {Integer} dwFlags 
@@ -49,10 +48,11 @@ export default struct IColumnsInfo2 extends IColumnsInfo {
      * @returns {HRESULT} 
      */
     GetRestrictedColumnInfo(cColumnIDMasks, rgColumnIDMasks, dwFlags, pcColumns, prgColumnIDs, prgColumnInfo, ppStringsBuffer) {
-        pcColumnsMarshal := pcColumns is VarRef ? "ptr*" : "ptr"
-        prgColumnIDsMarshal := prgColumnIDs is VarRef ? "ptr*" : "ptr"
-        prgColumnInfoMarshal := prgColumnInfo is VarRef ? "ptr*" : "ptr"
-        ppStringsBufferMarshal := ppStringsBuffer is VarRef ? "ptr*" : "ptr"
+        pcColumnsMarshal := pcColumns is VarRef ? "ptr*" : IntPtr
+        prgColumnIDsMarshal := prgColumnIDs is VarRef ? "ptr*" : IntPtr
+        prgColumnInfoMarshal := prgColumnInfo is VarRef ? "ptr*" : IntPtr
+        ppStringsBufferMarshal := ppStringsBuffer is VarRef ? "ptr*" : IntPtr
+        ppStringsBufferMarshal := ppStringsBuffer == 0 ? IntPtr : "ptr*"
 
         result := ComCall(5, this, IntPtr, cColumnIDMasks, DBID.Ptr, rgColumnIDMasks, UInt32, dwFlags, pcColumnsMarshal, pcColumns, prgColumnIDsMarshal, prgColumnIDs, prgColumnInfoMarshal, prgColumnInfo, ppStringsBufferMarshal, ppStringsBuffer, "HRESULT")
         return result
@@ -67,7 +67,7 @@ export default struct IColumnsInfo2 extends IColumnsInfo {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRestrictedColumnInfo := CallbackCreate(GetMethod(implObj, "GetRestrictedColumnInfo"), flags, 8)
+        this.vtbl.GetRestrictedColumnInfo := CallbackCreate(ObjBindMethod(implObj, "GetRestrictedColumnInfo"), flags, 8)
     }
 
     Dispose() {

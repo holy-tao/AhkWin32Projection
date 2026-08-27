@@ -21,7 +21,6 @@ export default struct RPC_NEW_HTTP_PROXY_CHANNEL {
     }
 
     /**
-     * 
      * @param {RPC_HTTP_REDIRECTOR_STAGE} RedirectorStage 
      * @param {PWSTR} ServerName 
      * @param {PWSTR} ServerPort 
@@ -42,14 +41,20 @@ export default struct RPC_NEW_HTTP_PROXY_CHANNEL {
         RemoteUser := RemoteUser is String ? StrPtr(RemoteUser) : RemoteUser
         AuthType := AuthType is String ? StrPtr(AuthType) : AuthType
 
-        ResourceUuidMarshal := ResourceUuid is VarRef ? "ptr" : "ptr"
-        SessionIdMarshal := SessionId is VarRef ? "ptr" : "ptr"
-        _InterfaceMarshal := _Interface is VarRef ? "ptr" : "ptr"
-        ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
-        NewServerNameMarshal := NewServerName is VarRef ? "ptr*" : "ptr"
-        NewServerPortMarshal := NewServerPort is VarRef ? "ptr*" : "ptr"
+        RemoteUserMarshal := RemoteUser == 0 ? IntPtr : PWSTR
+        AuthTypeMarshal := AuthType == 0 ? IntPtr : PWSTR
+        ResourceUuidMarshal := ResourceUuid is VarRef ? "ptr" : IntPtr
+        SessionIdMarshal := SessionId is VarRef ? "ptr" : IntPtr
+        _InterfaceMarshal := _Interface is VarRef ? "ptr" : IntPtr
+        _InterfaceMarshal := _Interface == 0 ? IntPtr : "ptr"
+        ReservedMarshal := Reserved is VarRef ? "ptr" : IntPtr
+        ReservedMarshal := Reserved == 0 ? IntPtr : "ptr"
+        NewServerNameMarshal := NewServerName is VarRef ? "ptr*" : IntPtr
+        NewServerNameMarshal := NewServerName == 0 ? IntPtr : PWSTR.Ptr
+        NewServerPortMarshal := NewServerPort is VarRef ? "ptr*" : IntPtr
+        NewServerPortMarshal := NewServerPort == 0 ? IntPtr : PWSTR.Ptr
 
-        result := DllCall(this.value, RPC_HTTP_REDIRECTOR_STAGE, RedirectorStage, "ptr", ServerName, "ptr", ServerPort, "ptr", RemoteUser, "ptr", AuthType, ResourceUuidMarshal, ResourceUuid, SessionIdMarshal, SessionId, _InterfaceMarshal, _Interface, ReservedMarshal, Reserved, UInt32, Flags, NewServerNameMarshal, NewServerName, NewServerPortMarshal, NewServerPort, RPC_STATUS)
+        result := DllCall(this.value, RPC_HTTP_REDIRECTOR_STAGE, RedirectorStage, "ptr", ServerName, "ptr", ServerPort, RemoteUserMarshal, RemoteUser, AuthTypeMarshal, AuthType, ResourceUuidMarshal, ResourceUuid, SessionIdMarshal, SessionId, _InterfaceMarshal, _Interface, ReservedMarshal, Reserved, UInt32, Flags, NewServerNameMarshal, NewServerName, NewServerPortMarshal, NewServerPort, RPC_STATUS)
         return result
     }
 

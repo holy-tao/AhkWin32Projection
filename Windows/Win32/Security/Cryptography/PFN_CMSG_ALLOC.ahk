@@ -18,7 +18,6 @@ export default struct PFN_CMSG_ALLOC {
     }
 
     /**
-     * 
      * @param {Pointer} cb 
      * @returns {Pointer<Void>} 
      */

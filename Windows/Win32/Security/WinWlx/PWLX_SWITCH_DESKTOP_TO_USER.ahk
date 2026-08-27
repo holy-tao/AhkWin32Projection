@@ -21,7 +21,6 @@ export default struct PWLX_SWITCH_DESKTOP_TO_USER {
     }
 
     /**
-     * 
      * @param {HANDLE} hWlx Specifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/w-gly">Winlogon</a> handle passed to GINA in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nf-winwlx-wlxinitialize">WlxInitialize</a> call.
      * @returns {Integer} The <b>WlxSwitchDesktopToUser</b> function returns zero if the function call succeeds. Otherwise, it returns an error code.

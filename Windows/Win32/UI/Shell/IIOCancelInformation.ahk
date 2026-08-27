@@ -72,8 +72,10 @@ export default struct IIOCancelInformation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iiocancelinformation-getcancelinformation
      */
     GetCancelInformation(pdwThreadID, puMsgCancel) {
-        pdwThreadIDMarshal := pdwThreadID is VarRef ? "uint*" : "ptr"
-        puMsgCancelMarshal := puMsgCancel is VarRef ? "uint*" : "ptr"
+        pdwThreadIDMarshal := pdwThreadID is VarRef ? "uint*" : IntPtr
+        pdwThreadIDMarshal := pdwThreadID == 0 ? IntPtr : "uint*"
+        puMsgCancelMarshal := puMsgCancel is VarRef ? "uint*" : IntPtr
+        puMsgCancelMarshal := puMsgCancel == 0 ? IntPtr : "uint*"
 
         result := ComCall(4, this, pdwThreadIDMarshal, pdwThreadID, puMsgCancelMarshal, puMsgCancel, "HRESULT")
         return result
@@ -88,8 +90,8 @@ export default struct IIOCancelInformation extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetCancelInformation := CallbackCreate(GetMethod(implObj, "SetCancelInformation"), flags, 3)
-        this.vtbl.GetCancelInformation := CallbackCreate(GetMethod(implObj, "GetCancelInformation"), flags, 3)
+        this.vtbl.SetCancelInformation := CallbackCreate(ObjBindMethod(implObj, "SetCancelInformation"), flags, 3)
+        this.vtbl.GetCancelInformation := CallbackCreate(ObjBindMethod(implObj, "GetCancelInformation"), flags, 3)
     }
 
     Dispose() {

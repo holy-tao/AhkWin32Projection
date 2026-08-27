@@ -78,7 +78,6 @@ export default struct LPFN_TRANSMITPACKETS {
     }
 
     /**
-     * 
      * @param {SOCKET} hSocket A handle to the connected socket to be used in the transmission. Although the socket does not need to be a connection-oriented circuit, the default destination/peer should have been established using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-connect">connect</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaconnect">WSAConnect</a>, 
@@ -340,7 +339,10 @@ export default struct LPFN_TRANSMITPACKETS {
      * </table>
      */
     Call(hSocket, lpPacketArray, nElementCount, nSendSize, lpOverlapped, dwFlags) {
-        result := DllCall(this.value, SOCKET, hSocket, TRANSMIT_PACKETS_ELEMENT.Ptr, lpPacketArray, UInt32, nElementCount, UInt32, nSendSize, OVERLAPPED.Ptr, lpOverlapped, UInt32, dwFlags, BOOL)
+        lpPacketArrayMarshal := lpPacketArray == 0 ? IntPtr : TRANSMIT_PACKETS_ELEMENT.Ptr
+        lpOverlappedMarshal := lpOverlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+
+        result := DllCall(this.value, SOCKET, hSocket, lpPacketArrayMarshal, lpPacketArray, UInt32, nElementCount, UInt32, nSendSize, lpOverlappedMarshal, lpOverlapped, UInt32, dwFlags, BOOL)
         return result
     }
 

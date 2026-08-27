@@ -45,7 +45,6 @@ export default struct IHTMLStyleSheetRulesCollection2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -54,7 +53,6 @@ export default struct IHTMLStyleSheetRulesCollection2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {IHTMLCSSRule} 
      */
@@ -72,8 +70,8 @@ export default struct IHTMLStyleSheetRulesCollection2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_length := CallbackCreate(GetMethod(implObj, "get_length"), flags, 2)
-        this.vtbl.item := CallbackCreate(GetMethod(implObj, "item"), flags, 3)
+        this.vtbl.get_length := CallbackCreate(ObjBindMethod(implObj, "get_length"), flags, 2)
+        this.vtbl.item := CallbackCreate(ObjBindMethod(implObj, "item"), flags, 3)
     }
 
     Dispose() {

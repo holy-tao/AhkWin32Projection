@@ -164,13 +164,13 @@ export default struct IMessageMover extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_SourcePath := CallbackCreate(GetMethod(implObj, "get_SourcePath"), flags, 2)
-        this.vtbl.put_SourcePath := CallbackCreate(GetMethod(implObj, "put_SourcePath"), flags, 2)
-        this.vtbl.get_DestPath := CallbackCreate(GetMethod(implObj, "get_DestPath"), flags, 2)
-        this.vtbl.put_DestPath := CallbackCreate(GetMethod(implObj, "put_DestPath"), flags, 2)
-        this.vtbl.get_CommitBatchSize := CallbackCreate(GetMethod(implObj, "get_CommitBatchSize"), flags, 2)
-        this.vtbl.put_CommitBatchSize := CallbackCreate(GetMethod(implObj, "put_CommitBatchSize"), flags, 2)
-        this.vtbl.MoveMessages := CallbackCreate(GetMethod(implObj, "MoveMessages"), flags, 2)
+        this.vtbl.get_SourcePath := CallbackCreate(ObjBindMethod(implObj, "get_SourcePath"), flags, 2)
+        this.vtbl.put_SourcePath := CallbackCreate(ObjBindMethod(implObj, "put_SourcePath"), flags, 2)
+        this.vtbl.get_DestPath := CallbackCreate(ObjBindMethod(implObj, "get_DestPath"), flags, 2)
+        this.vtbl.put_DestPath := CallbackCreate(ObjBindMethod(implObj, "put_DestPath"), flags, 2)
+        this.vtbl.get_CommitBatchSize := CallbackCreate(ObjBindMethod(implObj, "get_CommitBatchSize"), flags, 2)
+        this.vtbl.put_CommitBatchSize := CallbackCreate(ObjBindMethod(implObj, "put_CommitBatchSize"), flags, 2)
+        this.vtbl.MoveMessages := CallbackCreate(ObjBindMethod(implObj, "MoveMessages"), flags, 2)
     }
 
     Dispose() {

@@ -82,8 +82,8 @@ export default struct IWICFormatConverterInfo extends IWICComponentInfo {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPixelFormats := CallbackCreate(GetMethod(implObj, "GetPixelFormats"), flags, 4)
-        this.vtbl.CreateInstance := CallbackCreate(GetMethod(implObj, "CreateInstance"), flags, 2)
+        this.vtbl.GetPixelFormats := CallbackCreate(ObjBindMethod(implObj, "GetPixelFormats"), flags, 4)
+        this.vtbl.CreateInstance := CallbackCreate(ObjBindMethod(implObj, "CreateInstance"), flags, 2)
     }
 
     Dispose() {

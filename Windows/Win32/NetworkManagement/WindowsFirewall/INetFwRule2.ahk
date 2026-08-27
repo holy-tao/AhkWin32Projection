@@ -76,8 +76,8 @@ export default struct INetFwRule2 extends INetFwRule {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_EdgeTraversalOptions := CallbackCreate(GetMethod(implObj, "get_EdgeTraversalOptions"), flags, 2)
-        this.vtbl.put_EdgeTraversalOptions := CallbackCreate(GetMethod(implObj, "put_EdgeTraversalOptions"), flags, 2)
+        this.vtbl.get_EdgeTraversalOptions := CallbackCreate(ObjBindMethod(implObj, "get_EdgeTraversalOptions"), flags, 2)
+        this.vtbl.put_EdgeTraversalOptions := CallbackCreate(ObjBindMethod(implObj, "put_EdgeTraversalOptions"), flags, 2)
     }
 
     Dispose() {

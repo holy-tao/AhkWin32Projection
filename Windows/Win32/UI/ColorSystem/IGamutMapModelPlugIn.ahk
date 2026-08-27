@@ -83,8 +83,8 @@ export default struct IGamutMapModelPlugIn extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 6)
-        this.vtbl.SourceToDestinationAppearanceColors := CallbackCreate(GetMethod(implObj, "SourceToDestinationAppearanceColors"), flags, 4)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 6)
+        this.vtbl.SourceToDestinationAppearanceColors := CallbackCreate(ObjBindMethod(implObj, "SourceToDestinationAppearanceColors"), flags, 4)
     }
 
     Dispose() {

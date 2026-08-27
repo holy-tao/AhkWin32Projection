@@ -164,13 +164,13 @@ export default struct IWICMetadataHandlerInfo extends IWICComponentInfo {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMetadataFormat := CallbackCreate(GetMethod(implObj, "GetMetadataFormat"), flags, 2)
-        this.vtbl.GetContainerFormats := CallbackCreate(GetMethod(implObj, "GetContainerFormats"), flags, 4)
-        this.vtbl.GetDeviceManufacturer := CallbackCreate(GetMethod(implObj, "GetDeviceManufacturer"), flags, 4)
-        this.vtbl.GetDeviceModels := CallbackCreate(GetMethod(implObj, "GetDeviceModels"), flags, 4)
-        this.vtbl.DoesRequireFullStream := CallbackCreate(GetMethod(implObj, "DoesRequireFullStream"), flags, 2)
-        this.vtbl.DoesSupportPadding := CallbackCreate(GetMethod(implObj, "DoesSupportPadding"), flags, 2)
-        this.vtbl.DoesRequireFixedSize := CallbackCreate(GetMethod(implObj, "DoesRequireFixedSize"), flags, 2)
+        this.vtbl.GetMetadataFormat := CallbackCreate(ObjBindMethod(implObj, "GetMetadataFormat"), flags, 2)
+        this.vtbl.GetContainerFormats := CallbackCreate(ObjBindMethod(implObj, "GetContainerFormats"), flags, 4)
+        this.vtbl.GetDeviceManufacturer := CallbackCreate(ObjBindMethod(implObj, "GetDeviceManufacturer"), flags, 4)
+        this.vtbl.GetDeviceModels := CallbackCreate(ObjBindMethod(implObj, "GetDeviceModels"), flags, 4)
+        this.vtbl.DoesRequireFullStream := CallbackCreate(ObjBindMethod(implObj, "DoesRequireFullStream"), flags, 2)
+        this.vtbl.DoesSupportPadding := CallbackCreate(ObjBindMethod(implObj, "DoesSupportPadding"), flags, 2)
+        this.vtbl.DoesRequireFixedSize := CallbackCreate(ObjBindMethod(implObj, "DoesRequireFixedSize"), flags, 2)
     }
 
     Dispose() {

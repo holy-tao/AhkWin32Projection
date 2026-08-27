@@ -117,8 +117,8 @@ export default struct IShellFolder2 extends IShellFolder {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder2-getdefaultcolumn
      */
     GetDefaultColumn(dwRes, pSort, pDisplay) {
-        pSortMarshal := pSort is VarRef ? "uint*" : "ptr"
-        pDisplayMarshal := pDisplay is VarRef ? "uint*" : "ptr"
+        pSortMarshal := pSort is VarRef ? "uint*" : IntPtr
+        pDisplayMarshal := pDisplay is VarRef ? "uint*" : IntPtr
 
         result := ComCall(15, this, UInt32, dwRes, pSortMarshal, pSort, pDisplayMarshal, pDisplay, "HRESULT")
         return result
@@ -238,13 +238,13 @@ export default struct IShellFolder2 extends IShellFolder {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDefaultSearchGUID := CallbackCreate(GetMethod(implObj, "GetDefaultSearchGUID"), flags, 2)
-        this.vtbl.EnumSearches := CallbackCreate(GetMethod(implObj, "EnumSearches"), flags, 2)
-        this.vtbl.GetDefaultColumn := CallbackCreate(GetMethod(implObj, "GetDefaultColumn"), flags, 4)
-        this.vtbl.GetDefaultColumnState := CallbackCreate(GetMethod(implObj, "GetDefaultColumnState"), flags, 3)
-        this.vtbl.GetDetailsEx := CallbackCreate(GetMethod(implObj, "GetDetailsEx"), flags, 4)
-        this.vtbl.GetDetailsOf := CallbackCreate(GetMethod(implObj, "GetDetailsOf"), flags, 4)
-        this.vtbl.MapColumnToSCID := CallbackCreate(GetMethod(implObj, "MapColumnToSCID"), flags, 3)
+        this.vtbl.GetDefaultSearchGUID := CallbackCreate(ObjBindMethod(implObj, "GetDefaultSearchGUID"), flags, 2)
+        this.vtbl.EnumSearches := CallbackCreate(ObjBindMethod(implObj, "EnumSearches"), flags, 2)
+        this.vtbl.GetDefaultColumn := CallbackCreate(ObjBindMethod(implObj, "GetDefaultColumn"), flags, 4)
+        this.vtbl.GetDefaultColumnState := CallbackCreate(ObjBindMethod(implObj, "GetDefaultColumnState"), flags, 3)
+        this.vtbl.GetDetailsEx := CallbackCreate(ObjBindMethod(implObj, "GetDetailsEx"), flags, 4)
+        this.vtbl.GetDetailsOf := CallbackCreate(ObjBindMethod(implObj, "GetDetailsOf"), flags, 4)
+        this.vtbl.MapColumnToSCID := CallbackCreate(ObjBindMethod(implObj, "MapColumnToSCID"), flags, 3)
     }
 
     Dispose() {

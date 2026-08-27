@@ -119,7 +119,9 @@ export default struct IMessageFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imessagefilter-handleincomingcall
      */
     HandleInComingCall(dwCallType, htaskCaller, dwTickCount, lpInterfaceInfo) {
-        result := ComCall(3, this, UInt32, dwCallType, HTASK, htaskCaller, UInt32, dwTickCount, INTERFACEINFO.Ptr, lpInterfaceInfo, UInt32)
+        lpInterfaceInfoMarshal := lpInterfaceInfo == 0 ? IntPtr : INTERFACEINFO.Ptr
+
+        result := ComCall(3, this, UInt32, dwCallType, HTASK, htaskCaller, UInt32, dwTickCount, lpInterfaceInfoMarshal, lpInterfaceInfo, UInt32)
         return result
     }
 
@@ -272,9 +274,9 @@ export default struct IMessageFilter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.HandleInComingCall := CallbackCreate(GetMethod(implObj, "HandleInComingCall"), flags, 5)
-        this.vtbl.RetryRejectedCall := CallbackCreate(GetMethod(implObj, "RetryRejectedCall"), flags, 4)
-        this.vtbl.MessagePending := CallbackCreate(GetMethod(implObj, "MessagePending"), flags, 4)
+        this.vtbl.HandleInComingCall := CallbackCreate(ObjBindMethod(implObj, "HandleInComingCall"), flags, 5)
+        this.vtbl.RetryRejectedCall := CallbackCreate(ObjBindMethod(implObj, "RetryRejectedCall"), flags, 4)
+        this.vtbl.MessagePending := CallbackCreate(ObjBindMethod(implObj, "MessagePending"), flags, 4)
     }
 
     Dispose() {

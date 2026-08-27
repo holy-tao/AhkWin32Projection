@@ -113,7 +113,7 @@ export default struct IWMPControls extends IDispatch {
     get_isAvailable(bstrItem, pIsAvailable) {
         bstrItem := bstrItem is String ? BSTR.Alloc(bstrItem).Value : bstrItem
 
-        pIsAvailableMarshal := pIsAvailable is VarRef ? "short*" : "ptr"
+        pIsAvailableMarshal := pIsAvailable is VarRef ? "short*" : IntPtr
 
         result := ComCall(7, this, BSTR, bstrItem, pIsAvailableMarshal, pIsAvailable, "HRESULT")
         return result
@@ -306,7 +306,7 @@ export default struct IWMPControls extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols-get_currentposition
      */
     get_currentPosition(pdCurrentPosition) {
-        pdCurrentPositionMarshal := pdCurrentPosition is VarRef ? "double*" : "ptr"
+        pdCurrentPositionMarshal := pdCurrentPosition is VarRef ? "double*" : IntPtr
 
         result := ComCall(13, this, pdCurrentPositionMarshal, pdCurrentPosition, "HRESULT")
         return result
@@ -508,7 +508,7 @@ export default struct IWMPControls extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols-get_currentmarker
      */
     get_currentMarker(plMarker) {
-        plMarkerMarshal := plMarker is VarRef ? "int*" : "ptr"
+        plMarkerMarshal := plMarker is VarRef ? "int*" : IntPtr
 
         result := ComCall(20, this, plMarkerMarshal, plMarker, "HRESULT")
         return result
@@ -592,22 +592,22 @@ export default struct IWMPControls extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_isAvailable := CallbackCreate(GetMethod(implObj, "get_isAvailable"), flags, 3)
-        this.vtbl.play := CallbackCreate(GetMethod(implObj, "play"), flags, 1)
-        this.vtbl.stop := CallbackCreate(GetMethod(implObj, "stop"), flags, 1)
-        this.vtbl.pause := CallbackCreate(GetMethod(implObj, "pause"), flags, 1)
-        this.vtbl.fastForward := CallbackCreate(GetMethod(implObj, "fastForward"), flags, 1)
-        this.vtbl.fastReverse := CallbackCreate(GetMethod(implObj, "fastReverse"), flags, 1)
-        this.vtbl.get_currentPosition := CallbackCreate(GetMethod(implObj, "get_currentPosition"), flags, 2)
-        this.vtbl.put_currentPosition := CallbackCreate(GetMethod(implObj, "put_currentPosition"), flags, 2)
-        this.vtbl.get_currentPositionString := CallbackCreate(GetMethod(implObj, "get_currentPositionString"), flags, 2)
-        this.vtbl.next := CallbackCreate(GetMethod(implObj, "next"), flags, 1)
-        this.vtbl.previous := CallbackCreate(GetMethod(implObj, "previous"), flags, 1)
-        this.vtbl.get_currentItem := CallbackCreate(GetMethod(implObj, "get_currentItem"), flags, 2)
-        this.vtbl.put_currentItem := CallbackCreate(GetMethod(implObj, "put_currentItem"), flags, 2)
-        this.vtbl.get_currentMarker := CallbackCreate(GetMethod(implObj, "get_currentMarker"), flags, 2)
-        this.vtbl.put_currentMarker := CallbackCreate(GetMethod(implObj, "put_currentMarker"), flags, 2)
-        this.vtbl.playItem := CallbackCreate(GetMethod(implObj, "playItem"), flags, 2)
+        this.vtbl.get_isAvailable := CallbackCreate(ObjBindMethod(implObj, "get_isAvailable"), flags, 3)
+        this.vtbl.play := CallbackCreate(ObjBindMethod(implObj, "play"), flags, 1)
+        this.vtbl.stop := CallbackCreate(ObjBindMethod(implObj, "stop"), flags, 1)
+        this.vtbl.pause := CallbackCreate(ObjBindMethod(implObj, "pause"), flags, 1)
+        this.vtbl.fastForward := CallbackCreate(ObjBindMethod(implObj, "fastForward"), flags, 1)
+        this.vtbl.fastReverse := CallbackCreate(ObjBindMethod(implObj, "fastReverse"), flags, 1)
+        this.vtbl.get_currentPosition := CallbackCreate(ObjBindMethod(implObj, "get_currentPosition"), flags, 2)
+        this.vtbl.put_currentPosition := CallbackCreate(ObjBindMethod(implObj, "put_currentPosition"), flags, 2)
+        this.vtbl.get_currentPositionString := CallbackCreate(ObjBindMethod(implObj, "get_currentPositionString"), flags, 2)
+        this.vtbl.next := CallbackCreate(ObjBindMethod(implObj, "next"), flags, 1)
+        this.vtbl.previous := CallbackCreate(ObjBindMethod(implObj, "previous"), flags, 1)
+        this.vtbl.get_currentItem := CallbackCreate(ObjBindMethod(implObj, "get_currentItem"), flags, 2)
+        this.vtbl.put_currentItem := CallbackCreate(ObjBindMethod(implObj, "put_currentItem"), flags, 2)
+        this.vtbl.get_currentMarker := CallbackCreate(ObjBindMethod(implObj, "get_currentMarker"), flags, 2)
+        this.vtbl.put_currentMarker := CallbackCreate(ObjBindMethod(implObj, "put_currentMarker"), flags, 2)
+        this.vtbl.playItem := CallbackCreate(ObjBindMethod(implObj, "playItem"), flags, 2)
     }
 
     Dispose() {

@@ -77,8 +77,8 @@ export default struct IMemAllocatorCallbackTemp extends IMemAllocator {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetNotify := CallbackCreate(GetMethod(implObj, "SetNotify"), flags, 2)
-        this.vtbl.GetFreeCount := CallbackCreate(GetMethod(implObj, "GetFreeCount"), flags, 2)
+        this.vtbl.SetNotify := CallbackCreate(ObjBindMethod(implObj, "SetNotify"), flags, 2)
+        this.vtbl.GetFreeCount := CallbackCreate(ObjBindMethod(implObj, "GetFreeCount"), flags, 2)
     }
 
     Dispose() {

@@ -43,7 +43,6 @@ export default struct IViewObjectPresentSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pDevice 
      * @param {Integer} width 
      * @param {Integer} height 
@@ -58,7 +57,6 @@ export default struct IViewObjectPresentSite extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsHardwareComposition() {
@@ -67,7 +65,6 @@ export default struct IViewObjectPresentSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {VIEW_OBJECT_COMPOSITION_MODE} _mode 
      * @returns {HRESULT} 
      */
@@ -85,9 +82,9 @@ export default struct IViewObjectPresentSite extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateSurfacePresenter := CallbackCreate(GetMethod(implObj, "CreateSurfacePresenter"), flags, 8)
-        this.vtbl.IsHardwareComposition := CallbackCreate(GetMethod(implObj, "IsHardwareComposition"), flags, 2)
-        this.vtbl.SetCompositionMode := CallbackCreate(GetMethod(implObj, "SetCompositionMode"), flags, 2)
+        this.vtbl.CreateSurfacePresenter := CallbackCreate(ObjBindMethod(implObj, "CreateSurfacePresenter"), flags, 8)
+        this.vtbl.IsHardwareComposition := CallbackCreate(ObjBindMethod(implObj, "IsHardwareComposition"), flags, 2)
+        this.vtbl.SetCompositionMode := CallbackCreate(ObjBindMethod(implObj, "SetCompositionMode"), flags, 2)
     }
 
     Dispose() {

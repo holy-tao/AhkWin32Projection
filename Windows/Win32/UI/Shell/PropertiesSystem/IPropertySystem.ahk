@@ -758,15 +758,15 @@ export default struct IPropertySystem extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPropertyDescription := CallbackCreate(GetMethod(implObj, "GetPropertyDescription"), flags, 4)
-        this.vtbl.GetPropertyDescriptionByName := CallbackCreate(GetMethod(implObj, "GetPropertyDescriptionByName"), flags, 4)
-        this.vtbl.GetPropertyDescriptionListFromString := CallbackCreate(GetMethod(implObj, "GetPropertyDescriptionListFromString"), flags, 4)
-        this.vtbl.EnumeratePropertyDescriptions := CallbackCreate(GetMethod(implObj, "EnumeratePropertyDescriptions"), flags, 4)
-        this.vtbl.FormatForDisplay := CallbackCreate(GetMethod(implObj, "FormatForDisplay"), flags, 6)
-        this.vtbl.FormatForDisplayAlloc := CallbackCreate(GetMethod(implObj, "FormatForDisplayAlloc"), flags, 5)
-        this.vtbl.RegisterPropertySchema := CallbackCreate(GetMethod(implObj, "RegisterPropertySchema"), flags, 2)
-        this.vtbl.UnregisterPropertySchema := CallbackCreate(GetMethod(implObj, "UnregisterPropertySchema"), flags, 2)
-        this.vtbl.RefreshPropertySchema := CallbackCreate(GetMethod(implObj, "RefreshPropertySchema"), flags, 1)
+        this.vtbl.GetPropertyDescription := CallbackCreate(ObjBindMethod(implObj, "GetPropertyDescription"), flags, 4)
+        this.vtbl.GetPropertyDescriptionByName := CallbackCreate(ObjBindMethod(implObj, "GetPropertyDescriptionByName"), flags, 4)
+        this.vtbl.GetPropertyDescriptionListFromString := CallbackCreate(ObjBindMethod(implObj, "GetPropertyDescriptionListFromString"), flags, 4)
+        this.vtbl.EnumeratePropertyDescriptions := CallbackCreate(ObjBindMethod(implObj, "EnumeratePropertyDescriptions"), flags, 4)
+        this.vtbl.FormatForDisplay := CallbackCreate(ObjBindMethod(implObj, "FormatForDisplay"), flags, 6)
+        this.vtbl.FormatForDisplayAlloc := CallbackCreate(ObjBindMethod(implObj, "FormatForDisplayAlloc"), flags, 5)
+        this.vtbl.RegisterPropertySchema := CallbackCreate(ObjBindMethod(implObj, "RegisterPropertySchema"), flags, 2)
+        this.vtbl.UnregisterPropertySchema := CallbackCreate(ObjBindMethod(implObj, "UnregisterPropertySchema"), flags, 2)
+        this.vtbl.RefreshPropertySchema := CallbackCreate(ObjBindMethod(implObj, "RefreshPropertySchema"), flags, 1)
     }
 
     Dispose() {

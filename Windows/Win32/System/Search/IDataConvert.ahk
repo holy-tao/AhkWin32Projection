@@ -38,7 +38,6 @@ export default struct IDataConvert extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} wSrcType 
      * @param {Integer} wDstType 
      * @param {Pointer} cbSrcLength 
@@ -54,16 +53,17 @@ export default struct IDataConvert extends IUnknown {
      * @returns {HRESULT} 
      */
     DataConvert(wSrcType, wDstType, cbSrcLength, pcbDstLength, pSrc, pDst, cbDstMaxLength, dbsSrcStatus, pdbsStatus, bPrecision, bScale, dwFlags) {
-        pcbDstLengthMarshal := pcbDstLength is VarRef ? "ptr*" : "ptr"
-        pDstMarshal := pDst is VarRef ? "ptr" : "ptr"
-        pdbsStatusMarshal := pdbsStatus is VarRef ? "uint*" : "ptr"
+        pcbDstLengthMarshal := pcbDstLength is VarRef ? "ptr*" : IntPtr
+        pcbDstLengthMarshal := pcbDstLength == 0 ? IntPtr : "ptr*"
+        pDstMarshal := pDst is VarRef ? "ptr" : IntPtr
+        pdbsStatusMarshal := pdbsStatus is VarRef ? "uint*" : IntPtr
+        pdbsStatusMarshal := pdbsStatus == 0 ? IntPtr : "uint*"
 
         result := ComCall(3, this, UInt16, wSrcType, UInt16, wDstType, IntPtr, cbSrcLength, pcbDstLengthMarshal, pcbDstLength, IntPtr, pSrc, pDstMarshal, pDst, IntPtr, cbDstMaxLength, UInt32, dbsSrcStatus, pdbsStatusMarshal, pdbsStatus, Int8, bPrecision, Int8, bScale, UInt32, dwFlags, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} wSrcType 
      * @param {Integer} wDstType 
      * @returns {HRESULT} 
@@ -74,7 +74,6 @@ export default struct IDataConvert extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} wSrcType 
      * @param {Integer} wDstType 
      * @param {Pointer<Pointer>} pcbSrcLength 
@@ -82,9 +81,11 @@ export default struct IDataConvert extends IUnknown {
      * @returns {Pointer} 
      */
     GetConversionSize(wSrcType, wDstType, pcbSrcLength, pSrc) {
-        pcbSrcLengthMarshal := pcbSrcLength is VarRef ? "ptr*" : "ptr"
+        pcbSrcLengthMarshal := pcbSrcLength is VarRef ? "ptr*" : IntPtr
+        pcbSrcLengthMarshal := pcbSrcLength == 0 ? IntPtr : "ptr*"
+        pSrcMarshal := pSrc == 0 ? IntPtr : IntPtr
 
-        result := ComCall(5, this, UInt16, wSrcType, UInt16, wDstType, pcbSrcLengthMarshal, pcbSrcLength, "ptr*", &pcbDstLength := 0, IntPtr, pSrc, "HRESULT")
+        result := ComCall(5, this, UInt16, wSrcType, UInt16, wDstType, pcbSrcLengthMarshal, pcbSrcLength, "ptr*", &pcbDstLength := 0, pSrcMarshal, pSrc, "HRESULT")
         return pcbDstLength
     }
 
@@ -97,9 +98,9 @@ export default struct IDataConvert extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DataConvert := CallbackCreate(GetMethod(implObj, "DataConvert"), flags, 13)
-        this.vtbl.CanConvert := CallbackCreate(GetMethod(implObj, "CanConvert"), flags, 3)
-        this.vtbl.GetConversionSize := CallbackCreate(GetMethod(implObj, "GetConversionSize"), flags, 6)
+        this.vtbl.DataConvert := CallbackCreate(ObjBindMethod(implObj, "DataConvert"), flags, 13)
+        this.vtbl.CanConvert := CallbackCreate(ObjBindMethod(implObj, "CanConvert"), flags, 3)
+        this.vtbl.GetConversionSize := CallbackCreate(ObjBindMethod(implObj, "GetConversionSize"), flags, 6)
     }
 
     Dispose() {

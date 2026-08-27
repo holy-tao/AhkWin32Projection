@@ -19,7 +19,6 @@ export default struct LPDDHALEXEBUFCB_LOCKEXEBUF {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_LOCKDATA>} param0 
      * @returns {Integer} 
      */

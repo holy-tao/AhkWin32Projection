@@ -164,7 +164,7 @@ export default struct ID2D1StrokeStyle extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1strokestyle-getdashes
      */
     GetDashes(dashes, dashesCount) {
-        dashesMarshal := dashes is VarRef ? "float*" : "ptr"
+        dashesMarshal := dashes is VarRef ? "float*" : IntPtr
 
         ComCall(12, this, dashesMarshal, dashes, UInt32, dashesCount)
     }
@@ -178,15 +178,15 @@ export default struct ID2D1StrokeStyle extends ID2D1Resource {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStartCap := CallbackCreate(GetMethod(implObj, "GetStartCap"), flags, 1)
-        this.vtbl.GetEndCap := CallbackCreate(GetMethod(implObj, "GetEndCap"), flags, 1)
-        this.vtbl.GetDashCap := CallbackCreate(GetMethod(implObj, "GetDashCap"), flags, 1)
-        this.vtbl.GetMiterLimit := CallbackCreate(GetMethod(implObj, "GetMiterLimit"), flags, 1)
-        this.vtbl.GetLineJoin := CallbackCreate(GetMethod(implObj, "GetLineJoin"), flags, 1)
-        this.vtbl.GetDashOffset := CallbackCreate(GetMethod(implObj, "GetDashOffset"), flags, 1)
-        this.vtbl.GetDashStyle := CallbackCreate(GetMethod(implObj, "GetDashStyle"), flags, 1)
-        this.vtbl.GetDashesCount := CallbackCreate(GetMethod(implObj, "GetDashesCount"), flags, 1)
-        this.vtbl.GetDashes := CallbackCreate(GetMethod(implObj, "GetDashes"), flags, 3)
+        this.vtbl.GetStartCap := CallbackCreate(ObjBindMethod(implObj, "GetStartCap"), flags, 1)
+        this.vtbl.GetEndCap := CallbackCreate(ObjBindMethod(implObj, "GetEndCap"), flags, 1)
+        this.vtbl.GetDashCap := CallbackCreate(ObjBindMethod(implObj, "GetDashCap"), flags, 1)
+        this.vtbl.GetMiterLimit := CallbackCreate(ObjBindMethod(implObj, "GetMiterLimit"), flags, 1)
+        this.vtbl.GetLineJoin := CallbackCreate(ObjBindMethod(implObj, "GetLineJoin"), flags, 1)
+        this.vtbl.GetDashOffset := CallbackCreate(ObjBindMethod(implObj, "GetDashOffset"), flags, 1)
+        this.vtbl.GetDashStyle := CallbackCreate(ObjBindMethod(implObj, "GetDashStyle"), flags, 1)
+        this.vtbl.GetDashesCount := CallbackCreate(ObjBindMethod(implObj, "GetDashesCount"), flags, 1)
+        this.vtbl.GetDashes := CallbackCreate(ObjBindMethod(implObj, "GetDashes"), flags, 3)
     }
 
     Dispose() {

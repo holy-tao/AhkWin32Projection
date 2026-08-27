@@ -75,7 +75,7 @@ export default struct IWMReaderStreamClock extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderstreamclock-gettime
      */
     GetTime(pcnsNow) {
-        pcnsNowMarshal := pcnsNow is VarRef ? "uint*" : "ptr"
+        pcnsNowMarshal := pcnsNow is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pcnsNowMarshal, pcnsNow, "HRESULT")
         return result
@@ -100,7 +100,7 @@ export default struct IWMReaderStreamClock extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderstreamclock-settimer
      */
     SetTimer(cnsWhen, pvParam) {
-        pvParamMarshal := pvParam is VarRef ? "ptr" : "ptr"
+        pvParamMarshal := pvParam is VarRef ? "ptr" : IntPtr
 
         result := ComCall(4, this, Int64, cnsWhen, pvParamMarshal, pvParam, "uint*", &pdwTimerId := 0, "HRESULT")
         return pdwTimerId
@@ -126,9 +126,9 @@ export default struct IWMReaderStreamClock extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTime := CallbackCreate(GetMethod(implObj, "GetTime"), flags, 2)
-        this.vtbl.SetTimer := CallbackCreate(GetMethod(implObj, "SetTimer"), flags, 4)
-        this.vtbl.KillTimer := CallbackCreate(GetMethod(implObj, "KillTimer"), flags, 2)
+        this.vtbl.GetTime := CallbackCreate(ObjBindMethod(implObj, "GetTime"), flags, 2)
+        this.vtbl.SetTimer := CallbackCreate(ObjBindMethod(implObj, "SetTimer"), flags, 4)
+        this.vtbl.KillTimer := CallbackCreate(ObjBindMethod(implObj, "KillTimer"), flags, 2)
     }
 
     Dispose() {

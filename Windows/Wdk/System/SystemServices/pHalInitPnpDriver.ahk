@@ -19,7 +19,6 @@ export default struct pHalInitPnpDriver {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

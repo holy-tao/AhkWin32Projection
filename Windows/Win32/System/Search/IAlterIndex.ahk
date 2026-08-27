@@ -38,7 +38,6 @@ export default struct IAlterIndex extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DBID>} pTableId 
      * @param {Pointer<DBID>} pIndexId 
      * @param {Pointer<DBID>} pNewIndexId 
@@ -60,7 +59,7 @@ export default struct IAlterIndex extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AlterIndex := CallbackCreate(GetMethod(implObj, "AlterIndex"), flags, 6)
+        this.vtbl.AlterIndex := CallbackCreate(ObjBindMethod(implObj, "AlterIndex"), flags, 6)
     }
 
     Dispose() {

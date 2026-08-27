@@ -22,7 +22,6 @@ export default struct PFAXENABLEROUTINGMETHODA {
     }
 
     /**
-     * 
      * @param {HANDLE} FaxPortHandle 
      * @param {PSTR} RoutingGuid 
      * @param {BOOL} Enabled 

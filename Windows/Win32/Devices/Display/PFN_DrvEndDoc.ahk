@@ -20,7 +20,6 @@ export default struct PFN_DrvEndDoc {
     }
 
     /**
-     * 
      * @param {Pointer<SURFOBJ>} pso 
      * @param {Integer} fl 
      * @returns {BOOL} 

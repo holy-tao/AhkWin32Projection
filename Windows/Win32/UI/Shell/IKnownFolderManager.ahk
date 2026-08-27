@@ -108,7 +108,7 @@ export default struct IKnownFolderManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iknownfoldermanager-getfolderids
      */
     GetFolderIds(pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+        pCountMarshal := pCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, "ptr*", &ppKFId := 0, pCountMarshal, pCount, "HRESULT")
         return ppKFId
@@ -288,7 +288,11 @@ export default struct IKnownFolderManager extends IUnknown {
     Redirect(rfid, _hwnd, flags, pszTargetPath, cFolders, pExclusion) {
         pszTargetPath := pszTargetPath is String ? StrPtr(pszTargetPath) : pszTargetPath
 
-        result := ComCall(12, this, Guid.Ptr, rfid, HWND, _hwnd, UInt32, flags, "ptr", pszTargetPath, UInt32, cFolders, Guid.Ptr, pExclusion, PWSTR.Ptr, &ppszError := 0, "HRESULT")
+        _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+        pszTargetPathMarshal := pszTargetPath == 0 ? IntPtr : PWSTR
+        pExclusionMarshal := pExclusion == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(12, this, Guid.Ptr, rfid, _hwndMarshal, _hwnd, UInt32, flags, pszTargetPathMarshal, pszTargetPath, UInt32, cFolders, pExclusionMarshal, pExclusion, PWSTR.Ptr, &ppszError := 0, "HRESULT")
         return ppszError
     }
 
@@ -301,16 +305,16 @@ export default struct IKnownFolderManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FolderIdFromCsidl := CallbackCreate(GetMethod(implObj, "FolderIdFromCsidl"), flags, 3)
-        this.vtbl.FolderIdToCsidl := CallbackCreate(GetMethod(implObj, "FolderIdToCsidl"), flags, 3)
-        this.vtbl.GetFolderIds := CallbackCreate(GetMethod(implObj, "GetFolderIds"), flags, 3)
-        this.vtbl.GetFolder := CallbackCreate(GetMethod(implObj, "GetFolder"), flags, 3)
-        this.vtbl.GetFolderByName := CallbackCreate(GetMethod(implObj, "GetFolderByName"), flags, 3)
-        this.vtbl.RegisterFolder := CallbackCreate(GetMethod(implObj, "RegisterFolder"), flags, 3)
-        this.vtbl.UnregisterFolder := CallbackCreate(GetMethod(implObj, "UnregisterFolder"), flags, 2)
-        this.vtbl.FindFolderFromPath := CallbackCreate(GetMethod(implObj, "FindFolderFromPath"), flags, 4)
-        this.vtbl.FindFolderFromIDList := CallbackCreate(GetMethod(implObj, "FindFolderFromIDList"), flags, 3)
-        this.vtbl.Redirect := CallbackCreate(GetMethod(implObj, "Redirect"), flags, 8)
+        this.vtbl.FolderIdFromCsidl := CallbackCreate(ObjBindMethod(implObj, "FolderIdFromCsidl"), flags, 3)
+        this.vtbl.FolderIdToCsidl := CallbackCreate(ObjBindMethod(implObj, "FolderIdToCsidl"), flags, 3)
+        this.vtbl.GetFolderIds := CallbackCreate(ObjBindMethod(implObj, "GetFolderIds"), flags, 3)
+        this.vtbl.GetFolder := CallbackCreate(ObjBindMethod(implObj, "GetFolder"), flags, 3)
+        this.vtbl.GetFolderByName := CallbackCreate(ObjBindMethod(implObj, "GetFolderByName"), flags, 3)
+        this.vtbl.RegisterFolder := CallbackCreate(ObjBindMethod(implObj, "RegisterFolder"), flags, 3)
+        this.vtbl.UnregisterFolder := CallbackCreate(ObjBindMethod(implObj, "UnregisterFolder"), flags, 2)
+        this.vtbl.FindFolderFromPath := CallbackCreate(ObjBindMethod(implObj, "FindFolderFromPath"), flags, 4)
+        this.vtbl.FindFolderFromIDList := CallbackCreate(ObjBindMethod(implObj, "FindFolderFromIDList"), flags, 3)
+        this.vtbl.Redirect := CallbackCreate(ObjBindMethod(implObj, "Redirect"), flags, 8)
     }
 
     Dispose() {

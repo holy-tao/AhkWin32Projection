@@ -84,8 +84,8 @@ export default struct ICallUnmarshal extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallunmarshal-unmarshal
      */
     Unmarshal(iMethod, pBuffer, cbBuffer, fForceBufferCopy, dataRep, pcontext, pcbUnmarshalled, ppFrame) {
-        pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
-        pcbUnmarshalledMarshal := pcbUnmarshalled is VarRef ? "uint*" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "ptr" : IntPtr
+        pcbUnmarshalledMarshal := pcbUnmarshalled is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, UInt32, iMethod, pBufferMarshal, pBuffer, UInt32, cbBuffer, BOOL, fForceBufferCopy, UInt32, dataRep, CALLFRAME_MARSHALCONTEXT.Ptr, pcontext, pcbUnmarshalledMarshal, pcbUnmarshalled, ICallFrame.Ptr, ppFrame, "HRESULT")
         return result
@@ -136,7 +136,7 @@ export default struct ICallUnmarshal extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallunmarshal-releasemarshaldata
      */
     ReleaseMarshalData(iMethod, pBuffer, cbBuffer, ibFirstRelease, dataRep, pcontext) {
-        pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "ptr" : IntPtr
 
         result := ComCall(4, this, UInt32, iMethod, pBufferMarshal, pBuffer, UInt32, cbBuffer, UInt32, ibFirstRelease, UInt32, dataRep, CALLFRAME_MARSHALCONTEXT.Ptr, pcontext, "HRESULT")
         return result
@@ -151,8 +151,8 @@ export default struct ICallUnmarshal extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Unmarshal := CallbackCreate(GetMethod(implObj, "Unmarshal"), flags, 9)
-        this.vtbl.ReleaseMarshalData := CallbackCreate(GetMethod(implObj, "ReleaseMarshalData"), flags, 7)
+        this.vtbl.Unmarshal := CallbackCreate(ObjBindMethod(implObj, "Unmarshal"), flags, 9)
+        this.vtbl.ReleaseMarshalData := CallbackCreate(ObjBindMethod(implObj, "ReleaseMarshalData"), flags, 7)
     }
 
     Dispose() {

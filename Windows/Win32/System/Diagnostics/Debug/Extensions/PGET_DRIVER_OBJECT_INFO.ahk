@@ -21,7 +21,6 @@ export default struct PGET_DRIVER_OBJECT_INFO {
     }
 
     /**
-     * 
      * @param {IDebugClient} Client 
      * @param {Integer} DriverObject 
      * @param {Pointer<DEBUG_DRIVER_OBJECT_INFO>} pDrvObjInfo 

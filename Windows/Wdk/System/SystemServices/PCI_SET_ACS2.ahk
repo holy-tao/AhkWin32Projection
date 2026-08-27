@@ -19,14 +19,13 @@ export default struct PCI_SET_ACS2 {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Integer} ScenariosToModify 
      * @param {Integer} ScenarioState 
      * @returns {NTSTATUS} 
      */
     Call(_Context, ScenariosToModify, ScenarioState) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, UInt32, ScenariosToModify, UInt32, ScenarioState, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

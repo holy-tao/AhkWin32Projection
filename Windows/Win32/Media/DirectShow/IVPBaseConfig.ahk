@@ -66,7 +66,7 @@ export default struct IVPBaseConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vpconfig/nf-vpconfig-ivpbaseconfig-getconnectinfo
      */
     GetConnectInfo(pdwNumConnectInfo) {
-        pdwNumConnectInfoMarshal := pdwNumConnectInfo is VarRef ? "uint*" : "ptr"
+        pdwNumConnectInfoMarshal := pdwNumConnectInfo is VarRef ? "uint*" : IntPtr
 
         pddVPConnectInfo := DDVIDEOPORTCONNECT()
         result := ComCall(3, this, pdwNumConnectInfoMarshal, pdwNumConnectInfo, DDVIDEOPORTCONNECT.Ptr, pddVPConnectInfo, "HRESULT")
@@ -111,7 +111,7 @@ export default struct IVPBaseConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vpconfig/nf-vpconfig-ivpbaseconfig-getmaxpixelrate
      */
     GetMaxPixelRate(pamvpSize, pdwMaxPixelsPerSecond) {
-        pdwMaxPixelsPerSecondMarshal := pdwMaxPixelsPerSecond is VarRef ? "uint*" : "ptr"
+        pdwMaxPixelsPerSecondMarshal := pdwMaxPixelsPerSecond is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, AMVPSIZE.Ptr, pamvpSize, pdwMaxPixelsPerSecondMarshal, pdwMaxPixelsPerSecond, "HRESULT")
         return result
@@ -150,7 +150,7 @@ export default struct IVPBaseConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vpconfig/nf-vpconfig-ivpbaseconfig-getvideoformats
      */
     GetVideoFormats(pdwNumFormats) {
-        pdwNumFormatsMarshal := pdwNumFormats is VarRef ? "uint*" : "ptr"
+        pdwNumFormatsMarshal := pdwNumFormats is VarRef ? "uint*" : IntPtr
 
         pddPixelFormats := DDPIXELFORMAT()
         result := ComCall(8, this, pdwNumFormatsMarshal, pdwNumFormats, DDPIXELFORMAT.Ptr, pddPixelFormats, "HRESULT")
@@ -240,7 +240,7 @@ export default struct IVPBaseConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vpconfig/nf-vpconfig-ivpbaseconfig-setddsurfacekernelhandles
      */
     SetDDSurfaceKernelHandles(cHandles, rgDDKernelHandles) {
-        rgDDKernelHandlesMarshal := rgDDKernelHandles is VarRef ? "ptr*" : "ptr"
+        rgDDKernelHandlesMarshal := rgDDKernelHandles is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(14, this, UInt32, cHandles, rgDDKernelHandlesMarshal, rgDDKernelHandles, "HRESULT")
         return result
@@ -270,19 +270,19 @@ export default struct IVPBaseConfig extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetConnectInfo := CallbackCreate(GetMethod(implObj, "GetConnectInfo"), flags, 3)
-        this.vtbl.SetConnectInfo := CallbackCreate(GetMethod(implObj, "SetConnectInfo"), flags, 2)
-        this.vtbl.GetVPDataInfo := CallbackCreate(GetMethod(implObj, "GetVPDataInfo"), flags, 2)
-        this.vtbl.GetMaxPixelRate := CallbackCreate(GetMethod(implObj, "GetMaxPixelRate"), flags, 3)
-        this.vtbl.InformVPInputFormats := CallbackCreate(GetMethod(implObj, "InformVPInputFormats"), flags, 3)
-        this.vtbl.GetVideoFormats := CallbackCreate(GetMethod(implObj, "GetVideoFormats"), flags, 3)
-        this.vtbl.SetVideoFormat := CallbackCreate(GetMethod(implObj, "SetVideoFormat"), flags, 2)
-        this.vtbl.SetInvertPolarity := CallbackCreate(GetMethod(implObj, "SetInvertPolarity"), flags, 1)
-        this.vtbl.GetOverlaySurface := CallbackCreate(GetMethod(implObj, "GetOverlaySurface"), flags, 2)
-        this.vtbl.SetDirectDrawKernelHandle := CallbackCreate(GetMethod(implObj, "SetDirectDrawKernelHandle"), flags, 2)
-        this.vtbl.SetVideoPortID := CallbackCreate(GetMethod(implObj, "SetVideoPortID"), flags, 2)
-        this.vtbl.SetDDSurfaceKernelHandles := CallbackCreate(GetMethod(implObj, "SetDDSurfaceKernelHandles"), flags, 3)
-        this.vtbl.SetSurfaceParameters := CallbackCreate(GetMethod(implObj, "SetSurfaceParameters"), flags, 4)
+        this.vtbl.GetConnectInfo := CallbackCreate(ObjBindMethod(implObj, "GetConnectInfo"), flags, 3)
+        this.vtbl.SetConnectInfo := CallbackCreate(ObjBindMethod(implObj, "SetConnectInfo"), flags, 2)
+        this.vtbl.GetVPDataInfo := CallbackCreate(ObjBindMethod(implObj, "GetVPDataInfo"), flags, 2)
+        this.vtbl.GetMaxPixelRate := CallbackCreate(ObjBindMethod(implObj, "GetMaxPixelRate"), flags, 3)
+        this.vtbl.InformVPInputFormats := CallbackCreate(ObjBindMethod(implObj, "InformVPInputFormats"), flags, 3)
+        this.vtbl.GetVideoFormats := CallbackCreate(ObjBindMethod(implObj, "GetVideoFormats"), flags, 3)
+        this.vtbl.SetVideoFormat := CallbackCreate(ObjBindMethod(implObj, "SetVideoFormat"), flags, 2)
+        this.vtbl.SetInvertPolarity := CallbackCreate(ObjBindMethod(implObj, "SetInvertPolarity"), flags, 1)
+        this.vtbl.GetOverlaySurface := CallbackCreate(ObjBindMethod(implObj, "GetOverlaySurface"), flags, 2)
+        this.vtbl.SetDirectDrawKernelHandle := CallbackCreate(ObjBindMethod(implObj, "SetDirectDrawKernelHandle"), flags, 2)
+        this.vtbl.SetVideoPortID := CallbackCreate(ObjBindMethod(implObj, "SetVideoPortID"), flags, 2)
+        this.vtbl.SetDDSurfaceKernelHandles := CallbackCreate(ObjBindMethod(implObj, "SetDDSurfaceKernelHandles"), flags, 3)
+        this.vtbl.SetSurfaceParameters := CallbackCreate(ObjBindMethod(implObj, "SetSurfaceParameters"), flags, 4)
     }
 
     Dispose() {

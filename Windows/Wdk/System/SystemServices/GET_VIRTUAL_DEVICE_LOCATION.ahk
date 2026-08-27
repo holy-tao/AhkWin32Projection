@@ -19,7 +19,6 @@ export default struct GET_VIRTUAL_DEVICE_LOCATION {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Integer} VirtualFunction 
      * @param {Pointer<Integer>} SegmentNumber 
@@ -28,10 +27,10 @@ export default struct GET_VIRTUAL_DEVICE_LOCATION {
      * @returns {NTSTATUS} 
      */
     Call(_Context, VirtualFunction, SegmentNumber, BusNumber, FunctionNumber) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        SegmentNumberMarshal := SegmentNumber is VarRef ? "ushort*" : "ptr"
-        BusNumberMarshal := BusNumber is VarRef ? "char*" : "ptr"
-        FunctionNumberMarshal := FunctionNumber is VarRef ? "char*" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        SegmentNumberMarshal := SegmentNumber is VarRef ? "ushort*" : IntPtr
+        BusNumberMarshal := BusNumber is VarRef ? "char*" : IntPtr
+        FunctionNumberMarshal := FunctionNumber is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, UInt16, VirtualFunction, SegmentNumberMarshal, SegmentNumber, BusNumberMarshal, BusNumber, FunctionNumberMarshal, FunctionNumber, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

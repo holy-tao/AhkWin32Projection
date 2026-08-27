@@ -22,7 +22,6 @@ export default struct PFNTRUSTHELPER {
     }
 
     /**
-     * 
      * @param {Pointer<CERT_CONTEXT>} pCertContext 
      * @param {LPARAM} lCustData 
      * @param {BOOL} fLeafCertificate 
@@ -30,7 +29,7 @@ export default struct PFNTRUSTHELPER {
      * @returns {HRESULT} 
      */
     Call(pCertContext, lCustData, fLeafCertificate, pbTrustBlob) {
-        pbTrustBlobMarshal := pbTrustBlob is VarRef ? "char*" : "ptr"
+        pbTrustBlobMarshal := pbTrustBlob is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, CERT_CONTEXT.Ptr, pCertContext, LPARAM, lCustData, BOOL, fLeafCertificate, pbTrustBlobMarshal, pbTrustBlob, "HRESULT")
         return result

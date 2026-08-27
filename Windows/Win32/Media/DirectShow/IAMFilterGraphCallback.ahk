@@ -62,7 +62,7 @@ export default struct IAMFilterGraphCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.UnableToRender := CallbackCreate(GetMethod(implObj, "UnableToRender"), flags, 2)
+        this.vtbl.UnableToRender := CallbackCreate(ObjBindMethod(implObj, "UnableToRender"), flags, 2)
     }
 
     Dispose() {

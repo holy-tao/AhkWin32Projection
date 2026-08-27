@@ -214,7 +214,7 @@ export default struct IFsiDirectoryItem2 extends IFsiDirectoryItem {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddTreeWithNamedStreams := CallbackCreate(GetMethod(implObj, "AddTreeWithNamedStreams"), flags, 3)
+        this.vtbl.AddTreeWithNamedStreams := CallbackCreate(ObjBindMethod(implObj, "AddTreeWithNamedStreams"), flags, 3)
     }
 
     Dispose() {

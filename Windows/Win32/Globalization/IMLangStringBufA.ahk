@@ -43,21 +43,21 @@ export default struct IMLangStringBufA extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} plFlags 
      * @param {Pointer<Integer>} pcchBuf 
      * @returns {HRESULT} 
      */
     GetStatus(plFlags, pcchBuf) {
-        plFlagsMarshal := plFlags is VarRef ? "int*" : "ptr"
-        pcchBufMarshal := pcchBuf is VarRef ? "int*" : "ptr"
+        plFlagsMarshal := plFlags is VarRef ? "int*" : IntPtr
+        plFlagsMarshal := plFlags == 0 ? IntPtr : "int*"
+        pcchBufMarshal := pcchBuf is VarRef ? "int*" : IntPtr
+        pcchBufMarshal := pcchBuf == 0 ? IntPtr : "int*"
 
         result := ComCall(3, this, plFlagsMarshal, plFlags, pcchBufMarshal, pcchBuf, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} cchOffset 
      * @param {Integer} cchMaxLock 
      * @param {Pointer<Pointer<CHAR>>} ppszBuf 
@@ -65,15 +65,15 @@ export default struct IMLangStringBufA extends IUnknown {
      * @returns {HRESULT} 
      */
     LockBuf(cchOffset, cchMaxLock, ppszBuf, pcchBuf) {
-        ppszBufMarshal := ppszBuf is VarRef ? "ptr*" : "ptr"
-        pcchBufMarshal := pcchBuf is VarRef ? "int*" : "ptr"
+        ppszBufMarshal := ppszBuf is VarRef ? "ptr*" : IntPtr
+        pcchBufMarshal := pcchBuf is VarRef ? "int*" : IntPtr
+        pcchBufMarshal := pcchBuf == 0 ? IntPtr : "int*"
 
         result := ComCall(4, this, Int32, cchOffset, Int32, cchMaxLock, ppszBufMarshal, ppszBuf, pcchBufMarshal, pcchBuf, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PSTR} pszBuf 
      * @param {Integer} cchOffset 
      * @param {Integer} cchWrite 
@@ -87,7 +87,6 @@ export default struct IMLangStringBufA extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cchOffset 
      * @param {Integer} cchMaxInsert 
      * @returns {Integer} 
@@ -98,7 +97,6 @@ export default struct IMLangStringBufA extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cchOffset 
      * @param {Integer} cchDelete 
      * @returns {HRESULT} 
@@ -117,11 +115,11 @@ export default struct IMLangStringBufA extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 3)
-        this.vtbl.LockBuf := CallbackCreate(GetMethod(implObj, "LockBuf"), flags, 5)
-        this.vtbl.UnlockBuf := CallbackCreate(GetMethod(implObj, "UnlockBuf"), flags, 4)
-        this.vtbl.Insert := CallbackCreate(GetMethod(implObj, "Insert"), flags, 4)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 3)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 3)
+        this.vtbl.LockBuf := CallbackCreate(ObjBindMethod(implObj, "LockBuf"), flags, 5)
+        this.vtbl.UnlockBuf := CallbackCreate(ObjBindMethod(implObj, "UnlockBuf"), flags, 4)
+        this.vtbl.Insert := CallbackCreate(ObjBindMethod(implObj, "Insert"), flags, 4)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 3)
     }
 
     Dispose() {

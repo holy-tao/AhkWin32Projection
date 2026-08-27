@@ -18,12 +18,11 @@ export default struct PDRIVER_VERIFIER_THUNK_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @returns {Pointer} 
      */
     Call(_Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, IntPtr)
         return result

@@ -20,12 +20,13 @@ export default struct PFN_CANCEL_ASYNC_RETRIEVAL_FUNC {
     }
 
     /**
-     * 
      * @param {HCRYPTASYNC} hAsyncRetrieve 
      * @returns {BOOL} 
      */
     Call(hAsyncRetrieve) {
-        result := DllCall(this.value, HCRYPTASYNC, hAsyncRetrieve, BOOL)
+        hAsyncRetrieveMarshal := hAsyncRetrieve == 0 ? IntPtr : HCRYPTASYNC
+
+        result := DllCall(this.value, hAsyncRetrieveMarshal, hAsyncRetrieve, BOOL)
         return result
     }
 

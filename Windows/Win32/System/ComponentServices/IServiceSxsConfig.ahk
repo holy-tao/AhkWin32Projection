@@ -93,9 +93,9 @@ export default struct IServiceSxsConfig extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SxsConfig := CallbackCreate(GetMethod(implObj, "SxsConfig"), flags, 2)
-        this.vtbl.SxsName := CallbackCreate(GetMethod(implObj, "SxsName"), flags, 2)
-        this.vtbl.SxsDirectory := CallbackCreate(GetMethod(implObj, "SxsDirectory"), flags, 2)
+        this.vtbl.SxsConfig := CallbackCreate(ObjBindMethod(implObj, "SxsConfig"), flags, 2)
+        this.vtbl.SxsName := CallbackCreate(ObjBindMethod(implObj, "SxsName"), flags, 2)
+        this.vtbl.SxsDirectory := CallbackCreate(ObjBindMethod(implObj, "SxsDirectory"), flags, 2)
     }
 
     Dispose() {

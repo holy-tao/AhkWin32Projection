@@ -72,7 +72,7 @@ export default struct IAudioProcessingObjectLoggingService extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ApoLog := CallbackCreate(GetMethod(implObj, "ApoLog"), flags, 3)
+        this.vtbl.ApoLog := CallbackCreate(ObjBindMethod(implObj, "ApoLog"), flags, 3)
     }
 
     Dispose() {

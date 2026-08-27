@@ -38,7 +38,6 @@ export default struct PFN_CRYPT_SIGN_AND_ENCODE_HASH_FUNC {
     }
 
     /**
-     * 
      * @param {NCRYPT_KEY_HANDLE} _hKey A handle to the Cryptography API: Next Generation (CNG) <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">private key</a> to use to sign the hash.
      * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType Specifies the type of encoding used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
@@ -66,10 +65,12 @@ export default struct PFN_CRYPT_SIGN_AND_ENCODE_HASH_FUNC {
         pwszCNGPubKeyAlgid := pwszCNGPubKeyAlgid is String ? StrPtr(pwszCNGPubKeyAlgid) : pwszCNGPubKeyAlgid
         pwszCNGHashAlgid := pwszCNGHashAlgid is String ? StrPtr(pwszCNGHashAlgid) : pwszCNGHashAlgid
 
-        pvDecodedSignParaMarshal := pvDecodedSignPara is VarRef ? "ptr" : "ptr"
-        pcbSignatureMarshal := pcbSignature is VarRef ? "uint*" : "ptr"
+        pvDecodedSignParaMarshal := pvDecodedSignPara is VarRef ? "ptr" : IntPtr
+        pvDecodedSignParaMarshal := pvDecodedSignPara == 0 ? IntPtr : "ptr"
+        pbSignatureMarshal := pbSignature == 0 ? IntPtr : IntPtr
+        pcbSignatureMarshal := pcbSignature is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, NCRYPT_KEY_HANDLE, _hKey, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, CRYPT_ALGORITHM_IDENTIFIER.Ptr, pSignatureAlgorithm, pvDecodedSignParaMarshal, pvDecodedSignPara, "ptr", pwszCNGPubKeyAlgid, "ptr", pwszCNGHashAlgid, IntPtr, pbComputedHash, UInt32, cbComputedHash, IntPtr, pbSignature, pcbSignatureMarshal, pcbSignature, BOOL)
+        result := DllCall(this.value, NCRYPT_KEY_HANDLE, _hKey, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, CRYPT_ALGORITHM_IDENTIFIER.Ptr, pSignatureAlgorithm, pvDecodedSignParaMarshal, pvDecodedSignPara, "ptr", pwszCNGPubKeyAlgid, "ptr", pwszCNGHashAlgid, IntPtr, pbComputedHash, UInt32, cbComputedHash, pbSignatureMarshal, pbSignature, pcbSignatureMarshal, pcbSignature, BOOL)
         return result
     }
 

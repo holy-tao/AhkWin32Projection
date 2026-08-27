@@ -46,7 +46,6 @@ export default struct IComStaThreadPoolKnobs extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} minThreads 
      * @returns {HRESULT} 
      */
@@ -56,7 +55,6 @@ export default struct IComStaThreadPoolKnobs extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMinThreadCount() {
@@ -65,7 +63,6 @@ export default struct IComStaThreadPoolKnobs extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} maxThreads 
      * @returns {HRESULT} 
      */
@@ -75,7 +72,6 @@ export default struct IComStaThreadPoolKnobs extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMaxThreadCount() {
@@ -84,7 +80,6 @@ export default struct IComStaThreadPoolKnobs extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} activitiesPerThread 
      * @returns {HRESULT} 
      */
@@ -94,7 +89,6 @@ export default struct IComStaThreadPoolKnobs extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetActivityPerThread() {
@@ -103,7 +97,6 @@ export default struct IComStaThreadPoolKnobs extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} activityRatio 
      * @returns {HRESULT} 
      */
@@ -113,7 +106,6 @@ export default struct IComStaThreadPoolKnobs extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     GetActivityRatio() {
@@ -122,7 +114,6 @@ export default struct IComStaThreadPoolKnobs extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetThreadCount() {
@@ -131,7 +122,6 @@ export default struct IComStaThreadPoolKnobs extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetQueueDepth() {
@@ -140,7 +130,6 @@ export default struct IComStaThreadPoolKnobs extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwQDepth 
      * @returns {HRESULT} 
      */
@@ -158,17 +147,17 @@ export default struct IComStaThreadPoolKnobs extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetMinThreadCount := CallbackCreate(GetMethod(implObj, "SetMinThreadCount"), flags, 2)
-        this.vtbl.GetMinThreadCount := CallbackCreate(GetMethod(implObj, "GetMinThreadCount"), flags, 2)
-        this.vtbl.SetMaxThreadCount := CallbackCreate(GetMethod(implObj, "SetMaxThreadCount"), flags, 2)
-        this.vtbl.GetMaxThreadCount := CallbackCreate(GetMethod(implObj, "GetMaxThreadCount"), flags, 2)
-        this.vtbl.SetActivityPerThread := CallbackCreate(GetMethod(implObj, "SetActivityPerThread"), flags, 2)
-        this.vtbl.GetActivityPerThread := CallbackCreate(GetMethod(implObj, "GetActivityPerThread"), flags, 2)
-        this.vtbl.SetActivityRatio := CallbackCreate(GetMethod(implObj, "SetActivityRatio"), flags, 2)
-        this.vtbl.GetActivityRatio := CallbackCreate(GetMethod(implObj, "GetActivityRatio"), flags, 2)
-        this.vtbl.GetThreadCount := CallbackCreate(GetMethod(implObj, "GetThreadCount"), flags, 2)
-        this.vtbl.GetQueueDepth := CallbackCreate(GetMethod(implObj, "GetQueueDepth"), flags, 2)
-        this.vtbl.SetQueueDepth := CallbackCreate(GetMethod(implObj, "SetQueueDepth"), flags, 2)
+        this.vtbl.SetMinThreadCount := CallbackCreate(ObjBindMethod(implObj, "SetMinThreadCount"), flags, 2)
+        this.vtbl.GetMinThreadCount := CallbackCreate(ObjBindMethod(implObj, "GetMinThreadCount"), flags, 2)
+        this.vtbl.SetMaxThreadCount := CallbackCreate(ObjBindMethod(implObj, "SetMaxThreadCount"), flags, 2)
+        this.vtbl.GetMaxThreadCount := CallbackCreate(ObjBindMethod(implObj, "GetMaxThreadCount"), flags, 2)
+        this.vtbl.SetActivityPerThread := CallbackCreate(ObjBindMethod(implObj, "SetActivityPerThread"), flags, 2)
+        this.vtbl.GetActivityPerThread := CallbackCreate(ObjBindMethod(implObj, "GetActivityPerThread"), flags, 2)
+        this.vtbl.SetActivityRatio := CallbackCreate(ObjBindMethod(implObj, "SetActivityRatio"), flags, 2)
+        this.vtbl.GetActivityRatio := CallbackCreate(ObjBindMethod(implObj, "GetActivityRatio"), flags, 2)
+        this.vtbl.GetThreadCount := CallbackCreate(ObjBindMethod(implObj, "GetThreadCount"), flags, 2)
+        this.vtbl.GetQueueDepth := CallbackCreate(ObjBindMethod(implObj, "GetQueueDepth"), flags, 2)
+        this.vtbl.SetQueueDepth := CallbackCreate(ObjBindMethod(implObj, "SetQueueDepth"), flags, 2)
     }
 
     Dispose() {

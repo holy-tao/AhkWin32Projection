@@ -332,7 +332,7 @@ export default struct IGPMSearchCriteria extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 4)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 4)
     }
 
     Dispose() {

@@ -188,7 +188,7 @@
  * @since windows5.1.2600
  */
 export WinVerifyTrust(_hwnd, pgActionID, pWVTData) {
-    pWVTDataMarshal := pWVTData is VarRef ? "ptr" : "ptr"
+    pWVTDataMarshal := pWVTData is VarRef ? "ptr" : IntPtr
 
     result := DllCall("WINTRUST.dll\WinVerifyTrust", HWND, _hwnd, Guid.Ptr, pgActionID, pWVTDataMarshal, pWVTData, Int32)
     return result
@@ -374,7 +374,7 @@ export WinVerifyTrustEx(_hwnd, pgActionID, pWinTrustData) {
  * @since windows5.1.2600
  */
 export WintrustGetRegPolicyFlags(pdwPolicyFlags) {
-    pdwPolicyFlagsMarshal := pdwPolicyFlags is VarRef ? "uint*" : "ptr"
+    pdwPolicyFlagsMarshal := pdwPolicyFlags is VarRef ? "uint*" : IntPtr
 
     DllCall("WINTRUST.dll\WintrustGetRegPolicyFlags", pdwPolicyFlagsMarshal, pdwPolicyFlags)
 }
@@ -730,9 +730,11 @@ export WTHelperCertCheckValidSignature(pProvData) {
  * @since windows5.1.2600
  */
 export OpenPersonalTrustDBDialogEx(hwndParent, dwFlags, pvReserved) {
-    pvReservedMarshal := pvReserved is VarRef ? "ptr*" : "ptr"
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+    pvReservedMarshal := pvReserved is VarRef ? "ptr*" : IntPtr
+    pvReservedMarshal := pvReserved == 0 ? IntPtr : "ptr*"
 
-    result := DllCall("WINTRUST.dll\OpenPersonalTrustDBDialogEx", HWND, hwndParent, UInt32, dwFlags, pvReservedMarshal, pvReserved, BOOL)
+    result := DllCall("WINTRUST.dll\OpenPersonalTrustDBDialogEx", hwndParentMarshal, hwndParent, UInt32, dwFlags, pvReservedMarshal, pvReserved, BOOL)
     return result
 }
 
@@ -744,7 +746,9 @@ export OpenPersonalTrustDBDialogEx(hwndParent, dwFlags, pvReserved) {
  * @since windows5.1.2600
  */
 export OpenPersonalTrustDBDialog(hwndParent) {
-    result := DllCall("WINTRUST.dll\OpenPersonalTrustDBDialog", HWND, hwndParent, BOOL)
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+
+    result := DllCall("WINTRUST.dll\OpenPersonalTrustDBDialog", hwndParentMarshal, hwndParent, BOOL)
     return result
 }
 

@@ -38,7 +38,6 @@ export default struct IHostDataModelAccess extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<IDataModelManager>} manager 
      * @param {Pointer<IDebugHost>} host 
      * @returns {HRESULT} 
@@ -57,7 +56,7 @@ export default struct IHostDataModelAccess extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDataModel := CallbackCreate(GetMethod(implObj, "GetDataModel"), flags, 3)
+        this.vtbl.GetDataModel := CallbackCreate(ObjBindMethod(implObj, "GetDataModel"), flags, 3)
     }
 
     Dispose() {

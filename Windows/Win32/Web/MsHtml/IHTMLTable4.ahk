@@ -67,7 +67,6 @@ export default struct IHTMLTable4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLTableSection} v 
      * @returns {HRESULT} 
      */
@@ -77,7 +76,6 @@ export default struct IHTMLTable4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLTableSection} 
      */
     get_tHead() {
@@ -86,7 +84,6 @@ export default struct IHTMLTable4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLTableSection} v 
      * @returns {HRESULT} 
      */
@@ -96,7 +93,6 @@ export default struct IHTMLTable4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLTableSection} 
      */
     get_tFoot() {
@@ -105,7 +101,6 @@ export default struct IHTMLTable4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLTableCaption} v 
      * @returns {HRESULT} 
      */
@@ -115,7 +110,6 @@ export default struct IHTMLTable4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLTableCaption} 
      */
     get_caption() {
@@ -124,7 +118,6 @@ export default struct IHTMLTable4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {IDispatch} 
      */
@@ -134,7 +127,6 @@ export default struct IHTMLTable4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {HRESULT} 
      */
@@ -144,7 +136,6 @@ export default struct IHTMLTable4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLTableSection} 
      */
     createTBody() {
@@ -161,15 +152,15 @@ export default struct IHTMLTable4 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.putref_tHead := CallbackCreate(GetMethod(implObj, "putref_tHead"), flags, 2)
-        this.vtbl.get_tHead := CallbackCreate(GetMethod(implObj, "get_tHead"), flags, 2)
-        this.vtbl.putref_tFoot := CallbackCreate(GetMethod(implObj, "putref_tFoot"), flags, 2)
-        this.vtbl.get_tFoot := CallbackCreate(GetMethod(implObj, "get_tFoot"), flags, 2)
-        this.vtbl.putref_caption := CallbackCreate(GetMethod(implObj, "putref_caption"), flags, 2)
-        this.vtbl.get_caption := CallbackCreate(GetMethod(implObj, "get_caption"), flags, 2)
-        this.vtbl.insertRow := CallbackCreate(GetMethod(implObj, "insertRow"), flags, 3)
-        this.vtbl.deleteRow := CallbackCreate(GetMethod(implObj, "deleteRow"), flags, 2)
-        this.vtbl.createTBody := CallbackCreate(GetMethod(implObj, "createTBody"), flags, 2)
+        this.vtbl.putref_tHead := CallbackCreate(ObjBindMethod(implObj, "putref_tHead"), flags, 2)
+        this.vtbl.get_tHead := CallbackCreate(ObjBindMethod(implObj, "get_tHead"), flags, 2)
+        this.vtbl.putref_tFoot := CallbackCreate(ObjBindMethod(implObj, "putref_tFoot"), flags, 2)
+        this.vtbl.get_tFoot := CallbackCreate(ObjBindMethod(implObj, "get_tFoot"), flags, 2)
+        this.vtbl.putref_caption := CallbackCreate(ObjBindMethod(implObj, "putref_caption"), flags, 2)
+        this.vtbl.get_caption := CallbackCreate(ObjBindMethod(implObj, "get_caption"), flags, 2)
+        this.vtbl.insertRow := CallbackCreate(ObjBindMethod(implObj, "insertRow"), flags, 3)
+        this.vtbl.deleteRow := CallbackCreate(ObjBindMethod(implObj, "deleteRow"), flags, 2)
+        this.vtbl.createTBody := CallbackCreate(ObjBindMethod(implObj, "createTBody"), flags, 2)
     }
 
     Dispose() {

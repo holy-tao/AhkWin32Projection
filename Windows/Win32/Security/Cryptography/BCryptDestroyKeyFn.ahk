@@ -20,7 +20,6 @@ export default struct BCryptDestroyKeyFn {
     }
 
     /**
-     * 
      * @param {BCRYPT_KEY_HANDLE} _hKey 
      * @returns {NTSTATUS} 
      */

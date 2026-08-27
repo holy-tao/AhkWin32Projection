@@ -22,7 +22,6 @@ export default struct PFNDPAMERGECONST {
     }
 
     /**
-     * 
      * @param {DPAMM_MESSAGE} uMsg Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * @param {Pointer<Void>} pvDest Type: <b>const void*</b>
      * 
@@ -38,8 +37,8 @@ export default struct PFNDPAMERGECONST {
      * A pointer to constant data which results from the merge, or <b>NULL</b> if there is a failure when DPAMM_MERGE or DPAMM_INSERT is used.
      */
     Call(uMsg, pvDest, pvSrc, _lParam) {
-        pvDestMarshal := pvDest is VarRef ? "ptr" : "ptr"
-        pvSrcMarshal := pvSrc is VarRef ? "ptr" : "ptr"
+        pvDestMarshal := pvDest is VarRef ? "ptr" : IntPtr
+        pvSrcMarshal := pvSrc is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, DPAMM_MESSAGE, uMsg, pvDestMarshal, pvDest, pvSrcMarshal, pvSrc, LPARAM, _lParam, IntPtr)
         return result

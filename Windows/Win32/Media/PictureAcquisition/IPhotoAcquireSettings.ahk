@@ -485,19 +485,19 @@ export default struct IPhotoAcquireSettings extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeFromRegistry := CallbackCreate(GetMethod(implObj, "InitializeFromRegistry"), flags, 2)
-        this.vtbl.SetFlags := CallbackCreate(GetMethod(implObj, "SetFlags"), flags, 2)
-        this.vtbl.SetOutputFilenameTemplate := CallbackCreate(GetMethod(implObj, "SetOutputFilenameTemplate"), flags, 2)
-        this.vtbl.SetSequencePaddingWidth := CallbackCreate(GetMethod(implObj, "SetSequencePaddingWidth"), flags, 2)
-        this.vtbl.SetSequenceZeroPadding := CallbackCreate(GetMethod(implObj, "SetSequenceZeroPadding"), flags, 2)
-        this.vtbl.SetGroupTag := CallbackCreate(GetMethod(implObj, "SetGroupTag"), flags, 2)
-        this.vtbl.SetAcquisitionTime := CallbackCreate(GetMethod(implObj, "SetAcquisitionTime"), flags, 2)
-        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
-        this.vtbl.GetOutputFilenameTemplate := CallbackCreate(GetMethod(implObj, "GetOutputFilenameTemplate"), flags, 2)
-        this.vtbl.GetSequencePaddingWidth := CallbackCreate(GetMethod(implObj, "GetSequencePaddingWidth"), flags, 2)
-        this.vtbl.GetSequenceZeroPadding := CallbackCreate(GetMethod(implObj, "GetSequenceZeroPadding"), flags, 2)
-        this.vtbl.GetGroupTag := CallbackCreate(GetMethod(implObj, "GetGroupTag"), flags, 2)
-        this.vtbl.GetAcquisitionTime := CallbackCreate(GetMethod(implObj, "GetAcquisitionTime"), flags, 2)
+        this.vtbl.InitializeFromRegistry := CallbackCreate(ObjBindMethod(implObj, "InitializeFromRegistry"), flags, 2)
+        this.vtbl.SetFlags := CallbackCreate(ObjBindMethod(implObj, "SetFlags"), flags, 2)
+        this.vtbl.SetOutputFilenameTemplate := CallbackCreate(ObjBindMethod(implObj, "SetOutputFilenameTemplate"), flags, 2)
+        this.vtbl.SetSequencePaddingWidth := CallbackCreate(ObjBindMethod(implObj, "SetSequencePaddingWidth"), flags, 2)
+        this.vtbl.SetSequenceZeroPadding := CallbackCreate(ObjBindMethod(implObj, "SetSequenceZeroPadding"), flags, 2)
+        this.vtbl.SetGroupTag := CallbackCreate(ObjBindMethod(implObj, "SetGroupTag"), flags, 2)
+        this.vtbl.SetAcquisitionTime := CallbackCreate(ObjBindMethod(implObj, "SetAcquisitionTime"), flags, 2)
+        this.vtbl.GetFlags := CallbackCreate(ObjBindMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.GetOutputFilenameTemplate := CallbackCreate(ObjBindMethod(implObj, "GetOutputFilenameTemplate"), flags, 2)
+        this.vtbl.GetSequencePaddingWidth := CallbackCreate(ObjBindMethod(implObj, "GetSequencePaddingWidth"), flags, 2)
+        this.vtbl.GetSequenceZeroPadding := CallbackCreate(ObjBindMethod(implObj, "GetSequenceZeroPadding"), flags, 2)
+        this.vtbl.GetGroupTag := CallbackCreate(ObjBindMethod(implObj, "GetGroupTag"), flags, 2)
+        this.vtbl.GetAcquisitionTime := CallbackCreate(ObjBindMethod(implObj, "GetAcquisitionTime"), flags, 2)
     }
 
     Dispose() {

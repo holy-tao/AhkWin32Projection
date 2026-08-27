@@ -116,9 +116,10 @@ export default struct ITocEntry extends IUnknown {
     GetTitle(pwTitleSize, pwszTitle) {
         pwszTitle := pwszTitle is String ? StrPtr(pwszTitle) : pwszTitle
 
-        pwTitleSizeMarshal := pwTitleSize is VarRef ? "ushort*" : "ptr"
+        pwTitleSizeMarshal := pwTitleSize is VarRef ? "ushort*" : IntPtr
+        pwszTitleMarshal := pwszTitle == 0 ? IntPtr : PWSTR
 
-        result := ComCall(4, this, pwTitleSizeMarshal, pwTitleSize, "ptr", pwszTitle, "HRESULT")
+        result := ComCall(4, this, pwTitleSizeMarshal, pwTitleSize, pwszTitleMarshal, pwszTitle, "HRESULT")
         return result
     }
 
@@ -206,7 +207,7 @@ export default struct ITocEntry extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocentry-setsubentries
      */
     SetSubEntries(dwNumSubEntries, pwSubEntryIndices) {
-        pwSubEntryIndicesMarshal := pwSubEntryIndices is VarRef ? "ushort*" : "ptr"
+        pwSubEntryIndicesMarshal := pwSubEntryIndices is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(7, this, UInt32, dwNumSubEntries, pwSubEntryIndicesMarshal, pwSubEntryIndices, "HRESULT")
         return result
@@ -249,8 +250,8 @@ export default struct ITocEntry extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocentry-getsubentries
      */
     GetSubEntries(pdwNumSubEntries, pwSubEntryIndices) {
-        pdwNumSubEntriesMarshal := pdwNumSubEntries is VarRef ? "uint*" : "ptr"
-        pwSubEntryIndicesMarshal := pwSubEntryIndices is VarRef ? "ushort*" : "ptr"
+        pdwNumSubEntriesMarshal := pdwNumSubEntries is VarRef ? "uint*" : IntPtr
+        pwSubEntryIndicesMarshal := pwSubEntryIndices is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(8, this, pdwNumSubEntriesMarshal, pdwNumSubEntries, pwSubEntryIndicesMarshal, pwSubEntryIndices, "HRESULT")
         return result
@@ -287,7 +288,7 @@ export default struct ITocEntry extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocentry-setdescriptiondata
      */
     SetDescriptionData(dwDescriptionDataSize, pbtDescriptionData, pguidType) {
-        pbtDescriptionDataMarshal := pbtDescriptionData is VarRef ? "char*" : "ptr"
+        pbtDescriptionDataMarshal := pbtDescriptionData is VarRef ? "char*" : IntPtr
 
         result := ComCall(9, this, UInt32, dwDescriptionDataSize, pbtDescriptionDataMarshal, pbtDescriptionData, Guid.Ptr, pguidType, "HRESULT")
         return result
@@ -333,8 +334,8 @@ export default struct ITocEntry extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocentry-getdescriptiondata
      */
     GetDescriptionData(pdwDescriptionDataSize, pbtDescriptionData, pGuidType) {
-        pdwDescriptionDataSizeMarshal := pdwDescriptionDataSize is VarRef ? "uint*" : "ptr"
-        pbtDescriptionDataMarshal := pbtDescriptionData is VarRef ? "char*" : "ptr"
+        pdwDescriptionDataSizeMarshal := pdwDescriptionDataSize is VarRef ? "uint*" : IntPtr
+        pbtDescriptionDataMarshal := pbtDescriptionData is VarRef ? "char*" : IntPtr
 
         result := ComCall(10, this, pdwDescriptionDataSizeMarshal, pdwDescriptionDataSize, pbtDescriptionDataMarshal, pbtDescriptionData, Guid.Ptr, pGuidType, "HRESULT")
         return result
@@ -349,14 +350,14 @@ export default struct ITocEntry extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetTitle := CallbackCreate(GetMethod(implObj, "SetTitle"), flags, 2)
-        this.vtbl.GetTitle := CallbackCreate(GetMethod(implObj, "GetTitle"), flags, 3)
-        this.vtbl.SetDescriptor := CallbackCreate(GetMethod(implObj, "SetDescriptor"), flags, 2)
-        this.vtbl.GetDescriptor := CallbackCreate(GetMethod(implObj, "GetDescriptor"), flags, 2)
-        this.vtbl.SetSubEntries := CallbackCreate(GetMethod(implObj, "SetSubEntries"), flags, 3)
-        this.vtbl.GetSubEntries := CallbackCreate(GetMethod(implObj, "GetSubEntries"), flags, 3)
-        this.vtbl.SetDescriptionData := CallbackCreate(GetMethod(implObj, "SetDescriptionData"), flags, 4)
-        this.vtbl.GetDescriptionData := CallbackCreate(GetMethod(implObj, "GetDescriptionData"), flags, 4)
+        this.vtbl.SetTitle := CallbackCreate(ObjBindMethod(implObj, "SetTitle"), flags, 2)
+        this.vtbl.GetTitle := CallbackCreate(ObjBindMethod(implObj, "GetTitle"), flags, 3)
+        this.vtbl.SetDescriptor := CallbackCreate(ObjBindMethod(implObj, "SetDescriptor"), flags, 2)
+        this.vtbl.GetDescriptor := CallbackCreate(ObjBindMethod(implObj, "GetDescriptor"), flags, 2)
+        this.vtbl.SetSubEntries := CallbackCreate(ObjBindMethod(implObj, "SetSubEntries"), flags, 3)
+        this.vtbl.GetSubEntries := CallbackCreate(ObjBindMethod(implObj, "GetSubEntries"), flags, 3)
+        this.vtbl.SetDescriptionData := CallbackCreate(ObjBindMethod(implObj, "SetDescriptionData"), flags, 4)
+        this.vtbl.GetDescriptionData := CallbackCreate(ObjBindMethod(implObj, "GetDescriptionData"), flags, 4)
     }
 
     Dispose() {

@@ -49,7 +49,6 @@ export default struct IAppxManifestHostRuntimeDependency extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetPublisher() {
@@ -58,7 +57,6 @@ export default struct IAppxManifestHostRuntimeDependency extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMinVersion() {
@@ -75,9 +73,9 @@ export default struct IAppxManifestHostRuntimeDependency extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
-        this.vtbl.GetPublisher := CallbackCreate(GetMethod(implObj, "GetPublisher"), flags, 2)
-        this.vtbl.GetMinVersion := CallbackCreate(GetMethod(implObj, "GetMinVersion"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetPublisher := CallbackCreate(ObjBindMethod(implObj, "GetPublisher"), flags, 2)
+        this.vtbl.GetMinVersion := CallbackCreate(ObjBindMethod(implObj, "GetMinVersion"), flags, 2)
     }
 
     Dispose() {

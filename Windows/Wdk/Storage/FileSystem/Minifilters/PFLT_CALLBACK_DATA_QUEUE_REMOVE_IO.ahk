@@ -20,7 +20,6 @@ export default struct PFLT_CALLBACK_DATA_QUEUE_REMOVE_IO {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA_QUEUE>} Cbdq 
      * @param {Pointer<FLT_CALLBACK_DATA>} Cbd 
      * @returns {String} Nothing - always returns an empty string

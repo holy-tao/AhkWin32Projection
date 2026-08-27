@@ -93,7 +93,6 @@ export default struct IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} szName 
      * @returns {HRESULT} 
      */
@@ -105,7 +104,6 @@ export default struct IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} szFile 
      * @param {Integer} dwSaveFlags 
      * @returns {HRESULT} 
@@ -118,7 +116,6 @@ export default struct IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {IStream} pIStream 
      * @param {Integer} dwSaveFlags 
      * @returns {HRESULT} 
@@ -129,20 +126,18 @@ export default struct IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {CorSaveSize} fSave 
      * @param {Pointer<Integer>} pdwSaveSize 
      * @returns {HRESULT} 
      */
     GetSaveSize(fSave, pdwSaveSize) {
-        pdwSaveSizeMarshal := pdwSaveSize is VarRef ? "uint*" : "ptr"
+        pdwSaveSizeMarshal := pdwSaveSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, CorSaveSize, fSave, pdwSaveSizeMarshal, pdwSaveSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} szTypeDef 
      * @param {Integer} dwTypeDefFlags 
      * @param {Integer} tkExtends 
@@ -153,15 +148,14 @@ export default struct IMetaDataEmit extends IUnknown {
     DefineTypeDef(szTypeDef, dwTypeDefFlags, tkExtends, rtkImplements, ptd) {
         szTypeDef := szTypeDef is String ? StrPtr(szTypeDef) : szTypeDef
 
-        rtkImplementsMarshal := rtkImplements is VarRef ? "uint*" : "ptr"
-        ptdMarshal := ptd is VarRef ? "uint*" : "ptr"
+        rtkImplementsMarshal := rtkImplements is VarRef ? "uint*" : IntPtr
+        ptdMarshal := ptd is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, "ptr", szTypeDef, UInt32, dwTypeDefFlags, UInt32, tkExtends, rtkImplementsMarshal, rtkImplements, ptdMarshal, ptd, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} szTypeDef 
      * @param {Integer} dwTypeDefFlags 
      * @param {Integer} tkExtends 
@@ -173,15 +167,14 @@ export default struct IMetaDataEmit extends IUnknown {
     DefineNestedType(szTypeDef, dwTypeDefFlags, tkExtends, rtkImplements, tdEncloser, ptd) {
         szTypeDef := szTypeDef is String ? StrPtr(szTypeDef) : szTypeDef
 
-        rtkImplementsMarshal := rtkImplements is VarRef ? "uint*" : "ptr"
-        ptdMarshal := ptd is VarRef ? "uint*" : "ptr"
+        rtkImplementsMarshal := rtkImplements is VarRef ? "uint*" : IntPtr
+        ptdMarshal := ptd is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, "ptr", szTypeDef, UInt32, dwTypeDefFlags, UInt32, tkExtends, rtkImplementsMarshal, rtkImplements, UInt32, tdEncloser, ptdMarshal, ptd, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IUnknown} pUnk 
      * @returns {HRESULT} 
      */
@@ -191,7 +184,6 @@ export default struct IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} td 
      * @param {PWSTR} szName 
      * @param {Integer} dwMethodFlags 
@@ -205,15 +197,14 @@ export default struct IMetaDataEmit extends IUnknown {
     DefineMethod(td, szName, dwMethodFlags, pvSigBlob, cbSigBlob, ulCodeRVA, dwImplFlags, pmd) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        pvSigBlobMarshal := pvSigBlob is VarRef ? "char*" : "ptr"
-        pmdMarshal := pmd is VarRef ? "uint*" : "ptr"
+        pvSigBlobMarshal := pvSigBlob is VarRef ? "char*" : IntPtr
+        pmdMarshal := pmd is VarRef ? "uint*" : IntPtr
 
         result := ComCall(10, this, UInt32, td, "ptr", szName, UInt32, dwMethodFlags, pvSigBlobMarshal, pvSigBlob, UInt32, cbSigBlob, UInt32, ulCodeRVA, UInt32, dwImplFlags, pmdMarshal, pmd, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} td 
      * @param {Integer} tkBody 
      * @param {Integer} tkDecl 
@@ -225,7 +216,6 @@ export default struct IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} tkResolutionScope 
      * @param {PWSTR} szName 
      * @param {Pointer<Integer>} ptr 
@@ -234,14 +224,13 @@ export default struct IMetaDataEmit extends IUnknown {
     DefineTypeRefByName(tkResolutionScope, szName, ptr) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        ptrMarshal := ptr is VarRef ? "uint*" : "ptr"
+        ptrMarshal := ptr is VarRef ? "uint*" : IntPtr
 
         result := ComCall(12, this, UInt32, tkResolutionScope, "ptr", szName, ptrMarshal, ptr, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IMetaDataAssemblyImport} pAssemImport 
      * @param {Pointer<Void>} pbHashValue 
      * @param {Integer} cbHashValue 
@@ -252,15 +241,14 @@ export default struct IMetaDataEmit extends IUnknown {
      * @returns {HRESULT} 
      */
     DefineImportType(pAssemImport, pbHashValue, cbHashValue, pImport, tdImport, pAssemEmit, ptr) {
-        pbHashValueMarshal := pbHashValue is VarRef ? "ptr" : "ptr"
-        ptrMarshal := ptr is VarRef ? "uint*" : "ptr"
+        pbHashValueMarshal := pbHashValue is VarRef ? "ptr" : IntPtr
+        ptrMarshal := ptr is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, "ptr", pAssemImport, pbHashValueMarshal, pbHashValue, UInt32, cbHashValue, "ptr", pImport, UInt32, tdImport, "ptr", pAssemEmit, ptrMarshal, ptr, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} tkImport 
      * @param {PWSTR} szName 
      * @param {Pointer<Integer>} pvSigBlob 
@@ -271,15 +259,14 @@ export default struct IMetaDataEmit extends IUnknown {
     DefineMemberRef(tkImport, szName, pvSigBlob, cbSigBlob, pmr) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        pvSigBlobMarshal := pvSigBlob is VarRef ? "char*" : "ptr"
-        pmrMarshal := pmr is VarRef ? "uint*" : "ptr"
+        pvSigBlobMarshal := pvSigBlob is VarRef ? "char*" : IntPtr
+        pmrMarshal := pmr is VarRef ? "uint*" : IntPtr
 
         result := ComCall(14, this, UInt32, tkImport, "ptr", szName, pvSigBlobMarshal, pvSigBlob, UInt32, cbSigBlob, pmrMarshal, pmr, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IMetaDataAssemblyImport} pAssemImport 
      * @param {Pointer<Void>} pbHashValue 
      * @param {Integer} cbHashValue 
@@ -291,15 +278,14 @@ export default struct IMetaDataEmit extends IUnknown {
      * @returns {HRESULT} 
      */
     DefineImportMember(pAssemImport, pbHashValue, cbHashValue, pImport, mbMember, pAssemEmit, tkParent, pmr) {
-        pbHashValueMarshal := pbHashValue is VarRef ? "ptr" : "ptr"
-        pmrMarshal := pmr is VarRef ? "uint*" : "ptr"
+        pbHashValueMarshal := pbHashValue is VarRef ? "ptr" : IntPtr
+        pmrMarshal := pmr is VarRef ? "uint*" : IntPtr
 
         result := ComCall(15, this, "ptr", pAssemImport, pbHashValueMarshal, pbHashValue, UInt32, cbHashValue, "ptr", pImport, UInt32, mbMember, "ptr", pAssemEmit, UInt32, tkParent, pmrMarshal, pmr, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} td 
      * @param {PWSTR} szEvent 
      * @param {Integer} dwEventFlags 
@@ -314,15 +300,14 @@ export default struct IMetaDataEmit extends IUnknown {
     DefineEvent(td, szEvent, dwEventFlags, tkEventType, mdAddOn, mdRemoveOn, mdFire, rmdOtherMethods, pmdEvent) {
         szEvent := szEvent is String ? StrPtr(szEvent) : szEvent
 
-        rmdOtherMethodsMarshal := rmdOtherMethods is VarRef ? "uint*" : "ptr"
-        pmdEventMarshal := pmdEvent is VarRef ? "uint*" : "ptr"
+        rmdOtherMethodsMarshal := rmdOtherMethods is VarRef ? "uint*" : IntPtr
+        pmdEventMarshal := pmdEvent is VarRef ? "uint*" : IntPtr
 
         result := ComCall(16, this, UInt32, td, "ptr", szEvent, UInt32, dwEventFlags, UInt32, tkEventType, UInt32, mdAddOn, UInt32, mdRemoveOn, UInt32, mdFire, rmdOtherMethodsMarshal, rmdOtherMethods, pmdEventMarshal, pmdEvent, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} td 
      * @param {Integer} dwPackSize 
      * @param {Pointer<COR_FIELD_OFFSET>} rFieldOffsets 
@@ -335,7 +320,6 @@ export default struct IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} td 
      * @returns {HRESULT} 
      */
@@ -345,21 +329,19 @@ export default struct IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} tk 
      * @param {Pointer<Integer>} pvNativeType 
      * @param {Integer} cbNativeType 
      * @returns {HRESULT} 
      */
     SetFieldMarshal(tk, pvNativeType, cbNativeType) {
-        pvNativeTypeMarshal := pvNativeType is VarRef ? "char*" : "ptr"
+        pvNativeTypeMarshal := pvNativeType is VarRef ? "char*" : IntPtr
 
         result := ComCall(19, this, UInt32, tk, pvNativeTypeMarshal, pvNativeType, UInt32, cbNativeType, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} tk 
      * @returns {HRESULT} 
      */
@@ -369,7 +351,6 @@ export default struct IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} tk 
      * @param {Integer} dwAction 
      * @param {Pointer<Void>} pvPermission 
@@ -378,15 +359,14 @@ export default struct IMetaDataEmit extends IUnknown {
      * @returns {HRESULT} 
      */
     DefinePermissionSet(tk, dwAction, pvPermission, cbPermission, ppm) {
-        pvPermissionMarshal := pvPermission is VarRef ? "ptr" : "ptr"
-        ppmMarshal := ppm is VarRef ? "uint*" : "ptr"
+        pvPermissionMarshal := pvPermission is VarRef ? "ptr" : IntPtr
+        ppmMarshal := ppm is VarRef ? "uint*" : IntPtr
 
         result := ComCall(21, this, UInt32, tk, UInt32, dwAction, pvPermissionMarshal, pvPermission, UInt32, cbPermission, ppmMarshal, ppm, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} md 
      * @param {Integer} ulRVA 
      * @returns {HRESULT} 
@@ -397,22 +377,20 @@ export default struct IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pvSig 
      * @param {Integer} cbSig 
      * @param {Pointer<Integer>} pmsig 
      * @returns {HRESULT} 
      */
     GetTokenFromSig(pvSig, cbSig, pmsig) {
-        pvSigMarshal := pvSig is VarRef ? "char*" : "ptr"
-        pmsigMarshal := pmsig is VarRef ? "uint*" : "ptr"
+        pvSigMarshal := pvSig is VarRef ? "char*" : IntPtr
+        pmsigMarshal := pmsig is VarRef ? "uint*" : IntPtr
 
         result := ComCall(23, this, pvSigMarshal, pvSig, UInt32, cbSig, pmsigMarshal, pmsig, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} szName 
      * @param {Pointer<Integer>} pmur 
      * @returns {HRESULT} 
@@ -420,7 +398,7 @@ export default struct IMetaDataEmit extends IUnknown {
     DefineModuleRef(szName, pmur) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        pmurMarshal := pmur is VarRef ? "uint*" : "ptr"
+        pmurMarshal := pmur is VarRef ? "uint*" : IntPtr
 
         result := ComCall(24, this, "ptr", szName, pmurMarshal, pmur, "HRESULT")
         return result
@@ -482,35 +460,32 @@ export default struct IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pvSig 
      * @param {Integer} cbSig 
      * @param {Pointer<Integer>} ptypespec 
      * @returns {HRESULT} 
      */
     GetTokenFromTypeSpec(pvSig, cbSig, ptypespec) {
-        pvSigMarshal := pvSig is VarRef ? "char*" : "ptr"
-        ptypespecMarshal := ptypespec is VarRef ? "uint*" : "ptr"
+        pvSigMarshal := pvSig is VarRef ? "char*" : IntPtr
+        ptypespecMarshal := ptypespec is VarRef ? "uint*" : IntPtr
 
         result := ComCall(26, this, pvSigMarshal, pvSig, UInt32, cbSig, ptypespecMarshal, ptypespec, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pbData 
      * @param {Integer} cbData 
      * @returns {HRESULT} 
      */
     SaveToMemory(pbData, cbData) {
-        pbDataMarshal := pbData is VarRef ? "ptr" : "ptr"
+        pbDataMarshal := pbData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(27, this, pbDataMarshal, pbData, UInt32, cbData, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} szString 
      * @param {Integer} cchString 
      * @param {Pointer<Integer>} pstk 
@@ -519,14 +494,13 @@ export default struct IMetaDataEmit extends IUnknown {
     DefineUserString(szString, cchString, pstk) {
         szString := szString is String ? StrPtr(szString) : szString
 
-        pstkMarshal := pstk is VarRef ? "uint*" : "ptr"
+        pstkMarshal := pstk is VarRef ? "uint*" : IntPtr
 
         result := ComCall(28, this, "ptr", szString, UInt32, cchString, pstkMarshal, pstk, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} tkObj 
      * @returns {HRESULT} 
      */
@@ -536,7 +510,6 @@ export default struct IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} md 
      * @param {Integer} dwMethodFlags 
      * @param {Integer} ulCodeRVA 
@@ -549,7 +522,6 @@ export default struct IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} td 
      * @param {Integer} dwTypeDefFlags 
      * @param {Integer} tkExtends 
@@ -557,14 +529,13 @@ export default struct IMetaDataEmit extends IUnknown {
      * @returns {HRESULT} 
      */
     SetTypeDefProps(td, dwTypeDefFlags, tkExtends, rtkImplements) {
-        rtkImplementsMarshal := rtkImplements is VarRef ? "uint*" : "ptr"
+        rtkImplementsMarshal := rtkImplements is VarRef ? "uint*" : IntPtr
 
         result := ComCall(31, this, UInt32, td, UInt32, dwTypeDefFlags, UInt32, tkExtends, rtkImplementsMarshal, rtkImplements, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} ev 
      * @param {Integer} dwEventFlags 
      * @param {Integer} tkEventType 
@@ -575,14 +546,13 @@ export default struct IMetaDataEmit extends IUnknown {
      * @returns {HRESULT} 
      */
     SetEventProps(ev, dwEventFlags, tkEventType, mdAddOn, mdRemoveOn, mdFire, rmdOtherMethods) {
-        rmdOtherMethodsMarshal := rmdOtherMethods is VarRef ? "uint*" : "ptr"
+        rmdOtherMethodsMarshal := rmdOtherMethods is VarRef ? "uint*" : IntPtr
 
         result := ComCall(32, this, UInt32, ev, UInt32, dwEventFlags, UInt32, tkEventType, UInt32, mdAddOn, UInt32, mdRemoveOn, UInt32, mdFire, rmdOtherMethodsMarshal, rmdOtherMethods, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} tk 
      * @param {Integer} dwAction 
      * @param {Pointer<Void>} pvPermission 
@@ -591,15 +561,14 @@ export default struct IMetaDataEmit extends IUnknown {
      * @returns {HRESULT} 
      */
     SetPermissionSetProps(tk, dwAction, pvPermission, cbPermission, ppm) {
-        pvPermissionMarshal := pvPermission is VarRef ? "ptr" : "ptr"
-        ppmMarshal := ppm is VarRef ? "uint*" : "ptr"
+        pvPermissionMarshal := pvPermission is VarRef ? "ptr" : IntPtr
+        ppmMarshal := ppm is VarRef ? "uint*" : IntPtr
 
         result := ComCall(33, this, UInt32, tk, UInt32, dwAction, pvPermissionMarshal, pvPermission, UInt32, cbPermission, ppmMarshal, ppm, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} tk 
      * @param {Integer} dwMappingFlags 
      * @param {PWSTR} szImportName 
@@ -614,7 +583,6 @@ export default struct IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} tk 
      * @param {Integer} dwMappingFlags 
      * @param {PWSTR} szImportName 
@@ -629,7 +597,6 @@ export default struct IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} tk 
      * @returns {HRESULT} 
      */
@@ -639,7 +606,6 @@ export default struct IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} tkOwner 
      * @param {Integer} tkCtor 
      * @param {Pointer<Void>} pCustomAttribute 
@@ -648,29 +614,27 @@ export default struct IMetaDataEmit extends IUnknown {
      * @returns {HRESULT} 
      */
     DefineCustomAttribute(tkOwner, tkCtor, pCustomAttribute, cbCustomAttribute, pcv) {
-        pCustomAttributeMarshal := pCustomAttribute is VarRef ? "ptr" : "ptr"
-        pcvMarshal := pcv is VarRef ? "uint*" : "ptr"
+        pCustomAttributeMarshal := pCustomAttribute is VarRef ? "ptr" : IntPtr
+        pcvMarshal := pcv is VarRef ? "uint*" : IntPtr
 
         result := ComCall(37, this, UInt32, tkOwner, UInt32, tkCtor, pCustomAttributeMarshal, pCustomAttribute, UInt32, cbCustomAttribute, pcvMarshal, pcv, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} pcv 
      * @param {Pointer<Void>} pCustomAttribute 
      * @param {Integer} cbCustomAttribute 
      * @returns {HRESULT} 
      */
     SetCustomAttributeValue(pcv, pCustomAttribute, cbCustomAttribute) {
-        pCustomAttributeMarshal := pCustomAttribute is VarRef ? "ptr" : "ptr"
+        pCustomAttributeMarshal := pCustomAttribute is VarRef ? "ptr" : IntPtr
 
         result := ComCall(38, this, UInt32, pcv, pCustomAttributeMarshal, pCustomAttribute, UInt32, cbCustomAttribute, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} td 
      * @param {PWSTR} szName 
      * @param {Integer} dwFieldFlags 
@@ -685,16 +649,15 @@ export default struct IMetaDataEmit extends IUnknown {
     DefineField(td, szName, dwFieldFlags, pvSigBlob, cbSigBlob, dwCPlusTypeFlag, pValue, cchValue, pmd) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        pvSigBlobMarshal := pvSigBlob is VarRef ? "char*" : "ptr"
-        pValueMarshal := pValue is VarRef ? "ptr" : "ptr"
-        pmdMarshal := pmd is VarRef ? "uint*" : "ptr"
+        pvSigBlobMarshal := pvSigBlob is VarRef ? "char*" : IntPtr
+        pValueMarshal := pValue is VarRef ? "ptr" : IntPtr
+        pmdMarshal := pmd is VarRef ? "uint*" : IntPtr
 
         result := ComCall(39, this, UInt32, td, "ptr", szName, UInt32, dwFieldFlags, pvSigBlobMarshal, pvSigBlob, UInt32, cbSigBlob, UInt32, dwCPlusTypeFlag, pValueMarshal, pValue, UInt32, cchValue, pmdMarshal, pmd, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} td 
      * @param {PWSTR} szProperty 
      * @param {Integer} dwPropFlags 
@@ -712,17 +675,16 @@ export default struct IMetaDataEmit extends IUnknown {
     DefineProperty(td, szProperty, dwPropFlags, pvSig, cbSig, dwCPlusTypeFlag, pValue, cchValue, mdSetter, mdGetter, rmdOtherMethods, pmdProp) {
         szProperty := szProperty is String ? StrPtr(szProperty) : szProperty
 
-        pvSigMarshal := pvSig is VarRef ? "char*" : "ptr"
-        pValueMarshal := pValue is VarRef ? "ptr" : "ptr"
-        rmdOtherMethodsMarshal := rmdOtherMethods is VarRef ? "uint*" : "ptr"
-        pmdPropMarshal := pmdProp is VarRef ? "uint*" : "ptr"
+        pvSigMarshal := pvSig is VarRef ? "char*" : IntPtr
+        pValueMarshal := pValue is VarRef ? "ptr" : IntPtr
+        rmdOtherMethodsMarshal := rmdOtherMethods is VarRef ? "uint*" : IntPtr
+        pmdPropMarshal := pmdProp is VarRef ? "uint*" : IntPtr
 
         result := ComCall(40, this, UInt32, td, "ptr", szProperty, UInt32, dwPropFlags, pvSigMarshal, pvSig, UInt32, cbSig, UInt32, dwCPlusTypeFlag, pValueMarshal, pValue, UInt32, cchValue, UInt32, mdSetter, UInt32, mdGetter, rmdOtherMethodsMarshal, rmdOtherMethods, pmdPropMarshal, pmdProp, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} md 
      * @param {Integer} ulParamSeq 
      * @param {PWSTR} szName 
@@ -736,15 +698,14 @@ export default struct IMetaDataEmit extends IUnknown {
     DefineParam(md, ulParamSeq, szName, dwParamFlags, dwCPlusTypeFlag, pValue, cchValue, ppd) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        pValueMarshal := pValue is VarRef ? "ptr" : "ptr"
-        ppdMarshal := ppd is VarRef ? "uint*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "ptr" : IntPtr
+        ppdMarshal := ppd is VarRef ? "uint*" : IntPtr
 
         result := ComCall(41, this, UInt32, md, UInt32, ulParamSeq, "ptr", szName, UInt32, dwParamFlags, UInt32, dwCPlusTypeFlag, pValueMarshal, pValue, UInt32, cchValue, ppdMarshal, ppd, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} fd 
      * @param {Integer} dwFieldFlags 
      * @param {Integer} dwCPlusTypeFlag 
@@ -753,14 +714,13 @@ export default struct IMetaDataEmit extends IUnknown {
      * @returns {HRESULT} 
      */
     SetFieldProps(fd, dwFieldFlags, dwCPlusTypeFlag, pValue, cchValue) {
-        pValueMarshal := pValue is VarRef ? "ptr" : "ptr"
+        pValueMarshal := pValue is VarRef ? "ptr" : IntPtr
 
         result := ComCall(42, this, UInt32, fd, UInt32, dwFieldFlags, UInt32, dwCPlusTypeFlag, pValueMarshal, pValue, UInt32, cchValue, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} pr 
      * @param {Integer} dwPropFlags 
      * @param {Integer} dwCPlusTypeFlag 
@@ -772,15 +732,14 @@ export default struct IMetaDataEmit extends IUnknown {
      * @returns {HRESULT} 
      */
     SetPropertyProps(pr, dwPropFlags, dwCPlusTypeFlag, pValue, cchValue, mdSetter, mdGetter, rmdOtherMethods) {
-        pValueMarshal := pValue is VarRef ? "ptr" : "ptr"
-        rmdOtherMethodsMarshal := rmdOtherMethods is VarRef ? "uint*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "ptr" : IntPtr
+        rmdOtherMethodsMarshal := rmdOtherMethods is VarRef ? "uint*" : IntPtr
 
         result := ComCall(43, this, UInt32, pr, UInt32, dwPropFlags, UInt32, dwCPlusTypeFlag, pValueMarshal, pValue, UInt32, cchValue, UInt32, mdSetter, UInt32, mdGetter, rmdOtherMethodsMarshal, rmdOtherMethods, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} pd 
      * @param {PWSTR} szName 
      * @param {Integer} dwParamFlags 
@@ -792,14 +751,13 @@ export default struct IMetaDataEmit extends IUnknown {
     SetParamProps(pd, szName, dwParamFlags, dwCPlusTypeFlag, pValue, cchValue) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        pValueMarshal := pValue is VarRef ? "ptr" : "ptr"
+        pValueMarshal := pValue is VarRef ? "ptr" : IntPtr
 
         result := ComCall(44, this, UInt32, pd, "ptr", szName, UInt32, dwParamFlags, UInt32, dwCPlusTypeFlag, pValueMarshal, pValue, UInt32, cchValue, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} tkObj 
      * @param {Pointer<COR_SECATTR>} rSecAttrs 
      * @param {Integer} cSecAttrs 
@@ -807,14 +765,13 @@ export default struct IMetaDataEmit extends IUnknown {
      * @returns {HRESULT} 
      */
     DefineSecurityAttributeSet(tkObj, rSecAttrs, cSecAttrs, pulErrorAttr) {
-        pulErrorAttrMarshal := pulErrorAttr is VarRef ? "uint*" : "ptr"
+        pulErrorAttrMarshal := pulErrorAttr is VarRef ? "uint*" : IntPtr
 
         result := ComCall(45, this, UInt32, tkObj, COR_SECATTR.Ptr, rSecAttrs, UInt32, cSecAttrs, pulErrorAttrMarshal, pulErrorAttr, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IUnknown} pImport 
      * @returns {HRESULT} 
      */
@@ -824,7 +781,6 @@ export default struct IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMetaDataAssemblyImport} pAssemImport 
      * @param {Pointer<Void>} pbHashValue 
      * @param {Integer} cbHashValue 
@@ -839,17 +795,16 @@ export default struct IMetaDataEmit extends IUnknown {
      * @returns {HRESULT} 
      */
     TranslateSigWithScope(pAssemImport, pbHashValue, cbHashValue, import, pbSigBlob, cbSigBlob, pAssemEmit, emit, pvTranslatedSig, cbTranslatedSigMax, pcbTranslatedSig) {
-        pbHashValueMarshal := pbHashValue is VarRef ? "ptr" : "ptr"
-        pbSigBlobMarshal := pbSigBlob is VarRef ? "char*" : "ptr"
-        pvTranslatedSigMarshal := pvTranslatedSig is VarRef ? "char*" : "ptr"
-        pcbTranslatedSigMarshal := pcbTranslatedSig is VarRef ? "uint*" : "ptr"
+        pbHashValueMarshal := pbHashValue is VarRef ? "ptr" : IntPtr
+        pbSigBlobMarshal := pbSigBlob is VarRef ? "char*" : IntPtr
+        pvTranslatedSigMarshal := pvTranslatedSig is VarRef ? "char*" : IntPtr
+        pcbTranslatedSigMarshal := pcbTranslatedSig is VarRef ? "uint*" : IntPtr
 
         result := ComCall(47, this, "ptr", pAssemImport, pbHashValueMarshal, pbHashValue, UInt32, cbHashValue, "ptr", import, pbSigBlobMarshal, pbSigBlob, UInt32, cbSigBlob, "ptr", pAssemEmit, "ptr", emit, pvTranslatedSigMarshal, pvTranslatedSig, UInt32, cbTranslatedSigMax, pcbTranslatedSigMarshal, pcbTranslatedSig, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} md 
      * @param {Integer} dwImplFlags 
      * @returns {HRESULT} 
@@ -860,7 +815,6 @@ export default struct IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} fd 
      * @param {Integer} ulRVA 
      * @returns {HRESULT} 
@@ -871,7 +825,6 @@ export default struct IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMetaDataImport} pImport 
      * @param {IMapToken} pHostMapToken 
      * @param {IUnknown} pHandler 
@@ -883,7 +836,6 @@ export default struct IMetaDataEmit extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     MergeEnd() {
@@ -900,55 +852,55 @@ export default struct IMetaDataEmit extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetModuleProps := CallbackCreate(GetMethod(implObj, "SetModuleProps"), flags, 2)
-        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 3)
-        this.vtbl.SaveToStream := CallbackCreate(GetMethod(implObj, "SaveToStream"), flags, 3)
-        this.vtbl.GetSaveSize := CallbackCreate(GetMethod(implObj, "GetSaveSize"), flags, 3)
-        this.vtbl.DefineTypeDef := CallbackCreate(GetMethod(implObj, "DefineTypeDef"), flags, 6)
-        this.vtbl.DefineNestedType := CallbackCreate(GetMethod(implObj, "DefineNestedType"), flags, 7)
-        this.vtbl.SetHandler := CallbackCreate(GetMethod(implObj, "SetHandler"), flags, 2)
-        this.vtbl.DefineMethod := CallbackCreate(GetMethod(implObj, "DefineMethod"), flags, 9)
-        this.vtbl.DefineMethodImpl := CallbackCreate(GetMethod(implObj, "DefineMethodImpl"), flags, 4)
-        this.vtbl.DefineTypeRefByName := CallbackCreate(GetMethod(implObj, "DefineTypeRefByName"), flags, 4)
-        this.vtbl.DefineImportType := CallbackCreate(GetMethod(implObj, "DefineImportType"), flags, 8)
-        this.vtbl.DefineMemberRef := CallbackCreate(GetMethod(implObj, "DefineMemberRef"), flags, 6)
-        this.vtbl.DefineImportMember := CallbackCreate(GetMethod(implObj, "DefineImportMember"), flags, 9)
-        this.vtbl.DefineEvent := CallbackCreate(GetMethod(implObj, "DefineEvent"), flags, 10)
-        this.vtbl.SetClassLayout := CallbackCreate(GetMethod(implObj, "SetClassLayout"), flags, 5)
-        this.vtbl.DeleteClassLayout := CallbackCreate(GetMethod(implObj, "DeleteClassLayout"), flags, 2)
-        this.vtbl.SetFieldMarshal := CallbackCreate(GetMethod(implObj, "SetFieldMarshal"), flags, 4)
-        this.vtbl.DeleteFieldMarshal := CallbackCreate(GetMethod(implObj, "DeleteFieldMarshal"), flags, 2)
-        this.vtbl.DefinePermissionSet := CallbackCreate(GetMethod(implObj, "DefinePermissionSet"), flags, 6)
-        this.vtbl.SetRVA := CallbackCreate(GetMethod(implObj, "SetRVA"), flags, 3)
-        this.vtbl.GetTokenFromSig := CallbackCreate(GetMethod(implObj, "GetTokenFromSig"), flags, 4)
-        this.vtbl.DefineModuleRef := CallbackCreate(GetMethod(implObj, "DefineModuleRef"), flags, 3)
-        this.vtbl.SetParent := CallbackCreate(GetMethod(implObj, "SetParent"), flags, 3)
-        this.vtbl.GetTokenFromTypeSpec := CallbackCreate(GetMethod(implObj, "GetTokenFromTypeSpec"), flags, 4)
-        this.vtbl.SaveToMemory := CallbackCreate(GetMethod(implObj, "SaveToMemory"), flags, 3)
-        this.vtbl.DefineUserString := CallbackCreate(GetMethod(implObj, "DefineUserString"), flags, 4)
-        this.vtbl.DeleteToken := CallbackCreate(GetMethod(implObj, "DeleteToken"), flags, 2)
-        this.vtbl.SetMethodProps := CallbackCreate(GetMethod(implObj, "SetMethodProps"), flags, 5)
-        this.vtbl.SetTypeDefProps := CallbackCreate(GetMethod(implObj, "SetTypeDefProps"), flags, 5)
-        this.vtbl.SetEventProps := CallbackCreate(GetMethod(implObj, "SetEventProps"), flags, 8)
-        this.vtbl.SetPermissionSetProps := CallbackCreate(GetMethod(implObj, "SetPermissionSetProps"), flags, 6)
-        this.vtbl.DefinePinvokeMap := CallbackCreate(GetMethod(implObj, "DefinePinvokeMap"), flags, 5)
-        this.vtbl.SetPinvokeMap := CallbackCreate(GetMethod(implObj, "SetPinvokeMap"), flags, 5)
-        this.vtbl.DeletePinvokeMap := CallbackCreate(GetMethod(implObj, "DeletePinvokeMap"), flags, 2)
-        this.vtbl.DefineCustomAttribute := CallbackCreate(GetMethod(implObj, "DefineCustomAttribute"), flags, 6)
-        this.vtbl.SetCustomAttributeValue := CallbackCreate(GetMethod(implObj, "SetCustomAttributeValue"), flags, 4)
-        this.vtbl.DefineField := CallbackCreate(GetMethod(implObj, "DefineField"), flags, 10)
-        this.vtbl.DefineProperty := CallbackCreate(GetMethod(implObj, "DefineProperty"), flags, 13)
-        this.vtbl.DefineParam := CallbackCreate(GetMethod(implObj, "DefineParam"), flags, 9)
-        this.vtbl.SetFieldProps := CallbackCreate(GetMethod(implObj, "SetFieldProps"), flags, 6)
-        this.vtbl.SetPropertyProps := CallbackCreate(GetMethod(implObj, "SetPropertyProps"), flags, 9)
-        this.vtbl.SetParamProps := CallbackCreate(GetMethod(implObj, "SetParamProps"), flags, 7)
-        this.vtbl.DefineSecurityAttributeSet := CallbackCreate(GetMethod(implObj, "DefineSecurityAttributeSet"), flags, 5)
-        this.vtbl.ApplyEditAndContinue := CallbackCreate(GetMethod(implObj, "ApplyEditAndContinue"), flags, 2)
-        this.vtbl.TranslateSigWithScope := CallbackCreate(GetMethod(implObj, "TranslateSigWithScope"), flags, 12)
-        this.vtbl.SetMethodImplFlags := CallbackCreate(GetMethod(implObj, "SetMethodImplFlags"), flags, 3)
-        this.vtbl.SetFieldRVA := CallbackCreate(GetMethod(implObj, "SetFieldRVA"), flags, 3)
-        this.vtbl.Merge := CallbackCreate(GetMethod(implObj, "Merge"), flags, 4)
-        this.vtbl.MergeEnd := CallbackCreate(GetMethod(implObj, "MergeEnd"), flags, 1)
+        this.vtbl.SetModuleProps := CallbackCreate(ObjBindMethod(implObj, "SetModuleProps"), flags, 2)
+        this.vtbl.Save := CallbackCreate(ObjBindMethod(implObj, "Save"), flags, 3)
+        this.vtbl.SaveToStream := CallbackCreate(ObjBindMethod(implObj, "SaveToStream"), flags, 3)
+        this.vtbl.GetSaveSize := CallbackCreate(ObjBindMethod(implObj, "GetSaveSize"), flags, 3)
+        this.vtbl.DefineTypeDef := CallbackCreate(ObjBindMethod(implObj, "DefineTypeDef"), flags, 6)
+        this.vtbl.DefineNestedType := CallbackCreate(ObjBindMethod(implObj, "DefineNestedType"), flags, 7)
+        this.vtbl.SetHandler := CallbackCreate(ObjBindMethod(implObj, "SetHandler"), flags, 2)
+        this.vtbl.DefineMethod := CallbackCreate(ObjBindMethod(implObj, "DefineMethod"), flags, 9)
+        this.vtbl.DefineMethodImpl := CallbackCreate(ObjBindMethod(implObj, "DefineMethodImpl"), flags, 4)
+        this.vtbl.DefineTypeRefByName := CallbackCreate(ObjBindMethod(implObj, "DefineTypeRefByName"), flags, 4)
+        this.vtbl.DefineImportType := CallbackCreate(ObjBindMethod(implObj, "DefineImportType"), flags, 8)
+        this.vtbl.DefineMemberRef := CallbackCreate(ObjBindMethod(implObj, "DefineMemberRef"), flags, 6)
+        this.vtbl.DefineImportMember := CallbackCreate(ObjBindMethod(implObj, "DefineImportMember"), flags, 9)
+        this.vtbl.DefineEvent := CallbackCreate(ObjBindMethod(implObj, "DefineEvent"), flags, 10)
+        this.vtbl.SetClassLayout := CallbackCreate(ObjBindMethod(implObj, "SetClassLayout"), flags, 5)
+        this.vtbl.DeleteClassLayout := CallbackCreate(ObjBindMethod(implObj, "DeleteClassLayout"), flags, 2)
+        this.vtbl.SetFieldMarshal := CallbackCreate(ObjBindMethod(implObj, "SetFieldMarshal"), flags, 4)
+        this.vtbl.DeleteFieldMarshal := CallbackCreate(ObjBindMethod(implObj, "DeleteFieldMarshal"), flags, 2)
+        this.vtbl.DefinePermissionSet := CallbackCreate(ObjBindMethod(implObj, "DefinePermissionSet"), flags, 6)
+        this.vtbl.SetRVA := CallbackCreate(ObjBindMethod(implObj, "SetRVA"), flags, 3)
+        this.vtbl.GetTokenFromSig := CallbackCreate(ObjBindMethod(implObj, "GetTokenFromSig"), flags, 4)
+        this.vtbl.DefineModuleRef := CallbackCreate(ObjBindMethod(implObj, "DefineModuleRef"), flags, 3)
+        this.vtbl.SetParent := CallbackCreate(ObjBindMethod(implObj, "SetParent"), flags, 3)
+        this.vtbl.GetTokenFromTypeSpec := CallbackCreate(ObjBindMethod(implObj, "GetTokenFromTypeSpec"), flags, 4)
+        this.vtbl.SaveToMemory := CallbackCreate(ObjBindMethod(implObj, "SaveToMemory"), flags, 3)
+        this.vtbl.DefineUserString := CallbackCreate(ObjBindMethod(implObj, "DefineUserString"), flags, 4)
+        this.vtbl.DeleteToken := CallbackCreate(ObjBindMethod(implObj, "DeleteToken"), flags, 2)
+        this.vtbl.SetMethodProps := CallbackCreate(ObjBindMethod(implObj, "SetMethodProps"), flags, 5)
+        this.vtbl.SetTypeDefProps := CallbackCreate(ObjBindMethod(implObj, "SetTypeDefProps"), flags, 5)
+        this.vtbl.SetEventProps := CallbackCreate(ObjBindMethod(implObj, "SetEventProps"), flags, 8)
+        this.vtbl.SetPermissionSetProps := CallbackCreate(ObjBindMethod(implObj, "SetPermissionSetProps"), flags, 6)
+        this.vtbl.DefinePinvokeMap := CallbackCreate(ObjBindMethod(implObj, "DefinePinvokeMap"), flags, 5)
+        this.vtbl.SetPinvokeMap := CallbackCreate(ObjBindMethod(implObj, "SetPinvokeMap"), flags, 5)
+        this.vtbl.DeletePinvokeMap := CallbackCreate(ObjBindMethod(implObj, "DeletePinvokeMap"), flags, 2)
+        this.vtbl.DefineCustomAttribute := CallbackCreate(ObjBindMethod(implObj, "DefineCustomAttribute"), flags, 6)
+        this.vtbl.SetCustomAttributeValue := CallbackCreate(ObjBindMethod(implObj, "SetCustomAttributeValue"), flags, 4)
+        this.vtbl.DefineField := CallbackCreate(ObjBindMethod(implObj, "DefineField"), flags, 10)
+        this.vtbl.DefineProperty := CallbackCreate(ObjBindMethod(implObj, "DefineProperty"), flags, 13)
+        this.vtbl.DefineParam := CallbackCreate(ObjBindMethod(implObj, "DefineParam"), flags, 9)
+        this.vtbl.SetFieldProps := CallbackCreate(ObjBindMethod(implObj, "SetFieldProps"), flags, 6)
+        this.vtbl.SetPropertyProps := CallbackCreate(ObjBindMethod(implObj, "SetPropertyProps"), flags, 9)
+        this.vtbl.SetParamProps := CallbackCreate(ObjBindMethod(implObj, "SetParamProps"), flags, 7)
+        this.vtbl.DefineSecurityAttributeSet := CallbackCreate(ObjBindMethod(implObj, "DefineSecurityAttributeSet"), flags, 5)
+        this.vtbl.ApplyEditAndContinue := CallbackCreate(ObjBindMethod(implObj, "ApplyEditAndContinue"), flags, 2)
+        this.vtbl.TranslateSigWithScope := CallbackCreate(ObjBindMethod(implObj, "TranslateSigWithScope"), flags, 12)
+        this.vtbl.SetMethodImplFlags := CallbackCreate(ObjBindMethod(implObj, "SetMethodImplFlags"), flags, 3)
+        this.vtbl.SetFieldRVA := CallbackCreate(ObjBindMethod(implObj, "SetFieldRVA"), flags, 3)
+        this.vtbl.Merge := CallbackCreate(ObjBindMethod(implObj, "Merge"), flags, 4)
+        this.vtbl.MergeEnd := CallbackCreate(ObjBindMethod(implObj, "MergeEnd"), flags, 1)
     }
 
     Dispose() {

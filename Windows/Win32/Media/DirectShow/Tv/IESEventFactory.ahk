@@ -44,7 +44,6 @@ export default struct IESEventFactory extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pServiceProvider 
      * @param {Integer} dwEventId 
      * @param {Guid} guidEventType 
@@ -57,7 +56,7 @@ export default struct IESEventFactory extends IUnknown {
     CreateESEvent(pServiceProvider, dwEventId, guidEventType, dwEventDataLength, pEventData, bstrBaseUrl, pInitContext) {
         bstrBaseUrl := bstrBaseUrl is String ? BSTR.Alloc(bstrBaseUrl).Value : bstrBaseUrl
 
-        pEventDataMarshal := pEventData is VarRef ? "char*" : "ptr"
+        pEventDataMarshal := pEventData is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, "ptr", pServiceProvider, UInt32, dwEventId, Guid, guidEventType, UInt32, dwEventDataLength, pEventDataMarshal, pEventData, BSTR, bstrBaseUrl, "ptr", pInitContext, "ptr*", &ppESEvent := 0, "HRESULT")
         return IESEvent(ppESEvent)
@@ -72,7 +71,7 @@ export default struct IESEventFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateESEvent := CallbackCreate(GetMethod(implObj, "CreateESEvent"), flags, 9)
+        this.vtbl.CreateESEvent := CallbackCreate(ObjBindMethod(implObj, "CreateESEvent"), flags, 9)
     }
 
     Dispose() {

@@ -73,7 +73,6 @@ export default struct IRulesAppliedCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {IRulesApplied} 
      */
@@ -83,7 +82,6 @@ export default struct IRulesAppliedCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -92,7 +90,6 @@ export default struct IRulesAppliedCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_element() {
@@ -101,7 +98,6 @@ export default struct IRulesAppliedCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {IRulesApplied} 
      */
@@ -113,7 +109,6 @@ export default struct IRulesAppliedCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_propertyCount() {
@@ -122,7 +117,6 @@ export default struct IRulesAppliedCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {BSTR} 
      */
@@ -133,7 +127,6 @@ export default struct IRulesAppliedCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @param {Integer} index 
      * @returns {IRulesApplied} 
@@ -146,7 +139,6 @@ export default struct IRulesAppliedCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {Integer} 
      */
@@ -166,14 +158,14 @@ export default struct IRulesAppliedCollection extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.item := CallbackCreate(GetMethod(implObj, "item"), flags, 3)
-        this.vtbl.get_length := CallbackCreate(GetMethod(implObj, "get_length"), flags, 2)
-        this.vtbl.get_element := CallbackCreate(GetMethod(implObj, "get_element"), flags, 2)
-        this.vtbl.propertyInheritedFrom := CallbackCreate(GetMethod(implObj, "propertyInheritedFrom"), flags, 3)
-        this.vtbl.get_propertyCount := CallbackCreate(GetMethod(implObj, "get_propertyCount"), flags, 2)
-        this.vtbl.property := CallbackCreate(GetMethod(implObj, "property"), flags, 3)
-        this.vtbl.propertyInheritedTrace := CallbackCreate(GetMethod(implObj, "propertyInheritedTrace"), flags, 4)
-        this.vtbl.propertyInheritedTraceLength := CallbackCreate(GetMethod(implObj, "propertyInheritedTraceLength"), flags, 3)
+        this.vtbl.item := CallbackCreate(ObjBindMethod(implObj, "item"), flags, 3)
+        this.vtbl.get_length := CallbackCreate(ObjBindMethod(implObj, "get_length"), flags, 2)
+        this.vtbl.get_element := CallbackCreate(ObjBindMethod(implObj, "get_element"), flags, 2)
+        this.vtbl.propertyInheritedFrom := CallbackCreate(ObjBindMethod(implObj, "propertyInheritedFrom"), flags, 3)
+        this.vtbl.get_propertyCount := CallbackCreate(ObjBindMethod(implObj, "get_propertyCount"), flags, 2)
+        this.vtbl.property := CallbackCreate(ObjBindMethod(implObj, "property"), flags, 3)
+        this.vtbl.propertyInheritedTrace := CallbackCreate(ObjBindMethod(implObj, "propertyInheritedTrace"), flags, 4)
+        this.vtbl.propertyInheritedTraceLength := CallbackCreate(ObjBindMethod(implObj, "propertyInheritedTraceLength"), flags, 3)
     }
 
     Dispose() {

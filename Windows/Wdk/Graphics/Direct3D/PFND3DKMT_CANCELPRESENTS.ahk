@@ -20,7 +20,6 @@ export default struct PFND3DKMT_CANCELPRESENTS {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CANCEL_PRESENTS>} param0 
      * @returns {NTSTATUS} 
      */

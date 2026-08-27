@@ -30,7 +30,6 @@ export default struct PWLX_WIN31_MIGRATE {
     }
 
     /**
-     * 
      * @param {HANDLE} hWlx Specify the handle received in the call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nf-winwlx-wlxinitialize">WlxInitialize</a>.
      * @returns {String} Nothing - always returns an empty string

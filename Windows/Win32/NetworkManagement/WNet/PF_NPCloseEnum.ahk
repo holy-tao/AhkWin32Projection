@@ -19,7 +19,6 @@ export default struct PF_NPCloseEnum {
     }
 
     /**
-     * 
      * @param {HANDLE} hEnum 
      * @returns {Integer} 
      */

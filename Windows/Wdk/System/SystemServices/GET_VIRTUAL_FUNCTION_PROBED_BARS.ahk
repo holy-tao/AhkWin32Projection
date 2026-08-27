@@ -19,14 +19,13 @@ export default struct GET_VIRTUAL_FUNCTION_PROBED_BARS {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<Integer>} BaseRegisterValues 
      * @returns {NTSTATUS} 
      */
     Call(_Context, BaseRegisterValues) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        BaseRegisterValuesMarshal := BaseRegisterValues is VarRef ? "uint*" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        BaseRegisterValuesMarshal := BaseRegisterValues is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, BaseRegisterValuesMarshal, BaseRegisterValues, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

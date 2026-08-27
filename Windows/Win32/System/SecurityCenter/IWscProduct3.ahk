@@ -43,7 +43,6 @@ export default struct IWscProduct3 extends IWscProduct2 {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AntivirusDaysUntilExpired() {
@@ -60,7 +59,7 @@ export default struct IWscProduct3 extends IWscProduct2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_AntivirusDaysUntilExpired := CallbackCreate(GetMethod(implObj, "get_AntivirusDaysUntilExpired"), flags, 2)
+        this.vtbl.get_AntivirusDaysUntilExpired := CallbackCreate(ObjBindMethod(implObj, "get_AntivirusDaysUntilExpired"), flags, 2)
     }
 
     Dispose() {

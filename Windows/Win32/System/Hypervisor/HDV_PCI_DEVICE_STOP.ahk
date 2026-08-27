@@ -20,12 +20,12 @@ export default struct HDV_PCI_DEVICE_STOP {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} deviceContext 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(deviceContext) {
-        deviceContextMarshal := deviceContext is VarRef ? "ptr" : "ptr"
+        deviceContextMarshal := deviceContext is VarRef ? "ptr" : IntPtr
+        deviceContextMarshal := deviceContext == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, deviceContextMarshal, deviceContext)
     }

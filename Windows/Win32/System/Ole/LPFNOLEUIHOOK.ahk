@@ -21,7 +21,6 @@ export default struct LPFNOLEUIHOOK {
     }
 
     /**
-     * 
      * @param {HWND} param0 
      * @param {Integer} param1 
      * @param {WPARAM} param2 

@@ -248,14 +248,14 @@ export default struct IWMWriterFileSink3 extends IWMWriterFileSink2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAutoIndexing := CallbackCreate(GetMethod(implObj, "SetAutoIndexing"), flags, 2)
-        this.vtbl.GetAutoIndexing := CallbackCreate(GetMethod(implObj, "GetAutoIndexing"), flags, 2)
-        this.vtbl.SetControlStream := CallbackCreate(GetMethod(implObj, "SetControlStream"), flags, 3)
-        this.vtbl.GetMode := CallbackCreate(GetMethod(implObj, "GetMode"), flags, 2)
-        this.vtbl.OnDataUnitEx := CallbackCreate(GetMethod(implObj, "OnDataUnitEx"), flags, 2)
-        this.vtbl.SetUnbufferedIO := CallbackCreate(GetMethod(implObj, "SetUnbufferedIO"), flags, 3)
-        this.vtbl.GetUnbufferedIO := CallbackCreate(GetMethod(implObj, "GetUnbufferedIO"), flags, 2)
-        this.vtbl.CompleteOperations := CallbackCreate(GetMethod(implObj, "CompleteOperations"), flags, 1)
+        this.vtbl.SetAutoIndexing := CallbackCreate(ObjBindMethod(implObj, "SetAutoIndexing"), flags, 2)
+        this.vtbl.GetAutoIndexing := CallbackCreate(ObjBindMethod(implObj, "GetAutoIndexing"), flags, 2)
+        this.vtbl.SetControlStream := CallbackCreate(ObjBindMethod(implObj, "SetControlStream"), flags, 3)
+        this.vtbl.GetMode := CallbackCreate(ObjBindMethod(implObj, "GetMode"), flags, 2)
+        this.vtbl.OnDataUnitEx := CallbackCreate(ObjBindMethod(implObj, "OnDataUnitEx"), flags, 2)
+        this.vtbl.SetUnbufferedIO := CallbackCreate(ObjBindMethod(implObj, "SetUnbufferedIO"), flags, 3)
+        this.vtbl.GetUnbufferedIO := CallbackCreate(ObjBindMethod(implObj, "GetUnbufferedIO"), flags, 2)
+        this.vtbl.CompleteOperations := CallbackCreate(ObjBindMethod(implObj, "CompleteOperations"), flags, 1)
     }
 
     Dispose() {

@@ -57,7 +57,7 @@ export default struct IMFDXGIDeviceManagerSource extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetManager := CallbackCreate(GetMethod(implObj, "GetManager"), flags, 2)
+        this.vtbl.GetManager := CallbackCreate(ObjBindMethod(implObj, "GetManager"), flags, 2)
     }
 
     Dispose() {

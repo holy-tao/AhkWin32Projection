@@ -36,13 +36,12 @@ export default struct IGCHostControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} sztMaxVirtualMemMB 
      * @param {Pointer<Pointer>} psztNewMaxVirtualMemMB 
      * @returns {HRESULT} 
      */
     RequestVirtualMemLimit(sztMaxVirtualMemMB, psztNewMaxVirtualMemMB) {
-        psztNewMaxVirtualMemMBMarshal := psztNewMaxVirtualMemMB is VarRef ? "ptr*" : "ptr"
+        psztNewMaxVirtualMemMBMarshal := psztNewMaxVirtualMemMB is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, IntPtr, sztMaxVirtualMemMB, psztNewMaxVirtualMemMBMarshal, psztNewMaxVirtualMemMB, "HRESULT")
         return result
@@ -57,7 +56,7 @@ export default struct IGCHostControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RequestVirtualMemLimit := CallbackCreate(GetMethod(implObj, "RequestVirtualMemLimit"), flags, 3)
+        this.vtbl.RequestVirtualMemLimit := CallbackCreate(ObjBindMethod(implObj, "RequestVirtualMemLimit"), flags, 3)
     }
 
     Dispose() {

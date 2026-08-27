@@ -80,8 +80,8 @@ export default struct IDWriteBitmapRenderTarget1 extends IDWriteBitmapRenderTarg
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTextAntialiasMode := CallbackCreate(GetMethod(implObj, "GetTextAntialiasMode"), flags, 1)
-        this.vtbl.SetTextAntialiasMode := CallbackCreate(GetMethod(implObj, "SetTextAntialiasMode"), flags, 2)
+        this.vtbl.GetTextAntialiasMode := CallbackCreate(ObjBindMethod(implObj, "GetTextAntialiasMode"), flags, 1)
+        this.vtbl.SetTextAntialiasMode := CallbackCreate(ObjBindMethod(implObj, "SetTextAntialiasMode"), flags, 2)
     }
 
     Dispose() {

@@ -145,10 +145,14 @@ export XInputGetAudioDeviceIds(dwUserIndex, pRenderDeviceId, pRenderCount, pCapt
     pRenderDeviceId := pRenderDeviceId is String ? StrPtr(pRenderDeviceId) : pRenderDeviceId
     pCaptureDeviceId := pCaptureDeviceId is String ? StrPtr(pCaptureDeviceId) : pCaptureDeviceId
 
-    pRenderCountMarshal := pRenderCount is VarRef ? "uint*" : "ptr"
-    pCaptureCountMarshal := pCaptureCount is VarRef ? "uint*" : "ptr"
+    pRenderDeviceIdMarshal := pRenderDeviceId == 0 ? IntPtr : PWSTR
+    pRenderCountMarshal := pRenderCount is VarRef ? "uint*" : IntPtr
+    pRenderCountMarshal := pRenderCount == 0 ? IntPtr : "uint*"
+    pCaptureDeviceIdMarshal := pCaptureDeviceId == 0 ? IntPtr : PWSTR
+    pCaptureCountMarshal := pCaptureCount is VarRef ? "uint*" : IntPtr
+    pCaptureCountMarshal := pCaptureCount == 0 ? IntPtr : "uint*"
 
-    result := DllCall("xinput1_4.dll\XInputGetAudioDeviceIds", UInt32, dwUserIndex, "ptr", pRenderDeviceId, pRenderCountMarshal, pRenderCount, "ptr", pCaptureDeviceId, pCaptureCountMarshal, pCaptureCount, UInt32)
+    result := DllCall("xinput1_4.dll\XInputGetAudioDeviceIds", UInt32, dwUserIndex, pRenderDeviceIdMarshal, pRenderDeviceId, pRenderCountMarshal, pRenderCount, pCaptureDeviceIdMarshal, pCaptureDeviceId, pCaptureCountMarshal, pCaptureCount, UInt32)
     return result
 }
 

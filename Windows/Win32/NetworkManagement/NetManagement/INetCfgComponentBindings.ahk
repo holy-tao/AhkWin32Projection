@@ -47,7 +47,6 @@ export default struct INetCfgComponentBindings extends IUnknown {
     }
 
     /**
-     * 
      * @param {INetCfgComponent} pnccItem 
      * @returns {HRESULT} 
      */
@@ -57,7 +56,6 @@ export default struct INetCfgComponentBindings extends IUnknown {
     }
 
     /**
-     * 
      * @param {INetCfgComponent} pnccItem 
      * @returns {HRESULT} 
      */
@@ -67,7 +65,6 @@ export default struct INetCfgComponentBindings extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @param {PWSTR} pszwInterfaceName 
      * @returns {HRESULT} 
@@ -80,7 +77,6 @@ export default struct INetCfgComponentBindings extends IUnknown {
     }
 
     /**
-     * 
      * @param {INetCfgComponent} pnccItem 
      * @returns {HRESULT} 
      */
@@ -90,7 +86,6 @@ export default struct INetCfgComponentBindings extends IUnknown {
     }
 
     /**
-     * 
      * @param {INetCfgComponent} pnccItem 
      * @returns {HRESULT} 
      */
@@ -100,7 +95,6 @@ export default struct INetCfgComponentBindings extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @returns {IEnumNetCfgBindingPath} 
      */
@@ -110,24 +104,26 @@ export default struct INetCfgComponentBindings extends IUnknown {
     }
 
     /**
-     * 
      * @param {INetCfgBindingPath} pncbItemSrc 
      * @param {INetCfgBindingPath} pncbItemDest 
      * @returns {HRESULT} 
      */
     MoveBefore(pncbItemSrc, pncbItemDest) {
-        result := ComCall(9, this, "ptr", pncbItemSrc, "ptr", pncbItemDest, "HRESULT")
+        pncbItemDestMarshal := pncbItemDest == 0 ? IntPtr : "ptr"
+
+        result := ComCall(9, this, "ptr", pncbItemSrc, pncbItemDestMarshal, pncbItemDest, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {INetCfgBindingPath} pncbItemSrc 
      * @param {INetCfgBindingPath} pncbItemDest 
      * @returns {HRESULT} 
      */
     MoveAfter(pncbItemSrc, pncbItemDest) {
-        result := ComCall(10, this, "ptr", pncbItemSrc, "ptr", pncbItemDest, "HRESULT")
+        pncbItemDestMarshal := pncbItemDest == 0 ? IntPtr : "ptr"
+
+        result := ComCall(10, this, "ptr", pncbItemSrc, pncbItemDestMarshal, pncbItemDest, "HRESULT")
         return result
     }
 
@@ -140,14 +136,14 @@ export default struct INetCfgComponentBindings extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BindTo := CallbackCreate(GetMethod(implObj, "BindTo"), flags, 2)
-        this.vtbl.UnbindFrom := CallbackCreate(GetMethod(implObj, "UnbindFrom"), flags, 2)
-        this.vtbl.SupportsBindingInterface := CallbackCreate(GetMethod(implObj, "SupportsBindingInterface"), flags, 3)
-        this.vtbl.IsBoundTo := CallbackCreate(GetMethod(implObj, "IsBoundTo"), flags, 2)
-        this.vtbl.IsBindableTo := CallbackCreate(GetMethod(implObj, "IsBindableTo"), flags, 2)
-        this.vtbl.EnumBindingPaths := CallbackCreate(GetMethod(implObj, "EnumBindingPaths"), flags, 3)
-        this.vtbl.MoveBefore := CallbackCreate(GetMethod(implObj, "MoveBefore"), flags, 3)
-        this.vtbl.MoveAfter := CallbackCreate(GetMethod(implObj, "MoveAfter"), flags, 3)
+        this.vtbl.BindTo := CallbackCreate(ObjBindMethod(implObj, "BindTo"), flags, 2)
+        this.vtbl.UnbindFrom := CallbackCreate(ObjBindMethod(implObj, "UnbindFrom"), flags, 2)
+        this.vtbl.SupportsBindingInterface := CallbackCreate(ObjBindMethod(implObj, "SupportsBindingInterface"), flags, 3)
+        this.vtbl.IsBoundTo := CallbackCreate(ObjBindMethod(implObj, "IsBoundTo"), flags, 2)
+        this.vtbl.IsBindableTo := CallbackCreate(ObjBindMethod(implObj, "IsBindableTo"), flags, 2)
+        this.vtbl.EnumBindingPaths := CallbackCreate(ObjBindMethod(implObj, "EnumBindingPaths"), flags, 3)
+        this.vtbl.MoveBefore := CallbackCreate(ObjBindMethod(implObj, "MoveBefore"), flags, 3)
+        this.vtbl.MoveAfter := CallbackCreate(ObjBindMethod(implObj, "MoveAfter"), flags, 3)
     }
 
     Dispose() {

@@ -62,7 +62,6 @@ export default struct IDataModelScriptTemplate extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IStream} 
      */
     GetContent() {
@@ -79,9 +78,9 @@ export default struct IDataModelScriptTemplate extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
-        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 2)
-        this.vtbl.GetContent := CallbackCreate(GetMethod(implObj, "GetContent"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetDescription := CallbackCreate(ObjBindMethod(implObj, "GetDescription"), flags, 2)
+        this.vtbl.GetContent := CallbackCreate(ObjBindMethod(implObj, "GetContent"), flags, 2)
     }
 
     Dispose() {

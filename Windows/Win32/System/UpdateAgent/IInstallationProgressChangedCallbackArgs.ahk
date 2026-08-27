@@ -64,7 +64,7 @@ export default struct IInstallationProgressChangedCallbackArgs extends IDispatch
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Progress := CallbackCreate(GetMethod(implObj, "get_Progress"), flags, 2)
+        this.vtbl.get_Progress := CallbackCreate(ObjBindMethod(implObj, "get_Progress"), flags, 2)
     }
 
     Dispose() {

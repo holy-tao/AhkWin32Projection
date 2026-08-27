@@ -54,10 +54,10 @@ export default struct ISceSvcAttachmentPersistInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/scesvc/nf-scesvc-iscesvcattachmentpersistinfo-save
      */
     Save(lpTemplateName, scesvcHandle, ppvData, pbOverwriteAll) {
-        lpTemplateNameMarshal := lpTemplateName is VarRef ? "char*" : "ptr"
-        scesvcHandleMarshal := scesvcHandle is VarRef ? "ptr*" : "ptr"
-        ppvDataMarshal := ppvData is VarRef ? "ptr*" : "ptr"
-        pbOverwriteAllMarshal := pbOverwriteAll is VarRef ? "int*" : "ptr"
+        lpTemplateNameMarshal := lpTemplateName is VarRef ? "char*" : IntPtr
+        scesvcHandleMarshal := scesvcHandle is VarRef ? "ptr*" : IntPtr
+        ppvDataMarshal := ppvData is VarRef ? "ptr*" : IntPtr
+        pbOverwriteAllMarshal := pbOverwriteAll is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, lpTemplateNameMarshal, lpTemplateName, scesvcHandleMarshal, scesvcHandle, ppvDataMarshal, ppvData, pbOverwriteAllMarshal, pbOverwriteAll, "HRESULT")
         return result
@@ -70,7 +70,7 @@ export default struct ISceSvcAttachmentPersistInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/scesvc/nf-scesvc-iscesvcattachmentpersistinfo-isdirty
      */
     IsDirty(lpTemplateName) {
-        lpTemplateNameMarshal := lpTemplateName is VarRef ? "char*" : "ptr"
+        lpTemplateNameMarshal := lpTemplateName is VarRef ? "char*" : IntPtr
 
         result := ComCall(4, this, lpTemplateNameMarshal, lpTemplateName, Int32)
         return result
@@ -86,7 +86,7 @@ export default struct ISceSvcAttachmentPersistInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/scesvc/nf-scesvc-iscesvcattachmentpersistinfo-freebuffer
      */
     FreeBuffer(pvData) {
-        pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
+        pvDataMarshal := pvData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(5, this, pvDataMarshal, pvData, "HRESULT")
         return result
@@ -101,9 +101,9 @@ export default struct ISceSvcAttachmentPersistInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 5)
-        this.vtbl.IsDirty := CallbackCreate(GetMethod(implObj, "IsDirty"), flags, 2)
-        this.vtbl.FreeBuffer := CallbackCreate(GetMethod(implObj, "FreeBuffer"), flags, 2)
+        this.vtbl.Save := CallbackCreate(ObjBindMethod(implObj, "Save"), flags, 5)
+        this.vtbl.IsDirty := CallbackCreate(ObjBindMethod(implObj, "IsDirty"), flags, 2)
+        this.vtbl.FreeBuffer := CallbackCreate(ObjBindMethod(implObj, "FreeBuffer"), flags, 2)
     }
 
     Dispose() {

@@ -21,7 +21,6 @@ export default struct PCreateTextServices {
     }
 
     /**
-     * 
      * @param {IUnknown} punkOuter 
      * @param {ITextHost} pITextHost 
      * @returns {IUnknown} 

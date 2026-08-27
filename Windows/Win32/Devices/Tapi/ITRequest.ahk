@@ -132,7 +132,7 @@ export default struct ITRequest extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.MakeCall := CallbackCreate(GetMethod(implObj, "MakeCall"), flags, 5)
+        this.vtbl.MakeCall := CallbackCreate(ObjBindMethod(implObj, "MakeCall"), flags, 5)
     }
 
     Dispose() {

@@ -95,7 +95,6 @@ export default struct LPWSPRECV {
     }
 
     /**
-     * 
      * @param {SOCKET} s A descriptor identifying a connected socket.
      * @param {Pointer<WSABUF>} lpBuffers A pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/ws2def/ns-ws2def-wsabuf">WSABUF</a> structures. Each **WSABUF** structure contains a pointer to a buffer and the length of the buffer, in bytes.
      * @param {Integer} dwBufferCount The number of <a href="https://docs.microsoft.com/windows/win32/api/ws2def/ns-ws2def-wsabuf">WSABUF</a> structures in the <i>lpBuffers</i> array.
@@ -305,11 +304,15 @@ export default struct LPWSPRECV {
      * </table>
      */
     Call(s, lpBuffers, dwBufferCount, lpNumberOfBytesRecvd, lpFlags, lpOverlapped, lpCompletionRoutine, lpThreadId, lpErrno) {
-        lpNumberOfBytesRecvdMarshal := lpNumberOfBytesRecvd is VarRef ? "uint*" : "ptr"
-        lpFlagsMarshal := lpFlags is VarRef ? "uint*" : "ptr"
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        lpNumberOfBytesRecvdMarshal := lpNumberOfBytesRecvd is VarRef ? "uint*" : IntPtr
+        lpNumberOfBytesRecvdMarshal := lpNumberOfBytesRecvd == 0 ? IntPtr : "uint*"
+        lpFlagsMarshal := lpFlags is VarRef ? "uint*" : IntPtr
+        lpOverlappedMarshal := lpOverlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+        lpCompletionRoutineMarshal := lpCompletionRoutine == 0 ? IntPtr : LPWSAOVERLAPPED_COMPLETION_ROUTINE
+        lpThreadIdMarshal := lpThreadId == 0 ? IntPtr : WSATHREADID.Ptr
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
-        result := DllCall(this.value, SOCKET, s, WSABUF.Ptr, lpBuffers, UInt32, dwBufferCount, lpNumberOfBytesRecvdMarshal, lpNumberOfBytesRecvd, lpFlagsMarshal, lpFlags, OVERLAPPED.Ptr, lpOverlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE, lpCompletionRoutine, WSATHREADID.Ptr, lpThreadId, lpErrnoMarshal, lpErrno, Int32)
+        result := DllCall(this.value, SOCKET, s, WSABUF.Ptr, lpBuffers, UInt32, dwBufferCount, lpNumberOfBytesRecvdMarshal, lpNumberOfBytesRecvd, lpFlagsMarshal, lpFlags, lpOverlappedMarshal, lpOverlapped, lpCompletionRoutineMarshal, lpCompletionRoutine, lpThreadIdMarshal, lpThreadId, lpErrnoMarshal, lpErrno, Int32)
         return result
     }
 

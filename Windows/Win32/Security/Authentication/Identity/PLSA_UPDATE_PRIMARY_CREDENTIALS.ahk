@@ -21,13 +21,14 @@ export default struct PLSA_UPDATE_PRIMARY_CREDENTIALS {
     }
 
     /**
-     * 
      * @param {Pointer<SECPKG_PRIMARY_CRED>} PrimaryCredentials 
      * @param {Pointer<SECPKG_SUPPLEMENTAL_CRED_ARRAY>} Credentials 
      * @returns {NTSTATUS} 
      */
     Call(PrimaryCredentials, Credentials) {
-        result := DllCall(this.value, SECPKG_PRIMARY_CRED.Ptr, PrimaryCredentials, SECPKG_SUPPLEMENTAL_CRED_ARRAY.Ptr, Credentials, NTSTATUS)
+        CredentialsMarshal := Credentials == 0 ? IntPtr : SECPKG_SUPPLEMENTAL_CRED_ARRAY.Ptr
+
+        result := DllCall(this.value, SECPKG_PRIMARY_CRED.Ptr, PrimaryCredentials, CredentialsMarshal, Credentials, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

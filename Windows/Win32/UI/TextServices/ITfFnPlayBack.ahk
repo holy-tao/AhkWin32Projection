@@ -91,7 +91,7 @@ export default struct ITfFnPlayBack extends ITfFunction {
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnplayback-queryrange
      */
     QueryRange(pRange, ppNewRange, pfPlayable) {
-        pfPlayableMarshal := pfPlayable is VarRef ? "int*" : "ptr"
+        pfPlayableMarshal := pfPlayable is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, "ptr", pRange, ITfRange.Ptr, ppNewRange, pfPlayableMarshal, pfPlayable, "HRESULT")
         return result
@@ -159,8 +159,8 @@ export default struct ITfFnPlayBack extends ITfFunction {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryRange := CallbackCreate(GetMethod(implObj, "QueryRange"), flags, 4)
-        this.vtbl.Play := CallbackCreate(GetMethod(implObj, "Play"), flags, 2)
+        this.vtbl.QueryRange := CallbackCreate(ObjBindMethod(implObj, "QueryRange"), flags, 4)
+        this.vtbl.Play := CallbackCreate(ObjBindMethod(implObj, "Play"), flags, 2)
     }
 
     Dispose() {

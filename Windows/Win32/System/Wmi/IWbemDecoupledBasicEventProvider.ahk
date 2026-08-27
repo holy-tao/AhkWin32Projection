@@ -81,8 +81,8 @@ export default struct IWbemDecoupledBasicEventProvider extends IWbemDecoupledReg
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSink := CallbackCreate(GetMethod(implObj, "GetSink"), flags, 4)
-        this.vtbl.GetService := CallbackCreate(GetMethod(implObj, "GetService"), flags, 4)
+        this.vtbl.GetSink := CallbackCreate(ObjBindMethod(implObj, "GetSink"), flags, 4)
+        this.vtbl.GetService := CallbackCreate(ObjBindMethod(implObj, "GetService"), flags, 4)
     }
 
     Dispose() {

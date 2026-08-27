@@ -49,7 +49,7 @@ export default struct IWebApplicationUIEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/webapplication/nf-webapplication-iwebapplicationuievents-securityproblem
      */
     SecurityProblem(securityProblem, result) {
-        resultMarshal := result is VarRef ? "int*" : "ptr"
+        resultMarshal := result is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, UInt32, securityProblem, resultMarshal, result, "HRESULT")
         return result
@@ -64,7 +64,7 @@ export default struct IWebApplicationUIEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SecurityProblem := CallbackCreate(GetMethod(implObj, "SecurityProblem"), flags, 3)
+        this.vtbl.SecurityProblem := CallbackCreate(ObjBindMethod(implObj, "SecurityProblem"), flags, 3)
     }
 
     Dispose() {

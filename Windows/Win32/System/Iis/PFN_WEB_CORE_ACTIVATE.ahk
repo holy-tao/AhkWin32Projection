@@ -20,7 +20,6 @@ export default struct PFN_WEB_CORE_ACTIVATE {
     }
 
     /**
-     * 
      * @param {PWSTR} pszAppHostConfigFile 
      * @param {PWSTR} pszRootWebConfigFile 
      * @param {PWSTR} pszInstanceName 

@@ -65,7 +65,10 @@ export default struct IShellChangeNotify extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellchangenotify-onchange
      */
     OnChange(lEvent, pidl1, pidl2) {
-        result := ComCall(3, this, Int32, lEvent, ITEMIDLIST.Ptr, pidl1, ITEMIDLIST.Ptr, pidl2, "HRESULT")
+        pidl1Marshal := pidl1 == 0 ? IntPtr : ITEMIDLIST.Ptr
+        pidl2Marshal := pidl2 == 0 ? IntPtr : ITEMIDLIST.Ptr
+
+        result := ComCall(3, this, Int32, lEvent, pidl1Marshal, pidl1, pidl2Marshal, pidl2, "HRESULT")
         return result
     }
 
@@ -78,7 +81,7 @@ export default struct IShellChangeNotify extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnChange := CallbackCreate(GetMethod(implObj, "OnChange"), flags, 4)
+        this.vtbl.OnChange := CallbackCreate(ObjBindMethod(implObj, "OnChange"), flags, 4)
     }
 
     Dispose() {

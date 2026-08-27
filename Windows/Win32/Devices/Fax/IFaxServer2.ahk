@@ -123,10 +123,10 @@ export default struct IFaxServer2 extends IFaxServer {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Configuration := CallbackCreate(GetMethod(implObj, "get_Configuration"), flags, 2)
-        this.vtbl.get_CurrentAccount := CallbackCreate(GetMethod(implObj, "get_CurrentAccount"), flags, 2)
-        this.vtbl.get_FaxAccountSet := CallbackCreate(GetMethod(implObj, "get_FaxAccountSet"), flags, 2)
-        this.vtbl.get_Security2 := CallbackCreate(GetMethod(implObj, "get_Security2"), flags, 2)
+        this.vtbl.get_Configuration := CallbackCreate(ObjBindMethod(implObj, "get_Configuration"), flags, 2)
+        this.vtbl.get_CurrentAccount := CallbackCreate(ObjBindMethod(implObj, "get_CurrentAccount"), flags, 2)
+        this.vtbl.get_FaxAccountSet := CallbackCreate(ObjBindMethod(implObj, "get_FaxAccountSet"), flags, 2)
+        this.vtbl.get_Security2 := CallbackCreate(ObjBindMethod(implObj, "get_Security2"), flags, 2)
     }
 
     Dispose() {

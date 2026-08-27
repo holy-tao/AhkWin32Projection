@@ -57,7 +57,9 @@ export default struct IMFRelativePanelWatcher extends IMFShutdown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfrelativepanelwatcher-begingetreport
      */
     BeginGetReport(pCallback, pState) {
-        result := ComCall(5, this, "ptr", pCallback, "ptr", pState, "HRESULT")
+        pStateMarshal := pState == 0 ? IntPtr : "ptr"
+
+        result := ComCall(5, this, "ptr", pCallback, pStateMarshal, pState, "HRESULT")
         return result
     }
 
@@ -91,9 +93,9 @@ export default struct IMFRelativePanelWatcher extends IMFShutdown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BeginGetReport := CallbackCreate(GetMethod(implObj, "BeginGetReport"), flags, 3)
-        this.vtbl.EndGetReport := CallbackCreate(GetMethod(implObj, "EndGetReport"), flags, 3)
-        this.vtbl.GetReport := CallbackCreate(GetMethod(implObj, "GetReport"), flags, 2)
+        this.vtbl.BeginGetReport := CallbackCreate(ObjBindMethod(implObj, "BeginGetReport"), flags, 3)
+        this.vtbl.EndGetReport := CallbackCreate(ObjBindMethod(implObj, "EndGetReport"), flags, 3)
+        this.vtbl.GetReport := CallbackCreate(ObjBindMethod(implObj, "GetReport"), flags, 2)
     }
 
     Dispose() {

@@ -78,8 +78,8 @@ export default struct IATSCLocator2 extends IATSCLocator {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ProgramNumber := CallbackCreate(GetMethod(implObj, "get_ProgramNumber"), flags, 2)
-        this.vtbl.put_ProgramNumber := CallbackCreate(GetMethod(implObj, "put_ProgramNumber"), flags, 2)
+        this.vtbl.get_ProgramNumber := CallbackCreate(ObjBindMethod(implObj, "get_ProgramNumber"), flags, 2)
+        this.vtbl.put_ProgramNumber := CallbackCreate(ObjBindMethod(implObj, "put_ProgramNumber"), flags, 2)
     }
 
     Dispose() {

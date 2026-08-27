@@ -64,7 +64,7 @@ export default struct ITextStoryRanges2 extends ITextStoryRanges {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Item2 := CallbackCreate(GetMethod(implObj, "Item2"), flags, 3)
+        this.vtbl.Item2 := CallbackCreate(ObjBindMethod(implObj, "Item2"), flags, 3)
     }
 
     Dispose() {

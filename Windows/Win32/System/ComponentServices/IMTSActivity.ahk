@@ -72,7 +72,6 @@ export default struct IMTSActivity extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved1() {
@@ -108,11 +107,11 @@ export default struct IMTSActivity extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SynchronousCall := CallbackCreate(GetMethod(implObj, "SynchronousCall"), flags, 2)
-        this.vtbl.AsyncCall := CallbackCreate(GetMethod(implObj, "AsyncCall"), flags, 2)
-        this.vtbl.Reserved1 := CallbackCreate(GetMethod(implObj, "Reserved1"), flags, 1)
-        this.vtbl.BindToCurrentThread := CallbackCreate(GetMethod(implObj, "BindToCurrentThread"), flags, 1)
-        this.vtbl.UnbindFromThread := CallbackCreate(GetMethod(implObj, "UnbindFromThread"), flags, 1)
+        this.vtbl.SynchronousCall := CallbackCreate(ObjBindMethod(implObj, "SynchronousCall"), flags, 2)
+        this.vtbl.AsyncCall := CallbackCreate(ObjBindMethod(implObj, "AsyncCall"), flags, 2)
+        this.vtbl.Reserved1 := CallbackCreate(ObjBindMethod(implObj, "Reserved1"), flags, 1)
+        this.vtbl.BindToCurrentThread := CallbackCreate(ObjBindMethod(implObj, "BindToCurrentThread"), flags, 1)
+        this.vtbl.UnbindFromThread := CallbackCreate(ObjBindMethod(implObj, "UnbindFromThread"), flags, 1)
     }
 
     Dispose() {

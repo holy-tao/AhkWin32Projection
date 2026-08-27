@@ -21,7 +21,6 @@ export default struct EXT_XML_DATA {
     }
 
     /**
-     * 
      * @param {IDebugClient4} Client 
      * @param {Pointer<EXT_CAB_XML_DATA>} pXmpData 
      * @returns {HRESULT} 

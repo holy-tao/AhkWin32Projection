@@ -22,7 +22,6 @@ export default struct NCryptCreateClaimFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hProv 
      * @param {NCRYPT_KEY_HANDLE} hSubjectKey 
      * @param {NCRYPT_KEY_HANDLE} hAuthorityKey 
@@ -34,7 +33,12 @@ export default struct NCryptCreateClaimFn {
      * @returns {Integer} 
      */
     Call(hProv, hSubjectKey, hAuthorityKey, dwClaimType, pParameterList, pbClaimBlob, cbClaimBlob, dwFlags) {
-        result := DllCall(this.value, NCRYPT_PROV_HANDLE, hProv, NCRYPT_KEY_HANDLE, hSubjectKey, NCRYPT_KEY_HANDLE, hAuthorityKey, UInt32, dwClaimType, BCryptBufferDesc.Ptr, pParameterList, IntPtr, pbClaimBlob, UInt32, cbClaimBlob, "uint*", &pcbResult := 0, UInt32, dwFlags, "HRESULT")
+        hSubjectKeyMarshal := hSubjectKey == 0 ? IntPtr : NCRYPT_KEY_HANDLE
+        hAuthorityKeyMarshal := hAuthorityKey == 0 ? IntPtr : NCRYPT_KEY_HANDLE
+        pParameterListMarshal := pParameterList == 0 ? IntPtr : BCryptBufferDesc.Ptr
+        pbClaimBlobMarshal := pbClaimBlob == 0 ? IntPtr : IntPtr
+
+        result := DllCall(this.value, NCRYPT_PROV_HANDLE, hProv, hSubjectKeyMarshal, hSubjectKey, hAuthorityKeyMarshal, hAuthorityKey, UInt32, dwClaimType, pParameterListMarshal, pParameterList, pbClaimBlobMarshal, pbClaimBlob, UInt32, cbClaimBlob, "uint*", &pcbResult := 0, UInt32, dwFlags, "HRESULT")
         return pcbResult
     }
 

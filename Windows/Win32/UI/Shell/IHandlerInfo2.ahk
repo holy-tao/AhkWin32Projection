@@ -37,7 +37,6 @@ export default struct IHandlerInfo2 extends IHandlerInfo {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetApplicationId() {
@@ -54,7 +53,7 @@ export default struct IHandlerInfo2 extends IHandlerInfo {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetApplicationId := CallbackCreate(GetMethod(implObj, "GetApplicationId"), flags, 2)
+        this.vtbl.GetApplicationId := CallbackCreate(ObjBindMethod(implObj, "GetApplicationId"), flags, 2)
     }
 
     Dispose() {

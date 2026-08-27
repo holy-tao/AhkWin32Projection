@@ -166,11 +166,11 @@ export default struct IFsrmFileGroupManager extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateFileGroup := CallbackCreate(GetMethod(implObj, "CreateFileGroup"), flags, 2)
-        this.vtbl.GetFileGroup := CallbackCreate(GetMethod(implObj, "GetFileGroup"), flags, 3)
-        this.vtbl.EnumFileGroups := CallbackCreate(GetMethod(implObj, "EnumFileGroups"), flags, 3)
-        this.vtbl.ExportFileGroups := CallbackCreate(GetMethod(implObj, "ExportFileGroups"), flags, 3)
-        this.vtbl.ImportFileGroups := CallbackCreate(GetMethod(implObj, "ImportFileGroups"), flags, 4)
+        this.vtbl.CreateFileGroup := CallbackCreate(ObjBindMethod(implObj, "CreateFileGroup"), flags, 2)
+        this.vtbl.GetFileGroup := CallbackCreate(ObjBindMethod(implObj, "GetFileGroup"), flags, 3)
+        this.vtbl.EnumFileGroups := CallbackCreate(ObjBindMethod(implObj, "EnumFileGroups"), flags, 3)
+        this.vtbl.ExportFileGroups := CallbackCreate(ObjBindMethod(implObj, "ExportFileGroups"), flags, 3)
+        this.vtbl.ImportFileGroups := CallbackCreate(ObjBindMethod(implObj, "ImportFileGroups"), flags, 4)
     }
 
     Dispose() {

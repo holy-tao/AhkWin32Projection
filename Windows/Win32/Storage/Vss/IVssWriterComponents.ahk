@@ -81,7 +81,7 @@ export default struct IVssWriterComponents extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsswritercomponents-getcomponentcount
      */
     GetComponentCount(pcComponents) {
-        pcComponentsMarshal := pcComponents is VarRef ? "uint*" : "ptr"
+        pcComponentsMarshal := pcComponents is VarRef ? "uint*" : IntPtr
 
         result := ComCall(0, this, pcComponentsMarshal, pcComponents, "HRESULT")
         return result

@@ -58,7 +58,6 @@ export default struct IADsBackLink extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_RemoteID() {
@@ -67,7 +66,6 @@ export default struct IADsBackLink extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnRemoteID 
      * @returns {HRESULT} 
      */
@@ -77,7 +75,6 @@ export default struct IADsBackLink extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ObjectName() {
@@ -87,7 +84,6 @@ export default struct IADsBackLink extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrObjectName 
      * @returns {HRESULT} 
      */
@@ -107,10 +103,10 @@ export default struct IADsBackLink extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_RemoteID := CallbackCreate(GetMethod(implObj, "get_RemoteID"), flags, 2)
-        this.vtbl.put_RemoteID := CallbackCreate(GetMethod(implObj, "put_RemoteID"), flags, 2)
-        this.vtbl.get_ObjectName := CallbackCreate(GetMethod(implObj, "get_ObjectName"), flags, 2)
-        this.vtbl.put_ObjectName := CallbackCreate(GetMethod(implObj, "put_ObjectName"), flags, 2)
+        this.vtbl.get_RemoteID := CallbackCreate(ObjBindMethod(implObj, "get_RemoteID"), flags, 2)
+        this.vtbl.put_RemoteID := CallbackCreate(ObjBindMethod(implObj, "put_RemoteID"), flags, 2)
+        this.vtbl.get_ObjectName := CallbackCreate(ObjBindMethod(implObj, "get_ObjectName"), flags, 2)
+        this.vtbl.put_ObjectName := CallbackCreate(ObjBindMethod(implObj, "put_ObjectName"), flags, 2)
     }
 
     Dispose() {

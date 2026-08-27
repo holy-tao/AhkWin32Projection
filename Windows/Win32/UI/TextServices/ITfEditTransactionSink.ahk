@@ -76,8 +76,8 @@ export default struct ITfEditTransactionSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnStartEditTransaction := CallbackCreate(GetMethod(implObj, "OnStartEditTransaction"), flags, 2)
-        this.vtbl.OnEndEditTransaction := CallbackCreate(GetMethod(implObj, "OnEndEditTransaction"), flags, 2)
+        this.vtbl.OnStartEditTransaction := CallbackCreate(ObjBindMethod(implObj, "OnStartEditTransaction"), flags, 2)
+        this.vtbl.OnEndEditTransaction := CallbackCreate(ObjBindMethod(implObj, "OnEndEditTransaction"), flags, 2)
     }
 
     Dispose() {

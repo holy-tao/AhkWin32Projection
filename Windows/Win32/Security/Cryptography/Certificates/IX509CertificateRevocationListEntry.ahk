@@ -114,7 +114,6 @@ export default struct IX509CertificateRevocationListEntry extends IDispatch {
     }
 
     /**
-     * 
      * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      */
@@ -125,7 +124,6 @@ export default struct IX509CertificateRevocationListEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_RevocationDate() {
@@ -134,7 +132,6 @@ export default struct IX509CertificateRevocationListEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {CRLRevocationReason} 
      */
     get_RevocationReason() {
@@ -143,7 +140,6 @@ export default struct IX509CertificateRevocationListEntry extends IDispatch {
     }
 
     /**
-     * 
      * @param {CRLRevocationReason} Value 
      * @returns {HRESULT} 
      */
@@ -153,7 +149,6 @@ export default struct IX509CertificateRevocationListEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IX509Extensions} 
      */
     get_X509Extensions() {
@@ -162,7 +157,6 @@ export default struct IX509CertificateRevocationListEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IObjectIds} 
      */
     get_CriticalExtensions() {
@@ -179,13 +173,13 @@ export default struct IX509CertificateRevocationListEntry extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
-        this.vtbl.get_SerialNumber := CallbackCreate(GetMethod(implObj, "get_SerialNumber"), flags, 3)
-        this.vtbl.get_RevocationDate := CallbackCreate(GetMethod(implObj, "get_RevocationDate"), flags, 2)
-        this.vtbl.get_RevocationReason := CallbackCreate(GetMethod(implObj, "get_RevocationReason"), flags, 2)
-        this.vtbl.put_RevocationReason := CallbackCreate(GetMethod(implObj, "put_RevocationReason"), flags, 2)
-        this.vtbl.get_X509Extensions := CallbackCreate(GetMethod(implObj, "get_X509Extensions"), flags, 2)
-        this.vtbl.get_CriticalExtensions := CallbackCreate(GetMethod(implObj, "get_CriticalExtensions"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 4)
+        this.vtbl.get_SerialNumber := CallbackCreate(ObjBindMethod(implObj, "get_SerialNumber"), flags, 3)
+        this.vtbl.get_RevocationDate := CallbackCreate(ObjBindMethod(implObj, "get_RevocationDate"), flags, 2)
+        this.vtbl.get_RevocationReason := CallbackCreate(ObjBindMethod(implObj, "get_RevocationReason"), flags, 2)
+        this.vtbl.put_RevocationReason := CallbackCreate(ObjBindMethod(implObj, "put_RevocationReason"), flags, 2)
+        this.vtbl.get_X509Extensions := CallbackCreate(ObjBindMethod(implObj, "get_X509Extensions"), flags, 2)
+        this.vtbl.get_CriticalExtensions := CallbackCreate(ObjBindMethod(implObj, "get_CriticalExtensions"), flags, 2)
     }
 
     Dispose() {

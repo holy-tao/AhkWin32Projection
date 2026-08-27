@@ -20,7 +20,6 @@ export default struct PCLUSAPI_CLUSTER_REG_SET_KEY_SECURITY {
     }
 
     /**
-     * 
      * @param {HKEY} _hKey 
      * @param {Integer} SecurityInformation 
      * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor 

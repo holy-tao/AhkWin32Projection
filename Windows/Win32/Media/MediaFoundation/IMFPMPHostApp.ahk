@@ -87,9 +87,9 @@ export default struct IMFPMPHostApp extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LockProcess := CallbackCreate(GetMethod(implObj, "LockProcess"), flags, 1)
-        this.vtbl.UnlockProcess := CallbackCreate(GetMethod(implObj, "UnlockProcess"), flags, 1)
-        this.vtbl.ActivateClassById := CallbackCreate(GetMethod(implObj, "ActivateClassById"), flags, 5)
+        this.vtbl.LockProcess := CallbackCreate(ObjBindMethod(implObj, "LockProcess"), flags, 1)
+        this.vtbl.UnlockProcess := CallbackCreate(ObjBindMethod(implObj, "UnlockProcess"), flags, 1)
+        this.vtbl.ActivateClassById := CallbackCreate(ObjBindMethod(implObj, "ActivateClassById"), flags, 5)
     }
 
     Dispose() {

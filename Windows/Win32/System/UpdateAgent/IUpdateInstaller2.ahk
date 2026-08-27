@@ -83,8 +83,8 @@ export default struct IUpdateInstaller2 extends IUpdateInstaller {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ForceQuiet := CallbackCreate(GetMethod(implObj, "get_ForceQuiet"), flags, 2)
-        this.vtbl.put_ForceQuiet := CallbackCreate(GetMethod(implObj, "put_ForceQuiet"), flags, 2)
+        this.vtbl.get_ForceQuiet := CallbackCreate(ObjBindMethod(implObj, "get_ForceQuiet"), flags, 2)
+        this.vtbl.put_ForceQuiet := CallbackCreate(ObjBindMethod(implObj, "put_ForceQuiet"), flags, 2)
     }
 
     Dispose() {

@@ -65,7 +65,7 @@ export default struct ITfInputProcessorProfilesEx extends ITfInputProcessorProfi
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetLanguageProfileDisplayName := CallbackCreate(GetMethod(implObj, "SetLanguageProfileDisplayName"), flags, 7)
+        this.vtbl.SetLanguageProfileDisplayName := CallbackCreate(ObjBindMethod(implObj, "SetLanguageProfileDisplayName"), flags, 7)
     }
 
     Dispose() {

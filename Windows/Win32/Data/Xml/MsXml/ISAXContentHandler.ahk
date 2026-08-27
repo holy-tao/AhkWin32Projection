@@ -49,7 +49,6 @@ export default struct ISAXContentHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISAXLocator} pLocator 
      * @returns {HRESULT} 
      */
@@ -59,7 +58,6 @@ export default struct ISAXContentHandler extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     startDocument() {
@@ -68,7 +66,6 @@ export default struct ISAXContentHandler extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     endDocument() {
@@ -77,7 +74,6 @@ export default struct ISAXContentHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchPrefix 
      * @param {Integer} cchPrefix 
      * @param {PWSTR} pwchUri 
@@ -93,7 +89,6 @@ export default struct ISAXContentHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchPrefix 
      * @param {Integer} cchPrefix 
      * @returns {HRESULT} 
@@ -106,7 +101,6 @@ export default struct ISAXContentHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchNamespaceUri 
      * @param {Integer} cchNamespaceUri 
      * @param {PWSTR} pwchLocalName 
@@ -126,7 +120,6 @@ export default struct ISAXContentHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchNamespaceUri 
      * @param {Integer} cchNamespaceUri 
      * @param {PWSTR} pwchLocalName 
@@ -145,7 +138,6 @@ export default struct ISAXContentHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchChars 
      * @param {Integer} cchChars 
      * @returns {HRESULT} 
@@ -158,7 +150,6 @@ export default struct ISAXContentHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchChars 
      * @param {Integer} cchChars 
      * @returns {HRESULT} 
@@ -171,7 +162,6 @@ export default struct ISAXContentHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchTarget 
      * @param {Integer} cchTarget 
      * @param {PWSTR} pwchData 
@@ -187,7 +177,6 @@ export default struct ISAXContentHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchName 
      * @param {Integer} cchName 
      * @returns {HRESULT} 
@@ -208,17 +197,17 @@ export default struct ISAXContentHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.putDocumentLocator := CallbackCreate(GetMethod(implObj, "putDocumentLocator"), flags, 2)
-        this.vtbl.startDocument := CallbackCreate(GetMethod(implObj, "startDocument"), flags, 1)
-        this.vtbl.endDocument := CallbackCreate(GetMethod(implObj, "endDocument"), flags, 1)
-        this.vtbl.startPrefixMapping := CallbackCreate(GetMethod(implObj, "startPrefixMapping"), flags, 5)
-        this.vtbl.endPrefixMapping := CallbackCreate(GetMethod(implObj, "endPrefixMapping"), flags, 3)
-        this.vtbl.startElement := CallbackCreate(GetMethod(implObj, "startElement"), flags, 8)
-        this.vtbl.endElement := CallbackCreate(GetMethod(implObj, "endElement"), flags, 7)
-        this.vtbl.characters := CallbackCreate(GetMethod(implObj, "characters"), flags, 3)
-        this.vtbl.ignorableWhitespace := CallbackCreate(GetMethod(implObj, "ignorableWhitespace"), flags, 3)
-        this.vtbl.processingInstruction := CallbackCreate(GetMethod(implObj, "processingInstruction"), flags, 5)
-        this.vtbl.skippedEntity := CallbackCreate(GetMethod(implObj, "skippedEntity"), flags, 3)
+        this.vtbl.putDocumentLocator := CallbackCreate(ObjBindMethod(implObj, "putDocumentLocator"), flags, 2)
+        this.vtbl.startDocument := CallbackCreate(ObjBindMethod(implObj, "startDocument"), flags, 1)
+        this.vtbl.endDocument := CallbackCreate(ObjBindMethod(implObj, "endDocument"), flags, 1)
+        this.vtbl.startPrefixMapping := CallbackCreate(ObjBindMethod(implObj, "startPrefixMapping"), flags, 5)
+        this.vtbl.endPrefixMapping := CallbackCreate(ObjBindMethod(implObj, "endPrefixMapping"), flags, 3)
+        this.vtbl.startElement := CallbackCreate(ObjBindMethod(implObj, "startElement"), flags, 8)
+        this.vtbl.endElement := CallbackCreate(ObjBindMethod(implObj, "endElement"), flags, 7)
+        this.vtbl.characters := CallbackCreate(ObjBindMethod(implObj, "characters"), flags, 3)
+        this.vtbl.ignorableWhitespace := CallbackCreate(ObjBindMethod(implObj, "ignorableWhitespace"), flags, 3)
+        this.vtbl.processingInstruction := CallbackCreate(ObjBindMethod(implObj, "processingInstruction"), flags, 5)
+        this.vtbl.skippedEntity := CallbackCreate(ObjBindMethod(implObj, "skippedEntity"), flags, 3)
     }
 
     Dispose() {

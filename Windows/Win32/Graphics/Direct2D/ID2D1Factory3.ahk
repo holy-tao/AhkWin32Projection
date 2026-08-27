@@ -63,7 +63,7 @@ export default struct ID2D1Factory3 extends ID2D1Factory2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateDevice := CallbackCreate(GetMethod(implObj, "CreateDevice"), flags, 3)
+        this.vtbl.CreateDevice := CallbackCreate(ObjBindMethod(implObj, "CreateDevice"), flags, 3)
     }
 
     Dispose() {

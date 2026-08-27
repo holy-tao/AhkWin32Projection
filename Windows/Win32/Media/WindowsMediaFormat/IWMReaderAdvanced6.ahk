@@ -50,8 +50,8 @@ export default struct IWMReaderAdvanced6 extends IWMReaderAdvanced5 {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced6-setprotectstreamsamples
      */
     SetProtectStreamSamples(pbCertificate, cbCertificate, dwCertificateType, dwFlags, pcbInitializationVector) {
-        pbCertificateMarshal := pbCertificate is VarRef ? "char*" : "ptr"
-        pcbInitializationVectorMarshal := pcbInitializationVector is VarRef ? "uint*" : "ptr"
+        pbCertificateMarshal := pbCertificate is VarRef ? "char*" : IntPtr
+        pcbInitializationVectorMarshal := pcbInitializationVector is VarRef ? "uint*" : IntPtr
 
         result := ComCall(50, this, pbCertificateMarshal, pbCertificate, UInt32, cbCertificate, UInt32, dwCertificateType, UInt32, dwFlags, "char*", &pbInitializationVector := 0, pcbInitializationVectorMarshal, pcbInitializationVector, "HRESULT")
         return pbInitializationVector
@@ -66,7 +66,7 @@ export default struct IWMReaderAdvanced6 extends IWMReaderAdvanced5 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetProtectStreamSamples := CallbackCreate(GetMethod(implObj, "SetProtectStreamSamples"), flags, 7)
+        this.vtbl.SetProtectStreamSamples := CallbackCreate(ObjBindMethod(implObj, "SetProtectStreamSamples"), flags, 7)
     }
 
     Dispose() {

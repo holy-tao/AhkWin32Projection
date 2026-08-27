@@ -19,7 +19,6 @@ export default struct PFN_CARD_GET_CHALLENGE_EX {
     }
 
     /**
-     * 
      * @param {Pointer<CARD_DATA>} pCardData 
      * @param {Integer} PinId 
      * @param {Integer} ppbChallengeData 
@@ -28,7 +27,7 @@ export default struct PFN_CARD_GET_CHALLENGE_EX {
      * @returns {Integer} 
      */
     Call(pCardData, PinId, ppbChallengeData, pcbChallengeData, dwFlags) {
-        pcbChallengeDataMarshal := pcbChallengeData is VarRef ? "uint*" : "ptr"
+        pcbChallengeDataMarshal := pcbChallengeData is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, CARD_DATA.Ptr, pCardData, UInt32, PinId, IntPtr, ppbChallengeData, pcbChallengeDataMarshal, pcbChallengeData, UInt32, dwFlags, UInt32)
         return result

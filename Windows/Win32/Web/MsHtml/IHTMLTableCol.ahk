@@ -83,7 +83,6 @@ export default struct IHTMLTableCol extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -93,7 +92,6 @@ export default struct IHTMLTableCol extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_span() {
@@ -102,7 +100,6 @@ export default struct IHTMLTableCol extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -112,7 +109,6 @@ export default struct IHTMLTableCol extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_width() {
@@ -122,7 +118,6 @@ export default struct IHTMLTableCol extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -134,7 +129,6 @@ export default struct IHTMLTableCol extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_align() {
@@ -144,7 +138,6 @@ export default struct IHTMLTableCol extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -156,7 +149,6 @@ export default struct IHTMLTableCol extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_vAlign() {
@@ -174,14 +166,14 @@ export default struct IHTMLTableCol extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_span := CallbackCreate(GetMethod(implObj, "put_span"), flags, 2)
-        this.vtbl.get_span := CallbackCreate(GetMethod(implObj, "get_span"), flags, 2)
-        this.vtbl.put_width := CallbackCreate(GetMethod(implObj, "put_width"), flags, 2)
-        this.vtbl.get_width := CallbackCreate(GetMethod(implObj, "get_width"), flags, 2)
-        this.vtbl.put_align := CallbackCreate(GetMethod(implObj, "put_align"), flags, 2)
-        this.vtbl.get_align := CallbackCreate(GetMethod(implObj, "get_align"), flags, 2)
-        this.vtbl.put_vAlign := CallbackCreate(GetMethod(implObj, "put_vAlign"), flags, 2)
-        this.vtbl.get_vAlign := CallbackCreate(GetMethod(implObj, "get_vAlign"), flags, 2)
+        this.vtbl.put_span := CallbackCreate(ObjBindMethod(implObj, "put_span"), flags, 2)
+        this.vtbl.get_span := CallbackCreate(ObjBindMethod(implObj, "get_span"), flags, 2)
+        this.vtbl.put_width := CallbackCreate(ObjBindMethod(implObj, "put_width"), flags, 2)
+        this.vtbl.get_width := CallbackCreate(ObjBindMethod(implObj, "get_width"), flags, 2)
+        this.vtbl.put_align := CallbackCreate(ObjBindMethod(implObj, "put_align"), flags, 2)
+        this.vtbl.get_align := CallbackCreate(ObjBindMethod(implObj, "get_align"), flags, 2)
+        this.vtbl.put_vAlign := CallbackCreate(ObjBindMethod(implObj, "put_vAlign"), flags, 2)
+        this.vtbl.get_vAlign := CallbackCreate(ObjBindMethod(implObj, "get_vAlign"), flags, 2)
     }
 
     Dispose() {

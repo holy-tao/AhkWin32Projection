@@ -24,7 +24,6 @@ export default struct PFLT_GENERATE_FILE_NAME {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
@@ -34,9 +33,10 @@ export default struct PFLT_GENERATE_FILE_NAME {
      * @returns {NTSTATUS} 
      */
     Call(Instance, FileObject, CallbackData, NameOptions, CacheFileNameInformation, FileName) {
-        CacheFileNameInformationMarshal := CacheFileNameInformation is VarRef ? "char*" : "ptr"
+        CallbackDataMarshal := CallbackData == 0 ? IntPtr : FLT_CALLBACK_DATA.Ptr
+        CacheFileNameInformationMarshal := CacheFileNameInformation is VarRef ? "char*" : IntPtr
 
-        result := DllCall(this.value, PFLT_INSTANCE, Instance, FILE_OBJECT.Ptr, FileObject, FLT_CALLBACK_DATA.Ptr, CallbackData, UInt32, NameOptions, CacheFileNameInformationMarshal, CacheFileNameInformation, FLT_NAME_CONTROL.Ptr, FileName, NTSTATUS)
+        result := DllCall(this.value, PFLT_INSTANCE, Instance, FILE_OBJECT.Ptr, FileObject, CallbackDataMarshal, CallbackData, UInt32, NameOptions, CacheFileNameInformationMarshal, CacheFileNameInformation, FLT_NAME_CONTROL.Ptr, FileName, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

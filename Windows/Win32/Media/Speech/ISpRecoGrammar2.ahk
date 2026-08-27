@@ -49,21 +49,19 @@ export default struct ISpRecoGrammar2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<SPRULE>>} ppCoMemRules 
      * @param {Pointer<Integer>} puNumRules 
      * @returns {HRESULT} 
      */
     GetRules(ppCoMemRules, puNumRules) {
-        ppCoMemRulesMarshal := ppCoMemRules is VarRef ? "ptr*" : "ptr"
-        puNumRulesMarshal := puNumRules is VarRef ? "uint*" : "ptr"
+        ppCoMemRulesMarshal := ppCoMemRules is VarRef ? "ptr*" : IntPtr
+        puNumRulesMarshal := puNumRules is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, ppCoMemRulesMarshal, ppCoMemRules, puNumRulesMarshal, puNumRules, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pszFileName 
      * @param {SPLOADOPTIONS} Options 
      * @param {PWSTR} pszSharingUri 
@@ -75,12 +73,14 @@ export default struct ISpRecoGrammar2 extends IUnknown {
         pszSharingUri := pszSharingUri is String ? StrPtr(pszSharingUri) : pszSharingUri
         pszBaseUri := pszBaseUri is String ? StrPtr(pszBaseUri) : pszBaseUri
 
-        result := ComCall(4, this, "ptr", pszFileName, SPLOADOPTIONS, Options, "ptr", pszSharingUri, "ptr", pszBaseUri, "HRESULT")
+        pszSharingUriMarshal := pszSharingUri == 0 ? IntPtr : PWSTR
+        pszBaseUriMarshal := pszBaseUri == 0 ? IntPtr : PWSTR
+
+        result := ComCall(4, this, "ptr", pszFileName, SPLOADOPTIONS, Options, pszSharingUriMarshal, pszSharingUri, pszBaseUriMarshal, pszBaseUri, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<SPBINARYGRAMMAR>} pGrammar 
      * @param {SPLOADOPTIONS} Options 
      * @param {PWSTR} pszSharingUri 
@@ -91,12 +91,14 @@ export default struct ISpRecoGrammar2 extends IUnknown {
         pszSharingUri := pszSharingUri is String ? StrPtr(pszSharingUri) : pszSharingUri
         pszBaseUri := pszBaseUri is String ? StrPtr(pszBaseUri) : pszBaseUri
 
-        result := ComCall(5, this, SPBINARYGRAMMAR.Ptr, pGrammar, SPLOADOPTIONS, Options, "ptr", pszSharingUri, "ptr", pszBaseUri, "HRESULT")
+        pszSharingUriMarshal := pszSharingUri == 0 ? IntPtr : PWSTR
+        pszBaseUriMarshal := pszBaseUri == 0 ? IntPtr : PWSTR
+
+        result := ComCall(5, this, SPBINARYGRAMMAR.Ptr, pGrammar, SPLOADOPTIONS, Options, pszSharingUriMarshal, pszSharingUri, pszBaseUriMarshal, pszBaseUri, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pszRuleName 
      * @param {Integer} ulRuleId 
      * @param {Integer} nRulePriority 
@@ -110,7 +112,6 @@ export default struct ISpRecoGrammar2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszRuleName 
      * @param {Integer} ulRuleId 
      * @param {Float} flWeight 
@@ -124,7 +125,6 @@ export default struct ISpRecoGrammar2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} flWeight 
      * @returns {HRESULT} 
      */
@@ -134,7 +134,6 @@ export default struct ISpRecoGrammar2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISpeechResourceLoader} pLoader 
      * @returns {HRESULT} 
      */
@@ -144,7 +143,6 @@ export default struct ISpRecoGrammar2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IInternetSecurityManager} pSMLSecurityManager 
      * @returns {HRESULT} 
      */
@@ -162,14 +160,14 @@ export default struct ISpRecoGrammar2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRules := CallbackCreate(GetMethod(implObj, "GetRules"), flags, 3)
-        this.vtbl.LoadCmdFromFile2 := CallbackCreate(GetMethod(implObj, "LoadCmdFromFile2"), flags, 5)
-        this.vtbl.LoadCmdFromMemory2 := CallbackCreate(GetMethod(implObj, "LoadCmdFromMemory2"), flags, 5)
-        this.vtbl.SetRulePriority := CallbackCreate(GetMethod(implObj, "SetRulePriority"), flags, 4)
-        this.vtbl.SetRuleWeight := CallbackCreate(GetMethod(implObj, "SetRuleWeight"), flags, 4)
-        this.vtbl.SetDictationWeight := CallbackCreate(GetMethod(implObj, "SetDictationWeight"), flags, 2)
-        this.vtbl.SetGrammarLoader := CallbackCreate(GetMethod(implObj, "SetGrammarLoader"), flags, 2)
-        this.vtbl.SetSMLSecurityManager := CallbackCreate(GetMethod(implObj, "SetSMLSecurityManager"), flags, 2)
+        this.vtbl.GetRules := CallbackCreate(ObjBindMethod(implObj, "GetRules"), flags, 3)
+        this.vtbl.LoadCmdFromFile2 := CallbackCreate(ObjBindMethod(implObj, "LoadCmdFromFile2"), flags, 5)
+        this.vtbl.LoadCmdFromMemory2 := CallbackCreate(ObjBindMethod(implObj, "LoadCmdFromMemory2"), flags, 5)
+        this.vtbl.SetRulePriority := CallbackCreate(ObjBindMethod(implObj, "SetRulePriority"), flags, 4)
+        this.vtbl.SetRuleWeight := CallbackCreate(ObjBindMethod(implObj, "SetRuleWeight"), flags, 4)
+        this.vtbl.SetDictationWeight := CallbackCreate(ObjBindMethod(implObj, "SetDictationWeight"), flags, 2)
+        this.vtbl.SetGrammarLoader := CallbackCreate(ObjBindMethod(implObj, "SetGrammarLoader"), flags, 2)
+        this.vtbl.SetSMLSecurityManager := CallbackCreate(ObjBindMethod(implObj, "SetSMLSecurityManager"), flags, 2)
     }
 
     Dispose() {

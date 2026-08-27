@@ -20,7 +20,6 @@ export default struct PFN_DrvSynchronizeSurface {
     }
 
     /**
-     * 
      * @param {Pointer<SURFOBJ>} param0 
      * @param {Pointer<RECTL>} param1 
      * @param {Integer} param2 

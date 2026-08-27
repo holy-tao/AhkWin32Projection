@@ -38,7 +38,6 @@ export default struct IPrintPipelineManagerControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {HRESULT} hrReason 
      * @param {IImgErrorInfo} pReason 
      * @returns {HRESULT} 
@@ -49,7 +48,6 @@ export default struct IPrintPipelineManagerControl extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     FilterFinished() {
@@ -66,8 +64,8 @@ export default struct IPrintPipelineManagerControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RequestShutdown := CallbackCreate(GetMethod(implObj, "RequestShutdown"), flags, 3)
-        this.vtbl.FilterFinished := CallbackCreate(GetMethod(implObj, "FilterFinished"), flags, 1)
+        this.vtbl.RequestShutdown := CallbackCreate(ObjBindMethod(implObj, "RequestShutdown"), flags, 3)
+        this.vtbl.FilterFinished := CallbackCreate(ObjBindMethod(implObj, "FilterFinished"), flags, 1)
     }
 
     Dispose() {

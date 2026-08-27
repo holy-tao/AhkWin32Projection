@@ -108,7 +108,6 @@ export default struct IADsAccessControlEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AccessMask() {
@@ -117,7 +116,6 @@ export default struct IADsAccessControlEntry extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnAccessMask 
      * @returns {HRESULT} 
      */
@@ -127,7 +125,6 @@ export default struct IADsAccessControlEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AceType() {
@@ -136,7 +133,6 @@ export default struct IADsAccessControlEntry extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnAceType 
      * @returns {HRESULT} 
      */
@@ -146,7 +142,6 @@ export default struct IADsAccessControlEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AceFlags() {
@@ -155,7 +150,6 @@ export default struct IADsAccessControlEntry extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnAceFlags 
      * @returns {HRESULT} 
      */
@@ -165,7 +159,6 @@ export default struct IADsAccessControlEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Flags() {
@@ -174,7 +167,6 @@ export default struct IADsAccessControlEntry extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnFlags 
      * @returns {HRESULT} 
      */
@@ -184,7 +176,6 @@ export default struct IADsAccessControlEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ObjectType() {
@@ -194,7 +185,6 @@ export default struct IADsAccessControlEntry extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrObjectType 
      * @returns {HRESULT} 
      */
@@ -206,7 +196,6 @@ export default struct IADsAccessControlEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_InheritedObjectType() {
@@ -216,7 +205,6 @@ export default struct IADsAccessControlEntry extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrInheritedObjectType 
      * @returns {HRESULT} 
      */
@@ -228,7 +216,6 @@ export default struct IADsAccessControlEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Trustee() {
@@ -238,7 +225,6 @@ export default struct IADsAccessControlEntry extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrTrustee 
      * @returns {HRESULT} 
      */
@@ -258,20 +244,20 @@ export default struct IADsAccessControlEntry extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_AccessMask := CallbackCreate(GetMethod(implObj, "get_AccessMask"), flags, 2)
-        this.vtbl.put_AccessMask := CallbackCreate(GetMethod(implObj, "put_AccessMask"), flags, 2)
-        this.vtbl.get_AceType := CallbackCreate(GetMethod(implObj, "get_AceType"), flags, 2)
-        this.vtbl.put_AceType := CallbackCreate(GetMethod(implObj, "put_AceType"), flags, 2)
-        this.vtbl.get_AceFlags := CallbackCreate(GetMethod(implObj, "get_AceFlags"), flags, 2)
-        this.vtbl.put_AceFlags := CallbackCreate(GetMethod(implObj, "put_AceFlags"), flags, 2)
-        this.vtbl.get_Flags := CallbackCreate(GetMethod(implObj, "get_Flags"), flags, 2)
-        this.vtbl.put_Flags := CallbackCreate(GetMethod(implObj, "put_Flags"), flags, 2)
-        this.vtbl.get_ObjectType := CallbackCreate(GetMethod(implObj, "get_ObjectType"), flags, 2)
-        this.vtbl.put_ObjectType := CallbackCreate(GetMethod(implObj, "put_ObjectType"), flags, 2)
-        this.vtbl.get_InheritedObjectType := CallbackCreate(GetMethod(implObj, "get_InheritedObjectType"), flags, 2)
-        this.vtbl.put_InheritedObjectType := CallbackCreate(GetMethod(implObj, "put_InheritedObjectType"), flags, 2)
-        this.vtbl.get_Trustee := CallbackCreate(GetMethod(implObj, "get_Trustee"), flags, 2)
-        this.vtbl.put_Trustee := CallbackCreate(GetMethod(implObj, "put_Trustee"), flags, 2)
+        this.vtbl.get_AccessMask := CallbackCreate(ObjBindMethod(implObj, "get_AccessMask"), flags, 2)
+        this.vtbl.put_AccessMask := CallbackCreate(ObjBindMethod(implObj, "put_AccessMask"), flags, 2)
+        this.vtbl.get_AceType := CallbackCreate(ObjBindMethod(implObj, "get_AceType"), flags, 2)
+        this.vtbl.put_AceType := CallbackCreate(ObjBindMethod(implObj, "put_AceType"), flags, 2)
+        this.vtbl.get_AceFlags := CallbackCreate(ObjBindMethod(implObj, "get_AceFlags"), flags, 2)
+        this.vtbl.put_AceFlags := CallbackCreate(ObjBindMethod(implObj, "put_AceFlags"), flags, 2)
+        this.vtbl.get_Flags := CallbackCreate(ObjBindMethod(implObj, "get_Flags"), flags, 2)
+        this.vtbl.put_Flags := CallbackCreate(ObjBindMethod(implObj, "put_Flags"), flags, 2)
+        this.vtbl.get_ObjectType := CallbackCreate(ObjBindMethod(implObj, "get_ObjectType"), flags, 2)
+        this.vtbl.put_ObjectType := CallbackCreate(ObjBindMethod(implObj, "put_ObjectType"), flags, 2)
+        this.vtbl.get_InheritedObjectType := CallbackCreate(ObjBindMethod(implObj, "get_InheritedObjectType"), flags, 2)
+        this.vtbl.put_InheritedObjectType := CallbackCreate(ObjBindMethod(implObj, "put_InheritedObjectType"), flags, 2)
+        this.vtbl.get_Trustee := CallbackCreate(ObjBindMethod(implObj, "get_Trustee"), flags, 2)
+        this.vtbl.put_Trustee := CallbackCreate(ObjBindMethod(implObj, "put_Trustee"), flags, 2)
     }
 
     Dispose() {

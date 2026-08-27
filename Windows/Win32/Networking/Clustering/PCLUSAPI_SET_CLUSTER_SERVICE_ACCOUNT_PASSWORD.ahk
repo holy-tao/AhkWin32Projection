@@ -19,7 +19,6 @@ export default struct PCLUSAPI_SET_CLUSTER_SERVICE_ACCOUNT_PASSWORD {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszClusterName 
      * @param {PWSTR} lpszNewPassword 
      * @param {Integer} dwFlags 
@@ -31,9 +30,10 @@ export default struct PCLUSAPI_SET_CLUSTER_SERVICE_ACCOUNT_PASSWORD {
         lpszClusterName := lpszClusterName is String ? StrPtr(lpszClusterName) : lpszClusterName
         lpszNewPassword := lpszNewPassword is String ? StrPtr(lpszNewPassword) : lpszNewPassword
 
-        lpcbReturnStatusBufferSizeMarshal := lpcbReturnStatusBufferSize is VarRef ? "uint*" : "ptr"
+        lpReturnStatusBufferMarshal := lpReturnStatusBuffer == 0 ? IntPtr : IntPtr
+        lpcbReturnStatusBufferSizeMarshal := lpcbReturnStatusBufferSize is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, "ptr", lpszClusterName, "ptr", lpszNewPassword, UInt32, dwFlags, IntPtr, lpReturnStatusBuffer, lpcbReturnStatusBufferSizeMarshal, lpcbReturnStatusBufferSize, UInt32)
+        result := DllCall(this.value, "ptr", lpszClusterName, "ptr", lpszNewPassword, UInt32, dwFlags, lpReturnStatusBufferMarshal, lpReturnStatusBuffer, lpcbReturnStatusBufferSizeMarshal, lpcbReturnStatusBufferSize, UInt32)
         return result
     }
 

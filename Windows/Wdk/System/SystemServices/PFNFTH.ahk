@@ -20,7 +20,6 @@ export default struct PFNFTH {
     }
 
     /**
-     * 
      * @param {Pointer<SYSTEM_FIRMWARE_TABLE_INFORMATION>} SystemFirmwareTableInfo 
      * @returns {NTSTATUS} 
      */

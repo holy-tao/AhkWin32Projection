@@ -101,7 +101,7 @@ export default struct INSNetSourceCreator extends IUnknown {
     CreateNetSource(pszStreamName, pMonitor, pData, pUserContext, pCallback, qwContext) {
         pszStreamName := pszStreamName is String ? StrPtr(pszStreamName) : pszStreamName
 
-        pDataMarshal := pData is VarRef ? "char*" : "ptr"
+        pDataMarshal := pData is VarRef ? "char*" : IntPtr
 
         result := ComCall(4, this, "ptr", pszStreamName, "ptr", pMonitor, pDataMarshal, pData, "ptr", pUserContext, "ptr", pCallback, Int64, qwContext, "HRESULT")
         return result
@@ -165,7 +165,7 @@ export default struct INSNetSourceCreator extends IUnknown {
     GetProtocolName(dwProtocolNum, pwszProtocolName, pcchProtocolName) {
         pwszProtocolName := pwszProtocolName is String ? StrPtr(pwszProtocolName) : pwszProtocolName
 
-        pcchProtocolNameMarshal := pcchProtocolName is VarRef ? "ushort*" : "ptr"
+        pcchProtocolNameMarshal := pcchProtocolName is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(9, this, UInt32, dwProtocolNum, "ptr", pwszProtocolName, pcchProtocolNameMarshal, pcchProtocolName, "HRESULT")
         return result
@@ -190,14 +190,14 @@ export default struct INSNetSourceCreator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 1)
-        this.vtbl.CreateNetSource := CallbackCreate(GetMethod(implObj, "CreateNetSource"), flags, 7)
-        this.vtbl.GetNetSourceProperties := CallbackCreate(GetMethod(implObj, "GetNetSourceProperties"), flags, 3)
-        this.vtbl.GetNetSourceSharedNamespace := CallbackCreate(GetMethod(implObj, "GetNetSourceSharedNamespace"), flags, 2)
-        this.vtbl.GetNetSourceAdminInterface := CallbackCreate(GetMethod(implObj, "GetNetSourceAdminInterface"), flags, 3)
-        this.vtbl.GetNumProtocolsSupported := CallbackCreate(GetMethod(implObj, "GetNumProtocolsSupported"), flags, 2)
-        this.vtbl.GetProtocolName := CallbackCreate(GetMethod(implObj, "GetProtocolName"), flags, 4)
-        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 1)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 1)
+        this.vtbl.CreateNetSource := CallbackCreate(ObjBindMethod(implObj, "CreateNetSource"), flags, 7)
+        this.vtbl.GetNetSourceProperties := CallbackCreate(ObjBindMethod(implObj, "GetNetSourceProperties"), flags, 3)
+        this.vtbl.GetNetSourceSharedNamespace := CallbackCreate(ObjBindMethod(implObj, "GetNetSourceSharedNamespace"), flags, 2)
+        this.vtbl.GetNetSourceAdminInterface := CallbackCreate(ObjBindMethod(implObj, "GetNetSourceAdminInterface"), flags, 3)
+        this.vtbl.GetNumProtocolsSupported := CallbackCreate(ObjBindMethod(implObj, "GetNumProtocolsSupported"), flags, 2)
+        this.vtbl.GetProtocolName := CallbackCreate(ObjBindMethod(implObj, "GetProtocolName"), flags, 4)
+        this.vtbl.Shutdown := CallbackCreate(ObjBindMethod(implObj, "Shutdown"), flags, 1)
     }
 
     Dispose() {

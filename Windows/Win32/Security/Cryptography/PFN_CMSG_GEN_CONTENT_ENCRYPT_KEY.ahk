@@ -44,7 +44,6 @@ export default struct PFN_CMSG_GEN_CONTENT_ENCRYPT_KEY {
     }
 
     /**
-     * 
      * @param {Pointer<CMSG_CONTENT_ENCRYPT_INFO>} pContentEncryptInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cmsg_content_encrypt_info">CMSG_CONTENT_ENCRYPT_INFO</a> structure that contains the key.
      * @param {Integer} dwFlags This value is not used. Set it to zero.
      * @returns {BOOL} If the function succeeds, the return value is nonzero (<b>TRUE</b>).

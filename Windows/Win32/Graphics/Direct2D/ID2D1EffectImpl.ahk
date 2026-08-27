@@ -128,9 +128,9 @@ export default struct ID2D1EffectImpl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.PrepareForRender := CallbackCreate(GetMethod(implObj, "PrepareForRender"), flags, 2)
-        this.vtbl.SetGraph := CallbackCreate(GetMethod(implObj, "SetGraph"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.PrepareForRender := CallbackCreate(ObjBindMethod(implObj, "PrepareForRender"), flags, 2)
+        this.vtbl.SetGraph := CallbackCreate(ObjBindMethod(implObj, "SetGraph"), flags, 2)
     }
 
     Dispose() {

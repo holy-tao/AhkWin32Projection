@@ -41,7 +41,6 @@ export default struct IGameExplorer2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} binaryGDFPath 
      * @param {PWSTR} installDirectory 
      * @param {GAME_INSTALL_SCOPE} installScope 
@@ -51,12 +50,13 @@ export default struct IGameExplorer2 extends IUnknown {
         binaryGDFPath := binaryGDFPath is String ? StrPtr(binaryGDFPath) : binaryGDFPath
         installDirectory := installDirectory is String ? StrPtr(installDirectory) : installDirectory
 
-        result := ComCall(3, this, "ptr", binaryGDFPath, "ptr", installDirectory, GAME_INSTALL_SCOPE, installScope, "HRESULT")
+        installDirectoryMarshal := installDirectory == 0 ? IntPtr : PWSTR
+
+        result := ComCall(3, this, "ptr", binaryGDFPath, installDirectoryMarshal, installDirectory, GAME_INSTALL_SCOPE, installScope, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} binaryGDFPath 
      * @returns {HRESULT} 
      */
@@ -68,7 +68,6 @@ export default struct IGameExplorer2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} binaryGDFPath 
      * @returns {BOOL} 
      */
@@ -88,9 +87,9 @@ export default struct IGameExplorer2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InstallGame := CallbackCreate(GetMethod(implObj, "InstallGame"), flags, 4)
-        this.vtbl.UninstallGame := CallbackCreate(GetMethod(implObj, "UninstallGame"), flags, 2)
-        this.vtbl.CheckAccess := CallbackCreate(GetMethod(implObj, "CheckAccess"), flags, 3)
+        this.vtbl.InstallGame := CallbackCreate(ObjBindMethod(implObj, "InstallGame"), flags, 4)
+        this.vtbl.UninstallGame := CallbackCreate(ObjBindMethod(implObj, "UninstallGame"), flags, 2)
+        this.vtbl.CheckAccess := CallbackCreate(ObjBindMethod(implObj, "CheckAccess"), flags, 3)
     }
 
     Dispose() {

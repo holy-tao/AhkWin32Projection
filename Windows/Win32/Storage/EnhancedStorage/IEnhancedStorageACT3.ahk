@@ -39,7 +39,6 @@ export default struct IEnhancedStorageACT3 extends IEnhancedStorageACT2 {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
@@ -49,7 +48,6 @@ export default struct IEnhancedStorageACT3 extends IEnhancedStorageACT2 {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsQueueFrozen() {
@@ -58,7 +56,6 @@ export default struct IEnhancedStorageACT3 extends IEnhancedStorageACT2 {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetShellExtSupport() {
@@ -75,9 +72,9 @@ export default struct IEnhancedStorageACT3 extends IEnhancedStorageACT2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.UnauthorizeEx := CallbackCreate(GetMethod(implObj, "UnauthorizeEx"), flags, 2)
-        this.vtbl.IsQueueFrozen := CallbackCreate(GetMethod(implObj, "IsQueueFrozen"), flags, 2)
-        this.vtbl.GetShellExtSupport := CallbackCreate(GetMethod(implObj, "GetShellExtSupport"), flags, 2)
+        this.vtbl.UnauthorizeEx := CallbackCreate(ObjBindMethod(implObj, "UnauthorizeEx"), flags, 2)
+        this.vtbl.IsQueueFrozen := CallbackCreate(ObjBindMethod(implObj, "IsQueueFrozen"), flags, 2)
+        this.vtbl.GetShellExtSupport := CallbackCreate(ObjBindMethod(implObj, "GetShellExtSupport"), flags, 2)
     }
 
     Dispose() {

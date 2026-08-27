@@ -207,15 +207,15 @@ export default struct IKnownFolder extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetId := CallbackCreate(GetMethod(implObj, "GetId"), flags, 2)
-        this.vtbl.GetCategory := CallbackCreate(GetMethod(implObj, "GetCategory"), flags, 2)
-        this.vtbl.GetShellItem := CallbackCreate(GetMethod(implObj, "GetShellItem"), flags, 4)
-        this.vtbl.GetPath := CallbackCreate(GetMethod(implObj, "GetPath"), flags, 3)
-        this.vtbl.SetPath := CallbackCreate(GetMethod(implObj, "SetPath"), flags, 3)
-        this.vtbl.GetIDList := CallbackCreate(GetMethod(implObj, "GetIDList"), flags, 3)
-        this.vtbl.GetFolderType := CallbackCreate(GetMethod(implObj, "GetFolderType"), flags, 2)
-        this.vtbl.GetRedirectionCapabilities := CallbackCreate(GetMethod(implObj, "GetRedirectionCapabilities"), flags, 2)
-        this.vtbl.GetFolderDefinition := CallbackCreate(GetMethod(implObj, "GetFolderDefinition"), flags, 2)
+        this.vtbl.GetId := CallbackCreate(ObjBindMethod(implObj, "GetId"), flags, 2)
+        this.vtbl.GetCategory := CallbackCreate(ObjBindMethod(implObj, "GetCategory"), flags, 2)
+        this.vtbl.GetShellItem := CallbackCreate(ObjBindMethod(implObj, "GetShellItem"), flags, 4)
+        this.vtbl.GetPath := CallbackCreate(ObjBindMethod(implObj, "GetPath"), flags, 3)
+        this.vtbl.SetPath := CallbackCreate(ObjBindMethod(implObj, "SetPath"), flags, 3)
+        this.vtbl.GetIDList := CallbackCreate(ObjBindMethod(implObj, "GetIDList"), flags, 3)
+        this.vtbl.GetFolderType := CallbackCreate(ObjBindMethod(implObj, "GetFolderType"), flags, 2)
+        this.vtbl.GetRedirectionCapabilities := CallbackCreate(ObjBindMethod(implObj, "GetRedirectionCapabilities"), flags, 2)
+        this.vtbl.GetFolderDefinition := CallbackCreate(ObjBindMethod(implObj, "GetFolderDefinition"), flags, 2)
     }
 
     Dispose() {

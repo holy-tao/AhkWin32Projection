@@ -63,7 +63,7 @@ export default struct IMultisessionSequential2 extends IMultisessionSequential {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_WriteUnitSize := CallbackCreate(GetMethod(implObj, "get_WriteUnitSize"), flags, 2)
+        this.vtbl.get_WriteUnitSize := CallbackCreate(ObjBindMethod(implObj, "get_WriteUnitSize"), flags, 2)
     }
 
     Dispose() {

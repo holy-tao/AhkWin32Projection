@@ -225,15 +225,15 @@ export default struct IShellFolderViewDual extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Application := CallbackCreate(GetMethod(implObj, "get_Application"), flags, 2)
-        this.vtbl.get_Parent := CallbackCreate(GetMethod(implObj, "get_Parent"), flags, 2)
-        this.vtbl.get_Folder := CallbackCreate(GetMethod(implObj, "get_Folder"), flags, 2)
-        this.vtbl.SelectedItems := CallbackCreate(GetMethod(implObj, "SelectedItems"), flags, 2)
-        this.vtbl.get_FocusedItem := CallbackCreate(GetMethod(implObj, "get_FocusedItem"), flags, 2)
-        this.vtbl.SelectItem := CallbackCreate(GetMethod(implObj, "SelectItem"), flags, 3)
-        this.vtbl.PopupItemMenu := CallbackCreate(GetMethod(implObj, "PopupItemMenu"), flags, 5)
-        this.vtbl.get_Script := CallbackCreate(GetMethod(implObj, "get_Script"), flags, 2)
-        this.vtbl.get_ViewOptions := CallbackCreate(GetMethod(implObj, "get_ViewOptions"), flags, 2)
+        this.vtbl.get_Application := CallbackCreate(ObjBindMethod(implObj, "get_Application"), flags, 2)
+        this.vtbl.get_Parent := CallbackCreate(ObjBindMethod(implObj, "get_Parent"), flags, 2)
+        this.vtbl.get_Folder := CallbackCreate(ObjBindMethod(implObj, "get_Folder"), flags, 2)
+        this.vtbl.SelectedItems := CallbackCreate(ObjBindMethod(implObj, "SelectedItems"), flags, 2)
+        this.vtbl.get_FocusedItem := CallbackCreate(ObjBindMethod(implObj, "get_FocusedItem"), flags, 2)
+        this.vtbl.SelectItem := CallbackCreate(ObjBindMethod(implObj, "SelectItem"), flags, 3)
+        this.vtbl.PopupItemMenu := CallbackCreate(ObjBindMethod(implObj, "PopupItemMenu"), flags, 5)
+        this.vtbl.get_Script := CallbackCreate(ObjBindMethod(implObj, "get_Script"), flags, 2)
+        this.vtbl.get_ViewOptions := CallbackCreate(ObjBindMethod(implObj, "get_ViewOptions"), flags, 2)
     }
 
     Dispose() {

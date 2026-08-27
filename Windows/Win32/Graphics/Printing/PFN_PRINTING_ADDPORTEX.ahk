@@ -20,7 +20,6 @@ export default struct PFN_PRINTING_ADDPORTEX {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @param {Integer} param1 
      * @param {Pointer<Integer>} param2 
@@ -31,7 +30,7 @@ export default struct PFN_PRINTING_ADDPORTEX {
         param0 := param0 is String ? StrPtr(param0) : param0
         param3 := param3 is String ? StrPtr(param3) : param3
 
-        param2Marshal := param2 is VarRef ? "char*" : "ptr"
+        param2Marshal := param2 is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, "ptr", param0, UInt32, param1, param2Marshal, param2, "ptr", param3, BOOL)
         return result

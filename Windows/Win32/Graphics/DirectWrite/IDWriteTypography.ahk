@@ -96,9 +96,9 @@ export default struct IDWriteTypography extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddFontFeature := CallbackCreate(GetMethod(implObj, "AddFontFeature"), flags, 2)
-        this.vtbl.GetFontFeatureCount := CallbackCreate(GetMethod(implObj, "GetFontFeatureCount"), flags, 1)
-        this.vtbl.GetFontFeature := CallbackCreate(GetMethod(implObj, "GetFontFeature"), flags, 3)
+        this.vtbl.AddFontFeature := CallbackCreate(ObjBindMethod(implObj, "AddFontFeature"), flags, 2)
+        this.vtbl.GetFontFeatureCount := CallbackCreate(ObjBindMethod(implObj, "GetFontFeatureCount"), flags, 1)
+        this.vtbl.GetFontFeature := CallbackCreate(ObjBindMethod(implObj, "GetFontFeature"), flags, 3)
     }
 
     Dispose() {

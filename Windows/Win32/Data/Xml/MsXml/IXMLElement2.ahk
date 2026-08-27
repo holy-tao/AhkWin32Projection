@@ -95,7 +95,6 @@ export default struct IXMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_tagName() {
@@ -105,7 +104,6 @@ export default struct IXMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} p 
      * @returns {HRESULT} 
      */
@@ -117,7 +115,6 @@ export default struct IXMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLElement2} 
      */
     get_parent() {
@@ -126,7 +123,6 @@ export default struct IXMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strPropertyName 
      * @param {VARIANT} _PropertyValue 
      * @returns {HRESULT} 
@@ -139,7 +135,6 @@ export default struct IXMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strPropertyName 
      * @returns {VARIANT} 
      */
@@ -152,7 +147,6 @@ export default struct IXMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strPropertyName 
      * @returns {HRESULT} 
      */
@@ -164,7 +158,6 @@ export default struct IXMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLElementCollection} 
      */
     get_children() {
@@ -173,7 +166,6 @@ export default struct IXMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_type() {
@@ -182,7 +174,6 @@ export default struct IXMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_text() {
@@ -192,7 +183,6 @@ export default struct IXMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} p 
      * @returns {HRESULT} 
      */
@@ -204,7 +194,6 @@ export default struct IXMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IXMLElement2} pChildElem 
      * @param {Integer} lIndex 
      * @param {Integer} lReserved 
@@ -216,7 +205,6 @@ export default struct IXMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IXMLElement2} pChildElem 
      * @returns {HRESULT} 
      */
@@ -226,7 +214,6 @@ export default struct IXMLElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLElementCollection} 
      */
     get_attributes() {
@@ -243,19 +230,19 @@ export default struct IXMLElement2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_tagName := CallbackCreate(GetMethod(implObj, "get_tagName"), flags, 2)
-        this.vtbl.put_tagName := CallbackCreate(GetMethod(implObj, "put_tagName"), flags, 2)
-        this.vtbl.get_parent := CallbackCreate(GetMethod(implObj, "get_parent"), flags, 2)
-        this.vtbl.setAttribute := CallbackCreate(GetMethod(implObj, "setAttribute"), flags, 3)
-        this.vtbl.getAttribute := CallbackCreate(GetMethod(implObj, "getAttribute"), flags, 3)
-        this.vtbl.removeAttribute := CallbackCreate(GetMethod(implObj, "removeAttribute"), flags, 2)
-        this.vtbl.get_children := CallbackCreate(GetMethod(implObj, "get_children"), flags, 2)
-        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
-        this.vtbl.get_text := CallbackCreate(GetMethod(implObj, "get_text"), flags, 2)
-        this.vtbl.put_text := CallbackCreate(GetMethod(implObj, "put_text"), flags, 2)
-        this.vtbl.addChild := CallbackCreate(GetMethod(implObj, "addChild"), flags, 4)
-        this.vtbl.removeChild := CallbackCreate(GetMethod(implObj, "removeChild"), flags, 2)
-        this.vtbl.get_attributes := CallbackCreate(GetMethod(implObj, "get_attributes"), flags, 2)
+        this.vtbl.get_tagName := CallbackCreate(ObjBindMethod(implObj, "get_tagName"), flags, 2)
+        this.vtbl.put_tagName := CallbackCreate(ObjBindMethod(implObj, "put_tagName"), flags, 2)
+        this.vtbl.get_parent := CallbackCreate(ObjBindMethod(implObj, "get_parent"), flags, 2)
+        this.vtbl.setAttribute := CallbackCreate(ObjBindMethod(implObj, "setAttribute"), flags, 3)
+        this.vtbl.getAttribute := CallbackCreate(ObjBindMethod(implObj, "getAttribute"), flags, 3)
+        this.vtbl.removeAttribute := CallbackCreate(ObjBindMethod(implObj, "removeAttribute"), flags, 2)
+        this.vtbl.get_children := CallbackCreate(ObjBindMethod(implObj, "get_children"), flags, 2)
+        this.vtbl.get_type := CallbackCreate(ObjBindMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.get_text := CallbackCreate(ObjBindMethod(implObj, "get_text"), flags, 2)
+        this.vtbl.put_text := CallbackCreate(ObjBindMethod(implObj, "put_text"), flags, 2)
+        this.vtbl.addChild := CallbackCreate(ObjBindMethod(implObj, "addChild"), flags, 4)
+        this.vtbl.removeChild := CallbackCreate(ObjBindMethod(implObj, "removeChild"), flags, 2)
+        this.vtbl.get_attributes := CallbackCreate(ObjBindMethod(implObj, "get_attributes"), flags, 2)
     }
 
     Dispose() {

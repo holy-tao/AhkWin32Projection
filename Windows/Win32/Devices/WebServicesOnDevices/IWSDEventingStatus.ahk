@@ -92,9 +92,9 @@ export default struct IWSDEventingStatus extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SubscriptionRenewed := CallbackCreate(GetMethod(implObj, "SubscriptionRenewed"), flags, 2)
-        this.vtbl.SubscriptionRenewalFailed := CallbackCreate(GetMethod(implObj, "SubscriptionRenewalFailed"), flags, 3)
-        this.vtbl.SubscriptionEnded := CallbackCreate(GetMethod(implObj, "SubscriptionEnded"), flags, 2)
+        this.vtbl.SubscriptionRenewed := CallbackCreate(ObjBindMethod(implObj, "SubscriptionRenewed"), flags, 2)
+        this.vtbl.SubscriptionRenewalFailed := CallbackCreate(ObjBindMethod(implObj, "SubscriptionRenewalFailed"), flags, 3)
+        this.vtbl.SubscriptionEnded := CallbackCreate(ObjBindMethod(implObj, "SubscriptionEnded"), flags, 2)
     }
 
     Dispose() {

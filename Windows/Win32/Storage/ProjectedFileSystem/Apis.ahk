@@ -38,10 +38,12 @@
 export PrjStartVirtualizing(virtualizationRootPath, callbacks, instanceContext, options) {
     virtualizationRootPath := virtualizationRootPath is String ? StrPtr(virtualizationRootPath) : virtualizationRootPath
 
-    instanceContextMarshal := instanceContext is VarRef ? "ptr" : "ptr"
+    instanceContextMarshal := instanceContext is VarRef ? "ptr" : IntPtr
+    instanceContextMarshal := instanceContext == 0 ? IntPtr : "ptr"
+    optionsMarshal := options == 0 ? IntPtr : PRJ_STARTVIRTUALIZING_OPTIONS.Ptr
 
     namespaceVirtualizationContext := PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT()
-    result := DllCall("PROJECTEDFSLIB.dll\PrjStartVirtualizing", "ptr", virtualizationRootPath, PRJ_CALLBACKS.Ptr, callbacks, instanceContextMarshal, instanceContext, PRJ_STARTVIRTUALIZING_OPTIONS.Ptr, options, PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT.Ptr, namespaceVirtualizationContext, "HRESULT")
+    result := DllCall("PROJECTEDFSLIB.dll\PrjStartVirtualizing", "ptr", virtualizationRootPath, PRJ_CALLBACKS.Ptr, callbacks, instanceContextMarshal, instanceContext, optionsMarshal, options, PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT.Ptr, namespaceVirtualizationContext, "HRESULT")
     return namespaceVirtualizationContext
 }
 
@@ -110,7 +112,10 @@ export PrjMarkDirectoryAsPlaceholder(rootPathName, targetPathName, versionInfo, 
     rootPathName := rootPathName is String ? StrPtr(rootPathName) : rootPathName
     targetPathName := targetPathName is String ? StrPtr(targetPathName) : targetPathName
 
-    result := DllCall("PROJECTEDFSLIB.dll\PrjMarkDirectoryAsPlaceholder", "ptr", rootPathName, "ptr", targetPathName, PRJ_PLACEHOLDER_VERSION_INFO.Ptr, versionInfo, Guid.Ptr, virtualizationInstanceID, "HRESULT")
+    targetPathNameMarshal := targetPathName == 0 ? IntPtr : PWSTR
+    versionInfoMarshal := versionInfo == 0 ? IntPtr : PRJ_PLACEHOLDER_VERSION_INFO.Ptr
+
+    result := DllCall("PROJECTEDFSLIB.dll\PrjMarkDirectoryAsPlaceholder", "ptr", rootPathName, targetPathNameMarshal, targetPathName, versionInfoMarshal, versionInfo, Guid.Ptr, virtualizationInstanceID, "HRESULT")
     return result
 }
 
@@ -165,7 +170,9 @@ export PrjWritePlaceholderInfo(namespaceVirtualizationContext, destinationFileNa
 export PrjWritePlaceholderInfo2(namespaceVirtualizationContext, destinationFileName, placeholderInfo, placeholderInfoSize, ExtendedInfo) {
     destinationFileName := destinationFileName is String ? StrPtr(destinationFileName) : destinationFileName
 
-    result := DllCall("PROJECTEDFSLIB.dll\PrjWritePlaceholderInfo2", PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, namespaceVirtualizationContext, "ptr", destinationFileName, IntPtr, placeholderInfo, UInt32, placeholderInfoSize, PRJ_EXTENDED_INFO.Ptr, ExtendedInfo, "HRESULT")
+    ExtendedInfoMarshal := ExtendedInfo == 0 ? IntPtr : PRJ_EXTENDED_INFO.Ptr
+
+    result := DllCall("PROJECTEDFSLIB.dll\PrjWritePlaceholderInfo2", PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, namespaceVirtualizationContext, "ptr", destinationFileName, IntPtr, placeholderInfo, UInt32, placeholderInfoSize, ExtendedInfoMarshal, ExtendedInfo, "HRESULT")
     return result
 }
 
@@ -234,7 +241,9 @@ export PrjWritePlaceholderInfo2(namespaceVirtualizationContext, destinationFileN
 export PrjUpdateFileIfNeeded(namespaceVirtualizationContext, destinationFileName, placeholderInfo, placeholderInfoSize, updateFlags) {
     destinationFileName := destinationFileName is String ? StrPtr(destinationFileName) : destinationFileName
 
-    result := DllCall("PROJECTEDFSLIB.dll\PrjUpdateFileIfNeeded", PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, namespaceVirtualizationContext, "ptr", destinationFileName, IntPtr, placeholderInfo, UInt32, placeholderInfoSize, PRJ_UPDATE_TYPES, updateFlags, "int*", &failureReason := 0, "HRESULT")
+    updateFlagsMarshal := updateFlags == 0 ? IntPtr : PRJ_UPDATE_TYPES
+
+    result := DllCall("PROJECTEDFSLIB.dll\PrjUpdateFileIfNeeded", PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, namespaceVirtualizationContext, "ptr", destinationFileName, IntPtr, placeholderInfo, UInt32, placeholderInfoSize, updateFlagsMarshal, updateFlags, "int*", &failureReason := 0, "HRESULT")
     return failureReason
 }
 
@@ -258,7 +267,9 @@ export PrjUpdateFileIfNeeded(namespaceVirtualizationContext, destinationFileName
 export PrjDeleteFile(namespaceVirtualizationContext, destinationFileName, updateFlags) {
     destinationFileName := destinationFileName is String ? StrPtr(destinationFileName) : destinationFileName
 
-    result := DllCall("PROJECTEDFSLIB.dll\PrjDeleteFile", PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, namespaceVirtualizationContext, "ptr", destinationFileName, PRJ_UPDATE_TYPES, updateFlags, "int*", &failureReason := 0, "HRESULT")
+    updateFlagsMarshal := updateFlags == 0 ? IntPtr : PRJ_UPDATE_TYPES
+
+    result := DllCall("PROJECTEDFSLIB.dll\PrjDeleteFile", PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, namespaceVirtualizationContext, "ptr", destinationFileName, updateFlagsMarshal, updateFlags, "int*", &failureReason := 0, "HRESULT")
     return failureReason
 }
 
@@ -338,7 +349,7 @@ export PrjAllocateAlignedBuffer(namespaceVirtualizationContext, _size) {
  * @since windows10.0.17763
  */
 export PrjFreeAlignedBuffer(_buffer) {
-    _bufferMarshal := _buffer is VarRef ? "ptr" : "ptr"
+    _bufferMarshal := _buffer is VarRef ? "ptr" : IntPtr
 
     DllCall("PROJECTEDFSLIB.dll\PrjFreeAlignedBuffer", _bufferMarshal, _buffer)
 }
@@ -354,7 +365,9 @@ export PrjFreeAlignedBuffer(_buffer) {
  * @since windows10.0.17763
  */
 export PrjCompleteCommand(namespaceVirtualizationContext, commandId, completionResult, extendedParameters) {
-    result := DllCall("PROJECTEDFSLIB.dll\PrjCompleteCommand", PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, namespaceVirtualizationContext, Int32, commandId, "int", completionResult, PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS.Ptr, extendedParameters, "HRESULT")
+    extendedParametersMarshal := extendedParameters == 0 ? IntPtr : PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS.Ptr
+
+    result := DllCall("PROJECTEDFSLIB.dll\PrjCompleteCommand", PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT, namespaceVirtualizationContext, Int32, commandId, "int", completionResult, extendedParametersMarshal, extendedParameters, "HRESULT")
     return result
 }
 
@@ -381,7 +394,9 @@ export PrjCompleteCommand(namespaceVirtualizationContext, commandId, completionR
 export PrjFillDirEntryBuffer(fileName, fileBasicInfo, dirEntryBufferHandle) {
     fileName := fileName is String ? StrPtr(fileName) : fileName
 
-    result := DllCall("PROJECTEDFSLIB.dll\PrjFillDirEntryBuffer", "ptr", fileName, PRJ_FILE_BASIC_INFO.Ptr, fileBasicInfo, PRJ_DIR_ENTRY_BUFFER_HANDLE, dirEntryBufferHandle, "HRESULT")
+    fileBasicInfoMarshal := fileBasicInfo == 0 ? IntPtr : PRJ_FILE_BASIC_INFO.Ptr
+
+    result := DllCall("PROJECTEDFSLIB.dll\PrjFillDirEntryBuffer", "ptr", fileName, fileBasicInfoMarshal, fileBasicInfo, PRJ_DIR_ENTRY_BUFFER_HANDLE, dirEntryBufferHandle, "HRESULT")
     return result
 }
 
@@ -408,7 +423,10 @@ export PrjFillDirEntryBuffer(fileName, fileBasicInfo, dirEntryBufferHandle) {
 export PrjFillDirEntryBuffer2(dirEntryBufferHandle, fileName, fileBasicInfo, extendedInfo) {
     fileName := fileName is String ? StrPtr(fileName) : fileName
 
-    result := DllCall("PROJECTEDFSLIB.dll\PrjFillDirEntryBuffer2", PRJ_DIR_ENTRY_BUFFER_HANDLE, dirEntryBufferHandle, "ptr", fileName, PRJ_FILE_BASIC_INFO.Ptr, fileBasicInfo, PRJ_EXTENDED_INFO.Ptr, extendedInfo, "HRESULT")
+    fileBasicInfoMarshal := fileBasicInfo == 0 ? IntPtr : PRJ_FILE_BASIC_INFO.Ptr
+    extendedInfoMarshal := extendedInfo == 0 ? IntPtr : PRJ_EXTENDED_INFO.Ptr
+
+    result := DllCall("PROJECTEDFSLIB.dll\PrjFillDirEntryBuffer2", PRJ_DIR_ENTRY_BUFFER_HANDLE, dirEntryBufferHandle, "ptr", fileName, fileBasicInfoMarshal, fileBasicInfo, extendedInfoMarshal, extendedInfo, "HRESULT")
     return result
 }
 

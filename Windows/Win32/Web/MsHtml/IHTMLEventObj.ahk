@@ -221,7 +221,6 @@ export default struct IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_srcElement() {
@@ -230,7 +229,6 @@ export default struct IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_altKey() {
@@ -239,7 +237,6 @@ export default struct IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ctrlKey() {
@@ -248,7 +245,6 @@ export default struct IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_shiftKey() {
@@ -257,7 +253,6 @@ export default struct IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -267,7 +262,6 @@ export default struct IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_returnValue() {
@@ -277,7 +271,6 @@ export default struct IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -287,7 +280,6 @@ export default struct IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_cancelBubble() {
@@ -296,7 +288,6 @@ export default struct IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_fromElement() {
@@ -305,7 +296,6 @@ export default struct IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_toElement() {
@@ -314,7 +304,6 @@ export default struct IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -324,7 +313,6 @@ export default struct IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_keyCode() {
@@ -333,7 +321,6 @@ export default struct IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_button() {
@@ -342,7 +329,6 @@ export default struct IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -352,7 +338,6 @@ export default struct IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_qualifier() {
@@ -362,7 +347,6 @@ export default struct IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_reason() {
@@ -371,7 +355,6 @@ export default struct IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_x() {
@@ -380,7 +363,6 @@ export default struct IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_y() {
@@ -389,7 +371,6 @@ export default struct IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_clientX() {
@@ -398,7 +379,6 @@ export default struct IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_clientY() {
@@ -407,7 +387,6 @@ export default struct IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_offsetX() {
@@ -416,7 +395,6 @@ export default struct IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_offsetY() {
@@ -425,7 +403,6 @@ export default struct IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_screenX() {
@@ -434,7 +411,6 @@ export default struct IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_screenY() {
@@ -443,7 +419,6 @@ export default struct IHTMLEventObj extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_srcFilter() {
@@ -460,31 +435,31 @@ export default struct IHTMLEventObj extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_srcElement := CallbackCreate(GetMethod(implObj, "get_srcElement"), flags, 2)
-        this.vtbl.get_altKey := CallbackCreate(GetMethod(implObj, "get_altKey"), flags, 2)
-        this.vtbl.get_ctrlKey := CallbackCreate(GetMethod(implObj, "get_ctrlKey"), flags, 2)
-        this.vtbl.get_shiftKey := CallbackCreate(GetMethod(implObj, "get_shiftKey"), flags, 2)
-        this.vtbl.put_returnValue := CallbackCreate(GetMethod(implObj, "put_returnValue"), flags, 2)
-        this.vtbl.get_returnValue := CallbackCreate(GetMethod(implObj, "get_returnValue"), flags, 2)
-        this.vtbl.put_cancelBubble := CallbackCreate(GetMethod(implObj, "put_cancelBubble"), flags, 2)
-        this.vtbl.get_cancelBubble := CallbackCreate(GetMethod(implObj, "get_cancelBubble"), flags, 2)
-        this.vtbl.get_fromElement := CallbackCreate(GetMethod(implObj, "get_fromElement"), flags, 2)
-        this.vtbl.get_toElement := CallbackCreate(GetMethod(implObj, "get_toElement"), flags, 2)
-        this.vtbl.put_keyCode := CallbackCreate(GetMethod(implObj, "put_keyCode"), flags, 2)
-        this.vtbl.get_keyCode := CallbackCreate(GetMethod(implObj, "get_keyCode"), flags, 2)
-        this.vtbl.get_button := CallbackCreate(GetMethod(implObj, "get_button"), flags, 2)
-        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
-        this.vtbl.get_qualifier := CallbackCreate(GetMethod(implObj, "get_qualifier"), flags, 2)
-        this.vtbl.get_reason := CallbackCreate(GetMethod(implObj, "get_reason"), flags, 2)
-        this.vtbl.get_x := CallbackCreate(GetMethod(implObj, "get_x"), flags, 2)
-        this.vtbl.get_y := CallbackCreate(GetMethod(implObj, "get_y"), flags, 2)
-        this.vtbl.get_clientX := CallbackCreate(GetMethod(implObj, "get_clientX"), flags, 2)
-        this.vtbl.get_clientY := CallbackCreate(GetMethod(implObj, "get_clientY"), flags, 2)
-        this.vtbl.get_offsetX := CallbackCreate(GetMethod(implObj, "get_offsetX"), flags, 2)
-        this.vtbl.get_offsetY := CallbackCreate(GetMethod(implObj, "get_offsetY"), flags, 2)
-        this.vtbl.get_screenX := CallbackCreate(GetMethod(implObj, "get_screenX"), flags, 2)
-        this.vtbl.get_screenY := CallbackCreate(GetMethod(implObj, "get_screenY"), flags, 2)
-        this.vtbl.get_srcFilter := CallbackCreate(GetMethod(implObj, "get_srcFilter"), flags, 2)
+        this.vtbl.get_srcElement := CallbackCreate(ObjBindMethod(implObj, "get_srcElement"), flags, 2)
+        this.vtbl.get_altKey := CallbackCreate(ObjBindMethod(implObj, "get_altKey"), flags, 2)
+        this.vtbl.get_ctrlKey := CallbackCreate(ObjBindMethod(implObj, "get_ctrlKey"), flags, 2)
+        this.vtbl.get_shiftKey := CallbackCreate(ObjBindMethod(implObj, "get_shiftKey"), flags, 2)
+        this.vtbl.put_returnValue := CallbackCreate(ObjBindMethod(implObj, "put_returnValue"), flags, 2)
+        this.vtbl.get_returnValue := CallbackCreate(ObjBindMethod(implObj, "get_returnValue"), flags, 2)
+        this.vtbl.put_cancelBubble := CallbackCreate(ObjBindMethod(implObj, "put_cancelBubble"), flags, 2)
+        this.vtbl.get_cancelBubble := CallbackCreate(ObjBindMethod(implObj, "get_cancelBubble"), flags, 2)
+        this.vtbl.get_fromElement := CallbackCreate(ObjBindMethod(implObj, "get_fromElement"), flags, 2)
+        this.vtbl.get_toElement := CallbackCreate(ObjBindMethod(implObj, "get_toElement"), flags, 2)
+        this.vtbl.put_keyCode := CallbackCreate(ObjBindMethod(implObj, "put_keyCode"), flags, 2)
+        this.vtbl.get_keyCode := CallbackCreate(ObjBindMethod(implObj, "get_keyCode"), flags, 2)
+        this.vtbl.get_button := CallbackCreate(ObjBindMethod(implObj, "get_button"), flags, 2)
+        this.vtbl.get_type := CallbackCreate(ObjBindMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.get_qualifier := CallbackCreate(ObjBindMethod(implObj, "get_qualifier"), flags, 2)
+        this.vtbl.get_reason := CallbackCreate(ObjBindMethod(implObj, "get_reason"), flags, 2)
+        this.vtbl.get_x := CallbackCreate(ObjBindMethod(implObj, "get_x"), flags, 2)
+        this.vtbl.get_y := CallbackCreate(ObjBindMethod(implObj, "get_y"), flags, 2)
+        this.vtbl.get_clientX := CallbackCreate(ObjBindMethod(implObj, "get_clientX"), flags, 2)
+        this.vtbl.get_clientY := CallbackCreate(ObjBindMethod(implObj, "get_clientY"), flags, 2)
+        this.vtbl.get_offsetX := CallbackCreate(ObjBindMethod(implObj, "get_offsetX"), flags, 2)
+        this.vtbl.get_offsetY := CallbackCreate(ObjBindMethod(implObj, "get_offsetY"), flags, 2)
+        this.vtbl.get_screenX := CallbackCreate(ObjBindMethod(implObj, "get_screenX"), flags, 2)
+        this.vtbl.get_screenY := CallbackCreate(ObjBindMethod(implObj, "get_screenY"), flags, 2)
+        this.vtbl.get_srcFilter := CallbackCreate(ObjBindMethod(implObj, "get_srcFilter"), flags, 2)
     }
 
     Dispose() {

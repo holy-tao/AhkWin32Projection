@@ -71,21 +71,19 @@ export default struct IContactAggregationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} plMajorVersion 
      * @param {Pointer<Integer>} plMinorVersion 
      * @returns {HRESULT} 
      */
     GetVersionInfo(plMajorVersion, plMinorVersion) {
-        plMajorVersionMarshal := plMajorVersion is VarRef ? "int*" : "ptr"
-        plMinorVersionMarshal := plMinorVersion is VarRef ? "int*" : "ptr"
+        plMajorVersionMarshal := plMajorVersion is VarRef ? "int*" : IntPtr
+        plMinorVersionMarshal := plMinorVersion is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, plMajorVersionMarshal, plMajorVersion, plMinorVersionMarshal, plMinorVersion, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pGroupName 
      * @param {CONTACT_AGGREGATION_CREATE_OR_OPEN_OPTIONS} options 
      * @param {Pointer<BOOL>} pCreatedGroup 
@@ -94,14 +92,13 @@ export default struct IContactAggregationManager extends IUnknown {
     CreateOrOpenGroup(pGroupName, options, pCreatedGroup) {
         pGroupName := pGroupName is String ? StrPtr(pGroupName) : pGroupName
 
-        pCreatedGroupMarshal := pCreatedGroup is VarRef ? "int*" : "ptr"
+        pCreatedGroupMarshal := pCreatedGroup is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, "ptr", pGroupName, CONTACT_AGGREGATION_CREATE_OR_OPEN_OPTIONS, options, pCreatedGroupMarshal, pCreatedGroup, "ptr*", &ppGroup := 0, "HRESULT")
         return IContactAggregationGroup(ppGroup)
     }
 
     /**
-     * 
      * @returns {IContactAggregationContact} 
      */
     CreateExternalContact() {
@@ -110,7 +107,6 @@ export default struct IContactAggregationManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IContactAggregationServerPerson} 
      */
     CreateServerPerson() {
@@ -119,7 +115,6 @@ export default struct IContactAggregationManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IContactAggregationLink} 
      */
     CreateServerContactLink() {
@@ -141,7 +136,6 @@ export default struct IContactAggregationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pItemId 
      * @returns {IContactAggregationAggregate} 
      */
@@ -153,7 +147,6 @@ export default struct IContactAggregationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pItemId 
      * @returns {IContactAggregationContact} 
      */
@@ -165,7 +158,6 @@ export default struct IContactAggregationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pItemId 
      * @returns {IContactAggregationLink} 
      */
@@ -177,7 +169,6 @@ export default struct IContactAggregationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pItemId 
      * @returns {IContactAggregationServerPerson} 
      */
@@ -189,7 +180,6 @@ export default struct IContactAggregationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {CONTACT_AGGREGATION_COLLECTION_OPTIONS} options 
      * @returns {IContactAggregationContactCollection} 
      */
@@ -199,7 +189,6 @@ export default struct IContactAggregationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {CONTACT_AGGREGATION_COLLECTION_OPTIONS} options 
      * @returns {IContactAggregationAggregateCollection} 
      */
@@ -209,7 +198,6 @@ export default struct IContactAggregationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {CONTACT_AGGREGATION_COLLECTION_OPTIONS} options 
      * @returns {IContactAggregationGroupCollection} 
      */
@@ -219,7 +207,6 @@ export default struct IContactAggregationManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IContactAggregationServerPersonCollection} 
      */
     get_ServerPersons() {
@@ -228,7 +215,6 @@ export default struct IContactAggregationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pPersonItemId 
      * @returns {IContactAggregationLinkCollection} 
      */
@@ -248,21 +234,21 @@ export default struct IContactAggregationManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetVersionInfo := CallbackCreate(GetMethod(implObj, "GetVersionInfo"), flags, 3)
-        this.vtbl.CreateOrOpenGroup := CallbackCreate(GetMethod(implObj, "CreateOrOpenGroup"), flags, 5)
-        this.vtbl.CreateExternalContact := CallbackCreate(GetMethod(implObj, "CreateExternalContact"), flags, 2)
-        this.vtbl.CreateServerPerson := CallbackCreate(GetMethod(implObj, "CreateServerPerson"), flags, 2)
-        this.vtbl.CreateServerContactLink := CallbackCreate(GetMethod(implObj, "CreateServerContactLink"), flags, 2)
-        this.vtbl.Flush := CallbackCreate(GetMethod(implObj, "Flush"), flags, 1)
-        this.vtbl.OpenAggregateContact := CallbackCreate(GetMethod(implObj, "OpenAggregateContact"), flags, 3)
-        this.vtbl.OpenContact := CallbackCreate(GetMethod(implObj, "OpenContact"), flags, 3)
-        this.vtbl.OpenServerContactLink := CallbackCreate(GetMethod(implObj, "OpenServerContactLink"), flags, 3)
-        this.vtbl.OpenServerPerson := CallbackCreate(GetMethod(implObj, "OpenServerPerson"), flags, 3)
-        this.vtbl.get_Contacts := CallbackCreate(GetMethod(implObj, "get_Contacts"), flags, 3)
-        this.vtbl.get_AggregateContacts := CallbackCreate(GetMethod(implObj, "get_AggregateContacts"), flags, 3)
-        this.vtbl.get_Groups := CallbackCreate(GetMethod(implObj, "get_Groups"), flags, 3)
-        this.vtbl.get_ServerPersons := CallbackCreate(GetMethod(implObj, "get_ServerPersons"), flags, 2)
-        this.vtbl.get_ServerContactLinks := CallbackCreate(GetMethod(implObj, "get_ServerContactLinks"), flags, 3)
+        this.vtbl.GetVersionInfo := CallbackCreate(ObjBindMethod(implObj, "GetVersionInfo"), flags, 3)
+        this.vtbl.CreateOrOpenGroup := CallbackCreate(ObjBindMethod(implObj, "CreateOrOpenGroup"), flags, 5)
+        this.vtbl.CreateExternalContact := CallbackCreate(ObjBindMethod(implObj, "CreateExternalContact"), flags, 2)
+        this.vtbl.CreateServerPerson := CallbackCreate(ObjBindMethod(implObj, "CreateServerPerson"), flags, 2)
+        this.vtbl.CreateServerContactLink := CallbackCreate(ObjBindMethod(implObj, "CreateServerContactLink"), flags, 2)
+        this.vtbl.Flush := CallbackCreate(ObjBindMethod(implObj, "Flush"), flags, 1)
+        this.vtbl.OpenAggregateContact := CallbackCreate(ObjBindMethod(implObj, "OpenAggregateContact"), flags, 3)
+        this.vtbl.OpenContact := CallbackCreate(ObjBindMethod(implObj, "OpenContact"), flags, 3)
+        this.vtbl.OpenServerContactLink := CallbackCreate(ObjBindMethod(implObj, "OpenServerContactLink"), flags, 3)
+        this.vtbl.OpenServerPerson := CallbackCreate(ObjBindMethod(implObj, "OpenServerPerson"), flags, 3)
+        this.vtbl.get_Contacts := CallbackCreate(ObjBindMethod(implObj, "get_Contacts"), flags, 3)
+        this.vtbl.get_AggregateContacts := CallbackCreate(ObjBindMethod(implObj, "get_AggregateContacts"), flags, 3)
+        this.vtbl.get_Groups := CallbackCreate(ObjBindMethod(implObj, "get_Groups"), flags, 3)
+        this.vtbl.get_ServerPersons := CallbackCreate(ObjBindMethod(implObj, "get_ServerPersons"), flags, 2)
+        this.vtbl.get_ServerContactLinks := CallbackCreate(ObjBindMethod(implObj, "get_ServerContactLinks"), flags, 3)
     }
 
     Dispose() {

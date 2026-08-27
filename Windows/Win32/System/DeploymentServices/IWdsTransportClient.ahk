@@ -268,18 +268,18 @@ export default struct IWdsTransportClient extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Session := CallbackCreate(GetMethod(implObj, "get_Session"), flags, 2)
-        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_MacAddress := CallbackCreate(GetMethod(implObj, "get_MacAddress"), flags, 2)
-        this.vtbl.get_IpAddress := CallbackCreate(GetMethod(implObj, "get_IpAddress"), flags, 2)
-        this.vtbl.get_PercentCompletion := CallbackCreate(GetMethod(implObj, "get_PercentCompletion"), flags, 2)
-        this.vtbl.get_JoinDuration := CallbackCreate(GetMethod(implObj, "get_JoinDuration"), flags, 2)
-        this.vtbl.get_CpuUtilization := CallbackCreate(GetMethod(implObj, "get_CpuUtilization"), flags, 2)
-        this.vtbl.get_MemoryUtilization := CallbackCreate(GetMethod(implObj, "get_MemoryUtilization"), flags, 2)
-        this.vtbl.get_NetworkUtilization := CallbackCreate(GetMethod(implObj, "get_NetworkUtilization"), flags, 2)
-        this.vtbl.get_UserIdentity := CallbackCreate(GetMethod(implObj, "get_UserIdentity"), flags, 2)
-        this.vtbl.Disconnect := CallbackCreate(GetMethod(implObj, "Disconnect"), flags, 2)
+        this.vtbl.get_Session := CallbackCreate(ObjBindMethod(implObj, "get_Session"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(ObjBindMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_MacAddress := CallbackCreate(ObjBindMethod(implObj, "get_MacAddress"), flags, 2)
+        this.vtbl.get_IpAddress := CallbackCreate(ObjBindMethod(implObj, "get_IpAddress"), flags, 2)
+        this.vtbl.get_PercentCompletion := CallbackCreate(ObjBindMethod(implObj, "get_PercentCompletion"), flags, 2)
+        this.vtbl.get_JoinDuration := CallbackCreate(ObjBindMethod(implObj, "get_JoinDuration"), flags, 2)
+        this.vtbl.get_CpuUtilization := CallbackCreate(ObjBindMethod(implObj, "get_CpuUtilization"), flags, 2)
+        this.vtbl.get_MemoryUtilization := CallbackCreate(ObjBindMethod(implObj, "get_MemoryUtilization"), flags, 2)
+        this.vtbl.get_NetworkUtilization := CallbackCreate(ObjBindMethod(implObj, "get_NetworkUtilization"), flags, 2)
+        this.vtbl.get_UserIdentity := CallbackCreate(ObjBindMethod(implObj, "get_UserIdentity"), flags, 2)
+        this.vtbl.Disconnect := CallbackCreate(ObjBindMethod(implObj, "Disconnect"), flags, 2)
     }
 
     Dispose() {

@@ -20,14 +20,14 @@ export default struct _WHEA_ERROR_SOURCE_INITIALIZE {
     }
 
     /**
-     * 
      * @param {Integer} Phase 
      * @param {Pointer<WHEA_ERROR_SOURCE_DESCRIPTOR>} ErrorSource 
      * @param {Pointer<Void>} _Context 
      * @returns {NTSTATUS} 
      */
     Call(Phase, ErrorSource, _Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, UInt32, Phase, WHEA_ERROR_SOURCE_DESCRIPTOR.Ptr, ErrorSource, _ContextMarshal, _Context, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

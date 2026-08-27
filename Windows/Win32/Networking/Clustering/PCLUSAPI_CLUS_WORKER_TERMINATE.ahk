@@ -32,7 +32,6 @@ export default struct PCLUSAPI_CLUS_WORKER_TERMINATE {
     }
 
     /**
-     * 
      * @param {Pointer<CLUS_WORKER>} lpWorker Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-clus_worker">CLUS_WORKER</a> structure describing the 
      *        thread to terminate.
      * @returns {String} Nothing - always returns an empty string

@@ -19,7 +19,6 @@ export default struct PFND3DKMT_BUDGETCHANGENOTIFICATIONCALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_BUDGETCHANGENOTIFICATION>} param0 
      * @returns {String} Nothing - always returns an empty string
      */

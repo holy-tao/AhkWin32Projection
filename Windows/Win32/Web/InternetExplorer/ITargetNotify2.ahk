@@ -37,7 +37,6 @@ export default struct ITargetNotify2 extends ITargetNotify {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrOptions 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,7 @@ export default struct ITargetNotify2 extends ITargetNotify {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOptionString := CallbackCreate(GetMethod(implObj, "GetOptionString"), flags, 2)
+        this.vtbl.GetOptionString := CallbackCreate(ObjBindMethod(implObj, "GetOptionString"), flags, 2)
     }
 
     Dispose() {

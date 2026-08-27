@@ -108,9 +108,9 @@ export default struct IUrlAccessor2 extends IUrlAccessor {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDisplayUrl := CallbackCreate(GetMethod(implObj, "GetDisplayUrl"), flags, 4)
-        this.vtbl.IsDocument := CallbackCreate(GetMethod(implObj, "IsDocument"), flags, 1)
-        this.vtbl.GetCodePage := CallbackCreate(GetMethod(implObj, "GetCodePage"), flags, 4)
+        this.vtbl.GetDisplayUrl := CallbackCreate(ObjBindMethod(implObj, "GetDisplayUrl"), flags, 4)
+        this.vtbl.IsDocument := CallbackCreate(ObjBindMethod(implObj, "IsDocument"), flags, 1)
+        this.vtbl.GetCodePage := CallbackCreate(ObjBindMethod(implObj, "GetCodePage"), flags, 4)
     }
 
     Dispose() {

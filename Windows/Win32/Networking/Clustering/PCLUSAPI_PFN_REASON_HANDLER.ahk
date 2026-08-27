@@ -21,7 +21,6 @@ export default struct PCLUSAPI_PFN_REASON_HANDLER {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} lpParameter 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} szReason 
@@ -31,8 +30,8 @@ export default struct PCLUSAPI_PFN_REASON_HANDLER {
     Call(lpParameter, _hCluster, szReason, lpSize) {
         szReason := szReason is String ? StrPtr(szReason) : szReason
 
-        lpParameterMarshal := lpParameter is VarRef ? "ptr" : "ptr"
-        lpSizeMarshal := lpSize is VarRef ? "uint*" : "ptr"
+        lpParameterMarshal := lpParameter is VarRef ? "ptr" : IntPtr
+        lpSizeMarshal := lpSize is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, lpParameterMarshal, lpParameter, HCLUSTER, _hCluster, "ptr", szReason, lpSizeMarshal, lpSize, BOOL)
         return result

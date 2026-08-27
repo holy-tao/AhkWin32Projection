@@ -60,7 +60,7 @@ export default struct IUIAutomationScrollItemPattern extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ScrollIntoView := CallbackCreate(GetMethod(implObj, "ScrollIntoView"), flags, 1)
+        this.vtbl.ScrollIntoView := CallbackCreate(ObjBindMethod(implObj, "ScrollIntoView"), flags, 1)
     }
 
     Dispose() {

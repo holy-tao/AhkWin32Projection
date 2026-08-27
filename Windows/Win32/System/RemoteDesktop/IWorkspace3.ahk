@@ -84,8 +84,8 @@ export default struct IWorkspace3 extends IWorkspace2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetClaimsToken2 := CallbackCreate(GetMethod(implObj, "GetClaimsToken2"), flags, 7)
-        this.vtbl.SetClaimsToken := CallbackCreate(GetMethod(implObj, "SetClaimsToken"), flags, 4)
+        this.vtbl.GetClaimsToken2 := CallbackCreate(ObjBindMethod(implObj, "GetClaimsToken2"), flags, 7)
+        this.vtbl.SetClaimsToken := CallbackCreate(ObjBindMethod(implObj, "SetClaimsToken"), flags, 4)
     }
 
     Dispose() {

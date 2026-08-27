@@ -21,7 +21,6 @@ export default struct PCLUSAPI_CREATE_CLUSTER_NOTIFY_PORT_V2 {
     }
 
     /**
-     * 
      * @param {HCHANGE} _hChange 
      * @param {HCLUSTER} _hCluster 
      * @param {Pointer<NOTIFY_FILTER_AND_TYPE>} Filters 

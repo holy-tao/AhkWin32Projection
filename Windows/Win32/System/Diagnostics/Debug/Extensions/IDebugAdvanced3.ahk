@@ -90,7 +90,6 @@ export default struct IDebugAdvanced3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Request 
      * @param {Integer} InBuffer 
      * @param {Integer} InBufferSize 
@@ -99,12 +98,14 @@ export default struct IDebugAdvanced3 extends IUnknown {
      * @returns {Integer} 
      */
     Request(Request, InBuffer, InBufferSize, OutBuffer, OutBufferSize) {
-        result := ComCall(5, this, UInt32, Request, IntPtr, InBuffer, UInt32, InBufferSize, IntPtr, OutBuffer, UInt32, OutBufferSize, "uint*", &OutSize := 0, "HRESULT")
+        InBufferMarshal := InBuffer == 0 ? IntPtr : IntPtr
+        OutBufferMarshal := OutBuffer == 0 ? IntPtr : IntPtr
+
+        result := ComCall(5, this, UInt32, Request, InBufferMarshal, InBuffer, UInt32, InBufferSize, OutBufferMarshal, OutBuffer, UInt32, OutBufferSize, "uint*", &OutSize := 0, "HRESULT")
         return OutSize
     }
 
     /**
-     * 
      * @param {Integer} Which 
      * @param {PSTR} _SourceFile 
      * @param {Integer} Arg64 
@@ -116,12 +117,13 @@ export default struct IDebugAdvanced3 extends IUnknown {
     GetSourceFileInformation(Which, _SourceFile, Arg64, Arg32, _Buffer, BufferSize) {
         _SourceFile := _SourceFile is String ? StrPtr(_SourceFile) : _SourceFile
 
-        result := ComCall(6, this, UInt32, Which, "ptr", _SourceFile, Int64, Arg64, UInt32, Arg32, IntPtr, _Buffer, UInt32, BufferSize, "uint*", &InfoSize := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+
+        result := ComCall(6, this, UInt32, Which, "ptr", _SourceFile, Int64, Arg64, UInt32, Arg32, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &InfoSize := 0, "HRESULT")
         return InfoSize
     }
 
     /**
-     * 
      * @param {Integer} StartElement 
      * @param {Integer} ModAddr 
      * @param {PSTR} _File 
@@ -138,15 +140,18 @@ export default struct IDebugAdvanced3 extends IUnknown {
         _File := _File is String ? StrPtr(_File) : _File
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        FoundElementMarshal := FoundElement is VarRef ? "uint*" : "ptr"
-        FoundSizeMarshal := FoundSize is VarRef ? "uint*" : "ptr"
+        FileTokenMarshal := FileToken == 0 ? IntPtr : IntPtr
+        FoundElementMarshal := FoundElement is VarRef ? "uint*" : IntPtr
+        FoundElementMarshal := FoundElement == 0 ? IntPtr : "uint*"
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PSTR
+        FoundSizeMarshal := FoundSize is VarRef ? "uint*" : IntPtr
+        FoundSizeMarshal := FoundSize == 0 ? IntPtr : "uint*"
 
-        result := ComCall(7, this, UInt32, StartElement, Int64, ModAddr, "ptr", _File, UInt32, Flags, IntPtr, FileToken, UInt32, FileTokenSize, FoundElementMarshal, FoundElement, "ptr", _Buffer, UInt32, BufferSize, FoundSizeMarshal, FoundSize, "HRESULT")
+        result := ComCall(7, this, UInt32, StartElement, Int64, ModAddr, "ptr", _File, UInt32, Flags, FileTokenMarshal, FileToken, UInt32, FileTokenSize, FoundElementMarshal, FoundElement, _BufferMarshal, _Buffer, UInt32, BufferSize, FoundSizeMarshal, FoundSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Which 
      * @param {Integer} Arg64 
      * @param {Integer} Arg32 
@@ -161,15 +166,18 @@ export default struct IDebugAdvanced3 extends IUnknown {
     GetSymbolInformation(Which, Arg64, Arg32, _Buffer, BufferSize, InfoSize, StringBuffer, StringBufferSize, StringSize) {
         StringBuffer := StringBuffer is String ? StrPtr(StringBuffer) : StringBuffer
 
-        InfoSizeMarshal := InfoSize is VarRef ? "uint*" : "ptr"
-        StringSizeMarshal := StringSize is VarRef ? "uint*" : "ptr"
+        _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+        InfoSizeMarshal := InfoSize is VarRef ? "uint*" : IntPtr
+        InfoSizeMarshal := InfoSize == 0 ? IntPtr : "uint*"
+        StringBufferMarshal := StringBuffer == 0 ? IntPtr : PSTR
+        StringSizeMarshal := StringSize is VarRef ? "uint*" : IntPtr
+        StringSizeMarshal := StringSize == 0 ? IntPtr : "uint*"
 
-        result := ComCall(8, this, UInt32, Which, Int64, Arg64, UInt32, Arg32, IntPtr, _Buffer, UInt32, BufferSize, InfoSizeMarshal, InfoSize, "ptr", StringBuffer, UInt32, StringBufferSize, StringSizeMarshal, StringSize, "HRESULT")
+        result := ComCall(8, this, UInt32, Which, Int64, Arg64, UInt32, Arg32, _BufferMarshal, _Buffer, UInt32, BufferSize, InfoSizeMarshal, InfoSize, StringBufferMarshal, StringBuffer, UInt32, StringBufferSize, StringSizeMarshal, StringSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Which 
      * @param {Integer} Arg64 
      * @param {Integer} Arg32 
@@ -178,12 +186,13 @@ export default struct IDebugAdvanced3 extends IUnknown {
      * @returns {Integer} 
      */
     GetSystemObjectInformation(Which, Arg64, Arg32, _Buffer, BufferSize) {
-        result := ComCall(9, this, UInt32, Which, Int64, Arg64, UInt32, Arg32, IntPtr, _Buffer, UInt32, BufferSize, "uint*", &InfoSize := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+
+        result := ComCall(9, this, UInt32, Which, Int64, Arg64, UInt32, Arg32, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &InfoSize := 0, "HRESULT")
         return InfoSize
     }
 
     /**
-     * 
      * @param {Integer} Which 
      * @param {PWSTR} _SourceFile 
      * @param {Integer} Arg64 
@@ -195,12 +204,13 @@ export default struct IDebugAdvanced3 extends IUnknown {
     GetSourceFileInformationWide(Which, _SourceFile, Arg64, Arg32, _Buffer, BufferSize) {
         _SourceFile := _SourceFile is String ? StrPtr(_SourceFile) : _SourceFile
 
-        result := ComCall(10, this, UInt32, Which, "ptr", _SourceFile, Int64, Arg64, UInt32, Arg32, IntPtr, _Buffer, UInt32, BufferSize, "uint*", &InfoSize := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+
+        result := ComCall(10, this, UInt32, Which, "ptr", _SourceFile, Int64, Arg64, UInt32, Arg32, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &InfoSize := 0, "HRESULT")
         return InfoSize
     }
 
     /**
-     * 
      * @param {Integer} StartElement 
      * @param {Integer} ModAddr 
      * @param {PWSTR} _File 
@@ -217,15 +227,18 @@ export default struct IDebugAdvanced3 extends IUnknown {
         _File := _File is String ? StrPtr(_File) : _File
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        FoundElementMarshal := FoundElement is VarRef ? "uint*" : "ptr"
-        FoundSizeMarshal := FoundSize is VarRef ? "uint*" : "ptr"
+        FileTokenMarshal := FileToken == 0 ? IntPtr : IntPtr
+        FoundElementMarshal := FoundElement is VarRef ? "uint*" : IntPtr
+        FoundElementMarshal := FoundElement == 0 ? IntPtr : "uint*"
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PWSTR
+        FoundSizeMarshal := FoundSize is VarRef ? "uint*" : IntPtr
+        FoundSizeMarshal := FoundSize == 0 ? IntPtr : "uint*"
 
-        result := ComCall(11, this, UInt32, StartElement, Int64, ModAddr, "ptr", _File, UInt32, Flags, IntPtr, FileToken, UInt32, FileTokenSize, FoundElementMarshal, FoundElement, "ptr", _Buffer, UInt32, BufferSize, FoundSizeMarshal, FoundSize, "HRESULT")
+        result := ComCall(11, this, UInt32, StartElement, Int64, ModAddr, "ptr", _File, UInt32, Flags, FileTokenMarshal, FileToken, UInt32, FileTokenSize, FoundElementMarshal, FoundElement, _BufferMarshal, _Buffer, UInt32, BufferSize, FoundSizeMarshal, FoundSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Which 
      * @param {Integer} Arg64 
      * @param {Integer} Arg32 
@@ -240,10 +253,14 @@ export default struct IDebugAdvanced3 extends IUnknown {
     GetSymbolInformationWide(Which, Arg64, Arg32, _Buffer, BufferSize, InfoSize, StringBuffer, StringBufferSize, StringSize) {
         StringBuffer := StringBuffer is String ? StrPtr(StringBuffer) : StringBuffer
 
-        InfoSizeMarshal := InfoSize is VarRef ? "uint*" : "ptr"
-        StringSizeMarshal := StringSize is VarRef ? "uint*" : "ptr"
+        _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+        InfoSizeMarshal := InfoSize is VarRef ? "uint*" : IntPtr
+        InfoSizeMarshal := InfoSize == 0 ? IntPtr : "uint*"
+        StringBufferMarshal := StringBuffer == 0 ? IntPtr : PWSTR
+        StringSizeMarshal := StringSize is VarRef ? "uint*" : IntPtr
+        StringSizeMarshal := StringSize == 0 ? IntPtr : "uint*"
 
-        result := ComCall(12, this, UInt32, Which, Int64, Arg64, UInt32, Arg32, IntPtr, _Buffer, UInt32, BufferSize, InfoSizeMarshal, InfoSize, "ptr", StringBuffer, UInt32, StringBufferSize, StringSizeMarshal, StringSize, "HRESULT")
+        result := ComCall(12, this, UInt32, Which, Int64, Arg64, UInt32, Arg32, _BufferMarshal, _Buffer, UInt32, BufferSize, InfoSizeMarshal, InfoSize, StringBufferMarshal, StringBuffer, UInt32, StringBufferSize, StringSizeMarshal, StringSize, "HRESULT")
         return result
     }
 
@@ -256,16 +273,16 @@ export default struct IDebugAdvanced3 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetThreadContext := CallbackCreate(GetMethod(implObj, "GetThreadContext"), flags, 3)
-        this.vtbl.SetThreadContext := CallbackCreate(GetMethod(implObj, "SetThreadContext"), flags, 3)
-        this.vtbl.Request := CallbackCreate(GetMethod(implObj, "Request"), flags, 7)
-        this.vtbl.GetSourceFileInformation := CallbackCreate(GetMethod(implObj, "GetSourceFileInformation"), flags, 8)
-        this.vtbl.FindSourceFileAndToken := CallbackCreate(GetMethod(implObj, "FindSourceFileAndToken"), flags, 11)
-        this.vtbl.GetSymbolInformation := CallbackCreate(GetMethod(implObj, "GetSymbolInformation"), flags, 10)
-        this.vtbl.GetSystemObjectInformation := CallbackCreate(GetMethod(implObj, "GetSystemObjectInformation"), flags, 7)
-        this.vtbl.GetSourceFileInformationWide := CallbackCreate(GetMethod(implObj, "GetSourceFileInformationWide"), flags, 8)
-        this.vtbl.FindSourceFileAndTokenWide := CallbackCreate(GetMethod(implObj, "FindSourceFileAndTokenWide"), flags, 11)
-        this.vtbl.GetSymbolInformationWide := CallbackCreate(GetMethod(implObj, "GetSymbolInformationWide"), flags, 10)
+        this.vtbl.GetThreadContext := CallbackCreate(ObjBindMethod(implObj, "GetThreadContext"), flags, 3)
+        this.vtbl.SetThreadContext := CallbackCreate(ObjBindMethod(implObj, "SetThreadContext"), flags, 3)
+        this.vtbl.Request := CallbackCreate(ObjBindMethod(implObj, "Request"), flags, 7)
+        this.vtbl.GetSourceFileInformation := CallbackCreate(ObjBindMethod(implObj, "GetSourceFileInformation"), flags, 8)
+        this.vtbl.FindSourceFileAndToken := CallbackCreate(ObjBindMethod(implObj, "FindSourceFileAndToken"), flags, 11)
+        this.vtbl.GetSymbolInformation := CallbackCreate(ObjBindMethod(implObj, "GetSymbolInformation"), flags, 10)
+        this.vtbl.GetSystemObjectInformation := CallbackCreate(ObjBindMethod(implObj, "GetSystemObjectInformation"), flags, 7)
+        this.vtbl.GetSourceFileInformationWide := CallbackCreate(ObjBindMethod(implObj, "GetSourceFileInformationWide"), flags, 8)
+        this.vtbl.FindSourceFileAndTokenWide := CallbackCreate(ObjBindMethod(implObj, "FindSourceFileAndTokenWide"), flags, 11)
+        this.vtbl.GetSymbolInformationWide := CallbackCreate(ObjBindMethod(implObj, "GetSymbolInformationWide"), flags, 10)
     }
 
     Dispose() {

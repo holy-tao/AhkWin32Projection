@@ -136,7 +136,6 @@ export CryptCATPersistStore(hCatalog) {
 }
 
 /**
- * 
  * @param {HANDLE} hCatalog 
  * @param {PWSTR} pwszReferenceTag 
  * @returns {Pointer<CRYPTCATATTRIBUTE>} 
@@ -280,7 +279,7 @@ export CryptCATGetCatAttrInfo(hCatalog, pwszReferenceTag) {
 export CryptCATPutCatAttrInfo(hCatalog, pwszReferenceTag, dwAttrTypeAndAction, cbData, pbData) {
     pwszReferenceTag := pwszReferenceTag is String ? StrPtr(pwszReferenceTag) : pwszReferenceTag
 
-    pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
+    pbDataMarshal := pbData is VarRef ? "char*" : IntPtr
 
     A_LastError := 0
 
@@ -325,7 +324,6 @@ export CryptCATGetMemberInfo(hCatalog, pwszReferenceTag) {
 }
 
 /**
- * 
  * @param {HANDLE} hCatalog 
  * @param {PWSTR} pwszReferenceTag 
  * @returns {Pointer<CRYPTCATMEMBER>} 
@@ -338,7 +336,6 @@ export CryptCATAllocSortedMemberInfo(hCatalog, pwszReferenceTag) {
 }
 
 /**
- * 
  * @param {HANDLE} hCatalog 
  * @param {Pointer<CRYPTCATMEMBER>} pCatMember 
  * @returns {String} Nothing - always returns an empty string
@@ -459,11 +456,12 @@ export CryptCATPutMemberInfo(hCatalog, pwszFileName, pwszReferenceTag, pgSubject
     pwszFileName := pwszFileName is String ? StrPtr(pwszFileName) : pwszFileName
     pwszReferenceTag := pwszReferenceTag is String ? StrPtr(pwszReferenceTag) : pwszReferenceTag
 
-    pbSIPIndirectDataMarshal := pbSIPIndirectData is VarRef ? "char*" : "ptr"
+    pwszFileNameMarshal := pwszFileName == 0 ? IntPtr : PWSTR
+    pbSIPIndirectDataMarshal := pbSIPIndirectData is VarRef ? "char*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("WINTRUST.dll\CryptCATPutMemberInfo", HANDLE, hCatalog, "ptr", pwszFileName, "ptr", pwszReferenceTag, Guid.Ptr, pgSubjectType, UInt32, dwCertVersion, UInt32, cbSIPIndirectData, pbSIPIndirectDataMarshal, pbSIPIndirectData, CRYPTCATMEMBER.Ptr)
+    result := DllCall("WINTRUST.dll\CryptCATPutMemberInfo", HANDLE, hCatalog, pwszFileNameMarshal, pwszFileName, "ptr", pwszReferenceTag, Guid.Ptr, pgSubjectType, UInt32, dwCertVersion, UInt32, cbSIPIndirectData, pbSIPIndirectDataMarshal, pbSIPIndirectData, CRYPTCATMEMBER.Ptr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -604,7 +602,7 @@ export CryptCATPutMemberInfo(hCatalog, pwszFileName, pwszReferenceTag, pgSubject
 export CryptCATPutAttrInfo(hCatalog, pCatMember, pwszReferenceTag, dwAttrTypeAndAction, cbData, pbData) {
     pwszReferenceTag := pwszReferenceTag is String ? StrPtr(pwszReferenceTag) : pwszReferenceTag
 
-    pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
+    pbDataMarshal := pbData is VarRef ? "char*" : IntPtr
 
     A_LastError := 0
 
@@ -758,7 +756,9 @@ export CryptCATEnumerateAttr(hCatalog, pCatMember, pPrevAttr) {
 export CryptCATCDFOpen(pwszFilePath, pfnParseError) {
     pwszFilePath := pwszFilePath is String ? StrPtr(pwszFilePath) : pwszFilePath
 
-    result := DllCall("WINTRUST.dll\CryptCATCDFOpen", "ptr", pwszFilePath, PFN_CDF_PARSE_ERROR_CALLBACK, pfnParseError, CRYPTCATCDF.Ptr)
+    pfnParseErrorMarshal := pfnParseError == 0 ? IntPtr : PFN_CDF_PARSE_ERROR_CALLBACK
+
+    result := DllCall("WINTRUST.dll\CryptCATCDFOpen", "ptr", pwszFilePath, pfnParseErrorMarshal, pfnParseError, CRYPTCATCDF.Ptr)
     return result
 }
 
@@ -793,7 +793,6 @@ export CryptCATCDFEnumCatAttributes(pCDF, pPrevAttr, pfnParseError) {
 }
 
 /**
- * 
  * @param {Pointer<CRYPTCATCDF>} pCDF 
  * @param {Pointer<CRYPTCATMEMBER>} pPrevMember 
  * @param {Pointer<PFN_CDF_PARSE_ERROR_CALLBACK>} pfnParseError 
@@ -805,7 +804,6 @@ export CryptCATCDFEnumMembers(pCDF, pPrevMember, pfnParseError) {
 }
 
 /**
- * 
  * @param {Pointer<CRYPTCATCDF>} pCDF 
  * @param {Pointer<CRYPTCATMEMBER>} pMember 
  * @param {Pointer<CRYPTCATATTRIBUTE>} pPrevAttr 
@@ -828,7 +826,9 @@ export CryptCATCDFEnumAttributes(pCDF, pMember, pPrevAttr, pfnParseError) {
 export IsCatalogFile(hFile, pwszFileName) {
     pwszFileName := pwszFileName is String ? StrPtr(pwszFileName) : pwszFileName
 
-    result := DllCall("WINTRUST.dll\IsCatalogFile", HANDLE, hFile, "ptr", pwszFileName, BOOL)
+    pwszFileNameMarshal := pwszFileName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("WINTRUST.dll\IsCatalogFile", HANDLE, hFile, pwszFileNameMarshal, pwszFileName, BOOL)
     return result
 }
 
@@ -845,11 +845,12 @@ export IsCatalogFile(hFile, pwszFileName) {
 export CryptCATAdminAcquireContext(phCatAdmin, pgSubsystem) {
     static dwFlags := 0 ;Reserved parameters must always be NULL
 
-    phCatAdminMarshal := phCatAdmin is VarRef ? "ptr*" : "ptr"
+    phCatAdminMarshal := phCatAdmin is VarRef ? "ptr*" : IntPtr
+    pgSubsystemMarshal := pgSubsystem == 0 ? IntPtr : Guid.Ptr
 
     A_LastError := 0
 
-    result := DllCall("WINTRUST.dll\CryptCATAdminAcquireContext", phCatAdminMarshal, phCatAdmin, Guid.Ptr, pgSubsystem, UInt32, dwFlags, BOOL)
+    result := DllCall("WINTRUST.dll\CryptCATAdminAcquireContext", phCatAdminMarshal, phCatAdmin, pgSubsystemMarshal, pgSubsystem, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -921,11 +922,14 @@ export CryptCATAdminAcquireContext2(phCatAdmin, pgSubsystem, pwszHashAlgorithm, 
 
     pwszHashAlgorithm := pwszHashAlgorithm is String ? StrPtr(pwszHashAlgorithm) : pwszHashAlgorithm
 
-    phCatAdminMarshal := phCatAdmin is VarRef ? "ptr*" : "ptr"
+    phCatAdminMarshal := phCatAdmin is VarRef ? "ptr*" : IntPtr
+    pgSubsystemMarshal := pgSubsystem == 0 ? IntPtr : Guid.Ptr
+    pwszHashAlgorithmMarshal := pwszHashAlgorithm == 0 ? IntPtr : PWSTR
+    pStrongHashPolicyMarshal := pStrongHashPolicy == 0 ? IntPtr : CERT_STRONG_SIGN_PARA.Ptr
 
     A_LastError := 0
 
-    result := DllCall("WINTRUST.dll\CryptCATAdminAcquireContext2", phCatAdminMarshal, phCatAdmin, Guid.Ptr, pgSubsystem, "ptr", pwszHashAlgorithm, CERT_STRONG_SIGN_PARA.Ptr, pStrongHashPolicy, UInt32, dwFlags, BOOL)
+    result := DllCall("WINTRUST.dll\CryptCATAdminAcquireContext2", phCatAdminMarshal, phCatAdmin, pgSubsystemMarshal, pgSubsystem, pwszHashAlgorithmMarshal, pwszHashAlgorithm, pStrongHashPolicyMarshal, pStrongHashPolicy, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -986,7 +990,8 @@ export CryptCATAdminReleaseCatalogContext(hCatAdmin, hCatInfo, dwFlags) {
 export CryptCATAdminEnumCatalogFromHash(hCatAdmin, pbHash, cbHash, phPrevCatInfo) {
     static dwFlags := 0 ;Reserved parameters must always be NULL
 
-    phPrevCatInfoMarshal := phPrevCatInfo is VarRef ? "ptr*" : "ptr"
+    phPrevCatInfoMarshal := phPrevCatInfo is VarRef ? "ptr*" : IntPtr
+    phPrevCatInfoMarshal := phPrevCatInfo == 0 ? IntPtr : "ptr*"
 
     A_LastError := 0
 
@@ -1010,9 +1015,10 @@ export CryptCATAdminEnumCatalogFromHash(hCatAdmin, pbHash, cbHash, phPrevCatInfo
 export CryptCATAdminCalcHashFromFileHandle(hFile, pcbHash, pbHash) {
     static dwFlags := 0 ;Reserved parameters must always be NULL
 
-    pcbHashMarshal := pcbHash is VarRef ? "uint*" : "ptr"
+    pcbHashMarshal := pcbHash is VarRef ? "uint*" : IntPtr
+    pbHashMarshal := pbHash == 0 ? IntPtr : IntPtr
 
-    result := DllCall("WINTRUST.dll\CryptCATAdminCalcHashFromFileHandle", HANDLE, hFile, pcbHashMarshal, pcbHash, IntPtr, pbHash, UInt32, dwFlags, BOOL)
+    result := DllCall("WINTRUST.dll\CryptCATAdminCalcHashFromFileHandle", HANDLE, hFile, pcbHashMarshal, pcbHash, pbHashMarshal, pbHash, UInt32, dwFlags, BOOL)
     return result
 }
 
@@ -1082,11 +1088,12 @@ export CryptCATAdminCalcHashFromFileHandle(hFile, pcbHash, pbHash) {
 export CryptCATAdminCalcHashFromFileHandle2(hCatAdmin, hFile, pcbHash, pbHash) {
     static dwFlags := 0 ;Reserved parameters must always be NULL
 
-    pcbHashMarshal := pcbHash is VarRef ? "uint*" : "ptr"
+    pcbHashMarshal := pcbHash is VarRef ? "uint*" : IntPtr
+    pbHashMarshal := pbHash == 0 ? IntPtr : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("WINTRUST.dll\CryptCATAdminCalcHashFromFileHandle2", IntPtr, hCatAdmin, HANDLE, hFile, pcbHashMarshal, pcbHash, IntPtr, pbHash, UInt32, dwFlags, BOOL)
+    result := DllCall("WINTRUST.dll\CryptCATAdminCalcHashFromFileHandle2", IntPtr, hCatAdmin, HANDLE, hFile, pcbHashMarshal, pcbHash, pbHashMarshal, pbHash, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1110,9 +1117,11 @@ export CryptCATAdminAddCatalog(hCatAdmin, pwszCatalogFile, pwszSelectBaseName, d
     pwszCatalogFile := pwszCatalogFile is String ? StrPtr(pwszCatalogFile) : pwszCatalogFile
     pwszSelectBaseName := pwszSelectBaseName is String ? StrPtr(pwszSelectBaseName) : pwszSelectBaseName
 
+    pwszSelectBaseNameMarshal := pwszSelectBaseName == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("WINTRUST.dll\CryptCATAdminAddCatalog", IntPtr, hCatAdmin, "ptr", pwszCatalogFile, "ptr", pwszSelectBaseName, UInt32, dwFlags, IntPtr)
+    result := DllCall("WINTRUST.dll\CryptCATAdminAddCatalog", IntPtr, hCatAdmin, "ptr", pwszCatalogFile, pwszSelectBaseNameMarshal, pwszSelectBaseName, UInt32, dwFlags, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1192,7 +1201,6 @@ export CryptCATAdminResolveCatalogPath(hCatAdmin, pwszCatalogFile, psCatInfo, dw
 }
 
 /**
- * 
  * @param {Integer} dwFlags 
  * @param {BOOL} fResume 
  * @returns {BOOL} 
@@ -1218,8 +1226,8 @@ export CryptCATAdminPauseServiceForBackup(dwFlags, fResume) {
 export CryptCATCDFEnumMembersByCDFTagEx(pCDF, pwszPrevCDFTag, pfnParseError, ppMember, fContinueOnError, pvReserved) {
     pwszPrevCDFTag := pwszPrevCDFTag is String ? StrPtr(pwszPrevCDFTag) : pwszPrevCDFTag
 
-    ppMemberMarshal := ppMember is VarRef ? "ptr*" : "ptr"
-    pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
+    ppMemberMarshal := ppMember is VarRef ? "ptr*" : IntPtr
+    pvReservedMarshal := pvReserved is VarRef ? "ptr" : IntPtr
 
     result := DllCall("WINTRUST.dll\CryptCATCDFEnumMembersByCDFTagEx", CRYPTCATCDF.Ptr, pCDF, "ptr", pwszPrevCDFTag, PFN_CDF_PARSE_ERROR_CALLBACK, pfnParseError, ppMemberMarshal, ppMember, BOOL, fContinueOnError, pvReservedMarshal, pvReserved, PWSTR)
     return result

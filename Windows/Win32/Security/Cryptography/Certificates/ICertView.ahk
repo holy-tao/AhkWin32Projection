@@ -103,7 +103,7 @@ export default struct ICertView extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-icertview-getcolumncount
      */
     GetColumnCount(fResultColumn, pcColumn) {
-        pcColumnMarshal := pcColumn is VarRef ? "int*" : "ptr"
+        pcColumnMarshal := pcColumn is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, CVRC_COLUMN, fResultColumn, pcColumnMarshal, pcColumn, "HRESULT")
         return result
@@ -128,7 +128,7 @@ export default struct ICertView extends IDispatch {
     GetColumnIndex(fResultColumn, strColumnName, pColumnIndex) {
         strColumnName := strColumnName is String ? BSTR.Alloc(strColumnName).Value : strColumnName
 
-        pColumnIndexMarshal := pColumnIndex is VarRef ? "int*" : "ptr"
+        pColumnIndexMarshal := pColumnIndex is VarRef ? "int*" : IntPtr
 
         result := ComCall(10, this, CVRC_COLUMN, fResultColumn, BSTR, strColumnName, pColumnIndexMarshal, pColumnIndex, "HRESULT")
         return result
@@ -315,14 +315,14 @@ export default struct ICertView extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OpenConnection := CallbackCreate(GetMethod(implObj, "OpenConnection"), flags, 2)
-        this.vtbl.EnumCertViewColumn := CallbackCreate(GetMethod(implObj, "EnumCertViewColumn"), flags, 3)
-        this.vtbl.GetColumnCount := CallbackCreate(GetMethod(implObj, "GetColumnCount"), flags, 3)
-        this.vtbl.GetColumnIndex := CallbackCreate(GetMethod(implObj, "GetColumnIndex"), flags, 4)
-        this.vtbl.SetResultColumnCount := CallbackCreate(GetMethod(implObj, "SetResultColumnCount"), flags, 2)
-        this.vtbl.SetResultColumn := CallbackCreate(GetMethod(implObj, "SetResultColumn"), flags, 2)
-        this.vtbl.SetRestriction := CallbackCreate(GetMethod(implObj, "SetRestriction"), flags, 5)
-        this.vtbl.OpenView := CallbackCreate(GetMethod(implObj, "OpenView"), flags, 2)
+        this.vtbl.OpenConnection := CallbackCreate(ObjBindMethod(implObj, "OpenConnection"), flags, 2)
+        this.vtbl.EnumCertViewColumn := CallbackCreate(ObjBindMethod(implObj, "EnumCertViewColumn"), flags, 3)
+        this.vtbl.GetColumnCount := CallbackCreate(ObjBindMethod(implObj, "GetColumnCount"), flags, 3)
+        this.vtbl.GetColumnIndex := CallbackCreate(ObjBindMethod(implObj, "GetColumnIndex"), flags, 4)
+        this.vtbl.SetResultColumnCount := CallbackCreate(ObjBindMethod(implObj, "SetResultColumnCount"), flags, 2)
+        this.vtbl.SetResultColumn := CallbackCreate(ObjBindMethod(implObj, "SetResultColumn"), flags, 2)
+        this.vtbl.SetRestriction := CallbackCreate(ObjBindMethod(implObj, "SetRestriction"), flags, 5)
+        this.vtbl.OpenView := CallbackCreate(ObjBindMethod(implObj, "OpenView"), flags, 2)
     }
 
     Dispose() {

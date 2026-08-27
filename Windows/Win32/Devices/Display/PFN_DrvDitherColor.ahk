@@ -19,7 +19,6 @@ export default struct PFN_DrvDitherColor {
     }
 
     /**
-     * 
      * @param {DHPDEV} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
@@ -27,7 +26,7 @@ export default struct PFN_DrvDitherColor {
      * @returns {Integer} 
      */
     Call(param0, param1, param2, param3) {
-        param3Marshal := param3 is VarRef ? "uint*" : "ptr"
+        param3Marshal := param3 is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, DHPDEV, param0, UInt32, param1, UInt32, param2, param3Marshal, param3, UInt32)
         return result

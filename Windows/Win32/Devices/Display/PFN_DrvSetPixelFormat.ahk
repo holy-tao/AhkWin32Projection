@@ -21,7 +21,6 @@ export default struct PFN_DrvSetPixelFormat {
     }
 
     /**
-     * 
      * @param {Pointer<SURFOBJ>} param0 
      * @param {Integer} param1 
      * @param {HWND} param2 

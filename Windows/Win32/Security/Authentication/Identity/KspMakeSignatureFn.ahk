@@ -31,7 +31,6 @@ export default struct KspMakeSignatureFn {
     }
 
     /**
-     * 
      * @param {Pointer} ContextId A handle to the security context to be used to generate the message signature.
      * @param {Integer} fQOP Specifies package-specific flags that indicate the quality of protection. A security package can use this parameter to support the selection of cryptographic algorithms
      * @param {Pointer<SecBufferDesc>} Message Pointer to a 

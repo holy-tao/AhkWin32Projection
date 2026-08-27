@@ -102,10 +102,10 @@ export default struct ICredentialProviderUserArray extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetProviderFilter := CallbackCreate(GetMethod(implObj, "SetProviderFilter"), flags, 2)
-        this.vtbl.GetAccountOptions := CallbackCreate(GetMethod(implObj, "GetAccountOptions"), flags, 2)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
-        this.vtbl.GetAt := CallbackCreate(GetMethod(implObj, "GetAt"), flags, 3)
+        this.vtbl.SetProviderFilter := CallbackCreate(ObjBindMethod(implObj, "SetProviderFilter"), flags, 2)
+        this.vtbl.GetAccountOptions := CallbackCreate(ObjBindMethod(implObj, "GetAccountOptions"), flags, 2)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetAt := CallbackCreate(ObjBindMethod(implObj, "GetAt"), flags, 3)
     }
 
     Dispose() {

@@ -44,7 +44,6 @@ export default struct IMessage extends IMAPIProp {
     }
 
     /**
-     * 
      * @remarks
      * The **IMessage::GetAttachmentTable** method returns a pointer to the message's attachment table, which includes information about all of the attachments in the message. Clients can get access to an attachment only through the attachment table. By retrieving an attachment's number its **PR_ATTACH_NUM** ([PidTagAttachNumber](pidtagattachnumber-canonical-property.md)) property a client can use several of the **IMessage** methods to work with the attachment. 
      *   
@@ -105,12 +104,13 @@ export default struct IMessage extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imessage-openattach
      */
     OpenAttach(ulAttachmentNum, lpInterface, ulFlags) {
-        result := ComCall(15, this, UInt32, ulAttachmentNum, Guid.Ptr, lpInterface, UInt32, ulFlags, "ptr*", &lppAttach := 0, "HRESULT")
+        lpInterfaceMarshal := lpInterface == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(15, this, UInt32, ulAttachmentNum, lpInterfaceMarshal, lpInterface, UInt32, ulFlags, "ptr*", &lppAttach := 0, "HRESULT")
         return IAttach(lppAttach)
     }
 
     /**
-     * 
      * @remarks
      * The **IMessage::CreateAttach** method creates a new attachment on a message. The new attachment and any properties that are set for it, are not available until a client has called both the attachment's [IMAPIProp::SaveChanges](imapiprop-savechanges.md) method and the message's **IMAPIProp::SaveChanges** method. 
      *   
@@ -129,9 +129,10 @@ export default struct IMessage extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imessage-createattach
      */
     CreateAttach(lpInterface, ulFlags, lpulAttachmentNum, lppAttach) {
-        lpulAttachmentNumMarshal := lpulAttachmentNum is VarRef ? "uint*" : "ptr"
+        lpInterfaceMarshal := lpInterface == 0 ? IntPtr : Guid.Ptr
+        lpulAttachmentNumMarshal := lpulAttachmentNum is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(16, this, Guid.Ptr, lpInterface, UInt32, ulFlags, lpulAttachmentNumMarshal, lpulAttachmentNum, IAttach.Ptr, lppAttach, "HRESULT")
+        result := ComCall(16, this, lpInterfaceMarshal, lpInterface, UInt32, ulFlags, lpulAttachmentNumMarshal, lpulAttachmentNum, IAttach.Ptr, lppAttach, "HRESULT")
         return result
     }
 
@@ -155,12 +156,14 @@ export default struct IMessage extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imessage-deleteattach
      */
     DeleteAttach(ulAttachmentNum, ulUIParam, lpProgress, ulFlags) {
-        result := ComCall(17, this, UInt32, ulAttachmentNum, IntPtr, ulUIParam, "ptr", lpProgress, UInt32, ulFlags, "HRESULT")
+        ulUIParamMarshal := ulUIParam == 0 ? IntPtr : IntPtr
+        lpProgressMarshal := lpProgress == 0 ? IntPtr : "ptr"
+
+        result := ComCall(17, this, UInt32, ulAttachmentNum, ulUIParamMarshal, ulUIParam, lpProgressMarshal, lpProgress, UInt32, ulFlags, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @remarks
      * The **IMessage::GetRecipientTable** method returns a pointer to the message's recipient table, which includes information about all of the recipients for the message. There is one row for every recipient. 
      *   
@@ -195,7 +198,6 @@ export default struct IMessage extends IMAPIProp {
     }
 
     /**
-     * 
      * @remarks
      * The **IMessage::ModifyRecipients** method changes the message's recipient list. It is from this list, held in an [ADRLIST](adrlist.md) structure, that the recipient table is built. 
      *   
@@ -315,14 +317,14 @@ export default struct IMessage extends IMAPIProp {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAttachmentTable := CallbackCreate(GetMethod(implObj, "GetAttachmentTable"), flags, 3)
-        this.vtbl.OpenAttach := CallbackCreate(GetMethod(implObj, "OpenAttach"), flags, 5)
-        this.vtbl.CreateAttach := CallbackCreate(GetMethod(implObj, "CreateAttach"), flags, 5)
-        this.vtbl.DeleteAttach := CallbackCreate(GetMethod(implObj, "DeleteAttach"), flags, 5)
-        this.vtbl.GetRecipientTable := CallbackCreate(GetMethod(implObj, "GetRecipientTable"), flags, 3)
-        this.vtbl.ModifyRecipients := CallbackCreate(GetMethod(implObj, "ModifyRecipients"), flags, 3)
-        this.vtbl.SubmitMessage := CallbackCreate(GetMethod(implObj, "SubmitMessage"), flags, 2)
-        this.vtbl.SetReadFlag := CallbackCreate(GetMethod(implObj, "SetReadFlag"), flags, 2)
+        this.vtbl.GetAttachmentTable := CallbackCreate(ObjBindMethod(implObj, "GetAttachmentTable"), flags, 3)
+        this.vtbl.OpenAttach := CallbackCreate(ObjBindMethod(implObj, "OpenAttach"), flags, 5)
+        this.vtbl.CreateAttach := CallbackCreate(ObjBindMethod(implObj, "CreateAttach"), flags, 5)
+        this.vtbl.DeleteAttach := CallbackCreate(ObjBindMethod(implObj, "DeleteAttach"), flags, 5)
+        this.vtbl.GetRecipientTable := CallbackCreate(ObjBindMethod(implObj, "GetRecipientTable"), flags, 3)
+        this.vtbl.ModifyRecipients := CallbackCreate(ObjBindMethod(implObj, "ModifyRecipients"), flags, 3)
+        this.vtbl.SubmitMessage := CallbackCreate(ObjBindMethod(implObj, "SubmitMessage"), flags, 2)
+        this.vtbl.SetReadFlag := CallbackCreate(ObjBindMethod(implObj, "SetReadFlag"), flags, 2)
     }
 
     Dispose() {

@@ -96,7 +96,7 @@ export default struct IMFTrackedSample extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAllocator := CallbackCreate(GetMethod(implObj, "SetAllocator"), flags, 3)
+        this.vtbl.SetAllocator := CallbackCreate(ObjBindMethod(implObj, "SetAllocator"), flags, 3)
     }
 
     Dispose() {

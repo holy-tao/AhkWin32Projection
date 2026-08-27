@@ -110,11 +110,11 @@ export default struct IDvbLogicalChannelDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetCountOfRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRecords"), flags, 2)
-        this.vtbl.GetRecordServiceId := CallbackCreate(GetMethod(implObj, "GetRecordServiceId"), flags, 3)
-        this.vtbl.GetRecordLogicalChannelNumber := CallbackCreate(GetMethod(implObj, "GetRecordLogicalChannelNumber"), flags, 3)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetCountOfRecords := CallbackCreate(ObjBindMethod(implObj, "GetCountOfRecords"), flags, 2)
+        this.vtbl.GetRecordServiceId := CallbackCreate(ObjBindMethod(implObj, "GetRecordServiceId"), flags, 3)
+        this.vtbl.GetRecordLogicalChannelNumber := CallbackCreate(ObjBindMethod(implObj, "GetRecordLogicalChannelNumber"), flags, 3)
     }
 
     Dispose() {

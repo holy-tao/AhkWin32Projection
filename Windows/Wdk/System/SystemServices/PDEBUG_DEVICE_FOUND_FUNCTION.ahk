@@ -20,7 +20,6 @@ export default struct PDEBUG_DEVICE_FOUND_FUNCTION {
     }
 
     /**
-     * 
      * @param {Pointer<DEBUG_DEVICE_DESCRIPTOR>} Device 
      * @returns {KD_CALLBACK_ACTION} 
      */

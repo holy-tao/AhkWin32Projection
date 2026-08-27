@@ -38,7 +38,6 @@ export default struct IDirectSoundFXCompressor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DSFXCompressor>} pcDsFxCompressor 
      * @returns {HRESULT} 
      */
@@ -48,7 +47,6 @@ export default struct IDirectSoundFXCompressor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DSFXCompressor} 
      */
     GetAllParameters() {
@@ -66,8 +64,8 @@ export default struct IDirectSoundFXCompressor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAllParameters := CallbackCreate(GetMethod(implObj, "SetAllParameters"), flags, 2)
-        this.vtbl.GetAllParameters := CallbackCreate(GetMethod(implObj, "GetAllParameters"), flags, 2)
+        this.vtbl.SetAllParameters := CallbackCreate(ObjBindMethod(implObj, "SetAllParameters"), flags, 2)
+        this.vtbl.GetAllParameters := CallbackCreate(ObjBindMethod(implObj, "GetAllParameters"), flags, 2)
     }
 
     Dispose() {

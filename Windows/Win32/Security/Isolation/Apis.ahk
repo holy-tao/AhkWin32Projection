@@ -31,11 +31,14 @@
 export GetAppContainerNamedObjectPath(Token, AppContainerSid, ObjectPathLength, ObjectPath, ReturnLength) {
     ObjectPath := ObjectPath is String ? StrPtr(ObjectPath) : ObjectPath
 
-    ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
+    TokenMarshal := Token == 0 ? IntPtr : HANDLE
+    AppContainerSidMarshal := AppContainerSid == 0 ? IntPtr : PSID
+    ObjectPathMarshal := ObjectPath == 0 ? IntPtr : PWSTR
+    ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetAppContainerNamedObjectPath", HANDLE, Token, PSID, AppContainerSid, UInt32, ObjectPathLength, "ptr", ObjectPath, ReturnLengthMarshal, ReturnLength, BOOL)
+    result := DllCall("KERNEL32.dll\GetAppContainerNamedObjectPath", TokenMarshal, Token, AppContainerSidMarshal, AppContainerSid, UInt32, ObjectPathLength, ObjectPathMarshal, ObjectPath, ReturnLengthMarshal, ReturnLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -44,20 +47,18 @@ export GetAppContainerNamedObjectPath(Token, AppContainerSid, ObjectPathLength, 
 }
 
 /**
- * 
  * @param {Pointer<Void>} Reserved 
  * @returns {BOOL} 
  * @deprecated IsProcessInWDAGContainer is deprecated and might not work on all platforms. For more info, see MSDN.
  */
 export IsProcessInWDAGContainer(Reserved) {
-    ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
+    ReservedMarshal := Reserved is VarRef ? "ptr" : IntPtr
 
     result := DllCall("api-ms-win-security-isolatedcontainer-l1-1-1.dll\IsProcessInWDAGContainer", ReservedMarshal, Reserved, BOOL.Ptr, &isProcessInWDAGContainer := 0, "HRESULT")
     return isProcessInWDAGContainer
 }
 
 /**
- * 
  * @returns {BOOL} 
  * @deprecated IsProcessInIsolatedContainer is deprecated and might not work on all platforms. For more info, see MSDN.
  */
@@ -121,7 +122,9 @@ export CreateAppContainerProfile(pszAppContainerName, pszDisplayName, pszDescrip
     pszDisplayName := pszDisplayName is String ? StrPtr(pszDisplayName) : pszDisplayName
     pszDescription := pszDescription is String ? StrPtr(pszDescription) : pszDescription
 
-    result := DllCall("USERENV.dll\CreateAppContainerProfile", "ptr", pszAppContainerName, "ptr", pszDisplayName, "ptr", pszDescription, SID_AND_ATTRIBUTES.Ptr, pCapabilities, UInt32, dwCapabilityCount, PSID.Ptr, &ppSidAppContainerSid := 0, "HRESULT")
+    pCapabilitiesMarshal := pCapabilities == 0 ? IntPtr : SID_AND_ATTRIBUTES.Ptr
+
+    result := DllCall("USERENV.dll\CreateAppContainerProfile", "ptr", pszAppContainerName, "ptr", pszDisplayName, "ptr", pszDescription, pCapabilitiesMarshal, pCapabilities, UInt32, dwCapabilityCount, PSID.Ptr, &ppSidAppContainerSid := 0, "HRESULT")
     return ppSidAppContainerSid
 }
 

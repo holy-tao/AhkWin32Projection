@@ -116,10 +116,10 @@ export default struct IAppxEncryptionFactory3 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EncryptPackage := CallbackCreate(GetMethod(implObj, "EncryptPackage"), flags, 6)
-        this.vtbl.CreateEncryptedPackageWriter := CallbackCreate(GetMethod(implObj, "CreateEncryptedPackageWriter"), flags, 8)
-        this.vtbl.EncryptBundle := CallbackCreate(GetMethod(implObj, "EncryptBundle"), flags, 6)
-        this.vtbl.CreateEncryptedBundleWriter := CallbackCreate(GetMethod(implObj, "CreateEncryptedBundleWriter"), flags, 7)
+        this.vtbl.EncryptPackage := CallbackCreate(ObjBindMethod(implObj, "EncryptPackage"), flags, 6)
+        this.vtbl.CreateEncryptedPackageWriter := CallbackCreate(ObjBindMethod(implObj, "CreateEncryptedPackageWriter"), flags, 8)
+        this.vtbl.EncryptBundle := CallbackCreate(ObjBindMethod(implObj, "EncryptBundle"), flags, 6)
+        this.vtbl.CreateEncryptedBundleWriter := CallbackCreate(ObjBindMethod(implObj, "CreateEncryptedBundleWriter"), flags, 7)
     }
 
     Dispose() {

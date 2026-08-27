@@ -98,8 +98,8 @@ export default struct ICallInterceptor extends ICallIndirect {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterSink := CallbackCreate(GetMethod(implObj, "RegisterSink"), flags, 2)
-        this.vtbl.GetRegisteredSink := CallbackCreate(GetMethod(implObj, "GetRegisteredSink"), flags, 2)
+        this.vtbl.RegisterSink := CallbackCreate(ObjBindMethod(implObj, "RegisterSink"), flags, 2)
+        this.vtbl.GetRegisteredSink := CallbackCreate(ObjBindMethod(implObj, "GetRegisteredSink"), flags, 2)
     }
 
     Dispose() {

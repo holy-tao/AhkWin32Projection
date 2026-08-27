@@ -21,7 +21,6 @@ export default struct TIMERPROC {
     }
 
     /**
-     * 
      * @param {HWND} param0 
      * @param {Integer} param1 
      * @param {Pointer} param2 

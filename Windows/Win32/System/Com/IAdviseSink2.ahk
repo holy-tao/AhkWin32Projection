@@ -64,7 +64,7 @@ export default struct IAdviseSink2 extends IAdviseSink {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnLinkSrcChange := CallbackCreate(GetMethod(implObj, "OnLinkSrcChange"), flags, 2)
+        this.vtbl.OnLinkSrcChange := CallbackCreate(ObjBindMethod(implObj, "OnLinkSrcChange"), flags, 2)
     }
 
     Dispose() {

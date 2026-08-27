@@ -24,7 +24,6 @@ export default struct PFNDSCREATEISECINFOEX {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @param {PWSTR} param1 
      * @param {PWSTR} param2 

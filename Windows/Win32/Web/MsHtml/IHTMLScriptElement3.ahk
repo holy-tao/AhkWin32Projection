@@ -46,7 +46,6 @@ export default struct IHTMLScriptElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -58,7 +57,6 @@ export default struct IHTMLScriptElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_src() {
@@ -76,8 +74,8 @@ export default struct IHTMLScriptElement3 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_src := CallbackCreate(GetMethod(implObj, "put_src"), flags, 2)
-        this.vtbl.get_src := CallbackCreate(GetMethod(implObj, "get_src"), flags, 2)
+        this.vtbl.put_src := CallbackCreate(ObjBindMethod(implObj, "put_src"), flags, 2)
+        this.vtbl.get_src := CallbackCreate(ObjBindMethod(implObj, "get_src"), flags, 2)
     }
 
     Dispose() {

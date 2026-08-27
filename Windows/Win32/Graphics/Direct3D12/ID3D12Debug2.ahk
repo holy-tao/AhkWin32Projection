@@ -60,7 +60,7 @@ export default struct ID3D12Debug2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetGPUBasedValidationFlags := CallbackCreate(GetMethod(implObj, "SetGPUBasedValidationFlags"), flags, 2)
+        this.vtbl.SetGPUBasedValidationFlags := CallbackCreate(ObjBindMethod(implObj, "SetGPUBasedValidationFlags"), flags, 2)
     }
 
     Dispose() {

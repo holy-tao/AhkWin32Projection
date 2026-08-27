@@ -37,12 +37,13 @@ export default struct IFilterTrackingRequestCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISyncFilter} pFilter 
      * @returns {HRESULT} 
      */
     RequestTrackedFilter(pFilter) {
-        result := ComCall(3, this, "ptr", pFilter, "HRESULT")
+        pFilterMarshal := pFilter == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pFilterMarshal, pFilter, "HRESULT")
         return result
     }
 
@@ -55,7 +56,7 @@ export default struct IFilterTrackingRequestCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RequestTrackedFilter := CallbackCreate(GetMethod(implObj, "RequestTrackedFilter"), flags, 2)
+        this.vtbl.RequestTrackedFilter := CallbackCreate(ObjBindMethod(implObj, "RequestTrackedFilter"), flags, 2)
     }
 
     Dispose() {

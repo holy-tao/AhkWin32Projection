@@ -40,7 +40,6 @@ export default struct IDtcToXaHelper extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} i_fDoRecovery 
      * @returns {HRESULT} 
      */
@@ -50,14 +49,15 @@ export default struct IDtcToXaHelper extends IUnknown {
     }
 
     /**
-     * 
      * @param {ITransaction} pITransaction 
      * @param {Pointer<Guid>} pguidBqual 
      * @returns {XID} 
      */
     TranslateTridToXid(pITransaction, pguidBqual) {
+        pITransactionMarshal := pITransaction == 0 ? IntPtr : "ptr"
+
         pXid := XID()
-        result := ComCall(4, this, "ptr", pITransaction, Guid.Ptr, pguidBqual, XID.Ptr, pXid, "HRESULT")
+        result := ComCall(4, this, pITransactionMarshal, pITransaction, Guid.Ptr, pguidBqual, XID.Ptr, pXid, "HRESULT")
         return pXid
     }
 
@@ -70,8 +70,8 @@ export default struct IDtcToXaHelper extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 2)
-        this.vtbl.TranslateTridToXid := CallbackCreate(GetMethod(implObj, "TranslateTridToXid"), flags, 4)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 2)
+        this.vtbl.TranslateTridToXid := CallbackCreate(ObjBindMethod(implObj, "TranslateTridToXid"), flags, 4)
     }
 
     Dispose() {

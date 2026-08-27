@@ -144,7 +144,6 @@ export default struct IMSVidVideoRenderer2 extends IMSVidVideoRenderer {
     }
 
     /**
-     * 
      * @param {IVMRSurfaceAllocator} AllocPresent 
      * @param {Integer} ID 
      * @returns {HRESULT} 
@@ -212,13 +211,13 @@ export default struct IMSVidVideoRenderer2 extends IMSVidVideoRenderer {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Allocator := CallbackCreate(GetMethod(implObj, "get_Allocator"), flags, 2)
-        this.vtbl.get__Allocator := CallbackCreate(GetMethod(implObj, "get__Allocator"), flags, 2)
-        this.vtbl.get_Allocator_ID := CallbackCreate(GetMethod(implObj, "get_Allocator_ID"), flags, 2)
-        this.vtbl.SetAllocator := CallbackCreate(GetMethod(implObj, "SetAllocator"), flags, 3)
-        this.vtbl._SetAllocator2 := CallbackCreate(GetMethod(implObj, "_SetAllocator2"), flags, 3)
-        this.vtbl.put_SuppressEffects := CallbackCreate(GetMethod(implObj, "put_SuppressEffects"), flags, 2)
-        this.vtbl.get_SuppressEffects := CallbackCreate(GetMethod(implObj, "get_SuppressEffects"), flags, 2)
+        this.vtbl.get_Allocator := CallbackCreate(ObjBindMethod(implObj, "get_Allocator"), flags, 2)
+        this.vtbl.get__Allocator := CallbackCreate(ObjBindMethod(implObj, "get__Allocator"), flags, 2)
+        this.vtbl.get_Allocator_ID := CallbackCreate(ObjBindMethod(implObj, "get_Allocator_ID"), flags, 2)
+        this.vtbl.SetAllocator := CallbackCreate(ObjBindMethod(implObj, "SetAllocator"), flags, 3)
+        this.vtbl._SetAllocator2 := CallbackCreate(ObjBindMethod(implObj, "_SetAllocator2"), flags, 3)
+        this.vtbl.put_SuppressEffects := CallbackCreate(ObjBindMethod(implObj, "put_SuppressEffects"), flags, 2)
+        this.vtbl.get_SuppressEffects := CallbackCreate(ObjBindMethod(implObj, "get_SuppressEffects"), flags, 2)
     }
 
     Dispose() {

@@ -196,14 +196,14 @@ export default struct ISdoCollection extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 3)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
-        this.vtbl.RemoveAll := CallbackCreate(GetMethod(implObj, "RemoveAll"), flags, 1)
-        this.vtbl.Reload := CallbackCreate(GetMethod(implObj, "Reload"), flags, 1)
-        this.vtbl.IsNameUnique := CallbackCreate(GetMethod(implObj, "IsNameUnique"), flags, 3)
-        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 3)
-        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 3)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.RemoveAll := CallbackCreate(ObjBindMethod(implObj, "RemoveAll"), flags, 1)
+        this.vtbl.Reload := CallbackCreate(ObjBindMethod(implObj, "Reload"), flags, 1)
+        this.vtbl.IsNameUnique := CallbackCreate(ObjBindMethod(implObj, "IsNameUnique"), flags, 3)
+        this.vtbl.Item := CallbackCreate(ObjBindMethod(implObj, "Item"), flags, 3)
+        this.vtbl.get__NewEnum := CallbackCreate(ObjBindMethod(implObj, "get__NewEnum"), flags, 2)
     }
 
     Dispose() {

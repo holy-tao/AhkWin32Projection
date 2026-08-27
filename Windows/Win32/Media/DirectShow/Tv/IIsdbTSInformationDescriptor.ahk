@@ -141,14 +141,14 @@ export default struct IIsdbTSInformationDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetRemoteControlKeyId := CallbackCreate(GetMethod(implObj, "GetRemoteControlKeyId"), flags, 2)
-        this.vtbl.GetTSNameW := CallbackCreate(GetMethod(implObj, "GetTSNameW"), flags, 3)
-        this.vtbl.GetCountOfRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRecords"), flags, 2)
-        this.vtbl.GetRecordTransmissionTypeInfo := CallbackCreate(GetMethod(implObj, "GetRecordTransmissionTypeInfo"), flags, 3)
-        this.vtbl.GetRecordNumberOfServices := CallbackCreate(GetMethod(implObj, "GetRecordNumberOfServices"), flags, 3)
-        this.vtbl.GetRecordServiceIdByIndex := CallbackCreate(GetMethod(implObj, "GetRecordServiceIdByIndex"), flags, 4)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetRemoteControlKeyId := CallbackCreate(ObjBindMethod(implObj, "GetRemoteControlKeyId"), flags, 2)
+        this.vtbl.GetTSNameW := CallbackCreate(ObjBindMethod(implObj, "GetTSNameW"), flags, 3)
+        this.vtbl.GetCountOfRecords := CallbackCreate(ObjBindMethod(implObj, "GetCountOfRecords"), flags, 2)
+        this.vtbl.GetRecordTransmissionTypeInfo := CallbackCreate(ObjBindMethod(implObj, "GetRecordTransmissionTypeInfo"), flags, 3)
+        this.vtbl.GetRecordNumberOfServices := CallbackCreate(ObjBindMethod(implObj, "GetRecordNumberOfServices"), flags, 3)
+        this.vtbl.GetRecordServiceIdByIndex := CallbackCreate(ObjBindMethod(implObj, "GetRecordServiceIdByIndex"), flags, 4)
     }
 
     Dispose() {

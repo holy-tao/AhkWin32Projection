@@ -248,11 +248,11 @@ export default struct IXpsOMLinearGradientBrush extends IXpsOMGradientBrush {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStartPoint := CallbackCreate(GetMethod(implObj, "GetStartPoint"), flags, 2)
-        this.vtbl.SetStartPoint := CallbackCreate(GetMethod(implObj, "SetStartPoint"), flags, 2)
-        this.vtbl.GetEndPoint := CallbackCreate(GetMethod(implObj, "GetEndPoint"), flags, 2)
-        this.vtbl.SetEndPoint := CallbackCreate(GetMethod(implObj, "SetEndPoint"), flags, 2)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.GetStartPoint := CallbackCreate(ObjBindMethod(implObj, "GetStartPoint"), flags, 2)
+        this.vtbl.SetStartPoint := CallbackCreate(ObjBindMethod(implObj, "SetStartPoint"), flags, 2)
+        this.vtbl.GetEndPoint := CallbackCreate(ObjBindMethod(implObj, "GetEndPoint"), flags, 2)
+        this.vtbl.SetEndPoint := CallbackCreate(ObjBindMethod(implObj, "SetEndPoint"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
     }
 
     Dispose() {

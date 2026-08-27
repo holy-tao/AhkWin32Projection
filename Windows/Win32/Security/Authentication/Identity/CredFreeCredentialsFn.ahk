@@ -25,13 +25,13 @@ export default struct CredFreeCredentialsFn {
     }
 
     /**
-     * 
      * @param {Integer} Count The number of elements in the <i>Credentials</i> array.
      * @param {Pointer<Pointer<ENCRYPTED_CREDENTIALW>>} Credentials A pointer to a pointer that, on input, points to an array of  <a href="https://docs.microsoft.com/windows/desktop/api/ntsecpkg/ns-ntsecpkg-encrypted_credentialw">ENCRYPTED_CREDENTIALW</a> structures to be freed.
      * @returns {String} Nothing - always returns an empty string
      */
     Call(Count, Credentials) {
-        CredentialsMarshal := Credentials is VarRef ? "ptr*" : "ptr"
+        CredentialsMarshal := Credentials is VarRef ? "ptr*" : IntPtr
+        CredentialsMarshal := Credentials == 0 ? IntPtr : "ptr*"
 
         DllCall(this.value, UInt32, Count, CredentialsMarshal, Credentials)
     }

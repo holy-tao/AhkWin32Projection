@@ -172,7 +172,6 @@ export default struct IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ADsType() {
@@ -181,7 +180,6 @@ export default struct IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnADsType 
      * @returns {HRESULT} 
      */
@@ -191,7 +189,6 @@ export default struct IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DNString() {
@@ -201,7 +198,6 @@ export default struct IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDNString 
      * @returns {HRESULT} 
      */
@@ -213,7 +209,6 @@ export default struct IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_CaseExactString() {
@@ -223,7 +218,6 @@ export default struct IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrCaseExactString 
      * @returns {HRESULT} 
      */
@@ -235,7 +229,6 @@ export default struct IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_CaseIgnoreString() {
@@ -245,7 +238,6 @@ export default struct IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrCaseIgnoreString 
      * @returns {HRESULT} 
      */
@@ -257,7 +249,6 @@ export default struct IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PrintableString() {
@@ -267,7 +258,6 @@ export default struct IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPrintableString 
      * @returns {HRESULT} 
      */
@@ -279,7 +269,6 @@ export default struct IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_NumericString() {
@@ -289,7 +278,6 @@ export default struct IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrNumericString 
      * @returns {HRESULT} 
      */
@@ -301,7 +289,6 @@ export default struct IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Boolean() {
@@ -310,7 +297,6 @@ export default struct IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnBoolean 
      * @returns {HRESULT} 
      */
@@ -320,7 +306,6 @@ export default struct IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Integer() {
@@ -329,7 +314,6 @@ export default struct IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnInteger 
      * @returns {HRESULT} 
      */
@@ -339,7 +323,6 @@ export default struct IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_OctetString() {
@@ -349,7 +332,6 @@ export default struct IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} vOctetString 
      * @returns {HRESULT} 
      */
@@ -359,7 +341,6 @@ export default struct IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_SecurityDescriptor() {
@@ -368,17 +349,17 @@ export default struct IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} pSecurityDescriptor 
      * @returns {HRESULT} 
      */
     put_SecurityDescriptor(pSecurityDescriptor) {
-        result := ComCall(27, this, "ptr", pSecurityDescriptor, "HRESULT")
+        pSecurityDescriptorMarshal := pSecurityDescriptor == 0 ? IntPtr : "ptr"
+
+        result := ComCall(27, this, pSecurityDescriptorMarshal, pSecurityDescriptor, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_LargeInteger() {
@@ -387,17 +368,17 @@ export default struct IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} pLargeInteger 
      * @returns {HRESULT} 
      */
     put_LargeInteger(pLargeInteger) {
-        result := ComCall(29, this, "ptr", pLargeInteger, "HRESULT")
+        pLargeIntegerMarshal := pLargeInteger == 0 ? IntPtr : "ptr"
+
+        result := ComCall(29, this, pLargeIntegerMarshal, pLargeInteger, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_UTCTime() {
@@ -406,7 +387,6 @@ export default struct IADsPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} daUTCTime 
      * @returns {HRESULT} 
      */
@@ -424,31 +404,31 @@ export default struct IADsPropertyValue extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
-        this.vtbl.get_ADsType := CallbackCreate(GetMethod(implObj, "get_ADsType"), flags, 2)
-        this.vtbl.put_ADsType := CallbackCreate(GetMethod(implObj, "put_ADsType"), flags, 2)
-        this.vtbl.get_DNString := CallbackCreate(GetMethod(implObj, "get_DNString"), flags, 2)
-        this.vtbl.put_DNString := CallbackCreate(GetMethod(implObj, "put_DNString"), flags, 2)
-        this.vtbl.get_CaseExactString := CallbackCreate(GetMethod(implObj, "get_CaseExactString"), flags, 2)
-        this.vtbl.put_CaseExactString := CallbackCreate(GetMethod(implObj, "put_CaseExactString"), flags, 2)
-        this.vtbl.get_CaseIgnoreString := CallbackCreate(GetMethod(implObj, "get_CaseIgnoreString"), flags, 2)
-        this.vtbl.put_CaseIgnoreString := CallbackCreate(GetMethod(implObj, "put_CaseIgnoreString"), flags, 2)
-        this.vtbl.get_PrintableString := CallbackCreate(GetMethod(implObj, "get_PrintableString"), flags, 2)
-        this.vtbl.put_PrintableString := CallbackCreate(GetMethod(implObj, "put_PrintableString"), flags, 2)
-        this.vtbl.get_NumericString := CallbackCreate(GetMethod(implObj, "get_NumericString"), flags, 2)
-        this.vtbl.put_NumericString := CallbackCreate(GetMethod(implObj, "put_NumericString"), flags, 2)
-        this.vtbl.get_Boolean := CallbackCreate(GetMethod(implObj, "get_Boolean"), flags, 2)
-        this.vtbl.put_Boolean := CallbackCreate(GetMethod(implObj, "put_Boolean"), flags, 2)
-        this.vtbl.get_Integer := CallbackCreate(GetMethod(implObj, "get_Integer"), flags, 2)
-        this.vtbl.put_Integer := CallbackCreate(GetMethod(implObj, "put_Integer"), flags, 2)
-        this.vtbl.get_OctetString := CallbackCreate(GetMethod(implObj, "get_OctetString"), flags, 2)
-        this.vtbl.put_OctetString := CallbackCreate(GetMethod(implObj, "put_OctetString"), flags, 2)
-        this.vtbl.get_SecurityDescriptor := CallbackCreate(GetMethod(implObj, "get_SecurityDescriptor"), flags, 2)
-        this.vtbl.put_SecurityDescriptor := CallbackCreate(GetMethod(implObj, "put_SecurityDescriptor"), flags, 2)
-        this.vtbl.get_LargeInteger := CallbackCreate(GetMethod(implObj, "get_LargeInteger"), flags, 2)
-        this.vtbl.put_LargeInteger := CallbackCreate(GetMethod(implObj, "put_LargeInteger"), flags, 2)
-        this.vtbl.get_UTCTime := CallbackCreate(GetMethod(implObj, "get_UTCTime"), flags, 2)
-        this.vtbl.put_UTCTime := CallbackCreate(GetMethod(implObj, "put_UTCTime"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.get_ADsType := CallbackCreate(ObjBindMethod(implObj, "get_ADsType"), flags, 2)
+        this.vtbl.put_ADsType := CallbackCreate(ObjBindMethod(implObj, "put_ADsType"), flags, 2)
+        this.vtbl.get_DNString := CallbackCreate(ObjBindMethod(implObj, "get_DNString"), flags, 2)
+        this.vtbl.put_DNString := CallbackCreate(ObjBindMethod(implObj, "put_DNString"), flags, 2)
+        this.vtbl.get_CaseExactString := CallbackCreate(ObjBindMethod(implObj, "get_CaseExactString"), flags, 2)
+        this.vtbl.put_CaseExactString := CallbackCreate(ObjBindMethod(implObj, "put_CaseExactString"), flags, 2)
+        this.vtbl.get_CaseIgnoreString := CallbackCreate(ObjBindMethod(implObj, "get_CaseIgnoreString"), flags, 2)
+        this.vtbl.put_CaseIgnoreString := CallbackCreate(ObjBindMethod(implObj, "put_CaseIgnoreString"), flags, 2)
+        this.vtbl.get_PrintableString := CallbackCreate(ObjBindMethod(implObj, "get_PrintableString"), flags, 2)
+        this.vtbl.put_PrintableString := CallbackCreate(ObjBindMethod(implObj, "put_PrintableString"), flags, 2)
+        this.vtbl.get_NumericString := CallbackCreate(ObjBindMethod(implObj, "get_NumericString"), flags, 2)
+        this.vtbl.put_NumericString := CallbackCreate(ObjBindMethod(implObj, "put_NumericString"), flags, 2)
+        this.vtbl.get_Boolean := CallbackCreate(ObjBindMethod(implObj, "get_Boolean"), flags, 2)
+        this.vtbl.put_Boolean := CallbackCreate(ObjBindMethod(implObj, "put_Boolean"), flags, 2)
+        this.vtbl.get_Integer := CallbackCreate(ObjBindMethod(implObj, "get_Integer"), flags, 2)
+        this.vtbl.put_Integer := CallbackCreate(ObjBindMethod(implObj, "put_Integer"), flags, 2)
+        this.vtbl.get_OctetString := CallbackCreate(ObjBindMethod(implObj, "get_OctetString"), flags, 2)
+        this.vtbl.put_OctetString := CallbackCreate(ObjBindMethod(implObj, "put_OctetString"), flags, 2)
+        this.vtbl.get_SecurityDescriptor := CallbackCreate(ObjBindMethod(implObj, "get_SecurityDescriptor"), flags, 2)
+        this.vtbl.put_SecurityDescriptor := CallbackCreate(ObjBindMethod(implObj, "put_SecurityDescriptor"), flags, 2)
+        this.vtbl.get_LargeInteger := CallbackCreate(ObjBindMethod(implObj, "get_LargeInteger"), flags, 2)
+        this.vtbl.put_LargeInteger := CallbackCreate(ObjBindMethod(implObj, "put_LargeInteger"), flags, 2)
+        this.vtbl.get_UTCTime := CallbackCreate(ObjBindMethod(implObj, "get_UTCTime"), flags, 2)
+        this.vtbl.put_UTCTime := CallbackCreate(ObjBindMethod(implObj, "put_UTCTime"), flags, 2)
     }
 
     Dispose() {

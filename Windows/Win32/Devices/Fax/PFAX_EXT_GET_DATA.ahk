@@ -20,7 +20,6 @@ export default struct PFAX_EXT_GET_DATA {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {FAX_ENUM_DEVICE_ID_SOURCE} param1 
      * @param {PWSTR} param2 
@@ -31,8 +30,8 @@ export default struct PFAX_EXT_GET_DATA {
     Call(param0, param1, param2, param3, param4) {
         param2 := param2 is String ? StrPtr(param2) : param2
 
-        param3Marshal := param3 is VarRef ? "ptr*" : "ptr"
-        param4Marshal := param4 is VarRef ? "uint*" : "ptr"
+        param3Marshal := param3 is VarRef ? "ptr*" : IntPtr
+        param4Marshal := param4 is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, UInt32, param0, FAX_ENUM_DEVICE_ID_SOURCE, param1, "ptr", param2, param3Marshal, param3, param4Marshal, param4, UInt32)
         return result

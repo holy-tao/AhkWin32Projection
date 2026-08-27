@@ -21,7 +21,6 @@ export default struct MI_ProviderFT_EnumerateInstances {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} self 
      * @param {Pointer<MI_Context>} _context 
      * @param {Pointer<Integer>} nameSpace 
@@ -32,11 +31,14 @@ export default struct MI_ProviderFT_EnumerateInstances {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(self, _context, nameSpace, className, propertySet, keysOnly, filter) {
-        selfMarshal := self is VarRef ? "ptr" : "ptr"
-        nameSpaceMarshal := nameSpace is VarRef ? "ushort*" : "ptr"
-        classNameMarshal := className is VarRef ? "ushort*" : "ptr"
+        selfMarshal := self is VarRef ? "ptr" : IntPtr
+        selfMarshal := self == 0 ? IntPtr : "ptr"
+        nameSpaceMarshal := nameSpace is VarRef ? "ushort*" : IntPtr
+        classNameMarshal := className is VarRef ? "ushort*" : IntPtr
+        propertySetMarshal := propertySet == 0 ? IntPtr : MI_PropertySet.Ptr
+        filterMarshal := filter == 0 ? IntPtr : MI_Filter.Ptr
 
-        DllCall(this.value, selfMarshal, self, MI_Context.Ptr, _context, nameSpaceMarshal, nameSpace, classNameMarshal, className, MI_PropertySet.Ptr, propertySet, Int8, keysOnly, MI_Filter.Ptr, filter)
+        DllCall(this.value, selfMarshal, self, MI_Context.Ptr, _context, nameSpaceMarshal, nameSpace, classNameMarshal, className, propertySetMarshal, propertySet, Int8, keysOnly, filterMarshal, filter)
     }
 
     /**

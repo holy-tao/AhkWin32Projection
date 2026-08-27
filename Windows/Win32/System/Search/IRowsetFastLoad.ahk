@@ -39,20 +39,18 @@ export default struct IRowsetFastLoad extends IUnknown {
     }
 
     /**
-     * 
      * @param {HACCESSOR} _hAccessor 
      * @param {Pointer<Void>} pData 
      * @returns {HRESULT} 
      */
     InsertRow(_hAccessor, pData) {
-        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+        pDataMarshal := pData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, HACCESSOR, _hAccessor, pDataMarshal, pData, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {BOOL} fDone 
      * @returns {HRESULT} 
      */
@@ -70,8 +68,8 @@ export default struct IRowsetFastLoad extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InsertRow := CallbackCreate(GetMethod(implObj, "InsertRow"), flags, 3)
-        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 2)
+        this.vtbl.InsertRow := CallbackCreate(ObjBindMethod(implObj, "InsertRow"), flags, 3)
+        this.vtbl.Commit := CallbackCreate(ObjBindMethod(implObj, "Commit"), flags, 2)
     }
 
     Dispose() {

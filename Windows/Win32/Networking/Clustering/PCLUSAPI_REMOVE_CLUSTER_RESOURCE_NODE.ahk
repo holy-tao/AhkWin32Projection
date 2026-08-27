@@ -20,7 +20,6 @@ export default struct PCLUSAPI_REMOVE_CLUSTER_RESOURCE_NODE {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {HNODE} _hNode 
      * @returns {Integer} 

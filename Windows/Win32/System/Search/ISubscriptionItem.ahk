@@ -46,7 +46,6 @@ export default struct ISubscriptionItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     GetCookie() {
@@ -56,7 +55,6 @@ export default struct ISubscriptionItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {SUBSCRIPTIONITEMINFO} 
      */
     GetSubscriptionItemInfo() {
@@ -66,7 +64,6 @@ export default struct ISubscriptionItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SUBSCRIPTIONITEMINFO>} pSubscriptionItemInfo 
      * @returns {HRESULT} 
      */
@@ -76,13 +73,12 @@ export default struct ISubscriptionItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nCount 
      * @param {Pointer<PWSTR>} rgwszName 
      * @returns {VARIANT} 
      */
     ReadProperties(nCount, rgwszName) {
-        rgwszNameMarshal := rgwszName is VarRef ? "ptr*" : "ptr"
+        rgwszNameMarshal := rgwszName is VarRef ? "ptr*" : IntPtr
 
         rgValue := VARIANT()
         result := ComCall(6, this, UInt32, nCount, rgwszNameMarshal, rgwszName, VARIANT.Ptr, rgValue, "HRESULT")
@@ -90,21 +86,19 @@ export default struct ISubscriptionItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nCount 
      * @param {Pointer<PWSTR>} rgwszName 
      * @param {Pointer<VARIANT>} rgValue 
      * @returns {HRESULT} 
      */
     WriteProperties(nCount, rgwszName, rgValue) {
-        rgwszNameMarshal := rgwszName is VarRef ? "ptr*" : "ptr"
+        rgwszNameMarshal := rgwszName is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(7, this, UInt32, nCount, rgwszNameMarshal, rgwszName, VARIANT.Ptr, rgValue, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {IEnumItemProperties} 
      */
     EnumProperties() {
@@ -113,7 +107,6 @@ export default struct ISubscriptionItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     NotifyChanged() {
@@ -130,13 +123,13 @@ export default struct ISubscriptionItem extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCookie := CallbackCreate(GetMethod(implObj, "GetCookie"), flags, 2)
-        this.vtbl.GetSubscriptionItemInfo := CallbackCreate(GetMethod(implObj, "GetSubscriptionItemInfo"), flags, 2)
-        this.vtbl.SetSubscriptionItemInfo := CallbackCreate(GetMethod(implObj, "SetSubscriptionItemInfo"), flags, 2)
-        this.vtbl.ReadProperties := CallbackCreate(GetMethod(implObj, "ReadProperties"), flags, 4)
-        this.vtbl.WriteProperties := CallbackCreate(GetMethod(implObj, "WriteProperties"), flags, 4)
-        this.vtbl.EnumProperties := CallbackCreate(GetMethod(implObj, "EnumProperties"), flags, 2)
-        this.vtbl.NotifyChanged := CallbackCreate(GetMethod(implObj, "NotifyChanged"), flags, 1)
+        this.vtbl.GetCookie := CallbackCreate(ObjBindMethod(implObj, "GetCookie"), flags, 2)
+        this.vtbl.GetSubscriptionItemInfo := CallbackCreate(ObjBindMethod(implObj, "GetSubscriptionItemInfo"), flags, 2)
+        this.vtbl.SetSubscriptionItemInfo := CallbackCreate(ObjBindMethod(implObj, "SetSubscriptionItemInfo"), flags, 2)
+        this.vtbl.ReadProperties := CallbackCreate(ObjBindMethod(implObj, "ReadProperties"), flags, 4)
+        this.vtbl.WriteProperties := CallbackCreate(ObjBindMethod(implObj, "WriteProperties"), flags, 4)
+        this.vtbl.EnumProperties := CallbackCreate(ObjBindMethod(implObj, "EnumProperties"), flags, 2)
+        this.vtbl.NotifyChanged := CallbackCreate(ObjBindMethod(implObj, "NotifyChanged"), flags, 1)
     }
 
     Dispose() {

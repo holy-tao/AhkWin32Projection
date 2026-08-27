@@ -171,9 +171,9 @@ export default struct INetFwServiceRestriction extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RestrictService := CallbackCreate(GetMethod(implObj, "RestrictService"), flags, 5)
-        this.vtbl.ServiceRestricted := CallbackCreate(GetMethod(implObj, "ServiceRestricted"), flags, 4)
-        this.vtbl.get_Rules := CallbackCreate(GetMethod(implObj, "get_Rules"), flags, 2)
+        this.vtbl.RestrictService := CallbackCreate(ObjBindMethod(implObj, "RestrictService"), flags, 5)
+        this.vtbl.ServiceRestricted := CallbackCreate(ObjBindMethod(implObj, "ServiceRestricted"), flags, 4)
+        this.vtbl.get_Rules := CallbackCreate(ObjBindMethod(implObj, "get_Rules"), flags, 2)
     }
 
     Dispose() {

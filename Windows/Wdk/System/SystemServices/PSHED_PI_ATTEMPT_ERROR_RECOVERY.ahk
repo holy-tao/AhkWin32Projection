@@ -19,14 +19,14 @@ export default struct PSHED_PI_ATTEMPT_ERROR_RECOVERY {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} PluginContext 
      * @param {Integer} BufferLength 
      * @param {Integer} ErrorRecord 
      * @returns {NTSTATUS} 
      */
     Call(PluginContext, BufferLength, ErrorRecord) {
-        PluginContextMarshal := PluginContext is VarRef ? "ptr" : "ptr"
+        PluginContextMarshal := PluginContext is VarRef ? "ptr" : IntPtr
+        PluginContextMarshal := PluginContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, PluginContextMarshal, PluginContext, UInt32, BufferLength, IntPtr, ErrorRecord, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

@@ -58,7 +58,6 @@ export default struct IOpenServiceActivityOutputContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzUri 
      * @param {PWSTR} pwzMethod 
      * @param {PWSTR} pwzHeaders 
@@ -83,8 +82,8 @@ export default struct IOpenServiceActivityOutputContext extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Navigate := CallbackCreate(GetMethod(implObj, "Navigate"), flags, 5)
-        this.vtbl.CanNavigate := CallbackCreate(GetMethod(implObj, "CanNavigate"), flags, 6)
+        this.vtbl.Navigate := CallbackCreate(ObjBindMethod(implObj, "Navigate"), flags, 5)
+        this.vtbl.CanNavigate := CallbackCreate(ObjBindMethod(implObj, "CanNavigate"), flags, 6)
     }
 
     Dispose() {

@@ -18,13 +18,13 @@ export default struct DNS_PROXY_COMPLETION_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} completionContext 
      * @param {Integer} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(completionContext, _status) {
-        completionContextMarshal := completionContext is VarRef ? "ptr" : "ptr"
+        completionContextMarshal := completionContext is VarRef ? "ptr" : IntPtr
+        completionContextMarshal := completionContext == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, completionContextMarshal, completionContext, Int32, _status)
     }

@@ -64,7 +64,7 @@ export default struct IScrollItemProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ScrollIntoView := CallbackCreate(GetMethod(implObj, "ScrollIntoView"), flags, 1)
+        this.vtbl.ScrollIntoView := CallbackCreate(ObjBindMethod(implObj, "ScrollIntoView"), flags, 1)
     }
 
     Dispose() {

@@ -39,7 +39,6 @@ export default struct IExtensionServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzAdditionalHeaders 
      * @returns {HRESULT} 
      */
@@ -51,7 +50,6 @@ export default struct IExtensionServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} phwnd 
      * @param {PWSTR} pwzUsername 
      * @param {PWSTR} pwzPassword 
@@ -74,8 +72,8 @@ export default struct IExtensionServices extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAdditionalHeaders := CallbackCreate(GetMethod(implObj, "SetAdditionalHeaders"), flags, 2)
-        this.vtbl.SetAuthenticateData := CallbackCreate(GetMethod(implObj, "SetAuthenticateData"), flags, 4)
+        this.vtbl.SetAdditionalHeaders := CallbackCreate(ObjBindMethod(implObj, "SetAdditionalHeaders"), flags, 2)
+        this.vtbl.SetAuthenticateData := CallbackCreate(ObjBindMethod(implObj, "SetAuthenticateData"), flags, 4)
     }
 
     Dispose() {

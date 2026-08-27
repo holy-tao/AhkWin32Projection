@@ -59,7 +59,6 @@ export default struct IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetId() {
@@ -68,21 +67,19 @@ export default struct IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} BreakType 
      * @param {Pointer<Integer>} ProcType 
      * @returns {HRESULT} 
      */
     GetType(BreakType, ProcType) {
-        BreakTypeMarshal := BreakType is VarRef ? "uint*" : "ptr"
-        ProcTypeMarshal := ProcType is VarRef ? "uint*" : "ptr"
+        BreakTypeMarshal := BreakType is VarRef ? "uint*" : IntPtr
+        ProcTypeMarshal := ProcType is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, BreakTypeMarshal, BreakType, ProcTypeMarshal, ProcType, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {IDebugClient} 
      */
     GetAdder() {
@@ -91,7 +88,6 @@ export default struct IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetFlags() {
@@ -100,7 +96,6 @@ export default struct IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @returns {HRESULT} 
      */
@@ -110,7 +105,6 @@ export default struct IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @returns {HRESULT} 
      */
@@ -212,7 +206,6 @@ export default struct IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetOffset() {
@@ -221,7 +214,6 @@ export default struct IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @returns {HRESULT} 
      */
@@ -231,21 +223,19 @@ export default struct IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} _Size 
      * @param {Pointer<Integer>} AccessType 
      * @returns {HRESULT} 
      */
     GetDataParameters(_Size, AccessType) {
-        _SizeMarshal := _Size is VarRef ? "uint*" : "ptr"
-        AccessTypeMarshal := AccessType is VarRef ? "uint*" : "ptr"
+        _SizeMarshal := _Size is VarRef ? "uint*" : IntPtr
+        AccessTypeMarshal := AccessType is VarRef ? "uint*" : IntPtr
 
         result := ComCall(12, this, _SizeMarshal, _Size, AccessTypeMarshal, AccessType, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} _Size 
      * @param {Integer} AccessType 
      * @returns {HRESULT} 
@@ -256,7 +246,6 @@ export default struct IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetPassCount() {
@@ -265,7 +254,6 @@ export default struct IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Count 
      * @returns {HRESULT} 
      */
@@ -275,7 +263,6 @@ export default struct IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentPassCount() {
@@ -284,7 +271,6 @@ export default struct IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMatchThreadId() {
@@ -293,7 +279,6 @@ export default struct IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Thread 
      * @returns {HRESULT} 
      */
@@ -303,7 +288,6 @@ export default struct IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -311,12 +295,13 @@ export default struct IDebugBreakpoint extends IUnknown {
     GetCommand(_Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(19, this, "ptr", _Buffer, UInt32, BufferSize, "uint*", &CommandSize := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PSTR
+
+        result := ComCall(19, this, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &CommandSize := 0, "HRESULT")
         return CommandSize
     }
 
     /**
-     * 
      * @param {PSTR} Command 
      * @returns {HRESULT} 
      */
@@ -328,7 +313,6 @@ export default struct IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -336,12 +320,13 @@ export default struct IDebugBreakpoint extends IUnknown {
     GetOffsetExpression(_Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(21, this, "ptr", _Buffer, UInt32, BufferSize, "uint*", &ExpressionSize := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PSTR
+
+        result := ComCall(21, this, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &ExpressionSize := 0, "HRESULT")
         return ExpressionSize
     }
 
     /**
-     * 
      * @param {PSTR} Expression 
      * @returns {HRESULT} 
      */
@@ -353,7 +338,6 @@ export default struct IDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DEBUG_BREAKPOINT_PARAMETERS} 
      */
     GetParameters() {
@@ -371,27 +355,27 @@ export default struct IDebugBreakpoint extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetId := CallbackCreate(GetMethod(implObj, "GetId"), flags, 2)
-        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 3)
-        this.vtbl.GetAdder := CallbackCreate(GetMethod(implObj, "GetAdder"), flags, 2)
-        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
-        this.vtbl.AddFlags := CallbackCreate(GetMethod(implObj, "AddFlags"), flags, 2)
-        this.vtbl.RemoveFlags := CallbackCreate(GetMethod(implObj, "RemoveFlags"), flags, 2)
-        this.vtbl.SetFlags := CallbackCreate(GetMethod(implObj, "SetFlags"), flags, 2)
-        this.vtbl.GetOffset := CallbackCreate(GetMethod(implObj, "GetOffset"), flags, 2)
-        this.vtbl.SetOffset := CallbackCreate(GetMethod(implObj, "SetOffset"), flags, 2)
-        this.vtbl.GetDataParameters := CallbackCreate(GetMethod(implObj, "GetDataParameters"), flags, 3)
-        this.vtbl.SetDataParameters := CallbackCreate(GetMethod(implObj, "SetDataParameters"), flags, 3)
-        this.vtbl.GetPassCount := CallbackCreate(GetMethod(implObj, "GetPassCount"), flags, 2)
-        this.vtbl.SetPassCount := CallbackCreate(GetMethod(implObj, "SetPassCount"), flags, 2)
-        this.vtbl.GetCurrentPassCount := CallbackCreate(GetMethod(implObj, "GetCurrentPassCount"), flags, 2)
-        this.vtbl.GetMatchThreadId := CallbackCreate(GetMethod(implObj, "GetMatchThreadId"), flags, 2)
-        this.vtbl.SetMatchThreadId := CallbackCreate(GetMethod(implObj, "SetMatchThreadId"), flags, 2)
-        this.vtbl.GetCommand := CallbackCreate(GetMethod(implObj, "GetCommand"), flags, 4)
-        this.vtbl.SetCommand := CallbackCreate(GetMethod(implObj, "SetCommand"), flags, 2)
-        this.vtbl.GetOffsetExpression := CallbackCreate(GetMethod(implObj, "GetOffsetExpression"), flags, 4)
-        this.vtbl.SetOffsetExpression := CallbackCreate(GetMethod(implObj, "SetOffsetExpression"), flags, 2)
-        this.vtbl.GetParameters := CallbackCreate(GetMethod(implObj, "GetParameters"), flags, 2)
+        this.vtbl.GetId := CallbackCreate(ObjBindMethod(implObj, "GetId"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(ObjBindMethod(implObj, "GetType"), flags, 3)
+        this.vtbl.GetAdder := CallbackCreate(ObjBindMethod(implObj, "GetAdder"), flags, 2)
+        this.vtbl.GetFlags := CallbackCreate(ObjBindMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.AddFlags := CallbackCreate(ObjBindMethod(implObj, "AddFlags"), flags, 2)
+        this.vtbl.RemoveFlags := CallbackCreate(ObjBindMethod(implObj, "RemoveFlags"), flags, 2)
+        this.vtbl.SetFlags := CallbackCreate(ObjBindMethod(implObj, "SetFlags"), flags, 2)
+        this.vtbl.GetOffset := CallbackCreate(ObjBindMethod(implObj, "GetOffset"), flags, 2)
+        this.vtbl.SetOffset := CallbackCreate(ObjBindMethod(implObj, "SetOffset"), flags, 2)
+        this.vtbl.GetDataParameters := CallbackCreate(ObjBindMethod(implObj, "GetDataParameters"), flags, 3)
+        this.vtbl.SetDataParameters := CallbackCreate(ObjBindMethod(implObj, "SetDataParameters"), flags, 3)
+        this.vtbl.GetPassCount := CallbackCreate(ObjBindMethod(implObj, "GetPassCount"), flags, 2)
+        this.vtbl.SetPassCount := CallbackCreate(ObjBindMethod(implObj, "SetPassCount"), flags, 2)
+        this.vtbl.GetCurrentPassCount := CallbackCreate(ObjBindMethod(implObj, "GetCurrentPassCount"), flags, 2)
+        this.vtbl.GetMatchThreadId := CallbackCreate(ObjBindMethod(implObj, "GetMatchThreadId"), flags, 2)
+        this.vtbl.SetMatchThreadId := CallbackCreate(ObjBindMethod(implObj, "SetMatchThreadId"), flags, 2)
+        this.vtbl.GetCommand := CallbackCreate(ObjBindMethod(implObj, "GetCommand"), flags, 4)
+        this.vtbl.SetCommand := CallbackCreate(ObjBindMethod(implObj, "SetCommand"), flags, 2)
+        this.vtbl.GetOffsetExpression := CallbackCreate(ObjBindMethod(implObj, "GetOffsetExpression"), flags, 4)
+        this.vtbl.SetOffsetExpression := CallbackCreate(ObjBindMethod(implObj, "SetOffsetExpression"), flags, 2)
+        this.vtbl.GetParameters := CallbackCreate(ObjBindMethod(implObj, "GetParameters"), flags, 2)
     }
 
     Dispose() {

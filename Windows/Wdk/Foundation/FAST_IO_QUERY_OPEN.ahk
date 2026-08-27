@@ -22,7 +22,6 @@ export default struct FAST_IO_QUERY_OPEN {
     }
 
     /**
-     * 
      * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<FILE_NETWORK_OPEN_INFORMATION>} NetworkInformation 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 

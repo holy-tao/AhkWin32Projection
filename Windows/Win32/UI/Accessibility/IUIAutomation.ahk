@@ -746,7 +746,7 @@ export default struct IUIAutomation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-addpropertychangedeventhandlernativearray
      */
     AddPropertyChangedEventHandlerNativeArray(element, scope, cacheRequest, handler, propertyArray, propertyCount) {
-        propertyArrayMarshal := propertyArray is VarRef ? "int*" : "ptr"
+        propertyArrayMarshal := propertyArray is VarRef ? "int*" : IntPtr
 
         result := ComCall(34, this, "ptr", element, TreeScope, scope, "ptr", cacheRequest, "ptr", handler, propertyArrayMarshal, propertyArray, Int32, propertyCount, "HRESULT")
         return result
@@ -941,7 +941,7 @@ export default struct IUIAutomation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-intnativearraytosafearray
      */
     IntNativeArrayToSafeArray(_array, arrayCount) {
-        _arrayMarshal := _array is VarRef ? "int*" : "ptr"
+        _arrayMarshal := _array is VarRef ? "int*" : IntPtr
 
         result := ComCall(42, this, _arrayMarshal, _array, Int32, arrayCount, "ptr*", &_safeArray := 0, "HRESULT")
         return _safeArray
@@ -961,7 +961,7 @@ export default struct IUIAutomation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-intsafearraytonativearray
      */
     IntSafeArrayToNativeArray(intArray, _array) {
-        _arrayMarshal := _array is VarRef ? "ptr*" : "ptr"
+        _arrayMarshal := _array is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(43, this, SAFEARRAY.Ptr, intArray, _arrayMarshal, _array, "int*", &arrayCount := 0, "HRESULT")
         return arrayCount
@@ -1015,7 +1015,7 @@ export default struct IUIAutomation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-safearraytorectnativearray
      */
     SafeArrayToRectNativeArray(rects, rectArray) {
-        rectArrayMarshal := rectArray is VarRef ? "ptr*" : "ptr"
+        rectArrayMarshal := rectArray is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(46, this, SAFEARRAY.Ptr, rects, rectArrayMarshal, rectArray, "int*", &rectArrayCount := 0, "HRESULT")
         return rectArrayCount
@@ -1109,8 +1109,8 @@ export default struct IUIAutomation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-pollforpotentialsupportedpatterns
      */
     PollForPotentialSupportedPatterns(pElement, patternIds, patternNames) {
-        patternIdsMarshal := patternIds is VarRef ? "ptr*" : "ptr"
-        patternNamesMarshal := patternNames is VarRef ? "ptr*" : "ptr"
+        patternIdsMarshal := patternIds is VarRef ? "ptr*" : IntPtr
+        patternNamesMarshal := patternNames is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(51, this, "ptr", pElement, patternIdsMarshal, patternIds, patternNamesMarshal, patternNames, "HRESULT")
         return result
@@ -1137,8 +1137,8 @@ export default struct IUIAutomation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-pollforpotentialsupportedproperties
      */
     PollForPotentialSupportedProperties(pElement, propertyIds, propertyNames) {
-        propertyIdsMarshal := propertyIds is VarRef ? "ptr*" : "ptr"
-        propertyNamesMarshal := propertyNames is VarRef ? "ptr*" : "ptr"
+        propertyIdsMarshal := propertyIds is VarRef ? "ptr*" : IntPtr
+        propertyNamesMarshal := propertyNames is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(52, this, "ptr", pElement, propertyIdsMarshal, propertyIds, propertyNamesMarshal, propertyNames, "HRESULT")
         return result
@@ -1245,61 +1245,61 @@ export default struct IUIAutomation extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CompareElements := CallbackCreate(GetMethod(implObj, "CompareElements"), flags, 4)
-        this.vtbl.CompareRuntimeIds := CallbackCreate(GetMethod(implObj, "CompareRuntimeIds"), flags, 4)
-        this.vtbl.GetRootElement := CallbackCreate(GetMethod(implObj, "GetRootElement"), flags, 2)
-        this.vtbl.ElementFromHandle := CallbackCreate(GetMethod(implObj, "ElementFromHandle"), flags, 3)
-        this.vtbl.ElementFromPoint := CallbackCreate(GetMethod(implObj, "ElementFromPoint"), flags, 3)
-        this.vtbl.GetFocusedElement := CallbackCreate(GetMethod(implObj, "GetFocusedElement"), flags, 2)
-        this.vtbl.GetRootElementBuildCache := CallbackCreate(GetMethod(implObj, "GetRootElementBuildCache"), flags, 3)
-        this.vtbl.ElementFromHandleBuildCache := CallbackCreate(GetMethod(implObj, "ElementFromHandleBuildCache"), flags, 4)
-        this.vtbl.ElementFromPointBuildCache := CallbackCreate(GetMethod(implObj, "ElementFromPointBuildCache"), flags, 4)
-        this.vtbl.GetFocusedElementBuildCache := CallbackCreate(GetMethod(implObj, "GetFocusedElementBuildCache"), flags, 3)
-        this.vtbl.CreateTreeWalker := CallbackCreate(GetMethod(implObj, "CreateTreeWalker"), flags, 3)
-        this.vtbl.get_ControlViewWalker := CallbackCreate(GetMethod(implObj, "get_ControlViewWalker"), flags, 2)
-        this.vtbl.get_ContentViewWalker := CallbackCreate(GetMethod(implObj, "get_ContentViewWalker"), flags, 2)
-        this.vtbl.get_RawViewWalker := CallbackCreate(GetMethod(implObj, "get_RawViewWalker"), flags, 2)
-        this.vtbl.get_RawViewCondition := CallbackCreate(GetMethod(implObj, "get_RawViewCondition"), flags, 2)
-        this.vtbl.get_ControlViewCondition := CallbackCreate(GetMethod(implObj, "get_ControlViewCondition"), flags, 2)
-        this.vtbl.get_ContentViewCondition := CallbackCreate(GetMethod(implObj, "get_ContentViewCondition"), flags, 2)
-        this.vtbl.CreateCacheRequest := CallbackCreate(GetMethod(implObj, "CreateCacheRequest"), flags, 2)
-        this.vtbl.CreateTrueCondition := CallbackCreate(GetMethod(implObj, "CreateTrueCondition"), flags, 2)
-        this.vtbl.CreateFalseCondition := CallbackCreate(GetMethod(implObj, "CreateFalseCondition"), flags, 2)
-        this.vtbl.CreatePropertyCondition := CallbackCreate(GetMethod(implObj, "CreatePropertyCondition"), flags, 4)
-        this.vtbl.CreatePropertyConditionEx := CallbackCreate(GetMethod(implObj, "CreatePropertyConditionEx"), flags, 5)
-        this.vtbl.CreateAndCondition := CallbackCreate(GetMethod(implObj, "CreateAndCondition"), flags, 4)
-        this.vtbl.CreateAndConditionFromArray := CallbackCreate(GetMethod(implObj, "CreateAndConditionFromArray"), flags, 3)
-        this.vtbl.CreateAndConditionFromNativeArray := CallbackCreate(GetMethod(implObj, "CreateAndConditionFromNativeArray"), flags, 4)
-        this.vtbl.CreateOrCondition := CallbackCreate(GetMethod(implObj, "CreateOrCondition"), flags, 4)
-        this.vtbl.CreateOrConditionFromArray := CallbackCreate(GetMethod(implObj, "CreateOrConditionFromArray"), flags, 3)
-        this.vtbl.CreateOrConditionFromNativeArray := CallbackCreate(GetMethod(implObj, "CreateOrConditionFromNativeArray"), flags, 4)
-        this.vtbl.CreateNotCondition := CallbackCreate(GetMethod(implObj, "CreateNotCondition"), flags, 3)
-        this.vtbl.AddAutomationEventHandler := CallbackCreate(GetMethod(implObj, "AddAutomationEventHandler"), flags, 6)
-        this.vtbl.RemoveAutomationEventHandler := CallbackCreate(GetMethod(implObj, "RemoveAutomationEventHandler"), flags, 4)
-        this.vtbl.AddPropertyChangedEventHandlerNativeArray := CallbackCreate(GetMethod(implObj, "AddPropertyChangedEventHandlerNativeArray"), flags, 7)
-        this.vtbl.AddPropertyChangedEventHandler := CallbackCreate(GetMethod(implObj, "AddPropertyChangedEventHandler"), flags, 6)
-        this.vtbl.RemovePropertyChangedEventHandler := CallbackCreate(GetMethod(implObj, "RemovePropertyChangedEventHandler"), flags, 3)
-        this.vtbl.AddStructureChangedEventHandler := CallbackCreate(GetMethod(implObj, "AddStructureChangedEventHandler"), flags, 5)
-        this.vtbl.RemoveStructureChangedEventHandler := CallbackCreate(GetMethod(implObj, "RemoveStructureChangedEventHandler"), flags, 3)
-        this.vtbl.AddFocusChangedEventHandler := CallbackCreate(GetMethod(implObj, "AddFocusChangedEventHandler"), flags, 3)
-        this.vtbl.RemoveFocusChangedEventHandler := CallbackCreate(GetMethod(implObj, "RemoveFocusChangedEventHandler"), flags, 2)
-        this.vtbl.RemoveAllEventHandlers := CallbackCreate(GetMethod(implObj, "RemoveAllEventHandlers"), flags, 1)
-        this.vtbl.IntNativeArrayToSafeArray := CallbackCreate(GetMethod(implObj, "IntNativeArrayToSafeArray"), flags, 4)
-        this.vtbl.IntSafeArrayToNativeArray := CallbackCreate(GetMethod(implObj, "IntSafeArrayToNativeArray"), flags, 4)
-        this.vtbl.RectToVariant := CallbackCreate(GetMethod(implObj, "RectToVariant"), flags, 3)
-        this.vtbl.VariantToRect := CallbackCreate(GetMethod(implObj, "VariantToRect"), flags, 3)
-        this.vtbl.SafeArrayToRectNativeArray := CallbackCreate(GetMethod(implObj, "SafeArrayToRectNativeArray"), flags, 4)
-        this.vtbl.CreateProxyFactoryEntry := CallbackCreate(GetMethod(implObj, "CreateProxyFactoryEntry"), flags, 3)
-        this.vtbl.get_ProxyFactoryMapping := CallbackCreate(GetMethod(implObj, "get_ProxyFactoryMapping"), flags, 2)
-        this.vtbl.GetPropertyProgrammaticName := CallbackCreate(GetMethod(implObj, "GetPropertyProgrammaticName"), flags, 3)
-        this.vtbl.GetPatternProgrammaticName := CallbackCreate(GetMethod(implObj, "GetPatternProgrammaticName"), flags, 3)
-        this.vtbl.PollForPotentialSupportedPatterns := CallbackCreate(GetMethod(implObj, "PollForPotentialSupportedPatterns"), flags, 4)
-        this.vtbl.PollForPotentialSupportedProperties := CallbackCreate(GetMethod(implObj, "PollForPotentialSupportedProperties"), flags, 4)
-        this.vtbl.CheckNotSupported := CallbackCreate(GetMethod(implObj, "CheckNotSupported"), flags, 3)
-        this.vtbl.get_ReservedNotSupportedValue := CallbackCreate(GetMethod(implObj, "get_ReservedNotSupportedValue"), flags, 2)
-        this.vtbl.get_ReservedMixedAttributeValue := CallbackCreate(GetMethod(implObj, "get_ReservedMixedAttributeValue"), flags, 2)
-        this.vtbl.ElementFromIAccessible := CallbackCreate(GetMethod(implObj, "ElementFromIAccessible"), flags, 4)
-        this.vtbl.ElementFromIAccessibleBuildCache := CallbackCreate(GetMethod(implObj, "ElementFromIAccessibleBuildCache"), flags, 5)
+        this.vtbl.CompareElements := CallbackCreate(ObjBindMethod(implObj, "CompareElements"), flags, 4)
+        this.vtbl.CompareRuntimeIds := CallbackCreate(ObjBindMethod(implObj, "CompareRuntimeIds"), flags, 4)
+        this.vtbl.GetRootElement := CallbackCreate(ObjBindMethod(implObj, "GetRootElement"), flags, 2)
+        this.vtbl.ElementFromHandle := CallbackCreate(ObjBindMethod(implObj, "ElementFromHandle"), flags, 3)
+        this.vtbl.ElementFromPoint := CallbackCreate(ObjBindMethod(implObj, "ElementFromPoint"), flags, 3)
+        this.vtbl.GetFocusedElement := CallbackCreate(ObjBindMethod(implObj, "GetFocusedElement"), flags, 2)
+        this.vtbl.GetRootElementBuildCache := CallbackCreate(ObjBindMethod(implObj, "GetRootElementBuildCache"), flags, 3)
+        this.vtbl.ElementFromHandleBuildCache := CallbackCreate(ObjBindMethod(implObj, "ElementFromHandleBuildCache"), flags, 4)
+        this.vtbl.ElementFromPointBuildCache := CallbackCreate(ObjBindMethod(implObj, "ElementFromPointBuildCache"), flags, 4)
+        this.vtbl.GetFocusedElementBuildCache := CallbackCreate(ObjBindMethod(implObj, "GetFocusedElementBuildCache"), flags, 3)
+        this.vtbl.CreateTreeWalker := CallbackCreate(ObjBindMethod(implObj, "CreateTreeWalker"), flags, 3)
+        this.vtbl.get_ControlViewWalker := CallbackCreate(ObjBindMethod(implObj, "get_ControlViewWalker"), flags, 2)
+        this.vtbl.get_ContentViewWalker := CallbackCreate(ObjBindMethod(implObj, "get_ContentViewWalker"), flags, 2)
+        this.vtbl.get_RawViewWalker := CallbackCreate(ObjBindMethod(implObj, "get_RawViewWalker"), flags, 2)
+        this.vtbl.get_RawViewCondition := CallbackCreate(ObjBindMethod(implObj, "get_RawViewCondition"), flags, 2)
+        this.vtbl.get_ControlViewCondition := CallbackCreate(ObjBindMethod(implObj, "get_ControlViewCondition"), flags, 2)
+        this.vtbl.get_ContentViewCondition := CallbackCreate(ObjBindMethod(implObj, "get_ContentViewCondition"), flags, 2)
+        this.vtbl.CreateCacheRequest := CallbackCreate(ObjBindMethod(implObj, "CreateCacheRequest"), flags, 2)
+        this.vtbl.CreateTrueCondition := CallbackCreate(ObjBindMethod(implObj, "CreateTrueCondition"), flags, 2)
+        this.vtbl.CreateFalseCondition := CallbackCreate(ObjBindMethod(implObj, "CreateFalseCondition"), flags, 2)
+        this.vtbl.CreatePropertyCondition := CallbackCreate(ObjBindMethod(implObj, "CreatePropertyCondition"), flags, 4)
+        this.vtbl.CreatePropertyConditionEx := CallbackCreate(ObjBindMethod(implObj, "CreatePropertyConditionEx"), flags, 5)
+        this.vtbl.CreateAndCondition := CallbackCreate(ObjBindMethod(implObj, "CreateAndCondition"), flags, 4)
+        this.vtbl.CreateAndConditionFromArray := CallbackCreate(ObjBindMethod(implObj, "CreateAndConditionFromArray"), flags, 3)
+        this.vtbl.CreateAndConditionFromNativeArray := CallbackCreate(ObjBindMethod(implObj, "CreateAndConditionFromNativeArray"), flags, 4)
+        this.vtbl.CreateOrCondition := CallbackCreate(ObjBindMethod(implObj, "CreateOrCondition"), flags, 4)
+        this.vtbl.CreateOrConditionFromArray := CallbackCreate(ObjBindMethod(implObj, "CreateOrConditionFromArray"), flags, 3)
+        this.vtbl.CreateOrConditionFromNativeArray := CallbackCreate(ObjBindMethod(implObj, "CreateOrConditionFromNativeArray"), flags, 4)
+        this.vtbl.CreateNotCondition := CallbackCreate(ObjBindMethod(implObj, "CreateNotCondition"), flags, 3)
+        this.vtbl.AddAutomationEventHandler := CallbackCreate(ObjBindMethod(implObj, "AddAutomationEventHandler"), flags, 6)
+        this.vtbl.RemoveAutomationEventHandler := CallbackCreate(ObjBindMethod(implObj, "RemoveAutomationEventHandler"), flags, 4)
+        this.vtbl.AddPropertyChangedEventHandlerNativeArray := CallbackCreate(ObjBindMethod(implObj, "AddPropertyChangedEventHandlerNativeArray"), flags, 7)
+        this.vtbl.AddPropertyChangedEventHandler := CallbackCreate(ObjBindMethod(implObj, "AddPropertyChangedEventHandler"), flags, 6)
+        this.vtbl.RemovePropertyChangedEventHandler := CallbackCreate(ObjBindMethod(implObj, "RemovePropertyChangedEventHandler"), flags, 3)
+        this.vtbl.AddStructureChangedEventHandler := CallbackCreate(ObjBindMethod(implObj, "AddStructureChangedEventHandler"), flags, 5)
+        this.vtbl.RemoveStructureChangedEventHandler := CallbackCreate(ObjBindMethod(implObj, "RemoveStructureChangedEventHandler"), flags, 3)
+        this.vtbl.AddFocusChangedEventHandler := CallbackCreate(ObjBindMethod(implObj, "AddFocusChangedEventHandler"), flags, 3)
+        this.vtbl.RemoveFocusChangedEventHandler := CallbackCreate(ObjBindMethod(implObj, "RemoveFocusChangedEventHandler"), flags, 2)
+        this.vtbl.RemoveAllEventHandlers := CallbackCreate(ObjBindMethod(implObj, "RemoveAllEventHandlers"), flags, 1)
+        this.vtbl.IntNativeArrayToSafeArray := CallbackCreate(ObjBindMethod(implObj, "IntNativeArrayToSafeArray"), flags, 4)
+        this.vtbl.IntSafeArrayToNativeArray := CallbackCreate(ObjBindMethod(implObj, "IntSafeArrayToNativeArray"), flags, 4)
+        this.vtbl.RectToVariant := CallbackCreate(ObjBindMethod(implObj, "RectToVariant"), flags, 3)
+        this.vtbl.VariantToRect := CallbackCreate(ObjBindMethod(implObj, "VariantToRect"), flags, 3)
+        this.vtbl.SafeArrayToRectNativeArray := CallbackCreate(ObjBindMethod(implObj, "SafeArrayToRectNativeArray"), flags, 4)
+        this.vtbl.CreateProxyFactoryEntry := CallbackCreate(ObjBindMethod(implObj, "CreateProxyFactoryEntry"), flags, 3)
+        this.vtbl.get_ProxyFactoryMapping := CallbackCreate(ObjBindMethod(implObj, "get_ProxyFactoryMapping"), flags, 2)
+        this.vtbl.GetPropertyProgrammaticName := CallbackCreate(ObjBindMethod(implObj, "GetPropertyProgrammaticName"), flags, 3)
+        this.vtbl.GetPatternProgrammaticName := CallbackCreate(ObjBindMethod(implObj, "GetPatternProgrammaticName"), flags, 3)
+        this.vtbl.PollForPotentialSupportedPatterns := CallbackCreate(ObjBindMethod(implObj, "PollForPotentialSupportedPatterns"), flags, 4)
+        this.vtbl.PollForPotentialSupportedProperties := CallbackCreate(ObjBindMethod(implObj, "PollForPotentialSupportedProperties"), flags, 4)
+        this.vtbl.CheckNotSupported := CallbackCreate(ObjBindMethod(implObj, "CheckNotSupported"), flags, 3)
+        this.vtbl.get_ReservedNotSupportedValue := CallbackCreate(ObjBindMethod(implObj, "get_ReservedNotSupportedValue"), flags, 2)
+        this.vtbl.get_ReservedMixedAttributeValue := CallbackCreate(ObjBindMethod(implObj, "get_ReservedMixedAttributeValue"), flags, 2)
+        this.vtbl.ElementFromIAccessible := CallbackCreate(ObjBindMethod(implObj, "ElementFromIAccessible"), flags, 4)
+        this.vtbl.ElementFromIAccessibleBuildCache := CallbackCreate(ObjBindMethod(implObj, "ElementFromIAccessibleBuildCache"), flags, 5)
     }
 
     Dispose() {

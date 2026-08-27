@@ -22,7 +22,6 @@ export default struct PFN_CERT_STORE_PROV_CONTROL {
     }
 
     /**
-     * 
      * @param {HCERTSTOREPROV} hStoreProv <b>HCERTSTOREPROV</b> handle to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> passed from the call to <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certcontrolstore">CertControlStore</a>.
      * @param {Integer} dwFlags Passed from the call to <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certcontrolstore">CertControlStore</a>.
      * @param {Integer} dwCtrlType Control action to be taken. Passed from the call to <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certcontrolstore">CertControlStore</a>.
@@ -30,7 +29,8 @@ export default struct PFN_CERT_STORE_PROV_CONTROL {
      * @returns {BOOL} Returns <b>TRUE</b> if the function succeeds or <b>FALSE</b> if it fails.
      */
     Call(hStoreProv, dwFlags, dwCtrlType, pvCtrlPara) {
-        pvCtrlParaMarshal := pvCtrlPara is VarRef ? "ptr" : "ptr"
+        pvCtrlParaMarshal := pvCtrlPara is VarRef ? "ptr" : IntPtr
+        pvCtrlParaMarshal := pvCtrlPara == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, HCERTSTOREPROV, hStoreProv, UInt32, dwFlags, UInt32, dwCtrlType, pvCtrlParaMarshal, pvCtrlPara, BOOL)
         return result

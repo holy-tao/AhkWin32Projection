@@ -19,7 +19,6 @@ export default struct PFNFCIGETOPENINFO {
     }
 
     /**
-     * 
      * @param {PSTR} pszName 
      * @param {Pointer<Integer>} pdate 
      * @param {Pointer<Integer>} ptime 
@@ -31,11 +30,11 @@ export default struct PFNFCIGETOPENINFO {
     Call(pszName, pdate, ptime, pattribs, err, pv) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        pdateMarshal := pdate is VarRef ? "ushort*" : "ptr"
-        ptimeMarshal := ptime is VarRef ? "ushort*" : "ptr"
-        pattribsMarshal := pattribs is VarRef ? "ushort*" : "ptr"
-        errMarshal := err is VarRef ? "int*" : "ptr"
-        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+        pdateMarshal := pdate is VarRef ? "ushort*" : IntPtr
+        ptimeMarshal := ptime is VarRef ? "ushort*" : IntPtr
+        pattribsMarshal := pattribs is VarRef ? "ushort*" : IntPtr
+        errMarshal := err is VarRef ? "int*" : IntPtr
+        pvMarshal := pv is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, "ptr", pszName, pdateMarshal, pdate, ptimeMarshal, ptime, pattribsMarshal, pattribs, errMarshal, err, pvMarshal, pv, IntPtr)
         return result

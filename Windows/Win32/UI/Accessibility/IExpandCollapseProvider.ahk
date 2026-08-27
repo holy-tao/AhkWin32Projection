@@ -96,9 +96,9 @@ export default struct IExpandCollapseProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Expand := CallbackCreate(GetMethod(implObj, "Expand"), flags, 1)
-        this.vtbl.Collapse := CallbackCreate(GetMethod(implObj, "Collapse"), flags, 1)
-        this.vtbl.get_ExpandCollapseState := CallbackCreate(GetMethod(implObj, "get_ExpandCollapseState"), flags, 2)
+        this.vtbl.Expand := CallbackCreate(ObjBindMethod(implObj, "Expand"), flags, 1)
+        this.vtbl.Collapse := CallbackCreate(ObjBindMethod(implObj, "Collapse"), flags, 1)
+        this.vtbl.get_ExpandCollapseState := CallbackCreate(ObjBindMethod(implObj, "get_ExpandCollapseState"), flags, 2)
     }
 
     Dispose() {

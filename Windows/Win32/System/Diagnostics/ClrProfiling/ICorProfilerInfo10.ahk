@@ -43,46 +43,42 @@ export default struct ICorProfilerInfo10 extends ICorProfilerInfo9 {
     }
 
     /**
-     * 
      * @param {Pointer} _objectId 
      * @param {Pointer<ObjectReferenceCallback>} callback 
      * @param {Pointer<Void>} clientData 
      * @returns {HRESULT} 
      */
     EnumerateObjectReferences(_objectId, callback, clientData) {
-        clientDataMarshal := clientData is VarRef ? "ptr" : "ptr"
+        clientDataMarshal := clientData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(93, this, IntPtr, _objectId, ObjectReferenceCallback, callback, clientDataMarshal, clientData, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} _objectId 
      * @param {Pointer<BOOL>} pbFrozen 
      * @returns {HRESULT} 
      */
     IsFrozenObject(_objectId, pbFrozen) {
-        pbFrozenMarshal := pbFrozen is VarRef ? "int*" : "ptr"
+        pbFrozenMarshal := pbFrozen is VarRef ? "int*" : IntPtr
 
         result := ComCall(94, this, IntPtr, _objectId, pbFrozenMarshal, pbFrozen, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pThreshold 
      * @returns {HRESULT} 
      */
     GetLOHObjectSizeThreshold(pThreshold) {
-        pThresholdMarshal := pThreshold is VarRef ? "uint*" : "ptr"
+        pThresholdMarshal := pThreshold is VarRef ? "uint*" : IntPtr
 
         result := ComCall(95, this, pThresholdMarshal, pThreshold, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwRejitFlags 
      * @param {Integer} cFunctions 
      * @param {Pointer<Pointer>} moduleIds 
@@ -90,15 +86,14 @@ export default struct ICorProfilerInfo10 extends ICorProfilerInfo9 {
      * @returns {HRESULT} 
      */
     RequestReJITWithInliners(dwRejitFlags, cFunctions, moduleIds, methodIds) {
-        moduleIdsMarshal := moduleIds is VarRef ? "ptr*" : "ptr"
-        methodIdsMarshal := methodIds is VarRef ? "uint*" : "ptr"
+        moduleIdsMarshal := moduleIds is VarRef ? "ptr*" : IntPtr
+        methodIdsMarshal := methodIds is VarRef ? "uint*" : IntPtr
 
         result := ComCall(96, this, UInt32, dwRejitFlags, UInt32, cFunctions, moduleIdsMarshal, moduleIds, methodIdsMarshal, methodIds, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SuspendRuntime() {
@@ -107,7 +102,6 @@ export default struct ICorProfilerInfo10 extends ICorProfilerInfo9 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ResumeRuntime() {
@@ -124,12 +118,12 @@ export default struct ICorProfilerInfo10 extends ICorProfilerInfo9 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumerateObjectReferences := CallbackCreate(GetMethod(implObj, "EnumerateObjectReferences"), flags, 4)
-        this.vtbl.IsFrozenObject := CallbackCreate(GetMethod(implObj, "IsFrozenObject"), flags, 3)
-        this.vtbl.GetLOHObjectSizeThreshold := CallbackCreate(GetMethod(implObj, "GetLOHObjectSizeThreshold"), flags, 2)
-        this.vtbl.RequestReJITWithInliners := CallbackCreate(GetMethod(implObj, "RequestReJITWithInliners"), flags, 5)
-        this.vtbl.SuspendRuntime := CallbackCreate(GetMethod(implObj, "SuspendRuntime"), flags, 1)
-        this.vtbl.ResumeRuntime := CallbackCreate(GetMethod(implObj, "ResumeRuntime"), flags, 1)
+        this.vtbl.EnumerateObjectReferences := CallbackCreate(ObjBindMethod(implObj, "EnumerateObjectReferences"), flags, 4)
+        this.vtbl.IsFrozenObject := CallbackCreate(ObjBindMethod(implObj, "IsFrozenObject"), flags, 3)
+        this.vtbl.GetLOHObjectSizeThreshold := CallbackCreate(ObjBindMethod(implObj, "GetLOHObjectSizeThreshold"), flags, 2)
+        this.vtbl.RequestReJITWithInliners := CallbackCreate(ObjBindMethod(implObj, "RequestReJITWithInliners"), flags, 5)
+        this.vtbl.SuspendRuntime := CallbackCreate(ObjBindMethod(implObj, "SuspendRuntime"), flags, 1)
+        this.vtbl.ResumeRuntime := CallbackCreate(ObjBindMethod(implObj, "ResumeRuntime"), flags, 1)
     }
 
     Dispose() {

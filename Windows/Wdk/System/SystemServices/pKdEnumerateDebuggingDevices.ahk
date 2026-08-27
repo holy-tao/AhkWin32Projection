@@ -21,14 +21,13 @@ export default struct pKdEnumerateDebuggingDevices {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} LoaderBlock 
      * @param {Pointer<DEBUG_DEVICE_DESCRIPTOR>} Device 
      * @param {Pointer<PDEBUG_DEVICE_FOUND_FUNCTION>} Callback 
      * @returns {NTSTATUS} 
      */
     Call(LoaderBlock, Device, Callback) {
-        LoaderBlockMarshal := LoaderBlock is VarRef ? "ptr" : "ptr"
+        LoaderBlockMarshal := LoaderBlock is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, LoaderBlockMarshal, LoaderBlock, DEBUG_DEVICE_DESCRIPTOR.Ptr, Device, PDEBUG_DEVICE_FOUND_FUNCTION, Callback, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

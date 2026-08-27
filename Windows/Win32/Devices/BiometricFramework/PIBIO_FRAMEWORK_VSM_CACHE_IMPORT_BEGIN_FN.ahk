@@ -20,7 +20,6 @@ export default struct PIBIO_FRAMEWORK_VSM_CACHE_IMPORT_BEGIN_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline 
      * @param {Pointer} RequiredCapacity 
      * @returns {Pointer} 

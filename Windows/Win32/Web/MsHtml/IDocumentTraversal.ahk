@@ -41,7 +41,6 @@ export default struct IDocumentTraversal extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} pRootNode 
      * @param {Integer} ulWhatToShow 
      * @param {Pointer<VARIANT>} pFilter 
@@ -54,7 +53,6 @@ export default struct IDocumentTraversal extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} pRootNode 
      * @param {Integer} ulWhatToShow 
      * @param {Pointer<VARIANT>} pFilter 
@@ -75,8 +73,8 @@ export default struct IDocumentTraversal extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.createNodeIterator := CallbackCreate(GetMethod(implObj, "createNodeIterator"), flags, 6)
-        this.vtbl.createTreeWalker := CallbackCreate(GetMethod(implObj, "createTreeWalker"), flags, 6)
+        this.vtbl.createNodeIterator := CallbackCreate(ObjBindMethod(implObj, "createNodeIterator"), flags, 6)
+        this.vtbl.createTreeWalker := CallbackCreate(ObjBindMethod(implObj, "createTreeWalker"), flags, 6)
     }
 
     Dispose() {

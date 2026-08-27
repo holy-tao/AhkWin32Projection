@@ -59,7 +59,6 @@ export default struct PIMAGEHLP_STATUS_ROUTINE {
     }
 
     /**
-     * 
      * @param {IMAGEHLP_STATUS_REASON} Reason 
      * @param {PSTR} ImageName The  name of the file to be bound. This value can be a file name, a partial path, or a full path.
      * @param {PSTR} DllName The name of the DLL.

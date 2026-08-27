@@ -23,7 +23,6 @@ export default struct PDXVAHDSW_SetVideoProcessBltState {
     }
 
     /**
-     * 
      * @param {HANDLE} hVideoProcessor A handle to the software DXVA-HD video processor.
      * @param {DXVAHD_BLT_STATE} State The state parameter to set, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ne-dxvahd-dxvahd_blt_state">DXVAHD_BLT_STATE</a> enumeration.
      * @param {Integer} DataSize The size of the buffer pointed to by <i>pData</i>, in bytes.

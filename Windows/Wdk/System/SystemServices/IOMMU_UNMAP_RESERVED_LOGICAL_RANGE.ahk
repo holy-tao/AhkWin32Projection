@@ -20,7 +20,6 @@ export default struct IOMMU_UNMAP_RESERVED_LOGICAL_RANGE {
     }
 
     /**
-     * 
      * @param {Pointer<IOMMU_DMA_LOGICAL_ADDRESS_TOKEN_MAPPED_SEGMENT>} MappedSegment 
      * @returns {NTSTATUS} 
      */

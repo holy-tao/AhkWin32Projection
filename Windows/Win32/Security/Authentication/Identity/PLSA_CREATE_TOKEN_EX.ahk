@@ -28,7 +28,6 @@ export default struct PLSA_CREATE_TOKEN_EX {
     }
 
     /**
-     * 
      * @param {Pointer<LUID>} LogonId 
      * @param {Pointer<TOKEN_SOURCE>} TokenSource 
      * @param {SECURITY_LOGON_TYPE} LogonType 
@@ -45,11 +44,14 @@ export default struct PLSA_CREATE_TOKEN_EX {
      * @returns {NTSTATUS} 
      */
     Call(LogonId, TokenSource, LogonType, ImpersonationLevel, TokenInformationType, TokenInformation, TokenGroups, Workstation, ProfilePath, SessionInformation, SessionInformationType, Token, SubStatus) {
-        TokenInformationMarshal := TokenInformation is VarRef ? "ptr" : "ptr"
-        SessionInformationMarshal := SessionInformation is VarRef ? "ptr" : "ptr"
-        SubStatusMarshal := SubStatus is VarRef ? "int*" : "ptr"
+        TokenInformationMarshal := TokenInformation is VarRef ? "ptr" : IntPtr
+        TokenGroupsMarshal := TokenGroups == 0 ? IntPtr : TOKEN_GROUPS.Ptr
+        WorkstationMarshal := Workstation == 0 ? IntPtr : LSA_UNICODE_STRING.Ptr
+        ProfilePathMarshal := ProfilePath == 0 ? IntPtr : LSA_UNICODE_STRING.Ptr
+        SessionInformationMarshal := SessionInformation is VarRef ? "ptr" : IntPtr
+        SubStatusMarshal := SubStatus is VarRef ? "int*" : IntPtr
 
-        result := DllCall(this.value, LUID.Ptr, LogonId, TOKEN_SOURCE.Ptr, TokenSource, SECURITY_LOGON_TYPE, LogonType, SECURITY_IMPERSONATION_LEVEL, ImpersonationLevel, LSA_TOKEN_INFORMATION_TYPE, TokenInformationType, TokenInformationMarshal, TokenInformation, TOKEN_GROUPS.Ptr, TokenGroups, LSA_UNICODE_STRING.Ptr, Workstation, LSA_UNICODE_STRING.Ptr, ProfilePath, SessionInformationMarshal, SessionInformation, SECPKG_SESSIONINFO_TYPE, SessionInformationType, HANDLE.Ptr, Token, SubStatusMarshal, SubStatus, NTSTATUS)
+        result := DllCall(this.value, LUID.Ptr, LogonId, TOKEN_SOURCE.Ptr, TokenSource, SECURITY_LOGON_TYPE, LogonType, SECURITY_IMPERSONATION_LEVEL, ImpersonationLevel, LSA_TOKEN_INFORMATION_TYPE, TokenInformationType, TokenInformationMarshal, TokenInformation, TokenGroupsMarshal, TokenGroups, WorkstationMarshal, Workstation, ProfilePathMarshal, ProfilePath, SessionInformationMarshal, SessionInformation, SECPKG_SESSIONINFO_TYPE, SessionInformationType, HANDLE.Ptr, Token, SubStatusMarshal, SubStatus, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

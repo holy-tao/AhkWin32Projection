@@ -19,7 +19,6 @@ export default struct PCLUSAPI_CLUSTER_NETWORK_GET_ENUM_COUNT {
     }
 
     /**
-     * 
      * @param {HNETWORKENUM} _hNetworkEnum 
      * @returns {Integer} 
      */

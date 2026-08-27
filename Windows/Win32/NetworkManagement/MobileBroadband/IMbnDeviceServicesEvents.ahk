@@ -428,17 +428,17 @@ export default struct IMbnDeviceServicesEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnQuerySupportedCommandsComplete := CallbackCreate(GetMethod(implObj, "OnQuerySupportedCommandsComplete"), flags, 5)
-        this.vtbl.OnOpenCommandSessionComplete := CallbackCreate(GetMethod(implObj, "OnOpenCommandSessionComplete"), flags, 4)
-        this.vtbl.OnCloseCommandSessionComplete := CallbackCreate(GetMethod(implObj, "OnCloseCommandSessionComplete"), flags, 4)
-        this.vtbl.OnSetCommandComplete := CallbackCreate(GetMethod(implObj, "OnSetCommandComplete"), flags, 6)
-        this.vtbl.OnQueryCommandComplete := CallbackCreate(GetMethod(implObj, "OnQueryCommandComplete"), flags, 6)
-        this.vtbl.OnEventNotification := CallbackCreate(GetMethod(implObj, "OnEventNotification"), flags, 4)
-        this.vtbl.OnOpenDataSessionComplete := CallbackCreate(GetMethod(implObj, "OnOpenDataSessionComplete"), flags, 4)
-        this.vtbl.OnCloseDataSessionComplete := CallbackCreate(GetMethod(implObj, "OnCloseDataSessionComplete"), flags, 4)
-        this.vtbl.OnWriteDataComplete := CallbackCreate(GetMethod(implObj, "OnWriteDataComplete"), flags, 4)
-        this.vtbl.OnReadData := CallbackCreate(GetMethod(implObj, "OnReadData"), flags, 3)
-        this.vtbl.OnInterfaceStateChange := CallbackCreate(GetMethod(implObj, "OnInterfaceStateChange"), flags, 3)
+        this.vtbl.OnQuerySupportedCommandsComplete := CallbackCreate(ObjBindMethod(implObj, "OnQuerySupportedCommandsComplete"), flags, 5)
+        this.vtbl.OnOpenCommandSessionComplete := CallbackCreate(ObjBindMethod(implObj, "OnOpenCommandSessionComplete"), flags, 4)
+        this.vtbl.OnCloseCommandSessionComplete := CallbackCreate(ObjBindMethod(implObj, "OnCloseCommandSessionComplete"), flags, 4)
+        this.vtbl.OnSetCommandComplete := CallbackCreate(ObjBindMethod(implObj, "OnSetCommandComplete"), flags, 6)
+        this.vtbl.OnQueryCommandComplete := CallbackCreate(ObjBindMethod(implObj, "OnQueryCommandComplete"), flags, 6)
+        this.vtbl.OnEventNotification := CallbackCreate(ObjBindMethod(implObj, "OnEventNotification"), flags, 4)
+        this.vtbl.OnOpenDataSessionComplete := CallbackCreate(ObjBindMethod(implObj, "OnOpenDataSessionComplete"), flags, 4)
+        this.vtbl.OnCloseDataSessionComplete := CallbackCreate(ObjBindMethod(implObj, "OnCloseDataSessionComplete"), flags, 4)
+        this.vtbl.OnWriteDataComplete := CallbackCreate(ObjBindMethod(implObj, "OnWriteDataComplete"), flags, 4)
+        this.vtbl.OnReadData := CallbackCreate(ObjBindMethod(implObj, "OnReadData"), flags, 3)
+        this.vtbl.OnInterfaceStateChange := CallbackCreate(ObjBindMethod(implObj, "OnInterfaceStateChange"), flags, 3)
     }
 
     Dispose() {

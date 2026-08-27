@@ -22,7 +22,6 @@ export default struct LPDIENUMDEVICESBYSEMANTICSCBA {
     }
 
     /**
-     * 
      * @param {Pointer<DIDEVICEINSTANCEA>} param0 
      * @param {IDirectInputDevice8A} param1 
      * @param {Integer} param2 
@@ -31,7 +30,7 @@ export default struct LPDIENUMDEVICESBYSEMANTICSCBA {
      * @returns {BOOL} 
      */
     Call(param0, param1, param2, param3, param4) {
-        param4Marshal := param4 is VarRef ? "ptr" : "ptr"
+        param4Marshal := param4 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, DIDEVICEINSTANCEA.Ptr, param0, "ptr", param1, UInt32, param2, UInt32, param3, param4Marshal, param4, BOOL)
         return result

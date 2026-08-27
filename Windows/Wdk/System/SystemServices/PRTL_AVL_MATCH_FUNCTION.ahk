@@ -19,7 +19,6 @@ export default struct PRTL_AVL_MATCH_FUNCTION {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

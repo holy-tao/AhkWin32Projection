@@ -36,7 +36,6 @@ export default struct ID3D12DeviceRemovedExtendedDataSettings2 extends ID3D12Dev
     }
 
     /**
-     * 
      * @param {BOOL} MarkersOnly 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -53,7 +52,7 @@ export default struct ID3D12DeviceRemovedExtendedDataSettings2 extends ID3D12Dev
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.UseMarkersOnlyAutoBreadcrumbs := CallbackCreate(GetMethod(implObj, "UseMarkersOnlyAutoBreadcrumbs"), flags, 2)
+        this.vtbl.UseMarkersOnlyAutoBreadcrumbs := CallbackCreate(ObjBindMethod(implObj, "UseMarkersOnlyAutoBreadcrumbs"), flags, 2)
     }
 
     Dispose() {

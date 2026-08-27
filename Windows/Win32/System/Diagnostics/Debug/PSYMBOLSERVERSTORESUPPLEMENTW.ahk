@@ -21,7 +21,6 @@ export default struct PSYMBOLSERVERSTORESUPPLEMENTW {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @param {PWSTR} param1 
      * @param {PWSTR} param2 

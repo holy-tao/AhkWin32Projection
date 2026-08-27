@@ -65,7 +65,9 @@ export default struct IOfflineFilesSyncProgress extends IOfflineFilesProgress {
     SyncItemResult(pszFile, hrResult, pErrorInfo) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := ComCall(7, this, "ptr", pszFile, "int", hrResult, "ptr", pErrorInfo, "int*", &pResponse := 0, "HRESULT")
+        pErrorInfoMarshal := pErrorInfo == 0 ? IntPtr : "ptr"
+
+        result := ComCall(7, this, "ptr", pszFile, "int", hrResult, pErrorInfoMarshal, pErrorInfo, "int*", &pResponse := 0, "HRESULT")
         return pResponse
     }
 
@@ -78,8 +80,8 @@ export default struct IOfflineFilesSyncProgress extends IOfflineFilesProgress {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SyncItemBegin := CallbackCreate(GetMethod(implObj, "SyncItemBegin"), flags, 3)
-        this.vtbl.SyncItemResult := CallbackCreate(GetMethod(implObj, "SyncItemResult"), flags, 5)
+        this.vtbl.SyncItemBegin := CallbackCreate(ObjBindMethod(implObj, "SyncItemBegin"), flags, 3)
+        this.vtbl.SyncItemResult := CallbackCreate(ObjBindMethod(implObj, "SyncItemResult"), flags, 5)
     }
 
     Dispose() {

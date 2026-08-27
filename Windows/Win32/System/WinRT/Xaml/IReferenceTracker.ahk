@@ -134,13 +134,13 @@ export default struct IReferenceTracker extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ConnectFromTrackerSource := CallbackCreate(GetMethod(implObj, "ConnectFromTrackerSource"), flags, 1)
-        this.vtbl.DisconnectFromTrackerSource := CallbackCreate(GetMethod(implObj, "DisconnectFromTrackerSource"), flags, 1)
-        this.vtbl.FindTrackerTargets := CallbackCreate(GetMethod(implObj, "FindTrackerTargets"), flags, 2)
-        this.vtbl.GetReferenceTrackerManager := CallbackCreate(GetMethod(implObj, "GetReferenceTrackerManager"), flags, 2)
-        this.vtbl.AddRefFromTrackerSource := CallbackCreate(GetMethod(implObj, "AddRefFromTrackerSource"), flags, 1)
-        this.vtbl.ReleaseFromTrackerSource := CallbackCreate(GetMethod(implObj, "ReleaseFromTrackerSource"), flags, 1)
-        this.vtbl.PegFromTrackerSource := CallbackCreate(GetMethod(implObj, "PegFromTrackerSource"), flags, 1)
+        this.vtbl.ConnectFromTrackerSource := CallbackCreate(ObjBindMethod(implObj, "ConnectFromTrackerSource"), flags, 1)
+        this.vtbl.DisconnectFromTrackerSource := CallbackCreate(ObjBindMethod(implObj, "DisconnectFromTrackerSource"), flags, 1)
+        this.vtbl.FindTrackerTargets := CallbackCreate(ObjBindMethod(implObj, "FindTrackerTargets"), flags, 2)
+        this.vtbl.GetReferenceTrackerManager := CallbackCreate(ObjBindMethod(implObj, "GetReferenceTrackerManager"), flags, 2)
+        this.vtbl.AddRefFromTrackerSource := CallbackCreate(ObjBindMethod(implObj, "AddRefFromTrackerSource"), flags, 1)
+        this.vtbl.ReleaseFromTrackerSource := CallbackCreate(ObjBindMethod(implObj, "ReleaseFromTrackerSource"), flags, 1)
+        this.vtbl.PegFromTrackerSource := CallbackCreate(ObjBindMethod(implObj, "PegFromTrackerSource"), flags, 1)
     }
 
     Dispose() {

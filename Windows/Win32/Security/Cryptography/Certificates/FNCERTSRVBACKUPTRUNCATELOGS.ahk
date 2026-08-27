@@ -19,12 +19,11 @@ export default struct FNCERTSRVBACKUPTRUNCATELOGS {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hbc 
      * @returns {HRESULT} 
      */
     Call(hbc) {
-        hbcMarshal := hbc is VarRef ? "ptr" : "ptr"
+        hbcMarshal := hbc is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, hbcMarshal, hbc, "HRESULT")
         return result

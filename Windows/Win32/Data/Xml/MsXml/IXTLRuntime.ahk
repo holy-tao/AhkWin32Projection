@@ -46,7 +46,6 @@ export default struct IXTLRuntime extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {IXMLDOMNode} pNode 
      * @returns {Integer} 
      */
@@ -56,7 +55,6 @@ export default struct IXTLRuntime extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {IXMLDOMNode} pNode 
      * @returns {Integer} 
      */
@@ -66,7 +64,6 @@ export default struct IXTLRuntime extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {IXMLDOMNode} pNode 
      * @returns {Integer} 
      */
@@ -76,7 +73,6 @@ export default struct IXTLRuntime extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {BSTR} bstrNodeName 
      * @param {IXMLDOMNode} pNode 
      * @returns {Integer} 
@@ -89,7 +85,6 @@ export default struct IXTLRuntime extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {IXMLDOMNode} pNode 
      * @returns {Integer} 
      */
@@ -99,7 +94,6 @@ export default struct IXTLRuntime extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {Integer} lIndex 
      * @param {BSTR} bstrFormat 
      * @returns {BSTR} 
@@ -113,7 +107,6 @@ export default struct IXTLRuntime extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {Float} dblNumber 
      * @param {BSTR} bstrFormat 
      * @returns {BSTR} 
@@ -127,7 +120,6 @@ export default struct IXTLRuntime extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {VARIANT} varDate 
      * @param {BSTR} bstrFormat 
      * @param {VARIANT} varDestLocale 
@@ -142,7 +134,6 @@ export default struct IXTLRuntime extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {VARIANT} varTime 
      * @param {BSTR} bstrFormat 
      * @param {VARIANT} varDestLocale 
@@ -165,15 +156,15 @@ export default struct IXTLRuntime extends IXMLDOMNode {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.uniqueID := CallbackCreate(GetMethod(implObj, "uniqueID"), flags, 3)
-        this.vtbl.depth := CallbackCreate(GetMethod(implObj, "depth"), flags, 3)
-        this.vtbl.childNumber := CallbackCreate(GetMethod(implObj, "childNumber"), flags, 3)
-        this.vtbl.ancestorChildNumber := CallbackCreate(GetMethod(implObj, "ancestorChildNumber"), flags, 4)
-        this.vtbl.absoluteChildNumber := CallbackCreate(GetMethod(implObj, "absoluteChildNumber"), flags, 3)
-        this.vtbl.formatIndex := CallbackCreate(GetMethod(implObj, "formatIndex"), flags, 4)
-        this.vtbl.formatNumber := CallbackCreate(GetMethod(implObj, "formatNumber"), flags, 4)
-        this.vtbl.formatDate := CallbackCreate(GetMethod(implObj, "formatDate"), flags, 5)
-        this.vtbl.formatTime := CallbackCreate(GetMethod(implObj, "formatTime"), flags, 5)
+        this.vtbl.uniqueID := CallbackCreate(ObjBindMethod(implObj, "uniqueID"), flags, 3)
+        this.vtbl.depth := CallbackCreate(ObjBindMethod(implObj, "depth"), flags, 3)
+        this.vtbl.childNumber := CallbackCreate(ObjBindMethod(implObj, "childNumber"), flags, 3)
+        this.vtbl.ancestorChildNumber := CallbackCreate(ObjBindMethod(implObj, "ancestorChildNumber"), flags, 4)
+        this.vtbl.absoluteChildNumber := CallbackCreate(ObjBindMethod(implObj, "absoluteChildNumber"), flags, 3)
+        this.vtbl.formatIndex := CallbackCreate(ObjBindMethod(implObj, "formatIndex"), flags, 4)
+        this.vtbl.formatNumber := CallbackCreate(ObjBindMethod(implObj, "formatNumber"), flags, 4)
+        this.vtbl.formatDate := CallbackCreate(ObjBindMethod(implObj, "formatDate"), flags, 5)
+        this.vtbl.formatTime := CallbackCreate(ObjBindMethod(implObj, "formatTime"), flags, 5)
     }
 
     Dispose() {

@@ -101,7 +101,7 @@ export default struct IObjectWithBackReferences extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RemoveBackReferences := CallbackCreate(GetMethod(implObj, "RemoveBackReferences"), flags, 1)
+        this.vtbl.RemoveBackReferences := CallbackCreate(ObjBindMethod(implObj, "RemoveBackReferences"), flags, 1)
     }
 
     Dispose() {

@@ -23,7 +23,6 @@ export default struct WS_CREATE_CHANNEL_CALLBACK {
     }
 
     /**
-     * 
      * @param {WS_CHANNEL_TYPE} _channelType The message exchange pattern of the channel.
      *                 
      * 
@@ -49,7 +48,8 @@ export default struct WS_CREATE_CHANNEL_CALLBACK {
      *                     in this parameter.
      */
     Call(_channelType, channelParameters, channelParametersSize, _error) {
-        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
+        _errorMarshal := _error is VarRef ? "ptr*" : IntPtr
+        _errorMarshal := _error == 0 ? IntPtr : WS_ERROR.Ptr
 
         result := DllCall(this.value, WS_CHANNEL_TYPE, _channelType, IntPtr, channelParameters, UInt32, channelParametersSize, "ptr*", &channelInstance := 0, _errorMarshal, _error, "HRESULT")
         return channelInstance

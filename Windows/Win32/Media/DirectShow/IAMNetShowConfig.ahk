@@ -159,7 +159,7 @@ export default struct IAMNetShowConfig extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-get_bufferingtime
      */
     get_BufferingTime(pBufferingTime) {
-        pBufferingTimeMarshal := pBufferingTime is VarRef ? "double*" : "ptr"
+        pBufferingTimeMarshal := pBufferingTime is VarRef ? "double*" : IntPtr
 
         result := ComCall(7, this, pBufferingTimeMarshal, pBufferingTime, "HRESULT")
         return result
@@ -183,7 +183,7 @@ export default struct IAMNetShowConfig extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-get_usefixedudpport
      */
     get_UseFixedUDPPort(pUseFixedUDPPort) {
-        pUseFixedUDPPortMarshal := pUseFixedUDPPort is VarRef ? "short*" : "ptr"
+        pUseFixedUDPPortMarshal := pUseFixedUDPPort is VarRef ? "short*" : IntPtr
 
         result := ComCall(9, this, pUseFixedUDPPortMarshal, pUseFixedUDPPort, "HRESULT")
         return result
@@ -207,7 +207,7 @@ export default struct IAMNetShowConfig extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-get_fixedudpport
      */
     get_FixedUDPPort(pFixedUDPPort) {
-        pFixedUDPPortMarshal := pFixedUDPPort is VarRef ? "int*" : "ptr"
+        pFixedUDPPortMarshal := pFixedUDPPort is VarRef ? "int*" : IntPtr
 
         result := ComCall(11, this, pFixedUDPPortMarshal, pFixedUDPPort, "HRESULT")
         return result
@@ -231,7 +231,7 @@ export default struct IAMNetShowConfig extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-get_usehttpproxy
      */
     get_UseHTTPProxy(pUseHTTPProxy) {
-        pUseHTTPProxyMarshal := pUseHTTPProxy is VarRef ? "short*" : "ptr"
+        pUseHTTPProxyMarshal := pUseHTTPProxy is VarRef ? "short*" : IntPtr
 
         result := ComCall(13, this, pUseHTTPProxyMarshal, pUseHTTPProxy, "HRESULT")
         return result
@@ -257,7 +257,7 @@ export default struct IAMNetShowConfig extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-get_enableautoproxy
      */
     get_EnableAutoProxy(pEnableAutoProxy) {
-        pEnableAutoProxyMarshal := pEnableAutoProxy is VarRef ? "short*" : "ptr"
+        pEnableAutoProxyMarshal := pEnableAutoProxy is VarRef ? "short*" : IntPtr
 
         result := ComCall(15, this, pEnableAutoProxyMarshal, pEnableAutoProxy, "HRESULT")
         return result
@@ -307,7 +307,7 @@ export default struct IAMNetShowConfig extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-get_httpproxyport
      */
     get_HTTPProxyPort(pHTTPProxyPort) {
-        pHTTPProxyPortMarshal := pHTTPProxyPort is VarRef ? "int*" : "ptr"
+        pHTTPProxyPortMarshal := pHTTPProxyPort is VarRef ? "int*" : IntPtr
 
         result := ComCall(19, this, pHTTPProxyPortMarshal, pHTTPProxyPort, "HRESULT")
         return result
@@ -331,7 +331,7 @@ export default struct IAMNetShowConfig extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-get_enablemulticast
      */
     get_EnableMulticast(pEnableMulticast) {
-        pEnableMulticastMarshal := pEnableMulticast is VarRef ? "short*" : "ptr"
+        pEnableMulticastMarshal := pEnableMulticast is VarRef ? "short*" : IntPtr
 
         result := ComCall(21, this, pEnableMulticastMarshal, pEnableMulticast, "HRESULT")
         return result
@@ -355,7 +355,7 @@ export default struct IAMNetShowConfig extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-get_enableudp
      */
     get_EnableUDP(pEnableUDP) {
-        pEnableUDPMarshal := pEnableUDP is VarRef ? "short*" : "ptr"
+        pEnableUDPMarshal := pEnableUDP is VarRef ? "short*" : IntPtr
 
         result := ComCall(23, this, pEnableUDPMarshal, pEnableUDP, "HRESULT")
         return result
@@ -379,7 +379,7 @@ export default struct IAMNetShowConfig extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-get_enabletcp
      */
     get_EnableTCP(pEnableTCP) {
-        pEnableTCPMarshal := pEnableTCP is VarRef ? "short*" : "ptr"
+        pEnableTCPMarshal := pEnableTCP is VarRef ? "short*" : IntPtr
 
         result := ComCall(25, this, pEnableTCPMarshal, pEnableTCP, "HRESULT")
         return result
@@ -403,7 +403,7 @@ export default struct IAMNetShowConfig extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-get_enablehttp
      */
     get_EnableHTTP(pEnableHTTP) {
-        pEnableHTTPMarshal := pEnableHTTP is VarRef ? "short*" : "ptr"
+        pEnableHTTPMarshal := pEnableHTTP is VarRef ? "short*" : IntPtr
 
         result := ComCall(27, this, pEnableHTTPMarshal, pEnableHTTP, "HRESULT")
         return result
@@ -429,28 +429,28 @@ export default struct IAMNetShowConfig extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_BufferingTime := CallbackCreate(GetMethod(implObj, "get_BufferingTime"), flags, 2)
-        this.vtbl.put_BufferingTime := CallbackCreate(GetMethod(implObj, "put_BufferingTime"), flags, 2)
-        this.vtbl.get_UseFixedUDPPort := CallbackCreate(GetMethod(implObj, "get_UseFixedUDPPort"), flags, 2)
-        this.vtbl.put_UseFixedUDPPort := CallbackCreate(GetMethod(implObj, "put_UseFixedUDPPort"), flags, 2)
-        this.vtbl.get_FixedUDPPort := CallbackCreate(GetMethod(implObj, "get_FixedUDPPort"), flags, 2)
-        this.vtbl.put_FixedUDPPort := CallbackCreate(GetMethod(implObj, "put_FixedUDPPort"), flags, 2)
-        this.vtbl.get_UseHTTPProxy := CallbackCreate(GetMethod(implObj, "get_UseHTTPProxy"), flags, 2)
-        this.vtbl.put_UseHTTPProxy := CallbackCreate(GetMethod(implObj, "put_UseHTTPProxy"), flags, 2)
-        this.vtbl.get_EnableAutoProxy := CallbackCreate(GetMethod(implObj, "get_EnableAutoProxy"), flags, 2)
-        this.vtbl.put_EnableAutoProxy := CallbackCreate(GetMethod(implObj, "put_EnableAutoProxy"), flags, 2)
-        this.vtbl.get_HTTPProxyHost := CallbackCreate(GetMethod(implObj, "get_HTTPProxyHost"), flags, 2)
-        this.vtbl.put_HTTPProxyHost := CallbackCreate(GetMethod(implObj, "put_HTTPProxyHost"), flags, 2)
-        this.vtbl.get_HTTPProxyPort := CallbackCreate(GetMethod(implObj, "get_HTTPProxyPort"), flags, 2)
-        this.vtbl.put_HTTPProxyPort := CallbackCreate(GetMethod(implObj, "put_HTTPProxyPort"), flags, 2)
-        this.vtbl.get_EnableMulticast := CallbackCreate(GetMethod(implObj, "get_EnableMulticast"), flags, 2)
-        this.vtbl.put_EnableMulticast := CallbackCreate(GetMethod(implObj, "put_EnableMulticast"), flags, 2)
-        this.vtbl.get_EnableUDP := CallbackCreate(GetMethod(implObj, "get_EnableUDP"), flags, 2)
-        this.vtbl.put_EnableUDP := CallbackCreate(GetMethod(implObj, "put_EnableUDP"), flags, 2)
-        this.vtbl.get_EnableTCP := CallbackCreate(GetMethod(implObj, "get_EnableTCP"), flags, 2)
-        this.vtbl.put_EnableTCP := CallbackCreate(GetMethod(implObj, "put_EnableTCP"), flags, 2)
-        this.vtbl.get_EnableHTTP := CallbackCreate(GetMethod(implObj, "get_EnableHTTP"), flags, 2)
-        this.vtbl.put_EnableHTTP := CallbackCreate(GetMethod(implObj, "put_EnableHTTP"), flags, 2)
+        this.vtbl.get_BufferingTime := CallbackCreate(ObjBindMethod(implObj, "get_BufferingTime"), flags, 2)
+        this.vtbl.put_BufferingTime := CallbackCreate(ObjBindMethod(implObj, "put_BufferingTime"), flags, 2)
+        this.vtbl.get_UseFixedUDPPort := CallbackCreate(ObjBindMethod(implObj, "get_UseFixedUDPPort"), flags, 2)
+        this.vtbl.put_UseFixedUDPPort := CallbackCreate(ObjBindMethod(implObj, "put_UseFixedUDPPort"), flags, 2)
+        this.vtbl.get_FixedUDPPort := CallbackCreate(ObjBindMethod(implObj, "get_FixedUDPPort"), flags, 2)
+        this.vtbl.put_FixedUDPPort := CallbackCreate(ObjBindMethod(implObj, "put_FixedUDPPort"), flags, 2)
+        this.vtbl.get_UseHTTPProxy := CallbackCreate(ObjBindMethod(implObj, "get_UseHTTPProxy"), flags, 2)
+        this.vtbl.put_UseHTTPProxy := CallbackCreate(ObjBindMethod(implObj, "put_UseHTTPProxy"), flags, 2)
+        this.vtbl.get_EnableAutoProxy := CallbackCreate(ObjBindMethod(implObj, "get_EnableAutoProxy"), flags, 2)
+        this.vtbl.put_EnableAutoProxy := CallbackCreate(ObjBindMethod(implObj, "put_EnableAutoProxy"), flags, 2)
+        this.vtbl.get_HTTPProxyHost := CallbackCreate(ObjBindMethod(implObj, "get_HTTPProxyHost"), flags, 2)
+        this.vtbl.put_HTTPProxyHost := CallbackCreate(ObjBindMethod(implObj, "put_HTTPProxyHost"), flags, 2)
+        this.vtbl.get_HTTPProxyPort := CallbackCreate(ObjBindMethod(implObj, "get_HTTPProxyPort"), flags, 2)
+        this.vtbl.put_HTTPProxyPort := CallbackCreate(ObjBindMethod(implObj, "put_HTTPProxyPort"), flags, 2)
+        this.vtbl.get_EnableMulticast := CallbackCreate(ObjBindMethod(implObj, "get_EnableMulticast"), flags, 2)
+        this.vtbl.put_EnableMulticast := CallbackCreate(ObjBindMethod(implObj, "put_EnableMulticast"), flags, 2)
+        this.vtbl.get_EnableUDP := CallbackCreate(ObjBindMethod(implObj, "get_EnableUDP"), flags, 2)
+        this.vtbl.put_EnableUDP := CallbackCreate(ObjBindMethod(implObj, "put_EnableUDP"), flags, 2)
+        this.vtbl.get_EnableTCP := CallbackCreate(ObjBindMethod(implObj, "get_EnableTCP"), flags, 2)
+        this.vtbl.put_EnableTCP := CallbackCreate(ObjBindMethod(implObj, "put_EnableTCP"), flags, 2)
+        this.vtbl.get_EnableHTTP := CallbackCreate(ObjBindMethod(implObj, "get_EnableHTTP"), flags, 2)
+        this.vtbl.put_EnableHTTP := CallbackCreate(ObjBindMethod(implObj, "put_EnableHTTP"), flags, 2)
     }
 
     Dispose() {

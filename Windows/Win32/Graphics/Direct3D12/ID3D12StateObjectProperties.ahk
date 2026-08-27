@@ -128,10 +128,10 @@ export default struct ID3D12StateObjectProperties extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetShaderIdentifier := CallbackCreate(GetMethod(implObj, "GetShaderIdentifier"), flags, 2)
-        this.vtbl.GetShaderStackSize := CallbackCreate(GetMethod(implObj, "GetShaderStackSize"), flags, 2)
-        this.vtbl.GetPipelineStackSize := CallbackCreate(GetMethod(implObj, "GetPipelineStackSize"), flags, 1)
-        this.vtbl.SetPipelineStackSize := CallbackCreate(GetMethod(implObj, "SetPipelineStackSize"), flags, 2)
+        this.vtbl.GetShaderIdentifier := CallbackCreate(ObjBindMethod(implObj, "GetShaderIdentifier"), flags, 2)
+        this.vtbl.GetShaderStackSize := CallbackCreate(ObjBindMethod(implObj, "GetShaderStackSize"), flags, 2)
+        this.vtbl.GetPipelineStackSize := CallbackCreate(ObjBindMethod(implObj, "GetPipelineStackSize"), flags, 1)
+        this.vtbl.SetPipelineStackSize := CallbackCreate(ObjBindMethod(implObj, "SetPipelineStackSize"), flags, 2)
     }
 
     Dispose() {

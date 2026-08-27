@@ -81,9 +81,9 @@ export default struct IOfflineFilesSyncErrorItemInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFileAttributes := CallbackCreate(GetMethod(implObj, "GetFileAttributes"), flags, 2)
-        this.vtbl.GetFileTimes := CallbackCreate(GetMethod(implObj, "GetFileTimes"), flags, 3)
-        this.vtbl.GetFileSize := CallbackCreate(GetMethod(implObj, "GetFileSize"), flags, 2)
+        this.vtbl.GetFileAttributes := CallbackCreate(ObjBindMethod(implObj, "GetFileAttributes"), flags, 2)
+        this.vtbl.GetFileTimes := CallbackCreate(ObjBindMethod(implObj, "GetFileTimes"), flags, 3)
+        this.vtbl.GetFileSize := CallbackCreate(ObjBindMethod(implObj, "GetFileSize"), flags, 2)
     }
 
     Dispose() {

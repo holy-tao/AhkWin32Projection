@@ -43,7 +43,6 @@ export default struct IBDA_WMDRMSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} MaxCaptureToken 
      * @param {Pointer<Integer>} MaxStreamingPid 
      * @param {Pointer<Integer>} MaxLicense 
@@ -56,48 +55,45 @@ export default struct IBDA_WMDRMSession extends IUnknown {
      * @returns {HRESULT} 
      */
     GetStatus(MaxCaptureToken, MaxStreamingPid, MaxLicense, MinSecurityLevel, RevInfoSequenceNumber, RevInfoIssuedTime, RevInfoTTL, RevListVersion, ulState) {
-        MaxCaptureTokenMarshal := MaxCaptureToken is VarRef ? "uint*" : "ptr"
-        MaxStreamingPidMarshal := MaxStreamingPid is VarRef ? "uint*" : "ptr"
-        MaxLicenseMarshal := MaxLicense is VarRef ? "uint*" : "ptr"
-        MinSecurityLevelMarshal := MinSecurityLevel is VarRef ? "uint*" : "ptr"
-        RevInfoSequenceNumberMarshal := RevInfoSequenceNumber is VarRef ? "uint*" : "ptr"
-        RevInfoIssuedTimeMarshal := RevInfoIssuedTime is VarRef ? "uint*" : "ptr"
-        RevInfoTTLMarshal := RevInfoTTL is VarRef ? "uint*" : "ptr"
-        RevListVersionMarshal := RevListVersion is VarRef ? "uint*" : "ptr"
-        ulStateMarshal := ulState is VarRef ? "uint*" : "ptr"
+        MaxCaptureTokenMarshal := MaxCaptureToken is VarRef ? "uint*" : IntPtr
+        MaxStreamingPidMarshal := MaxStreamingPid is VarRef ? "uint*" : IntPtr
+        MaxLicenseMarshal := MaxLicense is VarRef ? "uint*" : IntPtr
+        MinSecurityLevelMarshal := MinSecurityLevel is VarRef ? "uint*" : IntPtr
+        RevInfoSequenceNumberMarshal := RevInfoSequenceNumber is VarRef ? "uint*" : IntPtr
+        RevInfoIssuedTimeMarshal := RevInfoIssuedTime is VarRef ? "uint*" : IntPtr
+        RevInfoTTLMarshal := RevInfoTTL is VarRef ? "uint*" : IntPtr
+        RevListVersionMarshal := RevListVersion is VarRef ? "uint*" : IntPtr
+        ulStateMarshal := ulState is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, MaxCaptureTokenMarshal, MaxCaptureToken, MaxStreamingPidMarshal, MaxStreamingPid, MaxLicenseMarshal, MaxLicense, MinSecurityLevelMarshal, MinSecurityLevel, RevInfoSequenceNumberMarshal, RevInfoSequenceNumber, RevInfoIssuedTimeMarshal, RevInfoIssuedTime, RevInfoTTLMarshal, RevInfoTTL, RevListVersionMarshal, RevListVersion, ulStateMarshal, ulState, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} ulRevInfoLen 
      * @param {Pointer<Integer>} pbRevInfo 
      * @returns {HRESULT} 
      */
     SetRevInfo(ulRevInfoLen, pbRevInfo) {
-        pbRevInfoMarshal := pbRevInfo is VarRef ? "char*" : "ptr"
+        pbRevInfoMarshal := pbRevInfo is VarRef ? "char*" : IntPtr
 
         result := ComCall(4, this, UInt32, ulRevInfoLen, pbRevInfoMarshal, pbRevInfo, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} ulCrlLen 
      * @param {Pointer<Integer>} pbCrlLen 
      * @returns {HRESULT} 
      */
     SetCrl(ulCrlLen, pbCrlLen) {
-        pbCrlLenMarshal := pbCrlLen is VarRef ? "char*" : "ptr"
+        pbCrlLenMarshal := pbCrlLen is VarRef ? "char*" : IntPtr
 
         result := ComCall(5, this, UInt32, ulCrlLen, pbCrlLenMarshal, pbCrlLen, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} ulcbRequest 
      * @param {Pointer<Integer>} pbRequest 
      * @param {Pointer<Integer>} pulcbResponse 
@@ -105,31 +101,29 @@ export default struct IBDA_WMDRMSession extends IUnknown {
      * @returns {HRESULT} 
      */
     TransactMessage(ulcbRequest, pbRequest, pulcbResponse, pbResponse) {
-        pbRequestMarshal := pbRequest is VarRef ? "char*" : "ptr"
-        pulcbResponseMarshal := pulcbResponse is VarRef ? "uint*" : "ptr"
-        pbResponseMarshal := pbResponse is VarRef ? "char*" : "ptr"
+        pbRequestMarshal := pbRequest is VarRef ? "char*" : IntPtr
+        pulcbResponseMarshal := pulcbResponse is VarRef ? "uint*" : IntPtr
+        pbResponseMarshal := pbResponse is VarRef ? "char*" : IntPtr
 
         result := ComCall(6, this, UInt32, ulcbRequest, pbRequestMarshal, pbRequest, pulcbResponseMarshal, pulcbResponse, pbResponseMarshal, pbResponse, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} uuidKey 
      * @param {Pointer<Integer>} pulPackageLen 
      * @param {Pointer<Integer>} pbPackage 
      * @returns {HRESULT} 
      */
     GetLicense(uuidKey, pulPackageLen, pbPackage) {
-        pulPackageLenMarshal := pulPackageLen is VarRef ? "uint*" : "ptr"
-        pbPackageMarshal := pbPackage is VarRef ? "char*" : "ptr"
+        pulPackageLenMarshal := pulPackageLen is VarRef ? "uint*" : IntPtr
+        pbPackageMarshal := pbPackage is VarRef ? "char*" : IntPtr
 
         result := ComCall(7, this, Guid.Ptr, uuidKey, pulPackageLenMarshal, pulPackageLen, pbPackageMarshal, pbPackage, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} uuidKey 
      * @returns {HRESULT} 
      */
@@ -139,7 +133,6 @@ export default struct IBDA_WMDRMSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulInXmrLicenseLen 
      * @param {Pointer<Integer>} pbInXmrLicense 
      * @param {Integer} ulEntitlementTokenLen 
@@ -149,24 +142,23 @@ export default struct IBDA_WMDRMSession extends IUnknown {
      * @returns {Integer} 
      */
     RenewLicense(ulInXmrLicenseLen, pbInXmrLicense, ulEntitlementTokenLen, pbEntitlementToken, pulOutXmrLicenseLen, pbOutXmrLicense) {
-        pbInXmrLicenseMarshal := pbInXmrLicense is VarRef ? "char*" : "ptr"
-        pbEntitlementTokenMarshal := pbEntitlementToken is VarRef ? "char*" : "ptr"
-        pulOutXmrLicenseLenMarshal := pulOutXmrLicenseLen is VarRef ? "uint*" : "ptr"
-        pbOutXmrLicenseMarshal := pbOutXmrLicense is VarRef ? "char*" : "ptr"
+        pbInXmrLicenseMarshal := pbInXmrLicense is VarRef ? "char*" : IntPtr
+        pbEntitlementTokenMarshal := pbEntitlementToken is VarRef ? "char*" : IntPtr
+        pulOutXmrLicenseLenMarshal := pulOutXmrLicenseLen is VarRef ? "uint*" : IntPtr
+        pbOutXmrLicenseMarshal := pbOutXmrLicense is VarRef ? "char*" : IntPtr
 
         result := ComCall(9, this, UInt32, ulInXmrLicenseLen, pbInXmrLicenseMarshal, pbInXmrLicense, UInt32, ulEntitlementTokenLen, pbEntitlementTokenMarshal, pbEntitlementToken, "uint*", &pulDescrambleStatus := 0, pulOutXmrLicenseLenMarshal, pulOutXmrLicenseLen, pbOutXmrLicenseMarshal, pbOutXmrLicense, "HRESULT")
         return pulDescrambleStatus
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pulKeyInfoLen 
      * @param {Pointer<Integer>} pbKeyInfo 
      * @returns {HRESULT} 
      */
     GetKeyInfo(pulKeyInfoLen, pbKeyInfo) {
-        pulKeyInfoLenMarshal := pulKeyInfoLen is VarRef ? "uint*" : "ptr"
-        pbKeyInfoMarshal := pbKeyInfo is VarRef ? "char*" : "ptr"
+        pulKeyInfoLenMarshal := pulKeyInfoLen is VarRef ? "uint*" : IntPtr
+        pbKeyInfoMarshal := pbKeyInfo is VarRef ? "char*" : IntPtr
 
         result := ComCall(10, this, pulKeyInfoLenMarshal, pulKeyInfoLen, pbKeyInfoMarshal, pbKeyInfo, "HRESULT")
         return result
@@ -181,14 +173,14 @@ export default struct IBDA_WMDRMSession extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 10)
-        this.vtbl.SetRevInfo := CallbackCreate(GetMethod(implObj, "SetRevInfo"), flags, 3)
-        this.vtbl.SetCrl := CallbackCreate(GetMethod(implObj, "SetCrl"), flags, 3)
-        this.vtbl.TransactMessage := CallbackCreate(GetMethod(implObj, "TransactMessage"), flags, 5)
-        this.vtbl.GetLicense := CallbackCreate(GetMethod(implObj, "GetLicense"), flags, 4)
-        this.vtbl.ReissueLicense := CallbackCreate(GetMethod(implObj, "ReissueLicense"), flags, 2)
-        this.vtbl.RenewLicense := CallbackCreate(GetMethod(implObj, "RenewLicense"), flags, 8)
-        this.vtbl.GetKeyInfo := CallbackCreate(GetMethod(implObj, "GetKeyInfo"), flags, 3)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 10)
+        this.vtbl.SetRevInfo := CallbackCreate(ObjBindMethod(implObj, "SetRevInfo"), flags, 3)
+        this.vtbl.SetCrl := CallbackCreate(ObjBindMethod(implObj, "SetCrl"), flags, 3)
+        this.vtbl.TransactMessage := CallbackCreate(ObjBindMethod(implObj, "TransactMessage"), flags, 5)
+        this.vtbl.GetLicense := CallbackCreate(ObjBindMethod(implObj, "GetLicense"), flags, 4)
+        this.vtbl.ReissueLicense := CallbackCreate(ObjBindMethod(implObj, "ReissueLicense"), flags, 2)
+        this.vtbl.RenewLicense := CallbackCreate(ObjBindMethod(implObj, "RenewLicense"), flags, 8)
+        this.vtbl.GetKeyInfo := CallbackCreate(ObjBindMethod(implObj, "GetKeyInfo"), flags, 3)
     }
 
     Dispose() {

@@ -146,11 +146,11 @@ export default struct IRDPSRAPIVirtualChannel extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SendData := CallbackCreate(GetMethod(implObj, "SendData"), flags, 4)
-        this.vtbl.SetAccess := CallbackCreate(GetMethod(implObj, "SetAccess"), flags, 3)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_Flags := CallbackCreate(GetMethod(implObj, "get_Flags"), flags, 2)
-        this.vtbl.get_Priority := CallbackCreate(GetMethod(implObj, "get_Priority"), flags, 2)
+        this.vtbl.SendData := CallbackCreate(ObjBindMethod(implObj, "SendData"), flags, 4)
+        this.vtbl.SetAccess := CallbackCreate(ObjBindMethod(implObj, "SetAccess"), flags, 3)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Flags := CallbackCreate(ObjBindMethod(implObj, "get_Flags"), flags, 2)
+        this.vtbl.get_Priority := CallbackCreate(ObjBindMethod(implObj, "get_Priority"), flags, 2)
     }
 
     Dispose() {

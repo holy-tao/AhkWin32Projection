@@ -111,7 +111,7 @@ export default struct IFeedClockVectorElement extends IClockVectorElement {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ifeedclockvectorelement-getflags
      */
     GetFlags(pbFlags) {
-        pbFlagsMarshal := pbFlags is VarRef ? "char*" : "ptr"
+        pbFlagsMarshal := pbFlags is VarRef ? "char*" : IntPtr
 
         result := ComCall(6, this, pbFlagsMarshal, pbFlags, "HRESULT")
         return result
@@ -126,8 +126,8 @@ export default struct IFeedClockVectorElement extends IClockVectorElement {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSyncTime := CallbackCreate(GetMethod(implObj, "GetSyncTime"), flags, 2)
-        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.GetSyncTime := CallbackCreate(ObjBindMethod(implObj, "GetSyncTime"), flags, 2)
+        this.vtbl.GetFlags := CallbackCreate(ObjBindMethod(implObj, "GetFlags"), flags, 2)
     }
 
     Dispose() {

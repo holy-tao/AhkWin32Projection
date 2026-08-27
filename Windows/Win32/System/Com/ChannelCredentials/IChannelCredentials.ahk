@@ -48,7 +48,6 @@ export default struct IChannelCredentials extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} domain 
      * @param {BSTR} username 
      * @param {BSTR} password 
@@ -66,7 +65,6 @@ export default struct IChannelCredentials extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} username 
      * @param {BSTR} password 
      * @returns {HRESULT} 
@@ -80,7 +78,6 @@ export default struct IChannelCredentials extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} storeLocation 
      * @param {BSTR} storeName 
      * @param {BSTR} findYype 
@@ -97,7 +94,6 @@ export default struct IChannelCredentials extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} subjectName 
      * @param {BSTR} storeLocation 
      * @param {BSTR} storeName 
@@ -113,7 +109,6 @@ export default struct IChannelCredentials extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} filename 
      * @param {BSTR} password 
      * @param {BSTR} keystorageFlags 
@@ -129,7 +124,6 @@ export default struct IChannelCredentials extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} storeLocation 
      * @param {BSTR} storeName 
      * @param {BSTR} findType 
@@ -146,7 +140,6 @@ export default struct IChannelCredentials extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} subjectName 
      * @param {BSTR} storeLocation 
      * @param {BSTR} storeName 
@@ -162,7 +155,6 @@ export default struct IChannelCredentials extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} filename 
      * @param {BSTR} password 
      * @param {BSTR} keystorageFlags 
@@ -178,7 +170,6 @@ export default struct IChannelCredentials extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} storeLocation 
      * @param {BSTR} revocationMode 
      * @param {BSTR} certificateValidationMode 
@@ -194,7 +185,6 @@ export default struct IChannelCredentials extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} localIssuerAddres 
      * @param {BSTR} localIssuerBindingType 
      * @param {BSTR} localIssuerBinding 
@@ -218,16 +208,16 @@ export default struct IChannelCredentials extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetWindowsCredential := CallbackCreate(GetMethod(implObj, "SetWindowsCredential"), flags, 6)
-        this.vtbl.SetUserNameCredential := CallbackCreate(GetMethod(implObj, "SetUserNameCredential"), flags, 3)
-        this.vtbl.SetClientCertificateFromStore := CallbackCreate(GetMethod(implObj, "SetClientCertificateFromStore"), flags, 5)
-        this.vtbl.SetClientCertificateFromStoreByName := CallbackCreate(GetMethod(implObj, "SetClientCertificateFromStoreByName"), flags, 4)
-        this.vtbl.SetClientCertificateFromFile := CallbackCreate(GetMethod(implObj, "SetClientCertificateFromFile"), flags, 4)
-        this.vtbl.SetDefaultServiceCertificateFromStore := CallbackCreate(GetMethod(implObj, "SetDefaultServiceCertificateFromStore"), flags, 5)
-        this.vtbl.SetDefaultServiceCertificateFromStoreByName := CallbackCreate(GetMethod(implObj, "SetDefaultServiceCertificateFromStoreByName"), flags, 4)
-        this.vtbl.SetDefaultServiceCertificateFromFile := CallbackCreate(GetMethod(implObj, "SetDefaultServiceCertificateFromFile"), flags, 4)
-        this.vtbl.SetServiceCertificateAuthentication := CallbackCreate(GetMethod(implObj, "SetServiceCertificateAuthentication"), flags, 4)
-        this.vtbl.SetIssuedToken := CallbackCreate(GetMethod(implObj, "SetIssuedToken"), flags, 4)
+        this.vtbl.SetWindowsCredential := CallbackCreate(ObjBindMethod(implObj, "SetWindowsCredential"), flags, 6)
+        this.vtbl.SetUserNameCredential := CallbackCreate(ObjBindMethod(implObj, "SetUserNameCredential"), flags, 3)
+        this.vtbl.SetClientCertificateFromStore := CallbackCreate(ObjBindMethod(implObj, "SetClientCertificateFromStore"), flags, 5)
+        this.vtbl.SetClientCertificateFromStoreByName := CallbackCreate(ObjBindMethod(implObj, "SetClientCertificateFromStoreByName"), flags, 4)
+        this.vtbl.SetClientCertificateFromFile := CallbackCreate(ObjBindMethod(implObj, "SetClientCertificateFromFile"), flags, 4)
+        this.vtbl.SetDefaultServiceCertificateFromStore := CallbackCreate(ObjBindMethod(implObj, "SetDefaultServiceCertificateFromStore"), flags, 5)
+        this.vtbl.SetDefaultServiceCertificateFromStoreByName := CallbackCreate(ObjBindMethod(implObj, "SetDefaultServiceCertificateFromStoreByName"), flags, 4)
+        this.vtbl.SetDefaultServiceCertificateFromFile := CallbackCreate(ObjBindMethod(implObj, "SetDefaultServiceCertificateFromFile"), flags, 4)
+        this.vtbl.SetServiceCertificateAuthentication := CallbackCreate(ObjBindMethod(implObj, "SetServiceCertificateAuthentication"), flags, 4)
+        this.vtbl.SetIssuedToken := CallbackCreate(ObjBindMethod(implObj, "SetIssuedToken"), flags, 4)
     }
 
     Dispose() {

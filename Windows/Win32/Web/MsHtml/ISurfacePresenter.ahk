@@ -40,7 +40,6 @@ export default struct ISurfacePresenter extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uBuffer 
      * @param {Pointer<RECT>} pDirty 
      * @returns {HRESULT} 
@@ -51,7 +50,6 @@ export default struct ISurfacePresenter extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} backBufferIndex 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -62,7 +60,6 @@ export default struct ISurfacePresenter extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsCurrent() {
@@ -79,9 +76,9 @@ export default struct ISurfacePresenter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Present := CallbackCreate(GetMethod(implObj, "Present"), flags, 3)
-        this.vtbl.GetBuffer := CallbackCreate(GetMethod(implObj, "GetBuffer"), flags, 4)
-        this.vtbl.IsCurrent := CallbackCreate(GetMethod(implObj, "IsCurrent"), flags, 2)
+        this.vtbl.Present := CallbackCreate(ObjBindMethod(implObj, "Present"), flags, 3)
+        this.vtbl.GetBuffer := CallbackCreate(ObjBindMethod(implObj, "GetBuffer"), flags, 4)
+        this.vtbl.IsCurrent := CallbackCreate(ObjBindMethod(implObj, "IsCurrent"), flags, 2)
     }
 
     Dispose() {

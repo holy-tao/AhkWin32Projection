@@ -36,7 +36,6 @@ export default struct IHTMLTableSection2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} indexFrom 
      * @param {Integer} indexTo 
      * @returns {IDispatch} 
@@ -55,7 +54,7 @@ export default struct IHTMLTableSection2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.moveRow := CallbackCreate(GetMethod(implObj, "moveRow"), flags, 4)
+        this.vtbl.moveRow := CallbackCreate(ObjBindMethod(implObj, "moveRow"), flags, 4)
     }
 
     Dispose() {

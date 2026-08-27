@@ -36,7 +36,6 @@ export default struct IWMValidate extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} guidValidationID 
      * @returns {HRESULT} 
      */
@@ -54,7 +53,7 @@ export default struct IWMValidate extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetIdentifier := CallbackCreate(GetMethod(implObj, "SetIdentifier"), flags, 2)
+        this.vtbl.SetIdentifier := CallbackCreate(ObjBindMethod(implObj, "SetIdentifier"), flags, 2)
     }
 
     Dispose() {

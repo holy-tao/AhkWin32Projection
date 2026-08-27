@@ -31,7 +31,6 @@ export default struct KspVerifySignatureFn {
     }
 
     /**
-     * 
      * @param {Pointer} ContextId 
      * @param {Pointer<SecBufferDesc>} Message Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secbufferdesc">SecBufferDesc</a> structure containing the message to verify.
@@ -60,7 +59,8 @@ export default struct KspVerifySignatureFn {
      * </table>
      */
     Call(ContextId, Message, MessageSeqNo, pfQOP) {
-        pfQOPMarshal := pfQOP is VarRef ? "uint*" : "ptr"
+        pfQOPMarshal := pfQOP is VarRef ? "uint*" : IntPtr
+        pfQOPMarshal := pfQOP == 0 ? IntPtr : "uint*"
 
         result := DllCall(this.value, IntPtr, ContextId, SecBufferDesc.Ptr, Message, UInt32, MessageSeqNo, pfQOPMarshal, pfQOP, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

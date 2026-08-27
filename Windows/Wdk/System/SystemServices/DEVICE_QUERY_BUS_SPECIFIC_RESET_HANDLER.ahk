@@ -20,15 +20,14 @@ export default struct DEVICE_QUERY_BUS_SPECIFIC_RESET_HANDLER {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} InterfaceContext 
      * @param {Pointer<Integer>} ResetInfoCount 
      * @param {Pointer<DEVICE_BUS_SPECIFIC_RESET_INFO>} ResetInfoSupported 
      * @returns {NTSTATUS} 
      */
     Call(InterfaceContext, ResetInfoCount, ResetInfoSupported) {
-        InterfaceContextMarshal := InterfaceContext is VarRef ? "ptr" : "ptr"
-        ResetInfoCountMarshal := ResetInfoCount is VarRef ? "uint*" : "ptr"
+        InterfaceContextMarshal := InterfaceContext is VarRef ? "ptr" : IntPtr
+        ResetInfoCountMarshal := ResetInfoCount is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, InterfaceContextMarshal, InterfaceContext, ResetInfoCountMarshal, ResetInfoCount, DEVICE_BUS_SPECIFIC_RESET_INFO.Ptr, ResetInfoSupported, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

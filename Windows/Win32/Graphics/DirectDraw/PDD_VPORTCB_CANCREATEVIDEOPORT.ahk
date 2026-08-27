@@ -25,7 +25,6 @@ export default struct PDD_VPORTCB_CANCREATEVIDEOPORT {
     }
 
     /**
-     * 
      * @param {Pointer<DD_CANCREATEVPORTDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_cancreatevportdata">DD_CANCREATEVPORTDATA</a> structure that contains the information necessary for the driver to determine whether the specified DirectDraw VPE object can be supported.
      * @returns {Integer} <i>DdVideoPortCanCreate</i> returns one of the following callback codes:
      */

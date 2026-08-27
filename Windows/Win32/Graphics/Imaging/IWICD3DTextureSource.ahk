@@ -43,19 +43,19 @@ export default struct IWICD3DTextureSource extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pD3DDevice 
      * @param {IPropertyBag2} pID3DTextureOptions 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
     GetTexture(pD3DDevice, pID3DTextureOptions, riid) {
-        result := ComCall(3, this, "ptr", pD3DDevice, "ptr", pID3DTextureOptions, Guid.Ptr, riid, "ptr*", &ppTexture := 0, "HRESULT")
+        pID3DTextureOptionsMarshal := pID3DTextureOptions == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, "ptr", pD3DDevice, pID3DTextureOptionsMarshal, pID3DTextureOptions, Guid.Ptr, riid, "ptr*", &ppTexture := 0, "HRESULT")
         return ppTexture
     }
 
     /**
-     * 
      * @param {Pointer<WICRect>} prc 
      * @param {Integer} uiWidth 
      * @param {Integer} uiHeight 
@@ -67,12 +67,15 @@ export default struct IWICD3DTextureSource extends IUnknown {
      * @returns {Pointer<Void>} 
      */
     GetTransformedTexture(prc, uiWidth, uiHeight, pguidDstFormat, dstTransform, pD3DDevice, pID3DTextureOptions, riid) {
-        result := ComCall(4, this, WICRect.Ptr, prc, UInt32, uiWidth, UInt32, uiHeight, Guid.Ptr, pguidDstFormat, WICBitmapTransformOptions, dstTransform, "ptr", pD3DDevice, "ptr", pID3DTextureOptions, Guid.Ptr, riid, "ptr*", &ppTexture := 0, "HRESULT")
+        prcMarshal := prc == 0 ? IntPtr : WICRect.Ptr
+        pguidDstFormatMarshal := pguidDstFormat == 0 ? IntPtr : Guid.Ptr
+        pID3DTextureOptionsMarshal := pID3DTextureOptions == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, prcMarshal, prc, UInt32, uiWidth, UInt32, uiHeight, pguidDstFormatMarshal, pguidDstFormat, WICBitmapTransformOptions, dstTransform, "ptr", pD3DDevice, pID3DTextureOptionsMarshal, pID3DTextureOptions, Guid.Ptr, riid, "ptr*", &ppTexture := 0, "HRESULT")
         return ppTexture
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {BOOL} 
      */
@@ -82,7 +85,6 @@ export default struct IWICD3DTextureSource extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IPropertyBag2} 
      */
     GetD3DTextureOptions() {
@@ -99,10 +101,10 @@ export default struct IWICD3DTextureSource extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTexture := CallbackCreate(GetMethod(implObj, "GetTexture"), flags, 5)
-        this.vtbl.GetTransformedTexture := CallbackCreate(GetMethod(implObj, "GetTransformedTexture"), flags, 10)
-        this.vtbl.DoesSupportD3DDeviceType := CallbackCreate(GetMethod(implObj, "DoesSupportD3DDeviceType"), flags, 3)
-        this.vtbl.GetD3DTextureOptions := CallbackCreate(GetMethod(implObj, "GetD3DTextureOptions"), flags, 2)
+        this.vtbl.GetTexture := CallbackCreate(ObjBindMethod(implObj, "GetTexture"), flags, 5)
+        this.vtbl.GetTransformedTexture := CallbackCreate(ObjBindMethod(implObj, "GetTransformedTexture"), flags, 10)
+        this.vtbl.DoesSupportD3DDeviceType := CallbackCreate(ObjBindMethod(implObj, "DoesSupportD3DDeviceType"), flags, 3)
+        this.vtbl.GetD3DTextureOptions := CallbackCreate(ObjBindMethod(implObj, "GetD3DTextureOptions"), flags, 2)
     }
 
     Dispose() {

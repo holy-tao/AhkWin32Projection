@@ -99,7 +99,7 @@ export default struct IIsdbCADescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbcadescriptor-getprivatedatabytes
      */
     GetPrivateDataBytes(pbBufferLength) {
-        pbBufferLengthMarshal := pbBufferLength is VarRef ? "char*" : "ptr"
+        pbBufferLengthMarshal := pbBufferLength is VarRef ? "char*" : IntPtr
 
         result := ComCall(8, this, pbBufferLengthMarshal, pbBufferLength, "char*", &pbBuffer := 0, "HRESULT")
         return pbBuffer
@@ -114,12 +114,12 @@ export default struct IIsdbCADescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetCASystemId := CallbackCreate(GetMethod(implObj, "GetCASystemId"), flags, 2)
-        this.vtbl.GetReservedBits := CallbackCreate(GetMethod(implObj, "GetReservedBits"), flags, 2)
-        this.vtbl.GetCAPID := CallbackCreate(GetMethod(implObj, "GetCAPID"), flags, 2)
-        this.vtbl.GetPrivateDataBytes := CallbackCreate(GetMethod(implObj, "GetPrivateDataBytes"), flags, 3)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetCASystemId := CallbackCreate(ObjBindMethod(implObj, "GetCASystemId"), flags, 2)
+        this.vtbl.GetReservedBits := CallbackCreate(ObjBindMethod(implObj, "GetReservedBits"), flags, 2)
+        this.vtbl.GetCAPID := CallbackCreate(ObjBindMethod(implObj, "GetCAPID"), flags, 2)
+        this.vtbl.GetPrivateDataBytes := CallbackCreate(ObjBindMethod(implObj, "GetPrivateDataBytes"), flags, 3)
     }
 
     Dispose() {

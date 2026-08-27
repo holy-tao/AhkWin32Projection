@@ -20,7 +20,6 @@ export default struct UTextExtract {
     }
 
     /**
-     * 
      * @param {Pointer<UText>} ut 
      * @param {Integer} nativeStart 
      * @param {Integer} nativeLimit 
@@ -30,8 +29,8 @@ export default struct UTextExtract {
      * @returns {Integer} 
      */
     Call(ut, nativeStart, nativeLimit, dest, destCapacity, _status) {
-        destMarshal := dest is VarRef ? "ushort*" : "ptr"
-        _statusMarshal := _status is VarRef ? "int*" : "ptr"
+        destMarshal := dest is VarRef ? "ushort*" : IntPtr
+        _statusMarshal := _status is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, UText.Ptr, ut, Int64, nativeStart, Int64, nativeLimit, destMarshal, dest, Int32, destCapacity, _statusMarshal, _status, Int32)
         return result

@@ -18,7 +18,6 @@ export default struct RPC_CLIENT_ALLOC {
     }
 
     /**
-     * 
      * @param {Pointer} _Size 
      * @returns {Pointer<Void>} 
      */

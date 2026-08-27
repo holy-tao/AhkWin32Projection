@@ -36,13 +36,14 @@ export default struct IDBCreateSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
      */
     CreateSession(pUnkOuter, riid) {
-        result := ComCall(3, this, "ptr", pUnkOuter, Guid.Ptr, riid, "ptr*", &ppDBSession := 0, "HRESULT")
+        pUnkOuterMarshal := pUnkOuter == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pUnkOuterMarshal, pUnkOuter, Guid.Ptr, riid, "ptr*", &ppDBSession := 0, "HRESULT")
         return IUnknown(ppDBSession)
     }
 
@@ -55,7 +56,7 @@ export default struct IDBCreateSession extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateSession := CallbackCreate(GetMethod(implObj, "CreateSession"), flags, 4)
+        this.vtbl.CreateSession := CallbackCreate(ObjBindMethod(implObj, "CreateSession"), flags, 4)
     }
 
     Dispose() {

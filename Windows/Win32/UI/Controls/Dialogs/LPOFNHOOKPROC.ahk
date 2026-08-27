@@ -35,7 +35,6 @@ export default struct LPOFNHOOKPROC {
     }
 
     /**
-     * 
      * @param {HWND} param0 A handle to the child dialog box of the <b>Open</b> or <b>Save As</b> dialog box. Use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getparent">GetParent</a> function to get the handle to the <b>Open</b> or <b>Save As</b> dialog box.
      * @param {Integer} param1 The identifier of the message being received.
      * @param {WPARAM} param2 Additional information about the message. The exact meaning depends on the value of the <i>unnamedParam2</i> parameter.

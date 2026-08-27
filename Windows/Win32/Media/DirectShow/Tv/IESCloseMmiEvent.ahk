@@ -58,7 +58,7 @@ export default struct IESCloseMmiEvent extends IESEvent {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDialogNumber := CallbackCreate(GetMethod(implObj, "GetDialogNumber"), flags, 2)
+        this.vtbl.GetDialogNumber := CallbackCreate(ObjBindMethod(implObj, "GetDialogNumber"), flags, 2)
     }
 
     Dispose() {

@@ -40,7 +40,6 @@ export default struct ICLRSyncManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} Cookie 
      * @returns {IHostTask} 
      */
@@ -50,7 +49,6 @@ export default struct ICLRSyncManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} Cookie 
      * @returns {Pointer} 
      */
@@ -60,7 +58,6 @@ export default struct ICLRSyncManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} Iterator 
      * @returns {IHostTask} 
      */
@@ -70,7 +67,6 @@ export default struct ICLRSyncManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} Iterator 
      * @returns {HRESULT} 
      */
@@ -88,10 +84,10 @@ export default struct ICLRSyncManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMonitorOwner := CallbackCreate(GetMethod(implObj, "GetMonitorOwner"), flags, 3)
-        this.vtbl.CreateRWLockOwnerIterator := CallbackCreate(GetMethod(implObj, "CreateRWLockOwnerIterator"), flags, 3)
-        this.vtbl.GetRWLockOwnerNext := CallbackCreate(GetMethod(implObj, "GetRWLockOwnerNext"), flags, 3)
-        this.vtbl.DeleteRWLockOwnerIterator := CallbackCreate(GetMethod(implObj, "DeleteRWLockOwnerIterator"), flags, 2)
+        this.vtbl.GetMonitorOwner := CallbackCreate(ObjBindMethod(implObj, "GetMonitorOwner"), flags, 3)
+        this.vtbl.CreateRWLockOwnerIterator := CallbackCreate(ObjBindMethod(implObj, "CreateRWLockOwnerIterator"), flags, 3)
+        this.vtbl.GetRWLockOwnerNext := CallbackCreate(ObjBindMethod(implObj, "GetRWLockOwnerNext"), flags, 3)
+        this.vtbl.DeleteRWLockOwnerIterator := CallbackCreate(ObjBindMethod(implObj, "DeleteRWLockOwnerIterator"), flags, 2)
     }
 
     Dispose() {

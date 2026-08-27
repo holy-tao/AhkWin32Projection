@@ -171,13 +171,13 @@ export default struct IDCompositionTurbulenceEffect extends IDCompositionFilterE
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetOffset := CallbackCreate(GetMethod(implObj, "SetOffset"), flags, 2)
-        this.vtbl.SetBaseFrequency := CallbackCreate(GetMethod(implObj, "SetBaseFrequency"), flags, 2)
-        this.vtbl.SetSize := CallbackCreate(GetMethod(implObj, "SetSize"), flags, 2)
-        this.vtbl.SetNumOctaves := CallbackCreate(GetMethod(implObj, "SetNumOctaves"), flags, 2)
-        this.vtbl.SetSeed := CallbackCreate(GetMethod(implObj, "SetSeed"), flags, 2)
-        this.vtbl.SetNoise := CallbackCreate(GetMethod(implObj, "SetNoise"), flags, 2)
-        this.vtbl.SetStitchable := CallbackCreate(GetMethod(implObj, "SetStitchable"), flags, 2)
+        this.vtbl.SetOffset := CallbackCreate(ObjBindMethod(implObj, "SetOffset"), flags, 2)
+        this.vtbl.SetBaseFrequency := CallbackCreate(ObjBindMethod(implObj, "SetBaseFrequency"), flags, 2)
+        this.vtbl.SetSize := CallbackCreate(ObjBindMethod(implObj, "SetSize"), flags, 2)
+        this.vtbl.SetNumOctaves := CallbackCreate(ObjBindMethod(implObj, "SetNumOctaves"), flags, 2)
+        this.vtbl.SetSeed := CallbackCreate(ObjBindMethod(implObj, "SetSeed"), flags, 2)
+        this.vtbl.SetNoise := CallbackCreate(ObjBindMethod(implObj, "SetNoise"), flags, 2)
+        this.vtbl.SetStitchable := CallbackCreate(ObjBindMethod(implObj, "SetStitchable"), flags, 2)
     }
 
     Dispose() {

@@ -61,7 +61,6 @@ export default struct IHTMLDataTransfer extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} format 
      * @param {Pointer<VARIANT>} data 
      * @returns {VARIANT_BOOL} 
@@ -74,7 +73,6 @@ export default struct IHTMLDataTransfer extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} format 
      * @returns {VARIANT} 
      */
@@ -87,7 +85,6 @@ export default struct IHTMLDataTransfer extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} format 
      * @returns {VARIANT_BOOL} 
      */
@@ -99,7 +96,6 @@ export default struct IHTMLDataTransfer extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -111,7 +107,6 @@ export default struct IHTMLDataTransfer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_dropEffect() {
@@ -121,7 +116,6 @@ export default struct IHTMLDataTransfer extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -133,7 +127,6 @@ export default struct IHTMLDataTransfer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_effectAllowed() {
@@ -151,13 +144,13 @@ export default struct IHTMLDataTransfer extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.setData := CallbackCreate(GetMethod(implObj, "setData"), flags, 4)
-        this.vtbl.getData := CallbackCreate(GetMethod(implObj, "getData"), flags, 3)
-        this.vtbl.clearData := CallbackCreate(GetMethod(implObj, "clearData"), flags, 3)
-        this.vtbl.put_dropEffect := CallbackCreate(GetMethod(implObj, "put_dropEffect"), flags, 2)
-        this.vtbl.get_dropEffect := CallbackCreate(GetMethod(implObj, "get_dropEffect"), flags, 2)
-        this.vtbl.put_effectAllowed := CallbackCreate(GetMethod(implObj, "put_effectAllowed"), flags, 2)
-        this.vtbl.get_effectAllowed := CallbackCreate(GetMethod(implObj, "get_effectAllowed"), flags, 2)
+        this.vtbl.setData := CallbackCreate(ObjBindMethod(implObj, "setData"), flags, 4)
+        this.vtbl.getData := CallbackCreate(ObjBindMethod(implObj, "getData"), flags, 3)
+        this.vtbl.clearData := CallbackCreate(ObjBindMethod(implObj, "clearData"), flags, 3)
+        this.vtbl.put_dropEffect := CallbackCreate(ObjBindMethod(implObj, "put_dropEffect"), flags, 2)
+        this.vtbl.get_dropEffect := CallbackCreate(ObjBindMethod(implObj, "get_dropEffect"), flags, 2)
+        this.vtbl.put_effectAllowed := CallbackCreate(ObjBindMethod(implObj, "put_effectAllowed"), flags, 2)
+        this.vtbl.get_effectAllowed := CallbackCreate(ObjBindMethod(implObj, "get_effectAllowed"), flags, 2)
     }
 
     Dispose() {

@@ -72,8 +72,10 @@ export default struct ID2D1Geometry extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-getbounds
      */
     GetBounds(worldTransform) {
+        worldTransformMarshal := worldTransform == 0 ? IntPtr : D2D_MATRIX_3X2_F.Ptr
+
         bounds := D2D_RECT_F()
-        result := ComCall(4, this, D2D_MATRIX_3X2_F.Ptr, worldTransform, D2D_RECT_F.Ptr, bounds, "HRESULT")
+        result := ComCall(4, this, worldTransformMarshal, worldTransform, D2D_RECT_F.Ptr, bounds, "HRESULT")
         return bounds
     }
 
@@ -87,8 +89,11 @@ export default struct ID2D1Geometry extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-getwidenedbounds
      */
     GetWidenedBounds(strokeWidth, strokeStyle, worldTransform, flatteningTolerance) {
+        strokeStyleMarshal := strokeStyle == 0 ? IntPtr : "ptr"
+        worldTransformMarshal := worldTransform == 0 ? IntPtr : D2D_MATRIX_3X2_F.Ptr
+
         bounds := D2D_RECT_F()
-        result := ComCall(5, this, Float32, strokeWidth, "ptr", strokeStyle, D2D_MATRIX_3X2_F.Ptr, worldTransform, Float32, flatteningTolerance, D2D_RECT_F.Ptr, bounds, "HRESULT")
+        result := ComCall(5, this, Float32, strokeWidth, strokeStyleMarshal, strokeStyle, worldTransformMarshal, worldTransform, Float32, flatteningTolerance, D2D_RECT_F.Ptr, bounds, "HRESULT")
         return bounds
     }
 
@@ -103,7 +108,10 @@ export default struct ID2D1Geometry extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-strokecontainspoint
      */
     StrokeContainsPoint(_point, strokeWidth, strokeStyle, worldTransform, flatteningTolerance) {
-        result := ComCall(6, this, D2D_POINT_2F, _point, Float32, strokeWidth, "ptr", strokeStyle, D2D_MATRIX_3X2_F.Ptr, worldTransform, Float32, flatteningTolerance, BOOL.Ptr, &_contains := 0, "HRESULT")
+        strokeStyleMarshal := strokeStyle == 0 ? IntPtr : "ptr"
+        worldTransformMarshal := worldTransform == 0 ? IntPtr : D2D_MATRIX_3X2_F.Ptr
+
+        result := ComCall(6, this, D2D_POINT_2F, _point, Float32, strokeWidth, strokeStyleMarshal, strokeStyle, worldTransformMarshal, worldTransform, Float32, flatteningTolerance, BOOL.Ptr, &_contains := 0, "HRESULT")
         return _contains
     }
 
@@ -116,7 +124,9 @@ export default struct ID2D1Geometry extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-fillcontainspoint
      */
     FillContainsPoint(_point, worldTransform, flatteningTolerance) {
-        result := ComCall(7, this, D2D_POINT_2F, _point, D2D_MATRIX_3X2_F.Ptr, worldTransform, Float32, flatteningTolerance, BOOL.Ptr, &_contains := 0, "HRESULT")
+        worldTransformMarshal := worldTransform == 0 ? IntPtr : D2D_MATRIX_3X2_F.Ptr
+
+        result := ComCall(7, this, D2D_POINT_2F, _point, worldTransformMarshal, worldTransform, Float32, flatteningTolerance, BOOL.Ptr, &_contains := 0, "HRESULT")
         return _contains
     }
 
@@ -133,7 +143,9 @@ export default struct ID2D1Geometry extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-comparewithgeometry
      */
     CompareWithGeometry(inputGeometry, inputGeometryTransform, flatteningTolerance) {
-        result := ComCall(8, this, "ptr", inputGeometry, D2D_MATRIX_3X2_F.Ptr, inputGeometryTransform, Float32, flatteningTolerance, "int*", &relation := 0, "HRESULT")
+        inputGeometryTransformMarshal := inputGeometryTransform == 0 ? IntPtr : D2D_MATRIX_3X2_F.Ptr
+
+        result := ComCall(8, this, "ptr", inputGeometry, inputGeometryTransformMarshal, inputGeometryTransform, Float32, flatteningTolerance, "int*", &relation := 0, "HRESULT")
         return relation
     }
 
@@ -147,7 +159,9 @@ export default struct ID2D1Geometry extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-simplify
      */
     Simplify(simplificationOption, worldTransform, flatteningTolerance, geometrySink) {
-        result := ComCall(9, this, D2D1_GEOMETRY_SIMPLIFICATION_OPTION, simplificationOption, D2D_MATRIX_3X2_F.Ptr, worldTransform, Float32, flatteningTolerance, "ptr", geometrySink, "HRESULT")
+        worldTransformMarshal := worldTransform == 0 ? IntPtr : D2D_MATRIX_3X2_F.Ptr
+
+        result := ComCall(9, this, D2D1_GEOMETRY_SIMPLIFICATION_OPTION, simplificationOption, worldTransformMarshal, worldTransform, Float32, flatteningTolerance, "ptr", geometrySink, "HRESULT")
         return result
     }
 
@@ -160,7 +174,9 @@ export default struct ID2D1Geometry extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-tessellate
      */
     Tessellate(worldTransform, flatteningTolerance, tessellationSink) {
-        result := ComCall(10, this, D2D_MATRIX_3X2_F.Ptr, worldTransform, Float32, flatteningTolerance, "ptr", tessellationSink, "HRESULT")
+        worldTransformMarshal := worldTransform == 0 ? IntPtr : D2D_MATRIX_3X2_F.Ptr
+
+        result := ComCall(10, this, worldTransformMarshal, worldTransform, Float32, flatteningTolerance, "ptr", tessellationSink, "HRESULT")
         return result
     }
 
@@ -175,7 +191,9 @@ export default struct ID2D1Geometry extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-combinewithgeometry
      */
     CombineWithGeometry(inputGeometry, _combineMode, inputGeometryTransform, flatteningTolerance, geometrySink) {
-        result := ComCall(11, this, "ptr", inputGeometry, D2D1_COMBINE_MODE, _combineMode, D2D_MATRIX_3X2_F.Ptr, inputGeometryTransform, Float32, flatteningTolerance, "ptr", geometrySink, "HRESULT")
+        inputGeometryTransformMarshal := inputGeometryTransform == 0 ? IntPtr : D2D_MATRIX_3X2_F.Ptr
+
+        result := ComCall(11, this, "ptr", inputGeometry, D2D1_COMBINE_MODE, _combineMode, inputGeometryTransformMarshal, inputGeometryTransform, Float32, flatteningTolerance, "ptr", geometrySink, "HRESULT")
         return result
     }
 
@@ -196,7 +214,9 @@ export default struct ID2D1Geometry extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-outline
      */
     Outline(worldTransform, flatteningTolerance, geometrySink) {
-        result := ComCall(12, this, D2D_MATRIX_3X2_F.Ptr, worldTransform, Float32, flatteningTolerance, "ptr", geometrySink, "HRESULT")
+        worldTransformMarshal := worldTransform == 0 ? IntPtr : D2D_MATRIX_3X2_F.Ptr
+
+        result := ComCall(12, this, worldTransformMarshal, worldTransform, Float32, flatteningTolerance, "ptr", geometrySink, "HRESULT")
         return result
     }
 
@@ -208,7 +228,9 @@ export default struct ID2D1Geometry extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-computearea
      */
     ComputeArea(worldTransform, flatteningTolerance) {
-        result := ComCall(13, this, D2D_MATRIX_3X2_F.Ptr, worldTransform, Float32, flatteningTolerance, "float*", &area := 0, "HRESULT")
+        worldTransformMarshal := worldTransform == 0 ? IntPtr : D2D_MATRIX_3X2_F.Ptr
+
+        result := ComCall(13, this, worldTransformMarshal, worldTransform, Float32, flatteningTolerance, "float*", &area := 0, "HRESULT")
         return area
     }
 
@@ -220,7 +242,9 @@ export default struct ID2D1Geometry extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-computelength
      */
     ComputeLength(worldTransform, flatteningTolerance) {
-        result := ComCall(14, this, D2D_MATRIX_3X2_F.Ptr, worldTransform, Float32, flatteningTolerance, "float*", &length := 0, "HRESULT")
+        worldTransformMarshal := worldTransform == 0 ? IntPtr : D2D_MATRIX_3X2_F.Ptr
+
+        result := ComCall(14, this, worldTransformMarshal, worldTransform, Float32, flatteningTolerance, "float*", &length := 0, "HRESULT")
         return length
     }
 
@@ -235,7 +259,11 @@ export default struct ID2D1Geometry extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-computepointatlength
      */
     ComputePointAtLength(length, worldTransform, flatteningTolerance, _point, unitTangentVector) {
-        result := ComCall(15, this, Float32, length, D2D_MATRIX_3X2_F.Ptr, worldTransform, Float32, flatteningTolerance, D2D_POINT_2F.Ptr, _point, D2D_POINT_2F.Ptr, unitTangentVector, "HRESULT")
+        worldTransformMarshal := worldTransform == 0 ? IntPtr : D2D_MATRIX_3X2_F.Ptr
+        _pointMarshal := _point == 0 ? IntPtr : D2D_POINT_2F.Ptr
+        unitTangentVectorMarshal := unitTangentVector == 0 ? IntPtr : D2D_POINT_2F.Ptr
+
+        result := ComCall(15, this, Float32, length, worldTransformMarshal, worldTransform, Float32, flatteningTolerance, _pointMarshal, _point, unitTangentVectorMarshal, unitTangentVector, "HRESULT")
         return result
     }
 
@@ -250,7 +278,10 @@ export default struct ID2D1Geometry extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1geometry-widen
      */
     Widen(strokeWidth, strokeStyle, worldTransform, flatteningTolerance, geometrySink) {
-        result := ComCall(16, this, Float32, strokeWidth, "ptr", strokeStyle, D2D_MATRIX_3X2_F.Ptr, worldTransform, Float32, flatteningTolerance, "ptr", geometrySink, "HRESULT")
+        strokeStyleMarshal := strokeStyle == 0 ? IntPtr : "ptr"
+        worldTransformMarshal := worldTransform == 0 ? IntPtr : D2D_MATRIX_3X2_F.Ptr
+
+        result := ComCall(16, this, Float32, strokeWidth, strokeStyleMarshal, strokeStyle, worldTransformMarshal, worldTransform, Float32, flatteningTolerance, "ptr", geometrySink, "HRESULT")
         return result
     }
 
@@ -263,19 +294,19 @@ export default struct ID2D1Geometry extends ID2D1Resource {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetBounds := CallbackCreate(GetMethod(implObj, "GetBounds"), flags, 3)
-        this.vtbl.GetWidenedBounds := CallbackCreate(GetMethod(implObj, "GetWidenedBounds"), flags, 6)
-        this.vtbl.StrokeContainsPoint := CallbackCreate(GetMethod(implObj, "StrokeContainsPoint"), flags, 7)
-        this.vtbl.FillContainsPoint := CallbackCreate(GetMethod(implObj, "FillContainsPoint"), flags, 5)
-        this.vtbl.CompareWithGeometry := CallbackCreate(GetMethod(implObj, "CompareWithGeometry"), flags, 5)
-        this.vtbl.Simplify := CallbackCreate(GetMethod(implObj, "Simplify"), flags, 5)
-        this.vtbl.Tessellate := CallbackCreate(GetMethod(implObj, "Tessellate"), flags, 4)
-        this.vtbl.CombineWithGeometry := CallbackCreate(GetMethod(implObj, "CombineWithGeometry"), flags, 6)
-        this.vtbl.Outline := CallbackCreate(GetMethod(implObj, "Outline"), flags, 4)
-        this.vtbl.ComputeArea := CallbackCreate(GetMethod(implObj, "ComputeArea"), flags, 4)
-        this.vtbl.ComputeLength := CallbackCreate(GetMethod(implObj, "ComputeLength"), flags, 4)
-        this.vtbl.ComputePointAtLength := CallbackCreate(GetMethod(implObj, "ComputePointAtLength"), flags, 6)
-        this.vtbl.Widen := CallbackCreate(GetMethod(implObj, "Widen"), flags, 6)
+        this.vtbl.GetBounds := CallbackCreate(ObjBindMethod(implObj, "GetBounds"), flags, 3)
+        this.vtbl.GetWidenedBounds := CallbackCreate(ObjBindMethod(implObj, "GetWidenedBounds"), flags, 6)
+        this.vtbl.StrokeContainsPoint := CallbackCreate(ObjBindMethod(implObj, "StrokeContainsPoint"), flags, 7)
+        this.vtbl.FillContainsPoint := CallbackCreate(ObjBindMethod(implObj, "FillContainsPoint"), flags, 5)
+        this.vtbl.CompareWithGeometry := CallbackCreate(ObjBindMethod(implObj, "CompareWithGeometry"), flags, 5)
+        this.vtbl.Simplify := CallbackCreate(ObjBindMethod(implObj, "Simplify"), flags, 5)
+        this.vtbl.Tessellate := CallbackCreate(ObjBindMethod(implObj, "Tessellate"), flags, 4)
+        this.vtbl.CombineWithGeometry := CallbackCreate(ObjBindMethod(implObj, "CombineWithGeometry"), flags, 6)
+        this.vtbl.Outline := CallbackCreate(ObjBindMethod(implObj, "Outline"), flags, 4)
+        this.vtbl.ComputeArea := CallbackCreate(ObjBindMethod(implObj, "ComputeArea"), flags, 4)
+        this.vtbl.ComputeLength := CallbackCreate(ObjBindMethod(implObj, "ComputeLength"), flags, 4)
+        this.vtbl.ComputePointAtLength := CallbackCreate(ObjBindMethod(implObj, "ComputePointAtLength"), flags, 6)
+        this.vtbl.Widen := CallbackCreate(ObjBindMethod(implObj, "Widen"), flags, 6)
     }
 
     Dispose() {

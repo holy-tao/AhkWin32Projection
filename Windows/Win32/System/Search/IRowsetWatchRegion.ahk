@@ -42,7 +42,6 @@ export default struct IRowsetWatchRegion extends IRowsetWatchAll {
     }
 
     /**
-     * 
      * @param {Integer} dwWatchMode 
      * @returns {Pointer} 
      */
@@ -52,7 +51,6 @@ export default struct IRowsetWatchRegion extends IRowsetWatchAll {
     }
 
     /**
-     * 
      * @param {Pointer} hRegion 
      * @param {Integer} dwWatchMode 
      * @returns {HRESULT} 
@@ -63,7 +61,6 @@ export default struct IRowsetWatchRegion extends IRowsetWatchAll {
     }
 
     /**
-     * 
      * @param {Pointer} hRegion 
      * @returns {HRESULT} 
      */
@@ -73,7 +70,6 @@ export default struct IRowsetWatchRegion extends IRowsetWatchAll {
     }
 
     /**
-     * 
      * @param {Pointer} hRegion 
      * @param {Pointer<Integer>} pdwWatchMode 
      * @param {Pointer<Pointer>} phChapter 
@@ -83,30 +79,28 @@ export default struct IRowsetWatchRegion extends IRowsetWatchAll {
      * @returns {HRESULT} 
      */
     GetWatchRegionInfo(hRegion, pdwWatchMode, phChapter, pcbBookmark, ppBookmark, pcRows) {
-        pdwWatchModeMarshal := pdwWatchMode is VarRef ? "uint*" : "ptr"
-        phChapterMarshal := phChapter is VarRef ? "ptr*" : "ptr"
-        pcbBookmarkMarshal := pcbBookmark is VarRef ? "ptr*" : "ptr"
-        ppBookmarkMarshal := ppBookmark is VarRef ? "ptr*" : "ptr"
-        pcRowsMarshal := pcRows is VarRef ? "ptr*" : "ptr"
+        pdwWatchModeMarshal := pdwWatchMode is VarRef ? "uint*" : IntPtr
+        phChapterMarshal := phChapter is VarRef ? "ptr*" : IntPtr
+        pcbBookmarkMarshal := pcbBookmark is VarRef ? "ptr*" : IntPtr
+        ppBookmarkMarshal := ppBookmark is VarRef ? "ptr*" : IntPtr
+        pcRowsMarshal := pcRows is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(9, this, IntPtr, hRegion, pdwWatchModeMarshal, pdwWatchMode, phChapterMarshal, phChapter, pcbBookmarkMarshal, pcbBookmark, ppBookmarkMarshal, ppBookmark, pcRowsMarshal, pcRows, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} pcChangesObtained 
      * @returns {Pointer<DBROWWATCHCHANGE>} 
      */
     Refresh(pcChangesObtained) {
-        pcChangesObtainedMarshal := pcChangesObtained is VarRef ? "ptr*" : "ptr"
+        pcChangesObtainedMarshal := pcChangesObtained is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(10, this, pcChangesObtainedMarshal, pcChangesObtained, "ptr*", &prgChanges := 0, "HRESULT")
         return prgChanges
     }
 
     /**
-     * 
      * @param {Pointer} hRegion 
      * @param {Pointer} hChapter 
      * @param {Pointer} cbBookmark 
@@ -115,7 +109,7 @@ export default struct IRowsetWatchRegion extends IRowsetWatchAll {
      * @returns {HRESULT} 
      */
     ShrinkWatchRegion(hRegion, hChapter, cbBookmark, pBookmark, cRows) {
-        pBookmarkMarshal := pBookmark is VarRef ? "char*" : "ptr"
+        pBookmarkMarshal := pBookmark is VarRef ? "char*" : IntPtr
 
         result := ComCall(11, this, IntPtr, hRegion, IntPtr, hChapter, IntPtr, cbBookmark, pBookmarkMarshal, pBookmark, IntPtr, cRows, "HRESULT")
         return result
@@ -130,12 +124,12 @@ export default struct IRowsetWatchRegion extends IRowsetWatchAll {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateWatchRegion := CallbackCreate(GetMethod(implObj, "CreateWatchRegion"), flags, 3)
-        this.vtbl.ChangeWatchMode := CallbackCreate(GetMethod(implObj, "ChangeWatchMode"), flags, 3)
-        this.vtbl.DeleteWatchRegion := CallbackCreate(GetMethod(implObj, "DeleteWatchRegion"), flags, 2)
-        this.vtbl.GetWatchRegionInfo := CallbackCreate(GetMethod(implObj, "GetWatchRegionInfo"), flags, 7)
-        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 3)
-        this.vtbl.ShrinkWatchRegion := CallbackCreate(GetMethod(implObj, "ShrinkWatchRegion"), flags, 6)
+        this.vtbl.CreateWatchRegion := CallbackCreate(ObjBindMethod(implObj, "CreateWatchRegion"), flags, 3)
+        this.vtbl.ChangeWatchMode := CallbackCreate(ObjBindMethod(implObj, "ChangeWatchMode"), flags, 3)
+        this.vtbl.DeleteWatchRegion := CallbackCreate(ObjBindMethod(implObj, "DeleteWatchRegion"), flags, 2)
+        this.vtbl.GetWatchRegionInfo := CallbackCreate(ObjBindMethod(implObj, "GetWatchRegionInfo"), flags, 7)
+        this.vtbl.Refresh := CallbackCreate(ObjBindMethod(implObj, "Refresh"), flags, 3)
+        this.vtbl.ShrinkWatchRegion := CallbackCreate(ObjBindMethod(implObj, "ShrinkWatchRegion"), flags, 6)
     }
 
     Dispose() {

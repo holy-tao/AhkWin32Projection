@@ -230,12 +230,12 @@ export default struct IMFMediaTypeHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsMediaTypeSupported := CallbackCreate(GetMethod(implObj, "IsMediaTypeSupported"), flags, 3)
-        this.vtbl.GetMediaTypeCount := CallbackCreate(GetMethod(implObj, "GetMediaTypeCount"), flags, 2)
-        this.vtbl.GetMediaTypeByIndex := CallbackCreate(GetMethod(implObj, "GetMediaTypeByIndex"), flags, 3)
-        this.vtbl.SetCurrentMediaType := CallbackCreate(GetMethod(implObj, "SetCurrentMediaType"), flags, 2)
-        this.vtbl.GetCurrentMediaType := CallbackCreate(GetMethod(implObj, "GetCurrentMediaType"), flags, 2)
-        this.vtbl.GetMajorType := CallbackCreate(GetMethod(implObj, "GetMajorType"), flags, 2)
+        this.vtbl.IsMediaTypeSupported := CallbackCreate(ObjBindMethod(implObj, "IsMediaTypeSupported"), flags, 3)
+        this.vtbl.GetMediaTypeCount := CallbackCreate(ObjBindMethod(implObj, "GetMediaTypeCount"), flags, 2)
+        this.vtbl.GetMediaTypeByIndex := CallbackCreate(ObjBindMethod(implObj, "GetMediaTypeByIndex"), flags, 3)
+        this.vtbl.SetCurrentMediaType := CallbackCreate(ObjBindMethod(implObj, "SetCurrentMediaType"), flags, 2)
+        this.vtbl.GetCurrentMediaType := CallbackCreate(ObjBindMethod(implObj, "GetCurrentMediaType"), flags, 2)
+        this.vtbl.GetMajorType := CallbackCreate(ObjBindMethod(implObj, "GetMajorType"), flags, 2)
     }
 
     Dispose() {

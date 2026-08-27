@@ -66,7 +66,7 @@ export default struct IAppxManifestReader2 extends IAppxManifestReader {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetQualifiedResources := CallbackCreate(GetMethod(implObj, "GetQualifiedResources"), flags, 2)
+        this.vtbl.GetQualifiedResources := CallbackCreate(ObjBindMethod(implObj, "GetQualifiedResources"), flags, 2)
     }
 
     Dispose() {

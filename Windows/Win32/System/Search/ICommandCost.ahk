@@ -43,7 +43,6 @@ export default struct ICommandCost extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszRowsetName 
      * @param {Pointer<Integer>} pcCostLimits 
      * @returns {Pointer<DBCOST>} 
@@ -51,14 +50,13 @@ export default struct ICommandCost extends IUnknown {
     GetAccumulatedCost(pwszRowsetName, pcCostLimits) {
         pwszRowsetName := pwszRowsetName is String ? StrPtr(pwszRowsetName) : pwszRowsetName
 
-        pcCostLimitsMarshal := pcCostLimits is VarRef ? "uint*" : "ptr"
+        pcCostLimitsMarshal := pcCostLimits is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, "ptr", pwszRowsetName, pcCostLimitsMarshal, pcCostLimits, "ptr*", &prgCostLimits := 0, "HRESULT")
         return prgCostLimits
     }
 
     /**
-     * 
      * @param {PWSTR} pwszRowsetName 
      * @param {Pointer<Integer>} pcCostEstimates 
      * @param {Pointer<DBCOST>} prgCostEstimates 
@@ -67,14 +65,13 @@ export default struct ICommandCost extends IUnknown {
     GetCostEstimate(pwszRowsetName, pcCostEstimates, prgCostEstimates) {
         pwszRowsetName := pwszRowsetName is String ? StrPtr(pwszRowsetName) : pwszRowsetName
 
-        pcCostEstimatesMarshal := pcCostEstimates is VarRef ? "uint*" : "ptr"
+        pcCostEstimatesMarshal := pcCostEstimates is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, "ptr", pwszRowsetName, pcCostEstimatesMarshal, pcCostEstimates, DBCOST.Ptr, prgCostEstimates, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwszRowsetName 
      * @param {Pointer<Integer>} pcCostGoals 
      * @param {Pointer<DBCOST>} prgCostGoals 
@@ -83,14 +80,13 @@ export default struct ICommandCost extends IUnknown {
     GetCostGoals(pwszRowsetName, pcCostGoals, prgCostGoals) {
         pwszRowsetName := pwszRowsetName is String ? StrPtr(pwszRowsetName) : pwszRowsetName
 
-        pcCostGoalsMarshal := pcCostGoals is VarRef ? "uint*" : "ptr"
+        pcCostGoalsMarshal := pcCostGoals is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, "ptr", pwszRowsetName, pcCostGoalsMarshal, pcCostGoals, DBCOST.Ptr, prgCostGoals, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwszRowsetName 
      * @param {Pointer<Integer>} pcCostLimits 
      * @param {Pointer<DBCOST>} prgCostLimits 
@@ -99,14 +95,13 @@ export default struct ICommandCost extends IUnknown {
     GetCostLimits(pwszRowsetName, pcCostLimits, prgCostLimits) {
         pwszRowsetName := pwszRowsetName is String ? StrPtr(pwszRowsetName) : pwszRowsetName
 
-        pcCostLimitsMarshal := pcCostLimits is VarRef ? "uint*" : "ptr"
+        pcCostLimitsMarshal := pcCostLimits is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, "ptr", pwszRowsetName, pcCostLimitsMarshal, pcCostLimits, DBCOST.Ptr, prgCostLimits, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwszRowsetName 
      * @param {Integer} cCostGoals 
      * @param {Pointer<DBCOST>} rgCostGoals 
@@ -120,7 +115,6 @@ export default struct ICommandCost extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszRowsetName 
      * @param {Integer} cCostLimits 
      * @param {Pointer<DBCOST>} prgCostLimits 
@@ -143,12 +137,12 @@ export default struct ICommandCost extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAccumulatedCost := CallbackCreate(GetMethod(implObj, "GetAccumulatedCost"), flags, 4)
-        this.vtbl.GetCostEstimate := CallbackCreate(GetMethod(implObj, "GetCostEstimate"), flags, 4)
-        this.vtbl.GetCostGoals := CallbackCreate(GetMethod(implObj, "GetCostGoals"), flags, 4)
-        this.vtbl.GetCostLimits := CallbackCreate(GetMethod(implObj, "GetCostLimits"), flags, 4)
-        this.vtbl.SetCostGoals := CallbackCreate(GetMethod(implObj, "SetCostGoals"), flags, 4)
-        this.vtbl.SetCostLimits := CallbackCreate(GetMethod(implObj, "SetCostLimits"), flags, 5)
+        this.vtbl.GetAccumulatedCost := CallbackCreate(ObjBindMethod(implObj, "GetAccumulatedCost"), flags, 4)
+        this.vtbl.GetCostEstimate := CallbackCreate(ObjBindMethod(implObj, "GetCostEstimate"), flags, 4)
+        this.vtbl.GetCostGoals := CallbackCreate(ObjBindMethod(implObj, "GetCostGoals"), flags, 4)
+        this.vtbl.GetCostLimits := CallbackCreate(ObjBindMethod(implObj, "GetCostLimits"), flags, 4)
+        this.vtbl.SetCostGoals := CallbackCreate(ObjBindMethod(implObj, "SetCostGoals"), flags, 4)
+        this.vtbl.SetCostLimits := CallbackCreate(ObjBindMethod(implObj, "SetCostLimits"), flags, 5)
     }
 
     Dispose() {

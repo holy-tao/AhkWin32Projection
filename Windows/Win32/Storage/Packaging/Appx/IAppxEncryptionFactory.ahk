@@ -177,14 +177,14 @@ export default struct IAppxEncryptionFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EncryptPackage := CallbackCreate(GetMethod(implObj, "EncryptPackage"), flags, 6)
-        this.vtbl.DecryptPackage := CallbackCreate(GetMethod(implObj, "DecryptPackage"), flags, 4)
-        this.vtbl.CreateEncryptedPackageWriter := CallbackCreate(GetMethod(implObj, "CreateEncryptedPackageWriter"), flags, 7)
-        this.vtbl.CreateEncryptedPackageReader := CallbackCreate(GetMethod(implObj, "CreateEncryptedPackageReader"), flags, 4)
-        this.vtbl.EncryptBundle := CallbackCreate(GetMethod(implObj, "EncryptBundle"), flags, 6)
-        this.vtbl.DecryptBundle := CallbackCreate(GetMethod(implObj, "DecryptBundle"), flags, 4)
-        this.vtbl.CreateEncryptedBundleWriter := CallbackCreate(GetMethod(implObj, "CreateEncryptedBundleWriter"), flags, 7)
-        this.vtbl.CreateEncryptedBundleReader := CallbackCreate(GetMethod(implObj, "CreateEncryptedBundleReader"), flags, 4)
+        this.vtbl.EncryptPackage := CallbackCreate(ObjBindMethod(implObj, "EncryptPackage"), flags, 6)
+        this.vtbl.DecryptPackage := CallbackCreate(ObjBindMethod(implObj, "DecryptPackage"), flags, 4)
+        this.vtbl.CreateEncryptedPackageWriter := CallbackCreate(ObjBindMethod(implObj, "CreateEncryptedPackageWriter"), flags, 7)
+        this.vtbl.CreateEncryptedPackageReader := CallbackCreate(ObjBindMethod(implObj, "CreateEncryptedPackageReader"), flags, 4)
+        this.vtbl.EncryptBundle := CallbackCreate(ObjBindMethod(implObj, "EncryptBundle"), flags, 6)
+        this.vtbl.DecryptBundle := CallbackCreate(ObjBindMethod(implObj, "DecryptBundle"), flags, 4)
+        this.vtbl.CreateEncryptedBundleWriter := CallbackCreate(ObjBindMethod(implObj, "CreateEncryptedBundleWriter"), flags, 7)
+        this.vtbl.CreateEncryptedBundleReader := CallbackCreate(ObjBindMethod(implObj, "CreateEncryptedBundleReader"), flags, 4)
     }
 
     Dispose() {

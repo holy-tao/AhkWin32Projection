@@ -18,7 +18,6 @@ export default struct PFNSNMPSTARTUPEX {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<Integer>} param2 
@@ -27,11 +26,11 @@ export default struct PFNSNMPSTARTUPEX {
      * @returns {Integer} 
      */
     Call(param0, param1, param2, param3, param4) {
-        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-        param1Marshal := param1 is VarRef ? "uint*" : "ptr"
-        param2Marshal := param2 is VarRef ? "uint*" : "ptr"
-        param3Marshal := param3 is VarRef ? "uint*" : "ptr"
-        param4Marshal := param4 is VarRef ? "uint*" : "ptr"
+        param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+        param1Marshal := param1 is VarRef ? "uint*" : IntPtr
+        param2Marshal := param2 is VarRef ? "uint*" : IntPtr
+        param3Marshal := param3 is VarRef ? "uint*" : IntPtr
+        param4Marshal := param4 is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, param3Marshal, param3, param4Marshal, param4, UInt32)
         return result

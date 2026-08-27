@@ -183,11 +183,11 @@ export default struct ITfDisplayAttributeInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetGUID := CallbackCreate(GetMethod(implObj, "GetGUID"), flags, 2)
-        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 2)
-        this.vtbl.GetAttributeInfo := CallbackCreate(GetMethod(implObj, "GetAttributeInfo"), flags, 2)
-        this.vtbl.SetAttributeInfo := CallbackCreate(GetMethod(implObj, "SetAttributeInfo"), flags, 2)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.GetGUID := CallbackCreate(ObjBindMethod(implObj, "GetGUID"), flags, 2)
+        this.vtbl.GetDescription := CallbackCreate(ObjBindMethod(implObj, "GetDescription"), flags, 2)
+        this.vtbl.GetAttributeInfo := CallbackCreate(ObjBindMethod(implObj, "GetAttributeInfo"), flags, 2)
+        this.vtbl.SetAttributeInfo := CallbackCreate(ObjBindMethod(implObj, "SetAttributeInfo"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
     }
 
     Dispose() {

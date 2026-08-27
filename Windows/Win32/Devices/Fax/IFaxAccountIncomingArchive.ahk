@@ -159,11 +159,11 @@ export default struct IFaxAccountIncomingArchive extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_SizeLow := CallbackCreate(GetMethod(implObj, "get_SizeLow"), flags, 2)
-        this.vtbl.get_SizeHigh := CallbackCreate(GetMethod(implObj, "get_SizeHigh"), flags, 2)
-        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
-        this.vtbl.GetMessages := CallbackCreate(GetMethod(implObj, "GetMessages"), flags, 3)
-        this.vtbl.GetMessage := CallbackCreate(GetMethod(implObj, "GetMessage"), flags, 3)
+        this.vtbl.get_SizeLow := CallbackCreate(ObjBindMethod(implObj, "get_SizeLow"), flags, 2)
+        this.vtbl.get_SizeHigh := CallbackCreate(ObjBindMethod(implObj, "get_SizeHigh"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(ObjBindMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.GetMessages := CallbackCreate(ObjBindMethod(implObj, "GetMessages"), flags, 3)
+        this.vtbl.GetMessage := CallbackCreate(ObjBindMethod(implObj, "GetMessage"), flags, 3)
     }
 
     Dispose() {

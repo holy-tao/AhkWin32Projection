@@ -114,10 +114,10 @@ export default struct ITrayDeskBand extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ShowDeskBand := CallbackCreate(GetMethod(implObj, "ShowDeskBand"), flags, 2)
-        this.vtbl.HideDeskBand := CallbackCreate(GetMethod(implObj, "HideDeskBand"), flags, 2)
-        this.vtbl.IsDeskBandShown := CallbackCreate(GetMethod(implObj, "IsDeskBandShown"), flags, 2)
-        this.vtbl.DeskBandRegistrationChanged := CallbackCreate(GetMethod(implObj, "DeskBandRegistrationChanged"), flags, 1)
+        this.vtbl.ShowDeskBand := CallbackCreate(ObjBindMethod(implObj, "ShowDeskBand"), flags, 2)
+        this.vtbl.HideDeskBand := CallbackCreate(ObjBindMethod(implObj, "HideDeskBand"), flags, 2)
+        this.vtbl.IsDeskBandShown := CallbackCreate(ObjBindMethod(implObj, "IsDeskBandShown"), flags, 2)
+        this.vtbl.DeskBandRegistrationChanged := CallbackCreate(ObjBindMethod(implObj, "DeskBandRegistrationChanged"), flags, 1)
     }
 
     Dispose() {

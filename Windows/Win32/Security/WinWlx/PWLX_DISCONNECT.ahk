@@ -27,7 +27,6 @@ export default struct PWLX_DISCONNECT {
     }
 
     /**
-     * 
      * @returns {BOOL} The <b>WlxDisconnect</b> function returns one of the following values.
      * 
      * <table>

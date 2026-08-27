@@ -45,7 +45,6 @@ export default struct IHTMLSelectionObject2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     createRangeCollection() {
@@ -54,7 +53,6 @@ export default struct IHTMLSelectionObject2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_typeDetail() {
@@ -72,8 +70,8 @@ export default struct IHTMLSelectionObject2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.createRangeCollection := CallbackCreate(GetMethod(implObj, "createRangeCollection"), flags, 2)
-        this.vtbl.get_typeDetail := CallbackCreate(GetMethod(implObj, "get_typeDetail"), flags, 2)
+        this.vtbl.createRangeCollection := CallbackCreate(ObjBindMethod(implObj, "createRangeCollection"), flags, 2)
+        this.vtbl.get_typeDetail := CallbackCreate(ObjBindMethod(implObj, "get_typeDetail"), flags, 2)
     }
 
     Dispose() {

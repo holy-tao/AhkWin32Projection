@@ -21,7 +21,6 @@ export default struct SYMADDSOURCESTREAMA {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @param {Integer} param1 
      * @param {PSTR} param2 
@@ -32,7 +31,7 @@ export default struct SYMADDSOURCESTREAMA {
     Call(param0, param1, param2, param3, param4) {
         param2 := param2 is String ? StrPtr(param2) : param2
 
-        param3Marshal := param3 is VarRef ? "char*" : "ptr"
+        param3Marshal := param3 is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, HANDLE, param0, Int64, param1, "ptr", param2, param3Marshal, param3, IntPtr, param4, BOOL)
         return result

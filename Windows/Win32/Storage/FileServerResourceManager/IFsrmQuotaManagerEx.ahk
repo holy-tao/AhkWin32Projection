@@ -66,7 +66,7 @@ export default struct IFsrmQuotaManagerEx extends IFsrmQuotaManager {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsAffectedByQuota := CallbackCreate(GetMethod(implObj, "IsAffectedByQuota"), flags, 4)
+        this.vtbl.IsAffectedByQuota := CallbackCreate(ObjBindMethod(implObj, "IsAffectedByQuota"), flags, 4)
     }
 
     Dispose() {

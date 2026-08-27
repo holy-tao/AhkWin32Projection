@@ -59,7 +59,7 @@ export default struct IWABObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wabapi/nf-wabapi-iwabobject-getlasterror
      */
     GetLastError(_hResult, ulFlags, lppMAPIError) {
-        lppMAPIErrorMarshal := lppMAPIError is VarRef ? "ptr*" : "ptr"
+        lppMAPIErrorMarshal := lppMAPIError is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, "int", _hResult, UInt32, ulFlags, lppMAPIErrorMarshal, lppMAPIError, "HRESULT")
         return result
@@ -107,7 +107,7 @@ export default struct IWABObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wabapi/nf-wabapi-iwabobject-allocatemore
      */
     AllocateMore(cbSize, lpObject) {
-        lpObjectMarshal := lpObject is VarRef ? "ptr" : "ptr"
+        lpObjectMarshal := lpObject is VarRef ? "ptr" : IntPtr
 
         result := ComCall(5, this, UInt32, cbSize, lpObjectMarshal, lpObject, "ptr*", &lppBuffer := 0, "HRESULT")
         return lppBuffer
@@ -125,7 +125,7 @@ export default struct IWABObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wabapi/nf-wabapi-iwabobject-freebuffer
      */
     FreeBuffer(lpBuffer) {
-        lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
+        lpBufferMarshal := lpBuffer is VarRef ? "ptr" : IntPtr
 
         result := ComCall(6, this, lpBufferMarshal, lpBuffer, "HRESULT")
         return result
@@ -194,7 +194,9 @@ export default struct IWABObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wabapi/nf-wabapi-iwabobject-find
      */
     Find(lpIAB, _hWnd) {
-        result := ComCall(9, this, "ptr", lpIAB, HWND, _hWnd, "HRESULT")
+        _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+
+        result := ComCall(9, this, "ptr", lpIAB, _hWndMarshal, _hWnd, "HRESULT")
         return result
     }
 
@@ -220,7 +222,9 @@ export default struct IWABObject extends IUnknown {
     VCardDisplay(lpIAB, _hWnd, lpszFileName) {
         lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
-        result := ComCall(10, this, "ptr", lpIAB, HWND, _hWnd, "ptr", lpszFileName, "HRESULT")
+        _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+
+        result := ComCall(10, this, "ptr", lpIAB, _hWndMarshal, _hWnd, "ptr", lpszFileName, "HRESULT")
         return result
     }
 
@@ -264,7 +268,9 @@ export default struct IWABObject extends IUnknown {
     LDAPUrl(lpIAB, _hWnd, ulFlags, lpszURL) {
         lpszURL := lpszURL is String ? StrPtr(lpszURL) : lpszURL
 
-        result := ComCall(11, this, "ptr", lpIAB, HWND, _hWnd, UInt32, ulFlags, "ptr", lpszURL, "ptr*", &lppMailUser := 0, "HRESULT")
+        _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+
+        result := ComCall(11, this, "ptr", lpIAB, _hWndMarshal, _hWnd, UInt32, ulFlags, "ptr", lpszURL, "ptr*", &lppMailUser := 0, "HRESULT")
         return IMailUser(lppMailUser)
     }
 
@@ -405,9 +411,10 @@ export default struct IWABObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wabapi/nf-wabapi-iwabobject-getme
      */
     GetMe(lpIAB, ulFlags, lpdwAction, lpsbEID, _hwnd) {
-        lpdwActionMarshal := lpdwAction is VarRef ? "uint*" : "ptr"
+        lpdwActionMarshal := lpdwAction is VarRef ? "uint*" : IntPtr
+        _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
 
-        result := ComCall(14, this, "ptr", lpIAB, UInt32, ulFlags, lpdwActionMarshal, lpdwAction, SBinary.Ptr, lpsbEID, HWND, _hwnd, "HRESULT")
+        result := ComCall(14, this, "ptr", lpIAB, UInt32, ulFlags, lpdwActionMarshal, lpdwAction, SBinary.Ptr, lpsbEID, _hwndMarshal, _hwnd, "HRESULT")
         return result
     }
 
@@ -454,7 +461,9 @@ export default struct IWABObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wabapi/nf-wabapi-iwabobject-setme
      */
     SetMe(lpIAB, ulFlags, sbEID, _hwnd) {
-        result := ComCall(15, this, "ptr", lpIAB, UInt32, ulFlags, SBinary, sbEID, HWND, _hwnd, "HRESULT")
+        _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+
+        result := ComCall(15, this, "ptr", lpIAB, UInt32, ulFlags, SBinary, sbEID, _hwndMarshal, _hwnd, "HRESULT")
         return result
     }
 
@@ -467,19 +476,19 @@ export default struct IWABObject extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLastError := CallbackCreate(GetMethod(implObj, "GetLastError"), flags, 4)
-        this.vtbl.AllocateBuffer := CallbackCreate(GetMethod(implObj, "AllocateBuffer"), flags, 3)
-        this.vtbl.AllocateMore := CallbackCreate(GetMethod(implObj, "AllocateMore"), flags, 4)
-        this.vtbl.FreeBuffer := CallbackCreate(GetMethod(implObj, "FreeBuffer"), flags, 2)
-        this.vtbl.Backup := CallbackCreate(GetMethod(implObj, "Backup"), flags, 2)
-        this.vtbl.Import := CallbackCreate(GetMethod(implObj, "Import"), flags, 2)
-        this.vtbl.Find := CallbackCreate(GetMethod(implObj, "Find"), flags, 3)
-        this.vtbl.VCardDisplay := CallbackCreate(GetMethod(implObj, "VCardDisplay"), flags, 4)
-        this.vtbl.LDAPUrl := CallbackCreate(GetMethod(implObj, "LDAPUrl"), flags, 6)
-        this.vtbl.VCardCreate := CallbackCreate(GetMethod(implObj, "VCardCreate"), flags, 5)
-        this.vtbl.VCardRetrieve := CallbackCreate(GetMethod(implObj, "VCardRetrieve"), flags, 5)
-        this.vtbl.GetMe := CallbackCreate(GetMethod(implObj, "GetMe"), flags, 6)
-        this.vtbl.SetMe := CallbackCreate(GetMethod(implObj, "SetMe"), flags, 5)
+        this.vtbl.GetLastError := CallbackCreate(ObjBindMethod(implObj, "GetLastError"), flags, 4)
+        this.vtbl.AllocateBuffer := CallbackCreate(ObjBindMethod(implObj, "AllocateBuffer"), flags, 3)
+        this.vtbl.AllocateMore := CallbackCreate(ObjBindMethod(implObj, "AllocateMore"), flags, 4)
+        this.vtbl.FreeBuffer := CallbackCreate(ObjBindMethod(implObj, "FreeBuffer"), flags, 2)
+        this.vtbl.Backup := CallbackCreate(ObjBindMethod(implObj, "Backup"), flags, 2)
+        this.vtbl.Import := CallbackCreate(ObjBindMethod(implObj, "Import"), flags, 2)
+        this.vtbl.Find := CallbackCreate(ObjBindMethod(implObj, "Find"), flags, 3)
+        this.vtbl.VCardDisplay := CallbackCreate(ObjBindMethod(implObj, "VCardDisplay"), flags, 4)
+        this.vtbl.LDAPUrl := CallbackCreate(ObjBindMethod(implObj, "LDAPUrl"), flags, 6)
+        this.vtbl.VCardCreate := CallbackCreate(ObjBindMethod(implObj, "VCardCreate"), flags, 5)
+        this.vtbl.VCardRetrieve := CallbackCreate(ObjBindMethod(implObj, "VCardRetrieve"), flags, 5)
+        this.vtbl.GetMe := CallbackCreate(ObjBindMethod(implObj, "GetMe"), flags, 6)
+        this.vtbl.SetMe := CallbackCreate(ObjBindMethod(implObj, "SetMe"), flags, 5)
     }
 
     Dispose() {

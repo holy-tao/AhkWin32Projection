@@ -37,19 +37,17 @@ export default struct IDirectMusicInstrument extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwPatch 
      * @returns {HRESULT} 
      */
     GetPatch(pdwPatch) {
-        pdwPatchMarshal := pdwPatch is VarRef ? "uint*" : "ptr"
+        pdwPatchMarshal := pdwPatch is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pdwPatchMarshal, pdwPatch, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwPatch 
      * @returns {HRESULT} 
      */
@@ -67,8 +65,8 @@ export default struct IDirectMusicInstrument extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPatch := CallbackCreate(GetMethod(implObj, "GetPatch"), flags, 2)
-        this.vtbl.SetPatch := CallbackCreate(GetMethod(implObj, "SetPatch"), flags, 2)
+        this.vtbl.GetPatch := CallbackCreate(ObjBindMethod(implObj, "GetPatch"), flags, 2)
+        this.vtbl.SetPatch := CallbackCreate(ObjBindMethod(implObj, "SetPatch"), flags, 2)
     }
 
     Dispose() {

@@ -102,7 +102,10 @@ export default struct IWiaImageFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaimagefilter-initializefilter
      */
     InitializeFilter(pWiaItem2, pWiaTransferCallback) {
-        result := ComCall(3, this, "ptr", pWiaItem2, "ptr", pWiaTransferCallback, "HRESULT")
+        pWiaItem2Marshal := pWiaItem2 == 0 ? IntPtr : "ptr"
+        pWiaTransferCallbackMarshal := pWiaTransferCallback == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pWiaItem2Marshal, pWiaItem2, pWiaTransferCallbackMarshal, pWiaTransferCallback, "HRESULT")
         return result
     }
 
@@ -123,7 +126,9 @@ export default struct IWiaImageFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaimagefilter-setnewcallback
      */
     SetNewCallback(pWiaTransferCallback) {
-        result := ComCall(4, this, "ptr", pWiaTransferCallback, "HRESULT")
+        pWiaTransferCallbackMarshal := pWiaTransferCallback == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, pWiaTransferCallbackMarshal, pWiaTransferCallback, "HRESULT")
         return result
     }
 
@@ -155,7 +160,10 @@ export default struct IWiaImageFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaimagefilter-filterpreviewimage
      */
     FilterPreviewImage(lFlags, pWiaChildItem2, InputImageExtents, pInputStream) {
-        result := ComCall(5, this, Int32, lFlags, "ptr", pWiaChildItem2, RECT, InputImageExtents, "ptr", pInputStream, "HRESULT")
+        pWiaChildItem2Marshal := pWiaChildItem2 == 0 ? IntPtr : "ptr"
+        pInputStreamMarshal := pInputStream == 0 ? IntPtr : "ptr"
+
+        result := ComCall(5, this, Int32, lFlags, pWiaChildItem2Marshal, pWiaChildItem2, RECT, InputImageExtents, pInputStreamMarshal, pInputStream, "HRESULT")
         return result
     }
 
@@ -176,7 +184,9 @@ export default struct IWiaImageFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaimagefilter-applyproperties
      */
     ApplyProperties(pWiaPropertyStorage) {
-        result := ComCall(6, this, "ptr", pWiaPropertyStorage, "HRESULT")
+        pWiaPropertyStorageMarshal := pWiaPropertyStorage == 0 ? IntPtr : "ptr"
+
+        result := ComCall(6, this, pWiaPropertyStorageMarshal, pWiaPropertyStorage, "HRESULT")
         return result
     }
 
@@ -189,10 +199,10 @@ export default struct IWiaImageFilter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeFilter := CallbackCreate(GetMethod(implObj, "InitializeFilter"), flags, 3)
-        this.vtbl.SetNewCallback := CallbackCreate(GetMethod(implObj, "SetNewCallback"), flags, 2)
-        this.vtbl.FilterPreviewImage := CallbackCreate(GetMethod(implObj, "FilterPreviewImage"), flags, 5)
-        this.vtbl.ApplyProperties := CallbackCreate(GetMethod(implObj, "ApplyProperties"), flags, 2)
+        this.vtbl.InitializeFilter := CallbackCreate(ObjBindMethod(implObj, "InitializeFilter"), flags, 3)
+        this.vtbl.SetNewCallback := CallbackCreate(ObjBindMethod(implObj, "SetNewCallback"), flags, 2)
+        this.vtbl.FilterPreviewImage := CallbackCreate(ObjBindMethod(implObj, "FilterPreviewImage"), flags, 5)
+        this.vtbl.ApplyProperties := CallbackCreate(ObjBindMethod(implObj, "ApplyProperties"), flags, 2)
     }
 
     Dispose() {

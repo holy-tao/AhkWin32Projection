@@ -21,7 +21,6 @@ export default struct QUERYFORCONNECTION {
     }
 
     /**
-     * 
      * @param {Pointer<LDAP>} PrimaryConnection 
      * @param {Pointer<LDAP>} ReferralFromConnection 
      * @param {PWSTR} NewDN 
@@ -36,9 +35,9 @@ export default struct QUERYFORCONNECTION {
         NewDN := NewDN is String ? StrPtr(NewDN) : NewDN
         HostName := HostName is String ? StrPtr(HostName) : HostName
 
-        SecAuthIdentityMarshal := SecAuthIdentity is VarRef ? "ptr" : "ptr"
-        CurrentUserTokenMarshal := CurrentUserToken is VarRef ? "ptr" : "ptr"
-        ConnectionToUseMarshal := ConnectionToUse is VarRef ? "ptr*" : "ptr"
+        SecAuthIdentityMarshal := SecAuthIdentity is VarRef ? "ptr" : IntPtr
+        CurrentUserTokenMarshal := CurrentUserToken is VarRef ? "ptr" : IntPtr
+        ConnectionToUseMarshal := ConnectionToUse is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, LDAP.Ptr, PrimaryConnection, LDAP.Ptr, ReferralFromConnection, "ptr", NewDN, "ptr", HostName, UInt32, PortNumber, SecAuthIdentityMarshal, SecAuthIdentity, CurrentUserTokenMarshal, CurrentUserToken, ConnectionToUseMarshal, ConnectionToUse, UInt32)
         return result

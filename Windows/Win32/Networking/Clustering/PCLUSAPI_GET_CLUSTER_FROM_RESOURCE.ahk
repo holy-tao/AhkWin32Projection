@@ -20,7 +20,6 @@ export default struct PCLUSAPI_GET_CLUSTER_FROM_RESOURCE {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @returns {HCLUSTER} 
      */

@@ -19,13 +19,13 @@ export default struct NMI_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {BOOLEAN} Handled 
      * @returns {BOOLEAN} 
      */
     Call(_Context, Handled) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, BOOLEAN, Handled, BOOLEAN)
         return result

@@ -168,7 +168,7 @@ export default struct IWMPPlaylistCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylistcollection-isdeleted
      */
     isDeleted(pItem, pvarfIsDeleted) {
-        pvarfIsDeletedMarshal := pvarfIsDeleted is VarRef ? "short*" : "ptr"
+        pvarfIsDeletedMarshal := pvarfIsDeleted is VarRef ? "short*" : IntPtr
 
         result := ComCall(12, this, "ptr", pItem, pvarfIsDeletedMarshal, pvarfIsDeleted, "HRESULT")
         return result
@@ -200,13 +200,13 @@ export default struct IWMPPlaylistCollection extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.newPlaylist := CallbackCreate(GetMethod(implObj, "newPlaylist"), flags, 3)
-        this.vtbl.getAll := CallbackCreate(GetMethod(implObj, "getAll"), flags, 2)
-        this.vtbl.getByName := CallbackCreate(GetMethod(implObj, "getByName"), flags, 3)
-        this.vtbl.remove := CallbackCreate(GetMethod(implObj, "remove"), flags, 2)
-        this.vtbl.setDeleted := CallbackCreate(GetMethod(implObj, "setDeleted"), flags, 3)
-        this.vtbl.isDeleted := CallbackCreate(GetMethod(implObj, "isDeleted"), flags, 3)
-        this.vtbl.importPlaylist := CallbackCreate(GetMethod(implObj, "importPlaylist"), flags, 3)
+        this.vtbl.newPlaylist := CallbackCreate(ObjBindMethod(implObj, "newPlaylist"), flags, 3)
+        this.vtbl.getAll := CallbackCreate(ObjBindMethod(implObj, "getAll"), flags, 2)
+        this.vtbl.getByName := CallbackCreate(ObjBindMethod(implObj, "getByName"), flags, 3)
+        this.vtbl.remove := CallbackCreate(ObjBindMethod(implObj, "remove"), flags, 2)
+        this.vtbl.setDeleted := CallbackCreate(ObjBindMethod(implObj, "setDeleted"), flags, 3)
+        this.vtbl.isDeleted := CallbackCreate(ObjBindMethod(implObj, "isDeleted"), flags, 3)
+        this.vtbl.importPlaylist := CallbackCreate(ObjBindMethod(implObj, "importPlaylist"), flags, 3)
     }
 
     Dispose() {

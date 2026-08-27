@@ -39,7 +39,6 @@ export default struct IDOMEventRegistrationCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszEventType 
      * @param {IScriptEventHandler} pHandler 
      * @returns {HRESULT} 
@@ -52,7 +51,6 @@ export default struct IDOMEventRegistrationCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ullCookie 
      * @returns {HRESULT} 
      */
@@ -70,8 +68,8 @@ export default struct IDOMEventRegistrationCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnDOMEventListenerAdded := CallbackCreate(GetMethod(implObj, "OnDOMEventListenerAdded"), flags, 3)
-        this.vtbl.OnDOMEventListenerRemoved := CallbackCreate(GetMethod(implObj, "OnDOMEventListenerRemoved"), flags, 2)
+        this.vtbl.OnDOMEventListenerAdded := CallbackCreate(ObjBindMethod(implObj, "OnDOMEventListenerAdded"), flags, 3)
+        this.vtbl.OnDOMEventListenerRemoved := CallbackCreate(ObjBindMethod(implObj, "OnDOMEventListenerRemoved"), flags, 2)
     }
 
     Dispose() {

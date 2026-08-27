@@ -20,7 +20,6 @@ export default struct PFN_DrvStartPage {
     }
 
     /**
-     * 
      * @param {Pointer<SURFOBJ>} pso 
      * @returns {BOOL} 
      */

@@ -38,7 +38,6 @@ export default struct IActiveScriptTraceInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {IActiveScriptSiteTraceInfo} pSiteTraceInfo 
      * @param {Guid} guidContextID 
      * @returns {HRESULT} 
@@ -49,7 +48,6 @@ export default struct IActiveScriptTraceInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     StopScriptTracing() {
@@ -66,8 +64,8 @@ export default struct IActiveScriptTraceInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StartScriptTracing := CallbackCreate(GetMethod(implObj, "StartScriptTracing"), flags, 3)
-        this.vtbl.StopScriptTracing := CallbackCreate(GetMethod(implObj, "StopScriptTracing"), flags, 1)
+        this.vtbl.StartScriptTracing := CallbackCreate(ObjBindMethod(implObj, "StartScriptTracing"), flags, 3)
+        this.vtbl.StopScriptTracing := CallbackCreate(ObjBindMethod(implObj, "StopScriptTracing"), flags, 1)
     }
 
     Dispose() {

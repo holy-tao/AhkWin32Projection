@@ -38,20 +38,18 @@ export default struct IInternetHostSecurityManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcbSecurityId 
      * @param {Pointer} dwReserved 
      * @returns {Integer} 
      */
     GetSecurityId(pcbSecurityId, dwReserved) {
-        pcbSecurityIdMarshal := pcbSecurityId is VarRef ? "uint*" : "ptr"
+        pcbSecurityIdMarshal := pcbSecurityId is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, "char*", &pbSecurityId := 0, pcbSecurityIdMarshal, pcbSecurityId, IntPtr, dwReserved, "HRESULT")
         return pbSecurityId
     }
 
     /**
-     * 
      * @param {Integer} dwAction 
      * @param {Integer} cbPolicy 
      * @param {Pointer<Integer>} pContext 
@@ -61,14 +59,14 @@ export default struct IInternetHostSecurityManager extends IUnknown {
      * @returns {Integer} 
      */
     ProcessUrlAction(dwAction, cbPolicy, pContext, cbContext, dwFlags, dwReserved) {
-        pContextMarshal := pContext is VarRef ? "char*" : "ptr"
+        pContextMarshal := pContext is VarRef ? "char*" : IntPtr
+        pContextMarshal := pContext == 0 ? IntPtr : "char*"
 
         result := ComCall(4, this, UInt32, dwAction, "char*", &pPolicy := 0, UInt32, cbPolicy, pContextMarshal, pContext, UInt32, cbContext, UInt32, dwFlags, UInt32, dwReserved, "HRESULT")
         return pPolicy
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} guidKey 
      * @param {Pointer<Pointer<Integer>>} ppPolicy 
      * @param {Pointer<Integer>} pcbPolicy 
@@ -78,9 +76,9 @@ export default struct IInternetHostSecurityManager extends IUnknown {
      * @returns {HRESULT} 
      */
     QueryCustomPolicy(guidKey, ppPolicy, pcbPolicy, pContext, cbContext, dwReserved) {
-        ppPolicyMarshal := ppPolicy is VarRef ? "ptr*" : "ptr"
-        pcbPolicyMarshal := pcbPolicy is VarRef ? "uint*" : "ptr"
-        pContextMarshal := pContext is VarRef ? "char*" : "ptr"
+        ppPolicyMarshal := ppPolicy is VarRef ? "ptr*" : IntPtr
+        pcbPolicyMarshal := pcbPolicy is VarRef ? "uint*" : IntPtr
+        pContextMarshal := pContext is VarRef ? "char*" : IntPtr
 
         result := ComCall(5, this, Guid.Ptr, guidKey, ppPolicyMarshal, ppPolicy, pcbPolicyMarshal, pcbPolicy, pContextMarshal, pContext, UInt32, cbContext, UInt32, dwReserved, "HRESULT")
         return result
@@ -95,9 +93,9 @@ export default struct IInternetHostSecurityManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSecurityId := CallbackCreate(GetMethod(implObj, "GetSecurityId"), flags, 4)
-        this.vtbl.ProcessUrlAction := CallbackCreate(GetMethod(implObj, "ProcessUrlAction"), flags, 8)
-        this.vtbl.QueryCustomPolicy := CallbackCreate(GetMethod(implObj, "QueryCustomPolicy"), flags, 7)
+        this.vtbl.GetSecurityId := CallbackCreate(ObjBindMethod(implObj, "GetSecurityId"), flags, 4)
+        this.vtbl.ProcessUrlAction := CallbackCreate(ObjBindMethod(implObj, "ProcessUrlAction"), flags, 8)
+        this.vtbl.QueryCustomPolicy := CallbackCreate(ObjBindMethod(implObj, "QueryCustomPolicy"), flags, 7)
     }
 
     Dispose() {

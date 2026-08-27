@@ -186,14 +186,14 @@ export default struct IExplorerCommand extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTitle := CallbackCreate(GetMethod(implObj, "GetTitle"), flags, 3)
-        this.vtbl.GetIcon := CallbackCreate(GetMethod(implObj, "GetIcon"), flags, 3)
-        this.vtbl.GetToolTip := CallbackCreate(GetMethod(implObj, "GetToolTip"), flags, 3)
-        this.vtbl.GetCanonicalName := CallbackCreate(GetMethod(implObj, "GetCanonicalName"), flags, 2)
-        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 4)
-        this.vtbl.Invoke := CallbackCreate(GetMethod(implObj, "Invoke"), flags, 3)
-        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
-        this.vtbl.EnumSubCommands := CallbackCreate(GetMethod(implObj, "EnumSubCommands"), flags, 2)
+        this.vtbl.GetTitle := CallbackCreate(ObjBindMethod(implObj, "GetTitle"), flags, 3)
+        this.vtbl.GetIcon := CallbackCreate(ObjBindMethod(implObj, "GetIcon"), flags, 3)
+        this.vtbl.GetToolTip := CallbackCreate(ObjBindMethod(implObj, "GetToolTip"), flags, 3)
+        this.vtbl.GetCanonicalName := CallbackCreate(ObjBindMethod(implObj, "GetCanonicalName"), flags, 2)
+        this.vtbl.GetState := CallbackCreate(ObjBindMethod(implObj, "GetState"), flags, 4)
+        this.vtbl.Invoke := CallbackCreate(ObjBindMethod(implObj, "Invoke"), flags, 3)
+        this.vtbl.GetFlags := CallbackCreate(ObjBindMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.EnumSubCommands := CallbackCreate(ObjBindMethod(implObj, "EnumSubCommands"), flags, 2)
     }
 
     Dispose() {

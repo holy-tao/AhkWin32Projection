@@ -94,9 +94,9 @@ export default struct IMFCameraConfigurationManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LoadDefaults := CallbackCreate(GetMethod(implObj, "LoadDefaults"), flags, 3)
-        this.vtbl.SaveDefaults := CallbackCreate(GetMethod(implObj, "SaveDefaults"), flags, 2)
-        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 1)
+        this.vtbl.LoadDefaults := CallbackCreate(ObjBindMethod(implObj, "LoadDefaults"), flags, 3)
+        this.vtbl.SaveDefaults := CallbackCreate(ObjBindMethod(implObj, "SaveDefaults"), flags, 2)
+        this.vtbl.Shutdown := CallbackCreate(ObjBindMethod(implObj, "Shutdown"), flags, 1)
     }
 
     Dispose() {

@@ -18,7 +18,6 @@ export default struct DOT11EXTIHV_DEINIT_SERVICE {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

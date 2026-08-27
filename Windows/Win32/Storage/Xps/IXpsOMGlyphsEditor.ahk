@@ -229,7 +229,7 @@ export default struct IXpsOMGlyphsEditor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphseditor-getglyphindices
      */
     GetGlyphIndices(indexCount) {
-        indexCountMarshal := indexCount is VarRef ? "uint*" : "ptr"
+        indexCountMarshal := indexCount is VarRef ? "uint*" : IntPtr
 
         glyphIndices := XPS_GLYPH_INDEX()
         result := ComCall(7, this, indexCountMarshal, indexCount, XPS_GLYPH_INDEX.Ptr, glyphIndices, "HRESULT")
@@ -333,7 +333,7 @@ export default struct IXpsOMGlyphsEditor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphseditor-getglyphmappings
      */
     GetGlyphMappings(glyphMappingCount) {
-        glyphMappingCountMarshal := glyphMappingCount is VarRef ? "uint*" : "ptr"
+        glyphMappingCountMarshal := glyphMappingCount is VarRef ? "uint*" : IntPtr
 
         glyphMappings := XPS_GLYPH_MAPPING()
         result := ComCall(10, this, glyphMappingCountMarshal, glyphMappingCount, XPS_GLYPH_MAPPING.Ptr, glyphMappings, "HRESULT")
@@ -432,7 +432,7 @@ export default struct IXpsOMGlyphsEditor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphseditor-getprohibitedcaretstops
      */
     GetProhibitedCaretStops(count) {
-        countMarshal := count is VarRef ? "uint*" : "ptr"
+        countMarshal := count is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, countMarshal, count, "uint*", &prohibitedCaretStops := 0, "HRESULT")
         return prohibitedCaretStops
@@ -488,7 +488,7 @@ export default struct IXpsOMGlyphsEditor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphseditor-setprohibitedcaretstops
      */
     SetProhibitedCaretStops(count, prohibitedCaretStops) {
-        prohibitedCaretStopsMarshal := prohibitedCaretStops is VarRef ? "uint*" : "ptr"
+        prohibitedCaretStopsMarshal := prohibitedCaretStops is VarRef ? "uint*" : IntPtr
 
         result := ComCall(14, this, UInt32, count, prohibitedCaretStopsMarshal, prohibitedCaretStops, "HRESULT")
         return result
@@ -673,24 +673,24 @@ export default struct IXpsOMGlyphsEditor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ApplyEdits := CallbackCreate(GetMethod(implObj, "ApplyEdits"), flags, 1)
-        this.vtbl.GetUnicodeString := CallbackCreate(GetMethod(implObj, "GetUnicodeString"), flags, 2)
-        this.vtbl.SetUnicodeString := CallbackCreate(GetMethod(implObj, "SetUnicodeString"), flags, 2)
-        this.vtbl.GetGlyphIndexCount := CallbackCreate(GetMethod(implObj, "GetGlyphIndexCount"), flags, 2)
-        this.vtbl.GetGlyphIndices := CallbackCreate(GetMethod(implObj, "GetGlyphIndices"), flags, 3)
-        this.vtbl.SetGlyphIndices := CallbackCreate(GetMethod(implObj, "SetGlyphIndices"), flags, 3)
-        this.vtbl.GetGlyphMappingCount := CallbackCreate(GetMethod(implObj, "GetGlyphMappingCount"), flags, 2)
-        this.vtbl.GetGlyphMappings := CallbackCreate(GetMethod(implObj, "GetGlyphMappings"), flags, 3)
-        this.vtbl.SetGlyphMappings := CallbackCreate(GetMethod(implObj, "SetGlyphMappings"), flags, 3)
-        this.vtbl.GetProhibitedCaretStopCount := CallbackCreate(GetMethod(implObj, "GetProhibitedCaretStopCount"), flags, 2)
-        this.vtbl.GetProhibitedCaretStops := CallbackCreate(GetMethod(implObj, "GetProhibitedCaretStops"), flags, 3)
-        this.vtbl.SetProhibitedCaretStops := CallbackCreate(GetMethod(implObj, "SetProhibitedCaretStops"), flags, 3)
-        this.vtbl.GetBidiLevel := CallbackCreate(GetMethod(implObj, "GetBidiLevel"), flags, 2)
-        this.vtbl.SetBidiLevel := CallbackCreate(GetMethod(implObj, "SetBidiLevel"), flags, 2)
-        this.vtbl.GetIsSideways := CallbackCreate(GetMethod(implObj, "GetIsSideways"), flags, 2)
-        this.vtbl.SetIsSideways := CallbackCreate(GetMethod(implObj, "SetIsSideways"), flags, 2)
-        this.vtbl.GetDeviceFontName := CallbackCreate(GetMethod(implObj, "GetDeviceFontName"), flags, 2)
-        this.vtbl.SetDeviceFontName := CallbackCreate(GetMethod(implObj, "SetDeviceFontName"), flags, 2)
+        this.vtbl.ApplyEdits := CallbackCreate(ObjBindMethod(implObj, "ApplyEdits"), flags, 1)
+        this.vtbl.GetUnicodeString := CallbackCreate(ObjBindMethod(implObj, "GetUnicodeString"), flags, 2)
+        this.vtbl.SetUnicodeString := CallbackCreate(ObjBindMethod(implObj, "SetUnicodeString"), flags, 2)
+        this.vtbl.GetGlyphIndexCount := CallbackCreate(ObjBindMethod(implObj, "GetGlyphIndexCount"), flags, 2)
+        this.vtbl.GetGlyphIndices := CallbackCreate(ObjBindMethod(implObj, "GetGlyphIndices"), flags, 3)
+        this.vtbl.SetGlyphIndices := CallbackCreate(ObjBindMethod(implObj, "SetGlyphIndices"), flags, 3)
+        this.vtbl.GetGlyphMappingCount := CallbackCreate(ObjBindMethod(implObj, "GetGlyphMappingCount"), flags, 2)
+        this.vtbl.GetGlyphMappings := CallbackCreate(ObjBindMethod(implObj, "GetGlyphMappings"), flags, 3)
+        this.vtbl.SetGlyphMappings := CallbackCreate(ObjBindMethod(implObj, "SetGlyphMappings"), flags, 3)
+        this.vtbl.GetProhibitedCaretStopCount := CallbackCreate(ObjBindMethod(implObj, "GetProhibitedCaretStopCount"), flags, 2)
+        this.vtbl.GetProhibitedCaretStops := CallbackCreate(ObjBindMethod(implObj, "GetProhibitedCaretStops"), flags, 3)
+        this.vtbl.SetProhibitedCaretStops := CallbackCreate(ObjBindMethod(implObj, "SetProhibitedCaretStops"), flags, 3)
+        this.vtbl.GetBidiLevel := CallbackCreate(ObjBindMethod(implObj, "GetBidiLevel"), flags, 2)
+        this.vtbl.SetBidiLevel := CallbackCreate(ObjBindMethod(implObj, "SetBidiLevel"), flags, 2)
+        this.vtbl.GetIsSideways := CallbackCreate(ObjBindMethod(implObj, "GetIsSideways"), flags, 2)
+        this.vtbl.SetIsSideways := CallbackCreate(ObjBindMethod(implObj, "SetIsSideways"), flags, 2)
+        this.vtbl.GetDeviceFontName := CallbackCreate(ObjBindMethod(implObj, "GetDeviceFontName"), flags, 2)
+        this.vtbl.SetDeviceFontName := CallbackCreate(ObjBindMethod(implObj, "SetDeviceFontName"), flags, 2)
     }
 
     Dispose() {

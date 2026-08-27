@@ -74,8 +74,8 @@ export default struct IAppVisibilityEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AppVisibilityOnMonitorChanged := CallbackCreate(GetMethod(implObj, "AppVisibilityOnMonitorChanged"), flags, 4)
-        this.vtbl.LauncherVisibilityChange := CallbackCreate(GetMethod(implObj, "LauncherVisibilityChange"), flags, 2)
+        this.vtbl.AppVisibilityOnMonitorChanged := CallbackCreate(ObjBindMethod(implObj, "AppVisibilityOnMonitorChanged"), flags, 4)
+        this.vtbl.LauncherVisibilityChange := CallbackCreate(ObjBindMethod(implObj, "LauncherVisibilityChange"), flags, 2)
     }
 
     Dispose() {

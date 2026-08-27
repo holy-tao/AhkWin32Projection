@@ -71,7 +71,7 @@ export default struct ID3D12CommandAllocator extends ID3D12Pageable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
     }
 
     Dispose() {

@@ -37,13 +37,12 @@ export default struct ISQLErrorInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrSQLState 
      * @param {Pointer<Integer>} plNativeError 
      * @returns {HRESULT} 
      */
     GetSQLInfo(pbstrSQLState, plNativeError) {
-        plNativeErrorMarshal := plNativeError is VarRef ? "int*" : "ptr"
+        plNativeErrorMarshal := plNativeError is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, BSTR.Ptr, pbstrSQLState, plNativeErrorMarshal, plNativeError, "HRESULT")
         return result
@@ -58,7 +57,7 @@ export default struct ISQLErrorInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSQLInfo := CallbackCreate(GetMethod(implObj, "GetSQLInfo"), flags, 3)
+        this.vtbl.GetSQLInfo := CallbackCreate(ObjBindMethod(implObj, "GetSQLInfo"), flags, 3)
     }
 
     Dispose() {

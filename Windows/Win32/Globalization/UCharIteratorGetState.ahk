@@ -19,7 +19,6 @@ export default struct UCharIteratorGetState {
     }
 
     /**
-     * 
      * @param {Pointer<UCharIterator>} iter 
      * @returns {Integer} 
      */

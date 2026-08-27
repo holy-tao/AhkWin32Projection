@@ -139,11 +139,11 @@ export default struct IDWriteStringList extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 1)
-        this.vtbl.GetLocaleNameLength := CallbackCreate(GetMethod(implObj, "GetLocaleNameLength"), flags, 3)
-        this.vtbl.GetLocaleName := CallbackCreate(GetMethod(implObj, "GetLocaleName"), flags, 4)
-        this.vtbl.GetStringLength := CallbackCreate(GetMethod(implObj, "GetStringLength"), flags, 3)
-        this.vtbl.GetString := CallbackCreate(GetMethod(implObj, "GetString"), flags, 4)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 1)
+        this.vtbl.GetLocaleNameLength := CallbackCreate(ObjBindMethod(implObj, "GetLocaleNameLength"), flags, 3)
+        this.vtbl.GetLocaleName := CallbackCreate(ObjBindMethod(implObj, "GetLocaleName"), flags, 4)
+        this.vtbl.GetStringLength := CallbackCreate(ObjBindMethod(implObj, "GetStringLength"), flags, 3)
+        this.vtbl.GetString := CallbackCreate(ObjBindMethod(implObj, "GetString"), flags, 4)
     }
 
     Dispose() {

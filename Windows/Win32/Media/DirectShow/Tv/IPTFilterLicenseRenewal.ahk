@@ -39,7 +39,6 @@ export default struct IPTFilterLicenseRenewal extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} wszFileName 
      * @param {PWSTR} wszExpiredKid 
      * @param {Integer} dwCallersId 
@@ -55,7 +54,6 @@ export default struct IPTFilterLicenseRenewal extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CancelLicenseRenewal() {
@@ -72,8 +70,8 @@ export default struct IPTFilterLicenseRenewal extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RenewLicenses := CallbackCreate(GetMethod(implObj, "RenewLicenses"), flags, 5)
-        this.vtbl.CancelLicenseRenewal := CallbackCreate(GetMethod(implObj, "CancelLicenseRenewal"), flags, 1)
+        this.vtbl.RenewLicenses := CallbackCreate(ObjBindMethod(implObj, "RenewLicenses"), flags, 5)
+        this.vtbl.CancelLicenseRenewal := CallbackCreate(ObjBindMethod(implObj, "CancelLicenseRenewal"), flags, 1)
     }
 
     Dispose() {

@@ -31,7 +31,6 @@ export default struct SpGetUserInfoFn {
     }
 
     /**
-     * 
      * @param {Pointer<LUID>} LogonId Pointer to an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">LUID</a> containing the logon session for which information is to be retrieved.
      * @param {Integer} Flags 
      * @param {Pointer<Pointer<SECURITY_USER_DATA>>} _UserData Pointer to a pointer to a 
@@ -42,7 +41,7 @@ export default struct SpGetUserInfoFn {
      * If the function fails, return an <b>NTSTATUS</b> code that indicates the reason it failed.
      */
     Call(LogonId, Flags, _UserData) {
-        _UserDataMarshal := _UserData is VarRef ? "ptr*" : "ptr"
+        _UserDataMarshal := _UserData is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, LUID.Ptr, LogonId, UInt32, Flags, _UserDataMarshal, _UserData, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

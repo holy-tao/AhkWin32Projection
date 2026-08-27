@@ -76,7 +76,7 @@ export default struct IContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-icontext-getproperty
      */
     GetProperty(rGuid, pFlags, ppUnk) {
-        pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
+        pFlagsMarshal := pFlags is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, Guid.Ptr, rGuid, pFlagsMarshal, pFlags, IUnknown.Ptr, ppUnk, "HRESULT")
         return result
@@ -101,10 +101,10 @@ export default struct IContext extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 4)
-        this.vtbl.RemoveProperty := CallbackCreate(GetMethod(implObj, "RemoveProperty"), flags, 2)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 4)
-        this.vtbl.EnumContextProps := CallbackCreate(GetMethod(implObj, "EnumContextProps"), flags, 2)
+        this.vtbl.SetProperty := CallbackCreate(ObjBindMethod(implObj, "SetProperty"), flags, 4)
+        this.vtbl.RemoveProperty := CallbackCreate(ObjBindMethod(implObj, "RemoveProperty"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 4)
+        this.vtbl.EnumContextProps := CallbackCreate(ObjBindMethod(implObj, "EnumContextProps"), flags, 2)
     }
 
     Dispose() {

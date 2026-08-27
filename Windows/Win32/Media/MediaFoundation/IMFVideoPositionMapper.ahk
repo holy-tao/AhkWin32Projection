@@ -113,8 +113,8 @@ export default struct IMFVideoPositionMapper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideopositionmapper-mapoutputcoordinatetoinputstream
      */
     MapOutputCoordinateToInputStream(xOut, yOut, dwOutputStreamIndex, dwInputStreamIndex, pxIn, pyIn) {
-        pxInMarshal := pxIn is VarRef ? "float*" : "ptr"
-        pyInMarshal := pyIn is VarRef ? "float*" : "ptr"
+        pxInMarshal := pxIn is VarRef ? "float*" : IntPtr
+        pyInMarshal := pyIn is VarRef ? "float*" : IntPtr
 
         result := ComCall(3, this, Float32, xOut, Float32, yOut, UInt32, dwOutputStreamIndex, UInt32, dwInputStreamIndex, pxInMarshal, pxIn, pyInMarshal, pyIn, "HRESULT")
         return result
@@ -129,7 +129,7 @@ export default struct IMFVideoPositionMapper extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.MapOutputCoordinateToInputStream := CallbackCreate(GetMethod(implObj, "MapOutputCoordinateToInputStream"), flags, 7)
+        this.vtbl.MapOutputCoordinateToInputStream := CallbackCreate(ObjBindMethod(implObj, "MapOutputCoordinateToInputStream"), flags, 7)
     }
 
     Dispose() {

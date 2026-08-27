@@ -22,7 +22,6 @@ export default struct D3D12MessageFunc {
     }
 
     /**
-     * 
      * @param {D3D12_MESSAGE_CATEGORY} Category 
      * @param {D3D12_MESSAGE_SEVERITY} Severity 
      * @param {D3D12_MESSAGE_ID} ID 
@@ -33,7 +32,7 @@ export default struct D3D12MessageFunc {
     Call(Category, Severity, ID, pDescription, pContext) {
         pDescription := pDescription is String ? StrPtr(pDescription) : pDescription
 
-        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+        pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, D3D12_MESSAGE_CATEGORY, Category, D3D12_MESSAGE_SEVERITY, Severity, D3D12_MESSAGE_ID, ID, "ptr", pDescription, pContextMarshal, pContext)
     }

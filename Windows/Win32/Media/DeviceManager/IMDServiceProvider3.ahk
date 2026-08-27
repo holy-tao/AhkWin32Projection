@@ -122,7 +122,7 @@ export default struct IMDServiceProvider3 extends IMDServiceProvider2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetDeviceEnumPreference := CallbackCreate(GetMethod(implObj, "SetDeviceEnumPreference"), flags, 2)
+        this.vtbl.SetDeviceEnumPreference := CallbackCreate(ObjBindMethod(implObj, "SetDeviceEnumPreference"), flags, 2)
     }
 
     Dispose() {

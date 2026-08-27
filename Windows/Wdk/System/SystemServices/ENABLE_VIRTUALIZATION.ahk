@@ -20,7 +20,6 @@ export default struct ENABLE_VIRTUALIZATION {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Integer} NumVFs 
      * @param {BOOLEAN} EnableVfMigration 
@@ -29,7 +28,7 @@ export default struct ENABLE_VIRTUALIZATION {
      * @returns {NTSTATUS} 
      */
     Call(_Context, NumVFs, EnableVfMigration, EnableMigrationInterrupt, EnableVirtualization) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, UInt16, NumVFs, BOOLEAN, EnableVfMigration, BOOLEAN, EnableMigrationInterrupt, BOOLEAN, EnableVirtualization, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

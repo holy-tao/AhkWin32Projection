@@ -209,9 +209,9 @@ export default struct IMbnConnectionProfile extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProfileXmlData := CallbackCreate(GetMethod(implObj, "GetProfileXmlData"), flags, 2)
-        this.vtbl.UpdateProfile := CallbackCreate(GetMethod(implObj, "UpdateProfile"), flags, 2)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.GetProfileXmlData := CallbackCreate(ObjBindMethod(implObj, "GetProfileXmlData"), flags, 2)
+        this.vtbl.UpdateProfile := CallbackCreate(ObjBindMethod(implObj, "UpdateProfile"), flags, 2)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 1)
     }
 
     Dispose() {

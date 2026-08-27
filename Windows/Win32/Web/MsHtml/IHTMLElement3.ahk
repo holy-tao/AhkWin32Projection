@@ -253,7 +253,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLElement} mergeThis 
      * @param {Pointer<VARIANT>} pvarFlags 
      * @returns {HRESULT} 
@@ -264,7 +263,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_isMultiLine() {
@@ -273,7 +271,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_canHaveHTML() {
@@ -282,7 +279,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -292,7 +288,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onlayoutcomplete() {
@@ -302,7 +297,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -312,7 +306,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onpage() {
@@ -322,7 +315,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -332,7 +324,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_inflateBlock() {
@@ -341,7 +332,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -351,7 +341,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onbeforedeactivate() {
@@ -361,7 +350,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     setActive() {
@@ -370,7 +358,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -382,7 +369,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_contentEditable() {
@@ -392,7 +378,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_isContentEditable() {
@@ -401,7 +386,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -411,7 +395,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_hideFocus() {
@@ -420,7 +403,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -430,7 +412,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_disabled() {
@@ -439,7 +420,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_isDisabled() {
@@ -448,7 +428,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -458,7 +437,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmove() {
@@ -468,7 +446,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -478,7 +455,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_oncontrolselect() {
@@ -488,7 +464,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrEventName 
      * @param {Pointer<VARIANT>} pvarEventObject 
      * @returns {VARIANT_BOOL} 
@@ -501,7 +476,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -511,7 +485,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onresizestart() {
@@ -521,7 +494,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -531,7 +503,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onresizeend() {
@@ -541,7 +512,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -551,7 +521,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmovestart() {
@@ -561,7 +530,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -571,7 +539,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmoveend() {
@@ -581,7 +548,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -591,7 +557,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmouseenter() {
@@ -601,7 +566,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -611,7 +575,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmouseleave() {
@@ -621,7 +584,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -631,7 +593,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onactivate() {
@@ -641,7 +602,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -651,7 +611,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondeactivate() {
@@ -661,7 +620,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     dragDrop() {
@@ -670,7 +628,6 @@ export default struct IHTMLElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_glyphMode() {
@@ -687,49 +644,49 @@ export default struct IHTMLElement3 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.mergeAttributes := CallbackCreate(GetMethod(implObj, "mergeAttributes"), flags, 3)
-        this.vtbl.get_isMultiLine := CallbackCreate(GetMethod(implObj, "get_isMultiLine"), flags, 2)
-        this.vtbl.get_canHaveHTML := CallbackCreate(GetMethod(implObj, "get_canHaveHTML"), flags, 2)
-        this.vtbl.put_onlayoutcomplete := CallbackCreate(GetMethod(implObj, "put_onlayoutcomplete"), flags, 2)
-        this.vtbl.get_onlayoutcomplete := CallbackCreate(GetMethod(implObj, "get_onlayoutcomplete"), flags, 2)
-        this.vtbl.put_onpage := CallbackCreate(GetMethod(implObj, "put_onpage"), flags, 2)
-        this.vtbl.get_onpage := CallbackCreate(GetMethod(implObj, "get_onpage"), flags, 2)
-        this.vtbl.put_inflateBlock := CallbackCreate(GetMethod(implObj, "put_inflateBlock"), flags, 2)
-        this.vtbl.get_inflateBlock := CallbackCreate(GetMethod(implObj, "get_inflateBlock"), flags, 2)
-        this.vtbl.put_onbeforedeactivate := CallbackCreate(GetMethod(implObj, "put_onbeforedeactivate"), flags, 2)
-        this.vtbl.get_onbeforedeactivate := CallbackCreate(GetMethod(implObj, "get_onbeforedeactivate"), flags, 2)
-        this.vtbl.setActive := CallbackCreate(GetMethod(implObj, "setActive"), flags, 1)
-        this.vtbl.put_contentEditable := CallbackCreate(GetMethod(implObj, "put_contentEditable"), flags, 2)
-        this.vtbl.get_contentEditable := CallbackCreate(GetMethod(implObj, "get_contentEditable"), flags, 2)
-        this.vtbl.get_isContentEditable := CallbackCreate(GetMethod(implObj, "get_isContentEditable"), flags, 2)
-        this.vtbl.put_hideFocus := CallbackCreate(GetMethod(implObj, "put_hideFocus"), flags, 2)
-        this.vtbl.get_hideFocus := CallbackCreate(GetMethod(implObj, "get_hideFocus"), flags, 2)
-        this.vtbl.put_disabled := CallbackCreate(GetMethod(implObj, "put_disabled"), flags, 2)
-        this.vtbl.get_disabled := CallbackCreate(GetMethod(implObj, "get_disabled"), flags, 2)
-        this.vtbl.get_isDisabled := CallbackCreate(GetMethod(implObj, "get_isDisabled"), flags, 2)
-        this.vtbl.put_onmove := CallbackCreate(GetMethod(implObj, "put_onmove"), flags, 2)
-        this.vtbl.get_onmove := CallbackCreate(GetMethod(implObj, "get_onmove"), flags, 2)
-        this.vtbl.put_oncontrolselect := CallbackCreate(GetMethod(implObj, "put_oncontrolselect"), flags, 2)
-        this.vtbl.get_oncontrolselect := CallbackCreate(GetMethod(implObj, "get_oncontrolselect"), flags, 2)
-        this.vtbl.fireEvent := CallbackCreate(GetMethod(implObj, "fireEvent"), flags, 4)
-        this.vtbl.put_onresizestart := CallbackCreate(GetMethod(implObj, "put_onresizestart"), flags, 2)
-        this.vtbl.get_onresizestart := CallbackCreate(GetMethod(implObj, "get_onresizestart"), flags, 2)
-        this.vtbl.put_onresizeend := CallbackCreate(GetMethod(implObj, "put_onresizeend"), flags, 2)
-        this.vtbl.get_onresizeend := CallbackCreate(GetMethod(implObj, "get_onresizeend"), flags, 2)
-        this.vtbl.put_onmovestart := CallbackCreate(GetMethod(implObj, "put_onmovestart"), flags, 2)
-        this.vtbl.get_onmovestart := CallbackCreate(GetMethod(implObj, "get_onmovestart"), flags, 2)
-        this.vtbl.put_onmoveend := CallbackCreate(GetMethod(implObj, "put_onmoveend"), flags, 2)
-        this.vtbl.get_onmoveend := CallbackCreate(GetMethod(implObj, "get_onmoveend"), flags, 2)
-        this.vtbl.put_onmouseenter := CallbackCreate(GetMethod(implObj, "put_onmouseenter"), flags, 2)
-        this.vtbl.get_onmouseenter := CallbackCreate(GetMethod(implObj, "get_onmouseenter"), flags, 2)
-        this.vtbl.put_onmouseleave := CallbackCreate(GetMethod(implObj, "put_onmouseleave"), flags, 2)
-        this.vtbl.get_onmouseleave := CallbackCreate(GetMethod(implObj, "get_onmouseleave"), flags, 2)
-        this.vtbl.put_onactivate := CallbackCreate(GetMethod(implObj, "put_onactivate"), flags, 2)
-        this.vtbl.get_onactivate := CallbackCreate(GetMethod(implObj, "get_onactivate"), flags, 2)
-        this.vtbl.put_ondeactivate := CallbackCreate(GetMethod(implObj, "put_ondeactivate"), flags, 2)
-        this.vtbl.get_ondeactivate := CallbackCreate(GetMethod(implObj, "get_ondeactivate"), flags, 2)
-        this.vtbl.dragDrop := CallbackCreate(GetMethod(implObj, "dragDrop"), flags, 2)
-        this.vtbl.get_glyphMode := CallbackCreate(GetMethod(implObj, "get_glyphMode"), flags, 2)
+        this.vtbl.mergeAttributes := CallbackCreate(ObjBindMethod(implObj, "mergeAttributes"), flags, 3)
+        this.vtbl.get_isMultiLine := CallbackCreate(ObjBindMethod(implObj, "get_isMultiLine"), flags, 2)
+        this.vtbl.get_canHaveHTML := CallbackCreate(ObjBindMethod(implObj, "get_canHaveHTML"), flags, 2)
+        this.vtbl.put_onlayoutcomplete := CallbackCreate(ObjBindMethod(implObj, "put_onlayoutcomplete"), flags, 2)
+        this.vtbl.get_onlayoutcomplete := CallbackCreate(ObjBindMethod(implObj, "get_onlayoutcomplete"), flags, 2)
+        this.vtbl.put_onpage := CallbackCreate(ObjBindMethod(implObj, "put_onpage"), flags, 2)
+        this.vtbl.get_onpage := CallbackCreate(ObjBindMethod(implObj, "get_onpage"), flags, 2)
+        this.vtbl.put_inflateBlock := CallbackCreate(ObjBindMethod(implObj, "put_inflateBlock"), flags, 2)
+        this.vtbl.get_inflateBlock := CallbackCreate(ObjBindMethod(implObj, "get_inflateBlock"), flags, 2)
+        this.vtbl.put_onbeforedeactivate := CallbackCreate(ObjBindMethod(implObj, "put_onbeforedeactivate"), flags, 2)
+        this.vtbl.get_onbeforedeactivate := CallbackCreate(ObjBindMethod(implObj, "get_onbeforedeactivate"), flags, 2)
+        this.vtbl.setActive := CallbackCreate(ObjBindMethod(implObj, "setActive"), flags, 1)
+        this.vtbl.put_contentEditable := CallbackCreate(ObjBindMethod(implObj, "put_contentEditable"), flags, 2)
+        this.vtbl.get_contentEditable := CallbackCreate(ObjBindMethod(implObj, "get_contentEditable"), flags, 2)
+        this.vtbl.get_isContentEditable := CallbackCreate(ObjBindMethod(implObj, "get_isContentEditable"), flags, 2)
+        this.vtbl.put_hideFocus := CallbackCreate(ObjBindMethod(implObj, "put_hideFocus"), flags, 2)
+        this.vtbl.get_hideFocus := CallbackCreate(ObjBindMethod(implObj, "get_hideFocus"), flags, 2)
+        this.vtbl.put_disabled := CallbackCreate(ObjBindMethod(implObj, "put_disabled"), flags, 2)
+        this.vtbl.get_disabled := CallbackCreate(ObjBindMethod(implObj, "get_disabled"), flags, 2)
+        this.vtbl.get_isDisabled := CallbackCreate(ObjBindMethod(implObj, "get_isDisabled"), flags, 2)
+        this.vtbl.put_onmove := CallbackCreate(ObjBindMethod(implObj, "put_onmove"), flags, 2)
+        this.vtbl.get_onmove := CallbackCreate(ObjBindMethod(implObj, "get_onmove"), flags, 2)
+        this.vtbl.put_oncontrolselect := CallbackCreate(ObjBindMethod(implObj, "put_oncontrolselect"), flags, 2)
+        this.vtbl.get_oncontrolselect := CallbackCreate(ObjBindMethod(implObj, "get_oncontrolselect"), flags, 2)
+        this.vtbl.fireEvent := CallbackCreate(ObjBindMethod(implObj, "fireEvent"), flags, 4)
+        this.vtbl.put_onresizestart := CallbackCreate(ObjBindMethod(implObj, "put_onresizestart"), flags, 2)
+        this.vtbl.get_onresizestart := CallbackCreate(ObjBindMethod(implObj, "get_onresizestart"), flags, 2)
+        this.vtbl.put_onresizeend := CallbackCreate(ObjBindMethod(implObj, "put_onresizeend"), flags, 2)
+        this.vtbl.get_onresizeend := CallbackCreate(ObjBindMethod(implObj, "get_onresizeend"), flags, 2)
+        this.vtbl.put_onmovestart := CallbackCreate(ObjBindMethod(implObj, "put_onmovestart"), flags, 2)
+        this.vtbl.get_onmovestart := CallbackCreate(ObjBindMethod(implObj, "get_onmovestart"), flags, 2)
+        this.vtbl.put_onmoveend := CallbackCreate(ObjBindMethod(implObj, "put_onmoveend"), flags, 2)
+        this.vtbl.get_onmoveend := CallbackCreate(ObjBindMethod(implObj, "get_onmoveend"), flags, 2)
+        this.vtbl.put_onmouseenter := CallbackCreate(ObjBindMethod(implObj, "put_onmouseenter"), flags, 2)
+        this.vtbl.get_onmouseenter := CallbackCreate(ObjBindMethod(implObj, "get_onmouseenter"), flags, 2)
+        this.vtbl.put_onmouseleave := CallbackCreate(ObjBindMethod(implObj, "put_onmouseleave"), flags, 2)
+        this.vtbl.get_onmouseleave := CallbackCreate(ObjBindMethod(implObj, "get_onmouseleave"), flags, 2)
+        this.vtbl.put_onactivate := CallbackCreate(ObjBindMethod(implObj, "put_onactivate"), flags, 2)
+        this.vtbl.get_onactivate := CallbackCreate(ObjBindMethod(implObj, "get_onactivate"), flags, 2)
+        this.vtbl.put_ondeactivate := CallbackCreate(ObjBindMethod(implObj, "put_ondeactivate"), flags, 2)
+        this.vtbl.get_ondeactivate := CallbackCreate(ObjBindMethod(implObj, "get_ondeactivate"), flags, 2)
+        this.vtbl.dragDrop := CallbackCreate(ObjBindMethod(implObj, "dragDrop"), flags, 2)
+        this.vtbl.get_glyphMode := CallbackCreate(ObjBindMethod(implObj, "get_glyphMode"), flags, 2)
     }
 
     Dispose() {

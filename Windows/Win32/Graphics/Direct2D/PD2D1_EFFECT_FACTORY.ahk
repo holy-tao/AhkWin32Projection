@@ -22,7 +22,6 @@ export default struct PD2D1_EFFECT_FACTORY {
     }
 
     /**
-     * 
      * @returns {IUnknown} The effect implementation returned by the factory.
      */
     Call() {

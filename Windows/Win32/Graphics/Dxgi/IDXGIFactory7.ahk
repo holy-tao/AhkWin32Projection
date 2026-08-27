@@ -70,8 +70,8 @@ export default struct IDXGIFactory7 extends IDXGIFactory6 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterAdaptersChangedEvent := CallbackCreate(GetMethod(implObj, "RegisterAdaptersChangedEvent"), flags, 3)
-        this.vtbl.UnregisterAdaptersChangedEvent := CallbackCreate(GetMethod(implObj, "UnregisterAdaptersChangedEvent"), flags, 2)
+        this.vtbl.RegisterAdaptersChangedEvent := CallbackCreate(ObjBindMethod(implObj, "RegisterAdaptersChangedEvent"), flags, 3)
+        this.vtbl.UnregisterAdaptersChangedEvent := CallbackCreate(ObjBindMethod(implObj, "UnregisterAdaptersChangedEvent"), flags, 2)
     }
 
     Dispose() {

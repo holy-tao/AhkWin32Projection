@@ -139,7 +139,10 @@ export default struct IX509CertificateRequestPkcs7V2 extends IX509CertificateReq
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7v2-initializefromtemplate
      */
     InitializeFromTemplate(_context, pPolicyServer, pTemplate) {
-        result := ComCall(40, this, X509CertificateEnrollmentContext, _context, "ptr", pPolicyServer, "ptr", pTemplate, "HRESULT")
+        pPolicyServerMarshal := pPolicyServer == 0 ? IntPtr : "ptr"
+        pTemplateMarshal := pTemplate == 0 ? IntPtr : "ptr"
+
+        result := ComCall(40, this, X509CertificateEnrollmentContext, _context, pPolicyServerMarshal, pPolicyServer, pTemplateMarshal, pTemplate, "HRESULT")
         return result
     }
 
@@ -206,10 +209,10 @@ export default struct IX509CertificateRequestPkcs7V2 extends IX509CertificateReq
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeFromTemplate := CallbackCreate(GetMethod(implObj, "InitializeFromTemplate"), flags, 4)
-        this.vtbl.get_PolicyServer := CallbackCreate(GetMethod(implObj, "get_PolicyServer"), flags, 2)
-        this.vtbl.get_Template := CallbackCreate(GetMethod(implObj, "get_Template"), flags, 2)
-        this.vtbl.CheckCertificateSignature := CallbackCreate(GetMethod(implObj, "CheckCertificateSignature"), flags, 2)
+        this.vtbl.InitializeFromTemplate := CallbackCreate(ObjBindMethod(implObj, "InitializeFromTemplate"), flags, 4)
+        this.vtbl.get_PolicyServer := CallbackCreate(ObjBindMethod(implObj, "get_PolicyServer"), flags, 2)
+        this.vtbl.get_Template := CallbackCreate(ObjBindMethod(implObj, "get_Template"), flags, 2)
+        this.vtbl.CheckCertificateSignature := CallbackCreate(ObjBindMethod(implObj, "CheckCertificateSignature"), flags, 2)
     }
 
     Dispose() {

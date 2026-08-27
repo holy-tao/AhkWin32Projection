@@ -127,9 +127,9 @@ export default struct _IManipulationEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ManipulationStarted := CallbackCreate(GetMethod(implObj, "ManipulationStarted"), flags, 3)
-        this.vtbl.ManipulationDelta := CallbackCreate(GetMethod(implObj, "ManipulationDelta"), flags, 13)
-        this.vtbl.ManipulationCompleted := CallbackCreate(GetMethod(implObj, "ManipulationCompleted"), flags, 8)
+        this.vtbl.ManipulationStarted := CallbackCreate(ObjBindMethod(implObj, "ManipulationStarted"), flags, 3)
+        this.vtbl.ManipulationDelta := CallbackCreate(ObjBindMethod(implObj, "ManipulationDelta"), flags, 13)
+        this.vtbl.ManipulationCompleted := CallbackCreate(ObjBindMethod(implObj, "ManipulationCompleted"), flags, 8)
     }
 
     Dispose() {

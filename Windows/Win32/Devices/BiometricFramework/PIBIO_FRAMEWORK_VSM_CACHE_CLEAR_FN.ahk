@@ -20,7 +20,6 @@ export default struct PIBIO_FRAMEWORK_VSM_CACHE_CLEAR_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline 
      * @returns {HRESULT} 
      */

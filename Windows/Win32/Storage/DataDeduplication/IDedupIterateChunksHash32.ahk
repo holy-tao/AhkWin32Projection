@@ -40,34 +40,31 @@ export default struct IDedupIterateChunksHash32 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pBuffer 
      * @param {Integer} ulBufferLength 
      * @returns {HRESULT} 
      */
     PushBuffer(pBuffer, ulBufferLength) {
-        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, pBufferMarshal, pBuffer, UInt32, ulBufferLength, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} ulMaxChunks 
      * @param {Pointer<DEDUP_CHUNK_INFO_HASH32>} pArrChunks 
      * @param {Pointer<Integer>} pulFetched 
      * @returns {HRESULT} 
      */
     Next(ulMaxChunks, pArrChunks, pulFetched) {
-        pulFetchedMarshal := pulFetched is VarRef ? "uint*" : "ptr"
+        pulFetchedMarshal := pulFetched is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, UInt32, ulMaxChunks, DEDUP_CHUNK_INFO_HASH32.Ptr, pArrChunks, pulFetchedMarshal, pulFetched, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Drain() {
@@ -76,7 +73,6 @@ export default struct IDedupIterateChunksHash32 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -93,10 +89,10 @@ export default struct IDedupIterateChunksHash32 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PushBuffer := CallbackCreate(GetMethod(implObj, "PushBuffer"), flags, 3)
-        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 4)
-        this.vtbl.Drain := CallbackCreate(GetMethod(implObj, "Drain"), flags, 1)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.PushBuffer := CallbackCreate(ObjBindMethod(implObj, "PushBuffer"), flags, 3)
+        this.vtbl.Next := CallbackCreate(ObjBindMethod(implObj, "Next"), flags, 4)
+        this.vtbl.Drain := CallbackCreate(ObjBindMethod(implObj, "Drain"), flags, 1)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
     }
 
     Dispose() {

@@ -153,11 +153,11 @@ export default struct IUIAutomationValuePattern extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetValue := CallbackCreate(GetMethod(implObj, "SetValue"), flags, 2)
-        this.vtbl.get_CurrentValue := CallbackCreate(GetMethod(implObj, "get_CurrentValue"), flags, 2)
-        this.vtbl.get_CurrentIsReadOnly := CallbackCreate(GetMethod(implObj, "get_CurrentIsReadOnly"), flags, 2)
-        this.vtbl.get_CachedValue := CallbackCreate(GetMethod(implObj, "get_CachedValue"), flags, 2)
-        this.vtbl.get_CachedIsReadOnly := CallbackCreate(GetMethod(implObj, "get_CachedIsReadOnly"), flags, 2)
+        this.vtbl.SetValue := CallbackCreate(ObjBindMethod(implObj, "SetValue"), flags, 2)
+        this.vtbl.get_CurrentValue := CallbackCreate(ObjBindMethod(implObj, "get_CurrentValue"), flags, 2)
+        this.vtbl.get_CurrentIsReadOnly := CallbackCreate(ObjBindMethod(implObj, "get_CurrentIsReadOnly"), flags, 2)
+        this.vtbl.get_CachedValue := CallbackCreate(ObjBindMethod(implObj, "get_CachedValue"), flags, 2)
+        this.vtbl.get_CachedIsReadOnly := CallbackCreate(ObjBindMethod(implObj, "get_CachedIsReadOnly"), flags, 2)
     }
 
     Dispose() {

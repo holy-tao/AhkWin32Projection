@@ -86,8 +86,10 @@ export default struct IDWriteFontFace1 extends IDWriteFontFace {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-getgdicompatiblemetrics
      */
     GetGdiCompatibleMetrics(emSize, pixelsPerDip, transform) {
+        transformMarshal := transform == 0 ? IntPtr : DWRITE_MATRIX.Ptr
+
         fontMetrics := DWRITE_FONT_METRICS1()
-        result := ComCall(19, this, Float32, emSize, Float32, pixelsPerDip, DWRITE_MATRIX.Ptr, transform, DWRITE_FONT_METRICS1.Ptr, fontMetrics, "HRESULT")
+        result := ComCall(19, this, Float32, emSize, Float32, pixelsPerDip, transformMarshal, transform, DWRITE_FONT_METRICS1.Ptr, fontMetrics, "HRESULT")
         return fontMetrics
     }
 
@@ -167,9 +169,10 @@ export default struct IDWriteFontFace1 extends IDWriteFontFace {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-getunicoderanges
      */
     GetUnicodeRanges(maxRangeCount, unicodeRanges, actualRangeCount) {
-        actualRangeCountMarshal := actualRangeCount is VarRef ? "uint*" : "ptr"
+        unicodeRangesMarshal := unicodeRanges == 0 ? IntPtr : DWRITE_UNICODE_RANGE.Ptr
+        actualRangeCountMarshal := actualRangeCount is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(21, this, UInt32, maxRangeCount, DWRITE_UNICODE_RANGE.Ptr, unicodeRanges, actualRangeCountMarshal, actualRangeCount, "HRESULT")
+        result := ComCall(21, this, UInt32, maxRangeCount, unicodeRangesMarshal, unicodeRanges, actualRangeCountMarshal, actualRangeCount, "HRESULT")
         return result
     }
 
@@ -207,7 +210,7 @@ export default struct IDWriteFontFace1 extends IDWriteFontFace {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-getdesignglyphadvances
      */
     GetDesignGlyphAdvances(glyphCount, glyphIndices, isSideways) {
-        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
+        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(23, this, UInt32, glyphCount, glyphIndicesMarshal, glyphIndices, "int*", &glyphAdvances := 0, BOOL, isSideways, "HRESULT")
         return glyphAdvances
@@ -258,9 +261,10 @@ export default struct IDWriteFontFace1 extends IDWriteFontFace {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-getgdicompatibleglyphadvances
      */
     GetGdiCompatibleGlyphAdvances(emSize, pixelsPerDip, transform, useGdiNatural, isSideways, glyphCount, glyphIndices) {
-        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
+        transformMarshal := transform == 0 ? IntPtr : DWRITE_MATRIX.Ptr
+        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : IntPtr
 
-        result := ComCall(24, this, Float32, emSize, Float32, pixelsPerDip, DWRITE_MATRIX.Ptr, transform, BOOL, useGdiNatural, BOOL, isSideways, UInt32, glyphCount, glyphIndicesMarshal, glyphIndices, "int*", &glyphAdvances := 0, "HRESULT")
+        result := ComCall(24, this, Float32, emSize, Float32, pixelsPerDip, transformMarshal, transform, BOOL, useGdiNatural, BOOL, isSideways, UInt32, glyphCount, glyphIndicesMarshal, glyphIndices, "int*", &glyphAdvances := 0, "HRESULT")
         return glyphAdvances
     }
 
@@ -293,7 +297,7 @@ export default struct IDWriteFontFace1 extends IDWriteFontFace {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-getkerningpairadjustments
      */
     GetKerningPairAdjustments(glyphCount, glyphIndices) {
-        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
+        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(25, this, UInt32, glyphCount, glyphIndicesMarshal, glyphIndices, "int*", &glyphAdvanceAdjustments := 0, "HRESULT")
         return glyphAdvanceAdjustments
@@ -358,7 +362,9 @@ export default struct IDWriteFontFace1 extends IDWriteFontFace {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-getrecommendedrenderingmode
      */
     GetRecommendedRenderingMode(fontEmSize, dpiX, dpiY, transform, isSideways, outlineThreshold, measuringMode) {
-        result := ComCall(27, this, Float32, fontEmSize, Float32, dpiX, Float32, dpiY, DWRITE_MATRIX.Ptr, transform, BOOL, isSideways, DWRITE_OUTLINE_THRESHOLD, outlineThreshold, DWRITE_MEASURING_MODE, measuringMode, "int*", &renderingMode := 0, "HRESULT")
+        transformMarshal := transform == 0 ? IntPtr : DWRITE_MATRIX.Ptr
+
+        result := ComCall(27, this, Float32, fontEmSize, Float32, dpiX, Float32, dpiY, transformMarshal, transform, BOOL, isSideways, DWRITE_OUTLINE_THRESHOLD, outlineThreshold, DWRITE_MEASURING_MODE, measuringMode, "int*", &renderingMode := 0, "HRESULT")
         return renderingMode
     }
 
@@ -383,7 +389,7 @@ export default struct IDWriteFontFace1 extends IDWriteFontFace {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-getverticalglyphvariants
      */
     GetVerticalGlyphVariants(glyphCount, nominalGlyphIndices) {
-        nominalGlyphIndicesMarshal := nominalGlyphIndices is VarRef ? "ushort*" : "ptr"
+        nominalGlyphIndicesMarshal := nominalGlyphIndices is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(28, this, UInt32, glyphCount, nominalGlyphIndicesMarshal, nominalGlyphIndices, "ushort*", &verticalGlyphIndices := 0, "HRESULT")
         return verticalGlyphIndices
@@ -413,18 +419,18 @@ export default struct IDWriteFontFace1 extends IDWriteFontFace {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMetrics := CallbackCreate(GetMethod(implObj, "GetMetrics"), flags, 2)
-        this.vtbl.GetGdiCompatibleMetrics := CallbackCreate(GetMethod(implObj, "GetGdiCompatibleMetrics"), flags, 5)
-        this.vtbl.GetCaretMetrics := CallbackCreate(GetMethod(implObj, "GetCaretMetrics"), flags, 2)
-        this.vtbl.GetUnicodeRanges := CallbackCreate(GetMethod(implObj, "GetUnicodeRanges"), flags, 4)
-        this.vtbl.IsMonospacedFont := CallbackCreate(GetMethod(implObj, "IsMonospacedFont"), flags, 1)
-        this.vtbl.GetDesignGlyphAdvances := CallbackCreate(GetMethod(implObj, "GetDesignGlyphAdvances"), flags, 5)
-        this.vtbl.GetGdiCompatibleGlyphAdvances := CallbackCreate(GetMethod(implObj, "GetGdiCompatibleGlyphAdvances"), flags, 9)
-        this.vtbl.GetKerningPairAdjustments := CallbackCreate(GetMethod(implObj, "GetKerningPairAdjustments"), flags, 4)
-        this.vtbl.HasKerningPairs := CallbackCreate(GetMethod(implObj, "HasKerningPairs"), flags, 1)
-        this.vtbl.GetRecommendedRenderingMode := CallbackCreate(GetMethod(implObj, "GetRecommendedRenderingMode"), flags, 9)
-        this.vtbl.GetVerticalGlyphVariants := CallbackCreate(GetMethod(implObj, "GetVerticalGlyphVariants"), flags, 4)
-        this.vtbl.HasVerticalGlyphVariants := CallbackCreate(GetMethod(implObj, "HasVerticalGlyphVariants"), flags, 1)
+        this.vtbl.GetMetrics := CallbackCreate(ObjBindMethod(implObj, "GetMetrics"), flags, 2)
+        this.vtbl.GetGdiCompatibleMetrics := CallbackCreate(ObjBindMethod(implObj, "GetGdiCompatibleMetrics"), flags, 5)
+        this.vtbl.GetCaretMetrics := CallbackCreate(ObjBindMethod(implObj, "GetCaretMetrics"), flags, 2)
+        this.vtbl.GetUnicodeRanges := CallbackCreate(ObjBindMethod(implObj, "GetUnicodeRanges"), flags, 4)
+        this.vtbl.IsMonospacedFont := CallbackCreate(ObjBindMethod(implObj, "IsMonospacedFont"), flags, 1)
+        this.vtbl.GetDesignGlyphAdvances := CallbackCreate(ObjBindMethod(implObj, "GetDesignGlyphAdvances"), flags, 5)
+        this.vtbl.GetGdiCompatibleGlyphAdvances := CallbackCreate(ObjBindMethod(implObj, "GetGdiCompatibleGlyphAdvances"), flags, 9)
+        this.vtbl.GetKerningPairAdjustments := CallbackCreate(ObjBindMethod(implObj, "GetKerningPairAdjustments"), flags, 4)
+        this.vtbl.HasKerningPairs := CallbackCreate(ObjBindMethod(implObj, "HasKerningPairs"), flags, 1)
+        this.vtbl.GetRecommendedRenderingMode := CallbackCreate(ObjBindMethod(implObj, "GetRecommendedRenderingMode"), flags, 9)
+        this.vtbl.GetVerticalGlyphVariants := CallbackCreate(ObjBindMethod(implObj, "GetVerticalGlyphVariants"), flags, 4)
+        this.vtbl.HasVerticalGlyphVariants := CallbackCreate(ObjBindMethod(implObj, "HasVerticalGlyphVariants"), flags, 1)
     }
 
     Dispose() {

@@ -60,7 +60,7 @@ export default struct IDWriteFontSet2 extends IDWriteFontSet1 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetExpirationEvent := CallbackCreate(GetMethod(implObj, "GetExpirationEvent"), flags, 1)
+        this.vtbl.GetExpirationEvent := CallbackCreate(ObjBindMethod(implObj, "GetExpirationEvent"), flags, 1)
     }
 
     Dispose() {

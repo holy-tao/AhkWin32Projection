@@ -73,8 +73,8 @@ export default struct IDXGISwapChain2 extends IDXGISwapChain1 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgiswapchain2-getsourcesize
      */
     GetSourceSize(pWidth, pHeight) {
-        pWidthMarshal := pWidth is VarRef ? "uint*" : "ptr"
-        pHeightMarshal := pHeight is VarRef ? "uint*" : "ptr"
+        pWidthMarshal := pWidth is VarRef ? "uint*" : IntPtr
+        pHeightMarshal := pHeight is VarRef ? "uint*" : IntPtr
 
         result := ComCall(30, this, pWidthMarshal, pWidth, pHeightMarshal, pHeight, "HRESULT")
         return result
@@ -155,13 +155,13 @@ export default struct IDXGISwapChain2 extends IDXGISwapChain1 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetSourceSize := CallbackCreate(GetMethod(implObj, "SetSourceSize"), flags, 3)
-        this.vtbl.GetSourceSize := CallbackCreate(GetMethod(implObj, "GetSourceSize"), flags, 3)
-        this.vtbl.SetMaximumFrameLatency := CallbackCreate(GetMethod(implObj, "SetMaximumFrameLatency"), flags, 2)
-        this.vtbl.GetMaximumFrameLatency := CallbackCreate(GetMethod(implObj, "GetMaximumFrameLatency"), flags, 2)
-        this.vtbl.GetFrameLatencyWaitableObject := CallbackCreate(GetMethod(implObj, "GetFrameLatencyWaitableObject"), flags, 1)
-        this.vtbl.SetMatrixTransform := CallbackCreate(GetMethod(implObj, "SetMatrixTransform"), flags, 2)
-        this.vtbl.GetMatrixTransform := CallbackCreate(GetMethod(implObj, "GetMatrixTransform"), flags, 2)
+        this.vtbl.SetSourceSize := CallbackCreate(ObjBindMethod(implObj, "SetSourceSize"), flags, 3)
+        this.vtbl.GetSourceSize := CallbackCreate(ObjBindMethod(implObj, "GetSourceSize"), flags, 3)
+        this.vtbl.SetMaximumFrameLatency := CallbackCreate(ObjBindMethod(implObj, "SetMaximumFrameLatency"), flags, 2)
+        this.vtbl.GetMaximumFrameLatency := CallbackCreate(ObjBindMethod(implObj, "GetMaximumFrameLatency"), flags, 2)
+        this.vtbl.GetFrameLatencyWaitableObject := CallbackCreate(ObjBindMethod(implObj, "GetFrameLatencyWaitableObject"), flags, 1)
+        this.vtbl.SetMatrixTransform := CallbackCreate(ObjBindMethod(implObj, "SetMatrixTransform"), flags, 2)
+        this.vtbl.GetMatrixTransform := CallbackCreate(ObjBindMethod(implObj, "GetMatrixTransform"), flags, 2)
     }
 
     Dispose() {

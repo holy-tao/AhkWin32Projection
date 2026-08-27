@@ -37,7 +37,6 @@ export default struct IDebugDocumentProvider extends IDebugDocumentInfo {
     }
 
     /**
-     * 
      * @returns {IDebugDocument} 
      */
     GetDocument() {
@@ -54,7 +53,7 @@ export default struct IDebugDocumentProvider extends IDebugDocumentInfo {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDocument := CallbackCreate(GetMethod(implObj, "GetDocument"), flags, 2)
+        this.vtbl.GetDocument := CallbackCreate(ObjBindMethod(implObj, "GetDocument"), flags, 2)
     }
 
     Dispose() {

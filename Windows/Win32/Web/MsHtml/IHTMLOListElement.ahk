@@ -73,7 +73,6 @@ export default struct IHTMLOListElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -83,7 +82,6 @@ export default struct IHTMLOListElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_compact() {
@@ -92,7 +90,6 @@ export default struct IHTMLOListElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -102,7 +99,6 @@ export default struct IHTMLOListElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_start() {
@@ -111,7 +107,6 @@ export default struct IHTMLOListElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -123,7 +118,6 @@ export default struct IHTMLOListElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -141,12 +135,12 @@ export default struct IHTMLOListElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_compact := CallbackCreate(GetMethod(implObj, "put_compact"), flags, 2)
-        this.vtbl.get_compact := CallbackCreate(GetMethod(implObj, "get_compact"), flags, 2)
-        this.vtbl.put_start := CallbackCreate(GetMethod(implObj, "put_start"), flags, 2)
-        this.vtbl.get_start := CallbackCreate(GetMethod(implObj, "get_start"), flags, 2)
-        this.vtbl.put_type := CallbackCreate(GetMethod(implObj, "put_type"), flags, 2)
-        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.put_compact := CallbackCreate(ObjBindMethod(implObj, "put_compact"), flags, 2)
+        this.vtbl.get_compact := CallbackCreate(ObjBindMethod(implObj, "get_compact"), flags, 2)
+        this.vtbl.put_start := CallbackCreate(ObjBindMethod(implObj, "put_start"), flags, 2)
+        this.vtbl.get_start := CallbackCreate(ObjBindMethod(implObj, "get_start"), flags, 2)
+        this.vtbl.put_type := CallbackCreate(ObjBindMethod(implObj, "put_type"), flags, 2)
+        this.vtbl.get_type := CallbackCreate(ObjBindMethod(implObj, "get_type"), flags, 2)
     }
 
     Dispose() {

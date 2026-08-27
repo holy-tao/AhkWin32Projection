@@ -21,7 +21,6 @@ export default struct PIBIO_STORAGE_RESERVED_1_FN {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Call() {

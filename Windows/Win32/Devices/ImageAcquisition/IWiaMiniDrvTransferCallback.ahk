@@ -40,7 +40,6 @@ export default struct IWiaMiniDrvTransferCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lFlags 
      * @param {BSTR} bstrItemName 
      * @param {BSTR} bstrFullItemName 
@@ -87,8 +86,8 @@ export default struct IWiaMiniDrvTransferCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNextStream := CallbackCreate(GetMethod(implObj, "GetNextStream"), flags, 5)
-        this.vtbl.SendMessage := CallbackCreate(GetMethod(implObj, "SendMessage"), flags, 3)
+        this.vtbl.GetNextStream := CallbackCreate(ObjBindMethod(implObj, "GetNextStream"), flags, 5)
+        this.vtbl.SendMessage := CallbackCreate(ObjBindMethod(implObj, "SendMessage"), flags, 3)
     }
 
     Dispose() {

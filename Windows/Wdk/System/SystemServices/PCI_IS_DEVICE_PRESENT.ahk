@@ -19,7 +19,6 @@ export default struct PCI_IS_DEVICE_PRESENT {
     }
 
     /**
-     * 
      * @param {Integer} VendorID 
      * @param {Integer} DeviceID 
      * @param {Integer} RevisionID 

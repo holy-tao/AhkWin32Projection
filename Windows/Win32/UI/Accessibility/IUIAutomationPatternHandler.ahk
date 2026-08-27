@@ -90,8 +90,8 @@ export default struct IUIAutomationPatternHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateClientWrapper := CallbackCreate(GetMethod(implObj, "CreateClientWrapper"), flags, 3)
-        this.vtbl.Dispatch := CallbackCreate(GetMethod(implObj, "Dispatch"), flags, 5)
+        this.vtbl.CreateClientWrapper := CallbackCreate(ObjBindMethod(implObj, "CreateClientWrapper"), flags, 3)
+        this.vtbl.Dispatch := CallbackCreate(ObjBindMethod(implObj, "Dispatch"), flags, 5)
     }
 
     Dispose() {

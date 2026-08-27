@@ -18,13 +18,12 @@ export default struct PROTOCOL_CM_DEACTIVATE_VC_COMPLETE {
     }
 
     /**
-     * 
      * @param {Integer} _Status 
      * @param {Pointer<Void>} CallMgrVcContext 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Status, CallMgrVcContext) {
-        CallMgrVcContextMarshal := CallMgrVcContext is VarRef ? "ptr" : "ptr"
+        CallMgrVcContextMarshal := CallMgrVcContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, Int32, _Status, CallMgrVcContextMarshal, CallMgrVcContext)
     }

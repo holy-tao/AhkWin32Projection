@@ -92,7 +92,7 @@ export default struct ISyncMgrUIOperation extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Run := CallbackCreate(GetMethod(implObj, "Run"), flags, 2)
+        this.vtbl.Run := CallbackCreate(ObjBindMethod(implObj, "Run"), flags, 2)
     }
 
     Dispose() {

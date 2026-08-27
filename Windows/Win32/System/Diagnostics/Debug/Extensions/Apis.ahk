@@ -13,7 +13,6 @@
 
 ;@region Functions
 /**
- * 
  * @param {PSTR} RemoteOptions 
  * @param {Pointer<Guid>} InterfaceId 
  * @returns {Pointer<Void>} 
@@ -26,7 +25,6 @@ export DebugConnect(RemoteOptions, InterfaceId) {
 }
 
 /**
- * 
  * @param {PWSTR} RemoteOptions 
  * @param {Pointer<Guid>} InterfaceId 
  * @returns {Pointer<Void>} 
@@ -39,7 +37,6 @@ export DebugConnectWide(RemoteOptions, InterfaceId) {
 }
 
 /**
- * 
  * @param {Pointer<Guid>} InterfaceId 
  * @returns {Pointer<Void>} 
  */
@@ -49,7 +46,6 @@ export DebugCreate(InterfaceId) {
 }
 
 /**
- * 
  * @param {Pointer<Guid>} InterfaceId 
  * @param {Integer} DbgEngOptions 
  * @returns {Pointer<Void>} 
@@ -60,7 +56,6 @@ export DebugCreateEx(InterfaceId, DbgEngOptions) {
 }
 
 /**
- * 
  * @param {IDebugHost} debugHost 
  * @returns {IDataModelManager} 
  */

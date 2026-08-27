@@ -52,7 +52,6 @@ export default struct IHTMLDDElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -62,7 +61,6 @@ export default struct IHTMLDDElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_noWrap() {
@@ -79,8 +77,8 @@ export default struct IHTMLDDElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_noWrap := CallbackCreate(GetMethod(implObj, "put_noWrap"), flags, 2)
-        this.vtbl.get_noWrap := CallbackCreate(GetMethod(implObj, "get_noWrap"), flags, 2)
+        this.vtbl.put_noWrap := CallbackCreate(ObjBindMethod(implObj, "put_noWrap"), flags, 2)
+        this.vtbl.get_noWrap := CallbackCreate(ObjBindMethod(implObj, "get_noWrap"), flags, 2)
     }
 
     Dispose() {

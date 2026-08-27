@@ -19,7 +19,6 @@ export default struct PSYMBOLSERVERCLOSEPROC {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     Call() {

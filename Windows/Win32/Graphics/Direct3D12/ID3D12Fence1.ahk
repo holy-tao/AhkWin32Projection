@@ -60,7 +60,7 @@ export default struct ID3D12Fence1 extends ID3D12Fence {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCreationFlags := CallbackCreate(GetMethod(implObj, "GetCreationFlags"), flags, 1)
+        this.vtbl.GetCreationFlags := CallbackCreate(ObjBindMethod(implObj, "GetCreationFlags"), flags, 1)
     }
 
     Dispose() {

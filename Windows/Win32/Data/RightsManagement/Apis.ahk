@@ -43,7 +43,7 @@
  * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmsetglobaloptions
  */
 export DRMSetGlobalOptions(eGlobalOptions, pvdata, dwlen) {
-    pvdataMarshal := pvdata is VarRef ? "ptr" : "ptr"
+    pvdataMarshal := pvdata is VarRef ? "ptr" : IntPtr
 
     result := DllCall("msdrm.dll\DRMSetGlobalOptions", DRMGLOBALOPTIONS, eGlobalOptions, pvdataMarshal, pvdata, UInt32, dwlen, "HRESULT")
     return result
@@ -100,10 +100,12 @@ export DRMInitEnvironment(eSecurityProviderType, eSpecification, wszSecurityProv
     wszManifestCredentials := wszManifestCredentials is String ? StrPtr(wszManifestCredentials) : wszManifestCredentials
     wszMachineCredentials := wszMachineCredentials is String ? StrPtr(wszMachineCredentials) : wszMachineCredentials
 
-    phEnvMarshal := phEnv is VarRef ? "uint*" : "ptr"
-    phDefaultLibraryMarshal := phDefaultLibrary is VarRef ? "uint*" : "ptr"
+    wszSecurityProviderMarshal := wszSecurityProvider == 0 ? IntPtr : PWSTR
+    wszManifestCredentialsMarshal := wszManifestCredentials == 0 ? IntPtr : PWSTR
+    phEnvMarshal := phEnv is VarRef ? "uint*" : IntPtr
+    phDefaultLibraryMarshal := phDefaultLibrary is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("msdrm.dll\DRMInitEnvironment", DRMSECURITYPROVIDERTYPE, eSecurityProviderType, DRMSPECTYPE, eSpecification, "ptr", wszSecurityProvider, "ptr", wszManifestCredentials, "ptr", wszMachineCredentials, phEnvMarshal, phEnv, phDefaultLibraryMarshal, phDefaultLibrary, "HRESULT")
+    result := DllCall("msdrm.dll\DRMInitEnvironment", DRMSECURITYPROVIDERTYPE, eSecurityProviderType, DRMSPECTYPE, eSpecification, wszSecurityProviderMarshal, wszSecurityProvider, wszManifestCredentialsMarshal, wszManifestCredentials, "ptr", wszMachineCredentials, phEnvMarshal, phEnv, phDefaultLibraryMarshal, phDefaultLibrary, "HRESULT")
     return result
 }
 
@@ -128,9 +130,10 @@ export DRMLoadLibrary(hEnv, eSpecification, wszLibraryProvider, wszCredentials, 
     wszLibraryProvider := wszLibraryProvider is String ? StrPtr(wszLibraryProvider) : wszLibraryProvider
     wszCredentials := wszCredentials is String ? StrPtr(wszCredentials) : wszCredentials
 
-    phLibraryMarshal := phLibrary is VarRef ? "uint*" : "ptr"
+    wszCredentialsMarshal := wszCredentials == 0 ? IntPtr : PWSTR
+    phLibraryMarshal := phLibrary is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("msdrm.dll\DRMLoadLibrary", UInt32, hEnv, DRMSPECTYPE, eSpecification, "ptr", wszLibraryProvider, "ptr", wszCredentials, phLibraryMarshal, phLibrary, "HRESULT")
+    result := DllCall("msdrm.dll\DRMLoadLibrary", UInt32, hEnv, DRMSPECTYPE, eSpecification, "ptr", wszLibraryProvider, wszCredentialsMarshal, wszCredentials, phLibraryMarshal, phLibrary, "HRESULT")
     return result
 }
 
@@ -153,7 +156,7 @@ export DRMCreateEnablingPrincipal(hEnv, hLibrary, wszObject, pidPrincipal, wszCr
     wszObject := wszObject is String ? StrPtr(wszObject) : wszObject
     wszCredentials := wszCredentials is String ? StrPtr(wszCredentials) : wszCredentials
 
-    phEnablingPrincipalMarshal := phEnablingPrincipal is VarRef ? "uint*" : "ptr"
+    phEnablingPrincipalMarshal := phEnablingPrincipal is VarRef ? "uint*" : IntPtr
 
     result := DllCall("msdrm.dll\DRMCreateEnablingPrincipal", UInt32, hEnv, UInt32, hLibrary, "ptr", wszObject, DRMID.Ptr, pidPrincipal, "ptr", wszCredentials, phEnablingPrincipalMarshal, phEnablingPrincipal, "HRESULT")
     return result
@@ -207,7 +210,7 @@ export DRMCloseEnvironmentHandle(hEnv) {
  * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmduplicatehandle
  */
 export DRMDuplicateHandle(hToCopy, phCopy) {
-    phCopyMarshal := phCopy is VarRef ? "uint*" : "ptr"
+    phCopyMarshal := phCopy is VarRef ? "uint*" : IntPtr
 
     result := DllCall("msdrm.dll\DRMDuplicateHandle", UInt32, hToCopy, phCopyMarshal, phCopy, "HRESULT")
     return result
@@ -225,7 +228,7 @@ export DRMDuplicateHandle(hToCopy, phCopy) {
  * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmduplicateenvironmenthandle
  */
 export DRMDuplicateEnvironmentHandle(hToCopy, phCopy) {
-    phCopyMarshal := phCopy is VarRef ? "uint*" : "ptr"
+    phCopyMarshal := phCopy is VarRef ? "uint*" : IntPtr
 
     result := DllCall("msdrm.dll\DRMDuplicateEnvironmentHandle", UInt32, hToCopy, phCopyMarshal, phCopy, "HRESULT")
     return result
@@ -245,7 +248,9 @@ export DRMDuplicateEnvironmentHandle(hToCopy, phCopy) {
 export DRMRegisterRevocationList(hEnv, wszRevocationList) {
     wszRevocationList := wszRevocationList is String ? StrPtr(wszRevocationList) : wszRevocationList
 
-    result := DllCall("msdrm.dll\DRMRegisterRevocationList", UInt32, hEnv, "ptr", wszRevocationList, "HRESULT")
+    wszRevocationListMarshal := wszRevocationList == 0 ? IntPtr : PWSTR
+
+    result := DllCall("msdrm.dll\DRMRegisterRevocationList", UInt32, hEnv, wszRevocationListMarshal, wszRevocationList, "HRESULT")
     return result
 }
 
@@ -304,9 +309,9 @@ export DRMRegisterContent(fRegister) {
  * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmencrypt
  */
 export DRMEncrypt(hCryptoProvider, iPosition, cNumInBytes, pbInData, pcNumOutBytes, pbOutData) {
-    pbInDataMarshal := pbInData is VarRef ? "char*" : "ptr"
-    pcNumOutBytesMarshal := pcNumOutBytes is VarRef ? "uint*" : "ptr"
-    pbOutDataMarshal := pbOutData is VarRef ? "char*" : "ptr"
+    pbInDataMarshal := pbInData is VarRef ? "char*" : IntPtr
+    pcNumOutBytesMarshal := pcNumOutBytes is VarRef ? "uint*" : IntPtr
+    pbOutDataMarshal := pbOutData is VarRef ? "char*" : IntPtr
 
     result := DllCall("msdrm.dll\DRMEncrypt", UInt32, hCryptoProvider, UInt32, iPosition, UInt32, cNumInBytes, pbInDataMarshal, pbInData, pcNumOutBytesMarshal, pcNumOutBytes, pbOutDataMarshal, pbOutData, "HRESULT")
     return result
@@ -331,9 +336,9 @@ export DRMEncrypt(hCryptoProvider, iPosition, cNumInBytes, pbInData, pcNumOutByt
  * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmdecrypt
  */
 export DRMDecrypt(hCryptoProvider, iPosition, cNumInBytes, pbInData, pcNumOutBytes, pbOutData) {
-    pbInDataMarshal := pbInData is VarRef ? "char*" : "ptr"
-    pcNumOutBytesMarshal := pcNumOutBytes is VarRef ? "uint*" : "ptr"
-    pbOutDataMarshal := pbOutData is VarRef ? "char*" : "ptr"
+    pbInDataMarshal := pbInData is VarRef ? "char*" : IntPtr
+    pcNumOutBytesMarshal := pcNumOutBytes is VarRef ? "uint*" : IntPtr
+    pbOutDataMarshal := pbOutData is VarRef ? "char*" : IntPtr
 
     result := DllCall("msdrm.dll\DRMDecrypt", UInt32, hCryptoProvider, UInt32, iPosition, UInt32, cNumInBytes, pbInDataMarshal, pbInData, pcNumOutBytesMarshal, pcNumOutBytes, pbOutDataMarshal, pbOutData, "HRESULT")
     return result
@@ -382,8 +387,8 @@ export DRMDecrypt(hCryptoProvider, iPosition, cNumInBytes, pbInData, pcNumOutByt
 export DRMCreateBoundLicense(hEnv, pParams, wszLicenseChain, phBoundLicense, phErrorLog) {
     wszLicenseChain := wszLicenseChain is String ? StrPtr(wszLicenseChain) : wszLicenseChain
 
-    phBoundLicenseMarshal := phBoundLicense is VarRef ? "uint*" : "ptr"
-    phErrorLogMarshal := phErrorLog is VarRef ? "uint*" : "ptr"
+    phBoundLicenseMarshal := phBoundLicense is VarRef ? "uint*" : IntPtr
+    phErrorLogMarshal := phErrorLog is VarRef ? "uint*" : IntPtr
 
     result := DllCall("msdrm.dll\DRMCreateBoundLicense", UInt32, hEnv, DRMBOUNDLICENSEPARAMS.Ptr, pParams, "ptr", wszLicenseChain, phBoundLicenseMarshal, phBoundLicense, phErrorLogMarshal, phErrorLog, "HRESULT")
     return result
@@ -415,9 +420,11 @@ export DRMCreateEnablingBitsDecryptor(hBoundLicense, wszRight, hAuxLib, wszAuxPl
     wszRight := wszRight is String ? StrPtr(wszRight) : wszRight
     wszAuxPlug := wszAuxPlug is String ? StrPtr(wszAuxPlug) : wszAuxPlug
 
-    phDecryptorMarshal := phDecryptor is VarRef ? "uint*" : "ptr"
+    wszRightMarshal := wszRight == 0 ? IntPtr : PWSTR
+    wszAuxPlugMarshal := wszAuxPlug == 0 ? IntPtr : PWSTR
+    phDecryptorMarshal := phDecryptor is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("msdrm.dll\DRMCreateEnablingBitsDecryptor", UInt32, hBoundLicense, "ptr", wszRight, UInt32, hAuxLib, "ptr", wszAuxPlug, phDecryptorMarshal, phDecryptor, "HRESULT")
+    result := DllCall("msdrm.dll\DRMCreateEnablingBitsDecryptor", UInt32, hBoundLicense, wszRightMarshal, wszRight, UInt32, hAuxLib, wszAuxPlugMarshal, wszAuxPlug, phDecryptorMarshal, phDecryptor, "HRESULT")
     return result
 }
 
@@ -447,9 +454,11 @@ export DRMCreateEnablingBitsEncryptor(hBoundLicense, wszRight, hAuxLib, wszAuxPl
     wszRight := wszRight is String ? StrPtr(wszRight) : wszRight
     wszAuxPlug := wszAuxPlug is String ? StrPtr(wszAuxPlug) : wszAuxPlug
 
-    phEncryptorMarshal := phEncryptor is VarRef ? "uint*" : "ptr"
+    wszRightMarshal := wszRight == 0 ? IntPtr : PWSTR
+    wszAuxPlugMarshal := wszAuxPlug == 0 ? IntPtr : PWSTR
+    phEncryptorMarshal := phEncryptor is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("msdrm.dll\DRMCreateEnablingBitsEncryptor", UInt32, hBoundLicense, "ptr", wszRight, UInt32, hAuxLib, "ptr", wszAuxPlug, phEncryptorMarshal, phEncryptor, "HRESULT")
+    result := DllCall("msdrm.dll\DRMCreateEnablingBitsEncryptor", UInt32, hBoundLicense, wszRightMarshal, wszRight, UInt32, hAuxLib, wszAuxPlugMarshal, wszAuxPlug, phEncryptorMarshal, phEncryptor, "HRESULT")
     return result
 }
 
@@ -477,7 +486,7 @@ export DRMAttest(hEnablingPrincipal, wszData, eType, pcAttestedBlob, wszAttested
     wszData := wszData is String ? StrPtr(wszData) : wszData
     wszAttestedBlob := wszAttestedBlob is String ? StrPtr(wszAttestedBlob) : wszAttestedBlob
 
-    pcAttestedBlobMarshal := pcAttestedBlob is VarRef ? "uint*" : "ptr"
+    pcAttestedBlobMarshal := pcAttestedBlob is VarRef ? "uint*" : IntPtr
 
     result := DllCall("msdrm.dll\DRMAttest", UInt32, hEnablingPrincipal, "ptr", wszData, DRMATTESTTYPE, eType, pcAttestedBlobMarshal, pcAttestedBlob, "ptr", wszAttestedBlob, "HRESULT")
     return result
@@ -543,9 +552,9 @@ export DRMGetTime(hEnv, eTimerIdType, poTimeObject) {
 export DRMGetInfo(_handle, wszAttribute, peEncoding, pcBuffer, pbBuffer) {
     wszAttribute := wszAttribute is String ? StrPtr(wszAttribute) : wszAttribute
 
-    peEncodingMarshal := peEncoding is VarRef ? "int*" : "ptr"
-    pcBufferMarshal := pcBuffer is VarRef ? "uint*" : "ptr"
-    pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+    peEncodingMarshal := peEncoding is VarRef ? "int*" : IntPtr
+    pcBufferMarshal := pcBuffer is VarRef ? "uint*" : IntPtr
+    pbBufferMarshal := pbBuffer is VarRef ? "char*" : IntPtr
 
     result := DllCall("msdrm.dll\DRMGetInfo", UInt32, _handle, "ptr", wszAttribute, peEncodingMarshal, peEncoding, pcBufferMarshal, pcBuffer, pbBufferMarshal, pbBuffer, "HRESULT")
     return result
@@ -581,11 +590,12 @@ export DRMGetInfo(_handle, wszAttribute, peEncoding, pcBuffer, pbBuffer) {
 export DRMGetEnvironmentInfo(_handle, wszAttribute, peEncoding, pcBuffer, pbBuffer) {
     wszAttribute := wszAttribute is String ? StrPtr(wszAttribute) : wszAttribute
 
-    peEncodingMarshal := peEncoding is VarRef ? "int*" : "ptr"
-    pcBufferMarshal := pcBuffer is VarRef ? "uint*" : "ptr"
-    pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+    wszAttributeMarshal := wszAttribute == 0 ? IntPtr : PWSTR
+    peEncodingMarshal := peEncoding is VarRef ? "int*" : IntPtr
+    pcBufferMarshal := pcBuffer is VarRef ? "uint*" : IntPtr
+    pbBufferMarshal := pbBuffer is VarRef ? "char*" : IntPtr
 
-    result := DllCall("msdrm.dll\DRMGetEnvironmentInfo", UInt32, _handle, "ptr", wszAttribute, peEncodingMarshal, peEncoding, pcBufferMarshal, pcBuffer, pbBufferMarshal, pbBuffer, "HRESULT")
+    result := DllCall("msdrm.dll\DRMGetEnvironmentInfo", UInt32, _handle, wszAttributeMarshal, wszAttribute, peEncodingMarshal, peEncoding, pcBufferMarshal, pcBuffer, pbBufferMarshal, pbBuffer, "HRESULT")
     return result
 }
 
@@ -604,7 +614,7 @@ export DRMGetEnvironmentInfo(_handle, wszAttribute, peEncoding, pcBuffer, pbBuff
 export DRMGetProcAddress(hLibrary, wszProcName, ppfnProcAddress) {
     wszProcName := wszProcName is String ? StrPtr(wszProcName) : wszProcName
 
-    ppfnProcAddressMarshal := ppfnProcAddress is VarRef ? "ptr*" : "ptr"
+    ppfnProcAddressMarshal := ppfnProcAddress is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("msdrm.dll\DRMGetProcAddress", UInt32, hLibrary, "ptr", wszProcName, ppfnProcAddressMarshal, ppfnProcAddress, "HRESULT")
     return result
@@ -627,7 +637,7 @@ export DRMGetProcAddress(hLibrary, wszProcName, ppfnProcAddress) {
 export DRMGetBoundLicenseObjectCount(hQueryRoot, wszSubObjectType, pcSubObjects) {
     wszSubObjectType := wszSubObjectType is String ? StrPtr(wszSubObjectType) : wszSubObjectType
 
-    pcSubObjectsMarshal := pcSubObjects is VarRef ? "uint*" : "ptr"
+    pcSubObjectsMarshal := pcSubObjects is VarRef ? "uint*" : IntPtr
 
     result := DllCall("msdrm.dll\DRMGetBoundLicenseObjectCount", UInt32, hQueryRoot, "ptr", wszSubObjectType, pcSubObjectsMarshal, pcSubObjects, "HRESULT")
     return result
@@ -665,7 +675,7 @@ export DRMGetBoundLicenseObjectCount(hQueryRoot, wszSubObjectType, pcSubObjects)
 export DRMGetBoundLicenseObject(hQueryRoot, wszSubObjectType, iWhich, phSubObject) {
     wszSubObjectType := wszSubObjectType is String ? StrPtr(wszSubObjectType) : wszSubObjectType
 
-    phSubObjectMarshal := phSubObject is VarRef ? "uint*" : "ptr"
+    phSubObjectMarshal := phSubObject is VarRef ? "uint*" : IntPtr
 
     result := DllCall("msdrm.dll\DRMGetBoundLicenseObject", UInt32, hQueryRoot, "ptr", wszSubObjectType, UInt32, iWhich, phSubObjectMarshal, phSubObject, "HRESULT")
     return result
@@ -688,7 +698,7 @@ export DRMGetBoundLicenseObject(hQueryRoot, wszSubObjectType, iWhich, phSubObjec
 export DRMGetBoundLicenseAttributeCount(hQueryRoot, wszAttribute, pcAttributes) {
     wszAttribute := wszAttribute is String ? StrPtr(wszAttribute) : wszAttribute
 
-    pcAttributesMarshal := pcAttributes is VarRef ? "uint*" : "ptr"
+    pcAttributesMarshal := pcAttributes is VarRef ? "uint*" : IntPtr
 
     result := DllCall("msdrm.dll\DRMGetBoundLicenseAttributeCount", UInt32, hQueryRoot, "ptr", wszAttribute, pcAttributesMarshal, pcAttributes, "HRESULT")
     return result
@@ -716,9 +726,9 @@ export DRMGetBoundLicenseAttributeCount(hQueryRoot, wszAttribute, pcAttributes) 
 export DRMGetBoundLicenseAttribute(hQueryRoot, wszAttribute, iWhich, peEncoding, pcBuffer, pbBuffer) {
     wszAttribute := wszAttribute is String ? StrPtr(wszAttribute) : wszAttribute
 
-    peEncodingMarshal := peEncoding is VarRef ? "int*" : "ptr"
-    pcBufferMarshal := pcBuffer is VarRef ? "uint*" : "ptr"
-    pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+    peEncodingMarshal := peEncoding is VarRef ? "int*" : IntPtr
+    pcBufferMarshal := pcBuffer is VarRef ? "uint*" : IntPtr
+    pbBufferMarshal := pbBuffer is VarRef ? "char*" : IntPtr
 
     result := DllCall("msdrm.dll\DRMGetBoundLicenseAttribute", UInt32, hQueryRoot, "ptr", wszAttribute, UInt32, iWhich, peEncodingMarshal, peEncoding, pcBufferMarshal, pcBuffer, pbBufferMarshal, pbBuffer, "HRESULT")
     return result
@@ -750,9 +760,10 @@ export DRMCreateClientSession(_pfnCallback, uCallbackVersion, wszGroupIDProvider
     wszGroupIDProviderType := wszGroupIDProviderType is String ? StrPtr(wszGroupIDProviderType) : wszGroupIDProviderType
     wszGroupID := wszGroupID is String ? StrPtr(wszGroupID) : wszGroupID
 
-    phClientMarshal := phClient is VarRef ? "uint*" : "ptr"
+    wszGroupIDMarshal := wszGroupID == 0 ? IntPtr : PWSTR
+    phClientMarshal := phClient is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("msdrm.dll\DRMCreateClientSession", DRMCALLBACK, _pfnCallback, UInt32, uCallbackVersion, "ptr", wszGroupIDProviderType, "ptr", wszGroupID, phClientMarshal, phClient, "HRESULT")
+    result := DllCall("msdrm.dll\DRMCreateClientSession", DRMCALLBACK, _pfnCallback, UInt32, uCallbackVersion, "ptr", wszGroupIDProviderType, wszGroupIDMarshal, wszGroupID, phClientMarshal, phClient, "HRESULT")
     return result
 }
 
@@ -846,7 +857,7 @@ export DRMIsActivated(hClient, uFlags, pActServInfo) {
  * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmactivate
  */
 export DRMActivate(hClient, uFlags, uLangID, pActServInfo, pvContext, hParentWnd) {
-    pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+    pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
     result := DllCall("msdrm.dll\DRMActivate", UInt32, hClient, UInt32, uFlags, UInt32, uLangID, DRM_ACTSERV_INFO.Ptr, pActServInfo, pvContextMarshal, pvContext, HWND, hParentWnd, "HRESULT")
     return result
@@ -958,9 +969,11 @@ export DRMGetServiceLocation(hClient, uServiceType, uServiceLocation, wszIssuanc
     wszIssuanceLicense := wszIssuanceLicense is String ? StrPtr(wszIssuanceLicense) : wszIssuanceLicense
     wszServiceURL := wszServiceURL is String ? StrPtr(wszServiceURL) : wszServiceURL
 
-    puServiceURLLengthMarshal := puServiceURLLength is VarRef ? "uint*" : "ptr"
+    wszIssuanceLicenseMarshal := wszIssuanceLicense == 0 ? IntPtr : PWSTR
+    puServiceURLLengthMarshal := puServiceURLLength is VarRef ? "uint*" : IntPtr
+    wszServiceURLMarshal := wszServiceURL == 0 ? IntPtr : PWSTR
 
-    result := DllCall("msdrm.dll\DRMGetServiceLocation", UInt32, hClient, UInt32, uServiceType, UInt32, uServiceLocation, "ptr", wszIssuanceLicense, puServiceURLLengthMarshal, puServiceURLLength, "ptr", wszServiceURL, "HRESULT")
+    result := DllCall("msdrm.dll\DRMGetServiceLocation", UInt32, hClient, UInt32, uServiceType, UInt32, uServiceLocation, wszIssuanceLicenseMarshal, wszIssuanceLicense, puServiceURLLengthMarshal, puServiceURLLength, wszServiceURLMarshal, wszServiceURL, "HRESULT")
     return result
 }
 
@@ -986,7 +999,7 @@ export DRMGetServiceLocation(hClient, uServiceType, uServiceLocation, wszIssuanc
 export DRMCreateLicenseStorageSession(hEnv, hDefaultLibrary, hClient, uFlags, wszIssuanceLicense, phLicenseStorage) {
     wszIssuanceLicense := wszIssuanceLicense is String ? StrPtr(wszIssuanceLicense) : wszIssuanceLicense
 
-    phLicenseStorageMarshal := phLicenseStorage is VarRef ? "uint*" : "ptr"
+    phLicenseStorageMarshal := phLicenseStorage is VarRef ? "uint*" : IntPtr
 
     result := DllCall("msdrm.dll\DRMCreateLicenseStorageSession", UInt32, hEnv, UInt32, hDefaultLibrary, UInt32, hClient, UInt32, uFlags, "ptr", wszIssuanceLicense, phLicenseStorageMarshal, phLicenseStorage, "HRESULT")
     return result
@@ -1038,9 +1051,10 @@ export DRMAcquireAdvisories(hLicenseStorage, wszLicense, wszURL, pvContext) {
     wszLicense := wszLicense is String ? StrPtr(wszLicense) : wszLicense
     wszURL := wszURL is String ? StrPtr(wszURL) : wszURL
 
-    pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+    wszURLMarshal := wszURL == 0 ? IntPtr : PWSTR
+    pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
-    result := DllCall("msdrm.dll\DRMAcquireAdvisories", UInt32, hLicenseStorage, "ptr", wszLicense, "ptr", wszURL, pvContextMarshal, pvContext, "HRESULT")
+    result := DllCall("msdrm.dll\DRMAcquireAdvisories", UInt32, hLicenseStorage, "ptr", wszLicense, wszURLMarshal, wszURL, pvContextMarshal, pvContext, "HRESULT")
     return result
 }
 
@@ -1195,10 +1209,11 @@ export DRMAcquireAdvisories(hLicenseStorage, wszLicense, wszURL, pvContext) {
 export DRMEnumerateLicense(hSession, uFlags, uIndex, pfSharedFlag, puCertificateDataLen, wszCertificateData) {
     wszCertificateData := wszCertificateData is String ? StrPtr(wszCertificateData) : wszCertificateData
 
-    pfSharedFlagMarshal := pfSharedFlag is VarRef ? "int*" : "ptr"
-    puCertificateDataLenMarshal := puCertificateDataLen is VarRef ? "uint*" : "ptr"
+    pfSharedFlagMarshal := pfSharedFlag is VarRef ? "int*" : IntPtr
+    puCertificateDataLenMarshal := puCertificateDataLen is VarRef ? "uint*" : IntPtr
+    wszCertificateDataMarshal := wszCertificateData == 0 ? IntPtr : PWSTR
 
-    result := DllCall("msdrm.dll\DRMEnumerateLicense", UInt32, hSession, UInt32, uFlags, UInt32, uIndex, pfSharedFlagMarshal, pfSharedFlag, puCertificateDataLenMarshal, puCertificateDataLen, "ptr", wszCertificateData, "HRESULT")
+    result := DllCall("msdrm.dll\DRMEnumerateLicense", UInt32, hSession, UInt32, uFlags, UInt32, uIndex, pfSharedFlagMarshal, pfSharedFlag, puCertificateDataLenMarshal, puCertificateDataLen, wszCertificateDataMarshal, wszCertificateData, "HRESULT")
     return result
 }
 
@@ -1319,9 +1334,13 @@ export DRMAcquireLicense(hSession, uFlags, wszGroupIdentityCredential, wszReques
     wszCustomData := wszCustomData is String ? StrPtr(wszCustomData) : wszCustomData
     wszURL := wszURL is String ? StrPtr(wszURL) : wszURL
 
-    pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+    wszGroupIdentityCredentialMarshal := wszGroupIdentityCredential == 0 ? IntPtr : PWSTR
+    wszRequestedRightsMarshal := wszRequestedRights == 0 ? IntPtr : PWSTR
+    wszCustomDataMarshal := wszCustomData == 0 ? IntPtr : PWSTR
+    wszURLMarshal := wszURL == 0 ? IntPtr : PWSTR
+    pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
-    result := DllCall("msdrm.dll\DRMAcquireLicense", UInt32, hSession, UInt32, uFlags, "ptr", wszGroupIdentityCredential, "ptr", wszRequestedRights, "ptr", wszCustomData, "ptr", wszURL, pvContextMarshal, pvContext, "HRESULT")
+    result := DllCall("msdrm.dll\DRMAcquireLicense", UInt32, hSession, UInt32, uFlags, wszGroupIdentityCredentialMarshal, wszGroupIdentityCredential, wszRequestedRightsMarshal, wszRequestedRights, wszCustomDataMarshal, wszCustomData, wszURLMarshal, wszURL, pvContextMarshal, pvContext, "HRESULT")
     return result
 }
 
@@ -1378,7 +1397,7 @@ export DRMCloseSession(hSession) {
  * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmduplicatesession
  */
 export DRMDuplicateSession(hSessionIn, phSessionOut) {
-    phSessionOutMarshal := phSessionOut is VarRef ? "uint*" : "ptr"
+    phSessionOutMarshal := phSessionOut is VarRef ? "uint*" : IntPtr
 
     result := DllCall("msdrm.dll\DRMDuplicateSession", UInt32, hSessionIn, phSessionOutMarshal, phSessionOut, "HRESULT")
     return result
@@ -1402,10 +1421,12 @@ export DRMGetSecurityProvider(uFlags, puTypeLen, wszType, puPathLen, wszPath) {
     wszType := wszType is String ? StrPtr(wszType) : wszType
     wszPath := wszPath is String ? StrPtr(wszPath) : wszPath
 
-    puTypeLenMarshal := puTypeLen is VarRef ? "uint*" : "ptr"
-    puPathLenMarshal := puPathLen is VarRef ? "uint*" : "ptr"
+    puTypeLenMarshal := puTypeLen is VarRef ? "uint*" : IntPtr
+    wszTypeMarshal := wszType == 0 ? IntPtr : PWSTR
+    puPathLenMarshal := puPathLen is VarRef ? "uint*" : IntPtr
+    wszPathMarshal := wszPath == 0 ? IntPtr : PWSTR
 
-    result := DllCall("msdrm.dll\DRMGetSecurityProvider", UInt32, uFlags, puTypeLenMarshal, puTypeLen, "ptr", wszType, puPathLenMarshal, puPathLen, "ptr", wszPath, "HRESULT")
+    result := DllCall("msdrm.dll\DRMGetSecurityProvider", UInt32, uFlags, puTypeLenMarshal, puTypeLen, wszTypeMarshal, wszType, puPathLenMarshal, puPathLen, wszPathMarshal, wszPath, "HRESULT")
     return result
 }
 
@@ -1429,10 +1450,11 @@ export DRMEncode(wszAlgID, uDataLen, pbDecodedData, puEncodedStringLen, wszEncod
     wszAlgID := wszAlgID is String ? StrPtr(wszAlgID) : wszAlgID
     wszEncodedString := wszEncodedString is String ? StrPtr(wszEncodedString) : wszEncodedString
 
-    pbDecodedDataMarshal := pbDecodedData is VarRef ? "char*" : "ptr"
-    puEncodedStringLenMarshal := puEncodedStringLen is VarRef ? "uint*" : "ptr"
+    pbDecodedDataMarshal := pbDecodedData is VarRef ? "char*" : IntPtr
+    puEncodedStringLenMarshal := puEncodedStringLen is VarRef ? "uint*" : IntPtr
+    wszEncodedStringMarshal := wszEncodedString == 0 ? IntPtr : PWSTR
 
-    result := DllCall("msdrm.dll\DRMEncode", "ptr", wszAlgID, UInt32, uDataLen, pbDecodedDataMarshal, pbDecodedData, puEncodedStringLenMarshal, puEncodedStringLen, "ptr", wszEncodedString, "HRESULT")
+    result := DllCall("msdrm.dll\DRMEncode", "ptr", wszAlgID, UInt32, uDataLen, pbDecodedDataMarshal, pbDecodedData, puEncodedStringLenMarshal, puEncodedStringLen, wszEncodedStringMarshal, wszEncodedString, "HRESULT")
     return result
 }
 
@@ -1455,8 +1477,8 @@ export DRMDecode(wszAlgID, wszEncodedString, puDecodedDataLen, pbDecodedData) {
     wszAlgID := wszAlgID is String ? StrPtr(wszAlgID) : wszAlgID
     wszEncodedString := wszEncodedString is String ? StrPtr(wszEncodedString) : wszEncodedString
 
-    puDecodedDataLenMarshal := puDecodedDataLen is VarRef ? "uint*" : "ptr"
-    pbDecodedDataMarshal := pbDecodedData is VarRef ? "char*" : "ptr"
+    puDecodedDataLenMarshal := puDecodedDataLen is VarRef ? "uint*" : IntPtr
+    pbDecodedDataMarshal := pbDecodedData is VarRef ? "char*" : IntPtr
 
     result := DllCall("msdrm.dll\DRMDecode", "ptr", wszAlgID, "ptr", wszEncodedString, puDecodedDataLenMarshal, puDecodedDataLen, pbDecodedDataMarshal, pbDecodedData, "HRESULT")
     return result
@@ -1484,10 +1506,11 @@ export DRMDecode(wszAlgID, wszEncodedString, puDecodedDataLen, pbDecodedData) {
 export DRMConstructCertificateChain(cCertificates, rgwszCertificates, pcChain, wszChain) {
     wszChain := wszChain is String ? StrPtr(wszChain) : wszChain
 
-    rgwszCertificatesMarshal := rgwszCertificates is VarRef ? "ptr*" : "ptr"
-    pcChainMarshal := pcChain is VarRef ? "uint*" : "ptr"
+    rgwszCertificatesMarshal := rgwszCertificates is VarRef ? "ptr*" : IntPtr
+    pcChainMarshal := pcChain is VarRef ? "uint*" : IntPtr
+    wszChainMarshal := wszChain == 0 ? IntPtr : PWSTR
 
-    result := DllCall("msdrm.dll\DRMConstructCertificateChain", UInt32, cCertificates, rgwszCertificatesMarshal, rgwszCertificates, pcChainMarshal, pcChain, "ptr", wszChain, "HRESULT")
+    result := DllCall("msdrm.dll\DRMConstructCertificateChain", UInt32, cCertificates, rgwszCertificatesMarshal, rgwszCertificates, pcChainMarshal, pcChain, wszChainMarshal, wszChain, "HRESULT")
     return result
 }
 
@@ -1513,7 +1536,7 @@ export DRMConstructCertificateChain(cCertificates, rgwszCertificates, pcChain, w
 export DRMParseUnboundLicense(wszCertificate, phQueryRoot) {
     wszCertificate := wszCertificate is String ? StrPtr(wszCertificate) : wszCertificate
 
-    phQueryRootMarshal := phQueryRoot is VarRef ? "uint*" : "ptr"
+    phQueryRootMarshal := phQueryRoot is VarRef ? "uint*" : IntPtr
 
     result := DllCall("msdrm.dll\DRMParseUnboundLicense", "ptr", wszCertificate, phQueryRootMarshal, phQueryRoot, "HRESULT")
     return result
@@ -1551,7 +1574,7 @@ export DRMCloseQueryHandle(hQuery) {
 export DRMGetUnboundLicenseObjectCount(hQueryRoot, wszSubObjectType, pcSubObjects) {
     wszSubObjectType := wszSubObjectType is String ? StrPtr(wszSubObjectType) : wszSubObjectType
 
-    pcSubObjectsMarshal := pcSubObjects is VarRef ? "uint*" : "ptr"
+    pcSubObjectsMarshal := pcSubObjects is VarRef ? "uint*" : IntPtr
 
     result := DllCall("msdrm.dll\DRMGetUnboundLicenseObjectCount", UInt32, hQueryRoot, "ptr", wszSubObjectType, pcSubObjectsMarshal, pcSubObjects, "HRESULT")
     return result
@@ -1589,7 +1612,7 @@ export DRMGetUnboundLicenseObjectCount(hQueryRoot, wszSubObjectType, pcSubObject
 export DRMGetUnboundLicenseObject(hQueryRoot, wszSubObjectType, iIndex, phSubQuery) {
     wszSubObjectType := wszSubObjectType is String ? StrPtr(wszSubObjectType) : wszSubObjectType
 
-    phSubQueryMarshal := phSubQuery is VarRef ? "uint*" : "ptr"
+    phSubQueryMarshal := phSubQuery is VarRef ? "uint*" : IntPtr
 
     result := DllCall("msdrm.dll\DRMGetUnboundLicenseObject", UInt32, hQueryRoot, "ptr", wszSubObjectType, UInt32, iIndex, phSubQueryMarshal, phSubQuery, "HRESULT")
     return result
@@ -1610,7 +1633,7 @@ export DRMGetUnboundLicenseObject(hQueryRoot, wszSubObjectType, iIndex, phSubQue
 export DRMGetUnboundLicenseAttributeCount(hQueryRoot, wszAttributeType, pcAttributes) {
     wszAttributeType := wszAttributeType is String ? StrPtr(wszAttributeType) : wszAttributeType
 
-    pcAttributesMarshal := pcAttributes is VarRef ? "uint*" : "ptr"
+    pcAttributesMarshal := pcAttributes is VarRef ? "uint*" : IntPtr
 
     result := DllCall("msdrm.dll\DRMGetUnboundLicenseAttributeCount", UInt32, hQueryRoot, "ptr", wszAttributeType, pcAttributesMarshal, pcAttributes, "HRESULT")
     return result
@@ -1640,9 +1663,9 @@ export DRMGetUnboundLicenseAttributeCount(hQueryRoot, wszAttributeType, pcAttrib
 export DRMGetUnboundLicenseAttribute(hQueryRoot, wszAttributeType, iWhich, peEncoding, pcBuffer, pbBuffer) {
     wszAttributeType := wszAttributeType is String ? StrPtr(wszAttributeType) : wszAttributeType
 
-    peEncodingMarshal := peEncoding is VarRef ? "int*" : "ptr"
-    pcBufferMarshal := pcBuffer is VarRef ? "uint*" : "ptr"
-    pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+    peEncodingMarshal := peEncoding is VarRef ? "int*" : IntPtr
+    pcBufferMarshal := pcBuffer is VarRef ? "uint*" : IntPtr
+    pbBufferMarshal := pbBuffer is VarRef ? "char*" : IntPtr
 
     result := DllCall("msdrm.dll\DRMGetUnboundLicenseAttribute", UInt32, hQueryRoot, "ptr", wszAttributeType, UInt32, iWhich, peEncodingMarshal, peEncoding, pcBufferMarshal, pcBuffer, pbBufferMarshal, pbBuffer, "HRESULT")
     return result
@@ -1662,7 +1685,7 @@ export DRMGetUnboundLicenseAttribute(hQueryRoot, wszAttributeType, iWhich, peEnc
 export DRMGetCertificateChainCount(wszChain, pcCertCount) {
     wszChain := wszChain is String ? StrPtr(wszChain) : wszChain
 
-    pcCertCountMarshal := pcCertCount is VarRef ? "uint*" : "ptr"
+    pcCertCountMarshal := pcCertCount is VarRef ? "uint*" : IntPtr
 
     result := DllCall("msdrm.dll\DRMGetCertificateChainCount", "ptr", wszChain, pcCertCountMarshal, pcCertCount, "HRESULT")
     return result
@@ -1687,9 +1710,10 @@ export DRMDeconstructCertificateChain(wszChain, iWhich, pcCert, wszCert) {
     wszChain := wszChain is String ? StrPtr(wszChain) : wszChain
     wszCert := wszCert is String ? StrPtr(wszCert) : wszCert
 
-    pcCertMarshal := pcCert is VarRef ? "uint*" : "ptr"
+    pcCertMarshal := pcCert is VarRef ? "uint*" : IntPtr
+    wszCertMarshal := wszCert == 0 ? IntPtr : PWSTR
 
-    result := DllCall("msdrm.dll\DRMDeconstructCertificateChain", "ptr", wszChain, UInt32, iWhich, pcCertMarshal, pcCert, "ptr", wszCert, "HRESULT")
+    result := DllCall("msdrm.dll\DRMDeconstructCertificateChain", "ptr", wszChain, UInt32, iWhich, pcCertMarshal, pcCert, wszCertMarshal, wszCert, "HRESULT")
     return result
 }
 
@@ -1714,12 +1738,16 @@ export DRMVerify(wszData, pcAttestedData, wszAttestedData, peType, pcPrincipal, 
     wszPrincipal := wszPrincipal is String ? StrPtr(wszPrincipal) : wszPrincipal
     wszManifest := wszManifest is String ? StrPtr(wszManifest) : wszManifest
 
-    pcAttestedDataMarshal := pcAttestedData is VarRef ? "uint*" : "ptr"
-    peTypeMarshal := peType is VarRef ? "int*" : "ptr"
-    pcPrincipalMarshal := pcPrincipal is VarRef ? "uint*" : "ptr"
-    pcManifestMarshal := pcManifest is VarRef ? "uint*" : "ptr"
+    wszDataMarshal := wszData == 0 ? IntPtr : PWSTR
+    pcAttestedDataMarshal := pcAttestedData is VarRef ? "uint*" : IntPtr
+    wszAttestedDataMarshal := wszAttestedData == 0 ? IntPtr : PWSTR
+    peTypeMarshal := peType is VarRef ? "int*" : IntPtr
+    pcPrincipalMarshal := pcPrincipal is VarRef ? "uint*" : IntPtr
+    wszPrincipalMarshal := wszPrincipal == 0 ? IntPtr : PWSTR
+    pcManifestMarshal := pcManifest is VarRef ? "uint*" : IntPtr
+    wszManifestMarshal := wszManifest == 0 ? IntPtr : PWSTR
 
-    result := DllCall("msdrm.dll\DRMVerify", "ptr", wszData, pcAttestedDataMarshal, pcAttestedData, "ptr", wszAttestedData, peTypeMarshal, peType, pcPrincipalMarshal, pcPrincipal, "ptr", wszPrincipal, pcManifestMarshal, pcManifest, "ptr", wszManifest, "HRESULT")
+    result := DllCall("msdrm.dll\DRMVerify", wszDataMarshal, wszData, pcAttestedDataMarshal, pcAttestedData, wszAttestedDataMarshal, wszAttestedData, peTypeMarshal, peType, pcPrincipalMarshal, pcPrincipal, wszPrincipalMarshal, wszPrincipal, pcManifestMarshal, pcManifest, wszManifestMarshal, wszManifest, "HRESULT")
     return result
 }
 
@@ -1772,9 +1800,12 @@ export DRMCreateUser(wszUserName, wszUserId, wszUserIdType, phUser) {
     wszUserId := wszUserId is String ? StrPtr(wszUserId) : wszUserId
     wszUserIdType := wszUserIdType is String ? StrPtr(wszUserIdType) : wszUserIdType
 
-    phUserMarshal := phUser is VarRef ? "uint*" : "ptr"
+    wszUserNameMarshal := wszUserName == 0 ? IntPtr : PWSTR
+    wszUserIdMarshal := wszUserId == 0 ? IntPtr : PWSTR
+    wszUserIdTypeMarshal := wszUserIdType == 0 ? IntPtr : PWSTR
+    phUserMarshal := phUser is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("msdrm.dll\DRMCreateUser", "ptr", wszUserName, "ptr", wszUserId, "ptr", wszUserIdType, phUserMarshal, phUser, "HRESULT")
+    result := DllCall("msdrm.dll\DRMCreateUser", wszUserNameMarshal, wszUserName, wszUserIdMarshal, wszUserId, wszUserIdTypeMarshal, wszUserIdType, phUserMarshal, phUser, "HRESULT")
     return result
 }
 
@@ -1807,9 +1838,11 @@ export DRMCreateUser(wszUserName, wszUserId, wszUserIdType, phUser) {
 export DRMCreateRight(wszRightName, pstFrom, pstUntil, cExtendedInfo, pwszExtendedInfoName, pwszExtendedInfoValue, phRight) {
     wszRightName := wszRightName is String ? StrPtr(wszRightName) : wszRightName
 
-    pwszExtendedInfoNameMarshal := pwszExtendedInfoName is VarRef ? "ptr*" : "ptr"
-    pwszExtendedInfoValueMarshal := pwszExtendedInfoValue is VarRef ? "ptr*" : "ptr"
-    phRightMarshal := phRight is VarRef ? "uint*" : "ptr"
+    pwszExtendedInfoNameMarshal := pwszExtendedInfoName is VarRef ? "ptr*" : IntPtr
+    pwszExtendedInfoNameMarshal := pwszExtendedInfoName == 0 ? IntPtr : PWSTR.Ptr
+    pwszExtendedInfoValueMarshal := pwszExtendedInfoValue is VarRef ? "ptr*" : IntPtr
+    pwszExtendedInfoValueMarshal := pwszExtendedInfoValue == 0 ? IntPtr : PWSTR.Ptr
+    phRightMarshal := phRight is VarRef ? "uint*" : IntPtr
 
     result := DllCall("msdrm.dll\DRMCreateRight", "ptr", wszRightName, SYSTEMTIME.Ptr, pstFrom, SYSTEMTIME.Ptr, pstUntil, UInt32, cExtendedInfo, pwszExtendedInfoNameMarshal, pwszExtendedInfoName, pwszExtendedInfoValueMarshal, pwszExtendedInfoValue, phRightMarshal, phRight, "HRESULT")
     return result
@@ -1945,9 +1978,12 @@ export DRMCreateIssuanceLicense(pstTimeFrom, pstTimeUntil, wszReferralInfoName, 
     wszReferralInfoURL := wszReferralInfoURL is String ? StrPtr(wszReferralInfoURL) : wszReferralInfoURL
     wszIssuanceLicense := wszIssuanceLicense is String ? StrPtr(wszIssuanceLicense) : wszIssuanceLicense
 
-    phIssuanceLicenseMarshal := phIssuanceLicense is VarRef ? "uint*" : "ptr"
+    wszReferralInfoNameMarshal := wszReferralInfoName == 0 ? IntPtr : PWSTR
+    wszReferralInfoURLMarshal := wszReferralInfoURL == 0 ? IntPtr : PWSTR
+    wszIssuanceLicenseMarshal := wszIssuanceLicense == 0 ? IntPtr : PWSTR
+    phIssuanceLicenseMarshal := phIssuanceLicense is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("msdrm.dll\DRMCreateIssuanceLicense", SYSTEMTIME.Ptr, pstTimeFrom, SYSTEMTIME.Ptr, pstTimeUntil, "ptr", wszReferralInfoName, "ptr", wszReferralInfoURL, UInt32, hOwner, "ptr", wszIssuanceLicense, UInt32, hBoundLicense, phIssuanceLicenseMarshal, phIssuanceLicense, "HRESULT")
+    result := DllCall("msdrm.dll\DRMCreateIssuanceLicense", SYSTEMTIME.Ptr, pstTimeFrom, SYSTEMTIME.Ptr, pstTimeUntil, wszReferralInfoNameMarshal, wszReferralInfoName, wszReferralInfoURLMarshal, wszReferralInfoURL, UInt32, hOwner, wszIssuanceLicenseMarshal, wszIssuanceLicense, UInt32, hBoundLicense, phIssuanceLicenseMarshal, phIssuanceLicense, "HRESULT")
     return result
 }
 
@@ -2030,7 +2066,12 @@ export DRMSetMetaData(hIssuanceLicense, wszContentId, wszContentIdType, wszSKUId
     wszContentType := wszContentType is String ? StrPtr(wszContentType) : wszContentType
     wszContentName := wszContentName is String ? StrPtr(wszContentName) : wszContentName
 
-    result := DllCall("msdrm.dll\DRMSetMetaData", UInt32, hIssuanceLicense, "ptr", wszContentId, "ptr", wszContentIdType, "ptr", wszSKUId, "ptr", wszSKUIdType, "ptr", wszContentType, "ptr", wszContentName, "HRESULT")
+    wszSKUIdMarshal := wszSKUId == 0 ? IntPtr : PWSTR
+    wszSKUIdTypeMarshal := wszSKUIdType == 0 ? IntPtr : PWSTR
+    wszContentTypeMarshal := wszContentType == 0 ? IntPtr : PWSTR
+    wszContentNameMarshal := wszContentName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("msdrm.dll\DRMSetMetaData", UInt32, hIssuanceLicense, "ptr", wszContentId, "ptr", wszContentIdType, wszSKUIdMarshal, wszSKUId, wszSKUIdTypeMarshal, wszSKUIdType, wszContentTypeMarshal, wszContentType, wszContentNameMarshal, wszContentName, "HRESULT")
     return result
 }
 
@@ -2100,9 +2141,14 @@ export DRMSetUsagePolicy(hIssuanceLicense, eUsagePolicyType, fDelete, fExclusion
     wszPublicKey := wszPublicKey is String ? StrPtr(wszPublicKey) : wszPublicKey
     wszDigestAlgorithm := wszDigestAlgorithm is String ? StrPtr(wszDigestAlgorithm) : wszDigestAlgorithm
 
-    pbDigestMarshal := pbDigest is VarRef ? "char*" : "ptr"
+    wszNameMarshal := wszName == 0 ? IntPtr : PWSTR
+    wszMinVersionMarshal := wszMinVersion == 0 ? IntPtr : PWSTR
+    wszMaxVersionMarshal := wszMaxVersion == 0 ? IntPtr : PWSTR
+    wszPublicKeyMarshal := wszPublicKey == 0 ? IntPtr : PWSTR
+    wszDigestAlgorithmMarshal := wszDigestAlgorithm == 0 ? IntPtr : PWSTR
+    pbDigestMarshal := pbDigest is VarRef ? "char*" : IntPtr
 
-    result := DllCall("msdrm.dll\DRMSetUsagePolicy", UInt32, hIssuanceLicense, DRM_USAGEPOLICY_TYPE, eUsagePolicyType, BOOL, fDelete, BOOL, fExclusion, "ptr", wszName, "ptr", wszMinVersion, "ptr", wszMaxVersion, "ptr", wszPublicKey, "ptr", wszDigestAlgorithm, pbDigestMarshal, pbDigest, UInt32, cbDigest, "HRESULT")
+    result := DllCall("msdrm.dll\DRMSetUsagePolicy", UInt32, hIssuanceLicense, DRM_USAGEPOLICY_TYPE, eUsagePolicyType, BOOL, fDelete, BOOL, fExclusion, wszNameMarshal, wszName, wszMinVersionMarshal, wszMinVersion, wszMaxVersionMarshal, wszMaxVersion, wszPublicKeyMarshal, wszPublicKey, wszDigestAlgorithmMarshal, wszDigestAlgorithm, pbDigestMarshal, pbDigest, UInt32, cbDigest, "HRESULT")
     return result
 }
 
@@ -2134,7 +2180,10 @@ export DRMSetRevocationPoint(hIssuanceLicense, fDelete, wszId, wszIdType, wszURL
     wszName := wszName is String ? StrPtr(wszName) : wszName
     wszPublicKey := wszPublicKey is String ? StrPtr(wszPublicKey) : wszPublicKey
 
-    result := DllCall("msdrm.dll\DRMSetRevocationPoint", UInt32, hIssuanceLicense, BOOL, fDelete, "ptr", wszId, "ptr", wszIdType, "ptr", wszURL, SYSTEMTIME.Ptr, pstFrequency, "ptr", wszName, "ptr", wszPublicKey, "HRESULT")
+    wszNameMarshal := wszName == 0 ? IntPtr : PWSTR
+    wszPublicKeyMarshal := wszPublicKey == 0 ? IntPtr : PWSTR
+
+    result := DllCall("msdrm.dll\DRMSetRevocationPoint", UInt32, hIssuanceLicense, BOOL, fDelete, "ptr", wszId, "ptr", wszIdType, "ptr", wszURL, SYSTEMTIME.Ptr, pstFrequency, wszNameMarshal, wszName, wszPublicKeyMarshal, wszPublicKey, "HRESULT")
     return result
 }
 
@@ -2159,7 +2208,10 @@ export DRMSetApplicationSpecificData(hIssuanceLicense, fDelete, wszName, wszValu
     wszName := wszName is String ? StrPtr(wszName) : wszName
     wszValue := wszValue is String ? StrPtr(wszValue) : wszValue
 
-    result := DllCall("msdrm.dll\DRMSetApplicationSpecificData", UInt32, hIssuanceLicense, BOOL, fDelete, "ptr", wszName, "ptr", wszValue, "HRESULT")
+    wszNameMarshal := wszName == 0 ? IntPtr : PWSTR
+    wszValueMarshal := wszValue == 0 ? IntPtr : PWSTR
+
+    result := DllCall("msdrm.dll\DRMSetApplicationSpecificData", UInt32, hIssuanceLicense, BOOL, fDelete, wszNameMarshal, wszName, wszValueMarshal, wszValue, "HRESULT")
     return result
 }
 
@@ -2184,7 +2236,10 @@ export DRMSetNameAndDescription(hIssuanceLicense, fDelete, lcid, wszName, wszDes
     wszName := wszName is String ? StrPtr(wszName) : wszName
     wszDescription := wszDescription is String ? StrPtr(wszDescription) : wszDescription
 
-    result := DllCall("msdrm.dll\DRMSetNameAndDescription", UInt32, hIssuanceLicense, BOOL, fDelete, UInt32, lcid, "ptr", wszName, "ptr", wszDescription, "HRESULT")
+    wszNameMarshal := wszName == 0 ? IntPtr : PWSTR
+    wszDescriptionMarshal := wszDescription == 0 ? IntPtr : PWSTR
+
+    result := DllCall("msdrm.dll\DRMSetNameAndDescription", UInt32, hIssuanceLicense, BOOL, fDelete, UInt32, lcid, wszNameMarshal, wszName, wszDescriptionMarshal, wszDescription, "HRESULT")
     return result
 }
 
@@ -2225,9 +2280,10 @@ export DRMSetIntervalTime(hIssuanceLicense, cDays) {
 export DRMGetIssuanceLicenseTemplate(hIssuanceLicense, puIssuanceLicenseTemplateLength, wszIssuanceLicenseTemplate) {
     wszIssuanceLicenseTemplate := wszIssuanceLicenseTemplate is String ? StrPtr(wszIssuanceLicenseTemplate) : wszIssuanceLicenseTemplate
 
-    puIssuanceLicenseTemplateLengthMarshal := puIssuanceLicenseTemplateLength is VarRef ? "uint*" : "ptr"
+    puIssuanceLicenseTemplateLengthMarshal := puIssuanceLicenseTemplateLength is VarRef ? "uint*" : IntPtr
+    wszIssuanceLicenseTemplateMarshal := wszIssuanceLicenseTemplate == 0 ? IntPtr : PWSTR
 
-    result := DllCall("msdrm.dll\DRMGetIssuanceLicenseTemplate", UInt32, hIssuanceLicense, puIssuanceLicenseTemplateLengthMarshal, puIssuanceLicenseTemplateLength, "ptr", wszIssuanceLicenseTemplate, "HRESULT")
+    result := DllCall("msdrm.dll\DRMGetIssuanceLicenseTemplate", UInt32, hIssuanceLicense, puIssuanceLicenseTemplateLengthMarshal, puIssuanceLicenseTemplateLength, wszIssuanceLicenseTemplateMarshal, wszIssuanceLicenseTemplate, "HRESULT")
     return result
 }
 
@@ -2659,10 +2715,13 @@ export DRMGetSignedIssuanceLicense(hEnv, hIssuanceLicense, uFlags, pbSymKey, cbS
     wszClientLicensorCertificate := wszClientLicensorCertificate is String ? StrPtr(wszClientLicensorCertificate) : wszClientLicensorCertificate
     wszURL := wszURL is String ? StrPtr(wszURL) : wszURL
 
-    pbSymKeyMarshal := pbSymKey is VarRef ? "char*" : "ptr"
-    pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+    pbSymKeyMarshal := pbSymKey is VarRef ? "char*" : IntPtr
+    wszSymKeyTypeMarshal := wszSymKeyType == 0 ? IntPtr : PWSTR
+    wszClientLicensorCertificateMarshal := wszClientLicensorCertificate == 0 ? IntPtr : PWSTR
+    wszURLMarshal := wszURL == 0 ? IntPtr : PWSTR
+    pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
-    result := DllCall("msdrm.dll\DRMGetSignedIssuanceLicense", UInt32, hEnv, UInt32, hIssuanceLicense, UInt32, uFlags, pbSymKeyMarshal, pbSymKey, UInt32, cbSymKey, "ptr", wszSymKeyType, "ptr", wszClientLicensorCertificate, DRMCALLBACK, _pfnCallback, "ptr", wszURL, pvContextMarshal, pvContext, "HRESULT")
+    result := DllCall("msdrm.dll\DRMGetSignedIssuanceLicense", UInt32, hEnv, UInt32, hIssuanceLicense, UInt32, uFlags, pbSymKeyMarshal, pbSymKey, UInt32, cbSymKey, wszSymKeyTypeMarshal, wszSymKeyType, wszClientLicensorCertificateMarshal, wszClientLicensorCertificate, DRMCALLBACK, _pfnCallback, wszURLMarshal, wszURL, pvContextMarshal, pvContext, "HRESULT")
     return result
 }
 
@@ -2690,10 +2749,13 @@ export DRMGetSignedIssuanceLicense(hEnv, hIssuanceLicense, uFlags, pbSymKey, cbS
 export DRMGetSignedIssuanceLicenseEx(hEnv, hIssuanceLicense, uFlags, pbSymKey, cbSymKey, wszSymKeyType, pvReserved, hEnablingPrincipal, hBoundLicenseCLC, _pfnCallback, pvContext) {
     wszSymKeyType := wszSymKeyType is String ? StrPtr(wszSymKeyType) : wszSymKeyType
 
-    pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
-    pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+    pbSymKeyMarshal := pbSymKey == 0 ? IntPtr : IntPtr
+    wszSymKeyTypeMarshal := wszSymKeyType == 0 ? IntPtr : PWSTR
+    pvReservedMarshal := pvReserved is VarRef ? "ptr" : IntPtr
+    pvReservedMarshal := pvReserved == 0 ? IntPtr : "ptr"
+    pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
-    result := DllCall("msdrm.dll\DRMGetSignedIssuanceLicenseEx", UInt32, hEnv, UInt32, hIssuanceLicense, UInt32, uFlags, IntPtr, pbSymKey, UInt32, cbSymKey, "ptr", wszSymKeyType, pvReservedMarshal, pvReserved, UInt32, hEnablingPrincipal, UInt32, hBoundLicenseCLC, DRMCALLBACK, _pfnCallback, pvContextMarshal, pvContext, "HRESULT")
+    result := DllCall("msdrm.dll\DRMGetSignedIssuanceLicenseEx", UInt32, hEnv, UInt32, hIssuanceLicense, UInt32, uFlags, pbSymKeyMarshal, pbSymKey, UInt32, cbSymKey, wszSymKeyTypeMarshal, wszSymKeyType, pvReservedMarshal, pvReserved, UInt32, hEnablingPrincipal, UInt32, hBoundLicenseCLC, DRMCALLBACK, _pfnCallback, pvContextMarshal, pvContext, "HRESULT")
     return result
 }
 
@@ -2724,7 +2786,7 @@ export DRMClosePubHandle(hPub) {
  * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmduplicatepubhandle
  */
 export DRMDuplicatePubHandle(hPubIn, phPubOut) {
-    phPubOutMarshal := phPubOut is VarRef ? "uint*" : "ptr"
+    phPubOutMarshal := phPubOut is VarRef ? "uint*" : IntPtr
 
     result := DllCall("msdrm.dll\DRMDuplicatePubHandle", UInt32, hPubIn, phPubOutMarshal, phPubOut, "HRESULT")
     return result
@@ -2765,11 +2827,14 @@ export DRMGetUserInfo(hUser, puUserNameLength, wszUserName, puUserIdLength, wszU
     wszUserId := wszUserId is String ? StrPtr(wszUserId) : wszUserId
     wszUserIdType := wszUserIdType is String ? StrPtr(wszUserIdType) : wszUserIdType
 
-    puUserNameLengthMarshal := puUserNameLength is VarRef ? "uint*" : "ptr"
-    puUserIdLengthMarshal := puUserIdLength is VarRef ? "uint*" : "ptr"
-    puUserIdTypeLengthMarshal := puUserIdTypeLength is VarRef ? "uint*" : "ptr"
+    puUserNameLengthMarshal := puUserNameLength is VarRef ? "uint*" : IntPtr
+    wszUserNameMarshal := wszUserName == 0 ? IntPtr : PWSTR
+    puUserIdLengthMarshal := puUserIdLength is VarRef ? "uint*" : IntPtr
+    wszUserIdMarshal := wszUserId == 0 ? IntPtr : PWSTR
+    puUserIdTypeLengthMarshal := puUserIdTypeLength is VarRef ? "uint*" : IntPtr
+    wszUserIdTypeMarshal := wszUserIdType == 0 ? IntPtr : PWSTR
 
-    result := DllCall("msdrm.dll\DRMGetUserInfo", UInt32, hUser, puUserNameLengthMarshal, puUserNameLength, "ptr", wszUserName, puUserIdLengthMarshal, puUserIdLength, "ptr", wszUserId, puUserIdTypeLengthMarshal, puUserIdTypeLength, "ptr", wszUserIdType, "HRESULT")
+    result := DllCall("msdrm.dll\DRMGetUserInfo", UInt32, hUser, puUserNameLengthMarshal, puUserNameLength, wszUserNameMarshal, wszUserName, puUserIdLengthMarshal, puUserIdLength, wszUserIdMarshal, wszUserId, puUserIdTypeLengthMarshal, puUserIdTypeLength, wszUserIdTypeMarshal, wszUserIdType, "HRESULT")
     return result
 }
 
@@ -2792,9 +2857,10 @@ export DRMGetUserInfo(hUser, puUserNameLength, wszUserName, puUserIdLength, wszU
 export DRMGetRightInfo(hRight, puRightNameLength, wszRightName, pstFrom, pstUntil) {
     wszRightName := wszRightName is String ? StrPtr(wszRightName) : wszRightName
 
-    puRightNameLengthMarshal := puRightNameLength is VarRef ? "uint*" : "ptr"
+    puRightNameLengthMarshal := puRightNameLength is VarRef ? "uint*" : IntPtr
+    wszRightNameMarshal := wszRightName == 0 ? IntPtr : PWSTR
 
-    result := DllCall("msdrm.dll\DRMGetRightInfo", UInt32, hRight, puRightNameLengthMarshal, puRightNameLength, "ptr", wszRightName, SYSTEMTIME.Ptr, pstFrom, SYSTEMTIME.Ptr, pstUntil, "HRESULT")
+    result := DllCall("msdrm.dll\DRMGetRightInfo", UInt32, hRight, puRightNameLengthMarshal, puRightNameLength, wszRightNameMarshal, wszRightName, SYSTEMTIME.Ptr, pstFrom, SYSTEMTIME.Ptr, pstUntil, "HRESULT")
     return result
 }
 
@@ -2827,10 +2893,12 @@ export DRMGetRightExtendedInfo(hRight, uIndex, puExtendedInfoNameLength, wszExte
     wszExtendedInfoName := wszExtendedInfoName is String ? StrPtr(wszExtendedInfoName) : wszExtendedInfoName
     wszExtendedInfoValue := wszExtendedInfoValue is String ? StrPtr(wszExtendedInfoValue) : wszExtendedInfoValue
 
-    puExtendedInfoNameLengthMarshal := puExtendedInfoNameLength is VarRef ? "uint*" : "ptr"
-    puExtendedInfoValueLengthMarshal := puExtendedInfoValueLength is VarRef ? "uint*" : "ptr"
+    puExtendedInfoNameLengthMarshal := puExtendedInfoNameLength is VarRef ? "uint*" : IntPtr
+    wszExtendedInfoNameMarshal := wszExtendedInfoName == 0 ? IntPtr : PWSTR
+    puExtendedInfoValueLengthMarshal := puExtendedInfoValueLength is VarRef ? "uint*" : IntPtr
+    wszExtendedInfoValueMarshal := wszExtendedInfoValue == 0 ? IntPtr : PWSTR
 
-    result := DllCall("msdrm.dll\DRMGetRightExtendedInfo", UInt32, hRight, UInt32, uIndex, puExtendedInfoNameLengthMarshal, puExtendedInfoNameLength, "ptr", wszExtendedInfoName, puExtendedInfoValueLengthMarshal, puExtendedInfoValueLength, "ptr", wszExtendedInfoValue, "HRESULT")
+    result := DllCall("msdrm.dll\DRMGetRightExtendedInfo", UInt32, hRight, UInt32, uIndex, puExtendedInfoNameLengthMarshal, puExtendedInfoNameLength, wszExtendedInfoNameMarshal, wszExtendedInfoName, puExtendedInfoValueLengthMarshal, puExtendedInfoValueLength, wszExtendedInfoValueMarshal, wszExtendedInfoValue, "HRESULT")
     return result
 }
 
@@ -2847,7 +2915,7 @@ export DRMGetRightExtendedInfo(hRight, uIndex, puExtendedInfoNameLength, wszExte
  * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetusers
  */
 export DRMGetUsers(hIssuanceLicense, uIndex, phUser) {
-    phUserMarshal := phUser is VarRef ? "uint*" : "ptr"
+    phUserMarshal := phUser is VarRef ? "uint*" : IntPtr
 
     result := DllCall("msdrm.dll\DRMGetUsers", UInt32, hIssuanceLicense, UInt32, uIndex, phUserMarshal, phUser, "HRESULT")
     return result
@@ -2869,7 +2937,7 @@ export DRMGetUsers(hIssuanceLicense, uIndex, phUser) {
  * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetuserrights
  */
 export DRMGetUserRights(hIssuanceLicense, hUser, uIndex, phRight) {
-    phRightMarshal := phRight is VarRef ? "uint*" : "ptr"
+    phRightMarshal := phRight is VarRef ? "uint*" : IntPtr
 
     result := DllCall("msdrm.dll\DRMGetUserRights", UInt32, hIssuanceLicense, UInt32, hUser, UInt32, uIndex, phRightMarshal, phRight, "HRESULT")
     return result
@@ -2927,14 +2995,20 @@ export DRMGetMetaData(hIssuanceLicense, puContentIdLength, wszContentId, puConte
     wszContentType := wszContentType is String ? StrPtr(wszContentType) : wszContentType
     wszContentName := wszContentName is String ? StrPtr(wszContentName) : wszContentName
 
-    puContentIdLengthMarshal := puContentIdLength is VarRef ? "uint*" : "ptr"
-    puContentIdTypeLengthMarshal := puContentIdTypeLength is VarRef ? "uint*" : "ptr"
-    puSKUIdLengthMarshal := puSKUIdLength is VarRef ? "uint*" : "ptr"
-    puSKUIdTypeLengthMarshal := puSKUIdTypeLength is VarRef ? "uint*" : "ptr"
-    puContentTypeLengthMarshal := puContentTypeLength is VarRef ? "uint*" : "ptr"
-    puContentNameLengthMarshal := puContentNameLength is VarRef ? "uint*" : "ptr"
+    puContentIdLengthMarshal := puContentIdLength is VarRef ? "uint*" : IntPtr
+    wszContentIdMarshal := wszContentId == 0 ? IntPtr : PWSTR
+    puContentIdTypeLengthMarshal := puContentIdTypeLength is VarRef ? "uint*" : IntPtr
+    wszContentIdTypeMarshal := wszContentIdType == 0 ? IntPtr : PWSTR
+    puSKUIdLengthMarshal := puSKUIdLength is VarRef ? "uint*" : IntPtr
+    wszSKUIdMarshal := wszSKUId == 0 ? IntPtr : PWSTR
+    puSKUIdTypeLengthMarshal := puSKUIdTypeLength is VarRef ? "uint*" : IntPtr
+    wszSKUIdTypeMarshal := wszSKUIdType == 0 ? IntPtr : PWSTR
+    puContentTypeLengthMarshal := puContentTypeLength is VarRef ? "uint*" : IntPtr
+    wszContentTypeMarshal := wszContentType == 0 ? IntPtr : PWSTR
+    puContentNameLengthMarshal := puContentNameLength is VarRef ? "uint*" : IntPtr
+    wszContentNameMarshal := wszContentName == 0 ? IntPtr : PWSTR
 
-    result := DllCall("msdrm.dll\DRMGetMetaData", UInt32, hIssuanceLicense, puContentIdLengthMarshal, puContentIdLength, "ptr", wszContentId, puContentIdTypeLengthMarshal, puContentIdTypeLength, "ptr", wszContentIdType, puSKUIdLengthMarshal, puSKUIdLength, "ptr", wszSKUId, puSKUIdTypeLengthMarshal, puSKUIdTypeLength, "ptr", wszSKUIdType, puContentTypeLengthMarshal, puContentTypeLength, "ptr", wszContentType, puContentNameLengthMarshal, puContentNameLength, "ptr", wszContentName, "HRESULT")
+    result := DllCall("msdrm.dll\DRMGetMetaData", UInt32, hIssuanceLicense, puContentIdLengthMarshal, puContentIdLength, wszContentIdMarshal, wszContentId, puContentIdTypeLengthMarshal, puContentIdTypeLength, wszContentIdTypeMarshal, wszContentIdType, puSKUIdLengthMarshal, puSKUIdLength, wszSKUIdMarshal, wszSKUId, puSKUIdTypeLengthMarshal, puSKUIdTypeLength, wszSKUIdTypeMarshal, wszSKUIdType, puContentTypeLengthMarshal, puContentTypeLength, wszContentTypeMarshal, wszContentType, puContentNameLengthMarshal, puContentNameLength, wszContentNameMarshal, wszContentName, "HRESULT")
     return result
 }
 
@@ -2967,10 +3041,12 @@ export DRMGetApplicationSpecificData(hIssuanceLicense, uIndex, puNameLength, wsz
     wszName := wszName is String ? StrPtr(wszName) : wszName
     wszValue := wszValue is String ? StrPtr(wszValue) : wszValue
 
-    puNameLengthMarshal := puNameLength is VarRef ? "uint*" : "ptr"
-    puValueLengthMarshal := puValueLength is VarRef ? "uint*" : "ptr"
+    puNameLengthMarshal := puNameLength is VarRef ? "uint*" : IntPtr
+    wszNameMarshal := wszName == 0 ? IntPtr : PWSTR
+    puValueLengthMarshal := puValueLength is VarRef ? "uint*" : IntPtr
+    wszValueMarshal := wszValue == 0 ? IntPtr : PWSTR
 
-    result := DllCall("msdrm.dll\DRMGetApplicationSpecificData", UInt32, hIssuanceLicense, UInt32, uIndex, puNameLengthMarshal, puNameLength, "ptr", wszName, puValueLengthMarshal, puValueLength, "ptr", wszValue, "HRESULT")
+    result := DllCall("msdrm.dll\DRMGetApplicationSpecificData", UInt32, hIssuanceLicense, UInt32, uIndex, puNameLengthMarshal, puNameLength, wszNameMarshal, wszName, puValueLengthMarshal, puValueLength, wszValueMarshal, wszValue, "HRESULT")
     return result
 }
 
@@ -3011,12 +3087,14 @@ export DRMGetIssuanceLicenseInfo(hIssuanceLicense, pstTimeFrom, pstTimeUntil, uF
     wszDistributionPointName := wszDistributionPointName is String ? StrPtr(wszDistributionPointName) : wszDistributionPointName
     wszDistributionPointURL := wszDistributionPointURL is String ? StrPtr(wszDistributionPointURL) : wszDistributionPointURL
 
-    puDistributionPointNameLengthMarshal := puDistributionPointNameLength is VarRef ? "uint*" : "ptr"
-    puDistributionPointURLLengthMarshal := puDistributionPointURLLength is VarRef ? "uint*" : "ptr"
-    phOwnerMarshal := phOwner is VarRef ? "uint*" : "ptr"
-    pfOfficialMarshal := pfOfficial is VarRef ? "int*" : "ptr"
+    puDistributionPointNameLengthMarshal := puDistributionPointNameLength is VarRef ? "uint*" : IntPtr
+    wszDistributionPointNameMarshal := wszDistributionPointName == 0 ? IntPtr : PWSTR
+    puDistributionPointURLLengthMarshal := puDistributionPointURLLength is VarRef ? "uint*" : IntPtr
+    wszDistributionPointURLMarshal := wszDistributionPointURL == 0 ? IntPtr : PWSTR
+    phOwnerMarshal := phOwner is VarRef ? "uint*" : IntPtr
+    pfOfficialMarshal := pfOfficial is VarRef ? "int*" : IntPtr
 
-    result := DllCall("msdrm.dll\DRMGetIssuanceLicenseInfo", UInt32, hIssuanceLicense, SYSTEMTIME.Ptr, pstTimeFrom, SYSTEMTIME.Ptr, pstTimeUntil, UInt32, uFlags, puDistributionPointNameLengthMarshal, puDistributionPointNameLength, "ptr", wszDistributionPointName, puDistributionPointURLLengthMarshal, puDistributionPointURLLength, "ptr", wszDistributionPointURL, phOwnerMarshal, phOwner, pfOfficialMarshal, pfOfficial, "HRESULT")
+    result := DllCall("msdrm.dll\DRMGetIssuanceLicenseInfo", UInt32, hIssuanceLicense, SYSTEMTIME.Ptr, pstTimeFrom, SYSTEMTIME.Ptr, pstTimeUntil, UInt32, uFlags, puDistributionPointNameLengthMarshal, puDistributionPointNameLength, wszDistributionPointNameMarshal, wszDistributionPointName, puDistributionPointURLLengthMarshal, puDistributionPointURLLength, wszDistributionPointURLMarshal, wszDistributionPointURL, phOwnerMarshal, phOwner, pfOfficialMarshal, pfOfficial, "HRESULT")
     return result
 }
 
@@ -3070,13 +3148,18 @@ export DRMGetRevocationPoint(hIssuanceLicense, puIdLength, wszId, puIdTypeLength
     wszName := wszName is String ? StrPtr(wszName) : wszName
     wszPublicKey := wszPublicKey is String ? StrPtr(wszPublicKey) : wszPublicKey
 
-    puIdLengthMarshal := puIdLength is VarRef ? "uint*" : "ptr"
-    puIdTypeLengthMarshal := puIdTypeLength is VarRef ? "uint*" : "ptr"
-    puURLLengthMarshal := puURLLength is VarRef ? "uint*" : "ptr"
-    puNameLengthMarshal := puNameLength is VarRef ? "uint*" : "ptr"
-    puPublicKeyLengthMarshal := puPublicKeyLength is VarRef ? "uint*" : "ptr"
+    puIdLengthMarshal := puIdLength is VarRef ? "uint*" : IntPtr
+    wszIdMarshal := wszId == 0 ? IntPtr : PWSTR
+    puIdTypeLengthMarshal := puIdTypeLength is VarRef ? "uint*" : IntPtr
+    wszIdTypeMarshal := wszIdType == 0 ? IntPtr : PWSTR
+    puURLLengthMarshal := puURLLength is VarRef ? "uint*" : IntPtr
+    wszRLMarshal := wszRL == 0 ? IntPtr : PWSTR
+    puNameLengthMarshal := puNameLength is VarRef ? "uint*" : IntPtr
+    wszNameMarshal := wszName == 0 ? IntPtr : PWSTR
+    puPublicKeyLengthMarshal := puPublicKeyLength is VarRef ? "uint*" : IntPtr
+    wszPublicKeyMarshal := wszPublicKey == 0 ? IntPtr : PWSTR
 
-    result := DllCall("msdrm.dll\DRMGetRevocationPoint", UInt32, hIssuanceLicense, puIdLengthMarshal, puIdLength, "ptr", wszId, puIdTypeLengthMarshal, puIdTypeLength, "ptr", wszIdType, puURLLengthMarshal, puURLLength, "ptr", wszRL, SYSTEMTIME.Ptr, pstFrequency, puNameLengthMarshal, puNameLength, "ptr", wszName, puPublicKeyLengthMarshal, puPublicKeyLength, "ptr", wszPublicKey, "HRESULT")
+    result := DllCall("msdrm.dll\DRMGetRevocationPoint", UInt32, hIssuanceLicense, puIdLengthMarshal, puIdLength, wszIdMarshal, wszId, puIdTypeLengthMarshal, puIdTypeLength, wszIdTypeMarshal, wszIdType, puURLLengthMarshal, puURLLength, wszRLMarshal, wszRL, SYSTEMTIME.Ptr, pstFrequency, puNameLengthMarshal, puNameLength, wszNameMarshal, wszName, puPublicKeyLengthMarshal, puPublicKeyLength, wszPublicKeyMarshal, wszPublicKey, "HRESULT")
     return result
 }
 
@@ -3144,17 +3227,22 @@ export DRMGetUsagePolicy(hIssuanceLicense, uIndex, peUsagePolicyType, pfExclusio
     wszPublicKey := wszPublicKey is String ? StrPtr(wszPublicKey) : wszPublicKey
     wszDigestAlgorithm := wszDigestAlgorithm is String ? StrPtr(wszDigestAlgorithm) : wszDigestAlgorithm
 
-    peUsagePolicyTypeMarshal := peUsagePolicyType is VarRef ? "int*" : "ptr"
-    pfExclusionMarshal := pfExclusion is VarRef ? "int*" : "ptr"
-    puNameLengthMarshal := puNameLength is VarRef ? "uint*" : "ptr"
-    puMinVersionLengthMarshal := puMinVersionLength is VarRef ? "uint*" : "ptr"
-    puMaxVersionLengthMarshal := puMaxVersionLength is VarRef ? "uint*" : "ptr"
-    puPublicKeyLengthMarshal := puPublicKeyLength is VarRef ? "uint*" : "ptr"
-    puDigestAlgorithmLengthMarshal := puDigestAlgorithmLength is VarRef ? "uint*" : "ptr"
-    pcbDigestMarshal := pcbDigest is VarRef ? "uint*" : "ptr"
-    pbDigestMarshal := pbDigest is VarRef ? "char*" : "ptr"
+    peUsagePolicyTypeMarshal := peUsagePolicyType is VarRef ? "int*" : IntPtr
+    pfExclusionMarshal := pfExclusion is VarRef ? "int*" : IntPtr
+    puNameLengthMarshal := puNameLength is VarRef ? "uint*" : IntPtr
+    wszNameMarshal := wszName == 0 ? IntPtr : PWSTR
+    puMinVersionLengthMarshal := puMinVersionLength is VarRef ? "uint*" : IntPtr
+    wszMinVersionMarshal := wszMinVersion == 0 ? IntPtr : PWSTR
+    puMaxVersionLengthMarshal := puMaxVersionLength is VarRef ? "uint*" : IntPtr
+    wszMaxVersionMarshal := wszMaxVersion == 0 ? IntPtr : PWSTR
+    puPublicKeyLengthMarshal := puPublicKeyLength is VarRef ? "uint*" : IntPtr
+    wszPublicKeyMarshal := wszPublicKey == 0 ? IntPtr : PWSTR
+    puDigestAlgorithmLengthMarshal := puDigestAlgorithmLength is VarRef ? "uint*" : IntPtr
+    wszDigestAlgorithmMarshal := wszDigestAlgorithm == 0 ? IntPtr : PWSTR
+    pcbDigestMarshal := pcbDigest is VarRef ? "uint*" : IntPtr
+    pbDigestMarshal := pbDigest is VarRef ? "char*" : IntPtr
 
-    result := DllCall("msdrm.dll\DRMGetUsagePolicy", UInt32, hIssuanceLicense, UInt32, uIndex, peUsagePolicyTypeMarshal, peUsagePolicyType, pfExclusionMarshal, pfExclusion, puNameLengthMarshal, puNameLength, "ptr", wszName, puMinVersionLengthMarshal, puMinVersionLength, "ptr", wszMinVersion, puMaxVersionLengthMarshal, puMaxVersionLength, "ptr", wszMaxVersion, puPublicKeyLengthMarshal, puPublicKeyLength, "ptr", wszPublicKey, puDigestAlgorithmLengthMarshal, puDigestAlgorithmLength, "ptr", wszDigestAlgorithm, pcbDigestMarshal, pcbDigest, pbDigestMarshal, pbDigest, "HRESULT")
+    result := DllCall("msdrm.dll\DRMGetUsagePolicy", UInt32, hIssuanceLicense, UInt32, uIndex, peUsagePolicyTypeMarshal, peUsagePolicyType, pfExclusionMarshal, pfExclusion, puNameLengthMarshal, puNameLength, wszNameMarshal, wszName, puMinVersionLengthMarshal, puMinVersionLength, wszMinVersionMarshal, wszMinVersion, puMaxVersionLengthMarshal, puMaxVersionLength, wszMaxVersionMarshal, wszMaxVersion, puPublicKeyLengthMarshal, puPublicKeyLength, wszPublicKeyMarshal, wszPublicKey, puDigestAlgorithmLengthMarshal, puDigestAlgorithmLength, wszDigestAlgorithmMarshal, wszDigestAlgorithm, pcbDigestMarshal, pcbDigest, pbDigestMarshal, pbDigest, "HRESULT")
     return result
 }
 
@@ -3187,11 +3275,13 @@ export DRMGetNameAndDescription(hIssuanceLicense, uIndex, pulcid, puNameLength, 
     wszName := wszName is String ? StrPtr(wszName) : wszName
     wszDescription := wszDescription is String ? StrPtr(wszDescription) : wszDescription
 
-    pulcidMarshal := pulcid is VarRef ? "uint*" : "ptr"
-    puNameLengthMarshal := puNameLength is VarRef ? "uint*" : "ptr"
-    puDescriptionLengthMarshal := puDescriptionLength is VarRef ? "uint*" : "ptr"
+    pulcidMarshal := pulcid is VarRef ? "uint*" : IntPtr
+    puNameLengthMarshal := puNameLength is VarRef ? "uint*" : IntPtr
+    wszNameMarshal := wszName == 0 ? IntPtr : PWSTR
+    puDescriptionLengthMarshal := puDescriptionLength is VarRef ? "uint*" : IntPtr
+    wszDescriptionMarshal := wszDescription == 0 ? IntPtr : PWSTR
 
-    result := DllCall("msdrm.dll\DRMGetNameAndDescription", UInt32, hIssuanceLicense, UInt32, uIndex, pulcidMarshal, pulcid, puNameLengthMarshal, puNameLength, "ptr", wszName, puDescriptionLengthMarshal, puDescriptionLength, "ptr", wszDescription, "HRESULT")
+    result := DllCall("msdrm.dll\DRMGetNameAndDescription", UInt32, hIssuanceLicense, UInt32, uIndex, pulcidMarshal, pulcid, puNameLengthMarshal, puNameLength, wszNameMarshal, wszName, puDescriptionLengthMarshal, puDescriptionLength, wszDescriptionMarshal, wszDescription, "HRESULT")
     return result
 }
 
@@ -3210,9 +3300,10 @@ export DRMGetNameAndDescription(hIssuanceLicense, uIndex, pulcid, puNameLength, 
 export DRMGetOwnerLicense(hIssuanceLicense, puOwnerLicenseLength, wszOwnerLicense) {
     wszOwnerLicense := wszOwnerLicense is String ? StrPtr(wszOwnerLicense) : wszOwnerLicense
 
-    puOwnerLicenseLengthMarshal := puOwnerLicenseLength is VarRef ? "uint*" : "ptr"
+    puOwnerLicenseLengthMarshal := puOwnerLicenseLength is VarRef ? "uint*" : IntPtr
+    wszOwnerLicenseMarshal := wszOwnerLicense == 0 ? IntPtr : PWSTR
 
-    result := DllCall("msdrm.dll\DRMGetOwnerLicense", UInt32, hIssuanceLicense, puOwnerLicenseLengthMarshal, puOwnerLicenseLength, "ptr", wszOwnerLicense, "HRESULT")
+    result := DllCall("msdrm.dll\DRMGetOwnerLicense", UInt32, hIssuanceLicense, puOwnerLicenseLengthMarshal, puOwnerLicenseLength, wszOwnerLicenseMarshal, wszOwnerLicense, "HRESULT")
     return result
 }
 
@@ -3226,7 +3317,7 @@ export DRMGetOwnerLicense(hIssuanceLicense, puOwnerLicenseLength, wszOwnerLicens
  * @see https://learn.microsoft.com/windows/win32/api/msdrm/nf-msdrm-drmgetintervaltime
  */
 export DRMGetIntervalTime(hIssuanceLicense, pcDays) {
-    pcDaysMarshal := pcDays is VarRef ? "uint*" : "ptr"
+    pcDaysMarshal := pcDays is VarRef ? "uint*" : IntPtr
 
     result := DllCall("msdrm.dll\DRMGetIntervalTime", UInt32, hIssuanceLicense, pcDaysMarshal, pcDays, "HRESULT")
     return result
@@ -3276,7 +3367,7 @@ export DRMRegisterProtectedWindow(hEnv, _hwnd) {
  * @since windows6.0.6000
  */
 export DRMIsWindowProtected(_hwnd, pfProtected) {
-    pfProtectedMarshal := pfProtected is VarRef ? "int*" : "ptr"
+    pfProtectedMarshal := pfProtected is VarRef ? "int*" : IntPtr
 
     result := DllCall("msdrm.dll\DRMIsWindowProtected", HWND, _hwnd, pfProtectedMarshal, pfProtected, "HRESULT")
     return result
@@ -3307,9 +3398,10 @@ export DRMIsWindowProtected(_hwnd, pfProtected) {
 export DRMAcquireIssuanceLicenseTemplate(hClient, uFlags, pvReserved, cTemplates, pwszTemplateIds, wszUrl, pvContext) {
     wszUrl := wszUrl is String ? StrPtr(wszUrl) : wszUrl
 
-    pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
-    pwszTemplateIdsMarshal := pwszTemplateIds is VarRef ? "ptr*" : "ptr"
-    pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+    pvReservedMarshal := pvReserved is VarRef ? "ptr" : IntPtr
+    pwszTemplateIdsMarshal := pwszTemplateIds is VarRef ? "ptr*" : IntPtr
+    pwszTemplateIdsMarshal := pwszTemplateIds == 0 ? IntPtr : PWSTR.Ptr
+    pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
     result := DllCall("msdrm.dll\DRMAcquireIssuanceLicenseTemplate", UInt32, hClient, UInt32, uFlags, pvReservedMarshal, pvReserved, UInt32, cTemplates, pwszTemplateIdsMarshal, pwszTemplateIds, "ptr", wszUrl, pvContextMarshal, pvContext, "HRESULT")
     return result

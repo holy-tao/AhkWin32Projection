@@ -41,7 +41,6 @@ export default struct IXpsPartIterator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reset() {
@@ -49,7 +48,6 @@ export default struct IXpsPartIterator extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pUri 
      * @param {Pointer<IUnknown>} ppXpsPart 
      * @returns {HRESULT} 
@@ -60,7 +58,6 @@ export default struct IXpsPartIterator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsDone() {
@@ -69,7 +66,6 @@ export default struct IXpsPartIterator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Next() {
@@ -85,10 +81,10 @@ export default struct IXpsPartIterator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.Current := CallbackCreate(GetMethod(implObj, "Current"), flags, 3)
-        this.vtbl.IsDone := CallbackCreate(GetMethod(implObj, "IsDone"), flags, 1)
-        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 1)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Current := CallbackCreate(ObjBindMethod(implObj, "Current"), flags, 3)
+        this.vtbl.IsDone := CallbackCreate(ObjBindMethod(implObj, "IsDone"), flags, 1)
+        this.vtbl.Next := CallbackCreate(ObjBindMethod(implObj, "Next"), flags, 1)
     }
 
     Dispose() {

@@ -37,7 +37,6 @@ export default struct IPrinterQueueEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrResponse 
      * @param {HRESULT} hrStatus 
      * @returns {HRESULT} 
@@ -58,7 +57,7 @@ export default struct IPrinterQueueEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnBidiResponseReceived := CallbackCreate(GetMethod(implObj, "OnBidiResponseReceived"), flags, 3)
+        this.vtbl.OnBidiResponseReceived := CallbackCreate(ObjBindMethod(implObj, "OnBidiResponseReceived"), flags, 3)
     }
 
     Dispose() {

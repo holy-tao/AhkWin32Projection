@@ -114,8 +114,8 @@ export default struct ID2D1Bitmap extends ID2D1Image {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1bitmap-getdpi
      */
     GetDpi(dpiX, dpiY) {
-        dpiXMarshal := dpiX is VarRef ? "float*" : "ptr"
-        dpiYMarshal := dpiY is VarRef ? "float*" : "ptr"
+        dpiXMarshal := dpiX is VarRef ? "float*" : IntPtr
+        dpiYMarshal := dpiY is VarRef ? "float*" : IntPtr
 
         ComCall(7, this, dpiXMarshal, dpiX, dpiYMarshal, dpiY)
     }
@@ -143,7 +143,10 @@ export default struct ID2D1Bitmap extends ID2D1Image {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1bitmap-copyfrombitmap
      */
     CopyFromBitmap(destPoint, _bitmap, srcRect) {
-        result := ComCall(8, this, D2D_POINT_2U.Ptr, destPoint, "ptr", _bitmap, D2D_RECT_U.Ptr, srcRect, "HRESULT")
+        destPointMarshal := destPoint == 0 ? IntPtr : D2D_POINT_2U.Ptr
+        srcRectMarshal := srcRect == 0 ? IntPtr : D2D_RECT_U.Ptr
+
+        result := ComCall(8, this, destPointMarshal, destPoint, "ptr", _bitmap, srcRectMarshal, srcRect, "HRESULT")
         return result
     }
 
@@ -170,7 +173,10 @@ export default struct ID2D1Bitmap extends ID2D1Image {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1bitmap-copyfromrendertarget
      */
     CopyFromRenderTarget(destPoint, renderTarget, srcRect) {
-        result := ComCall(9, this, D2D_POINT_2U.Ptr, destPoint, "ptr", renderTarget, D2D_RECT_U.Ptr, srcRect, "HRESULT")
+        destPointMarshal := destPoint == 0 ? IntPtr : D2D_POINT_2U.Ptr
+        srcRectMarshal := srcRect == 0 ? IntPtr : D2D_RECT_U.Ptr
+
+        result := ComCall(9, this, destPointMarshal, destPoint, "ptr", renderTarget, srcRectMarshal, srcRect, "HRESULT")
         return result
     }
 
@@ -199,9 +205,10 @@ export default struct ID2D1Bitmap extends ID2D1Image {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1bitmap-copyfrommemory
      */
     CopyFromMemory(dstRect, srcData, pitch) {
-        srcDataMarshal := srcData is VarRef ? "ptr" : "ptr"
+        dstRectMarshal := dstRect == 0 ? IntPtr : D2D_RECT_U.Ptr
+        srcDataMarshal := srcData is VarRef ? "ptr" : IntPtr
 
-        result := ComCall(10, this, D2D_RECT_U.Ptr, dstRect, srcDataMarshal, srcData, UInt32, pitch, "HRESULT")
+        result := ComCall(10, this, dstRectMarshal, dstRect, srcDataMarshal, srcData, UInt32, pitch, "HRESULT")
         return result
     }
 
@@ -214,13 +221,13 @@ export default struct ID2D1Bitmap extends ID2D1Image {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSize := CallbackCreate(GetMethod(implObj, "GetSize"), flags, 1)
-        this.vtbl.GetPixelSize := CallbackCreate(GetMethod(implObj, "GetPixelSize"), flags, 1)
-        this.vtbl.GetPixelFormat := CallbackCreate(GetMethod(implObj, "GetPixelFormat"), flags, 1)
-        this.vtbl.GetDpi := CallbackCreate(GetMethod(implObj, "GetDpi"), flags, 3)
-        this.vtbl.CopyFromBitmap := CallbackCreate(GetMethod(implObj, "CopyFromBitmap"), flags, 4)
-        this.vtbl.CopyFromRenderTarget := CallbackCreate(GetMethod(implObj, "CopyFromRenderTarget"), flags, 4)
-        this.vtbl.CopyFromMemory := CallbackCreate(GetMethod(implObj, "CopyFromMemory"), flags, 4)
+        this.vtbl.GetSize := CallbackCreate(ObjBindMethod(implObj, "GetSize"), flags, 1)
+        this.vtbl.GetPixelSize := CallbackCreate(ObjBindMethod(implObj, "GetPixelSize"), flags, 1)
+        this.vtbl.GetPixelFormat := CallbackCreate(ObjBindMethod(implObj, "GetPixelFormat"), flags, 1)
+        this.vtbl.GetDpi := CallbackCreate(ObjBindMethod(implObj, "GetDpi"), flags, 3)
+        this.vtbl.CopyFromBitmap := CallbackCreate(ObjBindMethod(implObj, "CopyFromBitmap"), flags, 4)
+        this.vtbl.CopyFromRenderTarget := CallbackCreate(ObjBindMethod(implObj, "CopyFromRenderTarget"), flags, 4)
+        this.vtbl.CopyFromMemory := CallbackCreate(ObjBindMethod(implObj, "CopyFromMemory"), flags, 4)
     }
 
     Dispose() {

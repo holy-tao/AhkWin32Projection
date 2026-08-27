@@ -24,7 +24,6 @@ export default struct PFAX_EXT_INITIALIZE_CONFIG {
     }
 
     /**
-     * 
      * @param {Pointer<PFAX_EXT_GET_DATA>} param0 
      * @param {Pointer<PFAX_EXT_SET_DATA>} param1 
      * @param {Pointer<PFAX_EXT_REGISTER_FOR_EVENTS>} param2 

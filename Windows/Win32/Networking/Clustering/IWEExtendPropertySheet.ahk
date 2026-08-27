@@ -171,7 +171,7 @@ export default struct IWEExtendPropertySheet extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreatePropertySheetPages := CallbackCreate(GetMethod(implObj, "CreatePropertySheetPages"), flags, 3)
+        this.vtbl.CreatePropertySheetPages := CallbackCreate(ObjBindMethod(implObj, "CreatePropertySheetPages"), flags, 3)
     }
 
     Dispose() {

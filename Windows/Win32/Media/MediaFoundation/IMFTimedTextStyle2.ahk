@@ -42,7 +42,6 @@ export default struct IMFTimedTextStyle2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IMFTimedTextRuby} 
      */
     GetRuby() {
@@ -51,7 +50,6 @@ export default struct IMFTimedTextStyle2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IMFTimedTextBouten} 
      */
     GetBouten() {
@@ -60,7 +58,6 @@ export default struct IMFTimedTextStyle2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsTextCombined() {
@@ -69,7 +66,6 @@ export default struct IMFTimedTextStyle2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     GetFontAngleInDegrees() {
@@ -86,10 +82,10 @@ export default struct IMFTimedTextStyle2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRuby := CallbackCreate(GetMethod(implObj, "GetRuby"), flags, 2)
-        this.vtbl.GetBouten := CallbackCreate(GetMethod(implObj, "GetBouten"), flags, 2)
-        this.vtbl.IsTextCombined := CallbackCreate(GetMethod(implObj, "IsTextCombined"), flags, 2)
-        this.vtbl.GetFontAngleInDegrees := CallbackCreate(GetMethod(implObj, "GetFontAngleInDegrees"), flags, 2)
+        this.vtbl.GetRuby := CallbackCreate(ObjBindMethod(implObj, "GetRuby"), flags, 2)
+        this.vtbl.GetBouten := CallbackCreate(ObjBindMethod(implObj, "GetBouten"), flags, 2)
+        this.vtbl.IsTextCombined := CallbackCreate(ObjBindMethod(implObj, "IsTextCombined"), flags, 2)
+        this.vtbl.GetFontAngleInDegrees := CallbackCreate(ObjBindMethod(implObj, "GetFontAngleInDegrees"), flags, 2)
     }
 
     Dispose() {

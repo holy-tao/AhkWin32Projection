@@ -72,8 +72,8 @@ export default struct IWMPacketSize2 extends IWMPacketSize {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMinPacketSize := CallbackCreate(GetMethod(implObj, "GetMinPacketSize"), flags, 2)
-        this.vtbl.SetMinPacketSize := CallbackCreate(GetMethod(implObj, "SetMinPacketSize"), flags, 2)
+        this.vtbl.GetMinPacketSize := CallbackCreate(ObjBindMethod(implObj, "GetMinPacketSize"), flags, 2)
+        this.vtbl.SetMinPacketSize := CallbackCreate(ObjBindMethod(implObj, "SetMinPacketSize"), flags, 2)
     }
 
     Dispose() {

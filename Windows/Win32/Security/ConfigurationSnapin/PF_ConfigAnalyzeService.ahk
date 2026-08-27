@@ -19,7 +19,6 @@ export default struct PF_ConfigAnalyzeService {
     }
 
     /**
-     * 
      * @param {Pointer<SCESVC_CALLBACK_INFO>} pSceCbInfo 
      * @returns {Integer} 
      */

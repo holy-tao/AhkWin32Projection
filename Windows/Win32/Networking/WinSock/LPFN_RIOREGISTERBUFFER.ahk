@@ -41,7 +41,6 @@ export default struct LPFN_RIOREGISTERBUFFER {
     }
 
     /**
-     * 
      * @param {PSTR} DataBuffer A pointer to the beginning of the memory buffer to register.
      * @param {Integer} DataLength The length, in bytes, in the buffer to register.
      * @returns {RIO_BUFFERID} If no error occurs, the **RIORegisterBuffer** function returns a registered buffer descriptor. Otherwise, a value of **RIO\_INVALID\_BUFFERID** is returned, and a specific error code can be retrieved by calling the [**WSAGetLastError**](../winsock/nf-winsock-wsagetlasterror.md) function.

@@ -153,14 +153,14 @@ export default struct IRDPViewerInputSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SendMouseButtonEvent := CallbackCreate(GetMethod(implObj, "SendMouseButtonEvent"), flags, 5)
-        this.vtbl.SendMouseMoveEvent := CallbackCreate(GetMethod(implObj, "SendMouseMoveEvent"), flags, 3)
-        this.vtbl.SendMouseWheelEvent := CallbackCreate(GetMethod(implObj, "SendMouseWheelEvent"), flags, 2)
-        this.vtbl.SendKeyboardEvent := CallbackCreate(GetMethod(implObj, "SendKeyboardEvent"), flags, 6)
-        this.vtbl.SendSyncEvent := CallbackCreate(GetMethod(implObj, "SendSyncEvent"), flags, 2)
-        this.vtbl.BeginTouchFrame := CallbackCreate(GetMethod(implObj, "BeginTouchFrame"), flags, 1)
-        this.vtbl.AddTouchInput := CallbackCreate(GetMethod(implObj, "AddTouchInput"), flags, 5)
-        this.vtbl.EndTouchFrame := CallbackCreate(GetMethod(implObj, "EndTouchFrame"), flags, 1)
+        this.vtbl.SendMouseButtonEvent := CallbackCreate(ObjBindMethod(implObj, "SendMouseButtonEvent"), flags, 5)
+        this.vtbl.SendMouseMoveEvent := CallbackCreate(ObjBindMethod(implObj, "SendMouseMoveEvent"), flags, 3)
+        this.vtbl.SendMouseWheelEvent := CallbackCreate(ObjBindMethod(implObj, "SendMouseWheelEvent"), flags, 2)
+        this.vtbl.SendKeyboardEvent := CallbackCreate(ObjBindMethod(implObj, "SendKeyboardEvent"), flags, 6)
+        this.vtbl.SendSyncEvent := CallbackCreate(ObjBindMethod(implObj, "SendSyncEvent"), flags, 2)
+        this.vtbl.BeginTouchFrame := CallbackCreate(ObjBindMethod(implObj, "BeginTouchFrame"), flags, 1)
+        this.vtbl.AddTouchInput := CallbackCreate(ObjBindMethod(implObj, "AddTouchInput"), flags, 5)
+        this.vtbl.EndTouchFrame := CallbackCreate(ObjBindMethod(implObj, "EndTouchFrame"), flags, 1)
     }
 
     Dispose() {

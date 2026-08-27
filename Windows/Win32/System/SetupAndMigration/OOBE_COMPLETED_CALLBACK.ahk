@@ -22,12 +22,12 @@ export default struct OOBE_COMPLETED_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} CallbackContext Pointer to the callback context. This is the value passed to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oobenotification/nf-oobenotification-registerwaituntiloobecompleted">RegisterWaitUntilOOBECompleted</a> function as the <i>CallbackContext</i> parameter.
      * @returns {String} Nothing - always returns an empty string
      */
     Call(CallbackContext) {
-        CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
+        CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : IntPtr
+        CallbackContextMarshal := CallbackContext == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, CallbackContextMarshal, CallbackContext)
     }

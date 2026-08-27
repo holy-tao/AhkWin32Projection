@@ -103,9 +103,9 @@ export default struct IMFCapturePhotoSink extends IMFCaptureSink {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetOutputFileName := CallbackCreate(GetMethod(implObj, "SetOutputFileName"), flags, 2)
-        this.vtbl.SetSampleCallback := CallbackCreate(GetMethod(implObj, "SetSampleCallback"), flags, 2)
-        this.vtbl.SetOutputByteStream := CallbackCreate(GetMethod(implObj, "SetOutputByteStream"), flags, 2)
+        this.vtbl.SetOutputFileName := CallbackCreate(ObjBindMethod(implObj, "SetOutputFileName"), flags, 2)
+        this.vtbl.SetSampleCallback := CallbackCreate(ObjBindMethod(implObj, "SetSampleCallback"), flags, 2)
+        this.vtbl.SetOutputByteStream := CallbackCreate(ObjBindMethod(implObj, "SetOutputByteStream"), flags, 2)
     }
 
     Dispose() {

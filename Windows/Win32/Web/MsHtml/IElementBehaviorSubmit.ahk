@@ -38,7 +38,6 @@ export default struct IElementBehaviorSubmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHTMLSubmitData} pSubmitData 
      * @returns {HRESULT} 
      */
@@ -48,7 +47,6 @@ export default struct IElementBehaviorSubmit extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -65,8 +63,8 @@ export default struct IElementBehaviorSubmit extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSubmitInfo := CallbackCreate(GetMethod(implObj, "GetSubmitInfo"), flags, 2)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.GetSubmitInfo := CallbackCreate(ObjBindMethod(implObj, "GetSubmitInfo"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
     }
 
     Dispose() {

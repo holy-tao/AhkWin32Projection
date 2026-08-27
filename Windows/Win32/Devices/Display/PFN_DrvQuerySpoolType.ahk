@@ -21,7 +21,6 @@ export default struct PFN_DrvQuerySpoolType {
     }
 
     /**
-     * 
      * @param {DHPDEV} _dhpdev 
      * @param {PWSTR} pwchType 
      * @returns {BOOL} 

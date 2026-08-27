@@ -38,7 +38,6 @@ export default struct ITableRename extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DBID>} pTableId 
      * @param {Pointer<DBID>} pOldColumnId 
      * @param {Pointer<DBID>} pNewColumnId 
@@ -50,7 +49,6 @@ export default struct ITableRename extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DBID>} pOldTableId 
      * @param {Pointer<DBID>} pOldIndexId 
      * @param {Pointer<DBID>} pNewTableId 
@@ -71,8 +69,8 @@ export default struct ITableRename extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RenameColumn := CallbackCreate(GetMethod(implObj, "RenameColumn"), flags, 4)
-        this.vtbl.RenameTable := CallbackCreate(GetMethod(implObj, "RenameTable"), flags, 5)
+        this.vtbl.RenameColumn := CallbackCreate(ObjBindMethod(implObj, "RenameColumn"), flags, 4)
+        this.vtbl.RenameTable := CallbackCreate(ObjBindMethod(implObj, "RenameTable"), flags, 5)
     }
 
     Dispose() {

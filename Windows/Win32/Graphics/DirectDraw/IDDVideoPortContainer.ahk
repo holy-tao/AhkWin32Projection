@@ -45,7 +45,6 @@ export default struct IDDVideoPortContainer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<DDVIDEOPORTDESC>} param1 
      * @param {IUnknown} param3 
@@ -57,7 +56,6 @@ export default struct IDDVideoPortContainer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<DDVIDEOPORTCAPS>} param1 
      * @param {Pointer<Void>} param2 
@@ -65,20 +63,19 @@ export default struct IDDVideoPortContainer extends IUnknown {
      * @returns {HRESULT} 
      */
     EnumVideoPorts(param0, param1, param2, param3) {
-        param2Marshal := param2 is VarRef ? "ptr" : "ptr"
+        param2Marshal := param2 is VarRef ? "ptr" : IntPtr
 
         result := ComCall(4, this, UInt32, param0, DDVIDEOPORTCAPS.Ptr, param1, param2Marshal, param2, LPDDENUMVIDEOCALLBACK, param3, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<Integer>} pcInfo 
      * @returns {DDVIDEOPORTCONNECT} 
      */
     GetVideoPortConnectInfo(param0, pcInfo) {
-        pcInfoMarshal := pcInfo is VarRef ? "uint*" : "ptr"
+        pcInfoMarshal := pcInfo is VarRef ? "uint*" : IntPtr
 
         param2 := DDVIDEOPORTCONNECT()
         result := ComCall(5, this, UInt32, param0, pcInfoMarshal, pcInfo, DDVIDEOPORTCONNECT.Ptr, param2, "HRESULT")
@@ -86,7 +83,6 @@ export default struct IDDVideoPortContainer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<DDVIDEOPORTSTATUS>} param1 
      * @returns {HRESULT} 
@@ -105,10 +101,10 @@ export default struct IDDVideoPortContainer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateVideoPort := CallbackCreate(GetMethod(implObj, "CreateVideoPort"), flags, 5)
-        this.vtbl.EnumVideoPorts := CallbackCreate(GetMethod(implObj, "EnumVideoPorts"), flags, 5)
-        this.vtbl.GetVideoPortConnectInfo := CallbackCreate(GetMethod(implObj, "GetVideoPortConnectInfo"), flags, 4)
-        this.vtbl.QueryVideoPortStatus := CallbackCreate(GetMethod(implObj, "QueryVideoPortStatus"), flags, 3)
+        this.vtbl.CreateVideoPort := CallbackCreate(ObjBindMethod(implObj, "CreateVideoPort"), flags, 5)
+        this.vtbl.EnumVideoPorts := CallbackCreate(ObjBindMethod(implObj, "EnumVideoPorts"), flags, 5)
+        this.vtbl.GetVideoPortConnectInfo := CallbackCreate(ObjBindMethod(implObj, "GetVideoPortConnectInfo"), flags, 4)
+        this.vtbl.QueryVideoPortStatus := CallbackCreate(ObjBindMethod(implObj, "QueryVideoPortStatus"), flags, 3)
     }
 
     Dispose() {

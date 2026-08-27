@@ -21,13 +21,12 @@ export default struct IOMMU_UNREGISTER_INTERFACE_STATE_CHANGE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<PIOMMU_INTERFACE_STATE_CHANGE_CALLBACK>} StateChangeCallback 
      * @param {Pointer<IOMMU_DMA_DEVICE>} DmaDevice 
      * @returns {NTSTATUS} 
      */
     Call(StateChangeCallback, DmaDevice) {
-        DmaDeviceMarshal := DmaDevice is VarRef ? "ptr*" : "ptr"
+        DmaDeviceMarshal := DmaDevice is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, PIOMMU_INTERFACE_STATE_CHANGE_CALLBACK, StateChangeCallback, DmaDeviceMarshal, DmaDevice, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

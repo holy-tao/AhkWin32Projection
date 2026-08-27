@@ -71,7 +71,7 @@ export default struct IMbnConnectionProfileEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnProfileUpdate := CallbackCreate(GetMethod(implObj, "OnProfileUpdate"), flags, 2)
+        this.vtbl.OnProfileUpdate := CallbackCreate(ObjBindMethod(implObj, "OnProfileUpdate"), flags, 2)
     }
 
     Dispose() {

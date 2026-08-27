@@ -83,7 +83,7 @@ export default struct IBDA_DeviceControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_devicecontrol-getchangestate
      */
     GetChangeState(pState) {
-        pStateMarshal := pState is VarRef ? "uint*" : "ptr"
+        pStateMarshal := pState is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, pStateMarshal, pState, "HRESULT")
         return result
@@ -98,10 +98,10 @@ export default struct IBDA_DeviceControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StartChanges := CallbackCreate(GetMethod(implObj, "StartChanges"), flags, 1)
-        this.vtbl.CheckChanges := CallbackCreate(GetMethod(implObj, "CheckChanges"), flags, 1)
-        this.vtbl.CommitChanges := CallbackCreate(GetMethod(implObj, "CommitChanges"), flags, 1)
-        this.vtbl.GetChangeState := CallbackCreate(GetMethod(implObj, "GetChangeState"), flags, 2)
+        this.vtbl.StartChanges := CallbackCreate(ObjBindMethod(implObj, "StartChanges"), flags, 1)
+        this.vtbl.CheckChanges := CallbackCreate(ObjBindMethod(implObj, "CheckChanges"), flags, 1)
+        this.vtbl.CommitChanges := CallbackCreate(ObjBindMethod(implObj, "CommitChanges"), flags, 1)
+        this.vtbl.GetChangeState := CallbackCreate(ObjBindMethod(implObj, "GetChangeState"), flags, 2)
     }
 
     Dispose() {

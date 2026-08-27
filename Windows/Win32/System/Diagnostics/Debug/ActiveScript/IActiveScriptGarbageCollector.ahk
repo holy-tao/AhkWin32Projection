@@ -37,7 +37,6 @@ export default struct IActiveScriptGarbageCollector extends IUnknown {
     }
 
     /**
-     * 
      * @param {SCRIPTGCTYPE} _scriptgctype 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,7 @@ export default struct IActiveScriptGarbageCollector extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CollectGarbage := CallbackCreate(GetMethod(implObj, "CollectGarbage"), flags, 2)
+        this.vtbl.CollectGarbage := CallbackCreate(ObjBindMethod(implObj, "CollectGarbage"), flags, 2)
     }
 
     Dispose() {

@@ -37,7 +37,6 @@ export default struct IHTMLControlRange2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLElement} item 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,7 @@ export default struct IHTMLControlRange2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.addElement := CallbackCreate(GetMethod(implObj, "addElement"), flags, 2)
+        this.vtbl.addElement := CallbackCreate(ObjBindMethod(implObj, "addElement"), flags, 2)
     }
 
     Dispose() {

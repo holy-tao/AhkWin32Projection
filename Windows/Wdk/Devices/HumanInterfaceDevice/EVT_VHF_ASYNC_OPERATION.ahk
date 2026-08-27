@@ -19,7 +19,6 @@ export default struct EVT_VHF_ASYNC_OPERATION {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} VhfClientContext 
      * @param {Pointer<Void>} VhfOperationHandle 
      * @param {Pointer<Void>} VhfOperationContext 
@@ -27,9 +26,10 @@ export default struct EVT_VHF_ASYNC_OPERATION {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(VhfClientContext, VhfOperationHandle, VhfOperationContext, HidTransferPacket) {
-        VhfClientContextMarshal := VhfClientContext is VarRef ? "ptr" : "ptr"
-        VhfOperationHandleMarshal := VhfOperationHandle is VarRef ? "ptr" : "ptr"
-        VhfOperationContextMarshal := VhfOperationContext is VarRef ? "ptr" : "ptr"
+        VhfClientContextMarshal := VhfClientContext is VarRef ? "ptr" : IntPtr
+        VhfOperationHandleMarshal := VhfOperationHandle is VarRef ? "ptr" : IntPtr
+        VhfOperationContextMarshal := VhfOperationContext is VarRef ? "ptr" : IntPtr
+        VhfOperationContextMarshal := VhfOperationContext == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, VhfClientContextMarshal, VhfClientContext, VhfOperationHandleMarshal, VhfOperationHandle, VhfOperationContextMarshal, VhfOperationContext, HID_XFER_PACKET.Ptr, HidTransferPacket)
     }

@@ -132,13 +132,13 @@ export default struct ID3D12VideoEncoder extends ID3D12Pageable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNodeMask := CallbackCreate(GetMethod(implObj, "GetNodeMask"), flags, 1)
-        this.vtbl.GetEncoderFlags := CallbackCreate(GetMethod(implObj, "GetEncoderFlags"), flags, 1)
-        this.vtbl.GetCodec := CallbackCreate(GetMethod(implObj, "GetCodec"), flags, 1)
-        this.vtbl.GetCodecProfile := CallbackCreate(GetMethod(implObj, "GetCodecProfile"), flags, 2)
-        this.vtbl.GetCodecConfiguration := CallbackCreate(GetMethod(implObj, "GetCodecConfiguration"), flags, 2)
-        this.vtbl.GetInputFormat := CallbackCreate(GetMethod(implObj, "GetInputFormat"), flags, 1)
-        this.vtbl.GetMaxMotionEstimationPrecision := CallbackCreate(GetMethod(implObj, "GetMaxMotionEstimationPrecision"), flags, 1)
+        this.vtbl.GetNodeMask := CallbackCreate(ObjBindMethod(implObj, "GetNodeMask"), flags, 1)
+        this.vtbl.GetEncoderFlags := CallbackCreate(ObjBindMethod(implObj, "GetEncoderFlags"), flags, 1)
+        this.vtbl.GetCodec := CallbackCreate(ObjBindMethod(implObj, "GetCodec"), flags, 1)
+        this.vtbl.GetCodecProfile := CallbackCreate(ObjBindMethod(implObj, "GetCodecProfile"), flags, 2)
+        this.vtbl.GetCodecConfiguration := CallbackCreate(ObjBindMethod(implObj, "GetCodecConfiguration"), flags, 2)
+        this.vtbl.GetInputFormat := CallbackCreate(ObjBindMethod(implObj, "GetInputFormat"), flags, 1)
+        this.vtbl.GetMaxMotionEstimationPrecision := CallbackCreate(ObjBindMethod(implObj, "GetMaxMotionEstimationPrecision"), flags, 1)
     }
 
     Dispose() {

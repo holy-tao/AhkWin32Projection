@@ -21,14 +21,13 @@ export default struct PCLFS_CLIENT_ADVANCE_TAIL_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} LogFile 
      * @param {Pointer<CLS_LSN>} TargetLsn 
      * @param {Pointer<Void>} ClientData 
      * @returns {NTSTATUS} 
      */
     Call(LogFile, TargetLsn, ClientData) {
-        ClientDataMarshal := ClientData is VarRef ? "ptr" : "ptr"
+        ClientDataMarshal := ClientData is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, FILE_OBJECT.Ptr, LogFile, CLS_LSN.Ptr, TargetLsn, ClientDataMarshal, ClientData, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

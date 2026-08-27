@@ -75,8 +75,8 @@ export default struct IDirect3DVertexShader9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvertexshader9-getfunction
      */
     GetFunction(param0, pSizeOfData) {
-        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
-        pSizeOfDataMarshal := pSizeOfData is VarRef ? "uint*" : "ptr"
+        param0Marshal := param0 is VarRef ? "ptr" : IntPtr
+        pSizeOfDataMarshal := pSizeOfData is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, param0Marshal, param0, pSizeOfDataMarshal, pSizeOfData, "HRESULT")
         return result
@@ -91,8 +91,8 @@ export default struct IDirect3DVertexShader9 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDevice := CallbackCreate(GetMethod(implObj, "GetDevice"), flags, 2)
-        this.vtbl.GetFunction := CallbackCreate(GetMethod(implObj, "GetFunction"), flags, 3)
+        this.vtbl.GetDevice := CallbackCreate(ObjBindMethod(implObj, "GetDevice"), flags, 2)
+        this.vtbl.GetFunction := CallbackCreate(ObjBindMethod(implObj, "GetFunction"), flags, 3)
     }
 
     Dispose() {

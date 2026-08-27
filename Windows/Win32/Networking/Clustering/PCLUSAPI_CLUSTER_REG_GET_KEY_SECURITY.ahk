@@ -19,7 +19,6 @@ export default struct PCLUSAPI_CLUSTER_REG_GET_KEY_SECURITY {
     }
 
     /**
-     * 
      * @param {HKEY} _hKey 
      * @param {Integer} RequestedInformation 
      * @param {Integer} pSecurityDescriptor 
@@ -27,7 +26,7 @@ export default struct PCLUSAPI_CLUSTER_REG_GET_KEY_SECURITY {
      * @returns {Integer} 
      */
     Call(_hKey, RequestedInformation, pSecurityDescriptor, lpcbSecurityDescriptor) {
-        lpcbSecurityDescriptorMarshal := lpcbSecurityDescriptor is VarRef ? "uint*" : "ptr"
+        lpcbSecurityDescriptorMarshal := lpcbSecurityDescriptor is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HKEY, _hKey, UInt32, RequestedInformation, IntPtr, pSecurityDescriptor, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, Int32)
         return result

@@ -36,7 +36,6 @@ export default struct IPackagedComSyntaxSupport extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetSupportedVersion() {
@@ -53,7 +52,7 @@ export default struct IPackagedComSyntaxSupport extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSupportedVersion := CallbackCreate(GetMethod(implObj, "GetSupportedVersion"), flags, 2)
+        this.vtbl.GetSupportedVersion := CallbackCreate(ObjBindMethod(implObj, "GetSupportedVersion"), flags, 2)
     }
 
     Dispose() {

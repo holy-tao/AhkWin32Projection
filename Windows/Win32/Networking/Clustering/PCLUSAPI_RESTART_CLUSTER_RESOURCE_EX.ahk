@@ -19,7 +19,6 @@ export default struct PCLUSAPI_RESTART_CLUSTER_RESOURCE_EX {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {Integer} dwFlags 
      * @returns {Integer} 

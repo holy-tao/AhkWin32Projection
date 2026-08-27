@@ -141,14 +141,14 @@ export default struct IDvbServiceDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetServiceType := CallbackCreate(GetMethod(implObj, "GetServiceType"), flags, 2)
-        this.vtbl.GetServiceProviderName := CallbackCreate(GetMethod(implObj, "GetServiceProviderName"), flags, 2)
-        this.vtbl.GetServiceProviderNameW := CallbackCreate(GetMethod(implObj, "GetServiceProviderNameW"), flags, 2)
-        this.vtbl.GetServiceName := CallbackCreate(GetMethod(implObj, "GetServiceName"), flags, 2)
-        this.vtbl.GetProcessedServiceName := CallbackCreate(GetMethod(implObj, "GetProcessedServiceName"), flags, 2)
-        this.vtbl.GetServiceNameEmphasized := CallbackCreate(GetMethod(implObj, "GetServiceNameEmphasized"), flags, 2)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetServiceType := CallbackCreate(ObjBindMethod(implObj, "GetServiceType"), flags, 2)
+        this.vtbl.GetServiceProviderName := CallbackCreate(ObjBindMethod(implObj, "GetServiceProviderName"), flags, 2)
+        this.vtbl.GetServiceProviderNameW := CallbackCreate(ObjBindMethod(implObj, "GetServiceProviderNameW"), flags, 2)
+        this.vtbl.GetServiceName := CallbackCreate(ObjBindMethod(implObj, "GetServiceName"), flags, 2)
+        this.vtbl.GetProcessedServiceName := CallbackCreate(ObjBindMethod(implObj, "GetProcessedServiceName"), flags, 2)
+        this.vtbl.GetServiceNameEmphasized := CallbackCreate(ObjBindMethod(implObj, "GetServiceNameEmphasized"), flags, 2)
     }
 
     Dispose() {

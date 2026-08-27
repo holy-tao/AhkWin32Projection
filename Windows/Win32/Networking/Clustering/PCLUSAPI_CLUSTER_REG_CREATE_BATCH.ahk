@@ -20,15 +20,15 @@ export default struct PCLUSAPI_CLUSTER_REG_CREATE_BATCH {
     }
 
     /**
-     * 
      * @param {HKEY} _hKey 
      * @param {Pointer<HREGBATCH>} pHREGBATCH 
      * @returns {Integer} 
      */
     Call(_hKey, pHREGBATCH) {
-        pHREGBATCHMarshal := pHREGBATCH is VarRef ? "ptr*" : "ptr"
+        _hKeyMarshal := _hKey == 0 ? IntPtr : HKEY
+        pHREGBATCHMarshal := pHREGBATCH is VarRef ? "ptr*" : IntPtr
 
-        result := DllCall(this.value, HKEY, _hKey, pHREGBATCHMarshal, pHREGBATCH, Int32)
+        result := DllCall(this.value, _hKeyMarshal, _hKey, pHREGBATCHMarshal, pHREGBATCH, Int32)
         return result
     }
 

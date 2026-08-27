@@ -78,8 +78,8 @@ export default struct IIPDVDec extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_IPDisplay := CallbackCreate(GetMethod(implObj, "get_IPDisplay"), flags, 2)
-        this.vtbl.put_IPDisplay := CallbackCreate(GetMethod(implObj, "put_IPDisplay"), flags, 2)
+        this.vtbl.get_IPDisplay := CallbackCreate(ObjBindMethod(implObj, "get_IPDisplay"), flags, 2)
+        this.vtbl.put_IPDisplay := CallbackCreate(ObjBindMethod(implObj, "put_IPDisplay"), flags, 2)
     }
 
     Dispose() {

@@ -23,7 +23,6 @@ export default struct PRESUTIL_GET_RESOURCE_DEPENDENCY_BY_NAME_EX {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {HANDLE} hSelf 
      * @param {PWSTR} lpszResourceType 

@@ -45,7 +45,6 @@ export default struct AsyncIPipeByte extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cRequest 
      * @returns {HRESULT} 
      */
@@ -55,34 +54,31 @@ export default struct AsyncIPipeByte extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} buf 
      * @param {Pointer<Integer>} pcReturned 
      * @returns {HRESULT} 
      */
     Finish_Pull(buf, pcReturned) {
-        bufMarshal := buf is VarRef ? "char*" : "ptr"
-        pcReturnedMarshal := pcReturned is VarRef ? "uint*" : "ptr"
+        bufMarshal := buf is VarRef ? "char*" : IntPtr
+        pcReturnedMarshal := pcReturned is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, bufMarshal, buf, pcReturnedMarshal, pcReturned, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} buf 
      * @param {Integer} cSent 
      * @returns {HRESULT} 
      */
     Begin_Push(buf, cSent) {
-        bufMarshal := buf is VarRef ? "char*" : "ptr"
+        bufMarshal := buf is VarRef ? "char*" : IntPtr
 
         result := ComCall(5, this, bufMarshal, buf, UInt32, cSent, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_Push() {
@@ -99,10 +95,10 @@ export default struct AsyncIPipeByte extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Begin_Pull := CallbackCreate(GetMethod(implObj, "Begin_Pull"), flags, 2)
-        this.vtbl.Finish_Pull := CallbackCreate(GetMethod(implObj, "Finish_Pull"), flags, 3)
-        this.vtbl.Begin_Push := CallbackCreate(GetMethod(implObj, "Begin_Push"), flags, 3)
-        this.vtbl.Finish_Push := CallbackCreate(GetMethod(implObj, "Finish_Push"), flags, 1)
+        this.vtbl.Begin_Pull := CallbackCreate(ObjBindMethod(implObj, "Begin_Pull"), flags, 2)
+        this.vtbl.Finish_Pull := CallbackCreate(ObjBindMethod(implObj, "Finish_Pull"), flags, 3)
+        this.vtbl.Begin_Push := CallbackCreate(ObjBindMethod(implObj, "Begin_Push"), flags, 3)
+        this.vtbl.Finish_Push := CallbackCreate(ObjBindMethod(implObj, "Finish_Push"), flags, 1)
     }
 
     Dispose() {

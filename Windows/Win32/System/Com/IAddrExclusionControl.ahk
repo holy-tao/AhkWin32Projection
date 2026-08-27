@@ -37,7 +37,6 @@ export default struct IAddrExclusionControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
@@ -47,7 +46,6 @@ export default struct IAddrExclusionControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pEnumerator 
      * @returns {HRESULT} 
      */
@@ -65,8 +63,8 @@ export default struct IAddrExclusionControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCurrentAddrExclusionList := CallbackCreate(GetMethod(implObj, "GetCurrentAddrExclusionList"), flags, 3)
-        this.vtbl.UpdateAddrExclusionList := CallbackCreate(GetMethod(implObj, "UpdateAddrExclusionList"), flags, 2)
+        this.vtbl.GetCurrentAddrExclusionList := CallbackCreate(ObjBindMethod(implObj, "GetCurrentAddrExclusionList"), flags, 3)
+        this.vtbl.UpdateAddrExclusionList := CallbackCreate(ObjBindMethod(implObj, "UpdateAddrExclusionList"), flags, 2)
     }
 
     Dispose() {

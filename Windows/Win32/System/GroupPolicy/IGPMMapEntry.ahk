@@ -78,7 +78,6 @@ export default struct IGPMMapEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Source() {
@@ -88,7 +87,6 @@ export default struct IGPMMapEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Destination() {
@@ -98,7 +96,6 @@ export default struct IGPMMapEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMDestinationOption} 
      */
     get_DestinationOption() {
@@ -107,7 +104,6 @@ export default struct IGPMMapEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMEntryType} 
      */
     get_EntryType() {
@@ -124,10 +120,10 @@ export default struct IGPMMapEntry extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Source := CallbackCreate(GetMethod(implObj, "get_Source"), flags, 2)
-        this.vtbl.get_Destination := CallbackCreate(GetMethod(implObj, "get_Destination"), flags, 2)
-        this.vtbl.get_DestinationOption := CallbackCreate(GetMethod(implObj, "get_DestinationOption"), flags, 2)
-        this.vtbl.get_EntryType := CallbackCreate(GetMethod(implObj, "get_EntryType"), flags, 2)
+        this.vtbl.get_Source := CallbackCreate(ObjBindMethod(implObj, "get_Source"), flags, 2)
+        this.vtbl.get_Destination := CallbackCreate(ObjBindMethod(implObj, "get_Destination"), flags, 2)
+        this.vtbl.get_DestinationOption := CallbackCreate(ObjBindMethod(implObj, "get_DestinationOption"), flags, 2)
+        this.vtbl.get_EntryType := CallbackCreate(ObjBindMethod(implObj, "get_EntryType"), flags, 2)
     }
 
     Dispose() {

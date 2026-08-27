@@ -54,7 +54,7 @@ export default struct IAppDomainHelper extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iappdomainhelper-initialize
      */
     Initialize(pUnkAD, __MIDL__IAppDomainHelper0000, pPool) {
-        pPoolMarshal := pPool is VarRef ? "ptr" : "ptr"
+        pPoolMarshal := pPool is VarRef ? "ptr" : IntPtr
 
         result := ComCall(7, this, "ptr", pUnkAD, IntPtr, __MIDL__IAppDomainHelper0000, pPoolMarshal, pPool, "HRESULT")
         return result
@@ -69,7 +69,7 @@ export default struct IAppDomainHelper extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iappdomainhelper-docallback
      */
     DoCallback(pUnkAD, __MIDL__IAppDomainHelper0001, pPool) {
-        pPoolMarshal := pPool is VarRef ? "ptr" : "ptr"
+        pPoolMarshal := pPool is VarRef ? "ptr" : IntPtr
 
         result := ComCall(8, this, "ptr", pUnkAD, IntPtr, __MIDL__IAppDomainHelper0001, pPoolMarshal, pPool, "HRESULT")
         return result
@@ -84,8 +84,8 @@ export default struct IAppDomainHelper extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
-        this.vtbl.DoCallback := CallbackCreate(GetMethod(implObj, "DoCallback"), flags, 4)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 4)
+        this.vtbl.DoCallback := CallbackCreate(ObjBindMethod(implObj, "DoCallback"), flags, 4)
     }
 
     Dispose() {

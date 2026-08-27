@@ -94,7 +94,7 @@ export default struct IOleUndoUnit extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleundounit-getunittype
      */
     GetUnitType(pClsid, plID) {
-        plIDMarshal := plID is VarRef ? "int*" : "ptr"
+        plIDMarshal := plID is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, Guid.Ptr, pClsid, plIDMarshal, plID, "HRESULT")
         return result
@@ -130,10 +130,10 @@ export default struct IOleUndoUnit extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Do := CallbackCreate(GetMethod(implObj, "Do"), flags, 2)
-        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 2)
-        this.vtbl.GetUnitType := CallbackCreate(GetMethod(implObj, "GetUnitType"), flags, 3)
-        this.vtbl.OnNextAdd := CallbackCreate(GetMethod(implObj, "OnNextAdd"), flags, 1)
+        this.vtbl.Do := CallbackCreate(ObjBindMethod(implObj, "Do"), flags, 2)
+        this.vtbl.GetDescription := CallbackCreate(ObjBindMethod(implObj, "GetDescription"), flags, 2)
+        this.vtbl.GetUnitType := CallbackCreate(ObjBindMethod(implObj, "GetUnitType"), flags, 3)
+        this.vtbl.OnNextAdd := CallbackCreate(ObjBindMethod(implObj, "OnNextAdd"), flags, 1)
     }
 
     Dispose() {

@@ -42,7 +42,6 @@ export default struct IBinding extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Abort() {
@@ -51,7 +50,6 @@ export default struct IBinding extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Suspend() {
@@ -70,7 +68,6 @@ export default struct IBinding extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nPriority 
      * @returns {HRESULT} 
      */
@@ -80,7 +77,6 @@ export default struct IBinding extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetPriority() {
@@ -89,7 +85,6 @@ export default struct IBinding extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pclsidProtocol 
      * @param {Pointer<Integer>} pdwResult 
      * @param {Pointer<PWSTR>} pszResult 
@@ -97,9 +92,9 @@ export default struct IBinding extends IUnknown {
      * @returns {HRESULT} 
      */
     GetBindResult(pclsidProtocol, pdwResult, pszResult, pdwReserved) {
-        pdwResultMarshal := pdwResult is VarRef ? "uint*" : "ptr"
-        pszResultMarshal := pszResult is VarRef ? "ptr*" : "ptr"
-        pdwReservedMarshal := pdwReserved is VarRef ? "uint*" : "ptr"
+        pdwResultMarshal := pdwResult is VarRef ? "uint*" : IntPtr
+        pszResultMarshal := pszResult is VarRef ? "ptr*" : IntPtr
+        pdwReservedMarshal := pdwReserved is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, Guid.Ptr, pclsidProtocol, pdwResultMarshal, pdwResult, pszResultMarshal, pszResult, pdwReservedMarshal, pdwReserved, "HRESULT")
         return result
@@ -114,12 +109,12 @@ export default struct IBinding extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Abort := CallbackCreate(GetMethod(implObj, "Abort"), flags, 1)
-        this.vtbl.Suspend := CallbackCreate(GetMethod(implObj, "Suspend"), flags, 1)
-        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 1)
-        this.vtbl.SetPriority := CallbackCreate(GetMethod(implObj, "SetPriority"), flags, 2)
-        this.vtbl.GetPriority := CallbackCreate(GetMethod(implObj, "GetPriority"), flags, 2)
-        this.vtbl.GetBindResult := CallbackCreate(GetMethod(implObj, "GetBindResult"), flags, 5)
+        this.vtbl.Abort := CallbackCreate(ObjBindMethod(implObj, "Abort"), flags, 1)
+        this.vtbl.Suspend := CallbackCreate(ObjBindMethod(implObj, "Suspend"), flags, 1)
+        this.vtbl.Resume := CallbackCreate(ObjBindMethod(implObj, "Resume"), flags, 1)
+        this.vtbl.SetPriority := CallbackCreate(ObjBindMethod(implObj, "SetPriority"), flags, 2)
+        this.vtbl.GetPriority := CallbackCreate(ObjBindMethod(implObj, "GetPriority"), flags, 2)
+        this.vtbl.GetBindResult := CallbackCreate(ObjBindMethod(implObj, "GetBindResult"), flags, 5)
     }
 
     Dispose() {

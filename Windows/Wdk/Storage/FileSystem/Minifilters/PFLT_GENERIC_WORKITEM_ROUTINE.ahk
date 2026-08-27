@@ -19,15 +19,15 @@ export default struct PFLT_GENERIC_WORKITEM_ROUTINE {
     }
 
     /**
-     * 
      * @param {PFLT_GENERIC_WORKITEM} FltWorkItem 
      * @param {Pointer<Void>} FltObject 
      * @param {Pointer<Void>} _Context 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(FltWorkItem, FltObject, _Context) {
-        FltObjectMarshal := FltObject is VarRef ? "ptr" : "ptr"
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        FltObjectMarshal := FltObject is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, PFLT_GENERIC_WORKITEM, FltWorkItem, FltObjectMarshal, FltObject, _ContextMarshal, _Context)
     }

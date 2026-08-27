@@ -20,7 +20,6 @@ export default struct PSYMBOLSERVERGETVERSION {
     }
 
     /**
-     * 
      * @param {Pointer<API_VERSION>} param0 
      * @returns {BOOL} 
      */

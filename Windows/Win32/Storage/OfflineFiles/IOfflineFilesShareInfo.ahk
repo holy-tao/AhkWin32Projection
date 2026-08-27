@@ -85,9 +85,9 @@ export default struct IOfflineFilesShareInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetShareItem := CallbackCreate(GetMethod(implObj, "GetShareItem"), flags, 2)
-        this.vtbl.GetShareCachingMode := CallbackCreate(GetMethod(implObj, "GetShareCachingMode"), flags, 2)
-        this.vtbl.IsShareDfsJunction := CallbackCreate(GetMethod(implObj, "IsShareDfsJunction"), flags, 2)
+        this.vtbl.GetShareItem := CallbackCreate(ObjBindMethod(implObj, "GetShareItem"), flags, 2)
+        this.vtbl.GetShareCachingMode := CallbackCreate(ObjBindMethod(implObj, "GetShareCachingMode"), flags, 2)
+        this.vtbl.IsShareDfsJunction := CallbackCreate(ObjBindMethod(implObj, "IsShareDfsJunction"), flags, 2)
     }
 
     Dispose() {

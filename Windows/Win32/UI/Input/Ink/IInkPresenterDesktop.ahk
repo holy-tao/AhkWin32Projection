@@ -73,8 +73,8 @@ export default struct IInkPresenterDesktop extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/inkpresenterdesktop/nf-inkpresenterdesktop-iinkpresenterdesktop-getsize
      */
     GetSize(width, height) {
-        widthMarshal := width is VarRef ? "float*" : "ptr"
-        heightMarshal := height is VarRef ? "float*" : "ptr"
+        widthMarshal := width is VarRef ? "float*" : IntPtr
+        heightMarshal := height is VarRef ? "float*" : IntPtr
 
         result := ComCall(5, this, widthMarshal, width, heightMarshal, height, "HRESULT")
         return result
@@ -111,11 +111,11 @@ export default struct IInkPresenterDesktop extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetRootVisual := CallbackCreate(GetMethod(implObj, "SetRootVisual"), flags, 3)
-        this.vtbl.SetCommitRequestHandler := CallbackCreate(GetMethod(implObj, "SetCommitRequestHandler"), flags, 2)
-        this.vtbl.GetSize := CallbackCreate(GetMethod(implObj, "GetSize"), flags, 3)
-        this.vtbl.SetSize := CallbackCreate(GetMethod(implObj, "SetSize"), flags, 3)
-        this.vtbl.OnHighContrastChanged := CallbackCreate(GetMethod(implObj, "OnHighContrastChanged"), flags, 1)
+        this.vtbl.SetRootVisual := CallbackCreate(ObjBindMethod(implObj, "SetRootVisual"), flags, 3)
+        this.vtbl.SetCommitRequestHandler := CallbackCreate(ObjBindMethod(implObj, "SetCommitRequestHandler"), flags, 2)
+        this.vtbl.GetSize := CallbackCreate(ObjBindMethod(implObj, "GetSize"), flags, 3)
+        this.vtbl.SetSize := CallbackCreate(ObjBindMethod(implObj, "SetSize"), flags, 3)
+        this.vtbl.OnHighContrastChanged := CallbackCreate(ObjBindMethod(implObj, "OnHighContrastChanged"), flags, 1)
     }
 
     Dispose() {

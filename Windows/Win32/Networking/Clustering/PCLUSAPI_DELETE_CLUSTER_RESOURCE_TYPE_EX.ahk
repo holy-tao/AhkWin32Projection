@@ -20,7 +20,6 @@ export default struct PCLUSAPI_DELETE_CLUSTER_RESOURCE_TYPE_EX {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszTypeName 
      * @param {PWSTR} lpszReason 
@@ -30,7 +29,9 @@ export default struct PCLUSAPI_DELETE_CLUSTER_RESOURCE_TYPE_EX {
         lpszTypeName := lpszTypeName is String ? StrPtr(lpszTypeName) : lpszTypeName
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall(this.value, HCLUSTER, _hCluster, "ptr", lpszTypeName, "ptr", lpszReason, UInt32)
+        lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+        result := DllCall(this.value, HCLUSTER, _hCluster, "ptr", lpszTypeName, lpszReasonMarshal, lpszReason, UInt32)
         return result
     }
 

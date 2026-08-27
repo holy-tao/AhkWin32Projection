@@ -19,13 +19,12 @@ export default struct LPWABFREEBUFFER {
     }
 
     /**
-     * 
      * @param {IWABObject} lpWABObject 
      * @param {Pointer<Void>} lpBuffer 
      * @returns {Integer} 
      */
     Call(lpWABObject, lpBuffer) {
-        lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
+        lpBufferMarshal := lpBuffer is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, "ptr", lpWABObject, lpBufferMarshal, lpBuffer, UInt32)
         return result

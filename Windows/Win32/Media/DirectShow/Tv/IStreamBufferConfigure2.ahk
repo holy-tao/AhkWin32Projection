@@ -167,8 +167,8 @@ export default struct IStreamBufferConfigure2 extends IStreamBufferConfigure {
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferconfigure2-getfftransitionrates
      */
     GetFFTransitionRates(pdwMaxFullFrameRate, pdwMaxNonSkippingRate) {
-        pdwMaxFullFrameRateMarshal := pdwMaxFullFrameRate is VarRef ? "uint*" : "ptr"
-        pdwMaxNonSkippingRateMarshal := pdwMaxNonSkippingRate is VarRef ? "uint*" : "ptr"
+        pdwMaxFullFrameRateMarshal := pdwMaxFullFrameRate is VarRef ? "uint*" : IntPtr
+        pdwMaxNonSkippingRateMarshal := pdwMaxNonSkippingRate is VarRef ? "uint*" : IntPtr
 
         result := ComCall(12, this, pdwMaxFullFrameRateMarshal, pdwMaxFullFrameRate, pdwMaxNonSkippingRateMarshal, pdwMaxNonSkippingRate, "HRESULT")
         return result
@@ -183,10 +183,10 @@ export default struct IStreamBufferConfigure2 extends IStreamBufferConfigure {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetMultiplexedPacketSize := CallbackCreate(GetMethod(implObj, "SetMultiplexedPacketSize"), flags, 2)
-        this.vtbl.GetMultiplexedPacketSize := CallbackCreate(GetMethod(implObj, "GetMultiplexedPacketSize"), flags, 2)
-        this.vtbl.SetFFTransitionRates := CallbackCreate(GetMethod(implObj, "SetFFTransitionRates"), flags, 3)
-        this.vtbl.GetFFTransitionRates := CallbackCreate(GetMethod(implObj, "GetFFTransitionRates"), flags, 3)
+        this.vtbl.SetMultiplexedPacketSize := CallbackCreate(ObjBindMethod(implObj, "SetMultiplexedPacketSize"), flags, 2)
+        this.vtbl.GetMultiplexedPacketSize := CallbackCreate(ObjBindMethod(implObj, "GetMultiplexedPacketSize"), flags, 2)
+        this.vtbl.SetFFTransitionRates := CallbackCreate(ObjBindMethod(implObj, "SetFFTransitionRates"), flags, 3)
+        this.vtbl.GetFFTransitionRates := CallbackCreate(ObjBindMethod(implObj, "GetFFTransitionRates"), flags, 3)
     }
 
     Dispose() {

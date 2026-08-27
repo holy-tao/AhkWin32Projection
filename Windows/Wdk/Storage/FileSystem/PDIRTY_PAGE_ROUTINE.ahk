@@ -19,7 +19,6 @@ export default struct PDIRTY_PAGE_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
@@ -30,11 +29,11 @@ export default struct PDIRTY_PAGE_ROUTINE {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(FileObject, FileOffset, Length, OldestLsn, NewestLsn, Context1, Context2) {
-        FileOffsetMarshal := FileOffset is VarRef ? "int64*" : "ptr"
-        OldestLsnMarshal := OldestLsn is VarRef ? "int64*" : "ptr"
-        NewestLsnMarshal := NewestLsn is VarRef ? "int64*" : "ptr"
-        Context1Marshal := Context1 is VarRef ? "ptr" : "ptr"
-        Context2Marshal := Context2 is VarRef ? "ptr" : "ptr"
+        FileOffsetMarshal := FileOffset is VarRef ? "int64*" : IntPtr
+        OldestLsnMarshal := OldestLsn is VarRef ? "int64*" : IntPtr
+        NewestLsnMarshal := NewestLsn is VarRef ? "int64*" : IntPtr
+        Context1Marshal := Context1 is VarRef ? "ptr" : IntPtr
+        Context2Marshal := Context2 is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, FILE_OBJECT.Ptr, FileObject, FileOffsetMarshal, FileOffset, UInt32, Length, OldestLsnMarshal, OldestLsn, NewestLsnMarshal, NewestLsn, Context1Marshal, Context1, Context2Marshal, Context2)
     }

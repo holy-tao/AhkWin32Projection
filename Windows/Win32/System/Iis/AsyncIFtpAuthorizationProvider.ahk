@@ -45,7 +45,6 @@ export default struct AsyncIFtpAuthorizationProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszSessionId 
      * @param {PWSTR} pszSiteName 
      * @param {PWSTR} pszVirtualPath 
@@ -63,7 +62,6 @@ export default struct AsyncIFtpAuthorizationProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {FTP_ACCESS} 
      */
     Finish_GetUserAccessPermission() {
@@ -80,8 +78,8 @@ export default struct AsyncIFtpAuthorizationProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Begin_GetUserAccessPermission := CallbackCreate(GetMethod(implObj, "Begin_GetUserAccessPermission"), flags, 5)
-        this.vtbl.Finish_GetUserAccessPermission := CallbackCreate(GetMethod(implObj, "Finish_GetUserAccessPermission"), flags, 2)
+        this.vtbl.Begin_GetUserAccessPermission := CallbackCreate(ObjBindMethod(implObj, "Begin_GetUserAccessPermission"), flags, 5)
+        this.vtbl.Finish_GetUserAccessPermission := CallbackCreate(ObjBindMethod(implObj, "Finish_GetUserAccessPermission"), flags, 2)
     }
 
     Dispose() {

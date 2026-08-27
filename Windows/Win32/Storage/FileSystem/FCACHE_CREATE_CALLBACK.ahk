@@ -22,7 +22,6 @@ export default struct FCACHE_CREATE_CALLBACK {
     }
 
     /**
-     * 
      * @param {PSTR} lpstrName The name of the file.
      * @param {Pointer<Void>} lpvData User-provided data to <a href="https://docs.microsoft.com/windows/desktop/api/filehc/nf-filehc-cachecreatefile">CacheCreateFile</a>.
      * @param {Pointer<Integer>} cbFileSize The size of the file.
@@ -32,9 +31,9 @@ export default struct FCACHE_CREATE_CALLBACK {
     Call(lpstrName, lpvData, cbFileSize, cbFileSizeHigh) {
         lpstrName := lpstrName is String ? StrPtr(lpstrName) : lpstrName
 
-        lpvDataMarshal := lpvData is VarRef ? "ptr" : "ptr"
-        cbFileSizeMarshal := cbFileSize is VarRef ? "uint*" : "ptr"
-        cbFileSizeHighMarshal := cbFileSizeHigh is VarRef ? "uint*" : "ptr"
+        lpvDataMarshal := lpvData is VarRef ? "ptr" : IntPtr
+        cbFileSizeMarshal := cbFileSize is VarRef ? "uint*" : IntPtr
+        cbFileSizeHighMarshal := cbFileSizeHigh is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, "ptr", lpstrName, lpvDataMarshal, lpvData, cbFileSizeMarshal, cbFileSize, cbFileSizeHighMarshal, cbFileSizeHigh, HANDLE.Owned)
         return result

@@ -50,7 +50,6 @@ export default struct ICivicAddressReportFactory extends ILocationReportFactory 
     }
 
     /**
-     * 
      * @returns {IDispCivicAddressReport} 
      */
     get_CivicAddressReport() {
@@ -67,7 +66,7 @@ export default struct ICivicAddressReportFactory extends ILocationReportFactory 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_CivicAddressReport := CallbackCreate(GetMethod(implObj, "get_CivicAddressReport"), flags, 2)
+        this.vtbl.get_CivicAddressReport := CallbackCreate(ObjBindMethod(implObj, "get_CivicAddressReport"), flags, 2)
     }
 
     Dispose() {

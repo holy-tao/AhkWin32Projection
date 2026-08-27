@@ -43,7 +43,6 @@ export default struct IMSAdminBase2W extends IMSAdminBaseW {
     }
 
     /**
-     * 
      * @param {PWSTR} pszMDBackupLocation 
      * @param {Integer} dwMDVersion 
      * @param {Integer} dwMDFlags 
@@ -54,12 +53,14 @@ export default struct IMSAdminBase2W extends IMSAdminBaseW {
         pszMDBackupLocation := pszMDBackupLocation is String ? StrPtr(pszMDBackupLocation) : pszMDBackupLocation
         pszPasswd := pszPasswd is String ? StrPtr(pszPasswd) : pszPasswd
 
-        result := ComCall(34, this, "ptr", pszMDBackupLocation, UInt32, dwMDVersion, UInt32, dwMDFlags, "ptr", pszPasswd, "HRESULT")
+        pszMDBackupLocationMarshal := pszMDBackupLocation == 0 ? IntPtr : PWSTR
+        pszPasswdMarshal := pszPasswd == 0 ? IntPtr : PWSTR
+
+        result := ComCall(34, this, pszMDBackupLocationMarshal, pszMDBackupLocation, UInt32, dwMDVersion, UInt32, dwMDFlags, pszPasswdMarshal, pszPasswd, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pszMDBackupLocation 
      * @param {Integer} dwMDVersion 
      * @param {Integer} dwMDFlags 
@@ -70,12 +71,14 @@ export default struct IMSAdminBase2W extends IMSAdminBaseW {
         pszMDBackupLocation := pszMDBackupLocation is String ? StrPtr(pszMDBackupLocation) : pszMDBackupLocation
         pszPasswd := pszPasswd is String ? StrPtr(pszPasswd) : pszPasswd
 
-        result := ComCall(35, this, "ptr", pszMDBackupLocation, UInt32, dwMDVersion, UInt32, dwMDFlags, "ptr", pszPasswd, "HRESULT")
+        pszMDBackupLocationMarshal := pszMDBackupLocation == 0 ? IntPtr : PWSTR
+        pszPasswdMarshal := pszPasswd == 0 ? IntPtr : PWSTR
+
+        result := ComCall(35, this, pszMDBackupLocationMarshal, pszMDBackupLocation, UInt32, dwMDVersion, UInt32, dwMDFlags, pszPasswdMarshal, pszPasswd, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pszPasswd 
      * @param {PWSTR} pszFileName 
      * @param {PWSTR} pszSourcePath 
@@ -87,12 +90,15 @@ export default struct IMSAdminBase2W extends IMSAdminBaseW {
         pszFileName := pszFileName is String ? StrPtr(pszFileName) : pszFileName
         pszSourcePath := pszSourcePath is String ? StrPtr(pszSourcePath) : pszSourcePath
 
-        result := ComCall(36, this, "ptr", pszPasswd, "ptr", pszFileName, "ptr", pszSourcePath, UInt32, dwMDFlags, "HRESULT")
+        pszPasswdMarshal := pszPasswd == 0 ? IntPtr : PWSTR
+        pszFileNameMarshal := pszFileName == 0 ? IntPtr : PWSTR
+        pszSourcePathMarshal := pszSourcePath == 0 ? IntPtr : PWSTR
+
+        result := ComCall(36, this, pszPasswdMarshal, pszPasswd, pszFileNameMarshal, pszFileName, pszSourcePathMarshal, pszSourcePath, UInt32, dwMDFlags, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pszPasswd 
      * @param {PWSTR} pszFileName 
      * @param {PWSTR} pszSourcePath 
@@ -106,12 +112,16 @@ export default struct IMSAdminBase2W extends IMSAdminBaseW {
         pszSourcePath := pszSourcePath is String ? StrPtr(pszSourcePath) : pszSourcePath
         pszDestPath := pszDestPath is String ? StrPtr(pszDestPath) : pszDestPath
 
-        result := ComCall(37, this, "ptr", pszPasswd, "ptr", pszFileName, "ptr", pszSourcePath, "ptr", pszDestPath, UInt32, dwMDFlags, "HRESULT")
+        pszPasswdMarshal := pszPasswd == 0 ? IntPtr : PWSTR
+        pszFileNameMarshal := pszFileName == 0 ? IntPtr : PWSTR
+        pszSourcePathMarshal := pszSourcePath == 0 ? IntPtr : PWSTR
+        pszDestPathMarshal := pszDestPath == 0 ? IntPtr : PWSTR
+
+        result := ComCall(37, this, pszPasswdMarshal, pszPasswd, pszFileNameMarshal, pszFileName, pszSourcePathMarshal, pszSourcePath, pszDestPathMarshal, pszDestPath, UInt32, dwMDFlags, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pszMDHistoryLocation 
      * @param {Integer} dwMDMajorVersion 
      * @param {Integer} dwMDMinorVersion 
@@ -121,12 +131,13 @@ export default struct IMSAdminBase2W extends IMSAdminBaseW {
     RestoreHistory(pszMDHistoryLocation, dwMDMajorVersion, dwMDMinorVersion, dwMDFlags) {
         pszMDHistoryLocation := pszMDHistoryLocation is String ? StrPtr(pszMDHistoryLocation) : pszMDHistoryLocation
 
-        result := ComCall(38, this, "ptr", pszMDHistoryLocation, UInt32, dwMDMajorVersion, UInt32, dwMDMinorVersion, UInt32, dwMDFlags, "HRESULT")
+        pszMDHistoryLocationMarshal := pszMDHistoryLocation == 0 ? IntPtr : PWSTR
+
+        result := ComCall(38, this, pszMDHistoryLocationMarshal, pszMDHistoryLocation, UInt32, dwMDMajorVersion, UInt32, dwMDMinorVersion, UInt32, dwMDFlags, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pszMDHistoryLocation 
      * @param {Pointer<Integer>} pdwMDMajorVersion 
      * @param {Pointer<Integer>} pdwMDMinorVersion 
@@ -137,8 +148,8 @@ export default struct IMSAdminBase2W extends IMSAdminBaseW {
     EnumHistory(pszMDHistoryLocation, pdwMDMajorVersion, pdwMDMinorVersion, pftMDHistoryTime, dwMDEnumIndex) {
         pszMDHistoryLocation := pszMDHistoryLocation is String ? StrPtr(pszMDHistoryLocation) : pszMDHistoryLocation
 
-        pdwMDMajorVersionMarshal := pdwMDMajorVersion is VarRef ? "uint*" : "ptr"
-        pdwMDMinorVersionMarshal := pdwMDMinorVersion is VarRef ? "uint*" : "ptr"
+        pdwMDMajorVersionMarshal := pdwMDMajorVersion is VarRef ? "uint*" : IntPtr
+        pdwMDMinorVersionMarshal := pdwMDMinorVersion is VarRef ? "uint*" : IntPtr
 
         result := ComCall(39, this, "ptr", pszMDHistoryLocation, pdwMDMajorVersionMarshal, pdwMDMajorVersion, pdwMDMinorVersionMarshal, pdwMDMinorVersion, FILETIME.Ptr, pftMDHistoryTime, UInt32, dwMDEnumIndex, "HRESULT")
         return result
@@ -153,12 +164,12 @@ export default struct IMSAdminBase2W extends IMSAdminBaseW {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BackupWithPasswd := CallbackCreate(GetMethod(implObj, "BackupWithPasswd"), flags, 5)
-        this.vtbl.RestoreWithPasswd := CallbackCreate(GetMethod(implObj, "RestoreWithPasswd"), flags, 5)
-        this.vtbl.Export := CallbackCreate(GetMethod(implObj, "Export"), flags, 5)
-        this.vtbl.Import := CallbackCreate(GetMethod(implObj, "Import"), flags, 6)
-        this.vtbl.RestoreHistory := CallbackCreate(GetMethod(implObj, "RestoreHistory"), flags, 5)
-        this.vtbl.EnumHistory := CallbackCreate(GetMethod(implObj, "EnumHistory"), flags, 6)
+        this.vtbl.BackupWithPasswd := CallbackCreate(ObjBindMethod(implObj, "BackupWithPasswd"), flags, 5)
+        this.vtbl.RestoreWithPasswd := CallbackCreate(ObjBindMethod(implObj, "RestoreWithPasswd"), flags, 5)
+        this.vtbl.Export := CallbackCreate(ObjBindMethod(implObj, "Export"), flags, 5)
+        this.vtbl.Import := CallbackCreate(ObjBindMethod(implObj, "Import"), flags, 6)
+        this.vtbl.RestoreHistory := CallbackCreate(ObjBindMethod(implObj, "RestoreHistory"), flags, 5)
+        this.vtbl.EnumHistory := CallbackCreate(ObjBindMethod(implObj, "EnumHistory"), flags, 6)
     }
 
     Dispose() {

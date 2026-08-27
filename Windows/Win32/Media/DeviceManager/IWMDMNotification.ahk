@@ -90,7 +90,7 @@ export default struct IWMDMNotification extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.WMDMMessage := CallbackCreate(GetMethod(implObj, "WMDMMessage"), flags, 3)
+        this.vtbl.WMDMMessage := CallbackCreate(ObjBindMethod(implObj, "WMDMMessage"), flags, 3)
     }
 
     Dispose() {

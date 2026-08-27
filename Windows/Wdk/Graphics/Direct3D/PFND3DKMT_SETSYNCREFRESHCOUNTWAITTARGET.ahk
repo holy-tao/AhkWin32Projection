@@ -20,7 +20,6 @@ export default struct PFND3DKMT_SETSYNCREFRESHCOUNTWAITTARGET {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SETSYNCREFRESHCOUNTWAITTARGET>} param0 
      * @returns {NTSTATUS} 
      */

@@ -29,7 +29,6 @@ export default struct UiaEventCallback {
     }
 
     /**
-     * 
      * @param {Pointer<UiaEventArgs>} pArgs Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/ns-uiautomationcoreapi-uiaeventargs">UiaEventArgs</a>*</b>
      * 
      * The address of a <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/ns-uiautomationcoreapi-uiaeventargs">UiaEventArgs</a> structure that contains the event arguments.

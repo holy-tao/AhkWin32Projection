@@ -93,8 +93,8 @@ export default struct IWICPersistStream extends IPersistStream {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LoadEx := CallbackCreate(GetMethod(implObj, "LoadEx"), flags, 4)
-        this.vtbl.SaveEx := CallbackCreate(GetMethod(implObj, "SaveEx"), flags, 4)
+        this.vtbl.LoadEx := CallbackCreate(ObjBindMethod(implObj, "LoadEx"), flags, 4)
+        this.vtbl.SaveEx := CallbackCreate(ObjBindMethod(implObj, "SaveEx"), flags, 4)
     }
 
     Dispose() {

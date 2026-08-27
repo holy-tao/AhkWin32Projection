@@ -88,8 +88,8 @@ export default struct ILanguageComponentType extends IComponentType {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_LangID := CallbackCreate(GetMethod(implObj, "get_LangID"), flags, 2)
-        this.vtbl.put_LangID := CallbackCreate(GetMethod(implObj, "put_LangID"), flags, 2)
+        this.vtbl.get_LangID := CallbackCreate(ObjBindMethod(implObj, "get_LangID"), flags, 2)
+        this.vtbl.put_LangID := CallbackCreate(ObjBindMethod(implObj, "put_LangID"), flags, 2)
     }
 
     Dispose() {

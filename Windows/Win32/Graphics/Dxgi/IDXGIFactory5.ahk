@@ -70,7 +70,7 @@ export default struct IDXGIFactory5 extends IDXGIFactory4 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CheckFeatureSupport := CallbackCreate(GetMethod(implObj, "CheckFeatureSupport"), flags, 4)
+        this.vtbl.CheckFeatureSupport := CallbackCreate(ObjBindMethod(implObj, "CheckFeatureSupport"), flags, 4)
     }
 
     Dispose() {

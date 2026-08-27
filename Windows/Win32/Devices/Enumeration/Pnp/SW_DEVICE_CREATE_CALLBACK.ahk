@@ -36,7 +36,6 @@ export default struct SW_DEVICE_CREATE_CALLBACK {
     }
 
     /**
-     * 
      * @param {HSWDEVICE} _hSwDevice The handle for the software device.
      * @param {HRESULT} CreateResult An HRESULT that indicates if the enumeration of the software device was successful.
      * @param {Pointer<Void>} pContext The context that was optionally supplied by the client app to <a href="https://docs.microsoft.com/windows/desktop/api/swdevice/nf-swdevice-swdevicecreate">SwDeviceCreate</a>.
@@ -46,9 +45,11 @@ export default struct SW_DEVICE_CREATE_CALLBACK {
     Call(_hSwDevice, CreateResult, pContext, pszDeviceInstanceId) {
         pszDeviceInstanceId := pszDeviceInstanceId is String ? StrPtr(pszDeviceInstanceId) : pszDeviceInstanceId
 
-        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+        pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
+        pContextMarshal := pContext == 0 ? IntPtr : "ptr"
+        pszDeviceInstanceIdMarshal := pszDeviceInstanceId == 0 ? IntPtr : PWSTR
 
-        DllCall(this.value, HSWDEVICE, _hSwDevice, "int", CreateResult, pContextMarshal, pContext, "ptr", pszDeviceInstanceId)
+        DllCall(this.value, HSWDEVICE, _hSwDevice, "int", CreateResult, pContextMarshal, pContext, pszDeviceInstanceIdMarshal, pszDeviceInstanceId)
     }
 
     /**

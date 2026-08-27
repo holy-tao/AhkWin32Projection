@@ -19,7 +19,6 @@ export default struct SSL_FREE_CERTIFICATE_FN {
     }
 
     /**
-     * 
      * @param {Pointer<X509Certificate>} pCertificate 
      * @returns {String} Nothing - always returns an empty string
      */

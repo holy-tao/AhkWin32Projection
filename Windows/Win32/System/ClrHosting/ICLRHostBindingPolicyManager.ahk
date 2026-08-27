@@ -38,7 +38,6 @@ export default struct ICLRHostBindingPolicyManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzSourceAssemblyIdentity 
      * @param {PWSTR} pwzTargetAssemblyIdentity 
      * @param {Pointer<Integer>} pbApplicationPolicy 
@@ -51,15 +50,14 @@ export default struct ICLRHostBindingPolicyManager extends IUnknown {
         pwzSourceAssemblyIdentity := pwzSourceAssemblyIdentity is String ? StrPtr(pwzSourceAssemblyIdentity) : pwzSourceAssemblyIdentity
         pwzTargetAssemblyIdentity := pwzTargetAssemblyIdentity is String ? StrPtr(pwzTargetAssemblyIdentity) : pwzTargetAssemblyIdentity
 
-        pbApplicationPolicyMarshal := pbApplicationPolicy is VarRef ? "char*" : "ptr"
-        pcbNewAppPolicySizeMarshal := pcbNewAppPolicySize is VarRef ? "uint*" : "ptr"
+        pbApplicationPolicyMarshal := pbApplicationPolicy is VarRef ? "char*" : IntPtr
+        pcbNewAppPolicySizeMarshal := pcbNewAppPolicySize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, "ptr", pwzSourceAssemblyIdentity, "ptr", pwzTargetAssemblyIdentity, pbApplicationPolicyMarshal, pbApplicationPolicy, UInt32, cbAppPolicySize, UInt32, dwPolicyModifyFlags, "char*", &pbNewApplicationPolicy := 0, pcbNewAppPolicySizeMarshal, pcbNewAppPolicySize, "HRESULT")
         return pbNewApplicationPolicy
     }
 
     /**
-     * 
      * @param {PWSTR} pwzReferenceIdentity 
      * @param {Pointer<Integer>} pbApplicationPolicy 
      * @param {Integer} cbAppPolicySize 
@@ -71,8 +69,8 @@ export default struct ICLRHostBindingPolicyManager extends IUnknown {
         pwzReferenceIdentity := pwzReferenceIdentity is String ? StrPtr(pwzReferenceIdentity) : pwzReferenceIdentity
         pwzPostPolicyReferenceIdentity := pwzPostPolicyReferenceIdentity is String ? StrPtr(pwzPostPolicyReferenceIdentity) : pwzPostPolicyReferenceIdentity
 
-        pbApplicationPolicyMarshal := pbApplicationPolicy is VarRef ? "char*" : "ptr"
-        pcchPostPolicyReferenceIdentityMarshal := pcchPostPolicyReferenceIdentity is VarRef ? "uint*" : "ptr"
+        pbApplicationPolicyMarshal := pbApplicationPolicy is VarRef ? "char*" : IntPtr
+        pcchPostPolicyReferenceIdentityMarshal := pcchPostPolicyReferenceIdentity is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, "ptr", pwzReferenceIdentity, pbApplicationPolicyMarshal, pbApplicationPolicy, UInt32, cbAppPolicySize, "ptr", pwzPostPolicyReferenceIdentity, pcchPostPolicyReferenceIdentityMarshal, pcchPostPolicyReferenceIdentity, "uint*", &pdwPoliciesApplied := 0, "HRESULT")
         return pdwPoliciesApplied
@@ -87,8 +85,8 @@ export default struct ICLRHostBindingPolicyManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ModifyApplicationPolicy := CallbackCreate(GetMethod(implObj, "ModifyApplicationPolicy"), flags, 8)
-        this.vtbl.EvaluatePolicy := CallbackCreate(GetMethod(implObj, "EvaluatePolicy"), flags, 7)
+        this.vtbl.ModifyApplicationPolicy := CallbackCreate(ObjBindMethod(implObj, "ModifyApplicationPolicy"), flags, 8)
+        this.vtbl.EvaluatePolicy := CallbackCreate(ObjBindMethod(implObj, "EvaluatePolicy"), flags, 7)
     }
 
     Dispose() {

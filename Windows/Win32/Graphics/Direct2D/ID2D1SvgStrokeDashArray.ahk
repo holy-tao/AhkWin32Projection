@@ -80,7 +80,7 @@ export default struct ID2D1SvgStrokeDashArray extends ID2D1SvgAttribute {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1svgstrokedasharray-updatedashes-overload
      */
     UpdateDashes1(dashes, dashesCount, startIndex) {
-        dashesMarshal := dashes is VarRef ? "float*" : "ptr"
+        dashesMarshal := dashes is VarRef ? "float*" : IntPtr
 
         result := ComCall(8, this, dashesMarshal, dashes, UInt32, dashesCount, UInt32, startIndex, "HRESULT")
         return result
@@ -132,12 +132,12 @@ export default struct ID2D1SvgStrokeDashArray extends ID2D1SvgAttribute {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RemoveDashesAtEnd := CallbackCreate(GetMethod(implObj, "RemoveDashesAtEnd"), flags, 2)
-        this.vtbl.UpdateDashes := CallbackCreate(GetMethod(implObj, "UpdateDashes"), flags, 4)
-        this.vtbl.UpdateDashes1 := CallbackCreate(GetMethod(implObj, "UpdateDashes1"), flags, 4)
-        this.vtbl.GetDashes := CallbackCreate(GetMethod(implObj, "GetDashes"), flags, 4)
-        this.vtbl.GetDashes1 := CallbackCreate(GetMethod(implObj, "GetDashes1"), flags, 4)
-        this.vtbl.GetDashesCount := CallbackCreate(GetMethod(implObj, "GetDashesCount"), flags, 1)
+        this.vtbl.RemoveDashesAtEnd := CallbackCreate(ObjBindMethod(implObj, "RemoveDashesAtEnd"), flags, 2)
+        this.vtbl.UpdateDashes := CallbackCreate(ObjBindMethod(implObj, "UpdateDashes"), flags, 4)
+        this.vtbl.UpdateDashes1 := CallbackCreate(ObjBindMethod(implObj, "UpdateDashes1"), flags, 4)
+        this.vtbl.GetDashes := CallbackCreate(ObjBindMethod(implObj, "GetDashes"), flags, 4)
+        this.vtbl.GetDashes1 := CallbackCreate(ObjBindMethod(implObj, "GetDashes1"), flags, 4)
+        this.vtbl.GetDashesCount := CallbackCreate(ObjBindMethod(implObj, "GetDashesCount"), flags, 1)
     }
 
     Dispose() {

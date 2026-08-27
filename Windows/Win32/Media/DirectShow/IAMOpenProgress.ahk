@@ -86,8 +86,8 @@ export default struct IAMOpenProgress extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamopenprogress-queryprogress
      */
     QueryProgress(pllTotal, pllCurrent) {
-        pllTotalMarshal := pllTotal is VarRef ? "int64*" : "ptr"
-        pllCurrentMarshal := pllCurrent is VarRef ? "int64*" : "ptr"
+        pllTotalMarshal := pllTotal is VarRef ? "int64*" : IntPtr
+        pllCurrentMarshal := pllCurrent is VarRef ? "int64*" : IntPtr
 
         result := ComCall(3, this, pllTotalMarshal, pllTotal, pllCurrentMarshal, pllCurrent, "HRESULT")
         return result
@@ -112,8 +112,8 @@ export default struct IAMOpenProgress extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryProgress := CallbackCreate(GetMethod(implObj, "QueryProgress"), flags, 3)
-        this.vtbl.AbortOperation := CallbackCreate(GetMethod(implObj, "AbortOperation"), flags, 1)
+        this.vtbl.QueryProgress := CallbackCreate(ObjBindMethod(implObj, "QueryProgress"), flags, 3)
+        this.vtbl.AbortOperation := CallbackCreate(ObjBindMethod(implObj, "AbortOperation"), flags, 1)
     }
 
     Dispose() {

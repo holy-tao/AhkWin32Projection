@@ -52,8 +52,10 @@ export default struct IStorageItemHandleAccess extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/windowsstoragecom/nf-windowsstoragecom-istorageitemhandleaccess-create
      */
     Create(accessOptions, sharingOptions, options, oplockBreakingHandler) {
+        oplockBreakingHandlerMarshal := oplockBreakingHandler == 0 ? IntPtr : "ptr"
+
         interopHandle := HANDLE.Owned()
-        result := ComCall(3, this, HANDLE_ACCESS_OPTIONS, accessOptions, HANDLE_SHARING_OPTIONS, sharingOptions, HANDLE_OPTIONS, options, "ptr", oplockBreakingHandler, HANDLE.Ptr, interopHandle, "HRESULT")
+        result := ComCall(3, this, HANDLE_ACCESS_OPTIONS, accessOptions, HANDLE_SHARING_OPTIONS, sharingOptions, HANDLE_OPTIONS, options, oplockBreakingHandlerMarshal, oplockBreakingHandler, HANDLE.Ptr, interopHandle, "HRESULT")
         return interopHandle
     }
 
@@ -66,7 +68,7 @@ export default struct IStorageItemHandleAccess extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 6)
+        this.vtbl.Create := CallbackCreate(ObjBindMethod(implObj, "Create"), flags, 6)
     }
 
     Dispose() {

@@ -53,7 +53,6 @@ export default struct IDataModelScriptDebug extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ScriptDebugState} 
      */
     GetDebugState() {
@@ -62,19 +61,20 @@ export default struct IDataModelScriptDebug extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<ScriptDebugPosition>} currentPosition 
      * @param {Pointer<ScriptDebugPosition>} positionSpanEnd 
      * @param {Pointer<BSTR>} lineText 
      * @returns {HRESULT} 
      */
     GetCurrentPosition(currentPosition, positionSpanEnd, lineText) {
-        result := ComCall(4, this, ScriptDebugPosition.Ptr, currentPosition, ScriptDebugPosition.Ptr, positionSpanEnd, BSTR.Ptr, lineText, "HRESULT")
+        positionSpanEndMarshal := positionSpanEnd == 0 ? IntPtr : ScriptDebugPosition.Ptr
+        lineTextMarshal := lineText == 0 ? IntPtr : BSTR.Ptr
+
+        result := ComCall(4, this, ScriptDebugPosition.Ptr, currentPosition, positionSpanEndMarshal, positionSpanEnd, lineTextMarshal, lineText, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {IDataModelScriptDebugStack} 
      */
     GetStack() {
@@ -83,7 +83,6 @@ export default struct IDataModelScriptDebug extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} linePosition 
      * @param {Integer} columnPosition 
      * @returns {IDataModelScriptDebugBreakpoint} 
@@ -94,7 +93,6 @@ export default struct IDataModelScriptDebug extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} breakpointId 
      * @returns {IDataModelScriptDebugBreakpoint} 
      */
@@ -104,7 +102,6 @@ export default struct IDataModelScriptDebug extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDataModelScriptDebugBreakpointEnumerator} 
      */
     EnumerateBreakpoints() {
@@ -113,7 +110,6 @@ export default struct IDataModelScriptDebug extends IUnknown {
     }
 
     /**
-     * 
      * @param {ScriptDebugEventFilter} eventFilter 
      * @returns {Boolean} 
      */
@@ -123,7 +119,6 @@ export default struct IDataModelScriptDebug extends IUnknown {
     }
 
     /**
-     * 
      * @param {ScriptDebugEventFilter} eventFilter 
      * @param {Integer} isBreakEnabled 
      * @returns {HRESULT} 
@@ -134,7 +129,6 @@ export default struct IDataModelScriptDebug extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDataModelScriptDebugClient} debugClient 
      * @returns {HRESULT} 
      */
@@ -144,7 +138,6 @@ export default struct IDataModelScriptDebug extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDataModelScriptDebugClient} debugClient 
      * @returns {HRESULT} 
      */
@@ -162,16 +155,16 @@ export default struct IDataModelScriptDebug extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDebugState := CallbackCreate(GetMethod(implObj, "GetDebugState"), flags, 1)
-        this.vtbl.GetCurrentPosition := CallbackCreate(GetMethod(implObj, "GetCurrentPosition"), flags, 4)
-        this.vtbl.GetStack := CallbackCreate(GetMethod(implObj, "GetStack"), flags, 2)
-        this.vtbl.SetBreakpoint := CallbackCreate(GetMethod(implObj, "SetBreakpoint"), flags, 4)
-        this.vtbl.FindBreakpointById := CallbackCreate(GetMethod(implObj, "FindBreakpointById"), flags, 3)
-        this.vtbl.EnumerateBreakpoints := CallbackCreate(GetMethod(implObj, "EnumerateBreakpoints"), flags, 2)
-        this.vtbl.GetEventFilter := CallbackCreate(GetMethod(implObj, "GetEventFilter"), flags, 3)
-        this.vtbl.SetEventFilter := CallbackCreate(GetMethod(implObj, "SetEventFilter"), flags, 3)
-        this.vtbl.StartDebugging := CallbackCreate(GetMethod(implObj, "StartDebugging"), flags, 2)
-        this.vtbl.StopDebugging := CallbackCreate(GetMethod(implObj, "StopDebugging"), flags, 2)
+        this.vtbl.GetDebugState := CallbackCreate(ObjBindMethod(implObj, "GetDebugState"), flags, 1)
+        this.vtbl.GetCurrentPosition := CallbackCreate(ObjBindMethod(implObj, "GetCurrentPosition"), flags, 4)
+        this.vtbl.GetStack := CallbackCreate(ObjBindMethod(implObj, "GetStack"), flags, 2)
+        this.vtbl.SetBreakpoint := CallbackCreate(ObjBindMethod(implObj, "SetBreakpoint"), flags, 4)
+        this.vtbl.FindBreakpointById := CallbackCreate(ObjBindMethod(implObj, "FindBreakpointById"), flags, 3)
+        this.vtbl.EnumerateBreakpoints := CallbackCreate(ObjBindMethod(implObj, "EnumerateBreakpoints"), flags, 2)
+        this.vtbl.GetEventFilter := CallbackCreate(ObjBindMethod(implObj, "GetEventFilter"), flags, 3)
+        this.vtbl.SetEventFilter := CallbackCreate(ObjBindMethod(implObj, "SetEventFilter"), flags, 3)
+        this.vtbl.StartDebugging := CallbackCreate(ObjBindMethod(implObj, "StartDebugging"), flags, 2)
+        this.vtbl.StopDebugging := CallbackCreate(ObjBindMethod(implObj, "StopDebugging"), flags, 2)
     }
 
     Dispose() {

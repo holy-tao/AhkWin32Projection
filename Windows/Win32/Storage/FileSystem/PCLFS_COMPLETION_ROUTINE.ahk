@@ -18,13 +18,12 @@ export default struct PCLFS_COMPLETION_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvOverlapped 
      * @param {Integer} ulReserved 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(pvOverlapped, ulReserved) {
-        pvOverlappedMarshal := pvOverlapped is VarRef ? "ptr" : "ptr"
+        pvOverlappedMarshal := pvOverlapped is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, pvOverlappedMarshal, pvOverlapped, UInt32, ulReserved)
     }

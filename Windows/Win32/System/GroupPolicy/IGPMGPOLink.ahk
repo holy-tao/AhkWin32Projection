@@ -99,7 +99,6 @@ export default struct IGPMGPOLink extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_GPOID() {
@@ -109,7 +108,6 @@ export default struct IGPMGPOLink extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_GPODomain() {
@@ -119,7 +117,6 @@ export default struct IGPMGPOLink extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Enabled() {
@@ -183,7 +180,6 @@ export default struct IGPMGPOLink extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Enforced() {
@@ -192,7 +188,6 @@ export default struct IGPMGPOLink extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} newVal 
      * @returns {HRESULT} 
      */
@@ -202,7 +197,6 @@ export default struct IGPMGPOLink extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_SOMLinkOrder() {
@@ -211,7 +205,6 @@ export default struct IGPMGPOLink extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IGPMSOM} 
      */
     get_SOM() {
@@ -242,15 +235,15 @@ export default struct IGPMGPOLink extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_GPOID := CallbackCreate(GetMethod(implObj, "get_GPOID"), flags, 2)
-        this.vtbl.get_GPODomain := CallbackCreate(GetMethod(implObj, "get_GPODomain"), flags, 2)
-        this.vtbl.get_Enabled := CallbackCreate(GetMethod(implObj, "get_Enabled"), flags, 2)
-        this.vtbl.put_Enabled := CallbackCreate(GetMethod(implObj, "put_Enabled"), flags, 2)
-        this.vtbl.get_Enforced := CallbackCreate(GetMethod(implObj, "get_Enforced"), flags, 2)
-        this.vtbl.put_Enforced := CallbackCreate(GetMethod(implObj, "put_Enforced"), flags, 2)
-        this.vtbl.get_SOMLinkOrder := CallbackCreate(GetMethod(implObj, "get_SOMLinkOrder"), flags, 2)
-        this.vtbl.get_SOM := CallbackCreate(GetMethod(implObj, "get_SOM"), flags, 2)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.get_GPOID := CallbackCreate(ObjBindMethod(implObj, "get_GPOID"), flags, 2)
+        this.vtbl.get_GPODomain := CallbackCreate(ObjBindMethod(implObj, "get_GPODomain"), flags, 2)
+        this.vtbl.get_Enabled := CallbackCreate(ObjBindMethod(implObj, "get_Enabled"), flags, 2)
+        this.vtbl.put_Enabled := CallbackCreate(ObjBindMethod(implObj, "put_Enabled"), flags, 2)
+        this.vtbl.get_Enforced := CallbackCreate(ObjBindMethod(implObj, "get_Enforced"), flags, 2)
+        this.vtbl.put_Enforced := CallbackCreate(ObjBindMethod(implObj, "put_Enforced"), flags, 2)
+        this.vtbl.get_SOMLinkOrder := CallbackCreate(ObjBindMethod(implObj, "get_SOMLinkOrder"), flags, 2)
+        this.vtbl.get_SOM := CallbackCreate(ObjBindMethod(implObj, "get_SOM"), flags, 2)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 1)
     }
 
     Dispose() {

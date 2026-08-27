@@ -37,7 +37,6 @@ export default struct IAppxManifestPackageDependency3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetIsOptional() {
@@ -54,7 +53,7 @@ export default struct IAppxManifestPackageDependency3 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetIsOptional := CallbackCreate(GetMethod(implObj, "GetIsOptional"), flags, 2)
+        this.vtbl.GetIsOptional := CallbackCreate(ObjBindMethod(implObj, "GetIsOptional"), flags, 2)
     }
 
     Dispose() {

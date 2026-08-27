@@ -67,7 +67,6 @@ export default struct IMFNetCrossOriginSupport extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} wszURL 
      * @returns {BOOL} 
      */
@@ -87,9 +86,9 @@ export default struct IMFNetCrossOriginSupport extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCrossOriginPolicy := CallbackCreate(GetMethod(implObj, "GetCrossOriginPolicy"), flags, 2)
-        this.vtbl.GetSourceOrigin := CallbackCreate(GetMethod(implObj, "GetSourceOrigin"), flags, 2)
-        this.vtbl.IsSameOrigin := CallbackCreate(GetMethod(implObj, "IsSameOrigin"), flags, 3)
+        this.vtbl.GetCrossOriginPolicy := CallbackCreate(ObjBindMethod(implObj, "GetCrossOriginPolicy"), flags, 2)
+        this.vtbl.GetSourceOrigin := CallbackCreate(ObjBindMethod(implObj, "GetSourceOrigin"), flags, 2)
+        this.vtbl.IsSameOrigin := CallbackCreate(ObjBindMethod(implObj, "IsSameOrigin"), flags, 3)
     }
 
     Dispose() {

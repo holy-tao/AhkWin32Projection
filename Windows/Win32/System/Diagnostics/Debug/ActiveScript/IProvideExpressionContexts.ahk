@@ -37,7 +37,6 @@ export default struct IProvideExpressionContexts extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumDebugExpressionContexts} 
      */
     EnumExpressionContexts() {
@@ -54,7 +53,7 @@ export default struct IProvideExpressionContexts extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumExpressionContexts := CallbackCreate(GetMethod(implObj, "EnumExpressionContexts"), flags, 2)
+        this.vtbl.EnumExpressionContexts := CallbackCreate(ObjBindMethod(implObj, "EnumExpressionContexts"), flags, 2)
     }
 
     Dispose() {

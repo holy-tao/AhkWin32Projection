@@ -20,12 +20,11 @@ export default struct WS_FREE_DECODER_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} decoderContext Frees an instance of a decoder.
      * @returns {String} Nothing - always returns an empty string
      */
     Call(decoderContext) {
-        decoderContextMarshal := decoderContext is VarRef ? "ptr" : "ptr"
+        decoderContextMarshal := decoderContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, decoderContextMarshal, decoderContext)
     }

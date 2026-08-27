@@ -21,13 +21,12 @@ export default struct PLSA_REDIRECTED_LOGON_GET_SID {
     }
 
     /**
-     * 
      * @param {HANDLE} RedirectedLogonHandle 
      * @param {Pointer<PSID>} _Sid 
      * @returns {NTSTATUS} 
      */
     Call(RedirectedLogonHandle, _Sid) {
-        _SidMarshal := _Sid is VarRef ? "ptr*" : "ptr"
+        _SidMarshal := _Sid is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, HANDLE, RedirectedLogonHandle, _SidMarshal, _Sid, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

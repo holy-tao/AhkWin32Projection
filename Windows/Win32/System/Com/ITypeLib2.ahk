@@ -106,8 +106,8 @@ export default struct ITypeLib2 extends ITypeLib {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypelib2-getlibstatistics
      */
     GetLibStatistics(pcUniqueNames, pcchUniqueNames) {
-        pcUniqueNamesMarshal := pcUniqueNames is VarRef ? "uint*" : "ptr"
-        pcchUniqueNamesMarshal := pcchUniqueNames is VarRef ? "uint*" : "ptr"
+        pcUniqueNamesMarshal := pcUniqueNames is VarRef ? "uint*" : IntPtr
+        pcchUniqueNamesMarshal := pcchUniqueNames is VarRef ? "uint*" : IntPtr
 
         result := ComCall(14, this, pcUniqueNamesMarshal, pcUniqueNames, pcchUniqueNamesMarshal, pcchUniqueNames, "HRESULT")
         return result
@@ -173,9 +173,11 @@ export default struct ITypeLib2 extends ITypeLib {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypelib2-getdocumentation2
      */
     GetDocumentation2(index, lcid, pbstrHelpString, pdwHelpStringContext, pbstrHelpStringDll) {
-        pdwHelpStringContextMarshal := pdwHelpStringContext is VarRef ? "uint*" : "ptr"
+        pbstrHelpStringMarshal := pbstrHelpString == 0 ? IntPtr : BSTR.Ptr
+        pdwHelpStringContextMarshal := pdwHelpStringContext is VarRef ? "uint*" : IntPtr
+        pbstrHelpStringDllMarshal := pbstrHelpStringDll == 0 ? IntPtr : BSTR.Ptr
 
-        result := ComCall(15, this, Int32, index, UInt32, lcid, BSTR.Ptr, pbstrHelpString, pdwHelpStringContextMarshal, pdwHelpStringContext, BSTR.Ptr, pbstrHelpStringDll, "HRESULT")
+        result := ComCall(15, this, Int32, index, UInt32, lcid, pbstrHelpStringMarshal, pbstrHelpString, pdwHelpStringContextMarshal, pdwHelpStringContext, pbstrHelpStringDllMarshal, pbstrHelpStringDll, "HRESULT")
         return result
     }
 
@@ -201,10 +203,10 @@ export default struct ITypeLib2 extends ITypeLib {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCustData := CallbackCreate(GetMethod(implObj, "GetCustData"), flags, 3)
-        this.vtbl.GetLibStatistics := CallbackCreate(GetMethod(implObj, "GetLibStatistics"), flags, 3)
-        this.vtbl.GetDocumentation2 := CallbackCreate(GetMethod(implObj, "GetDocumentation2"), flags, 6)
-        this.vtbl.GetAllCustData := CallbackCreate(GetMethod(implObj, "GetAllCustData"), flags, 2)
+        this.vtbl.GetCustData := CallbackCreate(ObjBindMethod(implObj, "GetCustData"), flags, 3)
+        this.vtbl.GetLibStatistics := CallbackCreate(ObjBindMethod(implObj, "GetLibStatistics"), flags, 3)
+        this.vtbl.GetDocumentation2 := CallbackCreate(ObjBindMethod(implObj, "GetDocumentation2"), flags, 6)
+        this.vtbl.GetAllCustData := CallbackCreate(ObjBindMethod(implObj, "GetAllCustData"), flags, 2)
     }
 
     Dispose() {

@@ -211,10 +211,10 @@ export default struct IDot11AdHocManagerNotificationSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnNetworkAdd := CallbackCreate(GetMethod(implObj, "OnNetworkAdd"), flags, 2)
-        this.vtbl.OnNetworkRemove := CallbackCreate(GetMethod(implObj, "OnNetworkRemove"), flags, 2)
-        this.vtbl.OnInterfaceAdd := CallbackCreate(GetMethod(implObj, "OnInterfaceAdd"), flags, 2)
-        this.vtbl.OnInterfaceRemove := CallbackCreate(GetMethod(implObj, "OnInterfaceRemove"), flags, 2)
+        this.vtbl.OnNetworkAdd := CallbackCreate(ObjBindMethod(implObj, "OnNetworkAdd"), flags, 2)
+        this.vtbl.OnNetworkRemove := CallbackCreate(ObjBindMethod(implObj, "OnNetworkRemove"), flags, 2)
+        this.vtbl.OnInterfaceAdd := CallbackCreate(ObjBindMethod(implObj, "OnInterfaceAdd"), flags, 2)
+        this.vtbl.OnInterfaceRemove := CallbackCreate(ObjBindMethod(implObj, "OnInterfaceRemove"), flags, 2)
     }
 
     Dispose() {

@@ -37,23 +37,21 @@ export default struct ISpPhraseAlt extends ISpPhrase {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pulStartElementInParent 
      * @param {Pointer<Integer>} pcElementsInParent 
      * @param {Pointer<Integer>} pcElementsInAlt 
      * @returns {ISpPhrase} 
      */
     GetAltInfo(pulStartElementInParent, pcElementsInParent, pcElementsInAlt) {
-        pulStartElementInParentMarshal := pulStartElementInParent is VarRef ? "uint*" : "ptr"
-        pcElementsInParentMarshal := pcElementsInParent is VarRef ? "uint*" : "ptr"
-        pcElementsInAltMarshal := pcElementsInAlt is VarRef ? "uint*" : "ptr"
+        pulStartElementInParentMarshal := pulStartElementInParent is VarRef ? "uint*" : IntPtr
+        pcElementsInParentMarshal := pcElementsInParent is VarRef ? "uint*" : IntPtr
+        pcElementsInAltMarshal := pcElementsInAlt is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, "ptr*", &ppParent := 0, pulStartElementInParentMarshal, pulStartElementInParent, pcElementsInParentMarshal, pcElementsInParent, pcElementsInAltMarshal, pcElementsInAlt, "HRESULT")
         return ISpPhrase(ppParent)
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Commit() {
@@ -70,8 +68,8 @@ export default struct ISpPhraseAlt extends ISpPhrase {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAltInfo := CallbackCreate(GetMethod(implObj, "GetAltInfo"), flags, 5)
-        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 1)
+        this.vtbl.GetAltInfo := CallbackCreate(ObjBindMethod(implObj, "GetAltInfo"), flags, 5)
+        this.vtbl.Commit := CallbackCreate(ObjBindMethod(implObj, "Commit"), flags, 1)
     }
 
     Dispose() {

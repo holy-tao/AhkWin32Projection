@@ -160,8 +160,8 @@ export default struct ISyncChangeBatch extends ISyncChangeBatchBase {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatch-addloggedconflict
      */
     AddLoggedConflict(pbOwnerReplicaId, pbItemId, pChangeVersion, pCreationVersion, dwFlags, dwWorkForChange, pConflictKnowledge) {
-        pbOwnerReplicaIdMarshal := pbOwnerReplicaId is VarRef ? "char*" : "ptr"
-        pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
+        pbOwnerReplicaIdMarshal := pbOwnerReplicaId is VarRef ? "char*" : IntPtr
+        pbItemIdMarshal := pbItemId is VarRef ? "char*" : IntPtr
 
         result := ComCall(19, this, pbOwnerReplicaIdMarshal, pbOwnerReplicaId, pbItemIdMarshal, pbItemId, SYNC_VERSION.Ptr, pChangeVersion, SYNC_VERSION.Ptr, pCreationVersion, UInt32, dwFlags, UInt32, dwWorkForChange, "ptr", pConflictKnowledge, "ptr*", &ppChangeBuilder := 0, "HRESULT")
         return ISyncChangeBuilder(ppChangeBuilder)
@@ -176,9 +176,9 @@ export default struct ISyncChangeBatch extends ISyncChangeBatchBase {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BeginUnorderedGroup := CallbackCreate(GetMethod(implObj, "BeginUnorderedGroup"), flags, 1)
-        this.vtbl.EndUnorderedGroup := CallbackCreate(GetMethod(implObj, "EndUnorderedGroup"), flags, 3)
-        this.vtbl.AddLoggedConflict := CallbackCreate(GetMethod(implObj, "AddLoggedConflict"), flags, 9)
+        this.vtbl.BeginUnorderedGroup := CallbackCreate(ObjBindMethod(implObj, "BeginUnorderedGroup"), flags, 1)
+        this.vtbl.EndUnorderedGroup := CallbackCreate(ObjBindMethod(implObj, "EndUnorderedGroup"), flags, 3)
+        this.vtbl.AddLoggedConflict := CallbackCreate(ObjBindMethod(implObj, "AddLoggedConflict"), flags, 9)
     }
 
     Dispose() {

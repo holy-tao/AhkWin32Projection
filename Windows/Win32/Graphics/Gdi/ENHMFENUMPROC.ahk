@@ -26,7 +26,6 @@ export default struct ENHMFENUMPROC {
     }
 
     /**
-     * 
      * @param {HDC} _hdc 
      * @param {Pointer<HANDLETABLE>} lpht 
      * @param {Pointer<ENHMETARECORD>} lpmr 
@@ -35,7 +34,9 @@ export default struct ENHMFENUMPROC {
      * @returns {Integer} This function must return a nonzero value to continue enumeration; to stop enumeration, it must return zero.
      */
     Call(_hdc, lpht, lpmr, nHandles, data) {
-        result := DllCall(this.value, HDC, _hdc, HANDLETABLE.Ptr, lpht, ENHMETARECORD.Ptr, lpmr, Int32, nHandles, LPARAM, data, Int32)
+        dataMarshal := data == 0 ? IntPtr : LPARAM
+
+        result := DllCall(this.value, HDC, _hdc, HANDLETABLE.Ptr, lpht, ENHMETARECORD.Ptr, lpmr, Int32, nHandles, dataMarshal, data, Int32)
         return result
     }
 

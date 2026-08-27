@@ -83,7 +83,7 @@ export default struct IAudioDeviceModulesClient extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAudioDeviceModulesManager := CallbackCreate(GetMethod(implObj, "SetAudioDeviceModulesManager"), flags, 2)
+        this.vtbl.SetAudioDeviceModulesManager := CallbackCreate(ObjBindMethod(implObj, "SetAudioDeviceModulesManager"), flags, 2)
     }
 
     Dispose() {

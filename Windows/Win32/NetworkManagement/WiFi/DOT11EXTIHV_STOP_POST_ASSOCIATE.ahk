@@ -19,16 +19,16 @@ export default struct DOT11EXTIHV_STOP_POST_ASSOCIATE {
     }
 
     /**
-     * 
      * @param {HANDLE} hIhvExtAdapter 
      * @param {Pointer<Pointer<Integer>>} pPeer 
      * @param {Integer} dot11AssocStatus 
      * @returns {Integer} 
      */
     Call(hIhvExtAdapter, pPeer, dot11AssocStatus) {
-        pPeerMarshal := pPeer is VarRef ? "ptr*" : "ptr"
+        hIhvExtAdapterMarshal := hIhvExtAdapter == 0 ? IntPtr : HANDLE
+        pPeerMarshal := pPeer is VarRef ? "ptr*" : IntPtr
 
-        result := DllCall(this.value, HANDLE, hIhvExtAdapter, pPeerMarshal, pPeer, UInt32, dot11AssocStatus, UInt32)
+        result := DllCall(this.value, hIhvExtAdapterMarshal, hIhvExtAdapter, pPeerMarshal, pPeer, UInt32, dot11AssocStatus, UInt32)
         return result
     }
 

@@ -18,13 +18,13 @@ export default struct D3D12CompilerCacheSessionAllocationFunc {
     }
 
     /**
-     * 
      * @param {Pointer} SizeInBytes 
      * @param {Pointer<Void>} pContext 
      * @returns {Pointer<Void>} 
      */
     Call(SizeInBytes, pContext) {
-        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+        pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
+        pContextMarshal := pContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, IntPtr, SizeInBytes, pContextMarshal, pContext, IntPtr)
         return result

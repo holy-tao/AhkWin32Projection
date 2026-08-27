@@ -172,7 +172,6 @@ export default struct ISchemaType extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {ISchemaItemCollection} 
      */
     get_baseTypes() {
@@ -181,7 +180,6 @@ export default struct ISchemaType extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {SCHEMADERIVATIONMETHOD} 
      */
     get_final() {
@@ -190,7 +188,6 @@ export default struct ISchemaType extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {SCHEMATYPEVARIETY} 
      */
     get_variety() {
@@ -199,7 +196,6 @@ export default struct ISchemaType extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {SCHEMADERIVATIONMETHOD} 
      */
     get_derivedBy() {
@@ -208,7 +204,6 @@ export default struct ISchemaType extends ISchemaItem {
     }
 
     /**
-     * 
      * @param {BSTR} data 
      * @returns {VARIANT_BOOL} 
      */
@@ -220,7 +215,6 @@ export default struct ISchemaType extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_minExclusive() {
@@ -230,7 +224,6 @@ export default struct ISchemaType extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_minInclusive() {
@@ -240,7 +233,6 @@ export default struct ISchemaType extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_maxExclusive() {
@@ -250,7 +242,6 @@ export default struct ISchemaType extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_maxInclusive() {
@@ -260,7 +251,6 @@ export default struct ISchemaType extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_totalDigits() {
@@ -270,7 +260,6 @@ export default struct ISchemaType extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_fractionDigits() {
@@ -280,7 +269,6 @@ export default struct ISchemaType extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_length() {
@@ -290,7 +278,6 @@ export default struct ISchemaType extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_minLength() {
@@ -300,7 +287,6 @@ export default struct ISchemaType extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_maxLength() {
@@ -310,7 +296,6 @@ export default struct ISchemaType extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {ISchemaStringCollection} 
      */
     get_enumeration() {
@@ -319,7 +304,6 @@ export default struct ISchemaType extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {SCHEMAWHITESPACE} 
      */
     get_whitespace() {
@@ -328,7 +312,6 @@ export default struct ISchemaType extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {ISchemaStringCollection} 
      */
     get_patterns() {
@@ -345,23 +328,23 @@ export default struct ISchemaType extends ISchemaItem {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_baseTypes := CallbackCreate(GetMethod(implObj, "get_baseTypes"), flags, 2)
-        this.vtbl.get_final := CallbackCreate(GetMethod(implObj, "get_final"), flags, 2)
-        this.vtbl.get_variety := CallbackCreate(GetMethod(implObj, "get_variety"), flags, 2)
-        this.vtbl.get_derivedBy := CallbackCreate(GetMethod(implObj, "get_derivedBy"), flags, 2)
-        this.vtbl.isValid := CallbackCreate(GetMethod(implObj, "isValid"), flags, 3)
-        this.vtbl.get_minExclusive := CallbackCreate(GetMethod(implObj, "get_minExclusive"), flags, 2)
-        this.vtbl.get_minInclusive := CallbackCreate(GetMethod(implObj, "get_minInclusive"), flags, 2)
-        this.vtbl.get_maxExclusive := CallbackCreate(GetMethod(implObj, "get_maxExclusive"), flags, 2)
-        this.vtbl.get_maxInclusive := CallbackCreate(GetMethod(implObj, "get_maxInclusive"), flags, 2)
-        this.vtbl.get_totalDigits := CallbackCreate(GetMethod(implObj, "get_totalDigits"), flags, 2)
-        this.vtbl.get_fractionDigits := CallbackCreate(GetMethod(implObj, "get_fractionDigits"), flags, 2)
-        this.vtbl.get_length := CallbackCreate(GetMethod(implObj, "get_length"), flags, 2)
-        this.vtbl.get_minLength := CallbackCreate(GetMethod(implObj, "get_minLength"), flags, 2)
-        this.vtbl.get_maxLength := CallbackCreate(GetMethod(implObj, "get_maxLength"), flags, 2)
-        this.vtbl.get_enumeration := CallbackCreate(GetMethod(implObj, "get_enumeration"), flags, 2)
-        this.vtbl.get_whitespace := CallbackCreate(GetMethod(implObj, "get_whitespace"), flags, 2)
-        this.vtbl.get_patterns := CallbackCreate(GetMethod(implObj, "get_patterns"), flags, 2)
+        this.vtbl.get_baseTypes := CallbackCreate(ObjBindMethod(implObj, "get_baseTypes"), flags, 2)
+        this.vtbl.get_final := CallbackCreate(ObjBindMethod(implObj, "get_final"), flags, 2)
+        this.vtbl.get_variety := CallbackCreate(ObjBindMethod(implObj, "get_variety"), flags, 2)
+        this.vtbl.get_derivedBy := CallbackCreate(ObjBindMethod(implObj, "get_derivedBy"), flags, 2)
+        this.vtbl.isValid := CallbackCreate(ObjBindMethod(implObj, "isValid"), flags, 3)
+        this.vtbl.get_minExclusive := CallbackCreate(ObjBindMethod(implObj, "get_minExclusive"), flags, 2)
+        this.vtbl.get_minInclusive := CallbackCreate(ObjBindMethod(implObj, "get_minInclusive"), flags, 2)
+        this.vtbl.get_maxExclusive := CallbackCreate(ObjBindMethod(implObj, "get_maxExclusive"), flags, 2)
+        this.vtbl.get_maxInclusive := CallbackCreate(ObjBindMethod(implObj, "get_maxInclusive"), flags, 2)
+        this.vtbl.get_totalDigits := CallbackCreate(ObjBindMethod(implObj, "get_totalDigits"), flags, 2)
+        this.vtbl.get_fractionDigits := CallbackCreate(ObjBindMethod(implObj, "get_fractionDigits"), flags, 2)
+        this.vtbl.get_length := CallbackCreate(ObjBindMethod(implObj, "get_length"), flags, 2)
+        this.vtbl.get_minLength := CallbackCreate(ObjBindMethod(implObj, "get_minLength"), flags, 2)
+        this.vtbl.get_maxLength := CallbackCreate(ObjBindMethod(implObj, "get_maxLength"), flags, 2)
+        this.vtbl.get_enumeration := CallbackCreate(ObjBindMethod(implObj, "get_enumeration"), flags, 2)
+        this.vtbl.get_whitespace := CallbackCreate(ObjBindMethod(implObj, "get_whitespace"), flags, 2)
+        this.vtbl.get_patterns := CallbackCreate(ObjBindMethod(implObj, "get_patterns"), flags, 2)
     }
 
     Dispose() {

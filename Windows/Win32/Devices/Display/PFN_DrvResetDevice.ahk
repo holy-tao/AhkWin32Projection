@@ -19,13 +19,12 @@ export default struct PFN_DrvResetDevice {
     }
 
     /**
-     * 
      * @param {DHPDEV} param0 
      * @param {Pointer<Void>} param1 
      * @returns {Integer} 
      */
     Call(param0, param1) {
-        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+        param1Marshal := param1 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, DHPDEV, param0, param1Marshal, param1, UInt32)
         return result

@@ -20,7 +20,6 @@ export default struct PCLUSAPI_GET_NOTIFY_EVENT_HANDLE_V2 {
     }
 
     /**
-     * 
      * @param {HCHANGE} _hChange 
      * @param {Pointer<HANDLE>} lphTargetEvent 
      * @returns {Integer} 

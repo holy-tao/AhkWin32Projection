@@ -398,14 +398,14 @@ export default struct IFunctionDiscoveryProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 5)
-        this.vtbl.Query := CallbackCreate(GetMethod(implObj, "Query"), flags, 3)
-        this.vtbl.EndQuery := CallbackCreate(GetMethod(implObj, "EndQuery"), flags, 1)
-        this.vtbl.InstancePropertyStoreValidateAccess := CallbackCreate(GetMethod(implObj, "InstancePropertyStoreValidateAccess"), flags, 4)
-        this.vtbl.InstancePropertyStoreOpen := CallbackCreate(GetMethod(implObj, "InstancePropertyStoreOpen"), flags, 5)
-        this.vtbl.InstancePropertyStoreFlush := CallbackCreate(GetMethod(implObj, "InstancePropertyStoreFlush"), flags, 3)
-        this.vtbl.InstanceQueryService := CallbackCreate(GetMethod(implObj, "InstanceQueryService"), flags, 6)
-        this.vtbl.InstanceReleased := CallbackCreate(GetMethod(implObj, "InstanceReleased"), flags, 3)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 5)
+        this.vtbl.Query := CallbackCreate(ObjBindMethod(implObj, "Query"), flags, 3)
+        this.vtbl.EndQuery := CallbackCreate(ObjBindMethod(implObj, "EndQuery"), flags, 1)
+        this.vtbl.InstancePropertyStoreValidateAccess := CallbackCreate(ObjBindMethod(implObj, "InstancePropertyStoreValidateAccess"), flags, 4)
+        this.vtbl.InstancePropertyStoreOpen := CallbackCreate(ObjBindMethod(implObj, "InstancePropertyStoreOpen"), flags, 5)
+        this.vtbl.InstancePropertyStoreFlush := CallbackCreate(ObjBindMethod(implObj, "InstancePropertyStoreFlush"), flags, 3)
+        this.vtbl.InstanceQueryService := CallbackCreate(ObjBindMethod(implObj, "InstanceQueryService"), flags, 6)
+        this.vtbl.InstanceReleased := CallbackCreate(ObjBindMethod(implObj, "InstanceReleased"), flags, 3)
     }
 
     Dispose() {

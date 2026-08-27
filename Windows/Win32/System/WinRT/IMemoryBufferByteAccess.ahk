@@ -45,8 +45,8 @@ export default struct IMemoryBufferByteAccess extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/memorybuffer/nf-memorybuffer-imemorybufferbyteaccess-getbuffer
      */
     GetBuffer(value, capacity) {
-        valueMarshal := value is VarRef ? "ptr*" : "ptr"
-        capacityMarshal := capacity is VarRef ? "uint*" : "ptr"
+        valueMarshal := value is VarRef ? "ptr*" : IntPtr
+        capacityMarshal := capacity is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, valueMarshal, value, capacityMarshal, capacity, "HRESULT")
         return result
@@ -61,7 +61,7 @@ export default struct IMemoryBufferByteAccess extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetBuffer := CallbackCreate(GetMethod(implObj, "GetBuffer"), flags, 3)
+        this.vtbl.GetBuffer := CallbackCreate(ObjBindMethod(implObj, "GetBuffer"), flags, 3)
     }
 
     Dispose() {

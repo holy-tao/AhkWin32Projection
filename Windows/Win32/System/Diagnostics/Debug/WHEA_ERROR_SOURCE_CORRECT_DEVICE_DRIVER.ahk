@@ -19,14 +19,13 @@ export default struct WHEA_ERROR_SOURCE_CORRECT_DEVICE_DRIVER {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} ErrorSourceDesc 
      * @param {Pointer<Integer>} MaximumSectionLength 
      * @returns {NTSTATUS} 
      */
     Call(ErrorSourceDesc, MaximumSectionLength) {
-        ErrorSourceDescMarshal := ErrorSourceDesc is VarRef ? "ptr" : "ptr"
-        MaximumSectionLengthMarshal := MaximumSectionLength is VarRef ? "uint*" : "ptr"
+        ErrorSourceDescMarshal := ErrorSourceDesc is VarRef ? "ptr" : IntPtr
+        MaximumSectionLengthMarshal := MaximumSectionLength is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, ErrorSourceDescMarshal, ErrorSourceDesc, MaximumSectionLengthMarshal, MaximumSectionLength, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

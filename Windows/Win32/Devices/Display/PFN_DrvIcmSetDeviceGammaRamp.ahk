@@ -20,14 +20,13 @@ export default struct PFN_DrvIcmSetDeviceGammaRamp {
     }
 
     /**
-     * 
      * @param {DHPDEV} param0 
      * @param {Integer} param1 
      * @param {Pointer<Void>} param2 
      * @returns {BOOL} 
      */
     Call(param0, param1, param2) {
-        param2Marshal := param2 is VarRef ? "ptr" : "ptr"
+        param2Marshal := param2 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, DHPDEV, param0, UInt32, param1, param2Marshal, param2, BOOL)
         return result

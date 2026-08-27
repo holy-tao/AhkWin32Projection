@@ -43,7 +43,9 @@ export GetDeviceRegistrationInfo(DeviceInformationClass) {
 export IsDeviceRegisteredWithManagement(cchUPN, pszUPN) {
     pszUPN := pszUPN is String ? StrPtr(pszUPN) : pszUPN
 
-    result := DllCall("MDMRegistration.dll\IsDeviceRegisteredWithManagement", BOOL.Ptr, &pfIsDeviceRegisteredWithManagement := 0, UInt32, cchUPN, "ptr", pszUPN, "HRESULT")
+    pszUPNMarshal := pszUPN == 0 ? IntPtr : PWSTR
+
+    result := DllCall("MDMRegistration.dll\IsDeviceRegisteredWithManagement", BOOL.Ptr, &pfIsDeviceRegisteredWithManagement := 0, UInt32, cchUPN, pszUPNMarshal, pszUPN, "HRESULT")
     return pfIsDeviceRegisteredWithManagement
 }
 
@@ -61,7 +63,6 @@ export IsManagementRegistrationAllowed() {
 }
 
 /**
- * 
  * @returns {BOOL} 
  */
 export IsMdmUxWithoutAadAllowed() {
@@ -134,14 +135,15 @@ export RegisterDeviceWithManagementUsingAADDeviceCredentials() {
 }
 
 /**
- * 
  * @param {PWSTR} MDMApplicationID 
  * @returns {HRESULT} 
  */
 export RegisterDeviceWithManagementUsingAADDeviceCredentials2(MDMApplicationID) {
     MDMApplicationID := MDMApplicationID is String ? StrPtr(MDMApplicationID) : MDMApplicationID
 
-    result := DllCall("MDMRegistration.dll\RegisterDeviceWithManagementUsingAADDeviceCredentials2", "ptr", MDMApplicationID, "HRESULT")
+    MDMApplicationIDMarshal := MDMApplicationID == 0 ? IntPtr : PWSTR
+
+    result := DllCall("MDMRegistration.dll\RegisterDeviceWithManagementUsingAADDeviceCredentials2", MDMApplicationIDMarshal, MDMApplicationID, "HRESULT")
     return result
 }
 
@@ -187,7 +189,9 @@ export RegisterDeviceWithManagement(pszUPN, ppszMDMServiceUri, ppzsAccessToken) 
 export UnregisterDeviceWithManagement(enrollmentID) {
     enrollmentID := enrollmentID is String ? StrPtr(enrollmentID) : enrollmentID
 
-    result := DllCall("MDMRegistration.dll\UnregisterDeviceWithManagement", "ptr", enrollmentID, "HRESULT")
+    enrollmentIDMarshal := enrollmentID == 0 ? IntPtr : PWSTR
+
+    result := DllCall("MDMRegistration.dll\UnregisterDeviceWithManagement", enrollmentIDMarshal, enrollmentID, "HRESULT")
     return result
 }
 
@@ -213,9 +217,10 @@ export GetDeviceManagementConfigInfo(providerID, configStringBufferLength, confi
     providerID := providerID is String ? StrPtr(providerID) : providerID
     configString := configString is String ? StrPtr(configString) : configString
 
-    configStringBufferLengthMarshal := configStringBufferLength is VarRef ? "uint*" : "ptr"
+    configStringBufferLengthMarshal := configStringBufferLength is VarRef ? "uint*" : IntPtr
+    configStringMarshal := configString == 0 ? IntPtr : PWSTR
 
-    result := DllCall("MDMRegistration.dll\GetDeviceManagementConfigInfo", "ptr", providerID, configStringBufferLengthMarshal, configStringBufferLength, "ptr", configString, "HRESULT")
+    result := DllCall("MDMRegistration.dll\GetDeviceManagementConfigInfo", "ptr", providerID, configStringBufferLengthMarshal, configStringBufferLength, configStringMarshal, configString, "HRESULT")
     return result
 }
 
@@ -285,7 +290,6 @@ export DiscoverManagementServiceEx(pszUPN, pszDiscoveryServiceCandidate) {
 }
 
 /**
- * 
  * @returns {BOOL} 
  */
 export RegisterDeviceWithLocalManagement() {
@@ -294,7 +298,6 @@ export RegisterDeviceWithLocalManagement() {
 }
 
 /**
- * 
  * @param {PWSTR} syncMLRequest 
  * @returns {PWSTR} 
  */
@@ -306,7 +309,6 @@ export ApplyLocalManagementSyncML(syncMLRequest) {
 }
 
 /**
- * 
  * @returns {HRESULT} 
  */
 export UnregisterDeviceWithLocalManagement() {

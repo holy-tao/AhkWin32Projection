@@ -18,12 +18,11 @@ export default struct PSERENUM_READPORT {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} SerPortAddress 
      * @returns {Integer} 
      */
     Call(SerPortAddress) {
-        SerPortAddressMarshal := SerPortAddress is VarRef ? "ptr" : "ptr"
+        SerPortAddressMarshal := SerPortAddress is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, SerPortAddressMarshal, SerPortAddress, Int8)
         return result

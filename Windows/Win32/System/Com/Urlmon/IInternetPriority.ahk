@@ -37,7 +37,6 @@ export default struct IInternetPriority extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nPriority 
      * @returns {HRESULT} 
      */
@@ -47,7 +46,6 @@ export default struct IInternetPriority extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetPriority() {
@@ -64,8 +62,8 @@ export default struct IInternetPriority extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetPriority := CallbackCreate(GetMethod(implObj, "SetPriority"), flags, 2)
-        this.vtbl.GetPriority := CallbackCreate(GetMethod(implObj, "GetPriority"), flags, 2)
+        this.vtbl.SetPriority := CallbackCreate(ObjBindMethod(implObj, "SetPriority"), flags, 2)
+        this.vtbl.GetPriority := CallbackCreate(ObjBindMethod(implObj, "GetPriority"), flags, 2)
     }
 
     Dispose() {

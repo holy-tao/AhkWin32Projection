@@ -90,8 +90,8 @@ export default struct IFolderViewOptions extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetFolderViewOptions := CallbackCreate(GetMethod(implObj, "SetFolderViewOptions"), flags, 3)
-        this.vtbl.GetFolderViewOptions := CallbackCreate(GetMethod(implObj, "GetFolderViewOptions"), flags, 2)
+        this.vtbl.SetFolderViewOptions := CallbackCreate(ObjBindMethod(implObj, "SetFolderViewOptions"), flags, 3)
+        this.vtbl.GetFolderViewOptions := CallbackCreate(ObjBindMethod(implObj, "GetFolderViewOptions"), flags, 2)
     }
 
     Dispose() {

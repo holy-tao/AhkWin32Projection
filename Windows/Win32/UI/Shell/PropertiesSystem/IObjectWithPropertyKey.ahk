@@ -76,8 +76,8 @@ export default struct IObjectWithPropertyKey extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetPropertyKey := CallbackCreate(GetMethod(implObj, "SetPropertyKey"), flags, 2)
-        this.vtbl.GetPropertyKey := CallbackCreate(GetMethod(implObj, "GetPropertyKey"), flags, 2)
+        this.vtbl.SetPropertyKey := CallbackCreate(ObjBindMethod(implObj, "SetPropertyKey"), flags, 2)
+        this.vtbl.GetPropertyKey := CallbackCreate(ObjBindMethod(implObj, "GetPropertyKey"), flags, 2)
     }
 
     Dispose() {

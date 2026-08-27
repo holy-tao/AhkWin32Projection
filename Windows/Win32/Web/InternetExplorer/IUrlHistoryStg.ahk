@@ -43,7 +43,6 @@ export default struct IUrlHistoryStg extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pocsUrl 
      * @param {PWSTR} pocsTitle 
      * @param {Integer} dwFlags 
@@ -58,7 +57,6 @@ export default struct IUrlHistoryStg extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pocsUrl 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
@@ -71,7 +69,6 @@ export default struct IUrlHistoryStg extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pocsUrl 
      * @param {Integer} dwFlags 
      * @param {Pointer<STATURL>} lpSTATURL 
@@ -85,7 +82,6 @@ export default struct IUrlHistoryStg extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pocsUrl 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -98,7 +94,6 @@ export default struct IUrlHistoryStg extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumSTATURL} 
      */
     EnumUrls() {
@@ -115,11 +110,11 @@ export default struct IUrlHistoryStg extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddUrl := CallbackCreate(GetMethod(implObj, "AddUrl"), flags, 4)
-        this.vtbl.DeleteUrl := CallbackCreate(GetMethod(implObj, "DeleteUrl"), flags, 3)
-        this.vtbl.QueryUrl := CallbackCreate(GetMethod(implObj, "QueryUrl"), flags, 4)
-        this.vtbl.BindToObject := CallbackCreate(GetMethod(implObj, "BindToObject"), flags, 4)
-        this.vtbl.EnumUrls := CallbackCreate(GetMethod(implObj, "EnumUrls"), flags, 2)
+        this.vtbl.AddUrl := CallbackCreate(ObjBindMethod(implObj, "AddUrl"), flags, 4)
+        this.vtbl.DeleteUrl := CallbackCreate(ObjBindMethod(implObj, "DeleteUrl"), flags, 3)
+        this.vtbl.QueryUrl := CallbackCreate(ObjBindMethod(implObj, "QueryUrl"), flags, 4)
+        this.vtbl.BindToObject := CallbackCreate(ObjBindMethod(implObj, "BindToObject"), flags, 4)
+        this.vtbl.EnumUrls := CallbackCreate(ObjBindMethod(implObj, "EnumUrls"), flags, 2)
     }
 
     Dispose() {

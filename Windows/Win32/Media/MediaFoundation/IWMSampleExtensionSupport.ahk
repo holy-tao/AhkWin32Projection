@@ -76,7 +76,7 @@ export default struct IWMSampleExtensionSupport extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetUseSampleExtensions := CallbackCreate(GetMethod(implObj, "SetUseSampleExtensions"), flags, 2)
+        this.vtbl.SetUseSampleExtensions := CallbackCreate(ObjBindMethod(implObj, "SetUseSampleExtensions"), flags, 2)
     }
 
     Dispose() {

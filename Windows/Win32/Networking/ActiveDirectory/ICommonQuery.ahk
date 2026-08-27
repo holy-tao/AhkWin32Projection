@@ -62,7 +62,7 @@ export default struct ICommonQuery extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OpenQueryWindow := CallbackCreate(GetMethod(implObj, "OpenQueryWindow"), flags, 4)
+        this.vtbl.OpenQueryWindow := CallbackCreate(ObjBindMethod(implObj, "OpenQueryWindow"), flags, 4)
     }
 
     Dispose() {

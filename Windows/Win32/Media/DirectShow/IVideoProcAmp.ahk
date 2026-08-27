@@ -83,8 +83,8 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-get_backlightcompensation
      */
     get_BacklightCompensation(pValue, pFlags) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "int*" : IntPtr
+        pFlagsMarshal := pFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
@@ -113,11 +113,11 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-getrange_backlightcompensation
      */
     getRange_BacklightCompensation(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
-        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
-        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
-        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
-        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+        pMinMarshal := pMin is VarRef ? "int*" : IntPtr
+        pMaxMarshal := pMax is VarRef ? "int*" : IntPtr
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : IntPtr
+        pDefaultMarshal := pDefault is VarRef ? "int*" : IntPtr
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
@@ -131,8 +131,8 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-get_brightness
      */
     get_Brightness(pValue, pFlags) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "int*" : IntPtr
+        pFlagsMarshal := pFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
@@ -161,11 +161,11 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-getrange_brightness
      */
     getRange_Brightness(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
-        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
-        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
-        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
-        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+        pMinMarshal := pMin is VarRef ? "int*" : IntPtr
+        pMaxMarshal := pMax is VarRef ? "int*" : IntPtr
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : IntPtr
+        pDefaultMarshal := pDefault is VarRef ? "int*" : IntPtr
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : IntPtr
 
         result := ComCall(8, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
@@ -179,8 +179,8 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-get_colorenable
      */
     get_ColorEnable(pValue, pFlags) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "int*" : IntPtr
+        pFlagsMarshal := pFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
@@ -209,11 +209,11 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-getrange_colorenable
      */
     getRange_ColorEnable(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
-        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
-        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
-        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
-        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+        pMinMarshal := pMin is VarRef ? "int*" : IntPtr
+        pMaxMarshal := pMax is VarRef ? "int*" : IntPtr
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : IntPtr
+        pDefaultMarshal := pDefault is VarRef ? "int*" : IntPtr
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : IntPtr
 
         result := ComCall(11, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
@@ -227,8 +227,8 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-get_contrast
      */
     get_Contrast(pValue, pFlags) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "int*" : IntPtr
+        pFlagsMarshal := pFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(12, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
@@ -257,11 +257,11 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-getrange_contrast
      */
     getRange_Contrast(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
-        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
-        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
-        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
-        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+        pMinMarshal := pMin is VarRef ? "int*" : IntPtr
+        pMaxMarshal := pMax is VarRef ? "int*" : IntPtr
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : IntPtr
+        pDefaultMarshal := pDefault is VarRef ? "int*" : IntPtr
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : IntPtr
 
         result := ComCall(14, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
@@ -275,8 +275,8 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-get_gamma
      */
     get_Gamma(pValue, pFlags) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "int*" : IntPtr
+        pFlagsMarshal := pFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(15, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
@@ -305,11 +305,11 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-getrange_gamma
      */
     getRange_Gamma(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
-        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
-        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
-        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
-        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+        pMinMarshal := pMin is VarRef ? "int*" : IntPtr
+        pMaxMarshal := pMax is VarRef ? "int*" : IntPtr
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : IntPtr
+        pDefaultMarshal := pDefault is VarRef ? "int*" : IntPtr
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : IntPtr
 
         result := ComCall(17, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
@@ -323,8 +323,8 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-get_saturation
      */
     get_Saturation(pValue, pFlags) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "int*" : IntPtr
+        pFlagsMarshal := pFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(18, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
@@ -353,11 +353,11 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-getrange_saturation
      */
     getRange_Saturation(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
-        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
-        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
-        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
-        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+        pMinMarshal := pMin is VarRef ? "int*" : IntPtr
+        pMaxMarshal := pMax is VarRef ? "int*" : IntPtr
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : IntPtr
+        pDefaultMarshal := pDefault is VarRef ? "int*" : IntPtr
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : IntPtr
 
         result := ComCall(20, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
@@ -371,8 +371,8 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-get_sharpness
      */
     get_Sharpness(pValue, pFlags) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "int*" : IntPtr
+        pFlagsMarshal := pFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(21, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
@@ -401,11 +401,11 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-getrange_sharpness
      */
     getRange_Sharpness(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
-        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
-        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
-        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
-        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+        pMinMarshal := pMin is VarRef ? "int*" : IntPtr
+        pMaxMarshal := pMax is VarRef ? "int*" : IntPtr
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : IntPtr
+        pDefaultMarshal := pDefault is VarRef ? "int*" : IntPtr
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : IntPtr
 
         result := ComCall(23, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
@@ -419,8 +419,8 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-get_whitebalance
      */
     get_WhiteBalance(pValue, pFlags) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "int*" : IntPtr
+        pFlagsMarshal := pFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(24, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
@@ -449,11 +449,11 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-getrange_whitebalance
      */
     getRange_WhiteBalance(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
-        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
-        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
-        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
-        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+        pMinMarshal := pMin is VarRef ? "int*" : IntPtr
+        pMaxMarshal := pMax is VarRef ? "int*" : IntPtr
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : IntPtr
+        pDefaultMarshal := pDefault is VarRef ? "int*" : IntPtr
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : IntPtr
 
         result := ComCall(26, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
@@ -467,8 +467,8 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-get_gain
      */
     get_Gain(pValue, pFlags) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "int*" : IntPtr
+        pFlagsMarshal := pFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(27, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
@@ -497,11 +497,11 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-getrange_gain
      */
     getRange_Gain(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
-        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
-        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
-        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
-        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+        pMinMarshal := pMin is VarRef ? "int*" : IntPtr
+        pMaxMarshal := pMax is VarRef ? "int*" : IntPtr
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : IntPtr
+        pDefaultMarshal := pDefault is VarRef ? "int*" : IntPtr
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : IntPtr
 
         result := ComCall(29, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
@@ -515,8 +515,8 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-get_hue
      */
     get_Hue(pValue, pFlags) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "int*" : IntPtr
+        pFlagsMarshal := pFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(30, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
@@ -545,11 +545,11 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-getrange_hue
      */
     getRange_Hue(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
-        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
-        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
-        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
-        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+        pMinMarshal := pMin is VarRef ? "int*" : IntPtr
+        pMaxMarshal := pMax is VarRef ? "int*" : IntPtr
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : IntPtr
+        pDefaultMarshal := pDefault is VarRef ? "int*" : IntPtr
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : IntPtr
 
         result := ComCall(32, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
@@ -584,8 +584,8 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-get_digitalmultiplier
      */
     get_DigitalMultiplier(pValue, pFlags) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "int*" : IntPtr
+        pFlagsMarshal := pFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(33, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
@@ -616,11 +616,11 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-getrange_digitalmultiplier
      */
     getRange_DigitalMultiplier(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
-        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
-        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
-        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
-        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+        pMinMarshal := pMin is VarRef ? "int*" : IntPtr
+        pMaxMarshal := pMax is VarRef ? "int*" : IntPtr
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : IntPtr
+        pDefaultMarshal := pDefault is VarRef ? "int*" : IntPtr
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : IntPtr
 
         result := ComCall(35, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
@@ -634,8 +634,8 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-get_powerlinefrequency
      */
     get_PowerlineFrequency(pValue, pFlags) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "int*" : IntPtr
+        pFlagsMarshal := pFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(36, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
@@ -664,11 +664,11 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-getrange_powerlinefrequency
      */
     getRange_PowerlineFrequency(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
-        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
-        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
-        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
-        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+        pMinMarshal := pMin is VarRef ? "int*" : IntPtr
+        pMaxMarshal := pMax is VarRef ? "int*" : IntPtr
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : IntPtr
+        pDefaultMarshal := pDefault is VarRef ? "int*" : IntPtr
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : IntPtr
 
         result := ComCall(38, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
@@ -683,9 +683,9 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-get_whitebalancecomponent
      */
     get_WhiteBalanceComponent(pValue1, pValue2, pFlags) {
-        pValue1Marshal := pValue1 is VarRef ? "int*" : "ptr"
-        pValue2Marshal := pValue2 is VarRef ? "int*" : "ptr"
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+        pValue1Marshal := pValue1 is VarRef ? "int*" : IntPtr
+        pValue2Marshal := pValue2 is VarRef ? "int*" : IntPtr
+        pFlagsMarshal := pFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(39, this, pValue1Marshal, pValue1, pValue2Marshal, pValue2, pFlagsMarshal, pFlags, "HRESULT")
         return result
@@ -715,11 +715,11 @@ export default struct IVideoProcAmp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ivideoprocamp-getrange_whitebalancecomponent
      */
     getRange_WhiteBalanceComponent(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
-        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
-        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
-        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
-        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+        pMinMarshal := pMin is VarRef ? "int*" : IntPtr
+        pMaxMarshal := pMax is VarRef ? "int*" : IntPtr
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : IntPtr
+        pDefaultMarshal := pDefault is VarRef ? "int*" : IntPtr
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : IntPtr
 
         result := ComCall(41, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
@@ -734,45 +734,45 @@ export default struct IVideoProcAmp extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_BacklightCompensation := CallbackCreate(GetMethod(implObj, "get_BacklightCompensation"), flags, 3)
-        this.vtbl.put_BacklightCompensation := CallbackCreate(GetMethod(implObj, "put_BacklightCompensation"), flags, 3)
-        this.vtbl.getRange_BacklightCompensation := CallbackCreate(GetMethod(implObj, "getRange_BacklightCompensation"), flags, 6)
-        this.vtbl.get_Brightness := CallbackCreate(GetMethod(implObj, "get_Brightness"), flags, 3)
-        this.vtbl.put_Brightness := CallbackCreate(GetMethod(implObj, "put_Brightness"), flags, 3)
-        this.vtbl.getRange_Brightness := CallbackCreate(GetMethod(implObj, "getRange_Brightness"), flags, 6)
-        this.vtbl.get_ColorEnable := CallbackCreate(GetMethod(implObj, "get_ColorEnable"), flags, 3)
-        this.vtbl.put_ColorEnable := CallbackCreate(GetMethod(implObj, "put_ColorEnable"), flags, 3)
-        this.vtbl.getRange_ColorEnable := CallbackCreate(GetMethod(implObj, "getRange_ColorEnable"), flags, 6)
-        this.vtbl.get_Contrast := CallbackCreate(GetMethod(implObj, "get_Contrast"), flags, 3)
-        this.vtbl.put_Contrast := CallbackCreate(GetMethod(implObj, "put_Contrast"), flags, 3)
-        this.vtbl.getRange_Contrast := CallbackCreate(GetMethod(implObj, "getRange_Contrast"), flags, 6)
-        this.vtbl.get_Gamma := CallbackCreate(GetMethod(implObj, "get_Gamma"), flags, 3)
-        this.vtbl.put_Gamma := CallbackCreate(GetMethod(implObj, "put_Gamma"), flags, 3)
-        this.vtbl.getRange_Gamma := CallbackCreate(GetMethod(implObj, "getRange_Gamma"), flags, 6)
-        this.vtbl.get_Saturation := CallbackCreate(GetMethod(implObj, "get_Saturation"), flags, 3)
-        this.vtbl.put_Saturation := CallbackCreate(GetMethod(implObj, "put_Saturation"), flags, 3)
-        this.vtbl.getRange_Saturation := CallbackCreate(GetMethod(implObj, "getRange_Saturation"), flags, 6)
-        this.vtbl.get_Sharpness := CallbackCreate(GetMethod(implObj, "get_Sharpness"), flags, 3)
-        this.vtbl.put_Sharpness := CallbackCreate(GetMethod(implObj, "put_Sharpness"), flags, 3)
-        this.vtbl.getRange_Sharpness := CallbackCreate(GetMethod(implObj, "getRange_Sharpness"), flags, 6)
-        this.vtbl.get_WhiteBalance := CallbackCreate(GetMethod(implObj, "get_WhiteBalance"), flags, 3)
-        this.vtbl.put_WhiteBalance := CallbackCreate(GetMethod(implObj, "put_WhiteBalance"), flags, 3)
-        this.vtbl.getRange_WhiteBalance := CallbackCreate(GetMethod(implObj, "getRange_WhiteBalance"), flags, 6)
-        this.vtbl.get_Gain := CallbackCreate(GetMethod(implObj, "get_Gain"), flags, 3)
-        this.vtbl.put_Gain := CallbackCreate(GetMethod(implObj, "put_Gain"), flags, 3)
-        this.vtbl.getRange_Gain := CallbackCreate(GetMethod(implObj, "getRange_Gain"), flags, 6)
-        this.vtbl.get_Hue := CallbackCreate(GetMethod(implObj, "get_Hue"), flags, 3)
-        this.vtbl.put_Hue := CallbackCreate(GetMethod(implObj, "put_Hue"), flags, 3)
-        this.vtbl.getRange_Hue := CallbackCreate(GetMethod(implObj, "getRange_Hue"), flags, 6)
-        this.vtbl.get_DigitalMultiplier := CallbackCreate(GetMethod(implObj, "get_DigitalMultiplier"), flags, 3)
-        this.vtbl.put_DigitalMultiplier := CallbackCreate(GetMethod(implObj, "put_DigitalMultiplier"), flags, 3)
-        this.vtbl.getRange_DigitalMultiplier := CallbackCreate(GetMethod(implObj, "getRange_DigitalMultiplier"), flags, 6)
-        this.vtbl.get_PowerlineFrequency := CallbackCreate(GetMethod(implObj, "get_PowerlineFrequency"), flags, 3)
-        this.vtbl.put_PowerlineFrequency := CallbackCreate(GetMethod(implObj, "put_PowerlineFrequency"), flags, 3)
-        this.vtbl.getRange_PowerlineFrequency := CallbackCreate(GetMethod(implObj, "getRange_PowerlineFrequency"), flags, 6)
-        this.vtbl.get_WhiteBalanceComponent := CallbackCreate(GetMethod(implObj, "get_WhiteBalanceComponent"), flags, 4)
-        this.vtbl.put_WhiteBalanceComponent := CallbackCreate(GetMethod(implObj, "put_WhiteBalanceComponent"), flags, 4)
-        this.vtbl.getRange_WhiteBalanceComponent := CallbackCreate(GetMethod(implObj, "getRange_WhiteBalanceComponent"), flags, 6)
+        this.vtbl.get_BacklightCompensation := CallbackCreate(ObjBindMethod(implObj, "get_BacklightCompensation"), flags, 3)
+        this.vtbl.put_BacklightCompensation := CallbackCreate(ObjBindMethod(implObj, "put_BacklightCompensation"), flags, 3)
+        this.vtbl.getRange_BacklightCompensation := CallbackCreate(ObjBindMethod(implObj, "getRange_BacklightCompensation"), flags, 6)
+        this.vtbl.get_Brightness := CallbackCreate(ObjBindMethod(implObj, "get_Brightness"), flags, 3)
+        this.vtbl.put_Brightness := CallbackCreate(ObjBindMethod(implObj, "put_Brightness"), flags, 3)
+        this.vtbl.getRange_Brightness := CallbackCreate(ObjBindMethod(implObj, "getRange_Brightness"), flags, 6)
+        this.vtbl.get_ColorEnable := CallbackCreate(ObjBindMethod(implObj, "get_ColorEnable"), flags, 3)
+        this.vtbl.put_ColorEnable := CallbackCreate(ObjBindMethod(implObj, "put_ColorEnable"), flags, 3)
+        this.vtbl.getRange_ColorEnable := CallbackCreate(ObjBindMethod(implObj, "getRange_ColorEnable"), flags, 6)
+        this.vtbl.get_Contrast := CallbackCreate(ObjBindMethod(implObj, "get_Contrast"), flags, 3)
+        this.vtbl.put_Contrast := CallbackCreate(ObjBindMethod(implObj, "put_Contrast"), flags, 3)
+        this.vtbl.getRange_Contrast := CallbackCreate(ObjBindMethod(implObj, "getRange_Contrast"), flags, 6)
+        this.vtbl.get_Gamma := CallbackCreate(ObjBindMethod(implObj, "get_Gamma"), flags, 3)
+        this.vtbl.put_Gamma := CallbackCreate(ObjBindMethod(implObj, "put_Gamma"), flags, 3)
+        this.vtbl.getRange_Gamma := CallbackCreate(ObjBindMethod(implObj, "getRange_Gamma"), flags, 6)
+        this.vtbl.get_Saturation := CallbackCreate(ObjBindMethod(implObj, "get_Saturation"), flags, 3)
+        this.vtbl.put_Saturation := CallbackCreate(ObjBindMethod(implObj, "put_Saturation"), flags, 3)
+        this.vtbl.getRange_Saturation := CallbackCreate(ObjBindMethod(implObj, "getRange_Saturation"), flags, 6)
+        this.vtbl.get_Sharpness := CallbackCreate(ObjBindMethod(implObj, "get_Sharpness"), flags, 3)
+        this.vtbl.put_Sharpness := CallbackCreate(ObjBindMethod(implObj, "put_Sharpness"), flags, 3)
+        this.vtbl.getRange_Sharpness := CallbackCreate(ObjBindMethod(implObj, "getRange_Sharpness"), flags, 6)
+        this.vtbl.get_WhiteBalance := CallbackCreate(ObjBindMethod(implObj, "get_WhiteBalance"), flags, 3)
+        this.vtbl.put_WhiteBalance := CallbackCreate(ObjBindMethod(implObj, "put_WhiteBalance"), flags, 3)
+        this.vtbl.getRange_WhiteBalance := CallbackCreate(ObjBindMethod(implObj, "getRange_WhiteBalance"), flags, 6)
+        this.vtbl.get_Gain := CallbackCreate(ObjBindMethod(implObj, "get_Gain"), flags, 3)
+        this.vtbl.put_Gain := CallbackCreate(ObjBindMethod(implObj, "put_Gain"), flags, 3)
+        this.vtbl.getRange_Gain := CallbackCreate(ObjBindMethod(implObj, "getRange_Gain"), flags, 6)
+        this.vtbl.get_Hue := CallbackCreate(ObjBindMethod(implObj, "get_Hue"), flags, 3)
+        this.vtbl.put_Hue := CallbackCreate(ObjBindMethod(implObj, "put_Hue"), flags, 3)
+        this.vtbl.getRange_Hue := CallbackCreate(ObjBindMethod(implObj, "getRange_Hue"), flags, 6)
+        this.vtbl.get_DigitalMultiplier := CallbackCreate(ObjBindMethod(implObj, "get_DigitalMultiplier"), flags, 3)
+        this.vtbl.put_DigitalMultiplier := CallbackCreate(ObjBindMethod(implObj, "put_DigitalMultiplier"), flags, 3)
+        this.vtbl.getRange_DigitalMultiplier := CallbackCreate(ObjBindMethod(implObj, "getRange_DigitalMultiplier"), flags, 6)
+        this.vtbl.get_PowerlineFrequency := CallbackCreate(ObjBindMethod(implObj, "get_PowerlineFrequency"), flags, 3)
+        this.vtbl.put_PowerlineFrequency := CallbackCreate(ObjBindMethod(implObj, "put_PowerlineFrequency"), flags, 3)
+        this.vtbl.getRange_PowerlineFrequency := CallbackCreate(ObjBindMethod(implObj, "getRange_PowerlineFrequency"), flags, 6)
+        this.vtbl.get_WhiteBalanceComponent := CallbackCreate(ObjBindMethod(implObj, "get_WhiteBalanceComponent"), flags, 4)
+        this.vtbl.put_WhiteBalanceComponent := CallbackCreate(ObjBindMethod(implObj, "put_WhiteBalanceComponent"), flags, 4)
+        this.vtbl.getRange_WhiteBalanceComponent := CallbackCreate(ObjBindMethod(implObj, "getRange_WhiteBalanceComponent"), flags, 6)
     }
 
     Dispose() {

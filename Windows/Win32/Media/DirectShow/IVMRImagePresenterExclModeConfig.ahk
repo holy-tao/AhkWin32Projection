@@ -113,8 +113,8 @@ export default struct IVMRImagePresenterExclModeConfig extends IVMRImagePresente
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetXlcModeDDObjAndPrimarySurface := CallbackCreate(GetMethod(implObj, "SetXlcModeDDObjAndPrimarySurface"), flags, 3)
-        this.vtbl.GetXlcModeDDObjAndPrimarySurface := CallbackCreate(GetMethod(implObj, "GetXlcModeDDObjAndPrimarySurface"), flags, 3)
+        this.vtbl.SetXlcModeDDObjAndPrimarySurface := CallbackCreate(ObjBindMethod(implObj, "SetXlcModeDDObjAndPrimarySurface"), flags, 3)
+        this.vtbl.GetXlcModeDDObjAndPrimarySurface := CallbackCreate(ObjBindMethod(implObj, "GetXlcModeDDObjAndPrimarySurface"), flags, 3)
     }
 
     Dispose() {

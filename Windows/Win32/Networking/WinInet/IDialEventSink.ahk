@@ -36,7 +36,6 @@ export default struct IDialEventSink extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwEvent 
      * @param {Integer} dwStatus 
      * @returns {HRESULT} 
@@ -55,7 +54,7 @@ export default struct IDialEventSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnEvent := CallbackCreate(GetMethod(implObj, "OnEvent"), flags, 3)
+        this.vtbl.OnEvent := CallbackCreate(ObjBindMethod(implObj, "OnEvent"), flags, 3)
     }
 
     Dispose() {

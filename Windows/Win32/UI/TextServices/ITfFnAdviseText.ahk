@@ -135,8 +135,8 @@ export default struct ITfFnAdviseText extends ITfFunction {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnTextUpdate := CallbackCreate(GetMethod(implObj, "OnTextUpdate"), flags, 4)
-        this.vtbl.OnLatticeUpdate := CallbackCreate(GetMethod(implObj, "OnLatticeUpdate"), flags, 3)
+        this.vtbl.OnTextUpdate := CallbackCreate(ObjBindMethod(implObj, "OnTextUpdate"), flags, 4)
+        this.vtbl.OnLatticeUpdate := CallbackCreate(ObjBindMethod(implObj, "OnLatticeUpdate"), flags, 3)
     }
 
     Dispose() {

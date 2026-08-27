@@ -24,7 +24,6 @@ export default struct PIBIO_STORAGE_GET_DATA_FORMAT_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/ns-winbio_adapter-winbio_pipeline">WINBIO_PIPELINE</a> structure associated with the biometric unit performing the operation.
      * @param {Pointer<Guid>} Format Pointer to a variable that receives a  GUID that uniquely identifies the data format used by this storage adapter when it stores templates in the database.
      * @param {Pointer<WINBIO_VERSION>} _Version Pointer to a <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-version">WINBIO_VERSION</a>  structure that receives the version number of the storage adapter component.

@@ -80,7 +80,9 @@ export default struct IMFVideoSampleAllocatorEx extends IMFVideoSampleAllocator 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfvideosampleallocatorex-initializesampleallocatorex
      */
     InitializeSampleAllocatorEx(cInitialSamples, cMaximumSamples, pAttributes, pMediaType) {
-        result := ComCall(7, this, UInt32, cInitialSamples, UInt32, cMaximumSamples, "ptr", pAttributes, "ptr", pMediaType, "HRESULT")
+        pAttributesMarshal := pAttributes == 0 ? IntPtr : "ptr"
+
+        result := ComCall(7, this, UInt32, cInitialSamples, UInt32, cMaximumSamples, pAttributesMarshal, pAttributes, "ptr", pMediaType, "HRESULT")
         return result
     }
 
@@ -93,7 +95,7 @@ export default struct IMFVideoSampleAllocatorEx extends IMFVideoSampleAllocator 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeSampleAllocatorEx := CallbackCreate(GetMethod(implObj, "InitializeSampleAllocatorEx"), flags, 5)
+        this.vtbl.InitializeSampleAllocatorEx := CallbackCreate(ObjBindMethod(implObj, "InitializeSampleAllocatorEx"), flags, 5)
     }
 
     Dispose() {

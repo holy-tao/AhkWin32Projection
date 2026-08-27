@@ -19,14 +19,14 @@ export default struct KSERVICE_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} Interrupt 
      * @param {Pointer<Void>} ServiceContext 
      * @returns {BOOLEAN} 
      */
     Call(Interrupt, ServiceContext) {
-        InterruptMarshal := Interrupt is VarRef ? "ptr*" : "ptr"
-        ServiceContextMarshal := ServiceContext is VarRef ? "ptr" : "ptr"
+        InterruptMarshal := Interrupt is VarRef ? "ptr*" : IntPtr
+        ServiceContextMarshal := ServiceContext is VarRef ? "ptr" : IntPtr
+        ServiceContextMarshal := ServiceContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, InterruptMarshal, Interrupt, ServiceContextMarshal, ServiceContext, BOOLEAN)
         return result

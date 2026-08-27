@@ -21,14 +21,13 @@ export default struct alljoyn_keystorelistener_loadrequest_ptr {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {alljoyn_keystorelistener} listener 
      * @param {alljoyn_keystore} keyStore 
      * @returns {QStatus} 
      */
     Call(_context, listener, keyStore) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _contextMarshal, _context, alljoyn_keystorelistener, listener, alljoyn_keystore, keyStore, QStatus)
         return result

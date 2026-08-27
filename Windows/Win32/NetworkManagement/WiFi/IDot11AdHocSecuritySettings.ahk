@@ -109,7 +109,7 @@ export default struct IDot11AdHocSecuritySettings extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocsecuritysettings-getdot11authalgorithm
      */
     GetDot11AuthAlgorithm(pAuth) {
-        pAuthMarshal := pAuth is VarRef ? "int*" : "ptr"
+        pAuthMarshal := pAuth is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, pAuthMarshal, pAuth, "HRESULT")
         return result
@@ -184,7 +184,7 @@ export default struct IDot11AdHocSecuritySettings extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocsecuritysettings-getdot11cipheralgorithm
      */
     GetDot11CipherAlgorithm(pCipher) {
-        pCipherMarshal := pCipher is VarRef ? "int*" : "ptr"
+        pCipherMarshal := pCipher is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, pCipherMarshal, pCipher, "HRESULT")
         return result
@@ -199,8 +199,8 @@ export default struct IDot11AdHocSecuritySettings extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDot11AuthAlgorithm := CallbackCreate(GetMethod(implObj, "GetDot11AuthAlgorithm"), flags, 2)
-        this.vtbl.GetDot11CipherAlgorithm := CallbackCreate(GetMethod(implObj, "GetDot11CipherAlgorithm"), flags, 2)
+        this.vtbl.GetDot11AuthAlgorithm := CallbackCreate(ObjBindMethod(implObj, "GetDot11AuthAlgorithm"), flags, 2)
+        this.vtbl.GetDot11CipherAlgorithm := CallbackCreate(ObjBindMethod(implObj, "GetDot11CipherAlgorithm"), flags, 2)
     }
 
     Dispose() {

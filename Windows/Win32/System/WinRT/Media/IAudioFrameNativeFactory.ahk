@@ -40,7 +40,6 @@ export default struct IAudioFrameNativeFactory extends IInspectable {
     }
 
     /**
-     * 
      * @param {IMFSample} data 
      * @param {BOOL} forceReadOnly 
      * @param {Pointer<Guid>} riid 
@@ -60,7 +59,7 @@ export default struct IAudioFrameNativeFactory extends IInspectable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateFromMFSample := CallbackCreate(GetMethod(implObj, "CreateFromMFSample"), flags, 5)
+        this.vtbl.CreateFromMFSample := CallbackCreate(ObjBindMethod(implObj, "CreateFromMFSample"), flags, 5)
     }
 
     Dispose() {

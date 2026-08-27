@@ -90,8 +90,8 @@ export default struct IWorkspaceScriptable2 extends IWorkspaceScriptable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StartWorkspaceEx := CallbackCreate(GetMethod(implObj, "StartWorkspaceEx"), flags, 10)
-        this.vtbl.ResourceDismissed := CallbackCreate(GetMethod(implObj, "ResourceDismissed"), flags, 3)
+        this.vtbl.StartWorkspaceEx := CallbackCreate(ObjBindMethod(implObj, "StartWorkspaceEx"), flags, 10)
+        this.vtbl.ResourceDismissed := CallbackCreate(ObjBindMethod(implObj, "ResourceDismissed"), flags, 3)
     }
 
     Dispose() {

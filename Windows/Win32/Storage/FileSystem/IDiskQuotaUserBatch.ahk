@@ -289,10 +289,10 @@ export default struct IDiskQuotaUserBatch extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
-        this.vtbl.RemoveAll := CallbackCreate(GetMethod(implObj, "RemoveAll"), flags, 1)
-        this.vtbl.FlushToDisk := CallbackCreate(GetMethod(implObj, "FlushToDisk"), flags, 1)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.RemoveAll := CallbackCreate(ObjBindMethod(implObj, "RemoveAll"), flags, 1)
+        this.vtbl.FlushToDisk := CallbackCreate(ObjBindMethod(implObj, "FlushToDisk"), flags, 1)
     }
 
     Dispose() {

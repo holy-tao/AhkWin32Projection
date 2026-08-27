@@ -19,7 +19,6 @@ export default struct FAST_IO_ACQUIRE_FILE {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @returns {String} Nothing - always returns an empty string
      */

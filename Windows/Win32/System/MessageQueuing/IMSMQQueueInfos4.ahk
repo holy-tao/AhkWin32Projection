@@ -46,7 +46,6 @@ export default struct IMSMQQueueInfos4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -55,7 +54,6 @@ export default struct IMSMQQueueInfos4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IMSMQQueueInfo4} 
      */
     Next() {
@@ -64,7 +62,6 @@ export default struct IMSMQQueueInfos4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Properties() {
@@ -81,9 +78,9 @@ export default struct IMSMQQueueInfos4 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 2)
-        this.vtbl.get_Properties := CallbackCreate(GetMethod(implObj, "get_Properties"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Next := CallbackCreate(ObjBindMethod(implObj, "Next"), flags, 2)
+        this.vtbl.get_Properties := CallbackCreate(ObjBindMethod(implObj, "get_Properties"), flags, 2)
     }
 
     Dispose() {

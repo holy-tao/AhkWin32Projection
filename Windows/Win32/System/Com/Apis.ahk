@@ -47,7 +47,6 @@
 
 ;@region Functions
 /**
- * 
  * @returns {Integer} 
  */
 export CoBuildVersion() {
@@ -465,15 +464,16 @@ export CoAllowSetForegroundWindow(pUnk) {
 }
 
 /**
- * 
  * @param {Pointer<Void>} pvReserved 
  * @param {Pointer<Integer>} pulReserved 
  * @param {HRESULT} appsHR 
  * @returns {HRESULT} 
  */
 export DcomChannelSetHResult(pvReserved, pulReserved, appsHR) {
-    pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
-    pulReservedMarshal := pulReserved is VarRef ? "uint*" : "ptr"
+    pvReservedMarshal := pvReserved is VarRef ? "ptr" : IntPtr
+    pvReservedMarshal := pvReserved == 0 ? IntPtr : "ptr"
+    pulReservedMarshal := pulReserved is VarRef ? "uint*" : IntPtr
+    pulReservedMarshal := pulReserved == 0 ? IntPtr : "uint*"
 
     result := DllCall("ole32.dll\DcomChannelSetHResult", pvReservedMarshal, pvReserved, pulReservedMarshal, pulReserved, "int", appsHR, "HRESULT")
     return result
@@ -591,8 +591,8 @@ export CLSIDFromProgIDEx(lpszProgID, lpclsid) {
  * @since windows5.0
  */
 export CoFileTimeToDosDateTime(lpFileTime, lpDosDate, lpDosTime) {
-    lpDosDateMarshal := lpDosDate is VarRef ? "ushort*" : "ptr"
-    lpDosTimeMarshal := lpDosTime is VarRef ? "ushort*" : "ptr"
+    lpDosDateMarshal := lpDosDate is VarRef ? "ushort*" : IntPtr
+    lpDosTimeMarshal := lpDosTime is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("OLE32.dll\CoFileTimeToDosDateTime", FILETIME.Ptr, lpFileTime, lpDosDateMarshal, lpDosDate, lpDosTimeMarshal, lpDosTime, BOOL)
     return result
@@ -805,7 +805,9 @@ export CreateDataAdviseHolder() {
  * @since windows5.0
  */
 export CreateDataCache(pUnkOuter, rclsid, iid) {
-    result := DllCall("OLE32.dll\CreateDataCache", "ptr", pUnkOuter, Guid.Ptr, rclsid, Guid.Ptr, iid, "ptr*", &ppv := 0, "HRESULT")
+    pUnkOuterMarshal := pUnkOuter == 0 ? IntPtr : "ptr"
+
+    result := DllCall("OLE32.dll\CreateDataCache", pUnkOuterMarshal, pUnkOuter, Guid.Ptr, rclsid, Guid.Ptr, iid, "ptr*", &ppv := 0, "HRESULT")
     return ppv
 }
 
@@ -898,7 +900,9 @@ export BindMoniker(pmk, grfOpt, iidResult) {
 export CoGetObject(pszName, pBindOptions, riid) {
     pszName := pszName is String ? StrPtr(pszName) : pszName
 
-    result := DllCall("OLE32.dll\CoGetObject", "ptr", pszName, BIND_OPTS.Ptr, pBindOptions, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+    pBindOptionsMarshal := pBindOptions == 0 ? IntPtr : BIND_OPTS.Ptr
+
+    result := DllCall("OLE32.dll\CoGetObject", "ptr", pszName, pBindOptionsMarshal, pBindOptions, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
     return ppv
 }
 
@@ -980,7 +984,7 @@ export CoGetObject(pszName, pBindOptions, riid) {
 export MkParseDisplayName(pbc, szUserName, pchEaten, ppmk) {
     szUserName := szUserName is String ? StrPtr(szUserName) : szUserName
 
-    pchEatenMarshal := pchEaten is VarRef ? "uint*" : "ptr"
+    pchEatenMarshal := pchEaten is VarRef ? "uint*" : IntPtr
 
     result := DllCall("OLE32.dll\MkParseDisplayName", "ptr", pbc, "ptr", szUserName, pchEatenMarshal, pchEaten, IMoniker.Ptr, ppmk, "HRESULT")
     return result
@@ -1096,7 +1100,10 @@ export CreateBindCtx(reserved) {
  * @since windows5.0
  */
 export CreateGenericComposite(pmkFirst, pmkRest) {
-    result := DllCall("OLE32.dll\CreateGenericComposite", "ptr", pmkFirst, "ptr", pmkRest, "ptr*", &ppmkComposite := 0, "HRESULT")
+    pmkFirstMarshal := pmkFirst == 0 ? IntPtr : "ptr"
+    pmkRestMarshal := pmkRest == 0 ? IntPtr : "ptr"
+
+    result := DllCall("OLE32.dll\CreateGenericComposite", pmkFirstMarshal, pmkFirst, pmkRestMarshal, pmkRest, "ptr*", &ppmkComposite := 0, "HRESULT")
     return IMoniker(ppmkComposite)
 }
 
@@ -1297,7 +1304,9 @@ export CreateAntiMoniker() {
  * @since windows5.0
  */
 export CreatePointerMoniker(punk) {
-    result := DllCall("OLE32.dll\CreatePointerMoniker", "ptr", punk, "ptr*", &ppmk := 0, "HRESULT")
+    punkMarshal := punk == 0 ? IntPtr : "ptr"
+
+    result := DllCall("OLE32.dll\CreatePointerMoniker", punkMarshal, punk, "ptr*", &ppmk := 0, "HRESULT")
     return IMoniker(ppmk)
 }
 
@@ -1329,7 +1338,9 @@ export CreatePointerMoniker(punk) {
  * @since windows5.0
  */
 export CreateObjrefMoniker(punk) {
-    result := DllCall("OLE32.dll\CreateObjrefMoniker", "ptr", punk, "ptr*", &ppmk := 0, "HRESULT")
+    punkMarshal := punk == 0 ? IntPtr : "ptr"
+
+    result := DllCall("OLE32.dll\CreateObjrefMoniker", punkMarshal, punk, "ptr*", &ppmk := 0, "HRESULT")
     return IMoniker(ppmk)
 }
 
@@ -1356,7 +1367,6 @@ export GetRunningObjectTable(reserved) {
 }
 
 /**
- * 
  * @param {HWND} hwndParent 
  * @param {PWSTR} pszTitle 
  * @param {IBindStatusCallback} pIbscCaller 
@@ -1640,8 +1650,8 @@ export CoGetContextToken() {
  * @since windows6.1
  */
 export CoGetApartmentType(pAptType, pAptQualifier) {
-    pAptTypeMarshal := pAptType is VarRef ? "int*" : "ptr"
-    pAptQualifierMarshal := pAptQualifier is VarRef ? "int*" : "ptr"
+    pAptTypeMarshal := pAptType is VarRef ? "int*" : IntPtr
+    pAptQualifierMarshal := pAptQualifier is VarRef ? "int*" : IntPtr
 
     result := DllCall("OLE32.dll\CoGetApartmentType", pAptTypeMarshal, pAptType, pAptQualifierMarshal, pAptQualifier, "HRESULT")
     return result
@@ -1783,7 +1793,8 @@ export CoGetObjectContext(riid) {
  * @since windows5.0
  */
 export CoGetClassObject(rclsid, dwClsContext, pvReserved, riid) {
-    pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
+    pvReservedMarshal := pvReserved is VarRef ? "ptr" : IntPtr
+    pvReservedMarshal := pvReserved == 0 ? IntPtr : "ptr"
 
     result := DllCall("OLE32.dll\CoGetClassObject", Guid.Ptr, rclsid, UInt32, dwClsContext, pvReservedMarshal, pvReserved, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
     return ppv
@@ -2183,7 +2194,9 @@ export CoIsHandlerConnected(pUnk) {
  * @since windows5.0
  */
 export CoCreateFreeThreadedMarshaler(punkOuter) {
-    result := DllCall("OLE32.dll\CoCreateFreeThreadedMarshaler", "ptr", punkOuter, "ptr*", &ppunkMarshal := 0, "HRESULT")
+    punkOuterMarshal := punkOuter == 0 ? IntPtr : "ptr"
+
+    result := DllCall("OLE32.dll\CoCreateFreeThreadedMarshaler", punkOuterMarshal, punkOuter, "ptr*", &ppunkMarshal := 0, "HRESULT")
     return IUnknown(ppunkMarshal)
 }
 
@@ -2431,9 +2444,12 @@ export CoDisconnectContext(dwTimeout) {
 export CoInitializeSecurity(pSecDesc, cAuthSvc, asAuthSvc, dwAuthnLevel, dwImpLevel, pAuthList, dwCapabilities) {
     static pReserved1 := 0, pReserved3 := 0 ;Reserved parameters must always be NULL
 
-    pAuthListMarshal := pAuthList is VarRef ? "ptr" : "ptr"
+    pSecDescMarshal := pSecDesc == 0 ? IntPtr : PSECURITY_DESCRIPTOR
+    asAuthSvcMarshal := asAuthSvc == 0 ? IntPtr : SOLE_AUTHENTICATION_SERVICE.Ptr
+    pAuthListMarshal := pAuthList is VarRef ? "ptr" : IntPtr
+    pAuthListMarshal := pAuthList == 0 ? IntPtr : "ptr"
 
-    result := DllCall("OLE32.dll\CoInitializeSecurity", PSECURITY_DESCRIPTOR, pSecDesc, Int32, cAuthSvc, SOLE_AUTHENTICATION_SERVICE.Ptr, asAuthSvc, "ptr", pReserved1, RPC_C_AUTHN_LEVEL, dwAuthnLevel, RPC_C_IMP_LEVEL, dwImpLevel, pAuthListMarshal, pAuthList, UInt32, dwCapabilities, "ptr", pReserved3, "HRESULT")
+    result := DllCall("OLE32.dll\CoInitializeSecurity", pSecDescMarshal, pSecDesc, Int32, cAuthSvc, asAuthSvcMarshal, asAuthSvc, "ptr", pReserved1, RPC_C_AUTHN_LEVEL, dwAuthnLevel, RPC_C_IMP_LEVEL, dwImpLevel, pAuthListMarshal, pAuthList, UInt32, dwCapabilities, "ptr", pReserved3, "HRESULT")
     return result
 }
 
@@ -2484,13 +2500,20 @@ export CoGetCallContext(riid) {
  * @since windows5.0
  */
 export CoQueryProxyBlanket(pProxy, pwAuthnSvc, pAuthzSvc, pServerPrincName, pAuthnLevel, pImpLevel, pAuthInfo, pCapabilites) {
-    pwAuthnSvcMarshal := pwAuthnSvc is VarRef ? "uint*" : "ptr"
-    pAuthzSvcMarshal := pAuthzSvc is VarRef ? "uint*" : "ptr"
-    pServerPrincNameMarshal := pServerPrincName is VarRef ? "ptr*" : "ptr"
-    pAuthnLevelMarshal := pAuthnLevel is VarRef ? "uint*" : "ptr"
-    pImpLevelMarshal := pImpLevel is VarRef ? "uint*" : "ptr"
-    pAuthInfoMarshal := pAuthInfo is VarRef ? "ptr*" : "ptr"
-    pCapabilitesMarshal := pCapabilites is VarRef ? "uint*" : "ptr"
+    pwAuthnSvcMarshal := pwAuthnSvc is VarRef ? "uint*" : IntPtr
+    pwAuthnSvcMarshal := pwAuthnSvc == 0 ? IntPtr : "uint*"
+    pAuthzSvcMarshal := pAuthzSvc is VarRef ? "uint*" : IntPtr
+    pAuthzSvcMarshal := pAuthzSvc == 0 ? IntPtr : "uint*"
+    pServerPrincNameMarshal := pServerPrincName is VarRef ? "ptr*" : IntPtr
+    pServerPrincNameMarshal := pServerPrincName == 0 ? IntPtr : PWSTR.Ptr
+    pAuthnLevelMarshal := pAuthnLevel is VarRef ? "uint*" : IntPtr
+    pAuthnLevelMarshal := pAuthnLevel == 0 ? IntPtr : "uint*"
+    pImpLevelMarshal := pImpLevel is VarRef ? "uint*" : IntPtr
+    pImpLevelMarshal := pImpLevel == 0 ? IntPtr : "uint*"
+    pAuthInfoMarshal := pAuthInfo is VarRef ? "ptr*" : IntPtr
+    pAuthInfoMarshal := pAuthInfo == 0 ? IntPtr : "ptr*"
+    pCapabilitesMarshal := pCapabilites is VarRef ? "uint*" : IntPtr
+    pCapabilitesMarshal := pCapabilites == 0 ? IntPtr : "uint*"
 
     result := DllCall("OLE32.dll\CoQueryProxyBlanket", "ptr", pProxy, pwAuthnSvcMarshal, pwAuthnSvc, pAuthzSvcMarshal, pAuthzSvc, pServerPrincNameMarshal, pServerPrincName, pAuthnLevelMarshal, pAuthnLevel, pImpLevelMarshal, pImpLevel, pAuthInfoMarshal, pAuthInfo, pCapabilitesMarshal, pCapabilites, "HRESULT")
     return result
@@ -2573,9 +2596,11 @@ export CoQueryProxyBlanket(pProxy, pwAuthnSvc, pAuthzSvc, pServerPrincName, pAut
 export CoSetProxyBlanket(pProxy, dwAuthnSvc, dwAuthzSvc, pServerPrincName, dwAuthnLevel, dwImpLevel, pAuthInfo, dwCapabilities) {
     pServerPrincName := pServerPrincName is String ? StrPtr(pServerPrincName) : pServerPrincName
 
-    pAuthInfoMarshal := pAuthInfo is VarRef ? "ptr" : "ptr"
+    pServerPrincNameMarshal := pServerPrincName == 0 ? IntPtr : PWSTR
+    pAuthInfoMarshal := pAuthInfo is VarRef ? "ptr" : IntPtr
+    pAuthInfoMarshal := pAuthInfo == 0 ? IntPtr : "ptr"
 
-    result := DllCall("OLE32.dll\CoSetProxyBlanket", "ptr", pProxy, UInt32, dwAuthnSvc, UInt32, dwAuthzSvc, "ptr", pServerPrincName, RPC_C_AUTHN_LEVEL, dwAuthnLevel, RPC_C_IMP_LEVEL, dwImpLevel, pAuthInfoMarshal, pAuthInfo, UInt32, dwCapabilities, "HRESULT")
+    result := DllCall("OLE32.dll\CoSetProxyBlanket", "ptr", pProxy, UInt32, dwAuthnSvc, UInt32, dwAuthzSvc, pServerPrincNameMarshal, pServerPrincName, RPC_C_AUTHN_LEVEL, dwAuthnLevel, RPC_C_IMP_LEVEL, dwImpLevel, pAuthInfoMarshal, pAuthInfo, UInt32, dwCapabilities, "HRESULT")
     return result
 }
 
@@ -2637,13 +2662,20 @@ export CoCopyProxy(pProxy) {
  * @since windows5.0
  */
 export CoQueryClientBlanket(pAuthnSvc, pAuthzSvc, pServerPrincName, pAuthnLevel, pImpLevel, pPrivs, pCapabilities) {
-    pAuthnSvcMarshal := pAuthnSvc is VarRef ? "uint*" : "ptr"
-    pAuthzSvcMarshal := pAuthzSvc is VarRef ? "uint*" : "ptr"
-    pServerPrincNameMarshal := pServerPrincName is VarRef ? "ptr*" : "ptr"
-    pAuthnLevelMarshal := pAuthnLevel is VarRef ? "uint*" : "ptr"
-    pImpLevelMarshal := pImpLevel is VarRef ? "uint*" : "ptr"
-    pPrivsMarshal := pPrivs is VarRef ? "ptr*" : "ptr"
-    pCapabilitiesMarshal := pCapabilities is VarRef ? "uint*" : "ptr"
+    pAuthnSvcMarshal := pAuthnSvc is VarRef ? "uint*" : IntPtr
+    pAuthnSvcMarshal := pAuthnSvc == 0 ? IntPtr : "uint*"
+    pAuthzSvcMarshal := pAuthzSvc is VarRef ? "uint*" : IntPtr
+    pAuthzSvcMarshal := pAuthzSvc == 0 ? IntPtr : "uint*"
+    pServerPrincNameMarshal := pServerPrincName is VarRef ? "ptr*" : IntPtr
+    pServerPrincNameMarshal := pServerPrincName == 0 ? IntPtr : PWSTR.Ptr
+    pAuthnLevelMarshal := pAuthnLevel is VarRef ? "uint*" : IntPtr
+    pAuthnLevelMarshal := pAuthnLevel == 0 ? IntPtr : "uint*"
+    pImpLevelMarshal := pImpLevel is VarRef ? "uint*" : IntPtr
+    pImpLevelMarshal := pImpLevel == 0 ? IntPtr : "uint*"
+    pPrivsMarshal := pPrivs is VarRef ? "ptr*" : IntPtr
+    pPrivsMarshal := pPrivs == 0 ? IntPtr : "ptr*"
+    pCapabilitiesMarshal := pCapabilities is VarRef ? "uint*" : IntPtr
+    pCapabilitiesMarshal := pCapabilities == 0 ? IntPtr : "uint*"
 
     result := DllCall("OLE32.dll\CoQueryClientBlanket", pAuthnSvcMarshal, pAuthnSvc, pAuthzSvcMarshal, pAuthzSvc, pServerPrincNameMarshal, pServerPrincName, pAuthnLevelMarshal, pAuthnLevel, pImpLevelMarshal, pImpLevel, pPrivsMarshal, pPrivs, pCapabilitiesMarshal, pCapabilities, "HRESULT")
     return result
@@ -2710,8 +2742,8 @@ export CoRevertToSelf() {
  * @since windows5.0
  */
 export CoQueryAuthenticationServices(pcAuthSvc, asAuthSvc) {
-    pcAuthSvcMarshal := pcAuthSvc is VarRef ? "uint*" : "ptr"
-    asAuthSvcMarshal := asAuthSvc is VarRef ? "ptr*" : "ptr"
+    pcAuthSvcMarshal := pcAuthSvc is VarRef ? "uint*" : IntPtr
+    asAuthSvcMarshal := asAuthSvc is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("OLE32.dll\CoQueryAuthenticationServices", pcAuthSvcMarshal, pcAuthSvc, asAuthSvcMarshal, asAuthSvc, "HRESULT")
     return result
@@ -2731,7 +2763,9 @@ export CoQueryAuthenticationServices(pcAuthSvc, asAuthSvc) {
  * @since windows5.0
  */
 export CoSwitchCallContext(pNewObject) {
-    result := DllCall("OLE32.dll\CoSwitchCallContext", "ptr", pNewObject, "ptr*", &ppOldObject := 0, "HRESULT")
+    pNewObjectMarshal := pNewObject == 0 ? IntPtr : "ptr"
+
+    result := DllCall("OLE32.dll\CoSwitchCallContext", pNewObjectMarshal, pNewObject, "ptr*", &ppOldObject := 0, "HRESULT")
     return IUnknown(ppOldObject)
 }
 
@@ -2760,7 +2794,9 @@ export CoSwitchCallContext(pNewObject) {
  * @since windows5.0
  */
 export CoCreateInstance(rclsid, pUnkOuter, dwClsContext, riid) {
-    result := DllCall("OLE32.dll\CoCreateInstance", Guid.Ptr, rclsid, "ptr", pUnkOuter, CLSCTX, dwClsContext, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+    pUnkOuterMarshal := pUnkOuter == 0 ? IntPtr : "ptr"
+
+    result := DllCall("OLE32.dll\CoCreateInstance", Guid.Ptr, rclsid, pUnkOuterMarshal, pUnkOuter, CLSCTX, dwClsContext, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
     return ppv
 }
 
@@ -2849,7 +2885,10 @@ export CoCreateInstance(rclsid, pUnkOuter, dwClsContext, riid) {
  * @since windows5.0
  */
 export CoCreateInstanceEx(Clsid, punkOuter, dwClsCtx, pServerInfo, dwCount, pResults) {
-    result := DllCall("OLE32.dll\CoCreateInstanceEx", Guid.Ptr, Clsid, "ptr", punkOuter, CLSCTX, dwClsCtx, COSERVERINFO.Ptr, pServerInfo, UInt32, dwCount, MULTI_QI.Ptr, pResults, "HRESULT")
+    punkOuterMarshal := punkOuter == 0 ? IntPtr : "ptr"
+    pServerInfoMarshal := pServerInfo == 0 ? IntPtr : COSERVERINFO.Ptr
+
+    result := DllCall("OLE32.dll\CoCreateInstanceEx", Guid.Ptr, Clsid, punkOuterMarshal, punkOuter, CLSCTX, dwClsCtx, pServerInfoMarshal, pServerInfo, UInt32, dwCount, MULTI_QI.Ptr, pResults, "HRESULT")
     return result
 }
 
@@ -2937,9 +2976,11 @@ export CoCreateInstanceEx(Clsid, punkOuter, dwClsCtx, pServerInfo, dwCount, pRes
  * @since windows8.0
  */
 export CoCreateInstanceFromApp(Clsid, punkOuter, dwClsCtx, reserved, dwCount, pResults) {
-    reservedMarshal := reserved is VarRef ? "ptr" : "ptr"
+    punkOuterMarshal := punkOuter == 0 ? IntPtr : "ptr"
+    reservedMarshal := reserved is VarRef ? "ptr" : IntPtr
+    reservedMarshal := reserved == 0 ? IntPtr : "ptr"
 
-    result := DllCall("OLE32.dll\CoCreateInstanceFromApp", Guid.Ptr, Clsid, "ptr", punkOuter, CLSCTX, dwClsCtx, reservedMarshal, reserved, UInt32, dwCount, MULTI_QI.Ptr, pResults, "HRESULT")
+    result := DllCall("OLE32.dll\CoCreateInstanceFromApp", Guid.Ptr, Clsid, punkOuterMarshal, punkOuter, CLSCTX, dwClsCtx, reservedMarshal, reserved, UInt32, dwCount, MULTI_QI.Ptr, pResults, "HRESULT")
     return result
 }
 
@@ -3020,7 +3061,9 @@ export CoGetCancelObject(dwThreadId, iid) {
  * @since windows5.0
  */
 export CoSetCancelObject(pUnk) {
-    result := DllCall("OLE32.dll\CoSetCancelObject", "ptr", pUnk, "HRESULT")
+    pUnkMarshal := pUnk == 0 ? IntPtr : "ptr"
+
+    result := DllCall("OLE32.dll\CoSetCancelObject", pUnkMarshal, pUnk, "HRESULT")
     return result
 }
 
@@ -3666,7 +3709,8 @@ export CoTaskMemAlloc(cb) {
  * @since windows5.0
  */
 export CoTaskMemRealloc(pv, cb) {
-    pvMarshal := pv is VarRef ? "ptr" : "ptr"
+    pvMarshal := pv is VarRef ? "ptr" : IntPtr
+    pvMarshal := pv == 0 ? IntPtr : "ptr"
 
     result := DllCall("OLE32.dll\CoTaskMemRealloc", pvMarshal, pv, IntPtr, cb, IntPtr)
     return result
@@ -3684,7 +3728,8 @@ export CoTaskMemRealloc(pv, cb) {
  * @since windows5.0
  */
 export CoTaskMemFree(pv) {
-    pvMarshal := pv is VarRef ? "ptr" : "ptr"
+    pvMarshal := pv is VarRef ? "ptr" : IntPtr
+    pvMarshal := pv == 0 ? IntPtr : "ptr"
 
     DllCall("OLE32.dll\CoTaskMemFree", pvMarshal, pv)
 }
@@ -3721,7 +3766,6 @@ export CoRevokeDeviceCatalog(cookie) {
 }
 
 /**
- * 
  * @param {PWSTR} pwzURI 
  * @param {URI_CREATE_FLAGS} dwFlags 
  * @returns {IUri} 
@@ -3736,7 +3780,6 @@ export CreateUri(pwzURI, dwFlags) {
 }
 
 /**
- * 
  * @param {PWSTR} pwzURI 
  * @param {PWSTR} pwzFragment 
  * @param {Integer} dwFlags 
@@ -3748,12 +3791,13 @@ export CreateUriWithFragment(pwzURI, pwzFragment, dwFlags) {
     pwzURI := pwzURI is String ? StrPtr(pwzURI) : pwzURI
     pwzFragment := pwzFragment is String ? StrPtr(pwzFragment) : pwzFragment
 
-    result := DllCall("URLMON.dll\CreateUriWithFragment", "ptr", pwzURI, "ptr", pwzFragment, UInt32, dwFlags, IntPtr, dwReserved, "ptr*", &ppURI := 0, "HRESULT")
+    pwzFragmentMarshal := pwzFragment == 0 ? IntPtr : PWSTR
+
+    result := DllCall("URLMON.dll\CreateUriWithFragment", "ptr", pwzURI, pwzFragmentMarshal, pwzFragment, UInt32, dwFlags, IntPtr, dwReserved, "ptr*", &ppURI := 0, "HRESULT")
     return IUri(ppURI)
 }
 
 /**
- * 
  * @param {PSTR} pszANSIInputUri 
  * @param {Integer} dwEncodingFlags 
  * @param {Integer} dwCodePage 
@@ -3770,14 +3814,15 @@ export CreateUriFromMultiByteString(pszANSIInputUri, dwEncodingFlags, dwCodePage
 }
 
 /**
- * 
  * @param {IUri} pIUri 
  * @param {Integer} dwFlags 
  * @param {Pointer} dwReserved 
  * @returns {IUriBuilder} 
  */
 export CreateIUriBuilder(pIUri, dwFlags, dwReserved) {
-    result := DllCall("URLMON.dll\CreateIUriBuilder", "ptr", pIUri, UInt32, dwFlags, IntPtr, dwReserved, "ptr*", &ppIUriBuilder := 0, "HRESULT")
+    pIUriMarshal := pIUri == 0 ? IntPtr : "ptr"
+
+    result := DllCall("URLMON.dll\CreateIUriBuilder", pIUriMarshal, pIUri, UInt32, dwFlags, IntPtr, dwReserved, "ptr*", &ppIUriBuilder := 0, "HRESULT")
     return IUriBuilder(ppIUriBuilder)
 }
 
@@ -3807,7 +3852,9 @@ export CreateIUriBuilder(pIUri, dwFlags, dwReserved) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-seterrorinfo
  */
 export SetErrorInfo(dwReserved, perrinfo) {
-    result := DllCall("OLEAUT32.dll\SetErrorInfo", UInt32, dwReserved, "ptr", perrinfo, "HRESULT")
+    perrinfoMarshal := perrinfo == 0 ? IntPtr : "ptr"
+
+    result := DllCall("OLEAUT32.dll\SetErrorInfo", UInt32, dwReserved, perrinfoMarshal, perrinfo, "HRESULT")
     return result
 }
 

@@ -85,9 +85,9 @@ export default struct IHandlerInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetApplicationDisplayName := CallbackCreate(GetMethod(implObj, "GetApplicationDisplayName"), flags, 2)
-        this.vtbl.GetApplicationPublisher := CallbackCreate(GetMethod(implObj, "GetApplicationPublisher"), flags, 2)
-        this.vtbl.GetApplicationIconReference := CallbackCreate(GetMethod(implObj, "GetApplicationIconReference"), flags, 2)
+        this.vtbl.GetApplicationDisplayName := CallbackCreate(ObjBindMethod(implObj, "GetApplicationDisplayName"), flags, 2)
+        this.vtbl.GetApplicationPublisher := CallbackCreate(ObjBindMethod(implObj, "GetApplicationPublisher"), flags, 2)
+        this.vtbl.GetApplicationIconReference := CallbackCreate(ObjBindMethod(implObj, "GetApplicationIconReference"), flags, 2)
     }
 
     Dispose() {

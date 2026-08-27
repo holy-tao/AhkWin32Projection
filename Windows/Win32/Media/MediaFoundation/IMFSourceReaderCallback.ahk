@@ -70,7 +70,9 @@ export default struct IMFSourceReaderCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereadercallback-onreadsample
      */
     OnReadSample(hrStatus, dwStreamIndex, dwStreamFlags, llTimestamp, pSample) {
-        result := ComCall(3, this, "int", hrStatus, UInt32, dwStreamIndex, UInt32, dwStreamFlags, Int64, llTimestamp, "ptr", pSample, "HRESULT")
+        pSampleMarshal := pSample == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, "int", hrStatus, UInt32, dwStreamIndex, UInt32, dwStreamFlags, Int64, llTimestamp, pSampleMarshal, pSample, "HRESULT")
         return result
     }
 
@@ -135,9 +137,9 @@ export default struct IMFSourceReaderCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnReadSample := CallbackCreate(GetMethod(implObj, "OnReadSample"), flags, 6)
-        this.vtbl.OnFlush := CallbackCreate(GetMethod(implObj, "OnFlush"), flags, 2)
-        this.vtbl.OnEvent := CallbackCreate(GetMethod(implObj, "OnEvent"), flags, 3)
+        this.vtbl.OnReadSample := CallbackCreate(ObjBindMethod(implObj, "OnReadSample"), flags, 6)
+        this.vtbl.OnFlush := CallbackCreate(ObjBindMethod(implObj, "OnFlush"), flags, 2)
+        this.vtbl.OnEvent := CallbackCreate(ObjBindMethod(implObj, "OnEvent"), flags, 3)
     }
 
     Dispose() {

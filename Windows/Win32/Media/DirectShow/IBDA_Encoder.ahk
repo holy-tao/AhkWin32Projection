@@ -52,8 +52,8 @@ export default struct IBDA_Encoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_encoder-querycapabilities
      */
     QueryCapabilities(NumAudioFmts, NumVideoFmts) {
-        NumAudioFmtsMarshal := NumAudioFmts is VarRef ? "uint*" : "ptr"
-        NumVideoFmtsMarshal := NumVideoFmts is VarRef ? "uint*" : "ptr"
+        NumAudioFmtsMarshal := NumAudioFmts is VarRef ? "uint*" : IntPtr
+        NumVideoFmtsMarshal := NumVideoFmts is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, NumAudioFmtsMarshal, NumAudioFmts, NumVideoFmtsMarshal, NumVideoFmts, "HRESULT")
         return result
@@ -100,11 +100,11 @@ export default struct IBDA_Encoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_encoder-enumaudiocapability
      */
     EnumAudioCapability(FmtIndex, MethodID, _AlgorithmType, SamplingRate, BitDepth, NumChannels) {
-        MethodIDMarshal := MethodID is VarRef ? "uint*" : "ptr"
-        _AlgorithmTypeMarshal := _AlgorithmType is VarRef ? "uint*" : "ptr"
-        SamplingRateMarshal := SamplingRate is VarRef ? "uint*" : "ptr"
-        BitDepthMarshal := BitDepth is VarRef ? "uint*" : "ptr"
-        NumChannelsMarshal := NumChannels is VarRef ? "uint*" : "ptr"
+        MethodIDMarshal := MethodID is VarRef ? "uint*" : IntPtr
+        _AlgorithmTypeMarshal := _AlgorithmType is VarRef ? "uint*" : IntPtr
+        SamplingRateMarshal := SamplingRate is VarRef ? "uint*" : IntPtr
+        BitDepthMarshal := BitDepth is VarRef ? "uint*" : IntPtr
+        NumChannelsMarshal := NumChannels is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, UInt32, FmtIndex, MethodIDMarshal, MethodID, _AlgorithmTypeMarshal, _AlgorithmType, SamplingRateMarshal, SamplingRate, BitDepthMarshal, BitDepth, NumChannelsMarshal, NumChannels, "HRESULT")
         return result
@@ -177,13 +177,13 @@ export default struct IBDA_Encoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_encoder-enumvideocapability
      */
     EnumVideoCapability(FmtIndex, MethodID, _AlgorithmType, VerticalSize, HorizontalSize, AspectRatio, FrameRateCode, ProgressiveSequence) {
-        MethodIDMarshal := MethodID is VarRef ? "uint*" : "ptr"
-        _AlgorithmTypeMarshal := _AlgorithmType is VarRef ? "uint*" : "ptr"
-        VerticalSizeMarshal := VerticalSize is VarRef ? "uint*" : "ptr"
-        HorizontalSizeMarshal := HorizontalSize is VarRef ? "uint*" : "ptr"
-        AspectRatioMarshal := AspectRatio is VarRef ? "uint*" : "ptr"
-        FrameRateCodeMarshal := FrameRateCode is VarRef ? "uint*" : "ptr"
-        ProgressiveSequenceMarshal := ProgressiveSequence is VarRef ? "uint*" : "ptr"
+        MethodIDMarshal := MethodID is VarRef ? "uint*" : IntPtr
+        _AlgorithmTypeMarshal := _AlgorithmType is VarRef ? "uint*" : IntPtr
+        VerticalSizeMarshal := VerticalSize is VarRef ? "uint*" : IntPtr
+        HorizontalSizeMarshal := HorizontalSize is VarRef ? "uint*" : IntPtr
+        AspectRatioMarshal := AspectRatio is VarRef ? "uint*" : IntPtr
+        FrameRateCodeMarshal := FrameRateCode is VarRef ? "uint*" : IntPtr
+        ProgressiveSequenceMarshal := ProgressiveSequence is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, UInt32, FmtIndex, MethodIDMarshal, MethodID, _AlgorithmTypeMarshal, _AlgorithmType, VerticalSizeMarshal, VerticalSize, HorizontalSizeMarshal, HorizontalSize, AspectRatioMarshal, AspectRatio, FrameRateCodeMarshal, FrameRateCode, ProgressiveSequenceMarshal, ProgressiveSequence, "HRESULT")
         return result
@@ -311,25 +311,25 @@ export default struct IBDA_Encoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_encoder-getstate
      */
     GetState(AudioBitrateMax, AudioBitrateMin, AudioBitrateMode, AudioBitrateStepping, AudioBitrate, AudioMethodID, AvailableAudioPrograms, AudioProgram, VideoBitrateMax, VideoBitrateMin, VideoBitrateMode, VideoBitrate, VideoBitrateStepping, VideoMethodID, SignalSourceID, SignalFormat, SignalLock, SignalLevel, SignalToNoiseRatio) {
-        AudioBitrateMaxMarshal := AudioBitrateMax is VarRef ? "uint*" : "ptr"
-        AudioBitrateMinMarshal := AudioBitrateMin is VarRef ? "uint*" : "ptr"
-        AudioBitrateModeMarshal := AudioBitrateMode is VarRef ? "uint*" : "ptr"
-        AudioBitrateSteppingMarshal := AudioBitrateStepping is VarRef ? "uint*" : "ptr"
-        AudioBitrateMarshal := AudioBitrate is VarRef ? "uint*" : "ptr"
-        AudioMethodIDMarshal := AudioMethodID is VarRef ? "uint*" : "ptr"
-        AvailableAudioProgramsMarshal := AvailableAudioPrograms is VarRef ? "uint*" : "ptr"
-        AudioProgramMarshal := AudioProgram is VarRef ? "uint*" : "ptr"
-        VideoBitrateMaxMarshal := VideoBitrateMax is VarRef ? "uint*" : "ptr"
-        VideoBitrateMinMarshal := VideoBitrateMin is VarRef ? "uint*" : "ptr"
-        VideoBitrateModeMarshal := VideoBitrateMode is VarRef ? "uint*" : "ptr"
-        VideoBitrateMarshal := VideoBitrate is VarRef ? "uint*" : "ptr"
-        VideoBitrateSteppingMarshal := VideoBitrateStepping is VarRef ? "uint*" : "ptr"
-        VideoMethodIDMarshal := VideoMethodID is VarRef ? "uint*" : "ptr"
-        SignalSourceIDMarshal := SignalSourceID is VarRef ? "uint*" : "ptr"
-        SignalFormatMarshal := SignalFormat is VarRef ? "uint*" : "ptr"
-        SignalLockMarshal := SignalLock is VarRef ? "int*" : "ptr"
-        SignalLevelMarshal := SignalLevel is VarRef ? "int*" : "ptr"
-        SignalToNoiseRatioMarshal := SignalToNoiseRatio is VarRef ? "uint*" : "ptr"
+        AudioBitrateMaxMarshal := AudioBitrateMax is VarRef ? "uint*" : IntPtr
+        AudioBitrateMinMarshal := AudioBitrateMin is VarRef ? "uint*" : IntPtr
+        AudioBitrateModeMarshal := AudioBitrateMode is VarRef ? "uint*" : IntPtr
+        AudioBitrateSteppingMarshal := AudioBitrateStepping is VarRef ? "uint*" : IntPtr
+        AudioBitrateMarshal := AudioBitrate is VarRef ? "uint*" : IntPtr
+        AudioMethodIDMarshal := AudioMethodID is VarRef ? "uint*" : IntPtr
+        AvailableAudioProgramsMarshal := AvailableAudioPrograms is VarRef ? "uint*" : IntPtr
+        AudioProgramMarshal := AudioProgram is VarRef ? "uint*" : IntPtr
+        VideoBitrateMaxMarshal := VideoBitrateMax is VarRef ? "uint*" : IntPtr
+        VideoBitrateMinMarshal := VideoBitrateMin is VarRef ? "uint*" : IntPtr
+        VideoBitrateModeMarshal := VideoBitrateMode is VarRef ? "uint*" : IntPtr
+        VideoBitrateMarshal := VideoBitrate is VarRef ? "uint*" : IntPtr
+        VideoBitrateSteppingMarshal := VideoBitrateStepping is VarRef ? "uint*" : IntPtr
+        VideoMethodIDMarshal := VideoMethodID is VarRef ? "uint*" : IntPtr
+        SignalSourceIDMarshal := SignalSourceID is VarRef ? "uint*" : IntPtr
+        SignalFormatMarshal := SignalFormat is VarRef ? "uint*" : IntPtr
+        SignalLockMarshal := SignalLock is VarRef ? "int*" : IntPtr
+        SignalLevelMarshal := SignalLevel is VarRef ? "int*" : IntPtr
+        SignalToNoiseRatioMarshal := SignalToNoiseRatio is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, AudioBitrateMaxMarshal, AudioBitrateMax, AudioBitrateMinMarshal, AudioBitrateMin, AudioBitrateModeMarshal, AudioBitrateMode, AudioBitrateSteppingMarshal, AudioBitrateStepping, AudioBitrateMarshal, AudioBitrate, AudioMethodIDMarshal, AudioMethodID, AvailableAudioProgramsMarshal, AvailableAudioPrograms, AudioProgramMarshal, AudioProgram, VideoBitrateMaxMarshal, VideoBitrateMax, VideoBitrateMinMarshal, VideoBitrateMin, VideoBitrateModeMarshal, VideoBitrateMode, VideoBitrateMarshal, VideoBitrate, VideoBitrateSteppingMarshal, VideoBitrateStepping, VideoMethodIDMarshal, VideoMethodID, SignalSourceIDMarshal, SignalSourceID, SignalFormatMarshal, SignalFormat, SignalLockMarshal, SignalLock, SignalLevelMarshal, SignalLevel, SignalToNoiseRatioMarshal, SignalToNoiseRatio, "HRESULT")
         return result
@@ -344,11 +344,11 @@ export default struct IBDA_Encoder extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryCapabilities := CallbackCreate(GetMethod(implObj, "QueryCapabilities"), flags, 3)
-        this.vtbl.EnumAudioCapability := CallbackCreate(GetMethod(implObj, "EnumAudioCapability"), flags, 7)
-        this.vtbl.EnumVideoCapability := CallbackCreate(GetMethod(implObj, "EnumVideoCapability"), flags, 9)
-        this.vtbl.SetParameters := CallbackCreate(GetMethod(implObj, "SetParameters"), flags, 8)
-        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 20)
+        this.vtbl.QueryCapabilities := CallbackCreate(ObjBindMethod(implObj, "QueryCapabilities"), flags, 3)
+        this.vtbl.EnumAudioCapability := CallbackCreate(ObjBindMethod(implObj, "EnumAudioCapability"), flags, 7)
+        this.vtbl.EnumVideoCapability := CallbackCreate(ObjBindMethod(implObj, "EnumVideoCapability"), flags, 9)
+        this.vtbl.SetParameters := CallbackCreate(ObjBindMethod(implObj, "SetParameters"), flags, 8)
+        this.vtbl.GetState := CallbackCreate(ObjBindMethod(implObj, "GetState"), flags, 20)
     }
 
     Dispose() {

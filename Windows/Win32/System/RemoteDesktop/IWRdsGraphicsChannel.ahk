@@ -51,7 +51,7 @@ export default struct IWRdsGraphicsChannel extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wrdsgraphicschannels/nf-wrdsgraphicschannels-iwrdsgraphicschannel-write
      */
     Write(cbSize, pBuffer, pContext) {
-        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, UInt32, cbSize, pBufferMarshal, pBuffer, "ptr", pContext, "HRESULT")
         return result
@@ -94,9 +94,9 @@ export default struct IWRdsGraphicsChannel extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Write := CallbackCreate(GetMethod(implObj, "Write"), flags, 4)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
-        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 3)
+        this.vtbl.Write := CallbackCreate(ObjBindMethod(implObj, "Write"), flags, 4)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
+        this.vtbl.Open := CallbackCreate(ObjBindMethod(implObj, "Open"), flags, 3)
     }
 
     Dispose() {

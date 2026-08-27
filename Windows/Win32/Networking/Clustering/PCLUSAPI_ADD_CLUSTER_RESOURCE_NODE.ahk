@@ -20,7 +20,6 @@ export default struct PCLUSAPI_ADD_CLUSTER_RESOURCE_NODE {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {HNODE} _hNode 
      * @returns {Integer} 

@@ -110,9 +110,9 @@ export default struct IMFSpatialAudioSample extends IMFSample {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetObjectCount := CallbackCreate(GetMethod(implObj, "GetObjectCount"), flags, 2)
-        this.vtbl.AddSpatialAudioObject := CallbackCreate(GetMethod(implObj, "AddSpatialAudioObject"), flags, 2)
-        this.vtbl.GetSpatialAudioObjectByIndex := CallbackCreate(GetMethod(implObj, "GetSpatialAudioObjectByIndex"), flags, 3)
+        this.vtbl.GetObjectCount := CallbackCreate(ObjBindMethod(implObj, "GetObjectCount"), flags, 2)
+        this.vtbl.AddSpatialAudioObject := CallbackCreate(ObjBindMethod(implObj, "AddSpatialAudioObject"), flags, 2)
+        this.vtbl.GetSpatialAudioObjectByIndex := CallbackCreate(ObjBindMethod(implObj, "GetSpatialAudioObjectByIndex"), flags, 3)
     }
 
     Dispose() {

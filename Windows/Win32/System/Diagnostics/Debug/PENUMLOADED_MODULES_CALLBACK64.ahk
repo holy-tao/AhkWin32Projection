@@ -27,7 +27,6 @@ export default struct PENUMLOADED_MODULES_CALLBACK64 {
     }
 
     /**
-     * 
      * @param {PSTR} ModuleName The name of the enumerated module.
      * @param {Integer} ModuleBase The base address of the module. Note that it is possible for this address to become invalid (for example, the module may be unloaded). Use exception handling when accessing the address or passing the address to another function to prevent an access violation from occurring.
      * @param {Integer} ModuleSize The size of the module, in bytes.
@@ -40,7 +39,8 @@ export default struct PENUMLOADED_MODULES_CALLBACK64 {
     Call(ModuleName, ModuleBase, ModuleSize, UserContext) {
         ModuleName := ModuleName is String ? StrPtr(ModuleName) : ModuleName
 
-        UserContextMarshal := UserContext is VarRef ? "ptr" : "ptr"
+        UserContextMarshal := UserContext is VarRef ? "ptr" : IntPtr
+        UserContextMarshal := UserContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, "ptr", ModuleName, Int64, ModuleBase, UInt32, ModuleSize, UserContextMarshal, UserContext, BOOL)
         return result

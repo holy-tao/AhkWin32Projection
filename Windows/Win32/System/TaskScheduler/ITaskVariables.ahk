@@ -84,9 +84,9 @@ export default struct ITaskVariables extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetInput := CallbackCreate(GetMethod(implObj, "GetInput"), flags, 2)
-        this.vtbl.SetOutput := CallbackCreate(GetMethod(implObj, "SetOutput"), flags, 2)
-        this.vtbl.GetContext := CallbackCreate(GetMethod(implObj, "GetContext"), flags, 2)
+        this.vtbl.GetInput := CallbackCreate(ObjBindMethod(implObj, "GetInput"), flags, 2)
+        this.vtbl.SetOutput := CallbackCreate(ObjBindMethod(implObj, "SetOutput"), flags, 2)
+        this.vtbl.GetContext := CallbackCreate(ObjBindMethod(implObj, "GetContext"), flags, 2)
     }
 
     Dispose() {

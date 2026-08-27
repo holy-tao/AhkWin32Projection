@@ -77,9 +77,12 @@ export default struct ICondition2 extends ICondition {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquerycondition/nf-structuredquerycondition-icondition2-getleafconditioninfo
      */
     GetLeafConditionInfo(ppropkey, pcop, ppropvar) {
-        pcopMarshal := pcop is VarRef ? "int*" : "ptr"
+        ppropkeyMarshal := ppropkey == 0 ? IntPtr : PROPERTYKEY.Ptr
+        pcopMarshal := pcop is VarRef ? "int*" : IntPtr
+        pcopMarshal := pcop == 0 ? IntPtr : "int*"
+        ppropvarMarshal := ppropvar == 0 ? IntPtr : PROPVARIANT.Ptr
 
-        result := ComCall(16, this, PROPERTYKEY.Ptr, ppropkey, pcopMarshal, pcop, PROPVARIANT.Ptr, ppropvar, "HRESULT")
+        result := ComCall(16, this, ppropkeyMarshal, ppropkey, pcopMarshal, pcop, ppropvarMarshal, ppropvar, "HRESULT")
         return result
     }
 
@@ -92,8 +95,8 @@ export default struct ICondition2 extends ICondition {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLocale := CallbackCreate(GetMethod(implObj, "GetLocale"), flags, 2)
-        this.vtbl.GetLeafConditionInfo := CallbackCreate(GetMethod(implObj, "GetLeafConditionInfo"), flags, 4)
+        this.vtbl.GetLocale := CallbackCreate(ObjBindMethod(implObj, "GetLocale"), flags, 2)
+        this.vtbl.GetLeafConditionInfo := CallbackCreate(ObjBindMethod(implObj, "GetLeafConditionInfo"), flags, 4)
     }
 
     Dispose() {

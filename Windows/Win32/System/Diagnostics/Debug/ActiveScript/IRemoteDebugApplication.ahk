@@ -54,7 +54,6 @@ export default struct IRemoteDebugApplication extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRemoteDebugApplicationThread} prptFocus 
      * @param {BREAKRESUMEACTION} bra 
      * @param {ERRORRESUMEACTION} era 
@@ -66,7 +65,6 @@ export default struct IRemoteDebugApplication extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CauseBreak() {
@@ -75,7 +73,6 @@ export default struct IRemoteDebugApplication extends IUnknown {
     }
 
     /**
-     * 
      * @param {IApplicationDebugger} pad 
      * @returns {HRESULT} 
      */
@@ -85,7 +82,6 @@ export default struct IRemoteDebugApplication extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DisconnectDebugger() {
@@ -94,7 +90,6 @@ export default struct IRemoteDebugApplication extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IApplicationDebugger} 
      */
     GetDebugger() {
@@ -103,7 +98,6 @@ export default struct IRemoteDebugApplication extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rclsid 
      * @param {IUnknown} pUnkOuter 
      * @param {Integer} dwClsContext 
@@ -116,7 +110,6 @@ export default struct IRemoteDebugApplication extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     QueryAlive() {
@@ -125,7 +118,6 @@ export default struct IRemoteDebugApplication extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumRemoteDebugApplicationThreads} 
      */
     EnumThreads() {
@@ -145,7 +137,6 @@ export default struct IRemoteDebugApplication extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugApplicationNode} 
      */
     GetRootNode() {
@@ -154,7 +145,6 @@ export default struct IRemoteDebugApplication extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumDebugExpressionContexts} 
      */
     EnumGlobalExpressionContexts() {
@@ -171,17 +161,17 @@ export default struct IRemoteDebugApplication extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ResumeFromBreakPoint := CallbackCreate(GetMethod(implObj, "ResumeFromBreakPoint"), flags, 4)
-        this.vtbl.CauseBreak := CallbackCreate(GetMethod(implObj, "CauseBreak"), flags, 1)
-        this.vtbl.ConnectDebugger := CallbackCreate(GetMethod(implObj, "ConnectDebugger"), flags, 2)
-        this.vtbl.DisconnectDebugger := CallbackCreate(GetMethod(implObj, "DisconnectDebugger"), flags, 1)
-        this.vtbl.GetDebugger := CallbackCreate(GetMethod(implObj, "GetDebugger"), flags, 2)
-        this.vtbl.CreateInstanceAtApplication := CallbackCreate(GetMethod(implObj, "CreateInstanceAtApplication"), flags, 6)
-        this.vtbl.QueryAlive := CallbackCreate(GetMethod(implObj, "QueryAlive"), flags, 1)
-        this.vtbl.EnumThreads := CallbackCreate(GetMethod(implObj, "EnumThreads"), flags, 2)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
-        this.vtbl.GetRootNode := CallbackCreate(GetMethod(implObj, "GetRootNode"), flags, 2)
-        this.vtbl.EnumGlobalExpressionContexts := CallbackCreate(GetMethod(implObj, "EnumGlobalExpressionContexts"), flags, 2)
+        this.vtbl.ResumeFromBreakPoint := CallbackCreate(ObjBindMethod(implObj, "ResumeFromBreakPoint"), flags, 4)
+        this.vtbl.CauseBreak := CallbackCreate(ObjBindMethod(implObj, "CauseBreak"), flags, 1)
+        this.vtbl.ConnectDebugger := CallbackCreate(ObjBindMethod(implObj, "ConnectDebugger"), flags, 2)
+        this.vtbl.DisconnectDebugger := CallbackCreate(ObjBindMethod(implObj, "DisconnectDebugger"), flags, 1)
+        this.vtbl.GetDebugger := CallbackCreate(ObjBindMethod(implObj, "GetDebugger"), flags, 2)
+        this.vtbl.CreateInstanceAtApplication := CallbackCreate(ObjBindMethod(implObj, "CreateInstanceAtApplication"), flags, 6)
+        this.vtbl.QueryAlive := CallbackCreate(ObjBindMethod(implObj, "QueryAlive"), flags, 1)
+        this.vtbl.EnumThreads := CallbackCreate(ObjBindMethod(implObj, "EnumThreads"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetRootNode := CallbackCreate(ObjBindMethod(implObj, "GetRootNode"), flags, 2)
+        this.vtbl.EnumGlobalExpressionContexts := CallbackCreate(ObjBindMethod(implObj, "EnumGlobalExpressionContexts"), flags, 2)
     }
 
     Dispose() {

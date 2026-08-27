@@ -37,7 +37,6 @@ export default struct ICustomFilterInfo extends ISyncFilterInfo {
     }
 
     /**
-     * 
      * @returns {ISyncFilter} 
      */
     GetSyncFilter() {
@@ -54,7 +53,7 @@ export default struct ICustomFilterInfo extends ISyncFilterInfo {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSyncFilter := CallbackCreate(GetMethod(implObj, "GetSyncFilter"), flags, 2)
+        this.vtbl.GetSyncFilter := CallbackCreate(ObjBindMethod(implObj, "GetSyncFilter"), flags, 2)
     }
 
     Dispose() {

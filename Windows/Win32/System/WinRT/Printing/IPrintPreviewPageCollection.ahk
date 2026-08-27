@@ -38,18 +38,18 @@ export default struct IPrintPreviewPageCollection extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} currentJobPage 
      * @param {IInspectable} printTaskOptions 
      * @returns {HRESULT} 
      */
     Paginate(currentJobPage, printTaskOptions) {
-        result := ComCall(3, this, UInt32, currentJobPage, "ptr", printTaskOptions, "HRESULT")
+        printTaskOptionsMarshal := printTaskOptions == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, UInt32, currentJobPage, printTaskOptionsMarshal, printTaskOptions, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} desiredJobPage 
      * @param {Float} width 
      * @param {Float} height 
@@ -69,8 +69,8 @@ export default struct IPrintPreviewPageCollection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Paginate := CallbackCreate(GetMethod(implObj, "Paginate"), flags, 3)
-        this.vtbl.MakePage := CallbackCreate(GetMethod(implObj, "MakePage"), flags, 4)
+        this.vtbl.Paginate := CallbackCreate(ObjBindMethod(implObj, "Paginate"), flags, 3)
+        this.vtbl.MakePage := CallbackCreate(ObjBindMethod(implObj, "MakePage"), flags, 4)
     }
 
     Dispose() {

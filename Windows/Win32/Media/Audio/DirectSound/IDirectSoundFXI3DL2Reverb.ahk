@@ -42,7 +42,6 @@ export default struct IDirectSoundFXI3DL2Reverb extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DSFXI3DL2Reverb>} pcDsFxI3DL2Reverb 
      * @returns {HRESULT} 
      */
@@ -52,7 +51,6 @@ export default struct IDirectSoundFXI3DL2Reverb extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DSFXI3DL2Reverb} 
      */
     GetAllParameters() {
@@ -62,7 +60,6 @@ export default struct IDirectSoundFXI3DL2Reverb extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwPreset 
      * @returns {HRESULT} 
      */
@@ -72,7 +69,6 @@ export default struct IDirectSoundFXI3DL2Reverb extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetPreset() {
@@ -81,7 +77,6 @@ export default struct IDirectSoundFXI3DL2Reverb extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lQuality 
      * @returns {HRESULT} 
      */
@@ -91,7 +86,6 @@ export default struct IDirectSoundFXI3DL2Reverb extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetQuality() {
@@ -108,12 +102,12 @@ export default struct IDirectSoundFXI3DL2Reverb extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAllParameters := CallbackCreate(GetMethod(implObj, "SetAllParameters"), flags, 2)
-        this.vtbl.GetAllParameters := CallbackCreate(GetMethod(implObj, "GetAllParameters"), flags, 2)
-        this.vtbl.SetPreset := CallbackCreate(GetMethod(implObj, "SetPreset"), flags, 2)
-        this.vtbl.GetPreset := CallbackCreate(GetMethod(implObj, "GetPreset"), flags, 2)
-        this.vtbl.SetQuality := CallbackCreate(GetMethod(implObj, "SetQuality"), flags, 2)
-        this.vtbl.GetQuality := CallbackCreate(GetMethod(implObj, "GetQuality"), flags, 2)
+        this.vtbl.SetAllParameters := CallbackCreate(ObjBindMethod(implObj, "SetAllParameters"), flags, 2)
+        this.vtbl.GetAllParameters := CallbackCreate(ObjBindMethod(implObj, "GetAllParameters"), flags, 2)
+        this.vtbl.SetPreset := CallbackCreate(ObjBindMethod(implObj, "SetPreset"), flags, 2)
+        this.vtbl.GetPreset := CallbackCreate(ObjBindMethod(implObj, "GetPreset"), flags, 2)
+        this.vtbl.SetQuality := CallbackCreate(ObjBindMethod(implObj, "SetQuality"), flags, 2)
+        this.vtbl.GetQuality := CallbackCreate(ObjBindMethod(implObj, "GetQuality"), flags, 2)
     }
 
     Dispose() {

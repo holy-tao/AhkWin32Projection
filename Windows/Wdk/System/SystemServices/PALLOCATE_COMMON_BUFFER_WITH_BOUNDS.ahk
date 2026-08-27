@@ -20,7 +20,6 @@ export default struct PALLOCATE_COMMON_BUFFER_WITH_BOUNDS {
     }
 
     /**
-     * 
      * @param {Pointer<DMA_ADAPTER>} DmaAdapter 
      * @param {Pointer<Integer>} MinimumAddress 
      * @param {Pointer<Integer>} MaximumAddress 
@@ -32,10 +31,13 @@ export default struct PALLOCATE_COMMON_BUFFER_WITH_BOUNDS {
      * @returns {Pointer<Void>} 
      */
     Call(DmaAdapter, MinimumAddress, MaximumAddress, Length, Flags, CacheType, PreferredNode, LogicalAddress) {
-        MinimumAddressMarshal := MinimumAddress is VarRef ? "int64*" : "ptr"
-        MaximumAddressMarshal := MaximumAddress is VarRef ? "int64*" : "ptr"
-        CacheTypeMarshal := CacheType is VarRef ? "int*" : "ptr"
-        LogicalAddressMarshal := LogicalAddress is VarRef ? "int64*" : "ptr"
+        MinimumAddressMarshal := MinimumAddress is VarRef ? "int64*" : IntPtr
+        MinimumAddressMarshal := MinimumAddress == 0 ? IntPtr : "int64*"
+        MaximumAddressMarshal := MaximumAddress is VarRef ? "int64*" : IntPtr
+        MaximumAddressMarshal := MaximumAddress == 0 ? IntPtr : "int64*"
+        CacheTypeMarshal := CacheType is VarRef ? "int*" : IntPtr
+        CacheTypeMarshal := CacheType == 0 ? IntPtr : "int*"
+        LogicalAddressMarshal := LogicalAddress is VarRef ? "int64*" : IntPtr
 
         result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, MinimumAddressMarshal, MinimumAddress, MaximumAddressMarshal, MaximumAddress, UInt32, Length, UInt32, Flags, CacheTypeMarshal, CacheType, UInt32, PreferredNode, LogicalAddressMarshal, LogicalAddress, IntPtr)
         return result

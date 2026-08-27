@@ -69,7 +69,6 @@ export default struct IHTMLCurrentStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textOverflow() {
@@ -79,7 +78,6 @@ export default struct IHTMLCurrentStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_minHeight() {
@@ -89,7 +87,6 @@ export default struct IHTMLCurrentStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_wordSpacing() {
@@ -99,7 +96,6 @@ export default struct IHTMLCurrentStyle3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_whiteSpace() {
@@ -117,10 +113,10 @@ export default struct IHTMLCurrentStyle3 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_textOverflow := CallbackCreate(GetMethod(implObj, "get_textOverflow"), flags, 2)
-        this.vtbl.get_minHeight := CallbackCreate(GetMethod(implObj, "get_minHeight"), flags, 2)
-        this.vtbl.get_wordSpacing := CallbackCreate(GetMethod(implObj, "get_wordSpacing"), flags, 2)
-        this.vtbl.get_whiteSpace := CallbackCreate(GetMethod(implObj, "get_whiteSpace"), flags, 2)
+        this.vtbl.get_textOverflow := CallbackCreate(ObjBindMethod(implObj, "get_textOverflow"), flags, 2)
+        this.vtbl.get_minHeight := CallbackCreate(ObjBindMethod(implObj, "get_minHeight"), flags, 2)
+        this.vtbl.get_wordSpacing := CallbackCreate(ObjBindMethod(implObj, "get_wordSpacing"), flags, 2)
+        this.vtbl.get_whiteSpace := CallbackCreate(ObjBindMethod(implObj, "get_whiteSpace"), flags, 2)
     }
 
     Dispose() {

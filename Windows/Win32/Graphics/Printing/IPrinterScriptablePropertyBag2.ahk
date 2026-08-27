@@ -38,7 +38,6 @@ export default struct IPrinterScriptablePropertyBag2 extends IPrinterScriptableP
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @returns {IUnknown} 
      */
@@ -58,7 +57,7 @@ export default struct IPrinterScriptablePropertyBag2 extends IPrinterScriptableP
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetReadStreamAsXML := CallbackCreate(GetMethod(implObj, "GetReadStreamAsXML"), flags, 3)
+        this.vtbl.GetReadStreamAsXML := CallbackCreate(ObjBindMethod(implObj, "GetReadStreamAsXML"), flags, 3)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct LPDDHALMOCOMPCB_BEGINFRAME {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_BEGINMOCOMPFRAMEDATA>} param0 
      * @returns {Integer} 
      */

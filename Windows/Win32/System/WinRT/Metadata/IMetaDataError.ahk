@@ -36,7 +36,6 @@ export default struct IMetaDataError extends IUnknown {
     }
 
     /**
-     * 
      * @param {HRESULT} hrError 
      * @param {Integer} token 
      * @returns {HRESULT} 
@@ -55,7 +54,7 @@ export default struct IMetaDataError extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnError := CallbackCreate(GetMethod(implObj, "OnError"), flags, 3)
+        this.vtbl.OnError := CallbackCreate(ObjBindMethod(implObj, "OnError"), flags, 3)
     }
 
     Dispose() {

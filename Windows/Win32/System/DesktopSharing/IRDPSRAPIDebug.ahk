@@ -46,7 +46,6 @@ export default struct IRDPSRAPIDebug extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} CLXCmdLine 
      * @returns {HRESULT} 
      */
@@ -58,7 +57,6 @@ export default struct IRDPSRAPIDebug extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_CLXCmdLine() {
@@ -76,8 +74,8 @@ export default struct IRDPSRAPIDebug extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_CLXCmdLine := CallbackCreate(GetMethod(implObj, "put_CLXCmdLine"), flags, 2)
-        this.vtbl.get_CLXCmdLine := CallbackCreate(GetMethod(implObj, "get_CLXCmdLine"), flags, 2)
+        this.vtbl.put_CLXCmdLine := CallbackCreate(ObjBindMethod(implObj, "put_CLXCmdLine"), flags, 2)
+        this.vtbl.get_CLXCmdLine := CallbackCreate(ObjBindMethod(implObj, "get_CLXCmdLine"), flags, 2)
     }
 
     Dispose() {

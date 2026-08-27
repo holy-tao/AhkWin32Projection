@@ -23,7 +23,6 @@ export default struct PDXVAHDSW_Plugin {
     }
 
     /**
-     * 
      * @param {Integer} _Size The size of the structure pointed to by the <i>pCallbacks</i> parameter, in bytes.
      * @param {Integer} pCallbacks A pointer to an uninitialized <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahdsw_callbacks">DXVAHDSW_CALLBACKS</a> structure. The function fills this structure with pointers to the plug-in device's callback functions.
      * @returns {HRESULT} If this callback function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

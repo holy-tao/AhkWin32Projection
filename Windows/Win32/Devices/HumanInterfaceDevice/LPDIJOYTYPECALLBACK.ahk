@@ -20,7 +20,6 @@ export default struct LPDIJOYTYPECALLBACK {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @param {Pointer<Void>} param1 
      * @returns {BOOL} 
@@ -28,7 +27,7 @@ export default struct LPDIJOYTYPECALLBACK {
     Call(param0, param1) {
         param0 := param0 is String ? StrPtr(param0) : param0
 
-        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+        param1Marshal := param1 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, "ptr", param0, param1Marshal, param1, BOOL)
         return result

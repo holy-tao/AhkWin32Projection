@@ -60,7 +60,7 @@ export default struct IBDA_EventingService extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CompleteEvent := CallbackCreate(GetMethod(implObj, "CompleteEvent"), flags, 3)
+        this.vtbl.CompleteEvent := CallbackCreate(ObjBindMethod(implObj, "CompleteEvent"), flags, 3)
     }
 
     Dispose() {

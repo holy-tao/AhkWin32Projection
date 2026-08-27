@@ -167,8 +167,8 @@ export default struct ITsSbResourcePluginStore extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbresourcepluginstore-enumeratefarms
      */
     EnumerateFarms(pdwCount, pVal) {
-        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
-        pValMarshal := pVal is VarRef ? "ptr*" : "ptr"
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : IntPtr
+        pValMarshal := pVal is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(9, this, pdwCountMarshal, pdwCount, pValMarshal, pVal, "HRESULT")
         return result
@@ -194,7 +194,7 @@ export default struct ITsSbResourcePluginStore extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbresourcepluginstore-enumerateenvironments
      */
     EnumerateEnvironments(pdwCount) {
-        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(11, this, pdwCountMarshal, pdwCount, "ptr*", &pVal := 0, "HRESULT")
         return pVal
@@ -307,7 +307,7 @@ export default struct ITsSbResourcePluginStore extends IUnknown {
         EnvName := EnvName is String ? BSTR.Alloc(EnvName).Value : EnvName
         sortyByPropName := sortyByPropName is String ? BSTR.Alloc(sortyByPropName).Value : sortyByPropName
 
-        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(19, this, BSTR, FarmName, BSTR, EnvName, TS_SB_SORT_BY, sortByFieldId, BSTR, sortyByPropName, pdwCountMarshal, pdwCount, "ptr*", &pVal := 0, "HRESULT")
         return pVal
@@ -332,8 +332,8 @@ export default struct ITsSbResourcePluginStore extends IUnknown {
         poolName := poolName is String ? BSTR.Alloc(poolName).Value : poolName
         initialProgram := initialProgram is String ? BSTR.Alloc(initialProgram).Value : initialProgram
 
-        pSessionStateMarshal := pSessionState is VarRef ? "int*" : "ptr"
-        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+        pSessionStateMarshal := pSessionState is VarRef ? "int*" : IntPtr
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(20, this, BSTR, targetName, BSTR, userName, BSTR, userDomain, BSTR, poolName, BSTR, initialProgram, pSessionStateMarshal, pSessionState, pdwCountMarshal, pdwCount, "ptr*", &ppVal := 0, "HRESULT")
         return ppVal
@@ -504,34 +504,34 @@ export default struct ITsSbResourcePluginStore extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryTarget := CallbackCreate(GetMethod(implObj, "QueryTarget"), flags, 4)
-        this.vtbl.QuerySessionBySessionId := CallbackCreate(GetMethod(implObj, "QuerySessionBySessionId"), flags, 4)
-        this.vtbl.AddTargetToStore := CallbackCreate(GetMethod(implObj, "AddTargetToStore"), flags, 2)
-        this.vtbl.AddSessionToStore := CallbackCreate(GetMethod(implObj, "AddSessionToStore"), flags, 2)
-        this.vtbl.AddEnvironmentToStore := CallbackCreate(GetMethod(implObj, "AddEnvironmentToStore"), flags, 2)
-        this.vtbl.RemoveEnvironmentFromStore := CallbackCreate(GetMethod(implObj, "RemoveEnvironmentFromStore"), flags, 3)
-        this.vtbl.EnumerateFarms := CallbackCreate(GetMethod(implObj, "EnumerateFarms"), flags, 3)
-        this.vtbl.QueryEnvironment := CallbackCreate(GetMethod(implObj, "QueryEnvironment"), flags, 3)
-        this.vtbl.EnumerateEnvironments := CallbackCreate(GetMethod(implObj, "EnumerateEnvironments"), flags, 3)
-        this.vtbl.SaveTarget := CallbackCreate(GetMethod(implObj, "SaveTarget"), flags, 3)
-        this.vtbl.SaveEnvironment := CallbackCreate(GetMethod(implObj, "SaveEnvironment"), flags, 3)
-        this.vtbl.SaveSession := CallbackCreate(GetMethod(implObj, "SaveSession"), flags, 2)
-        this.vtbl.SetTargetProperty := CallbackCreate(GetMethod(implObj, "SetTargetProperty"), flags, 4)
-        this.vtbl.SetEnvironmentProperty := CallbackCreate(GetMethod(implObj, "SetEnvironmentProperty"), flags, 4)
-        this.vtbl.SetTargetState := CallbackCreate(GetMethod(implObj, "SetTargetState"), flags, 4)
-        this.vtbl.SetSessionState := CallbackCreate(GetMethod(implObj, "SetSessionState"), flags, 2)
-        this.vtbl.EnumerateTargets := CallbackCreate(GetMethod(implObj, "EnumerateTargets"), flags, 7)
-        this.vtbl.EnumerateSessions := CallbackCreate(GetMethod(implObj, "EnumerateSessions"), flags, 9)
-        this.vtbl.GetFarmProperty := CallbackCreate(GetMethod(implObj, "GetFarmProperty"), flags, 4)
-        this.vtbl.DeleteTarget := CallbackCreate(GetMethod(implObj, "DeleteTarget"), flags, 3)
-        this.vtbl.SetTargetPropertyWithVersionCheck := CallbackCreate(GetMethod(implObj, "SetTargetPropertyWithVersionCheck"), flags, 4)
-        this.vtbl.SetEnvironmentPropertyWithVersionCheck := CallbackCreate(GetMethod(implObj, "SetEnvironmentPropertyWithVersionCheck"), flags, 4)
-        this.vtbl.AcquireTargetLock := CallbackCreate(GetMethod(implObj, "AcquireTargetLock"), flags, 4)
-        this.vtbl.ReleaseTargetLock := CallbackCreate(GetMethod(implObj, "ReleaseTargetLock"), flags, 2)
-        this.vtbl.TestAndSetServerState := CallbackCreate(GetMethod(implObj, "TestAndSetServerState"), flags, 6)
-        this.vtbl.SetServerWaitingToStart := CallbackCreate(GetMethod(implObj, "SetServerWaitingToStart"), flags, 3)
-        this.vtbl.GetServerState := CallbackCreate(GetMethod(implObj, "GetServerState"), flags, 4)
-        this.vtbl.SetServerDrainMode := CallbackCreate(GetMethod(implObj, "SetServerDrainMode"), flags, 3)
+        this.vtbl.QueryTarget := CallbackCreate(ObjBindMethod(implObj, "QueryTarget"), flags, 4)
+        this.vtbl.QuerySessionBySessionId := CallbackCreate(ObjBindMethod(implObj, "QuerySessionBySessionId"), flags, 4)
+        this.vtbl.AddTargetToStore := CallbackCreate(ObjBindMethod(implObj, "AddTargetToStore"), flags, 2)
+        this.vtbl.AddSessionToStore := CallbackCreate(ObjBindMethod(implObj, "AddSessionToStore"), flags, 2)
+        this.vtbl.AddEnvironmentToStore := CallbackCreate(ObjBindMethod(implObj, "AddEnvironmentToStore"), flags, 2)
+        this.vtbl.RemoveEnvironmentFromStore := CallbackCreate(ObjBindMethod(implObj, "RemoveEnvironmentFromStore"), flags, 3)
+        this.vtbl.EnumerateFarms := CallbackCreate(ObjBindMethod(implObj, "EnumerateFarms"), flags, 3)
+        this.vtbl.QueryEnvironment := CallbackCreate(ObjBindMethod(implObj, "QueryEnvironment"), flags, 3)
+        this.vtbl.EnumerateEnvironments := CallbackCreate(ObjBindMethod(implObj, "EnumerateEnvironments"), flags, 3)
+        this.vtbl.SaveTarget := CallbackCreate(ObjBindMethod(implObj, "SaveTarget"), flags, 3)
+        this.vtbl.SaveEnvironment := CallbackCreate(ObjBindMethod(implObj, "SaveEnvironment"), flags, 3)
+        this.vtbl.SaveSession := CallbackCreate(ObjBindMethod(implObj, "SaveSession"), flags, 2)
+        this.vtbl.SetTargetProperty := CallbackCreate(ObjBindMethod(implObj, "SetTargetProperty"), flags, 4)
+        this.vtbl.SetEnvironmentProperty := CallbackCreate(ObjBindMethod(implObj, "SetEnvironmentProperty"), flags, 4)
+        this.vtbl.SetTargetState := CallbackCreate(ObjBindMethod(implObj, "SetTargetState"), flags, 4)
+        this.vtbl.SetSessionState := CallbackCreate(ObjBindMethod(implObj, "SetSessionState"), flags, 2)
+        this.vtbl.EnumerateTargets := CallbackCreate(ObjBindMethod(implObj, "EnumerateTargets"), flags, 7)
+        this.vtbl.EnumerateSessions := CallbackCreate(ObjBindMethod(implObj, "EnumerateSessions"), flags, 9)
+        this.vtbl.GetFarmProperty := CallbackCreate(ObjBindMethod(implObj, "GetFarmProperty"), flags, 4)
+        this.vtbl.DeleteTarget := CallbackCreate(ObjBindMethod(implObj, "DeleteTarget"), flags, 3)
+        this.vtbl.SetTargetPropertyWithVersionCheck := CallbackCreate(ObjBindMethod(implObj, "SetTargetPropertyWithVersionCheck"), flags, 4)
+        this.vtbl.SetEnvironmentPropertyWithVersionCheck := CallbackCreate(ObjBindMethod(implObj, "SetEnvironmentPropertyWithVersionCheck"), flags, 4)
+        this.vtbl.AcquireTargetLock := CallbackCreate(ObjBindMethod(implObj, "AcquireTargetLock"), flags, 4)
+        this.vtbl.ReleaseTargetLock := CallbackCreate(ObjBindMethod(implObj, "ReleaseTargetLock"), flags, 2)
+        this.vtbl.TestAndSetServerState := CallbackCreate(ObjBindMethod(implObj, "TestAndSetServerState"), flags, 6)
+        this.vtbl.SetServerWaitingToStart := CallbackCreate(ObjBindMethod(implObj, "SetServerWaitingToStart"), flags, 3)
+        this.vtbl.GetServerState := CallbackCreate(ObjBindMethod(implObj, "GetServerState"), flags, 4)
+        this.vtbl.SetServerDrainMode := CallbackCreate(ObjBindMethod(implObj, "SetServerDrainMode"), flags, 3)
     }
 
     Dispose() {

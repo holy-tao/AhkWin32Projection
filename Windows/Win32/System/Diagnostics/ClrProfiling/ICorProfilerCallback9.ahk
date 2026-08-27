@@ -36,7 +36,6 @@ export default struct ICorProfilerCallback9 extends ICorProfilerCallback8 {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @returns {HRESULT} 
      */
@@ -54,7 +53,7 @@ export default struct ICorProfilerCallback9 extends ICorProfilerCallback8 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DynamicMethodUnloaded := CallbackCreate(GetMethod(implObj, "DynamicMethodUnloaded"), flags, 2)
+        this.vtbl.DynamicMethodUnloaded := CallbackCreate(ObjBindMethod(implObj, "DynamicMethodUnloaded"), flags, 2)
     }
 
     Dispose() {

@@ -138,7 +138,7 @@ export default struct IWMStreamConfig extends IUnknown {
     GetStreamName(pwszStreamName, pcchStreamName) {
         pwszStreamName := pwszStreamName is String ? StrPtr(pwszStreamName) : pwszStreamName
 
-        pcchStreamNameMarshal := pcchStreamName is VarRef ? "ushort*" : "ptr"
+        pcchStreamNameMarshal := pcchStreamName is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(6, this, "ptr", pwszStreamName, pcchStreamNameMarshal, pcchStreamName, "HRESULT")
         return result
@@ -244,7 +244,7 @@ export default struct IWMStreamConfig extends IUnknown {
     GetConnectionName(pwszInputName, pcchInputName) {
         pwszInputName := pwszInputName is String ? StrPtr(pwszInputName) : pwszInputName
 
-        pcchInputNameMarshal := pcchInputName is VarRef ? "ushort*" : "ptr"
+        pcchInputNameMarshal := pcchInputName is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(8, this, "ptr", pwszInputName, pcchInputNameMarshal, pcchInputName, "HRESULT")
         return result
@@ -361,17 +361,17 @@ export default struct IWMStreamConfig extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStreamType := CallbackCreate(GetMethod(implObj, "GetStreamType"), flags, 2)
-        this.vtbl.GetStreamNumber := CallbackCreate(GetMethod(implObj, "GetStreamNumber"), flags, 2)
-        this.vtbl.SetStreamNumber := CallbackCreate(GetMethod(implObj, "SetStreamNumber"), flags, 2)
-        this.vtbl.GetStreamName := CallbackCreate(GetMethod(implObj, "GetStreamName"), flags, 3)
-        this.vtbl.SetStreamName := CallbackCreate(GetMethod(implObj, "SetStreamName"), flags, 2)
-        this.vtbl.GetConnectionName := CallbackCreate(GetMethod(implObj, "GetConnectionName"), flags, 3)
-        this.vtbl.SetConnectionName := CallbackCreate(GetMethod(implObj, "SetConnectionName"), flags, 2)
-        this.vtbl.GetBitrate := CallbackCreate(GetMethod(implObj, "GetBitrate"), flags, 2)
-        this.vtbl.SetBitrate := CallbackCreate(GetMethod(implObj, "SetBitrate"), flags, 2)
-        this.vtbl.GetBufferWindow := CallbackCreate(GetMethod(implObj, "GetBufferWindow"), flags, 2)
-        this.vtbl.SetBufferWindow := CallbackCreate(GetMethod(implObj, "SetBufferWindow"), flags, 2)
+        this.vtbl.GetStreamType := CallbackCreate(ObjBindMethod(implObj, "GetStreamType"), flags, 2)
+        this.vtbl.GetStreamNumber := CallbackCreate(ObjBindMethod(implObj, "GetStreamNumber"), flags, 2)
+        this.vtbl.SetStreamNumber := CallbackCreate(ObjBindMethod(implObj, "SetStreamNumber"), flags, 2)
+        this.vtbl.GetStreamName := CallbackCreate(ObjBindMethod(implObj, "GetStreamName"), flags, 3)
+        this.vtbl.SetStreamName := CallbackCreate(ObjBindMethod(implObj, "SetStreamName"), flags, 2)
+        this.vtbl.GetConnectionName := CallbackCreate(ObjBindMethod(implObj, "GetConnectionName"), flags, 3)
+        this.vtbl.SetConnectionName := CallbackCreate(ObjBindMethod(implObj, "SetConnectionName"), flags, 2)
+        this.vtbl.GetBitrate := CallbackCreate(ObjBindMethod(implObj, "GetBitrate"), flags, 2)
+        this.vtbl.SetBitrate := CallbackCreate(ObjBindMethod(implObj, "SetBitrate"), flags, 2)
+        this.vtbl.GetBufferWindow := CallbackCreate(ObjBindMethod(implObj, "GetBufferWindow"), flags, 2)
+        this.vtbl.SetBufferWindow := CallbackCreate(ObjBindMethod(implObj, "SetBufferWindow"), flags, 2)
     }
 
     Dispose() {

@@ -19,16 +19,15 @@ export default struct PROTOCOL_CL_INCOMING_CALL {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} ProtocolSapContext 
      * @param {Pointer<Void>} ProtocolVcContext 
      * @param {Pointer<CO_CALL_PARAMETERS>} CallParameters 
      * @returns {Integer} 
      */
     Call(ProtocolSapContext, ProtocolVcContext, CallParameters) {
-        ProtocolSapContextMarshal := ProtocolSapContext is VarRef ? "ptr" : "ptr"
-        ProtocolVcContextMarshal := ProtocolVcContext is VarRef ? "ptr" : "ptr"
-        CallParametersMarshal := CallParameters is VarRef ? "ptr*" : "ptr"
+        ProtocolSapContextMarshal := ProtocolSapContext is VarRef ? "ptr" : IntPtr
+        ProtocolVcContextMarshal := ProtocolVcContext is VarRef ? "ptr" : IntPtr
+        CallParametersMarshal := CallParameters is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, ProtocolSapContextMarshal, ProtocolSapContext, ProtocolVcContextMarshal, ProtocolVcContext, CallParametersMarshal, CallParameters, Int32)
         return result

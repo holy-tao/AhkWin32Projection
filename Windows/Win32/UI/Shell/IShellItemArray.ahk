@@ -238,13 +238,13 @@ export default struct IShellItemArray extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BindToHandler := CallbackCreate(GetMethod(implObj, "BindToHandler"), flags, 5)
-        this.vtbl.GetPropertyStore := CallbackCreate(GetMethod(implObj, "GetPropertyStore"), flags, 4)
-        this.vtbl.GetPropertyDescriptionList := CallbackCreate(GetMethod(implObj, "GetPropertyDescriptionList"), flags, 4)
-        this.vtbl.GetAttributes := CallbackCreate(GetMethod(implObj, "GetAttributes"), flags, 4)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
-        this.vtbl.GetItemAt := CallbackCreate(GetMethod(implObj, "GetItemAt"), flags, 3)
-        this.vtbl.EnumItems := CallbackCreate(GetMethod(implObj, "EnumItems"), flags, 2)
+        this.vtbl.BindToHandler := CallbackCreate(ObjBindMethod(implObj, "BindToHandler"), flags, 5)
+        this.vtbl.GetPropertyStore := CallbackCreate(ObjBindMethod(implObj, "GetPropertyStore"), flags, 4)
+        this.vtbl.GetPropertyDescriptionList := CallbackCreate(ObjBindMethod(implObj, "GetPropertyDescriptionList"), flags, 4)
+        this.vtbl.GetAttributes := CallbackCreate(ObjBindMethod(implObj, "GetAttributes"), flags, 4)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetItemAt := CallbackCreate(ObjBindMethod(implObj, "GetItemAt"), flags, 3)
+        this.vtbl.EnumItems := CallbackCreate(ObjBindMethod(implObj, "EnumItems"), flags, 2)
     }
 
     Dispose() {

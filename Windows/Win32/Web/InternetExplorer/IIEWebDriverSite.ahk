@@ -41,7 +41,6 @@ export default struct IIEWebDriverSite extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} operationCode 
      * @param {Integer} _hWnd 
      * @returns {HRESULT} 
@@ -52,7 +51,6 @@ export default struct IIEWebDriverSite extends IDispatch {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkWD 
      * @returns {HRESULT} 
      */
@@ -62,7 +60,6 @@ export default struct IIEWebDriverSite extends IDispatch {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkWD 
      * @param {PWSTR} capName 
      * @returns {VARIANT} 
@@ -84,9 +81,9 @@ export default struct IIEWebDriverSite extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.WindowOperation := CallbackCreate(GetMethod(implObj, "WindowOperation"), flags, 3)
-        this.vtbl.DetachWebdriver := CallbackCreate(GetMethod(implObj, "DetachWebdriver"), flags, 2)
-        this.vtbl.GetCapabilityValue := CallbackCreate(GetMethod(implObj, "GetCapabilityValue"), flags, 4)
+        this.vtbl.WindowOperation := CallbackCreate(ObjBindMethod(implObj, "WindowOperation"), flags, 3)
+        this.vtbl.DetachWebdriver := CallbackCreate(ObjBindMethod(implObj, "DetachWebdriver"), flags, 2)
+        this.vtbl.GetCapabilityValue := CallbackCreate(ObjBindMethod(implObj, "GetCapabilityValue"), flags, 4)
     }
 
     Dispose() {

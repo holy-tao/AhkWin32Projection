@@ -133,12 +133,12 @@ export default struct IWMSyncReader2 extends IWMSyncReader {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetRangeByTimecode := CallbackCreate(GetMethod(implObj, "SetRangeByTimecode"), flags, 4)
-        this.vtbl.SetRangeByFrameEx := CallbackCreate(GetMethod(implObj, "SetRangeByFrameEx"), flags, 5)
-        this.vtbl.SetAllocateForOutput := CallbackCreate(GetMethod(implObj, "SetAllocateForOutput"), flags, 3)
-        this.vtbl.GetAllocateForOutput := CallbackCreate(GetMethod(implObj, "GetAllocateForOutput"), flags, 3)
-        this.vtbl.SetAllocateForStream := CallbackCreate(GetMethod(implObj, "SetAllocateForStream"), flags, 3)
-        this.vtbl.GetAllocateForStream := CallbackCreate(GetMethod(implObj, "GetAllocateForStream"), flags, 3)
+        this.vtbl.SetRangeByTimecode := CallbackCreate(ObjBindMethod(implObj, "SetRangeByTimecode"), flags, 4)
+        this.vtbl.SetRangeByFrameEx := CallbackCreate(ObjBindMethod(implObj, "SetRangeByFrameEx"), flags, 5)
+        this.vtbl.SetAllocateForOutput := CallbackCreate(ObjBindMethod(implObj, "SetAllocateForOutput"), flags, 3)
+        this.vtbl.GetAllocateForOutput := CallbackCreate(ObjBindMethod(implObj, "GetAllocateForOutput"), flags, 3)
+        this.vtbl.SetAllocateForStream := CallbackCreate(ObjBindMethod(implObj, "SetAllocateForStream"), flags, 3)
+        this.vtbl.GetAllocateForStream := CallbackCreate(ObjBindMethod(implObj, "GetAllocateForStream"), flags, 3)
     }
 
     Dispose() {

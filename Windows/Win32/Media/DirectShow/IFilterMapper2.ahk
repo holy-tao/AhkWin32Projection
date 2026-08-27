@@ -141,7 +141,9 @@ export default struct IFilterMapper2 extends IUnknown {
         Name := Name is String ? StrPtr(Name) : Name
         szInstance := szInstance is String ? StrPtr(szInstance) : szInstance
 
-        result := ComCall(5, this, Guid.Ptr, clsidFilter, "ptr", Name, IMoniker.Ptr, ppMoniker, Guid.Ptr, pclsidCategory, "ptr", szInstance, REGFILTER2.Ptr, prf2, "HRESULT")
+        ppMonikerMarshal := ppMoniker == 0 ? IntPtr : IMoniker.Ptr
+
+        result := ComCall(5, this, Guid.Ptr, clsidFilter, "ptr", Name, ppMonikerMarshal, ppMoniker, Guid.Ptr, pclsidCategory, "ptr", szInstance, REGFILTER2.Ptr, prf2, "HRESULT")
         return result
     }
 
@@ -191,7 +193,14 @@ export default struct IFilterMapper2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifiltermapper2-enummatchingfilters
      */
     EnumMatchingFilters(dwFlags, bExactMatch, dwMerit, bInputNeeded, cInputTypes, pInputTypes, pMedIn, pPinCategoryIn, bRender, bOutputNeeded, cOutputTypes, pOutputTypes, pMedOut, pPinCategoryOut) {
-        result := ComCall(6, this, "ptr*", &ppEnum := 0, UInt32, dwFlags, BOOL, bExactMatch, UInt32, dwMerit, BOOL, bInputNeeded, UInt32, cInputTypes, Guid.Ptr, pInputTypes, REGPINMEDIUM.Ptr, pMedIn, Guid.Ptr, pPinCategoryIn, BOOL, bRender, BOOL, bOutputNeeded, UInt32, cOutputTypes, Guid.Ptr, pOutputTypes, REGPINMEDIUM.Ptr, pMedOut, Guid.Ptr, pPinCategoryOut, "HRESULT")
+        pInputTypesMarshal := pInputTypes == 0 ? IntPtr : Guid.Ptr
+        pMedInMarshal := pMedIn == 0 ? IntPtr : REGPINMEDIUM.Ptr
+        pPinCategoryInMarshal := pPinCategoryIn == 0 ? IntPtr : Guid.Ptr
+        pOutputTypesMarshal := pOutputTypes == 0 ? IntPtr : Guid.Ptr
+        pMedOutMarshal := pMedOut == 0 ? IntPtr : REGPINMEDIUM.Ptr
+        pPinCategoryOutMarshal := pPinCategoryOut == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, UInt32, dwFlags, BOOL, bExactMatch, UInt32, dwMerit, BOOL, bInputNeeded, UInt32, cInputTypes, pInputTypesMarshal, pInputTypes, pMedInMarshal, pMedIn, pPinCategoryInMarshal, pPinCategoryIn, BOOL, bRender, BOOL, bOutputNeeded, UInt32, cOutputTypes, pOutputTypesMarshal, pOutputTypes, pMedOutMarshal, pMedOut, pPinCategoryOutMarshal, pPinCategoryOut, "HRESULT")
         return IEnumMoniker(ppEnum)
     }
 
@@ -204,10 +213,10 @@ export default struct IFilterMapper2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateCategory := CallbackCreate(GetMethod(implObj, "CreateCategory"), flags, 4)
-        this.vtbl.UnregisterFilter := CallbackCreate(GetMethod(implObj, "UnregisterFilter"), flags, 4)
-        this.vtbl.RegisterFilter := CallbackCreate(GetMethod(implObj, "RegisterFilter"), flags, 7)
-        this.vtbl.EnumMatchingFilters := CallbackCreate(GetMethod(implObj, "EnumMatchingFilters"), flags, 16)
+        this.vtbl.CreateCategory := CallbackCreate(ObjBindMethod(implObj, "CreateCategory"), flags, 4)
+        this.vtbl.UnregisterFilter := CallbackCreate(ObjBindMethod(implObj, "UnregisterFilter"), flags, 4)
+        this.vtbl.RegisterFilter := CallbackCreate(ObjBindMethod(implObj, "RegisterFilter"), flags, 7)
+        this.vtbl.EnumMatchingFilters := CallbackCreate(ObjBindMethod(implObj, "EnumMatchingFilters"), flags, 16)
     }
 
     Dispose() {

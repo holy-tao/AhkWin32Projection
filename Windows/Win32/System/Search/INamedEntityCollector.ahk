@@ -98,7 +98,7 @@ export default struct INamedEntityCollector extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 8)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 8)
     }
 
     Dispose() {

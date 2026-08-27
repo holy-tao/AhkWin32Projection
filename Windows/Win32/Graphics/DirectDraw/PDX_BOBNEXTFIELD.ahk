@@ -23,7 +23,6 @@ export default struct PDX_BOBNEXTFIELD {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} param0 Points to the miniport driver's device extension.
      * @param {Pointer<DDBOBNEXTFIELDINFO>} param1 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/dxmini/ns-dxmini-ddbobnextfieldinfo">DDBOBNEXTFIELDINFO</a> structure that contains the bob information for the surface.
      * @param {Pointer<Void>} param2 Reserved for system use.
@@ -36,8 +35,8 @@ export default struct PDX_BOBNEXTFIELD {
      * <a href="https://docs.microsoft.com/windows-hardware/drivers/display/return-values-for-directdraw">DXERR_UNSUPPORTED</a>
      */
     Call(param0, param1, param2) {
-        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
-        param2Marshal := param2 is VarRef ? "ptr" : "ptr"
+        param0Marshal := param0 is VarRef ? "ptr" : IntPtr
+        param2Marshal := param2 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, param0Marshal, param0, DDBOBNEXTFIELDINFO.Ptr, param1, param2Marshal, param2, UInt32)
         return result

@@ -20,7 +20,6 @@ export default struct PFND3DKMT_DESTROYHWQUEUE {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_DESTROYHWQUEUE>} param0 
      * @returns {NTSTATUS} 
      */

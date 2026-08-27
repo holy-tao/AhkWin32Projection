@@ -131,11 +131,11 @@ export default struct ISyncMgrResolutionHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryAbilities := CallbackCreate(GetMethod(implObj, "QueryAbilities"), flags, 2)
-        this.vtbl.KeepOther := CallbackCreate(GetMethod(implObj, "KeepOther"), flags, 3)
-        this.vtbl.KeepRecent := CallbackCreate(GetMethod(implObj, "KeepRecent"), flags, 2)
-        this.vtbl.RemoveFromSyncSet := CallbackCreate(GetMethod(implObj, "RemoveFromSyncSet"), flags, 2)
-        this.vtbl.KeepItems := CallbackCreate(GetMethod(implObj, "KeepItems"), flags, 3)
+        this.vtbl.QueryAbilities := CallbackCreate(ObjBindMethod(implObj, "QueryAbilities"), flags, 2)
+        this.vtbl.KeepOther := CallbackCreate(ObjBindMethod(implObj, "KeepOther"), flags, 3)
+        this.vtbl.KeepRecent := CallbackCreate(ObjBindMethod(implObj, "KeepRecent"), flags, 2)
+        this.vtbl.RemoveFromSyncSet := CallbackCreate(ObjBindMethod(implObj, "RemoveFromSyncSet"), flags, 2)
+        this.vtbl.KeepItems := CallbackCreate(ObjBindMethod(implObj, "KeepItems"), flags, 3)
     }
 
     Dispose() {

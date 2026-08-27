@@ -19,7 +19,6 @@ export default struct PMM_DLL_UNLOAD {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

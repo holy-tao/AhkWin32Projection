@@ -20,15 +20,15 @@ export default struct MI_ProviderFT_Load {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} self 
      * @param {Pointer<MI_Module_Self>} selfModule 
      * @param {Pointer<MI_Context>} _context 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(self, selfModule, _context) {
-        selfMarshal := self is VarRef ? "ptr*" : "ptr"
-        selfModuleMarshal := selfModule is VarRef ? "ptr*" : "ptr"
+        selfMarshal := self is VarRef ? "ptr*" : IntPtr
+        selfModuleMarshal := selfModule is VarRef ? "ptr*" : IntPtr
+        selfModuleMarshal := selfModule == 0 ? IntPtr : MI_Module_Self.Ptr
 
         DllCall(this.value, selfMarshal, self, selfModuleMarshal, selfModule, MI_Context.Ptr, _context)
     }

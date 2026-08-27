@@ -189,11 +189,11 @@ export default struct IComApp2Events extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnAppActivation2 := CallbackCreate(GetMethod(implObj, "OnAppActivation2"), flags, 4)
-        this.vtbl.OnAppShutdown2 := CallbackCreate(GetMethod(implObj, "OnAppShutdown2"), flags, 3)
-        this.vtbl.OnAppForceShutdown2 := CallbackCreate(GetMethod(implObj, "OnAppForceShutdown2"), flags, 3)
-        this.vtbl.OnAppPaused2 := CallbackCreate(GetMethod(implObj, "OnAppPaused2"), flags, 4)
-        this.vtbl.OnAppRecycle2 := CallbackCreate(GetMethod(implObj, "OnAppRecycle2"), flags, 5)
+        this.vtbl.OnAppActivation2 := CallbackCreate(ObjBindMethod(implObj, "OnAppActivation2"), flags, 4)
+        this.vtbl.OnAppShutdown2 := CallbackCreate(ObjBindMethod(implObj, "OnAppShutdown2"), flags, 3)
+        this.vtbl.OnAppForceShutdown2 := CallbackCreate(ObjBindMethod(implObj, "OnAppForceShutdown2"), flags, 3)
+        this.vtbl.OnAppPaused2 := CallbackCreate(ObjBindMethod(implObj, "OnAppPaused2"), flags, 4)
+        this.vtbl.OnAppRecycle2 := CallbackCreate(ObjBindMethod(implObj, "OnAppRecycle2"), flags, 5)
     }
 
     Dispose() {

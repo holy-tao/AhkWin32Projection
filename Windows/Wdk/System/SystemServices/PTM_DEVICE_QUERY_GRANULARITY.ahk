@@ -19,14 +19,13 @@ export default struct PTM_DEVICE_QUERY_GRANULARITY {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<Integer>} Granularity 
      * @returns {NTSTATUS} 
      */
     Call(_Context, Granularity) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        GranularityMarshal := Granularity is VarRef ? "char*" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        GranularityMarshal := Granularity is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, GranularityMarshal, Granularity, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

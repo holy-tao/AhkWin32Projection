@@ -93,7 +93,7 @@ export default struct ID3D10EffectScalarVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-setfloatarray
      */
     SetFloatArray(pData, Offset, Count) {
-        pDataMarshal := pData is VarRef ? "float*" : "ptr"
+        pDataMarshal := pData is VarRef ? "float*" : IntPtr
 
         result := ComCall(27, this, pDataMarshal, pData, UInt32, Offset, UInt32, Count, "HRESULT")
         return result
@@ -161,7 +161,7 @@ export default struct ID3D10EffectScalarVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-setintarray
      */
     SetIntArray(pData, Offset, Count) {
-        pDataMarshal := pData is VarRef ? "int*" : "ptr"
+        pDataMarshal := pData is VarRef ? "int*" : IntPtr
 
         result := ComCall(31, this, pDataMarshal, pData, UInt32, Offset, UInt32, Count, "HRESULT")
         return result
@@ -229,7 +229,7 @@ export default struct ID3D10EffectScalarVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-setboolarray
      */
     SetBoolArray(pData, Offset, Count) {
-        pDataMarshal := pData is VarRef ? "int*" : "ptr"
+        pDataMarshal := pData is VarRef ? "int*" : IntPtr
 
         result := ComCall(35, this, pDataMarshal, pData, UInt32, Offset, UInt32, Count, "HRESULT")
         return result
@@ -262,18 +262,18 @@ export default struct ID3D10EffectScalarVariable extends ID3D10EffectVariable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetFloat := CallbackCreate(GetMethod(implObj, "SetFloat"), flags, 2)
-        this.vtbl.GetFloat := CallbackCreate(GetMethod(implObj, "GetFloat"), flags, 2)
-        this.vtbl.SetFloatArray := CallbackCreate(GetMethod(implObj, "SetFloatArray"), flags, 4)
-        this.vtbl.GetFloatArray := CallbackCreate(GetMethod(implObj, "GetFloatArray"), flags, 4)
-        this.vtbl.SetInt := CallbackCreate(GetMethod(implObj, "SetInt"), flags, 2)
-        this.vtbl.GetInt := CallbackCreate(GetMethod(implObj, "GetInt"), flags, 2)
-        this.vtbl.SetIntArray := CallbackCreate(GetMethod(implObj, "SetIntArray"), flags, 4)
-        this.vtbl.GetIntArray := CallbackCreate(GetMethod(implObj, "GetIntArray"), flags, 4)
-        this.vtbl.SetBool := CallbackCreate(GetMethod(implObj, "SetBool"), flags, 2)
-        this.vtbl.GetBool := CallbackCreate(GetMethod(implObj, "GetBool"), flags, 2)
-        this.vtbl.SetBoolArray := CallbackCreate(GetMethod(implObj, "SetBoolArray"), flags, 4)
-        this.vtbl.GetBoolArray := CallbackCreate(GetMethod(implObj, "GetBoolArray"), flags, 4)
+        this.vtbl.SetFloat := CallbackCreate(ObjBindMethod(implObj, "SetFloat"), flags, 2)
+        this.vtbl.GetFloat := CallbackCreate(ObjBindMethod(implObj, "GetFloat"), flags, 2)
+        this.vtbl.SetFloatArray := CallbackCreate(ObjBindMethod(implObj, "SetFloatArray"), flags, 4)
+        this.vtbl.GetFloatArray := CallbackCreate(ObjBindMethod(implObj, "GetFloatArray"), flags, 4)
+        this.vtbl.SetInt := CallbackCreate(ObjBindMethod(implObj, "SetInt"), flags, 2)
+        this.vtbl.GetInt := CallbackCreate(ObjBindMethod(implObj, "GetInt"), flags, 2)
+        this.vtbl.SetIntArray := CallbackCreate(ObjBindMethod(implObj, "SetIntArray"), flags, 4)
+        this.vtbl.GetIntArray := CallbackCreate(ObjBindMethod(implObj, "GetIntArray"), flags, 4)
+        this.vtbl.SetBool := CallbackCreate(ObjBindMethod(implObj, "SetBool"), flags, 2)
+        this.vtbl.GetBool := CallbackCreate(ObjBindMethod(implObj, "GetBool"), flags, 2)
+        this.vtbl.SetBoolArray := CallbackCreate(ObjBindMethod(implObj, "SetBoolArray"), flags, 4)
+        this.vtbl.GetBoolArray := CallbackCreate(ObjBindMethod(implObj, "GetBoolArray"), flags, 4)
     }
 
     Dispose() {

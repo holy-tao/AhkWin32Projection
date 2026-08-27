@@ -39,7 +39,6 @@ export default struct ISAXLocator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     getColumnNumber() {
@@ -48,7 +47,6 @@ export default struct ISAXLocator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     getLineNumber() {
@@ -57,7 +55,6 @@ export default struct ISAXLocator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<Integer>} 
      */
     getPublicId() {
@@ -66,7 +63,6 @@ export default struct ISAXLocator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<Integer>} 
      */
     getSystemId() {
@@ -83,10 +79,10 @@ export default struct ISAXLocator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.getColumnNumber := CallbackCreate(GetMethod(implObj, "getColumnNumber"), flags, 2)
-        this.vtbl.getLineNumber := CallbackCreate(GetMethod(implObj, "getLineNumber"), flags, 2)
-        this.vtbl.getPublicId := CallbackCreate(GetMethod(implObj, "getPublicId"), flags, 2)
-        this.vtbl.getSystemId := CallbackCreate(GetMethod(implObj, "getSystemId"), flags, 2)
+        this.vtbl.getColumnNumber := CallbackCreate(ObjBindMethod(implObj, "getColumnNumber"), flags, 2)
+        this.vtbl.getLineNumber := CallbackCreate(ObjBindMethod(implObj, "getLineNumber"), flags, 2)
+        this.vtbl.getPublicId := CallbackCreate(ObjBindMethod(implObj, "getPublicId"), flags, 2)
+        this.vtbl.getSystemId := CallbackCreate(ObjBindMethod(implObj, "getSystemId"), flags, 2)
     }
 
     Dispose() {

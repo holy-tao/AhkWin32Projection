@@ -18,7 +18,6 @@ export default struct PPCI_LINE_TO_PIN {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

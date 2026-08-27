@@ -103,8 +103,8 @@ export default struct IMFShutdown extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 1)
-        this.vtbl.GetShutdownStatus := CallbackCreate(GetMethod(implObj, "GetShutdownStatus"), flags, 2)
+        this.vtbl.Shutdown := CallbackCreate(ObjBindMethod(implObj, "Shutdown"), flags, 1)
+        this.vtbl.GetShutdownStatus := CallbackCreate(ObjBindMethod(implObj, "GetShutdownStatus"), flags, 2)
     }
 
     Dispose() {

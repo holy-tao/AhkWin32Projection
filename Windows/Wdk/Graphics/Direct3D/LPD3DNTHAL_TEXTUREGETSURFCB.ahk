@@ -19,7 +19,6 @@ export default struct LPD3DNTHAL_TEXTUREGETSURFCB {
     }
 
     /**
-     * 
      * @param {Pointer<D3DNTHAL_TEXTUREGETSURFDATA>} param0 
      * @returns {Integer} 
      */

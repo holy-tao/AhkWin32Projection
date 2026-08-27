@@ -135,8 +135,8 @@ export default struct IGetAppTrackerData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-igetapptrackerdata-getapplicationprocesses
      */
     GetApplicationProcesses(PartitionId, ApplicationId, Flags, NumApplicationProcesses, ApplicationProcesses) {
-        NumApplicationProcessesMarshal := NumApplicationProcesses is VarRef ? "uint*" : "ptr"
-        ApplicationProcessesMarshal := ApplicationProcesses is VarRef ? "ptr*" : "ptr"
+        NumApplicationProcessesMarshal := NumApplicationProcesses is VarRef ? "uint*" : IntPtr
+        ApplicationProcessesMarshal := ApplicationProcesses is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, Guid.Ptr, PartitionId, Guid.Ptr, ApplicationId, UInt32, Flags, NumApplicationProcessesMarshal, NumApplicationProcesses, ApplicationProcessesMarshal, ApplicationProcesses, "HRESULT")
         return result
@@ -188,9 +188,13 @@ export default struct IGetAppTrackerData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-igetapptrackerdata-getapplicationprocessdetails
      */
     GetApplicationProcessDetails(ApplicationInstanceId, ProcessId, Flags, Summary, Statistics, RecycleInfo, AnyComponentsHangMonitored) {
-        AnyComponentsHangMonitoredMarshal := AnyComponentsHangMonitored is VarRef ? "int*" : "ptr"
+        SummaryMarshal := Summary == 0 ? IntPtr : ApplicationProcessSummary.Ptr
+        StatisticsMarshal := Statistics == 0 ? IntPtr : ApplicationProcessStatistics.Ptr
+        RecycleInfoMarshal := RecycleInfo == 0 ? IntPtr : ApplicationProcessRecycleInfo.Ptr
+        AnyComponentsHangMonitoredMarshal := AnyComponentsHangMonitored is VarRef ? "int*" : IntPtr
+        AnyComponentsHangMonitoredMarshal := AnyComponentsHangMonitored == 0 ? IntPtr : BOOL.Ptr
 
-        result := ComCall(4, this, Guid.Ptr, ApplicationInstanceId, UInt32, ProcessId, UInt32, Flags, ApplicationProcessSummary.Ptr, Summary, ApplicationProcessStatistics.Ptr, Statistics, ApplicationProcessRecycleInfo.Ptr, RecycleInfo, AnyComponentsHangMonitoredMarshal, AnyComponentsHangMonitored, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, ApplicationInstanceId, UInt32, ProcessId, UInt32, Flags, SummaryMarshal, Summary, StatisticsMarshal, Statistics, RecycleInfoMarshal, RecycleInfo, AnyComponentsHangMonitoredMarshal, AnyComponentsHangMonitored, "HRESULT")
         return result
     }
 
@@ -250,8 +254,8 @@ export default struct IGetAppTrackerData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-igetapptrackerdata-getapplicationsinprocess
      */
     GetApplicationsInProcess(ApplicationInstanceId, ProcessId, PartitionId, Flags, NumApplicationsInProcess, Applications) {
-        NumApplicationsInProcessMarshal := NumApplicationsInProcess is VarRef ? "uint*" : "ptr"
-        ApplicationsMarshal := Applications is VarRef ? "ptr*" : "ptr"
+        NumApplicationsInProcessMarshal := NumApplicationsInProcess is VarRef ? "uint*" : IntPtr
+        ApplicationsMarshal := Applications is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, Guid.Ptr, ApplicationInstanceId, UInt32, ProcessId, Guid.Ptr, PartitionId, UInt32, Flags, NumApplicationsInProcessMarshal, NumApplicationsInProcess, ApplicationsMarshal, Applications, "HRESULT")
         return result
@@ -316,8 +320,8 @@ export default struct IGetAppTrackerData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-igetapptrackerdata-getcomponentsinprocess
      */
     GetComponentsInProcess(ApplicationInstanceId, ProcessId, PartitionId, ApplicationId, Flags, NumComponentsInProcess, _Components) {
-        NumComponentsInProcessMarshal := NumComponentsInProcess is VarRef ? "uint*" : "ptr"
-        _ComponentsMarshal := _Components is VarRef ? "ptr*" : "ptr"
+        NumComponentsInProcessMarshal := NumComponentsInProcess is VarRef ? "uint*" : IntPtr
+        _ComponentsMarshal := _Components is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(6, this, Guid.Ptr, ApplicationInstanceId, UInt32, ProcessId, Guid.Ptr, PartitionId, Guid.Ptr, ApplicationId, UInt32, Flags, NumComponentsInProcessMarshal, NumComponentsInProcess, _ComponentsMarshal, _Components, "HRESULT")
         return result
@@ -382,7 +386,11 @@ export default struct IGetAppTrackerData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-igetapptrackerdata-getcomponentdetails
      */
     GetComponentDetails(ApplicationInstanceId, ProcessId, Clsid, Flags, Summary, Statistics, HangMonitorInfo) {
-        result := ComCall(7, this, Guid.Ptr, ApplicationInstanceId, UInt32, ProcessId, Guid.Ptr, Clsid, UInt32, Flags, ComponentSummary.Ptr, Summary, ComponentStatistics.Ptr, Statistics, ComponentHangMonitorInfo.Ptr, HangMonitorInfo, "HRESULT")
+        SummaryMarshal := Summary == 0 ? IntPtr : ComponentSummary.Ptr
+        StatisticsMarshal := Statistics == 0 ? IntPtr : ComponentStatistics.Ptr
+        HangMonitorInfoMarshal := HangMonitorInfo == 0 ? IntPtr : ComponentHangMonitorInfo.Ptr
+
+        result := ComCall(7, this, Guid.Ptr, ApplicationInstanceId, UInt32, ProcessId, Guid.Ptr, Clsid, UInt32, Flags, SummaryMarshal, Summary, StatisticsMarshal, Statistics, HangMonitorInfoMarshal, HangMonitorInfo, "HRESULT")
         return result
     }
 
@@ -437,13 +445,13 @@ export default struct IGetAppTrackerData extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetApplicationProcesses := CallbackCreate(GetMethod(implObj, "GetApplicationProcesses"), flags, 6)
-        this.vtbl.GetApplicationProcessDetails := CallbackCreate(GetMethod(implObj, "GetApplicationProcessDetails"), flags, 8)
-        this.vtbl.GetApplicationsInProcess := CallbackCreate(GetMethod(implObj, "GetApplicationsInProcess"), flags, 7)
-        this.vtbl.GetComponentsInProcess := CallbackCreate(GetMethod(implObj, "GetComponentsInProcess"), flags, 8)
-        this.vtbl.GetComponentDetails := CallbackCreate(GetMethod(implObj, "GetComponentDetails"), flags, 8)
-        this.vtbl.GetTrackerDataAsCollectionObject := CallbackCreate(GetMethod(implObj, "GetTrackerDataAsCollectionObject"), flags, 2)
-        this.vtbl.GetSuggestedPollingInterval := CallbackCreate(GetMethod(implObj, "GetSuggestedPollingInterval"), flags, 2)
+        this.vtbl.GetApplicationProcesses := CallbackCreate(ObjBindMethod(implObj, "GetApplicationProcesses"), flags, 6)
+        this.vtbl.GetApplicationProcessDetails := CallbackCreate(ObjBindMethod(implObj, "GetApplicationProcessDetails"), flags, 8)
+        this.vtbl.GetApplicationsInProcess := CallbackCreate(ObjBindMethod(implObj, "GetApplicationsInProcess"), flags, 7)
+        this.vtbl.GetComponentsInProcess := CallbackCreate(ObjBindMethod(implObj, "GetComponentsInProcess"), flags, 8)
+        this.vtbl.GetComponentDetails := CallbackCreate(ObjBindMethod(implObj, "GetComponentDetails"), flags, 8)
+        this.vtbl.GetTrackerDataAsCollectionObject := CallbackCreate(ObjBindMethod(implObj, "GetTrackerDataAsCollectionObject"), flags, 2)
+        this.vtbl.GetSuggestedPollingInterval := CallbackCreate(ObjBindMethod(implObj, "GetSuggestedPollingInterval"), flags, 2)
     }
 
     Dispose() {

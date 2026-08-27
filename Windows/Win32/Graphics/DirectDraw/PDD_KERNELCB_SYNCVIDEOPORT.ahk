@@ -21,7 +21,6 @@ export default struct PDD_KERNELCB_SYNCVIDEOPORT {
     }
 
     /**
-     * 
      * @param {Pointer<DD_SYNCVIDEOPORTDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_syncvideoportdata">DD_SYNCVIDEOPORTDATA</a> structure that contains the VPE object data.
      * @returns {Integer} <b>DdSyncVideoPortData</b> returns one of the following callback codes:
      */

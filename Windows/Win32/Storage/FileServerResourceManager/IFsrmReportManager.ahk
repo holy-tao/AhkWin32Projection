@@ -393,16 +393,16 @@ export default struct IFsrmReportManager extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumReportJobs := CallbackCreate(GetMethod(implObj, "EnumReportJobs"), flags, 3)
-        this.vtbl.CreateReportJob := CallbackCreate(GetMethod(implObj, "CreateReportJob"), flags, 2)
-        this.vtbl.GetReportJob := CallbackCreate(GetMethod(implObj, "GetReportJob"), flags, 3)
-        this.vtbl.GetOutputDirectory := CallbackCreate(GetMethod(implObj, "GetOutputDirectory"), flags, 3)
-        this.vtbl.SetOutputDirectory := CallbackCreate(GetMethod(implObj, "SetOutputDirectory"), flags, 3)
-        this.vtbl.IsFilterValidForReportType := CallbackCreate(GetMethod(implObj, "IsFilterValidForReportType"), flags, 4)
-        this.vtbl.GetDefaultFilter := CallbackCreate(GetMethod(implObj, "GetDefaultFilter"), flags, 4)
-        this.vtbl.SetDefaultFilter := CallbackCreate(GetMethod(implObj, "SetDefaultFilter"), flags, 4)
-        this.vtbl.GetReportSizeLimit := CallbackCreate(GetMethod(implObj, "GetReportSizeLimit"), flags, 3)
-        this.vtbl.SetReportSizeLimit := CallbackCreate(GetMethod(implObj, "SetReportSizeLimit"), flags, 3)
+        this.vtbl.EnumReportJobs := CallbackCreate(ObjBindMethod(implObj, "EnumReportJobs"), flags, 3)
+        this.vtbl.CreateReportJob := CallbackCreate(ObjBindMethod(implObj, "CreateReportJob"), flags, 2)
+        this.vtbl.GetReportJob := CallbackCreate(ObjBindMethod(implObj, "GetReportJob"), flags, 3)
+        this.vtbl.GetOutputDirectory := CallbackCreate(ObjBindMethod(implObj, "GetOutputDirectory"), flags, 3)
+        this.vtbl.SetOutputDirectory := CallbackCreate(ObjBindMethod(implObj, "SetOutputDirectory"), flags, 3)
+        this.vtbl.IsFilterValidForReportType := CallbackCreate(ObjBindMethod(implObj, "IsFilterValidForReportType"), flags, 4)
+        this.vtbl.GetDefaultFilter := CallbackCreate(ObjBindMethod(implObj, "GetDefaultFilter"), flags, 4)
+        this.vtbl.SetDefaultFilter := CallbackCreate(ObjBindMethod(implObj, "SetDefaultFilter"), flags, 4)
+        this.vtbl.GetReportSizeLimit := CallbackCreate(ObjBindMethod(implObj, "GetReportSizeLimit"), flags, 3)
+        this.vtbl.SetReportSizeLimit := CallbackCreate(ObjBindMethod(implObj, "SetReportSizeLimit"), flags, 3)
     }
 
     Dispose() {

@@ -37,7 +37,6 @@ export default struct IWMPNodeWindowed extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} _hwnd 
      * @returns {HRESULT} 
      */
@@ -47,12 +46,11 @@ export default struct IWMPNodeWindowed extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} phwnd 
      * @returns {HRESULT} 
      */
     GetOwnerWindow(phwnd) {
-        phwndMarshal := phwnd is VarRef ? "ptr*" : "ptr"
+        phwndMarshal := phwnd is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, phwndMarshal, phwnd, "HRESULT")
         return result
@@ -67,8 +65,8 @@ export default struct IWMPNodeWindowed extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetOwnerWindow := CallbackCreate(GetMethod(implObj, "SetOwnerWindow"), flags, 2)
-        this.vtbl.GetOwnerWindow := CallbackCreate(GetMethod(implObj, "GetOwnerWindow"), flags, 2)
+        this.vtbl.SetOwnerWindow := CallbackCreate(ObjBindMethod(implObj, "SetOwnerWindow"), flags, 2)
+        this.vtbl.GetOwnerWindow := CallbackCreate(ObjBindMethod(implObj, "GetOwnerWindow"), flags, 2)
     }
 
     Dispose() {

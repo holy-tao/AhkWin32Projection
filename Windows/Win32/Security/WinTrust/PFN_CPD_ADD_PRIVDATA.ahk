@@ -21,7 +21,6 @@ export default struct PFN_CPD_ADD_PRIVDATA {
     }
 
     /**
-     * 
      * @param {Pointer<CRYPT_PROVIDER_DATA>} pProvData 
      * @param {Pointer<CRYPT_PROVIDER_PRIVDATA>} pPrivData2Add 
      * @returns {BOOL} 

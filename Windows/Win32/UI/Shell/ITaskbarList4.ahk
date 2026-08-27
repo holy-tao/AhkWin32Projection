@@ -85,7 +85,7 @@ export default struct ITaskbarList4 extends ITaskbarList3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetTabProperties := CallbackCreate(GetMethod(implObj, "SetTabProperties"), flags, 3)
+        this.vtbl.SetTabProperties := CallbackCreate(ObjBindMethod(implObj, "SetTabProperties"), flags, 3)
     }
 
     Dispose() {

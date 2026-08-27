@@ -69,7 +69,7 @@ export default struct IInputPanelConfiguration extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnableFocusTracking := CallbackCreate(GetMethod(implObj, "EnableFocusTracking"), flags, 1)
+        this.vtbl.EnableFocusTracking := CallbackCreate(ObjBindMethod(implObj, "EnableFocusTracking"), flags, 1)
     }
 
     Dispose() {

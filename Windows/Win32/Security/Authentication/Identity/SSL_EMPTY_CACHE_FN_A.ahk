@@ -21,7 +21,6 @@ export default struct SSL_EMPTY_CACHE_FN_A {
     }
 
     /**
-     * 
      * @param {PSTR} pszTargetName 
      * @param {Integer} dwFlags 
      * @returns {BOOL} 

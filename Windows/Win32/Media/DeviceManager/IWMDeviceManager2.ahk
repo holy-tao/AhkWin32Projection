@@ -92,9 +92,9 @@ export default struct IWMDeviceManager2 extends IWMDeviceManager {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDeviceFromCanonicalName := CallbackCreate(GetMethod(implObj, "GetDeviceFromCanonicalName"), flags, 3)
-        this.vtbl.EnumDevices2 := CallbackCreate(GetMethod(implObj, "EnumDevices2"), flags, 2)
-        this.vtbl.Reinitialize := CallbackCreate(GetMethod(implObj, "Reinitialize"), flags, 1)
+        this.vtbl.GetDeviceFromCanonicalName := CallbackCreate(ObjBindMethod(implObj, "GetDeviceFromCanonicalName"), flags, 3)
+        this.vtbl.EnumDevices2 := CallbackCreate(ObjBindMethod(implObj, "EnumDevices2"), flags, 2)
+        this.vtbl.Reinitialize := CallbackCreate(ObjBindMethod(implObj, "Reinitialize"), flags, 1)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct PFPGA_CONTROL_CONFIG_SPACE {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

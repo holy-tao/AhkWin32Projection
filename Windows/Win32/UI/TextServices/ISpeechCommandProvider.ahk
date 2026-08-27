@@ -39,7 +39,6 @@ export default struct ISpeechCommandProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} langid 
      * @returns {IEnumSpeechCommands} 
      */
@@ -49,7 +48,6 @@ export default struct ISpeechCommandProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszCommand 
      * @param {Integer} cch 
      * @param {Integer} langid 
@@ -71,8 +69,8 @@ export default struct ISpeechCommandProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumSpeechCommands := CallbackCreate(GetMethod(implObj, "EnumSpeechCommands"), flags, 3)
-        this.vtbl.ProcessCommand := CallbackCreate(GetMethod(implObj, "ProcessCommand"), flags, 4)
+        this.vtbl.EnumSpeechCommands := CallbackCreate(ObjBindMethod(implObj, "EnumSpeechCommands"), flags, 3)
+        this.vtbl.ProcessCommand := CallbackCreate(ObjBindMethod(implObj, "ProcessCommand"), flags, 4)
     }
 
     Dispose() {

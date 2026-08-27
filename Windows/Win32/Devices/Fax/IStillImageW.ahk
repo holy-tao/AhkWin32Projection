@@ -91,7 +91,6 @@ export default struct IStillImageW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwType 
      * @param {Integer} dwFlags 
      * @param {Pointer<Integer>} pdwItemsReturned 
@@ -99,15 +98,14 @@ export default struct IStillImageW extends IUnknown {
      * @returns {HRESULT} 
      */
     GetDeviceList(dwType, dwFlags, pdwItemsReturned, ppBuffer) {
-        pdwItemsReturnedMarshal := pdwItemsReturned is VarRef ? "uint*" : "ptr"
-        ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
+        pdwItemsReturnedMarshal := pdwItemsReturned is VarRef ? "uint*" : IntPtr
+        ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, UInt32, dwType, UInt32, dwFlags, pdwItemsReturnedMarshal, pdwItemsReturned, ppBufferMarshal, ppBuffer, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwszDeviceName 
      * @returns {Pointer<Void>} 
      */
@@ -119,7 +117,6 @@ export default struct IStillImageW extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszDeviceName 
      * @param {Integer} dwMode 
      * @param {IUnknown} punkOuter 
@@ -128,12 +125,13 @@ export default struct IStillImageW extends IUnknown {
     CreateDevice(pwszDeviceName, dwMode, punkOuter) {
         pwszDeviceName := pwszDeviceName is String ? StrPtr(pwszDeviceName) : pwszDeviceName
 
-        result := ComCall(6, this, "ptr", pwszDeviceName, UInt32, dwMode, "ptr*", &pDevice := 0, "ptr", punkOuter, "HRESULT")
+        punkOuterMarshal := punkOuter == 0 ? IntPtr : "ptr"
+
+        result := ComCall(6, this, "ptr", pwszDeviceName, UInt32, dwMode, "ptr*", &pDevice := 0, punkOuterMarshal, punkOuter, "HRESULT")
         return IStiDevice(pDevice)
     }
 
     /**
-     * 
      * @param {PWSTR} pwszDeviceName 
      * @param {PWSTR} pValueName 
      * @param {Integer} pData 
@@ -144,14 +142,13 @@ export default struct IStillImageW extends IUnknown {
         pwszDeviceName := pwszDeviceName is String ? StrPtr(pwszDeviceName) : pwszDeviceName
         pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
 
-        cbDataMarshal := cbData is VarRef ? "uint*" : "ptr"
+        cbDataMarshal := cbData is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, "ptr", pwszDeviceName, "ptr", pValueName, "uint*", &pType := 0, IntPtr, pData, cbDataMarshal, cbData, "HRESULT")
         return pType
     }
 
     /**
-     * 
      * @param {PWSTR} pwszDeviceName 
      * @param {PWSTR} pValueName 
      * @param {Integer} Type 
@@ -168,7 +165,6 @@ export default struct IStillImageW extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszDeviceName 
      * @param {PWSTR} pwszEventName 
      * @returns {Integer} 
@@ -182,7 +178,6 @@ export default struct IStillImageW extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszAppName 
      * @param {PWSTR} pwszCommandLine 
      * @returns {HRESULT} 
@@ -196,7 +191,6 @@ export default struct IStillImageW extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszAppName 
      * @returns {HRESULT} 
      */
@@ -208,7 +202,6 @@ export default struct IStillImageW extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszDeviceName 
      * @param {BOOL} bNewState 
      * @returns {HRESULT} 
@@ -221,7 +214,6 @@ export default struct IStillImageW extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszDeviceName 
      * @returns {BOOL} 
      */
@@ -233,7 +225,6 @@ export default struct IStillImageW extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszDeviceName 
      * @returns {HRESULT} 
      */
@@ -245,7 +236,6 @@ export default struct IStillImageW extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszDeviceName 
      * @param {PWSTR} pwszAppName 
      * @param {Pointer<STINOTIFY>} pStiNotify 
@@ -260,7 +250,6 @@ export default struct IStillImageW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<STI_DEVICE_INFORMATIONW>} param0 
      * @returns {HRESULT} 
      */
@@ -270,7 +259,6 @@ export default struct IStillImageW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwMessageType 
      * @param {PWSTR} pszMessage 
      * @returns {HRESULT} 
@@ -291,21 +279,21 @@ export default struct IStillImageW extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.GetDeviceList := CallbackCreate(GetMethod(implObj, "GetDeviceList"), flags, 5)
-        this.vtbl.GetDeviceInfo := CallbackCreate(GetMethod(implObj, "GetDeviceInfo"), flags, 3)
-        this.vtbl.CreateDevice := CallbackCreate(GetMethod(implObj, "CreateDevice"), flags, 5)
-        this.vtbl.GetDeviceValue := CallbackCreate(GetMethod(implObj, "GetDeviceValue"), flags, 6)
-        this.vtbl.SetDeviceValue := CallbackCreate(GetMethod(implObj, "SetDeviceValue"), flags, 6)
-        this.vtbl.GetSTILaunchInformation := CallbackCreate(GetMethod(implObj, "GetSTILaunchInformation"), flags, 4)
-        this.vtbl.RegisterLaunchApplication := CallbackCreate(GetMethod(implObj, "RegisterLaunchApplication"), flags, 3)
-        this.vtbl.UnregisterLaunchApplication := CallbackCreate(GetMethod(implObj, "UnregisterLaunchApplication"), flags, 2)
-        this.vtbl.EnableHwNotifications := CallbackCreate(GetMethod(implObj, "EnableHwNotifications"), flags, 3)
-        this.vtbl.GetHwNotificationState := CallbackCreate(GetMethod(implObj, "GetHwNotificationState"), flags, 3)
-        this.vtbl.RefreshDeviceBus := CallbackCreate(GetMethod(implObj, "RefreshDeviceBus"), flags, 2)
-        this.vtbl.LaunchApplicationForDevice := CallbackCreate(GetMethod(implObj, "LaunchApplicationForDevice"), flags, 4)
-        this.vtbl.SetupDeviceParameters := CallbackCreate(GetMethod(implObj, "SetupDeviceParameters"), flags, 2)
-        this.vtbl.WriteToErrorLog := CallbackCreate(GetMethod(implObj, "WriteToErrorLog"), flags, 3)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetDeviceList := CallbackCreate(ObjBindMethod(implObj, "GetDeviceList"), flags, 5)
+        this.vtbl.GetDeviceInfo := CallbackCreate(ObjBindMethod(implObj, "GetDeviceInfo"), flags, 3)
+        this.vtbl.CreateDevice := CallbackCreate(ObjBindMethod(implObj, "CreateDevice"), flags, 5)
+        this.vtbl.GetDeviceValue := CallbackCreate(ObjBindMethod(implObj, "GetDeviceValue"), flags, 6)
+        this.vtbl.SetDeviceValue := CallbackCreate(ObjBindMethod(implObj, "SetDeviceValue"), flags, 6)
+        this.vtbl.GetSTILaunchInformation := CallbackCreate(ObjBindMethod(implObj, "GetSTILaunchInformation"), flags, 4)
+        this.vtbl.RegisterLaunchApplication := CallbackCreate(ObjBindMethod(implObj, "RegisterLaunchApplication"), flags, 3)
+        this.vtbl.UnregisterLaunchApplication := CallbackCreate(ObjBindMethod(implObj, "UnregisterLaunchApplication"), flags, 2)
+        this.vtbl.EnableHwNotifications := CallbackCreate(ObjBindMethod(implObj, "EnableHwNotifications"), flags, 3)
+        this.vtbl.GetHwNotificationState := CallbackCreate(ObjBindMethod(implObj, "GetHwNotificationState"), flags, 3)
+        this.vtbl.RefreshDeviceBus := CallbackCreate(ObjBindMethod(implObj, "RefreshDeviceBus"), flags, 2)
+        this.vtbl.LaunchApplicationForDevice := CallbackCreate(ObjBindMethod(implObj, "LaunchApplicationForDevice"), flags, 4)
+        this.vtbl.SetupDeviceParameters := CallbackCreate(ObjBindMethod(implObj, "SetupDeviceParameters"), flags, 2)
+        this.vtbl.WriteToErrorLog := CallbackCreate(ObjBindMethod(implObj, "WriteToErrorLog"), flags, 3)
     }
 
     Dispose() {

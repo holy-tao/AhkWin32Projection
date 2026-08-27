@@ -20,7 +20,6 @@ export default struct PFND3DKMT_CREATEHWQUEUE {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CREATEHWQUEUE>} param0 
      * @returns {NTSTATUS} 
      */

@@ -19,7 +19,6 @@ export default struct LPDDHALMOCOMPCB_GETFORMATS {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_GETMOCOMPFORMATSDATA>} param0 
      * @returns {Integer} 
      */

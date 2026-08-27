@@ -19,7 +19,6 @@ export default struct PDD_SETMODE {
     }
 
     /**
-     * 
      * @param {PDD_SETMODEDATA} param0 
      * @returns {Integer} 
      */

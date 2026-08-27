@@ -84,7 +84,7 @@ export default struct ISecurityProperty extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecurityproperty-getdirectcreatorsid
      */
     GetDirectCreatorSID(_pSID) {
-        _pSIDMarshal := _pSID is VarRef ? "ptr*" : "ptr"
+        _pSIDMarshal := _pSID is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, _pSIDMarshal, _pSID, "HRESULT")
         return result
@@ -126,7 +126,7 @@ export default struct ISecurityProperty extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecurityproperty-getoriginalcreatorsid
      */
     GetOriginalCreatorSID(_pSID) {
-        _pSIDMarshal := _pSID is VarRef ? "ptr*" : "ptr"
+        _pSIDMarshal := _pSID is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, _pSIDMarshal, _pSID, "HRESULT")
         return result
@@ -180,7 +180,7 @@ export default struct ISecurityProperty extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecurityproperty-getdirectcallersid
      */
     GetDirectCallerSID(_pSID) {
-        _pSIDMarshal := _pSID is VarRef ? "ptr*" : "ptr"
+        _pSIDMarshal := _pSID is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, _pSIDMarshal, _pSID, "HRESULT")
         return result
@@ -267,7 +267,7 @@ export default struct ISecurityProperty extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecurityproperty-getoriginalcallersid
      */
     GetOriginalCallerSID(_pSID) {
-        _pSIDMarshal := _pSID is VarRef ? "ptr*" : "ptr"
+        _pSIDMarshal := _pSID is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(6, this, _pSIDMarshal, _pSID, "HRESULT")
         return result
@@ -324,11 +324,11 @@ export default struct ISecurityProperty extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDirectCreatorSID := CallbackCreate(GetMethod(implObj, "GetDirectCreatorSID"), flags, 2)
-        this.vtbl.GetOriginalCreatorSID := CallbackCreate(GetMethod(implObj, "GetOriginalCreatorSID"), flags, 2)
-        this.vtbl.GetDirectCallerSID := CallbackCreate(GetMethod(implObj, "GetDirectCallerSID"), flags, 2)
-        this.vtbl.GetOriginalCallerSID := CallbackCreate(GetMethod(implObj, "GetOriginalCallerSID"), flags, 2)
-        this.vtbl.ReleaseSID := CallbackCreate(GetMethod(implObj, "ReleaseSID"), flags, 2)
+        this.vtbl.GetDirectCreatorSID := CallbackCreate(ObjBindMethod(implObj, "GetDirectCreatorSID"), flags, 2)
+        this.vtbl.GetOriginalCreatorSID := CallbackCreate(ObjBindMethod(implObj, "GetOriginalCreatorSID"), flags, 2)
+        this.vtbl.GetDirectCallerSID := CallbackCreate(ObjBindMethod(implObj, "GetDirectCallerSID"), flags, 2)
+        this.vtbl.GetOriginalCallerSID := CallbackCreate(ObjBindMethod(implObj, "GetOriginalCallerSID"), flags, 2)
+        this.vtbl.ReleaseSID := CallbackCreate(ObjBindMethod(implObj, "ReleaseSID"), flags, 2)
     }
 
     Dispose() {

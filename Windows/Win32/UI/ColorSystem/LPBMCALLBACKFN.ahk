@@ -20,7 +20,6 @@ export default struct LPBMCALLBACKFN {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @param {LPARAM} param2 

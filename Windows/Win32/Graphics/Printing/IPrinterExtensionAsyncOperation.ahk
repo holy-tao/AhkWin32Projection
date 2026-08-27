@@ -36,7 +36,6 @@ export default struct IPrinterExtensionAsyncOperation extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Cancel() {
@@ -53,7 +52,7 @@ export default struct IPrinterExtensionAsyncOperation extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.Cancel := CallbackCreate(ObjBindMethod(implObj, "Cancel"), flags, 1)
     }
 
     Dispose() {

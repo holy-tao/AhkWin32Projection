@@ -18,12 +18,11 @@ export default struct WORKER_THREAD_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Parameter 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(Parameter) {
-        ParameterMarshal := Parameter is VarRef ? "ptr" : "ptr"
+        ParameterMarshal := Parameter is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, ParameterMarshal, Parameter)
     }

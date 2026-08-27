@@ -20,7 +20,6 @@ export default struct UTextCopy {
     }
 
     /**
-     * 
      * @param {Pointer<UText>} ut 
      * @param {Integer} nativeStart 
      * @param {Integer} nativeLimit 
@@ -30,7 +29,7 @@ export default struct UTextCopy {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(ut, nativeStart, nativeLimit, nativeDest, move, _status) {
-        _statusMarshal := _status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : IntPtr
 
         DllCall(this.value, UText.Ptr, ut, Int64, nativeStart, Int64, nativeLimit, Int64, nativeDest, Int8, move, _statusMarshal, _status)
     }

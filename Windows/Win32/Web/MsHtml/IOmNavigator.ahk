@@ -179,7 +179,6 @@ export default struct IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_appCodeName() {
@@ -189,7 +188,6 @@ export default struct IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_appName() {
@@ -199,7 +197,6 @@ export default struct IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_appVersion() {
@@ -209,7 +206,6 @@ export default struct IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_userAgent() {
@@ -219,7 +215,6 @@ export default struct IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     javaEnabled() {
@@ -228,7 +223,6 @@ export default struct IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     taintEnabled() {
@@ -237,7 +231,6 @@ export default struct IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLMimeTypesCollection} 
      */
     get_mimeTypes() {
@@ -246,7 +239,6 @@ export default struct IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLPluginsCollection} 
      */
     get_plugins() {
@@ -255,7 +247,6 @@ export default struct IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_cookieEnabled() {
@@ -264,7 +255,6 @@ export default struct IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLOpsProfile} 
      */
     get_opsProfile() {
@@ -273,7 +263,6 @@ export default struct IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     toString() {
@@ -283,7 +272,6 @@ export default struct IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_cpuClass() {
@@ -293,7 +281,6 @@ export default struct IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_systemLanguage() {
@@ -303,7 +290,6 @@ export default struct IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_browserLanguage() {
@@ -313,7 +299,6 @@ export default struct IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_userLanguage() {
@@ -323,7 +308,6 @@ export default struct IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_platform() {
@@ -333,7 +317,6 @@ export default struct IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_appMinorVersion() {
@@ -343,7 +326,6 @@ export default struct IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_connectionSpeed() {
@@ -352,7 +334,6 @@ export default struct IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_onLine() {
@@ -361,7 +342,6 @@ export default struct IOmNavigator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLOpsProfile} 
      */
     get_userProfile() {
@@ -378,26 +358,26 @@ export default struct IOmNavigator extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_appCodeName := CallbackCreate(GetMethod(implObj, "get_appCodeName"), flags, 2)
-        this.vtbl.get_appName := CallbackCreate(GetMethod(implObj, "get_appName"), flags, 2)
-        this.vtbl.get_appVersion := CallbackCreate(GetMethod(implObj, "get_appVersion"), flags, 2)
-        this.vtbl.get_userAgent := CallbackCreate(GetMethod(implObj, "get_userAgent"), flags, 2)
-        this.vtbl.javaEnabled := CallbackCreate(GetMethod(implObj, "javaEnabled"), flags, 2)
-        this.vtbl.taintEnabled := CallbackCreate(GetMethod(implObj, "taintEnabled"), flags, 2)
-        this.vtbl.get_mimeTypes := CallbackCreate(GetMethod(implObj, "get_mimeTypes"), flags, 2)
-        this.vtbl.get_plugins := CallbackCreate(GetMethod(implObj, "get_plugins"), flags, 2)
-        this.vtbl.get_cookieEnabled := CallbackCreate(GetMethod(implObj, "get_cookieEnabled"), flags, 2)
-        this.vtbl.get_opsProfile := CallbackCreate(GetMethod(implObj, "get_opsProfile"), flags, 2)
-        this.vtbl.toString := CallbackCreate(GetMethod(implObj, "toString"), flags, 2)
-        this.vtbl.get_cpuClass := CallbackCreate(GetMethod(implObj, "get_cpuClass"), flags, 2)
-        this.vtbl.get_systemLanguage := CallbackCreate(GetMethod(implObj, "get_systemLanguage"), flags, 2)
-        this.vtbl.get_browserLanguage := CallbackCreate(GetMethod(implObj, "get_browserLanguage"), flags, 2)
-        this.vtbl.get_userLanguage := CallbackCreate(GetMethod(implObj, "get_userLanguage"), flags, 2)
-        this.vtbl.get_platform := CallbackCreate(GetMethod(implObj, "get_platform"), flags, 2)
-        this.vtbl.get_appMinorVersion := CallbackCreate(GetMethod(implObj, "get_appMinorVersion"), flags, 2)
-        this.vtbl.get_connectionSpeed := CallbackCreate(GetMethod(implObj, "get_connectionSpeed"), flags, 2)
-        this.vtbl.get_onLine := CallbackCreate(GetMethod(implObj, "get_onLine"), flags, 2)
-        this.vtbl.get_userProfile := CallbackCreate(GetMethod(implObj, "get_userProfile"), flags, 2)
+        this.vtbl.get_appCodeName := CallbackCreate(ObjBindMethod(implObj, "get_appCodeName"), flags, 2)
+        this.vtbl.get_appName := CallbackCreate(ObjBindMethod(implObj, "get_appName"), flags, 2)
+        this.vtbl.get_appVersion := CallbackCreate(ObjBindMethod(implObj, "get_appVersion"), flags, 2)
+        this.vtbl.get_userAgent := CallbackCreate(ObjBindMethod(implObj, "get_userAgent"), flags, 2)
+        this.vtbl.javaEnabled := CallbackCreate(ObjBindMethod(implObj, "javaEnabled"), flags, 2)
+        this.vtbl.taintEnabled := CallbackCreate(ObjBindMethod(implObj, "taintEnabled"), flags, 2)
+        this.vtbl.get_mimeTypes := CallbackCreate(ObjBindMethod(implObj, "get_mimeTypes"), flags, 2)
+        this.vtbl.get_plugins := CallbackCreate(ObjBindMethod(implObj, "get_plugins"), flags, 2)
+        this.vtbl.get_cookieEnabled := CallbackCreate(ObjBindMethod(implObj, "get_cookieEnabled"), flags, 2)
+        this.vtbl.get_opsProfile := CallbackCreate(ObjBindMethod(implObj, "get_opsProfile"), flags, 2)
+        this.vtbl.toString := CallbackCreate(ObjBindMethod(implObj, "toString"), flags, 2)
+        this.vtbl.get_cpuClass := CallbackCreate(ObjBindMethod(implObj, "get_cpuClass"), flags, 2)
+        this.vtbl.get_systemLanguage := CallbackCreate(ObjBindMethod(implObj, "get_systemLanguage"), flags, 2)
+        this.vtbl.get_browserLanguage := CallbackCreate(ObjBindMethod(implObj, "get_browserLanguage"), flags, 2)
+        this.vtbl.get_userLanguage := CallbackCreate(ObjBindMethod(implObj, "get_userLanguage"), flags, 2)
+        this.vtbl.get_platform := CallbackCreate(ObjBindMethod(implObj, "get_platform"), flags, 2)
+        this.vtbl.get_appMinorVersion := CallbackCreate(ObjBindMethod(implObj, "get_appMinorVersion"), flags, 2)
+        this.vtbl.get_connectionSpeed := CallbackCreate(ObjBindMethod(implObj, "get_connectionSpeed"), flags, 2)
+        this.vtbl.get_onLine := CallbackCreate(ObjBindMethod(implObj, "get_onLine"), flags, 2)
+        this.vtbl.get_userProfile := CallbackCreate(ObjBindMethod(implObj, "get_userProfile"), flags, 2)
     }
 
     Dispose() {

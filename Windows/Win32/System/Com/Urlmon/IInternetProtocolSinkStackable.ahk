@@ -39,7 +39,6 @@ export default struct IInternetProtocolSinkStackable extends IUnknown {
     }
 
     /**
-     * 
      * @param {IInternetProtocolSink} pOIProtSink 
      * @returns {HRESULT} 
      */
@@ -49,7 +48,6 @@ export default struct IInternetProtocolSinkStackable extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CommitSwitch() {
@@ -58,7 +56,6 @@ export default struct IInternetProtocolSinkStackable extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RollbackSwitch() {
@@ -75,9 +72,9 @@ export default struct IInternetProtocolSinkStackable extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SwitchSink := CallbackCreate(GetMethod(implObj, "SwitchSink"), flags, 2)
-        this.vtbl.CommitSwitch := CallbackCreate(GetMethod(implObj, "CommitSwitch"), flags, 1)
-        this.vtbl.RollbackSwitch := CallbackCreate(GetMethod(implObj, "RollbackSwitch"), flags, 1)
+        this.vtbl.SwitchSink := CallbackCreate(ObjBindMethod(implObj, "SwitchSink"), flags, 2)
+        this.vtbl.CommitSwitch := CallbackCreate(ObjBindMethod(implObj, "CommitSwitch"), flags, 1)
+        this.vtbl.RollbackSwitch := CallbackCreate(ObjBindMethod(implObj, "RollbackSwitch"), flags, 1)
     }
 
     Dispose() {

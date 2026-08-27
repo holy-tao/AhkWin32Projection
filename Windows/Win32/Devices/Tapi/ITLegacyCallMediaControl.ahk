@@ -215,8 +215,8 @@ export default struct ITLegacyCallMediaControl extends IDispatch {
     GetID(pDeviceClass, pdwSize, ppDeviceID) {
         pDeviceClass := pDeviceClass is String ? BSTR.Alloc(pDeviceClass).Value : pDeviceClass
 
-        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
-        ppDeviceIDMarshal := ppDeviceID is VarRef ? "ptr*" : "ptr"
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : IntPtr
+        ppDeviceIDMarshal := ppDeviceID is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(9, this, BSTR, pDeviceClass, pdwSizeMarshal, pdwSize, ppDeviceIDMarshal, ppDeviceID, "HRESULT")
         return result
@@ -357,11 +357,11 @@ export default struct ITLegacyCallMediaControl extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DetectDigits := CallbackCreate(GetMethod(implObj, "DetectDigits"), flags, 2)
-        this.vtbl.GenerateDigits := CallbackCreate(GetMethod(implObj, "GenerateDigits"), flags, 3)
-        this.vtbl.GetID := CallbackCreate(GetMethod(implObj, "GetID"), flags, 4)
-        this.vtbl.SetMediaType := CallbackCreate(GetMethod(implObj, "SetMediaType"), flags, 2)
-        this.vtbl.MonitorMedia := CallbackCreate(GetMethod(implObj, "MonitorMedia"), flags, 2)
+        this.vtbl.DetectDigits := CallbackCreate(ObjBindMethod(implObj, "DetectDigits"), flags, 2)
+        this.vtbl.GenerateDigits := CallbackCreate(ObjBindMethod(implObj, "GenerateDigits"), flags, 3)
+        this.vtbl.GetID := CallbackCreate(ObjBindMethod(implObj, "GetID"), flags, 4)
+        this.vtbl.SetMediaType := CallbackCreate(ObjBindMethod(implObj, "SetMediaType"), flags, 2)
+        this.vtbl.MonitorMedia := CallbackCreate(ObjBindMethod(implObj, "MonitorMedia"), flags, 2)
     }
 
     Dispose() {

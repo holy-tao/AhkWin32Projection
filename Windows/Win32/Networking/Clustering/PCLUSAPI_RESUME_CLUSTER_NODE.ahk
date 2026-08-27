@@ -19,7 +19,6 @@ export default struct PCLUSAPI_RESUME_CLUSTER_NODE {
     }
 
     /**
-     * 
      * @param {HNODE} _hNode 
      * @returns {Integer} 
      */

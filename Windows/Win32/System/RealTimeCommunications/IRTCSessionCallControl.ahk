@@ -80,7 +80,6 @@ export default struct IRTCSessionCallControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} lCookie 
      * @returns {HRESULT} 
      */
@@ -90,7 +89,6 @@ export default struct IRTCSessionCallControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrForwardToURI 
      * @returns {HRESULT} 
      */
@@ -102,7 +100,6 @@ export default struct IRTCSessionCallControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrReferToURI 
      * @param {BSTR} bstrReferCookie 
      * @returns {HRESULT} 
@@ -116,7 +113,6 @@ export default struct IRTCSessionCallControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrReferredByURI 
      * @returns {HRESULT} 
      */
@@ -128,7 +124,6 @@ export default struct IRTCSessionCallControl extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ReferredByURI() {
@@ -138,7 +133,6 @@ export default struct IRTCSessionCallControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrReferCookie 
      * @returns {HRESULT} 
      */
@@ -150,7 +144,6 @@ export default struct IRTCSessionCallControl extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ReferCookie() {
@@ -160,7 +153,6 @@ export default struct IRTCSessionCallControl extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsReferred() {
@@ -177,15 +169,15 @@ export default struct IRTCSessionCallControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Hold := CallbackCreate(GetMethod(implObj, "Hold"), flags, 2)
-        this.vtbl.UnHold := CallbackCreate(GetMethod(implObj, "UnHold"), flags, 2)
-        this.vtbl.Forward := CallbackCreate(GetMethod(implObj, "Forward"), flags, 2)
-        this.vtbl.Refer := CallbackCreate(GetMethod(implObj, "Refer"), flags, 3)
-        this.vtbl.put_ReferredByURI := CallbackCreate(GetMethod(implObj, "put_ReferredByURI"), flags, 2)
-        this.vtbl.get_ReferredByURI := CallbackCreate(GetMethod(implObj, "get_ReferredByURI"), flags, 2)
-        this.vtbl.put_ReferCookie := CallbackCreate(GetMethod(implObj, "put_ReferCookie"), flags, 2)
-        this.vtbl.get_ReferCookie := CallbackCreate(GetMethod(implObj, "get_ReferCookie"), flags, 2)
-        this.vtbl.get_IsReferred := CallbackCreate(GetMethod(implObj, "get_IsReferred"), flags, 2)
+        this.vtbl.Hold := CallbackCreate(ObjBindMethod(implObj, "Hold"), flags, 2)
+        this.vtbl.UnHold := CallbackCreate(ObjBindMethod(implObj, "UnHold"), flags, 2)
+        this.vtbl.Forward := CallbackCreate(ObjBindMethod(implObj, "Forward"), flags, 2)
+        this.vtbl.Refer := CallbackCreate(ObjBindMethod(implObj, "Refer"), flags, 3)
+        this.vtbl.put_ReferredByURI := CallbackCreate(ObjBindMethod(implObj, "put_ReferredByURI"), flags, 2)
+        this.vtbl.get_ReferredByURI := CallbackCreate(ObjBindMethod(implObj, "get_ReferredByURI"), flags, 2)
+        this.vtbl.put_ReferCookie := CallbackCreate(ObjBindMethod(implObj, "put_ReferCookie"), flags, 2)
+        this.vtbl.get_ReferCookie := CallbackCreate(ObjBindMethod(implObj, "get_ReferCookie"), flags, 2)
+        this.vtbl.get_IsReferred := CallbackCreate(ObjBindMethod(implObj, "get_IsReferred"), flags, 2)
     }
 
     Dispose() {

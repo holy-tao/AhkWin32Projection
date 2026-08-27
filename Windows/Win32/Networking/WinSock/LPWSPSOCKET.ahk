@@ -80,7 +80,6 @@ export default struct LPWSPSOCKET {
     }
 
     /**
-     * 
      * @param {Integer} af Address family specification.
      * @param {Integer} type Type specification for the new socket.
      * @param {Integer} protocol Protocol to be used with the socket that is specific to the indicated address family.
@@ -201,9 +200,10 @@ export default struct LPWSPSOCKET {
      * <div> </div>
      */
     Call(af, type, protocol, lpProtocolInfo, g, dwFlags, lpErrno) {
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        lpProtocolInfoMarshal := lpProtocolInfo == 0 ? IntPtr : WSAPROTOCOL_INFOW.Ptr
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
-        result := DllCall(this.value, Int32, af, Int32, type, Int32, protocol, WSAPROTOCOL_INFOW.Ptr, lpProtocolInfo, UInt32, g, UInt32, dwFlags, lpErrnoMarshal, lpErrno, SOCKET.Owned)
+        result := DllCall(this.value, Int32, af, Int32, type, Int32, protocol, lpProtocolInfoMarshal, lpProtocolInfo, UInt32, g, UInt32, dwFlags, lpErrnoMarshal, lpErrno, SOCKET.Owned)
         return result
     }
 

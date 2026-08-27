@@ -36,14 +36,13 @@ export default struct ICLRIoCompletionManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwErrorCode 
      * @param {Integer} NumberOfBytesTransferred 
      * @param {Pointer<Void>} pvOverlapped 
      * @returns {HRESULT} 
      */
     OnComplete(dwErrorCode, NumberOfBytesTransferred, pvOverlapped) {
-        pvOverlappedMarshal := pvOverlapped is VarRef ? "ptr" : "ptr"
+        pvOverlappedMarshal := pvOverlapped is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, UInt32, dwErrorCode, UInt32, NumberOfBytesTransferred, pvOverlappedMarshal, pvOverlapped, "HRESULT")
         return result
@@ -58,7 +57,7 @@ export default struct ICLRIoCompletionManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnComplete := CallbackCreate(GetMethod(implObj, "OnComplete"), flags, 4)
+        this.vtbl.OnComplete := CallbackCreate(ObjBindMethod(implObj, "OnComplete"), flags, 4)
     }
 
     Dispose() {

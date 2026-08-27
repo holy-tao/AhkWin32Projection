@@ -143,7 +143,6 @@ export default struct IDOMKeyboardEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_key() {
@@ -153,7 +152,6 @@ export default struct IDOMKeyboardEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_location() {
@@ -162,7 +160,6 @@ export default struct IDOMKeyboardEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ctrlKey() {
@@ -171,7 +168,6 @@ export default struct IDOMKeyboardEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_shiftKey() {
@@ -180,7 +176,6 @@ export default struct IDOMKeyboardEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_altKey() {
@@ -189,7 +184,6 @@ export default struct IDOMKeyboardEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_metaKey() {
@@ -198,7 +192,6 @@ export default struct IDOMKeyboardEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_repeat() {
@@ -207,7 +200,6 @@ export default struct IDOMKeyboardEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} keyArg 
      * @returns {VARIANT_BOOL} 
      */
@@ -219,7 +211,6 @@ export default struct IDOMKeyboardEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 
@@ -242,7 +233,6 @@ export default struct IDOMKeyboardEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_keyCode() {
@@ -251,7 +241,6 @@ export default struct IDOMKeyboardEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_charCode() {
@@ -260,7 +249,6 @@ export default struct IDOMKeyboardEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_which() {
@@ -269,7 +257,6 @@ export default struct IDOMKeyboardEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ie9_char() {
@@ -279,7 +266,6 @@ export default struct IDOMKeyboardEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_locale() {
@@ -297,20 +283,20 @@ export default struct IDOMKeyboardEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_key := CallbackCreate(GetMethod(implObj, "get_key"), flags, 2)
-        this.vtbl.get_location := CallbackCreate(GetMethod(implObj, "get_location"), flags, 2)
-        this.vtbl.get_ctrlKey := CallbackCreate(GetMethod(implObj, "get_ctrlKey"), flags, 2)
-        this.vtbl.get_shiftKey := CallbackCreate(GetMethod(implObj, "get_shiftKey"), flags, 2)
-        this.vtbl.get_altKey := CallbackCreate(GetMethod(implObj, "get_altKey"), flags, 2)
-        this.vtbl.get_metaKey := CallbackCreate(GetMethod(implObj, "get_metaKey"), flags, 2)
-        this.vtbl.get_repeat := CallbackCreate(GetMethod(implObj, "get_repeat"), flags, 2)
-        this.vtbl.getModifierState := CallbackCreate(GetMethod(implObj, "getModifierState"), flags, 3)
-        this.vtbl.initKeyboardEvent := CallbackCreate(GetMethod(implObj, "initKeyboardEvent"), flags, 10)
-        this.vtbl.get_keyCode := CallbackCreate(GetMethod(implObj, "get_keyCode"), flags, 2)
-        this.vtbl.get_charCode := CallbackCreate(GetMethod(implObj, "get_charCode"), flags, 2)
-        this.vtbl.get_which := CallbackCreate(GetMethod(implObj, "get_which"), flags, 2)
-        this.vtbl.get_ie9_char := CallbackCreate(GetMethod(implObj, "get_ie9_char"), flags, 2)
-        this.vtbl.get_locale := CallbackCreate(GetMethod(implObj, "get_locale"), flags, 2)
+        this.vtbl.get_key := CallbackCreate(ObjBindMethod(implObj, "get_key"), flags, 2)
+        this.vtbl.get_location := CallbackCreate(ObjBindMethod(implObj, "get_location"), flags, 2)
+        this.vtbl.get_ctrlKey := CallbackCreate(ObjBindMethod(implObj, "get_ctrlKey"), flags, 2)
+        this.vtbl.get_shiftKey := CallbackCreate(ObjBindMethod(implObj, "get_shiftKey"), flags, 2)
+        this.vtbl.get_altKey := CallbackCreate(ObjBindMethod(implObj, "get_altKey"), flags, 2)
+        this.vtbl.get_metaKey := CallbackCreate(ObjBindMethod(implObj, "get_metaKey"), flags, 2)
+        this.vtbl.get_repeat := CallbackCreate(ObjBindMethod(implObj, "get_repeat"), flags, 2)
+        this.vtbl.getModifierState := CallbackCreate(ObjBindMethod(implObj, "getModifierState"), flags, 3)
+        this.vtbl.initKeyboardEvent := CallbackCreate(ObjBindMethod(implObj, "initKeyboardEvent"), flags, 10)
+        this.vtbl.get_keyCode := CallbackCreate(ObjBindMethod(implObj, "get_keyCode"), flags, 2)
+        this.vtbl.get_charCode := CallbackCreate(ObjBindMethod(implObj, "get_charCode"), flags, 2)
+        this.vtbl.get_which := CallbackCreate(ObjBindMethod(implObj, "get_which"), flags, 2)
+        this.vtbl.get_ie9_char := CallbackCreate(ObjBindMethod(implObj, "get_ie9_char"), flags, 2)
+        this.vtbl.get_locale := CallbackCreate(ObjBindMethod(implObj, "get_locale"), flags, 2)
     }
 
     Dispose() {

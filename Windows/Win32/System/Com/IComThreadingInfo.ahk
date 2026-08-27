@@ -124,10 +124,10 @@ export default struct IComThreadingInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCurrentApartmentType := CallbackCreate(GetMethod(implObj, "GetCurrentApartmentType"), flags, 2)
-        this.vtbl.GetCurrentThreadType := CallbackCreate(GetMethod(implObj, "GetCurrentThreadType"), flags, 2)
-        this.vtbl.GetCurrentLogicalThreadId := CallbackCreate(GetMethod(implObj, "GetCurrentLogicalThreadId"), flags, 2)
-        this.vtbl.SetCurrentLogicalThreadId := CallbackCreate(GetMethod(implObj, "SetCurrentLogicalThreadId"), flags, 2)
+        this.vtbl.GetCurrentApartmentType := CallbackCreate(ObjBindMethod(implObj, "GetCurrentApartmentType"), flags, 2)
+        this.vtbl.GetCurrentThreadType := CallbackCreate(ObjBindMethod(implObj, "GetCurrentThreadType"), flags, 2)
+        this.vtbl.GetCurrentLogicalThreadId := CallbackCreate(ObjBindMethod(implObj, "GetCurrentLogicalThreadId"), flags, 2)
+        this.vtbl.SetCurrentLogicalThreadId := CallbackCreate(ObjBindMethod(implObj, "SetCurrentLogicalThreadId"), flags, 2)
     }
 
     Dispose() {

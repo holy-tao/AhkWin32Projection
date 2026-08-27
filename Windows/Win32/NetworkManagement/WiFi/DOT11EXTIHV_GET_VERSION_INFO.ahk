@@ -19,7 +19,6 @@ export default struct DOT11EXTIHV_GET_VERSION_INFO {
     }
 
     /**
-     * 
      * @param {Pointer<DOT11_IHV_VERSION_INFO>} pDot11IHVVersionInfo 
      * @returns {Integer} 
      */

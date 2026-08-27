@@ -59,7 +59,7 @@ export default struct IContextMenuCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddItem := CallbackCreate(GetMethod(implObj, "AddItem"), flags, 2)
+        this.vtbl.AddItem := CallbackCreate(ObjBindMethod(implObj, "AddItem"), flags, 2)
     }
 
     Dispose() {

@@ -293,7 +293,9 @@ export default struct IFilterGraph extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifiltergraph-connectdirect
      */
     ConnectDirect(ppinOut, ppinIn, pmt) {
-        result := ComCall(7, this, "ptr", ppinOut, "ptr", ppinIn, AM_MEDIA_TYPE.Ptr, pmt, "HRESULT")
+        pmtMarshal := pmt == 0 ? IntPtr : AM_MEDIA_TYPE.Ptr
+
+        result := ComCall(7, this, "ptr", ppinOut, "ptr", ppinIn, pmtMarshal, pmt, "HRESULT")
         return result
     }
 
@@ -505,14 +507,14 @@ export default struct IFilterGraph extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddFilter := CallbackCreate(GetMethod(implObj, "AddFilter"), flags, 3)
-        this.vtbl.RemoveFilter := CallbackCreate(GetMethod(implObj, "RemoveFilter"), flags, 2)
-        this.vtbl.EnumFilters := CallbackCreate(GetMethod(implObj, "EnumFilters"), flags, 2)
-        this.vtbl.FindFilterByName := CallbackCreate(GetMethod(implObj, "FindFilterByName"), flags, 3)
-        this.vtbl.ConnectDirect := CallbackCreate(GetMethod(implObj, "ConnectDirect"), flags, 4)
-        this.vtbl.Reconnect := CallbackCreate(GetMethod(implObj, "Reconnect"), flags, 2)
-        this.vtbl.Disconnect := CallbackCreate(GetMethod(implObj, "Disconnect"), flags, 2)
-        this.vtbl.SetDefaultSyncSource := CallbackCreate(GetMethod(implObj, "SetDefaultSyncSource"), flags, 1)
+        this.vtbl.AddFilter := CallbackCreate(ObjBindMethod(implObj, "AddFilter"), flags, 3)
+        this.vtbl.RemoveFilter := CallbackCreate(ObjBindMethod(implObj, "RemoveFilter"), flags, 2)
+        this.vtbl.EnumFilters := CallbackCreate(ObjBindMethod(implObj, "EnumFilters"), flags, 2)
+        this.vtbl.FindFilterByName := CallbackCreate(ObjBindMethod(implObj, "FindFilterByName"), flags, 3)
+        this.vtbl.ConnectDirect := CallbackCreate(ObjBindMethod(implObj, "ConnectDirect"), flags, 4)
+        this.vtbl.Reconnect := CallbackCreate(ObjBindMethod(implObj, "Reconnect"), flags, 2)
+        this.vtbl.Disconnect := CallbackCreate(ObjBindMethod(implObj, "Disconnect"), flags, 2)
+        this.vtbl.SetDefaultSyncSource := CallbackCreate(ObjBindMethod(implObj, "SetDefaultSyncSource"), flags, 1)
     }
 
     Dispose() {

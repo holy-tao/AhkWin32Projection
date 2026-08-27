@@ -101,7 +101,9 @@ export default struct IVdsProviderPrivate extends IUnknown {
     OnLoad(pwszMachineName, pCallbackObject) {
         pwszMachineName := pwszMachineName is String ? StrPtr(pwszMachineName) : pwszMachineName
 
-        result := ComCall(4, this, "ptr", pwszMachineName, "ptr", pCallbackObject, "HRESULT")
+        pCallbackObjectMarshal := pCallbackObject == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, "ptr", pwszMachineName, pCallbackObjectMarshal, pCallbackObject, "HRESULT")
         return result
     }
 
@@ -158,9 +160,9 @@ export default struct IVdsProviderPrivate extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetObject := CallbackCreate(GetMethod(implObj, "GetObject"), flags, 4)
-        this.vtbl.OnLoad := CallbackCreate(GetMethod(implObj, "OnLoad"), flags, 3)
-        this.vtbl.OnUnload := CallbackCreate(GetMethod(implObj, "OnUnload"), flags, 2)
+        this.vtbl.GetObject := CallbackCreate(ObjBindMethod(implObj, "GetObject"), flags, 4)
+        this.vtbl.OnLoad := CallbackCreate(ObjBindMethod(implObj, "OnLoad"), flags, 3)
+        this.vtbl.OnUnload := CallbackCreate(ObjBindMethod(implObj, "OnUnload"), flags, 2)
     }
 
     Dispose() {

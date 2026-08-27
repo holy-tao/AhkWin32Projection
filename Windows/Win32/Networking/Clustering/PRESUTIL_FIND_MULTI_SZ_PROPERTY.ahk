@@ -19,7 +19,6 @@ export default struct PRESUTIL_FIND_MULTI_SZ_PROPERTY {
     }
 
     /**
-     * 
      * @param {Integer} pPropertyList 
      * @param {Integer} cbPropertyListSize 
      * @param {PWSTR} pszPropertyName 
@@ -30,8 +29,8 @@ export default struct PRESUTIL_FIND_MULTI_SZ_PROPERTY {
     Call(pPropertyList, cbPropertyListSize, pszPropertyName, pszPropertyValue, pcbPropertyValueSize) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
 
-        pszPropertyValueMarshal := pszPropertyValue is VarRef ? "ptr*" : "ptr"
-        pcbPropertyValueSizeMarshal := pcbPropertyValueSize is VarRef ? "uint*" : "ptr"
+        pszPropertyValueMarshal := pszPropertyValue is VarRef ? "ptr*" : IntPtr
+        pcbPropertyValueSizeMarshal := pcbPropertyValueSize is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, IntPtr, pPropertyList, UInt32, cbPropertyListSize, "ptr", pszPropertyName, pszPropertyValueMarshal, pszPropertyValue, pcbPropertyValueSizeMarshal, pcbPropertyValueSize, UInt32)
         return result

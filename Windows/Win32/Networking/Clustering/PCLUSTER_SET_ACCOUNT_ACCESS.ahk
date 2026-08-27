@@ -20,7 +20,6 @@ export default struct PCLUSTER_SET_ACCOUNT_ACCESS {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} szAccountSID 
      * @param {Integer} dwAccess 

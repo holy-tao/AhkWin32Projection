@@ -23,7 +23,6 @@ export default struct PDXVA2SW_CREATEVIDEOPROCESSDEVICE {
     }
 
     /**
-     * 
      * @param {IDirect3DDevice9} pD3DD9 
      * @param {Pointer<DXVA2_VideoDesc>} pVideoDesc 
      * @param {D3DFORMAT} RenderTargetFormat 

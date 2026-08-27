@@ -193,10 +193,10 @@ export default struct IDXGIResource extends IDXGIDeviceSubObject {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSharedHandle := CallbackCreate(GetMethod(implObj, "GetSharedHandle"), flags, 2)
-        this.vtbl.GetUsage := CallbackCreate(GetMethod(implObj, "GetUsage"), flags, 2)
-        this.vtbl.SetEvictionPriority := CallbackCreate(GetMethod(implObj, "SetEvictionPriority"), flags, 2)
-        this.vtbl.GetEvictionPriority := CallbackCreate(GetMethod(implObj, "GetEvictionPriority"), flags, 2)
+        this.vtbl.GetSharedHandle := CallbackCreate(ObjBindMethod(implObj, "GetSharedHandle"), flags, 2)
+        this.vtbl.GetUsage := CallbackCreate(ObjBindMethod(implObj, "GetUsage"), flags, 2)
+        this.vtbl.SetEvictionPriority := CallbackCreate(ObjBindMethod(implObj, "SetEvictionPriority"), flags, 2)
+        this.vtbl.GetEvictionPriority := CallbackCreate(ObjBindMethod(implObj, "GetEvictionPriority"), flags, 2)
     }
 
     Dispose() {

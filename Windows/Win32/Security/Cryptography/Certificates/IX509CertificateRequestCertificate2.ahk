@@ -120,7 +120,10 @@ export default struct IX509CertificateRequestCertificate2 extends IX509Certifica
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcertificate2-initializefromtemplate
      */
     InitializeFromTemplate(_context, pPolicyServer, pTemplate) {
-        result := ComCall(71, this, X509CertificateEnrollmentContext, _context, "ptr", pPolicyServer, "ptr", pTemplate, "HRESULT")
+        pPolicyServerMarshal := pPolicyServer == 0 ? IntPtr : "ptr"
+        pTemplateMarshal := pTemplate == 0 ? IntPtr : "ptr"
+
+        result := ComCall(71, this, X509CertificateEnrollmentContext, _context, pPolicyServerMarshal, pPolicyServer, pTemplateMarshal, pTemplate, "HRESULT")
         return result
     }
 
@@ -181,7 +184,11 @@ export default struct IX509CertificateRequestCertificate2 extends IX509Certifica
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcertificate2-initializefromprivatekeytemplate
      */
     InitializeFromPrivateKeyTemplate(_Context, pPrivateKey, pPolicyServer, pTemplate) {
-        result := ComCall(72, this, X509CertificateEnrollmentContext, _Context, "ptr", pPrivateKey, "ptr", pPolicyServer, "ptr", pTemplate, "HRESULT")
+        pPrivateKeyMarshal := pPrivateKey == 0 ? IntPtr : "ptr"
+        pPolicyServerMarshal := pPolicyServer == 0 ? IntPtr : "ptr"
+        pTemplateMarshal := pTemplate == 0 ? IntPtr : "ptr"
+
+        result := ComCall(72, this, X509CertificateEnrollmentContext, _Context, pPrivateKeyMarshal, pPrivateKey, pPolicyServerMarshal, pPolicyServer, pTemplateMarshal, pTemplate, "HRESULT")
         return result
     }
 
@@ -214,10 +221,10 @@ export default struct IX509CertificateRequestCertificate2 extends IX509Certifica
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeFromTemplate := CallbackCreate(GetMethod(implObj, "InitializeFromTemplate"), flags, 4)
-        this.vtbl.InitializeFromPrivateKeyTemplate := CallbackCreate(GetMethod(implObj, "InitializeFromPrivateKeyTemplate"), flags, 5)
-        this.vtbl.get_PolicyServer := CallbackCreate(GetMethod(implObj, "get_PolicyServer"), flags, 2)
-        this.vtbl.get_Template := CallbackCreate(GetMethod(implObj, "get_Template"), flags, 2)
+        this.vtbl.InitializeFromTemplate := CallbackCreate(ObjBindMethod(implObj, "InitializeFromTemplate"), flags, 4)
+        this.vtbl.InitializeFromPrivateKeyTemplate := CallbackCreate(ObjBindMethod(implObj, "InitializeFromPrivateKeyTemplate"), flags, 5)
+        this.vtbl.get_PolicyServer := CallbackCreate(ObjBindMethod(implObj, "get_PolicyServer"), flags, 2)
+        this.vtbl.get_Template := CallbackCreate(ObjBindMethod(implObj, "get_Template"), flags, 2)
     }
 
     Dispose() {

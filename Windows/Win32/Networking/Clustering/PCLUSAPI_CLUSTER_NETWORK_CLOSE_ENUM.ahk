@@ -19,7 +19,6 @@ export default struct PCLUSAPI_CLUSTER_NETWORK_CLOSE_ENUM {
     }
 
     /**
-     * 
      * @param {HNETWORKENUM} _hNetworkEnum 
      * @returns {Integer} 
      */

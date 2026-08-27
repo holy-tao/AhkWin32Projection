@@ -43,7 +43,6 @@ export default struct IElementBehaviorSiteOM extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pchEvent 
      * @param {Integer} lFlags 
      * @returns {Integer} 
@@ -56,7 +55,6 @@ export default struct IElementBehaviorSiteOM extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pchEvent 
      * @returns {Integer} 
      */
@@ -68,7 +66,6 @@ export default struct IElementBehaviorSiteOM extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lCookie 
      * @param {IHTMLEventObj} pEventObject 
      * @returns {HRESULT} 
@@ -79,7 +76,6 @@ export default struct IElementBehaviorSiteOM extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IHTMLEventObj} 
      */
     CreateEventObject() {
@@ -88,7 +84,6 @@ export default struct IElementBehaviorSiteOM extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pchName 
      * @returns {HRESULT} 
      */
@@ -100,7 +95,6 @@ export default struct IElementBehaviorSiteOM extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pchUrn 
      * @returns {HRESULT} 
      */
@@ -120,12 +114,12 @@ export default struct IElementBehaviorSiteOM extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterEvent := CallbackCreate(GetMethod(implObj, "RegisterEvent"), flags, 4)
-        this.vtbl.GetEventCookie := CallbackCreate(GetMethod(implObj, "GetEventCookie"), flags, 3)
-        this.vtbl.FireEvent := CallbackCreate(GetMethod(implObj, "FireEvent"), flags, 3)
-        this.vtbl.CreateEventObject := CallbackCreate(GetMethod(implObj, "CreateEventObject"), flags, 2)
-        this.vtbl.RegisterName := CallbackCreate(GetMethod(implObj, "RegisterName"), flags, 2)
-        this.vtbl.RegisterUrn := CallbackCreate(GetMethod(implObj, "RegisterUrn"), flags, 2)
+        this.vtbl.RegisterEvent := CallbackCreate(ObjBindMethod(implObj, "RegisterEvent"), flags, 4)
+        this.vtbl.GetEventCookie := CallbackCreate(ObjBindMethod(implObj, "GetEventCookie"), flags, 3)
+        this.vtbl.FireEvent := CallbackCreate(ObjBindMethod(implObj, "FireEvent"), flags, 3)
+        this.vtbl.CreateEventObject := CallbackCreate(ObjBindMethod(implObj, "CreateEventObject"), flags, 2)
+        this.vtbl.RegisterName := CallbackCreate(ObjBindMethod(implObj, "RegisterName"), flags, 2)
+        this.vtbl.RegisterUrn := CallbackCreate(ObjBindMethod(implObj, "RegisterUrn"), flags, 2)
     }
 
     Dispose() {

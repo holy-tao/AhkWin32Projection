@@ -25,7 +25,6 @@ export default struct PDD_SURFCB_SETOVERLAYPOSITION {
     }
 
     /**
-     * 
      * @param {Pointer<DD_SETOVERLAYPOSITIONDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_setoverlaypositiondata">DD_SETOVERLAYPOSITIONDATA</a> structure that contains the information required to set the overlay position.
      * @returns {Integer} <b>DdSetOverlayPosition</b> returns one of the following callback codes:
      */

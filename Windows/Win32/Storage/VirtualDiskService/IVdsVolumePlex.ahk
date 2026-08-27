@@ -92,8 +92,8 @@ export default struct IVdsVolumePlex extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolumeplex-queryextents
      */
     QueryExtents(ppExtentArray, plNumberOfExtents) {
-        ppExtentArrayMarshal := ppExtentArray is VarRef ? "ptr*" : "ptr"
-        plNumberOfExtentsMarshal := plNumberOfExtents is VarRef ? "int*" : "ptr"
+        ppExtentArrayMarshal := ppExtentArray is VarRef ? "ptr*" : IntPtr
+        plNumberOfExtentsMarshal := plNumberOfExtents is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, ppExtentArrayMarshal, ppExtentArray, plNumberOfExtentsMarshal, plNumberOfExtents, "HRESULT")
         return result
@@ -134,10 +134,10 @@ export default struct IVdsVolumePlex extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
-        this.vtbl.GetVolume := CallbackCreate(GetMethod(implObj, "GetVolume"), flags, 2)
-        this.vtbl.QueryExtents := CallbackCreate(GetMethod(implObj, "QueryExtents"), flags, 3)
-        this.vtbl.Repair := CallbackCreate(GetMethod(implObj, "Repair"), flags, 4)
+        this.vtbl.GetProperties := CallbackCreate(ObjBindMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.GetVolume := CallbackCreate(ObjBindMethod(implObj, "GetVolume"), flags, 2)
+        this.vtbl.QueryExtents := CallbackCreate(ObjBindMethod(implObj, "QueryExtents"), flags, 3)
+        this.vtbl.Repair := CallbackCreate(ObjBindMethod(implObj, "Repair"), flags, 4)
     }
 
     Dispose() {

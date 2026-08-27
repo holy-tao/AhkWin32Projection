@@ -21,7 +21,6 @@ export default struct COMPLETE_AUTH_TOKEN_FN {
     }
 
     /**
-     * 
      * @param {Pointer<SecHandle>} param0 
      * @param {Pointer<SecBufferDesc>} param1 
      * @returns {HRESULT} 

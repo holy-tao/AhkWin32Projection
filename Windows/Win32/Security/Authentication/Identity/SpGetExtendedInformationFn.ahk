@@ -32,7 +32,6 @@ export default struct SpGetExtendedInformationFn {
     }
 
     /**
-     * 
      * @param {SECPKG_EXTENDED_INFORMATION_CLASS} _Class A value from the 
      * <a href="https://docs.microsoft.com/windows/win32/api/ntsecpkg/ne-ntsecpkg-secpkg_extended_information_class">SECPKG_EXTENDED_INFORMATION_CLASS</a> enumeration indicating the type of extended information.
      * @param {Pointer<Pointer<SECPKG_EXTENDED_INFORMATION>>} ppInformation Pointer to a pointer to a 
@@ -42,7 +41,7 @@ export default struct SpGetExtendedInformationFn {
      * If the function fails, return an <b>NTSTATUS</b> code that indicates the reason it failed.
      */
     Call(_Class, ppInformation) {
-        ppInformationMarshal := ppInformation is VarRef ? "ptr*" : "ptr"
+        ppInformationMarshal := ppInformation is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, SECPKG_EXTENDED_INFORMATION_CLASS, _Class, ppInformationMarshal, ppInformation, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

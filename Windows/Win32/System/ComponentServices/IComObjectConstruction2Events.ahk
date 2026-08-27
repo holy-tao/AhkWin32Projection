@@ -65,7 +65,7 @@ export default struct IComObjectConstruction2Events extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnObjectConstruct2 := CallbackCreate(GetMethod(implObj, "OnObjectConstruct2"), flags, 6)
+        this.vtbl.OnObjectConstruct2 := CallbackCreate(ObjBindMethod(implObj, "OnObjectConstruct2"), flags, 6)
     }
 
     Dispose() {

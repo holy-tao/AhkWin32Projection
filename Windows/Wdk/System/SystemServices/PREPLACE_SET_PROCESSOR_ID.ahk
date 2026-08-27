@@ -20,14 +20,13 @@ export default struct PREPLACE_SET_PROCESSOR_ID {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Integer} ApicId 
      * @param {BOOLEAN} Target 
      * @returns {NTSTATUS} 
      */
     Call(_Context, ApicId, Target) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, UInt32, ApicId, BOOLEAN, Target, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

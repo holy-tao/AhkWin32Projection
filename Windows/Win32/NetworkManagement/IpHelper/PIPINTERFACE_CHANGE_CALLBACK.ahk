@@ -20,14 +20,13 @@ export default struct PIPINTERFACE_CHANGE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} CallerContext 
      * @param {Pointer<MIB_IPINTERFACE_ROW>} Row 
      * @param {MIB_NOTIFICATION_TYPE} NotificationType 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(CallerContext, Row, NotificationType) {
-        CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
+        CallerContextMarshal := CallerContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, CallerContextMarshal, CallerContext, MIB_IPINTERFACE_ROW.Ptr, Row, MIB_NOTIFICATION_TYPE, NotificationType)
     }

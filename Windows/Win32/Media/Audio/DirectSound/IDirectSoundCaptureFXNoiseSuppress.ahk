@@ -39,7 +39,6 @@ export default struct IDirectSoundCaptureFXNoiseSuppress extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DSCFXNoiseSuppress>} pcDscFxNoiseSuppress 
      * @returns {HRESULT} 
      */
@@ -49,7 +48,6 @@ export default struct IDirectSoundCaptureFXNoiseSuppress extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DSCFXNoiseSuppress} 
      */
     GetAllParameters() {
@@ -59,7 +57,6 @@ export default struct IDirectSoundCaptureFXNoiseSuppress extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -76,9 +73,9 @@ export default struct IDirectSoundCaptureFXNoiseSuppress extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAllParameters := CallbackCreate(GetMethod(implObj, "SetAllParameters"), flags, 2)
-        this.vtbl.GetAllParameters := CallbackCreate(GetMethod(implObj, "GetAllParameters"), flags, 2)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.SetAllParameters := CallbackCreate(ObjBindMethod(implObj, "SetAllParameters"), flags, 2)
+        this.vtbl.GetAllParameters := CallbackCreate(ObjBindMethod(implObj, "GetAllParameters"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct PSAM_CREDENTIAL_UPDATE_NOTIFY_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<LSA_UNICODE_STRING>} ClearPassword 
      * @param {Integer} OldCredentials 
      * @param {Integer} OldCredentialSize 
@@ -34,10 +33,11 @@ export default struct PSAM_CREDENTIAL_UPDATE_NOTIFY_ROUTINE {
      * @returns {NTSTATUS} 
      */
     Call(ClearPassword, OldCredentials, OldCredentialSize, UserAccountControl, UPN, UserName, NetbiosDomainName, DnsDomainName, NewCredentials, NewCredentialSize) {
-        NewCredentialsMarshal := NewCredentials is VarRef ? "ptr*" : "ptr"
-        NewCredentialSizeMarshal := NewCredentialSize is VarRef ? "uint*" : "ptr"
+        UPNMarshal := UPN == 0 ? IntPtr : LSA_UNICODE_STRING.Ptr
+        NewCredentialsMarshal := NewCredentials is VarRef ? "ptr*" : IntPtr
+        NewCredentialSizeMarshal := NewCredentialSize is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, LSA_UNICODE_STRING.Ptr, ClearPassword, IntPtr, OldCredentials, UInt32, OldCredentialSize, UInt32, UserAccountControl, LSA_UNICODE_STRING.Ptr, UPN, LSA_UNICODE_STRING.Ptr, UserName, LSA_UNICODE_STRING.Ptr, NetbiosDomainName, LSA_UNICODE_STRING.Ptr, DnsDomainName, NewCredentialsMarshal, NewCredentials, NewCredentialSizeMarshal, NewCredentialSize, NTSTATUS)
+        result := DllCall(this.value, LSA_UNICODE_STRING.Ptr, ClearPassword, IntPtr, OldCredentials, UInt32, OldCredentialSize, UInt32, UserAccountControl, UPNMarshal, UPN, LSA_UNICODE_STRING.Ptr, UserName, LSA_UNICODE_STRING.Ptr, NetbiosDomainName, LSA_UNICODE_STRING.Ptr, DnsDomainName, NewCredentialsMarshal, NewCredentials, NewCredentialSizeMarshal, NewCredentialSize, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

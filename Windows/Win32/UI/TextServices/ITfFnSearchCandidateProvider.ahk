@@ -109,8 +109,8 @@ export default struct ITfFnSearchCandidateProvider extends ITfFunction {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSearchCandidates := CallbackCreate(GetMethod(implObj, "GetSearchCandidates"), flags, 4)
-        this.vtbl.SetResult := CallbackCreate(GetMethod(implObj, "SetResult"), flags, 4)
+        this.vtbl.GetSearchCandidates := CallbackCreate(ObjBindMethod(implObj, "GetSearchCandidates"), flags, 4)
+        this.vtbl.SetResult := CallbackCreate(ObjBindMethod(implObj, "SetResult"), flags, 4)
     }
 
     Dispose() {

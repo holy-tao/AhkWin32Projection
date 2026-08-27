@@ -102,7 +102,6 @@ export default struct IInkDivisionUnit extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_RecognizedString() {
@@ -137,10 +136,10 @@ export default struct IInkDivisionUnit extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Strokes := CallbackCreate(GetMethod(implObj, "get_Strokes"), flags, 2)
-        this.vtbl.get_DivisionType := CallbackCreate(GetMethod(implObj, "get_DivisionType"), flags, 2)
-        this.vtbl.get_RecognizedString := CallbackCreate(GetMethod(implObj, "get_RecognizedString"), flags, 2)
-        this.vtbl.get_RotationTransform := CallbackCreate(GetMethod(implObj, "get_RotationTransform"), flags, 2)
+        this.vtbl.get_Strokes := CallbackCreate(ObjBindMethod(implObj, "get_Strokes"), flags, 2)
+        this.vtbl.get_DivisionType := CallbackCreate(ObjBindMethod(implObj, "get_DivisionType"), flags, 2)
+        this.vtbl.get_RecognizedString := CallbackCreate(ObjBindMethod(implObj, "get_RecognizedString"), flags, 2)
+        this.vtbl.get_RotationTransform := CallbackCreate(ObjBindMethod(implObj, "get_RotationTransform"), flags, 2)
     }
 
     Dispose() {

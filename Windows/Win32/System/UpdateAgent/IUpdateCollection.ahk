@@ -287,16 +287,16 @@ export default struct IUpdateCollection extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
-        this.vtbl.put_Item := CallbackCreate(GetMethod(implObj, "put_Item"), flags, 3)
-        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.get_ReadOnly := CallbackCreate(GetMethod(implObj, "get_ReadOnly"), flags, 2)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 3)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
-        this.vtbl.Copy := CallbackCreate(GetMethod(implObj, "Copy"), flags, 2)
-        this.vtbl.Insert := CallbackCreate(GetMethod(implObj, "Insert"), flags, 3)
-        this.vtbl.RemoveAt := CallbackCreate(GetMethod(implObj, "RemoveAt"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(ObjBindMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.put_Item := CallbackCreate(ObjBindMethod(implObj, "put_Item"), flags, 3)
+        this.vtbl.get__NewEnum := CallbackCreate(ObjBindMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get_ReadOnly := CallbackCreate(ObjBindMethod(implObj, "get_ReadOnly"), flags, 2)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 3)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.Copy := CallbackCreate(ObjBindMethod(implObj, "Copy"), flags, 2)
+        this.vtbl.Insert := CallbackCreate(ObjBindMethod(implObj, "Insert"), flags, 3)
+        this.vtbl.RemoveAt := CallbackCreate(ObjBindMethod(implObj, "RemoveAt"), flags, 2)
     }
 
     Dispose() {

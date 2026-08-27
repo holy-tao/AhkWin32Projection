@@ -22,12 +22,12 @@ export default struct WS_OPERATION_FREE_STATE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} state A reference to the application defined state registered with the callback.
      * @returns {String} Nothing - always returns an empty string
      */
     Call(state) {
-        stateMarshal := state is VarRef ? "ptr" : "ptr"
+        stateMarshal := state is VarRef ? "ptr" : IntPtr
+        stateMarshal := state == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, stateMarshal, state)
     }

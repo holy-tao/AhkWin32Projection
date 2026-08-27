@@ -158,8 +158,8 @@ export default struct IAppxBundleWriter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddPayloadPackage := CallbackCreate(GetMethod(implObj, "AddPayloadPackage"), flags, 3)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.AddPayloadPackage := CallbackCreate(ObjBindMethod(implObj, "AddPayloadPackage"), flags, 3)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
     }
 
     Dispose() {

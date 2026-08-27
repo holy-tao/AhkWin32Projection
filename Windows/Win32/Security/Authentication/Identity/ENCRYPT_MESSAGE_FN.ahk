@@ -21,7 +21,6 @@ export default struct ENCRYPT_MESSAGE_FN {
     }
 
     /**
-     * 
      * @param {Pointer<SecHandle>} param0 
      * @param {Integer} param1 
      * @param {Pointer<SecBufferDesc>} param2 

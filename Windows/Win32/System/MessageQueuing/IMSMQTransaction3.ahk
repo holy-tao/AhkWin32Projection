@@ -44,7 +44,6 @@ export default struct IMSMQTransaction3 extends IMSMQTransaction2 {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ITransaction() {
@@ -62,7 +61,7 @@ export default struct IMSMQTransaction3 extends IMSMQTransaction2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ITransaction := CallbackCreate(GetMethod(implObj, "get_ITransaction"), flags, 2)
+        this.vtbl.get_ITransaction := CallbackCreate(ObjBindMethod(implObj, "get_ITransaction"), flags, 2)
     }
 
     Dispose() {

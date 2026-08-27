@@ -44,7 +44,6 @@ export default struct IRemoteComponentUtil extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrServer 
      * @param {BSTR} bstrPackageID 
      * @param {BSTR} bstrCLSID 
@@ -60,7 +59,6 @@ export default struct IRemoteComponentUtil extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrServer 
      * @param {BSTR} bstrPackageName 
      * @param {BSTR} bstrProgID 
@@ -84,8 +82,8 @@ export default struct IRemoteComponentUtil extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InstallRemoteComponent := CallbackCreate(GetMethod(implObj, "InstallRemoteComponent"), flags, 4)
-        this.vtbl.InstallRemoteComponentByName := CallbackCreate(GetMethod(implObj, "InstallRemoteComponentByName"), flags, 4)
+        this.vtbl.InstallRemoteComponent := CallbackCreate(ObjBindMethod(implObj, "InstallRemoteComponent"), flags, 4)
+        this.vtbl.InstallRemoteComponentByName := CallbackCreate(ObjBindMethod(implObj, "InstallRemoteComponentByName"), flags, 4)
     }
 
     Dispose() {

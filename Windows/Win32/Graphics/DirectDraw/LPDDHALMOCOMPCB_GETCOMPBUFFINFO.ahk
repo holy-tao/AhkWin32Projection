@@ -19,7 +19,6 @@ export default struct LPDDHALMOCOMPCB_GETCOMPBUFFINFO {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_GETMOCOMPCOMPBUFFDATA>} param0 
      * @returns {Integer} 
      */

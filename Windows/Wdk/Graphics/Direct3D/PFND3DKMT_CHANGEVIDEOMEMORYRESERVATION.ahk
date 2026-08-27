@@ -20,7 +20,6 @@ export default struct PFND3DKMT_CHANGEVIDEOMEMORYRESERVATION {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CHANGEVIDEOMEMORYRESERVATION>} param0 
      * @returns {NTSTATUS} 
      */

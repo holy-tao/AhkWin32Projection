@@ -872,19 +872,19 @@ export default struct IMsmMerge extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OpenDatabase := CallbackCreate(GetMethod(implObj, "OpenDatabase"), flags, 2)
-        this.vtbl.OpenModule := CallbackCreate(GetMethod(implObj, "OpenModule"), flags, 3)
-        this.vtbl.CloseDatabase := CallbackCreate(GetMethod(implObj, "CloseDatabase"), flags, 2)
-        this.vtbl.CloseModule := CallbackCreate(GetMethod(implObj, "CloseModule"), flags, 1)
-        this.vtbl.OpenLog := CallbackCreate(GetMethod(implObj, "OpenLog"), flags, 2)
-        this.vtbl.CloseLog := CallbackCreate(GetMethod(implObj, "CloseLog"), flags, 1)
-        this.vtbl.Log := CallbackCreate(GetMethod(implObj, "Log"), flags, 2)
-        this.vtbl.get_Errors := CallbackCreate(GetMethod(implObj, "get_Errors"), flags, 2)
-        this.vtbl.get_Dependencies := CallbackCreate(GetMethod(implObj, "get_Dependencies"), flags, 2)
-        this.vtbl.Merge := CallbackCreate(GetMethod(implObj, "Merge"), flags, 3)
-        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 2)
-        this.vtbl.ExtractCAB := CallbackCreate(GetMethod(implObj, "ExtractCAB"), flags, 2)
-        this.vtbl.ExtractFiles := CallbackCreate(GetMethod(implObj, "ExtractFiles"), flags, 2)
+        this.vtbl.OpenDatabase := CallbackCreate(ObjBindMethod(implObj, "OpenDatabase"), flags, 2)
+        this.vtbl.OpenModule := CallbackCreate(ObjBindMethod(implObj, "OpenModule"), flags, 3)
+        this.vtbl.CloseDatabase := CallbackCreate(ObjBindMethod(implObj, "CloseDatabase"), flags, 2)
+        this.vtbl.CloseModule := CallbackCreate(ObjBindMethod(implObj, "CloseModule"), flags, 1)
+        this.vtbl.OpenLog := CallbackCreate(ObjBindMethod(implObj, "OpenLog"), flags, 2)
+        this.vtbl.CloseLog := CallbackCreate(ObjBindMethod(implObj, "CloseLog"), flags, 1)
+        this.vtbl.Log := CallbackCreate(ObjBindMethod(implObj, "Log"), flags, 2)
+        this.vtbl.get_Errors := CallbackCreate(ObjBindMethod(implObj, "get_Errors"), flags, 2)
+        this.vtbl.get_Dependencies := CallbackCreate(ObjBindMethod(implObj, "get_Dependencies"), flags, 2)
+        this.vtbl.Merge := CallbackCreate(ObjBindMethod(implObj, "Merge"), flags, 3)
+        this.vtbl.Connect := CallbackCreate(ObjBindMethod(implObj, "Connect"), flags, 2)
+        this.vtbl.ExtractCAB := CallbackCreate(ObjBindMethod(implObj, "ExtractCAB"), flags, 2)
+        this.vtbl.ExtractFiles := CallbackCreate(ObjBindMethod(implObj, "ExtractFiles"), flags, 2)
     }
 
     Dispose() {

@@ -42,7 +42,6 @@ export default struct IHostTask extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Start() {
@@ -51,7 +50,6 @@ export default struct IHostTask extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Alert() {
@@ -60,7 +58,6 @@ export default struct IHostTask extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwMilliseconds 
      * @param {Integer} option 
      * @returns {HRESULT} 
@@ -71,7 +68,6 @@ export default struct IHostTask extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} newPriority 
      * @returns {HRESULT} 
      */
@@ -81,7 +77,6 @@ export default struct IHostTask extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetPriority() {
@@ -90,7 +85,6 @@ export default struct IHostTask extends IUnknown {
     }
 
     /**
-     * 
      * @param {ICLRTask} pCLRTask 
      * @returns {HRESULT} 
      */
@@ -108,12 +102,12 @@ export default struct IHostTask extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 1)
-        this.vtbl.Alert := CallbackCreate(GetMethod(implObj, "Alert"), flags, 1)
-        this.vtbl.Join := CallbackCreate(GetMethod(implObj, "Join"), flags, 3)
-        this.vtbl.SetPriority := CallbackCreate(GetMethod(implObj, "SetPriority"), flags, 2)
-        this.vtbl.GetPriority := CallbackCreate(GetMethod(implObj, "GetPriority"), flags, 2)
-        this.vtbl.SetCLRTask := CallbackCreate(GetMethod(implObj, "SetCLRTask"), flags, 2)
+        this.vtbl.Start := CallbackCreate(ObjBindMethod(implObj, "Start"), flags, 1)
+        this.vtbl.Alert := CallbackCreate(ObjBindMethod(implObj, "Alert"), flags, 1)
+        this.vtbl.Join := CallbackCreate(ObjBindMethod(implObj, "Join"), flags, 3)
+        this.vtbl.SetPriority := CallbackCreate(ObjBindMethod(implObj, "SetPriority"), flags, 2)
+        this.vtbl.GetPriority := CallbackCreate(ObjBindMethod(implObj, "GetPriority"), flags, 2)
+        this.vtbl.SetCLRTask := CallbackCreate(ObjBindMethod(implObj, "SetCLRTask"), flags, 2)
     }
 
     Dispose() {

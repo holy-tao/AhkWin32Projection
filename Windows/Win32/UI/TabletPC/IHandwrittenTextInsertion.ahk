@@ -73,7 +73,9 @@ export default struct IHandwrittenTextInsertion extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-ihandwrittentextinsertion-insertinkrecognitionresult
      */
     InsertInkRecognitionResult(pIInkRecoResult, locale, fAlternateContainsAutoSpacingInformation) {
-        result := ComCall(4, this, "ptr", pIInkRecoResult, UInt32, locale, BOOL, fAlternateContainsAutoSpacingInformation, "HRESULT")
+        pIInkRecoResultMarshal := pIInkRecoResult == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, pIInkRecoResultMarshal, pIInkRecoResult, UInt32, locale, BOOL, fAlternateContainsAutoSpacingInformation, "HRESULT")
         return result
     }
 
@@ -86,8 +88,8 @@ export default struct IHandwrittenTextInsertion extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InsertRecognitionResultsArray := CallbackCreate(GetMethod(implObj, "InsertRecognitionResultsArray"), flags, 4)
-        this.vtbl.InsertInkRecognitionResult := CallbackCreate(GetMethod(implObj, "InsertInkRecognitionResult"), flags, 4)
+        this.vtbl.InsertRecognitionResultsArray := CallbackCreate(ObjBindMethod(implObj, "InsertRecognitionResultsArray"), flags, 4)
+        this.vtbl.InsertInkRecognitionResult := CallbackCreate(ObjBindMethod(implObj, "InsertInkRecognitionResult"), flags, 4)
     }
 
     Dispose() {

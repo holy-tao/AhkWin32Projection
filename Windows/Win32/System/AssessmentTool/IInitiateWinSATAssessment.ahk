@@ -120,7 +120,10 @@ export default struct IInitiateWinSATAssessment extends IUnknown {
     InitiateAssessment(cmdLine, pCallbacks, callerHwnd) {
         cmdLine := cmdLine is String ? StrPtr(cmdLine) : cmdLine
 
-        result := ComCall(3, this, "ptr", cmdLine, "ptr", pCallbacks, HWND, callerHwnd, "HRESULT")
+        pCallbacksMarshal := pCallbacks == 0 ? IntPtr : "ptr"
+        callerHwndMarshal := callerHwnd == 0 ? IntPtr : HWND
+
+        result := ComCall(3, this, "ptr", cmdLine, pCallbacksMarshal, pCallbacks, callerHwndMarshal, callerHwnd, "HRESULT")
         return result
     }
 
@@ -177,7 +180,10 @@ export default struct IInitiateWinSATAssessment extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iinitiatewinsatassessment-initiateformalassessment
      */
     InitiateFormalAssessment(pCallbacks, callerHwnd) {
-        result := ComCall(4, this, "ptr", pCallbacks, HWND, callerHwnd, "HRESULT")
+        pCallbacksMarshal := pCallbacks == 0 ? IntPtr : "ptr"
+        callerHwndMarshal := callerHwnd == 0 ? IntPtr : HWND
+
+        result := ComCall(4, this, pCallbacksMarshal, pCallbacks, callerHwndMarshal, callerHwnd, "HRESULT")
         return result
     }
 
@@ -221,9 +227,9 @@ export default struct IInitiateWinSATAssessment extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitiateAssessment := CallbackCreate(GetMethod(implObj, "InitiateAssessment"), flags, 4)
-        this.vtbl.InitiateFormalAssessment := CallbackCreate(GetMethod(implObj, "InitiateFormalAssessment"), flags, 3)
-        this.vtbl.CancelAssessment := CallbackCreate(GetMethod(implObj, "CancelAssessment"), flags, 1)
+        this.vtbl.InitiateAssessment := CallbackCreate(ObjBindMethod(implObj, "InitiateAssessment"), flags, 4)
+        this.vtbl.InitiateFormalAssessment := CallbackCreate(ObjBindMethod(implObj, "InitiateFormalAssessment"), flags, 3)
+        this.vtbl.CancelAssessment := CallbackCreate(ObjBindMethod(implObj, "CancelAssessment"), flags, 1)
     }
 
     Dispose() {

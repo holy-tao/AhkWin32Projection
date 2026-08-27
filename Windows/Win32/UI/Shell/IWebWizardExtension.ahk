@@ -82,8 +82,8 @@ export default struct IWebWizardExtension extends IWizardExtension {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetInitialURL := CallbackCreate(GetMethod(implObj, "SetInitialURL"), flags, 2)
-        this.vtbl.SetErrorURL := CallbackCreate(GetMethod(implObj, "SetErrorURL"), flags, 2)
+        this.vtbl.SetInitialURL := CallbackCreate(ObjBindMethod(implObj, "SetInitialURL"), flags, 2)
+        this.vtbl.SetErrorURL := CallbackCreate(ObjBindMethod(implObj, "SetErrorURL"), flags, 2)
     }
 
     Dispose() {

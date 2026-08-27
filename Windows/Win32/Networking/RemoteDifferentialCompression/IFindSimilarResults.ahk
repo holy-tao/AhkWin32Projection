@@ -65,7 +65,7 @@ export default struct IFindSimilarResults extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-ifindsimilarresults-getnextfileid
      */
     GetNextFileId(numTraitsMatched, _similarityFileId) {
-        numTraitsMatchedMarshal := numTraitsMatched is VarRef ? "uint*" : "ptr"
+        numTraitsMatchedMarshal := numTraitsMatched is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, numTraitsMatchedMarshal, numTraitsMatched, SimilarityFileId.Ptr, _similarityFileId, "HRESULT")
         return result
@@ -80,8 +80,8 @@ export default struct IFindSimilarResults extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSize := CallbackCreate(GetMethod(implObj, "GetSize"), flags, 2)
-        this.vtbl.GetNextFileId := CallbackCreate(GetMethod(implObj, "GetNextFileId"), flags, 3)
+        this.vtbl.GetSize := CallbackCreate(ObjBindMethod(implObj, "GetSize"), flags, 2)
+        this.vtbl.GetNextFileId := CallbackCreate(ObjBindMethod(implObj, "GetNextFileId"), flags, 3)
     }
 
     Dispose() {

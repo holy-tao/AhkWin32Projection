@@ -67,7 +67,7 @@ export default struct IApoAuxiliaryInputConfiguration extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iapoauxiliaryinputconfiguration-addauxiliaryinput
      */
     AddAuxiliaryInput(dwInputId, cbDataSize, pbyData, pInputConnection) {
-        pbyDataMarshal := pbyData is VarRef ? "char*" : "ptr"
+        pbyDataMarshal := pbyData is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, UInt32, dwInputId, UInt32, cbDataSize, pbyDataMarshal, pbyData, APO_CONNECTION_DESCRIPTOR.Ptr, pInputConnection, "HRESULT")
         return result
@@ -124,9 +124,9 @@ export default struct IApoAuxiliaryInputConfiguration extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddAuxiliaryInput := CallbackCreate(GetMethod(implObj, "AddAuxiliaryInput"), flags, 5)
-        this.vtbl.RemoveAuxiliaryInput := CallbackCreate(GetMethod(implObj, "RemoveAuxiliaryInput"), flags, 2)
-        this.vtbl.IsInputFormatSupported := CallbackCreate(GetMethod(implObj, "IsInputFormatSupported"), flags, 3)
+        this.vtbl.AddAuxiliaryInput := CallbackCreate(ObjBindMethod(implObj, "AddAuxiliaryInput"), flags, 5)
+        this.vtbl.RemoveAuxiliaryInput := CallbackCreate(ObjBindMethod(implObj, "RemoveAuxiliaryInput"), flags, 2)
+        this.vtbl.IsInputFormatSupported := CallbackCreate(ObjBindMethod(implObj, "IsInputFormatSupported"), flags, 3)
     }
 
     Dispose() {

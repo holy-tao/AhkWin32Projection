@@ -212,11 +212,11 @@ export default struct ITfLangBarItemButton extends ITfLangBarItem {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnClick := CallbackCreate(GetMethod(implObj, "OnClick"), flags, 4)
-        this.vtbl.InitMenu := CallbackCreate(GetMethod(implObj, "InitMenu"), flags, 2)
-        this.vtbl.OnMenuSelect := CallbackCreate(GetMethod(implObj, "OnMenuSelect"), flags, 2)
-        this.vtbl.GetIcon := CallbackCreate(GetMethod(implObj, "GetIcon"), flags, 2)
-        this.vtbl.GetText := CallbackCreate(GetMethod(implObj, "GetText"), flags, 2)
+        this.vtbl.OnClick := CallbackCreate(ObjBindMethod(implObj, "OnClick"), flags, 4)
+        this.vtbl.InitMenu := CallbackCreate(ObjBindMethod(implObj, "InitMenu"), flags, 2)
+        this.vtbl.OnMenuSelect := CallbackCreate(ObjBindMethod(implObj, "OnMenuSelect"), flags, 2)
+        this.vtbl.GetIcon := CallbackCreate(ObjBindMethod(implObj, "GetIcon"), flags, 2)
+        this.vtbl.GetText := CallbackCreate(ObjBindMethod(implObj, "GetText"), flags, 2)
     }
 
     Dispose() {

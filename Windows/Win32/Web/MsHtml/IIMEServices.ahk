@@ -37,7 +37,6 @@ export default struct IIMEServices extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IActiveIMMApp} 
      */
     GetActiveIMM() {
@@ -54,7 +53,7 @@ export default struct IIMEServices extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetActiveIMM := CallbackCreate(GetMethod(implObj, "GetActiveIMM"), flags, 2)
+        this.vtbl.GetActiveIMM := CallbackCreate(ObjBindMethod(implObj, "GetActiveIMM"), flags, 2)
     }
 
     Dispose() {

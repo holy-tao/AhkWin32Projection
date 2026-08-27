@@ -40,7 +40,6 @@ export default struct IKeyEnumerator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -49,14 +48,16 @@ export default struct IKeyEnumerator extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} key 
      * @param {Pointer<IModelObject>} value 
      * @param {Pointer<IKeyStore>} metadata 
      * @returns {HRESULT} 
      */
     GetNext(key, value, metadata) {
-        result := ComCall(4, this, BSTR.Ptr, key, IModelObject.Ptr, value, IKeyStore.Ptr, metadata, "HRESULT")
+        valueMarshal := value == 0 ? IntPtr : IModelObject.Ptr
+        metadataMarshal := metadata == 0 ? IntPtr : IKeyStore.Ptr
+
+        result := ComCall(4, this, BSTR.Ptr, key, valueMarshal, value, metadataMarshal, metadata, "HRESULT")
         return result
     }
 
@@ -69,8 +70,8 @@ export default struct IKeyEnumerator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.GetNext := CallbackCreate(GetMethod(implObj, "GetNext"), flags, 4)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.GetNext := CallbackCreate(ObjBindMethod(implObj, "GetNext"), flags, 4)
     }
 
     Dispose() {

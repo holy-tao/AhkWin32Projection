@@ -38,7 +38,6 @@ export default struct IMSAdminBaseSinkW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwMDNumElements 
      * @param {Pointer<MD_CHANGE_OBJECT_W>} pcoChangeList 
      * @returns {HRESULT} 
@@ -49,7 +48,6 @@ export default struct IMSAdminBaseSinkW extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ShutdownNotify() {
@@ -66,8 +64,8 @@ export default struct IMSAdminBaseSinkW extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SinkNotify := CallbackCreate(GetMethod(implObj, "SinkNotify"), flags, 3)
-        this.vtbl.ShutdownNotify := CallbackCreate(GetMethod(implObj, "ShutdownNotify"), flags, 1)
+        this.vtbl.SinkNotify := CallbackCreate(ObjBindMethod(implObj, "SinkNotify"), flags, 3)
+        this.vtbl.ShutdownNotify := CallbackCreate(ObjBindMethod(implObj, "ShutdownNotify"), flags, 1)
     }
 
     Dispose() {

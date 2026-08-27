@@ -121,8 +121,8 @@ export default struct IWiaTransferCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.TransferCallback := CallbackCreate(GetMethod(implObj, "TransferCallback"), flags, 3)
-        this.vtbl.GetNextStream := CallbackCreate(GetMethod(implObj, "GetNextStream"), flags, 5)
+        this.vtbl.TransferCallback := CallbackCreate(ObjBindMethod(implObj, "TransferCallback"), flags, 3)
+        this.vtbl.GetNextStream := CallbackCreate(ObjBindMethod(implObj, "GetNextStream"), flags, 5)
     }
 
     Dispose() {

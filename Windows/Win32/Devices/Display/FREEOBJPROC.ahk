@@ -20,7 +20,6 @@ export default struct FREEOBJPROC {
     }
 
     /**
-     * 
      * @param {Pointer<DRIVEROBJ>} pDriverObj 
      * @returns {BOOL} 
      */

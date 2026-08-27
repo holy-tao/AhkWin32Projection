@@ -19,7 +19,6 @@ export default struct PF_NPGetConnection3 {
     }
 
     /**
-     * 
      * @param {PWSTR} lpLocalName 
      * @param {Integer} dwLevel 
      * @param {Integer} lpBuffer 
@@ -29,7 +28,7 @@ export default struct PF_NPGetConnection3 {
     Call(lpLocalName, dwLevel, lpBuffer, lpBufferSize) {
         lpLocalName := lpLocalName is String ? StrPtr(lpLocalName) : lpLocalName
 
-        lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : "ptr"
+        lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, "ptr", lpLocalName, UInt32, dwLevel, IntPtr, lpBuffer, lpBufferSizeMarshal, lpBufferSize, UInt32)
         return result

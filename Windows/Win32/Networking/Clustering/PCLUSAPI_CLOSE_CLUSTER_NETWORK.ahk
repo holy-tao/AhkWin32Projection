@@ -20,7 +20,6 @@ export default struct PCLUSAPI_CLOSE_CLUSTER_NETWORK {
     }
 
     /**
-     * 
      * @param {HNETWORK} _hNetwork 
      * @returns {BOOL} 
      */

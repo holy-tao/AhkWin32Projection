@@ -70,7 +70,7 @@ export default struct IWbemQualifierSet extends IUnknown {
     Get(wszName, lFlags, pVal, plFlavor) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
 
-        plFlavorMarshal := plFlavor is VarRef ? "int*" : "ptr"
+        plFlavorMarshal := plFlavor is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, "ptr", wszName, Int32, lFlags, VARIANT.Ptr, pVal, plFlavorMarshal, plFlavor, "HRESULT")
         return result
@@ -146,7 +146,7 @@ export default struct IWbemQualifierSet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemqualifierset-next
      */
     Next(lFlags, pstrName, pVal, plFlavor) {
-        plFlavorMarshal := plFlavor is VarRef ? "int*" : "ptr"
+        plFlavorMarshal := plFlavor is VarRef ? "int*" : IntPtr
 
         result := ComCall(8, this, Int32, lFlags, BSTR.Ptr, pstrName, VARIANT.Ptr, pVal, plFlavorMarshal, plFlavor, "HRESULT")
         return result
@@ -171,13 +171,13 @@ export default struct IWbemQualifierSet extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Get := CallbackCreate(GetMethod(implObj, "Get"), flags, 5)
-        this.vtbl.Put := CallbackCreate(GetMethod(implObj, "Put"), flags, 4)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 2)
-        this.vtbl.GetNames := CallbackCreate(GetMethod(implObj, "GetNames"), flags, 3)
-        this.vtbl.BeginEnumeration := CallbackCreate(GetMethod(implObj, "BeginEnumeration"), flags, 2)
-        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 5)
-        this.vtbl.EndEnumeration := CallbackCreate(GetMethod(implObj, "EndEnumeration"), flags, 1)
+        this.vtbl.Get := CallbackCreate(ObjBindMethod(implObj, "Get"), flags, 5)
+        this.vtbl.Put := CallbackCreate(ObjBindMethod(implObj, "Put"), flags, 4)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 2)
+        this.vtbl.GetNames := CallbackCreate(ObjBindMethod(implObj, "GetNames"), flags, 3)
+        this.vtbl.BeginEnumeration := CallbackCreate(ObjBindMethod(implObj, "BeginEnumeration"), flags, 2)
+        this.vtbl.Next := CallbackCreate(ObjBindMethod(implObj, "Next"), flags, 5)
+        this.vtbl.EndEnumeration := CallbackCreate(ObjBindMethod(implObj, "EndEnumeration"), flags, 1)
     }
 
     Dispose() {

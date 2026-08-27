@@ -41,7 +41,6 @@ export default struct ISpRecoResult2 extends ISpRecoResult {
     }
 
     /**
-     * 
      * @param {ISpPhraseAlt} pPhraseAlt 
      * @returns {ISpRecoResult} 
      */
@@ -51,7 +50,6 @@ export default struct ISpRecoResult2 extends ISpRecoResult {
     }
 
     /**
-     * 
      * @param {Integer} ulStartElement 
      * @param {Integer} cElements 
      * @param {PWSTR} pszCorrectedData 
@@ -61,12 +59,13 @@ export default struct ISpRecoResult2 extends ISpRecoResult {
     CommitText(ulStartElement, cElements, pszCorrectedData, eCommitFlags) {
         pszCorrectedData := pszCorrectedData is String ? StrPtr(pszCorrectedData) : pszCorrectedData
 
-        result := ComCall(15, this, UInt32, ulStartElement, UInt32, cElements, "ptr", pszCorrectedData, UInt32, eCommitFlags, "HRESULT")
+        pszCorrectedDataMarshal := pszCorrectedData == 0 ? IntPtr : PWSTR
+
+        result := ComCall(15, this, UInt32, ulStartElement, UInt32, cElements, pszCorrectedDataMarshal, pszCorrectedData, UInt32, eCommitFlags, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pszFeedback 
      * @param {BOOL} fSuccessful 
      * @returns {HRESULT} 
@@ -87,9 +86,9 @@ export default struct ISpRecoResult2 extends ISpRecoResult {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CommitAlternate := CallbackCreate(GetMethod(implObj, "CommitAlternate"), flags, 3)
-        this.vtbl.CommitText := CallbackCreate(GetMethod(implObj, "CommitText"), flags, 5)
-        this.vtbl.SetTextFeedback := CallbackCreate(GetMethod(implObj, "SetTextFeedback"), flags, 3)
+        this.vtbl.CommitAlternate := CallbackCreate(ObjBindMethod(implObj, "CommitAlternate"), flags, 3)
+        this.vtbl.CommitText := CallbackCreate(ObjBindMethod(implObj, "CommitText"), flags, 5)
+        this.vtbl.SetTextFeedback := CallbackCreate(ObjBindMethod(implObj, "SetTextFeedback"), flags, 3)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct PCLUSTER_REG_BATCH_CLOSE_NOTIFICATION {
     }
 
     /**
-     * 
      * @param {HREGBATCHNOTIFICATION} hBatchNotification 
      * @returns {Integer} 
      */

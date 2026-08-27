@@ -256,11 +256,11 @@ export default struct IDXGIFactory extends IDXGIObject {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumAdapters := CallbackCreate(GetMethod(implObj, "EnumAdapters"), flags, 3)
-        this.vtbl.MakeWindowAssociation := CallbackCreate(GetMethod(implObj, "MakeWindowAssociation"), flags, 3)
-        this.vtbl.GetWindowAssociation := CallbackCreate(GetMethod(implObj, "GetWindowAssociation"), flags, 2)
-        this.vtbl.CreateSwapChain := CallbackCreate(GetMethod(implObj, "CreateSwapChain"), flags, 4)
-        this.vtbl.CreateSoftwareAdapter := CallbackCreate(GetMethod(implObj, "CreateSoftwareAdapter"), flags, 3)
+        this.vtbl.EnumAdapters := CallbackCreate(ObjBindMethod(implObj, "EnumAdapters"), flags, 3)
+        this.vtbl.MakeWindowAssociation := CallbackCreate(ObjBindMethod(implObj, "MakeWindowAssociation"), flags, 3)
+        this.vtbl.GetWindowAssociation := CallbackCreate(ObjBindMethod(implObj, "GetWindowAssociation"), flags, 2)
+        this.vtbl.CreateSwapChain := CallbackCreate(ObjBindMethod(implObj, "CreateSwapChain"), flags, 4)
+        this.vtbl.CreateSoftwareAdapter := CallbackCreate(ObjBindMethod(implObj, "CreateSoftwareAdapter"), flags, 3)
     }
 
     Dispose() {

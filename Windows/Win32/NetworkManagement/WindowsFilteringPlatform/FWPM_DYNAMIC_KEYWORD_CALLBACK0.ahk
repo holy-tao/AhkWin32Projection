@@ -20,7 +20,6 @@ export default struct FWPM_DYNAMIC_KEYWORD_CALLBACK0 {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _notification Type: \_In\_opt\_ **void\***
      * 
      * Not used.
@@ -30,8 +29,8 @@ export default struct FWPM_DYNAMIC_KEYWORD_CALLBACK0 {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_notification, _context) {
-        _notificationMarshal := _notification is VarRef ? "ptr" : "ptr"
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _notificationMarshal := _notification is VarRef ? "ptr" : IntPtr
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _notificationMarshal, _notification, _contextMarshal, _context)
     }

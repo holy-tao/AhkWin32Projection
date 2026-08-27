@@ -56,7 +56,7 @@ export default struct IInkHostWorkItem extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Invoke := CallbackCreate(GetMethod(implObj, "Invoke"), flags, 1)
+        this.vtbl.Invoke := CallbackCreate(ObjBindMethod(implObj, "Invoke"), flags, 1)
     }
 
     Dispose() {

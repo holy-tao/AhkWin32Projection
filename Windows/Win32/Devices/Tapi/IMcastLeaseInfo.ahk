@@ -317,16 +317,16 @@ export default struct IMcastLeaseInfo extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_RequestID := CallbackCreate(GetMethod(implObj, "get_RequestID"), flags, 2)
-        this.vtbl.get_LeaseStartTime := CallbackCreate(GetMethod(implObj, "get_LeaseStartTime"), flags, 2)
-        this.vtbl.put_LeaseStartTime := CallbackCreate(GetMethod(implObj, "put_LeaseStartTime"), flags, 2)
-        this.vtbl.get_LeaseStopTime := CallbackCreate(GetMethod(implObj, "get_LeaseStopTime"), flags, 2)
-        this.vtbl.put_LeaseStopTime := CallbackCreate(GetMethod(implObj, "put_LeaseStopTime"), flags, 2)
-        this.vtbl.get_AddressCount := CallbackCreate(GetMethod(implObj, "get_AddressCount"), flags, 2)
-        this.vtbl.get_ServerAddress := CallbackCreate(GetMethod(implObj, "get_ServerAddress"), flags, 2)
-        this.vtbl.get_TTL := CallbackCreate(GetMethod(implObj, "get_TTL"), flags, 2)
-        this.vtbl.get_Addresses := CallbackCreate(GetMethod(implObj, "get_Addresses"), flags, 2)
-        this.vtbl.EnumerateAddresses := CallbackCreate(GetMethod(implObj, "EnumerateAddresses"), flags, 2)
+        this.vtbl.get_RequestID := CallbackCreate(ObjBindMethod(implObj, "get_RequestID"), flags, 2)
+        this.vtbl.get_LeaseStartTime := CallbackCreate(ObjBindMethod(implObj, "get_LeaseStartTime"), flags, 2)
+        this.vtbl.put_LeaseStartTime := CallbackCreate(ObjBindMethod(implObj, "put_LeaseStartTime"), flags, 2)
+        this.vtbl.get_LeaseStopTime := CallbackCreate(ObjBindMethod(implObj, "get_LeaseStopTime"), flags, 2)
+        this.vtbl.put_LeaseStopTime := CallbackCreate(ObjBindMethod(implObj, "put_LeaseStopTime"), flags, 2)
+        this.vtbl.get_AddressCount := CallbackCreate(ObjBindMethod(implObj, "get_AddressCount"), flags, 2)
+        this.vtbl.get_ServerAddress := CallbackCreate(ObjBindMethod(implObj, "get_ServerAddress"), flags, 2)
+        this.vtbl.get_TTL := CallbackCreate(ObjBindMethod(implObj, "get_TTL"), flags, 2)
+        this.vtbl.get_Addresses := CallbackCreate(ObjBindMethod(implObj, "get_Addresses"), flags, 2)
+        this.vtbl.EnumerateAddresses := CallbackCreate(ObjBindMethod(implObj, "EnumerateAddresses"), flags, 2)
     }
 
     Dispose() {

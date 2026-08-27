@@ -26,7 +26,6 @@ export default struct PFN_DrvTextOut {
     }
 
     /**
-     * 
      * @param {Pointer<SURFOBJ>} param0 
      * @param {Pointer<STROBJ>} param1 
      * @param {Pointer<FONTOBJ>} param2 

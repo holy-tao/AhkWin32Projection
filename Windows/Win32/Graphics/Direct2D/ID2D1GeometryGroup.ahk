@@ -96,9 +96,9 @@ export default struct ID2D1GeometryGroup extends ID2D1Geometry {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFillMode := CallbackCreate(GetMethod(implObj, "GetFillMode"), flags, 1)
-        this.vtbl.GetSourceGeometryCount := CallbackCreate(GetMethod(implObj, "GetSourceGeometryCount"), flags, 1)
-        this.vtbl.GetSourceGeometries := CallbackCreate(GetMethod(implObj, "GetSourceGeometries"), flags, 3)
+        this.vtbl.GetFillMode := CallbackCreate(ObjBindMethod(implObj, "GetFillMode"), flags, 1)
+        this.vtbl.GetSourceGeometryCount := CallbackCreate(ObjBindMethod(implObj, "GetSourceGeometryCount"), flags, 1)
+        this.vtbl.GetSourceGeometries := CallbackCreate(ObjBindMethod(implObj, "GetSourceGeometries"), flags, 3)
     }
 
     Dispose() {

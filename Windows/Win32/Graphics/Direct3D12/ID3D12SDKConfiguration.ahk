@@ -77,7 +77,7 @@ export default struct ID3D12SDKConfiguration extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetSDKVersion := CallbackCreate(GetMethod(implObj, "SetSDKVersion"), flags, 3)
+        this.vtbl.SetSDKVersion := CallbackCreate(ObjBindMethod(implObj, "SetSDKVersion"), flags, 3)
     }
 
     Dispose() {

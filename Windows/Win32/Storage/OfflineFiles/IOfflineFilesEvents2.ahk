@@ -148,15 +148,15 @@ export default struct IOfflineFilesEvents2 extends IOfflineFilesEvents {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ItemReconnectBegin := CallbackCreate(GetMethod(implObj, "ItemReconnectBegin"), flags, 1)
-        this.vtbl.ItemReconnectEnd := CallbackCreate(GetMethod(implObj, "ItemReconnectEnd"), flags, 1)
-        this.vtbl.CacheEvictBegin := CallbackCreate(GetMethod(implObj, "CacheEvictBegin"), flags, 1)
-        this.vtbl.CacheEvictEnd := CallbackCreate(GetMethod(implObj, "CacheEvictEnd"), flags, 1)
-        this.vtbl.BackgroundSyncBegin := CallbackCreate(GetMethod(implObj, "BackgroundSyncBegin"), flags, 2)
-        this.vtbl.BackgroundSyncEnd := CallbackCreate(GetMethod(implObj, "BackgroundSyncEnd"), flags, 2)
-        this.vtbl.PolicyChangeDetected := CallbackCreate(GetMethod(implObj, "PolicyChangeDetected"), flags, 1)
-        this.vtbl.PreferenceChangeDetected := CallbackCreate(GetMethod(implObj, "PreferenceChangeDetected"), flags, 1)
-        this.vtbl.SettingsChangesApplied := CallbackCreate(GetMethod(implObj, "SettingsChangesApplied"), flags, 1)
+        this.vtbl.ItemReconnectBegin := CallbackCreate(ObjBindMethod(implObj, "ItemReconnectBegin"), flags, 1)
+        this.vtbl.ItemReconnectEnd := CallbackCreate(ObjBindMethod(implObj, "ItemReconnectEnd"), flags, 1)
+        this.vtbl.CacheEvictBegin := CallbackCreate(ObjBindMethod(implObj, "CacheEvictBegin"), flags, 1)
+        this.vtbl.CacheEvictEnd := CallbackCreate(ObjBindMethod(implObj, "CacheEvictEnd"), flags, 1)
+        this.vtbl.BackgroundSyncBegin := CallbackCreate(ObjBindMethod(implObj, "BackgroundSyncBegin"), flags, 2)
+        this.vtbl.BackgroundSyncEnd := CallbackCreate(ObjBindMethod(implObj, "BackgroundSyncEnd"), flags, 2)
+        this.vtbl.PolicyChangeDetected := CallbackCreate(ObjBindMethod(implObj, "PolicyChangeDetected"), flags, 1)
+        this.vtbl.PreferenceChangeDetected := CallbackCreate(ObjBindMethod(implObj, "PreferenceChangeDetected"), flags, 1)
+        this.vtbl.SettingsChangesApplied := CallbackCreate(ObjBindMethod(implObj, "SettingsChangesApplied"), flags, 1)
     }
 
     Dispose() {

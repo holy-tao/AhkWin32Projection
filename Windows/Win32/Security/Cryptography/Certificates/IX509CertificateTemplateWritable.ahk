@@ -103,7 +103,9 @@ export default struct IX509CertificateTemplateWritable extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificatetemplatewritable-initialize
      */
     Initialize(pValue) {
-        result := ComCall(7, this, "ptr", pValue, "HRESULT")
+        pValueMarshal := pValue == 0 ? IntPtr : "ptr"
+
+        result := ComCall(7, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -264,11 +266,11 @@ export default struct IX509CertificateTemplateWritable extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 3)
-        this.vtbl.get_Property := CallbackCreate(GetMethod(implObj, "get_Property"), flags, 3)
-        this.vtbl.put_Property := CallbackCreate(GetMethod(implObj, "put_Property"), flags, 3)
-        this.vtbl.get_Template := CallbackCreate(GetMethod(implObj, "get_Template"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.Commit := CallbackCreate(ObjBindMethod(implObj, "Commit"), flags, 3)
+        this.vtbl.get_Property := CallbackCreate(ObjBindMethod(implObj, "get_Property"), flags, 3)
+        this.vtbl.put_Property := CallbackCreate(ObjBindMethod(implObj, "put_Property"), flags, 3)
+        this.vtbl.get_Template := CallbackCreate(ObjBindMethod(implObj, "get_Template"), flags, 2)
     }
 
     Dispose() {

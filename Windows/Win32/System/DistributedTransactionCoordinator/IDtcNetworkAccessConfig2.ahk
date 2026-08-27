@@ -43,7 +43,6 @@ export default struct IDtcNetworkAccessConfig2 extends IDtcNetworkAccessConfig {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetNetworkInboundAccess() {
@@ -52,7 +51,6 @@ export default struct IDtcNetworkAccessConfig2 extends IDtcNetworkAccessConfig {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetNetworkOutboundAccess() {
@@ -61,7 +59,6 @@ export default struct IDtcNetworkAccessConfig2 extends IDtcNetworkAccessConfig {
     }
 
     /**
-     * 
      * @param {BOOL} bInbound 
      * @returns {HRESULT} 
      */
@@ -71,7 +68,6 @@ export default struct IDtcNetworkAccessConfig2 extends IDtcNetworkAccessConfig {
     }
 
     /**
-     * 
      * @param {BOOL} bOutbound 
      * @returns {HRESULT} 
      */
@@ -81,7 +77,6 @@ export default struct IDtcNetworkAccessConfig2 extends IDtcNetworkAccessConfig {
     }
 
     /**
-     * 
      * @returns {AUTHENTICATION_LEVEL} 
      */
     GetAuthenticationLevel() {
@@ -90,7 +85,6 @@ export default struct IDtcNetworkAccessConfig2 extends IDtcNetworkAccessConfig {
     }
 
     /**
-     * 
      * @param {AUTHENTICATION_LEVEL} AuthLevel 
      * @returns {HRESULT} 
      */
@@ -108,12 +102,12 @@ export default struct IDtcNetworkAccessConfig2 extends IDtcNetworkAccessConfig {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNetworkInboundAccess := CallbackCreate(GetMethod(implObj, "GetNetworkInboundAccess"), flags, 2)
-        this.vtbl.GetNetworkOutboundAccess := CallbackCreate(GetMethod(implObj, "GetNetworkOutboundAccess"), flags, 2)
-        this.vtbl.SetNetworkInboundAccess := CallbackCreate(GetMethod(implObj, "SetNetworkInboundAccess"), flags, 2)
-        this.vtbl.SetNetworkOutboundAccess := CallbackCreate(GetMethod(implObj, "SetNetworkOutboundAccess"), flags, 2)
-        this.vtbl.GetAuthenticationLevel := CallbackCreate(GetMethod(implObj, "GetAuthenticationLevel"), flags, 2)
-        this.vtbl.SetAuthenticationLevel := CallbackCreate(GetMethod(implObj, "SetAuthenticationLevel"), flags, 2)
+        this.vtbl.GetNetworkInboundAccess := CallbackCreate(ObjBindMethod(implObj, "GetNetworkInboundAccess"), flags, 2)
+        this.vtbl.GetNetworkOutboundAccess := CallbackCreate(ObjBindMethod(implObj, "GetNetworkOutboundAccess"), flags, 2)
+        this.vtbl.SetNetworkInboundAccess := CallbackCreate(ObjBindMethod(implObj, "SetNetworkInboundAccess"), flags, 2)
+        this.vtbl.SetNetworkOutboundAccess := CallbackCreate(ObjBindMethod(implObj, "SetNetworkOutboundAccess"), flags, 2)
+        this.vtbl.GetAuthenticationLevel := CallbackCreate(ObjBindMethod(implObj, "GetAuthenticationLevel"), flags, 2)
+        this.vtbl.SetAuthenticationLevel := CallbackCreate(ObjBindMethod(implObj, "SetAuthenticationLevel"), flags, 2)
     }
 
     Dispose() {

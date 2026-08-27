@@ -46,7 +46,6 @@ export default struct ICLRMetaHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzVersion 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -59,7 +58,6 @@ export default struct ICLRMetaHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzFilePath 
      * @param {PWSTR} pwzBuffer 
      * @param {Pointer<Integer>} pcchBuffer 
@@ -69,14 +67,13 @@ export default struct ICLRMetaHost extends IUnknown {
         pwzFilePath := pwzFilePath is String ? StrPtr(pwzFilePath) : pwzFilePath
         pwzBuffer := pwzBuffer is String ? StrPtr(pwzBuffer) : pwzBuffer
 
-        pcchBufferMarshal := pcchBuffer is VarRef ? "uint*" : "ptr"
+        pcchBufferMarshal := pcchBuffer is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, "ptr", pwzFilePath, "ptr", pwzBuffer, pcchBufferMarshal, pcchBuffer, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {IEnumUnknown} 
      */
     EnumerateInstalledRuntimes() {
@@ -85,7 +82,6 @@ export default struct ICLRMetaHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {HANDLE} hndProcess 
      * @returns {IEnumUnknown} 
      */
@@ -95,7 +91,6 @@ export default struct ICLRMetaHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<RuntimeLoadedCallbackFnPtr>} pCallbackFunction 
      * @returns {HRESULT} 
      */
@@ -105,7 +100,6 @@ export default struct ICLRMetaHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
@@ -162,13 +156,13 @@ export default struct ICLRMetaHost extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRuntime := CallbackCreate(GetMethod(implObj, "GetRuntime"), flags, 4)
-        this.vtbl.GetVersionFromFile := CallbackCreate(GetMethod(implObj, "GetVersionFromFile"), flags, 4)
-        this.vtbl.EnumerateInstalledRuntimes := CallbackCreate(GetMethod(implObj, "EnumerateInstalledRuntimes"), flags, 2)
-        this.vtbl.EnumerateLoadedRuntimes := CallbackCreate(GetMethod(implObj, "EnumerateLoadedRuntimes"), flags, 3)
-        this.vtbl.RequestRuntimeLoadedNotification := CallbackCreate(GetMethod(implObj, "RequestRuntimeLoadedNotification"), flags, 2)
-        this.vtbl.QueryLegacyV2RuntimeBinding := CallbackCreate(GetMethod(implObj, "QueryLegacyV2RuntimeBinding"), flags, 3)
-        this.vtbl.ExitProcess := CallbackCreate(GetMethod(implObj, "ExitProcess"), flags, 2)
+        this.vtbl.GetRuntime := CallbackCreate(ObjBindMethod(implObj, "GetRuntime"), flags, 4)
+        this.vtbl.GetVersionFromFile := CallbackCreate(ObjBindMethod(implObj, "GetVersionFromFile"), flags, 4)
+        this.vtbl.EnumerateInstalledRuntimes := CallbackCreate(ObjBindMethod(implObj, "EnumerateInstalledRuntimes"), flags, 2)
+        this.vtbl.EnumerateLoadedRuntimes := CallbackCreate(ObjBindMethod(implObj, "EnumerateLoadedRuntimes"), flags, 3)
+        this.vtbl.RequestRuntimeLoadedNotification := CallbackCreate(ObjBindMethod(implObj, "RequestRuntimeLoadedNotification"), flags, 2)
+        this.vtbl.QueryLegacyV2RuntimeBinding := CallbackCreate(ObjBindMethod(implObj, "QueryLegacyV2RuntimeBinding"), flags, 3)
+        this.vtbl.ExitProcess := CallbackCreate(ObjBindMethod(implObj, "ExitProcess"), flags, 2)
     }
 
     Dispose() {

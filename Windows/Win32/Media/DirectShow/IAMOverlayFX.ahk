@@ -121,9 +121,9 @@ export default struct IAMOverlayFX extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryOverlayFXCaps := CallbackCreate(GetMethod(implObj, "QueryOverlayFXCaps"), flags, 2)
-        this.vtbl.SetOverlayFX := CallbackCreate(GetMethod(implObj, "SetOverlayFX"), flags, 2)
-        this.vtbl.GetOverlayFX := CallbackCreate(GetMethod(implObj, "GetOverlayFX"), flags, 2)
+        this.vtbl.QueryOverlayFXCaps := CallbackCreate(ObjBindMethod(implObj, "QueryOverlayFXCaps"), flags, 2)
+        this.vtbl.SetOverlayFX := CallbackCreate(ObjBindMethod(implObj, "SetOverlayFX"), flags, 2)
+        this.vtbl.GetOverlayFX := CallbackCreate(ObjBindMethod(implObj, "GetOverlayFX"), flags, 2)
     }
 
     Dispose() {

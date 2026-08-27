@@ -73,7 +73,7 @@ export default struct IInputObjectSite extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnFocusChangeIS := CallbackCreate(GetMethod(implObj, "OnFocusChangeIS"), flags, 3)
+        this.vtbl.OnFocusChangeIS := CallbackCreate(ObjBindMethod(implObj, "OnFocusChangeIS"), flags, 3)
     }
 
     Dispose() {

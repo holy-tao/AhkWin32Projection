@@ -100,8 +100,8 @@ export default struct INetDiagHelperInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelperinfo-getattributeinfo
      */
     GetAttributeInfo(pcelt, pprgAttributeInfos) {
-        pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
-        pprgAttributeInfosMarshal := pprgAttributeInfos is VarRef ? "ptr*" : "ptr"
+        pceltMarshal := pcelt is VarRef ? "uint*" : IntPtr
+        pprgAttributeInfosMarshal := pprgAttributeInfos is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, pceltMarshal, pcelt, pprgAttributeInfosMarshal, pprgAttributeInfos, "HRESULT")
         return result
@@ -116,7 +116,7 @@ export default struct INetDiagHelperInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAttributeInfo := CallbackCreate(GetMethod(implObj, "GetAttributeInfo"), flags, 3)
+        this.vtbl.GetAttributeInfo := CallbackCreate(ObjBindMethod(implObj, "GetAttributeInfo"), flags, 3)
     }
 
     Dispose() {

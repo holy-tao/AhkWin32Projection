@@ -20,7 +20,6 @@ export default struct PCLUSAPI_ADD_CLUSTER_GROUP_GROUPSET_DEPENDENCY_EX {
     }
 
     /**
-     * 
      * @param {HGROUPSET} hDependentGroupSet 
      * @param {HGROUPSET} hProviderGroupSet 
      * @param {PWSTR} lpszReason 
@@ -29,7 +28,9 @@ export default struct PCLUSAPI_ADD_CLUSTER_GROUP_GROUPSET_DEPENDENCY_EX {
     Call(hDependentGroupSet, hProviderGroupSet, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall(this.value, HGROUPSET, hDependentGroupSet, HGROUPSET, hProviderGroupSet, "ptr", lpszReason, UInt32)
+        lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+        result := DllCall(this.value, HGROUPSET, hDependentGroupSet, HGROUPSET, hProviderGroupSet, lpszReasonMarshal, lpszReason, UInt32)
         return result
     }
 

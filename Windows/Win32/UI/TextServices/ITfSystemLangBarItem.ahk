@@ -138,8 +138,8 @@ export default struct ITfSystemLangBarItem extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetIcon := CallbackCreate(GetMethod(implObj, "SetIcon"), flags, 2)
-        this.vtbl.SetTooltipString := CallbackCreate(GetMethod(implObj, "SetTooltipString"), flags, 3)
+        this.vtbl.SetIcon := CallbackCreate(ObjBindMethod(implObj, "SetIcon"), flags, 2)
+        this.vtbl.SetTooltipString := CallbackCreate(ObjBindMethod(implObj, "SetTooltipString"), flags, 3)
     }
 
     Dispose() {

@@ -107,9 +107,9 @@ export default struct IPreviewHandlerVisuals extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetBackgroundColor := CallbackCreate(GetMethod(implObj, "SetBackgroundColor"), flags, 2)
-        this.vtbl.SetFont := CallbackCreate(GetMethod(implObj, "SetFont"), flags, 2)
-        this.vtbl.SetTextColor := CallbackCreate(GetMethod(implObj, "SetTextColor"), flags, 2)
+        this.vtbl.SetBackgroundColor := CallbackCreate(ObjBindMethod(implObj, "SetBackgroundColor"), flags, 2)
+        this.vtbl.SetFont := CallbackCreate(ObjBindMethod(implObj, "SetFont"), flags, 2)
+        this.vtbl.SetTextColor := CallbackCreate(ObjBindMethod(implObj, "SetTextColor"), flags, 2)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct DOT11EXTIHV_INIT_SERVICE {
     }
 
     /**
-     * 
      * @param {Integer} dwVerNumUsed 
      * @param {Pointer<DOT11EXT_APIS>} pDot11ExtAPI 
      * @param {Pointer<DOT11EXT_IHV_HANDLERS>} pDot11IHVHandlers 

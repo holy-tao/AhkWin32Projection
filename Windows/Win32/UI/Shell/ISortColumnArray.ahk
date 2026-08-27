@@ -40,7 +40,6 @@ export default struct ISortColumnArray extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCount() {
@@ -49,7 +48,6 @@ export default struct ISortColumnArray extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {SORTCOLUMN} 
      */
@@ -60,7 +58,6 @@ export default struct ISortColumnArray extends IUnknown {
     }
 
     /**
-     * 
      * @returns {SORT_ORDER_TYPE} 
      */
     GetSortType() {
@@ -77,9 +74,9 @@ export default struct ISortColumnArray extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
-        this.vtbl.GetAt := CallbackCreate(GetMethod(implObj, "GetAt"), flags, 3)
-        this.vtbl.GetSortType := CallbackCreate(GetMethod(implObj, "GetSortType"), flags, 2)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetAt := CallbackCreate(ObjBindMethod(implObj, "GetAt"), flags, 3)
+        this.vtbl.GetSortType := CallbackCreate(ObjBindMethod(implObj, "GetSortType"), flags, 2)
     }
 
     Dispose() {

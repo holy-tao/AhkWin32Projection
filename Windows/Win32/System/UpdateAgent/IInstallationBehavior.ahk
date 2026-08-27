@@ -120,10 +120,10 @@ export default struct IInstallationBehavior extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_CanRequestUserInput := CallbackCreate(GetMethod(implObj, "get_CanRequestUserInput"), flags, 2)
-        this.vtbl.get_Impact := CallbackCreate(GetMethod(implObj, "get_Impact"), flags, 2)
-        this.vtbl.get_RebootBehavior := CallbackCreate(GetMethod(implObj, "get_RebootBehavior"), flags, 2)
-        this.vtbl.get_RequiresNetworkConnectivity := CallbackCreate(GetMethod(implObj, "get_RequiresNetworkConnectivity"), flags, 2)
+        this.vtbl.get_CanRequestUserInput := CallbackCreate(ObjBindMethod(implObj, "get_CanRequestUserInput"), flags, 2)
+        this.vtbl.get_Impact := CallbackCreate(ObjBindMethod(implObj, "get_Impact"), flags, 2)
+        this.vtbl.get_RebootBehavior := CallbackCreate(ObjBindMethod(implObj, "get_RebootBehavior"), flags, 2)
+        this.vtbl.get_RequiresNetworkConnectivity := CallbackCreate(ObjBindMethod(implObj, "get_RequiresNetworkConnectivity"), flags, 2)
     }
 
     Dispose() {

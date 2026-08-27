@@ -18,12 +18,12 @@ export default struct _WHEA_ERROR_SOURCE_UNINITIALIZE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, _ContextMarshal, _Context)
     }

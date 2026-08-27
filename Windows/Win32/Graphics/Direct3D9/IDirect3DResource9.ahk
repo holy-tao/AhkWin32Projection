@@ -151,7 +151,7 @@ export default struct IDirect3DResource9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dresource9-setprivatedata
      */
     SetPrivateData(refguid, pData, SizeOfData, Flags) {
-        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+        pDataMarshal := pData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(4, this, Guid.Ptr, refguid, pDataMarshal, pData, UInt32, SizeOfData, UInt32, Flags, "HRESULT")
         return result
@@ -190,8 +190,8 @@ export default struct IDirect3DResource9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dresource9-getprivatedata
      */
     GetPrivateData(refguid, pData, pSizeOfData) {
-        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
-        pSizeOfDataMarshal := pSizeOfData is VarRef ? "uint*" : "ptr"
+        pDataMarshal := pData is VarRef ? "ptr" : IntPtr
+        pSizeOfDataMarshal := pSizeOfData is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, Guid.Ptr, refguid, pDataMarshal, pData, pSizeOfDataMarshal, pSizeOfData, "HRESULT")
         return result
@@ -298,14 +298,14 @@ export default struct IDirect3DResource9 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDevice := CallbackCreate(GetMethod(implObj, "GetDevice"), flags, 2)
-        this.vtbl.SetPrivateData := CallbackCreate(GetMethod(implObj, "SetPrivateData"), flags, 5)
-        this.vtbl.GetPrivateData := CallbackCreate(GetMethod(implObj, "GetPrivateData"), flags, 4)
-        this.vtbl.FreePrivateData := CallbackCreate(GetMethod(implObj, "FreePrivateData"), flags, 2)
-        this.vtbl.SetPriority := CallbackCreate(GetMethod(implObj, "SetPriority"), flags, 2)
-        this.vtbl.GetPriority := CallbackCreate(GetMethod(implObj, "GetPriority"), flags, 1)
-        this.vtbl.PreLoad := CallbackCreate(GetMethod(implObj, "PreLoad"), flags, 1)
-        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 1)
+        this.vtbl.GetDevice := CallbackCreate(ObjBindMethod(implObj, "GetDevice"), flags, 2)
+        this.vtbl.SetPrivateData := CallbackCreate(ObjBindMethod(implObj, "SetPrivateData"), flags, 5)
+        this.vtbl.GetPrivateData := CallbackCreate(ObjBindMethod(implObj, "GetPrivateData"), flags, 4)
+        this.vtbl.FreePrivateData := CallbackCreate(ObjBindMethod(implObj, "FreePrivateData"), flags, 2)
+        this.vtbl.SetPriority := CallbackCreate(ObjBindMethod(implObj, "SetPriority"), flags, 2)
+        this.vtbl.GetPriority := CallbackCreate(ObjBindMethod(implObj, "GetPriority"), flags, 1)
+        this.vtbl.PreLoad := CallbackCreate(ObjBindMethod(implObj, "PreLoad"), flags, 1)
+        this.vtbl.GetType := CallbackCreate(ObjBindMethod(implObj, "GetType"), flags, 1)
     }
 
     Dispose() {

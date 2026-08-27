@@ -41,45 +41,45 @@ export default struct ICommandWithParameters extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} pcParams 
      * @param {Pointer<Pointer<DBPARAMINFO>>} prgParamInfo 
      * @param {Pointer<Pointer<Integer>>} ppNamesBuffer 
      * @returns {HRESULT} 
      */
     GetParameterInfo(pcParams, prgParamInfo, ppNamesBuffer) {
-        pcParamsMarshal := pcParams is VarRef ? "ptr*" : "ptr"
-        prgParamInfoMarshal := prgParamInfo is VarRef ? "ptr*" : "ptr"
-        ppNamesBufferMarshal := ppNamesBuffer is VarRef ? "ptr*" : "ptr"
+        pcParamsMarshal := pcParams is VarRef ? "ptr*" : IntPtr
+        prgParamInfoMarshal := prgParamInfo is VarRef ? "ptr*" : IntPtr
+        ppNamesBufferMarshal := ppNamesBuffer is VarRef ? "ptr*" : IntPtr
+        ppNamesBufferMarshal := ppNamesBuffer == 0 ? IntPtr : "ptr*"
 
         result := ComCall(3, this, pcParamsMarshal, pcParams, prgParamInfoMarshal, prgParamInfo, ppNamesBufferMarshal, ppNamesBuffer, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} cParamNames 
      * @param {Pointer<PWSTR>} rgParamNames 
      * @returns {Pointer} 
      */
     MapParameterNames(cParamNames, rgParamNames) {
-        rgParamNamesMarshal := rgParamNames is VarRef ? "ptr*" : "ptr"
+        rgParamNamesMarshal := rgParamNames is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, IntPtr, cParamNames, rgParamNamesMarshal, rgParamNames, "ptr*", &rgParamOrdinals := 0, "HRESULT")
         return rgParamOrdinals
     }
 
     /**
-     * 
      * @param {Pointer} cParams 
      * @param {Pointer<Pointer>} rgParamOrdinals 
      * @param {Pointer<DBPARAMBINDINFO>} rgParamBindInfo 
      * @returns {HRESULT} 
      */
     SetParameterInfo(cParams, rgParamOrdinals, rgParamBindInfo) {
-        rgParamOrdinalsMarshal := rgParamOrdinals is VarRef ? "ptr*" : "ptr"
+        rgParamOrdinalsMarshal := rgParamOrdinals is VarRef ? "ptr*" : IntPtr
+        rgParamOrdinalsMarshal := rgParamOrdinals == 0 ? IntPtr : "ptr*"
+        rgParamBindInfoMarshal := rgParamBindInfo == 0 ? IntPtr : DBPARAMBINDINFO.Ptr
 
-        result := ComCall(5, this, IntPtr, cParams, rgParamOrdinalsMarshal, rgParamOrdinals, DBPARAMBINDINFO.Ptr, rgParamBindInfo, "HRESULT")
+        result := ComCall(5, this, IntPtr, cParams, rgParamOrdinalsMarshal, rgParamOrdinals, rgParamBindInfoMarshal, rgParamBindInfo, "HRESULT")
         return result
     }
 
@@ -92,9 +92,9 @@ export default struct ICommandWithParameters extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetParameterInfo := CallbackCreate(GetMethod(implObj, "GetParameterInfo"), flags, 4)
-        this.vtbl.MapParameterNames := CallbackCreate(GetMethod(implObj, "MapParameterNames"), flags, 4)
-        this.vtbl.SetParameterInfo := CallbackCreate(GetMethod(implObj, "SetParameterInfo"), flags, 4)
+        this.vtbl.GetParameterInfo := CallbackCreate(ObjBindMethod(implObj, "GetParameterInfo"), flags, 4)
+        this.vtbl.MapParameterNames := CallbackCreate(ObjBindMethod(implObj, "MapParameterNames"), flags, 4)
+        this.vtbl.SetParameterInfo := CallbackCreate(ObjBindMethod(implObj, "SetParameterInfo"), flags, 4)
     }
 
     Dispose() {

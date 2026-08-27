@@ -22,14 +22,14 @@ export default struct HDV_PCI_DEVICE_GET_DETAILS {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} deviceContext 
      * @param {Pointer<HDV_PCI_PNP_ID>} pnpId 
      * @param {Integer} probedBarsCount 
      * @returns {Integer} 
      */
     Call(deviceContext, pnpId, probedBarsCount) {
-        deviceContextMarshal := deviceContext is VarRef ? "ptr" : "ptr"
+        deviceContextMarshal := deviceContext is VarRef ? "ptr" : IntPtr
+        deviceContextMarshal := deviceContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, deviceContextMarshal, deviceContext, HDV_PCI_PNP_ID.Ptr, pnpId, UInt32, probedBarsCount, "uint*", &probedBars := 0, "HRESULT")
         return probedBars

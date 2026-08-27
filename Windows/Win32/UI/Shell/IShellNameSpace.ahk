@@ -136,7 +136,6 @@ export default struct IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_EnumOptions() {
@@ -145,7 +144,6 @@ export default struct IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @param {Integer} lVal 
      * @returns {HRESULT} 
      */
@@ -155,7 +153,6 @@ export default struct IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_SelectedItem() {
@@ -164,7 +161,6 @@ export default struct IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @param {IDispatch} pItem 
      * @returns {HRESULT} 
      */
@@ -174,7 +170,6 @@ export default struct IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Root() {
@@ -184,7 +179,6 @@ export default struct IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @param {VARIANT} var 
      * @returns {HRESULT} 
      */
@@ -194,7 +188,6 @@ export default struct IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Depth() {
@@ -203,7 +196,6 @@ export default struct IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @param {Integer} iDepth 
      * @returns {HRESULT} 
      */
@@ -213,7 +205,6 @@ export default struct IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Mode() {
@@ -222,7 +213,6 @@ export default struct IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @param {Integer} uMode 
      * @returns {HRESULT} 
      */
@@ -232,7 +222,6 @@ export default struct IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Flags() {
@@ -241,7 +230,6 @@ export default struct IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
@@ -251,7 +239,6 @@ export default struct IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
@@ -261,7 +248,6 @@ export default struct IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_TVFlags() {
@@ -270,7 +256,6 @@ export default struct IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Columns() {
@@ -280,7 +265,6 @@ export default struct IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @param {BSTR} bstrColumns 
      * @returns {HRESULT} 
      */
@@ -292,7 +276,6 @@ export default struct IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_CountViewTypes() {
@@ -301,7 +284,6 @@ export default struct IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @param {Integer} iType 
      * @returns {HRESULT} 
      */
@@ -311,7 +293,6 @@ export default struct IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     SelectedItems() {
@@ -320,7 +301,6 @@ export default struct IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @param {VARIANT} var 
      * @param {Integer} iDepth 
      * @returns {HRESULT} 
@@ -331,7 +311,6 @@ export default struct IShellNameSpace extends IShellFavoritesNameSpace {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     UnselectAll() {
@@ -348,27 +327,27 @@ export default struct IShellNameSpace extends IShellFavoritesNameSpace {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_EnumOptions := CallbackCreate(GetMethod(implObj, "get_EnumOptions"), flags, 2)
-        this.vtbl.put_EnumOptions := CallbackCreate(GetMethod(implObj, "put_EnumOptions"), flags, 2)
-        this.vtbl.get_SelectedItem := CallbackCreate(GetMethod(implObj, "get_SelectedItem"), flags, 2)
-        this.vtbl.put_SelectedItem := CallbackCreate(GetMethod(implObj, "put_SelectedItem"), flags, 2)
-        this.vtbl.get_Root := CallbackCreate(GetMethod(implObj, "get_Root"), flags, 2)
-        this.vtbl.put_Root := CallbackCreate(GetMethod(implObj, "put_Root"), flags, 2)
-        this.vtbl.get_Depth := CallbackCreate(GetMethod(implObj, "get_Depth"), flags, 2)
-        this.vtbl.put_Depth := CallbackCreate(GetMethod(implObj, "put_Depth"), flags, 2)
-        this.vtbl.get_Mode := CallbackCreate(GetMethod(implObj, "get_Mode"), flags, 2)
-        this.vtbl.put_Mode := CallbackCreate(GetMethod(implObj, "put_Mode"), flags, 2)
-        this.vtbl.get_Flags := CallbackCreate(GetMethod(implObj, "get_Flags"), flags, 2)
-        this.vtbl.put_Flags := CallbackCreate(GetMethod(implObj, "put_Flags"), flags, 2)
-        this.vtbl.put_TVFlags := CallbackCreate(GetMethod(implObj, "put_TVFlags"), flags, 2)
-        this.vtbl.get_TVFlags := CallbackCreate(GetMethod(implObj, "get_TVFlags"), flags, 2)
-        this.vtbl.get_Columns := CallbackCreate(GetMethod(implObj, "get_Columns"), flags, 2)
-        this.vtbl.put_Columns := CallbackCreate(GetMethod(implObj, "put_Columns"), flags, 2)
-        this.vtbl.get_CountViewTypes := CallbackCreate(GetMethod(implObj, "get_CountViewTypes"), flags, 2)
-        this.vtbl.SetViewType := CallbackCreate(GetMethod(implObj, "SetViewType"), flags, 2)
-        this.vtbl.SelectedItems := CallbackCreate(GetMethod(implObj, "SelectedItems"), flags, 2)
-        this.vtbl.Expand := CallbackCreate(GetMethod(implObj, "Expand"), flags, 3)
-        this.vtbl.UnselectAll := CallbackCreate(GetMethod(implObj, "UnselectAll"), flags, 1)
+        this.vtbl.get_EnumOptions := CallbackCreate(ObjBindMethod(implObj, "get_EnumOptions"), flags, 2)
+        this.vtbl.put_EnumOptions := CallbackCreate(ObjBindMethod(implObj, "put_EnumOptions"), flags, 2)
+        this.vtbl.get_SelectedItem := CallbackCreate(ObjBindMethod(implObj, "get_SelectedItem"), flags, 2)
+        this.vtbl.put_SelectedItem := CallbackCreate(ObjBindMethod(implObj, "put_SelectedItem"), flags, 2)
+        this.vtbl.get_Root := CallbackCreate(ObjBindMethod(implObj, "get_Root"), flags, 2)
+        this.vtbl.put_Root := CallbackCreate(ObjBindMethod(implObj, "put_Root"), flags, 2)
+        this.vtbl.get_Depth := CallbackCreate(ObjBindMethod(implObj, "get_Depth"), flags, 2)
+        this.vtbl.put_Depth := CallbackCreate(ObjBindMethod(implObj, "put_Depth"), flags, 2)
+        this.vtbl.get_Mode := CallbackCreate(ObjBindMethod(implObj, "get_Mode"), flags, 2)
+        this.vtbl.put_Mode := CallbackCreate(ObjBindMethod(implObj, "put_Mode"), flags, 2)
+        this.vtbl.get_Flags := CallbackCreate(ObjBindMethod(implObj, "get_Flags"), flags, 2)
+        this.vtbl.put_Flags := CallbackCreate(ObjBindMethod(implObj, "put_Flags"), flags, 2)
+        this.vtbl.put_TVFlags := CallbackCreate(ObjBindMethod(implObj, "put_TVFlags"), flags, 2)
+        this.vtbl.get_TVFlags := CallbackCreate(ObjBindMethod(implObj, "get_TVFlags"), flags, 2)
+        this.vtbl.get_Columns := CallbackCreate(ObjBindMethod(implObj, "get_Columns"), flags, 2)
+        this.vtbl.put_Columns := CallbackCreate(ObjBindMethod(implObj, "put_Columns"), flags, 2)
+        this.vtbl.get_CountViewTypes := CallbackCreate(ObjBindMethod(implObj, "get_CountViewTypes"), flags, 2)
+        this.vtbl.SetViewType := CallbackCreate(ObjBindMethod(implObj, "SetViewType"), flags, 2)
+        this.vtbl.SelectedItems := CallbackCreate(ObjBindMethod(implObj, "SelectedItems"), flags, 2)
+        this.vtbl.Expand := CallbackCreate(ObjBindMethod(implObj, "Expand"), flags, 3)
+        this.vtbl.UnselectAll := CallbackCreate(ObjBindMethod(implObj, "UnselectAll"), flags, 1)
     }
 
     Dispose() {

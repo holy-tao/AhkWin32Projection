@@ -58,7 +58,7 @@ export default struct ID2D1Resource extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFactory := CallbackCreate(GetMethod(implObj, "GetFactory"), flags, 2)
+        this.vtbl.GetFactory := CallbackCreate(ObjBindMethod(implObj, "GetFactory"), flags, 2)
     }
 
     Dispose() {

@@ -37,7 +37,6 @@ export default struct IActiveScriptStringCompare extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bszStr1 
      * @param {BSTR} bszStr2 
      * @returns {Integer} 
@@ -59,7 +58,7 @@ export default struct IActiveScriptStringCompare extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StrComp := CallbackCreate(GetMethod(implObj, "StrComp"), flags, 4)
+        this.vtbl.StrComp := CallbackCreate(ObjBindMethod(implObj, "StrComp"), flags, 4)
     }
 
     Dispose() {

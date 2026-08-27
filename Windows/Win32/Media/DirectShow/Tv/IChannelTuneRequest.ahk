@@ -86,8 +86,8 @@ export default struct IChannelTuneRequest extends ITuneRequest {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Channel := CallbackCreate(GetMethod(implObj, "get_Channel"), flags, 2)
-        this.vtbl.put_Channel := CallbackCreate(GetMethod(implObj, "put_Channel"), flags, 2)
+        this.vtbl.get_Channel := CallbackCreate(ObjBindMethod(implObj, "get_Channel"), flags, 2)
+        this.vtbl.put_Channel := CallbackCreate(ObjBindMethod(implObj, "put_Channel"), flags, 2)
     }
 
     Dispose() {

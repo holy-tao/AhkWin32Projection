@@ -56,8 +56,8 @@ export default struct IDtcLuSubordinateDtcFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/Msi/create-time-date-summary
      */
     Create(pucLuPair, cbLuPair, punkTransactionOuter, isoLevel, isoFlags, pOptions, ppTransaction, pTransId, cbTransId, pSubordinateDtcSink, ppSubordinateDtc) {
-        pucLuPairMarshal := pucLuPair is VarRef ? "char*" : "ptr"
-        pTransIdMarshal := pTransId is VarRef ? "char*" : "ptr"
+        pucLuPairMarshal := pucLuPair is VarRef ? "char*" : IntPtr
+        pTransIdMarshal := pTransId is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, pucLuPairMarshal, pucLuPair, UInt32, cbLuPair, "ptr", punkTransactionOuter, Int32, isoLevel, UInt32, isoFlags, "ptr", pOptions, ITransaction.Ptr, ppTransaction, pTransIdMarshal, pTransId, UInt32, cbTransId, "ptr", pSubordinateDtcSink, IDtcLuSubordinateDtc.Ptr, ppSubordinateDtc, "HRESULT")
         return result
@@ -72,7 +72,7 @@ export default struct IDtcLuSubordinateDtcFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 12)
+        this.vtbl.Create := CallbackCreate(ObjBindMethod(implObj, "Create"), flags, 12)
     }
 
     Dispose() {

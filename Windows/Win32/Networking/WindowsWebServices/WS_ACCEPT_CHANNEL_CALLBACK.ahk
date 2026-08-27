@@ -26,7 +26,6 @@ export default struct WS_ACCEPT_CHANNEL_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} listenerInstance The pointer to the state specific to this listener instance,
      *                     as created by the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_create_listener_callback">WS_CREATE_LISTENER_CALLBACK</a>.
      * @param {Pointer<Void>} channelInstance The pointer to the state specific to the channel instance,
@@ -189,11 +188,13 @@ export default struct WS_ACCEPT_CHANNEL_CALLBACK {
      * </table>
      */
     Call(listenerInstance, channelInstance, asyncContext, _error) {
-        listenerInstanceMarshal := listenerInstance is VarRef ? "ptr" : "ptr"
-        channelInstanceMarshal := channelInstance is VarRef ? "ptr" : "ptr"
-        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
+        listenerInstanceMarshal := listenerInstance is VarRef ? "ptr" : IntPtr
+        channelInstanceMarshal := channelInstance is VarRef ? "ptr" : IntPtr
+        asyncContextMarshal := asyncContext == 0 ? IntPtr : WS_ASYNC_CONTEXT.Ptr
+        _errorMarshal := _error is VarRef ? "ptr*" : IntPtr
+        _errorMarshal := _error == 0 ? IntPtr : WS_ERROR.Ptr
 
-        result := DllCall(this.value, listenerInstanceMarshal, listenerInstance, channelInstanceMarshal, channelInstance, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
+        result := DllCall(this.value, listenerInstanceMarshal, listenerInstance, channelInstanceMarshal, channelInstance, asyncContextMarshal, asyncContext, _errorMarshal, _error, "HRESULT")
         return result
     }
 

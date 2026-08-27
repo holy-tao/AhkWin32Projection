@@ -19,14 +19,13 @@ export default struct DTC_INSTALL_CLIENT {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} i_pszRemoteTmHostName 
      * @param {Integer} i_dwProtocol 
      * @param {Integer} i_dwOverwrite 
      * @returns {HRESULT} 
      */
     Call(i_pszRemoteTmHostName, i_dwProtocol, i_dwOverwrite) {
-        i_pszRemoteTmHostNameMarshal := i_pszRemoteTmHostName is VarRef ? "char*" : "ptr"
+        i_pszRemoteTmHostNameMarshal := i_pszRemoteTmHostName is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, i_pszRemoteTmHostNameMarshal, i_pszRemoteTmHostName, UInt32, i_dwProtocol, UInt32, i_dwOverwrite, "HRESULT")
         return result

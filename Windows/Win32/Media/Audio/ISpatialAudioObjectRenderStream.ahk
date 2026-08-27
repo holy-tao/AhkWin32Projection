@@ -64,7 +64,7 @@ export default struct ISpatialAudioObjectRenderStream extends ISpatialAudioObjec
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ActivateSpatialAudioObject := CallbackCreate(GetMethod(implObj, "ActivateSpatialAudioObject"), flags, 3)
+        this.vtbl.ActivateSpatialAudioObject := CallbackCreate(ObjBindMethod(implObj, "ActivateSpatialAudioObject"), flags, 3)
     }
 
     Dispose() {

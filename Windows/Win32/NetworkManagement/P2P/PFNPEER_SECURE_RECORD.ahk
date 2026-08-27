@@ -35,7 +35,6 @@ export default struct PFNPEER_SECURE_RECORD {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hGraph Specifies the peer graph associated with the specified record.
      * @param {Pointer<Void>} pvContext Pointer to the security context. This parameter  points to the <b>pvContext</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_security_interface">PEER_SECURITY_INTERFACE</a> structure.
      * @param {Pointer<PEER_RECORD>} pRecord Pointer to the record to secure.
@@ -43,8 +42,9 @@ export default struct PFNPEER_SECURE_RECORD {
      * @returns {Pointer<PEER_DATA>} Specifies the security data for this record. This data is released by calling the method specified in the <b>pfnFreeSecurityData</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_security_interface">PEER_SECURITY_INTERFACE</a> after the data is copied and added to the record.
      */
     Call(hGraph, pvContext, pRecord, _changeType) {
-        hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        hGraphMarshal := hGraph is VarRef ? "ptr" : IntPtr
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
+        pvContextMarshal := pvContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, hGraphMarshal, hGraph, pvContextMarshal, pvContext, PEER_RECORD.Ptr, pRecord, PEER_RECORD_CHANGE_TYPE, _changeType, "ptr*", &ppSecurityData := 0, "HRESULT")
         return ppSecurityData

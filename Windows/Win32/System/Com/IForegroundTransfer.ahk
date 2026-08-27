@@ -87,7 +87,7 @@ export default struct IForegroundTransfer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AllowForegroundTransfer := CallbackCreate(GetMethod(implObj, "AllowForegroundTransfer"), flags, 2)
+        this.vtbl.AllowForegroundTransfer := CallbackCreate(ObjBindMethod(implObj, "AllowForegroundTransfer"), flags, 2)
     }
 
     Dispose() {

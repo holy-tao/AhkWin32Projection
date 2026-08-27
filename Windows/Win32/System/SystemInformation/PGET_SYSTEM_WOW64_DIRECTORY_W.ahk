@@ -20,7 +20,6 @@ export default struct PGET_SYSTEM_WOW64_DIRECTORY_W {
     }
 
     /**
-     * 
      * @param {PWSTR} lpBuffer 
      * @param {Integer} uSize 
      * @returns {Integer} 
@@ -28,7 +27,9 @@ export default struct PGET_SYSTEM_WOW64_DIRECTORY_W {
     Call(lpBuffer, uSize) {
         lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
-        result := DllCall(this.value, "ptr", lpBuffer, UInt32, uSize, UInt32)
+        lpBufferMarshal := lpBuffer == 0 ? IntPtr : PWSTR
+
+        result := DllCall(this.value, lpBufferMarshal, lpBuffer, UInt32, uSize, UInt32)
         return result
     }
 

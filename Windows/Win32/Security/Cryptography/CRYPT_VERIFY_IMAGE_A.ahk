@@ -23,7 +23,6 @@ export default struct CRYPT_VERIFY_IMAGE_A {
     }
 
     /**
-     * 
      * @param {PSTR} szImage 
      * @param {Pointer<Integer>} pbSigData The address of a buffer that contains the signature.
      * @returns {BOOL} Returns **TRUE** if the function succeeds, **FALSE** if it fails.
@@ -31,7 +30,7 @@ export default struct CRYPT_VERIFY_IMAGE_A {
     Call(szImage, pbSigData) {
         szImage := szImage is String ? StrPtr(szImage) : szImage
 
-        pbSigDataMarshal := pbSigData is VarRef ? "char*" : "ptr"
+        pbSigDataMarshal := pbSigData is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, "ptr", szImage, pbSigDataMarshal, pbSigData, BOOL)
         return result

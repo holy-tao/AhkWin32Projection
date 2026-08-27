@@ -159,8 +159,8 @@ export default struct ICredentialProviderCredential extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential-getfieldstate
      */
     GetFieldState(dwFieldID, pcpfs, pcpfis) {
-        pcpfsMarshal := pcpfs is VarRef ? "int*" : "ptr"
-        pcpfisMarshal := pcpfis is VarRef ? "int*" : "ptr"
+        pcpfsMarshal := pcpfs is VarRef ? "int*" : IntPtr
+        pcpfisMarshal := pcpfis is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, UInt32, dwFieldID, pcpfsMarshal, pcpfs, pcpfisMarshal, pcpfis, "HRESULT")
         return result
@@ -231,8 +231,8 @@ export default struct ICredentialProviderCredential extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential-getcheckboxvalue
      */
     GetCheckboxValue(dwFieldID, pbChecked, ppszLabel) {
-        pbCheckedMarshal := pbChecked is VarRef ? "int*" : "ptr"
-        ppszLabelMarshal := ppszLabel is VarRef ? "ptr*" : "ptr"
+        pbCheckedMarshal := pbChecked is VarRef ? "int*" : IntPtr
+        ppszLabelMarshal := ppszLabel is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(10, this, UInt32, dwFieldID, pbCheckedMarshal, pbChecked, ppszLabelMarshal, ppszLabel, "HRESULT")
         return result
@@ -282,8 +282,8 @@ export default struct ICredentialProviderCredential extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential-getcomboboxvaluecount
      */
     GetComboBoxValueCount(dwFieldID, pcItems, pdwSelectedItem) {
-        pcItemsMarshal := pcItems is VarRef ? "uint*" : "ptr"
-        pdwSelectedItemMarshal := pdwSelectedItem is VarRef ? "uint*" : "ptr"
+        pcItemsMarshal := pcItems is VarRef ? "uint*" : IntPtr
+        pdwSelectedItemMarshal := pdwSelectedItem is VarRef ? "uint*" : IntPtr
 
         result := ComCall(12, this, UInt32, dwFieldID, pcItemsMarshal, pcItems, pdwSelectedItemMarshal, pdwSelectedItem, "HRESULT")
         return result
@@ -444,9 +444,9 @@ export default struct ICredentialProviderCredential extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential-getserialization
      */
     GetSerialization(pcpgsr, pcpcs, ppszOptionalStatusText, pcpsiOptionalStatusIcon) {
-        pcpgsrMarshal := pcpgsr is VarRef ? "int*" : "ptr"
-        ppszOptionalStatusTextMarshal := ppszOptionalStatusText is VarRef ? "ptr*" : "ptr"
-        pcpsiOptionalStatusIconMarshal := pcpsiOptionalStatusIcon is VarRef ? "int*" : "ptr"
+        pcpgsrMarshal := pcpgsr is VarRef ? "int*" : IntPtr
+        ppszOptionalStatusTextMarshal := ppszOptionalStatusText is VarRef ? "ptr*" : IntPtr
+        pcpsiOptionalStatusIconMarshal := pcpsiOptionalStatusIcon is VarRef ? "int*" : IntPtr
 
         result := ComCall(18, this, pcpgsrMarshal, pcpgsr, CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION.Ptr, pcpcs, ppszOptionalStatusTextMarshal, ppszOptionalStatusText, pcpsiOptionalStatusIconMarshal, pcpsiOptionalStatusIcon, "HRESULT")
         return result
@@ -476,8 +476,8 @@ export default struct ICredentialProviderCredential extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential-reportresult
      */
     ReportResult(ntsStatus, ntsSubstatus, ppszOptionalStatusText, pcpsiOptionalStatusIcon) {
-        ppszOptionalStatusTextMarshal := ppszOptionalStatusText is VarRef ? "ptr*" : "ptr"
-        pcpsiOptionalStatusIconMarshal := pcpsiOptionalStatusIcon is VarRef ? "int*" : "ptr"
+        ppszOptionalStatusTextMarshal := ppszOptionalStatusText is VarRef ? "ptr*" : IntPtr
+        pcpsiOptionalStatusIconMarshal := pcpsiOptionalStatusIcon is VarRef ? "int*" : IntPtr
 
         result := ComCall(19, this, NTSTATUS, ntsStatus, NTSTATUS, ntsSubstatus, ppszOptionalStatusTextMarshal, ppszOptionalStatusText, pcpsiOptionalStatusIconMarshal, pcpsiOptionalStatusIcon, "HRESULT")
         return result
@@ -492,23 +492,23 @@ export default struct ICredentialProviderCredential extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 2)
-        this.vtbl.UnAdvise := CallbackCreate(GetMethod(implObj, "UnAdvise"), flags, 1)
-        this.vtbl.SetSelected := CallbackCreate(GetMethod(implObj, "SetSelected"), flags, 2)
-        this.vtbl.SetDeselected := CallbackCreate(GetMethod(implObj, "SetDeselected"), flags, 1)
-        this.vtbl.GetFieldState := CallbackCreate(GetMethod(implObj, "GetFieldState"), flags, 4)
-        this.vtbl.GetStringValue := CallbackCreate(GetMethod(implObj, "GetStringValue"), flags, 3)
-        this.vtbl.GetBitmapValue := CallbackCreate(GetMethod(implObj, "GetBitmapValue"), flags, 3)
-        this.vtbl.GetCheckboxValue := CallbackCreate(GetMethod(implObj, "GetCheckboxValue"), flags, 4)
-        this.vtbl.GetSubmitButtonValue := CallbackCreate(GetMethod(implObj, "GetSubmitButtonValue"), flags, 3)
-        this.vtbl.GetComboBoxValueCount := CallbackCreate(GetMethod(implObj, "GetComboBoxValueCount"), flags, 4)
-        this.vtbl.GetComboBoxValueAt := CallbackCreate(GetMethod(implObj, "GetComboBoxValueAt"), flags, 4)
-        this.vtbl.SetStringValue := CallbackCreate(GetMethod(implObj, "SetStringValue"), flags, 3)
-        this.vtbl.SetCheckboxValue := CallbackCreate(GetMethod(implObj, "SetCheckboxValue"), flags, 3)
-        this.vtbl.SetComboBoxSelectedValue := CallbackCreate(GetMethod(implObj, "SetComboBoxSelectedValue"), flags, 3)
-        this.vtbl.CommandLinkClicked := CallbackCreate(GetMethod(implObj, "CommandLinkClicked"), flags, 2)
-        this.vtbl.GetSerialization := CallbackCreate(GetMethod(implObj, "GetSerialization"), flags, 5)
-        this.vtbl.ReportResult := CallbackCreate(GetMethod(implObj, "ReportResult"), flags, 5)
+        this.vtbl.Advise := CallbackCreate(ObjBindMethod(implObj, "Advise"), flags, 2)
+        this.vtbl.UnAdvise := CallbackCreate(ObjBindMethod(implObj, "UnAdvise"), flags, 1)
+        this.vtbl.SetSelected := CallbackCreate(ObjBindMethod(implObj, "SetSelected"), flags, 2)
+        this.vtbl.SetDeselected := CallbackCreate(ObjBindMethod(implObj, "SetDeselected"), flags, 1)
+        this.vtbl.GetFieldState := CallbackCreate(ObjBindMethod(implObj, "GetFieldState"), flags, 4)
+        this.vtbl.GetStringValue := CallbackCreate(ObjBindMethod(implObj, "GetStringValue"), flags, 3)
+        this.vtbl.GetBitmapValue := CallbackCreate(ObjBindMethod(implObj, "GetBitmapValue"), flags, 3)
+        this.vtbl.GetCheckboxValue := CallbackCreate(ObjBindMethod(implObj, "GetCheckboxValue"), flags, 4)
+        this.vtbl.GetSubmitButtonValue := CallbackCreate(ObjBindMethod(implObj, "GetSubmitButtonValue"), flags, 3)
+        this.vtbl.GetComboBoxValueCount := CallbackCreate(ObjBindMethod(implObj, "GetComboBoxValueCount"), flags, 4)
+        this.vtbl.GetComboBoxValueAt := CallbackCreate(ObjBindMethod(implObj, "GetComboBoxValueAt"), flags, 4)
+        this.vtbl.SetStringValue := CallbackCreate(ObjBindMethod(implObj, "SetStringValue"), flags, 3)
+        this.vtbl.SetCheckboxValue := CallbackCreate(ObjBindMethod(implObj, "SetCheckboxValue"), flags, 3)
+        this.vtbl.SetComboBoxSelectedValue := CallbackCreate(ObjBindMethod(implObj, "SetComboBoxSelectedValue"), flags, 3)
+        this.vtbl.CommandLinkClicked := CallbackCreate(ObjBindMethod(implObj, "CommandLinkClicked"), flags, 2)
+        this.vtbl.GetSerialization := CallbackCreate(ObjBindMethod(implObj, "GetSerialization"), flags, 5)
+        this.vtbl.ReportResult := CallbackCreate(ObjBindMethod(implObj, "ReportResult"), flags, 5)
     }
 
     Dispose() {

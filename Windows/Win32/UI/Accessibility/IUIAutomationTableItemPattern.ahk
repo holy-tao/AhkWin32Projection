@@ -100,10 +100,10 @@ export default struct IUIAutomationTableItemPattern extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCurrentRowHeaderItems := CallbackCreate(GetMethod(implObj, "GetCurrentRowHeaderItems"), flags, 2)
-        this.vtbl.GetCurrentColumnHeaderItems := CallbackCreate(GetMethod(implObj, "GetCurrentColumnHeaderItems"), flags, 2)
-        this.vtbl.GetCachedRowHeaderItems := CallbackCreate(GetMethod(implObj, "GetCachedRowHeaderItems"), flags, 2)
-        this.vtbl.GetCachedColumnHeaderItems := CallbackCreate(GetMethod(implObj, "GetCachedColumnHeaderItems"), flags, 2)
+        this.vtbl.GetCurrentRowHeaderItems := CallbackCreate(ObjBindMethod(implObj, "GetCurrentRowHeaderItems"), flags, 2)
+        this.vtbl.GetCurrentColumnHeaderItems := CallbackCreate(ObjBindMethod(implObj, "GetCurrentColumnHeaderItems"), flags, 2)
+        this.vtbl.GetCachedRowHeaderItems := CallbackCreate(ObjBindMethod(implObj, "GetCachedRowHeaderItems"), flags, 2)
+        this.vtbl.GetCachedColumnHeaderItems := CallbackCreate(ObjBindMethod(implObj, "GetCachedColumnHeaderItems"), flags, 2)
     }
 
     Dispose() {

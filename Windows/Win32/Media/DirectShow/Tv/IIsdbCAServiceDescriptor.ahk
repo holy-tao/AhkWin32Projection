@@ -104,7 +104,7 @@ export default struct IIsdbCAServiceDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbcaservicedescriptor-getserviceids
      */
     GetServiceIds(pbNumServiceIds) {
-        pbNumServiceIdsMarshal := pbNumServiceIds is VarRef ? "char*" : "ptr"
+        pbNumServiceIdsMarshal := pbNumServiceIds is VarRef ? "char*" : IntPtr
 
         result := ComCall(8, this, pbNumServiceIdsMarshal, pbNumServiceIds, "ushort*", &pwServiceIds := 0, "HRESULT")
         return pwServiceIds
@@ -119,12 +119,12 @@ export default struct IIsdbCAServiceDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetCASystemId := CallbackCreate(GetMethod(implObj, "GetCASystemId"), flags, 2)
-        this.vtbl.GetCABroadcasterGroupId := CallbackCreate(GetMethod(implObj, "GetCABroadcasterGroupId"), flags, 2)
-        this.vtbl.GetMessageControl := CallbackCreate(GetMethod(implObj, "GetMessageControl"), flags, 2)
-        this.vtbl.GetServiceIds := CallbackCreate(GetMethod(implObj, "GetServiceIds"), flags, 3)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetCASystemId := CallbackCreate(ObjBindMethod(implObj, "GetCASystemId"), flags, 2)
+        this.vtbl.GetCABroadcasterGroupId := CallbackCreate(ObjBindMethod(implObj, "GetCABroadcasterGroupId"), flags, 2)
+        this.vtbl.GetMessageControl := CallbackCreate(ObjBindMethod(implObj, "GetMessageControl"), flags, 2)
+        this.vtbl.GetServiceIds := CallbackCreate(ObjBindMethod(implObj, "GetServiceIds"), flags, 3)
     }
 
     Dispose() {

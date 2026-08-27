@@ -36,7 +36,6 @@ export default struct IRpcChannelBuffer2 extends IRpcChannelBuffer {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetProtocolVersion() {
@@ -53,7 +52,7 @@ export default struct IRpcChannelBuffer2 extends IRpcChannelBuffer {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProtocolVersion := CallbackCreate(GetMethod(implObj, "GetProtocolVersion"), flags, 2)
+        this.vtbl.GetProtocolVersion := CallbackCreate(ObjBindMethod(implObj, "GetProtocolVersion"), flags, 2)
     }
 
     Dispose() {

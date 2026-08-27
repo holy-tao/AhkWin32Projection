@@ -59,7 +59,8 @@ export default struct IIsdbSiParser2 extends IDvbSiParser2 {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbsiparser2-getsdt
      */
     GetSDT(tableId, pwTransportStreamId) {
-        pwTransportStreamIdMarshal := pwTransportStreamId is VarRef ? "ushort*" : "ptr"
+        pwTransportStreamIdMarshal := pwTransportStreamId is VarRef ? "ushort*" : IntPtr
+        pwTransportStreamIdMarshal := pwTransportStreamId == 0 ? IntPtr : "ushort*"
 
         result := ComCall(19, this, Int8, tableId, pwTransportStreamIdMarshal, pwTransportStreamId, "ptr*", &ppSDT := 0, "HRESULT")
         return IISDB_SDT(ppSDT)
@@ -75,7 +76,8 @@ export default struct IIsdbSiParser2 extends IDvbSiParser2 {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbsiparser2-getbit
      */
     GetBIT(tableId, pwOriginalNetworkId) {
-        pwOriginalNetworkIdMarshal := pwOriginalNetworkId is VarRef ? "ushort*" : "ptr"
+        pwOriginalNetworkIdMarshal := pwOriginalNetworkId is VarRef ? "ushort*" : IntPtr
+        pwOriginalNetworkIdMarshal := pwOriginalNetworkId == 0 ? IntPtr : "ushort*"
 
         result := ComCall(20, this, Int8, tableId, pwOriginalNetworkIdMarshal, pwOriginalNetworkId, "ptr*", &ppBIT := 0, "HRESULT")
         return IISDB_BIT(ppBIT)
@@ -91,7 +93,8 @@ export default struct IIsdbSiParser2 extends IDvbSiParser2 {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbsiparser2-getnbit
      */
     GetNBIT(tableId, pwOriginalNetworkId) {
-        pwOriginalNetworkIdMarshal := pwOriginalNetworkId is VarRef ? "ushort*" : "ptr"
+        pwOriginalNetworkIdMarshal := pwOriginalNetworkId is VarRef ? "ushort*" : IntPtr
+        pwOriginalNetworkIdMarshal := pwOriginalNetworkId == 0 ? IntPtr : "ushort*"
 
         result := ComCall(21, this, Int8, tableId, pwOriginalNetworkIdMarshal, pwOriginalNetworkId, "ptr*", &ppNBIT := 0, "HRESULT")
         return IISDB_NBIT(ppNBIT)
@@ -106,7 +109,8 @@ export default struct IIsdbSiParser2 extends IDvbSiParser2 {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbsiparser2-getldt
      */
     GetLDT(tableId, pwOriginalServiceId) {
-        pwOriginalServiceIdMarshal := pwOriginalServiceId is VarRef ? "ushort*" : "ptr"
+        pwOriginalServiceIdMarshal := pwOriginalServiceId is VarRef ? "ushort*" : IntPtr
+        pwOriginalServiceIdMarshal := pwOriginalServiceId == 0 ? IntPtr : "ushort*"
 
         result := ComCall(22, this, Int8, tableId, pwOriginalServiceIdMarshal, pwOriginalServiceId, "ptr*", &ppLDT := 0, "HRESULT")
         return IISDB_LDT(ppLDT)
@@ -121,7 +125,8 @@ export default struct IIsdbSiParser2 extends IDvbSiParser2 {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbsiparser2-getsdtt
      */
     GetSDTT(tableId, pwTableIdExt) {
-        pwTableIdExtMarshal := pwTableIdExt is VarRef ? "ushort*" : "ptr"
+        pwTableIdExtMarshal := pwTableIdExt is VarRef ? "ushort*" : IntPtr
+        pwTableIdExtMarshal := pwTableIdExt == 0 ? IntPtr : "ushort*"
 
         result := ComCall(23, this, Int8, tableId, pwTableIdExtMarshal, pwTableIdExt, "ptr*", &ppSDTT := 0, "HRESULT")
         return IISDB_SDTT(ppSDTT)
@@ -137,7 +142,8 @@ export default struct IIsdbSiParser2 extends IDvbSiParser2 {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbsiparser2-getcdt
      */
     GetCDT(tableId, bSectionNumber, pwDownloadDataId) {
-        pwDownloadDataIdMarshal := pwDownloadDataId is VarRef ? "ushort*" : "ptr"
+        pwDownloadDataIdMarshal := pwDownloadDataId is VarRef ? "ushort*" : IntPtr
+        pwDownloadDataIdMarshal := pwDownloadDataId == 0 ? IntPtr : "ushort*"
 
         result := ComCall(24, this, Int8, tableId, Int8, bSectionNumber, pwDownloadDataIdMarshal, pwDownloadDataId, "ptr*", &ppCDT := 0, "HRESULT")
         return IISDB_CDT(ppCDT)
@@ -165,13 +171,13 @@ export default struct IIsdbSiParser2 extends IDvbSiParser2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSDT := CallbackCreate(GetMethod(implObj, "GetSDT"), flags, 4)
-        this.vtbl.GetBIT := CallbackCreate(GetMethod(implObj, "GetBIT"), flags, 4)
-        this.vtbl.GetNBIT := CallbackCreate(GetMethod(implObj, "GetNBIT"), flags, 4)
-        this.vtbl.GetLDT := CallbackCreate(GetMethod(implObj, "GetLDT"), flags, 4)
-        this.vtbl.GetSDTT := CallbackCreate(GetMethod(implObj, "GetSDTT"), flags, 4)
-        this.vtbl.GetCDT := CallbackCreate(GetMethod(implObj, "GetCDT"), flags, 5)
-        this.vtbl.GetEMM := CallbackCreate(GetMethod(implObj, "GetEMM"), flags, 4)
+        this.vtbl.GetSDT := CallbackCreate(ObjBindMethod(implObj, "GetSDT"), flags, 4)
+        this.vtbl.GetBIT := CallbackCreate(ObjBindMethod(implObj, "GetBIT"), flags, 4)
+        this.vtbl.GetNBIT := CallbackCreate(ObjBindMethod(implObj, "GetNBIT"), flags, 4)
+        this.vtbl.GetLDT := CallbackCreate(ObjBindMethod(implObj, "GetLDT"), flags, 4)
+        this.vtbl.GetSDTT := CallbackCreate(ObjBindMethod(implObj, "GetSDTT"), flags, 4)
+        this.vtbl.GetCDT := CallbackCreate(ObjBindMethod(implObj, "GetCDT"), flags, 5)
+        this.vtbl.GetEMM := CallbackCreate(ObjBindMethod(implObj, "GetEMM"), flags, 4)
     }
 
     Dispose() {

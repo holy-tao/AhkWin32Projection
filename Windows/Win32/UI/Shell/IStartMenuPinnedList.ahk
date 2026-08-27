@@ -90,7 +90,7 @@ export default struct IStartMenuPinnedList extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RemoveFromList := CallbackCreate(GetMethod(implObj, "RemoveFromList"), flags, 2)
+        this.vtbl.RemoveFromList := CallbackCreate(ObjBindMethod(implObj, "RemoveFromList"), flags, 2)
     }
 
     Dispose() {

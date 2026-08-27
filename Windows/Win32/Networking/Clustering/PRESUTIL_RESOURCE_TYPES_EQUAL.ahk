@@ -21,7 +21,6 @@ export default struct PRESUTIL_RESOURCE_TYPES_EQUAL {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszResourceTypeName 
      * @param {HRESOURCE} _hResource 
      * @returns {BOOL} 

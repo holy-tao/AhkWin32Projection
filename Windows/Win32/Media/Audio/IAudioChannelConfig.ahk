@@ -66,7 +66,9 @@ export default struct IAudioChannelConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iaudiochannelconfig-setchannelconfig
      */
     SetChannelConfig(dwConfig, pguidEventContext) {
-        result := ComCall(3, this, UInt32, dwConfig, Guid.Ptr, pguidEventContext, "HRESULT")
+        pguidEventContextMarshal := pguidEventContext == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(3, this, UInt32, dwConfig, pguidEventContextMarshal, pguidEventContext, "HRESULT")
         return result
     }
 
@@ -91,8 +93,8 @@ export default struct IAudioChannelConfig extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetChannelConfig := CallbackCreate(GetMethod(implObj, "SetChannelConfig"), flags, 3)
-        this.vtbl.GetChannelConfig := CallbackCreate(GetMethod(implObj, "GetChannelConfig"), flags, 2)
+        this.vtbl.SetChannelConfig := CallbackCreate(ObjBindMethod(implObj, "SetChannelConfig"), flags, 3)
+        this.vtbl.GetChannelConfig := CallbackCreate(ObjBindMethod(implObj, "GetChannelConfig"), flags, 2)
     }
 
     Dispose() {

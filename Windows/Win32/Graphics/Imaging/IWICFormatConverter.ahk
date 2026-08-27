@@ -122,8 +122,8 @@ export default struct IWICFormatConverter extends IWICBitmapSource {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 7)
-        this.vtbl.CanConvert := CallbackCreate(GetMethod(implObj, "CanConvert"), flags, 4)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 7)
+        this.vtbl.CanConvert := CallbackCreate(ObjBindMethod(implObj, "CanConvert"), flags, 4)
     }
 
     Dispose() {

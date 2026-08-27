@@ -22,7 +22,6 @@ export default struct PFAXSETLOGGINGCATEGORIESW {
     }
 
     /**
-     * 
      * @param {HANDLE} FaxHandle 
      * @param {Pointer<FAX_LOG_CATEGORYW>} Categories 
      * @param {Integer} NumberCategories 

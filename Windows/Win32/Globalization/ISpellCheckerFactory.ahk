@@ -106,9 +106,9 @@ export default struct ISpellCheckerFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_SupportedLanguages := CallbackCreate(GetMethod(implObj, "get_SupportedLanguages"), flags, 2)
-        this.vtbl.IsSupported := CallbackCreate(GetMethod(implObj, "IsSupported"), flags, 3)
-        this.vtbl.CreateSpellChecker := CallbackCreate(GetMethod(implObj, "CreateSpellChecker"), flags, 3)
+        this.vtbl.get_SupportedLanguages := CallbackCreate(ObjBindMethod(implObj, "get_SupportedLanguages"), flags, 2)
+        this.vtbl.IsSupported := CallbackCreate(ObjBindMethod(implObj, "IsSupported"), flags, 3)
+        this.vtbl.CreateSpellChecker := CallbackCreate(ObjBindMethod(implObj, "CreateSpellChecker"), flags, 3)
     }
 
     Dispose() {

@@ -134,7 +134,7 @@ export default struct IUPnPDescriptionDocumentCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LoadComplete := CallbackCreate(GetMethod(implObj, "LoadComplete"), flags, 2)
+        this.vtbl.LoadComplete := CallbackCreate(ObjBindMethod(implObj, "LoadComplete"), flags, 2)
     }
 
     Dispose() {

@@ -41,7 +41,6 @@ export default struct IPersistHistory extends IPersist {
     }
 
     /**
-     * 
      * @param {IStream} pStream 
      * @param {IBindCtx} pbc 
      * @returns {HRESULT} 
@@ -52,7 +51,6 @@ export default struct IPersistHistory extends IPersist {
     }
 
     /**
-     * 
      * @param {IStream} pStream 
      * @returns {HRESULT} 
      */
@@ -62,7 +60,6 @@ export default struct IPersistHistory extends IPersist {
     }
 
     /**
-     * 
      * @param {Integer} dwPositioncookie 
      * @returns {HRESULT} 
      */
@@ -72,7 +69,6 @@ export default struct IPersistHistory extends IPersist {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetPositionCookie() {
@@ -89,10 +85,10 @@ export default struct IPersistHistory extends IPersist {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LoadHistory := CallbackCreate(GetMethod(implObj, "LoadHistory"), flags, 3)
-        this.vtbl.SaveHistory := CallbackCreate(GetMethod(implObj, "SaveHistory"), flags, 2)
-        this.vtbl.SetPositionCookie := CallbackCreate(GetMethod(implObj, "SetPositionCookie"), flags, 2)
-        this.vtbl.GetPositionCookie := CallbackCreate(GetMethod(implObj, "GetPositionCookie"), flags, 2)
+        this.vtbl.LoadHistory := CallbackCreate(ObjBindMethod(implObj, "LoadHistory"), flags, 3)
+        this.vtbl.SaveHistory := CallbackCreate(ObjBindMethod(implObj, "SaveHistory"), flags, 2)
+        this.vtbl.SetPositionCookie := CallbackCreate(ObjBindMethod(implObj, "SetPositionCookie"), flags, 2)
+        this.vtbl.GetPositionCookie := CallbackCreate(ObjBindMethod(implObj, "GetPositionCookie"), flags, 2)
     }
 
     Dispose() {

@@ -48,7 +48,7 @@ export default struct IGetOleObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vbinterf/nf-vbinterf-igetoleobject-getoleobject
      */
     GetOleObject(riid, ppvObj) {
-        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, Guid.Ptr, riid, ppvObjMarshal, ppvObj, "HRESULT")
         return result
@@ -63,7 +63,7 @@ export default struct IGetOleObject extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOleObject := CallbackCreate(GetMethod(implObj, "GetOleObject"), flags, 3)
+        this.vtbl.GetOleObject := CallbackCreate(ObjBindMethod(implObj, "GetOleObject"), flags, 3)
     }
 
     Dispose() {

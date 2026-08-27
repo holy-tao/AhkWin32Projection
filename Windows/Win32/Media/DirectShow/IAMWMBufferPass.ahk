@@ -60,7 +60,7 @@ export default struct IAMWMBufferPass extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetNotify := CallbackCreate(GetMethod(implObj, "SetNotify"), flags, 2)
+        this.vtbl.SetNotify := CallbackCreate(ObjBindMethod(implObj, "SetNotify"), flags, 2)
     }
 
     Dispose() {

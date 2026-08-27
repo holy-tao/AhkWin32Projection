@@ -21,7 +21,6 @@ export default struct PFN_DrvSetPalette {
     }
 
     /**
-     * 
      * @param {DHPDEV} param0 
      * @param {Pointer<PALOBJ>} param1 
      * @param {Integer} param2 

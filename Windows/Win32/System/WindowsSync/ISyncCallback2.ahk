@@ -123,8 +123,8 @@ export default struct ISyncCallback2 extends ISyncCallback {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnChangeApplied := CallbackCreate(GetMethod(implObj, "OnChangeApplied"), flags, 3)
-        this.vtbl.OnChangeFailed := CallbackCreate(GetMethod(implObj, "OnChangeFailed"), flags, 3)
+        this.vtbl.OnChangeApplied := CallbackCreate(ObjBindMethod(implObj, "OnChangeApplied"), flags, 3)
+        this.vtbl.OnChangeFailed := CallbackCreate(ObjBindMethod(implObj, "OnChangeFailed"), flags, 3)
     }
 
     Dispose() {

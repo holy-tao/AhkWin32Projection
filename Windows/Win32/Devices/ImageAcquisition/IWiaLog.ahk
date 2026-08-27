@@ -99,9 +99,9 @@ export default struct IWiaLog extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeLog := CallbackCreate(GetMethod(implObj, "InitializeLog"), flags, 2)
-        this.vtbl.hResult := CallbackCreate(GetMethod(implObj, "hResult"), flags, 2)
-        this.vtbl.Log := CallbackCreate(GetMethod(implObj, "Log"), flags, 5)
+        this.vtbl.InitializeLog := CallbackCreate(ObjBindMethod(implObj, "InitializeLog"), flags, 2)
+        this.vtbl.hResult := CallbackCreate(ObjBindMethod(implObj, "hResult"), flags, 2)
+        this.vtbl.Log := CallbackCreate(ObjBindMethod(implObj, "Log"), flags, 5)
     }
 
     Dispose() {

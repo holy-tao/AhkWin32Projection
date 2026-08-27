@@ -19,7 +19,6 @@ export default struct PHAL_RESET_DISPLAY_PARAMETERS {
     }
 
     /**
-     * 
      * @param {Integer} _Columns 
      * @param {Integer} Rows 
      * @returns {BOOLEAN} 

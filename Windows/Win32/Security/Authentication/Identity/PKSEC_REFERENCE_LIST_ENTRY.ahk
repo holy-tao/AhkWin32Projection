@@ -21,7 +21,6 @@ export default struct PKSEC_REFERENCE_LIST_ENTRY {
     }
 
     /**
-     * 
      * @param {Pointer<KSEC_LIST_ENTRY>} Entry 
      * @param {Integer} Signature 
      * @param {BOOLEAN} RemoveNoRef 

@@ -178,7 +178,6 @@ export default struct IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {IXMLDOMDocumentType} 
      */
     get_doctype() {
@@ -187,7 +186,6 @@ export default struct IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {IXMLDOMImplementation} 
      */
     get_implementation() {
@@ -196,7 +194,6 @@ export default struct IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {IXMLDOMElement} 
      */
     get_documentElement() {
@@ -205,7 +202,6 @@ export default struct IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {IXMLDOMElement} DOMElement 
      * @returns {HRESULT} 
      */
@@ -215,7 +211,6 @@ export default struct IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {BSTR} tagName 
      * @returns {IXMLDOMElement} 
      */
@@ -227,7 +222,6 @@ export default struct IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {IXMLDOMDocumentFragment} 
      */
     createDocumentFragment() {
@@ -236,7 +230,6 @@ export default struct IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {BSTR} data 
      * @returns {IXMLDOMText} 
      */
@@ -248,7 +241,6 @@ export default struct IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {BSTR} data 
      * @returns {IXMLDOMComment} 
      */
@@ -260,7 +252,6 @@ export default struct IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {BSTR} data 
      * @returns {IXMLDOMCDATASection} 
      */
@@ -272,7 +263,6 @@ export default struct IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {BSTR} target 
      * @param {BSTR} data 
      * @returns {IXMLDOMProcessingInstruction} 
@@ -286,7 +276,6 @@ export default struct IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {IXMLDOMAttribute} 
      */
@@ -298,7 +287,6 @@ export default struct IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {IXMLDOMEntityReference} 
      */
@@ -310,7 +298,6 @@ export default struct IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {BSTR} tagName 
      * @returns {IXMLDOMNodeList} 
      */
@@ -322,7 +309,6 @@ export default struct IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {VARIANT} Type 
      * @param {BSTR} name 
      * @param {BSTR} namespaceURI 
@@ -337,7 +323,6 @@ export default struct IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {BSTR} idString 
      * @returns {IXMLDOMNode} 
      */
@@ -362,7 +347,6 @@ export default struct IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_readyState() {
@@ -371,7 +355,6 @@ export default struct IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {IXMLDOMParseError} 
      */
     get_parseError() {
@@ -380,7 +363,6 @@ export default struct IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_url() {
@@ -390,7 +372,6 @@ export default struct IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_async() {
@@ -399,7 +380,6 @@ export default struct IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} isAsync 
      * @returns {HRESULT} 
      */
@@ -425,7 +405,6 @@ export default struct IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {BSTR} bstrXML 
      * @returns {VARIANT_BOOL} 
      */
@@ -494,7 +473,6 @@ export default struct IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_validateOnParse() {
@@ -503,7 +481,6 @@ export default struct IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} isValidating 
      * @returns {HRESULT} 
      */
@@ -513,7 +490,6 @@ export default struct IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_resolveExternals() {
@@ -522,7 +498,6 @@ export default struct IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} isResolving 
      * @returns {HRESULT} 
      */
@@ -532,7 +507,6 @@ export default struct IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_preserveWhiteSpace() {
@@ -541,7 +515,6 @@ export default struct IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} isPreserving 
      * @returns {HRESULT} 
      */
@@ -551,7 +524,6 @@ export default struct IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {VARIANT} readystatechangeSink 
      * @returns {HRESULT} 
      */
@@ -561,7 +533,6 @@ export default struct IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {VARIANT} ondataavailableSink 
      * @returns {HRESULT} 
      */
@@ -571,7 +542,6 @@ export default struct IXMLDOMDocument extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {VARIANT} ontransformnodeSink 
      * @returns {HRESULT} 
      */
@@ -589,39 +559,39 @@ export default struct IXMLDOMDocument extends IXMLDOMNode {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_doctype := CallbackCreate(GetMethod(implObj, "get_doctype"), flags, 2)
-        this.vtbl.get_implementation := CallbackCreate(GetMethod(implObj, "get_implementation"), flags, 2)
-        this.vtbl.get_documentElement := CallbackCreate(GetMethod(implObj, "get_documentElement"), flags, 2)
-        this.vtbl.putref_documentElement := CallbackCreate(GetMethod(implObj, "putref_documentElement"), flags, 2)
-        this.vtbl.createElement := CallbackCreate(GetMethod(implObj, "createElement"), flags, 3)
-        this.vtbl.createDocumentFragment := CallbackCreate(GetMethod(implObj, "createDocumentFragment"), flags, 2)
-        this.vtbl.createTextNode := CallbackCreate(GetMethod(implObj, "createTextNode"), flags, 3)
-        this.vtbl.createComment := CallbackCreate(GetMethod(implObj, "createComment"), flags, 3)
-        this.vtbl.createCDATASection := CallbackCreate(GetMethod(implObj, "createCDATASection"), flags, 3)
-        this.vtbl.createProcessingInstruction := CallbackCreate(GetMethod(implObj, "createProcessingInstruction"), flags, 4)
-        this.vtbl.createAttribute := CallbackCreate(GetMethod(implObj, "createAttribute"), flags, 3)
-        this.vtbl.createEntityReference := CallbackCreate(GetMethod(implObj, "createEntityReference"), flags, 3)
-        this.vtbl.getElementsByTagName := CallbackCreate(GetMethod(implObj, "getElementsByTagName"), flags, 3)
-        this.vtbl.createNode := CallbackCreate(GetMethod(implObj, "createNode"), flags, 5)
-        this.vtbl.nodeFromID := CallbackCreate(GetMethod(implObj, "nodeFromID"), flags, 3)
-        this.vtbl.load := CallbackCreate(GetMethod(implObj, "load"), flags, 3)
-        this.vtbl.get_readyState := CallbackCreate(GetMethod(implObj, "get_readyState"), flags, 2)
-        this.vtbl.get_parseError := CallbackCreate(GetMethod(implObj, "get_parseError"), flags, 2)
-        this.vtbl.get_url := CallbackCreate(GetMethod(implObj, "get_url"), flags, 2)
-        this.vtbl.get_async := CallbackCreate(GetMethod(implObj, "get_async"), flags, 2)
-        this.vtbl.put_async := CallbackCreate(GetMethod(implObj, "put_async"), flags, 2)
-        this.vtbl.abort := CallbackCreate(GetMethod(implObj, "abort"), flags, 1)
-        this.vtbl.loadXML := CallbackCreate(GetMethod(implObj, "loadXML"), flags, 3)
-        this.vtbl.save := CallbackCreate(GetMethod(implObj, "save"), flags, 2)
-        this.vtbl.get_validateOnParse := CallbackCreate(GetMethod(implObj, "get_validateOnParse"), flags, 2)
-        this.vtbl.put_validateOnParse := CallbackCreate(GetMethod(implObj, "put_validateOnParse"), flags, 2)
-        this.vtbl.get_resolveExternals := CallbackCreate(GetMethod(implObj, "get_resolveExternals"), flags, 2)
-        this.vtbl.put_resolveExternals := CallbackCreate(GetMethod(implObj, "put_resolveExternals"), flags, 2)
-        this.vtbl.get_preserveWhiteSpace := CallbackCreate(GetMethod(implObj, "get_preserveWhiteSpace"), flags, 2)
-        this.vtbl.put_preserveWhiteSpace := CallbackCreate(GetMethod(implObj, "put_preserveWhiteSpace"), flags, 2)
-        this.vtbl.put_onreadystatechange := CallbackCreate(GetMethod(implObj, "put_onreadystatechange"), flags, 2)
-        this.vtbl.put_ondataavailable := CallbackCreate(GetMethod(implObj, "put_ondataavailable"), flags, 2)
-        this.vtbl.put_ontransformnode := CallbackCreate(GetMethod(implObj, "put_ontransformnode"), flags, 2)
+        this.vtbl.get_doctype := CallbackCreate(ObjBindMethod(implObj, "get_doctype"), flags, 2)
+        this.vtbl.get_implementation := CallbackCreate(ObjBindMethod(implObj, "get_implementation"), flags, 2)
+        this.vtbl.get_documentElement := CallbackCreate(ObjBindMethod(implObj, "get_documentElement"), flags, 2)
+        this.vtbl.putref_documentElement := CallbackCreate(ObjBindMethod(implObj, "putref_documentElement"), flags, 2)
+        this.vtbl.createElement := CallbackCreate(ObjBindMethod(implObj, "createElement"), flags, 3)
+        this.vtbl.createDocumentFragment := CallbackCreate(ObjBindMethod(implObj, "createDocumentFragment"), flags, 2)
+        this.vtbl.createTextNode := CallbackCreate(ObjBindMethod(implObj, "createTextNode"), flags, 3)
+        this.vtbl.createComment := CallbackCreate(ObjBindMethod(implObj, "createComment"), flags, 3)
+        this.vtbl.createCDATASection := CallbackCreate(ObjBindMethod(implObj, "createCDATASection"), flags, 3)
+        this.vtbl.createProcessingInstruction := CallbackCreate(ObjBindMethod(implObj, "createProcessingInstruction"), flags, 4)
+        this.vtbl.createAttribute := CallbackCreate(ObjBindMethod(implObj, "createAttribute"), flags, 3)
+        this.vtbl.createEntityReference := CallbackCreate(ObjBindMethod(implObj, "createEntityReference"), flags, 3)
+        this.vtbl.getElementsByTagName := CallbackCreate(ObjBindMethod(implObj, "getElementsByTagName"), flags, 3)
+        this.vtbl.createNode := CallbackCreate(ObjBindMethod(implObj, "createNode"), flags, 5)
+        this.vtbl.nodeFromID := CallbackCreate(ObjBindMethod(implObj, "nodeFromID"), flags, 3)
+        this.vtbl.load := CallbackCreate(ObjBindMethod(implObj, "load"), flags, 3)
+        this.vtbl.get_readyState := CallbackCreate(ObjBindMethod(implObj, "get_readyState"), flags, 2)
+        this.vtbl.get_parseError := CallbackCreate(ObjBindMethod(implObj, "get_parseError"), flags, 2)
+        this.vtbl.get_url := CallbackCreate(ObjBindMethod(implObj, "get_url"), flags, 2)
+        this.vtbl.get_async := CallbackCreate(ObjBindMethod(implObj, "get_async"), flags, 2)
+        this.vtbl.put_async := CallbackCreate(ObjBindMethod(implObj, "put_async"), flags, 2)
+        this.vtbl.abort := CallbackCreate(ObjBindMethod(implObj, "abort"), flags, 1)
+        this.vtbl.loadXML := CallbackCreate(ObjBindMethod(implObj, "loadXML"), flags, 3)
+        this.vtbl.save := CallbackCreate(ObjBindMethod(implObj, "save"), flags, 2)
+        this.vtbl.get_validateOnParse := CallbackCreate(ObjBindMethod(implObj, "get_validateOnParse"), flags, 2)
+        this.vtbl.put_validateOnParse := CallbackCreate(ObjBindMethod(implObj, "put_validateOnParse"), flags, 2)
+        this.vtbl.get_resolveExternals := CallbackCreate(ObjBindMethod(implObj, "get_resolveExternals"), flags, 2)
+        this.vtbl.put_resolveExternals := CallbackCreate(ObjBindMethod(implObj, "put_resolveExternals"), flags, 2)
+        this.vtbl.get_preserveWhiteSpace := CallbackCreate(ObjBindMethod(implObj, "get_preserveWhiteSpace"), flags, 2)
+        this.vtbl.put_preserveWhiteSpace := CallbackCreate(ObjBindMethod(implObj, "put_preserveWhiteSpace"), flags, 2)
+        this.vtbl.put_onreadystatechange := CallbackCreate(ObjBindMethod(implObj, "put_onreadystatechange"), flags, 2)
+        this.vtbl.put_ondataavailable := CallbackCreate(ObjBindMethod(implObj, "put_ondataavailable"), flags, 2)
+        this.vtbl.put_ontransformnode := CallbackCreate(ObjBindMethod(implObj, "put_ontransformnode"), flags, 2)
     }
 
     Dispose() {

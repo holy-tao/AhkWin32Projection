@@ -24,7 +24,6 @@ export default struct PBUILD_SCATTER_GATHER_LIST {
     }
 
     /**
-     * 
      * @param {Pointer<DMA_ADAPTER>} DmaAdapter 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<MDL>} _Mdl 
@@ -38,9 +37,9 @@ export default struct PBUILD_SCATTER_GATHER_LIST {
      * @returns {NTSTATUS} 
      */
     Call(DmaAdapter, DeviceObject, _Mdl, CurrentVa, Length, ExecutionRoutine, _Context, WriteToDevice, ScatterGatherBuffer, ScatterGatherLength) {
-        CurrentVaMarshal := CurrentVa is VarRef ? "ptr" : "ptr"
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        ScatterGatherBufferMarshal := ScatterGatherBuffer is VarRef ? "ptr" : "ptr"
+        CurrentVaMarshal := CurrentVa is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        ScatterGatherBufferMarshal := ScatterGatherBuffer is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, DEVICE_OBJECT.Ptr, DeviceObject, MDL.Ptr, _Mdl, CurrentVaMarshal, CurrentVa, UInt32, Length, DRIVER_LIST_CONTROL, ExecutionRoutine, _ContextMarshal, _Context, BOOLEAN, WriteToDevice, ScatterGatherBufferMarshal, ScatterGatherBuffer, UInt32, ScatterGatherLength, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

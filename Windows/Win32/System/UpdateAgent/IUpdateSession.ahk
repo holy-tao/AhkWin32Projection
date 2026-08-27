@@ -185,14 +185,14 @@ export default struct IUpdateSession extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ClientApplicationID := CallbackCreate(GetMethod(implObj, "get_ClientApplicationID"), flags, 2)
-        this.vtbl.put_ClientApplicationID := CallbackCreate(GetMethod(implObj, "put_ClientApplicationID"), flags, 2)
-        this.vtbl.get_ReadOnly := CallbackCreate(GetMethod(implObj, "get_ReadOnly"), flags, 2)
-        this.vtbl.get_WebProxy := CallbackCreate(GetMethod(implObj, "get_WebProxy"), flags, 2)
-        this.vtbl.put_WebProxy := CallbackCreate(GetMethod(implObj, "put_WebProxy"), flags, 2)
-        this.vtbl.CreateUpdateSearcher := CallbackCreate(GetMethod(implObj, "CreateUpdateSearcher"), flags, 2)
-        this.vtbl.CreateUpdateDownloader := CallbackCreate(GetMethod(implObj, "CreateUpdateDownloader"), flags, 2)
-        this.vtbl.CreateUpdateInstaller := CallbackCreate(GetMethod(implObj, "CreateUpdateInstaller"), flags, 2)
+        this.vtbl.get_ClientApplicationID := CallbackCreate(ObjBindMethod(implObj, "get_ClientApplicationID"), flags, 2)
+        this.vtbl.put_ClientApplicationID := CallbackCreate(ObjBindMethod(implObj, "put_ClientApplicationID"), flags, 2)
+        this.vtbl.get_ReadOnly := CallbackCreate(ObjBindMethod(implObj, "get_ReadOnly"), flags, 2)
+        this.vtbl.get_WebProxy := CallbackCreate(ObjBindMethod(implObj, "get_WebProxy"), flags, 2)
+        this.vtbl.put_WebProxy := CallbackCreate(ObjBindMethod(implObj, "put_WebProxy"), flags, 2)
+        this.vtbl.CreateUpdateSearcher := CallbackCreate(ObjBindMethod(implObj, "CreateUpdateSearcher"), flags, 2)
+        this.vtbl.CreateUpdateDownloader := CallbackCreate(ObjBindMethod(implObj, "CreateUpdateDownloader"), flags, 2)
+        this.vtbl.CreateUpdateInstaller := CallbackCreate(ObjBindMethod(implObj, "CreateUpdateInstaller"), flags, 2)
     }
 
     Dispose() {

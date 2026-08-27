@@ -27,7 +27,6 @@ export default struct PTRANSLATE_ADDRESS_ROUTINE64 {
     }
 
     /**
-     * 
      * @param {HANDLE} hProcess A handle to the process for which the stack trace is generated.
      * @param {HANDLE} hThread A handle to the thread for which the stack trace is generated.
      * @param {Pointer<ADDRESS64>} lpaddr An address to be translated.

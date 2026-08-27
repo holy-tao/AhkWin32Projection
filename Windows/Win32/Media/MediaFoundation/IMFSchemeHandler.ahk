@@ -129,7 +129,7 @@ export default struct IMFSchemeHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfschemehandler-endcreateobject
      */
     EndCreateObject(pResult, pObjectType, ppObject) {
-        pObjectTypeMarshal := pObjectType is VarRef ? "int*" : "ptr"
+        pObjectTypeMarshal := pObjectType is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, "ptr", pResult, pObjectTypeMarshal, pObjectType, IUnknown.Ptr, ppObject, "HRESULT")
         return result
@@ -177,9 +177,9 @@ export default struct IMFSchemeHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BeginCreateObject := CallbackCreate(GetMethod(implObj, "BeginCreateObject"), flags, 7)
-        this.vtbl.EndCreateObject := CallbackCreate(GetMethod(implObj, "EndCreateObject"), flags, 4)
-        this.vtbl.CancelObjectCreation := CallbackCreate(GetMethod(implObj, "CancelObjectCreation"), flags, 2)
+        this.vtbl.BeginCreateObject := CallbackCreate(ObjBindMethod(implObj, "BeginCreateObject"), flags, 7)
+        this.vtbl.EndCreateObject := CallbackCreate(ObjBindMethod(implObj, "EndCreateObject"), flags, 4)
+        this.vtbl.CancelObjectCreation := CallbackCreate(ObjBindMethod(implObj, "CancelObjectCreation"), flags, 2)
     }
 
     Dispose() {

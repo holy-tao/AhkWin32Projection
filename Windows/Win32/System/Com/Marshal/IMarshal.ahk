@@ -250,7 +250,8 @@ export default struct IMarshal extends IUnknown {
     GetUnmarshalClass(riid, pv, dwDestContext, _mshlflags) {
         static pvDestContext := 0 ;Reserved parameters must always be NULL
 
-        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+        pvMarshal := pv is VarRef ? "ptr" : IntPtr
+        pvMarshal := pv == 0 ? IntPtr : "ptr"
 
         pCid := Guid()
         result := ComCall(3, this, Guid.Ptr, riid, pvMarshal, pv, UInt32, dwDestContext, "ptr", pvDestContext, UInt32, _mshlflags, Guid.Ptr, pCid, "HRESULT")
@@ -291,7 +292,8 @@ export default struct IMarshal extends IUnknown {
     GetMarshalSizeMax(riid, pv, dwDestContext, _mshlflags) {
         static pvDestContext := 0 ;Reserved parameters must always be NULL
 
-        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+        pvMarshal := pv is VarRef ? "ptr" : IntPtr
+        pvMarshal := pv == 0 ? IntPtr : "ptr"
 
         result := ComCall(4, this, Guid.Ptr, riid, pvMarshal, pv, UInt32, dwDestContext, "ptr", pvDestContext, UInt32, _mshlflags, "uint*", &pSize := 0, "HRESULT")
         return pSize
@@ -380,7 +382,8 @@ export default struct IMarshal extends IUnknown {
     MarshalInterface(pStm, riid, pv, dwDestContext, _mshlflags) {
         static pvDestContext := 0 ;Reserved parameters must always be NULL
 
-        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+        pvMarshal := pv is VarRef ? "ptr" : IntPtr
+        pvMarshal := pv == 0 ? IntPtr : "ptr"
 
         result := ComCall(5, this, "ptr", pStm, Guid.Ptr, riid, pvMarshal, pv, UInt32, dwDestContext, "ptr", pvDestContext, UInt32, _mshlflags, "HRESULT")
         return result
@@ -463,12 +466,12 @@ export default struct IMarshal extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetUnmarshalClass := CallbackCreate(GetMethod(implObj, "GetUnmarshalClass"), flags, 7)
-        this.vtbl.GetMarshalSizeMax := CallbackCreate(GetMethod(implObj, "GetMarshalSizeMax"), flags, 7)
-        this.vtbl.MarshalInterface := CallbackCreate(GetMethod(implObj, "MarshalInterface"), flags, 7)
-        this.vtbl.UnmarshalInterface := CallbackCreate(GetMethod(implObj, "UnmarshalInterface"), flags, 4)
-        this.vtbl.ReleaseMarshalData := CallbackCreate(GetMethod(implObj, "ReleaseMarshalData"), flags, 2)
-        this.vtbl.DisconnectObject := CallbackCreate(GetMethod(implObj, "DisconnectObject"), flags, 2)
+        this.vtbl.GetUnmarshalClass := CallbackCreate(ObjBindMethod(implObj, "GetUnmarshalClass"), flags, 7)
+        this.vtbl.GetMarshalSizeMax := CallbackCreate(ObjBindMethod(implObj, "GetMarshalSizeMax"), flags, 7)
+        this.vtbl.MarshalInterface := CallbackCreate(ObjBindMethod(implObj, "MarshalInterface"), flags, 7)
+        this.vtbl.UnmarshalInterface := CallbackCreate(ObjBindMethod(implObj, "UnmarshalInterface"), flags, 4)
+        this.vtbl.ReleaseMarshalData := CallbackCreate(ObjBindMethod(implObj, "ReleaseMarshalData"), flags, 2)
+        this.vtbl.DisconnectObject := CallbackCreate(ObjBindMethod(implObj, "DisconnectObject"), flags, 2)
     }
 
     Dispose() {

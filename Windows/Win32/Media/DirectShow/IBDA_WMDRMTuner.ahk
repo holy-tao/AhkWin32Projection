@@ -42,7 +42,6 @@ export default struct IBDA_WMDRMTuner extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulDialogRequest 
      * @param {BSTR} bstrLanguage 
      * @param {Integer} ulPurchaseTokenLen 
@@ -54,29 +53,27 @@ export default struct IBDA_WMDRMTuner extends IUnknown {
     PurchaseEntitlement(ulDialogRequest, bstrLanguage, ulPurchaseTokenLen, pbPurchaseToken, pulCaptureTokenLen, pbCaptureToken) {
         bstrLanguage := bstrLanguage is String ? BSTR.Alloc(bstrLanguage).Value : bstrLanguage
 
-        pbPurchaseTokenMarshal := pbPurchaseToken is VarRef ? "char*" : "ptr"
-        pulCaptureTokenLenMarshal := pulCaptureTokenLen is VarRef ? "uint*" : "ptr"
-        pbCaptureTokenMarshal := pbCaptureToken is VarRef ? "char*" : "ptr"
+        pbPurchaseTokenMarshal := pbPurchaseToken is VarRef ? "char*" : IntPtr
+        pulCaptureTokenLenMarshal := pulCaptureTokenLen is VarRef ? "uint*" : IntPtr
+        pbCaptureTokenMarshal := pbCaptureToken is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, UInt32, ulDialogRequest, BSTR, bstrLanguage, UInt32, ulPurchaseTokenLen, pbPurchaseTokenMarshal, pbPurchaseToken, "uint*", &pulDescrambleStatus := 0, pulCaptureTokenLenMarshal, pulCaptureTokenLen, pbCaptureTokenMarshal, pbCaptureToken, "HRESULT")
         return pulDescrambleStatus
     }
 
     /**
-     * 
      * @param {Integer} ulCaptureTokenLen 
      * @param {Pointer<Integer>} pbCaptureToken 
      * @returns {HRESULT} 
      */
     CancelCaptureToken(ulCaptureTokenLen, pbCaptureToken) {
-        pbCaptureTokenMarshal := pbCaptureToken is VarRef ? "char*" : "ptr"
+        pbCaptureTokenMarshal := pbCaptureToken is VarRef ? "char*" : IntPtr
 
         result := ComCall(4, this, UInt32, ulCaptureTokenLen, pbCaptureTokenMarshal, pbCaptureToken, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} ulPid 
      * @param {Pointer<Guid>} uuidKey 
      * @returns {HRESULT} 
@@ -87,7 +84,6 @@ export default struct IBDA_WMDRMTuner extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pulPid 
      * @returns {Guid} 
      */
@@ -98,7 +94,6 @@ export default struct IBDA_WMDRMTuner extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulSyncValue 
      * @returns {HRESULT} 
      */
@@ -108,14 +103,13 @@ export default struct IBDA_WMDRMTuner extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pulStartCodeProfileLen 
      * @param {Pointer<Integer>} pbStartCodeProfile 
      * @returns {HRESULT} 
      */
     GetStartCodeProfile(pulStartCodeProfileLen, pbStartCodeProfile) {
-        pulStartCodeProfileLenMarshal := pulStartCodeProfileLen is VarRef ? "uint*" : "ptr"
-        pbStartCodeProfileMarshal := pbStartCodeProfile is VarRef ? "char*" : "ptr"
+        pulStartCodeProfileLenMarshal := pulStartCodeProfileLen is VarRef ? "uint*" : IntPtr
+        pbStartCodeProfileMarshal := pbStartCodeProfile is VarRef ? "char*" : IntPtr
 
         result := ComCall(8, this, pulStartCodeProfileLenMarshal, pulStartCodeProfileLen, pbStartCodeProfileMarshal, pbStartCodeProfile, "HRESULT")
         return result
@@ -130,12 +124,12 @@ export default struct IBDA_WMDRMTuner extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PurchaseEntitlement := CallbackCreate(GetMethod(implObj, "PurchaseEntitlement"), flags, 8)
-        this.vtbl.CancelCaptureToken := CallbackCreate(GetMethod(implObj, "CancelCaptureToken"), flags, 3)
-        this.vtbl.SetPidProtection := CallbackCreate(GetMethod(implObj, "SetPidProtection"), flags, 3)
-        this.vtbl.GetPidProtection := CallbackCreate(GetMethod(implObj, "GetPidProtection"), flags, 3)
-        this.vtbl.SetSyncValue := CallbackCreate(GetMethod(implObj, "SetSyncValue"), flags, 2)
-        this.vtbl.GetStartCodeProfile := CallbackCreate(GetMethod(implObj, "GetStartCodeProfile"), flags, 3)
+        this.vtbl.PurchaseEntitlement := CallbackCreate(ObjBindMethod(implObj, "PurchaseEntitlement"), flags, 8)
+        this.vtbl.CancelCaptureToken := CallbackCreate(ObjBindMethod(implObj, "CancelCaptureToken"), flags, 3)
+        this.vtbl.SetPidProtection := CallbackCreate(ObjBindMethod(implObj, "SetPidProtection"), flags, 3)
+        this.vtbl.GetPidProtection := CallbackCreate(ObjBindMethod(implObj, "GetPidProtection"), flags, 3)
+        this.vtbl.SetSyncValue := CallbackCreate(ObjBindMethod(implObj, "SetSyncValue"), flags, 2)
+        this.vtbl.GetStartCodeProfile := CallbackCreate(ObjBindMethod(implObj, "GetStartCodeProfile"), flags, 3)
     }
 
     Dispose() {

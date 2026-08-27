@@ -39,19 +39,17 @@ export default struct ICombinedFilterInfo extends ISyncFilterInfo {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwFilterCount 
      * @returns {HRESULT} 
      */
     GetFilterCount(pdwFilterCount) {
-        pdwFilterCountMarshal := pdwFilterCount is VarRef ? "uint*" : "ptr"
+        pdwFilterCountMarshal := pdwFilterCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pdwFilterCountMarshal, pdwFilterCount, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwFilterIndex 
      * @returns {ISyncFilterInfo} 
      */
@@ -61,12 +59,11 @@ export default struct ICombinedFilterInfo extends ISyncFilterInfo {
     }
 
     /**
-     * 
      * @param {Pointer<FILTER_COMBINATION_TYPE>} pFilterCombinationType 
      * @returns {HRESULT} 
      */
     GetFilterCombinationType(pFilterCombinationType) {
-        pFilterCombinationTypeMarshal := pFilterCombinationType is VarRef ? "int*" : "ptr"
+        pFilterCombinationTypeMarshal := pFilterCombinationType is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, pFilterCombinationTypeMarshal, pFilterCombinationType, "HRESULT")
         return result
@@ -81,9 +78,9 @@ export default struct ICombinedFilterInfo extends ISyncFilterInfo {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFilterCount := CallbackCreate(GetMethod(implObj, "GetFilterCount"), flags, 2)
-        this.vtbl.GetFilterInfo := CallbackCreate(GetMethod(implObj, "GetFilterInfo"), flags, 3)
-        this.vtbl.GetFilterCombinationType := CallbackCreate(GetMethod(implObj, "GetFilterCombinationType"), flags, 2)
+        this.vtbl.GetFilterCount := CallbackCreate(ObjBindMethod(implObj, "GetFilterCount"), flags, 2)
+        this.vtbl.GetFilterInfo := CallbackCreate(ObjBindMethod(implObj, "GetFilterInfo"), flags, 3)
+        this.vtbl.GetFilterCombinationType := CallbackCreate(ObjBindMethod(implObj, "GetFilterCombinationType"), flags, 2)
     }
 
     Dispose() {

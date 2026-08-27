@@ -60,7 +60,7 @@ export default struct IX509CertificateTemplate extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Property := CallbackCreate(GetMethod(implObj, "get_Property"), flags, 3)
+        this.vtbl.get_Property := CallbackCreate(ObjBindMethod(implObj, "get_Property"), flags, 3)
     }
 
     Dispose() {

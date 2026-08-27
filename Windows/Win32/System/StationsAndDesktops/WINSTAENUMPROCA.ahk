@@ -22,7 +22,6 @@ export default struct WINSTAENUMPROCA {
     }
 
     /**
-     * 
      * @param {PSTR} param0 
      * @param {LPARAM} param1 
      * @returns {BOOL} 

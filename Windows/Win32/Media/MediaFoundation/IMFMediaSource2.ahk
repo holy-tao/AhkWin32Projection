@@ -37,7 +37,6 @@ export default struct IMFMediaSource2 extends IMFMediaSourceEx {
     }
 
     /**
-     * 
      * @param {Integer} dwStreamID 
      * @param {IMFMediaType} pMediaType 
      * @returns {HRESULT} 
@@ -56,7 +55,7 @@ export default struct IMFMediaSource2 extends IMFMediaSourceEx {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetMediaType := CallbackCreate(GetMethod(implObj, "SetMediaType"), flags, 3)
+        this.vtbl.SetMediaType := CallbackCreate(ObjBindMethod(implObj, "SetMediaType"), flags, 3)
     }
 
     Dispose() {

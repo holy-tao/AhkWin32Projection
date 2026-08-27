@@ -135,8 +135,8 @@ export default struct IShellIconOverlayIdentifier extends IUnknown {
     GetOverlayInfo(pwszIconFile, cchMax, pIndex, pdwFlags) {
         pwszIconFile := pwszIconFile is String ? StrPtr(pwszIconFile) : pwszIconFile
 
-        pIndexMarshal := pIndex is VarRef ? "int*" : "ptr"
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+        pIndexMarshal := pIndex is VarRef ? "int*" : IntPtr
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, "ptr", pwszIconFile, Int32, cchMax, pIndexMarshal, pIndex, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
@@ -165,9 +165,9 @@ export default struct IShellIconOverlayIdentifier extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsMemberOf := CallbackCreate(GetMethod(implObj, "IsMemberOf"), flags, 3)
-        this.vtbl.GetOverlayInfo := CallbackCreate(GetMethod(implObj, "GetOverlayInfo"), flags, 5)
-        this.vtbl.GetPriority := CallbackCreate(GetMethod(implObj, "GetPriority"), flags, 2)
+        this.vtbl.IsMemberOf := CallbackCreate(ObjBindMethod(implObj, "IsMemberOf"), flags, 3)
+        this.vtbl.GetOverlayInfo := CallbackCreate(ObjBindMethod(implObj, "GetOverlayInfo"), flags, 5)
+        this.vtbl.GetPriority := CallbackCreate(ObjBindMethod(implObj, "GetPriority"), flags, 2)
     }
 
     Dispose() {

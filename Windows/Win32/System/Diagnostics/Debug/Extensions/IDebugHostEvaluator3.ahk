@@ -37,7 +37,6 @@ export default struct IDebugHostEvaluator3 extends IDebugHostEvaluator2 {
     }
 
     /**
-     * 
      * @param {IModelObject} pLeft 
      * @param {IModelObject} pRight 
      * @returns {IModelObject} 
@@ -56,7 +55,7 @@ export default struct IDebugHostEvaluator3 extends IDebugHostEvaluator2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Compare := CallbackCreate(GetMethod(implObj, "Compare"), flags, 4)
+        this.vtbl.Compare := CallbackCreate(ObjBindMethod(implObj, "Compare"), flags, 4)
     }
 
     Dispose() {

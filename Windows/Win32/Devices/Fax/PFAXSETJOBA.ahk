@@ -22,7 +22,6 @@ export default struct PFAXSETJOBA {
     }
 
     /**
-     * 
      * @param {HANDLE} FaxHandle 
      * @param {Integer} JobId 
      * @param {Integer} Command 

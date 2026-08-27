@@ -133,7 +133,7 @@ export default struct IFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/filter/nf-filter-ifilter-init
      */
     Init(grfFlags, cAttributes, aAttributes, pFlags) {
-        pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
+        pFlagsMarshal := pFlags is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, UInt32, grfFlags, UInt32, cAttributes, FULLPROPSPEC.Ptr, aAttributes, pFlagsMarshal, pFlags, Int32)
         return result
@@ -318,7 +318,7 @@ export default struct IFilter extends IUnknown {
     GetText(pcwcBuffer, awcBuffer) {
         awcBuffer := awcBuffer is String ? StrPtr(awcBuffer) : awcBuffer
 
-        pcwcBufferMarshal := pcwcBuffer is VarRef ? "uint*" : "ptr"
+        pcwcBufferMarshal := pcwcBuffer is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, pcwcBufferMarshal, pcwcBuffer, "ptr", awcBuffer, Int32)
         return result
@@ -382,7 +382,7 @@ export default struct IFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/filter/nf-filter-ifilter-getvalue
      */
     GetValue(ppPropValue) {
-        ppPropValueMarshal := ppPropValue is VarRef ? "ptr*" : "ptr"
+        ppPropValueMarshal := ppPropValue is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(6, this, ppPropValueMarshal, ppPropValue, Int32)
         return result
@@ -446,7 +446,7 @@ export default struct IFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/filter/nf-filter-ifilter-bindregion
      */
     BindRegion(origPos, riid, ppunk) {
-        ppunkMarshal := ppunk is VarRef ? "ptr*" : "ptr"
+        ppunkMarshal := ppunk is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(7, this, FILTERREGION, origPos, Guid.Ptr, riid, ppunkMarshal, ppunk, Int32)
         return result
@@ -461,11 +461,11 @@ export default struct IFilter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 5)
-        this.vtbl.GetChunk := CallbackCreate(GetMethod(implObj, "GetChunk"), flags, 2)
-        this.vtbl.GetText := CallbackCreate(GetMethod(implObj, "GetText"), flags, 3)
-        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 2)
-        this.vtbl.BindRegion := CallbackCreate(GetMethod(implObj, "BindRegion"), flags, 4)
+        this.vtbl.Init := CallbackCreate(ObjBindMethod(implObj, "Init"), flags, 5)
+        this.vtbl.GetChunk := CallbackCreate(ObjBindMethod(implObj, "GetChunk"), flags, 2)
+        this.vtbl.GetText := CallbackCreate(ObjBindMethod(implObj, "GetText"), flags, 3)
+        this.vtbl.GetValue := CallbackCreate(ObjBindMethod(implObj, "GetValue"), flags, 2)
+        this.vtbl.BindRegion := CallbackCreate(ObjBindMethod(implObj, "BindRegion"), flags, 4)
     }
 
     Dispose() {

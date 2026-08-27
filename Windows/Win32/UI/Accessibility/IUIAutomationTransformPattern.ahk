@@ -216,15 +216,15 @@ export default struct IUIAutomationTransformPattern extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Move := CallbackCreate(GetMethod(implObj, "Move"), flags, 3)
-        this.vtbl.Resize := CallbackCreate(GetMethod(implObj, "Resize"), flags, 3)
-        this.vtbl.Rotate := CallbackCreate(GetMethod(implObj, "Rotate"), flags, 2)
-        this.vtbl.get_CurrentCanMove := CallbackCreate(GetMethod(implObj, "get_CurrentCanMove"), flags, 2)
-        this.vtbl.get_CurrentCanResize := CallbackCreate(GetMethod(implObj, "get_CurrentCanResize"), flags, 2)
-        this.vtbl.get_CurrentCanRotate := CallbackCreate(GetMethod(implObj, "get_CurrentCanRotate"), flags, 2)
-        this.vtbl.get_CachedCanMove := CallbackCreate(GetMethod(implObj, "get_CachedCanMove"), flags, 2)
-        this.vtbl.get_CachedCanResize := CallbackCreate(GetMethod(implObj, "get_CachedCanResize"), flags, 2)
-        this.vtbl.get_CachedCanRotate := CallbackCreate(GetMethod(implObj, "get_CachedCanRotate"), flags, 2)
+        this.vtbl.Move := CallbackCreate(ObjBindMethod(implObj, "Move"), flags, 3)
+        this.vtbl.Resize := CallbackCreate(ObjBindMethod(implObj, "Resize"), flags, 3)
+        this.vtbl.Rotate := CallbackCreate(ObjBindMethod(implObj, "Rotate"), flags, 2)
+        this.vtbl.get_CurrentCanMove := CallbackCreate(ObjBindMethod(implObj, "get_CurrentCanMove"), flags, 2)
+        this.vtbl.get_CurrentCanResize := CallbackCreate(ObjBindMethod(implObj, "get_CurrentCanResize"), flags, 2)
+        this.vtbl.get_CurrentCanRotate := CallbackCreate(ObjBindMethod(implObj, "get_CurrentCanRotate"), flags, 2)
+        this.vtbl.get_CachedCanMove := CallbackCreate(ObjBindMethod(implObj, "get_CachedCanMove"), flags, 2)
+        this.vtbl.get_CachedCanResize := CallbackCreate(ObjBindMethod(implObj, "get_CachedCanResize"), flags, 2)
+        this.vtbl.get_CachedCanRotate := CallbackCreate(ObjBindMethod(implObj, "get_CachedCanRotate"), flags, 2)
     }
 
     Dispose() {

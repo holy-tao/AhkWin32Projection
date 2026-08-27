@@ -527,13 +527,13 @@ export default struct ICrmLogControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_TransactionUOW := CallbackCreate(GetMethod(implObj, "get_TransactionUOW"), flags, 2)
-        this.vtbl.RegisterCompensator := CallbackCreate(GetMethod(implObj, "RegisterCompensator"), flags, 4)
-        this.vtbl.WriteLogRecordVariants := CallbackCreate(GetMethod(implObj, "WriteLogRecordVariants"), flags, 2)
-        this.vtbl.ForceLog := CallbackCreate(GetMethod(implObj, "ForceLog"), flags, 1)
-        this.vtbl.ForgetLogRecord := CallbackCreate(GetMethod(implObj, "ForgetLogRecord"), flags, 1)
-        this.vtbl.ForceTransactionToAbort := CallbackCreate(GetMethod(implObj, "ForceTransactionToAbort"), flags, 1)
-        this.vtbl.WriteLogRecord := CallbackCreate(GetMethod(implObj, "WriteLogRecord"), flags, 3)
+        this.vtbl.get_TransactionUOW := CallbackCreate(ObjBindMethod(implObj, "get_TransactionUOW"), flags, 2)
+        this.vtbl.RegisterCompensator := CallbackCreate(ObjBindMethod(implObj, "RegisterCompensator"), flags, 4)
+        this.vtbl.WriteLogRecordVariants := CallbackCreate(ObjBindMethod(implObj, "WriteLogRecordVariants"), flags, 2)
+        this.vtbl.ForceLog := CallbackCreate(ObjBindMethod(implObj, "ForceLog"), flags, 1)
+        this.vtbl.ForgetLogRecord := CallbackCreate(ObjBindMethod(implObj, "ForgetLogRecord"), flags, 1)
+        this.vtbl.ForceTransactionToAbort := CallbackCreate(ObjBindMethod(implObj, "ForceTransactionToAbort"), flags, 1)
+        this.vtbl.WriteLogRecord := CallbackCreate(ObjBindMethod(implObj, "WriteLogRecord"), flags, 3)
     }
 
     Dispose() {

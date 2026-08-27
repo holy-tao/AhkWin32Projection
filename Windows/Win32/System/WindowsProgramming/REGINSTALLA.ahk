@@ -22,7 +22,6 @@ export default struct REGINSTALLA {
     }
 
     /**
-     * 
      * @param {HMODULE} hm 
      * @param {PSTR} pszSection 
      * @param {Pointer<STRTABLEA>} pstTable 

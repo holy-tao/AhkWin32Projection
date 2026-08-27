@@ -20,13 +20,12 @@ export default struct WHV_EMULATOR_MEMORY_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<WHV_EMULATOR_MEMORY_ACCESS_INFO>} MemoryAccess 
      * @returns {HRESULT} 
      */
     Call(_Context, MemoryAccess) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, WHV_EMULATOR_MEMORY_ACCESS_INFO.Ptr, MemoryAccess, "HRESULT")
         return result

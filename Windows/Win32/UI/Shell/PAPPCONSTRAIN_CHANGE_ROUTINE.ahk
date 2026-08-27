@@ -19,13 +19,12 @@ export default struct PAPPCONSTRAIN_CHANGE_ROUTINE {
     }
 
     /**
-     * 
      * @param {BOOLEAN} Constrained 
      * @param {Pointer<Void>} _Context 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(Constrained, _Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, BOOLEAN, Constrained, _ContextMarshal, _Context)
     }

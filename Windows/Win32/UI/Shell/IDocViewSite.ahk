@@ -64,7 +64,7 @@ export default struct IDocViewSite extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnSetTitle := CallbackCreate(GetMethod(implObj, "OnSetTitle"), flags, 2)
+        this.vtbl.OnSetTitle := CallbackCreate(ObjBindMethod(implObj, "OnSetTitle"), flags, 2)
     }
 
     Dispose() {

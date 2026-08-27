@@ -72,8 +72,8 @@ export default struct IWCNConnectNotify extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ConnectSucceeded := CallbackCreate(GetMethod(implObj, "ConnectSucceeded"), flags, 1)
-        this.vtbl.ConnectFailed := CallbackCreate(GetMethod(implObj, "ConnectFailed"), flags, 2)
+        this.vtbl.ConnectSucceeded := CallbackCreate(ObjBindMethod(implObj, "ConnectSucceeded"), flags, 1)
+        this.vtbl.ConnectFailed := CallbackCreate(ObjBindMethod(implObj, "ConnectFailed"), flags, 2)
     }
 
     Dispose() {

@@ -60,7 +60,7 @@ export default struct IMFMediaSharingEngineClassFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateInstance := CallbackCreate(GetMethod(implObj, "CreateInstance"), flags, 4)
+        this.vtbl.CreateInstance := CallbackCreate(ObjBindMethod(implObj, "CreateInstance"), flags, 4)
     }
 
     Dispose() {

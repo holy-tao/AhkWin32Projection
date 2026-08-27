@@ -180,11 +180,11 @@ export default struct IFileSaveDialog extends IFileDialog {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetSaveAsItem := CallbackCreate(GetMethod(implObj, "SetSaveAsItem"), flags, 2)
-        this.vtbl.SetProperties := CallbackCreate(GetMethod(implObj, "SetProperties"), flags, 2)
-        this.vtbl.SetCollectedProperties := CallbackCreate(GetMethod(implObj, "SetCollectedProperties"), flags, 3)
-        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
-        this.vtbl.ApplyProperties := CallbackCreate(GetMethod(implObj, "ApplyProperties"), flags, 5)
+        this.vtbl.SetSaveAsItem := CallbackCreate(ObjBindMethod(implObj, "SetSaveAsItem"), flags, 2)
+        this.vtbl.SetProperties := CallbackCreate(ObjBindMethod(implObj, "SetProperties"), flags, 2)
+        this.vtbl.SetCollectedProperties := CallbackCreate(ObjBindMethod(implObj, "SetCollectedProperties"), flags, 3)
+        this.vtbl.GetProperties := CallbackCreate(ObjBindMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.ApplyProperties := CallbackCreate(ObjBindMethod(implObj, "ApplyProperties"), flags, 5)
     }
 
     Dispose() {

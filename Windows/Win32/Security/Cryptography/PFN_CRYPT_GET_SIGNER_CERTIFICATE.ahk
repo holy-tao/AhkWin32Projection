@@ -26,7 +26,6 @@ export default struct PFN_CRYPT_GET_SIGNER_CERTIFICATE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvGetArg A pointer to user-defined data passed on to the verification function as specified in the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_verify_message_para">CRYPT_VERIFY_MESSAGE_PARA</a> structure.
      * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType Specifies the type of encoding used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
@@ -43,7 +42,8 @@ export default struct PFN_CRYPT_GET_SIGNER_CERTIFICATE {
      * @returns {Pointer<CERT_CONTEXT>} If a signer certificate is found, the function returns a pointer to a read-only <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a>. The returned <b>CERT_CONTEXT</b> was obtained either from a certificate store or was created using <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certcreatecertificatecontext">CertCreateCertificateContext</a>. In either case, it must be freed using <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certfreecertificatecontext">CertFreeCertificateContext</a>. If this function fails, the return value is <b>NULL</b>.
      */
     Call(pvGetArg, dwCertEncodingType, pSignerId, hMsgCertStore) {
-        pvGetArgMarshal := pvGetArg is VarRef ? "ptr" : "ptr"
+        pvGetArgMarshal := pvGetArg is VarRef ? "ptr" : IntPtr
+        pvGetArgMarshal := pvGetArg == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, pvGetArgMarshal, pvGetArg, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, CERT_INFO.Ptr, pSignerId, HCERTSTORE, hMsgCertStore, CERT_CONTEXT.Ptr)
         return result

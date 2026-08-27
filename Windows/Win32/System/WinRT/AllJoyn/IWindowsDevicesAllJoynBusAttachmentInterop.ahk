@@ -45,7 +45,6 @@ export default struct IWindowsDevicesAllJoynBusAttachmentInterop extends IInspec
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Win32Handle() {
@@ -62,7 +61,7 @@ export default struct IWindowsDevicesAllJoynBusAttachmentInterop extends IInspec
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Win32Handle := CallbackCreate(GetMethod(implObj, "get_Win32Handle"), flags, 2)
+        this.vtbl.get_Win32Handle := CallbackCreate(ObjBindMethod(implObj, "get_Win32Handle"), flags, 2)
     }
 
     Dispose() {

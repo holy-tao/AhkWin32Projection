@@ -74,7 +74,7 @@ export default struct IResourceManager extends IUnknown {
     RegisterGroup(pName, cResource, palTokens) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        palTokensMarshal := palTokens is VarRef ? "int*" : "ptr"
+        palTokensMarshal := palTokens is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, "ptr", pName, Int32, cResource, palTokensMarshal, palTokens, "int*", &plToken := 0, "HRESULT")
         return plToken
@@ -507,14 +507,14 @@ export default struct IResourceManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Register := CallbackCreate(GetMethod(implObj, "Register"), flags, 4)
-        this.vtbl.RegisterGroup := CallbackCreate(GetMethod(implObj, "RegisterGroup"), flags, 5)
-        this.vtbl.RequestResource := CallbackCreate(GetMethod(implObj, "RequestResource"), flags, 4)
-        this.vtbl.NotifyAcquire := CallbackCreate(GetMethod(implObj, "NotifyAcquire"), flags, 4)
-        this.vtbl.NotifyRelease := CallbackCreate(GetMethod(implObj, "NotifyRelease"), flags, 4)
-        this.vtbl.CancelRequest := CallbackCreate(GetMethod(implObj, "CancelRequest"), flags, 3)
-        this.vtbl.SetFocus := CallbackCreate(GetMethod(implObj, "SetFocus"), flags, 2)
-        this.vtbl.ReleaseFocus := CallbackCreate(GetMethod(implObj, "ReleaseFocus"), flags, 2)
+        this.vtbl.Register := CallbackCreate(ObjBindMethod(implObj, "Register"), flags, 4)
+        this.vtbl.RegisterGroup := CallbackCreate(ObjBindMethod(implObj, "RegisterGroup"), flags, 5)
+        this.vtbl.RequestResource := CallbackCreate(ObjBindMethod(implObj, "RequestResource"), flags, 4)
+        this.vtbl.NotifyAcquire := CallbackCreate(ObjBindMethod(implObj, "NotifyAcquire"), flags, 4)
+        this.vtbl.NotifyRelease := CallbackCreate(ObjBindMethod(implObj, "NotifyRelease"), flags, 4)
+        this.vtbl.CancelRequest := CallbackCreate(ObjBindMethod(implObj, "CancelRequest"), flags, 3)
+        this.vtbl.SetFocus := CallbackCreate(ObjBindMethod(implObj, "SetFocus"), flags, 2)
+        this.vtbl.ReleaseFocus := CallbackCreate(ObjBindMethod(implObj, "ReleaseFocus"), flags, 2)
     }
 
     Dispose() {

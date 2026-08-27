@@ -159,7 +159,6 @@ export default struct ISensNetwork extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDestination 
      * @param {BSTR} bstrConnection 
      * @param {Integer} ulType 
@@ -175,7 +174,6 @@ export default struct ISensNetwork extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDestination 
      * @param {BSTR} bstrConnection 
      * @param {Integer} ulType 
@@ -198,11 +196,11 @@ export default struct ISensNetwork extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ConnectionMade := CallbackCreate(GetMethod(implObj, "ConnectionMade"), flags, 4)
-        this.vtbl.ConnectionMadeNoQOCInfo := CallbackCreate(GetMethod(implObj, "ConnectionMadeNoQOCInfo"), flags, 3)
-        this.vtbl.ConnectionLost := CallbackCreate(GetMethod(implObj, "ConnectionLost"), flags, 3)
-        this.vtbl.DestinationReachable := CallbackCreate(GetMethod(implObj, "DestinationReachable"), flags, 5)
-        this.vtbl.DestinationReachableNoQOCInfo := CallbackCreate(GetMethod(implObj, "DestinationReachableNoQOCInfo"), flags, 4)
+        this.vtbl.ConnectionMade := CallbackCreate(ObjBindMethod(implObj, "ConnectionMade"), flags, 4)
+        this.vtbl.ConnectionMadeNoQOCInfo := CallbackCreate(ObjBindMethod(implObj, "ConnectionMadeNoQOCInfo"), flags, 3)
+        this.vtbl.ConnectionLost := CallbackCreate(ObjBindMethod(implObj, "ConnectionLost"), flags, 3)
+        this.vtbl.DestinationReachable := CallbackCreate(ObjBindMethod(implObj, "DestinationReachable"), flags, 5)
+        this.vtbl.DestinationReachableNoQOCInfo := CallbackCreate(ObjBindMethod(implObj, "DestinationReachableNoQOCInfo"), flags, 4)
     }
 
     Dispose() {

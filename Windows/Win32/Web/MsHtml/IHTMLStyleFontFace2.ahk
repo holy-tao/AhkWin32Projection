@@ -44,7 +44,6 @@ export default struct IHTMLStyleFontFace2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLRuleStyle} 
      */
     get_style() {
@@ -61,7 +60,7 @@ export default struct IHTMLStyleFontFace2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_style := CallbackCreate(GetMethod(implObj, "get_style"), flags, 2)
+        this.vtbl.get_style := CallbackCreate(ObjBindMethod(implObj, "get_style"), flags, 2)
     }
 
     Dispose() {

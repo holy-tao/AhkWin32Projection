@@ -65,7 +65,7 @@ export default struct IBDA_TransportStreamInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_PatTableTickCount := CallbackCreate(GetMethod(implObj, "get_PatTableTickCount"), flags, 2)
+        this.vtbl.get_PatTableTickCount := CallbackCreate(ObjBindMethod(implObj, "get_PatTableTickCount"), flags, 2)
     }
 
     Dispose() {

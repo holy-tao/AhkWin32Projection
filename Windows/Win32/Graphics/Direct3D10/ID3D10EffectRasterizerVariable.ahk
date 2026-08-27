@@ -87,8 +87,8 @@ export default struct ID3D10EffectRasterizerVariable extends ID3D10EffectVariabl
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRasterizerState := CallbackCreate(GetMethod(implObj, "GetRasterizerState"), flags, 3)
-        this.vtbl.GetBackingStore := CallbackCreate(GetMethod(implObj, "GetBackingStore"), flags, 3)
+        this.vtbl.GetRasterizerState := CallbackCreate(ObjBindMethod(implObj, "GetRasterizerState"), flags, 3)
+        this.vtbl.GetBackingStore := CallbackCreate(ObjBindMethod(implObj, "GetBackingStore"), flags, 3)
     }
 
     Dispose() {

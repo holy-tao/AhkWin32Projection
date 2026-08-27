@@ -20,7 +20,6 @@ export default struct PHALIOREADWRITEHANDLER {
     }
 
     /**
-     * 
      * @param {BOOLEAN} fRead 
      * @param {Integer} dwAddr 
      * @param {Integer} dwSize 
@@ -28,7 +27,7 @@ export default struct PHALIOREADWRITEHANDLER {
      * @returns {NTSTATUS} 
      */
     Call(fRead, dwAddr, dwSize, pdwData) {
-        pdwDataMarshal := pdwData is VarRef ? "uint*" : "ptr"
+        pdwDataMarshal := pdwData is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, BOOLEAN, fRead, UInt32, dwAddr, UInt32, dwSize, pdwDataMarshal, pdwData, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

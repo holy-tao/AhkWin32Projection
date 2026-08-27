@@ -93,8 +93,8 @@ export default struct IAudioVolumeDuckNotification extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnVolumeDuckNotification := CallbackCreate(GetMethod(implObj, "OnVolumeDuckNotification"), flags, 3)
-        this.vtbl.OnVolumeUnduckNotification := CallbackCreate(GetMethod(implObj, "OnVolumeUnduckNotification"), flags, 2)
+        this.vtbl.OnVolumeDuckNotification := CallbackCreate(ObjBindMethod(implObj, "OnVolumeDuckNotification"), flags, 3)
+        this.vtbl.OnVolumeUnduckNotification := CallbackCreate(ObjBindMethod(implObj, "OnVolumeUnduckNotification"), flags, 2)
     }
 
     Dispose() {

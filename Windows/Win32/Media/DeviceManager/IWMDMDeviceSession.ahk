@@ -84,7 +84,8 @@ export default struct IWMDMDeviceSession extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmdevicesession-beginsession
      */
     BeginSession(type, pCtx, dwSizeCtx) {
-        pCtxMarshal := pCtx is VarRef ? "char*" : "ptr"
+        pCtxMarshal := pCtx is VarRef ? "char*" : IntPtr
+        pCtxMarshal := pCtx == 0 ? IntPtr : "char*"
 
         result := ComCall(3, this, WMDM_SESSION_TYPE, type, pCtxMarshal, pCtx, UInt32, dwSizeCtx, "HRESULT")
         return result
@@ -110,7 +111,8 @@ export default struct IWMDMDeviceSession extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmdevicesession-endsession
      */
     EndSession(type, pCtx, dwSizeCtx) {
-        pCtxMarshal := pCtx is VarRef ? "char*" : "ptr"
+        pCtxMarshal := pCtx is VarRef ? "char*" : IntPtr
+        pCtxMarshal := pCtx == 0 ? IntPtr : "char*"
 
         result := ComCall(4, this, WMDM_SESSION_TYPE, type, pCtxMarshal, pCtx, UInt32, dwSizeCtx, "HRESULT")
         return result
@@ -125,8 +127,8 @@ export default struct IWMDMDeviceSession extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BeginSession := CallbackCreate(GetMethod(implObj, "BeginSession"), flags, 4)
-        this.vtbl.EndSession := CallbackCreate(GetMethod(implObj, "EndSession"), flags, 4)
+        this.vtbl.BeginSession := CallbackCreate(ObjBindMethod(implObj, "BeginSession"), flags, 4)
+        this.vtbl.EndSession := CallbackCreate(ObjBindMethod(implObj, "EndSession"), flags, 4)
     }
 
     Dispose() {

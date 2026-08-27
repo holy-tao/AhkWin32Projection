@@ -177,14 +177,14 @@ export default struct IGPMMigrationTable extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 2)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 3)
-        this.vtbl.AddEntry := CallbackCreate(GetMethod(implObj, "AddEntry"), flags, 5)
-        this.vtbl.GetEntry := CallbackCreate(GetMethod(implObj, "GetEntry"), flags, 3)
-        this.vtbl.DeleteEntry := CallbackCreate(GetMethod(implObj, "DeleteEntry"), flags, 2)
-        this.vtbl.UpdateDestination := CallbackCreate(GetMethod(implObj, "UpdateDestination"), flags, 4)
-        this.vtbl.Validate := CallbackCreate(GetMethod(implObj, "Validate"), flags, 2)
-        this.vtbl.GetEntries := CallbackCreate(GetMethod(implObj, "GetEntries"), flags, 2)
+        this.vtbl.Save := CallbackCreate(ObjBindMethod(implObj, "Save"), flags, 2)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 3)
+        this.vtbl.AddEntry := CallbackCreate(ObjBindMethod(implObj, "AddEntry"), flags, 5)
+        this.vtbl.GetEntry := CallbackCreate(ObjBindMethod(implObj, "GetEntry"), flags, 3)
+        this.vtbl.DeleteEntry := CallbackCreate(ObjBindMethod(implObj, "DeleteEntry"), flags, 2)
+        this.vtbl.UpdateDestination := CallbackCreate(ObjBindMethod(implObj, "UpdateDestination"), flags, 4)
+        this.vtbl.Validate := CallbackCreate(ObjBindMethod(implObj, "Validate"), flags, 2)
+        this.vtbl.GetEntries := CallbackCreate(ObjBindMethod(implObj, "GetEntries"), flags, 2)
     }
 
     Dispose() {

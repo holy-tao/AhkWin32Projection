@@ -173,8 +173,8 @@ export default struct IBitsPeerCacheRecord extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeercacherecord-getfileranges
      */
     GetFileRanges(pRangeCount, ppRanges) {
-        pRangeCountMarshal := pRangeCount is VarRef ? "uint*" : "ptr"
-        ppRangesMarshal := ppRanges is VarRef ? "ptr*" : "ptr"
+        pRangeCountMarshal := pRangeCount is VarRef ? "uint*" : IntPtr
+        ppRangesMarshal := ppRanges is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(9, this, pRangeCountMarshal, pRangeCount, ppRangesMarshal, ppRanges, "HRESULT")
         return result
@@ -189,13 +189,13 @@ export default struct IBitsPeerCacheRecord extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetId := CallbackCreate(GetMethod(implObj, "GetId"), flags, 2)
-        this.vtbl.GetOriginUrl := CallbackCreate(GetMethod(implObj, "GetOriginUrl"), flags, 2)
-        this.vtbl.GetFileSize := CallbackCreate(GetMethod(implObj, "GetFileSize"), flags, 2)
-        this.vtbl.GetFileModificationTime := CallbackCreate(GetMethod(implObj, "GetFileModificationTime"), flags, 2)
-        this.vtbl.GetLastAccessTime := CallbackCreate(GetMethod(implObj, "GetLastAccessTime"), flags, 2)
-        this.vtbl.IsFileValidated := CallbackCreate(GetMethod(implObj, "IsFileValidated"), flags, 1)
-        this.vtbl.GetFileRanges := CallbackCreate(GetMethod(implObj, "GetFileRanges"), flags, 3)
+        this.vtbl.GetId := CallbackCreate(ObjBindMethod(implObj, "GetId"), flags, 2)
+        this.vtbl.GetOriginUrl := CallbackCreate(ObjBindMethod(implObj, "GetOriginUrl"), flags, 2)
+        this.vtbl.GetFileSize := CallbackCreate(ObjBindMethod(implObj, "GetFileSize"), flags, 2)
+        this.vtbl.GetFileModificationTime := CallbackCreate(ObjBindMethod(implObj, "GetFileModificationTime"), flags, 2)
+        this.vtbl.GetLastAccessTime := CallbackCreate(ObjBindMethod(implObj, "GetLastAccessTime"), flags, 2)
+        this.vtbl.IsFileValidated := CallbackCreate(ObjBindMethod(implObj, "IsFileValidated"), flags, 1)
+        this.vtbl.GetFileRanges := CallbackCreate(ObjBindMethod(implObj, "GetFileRanges"), flags, 3)
     }
 
     Dispose() {

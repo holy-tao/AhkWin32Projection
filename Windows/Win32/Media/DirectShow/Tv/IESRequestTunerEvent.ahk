@@ -91,10 +91,10 @@ export default struct IESRequestTunerEvent extends IESEvent {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPriority := CallbackCreate(GetMethod(implObj, "GetPriority"), flags, 2)
-        this.vtbl.GetReason := CallbackCreate(GetMethod(implObj, "GetReason"), flags, 2)
-        this.vtbl.GetConsequences := CallbackCreate(GetMethod(implObj, "GetConsequences"), flags, 2)
-        this.vtbl.GetEstimatedTime := CallbackCreate(GetMethod(implObj, "GetEstimatedTime"), flags, 2)
+        this.vtbl.GetPriority := CallbackCreate(ObjBindMethod(implObj, "GetPriority"), flags, 2)
+        this.vtbl.GetReason := CallbackCreate(ObjBindMethod(implObj, "GetReason"), flags, 2)
+        this.vtbl.GetConsequences := CallbackCreate(ObjBindMethod(implObj, "GetConsequences"), flags, 2)
+        this.vtbl.GetEstimatedTime := CallbackCreate(ObjBindMethod(implObj, "GetEstimatedTime"), flags, 2)
     }
 
     Dispose() {

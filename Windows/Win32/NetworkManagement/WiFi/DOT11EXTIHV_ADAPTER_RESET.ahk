@@ -19,12 +19,13 @@ export default struct DOT11EXTIHV_ADAPTER_RESET {
     }
 
     /**
-     * 
      * @param {HANDLE} hIhvExtAdapter 
      * @returns {Integer} 
      */
     Call(hIhvExtAdapter) {
-        result := DllCall(this.value, HANDLE, hIhvExtAdapter, UInt32)
+        hIhvExtAdapterMarshal := hIhvExtAdapter == 0 ? IntPtr : HANDLE
+
+        result := DllCall(this.value, hIhvExtAdapterMarshal, hIhvExtAdapter, UInt32)
         return result
     }
 

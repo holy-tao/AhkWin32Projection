@@ -99,9 +99,9 @@ export default struct IRDPSRAPISharingSession2 extends IRDPSRAPISharingSession {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ConnectUsingTransportStream := CallbackCreate(GetMethod(implObj, "ConnectUsingTransportStream"), flags, 4)
-        this.vtbl.get_FrameBuffer := CallbackCreate(GetMethod(implObj, "get_FrameBuffer"), flags, 2)
-        this.vtbl.SendControlLevelChangeResponse := CallbackCreate(GetMethod(implObj, "SendControlLevelChangeResponse"), flags, 4)
+        this.vtbl.ConnectUsingTransportStream := CallbackCreate(ObjBindMethod(implObj, "ConnectUsingTransportStream"), flags, 4)
+        this.vtbl.get_FrameBuffer := CallbackCreate(ObjBindMethod(implObj, "get_FrameBuffer"), flags, 2)
+        this.vtbl.SendControlLevelChangeResponse := CallbackCreate(ObjBindMethod(implObj, "SendControlLevelChangeResponse"), flags, 4)
     }
 
     Dispose() {

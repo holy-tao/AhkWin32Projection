@@ -124,8 +124,8 @@ export default struct ID3D11ClassLinkage extends ID3D11DeviceChild {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetClassInstance := CallbackCreate(GetMethod(implObj, "GetClassInstance"), flags, 4)
-        this.vtbl.CreateClassInstance := CallbackCreate(GetMethod(implObj, "CreateClassInstance"), flags, 7)
+        this.vtbl.GetClassInstance := CallbackCreate(ObjBindMethod(implObj, "GetClassInstance"), flags, 4)
+        this.vtbl.CreateClassInstance := CallbackCreate(ObjBindMethod(implObj, "CreateClassInstance"), flags, 7)
     }
 
     Dispose() {

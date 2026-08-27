@@ -96,9 +96,9 @@ export default struct IAppxBundleWriter4 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddPayloadPackage := CallbackCreate(GetMethod(implObj, "AddPayloadPackage"), flags, 4)
-        this.vtbl.AddPackageReference := CallbackCreate(GetMethod(implObj, "AddPackageReference"), flags, 4)
-        this.vtbl.AddExternalPackageReference := CallbackCreate(GetMethod(implObj, "AddExternalPackageReference"), flags, 4)
+        this.vtbl.AddPayloadPackage := CallbackCreate(ObjBindMethod(implObj, "AddPayloadPackage"), flags, 4)
+        this.vtbl.AddPackageReference := CallbackCreate(ObjBindMethod(implObj, "AddPackageReference"), flags, 4)
+        this.vtbl.AddExternalPackageReference := CallbackCreate(ObjBindMethod(implObj, "AddExternalPackageReference"), flags, 4)
     }
 
     Dispose() {

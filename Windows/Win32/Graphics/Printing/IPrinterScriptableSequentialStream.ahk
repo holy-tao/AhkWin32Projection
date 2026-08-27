@@ -37,7 +37,6 @@ export default struct IPrinterScriptableSequentialStream extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} cbRead 
      * @returns {IDispatch} 
      */
@@ -47,7 +46,6 @@ export default struct IPrinterScriptableSequentialStream extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} pArray 
      * @returns {Integer} 
      */
@@ -65,8 +63,8 @@ export default struct IPrinterScriptableSequentialStream extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Read := CallbackCreate(GetMethod(implObj, "Read"), flags, 3)
-        this.vtbl.Write := CallbackCreate(GetMethod(implObj, "Write"), flags, 3)
+        this.vtbl.Read := CallbackCreate(ObjBindMethod(implObj, "Read"), flags, 3)
+        this.vtbl.Write := CallbackCreate(ObjBindMethod(implObj, "Write"), flags, 3)
     }
 
     Dispose() {

@@ -99,7 +99,7 @@ export default struct ISyncMgrSyncCallback extends IUnknown {
         pszItemID := pszItemID is String ? StrPtr(pszItemID) : pszItemID
         pszProgressText := pszProgressText is String ? StrPtr(pszProgressText) : pszProgressText
 
-        pnCancelRequestMarshal := pnCancelRequest is VarRef ? "int*" : "ptr"
+        pnCancelRequestMarshal := pnCancelRequest is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, "ptr", pszItemID, "ptr", pszProgressText, SYNCMGR_PROGRESS_STATUS, nStatus, UInt32, uCurrentStep, UInt32, uMaxStep, pnCancelRequestMarshal, pnCancelRequest, "HRESULT")
         return result
@@ -121,7 +121,7 @@ export default struct ISyncMgrSyncCallback extends IUnknown {
     SetHandlerProgressText(pszProgressText, pnCancelRequest) {
         pszProgressText := pszProgressText is String ? StrPtr(pszProgressText) : pszProgressText
 
-        pnCancelRequestMarshal := pnCancelRequest is VarRef ? "int*" : "ptr"
+        pnCancelRequestMarshal := pnCancelRequest is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, "ptr", pszProgressText, pnCancelRequestMarshal, pnCancelRequest, "HRESULT")
         return result
@@ -258,7 +258,6 @@ export default struct ISyncMgrSyncCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} punk 
      * @returns {HRESULT} 
      */
@@ -322,16 +321,16 @@ export default struct ISyncMgrSyncCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ReportProgress := CallbackCreate(GetMethod(implObj, "ReportProgress"), flags, 7)
-        this.vtbl.SetHandlerProgressText := CallbackCreate(GetMethod(implObj, "SetHandlerProgressText"), flags, 3)
-        this.vtbl.ReportEvent := CallbackCreate(GetMethod(implObj, "ReportEvent"), flags, 10)
-        this.vtbl.CanContinue := CallbackCreate(GetMethod(implObj, "CanContinue"), flags, 2)
-        this.vtbl.QueryForAdditionalItems := CallbackCreate(GetMethod(implObj, "QueryForAdditionalItems"), flags, 3)
-        this.vtbl.AddItemToSession := CallbackCreate(GetMethod(implObj, "AddItemToSession"), flags, 2)
-        this.vtbl.AddIUnknownToSession := CallbackCreate(GetMethod(implObj, "AddIUnknownToSession"), flags, 2)
-        this.vtbl.ProposeItem := CallbackCreate(GetMethod(implObj, "ProposeItem"), flags, 2)
-        this.vtbl.CommitItem := CallbackCreate(GetMethod(implObj, "CommitItem"), flags, 2)
-        this.vtbl.ReportManualSync := CallbackCreate(GetMethod(implObj, "ReportManualSync"), flags, 1)
+        this.vtbl.ReportProgress := CallbackCreate(ObjBindMethod(implObj, "ReportProgress"), flags, 7)
+        this.vtbl.SetHandlerProgressText := CallbackCreate(ObjBindMethod(implObj, "SetHandlerProgressText"), flags, 3)
+        this.vtbl.ReportEvent := CallbackCreate(ObjBindMethod(implObj, "ReportEvent"), flags, 10)
+        this.vtbl.CanContinue := CallbackCreate(ObjBindMethod(implObj, "CanContinue"), flags, 2)
+        this.vtbl.QueryForAdditionalItems := CallbackCreate(ObjBindMethod(implObj, "QueryForAdditionalItems"), flags, 3)
+        this.vtbl.AddItemToSession := CallbackCreate(ObjBindMethod(implObj, "AddItemToSession"), flags, 2)
+        this.vtbl.AddIUnknownToSession := CallbackCreate(ObjBindMethod(implObj, "AddIUnknownToSession"), flags, 2)
+        this.vtbl.ProposeItem := CallbackCreate(ObjBindMethod(implObj, "ProposeItem"), flags, 2)
+        this.vtbl.CommitItem := CallbackCreate(ObjBindMethod(implObj, "CommitItem"), flags, 2)
+        this.vtbl.ReportManualSync := CallbackCreate(ObjBindMethod(implObj, "ReportManualSync"), flags, 1)
     }
 
     Dispose() {

@@ -86,8 +86,8 @@ export default struct ICoreWindowInterop extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_WindowHandle := CallbackCreate(GetMethod(implObj, "get_WindowHandle"), flags, 2)
-        this.vtbl.put_MessageHandled := CallbackCreate(GetMethod(implObj, "put_MessageHandled"), flags, 2)
+        this.vtbl.get_WindowHandle := CallbackCreate(ObjBindMethod(implObj, "get_WindowHandle"), flags, 2)
+        this.vtbl.put_MessageHandled := CallbackCreate(ObjBindMethod(implObj, "put_MessageHandled"), flags, 2)
     }
 
     Dispose() {

@@ -35,8 +35,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-ntqueryinformationprocess
  */
 export NtQueryInformationProcess(ProcessHandle, ProcessInformationClass, ProcessInformation, ProcessInformationLength, ReturnLength) {
-    ProcessInformationMarshal := ProcessInformation is VarRef ? "ptr" : "ptr"
-    ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
+    ProcessInformationMarshal := ProcessInformation is VarRef ? "ptr" : IntPtr
+    ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ntdll.dll\NtQueryInformationProcess", HANDLE, ProcessHandle, PROCESSINFOCLASS, ProcessInformationClass, ProcessInformationMarshal, ProcessInformation, UInt32, ProcessInformationLength, ReturnLengthMarshal, ReturnLength, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -158,8 +158,8 @@ export NtQueryInformationProcess(ProcessHandle, ProcessInformationClass, Process
  * @see https://learn.microsoft.com/windows/win32/ProcThread/zwqueryinformationprocess
  */
 export ZwQueryInformationProcess(ProcessHandle, ProcessInformationClass, ProcessInformation, ProcessInformationLength, ReturnLength) {
-    ProcessInformationMarshal := ProcessInformation is VarRef ? "ptr" : "ptr"
-    ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
+    ProcessInformationMarshal := ProcessInformation is VarRef ? "ptr" : IntPtr
+    ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ntdll.dll\ZwQueryInformationProcess", HANDLE, ProcessHandle, PROCESSINFOCLASS, ProcessInformationClass, ProcessInformationMarshal, ProcessInformation, UInt32, ProcessInformationLength, ReturnLengthMarshal, ReturnLength, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -195,8 +195,8 @@ export ZwQueryInformationProcess(ProcessHandle, ProcessInformationClass, Process
  * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-ntqueryinformationthread
  */
 export NtQueryInformationThread(ThreadHandle, ThreadInformationClass, ThreadInformation, ThreadInformationLength, ReturnLength) {
-    ThreadInformationMarshal := ThreadInformation is VarRef ? "ptr" : "ptr"
-    ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
+    ThreadInformationMarshal := ThreadInformation is VarRef ? "ptr" : IntPtr
+    ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ntdll.dll\NtQueryInformationThread", HANDLE, ThreadHandle, THREADINFOCLASS, ThreadInformationClass, ThreadInformationMarshal, ThreadInformation, UInt32, ThreadInformationLength, ReturnLengthMarshal, ReturnLength, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -204,7 +204,6 @@ export NtQueryInformationThread(ThreadHandle, ThreadInformationClass, ThreadInfo
 }
 
 /**
- * 
  * @param {HANDLE} ThreadHandle 
  * @param {THREADINFOCLASS} ThreadInformationClass 
  * @param {Pointer<Void>} ThreadInformation 
@@ -213,8 +212,8 @@ export NtQueryInformationThread(ThreadHandle, ThreadInformationClass, ThreadInfo
  * @returns {NTSTATUS} 
  */
 export ZwQueryInformationThread(ThreadHandle, ThreadInformationClass, ThreadInformation, ThreadInformationLength, ReturnLength) {
-    ThreadInformationMarshal := ThreadInformation is VarRef ? "ptr" : "ptr"
-    ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
+    ThreadInformationMarshal := ThreadInformation is VarRef ? "ptr" : IntPtr
+    ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ntdll.dll\ZwQueryInformationThread", HANDLE, ThreadHandle, THREADINFOCLASS, ThreadInformationClass, ThreadInformationMarshal, ThreadInformation, UInt32, ThreadInformationLength, ReturnLengthMarshal, ReturnLength, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -222,7 +221,6 @@ export ZwQueryInformationThread(ThreadHandle, ThreadInformationClass, ThreadInfo
 }
 
 /**
- * 
  * @param {HANDLE} ThreadHandle 
  * @param {THREADINFOCLASS} ThreadInformationClass 
  * @param {Integer} ThreadInformation 
@@ -305,7 +303,7 @@ export NtSetInformationThread(ThreadHandle, ThreadInformationClass, ThreadInform
  * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-ntwaitforsingleobject
  */
 export NtWaitForSingleObject(_Handle, Alertable, Timeout) {
-    TimeoutMarshal := Timeout is VarRef ? "int64*" : "ptr"
+    TimeoutMarshal := Timeout is VarRef ? "int64*" : IntPtr
 
     result := DllCall("ntdll.dll\NtWaitForSingleObject", HANDLE, _Handle, BOOLEAN, Alertable, TimeoutMarshal, Timeout, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -313,19 +311,19 @@ export NtWaitForSingleObject(_Handle, Alertable, Timeout) {
 }
 
 /**
- * 
  * @param {HANDLE} ProcessHandle 
  * @param {NTSTATUS} ExitStatus 
  * @returns {NTSTATUS} 
  */
 export NtTerminateProcess(ProcessHandle, ExitStatus) {
-    result := DllCall("ntdll.dll\NtTerminateProcess", HANDLE, ProcessHandle, NTSTATUS, ExitStatus, NTSTATUS)
+    ProcessHandleMarshal := ProcessHandle == 0 ? IntPtr : HANDLE
+
+    result := DllCall("ntdll.dll\NtTerminateProcess", ProcessHandleMarshal, ProcessHandle, NTSTATUS, ExitStatus, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
 /**
- * 
  * @param {Pointer<HANDLE>} TimerHandle 
  * @param {Integer} DesiredAccess 
  * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -333,13 +331,14 @@ export NtTerminateProcess(ProcessHandle, ExitStatus) {
  * @returns {NTSTATUS} 
  */
 export NtCreateTimer(TimerHandle, DesiredAccess, ObjectAttributes, TimerType) {
-    result := DllCall("ntdll.dll\NtCreateTimer", HANDLE.Ptr, TimerHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, TIMER_TYPE, TimerType, NTSTATUS)
+    ObjectAttributesMarshal := ObjectAttributes == 0 ? IntPtr : OBJECT_ATTRIBUTES.Ptr
+
+    result := DllCall("ntdll.dll\NtCreateTimer", HANDLE.Ptr, TimerHandle, UInt32, DesiredAccess, ObjectAttributesMarshal, ObjectAttributes, TIMER_TYPE, TimerType, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
 /**
- * 
  * @param {Pointer<HANDLE>} TimerHandle 
  * @param {Integer} DesiredAccess 
  * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -352,13 +351,13 @@ export NtOpenTimer(TimerHandle, DesiredAccess, ObjectAttributes) {
 }
 
 /**
- * 
  * @param {HANDLE} TimerHandle 
  * @param {Pointer<BOOLEAN>} CurrentState 
  * @returns {NTSTATUS} 
  */
 export NtCancelTimer(TimerHandle, CurrentState) {
-    CurrentStateMarshal := CurrentState is VarRef ? "char*" : "ptr"
+    CurrentStateMarshal := CurrentState is VarRef ? "char*" : IntPtr
+    CurrentStateMarshal := CurrentState == 0 ? IntPtr : BOOLEAN.Ptr
 
     result := DllCall("ntdll.dll\NtCancelTimer", HANDLE, TimerHandle, CurrentStateMarshal, CurrentState, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -366,7 +365,6 @@ export NtCancelTimer(TimerHandle, CurrentState) {
 }
 
 /**
- * 
  * @param {HANDLE} TimerHandle 
  * @param {Pointer<Integer>} DueTime 
  * @param {Pointer<PTIMER_APC_ROUTINE>} TimerApcRoutine 
@@ -377,17 +375,20 @@ export NtCancelTimer(TimerHandle, CurrentState) {
  * @returns {NTSTATUS} 
  */
 export NtSetTimer(TimerHandle, DueTime, TimerApcRoutine, TimerContext, ResumeTimer, Period, PreviousState) {
-    DueTimeMarshal := DueTime is VarRef ? "int64*" : "ptr"
-    TimerContextMarshal := TimerContext is VarRef ? "ptr" : "ptr"
-    PreviousStateMarshal := PreviousState is VarRef ? "char*" : "ptr"
+    DueTimeMarshal := DueTime is VarRef ? "int64*" : IntPtr
+    TimerApcRoutineMarshal := TimerApcRoutine == 0 ? IntPtr : PTIMER_APC_ROUTINE
+    TimerContextMarshal := TimerContext is VarRef ? "ptr" : IntPtr
+    TimerContextMarshal := TimerContext == 0 ? IntPtr : "ptr"
+    PeriodMarshal := Period == 0 ? IntPtr : Int32
+    PreviousStateMarshal := PreviousState is VarRef ? "char*" : IntPtr
+    PreviousStateMarshal := PreviousState == 0 ? IntPtr : BOOLEAN.Ptr
 
-    result := DllCall("ntdll.dll\NtSetTimer", HANDLE, TimerHandle, DueTimeMarshal, DueTime, PTIMER_APC_ROUTINE, TimerApcRoutine, TimerContextMarshal, TimerContext, BOOLEAN, ResumeTimer, Int32, Period, PreviousStateMarshal, PreviousState, NTSTATUS)
+    result := DllCall("ntdll.dll\NtSetTimer", HANDLE, TimerHandle, DueTimeMarshal, DueTime, TimerApcRoutineMarshal, TimerApcRoutine, TimerContextMarshal, TimerContext, BOOLEAN, ResumeTimer, PeriodMarshal, Period, PreviousStateMarshal, PreviousState, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
 /**
- * 
  * @param {HANDLE} TimerHandle 
  * @param {TIMER_SET_INFORMATION_CLASS} TimerSetInformationClass 
  * @param {Integer} TimerSetInformation 
@@ -395,13 +396,14 @@ export NtSetTimer(TimerHandle, DueTime, TimerApcRoutine, TimerContext, ResumeTim
  * @returns {NTSTATUS} 
  */
 export NtSetTimerEx(TimerHandle, TimerSetInformationClass, TimerSetInformation, TimerSetInformationLength) {
-    result := DllCall("ntdll.dll\NtSetTimerEx", HANDLE, TimerHandle, TIMER_SET_INFORMATION_CLASS, TimerSetInformationClass, IntPtr, TimerSetInformation, UInt32, TimerSetInformationLength, NTSTATUS)
+    TimerSetInformationMarshal := TimerSetInformation == 0 ? IntPtr : IntPtr
+
+    result := DllCall("ntdll.dll\NtSetTimerEx", HANDLE, TimerHandle, TIMER_SET_INFORMATION_CLASS, TimerSetInformationClass, TimerSetInformationMarshal, TimerSetInformation, UInt32, TimerSetInformationLength, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
 /**
- * 
  * @param {Pointer<HANDLE>} EventHandle 
  * @param {Integer} DesiredAccess 
  * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -414,14 +416,14 @@ export NtOpenEvent(EventHandle, DesiredAccess, ObjectAttributes) {
 }
 
 /**
- * 
  * @param {HANDLE} _Handle 
  * @param {BOOLEAN} Alertable 
  * @param {Pointer<Integer>} Timeout 
  * @returns {NTSTATUS} 
  */
 export ZwWaitForSingleObject(_Handle, Alertable, Timeout) {
-    TimeoutMarshal := Timeout is VarRef ? "int64*" : "ptr"
+    TimeoutMarshal := Timeout is VarRef ? "int64*" : IntPtr
+    TimeoutMarshal := Timeout == 0 ? IntPtr : "int64*"
 
     result := DllCall("ntdll.dll\ZwWaitForSingleObject", HANDLE, _Handle, BOOLEAN, Alertable, TimeoutMarshal, Timeout, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -429,7 +431,6 @@ export ZwWaitForSingleObject(_Handle, Alertable, Timeout) {
 }
 
 /**
- * 
  * @param {Pointer<HANDLE>} EventHandle 
  * @param {Integer} DesiredAccess 
  * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -442,7 +443,6 @@ export ZwOpenEvent(EventHandle, DesiredAccess, ObjectAttributes) {
 }
 
 /**
- * 
  * @param {Pointer<HANDLE>} ProcessHandle 
  * @param {Integer} DesiredAccess 
  * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -450,13 +450,14 @@ export ZwOpenEvent(EventHandle, DesiredAccess, ObjectAttributes) {
  * @returns {NTSTATUS} 
  */
 export NtOpenProcess(ProcessHandle, DesiredAccess, ObjectAttributes, ClientId) {
-    result := DllCall("ntdll.dll\NtOpenProcess", HANDLE.Ptr, ProcessHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, CLIENT_ID.Ptr, ClientId, NTSTATUS)
+    ClientIdMarshal := ClientId == 0 ? IntPtr : CLIENT_ID.Ptr
+
+    result := DllCall("ntdll.dll\NtOpenProcess", HANDLE.Ptr, ProcessHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, ClientIdMarshal, ClientId, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
 /**
- * 
  * @param {HANDLE} ThreadHandle 
  * @param {THREADINFOCLASS} ThreadInformationClass 
  * @param {Integer} ThreadInformation 
@@ -470,7 +471,6 @@ export ZwSetInformationThread(ThreadHandle, ThreadInformationClass, ThreadInform
 }
 
 /**
- * 
  * @param {Pointer<HANDLE>} TimerHandle 
  * @param {Integer} DesiredAccess 
  * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -478,13 +478,14 @@ export ZwSetInformationThread(ThreadHandle, ThreadInformationClass, ThreadInform
  * @returns {NTSTATUS} 
  */
 export ZwCreateTimer(TimerHandle, DesiredAccess, ObjectAttributes, TimerType) {
-    result := DllCall("ntdll.dll\ZwCreateTimer", HANDLE.Ptr, TimerHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, TIMER_TYPE, TimerType, NTSTATUS)
+    ObjectAttributesMarshal := ObjectAttributes == 0 ? IntPtr : OBJECT_ATTRIBUTES.Ptr
+
+    result := DllCall("ntdll.dll\ZwCreateTimer", HANDLE.Ptr, TimerHandle, UInt32, DesiredAccess, ObjectAttributesMarshal, ObjectAttributes, TIMER_TYPE, TimerType, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
 /**
- * 
  * @param {Pointer<HANDLE>} TimerHandle 
  * @param {Integer} DesiredAccess 
  * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -497,13 +498,13 @@ export ZwOpenTimer(TimerHandle, DesiredAccess, ObjectAttributes) {
 }
 
 /**
- * 
  * @param {HANDLE} TimerHandle 
  * @param {Pointer<BOOLEAN>} CurrentState 
  * @returns {NTSTATUS} 
  */
 export ZwCancelTimer(TimerHandle, CurrentState) {
-    CurrentStateMarshal := CurrentState is VarRef ? "char*" : "ptr"
+    CurrentStateMarshal := CurrentState is VarRef ? "char*" : IntPtr
+    CurrentStateMarshal := CurrentState == 0 ? IntPtr : BOOLEAN.Ptr
 
     result := DllCall("ntdll.dll\ZwCancelTimer", HANDLE, TimerHandle, CurrentStateMarshal, CurrentState, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -511,7 +512,6 @@ export ZwCancelTimer(TimerHandle, CurrentState) {
 }
 
 /**
- * 
  * @param {HANDLE} TimerHandle 
  * @param {Pointer<Integer>} DueTime 
  * @param {Pointer<PTIMER_APC_ROUTINE>} TimerApcRoutine 
@@ -522,17 +522,20 @@ export ZwCancelTimer(TimerHandle, CurrentState) {
  * @returns {NTSTATUS} 
  */
 export ZwSetTimer(TimerHandle, DueTime, TimerApcRoutine, TimerContext, ResumeTimer, Period, PreviousState) {
-    DueTimeMarshal := DueTime is VarRef ? "int64*" : "ptr"
-    TimerContextMarshal := TimerContext is VarRef ? "ptr" : "ptr"
-    PreviousStateMarshal := PreviousState is VarRef ? "char*" : "ptr"
+    DueTimeMarshal := DueTime is VarRef ? "int64*" : IntPtr
+    TimerApcRoutineMarshal := TimerApcRoutine == 0 ? IntPtr : PTIMER_APC_ROUTINE
+    TimerContextMarshal := TimerContext is VarRef ? "ptr" : IntPtr
+    TimerContextMarshal := TimerContext == 0 ? IntPtr : "ptr"
+    PeriodMarshal := Period == 0 ? IntPtr : Int32
+    PreviousStateMarshal := PreviousState is VarRef ? "char*" : IntPtr
+    PreviousStateMarshal := PreviousState == 0 ? IntPtr : BOOLEAN.Ptr
 
-    result := DllCall("ntdll.dll\ZwSetTimer", HANDLE, TimerHandle, DueTimeMarshal, DueTime, PTIMER_APC_ROUTINE, TimerApcRoutine, TimerContextMarshal, TimerContext, BOOLEAN, ResumeTimer, Int32, Period, PreviousStateMarshal, PreviousState, NTSTATUS)
+    result := DllCall("ntdll.dll\ZwSetTimer", HANDLE, TimerHandle, DueTimeMarshal, DueTime, TimerApcRoutineMarshal, TimerApcRoutine, TimerContextMarshal, TimerContext, BOOLEAN, ResumeTimer, PeriodMarshal, Period, PreviousStateMarshal, PreviousState, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
 /**
- * 
  * @param {HANDLE} TimerHandle 
  * @param {TIMER_SET_INFORMATION_CLASS} TimerSetInformationClass 
  * @param {Integer} TimerSetInformation 
@@ -540,25 +543,27 @@ export ZwSetTimer(TimerHandle, DueTime, TimerApcRoutine, TimerContext, ResumeTim
  * @returns {NTSTATUS} 
  */
 export ZwSetTimerEx(TimerHandle, TimerSetInformationClass, TimerSetInformation, TimerSetInformationLength) {
-    result := DllCall("ntdll.dll\ZwSetTimerEx", HANDLE, TimerHandle, TIMER_SET_INFORMATION_CLASS, TimerSetInformationClass, IntPtr, TimerSetInformation, UInt32, TimerSetInformationLength, NTSTATUS)
+    TimerSetInformationMarshal := TimerSetInformation == 0 ? IntPtr : IntPtr
+
+    result := DllCall("ntdll.dll\ZwSetTimerEx", HANDLE, TimerHandle, TIMER_SET_INFORMATION_CLASS, TimerSetInformationClass, TimerSetInformationMarshal, TimerSetInformation, UInt32, TimerSetInformationLength, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
 /**
- * 
  * @param {HANDLE} ProcessHandle 
  * @param {NTSTATUS} ExitStatus 
  * @returns {NTSTATUS} 
  */
 export ZwTerminateProcess(ProcessHandle, ExitStatus) {
-    result := DllCall("ntdll.dll\ZwTerminateProcess", HANDLE, ProcessHandle, NTSTATUS, ExitStatus, NTSTATUS)
+    ProcessHandleMarshal := ProcessHandle == 0 ? IntPtr : HANDLE
+
+    result := DllCall("ntdll.dll\ZwTerminateProcess", ProcessHandleMarshal, ProcessHandle, NTSTATUS, ExitStatus, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
 /**
- * 
  * @param {Pointer<HANDLE>} ProcessHandle 
  * @param {Integer} DesiredAccess 
  * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -566,7 +571,9 @@ export ZwTerminateProcess(ProcessHandle, ExitStatus) {
  * @returns {NTSTATUS} 
  */
 export ZwOpenProcess(ProcessHandle, DesiredAccess, ObjectAttributes, ClientId) {
-    result := DllCall("ntdll.dll\ZwOpenProcess", HANDLE.Ptr, ProcessHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, CLIENT_ID.Ptr, ClientId, NTSTATUS)
+    ClientIdMarshal := ClientId == 0 ? IntPtr : CLIENT_ID.Ptr
+
+    result := DllCall("ntdll.dll\ZwOpenProcess", HANDLE.Ptr, ProcessHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, ClientIdMarshal, ClientId, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }

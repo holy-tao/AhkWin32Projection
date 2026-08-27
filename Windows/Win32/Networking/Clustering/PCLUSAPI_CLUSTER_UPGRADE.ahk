@@ -21,7 +21,6 @@ export default struct PCLUSAPI_CLUSTER_UPGRADE {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {BOOL} perform 
      * @param {Pointer<PCLUSTER_UPGRADE_PROGRESS_CALLBACK>} pfnProgressCallback 
@@ -29,9 +28,11 @@ export default struct PCLUSAPI_CLUSTER_UPGRADE {
      * @returns {Integer} 
      */
     Call(_hCluster, perform, pfnProgressCallback, pvCallbackArg) {
-        pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
+        pfnProgressCallbackMarshal := pfnProgressCallback == 0 ? IntPtr : PCLUSTER_UPGRADE_PROGRESS_CALLBACK
+        pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : IntPtr
+        pvCallbackArgMarshal := pvCallbackArg == 0 ? IntPtr : "ptr"
 
-        result := DllCall(this.value, HCLUSTER, _hCluster, BOOL, perform, PCLUSTER_UPGRADE_PROGRESS_CALLBACK, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, UInt32)
+        result := DllCall(this.value, HCLUSTER, _hCluster, BOOL, perform, pfnProgressCallbackMarshal, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, UInt32)
         return result
     }
 

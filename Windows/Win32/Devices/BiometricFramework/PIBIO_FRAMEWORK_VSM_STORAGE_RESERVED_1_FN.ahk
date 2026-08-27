@@ -20,7 +20,6 @@ export default struct PIBIO_FRAMEWORK_VSM_STORAGE_RESERVED_1_FN {
     }
 
     /**
-     * 
      * @param {Pointer} Reserved1 
      * @returns {HRESULT} 
      */

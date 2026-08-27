@@ -96,9 +96,9 @@ export default struct IUserNotificationCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnBalloonUserClick := CallbackCreate(GetMethod(implObj, "OnBalloonUserClick"), flags, 2)
-        this.vtbl.OnLeftClick := CallbackCreate(GetMethod(implObj, "OnLeftClick"), flags, 2)
-        this.vtbl.OnContextMenu := CallbackCreate(GetMethod(implObj, "OnContextMenu"), flags, 2)
+        this.vtbl.OnBalloonUserClick := CallbackCreate(ObjBindMethod(implObj, "OnBalloonUserClick"), flags, 2)
+        this.vtbl.OnLeftClick := CallbackCreate(ObjBindMethod(implObj, "OnLeftClick"), flags, 2)
+        this.vtbl.OnContextMenu := CallbackCreate(ObjBindMethod(implObj, "OnContextMenu"), flags, 2)
     }
 
     Dispose() {

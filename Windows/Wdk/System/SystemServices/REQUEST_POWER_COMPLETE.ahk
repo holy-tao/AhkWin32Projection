@@ -21,7 +21,6 @@ export default struct REQUEST_POWER_COMPLETE {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Integer} MinorFunction 
      * @param {POWER_STATE} PowerState 
@@ -30,7 +29,8 @@ export default struct REQUEST_POWER_COMPLETE {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(DeviceObject, MinorFunction, PowerState, _Context, IoStatus) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, DEVICE_OBJECT.Ptr, DeviceObject, Int8, MinorFunction, POWER_STATE, PowerState, _ContextMarshal, _Context, IO_STATUS_BLOCK.Ptr, IoStatus)
     }

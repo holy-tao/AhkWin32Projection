@@ -202,10 +202,10 @@ export default struct IMFVideoMixerBitmap extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAlphaBitmap := CallbackCreate(GetMethod(implObj, "SetAlphaBitmap"), flags, 2)
-        this.vtbl.ClearAlphaBitmap := CallbackCreate(GetMethod(implObj, "ClearAlphaBitmap"), flags, 1)
-        this.vtbl.UpdateAlphaBitmapParameters := CallbackCreate(GetMethod(implObj, "UpdateAlphaBitmapParameters"), flags, 2)
-        this.vtbl.GetAlphaBitmapParameters := CallbackCreate(GetMethod(implObj, "GetAlphaBitmapParameters"), flags, 2)
+        this.vtbl.SetAlphaBitmap := CallbackCreate(ObjBindMethod(implObj, "SetAlphaBitmap"), flags, 2)
+        this.vtbl.ClearAlphaBitmap := CallbackCreate(ObjBindMethod(implObj, "ClearAlphaBitmap"), flags, 1)
+        this.vtbl.UpdateAlphaBitmapParameters := CallbackCreate(ObjBindMethod(implObj, "UpdateAlphaBitmapParameters"), flags, 2)
+        this.vtbl.GetAlphaBitmapParameters := CallbackCreate(ObjBindMethod(implObj, "GetAlphaBitmapParameters"), flags, 2)
     }
 
     Dispose() {

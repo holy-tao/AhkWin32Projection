@@ -262,14 +262,14 @@ export default struct IXpsOMDocument extends IXpsOMPart {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOwner := CallbackCreate(GetMethod(implObj, "GetOwner"), flags, 2)
-        this.vtbl.GetPageReferences := CallbackCreate(GetMethod(implObj, "GetPageReferences"), flags, 2)
-        this.vtbl.GetPrintTicketResource := CallbackCreate(GetMethod(implObj, "GetPrintTicketResource"), flags, 2)
-        this.vtbl.SetPrintTicketResource := CallbackCreate(GetMethod(implObj, "SetPrintTicketResource"), flags, 2)
-        this.vtbl.GetDocumentStructureResource := CallbackCreate(GetMethod(implObj, "GetDocumentStructureResource"), flags, 2)
-        this.vtbl.SetDocumentStructureResource := CallbackCreate(GetMethod(implObj, "SetDocumentStructureResource"), flags, 2)
-        this.vtbl.GetSignatureBlockResources := CallbackCreate(GetMethod(implObj, "GetSignatureBlockResources"), flags, 2)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.GetOwner := CallbackCreate(ObjBindMethod(implObj, "GetOwner"), flags, 2)
+        this.vtbl.GetPageReferences := CallbackCreate(ObjBindMethod(implObj, "GetPageReferences"), flags, 2)
+        this.vtbl.GetPrintTicketResource := CallbackCreate(ObjBindMethod(implObj, "GetPrintTicketResource"), flags, 2)
+        this.vtbl.SetPrintTicketResource := CallbackCreate(ObjBindMethod(implObj, "SetPrintTicketResource"), flags, 2)
+        this.vtbl.GetDocumentStructureResource := CallbackCreate(ObjBindMethod(implObj, "GetDocumentStructureResource"), flags, 2)
+        this.vtbl.SetDocumentStructureResource := CallbackCreate(ObjBindMethod(implObj, "SetDocumentStructureResource"), flags, 2)
+        this.vtbl.GetSignatureBlockResources := CallbackCreate(ObjBindMethod(implObj, "GetSignatureBlockResources"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
     }
 
     Dispose() {

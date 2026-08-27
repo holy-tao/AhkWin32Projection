@@ -20,7 +20,6 @@ export default struct DebugEventProc {
     }
 
     /**
-     * 
      * @param {DebugEventLevel} level 
      * @param {PSTR} message 
      * @returns {String} Nothing - always returns an empty string

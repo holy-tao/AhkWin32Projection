@@ -78,8 +78,8 @@ export default struct IRdcComparator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdccomparator-process
      */
     Process(endOfInput, endOfOutput, inputBuffer, outputBuffer, _rdc_ErrorCode) {
-        endOfOutputMarshal := endOfOutput is VarRef ? "int*" : "ptr"
-        _rdc_ErrorCodeMarshal := _rdc_ErrorCode is VarRef ? "int*" : "ptr"
+        endOfOutputMarshal := endOfOutput is VarRef ? "int*" : IntPtr
+        _rdc_ErrorCodeMarshal := _rdc_ErrorCode is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, BOOL, endOfInput, endOfOutputMarshal, endOfOutput, RdcBufferPointer.Ptr, inputBuffer, RdcNeedPointer.Ptr, outputBuffer, _rdc_ErrorCodeMarshal, _rdc_ErrorCode, "HRESULT")
         return result
@@ -94,7 +94,7 @@ export default struct IRdcComparator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Process := CallbackCreate(GetMethod(implObj, "Process"), flags, 6)
+        this.vtbl.Process := CallbackCreate(ObjBindMethod(implObj, "Process"), flags, 6)
     }
 
     Dispose() {

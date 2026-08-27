@@ -37,7 +37,6 @@ export default struct IAppxBundleManifestPackageInfo4 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetIsStub() {
@@ -54,7 +53,7 @@ export default struct IAppxBundleManifestPackageInfo4 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetIsStub := CallbackCreate(GetMethod(implObj, "GetIsStub"), flags, 2)
+        this.vtbl.GetIsStub := CallbackCreate(ObjBindMethod(implObj, "GetIsStub"), flags, 2)
     }
 
     Dispose() {

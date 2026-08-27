@@ -59,81 +59,75 @@
 
 ;@region Functions
 /**
- * 
  * @param {Pointer<Integer>} String1 
  * @param {Pointer<Integer>} String2 
  * @returns {Integer} 
  */
 export uaw_lstrcmpW(String1, String2) {
-    String1Marshal := String1 is VarRef ? "ushort*" : "ptr"
-    String2Marshal := String2 is VarRef ? "ushort*" : "ptr"
+    String1Marshal := String1 is VarRef ? "ushort*" : IntPtr
+    String2Marshal := String2 is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("KERNEL32.dll\uaw_lstrcmpW", String1Marshal, String1, String2Marshal, String2, Int32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} String1 
  * @param {Pointer<Integer>} String2 
  * @returns {Integer} 
  */
 export uaw_lstrcmpiW(String1, String2) {
-    String1Marshal := String1 is VarRef ? "ushort*" : "ptr"
-    String2Marshal := String2 is VarRef ? "ushort*" : "ptr"
+    String1Marshal := String1 is VarRef ? "ushort*" : IntPtr
+    String2Marshal := String2 is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("KERNEL32.dll\uaw_lstrcmpiW", String1Marshal, String1, String2Marshal, String2, Int32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} _String 
  * @returns {Integer} 
  */
 export uaw_lstrlenW(_String) {
-    _StringMarshal := _String is VarRef ? "ushort*" : "ptr"
+    _StringMarshal := _String is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("KERNEL32.dll\uaw_lstrlenW", _StringMarshal, _String, Int32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} _String 
  * @param {Integer} Character 
  * @returns {Pointer<Integer>} 
  */
 export uaw_wcschr(_String, Character) {
-    _StringMarshal := _String is VarRef ? "ushort*" : "ptr"
+    _StringMarshal := _String is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("KERNEL32.dll\uaw_wcschr", _StringMarshal, _String, Int8, Character, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} Destination 
  * @param {Pointer<Integer>} Source 
  * @returns {Pointer<Integer>} 
  */
 export uaw_wcscpy(Destination, Source) {
-    DestinationMarshal := Destination is VarRef ? "ushort*" : "ptr"
-    SourceMarshal := Source is VarRef ? "ushort*" : "ptr"
+    DestinationMarshal := Destination is VarRef ? "ushort*" : IntPtr
+    SourceMarshal := Source is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("KERNEL32.dll\uaw_wcscpy", DestinationMarshal, Destination, SourceMarshal, Source, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} String1 
  * @param {Pointer<Integer>} String2 
  * @returns {Integer} 
  */
 export uaw_wcsicmp(String1, String2) {
-    String1Marshal := String1 is VarRef ? "ushort*" : "ptr"
-    String2Marshal := String2 is VarRef ? "ushort*" : "ptr"
+    String1Marshal := String1 is VarRef ? "ushort*" : IntPtr
+    String2Marshal := String2 is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("KERNEL32.dll\uaw_wcsicmp", String1Marshal, String1, String2Marshal, String2, Int32)
     return result
@@ -148,27 +142,25 @@ export uaw_wcsicmp(String1, String2) {
  * @see https://learn.microsoft.com/windows/win32/api/stralign/nf-stralign-uaw_wcslen
  */
 export uaw_wcslen(_String) {
-    _StringMarshal := _String is VarRef ? "ushort*" : "ptr"
+    _StringMarshal := _String is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("KERNEL32.dll\uaw_wcslen", _StringMarshal, _String, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} _String 
  * @param {Integer} Character 
  * @returns {Pointer<Integer>} 
  */
 export uaw_wcsrchr(_String, Character) {
-    _StringMarshal := _String is VarRef ? "ushort*" : "ptr"
+    _StringMarshal := _String is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("KERNEL32.dll\uaw_wcsrchr", _StringMarshal, _String, Int8, Character, IntPtr)
     return result
 }
 
 /**
- * 
  * @returns {Pointer} 
  */
 export RtlGetReturnAddressHijackTarget() {
@@ -177,7 +169,6 @@ export RtlGetReturnAddressHijackTarget() {
 }
 
 /**
- * 
  * @param {Pointer<CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG>} TriggerConfig 
  * @returns {Integer} 
  */
@@ -210,7 +201,6 @@ export IsApiSetImplemented(Contract) {
 }
 
 /**
- * 
  * @param {PSTR} contractName 
  * @param {Integer} bufferLength 
  * @param {PWSTR} moduleBaseName 
@@ -244,7 +234,7 @@ export GetApiSetModuleBaseName(contractName, bufferLength, moduleBaseName) {
  * @since windows6.0.6000
  */
 export QueryThreadCycleTime(ThreadHandle, CycleTime) {
-    CycleTimeMarshal := CycleTime is VarRef ? "uint*" : "ptr"
+    CycleTimeMarshal := CycleTime is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -274,7 +264,7 @@ export QueryThreadCycleTime(ThreadHandle, CycleTime) {
  * @since windows6.0.6000
  */
 export QueryProcessCycleTime(ProcessHandle, CycleTime) {
-    CycleTimeMarshal := CycleTime is VarRef ? "uint*" : "ptr"
+    CycleTimeMarshal := CycleTime is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -302,11 +292,12 @@ export QueryProcessCycleTime(ProcessHandle, CycleTime) {
  * @since windows6.0.6000
  */
 export QueryIdleProcessorCycleTime(BufferLength, ProcessorIdleCycleTime) {
-    BufferLengthMarshal := BufferLength is VarRef ? "uint*" : "ptr"
+    BufferLengthMarshal := BufferLength is VarRef ? "uint*" : IntPtr
+    ProcessorIdleCycleTimeMarshal := ProcessorIdleCycleTime == 0 ? IntPtr : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\QueryIdleProcessorCycleTime", BufferLengthMarshal, BufferLength, IntPtr, ProcessorIdleCycleTime, BOOL)
+    result := DllCall("KERNEL32.dll\QueryIdleProcessorCycleTime", BufferLengthMarshal, BufferLength, ProcessorIdleCycleTimeMarshal, ProcessorIdleCycleTime, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -330,9 +321,10 @@ export QueryIdleProcessorCycleTime(BufferLength, ProcessorIdleCycleTime) {
  * @since windows6.1
  */
 export QueryIdleProcessorCycleTimeEx(Group, BufferLength, ProcessorIdleCycleTime) {
-    BufferLengthMarshal := BufferLength is VarRef ? "uint*" : "ptr"
+    BufferLengthMarshal := BufferLength is VarRef ? "uint*" : IntPtr
+    ProcessorIdleCycleTimeMarshal := ProcessorIdleCycleTime == 0 ? IntPtr : IntPtr
 
-    result := DllCall("KERNEL32.dll\QueryIdleProcessorCycleTimeEx", UInt16, Group, BufferLengthMarshal, BufferLength, IntPtr, ProcessorIdleCycleTime, BOOL)
+    result := DllCall("KERNEL32.dll\QueryIdleProcessorCycleTimeEx", UInt16, Group, BufferLengthMarshal, BufferLength, ProcessorIdleCycleTimeMarshal, ProcessorIdleCycleTime, BOOL)
     return result
 }
 
@@ -357,7 +349,7 @@ export QueryIdleProcessorCycleTimeEx(Group, BufferLength, ProcessorIdleCycleTime
  * @since windows10.0.10240
  */
 export QueryInterruptTimePrecise(lpInterruptTimePrecise) {
-    lpInterruptTimePreciseMarshal := lpInterruptTimePrecise is VarRef ? "uint*" : "ptr"
+    lpInterruptTimePreciseMarshal := lpInterruptTimePrecise is VarRef ? "uint*" : IntPtr
 
     DllCall("api-ms-win-core-realtime-l1-1-1.dll\QueryInterruptTimePrecise", lpInterruptTimePreciseMarshal, lpInterruptTimePrecise)
 }
@@ -383,7 +375,7 @@ export QueryInterruptTimePrecise(lpInterruptTimePrecise) {
  * @since windows10.0.10240
  */
 export QueryUnbiasedInterruptTimePrecise(lpUnbiasedInterruptTimePrecise) {
-    lpUnbiasedInterruptTimePreciseMarshal := lpUnbiasedInterruptTimePrecise is VarRef ? "uint*" : "ptr"
+    lpUnbiasedInterruptTimePreciseMarshal := lpUnbiasedInterruptTimePrecise is VarRef ? "uint*" : IntPtr
 
     DllCall("api-ms-win-core-realtime-l1-1-1.dll\QueryUnbiasedInterruptTimePrecise", lpUnbiasedInterruptTimePreciseMarshal, lpUnbiasedInterruptTimePrecise)
 }
@@ -407,7 +399,7 @@ export QueryUnbiasedInterruptTimePrecise(lpUnbiasedInterruptTimePrecise) {
  * @since windows10.0.10240
  */
 export QueryInterruptTime(lpInterruptTime) {
-    lpInterruptTimeMarshal := lpInterruptTime is VarRef ? "uint*" : "ptr"
+    lpInterruptTimeMarshal := lpInterruptTime is VarRef ? "uint*" : IntPtr
 
     DllCall("api-ms-win-core-realtime-l1-1-1.dll\QueryInterruptTime", lpInterruptTimeMarshal, lpInterruptTime)
 }
@@ -433,7 +425,7 @@ export QueryInterruptTime(lpInterruptTime) {
  * @since windows6.1
  */
 export QueryUnbiasedInterruptTime(UnbiasedTime) {
-    UnbiasedTimeMarshal := UnbiasedTime is VarRef ? "uint*" : "ptr"
+    UnbiasedTimeMarshal := UnbiasedTime is VarRef ? "uint*" : IntPtr
 
     result := DllCall("KERNEL32.dll\QueryUnbiasedInterruptTime", UnbiasedTimeMarshal, UnbiasedTime, BOOL)
     return result
@@ -502,8 +494,9 @@ export QueryAuxiliaryCounterFrequency() {
  * @since windows10.0.15063
  */
 export ConvertAuxiliaryCounterToPerformanceCounter(ullAuxiliaryCounterValue, lpPerformanceCounterValue, lpConversionError) {
-    lpPerformanceCounterValueMarshal := lpPerformanceCounterValue is VarRef ? "uint*" : "ptr"
-    lpConversionErrorMarshal := lpConversionError is VarRef ? "uint*" : "ptr"
+    lpPerformanceCounterValueMarshal := lpPerformanceCounterValue is VarRef ? "uint*" : IntPtr
+    lpConversionErrorMarshal := lpConversionError is VarRef ? "uint*" : IntPtr
+    lpConversionErrorMarshal := lpConversionError == 0 ? IntPtr : "uint*"
 
     result := DllCall("api-ms-win-core-realtime-l1-1-2.dll\ConvertAuxiliaryCounterToPerformanceCounter", Int64, ullAuxiliaryCounterValue, lpPerformanceCounterValueMarshal, lpPerformanceCounterValue, lpConversionErrorMarshal, lpConversionError, "HRESULT")
     return result
@@ -570,15 +563,15 @@ export ConvertAuxiliaryCounterToPerformanceCounter(ullAuxiliaryCounterValue, lpP
  * @since windows10.0.15063
  */
 export ConvertPerformanceCounterToAuxiliaryCounter(ullPerformanceCounterValue, lpAuxiliaryCounterValue, lpConversionError) {
-    lpAuxiliaryCounterValueMarshal := lpAuxiliaryCounterValue is VarRef ? "uint*" : "ptr"
-    lpConversionErrorMarshal := lpConversionError is VarRef ? "uint*" : "ptr"
+    lpAuxiliaryCounterValueMarshal := lpAuxiliaryCounterValue is VarRef ? "uint*" : IntPtr
+    lpConversionErrorMarshal := lpConversionError is VarRef ? "uint*" : IntPtr
+    lpConversionErrorMarshal := lpConversionError == 0 ? IntPtr : "uint*"
 
     result := DllCall("api-ms-win-core-realtime-l1-1-2.dll\ConvertPerformanceCounterToAuxiliaryCounter", Int64, ullPerformanceCounterValue, lpAuxiliaryCounterValueMarshal, lpAuxiliaryCounterValue, lpConversionErrorMarshal, lpConversionError, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {Integer} dwMinFree 
  * @returns {Pointer} 
  */
@@ -588,7 +581,6 @@ export GlobalCompact(dwMinFree) {
 }
 
 /**
- * 
  * @param {HGLOBAL} hMem 
  * @returns {String} Nothing - always returns an empty string
  */
@@ -597,7 +589,6 @@ export GlobalFix(hMem) {
 }
 
 /**
- * 
  * @param {HGLOBAL} hMem 
  * @returns {String} Nothing - always returns an empty string
  */
@@ -606,7 +597,6 @@ export GlobalUnfix(hMem) {
 }
 
 /**
- * 
  * @param {HGLOBAL} hMem 
  * @returns {Pointer<Void>} 
  */
@@ -616,7 +606,6 @@ export GlobalWire(hMem) {
 }
 
 /**
- * 
  * @param {HGLOBAL} hMem 
  * @returns {BOOL} 
  */
@@ -626,7 +615,6 @@ export GlobalUnWire(hMem) {
 }
 
 /**
- * 
  * @param {HLOCAL} hMem 
  * @param {Integer} cbNewSize 
  * @returns {Pointer} 
@@ -637,7 +625,6 @@ export LocalShrink(hMem, cbNewSize) {
 }
 
 /**
- * 
  * @param {Integer} uMinFree 
  * @returns {Pointer} 
  */
@@ -647,7 +634,6 @@ export LocalCompact(uMinFree) {
 }
 
 /**
- * 
  * @param {PSTR} NewEnvironment 
  * @returns {BOOL} 
  */
@@ -670,7 +656,6 @@ export SetHandleCount(uNumber) {
 }
 
 /**
- * 
  * @param {HANDLE} hDevice 
  * @returns {BOOL} 
  */
@@ -680,7 +665,6 @@ export RequestDeviceWakeup(hDevice) {
 }
 
 /**
- * 
  * @param {HANDLE} hDevice 
  * @returns {BOOL} 
  */
@@ -690,7 +674,6 @@ export CancelDeviceWakeupRequest(hDevice) {
 }
 
 /**
- * 
  * @param {HANDLE} hMsgIndicator 
  * @param {Integer} ulMsgCount 
  * @returns {BOOL} 
@@ -729,8 +712,10 @@ export MulDiv(nNumber, nNumerator, nDenominator) {
  * @since windows6.0.6000
  */
 export GetSystemRegistryQuota(pdwQuotaAllowed, pdwQuotaUsed) {
-    pdwQuotaAllowedMarshal := pdwQuotaAllowed is VarRef ? "uint*" : "ptr"
-    pdwQuotaUsedMarshal := pdwQuotaUsed is VarRef ? "uint*" : "ptr"
+    pdwQuotaAllowedMarshal := pdwQuotaAllowed is VarRef ? "uint*" : IntPtr
+    pdwQuotaAllowedMarshal := pdwQuotaAllowed == 0 ? IntPtr : "uint*"
+    pdwQuotaUsedMarshal := pdwQuotaUsed is VarRef ? "uint*" : IntPtr
+    pdwQuotaUsedMarshal := pdwQuotaUsed == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
@@ -800,8 +785,8 @@ export GetSystemRegistryQuota(pdwQuotaAllowed, pdwQuotaUsed) {
  * @since windows5.0
  */
 export FileTimeToDosDateTime(lpFileTime, lpFatDate, lpFatTime) {
-    lpFatDateMarshal := lpFatDate is VarRef ? "ushort*" : "ptr"
-    lpFatTimeMarshal := lpFatTime is VarRef ? "ushort*" : "ptr"
+    lpFatDateMarshal := lpFatDate is VarRef ? "ushort*" : IntPtr
+    lpFatTimeMarshal := lpFatTime is VarRef ? "ushort*" : IntPtr
 
     A_LastError := 0
 
@@ -952,7 +937,6 @@ export _lwrite(hFile, lpBuffer, uBytes) {
 }
 
 /**
- * 
  * @param {Integer} hFile 
  * @param {Integer} lpBuffer 
  * @param {Integer} lBytes 
@@ -964,7 +948,6 @@ export _hread(hFile, lpBuffer, lBytes) {
 }
 
 /**
- * 
  * @param {Integer} hFile 
  * @param {Integer} lpBuffer 
  * @param {Integer} lBytes 
@@ -1122,9 +1105,11 @@ export GetFirmwareEnvironmentVariableA(lpName, lpGuid, pBuffer, nSize) {
     lpName := lpName is String ? StrPtr(lpName) : lpName
     lpGuid := lpGuid is String ? StrPtr(lpGuid) : lpGuid
 
+    pBufferMarshal := pBuffer == 0 ? IntPtr : IntPtr
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetFirmwareEnvironmentVariableA", "ptr", lpName, "ptr", lpGuid, IntPtr, pBuffer, UInt32, nSize, UInt32)
+    result := DllCall("KERNEL32.dll\GetFirmwareEnvironmentVariableA", "ptr", lpName, "ptr", lpGuid, pBufferMarshal, pBuffer, UInt32, nSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1171,9 +1156,11 @@ export GetFirmwareEnvironmentVariableW(lpName, lpGuid, pBuffer, nSize) {
     lpName := lpName is String ? StrPtr(lpName) : lpName
     lpGuid := lpGuid is String ? StrPtr(lpGuid) : lpGuid
 
+    pBufferMarshal := pBuffer == 0 ? IntPtr : IntPtr
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetFirmwareEnvironmentVariableW", "ptr", lpName, "ptr", lpGuid, IntPtr, pBuffer, UInt32, nSize, UInt32)
+    result := DllCall("KERNEL32.dll\GetFirmwareEnvironmentVariableW", "ptr", lpName, "ptr", lpGuid, pBufferMarshal, pBuffer, UInt32, nSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1219,11 +1206,13 @@ export GetFirmwareEnvironmentVariableExA(lpName, lpGuid, pBuffer, nSize, pdwAttr
     lpName := lpName is String ? StrPtr(lpName) : lpName
     lpGuid := lpGuid is String ? StrPtr(lpGuid) : lpGuid
 
-    pdwAttribubutesMarshal := pdwAttribubutes is VarRef ? "uint*" : "ptr"
+    pBufferMarshal := pBuffer == 0 ? IntPtr : IntPtr
+    pdwAttribubutesMarshal := pdwAttribubutes is VarRef ? "uint*" : IntPtr
+    pdwAttribubutesMarshal := pdwAttribubutes == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetFirmwareEnvironmentVariableExA", "ptr", lpName, "ptr", lpGuid, IntPtr, pBuffer, UInt32, nSize, pdwAttribubutesMarshal, pdwAttribubutes, UInt32)
+    result := DllCall("KERNEL32.dll\GetFirmwareEnvironmentVariableExA", "ptr", lpName, "ptr", lpGuid, pBufferMarshal, pBuffer, UInt32, nSize, pdwAttribubutesMarshal, pdwAttribubutes, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1269,11 +1258,13 @@ export GetFirmwareEnvironmentVariableExW(lpName, lpGuid, pBuffer, nSize, pdwAttr
     lpName := lpName is String ? StrPtr(lpName) : lpName
     lpGuid := lpGuid is String ? StrPtr(lpGuid) : lpGuid
 
-    pdwAttribubutesMarshal := pdwAttribubutes is VarRef ? "uint*" : "ptr"
+    pBufferMarshal := pBuffer == 0 ? IntPtr : IntPtr
+    pdwAttribubutesMarshal := pdwAttribubutes is VarRef ? "uint*" : IntPtr
+    pdwAttribubutesMarshal := pdwAttribubutes == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetFirmwareEnvironmentVariableExW", "ptr", lpName, "ptr", lpGuid, IntPtr, pBuffer, UInt32, nSize, pdwAttribubutesMarshal, pdwAttribubutes, UInt32)
+    result := DllCall("KERNEL32.dll\GetFirmwareEnvironmentVariableExW", "ptr", lpName, "ptr", lpGuid, pBufferMarshal, pBuffer, UInt32, nSize, pdwAttribubutesMarshal, pdwAttribubutes, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1317,9 +1308,11 @@ export SetFirmwareEnvironmentVariableA(lpName, lpGuid, pValue, nSize) {
     lpName := lpName is String ? StrPtr(lpName) : lpName
     lpGuid := lpGuid is String ? StrPtr(lpGuid) : lpGuid
 
+    pValueMarshal := pValue == 0 ? IntPtr : IntPtr
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetFirmwareEnvironmentVariableA", "ptr", lpName, "ptr", lpGuid, IntPtr, pValue, UInt32, nSize, BOOL)
+    result := DllCall("KERNEL32.dll\SetFirmwareEnvironmentVariableA", "ptr", lpName, "ptr", lpGuid, pValueMarshal, pValue, UInt32, nSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1363,9 +1356,11 @@ export SetFirmwareEnvironmentVariableW(lpName, lpGuid, pValue, nSize) {
     lpName := lpName is String ? StrPtr(lpName) : lpName
     lpGuid := lpGuid is String ? StrPtr(lpGuid) : lpGuid
 
+    pValueMarshal := pValue == 0 ? IntPtr : IntPtr
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetFirmwareEnvironmentVariableW", "ptr", lpName, "ptr", lpGuid, IntPtr, pValue, UInt32, nSize, BOOL)
+    result := DllCall("KERNEL32.dll\SetFirmwareEnvironmentVariableW", "ptr", lpName, "ptr", lpGuid, pValueMarshal, pValue, UInt32, nSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1503,9 +1498,11 @@ export SetFirmwareEnvironmentVariableExA(lpName, lpGuid, pValue, nSize, dwAttrib
     lpName := lpName is String ? StrPtr(lpName) : lpName
     lpGuid := lpGuid is String ? StrPtr(lpGuid) : lpGuid
 
+    pValueMarshal := pValue == 0 ? IntPtr : IntPtr
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetFirmwareEnvironmentVariableExA", "ptr", lpName, "ptr", lpGuid, IntPtr, pValue, UInt32, nSize, UInt32, dwAttributes, BOOL)
+    result := DllCall("KERNEL32.dll\SetFirmwareEnvironmentVariableExA", "ptr", lpName, "ptr", lpGuid, pValueMarshal, pValue, UInt32, nSize, UInt32, dwAttributes, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1643,9 +1640,11 @@ export SetFirmwareEnvironmentVariableExW(lpName, lpGuid, pValue, nSize, dwAttrib
     lpName := lpName is String ? StrPtr(lpName) : lpName
     lpGuid := lpGuid is String ? StrPtr(lpGuid) : lpGuid
 
+    pValueMarshal := pValue == 0 ? IntPtr : IntPtr
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetFirmwareEnvironmentVariableExW", "ptr", lpName, "ptr", lpGuid, IntPtr, pValue, UInt32, nSize, UInt32, dwAttributes, BOOL)
+    result := DllCall("KERNEL32.dll\SetFirmwareEnvironmentVariableExW", "ptr", lpName, "ptr", lpGuid, pValueMarshal, pValue, UInt32, nSize, UInt32, dwAttributes, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1664,7 +1663,7 @@ export SetFirmwareEnvironmentVariableExW(lpName, lpGuid, pValue, nSize, dwAttrib
  * @since windows8.0
  */
 export IsNativeVhdBoot(NativeVhdBoot) {
-    NativeVhdBootMarshal := NativeVhdBoot is VarRef ? "int*" : "ptr"
+    NativeVhdBootMarshal := NativeVhdBoot is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
@@ -1871,7 +1870,12 @@ export GetProfileStringA(lpAppName, lpKeyName, lpDefault, lpReturnedString, nSiz
     lpDefault := lpDefault is String ? StrPtr(lpDefault) : lpDefault
     lpReturnedString := lpReturnedString is String ? StrPtr(lpReturnedString) : lpReturnedString
 
-    result := DllCall("KERNEL32.dll\GetProfileStringA", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpDefault, "ptr", lpReturnedString, UInt32, nSize, UInt32)
+    lpAppNameMarshal := lpAppName == 0 ? IntPtr : PSTR
+    lpKeyNameMarshal := lpKeyName == 0 ? IntPtr : PSTR
+    lpDefaultMarshal := lpDefault == 0 ? IntPtr : PSTR
+    lpReturnedStringMarshal := lpReturnedString == 0 ? IntPtr : PSTR
+
+    result := DllCall("KERNEL32.dll\GetProfileStringA", lpAppNameMarshal, lpAppName, lpKeyNameMarshal, lpKeyName, lpDefaultMarshal, lpDefault, lpReturnedStringMarshal, lpReturnedString, UInt32, nSize, UInt32)
     return result
 }
 
@@ -1960,7 +1964,12 @@ export GetProfileStringW(lpAppName, lpKeyName, lpDefault, lpReturnedString, nSiz
     lpDefault := lpDefault is String ? StrPtr(lpDefault) : lpDefault
     lpReturnedString := lpReturnedString is String ? StrPtr(lpReturnedString) : lpReturnedString
 
-    result := DllCall("KERNEL32.dll\GetProfileStringW", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpDefault, "ptr", lpReturnedString, UInt32, nSize, UInt32)
+    lpAppNameMarshal := lpAppName == 0 ? IntPtr : PWSTR
+    lpKeyNameMarshal := lpKeyName == 0 ? IntPtr : PWSTR
+    lpDefaultMarshal := lpDefault == 0 ? IntPtr : PWSTR
+    lpReturnedStringMarshal := lpReturnedString == 0 ? IntPtr : PWSTR
+
+    result := DllCall("KERNEL32.dll\GetProfileStringW", lpAppNameMarshal, lpAppName, lpKeyNameMarshal, lpKeyName, lpDefaultMarshal, lpDefault, lpReturnedStringMarshal, lpReturnedString, UInt32, nSize, UInt32)
     return result
 }
 
@@ -2022,9 +2031,13 @@ export WriteProfileStringA(lpAppName, lpKeyName, lpString) {
     lpKeyName := lpKeyName is String ? StrPtr(lpKeyName) : lpKeyName
     lpString := lpString is String ? StrPtr(lpString) : lpString
 
+    lpAppNameMarshal := lpAppName == 0 ? IntPtr : PSTR
+    lpKeyNameMarshal := lpKeyName == 0 ? IntPtr : PSTR
+    lpStringMarshal := lpString == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\WriteProfileStringA", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpString, BOOL)
+    result := DllCall("KERNEL32.dll\WriteProfileStringA", lpAppNameMarshal, lpAppName, lpKeyNameMarshal, lpKeyName, lpStringMarshal, lpString, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2090,9 +2103,13 @@ export WriteProfileStringW(lpAppName, lpKeyName, lpString) {
     lpKeyName := lpKeyName is String ? StrPtr(lpKeyName) : lpKeyName
     lpString := lpString is String ? StrPtr(lpString) : lpString
 
+    lpAppNameMarshal := lpAppName == 0 ? IntPtr : PWSTR
+    lpKeyNameMarshal := lpKeyName == 0 ? IntPtr : PWSTR
+    lpStringMarshal := lpString == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\WriteProfileStringW", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpString, BOOL)
+    result := DllCall("KERNEL32.dll\WriteProfileStringW", lpAppNameMarshal, lpAppName, lpKeyNameMarshal, lpKeyName, lpStringMarshal, lpString, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2157,7 +2174,9 @@ export GetProfileSectionA(lpAppName, lpReturnedString, nSize) {
     lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
     lpReturnedString := lpReturnedString is String ? StrPtr(lpReturnedString) : lpReturnedString
 
-    result := DllCall("KERNEL32.dll\GetProfileSectionA", "ptr", lpAppName, "ptr", lpReturnedString, UInt32, nSize, UInt32)
+    lpReturnedStringMarshal := lpReturnedString == 0 ? IntPtr : PSTR
+
+    result := DllCall("KERNEL32.dll\GetProfileSectionA", "ptr", lpAppName, lpReturnedStringMarshal, lpReturnedString, UInt32, nSize, UInt32)
     return result
 }
 
@@ -2218,7 +2237,9 @@ export GetProfileSectionW(lpAppName, lpReturnedString, nSize) {
     lpAppName := lpAppName is String ? StrPtr(lpAppName) : lpAppName
     lpReturnedString := lpReturnedString is String ? StrPtr(lpReturnedString) : lpReturnedString
 
-    result := DllCall("KERNEL32.dll\GetProfileSectionW", "ptr", lpAppName, "ptr", lpReturnedString, UInt32, nSize, UInt32)
+    lpReturnedStringMarshal := lpReturnedString == 0 ? IntPtr : PWSTR
+
+    result := DllCall("KERNEL32.dll\GetProfileSectionW", "ptr", lpAppName, lpReturnedStringMarshal, lpReturnedString, UInt32, nSize, UInt32)
     return result
 }
 
@@ -2438,7 +2459,9 @@ export GetPrivateProfileIntA(lpAppName, lpKeyName, nDefault, lpFileName) {
     lpKeyName := lpKeyName is String ? StrPtr(lpKeyName) : lpKeyName
     lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-    result := DllCall("KERNEL32.dll\GetPrivateProfileIntA", "ptr", lpAppName, "ptr", lpKeyName, Int32, nDefault, "ptr", lpFileName, UInt32)
+    lpFileNameMarshal := lpFileName == 0 ? IntPtr : PSTR
+
+    result := DllCall("KERNEL32.dll\GetPrivateProfileIntA", "ptr", lpAppName, "ptr", lpKeyName, Int32, nDefault, lpFileNameMarshal, lpFileName, UInt32)
     return result
 }
 
@@ -2508,7 +2531,9 @@ export GetPrivateProfileIntW(lpAppName, lpKeyName, nDefault, lpFileName) {
     lpKeyName := lpKeyName is String ? StrPtr(lpKeyName) : lpKeyName
     lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-    result := DllCall("KERNEL32.dll\GetPrivateProfileIntW", "ptr", lpAppName, "ptr", lpKeyName, Int32, nDefault, "ptr", lpFileName, Int32)
+    lpFileNameMarshal := lpFileName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("KERNEL32.dll\GetPrivateProfileIntW", "ptr", lpAppName, "ptr", lpKeyName, Int32, nDefault, lpFileNameMarshal, lpFileName, Int32)
     return result
 }
 
@@ -2597,9 +2622,15 @@ export GetPrivateProfileStringA(lpAppName, lpKeyName, lpDefault, lpReturnedStrin
     lpReturnedString := lpReturnedString is String ? StrPtr(lpReturnedString) : lpReturnedString
     lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
+    lpAppNameMarshal := lpAppName == 0 ? IntPtr : PSTR
+    lpKeyNameMarshal := lpKeyName == 0 ? IntPtr : PSTR
+    lpDefaultMarshal := lpDefault == 0 ? IntPtr : PSTR
+    lpReturnedStringMarshal := lpReturnedString == 0 ? IntPtr : PSTR
+    lpFileNameMarshal := lpFileName == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetPrivateProfileStringA", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpDefault, "ptr", lpReturnedString, UInt32, nSize, "ptr", lpFileName, UInt32)
+    result := DllCall("KERNEL32.dll\GetPrivateProfileStringA", lpAppNameMarshal, lpAppName, lpKeyNameMarshal, lpKeyName, lpDefaultMarshal, lpDefault, lpReturnedStringMarshal, lpReturnedString, UInt32, nSize, lpFileNameMarshal, lpFileName, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2692,9 +2723,15 @@ export GetPrivateProfileStringW(lpAppName, lpKeyName, lpDefault, lpReturnedStrin
     lpReturnedString := lpReturnedString is String ? StrPtr(lpReturnedString) : lpReturnedString
     lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
+    lpAppNameMarshal := lpAppName == 0 ? IntPtr : PWSTR
+    lpKeyNameMarshal := lpKeyName == 0 ? IntPtr : PWSTR
+    lpDefaultMarshal := lpDefault == 0 ? IntPtr : PWSTR
+    lpReturnedStringMarshal := lpReturnedString == 0 ? IntPtr : PWSTR
+    lpFileNameMarshal := lpFileName == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetPrivateProfileStringW", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpDefault, "ptr", lpReturnedString, UInt32, nSize, "ptr", lpFileName, UInt32)
+    result := DllCall("KERNEL32.dll\GetPrivateProfileStringW", lpAppNameMarshal, lpAppName, lpKeyNameMarshal, lpKeyName, lpDefaultMarshal, lpDefault, lpReturnedStringMarshal, lpReturnedString, UInt32, nSize, lpFileNameMarshal, lpFileName, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2792,9 +2829,14 @@ export WritePrivateProfileStringA(lpAppName, lpKeyName, lpString, lpFileName) {
     lpString := lpString is String ? StrPtr(lpString) : lpString
     lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
+    lpAppNameMarshal := lpAppName == 0 ? IntPtr : PSTR
+    lpKeyNameMarshal := lpKeyName == 0 ? IntPtr : PSTR
+    lpStringMarshal := lpString == 0 ? IntPtr : PSTR
+    lpFileNameMarshal := lpFileName == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\WritePrivateProfileStringA", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpString, "ptr", lpFileName, BOOL)
+    result := DllCall("KERNEL32.dll\WritePrivateProfileStringA", lpAppNameMarshal, lpAppName, lpKeyNameMarshal, lpKeyName, lpStringMarshal, lpString, lpFileNameMarshal, lpFileName, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2892,9 +2934,14 @@ export WritePrivateProfileStringW(lpAppName, lpKeyName, lpString, lpFileName) {
     lpString := lpString is String ? StrPtr(lpString) : lpString
     lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
+    lpAppNameMarshal := lpAppName == 0 ? IntPtr : PWSTR
+    lpKeyNameMarshal := lpKeyName == 0 ? IntPtr : PWSTR
+    lpStringMarshal := lpString == 0 ? IntPtr : PWSTR
+    lpFileNameMarshal := lpFileName == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\WritePrivateProfileStringW", "ptr", lpAppName, "ptr", lpKeyName, "ptr", lpString, "ptr", lpFileName, BOOL)
+    result := DllCall("KERNEL32.dll\WritePrivateProfileStringW", lpAppNameMarshal, lpAppName, lpKeyNameMarshal, lpKeyName, lpStringMarshal, lpString, lpFileNameMarshal, lpFileName, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2964,7 +3011,10 @@ export GetPrivateProfileSectionA(lpAppName, lpReturnedString, nSize, lpFileName)
     lpReturnedString := lpReturnedString is String ? StrPtr(lpReturnedString) : lpReturnedString
     lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-    result := DllCall("KERNEL32.dll\GetPrivateProfileSectionA", "ptr", lpAppName, "ptr", lpReturnedString, UInt32, nSize, "ptr", lpFileName, UInt32)
+    lpReturnedStringMarshal := lpReturnedString == 0 ? IntPtr : PSTR
+    lpFileNameMarshal := lpFileName == 0 ? IntPtr : PSTR
+
+    result := DllCall("KERNEL32.dll\GetPrivateProfileSectionA", "ptr", lpAppName, lpReturnedStringMarshal, lpReturnedString, UInt32, nSize, lpFileNameMarshal, lpFileName, UInt32)
     return result
 }
 
@@ -3030,7 +3080,10 @@ export GetPrivateProfileSectionW(lpAppName, lpReturnedString, nSize, lpFileName)
     lpReturnedString := lpReturnedString is String ? StrPtr(lpReturnedString) : lpReturnedString
     lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-    result := DllCall("KERNEL32.dll\GetPrivateProfileSectionW", "ptr", lpAppName, "ptr", lpReturnedString, UInt32, nSize, "ptr", lpFileName, UInt32)
+    lpReturnedStringMarshal := lpReturnedString == 0 ? IntPtr : PWSTR
+    lpFileNameMarshal := lpFileName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("KERNEL32.dll\GetPrivateProfileSectionW", "ptr", lpAppName, lpReturnedStringMarshal, lpReturnedString, UInt32, nSize, lpFileNameMarshal, lpFileName, UInt32)
     return result
 }
 
@@ -3108,9 +3161,13 @@ export WritePrivateProfileSectionA(lpAppName, lpString, lpFileName) {
     lpString := lpString is String ? StrPtr(lpString) : lpString
     lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
+    lpAppNameMarshal := lpAppName == 0 ? IntPtr : PSTR
+    lpStringMarshal := lpString == 0 ? IntPtr : PSTR
+    lpFileNameMarshal := lpFileName == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\WritePrivateProfileSectionA", "ptr", lpAppName, "ptr", lpString, "ptr", lpFileName, BOOL)
+    result := DllCall("KERNEL32.dll\WritePrivateProfileSectionA", lpAppNameMarshal, lpAppName, lpStringMarshal, lpString, lpFileNameMarshal, lpFileName, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3192,9 +3249,13 @@ export WritePrivateProfileSectionW(lpAppName, lpString, lpFileName) {
     lpString := lpString is String ? StrPtr(lpString) : lpString
     lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
+    lpAppNameMarshal := lpAppName == 0 ? IntPtr : PWSTR
+    lpStringMarshal := lpString == 0 ? IntPtr : PWSTR
+    lpFileNameMarshal := lpFileName == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\WritePrivateProfileSectionW", "ptr", lpAppName, "ptr", lpString, "ptr", lpFileName, BOOL)
+    result := DllCall("KERNEL32.dll\WritePrivateProfileSectionW", lpAppNameMarshal, lpAppName, lpStringMarshal, lpString, lpFileNameMarshal, lpFileName, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3250,7 +3311,10 @@ export GetPrivateProfileSectionNamesA(lpszReturnBuffer, nSize, lpFileName) {
     lpszReturnBuffer := lpszReturnBuffer is String ? StrPtr(lpszReturnBuffer) : lpszReturnBuffer
     lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-    result := DllCall("KERNEL32.dll\GetPrivateProfileSectionNamesA", "ptr", lpszReturnBuffer, UInt32, nSize, "ptr", lpFileName, UInt32)
+    lpszReturnBufferMarshal := lpszReturnBuffer == 0 ? IntPtr : PSTR
+    lpFileNameMarshal := lpFileName == 0 ? IntPtr : PSTR
+
+    result := DllCall("KERNEL32.dll\GetPrivateProfileSectionNamesA", lpszReturnBufferMarshal, lpszReturnBuffer, UInt32, nSize, lpFileNameMarshal, lpFileName, UInt32)
     return result
 }
 
@@ -3302,7 +3366,10 @@ export GetPrivateProfileSectionNamesW(lpszReturnBuffer, nSize, lpFileName) {
     lpszReturnBuffer := lpszReturnBuffer is String ? StrPtr(lpszReturnBuffer) : lpszReturnBuffer
     lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-    result := DllCall("KERNEL32.dll\GetPrivateProfileSectionNamesW", "ptr", lpszReturnBuffer, UInt32, nSize, "ptr", lpFileName, UInt32)
+    lpszReturnBufferMarshal := lpszReturnBuffer == 0 ? IntPtr : PWSTR
+    lpFileNameMarshal := lpFileName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("KERNEL32.dll\GetPrivateProfileSectionNamesW", lpszReturnBufferMarshal, lpszReturnBuffer, UInt32, nSize, lpFileNameMarshal, lpFileName, UInt32)
     return result
 }
 
@@ -3370,7 +3437,10 @@ export GetPrivateProfileStructA(lpszSection, lpszKey, lpStruct, uSizeStruct, szF
     lpszKey := lpszKey is String ? StrPtr(lpszKey) : lpszKey
     szFile := szFile is String ? StrPtr(szFile) : szFile
 
-    result := DllCall("KERNEL32.dll\GetPrivateProfileStructA", "ptr", lpszSection, "ptr", lpszKey, IntPtr, lpStruct, UInt32, uSizeStruct, "ptr", szFile, BOOL)
+    lpStructMarshal := lpStruct == 0 ? IntPtr : IntPtr
+    szFileMarshal := szFile == 0 ? IntPtr : PSTR
+
+    result := DllCall("KERNEL32.dll\GetPrivateProfileStructA", "ptr", lpszSection, "ptr", lpszKey, lpStructMarshal, lpStruct, UInt32, uSizeStruct, szFileMarshal, szFile, BOOL)
     return result
 }
 
@@ -3438,7 +3508,10 @@ export GetPrivateProfileStructW(lpszSection, lpszKey, lpStruct, uSizeStruct, szF
     lpszKey := lpszKey is String ? StrPtr(lpszKey) : lpszKey
     szFile := szFile is String ? StrPtr(szFile) : szFile
 
-    result := DllCall("KERNEL32.dll\GetPrivateProfileStructW", "ptr", lpszSection, "ptr", lpszKey, IntPtr, lpStruct, UInt32, uSizeStruct, "ptr", szFile, BOOL)
+    lpStructMarshal := lpStruct == 0 ? IntPtr : IntPtr
+    szFileMarshal := szFile == 0 ? IntPtr : PWSTR
+
+    result := DllCall("KERNEL32.dll\GetPrivateProfileStructW", "ptr", lpszSection, "ptr", lpszKey, lpStructMarshal, lpStruct, UInt32, uSizeStruct, szFileMarshal, szFile, BOOL)
     return result
 }
 
@@ -3522,9 +3595,12 @@ export WritePrivateProfileStructA(lpszSection, lpszKey, lpStruct, uSizeStruct, s
     lpszKey := lpszKey is String ? StrPtr(lpszKey) : lpszKey
     szFile := szFile is String ? StrPtr(szFile) : szFile
 
+    lpStructMarshal := lpStruct == 0 ? IntPtr : IntPtr
+    szFileMarshal := szFile == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\WritePrivateProfileStructA", "ptr", lpszSection, "ptr", lpszKey, IntPtr, lpStruct, UInt32, uSizeStruct, "ptr", szFile, BOOL)
+    result := DllCall("KERNEL32.dll\WritePrivateProfileStructA", "ptr", lpszSection, "ptr", lpszKey, lpStructMarshal, lpStruct, UInt32, uSizeStruct, szFileMarshal, szFile, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3614,9 +3690,12 @@ export WritePrivateProfileStructW(lpszSection, lpszKey, lpStruct, uSizeStruct, s
     lpszKey := lpszKey is String ? StrPtr(lpszKey) : lpszKey
     szFile := szFile is String ? StrPtr(szFile) : szFile
 
+    lpStructMarshal := lpStruct == 0 ? IntPtr : IntPtr
+    szFileMarshal := szFile == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\WritePrivateProfileStructW", "ptr", lpszSection, "ptr", lpszKey, IntPtr, lpStruct, UInt32, uSizeStruct, "ptr", szFile, BOOL)
+    result := DllCall("KERNEL32.dll\WritePrivateProfileStructW", "ptr", lpszSection, "ptr", lpszKey, lpStructMarshal, lpStruct, UInt32, uSizeStruct, szFileMarshal, szFile, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3625,26 +3704,26 @@ export WritePrivateProfileStructW(lpszSection, lpszKey, lpStruct, uSizeStruct, s
 }
 
 /**
- * 
  * @param {Pointer<Void>} lp 
  * @param {Pointer} ucb 
  * @returns {BOOL} 
  */
 export IsBadHugeReadPtr(lp, ucb) {
-    lpMarshal := lp is VarRef ? "ptr" : "ptr"
+    lpMarshal := lp is VarRef ? "ptr" : IntPtr
+    lpMarshal := lp == 0 ? IntPtr : "ptr"
 
     result := DllCall("KERNEL32.dll\IsBadHugeReadPtr", lpMarshal, lp, IntPtr, ucb, BOOL)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} lp 
  * @param {Pointer} ucb 
  * @returns {BOOL} 
  */
 export IsBadHugeWritePtr(lp, ucb) {
-    lpMarshal := lp is VarRef ? "ptr" : "ptr"
+    lpMarshal := lp is VarRef ? "ptr" : IntPtr
+    lpMarshal := lp == 0 ? IntPtr : "ptr"
 
     result := DllCall("KERNEL32.dll\IsBadHugeWritePtr", lpMarshal, lp, IntPtr, ucb, BOOL)
     return result
@@ -3676,11 +3755,12 @@ export IsBadHugeWritePtr(lp, ucb) {
 export GetComputerNameA(lpBuffer, nSize) {
     lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
-    nSizeMarshal := nSize is VarRef ? "uint*" : "ptr"
+    lpBufferMarshal := lpBuffer == 0 ? IntPtr : PSTR
+    nSizeMarshal := nSize is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetComputerNameA", "ptr", lpBuffer, nSizeMarshal, nSize, BOOL)
+    result := DllCall("KERNEL32.dll\GetComputerNameA", lpBufferMarshal, lpBuffer, nSizeMarshal, nSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3714,11 +3794,12 @@ export GetComputerNameA(lpBuffer, nSize) {
 export GetComputerNameW(lpBuffer, nSize) {
     lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
-    nSizeMarshal := nSize is VarRef ? "uint*" : "ptr"
+    lpBufferMarshal := lpBuffer == 0 ? IntPtr : PWSTR
+    nSizeMarshal := nSize is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetComputerNameW", "ptr", lpBuffer, nSizeMarshal, nSize, BOOL)
+    result := DllCall("KERNEL32.dll\GetComputerNameW", lpBufferMarshal, lpBuffer, nSizeMarshal, nSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3777,11 +3858,12 @@ export DnsHostnameToComputerNameA(Hostname, ComputerName, nSize) {
     Hostname := Hostname is String ? StrPtr(Hostname) : Hostname
     ComputerName := ComputerName is String ? StrPtr(ComputerName) : ComputerName
 
-    nSizeMarshal := nSize is VarRef ? "uint*" : "ptr"
+    ComputerNameMarshal := ComputerName == 0 ? IntPtr : PSTR
+    nSizeMarshal := nSize is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\DnsHostnameToComputerNameA", "ptr", Hostname, "ptr", ComputerName, nSizeMarshal, nSize, BOOL)
+    result := DllCall("KERNEL32.dll\DnsHostnameToComputerNameA", "ptr", Hostname, ComputerNameMarshal, ComputerName, nSizeMarshal, nSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3840,11 +3922,12 @@ export DnsHostnameToComputerNameW(Hostname, ComputerName, nSize) {
     Hostname := Hostname is String ? StrPtr(Hostname) : Hostname
     ComputerName := ComputerName is String ? StrPtr(ComputerName) : ComputerName
 
-    nSizeMarshal := nSize is VarRef ? "uint*" : "ptr"
+    ComputerNameMarshal := ComputerName == 0 ? IntPtr : PWSTR
+    nSizeMarshal := nSize is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\DnsHostnameToComputerNameW", "ptr", Hostname, "ptr", ComputerName, nSizeMarshal, nSize, BOOL)
+    result := DllCall("KERNEL32.dll\DnsHostnameToComputerNameW", "ptr", Hostname, ComputerNameMarshal, ComputerName, nSizeMarshal, nSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3876,11 +3959,12 @@ export DnsHostnameToComputerNameW(Hostname, ComputerName, nSize) {
 export GetUserNameA(lpBuffer, pcbBuffer) {
     lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
-    pcbBufferMarshal := pcbBuffer is VarRef ? "uint*" : "ptr"
+    lpBufferMarshal := lpBuffer == 0 ? IntPtr : PSTR
+    pcbBufferMarshal := pcbBuffer is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\GetUserNameA", "ptr", lpBuffer, pcbBufferMarshal, pcbBuffer, BOOL)
+    result := DllCall("ADVAPI32.dll\GetUserNameA", lpBufferMarshal, lpBuffer, pcbBufferMarshal, pcbBuffer, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3912,11 +3996,12 @@ export GetUserNameA(lpBuffer, pcbBuffer) {
 export GetUserNameW(lpBuffer, pcbBuffer) {
     lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
-    pcbBufferMarshal := pcbBuffer is VarRef ? "uint*" : "ptr"
+    lpBufferMarshal := lpBuffer == 0 ? IntPtr : PWSTR
+    pcbBufferMarshal := pcbBuffer is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\GetUserNameW", "ptr", lpBuffer, pcbBufferMarshal, pcbBuffer, BOOL)
+    result := DllCall("ADVAPI32.dll\GetUserNameW", lpBufferMarshal, lpBuffer, pcbBufferMarshal, pcbBuffer, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3925,7 +4010,6 @@ export GetUserNameW(lpBuffer, pcbBuffer) {
 }
 
 /**
- * 
  * @param {HANDLE} TokenHandle 
  * @returns {BOOL} 
  */
@@ -4003,7 +4087,6 @@ export GetCurrentHwProfileW(lpHwProfileInfo) {
 }
 
 /**
- * 
  * @param {PWSTR} TargetPartition 
  * @param {PWSTR} SparePartition 
  * @param {Integer} Flags 
@@ -4052,7 +4135,6 @@ export EnableProcessOptionalXStateFeatures(Features) {
 }
 
 /**
- * 
  * @param {Pointer<CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG>} CustomSystemEventTriggerConfig 
  * @returns {Integer} 
  */
@@ -4081,7 +4163,7 @@ export RaiseCustomSystemEventTrigger(CustomSystemEventTriggerConfig) {
  * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlisnamelegaldos8dot3
  */
 export RtlIsNameLegalDOS8Dot3(Name, OemName, NameContainsSpaces) {
-    NameContainsSpacesMarshal := NameContainsSpaces is VarRef ? "char*" : "ptr"
+    NameContainsSpacesMarshal := NameContainsSpaces is VarRef ? "char*" : IntPtr
 
     result := DllCall("ntdll.dll\RtlIsNameLegalDOS8Dot3", UNICODE_STRING.Ptr, Name, STRING.Ptr, OemName, NameContainsSpacesMarshal, NameContainsSpaces, BOOLEAN)
     return result
@@ -4097,8 +4179,8 @@ export RtlIsNameLegalDOS8Dot3(Name, OemName, NameContainsSpaces) {
  * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtllocaltimetosystemtime
  */
 export RtlLocalTimeToSystemTime(LocalTime, _SystemTime) {
-    LocalTimeMarshal := LocalTime is VarRef ? "int64*" : "ptr"
-    _SystemTimeMarshal := _SystemTime is VarRef ? "int64*" : "ptr"
+    LocalTimeMarshal := LocalTime is VarRef ? "int64*" : IntPtr
+    _SystemTimeMarshal := _SystemTime is VarRef ? "int64*" : IntPtr
 
     result := DllCall("ntdll.dll\RtlLocalTimeToSystemTime", LocalTimeMarshal, LocalTime, _SystemTimeMarshal, _SystemTime, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -4129,8 +4211,8 @@ export RtlLocalTimeToSystemTime(LocalTime, _SystemTime) {
  * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtltimetosecondssince1970
  */
 export RtlTimeToSecondsSince1970(Time, ElapsedSeconds) {
-    TimeMarshal := Time is VarRef ? "int64*" : "ptr"
-    ElapsedSecondsMarshal := ElapsedSeconds is VarRef ? "uint*" : "ptr"
+    TimeMarshal := Time is VarRef ? "int64*" : IntPtr
+    ElapsedSecondsMarshal := ElapsedSeconds is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ntdll.dll\RtlTimeToSecondsSince1970", TimeMarshal, Time, ElapsedSecondsMarshal, ElapsedSeconds, BOOLEAN)
     return result
@@ -4198,19 +4280,18 @@ export RtlFreeOemString(OemString) {
  * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlinitstring
  */
 export RtlInitString(DestinationString, SourceString) {
-    SourceStringMarshal := SourceString is VarRef ? "char*" : "ptr"
+    SourceStringMarshal := SourceString is VarRef ? "char*" : IntPtr
 
     DllCall("ntdll.dll\RtlInitString", STRING.Ptr, DestinationString, SourceStringMarshal, SourceString)
 }
 
 /**
- * 
  * @param {Pointer<STRING>} DestinationString 
  * @param {Pointer<Integer>} SourceString 
  * @returns {NTSTATUS} 
  */
 export RtlInitStringEx(DestinationString, SourceString) {
-    SourceStringMarshal := SourceString is VarRef ? "char*" : "ptr"
+    SourceStringMarshal := SourceString is VarRef ? "char*" : IntPtr
 
     result := DllCall("ntdll.dll\RtlInitStringEx", STRING.Ptr, DestinationString, SourceStringMarshal, SourceString, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -4218,25 +4299,23 @@ export RtlInitStringEx(DestinationString, SourceString) {
 }
 
 /**
- * 
  * @param {Pointer<STRING>} DestinationString 
  * @param {Pointer<Integer>} SourceString 
  * @returns {String} Nothing - always returns an empty string
  */
 export RtlInitAnsiString(DestinationString, SourceString) {
-    SourceStringMarshal := SourceString is VarRef ? "char*" : "ptr"
+    SourceStringMarshal := SourceString is VarRef ? "char*" : IntPtr
 
     DllCall("ntdll.dll\RtlInitAnsiString", STRING.Ptr, DestinationString, SourceStringMarshal, SourceString)
 }
 
 /**
- * 
  * @param {Pointer<STRING>} DestinationString 
  * @param {Pointer<Integer>} SourceString 
  * @returns {NTSTATUS} 
  */
 export RtlInitAnsiStringEx(DestinationString, SourceString) {
-    SourceStringMarshal := SourceString is VarRef ? "char*" : "ptr"
+    SourceStringMarshal := SourceString is VarRef ? "char*" : IntPtr
 
     result := DllCall("ntdll.dll\RtlInitAnsiStringEx", STRING.Ptr, DestinationString, SourceStringMarshal, SourceString, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -4405,7 +4484,7 @@ export RtlUnicodeStringToOemString(DestinationString, SourceString, AllocateDest
  * @since windows5.0
  */
 export RtlUnicodeToMultiByteSize(BytesInMultiByteString, UnicodeString, BytesInUnicodeString) {
-    BytesInMultiByteStringMarshal := BytesInMultiByteString is VarRef ? "uint*" : "ptr"
+    BytesInMultiByteStringMarshal := BytesInMultiByteString is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ntdll.dll\RtlUnicodeToMultiByteSize", BytesInMultiByteStringMarshal, BytesInMultiByteString, IntPtr, UnicodeString, UInt32, BytesInUnicodeString, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -4428,8 +4507,8 @@ export RtlUnicodeToMultiByteSize(BytesInMultiByteString, UnicodeString, BytesInU
  * @since windows5.0
  */
 export RtlCharToInteger(_String, Base, Value) {
-    _StringMarshal := _String is VarRef ? "char*" : "ptr"
-    ValueMarshal := Value is VarRef ? "uint*" : "ptr"
+    _StringMarshal := _String is VarRef ? "char*" : IntPtr
+    ValueMarshal := Value is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ntdll.dll\RtlCharToInteger", _StringMarshal, _String, UInt32, Base, ValueMarshal, Value, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -4445,7 +4524,7 @@ export RtlCharToInteger(_String, Base, Value) {
  * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtluniform
  */
 export RtlUniform(Seed) {
-    SeedMarshal := Seed is VarRef ? "uint*" : "ptr"
+    SeedMarshal := Seed is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ntdll.dll\RtlUniform", SeedMarshal, Seed, UInt32)
     return result
@@ -4498,7 +4577,8 @@ export RecordFeatureError(featureId, _error) {
  * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-subscribefeaturestatechangenotification
  */
 export SubscribeFeatureStateChangeNotification(subscription, callback, _context) {
-    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+    _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
     DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\SubscribeFeatureStateChangeNotification", FEATURE_STATE_CHANGE_SUBSCRIPTION.Ptr, subscription, PFEATURE_STATE_CHANGE_CALLBACK, callback, _contextMarshal, _context)
 }
@@ -4523,8 +4603,8 @@ export UnsubscribeFeatureStateChangeNotification(subscription) {
  * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-getfeaturevariant
  */
 export GetFeatureVariant(featureId, changeTime, payloadId, hasNotification) {
-    payloadIdMarshal := payloadId is VarRef ? "uint*" : "ptr"
-    hasNotificationMarshal := hasNotification is VarRef ? "int*" : "ptr"
+    payloadIdMarshal := payloadId is VarRef ? "uint*" : IntPtr
+    hasNotificationMarshal := hasNotification is VarRef ? "int*" : IntPtr
 
     result := DllCall("api-ms-win-core-featurestaging-l1-1-1.dll\GetFeatureVariant", UInt32, featureId, FEATURE_CHANGE_TIME, changeTime, payloadIdMarshal, payloadId, hasNotificationMarshal, hasNotification, UInt32)
     return result
@@ -4561,14 +4641,13 @@ export DCICloseProvider(_hdc) {
  * @since windows5.0
  */
 export DCICreatePrimary(_hdc, lplpSurface) {
-    lplpSurfaceMarshal := lplpSurface is VarRef ? "ptr*" : "ptr"
+    lplpSurfaceMarshal := lplpSurface is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("DCIMAN32.dll\DCICreatePrimary", HDC, _hdc, lplpSurfaceMarshal, lplpSurface, Int32)
     return result
 }
 
 /**
- * 
  * @param {HDC} _hdc 
  * @param {Integer} dwCompression 
  * @param {Integer} dwRedMask 
@@ -4582,29 +4661,27 @@ export DCICreatePrimary(_hdc, lplpSurface) {
  * @returns {Integer} 
  */
 export DCICreateOffscreen(_hdc, dwCompression, dwRedMask, dwGreenMask, dwBlueMask, dwWidth, dwHeight, dwDCICaps, dwBitCount, lplpSurface) {
-    lplpSurfaceMarshal := lplpSurface is VarRef ? "ptr*" : "ptr"
+    lplpSurfaceMarshal := lplpSurface is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("DCIMAN32.dll\DCICreateOffscreen", HDC, _hdc, UInt32, dwCompression, UInt32, dwRedMask, UInt32, dwGreenMask, UInt32, dwBlueMask, UInt32, dwWidth, UInt32, dwHeight, UInt32, dwDCICaps, UInt32, dwBitCount, lplpSurfaceMarshal, lplpSurface, Int32)
     return result
 }
 
 /**
- * 
  * @param {HDC} _hdc 
  * @param {Pointer<Void>} lpOffscreenSurf 
  * @param {Pointer<Pointer<DCIOVERLAY>>} lplpSurface 
  * @returns {Integer} 
  */
 export DCICreateOverlay(_hdc, lpOffscreenSurf, lplpSurface) {
-    lpOffscreenSurfMarshal := lpOffscreenSurf is VarRef ? "ptr" : "ptr"
-    lplpSurfaceMarshal := lplpSurface is VarRef ? "ptr*" : "ptr"
+    lpOffscreenSurfMarshal := lpOffscreenSurf is VarRef ? "ptr" : IntPtr
+    lplpSurfaceMarshal := lplpSurface is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("DCIMAN32.dll\DCICreateOverlay", HDC, _hdc, lpOffscreenSurfMarshal, lpOffscreenSurf, lplpSurfaceMarshal, lplpSurface, Int32)
     return result
 }
 
 /**
- * 
  * @param {HDC} _hdc 
  * @param {Pointer<RECT>} lprDst 
  * @param {Pointer<RECT>} lprSrc 
@@ -4613,15 +4690,14 @@ export DCICreateOverlay(_hdc, lpOffscreenSurf, lplpSurface) {
  * @returns {Integer} 
  */
 export DCIEnum(_hdc, lprDst, lprSrc, lpFnCallback, lpContext) {
-    lpFnCallbackMarshal := lpFnCallback is VarRef ? "ptr" : "ptr"
-    lpContextMarshal := lpContext is VarRef ? "ptr" : "ptr"
+    lpFnCallbackMarshal := lpFnCallback is VarRef ? "ptr" : IntPtr
+    lpContextMarshal := lpContext is VarRef ? "ptr" : IntPtr
 
     result := DllCall("DCIMAN32.dll\DCIEnum", HDC, _hdc, RECT.Ptr, lprDst, RECT.Ptr, lprSrc, lpFnCallbackMarshal, lpFnCallback, lpContextMarshal, lpContext, Int32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<DCIOFFSCREEN>} pdci 
  * @param {Pointer<RECT>} srcrc 
  * @param {Pointer<RECT>} destrc 
@@ -4634,7 +4710,6 @@ export DCISetSrcDestClip(pdci, srcrc, destrc, prd) {
 }
 
 /**
- * 
  * @param {HWND} _hwnd 
  * @returns {HWINWATCH} 
  */
@@ -4644,7 +4719,6 @@ export WinWatchOpen(_hwnd) {
 }
 
 /**
- * 
  * @param {HWINWATCH} hWW 
  * @returns {String} Nothing - always returns an empty string
  */
@@ -4653,7 +4727,6 @@ export WinWatchClose(hWW) {
 }
 
 /**
- * 
  * @param {HWINWATCH} hWW 
  * @param {Pointer<RECT>} prc 
  * @param {Integer} _size 
@@ -4666,7 +4739,6 @@ export WinWatchGetClipList(hWW, prc, _size, prd) {
 }
 
 /**
- * 
  * @param {HWINWATCH} hWW 
  * @returns {BOOL} 
  */
@@ -4676,7 +4748,6 @@ export WinWatchDidStatusChange(hWW) {
 }
 
 /**
- * 
  * @param {HWND} _hwnd 
  * @param {Integer} _size 
  * @param {Pointer<RGNDATA>} prd 
@@ -4688,7 +4759,6 @@ export GetWindowRegionData(_hwnd, _size, prd) {
 }
 
 /**
- * 
  * @param {HDC} _hdc 
  * @param {Integer} _size 
  * @param {Pointer<RGNDATA>} prd 
@@ -4700,7 +4770,6 @@ export GetDCRegionData(_hdc, _size, prd) {
 }
 
 /**
- * 
  * @param {HWINWATCH} hWW 
  * @param {Pointer<WINWATCHNOTIFYPROC>} NotifyCallback 
  * @param {LPARAM} NotifyParam 
@@ -4750,7 +4819,6 @@ export DCIDestroy(pdci) {
 }
 
 /**
- * 
  * @param {Pointer<DCIOFFSCREEN>} pdci 
  * @returns {Integer} 
  */
@@ -4760,7 +4828,6 @@ export DCIDraw(pdci) {
 }
 
 /**
- * 
  * @param {Pointer<DCIOFFSCREEN>} pdci 
  * @param {Pointer<RGNDATA>} prd 
  * @returns {Integer} 
@@ -4771,7 +4838,6 @@ export DCISetClipList(pdci, prd) {
 }
 
 /**
- * 
  * @param {Pointer<DCIOFFSCREEN>} pdci 
  * @param {Pointer<RECT>} dst 
  * @param {Pointer<RECT>} src 
@@ -4793,7 +4859,6 @@ export GdiEntry13() {
 }
 
 /**
- * 
  * @param {HWND} _hWnd 
  * @param {PSTR} szCmdName 
  * @param {PSTR} szInfSection 
@@ -4810,14 +4875,13 @@ export RunSetupCommandA(_hWnd, szCmdName, szInfSection, szDir, lpszTitle, phEXE,
     szDir := szDir is String ? StrPtr(szDir) : szDir
     lpszTitle := lpszTitle is String ? StrPtr(lpszTitle) : lpszTitle
 
-    pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
+    pvReservedMarshal := pvReserved is VarRef ? "ptr" : IntPtr
 
     result := DllCall("ADVPACK.dll\RunSetupCommandA", HWND, _hWnd, "ptr", szCmdName, "ptr", szInfSection, "ptr", szDir, "ptr", lpszTitle, HANDLE.Ptr, phEXE, UInt32, dwFlags, pvReservedMarshal, pvReserved, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {HWND} _hWnd 
  * @param {PWSTR} szCmdName 
  * @param {PWSTR} szInfSection 
@@ -4834,14 +4898,13 @@ export RunSetupCommandW(_hWnd, szCmdName, szInfSection, szDir, lpszTitle, phEXE,
     szDir := szDir is String ? StrPtr(szDir) : szDir
     lpszTitle := lpszTitle is String ? StrPtr(lpszTitle) : lpszTitle
 
-    pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
+    pvReservedMarshal := pvReserved is VarRef ? "ptr" : IntPtr
 
     result := DllCall("ADVPACK.dll\RunSetupCommandW", HWND, _hWnd, "ptr", szCmdName, "ptr", szInfSection, "ptr", szDir, "ptr", lpszTitle, HANDLE.Ptr, phEXE, UInt32, dwFlags, pvReservedMarshal, pvReserved, "HRESULT")
     return result
 }
 
 /**
- * 
  * @returns {Integer} 
  */
 export NeedRebootInit() {
@@ -4850,7 +4913,6 @@ export NeedRebootInit() {
 }
 
 /**
- * 
  * @param {Integer} dwRebootCheck 
  * @returns {BOOL} 
  */
@@ -4860,7 +4922,6 @@ export NeedReboot(dwRebootCheck) {
 }
 
 /**
- * 
  * @param {HWND} _hwnd 
  * @param {PSTR} pszINF 
  * @param {PSTR} pszSec 
@@ -4876,7 +4937,6 @@ export RebootCheckOnInstallA(_hwnd, pszINF, pszSec, dwReserved) {
 }
 
 /**
- * 
  * @param {HWND} _hwnd 
  * @param {PWSTR} pszINF 
  * @param {PWSTR} pszSec 
@@ -4892,7 +4952,6 @@ export RebootCheckOnInstallW(_hwnd, pszINF, pszSec, dwReserved) {
 }
 
 /**
- * 
  * @param {PSTR} pszInfFilename 
  * @param {PSTR} pszInstallSection 
  * @param {PSTR} pszTranslateSection 
@@ -4910,12 +4969,13 @@ export TranslateInfStringA(pszInfFilename, pszInstallSection, pszTranslateSectio
     pszTranslateKey := pszTranslateKey is String ? StrPtr(pszTranslateKey) : pszTranslateKey
     pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
 
-    result := DllCall("ADVPACK.dll\TranslateInfStringA", "ptr", pszInfFilename, "ptr", pszInstallSection, "ptr", pszTranslateSection, "ptr", pszTranslateKey, "ptr", pszBuffer, UInt32, cchBuffer, "uint*", &pdwRequiredSize := 0, "ptr", pvReserved, "HRESULT")
+    pszBufferMarshal := pszBuffer == 0 ? IntPtr : PSTR
+
+    result := DllCall("ADVPACK.dll\TranslateInfStringA", "ptr", pszInfFilename, "ptr", pszInstallSection, "ptr", pszTranslateSection, "ptr", pszTranslateKey, pszBufferMarshal, pszBuffer, UInt32, cchBuffer, "uint*", &pdwRequiredSize := 0, "ptr", pvReserved, "HRESULT")
     return pdwRequiredSize
 }
 
 /**
- * 
  * @param {PWSTR} pszInfFilename 
  * @param {PWSTR} pszInstallSection 
  * @param {PWSTR} pszTranslateSection 
@@ -4933,7 +4993,9 @@ export TranslateInfStringW(pszInfFilename, pszInstallSection, pszTranslateSectio
     pszTranslateKey := pszTranslateKey is String ? StrPtr(pszTranslateKey) : pszTranslateKey
     pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
 
-    result := DllCall("ADVPACK.dll\TranslateInfStringW", "ptr", pszInfFilename, "ptr", pszInstallSection, "ptr", pszTranslateSection, "ptr", pszTranslateKey, "ptr", pszBuffer, UInt32, cchBuffer, "uint*", &pdwRequiredSize := 0, "ptr", pvReserved, "HRESULT")
+    pszBufferMarshal := pszBuffer == 0 ? IntPtr : PWSTR
+
+    result := DllCall("ADVPACK.dll\TranslateInfStringW", "ptr", pszInfFilename, "ptr", pszInstallSection, "ptr", pszTranslateSection, "ptr", pszTranslateKey, pszBufferMarshal, pszBuffer, UInt32, cchBuffer, "uint*", &pdwRequiredSize := 0, "ptr", pvReserved, "HRESULT")
     return pdwRequiredSize
 }
 
@@ -4976,7 +5038,6 @@ export RegInstallW(hmod, pszSection, pstTable) {
 }
 
 /**
- * 
  * @param {HWND} _hwnd 
  * @param {HINSTANCE} _hInstance 
  * @param {PWSTR} pszParms 
@@ -4986,40 +5047,40 @@ export RegInstallW(hmod, pszSection, pstTable) {
 export LaunchINFSectionExW(_hwnd, _hInstance, pszParms, nShow) {
     pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
 
-    result := DllCall("ADVPACK.dll\LaunchINFSectionExW", HWND, _hwnd, HINSTANCE, _hInstance, "ptr", pszParms, Int32, nShow, "HRESULT")
+    _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+    _hInstanceMarshal := _hInstance == 0 ? IntPtr : HINSTANCE
+
+    result := DllCall("ADVPACK.dll\LaunchINFSectionExW", _hwndMarshal, _hwnd, _hInstanceMarshal, _hInstance, "ptr", pszParms, Int32, nShow, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {HWND} _hwnd 
  * @param {Pointer<CABINFOA>} pCab 
  * @param {Pointer<Void>} pReserved 
  * @returns {HRESULT} 
  */
 export ExecuteCabA(_hwnd, pCab, pReserved) {
-    pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
+    pReservedMarshal := pReserved is VarRef ? "ptr" : IntPtr
 
     result := DllCall("ADVPACK.dll\ExecuteCabA", HWND, _hwnd, CABINFOA.Ptr, pCab, pReservedMarshal, pReserved, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {HWND} _hwnd 
  * @param {Pointer<CABINFOW>} pCab 
  * @param {Pointer<Void>} pReserved 
  * @returns {HRESULT} 
  */
 export ExecuteCabW(_hwnd, pCab, pReserved) {
-    pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
+    pReservedMarshal := pReserved is VarRef ? "ptr" : IntPtr
 
     result := DllCall("ADVPACK.dll\ExecuteCabW", HWND, _hwnd, CABINFOW.Ptr, pCab, pReservedMarshal, pReserved, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {HWND} _hwnd 
  * @param {PSTR} lpszSourceDir 
  * @param {PSTR} lpszSourceFile 
@@ -5040,7 +5101,6 @@ export AdvInstallFileA(_hwnd, lpszSourceDir, lpszSourceFile, lpszDestDir, lpszDe
 }
 
 /**
- * 
  * @param {HWND} _hwnd 
  * @param {PWSTR} lpszSourceDir 
  * @param {PWSTR} lpszSourceFile 
@@ -5061,7 +5121,6 @@ export AdvInstallFileW(_hwnd, lpszSourceDir, lpszSourceFile, lpszDestDir, lpszDe
 }
 
 /**
- * 
  * @param {HWND} _hWnd 
  * @param {PSTR} pszTitleString 
  * @param {HKEY} hkBckupKey 
@@ -5082,7 +5141,6 @@ export RegSaveRestoreA(_hWnd, pszTitleString, hkBckupKey, pcszRootKey, pcszSubKe
 }
 
 /**
- * 
  * @param {HWND} _hWnd 
  * @param {PWSTR} pszTitleString 
  * @param {HKEY} hkBckupKey 
@@ -5103,7 +5161,6 @@ export RegSaveRestoreW(_hWnd, pszTitleString, hkBckupKey, pcszRootKey, pcszSubKe
 }
 
 /**
- * 
  * @param {HWND} _hWnd 
  * @param {PSTR} pszTitle 
  * @param {PSTR} pszINF 
@@ -5123,7 +5180,6 @@ export RegSaveRestoreOnINFA(_hWnd, pszTitle, pszINF, pszSection, hHKLMBackKey, h
 }
 
 /**
- * 
  * @param {HWND} _hWnd 
  * @param {PWSTR} pszTitle 
  * @param {PWSTR} pszINF 
@@ -5143,7 +5199,6 @@ export RegSaveRestoreOnINFW(_hWnd, pszTitle, pszINF, pszSection, hHKLMBackKey, h
 }
 
 /**
- * 
  * @param {HWND} _hWnd 
  * @param {PSTR} pszTitleString 
  * @param {HKEY} hkBckupKey 
@@ -5152,12 +5207,14 @@ export RegSaveRestoreOnINFW(_hWnd, pszTitle, pszINF, pszSection, hHKLMBackKey, h
 export RegRestoreAllA(_hWnd, pszTitleString, hkBckupKey) {
     pszTitleString := pszTitleString is String ? StrPtr(pszTitleString) : pszTitleString
 
-    result := DllCall("ADVPACK.dll\RegRestoreAllA", HWND, _hWnd, "ptr", pszTitleString, HKEY, hkBckupKey, "HRESULT")
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+    pszTitleStringMarshal := pszTitleString == 0 ? IntPtr : PSTR
+
+    result := DllCall("ADVPACK.dll\RegRestoreAllA", _hWndMarshal, _hWnd, pszTitleStringMarshal, pszTitleString, HKEY, hkBckupKey, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {HWND} _hWnd 
  * @param {PWSTR} pszTitleString 
  * @param {HKEY} hkBckupKey 
@@ -5166,12 +5223,14 @@ export RegRestoreAllA(_hWnd, pszTitleString, hkBckupKey) {
 export RegRestoreAllW(_hWnd, pszTitleString, hkBckupKey) {
     pszTitleString := pszTitleString is String ? StrPtr(pszTitleString) : pszTitleString
 
-    result := DllCall("ADVPACK.dll\RegRestoreAllW", HWND, _hWnd, "ptr", pszTitleString, HKEY, hkBckupKey, "HRESULT")
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+    pszTitleStringMarshal := pszTitleString == 0 ? IntPtr : PWSTR
+
+    result := DllCall("ADVPACK.dll\RegRestoreAllW", _hWndMarshal, _hWnd, pszTitleStringMarshal, pszTitleString, HKEY, hkBckupKey, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {HWND} hDlg 
  * @param {PWSTR} lpFileList 
  * @param {PWSTR} lpDir 
@@ -5184,12 +5243,13 @@ export FileSaveRestoreW(hDlg, lpFileList, lpDir, lpBaseName, dwFlags) {
     lpDir := lpDir is String ? StrPtr(lpDir) : lpDir
     lpBaseName := lpBaseName is String ? StrPtr(lpBaseName) : lpBaseName
 
-    result := DllCall("ADVPACK.dll\FileSaveRestoreW", HWND, hDlg, "ptr", lpFileList, "ptr", lpDir, "ptr", lpBaseName, UInt32, dwFlags, "HRESULT")
+    lpFileListMarshal := lpFileList == 0 ? IntPtr : PWSTR
+
+    result := DllCall("ADVPACK.dll\FileSaveRestoreW", HWND, hDlg, lpFileListMarshal, lpFileList, "ptr", lpDir, "ptr", lpBaseName, UInt32, dwFlags, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {HWND} _hWnd 
  * @param {PSTR} pszTitle 
  * @param {PSTR} pszINF 
@@ -5211,7 +5271,6 @@ export FileSaveRestoreOnINFA(_hWnd, pszTitle, pszINF, pszSection, pszBackupDir, 
 }
 
 /**
- * 
  * @param {HWND} _hWnd 
  * @param {PWSTR} pszTitle 
  * @param {PWSTR} pszINF 
@@ -5233,7 +5292,6 @@ export FileSaveRestoreOnINFW(_hWnd, pszTitle, pszINF, pszSection, pszBackupDir, 
 }
 
 /**
- * 
  * @param {PSTR} lpcszFileList 
  * @param {PSTR} lpcszBackupDir 
  * @param {PSTR} lpcszBaseName 
@@ -5245,12 +5303,15 @@ export AddDelBackupEntryA(lpcszFileList, lpcszBackupDir, lpcszBaseName, dwFlags)
     lpcszBackupDir := lpcszBackupDir is String ? StrPtr(lpcszBackupDir) : lpcszBackupDir
     lpcszBaseName := lpcszBaseName is String ? StrPtr(lpcszBaseName) : lpcszBaseName
 
-    result := DllCall("ADVPACK.dll\AddDelBackupEntryA", "ptr", lpcszFileList, "ptr", lpcszBackupDir, "ptr", lpcszBaseName, UInt32, dwFlags, "HRESULT")
+    lpcszFileListMarshal := lpcszFileList == 0 ? IntPtr : PSTR
+    lpcszBackupDirMarshal := lpcszBackupDir == 0 ? IntPtr : PSTR
+    lpcszBaseNameMarshal := lpcszBaseName == 0 ? IntPtr : PSTR
+
+    result := DllCall("ADVPACK.dll\AddDelBackupEntryA", lpcszFileListMarshal, lpcszFileList, lpcszBackupDirMarshal, lpcszBackupDir, lpcszBaseNameMarshal, lpcszBaseName, UInt32, dwFlags, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {PWSTR} lpcszFileList 
  * @param {PWSTR} lpcszBackupDir 
  * @param {PWSTR} lpcszBaseName 
@@ -5262,12 +5323,15 @@ export AddDelBackupEntryW(lpcszFileList, lpcszBackupDir, lpcszBaseName, dwFlags)
     lpcszBackupDir := lpcszBackupDir is String ? StrPtr(lpcszBackupDir) : lpcszBackupDir
     lpcszBaseName := lpcszBaseName is String ? StrPtr(lpcszBaseName) : lpcszBaseName
 
-    result := DllCall("ADVPACK.dll\AddDelBackupEntryW", "ptr", lpcszFileList, "ptr", lpcszBackupDir, "ptr", lpcszBaseName, UInt32, dwFlags, "HRESULT")
+    lpcszFileListMarshal := lpcszFileList == 0 ? IntPtr : PWSTR
+    lpcszBackupDirMarshal := lpcszBackupDir == 0 ? IntPtr : PWSTR
+    lpcszBaseNameMarshal := lpcszBaseName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("ADVPACK.dll\AddDelBackupEntryW", lpcszFileListMarshal, lpcszFileList, lpcszBackupDirMarshal, lpcszBackupDir, lpcszBaseNameMarshal, lpcszBaseName, UInt32, dwFlags, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {PSTR} lpFileList 
  * @param {PSTR} lpDir 
  * @param {PSTR} lpBaseName 
@@ -5278,12 +5342,15 @@ export FileSaveMarkNotExistA(lpFileList, lpDir, lpBaseName) {
     lpDir := lpDir is String ? StrPtr(lpDir) : lpDir
     lpBaseName := lpBaseName is String ? StrPtr(lpBaseName) : lpBaseName
 
-    result := DllCall("ADVPACK.dll\FileSaveMarkNotExistA", "ptr", lpFileList, "ptr", lpDir, "ptr", lpBaseName, "HRESULT")
+    lpFileListMarshal := lpFileList == 0 ? IntPtr : PSTR
+    lpDirMarshal := lpDir == 0 ? IntPtr : PSTR
+    lpBaseNameMarshal := lpBaseName == 0 ? IntPtr : PSTR
+
+    result := DllCall("ADVPACK.dll\FileSaveMarkNotExistA", lpFileListMarshal, lpFileList, lpDirMarshal, lpDir, lpBaseNameMarshal, lpBaseName, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {PWSTR} lpFileList 
  * @param {PWSTR} lpDir 
  * @param {PWSTR} lpBaseName 
@@ -5294,12 +5361,15 @@ export FileSaveMarkNotExistW(lpFileList, lpDir, lpBaseName) {
     lpDir := lpDir is String ? StrPtr(lpDir) : lpDir
     lpBaseName := lpBaseName is String ? StrPtr(lpBaseName) : lpBaseName
 
-    result := DllCall("ADVPACK.dll\FileSaveMarkNotExistW", "ptr", lpFileList, "ptr", lpDir, "ptr", lpBaseName, "HRESULT")
+    lpFileListMarshal := lpFileList == 0 ? IntPtr : PWSTR
+    lpDirMarshal := lpDir == 0 ? IntPtr : PWSTR
+    lpBaseNameMarshal := lpBaseName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("ADVPACK.dll\FileSaveMarkNotExistW", lpFileListMarshal, lpFileList, lpDirMarshal, lpDir, lpBaseNameMarshal, lpBaseName, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {PSTR} lpszFilename 
  * @param {Pointer<Integer>} pdwMSVer 
  * @param {Pointer<Integer>} pdwLSVer 
@@ -5309,15 +5379,14 @@ export FileSaveMarkNotExistW(lpFileList, lpDir, lpBaseName) {
 export GetVersionFromFileA(lpszFilename, pdwMSVer, pdwLSVer, bVersion) {
     lpszFilename := lpszFilename is String ? StrPtr(lpszFilename) : lpszFilename
 
-    pdwMSVerMarshal := pdwMSVer is VarRef ? "uint*" : "ptr"
-    pdwLSVerMarshal := pdwLSVer is VarRef ? "uint*" : "ptr"
+    pdwMSVerMarshal := pdwMSVer is VarRef ? "uint*" : IntPtr
+    pdwLSVerMarshal := pdwLSVer is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ADVPACK.dll\GetVersionFromFileA", "ptr", lpszFilename, pdwMSVerMarshal, pdwMSVer, pdwLSVerMarshal, pdwLSVer, BOOL, bVersion, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {PWSTR} lpszFilename 
  * @param {Pointer<Integer>} pdwMSVer 
  * @param {Pointer<Integer>} pdwLSVer 
@@ -5327,15 +5396,14 @@ export GetVersionFromFileA(lpszFilename, pdwMSVer, pdwLSVer, bVersion) {
 export GetVersionFromFileW(lpszFilename, pdwMSVer, pdwLSVer, bVersion) {
     lpszFilename := lpszFilename is String ? StrPtr(lpszFilename) : lpszFilename
 
-    pdwMSVerMarshal := pdwMSVer is VarRef ? "uint*" : "ptr"
-    pdwLSVerMarshal := pdwLSVer is VarRef ? "uint*" : "ptr"
+    pdwMSVerMarshal := pdwMSVer is VarRef ? "uint*" : IntPtr
+    pdwLSVerMarshal := pdwLSVer is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ADVPACK.dll\GetVersionFromFileW", "ptr", lpszFilename, pdwMSVerMarshal, pdwMSVer, pdwLSVerMarshal, pdwLSVer, BOOL, bVersion, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {PSTR} lpszFilename 
  * @param {Pointer<Integer>} pdwMSVer 
  * @param {Pointer<Integer>} pdwLSVer 
@@ -5345,15 +5413,14 @@ export GetVersionFromFileW(lpszFilename, pdwMSVer, pdwLSVer, bVersion) {
 export GetVersionFromFileExA(lpszFilename, pdwMSVer, pdwLSVer, bVersion) {
     lpszFilename := lpszFilename is String ? StrPtr(lpszFilename) : lpszFilename
 
-    pdwMSVerMarshal := pdwMSVer is VarRef ? "uint*" : "ptr"
-    pdwLSVerMarshal := pdwLSVer is VarRef ? "uint*" : "ptr"
+    pdwMSVerMarshal := pdwMSVer is VarRef ? "uint*" : IntPtr
+    pdwLSVerMarshal := pdwLSVer is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ADVPACK.dll\GetVersionFromFileExA", "ptr", lpszFilename, pdwMSVerMarshal, pdwMSVer, pdwLSVerMarshal, pdwLSVer, BOOL, bVersion, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {PWSTR} lpszFilename 
  * @param {Pointer<Integer>} pdwMSVer 
  * @param {Pointer<Integer>} pdwLSVer 
@@ -5363,28 +5430,26 @@ export GetVersionFromFileExA(lpszFilename, pdwMSVer, pdwLSVer, bVersion) {
 export GetVersionFromFileExW(lpszFilename, pdwMSVer, pdwLSVer, bVersion) {
     lpszFilename := lpszFilename is String ? StrPtr(lpszFilename) : lpszFilename
 
-    pdwMSVerMarshal := pdwMSVer is VarRef ? "uint*" : "ptr"
-    pdwLSVerMarshal := pdwLSVer is VarRef ? "uint*" : "ptr"
+    pdwMSVerMarshal := pdwMSVer is VarRef ? "uint*" : IntPtr
+    pdwLSVerMarshal := pdwLSVer is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ADVPACK.dll\GetVersionFromFileExW", "ptr", lpszFilename, pdwMSVerMarshal, pdwMSVer, pdwLSVerMarshal, pdwLSVer, BOOL, bVersion, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {Integer} dwReserved 
  * @param {Pointer<Integer>} lpdwReserved 
  * @returns {BOOL} 
  */
 export IsNTAdmin(dwReserved, lpdwReserved) {
-    lpdwReservedMarshal := lpdwReserved is VarRef ? "uint*" : "ptr"
+    lpdwReservedMarshal := lpdwReserved is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ADVPACK.dll\IsNTAdmin", UInt32, dwReserved, lpdwReservedMarshal, lpdwReserved, BOOL)
     return result
 }
 
 /**
- * 
  * @param {PSTR} pszFileOrDirName 
  * @param {Integer} dwFlags 
  * @returns {HRESULT} 
@@ -5397,7 +5462,6 @@ export DelNodeA(pszFileOrDirName, dwFlags) {
 }
 
 /**
- * 
  * @param {PWSTR} pszFileOrDirName 
  * @param {Integer} dwFlags 
  * @returns {HRESULT} 
@@ -5410,7 +5474,6 @@ export DelNodeW(pszFileOrDirName, dwFlags) {
 }
 
 /**
- * 
  * @param {HWND} _hwnd 
  * @param {HINSTANCE} _hInstance 
  * @param {PWSTR} pszParms 
@@ -5425,7 +5488,6 @@ export DelNodeRunDLL32W(_hwnd, _hInstance, pszParms, nShow) {
 }
 
 /**
- * 
  * @param {PSTR} pszInfFilename 
  * @param {PSTR} pszInstallSection 
  * @param {Integer} dwFlags 
@@ -5437,15 +5499,14 @@ export OpenINFEngineA(pszInfFilename, pszInstallSection, dwFlags, phInf, pvReser
     pszInfFilename := pszInfFilename is String ? StrPtr(pszInfFilename) : pszInfFilename
     pszInstallSection := pszInstallSection is String ? StrPtr(pszInstallSection) : pszInstallSection
 
-    phInfMarshal := phInf is VarRef ? "ptr*" : "ptr"
-    pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
+    phInfMarshal := phInf is VarRef ? "ptr*" : IntPtr
+    pvReservedMarshal := pvReserved is VarRef ? "ptr" : IntPtr
 
     result := DllCall("ADVPACK.dll\OpenINFEngineA", "ptr", pszInfFilename, "ptr", pszInstallSection, UInt32, dwFlags, phInfMarshal, phInf, pvReservedMarshal, pvReserved, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {PWSTR} pszInfFilename 
  * @param {PWSTR} pszInstallSection 
  * @param {Integer} dwFlags 
@@ -5457,15 +5518,14 @@ export OpenINFEngineW(pszInfFilename, pszInstallSection, dwFlags, phInf, pvReser
     pszInfFilename := pszInfFilename is String ? StrPtr(pszInfFilename) : pszInfFilename
     pszInstallSection := pszInstallSection is String ? StrPtr(pszInstallSection) : pszInstallSection
 
-    phInfMarshal := phInf is VarRef ? "ptr*" : "ptr"
-    pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
+    phInfMarshal := phInf is VarRef ? "ptr*" : IntPtr
+    pvReservedMarshal := pvReserved is VarRef ? "ptr" : IntPtr
 
     result := DllCall("ADVPACK.dll\OpenINFEngineW", "ptr", pszInfFilename, "ptr", pszInstallSection, UInt32, dwFlags, phInfMarshal, phInf, pvReservedMarshal, pvReserved, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} hInf 
  * @param {PSTR} pszInfFilename 
  * @param {PSTR} pszTranslateSection 
@@ -5482,14 +5542,13 @@ export TranslateInfStringExA(hInf, pszInfFilename, pszTranslateSection, pszTrans
     pszTranslateKey := pszTranslateKey is String ? StrPtr(pszTranslateKey) : pszTranslateKey
     pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
 
-    hInfMarshal := hInf is VarRef ? "ptr" : "ptr"
+    hInfMarshal := hInf is VarRef ? "ptr" : IntPtr
 
     result := DllCall("ADVPACK.dll\TranslateInfStringExA", hInfMarshal, hInf, "ptr", pszInfFilename, "ptr", pszTranslateSection, "ptr", pszTranslateKey, "ptr", pszBuffer, UInt32, dwBufferSize, "uint*", &pdwRequiredSize := 0, "ptr", pvReserved, "HRESULT")
     return pdwRequiredSize
 }
 
 /**
- * 
  * @param {Pointer<Void>} hInf 
  * @param {PWSTR} pszInfFilename 
  * @param {PWSTR} pszTranslateSection 
@@ -5506,26 +5565,24 @@ export TranslateInfStringExW(hInf, pszInfFilename, pszTranslateSection, pszTrans
     pszTranslateKey := pszTranslateKey is String ? StrPtr(pszTranslateKey) : pszTranslateKey
     pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
 
-    hInfMarshal := hInf is VarRef ? "ptr" : "ptr"
+    hInfMarshal := hInf is VarRef ? "ptr" : IntPtr
 
     result := DllCall("ADVPACK.dll\TranslateInfStringExW", hInfMarshal, hInf, "ptr", pszInfFilename, "ptr", pszTranslateSection, "ptr", pszTranslateKey, "ptr", pszBuffer, UInt32, dwBufferSize, "uint*", &pdwRequiredSize := 0, "ptr", pvReserved, "HRESULT")
     return pdwRequiredSize
 }
 
 /**
- * 
  * @param {Pointer<Void>} hInf 
  * @returns {HRESULT} 
  */
 export CloseINFEngine(hInf) {
-    hInfMarshal := hInf is VarRef ? "ptr" : "ptr"
+    hInfMarshal := hInf is VarRef ? "ptr" : IntPtr
 
     result := DllCall("ADVPACK.dll\CloseINFEngine", hInfMarshal, hInf, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {PSTR} pszCabName 
  * @param {PSTR} pszExpandDir 
  * @param {Integer} dwFlags 
@@ -5539,14 +5596,13 @@ export ExtractFilesA(pszCabName, pszExpandDir, dwFlags, pszFileList, lpReserved,
     pszExpandDir := pszExpandDir is String ? StrPtr(pszExpandDir) : pszExpandDir
     pszFileList := pszFileList is String ? StrPtr(pszFileList) : pszFileList
 
-    lpReservedMarshal := lpReserved is VarRef ? "ptr" : "ptr"
+    lpReservedMarshal := lpReserved is VarRef ? "ptr" : IntPtr
 
     result := DllCall("ADVPACK.dll\ExtractFilesA", "ptr", pszCabName, "ptr", pszExpandDir, UInt32, dwFlags, "ptr", pszFileList, lpReservedMarshal, lpReserved, UInt32, dwReserved, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {PWSTR} pszCabName 
  * @param {PWSTR} pszExpandDir 
  * @param {Integer} dwFlags 
@@ -5560,14 +5616,13 @@ export ExtractFilesW(pszCabName, pszExpandDir, dwFlags, pszFileList, lpReserved,
     pszExpandDir := pszExpandDir is String ? StrPtr(pszExpandDir) : pszExpandDir
     pszFileList := pszFileList is String ? StrPtr(pszFileList) : pszFileList
 
-    lpReservedMarshal := lpReserved is VarRef ? "ptr" : "ptr"
+    lpReservedMarshal := lpReserved is VarRef ? "ptr" : IntPtr
 
     result := DllCall("ADVPACK.dll\ExtractFilesW", "ptr", pszCabName, "ptr", pszExpandDir, UInt32, dwFlags, "ptr", pszFileList, lpReservedMarshal, lpReserved, UInt32, dwReserved, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {HWND} hwndOwner 
  * @param {HINSTANCE} _hInstance 
  * @param {PWSTR} pszParams 
@@ -5582,7 +5637,6 @@ export LaunchINFSectionW(hwndOwner, _hInstance, pszParams, nShow) {
 }
 
 /**
- * 
  * @param {HWND} _hwnd 
  * @param {HINSTANCE} _hInstance 
  * @param {PSTR} pszParms 
@@ -5597,7 +5651,6 @@ export UserInstStubWrapperA(_hwnd, _hInstance, pszParms, nShow) {
 }
 
 /**
- * 
  * @param {HWND} _hwnd 
  * @param {HINSTANCE} _hInstance 
  * @param {PWSTR} pszParms 
@@ -5612,7 +5665,6 @@ export UserInstStubWrapperW(_hwnd, _hInstance, pszParms, nShow) {
 }
 
 /**
- * 
  * @param {HWND} _hwnd 
  * @param {HINSTANCE} _hInstance 
  * @param {PSTR} pszParms 
@@ -5627,7 +5679,6 @@ export UserUnInstStubWrapperA(_hwnd, _hInstance, pszParms, nShow) {
 }
 
 /**
- * 
  * @param {HWND} _hwnd 
  * @param {HINSTANCE} _hInstance 
  * @param {PWSTR} pszParms 
@@ -5642,7 +5693,6 @@ export UserUnInstStubWrapperW(_hwnd, _hInstance, pszParms, nShow) {
 }
 
 /**
- * 
  * @param {Pointer<PERUSERSECTIONA>} pPerUser 
  * @returns {HRESULT} 
  */
@@ -5652,7 +5702,6 @@ export SetPerUserSecValuesA(pPerUser) {
 }
 
 /**
- * 
  * @param {Pointer<PERUSERSECTIONW>} pPerUser 
  * @returns {HRESULT} 
  */
@@ -5938,7 +5987,6 @@ export SendIMEMessageExW(param0, param1) {
 }
 
 /**
- * 
  * @param {HWND} param0 
  * @param {Pointer<IMEPROA>} param1 
  * @returns {BOOL} 
@@ -5949,7 +5997,6 @@ export IMPGetIMEA(param0, param1) {
 }
 
 /**
- * 
  * @param {HWND} param0 
  * @param {Pointer<IMEPROW>} param1 
  * @returns {BOOL} 
@@ -5960,7 +6007,6 @@ export IMPGetIMEW(param0, param1) {
 }
 
 /**
- * 
  * @param {Pointer<IMEPROA>} param0 
  * @returns {BOOL} 
  */
@@ -5970,7 +6016,6 @@ export IMPQueryIMEA(param0) {
 }
 
 /**
- * 
  * @param {Pointer<IMEPROW>} param0 
  * @returns {BOOL} 
  */
@@ -5980,7 +6025,6 @@ export IMPQueryIMEW(param0) {
 }
 
 /**
- * 
  * @param {HWND} param0 
  * @param {Pointer<IMEPROA>} param1 
  * @returns {BOOL} 
@@ -5991,7 +6035,6 @@ export IMPSetIMEA(param0, param1) {
 }
 
 /**
- * 
  * @param {HWND} param0 
  * @param {Pointer<IMEPROW>} param1 
  * @returns {BOOL} 
@@ -6002,7 +6045,6 @@ export IMPSetIMEW(param0, param1) {
 }
 
 /**
- * 
  * @param {HWND} param0 
  * @returns {Integer} 
  */
@@ -6033,7 +6075,6 @@ export WINNLSEnableIME(param0, param1) {
 }
 
 /**
- * 
  * @param {HWND} param0 
  * @returns {BOOL} 
  */
@@ -6060,7 +6101,7 @@ export WINNLSGetEnableStatus(param0) {
  * @see https://learn.microsoft.com/windows/win32/api/appcompatapi/nf-appcompatapi-apphelpcheckshellobject
  */
 export ApphelpCheckShellObject(ObjectCLSID, bShimIfNecessary, pullFlags) {
-    pullFlagsMarshal := pullFlags is VarRef ? "uint*" : "ptr"
+    pullFlagsMarshal := pullFlags is VarRef ? "uint*" : IntPtr
 
     result := DllCall("APPHELP.dll\ApphelpCheckShellObject", Guid.Ptr, ObjectCLSID, BOOL, bShimIfNecessary, pullFlagsMarshal, pullFlags, BOOL)
     return result
@@ -6083,7 +6124,9 @@ export ApphelpCheckShellObject(ObjectCLSID, bShimIfNecessary, pullFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpgetlockdownpolicy
  */
 export WldpGetLockdownPolicy(hostInformation, lockdownFlags) {
-    result := DllCall("Wldp.dll\WldpGetLockdownPolicy", WLDP_HOST_INFORMATION.Ptr, hostInformation, "uint*", &lockdownState := 0, UInt32, lockdownFlags, "HRESULT")
+    hostInformationMarshal := hostInformation == 0 ? IntPtr : WLDP_HOST_INFORMATION.Ptr
+
+    result := DllCall("Wldp.dll\WldpGetLockdownPolicy", hostInformationMarshal, hostInformation, "uint*", &lockdownState := 0, UInt32, lockdownFlags, "HRESULT")
     return lockdownState
 }
 
@@ -6101,7 +6144,6 @@ export WldpIsClassInApprovedList(classID, hostInformation, optionalFlags) {
 }
 
 /**
- * 
  * @param {Pointer<UNICODE_STRING>} providerName 
  * @param {Pointer<UNICODE_STRING>} keyName 
  * @param {Pointer<UNICODE_STRING>} _valueName 
@@ -6110,9 +6152,10 @@ export WldpIsClassInApprovedList(classID, hostInformation, optionalFlags) {
  * @returns {WLDP_SECURE_SETTING_VALUE_TYPE} 
  */
 export WldpQuerySecurityPolicy(providerName, keyName, _valueName, valueAddress, valueSize) {
-    valueSizeMarshal := valueSize is VarRef ? "uint*" : "ptr"
+    valueAddressMarshal := valueAddress == 0 ? IntPtr : IntPtr
+    valueSizeMarshal := valueSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("Wldp.dll\WldpQuerySecurityPolicy", UNICODE_STRING.Ptr, providerName, UNICODE_STRING.Ptr, keyName, UNICODE_STRING.Ptr, _valueName, "int*", &valueType := 0, IntPtr, valueAddress, valueSizeMarshal, valueSize, "HRESULT")
+    result := DllCall("Wldp.dll\WldpQuerySecurityPolicy", UNICODE_STRING.Ptr, providerName, UNICODE_STRING.Ptr, keyName, UNICODE_STRING.Ptr, _valueName, "int*", &valueType := 0, valueAddressMarshal, valueAddress, valueSizeMarshal, valueSize, "HRESULT")
     return valueType
 }
 
@@ -6148,7 +6191,10 @@ export WldpIsDynamicCodePolicyEnabled() {
  * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpquerydynamiccodetrust
  */
 export WldpQueryDynamicCodeTrust(fileHandle, baseImage, imageSize) {
-    result := DllCall("Wldp.dll\WldpQueryDynamicCodeTrust", HANDLE, fileHandle, IntPtr, baseImage, UInt32, imageSize, "HRESULT")
+    fileHandleMarshal := fileHandle == 0 ? IntPtr : HANDLE
+    baseImageMarshal := baseImage == 0 ? IntPtr : IntPtr
+
+    result := DllCall("Wldp.dll\WldpQueryDynamicCodeTrust", fileHandleMarshal, fileHandle, baseImageMarshal, baseImage, UInt32, imageSize, "HRESULT")
     return result
 }
 
@@ -6163,18 +6209,18 @@ export WldpQueryWindowsLockdownMode() {
 }
 
 /**
- * 
  * @param {Pointer<WLDP_DEVICE_SECURITY_INFORMATION>} information 
  * @param {Integer} informationLength 
  * @returns {Integer} 
  */
 export WldpQueryDeviceSecurityInformation(information, informationLength) {
-    result := DllCall("Wldp.dll\WldpQueryDeviceSecurityInformation", WLDP_DEVICE_SECURITY_INFORMATION.Ptr, information, UInt32, informationLength, "uint*", &returnLength := 0, "HRESULT")
+    informationMarshal := information == 0 ? IntPtr : WLDP_DEVICE_SECURITY_INFORMATION.Ptr
+
+    result := DllCall("Wldp.dll\WldpQueryDeviceSecurityInformation", informationMarshal, information, UInt32, informationLength, "uint*", &returnLength := 0, "HRESULT")
     return returnLength
 }
 
 /**
- * 
  * @returns {WLDP_WINDOWS_LOCKDOWN_RESTRICTION} 
  */
 export WldpQueryWindowsLockdownRestriction() {
@@ -6183,7 +6229,6 @@ export WldpQueryWindowsLockdownRestriction() {
 }
 
 /**
- * 
  * @param {WLDP_WINDOWS_LOCKDOWN_RESTRICTION} LockdownRestriction 
  * @returns {HRESULT} 
  */
@@ -6193,7 +6238,6 @@ export WldpSetWindowsLockdownRestriction(LockdownRestriction) {
 }
 
 /**
- * 
  * @param {PWSTR} PackageFamilyName 
  * @param {Integer} PackageVersion 
  * @returns {HRESULT} 
@@ -6206,7 +6250,6 @@ export WldpIsAppApprovedByPolicy(PackageFamilyName, PackageVersion) {
 }
 
 /**
- * 
  * @param {WLDP_POLICY_SETTING} Setting 
  * @returns {BOOL} 
  */
@@ -6216,7 +6259,6 @@ export WldpQueryPolicySettingEnabled(Setting) {
 }
 
 /**
- * 
  * @param {PWSTR} SettingString 
  * @returns {BOOL} 
  */
@@ -6228,7 +6270,6 @@ export WldpQueryPolicySettingEnabled2(SettingString) {
 }
 
 /**
- * 
  * @returns {BOOL} 
  */
 export WldpIsWcosProductionConfiguration() {
@@ -6237,7 +6278,6 @@ export WldpIsWcosProductionConfiguration() {
 }
 
 /**
- * 
  * @returns {HRESULT} 
  */
 export WldpResetWcosProductionConfiguration() {
@@ -6246,7 +6286,6 @@ export WldpResetWcosProductionConfiguration() {
 }
 
 /**
- * 
  * @returns {BOOL} 
  */
 export WldpIsProductionConfiguration() {
@@ -6255,7 +6294,6 @@ export WldpIsProductionConfiguration() {
 }
 
 /**
- * 
  * @returns {HRESULT} 
  */
 export WldpResetProductionConfiguration() {
@@ -6286,7 +6324,9 @@ export WldpResetProductionConfiguration() {
 export WldpCanExecuteFile(host, options, fileHandle, auditInfo) {
     auditInfo := auditInfo is String ? StrPtr(auditInfo) : auditInfo
 
-    result := DllCall("Wldp.dll\WldpCanExecuteFile", Guid.Ptr, host, WLDP_EXECUTION_EVALUATION_OPTIONS, options, HANDLE, fileHandle, "ptr", auditInfo, "int*", &result := 0, "HRESULT")
+    auditInfoMarshal := auditInfo == 0 ? IntPtr : PWSTR
+
+    result := DllCall("Wldp.dll\WldpCanExecuteFile", Guid.Ptr, host, WLDP_EXECUTION_EVALUATION_OPTIONS, options, HANDLE, fileHandle, auditInfoMarshal, auditInfo, "int*", &result := 0, "HRESULT")
     return result
 }
 
@@ -6314,9 +6354,10 @@ export WldpCanExecuteFile(host, options, fileHandle, auditInfo) {
 export WldpCanExecuteBuffer(host, options, _buffer, bufferSize, auditInfo) {
     auditInfo := auditInfo is String ? StrPtr(auditInfo) : auditInfo
 
-    _bufferMarshal := _buffer is VarRef ? "char*" : "ptr"
+    _bufferMarshal := _buffer is VarRef ? "char*" : IntPtr
+    auditInfoMarshal := auditInfo == 0 ? IntPtr : PWSTR
 
-    result := DllCall("Wldp.dll\WldpCanExecuteBuffer", Guid.Ptr, host, WLDP_EXECUTION_EVALUATION_OPTIONS, options, _bufferMarshal, _buffer, UInt32, bufferSize, "ptr", auditInfo, "int*", &result := 0, "HRESULT")
+    result := DllCall("Wldp.dll\WldpCanExecuteBuffer", Guid.Ptr, host, WLDP_EXECUTION_EVALUATION_OPTIONS, options, _bufferMarshal, _buffer, UInt32, bufferSize, auditInfoMarshal, auditInfo, "int*", &result := 0, "HRESULT")
     return result
 }
 
@@ -6340,12 +6381,13 @@ export WldpCanExecuteBuffer(host, options, _buffer, bufferSize, auditInfo) {
 export WldpCanExecuteStream(host, options, stream, auditInfo) {
     auditInfo := auditInfo is String ? StrPtr(auditInfo) : auditInfo
 
-    result := DllCall("Wldp.dll\WldpCanExecuteStream", Guid.Ptr, host, WLDP_EXECUTION_EVALUATION_OPTIONS, options, "ptr", stream, "ptr", auditInfo, "int*", &result := 0, "HRESULT")
+    auditInfoMarshal := auditInfo == 0 ? IntPtr : PWSTR
+
+    result := DllCall("Wldp.dll\WldpCanExecuteStream", Guid.Ptr, host, WLDP_EXECUTION_EVALUATION_OPTIONS, options, "ptr", stream, auditInfoMarshal, auditInfo, "int*", &result := 0, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {Pointer<Guid>} host 
  * @param {WLDP_EXECUTION_EVALUATION_OPTIONS} options 
  * @param {HANDLE} contentFileHandle 
@@ -6356,12 +6398,13 @@ export WldpCanExecuteStream(host, options, stream, auditInfo) {
 export WldpCanExecuteFileFromDetachedSignature(host, options, contentFileHandle, signatureFileHandle, auditInfo) {
     auditInfo := auditInfo is String ? StrPtr(auditInfo) : auditInfo
 
-    result := DllCall("Wldp.dll\WldpCanExecuteFileFromDetachedSignature", Guid.Ptr, host, WLDP_EXECUTION_EVALUATION_OPTIONS, options, HANDLE, contentFileHandle, HANDLE, signatureFileHandle, "ptr", auditInfo, "int*", &result := 0, "HRESULT")
+    auditInfoMarshal := auditInfo == 0 ? IntPtr : PWSTR
+
+    result := DllCall("Wldp.dll\WldpCanExecuteFileFromDetachedSignature", Guid.Ptr, host, WLDP_EXECUTION_EVALUATION_OPTIONS, options, HANDLE, contentFileHandle, HANDLE, signatureFileHandle, auditInfoMarshal, auditInfo, "int*", &result := 0, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {PWSTR} id 
  * @param {PWSTR} setting 
  * @returns {BOOL} 
@@ -6375,7 +6418,6 @@ export WldpGetApplicationSettingBoolean(id, setting) {
 }
 
 /**
- * 
  * @param {PWSTR} id 
  * @param {PWSTR} setting 
  * @param {Pointer} dataCount 
@@ -6387,12 +6429,13 @@ export WldpGetApplicationSettingStringList(id, setting, dataCount, result) {
     setting := setting is String ? StrPtr(setting) : setting
     result := result is String ? StrPtr(result) : result
 
-    result := DllCall("Wldp.dll\WldpGetApplicationSettingStringList", "ptr", id, "ptr", setting, IntPtr, dataCount, "ptr*", &requiredCount := 0, "ptr", result, "HRESULT")
+    resultMarshal := result == 0 ? IntPtr : PWSTR
+
+    result := DllCall("Wldp.dll\WldpGetApplicationSettingStringList", "ptr", id, "ptr", setting, IntPtr, dataCount, "ptr*", &requiredCount := 0, resultMarshal, result, "HRESULT")
     return requiredCount
 }
 
 /**
- * 
  * @param {PWSTR} id 
  * @param {PWSTR} setting 
  * @param {Pointer} dataCount 
@@ -6404,7 +6447,9 @@ export WldpGetApplicationSettingStringSet(id, setting, dataCount, result) {
     setting := setting is String ? StrPtr(setting) : setting
     result := result is String ? StrPtr(result) : result
 
-    result := DllCall("Wldp.dll\WldpGetApplicationSettingStringSet", "ptr", id, "ptr", setting, IntPtr, dataCount, "ptr*", &requiredCount := 0, "ptr", result, "HRESULT")
+    resultMarshal := result == 0 ? IntPtr : PWSTR
+
+    result := DllCall("Wldp.dll\WldpGetApplicationSettingStringSet", "ptr", id, "ptr", setting, IntPtr, dataCount, "ptr*", &requiredCount := 0, resultMarshal, result, "HRESULT")
     return requiredCount
 }
 

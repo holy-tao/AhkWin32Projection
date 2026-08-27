@@ -343,16 +343,16 @@ export default struct IBindCtx extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterObjectBound := CallbackCreate(GetMethod(implObj, "RegisterObjectBound"), flags, 2)
-        this.vtbl.RevokeObjectBound := CallbackCreate(GetMethod(implObj, "RevokeObjectBound"), flags, 2)
-        this.vtbl.ReleaseBoundObjects := CallbackCreate(GetMethod(implObj, "ReleaseBoundObjects"), flags, 1)
-        this.vtbl.SetBindOptions := CallbackCreate(GetMethod(implObj, "SetBindOptions"), flags, 2)
-        this.vtbl.GetBindOptions := CallbackCreate(GetMethod(implObj, "GetBindOptions"), flags, 2)
-        this.vtbl.GetRunningObjectTable := CallbackCreate(GetMethod(implObj, "GetRunningObjectTable"), flags, 2)
-        this.vtbl.RegisterObjectParam := CallbackCreate(GetMethod(implObj, "RegisterObjectParam"), flags, 3)
-        this.vtbl.GetObjectParam := CallbackCreate(GetMethod(implObj, "GetObjectParam"), flags, 3)
-        this.vtbl.EnumObjectParam := CallbackCreate(GetMethod(implObj, "EnumObjectParam"), flags, 2)
-        this.vtbl.RevokeObjectParam := CallbackCreate(GetMethod(implObj, "RevokeObjectParam"), flags, 2)
+        this.vtbl.RegisterObjectBound := CallbackCreate(ObjBindMethod(implObj, "RegisterObjectBound"), flags, 2)
+        this.vtbl.RevokeObjectBound := CallbackCreate(ObjBindMethod(implObj, "RevokeObjectBound"), flags, 2)
+        this.vtbl.ReleaseBoundObjects := CallbackCreate(ObjBindMethod(implObj, "ReleaseBoundObjects"), flags, 1)
+        this.vtbl.SetBindOptions := CallbackCreate(ObjBindMethod(implObj, "SetBindOptions"), flags, 2)
+        this.vtbl.GetBindOptions := CallbackCreate(ObjBindMethod(implObj, "GetBindOptions"), flags, 2)
+        this.vtbl.GetRunningObjectTable := CallbackCreate(ObjBindMethod(implObj, "GetRunningObjectTable"), flags, 2)
+        this.vtbl.RegisterObjectParam := CallbackCreate(ObjBindMethod(implObj, "RegisterObjectParam"), flags, 3)
+        this.vtbl.GetObjectParam := CallbackCreate(ObjBindMethod(implObj, "GetObjectParam"), flags, 3)
+        this.vtbl.EnumObjectParam := CallbackCreate(ObjBindMethod(implObj, "EnumObjectParam"), flags, 2)
+        this.vtbl.RevokeObjectParam := CallbackCreate(ObjBindMethod(implObj, "RevokeObjectParam"), flags, 2)
     }
 
     Dispose() {

@@ -26,7 +26,6 @@ export default struct WS_SET_LISTENER_PROPERTY_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} listenerInstance The pointer to the state specific to this listener instance,
      *                     as created by the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_create_listener_callback">WS_CREATE_LISTENER_CALLBACK</a>.
      * @param {WS_LISTENER_PROPERTY_ID} id The id of the property to set.
@@ -81,8 +80,9 @@ export default struct WS_SET_LISTENER_PROPERTY_CALLBACK {
      * </table>
      */
     Call(listenerInstance, id, value, valueSize, _error) {
-        listenerInstanceMarshal := listenerInstance is VarRef ? "ptr" : "ptr"
-        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
+        listenerInstanceMarshal := listenerInstance is VarRef ? "ptr" : IntPtr
+        _errorMarshal := _error is VarRef ? "ptr*" : IntPtr
+        _errorMarshal := _error == 0 ? IntPtr : WS_ERROR.Ptr
 
         result := DllCall(this.value, listenerInstanceMarshal, listenerInstance, WS_LISTENER_PROPERTY_ID, id, IntPtr, value, UInt32, valueSize, _errorMarshal, _error, "HRESULT")
         return result

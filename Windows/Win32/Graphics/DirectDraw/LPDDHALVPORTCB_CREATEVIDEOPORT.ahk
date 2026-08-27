@@ -19,7 +19,6 @@ export default struct LPDDHALVPORTCB_CREATEVIDEOPORT {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_CREATEVPORTDATA>} param0 
      * @returns {Integer} 
      */

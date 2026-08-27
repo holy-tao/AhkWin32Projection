@@ -172,7 +172,7 @@ export default struct IWMVideoDecoderHurryup extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmvideodecoderhurryup-gethurryup
      */
     GetHurryup(plHurryup) {
-        plHurryupMarshal := plHurryup is VarRef ? "int*" : "ptr"
+        plHurryupMarshal := plHurryup is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, plHurryupMarshal, plHurryup, "HRESULT")
         return result
@@ -187,8 +187,8 @@ export default struct IWMVideoDecoderHurryup extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetHurryup := CallbackCreate(GetMethod(implObj, "SetHurryup"), flags, 2)
-        this.vtbl.GetHurryup := CallbackCreate(GetMethod(implObj, "GetHurryup"), flags, 2)
+        this.vtbl.SetHurryup := CallbackCreate(ObjBindMethod(implObj, "SetHurryup"), flags, 2)
+        this.vtbl.GetHurryup := CallbackCreate(ObjBindMethod(implObj, "GetHurryup"), flags, 2)
     }
 
     Dispose() {

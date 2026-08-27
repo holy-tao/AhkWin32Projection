@@ -56,7 +56,9 @@ export default struct IWICMetadataWriterInfo extends IWICMetadataHandlerInfo {
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatawriterinfo-getheader
      */
     GetHeader(guidContainerFormat, cbSize, pHeader) {
-        result := ComCall(18, this, Guid.Ptr, guidContainerFormat, UInt32, cbSize, IntPtr, pHeader, "uint*", &pcbActual := 0, "HRESULT")
+        pHeaderMarshal := pHeader == 0 ? IntPtr : IntPtr
+
+        result := ComCall(18, this, Guid.Ptr, guidContainerFormat, UInt32, cbSize, pHeaderMarshal, pHeader, "uint*", &pcbActual := 0, "HRESULT")
         return pcbActual
     }
 
@@ -81,8 +83,8 @@ export default struct IWICMetadataWriterInfo extends IWICMetadataHandlerInfo {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetHeader := CallbackCreate(GetMethod(implObj, "GetHeader"), flags, 5)
-        this.vtbl.CreateInstance := CallbackCreate(GetMethod(implObj, "CreateInstance"), flags, 2)
+        this.vtbl.GetHeader := CallbackCreate(ObjBindMethod(implObj, "GetHeader"), flags, 5)
+        this.vtbl.CreateInstance := CallbackCreate(ObjBindMethod(implObj, "CreateInstance"), flags, 2)
     }
 
     Dispose() {

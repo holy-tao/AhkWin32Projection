@@ -43,7 +43,6 @@ export default struct IPrintWorkflowXpsReceiver extends IUnknown {
     }
 
     /**
-     * 
      * @param {IStream} documentSequencePrintTicket 
      * @returns {HRESULT} 
      */
@@ -53,7 +52,6 @@ export default struct IPrintWorkflowXpsReceiver extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} documentSequenceUri 
      * @returns {HRESULT} 
      */
@@ -65,7 +63,6 @@ export default struct IPrintWorkflowXpsReceiver extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} documentId 
      * @param {IStream} documentPrintTicket 
      * @param {PWSTR} documentUri 
@@ -79,7 +76,6 @@ export default struct IPrintWorkflowXpsReceiver extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} documentId 
      * @param {Integer} pageId 
      * @param {IXpsOMPageReference} pageReference 
@@ -94,7 +90,6 @@ export default struct IPrintWorkflowXpsReceiver extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Close() {
@@ -111,11 +106,11 @@ export default struct IPrintWorkflowXpsReceiver extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetDocumentSequencePrintTicket := CallbackCreate(GetMethod(implObj, "SetDocumentSequencePrintTicket"), flags, 2)
-        this.vtbl.SetDocumentSequenceUri := CallbackCreate(GetMethod(implObj, "SetDocumentSequenceUri"), flags, 2)
-        this.vtbl.AddDocumentData := CallbackCreate(GetMethod(implObj, "AddDocumentData"), flags, 4)
-        this.vtbl.AddPage := CallbackCreate(GetMethod(implObj, "AddPage"), flags, 5)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.SetDocumentSequencePrintTicket := CallbackCreate(ObjBindMethod(implObj, "SetDocumentSequencePrintTicket"), flags, 2)
+        this.vtbl.SetDocumentSequenceUri := CallbackCreate(ObjBindMethod(implObj, "SetDocumentSequenceUri"), flags, 2)
+        this.vtbl.AddDocumentData := CallbackCreate(ObjBindMethod(implObj, "AddDocumentData"), flags, 4)
+        this.vtbl.AddPage := CallbackCreate(ObjBindMethod(implObj, "AddPage"), flags, 5)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
     }
 
     Dispose() {

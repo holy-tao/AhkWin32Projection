@@ -53,7 +53,6 @@ export default struct IXMLDOMSchemaCollection2 extends IXMLDOMSchemaCollection {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     validate() {
@@ -62,7 +61,6 @@ export default struct IXMLDOMSchemaCollection2 extends IXMLDOMSchemaCollection {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} validateOnLoad 
      * @returns {HRESULT} 
      */
@@ -72,7 +70,6 @@ export default struct IXMLDOMSchemaCollection2 extends IXMLDOMSchemaCollection {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_validateOnLoad() {
@@ -81,7 +78,6 @@ export default struct IXMLDOMSchemaCollection2 extends IXMLDOMSchemaCollection {
     }
 
     /**
-     * 
      * @param {BSTR} namespaceURI 
      * @returns {ISchema} 
      */
@@ -93,7 +89,6 @@ export default struct IXMLDOMSchemaCollection2 extends IXMLDOMSchemaCollection {
     }
 
     /**
-     * 
      * @param {IXMLDOMNode} _node 
      * @returns {ISchemaItem} 
      */
@@ -111,11 +106,11 @@ export default struct IXMLDOMSchemaCollection2 extends IXMLDOMSchemaCollection {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.validate := CallbackCreate(GetMethod(implObj, "validate"), flags, 1)
-        this.vtbl.put_validateOnLoad := CallbackCreate(GetMethod(implObj, "put_validateOnLoad"), flags, 2)
-        this.vtbl.get_validateOnLoad := CallbackCreate(GetMethod(implObj, "get_validateOnLoad"), flags, 2)
-        this.vtbl.getSchema := CallbackCreate(GetMethod(implObj, "getSchema"), flags, 3)
-        this.vtbl.getDeclaration := CallbackCreate(GetMethod(implObj, "getDeclaration"), flags, 3)
+        this.vtbl.validate := CallbackCreate(ObjBindMethod(implObj, "validate"), flags, 1)
+        this.vtbl.put_validateOnLoad := CallbackCreate(ObjBindMethod(implObj, "put_validateOnLoad"), flags, 2)
+        this.vtbl.get_validateOnLoad := CallbackCreate(ObjBindMethod(implObj, "get_validateOnLoad"), flags, 2)
+        this.vtbl.getSchema := CallbackCreate(ObjBindMethod(implObj, "getSchema"), flags, 3)
+        this.vtbl.getDeclaration := CallbackCreate(ObjBindMethod(implObj, "getDeclaration"), flags, 3)
     }
 
     Dispose() {

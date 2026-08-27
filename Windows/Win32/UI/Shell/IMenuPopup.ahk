@@ -59,7 +59,9 @@ export default struct IMenuPopup extends IDeskBar {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-imenupopup-popup
      */
     Popup(ppt, prcExclude, dwFlags) {
-        result := ComCall(8, this, POINTL.Ptr, ppt, RECTL.Ptr, prcExclude, Int32, dwFlags, "HRESULT")
+        prcExcludeMarshal := prcExclude == 0 ? IntPtr : RECTL.Ptr
+
+        result := ComCall(8, this, POINTL.Ptr, ppt, prcExcludeMarshal, prcExclude, Int32, dwFlags, "HRESULT")
         return result
     }
 
@@ -103,9 +105,9 @@ export default struct IMenuPopup extends IDeskBar {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Popup := CallbackCreate(GetMethod(implObj, "Popup"), flags, 4)
-        this.vtbl.OnSelect := CallbackCreate(GetMethod(implObj, "OnSelect"), flags, 2)
-        this.vtbl.SetSubMenu := CallbackCreate(GetMethod(implObj, "SetSubMenu"), flags, 3)
+        this.vtbl.Popup := CallbackCreate(ObjBindMethod(implObj, "Popup"), flags, 4)
+        this.vtbl.OnSelect := CallbackCreate(ObjBindMethod(implObj, "OnSelect"), flags, 2)
+        this.vtbl.SetSubMenu := CallbackCreate(ObjBindMethod(implObj, "SetSubMenu"), flags, 3)
     }
 
     Dispose() {

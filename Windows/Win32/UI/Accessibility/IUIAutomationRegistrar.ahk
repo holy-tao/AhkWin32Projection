@@ -109,10 +109,10 @@ export default struct IUIAutomationRegistrar extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iuiautomationregistrar-registerpattern
      */
     RegisterPattern(pattern, pPatternId, pPatternAvailablePropertyId, propertyIdCount, pPropertyIds, eventIdCount, pEventIds) {
-        pPatternIdMarshal := pPatternId is VarRef ? "int*" : "ptr"
-        pPatternAvailablePropertyIdMarshal := pPatternAvailablePropertyId is VarRef ? "int*" : "ptr"
-        pPropertyIdsMarshal := pPropertyIds is VarRef ? "int*" : "ptr"
-        pEventIdsMarshal := pEventIds is VarRef ? "int*" : "ptr"
+        pPatternIdMarshal := pPatternId is VarRef ? "int*" : IntPtr
+        pPatternAvailablePropertyIdMarshal := pPatternAvailablePropertyId is VarRef ? "int*" : IntPtr
+        pPropertyIdsMarshal := pPropertyIds is VarRef ? "int*" : IntPtr
+        pEventIdsMarshal := pEventIds is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, UIAutomationPatternInfo.Ptr, pattern, pPatternIdMarshal, pPatternId, pPatternAvailablePropertyIdMarshal, pPatternAvailablePropertyId, UInt32, propertyIdCount, pPropertyIdsMarshal, pPropertyIds, UInt32, eventIdCount, pEventIdsMarshal, pEventIds, "HRESULT")
         return result
@@ -127,9 +127,9 @@ export default struct IUIAutomationRegistrar extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterProperty := CallbackCreate(GetMethod(implObj, "RegisterProperty"), flags, 3)
-        this.vtbl.RegisterEvent := CallbackCreate(GetMethod(implObj, "RegisterEvent"), flags, 3)
-        this.vtbl.RegisterPattern := CallbackCreate(GetMethod(implObj, "RegisterPattern"), flags, 8)
+        this.vtbl.RegisterProperty := CallbackCreate(ObjBindMethod(implObj, "RegisterProperty"), flags, 3)
+        this.vtbl.RegisterEvent := CallbackCreate(ObjBindMethod(implObj, "RegisterEvent"), flags, 3)
+        this.vtbl.RegisterPattern := CallbackCreate(ObjBindMethod(implObj, "RegisterPattern"), flags, 8)
     }
 
     Dispose() {

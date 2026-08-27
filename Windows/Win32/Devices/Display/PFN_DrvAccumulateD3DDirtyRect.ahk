@@ -21,7 +21,6 @@ export default struct PFN_DrvAccumulateD3DDirtyRect {
     }
 
     /**
-     * 
      * @param {Pointer<SURFOBJ>} param0 
      * @param {Pointer<CDDDXGK_REDIRBITMAPPRESENTINFO>} param1 
      * @returns {BOOL} 

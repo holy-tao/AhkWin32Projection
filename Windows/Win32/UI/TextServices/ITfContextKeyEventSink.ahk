@@ -100,10 +100,10 @@ export default struct ITfContextKeyEventSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnKeyDown := CallbackCreate(GetMethod(implObj, "OnKeyDown"), flags, 4)
-        this.vtbl.OnKeyUp := CallbackCreate(GetMethod(implObj, "OnKeyUp"), flags, 4)
-        this.vtbl.OnTestKeyDown := CallbackCreate(GetMethod(implObj, "OnTestKeyDown"), flags, 4)
-        this.vtbl.OnTestKeyUp := CallbackCreate(GetMethod(implObj, "OnTestKeyUp"), flags, 4)
+        this.vtbl.OnKeyDown := CallbackCreate(ObjBindMethod(implObj, "OnKeyDown"), flags, 4)
+        this.vtbl.OnKeyUp := CallbackCreate(ObjBindMethod(implObj, "OnKeyUp"), flags, 4)
+        this.vtbl.OnTestKeyDown := CallbackCreate(ObjBindMethod(implObj, "OnTestKeyDown"), flags, 4)
+        this.vtbl.OnTestKeyUp := CallbackCreate(ObjBindMethod(implObj, "OnTestKeyUp"), flags, 4)
     }
 
     Dispose() {

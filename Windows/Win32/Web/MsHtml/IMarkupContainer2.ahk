@@ -46,7 +46,6 @@ export default struct IMarkupContainer2 extends IMarkupContainer {
     }
 
     /**
-     * 
      * @param {IHTMLChangeSink} pChangeSink 
      * @param {BOOL} fForward 
      * @param {BOOL} fBackward 
@@ -58,7 +57,6 @@ export default struct IMarkupContainer2 extends IMarkupContainer {
     }
 
     /**
-     * 
      * @param {IHTMLChangeSink} pChangeSink 
      * @returns {Integer} 
      */
@@ -68,7 +66,6 @@ export default struct IMarkupContainer2 extends IMarkupContainer {
     }
 
     /**
-     * 
      * @param {Integer} dwCookie 
      * @returns {HRESULT} 
      */
@@ -78,7 +75,6 @@ export default struct IMarkupContainer2 extends IMarkupContainer {
     }
 
     /**
-     * 
      * @param {Integer} dwCookie 
      * @param {IMarkupPointer} pIPointerBegin 
      * @param {IMarkupPointer} pIPointerEnd 
@@ -90,7 +86,6 @@ export default struct IMarkupContainer2 extends IMarkupContainer {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetVersionNumber() {
@@ -99,7 +94,6 @@ export default struct IMarkupContainer2 extends IMarkupContainer {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     GetMasterElement() {
@@ -116,12 +110,12 @@ export default struct IMarkupContainer2 extends IMarkupContainer {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateChangeLog := CallbackCreate(GetMethod(implObj, "CreateChangeLog"), flags, 5)
-        this.vtbl.RegisterForDirtyRange := CallbackCreate(GetMethod(implObj, "RegisterForDirtyRange"), flags, 3)
-        this.vtbl.UnRegisterForDirtyRange := CallbackCreate(GetMethod(implObj, "UnRegisterForDirtyRange"), flags, 2)
-        this.vtbl.GetAndClearDirtyRange := CallbackCreate(GetMethod(implObj, "GetAndClearDirtyRange"), flags, 4)
-        this.vtbl.GetVersionNumber := CallbackCreate(GetMethod(implObj, "GetVersionNumber"), flags, 1)
-        this.vtbl.GetMasterElement := CallbackCreate(GetMethod(implObj, "GetMasterElement"), flags, 2)
+        this.vtbl.CreateChangeLog := CallbackCreate(ObjBindMethod(implObj, "CreateChangeLog"), flags, 5)
+        this.vtbl.RegisterForDirtyRange := CallbackCreate(ObjBindMethod(implObj, "RegisterForDirtyRange"), flags, 3)
+        this.vtbl.UnRegisterForDirtyRange := CallbackCreate(ObjBindMethod(implObj, "UnRegisterForDirtyRange"), flags, 2)
+        this.vtbl.GetAndClearDirtyRange := CallbackCreate(ObjBindMethod(implObj, "GetAndClearDirtyRange"), flags, 4)
+        this.vtbl.GetVersionNumber := CallbackCreate(ObjBindMethod(implObj, "GetVersionNumber"), flags, 1)
+        this.vtbl.GetMasterElement := CallbackCreate(ObjBindMethod(implObj, "GetMasterElement"), flags, 2)
     }
 
     Dispose() {

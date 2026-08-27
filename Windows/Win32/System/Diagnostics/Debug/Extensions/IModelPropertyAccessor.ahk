@@ -39,7 +39,6 @@ export default struct IModelPropertyAccessor extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} key 
      * @param {IModelObject} contextObject 
      * @returns {IModelObject} 
@@ -47,12 +46,13 @@ export default struct IModelPropertyAccessor extends IUnknown {
     GetValue(key, contextObject) {
         key := key is String ? StrPtr(key) : key
 
-        result := ComCall(3, this, "ptr", key, "ptr", contextObject, "ptr*", &value := 0, "HRESULT")
+        contextObjectMarshal := contextObject == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, "ptr", key, contextObjectMarshal, contextObject, "ptr*", &value := 0, "HRESULT")
         return IModelObject(value)
     }
 
     /**
-     * 
      * @param {PWSTR} key 
      * @param {IModelObject} contextObject 
      * @param {IModelObject} value 
@@ -61,7 +61,9 @@ export default struct IModelPropertyAccessor extends IUnknown {
     SetValue(key, contextObject, value) {
         key := key is String ? StrPtr(key) : key
 
-        result := ComCall(4, this, "ptr", key, "ptr", contextObject, "ptr", value, "HRESULT")
+        contextObjectMarshal := contextObject == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, "ptr", key, contextObjectMarshal, contextObject, "ptr", value, "HRESULT")
         return result
     }
 
@@ -74,8 +76,8 @@ export default struct IModelPropertyAccessor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 4)
-        this.vtbl.SetValue := CallbackCreate(GetMethod(implObj, "SetValue"), flags, 4)
+        this.vtbl.GetValue := CallbackCreate(ObjBindMethod(implObj, "GetValue"), flags, 4)
+        this.vtbl.SetValue := CallbackCreate(ObjBindMethod(implObj, "SetValue"), flags, 4)
     }
 
     Dispose() {

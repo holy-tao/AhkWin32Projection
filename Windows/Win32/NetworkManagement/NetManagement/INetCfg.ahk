@@ -80,7 +80,6 @@ export default struct INetCfg extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Uninitialize() {
@@ -89,7 +88,6 @@ export default struct INetCfg extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Apply() {
@@ -98,7 +96,6 @@ export default struct INetCfg extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Cancel() {
@@ -107,7 +104,6 @@ export default struct INetCfg extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pguidClass 
      * @returns {IEnumNetCfgComponent} 
      */
@@ -117,7 +113,6 @@ export default struct INetCfg extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszwInfId 
      * @returns {INetCfgComponent} 
      */
@@ -129,7 +124,6 @@ export default struct INetCfg extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pguidClass 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -148,13 +142,13 @@ export default struct INetCfg extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.Uninitialize := CallbackCreate(GetMethod(implObj, "Uninitialize"), flags, 1)
-        this.vtbl.Apply := CallbackCreate(GetMethod(implObj, "Apply"), flags, 1)
-        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
-        this.vtbl.EnumComponents := CallbackCreate(GetMethod(implObj, "EnumComponents"), flags, 3)
-        this.vtbl.FindComponent := CallbackCreate(GetMethod(implObj, "FindComponent"), flags, 3)
-        this.vtbl.QueryNetCfgClass := CallbackCreate(GetMethod(implObj, "QueryNetCfgClass"), flags, 4)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.Uninitialize := CallbackCreate(ObjBindMethod(implObj, "Uninitialize"), flags, 1)
+        this.vtbl.Apply := CallbackCreate(ObjBindMethod(implObj, "Apply"), flags, 1)
+        this.vtbl.Cancel := CallbackCreate(ObjBindMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.EnumComponents := CallbackCreate(ObjBindMethod(implObj, "EnumComponents"), flags, 3)
+        this.vtbl.FindComponent := CallbackCreate(ObjBindMethod(implObj, "FindComponent"), flags, 3)
+        this.vtbl.QueryNetCfgClass := CallbackCreate(ObjBindMethod(implObj, "QueryNetCfgClass"), flags, 4)
     }
 
     Dispose() {

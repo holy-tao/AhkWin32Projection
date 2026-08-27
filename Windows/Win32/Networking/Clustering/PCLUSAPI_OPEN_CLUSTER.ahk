@@ -20,14 +20,15 @@ export default struct PCLUSAPI_OPEN_CLUSTER {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszClusterName 
      * @returns {HCLUSTER} 
      */
     Call(lpszClusterName) {
         lpszClusterName := lpszClusterName is String ? StrPtr(lpszClusterName) : lpszClusterName
 
-        result := DllCall(this.value, "ptr", lpszClusterName, HCLUSTER)
+        lpszClusterNameMarshal := lpszClusterName == 0 ? IntPtr : PWSTR
+
+        result := DllCall(this.value, lpszClusterNameMarshal, lpszClusterName, HCLUSTER)
         return result
     }
 

@@ -48,7 +48,6 @@ export default struct IDebugSymbolGroup extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberSymbols() {
@@ -57,7 +56,6 @@ export default struct IDebugSymbolGroup extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Name 
      * @param {Pointer<Integer>} Index 
      * @returns {HRESULT} 
@@ -65,14 +63,13 @@ export default struct IDebugSymbolGroup extends IUnknown {
     AddSymbol(Name, Index) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        IndexMarshal := Index is VarRef ? "uint*" : "ptr"
+        IndexMarshal := Index is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, "ptr", Name, IndexMarshal, Index, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PSTR} Name 
      * @returns {HRESULT} 
      */
@@ -84,7 +81,6 @@ export default struct IDebugSymbolGroup extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {HRESULT} 
      */
@@ -94,7 +90,6 @@ export default struct IDebugSymbolGroup extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
@@ -103,12 +98,13 @@ export default struct IDebugSymbolGroup extends IUnknown {
     GetSymbolName(Index, _Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(7, this, UInt32, Index, "ptr", _Buffer, UInt32, BufferSize, "uint*", &NameSize := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PSTR
+
+        result := ComCall(7, this, UInt32, Index, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &NameSize := 0, "HRESULT")
         return NameSize
     }
 
     /**
-     * 
      * @param {Integer} Start 
      * @param {Integer} Count 
      * @returns {DEBUG_SYMBOL_PARAMETERS} 
@@ -120,7 +116,6 @@ export default struct IDebugSymbolGroup extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {BOOL} Expand 
      * @returns {HRESULT} 
@@ -131,7 +126,6 @@ export default struct IDebugSymbolGroup extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {Integer} Flags 
      * @param {Integer} Start 
@@ -144,7 +138,6 @@ export default struct IDebugSymbolGroup extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {PSTR} Value 
      * @returns {HRESULT} 
@@ -157,7 +150,6 @@ export default struct IDebugSymbolGroup extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {PSTR} Type 
      * @returns {HRESULT} 
@@ -178,16 +170,16 @@ export default struct IDebugSymbolGroup extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNumberSymbols := CallbackCreate(GetMethod(implObj, "GetNumberSymbols"), flags, 2)
-        this.vtbl.AddSymbol := CallbackCreate(GetMethod(implObj, "AddSymbol"), flags, 3)
-        this.vtbl.RemoveSymbolByName := CallbackCreate(GetMethod(implObj, "RemoveSymbolByName"), flags, 2)
-        this.vtbl.RemoveSymbolByIndex := CallbackCreate(GetMethod(implObj, "RemoveSymbolByIndex"), flags, 2)
-        this.vtbl.GetSymbolName := CallbackCreate(GetMethod(implObj, "GetSymbolName"), flags, 5)
-        this.vtbl.GetSymbolParameters := CallbackCreate(GetMethod(implObj, "GetSymbolParameters"), flags, 4)
-        this.vtbl.ExpandSymbol := CallbackCreate(GetMethod(implObj, "ExpandSymbol"), flags, 3)
-        this.vtbl.OutputSymbols := CallbackCreate(GetMethod(implObj, "OutputSymbols"), flags, 5)
-        this.vtbl.WriteSymbol := CallbackCreate(GetMethod(implObj, "WriteSymbol"), flags, 3)
-        this.vtbl.OutputAsType := CallbackCreate(GetMethod(implObj, "OutputAsType"), flags, 3)
+        this.vtbl.GetNumberSymbols := CallbackCreate(ObjBindMethod(implObj, "GetNumberSymbols"), flags, 2)
+        this.vtbl.AddSymbol := CallbackCreate(ObjBindMethod(implObj, "AddSymbol"), flags, 3)
+        this.vtbl.RemoveSymbolByName := CallbackCreate(ObjBindMethod(implObj, "RemoveSymbolByName"), flags, 2)
+        this.vtbl.RemoveSymbolByIndex := CallbackCreate(ObjBindMethod(implObj, "RemoveSymbolByIndex"), flags, 2)
+        this.vtbl.GetSymbolName := CallbackCreate(ObjBindMethod(implObj, "GetSymbolName"), flags, 5)
+        this.vtbl.GetSymbolParameters := CallbackCreate(ObjBindMethod(implObj, "GetSymbolParameters"), flags, 4)
+        this.vtbl.ExpandSymbol := CallbackCreate(ObjBindMethod(implObj, "ExpandSymbol"), flags, 3)
+        this.vtbl.OutputSymbols := CallbackCreate(ObjBindMethod(implObj, "OutputSymbols"), flags, 5)
+        this.vtbl.WriteSymbol := CallbackCreate(ObjBindMethod(implObj, "WriteSymbol"), flags, 3)
+        this.vtbl.OutputAsType := CallbackCreate(ObjBindMethod(implObj, "OutputAsType"), flags, 3)
     }
 
     Dispose() {

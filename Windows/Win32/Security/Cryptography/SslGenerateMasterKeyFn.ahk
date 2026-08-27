@@ -22,7 +22,6 @@ export default struct SslGenerateMasterKeyFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_KEY_HANDLE} hPrivateKey 
      * @param {NCRYPT_KEY_HANDLE} hPublicKey 
@@ -37,9 +36,11 @@ export default struct SslGenerateMasterKeyFn {
      * @returns {HRESULT} 
      */
     Call(hSslProvider, hPrivateKey, hPublicKey, phMasterKey, dwProtocol, dwCipherSuite, pParameterList, pbOutput, cbOutput, pcbResult, dwFlags) {
-        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+        hPrivateKeyMarshal := hPrivateKey == 0 ? IntPtr : NCRYPT_KEY_HANDLE
+        pbOutputMarshal := pbOutput == 0 ? IntPtr : IntPtr
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hPrivateKey, NCRYPT_KEY_HANDLE, hPublicKey, NCRYPT_KEY_HANDLE.Ptr, phMasterKey, UInt32, dwProtocol, UInt32, dwCipherSuite, BCryptBufferDesc.Ptr, pParameterList, IntPtr, pbOutput, UInt32, cbOutput, pcbResultMarshal, pcbResult, UInt32, dwFlags, "HRESULT")
+        result := DllCall(this.value, NCRYPT_PROV_HANDLE, hSslProvider, hPrivateKeyMarshal, hPrivateKey, NCRYPT_KEY_HANDLE, hPublicKey, NCRYPT_KEY_HANDLE.Ptr, phMasterKey, UInt32, dwProtocol, UInt32, dwCipherSuite, BCryptBufferDesc.Ptr, pParameterList, pbOutputMarshal, pbOutput, UInt32, cbOutput, pcbResultMarshal, pcbResult, UInt32, dwFlags, "HRESULT")
         return result
     }
 

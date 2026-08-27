@@ -41,21 +41,19 @@ export default struct IEnumDebugPropertyInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} celt 
      * @param {Pointer<DebugPropertyInfo>} pi 
      * @param {Pointer<Integer>} pcEltsfetched 
      * @returns {HRESULT} 
      */
     Next(celt, pi, pcEltsfetched) {
-        pcEltsfetchedMarshal := pcEltsfetched is VarRef ? "uint*" : "ptr"
+        pcEltsfetchedMarshal := pcEltsfetched is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, UInt32, celt, DebugPropertyInfo.Ptr, pi, pcEltsfetchedMarshal, pcEltsfetched, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} celt 
      * @returns {HRESULT} 
      */
@@ -65,7 +63,6 @@ export default struct IEnumDebugPropertyInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -74,7 +71,6 @@ export default struct IEnumDebugPropertyInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumDebugPropertyInfo} 
      */
     Clone() {
@@ -83,7 +79,6 @@ export default struct IEnumDebugPropertyInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCount() {
@@ -100,11 +95,11 @@ export default struct IEnumDebugPropertyInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 4)
-        this.vtbl.Skip := CallbackCreate(GetMethod(implObj, "Skip"), flags, 2)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.Next := CallbackCreate(ObjBindMethod(implObj, "Next"), flags, 4)
+        this.vtbl.Skip := CallbackCreate(ObjBindMethod(implObj, "Skip"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
     }
 
     Dispose() {

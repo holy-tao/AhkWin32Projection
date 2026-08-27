@@ -69,7 +69,7 @@ export default struct IInputPanelInvocationConfiguration extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RequireTouchInEditControl := CallbackCreate(GetMethod(implObj, "RequireTouchInEditControl"), flags, 1)
+        this.vtbl.RequireTouchInEditControl := CallbackCreate(ObjBindMethod(implObj, "RequireTouchInEditControl"), flags, 1)
     }
 
     Dispose() {

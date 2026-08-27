@@ -108,7 +108,6 @@ export default struct ISWbemQualifier extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Value() {
@@ -118,7 +117,6 @@ export default struct ISWbemQualifier extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} varValue 
      * @returns {HRESULT} 
      */
@@ -128,7 +126,6 @@ export default struct ISWbemQualifier extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -138,7 +135,6 @@ export default struct ISWbemQualifier extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsLocal() {
@@ -147,7 +143,6 @@ export default struct ISWbemQualifier extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_PropagatesToSubclass() {
@@ -156,7 +151,6 @@ export default struct ISWbemQualifier extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bPropagatesToSubclass 
      * @returns {HRESULT} 
      */
@@ -166,7 +160,6 @@ export default struct ISWbemQualifier extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_PropagatesToInstance() {
@@ -175,7 +168,6 @@ export default struct ISWbemQualifier extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bPropagatesToInstance 
      * @returns {HRESULT} 
      */
@@ -185,7 +177,6 @@ export default struct ISWbemQualifier extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsOverridable() {
@@ -194,7 +185,6 @@ export default struct ISWbemQualifier extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bIsOverridable 
      * @returns {HRESULT} 
      */
@@ -204,7 +194,6 @@ export default struct ISWbemQualifier extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsAmended() {
@@ -221,17 +210,17 @@ export default struct ISWbemQualifier extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Value := CallbackCreate(GetMethod(implObj, "get_Value"), flags, 2)
-        this.vtbl.put_Value := CallbackCreate(GetMethod(implObj, "put_Value"), flags, 2)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_IsLocal := CallbackCreate(GetMethod(implObj, "get_IsLocal"), flags, 2)
-        this.vtbl.get_PropagatesToSubclass := CallbackCreate(GetMethod(implObj, "get_PropagatesToSubclass"), flags, 2)
-        this.vtbl.put_PropagatesToSubclass := CallbackCreate(GetMethod(implObj, "put_PropagatesToSubclass"), flags, 2)
-        this.vtbl.get_PropagatesToInstance := CallbackCreate(GetMethod(implObj, "get_PropagatesToInstance"), flags, 2)
-        this.vtbl.put_PropagatesToInstance := CallbackCreate(GetMethod(implObj, "put_PropagatesToInstance"), flags, 2)
-        this.vtbl.get_IsOverridable := CallbackCreate(GetMethod(implObj, "get_IsOverridable"), flags, 2)
-        this.vtbl.put_IsOverridable := CallbackCreate(GetMethod(implObj, "put_IsOverridable"), flags, 2)
-        this.vtbl.get_IsAmended := CallbackCreate(GetMethod(implObj, "get_IsAmended"), flags, 2)
+        this.vtbl.get_Value := CallbackCreate(ObjBindMethod(implObj, "get_Value"), flags, 2)
+        this.vtbl.put_Value := CallbackCreate(ObjBindMethod(implObj, "put_Value"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_IsLocal := CallbackCreate(ObjBindMethod(implObj, "get_IsLocal"), flags, 2)
+        this.vtbl.get_PropagatesToSubclass := CallbackCreate(ObjBindMethod(implObj, "get_PropagatesToSubclass"), flags, 2)
+        this.vtbl.put_PropagatesToSubclass := CallbackCreate(ObjBindMethod(implObj, "put_PropagatesToSubclass"), flags, 2)
+        this.vtbl.get_PropagatesToInstance := CallbackCreate(ObjBindMethod(implObj, "get_PropagatesToInstance"), flags, 2)
+        this.vtbl.put_PropagatesToInstance := CallbackCreate(ObjBindMethod(implObj, "put_PropagatesToInstance"), flags, 2)
+        this.vtbl.get_IsOverridable := CallbackCreate(ObjBindMethod(implObj, "get_IsOverridable"), flags, 2)
+        this.vtbl.put_IsOverridable := CallbackCreate(ObjBindMethod(implObj, "put_IsOverridable"), flags, 2)
+        this.vtbl.get_IsAmended := CallbackCreate(ObjBindMethod(implObj, "get_IsAmended"), flags, 2)
     }
 
     Dispose() {

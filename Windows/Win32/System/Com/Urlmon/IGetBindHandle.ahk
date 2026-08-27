@@ -38,7 +38,6 @@ export default struct IGetBindHandle extends IUnknown {
     }
 
     /**
-     * 
      * @param {BINDHANDLETYPES} enumRequestedHandle 
      * @returns {HANDLE} 
      */
@@ -57,7 +56,7 @@ export default struct IGetBindHandle extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetBindHandle := CallbackCreate(GetMethod(implObj, "GetBindHandle"), flags, 3)
+        this.vtbl.GetBindHandle := CallbackCreate(ObjBindMethod(implObj, "GetBindHandle"), flags, 3)
     }
 
     Dispose() {

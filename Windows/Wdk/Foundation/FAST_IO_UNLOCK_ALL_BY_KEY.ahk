@@ -22,7 +22,6 @@ export default struct FAST_IO_UNLOCK_ALL_BY_KEY {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Void>} ProcessId 
      * @param {Integer} Key 
@@ -31,7 +30,7 @@ export default struct FAST_IO_UNLOCK_ALL_BY_KEY {
      * @returns {BOOLEAN} 
      */
     Call(FileObject, ProcessId, Key, IoStatus, DeviceObject) {
-        ProcessIdMarshal := ProcessId is VarRef ? "ptr" : "ptr"
+        ProcessIdMarshal := ProcessId is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, FILE_OBJECT.Ptr, FileObject, ProcessIdMarshal, ProcessId, UInt32, Key, IO_STATUS_BLOCK.Ptr, IoStatus, DEVICE_OBJECT.Ptr, DeviceObject, BOOLEAN)
         return result

@@ -18,7 +18,6 @@ export default struct pHalEndOfBoot {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

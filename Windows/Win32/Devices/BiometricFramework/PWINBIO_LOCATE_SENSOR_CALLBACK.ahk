@@ -21,14 +21,14 @@ export default struct PWINBIO_LOCATE_SENSOR_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} LocateCallbackContext Pointer to a buffer defined by the application and passed to the <i>LocateCallbackContext</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiolocatesensorwithcallback">WinBioLocateSensorWithCallback</a> function. The buffer is not modified by the framework or the biometric unit. Your application can use the data to help it determine what actions to perform or to maintain additional information about the biometric capture.
      * @param {HRESULT} OperationStatus Error code returned by the capture operation.
      * @param {Integer} UnitId Biometric unit ID number.
      * @returns {String} Nothing - always returns an empty string
      */
     Call(LocateCallbackContext, OperationStatus, UnitId) {
-        LocateCallbackContextMarshal := LocateCallbackContext is VarRef ? "ptr" : "ptr"
+        LocateCallbackContextMarshal := LocateCallbackContext is VarRef ? "ptr" : IntPtr
+        LocateCallbackContextMarshal := LocateCallbackContext == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, LocateCallbackContextMarshal, LocateCallbackContext, "int", OperationStatus, UInt32, UnitId)
     }

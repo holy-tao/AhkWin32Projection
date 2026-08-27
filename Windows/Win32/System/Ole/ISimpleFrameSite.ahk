@@ -107,8 +107,8 @@ export default struct ISimpleFrameSite extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-isimpleframesite-premessagefilter
      */
     PreMessageFilter(_hWnd, _msg, wp, lp, plResult, pdwCookie) {
-        plResultMarshal := plResult is VarRef ? "ptr*" : "ptr"
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+        plResultMarshal := plResult is VarRef ? "ptr*" : IntPtr
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, HWND, _hWnd, UInt32, _msg, WPARAM, wp, LPARAM, lp, plResultMarshal, plResult, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
@@ -138,8 +138,8 @@ export default struct ISimpleFrameSite extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PreMessageFilter := CallbackCreate(GetMethod(implObj, "PreMessageFilter"), flags, 7)
-        this.vtbl.PostMessageFilter := CallbackCreate(GetMethod(implObj, "PostMessageFilter"), flags, 7)
+        this.vtbl.PreMessageFilter := CallbackCreate(ObjBindMethod(implObj, "PreMessageFilter"), flags, 7)
+        this.vtbl.PostMessageFilter := CallbackCreate(ObjBindMethod(implObj, "PostMessageFilter"), flags, 7)
     }
 
     Dispose() {

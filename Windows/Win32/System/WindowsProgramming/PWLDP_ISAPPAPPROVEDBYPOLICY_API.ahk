@@ -20,7 +20,6 @@ export default struct PWLDP_ISAPPAPPROVEDBYPOLICY_API {
     }
 
     /**
-     * 
      * @param {PWSTR} PackageFamilyName 
      * @param {Integer} PackageVersion 
      * @returns {HRESULT} 

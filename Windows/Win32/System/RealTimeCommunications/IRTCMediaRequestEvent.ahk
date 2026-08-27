@@ -74,7 +74,6 @@ export default struct IRTCMediaRequestEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCSession2} 
      */
     get_Session() {
@@ -83,7 +82,6 @@ export default struct IRTCMediaRequestEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ProposedMedia() {
@@ -92,7 +90,6 @@ export default struct IRTCMediaRequestEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_CurrentMedia() {
@@ -101,7 +98,6 @@ export default struct IRTCMediaRequestEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lMediaTypes 
      * @returns {HRESULT} 
      */
@@ -111,7 +107,6 @@ export default struct IRTCMediaRequestEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {RTC_SECURITY_TYPE} enSecurityType 
      * @returns {RTC_SECURITY_LEVEL} 
      */
@@ -121,7 +116,6 @@ export default struct IRTCMediaRequestEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reject() {
@@ -130,7 +124,6 @@ export default struct IRTCMediaRequestEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {RTC_REINVITE_STATE} 
      */
     get_State() {
@@ -147,13 +140,13 @@ export default struct IRTCMediaRequestEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Session := CallbackCreate(GetMethod(implObj, "get_Session"), flags, 2)
-        this.vtbl.get_ProposedMedia := CallbackCreate(GetMethod(implObj, "get_ProposedMedia"), flags, 2)
-        this.vtbl.get_CurrentMedia := CallbackCreate(GetMethod(implObj, "get_CurrentMedia"), flags, 2)
-        this.vtbl.Accept := CallbackCreate(GetMethod(implObj, "Accept"), flags, 2)
-        this.vtbl.get_RemotePreferredSecurityLevel := CallbackCreate(GetMethod(implObj, "get_RemotePreferredSecurityLevel"), flags, 3)
-        this.vtbl.Reject := CallbackCreate(GetMethod(implObj, "Reject"), flags, 1)
-        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.get_Session := CallbackCreate(ObjBindMethod(implObj, "get_Session"), flags, 2)
+        this.vtbl.get_ProposedMedia := CallbackCreate(ObjBindMethod(implObj, "get_ProposedMedia"), flags, 2)
+        this.vtbl.get_CurrentMedia := CallbackCreate(ObjBindMethod(implObj, "get_CurrentMedia"), flags, 2)
+        this.vtbl.Accept := CallbackCreate(ObjBindMethod(implObj, "Accept"), flags, 2)
+        this.vtbl.get_RemotePreferredSecurityLevel := CallbackCreate(ObjBindMethod(implObj, "get_RemotePreferredSecurityLevel"), flags, 3)
+        this.vtbl.Reject := CallbackCreate(ObjBindMethod(implObj, "Reject"), flags, 1)
+        this.vtbl.get_State := CallbackCreate(ObjBindMethod(implObj, "get_State"), flags, 2)
     }
 
     Dispose() {

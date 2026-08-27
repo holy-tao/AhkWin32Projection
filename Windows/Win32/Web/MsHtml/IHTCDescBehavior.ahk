@@ -58,7 +58,6 @@ export default struct IHTCDescBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_urn() {
@@ -68,7 +67,6 @@ export default struct IHTCDescBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -86,8 +84,8 @@ export default struct IHTCDescBehavior extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_urn := CallbackCreate(GetMethod(implObj, "get_urn"), flags, 2)
-        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.get_urn := CallbackCreate(ObjBindMethod(implObj, "get_urn"), flags, 2)
+        this.vtbl.get_name := CallbackCreate(ObjBindMethod(implObj, "get_name"), flags, 2)
     }
 
     Dispose() {

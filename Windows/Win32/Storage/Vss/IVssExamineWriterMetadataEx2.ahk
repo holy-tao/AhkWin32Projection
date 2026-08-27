@@ -104,8 +104,8 @@ export default struct IVssExamineWriterMetadataEx2 extends IVssExamineWriterMeta
      * @see https://learn.microsoft.com/windows/win32/api/vsbackup/nf-vsbackup-ivssexaminewritermetadataex2-getversion
      */
     GetVersion(pdwMajorVersion, pdwMinorVersion) {
-        pdwMajorVersionMarshal := pdwMajorVersion is VarRef ? "uint*" : "ptr"
-        pdwMinorVersionMarshal := pdwMinorVersion is VarRef ? "uint*" : "ptr"
+        pdwMajorVersionMarshal := pdwMajorVersion is VarRef ? "uint*" : IntPtr
+        pdwMinorVersionMarshal := pdwMinorVersion is VarRef ? "uint*" : IntPtr
 
         result := ComCall(15, this, pdwMajorVersionMarshal, pdwMajorVersion, pdwMinorVersionMarshal, pdwMinorVersion, "HRESULT")
         return result
@@ -149,9 +149,9 @@ export default struct IVssExamineWriterMetadataEx2 extends IVssExamineWriterMeta
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetVersion := CallbackCreate(GetMethod(implObj, "GetVersion"), flags, 3)
-        this.vtbl.GetExcludeFromSnapshotCount := CallbackCreate(GetMethod(implObj, "GetExcludeFromSnapshotCount"), flags, 2)
-        this.vtbl.GetExcludeFromSnapshotFile := CallbackCreate(GetMethod(implObj, "GetExcludeFromSnapshotFile"), flags, 3)
+        this.vtbl.GetVersion := CallbackCreate(ObjBindMethod(implObj, "GetVersion"), flags, 3)
+        this.vtbl.GetExcludeFromSnapshotCount := CallbackCreate(ObjBindMethod(implObj, "GetExcludeFromSnapshotCount"), flags, 2)
+        this.vtbl.GetExcludeFromSnapshotFile := CallbackCreate(ObjBindMethod(implObj, "GetExcludeFromSnapshotFile"), flags, 3)
     }
 
     Dispose() {

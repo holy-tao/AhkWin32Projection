@@ -37,14 +37,13 @@ export default struct IDtcLuRecoveryInitiatedByDtc extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DTCINITIATEDRECOVERYWORK>} pWork 
      * @param {Pointer<Pointer<Void>>} ppv 
      * @returns {HRESULT} 
      */
     GetWork(pWork, ppv) {
-        pWorkMarshal := pWork is VarRef ? "int*" : "ptr"
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+        pWorkMarshal := pWork is VarRef ? "int*" : IntPtr
+        ppvMarshal := ppv is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, pWorkMarshal, pWork, ppvMarshal, ppv, "HRESULT")
         return result
@@ -59,7 +58,7 @@ export default struct IDtcLuRecoveryInitiatedByDtc extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetWork := CallbackCreate(GetMethod(implObj, "GetWork"), flags, 3)
+        this.vtbl.GetWork := CallbackCreate(ObjBindMethod(implObj, "GetWork"), flags, 3)
     }
 
     Dispose() {

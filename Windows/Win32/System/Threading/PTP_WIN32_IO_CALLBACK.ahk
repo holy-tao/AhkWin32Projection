@@ -20,7 +20,6 @@ export default struct PTP_WIN32_IO_CALLBACK {
     }
 
     /**
-     * 
      * @param {PTP_CALLBACK_INSTANCE} Instance 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<Void>} _Overlapped 
@@ -30,8 +29,10 @@ export default struct PTP_WIN32_IO_CALLBACK {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(Instance, _Context, _Overlapped, IoResult, NumberOfBytesTransferred, Io) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        _OverlappedMarshal := _Overlapped is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
+        _OverlappedMarshal := _Overlapped is VarRef ? "ptr" : IntPtr
+        _OverlappedMarshal := _Overlapped == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, PTP_CALLBACK_INSTANCE, Instance, _ContextMarshal, _Context, _OverlappedMarshal, _Overlapped, UInt32, IoResult, IntPtr, NumberOfBytesTransferred, PTP_IO, Io)
     }

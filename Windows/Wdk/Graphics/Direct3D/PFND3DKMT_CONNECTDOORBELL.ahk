@@ -20,7 +20,6 @@ export default struct PFND3DKMT_CONNECTDOORBELL {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CONNECT_DOORBELL>} param0 
      * @returns {NTSTATUS} 
      */

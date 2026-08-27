@@ -112,7 +112,7 @@ export CoGetDefaultContext(_aptType, riid) {
  * @since windows5.1.2600
  */
 export CoCreateActivity(pIUnknown, riid, ppObj) {
-    ppObjMarshal := ppObj is VarRef ? "ptr*" : "ptr"
+    ppObjMarshal := ppObj is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("comsvcs.dll\CoCreateActivity", "ptr", pIUnknown, Guid.Ptr, riid, ppObjMarshal, ppObj, "HRESULT")
     return result
@@ -238,7 +238,7 @@ export CoLeaveServiceDomain(pUnkStatus) {
  * @since windows5.1.2600
  */
 export GetManagedExtensions(dwExts) {
-    dwExtsMarshal := dwExts is VarRef ? "uint*" : "ptr"
+    dwExtsMarshal := dwExts is VarRef ? "uint*" : IntPtr
 
     result := DllCall("comsvcs.dll\GetManagedExtensions", dwExtsMarshal, dwExts, "HRESULT")
     return result
@@ -355,7 +355,7 @@ export RecycleSurrogate(lReasonCode) {
  * @since windows5.0
  */
 export MTSCreateActivity(riid, ppobj) {
-    ppobjMarshal := ppobj is VarRef ? "ptr*" : "ptr"
+    ppobjMarshal := ppobj is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("comsvcs.dll\MTSCreateActivity", Guid.Ptr, riid, ppobjMarshal, ppobj, "HRESULT")
     return result

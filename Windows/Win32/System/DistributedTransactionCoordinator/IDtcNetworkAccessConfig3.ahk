@@ -38,7 +38,6 @@ export default struct IDtcNetworkAccessConfig3 extends IDtcNetworkAccessConfig2 
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetLUAccess() {
@@ -47,7 +46,6 @@ export default struct IDtcNetworkAccessConfig3 extends IDtcNetworkAccessConfig2 
     }
 
     /**
-     * 
      * @param {BOOL} bLUAccess 
      * @returns {HRESULT} 
      */
@@ -65,8 +63,8 @@ export default struct IDtcNetworkAccessConfig3 extends IDtcNetworkAccessConfig2 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLUAccess := CallbackCreate(GetMethod(implObj, "GetLUAccess"), flags, 2)
-        this.vtbl.SetLUAccess := CallbackCreate(GetMethod(implObj, "SetLUAccess"), flags, 2)
+        this.vtbl.GetLUAccess := CallbackCreate(ObjBindMethod(implObj, "GetLUAccess"), flags, 2)
+        this.vtbl.SetLUAccess := CallbackCreate(ObjBindMethod(implObj, "SetLUAccess"), flags, 2)
     }
 
     Dispose() {

@@ -42,7 +42,6 @@ export default struct IDebugHostField extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @returns {LocationKind} 
      */
     GetLocationKind() {
@@ -51,7 +50,6 @@ export default struct IDebugHostField extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetOffset() {
@@ -60,7 +58,6 @@ export default struct IDebugHostField extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @returns {Location} 
      */
     GetLocation() {
@@ -70,7 +67,6 @@ export default struct IDebugHostField extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     GetValue() {
@@ -88,10 +84,10 @@ export default struct IDebugHostField extends IDebugHostSymbol {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLocationKind := CallbackCreate(GetMethod(implObj, "GetLocationKind"), flags, 2)
-        this.vtbl.GetOffset := CallbackCreate(GetMethod(implObj, "GetOffset"), flags, 2)
-        this.vtbl.GetLocation := CallbackCreate(GetMethod(implObj, "GetLocation"), flags, 2)
-        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 2)
+        this.vtbl.GetLocationKind := CallbackCreate(ObjBindMethod(implObj, "GetLocationKind"), flags, 2)
+        this.vtbl.GetOffset := CallbackCreate(ObjBindMethod(implObj, "GetOffset"), flags, 2)
+        this.vtbl.GetLocation := CallbackCreate(ObjBindMethod(implObj, "GetLocation"), flags, 2)
+        this.vtbl.GetValue := CallbackCreate(ObjBindMethod(implObj, "GetValue"), flags, 2)
     }
 
     Dispose() {

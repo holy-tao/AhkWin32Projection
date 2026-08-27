@@ -138,9 +138,9 @@ export default struct ITaskTrigger extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetTrigger := CallbackCreate(GetMethod(implObj, "SetTrigger"), flags, 2)
-        this.vtbl.GetTrigger := CallbackCreate(GetMethod(implObj, "GetTrigger"), flags, 2)
-        this.vtbl.GetTriggerString := CallbackCreate(GetMethod(implObj, "GetTriggerString"), flags, 2)
+        this.vtbl.SetTrigger := CallbackCreate(ObjBindMethod(implObj, "SetTrigger"), flags, 2)
+        this.vtbl.GetTrigger := CallbackCreate(ObjBindMethod(implObj, "GetTrigger"), flags, 2)
+        this.vtbl.GetTriggerString := CallbackCreate(ObjBindMethod(implObj, "GetTriggerString"), flags, 2)
     }
 
     Dispose() {

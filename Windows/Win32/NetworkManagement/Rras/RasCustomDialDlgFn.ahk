@@ -39,7 +39,6 @@ export default struct RasCustomDialDlgFn {
     }
 
     /**
-     * 
      * @param {HINSTANCE} hInstDll Handle to the instance of the custom-dialing DLL that was loaded.
      * @param {Integer} dwFlags A set of bit flags that specify <b>RasCustomDialDlg</b> options. 
      * 
@@ -81,7 +80,7 @@ export default struct RasCustomDialDlgFn {
         lpszEntry := lpszEntry is String ? StrPtr(lpszEntry) : lpszEntry
         lpszPhoneNumber := lpszPhoneNumber is String ? StrPtr(lpszPhoneNumber) : lpszPhoneNumber
 
-        pvInfoMarshal := pvInfo is VarRef ? "ptr" : "ptr"
+        pvInfoMarshal := pvInfo is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, HINSTANCE, hInstDll, UInt32, dwFlags, "ptr", lpszPhonebook, "ptr", lpszEntry, "ptr", lpszPhoneNumber, RASDIALDLG.Ptr, lpInfo, pvInfoMarshal, pvInfo, BOOL)
         return result

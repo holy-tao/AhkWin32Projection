@@ -20,7 +20,6 @@ export default struct PCLUSAPI_GET_CLUSTER_FROM_NET_INTERFACE {
     }
 
     /**
-     * 
      * @param {HNETINTERFACE} _hNetInterface 
      * @returns {HCLUSTER} 
      */

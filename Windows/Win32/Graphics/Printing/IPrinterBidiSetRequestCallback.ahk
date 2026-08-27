@@ -37,7 +37,6 @@ export default struct IPrinterBidiSetRequestCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrResponse 
      * @param {HRESULT} hrStatus 
      * @returns {HRESULT} 
@@ -58,7 +57,7 @@ export default struct IPrinterBidiSetRequestCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Completed := CallbackCreate(GetMethod(implObj, "Completed"), flags, 3)
+        this.vtbl.Completed := CallbackCreate(ObjBindMethod(implObj, "Completed"), flags, 3)
     }
 
     Dispose() {

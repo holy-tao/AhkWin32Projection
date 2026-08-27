@@ -19,7 +19,6 @@ export default struct PFLT_COMPLETE_CANCELED_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @returns {String} Nothing - always returns an empty string
      */

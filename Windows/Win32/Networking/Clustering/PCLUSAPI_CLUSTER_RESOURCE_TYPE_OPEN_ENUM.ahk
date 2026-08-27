@@ -21,7 +21,6 @@ export default struct PCLUSAPI_CLUSTER_RESOURCE_TYPE_OPEN_ENUM {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszResourceTypeName 
      * @param {Integer} dwType 

@@ -26,7 +26,6 @@ export default struct PFNPROPSHEETCALLBACK {
     }
 
     /**
-     * 
      * @param {HWND} param0 Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * Handle to the property sheet. This parameter is typically called *hWnd*.

@@ -62,10 +62,10 @@ export default struct IEffectivePermission extends IUnknown {
     GetEffectivePermission(pguidObjectType, pUserSid, pszServerName, pSD, ppObjectTypeList, pcObjectTypeListLength, ppGrantedAccessList, pcGrantedAccessListLength) {
         pszServerName := pszServerName is String ? StrPtr(pszServerName) : pszServerName
 
-        ppObjectTypeListMarshal := ppObjectTypeList is VarRef ? "ptr*" : "ptr"
-        pcObjectTypeListLengthMarshal := pcObjectTypeListLength is VarRef ? "uint*" : "ptr"
-        ppGrantedAccessListMarshal := ppGrantedAccessList is VarRef ? "ptr*" : "ptr"
-        pcGrantedAccessListLengthMarshal := pcGrantedAccessListLength is VarRef ? "uint*" : "ptr"
+        ppObjectTypeListMarshal := ppObjectTypeList is VarRef ? "ptr*" : IntPtr
+        pcObjectTypeListLengthMarshal := pcObjectTypeListLength is VarRef ? "uint*" : IntPtr
+        ppGrantedAccessListMarshal := ppGrantedAccessList is VarRef ? "ptr*" : IntPtr
+        pcGrantedAccessListLengthMarshal := pcGrantedAccessListLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, Guid.Ptr, pguidObjectType, PSID, pUserSid, "ptr", pszServerName, PSECURITY_DESCRIPTOR, pSD, ppObjectTypeListMarshal, ppObjectTypeList, pcObjectTypeListLengthMarshal, pcObjectTypeListLength, ppGrantedAccessListMarshal, ppGrantedAccessList, pcGrantedAccessListLengthMarshal, pcGrantedAccessListLength, "HRESULT")
         return result
@@ -80,7 +80,7 @@ export default struct IEffectivePermission extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetEffectivePermission := CallbackCreate(GetMethod(implObj, "GetEffectivePermission"), flags, 9)
+        this.vtbl.GetEffectivePermission := CallbackCreate(ObjBindMethod(implObj, "GetEffectivePermission"), flags, 9)
     }
 
     Dispose() {

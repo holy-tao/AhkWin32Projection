@@ -61,7 +61,6 @@ export default struct IMAPITable extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The **IMAPITable::GetLastError** method returns detailed information, if available, about a prior method call that failed. This information can be displayed in a message or a dialog box.
      * @param {HRESULT} _hResult > [in] HRESULT containing the error generated in the previous method call.
@@ -81,7 +80,7 @@ export default struct IMAPITable extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-getlasterror
      */
     GetLastError(_hResult, ulFlags, lppMAPIError) {
-        lppMAPIErrorMarshal := lppMAPIError is VarRef ? "ptr*" : "ptr"
+        lppMAPIErrorMarshal := lppMAPIError is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, "int", _hResult, UInt32, ulFlags, lppMAPIErrorMarshal, lppMAPIError, "HRESULT")
         return result
@@ -114,7 +113,7 @@ export default struct IMAPITable extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-advise
      */
     Advise(ulEventMask, lpAdviseSink, lpulConnection) {
-        lpulConnectionMarshal := lpulConnection is VarRef ? "uint*" : "ptr"
+        lpulConnectionMarshal := lpulConnection is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, UInt32, ulEventMask, "ptr", lpAdviseSink, lpulConnectionMarshal, lpulConnection, "HRESULT")
         return result
@@ -193,8 +192,8 @@ export default struct IMAPITable extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-getstatus
      */
     GetStatus(lpulTableStatus, lpulTableType) {
-        lpulTableStatusMarshal := lpulTableStatus is VarRef ? "uint*" : "ptr"
-        lpulTableTypeMarshal := lpulTableType is VarRef ? "uint*" : "ptr"
+        lpulTableStatusMarshal := lpulTableStatus is VarRef ? "uint*" : IntPtr
+        lpulTableTypeMarshal := lpulTableType is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, lpulTableStatusMarshal, lpulTableStatus, lpulTableTypeMarshal, lpulTableType, "HRESULT")
         return result
@@ -256,7 +255,7 @@ export default struct IMAPITable extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-querycolumns
      */
     QueryColumns(ulFlags, lpPropTagArray) {
-        lpPropTagArrayMarshal := lpPropTagArray is VarRef ? "ptr*" : "ptr"
+        lpPropTagArrayMarshal := lpPropTagArray is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(8, this, UInt32, ulFlags, lpPropTagArrayMarshal, lpPropTagArray, "HRESULT")
         return result
@@ -286,7 +285,7 @@ export default struct IMAPITable extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-getrowcount
      */
     GetRowCount(ulFlags, lpulCount) {
-        lpulCountMarshal := lpulCount is VarRef ? "uint*" : "ptr"
+        lpulCountMarshal := lpulCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(9, this, UInt32, ulFlags, lpulCountMarshal, lpulCount, "HRESULT")
         return result
@@ -331,14 +330,13 @@ export default struct IMAPITable extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-seekrow
      */
     SeekRow(bkOrigin, lRowCount, lplRowsSought) {
-        lplRowsSoughtMarshal := lplRowsSought is VarRef ? "int*" : "ptr"
+        lplRowsSoughtMarshal := lplRowsSought is VarRef ? "int*" : IntPtr
 
         result := ComCall(10, this, UInt32, bkOrigin, Int32, lRowCount, lplRowsSoughtMarshal, lplRowsSought, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @remarks
      * The cursor position in a table after a call to the **IMAPITable::SeekRowApprox** method is heuristically the fraction and might not be exact. For example, certain providers might implement a table on top of a binary tree, treating the table's halfway point as the top of the tree for performance reasons. If the tree is not balanced, then the halfway point used might not be exactly halfway through the table.
      * @param {Integer} ulNumerator > [in] Pointer to the numerator of the fraction representing the table position. If the  _ulNumerator_ parameter is zero, the cursor is positioned at the beginning of the table regardless of the denominator value. If  _ulNumerator_ is equal to the  _ulDenominator_ parameter, the cursor is positioned after the last table row.
@@ -358,7 +356,6 @@ export default struct IMAPITable extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The **IMAPITable::QueryPosition** method determines the current row position and returns both the number of the current row and a fractional value indicating its relative position to the end of the table. MAPI defines the current row as the next row to be read.
      * @param {Pointer<Integer>} lpulRow > [out] Pointer to the number of the current row. The row number is zero-based; the first row in the table is zero.
@@ -370,9 +367,9 @@ export default struct IMAPITable extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-queryposition
      */
     QueryPosition(lpulRow, lpulNumerator, lpulDenominator) {
-        lpulRowMarshal := lpulRow is VarRef ? "uint*" : "ptr"
-        lpulNumeratorMarshal := lpulNumerator is VarRef ? "uint*" : "ptr"
-        lpulDenominatorMarshal := lpulDenominator is VarRef ? "uint*" : "ptr"
+        lpulRowMarshal := lpulRow is VarRef ? "uint*" : IntPtr
+        lpulNumeratorMarshal := lpulNumerator is VarRef ? "uint*" : IntPtr
+        lpulDenominatorMarshal := lpulDenominator is VarRef ? "uint*" : IntPtr
 
         result := ComCall(12, this, lpulRowMarshal, lpulRow, lpulNumeratorMarshal, lpulNumerator, lpulDenominatorMarshal, lpulDenominator, "HRESULT")
         return result
@@ -463,7 +460,6 @@ export default struct IMAPITable extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The **IMAPITable::CreateBookmark** method marks a table position by creating a value called a bookmark. A bookmark can be used to return to the position identified by the bookmark. The bookmarked position is associated with the object at that row in the table. 
      *   
@@ -479,14 +475,13 @@ export default struct IMAPITable extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-createbookmark
      */
     CreateBookmark(lpbkPosition) {
-        lpbkPositionMarshal := lpbkPosition is VarRef ? "uint*" : "ptr"
+        lpbkPositionMarshal := lpbkPosition is VarRef ? "uint*" : IntPtr
 
         result := ComCall(15, this, lpbkPositionMarshal, lpbkPosition, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @remarks
      * The **IMAPITable::FreeBookmark** method releases a bookmark that is no longer needed. The bookmark is no longer valid after this call. Whenever a table is released from memory, all of its associated bookmarks are also released.
      * @param {Integer} bkPosition > [in] The bookmark to be freed, created by calling the [IMAPITable::CreateBookmark](imapitable-createbookmark.md) method.
@@ -505,7 +500,6 @@ export default struct IMAPITable extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The **IMAPITable::SortTable** method orders the rows in a table view. Whereas some tables support both standard and categorized sorting on various sort key columns, other tables are more limited in their support. Address book providers ordinarily do not support table sorting. Message store providers usually support sorting to the extent that they keep the sort order of folders that results when a full table (a table without restrictions) is sorted. 
      *   
@@ -567,7 +561,6 @@ export default struct IMAPITable extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The **IMAPITable::QuerySortOrder** method retrieves the current sort order for a table. Sort orders are described with an [SSortOrderSet](ssortorderset.md) structure. 
      *   
@@ -589,7 +582,7 @@ export default struct IMAPITable extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-querysortorder
      */
     QuerySortOrder(lppSortCriteria) {
-        lppSortCriteriaMarshal := lppSortCriteria is VarRef ? "ptr*" : "ptr"
+        lppSortCriteriaMarshal := lppSortCriteria is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(18, this, lppSortCriteriaMarshal, lppSortCriteria, "HRESULT")
         return result
@@ -642,14 +635,13 @@ export default struct IMAPITable extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-queryrows
      */
     QueryRows(lRowCount, ulFlags, lppRows) {
-        lppRowsMarshal := lppRows is VarRef ? "ptr*" : "ptr"
+        lppRowsMarshal := lppRows is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(19, this, Int32, lRowCount, UInt32, ulFlags, lppRowsMarshal, lppRows, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @remarks
      * The **IMAPITable::Abort** method stops any asynchronous operation that is currently in progress.
      * @returns {HRESULT} None
@@ -691,9 +683,9 @@ export default struct IMAPITable extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-expandrow
      */
     ExpandRow(cbInstanceKey, pbInstanceKey, ulRowCount, ulFlags, lppRows, lpulMoreRows) {
-        pbInstanceKeyMarshal := pbInstanceKey is VarRef ? "char*" : "ptr"
-        lppRowsMarshal := lppRows is VarRef ? "ptr*" : "ptr"
-        lpulMoreRowsMarshal := lpulMoreRows is VarRef ? "uint*" : "ptr"
+        pbInstanceKeyMarshal := pbInstanceKey is VarRef ? "char*" : IntPtr
+        lppRowsMarshal := lppRows is VarRef ? "ptr*" : IntPtr
+        lpulMoreRowsMarshal := lpulMoreRows is VarRef ? "uint*" : IntPtr
 
         result := ComCall(21, this, UInt32, cbInstanceKey, pbInstanceKeyMarshal, pbInstanceKey, UInt32, ulRowCount, UInt32, ulFlags, lppRowsMarshal, lppRows, lpulMoreRowsMarshal, lpulMoreRows, "HRESULT")
         return result
@@ -727,15 +719,14 @@ export default struct IMAPITable extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-collapserow
      */
     CollapseRow(cbInstanceKey, pbInstanceKey, ulFlags, lpulRowCount) {
-        pbInstanceKeyMarshal := pbInstanceKey is VarRef ? "char*" : "ptr"
-        lpulRowCountMarshal := lpulRowCount is VarRef ? "uint*" : "ptr"
+        pbInstanceKeyMarshal := pbInstanceKey is VarRef ? "char*" : IntPtr
+        lpulRowCountMarshal := lpulRowCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(22, this, UInt32, cbInstanceKey, pbInstanceKeyMarshal, pbInstanceKey, UInt32, ulFlags, lpulRowCountMarshal, lpulRowCount, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @remarks
      * The **IMAPITable::WaitForCompletion** method suspends processing until any asynchronous operations currently under way for the table have completed. **WaitForCompletion** can allow the asynchronous operations either to fully complete or to run for a certain number of milliseconds, as indicated by  _ulTimeout_, before being interrupted. To detect asynchronous operations in progress, call the [IMAPITable::GetStatus](imapitable-getstatus.md) method.
      * @param {Integer} ulFlags > Reserved; must be zero.
@@ -755,14 +746,13 @@ export default struct IMAPITable extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-waitforcompletion
      */
     WaitForCompletion(ulFlags, ulTimeout, lpulTableStatus) {
-        lpulTableStatusMarshal := lpulTableStatus is VarRef ? "uint*" : "ptr"
+        lpulTableStatusMarshal := lpulTableStatus is VarRef ? "uint*" : IntPtr
 
         result := ComCall(23, this, UInt32, ulFlags, UInt32, ulTimeout, lpulTableStatusMarshal, lpulTableStatus, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @remarks
      * The **IMAPITable::GetCollapseState** method works with the [IMAPITable::SetCollapseState](imapitable-setcollapsestate.md) method to change the user's view of a categorized table. **GetCollapseState** saves the data that is needed for **SetCollapseState** to use to rebuild the appropriate views of the categories of a categorized table. Service providers determine the data to be saved. However, most service providers implementing **GetCollapseState** save the following: 
      *   
@@ -792,16 +782,15 @@ export default struct IMAPITable extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-getcollapsestate
      */
     GetCollapseState(ulFlags, cbInstanceKey, lpbInstanceKey, lpcbCollapseState, lppbCollapseState) {
-        lpbInstanceKeyMarshal := lpbInstanceKey is VarRef ? "char*" : "ptr"
-        lpcbCollapseStateMarshal := lpcbCollapseState is VarRef ? "uint*" : "ptr"
-        lppbCollapseStateMarshal := lppbCollapseState is VarRef ? "ptr*" : "ptr"
+        lpbInstanceKeyMarshal := lpbInstanceKey is VarRef ? "char*" : IntPtr
+        lpcbCollapseStateMarshal := lpcbCollapseState is VarRef ? "uint*" : IntPtr
+        lppbCollapseStateMarshal := lppbCollapseState is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(24, this, UInt32, ulFlags, UInt32, cbInstanceKey, lpbInstanceKeyMarshal, lpbInstanceKey, lpcbCollapseStateMarshal, lpcbCollapseState, lppbCollapseStateMarshal, lppbCollapseState, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @remarks
      * The **IMAPITable::SetCollapseState** method reestablishes the expanded or collapsed state of the table view. **SetCollapseState** and **GetCollapseState** work together as follows: 
      *   
@@ -830,8 +819,8 @@ export default struct IMAPITable extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapitable-setcollapsestate
      */
     SetCollapseState(ulFlags, cbCollapseState, pbCollapseState, lpbkLocation) {
-        pbCollapseStateMarshal := pbCollapseState is VarRef ? "char*" : "ptr"
-        lpbkLocationMarshal := lpbkLocation is VarRef ? "uint*" : "ptr"
+        pbCollapseStateMarshal := pbCollapseState is VarRef ? "char*" : IntPtr
+        lpbkLocationMarshal := lpbkLocation is VarRef ? "uint*" : IntPtr
 
         result := ComCall(25, this, UInt32, ulFlags, UInt32, cbCollapseState, pbCollapseStateMarshal, pbCollapseState, lpbkLocationMarshal, lpbkLocation, "HRESULT")
         return result
@@ -846,29 +835,29 @@ export default struct IMAPITable extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLastError := CallbackCreate(GetMethod(implObj, "GetLastError"), flags, 4)
-        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 4)
-        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 2)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 3)
-        this.vtbl.SetColumns := CallbackCreate(GetMethod(implObj, "SetColumns"), flags, 3)
-        this.vtbl.QueryColumns := CallbackCreate(GetMethod(implObj, "QueryColumns"), flags, 3)
-        this.vtbl.GetRowCount := CallbackCreate(GetMethod(implObj, "GetRowCount"), flags, 3)
-        this.vtbl.SeekRow := CallbackCreate(GetMethod(implObj, "SeekRow"), flags, 4)
-        this.vtbl.SeekRowApprox := CallbackCreate(GetMethod(implObj, "SeekRowApprox"), flags, 3)
-        this.vtbl.QueryPosition := CallbackCreate(GetMethod(implObj, "QueryPosition"), flags, 4)
-        this.vtbl.FindRow := CallbackCreate(GetMethod(implObj, "FindRow"), flags, 4)
-        this.vtbl.Restrict := CallbackCreate(GetMethod(implObj, "Restrict"), flags, 3)
-        this.vtbl.CreateBookmark := CallbackCreate(GetMethod(implObj, "CreateBookmark"), flags, 2)
-        this.vtbl.FreeBookmark := CallbackCreate(GetMethod(implObj, "FreeBookmark"), flags, 2)
-        this.vtbl.SortTable := CallbackCreate(GetMethod(implObj, "SortTable"), flags, 3)
-        this.vtbl.QuerySortOrder := CallbackCreate(GetMethod(implObj, "QuerySortOrder"), flags, 2)
-        this.vtbl.QueryRows := CallbackCreate(GetMethod(implObj, "QueryRows"), flags, 4)
-        this.vtbl.Abort := CallbackCreate(GetMethod(implObj, "Abort"), flags, 1)
-        this.vtbl.ExpandRow := CallbackCreate(GetMethod(implObj, "ExpandRow"), flags, 7)
-        this.vtbl.CollapseRow := CallbackCreate(GetMethod(implObj, "CollapseRow"), flags, 5)
-        this.vtbl.WaitForCompletion := CallbackCreate(GetMethod(implObj, "WaitForCompletion"), flags, 4)
-        this.vtbl.GetCollapseState := CallbackCreate(GetMethod(implObj, "GetCollapseState"), flags, 6)
-        this.vtbl.SetCollapseState := CallbackCreate(GetMethod(implObj, "SetCollapseState"), flags, 5)
+        this.vtbl.GetLastError := CallbackCreate(ObjBindMethod(implObj, "GetLastError"), flags, 4)
+        this.vtbl.Advise := CallbackCreate(ObjBindMethod(implObj, "Advise"), flags, 4)
+        this.vtbl.Unadvise := CallbackCreate(ObjBindMethod(implObj, "Unadvise"), flags, 2)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 3)
+        this.vtbl.SetColumns := CallbackCreate(ObjBindMethod(implObj, "SetColumns"), flags, 3)
+        this.vtbl.QueryColumns := CallbackCreate(ObjBindMethod(implObj, "QueryColumns"), flags, 3)
+        this.vtbl.GetRowCount := CallbackCreate(ObjBindMethod(implObj, "GetRowCount"), flags, 3)
+        this.vtbl.SeekRow := CallbackCreate(ObjBindMethod(implObj, "SeekRow"), flags, 4)
+        this.vtbl.SeekRowApprox := CallbackCreate(ObjBindMethod(implObj, "SeekRowApprox"), flags, 3)
+        this.vtbl.QueryPosition := CallbackCreate(ObjBindMethod(implObj, "QueryPosition"), flags, 4)
+        this.vtbl.FindRow := CallbackCreate(ObjBindMethod(implObj, "FindRow"), flags, 4)
+        this.vtbl.Restrict := CallbackCreate(ObjBindMethod(implObj, "Restrict"), flags, 3)
+        this.vtbl.CreateBookmark := CallbackCreate(ObjBindMethod(implObj, "CreateBookmark"), flags, 2)
+        this.vtbl.FreeBookmark := CallbackCreate(ObjBindMethod(implObj, "FreeBookmark"), flags, 2)
+        this.vtbl.SortTable := CallbackCreate(ObjBindMethod(implObj, "SortTable"), flags, 3)
+        this.vtbl.QuerySortOrder := CallbackCreate(ObjBindMethod(implObj, "QuerySortOrder"), flags, 2)
+        this.vtbl.QueryRows := CallbackCreate(ObjBindMethod(implObj, "QueryRows"), flags, 4)
+        this.vtbl.Abort := CallbackCreate(ObjBindMethod(implObj, "Abort"), flags, 1)
+        this.vtbl.ExpandRow := CallbackCreate(ObjBindMethod(implObj, "ExpandRow"), flags, 7)
+        this.vtbl.CollapseRow := CallbackCreate(ObjBindMethod(implObj, "CollapseRow"), flags, 5)
+        this.vtbl.WaitForCompletion := CallbackCreate(ObjBindMethod(implObj, "WaitForCompletion"), flags, 4)
+        this.vtbl.GetCollapseState := CallbackCreate(ObjBindMethod(implObj, "GetCollapseState"), flags, 6)
+        this.vtbl.SetCollapseState := CallbackCreate(ObjBindMethod(implObj, "SetCollapseState"), flags, 5)
     }
 
     Dispose() {

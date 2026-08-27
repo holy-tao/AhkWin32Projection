@@ -90,7 +90,6 @@ export default struct IFileSearchBand extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrSearchID 
      * @param {VARIANT_BOOL} bNavToResults 
      * @param {Pointer<VARIANT>} pvarScope 
@@ -103,7 +102,6 @@ export default struct IFileSearchBand extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_SearchID() {
@@ -113,7 +111,6 @@ export default struct IFileSearchBand extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Scope() {
@@ -123,7 +120,6 @@ export default struct IFileSearchBand extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_QueryFile() {
@@ -141,11 +137,11 @@ export default struct IFileSearchBand extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetFocus := CallbackCreate(GetMethod(implObj, "SetFocus"), flags, 1)
-        this.vtbl.SetSearchParameters := CallbackCreate(GetMethod(implObj, "SetSearchParameters"), flags, 5)
-        this.vtbl.get_SearchID := CallbackCreate(GetMethod(implObj, "get_SearchID"), flags, 2)
-        this.vtbl.get_Scope := CallbackCreate(GetMethod(implObj, "get_Scope"), flags, 2)
-        this.vtbl.get_QueryFile := CallbackCreate(GetMethod(implObj, "get_QueryFile"), flags, 2)
+        this.vtbl.SetFocus := CallbackCreate(ObjBindMethod(implObj, "SetFocus"), flags, 1)
+        this.vtbl.SetSearchParameters := CallbackCreate(ObjBindMethod(implObj, "SetSearchParameters"), flags, 5)
+        this.vtbl.get_SearchID := CallbackCreate(ObjBindMethod(implObj, "get_SearchID"), flags, 2)
+        this.vtbl.get_Scope := CallbackCreate(ObjBindMethod(implObj, "get_Scope"), flags, 2)
+        this.vtbl.get_QueryFile := CallbackCreate(ObjBindMethod(implObj, "get_QueryFile"), flags, 2)
     }
 
     Dispose() {

@@ -131,11 +131,11 @@ export default struct ID3D11CryptoSession extends ID3D11DeviceChild {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCryptoType := CallbackCreate(GetMethod(implObj, "GetCryptoType"), flags, 2)
-        this.vtbl.GetDecoderProfile := CallbackCreate(GetMethod(implObj, "GetDecoderProfile"), flags, 2)
-        this.vtbl.GetCertificateSize := CallbackCreate(GetMethod(implObj, "GetCertificateSize"), flags, 2)
-        this.vtbl.GetCertificate := CallbackCreate(GetMethod(implObj, "GetCertificate"), flags, 3)
-        this.vtbl.GetCryptoSessionHandle := CallbackCreate(GetMethod(implObj, "GetCryptoSessionHandle"), flags, 2)
+        this.vtbl.GetCryptoType := CallbackCreate(ObjBindMethod(implObj, "GetCryptoType"), flags, 2)
+        this.vtbl.GetDecoderProfile := CallbackCreate(ObjBindMethod(implObj, "GetDecoderProfile"), flags, 2)
+        this.vtbl.GetCertificateSize := CallbackCreate(ObjBindMethod(implObj, "GetCertificateSize"), flags, 2)
+        this.vtbl.GetCertificate := CallbackCreate(ObjBindMethod(implObj, "GetCertificate"), flags, 3)
+        this.vtbl.GetCryptoSessionHandle := CallbackCreate(ObjBindMethod(implObj, "GetCryptoSessionHandle"), flags, 2)
     }
 
     Dispose() {

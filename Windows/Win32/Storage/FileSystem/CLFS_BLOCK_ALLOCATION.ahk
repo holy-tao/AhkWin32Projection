@@ -18,13 +18,12 @@ export default struct CLFS_BLOCK_ALLOCATION {
     }
 
     /**
-     * 
      * @param {Integer} cbBufferLength 
      * @param {Pointer<Void>} pvUserContext 
      * @returns {Pointer<Void>} 
      */
     Call(cbBufferLength, pvUserContext) {
-        pvUserContextMarshal := pvUserContext is VarRef ? "ptr" : "ptr"
+        pvUserContextMarshal := pvUserContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, UInt32, cbBufferLength, pvUserContextMarshal, pvUserContext, IntPtr)
         return result

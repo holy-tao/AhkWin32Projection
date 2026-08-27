@@ -97,9 +97,9 @@ export default struct ITBasicCallControl2 extends ITBasicCallControl {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RequestTerminal := CallbackCreate(GetMethod(implObj, "RequestTerminal"), flags, 5)
-        this.vtbl.SelectTerminalOnCall := CallbackCreate(GetMethod(implObj, "SelectTerminalOnCall"), flags, 2)
-        this.vtbl.UnselectTerminalOnCall := CallbackCreate(GetMethod(implObj, "UnselectTerminalOnCall"), flags, 2)
+        this.vtbl.RequestTerminal := CallbackCreate(ObjBindMethod(implObj, "RequestTerminal"), flags, 5)
+        this.vtbl.SelectTerminalOnCall := CallbackCreate(ObjBindMethod(implObj, "SelectTerminalOnCall"), flags, 2)
+        this.vtbl.UnselectTerminalOnCall := CallbackCreate(ObjBindMethod(implObj, "UnselectTerminalOnCall"), flags, 2)
     }
 
     Dispose() {

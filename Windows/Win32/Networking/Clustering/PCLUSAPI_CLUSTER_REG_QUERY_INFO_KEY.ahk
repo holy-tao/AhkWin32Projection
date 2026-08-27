@@ -20,7 +20,6 @@ export default struct PCLUSAPI_CLUSTER_REG_QUERY_INFO_KEY {
     }
 
     /**
-     * 
      * @param {HKEY} _hKey 
      * @param {Pointer<Integer>} lpcSubKeys 
      * @param {Pointer<Integer>} lpcbMaxSubKeyLen 
@@ -32,12 +31,12 @@ export default struct PCLUSAPI_CLUSTER_REG_QUERY_INFO_KEY {
      * @returns {Integer} 
      */
     Call(_hKey, lpcSubKeys, lpcbMaxSubKeyLen, lpcValues, lpcbMaxValueNameLen, lpcbMaxValueLen, lpcbSecurityDescriptor, lpftLastWriteTime) {
-        lpcSubKeysMarshal := lpcSubKeys is VarRef ? "uint*" : "ptr"
-        lpcbMaxSubKeyLenMarshal := lpcbMaxSubKeyLen is VarRef ? "uint*" : "ptr"
-        lpcValuesMarshal := lpcValues is VarRef ? "uint*" : "ptr"
-        lpcbMaxValueNameLenMarshal := lpcbMaxValueNameLen is VarRef ? "uint*" : "ptr"
-        lpcbMaxValueLenMarshal := lpcbMaxValueLen is VarRef ? "uint*" : "ptr"
-        lpcbSecurityDescriptorMarshal := lpcbSecurityDescriptor is VarRef ? "uint*" : "ptr"
+        lpcSubKeysMarshal := lpcSubKeys is VarRef ? "uint*" : IntPtr
+        lpcbMaxSubKeyLenMarshal := lpcbMaxSubKeyLen is VarRef ? "uint*" : IntPtr
+        lpcValuesMarshal := lpcValues is VarRef ? "uint*" : IntPtr
+        lpcbMaxValueNameLenMarshal := lpcbMaxValueNameLen is VarRef ? "uint*" : IntPtr
+        lpcbMaxValueLenMarshal := lpcbMaxValueLen is VarRef ? "uint*" : IntPtr
+        lpcbSecurityDescriptorMarshal := lpcbSecurityDescriptor is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HKEY, _hKey, lpcSubKeysMarshal, lpcSubKeys, lpcbMaxSubKeyLenMarshal, lpcbMaxSubKeyLen, lpcValuesMarshal, lpcValues, lpcbMaxValueNameLenMarshal, lpcbMaxValueNameLen, lpcbMaxValueLenMarshal, lpcbMaxValueLen, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, FILETIME.Ptr, lpftLastWriteTime, Int32)
         return result

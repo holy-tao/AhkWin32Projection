@@ -22,7 +22,6 @@ export default struct PLSA_GET_CREDENTIALS {
     }
 
     /**
-     * 
      * @param {Pointer<LUID>} LogonId 
      * @param {Integer} AuthenticationPackage 
      * @param {Pointer<Integer>} _QueryContext 
@@ -33,8 +32,8 @@ export default struct PLSA_GET_CREDENTIALS {
      * @returns {NTSTATUS} 
      */
     Call(LogonId, AuthenticationPackage, _QueryContext, RetrieveAllCredentials, PrimaryKeyValue, PrimaryKeyLength, Credentials) {
-        _QueryContextMarshal := _QueryContext is VarRef ? "uint*" : "ptr"
-        PrimaryKeyLengthMarshal := PrimaryKeyLength is VarRef ? "uint*" : "ptr"
+        _QueryContextMarshal := _QueryContext is VarRef ? "uint*" : IntPtr
+        PrimaryKeyLengthMarshal := PrimaryKeyLength is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, LUID.Ptr, LogonId, UInt32, AuthenticationPackage, _QueryContextMarshal, _QueryContext, BOOLEAN, RetrieveAllCredentials, LSA_STRING.Ptr, PrimaryKeyValue, PrimaryKeyLengthMarshal, PrimaryKeyLength, LSA_STRING.Ptr, Credentials, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

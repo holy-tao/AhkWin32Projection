@@ -130,7 +130,9 @@ export WICCreateBitmapFromSectionEx(width, height, pixelFormat, hSection, stride
 export WICMapGuidToShortName(guid, cchName, wzName) {
     wzName := wzName is String ? StrPtr(wzName) : wzName
 
-    result := DllCall("WindowsCodecs.dll\WICMapGuidToShortName", Guid.Ptr, guid, UInt32, cchName, "ptr", wzName, "uint*", &pcchActual := 0, "HRESULT")
+    wzNameMarshal := wzName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("WindowsCodecs.dll\WICMapGuidToShortName", Guid.Ptr, guid, UInt32, cchName, wzNameMarshal, wzName, "uint*", &pcchActual := 0, "HRESULT")
     return pcchActual
 }
 
@@ -206,7 +208,9 @@ export WICMapSchemaToName(guidMetadataFormat, pwzSchema, cchName, wzName) {
     pwzSchema := pwzSchema is String ? StrPtr(pwzSchema) : pwzSchema
     wzName := wzName is String ? StrPtr(wzName) : wzName
 
-    result := DllCall("WindowsCodecs.dll\WICMapSchemaToName", Guid.Ptr, guidMetadataFormat, "ptr", pwzSchema, UInt32, cchName, "ptr", wzName, "uint*", &pcchActual := 0, "HRESULT")
+    wzNameMarshal := wzName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("WindowsCodecs.dll\WICMapSchemaToName", Guid.Ptr, guidMetadataFormat, "ptr", pwzSchema, UInt32, cchName, wzNameMarshal, wzName, "uint*", &pcchActual := 0, "HRESULT")
     return pcchActual
 }
 
@@ -231,7 +235,9 @@ export WICMapSchemaToName(guidMetadataFormat, pwzSchema, cchName, wzName) {
  * @since windows5.1.2600
  */
 export WICMatchMetadataContent(guidContainerFormat, pguidVendor, pIStream, pguidMetadataFormat) {
-    result := DllCall("WindowsCodecs.dll\WICMatchMetadataContent", Guid.Ptr, guidContainerFormat, Guid.Ptr, pguidVendor, "ptr", pIStream, Guid.Ptr, pguidMetadataFormat, "HRESULT")
+    pguidVendorMarshal := pguidVendor == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("WindowsCodecs.dll\WICMatchMetadataContent", Guid.Ptr, guidContainerFormat, pguidVendorMarshal, pguidVendor, "ptr", pIStream, Guid.Ptr, pguidMetadataFormat, "HRESULT")
     return result
 }
 

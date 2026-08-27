@@ -120,7 +120,9 @@ export ImmGetDefaultIMEWnd(param0) {
 export ImmGetDescriptionA(param0, lpszDescription, uBufLen) {
     lpszDescription := lpszDescription is String ? StrPtr(lpszDescription) : lpszDescription
 
-    result := DllCall("IMM32.dll\ImmGetDescriptionA", HKL, param0, "ptr", lpszDescription, UInt32, uBufLen, UInt32)
+    lpszDescriptionMarshal := lpszDescription == 0 ? IntPtr : PSTR
+
+    result := DllCall("IMM32.dll\ImmGetDescriptionA", HKL, param0, lpszDescriptionMarshal, lpszDescription, UInt32, uBufLen, UInt32)
     return result
 }
 
@@ -141,7 +143,9 @@ export ImmGetDescriptionA(param0, lpszDescription, uBufLen) {
 export ImmGetDescriptionW(param0, lpszDescription, uBufLen) {
     lpszDescription := lpszDescription is String ? StrPtr(lpszDescription) : lpszDescription
 
-    result := DllCall("IMM32.dll\ImmGetDescriptionW", HKL, param0, "ptr", lpszDescription, UInt32, uBufLen, UInt32)
+    lpszDescriptionMarshal := lpszDescription == 0 ? IntPtr : PWSTR
+
+    result := DllCall("IMM32.dll\ImmGetDescriptionW", HKL, param0, lpszDescriptionMarshal, lpszDescription, UInt32, uBufLen, UInt32)
     return result
 }
 
@@ -169,7 +173,9 @@ export ImmGetDescriptionW(param0, lpszDescription, uBufLen) {
 export ImmGetIMEFileNameA(param0, lpszFileName, uBufLen) {
     lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
-    result := DllCall("IMM32.dll\ImmGetIMEFileNameA", HKL, param0, "ptr", lpszFileName, UInt32, uBufLen, UInt32)
+    lpszFileNameMarshal := lpszFileName == 0 ? IntPtr : PSTR
+
+    result := DllCall("IMM32.dll\ImmGetIMEFileNameA", HKL, param0, lpszFileNameMarshal, lpszFileName, UInt32, uBufLen, UInt32)
     return result
 }
 
@@ -197,7 +203,9 @@ export ImmGetIMEFileNameA(param0, lpszFileName, uBufLen) {
 export ImmGetIMEFileNameW(param0, lpszFileName, uBufLen) {
     lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
-    result := DllCall("IMM32.dll\ImmGetIMEFileNameW", HKL, param0, "ptr", lpszFileName, UInt32, uBufLen, UInt32)
+    lpszFileNameMarshal := lpszFileName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("IMM32.dll\ImmGetIMEFileNameW", HKL, param0, lpszFileNameMarshal, lpszFileName, UInt32, uBufLen, UInt32)
     return result
 }
 
@@ -467,7 +475,9 @@ export ImmAssociateContextEx(param0, param1, param2) {
  * @since windows5.1.2600
  */
 export ImmGetCompositionStringA(param0, param1, lpBuf, dwBufLen) {
-    result := DllCall("IMM32.dll\ImmGetCompositionStringA", HIMC, param0, IME_COMPOSITION_STRING, param1, IntPtr, lpBuf, UInt32, dwBufLen, Int32)
+    lpBufMarshal := lpBuf == 0 ? IntPtr : IntPtr
+
+    result := DllCall("IMM32.dll\ImmGetCompositionStringA", HIMC, param0, IME_COMPOSITION_STRING, param1, lpBufMarshal, lpBuf, UInt32, dwBufLen, Int32)
     return result
 }
 
@@ -501,7 +511,9 @@ export ImmGetCompositionStringA(param0, param1, lpBuf, dwBufLen) {
  * @since windows5.1.2600
  */
 export ImmGetCompositionStringW(param0, param1, lpBuf, dwBufLen) {
-    result := DllCall("IMM32.dll\ImmGetCompositionStringW", HIMC, param0, IME_COMPOSITION_STRING, param1, IntPtr, lpBuf, UInt32, dwBufLen, Int32)
+    lpBufMarshal := lpBuf == 0 ? IntPtr : IntPtr
+
+    result := DllCall("IMM32.dll\ImmGetCompositionStringW", HIMC, param0, IME_COMPOSITION_STRING, param1, lpBufMarshal, lpBuf, UInt32, dwBufLen, Int32)
     return result
 }
 
@@ -541,7 +553,10 @@ export ImmGetCompositionStringW(param0, param1, lpBuf, dwBufLen) {
  * @since windows5.1.2600
  */
 export ImmSetCompositionStringA(param0, dwIndex, lpComp, dwCompLen, lpRead, dwReadLen) {
-    result := DllCall("IMM32.dll\ImmSetCompositionStringA", HIMC, param0, SET_COMPOSITION_STRING_TYPE, dwIndex, IntPtr, lpComp, UInt32, dwCompLen, IntPtr, lpRead, UInt32, dwReadLen, BOOL)
+    lpCompMarshal := lpComp == 0 ? IntPtr : IntPtr
+    lpReadMarshal := lpRead == 0 ? IntPtr : IntPtr
+
+    result := DllCall("IMM32.dll\ImmSetCompositionStringA", HIMC, param0, SET_COMPOSITION_STRING_TYPE, dwIndex, lpCompMarshal, lpComp, UInt32, dwCompLen, lpReadMarshal, lpRead, UInt32, dwReadLen, BOOL)
     return result
 }
 
@@ -581,7 +596,10 @@ export ImmSetCompositionStringA(param0, dwIndex, lpComp, dwCompLen, lpRead, dwRe
  * @since windows5.1.2600
  */
 export ImmSetCompositionStringW(param0, dwIndex, lpComp, dwCompLen, lpRead, dwReadLen) {
-    result := DllCall("IMM32.dll\ImmSetCompositionStringW", HIMC, param0, SET_COMPOSITION_STRING_TYPE, dwIndex, IntPtr, lpComp, UInt32, dwCompLen, IntPtr, lpRead, UInt32, dwReadLen, BOOL)
+    lpCompMarshal := lpComp == 0 ? IntPtr : IntPtr
+    lpReadMarshal := lpRead == 0 ? IntPtr : IntPtr
+
+    result := DllCall("IMM32.dll\ImmSetCompositionStringW", HIMC, param0, SET_COMPOSITION_STRING_TYPE, dwIndex, lpCompMarshal, lpComp, UInt32, dwCompLen, lpReadMarshal, lpRead, UInt32, dwReadLen, BOOL)
     return result
 }
 
@@ -603,7 +621,7 @@ export ImmSetCompositionStringW(param0, dwIndex, lpComp, dwCompLen, lpRead, dwRe
  * @since windows5.1.2600
  */
 export ImmGetCandidateListCountA(param0, lpdwListCount) {
-    lpdwListCountMarshal := lpdwListCount is VarRef ? "uint*" : "ptr"
+    lpdwListCountMarshal := lpdwListCount is VarRef ? "uint*" : IntPtr
 
     result := DllCall("IMM32.dll\ImmGetCandidateListCountA", HIMC, param0, lpdwListCountMarshal, lpdwListCount, UInt32)
     return result
@@ -627,7 +645,7 @@ export ImmGetCandidateListCountA(param0, lpdwListCount) {
  * @since windows5.1.2600
  */
 export ImmGetCandidateListCountW(param0, lpdwListCount) {
-    lpdwListCountMarshal := lpdwListCount is VarRef ? "uint*" : "ptr"
+    lpdwListCountMarshal := lpdwListCount is VarRef ? "uint*" : IntPtr
 
     result := DllCall("IMM32.dll\ImmGetCandidateListCountW", HIMC, param0, lpdwListCountMarshal, lpdwListCount, UInt32)
     return result
@@ -649,7 +667,9 @@ export ImmGetCandidateListCountW(param0, lpdwListCount) {
  * @since windows5.1.2600
  */
 export ImmGetCandidateListA(param0, deIndex, lpCandList, dwBufLen) {
-    result := DllCall("IMM32.dll\ImmGetCandidateListA", HIMC, param0, UInt32, deIndex, IntPtr, lpCandList, UInt32, dwBufLen, UInt32)
+    lpCandListMarshal := lpCandList == 0 ? IntPtr : IntPtr
+
+    result := DllCall("IMM32.dll\ImmGetCandidateListA", HIMC, param0, UInt32, deIndex, lpCandListMarshal, lpCandList, UInt32, dwBufLen, UInt32)
     return result
 }
 
@@ -669,7 +689,9 @@ export ImmGetCandidateListA(param0, deIndex, lpCandList, dwBufLen) {
  * @since windows5.1.2600
  */
 export ImmGetCandidateListW(param0, deIndex, lpCandList, dwBufLen) {
-    result := DllCall("IMM32.dll\ImmGetCandidateListW", HIMC, param0, UInt32, deIndex, IntPtr, lpCandList, UInt32, dwBufLen, UInt32)
+    lpCandListMarshal := lpCandList == 0 ? IntPtr : IntPtr
+
+    result := DllCall("IMM32.dll\ImmGetCandidateListW", HIMC, param0, UInt32, deIndex, lpCandListMarshal, lpCandList, UInt32, dwBufLen, UInt32)
     return result
 }
 
@@ -787,7 +809,9 @@ export ImmGetCandidateListW(param0, deIndex, lpCandList, dwBufLen) {
  * @since windows5.1.2600
  */
 export ImmGetGuideLineA(param0, dwIndex, lpBuf, dwBufLen) {
-    result := DllCall("IMM32.dll\ImmGetGuideLineA", HIMC, param0, GET_GUIDE_LINE_TYPE, dwIndex, IntPtr, lpBuf, UInt32, dwBufLen, UInt32)
+    lpBufMarshal := lpBuf == 0 ? IntPtr : IntPtr
+
+    result := DllCall("IMM32.dll\ImmGetGuideLineA", HIMC, param0, GET_GUIDE_LINE_TYPE, dwIndex, lpBufMarshal, lpBuf, UInt32, dwBufLen, UInt32)
     return result
 }
 
@@ -905,7 +929,9 @@ export ImmGetGuideLineA(param0, dwIndex, lpBuf, dwBufLen) {
  * @since windows5.1.2600
  */
 export ImmGetGuideLineW(param0, dwIndex, lpBuf, dwBufLen) {
-    result := DllCall("IMM32.dll\ImmGetGuideLineW", HIMC, param0, GET_GUIDE_LINE_TYPE, dwIndex, IntPtr, lpBuf, UInt32, dwBufLen, UInt32)
+    lpBufMarshal := lpBuf == 0 ? IntPtr : IntPtr
+
+    result := DllCall("IMM32.dll\ImmGetGuideLineW", HIMC, param0, GET_GUIDE_LINE_TYPE, dwIndex, lpBufMarshal, lpBuf, UInt32, dwBufLen, UInt32)
     return result
 }
 
@@ -921,8 +947,10 @@ export ImmGetGuideLineW(param0, dwIndex, lpBuf, dwBufLen) {
  * @since windows5.1.2600
  */
 export ImmGetConversionStatus(param0, lpfdwConversion, lpfdwSentence) {
-    lpfdwConversionMarshal := lpfdwConversion is VarRef ? "uint*" : "ptr"
-    lpfdwSentenceMarshal := lpfdwSentence is VarRef ? "uint*" : "ptr"
+    lpfdwConversionMarshal := lpfdwConversion is VarRef ? "uint*" : IntPtr
+    lpfdwConversionMarshal := lpfdwConversion == 0 ? IntPtr : "uint*"
+    lpfdwSentenceMarshal := lpfdwSentence is VarRef ? "uint*" : IntPtr
+    lpfdwSentenceMarshal := lpfdwSentence == 0 ? IntPtr : "uint*"
 
     result := DllCall("IMM32.dll\ImmGetConversionStatus", HIMC, param0, lpfdwConversionMarshal, lpfdwConversion, lpfdwSentenceMarshal, lpfdwSentence, BOOL)
     return result
@@ -1065,7 +1093,7 @@ export ImmSetCompositionFontW(param0, lplf) {
  * @since windows5.1.2600
  */
 export ImmConfigureIMEA(param0, param1, param2, param3) {
-    param3Marshal := param3 is VarRef ? "ptr" : "ptr"
+    param3Marshal := param3 is VarRef ? "ptr" : IntPtr
 
     result := DllCall("IMM32.dll\ImmConfigureIMEA", HKL, param0, HWND, param1, UInt32, param2, param3Marshal, param3, BOOL)
     return result
@@ -1085,7 +1113,7 @@ export ImmConfigureIMEA(param0, param1, param2, param3) {
  * @since windows5.1.2600
  */
 export ImmConfigureIMEW(param0, param1, param2, param3) {
-    param3Marshal := param3 is VarRef ? "ptr" : "ptr"
+    param3Marshal := param3 is VarRef ? "ptr" : IntPtr
 
     result := DllCall("IMM32.dll\ImmConfigureIMEW", HKL, param0, HWND, param1, UInt32, param2, param3Marshal, param3, BOOL)
     return result
@@ -1122,7 +1150,7 @@ export ImmConfigureIMEW(param0, param1, param2, param3) {
  * @since windows5.1.2600
  */
 export ImmEscapeA(param0, param1, param2, param3) {
-    param3Marshal := param3 is VarRef ? "ptr" : "ptr"
+    param3Marshal := param3 is VarRef ? "ptr" : IntPtr
 
     result := DllCall("IMM32.dll\ImmEscapeA", HKL, param0, HIMC, param1, IME_ESCAPE, param2, param3Marshal, param3, LRESULT)
     return result
@@ -1159,7 +1187,7 @@ export ImmEscapeA(param0, param1, param2, param3) {
  * @since windows5.1.2600
  */
 export ImmEscapeW(param0, param1, param2, param3) {
-    param3Marshal := param3 is VarRef ? "ptr" : "ptr"
+    param3Marshal := param3 is VarRef ? "ptr" : IntPtr
 
     result := DllCall("IMM32.dll\ImmEscapeW", HKL, param0, HIMC, param1, IME_ESCAPE, param2, param3Marshal, param3, LRESULT)
     return result
@@ -1522,9 +1550,11 @@ export ImmEnumRegisterWordA(param0, param1, lpszReading, param3, lpszRegister, p
     lpszReading := lpszReading is String ? StrPtr(lpszReading) : lpszReading
     lpszRegister := lpszRegister is String ? StrPtr(lpszRegister) : lpszRegister
 
-    param5Marshal := param5 is VarRef ? "ptr" : "ptr"
+    lpszReadingMarshal := lpszReading == 0 ? IntPtr : PSTR
+    lpszRegisterMarshal := lpszRegister == 0 ? IntPtr : PSTR
+    param5Marshal := param5 is VarRef ? "ptr" : IntPtr
 
-    result := DllCall("IMM32.dll\ImmEnumRegisterWordA", HKL, param0, REGISTERWORDENUMPROCA, param1, "ptr", lpszReading, UInt32, param3, "ptr", lpszRegister, param5Marshal, param5, UInt32)
+    result := DllCall("IMM32.dll\ImmEnumRegisterWordA", HKL, param0, REGISTERWORDENUMPROCA, param1, lpszReadingMarshal, lpszReading, UInt32, param3, lpszRegisterMarshal, lpszRegister, param5Marshal, param5, UInt32)
     return result
 }
 
@@ -1549,9 +1579,11 @@ export ImmEnumRegisterWordW(param0, param1, lpszReading, param3, lpszRegister, p
     lpszReading := lpszReading is String ? StrPtr(lpszReading) : lpszReading
     lpszRegister := lpszRegister is String ? StrPtr(lpszRegister) : lpszRegister
 
-    param5Marshal := param5 is VarRef ? "ptr" : "ptr"
+    lpszReadingMarshal := lpszReading == 0 ? IntPtr : PWSTR
+    lpszRegisterMarshal := lpszRegister == 0 ? IntPtr : PWSTR
+    param5Marshal := param5 is VarRef ? "ptr" : IntPtr
 
-    result := DllCall("IMM32.dll\ImmEnumRegisterWordW", HKL, param0, REGISTERWORDENUMPROCW, param1, "ptr", lpszReading, UInt32, param3, "ptr", lpszRegister, param5Marshal, param5, UInt32)
+    result := DllCall("IMM32.dll\ImmEnumRegisterWordW", HKL, param0, REGISTERWORDENUMPROCW, param1, lpszReadingMarshal, lpszReading, UInt32, param3, lpszRegisterMarshal, lpszRegister, param5Marshal, param5, UInt32)
     return result
 }
 
@@ -1623,7 +1655,10 @@ export ImmEnumInputContext(idThread, lpfn, _lParam) {
  * @since windows5.1.2600
  */
 export ImmGetImeMenuItemsA(param0, param1, param2, lpImeParentMenu, lpImeMenu, dwSize) {
-    result := DllCall("IMM32.dll\ImmGetImeMenuItemsA", HIMC, param0, UInt32, param1, UInt32, param2, IMEMENUITEMINFOA.Ptr, lpImeParentMenu, IntPtr, lpImeMenu, UInt32, dwSize, UInt32)
+    lpImeParentMenuMarshal := lpImeParentMenu == 0 ? IntPtr : IMEMENUITEMINFOA.Ptr
+    lpImeMenuMarshal := lpImeMenu == 0 ? IntPtr : IntPtr
+
+    result := DllCall("IMM32.dll\ImmGetImeMenuItemsA", HIMC, param0, UInt32, param1, UInt32, param2, lpImeParentMenuMarshal, lpImeParentMenu, lpImeMenuMarshal, lpImeMenu, UInt32, dwSize, UInt32)
     return result
 }
 
@@ -1660,7 +1695,10 @@ export ImmGetImeMenuItemsA(param0, param1, param2, lpImeParentMenu, lpImeMenu, d
  * @since windows5.1.2600
  */
 export ImmGetImeMenuItemsW(param0, param1, param2, lpImeParentMenu, lpImeMenu, dwSize) {
-    result := DllCall("IMM32.dll\ImmGetImeMenuItemsW", HIMC, param0, UInt32, param1, UInt32, param2, IMEMENUITEMINFOW.Ptr, lpImeParentMenu, IntPtr, lpImeMenu, UInt32, dwSize, UInt32)
+    lpImeParentMenuMarshal := lpImeParentMenu == 0 ? IntPtr : IMEMENUITEMINFOW.Ptr
+    lpImeMenuMarshal := lpImeMenu == 0 ? IntPtr : IntPtr
+
+    result := DllCall("IMM32.dll\ImmGetImeMenuItemsW", HIMC, param0, UInt32, param1, UInt32, param2, lpImeParentMenuMarshal, lpImeParentMenu, lpImeMenuMarshal, lpImeMenu, UInt32, dwSize, UInt32)
     return result
 }
 
@@ -1701,7 +1739,6 @@ export ImmDisableLegacyIME() {
 }
 
 /**
- * 
  * @param {Integer} param0 
  * @param {Pointer<Integer>} lpuModifiers 
  * @param {Pointer<Integer>} lpuVKey 
@@ -1709,15 +1746,14 @@ export ImmDisableLegacyIME() {
  * @returns {BOOL} 
  */
 export ImmGetHotKey(param0, lpuModifiers, lpuVKey, phKL) {
-    lpuModifiersMarshal := lpuModifiers is VarRef ? "uint*" : "ptr"
-    lpuVKeyMarshal := lpuVKey is VarRef ? "uint*" : "ptr"
+    lpuModifiersMarshal := lpuModifiers is VarRef ? "uint*" : IntPtr
+    lpuVKeyMarshal := lpuVKey is VarRef ? "uint*" : IntPtr
 
     result := DllCall("IMM32.dll\ImmGetHotKey", UInt32, param0, lpuModifiersMarshal, lpuModifiers, lpuVKeyMarshal, lpuVKey, HKL.Ptr, phKL, BOOL)
     return result
 }
 
 /**
- * 
  * @param {Integer} param0 
  * @param {Integer} param1 
  * @param {Integer} param2 
@@ -1730,7 +1766,6 @@ export ImmSetHotKey(param0, param1, param2, param3) {
 }
 
 /**
- * 
  * @param {HIMC} param0 
  * @returns {BOOL} 
  */
@@ -1786,7 +1821,6 @@ export ImmRequestMessageW(param0, param1, param2) {
 }
 
 /**
- * 
  * @param {Integer} param0 
  * @param {HWND} param1 
  * @param {Integer} param2 
@@ -1799,7 +1833,6 @@ export ImmCreateSoftKeyboard(param0, param1, param2, param3) {
 }
 
 /**
- * 
  * @param {HWND} param0 
  * @returns {BOOL} 
  */
@@ -1809,7 +1842,6 @@ export ImmDestroySoftKeyboard(param0) {
 }
 
 /**
- * 
  * @param {HWND} param0 
  * @param {Integer} param1 
  * @returns {BOOL} 
@@ -1820,7 +1852,6 @@ export ImmShowSoftKeyboard(param0, param1) {
 }
 
 /**
- * 
  * @param {HIMC} param0 
  * @returns {Pointer<INPUTCONTEXT>} 
  */
@@ -1830,7 +1861,6 @@ export ImmLockIMC(param0) {
 }
 
 /**
- * 
  * @param {HIMC} param0 
  * @returns {BOOL} 
  */
@@ -1840,7 +1870,6 @@ export ImmUnlockIMC(param0) {
 }
 
 /**
- * 
  * @param {HIMC} param0 
  * @returns {Integer} 
  */
@@ -1850,7 +1879,6 @@ export ImmGetIMCLockCount(param0) {
 }
 
 /**
- * 
  * @param {Integer} param0 
  * @returns {HIMCC} 
  */
@@ -1860,7 +1888,6 @@ export ImmCreateIMCC(param0) {
 }
 
 /**
- * 
  * @param {HIMCC} param0 
  * @returns {HIMCC} 
  */
@@ -1870,7 +1897,6 @@ export ImmDestroyIMCC(param0) {
 }
 
 /**
- * 
  * @param {HIMCC} param0 
  * @returns {Pointer<Void>} 
  */
@@ -1880,7 +1906,6 @@ export ImmLockIMCC(param0) {
 }
 
 /**
- * 
  * @param {HIMCC} param0 
  * @returns {BOOL} 
  */
@@ -1890,7 +1915,6 @@ export ImmUnlockIMCC(param0) {
 }
 
 /**
- * 
  * @param {HIMCC} param0 
  * @returns {Integer} 
  */
@@ -1900,7 +1924,6 @@ export ImmGetIMCCLockCount(param0) {
 }
 
 /**
- * 
  * @param {HIMCC} param0 
  * @param {Integer} param1 
  * @returns {HIMCC} 
@@ -1911,7 +1934,6 @@ export ImmReSizeIMCC(param0, param1) {
 }
 
 /**
- * 
  * @param {HIMCC} param0 
  * @returns {Integer} 
  */

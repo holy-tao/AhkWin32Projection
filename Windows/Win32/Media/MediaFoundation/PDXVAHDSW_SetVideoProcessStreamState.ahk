@@ -23,7 +23,6 @@ export default struct PDXVAHDSW_SetVideoProcessStreamState {
     }
 
     /**
-     * 
      * @param {HANDLE} hVideoProcessor A handle to the software DXVA-HD video processor.
      * @param {Integer} StreamNumber The zero-based index of the input stream.
      * @param {DXVAHD_STREAM_STATE} State The state parameter to set, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ne-dxvahd-dxvahd_stream_state">DXVAHD_STREAM_STATE</a> enumeration.

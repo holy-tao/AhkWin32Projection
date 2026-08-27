@@ -20,7 +20,6 @@ export default struct UCharIteratorMove {
     }
 
     /**
-     * 
      * @param {Pointer<UCharIterator>} iter 
      * @param {Integer} delta 
      * @param {UCharIteratorOrigin} origin 

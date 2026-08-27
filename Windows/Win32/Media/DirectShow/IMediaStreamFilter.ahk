@@ -203,7 +203,7 @@ export default struct IMediaStreamFilter extends IBaseFilter {
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-imediastreamfilter-referencetimetostreamtime
      */
     ReferenceTimeToStreamTime(pTime) {
-        pTimeMarshal := pTime is VarRef ? "int64*" : "ptr"
+        pTimeMarshal := pTime is VarRef ? "int64*" : IntPtr
 
         result := ComCall(19, this, pTimeMarshal, pTime, "HRESULT")
         return result
@@ -304,15 +304,15 @@ export default struct IMediaStreamFilter extends IBaseFilter {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddMediaStream := CallbackCreate(GetMethod(implObj, "AddMediaStream"), flags, 2)
-        this.vtbl.GetMediaStream := CallbackCreate(GetMethod(implObj, "GetMediaStream"), flags, 3)
-        this.vtbl.EnumMediaStreams := CallbackCreate(GetMethod(implObj, "EnumMediaStreams"), flags, 3)
-        this.vtbl.SupportSeeking := CallbackCreate(GetMethod(implObj, "SupportSeeking"), flags, 2)
-        this.vtbl.ReferenceTimeToStreamTime := CallbackCreate(GetMethod(implObj, "ReferenceTimeToStreamTime"), flags, 2)
-        this.vtbl.GetCurrentStreamTime := CallbackCreate(GetMethod(implObj, "GetCurrentStreamTime"), flags, 2)
-        this.vtbl.WaitUntil := CallbackCreate(GetMethod(implObj, "WaitUntil"), flags, 2)
-        this.vtbl.Flush := CallbackCreate(GetMethod(implObj, "Flush"), flags, 2)
-        this.vtbl.EndOfStream := CallbackCreate(GetMethod(implObj, "EndOfStream"), flags, 1)
+        this.vtbl.AddMediaStream := CallbackCreate(ObjBindMethod(implObj, "AddMediaStream"), flags, 2)
+        this.vtbl.GetMediaStream := CallbackCreate(ObjBindMethod(implObj, "GetMediaStream"), flags, 3)
+        this.vtbl.EnumMediaStreams := CallbackCreate(ObjBindMethod(implObj, "EnumMediaStreams"), flags, 3)
+        this.vtbl.SupportSeeking := CallbackCreate(ObjBindMethod(implObj, "SupportSeeking"), flags, 2)
+        this.vtbl.ReferenceTimeToStreamTime := CallbackCreate(ObjBindMethod(implObj, "ReferenceTimeToStreamTime"), flags, 2)
+        this.vtbl.GetCurrentStreamTime := CallbackCreate(ObjBindMethod(implObj, "GetCurrentStreamTime"), flags, 2)
+        this.vtbl.WaitUntil := CallbackCreate(ObjBindMethod(implObj, "WaitUntil"), flags, 2)
+        this.vtbl.Flush := CallbackCreate(ObjBindMethod(implObj, "Flush"), flags, 2)
+        this.vtbl.EndOfStream := CallbackCreate(ObjBindMethod(implObj, "EndOfStream"), flags, 1)
     }
 
     Dispose() {

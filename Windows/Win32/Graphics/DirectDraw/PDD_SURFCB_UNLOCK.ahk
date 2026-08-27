@@ -25,7 +25,6 @@ export default struct PDD_SURFCB_UNLOCK {
     }
 
     /**
-     * 
      * @param {Pointer<DD_UNLOCKDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_unlockdata">DD_UNLOCKDATA</a> structure that contains the information required to perform the lock release.
      * @returns {Integer} <i>DdUnLock</i> returns one of the following callback codes:
      */

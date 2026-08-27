@@ -41,7 +41,6 @@ export default struct ITravelLogClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwID 
      * @returns {IUnknown} 
      */
@@ -51,7 +50,6 @@ export default struct ITravelLogClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {IStream} pStream 
      * @returns {WINDOWDATA} 
      */
@@ -62,7 +60,6 @@ export default struct ITravelLogClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszUrlLocation 
      * @param {Integer} dwPosition 
      * @returns {HRESULT} 
@@ -83,9 +80,9 @@ export default struct ITravelLogClient extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FindWindowByIndex := CallbackCreate(GetMethod(implObj, "FindWindowByIndex"), flags, 3)
-        this.vtbl.GetWindowData := CallbackCreate(GetMethod(implObj, "GetWindowData"), flags, 3)
-        this.vtbl.LoadHistoryPosition := CallbackCreate(GetMethod(implObj, "LoadHistoryPosition"), flags, 3)
+        this.vtbl.FindWindowByIndex := CallbackCreate(ObjBindMethod(implObj, "FindWindowByIndex"), flags, 3)
+        this.vtbl.GetWindowData := CallbackCreate(ObjBindMethod(implObj, "GetWindowData"), flags, 3)
+        this.vtbl.LoadHistoryPosition := CallbackCreate(ObjBindMethod(implObj, "LoadHistoryPosition"), flags, 3)
     }
 
     Dispose() {

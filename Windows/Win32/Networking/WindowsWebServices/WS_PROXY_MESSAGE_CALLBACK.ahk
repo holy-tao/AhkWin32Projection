@@ -26,7 +26,6 @@ export default struct WS_PROXY_MESSAGE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<WS_MESSAGE>} message The input or output message.
      * @param {Pointer<WS_HEAP>} heap The heap associated with the call. This is the heap which is passed to call for which this 
      *                     callback is being called.
@@ -35,10 +34,11 @@ export default struct WS_PROXY_MESSAGE_CALLBACK {
      * @returns {HRESULT} If this callback function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      */
     Call(message, heap, state, _error) {
-        messageMarshal := message is VarRef ? "ptr*" : "ptr"
-        heapMarshal := heap is VarRef ? "ptr*" : "ptr"
-        stateMarshal := state is VarRef ? "ptr" : "ptr"
-        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
+        messageMarshal := message is VarRef ? "ptr*" : IntPtr
+        heapMarshal := heap is VarRef ? "ptr*" : IntPtr
+        stateMarshal := state is VarRef ? "ptr" : IntPtr
+        _errorMarshal := _error is VarRef ? "ptr*" : IntPtr
+        _errorMarshal := _error == 0 ? IntPtr : WS_ERROR.Ptr
 
         result := DllCall(this.value, messageMarshal, message, heapMarshal, heap, stateMarshal, state, _errorMarshal, _error, "HRESULT")
         return result

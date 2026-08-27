@@ -18,7 +18,6 @@ export default struct PKSEC_LOCATE_PKG_BY_ID {
     }
 
     /**
-     * 
      * @param {Integer} PackageId 
      * @returns {Pointer<Void>} 
      */

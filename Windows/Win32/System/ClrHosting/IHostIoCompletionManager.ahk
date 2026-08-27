@@ -150,7 +150,6 @@ export default struct IHostIoCompletionManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {HANDLE} hPort 
      * @returns {HRESULT} 
      */
@@ -160,7 +159,6 @@ export default struct IHostIoCompletionManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwMaxIOCompletionThreads 
      * @returns {HRESULT} 
      */
@@ -170,7 +168,6 @@ export default struct IHostIoCompletionManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMaxThreads() {
@@ -179,7 +176,6 @@ export default struct IHostIoCompletionManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetAvailableThreads() {
@@ -188,7 +184,6 @@ export default struct IHostIoCompletionManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetHostOverlappedSize() {
@@ -197,7 +192,6 @@ export default struct IHostIoCompletionManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {ICLRIoCompletionManager} pManager 
      * @returns {HRESULT} 
      */
@@ -207,12 +201,11 @@ export default struct IHostIoCompletionManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvOverlapped 
      * @returns {HRESULT} 
      */
     InitializeHostOverlapped(pvOverlapped) {
-        pvOverlappedMarshal := pvOverlapped is VarRef ? "ptr" : "ptr"
+        pvOverlappedMarshal := pvOverlapped is VarRef ? "ptr" : IntPtr
 
         result := ComCall(10, this, pvOverlappedMarshal, pvOverlapped, "HRESULT")
         return result
@@ -258,7 +251,6 @@ export default struct IHostIoCompletionManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwMinIOCompletionThreads 
      * @returns {HRESULT} 
      */
@@ -268,7 +260,6 @@ export default struct IHostIoCompletionManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMinThreads() {
@@ -285,17 +276,17 @@ export default struct IHostIoCompletionManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateIoCompletionPort := CallbackCreate(GetMethod(implObj, "CreateIoCompletionPort"), flags, 2)
-        this.vtbl.CloseIoCompletionPort := CallbackCreate(GetMethod(implObj, "CloseIoCompletionPort"), flags, 2)
-        this.vtbl.SetMaxThreads := CallbackCreate(GetMethod(implObj, "SetMaxThreads"), flags, 2)
-        this.vtbl.GetMaxThreads := CallbackCreate(GetMethod(implObj, "GetMaxThreads"), flags, 2)
-        this.vtbl.GetAvailableThreads := CallbackCreate(GetMethod(implObj, "GetAvailableThreads"), flags, 2)
-        this.vtbl.GetHostOverlappedSize := CallbackCreate(GetMethod(implObj, "GetHostOverlappedSize"), flags, 2)
-        this.vtbl.SetCLRIoCompletionManager := CallbackCreate(GetMethod(implObj, "SetCLRIoCompletionManager"), flags, 2)
-        this.vtbl.InitializeHostOverlapped := CallbackCreate(GetMethod(implObj, "InitializeHostOverlapped"), flags, 2)
-        this.vtbl.Bind := CallbackCreate(GetMethod(implObj, "Bind"), flags, 3)
-        this.vtbl.SetMinThreads := CallbackCreate(GetMethod(implObj, "SetMinThreads"), flags, 2)
-        this.vtbl.GetMinThreads := CallbackCreate(GetMethod(implObj, "GetMinThreads"), flags, 2)
+        this.vtbl.CreateIoCompletionPort := CallbackCreate(ObjBindMethod(implObj, "CreateIoCompletionPort"), flags, 2)
+        this.vtbl.CloseIoCompletionPort := CallbackCreate(ObjBindMethod(implObj, "CloseIoCompletionPort"), flags, 2)
+        this.vtbl.SetMaxThreads := CallbackCreate(ObjBindMethod(implObj, "SetMaxThreads"), flags, 2)
+        this.vtbl.GetMaxThreads := CallbackCreate(ObjBindMethod(implObj, "GetMaxThreads"), flags, 2)
+        this.vtbl.GetAvailableThreads := CallbackCreate(ObjBindMethod(implObj, "GetAvailableThreads"), flags, 2)
+        this.vtbl.GetHostOverlappedSize := CallbackCreate(ObjBindMethod(implObj, "GetHostOverlappedSize"), flags, 2)
+        this.vtbl.SetCLRIoCompletionManager := CallbackCreate(ObjBindMethod(implObj, "SetCLRIoCompletionManager"), flags, 2)
+        this.vtbl.InitializeHostOverlapped := CallbackCreate(ObjBindMethod(implObj, "InitializeHostOverlapped"), flags, 2)
+        this.vtbl.Bind := CallbackCreate(ObjBindMethod(implObj, "Bind"), flags, 3)
+        this.vtbl.SetMinThreads := CallbackCreate(ObjBindMethod(implObj, "SetMinThreads"), flags, 2)
+        this.vtbl.GetMinThreads := CallbackCreate(ObjBindMethod(implObj, "GetMinThreads"), flags, 2)
     }
 
     Dispose() {

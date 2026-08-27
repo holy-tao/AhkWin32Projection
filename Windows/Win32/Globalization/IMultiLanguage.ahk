@@ -58,7 +58,6 @@ export default struct IMultiLanguage extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberOfCodePageInfo() {
@@ -67,7 +66,6 @@ export default struct IMultiLanguage extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uiCodePage 
      * @returns {MIMECPINFO} 
      */
@@ -78,7 +76,6 @@ export default struct IMultiLanguage extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uiCodePage 
      * @returns {Integer} 
      */
@@ -88,7 +85,6 @@ export default struct IMultiLanguage extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} grfFlags 
      * @returns {IEnumCodePage} 
      */
@@ -98,7 +94,6 @@ export default struct IMultiLanguage extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} Charset 
      * @returns {MIMECSETINFO} 
      */
@@ -111,7 +106,6 @@ export default struct IMultiLanguage extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSrcEncoding 
      * @param {Integer} dwDstEncoding 
      * @returns {HRESULT} 
@@ -122,7 +116,6 @@ export default struct IMultiLanguage extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwMode 
      * @param {Integer} dwSrcEncoding 
      * @param {Integer} dwDstEncoding 
@@ -133,16 +126,20 @@ export default struct IMultiLanguage extends IUnknown {
      * @returns {HRESULT} 
      */
     ConvertString(pdwMode, dwSrcEncoding, dwDstEncoding, pSrcStr, pcSrcSize, pDstStr, pcDstSize) {
-        pdwModeMarshal := pdwMode is VarRef ? "uint*" : "ptr"
-        pcSrcSizeMarshal := pcSrcSize is VarRef ? "uint*" : "ptr"
-        pcDstSizeMarshal := pcDstSize is VarRef ? "uint*" : "ptr"
+        pdwModeMarshal := pdwMode is VarRef ? "uint*" : IntPtr
+        pdwModeMarshal := pdwMode == 0 ? IntPtr : "uint*"
+        pSrcStrMarshal := pSrcStr == 0 ? IntPtr : IntPtr
+        pcSrcSizeMarshal := pcSrcSize is VarRef ? "uint*" : IntPtr
+        pcSrcSizeMarshal := pcSrcSize == 0 ? IntPtr : "uint*"
+        pDstStrMarshal := pDstStr == 0 ? IntPtr : IntPtr
+        pcDstSizeMarshal := pcDstSize is VarRef ? "uint*" : IntPtr
+        pcDstSizeMarshal := pcDstSize == 0 ? IntPtr : "uint*"
 
-        result := ComCall(9, this, pdwModeMarshal, pdwMode, UInt32, dwSrcEncoding, UInt32, dwDstEncoding, IntPtr, pSrcStr, pcSrcSizeMarshal, pcSrcSize, IntPtr, pDstStr, pcDstSizeMarshal, pcDstSize, "HRESULT")
+        result := ComCall(9, this, pdwModeMarshal, pdwMode, UInt32, dwSrcEncoding, UInt32, dwDstEncoding, pSrcStrMarshal, pSrcStr, pcSrcSizeMarshal, pcSrcSize, pDstStrMarshal, pDstStr, pcDstSizeMarshal, pcDstSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwMode 
      * @param {Integer} dwEncoding 
      * @param {Integer} pSrcStr 
@@ -154,16 +151,20 @@ export default struct IMultiLanguage extends IUnknown {
     ConvertStringToUnicode(pdwMode, dwEncoding, pSrcStr, pcSrcSize, pDstStr, pcDstSize) {
         pDstStr := pDstStr is String ? StrPtr(pDstStr) : pDstStr
 
-        pdwModeMarshal := pdwMode is VarRef ? "uint*" : "ptr"
-        pcSrcSizeMarshal := pcSrcSize is VarRef ? "uint*" : "ptr"
-        pcDstSizeMarshal := pcDstSize is VarRef ? "uint*" : "ptr"
+        pdwModeMarshal := pdwMode is VarRef ? "uint*" : IntPtr
+        pdwModeMarshal := pdwMode == 0 ? IntPtr : "uint*"
+        pSrcStrMarshal := pSrcStr == 0 ? IntPtr : IntPtr
+        pcSrcSizeMarshal := pcSrcSize is VarRef ? "uint*" : IntPtr
+        pcSrcSizeMarshal := pcSrcSize == 0 ? IntPtr : "uint*"
+        pDstStrMarshal := pDstStr == 0 ? IntPtr : PWSTR
+        pcDstSizeMarshal := pcDstSize is VarRef ? "uint*" : IntPtr
+        pcDstSizeMarshal := pcDstSize == 0 ? IntPtr : "uint*"
 
-        result := ComCall(10, this, pdwModeMarshal, pdwMode, UInt32, dwEncoding, IntPtr, pSrcStr, pcSrcSizeMarshal, pcSrcSize, "ptr", pDstStr, pcDstSizeMarshal, pcDstSize, "HRESULT")
+        result := ComCall(10, this, pdwModeMarshal, pdwMode, UInt32, dwEncoding, pSrcStrMarshal, pSrcStr, pcSrcSizeMarshal, pcSrcSize, pDstStrMarshal, pDstStr, pcDstSizeMarshal, pcDstSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwMode 
      * @param {Integer} dwEncoding 
      * @param {PWSTR} pSrcStr 
@@ -175,16 +176,20 @@ export default struct IMultiLanguage extends IUnknown {
     ConvertStringFromUnicode(pdwMode, dwEncoding, pSrcStr, pcSrcSize, pDstStr, pcDstSize) {
         pSrcStr := pSrcStr is String ? StrPtr(pSrcStr) : pSrcStr
 
-        pdwModeMarshal := pdwMode is VarRef ? "uint*" : "ptr"
-        pcSrcSizeMarshal := pcSrcSize is VarRef ? "uint*" : "ptr"
-        pcDstSizeMarshal := pcDstSize is VarRef ? "uint*" : "ptr"
+        pdwModeMarshal := pdwMode is VarRef ? "uint*" : IntPtr
+        pdwModeMarshal := pdwMode == 0 ? IntPtr : "uint*"
+        pSrcStrMarshal := pSrcStr == 0 ? IntPtr : PWSTR
+        pcSrcSizeMarshal := pcSrcSize is VarRef ? "uint*" : IntPtr
+        pcSrcSizeMarshal := pcSrcSize == 0 ? IntPtr : "uint*"
+        pDstStrMarshal := pDstStr == 0 ? IntPtr : IntPtr
+        pcDstSizeMarshal := pcDstSize is VarRef ? "uint*" : IntPtr
+        pcDstSizeMarshal := pcDstSize == 0 ? IntPtr : "uint*"
 
-        result := ComCall(11, this, pdwModeMarshal, pdwMode, UInt32, dwEncoding, "ptr", pSrcStr, pcSrcSizeMarshal, pcSrcSize, IntPtr, pDstStr, pcDstSizeMarshal, pcDstSize, "HRESULT")
+        result := ComCall(11, this, pdwModeMarshal, pdwMode, UInt32, dwEncoding, pSrcStrMarshal, pSrcStr, pcSrcSizeMarshal, pcSrcSize, pDstStrMarshal, pDstStr, pcDstSizeMarshal, pcDstSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ConvertStringReset() {
@@ -193,7 +198,6 @@ export default struct IMultiLanguage extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Locale 
      * @returns {BSTR} 
      */
@@ -204,7 +208,6 @@ export default struct IMultiLanguage extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrRfc1766 
      * @returns {Integer} 
      */
@@ -216,7 +219,6 @@ export default struct IMultiLanguage extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumRfc1766} 
      */
     EnumRfc1766() {
@@ -225,7 +227,6 @@ export default struct IMultiLanguage extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Locale 
      * @returns {RFC1766INFO} 
      */
@@ -236,7 +237,6 @@ export default struct IMultiLanguage extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uiSrcCodePage 
      * @param {Integer} uiDstCodePage 
      * @param {Integer} dwProperty 
@@ -256,21 +256,21 @@ export default struct IMultiLanguage extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNumberOfCodePageInfo := CallbackCreate(GetMethod(implObj, "GetNumberOfCodePageInfo"), flags, 2)
-        this.vtbl.GetCodePageInfo := CallbackCreate(GetMethod(implObj, "GetCodePageInfo"), flags, 3)
-        this.vtbl.GetFamilyCodePage := CallbackCreate(GetMethod(implObj, "GetFamilyCodePage"), flags, 3)
-        this.vtbl.EnumCodePages := CallbackCreate(GetMethod(implObj, "EnumCodePages"), flags, 3)
-        this.vtbl.GetCharsetInfo := CallbackCreate(GetMethod(implObj, "GetCharsetInfo"), flags, 3)
-        this.vtbl.IsConvertible := CallbackCreate(GetMethod(implObj, "IsConvertible"), flags, 3)
-        this.vtbl.ConvertString := CallbackCreate(GetMethod(implObj, "ConvertString"), flags, 8)
-        this.vtbl.ConvertStringToUnicode := CallbackCreate(GetMethod(implObj, "ConvertStringToUnicode"), flags, 7)
-        this.vtbl.ConvertStringFromUnicode := CallbackCreate(GetMethod(implObj, "ConvertStringFromUnicode"), flags, 7)
-        this.vtbl.ConvertStringReset := CallbackCreate(GetMethod(implObj, "ConvertStringReset"), flags, 1)
-        this.vtbl.GetRfc1766FromLcid := CallbackCreate(GetMethod(implObj, "GetRfc1766FromLcid"), flags, 3)
-        this.vtbl.GetLcidFromRfc1766 := CallbackCreate(GetMethod(implObj, "GetLcidFromRfc1766"), flags, 3)
-        this.vtbl.EnumRfc1766 := CallbackCreate(GetMethod(implObj, "EnumRfc1766"), flags, 2)
-        this.vtbl.GetRfc1766Info := CallbackCreate(GetMethod(implObj, "GetRfc1766Info"), flags, 3)
-        this.vtbl.CreateConvertCharset := CallbackCreate(GetMethod(implObj, "CreateConvertCharset"), flags, 5)
+        this.vtbl.GetNumberOfCodePageInfo := CallbackCreate(ObjBindMethod(implObj, "GetNumberOfCodePageInfo"), flags, 2)
+        this.vtbl.GetCodePageInfo := CallbackCreate(ObjBindMethod(implObj, "GetCodePageInfo"), flags, 3)
+        this.vtbl.GetFamilyCodePage := CallbackCreate(ObjBindMethod(implObj, "GetFamilyCodePage"), flags, 3)
+        this.vtbl.EnumCodePages := CallbackCreate(ObjBindMethod(implObj, "EnumCodePages"), flags, 3)
+        this.vtbl.GetCharsetInfo := CallbackCreate(ObjBindMethod(implObj, "GetCharsetInfo"), flags, 3)
+        this.vtbl.IsConvertible := CallbackCreate(ObjBindMethod(implObj, "IsConvertible"), flags, 3)
+        this.vtbl.ConvertString := CallbackCreate(ObjBindMethod(implObj, "ConvertString"), flags, 8)
+        this.vtbl.ConvertStringToUnicode := CallbackCreate(ObjBindMethod(implObj, "ConvertStringToUnicode"), flags, 7)
+        this.vtbl.ConvertStringFromUnicode := CallbackCreate(ObjBindMethod(implObj, "ConvertStringFromUnicode"), flags, 7)
+        this.vtbl.ConvertStringReset := CallbackCreate(ObjBindMethod(implObj, "ConvertStringReset"), flags, 1)
+        this.vtbl.GetRfc1766FromLcid := CallbackCreate(ObjBindMethod(implObj, "GetRfc1766FromLcid"), flags, 3)
+        this.vtbl.GetLcidFromRfc1766 := CallbackCreate(ObjBindMethod(implObj, "GetLcidFromRfc1766"), flags, 3)
+        this.vtbl.EnumRfc1766 := CallbackCreate(ObjBindMethod(implObj, "EnumRfc1766"), flags, 2)
+        this.vtbl.GetRfc1766Info := CallbackCreate(ObjBindMethod(implObj, "GetRfc1766Info"), flags, 3)
+        this.vtbl.CreateConvertCharset := CallbackCreate(ObjBindMethod(implObj, "CreateConvertCharset"), flags, 5)
     }
 
     Dispose() {

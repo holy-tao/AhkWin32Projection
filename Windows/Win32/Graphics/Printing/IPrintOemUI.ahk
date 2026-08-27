@@ -59,7 +59,6 @@ export default struct IPrintOemUI extends IPrintOemCommon {
     }
 
     /**
-     * 
      * @param {IUnknown} pIUnknown 
      * @returns {HRESULT} 
      */
@@ -69,7 +68,6 @@ export default struct IPrintOemUI extends IPrintOemCommon {
     }
 
     /**
-     * 
      * @param {Integer} dwMode 
      * @param {Pointer<OEMCUIPPARAM>} pOemCUIPParam 
      * @returns {HRESULT} 
@@ -80,7 +78,6 @@ export default struct IPrintOemUI extends IPrintOemCommon {
     }
 
     /**
-     * 
      * @param {Pointer<PROPSHEETUI_INFO>} pPSUIInfo 
      * @param {LPARAM} _lParam 
      * @returns {HRESULT} 
@@ -91,7 +88,6 @@ export default struct IPrintOemUI extends IPrintOemCommon {
     }
 
     /**
-     * 
      * @param {Pointer<PROPSHEETUI_INFO>} pPSUIInfo 
      * @param {LPARAM} _lParam 
      * @returns {HRESULT} 
@@ -102,7 +98,6 @@ export default struct IPrintOemUI extends IPrintOemCommon {
     }
 
     /**
-     * 
      * @param {Pointer<OEMUIOBJ>} poemuiobj 
      * @param {Pointer<DEVQUERYPRINT_INFO>} pDQPInfo 
      * @param {Pointer<DEVMODEA>} pPublicDM 
@@ -110,7 +105,7 @@ export default struct IPrintOemUI extends IPrintOemCommon {
      * @returns {HRESULT} 
      */
     DevQueryPrintEx(poemuiobj, pDQPInfo, pPublicDM, pOEMDM) {
-        pOEMDMMarshal := pOEMDM is VarRef ? "ptr" : "ptr"
+        pOEMDMMarshal := pOEMDM is VarRef ? "ptr" : IntPtr
 
         result := ComCall(9, this, OEMUIOBJ.Ptr, poemuiobj, DEVQUERYPRINT_INFO.Ptr, pDQPInfo, DEVMODEA.Ptr, pPublicDM, pOEMDMMarshal, pOEMDM, "HRESULT")
         return result
@@ -157,29 +152,27 @@ export default struct IPrintOemUI extends IPrintOemCommon {
     DeviceCapabilitiesA(poemuiobj, hPrinter, pDeviceName, wCapability, pOutput, pPublicDM, pOEMDM, dwOld, dwResult) {
         pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
 
-        pOutputMarshal := pOutput is VarRef ? "ptr" : "ptr"
-        pOEMDMMarshal := pOEMDM is VarRef ? "ptr" : "ptr"
-        dwResultMarshal := dwResult is VarRef ? "uint*" : "ptr"
+        pOutputMarshal := pOutput is VarRef ? "ptr" : IntPtr
+        pOEMDMMarshal := pOEMDM is VarRef ? "ptr" : IntPtr
+        dwResultMarshal := dwResult is VarRef ? "uint*" : IntPtr
 
         result := ComCall(10, this, OEMUIOBJ.Ptr, poemuiobj, HANDLE, hPrinter, "ptr", pDeviceName, UInt16, wCapability, pOutputMarshal, pOutput, DEVMODEA.Ptr, pPublicDM, pOEMDMMarshal, pOEMDM, UInt32, dwOld, dwResultMarshal, dwResult, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwLevel 
      * @param {Pointer<Integer>} pDriverUpgradeInfo 
      * @returns {HRESULT} 
      */
     UpgradePrinter(dwLevel, pDriverUpgradeInfo) {
-        pDriverUpgradeInfoMarshal := pDriverUpgradeInfo is VarRef ? "char*" : "ptr"
+        pDriverUpgradeInfoMarshal := pDriverUpgradeInfo is VarRef ? "char*" : IntPtr
 
         result := ComCall(11, this, UInt32, dwLevel, pDriverUpgradeInfoMarshal, pDriverUpgradeInfo, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pPrinterName 
      * @param {Integer} iDriverEvent 
      * @param {Integer} dwFlags 
@@ -194,7 +187,6 @@ export default struct IPrintOemUI extends IPrintOemCommon {
     }
 
     /**
-     * 
      * @param {Integer} dwDriverEvent 
      * @param {Integer} dwLevel 
      * @param {Pointer<Integer>} pDriverInfo 
@@ -202,14 +194,13 @@ export default struct IPrintOemUI extends IPrintOemCommon {
      * @returns {HRESULT} 
      */
     DriverEvent(dwDriverEvent, dwLevel, pDriverInfo, _lParam) {
-        pDriverInfoMarshal := pDriverInfo is VarRef ? "char*" : "ptr"
+        pDriverInfoMarshal := pDriverInfo is VarRef ? "char*" : IntPtr
 
         result := ComCall(13, this, UInt32, dwDriverEvent, UInt32, dwLevel, pDriverInfoMarshal, pDriverInfo, LPARAM, _lParam, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Pointer<OEMUIOBJ>} poemuiobj 
      * @param {Pointer<DEVMODEA>} pPublicDM 
@@ -221,17 +212,16 @@ export default struct IPrintOemUI extends IPrintOemCommon {
      * @returns {HRESULT} 
      */
     QueryColorProfile(hPrinter, poemuiobj, pPublicDM, pOEMDM, ulQueryMode, pvProfileData, pcbProfileData, pflProfileData) {
-        pOEMDMMarshal := pOEMDM is VarRef ? "ptr" : "ptr"
-        pvProfileDataMarshal := pvProfileData is VarRef ? "ptr" : "ptr"
-        pcbProfileDataMarshal := pcbProfileData is VarRef ? "uint*" : "ptr"
-        pflProfileDataMarshal := pflProfileData is VarRef ? "uint*" : "ptr"
+        pOEMDMMarshal := pOEMDM is VarRef ? "ptr" : IntPtr
+        pvProfileDataMarshal := pvProfileData is VarRef ? "ptr" : IntPtr
+        pcbProfileDataMarshal := pcbProfileData is VarRef ? "uint*" : IntPtr
+        pflProfileDataMarshal := pflProfileData is VarRef ? "uint*" : IntPtr
 
         result := ComCall(14, this, PRINTER_HANDLE, hPrinter, OEMUIOBJ.Ptr, poemuiobj, DEVMODEA.Ptr, pPublicDM, pOEMDMMarshal, pOEMDM, UInt32, ulQueryMode, pvProfileDataMarshal, pvProfileData, pcbProfileDataMarshal, pcbProfileData, pflProfileDataMarshal, pflProfileData, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {Integer} usMsg 
      * @param {WPARAM} _wParam 
@@ -244,7 +234,6 @@ export default struct IPrintOemUI extends IPrintOemCommon {
     }
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {HANDLE} hHeap 
      * @param {PWSTR} pwstrCartridges 
@@ -266,18 +255,18 @@ export default struct IPrintOemUI extends IPrintOemCommon {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PublishDriverInterface := CallbackCreate(GetMethod(implObj, "PublishDriverInterface"), flags, 2)
-        this.vtbl.CommonUIProp := CallbackCreate(GetMethod(implObj, "CommonUIProp"), flags, 3)
-        this.vtbl.DocumentPropertySheets := CallbackCreate(GetMethod(implObj, "DocumentPropertySheets"), flags, 3)
-        this.vtbl.DevicePropertySheets := CallbackCreate(GetMethod(implObj, "DevicePropertySheets"), flags, 3)
-        this.vtbl.DevQueryPrintEx := CallbackCreate(GetMethod(implObj, "DevQueryPrintEx"), flags, 5)
-        this.vtbl.DeviceCapabilitiesA := CallbackCreate(GetMethod(implObj, "DeviceCapabilitiesA"), flags, 10)
-        this.vtbl.UpgradePrinter := CallbackCreate(GetMethod(implObj, "UpgradePrinter"), flags, 3)
-        this.vtbl.PrinterEvent := CallbackCreate(GetMethod(implObj, "PrinterEvent"), flags, 5)
-        this.vtbl.DriverEvent := CallbackCreate(GetMethod(implObj, "DriverEvent"), flags, 5)
-        this.vtbl.QueryColorProfile := CallbackCreate(GetMethod(implObj, "QueryColorProfile"), flags, 9)
-        this.vtbl.FontInstallerDlgProc := CallbackCreate(GetMethod(implObj, "FontInstallerDlgProc"), flags, 5)
-        this.vtbl.UpdateExternalFonts := CallbackCreate(GetMethod(implObj, "UpdateExternalFonts"), flags, 4)
+        this.vtbl.PublishDriverInterface := CallbackCreate(ObjBindMethod(implObj, "PublishDriverInterface"), flags, 2)
+        this.vtbl.CommonUIProp := CallbackCreate(ObjBindMethod(implObj, "CommonUIProp"), flags, 3)
+        this.vtbl.DocumentPropertySheets := CallbackCreate(ObjBindMethod(implObj, "DocumentPropertySheets"), flags, 3)
+        this.vtbl.DevicePropertySheets := CallbackCreate(ObjBindMethod(implObj, "DevicePropertySheets"), flags, 3)
+        this.vtbl.DevQueryPrintEx := CallbackCreate(ObjBindMethod(implObj, "DevQueryPrintEx"), flags, 5)
+        this.vtbl.DeviceCapabilitiesA := CallbackCreate(ObjBindMethod(implObj, "DeviceCapabilitiesA"), flags, 10)
+        this.vtbl.UpgradePrinter := CallbackCreate(ObjBindMethod(implObj, "UpgradePrinter"), flags, 3)
+        this.vtbl.PrinterEvent := CallbackCreate(ObjBindMethod(implObj, "PrinterEvent"), flags, 5)
+        this.vtbl.DriverEvent := CallbackCreate(ObjBindMethod(implObj, "DriverEvent"), flags, 5)
+        this.vtbl.QueryColorProfile := CallbackCreate(ObjBindMethod(implObj, "QueryColorProfile"), flags, 9)
+        this.vtbl.FontInstallerDlgProc := CallbackCreate(ObjBindMethod(implObj, "FontInstallerDlgProc"), flags, 5)
+        this.vtbl.UpdateExternalFonts := CallbackCreate(ObjBindMethod(implObj, "UpdateExternalFonts"), flags, 4)
     }
 
     Dispose() {

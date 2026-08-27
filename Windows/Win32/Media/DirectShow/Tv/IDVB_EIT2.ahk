@@ -86,8 +86,8 @@ export default struct IDVB_EIT2 extends IDVB_EIT {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_eit2-getsegmentinfo
      */
     GetSegmentInfo(pbTid, pbSegment) {
-        pbTidMarshal := pbTid is VarRef ? "char*" : "ptr"
-        pbSegmentMarshal := pbSegment is VarRef ? "char*" : "ptr"
+        pbTidMarshal := pbTid is VarRef ? "char*" : IntPtr
+        pbSegmentMarshal := pbSegment is VarRef ? "char*" : IntPtr
 
         result := ComCall(24, this, pbTidMarshal, pbTid, pbSegmentMarshal, pbSegment, "HRESULT")
         return result
@@ -113,8 +113,8 @@ export default struct IDVB_EIT2 extends IDVB_EIT {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSegmentInfo := CallbackCreate(GetMethod(implObj, "GetSegmentInfo"), flags, 3)
-        this.vtbl.GetRecordSection := CallbackCreate(GetMethod(implObj, "GetRecordSection"), flags, 3)
+        this.vtbl.GetSegmentInfo := CallbackCreate(ObjBindMethod(implObj, "GetSegmentInfo"), flags, 3)
+        this.vtbl.GetRecordSection := CallbackCreate(ObjBindMethod(implObj, "GetRecordSection"), flags, 3)
     }
 
     Dispose() {

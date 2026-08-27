@@ -59,7 +59,6 @@ export default struct ID3D12Device15 extends ID3D12Device14 {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_REGISTER_TRIM_NOTIFICATION>} pData 
      * @returns {HRESULT} 
      */
@@ -69,7 +68,6 @@ export default struct ID3D12Device15 extends ID3D12Device14 {
     }
 
     /**
-     * 
      * @param {Integer} CallbackCookie 
      * @returns {HRESULT} 
      */
@@ -79,19 +77,20 @@ export default struct ID3D12Device15 extends ID3D12Device14 {
     }
 
     /**
-     * 
      * @param {ID3D12Resource} pResource 
      * @param {Pointer<D3D12_SHADER_RESOURCE_VIEW_DESC>} pDesc 
      * @param {D3D12_CPU_DESCRIPTOR_HANDLE} DestDescriptor 
      * @returns {HRESULT} 
      */
     TryCreateShaderResourceView(pResource, pDesc, DestDescriptor) {
-        result := ComCall(85, this, "ptr", pResource, D3D12_SHADER_RESOURCE_VIEW_DESC.Ptr, pDesc, D3D12_CPU_DESCRIPTOR_HANDLE, DestDescriptor, "HRESULT")
+        pResourceMarshal := pResource == 0 ? IntPtr : "ptr"
+        pDescMarshal := pDesc == 0 ? IntPtr : D3D12_SHADER_RESOURCE_VIEW_DESC.Ptr
+
+        result := ComCall(85, this, pResourceMarshal, pResource, pDescMarshal, pDesc, D3D12_CPU_DESCRIPTOR_HANDLE, DestDescriptor, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {ID3D12Resource} pResource 
      * @param {ID3D12Resource} pCounterResource 
      * @param {Pointer<D3D12_UNORDERED_ACCESS_VIEW_DESC>} pDesc 
@@ -99,23 +98,27 @@ export default struct ID3D12Device15 extends ID3D12Device14 {
      * @returns {HRESULT} 
      */
     TryCreateUnorderedAccessView(pResource, pCounterResource, pDesc, DestDescriptor) {
-        result := ComCall(86, this, "ptr", pResource, "ptr", pCounterResource, D3D12_UNORDERED_ACCESS_VIEW_DESC.Ptr, pDesc, D3D12_CPU_DESCRIPTOR_HANDLE, DestDescriptor, "HRESULT")
+        pResourceMarshal := pResource == 0 ? IntPtr : "ptr"
+        pCounterResourceMarshal := pCounterResource == 0 ? IntPtr : "ptr"
+        pDescMarshal := pDesc == 0 ? IntPtr : D3D12_UNORDERED_ACCESS_VIEW_DESC.Ptr
+
+        result := ComCall(86, this, pResourceMarshal, pResource, pCounterResourceMarshal, pCounterResource, pDescMarshal, pDesc, D3D12_CPU_DESCRIPTOR_HANDLE, DestDescriptor, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_CONSTANT_BUFFER_VIEW_DESC>} pDesc 
      * @param {D3D12_CPU_DESCRIPTOR_HANDLE} DestDescriptor 
      * @returns {HRESULT} 
      */
     TryCreateConstantBufferView(pDesc, DestDescriptor) {
-        result := ComCall(87, this, D3D12_CONSTANT_BUFFER_VIEW_DESC.Ptr, pDesc, D3D12_CPU_DESCRIPTOR_HANDLE, DestDescriptor, "HRESULT")
+        pDescMarshal := pDesc == 0 ? IntPtr : D3D12_CONSTANT_BUFFER_VIEW_DESC.Ptr
+
+        result := ComCall(87, this, pDescMarshal, pDesc, D3D12_CPU_DESCRIPTOR_HANDLE, DestDescriptor, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_SAMPLER_DESC2>} pDesc 
      * @param {D3D12_CPU_DESCRIPTOR_HANDLE} DestDescriptor 
      * @returns {HRESULT} 
@@ -126,43 +129,48 @@ export default struct ID3D12Device15 extends ID3D12Device14 {
     }
 
     /**
-     * 
      * @param {ID3D12Resource} pResource 
      * @param {Pointer<D3D12_RENDER_TARGET_VIEW_DESC>} pDesc 
      * @param {D3D12_CPU_DESCRIPTOR_HANDLE} DestDescriptor 
      * @returns {HRESULT} 
      */
     TryCreateRenderTargetView(pResource, pDesc, DestDescriptor) {
-        result := ComCall(89, this, "ptr", pResource, D3D12_RENDER_TARGET_VIEW_DESC.Ptr, pDesc, D3D12_CPU_DESCRIPTOR_HANDLE, DestDescriptor, "HRESULT")
+        pResourceMarshal := pResource == 0 ? IntPtr : "ptr"
+        pDescMarshal := pDesc == 0 ? IntPtr : D3D12_RENDER_TARGET_VIEW_DESC.Ptr
+
+        result := ComCall(89, this, pResourceMarshal, pResource, pDescMarshal, pDesc, D3D12_CPU_DESCRIPTOR_HANDLE, DestDescriptor, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {ID3D12Resource} pResource 
      * @param {Pointer<D3D12_DEPTH_STENCIL_VIEW_DESC>} pDesc 
      * @param {D3D12_CPU_DESCRIPTOR_HANDLE} DestDescriptor 
      * @returns {HRESULT} 
      */
     TryCreateDepthStencilView(pResource, pDesc, DestDescriptor) {
-        result := ComCall(90, this, "ptr", pResource, D3D12_DEPTH_STENCIL_VIEW_DESC.Ptr, pDesc, D3D12_CPU_DESCRIPTOR_HANDLE, DestDescriptor, "HRESULT")
+        pResourceMarshal := pResource == 0 ? IntPtr : "ptr"
+        pDescMarshal := pDesc == 0 ? IntPtr : D3D12_DEPTH_STENCIL_VIEW_DESC.Ptr
+
+        result := ComCall(90, this, pResourceMarshal, pResource, pDescMarshal, pDesc, D3D12_CPU_DESCRIPTOR_HANDLE, DestDescriptor, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {ID3D12Resource} pTargetedResource 
      * @param {ID3D12Resource} pFeedbackResource 
      * @param {D3D12_CPU_DESCRIPTOR_HANDLE} DestDescriptor 
      * @returns {HRESULT} 
      */
     TryCreateSamplerFeedbackUnorderedAccessView(pTargetedResource, pFeedbackResource, DestDescriptor) {
-        result := ComCall(91, this, "ptr", pTargetedResource, "ptr", pFeedbackResource, D3D12_CPU_DESCRIPTOR_HANDLE, DestDescriptor, "HRESULT")
+        pTargetedResourceMarshal := pTargetedResource == 0 ? IntPtr : "ptr"
+        pFeedbackResourceMarshal := pFeedbackResource == 0 ? IntPtr : "ptr"
+
+        result := ComCall(91, this, pTargetedResourceMarshal, pTargetedResource, pFeedbackResourceMarshal, pFeedbackResource, D3D12_CPU_DESCRIPTOR_HANDLE, DestDescriptor, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_QUERY_HEAP_DESC>} pDesc 
      * @param {D3D12_QUERY_HEAP_FLAGS} Flags 
      * @param {Pointer<Guid>} riid 
@@ -174,7 +182,6 @@ export default struct ID3D12Device15 extends ID3D12Device14 {
     }
 
     /**
-     * 
      * @param {ID3D12QueryHeap} pQueryHeap 
      * @param {D3D12_QUERY_TYPE} Type 
      * @param {Integer} StartIndex 
@@ -183,7 +190,7 @@ export default struct ID3D12Device15 extends ID3D12Device14 {
      * @returns {HRESULT} 
      */
     ResolveQueryData(pQueryHeap, Type, StartIndex, NumQueries, pResolvedQueryData) {
-        pResolvedQueryDataMarshal := pResolvedQueryData is VarRef ? "ptr" : "ptr"
+        pResolvedQueryDataMarshal := pResolvedQueryData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(93, this, "ptr", pQueryHeap, D3D12_QUERY_TYPE, Type, UInt32, StartIndex, UInt32, NumQueries, pResolvedQueryDataMarshal, pResolvedQueryData, "HRESULT")
         return result
@@ -198,17 +205,17 @@ export default struct ID3D12Device15 extends ID3D12Device14 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterTrimNotificationCallback := CallbackCreate(GetMethod(implObj, "RegisterTrimNotificationCallback"), flags, 2)
-        this.vtbl.UnregisterTrimNotificationCallback := CallbackCreate(GetMethod(implObj, "UnregisterTrimNotificationCallback"), flags, 2)
-        this.vtbl.TryCreateShaderResourceView := CallbackCreate(GetMethod(implObj, "TryCreateShaderResourceView"), flags, 4)
-        this.vtbl.TryCreateUnorderedAccessView := CallbackCreate(GetMethod(implObj, "TryCreateUnorderedAccessView"), flags, 5)
-        this.vtbl.TryCreateConstantBufferView := CallbackCreate(GetMethod(implObj, "TryCreateConstantBufferView"), flags, 3)
-        this.vtbl.TryCreateSampler2 := CallbackCreate(GetMethod(implObj, "TryCreateSampler2"), flags, 3)
-        this.vtbl.TryCreateRenderTargetView := CallbackCreate(GetMethod(implObj, "TryCreateRenderTargetView"), flags, 4)
-        this.vtbl.TryCreateDepthStencilView := CallbackCreate(GetMethod(implObj, "TryCreateDepthStencilView"), flags, 4)
-        this.vtbl.TryCreateSamplerFeedbackUnorderedAccessView := CallbackCreate(GetMethod(implObj, "TryCreateSamplerFeedbackUnorderedAccessView"), flags, 4)
-        this.vtbl.CreateQueryHeap1 := CallbackCreate(GetMethod(implObj, "CreateQueryHeap1"), flags, 5)
-        this.vtbl.ResolveQueryData := CallbackCreate(GetMethod(implObj, "ResolveQueryData"), flags, 6)
+        this.vtbl.RegisterTrimNotificationCallback := CallbackCreate(ObjBindMethod(implObj, "RegisterTrimNotificationCallback"), flags, 2)
+        this.vtbl.UnregisterTrimNotificationCallback := CallbackCreate(ObjBindMethod(implObj, "UnregisterTrimNotificationCallback"), flags, 2)
+        this.vtbl.TryCreateShaderResourceView := CallbackCreate(ObjBindMethod(implObj, "TryCreateShaderResourceView"), flags, 4)
+        this.vtbl.TryCreateUnorderedAccessView := CallbackCreate(ObjBindMethod(implObj, "TryCreateUnorderedAccessView"), flags, 5)
+        this.vtbl.TryCreateConstantBufferView := CallbackCreate(ObjBindMethod(implObj, "TryCreateConstantBufferView"), flags, 3)
+        this.vtbl.TryCreateSampler2 := CallbackCreate(ObjBindMethod(implObj, "TryCreateSampler2"), flags, 3)
+        this.vtbl.TryCreateRenderTargetView := CallbackCreate(ObjBindMethod(implObj, "TryCreateRenderTargetView"), flags, 4)
+        this.vtbl.TryCreateDepthStencilView := CallbackCreate(ObjBindMethod(implObj, "TryCreateDepthStencilView"), flags, 4)
+        this.vtbl.TryCreateSamplerFeedbackUnorderedAccessView := CallbackCreate(ObjBindMethod(implObj, "TryCreateSamplerFeedbackUnorderedAccessView"), flags, 4)
+        this.vtbl.CreateQueryHeap1 := CallbackCreate(ObjBindMethod(implObj, "CreateQueryHeap1"), flags, 5)
+        this.vtbl.ResolveQueryData := CallbackCreate(ObjBindMethod(implObj, "ResolveQueryData"), flags, 6)
     }
 
     Dispose() {

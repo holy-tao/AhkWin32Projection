@@ -56,8 +56,8 @@ export default struct IProofOfPossessionCookieInfoManager extends IUnknown {
     GetCookieInfoForUri(uri, cookieInfoCount, cookieInfo) {
         uri := uri is String ? StrPtr(uri) : uri
 
-        cookieInfoCountMarshal := cookieInfoCount is VarRef ? "uint*" : "ptr"
-        cookieInfoMarshal := cookieInfo is VarRef ? "ptr*" : "ptr"
+        cookieInfoCountMarshal := cookieInfoCount is VarRef ? "uint*" : IntPtr
+        cookieInfoMarshal := cookieInfo is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, "ptr", uri, cookieInfoCountMarshal, cookieInfoCount, cookieInfoMarshal, cookieInfo, "HRESULT")
         return result
@@ -72,7 +72,7 @@ export default struct IProofOfPossessionCookieInfoManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCookieInfoForUri := CallbackCreate(GetMethod(implObj, "GetCookieInfoForUri"), flags, 4)
+        this.vtbl.GetCookieInfoForUri := CallbackCreate(ObjBindMethod(implObj, "GetCookieInfoForUri"), flags, 4)
     }
 
     Dispose() {

@@ -100,9 +100,9 @@ export default struct ISuspensionDependencyManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterAsChild := CallbackCreate(GetMethod(implObj, "RegisterAsChild"), flags, 2)
-        this.vtbl.GroupChildWithParent := CallbackCreate(GetMethod(implObj, "GroupChildWithParent"), flags, 2)
-        this.vtbl.UngroupChildFromParent := CallbackCreate(GetMethod(implObj, "UngroupChildFromParent"), flags, 2)
+        this.vtbl.RegisterAsChild := CallbackCreate(ObjBindMethod(implObj, "RegisterAsChild"), flags, 2)
+        this.vtbl.GroupChildWithParent := CallbackCreate(ObjBindMethod(implObj, "GroupChildWithParent"), flags, 2)
+        this.vtbl.UngroupChildFromParent := CallbackCreate(ObjBindMethod(implObj, "UngroupChildFromParent"), flags, 2)
     }
 
     Dispose() {

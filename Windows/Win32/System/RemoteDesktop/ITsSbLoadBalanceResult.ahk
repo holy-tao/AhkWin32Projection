@@ -65,7 +65,7 @@ export default struct ITsSbLoadBalanceResult extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_TargetName := CallbackCreate(GetMethod(implObj, "get_TargetName"), flags, 2)
+        this.vtbl.get_TargetName := CallbackCreate(ObjBindMethod(implObj, "get_TargetName"), flags, 2)
     }
 
     Dispose() {

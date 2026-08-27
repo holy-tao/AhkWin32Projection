@@ -19,7 +19,6 @@ export default struct DOT11EXT_GET_PROFILE_CUSTOM_USER_DATA {
     }
 
     /**
-     * 
      * @param {HANDLE} hDot11SvcHandle 
      * @param {HANDLE} hConnectSession 
      * @param {Integer} dwSessionID 
@@ -28,10 +27,12 @@ export default struct DOT11EXT_GET_PROFILE_CUSTOM_USER_DATA {
      * @returns {Integer} 
      */
     Call(hDot11SvcHandle, hConnectSession, dwSessionID, pdwDataSize, ppvData) {
-        pdwDataSizeMarshal := pdwDataSize is VarRef ? "uint*" : "ptr"
-        ppvDataMarshal := ppvData is VarRef ? "ptr*" : "ptr"
+        hDot11SvcHandleMarshal := hDot11SvcHandle == 0 ? IntPtr : HANDLE
+        hConnectSessionMarshal := hConnectSession == 0 ? IntPtr : HANDLE
+        pdwDataSizeMarshal := pdwDataSize is VarRef ? "uint*" : IntPtr
+        ppvDataMarshal := ppvData is VarRef ? "ptr*" : IntPtr
 
-        result := DllCall(this.value, HANDLE, hDot11SvcHandle, HANDLE, hConnectSession, UInt32, dwSessionID, pdwDataSizeMarshal, pdwDataSize, ppvDataMarshal, ppvData, UInt32)
+        result := DllCall(this.value, hDot11SvcHandleMarshal, hDot11SvcHandle, hConnectSessionMarshal, hConnectSession, UInt32, dwSessionID, pdwDataSizeMarshal, pdwDataSize, ppvDataMarshal, ppvData, UInt32)
         return result
     }
 

@@ -24,7 +24,6 @@ export default struct APPLET_PROC {
     }
 
     /**
-     * 
      * @param {HWND} hwndCpl Type: <b>HWND</b>
      * 
      * The identifier of the main window of the controlling application. Use the <i>hwndCPl</i> parameter for dialog boxes or other windows that require a handle to a parent window.

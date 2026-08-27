@@ -27,7 +27,9 @@
  * @since windows8.1
  */
 export PssCaptureSnapshot(ProcessHandle, CaptureFlags, ThreadContextFlags, SnapshotHandle) {
-    result := DllCall("KERNEL32.dll\PssCaptureSnapshot", HANDLE, ProcessHandle, PSS_CAPTURE_FLAGS, CaptureFlags, UInt32, ThreadContextFlags, HPSS.Ptr, SnapshotHandle, UInt32)
+    ThreadContextFlagsMarshal := ThreadContextFlags == 0 ? IntPtr : UInt32
+
+    result := DllCall("KERNEL32.dll\PssCaptureSnapshot", HANDLE, ProcessHandle, PSS_CAPTURE_FLAGS, CaptureFlags, ThreadContextFlagsMarshal, ThreadContextFlags, HPSS.Ptr, SnapshotHandle, UInt32)
     return result
 }
 
@@ -243,7 +245,8 @@ export PssQuerySnapshot(SnapshotHandle, InformationClass, _Buffer, BufferLength)
  * @since windows8.1
  */
 export PssWalkSnapshot(SnapshotHandle, InformationClass, WalkMarkerHandle, _Buffer, BufferLength) {
-    _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
+    _BufferMarshal := _Buffer is VarRef ? "ptr" : IntPtr
+    _BufferMarshal := _Buffer == 0 ? IntPtr : "ptr"
 
     result := DllCall("KERNEL32.dll\PssWalkSnapshot", HPSS, SnapshotHandle, PSS_WALK_INFORMATION_CLASS, InformationClass, HPSSWALK, WalkMarkerHandle, _BufferMarshal, _Buffer, UInt32, BufferLength, UInt32)
     return result
@@ -282,7 +285,9 @@ export PssWalkSnapshot(SnapshotHandle, InformationClass, WalkMarkerHandle, _Buff
  * @since windows8.1
  */
 export PssDuplicateSnapshot(SourceProcessHandle, SnapshotHandle, TargetProcessHandle, TargetSnapshotHandle, Flags) {
-    result := DllCall("KERNEL32.dll\PssDuplicateSnapshot", HANDLE, SourceProcessHandle, HPSS, SnapshotHandle, HANDLE, TargetProcessHandle, HPSS.Ptr, TargetSnapshotHandle, PSS_DUPLICATE_FLAGS, Flags, UInt32)
+    FlagsMarshal := Flags == 0 ? IntPtr : PSS_DUPLICATE_FLAGS
+
+    result := DllCall("KERNEL32.dll\PssDuplicateSnapshot", HANDLE, SourceProcessHandle, HPSS, SnapshotHandle, HANDLE, TargetProcessHandle, HPSS.Ptr, TargetSnapshotHandle, FlagsMarshal, Flags, UInt32)
     return result
 }
 
@@ -320,7 +325,9 @@ export PssDuplicateSnapshot(SourceProcessHandle, SnapshotHandle, TargetProcessHa
  * @since windows8.1
  */
 export PssWalkMarkerCreate(Allocator, WalkMarkerHandle) {
-    result := DllCall("KERNEL32.dll\PssWalkMarkerCreate", PSS_ALLOCATOR.Ptr, Allocator, HPSSWALK.Ptr, WalkMarkerHandle, UInt32)
+    AllocatorMarshal := Allocator == 0 ? IntPtr : PSS_ALLOCATOR.Ptr
+
+    result := DllCall("KERNEL32.dll\PssWalkMarkerCreate", AllocatorMarshal, Allocator, HPSSWALK.Ptr, WalkMarkerHandle, UInt32)
     return result
 }
 
@@ -353,7 +360,7 @@ export PssWalkMarkerFree(WalkMarkerHandle) {
  * @since windows8.1
  */
 export PssWalkMarkerGetPosition(WalkMarkerHandle, Position) {
-    PositionMarshal := Position is VarRef ? "ptr*" : "ptr"
+    PositionMarshal := Position is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("KERNEL32.dll\PssWalkMarkerGetPosition", HPSSWALK, WalkMarkerHandle, PositionMarshal, Position, UInt32)
     return result

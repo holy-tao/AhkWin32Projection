@@ -813,19 +813,19 @@ export default struct IWMWriter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetProfileByID := CallbackCreate(GetMethod(implObj, "SetProfileByID"), flags, 2)
-        this.vtbl.SetProfile := CallbackCreate(GetMethod(implObj, "SetProfile"), flags, 2)
-        this.vtbl.SetOutputFilename := CallbackCreate(GetMethod(implObj, "SetOutputFilename"), flags, 2)
-        this.vtbl.GetInputCount := CallbackCreate(GetMethod(implObj, "GetInputCount"), flags, 2)
-        this.vtbl.GetInputProps := CallbackCreate(GetMethod(implObj, "GetInputProps"), flags, 3)
-        this.vtbl.SetInputProps := CallbackCreate(GetMethod(implObj, "SetInputProps"), flags, 3)
-        this.vtbl.GetInputFormatCount := CallbackCreate(GetMethod(implObj, "GetInputFormatCount"), flags, 3)
-        this.vtbl.GetInputFormat := CallbackCreate(GetMethod(implObj, "GetInputFormat"), flags, 4)
-        this.vtbl.BeginWriting := CallbackCreate(GetMethod(implObj, "BeginWriting"), flags, 1)
-        this.vtbl.EndWriting := CallbackCreate(GetMethod(implObj, "EndWriting"), flags, 1)
-        this.vtbl.AllocateSample := CallbackCreate(GetMethod(implObj, "AllocateSample"), flags, 3)
-        this.vtbl.WriteSample := CallbackCreate(GetMethod(implObj, "WriteSample"), flags, 5)
-        this.vtbl.Flush := CallbackCreate(GetMethod(implObj, "Flush"), flags, 1)
+        this.vtbl.SetProfileByID := CallbackCreate(ObjBindMethod(implObj, "SetProfileByID"), flags, 2)
+        this.vtbl.SetProfile := CallbackCreate(ObjBindMethod(implObj, "SetProfile"), flags, 2)
+        this.vtbl.SetOutputFilename := CallbackCreate(ObjBindMethod(implObj, "SetOutputFilename"), flags, 2)
+        this.vtbl.GetInputCount := CallbackCreate(ObjBindMethod(implObj, "GetInputCount"), flags, 2)
+        this.vtbl.GetInputProps := CallbackCreate(ObjBindMethod(implObj, "GetInputProps"), flags, 3)
+        this.vtbl.SetInputProps := CallbackCreate(ObjBindMethod(implObj, "SetInputProps"), flags, 3)
+        this.vtbl.GetInputFormatCount := CallbackCreate(ObjBindMethod(implObj, "GetInputFormatCount"), flags, 3)
+        this.vtbl.GetInputFormat := CallbackCreate(ObjBindMethod(implObj, "GetInputFormat"), flags, 4)
+        this.vtbl.BeginWriting := CallbackCreate(ObjBindMethod(implObj, "BeginWriting"), flags, 1)
+        this.vtbl.EndWriting := CallbackCreate(ObjBindMethod(implObj, "EndWriting"), flags, 1)
+        this.vtbl.AllocateSample := CallbackCreate(ObjBindMethod(implObj, "AllocateSample"), flags, 3)
+        this.vtbl.WriteSample := CallbackCreate(ObjBindMethod(implObj, "WriteSample"), flags, 5)
+        this.vtbl.Flush := CallbackCreate(ObjBindMethod(implObj, "Flush"), flags, 1)
     }
 
     Dispose() {

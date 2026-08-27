@@ -43,7 +43,6 @@ export default struct IShellUIHelper8 extends IShellUIHelper7 {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetCVListData() {
@@ -53,7 +52,6 @@ export default struct IShellUIHelper8 extends IShellUIHelper7 {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetCVListLocalData() {
@@ -63,7 +61,6 @@ export default struct IShellUIHelper8 extends IShellUIHelper7 {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetEMIEListData() {
@@ -73,7 +70,6 @@ export default struct IShellUIHelper8 extends IShellUIHelper7 {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetEMIEListLocalData() {
@@ -83,7 +79,6 @@ export default struct IShellUIHelper8 extends IShellUIHelper7 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     OpenFavoritesPane() {
@@ -92,7 +87,6 @@ export default struct IShellUIHelper8 extends IShellUIHelper7 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     OpenFavoritesSettings() {
@@ -101,7 +95,6 @@ export default struct IShellUIHelper8 extends IShellUIHelper7 {
     }
 
     /**
-     * 
      * @param {BSTR} bstrUrl 
      * @returns {HRESULT} 
      */
@@ -121,13 +114,13 @@ export default struct IShellUIHelper8 extends IShellUIHelper7 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCVListData := CallbackCreate(GetMethod(implObj, "GetCVListData"), flags, 2)
-        this.vtbl.GetCVListLocalData := CallbackCreate(GetMethod(implObj, "GetCVListLocalData"), flags, 2)
-        this.vtbl.GetEMIEListData := CallbackCreate(GetMethod(implObj, "GetEMIEListData"), flags, 2)
-        this.vtbl.GetEMIEListLocalData := CallbackCreate(GetMethod(implObj, "GetEMIEListLocalData"), flags, 2)
-        this.vtbl.OpenFavoritesPane := CallbackCreate(GetMethod(implObj, "OpenFavoritesPane"), flags, 1)
-        this.vtbl.OpenFavoritesSettings := CallbackCreate(GetMethod(implObj, "OpenFavoritesSettings"), flags, 1)
-        this.vtbl.LaunchInHVSI := CallbackCreate(GetMethod(implObj, "LaunchInHVSI"), flags, 2)
+        this.vtbl.GetCVListData := CallbackCreate(ObjBindMethod(implObj, "GetCVListData"), flags, 2)
+        this.vtbl.GetCVListLocalData := CallbackCreate(ObjBindMethod(implObj, "GetCVListLocalData"), flags, 2)
+        this.vtbl.GetEMIEListData := CallbackCreate(ObjBindMethod(implObj, "GetEMIEListData"), flags, 2)
+        this.vtbl.GetEMIEListLocalData := CallbackCreate(ObjBindMethod(implObj, "GetEMIEListLocalData"), flags, 2)
+        this.vtbl.OpenFavoritesPane := CallbackCreate(ObjBindMethod(implObj, "OpenFavoritesPane"), flags, 1)
+        this.vtbl.OpenFavoritesSettings := CallbackCreate(ObjBindMethod(implObj, "OpenFavoritesSettings"), flags, 1)
+        this.vtbl.LaunchInHVSI := CallbackCreate(ObjBindMethod(implObj, "LaunchInHVSI"), flags, 2)
     }
 
     Dispose() {

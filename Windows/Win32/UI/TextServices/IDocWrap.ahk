@@ -43,7 +43,6 @@ export default struct IDocWrap extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @param {IUnknown} punk 
      * @returns {HRESULT} 
@@ -54,7 +53,6 @@ export default struct IDocWrap extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
      */
@@ -72,8 +70,8 @@ export default struct IDocWrap extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetDoc := CallbackCreate(GetMethod(implObj, "SetDoc"), flags, 3)
-        this.vtbl.GetWrappedDoc := CallbackCreate(GetMethod(implObj, "GetWrappedDoc"), flags, 3)
+        this.vtbl.SetDoc := CallbackCreate(ObjBindMethod(implObj, "SetDoc"), flags, 3)
+        this.vtbl.GetWrappedDoc := CallbackCreate(ObjBindMethod(implObj, "GetWrappedDoc"), flags, 3)
     }
 
     Dispose() {

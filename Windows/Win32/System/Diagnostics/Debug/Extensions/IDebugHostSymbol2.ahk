@@ -37,7 +37,6 @@ export default struct IDebugHostSymbol2 extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @returns {LanguageKind} 
      */
     GetLanguage() {
@@ -54,7 +53,7 @@ export default struct IDebugHostSymbol2 extends IDebugHostSymbol {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLanguage := CallbackCreate(GetMethod(implObj, "GetLanguage"), flags, 2)
+        this.vtbl.GetLanguage := CallbackCreate(ObjBindMethod(implObj, "GetLanguage"), flags, 2)
     }
 
     Dispose() {

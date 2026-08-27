@@ -122,7 +122,6 @@ export default struct IHTMLScriptElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -134,7 +133,6 @@ export default struct IHTMLScriptElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_src() {
@@ -144,7 +142,6 @@ export default struct IHTMLScriptElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -156,7 +153,6 @@ export default struct IHTMLScriptElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_htmlFor() {
@@ -166,7 +162,6 @@ export default struct IHTMLScriptElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -178,7 +173,6 @@ export default struct IHTMLScriptElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_event() {
@@ -188,7 +182,6 @@ export default struct IHTMLScriptElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -200,7 +193,6 @@ export default struct IHTMLScriptElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_text() {
@@ -210,7 +202,6 @@ export default struct IHTMLScriptElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -220,7 +211,6 @@ export default struct IHTMLScriptElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_defer() {
@@ -229,7 +219,6 @@ export default struct IHTMLScriptElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_readyState() {
@@ -239,7 +228,6 @@ export default struct IHTMLScriptElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -249,7 +237,6 @@ export default struct IHTMLScriptElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onerror() {
@@ -259,7 +246,6 @@ export default struct IHTMLScriptElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -271,7 +257,6 @@ export default struct IHTMLScriptElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -289,21 +274,21 @@ export default struct IHTMLScriptElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_src := CallbackCreate(GetMethod(implObj, "put_src"), flags, 2)
-        this.vtbl.get_src := CallbackCreate(GetMethod(implObj, "get_src"), flags, 2)
-        this.vtbl.put_htmlFor := CallbackCreate(GetMethod(implObj, "put_htmlFor"), flags, 2)
-        this.vtbl.get_htmlFor := CallbackCreate(GetMethod(implObj, "get_htmlFor"), flags, 2)
-        this.vtbl.put_event := CallbackCreate(GetMethod(implObj, "put_event"), flags, 2)
-        this.vtbl.get_event := CallbackCreate(GetMethod(implObj, "get_event"), flags, 2)
-        this.vtbl.put_text := CallbackCreate(GetMethod(implObj, "put_text"), flags, 2)
-        this.vtbl.get_text := CallbackCreate(GetMethod(implObj, "get_text"), flags, 2)
-        this.vtbl.put_defer := CallbackCreate(GetMethod(implObj, "put_defer"), flags, 2)
-        this.vtbl.get_defer := CallbackCreate(GetMethod(implObj, "get_defer"), flags, 2)
-        this.vtbl.get_readyState := CallbackCreate(GetMethod(implObj, "get_readyState"), flags, 2)
-        this.vtbl.put_onerror := CallbackCreate(GetMethod(implObj, "put_onerror"), flags, 2)
-        this.vtbl.get_onerror := CallbackCreate(GetMethod(implObj, "get_onerror"), flags, 2)
-        this.vtbl.put_type := CallbackCreate(GetMethod(implObj, "put_type"), flags, 2)
-        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.put_src := CallbackCreate(ObjBindMethod(implObj, "put_src"), flags, 2)
+        this.vtbl.get_src := CallbackCreate(ObjBindMethod(implObj, "get_src"), flags, 2)
+        this.vtbl.put_htmlFor := CallbackCreate(ObjBindMethod(implObj, "put_htmlFor"), flags, 2)
+        this.vtbl.get_htmlFor := CallbackCreate(ObjBindMethod(implObj, "get_htmlFor"), flags, 2)
+        this.vtbl.put_event := CallbackCreate(ObjBindMethod(implObj, "put_event"), flags, 2)
+        this.vtbl.get_event := CallbackCreate(ObjBindMethod(implObj, "get_event"), flags, 2)
+        this.vtbl.put_text := CallbackCreate(ObjBindMethod(implObj, "put_text"), flags, 2)
+        this.vtbl.get_text := CallbackCreate(ObjBindMethod(implObj, "get_text"), flags, 2)
+        this.vtbl.put_defer := CallbackCreate(ObjBindMethod(implObj, "put_defer"), flags, 2)
+        this.vtbl.get_defer := CallbackCreate(ObjBindMethod(implObj, "get_defer"), flags, 2)
+        this.vtbl.get_readyState := CallbackCreate(ObjBindMethod(implObj, "get_readyState"), flags, 2)
+        this.vtbl.put_onerror := CallbackCreate(ObjBindMethod(implObj, "put_onerror"), flags, 2)
+        this.vtbl.get_onerror := CallbackCreate(ObjBindMethod(implObj, "get_onerror"), flags, 2)
+        this.vtbl.put_type := CallbackCreate(ObjBindMethod(implObj, "put_type"), flags, 2)
+        this.vtbl.get_type := CallbackCreate(ObjBindMethod(implObj, "get_type"), flags, 2)
     }
 
     Dispose() {

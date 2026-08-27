@@ -70,7 +70,7 @@ export default struct ISpecifyPropertyPages extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPages := CallbackCreate(GetMethod(implObj, "GetPages"), flags, 2)
+        this.vtbl.GetPages := CallbackCreate(ObjBindMethod(implObj, "GetPages"), flags, 2)
     }
 
     Dispose() {

@@ -74,8 +74,8 @@ export default struct IUIAnimationInterpolator2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator2-setinitialvalueandvelocity
      */
     SetInitialValueAndVelocity(initialValue, initialVelocity, cDimension) {
-        initialValueMarshal := initialValue is VarRef ? "double*" : "ptr"
-        initialVelocityMarshal := initialVelocity is VarRef ? "double*" : "ptr"
+        initialValueMarshal := initialValue is VarRef ? "double*" : IntPtr
+        initialVelocityMarshal := initialVelocity is VarRef ? "double*" : IntPtr
 
         result := ComCall(4, this, initialValueMarshal, initialValue, initialVelocityMarshal, initialVelocity, UInt32, cDimension, "HRESULT")
         return result
@@ -208,9 +208,9 @@ export default struct IUIAnimationInterpolator2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator2-getdependencies
      */
     GetDependencies(initialValueDependencies, initialVelocityDependencies, durationDependencies) {
-        initialValueDependenciesMarshal := initialValueDependencies is VarRef ? "int*" : "ptr"
-        initialVelocityDependenciesMarshal := initialVelocityDependencies is VarRef ? "int*" : "ptr"
-        durationDependenciesMarshal := durationDependencies is VarRef ? "int*" : "ptr"
+        initialValueDependenciesMarshal := initialValueDependencies is VarRef ? "int*" : IntPtr
+        initialVelocityDependenciesMarshal := initialVelocityDependencies is VarRef ? "int*" : IntPtr
+        durationDependenciesMarshal := durationDependencies is VarRef ? "int*" : IntPtr
 
         result := ComCall(11, this, initialValueDependenciesMarshal, initialValueDependencies, initialVelocityDependenciesMarshal, initialVelocityDependencies, durationDependenciesMarshal, durationDependencies, "HRESULT")
         return result
@@ -225,15 +225,15 @@ export default struct IUIAnimationInterpolator2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDimension := CallbackCreate(GetMethod(implObj, "GetDimension"), flags, 2)
-        this.vtbl.SetInitialValueAndVelocity := CallbackCreate(GetMethod(implObj, "SetInitialValueAndVelocity"), flags, 4)
-        this.vtbl.SetDuration := CallbackCreate(GetMethod(implObj, "SetDuration"), flags, 2)
-        this.vtbl.GetDuration := CallbackCreate(GetMethod(implObj, "GetDuration"), flags, 2)
-        this.vtbl.GetFinalValue := CallbackCreate(GetMethod(implObj, "GetFinalValue"), flags, 3)
-        this.vtbl.InterpolateValue := CallbackCreate(GetMethod(implObj, "InterpolateValue"), flags, 4)
-        this.vtbl.InterpolateVelocity := CallbackCreate(GetMethod(implObj, "InterpolateVelocity"), flags, 4)
-        this.vtbl.GetPrimitiveInterpolation := CallbackCreate(GetMethod(implObj, "GetPrimitiveInterpolation"), flags, 3)
-        this.vtbl.GetDependencies := CallbackCreate(GetMethod(implObj, "GetDependencies"), flags, 4)
+        this.vtbl.GetDimension := CallbackCreate(ObjBindMethod(implObj, "GetDimension"), flags, 2)
+        this.vtbl.SetInitialValueAndVelocity := CallbackCreate(ObjBindMethod(implObj, "SetInitialValueAndVelocity"), flags, 4)
+        this.vtbl.SetDuration := CallbackCreate(ObjBindMethod(implObj, "SetDuration"), flags, 2)
+        this.vtbl.GetDuration := CallbackCreate(ObjBindMethod(implObj, "GetDuration"), flags, 2)
+        this.vtbl.GetFinalValue := CallbackCreate(ObjBindMethod(implObj, "GetFinalValue"), flags, 3)
+        this.vtbl.InterpolateValue := CallbackCreate(ObjBindMethod(implObj, "InterpolateValue"), flags, 4)
+        this.vtbl.InterpolateVelocity := CallbackCreate(ObjBindMethod(implObj, "InterpolateVelocity"), flags, 4)
+        this.vtbl.GetPrimitiveInterpolation := CallbackCreate(ObjBindMethod(implObj, "GetPrimitiveInterpolation"), flags, 3)
+        this.vtbl.GetDependencies := CallbackCreate(ObjBindMethod(implObj, "GetDependencies"), flags, 4)
     }
 
     Dispose() {

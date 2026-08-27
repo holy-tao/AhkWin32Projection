@@ -23,7 +23,6 @@ export default struct PFN_CERT_STORE_PROV_READ_CTL {
     }
 
     /**
-     * 
      * @param {HCERTSTOREPROV} hStoreProv <b>HCERTSTOREPROV</b> handle to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
      * @param {Pointer<CTL_CONTEXT>} pStoreCtlContext A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_context">CTL_CONTEXT</a> structure.
@@ -32,7 +31,7 @@ export default struct PFN_CERT_STORE_PROV_READ_CTL {
      * @returns {BOOL} Returns <b>TRUE</b> if the function succeeds or <b>FALSE</b> if it fails.
      */
     Call(hStoreProv, pStoreCtlContext, dwFlags, ppProvCtlContext) {
-        ppProvCtlContextMarshal := ppProvCtlContext is VarRef ? "ptr*" : "ptr"
+        ppProvCtlContextMarshal := ppProvCtlContext is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, HCERTSTOREPROV, hStoreProv, CTL_CONTEXT.Ptr, pStoreCtlContext, UInt32, dwFlags, ppProvCtlContextMarshal, ppProvCtlContext, BOOL)
         return result

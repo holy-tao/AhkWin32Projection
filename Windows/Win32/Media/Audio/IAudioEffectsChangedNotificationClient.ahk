@@ -60,7 +60,7 @@ export default struct IAudioEffectsChangedNotificationClient extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnAudioEffectsChanged := CallbackCreate(GetMethod(implObj, "OnAudioEffectsChanged"), flags, 1)
+        this.vtbl.OnAudioEffectsChanged := CallbackCreate(ObjBindMethod(implObj, "OnAudioEffectsChanged"), flags, 1)
     }
 
     Dispose() {

@@ -140,7 +140,7 @@ export default struct IContactProperties extends IUnknown {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-        pdwcchPropertyValueRequiredMarshal := pdwcchPropertyValueRequired is VarRef ? "uint*" : "ptr"
+        pdwcchPropertyValueRequiredMarshal := pdwcchPropertyValueRequired is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, "ptr", pszPropertyName, UInt32, dwFlags, "ptr", pszValue, UInt32, cchValue, pdwcchPropertyValueRequiredMarshal, pdwcchPropertyValueRequired, "HRESULT")
         return result
@@ -246,7 +246,7 @@ export default struct IContactProperties extends IUnknown {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
         pszContentType := pszContentType is String ? StrPtr(pszContentType) : pszContentType
 
-        pdwcchContentTypeRequiredMarshal := pdwcchContentTypeRequired is VarRef ? "uint*" : "ptr"
+        pdwcchContentTypeRequiredMarshal := pdwcchContentTypeRequired is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, "ptr", pszPropertyName, UInt32, dwFlags, "ptr", pszContentType, UInt32, cchContentType, pdwcchContentTypeRequiredMarshal, pdwcchContentTypeRequired, "ptr*", &ppStream := 0, "HRESULT")
         return IStream(ppStream)
@@ -333,7 +333,7 @@ export default struct IContactProperties extends IUnknown {
         pszArrayElementName := pszArrayElementName is String ? StrPtr(pszArrayElementName) : pszArrayElementName
         pszLabels := pszLabels is String ? StrPtr(pszLabels) : pszLabels
 
-        pdwcchLabelsRequiredMarshal := pdwcchLabelsRequired is VarRef ? "uint*" : "ptr"
+        pdwcchLabelsRequiredMarshal := pdwcchLabelsRequired is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, "ptr", pszArrayElementName, UInt32, dwFlags, "ptr", pszLabels, UInt32, cchLabels, pdwcchLabelsRequiredMarshal, pdwcchLabelsRequired, "HRESULT")
         return result
@@ -608,7 +608,7 @@ export default struct IContactProperties extends IUnknown {
     SetLabels(pszArrayElementName, dwFlags, dwLabelCount, ppszLabels) {
         pszArrayElementName := pszArrayElementName is String ? StrPtr(pszArrayElementName) : pszArrayElementName
 
-        ppszLabelsMarshal := ppszLabels is VarRef ? "ptr*" : "ptr"
+        ppszLabelsMarshal := ppszLabels is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(10, this, "ptr", pszArrayElementName, UInt32, dwFlags, UInt32, dwLabelCount, ppszLabelsMarshal, ppszLabels, "HRESULT")
         return result
@@ -694,7 +694,7 @@ export default struct IContactProperties extends IUnknown {
         pszArrayName := pszArrayName is String ? StrPtr(pszArrayName) : pszArrayName
         pszNewArrayElementName := pszNewArrayElementName is String ? StrPtr(pszNewArrayElementName) : pszNewArrayElementName
 
-        pdwcchNewArrayElementNameRequiredMarshal := pdwcchNewArrayElementNameRequired is VarRef ? "uint*" : "ptr"
+        pdwcchNewArrayElementNameRequiredMarshal := pdwcchNewArrayElementNameRequired is VarRef ? "uint*" : IntPtr
 
         result := ComCall(11, this, "ptr", pszArrayName, UInt32, dwFlags, BOOL, fAppend, "ptr", pszNewArrayElementName, UInt32, cchNewArrayElementName, pdwcchNewArrayElementNameRequiredMarshal, pdwcchNewArrayElementNameRequired, "HRESULT")
         return result
@@ -885,7 +885,7 @@ export default struct IContactProperties extends IUnknown {
     GetPropertyCollection(dwFlags, pszMultiValueName, dwLabelCount, ppszLabels, fAnyLabelMatches) {
         pszMultiValueName := pszMultiValueName is String ? StrPtr(pszMultiValueName) : pszMultiValueName
 
-        ppszLabelsMarshal := ppszLabels is VarRef ? "ptr*" : "ptr"
+        ppszLabelsMarshal := ppszLabels is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(15, this, "ptr*", &ppPropertyCollection := 0, UInt32, dwFlags, "ptr", pszMultiValueName, UInt32, dwLabelCount, ppszLabelsMarshal, ppszLabels, BOOL, fAnyLabelMatches, "HRESULT")
         return IContactPropertyCollection(ppPropertyCollection)
@@ -900,19 +900,19 @@ export default struct IContactProperties extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetString := CallbackCreate(GetMethod(implObj, "GetString"), flags, 6)
-        this.vtbl.GetDate := CallbackCreate(GetMethod(implObj, "GetDate"), flags, 4)
-        this.vtbl.GetBinary := CallbackCreate(GetMethod(implObj, "GetBinary"), flags, 7)
-        this.vtbl.GetLabels := CallbackCreate(GetMethod(implObj, "GetLabels"), flags, 6)
-        this.vtbl.SetString := CallbackCreate(GetMethod(implObj, "SetString"), flags, 4)
-        this.vtbl.SetDate := CallbackCreate(GetMethod(implObj, "SetDate"), flags, 4)
-        this.vtbl.SetBinary := CallbackCreate(GetMethod(implObj, "SetBinary"), flags, 5)
-        this.vtbl.SetLabels := CallbackCreate(GetMethod(implObj, "SetLabels"), flags, 5)
-        this.vtbl.CreateArrayNode := CallbackCreate(GetMethod(implObj, "CreateArrayNode"), flags, 7)
-        this.vtbl.DeleteProperty := CallbackCreate(GetMethod(implObj, "DeleteProperty"), flags, 3)
-        this.vtbl.DeleteArrayNode := CallbackCreate(GetMethod(implObj, "DeleteArrayNode"), flags, 3)
-        this.vtbl.DeleteLabels := CallbackCreate(GetMethod(implObj, "DeleteLabels"), flags, 3)
-        this.vtbl.GetPropertyCollection := CallbackCreate(GetMethod(implObj, "GetPropertyCollection"), flags, 7)
+        this.vtbl.GetString := CallbackCreate(ObjBindMethod(implObj, "GetString"), flags, 6)
+        this.vtbl.GetDate := CallbackCreate(ObjBindMethod(implObj, "GetDate"), flags, 4)
+        this.vtbl.GetBinary := CallbackCreate(ObjBindMethod(implObj, "GetBinary"), flags, 7)
+        this.vtbl.GetLabels := CallbackCreate(ObjBindMethod(implObj, "GetLabels"), flags, 6)
+        this.vtbl.SetString := CallbackCreate(ObjBindMethod(implObj, "SetString"), flags, 4)
+        this.vtbl.SetDate := CallbackCreate(ObjBindMethod(implObj, "SetDate"), flags, 4)
+        this.vtbl.SetBinary := CallbackCreate(ObjBindMethod(implObj, "SetBinary"), flags, 5)
+        this.vtbl.SetLabels := CallbackCreate(ObjBindMethod(implObj, "SetLabels"), flags, 5)
+        this.vtbl.CreateArrayNode := CallbackCreate(ObjBindMethod(implObj, "CreateArrayNode"), flags, 7)
+        this.vtbl.DeleteProperty := CallbackCreate(ObjBindMethod(implObj, "DeleteProperty"), flags, 3)
+        this.vtbl.DeleteArrayNode := CallbackCreate(ObjBindMethod(implObj, "DeleteArrayNode"), flags, 3)
+        this.vtbl.DeleteLabels := CallbackCreate(ObjBindMethod(implObj, "DeleteLabels"), flags, 3)
+        this.vtbl.GetPropertyCollection := CallbackCreate(ObjBindMethod(implObj, "GetPropertyCollection"), flags, 7)
     }
 
     Dispose() {

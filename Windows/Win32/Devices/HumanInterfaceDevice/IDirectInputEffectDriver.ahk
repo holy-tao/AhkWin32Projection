@@ -64,7 +64,7 @@ export default struct IDirectInputEffectDriver extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputeffectdriver-deviceid
      */
     DeviceID(param0, param1, param2, param3, param4) {
-        param4Marshal := param4 is VarRef ? "ptr" : "ptr"
+        param4Marshal := param4 is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, UInt32, param0, UInt32, param1, UInt32, param2, UInt32, param3, param4Marshal, param4, "HRESULT")
         return result
@@ -143,7 +143,7 @@ export default struct IDirectInputEffectDriver extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputeffectdriver-downloadeffect
      */
     DownloadEffect(param0, param1, param2, param3, param4) {
-        param2Marshal := param2 is VarRef ? "uint*" : "ptr"
+        param2Marshal := param2 is VarRef ? "uint*" : IntPtr
 
         result := ComCall(9, this, UInt32, param0, UInt32, param1, param2Marshal, param2, DIEFFECT.Ptr, param3, UInt32, param4, "HRESULT")
         return result
@@ -196,7 +196,7 @@ export default struct IDirectInputEffectDriver extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputeffectdriver-geteffectstatus
      */
     GetEffectStatus(param0, param1, param2) {
-        param2Marshal := param2 is VarRef ? "uint*" : "ptr"
+        param2Marshal := param2 is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, UInt32, param0, UInt32, param1, param2Marshal, param2, "HRESULT")
         return result
@@ -211,17 +211,17 @@ export default struct IDirectInputEffectDriver extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DeviceID := CallbackCreate(GetMethod(implObj, "DeviceID"), flags, 6)
-        this.vtbl.GetVersions := CallbackCreate(GetMethod(implObj, "GetVersions"), flags, 2)
-        this.vtbl.Escape := CallbackCreate(GetMethod(implObj, "Escape"), flags, 4)
-        this.vtbl.SetGain := CallbackCreate(GetMethod(implObj, "SetGain"), flags, 3)
-        this.vtbl.SendForceFeedbackCommand := CallbackCreate(GetMethod(implObj, "SendForceFeedbackCommand"), flags, 3)
-        this.vtbl.GetForceFeedbackState := CallbackCreate(GetMethod(implObj, "GetForceFeedbackState"), flags, 3)
-        this.vtbl.DownloadEffect := CallbackCreate(GetMethod(implObj, "DownloadEffect"), flags, 6)
-        this.vtbl.DestroyEffect := CallbackCreate(GetMethod(implObj, "DestroyEffect"), flags, 3)
-        this.vtbl.StartEffect := CallbackCreate(GetMethod(implObj, "StartEffect"), flags, 5)
-        this.vtbl.StopEffect := CallbackCreate(GetMethod(implObj, "StopEffect"), flags, 3)
-        this.vtbl.GetEffectStatus := CallbackCreate(GetMethod(implObj, "GetEffectStatus"), flags, 4)
+        this.vtbl.DeviceID := CallbackCreate(ObjBindMethod(implObj, "DeviceID"), flags, 6)
+        this.vtbl.GetVersions := CallbackCreate(ObjBindMethod(implObj, "GetVersions"), flags, 2)
+        this.vtbl.Escape := CallbackCreate(ObjBindMethod(implObj, "Escape"), flags, 4)
+        this.vtbl.SetGain := CallbackCreate(ObjBindMethod(implObj, "SetGain"), flags, 3)
+        this.vtbl.SendForceFeedbackCommand := CallbackCreate(ObjBindMethod(implObj, "SendForceFeedbackCommand"), flags, 3)
+        this.vtbl.GetForceFeedbackState := CallbackCreate(ObjBindMethod(implObj, "GetForceFeedbackState"), flags, 3)
+        this.vtbl.DownloadEffect := CallbackCreate(ObjBindMethod(implObj, "DownloadEffect"), flags, 6)
+        this.vtbl.DestroyEffect := CallbackCreate(ObjBindMethod(implObj, "DestroyEffect"), flags, 3)
+        this.vtbl.StartEffect := CallbackCreate(ObjBindMethod(implObj, "StartEffect"), flags, 5)
+        this.vtbl.StopEffect := CallbackCreate(ObjBindMethod(implObj, "StopEffect"), flags, 3)
+        this.vtbl.GetEffectStatus := CallbackCreate(ObjBindMethod(implObj, "GetEffectStatus"), flags, 4)
     }
 
     Dispose() {

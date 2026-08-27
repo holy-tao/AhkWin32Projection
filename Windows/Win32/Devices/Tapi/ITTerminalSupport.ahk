@@ -188,12 +188,12 @@ export default struct ITTerminalSupport extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_StaticTerminals := CallbackCreate(GetMethod(implObj, "get_StaticTerminals"), flags, 2)
-        this.vtbl.EnumerateStaticTerminals := CallbackCreate(GetMethod(implObj, "EnumerateStaticTerminals"), flags, 2)
-        this.vtbl.get_DynamicTerminalClasses := CallbackCreate(GetMethod(implObj, "get_DynamicTerminalClasses"), flags, 2)
-        this.vtbl.EnumerateDynamicTerminalClasses := CallbackCreate(GetMethod(implObj, "EnumerateDynamicTerminalClasses"), flags, 2)
-        this.vtbl.CreateTerminal := CallbackCreate(GetMethod(implObj, "CreateTerminal"), flags, 5)
-        this.vtbl.GetDefaultStaticTerminal := CallbackCreate(GetMethod(implObj, "GetDefaultStaticTerminal"), flags, 4)
+        this.vtbl.get_StaticTerminals := CallbackCreate(ObjBindMethod(implObj, "get_StaticTerminals"), flags, 2)
+        this.vtbl.EnumerateStaticTerminals := CallbackCreate(ObjBindMethod(implObj, "EnumerateStaticTerminals"), flags, 2)
+        this.vtbl.get_DynamicTerminalClasses := CallbackCreate(ObjBindMethod(implObj, "get_DynamicTerminalClasses"), flags, 2)
+        this.vtbl.EnumerateDynamicTerminalClasses := CallbackCreate(ObjBindMethod(implObj, "EnumerateDynamicTerminalClasses"), flags, 2)
+        this.vtbl.CreateTerminal := CallbackCreate(ObjBindMethod(implObj, "CreateTerminal"), flags, 5)
+        this.vtbl.GetDefaultStaticTerminal := CallbackCreate(ObjBindMethod(implObj, "GetDefaultStaticTerminal"), flags, 4)
     }
 
     Dispose() {

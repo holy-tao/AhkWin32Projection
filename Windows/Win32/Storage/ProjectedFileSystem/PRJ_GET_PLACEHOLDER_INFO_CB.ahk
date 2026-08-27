@@ -27,7 +27,6 @@ export default struct PRJ_GET_PLACEHOLDER_INFO_CB {
     }
 
     /**
-     * 
      * @param {Pointer<PRJ_CALLBACK_DATA>} callbackData Information about the operation. The following <i>callbackData</i> members are necessary to implement this callback:<dl>
      * <dd><b>FilePathName</b> Identifies the path to the file or directory in the provider's store for which ProjFS is requesting information.
      * 

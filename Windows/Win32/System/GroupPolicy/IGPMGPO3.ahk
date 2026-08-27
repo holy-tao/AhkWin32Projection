@@ -54,7 +54,6 @@ export default struct IGPMGPO3 extends IGPMGPO2 {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_InfrastructureDC() {
@@ -64,7 +63,6 @@ export default struct IGPMGPO3 extends IGPMGPO2 {
     }
 
     /**
-     * 
      * @param {BSTR} newVal 
      * @returns {HRESULT} 
      */
@@ -76,7 +74,6 @@ export default struct IGPMGPO3 extends IGPMGPO2 {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
@@ -94,9 +91,9 @@ export default struct IGPMGPO3 extends IGPMGPO2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_InfrastructureDC := CallbackCreate(GetMethod(implObj, "get_InfrastructureDC"), flags, 2)
-        this.vtbl.put_InfrastructureDC := CallbackCreate(GetMethod(implObj, "put_InfrastructureDC"), flags, 2)
-        this.vtbl.put_InfrastructureFlags := CallbackCreate(GetMethod(implObj, "put_InfrastructureFlags"), flags, 2)
+        this.vtbl.get_InfrastructureDC := CallbackCreate(ObjBindMethod(implObj, "get_InfrastructureDC"), flags, 2)
+        this.vtbl.put_InfrastructureDC := CallbackCreate(ObjBindMethod(implObj, "put_InfrastructureDC"), flags, 2)
+        this.vtbl.put_InfrastructureFlags := CallbackCreate(ObjBindMethod(implObj, "put_InfrastructureFlags"), flags, 2)
     }
 
     Dispose() {

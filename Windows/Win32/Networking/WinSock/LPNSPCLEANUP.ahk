@@ -31,7 +31,6 @@ export default struct LPNSPCLEANUP {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} lpProviderId A pointer to the [GUID](../guiddef/ns-guiddef-guid.md) of the namespace provider to be terminated.
      * @returns {Integer} If no error occurs, then **NSPCleanup** returns a value of **NO_ERROR** (zero). Otherwise, **SOCKET_ERROR** (–1) is returned, and the provider must set the appropriate error code using <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsasetlasterror">WSASetLastError</a>.
      * 

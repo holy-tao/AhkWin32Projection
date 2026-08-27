@@ -38,7 +38,6 @@ export default struct IOplockStorage extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwcsName 
      * @param {Integer} grfMode 
      * @param {Integer} _stgfmt 
@@ -54,7 +53,6 @@ export default struct IOplockStorage extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwcsName 
      * @param {Integer} grfMode 
      * @param {Integer} _stgfmt 
@@ -78,8 +76,8 @@ export default struct IOplockStorage extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateStorageEx := CallbackCreate(GetMethod(implObj, "CreateStorageEx"), flags, 7)
-        this.vtbl.OpenStorageEx := CallbackCreate(GetMethod(implObj, "OpenStorageEx"), flags, 7)
+        this.vtbl.CreateStorageEx := CallbackCreate(ObjBindMethod(implObj, "CreateStorageEx"), flags, 7)
+        this.vtbl.OpenStorageEx := CallbackCreate(ObjBindMethod(implObj, "OpenStorageEx"), flags, 7)
     }
 
     Dispose() {

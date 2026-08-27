@@ -68,7 +68,7 @@ export default struct IUPnPServiceEnumProperty extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetServiceEnumProperty := CallbackCreate(GetMethod(implObj, "SetServiceEnumProperty"), flags, 2)
+        this.vtbl.SetServiceEnumProperty := CallbackCreate(ObjBindMethod(implObj, "SetServiceEnumProperty"), flags, 2)
     }
 
     Dispose() {

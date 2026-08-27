@@ -71,7 +71,6 @@ export default struct IDebugApplication32 extends IRemoteDebugApplication {
     }
 
     /**
-     * 
      * @param {PWSTR} pstrName 
      * @returns {HRESULT} 
      */
@@ -83,7 +82,6 @@ export default struct IDebugApplication32 extends IRemoteDebugApplication {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     StepOutComplete() {
@@ -92,7 +90,6 @@ export default struct IDebugApplication32 extends IRemoteDebugApplication {
     }
 
     /**
-     * 
      * @param {PWSTR} _pstr 
      * @returns {HRESULT} 
      */
@@ -104,7 +101,6 @@ export default struct IDebugApplication32 extends IRemoteDebugApplication {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     StartDebugSession() {
@@ -113,7 +109,6 @@ export default struct IDebugApplication32 extends IRemoteDebugApplication {
     }
 
     /**
-     * 
      * @param {BREAKREASON} br 
      * @returns {BREAKRESUMEACTION} 
      */
@@ -123,7 +118,6 @@ export default struct IDebugApplication32 extends IRemoteDebugApplication {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Close() {
@@ -132,13 +126,12 @@ export default struct IDebugApplication32 extends IRemoteDebugApplication {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pabf 
      * @param {Pointer<IRemoteDebugApplicationThread>} pprdatSteppingThread 
      * @returns {HRESULT} 
      */
     GetBreakFlags(pabf, pprdatSteppingThread) {
-        pabfMarshal := pabf is VarRef ? "uint*" : "ptr"
+        pabfMarshal := pabf is VarRef ? "uint*" : IntPtr
 
         result := ComCall(20, this, pabfMarshal, pabf, IRemoteDebugApplicationThread.Ptr, pprdatSteppingThread, "HRESULT")
         return result
@@ -170,7 +163,6 @@ export default struct IDebugApplication32 extends IRemoteDebugApplication {
     }
 
     /**
-     * 
      * @param {IDebugSyncOperation} psdo 
      * @returns {IDebugAsyncOperation} 
      */
@@ -180,7 +172,6 @@ export default struct IDebugApplication32 extends IRemoteDebugApplication {
     }
 
     /**
-     * 
      * @param {IDebugStackFrameSniffer} pdsfs 
      * @returns {Integer} 
      */
@@ -190,7 +181,6 @@ export default struct IDebugApplication32 extends IRemoteDebugApplication {
     }
 
     /**
-     * 
      * @param {Integer} dwCookie 
      * @returns {HRESULT} 
      */
@@ -200,7 +190,6 @@ export default struct IDebugApplication32 extends IRemoteDebugApplication {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     QueryCurrentThreadIsDebuggerThread() {
@@ -209,7 +198,6 @@ export default struct IDebugApplication32 extends IRemoteDebugApplication {
     }
 
     /**
-     * 
      * @param {IDebugThreadCall32} pptc 
      * @param {Integer} dwParam1 
      * @param {Integer} dwParam2 
@@ -222,7 +210,6 @@ export default struct IDebugApplication32 extends IRemoteDebugApplication {
     }
 
     /**
-     * 
      * @returns {IDebugApplicationNode} 
      */
     CreateApplicationNode() {
@@ -231,7 +218,6 @@ export default struct IDebugApplication32 extends IRemoteDebugApplication {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @param {IUnknown} punk 
      * @returns {HRESULT} 
@@ -242,7 +228,6 @@ export default struct IDebugApplication32 extends IRemoteDebugApplication {
     }
 
     /**
-     * 
      * @param {IActiveScriptErrorDebug} pErrorDebug 
      * @param {IActiveScriptSite} pScriptSite 
      * @param {Pointer<BREAKRESUMEACTION>} pbra 
@@ -251,16 +236,15 @@ export default struct IDebugApplication32 extends IRemoteDebugApplication {
      * @returns {HRESULT} 
      */
     HandleRuntimeError(pErrorDebug, pScriptSite, pbra, perra, pfCallOnScriptError) {
-        pbraMarshal := pbra is VarRef ? "int*" : "ptr"
-        perraMarshal := perra is VarRef ? "int*" : "ptr"
-        pfCallOnScriptErrorMarshal := pfCallOnScriptError is VarRef ? "int*" : "ptr"
+        pbraMarshal := pbra is VarRef ? "int*" : IntPtr
+        perraMarshal := perra is VarRef ? "int*" : IntPtr
+        pfCallOnScriptErrorMarshal := pfCallOnScriptError is VarRef ? "int*" : IntPtr
 
         result := ComCall(29, this, "ptr", pErrorDebug, "ptr", pScriptSite, pbraMarshal, pbra, perraMarshal, perra, pfCallOnScriptErrorMarshal, pfCallOnScriptError, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     FCanJitDebug() {
@@ -269,7 +253,6 @@ export default struct IDebugApplication32 extends IRemoteDebugApplication {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     FIsAutoJitDebugEnabled() {
@@ -278,7 +261,6 @@ export default struct IDebugApplication32 extends IRemoteDebugApplication {
     }
 
     /**
-     * 
      * @param {IProvideExpressionContexts} pdsfs 
      * @returns {Integer} 
      */
@@ -288,7 +270,6 @@ export default struct IDebugApplication32 extends IRemoteDebugApplication {
     }
 
     /**
-     * 
      * @param {Integer} dwCookie 
      * @returns {HRESULT} 
      */
@@ -306,26 +287,26 @@ export default struct IDebugApplication32 extends IRemoteDebugApplication {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetName := CallbackCreate(GetMethod(implObj, "SetName"), flags, 2)
-        this.vtbl.StepOutComplete := CallbackCreate(GetMethod(implObj, "StepOutComplete"), flags, 1)
-        this.vtbl.DebugOutput := CallbackCreate(GetMethod(implObj, "DebugOutput"), flags, 2)
-        this.vtbl.StartDebugSession := CallbackCreate(GetMethod(implObj, "StartDebugSession"), flags, 1)
-        this.vtbl.HandleBreakPoint := CallbackCreate(GetMethod(implObj, "HandleBreakPoint"), flags, 3)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
-        this.vtbl.GetBreakFlags := CallbackCreate(GetMethod(implObj, "GetBreakFlags"), flags, 3)
-        this.vtbl.GetCurrentThread := CallbackCreate(GetMethod(implObj, "GetCurrentThread"), flags, 2)
-        this.vtbl.CreateAsyncDebugOperation := CallbackCreate(GetMethod(implObj, "CreateAsyncDebugOperation"), flags, 3)
-        this.vtbl.AddStackFrameSniffer := CallbackCreate(GetMethod(implObj, "AddStackFrameSniffer"), flags, 3)
-        this.vtbl.RemoveStackFrameSniffer := CallbackCreate(GetMethod(implObj, "RemoveStackFrameSniffer"), flags, 2)
-        this.vtbl.QueryCurrentThreadIsDebuggerThread := CallbackCreate(GetMethod(implObj, "QueryCurrentThreadIsDebuggerThread"), flags, 1)
-        this.vtbl.SynchronousCallInDebuggerThread := CallbackCreate(GetMethod(implObj, "SynchronousCallInDebuggerThread"), flags, 5)
-        this.vtbl.CreateApplicationNode := CallbackCreate(GetMethod(implObj, "CreateApplicationNode"), flags, 2)
-        this.vtbl.FireDebuggerEvent := CallbackCreate(GetMethod(implObj, "FireDebuggerEvent"), flags, 3)
-        this.vtbl.HandleRuntimeError := CallbackCreate(GetMethod(implObj, "HandleRuntimeError"), flags, 6)
-        this.vtbl.FCanJitDebug := CallbackCreate(GetMethod(implObj, "FCanJitDebug"), flags, 1)
-        this.vtbl.FIsAutoJitDebugEnabled := CallbackCreate(GetMethod(implObj, "FIsAutoJitDebugEnabled"), flags, 1)
-        this.vtbl.AddGlobalExpressionContextProvider := CallbackCreate(GetMethod(implObj, "AddGlobalExpressionContextProvider"), flags, 3)
-        this.vtbl.RemoveGlobalExpressionContextProvider := CallbackCreate(GetMethod(implObj, "RemoveGlobalExpressionContextProvider"), flags, 2)
+        this.vtbl.SetName := CallbackCreate(ObjBindMethod(implObj, "SetName"), flags, 2)
+        this.vtbl.StepOutComplete := CallbackCreate(ObjBindMethod(implObj, "StepOutComplete"), flags, 1)
+        this.vtbl.DebugOutput := CallbackCreate(ObjBindMethod(implObj, "DebugOutput"), flags, 2)
+        this.vtbl.StartDebugSession := CallbackCreate(ObjBindMethod(implObj, "StartDebugSession"), flags, 1)
+        this.vtbl.HandleBreakPoint := CallbackCreate(ObjBindMethod(implObj, "HandleBreakPoint"), flags, 3)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
+        this.vtbl.GetBreakFlags := CallbackCreate(ObjBindMethod(implObj, "GetBreakFlags"), flags, 3)
+        this.vtbl.GetCurrentThread := CallbackCreate(ObjBindMethod(implObj, "GetCurrentThread"), flags, 2)
+        this.vtbl.CreateAsyncDebugOperation := CallbackCreate(ObjBindMethod(implObj, "CreateAsyncDebugOperation"), flags, 3)
+        this.vtbl.AddStackFrameSniffer := CallbackCreate(ObjBindMethod(implObj, "AddStackFrameSniffer"), flags, 3)
+        this.vtbl.RemoveStackFrameSniffer := CallbackCreate(ObjBindMethod(implObj, "RemoveStackFrameSniffer"), flags, 2)
+        this.vtbl.QueryCurrentThreadIsDebuggerThread := CallbackCreate(ObjBindMethod(implObj, "QueryCurrentThreadIsDebuggerThread"), flags, 1)
+        this.vtbl.SynchronousCallInDebuggerThread := CallbackCreate(ObjBindMethod(implObj, "SynchronousCallInDebuggerThread"), flags, 5)
+        this.vtbl.CreateApplicationNode := CallbackCreate(ObjBindMethod(implObj, "CreateApplicationNode"), flags, 2)
+        this.vtbl.FireDebuggerEvent := CallbackCreate(ObjBindMethod(implObj, "FireDebuggerEvent"), flags, 3)
+        this.vtbl.HandleRuntimeError := CallbackCreate(ObjBindMethod(implObj, "HandleRuntimeError"), flags, 6)
+        this.vtbl.FCanJitDebug := CallbackCreate(ObjBindMethod(implObj, "FCanJitDebug"), flags, 1)
+        this.vtbl.FIsAutoJitDebugEnabled := CallbackCreate(ObjBindMethod(implObj, "FIsAutoJitDebugEnabled"), flags, 1)
+        this.vtbl.AddGlobalExpressionContextProvider := CallbackCreate(ObjBindMethod(implObj, "AddGlobalExpressionContextProvider"), flags, 3)
+        this.vtbl.RemoveGlobalExpressionContextProvider := CallbackCreate(ObjBindMethod(implObj, "RemoveGlobalExpressionContextProvider"), flags, 2)
     }
 
     Dispose() {

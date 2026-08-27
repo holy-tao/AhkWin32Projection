@@ -288,7 +288,7 @@ export default struct IVssComponentEx extends IVssComponent {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponentex-getrollforward
      */
     GetRollForward(pRollType, pbstrPoint) {
-        pRollTypeMarshal := pRollType is VarRef ? "int*" : "ptr"
+        pRollTypeMarshal := pRollType is VarRef ? "int*" : IntPtr
 
         result := ComCall(46, this, pRollTypeMarshal, pRollType, BSTR.Ptr, pbstrPoint, "HRESULT")
         return result
@@ -324,13 +324,13 @@ export default struct IVssComponentEx extends IVssComponent {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetPrepareForBackupFailureMsg := CallbackCreate(GetMethod(implObj, "SetPrepareForBackupFailureMsg"), flags, 2)
-        this.vtbl.SetPostSnapshotFailureMsg := CallbackCreate(GetMethod(implObj, "SetPostSnapshotFailureMsg"), flags, 2)
-        this.vtbl.GetPrepareForBackupFailureMsg := CallbackCreate(GetMethod(implObj, "GetPrepareForBackupFailureMsg"), flags, 2)
-        this.vtbl.GetPostSnapshotFailureMsg := CallbackCreate(GetMethod(implObj, "GetPostSnapshotFailureMsg"), flags, 2)
-        this.vtbl.GetAuthoritativeRestore := CallbackCreate(GetMethod(implObj, "GetAuthoritativeRestore"), flags, 2)
-        this.vtbl.GetRollForward := CallbackCreate(GetMethod(implObj, "GetRollForward"), flags, 3)
-        this.vtbl.GetRestoreName := CallbackCreate(GetMethod(implObj, "GetRestoreName"), flags, 2)
+        this.vtbl.SetPrepareForBackupFailureMsg := CallbackCreate(ObjBindMethod(implObj, "SetPrepareForBackupFailureMsg"), flags, 2)
+        this.vtbl.SetPostSnapshotFailureMsg := CallbackCreate(ObjBindMethod(implObj, "SetPostSnapshotFailureMsg"), flags, 2)
+        this.vtbl.GetPrepareForBackupFailureMsg := CallbackCreate(ObjBindMethod(implObj, "GetPrepareForBackupFailureMsg"), flags, 2)
+        this.vtbl.GetPostSnapshotFailureMsg := CallbackCreate(ObjBindMethod(implObj, "GetPostSnapshotFailureMsg"), flags, 2)
+        this.vtbl.GetAuthoritativeRestore := CallbackCreate(ObjBindMethod(implObj, "GetAuthoritativeRestore"), flags, 2)
+        this.vtbl.GetRollForward := CallbackCreate(ObjBindMethod(implObj, "GetRollForward"), flags, 3)
+        this.vtbl.GetRestoreName := CallbackCreate(ObjBindMethod(implObj, "GetRestoreName"), flags, 2)
     }
 
     Dispose() {

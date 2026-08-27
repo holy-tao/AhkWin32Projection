@@ -19,7 +19,6 @@ export default struct PRTL_HEAP_COMMIT_ROUTINE {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

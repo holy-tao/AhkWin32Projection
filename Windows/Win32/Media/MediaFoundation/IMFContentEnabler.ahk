@@ -151,9 +151,9 @@ export default struct IMFContentEnabler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcontentenabler-getenableurl
      */
     GetEnableURL(ppwszURL, pcchURL, pTrustStatus) {
-        ppwszURLMarshal := ppwszURL is VarRef ? "ptr*" : "ptr"
-        pcchURLMarshal := pcchURL is VarRef ? "uint*" : "ptr"
-        pTrustStatusMarshal := pTrustStatus is VarRef ? "int*" : "ptr"
+        ppwszURLMarshal := ppwszURL is VarRef ? "ptr*" : IntPtr
+        pcchURLMarshal := pcchURL is VarRef ? "uint*" : IntPtr
+        pTrustStatusMarshal := pTrustStatus is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, ppwszURLMarshal, ppwszURL, pcchURLMarshal, pcchURL, pTrustStatusMarshal, pTrustStatus, "HRESULT")
         return result
@@ -218,8 +218,8 @@ export default struct IMFContentEnabler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcontentenabler-getenabledata
      */
     GetEnableData(ppbData, pcbData) {
-        ppbDataMarshal := ppbData is VarRef ? "ptr*" : "ptr"
-        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+        ppbDataMarshal := ppbData is VarRef ? "ptr*" : IntPtr
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, ppbDataMarshal, ppbData, pcbDataMarshal, pcbData, "HRESULT")
         return result
@@ -353,13 +353,13 @@ export default struct IMFContentEnabler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetEnableType := CallbackCreate(GetMethod(implObj, "GetEnableType"), flags, 2)
-        this.vtbl.GetEnableURL := CallbackCreate(GetMethod(implObj, "GetEnableURL"), flags, 4)
-        this.vtbl.GetEnableData := CallbackCreate(GetMethod(implObj, "GetEnableData"), flags, 3)
-        this.vtbl.IsAutomaticSupported := CallbackCreate(GetMethod(implObj, "IsAutomaticSupported"), flags, 2)
-        this.vtbl.AutomaticEnable := CallbackCreate(GetMethod(implObj, "AutomaticEnable"), flags, 1)
-        this.vtbl.MonitorEnable := CallbackCreate(GetMethod(implObj, "MonitorEnable"), flags, 1)
-        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.GetEnableType := CallbackCreate(ObjBindMethod(implObj, "GetEnableType"), flags, 2)
+        this.vtbl.GetEnableURL := CallbackCreate(ObjBindMethod(implObj, "GetEnableURL"), flags, 4)
+        this.vtbl.GetEnableData := CallbackCreate(ObjBindMethod(implObj, "GetEnableData"), flags, 3)
+        this.vtbl.IsAutomaticSupported := CallbackCreate(ObjBindMethod(implObj, "IsAutomaticSupported"), flags, 2)
+        this.vtbl.AutomaticEnable := CallbackCreate(ObjBindMethod(implObj, "AutomaticEnable"), flags, 1)
+        this.vtbl.MonitorEnable := CallbackCreate(ObjBindMethod(implObj, "MonitorEnable"), flags, 1)
+        this.vtbl.Cancel := CallbackCreate(ObjBindMethod(implObj, "Cancel"), flags, 1)
     }
 
     Dispose() {

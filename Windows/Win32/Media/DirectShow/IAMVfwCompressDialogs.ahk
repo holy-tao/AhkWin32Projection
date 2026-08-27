@@ -70,7 +70,7 @@ export default struct IAMVfwCompressDialogs extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvfwcompressdialogs-getstate
      */
     GetState(pState, pcbState) {
-        pcbStateMarshal := pcbState is VarRef ? "int*" : "ptr"
+        pcbStateMarshal := pcbState is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, IntPtr, pState, pcbStateMarshal, pcbState, "HRESULT")
         return result
@@ -116,10 +116,10 @@ export default struct IAMVfwCompressDialogs extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ShowDialog := CallbackCreate(GetMethod(implObj, "ShowDialog"), flags, 3)
-        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 3)
-        this.vtbl.SetState := CallbackCreate(GetMethod(implObj, "SetState"), flags, 3)
-        this.vtbl.SendDriverMessage := CallbackCreate(GetMethod(implObj, "SendDriverMessage"), flags, 4)
+        this.vtbl.ShowDialog := CallbackCreate(ObjBindMethod(implObj, "ShowDialog"), flags, 3)
+        this.vtbl.GetState := CallbackCreate(ObjBindMethod(implObj, "GetState"), flags, 3)
+        this.vtbl.SetState := CallbackCreate(ObjBindMethod(implObj, "SetState"), flags, 3)
+        this.vtbl.SendDriverMessage := CallbackCreate(ObjBindMethod(implObj, "SendDriverMessage"), flags, 4)
     }
 
     Dispose() {

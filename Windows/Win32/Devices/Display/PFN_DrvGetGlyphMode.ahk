@@ -20,7 +20,6 @@ export default struct PFN_DrvGetGlyphMode {
     }
 
     /**
-     * 
      * @param {DHPDEV} _dhpdev 
      * @param {Pointer<FONTOBJ>} pfo 
      * @returns {Integer} 

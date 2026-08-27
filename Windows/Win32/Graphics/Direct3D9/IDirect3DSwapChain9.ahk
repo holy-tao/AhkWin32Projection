@@ -225,13 +225,13 @@ export default struct IDirect3DSwapChain9 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Present := CallbackCreate(GetMethod(implObj, "Present"), flags, 6)
-        this.vtbl.GetFrontBufferData := CallbackCreate(GetMethod(implObj, "GetFrontBufferData"), flags, 2)
-        this.vtbl.GetBackBuffer := CallbackCreate(GetMethod(implObj, "GetBackBuffer"), flags, 4)
-        this.vtbl.GetRasterStatus := CallbackCreate(GetMethod(implObj, "GetRasterStatus"), flags, 2)
-        this.vtbl.GetDisplayMode := CallbackCreate(GetMethod(implObj, "GetDisplayMode"), flags, 2)
-        this.vtbl.GetDevice := CallbackCreate(GetMethod(implObj, "GetDevice"), flags, 2)
-        this.vtbl.GetPresentParameters := CallbackCreate(GetMethod(implObj, "GetPresentParameters"), flags, 2)
+        this.vtbl.Present := CallbackCreate(ObjBindMethod(implObj, "Present"), flags, 6)
+        this.vtbl.GetFrontBufferData := CallbackCreate(ObjBindMethod(implObj, "GetFrontBufferData"), flags, 2)
+        this.vtbl.GetBackBuffer := CallbackCreate(ObjBindMethod(implObj, "GetBackBuffer"), flags, 4)
+        this.vtbl.GetRasterStatus := CallbackCreate(ObjBindMethod(implObj, "GetRasterStatus"), flags, 2)
+        this.vtbl.GetDisplayMode := CallbackCreate(ObjBindMethod(implObj, "GetDisplayMode"), flags, 2)
+        this.vtbl.GetDevice := CallbackCreate(ObjBindMethod(implObj, "GetDevice"), flags, 2)
+        this.vtbl.GetPresentParameters := CallbackCreate(ObjBindMethod(implObj, "GetPresentParameters"), flags, 2)
     }
 
     Dispose() {

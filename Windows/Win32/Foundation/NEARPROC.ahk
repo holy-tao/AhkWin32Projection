@@ -18,7 +18,6 @@ export default struct NEARPROC {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     Call() {

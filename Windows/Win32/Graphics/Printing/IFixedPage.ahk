@@ -47,7 +47,6 @@ export default struct IFixedPage extends IPartBase {
     }
 
     /**
-     * 
      * @returns {IPartPrintTicket} 
      */
     GetPrintTicket() {
@@ -56,7 +55,6 @@ export default struct IFixedPage extends IPartBase {
     }
 
     /**
-     * 
      * @param {PWSTR} uri 
      * @returns {IUnknown} 
      */
@@ -68,7 +66,6 @@ export default struct IFixedPage extends IPartBase {
     }
 
     /**
-     * 
      * @returns {IPrintWriteStream} 
      */
     GetWriteStream() {
@@ -77,7 +74,6 @@ export default struct IFixedPage extends IPartBase {
     }
 
     /**
-     * 
      * @param {IPartPrintTicket} ppPrintTicket 
      * @returns {HRESULT} 
      */
@@ -87,7 +83,6 @@ export default struct IFixedPage extends IPartBase {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnk 
      * @returns {HRESULT} 
      */
@@ -97,7 +92,6 @@ export default struct IFixedPage extends IPartBase {
     }
 
     /**
-     * 
      * @param {PWSTR} uri 
      * @returns {HRESULT} 
      */
@@ -109,7 +103,6 @@ export default struct IFixedPage extends IPartBase {
     }
 
     /**
-     * 
      * @returns {IXpsPartIterator} 
      */
     GetXpsPartIterator() {
@@ -126,13 +119,13 @@ export default struct IFixedPage extends IPartBase {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPrintTicket := CallbackCreate(GetMethod(implObj, "GetPrintTicket"), flags, 2)
-        this.vtbl.GetPagePart := CallbackCreate(GetMethod(implObj, "GetPagePart"), flags, 3)
-        this.vtbl.GetWriteStream := CallbackCreate(GetMethod(implObj, "GetWriteStream"), flags, 2)
-        this.vtbl.SetPrintTicket := CallbackCreate(GetMethod(implObj, "SetPrintTicket"), flags, 2)
-        this.vtbl.SetPagePart := CallbackCreate(GetMethod(implObj, "SetPagePart"), flags, 2)
-        this.vtbl.DeleteResource := CallbackCreate(GetMethod(implObj, "DeleteResource"), flags, 2)
-        this.vtbl.GetXpsPartIterator := CallbackCreate(GetMethod(implObj, "GetXpsPartIterator"), flags, 2)
+        this.vtbl.GetPrintTicket := CallbackCreate(ObjBindMethod(implObj, "GetPrintTicket"), flags, 2)
+        this.vtbl.GetPagePart := CallbackCreate(ObjBindMethod(implObj, "GetPagePart"), flags, 3)
+        this.vtbl.GetWriteStream := CallbackCreate(ObjBindMethod(implObj, "GetWriteStream"), flags, 2)
+        this.vtbl.SetPrintTicket := CallbackCreate(ObjBindMethod(implObj, "SetPrintTicket"), flags, 2)
+        this.vtbl.SetPagePart := CallbackCreate(ObjBindMethod(implObj, "SetPagePart"), flags, 2)
+        this.vtbl.DeleteResource := CallbackCreate(ObjBindMethod(implObj, "DeleteResource"), flags, 2)
+        this.vtbl.GetXpsPartIterator := CallbackCreate(ObjBindMethod(implObj, "GetXpsPartIterator"), flags, 2)
     }
 
     Dispose() {

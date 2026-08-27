@@ -36,7 +36,6 @@ export default struct IValidateBinding extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} guidLicensorID 
      * @param {Pointer<Integer>} pbEphemeron 
      * @param {Integer} cbEphemeron 
@@ -45,9 +44,9 @@ export default struct IValidateBinding extends IUnknown {
      * @returns {HRESULT} 
      */
     GetIdentifier(guidLicensorID, pbEphemeron, cbEphemeron, ppbBlobValidationID, pcbBlobSize) {
-        pbEphemeronMarshal := pbEphemeron is VarRef ? "char*" : "ptr"
-        ppbBlobValidationIDMarshal := ppbBlobValidationID is VarRef ? "ptr*" : "ptr"
-        pcbBlobSizeMarshal := pcbBlobSize is VarRef ? "uint*" : "ptr"
+        pbEphemeronMarshal := pbEphemeron is VarRef ? "char*" : IntPtr
+        ppbBlobValidationIDMarshal := ppbBlobValidationID is VarRef ? "ptr*" : IntPtr
+        pcbBlobSizeMarshal := pcbBlobSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, Guid, guidLicensorID, pbEphemeronMarshal, pbEphemeron, UInt32, cbEphemeron, ppbBlobValidationIDMarshal, ppbBlobValidationID, pcbBlobSizeMarshal, pcbBlobSize, "HRESULT")
         return result
@@ -62,7 +61,7 @@ export default struct IValidateBinding extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetIdentifier := CallbackCreate(GetMethod(implObj, "GetIdentifier"), flags, 6)
+        this.vtbl.GetIdentifier := CallbackCreate(ObjBindMethod(implObj, "GetIdentifier"), flags, 6)
     }
 
     Dispose() {

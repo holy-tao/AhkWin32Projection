@@ -56,7 +56,6 @@ export default struct IPrintSchemaOption extends IPrintSchemaDisplayableElement 
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_Selected() {
@@ -65,7 +64,6 @@ export default struct IPrintSchemaOption extends IPrintSchemaDisplayableElement 
     }
 
     /**
-     * 
      * @returns {PrintSchemaConstrainedSetting} 
      */
     get_Constrained() {
@@ -74,7 +72,6 @@ export default struct IPrintSchemaOption extends IPrintSchemaDisplayableElement 
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrNamespaceUri 
      * @returns {IUnknown} 
@@ -96,9 +93,9 @@ export default struct IPrintSchemaOption extends IPrintSchemaDisplayableElement 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Selected := CallbackCreate(GetMethod(implObj, "get_Selected"), flags, 2)
-        this.vtbl.get_Constrained := CallbackCreate(GetMethod(implObj, "get_Constrained"), flags, 2)
-        this.vtbl.GetPropertyValue := CallbackCreate(GetMethod(implObj, "GetPropertyValue"), flags, 4)
+        this.vtbl.get_Selected := CallbackCreate(ObjBindMethod(implObj, "get_Selected"), flags, 2)
+        this.vtbl.get_Constrained := CallbackCreate(ObjBindMethod(implObj, "get_Constrained"), flags, 2)
+        this.vtbl.GetPropertyValue := CallbackCreate(ObjBindMethod(implObj, "GetPropertyValue"), flags, 4)
     }
 
     Dispose() {

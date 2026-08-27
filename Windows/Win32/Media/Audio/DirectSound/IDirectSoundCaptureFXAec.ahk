@@ -40,7 +40,6 @@ export default struct IDirectSoundCaptureFXAec extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DSCFXAec>} pDscFxAec 
      * @returns {HRESULT} 
      */
@@ -50,7 +49,6 @@ export default struct IDirectSoundCaptureFXAec extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DSCFXAec} 
      */
     GetAllParameters() {
@@ -60,7 +58,6 @@ export default struct IDirectSoundCaptureFXAec extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetStatus() {
@@ -69,7 +66,6 @@ export default struct IDirectSoundCaptureFXAec extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -86,10 +82,10 @@ export default struct IDirectSoundCaptureFXAec extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAllParameters := CallbackCreate(GetMethod(implObj, "SetAllParameters"), flags, 2)
-        this.vtbl.GetAllParameters := CallbackCreate(GetMethod(implObj, "GetAllParameters"), flags, 2)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.SetAllParameters := CallbackCreate(ObjBindMethod(implObj, "SetAllParameters"), flags, 2)
+        this.vtbl.GetAllParameters := CallbackCreate(ObjBindMethod(implObj, "GetAllParameters"), flags, 2)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
     }
 
     Dispose() {

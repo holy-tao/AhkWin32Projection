@@ -93,7 +93,11 @@ export default struct IDirectManipulationCompositor2 extends IDirectManipulation
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcompositor2-addcontentwithcrossprocesschaining
      */
     AddContentWithCrossProcessChaining(content, device, parentVisual, childVisual) {
-        result := ComCall(7, this, "ptr", content, "ptr", device, "ptr", parentVisual, "ptr", childVisual, "HRESULT")
+        deviceMarshal := device == 0 ? IntPtr : "ptr"
+        parentVisualMarshal := parentVisual == 0 ? IntPtr : "ptr"
+        childVisualMarshal := childVisual == 0 ? IntPtr : "ptr"
+
+        result := ComCall(7, this, "ptr", content, deviceMarshal, device, parentVisualMarshal, parentVisual, childVisualMarshal, childVisual, "HRESULT")
         return result
     }
 
@@ -106,7 +110,7 @@ export default struct IDirectManipulationCompositor2 extends IDirectManipulation
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddContentWithCrossProcessChaining := CallbackCreate(GetMethod(implObj, "AddContentWithCrossProcessChaining"), flags, 5)
+        this.vtbl.AddContentWithCrossProcessChaining := CallbackCreate(ObjBindMethod(implObj, "AddContentWithCrossProcessChaining"), flags, 5)
     }
 
     Dispose() {

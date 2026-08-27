@@ -22,7 +22,6 @@ export default struct PRADIUS_EXTENSION_TERM {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

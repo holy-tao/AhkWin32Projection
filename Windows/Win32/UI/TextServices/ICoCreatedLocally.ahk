@@ -71,7 +71,7 @@ export default struct ICoCreatedLocally extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LocalInit := CallbackCreate(GetMethod(implObj, "LocalInit"), flags, 5)
+        this.vtbl.LocalInit := CallbackCreate(ObjBindMethod(implObj, "LocalInit"), flags, 5)
     }
 
     Dispose() {

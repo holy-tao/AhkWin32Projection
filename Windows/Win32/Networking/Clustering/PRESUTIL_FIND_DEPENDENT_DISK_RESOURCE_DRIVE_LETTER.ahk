@@ -21,7 +21,6 @@ export default struct PRESUTIL_FIND_DEPENDENT_DISK_RESOURCE_DRIVE_LETTER {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {HRESOURCE} _hResource 
      * @param {PWSTR} pszDriveLetter 
@@ -31,7 +30,7 @@ export default struct PRESUTIL_FIND_DEPENDENT_DISK_RESOURCE_DRIVE_LETTER {
     Call(_hCluster, _hResource, pszDriveLetter, pcchDriveLetter) {
         pszDriveLetter := pszDriveLetter is String ? StrPtr(pszDriveLetter) : pszDriveLetter
 
-        pcchDriveLetterMarshal := pcchDriveLetter is VarRef ? "uint*" : "ptr"
+        pcchDriveLetterMarshal := pcchDriveLetter is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HCLUSTER, _hCluster, HRESOURCE, _hResource, "ptr", pszDriveLetter, pcchDriveLetterMarshal, pcchDriveLetter, UInt32)
         return result

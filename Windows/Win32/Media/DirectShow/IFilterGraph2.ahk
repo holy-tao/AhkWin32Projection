@@ -136,7 +136,9 @@ export default struct IFilterGraph2 extends IGraphBuilder {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifiltergraph2-reconnectex
      */
     ReconnectEx(ppin, pmt) {
-        result := ComCall(19, this, "ptr", ppin, AM_MEDIA_TYPE.Ptr, pmt, "HRESULT")
+        pmtMarshal := pmt == 0 ? IntPtr : AM_MEDIA_TYPE.Ptr
+
+        result := ComCall(19, this, "ptr", ppin, pmtMarshal, pmt, "HRESULT")
         return result
     }
 
@@ -163,9 +165,9 @@ export default struct IFilterGraph2 extends IGraphBuilder {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddSourceFilterForMoniker := CallbackCreate(GetMethod(implObj, "AddSourceFilterForMoniker"), flags, 5)
-        this.vtbl.ReconnectEx := CallbackCreate(GetMethod(implObj, "ReconnectEx"), flags, 3)
-        this.vtbl.RenderEx := CallbackCreate(GetMethod(implObj, "RenderEx"), flags, 4)
+        this.vtbl.AddSourceFilterForMoniker := CallbackCreate(ObjBindMethod(implObj, "AddSourceFilterForMoniker"), flags, 5)
+        this.vtbl.ReconnectEx := CallbackCreate(ObjBindMethod(implObj, "ReconnectEx"), flags, 3)
+        this.vtbl.RenderEx := CallbackCreate(ObjBindMethod(implObj, "RenderEx"), flags, 4)
     }
 
     Dispose() {

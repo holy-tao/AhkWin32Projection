@@ -57,7 +57,6 @@ export default struct ITemplatePrinter3 extends ITemplatePrinter2 {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -69,7 +68,6 @@ export default struct ITemplatePrinter3 extends ITemplatePrinter2 {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_headerFooterFont() {
@@ -79,7 +77,6 @@ export default struct ITemplatePrinter3 extends ITemplatePrinter2 {
     }
 
     /**
-     * 
      * @param {IDispatch} pageRule 
      * @param {Integer} pageWidth 
      * @param {Integer} pageHeight 
@@ -92,7 +89,6 @@ export default struct ITemplatePrinter3 extends ITemplatePrinter2 {
     }
 
     /**
-     * 
      * @param {IDispatch} pageRule 
      * @param {Integer} pageWidth 
      * @param {Integer} pageHeight 
@@ -105,7 +101,6 @@ export default struct ITemplatePrinter3 extends ITemplatePrinter2 {
     }
 
     /**
-     * 
      * @param {IDispatch} pageRule 
      * @param {Integer} pageWidth 
      * @param {Integer} pageHeight 
@@ -118,7 +113,6 @@ export default struct ITemplatePrinter3 extends ITemplatePrinter2 {
     }
 
     /**
-     * 
      * @param {IDispatch} pageRule 
      * @param {Integer} pageWidth 
      * @param {Integer} pageHeight 
@@ -131,7 +125,6 @@ export default struct ITemplatePrinter3 extends ITemplatePrinter2 {
     }
 
     /**
-     * 
      * @param {IDispatch} pageRule 
      * @returns {VARIANT_BOOL} 
      */
@@ -141,7 +134,6 @@ export default struct ITemplatePrinter3 extends ITemplatePrinter2 {
     }
 
     /**
-     * 
      * @param {IDispatch} pageRule 
      * @returns {VARIANT_BOOL} 
      */
@@ -151,7 +143,6 @@ export default struct ITemplatePrinter3 extends ITemplatePrinter2 {
     }
 
     /**
-     * 
      * @param {IDispatch} pageRule 
      * @returns {VARIANT_BOOL} 
      */
@@ -161,7 +152,6 @@ export default struct ITemplatePrinter3 extends ITemplatePrinter2 {
     }
 
     /**
-     * 
      * @param {IDispatch} pageRule 
      * @returns {VARIANT_BOOL} 
      */
@@ -179,16 +169,16 @@ export default struct ITemplatePrinter3 extends ITemplatePrinter2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_headerFooterFont := CallbackCreate(GetMethod(implObj, "put_headerFooterFont"), flags, 2)
-        this.vtbl.get_headerFooterFont := CallbackCreate(GetMethod(implObj, "get_headerFooterFont"), flags, 2)
-        this.vtbl.getPageMarginTop := CallbackCreate(GetMethod(implObj, "getPageMarginTop"), flags, 5)
-        this.vtbl.getPageMarginRight := CallbackCreate(GetMethod(implObj, "getPageMarginRight"), flags, 5)
-        this.vtbl.getPageMarginBottom := CallbackCreate(GetMethod(implObj, "getPageMarginBottom"), flags, 5)
-        this.vtbl.getPageMarginLeft := CallbackCreate(GetMethod(implObj, "getPageMarginLeft"), flags, 5)
-        this.vtbl.getPageMarginTopImportant := CallbackCreate(GetMethod(implObj, "getPageMarginTopImportant"), flags, 3)
-        this.vtbl.getPageMarginRightImportant := CallbackCreate(GetMethod(implObj, "getPageMarginRightImportant"), flags, 3)
-        this.vtbl.getPageMarginBottomImportant := CallbackCreate(GetMethod(implObj, "getPageMarginBottomImportant"), flags, 3)
-        this.vtbl.getPageMarginLeftImportant := CallbackCreate(GetMethod(implObj, "getPageMarginLeftImportant"), flags, 3)
+        this.vtbl.put_headerFooterFont := CallbackCreate(ObjBindMethod(implObj, "put_headerFooterFont"), flags, 2)
+        this.vtbl.get_headerFooterFont := CallbackCreate(ObjBindMethod(implObj, "get_headerFooterFont"), flags, 2)
+        this.vtbl.getPageMarginTop := CallbackCreate(ObjBindMethod(implObj, "getPageMarginTop"), flags, 5)
+        this.vtbl.getPageMarginRight := CallbackCreate(ObjBindMethod(implObj, "getPageMarginRight"), flags, 5)
+        this.vtbl.getPageMarginBottom := CallbackCreate(ObjBindMethod(implObj, "getPageMarginBottom"), flags, 5)
+        this.vtbl.getPageMarginLeft := CallbackCreate(ObjBindMethod(implObj, "getPageMarginLeft"), flags, 5)
+        this.vtbl.getPageMarginTopImportant := CallbackCreate(ObjBindMethod(implObj, "getPageMarginTopImportant"), flags, 3)
+        this.vtbl.getPageMarginRightImportant := CallbackCreate(ObjBindMethod(implObj, "getPageMarginRightImportant"), flags, 3)
+        this.vtbl.getPageMarginBottomImportant := CallbackCreate(ObjBindMethod(implObj, "getPageMarginBottomImportant"), flags, 3)
+        this.vtbl.getPageMarginLeftImportant := CallbackCreate(ObjBindMethod(implObj, "getPageMarginLeftImportant"), flags, 3)
     }
 
     Dispose() {

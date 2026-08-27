@@ -223,9 +223,9 @@ export default struct ICredentialProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovider-getcredentialcount
      */
     GetCredentialCount(pdwCount, pdwDefault, pbAutoLogonWithDefault) {
-        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
-        pdwDefaultMarshal := pdwDefault is VarRef ? "uint*" : "ptr"
-        pbAutoLogonWithDefaultMarshal := pbAutoLogonWithDefault is VarRef ? "int*" : "ptr"
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : IntPtr
+        pdwDefaultMarshal := pdwDefault is VarRef ? "uint*" : IntPtr
+        pbAutoLogonWithDefaultMarshal := pbAutoLogonWithDefault is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, pdwCountMarshal, pdwCount, pdwDefaultMarshal, pdwDefault, pbAutoLogonWithDefaultMarshal, pbAutoLogonWithDefault, "HRESULT")
         return result
@@ -259,14 +259,14 @@ export default struct ICredentialProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetUsageScenario := CallbackCreate(GetMethod(implObj, "SetUsageScenario"), flags, 3)
-        this.vtbl.SetSerialization := CallbackCreate(GetMethod(implObj, "SetSerialization"), flags, 2)
-        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 3)
-        this.vtbl.UnAdvise := CallbackCreate(GetMethod(implObj, "UnAdvise"), flags, 1)
-        this.vtbl.GetFieldDescriptorCount := CallbackCreate(GetMethod(implObj, "GetFieldDescriptorCount"), flags, 2)
-        this.vtbl.GetFieldDescriptorAt := CallbackCreate(GetMethod(implObj, "GetFieldDescriptorAt"), flags, 3)
-        this.vtbl.GetCredentialCount := CallbackCreate(GetMethod(implObj, "GetCredentialCount"), flags, 4)
-        this.vtbl.GetCredentialAt := CallbackCreate(GetMethod(implObj, "GetCredentialAt"), flags, 3)
+        this.vtbl.SetUsageScenario := CallbackCreate(ObjBindMethod(implObj, "SetUsageScenario"), flags, 3)
+        this.vtbl.SetSerialization := CallbackCreate(ObjBindMethod(implObj, "SetSerialization"), flags, 2)
+        this.vtbl.Advise := CallbackCreate(ObjBindMethod(implObj, "Advise"), flags, 3)
+        this.vtbl.UnAdvise := CallbackCreate(ObjBindMethod(implObj, "UnAdvise"), flags, 1)
+        this.vtbl.GetFieldDescriptorCount := CallbackCreate(ObjBindMethod(implObj, "GetFieldDescriptorCount"), flags, 2)
+        this.vtbl.GetFieldDescriptorAt := CallbackCreate(ObjBindMethod(implObj, "GetFieldDescriptorAt"), flags, 3)
+        this.vtbl.GetCredentialCount := CallbackCreate(ObjBindMethod(implObj, "GetCredentialCount"), flags, 4)
+        this.vtbl.GetCredentialAt := CallbackCreate(ObjBindMethod(implObj, "GetCredentialAt"), flags, 3)
     }
 
     Dispose() {

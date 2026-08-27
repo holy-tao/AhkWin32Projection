@@ -19,13 +19,12 @@ export default struct IOMMU_DEVICE_FAULT_HANDLER {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<FAULT_INFORMATION>} FaultInformation 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Context, FaultInformation) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _ContextMarshal, _Context, FAULT_INFORMATION.Ptr, FaultInformation)
     }

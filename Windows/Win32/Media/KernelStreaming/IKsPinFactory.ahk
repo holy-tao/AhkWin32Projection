@@ -36,7 +36,6 @@ export default struct IKsPinFactory extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     KsPinFactory() {
@@ -53,7 +52,7 @@ export default struct IKsPinFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.KsPinFactory := CallbackCreate(GetMethod(implObj, "KsPinFactory"), flags, 2)
+        this.vtbl.KsPinFactory := CallbackCreate(ObjBindMethod(implObj, "KsPinFactory"), flags, 2)
     }
 
     Dispose() {

@@ -89,9 +89,9 @@ export default struct IDWriteFontList extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFontCollection := CallbackCreate(GetMethod(implObj, "GetFontCollection"), flags, 2)
-        this.vtbl.GetFontCount := CallbackCreate(GetMethod(implObj, "GetFontCount"), flags, 1)
-        this.vtbl.GetFont := CallbackCreate(GetMethod(implObj, "GetFont"), flags, 3)
+        this.vtbl.GetFontCollection := CallbackCreate(ObjBindMethod(implObj, "GetFontCollection"), flags, 2)
+        this.vtbl.GetFontCount := CallbackCreate(ObjBindMethod(implObj, "GetFontCount"), flags, 1)
+        this.vtbl.GetFont := CallbackCreate(ObjBindMethod(implObj, "GetFont"), flags, 3)
     }
 
     Dispose() {

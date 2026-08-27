@@ -59,7 +59,7 @@ export default struct IObjectWithPackageFullName extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPackageFullName := CallbackCreate(GetMethod(implObj, "GetPackageFullName"), flags, 2)
+        this.vtbl.GetPackageFullName := CallbackCreate(ObjBindMethod(implObj, "GetPackageFullName"), flags, 2)
     }
 
     Dispose() {

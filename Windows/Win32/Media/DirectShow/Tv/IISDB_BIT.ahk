@@ -135,7 +135,8 @@ export default struct IISDB_BIT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_bit-gettabledescriptorbytag
      */
     GetTableDescriptorByTag(bTag, pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : IntPtr
+        pdwCookieMarshal := pdwCookie == 0 ? IntPtr : "uint*"
 
         result := ComCall(9, this, Int8, bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
@@ -211,7 +212,8 @@ export default struct IISDB_BIT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_bit-getrecorddescriptorbytag
      */
     GetRecordDescriptorByTag(dwRecordIndex, bTag, pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : IntPtr
+        pdwCookieMarshal := pdwCookie == 0 ? IntPtr : "uint*"
 
         result := ComCall(14, this, UInt32, dwRecordIndex, Int8, bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
@@ -236,19 +238,19 @@ export default struct IISDB_BIT extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.GetVersionNumber := CallbackCreate(GetMethod(implObj, "GetVersionNumber"), flags, 2)
-        this.vtbl.GetOriginalNetworkId := CallbackCreate(GetMethod(implObj, "GetOriginalNetworkId"), flags, 2)
-        this.vtbl.GetBroadcastViewPropriety := CallbackCreate(GetMethod(implObj, "GetBroadcastViewPropriety"), flags, 2)
-        this.vtbl.GetCountOfTableDescriptors := CallbackCreate(GetMethod(implObj, "GetCountOfTableDescriptors"), flags, 2)
-        this.vtbl.GetTableDescriptorByIndex := CallbackCreate(GetMethod(implObj, "GetTableDescriptorByIndex"), flags, 3)
-        this.vtbl.GetTableDescriptorByTag := CallbackCreate(GetMethod(implObj, "GetTableDescriptorByTag"), flags, 4)
-        this.vtbl.GetCountOfRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRecords"), flags, 2)
-        this.vtbl.GetRecordBroadcasterId := CallbackCreate(GetMethod(implObj, "GetRecordBroadcasterId"), flags, 3)
-        this.vtbl.GetRecordCountOfDescriptors := CallbackCreate(GetMethod(implObj, "GetRecordCountOfDescriptors"), flags, 3)
-        this.vtbl.GetRecordDescriptorByIndex := CallbackCreate(GetMethod(implObj, "GetRecordDescriptorByIndex"), flags, 4)
-        this.vtbl.GetRecordDescriptorByTag := CallbackCreate(GetMethod(implObj, "GetRecordDescriptorByTag"), flags, 5)
-        this.vtbl.GetVersionHash := CallbackCreate(GetMethod(implObj, "GetVersionHash"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetVersionNumber := CallbackCreate(ObjBindMethod(implObj, "GetVersionNumber"), flags, 2)
+        this.vtbl.GetOriginalNetworkId := CallbackCreate(ObjBindMethod(implObj, "GetOriginalNetworkId"), flags, 2)
+        this.vtbl.GetBroadcastViewPropriety := CallbackCreate(ObjBindMethod(implObj, "GetBroadcastViewPropriety"), flags, 2)
+        this.vtbl.GetCountOfTableDescriptors := CallbackCreate(ObjBindMethod(implObj, "GetCountOfTableDescriptors"), flags, 2)
+        this.vtbl.GetTableDescriptorByIndex := CallbackCreate(ObjBindMethod(implObj, "GetTableDescriptorByIndex"), flags, 3)
+        this.vtbl.GetTableDescriptorByTag := CallbackCreate(ObjBindMethod(implObj, "GetTableDescriptorByTag"), flags, 4)
+        this.vtbl.GetCountOfRecords := CallbackCreate(ObjBindMethod(implObj, "GetCountOfRecords"), flags, 2)
+        this.vtbl.GetRecordBroadcasterId := CallbackCreate(ObjBindMethod(implObj, "GetRecordBroadcasterId"), flags, 3)
+        this.vtbl.GetRecordCountOfDescriptors := CallbackCreate(ObjBindMethod(implObj, "GetRecordCountOfDescriptors"), flags, 3)
+        this.vtbl.GetRecordDescriptorByIndex := CallbackCreate(ObjBindMethod(implObj, "GetRecordDescriptorByIndex"), flags, 4)
+        this.vtbl.GetRecordDescriptorByTag := CallbackCreate(ObjBindMethod(implObj, "GetRecordDescriptorByTag"), flags, 5)
+        this.vtbl.GetVersionHash := CallbackCreate(ObjBindMethod(implObj, "GetVersionHash"), flags, 2)
     }
 
     Dispose() {

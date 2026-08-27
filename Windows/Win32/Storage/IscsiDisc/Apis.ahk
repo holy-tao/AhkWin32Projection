@@ -73,10 +73,11 @@ export GetIScsiTargetInformationW(TargetName, DiscoveryMechanism, InfoClass, Buf
     TargetName := TargetName is String ? StrPtr(TargetName) : TargetName
     DiscoveryMechanism := DiscoveryMechanism is String ? StrPtr(DiscoveryMechanism) : DiscoveryMechanism
 
-    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
-    _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
+    DiscoveryMechanismMarshal := DiscoveryMechanism == 0 ? IntPtr : PWSTR
+    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : IntPtr
+    _BufferMarshal := _Buffer is VarRef ? "ptr" : IntPtr
 
-    result := DllCall("ISCSIDSC.dll\GetIScsiTargetInformationW", "ptr", TargetName, "ptr", DiscoveryMechanism, TARGET_INFORMATION_CLASS, InfoClass, BufferSizeMarshal, BufferSize, _BufferMarshal, _Buffer, UInt32)
+    result := DllCall("ISCSIDSC.dll\GetIScsiTargetInformationW", "ptr", TargetName, DiscoveryMechanismMarshal, DiscoveryMechanism, TARGET_INFORMATION_CLASS, InfoClass, BufferSizeMarshal, BufferSize, _BufferMarshal, _Buffer, UInt32)
     return result
 }
 
@@ -110,10 +111,11 @@ export GetIScsiTargetInformationA(TargetName, DiscoveryMechanism, InfoClass, Buf
     TargetName := TargetName is String ? StrPtr(TargetName) : TargetName
     DiscoveryMechanism := DiscoveryMechanism is String ? StrPtr(DiscoveryMechanism) : DiscoveryMechanism
 
-    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
-    _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
+    DiscoveryMechanismMarshal := DiscoveryMechanism == 0 ? IntPtr : PSTR
+    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : IntPtr
+    _BufferMarshal := _Buffer is VarRef ? "ptr" : IntPtr
 
-    result := DllCall("ISCSIDSC.dll\GetIScsiTargetInformationA", "ptr", TargetName, "ptr", DiscoveryMechanism, TARGET_INFORMATION_CLASS, InfoClass, BufferSizeMarshal, BufferSize, _BufferMarshal, _Buffer, UInt32)
+    result := DllCall("ISCSIDSC.dll\GetIScsiTargetInformationA", "ptr", TargetName, DiscoveryMechanismMarshal, DiscoveryMechanism, TARGET_INFORMATION_CLASS, InfoClass, BufferSizeMarshal, BufferSize, _BufferMarshal, _Buffer, UInt32)
     return result
 }
 
@@ -224,9 +226,10 @@ export GetIScsiTargetInformationA(TargetName, DiscoveryMechanism, InfoClass, Buf
 export AddIScsiConnectionW(UniqueSessionId, Reserved, InitiatorPortNumber, TargetPortal, SecurityFlags, LoginOptions, KeySize, Key, ConnectionId) {
     Key := Key is String ? StrPtr(Key) : Key
 
-    ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
+    ReservedMarshal := Reserved is VarRef ? "ptr" : IntPtr
+    KeyMarshal := Key == 0 ? IntPtr : PSTR
 
-    result := DllCall("ISCSIDSC.dll\AddIScsiConnectionW", ISCSI_UNIQUE_SESSION_ID.Ptr, UniqueSessionId, ReservedMarshal, Reserved, UInt32, InitiatorPortNumber, ISCSI_TARGET_PORTALW.Ptr, TargetPortal, Int64, SecurityFlags, ISCSI_LOGIN_OPTIONS.Ptr, LoginOptions, UInt32, KeySize, "ptr", Key, ISCSI_UNIQUE_SESSION_ID.Ptr, ConnectionId, UInt32)
+    result := DllCall("ISCSIDSC.dll\AddIScsiConnectionW", ISCSI_UNIQUE_SESSION_ID.Ptr, UniqueSessionId, ReservedMarshal, Reserved, UInt32, InitiatorPortNumber, ISCSI_TARGET_PORTALW.Ptr, TargetPortal, Int64, SecurityFlags, ISCSI_LOGIN_OPTIONS.Ptr, LoginOptions, UInt32, KeySize, KeyMarshal, Key, ISCSI_UNIQUE_SESSION_ID.Ptr, ConnectionId, UInt32)
     return result
 }
 
@@ -337,9 +340,10 @@ export AddIScsiConnectionW(UniqueSessionId, Reserved, InitiatorPortNumber, Targe
 export AddIScsiConnectionA(UniqueSessionId, Reserved, InitiatorPortNumber, TargetPortal, SecurityFlags, LoginOptions, KeySize, Key, ConnectionId) {
     Key := Key is String ? StrPtr(Key) : Key
 
-    ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
+    ReservedMarshal := Reserved is VarRef ? "ptr" : IntPtr
+    KeyMarshal := Key == 0 ? IntPtr : PSTR
 
-    result := DllCall("ISCSIDSC.dll\AddIScsiConnectionA", ISCSI_UNIQUE_SESSION_ID.Ptr, UniqueSessionId, ReservedMarshal, Reserved, UInt32, InitiatorPortNumber, ISCSI_TARGET_PORTALA.Ptr, TargetPortal, Int64, SecurityFlags, ISCSI_LOGIN_OPTIONS.Ptr, LoginOptions, UInt32, KeySize, "ptr", Key, ISCSI_UNIQUE_SESSION_ID.Ptr, ConnectionId, UInt32)
+    result := DllCall("ISCSIDSC.dll\AddIScsiConnectionA", ISCSI_UNIQUE_SESSION_ID.Ptr, UniqueSessionId, ReservedMarshal, Reserved, UInt32, InitiatorPortNumber, ISCSI_TARGET_PORTALA.Ptr, TargetPortal, Int64, SecurityFlags, ISCSI_LOGIN_OPTIONS.Ptr, LoginOptions, UInt32, KeySize, KeyMarshal, Key, ISCSI_UNIQUE_SESSION_ID.Ptr, ConnectionId, UInt32)
     return result
 }
 
@@ -373,9 +377,10 @@ export RemoveIScsiConnection(UniqueSessionId, ConnectionId) {
 export ReportIScsiTargetsW(ForceUpdate, BufferSize, _Buffer) {
     _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
+    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : IntPtr
+    _BufferMarshal := _Buffer == 0 ? IntPtr : PWSTR
 
-    result := DllCall("ISCSIDSC.dll\ReportIScsiTargetsW", BOOLEAN, ForceUpdate, BufferSizeMarshal, BufferSize, "ptr", _Buffer, UInt32)
+    result := DllCall("ISCSIDSC.dll\ReportIScsiTargetsW", BOOLEAN, ForceUpdate, BufferSizeMarshal, BufferSize, _BufferMarshal, _Buffer, UInt32)
     return result
 }
 
@@ -394,9 +399,10 @@ export ReportIScsiTargetsW(ForceUpdate, BufferSize, _Buffer) {
 export ReportIScsiTargetsA(ForceUpdate, BufferSize, _Buffer) {
     _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
+    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : IntPtr
+    _BufferMarshal := _Buffer == 0 ? IntPtr : PSTR
 
-    result := DllCall("ISCSIDSC.dll\ReportIScsiTargetsA", BOOLEAN, ForceUpdate, BufferSizeMarshal, BufferSize, "ptr", _Buffer, UInt32)
+    result := DllCall("ISCSIDSC.dll\ReportIScsiTargetsA", BOOLEAN, ForceUpdate, BufferSizeMarshal, BufferSize, _BufferMarshal, _Buffer, UInt32)
     return result
 }
 
@@ -460,7 +466,9 @@ export AddIScsiStaticTargetW(TargetName, TargetAlias, TargetFlags, Persist, Mapp
     TargetName := TargetName is String ? StrPtr(TargetName) : TargetName
     TargetAlias := TargetAlias is String ? StrPtr(TargetAlias) : TargetAlias
 
-    result := DllCall("ISCSIDSC.dll\AddIScsiStaticTargetW", "ptr", TargetName, "ptr", TargetAlias, UInt32, TargetFlags, BOOLEAN, Persist, ISCSI_TARGET_MAPPINGW.Ptr, Mappings, ISCSI_LOGIN_OPTIONS.Ptr, LoginOptions, ISCSI_TARGET_PORTAL_GROUPW.Ptr, PortalGroup, UInt32)
+    TargetAliasMarshal := TargetAlias == 0 ? IntPtr : PWSTR
+
+    result := DllCall("ISCSIDSC.dll\AddIScsiStaticTargetW", "ptr", TargetName, TargetAliasMarshal, TargetAlias, UInt32, TargetFlags, BOOLEAN, Persist, ISCSI_TARGET_MAPPINGW.Ptr, Mappings, ISCSI_LOGIN_OPTIONS.Ptr, LoginOptions, ISCSI_TARGET_PORTAL_GROUPW.Ptr, PortalGroup, UInt32)
     return result
 }
 
@@ -524,7 +532,9 @@ export AddIScsiStaticTargetA(TargetName, TargetAlias, TargetFlags, Persist, Mapp
     TargetName := TargetName is String ? StrPtr(TargetName) : TargetName
     TargetAlias := TargetAlias is String ? StrPtr(TargetAlias) : TargetAlias
 
-    result := DllCall("ISCSIDSC.dll\AddIScsiStaticTargetA", "ptr", TargetName, "ptr", TargetAlias, UInt32, TargetFlags, BOOLEAN, Persist, ISCSI_TARGET_MAPPINGA.Ptr, Mappings, ISCSI_LOGIN_OPTIONS.Ptr, LoginOptions, ISCSI_TARGET_PORTAL_GROUPA.Ptr, PortalGroup, UInt32)
+    TargetAliasMarshal := TargetAlias == 0 ? IntPtr : PSTR
+
+    result := DllCall("ISCSIDSC.dll\AddIScsiStaticTargetA", "ptr", TargetName, TargetAliasMarshal, TargetAlias, UInt32, TargetFlags, BOOLEAN, Persist, ISCSI_TARGET_MAPPINGA.Ptr, Mappings, ISCSI_LOGIN_OPTIONS.Ptr, LoginOptions, ISCSI_TARGET_PORTAL_GROUPA.Ptr, PortalGroup, UInt32)
     return result
 }
 
@@ -665,7 +675,9 @@ export RemoveIScsiStaticTargetA(TargetName) {
 export AddIScsiSendTargetPortalW(InitiatorInstance, InitiatorPortNumber, LoginOptions, SecurityFlags, Portal) {
     InitiatorInstance := InitiatorInstance is String ? StrPtr(InitiatorInstance) : InitiatorInstance
 
-    result := DllCall("ISCSIDSC.dll\AddIScsiSendTargetPortalW", "ptr", InitiatorInstance, UInt32, InitiatorPortNumber, ISCSI_LOGIN_OPTIONS.Ptr, LoginOptions, Int64, SecurityFlags, ISCSI_TARGET_PORTALW.Ptr, Portal, UInt32)
+    InitiatorInstanceMarshal := InitiatorInstance == 0 ? IntPtr : PWSTR
+
+    result := DllCall("ISCSIDSC.dll\AddIScsiSendTargetPortalW", InitiatorInstanceMarshal, InitiatorInstance, UInt32, InitiatorPortNumber, ISCSI_LOGIN_OPTIONS.Ptr, LoginOptions, Int64, SecurityFlags, ISCSI_TARGET_PORTALW.Ptr, Portal, UInt32)
     return result
 }
 
@@ -772,7 +784,9 @@ export AddIScsiSendTargetPortalW(InitiatorInstance, InitiatorPortNumber, LoginOp
 export AddIScsiSendTargetPortalA(InitiatorInstance, InitiatorPortNumber, LoginOptions, SecurityFlags, Portal) {
     InitiatorInstance := InitiatorInstance is String ? StrPtr(InitiatorInstance) : InitiatorInstance
 
-    result := DllCall("ISCSIDSC.dll\AddIScsiSendTargetPortalA", "ptr", InitiatorInstance, UInt32, InitiatorPortNumber, ISCSI_LOGIN_OPTIONS.Ptr, LoginOptions, Int64, SecurityFlags, ISCSI_TARGET_PORTALA.Ptr, Portal, UInt32)
+    InitiatorInstanceMarshal := InitiatorInstance == 0 ? IntPtr : PSTR
+
+    result := DllCall("ISCSIDSC.dll\AddIScsiSendTargetPortalA", InitiatorInstanceMarshal, InitiatorInstance, UInt32, InitiatorPortNumber, ISCSI_LOGIN_OPTIONS.Ptr, LoginOptions, Int64, SecurityFlags, ISCSI_TARGET_PORTALA.Ptr, Portal, UInt32)
     return result
 }
 
@@ -791,7 +805,9 @@ export AddIScsiSendTargetPortalA(InitiatorInstance, InitiatorPortNumber, LoginOp
 export RemoveIScsiSendTargetPortalW(InitiatorInstance, InitiatorPortNumber, Portal) {
     InitiatorInstance := InitiatorInstance is String ? StrPtr(InitiatorInstance) : InitiatorInstance
 
-    result := DllCall("ISCSIDSC.dll\RemoveIScsiSendTargetPortalW", "ptr", InitiatorInstance, UInt32, InitiatorPortNumber, ISCSI_TARGET_PORTALW.Ptr, Portal, UInt32)
+    InitiatorInstanceMarshal := InitiatorInstance == 0 ? IntPtr : PWSTR
+
+    result := DllCall("ISCSIDSC.dll\RemoveIScsiSendTargetPortalW", InitiatorInstanceMarshal, InitiatorInstance, UInt32, InitiatorPortNumber, ISCSI_TARGET_PORTALW.Ptr, Portal, UInt32)
     return result
 }
 
@@ -810,7 +826,9 @@ export RemoveIScsiSendTargetPortalW(InitiatorInstance, InitiatorPortNumber, Port
 export RemoveIScsiSendTargetPortalA(InitiatorInstance, InitiatorPortNumber, Portal) {
     InitiatorInstance := InitiatorInstance is String ? StrPtr(InitiatorInstance) : InitiatorInstance
 
-    result := DllCall("ISCSIDSC.dll\RemoveIScsiSendTargetPortalA", "ptr", InitiatorInstance, UInt32, InitiatorPortNumber, ISCSI_TARGET_PORTALA.Ptr, Portal, UInt32)
+    InitiatorInstanceMarshal := InitiatorInstance == 0 ? IntPtr : PSTR
+
+    result := DllCall("ISCSIDSC.dll\RemoveIScsiSendTargetPortalA", InitiatorInstanceMarshal, InitiatorInstance, UInt32, InitiatorPortNumber, ISCSI_TARGET_PORTALA.Ptr, Portal, UInt32)
     return result
 }
 
@@ -829,7 +847,9 @@ export RemoveIScsiSendTargetPortalA(InitiatorInstance, InitiatorPortNumber, Port
 export RefreshIScsiSendTargetPortalW(InitiatorInstance, InitiatorPortNumber, Portal) {
     InitiatorInstance := InitiatorInstance is String ? StrPtr(InitiatorInstance) : InitiatorInstance
 
-    result := DllCall("ISCSIDSC.dll\RefreshIScsiSendTargetPortalW", "ptr", InitiatorInstance, UInt32, InitiatorPortNumber, ISCSI_TARGET_PORTALW.Ptr, Portal, UInt32)
+    InitiatorInstanceMarshal := InitiatorInstance == 0 ? IntPtr : PWSTR
+
+    result := DllCall("ISCSIDSC.dll\RefreshIScsiSendTargetPortalW", InitiatorInstanceMarshal, InitiatorInstance, UInt32, InitiatorPortNumber, ISCSI_TARGET_PORTALW.Ptr, Portal, UInt32)
     return result
 }
 
@@ -848,7 +868,9 @@ export RefreshIScsiSendTargetPortalW(InitiatorInstance, InitiatorPortNumber, Por
 export RefreshIScsiSendTargetPortalA(InitiatorInstance, InitiatorPortNumber, Portal) {
     InitiatorInstance := InitiatorInstance is String ? StrPtr(InitiatorInstance) : InitiatorInstance
 
-    result := DllCall("ISCSIDSC.dll\RefreshIScsiSendTargetPortalA", "ptr", InitiatorInstance, UInt32, InitiatorPortNumber, ISCSI_TARGET_PORTALA.Ptr, Portal, UInt32)
+    InitiatorInstanceMarshal := InitiatorInstance == 0 ? IntPtr : PSTR
+
+    result := DllCall("ISCSIDSC.dll\RefreshIScsiSendTargetPortalA", InitiatorInstanceMarshal, InitiatorInstance, UInt32, InitiatorPortNumber, ISCSI_TARGET_PORTALA.Ptr, Portal, UInt32)
     return result
 }
 
@@ -864,7 +886,7 @@ export RefreshIScsiSendTargetPortalA(InitiatorInstance, InitiatorPortNumber, Por
  * @since windows6.0.6000
  */
 export ReportIScsiSendTargetPortalsW(PortalCount, PortalInfo) {
-    PortalCountMarshal := PortalCount is VarRef ? "uint*" : "ptr"
+    PortalCountMarshal := PortalCount is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ISCSIDSC.dll\ReportIScsiSendTargetPortalsW", PortalCountMarshal, PortalCount, ISCSI_TARGET_PORTAL_INFOW.Ptr, PortalInfo, UInt32)
     return result
@@ -882,7 +904,7 @@ export ReportIScsiSendTargetPortalsW(PortalCount, PortalInfo) {
  * @since windows6.0.6000
  */
 export ReportIScsiSendTargetPortalsA(PortalCount, PortalInfo) {
-    PortalCountMarshal := PortalCount is VarRef ? "uint*" : "ptr"
+    PortalCountMarshal := PortalCount is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ISCSIDSC.dll\ReportIScsiSendTargetPortalsA", PortalCountMarshal, PortalCount, ISCSI_TARGET_PORTAL_INFOA.Ptr, PortalInfo, UInt32)
     return result
@@ -901,8 +923,8 @@ export ReportIScsiSendTargetPortalsA(PortalCount, PortalInfo) {
  * @since windows6.0.6000
  */
 export ReportIScsiSendTargetPortalsExW(PortalCount, PortalInfoSize, PortalInfo) {
-    PortalCountMarshal := PortalCount is VarRef ? "uint*" : "ptr"
-    PortalInfoSizeMarshal := PortalInfoSize is VarRef ? "uint*" : "ptr"
+    PortalCountMarshal := PortalCount is VarRef ? "uint*" : IntPtr
+    PortalInfoSizeMarshal := PortalInfoSize is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ISCSIDSC.dll\ReportIScsiSendTargetPortalsExW", PortalCountMarshal, PortalCount, PortalInfoSizeMarshal, PortalInfoSize, ISCSI_TARGET_PORTAL_INFO_EXW.Ptr, PortalInfo, UInt32)
     return result
@@ -921,8 +943,8 @@ export ReportIScsiSendTargetPortalsExW(PortalCount, PortalInfoSize, PortalInfo) 
  * @since windows6.0.6000
  */
 export ReportIScsiSendTargetPortalsExA(PortalCount, PortalInfoSize, PortalInfo) {
-    PortalCountMarshal := PortalCount is VarRef ? "uint*" : "ptr"
-    PortalInfoSizeMarshal := PortalInfoSize is VarRef ? "uint*" : "ptr"
+    PortalCountMarshal := PortalCount is VarRef ? "uint*" : IntPtr
+    PortalInfoSizeMarshal := PortalInfoSize is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ISCSIDSC.dll\ReportIScsiSendTargetPortalsExA", PortalCountMarshal, PortalCount, PortalInfoSizeMarshal, PortalInfoSize, ISCSI_TARGET_PORTAL_INFO_EXA.Ptr, PortalInfo, UInt32)
     return result
@@ -1058,7 +1080,10 @@ export LoginIScsiTargetW(TargetName, IsInformationalSession, InitiatorInstance, 
     InitiatorInstance := InitiatorInstance is String ? StrPtr(InitiatorInstance) : InitiatorInstance
     Key := Key is String ? StrPtr(Key) : Key
 
-    result := DllCall("ISCSIDSC.dll\LoginIScsiTargetW", "ptr", TargetName, BOOLEAN, IsInformationalSession, "ptr", InitiatorInstance, UInt32, InitiatorPortNumber, ISCSI_TARGET_PORTALW.Ptr, TargetPortal, Int64, SecurityFlags, ISCSI_TARGET_MAPPINGW.Ptr, Mappings, ISCSI_LOGIN_OPTIONS.Ptr, LoginOptions, UInt32, KeySize, "ptr", Key, BOOLEAN, IsPersistent, ISCSI_UNIQUE_SESSION_ID.Ptr, UniqueSessionId, ISCSI_UNIQUE_SESSION_ID.Ptr, UniqueConnectionId, UInt32)
+    InitiatorInstanceMarshal := InitiatorInstance == 0 ? IntPtr : PWSTR
+    KeyMarshal := Key == 0 ? IntPtr : PSTR
+
+    result := DllCall("ISCSIDSC.dll\LoginIScsiTargetW", "ptr", TargetName, BOOLEAN, IsInformationalSession, InitiatorInstanceMarshal, InitiatorInstance, UInt32, InitiatorPortNumber, ISCSI_TARGET_PORTALW.Ptr, TargetPortal, Int64, SecurityFlags, ISCSI_TARGET_MAPPINGW.Ptr, Mappings, ISCSI_LOGIN_OPTIONS.Ptr, LoginOptions, UInt32, KeySize, KeyMarshal, Key, BOOLEAN, IsPersistent, ISCSI_UNIQUE_SESSION_ID.Ptr, UniqueSessionId, ISCSI_UNIQUE_SESSION_ID.Ptr, UniqueConnectionId, UInt32)
     return result
 }
 
@@ -1192,7 +1217,10 @@ export LoginIScsiTargetA(TargetName, IsInformationalSession, InitiatorInstance, 
     InitiatorInstance := InitiatorInstance is String ? StrPtr(InitiatorInstance) : InitiatorInstance
     Key := Key is String ? StrPtr(Key) : Key
 
-    result := DllCall("ISCSIDSC.dll\LoginIScsiTargetA", "ptr", TargetName, BOOLEAN, IsInformationalSession, "ptr", InitiatorInstance, UInt32, InitiatorPortNumber, ISCSI_TARGET_PORTALA.Ptr, TargetPortal, Int64, SecurityFlags, ISCSI_TARGET_MAPPINGA.Ptr, Mappings, ISCSI_LOGIN_OPTIONS.Ptr, LoginOptions, UInt32, KeySize, "ptr", Key, BOOLEAN, IsPersistent, ISCSI_UNIQUE_SESSION_ID.Ptr, UniqueSessionId, ISCSI_UNIQUE_SESSION_ID.Ptr, UniqueConnectionId, UInt32)
+    InitiatorInstanceMarshal := InitiatorInstance == 0 ? IntPtr : PSTR
+    KeyMarshal := Key == 0 ? IntPtr : PSTR
+
+    result := DllCall("ISCSIDSC.dll\LoginIScsiTargetA", "ptr", TargetName, BOOLEAN, IsInformationalSession, InitiatorInstanceMarshal, InitiatorInstance, UInt32, InitiatorPortNumber, ISCSI_TARGET_PORTALA.Ptr, TargetPortal, Int64, SecurityFlags, ISCSI_TARGET_MAPPINGA.Ptr, Mappings, ISCSI_LOGIN_OPTIONS.Ptr, LoginOptions, UInt32, KeySize, KeyMarshal, Key, BOOLEAN, IsPersistent, ISCSI_UNIQUE_SESSION_ID.Ptr, UniqueSessionId, ISCSI_UNIQUE_SESSION_ID.Ptr, UniqueConnectionId, UInt32)
     return result
 }
 
@@ -1217,8 +1245,8 @@ export LoginIScsiTargetA(TargetName, IsInformationalSession, InitiatorInstance, 
  * @since windows6.0.6000
  */
 export ReportIScsiPersistentLoginsW(Count, PersistentLoginInfo, BufferSizeInBytes) {
-    CountMarshal := Count is VarRef ? "uint*" : "ptr"
-    BufferSizeInBytesMarshal := BufferSizeInBytes is VarRef ? "uint*" : "ptr"
+    CountMarshal := Count is VarRef ? "uint*" : IntPtr
+    BufferSizeInBytesMarshal := BufferSizeInBytes is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ISCSIDSC.dll\ReportIScsiPersistentLoginsW", CountMarshal, Count, PERSISTENT_ISCSI_LOGIN_INFOW.Ptr, PersistentLoginInfo, BufferSizeInBytesMarshal, BufferSizeInBytes, UInt32)
     return result
@@ -1245,8 +1273,8 @@ export ReportIScsiPersistentLoginsW(Count, PersistentLoginInfo, BufferSizeInByte
  * @since windows6.0.6000
  */
 export ReportIScsiPersistentLoginsA(Count, PersistentLoginInfo, BufferSizeInBytes) {
-    CountMarshal := Count is VarRef ? "uint*" : "ptr"
-    BufferSizeInBytesMarshal := BufferSizeInBytes is VarRef ? "uint*" : "ptr"
+    CountMarshal := Count is VarRef ? "uint*" : IntPtr
+    BufferSizeInBytesMarshal := BufferSizeInBytes is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ISCSIDSC.dll\ReportIScsiPersistentLoginsA", CountMarshal, Count, PERSISTENT_ISCSI_LOGIN_INFOA.Ptr, PersistentLoginInfo, BufferSizeInBytesMarshal, BufferSizeInBytes, UInt32)
     return result
@@ -1333,11 +1361,11 @@ export RemoveIScsiPersistentTargetA(InitiatorInstance, InitiatorPortNumber, Targ
  * @since windows6.0.6000
  */
 export SendScsiInquiry(UniqueSessionId, Lun, EvpdCmddt, PageCode, ScsiStatus, ResponseSize, ResponseBuffer, SenseSize, SenseBuffer) {
-    ScsiStatusMarshal := ScsiStatus is VarRef ? "char*" : "ptr"
-    ResponseSizeMarshal := ResponseSize is VarRef ? "uint*" : "ptr"
-    ResponseBufferMarshal := ResponseBuffer is VarRef ? "char*" : "ptr"
-    SenseSizeMarshal := SenseSize is VarRef ? "uint*" : "ptr"
-    SenseBufferMarshal := SenseBuffer is VarRef ? "char*" : "ptr"
+    ScsiStatusMarshal := ScsiStatus is VarRef ? "char*" : IntPtr
+    ResponseSizeMarshal := ResponseSize is VarRef ? "uint*" : IntPtr
+    ResponseBufferMarshal := ResponseBuffer is VarRef ? "char*" : IntPtr
+    SenseSizeMarshal := SenseSize is VarRef ? "uint*" : IntPtr
+    SenseBufferMarshal := SenseBuffer is VarRef ? "char*" : IntPtr
 
     result := DllCall("ISCSIDSC.dll\SendScsiInquiry", ISCSI_UNIQUE_SESSION_ID.Ptr, UniqueSessionId, Int64, Lun, Int8, EvpdCmddt, Int8, PageCode, ScsiStatusMarshal, ScsiStatus, ResponseSizeMarshal, ResponseSize, ResponseBufferMarshal, ResponseBuffer, SenseSizeMarshal, SenseSize, SenseBufferMarshal, SenseBuffer, UInt32)
     return result
@@ -1365,11 +1393,11 @@ export SendScsiInquiry(UniqueSessionId, Lun, EvpdCmddt, PageCode, ScsiStatus, Re
  * @since windows6.0.6000
  */
 export SendScsiReadCapacity(UniqueSessionId, Lun, ScsiStatus, ResponseSize, ResponseBuffer, SenseSize, SenseBuffer) {
-    ScsiStatusMarshal := ScsiStatus is VarRef ? "char*" : "ptr"
-    ResponseSizeMarshal := ResponseSize is VarRef ? "uint*" : "ptr"
-    ResponseBufferMarshal := ResponseBuffer is VarRef ? "char*" : "ptr"
-    SenseSizeMarshal := SenseSize is VarRef ? "uint*" : "ptr"
-    SenseBufferMarshal := SenseBuffer is VarRef ? "char*" : "ptr"
+    ScsiStatusMarshal := ScsiStatus is VarRef ? "char*" : IntPtr
+    ResponseSizeMarshal := ResponseSize is VarRef ? "uint*" : IntPtr
+    ResponseBufferMarshal := ResponseBuffer is VarRef ? "char*" : IntPtr
+    SenseSizeMarshal := SenseSize is VarRef ? "uint*" : IntPtr
+    SenseBufferMarshal := SenseBuffer is VarRef ? "char*" : IntPtr
 
     result := DllCall("ISCSIDSC.dll\SendScsiReadCapacity", ISCSI_UNIQUE_SESSION_ID.Ptr, UniqueSessionId, Int64, Lun, ScsiStatusMarshal, ScsiStatus, ResponseSizeMarshal, ResponseSize, ResponseBufferMarshal, ResponseBuffer, SenseSizeMarshal, SenseSize, SenseBufferMarshal, SenseBuffer, UInt32)
     return result
@@ -1396,11 +1424,11 @@ export SendScsiReadCapacity(UniqueSessionId, Lun, ScsiStatus, ResponseSize, Resp
  * @since windows6.0.6000
  */
 export SendScsiReportLuns(UniqueSessionId, ScsiStatus, ResponseSize, ResponseBuffer, SenseSize, SenseBuffer) {
-    ScsiStatusMarshal := ScsiStatus is VarRef ? "char*" : "ptr"
-    ResponseSizeMarshal := ResponseSize is VarRef ? "uint*" : "ptr"
-    ResponseBufferMarshal := ResponseBuffer is VarRef ? "char*" : "ptr"
-    SenseSizeMarshal := SenseSize is VarRef ? "uint*" : "ptr"
-    SenseBufferMarshal := SenseBuffer is VarRef ? "char*" : "ptr"
+    ScsiStatusMarshal := ScsiStatus is VarRef ? "char*" : IntPtr
+    ResponseSizeMarshal := ResponseSize is VarRef ? "uint*" : IntPtr
+    ResponseBufferMarshal := ResponseBuffer is VarRef ? "char*" : IntPtr
+    SenseSizeMarshal := SenseSize is VarRef ? "uint*" : IntPtr
+    SenseBufferMarshal := SenseBuffer is VarRef ? "char*" : IntPtr
 
     result := DllCall("ISCSIDSC.dll\SendScsiReportLuns", ISCSI_UNIQUE_SESSION_ID.Ptr, UniqueSessionId, ScsiStatusMarshal, ScsiStatus, ResponseSizeMarshal, ResponseSize, ResponseBufferMarshal, ResponseBuffer, SenseSizeMarshal, SenseSize, SenseBufferMarshal, SenseBuffer, UInt32)
     return result
@@ -1423,9 +1451,10 @@ export SendScsiReportLuns(UniqueSessionId, ScsiStatus, ResponseSize, ResponseBuf
 export ReportIScsiInitiatorListW(BufferSize, _Buffer) {
     _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
+    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : IntPtr
+    _BufferMarshal := _Buffer == 0 ? IntPtr : PWSTR
 
-    result := DllCall("ISCSIDSC.dll\ReportIScsiInitiatorListW", BufferSizeMarshal, BufferSize, "ptr", _Buffer, UInt32)
+    result := DllCall("ISCSIDSC.dll\ReportIScsiInitiatorListW", BufferSizeMarshal, BufferSize, _BufferMarshal, _Buffer, UInt32)
     return result
 }
 
@@ -1446,9 +1475,10 @@ export ReportIScsiInitiatorListW(BufferSize, _Buffer) {
 export ReportIScsiInitiatorListA(BufferSize, _Buffer) {
     _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
+    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : IntPtr
+    _BufferMarshal := _Buffer == 0 ? IntPtr : PSTR
 
-    result := DllCall("ISCSIDSC.dll\ReportIScsiInitiatorListA", BufferSizeMarshal, BufferSize, "ptr", _Buffer, UInt32)
+    result := DllCall("ISCSIDSC.dll\ReportIScsiInitiatorListA", BufferSizeMarshal, BufferSize, _BufferMarshal, _Buffer, UInt32)
     return result
 }
 
@@ -1475,8 +1505,8 @@ export ReportIScsiInitiatorListA(BufferSize, _Buffer) {
  * @since windows6.0.6000
  */
 export ReportActiveIScsiTargetMappingsW(BufferSize, MappingCount, Mappings) {
-    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
-    MappingCountMarshal := MappingCount is VarRef ? "uint*" : "ptr"
+    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : IntPtr
+    MappingCountMarshal := MappingCount is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ISCSIDSC.dll\ReportActiveIScsiTargetMappingsW", BufferSizeMarshal, BufferSize, MappingCountMarshal, MappingCount, ISCSI_TARGET_MAPPINGW.Ptr, Mappings, UInt32)
     return result
@@ -1505,8 +1535,8 @@ export ReportActiveIScsiTargetMappingsW(BufferSize, MappingCount, Mappings) {
  * @since windows6.0.6000
  */
 export ReportActiveIScsiTargetMappingsA(BufferSize, MappingCount, Mappings) {
-    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
-    MappingCountMarshal := MappingCount is VarRef ? "uint*" : "ptr"
+    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : IntPtr
+    MappingCountMarshal := MappingCount is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ISCSIDSC.dll\ReportActiveIScsiTargetMappingsA", BufferSizeMarshal, BufferSize, MappingCountMarshal, MappingCount, ISCSI_TARGET_MAPPINGA.Ptr, Mappings, UInt32)
     return result
@@ -1531,7 +1561,11 @@ export SetIScsiTunnelModeOuterAddressW(InitiatorName, InitiatorPortNumber, Desti
     DestinationAddress := DestinationAddress is String ? StrPtr(DestinationAddress) : DestinationAddress
     OuterModeAddress := OuterModeAddress is String ? StrPtr(OuterModeAddress) : OuterModeAddress
 
-    result := DllCall("ISCSIDSC.dll\SetIScsiTunnelModeOuterAddressW", "ptr", InitiatorName, UInt32, InitiatorPortNumber, "ptr", DestinationAddress, "ptr", OuterModeAddress, BOOLEAN, Persist, UInt32)
+    InitiatorNameMarshal := InitiatorName == 0 ? IntPtr : PWSTR
+    DestinationAddressMarshal := DestinationAddress == 0 ? IntPtr : PWSTR
+    OuterModeAddressMarshal := OuterModeAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("ISCSIDSC.dll\SetIScsiTunnelModeOuterAddressW", InitiatorNameMarshal, InitiatorName, UInt32, InitiatorPortNumber, DestinationAddressMarshal, DestinationAddress, OuterModeAddressMarshal, OuterModeAddress, BOOLEAN, Persist, UInt32)
     return result
 }
 
@@ -1554,7 +1588,11 @@ export SetIScsiTunnelModeOuterAddressA(InitiatorName, InitiatorPortNumber, Desti
     DestinationAddress := DestinationAddress is String ? StrPtr(DestinationAddress) : DestinationAddress
     OuterModeAddress := OuterModeAddress is String ? StrPtr(OuterModeAddress) : OuterModeAddress
 
-    result := DllCall("ISCSIDSC.dll\SetIScsiTunnelModeOuterAddressA", "ptr", InitiatorName, UInt32, InitiatorPortNumber, "ptr", DestinationAddress, "ptr", OuterModeAddress, BOOLEAN, Persist, UInt32)
+    InitiatorNameMarshal := InitiatorName == 0 ? IntPtr : PSTR
+    DestinationAddressMarshal := DestinationAddress == 0 ? IntPtr : PSTR
+    OuterModeAddressMarshal := OuterModeAddress == 0 ? IntPtr : PSTR
+
+    result := DllCall("ISCSIDSC.dll\SetIScsiTunnelModeOuterAddressA", InitiatorNameMarshal, InitiatorName, UInt32, InitiatorPortNumber, DestinationAddressMarshal, DestinationAddress, OuterModeAddressMarshal, OuterModeAddress, BOOLEAN, Persist, UInt32)
     return result
 }
 
@@ -1574,7 +1612,9 @@ export SetIScsiTunnelModeOuterAddressA(InitiatorName, InitiatorPortNumber, Desti
 export SetIScsiIKEInfoW(InitiatorName, InitiatorPortNumber, AuthInfo, Persist) {
     InitiatorName := InitiatorName is String ? StrPtr(InitiatorName) : InitiatorName
 
-    result := DllCall("ISCSIDSC.dll\SetIScsiIKEInfoW", "ptr", InitiatorName, UInt32, InitiatorPortNumber, IKE_AUTHENTICATION_INFORMATION.Ptr, AuthInfo, BOOLEAN, Persist, UInt32)
+    InitiatorNameMarshal := InitiatorName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("ISCSIDSC.dll\SetIScsiIKEInfoW", InitiatorNameMarshal, InitiatorName, UInt32, InitiatorPortNumber, IKE_AUTHENTICATION_INFORMATION.Ptr, AuthInfo, BOOLEAN, Persist, UInt32)
     return result
 }
 
@@ -1594,7 +1634,9 @@ export SetIScsiIKEInfoW(InitiatorName, InitiatorPortNumber, AuthInfo, Persist) {
 export SetIScsiIKEInfoA(InitiatorName, InitiatorPortNumber, AuthInfo, Persist) {
     InitiatorName := InitiatorName is String ? StrPtr(InitiatorName) : InitiatorName
 
-    result := DllCall("ISCSIDSC.dll\SetIScsiIKEInfoA", "ptr", InitiatorName, UInt32, InitiatorPortNumber, IKE_AUTHENTICATION_INFORMATION.Ptr, AuthInfo, BOOLEAN, Persist, UInt32)
+    InitiatorNameMarshal := InitiatorName == 0 ? IntPtr : PSTR
+
+    result := DllCall("ISCSIDSC.dll\SetIScsiIKEInfoA", InitiatorNameMarshal, InitiatorName, UInt32, InitiatorPortNumber, IKE_AUTHENTICATION_INFORMATION.Ptr, AuthInfo, BOOLEAN, Persist, UInt32)
     return result
 }
 
@@ -1614,9 +1656,10 @@ export SetIScsiIKEInfoA(InitiatorName, InitiatorPortNumber, AuthInfo, Persist) {
 export GetIScsiIKEInfoW(InitiatorName, InitiatorPortNumber, Reserved, AuthInfo) {
     InitiatorName := InitiatorName is String ? StrPtr(InitiatorName) : InitiatorName
 
-    ReservedMarshal := Reserved is VarRef ? "uint*" : "ptr"
+    InitiatorNameMarshal := InitiatorName == 0 ? IntPtr : PWSTR
+    ReservedMarshal := Reserved is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("ISCSIDSC.dll\GetIScsiIKEInfoW", "ptr", InitiatorName, UInt32, InitiatorPortNumber, ReservedMarshal, Reserved, IKE_AUTHENTICATION_INFORMATION.Ptr, AuthInfo, UInt32)
+    result := DllCall("ISCSIDSC.dll\GetIScsiIKEInfoW", InitiatorNameMarshal, InitiatorName, UInt32, InitiatorPortNumber, ReservedMarshal, Reserved, IKE_AUTHENTICATION_INFORMATION.Ptr, AuthInfo, UInt32)
     return result
 }
 
@@ -1636,9 +1679,10 @@ export GetIScsiIKEInfoW(InitiatorName, InitiatorPortNumber, Reserved, AuthInfo) 
 export GetIScsiIKEInfoA(InitiatorName, InitiatorPortNumber, Reserved, AuthInfo) {
     InitiatorName := InitiatorName is String ? StrPtr(InitiatorName) : InitiatorName
 
-    ReservedMarshal := Reserved is VarRef ? "uint*" : "ptr"
+    InitiatorNameMarshal := InitiatorName == 0 ? IntPtr : PSTR
+    ReservedMarshal := Reserved is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("ISCSIDSC.dll\GetIScsiIKEInfoA", "ptr", InitiatorName, UInt32, InitiatorPortNumber, ReservedMarshal, Reserved, IKE_AUTHENTICATION_INFORMATION.Ptr, AuthInfo, UInt32)
+    result := DllCall("ISCSIDSC.dll\GetIScsiIKEInfoA", InitiatorNameMarshal, InitiatorName, UInt32, InitiatorPortNumber, ReservedMarshal, Reserved, IKE_AUTHENTICATION_INFORMATION.Ptr, AuthInfo, UInt32)
     return result
 }
 
@@ -1652,7 +1696,7 @@ export GetIScsiIKEInfoA(InitiatorName, InitiatorPortNumber, Reserved, AuthInfo) 
  * @since windows6.0.6000
  */
 export SetIScsiGroupPresharedKey(KeyLength, Key, Persist) {
-    KeyMarshal := Key is VarRef ? "char*" : "ptr"
+    KeyMarshal := Key is VarRef ? "char*" : IntPtr
 
     result := DllCall("ISCSIDSC.dll\SetIScsiGroupPresharedKey", UInt32, KeyLength, KeyMarshal, Key, BOOLEAN, Persist, UInt32)
     return result
@@ -1671,7 +1715,7 @@ export SetIScsiGroupPresharedKey(KeyLength, Key, Persist) {
  * @since windows6.0.6000
  */
 export SetIScsiInitiatorCHAPSharedSecret(SharedSecretLength, SharedSecret) {
-    SharedSecretMarshal := SharedSecret is VarRef ? "char*" : "ptr"
+    SharedSecretMarshal := SharedSecret is VarRef ? "char*" : IntPtr
 
     result := DllCall("ISCSIDSC.dll\SetIScsiInitiatorCHAPSharedSecret", UInt32, SharedSecretLength, SharedSecretMarshal, SharedSecret, UInt32)
     return result
@@ -1688,7 +1732,7 @@ export SetIScsiInitiatorCHAPSharedSecret(SharedSecretLength, SharedSecret) {
  * @since windows6.0.6000
  */
 export SetIScsiInitiatorRADIUSSharedSecret(SharedSecretLength, SharedSecret) {
-    SharedSecretMarshal := SharedSecret is VarRef ? "char*" : "ptr"
+    SharedSecretMarshal := SharedSecret is VarRef ? "char*" : IntPtr
 
     result := DllCall("ISCSIDSC.dll\SetIScsiInitiatorRADIUSSharedSecret", UInt32, SharedSecretLength, SharedSecretMarshal, SharedSecret, UInt32)
     return result
@@ -1716,7 +1760,9 @@ export SetIScsiInitiatorRADIUSSharedSecret(SharedSecretLength, SharedSecret) {
 export SetIScsiInitiatorNodeNameW(InitiatorNodeName) {
     InitiatorNodeName := InitiatorNodeName is String ? StrPtr(InitiatorNodeName) : InitiatorNodeName
 
-    result := DllCall("ISCSIDSC.dll\SetIScsiInitiatorNodeNameW", "ptr", InitiatorNodeName, UInt32)
+    InitiatorNodeNameMarshal := InitiatorNodeName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("ISCSIDSC.dll\SetIScsiInitiatorNodeNameW", InitiatorNodeNameMarshal, InitiatorNodeName, UInt32)
     return result
 }
 
@@ -1742,7 +1788,9 @@ export SetIScsiInitiatorNodeNameW(InitiatorNodeName) {
 export SetIScsiInitiatorNodeNameA(InitiatorNodeName) {
     InitiatorNodeName := InitiatorNodeName is String ? StrPtr(InitiatorNodeName) : InitiatorNodeName
 
-    result := DllCall("ISCSIDSC.dll\SetIScsiInitiatorNodeNameA", "ptr", InitiatorNodeName, UInt32)
+    InitiatorNodeNameMarshal := InitiatorNodeName == 0 ? IntPtr : PSTR
+
+    result := DllCall("ISCSIDSC.dll\SetIScsiInitiatorNodeNameA", InitiatorNodeNameMarshal, InitiatorNodeName, UInt32)
     return result
 }
 
@@ -1959,9 +2007,10 @@ export RefreshISNSServerA(_Address) {
 export ReportISNSServerListW(BufferSizeInChar, _Buffer) {
     _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-    BufferSizeInCharMarshal := BufferSizeInChar is VarRef ? "uint*" : "ptr"
+    BufferSizeInCharMarshal := BufferSizeInChar is VarRef ? "uint*" : IntPtr
+    _BufferMarshal := _Buffer == 0 ? IntPtr : PWSTR
 
-    result := DllCall("ISCSIDSC.dll\ReportISNSServerListW", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", _Buffer, UInt32)
+    result := DllCall("ISCSIDSC.dll\ReportISNSServerListW", BufferSizeInCharMarshal, BufferSizeInChar, _BufferMarshal, _Buffer, UInt32)
     return result
 }
 
@@ -1982,9 +2031,10 @@ export ReportISNSServerListW(BufferSizeInChar, _Buffer) {
 export ReportISNSServerListA(BufferSizeInChar, _Buffer) {
     _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-    BufferSizeInCharMarshal := BufferSizeInChar is VarRef ? "uint*" : "ptr"
+    BufferSizeInCharMarshal := BufferSizeInChar is VarRef ? "uint*" : IntPtr
+    _BufferMarshal := _Buffer == 0 ? IntPtr : PSTR
 
-    result := DllCall("ISCSIDSC.dll\ReportISNSServerListA", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", _Buffer, UInt32)
+    result := DllCall("ISCSIDSC.dll\ReportISNSServerListA", BufferSizeInCharMarshal, BufferSizeInChar, _BufferMarshal, _Buffer, UInt32)
     return result
 }
 
@@ -2005,8 +2055,8 @@ export ReportISNSServerListA(BufferSizeInChar, _Buffer) {
  * @since windows6.0.6000
  */
 export GetIScsiSessionListW(BufferSize, SessionCount, SessionInfo) {
-    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
-    SessionCountMarshal := SessionCount is VarRef ? "uint*" : "ptr"
+    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : IntPtr
+    SessionCountMarshal := SessionCount is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ISCSIDSC.dll\GetIScsiSessionListW", BufferSizeMarshal, BufferSize, SessionCountMarshal, SessionCount, ISCSI_SESSION_INFOW.Ptr, SessionInfo, UInt32)
     return result
@@ -2029,23 +2079,22 @@ export GetIScsiSessionListW(BufferSize, SessionCount, SessionInfo) {
  * @since windows6.0.6000
  */
 export GetIScsiSessionListA(BufferSize, SessionCount, SessionInfo) {
-    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
-    SessionCountMarshal := SessionCount is VarRef ? "uint*" : "ptr"
+    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : IntPtr
+    SessionCountMarshal := SessionCount is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ISCSIDSC.dll\GetIScsiSessionListA", BufferSizeMarshal, BufferSize, SessionCountMarshal, SessionCount, ISCSI_SESSION_INFOA.Ptr, SessionInfo, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} BufferSize 
  * @param {Pointer<Integer>} SessionCountPtr 
  * @param {Pointer<ISCSI_SESSION_INFO_EX>} SessionInfo 
  * @returns {Integer} 
  */
 export GetIScsiSessionListEx(BufferSize, SessionCountPtr, SessionInfo) {
-    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
-    SessionCountPtrMarshal := SessionCountPtr is VarRef ? "uint*" : "ptr"
+    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : IntPtr
+    SessionCountPtrMarshal := SessionCountPtr is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ISCSIDSC.dll\GetIScsiSessionListEx", BufferSizeMarshal, BufferSize, SessionCountPtrMarshal, SessionCountPtr, ISCSI_SESSION_INFO_EX.Ptr, SessionInfo, UInt32)
     return result
@@ -2066,7 +2115,7 @@ export GetIScsiSessionListEx(BufferSize, SessionCountPtr, SessionInfo) {
  * @since windows6.0.6000
  */
 export GetDevicesForIScsiSessionW(UniqueSessionId, DeviceCount, Devices) {
-    DeviceCountMarshal := DeviceCount is VarRef ? "uint*" : "ptr"
+    DeviceCountMarshal := DeviceCount is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ISCSIDSC.dll\GetDevicesForIScsiSessionW", ISCSI_UNIQUE_SESSION_ID.Ptr, UniqueSessionId, DeviceCountMarshal, DeviceCount, ISCSI_DEVICE_ON_SESSIONW.Ptr, Devices, UInt32)
     return result
@@ -2087,14 +2136,13 @@ export GetDevicesForIScsiSessionW(UniqueSessionId, DeviceCount, Devices) {
  * @since windows6.0.6000
  */
 export GetDevicesForIScsiSessionA(UniqueSessionId, DeviceCount, Devices) {
-    DeviceCountMarshal := DeviceCount is VarRef ? "uint*" : "ptr"
+    DeviceCountMarshal := DeviceCount is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ISCSIDSC.dll\GetDevicesForIScsiSessionA", ISCSI_UNIQUE_SESSION_ID.Ptr, UniqueSessionId, DeviceCountMarshal, DeviceCount, ISCSI_DEVICE_ON_SESSIONA.Ptr, Devices, UInt32)
     return result
 }
 
 /**
- * 
  * @returns {Integer} 
  */
 export SetupPersistentIScsiVolumes() {
@@ -2287,9 +2335,10 @@ export ClearPersistentIScsiDevices() {
 export ReportPersistentIScsiDevicesW(BufferSizeInChar, _Buffer) {
     _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-    BufferSizeInCharMarshal := BufferSizeInChar is VarRef ? "uint*" : "ptr"
+    BufferSizeInCharMarshal := BufferSizeInChar is VarRef ? "uint*" : IntPtr
+    _BufferMarshal := _Buffer == 0 ? IntPtr : PWSTR
 
-    result := DllCall("ISCSIDSC.dll\ReportPersistentIScsiDevicesW", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", _Buffer, UInt32)
+    result := DllCall("ISCSIDSC.dll\ReportPersistentIScsiDevicesW", BufferSizeInCharMarshal, BufferSizeInChar, _BufferMarshal, _Buffer, UInt32)
     return result
 }
 
@@ -2307,9 +2356,10 @@ export ReportPersistentIScsiDevicesW(BufferSizeInChar, _Buffer) {
 export ReportPersistentIScsiDevicesA(BufferSizeInChar, _Buffer) {
     _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-    BufferSizeInCharMarshal := BufferSizeInChar is VarRef ? "uint*" : "ptr"
+    BufferSizeInCharMarshal := BufferSizeInChar is VarRef ? "uint*" : IntPtr
+    _BufferMarshal := _Buffer == 0 ? IntPtr : PSTR
 
-    result := DllCall("ISCSIDSC.dll\ReportPersistentIScsiDevicesA", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", _Buffer, UInt32)
+    result := DllCall("ISCSIDSC.dll\ReportPersistentIScsiDevicesA", BufferSizeInCharMarshal, BufferSizeInChar, _BufferMarshal, _Buffer, UInt32)
     return result
 }
 
@@ -2331,10 +2381,11 @@ export ReportIScsiTargetPortalsW(InitiatorName, TargetName, TargetPortalTag, Ele
     InitiatorName := InitiatorName is String ? StrPtr(InitiatorName) : InitiatorName
     TargetName := TargetName is String ? StrPtr(TargetName) : TargetName
 
-    TargetPortalTagMarshal := TargetPortalTag is VarRef ? "ushort*" : "ptr"
-    ElementCountMarshal := ElementCount is VarRef ? "uint*" : "ptr"
+    InitiatorNameMarshal := InitiatorName == 0 ? IntPtr : PWSTR
+    TargetPortalTagMarshal := TargetPortalTag is VarRef ? "ushort*" : IntPtr
+    ElementCountMarshal := ElementCount is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("ISCSIDSC.dll\ReportIScsiTargetPortalsW", "ptr", InitiatorName, "ptr", TargetName, TargetPortalTagMarshal, TargetPortalTag, ElementCountMarshal, ElementCount, ISCSI_TARGET_PORTALW.Ptr, Portals, UInt32)
+    result := DllCall("ISCSIDSC.dll\ReportIScsiTargetPortalsW", InitiatorNameMarshal, InitiatorName, "ptr", TargetName, TargetPortalTagMarshal, TargetPortalTag, ElementCountMarshal, ElementCount, ISCSI_TARGET_PORTALW.Ptr, Portals, UInt32)
     return result
 }
 
@@ -2356,10 +2407,11 @@ export ReportIScsiTargetPortalsA(InitiatorName, TargetName, TargetPortalTag, Ele
     InitiatorName := InitiatorName is String ? StrPtr(InitiatorName) : InitiatorName
     TargetName := TargetName is String ? StrPtr(TargetName) : TargetName
 
-    TargetPortalTagMarshal := TargetPortalTag is VarRef ? "ushort*" : "ptr"
-    ElementCountMarshal := ElementCount is VarRef ? "uint*" : "ptr"
+    InitiatorNameMarshal := InitiatorName == 0 ? IntPtr : PSTR
+    TargetPortalTagMarshal := TargetPortalTag is VarRef ? "ushort*" : IntPtr
+    ElementCountMarshal := ElementCount is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("ISCSIDSC.dll\ReportIScsiTargetPortalsA", "ptr", InitiatorName, "ptr", TargetName, TargetPortalTagMarshal, TargetPortalTag, ElementCountMarshal, ElementCount, ISCSI_TARGET_PORTALA.Ptr, Portals, UInt32)
+    result := DllCall("ISCSIDSC.dll\ReportIScsiTargetPortalsA", InitiatorNameMarshal, InitiatorName, "ptr", TargetName, TargetPortalTagMarshal, TargetPortalTag, ElementCountMarshal, ElementCount, ISCSI_TARGET_PORTALA.Ptr, Portals, UInt32)
     return result
 }
 
@@ -2493,9 +2545,10 @@ export RemoveRadiusServerA(_Address) {
 export ReportRadiusServerListW(BufferSizeInChar, _Buffer) {
     _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-    BufferSizeInCharMarshal := BufferSizeInChar is VarRef ? "uint*" : "ptr"
+    BufferSizeInCharMarshal := BufferSizeInChar is VarRef ? "uint*" : IntPtr
+    _BufferMarshal := _Buffer == 0 ? IntPtr : PWSTR
 
-    result := DllCall("ISCSIDSC.dll\ReportRadiusServerListW", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", _Buffer, UInt32)
+    result := DllCall("ISCSIDSC.dll\ReportRadiusServerListW", BufferSizeInCharMarshal, BufferSizeInChar, _BufferMarshal, _Buffer, UInt32)
     return result
 }
 
@@ -2513,9 +2566,10 @@ export ReportRadiusServerListW(BufferSizeInChar, _Buffer) {
 export ReportRadiusServerListA(BufferSizeInChar, _Buffer) {
     _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-    BufferSizeInCharMarshal := BufferSizeInChar is VarRef ? "uint*" : "ptr"
+    BufferSizeInCharMarshal := BufferSizeInChar is VarRef ? "uint*" : IntPtr
+    _BufferMarshal := _Buffer == 0 ? IntPtr : PSTR
 
-    result := DllCall("ISCSIDSC.dll\ReportRadiusServerListA", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", _Buffer, UInt32)
+    result := DllCall("ISCSIDSC.dll\ReportRadiusServerListA", BufferSizeInCharMarshal, BufferSizeInChar, _BufferMarshal, _Buffer, UInt32)
     return result
 }
 

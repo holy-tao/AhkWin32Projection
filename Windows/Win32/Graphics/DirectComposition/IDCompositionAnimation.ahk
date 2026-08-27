@@ -218,12 +218,12 @@ export default struct IDCompositionAnimation extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.SetAbsoluteBeginTime := CallbackCreate(GetMethod(implObj, "SetAbsoluteBeginTime"), flags, 2)
-        this.vtbl.AddCubic := CallbackCreate(GetMethod(implObj, "AddCubic"), flags, 6)
-        this.vtbl.AddSinusoidal := CallbackCreate(GetMethod(implObj, "AddSinusoidal"), flags, 6)
-        this.vtbl.AddRepeat := CallbackCreate(GetMethod(implObj, "AddRepeat"), flags, 3)
-        this.vtbl.End := CallbackCreate(GetMethod(implObj, "End"), flags, 3)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.SetAbsoluteBeginTime := CallbackCreate(ObjBindMethod(implObj, "SetAbsoluteBeginTime"), flags, 2)
+        this.vtbl.AddCubic := CallbackCreate(ObjBindMethod(implObj, "AddCubic"), flags, 6)
+        this.vtbl.AddSinusoidal := CallbackCreate(ObjBindMethod(implObj, "AddSinusoidal"), flags, 6)
+        this.vtbl.AddRepeat := CallbackCreate(ObjBindMethod(implObj, "AddRepeat"), flags, 3)
+        this.vtbl.End := CallbackCreate(ObjBindMethod(implObj, "End"), flags, 3)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct PFN_DrvCompletePDEV {
     }
 
     /**
-     * 
      * @param {DHPDEV} param0 
      * @param {HDEV} param1 
      * @returns {String} Nothing - always returns an empty string

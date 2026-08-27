@@ -20,7 +20,6 @@ export default struct POPEN_CLUSTER_CRYPT_PROVIDER {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszResource 
      * @param {Pointer<Integer>} lpszProvider 
      * @param {Integer} dwType 
@@ -30,7 +29,7 @@ export default struct POPEN_CLUSTER_CRYPT_PROVIDER {
     Call(lpszResource, lpszProvider, dwType, dwFlags) {
         lpszResource := lpszResource is String ? StrPtr(lpszResource) : lpszResource
 
-        lpszProviderMarshal := lpszProvider is VarRef ? "char*" : "ptr"
+        lpszProviderMarshal := lpszProvider is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, "ptr", lpszResource, lpszProviderMarshal, lpszProvider, UInt32, dwType, UInt32, dwFlags, HCLUSCRYPTPROVIDER)
         return result

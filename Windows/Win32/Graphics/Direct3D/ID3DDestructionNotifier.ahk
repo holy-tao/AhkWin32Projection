@@ -59,7 +59,7 @@ export default struct ID3DDestructionNotifier extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcommon/nf-d3dcommon-id3ddestructionotifier-registerdestructioncallback
      */
     RegisterDestructionCallback(callbackFn, pData) {
-        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+        pDataMarshal := pData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, PFN_DESTRUCTION_CALLBACK, callbackFn, pDataMarshal, pData, "uint*", &pCallbackID := 0, "HRESULT")
         return pCallbackID
@@ -89,8 +89,8 @@ export default struct ID3DDestructionNotifier extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterDestructionCallback := CallbackCreate(GetMethod(implObj, "RegisterDestructionCallback"), flags, 4)
-        this.vtbl.UnregisterDestructionCallback := CallbackCreate(GetMethod(implObj, "UnregisterDestructionCallback"), flags, 2)
+        this.vtbl.RegisterDestructionCallback := CallbackCreate(ObjBindMethod(implObj, "RegisterDestructionCallback"), flags, 4)
+        this.vtbl.UnregisterDestructionCallback := CallbackCreate(ObjBindMethod(implObj, "UnregisterDestructionCallback"), flags, 2)
     }
 
     Dispose() {

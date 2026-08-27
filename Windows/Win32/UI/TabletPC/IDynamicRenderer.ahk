@@ -382,12 +382,13 @@ export default struct IDynamicRenderer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IInkDrawingAttributes} piDA 
      * @returns {HRESULT} 
      */
     putref_DrawingAttributes(piDA) {
-        result := ComCall(12, this, "ptr", piDA, "HRESULT")
+        piDAMarshal := piDA == 0 ? IntPtr : "ptr"
+
+        result := ComCall(12, this, piDAMarshal, piDA, "HRESULT")
         return result
     }
 
@@ -491,21 +492,21 @@ export default struct IDynamicRenderer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Enabled := CallbackCreate(GetMethod(implObj, "get_Enabled"), flags, 2)
-        this.vtbl.put_Enabled := CallbackCreate(GetMethod(implObj, "put_Enabled"), flags, 2)
-        this.vtbl.get_HWND := CallbackCreate(GetMethod(implObj, "get_HWND"), flags, 2)
-        this.vtbl.put_HWND := CallbackCreate(GetMethod(implObj, "put_HWND"), flags, 2)
-        this.vtbl.get_ClipRectangle := CallbackCreate(GetMethod(implObj, "get_ClipRectangle"), flags, 2)
-        this.vtbl.put_ClipRectangle := CallbackCreate(GetMethod(implObj, "put_ClipRectangle"), flags, 2)
-        this.vtbl.get_ClipRegion := CallbackCreate(GetMethod(implObj, "get_ClipRegion"), flags, 2)
-        this.vtbl.put_ClipRegion := CallbackCreate(GetMethod(implObj, "put_ClipRegion"), flags, 2)
-        this.vtbl.get_DrawingAttributes := CallbackCreate(GetMethod(implObj, "get_DrawingAttributes"), flags, 2)
-        this.vtbl.putref_DrawingAttributes := CallbackCreate(GetMethod(implObj, "putref_DrawingAttributes"), flags, 2)
-        this.vtbl.get_DataCacheEnabled := CallbackCreate(GetMethod(implObj, "get_DataCacheEnabled"), flags, 2)
-        this.vtbl.put_DataCacheEnabled := CallbackCreate(GetMethod(implObj, "put_DataCacheEnabled"), flags, 2)
-        this.vtbl.ReleaseCachedData := CallbackCreate(GetMethod(implObj, "ReleaseCachedData"), flags, 2)
-        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
-        this.vtbl.Draw := CallbackCreate(GetMethod(implObj, "Draw"), flags, 2)
+        this.vtbl.get_Enabled := CallbackCreate(ObjBindMethod(implObj, "get_Enabled"), flags, 2)
+        this.vtbl.put_Enabled := CallbackCreate(ObjBindMethod(implObj, "put_Enabled"), flags, 2)
+        this.vtbl.get_HWND := CallbackCreate(ObjBindMethod(implObj, "get_HWND"), flags, 2)
+        this.vtbl.put_HWND := CallbackCreate(ObjBindMethod(implObj, "put_HWND"), flags, 2)
+        this.vtbl.get_ClipRectangle := CallbackCreate(ObjBindMethod(implObj, "get_ClipRectangle"), flags, 2)
+        this.vtbl.put_ClipRectangle := CallbackCreate(ObjBindMethod(implObj, "put_ClipRectangle"), flags, 2)
+        this.vtbl.get_ClipRegion := CallbackCreate(ObjBindMethod(implObj, "get_ClipRegion"), flags, 2)
+        this.vtbl.put_ClipRegion := CallbackCreate(ObjBindMethod(implObj, "put_ClipRegion"), flags, 2)
+        this.vtbl.get_DrawingAttributes := CallbackCreate(ObjBindMethod(implObj, "get_DrawingAttributes"), flags, 2)
+        this.vtbl.putref_DrawingAttributes := CallbackCreate(ObjBindMethod(implObj, "putref_DrawingAttributes"), flags, 2)
+        this.vtbl.get_DataCacheEnabled := CallbackCreate(ObjBindMethod(implObj, "get_DataCacheEnabled"), flags, 2)
+        this.vtbl.put_DataCacheEnabled := CallbackCreate(ObjBindMethod(implObj, "put_DataCacheEnabled"), flags, 2)
+        this.vtbl.ReleaseCachedData := CallbackCreate(ObjBindMethod(implObj, "ReleaseCachedData"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(ObjBindMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.Draw := CallbackCreate(ObjBindMethod(implObj, "Draw"), flags, 2)
     }
 
     Dispose() {

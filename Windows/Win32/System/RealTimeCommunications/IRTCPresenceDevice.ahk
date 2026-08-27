@@ -56,7 +56,6 @@ export default struct IRTCPresenceDevice extends IUnknown {
     }
 
     /**
-     * 
      * @returns {RTC_PRESENCE_STATUS} 
      */
     get_Status() {
@@ -65,7 +64,6 @@ export default struct IRTCPresenceDevice extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Notes() {
@@ -75,7 +73,6 @@ export default struct IRTCPresenceDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_PRESENCE_PROPERTY} enProperty 
      * @returns {BSTR} 
      */
@@ -86,7 +83,6 @@ export default struct IRTCPresenceDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrNamespace 
      * @param {Pointer<BSTR>} pbstrData 
      * @returns {HRESULT} 
@@ -105,10 +101,10 @@ export default struct IRTCPresenceDevice extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
-        this.vtbl.get_Notes := CallbackCreate(GetMethod(implObj, "get_Notes"), flags, 2)
-        this.vtbl.get_PresenceProperty := CallbackCreate(GetMethod(implObj, "get_PresenceProperty"), flags, 3)
-        this.vtbl.GetPresenceData := CallbackCreate(GetMethod(implObj, "GetPresenceData"), flags, 3)
+        this.vtbl.get_Status := CallbackCreate(ObjBindMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.get_Notes := CallbackCreate(ObjBindMethod(implObj, "get_Notes"), flags, 2)
+        this.vtbl.get_PresenceProperty := CallbackCreate(ObjBindMethod(implObj, "get_PresenceProperty"), flags, 3)
+        this.vtbl.GetPresenceData := CallbackCreate(ObjBindMethod(implObj, "GetPresenceData"), flags, 3)
     }
 
     Dispose() {

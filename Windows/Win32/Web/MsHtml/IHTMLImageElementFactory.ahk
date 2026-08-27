@@ -44,7 +44,6 @@ export default struct IHTMLImageElementFactory extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} width 
      * @param {VARIANT} height 
      * @returns {IHTMLImgElement} 
@@ -63,7 +62,7 @@ export default struct IHTMLImageElementFactory extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.create := CallbackCreate(GetMethod(implObj, "create"), flags, 4)
+        this.vtbl.create := CallbackCreate(ObjBindMethod(implObj, "create"), flags, 4)
     }
 
     Dispose() {

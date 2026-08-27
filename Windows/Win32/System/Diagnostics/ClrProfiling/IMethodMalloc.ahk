@@ -35,7 +35,6 @@ export default struct IMethodMalloc extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cb 
      * @returns {Pointer<Void>} 
      */
@@ -53,7 +52,7 @@ export default struct IMethodMalloc extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Alloc := CallbackCreate(GetMethod(implObj, "Alloc"), flags, 2)
+        this.vtbl.Alloc := CallbackCreate(ObjBindMethod(implObj, "Alloc"), flags, 2)
     }
 
     Dispose() {

@@ -63,7 +63,7 @@ export default struct IVPNotify extends IVPBaseNotify {
      * @see https://learn.microsoft.com/windows/win32/api/vpnotify/nf-vpnotify-ivpnotify-getdeinterlacemode
      */
     GetDeinterlaceMode(pMode) {
-        pModeMarshal := pMode is VarRef ? "int*" : "ptr"
+        pModeMarshal := pMode is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, pModeMarshal, pMode, "HRESULT")
         return result
@@ -78,8 +78,8 @@ export default struct IVPNotify extends IVPBaseNotify {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetDeinterlaceMode := CallbackCreate(GetMethod(implObj, "SetDeinterlaceMode"), flags, 2)
-        this.vtbl.GetDeinterlaceMode := CallbackCreate(GetMethod(implObj, "GetDeinterlaceMode"), flags, 2)
+        this.vtbl.SetDeinterlaceMode := CallbackCreate(ObjBindMethod(implObj, "SetDeinterlaceMode"), flags, 2)
+        this.vtbl.GetDeinterlaceMode := CallbackCreate(ObjBindMethod(implObj, "GetDeinterlaceMode"), flags, 2)
     }
 
     Dispose() {

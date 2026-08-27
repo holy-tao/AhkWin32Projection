@@ -74,7 +74,7 @@ export default struct IDirectXVideoProcessorService extends IDirectXVideoAcceler
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideoprocessorservice-registervideoprocessorsoftwaredevice
      */
     RegisterVideoProcessorSoftwareDevice(pCallbacks) {
-        pCallbacksMarshal := pCallbacks is VarRef ? "ptr" : "ptr"
+        pCallbacksMarshal := pCallbacks is VarRef ? "ptr" : IntPtr
 
         result := ComCall(4, this, pCallbacksMarshal, pCallbacks, "HRESULT")
         return result
@@ -113,8 +113,8 @@ export default struct IDirectXVideoProcessorService extends IDirectXVideoAcceler
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideoprocessorservice-getvideoprocessordeviceguids
      */
     GetVideoProcessorDeviceGuids(pVideoDesc, pCount, pGuids) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-        pGuidsMarshal := pGuids is VarRef ? "ptr*" : "ptr"
+        pCountMarshal := pCount is VarRef ? "uint*" : IntPtr
+        pGuidsMarshal := pGuids is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, DXVA2_VideoDesc.Ptr, pVideoDesc, pCountMarshal, pCount, pGuidsMarshal, pGuids, "HRESULT")
         return result
@@ -149,8 +149,8 @@ export default struct IDirectXVideoProcessorService extends IDirectXVideoAcceler
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideoprocessorservice-getvideoprocessorrendertargets
      */
     GetVideoProcessorRenderTargets(VideoProcDeviceGuid, pVideoDesc, pCount, pFormats) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-        pFormatsMarshal := pFormats is VarRef ? "ptr*" : "ptr"
+        pCountMarshal := pCount is VarRef ? "uint*" : IntPtr
+        pFormatsMarshal := pFormats is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(6, this, Guid.Ptr, VideoProcDeviceGuid, DXVA2_VideoDesc.Ptr, pVideoDesc, pCountMarshal, pCount, pFormatsMarshal, pFormats, "HRESULT")
         return result
@@ -168,8 +168,8 @@ export default struct IDirectXVideoProcessorService extends IDirectXVideoAcceler
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideoprocessorservice-getvideoprocessorsubstreamformats
      */
     GetVideoProcessorSubStreamFormats(VideoProcDeviceGuid, pVideoDesc, RenderTargetFormat, pCount, pFormats) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-        pFormatsMarshal := pFormats is VarRef ? "ptr*" : "ptr"
+        pCountMarshal := pCount is VarRef ? "uint*" : IntPtr
+        pFormatsMarshal := pFormats is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(7, this, Guid.Ptr, VideoProcDeviceGuid, DXVA2_VideoDesc.Ptr, pVideoDesc, D3DFORMAT, RenderTargetFormat, pCountMarshal, pCount, pFormatsMarshal, pFormats, "HRESULT")
         return result
@@ -247,14 +247,14 @@ export default struct IDirectXVideoProcessorService extends IDirectXVideoAcceler
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterVideoProcessorSoftwareDevice := CallbackCreate(GetMethod(implObj, "RegisterVideoProcessorSoftwareDevice"), flags, 2)
-        this.vtbl.GetVideoProcessorDeviceGuids := CallbackCreate(GetMethod(implObj, "GetVideoProcessorDeviceGuids"), flags, 4)
-        this.vtbl.GetVideoProcessorRenderTargets := CallbackCreate(GetMethod(implObj, "GetVideoProcessorRenderTargets"), flags, 5)
-        this.vtbl.GetVideoProcessorSubStreamFormats := CallbackCreate(GetMethod(implObj, "GetVideoProcessorSubStreamFormats"), flags, 6)
-        this.vtbl.GetVideoProcessorCaps := CallbackCreate(GetMethod(implObj, "GetVideoProcessorCaps"), flags, 5)
-        this.vtbl.GetProcAmpRange := CallbackCreate(GetMethod(implObj, "GetProcAmpRange"), flags, 6)
-        this.vtbl.GetFilterPropertyRange := CallbackCreate(GetMethod(implObj, "GetFilterPropertyRange"), flags, 6)
-        this.vtbl.CreateVideoProcessor := CallbackCreate(GetMethod(implObj, "CreateVideoProcessor"), flags, 6)
+        this.vtbl.RegisterVideoProcessorSoftwareDevice := CallbackCreate(ObjBindMethod(implObj, "RegisterVideoProcessorSoftwareDevice"), flags, 2)
+        this.vtbl.GetVideoProcessorDeviceGuids := CallbackCreate(ObjBindMethod(implObj, "GetVideoProcessorDeviceGuids"), flags, 4)
+        this.vtbl.GetVideoProcessorRenderTargets := CallbackCreate(ObjBindMethod(implObj, "GetVideoProcessorRenderTargets"), flags, 5)
+        this.vtbl.GetVideoProcessorSubStreamFormats := CallbackCreate(ObjBindMethod(implObj, "GetVideoProcessorSubStreamFormats"), flags, 6)
+        this.vtbl.GetVideoProcessorCaps := CallbackCreate(ObjBindMethod(implObj, "GetVideoProcessorCaps"), flags, 5)
+        this.vtbl.GetProcAmpRange := CallbackCreate(ObjBindMethod(implObj, "GetProcAmpRange"), flags, 6)
+        this.vtbl.GetFilterPropertyRange := CallbackCreate(ObjBindMethod(implObj, "GetFilterPropertyRange"), flags, 6)
+        this.vtbl.CreateVideoProcessor := CallbackCreate(ObjBindMethod(implObj, "CreateVideoProcessor"), flags, 6)
     }
 
     Dispose() {

@@ -173,7 +173,9 @@ export default struct IPublishingWizard extends IWizardExtension {
     Initialize(pdo, dwOptions, pszServiceScope) {
         pszServiceScope := pszServiceScope is String ? StrPtr(pszServiceScope) : pszServiceScope
 
-        result := ComCall(6, this, "ptr", pdo, UInt32, dwOptions, "ptr", pszServiceScope, "HRESULT")
+        pdoMarshal := pdo == 0 ? IntPtr : "ptr"
+
+        result := ComCall(6, this, pdoMarshal, pdo, UInt32, dwOptions, "ptr", pszServiceScope, "HRESULT")
         return result
     }
 
@@ -211,9 +213,11 @@ export default struct IPublishingWizard extends IWizardExtension {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ipublishingwizard-gettransfermanifest
      */
     GetTransferManifest(phrFromTransfer, pdocManifest) {
-        phrFromTransferMarshal := phrFromTransfer is VarRef ? "int*" : "ptr"
+        phrFromTransferMarshal := phrFromTransfer is VarRef ? "int*" : IntPtr
+        phrFromTransferMarshal := phrFromTransfer == 0 ? IntPtr : "int*"
+        pdocManifestMarshal := pdocManifest == 0 ? IntPtr : IXMLDOMDocument.Ptr
 
-        result := ComCall(7, this, phrFromTransferMarshal, phrFromTransfer, IXMLDOMDocument.Ptr, pdocManifest, "HRESULT")
+        result := ComCall(7, this, phrFromTransferMarshal, phrFromTransfer, pdocManifestMarshal, pdocManifest, "HRESULT")
         return result
     }
 
@@ -226,8 +230,8 @@ export default struct IPublishingWizard extends IWizardExtension {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
-        this.vtbl.GetTransferManifest := CallbackCreate(GetMethod(implObj, "GetTransferManifest"), flags, 3)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 4)
+        this.vtbl.GetTransferManifest := CallbackCreate(ObjBindMethod(implObj, "GetTransferManifest"), flags, 3)
     }
 
     Dispose() {

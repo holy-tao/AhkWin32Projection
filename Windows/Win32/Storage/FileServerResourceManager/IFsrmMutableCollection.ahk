@@ -95,10 +95,10 @@ export default struct IFsrmMutableCollection extends IFsrmCollection {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
-        this.vtbl.RemoveById := CallbackCreate(GetMethod(implObj, "RemoveById"), flags, 2)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.RemoveById := CallbackCreate(ObjBindMethod(implObj, "RemoveById"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
     }
 
     Dispose() {

@@ -232,15 +232,15 @@ export default struct IFaxInboundRoutingMethod extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_GUID := CallbackCreate(GetMethod(implObj, "get_GUID"), flags, 2)
-        this.vtbl.get_FunctionName := CallbackCreate(GetMethod(implObj, "get_FunctionName"), flags, 2)
-        this.vtbl.get_ExtensionFriendlyName := CallbackCreate(GetMethod(implObj, "get_ExtensionFriendlyName"), flags, 2)
-        this.vtbl.get_ExtensionImageName := CallbackCreate(GetMethod(implObj, "get_ExtensionImageName"), flags, 2)
-        this.vtbl.get_Priority := CallbackCreate(GetMethod(implObj, "get_Priority"), flags, 2)
-        this.vtbl.put_Priority := CallbackCreate(GetMethod(implObj, "put_Priority"), flags, 2)
-        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
-        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 1)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_GUID := CallbackCreate(ObjBindMethod(implObj, "get_GUID"), flags, 2)
+        this.vtbl.get_FunctionName := CallbackCreate(ObjBindMethod(implObj, "get_FunctionName"), flags, 2)
+        this.vtbl.get_ExtensionFriendlyName := CallbackCreate(ObjBindMethod(implObj, "get_ExtensionFriendlyName"), flags, 2)
+        this.vtbl.get_ExtensionImageName := CallbackCreate(ObjBindMethod(implObj, "get_ExtensionImageName"), flags, 2)
+        this.vtbl.get_Priority := CallbackCreate(ObjBindMethod(implObj, "get_Priority"), flags, 2)
+        this.vtbl.put_Priority := CallbackCreate(ObjBindMethod(implObj, "put_Priority"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(ObjBindMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.Save := CallbackCreate(ObjBindMethod(implObj, "Save"), flags, 1)
     }
 
     Dispose() {

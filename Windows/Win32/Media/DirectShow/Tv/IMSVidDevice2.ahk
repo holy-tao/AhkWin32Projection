@@ -75,7 +75,7 @@ export default struct IMSVidDevice2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_DevicePath := CallbackCreate(GetMethod(implObj, "get_DevicePath"), flags, 2)
+        this.vtbl.get_DevicePath := CallbackCreate(ObjBindMethod(implObj, "get_DevicePath"), flags, 2)
     }
 
     Dispose() {

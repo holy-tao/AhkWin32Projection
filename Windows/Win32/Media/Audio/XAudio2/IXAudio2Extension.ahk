@@ -36,25 +36,23 @@ export default struct IXAudio2Extension extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} quantumNumerator 
      * @param {Pointer<Integer>} quantumDenominator 
      * @returns {String} Nothing - always returns an empty string
      */
     GetProcessingQuantum(quantumNumerator, quantumDenominator) {
-        quantumNumeratorMarshal := quantumNumerator is VarRef ? "uint*" : "ptr"
-        quantumDenominatorMarshal := quantumDenominator is VarRef ? "uint*" : "ptr"
+        quantumNumeratorMarshal := quantumNumerator is VarRef ? "uint*" : IntPtr
+        quantumDenominatorMarshal := quantumDenominator is VarRef ? "uint*" : IntPtr
 
         ComCall(3, this, quantumNumeratorMarshal, quantumNumerator, quantumDenominatorMarshal, quantumDenominator)
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} processor 
      * @returns {String} Nothing - always returns an empty string
      */
     GetProcessor(processor) {
-        processorMarshal := processor is VarRef ? "uint*" : "ptr"
+        processorMarshal := processor is VarRef ? "uint*" : IntPtr
 
         ComCall(4, this, processorMarshal, processor)
     }
@@ -68,8 +66,8 @@ export default struct IXAudio2Extension extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProcessingQuantum := CallbackCreate(GetMethod(implObj, "GetProcessingQuantum"), flags, 3)
-        this.vtbl.GetProcessor := CallbackCreate(GetMethod(implObj, "GetProcessor"), flags, 2)
+        this.vtbl.GetProcessingQuantum := CallbackCreate(ObjBindMethod(implObj, "GetProcessingQuantum"), flags, 3)
+        this.vtbl.GetProcessor := CallbackCreate(ObjBindMethod(implObj, "GetProcessor"), flags, 2)
     }
 
     Dispose() {

@@ -18,7 +18,6 @@ export default struct PROTCOL_CO_AF_REGISTER_NOTIFY {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

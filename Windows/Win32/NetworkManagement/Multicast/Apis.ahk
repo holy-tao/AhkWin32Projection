@@ -33,7 +33,7 @@
  * @since windows5.0
  */
 export McastApiStartup(_Version) {
-    _VersionMarshal := _Version is VarRef ? "uint*" : "ptr"
+    _VersionMarshal := _Version is VarRef ? "uint*" : IntPtr
 
     result := DllCall("dhcpcsvc.dll\McastApiStartup", _VersionMarshal, _Version, UInt32)
     return result
@@ -109,8 +109,8 @@ export McastGenUID(pRequestID) {
  * @since windows5.0
  */
 export McastEnumerateScopes(AddrFamily, ReQuery, pScopeList, pScopeLen, pScopeCount) {
-    pScopeLenMarshal := pScopeLen is VarRef ? "uint*" : "ptr"
-    pScopeCountMarshal := pScopeCount is VarRef ? "uint*" : "ptr"
+    pScopeLenMarshal := pScopeLen is VarRef ? "uint*" : IntPtr
+    pScopeCountMarshal := pScopeCount is VarRef ? "uint*" : IntPtr
 
     result := DllCall("dhcpcsvc.dll\McastEnumerateScopes", UInt16, AddrFamily, BOOL, ReQuery, MCAST_SCOPE_ENTRY.Ptr, pScopeList, pScopeLenMarshal, pScopeLen, pScopeCountMarshal, pScopeCount, UInt32)
     return result

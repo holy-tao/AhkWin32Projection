@@ -18,12 +18,11 @@ export default struct PSAM_CREDENTIAL_UPDATE_FREE_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} p 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(p) {
-        pMarshal := p is VarRef ? "ptr" : "ptr"
+        pMarshal := p is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, pMarshal, p)
     }

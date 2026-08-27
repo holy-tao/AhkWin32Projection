@@ -135,10 +135,10 @@ export default struct IMFMediaEvent extends IMFAttributes {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
-        this.vtbl.GetExtendedType := CallbackCreate(GetMethod(implObj, "GetExtendedType"), flags, 2)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
-        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(ObjBindMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.GetExtendedType := CallbackCreate(ObjBindMethod(implObj, "GetExtendedType"), flags, 2)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.GetValue := CallbackCreate(ObjBindMethod(implObj, "GetValue"), flags, 2)
     }
 
     Dispose() {

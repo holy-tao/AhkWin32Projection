@@ -27,7 +27,6 @@ export default struct PDD_VPORTCB_GETLINE {
     }
 
     /**
-     * 
      * @param {Pointer<DD_GETVPORTLINEDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_getvportlinedata">DD_GETVPORTLINEDATA</a> structure that contains the information required for the driver to determine and return the current line number for the specified hardware video port.
      * @returns {Integer} <b>DdVideoPortGetLine</b> returns one of the following callback codes:
      */

@@ -75,8 +75,8 @@ export default struct IRichEditUiaInformation extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetBoundaryRectangle := CallbackCreate(GetMethod(implObj, "GetBoundaryRectangle"), flags, 2)
-        this.vtbl.IsVisible := CallbackCreate(GetMethod(implObj, "IsVisible"), flags, 1)
+        this.vtbl.GetBoundaryRectangle := CallbackCreate(ObjBindMethod(implObj, "GetBoundaryRectangle"), flags, 2)
+        this.vtbl.IsVisible := CallbackCreate(ObjBindMethod(implObj, "IsVisible"), flags, 1)
     }
 
     Dispose() {

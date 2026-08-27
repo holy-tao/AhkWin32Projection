@@ -94,7 +94,6 @@ export default struct IADsProperty extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_OID() {
@@ -104,7 +103,6 @@ export default struct IADsProperty extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrOID 
      * @returns {HRESULT} 
      */
@@ -116,7 +114,6 @@ export default struct IADsProperty extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Syntax() {
@@ -126,7 +123,6 @@ export default struct IADsProperty extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrSyntax 
      * @returns {HRESULT} 
      */
@@ -138,7 +134,6 @@ export default struct IADsProperty extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MaxRange() {
@@ -147,7 +142,6 @@ export default struct IADsProperty extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnMaxRange 
      * @returns {HRESULT} 
      */
@@ -157,7 +151,6 @@ export default struct IADsProperty extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MinRange() {
@@ -166,7 +159,6 @@ export default struct IADsProperty extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnMinRange 
      * @returns {HRESULT} 
      */
@@ -176,7 +168,6 @@ export default struct IADsProperty extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_MultiValued() {
@@ -185,7 +176,6 @@ export default struct IADsProperty extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fMultiValued 
      * @returns {HRESULT} 
      */
@@ -217,17 +207,17 @@ export default struct IADsProperty extends IADs {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_OID := CallbackCreate(GetMethod(implObj, "get_OID"), flags, 2)
-        this.vtbl.put_OID := CallbackCreate(GetMethod(implObj, "put_OID"), flags, 2)
-        this.vtbl.get_Syntax := CallbackCreate(GetMethod(implObj, "get_Syntax"), flags, 2)
-        this.vtbl.put_Syntax := CallbackCreate(GetMethod(implObj, "put_Syntax"), flags, 2)
-        this.vtbl.get_MaxRange := CallbackCreate(GetMethod(implObj, "get_MaxRange"), flags, 2)
-        this.vtbl.put_MaxRange := CallbackCreate(GetMethod(implObj, "put_MaxRange"), flags, 2)
-        this.vtbl.get_MinRange := CallbackCreate(GetMethod(implObj, "get_MinRange"), flags, 2)
-        this.vtbl.put_MinRange := CallbackCreate(GetMethod(implObj, "put_MinRange"), flags, 2)
-        this.vtbl.get_MultiValued := CallbackCreate(GetMethod(implObj, "get_MultiValued"), flags, 2)
-        this.vtbl.put_MultiValued := CallbackCreate(GetMethod(implObj, "put_MultiValued"), flags, 2)
-        this.vtbl.Qualifiers := CallbackCreate(GetMethod(implObj, "Qualifiers"), flags, 2)
+        this.vtbl.get_OID := CallbackCreate(ObjBindMethod(implObj, "get_OID"), flags, 2)
+        this.vtbl.put_OID := CallbackCreate(ObjBindMethod(implObj, "put_OID"), flags, 2)
+        this.vtbl.get_Syntax := CallbackCreate(ObjBindMethod(implObj, "get_Syntax"), flags, 2)
+        this.vtbl.put_Syntax := CallbackCreate(ObjBindMethod(implObj, "put_Syntax"), flags, 2)
+        this.vtbl.get_MaxRange := CallbackCreate(ObjBindMethod(implObj, "get_MaxRange"), flags, 2)
+        this.vtbl.put_MaxRange := CallbackCreate(ObjBindMethod(implObj, "put_MaxRange"), flags, 2)
+        this.vtbl.get_MinRange := CallbackCreate(ObjBindMethod(implObj, "get_MinRange"), flags, 2)
+        this.vtbl.put_MinRange := CallbackCreate(ObjBindMethod(implObj, "put_MinRange"), flags, 2)
+        this.vtbl.get_MultiValued := CallbackCreate(ObjBindMethod(implObj, "get_MultiValued"), flags, 2)
+        this.vtbl.put_MultiValued := CallbackCreate(ObjBindMethod(implObj, "put_MultiValued"), flags, 2)
+        this.vtbl.Qualifiers := CallbackCreate(ObjBindMethod(implObj, "Qualifiers"), flags, 2)
     }
 
     Dispose() {

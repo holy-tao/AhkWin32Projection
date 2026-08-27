@@ -19,7 +19,6 @@ export default struct LPDDHAL_WAITFORVERTICALBLANK {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_WAITFORVERTICALBLANKDATA>} param0 
      * @returns {Integer} 
      */

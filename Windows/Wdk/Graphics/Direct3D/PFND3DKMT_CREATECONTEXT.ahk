@@ -20,7 +20,6 @@ export default struct PFND3DKMT_CREATECONTEXT {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CREATECONTEXT>} param0 
      * @returns {NTSTATUS} 
      */

@@ -44,7 +44,6 @@ export default struct IPropertyBag2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cProperties 
      * @param {Pointer<PROPBAG2>} pPropBag 
      * @param {IErrorLog} pErrLog 
@@ -52,7 +51,7 @@ export default struct IPropertyBag2 extends IUnknown {
      * @returns {VARIANT} 
      */
     Read(cProperties, pPropBag, pErrLog, phrError) {
-        phrErrorMarshal := phrError is VarRef ? "int*" : "ptr"
+        phrErrorMarshal := phrError is VarRef ? "int*" : IntPtr
 
         pvarValue := VARIANT()
         result := ComCall(3, this, UInt32, cProperties, PROPBAG2.Ptr, pPropBag, "ptr", pErrLog, VARIANT.Ptr, pvarValue, phrErrorMarshal, phrError, "HRESULT")
@@ -60,7 +59,6 @@ export default struct IPropertyBag2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cProperties 
      * @param {Pointer<PROPBAG2>} pPropBag 
      * @param {Pointer<VARIANT>} pvarValue 
@@ -72,7 +70,6 @@ export default struct IPropertyBag2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     CountProperties() {
@@ -94,14 +91,13 @@ export default struct IPropertyBag2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/NetMon2/getpropertyinfo
      */
     GetPropertyInfo(iProperty, cProperties, pPropBag, pcProperties) {
-        pcPropertiesMarshal := pcProperties is VarRef ? "uint*" : "ptr"
+        pcPropertiesMarshal := pcProperties is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, UInt32, iProperty, UInt32, cProperties, PROPBAG2.Ptr, pPropBag, pcPropertiesMarshal, pcProperties, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pstrName 
      * @param {Integer} dwHint 
      * @param {IUnknown} pUnkObject 
@@ -124,11 +120,11 @@ export default struct IPropertyBag2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Read := CallbackCreate(GetMethod(implObj, "Read"), flags, 6)
-        this.vtbl.Write := CallbackCreate(GetMethod(implObj, "Write"), flags, 4)
-        this.vtbl.CountProperties := CallbackCreate(GetMethod(implObj, "CountProperties"), flags, 2)
-        this.vtbl.GetPropertyInfo := CallbackCreate(GetMethod(implObj, "GetPropertyInfo"), flags, 5)
-        this.vtbl.LoadObject := CallbackCreate(GetMethod(implObj, "LoadObject"), flags, 5)
+        this.vtbl.Read := CallbackCreate(ObjBindMethod(implObj, "Read"), flags, 6)
+        this.vtbl.Write := CallbackCreate(ObjBindMethod(implObj, "Write"), flags, 4)
+        this.vtbl.CountProperties := CallbackCreate(ObjBindMethod(implObj, "CountProperties"), flags, 2)
+        this.vtbl.GetPropertyInfo := CallbackCreate(ObjBindMethod(implObj, "GetPropertyInfo"), flags, 5)
+        this.vtbl.LoadObject := CallbackCreate(ObjBindMethod(implObj, "LoadObject"), flags, 5)
     }
 
     Dispose() {

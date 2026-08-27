@@ -79,9 +79,9 @@ export default struct IETFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ietfilter-getcurrrating
      */
     GetCurrRating(pEnSystem, pEnRating, plbfEnAttr) {
-        pEnSystemMarshal := pEnSystem is VarRef ? "int*" : "ptr"
-        pEnRatingMarshal := pEnRating is VarRef ? "int*" : "ptr"
-        plbfEnAttrMarshal := plbfEnAttr is VarRef ? "int*" : "ptr"
+        pEnSystemMarshal := pEnSystem is VarRef ? "int*" : IntPtr
+        pEnRatingMarshal := pEnRating is VarRef ? "int*" : IntPtr
+        plbfEnAttrMarshal := plbfEnAttr is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, pEnSystemMarshal, pEnSystem, pEnRatingMarshal, pEnRating, plbfEnAttrMarshal, plbfEnAttr, "HRESULT")
         return result
@@ -94,7 +94,7 @@ export default struct IETFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ietfilter-getcurrlicenseexpdate
      */
     GetCurrLicenseExpDate(_protType) {
-        _protTypeMarshal := _protType is VarRef ? "int*" : "ptr"
+        _protTypeMarshal := _protType is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, _protTypeMarshal, _protType, "int*", &lpDateTime := 0, "HRESULT")
         return lpDateTime
@@ -168,11 +168,11 @@ export default struct IETFilter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_EvalRatObjOK := CallbackCreate(GetMethod(implObj, "get_EvalRatObjOK"), flags, 2)
-        this.vtbl.GetCurrRating := CallbackCreate(GetMethod(implObj, "GetCurrRating"), flags, 4)
-        this.vtbl.GetCurrLicenseExpDate := CallbackCreate(GetMethod(implObj, "GetCurrLicenseExpDate"), flags, 3)
-        this.vtbl.GetLastErrorCode := CallbackCreate(GetMethod(implObj, "GetLastErrorCode"), flags, 1)
-        this.vtbl.SetRecordingOn := CallbackCreate(GetMethod(implObj, "SetRecordingOn"), flags, 2)
+        this.vtbl.get_EvalRatObjOK := CallbackCreate(ObjBindMethod(implObj, "get_EvalRatObjOK"), flags, 2)
+        this.vtbl.GetCurrRating := CallbackCreate(ObjBindMethod(implObj, "GetCurrRating"), flags, 4)
+        this.vtbl.GetCurrLicenseExpDate := CallbackCreate(ObjBindMethod(implObj, "GetCurrLicenseExpDate"), flags, 3)
+        this.vtbl.GetLastErrorCode := CallbackCreate(ObjBindMethod(implObj, "GetLastErrorCode"), flags, 1)
+        this.vtbl.SetRecordingOn := CallbackCreate(ObjBindMethod(implObj, "SetRecordingOn"), flags, 2)
     }
 
     Dispose() {

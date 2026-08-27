@@ -56,7 +56,7 @@ export default struct IMessageDispatcher extends IInspectable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PumpMessages := CallbackCreate(GetMethod(implObj, "PumpMessages"), flags, 1)
+        this.vtbl.PumpMessages := CallbackCreate(ObjBindMethod(implObj, "PumpMessages"), flags, 1)
     }
 
     Dispose() {

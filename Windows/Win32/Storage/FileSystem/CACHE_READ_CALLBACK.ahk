@@ -21,7 +21,6 @@ export default struct CACHE_READ_CALLBACK {
     }
 
     /**
-     * 
      * @param {Integer} cb The size, in bytes, of the data indicated in the <i>lpb</i> parameter.
      * @param {Pointer<Integer>} lpb A pointer to the data portion of the key.
      * @param {Pointer<Void>} lpvContext The context that is specified by the user.
@@ -31,8 +30,8 @@ export default struct CACHE_READ_CALLBACK {
      * <div> </div>
      */
     Call(cb, lpb, lpvContext) {
-        lpbMarshal := lpb is VarRef ? "char*" : "ptr"
-        lpvContextMarshal := lpvContext is VarRef ? "ptr" : "ptr"
+        lpbMarshal := lpb is VarRef ? "char*" : IntPtr
+        lpvContextMarshal := lpvContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, UInt32, cb, lpbMarshal, lpb, lpvContextMarshal, lpvContext, BOOL)
         return result

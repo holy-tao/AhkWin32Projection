@@ -95,10 +95,10 @@ export default struct IWsbApplicationRestoreSupport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wsbapp/nf-wsbapp-iwsbapplicationrestoresupport-ordercomponents
      */
     OrderComponents(cComponents, rgComponentName, rgComponentLogicalPaths, prgComponentName, prgComponentLogicalPath) {
-        rgComponentNameMarshal := rgComponentName is VarRef ? "ptr*" : "ptr"
-        rgComponentLogicalPathsMarshal := rgComponentLogicalPaths is VarRef ? "ptr*" : "ptr"
-        prgComponentNameMarshal := prgComponentName is VarRef ? "ptr*" : "ptr"
-        prgComponentLogicalPathMarshal := prgComponentLogicalPath is VarRef ? "ptr*" : "ptr"
+        rgComponentNameMarshal := rgComponentName is VarRef ? "ptr*" : IntPtr
+        rgComponentLogicalPathsMarshal := rgComponentLogicalPaths is VarRef ? "ptr*" : IntPtr
+        prgComponentNameMarshal := prgComponentName is VarRef ? "ptr*" : IntPtr
+        prgComponentLogicalPathMarshal := prgComponentLogicalPath is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, UInt32, cComponents, rgComponentNameMarshal, rgComponentName, rgComponentLogicalPathsMarshal, rgComponentLogicalPaths, prgComponentNameMarshal, prgComponentName, prgComponentLogicalPathMarshal, prgComponentLogicalPath, "HRESULT")
         return result
@@ -127,10 +127,10 @@ export default struct IWsbApplicationRestoreSupport extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PreRestore := CallbackCreate(GetMethod(implObj, "PreRestore"), flags, 5)
-        this.vtbl.PostRestore := CallbackCreate(GetMethod(implObj, "PostRestore"), flags, 5)
-        this.vtbl.OrderComponents := CallbackCreate(GetMethod(implObj, "OrderComponents"), flags, 6)
-        this.vtbl.IsRollForwardSupported := CallbackCreate(GetMethod(implObj, "IsRollForwardSupported"), flags, 2)
+        this.vtbl.PreRestore := CallbackCreate(ObjBindMethod(implObj, "PreRestore"), flags, 5)
+        this.vtbl.PostRestore := CallbackCreate(ObjBindMethod(implObj, "PostRestore"), flags, 5)
+        this.vtbl.OrderComponents := CallbackCreate(ObjBindMethod(implObj, "OrderComponents"), flags, 6)
+        this.vtbl.IsRollForwardSupported := CallbackCreate(ObjBindMethod(implObj, "IsRollForwardSupported"), flags, 2)
     }
 
     Dispose() {

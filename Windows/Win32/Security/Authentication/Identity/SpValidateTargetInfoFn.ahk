@@ -28,7 +28,6 @@ export default struct SpValidateTargetInfoFn {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} ClientRequest A pointer to an opaque 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/plsa-client-request">LSA_CLIENT_REQUEST</a> data structure that contains information about the LSA client's authentication request. A custom authentication package should pass in the value received during the client's call to the function, such as 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecpkg/nc-ntsecpkg-lsa_ap_call_package">LsaApCallPackage</a> or 
@@ -42,8 +41,9 @@ export default struct SpValidateTargetInfoFn {
      * If the function fails, return an <b>NTSTATUS</b> code that indicates the reason it failed.
      */
     Call(ClientRequest, ProtocolSubmitBuffer, ClientBufferBase, SubmitBufferLength, TargetInfo) {
-        ClientRequestMarshal := ClientRequest is VarRef ? "ptr*" : "ptr"
-        ClientBufferBaseMarshal := ClientBufferBase is VarRef ? "ptr" : "ptr"
+        ClientRequestMarshal := ClientRequest is VarRef ? "ptr*" : IntPtr
+        ClientRequestMarshal := ClientRequest == 0 ? IntPtr : "ptr*"
+        ClientBufferBaseMarshal := ClientBufferBase is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, ClientRequestMarshal, ClientRequest, IntPtr, ProtocolSubmitBuffer, ClientBufferBaseMarshal, ClientBufferBase, UInt32, SubmitBufferLength, SECPKG_TARGETINFO.Ptr, TargetInfo, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

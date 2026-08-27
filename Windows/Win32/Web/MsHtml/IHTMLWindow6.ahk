@@ -95,7 +95,6 @@ export default struct IHTMLWindow6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -105,7 +104,6 @@ export default struct IHTMLWindow6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_XDomainRequest() {
@@ -115,7 +113,6 @@ export default struct IHTMLWindow6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStorage} 
      */
     get_sessionStorage() {
@@ -124,7 +121,6 @@ export default struct IHTMLWindow6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStorage} 
      */
     get_localStorage() {
@@ -133,7 +129,6 @@ export default struct IHTMLWindow6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -143,7 +138,6 @@ export default struct IHTMLWindow6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onhashchange() {
@@ -153,7 +147,6 @@ export default struct IHTMLWindow6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_maxConnectionsPerServer() {
@@ -162,7 +155,6 @@ export default struct IHTMLWindow6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _msg 
      * @param {VARIANT} targetOrigin 
      * @returns {HRESULT} 
@@ -175,7 +167,6 @@ export default struct IHTMLWindow6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrHTML 
      * @returns {BSTR} 
      */
@@ -188,7 +179,6 @@ export default struct IHTMLWindow6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -198,7 +188,6 @@ export default struct IHTMLWindow6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmessage() {
@@ -208,7 +197,6 @@ export default struct IHTMLWindow6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrProfilerMarkName 
      * @returns {HRESULT} 
      */
@@ -228,18 +216,18 @@ export default struct IHTMLWindow6 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_XDomainRequest := CallbackCreate(GetMethod(implObj, "put_XDomainRequest"), flags, 2)
-        this.vtbl.get_XDomainRequest := CallbackCreate(GetMethod(implObj, "get_XDomainRequest"), flags, 2)
-        this.vtbl.get_sessionStorage := CallbackCreate(GetMethod(implObj, "get_sessionStorage"), flags, 2)
-        this.vtbl.get_localStorage := CallbackCreate(GetMethod(implObj, "get_localStorage"), flags, 2)
-        this.vtbl.put_onhashchange := CallbackCreate(GetMethod(implObj, "put_onhashchange"), flags, 2)
-        this.vtbl.get_onhashchange := CallbackCreate(GetMethod(implObj, "get_onhashchange"), flags, 2)
-        this.vtbl.get_maxConnectionsPerServer := CallbackCreate(GetMethod(implObj, "get_maxConnectionsPerServer"), flags, 2)
-        this.vtbl.postMessage := CallbackCreate(GetMethod(implObj, "postMessage"), flags, 3)
-        this.vtbl.toStaticHTML := CallbackCreate(GetMethod(implObj, "toStaticHTML"), flags, 3)
-        this.vtbl.put_onmessage := CallbackCreate(GetMethod(implObj, "put_onmessage"), flags, 2)
-        this.vtbl.get_onmessage := CallbackCreate(GetMethod(implObj, "get_onmessage"), flags, 2)
-        this.vtbl.msWriteProfilerMark := CallbackCreate(GetMethod(implObj, "msWriteProfilerMark"), flags, 2)
+        this.vtbl.put_XDomainRequest := CallbackCreate(ObjBindMethod(implObj, "put_XDomainRequest"), flags, 2)
+        this.vtbl.get_XDomainRequest := CallbackCreate(ObjBindMethod(implObj, "get_XDomainRequest"), flags, 2)
+        this.vtbl.get_sessionStorage := CallbackCreate(ObjBindMethod(implObj, "get_sessionStorage"), flags, 2)
+        this.vtbl.get_localStorage := CallbackCreate(ObjBindMethod(implObj, "get_localStorage"), flags, 2)
+        this.vtbl.put_onhashchange := CallbackCreate(ObjBindMethod(implObj, "put_onhashchange"), flags, 2)
+        this.vtbl.get_onhashchange := CallbackCreate(ObjBindMethod(implObj, "get_onhashchange"), flags, 2)
+        this.vtbl.get_maxConnectionsPerServer := CallbackCreate(ObjBindMethod(implObj, "get_maxConnectionsPerServer"), flags, 2)
+        this.vtbl.postMessage := CallbackCreate(ObjBindMethod(implObj, "postMessage"), flags, 3)
+        this.vtbl.toStaticHTML := CallbackCreate(ObjBindMethod(implObj, "toStaticHTML"), flags, 3)
+        this.vtbl.put_onmessage := CallbackCreate(ObjBindMethod(implObj, "put_onmessage"), flags, 2)
+        this.vtbl.get_onmessage := CallbackCreate(ObjBindMethod(implObj, "get_onmessage"), flags, 2)
+        this.vtbl.msWriteProfilerMark := CallbackCreate(ObjBindMethod(implObj, "msWriteProfilerMark"), flags, 2)
     }
 
     Dispose() {

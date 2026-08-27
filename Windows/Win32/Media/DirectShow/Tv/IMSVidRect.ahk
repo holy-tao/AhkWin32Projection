@@ -237,17 +237,17 @@ export default struct IMSVidRect extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Top := CallbackCreate(GetMethod(implObj, "get_Top"), flags, 2)
-        this.vtbl.put_Top := CallbackCreate(GetMethod(implObj, "put_Top"), flags, 2)
-        this.vtbl.get_Left := CallbackCreate(GetMethod(implObj, "get_Left"), flags, 2)
-        this.vtbl.put_Left := CallbackCreate(GetMethod(implObj, "put_Left"), flags, 2)
-        this.vtbl.get_Width := CallbackCreate(GetMethod(implObj, "get_Width"), flags, 2)
-        this.vtbl.put_Width := CallbackCreate(GetMethod(implObj, "put_Width"), flags, 2)
-        this.vtbl.get_Height := CallbackCreate(GetMethod(implObj, "get_Height"), flags, 2)
-        this.vtbl.put_Height := CallbackCreate(GetMethod(implObj, "put_Height"), flags, 2)
-        this.vtbl.get_HWnd := CallbackCreate(GetMethod(implObj, "get_HWnd"), flags, 2)
-        this.vtbl.put_HWnd := CallbackCreate(GetMethod(implObj, "put_HWnd"), flags, 2)
-        this.vtbl.put_Rect := CallbackCreate(GetMethod(implObj, "put_Rect"), flags, 2)
+        this.vtbl.get_Top := CallbackCreate(ObjBindMethod(implObj, "get_Top"), flags, 2)
+        this.vtbl.put_Top := CallbackCreate(ObjBindMethod(implObj, "put_Top"), flags, 2)
+        this.vtbl.get_Left := CallbackCreate(ObjBindMethod(implObj, "get_Left"), flags, 2)
+        this.vtbl.put_Left := CallbackCreate(ObjBindMethod(implObj, "put_Left"), flags, 2)
+        this.vtbl.get_Width := CallbackCreate(ObjBindMethod(implObj, "get_Width"), flags, 2)
+        this.vtbl.put_Width := CallbackCreate(ObjBindMethod(implObj, "put_Width"), flags, 2)
+        this.vtbl.get_Height := CallbackCreate(ObjBindMethod(implObj, "get_Height"), flags, 2)
+        this.vtbl.put_Height := CallbackCreate(ObjBindMethod(implObj, "put_Height"), flags, 2)
+        this.vtbl.get_HWnd := CallbackCreate(ObjBindMethod(implObj, "get_HWnd"), flags, 2)
+        this.vtbl.put_HWnd := CallbackCreate(ObjBindMethod(implObj, "put_HWnd"), flags, 2)
+        this.vtbl.put_Rect := CallbackCreate(ObjBindMethod(implObj, "put_Rect"), flags, 2)
     }
 
     Dispose() {

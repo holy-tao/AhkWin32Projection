@@ -165,12 +165,12 @@ export default struct IMbnSmsConfiguration extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ServiceCenterAddress := CallbackCreate(GetMethod(implObj, "get_ServiceCenterAddress"), flags, 2)
-        this.vtbl.put_ServiceCenterAddress := CallbackCreate(GetMethod(implObj, "put_ServiceCenterAddress"), flags, 2)
-        this.vtbl.get_MaxMessageIndex := CallbackCreate(GetMethod(implObj, "get_MaxMessageIndex"), flags, 2)
-        this.vtbl.get_CdmaShortMsgSize := CallbackCreate(GetMethod(implObj, "get_CdmaShortMsgSize"), flags, 2)
-        this.vtbl.get_SmsFormat := CallbackCreate(GetMethod(implObj, "get_SmsFormat"), flags, 2)
-        this.vtbl.put_SmsFormat := CallbackCreate(GetMethod(implObj, "put_SmsFormat"), flags, 2)
+        this.vtbl.get_ServiceCenterAddress := CallbackCreate(ObjBindMethod(implObj, "get_ServiceCenterAddress"), flags, 2)
+        this.vtbl.put_ServiceCenterAddress := CallbackCreate(ObjBindMethod(implObj, "put_ServiceCenterAddress"), flags, 2)
+        this.vtbl.get_MaxMessageIndex := CallbackCreate(ObjBindMethod(implObj, "get_MaxMessageIndex"), flags, 2)
+        this.vtbl.get_CdmaShortMsgSize := CallbackCreate(ObjBindMethod(implObj, "get_CdmaShortMsgSize"), flags, 2)
+        this.vtbl.get_SmsFormat := CallbackCreate(ObjBindMethod(implObj, "get_SmsFormat"), flags, 2)
+        this.vtbl.put_SmsFormat := CallbackCreate(ObjBindMethod(implObj, "put_SmsFormat"), flags, 2)
     }
 
     Dispose() {

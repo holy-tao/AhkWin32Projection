@@ -20,7 +20,6 @@ export default struct OEMCUIPCALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<CPSUICBPARAM>} param0 
      * @param {Pointer<OEMCUIPPARAM>} param1 
      * @returns {Integer} 

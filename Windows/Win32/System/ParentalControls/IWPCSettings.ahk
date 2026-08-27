@@ -82,9 +82,9 @@ export default struct IWPCSettings extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsLoggingRequired := CallbackCreate(GetMethod(implObj, "IsLoggingRequired"), flags, 2)
-        this.vtbl.GetLastSettingsChangeTime := CallbackCreate(GetMethod(implObj, "GetLastSettingsChangeTime"), flags, 2)
-        this.vtbl.GetRestrictions := CallbackCreate(GetMethod(implObj, "GetRestrictions"), flags, 2)
+        this.vtbl.IsLoggingRequired := CallbackCreate(ObjBindMethod(implObj, "IsLoggingRequired"), flags, 2)
+        this.vtbl.GetLastSettingsChangeTime := CallbackCreate(ObjBindMethod(implObj, "GetLastSettingsChangeTime"), flags, 2)
+        this.vtbl.GetRestrictions := CallbackCreate(ObjBindMethod(implObj, "GetRestrictions"), flags, 2)
     }
 
     Dispose() {

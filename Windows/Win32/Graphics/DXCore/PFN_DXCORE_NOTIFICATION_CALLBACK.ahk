@@ -22,7 +22,6 @@ export default struct PFN_DXCORE_NOTIFICATION_CALLBACK {
     }
 
     /**
-     * 
      * @param {DXCoreNotificationType} notificationType Type: **[DXCoreNotificationType](/windows/win32/api/dxcore_interface/ne-dxcore_interface-dxcorenotificationtype)**
      * 
      * The type of notification representing this invocation. See the table in [DXCoreNotificationType](/windows/win32/api/dxcore_interface/ne-dxcore_interface-dxcorenotificationtype) for info about what types are valid with which kinds of objects.
@@ -35,7 +34,8 @@ export default struct PFN_DXCORE_NOTIFICATION_CALLBACK {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(notificationType, _object, _context) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+        _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, DXCoreNotificationType, notificationType, "ptr", _object, _contextMarshal, _context)
     }

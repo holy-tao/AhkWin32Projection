@@ -21,14 +21,15 @@ export default struct PLOAD_IMAGE_NOTIFY_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} FullImageName 
      * @param {HANDLE} ProcessId 
      * @param {Pointer<IMAGE_INFO>} _ImageInfo 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(FullImageName, ProcessId, _ImageInfo) {
-        DllCall(this.value, UNICODE_STRING.Ptr, FullImageName, HANDLE, ProcessId, IMAGE_INFO.Ptr, _ImageInfo)
+        FullImageNameMarshal := FullImageName == 0 ? IntPtr : UNICODE_STRING.Ptr
+
+        DllCall(this.value, FullImageNameMarshal, FullImageName, HANDLE, ProcessId, IMAGE_INFO.Ptr, _ImageInfo)
     }
 
     /**

@@ -66,7 +66,7 @@ export default struct ID3D11ShaderTraceFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateShaderTrace := CallbackCreate(GetMethod(implObj, "CreateShaderTrace"), flags, 4)
+        this.vtbl.CreateShaderTrace := CallbackCreate(ObjBindMethod(implObj, "CreateShaderTrace"), flags, 4)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct PFN_CARD_DEAUTHENTICATE_EX {
     }
 
     /**
-     * 
      * @param {Pointer<CARD_DATA>} pCardData 
      * @param {Integer} PinId 
      * @param {Integer} dwFlags 

@@ -19,13 +19,12 @@ export default struct PSYM_DUMP_FIELD_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<FIELD_INFO>} pField 
      * @param {Pointer<Void>} UserContext 
      * @returns {Integer} 
      */
     Call(pField, UserContext) {
-        UserContextMarshal := UserContext is VarRef ? "ptr" : "ptr"
+        UserContextMarshal := UserContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, FIELD_INFO.Ptr, pField, UserContextMarshal, UserContext, UInt32)
         return result

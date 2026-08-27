@@ -21,7 +21,6 @@ export default struct GetSChannelInterfaceFn {
     }
 
     /**
-     * 
      * @param {PWSTR} pszProviderName 
      * @param {Pointer<Pointer<NCRYPT_SSL_FUNCTION_TABLE>>} ppFunctionTable 
      * @param {Integer} dwFlags 
@@ -30,7 +29,7 @@ export default struct GetSChannelInterfaceFn {
     Call(pszProviderName, ppFunctionTable, dwFlags) {
         pszProviderName := pszProviderName is String ? StrPtr(pszProviderName) : pszProviderName
 
-        ppFunctionTableMarshal := ppFunctionTable is VarRef ? "ptr*" : "ptr"
+        ppFunctionTableMarshal := ppFunctionTable is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, "ptr", pszProviderName, ppFunctionTableMarshal, ppFunctionTable, UInt32, dwFlags, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

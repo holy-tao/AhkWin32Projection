@@ -86,8 +86,8 @@ export default struct IObjectWithSelection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetSelection := CallbackCreate(GetMethod(implObj, "SetSelection"), flags, 2)
-        this.vtbl.GetSelection := CallbackCreate(GetMethod(implObj, "GetSelection"), flags, 3)
+        this.vtbl.SetSelection := CallbackCreate(ObjBindMethod(implObj, "SetSelection"), flags, 2)
+        this.vtbl.GetSelection := CallbackCreate(ObjBindMethod(implObj, "GetSelection"), flags, 3)
     }
 
     Dispose() {

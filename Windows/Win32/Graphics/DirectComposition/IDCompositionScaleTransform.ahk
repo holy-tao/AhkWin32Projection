@@ -220,14 +220,14 @@ export default struct IDCompositionScaleTransform extends IDCompositionTransform
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetScaleX := CallbackCreate(GetMethod(implObj, "SetScaleX"), flags, 2)
-        this.vtbl.SetScaleX1 := CallbackCreate(GetMethod(implObj, "SetScaleX1"), flags, 2)
-        this.vtbl.SetScaleY := CallbackCreate(GetMethod(implObj, "SetScaleY"), flags, 2)
-        this.vtbl.SetScaleY1 := CallbackCreate(GetMethod(implObj, "SetScaleY1"), flags, 2)
-        this.vtbl.SetCenterX := CallbackCreate(GetMethod(implObj, "SetCenterX"), flags, 2)
-        this.vtbl.SetCenterX1 := CallbackCreate(GetMethod(implObj, "SetCenterX1"), flags, 2)
-        this.vtbl.SetCenterY := CallbackCreate(GetMethod(implObj, "SetCenterY"), flags, 2)
-        this.vtbl.SetCenterY1 := CallbackCreate(GetMethod(implObj, "SetCenterY1"), flags, 2)
+        this.vtbl.SetScaleX := CallbackCreate(ObjBindMethod(implObj, "SetScaleX"), flags, 2)
+        this.vtbl.SetScaleX1 := CallbackCreate(ObjBindMethod(implObj, "SetScaleX1"), flags, 2)
+        this.vtbl.SetScaleY := CallbackCreate(ObjBindMethod(implObj, "SetScaleY"), flags, 2)
+        this.vtbl.SetScaleY1 := CallbackCreate(ObjBindMethod(implObj, "SetScaleY1"), flags, 2)
+        this.vtbl.SetCenterX := CallbackCreate(ObjBindMethod(implObj, "SetCenterX"), flags, 2)
+        this.vtbl.SetCenterX1 := CallbackCreate(ObjBindMethod(implObj, "SetCenterX1"), flags, 2)
+        this.vtbl.SetCenterY := CallbackCreate(ObjBindMethod(implObj, "SetCenterY"), flags, 2)
+        this.vtbl.SetCenterY1 := CallbackCreate(ObjBindMethod(implObj, "SetCenterY1"), flags, 2)
     }
 
     Dispose() {

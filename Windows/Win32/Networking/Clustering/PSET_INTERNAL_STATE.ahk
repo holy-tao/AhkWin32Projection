@@ -22,7 +22,6 @@ export default struct PSET_INTERNAL_STATE {
     }
 
     /**
-     * 
      * @param {Pointer} param0 
      * @param {CLUSTER_RESOURCE_APPLICATION_STATE} stateType A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ne-resapi-cluster_resource_application_state">CLUSTER_RESOURCE_APPLICATION_STATE</a> value
      * @param {BOOL} active Whether the resource is active

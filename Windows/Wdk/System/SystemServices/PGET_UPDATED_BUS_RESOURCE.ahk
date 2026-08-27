@@ -19,7 +19,6 @@ export default struct PGET_UPDATED_BUS_RESOURCE {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

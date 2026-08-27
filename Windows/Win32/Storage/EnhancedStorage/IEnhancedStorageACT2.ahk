@@ -71,8 +71,8 @@ export default struct IEnhancedStorageACT2 extends IEnhancedStorageACT {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDeviceName := CallbackCreate(GetMethod(implObj, "GetDeviceName"), flags, 2)
-        this.vtbl.IsDeviceRemovable := CallbackCreate(GetMethod(implObj, "IsDeviceRemovable"), flags, 2)
+        this.vtbl.GetDeviceName := CallbackCreate(ObjBindMethod(implObj, "GetDeviceName"), flags, 2)
+        this.vtbl.IsDeviceRemovable := CallbackCreate(ObjBindMethod(implObj, "IsDeviceRemovable"), flags, 2)
     }
 
     Dispose() {

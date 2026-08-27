@@ -74,7 +74,7 @@ export default struct IDeskBand extends IDockingWindow {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetBandInfo := CallbackCreate(GetMethod(implObj, "GetBandInfo"), flags, 4)
+        this.vtbl.GetBandInfo := CallbackCreate(ObjBindMethod(implObj, "GetBandInfo"), flags, 4)
     }
 
     Dispose() {

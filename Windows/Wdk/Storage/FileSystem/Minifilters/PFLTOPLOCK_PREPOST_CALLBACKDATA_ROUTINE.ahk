@@ -19,13 +19,13 @@ export default struct PFLTOPLOCK_PREPOST_CALLBACKDATA_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @param {Pointer<Void>} _Context 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(CallbackData, _Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, FLT_CALLBACK_DATA.Ptr, CallbackData, _ContextMarshal, _Context)
     }

@@ -70,8 +70,8 @@ export default struct IWMSBufferAllocator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AllocateBuffer := CallbackCreate(GetMethod(implObj, "AllocateBuffer"), flags, 3)
-        this.vtbl.AllocatePageSizeBuffer := CallbackCreate(GetMethod(implObj, "AllocatePageSizeBuffer"), flags, 3)
+        this.vtbl.AllocateBuffer := CallbackCreate(ObjBindMethod(implObj, "AllocateBuffer"), flags, 3)
+        this.vtbl.AllocatePageSizeBuffer := CallbackCreate(ObjBindMethod(implObj, "AllocatePageSizeBuffer"), flags, 3)
     }
 
     Dispose() {

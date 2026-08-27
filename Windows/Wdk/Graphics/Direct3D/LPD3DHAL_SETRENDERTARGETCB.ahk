@@ -19,7 +19,6 @@ export default struct LPD3DHAL_SETRENDERTARGETCB {
     }
 
     /**
-     * 
      * @param {Pointer<D3DHAL_SETRENDERTARGETDATA>} param0 
      * @returns {Integer} 
      */

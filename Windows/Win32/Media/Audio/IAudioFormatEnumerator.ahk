@@ -69,8 +69,8 @@ export default struct IAudioFormatEnumerator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
-        this.vtbl.GetFormat := CallbackCreate(GetMethod(implObj, "GetFormat"), flags, 3)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetFormat := CallbackCreate(ObjBindMethod(implObj, "GetFormat"), flags, 3)
     }
 
     Dispose() {

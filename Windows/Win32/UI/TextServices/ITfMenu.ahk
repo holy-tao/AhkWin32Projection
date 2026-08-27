@@ -115,7 +115,7 @@ export default struct ITfMenu extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddMenuItem := CallbackCreate(GetMethod(implObj, "AddMenuItem"), flags, 8)
+        this.vtbl.AddMenuItem := CallbackCreate(ObjBindMethod(implObj, "AddMenuItem"), flags, 8)
     }
 
     Dispose() {

@@ -115,10 +115,10 @@ export default struct IMSVidTuner extends IMSVidVideoInputDevice {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Tune := CallbackCreate(GetMethod(implObj, "get_Tune"), flags, 2)
-        this.vtbl.put_Tune := CallbackCreate(GetMethod(implObj, "put_Tune"), flags, 2)
-        this.vtbl.get_TuningSpace := CallbackCreate(GetMethod(implObj, "get_TuningSpace"), flags, 2)
-        this.vtbl.put_TuningSpace := CallbackCreate(GetMethod(implObj, "put_TuningSpace"), flags, 2)
+        this.vtbl.get_Tune := CallbackCreate(ObjBindMethod(implObj, "get_Tune"), flags, 2)
+        this.vtbl.put_Tune := CallbackCreate(ObjBindMethod(implObj, "put_Tune"), flags, 2)
+        this.vtbl.get_TuningSpace := CallbackCreate(ObjBindMethod(implObj, "get_TuningSpace"), flags, 2)
+        this.vtbl.put_TuningSpace := CallbackCreate(ObjBindMethod(implObj, "put_TuningSpace"), flags, 2)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct DRIVER_FS_NOTIFICATION {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {BOOLEAN} FsActive 
      * @returns {String} Nothing - always returns an empty string

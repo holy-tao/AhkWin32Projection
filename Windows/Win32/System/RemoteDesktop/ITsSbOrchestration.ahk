@@ -64,7 +64,7 @@ export default struct ITsSbOrchestration extends ITsSbPlugin {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PrepareTargetForConnect := CallbackCreate(GetMethod(implObj, "PrepareTargetForConnect"), flags, 3)
+        this.vtbl.PrepareTargetForConnect := CallbackCreate(ObjBindMethod(implObj, "PrepareTargetForConnect"), flags, 3)
     }
 
     Dispose() {

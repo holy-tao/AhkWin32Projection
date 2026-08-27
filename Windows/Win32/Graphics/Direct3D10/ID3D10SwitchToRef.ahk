@@ -84,8 +84,8 @@ export default struct ID3D10SwitchToRef extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetUseRef := CallbackCreate(GetMethod(implObj, "SetUseRef"), flags, 2)
-        this.vtbl.GetUseRef := CallbackCreate(GetMethod(implObj, "GetUseRef"), flags, 1)
+        this.vtbl.SetUseRef := CallbackCreate(ObjBindMethod(implObj, "SetUseRef"), flags, 2)
+        this.vtbl.GetUseRef := CallbackCreate(ObjBindMethod(implObj, "GetUseRef"), flags, 1)
     }
 
     Dispose() {

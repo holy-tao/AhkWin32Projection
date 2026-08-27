@@ -39,7 +39,6 @@ export default struct IDCompositionDynamicTexture extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDCompositionTexture} pTexture 
      * @param {Pointer<RECT>} pRects 
      * @param {Pointer} rectCount 
@@ -51,7 +50,6 @@ export default struct IDCompositionDynamicTexture extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDCompositionTexture} pTexture 
      * @returns {HRESULT} 
      */
@@ -69,8 +67,8 @@ export default struct IDCompositionDynamicTexture extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetTexture := CallbackCreate(GetMethod(implObj, "SetTexture"), flags, 4)
-        this.vtbl.SetTexture1 := CallbackCreate(GetMethod(implObj, "SetTexture1"), flags, 2)
+        this.vtbl.SetTexture := CallbackCreate(ObjBindMethod(implObj, "SetTexture"), flags, 4)
+        this.vtbl.SetTexture1 := CallbackCreate(ObjBindMethod(implObj, "SetTexture1"), flags, 2)
     }
 
     Dispose() {

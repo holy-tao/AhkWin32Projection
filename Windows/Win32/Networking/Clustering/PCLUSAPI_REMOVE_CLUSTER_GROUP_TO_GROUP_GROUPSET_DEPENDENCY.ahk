@@ -20,7 +20,6 @@ export default struct PCLUSAPI_REMOVE_CLUSTER_GROUP_TO_GROUP_GROUPSET_DEPENDENCY
     }
 
     /**
-     * 
      * @param {HGROUP} _hGroup 
      * @param {HGROUPSET} hDependsOn 
      * @returns {Integer} 

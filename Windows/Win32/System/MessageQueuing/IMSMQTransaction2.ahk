@@ -46,7 +46,6 @@ export default struct IMSMQTransaction2 extends IMSMQTransaction {
     }
 
     /**
-     * 
      * @param {VARIANT} varTransaction 
      * @returns {HRESULT} 
      */
@@ -56,7 +55,6 @@ export default struct IMSMQTransaction2 extends IMSMQTransaction {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Properties() {
@@ -73,8 +71,8 @@ export default struct IMSMQTransaction2 extends IMSMQTransaction {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitNew := CallbackCreate(GetMethod(implObj, "InitNew"), flags, 2)
-        this.vtbl.get_Properties := CallbackCreate(GetMethod(implObj, "get_Properties"), flags, 2)
+        this.vtbl.InitNew := CallbackCreate(ObjBindMethod(implObj, "InitNew"), flags, 2)
+        this.vtbl.get_Properties := CallbackCreate(ObjBindMethod(implObj, "get_Properties"), flags, 2)
     }
 
     Dispose() {

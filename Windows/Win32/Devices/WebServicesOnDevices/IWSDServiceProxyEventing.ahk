@@ -122,10 +122,15 @@ export default struct IWSDServiceProxyEventing extends IWSDServiceProxy {
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdserviceproxyeventing-subscribetomultipleoperations
      */
     SubscribeToMultipleOperations(pOperations, dwOperationCount, pUnknown, pExpires, pAny, ppExpires, ppAny) {
-        ppExpiresMarshal := ppExpires is VarRef ? "ptr*" : "ptr"
-        ppAnyMarshal := ppAny is VarRef ? "ptr*" : "ptr"
+        pUnknownMarshal := pUnknown == 0 ? IntPtr : "ptr"
+        pExpiresMarshal := pExpires == 0 ? IntPtr : WSD_EVENTING_EXPIRES.Ptr
+        pAnyMarshal := pAny == 0 ? IntPtr : WSDXML_ELEMENT.Ptr
+        ppExpiresMarshal := ppExpires is VarRef ? "ptr*" : IntPtr
+        ppExpiresMarshal := ppExpires == 0 ? IntPtr : "ptr*"
+        ppAnyMarshal := ppAny is VarRef ? "ptr*" : IntPtr
+        ppAnyMarshal := ppAny == 0 ? IntPtr : "ptr*"
 
-        result := ComCall(11, this, WSD_OPERATION.Ptr, pOperations, UInt32, dwOperationCount, "ptr", pUnknown, WSD_EVENTING_EXPIRES.Ptr, pExpires, WSDXML_ELEMENT.Ptr, pAny, ppExpiresMarshal, ppExpires, ppAnyMarshal, ppAny, "HRESULT")
+        result := ComCall(11, this, WSD_OPERATION.Ptr, pOperations, UInt32, dwOperationCount, pUnknownMarshal, pUnknown, pExpiresMarshal, pExpires, pAnyMarshal, pAny, ppExpiresMarshal, ppExpires, ppAnyMarshal, ppAny, "HRESULT")
         return result
     }
 
@@ -146,7 +151,13 @@ export default struct IWSDServiceProxyEventing extends IWSDServiceProxy {
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdserviceproxyeventing-beginsubscribetomultipleoperations
      */
     BeginSubscribeToMultipleOperations(pOperations, dwOperationCount, pUnknown, pExpires, pAny, pAsyncState, pAsyncCallback) {
-        result := ComCall(12, this, WSD_OPERATION.Ptr, pOperations, UInt32, dwOperationCount, "ptr", pUnknown, WSD_EVENTING_EXPIRES.Ptr, pExpires, WSDXML_ELEMENT.Ptr, pAny, "ptr", pAsyncState, "ptr", pAsyncCallback, "ptr*", &ppResult := 0, "HRESULT")
+        pUnknownMarshal := pUnknown == 0 ? IntPtr : "ptr"
+        pExpiresMarshal := pExpires == 0 ? IntPtr : WSD_EVENTING_EXPIRES.Ptr
+        pAnyMarshal := pAny == 0 ? IntPtr : WSDXML_ELEMENT.Ptr
+        pAsyncStateMarshal := pAsyncState == 0 ? IntPtr : "ptr"
+        pAsyncCallbackMarshal := pAsyncCallback == 0 ? IntPtr : "ptr"
+
+        result := ComCall(12, this, WSD_OPERATION.Ptr, pOperations, UInt32, dwOperationCount, pUnknownMarshal, pUnknown, pExpiresMarshal, pExpires, pAnyMarshal, pAny, pAsyncStateMarshal, pAsyncState, pAsyncCallbackMarshal, pAsyncCallback, "ptr*", &ppResult := 0, "HRESULT")
         return IWSDAsyncResult(ppResult)
     }
 
@@ -165,8 +176,10 @@ export default struct IWSDServiceProxyEventing extends IWSDServiceProxy {
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdserviceproxyeventing-endsubscribetomultipleoperations
      */
     EndSubscribeToMultipleOperations(pOperations, dwOperationCount, pResult, ppExpires, ppAny) {
-        ppExpiresMarshal := ppExpires is VarRef ? "ptr*" : "ptr"
-        ppAnyMarshal := ppAny is VarRef ? "ptr*" : "ptr"
+        ppExpiresMarshal := ppExpires is VarRef ? "ptr*" : IntPtr
+        ppExpiresMarshal := ppExpires == 0 ? IntPtr : "ptr*"
+        ppAnyMarshal := ppAny is VarRef ? "ptr*" : IntPtr
+        ppAnyMarshal := ppAny == 0 ? IntPtr : "ptr*"
 
         result := ComCall(13, this, WSD_OPERATION.Ptr, pOperations, UInt32, dwOperationCount, "ptr", pResult, ppExpiresMarshal, ppExpires, ppAnyMarshal, ppAny, "HRESULT")
         return result
@@ -238,7 +251,11 @@ export default struct IWSDServiceProxyEventing extends IWSDServiceProxy {
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdserviceproxyeventing-beginunsubscribetomultipleoperations
      */
     BeginUnsubscribeToMultipleOperations(pOperations, dwOperationCount, pAny, pAsyncState, pAsyncCallback) {
-        result := ComCall(15, this, WSD_OPERATION.Ptr, pOperations, UInt32, dwOperationCount, WSDXML_ELEMENT.Ptr, pAny, "ptr", pAsyncState, "ptr", pAsyncCallback, "ptr*", &ppResult := 0, "HRESULT")
+        pAnyMarshal := pAny == 0 ? IntPtr : WSDXML_ELEMENT.Ptr
+        pAsyncStateMarshal := pAsyncState == 0 ? IntPtr : "ptr"
+        pAsyncCallbackMarshal := pAsyncCallback == 0 ? IntPtr : "ptr"
+
+        result := ComCall(15, this, WSD_OPERATION.Ptr, pOperations, UInt32, dwOperationCount, pAnyMarshal, pAny, pAsyncStateMarshal, pAsyncState, pAsyncCallbackMarshal, pAsyncCallback, "ptr*", &ppResult := 0, "HRESULT")
         return IWSDAsyncResult(ppResult)
     }
 
@@ -267,10 +284,14 @@ export default struct IWSDServiceProxyEventing extends IWSDServiceProxy {
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdserviceproxyeventing-renewmultipleoperations
      */
     RenewMultipleOperations(pOperations, dwOperationCount, pExpires, pAny, ppExpires, ppAny) {
-        ppExpiresMarshal := ppExpires is VarRef ? "ptr*" : "ptr"
-        ppAnyMarshal := ppAny is VarRef ? "ptr*" : "ptr"
+        pExpiresMarshal := pExpires == 0 ? IntPtr : WSD_EVENTING_EXPIRES.Ptr
+        pAnyMarshal := pAny == 0 ? IntPtr : WSDXML_ELEMENT.Ptr
+        ppExpiresMarshal := ppExpires is VarRef ? "ptr*" : IntPtr
+        ppExpiresMarshal := ppExpires == 0 ? IntPtr : "ptr*"
+        ppAnyMarshal := ppAny is VarRef ? "ptr*" : IntPtr
+        ppAnyMarshal := ppAny == 0 ? IntPtr : "ptr*"
 
-        result := ComCall(17, this, WSD_OPERATION.Ptr, pOperations, UInt32, dwOperationCount, WSD_EVENTING_EXPIRES.Ptr, pExpires, WSDXML_ELEMENT.Ptr, pAny, ppExpiresMarshal, ppExpires, ppAnyMarshal, ppAny, "HRESULT")
+        result := ComCall(17, this, WSD_OPERATION.Ptr, pOperations, UInt32, dwOperationCount, pExpiresMarshal, pExpires, pAnyMarshal, pAny, ppExpiresMarshal, ppExpires, ppAnyMarshal, ppAny, "HRESULT")
         return result
     }
 
@@ -286,7 +307,12 @@ export default struct IWSDServiceProxyEventing extends IWSDServiceProxy {
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdserviceproxyeventing-beginrenewmultipleoperations
      */
     BeginRenewMultipleOperations(pOperations, dwOperationCount, pExpires, pAny, pAsyncState, pAsyncCallback) {
-        result := ComCall(18, this, WSD_OPERATION.Ptr, pOperations, UInt32, dwOperationCount, WSD_EVENTING_EXPIRES.Ptr, pExpires, WSDXML_ELEMENT.Ptr, pAny, "ptr", pAsyncState, "ptr", pAsyncCallback, "ptr*", &ppResult := 0, "HRESULT")
+        pExpiresMarshal := pExpires == 0 ? IntPtr : WSD_EVENTING_EXPIRES.Ptr
+        pAnyMarshal := pAny == 0 ? IntPtr : WSDXML_ELEMENT.Ptr
+        pAsyncStateMarshal := pAsyncState == 0 ? IntPtr : "ptr"
+        pAsyncCallbackMarshal := pAsyncCallback == 0 ? IntPtr : "ptr"
+
+        result := ComCall(18, this, WSD_OPERATION.Ptr, pOperations, UInt32, dwOperationCount, pExpiresMarshal, pExpires, pAnyMarshal, pAny, pAsyncStateMarshal, pAsyncState, pAsyncCallbackMarshal, pAsyncCallback, "ptr*", &ppResult := 0, "HRESULT")
         return IWSDAsyncResult(ppResult)
     }
 
@@ -301,8 +327,10 @@ export default struct IWSDServiceProxyEventing extends IWSDServiceProxy {
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdserviceproxyeventing-endrenewmultipleoperations
      */
     EndRenewMultipleOperations(pOperations, dwOperationCount, pResult, ppExpires, ppAny) {
-        ppExpiresMarshal := ppExpires is VarRef ? "ptr*" : "ptr"
-        ppAnyMarshal := ppAny is VarRef ? "ptr*" : "ptr"
+        ppExpiresMarshal := ppExpires is VarRef ? "ptr*" : IntPtr
+        ppExpiresMarshal := ppExpires == 0 ? IntPtr : "ptr*"
+        ppAnyMarshal := ppAny is VarRef ? "ptr*" : IntPtr
+        ppAnyMarshal := ppAny == 0 ? IntPtr : "ptr*"
 
         result := ComCall(19, this, WSD_OPERATION.Ptr, pOperations, UInt32, dwOperationCount, "ptr", pResult, ppExpiresMarshal, ppExpires, ppAnyMarshal, ppAny, "HRESULT")
         return result
@@ -319,10 +347,13 @@ export default struct IWSDServiceProxyEventing extends IWSDServiceProxy {
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdserviceproxyeventing-getstatusformultipleoperations
      */
     GetStatusForMultipleOperations(pOperations, dwOperationCount, pAny, ppExpires, ppAny) {
-        ppExpiresMarshal := ppExpires is VarRef ? "ptr*" : "ptr"
-        ppAnyMarshal := ppAny is VarRef ? "ptr*" : "ptr"
+        pAnyMarshal := pAny == 0 ? IntPtr : WSDXML_ELEMENT.Ptr
+        ppExpiresMarshal := ppExpires is VarRef ? "ptr*" : IntPtr
+        ppExpiresMarshal := ppExpires == 0 ? IntPtr : "ptr*"
+        ppAnyMarshal := ppAny is VarRef ? "ptr*" : IntPtr
+        ppAnyMarshal := ppAny == 0 ? IntPtr : "ptr*"
 
-        result := ComCall(20, this, WSD_OPERATION.Ptr, pOperations, UInt32, dwOperationCount, WSDXML_ELEMENT.Ptr, pAny, ppExpiresMarshal, ppExpires, ppAnyMarshal, ppAny, "HRESULT")
+        result := ComCall(20, this, WSD_OPERATION.Ptr, pOperations, UInt32, dwOperationCount, pAnyMarshal, pAny, ppExpiresMarshal, ppExpires, ppAnyMarshal, ppAny, "HRESULT")
         return result
     }
 
@@ -337,7 +368,11 @@ export default struct IWSDServiceProxyEventing extends IWSDServiceProxy {
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdserviceproxyeventing-begingetstatusformultipleoperations
      */
     BeginGetStatusForMultipleOperations(pOperations, dwOperationCount, pAny, pAsyncState, pAsyncCallback) {
-        result := ComCall(21, this, WSD_OPERATION.Ptr, pOperations, UInt32, dwOperationCount, WSDXML_ELEMENT.Ptr, pAny, "ptr", pAsyncState, "ptr", pAsyncCallback, "ptr*", &ppResult := 0, "HRESULT")
+        pAnyMarshal := pAny == 0 ? IntPtr : WSDXML_ELEMENT.Ptr
+        pAsyncStateMarshal := pAsyncState == 0 ? IntPtr : "ptr"
+        pAsyncCallbackMarshal := pAsyncCallback == 0 ? IntPtr : "ptr"
+
+        result := ComCall(21, this, WSD_OPERATION.Ptr, pOperations, UInt32, dwOperationCount, pAnyMarshal, pAny, pAsyncStateMarshal, pAsyncState, pAsyncCallbackMarshal, pAsyncCallback, "ptr*", &ppResult := 0, "HRESULT")
         return IWSDAsyncResult(ppResult)
     }
 
@@ -352,8 +387,10 @@ export default struct IWSDServiceProxyEventing extends IWSDServiceProxy {
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdserviceproxyeventing-endgetstatusformultipleoperations
      */
     EndGetStatusForMultipleOperations(pOperations, dwOperationCount, pResult, ppExpires, ppAny) {
-        ppExpiresMarshal := ppExpires is VarRef ? "ptr*" : "ptr"
-        ppAnyMarshal := ppAny is VarRef ? "ptr*" : "ptr"
+        ppExpiresMarshal := ppExpires is VarRef ? "ptr*" : IntPtr
+        ppExpiresMarshal := ppExpires == 0 ? IntPtr : "ptr*"
+        ppAnyMarshal := ppAny is VarRef ? "ptr*" : IntPtr
+        ppAnyMarshal := ppAny == 0 ? IntPtr : "ptr*"
 
         result := ComCall(22, this, WSD_OPERATION.Ptr, pOperations, UInt32, dwOperationCount, "ptr", pResult, ppExpiresMarshal, ppExpires, ppAnyMarshal, ppAny, "HRESULT")
         return result
@@ -368,18 +405,18 @@ export default struct IWSDServiceProxyEventing extends IWSDServiceProxy {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SubscribeToMultipleOperations := CallbackCreate(GetMethod(implObj, "SubscribeToMultipleOperations"), flags, 8)
-        this.vtbl.BeginSubscribeToMultipleOperations := CallbackCreate(GetMethod(implObj, "BeginSubscribeToMultipleOperations"), flags, 9)
-        this.vtbl.EndSubscribeToMultipleOperations := CallbackCreate(GetMethod(implObj, "EndSubscribeToMultipleOperations"), flags, 6)
-        this.vtbl.UnsubscribeToMultipleOperations := CallbackCreate(GetMethod(implObj, "UnsubscribeToMultipleOperations"), flags, 4)
-        this.vtbl.BeginUnsubscribeToMultipleOperations := CallbackCreate(GetMethod(implObj, "BeginUnsubscribeToMultipleOperations"), flags, 7)
-        this.vtbl.EndUnsubscribeToMultipleOperations := CallbackCreate(GetMethod(implObj, "EndUnsubscribeToMultipleOperations"), flags, 4)
-        this.vtbl.RenewMultipleOperations := CallbackCreate(GetMethod(implObj, "RenewMultipleOperations"), flags, 7)
-        this.vtbl.BeginRenewMultipleOperations := CallbackCreate(GetMethod(implObj, "BeginRenewMultipleOperations"), flags, 8)
-        this.vtbl.EndRenewMultipleOperations := CallbackCreate(GetMethod(implObj, "EndRenewMultipleOperations"), flags, 6)
-        this.vtbl.GetStatusForMultipleOperations := CallbackCreate(GetMethod(implObj, "GetStatusForMultipleOperations"), flags, 6)
-        this.vtbl.BeginGetStatusForMultipleOperations := CallbackCreate(GetMethod(implObj, "BeginGetStatusForMultipleOperations"), flags, 7)
-        this.vtbl.EndGetStatusForMultipleOperations := CallbackCreate(GetMethod(implObj, "EndGetStatusForMultipleOperations"), flags, 6)
+        this.vtbl.SubscribeToMultipleOperations := CallbackCreate(ObjBindMethod(implObj, "SubscribeToMultipleOperations"), flags, 8)
+        this.vtbl.BeginSubscribeToMultipleOperations := CallbackCreate(ObjBindMethod(implObj, "BeginSubscribeToMultipleOperations"), flags, 9)
+        this.vtbl.EndSubscribeToMultipleOperations := CallbackCreate(ObjBindMethod(implObj, "EndSubscribeToMultipleOperations"), flags, 6)
+        this.vtbl.UnsubscribeToMultipleOperations := CallbackCreate(ObjBindMethod(implObj, "UnsubscribeToMultipleOperations"), flags, 4)
+        this.vtbl.BeginUnsubscribeToMultipleOperations := CallbackCreate(ObjBindMethod(implObj, "BeginUnsubscribeToMultipleOperations"), flags, 7)
+        this.vtbl.EndUnsubscribeToMultipleOperations := CallbackCreate(ObjBindMethod(implObj, "EndUnsubscribeToMultipleOperations"), flags, 4)
+        this.vtbl.RenewMultipleOperations := CallbackCreate(ObjBindMethod(implObj, "RenewMultipleOperations"), flags, 7)
+        this.vtbl.BeginRenewMultipleOperations := CallbackCreate(ObjBindMethod(implObj, "BeginRenewMultipleOperations"), flags, 8)
+        this.vtbl.EndRenewMultipleOperations := CallbackCreate(ObjBindMethod(implObj, "EndRenewMultipleOperations"), flags, 6)
+        this.vtbl.GetStatusForMultipleOperations := CallbackCreate(ObjBindMethod(implObj, "GetStatusForMultipleOperations"), flags, 6)
+        this.vtbl.BeginGetStatusForMultipleOperations := CallbackCreate(ObjBindMethod(implObj, "BeginGetStatusForMultipleOperations"), flags, 7)
+        this.vtbl.EndGetStatusForMultipleOperations := CallbackCreate(ObjBindMethod(implObj, "EndGetStatusForMultipleOperations"), flags, 6)
     }
 
     Dispose() {

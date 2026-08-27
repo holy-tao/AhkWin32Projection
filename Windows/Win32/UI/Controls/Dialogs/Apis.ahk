@@ -229,7 +229,6 @@ export GetFileTitleW(param0, Buf, cchSize) {
 }
 
 /**
- * 
  * @param {Pointer<CHOOSECOLORA>} param0 
  * @returns {BOOL} 
  */

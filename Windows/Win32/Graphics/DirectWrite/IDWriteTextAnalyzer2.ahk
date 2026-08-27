@@ -100,10 +100,11 @@ export default struct IDWriteTextAnalyzer2 extends IDWriteTextAnalyzer1 {
     GetTypographicFeatures(fontFace, scriptAnalysis, localeName, maxTagCount, actualTagCount, tags) {
         localeName := localeName is String ? StrPtr(localeName) : localeName
 
-        actualTagCountMarshal := actualTagCount is VarRef ? "uint*" : "ptr"
-        tagsMarshal := tags is VarRef ? "uint*" : "ptr"
+        localeNameMarshal := localeName == 0 ? IntPtr : PWSTR
+        actualTagCountMarshal := actualTagCount is VarRef ? "uint*" : IntPtr
+        tagsMarshal := tags is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(20, this, "ptr", fontFace, DWRITE_SCRIPT_ANALYSIS, scriptAnalysis, "ptr", localeName, UInt32, maxTagCount, actualTagCountMarshal, actualTagCount, tagsMarshal, tags, "HRESULT")
+        result := ComCall(20, this, "ptr", fontFace, DWRITE_SCRIPT_ANALYSIS, scriptAnalysis, localeNameMarshal, localeName, UInt32, maxTagCount, actualTagCountMarshal, actualTagCount, tagsMarshal, tags, "HRESULT")
         return result
     }
 
@@ -121,9 +122,10 @@ export default struct IDWriteTextAnalyzer2 extends IDWriteTextAnalyzer1 {
     CheckTypographicFeature(fontFace, scriptAnalysis, localeName, featureTag, glyphCount, glyphIndices) {
         localeName := localeName is String ? StrPtr(localeName) : localeName
 
-        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
+        localeNameMarshal := localeName == 0 ? IntPtr : PWSTR
+        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : IntPtr
 
-        result := ComCall(21, this, "ptr", fontFace, DWRITE_SCRIPT_ANALYSIS, scriptAnalysis, "ptr", localeName, DWRITE_FONT_FEATURE_TAG, featureTag, UInt32, glyphCount, glyphIndicesMarshal, glyphIndices, "char*", &featureApplies := 0, "HRESULT")
+        result := ComCall(21, this, "ptr", fontFace, DWRITE_SCRIPT_ANALYSIS, scriptAnalysis, localeNameMarshal, localeName, DWRITE_FONT_FEATURE_TAG, featureTag, UInt32, glyphCount, glyphIndicesMarshal, glyphIndices, "char*", &featureApplies := 0, "HRESULT")
         return featureApplies
     }
 
@@ -136,9 +138,9 @@ export default struct IDWriteTextAnalyzer2 extends IDWriteTextAnalyzer1 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetGlyphOrientationTransform := CallbackCreate(GetMethod(implObj, "GetGlyphOrientationTransform"), flags, 6)
-        this.vtbl.GetTypographicFeatures := CallbackCreate(GetMethod(implObj, "GetTypographicFeatures"), flags, 7)
-        this.vtbl.CheckTypographicFeature := CallbackCreate(GetMethod(implObj, "CheckTypographicFeature"), flags, 8)
+        this.vtbl.GetGlyphOrientationTransform := CallbackCreate(ObjBindMethod(implObj, "GetGlyphOrientationTransform"), flags, 6)
+        this.vtbl.GetTypographicFeatures := CallbackCreate(ObjBindMethod(implObj, "GetTypographicFeatures"), flags, 7)
+        this.vtbl.CheckTypographicFeature := CallbackCreate(ObjBindMethod(implObj, "CheckTypographicFeature"), flags, 8)
     }
 
     Dispose() {

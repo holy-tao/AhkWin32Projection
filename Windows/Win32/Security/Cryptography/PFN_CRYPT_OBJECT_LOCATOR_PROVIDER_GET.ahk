@@ -34,7 +34,6 @@ export default struct PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_GET {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pPluginContext Pointer to an optional buffer defined by this provider and returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pfn_crypt_object_locator_provider_initialize">PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_INITIALIZE</a> function. The buffer is not modified by the caller. Your provider can use the data to help it determine what actions to perform or to maintain additional information.
      * @param {Pointer<CRYPT_INTEGER_BLOB>} pIdentifier Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dpapi/ns-dpapi-crypt_integer_blob">CRYPTOAPI_BLOB</a> structure that contains the object identifier. This value should always be <b>NULL</b> on the first call to this function.
      * @param {Integer} dwNameType The name format of the <i>pNameBlob</i> parameter. Possible values are listed below. The implementation of this function must be able to process <b>CRYPT_OBJECT_LOCATOR_SPN_NAME_TYPE</b>, which is passed in by Schannel.
@@ -50,13 +49,15 @@ export default struct PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_GET {
      * If an object cannot be returned for a given DNS name (<i>pNameBlob</i>) or identifier (<i>pIdentifier</i>), return <b>FALSE</b> and specify <b>CRYPT_E_OBJECT_LOCATOR_OBJECT_NOT_FOUND</b> in the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-setlasterror">SetLastError</a> function.
      */
     Call(pPluginContext, pIdentifier, dwNameType, pNameBlob, ppbContent, pcbContent, ppwszPassword, ppIdentifier) {
-        pPluginContextMarshal := pPluginContext is VarRef ? "ptr" : "ptr"
-        ppbContentMarshal := ppbContent is VarRef ? "ptr*" : "ptr"
-        pcbContentMarshal := pcbContent is VarRef ? "uint*" : "ptr"
-        ppwszPasswordMarshal := ppwszPassword is VarRef ? "ptr*" : "ptr"
-        ppIdentifierMarshal := ppIdentifier is VarRef ? "ptr*" : "ptr"
+        pPluginContextMarshal := pPluginContext is VarRef ? "ptr" : IntPtr
+        pPluginContextMarshal := pPluginContext == 0 ? IntPtr : "ptr"
+        pIdentifierMarshal := pIdentifier == 0 ? IntPtr : CRYPT_INTEGER_BLOB.Ptr
+        ppbContentMarshal := ppbContent is VarRef ? "ptr*" : IntPtr
+        pcbContentMarshal := pcbContent is VarRef ? "uint*" : IntPtr
+        ppwszPasswordMarshal := ppwszPassword is VarRef ? "ptr*" : IntPtr
+        ppIdentifierMarshal := ppIdentifier is VarRef ? "ptr*" : IntPtr
 
-        result := DllCall(this.value, pPluginContextMarshal, pPluginContext, CRYPT_INTEGER_BLOB.Ptr, pIdentifier, UInt32, dwNameType, CRYPT_INTEGER_BLOB.Ptr, pNameBlob, ppbContentMarshal, ppbContent, pcbContentMarshal, pcbContent, ppwszPasswordMarshal, ppwszPassword, ppIdentifierMarshal, ppIdentifier, BOOL)
+        result := DllCall(this.value, pPluginContextMarshal, pPluginContext, pIdentifierMarshal, pIdentifier, UInt32, dwNameType, CRYPT_INTEGER_BLOB.Ptr, pNameBlob, ppbContentMarshal, ppbContent, pcbContentMarshal, pcbContent, ppwszPasswordMarshal, ppwszPassword, ppIdentifierMarshal, ppIdentifier, BOOL)
         return result
     }
 

@@ -89,8 +89,8 @@ export default struct ITAgentSessionEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Session := CallbackCreate(GetMethod(implObj, "get_Session"), flags, 2)
-        this.vtbl.get_Event := CallbackCreate(GetMethod(implObj, "get_Event"), flags, 2)
+        this.vtbl.get_Session := CallbackCreate(ObjBindMethod(implObj, "get_Session"), flags, 2)
+        this.vtbl.get_Event := CallbackCreate(ObjBindMethod(implObj, "get_Event"), flags, 2)
     }
 
     Dispose() {

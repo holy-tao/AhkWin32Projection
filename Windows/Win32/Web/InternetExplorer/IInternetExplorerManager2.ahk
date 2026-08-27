@@ -37,7 +37,6 @@ export default struct IInternetExplorerManager2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumManagerFrames} 
      */
     EnumFrameWindows() {
@@ -54,7 +53,7 @@ export default struct IInternetExplorerManager2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumFrameWindows := CallbackCreate(GetMethod(implObj, "EnumFrameWindows"), flags, 2)
+        this.vtbl.EnumFrameWindows := CallbackCreate(ObjBindMethod(implObj, "EnumFrameWindows"), flags, 2)
     }
 
     Dispose() {

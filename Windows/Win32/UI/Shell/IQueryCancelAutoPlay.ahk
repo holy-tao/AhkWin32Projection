@@ -102,7 +102,7 @@ export default struct IQueryCancelAutoPlay extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AllowAutoPlay := CallbackCreate(GetMethod(implObj, "AllowAutoPlay"), flags, 5)
+        this.vtbl.AllowAutoPlay := CallbackCreate(ObjBindMethod(implObj, "AllowAutoPlay"), flags, 5)
     }
 
     Dispose() {

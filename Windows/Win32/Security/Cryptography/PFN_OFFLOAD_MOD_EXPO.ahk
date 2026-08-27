@@ -19,7 +19,6 @@ export default struct PFN_OFFLOAD_MOD_EXPO {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbBase 
      * @param {Pointer<Integer>} pbExponent 
      * @param {Integer} cbExponent 
@@ -31,11 +30,11 @@ export default struct PFN_OFFLOAD_MOD_EXPO {
      * @returns {BOOL} 
      */
     Call(pbBase, pbExponent, cbExponent, pbModulus, cbModulus, pbResult, pvOffloadPrivateKey, dwFlags) {
-        pbBaseMarshal := pbBase is VarRef ? "char*" : "ptr"
-        pbExponentMarshal := pbExponent is VarRef ? "char*" : "ptr"
-        pbModulusMarshal := pbModulus is VarRef ? "char*" : "ptr"
-        pbResultMarshal := pbResult is VarRef ? "char*" : "ptr"
-        pvOffloadPrivateKeyMarshal := pvOffloadPrivateKey is VarRef ? "ptr" : "ptr"
+        pbBaseMarshal := pbBase is VarRef ? "char*" : IntPtr
+        pbExponentMarshal := pbExponent is VarRef ? "char*" : IntPtr
+        pbModulusMarshal := pbModulus is VarRef ? "char*" : IntPtr
+        pbResultMarshal := pbResult is VarRef ? "char*" : IntPtr
+        pvOffloadPrivateKeyMarshal := pvOffloadPrivateKey is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, pbBaseMarshal, pbBase, pbExponentMarshal, pbExponent, UInt32, cbExponent, pbModulusMarshal, pbModulus, UInt32, cbModulus, pbResultMarshal, pbResult, pvOffloadPrivateKeyMarshal, pvOffloadPrivateKey, UInt32, dwFlags, BOOL)
         return result

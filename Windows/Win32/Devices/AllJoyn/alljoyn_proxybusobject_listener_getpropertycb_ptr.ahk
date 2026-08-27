@@ -21,7 +21,6 @@ export default struct alljoyn_proxybusobject_listener_getpropertycb_ptr {
     }
 
     /**
-     * 
      * @param {QStatus} _status 
      * @param {alljoyn_proxybusobject} obj 
      * @param {alljoyn_msgarg} value 
@@ -29,7 +28,7 @@ export default struct alljoyn_proxybusobject_listener_getpropertycb_ptr {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_status, obj, value, _context) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, QStatus, _status, alljoyn_proxybusobject, obj, alljoyn_msgarg, value, _contextMarshal, _context)
     }

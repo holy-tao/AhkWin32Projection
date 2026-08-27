@@ -63,8 +63,8 @@ export default struct IDXGISurface2 extends IDXGISurface1 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgisurface2-getresource
      */
     GetResource(riid, ppParentResource, pSubresourceIndex) {
-        ppParentResourceMarshal := ppParentResource is VarRef ? "ptr*" : "ptr"
-        pSubresourceIndexMarshal := pSubresourceIndex is VarRef ? "uint*" : "ptr"
+        ppParentResourceMarshal := ppParentResource is VarRef ? "ptr*" : IntPtr
+        pSubresourceIndexMarshal := pSubresourceIndex is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, Guid.Ptr, riid, ppParentResourceMarshal, ppParentResource, pSubresourceIndexMarshal, pSubresourceIndex, "HRESULT")
         return result
@@ -79,7 +79,7 @@ export default struct IDXGISurface2 extends IDXGISurface1 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetResource := CallbackCreate(GetMethod(implObj, "GetResource"), flags, 4)
+        this.vtbl.GetResource := CallbackCreate(ObjBindMethod(implObj, "GetResource"), flags, 4)
     }
 
     Dispose() {

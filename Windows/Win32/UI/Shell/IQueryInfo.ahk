@@ -83,8 +83,8 @@ export default struct IQueryInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetInfoTip := CallbackCreate(GetMethod(implObj, "GetInfoTip"), flags, 3)
-        this.vtbl.GetInfoFlags := CallbackCreate(GetMethod(implObj, "GetInfoFlags"), flags, 2)
+        this.vtbl.GetInfoTip := CallbackCreate(ObjBindMethod(implObj, "GetInfoTip"), flags, 3)
+        this.vtbl.GetInfoFlags := CallbackCreate(ObjBindMethod(implObj, "GetInfoFlags"), flags, 2)
     }
 
     Dispose() {

@@ -58,7 +58,7 @@ export default struct IDMLDispatchable extends IDMLPageable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetBindingProperties := CallbackCreate(GetMethod(implObj, "GetBindingProperties"), flags, 1)
+        this.vtbl.GetBindingProperties := CallbackCreate(ObjBindMethod(implObj, "GetBindingProperties"), flags, 1)
     }
 
     Dispose() {

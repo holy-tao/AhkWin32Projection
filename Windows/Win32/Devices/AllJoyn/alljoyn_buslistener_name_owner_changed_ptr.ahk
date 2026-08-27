@@ -19,7 +19,6 @@ export default struct alljoyn_buslistener_name_owner_changed_ptr {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {PSTR} busName 
      * @param {PSTR} previousOwner 
@@ -31,7 +30,7 @@ export default struct alljoyn_buslistener_name_owner_changed_ptr {
         previousOwner := previousOwner is String ? StrPtr(previousOwner) : previousOwner
         newOwner := newOwner is String ? StrPtr(newOwner) : newOwner
 
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _contextMarshal, _context, "ptr", busName, "ptr", previousOwner, "ptr", newOwner)
     }

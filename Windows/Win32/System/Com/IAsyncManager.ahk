@@ -38,7 +38,6 @@ export default struct IAsyncManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {HRESULT} Result 
      * @returns {HRESULT} 
      */
@@ -48,7 +47,6 @@ export default struct IAsyncManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
@@ -58,7 +56,6 @@ export default struct IAsyncManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetState() {
@@ -75,9 +72,9 @@ export default struct IAsyncManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CompleteCall := CallbackCreate(GetMethod(implObj, "CompleteCall"), flags, 2)
-        this.vtbl.GetCallContext := CallbackCreate(GetMethod(implObj, "GetCallContext"), flags, 3)
-        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 2)
+        this.vtbl.CompleteCall := CallbackCreate(ObjBindMethod(implObj, "CompleteCall"), flags, 2)
+        this.vtbl.GetCallContext := CallbackCreate(ObjBindMethod(implObj, "GetCallContext"), flags, 3)
+        this.vtbl.GetState := CallbackCreate(ObjBindMethod(implObj, "GetState"), flags, 2)
     }
 
     Dispose() {

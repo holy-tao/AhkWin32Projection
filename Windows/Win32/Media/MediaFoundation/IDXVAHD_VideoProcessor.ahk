@@ -133,11 +133,11 @@ export default struct IDXVAHD_VideoProcessor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetVideoProcessBltState := CallbackCreate(GetMethod(implObj, "SetVideoProcessBltState"), flags, 4)
-        this.vtbl.GetVideoProcessBltState := CallbackCreate(GetMethod(implObj, "GetVideoProcessBltState"), flags, 4)
-        this.vtbl.SetVideoProcessStreamState := CallbackCreate(GetMethod(implObj, "SetVideoProcessStreamState"), flags, 5)
-        this.vtbl.GetVideoProcessStreamState := CallbackCreate(GetMethod(implObj, "GetVideoProcessStreamState"), flags, 5)
-        this.vtbl.VideoProcessBltHD := CallbackCreate(GetMethod(implObj, "VideoProcessBltHD"), flags, 5)
+        this.vtbl.SetVideoProcessBltState := CallbackCreate(ObjBindMethod(implObj, "SetVideoProcessBltState"), flags, 4)
+        this.vtbl.GetVideoProcessBltState := CallbackCreate(ObjBindMethod(implObj, "GetVideoProcessBltState"), flags, 4)
+        this.vtbl.SetVideoProcessStreamState := CallbackCreate(ObjBindMethod(implObj, "SetVideoProcessStreamState"), flags, 5)
+        this.vtbl.GetVideoProcessStreamState := CallbackCreate(ObjBindMethod(implObj, "GetVideoProcessStreamState"), flags, 5)
+        this.vtbl.VideoProcessBltHD := CallbackCreate(ObjBindMethod(implObj, "VideoProcessBltHD"), flags, 5)
     }
 
     Dispose() {

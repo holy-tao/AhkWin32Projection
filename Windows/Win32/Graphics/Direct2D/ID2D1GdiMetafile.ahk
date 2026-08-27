@@ -96,8 +96,8 @@ export default struct ID2D1GdiMetafile extends ID2D1Resource {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Stream := CallbackCreate(GetMethod(implObj, "Stream"), flags, 2)
-        this.vtbl.GetBounds := CallbackCreate(GetMethod(implObj, "GetBounds"), flags, 2)
+        this.vtbl.Stream := CallbackCreate(ObjBindMethod(implObj, "Stream"), flags, 2)
+        this.vtbl.GetBounds := CallbackCreate(ObjBindMethod(implObj, "GetBounds"), flags, 2)
     }
 
     Dispose() {

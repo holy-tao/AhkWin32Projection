@@ -94,10 +94,10 @@ export default struct IWTSPlugin extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.Connected := CallbackCreate(GetMethod(implObj, "Connected"), flags, 1)
-        this.vtbl.Disconnected := CallbackCreate(GetMethod(implObj, "Disconnected"), flags, 2)
-        this.vtbl.Terminated := CallbackCreate(GetMethod(implObj, "Terminated"), flags, 1)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.Connected := CallbackCreate(ObjBindMethod(implObj, "Connected"), flags, 1)
+        this.vtbl.Disconnected := CallbackCreate(ObjBindMethod(implObj, "Disconnected"), flags, 2)
+        this.vtbl.Terminated := CallbackCreate(ObjBindMethod(implObj, "Terminated"), flags, 1)
     }
 
     Dispose() {

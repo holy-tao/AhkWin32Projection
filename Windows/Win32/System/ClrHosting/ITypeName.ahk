@@ -43,7 +43,6 @@ export default struct ITypeName extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNameCount() {
@@ -52,7 +51,6 @@ export default struct ITypeName extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} count 
      * @param {Pointer<BSTR>} rgbszNames 
      * @returns {Integer} 
@@ -63,7 +61,6 @@ export default struct ITypeName extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetTypeArgumentCount() {
@@ -72,7 +69,6 @@ export default struct ITypeName extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} count 
      * @param {Pointer<ITypeName>} rgpArguments 
      * @returns {Integer} 
@@ -83,7 +79,6 @@ export default struct ITypeName extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetModifierLength() {
@@ -92,20 +87,18 @@ export default struct ITypeName extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} count 
      * @param {Pointer<Integer>} rgModifiers 
      * @returns {Integer} 
      */
     GetModifiers(count, rgModifiers) {
-        rgModifiersMarshal := rgModifiers is VarRef ? "uint*" : "ptr"
+        rgModifiersMarshal := rgModifiers is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, UInt32, count, rgModifiersMarshal, rgModifiers, "uint*", &pCount := 0, "HRESULT")
         return pCount
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetAssemblyName() {
@@ -123,13 +116,13 @@ export default struct ITypeName extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNameCount := CallbackCreate(GetMethod(implObj, "GetNameCount"), flags, 2)
-        this.vtbl.GetNames := CallbackCreate(GetMethod(implObj, "GetNames"), flags, 4)
-        this.vtbl.GetTypeArgumentCount := CallbackCreate(GetMethod(implObj, "GetTypeArgumentCount"), flags, 2)
-        this.vtbl.GetTypeArguments := CallbackCreate(GetMethod(implObj, "GetTypeArguments"), flags, 4)
-        this.vtbl.GetModifierLength := CallbackCreate(GetMethod(implObj, "GetModifierLength"), flags, 2)
-        this.vtbl.GetModifiers := CallbackCreate(GetMethod(implObj, "GetModifiers"), flags, 4)
-        this.vtbl.GetAssemblyName := CallbackCreate(GetMethod(implObj, "GetAssemblyName"), flags, 2)
+        this.vtbl.GetNameCount := CallbackCreate(ObjBindMethod(implObj, "GetNameCount"), flags, 2)
+        this.vtbl.GetNames := CallbackCreate(ObjBindMethod(implObj, "GetNames"), flags, 4)
+        this.vtbl.GetTypeArgumentCount := CallbackCreate(ObjBindMethod(implObj, "GetTypeArgumentCount"), flags, 2)
+        this.vtbl.GetTypeArguments := CallbackCreate(ObjBindMethod(implObj, "GetTypeArguments"), flags, 4)
+        this.vtbl.GetModifierLength := CallbackCreate(ObjBindMethod(implObj, "GetModifierLength"), flags, 2)
+        this.vtbl.GetModifiers := CallbackCreate(ObjBindMethod(implObj, "GetModifiers"), flags, 4)
+        this.vtbl.GetAssemblyName := CallbackCreate(ObjBindMethod(implObj, "GetAssemblyName"), flags, 2)
     }
 
     Dispose() {

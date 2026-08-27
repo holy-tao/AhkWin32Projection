@@ -143,7 +143,7 @@ export default struct IFaxDocument2 extends IFaxDocument {
     Submit2(bstrFaxServerName, pvFaxOutgoingJobIDs, plErrorBodyFile) {
         bstrFaxServerName := bstrFaxServerName is String ? BSTR.Alloc(bstrFaxServerName).Value : bstrFaxServerName
 
-        plErrorBodyFileMarshal := plErrorBodyFile is VarRef ? "int*" : "ptr"
+        plErrorBodyFileMarshal := plErrorBodyFile is VarRef ? "int*" : IntPtr
 
         result := ComCall(44, this, BSTR, bstrFaxServerName, VARIANT.Ptr, pvFaxOutgoingJobIDs, plErrorBodyFileMarshal, plErrorBodyFile, "HRESULT")
         return result
@@ -184,9 +184,10 @@ export default struct IFaxDocument2 extends IFaxDocument {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument2-connectedsubmit2
      */
     ConnectedSubmit2(pFaxServer, pvFaxOutgoingJobIDs, plErrorBodyFile) {
-        plErrorBodyFileMarshal := plErrorBodyFile is VarRef ? "int*" : "ptr"
+        pFaxServerMarshal := pFaxServer == 0 ? IntPtr : "ptr"
+        plErrorBodyFileMarshal := plErrorBodyFile is VarRef ? "int*" : IntPtr
 
-        result := ComCall(45, this, "ptr", pFaxServer, VARIANT.Ptr, pvFaxOutgoingJobIDs, plErrorBodyFileMarshal, plErrorBodyFile, "HRESULT")
+        result := ComCall(45, this, pFaxServerMarshal, pFaxServer, VARIANT.Ptr, pvFaxOutgoingJobIDs, plErrorBodyFileMarshal, plErrorBodyFile, "HRESULT")
         return result
     }
 
@@ -199,11 +200,11 @@ export default struct IFaxDocument2 extends IFaxDocument {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_SubmissionId := CallbackCreate(GetMethod(implObj, "get_SubmissionId"), flags, 2)
-        this.vtbl.get_Bodies := CallbackCreate(GetMethod(implObj, "get_Bodies"), flags, 2)
-        this.vtbl.put_Bodies := CallbackCreate(GetMethod(implObj, "put_Bodies"), flags, 2)
-        this.vtbl.Submit2 := CallbackCreate(GetMethod(implObj, "Submit2"), flags, 4)
-        this.vtbl.ConnectedSubmit2 := CallbackCreate(GetMethod(implObj, "ConnectedSubmit2"), flags, 4)
+        this.vtbl.get_SubmissionId := CallbackCreate(ObjBindMethod(implObj, "get_SubmissionId"), flags, 2)
+        this.vtbl.get_Bodies := CallbackCreate(ObjBindMethod(implObj, "get_Bodies"), flags, 2)
+        this.vtbl.put_Bodies := CallbackCreate(ObjBindMethod(implObj, "put_Bodies"), flags, 2)
+        this.vtbl.Submit2 := CallbackCreate(ObjBindMethod(implObj, "Submit2"), flags, 4)
+        this.vtbl.ConnectedSubmit2 := CallbackCreate(ObjBindMethod(implObj, "ConnectedSubmit2"), flags, 4)
     }
 
     Dispose() {

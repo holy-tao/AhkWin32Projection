@@ -63,7 +63,7 @@ export default struct IMFByteStreamProxyClassFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateByteStreamProxy := CallbackCreate(GetMethod(implObj, "CreateByteStreamProxy"), flags, 5)
+        this.vtbl.CreateByteStreamProxy := CallbackCreate(ObjBindMethod(implObj, "CreateByteStreamProxy"), flags, 5)
     }
 
     Dispose() {

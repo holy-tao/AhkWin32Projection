@@ -37,7 +37,6 @@ export default struct IViewRowset extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
      */
@@ -47,13 +46,14 @@ export default struct IViewRowset extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
      */
     OpenViewRowset(pUnkOuter, riid) {
-        result := ComCall(4, this, "ptr", pUnkOuter, Guid.Ptr, riid, "ptr*", &ppRowset := 0, "HRESULT")
+        pUnkOuterMarshal := pUnkOuter == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, pUnkOuterMarshal, pUnkOuter, Guid.Ptr, riid, "ptr*", &ppRowset := 0, "HRESULT")
         return IUnknown(ppRowset)
     }
 
@@ -66,8 +66,8 @@ export default struct IViewRowset extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSpecification := CallbackCreate(GetMethod(implObj, "GetSpecification"), flags, 3)
-        this.vtbl.OpenViewRowset := CallbackCreate(GetMethod(implObj, "OpenViewRowset"), flags, 4)
+        this.vtbl.GetSpecification := CallbackCreate(ObjBindMethod(implObj, "GetSpecification"), flags, 3)
+        this.vtbl.OpenViewRowset := CallbackCreate(ObjBindMethod(implObj, "OpenViewRowset"), flags, 4)
     }
 
     Dispose() {

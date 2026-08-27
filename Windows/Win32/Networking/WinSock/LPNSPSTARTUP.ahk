@@ -20,7 +20,6 @@ export default struct LPNSPSTARTUP {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} lpProviderId 
      * @param {Pointer<NSP_ROUTINE>} lpnspRoutines 
      * @returns {Integer} 

@@ -47,7 +47,6 @@ export default struct ISWbemServicesEx extends ISWbemServices {
     }
 
     /**
-     * 
      * @param {ISWbemObjectEx} objWbemObject 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
@@ -59,7 +58,6 @@ export default struct ISWbemServicesEx extends ISWbemServices {
     }
 
     /**
-     * 
      * @param {ISWbemSink} objWbemSink 
      * @param {ISWbemObjectEx} objWbemObject 
      * @param {Integer} iFlags 
@@ -81,8 +79,8 @@ export default struct ISWbemServicesEx extends ISWbemServices {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Put := CallbackCreate(GetMethod(implObj, "Put"), flags, 5)
-        this.vtbl.PutAsync := CallbackCreate(GetMethod(implObj, "PutAsync"), flags, 6)
+        this.vtbl.Put := CallbackCreate(ObjBindMethod(implObj, "Put"), flags, 5)
+        this.vtbl.PutAsync := CallbackCreate(ObjBindMethod(implObj, "PutAsync"), flags, 6)
     }
 
     Dispose() {

@@ -27,7 +27,6 @@ export default struct PDD_SURFCB_FLIP {
     }
 
     /**
-     * 
      * @param {Pointer<DD_FLIPDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_flipdata">DD_FLIPDATA</a> structure that contains the information required to perform the flip.
      * @returns {Integer} <b>DdFlip</b> returns one of the following callback codes:
      */

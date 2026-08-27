@@ -20,7 +20,6 @@ export default struct PCI_MSIX_GET_ENTRY {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Integer} TableEntry 
      * @param {Pointer<Integer>} MessageNumber 
@@ -28,9 +27,9 @@ export default struct PCI_MSIX_GET_ENTRY {
      * @returns {NTSTATUS} 
      */
     Call(_Context, TableEntry, MessageNumber, Masked) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        MessageNumberMarshal := MessageNumber is VarRef ? "uint*" : "ptr"
-        MaskedMarshal := Masked is VarRef ? "char*" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        MessageNumberMarshal := MessageNumber is VarRef ? "uint*" : IntPtr
+        MaskedMarshal := Masked is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, UInt32, TableEntry, MessageNumberMarshal, MessageNumber, MaskedMarshal, Masked, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

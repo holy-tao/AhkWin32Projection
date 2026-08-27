@@ -117,7 +117,6 @@ export default struct ISClusVersion extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -127,7 +126,6 @@ export default struct ISClusVersion extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MajorVersion() {
@@ -136,7 +134,6 @@ export default struct ISClusVersion extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MinorVersion() {
@@ -145,7 +142,6 @@ export default struct ISClusVersion extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_BuildNumber() {
@@ -154,7 +150,6 @@ export default struct ISClusVersion extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_VendorId() {
@@ -164,7 +159,6 @@ export default struct ISClusVersion extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_CSDVersion() {
@@ -174,7 +168,6 @@ export default struct ISClusVersion extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ClusterHighestVersion() {
@@ -183,7 +176,6 @@ export default struct ISClusVersion extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ClusterLowestVersion() {
@@ -192,7 +184,6 @@ export default struct ISClusVersion extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Flags() {
@@ -201,7 +192,6 @@ export default struct ISClusVersion extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_MixedVersion() {
@@ -219,16 +209,16 @@ export default struct ISClusVersion extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_MajorVersion := CallbackCreate(GetMethod(implObj, "get_MajorVersion"), flags, 2)
-        this.vtbl.get_MinorVersion := CallbackCreate(GetMethod(implObj, "get_MinorVersion"), flags, 2)
-        this.vtbl.get_BuildNumber := CallbackCreate(GetMethod(implObj, "get_BuildNumber"), flags, 2)
-        this.vtbl.get_VendorId := CallbackCreate(GetMethod(implObj, "get_VendorId"), flags, 2)
-        this.vtbl.get_CSDVersion := CallbackCreate(GetMethod(implObj, "get_CSDVersion"), flags, 2)
-        this.vtbl.get_ClusterHighestVersion := CallbackCreate(GetMethod(implObj, "get_ClusterHighestVersion"), flags, 2)
-        this.vtbl.get_ClusterLowestVersion := CallbackCreate(GetMethod(implObj, "get_ClusterLowestVersion"), flags, 2)
-        this.vtbl.get_Flags := CallbackCreate(GetMethod(implObj, "get_Flags"), flags, 2)
-        this.vtbl.get_MixedVersion := CallbackCreate(GetMethod(implObj, "get_MixedVersion"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_MajorVersion := CallbackCreate(ObjBindMethod(implObj, "get_MajorVersion"), flags, 2)
+        this.vtbl.get_MinorVersion := CallbackCreate(ObjBindMethod(implObj, "get_MinorVersion"), flags, 2)
+        this.vtbl.get_BuildNumber := CallbackCreate(ObjBindMethod(implObj, "get_BuildNumber"), flags, 2)
+        this.vtbl.get_VendorId := CallbackCreate(ObjBindMethod(implObj, "get_VendorId"), flags, 2)
+        this.vtbl.get_CSDVersion := CallbackCreate(ObjBindMethod(implObj, "get_CSDVersion"), flags, 2)
+        this.vtbl.get_ClusterHighestVersion := CallbackCreate(ObjBindMethod(implObj, "get_ClusterHighestVersion"), flags, 2)
+        this.vtbl.get_ClusterLowestVersion := CallbackCreate(ObjBindMethod(implObj, "get_ClusterLowestVersion"), flags, 2)
+        this.vtbl.get_Flags := CallbackCreate(ObjBindMethod(implObj, "get_Flags"), flags, 2)
+        this.vtbl.get_MixedVersion := CallbackCreate(ObjBindMethod(implObj, "get_MixedVersion"), flags, 2)
     }
 
     Dispose() {

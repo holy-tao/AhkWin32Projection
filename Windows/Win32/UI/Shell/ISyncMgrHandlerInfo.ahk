@@ -190,13 +190,13 @@ export default struct ISyncMgrHandlerInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
-        this.vtbl.GetTypeLabel := CallbackCreate(GetMethod(implObj, "GetTypeLabel"), flags, 2)
-        this.vtbl.GetComment := CallbackCreate(GetMethod(implObj, "GetComment"), flags, 2)
-        this.vtbl.GetLastSyncTime := CallbackCreate(GetMethod(implObj, "GetLastSyncTime"), flags, 2)
-        this.vtbl.IsActive := CallbackCreate(GetMethod(implObj, "IsActive"), flags, 1)
-        this.vtbl.IsEnabled := CallbackCreate(GetMethod(implObj, "IsEnabled"), flags, 1)
-        this.vtbl.IsConnected := CallbackCreate(GetMethod(implObj, "IsConnected"), flags, 1)
+        this.vtbl.GetType := CallbackCreate(ObjBindMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.GetTypeLabel := CallbackCreate(ObjBindMethod(implObj, "GetTypeLabel"), flags, 2)
+        this.vtbl.GetComment := CallbackCreate(ObjBindMethod(implObj, "GetComment"), flags, 2)
+        this.vtbl.GetLastSyncTime := CallbackCreate(ObjBindMethod(implObj, "GetLastSyncTime"), flags, 2)
+        this.vtbl.IsActive := CallbackCreate(ObjBindMethod(implObj, "IsActive"), flags, 1)
+        this.vtbl.IsEnabled := CallbackCreate(ObjBindMethod(implObj, "IsEnabled"), flags, 1)
+        this.vtbl.IsConnected := CallbackCreate(ObjBindMethod(implObj, "IsConnected"), flags, 1)
     }
 
     Dispose() {

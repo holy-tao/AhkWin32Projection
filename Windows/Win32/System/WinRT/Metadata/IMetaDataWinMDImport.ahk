@@ -37,7 +37,6 @@ export default struct IMetaDataWinMDImport extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} tr 
      * @param {Pointer<Integer>} ptkResolutionScope 
      * @param {PWSTR} szName 
@@ -48,10 +47,11 @@ export default struct IMetaDataWinMDImport extends IUnknown {
     GetUntransformedTypeRefProps(tr, ptkResolutionScope, szName, cchName, pchName) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        ptkResolutionScopeMarshal := ptkResolutionScope is VarRef ? "uint*" : "ptr"
-        pchNameMarshal := pchName is VarRef ? "uint*" : "ptr"
+        ptkResolutionScopeMarshal := ptkResolutionScope is VarRef ? "uint*" : IntPtr
+        szNameMarshal := szName == 0 ? IntPtr : PWSTR
+        pchNameMarshal := pchName is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(3, this, UInt32, tr, ptkResolutionScopeMarshal, ptkResolutionScope, "ptr", szName, UInt32, cchName, pchNameMarshal, pchName, "HRESULT")
+        result := ComCall(3, this, UInt32, tr, ptkResolutionScopeMarshal, ptkResolutionScope, szNameMarshal, szName, UInt32, cchName, pchNameMarshal, pchName, "HRESULT")
         return result
     }
 
@@ -64,7 +64,7 @@ export default struct IMetaDataWinMDImport extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetUntransformedTypeRefProps := CallbackCreate(GetMethod(implObj, "GetUntransformedTypeRefProps"), flags, 6)
+        this.vtbl.GetUntransformedTypeRefProps := CallbackCreate(ObjBindMethod(implObj, "GetUntransformedTypeRefProps"), flags, 6)
     }
 
     Dispose() {

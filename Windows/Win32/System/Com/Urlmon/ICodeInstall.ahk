@@ -37,7 +37,6 @@ export default struct ICodeInstall extends IWindowForBindingUI {
     }
 
     /**
-     * 
      * @param {Integer} ulStatusCode 
      * @param {PWSTR} szDestination 
      * @param {PWSTR} szSource 
@@ -61,7 +60,7 @@ export default struct ICodeInstall extends IWindowForBindingUI {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnCodeInstallProblem := CallbackCreate(GetMethod(implObj, "OnCodeInstallProblem"), flags, 5)
+        this.vtbl.OnCodeInstallProblem := CallbackCreate(ObjBindMethod(implObj, "OnCodeInstallProblem"), flags, 5)
     }
 
     Dispose() {

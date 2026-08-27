@@ -96,7 +96,9 @@ export default struct IWSDHttpMessageParameters extends IWSDMessageParameters {
     SetInboundHttpHeaders(pszHeaders) {
         pszHeaders := pszHeaders is String ? StrPtr(pszHeaders) : pszHeaders
 
-        result := ComCall(8, this, "ptr", pszHeaders, "HRESULT")
+        pszHeadersMarshal := pszHeaders == 0 ? IntPtr : PWSTR
+
+        result := ComCall(8, this, pszHeadersMarshal, pszHeaders, "HRESULT")
         return result
     }
 
@@ -159,7 +161,9 @@ export default struct IWSDHttpMessageParameters extends IWSDMessageParameters {
     SetOutboundHttpHeaders(pszHeaders) {
         pszHeaders := pszHeaders is String ? StrPtr(pszHeaders) : pszHeaders
 
-        result := ComCall(10, this, "ptr", pszHeaders, "HRESULT")
+        pszHeadersMarshal := pszHeaders == 0 ? IntPtr : PWSTR
+
+        result := ComCall(10, this, pszHeadersMarshal, pszHeaders, "HRESULT")
         return result
     }
 
@@ -222,7 +226,9 @@ export default struct IWSDHttpMessageParameters extends IWSDMessageParameters {
     SetID(pszId) {
         pszId := pszId is String ? StrPtr(pszId) : pszId
 
-        result := ComCall(12, this, "ptr", pszId, "HRESULT")
+        pszIdMarshal := pszId == 0 ? IntPtr : PWSTR
+
+        result := ComCall(12, this, pszIdMarshal, pszId, "HRESULT")
         return result
     }
 
@@ -322,15 +328,15 @@ export default struct IWSDHttpMessageParameters extends IWSDMessageParameters {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetInboundHttpHeaders := CallbackCreate(GetMethod(implObj, "SetInboundHttpHeaders"), flags, 2)
-        this.vtbl.GetInboundHttpHeaders := CallbackCreate(GetMethod(implObj, "GetInboundHttpHeaders"), flags, 2)
-        this.vtbl.SetOutboundHttpHeaders := CallbackCreate(GetMethod(implObj, "SetOutboundHttpHeaders"), flags, 2)
-        this.vtbl.GetOutboundHttpHeaders := CallbackCreate(GetMethod(implObj, "GetOutboundHttpHeaders"), flags, 2)
-        this.vtbl.SetID := CallbackCreate(GetMethod(implObj, "SetID"), flags, 2)
-        this.vtbl.GetID := CallbackCreate(GetMethod(implObj, "GetID"), flags, 2)
-        this.vtbl.SetContext := CallbackCreate(GetMethod(implObj, "SetContext"), flags, 2)
-        this.vtbl.GetContext := CallbackCreate(GetMethod(implObj, "GetContext"), flags, 2)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.SetInboundHttpHeaders := CallbackCreate(ObjBindMethod(implObj, "SetInboundHttpHeaders"), flags, 2)
+        this.vtbl.GetInboundHttpHeaders := CallbackCreate(ObjBindMethod(implObj, "GetInboundHttpHeaders"), flags, 2)
+        this.vtbl.SetOutboundHttpHeaders := CallbackCreate(ObjBindMethod(implObj, "SetOutboundHttpHeaders"), flags, 2)
+        this.vtbl.GetOutboundHttpHeaders := CallbackCreate(ObjBindMethod(implObj, "GetOutboundHttpHeaders"), flags, 2)
+        this.vtbl.SetID := CallbackCreate(ObjBindMethod(implObj, "SetID"), flags, 2)
+        this.vtbl.GetID := CallbackCreate(ObjBindMethod(implObj, "GetID"), flags, 2)
+        this.vtbl.SetContext := CallbackCreate(ObjBindMethod(implObj, "SetContext"), flags, 2)
+        this.vtbl.GetContext := CallbackCreate(ObjBindMethod(implObj, "GetContext"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
     }
 
     Dispose() {

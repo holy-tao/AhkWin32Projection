@@ -20,13 +20,12 @@ export default struct fpCreateIFELanguageInstanceType {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} clsid 
      * @param {Pointer<Pointer<Void>>} ppvObj 
      * @returns {HRESULT} 
      */
     Call(clsid, ppvObj) {
-        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, Guid.Ptr, clsid, ppvObjMarshal, ppvObj, "HRESULT")
         return result

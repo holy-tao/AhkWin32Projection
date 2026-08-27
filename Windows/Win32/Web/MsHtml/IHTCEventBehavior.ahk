@@ -43,7 +43,6 @@ export default struct IHTCEventBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLEventObj} pvar 
      * @returns {HRESULT} 
      */
@@ -61,7 +60,7 @@ export default struct IHTCEventBehavior extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.fire := CallbackCreate(GetMethod(implObj, "fire"), flags, 2)
+        this.vtbl.fire := CallbackCreate(ObjBindMethod(implObj, "fire"), flags, 2)
     }
 
     Dispose() {

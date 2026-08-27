@@ -18,12 +18,11 @@ export default struct PFN_DESTRUCTION_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pData 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(pData) {
-        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+        pDataMarshal := pData is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, pDataMarshal, pData)
     }

@@ -65,10 +65,13 @@ export default struct IWICMetadataReaderInfo extends IWICMetadataHandlerInfo {
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatareaderinfo-getpatterns
      */
     GetPatterns(guidContainerFormat, cbSize, pPattern, pcCount, pcbActual) {
-        pcCountMarshal := pcCount is VarRef ? "uint*" : "ptr"
-        pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
+        pPatternMarshal := pPattern == 0 ? IntPtr : IntPtr
+        pcCountMarshal := pcCount is VarRef ? "uint*" : IntPtr
+        pcCountMarshal := pcCount == 0 ? IntPtr : "uint*"
+        pcbActualMarshal := pcbActual is VarRef ? "uint*" : IntPtr
+        pcbActualMarshal := pcbActual == 0 ? IntPtr : "uint*"
 
-        result := ComCall(18, this, Guid.Ptr, guidContainerFormat, UInt32, cbSize, IntPtr, pPattern, pcCountMarshal, pcCount, pcbActualMarshal, pcbActual, "HRESULT")
+        result := ComCall(18, this, Guid.Ptr, guidContainerFormat, UInt32, cbSize, pPatternMarshal, pPattern, pcCountMarshal, pcCount, pcbActualMarshal, pcbActual, "HRESULT")
         return result
     }
 
@@ -111,9 +114,9 @@ export default struct IWICMetadataReaderInfo extends IWICMetadataHandlerInfo {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPatterns := CallbackCreate(GetMethod(implObj, "GetPatterns"), flags, 6)
-        this.vtbl.MatchesPattern := CallbackCreate(GetMethod(implObj, "MatchesPattern"), flags, 4)
-        this.vtbl.CreateInstance := CallbackCreate(GetMethod(implObj, "CreateInstance"), flags, 2)
+        this.vtbl.GetPatterns := CallbackCreate(ObjBindMethod(implObj, "GetPatterns"), flags, 6)
+        this.vtbl.MatchesPattern := CallbackCreate(ObjBindMethod(implObj, "MatchesPattern"), flags, 4)
+        this.vtbl.CreateInstance := CallbackCreate(ObjBindMethod(implObj, "CreateInstance"), flags, 2)
     }
 
     Dispose() {

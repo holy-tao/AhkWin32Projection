@@ -228,13 +228,13 @@ export default struct ISettingsNamespace extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetIdentity := CallbackCreate(GetMethod(implObj, "GetIdentity"), flags, 2)
-        this.vtbl.Settings := CallbackCreate(GetMethod(implObj, "Settings"), flags, 2)
-        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 3)
-        this.vtbl.GetSettingByPath := CallbackCreate(GetMethod(implObj, "GetSettingByPath"), flags, 3)
-        this.vtbl.CreateSettingByPath := CallbackCreate(GetMethod(implObj, "CreateSettingByPath"), flags, 3)
-        this.vtbl.RemoveSettingByPath := CallbackCreate(GetMethod(implObj, "RemoveSettingByPath"), flags, 2)
-        this.vtbl.GetAttribute := CallbackCreate(GetMethod(implObj, "GetAttribute"), flags, 3)
+        this.vtbl.GetIdentity := CallbackCreate(ObjBindMethod(implObj, "GetIdentity"), flags, 2)
+        this.vtbl.Settings := CallbackCreate(ObjBindMethod(implObj, "Settings"), flags, 2)
+        this.vtbl.Save := CallbackCreate(ObjBindMethod(implObj, "Save"), flags, 3)
+        this.vtbl.GetSettingByPath := CallbackCreate(ObjBindMethod(implObj, "GetSettingByPath"), flags, 3)
+        this.vtbl.CreateSettingByPath := CallbackCreate(ObjBindMethod(implObj, "CreateSettingByPath"), flags, 3)
+        this.vtbl.RemoveSettingByPath := CallbackCreate(ObjBindMethod(implObj, "RemoveSettingByPath"), flags, 2)
+        this.vtbl.GetAttribute := CallbackCreate(ObjBindMethod(implObj, "GetAttribute"), flags, 3)
     }
 
     Dispose() {

@@ -18,7 +18,6 @@ export default struct SET_VIRTUAL_DEVICE_DATA {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Integer} VirtualFunction 
      * @param {Integer} _Buffer 
@@ -27,7 +26,7 @@ export default struct SET_VIRTUAL_DEVICE_DATA {
      * @returns {Integer} 
      */
     Call(_Context, VirtualFunction, _Buffer, Offset, Length) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, UInt16, VirtualFunction, IntPtr, _Buffer, UInt32, Offset, UInt32, Length, UInt32)
         return result

@@ -55,7 +55,6 @@ export default struct IInputPanelWindowHandle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AttachedEditWindow32() {
@@ -64,7 +63,6 @@ export default struct IInputPanelWindowHandle extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} AttachedEditWindow 
      * @returns {HRESULT} 
      */
@@ -74,7 +72,6 @@ export default struct IInputPanelWindowHandle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AttachedEditWindow64() {
@@ -83,7 +80,6 @@ export default struct IInputPanelWindowHandle extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} AttachedEditWindow 
      * @returns {HRESULT} 
      */
@@ -101,10 +97,10 @@ export default struct IInputPanelWindowHandle extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_AttachedEditWindow32 := CallbackCreate(GetMethod(implObj, "get_AttachedEditWindow32"), flags, 2)
-        this.vtbl.put_AttachedEditWindow32 := CallbackCreate(GetMethod(implObj, "put_AttachedEditWindow32"), flags, 2)
-        this.vtbl.get_AttachedEditWindow64 := CallbackCreate(GetMethod(implObj, "get_AttachedEditWindow64"), flags, 2)
-        this.vtbl.put_AttachedEditWindow64 := CallbackCreate(GetMethod(implObj, "put_AttachedEditWindow64"), flags, 2)
+        this.vtbl.get_AttachedEditWindow32 := CallbackCreate(ObjBindMethod(implObj, "get_AttachedEditWindow32"), flags, 2)
+        this.vtbl.put_AttachedEditWindow32 := CallbackCreate(ObjBindMethod(implObj, "put_AttachedEditWindow32"), flags, 2)
+        this.vtbl.get_AttachedEditWindow64 := CallbackCreate(ObjBindMethod(implObj, "get_AttachedEditWindow64"), flags, 2)
+        this.vtbl.put_AttachedEditWindow64 := CallbackCreate(ObjBindMethod(implObj, "put_AttachedEditWindow64"), flags, 2)
     }
 
     Dispose() {

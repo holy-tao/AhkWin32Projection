@@ -50,7 +50,7 @@ export default struct IWMStreamList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamlist-getstreams
      */
     GetStreams(pcStreams) {
-        pcStreamsMarshal := pcStreams is VarRef ? "ushort*" : "ptr"
+        pcStreamsMarshal := pcStreams is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(3, this, "ushort*", &pwStreamNumArray := 0, pcStreamsMarshal, pcStreams, "HRESULT")
         return pwStreamNumArray
@@ -147,9 +147,9 @@ export default struct IWMStreamList extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStreams := CallbackCreate(GetMethod(implObj, "GetStreams"), flags, 3)
-        this.vtbl.AddStream := CallbackCreate(GetMethod(implObj, "AddStream"), flags, 2)
-        this.vtbl.RemoveStream := CallbackCreate(GetMethod(implObj, "RemoveStream"), flags, 2)
+        this.vtbl.GetStreams := CallbackCreate(ObjBindMethod(implObj, "GetStreams"), flags, 3)
+        this.vtbl.AddStream := CallbackCreate(ObjBindMethod(implObj, "AddStream"), flags, 2)
+        this.vtbl.RemoveStream := CallbackCreate(ObjBindMethod(implObj, "RemoveStream"), flags, 2)
     }
 
     Dispose() {

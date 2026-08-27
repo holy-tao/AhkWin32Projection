@@ -71,7 +71,7 @@ export default struct ID3D12DebugCommandQueue extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AssertResourceState := CallbackCreate(GetMethod(implObj, "AssertResourceState"), flags, 4)
+        this.vtbl.AssertResourceState := CallbackCreate(ObjBindMethod(implObj, "AssertResourceState"), flags, 4)
     }
 
     Dispose() {

@@ -38,7 +38,6 @@ export default struct IHttpNegotiate extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} szURL 
      * @param {PWSTR} szHeaders 
      * @param {Integer} dwReserved 
@@ -53,7 +52,6 @@ export default struct IHttpNegotiate extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwResponseCode 
      * @param {PWSTR} szResponseHeaders 
      * @param {PWSTR} szRequestHeaders 
@@ -76,8 +74,8 @@ export default struct IHttpNegotiate extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BeginningTransaction := CallbackCreate(GetMethod(implObj, "BeginningTransaction"), flags, 5)
-        this.vtbl.OnResponse := CallbackCreate(GetMethod(implObj, "OnResponse"), flags, 5)
+        this.vtbl.BeginningTransaction := CallbackCreate(ObjBindMethod(implObj, "BeginningTransaction"), flags, 5)
+        this.vtbl.OnResponse := CallbackCreate(ObjBindMethod(implObj, "OnResponse"), flags, 5)
     }
 
     Dispose() {

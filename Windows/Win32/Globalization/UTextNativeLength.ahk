@@ -19,7 +19,6 @@ export default struct UTextNativeLength {
     }
 
     /**
-     * 
      * @param {Pointer<UText>} ut 
      * @returns {Integer} 
      */

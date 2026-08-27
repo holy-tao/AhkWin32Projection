@@ -125,8 +125,8 @@ export default struct ITfMSAAControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SystemEnableMSAA := CallbackCreate(GetMethod(implObj, "SystemEnableMSAA"), flags, 1)
-        this.vtbl.SystemDisableMSAA := CallbackCreate(GetMethod(implObj, "SystemDisableMSAA"), flags, 1)
+        this.vtbl.SystemEnableMSAA := CallbackCreate(ObjBindMethod(implObj, "SystemEnableMSAA"), flags, 1)
+        this.vtbl.SystemDisableMSAA := CallbackCreate(ObjBindMethod(implObj, "SystemDisableMSAA"), flags, 1)
     }
 
     Dispose() {

@@ -88,9 +88,11 @@ export default struct ISCPSecureExchange3 extends ISCPSecureExchange2 {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsecureexchange3-transfercontainerdataonclearchannel
      */
     TransferContainerDataOnClearChannel(pDevice, pData, dwSize, pProgressCallback) {
-        pDataMarshal := pData is VarRef ? "char*" : "ptr"
+        pDeviceMarshal := pDevice == 0 ? IntPtr : "ptr"
+        pDataMarshal := pData is VarRef ? "char*" : IntPtr
+        pProgressCallbackMarshal := pProgressCallback == 0 ? IntPtr : "ptr"
 
-        result := ComCall(7, this, "ptr", pDevice, pDataMarshal, pData, UInt32, dwSize, "ptr", pProgressCallback, "uint*", &pfuReadyFlags := 0, "HRESULT")
+        result := ComCall(7, this, pDeviceMarshal, pDevice, pDataMarshal, pData, UInt32, dwSize, pProgressCallbackMarshal, pProgressCallback, "uint*", &pfuReadyFlags := 0, "HRESULT")
         return pfuReadyFlags
     }
 
@@ -106,9 +108,10 @@ export default struct ISCPSecureExchange3 extends ISCPSecureExchange2 {
      * @see https://learn.microsoft.com/windows/win32/WMDM/iscpsecureexchange3--getobjectdataonclearchannel
      */
     GetObjectDataOnClearChannel(pDevice, pdwSize) {
-        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+        pDeviceMarshal := pDevice == 0 ? IntPtr : "ptr"
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(8, this, "ptr", pDevice, "char*", &pData := 0, pdwSizeMarshal, pdwSize, "HRESULT")
+        result := ComCall(8, this, pDeviceMarshal, pDevice, "char*", &pData := 0, pdwSizeMarshal, pdwSize, "HRESULT")
         return pData
     }
 
@@ -174,7 +177,9 @@ export default struct ISCPSecureExchange3 extends ISCPSecureExchange2 {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsecureexchange3-transfercompletefordevice
      */
     TransferCompleteForDevice(pDevice) {
-        result := ComCall(9, this, "ptr", pDevice, "HRESULT")
+        pDeviceMarshal := pDevice == 0 ? IntPtr : "ptr"
+
+        result := ComCall(9, this, pDeviceMarshal, pDevice, "HRESULT")
         return result
     }
 
@@ -187,9 +192,9 @@ export default struct ISCPSecureExchange3 extends ISCPSecureExchange2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.TransferContainerDataOnClearChannel := CallbackCreate(GetMethod(implObj, "TransferContainerDataOnClearChannel"), flags, 6)
-        this.vtbl.GetObjectDataOnClearChannel := CallbackCreate(GetMethod(implObj, "GetObjectDataOnClearChannel"), flags, 4)
-        this.vtbl.TransferCompleteForDevice := CallbackCreate(GetMethod(implObj, "TransferCompleteForDevice"), flags, 2)
+        this.vtbl.TransferContainerDataOnClearChannel := CallbackCreate(ObjBindMethod(implObj, "TransferContainerDataOnClearChannel"), flags, 6)
+        this.vtbl.GetObjectDataOnClearChannel := CallbackCreate(ObjBindMethod(implObj, "GetObjectDataOnClearChannel"), flags, 4)
+        this.vtbl.TransferCompleteForDevice := CallbackCreate(ObjBindMethod(implObj, "TransferCompleteForDevice"), flags, 2)
     }
 
     Dispose() {

@@ -76,7 +76,7 @@ export default struct IUIAnimationTransition2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransition2-setinitialvectorvalue
      */
     SetInitialVectorValue(value, cDimension) {
-        valueMarshal := value is VarRef ? "double*" : "ptr"
+        valueMarshal := value is VarRef ? "double*" : IntPtr
 
         result := ComCall(5, this, valueMarshal, value, UInt32, cDimension, "HRESULT")
         return result
@@ -101,7 +101,7 @@ export default struct IUIAnimationTransition2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransition2-setinitialvectorvelocity
      */
     SetInitialVectorVelocity(velocity, cDimension) {
-        velocityMarshal := velocity is VarRef ? "double*" : "ptr"
+        velocityMarshal := velocity is VarRef ? "double*" : IntPtr
 
         result := ComCall(7, this, velocityMarshal, velocity, UInt32, cDimension, "HRESULT")
         return result
@@ -142,13 +142,13 @@ export default struct IUIAnimationTransition2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDimension := CallbackCreate(GetMethod(implObj, "GetDimension"), flags, 2)
-        this.vtbl.SetInitialValue := CallbackCreate(GetMethod(implObj, "SetInitialValue"), flags, 2)
-        this.vtbl.SetInitialVectorValue := CallbackCreate(GetMethod(implObj, "SetInitialVectorValue"), flags, 3)
-        this.vtbl.SetInitialVelocity := CallbackCreate(GetMethod(implObj, "SetInitialVelocity"), flags, 2)
-        this.vtbl.SetInitialVectorVelocity := CallbackCreate(GetMethod(implObj, "SetInitialVectorVelocity"), flags, 3)
-        this.vtbl.IsDurationKnown := CallbackCreate(GetMethod(implObj, "IsDurationKnown"), flags, 1)
-        this.vtbl.GetDuration := CallbackCreate(GetMethod(implObj, "GetDuration"), flags, 2)
+        this.vtbl.GetDimension := CallbackCreate(ObjBindMethod(implObj, "GetDimension"), flags, 2)
+        this.vtbl.SetInitialValue := CallbackCreate(ObjBindMethod(implObj, "SetInitialValue"), flags, 2)
+        this.vtbl.SetInitialVectorValue := CallbackCreate(ObjBindMethod(implObj, "SetInitialVectorValue"), flags, 3)
+        this.vtbl.SetInitialVelocity := CallbackCreate(ObjBindMethod(implObj, "SetInitialVelocity"), flags, 2)
+        this.vtbl.SetInitialVectorVelocity := CallbackCreate(ObjBindMethod(implObj, "SetInitialVectorVelocity"), flags, 3)
+        this.vtbl.IsDurationKnown := CallbackCreate(ObjBindMethod(implObj, "IsDurationKnown"), flags, 1)
+        this.vtbl.GetDuration := CallbackCreate(ObjBindMethod(implObj, "GetDuration"), flags, 2)
     }
 
     Dispose() {

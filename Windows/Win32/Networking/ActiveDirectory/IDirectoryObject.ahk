@@ -83,9 +83,9 @@ export default struct IDirectoryObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectoryobject-getobjectattributes
      */
     GetObjectAttributes(pAttributeNames, dwNumberAttributes, ppAttributeEntries, pdwNumAttributesReturned) {
-        pAttributeNamesMarshal := pAttributeNames is VarRef ? "ptr*" : "ptr"
-        ppAttributeEntriesMarshal := ppAttributeEntries is VarRef ? "ptr*" : "ptr"
-        pdwNumAttributesReturnedMarshal := pdwNumAttributesReturned is VarRef ? "uint*" : "ptr"
+        pAttributeNamesMarshal := pAttributeNames is VarRef ? "ptr*" : IntPtr
+        ppAttributeEntriesMarshal := ppAttributeEntries is VarRef ? "ptr*" : IntPtr
+        pdwNumAttributesReturnedMarshal := pdwNumAttributesReturned is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pAttributeNamesMarshal, pAttributeNames, UInt32, dwNumberAttributes, ppAttributeEntriesMarshal, ppAttributeEntries, pdwNumAttributesReturnedMarshal, pdwNumAttributesReturned, "HRESULT")
         return result
@@ -150,11 +150,11 @@ export default struct IDirectoryObject extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetObjectInformation := CallbackCreate(GetMethod(implObj, "GetObjectInformation"), flags, 2)
-        this.vtbl.GetObjectAttributes := CallbackCreate(GetMethod(implObj, "GetObjectAttributes"), flags, 5)
-        this.vtbl.SetObjectAttributes := CallbackCreate(GetMethod(implObj, "SetObjectAttributes"), flags, 4)
-        this.vtbl.CreateDSObject := CallbackCreate(GetMethod(implObj, "CreateDSObject"), flags, 5)
-        this.vtbl.DeleteDSObject := CallbackCreate(GetMethod(implObj, "DeleteDSObject"), flags, 2)
+        this.vtbl.GetObjectInformation := CallbackCreate(ObjBindMethod(implObj, "GetObjectInformation"), flags, 2)
+        this.vtbl.GetObjectAttributes := CallbackCreate(ObjBindMethod(implObj, "GetObjectAttributes"), flags, 5)
+        this.vtbl.SetObjectAttributes := CallbackCreate(ObjBindMethod(implObj, "SetObjectAttributes"), flags, 4)
+        this.vtbl.CreateDSObject := CallbackCreate(ObjBindMethod(implObj, "CreateDSObject"), flags, 5)
+        this.vtbl.DeleteDSObject := CallbackCreate(ObjBindMethod(implObj, "DeleteDSObject"), flags, 2)
     }
 
     Dispose() {

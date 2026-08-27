@@ -19,7 +19,6 @@ export default struct PDEVICE_QUERY_BUS_SPECIFIC_RESET_HANDLER {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

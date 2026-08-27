@@ -38,7 +38,6 @@ export default struct ICorProfilerInfo7 extends ICorProfilerInfo6 {
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @returns {HRESULT} 
      */
@@ -48,7 +47,6 @@ export default struct ICorProfilerInfo7 extends ICorProfilerInfo6 {
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @returns {Integer} 
      */
@@ -58,7 +56,6 @@ export default struct ICorProfilerInfo7 extends ICorProfilerInfo6 {
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @param {Integer} symbolsReadOffset 
      * @param {Pointer<Integer>} pSymbolBytes 
@@ -67,8 +64,8 @@ export default struct ICorProfilerInfo7 extends ICorProfilerInfo6 {
      * @returns {HRESULT} 
      */
     ReadInMemorySymbols(moduleId, symbolsReadOffset, pSymbolBytes, countSymbolBytes, pCountSymbolBytesRead) {
-        pSymbolBytesMarshal := pSymbolBytes is VarRef ? "char*" : "ptr"
-        pCountSymbolBytesReadMarshal := pCountSymbolBytesRead is VarRef ? "uint*" : "ptr"
+        pSymbolBytesMarshal := pSymbolBytes is VarRef ? "char*" : IntPtr
+        pCountSymbolBytesReadMarshal := pCountSymbolBytesRead is VarRef ? "uint*" : IntPtr
 
         result := ComCall(86, this, IntPtr, moduleId, UInt32, symbolsReadOffset, pSymbolBytesMarshal, pSymbolBytes, UInt32, countSymbolBytes, pCountSymbolBytesReadMarshal, pCountSymbolBytesRead, "HRESULT")
         return result
@@ -83,9 +80,9 @@ export default struct ICorProfilerInfo7 extends ICorProfilerInfo6 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ApplyMetaData := CallbackCreate(GetMethod(implObj, "ApplyMetaData"), flags, 2)
-        this.vtbl.GetInMemorySymbolsLength := CallbackCreate(GetMethod(implObj, "GetInMemorySymbolsLength"), flags, 3)
-        this.vtbl.ReadInMemorySymbols := CallbackCreate(GetMethod(implObj, "ReadInMemorySymbols"), flags, 6)
+        this.vtbl.ApplyMetaData := CallbackCreate(ObjBindMethod(implObj, "ApplyMetaData"), flags, 2)
+        this.vtbl.GetInMemorySymbolsLength := CallbackCreate(ObjBindMethod(implObj, "GetInMemorySymbolsLength"), flags, 3)
+        this.vtbl.ReadInMemorySymbols := CallbackCreate(ObjBindMethod(implObj, "ReadInMemorySymbols"), flags, 6)
     }
 
     Dispose() {

@@ -40,7 +40,6 @@ export default struct ISearchQueryHits extends IUnknown {
     }
 
     /**
-     * 
      * @param {IFilter} pflt 
      * @param {Integer} ulFlags 
      * @returns {Integer} 
@@ -51,28 +50,26 @@ export default struct ISearchQueryHits extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcMnk 
      * @param {Pointer<Pointer<IMoniker>>} papMnk 
      * @returns {Integer} 
      */
     NextHitMoniker(pcMnk, papMnk) {
-        pcMnkMarshal := pcMnk is VarRef ? "uint*" : "ptr"
-        papMnkMarshal := papMnk is VarRef ? "ptr*" : "ptr"
+        pcMnkMarshal := pcMnk is VarRef ? "uint*" : IntPtr
+        papMnkMarshal := papMnk is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, pcMnkMarshal, pcMnk, papMnkMarshal, papMnk, Int32)
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcRegion 
      * @param {Pointer<Pointer<FILTERREGION>>} paRegion 
      * @returns {Integer} 
      */
     NextHitOffset(pcRegion, paRegion) {
-        pcRegionMarshal := pcRegion is VarRef ? "uint*" : "ptr"
-        paRegionMarshal := paRegion is VarRef ? "ptr*" : "ptr"
+        pcRegionMarshal := pcRegion is VarRef ? "uint*" : IntPtr
+        paRegionMarshal := paRegion is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, pcRegionMarshal, pcRegion, paRegionMarshal, paRegion, Int32)
         return result
@@ -87,9 +84,9 @@ export default struct ISearchQueryHits extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 3)
-        this.vtbl.NextHitMoniker := CallbackCreate(GetMethod(implObj, "NextHitMoniker"), flags, 3)
-        this.vtbl.NextHitOffset := CallbackCreate(GetMethod(implObj, "NextHitOffset"), flags, 3)
+        this.vtbl.Init := CallbackCreate(ObjBindMethod(implObj, "Init"), flags, 3)
+        this.vtbl.NextHitMoniker := CallbackCreate(ObjBindMethod(implObj, "NextHitMoniker"), flags, 3)
+        this.vtbl.NextHitOffset := CallbackCreate(ObjBindMethod(implObj, "NextHitOffset"), flags, 3)
     }
 
     Dispose() {

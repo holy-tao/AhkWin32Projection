@@ -21,7 +21,6 @@ export default struct PIBIO_SENSOR_START_NOTIFY_WAKE_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline 
      * @returns {Pointer<OVERLAPPED>} 
      */

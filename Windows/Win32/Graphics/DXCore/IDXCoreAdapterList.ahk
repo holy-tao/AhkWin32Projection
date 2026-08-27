@@ -132,7 +132,7 @@ export default struct IDXCoreAdapterList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapterlist-sort
      */
     Sort(numPreferences, preferences) {
-        preferencesMarshal := preferences is VarRef ? "uint*" : "ptr"
+        preferencesMarshal := preferences is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, UInt32, numPreferences, preferencesMarshal, preferences, "HRESULT")
         return result
@@ -162,12 +162,12 @@ export default struct IDXCoreAdapterList extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAdapter := CallbackCreate(GetMethod(implObj, "GetAdapter"), flags, 4)
-        this.vtbl.GetAdapterCount := CallbackCreate(GetMethod(implObj, "GetAdapterCount"), flags, 1)
-        this.vtbl.IsStale := CallbackCreate(GetMethod(implObj, "IsStale"), flags, 1)
-        this.vtbl.GetFactory := CallbackCreate(GetMethod(implObj, "GetFactory"), flags, 3)
-        this.vtbl.Sort := CallbackCreate(GetMethod(implObj, "Sort"), flags, 3)
-        this.vtbl.IsAdapterPreferenceSupported := CallbackCreate(GetMethod(implObj, "IsAdapterPreferenceSupported"), flags, 2)
+        this.vtbl.GetAdapter := CallbackCreate(ObjBindMethod(implObj, "GetAdapter"), flags, 4)
+        this.vtbl.GetAdapterCount := CallbackCreate(ObjBindMethod(implObj, "GetAdapterCount"), flags, 1)
+        this.vtbl.IsStale := CallbackCreate(ObjBindMethod(implObj, "IsStale"), flags, 1)
+        this.vtbl.GetFactory := CallbackCreate(ObjBindMethod(implObj, "GetFactory"), flags, 3)
+        this.vtbl.Sort := CallbackCreate(ObjBindMethod(implObj, "Sort"), flags, 3)
+        this.vtbl.IsAdapterPreferenceSupported := CallbackCreate(ObjBindMethod(implObj, "IsAdapterPreferenceSupported"), flags, 2)
     }
 
     Dispose() {

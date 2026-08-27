@@ -19,7 +19,6 @@ export default struct PMPRADMINRELEASEIPADRESS {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @param {PWSTR} param1 
      * @param {Pointer<Integer>} param2 
@@ -29,7 +28,7 @@ export default struct PMPRADMINRELEASEIPADRESS {
         param0 := param0 is String ? StrPtr(param0) : param0
         param1 := param1 is String ? StrPtr(param1) : param1
 
-        param2Marshal := param2 is VarRef ? "uint*" : "ptr"
+        param2Marshal := param2 is VarRef ? "uint*" : IntPtr
 
         DllCall(this.value, "ptr", param0, "ptr", param1, param2Marshal, param2)
     }

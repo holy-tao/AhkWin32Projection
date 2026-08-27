@@ -86,8 +86,8 @@ export default struct ID2D1DeviceContext3 extends ID2D1DeviceContext2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateSpriteBatch := CallbackCreate(GetMethod(implObj, "CreateSpriteBatch"), flags, 2)
-        this.vtbl.DrawSpriteBatch := CallbackCreate(GetMethod(implObj, "DrawSpriteBatch"), flags, 7)
+        this.vtbl.CreateSpriteBatch := CallbackCreate(ObjBindMethod(implObj, "CreateSpriteBatch"), flags, 2)
+        this.vtbl.DrawSpriteBatch := CallbackCreate(ObjBindMethod(implObj, "DrawSpriteBatch"), flags, 7)
     }
 
     Dispose() {

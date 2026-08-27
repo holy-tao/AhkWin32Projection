@@ -23,7 +23,6 @@ export default struct SHOWHTMLDIALOGFN {
     }
 
     /**
-     * 
      * @param {HWND} hwndParent 
      * @param {IMoniker} pmk 
      * @param {Pointer<VARIANT>} pvarArgIn 

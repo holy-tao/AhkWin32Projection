@@ -21,7 +21,6 @@ export default struct DATEFMT_ENUMPROCEXA {
     }
 
     /**
-     * 
      * @param {PSTR} param0 
      * @param {Integer} param1 
      * @returns {BOOL} 

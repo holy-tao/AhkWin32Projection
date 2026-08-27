@@ -41,7 +41,6 @@ export default struct IPrinterQueue2 extends IPrinterQueue {
     }
 
     /**
-     * 
      * @param {BSTR} bstrBidiRequest 
      * @param {IPrinterBidiSetRequestCallback} pCallback 
      * @returns {IPrinterExtensionAsyncOperation} 
@@ -54,7 +53,6 @@ export default struct IPrinterQueue2 extends IPrinterQueue {
     }
 
     /**
-     * 
      * @param {Integer} ulViewOffset 
      * @param {Integer} ulViewSize 
      * @returns {IPrinterQueueView} 
@@ -73,8 +71,8 @@ export default struct IPrinterQueue2 extends IPrinterQueue {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SendBidiSetRequestAsync := CallbackCreate(GetMethod(implObj, "SendBidiSetRequestAsync"), flags, 4)
-        this.vtbl.GetPrinterQueueView := CallbackCreate(GetMethod(implObj, "GetPrinterQueueView"), flags, 4)
+        this.vtbl.SendBidiSetRequestAsync := CallbackCreate(ObjBindMethod(implObj, "SendBidiSetRequestAsync"), flags, 4)
+        this.vtbl.GetPrinterQueueView := CallbackCreate(ObjBindMethod(implObj, "GetPrinterQueueView"), flags, 4)
     }
 
     Dispose() {

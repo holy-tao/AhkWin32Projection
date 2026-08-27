@@ -46,7 +46,6 @@ export default struct IShellUIHelper7 extends IShellUIHelper6 {
     }
 
     /**
-     * 
      * @param {BSTR} bstrFlagString 
      * @param {VARIANT_BOOL} vfFlag 
      * @returns {HRESULT} 
@@ -59,7 +58,6 @@ export default struct IShellUIHelper7 extends IShellUIHelper6 {
     }
 
     /**
-     * 
      * @param {BSTR} bstrFlagString 
      * @returns {VARIANT_BOOL} 
      */
@@ -71,7 +69,6 @@ export default struct IShellUIHelper7 extends IShellUIHelper6 {
     }
 
     /**
-     * 
      * @param {BSTR} bstrValueString 
      * @param {Integer} dwValue 
      * @returns {HRESULT} 
@@ -84,7 +81,6 @@ export default struct IShellUIHelper7 extends IShellUIHelper6 {
     }
 
     /**
-     * 
      * @param {BSTR} bstrValueString 
      * @returns {Integer} 
      */
@@ -96,7 +92,6 @@ export default struct IShellUIHelper7 extends IShellUIHelper6 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ResetAllExperimentalFlagsAndValues() {
@@ -105,7 +100,6 @@ export default struct IShellUIHelper7 extends IShellUIHelper6 {
     }
 
     /**
-     * 
      * @param {BSTR} bstrUrl 
      * @returns {VARIANT_BOOL} 
      */
@@ -117,7 +111,6 @@ export default struct IShellUIHelper7 extends IShellUIHelper6 {
     }
 
     /**
-     * 
      * @param {BSTR} bstrUrl 
      * @param {VARIANT_BOOL} flag 
      * @returns {HRESULT} 
@@ -130,7 +123,6 @@ export default struct IShellUIHelper7 extends IShellUIHelper6 {
     }
 
     /**
-     * 
      * @param {BSTR} bstrUrl 
      * @returns {VARIANT_BOOL} 
      */
@@ -142,7 +134,6 @@ export default struct IShellUIHelper7 extends IShellUIHelper6 {
     }
 
     /**
-     * 
      * @param {BSTR} bstrUrl 
      * @param {VARIANT_BOOL} automated 
      * @returns {HRESULT} 
@@ -163,15 +154,15 @@ export default struct IShellUIHelper7 extends IShellUIHelper6 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetExperimentalFlag := CallbackCreate(GetMethod(implObj, "SetExperimentalFlag"), flags, 3)
-        this.vtbl.GetExperimentalFlag := CallbackCreate(GetMethod(implObj, "GetExperimentalFlag"), flags, 3)
-        this.vtbl.SetExperimentalValue := CallbackCreate(GetMethod(implObj, "SetExperimentalValue"), flags, 3)
-        this.vtbl.GetExperimentalValue := CallbackCreate(GetMethod(implObj, "GetExperimentalValue"), flags, 3)
-        this.vtbl.ResetAllExperimentalFlagsAndValues := CallbackCreate(GetMethod(implObj, "ResetAllExperimentalFlagsAndValues"), flags, 1)
-        this.vtbl.GetNeedIEAutoLaunchFlag := CallbackCreate(GetMethod(implObj, "GetNeedIEAutoLaunchFlag"), flags, 3)
-        this.vtbl.SetNeedIEAutoLaunchFlag := CallbackCreate(GetMethod(implObj, "SetNeedIEAutoLaunchFlag"), flags, 3)
-        this.vtbl.HasNeedIEAutoLaunchFlag := CallbackCreate(GetMethod(implObj, "HasNeedIEAutoLaunchFlag"), flags, 3)
-        this.vtbl.LaunchIE := CallbackCreate(GetMethod(implObj, "LaunchIE"), flags, 3)
+        this.vtbl.SetExperimentalFlag := CallbackCreate(ObjBindMethod(implObj, "SetExperimentalFlag"), flags, 3)
+        this.vtbl.GetExperimentalFlag := CallbackCreate(ObjBindMethod(implObj, "GetExperimentalFlag"), flags, 3)
+        this.vtbl.SetExperimentalValue := CallbackCreate(ObjBindMethod(implObj, "SetExperimentalValue"), flags, 3)
+        this.vtbl.GetExperimentalValue := CallbackCreate(ObjBindMethod(implObj, "GetExperimentalValue"), flags, 3)
+        this.vtbl.ResetAllExperimentalFlagsAndValues := CallbackCreate(ObjBindMethod(implObj, "ResetAllExperimentalFlagsAndValues"), flags, 1)
+        this.vtbl.GetNeedIEAutoLaunchFlag := CallbackCreate(ObjBindMethod(implObj, "GetNeedIEAutoLaunchFlag"), flags, 3)
+        this.vtbl.SetNeedIEAutoLaunchFlag := CallbackCreate(ObjBindMethod(implObj, "SetNeedIEAutoLaunchFlag"), flags, 3)
+        this.vtbl.HasNeedIEAutoLaunchFlag := CallbackCreate(ObjBindMethod(implObj, "HasNeedIEAutoLaunchFlag"), flags, 3)
+        this.vtbl.LaunchIE := CallbackCreate(ObjBindMethod(implObj, "LaunchIE"), flags, 3)
     }
 
     Dispose() {

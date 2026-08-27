@@ -32,7 +32,6 @@ export default struct SpSetExtendedInformationFn {
     }
 
     /**
-     * 
      * @param {SECPKG_EXTENDED_INFORMATION_CLASS} _Class A 
      * <a href="https://docs.microsoft.com/windows/win32/api/ntsecpkg/ne-ntsecpkg-secpkg_extended_information_class">SECPKG_EXTENDED_INFORMATION_CLASS</a> enumeration value indicating the type of extended information.
      * @param {Pointer<SECPKG_EXTENDED_INFORMATION>} Info Pointer to a 

@@ -211,7 +211,7 @@ export default struct IVMRMixerControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrmixercontrol-getbackgroundclr
      */
     GetBackgroundClr(lpClrBkg) {
-        lpClrBkgMarshal := lpClrBkg is VarRef ? "uint*" : "ptr"
+        lpClrBkgMarshal := lpClrBkg is VarRef ? "uint*" : IntPtr
 
         result := ComCall(10, this, lpClrBkgMarshal, lpClrBkg, "HRESULT")
         return result
@@ -281,16 +281,16 @@ export default struct IVMRMixerControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAlpha := CallbackCreate(GetMethod(implObj, "SetAlpha"), flags, 3)
-        this.vtbl.GetAlpha := CallbackCreate(GetMethod(implObj, "GetAlpha"), flags, 3)
-        this.vtbl.SetZOrder := CallbackCreate(GetMethod(implObj, "SetZOrder"), flags, 3)
-        this.vtbl.GetZOrder := CallbackCreate(GetMethod(implObj, "GetZOrder"), flags, 3)
-        this.vtbl.SetOutputRect := CallbackCreate(GetMethod(implObj, "SetOutputRect"), flags, 3)
-        this.vtbl.GetOutputRect := CallbackCreate(GetMethod(implObj, "GetOutputRect"), flags, 3)
-        this.vtbl.SetBackgroundClr := CallbackCreate(GetMethod(implObj, "SetBackgroundClr"), flags, 2)
-        this.vtbl.GetBackgroundClr := CallbackCreate(GetMethod(implObj, "GetBackgroundClr"), flags, 2)
-        this.vtbl.SetMixingPrefs := CallbackCreate(GetMethod(implObj, "SetMixingPrefs"), flags, 2)
-        this.vtbl.GetMixingPrefs := CallbackCreate(GetMethod(implObj, "GetMixingPrefs"), flags, 2)
+        this.vtbl.SetAlpha := CallbackCreate(ObjBindMethod(implObj, "SetAlpha"), flags, 3)
+        this.vtbl.GetAlpha := CallbackCreate(ObjBindMethod(implObj, "GetAlpha"), flags, 3)
+        this.vtbl.SetZOrder := CallbackCreate(ObjBindMethod(implObj, "SetZOrder"), flags, 3)
+        this.vtbl.GetZOrder := CallbackCreate(ObjBindMethod(implObj, "GetZOrder"), flags, 3)
+        this.vtbl.SetOutputRect := CallbackCreate(ObjBindMethod(implObj, "SetOutputRect"), flags, 3)
+        this.vtbl.GetOutputRect := CallbackCreate(ObjBindMethod(implObj, "GetOutputRect"), flags, 3)
+        this.vtbl.SetBackgroundClr := CallbackCreate(ObjBindMethod(implObj, "SetBackgroundClr"), flags, 2)
+        this.vtbl.GetBackgroundClr := CallbackCreate(ObjBindMethod(implObj, "GetBackgroundClr"), flags, 2)
+        this.vtbl.SetMixingPrefs := CallbackCreate(ObjBindMethod(implObj, "SetMixingPrefs"), flags, 2)
+        this.vtbl.GetMixingPrefs := CallbackCreate(ObjBindMethod(implObj, "GetMixingPrefs"), flags, 2)
     }
 
     Dispose() {

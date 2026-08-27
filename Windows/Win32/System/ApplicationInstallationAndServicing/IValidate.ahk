@@ -264,7 +264,7 @@ export default struct IValidate extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/evalcom2/nf-evalcom2-ivalidate-setdisplay
      */
     SetDisplay(pDisplayFunction, pContext) {
-        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+        pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(7, this, LPDISPLAYVAL, pDisplayFunction, pContextMarshal, pContext, "HRESULT")
         return result
@@ -296,7 +296,7 @@ export default struct IValidate extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/evalcom2/nf-evalcom2-ivalidate-setstatus
      */
     SetStatus(pStatusFunction, pContext) {
-        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+        pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(8, this, LPEVALCOMCALLBACK, pStatusFunction, pContextMarshal, pContext, "HRESULT")
         return result
@@ -370,13 +370,13 @@ export default struct IValidate extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OpenDatabase := CallbackCreate(GetMethod(implObj, "OpenDatabase"), flags, 2)
-        this.vtbl.OpenCUB := CallbackCreate(GetMethod(implObj, "OpenCUB"), flags, 2)
-        this.vtbl.CloseDatabase := CallbackCreate(GetMethod(implObj, "CloseDatabase"), flags, 1)
-        this.vtbl.CloseCUB := CallbackCreate(GetMethod(implObj, "CloseCUB"), flags, 1)
-        this.vtbl.SetDisplay := CallbackCreate(GetMethod(implObj, "SetDisplay"), flags, 3)
-        this.vtbl.SetStatus := CallbackCreate(GetMethod(implObj, "SetStatus"), flags, 3)
-        this.vtbl.Validate := CallbackCreate(GetMethod(implObj, "Validate"), flags, 2)
+        this.vtbl.OpenDatabase := CallbackCreate(ObjBindMethod(implObj, "OpenDatabase"), flags, 2)
+        this.vtbl.OpenCUB := CallbackCreate(ObjBindMethod(implObj, "OpenCUB"), flags, 2)
+        this.vtbl.CloseDatabase := CallbackCreate(ObjBindMethod(implObj, "CloseDatabase"), flags, 1)
+        this.vtbl.CloseCUB := CallbackCreate(ObjBindMethod(implObj, "CloseCUB"), flags, 1)
+        this.vtbl.SetDisplay := CallbackCreate(ObjBindMethod(implObj, "SetDisplay"), flags, 3)
+        this.vtbl.SetStatus := CallbackCreate(ObjBindMethod(implObj, "SetStatus"), flags, 3)
+        this.vtbl.Validate := CallbackCreate(ObjBindMethod(implObj, "Validate"), flags, 2)
     }
 
     Dispose() {

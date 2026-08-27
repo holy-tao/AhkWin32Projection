@@ -133,7 +133,6 @@ export default struct IHTMLRenderStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -145,7 +144,6 @@ export default struct IHTMLRenderStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textLineThroughStyle() {
@@ -155,7 +153,6 @@ export default struct IHTMLRenderStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -167,7 +164,6 @@ export default struct IHTMLRenderStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textUnderlineStyle() {
@@ -177,7 +173,6 @@ export default struct IHTMLRenderStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -189,7 +184,6 @@ export default struct IHTMLRenderStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textEffect() {
@@ -199,7 +193,6 @@ export default struct IHTMLRenderStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -209,7 +202,6 @@ export default struct IHTMLRenderStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_textColor() {
@@ -219,7 +211,6 @@ export default struct IHTMLRenderStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -229,7 +220,6 @@ export default struct IHTMLRenderStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_textBackgroundColor() {
@@ -239,7 +229,6 @@ export default struct IHTMLRenderStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -249,7 +238,6 @@ export default struct IHTMLRenderStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_textDecorationColor() {
@@ -259,7 +247,6 @@ export default struct IHTMLRenderStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -269,7 +256,6 @@ export default struct IHTMLRenderStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_renderingPriority() {
@@ -278,7 +264,6 @@ export default struct IHTMLRenderStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -290,7 +275,6 @@ export default struct IHTMLRenderStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_defaultTextSelection() {
@@ -300,7 +284,6 @@ export default struct IHTMLRenderStyle extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -312,7 +295,6 @@ export default struct IHTMLRenderStyle extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textDecoration() {
@@ -330,24 +312,24 @@ export default struct IHTMLRenderStyle extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_textLineThroughStyle := CallbackCreate(GetMethod(implObj, "put_textLineThroughStyle"), flags, 2)
-        this.vtbl.get_textLineThroughStyle := CallbackCreate(GetMethod(implObj, "get_textLineThroughStyle"), flags, 2)
-        this.vtbl.put_textUnderlineStyle := CallbackCreate(GetMethod(implObj, "put_textUnderlineStyle"), flags, 2)
-        this.vtbl.get_textUnderlineStyle := CallbackCreate(GetMethod(implObj, "get_textUnderlineStyle"), flags, 2)
-        this.vtbl.put_textEffect := CallbackCreate(GetMethod(implObj, "put_textEffect"), flags, 2)
-        this.vtbl.get_textEffect := CallbackCreate(GetMethod(implObj, "get_textEffect"), flags, 2)
-        this.vtbl.put_textColor := CallbackCreate(GetMethod(implObj, "put_textColor"), flags, 2)
-        this.vtbl.get_textColor := CallbackCreate(GetMethod(implObj, "get_textColor"), flags, 2)
-        this.vtbl.put_textBackgroundColor := CallbackCreate(GetMethod(implObj, "put_textBackgroundColor"), flags, 2)
-        this.vtbl.get_textBackgroundColor := CallbackCreate(GetMethod(implObj, "get_textBackgroundColor"), flags, 2)
-        this.vtbl.put_textDecorationColor := CallbackCreate(GetMethod(implObj, "put_textDecorationColor"), flags, 2)
-        this.vtbl.get_textDecorationColor := CallbackCreate(GetMethod(implObj, "get_textDecorationColor"), flags, 2)
-        this.vtbl.put_renderingPriority := CallbackCreate(GetMethod(implObj, "put_renderingPriority"), flags, 2)
-        this.vtbl.get_renderingPriority := CallbackCreate(GetMethod(implObj, "get_renderingPriority"), flags, 2)
-        this.vtbl.put_defaultTextSelection := CallbackCreate(GetMethod(implObj, "put_defaultTextSelection"), flags, 2)
-        this.vtbl.get_defaultTextSelection := CallbackCreate(GetMethod(implObj, "get_defaultTextSelection"), flags, 2)
-        this.vtbl.put_textDecoration := CallbackCreate(GetMethod(implObj, "put_textDecoration"), flags, 2)
-        this.vtbl.get_textDecoration := CallbackCreate(GetMethod(implObj, "get_textDecoration"), flags, 2)
+        this.vtbl.put_textLineThroughStyle := CallbackCreate(ObjBindMethod(implObj, "put_textLineThroughStyle"), flags, 2)
+        this.vtbl.get_textLineThroughStyle := CallbackCreate(ObjBindMethod(implObj, "get_textLineThroughStyle"), flags, 2)
+        this.vtbl.put_textUnderlineStyle := CallbackCreate(ObjBindMethod(implObj, "put_textUnderlineStyle"), flags, 2)
+        this.vtbl.get_textUnderlineStyle := CallbackCreate(ObjBindMethod(implObj, "get_textUnderlineStyle"), flags, 2)
+        this.vtbl.put_textEffect := CallbackCreate(ObjBindMethod(implObj, "put_textEffect"), flags, 2)
+        this.vtbl.get_textEffect := CallbackCreate(ObjBindMethod(implObj, "get_textEffect"), flags, 2)
+        this.vtbl.put_textColor := CallbackCreate(ObjBindMethod(implObj, "put_textColor"), flags, 2)
+        this.vtbl.get_textColor := CallbackCreate(ObjBindMethod(implObj, "get_textColor"), flags, 2)
+        this.vtbl.put_textBackgroundColor := CallbackCreate(ObjBindMethod(implObj, "put_textBackgroundColor"), flags, 2)
+        this.vtbl.get_textBackgroundColor := CallbackCreate(ObjBindMethod(implObj, "get_textBackgroundColor"), flags, 2)
+        this.vtbl.put_textDecorationColor := CallbackCreate(ObjBindMethod(implObj, "put_textDecorationColor"), flags, 2)
+        this.vtbl.get_textDecorationColor := CallbackCreate(ObjBindMethod(implObj, "get_textDecorationColor"), flags, 2)
+        this.vtbl.put_renderingPriority := CallbackCreate(ObjBindMethod(implObj, "put_renderingPriority"), flags, 2)
+        this.vtbl.get_renderingPriority := CallbackCreate(ObjBindMethod(implObj, "get_renderingPriority"), flags, 2)
+        this.vtbl.put_defaultTextSelection := CallbackCreate(ObjBindMethod(implObj, "put_defaultTextSelection"), flags, 2)
+        this.vtbl.get_defaultTextSelection := CallbackCreate(ObjBindMethod(implObj, "get_defaultTextSelection"), flags, 2)
+        this.vtbl.put_textDecoration := CallbackCreate(ObjBindMethod(implObj, "put_textDecoration"), flags, 2)
+        this.vtbl.get_textDecoration := CallbackCreate(ObjBindMethod(implObj, "get_textDecoration"), flags, 2)
     }
 
     Dispose() {

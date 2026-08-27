@@ -263,9 +263,10 @@ export default struct IFolderView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview-selectandpositionitems
      */
     SelectAndPositionItems(cidl, apidl, apt, dwFlags) {
-        apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
+        apidlMarshal := apidl is VarRef ? "ptr*" : IntPtr
+        aptMarshal := apt == 0 ? IntPtr : POINT.Ptr
 
-        result := ComCall(16, this, UInt32, cidl, apidlMarshal, apidl, POINT.Ptr, apt, UInt32, dwFlags, "HRESULT")
+        result := ComCall(16, this, UInt32, cidl, apidlMarshal, apidl, aptMarshal, apt, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -278,20 +279,20 @@ export default struct IFolderView extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCurrentViewMode := CallbackCreate(GetMethod(implObj, "GetCurrentViewMode"), flags, 2)
-        this.vtbl.SetCurrentViewMode := CallbackCreate(GetMethod(implObj, "SetCurrentViewMode"), flags, 2)
-        this.vtbl.GetFolder := CallbackCreate(GetMethod(implObj, "GetFolder"), flags, 3)
-        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 3)
-        this.vtbl.ItemCount := CallbackCreate(GetMethod(implObj, "ItemCount"), flags, 3)
-        this.vtbl.Items := CallbackCreate(GetMethod(implObj, "Items"), flags, 4)
-        this.vtbl.GetSelectionMarkedItem := CallbackCreate(GetMethod(implObj, "GetSelectionMarkedItem"), flags, 2)
-        this.vtbl.GetFocusedItem := CallbackCreate(GetMethod(implObj, "GetFocusedItem"), flags, 2)
-        this.vtbl.GetItemPosition := CallbackCreate(GetMethod(implObj, "GetItemPosition"), flags, 3)
-        this.vtbl.GetSpacing := CallbackCreate(GetMethod(implObj, "GetSpacing"), flags, 2)
-        this.vtbl.GetDefaultSpacing := CallbackCreate(GetMethod(implObj, "GetDefaultSpacing"), flags, 2)
-        this.vtbl.GetAutoArrange := CallbackCreate(GetMethod(implObj, "GetAutoArrange"), flags, 1)
-        this.vtbl.SelectItem := CallbackCreate(GetMethod(implObj, "SelectItem"), flags, 3)
-        this.vtbl.SelectAndPositionItems := CallbackCreate(GetMethod(implObj, "SelectAndPositionItems"), flags, 5)
+        this.vtbl.GetCurrentViewMode := CallbackCreate(ObjBindMethod(implObj, "GetCurrentViewMode"), flags, 2)
+        this.vtbl.SetCurrentViewMode := CallbackCreate(ObjBindMethod(implObj, "SetCurrentViewMode"), flags, 2)
+        this.vtbl.GetFolder := CallbackCreate(ObjBindMethod(implObj, "GetFolder"), flags, 3)
+        this.vtbl.Item := CallbackCreate(ObjBindMethod(implObj, "Item"), flags, 3)
+        this.vtbl.ItemCount := CallbackCreate(ObjBindMethod(implObj, "ItemCount"), flags, 3)
+        this.vtbl.Items := CallbackCreate(ObjBindMethod(implObj, "Items"), flags, 4)
+        this.vtbl.GetSelectionMarkedItem := CallbackCreate(ObjBindMethod(implObj, "GetSelectionMarkedItem"), flags, 2)
+        this.vtbl.GetFocusedItem := CallbackCreate(ObjBindMethod(implObj, "GetFocusedItem"), flags, 2)
+        this.vtbl.GetItemPosition := CallbackCreate(ObjBindMethod(implObj, "GetItemPosition"), flags, 3)
+        this.vtbl.GetSpacing := CallbackCreate(ObjBindMethod(implObj, "GetSpacing"), flags, 2)
+        this.vtbl.GetDefaultSpacing := CallbackCreate(ObjBindMethod(implObj, "GetDefaultSpacing"), flags, 2)
+        this.vtbl.GetAutoArrange := CallbackCreate(ObjBindMethod(implObj, "GetAutoArrange"), flags, 1)
+        this.vtbl.SelectItem := CallbackCreate(ObjBindMethod(implObj, "SelectItem"), flags, 3)
+        this.vtbl.SelectAndPositionItems := CallbackCreate(ObjBindMethod(implObj, "SelectAndPositionItems"), flags, 5)
     }
 
     Dispose() {

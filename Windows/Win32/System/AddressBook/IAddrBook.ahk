@@ -103,14 +103,13 @@ export default struct IAddrBook extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iaddrbook-openentry
      */
     OpenEntry(cbEntryID, lpEntryID, lpInterface, ulFlags, lpulObjType) {
-        lpulObjTypeMarshal := lpulObjType is VarRef ? "uint*" : "ptr"
+        lpulObjTypeMarshal := lpulObjType is VarRef ? "uint*" : IntPtr
 
         result := ComCall(14, this, UInt32, cbEntryID, ENTRYID.Ptr, lpEntryID, Guid.Ptr, lpInterface, UInt32, ulFlags, lpulObjTypeMarshal, lpulObjType, "ptr*", &lppUnk := 0, "HRESULT")
         return IUnknown(lppUnk)
     }
 
     /**
-     * 
      * @remarks
      * Client applications and service providers call the **CompareEntryIDs** method to compare two entry identifiers that belongs to a single address book provider to determine whether they refer to the same object. **CompareEntryIDs** is useful because an object can have more than one valid entry identifier. This situation can occur, for example, after a new version of an address book provider is installed. 
      *   
@@ -133,7 +132,7 @@ export default struct IAddrBook extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iaddrbook-compareentryids
      */
     CompareEntryIDs(cbEntryID1, lpEntryID1, cbEntryID2, lpEntryID2, ulFlags, lpulResult) {
-        lpulResultMarshal := lpulResult is VarRef ? "uint*" : "ptr"
+        lpulResultMarshal := lpulResult is VarRef ? "uint*" : IntPtr
 
         result := ComCall(15, this, UInt32, cbEntryID1, ENTRYID.Ptr, lpEntryID1, UInt32, cbEntryID2, ENTRYID.Ptr, lpEntryID2, UInt32, ulFlags, lpulResultMarshal, lpulResult, "HRESULT")
         return result
@@ -186,14 +185,13 @@ export default struct IAddrBook extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iaddrbook-advise
      */
     Advise(cbEntryID, lpEntryID, ulEventMask, lpAdviseSink, lpulConnection) {
-        lpulConnectionMarshal := lpulConnection is VarRef ? "uint*" : "ptr"
+        lpulConnectionMarshal := lpulConnection is VarRef ? "uint*" : IntPtr
 
         result := ComCall(16, this, UInt32, cbEntryID, ENTRYID.Ptr, lpEntryID, UInt32, ulEventMask, "ptr", lpAdviseSink, lpulConnectionMarshal, lpulConnection, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @remarks
      * Clients call the **Unadvise** method to stop receiving notifications about changes to a particular address book entry. When a notification registration is canceled, the address book provider releases its pointer to the caller's advise sink. However, the release can occur during the **Unadvise** call or at some later point, if another thread is in the process of calling the [IMAPIAdviseSink::OnNotify](imapiadvisesink-onnotify.md) method. When a notification is in progress, the release is delayed until the **OnNotify** method returns.
      * @param {Integer} ulConnection > [in] A connection number that represents the registration to be canceled. The  _ulConnection_ parameter should contain a value returned by a prior call to the [IAddrBook::Advise](iaddrbook-advise.md) method.
@@ -237,18 +235,17 @@ export default struct IAddrBook extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iaddrbook-createoneoff
      */
     CreateOneOff(lpszName, lpszAdrType, lpszAddress, ulFlags, lpcbEntryID, lppEntryID) {
-        lpszNameMarshal := lpszName is VarRef ? "char*" : "ptr"
-        lpszAdrTypeMarshal := lpszAdrType is VarRef ? "char*" : "ptr"
-        lpszAddressMarshal := lpszAddress is VarRef ? "char*" : "ptr"
-        lpcbEntryIDMarshal := lpcbEntryID is VarRef ? "uint*" : "ptr"
-        lppEntryIDMarshal := lppEntryID is VarRef ? "ptr*" : "ptr"
+        lpszNameMarshal := lpszName is VarRef ? "char*" : IntPtr
+        lpszAdrTypeMarshal := lpszAdrType is VarRef ? "char*" : IntPtr
+        lpszAddressMarshal := lpszAddress is VarRef ? "char*" : IntPtr
+        lpcbEntryIDMarshal := lpcbEntryID is VarRef ? "uint*" : IntPtr
+        lppEntryIDMarshal := lppEntryID is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(18, this, lpszNameMarshal, lpszName, lpszAdrTypeMarshal, lpszAdrType, lpszAddressMarshal, lpszAddress, UInt32, ulFlags, lpcbEntryIDMarshal, lpcbEntryID, lppEntryIDMarshal, lppEntryID, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @remarks
      * The **NewEntry** method creates a new address book entry, to be added directly into a container or to be used to address an outgoing message.
      * @param {Integer} ulUIParam > [in] A handle to the parent window for the dialog box.
@@ -269,8 +266,8 @@ export default struct IAddrBook extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iaddrbook-newentry
      */
     NewEntry(ulUIParam, ulFlags, cbEIDContainer, lpEIDContainer, cbEIDNewEntryTpl, lpEIDNewEntryTpl, lpcbEIDNewEntry, lppEIDNewEntry) {
-        lpcbEIDNewEntryMarshal := lpcbEIDNewEntry is VarRef ? "uint*" : "ptr"
-        lppEIDNewEntryMarshal := lppEIDNewEntry is VarRef ? "ptr*" : "ptr"
+        lpcbEIDNewEntryMarshal := lpcbEIDNewEntry is VarRef ? "uint*" : IntPtr
+        lppEIDNewEntryMarshal := lppEIDNewEntry is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(19, this, UInt32, ulUIParam, UInt32, ulFlags, UInt32, cbEIDContainer, ENTRYID.Ptr, lpEIDContainer, UInt32, cbEIDNewEntryTpl, ENTRYID.Ptr, lpEIDNewEntryTpl, lpcbEIDNewEntryMarshal, lpcbEIDNewEntry, lppEIDNewEntryMarshal, lppEIDNewEntry, "HRESULT")
         return result
@@ -342,7 +339,7 @@ export default struct IAddrBook extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iaddrbook-resolvename
      */
     ResolveName(ulUIParam, ulFlags, lpszNewEntryTitle, lpAdrList) {
-        lpszNewEntryTitleMarshal := lpszNewEntryTitle is VarRef ? "char*" : "ptr"
+        lpszNewEntryTitleMarshal := lpszNewEntryTitle is VarRef ? "char*" : IntPtr
 
         result := ComCall(20, this, IntPtr, ulUIParam, UInt32, ulFlags, lpszNewEntryTitleMarshal, lpszNewEntryTitle, ADRLIST.Ptr, lpAdrList, "HRESULT")
         return result
@@ -381,8 +378,8 @@ export default struct IAddrBook extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iaddrbook-address
      */
     Address(lpulUIParam, lpAdrParms, lppAdrList) {
-        lpulUIParamMarshal := lpulUIParam is VarRef ? "uint*" : "ptr"
-        lppAdrListMarshal := lppAdrList is VarRef ? "ptr*" : "ptr"
+        lpulUIParamMarshal := lpulUIParam is VarRef ? "uint*" : IntPtr
+        lppAdrListMarshal := lppAdrList is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(21, this, lpulUIParamMarshal, lpulUIParam, ADRPARM.Ptr, lpAdrParms, lppAdrListMarshal, lppAdrList, "HRESULT")
         return result
@@ -425,10 +422,10 @@ export default struct IAddrBook extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iaddrbook-details
      */
     Details(lpulUIParam, _lpfnDismiss, lpvDismissContext, cbEntryID, lpEntryID, lpfButtonCallback, lpvButtonContext, lpszButtonText, ulFlags) {
-        lpulUIParamMarshal := lpulUIParam is VarRef ? "ptr*" : "ptr"
-        lpvDismissContextMarshal := lpvDismissContext is VarRef ? "ptr" : "ptr"
-        lpvButtonContextMarshal := lpvButtonContext is VarRef ? "ptr" : "ptr"
-        lpszButtonTextMarshal := lpszButtonText is VarRef ? "char*" : "ptr"
+        lpulUIParamMarshal := lpulUIParam is VarRef ? "ptr*" : IntPtr
+        lpvDismissContextMarshal := lpvDismissContext is VarRef ? "ptr" : IntPtr
+        lpvButtonContextMarshal := lpvButtonContext is VarRef ? "ptr" : IntPtr
+        lpszButtonTextMarshal := lpszButtonText is VarRef ? "char*" : IntPtr
 
         result := ComCall(22, this, lpulUIParamMarshal, lpulUIParam, LPFNDISMISS, _lpfnDismiss, lpvDismissContextMarshal, lpvDismissContext, UInt32, cbEntryID, ENTRYID.Ptr, lpEntryID, LPFNBUTTON, lpfButtonCallback, lpvButtonContextMarshal, lpvButtonContext, lpszButtonTextMarshal, lpszButtonText, UInt32, ulFlags, "HRESULT")
         return result
@@ -457,9 +454,9 @@ export default struct IAddrBook extends IMAPIProp {
      * @see https://learn.microsoft.com/windows/win32/api/wabiab/nf-wabiab-iaddrbook-querydefaultrecipopt
      */
     QueryDefaultRecipOpt(lpszAdrType, ulFlags, lpcValues, lppOptions) {
-        lpszAdrTypeMarshal := lpszAdrType is VarRef ? "char*" : "ptr"
-        lpcValuesMarshal := lpcValues is VarRef ? "uint*" : "ptr"
-        lppOptionsMarshal := lppOptions is VarRef ? "ptr*" : "ptr"
+        lpszAdrTypeMarshal := lpszAdrType is VarRef ? "char*" : IntPtr
+        lpcValuesMarshal := lpcValues is VarRef ? "uint*" : IntPtr
+        lppOptionsMarshal := lppOptions is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(24, this, lpszAdrTypeMarshal, lpszAdrType, UInt32, ulFlags, lpcValuesMarshal, lpcValues, lppOptionsMarshal, lppOptions, "HRESULT")
         return result
@@ -477,8 +474,8 @@ export default struct IAddrBook extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iaddrbook-getpab
      */
     GetPAB(lpcbEntryID, lppEntryID) {
-        lpcbEntryIDMarshal := lpcbEntryID is VarRef ? "uint*" : "ptr"
-        lppEntryIDMarshal := lppEntryID is VarRef ? "ptr*" : "ptr"
+        lpcbEntryIDMarshal := lpcbEntryID is VarRef ? "uint*" : IntPtr
+        lppEntryIDMarshal := lppEntryID is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(25, this, lpcbEntryIDMarshal, lpcbEntryID, lppEntryIDMarshal, lppEntryID, "HRESULT")
         return result
@@ -518,8 +515,8 @@ export default struct IAddrBook extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iaddrbook-getdefaultdir
      */
     GetDefaultDir(lpcbEntryID, lppEntryID) {
-        lpcbEntryIDMarshal := lpcbEntryID is VarRef ? "uint*" : "ptr"
-        lppEntryIDMarshal := lppEntryID is VarRef ? "ptr*" : "ptr"
+        lpcbEntryIDMarshal := lpcbEntryID is VarRef ? "uint*" : IntPtr
+        lppEntryIDMarshal := lppEntryID is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(27, this, lpcbEntryIDMarshal, lpcbEntryID, lppEntryIDMarshal, lppEntryID, "HRESULT")
         return result
@@ -545,7 +542,6 @@ export default struct IAddrBook extends IMAPIProp {
     }
 
     /**
-     * 
      * @remarks
      * Clients and service providers call the **GetSearchPath** method to get the search path that is used to resolve names with the **ResolveName** method. Typically, clients call the [IAddrBook::SetSearchPath](iaddrbook-setsearchpath.md) method to establish a container search path in the profile before they call **GetSearchPath** to retrieve it. However, calling **SetSearchPath** is optional. 
      *   
@@ -572,14 +568,13 @@ export default struct IAddrBook extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iaddrbook-getsearchpath
      */
     GetSearchPath(ulFlags, lppSearchPath) {
-        lppSearchPathMarshal := lppSearchPath is VarRef ? "ptr*" : "ptr"
+        lppSearchPathMarshal := lppSearchPath is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(29, this, UInt32, ulFlags, lppSearchPathMarshal, lppSearchPath, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @remarks
      * Clients and service providers call the **SetSearchPath** method to save changes that were made to the container search order that is used to resolve names with the [IAddrBook::ResolveName](iaddrbook-resolvename.md) method. The search path is saved between instances of a session. 
      *   
@@ -601,7 +596,6 @@ export default struct IAddrBook extends IMAPIProp {
     }
 
     /**
-     * 
      * @remarks
      * Clients and service providers call the **PrepareRecips** method to do the following: 
      *   
@@ -640,24 +634,24 @@ export default struct IAddrBook extends IMAPIProp {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OpenEntry := CallbackCreate(GetMethod(implObj, "OpenEntry"), flags, 7)
-        this.vtbl.CompareEntryIDs := CallbackCreate(GetMethod(implObj, "CompareEntryIDs"), flags, 7)
-        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 6)
-        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 2)
-        this.vtbl.CreateOneOff := CallbackCreate(GetMethod(implObj, "CreateOneOff"), flags, 7)
-        this.vtbl.NewEntry := CallbackCreate(GetMethod(implObj, "NewEntry"), flags, 9)
-        this.vtbl.ResolveName := CallbackCreate(GetMethod(implObj, "ResolveName"), flags, 5)
-        this.vtbl.Address := CallbackCreate(GetMethod(implObj, "Address"), flags, 4)
-        this.vtbl.Details := CallbackCreate(GetMethod(implObj, "Details"), flags, 10)
-        this.vtbl.RecipOptions := CallbackCreate(GetMethod(implObj, "RecipOptions"), flags, 4)
-        this.vtbl.QueryDefaultRecipOpt := CallbackCreate(GetMethod(implObj, "QueryDefaultRecipOpt"), flags, 5)
-        this.vtbl.GetPAB := CallbackCreate(GetMethod(implObj, "GetPAB"), flags, 3)
-        this.vtbl.SetPAB := CallbackCreate(GetMethod(implObj, "SetPAB"), flags, 3)
-        this.vtbl.GetDefaultDir := CallbackCreate(GetMethod(implObj, "GetDefaultDir"), flags, 3)
-        this.vtbl.SetDefaultDir := CallbackCreate(GetMethod(implObj, "SetDefaultDir"), flags, 3)
-        this.vtbl.GetSearchPath := CallbackCreate(GetMethod(implObj, "GetSearchPath"), flags, 3)
-        this.vtbl.SetSearchPath := CallbackCreate(GetMethod(implObj, "SetSearchPath"), flags, 3)
-        this.vtbl.PrepareRecips := CallbackCreate(GetMethod(implObj, "PrepareRecips"), flags, 4)
+        this.vtbl.OpenEntry := CallbackCreate(ObjBindMethod(implObj, "OpenEntry"), flags, 7)
+        this.vtbl.CompareEntryIDs := CallbackCreate(ObjBindMethod(implObj, "CompareEntryIDs"), flags, 7)
+        this.vtbl.Advise := CallbackCreate(ObjBindMethod(implObj, "Advise"), flags, 6)
+        this.vtbl.Unadvise := CallbackCreate(ObjBindMethod(implObj, "Unadvise"), flags, 2)
+        this.vtbl.CreateOneOff := CallbackCreate(ObjBindMethod(implObj, "CreateOneOff"), flags, 7)
+        this.vtbl.NewEntry := CallbackCreate(ObjBindMethod(implObj, "NewEntry"), flags, 9)
+        this.vtbl.ResolveName := CallbackCreate(ObjBindMethod(implObj, "ResolveName"), flags, 5)
+        this.vtbl.Address := CallbackCreate(ObjBindMethod(implObj, "Address"), flags, 4)
+        this.vtbl.Details := CallbackCreate(ObjBindMethod(implObj, "Details"), flags, 10)
+        this.vtbl.RecipOptions := CallbackCreate(ObjBindMethod(implObj, "RecipOptions"), flags, 4)
+        this.vtbl.QueryDefaultRecipOpt := CallbackCreate(ObjBindMethod(implObj, "QueryDefaultRecipOpt"), flags, 5)
+        this.vtbl.GetPAB := CallbackCreate(ObjBindMethod(implObj, "GetPAB"), flags, 3)
+        this.vtbl.SetPAB := CallbackCreate(ObjBindMethod(implObj, "SetPAB"), flags, 3)
+        this.vtbl.GetDefaultDir := CallbackCreate(ObjBindMethod(implObj, "GetDefaultDir"), flags, 3)
+        this.vtbl.SetDefaultDir := CallbackCreate(ObjBindMethod(implObj, "SetDefaultDir"), flags, 3)
+        this.vtbl.GetSearchPath := CallbackCreate(ObjBindMethod(implObj, "GetSearchPath"), flags, 3)
+        this.vtbl.SetSearchPath := CallbackCreate(ObjBindMethod(implObj, "SetSearchPath"), flags, 3)
+        this.vtbl.PrepareRecips := CallbackCreate(ObjBindMethod(implObj, "PrepareRecips"), flags, 4)
     }
 
     Dispose() {

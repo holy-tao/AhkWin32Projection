@@ -19,14 +19,13 @@ export default struct LPWPUMODIFYIFSHANDLE {
     }
 
     /**
-     * 
      * @param {Integer} dwCatalogEntryId 
      * @param {SOCKET} ProposedHandle 
      * @param {Pointer<Integer>} lpErrno 
      * @returns {SOCKET} 
      */
     Call(dwCatalogEntryId, ProposedHandle, lpErrno) {
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, UInt32, dwCatalogEntryId, SOCKET, ProposedHandle, lpErrnoMarshal, lpErrno, SOCKET.Owned)
         return result

@@ -22,7 +22,6 @@ export default struct LPDHCP_CONTROL {
     }
 
     /**
-     * 
      * @param {Integer} dwControlCode Specifies the control event that triggered the notification. This parameter will be one of the following: 
      * 
      * 
@@ -38,7 +37,7 @@ export default struct LPDHCP_CONTROL {
      * @returns {Integer} Return values are defined by the application providing the callback.
      */
     Call(dwControlCode, lpReserved) {
-        lpReservedMarshal := lpReserved is VarRef ? "ptr" : "ptr"
+        lpReservedMarshal := lpReserved is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, UInt32, dwControlCode, lpReservedMarshal, lpReserved, UInt32)
         return result

@@ -77,8 +77,8 @@ export default struct IXpsOMPackageWriter3D extends IXpsOMPackageWriter {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddModelTexture := CallbackCreate(GetMethod(implObj, "AddModelTexture"), flags, 3)
-        this.vtbl.SetModelPrintTicket := CallbackCreate(GetMethod(implObj, "SetModelPrintTicket"), flags, 3)
+        this.vtbl.AddModelTexture := CallbackCreate(ObjBindMethod(implObj, "AddModelTexture"), flags, 3)
+        this.vtbl.SetModelPrintTicket := CallbackCreate(ObjBindMethod(implObj, "SetModelPrintTicket"), flags, 3)
     }
 
     Dispose() {

@@ -38,7 +38,6 @@ export default struct ISAXEntityResolver extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchPublicId 
      * @param {PWSTR} pwchSystemId 
      * @returns {VARIANT} 
@@ -61,7 +60,7 @@ export default struct ISAXEntityResolver extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.resolveEntity := CallbackCreate(GetMethod(implObj, "resolveEntity"), flags, 4)
+        this.vtbl.resolveEntity := CallbackCreate(ObjBindMethod(implObj, "resolveEntity"), flags, 4)
     }
 
     Dispose() {

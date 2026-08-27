@@ -131,7 +131,9 @@ export default struct IMMNotificationClient extends IUnknown {
     OnDefaultDeviceChanged(flow, role, pwstrDefaultDeviceId) {
         pwstrDefaultDeviceId := pwstrDefaultDeviceId is String ? StrPtr(pwstrDefaultDeviceId) : pwstrDefaultDeviceId
 
-        result := ComCall(6, this, EDataFlow, flow, ERole, role, "ptr", pwstrDefaultDeviceId, "HRESULT")
+        pwstrDefaultDeviceIdMarshal := pwstrDefaultDeviceId == 0 ? IntPtr : PWSTR
+
+        result := ComCall(6, this, EDataFlow, flow, ERole, role, pwstrDefaultDeviceIdMarshal, pwstrDefaultDeviceId, "HRESULT")
         return result
     }
 
@@ -164,11 +166,11 @@ export default struct IMMNotificationClient extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnDeviceStateChanged := CallbackCreate(GetMethod(implObj, "OnDeviceStateChanged"), flags, 3)
-        this.vtbl.OnDeviceAdded := CallbackCreate(GetMethod(implObj, "OnDeviceAdded"), flags, 2)
-        this.vtbl.OnDeviceRemoved := CallbackCreate(GetMethod(implObj, "OnDeviceRemoved"), flags, 2)
-        this.vtbl.OnDefaultDeviceChanged := CallbackCreate(GetMethod(implObj, "OnDefaultDeviceChanged"), flags, 4)
-        this.vtbl.OnPropertyValueChanged := CallbackCreate(GetMethod(implObj, "OnPropertyValueChanged"), flags, 3)
+        this.vtbl.OnDeviceStateChanged := CallbackCreate(ObjBindMethod(implObj, "OnDeviceStateChanged"), flags, 3)
+        this.vtbl.OnDeviceAdded := CallbackCreate(ObjBindMethod(implObj, "OnDeviceAdded"), flags, 2)
+        this.vtbl.OnDeviceRemoved := CallbackCreate(ObjBindMethod(implObj, "OnDeviceRemoved"), flags, 2)
+        this.vtbl.OnDefaultDeviceChanged := CallbackCreate(ObjBindMethod(implObj, "OnDefaultDeviceChanged"), flags, 4)
+        this.vtbl.OnPropertyValueChanged := CallbackCreate(ObjBindMethod(implObj, "OnPropertyValueChanged"), flags, 3)
     }
 
     Dispose() {

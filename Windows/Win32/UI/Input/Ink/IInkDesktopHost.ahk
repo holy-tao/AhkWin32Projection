@@ -85,9 +85,9 @@ export default struct IInkDesktopHost extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueueWorkItem := CallbackCreate(GetMethod(implObj, "QueueWorkItem"), flags, 2)
-        this.vtbl.CreateInkPresenter := CallbackCreate(GetMethod(implObj, "CreateInkPresenter"), flags, 3)
-        this.vtbl.CreateAndInitializeInkPresenter := CallbackCreate(GetMethod(implObj, "CreateAndInitializeInkPresenter"), flags, 6)
+        this.vtbl.QueueWorkItem := CallbackCreate(ObjBindMethod(implObj, "QueueWorkItem"), flags, 2)
+        this.vtbl.CreateInkPresenter := CallbackCreate(ObjBindMethod(implObj, "CreateInkPresenter"), flags, 3)
+        this.vtbl.CreateAndInitializeInkPresenter := CallbackCreate(ObjBindMethod(implObj, "CreateAndInitializeInkPresenter"), flags, 6)
     }
 
     Dispose() {

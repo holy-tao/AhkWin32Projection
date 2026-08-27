@@ -588,19 +588,19 @@ export default struct IOleDocumentView extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetInPlaceSite := CallbackCreate(GetMethod(implObj, "SetInPlaceSite"), flags, 2)
-        this.vtbl.GetInPlaceSite := CallbackCreate(GetMethod(implObj, "GetInPlaceSite"), flags, 2)
-        this.vtbl.GetDocument := CallbackCreate(GetMethod(implObj, "GetDocument"), flags, 2)
-        this.vtbl.SetRect := CallbackCreate(GetMethod(implObj, "SetRect"), flags, 2)
-        this.vtbl.GetRect := CallbackCreate(GetMethod(implObj, "GetRect"), flags, 2)
-        this.vtbl.SetRectComplex := CallbackCreate(GetMethod(implObj, "SetRectComplex"), flags, 5)
-        this.vtbl.Show := CallbackCreate(GetMethod(implObj, "Show"), flags, 2)
-        this.vtbl.UIActivate := CallbackCreate(GetMethod(implObj, "UIActivate"), flags, 2)
-        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 1)
-        this.vtbl.CloseView := CallbackCreate(GetMethod(implObj, "CloseView"), flags, 2)
-        this.vtbl.SaveViewState := CallbackCreate(GetMethod(implObj, "SaveViewState"), flags, 2)
-        this.vtbl.ApplyViewState := CallbackCreate(GetMethod(implObj, "ApplyViewState"), flags, 2)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 3)
+        this.vtbl.SetInPlaceSite := CallbackCreate(ObjBindMethod(implObj, "SetInPlaceSite"), flags, 2)
+        this.vtbl.GetInPlaceSite := CallbackCreate(ObjBindMethod(implObj, "GetInPlaceSite"), flags, 2)
+        this.vtbl.GetDocument := CallbackCreate(ObjBindMethod(implObj, "GetDocument"), flags, 2)
+        this.vtbl.SetRect := CallbackCreate(ObjBindMethod(implObj, "SetRect"), flags, 2)
+        this.vtbl.GetRect := CallbackCreate(ObjBindMethod(implObj, "GetRect"), flags, 2)
+        this.vtbl.SetRectComplex := CallbackCreate(ObjBindMethod(implObj, "SetRectComplex"), flags, 5)
+        this.vtbl.Show := CallbackCreate(ObjBindMethod(implObj, "Show"), flags, 2)
+        this.vtbl.UIActivate := CallbackCreate(ObjBindMethod(implObj, "UIActivate"), flags, 2)
+        this.vtbl.Open := CallbackCreate(ObjBindMethod(implObj, "Open"), flags, 1)
+        this.vtbl.CloseView := CallbackCreate(ObjBindMethod(implObj, "CloseView"), flags, 2)
+        this.vtbl.SaveViewState := CallbackCreate(ObjBindMethod(implObj, "SaveViewState"), flags, 2)
+        this.vtbl.ApplyViewState := CallbackCreate(ObjBindMethod(implObj, "ApplyViewState"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 3)
     }
 
     Dispose() {

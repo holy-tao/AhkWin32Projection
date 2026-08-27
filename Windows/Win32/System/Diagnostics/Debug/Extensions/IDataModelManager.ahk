@@ -66,7 +66,6 @@ export default struct IDataModelManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Close() {
@@ -75,7 +74,6 @@ export default struct IDataModelManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IModelObject} 
      */
     CreateNoValue() {
@@ -84,7 +82,6 @@ export default struct IDataModelManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {HRESULT} hrError 
      * @param {PWSTR} pwszMessage 
      * @returns {IModelObject} 
@@ -92,46 +89,50 @@ export default struct IDataModelManager extends IUnknown {
     CreateErrorObject(hrError, pwszMessage) {
         pwszMessage := pwszMessage is String ? StrPtr(pwszMessage) : pwszMessage
 
-        result := ComCall(5, this, "int", hrError, "ptr", pwszMessage, "ptr*", &_object := 0, "HRESULT")
+        pwszMessageMarshal := pwszMessage == 0 ? IntPtr : PWSTR
+
+        result := ComCall(5, this, "int", hrError, pwszMessageMarshal, pwszMessage, "ptr*", &_object := 0, "HRESULT")
         return IModelObject(_object)
     }
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @param {Location} objectLocation 
      * @param {IDebugHostType} _objectType 
      * @returns {IModelObject} 
      */
     CreateTypedObject(_context, objectLocation, _objectType) {
-        result := ComCall(6, this, "ptr", _context, Location, objectLocation, "ptr", _objectType, "ptr*", &_object := 0, "HRESULT")
+        _contextMarshal := _context == 0 ? IntPtr : "ptr"
+
+        result := ComCall(6, this, _contextMarshal, _context, Location, objectLocation, "ptr", _objectType, "ptr*", &_object := 0, "HRESULT")
         return IModelObject(_object)
     }
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @param {Location} objectLocation 
      * @param {IDebugHostType} _objectType 
      * @returns {IModelObject} 
      */
     CreateTypedObjectReference(_context, objectLocation, _objectType) {
-        result := ComCall(7, this, "ptr", _context, Location, objectLocation, "ptr", _objectType, "ptr*", &_object := 0, "HRESULT")
+        _contextMarshal := _context == 0 ? IntPtr : "ptr"
+
+        result := ComCall(7, this, _contextMarshal, _context, Location, objectLocation, "ptr", _objectType, "ptr*", &_object := 0, "HRESULT")
         return IModelObject(_object)
     }
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @returns {IModelObject} 
      */
     CreateSyntheticObject(_context) {
-        result := ComCall(8, this, "ptr", _context, "ptr*", &_object := 0, "HRESULT")
+        _contextMarshal := _context == 0 ? IntPtr : "ptr"
+
+        result := ComCall(8, this, _contextMarshal, _context, "ptr*", &_object := 0, "HRESULT")
         return IModelObject(_object)
     }
 
     /**
-     * 
      * @param {IDataModelConcept} dataModel 
      * @returns {IModelObject} 
      */
@@ -141,7 +142,6 @@ export default struct IDataModelManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {ModelObjectKind} objectKind 
      * @param {Pointer<VARIANT>} intrinsicData 
      * @returns {IModelObject} 
@@ -152,7 +152,6 @@ export default struct IDataModelManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} intrinsicData 
      * @param {IDebugHostType} type 
      * @returns {IModelObject} 
@@ -163,7 +162,6 @@ export default struct IDataModelManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugHostTypeSignature} typeSignature 
      * @returns {IModelObject} 
      */
@@ -173,7 +171,6 @@ export default struct IDataModelManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugHostType} type 
      * @param {Pointer<IModelObject>} dataModel 
      * @param {Pointer<IDebugHostTypeSignature>} typeSignature 
@@ -181,12 +178,14 @@ export default struct IDataModelManager extends IUnknown {
      * @returns {HRESULT} 
      */
     GetModelForType(type, dataModel, typeSignature, wildcardMatches) {
-        result := ComCall(13, this, "ptr", type, IModelObject.Ptr, dataModel, IDebugHostTypeSignature.Ptr, typeSignature, IDebugHostSymbolEnumerator.Ptr, wildcardMatches, "HRESULT")
+        typeSignatureMarshal := typeSignature == 0 ? IntPtr : IDebugHostTypeSignature.Ptr
+        wildcardMatchesMarshal := wildcardMatches == 0 ? IntPtr : IDebugHostSymbolEnumerator.Ptr
+
+        result := ComCall(13, this, "ptr", type, IModelObject.Ptr, dataModel, typeSignatureMarshal, typeSignature, wildcardMatchesMarshal, wildcardMatches, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IDebugHostTypeSignature} typeSignature 
      * @param {IModelObject} dataModel 
      * @returns {HRESULT} 
@@ -197,18 +196,18 @@ export default struct IDataModelManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} dataModel 
      * @param {IDebugHostTypeSignature} typeSignature 
      * @returns {HRESULT} 
      */
     UnregisterModelForTypeSignature(dataModel, typeSignature) {
-        result := ComCall(15, this, "ptr", dataModel, "ptr", typeSignature, "HRESULT")
+        typeSignatureMarshal := typeSignature == 0 ? IntPtr : "ptr"
+
+        result := ComCall(15, this, "ptr", dataModel, typeSignatureMarshal, typeSignature, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IDebugHostTypeSignature} typeSignature 
      * @param {IModelObject} dataModel 
      * @returns {HRESULT} 
@@ -219,28 +218,29 @@ export default struct IDataModelManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} dataModel 
      * @param {IDebugHostTypeSignature} typeSignature 
      * @returns {HRESULT} 
      */
     UnregisterExtensionForTypeSignature(dataModel, typeSignature) {
-        result := ComCall(17, this, "ptr", dataModel, "ptr", typeSignature, "HRESULT")
+        typeSignatureMarshal := typeSignature == 0 ? IntPtr : "ptr"
+
+        result := ComCall(17, this, "ptr", dataModel, typeSignatureMarshal, typeSignature, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IKeyStore} parentStore 
      * @returns {IKeyStore} 
      */
     CreateMetadataStore(parentStore) {
-        result := ComCall(18, this, "ptr", parentStore, "ptr*", &metadataStore := 0, "HRESULT")
+        parentStoreMarshal := parentStore == 0 ? IntPtr : "ptr"
+
+        result := ComCall(18, this, parentStoreMarshal, parentStore, "ptr*", &metadataStore := 0, "HRESULT")
         return IKeyStore(metadataStore)
     }
 
     /**
-     * 
      * @returns {IModelObject} 
      */
     GetRootNamespace() {
@@ -249,7 +249,6 @@ export default struct IDataModelManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} modelName 
      * @param {IModelObject} modeObject 
      * @returns {HRESULT} 
@@ -262,7 +261,6 @@ export default struct IDataModelManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} modelName 
      * @returns {HRESULT} 
      */
@@ -274,7 +272,6 @@ export default struct IDataModelManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} modelName 
      * @returns {IModelObject} 
      */
@@ -294,26 +291,26 @@ export default struct IDataModelManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
-        this.vtbl.CreateNoValue := CallbackCreate(GetMethod(implObj, "CreateNoValue"), flags, 2)
-        this.vtbl.CreateErrorObject := CallbackCreate(GetMethod(implObj, "CreateErrorObject"), flags, 4)
-        this.vtbl.CreateTypedObject := CallbackCreate(GetMethod(implObj, "CreateTypedObject"), flags, 5)
-        this.vtbl.CreateTypedObjectReference := CallbackCreate(GetMethod(implObj, "CreateTypedObjectReference"), flags, 5)
-        this.vtbl.CreateSyntheticObject := CallbackCreate(GetMethod(implObj, "CreateSyntheticObject"), flags, 3)
-        this.vtbl.CreateDataModelObject := CallbackCreate(GetMethod(implObj, "CreateDataModelObject"), flags, 3)
-        this.vtbl.CreateIntrinsicObject := CallbackCreate(GetMethod(implObj, "CreateIntrinsicObject"), flags, 4)
-        this.vtbl.CreateTypedIntrinsicObject := CallbackCreate(GetMethod(implObj, "CreateTypedIntrinsicObject"), flags, 4)
-        this.vtbl.GetModelForTypeSignature := CallbackCreate(GetMethod(implObj, "GetModelForTypeSignature"), flags, 3)
-        this.vtbl.GetModelForType := CallbackCreate(GetMethod(implObj, "GetModelForType"), flags, 5)
-        this.vtbl.RegisterModelForTypeSignature := CallbackCreate(GetMethod(implObj, "RegisterModelForTypeSignature"), flags, 3)
-        this.vtbl.UnregisterModelForTypeSignature := CallbackCreate(GetMethod(implObj, "UnregisterModelForTypeSignature"), flags, 3)
-        this.vtbl.RegisterExtensionForTypeSignature := CallbackCreate(GetMethod(implObj, "RegisterExtensionForTypeSignature"), flags, 3)
-        this.vtbl.UnregisterExtensionForTypeSignature := CallbackCreate(GetMethod(implObj, "UnregisterExtensionForTypeSignature"), flags, 3)
-        this.vtbl.CreateMetadataStore := CallbackCreate(GetMethod(implObj, "CreateMetadataStore"), flags, 3)
-        this.vtbl.GetRootNamespace := CallbackCreate(GetMethod(implObj, "GetRootNamespace"), flags, 2)
-        this.vtbl.RegisterNamedModel := CallbackCreate(GetMethod(implObj, "RegisterNamedModel"), flags, 3)
-        this.vtbl.UnregisterNamedModel := CallbackCreate(GetMethod(implObj, "UnregisterNamedModel"), flags, 2)
-        this.vtbl.AcquireNamedModel := CallbackCreate(GetMethod(implObj, "AcquireNamedModel"), flags, 3)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
+        this.vtbl.CreateNoValue := CallbackCreate(ObjBindMethod(implObj, "CreateNoValue"), flags, 2)
+        this.vtbl.CreateErrorObject := CallbackCreate(ObjBindMethod(implObj, "CreateErrorObject"), flags, 4)
+        this.vtbl.CreateTypedObject := CallbackCreate(ObjBindMethod(implObj, "CreateTypedObject"), flags, 5)
+        this.vtbl.CreateTypedObjectReference := CallbackCreate(ObjBindMethod(implObj, "CreateTypedObjectReference"), flags, 5)
+        this.vtbl.CreateSyntheticObject := CallbackCreate(ObjBindMethod(implObj, "CreateSyntheticObject"), flags, 3)
+        this.vtbl.CreateDataModelObject := CallbackCreate(ObjBindMethod(implObj, "CreateDataModelObject"), flags, 3)
+        this.vtbl.CreateIntrinsicObject := CallbackCreate(ObjBindMethod(implObj, "CreateIntrinsicObject"), flags, 4)
+        this.vtbl.CreateTypedIntrinsicObject := CallbackCreate(ObjBindMethod(implObj, "CreateTypedIntrinsicObject"), flags, 4)
+        this.vtbl.GetModelForTypeSignature := CallbackCreate(ObjBindMethod(implObj, "GetModelForTypeSignature"), flags, 3)
+        this.vtbl.GetModelForType := CallbackCreate(ObjBindMethod(implObj, "GetModelForType"), flags, 5)
+        this.vtbl.RegisterModelForTypeSignature := CallbackCreate(ObjBindMethod(implObj, "RegisterModelForTypeSignature"), flags, 3)
+        this.vtbl.UnregisterModelForTypeSignature := CallbackCreate(ObjBindMethod(implObj, "UnregisterModelForTypeSignature"), flags, 3)
+        this.vtbl.RegisterExtensionForTypeSignature := CallbackCreate(ObjBindMethod(implObj, "RegisterExtensionForTypeSignature"), flags, 3)
+        this.vtbl.UnregisterExtensionForTypeSignature := CallbackCreate(ObjBindMethod(implObj, "UnregisterExtensionForTypeSignature"), flags, 3)
+        this.vtbl.CreateMetadataStore := CallbackCreate(ObjBindMethod(implObj, "CreateMetadataStore"), flags, 3)
+        this.vtbl.GetRootNamespace := CallbackCreate(ObjBindMethod(implObj, "GetRootNamespace"), flags, 2)
+        this.vtbl.RegisterNamedModel := CallbackCreate(ObjBindMethod(implObj, "RegisterNamedModel"), flags, 3)
+        this.vtbl.UnregisterNamedModel := CallbackCreate(ObjBindMethod(implObj, "UnregisterNamedModel"), flags, 2)
+        this.vtbl.AcquireNamedModel := CallbackCreate(ObjBindMethod(implObj, "AcquireNamedModel"), flags, 3)
     }
 
     Dispose() {

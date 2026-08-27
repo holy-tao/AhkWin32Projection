@@ -20,7 +20,6 @@ export default struct PF_AddConnectNotify {
     }
 
     /**
-     * 
      * @param {Pointer<NOTIFYINFO>} lpNotifyInfo 
      * @param {Pointer<NOTIFYADD>} lpAddInfo 
      * @returns {Integer} 

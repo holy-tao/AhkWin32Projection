@@ -46,35 +46,32 @@ export default struct IWindowsDevicesAllJoynBusObjectInterop extends IInspectabl
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {HSTRING} interfaceName 
      * @param {Pointer} callback 
      * @returns {HRESULT} 
      */
     AddPropertyGetHandler(_context, interfaceName, callback) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         result := ComCall(6, this, _contextMarshal, _context, HSTRING, interfaceName, IntPtr, callback, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {HSTRING} interfaceName 
      * @param {Pointer} callback 
      * @returns {HRESULT} 
      */
     AddPropertySetHandler(_context, interfaceName, callback) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         result := ComCall(7, this, _contextMarshal, _context, HSTRING, interfaceName, IntPtr, callback, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Win32Handle() {
@@ -91,9 +88,9 @@ export default struct IWindowsDevicesAllJoynBusObjectInterop extends IInspectabl
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddPropertyGetHandler := CallbackCreate(GetMethod(implObj, "AddPropertyGetHandler"), flags, 4)
-        this.vtbl.AddPropertySetHandler := CallbackCreate(GetMethod(implObj, "AddPropertySetHandler"), flags, 4)
-        this.vtbl.get_Win32Handle := CallbackCreate(GetMethod(implObj, "get_Win32Handle"), flags, 2)
+        this.vtbl.AddPropertyGetHandler := CallbackCreate(ObjBindMethod(implObj, "AddPropertyGetHandler"), flags, 4)
+        this.vtbl.AddPropertySetHandler := CallbackCreate(ObjBindMethod(implObj, "AddPropertySetHandler"), flags, 4)
+        this.vtbl.get_Win32Handle := CallbackCreate(ObjBindMethod(implObj, "get_Win32Handle"), flags, 2)
     }
 
     Dispose() {

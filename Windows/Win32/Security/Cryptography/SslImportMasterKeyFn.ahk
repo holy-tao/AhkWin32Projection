@@ -22,7 +22,6 @@ export default struct SslImportMasterKeyFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_KEY_HANDLE} hPrivateKey 
      * @param {Integer} dwProtocol 

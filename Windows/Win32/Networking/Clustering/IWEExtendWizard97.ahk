@@ -171,7 +171,7 @@ export default struct IWEExtendWizard97 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateWizard97Pages := CallbackCreate(GetMethod(implObj, "CreateWizard97Pages"), flags, 3)
+        this.vtbl.CreateWizard97Pages := CallbackCreate(ObjBindMethod(implObj, "CreateWizard97Pages"), flags, 3)
     }
 
     Dispose() {

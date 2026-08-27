@@ -147,9 +147,9 @@ export default struct IAMVfwCaptureDialogs extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.HasDialog := CallbackCreate(GetMethod(implObj, "HasDialog"), flags, 2)
-        this.vtbl.ShowDialog := CallbackCreate(GetMethod(implObj, "ShowDialog"), flags, 3)
-        this.vtbl.SendDriverMessage := CallbackCreate(GetMethod(implObj, "SendDriverMessage"), flags, 5)
+        this.vtbl.HasDialog := CallbackCreate(ObjBindMethod(implObj, "HasDialog"), flags, 2)
+        this.vtbl.ShowDialog := CallbackCreate(ObjBindMethod(implObj, "ShowDialog"), flags, 3)
+        this.vtbl.SendDriverMessage := CallbackCreate(ObjBindMethod(implObj, "SendDriverMessage"), flags, 5)
     }
 
     Dispose() {

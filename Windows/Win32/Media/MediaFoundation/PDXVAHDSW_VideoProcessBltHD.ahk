@@ -24,7 +24,6 @@ export default struct PDXVAHDSW_VideoProcessBltHD {
     }
 
     /**
-     * 
      * @param {HANDLE} hVideoProcessor A handle to the software DXVA-HD video processor.
      * @param {IDirect3DSurface9} pOutputSurface A pointer to the <b>IDirect3DSurface9</b> interface of a Direct3D surface that receives the blit.
      * @param {Integer} OutputFrame The frame number of the output video frame, indexed from zero.

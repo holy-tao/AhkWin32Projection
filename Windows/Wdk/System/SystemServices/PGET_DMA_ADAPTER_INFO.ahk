@@ -21,7 +21,6 @@ export default struct PGET_DMA_ADAPTER_INFO {
     }
 
     /**
-     * 
      * @param {Pointer<DMA_ADAPTER>} DmaAdapter 
      * @param {Pointer<DMA_ADAPTER_INFO>} AdapterInfo 
      * @returns {NTSTATUS} 

@@ -20,7 +20,6 @@ export default struct TUISPIDLLCALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer} dwObjectID An object identifier of the type specified by <i>dwObjectType</i>.
      * @param {Integer} dwObjectType One of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tuispidll-object-">TUISPIDLL_OBJECT_</a> constants, specifying the type of object identified by <i>dwObjectID</i>
@@ -38,7 +37,7 @@ export default struct TUISPIDLLCALLBACK {
      * LINEERR_INVALPARAM, LINEERR_INVALPOINTER, LINEERR_NOMEM, LINEERR_OPERATIONFAILED.
      */
     Call(dwObjectID, dwObjectType, lpParams, dwSize) {
-        lpParamsMarshal := lpParams is VarRef ? "ptr" : "ptr"
+        lpParamsMarshal := lpParams is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, IntPtr, dwObjectID, UInt32, dwObjectType, lpParamsMarshal, lpParams, UInt32, dwSize, Int32)
         return result

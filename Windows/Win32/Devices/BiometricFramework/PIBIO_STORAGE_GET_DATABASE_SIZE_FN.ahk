@@ -22,7 +22,6 @@ export default struct PIBIO_STORAGE_GET_DATABASE_SIZE_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/ns-winbio_adapter-winbio_pipeline">WINBIO_PIPELINE</a> structure associated with the biometric unit performing the operation.
      * @param {Pointer<Pointer>} AvailableRecordCount Pointer to a variable that receives the number of unused record slots in the database.
      * @param {Pointer<Pointer>} TotalRecordCount Pointer to a variable that receives the number of valid records in the database.
@@ -58,8 +57,8 @@ export default struct PIBIO_STORAGE_GET_DATABASE_SIZE_FN {
      * </table>
      */
     Call(Pipeline, AvailableRecordCount, TotalRecordCount) {
-        AvailableRecordCountMarshal := AvailableRecordCount is VarRef ? "ptr*" : "ptr"
-        TotalRecordCountMarshal := TotalRecordCount is VarRef ? "ptr*" : "ptr"
+        AvailableRecordCountMarshal := AvailableRecordCount is VarRef ? "ptr*" : IntPtr
+        TotalRecordCountMarshal := TotalRecordCount is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, WINBIO_PIPELINE.Ptr, Pipeline, AvailableRecordCountMarshal, AvailableRecordCount, TotalRecordCountMarshal, TotalRecordCount, "HRESULT")
         return result

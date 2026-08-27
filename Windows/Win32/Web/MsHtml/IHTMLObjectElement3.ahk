@@ -98,7 +98,6 @@ export default struct IHTMLObjectElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -110,7 +109,6 @@ export default struct IHTMLObjectElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_archive() {
@@ -120,7 +118,6 @@ export default struct IHTMLObjectElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -132,7 +129,6 @@ export default struct IHTMLObjectElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_alt() {
@@ -142,7 +138,6 @@ export default struct IHTMLObjectElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -152,7 +147,6 @@ export default struct IHTMLObjectElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_declare() {
@@ -161,7 +155,6 @@ export default struct IHTMLObjectElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -173,7 +166,6 @@ export default struct IHTMLObjectElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_standby() {
@@ -183,7 +175,6 @@ export default struct IHTMLObjectElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -193,7 +184,6 @@ export default struct IHTMLObjectElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_border() {
@@ -203,7 +193,6 @@ export default struct IHTMLObjectElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -215,7 +204,6 @@ export default struct IHTMLObjectElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_useMap() {
@@ -233,18 +221,18 @@ export default struct IHTMLObjectElement3 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_archive := CallbackCreate(GetMethod(implObj, "put_archive"), flags, 2)
-        this.vtbl.get_archive := CallbackCreate(GetMethod(implObj, "get_archive"), flags, 2)
-        this.vtbl.put_alt := CallbackCreate(GetMethod(implObj, "put_alt"), flags, 2)
-        this.vtbl.get_alt := CallbackCreate(GetMethod(implObj, "get_alt"), flags, 2)
-        this.vtbl.put_declare := CallbackCreate(GetMethod(implObj, "put_declare"), flags, 2)
-        this.vtbl.get_declare := CallbackCreate(GetMethod(implObj, "get_declare"), flags, 2)
-        this.vtbl.put_standby := CallbackCreate(GetMethod(implObj, "put_standby"), flags, 2)
-        this.vtbl.get_standby := CallbackCreate(GetMethod(implObj, "get_standby"), flags, 2)
-        this.vtbl.put_border := CallbackCreate(GetMethod(implObj, "put_border"), flags, 2)
-        this.vtbl.get_border := CallbackCreate(GetMethod(implObj, "get_border"), flags, 2)
-        this.vtbl.put_useMap := CallbackCreate(GetMethod(implObj, "put_useMap"), flags, 2)
-        this.vtbl.get_useMap := CallbackCreate(GetMethod(implObj, "get_useMap"), flags, 2)
+        this.vtbl.put_archive := CallbackCreate(ObjBindMethod(implObj, "put_archive"), flags, 2)
+        this.vtbl.get_archive := CallbackCreate(ObjBindMethod(implObj, "get_archive"), flags, 2)
+        this.vtbl.put_alt := CallbackCreate(ObjBindMethod(implObj, "put_alt"), flags, 2)
+        this.vtbl.get_alt := CallbackCreate(ObjBindMethod(implObj, "get_alt"), flags, 2)
+        this.vtbl.put_declare := CallbackCreate(ObjBindMethod(implObj, "put_declare"), flags, 2)
+        this.vtbl.get_declare := CallbackCreate(ObjBindMethod(implObj, "get_declare"), flags, 2)
+        this.vtbl.put_standby := CallbackCreate(ObjBindMethod(implObj, "put_standby"), flags, 2)
+        this.vtbl.get_standby := CallbackCreate(ObjBindMethod(implObj, "get_standby"), flags, 2)
+        this.vtbl.put_border := CallbackCreate(ObjBindMethod(implObj, "put_border"), flags, 2)
+        this.vtbl.get_border := CallbackCreate(ObjBindMethod(implObj, "get_border"), flags, 2)
+        this.vtbl.put_useMap := CallbackCreate(ObjBindMethod(implObj, "put_useMap"), flags, 2)
+        this.vtbl.get_useMap := CallbackCreate(ObjBindMethod(implObj, "get_useMap"), flags, 2)
     }
 
     Dispose() {

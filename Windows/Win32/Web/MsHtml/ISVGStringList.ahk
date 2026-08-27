@@ -59,7 +59,6 @@ export default struct ISVGStringList extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -69,7 +68,6 @@ export default struct ISVGStringList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_numberOfItems() {
@@ -78,7 +76,6 @@ export default struct ISVGStringList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     clear() {
@@ -87,7 +84,6 @@ export default struct ISVGStringList extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} newItem 
      * @returns {BSTR} 
      */
@@ -100,7 +96,6 @@ export default struct ISVGStringList extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {BSTR} 
      */
@@ -111,7 +106,6 @@ export default struct ISVGStringList extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} newItem 
      * @param {Integer} index 
      * @returns {BSTR} 
@@ -125,7 +119,6 @@ export default struct ISVGStringList extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} newItem 
      * @param {Integer} index 
      * @returns {BSTR} 
@@ -139,7 +132,6 @@ export default struct ISVGStringList extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {BSTR} 
      */
@@ -150,7 +142,6 @@ export default struct ISVGStringList extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} newItem 
      * @returns {BSTR} 
      */
@@ -171,15 +162,15 @@ export default struct ISVGStringList extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_numberOfItems := CallbackCreate(GetMethod(implObj, "put_numberOfItems"), flags, 2)
-        this.vtbl.get_numberOfItems := CallbackCreate(GetMethod(implObj, "get_numberOfItems"), flags, 2)
-        this.vtbl.clear := CallbackCreate(GetMethod(implObj, "clear"), flags, 1)
-        this.vtbl.initialize := CallbackCreate(GetMethod(implObj, "initialize"), flags, 3)
-        this.vtbl.getItem := CallbackCreate(GetMethod(implObj, "getItem"), flags, 3)
-        this.vtbl.insertItemBefore := CallbackCreate(GetMethod(implObj, "insertItemBefore"), flags, 4)
-        this.vtbl.replaceItem := CallbackCreate(GetMethod(implObj, "replaceItem"), flags, 4)
-        this.vtbl.removeItem := CallbackCreate(GetMethod(implObj, "removeItem"), flags, 3)
-        this.vtbl.appendItem := CallbackCreate(GetMethod(implObj, "appendItem"), flags, 3)
+        this.vtbl.put_numberOfItems := CallbackCreate(ObjBindMethod(implObj, "put_numberOfItems"), flags, 2)
+        this.vtbl.get_numberOfItems := CallbackCreate(ObjBindMethod(implObj, "get_numberOfItems"), flags, 2)
+        this.vtbl.clear := CallbackCreate(ObjBindMethod(implObj, "clear"), flags, 1)
+        this.vtbl.initialize := CallbackCreate(ObjBindMethod(implObj, "initialize"), flags, 3)
+        this.vtbl.getItem := CallbackCreate(ObjBindMethod(implObj, "getItem"), flags, 3)
+        this.vtbl.insertItemBefore := CallbackCreate(ObjBindMethod(implObj, "insertItemBefore"), flags, 4)
+        this.vtbl.replaceItem := CallbackCreate(ObjBindMethod(implObj, "replaceItem"), flags, 4)
+        this.vtbl.removeItem := CallbackCreate(ObjBindMethod(implObj, "removeItem"), flags, 3)
+        this.vtbl.appendItem := CallbackCreate(ObjBindMethod(implObj, "appendItem"), flags, 3)
     }
 
     Dispose() {

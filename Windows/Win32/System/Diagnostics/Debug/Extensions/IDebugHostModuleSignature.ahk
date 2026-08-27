@@ -37,7 +37,6 @@ export default struct IDebugHostModuleSignature extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugHostModule} pModule 
      * @returns {Boolean} 
      */
@@ -55,7 +54,7 @@ export default struct IDebugHostModuleSignature extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsMatch := CallbackCreate(GetMethod(implObj, "IsMatch"), flags, 3)
+        this.vtbl.IsMatch := CallbackCreate(ObjBindMethod(implObj, "IsMatch"), flags, 3)
     }
 
     Dispose() {

@@ -254,8 +254,8 @@ export default struct IBackgroundCopyGroup extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopygroup-getstatus
      */
     GetStatus(pdwStatus, pdwJobIndex) {
-        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
-        pdwJobIndexMarshal := pdwJobIndex is VarRef ? "uint*" : "ptr"
+        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : IntPtr
+        pdwJobIndexMarshal := pdwJobIndex is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, pdwStatusMarshal, pdwStatus, pdwJobIndexMarshal, pdwJobIndex, "HRESULT")
         return result
@@ -459,21 +459,21 @@ export default struct IBackgroundCopyGroup extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProp := CallbackCreate(GetMethod(implObj, "GetProp"), flags, 3)
-        this.vtbl.SetProp := CallbackCreate(GetMethod(implObj, "SetProp"), flags, 3)
-        this.vtbl.GetProgress := CallbackCreate(GetMethod(implObj, "GetProgress"), flags, 3)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 3)
-        this.vtbl.GetJob := CallbackCreate(GetMethod(implObj, "GetJob"), flags, 3)
-        this.vtbl.SuspendGroup := CallbackCreate(GetMethod(implObj, "SuspendGroup"), flags, 1)
-        this.vtbl.ResumeGroup := CallbackCreate(GetMethod(implObj, "ResumeGroup"), flags, 1)
-        this.vtbl.CancelGroup := CallbackCreate(GetMethod(implObj, "CancelGroup"), flags, 1)
-        this.vtbl.get_Size := CallbackCreate(GetMethod(implObj, "get_Size"), flags, 2)
-        this.vtbl.get_GroupID := CallbackCreate(GetMethod(implObj, "get_GroupID"), flags, 2)
-        this.vtbl.CreateJob := CallbackCreate(GetMethod(implObj, "CreateJob"), flags, 3)
-        this.vtbl.EnumJobs := CallbackCreate(GetMethod(implObj, "EnumJobs"), flags, 3)
-        this.vtbl.SwitchToForeground := CallbackCreate(GetMethod(implObj, "SwitchToForeground"), flags, 1)
-        this.vtbl.QueryNewJobInterface := CallbackCreate(GetMethod(implObj, "QueryNewJobInterface"), flags, 3)
-        this.vtbl.SetNotificationPointer := CallbackCreate(GetMethod(implObj, "SetNotificationPointer"), flags, 3)
+        this.vtbl.GetProp := CallbackCreate(ObjBindMethod(implObj, "GetProp"), flags, 3)
+        this.vtbl.SetProp := CallbackCreate(ObjBindMethod(implObj, "SetProp"), flags, 3)
+        this.vtbl.GetProgress := CallbackCreate(ObjBindMethod(implObj, "GetProgress"), flags, 3)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 3)
+        this.vtbl.GetJob := CallbackCreate(ObjBindMethod(implObj, "GetJob"), flags, 3)
+        this.vtbl.SuspendGroup := CallbackCreate(ObjBindMethod(implObj, "SuspendGroup"), flags, 1)
+        this.vtbl.ResumeGroup := CallbackCreate(ObjBindMethod(implObj, "ResumeGroup"), flags, 1)
+        this.vtbl.CancelGroup := CallbackCreate(ObjBindMethod(implObj, "CancelGroup"), flags, 1)
+        this.vtbl.get_Size := CallbackCreate(ObjBindMethod(implObj, "get_Size"), flags, 2)
+        this.vtbl.get_GroupID := CallbackCreate(ObjBindMethod(implObj, "get_GroupID"), flags, 2)
+        this.vtbl.CreateJob := CallbackCreate(ObjBindMethod(implObj, "CreateJob"), flags, 3)
+        this.vtbl.EnumJobs := CallbackCreate(ObjBindMethod(implObj, "EnumJobs"), flags, 3)
+        this.vtbl.SwitchToForeground := CallbackCreate(ObjBindMethod(implObj, "SwitchToForeground"), flags, 1)
+        this.vtbl.QueryNewJobInterface := CallbackCreate(ObjBindMethod(implObj, "QueryNewJobInterface"), flags, 3)
+        this.vtbl.SetNotificationPointer := CallbackCreate(ObjBindMethod(implObj, "SetNotificationPointer"), flags, 3)
     }
 
     Dispose() {

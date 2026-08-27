@@ -135,9 +135,9 @@ export default struct IWMCodecAMVideoAccelerator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAcceleratorInterface := CallbackCreate(GetMethod(implObj, "SetAcceleratorInterface"), flags, 2)
-        this.vtbl.NegotiateConnection := CallbackCreate(GetMethod(implObj, "NegotiateConnection"), flags, 2)
-        this.vtbl.SetPlayerNotify := CallbackCreate(GetMethod(implObj, "SetPlayerNotify"), flags, 2)
+        this.vtbl.SetAcceleratorInterface := CallbackCreate(ObjBindMethod(implObj, "SetAcceleratorInterface"), flags, 2)
+        this.vtbl.NegotiateConnection := CallbackCreate(ObjBindMethod(implObj, "NegotiateConnection"), flags, 2)
+        this.vtbl.SetPlayerNotify := CallbackCreate(ObjBindMethod(implObj, "SetPlayerNotify"), flags, 2)
     }
 
     Dispose() {

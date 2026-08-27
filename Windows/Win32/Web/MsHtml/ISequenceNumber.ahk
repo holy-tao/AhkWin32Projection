@@ -36,7 +36,6 @@ export default struct ISequenceNumber extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nCurrent 
      * @returns {Integer} 
      */
@@ -54,7 +53,7 @@ export default struct ISequenceNumber extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSequenceNumber := CallbackCreate(GetMethod(implObj, "GetSequenceNumber"), flags, 3)
+        this.vtbl.GetSequenceNumber := CallbackCreate(ObjBindMethod(implObj, "GetSequenceNumber"), flags, 3)
     }
 
     Dispose() {

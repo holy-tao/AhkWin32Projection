@@ -36,7 +36,6 @@ export default struct IMFSecureBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     GetIdentifier() {
@@ -54,7 +53,7 @@ export default struct IMFSecureBuffer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetIdentifier := CallbackCreate(GetMethod(implObj, "GetIdentifier"), flags, 2)
+        this.vtbl.GetIdentifier := CallbackCreate(ObjBindMethod(implObj, "GetIdentifier"), flags, 2)
     }
 
     Dispose() {

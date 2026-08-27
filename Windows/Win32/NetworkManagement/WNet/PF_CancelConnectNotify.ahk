@@ -20,7 +20,6 @@ export default struct PF_CancelConnectNotify {
     }
 
     /**
-     * 
      * @param {Pointer<NOTIFYINFO>} lpNotifyInfo 
      * @param {Pointer<NOTIFYCANCEL>} lpCancelInfo 
      * @returns {Integer} 

@@ -97,7 +97,7 @@ export default struct IAMNetworkStatus extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetworkstatus-get_receivedpackets
      */
     get_ReceivedPackets(pReceivedPackets) {
-        pReceivedPacketsMarshal := pReceivedPackets is VarRef ? "int*" : "ptr"
+        pReceivedPacketsMarshal := pReceivedPackets is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, pReceivedPacketsMarshal, pReceivedPackets, "HRESULT")
         return result
@@ -110,7 +110,7 @@ export default struct IAMNetworkStatus extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetworkstatus-get_recoveredpackets
      */
     get_RecoveredPackets(pRecoveredPackets) {
-        pRecoveredPacketsMarshal := pRecoveredPackets is VarRef ? "int*" : "ptr"
+        pRecoveredPacketsMarshal := pRecoveredPackets is VarRef ? "int*" : IntPtr
 
         result := ComCall(8, this, pRecoveredPacketsMarshal, pRecoveredPackets, "HRESULT")
         return result
@@ -127,7 +127,7 @@ export default struct IAMNetworkStatus extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetworkstatus-get_lostpackets
      */
     get_LostPackets(pLostPackets) {
-        pLostPacketsMarshal := pLostPackets is VarRef ? "int*" : "ptr"
+        pLostPacketsMarshal := pLostPackets is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, pLostPacketsMarshal, pLostPackets, "HRESULT")
         return result
@@ -140,7 +140,7 @@ export default struct IAMNetworkStatus extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetworkstatus-get_receptionquality
      */
     get_ReceptionQuality(pReceptionQuality) {
-        pReceptionQualityMarshal := pReceptionQuality is VarRef ? "int*" : "ptr"
+        pReceptionQualityMarshal := pReceptionQuality is VarRef ? "int*" : IntPtr
 
         result := ComCall(10, this, pReceptionQualityMarshal, pReceptionQuality, "HRESULT")
         return result
@@ -153,7 +153,7 @@ export default struct IAMNetworkStatus extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetworkstatus-get_bufferingcount
      */
     get_BufferingCount(pBufferingCount) {
-        pBufferingCountMarshal := pBufferingCount is VarRef ? "int*" : "ptr"
+        pBufferingCountMarshal := pBufferingCount is VarRef ? "int*" : IntPtr
 
         result := ComCall(11, this, pBufferingCountMarshal, pBufferingCount, "HRESULT")
         return result
@@ -168,7 +168,7 @@ export default struct IAMNetworkStatus extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetworkstatus-get_isbroadcast
      */
     get_IsBroadcast(pIsBroadcast) {
-        pIsBroadcastMarshal := pIsBroadcast is VarRef ? "short*" : "ptr"
+        pIsBroadcastMarshal := pIsBroadcast is VarRef ? "short*" : IntPtr
 
         result := ComCall(12, this, pIsBroadcastMarshal, pIsBroadcast, "HRESULT")
         return result
@@ -181,7 +181,7 @@ export default struct IAMNetworkStatus extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetworkstatus-get_bufferingprogress
      */
     get_BufferingProgress(pBufferingProgress) {
-        pBufferingProgressMarshal := pBufferingProgress is VarRef ? "int*" : "ptr"
+        pBufferingProgressMarshal := pBufferingProgress is VarRef ? "int*" : IntPtr
 
         result := ComCall(13, this, pBufferingProgressMarshal, pBufferingProgress, "HRESULT")
         return result
@@ -196,13 +196,13 @@ export default struct IAMNetworkStatus extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ReceivedPackets := CallbackCreate(GetMethod(implObj, "get_ReceivedPackets"), flags, 2)
-        this.vtbl.get_RecoveredPackets := CallbackCreate(GetMethod(implObj, "get_RecoveredPackets"), flags, 2)
-        this.vtbl.get_LostPackets := CallbackCreate(GetMethod(implObj, "get_LostPackets"), flags, 2)
-        this.vtbl.get_ReceptionQuality := CallbackCreate(GetMethod(implObj, "get_ReceptionQuality"), flags, 2)
-        this.vtbl.get_BufferingCount := CallbackCreate(GetMethod(implObj, "get_BufferingCount"), flags, 2)
-        this.vtbl.get_IsBroadcast := CallbackCreate(GetMethod(implObj, "get_IsBroadcast"), flags, 2)
-        this.vtbl.get_BufferingProgress := CallbackCreate(GetMethod(implObj, "get_BufferingProgress"), flags, 2)
+        this.vtbl.get_ReceivedPackets := CallbackCreate(ObjBindMethod(implObj, "get_ReceivedPackets"), flags, 2)
+        this.vtbl.get_RecoveredPackets := CallbackCreate(ObjBindMethod(implObj, "get_RecoveredPackets"), flags, 2)
+        this.vtbl.get_LostPackets := CallbackCreate(ObjBindMethod(implObj, "get_LostPackets"), flags, 2)
+        this.vtbl.get_ReceptionQuality := CallbackCreate(ObjBindMethod(implObj, "get_ReceptionQuality"), flags, 2)
+        this.vtbl.get_BufferingCount := CallbackCreate(ObjBindMethod(implObj, "get_BufferingCount"), flags, 2)
+        this.vtbl.get_IsBroadcast := CallbackCreate(ObjBindMethod(implObj, "get_IsBroadcast"), flags, 2)
+        this.vtbl.get_BufferingProgress := CallbackCreate(ObjBindMethod(implObj, "get_BufferingProgress"), flags, 2)
     }
 
     Dispose() {

@@ -56,7 +56,7 @@ export default struct IWMWriterPostView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterpostview-setpostviewcallback
      */
     SetPostViewCallback(pCallback, pvContext) {
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, "ptr", pCallback, pvContextMarshal, pvContext, "HRESULT")
         return result
@@ -310,15 +310,15 @@ export default struct IWMWriterPostView extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetPostViewCallback := CallbackCreate(GetMethod(implObj, "SetPostViewCallback"), flags, 3)
-        this.vtbl.SetReceivePostViewSamples := CallbackCreate(GetMethod(implObj, "SetReceivePostViewSamples"), flags, 3)
-        this.vtbl.GetReceivePostViewSamples := CallbackCreate(GetMethod(implObj, "GetReceivePostViewSamples"), flags, 3)
-        this.vtbl.GetPostViewProps := CallbackCreate(GetMethod(implObj, "GetPostViewProps"), flags, 3)
-        this.vtbl.SetPostViewProps := CallbackCreate(GetMethod(implObj, "SetPostViewProps"), flags, 3)
-        this.vtbl.GetPostViewFormatCount := CallbackCreate(GetMethod(implObj, "GetPostViewFormatCount"), flags, 3)
-        this.vtbl.GetPostViewFormat := CallbackCreate(GetMethod(implObj, "GetPostViewFormat"), flags, 4)
-        this.vtbl.SetAllocateForPostView := CallbackCreate(GetMethod(implObj, "SetAllocateForPostView"), flags, 3)
-        this.vtbl.GetAllocateForPostView := CallbackCreate(GetMethod(implObj, "GetAllocateForPostView"), flags, 3)
+        this.vtbl.SetPostViewCallback := CallbackCreate(ObjBindMethod(implObj, "SetPostViewCallback"), flags, 3)
+        this.vtbl.SetReceivePostViewSamples := CallbackCreate(ObjBindMethod(implObj, "SetReceivePostViewSamples"), flags, 3)
+        this.vtbl.GetReceivePostViewSamples := CallbackCreate(ObjBindMethod(implObj, "GetReceivePostViewSamples"), flags, 3)
+        this.vtbl.GetPostViewProps := CallbackCreate(ObjBindMethod(implObj, "GetPostViewProps"), flags, 3)
+        this.vtbl.SetPostViewProps := CallbackCreate(ObjBindMethod(implObj, "SetPostViewProps"), flags, 3)
+        this.vtbl.GetPostViewFormatCount := CallbackCreate(ObjBindMethod(implObj, "GetPostViewFormatCount"), flags, 3)
+        this.vtbl.GetPostViewFormat := CallbackCreate(ObjBindMethod(implObj, "GetPostViewFormat"), flags, 4)
+        this.vtbl.SetAllocateForPostView := CallbackCreate(ObjBindMethod(implObj, "SetAllocateForPostView"), flags, 3)
+        this.vtbl.GetAllocateForPostView := CallbackCreate(ObjBindMethod(implObj, "GetAllocateForPostView"), flags, 3)
     }
 
     Dispose() {

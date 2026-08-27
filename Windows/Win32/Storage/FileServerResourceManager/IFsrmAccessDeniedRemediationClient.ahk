@@ -76,7 +76,7 @@ export default struct IFsrmAccessDeniedRemediationClient extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Show := CallbackCreate(GetMethod(implObj, "Show"), flags, 8)
+        this.vtbl.Show := CallbackCreate(ObjBindMethod(implObj, "Show"), flags, 8)
     }
 
     Dispose() {

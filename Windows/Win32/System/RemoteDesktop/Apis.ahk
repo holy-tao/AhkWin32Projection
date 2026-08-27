@@ -223,8 +223,8 @@ export WTSConnectSessionW(LogonId, TargetLogonId, pPassword, bWait) {
 export WTSEnumerateServersW(pDomainName, Reserved, _Version, ppServerInfo, pCount) {
     pDomainName := pDomainName is String ? StrPtr(pDomainName) : pDomainName
 
-    ppServerInfoMarshal := ppServerInfo is VarRef ? "ptr*" : "ptr"
-    pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+    ppServerInfoMarshal := ppServerInfo is VarRef ? "ptr*" : IntPtr
+    pCountMarshal := pCount is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -267,8 +267,8 @@ export WTSEnumerateServersW(pDomainName, Reserved, _Version, ppServerInfo, pCoun
 export WTSEnumerateServersA(pDomainName, Reserved, _Version, ppServerInfo, pCount) {
     pDomainName := pDomainName is String ? StrPtr(pDomainName) : pDomainName
 
-    ppServerInfoMarshal := ppServerInfo is VarRef ? "ptr*" : "ptr"
-    pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+    ppServerInfoMarshal := ppServerInfo is VarRef ? "ptr*" : IntPtr
+    pCountMarshal := pCount is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -444,12 +444,13 @@ export WTSCloseServer(hServer) {
  * @since windows6.0.6000
  */
 export WTSEnumerateSessionsW(hServer, Reserved, _Version, ppSessionInfo, pCount) {
-    ppSessionInfoMarshal := ppSessionInfo is VarRef ? "ptr*" : "ptr"
-    pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+    hServerMarshal := hServer == 0 ? IntPtr : HANDLE
+    ppSessionInfoMarshal := ppSessionInfo is VarRef ? "ptr*" : IntPtr
+    pCountMarshal := pCount is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsW", HANDLE, hServer, UInt32, Reserved, UInt32, _Version, ppSessionInfoMarshal, ppSessionInfo, pCountMarshal, pCount, BOOL)
+    result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsW", hServerMarshal, hServer, UInt32, Reserved, UInt32, _Version, ppSessionInfoMarshal, ppSessionInfo, pCountMarshal, pCount, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -488,12 +489,13 @@ export WTSEnumerateSessionsW(hServer, Reserved, _Version, ppSessionInfo, pCount)
  * @since windows6.0.6000
  */
 export WTSEnumerateSessionsA(hServer, Reserved, _Version, ppSessionInfo, pCount) {
-    ppSessionInfoMarshal := ppSessionInfo is VarRef ? "ptr*" : "ptr"
-    pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+    hServerMarshal := hServer == 0 ? IntPtr : HANDLE
+    ppSessionInfoMarshal := ppSessionInfo is VarRef ? "ptr*" : IntPtr
+    pCountMarshal := pCount is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsA", HANDLE, hServer, UInt32, Reserved, UInt32, _Version, ppSessionInfoMarshal, ppSessionInfo, pCountMarshal, pCount, BOOL)
+    result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsA", hServerMarshal, hServer, UInt32, Reserved, UInt32, _Version, ppSessionInfoMarshal, ppSessionInfo, pCountMarshal, pCount, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -534,13 +536,14 @@ export WTSEnumerateSessionsA(hServer, Reserved, _Version, ppSessionInfo, pCount)
  * @since windows6.1
  */
 export WTSEnumerateSessionsExW(hServer, pLevel, Filter, ppSessionInfo, pCount) {
-    pLevelMarshal := pLevel is VarRef ? "uint*" : "ptr"
-    ppSessionInfoMarshal := ppSessionInfo is VarRef ? "ptr*" : "ptr"
-    pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+    hServerMarshal := hServer == 0 ? IntPtr : HANDLE
+    pLevelMarshal := pLevel is VarRef ? "uint*" : IntPtr
+    ppSessionInfoMarshal := ppSessionInfo is VarRef ? "ptr*" : IntPtr
+    pCountMarshal := pCount is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsExW", HANDLE, hServer, pLevelMarshal, pLevel, UInt32, Filter, ppSessionInfoMarshal, ppSessionInfo, pCountMarshal, pCount, BOOL)
+    result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsExW", hServerMarshal, hServer, pLevelMarshal, pLevel, UInt32, Filter, ppSessionInfoMarshal, ppSessionInfo, pCountMarshal, pCount, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -581,13 +584,14 @@ export WTSEnumerateSessionsExW(hServer, pLevel, Filter, ppSessionInfo, pCount) {
  * @since windows6.1
  */
 export WTSEnumerateSessionsExA(hServer, pLevel, Filter, ppSessionInfo, pCount) {
-    pLevelMarshal := pLevel is VarRef ? "uint*" : "ptr"
-    ppSessionInfoMarshal := ppSessionInfo is VarRef ? "ptr*" : "ptr"
-    pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+    hServerMarshal := hServer == 0 ? IntPtr : HANDLE
+    pLevelMarshal := pLevel is VarRef ? "uint*" : IntPtr
+    ppSessionInfoMarshal := ppSessionInfo is VarRef ? "ptr*" : IntPtr
+    pCountMarshal := pCount is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsExA", HANDLE, hServer, pLevelMarshal, pLevel, UInt32, Filter, ppSessionInfoMarshal, ppSessionInfo, pCountMarshal, pCount, BOOL)
+    result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsExA", hServerMarshal, hServer, pLevelMarshal, pLevel, UInt32, Filter, ppSessionInfoMarshal, ppSessionInfo, pCountMarshal, pCount, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -627,12 +631,13 @@ export WTSEnumerateSessionsExA(hServer, pLevel, Filter, ppSessionInfo, pCount) {
  * @since windows6.0.6000
  */
 export WTSEnumerateProcessesW(hServer, Reserved, _Version, ppProcessInfo, pCount) {
-    ppProcessInfoMarshal := ppProcessInfo is VarRef ? "ptr*" : "ptr"
-    pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+    hServerMarshal := hServer == 0 ? IntPtr : HANDLE
+    ppProcessInfoMarshal := ppProcessInfo is VarRef ? "ptr*" : IntPtr
+    pCountMarshal := pCount is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesW", HANDLE, hServer, UInt32, Reserved, UInt32, _Version, ppProcessInfoMarshal, ppProcessInfo, pCountMarshal, pCount, BOOL)
+    result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesW", hServerMarshal, hServer, UInt32, Reserved, UInt32, _Version, ppProcessInfoMarshal, ppProcessInfo, pCountMarshal, pCount, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -672,12 +677,13 @@ export WTSEnumerateProcessesW(hServer, Reserved, _Version, ppProcessInfo, pCount
  * @since windows6.0.6000
  */
 export WTSEnumerateProcessesA(hServer, Reserved, _Version, ppProcessInfo, pCount) {
-    ppProcessInfoMarshal := ppProcessInfo is VarRef ? "ptr*" : "ptr"
-    pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+    hServerMarshal := hServer == 0 ? IntPtr : HANDLE
+    ppProcessInfoMarshal := ppProcessInfo is VarRef ? "ptr*" : IntPtr
+    pCountMarshal := pCount is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesA", HANDLE, hServer, UInt32, Reserved, UInt32, _Version, ppProcessInfoMarshal, ppProcessInfo, pCountMarshal, pCount, BOOL)
+    result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesA", hServerMarshal, hServer, UInt32, Reserved, UInt32, _Version, ppProcessInfoMarshal, ppProcessInfo, pCountMarshal, pCount, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -699,9 +705,11 @@ export WTSEnumerateProcessesA(hServer, Reserved, _Version, ppProcessInfo, pCount
  * @since windows6.0.6000
  */
 export WTSTerminateProcess(hServer, ProcessId, ExitCode) {
+    hServerMarshal := hServer == 0 ? IntPtr : HANDLE
+
     A_LastError := 0
 
-    result := DllCall("WTSAPI32.dll\WTSTerminateProcess", HANDLE, hServer, UInt32, ProcessId, UInt32, ExitCode, BOOL)
+    result := DllCall("WTSAPI32.dll\WTSTerminateProcess", hServerMarshal, hServer, UInt32, ProcessId, UInt32, ExitCode, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -766,12 +774,13 @@ export WTSTerminateProcess(hServer, ProcessId, ExitCode) {
  * @since windows6.0.6000
  */
 export WTSQuerySessionInformationW(hServer, SessionId, WTSInfoClass, ppBuffer, pBytesReturned) {
-    ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
-    pBytesReturnedMarshal := pBytesReturned is VarRef ? "uint*" : "ptr"
+    hServerMarshal := hServer == 0 ? IntPtr : HANDLE
+    ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : IntPtr
+    pBytesReturnedMarshal := pBytesReturned is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("WTSAPI32.dll\WTSQuerySessionInformationW", HANDLE, hServer, UInt32, SessionId, WTS_INFO_CLASS, WTSInfoClass, ppBufferMarshal, ppBuffer, pBytesReturnedMarshal, pBytesReturned, BOOL)
+    result := DllCall("WTSAPI32.dll\WTSQuerySessionInformationW", hServerMarshal, hServer, UInt32, SessionId, WTS_INFO_CLASS, WTSInfoClass, ppBufferMarshal, ppBuffer, pBytesReturnedMarshal, pBytesReturned, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -836,12 +845,13 @@ export WTSQuerySessionInformationW(hServer, SessionId, WTSInfoClass, ppBuffer, p
  * @since windows6.0.6000
  */
 export WTSQuerySessionInformationA(hServer, SessionId, WTSInfoClass, ppBuffer, pBytesReturned) {
-    ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
-    pBytesReturnedMarshal := pBytesReturned is VarRef ? "uint*" : "ptr"
+    hServerMarshal := hServer == 0 ? IntPtr : HANDLE
+    ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : IntPtr
+    pBytesReturnedMarshal := pBytesReturned is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("WTSAPI32.dll\WTSQuerySessionInformationA", HANDLE, hServer, UInt32, SessionId, WTS_INFO_CLASS, WTSInfoClass, ppBufferMarshal, ppBuffer, pBytesReturnedMarshal, pBytesReturned, BOOL)
+    result := DllCall("WTSAPI32.dll\WTSQuerySessionInformationA", hServerMarshal, hServer, UInt32, SessionId, WTS_INFO_CLASS, WTSInfoClass, ppBufferMarshal, ppBuffer, pBytesReturnedMarshal, pBytesReturned, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -888,8 +898,8 @@ export WTSQueryUserConfigW(pServerName, pUserName, WTSConfigClass, ppBuffer, pBy
     pServerName := pServerName is String ? StrPtr(pServerName) : pServerName
     pUserName := pUserName is String ? StrPtr(pUserName) : pUserName
 
-    ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
-    pBytesReturnedMarshal := pBytesReturned is VarRef ? "uint*" : "ptr"
+    ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : IntPtr
+    pBytesReturnedMarshal := pBytesReturned is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -940,8 +950,8 @@ export WTSQueryUserConfigA(pServerName, pUserName, WTSConfigClass, ppBuffer, pBy
     pServerName := pServerName is String ? StrPtr(pServerName) : pServerName
     pUserName := pUserName is String ? StrPtr(pUserName) : pUserName
 
-    ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
-    pBytesReturnedMarshal := pBytesReturned is VarRef ? "uint*" : "ptr"
+    ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : IntPtr
+    pBytesReturnedMarshal := pBytesReturned is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -1138,11 +1148,12 @@ export WTSSetUserConfigA(pServerName, pUserName, WTSConfigClass, pBuffer, DataLe
  * @since windows6.0.6000
  */
 export WTSSendMessageW(hServer, SessionId, pTitle, TitleLength, pMessage, MessageLength, Style, Timeout, pResponse, bWait) {
-    pResponseMarshal := pResponse is VarRef ? "int*" : "ptr"
+    hServerMarshal := hServer == 0 ? IntPtr : HANDLE
+    pResponseMarshal := pResponse is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("WTSAPI32.dll\WTSSendMessageW", HANDLE, hServer, UInt32, SessionId, IntPtr, pTitle, UInt32, TitleLength, IntPtr, pMessage, UInt32, MessageLength, MESSAGEBOX_STYLE, Style, UInt32, Timeout, pResponseMarshal, pResponse, BOOL, bWait, BOOL)
+    result := DllCall("WTSAPI32.dll\WTSSendMessageW", hServerMarshal, hServer, UInt32, SessionId, IntPtr, pTitle, UInt32, TitleLength, IntPtr, pMessage, UInt32, MessageLength, MESSAGEBOX_STYLE, Style, UInt32, Timeout, pResponseMarshal, pResponse, BOOL, bWait, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1197,11 +1208,12 @@ export WTSSendMessageW(hServer, SessionId, pTitle, TitleLength, pMessage, Messag
  * @since windows6.0.6000
  */
 export WTSSendMessageA(hServer, SessionId, pTitle, TitleLength, pMessage, MessageLength, Style, Timeout, pResponse, bWait) {
-    pResponseMarshal := pResponse is VarRef ? "int*" : "ptr"
+    hServerMarshal := hServer == 0 ? IntPtr : HANDLE
+    pResponseMarshal := pResponse is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("WTSAPI32.dll\WTSSendMessageA", HANDLE, hServer, UInt32, SessionId, IntPtr, pTitle, UInt32, TitleLength, IntPtr, pMessage, UInt32, MessageLength, MESSAGEBOX_STYLE, Style, UInt32, Timeout, pResponseMarshal, pResponse, BOOL, bWait, BOOL)
+    result := DllCall("WTSAPI32.dll\WTSSendMessageA", hServerMarshal, hServer, UInt32, SessionId, IntPtr, pTitle, UInt32, TitleLength, IntPtr, pMessage, UInt32, MessageLength, MESSAGEBOX_STYLE, Style, UInt32, Timeout, pResponseMarshal, pResponse, BOOL, bWait, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1229,9 +1241,11 @@ export WTSSendMessageA(hServer, SessionId, pTitle, TitleLength, pMessage, Messag
  * @since windows6.0.6000
  */
 export WTSDisconnectSession(hServer, SessionId, bWait) {
+    hServerMarshal := hServer == 0 ? IntPtr : HANDLE
+
     A_LastError := 0
 
-    result := DllCall("WTSAPI32.dll\WTSDisconnectSession", HANDLE, hServer, UInt32, SessionId, BOOL, bWait, BOOL)
+    result := DllCall("WTSAPI32.dll\WTSDisconnectSession", hServerMarshal, hServer, UInt32, SessionId, BOOL, bWait, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1265,9 +1279,11 @@ export WTSDisconnectSession(hServer, SessionId, bWait) {
  * @since windows6.0.6000
  */
 export WTSLogoffSession(hServer, SessionId, bWait) {
+    hServerMarshal := hServer == 0 ? IntPtr : HANDLE
+
     A_LastError := 0
 
-    result := DllCall("WTSAPI32.dll\WTSLogoffSession", HANDLE, hServer, UInt32, SessionId, BOOL, bWait, BOOL)
+    result := DllCall("WTSAPI32.dll\WTSLogoffSession", hServerMarshal, hServer, UInt32, SessionId, BOOL, bWait, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1304,9 +1320,11 @@ export WTSLogoffSession(hServer, SessionId, bWait) {
  * @since windows6.0.6000
  */
 export WTSShutdownSystem(hServer, ShutdownFlag) {
+    hServerMarshal := hServer == 0 ? IntPtr : HANDLE
+
     A_LastError := 0
 
-    result := DllCall("WTSAPI32.dll\WTSShutdownSystem", HANDLE, hServer, UInt32, ShutdownFlag, BOOL)
+    result := DllCall("WTSAPI32.dll\WTSShutdownSystem", hServerMarshal, hServer, UInt32, ShutdownFlag, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1331,11 +1349,12 @@ export WTSShutdownSystem(hServer, ShutdownFlag) {
  * @since windows6.0.6000
  */
 export WTSWaitSystemEvent(hServer, _EventMask, pEventFlags) {
-    pEventFlagsMarshal := pEventFlags is VarRef ? "uint*" : "ptr"
+    hServerMarshal := hServer == 0 ? IntPtr : HANDLE
+    pEventFlagsMarshal := pEventFlags is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("WTSAPI32.dll\WTSWaitSystemEvent", HANDLE, hServer, UInt32, _EventMask, pEventFlagsMarshal, pEventFlags, BOOL)
+    result := DllCall("WTSAPI32.dll\WTSWaitSystemEvent", hServerMarshal, hServer, UInt32, _EventMask, pEventFlagsMarshal, pEventFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1483,7 +1502,7 @@ export WTSVirtualChannelClose(hChannelHandle) {
  * @since windows6.0.6000
  */
 export WTSVirtualChannelRead(hChannelHandle, TimeOut, _Buffer, BufferSize, pBytesRead) {
-    pBytesReadMarshal := pBytesRead is VarRef ? "uint*" : "ptr"
+    pBytesReadMarshal := pBytesRead is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -1516,7 +1535,7 @@ export WTSVirtualChannelRead(hChannelHandle, TimeOut, _Buffer, BufferSize, pByte
  * @since windows6.0.6000
  */
 export WTSVirtualChannelWrite(hChannelHandle, _Buffer, Length, pBytesWritten) {
-    pBytesWrittenMarshal := pBytesWritten is VarRef ? "uint*" : "ptr"
+    pBytesWrittenMarshal := pBytesWritten is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -1683,8 +1702,8 @@ export WTSVirtualChannelPurgeOutput(hChannelHandle) {
  * @since windows6.0.6000
  */
 export WTSVirtualChannelQuery(hChannelHandle, param1, ppBuffer, pBytesReturned) {
-    ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
-    pBytesReturnedMarshal := pBytesReturned is VarRef ? "uint*" : "ptr"
+    ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : IntPtr
+    pBytesReturnedMarshal := pBytesReturned is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -1707,7 +1726,7 @@ export WTSVirtualChannelQuery(hChannelHandle, param1, ppBuffer, pBytesReturned) 
  * @since windows6.0.6000
  */
 export WTSFreeMemory(pMemory) {
-    pMemoryMarshal := pMemory is VarRef ? "ptr" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "ptr" : IntPtr
 
     DllCall("WTSAPI32.dll\WTSFreeMemory", pMemoryMarshal, pMemory)
 }
@@ -1810,9 +1829,11 @@ export WTSUnRegisterSessionNotification(_hWnd) {
  * @since windows6.0.6000
  */
 export WTSRegisterSessionNotificationEx(hServer, _hWnd, dwFlags) {
+    hServerMarshal := hServer == 0 ? IntPtr : HANDLE
+
     A_LastError := 0
 
-    result := DllCall("WTSAPI32.dll\WTSRegisterSessionNotificationEx", HANDLE, hServer, HWND, _hWnd, UInt32, dwFlags, BOOL)
+    result := DllCall("WTSAPI32.dll\WTSRegisterSessionNotificationEx", hServerMarshal, hServer, HWND, _hWnd, UInt32, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1836,9 +1857,11 @@ export WTSRegisterSessionNotificationEx(hServer, _hWnd, dwFlags) {
  * @since windows6.0.6000
  */
 export WTSUnRegisterSessionNotificationEx(hServer, _hWnd) {
+    hServerMarshal := hServer == 0 ? IntPtr : HANDLE
+
     A_LastError := 0
 
-    result := DllCall("WTSAPI32.dll\WTSUnRegisterSessionNotificationEx", HANDLE, hServer, HWND, _hWnd, BOOL)
+    result := DllCall("WTSAPI32.dll\WTSUnRegisterSessionNotificationEx", hServerMarshal, hServer, HWND, _hWnd, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1918,7 +1941,7 @@ export WTSQueryUserToken(SessionId, phToken) {
  * @since windows6.1
  */
 export WTSFreeMemoryExW(WTSTypeClass, pMemory, NumberOfEntries) {
-    pMemoryMarshal := pMemory is VarRef ? "ptr" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -1959,7 +1982,7 @@ export WTSFreeMemoryExW(WTSTypeClass, pMemory, NumberOfEntries) {
  * @since windows6.1
  */
 export WTSFreeMemoryExA(WTSTypeClass, pMemory, NumberOfEntries) {
-    pMemoryMarshal := pMemory is VarRef ? "ptr" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -2003,13 +2026,14 @@ export WTSFreeMemoryExA(WTSTypeClass, pMemory, NumberOfEntries) {
  * @since windows6.1
  */
 export WTSEnumerateProcessesExW(hServer, pLevel, SessionId, ppProcessInfo, pCount) {
-    pLevelMarshal := pLevel is VarRef ? "uint*" : "ptr"
-    ppProcessInfoMarshal := ppProcessInfo is VarRef ? "ptr*" : "ptr"
-    pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+    hServerMarshal := hServer == 0 ? IntPtr : HANDLE
+    pLevelMarshal := pLevel is VarRef ? "uint*" : IntPtr
+    ppProcessInfoMarshal := ppProcessInfo is VarRef ? "ptr*" : IntPtr
+    pCountMarshal := pCount is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesExW", HANDLE, hServer, pLevelMarshal, pLevel, UInt32, SessionId, ppProcessInfoMarshal, ppProcessInfo, pCountMarshal, pCount, BOOL)
+    result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesExW", hServerMarshal, hServer, pLevelMarshal, pLevel, UInt32, SessionId, ppProcessInfoMarshal, ppProcessInfo, pCountMarshal, pCount, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2049,13 +2073,14 @@ export WTSEnumerateProcessesExW(hServer, pLevel, SessionId, ppProcessInfo, pCoun
  * @since windows6.1
  */
 export WTSEnumerateProcessesExA(hServer, pLevel, SessionId, ppProcessInfo, pCount) {
-    pLevelMarshal := pLevel is VarRef ? "uint*" : "ptr"
-    ppProcessInfoMarshal := ppProcessInfo is VarRef ? "ptr*" : "ptr"
-    pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+    hServerMarshal := hServer == 0 ? IntPtr : HANDLE
+    pLevelMarshal := pLevel is VarRef ? "uint*" : IntPtr
+    ppProcessInfoMarshal := ppProcessInfo is VarRef ? "ptr*" : IntPtr
+    pCountMarshal := pCount is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesExA", HANDLE, hServer, pLevelMarshal, pLevel, UInt32, SessionId, ppProcessInfoMarshal, ppProcessInfo, pCountMarshal, pCount, BOOL)
+    result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesExA", hServerMarshal, hServer, pLevelMarshal, pLevel, UInt32, SessionId, ppProcessInfoMarshal, ppProcessInfo, pCountMarshal, pCount, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2100,9 +2125,10 @@ export WTSEnumerateProcessesExA(hServer, pLevel, SessionId, ppProcessInfo, pCoun
 export WTSEnumerateListenersW(pReserved, Reserved, pListeners, pCount) {
     static hServer := 0 ;Reserved parameters must always be NULL
 
-    pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
-    pListenersMarshal := pListeners is VarRef ? "ptr*" : "ptr"
-    pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+    pReservedMarshal := pReserved is VarRef ? "ptr" : IntPtr
+    pListenersMarshal := pListeners is VarRef ? "ptr*" : IntPtr
+    pListenersMarshal := pListeners == 0 ? IntPtr : "ptr*"
+    pCountMarshal := pCount is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -2151,9 +2177,10 @@ export WTSEnumerateListenersW(pReserved, Reserved, pListeners, pCount) {
 export WTSEnumerateListenersA(pReserved, Reserved, pListeners, pCount) {
     static hServer := 0 ;Reserved parameters must always be NULL
 
-    pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
-    pListenersMarshal := pListeners is VarRef ? "ptr*" : "ptr"
-    pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+    pReservedMarshal := pReserved is VarRef ? "ptr" : IntPtr
+    pListenersMarshal := pListeners is VarRef ? "ptr*" : IntPtr
+    pListenersMarshal := pListeners == 0 ? IntPtr : "ptr*"
+    pCountMarshal := pCount is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -2192,7 +2219,7 @@ export WTSQueryListenerConfigW(pReserved, Reserved, pListenerName, pBuffer) {
 
     pListenerName := pListenerName is String ? StrPtr(pListenerName) : pListenerName
 
-    pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
+    pReservedMarshal := pReserved is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -2231,7 +2258,7 @@ export WTSQueryListenerConfigA(pReserved, Reserved, pListenerName, pBuffer) {
 
     pListenerName := pListenerName is String ? StrPtr(pListenerName) : pListenerName
 
-    pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
+    pReservedMarshal := pReserved is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -2275,7 +2302,7 @@ export WTSCreateListenerW(pReserved, Reserved, pListenerName, pBuffer, flag) {
 
     pListenerName := pListenerName is String ? StrPtr(pListenerName) : pListenerName
 
-    pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
+    pReservedMarshal := pReserved is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -2319,7 +2346,7 @@ export WTSCreateListenerA(pReserved, Reserved, pListenerName, pBuffer, flag) {
 
     pListenerName := pListenerName is String ? StrPtr(pListenerName) : pListenerName
 
-    pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
+    pReservedMarshal := pReserved is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -2355,7 +2382,7 @@ export WTSSetListenerSecurityW(pReserved, Reserved, pListenerName, SecurityInfor
 
     pListenerName := pListenerName is String ? StrPtr(pListenerName) : pListenerName
 
-    pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
+    pReservedMarshal := pReserved is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -2391,7 +2418,7 @@ export WTSSetListenerSecurityA(pReserved, Reserved, pListenerName, SecurityInfor
 
     pListenerName := pListenerName is String ? StrPtr(pListenerName) : pListenerName
 
-    pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
+    pReservedMarshal := pReserved is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -2435,12 +2462,13 @@ export WTSGetListenerSecurityW(pReserved, Reserved, pListenerName, SecurityInfor
 
     pListenerName := pListenerName is String ? StrPtr(pListenerName) : pListenerName
 
-    pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
-    lpnLengthNeededMarshal := lpnLengthNeeded is VarRef ? "uint*" : "ptr"
+    pReservedMarshal := pReserved is VarRef ? "ptr" : IntPtr
+    pSecurityDescriptorMarshal := pSecurityDescriptor == 0 ? IntPtr : PSECURITY_DESCRIPTOR
+    lpnLengthNeededMarshal := lpnLengthNeeded is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("WTSAPI32.dll\WTSGetListenerSecurityW", HANDLE, hServer, pReservedMarshal, pReserved, UInt32, Reserved, "ptr", pListenerName, OBJECT_SECURITY_INFORMATION, SecurityInformation, PSECURITY_DESCRIPTOR, pSecurityDescriptor, UInt32, nLength, lpnLengthNeededMarshal, lpnLengthNeeded, BOOL)
+    result := DllCall("WTSAPI32.dll\WTSGetListenerSecurityW", HANDLE, hServer, pReservedMarshal, pReserved, UInt32, Reserved, "ptr", pListenerName, OBJECT_SECURITY_INFORMATION, SecurityInformation, pSecurityDescriptorMarshal, pSecurityDescriptor, UInt32, nLength, lpnLengthNeededMarshal, lpnLengthNeeded, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2480,12 +2508,13 @@ export WTSGetListenerSecurityA(pReserved, Reserved, pListenerName, SecurityInfor
 
     pListenerName := pListenerName is String ? StrPtr(pListenerName) : pListenerName
 
-    pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
-    lpnLengthNeededMarshal := lpnLengthNeeded is VarRef ? "uint*" : "ptr"
+    pReservedMarshal := pReserved is VarRef ? "ptr" : IntPtr
+    pSecurityDescriptorMarshal := pSecurityDescriptor == 0 ? IntPtr : PSECURITY_DESCRIPTOR
+    lpnLengthNeededMarshal := lpnLengthNeeded is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("WTSAPI32.dll\WTSGetListenerSecurityA", HANDLE, hServer, pReservedMarshal, pReserved, UInt32, Reserved, "ptr", pListenerName, OBJECT_SECURITY_INFORMATION, SecurityInformation, PSECURITY_DESCRIPTOR, pSecurityDescriptor, UInt32, nLength, lpnLengthNeededMarshal, lpnLengthNeeded, BOOL)
+    result := DllCall("WTSAPI32.dll\WTSGetListenerSecurityA", HANDLE, hServer, pReservedMarshal, pReserved, UInt32, Reserved, "ptr", pListenerName, OBJECT_SECURITY_INFORMATION, SecurityInformation, pSecurityDescriptorMarshal, pSecurityDescriptor, UInt32, nLength, lpnLengthNeededMarshal, lpnLengthNeeded, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2494,7 +2523,6 @@ export WTSGetListenerSecurityA(pReserved, Reserved, pListenerName, SecurityInfor
 }
 
 /**
- * 
  * @param {Pointer<Guid>} activityId 
  * @returns {WTS_CLOUD_AUTH_HANDLE} 
  */
@@ -2504,7 +2532,6 @@ export WTSCloudAuthOpen(activityId) {
 }
 
 /**
- * 
  * @param {WTS_CLOUD_AUTH_HANDLE} cloudAuthHandle 
  * @returns {String} Nothing - always returns an empty string
  */
@@ -2513,20 +2540,18 @@ export WTSCloudAuthClose(cloudAuthHandle) {
 }
 
 /**
- * 
  * @param {WTS_CLOUD_AUTH_HANDLE} cloudAuthHandle 
  * @param {Pointer<PWSTR>} serverNonce 
  * @returns {BOOL} 
  */
 export WTSCloudAuthGetServerNonce(cloudAuthHandle, serverNonce) {
-    serverNonceMarshal := serverNonce is VarRef ? "ptr*" : "ptr"
+    serverNonceMarshal := serverNonce is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("WTSAPI32.dll\WTSCloudAuthGetServerNonce", WTS_CLOUD_AUTH_HANDLE, cloudAuthHandle, serverNonceMarshal, serverNonce, BOOL)
     return result
 }
 
 /**
- * 
  * @param {WTS_CLOUD_AUTH_HANDLE} cloudAuthHandle 
  * @param {Integer} assertion 
  * @param {Integer} assertionLength 
@@ -2537,14 +2562,13 @@ export WTSCloudAuthGetServerNonce(cloudAuthHandle, serverNonce) {
 export WTSCloudAuthConvertAssertionToSerializedUserCredential(cloudAuthHandle, assertion, assertionLength, resourceId, userCredential) {
     resourceId := resourceId is String ? StrPtr(resourceId) : resourceId
 
-    userCredentialMarshal := userCredential is VarRef ? "ptr*" : "ptr"
+    userCredentialMarshal := userCredential is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("WTSAPI32.dll\WTSCloudAuthConvertAssertionToSerializedUserCredential", WTS_CLOUD_AUTH_HANDLE, cloudAuthHandle, IntPtr, assertion, UInt32, assertionLength, "ptr", resourceId, userCredentialMarshal, userCredential, BOOL)
     return result
 }
 
 /**
- * 
  * @param {WTS_CLOUD_AUTH_HANDLE} cloudAuthHandle 
  * @param {Pointer<WTS_SERIALIZED_USER_CREDENTIAL>} userCredential 
  * @param {Pointer<HANDLE>} token 
@@ -2556,13 +2580,12 @@ export WTSCloudAuthNetworkLogonWithSerializedCredential(cloudAuthHandle, userCre
 }
 
 /**
- * 
  * @param {Pointer<WTS_SERIALIZED_USER_CREDENTIAL>} userCredential 
  * @param {Pointer<Pointer<WTS_SERIALIZED_USER_CREDENTIAL>>} duplicatedUserCredential 
  * @returns {BOOL} 
  */
 export WTSCloudAuthDuplicateSerializedUserCredential(userCredential, duplicatedUserCredential) {
-    duplicatedUserCredentialMarshal := duplicatedUserCredential is VarRef ? "ptr*" : "ptr"
+    duplicatedUserCredentialMarshal := duplicatedUserCredential is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("WTSAPI32.dll\WTSCloudAuthDuplicateSerializedUserCredential", WTS_SERIALIZED_USER_CREDENTIAL.Ptr, userCredential, duplicatedUserCredentialMarshal, duplicatedUserCredential, BOOL)
     return result
@@ -2592,7 +2615,7 @@ export WTSEnableChildSessions(bEnable) {
  * @since windows8.0
  */
 export WTSIsChildSessionsEnabled(pbEnabled) {
-    pbEnabledMarshal := pbEnabled is VarRef ? "int*" : "ptr"
+    pbEnabledMarshal := pbEnabled is VarRef ? "int*" : IntPtr
 
     result := DllCall("WTSAPI32.dll\WTSIsChildSessionsEnabled", pbEnabledMarshal, pbEnabled, BOOL)
     return result
@@ -2608,19 +2631,18 @@ export WTSIsChildSessionsEnabled(pbEnabled) {
  * @since windows8.0
  */
 export WTSGetChildSessionId(pSessionId) {
-    pSessionIdMarshal := pSessionId is VarRef ? "uint*" : "ptr"
+    pSessionIdMarshal := pSessionId is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WTSAPI32.dll\WTSGetChildSessionId", pSessionIdMarshal, pSessionId, BOOL)
     return result
 }
 
 /**
- * 
  * @param {Pointer<BOOL>} pbActiveSessionExists 
  * @returns {BOOL} 
  */
 export WTSActiveSessionExists(pbActiveSessionExists) {
-    pbActiveSessionExistsMarshal := pbActiveSessionExists is VarRef ? "int*" : "ptr"
+    pbActiveSessionExistsMarshal := pbActiveSessionExists is VarRef ? "int*" : IntPtr
 
     result := DllCall("WTSAPI32.dll\WTSActiveSessionExists", pbActiveSessionExistsMarshal, pbActiveSessionExists, BOOL)
     return result
@@ -2644,9 +2666,10 @@ export WTSActiveSessionExists(pbActiveSessionExists) {
  * @since windows8.0
  */
 export WTSSetRenderHint(pRenderHintID, hwndOwner, renderHintType, cbHintDataLength, pHintData) {
-    pRenderHintIDMarshal := pRenderHintID is VarRef ? "uint*" : "ptr"
+    pRenderHintIDMarshal := pRenderHintID is VarRef ? "uint*" : IntPtr
+    pHintDataMarshal := pHintData == 0 ? IntPtr : IntPtr
 
-    result := DllCall("WTSAPI32.dll\WTSSetRenderHint", pRenderHintIDMarshal, pRenderHintID, HWND, hwndOwner, UInt32, renderHintType, UInt32, cbHintDataLength, IntPtr, pHintData, "HRESULT")
+    result := DllCall("WTSAPI32.dll\WTSSetRenderHint", pRenderHintIDMarshal, pRenderHintID, HWND, hwndOwner, UInt32, renderHintType, UInt32, cbHintDataLength, pHintDataMarshal, pHintData, "HRESULT")
     return result
 }
 
@@ -2671,7 +2694,7 @@ export WTSSetRenderHint(pRenderHintID, hwndOwner, renderHintType, cbHintDataLeng
  * @since windows6.0.6000
  */
 export ProcessIdToSessionId(dwProcessId, pSessionId) {
-    pSessionIdMarshal := pSessionId is VarRef ? "uint*" : "ptr"
+    pSessionIdMarshal := pSessionId is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 

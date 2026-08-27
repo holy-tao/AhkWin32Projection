@@ -36,7 +36,6 @@ export default struct IWrappedProtocol extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} dwReserved 
      * @returns {Integer} 
      */
@@ -54,7 +53,7 @@ export default struct IWrappedProtocol extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetWrapperCode := CallbackCreate(GetMethod(implObj, "GetWrapperCode"), flags, 3)
+        this.vtbl.GetWrapperCode := CallbackCreate(ObjBindMethod(implObj, "GetWrapperCode"), flags, 3)
     }
 
     Dispose() {

@@ -44,7 +44,6 @@ export default struct ITargetFramePriv extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszTargetName 
      * @param {Integer} dwFlags 
      * @returns {IUnknown} 
@@ -57,7 +56,6 @@ export default struct ITargetFramePriv extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszTargetName 
      * @param {IUnknown} punkContextFrame 
      * @param {Integer} dwFlags 
@@ -71,7 +69,6 @@ export default struct ITargetFramePriv extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkChildFrame 
      * @returns {HRESULT} 
      */
@@ -81,7 +78,6 @@ export default struct ITargetFramePriv extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkChildFrame 
      * @returns {HRESULT} 
      */
@@ -91,7 +87,6 @@ export default struct ITargetFramePriv extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} grfHLNF 
      * @param {IBindCtx} pbc 
      * @param {IBindStatusCallback} pibsc 
@@ -110,7 +105,6 @@ export default struct ITargetFramePriv extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwID 
      * @returns {IUnknown} 
      */
@@ -128,12 +122,12 @@ export default struct ITargetFramePriv extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FindFrameDownwards := CallbackCreate(GetMethod(implObj, "FindFrameDownwards"), flags, 4)
-        this.vtbl.FindFrameInContext := CallbackCreate(GetMethod(implObj, "FindFrameInContext"), flags, 5)
-        this.vtbl.OnChildFrameActivate := CallbackCreate(GetMethod(implObj, "OnChildFrameActivate"), flags, 2)
-        this.vtbl.OnChildFrameDeactivate := CallbackCreate(GetMethod(implObj, "OnChildFrameDeactivate"), flags, 2)
-        this.vtbl.NavigateHack := CallbackCreate(GetMethod(implObj, "NavigateHack"), flags, 7)
-        this.vtbl.FindBrowserByIndex := CallbackCreate(GetMethod(implObj, "FindBrowserByIndex"), flags, 3)
+        this.vtbl.FindFrameDownwards := CallbackCreate(ObjBindMethod(implObj, "FindFrameDownwards"), flags, 4)
+        this.vtbl.FindFrameInContext := CallbackCreate(ObjBindMethod(implObj, "FindFrameInContext"), flags, 5)
+        this.vtbl.OnChildFrameActivate := CallbackCreate(ObjBindMethod(implObj, "OnChildFrameActivate"), flags, 2)
+        this.vtbl.OnChildFrameDeactivate := CallbackCreate(ObjBindMethod(implObj, "OnChildFrameDeactivate"), flags, 2)
+        this.vtbl.NavigateHack := CallbackCreate(ObjBindMethod(implObj, "NavigateHack"), flags, 7)
+        this.vtbl.FindBrowserByIndex := CallbackCreate(ObjBindMethod(implObj, "FindBrowserByIndex"), flags, 3)
     }
 
     Dispose() {

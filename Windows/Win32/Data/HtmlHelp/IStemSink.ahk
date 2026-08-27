@@ -38,7 +38,6 @@ export default struct IStemSink extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwcInBuf 
      * @param {Integer} cwc 
      * @returns {HRESULT} 
@@ -51,7 +50,6 @@ export default struct IStemSink extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwcInBuf 
      * @param {Integer} cwc 
      * @returns {HRESULT} 
@@ -72,8 +70,8 @@ export default struct IStemSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PutAltWord := CallbackCreate(GetMethod(implObj, "PutAltWord"), flags, 3)
-        this.vtbl.PutWord := CallbackCreate(GetMethod(implObj, "PutWord"), flags, 3)
+        this.vtbl.PutAltWord := CallbackCreate(ObjBindMethod(implObj, "PutAltWord"), flags, 3)
+        this.vtbl.PutWord := CallbackCreate(ObjBindMethod(implObj, "PutWord"), flags, 3)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct PRESUTIL_START_RESOURCE_SERVICE {
     }
 
     /**
-     * 
      * @param {PWSTR} pszServiceName 
      * @param {Pointer<SC_HANDLE>} phServiceHandle 
      * @returns {Integer} 

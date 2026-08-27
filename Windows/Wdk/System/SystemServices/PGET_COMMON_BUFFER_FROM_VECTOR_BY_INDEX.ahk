@@ -20,7 +20,6 @@ export default struct PGET_COMMON_BUFFER_FROM_VECTOR_BY_INDEX {
     }
 
     /**
-     * 
      * @param {Pointer<DMA_ADAPTER>} DmaAdapter 
      * @param {Pointer<DMA_COMMON_BUFFER_VECTOR>} Vector 
      * @param {Integer} Index 
@@ -29,9 +28,9 @@ export default struct PGET_COMMON_BUFFER_FROM_VECTOR_BY_INDEX {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(DmaAdapter, Vector, Index, VirtualAddressOut, LogicalAddressOut) {
-        VectorMarshal := Vector is VarRef ? "ptr*" : "ptr"
-        VirtualAddressOutMarshal := VirtualAddressOut is VarRef ? "ptr*" : "ptr"
-        LogicalAddressOutMarshal := LogicalAddressOut is VarRef ? "int64*" : "ptr"
+        VectorMarshal := Vector is VarRef ? "ptr*" : IntPtr
+        VirtualAddressOutMarshal := VirtualAddressOut is VarRef ? "ptr*" : IntPtr
+        LogicalAddressOutMarshal := LogicalAddressOut is VarRef ? "int64*" : IntPtr
 
         DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, VectorMarshal, Vector, UInt32, Index, VirtualAddressOutMarshal, VirtualAddressOut, LogicalAddressOutMarshal, LogicalAddressOut)
     }

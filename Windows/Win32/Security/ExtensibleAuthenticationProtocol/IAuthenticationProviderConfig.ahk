@@ -68,7 +68,6 @@ export default struct IAuthenticationProviderConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} uConnectionParam 
      * @returns {HRESULT} 
      */
@@ -103,7 +102,6 @@ export default struct IAuthenticationProviderConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} uConnectionParam 
      * @param {Pointer} uReserved1 
      * @param {Pointer} uReserved2 
@@ -115,7 +113,6 @@ export default struct IAuthenticationProviderConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} uConnectionParam 
      * @param {Pointer} uReserved1 
      * @param {Pointer} uReserved2 
@@ -135,11 +132,11 @@ export default struct IAuthenticationProviderConfig extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.Uninitialize := CallbackCreate(GetMethod(implObj, "Uninitialize"), flags, 2)
-        this.vtbl.Configure := CallbackCreate(GetMethod(implObj, "Configure"), flags, 6)
-        this.vtbl.Activate := CallbackCreate(GetMethod(implObj, "Activate"), flags, 4)
-        this.vtbl.Deactivate := CallbackCreate(GetMethod(implObj, "Deactivate"), flags, 4)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.Uninitialize := CallbackCreate(ObjBindMethod(implObj, "Uninitialize"), flags, 2)
+        this.vtbl.Configure := CallbackCreate(ObjBindMethod(implObj, "Configure"), flags, 6)
+        this.vtbl.Activate := CallbackCreate(ObjBindMethod(implObj, "Activate"), flags, 4)
+        this.vtbl.Deactivate := CallbackCreate(ObjBindMethod(implObj, "Deactivate"), flags, 4)
     }
 
     Dispose() {

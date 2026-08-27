@@ -71,8 +71,8 @@ export default struct IPresentStatistics extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPresentId := CallbackCreate(GetMethod(implObj, "GetPresentId"), flags, 1)
-        this.vtbl.GetKind := CallbackCreate(GetMethod(implObj, "GetKind"), flags, 1)
+        this.vtbl.GetPresentId := CallbackCreate(ObjBindMethod(implObj, "GetPresentId"), flags, 1)
+        this.vtbl.GetKind := CallbackCreate(ObjBindMethod(implObj, "GetKind"), flags, 1)
     }
 
     Dispose() {

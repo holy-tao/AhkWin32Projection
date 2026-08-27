@@ -44,7 +44,6 @@ export default struct IRTCBuddyEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCBuddy} 
      */
     get_Buddy() {
@@ -61,7 +60,7 @@ export default struct IRTCBuddyEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Buddy := CallbackCreate(GetMethod(implObj, "get_Buddy"), flags, 2)
+        this.vtbl.get_Buddy := CallbackCreate(ObjBindMethod(implObj, "get_Buddy"), flags, 2)
     }
 
     Dispose() {

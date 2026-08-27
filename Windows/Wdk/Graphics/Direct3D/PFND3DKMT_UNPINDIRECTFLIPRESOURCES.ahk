@@ -20,7 +20,6 @@ export default struct PFND3DKMT_UNPINDIRECTFLIPRESOURCES {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_UNPINDIRECTFLIPRESOURCES>} param0 
      * @returns {NTSTATUS} 
      */

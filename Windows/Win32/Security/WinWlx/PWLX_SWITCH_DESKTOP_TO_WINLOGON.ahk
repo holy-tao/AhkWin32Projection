@@ -21,7 +21,6 @@ export default struct PWLX_SWITCH_DESKTOP_TO_WINLOGON {
     }
 
     /**
-     * 
      * @param {HANDLE} hWlx Specifies the Winlogon handle passed to GINA in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nf-winwlx-wlxinitialize">WlxInitialize</a> call.
      * @returns {Integer} The <b>WlxSwitchDesktopToWinlogon</b> function returns zero if the function call succeeds. Otherwise, it returns an error code.

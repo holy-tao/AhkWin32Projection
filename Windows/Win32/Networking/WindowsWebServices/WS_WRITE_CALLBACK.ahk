@@ -24,7 +24,6 @@ export default struct WS_WRITE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} callbackState A   <b>void</b> pointer to the user-defined state value that was passed to the function that accepted this callback.
      * @param {Pointer<WS_BYTES>} buffers A  pointer to the buffers containing the data to be written.
      * @param {Integer} count The number of buffers to write.
@@ -33,10 +32,13 @@ export default struct WS_WRITE_CALLBACK {
      * @returns {HRESULT} This callback function does not return a value.
      */
     Call(callbackState, buffers, count, asyncContext, _error) {
-        callbackStateMarshal := callbackState is VarRef ? "ptr" : "ptr"
-        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
+        callbackStateMarshal := callbackState is VarRef ? "ptr" : IntPtr
+        callbackStateMarshal := callbackState == 0 ? IntPtr : "ptr"
+        asyncContextMarshal := asyncContext == 0 ? IntPtr : WS_ASYNC_CONTEXT.Ptr
+        _errorMarshal := _error is VarRef ? "ptr*" : IntPtr
+        _errorMarshal := _error == 0 ? IntPtr : WS_ERROR.Ptr
 
-        result := DllCall(this.value, callbackStateMarshal, callbackState, WS_BYTES.Ptr, buffers, UInt32, count, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
+        result := DllCall(this.value, callbackStateMarshal, callbackState, WS_BYTES.Ptr, buffers, UInt32, count, asyncContextMarshal, asyncContext, _errorMarshal, _error, "HRESULT")
         return result
     }
 

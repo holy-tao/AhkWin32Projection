@@ -156,7 +156,6 @@ export default struct ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechRecognizer} 
      */
     get_Recognizer() {
@@ -165,7 +164,6 @@ export default struct ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechInterference} 
      */
     get_AudioInputInterferenceStatus() {
@@ -174,7 +172,6 @@ export default struct ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_RequestedUIType() {
@@ -184,17 +181,17 @@ export default struct ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISpeechVoice} Voice 
      * @returns {HRESULT} 
      */
     putref_Voice(Voice) {
-        result := ComCall(10, this, "ptr", Voice, "HRESULT")
+        VoiceMarshal := Voice == 0 ? IntPtr : "ptr"
+
+        result := ComCall(10, this, VoiceMarshal, Voice, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {ISpeechVoice} 
      */
     get_Voice() {
@@ -203,7 +200,6 @@ export default struct ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} Allow 
      * @returns {HRESULT} 
      */
@@ -213,7 +209,6 @@ export default struct ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_AllowVoiceFormatMatchingOnNextSet() {
@@ -222,7 +217,6 @@ export default struct ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @param {SpeechRecoEvents} EventInterest 
      * @returns {HRESULT} 
      */
@@ -232,7 +226,6 @@ export default struct ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechRecoEvents} 
      */
     get_VoicePurgeEvent() {
@@ -241,7 +234,6 @@ export default struct ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @param {SpeechRecoEvents} EventInterest 
      * @returns {HRESULT} 
      */
@@ -251,7 +243,6 @@ export default struct ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechRecoEvents} 
      */
     get_EventInterests() {
@@ -260,7 +251,6 @@ export default struct ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} MaxAlternates 
      * @returns {HRESULT} 
      */
@@ -270,7 +260,6 @@ export default struct ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_CmdMaxAlternates() {
@@ -279,7 +268,6 @@ export default struct ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @param {SpeechRecoContextState} State 
      * @returns {HRESULT} 
      */
@@ -289,7 +277,6 @@ export default struct ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechRecoContextState} 
      */
     get_State() {
@@ -298,7 +285,6 @@ export default struct ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @param {SpeechRetainedAudioOptions} Option 
      * @returns {HRESULT} 
      */
@@ -308,7 +294,6 @@ export default struct ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechRetainedAudioOptions} 
      */
     get_RetainedAudio() {
@@ -317,17 +302,17 @@ export default struct ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISpeechAudioFormat} Format 
      * @returns {HRESULT} 
      */
     putref_RetainedAudioFormat(Format) {
-        result := ComCall(24, this, "ptr", Format, "HRESULT")
+        FormatMarshal := Format == 0 ? IntPtr : "ptr"
+
+        result := ComCall(24, this, FormatMarshal, Format, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {ISpeechAudioFormat} 
      */
     get_RetainedAudioFormat() {
@@ -358,7 +343,6 @@ export default struct ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} GrammarId 
      * @returns {ISpeechRecoGrammar} 
      */
@@ -368,7 +352,6 @@ export default struct ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} ResultBlock 
      * @returns {ISpeechRecoResult} 
      */
@@ -378,7 +361,6 @@ export default struct ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @param {SpeechBookmarkOptions} Options 
      * @param {VARIANT} StreamPos 
      * @param {VARIANT} BookmarkId 
@@ -390,7 +372,6 @@ export default struct ISpeechRecoContext extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} AdaptationString 
      * @returns {HRESULT} 
      */
@@ -410,31 +391,31 @@ export default struct ISpeechRecoContext extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Recognizer := CallbackCreate(GetMethod(implObj, "get_Recognizer"), flags, 2)
-        this.vtbl.get_AudioInputInterferenceStatus := CallbackCreate(GetMethod(implObj, "get_AudioInputInterferenceStatus"), flags, 2)
-        this.vtbl.get_RequestedUIType := CallbackCreate(GetMethod(implObj, "get_RequestedUIType"), flags, 2)
-        this.vtbl.putref_Voice := CallbackCreate(GetMethod(implObj, "putref_Voice"), flags, 2)
-        this.vtbl.get_Voice := CallbackCreate(GetMethod(implObj, "get_Voice"), flags, 2)
-        this.vtbl.put_AllowVoiceFormatMatchingOnNextSet := CallbackCreate(GetMethod(implObj, "put_AllowVoiceFormatMatchingOnNextSet"), flags, 2)
-        this.vtbl.get_AllowVoiceFormatMatchingOnNextSet := CallbackCreate(GetMethod(implObj, "get_AllowVoiceFormatMatchingOnNextSet"), flags, 2)
-        this.vtbl.put_VoicePurgeEvent := CallbackCreate(GetMethod(implObj, "put_VoicePurgeEvent"), flags, 2)
-        this.vtbl.get_VoicePurgeEvent := CallbackCreate(GetMethod(implObj, "get_VoicePurgeEvent"), flags, 2)
-        this.vtbl.put_EventInterests := CallbackCreate(GetMethod(implObj, "put_EventInterests"), flags, 2)
-        this.vtbl.get_EventInterests := CallbackCreate(GetMethod(implObj, "get_EventInterests"), flags, 2)
-        this.vtbl.put_CmdMaxAlternates := CallbackCreate(GetMethod(implObj, "put_CmdMaxAlternates"), flags, 2)
-        this.vtbl.get_CmdMaxAlternates := CallbackCreate(GetMethod(implObj, "get_CmdMaxAlternates"), flags, 2)
-        this.vtbl.put_State := CallbackCreate(GetMethod(implObj, "put_State"), flags, 2)
-        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
-        this.vtbl.put_RetainedAudio := CallbackCreate(GetMethod(implObj, "put_RetainedAudio"), flags, 2)
-        this.vtbl.get_RetainedAudio := CallbackCreate(GetMethod(implObj, "get_RetainedAudio"), flags, 2)
-        this.vtbl.putref_RetainedAudioFormat := CallbackCreate(GetMethod(implObj, "putref_RetainedAudioFormat"), flags, 2)
-        this.vtbl.get_RetainedAudioFormat := CallbackCreate(GetMethod(implObj, "get_RetainedAudioFormat"), flags, 2)
-        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
-        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 1)
-        this.vtbl.CreateGrammar := CallbackCreate(GetMethod(implObj, "CreateGrammar"), flags, 3)
-        this.vtbl.CreateResultFromMemory := CallbackCreate(GetMethod(implObj, "CreateResultFromMemory"), flags, 3)
-        this.vtbl.Bookmark := CallbackCreate(GetMethod(implObj, "Bookmark"), flags, 4)
-        this.vtbl.SetAdaptationData := CallbackCreate(GetMethod(implObj, "SetAdaptationData"), flags, 2)
+        this.vtbl.get_Recognizer := CallbackCreate(ObjBindMethod(implObj, "get_Recognizer"), flags, 2)
+        this.vtbl.get_AudioInputInterferenceStatus := CallbackCreate(ObjBindMethod(implObj, "get_AudioInputInterferenceStatus"), flags, 2)
+        this.vtbl.get_RequestedUIType := CallbackCreate(ObjBindMethod(implObj, "get_RequestedUIType"), flags, 2)
+        this.vtbl.putref_Voice := CallbackCreate(ObjBindMethod(implObj, "putref_Voice"), flags, 2)
+        this.vtbl.get_Voice := CallbackCreate(ObjBindMethod(implObj, "get_Voice"), flags, 2)
+        this.vtbl.put_AllowVoiceFormatMatchingOnNextSet := CallbackCreate(ObjBindMethod(implObj, "put_AllowVoiceFormatMatchingOnNextSet"), flags, 2)
+        this.vtbl.get_AllowVoiceFormatMatchingOnNextSet := CallbackCreate(ObjBindMethod(implObj, "get_AllowVoiceFormatMatchingOnNextSet"), flags, 2)
+        this.vtbl.put_VoicePurgeEvent := CallbackCreate(ObjBindMethod(implObj, "put_VoicePurgeEvent"), flags, 2)
+        this.vtbl.get_VoicePurgeEvent := CallbackCreate(ObjBindMethod(implObj, "get_VoicePurgeEvent"), flags, 2)
+        this.vtbl.put_EventInterests := CallbackCreate(ObjBindMethod(implObj, "put_EventInterests"), flags, 2)
+        this.vtbl.get_EventInterests := CallbackCreate(ObjBindMethod(implObj, "get_EventInterests"), flags, 2)
+        this.vtbl.put_CmdMaxAlternates := CallbackCreate(ObjBindMethod(implObj, "put_CmdMaxAlternates"), flags, 2)
+        this.vtbl.get_CmdMaxAlternates := CallbackCreate(ObjBindMethod(implObj, "get_CmdMaxAlternates"), flags, 2)
+        this.vtbl.put_State := CallbackCreate(ObjBindMethod(implObj, "put_State"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(ObjBindMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.put_RetainedAudio := CallbackCreate(ObjBindMethod(implObj, "put_RetainedAudio"), flags, 2)
+        this.vtbl.get_RetainedAudio := CallbackCreate(ObjBindMethod(implObj, "get_RetainedAudio"), flags, 2)
+        this.vtbl.putref_RetainedAudioFormat := CallbackCreate(ObjBindMethod(implObj, "putref_RetainedAudioFormat"), flags, 2)
+        this.vtbl.get_RetainedAudioFormat := CallbackCreate(ObjBindMethod(implObj, "get_RetainedAudioFormat"), flags, 2)
+        this.vtbl.Pause := CallbackCreate(ObjBindMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Resume := CallbackCreate(ObjBindMethod(implObj, "Resume"), flags, 1)
+        this.vtbl.CreateGrammar := CallbackCreate(ObjBindMethod(implObj, "CreateGrammar"), flags, 3)
+        this.vtbl.CreateResultFromMemory := CallbackCreate(ObjBindMethod(implObj, "CreateResultFromMemory"), flags, 3)
+        this.vtbl.Bookmark := CallbackCreate(ObjBindMethod(implObj, "Bookmark"), flags, 4)
+        this.vtbl.SetAdaptationData := CallbackCreate(ObjBindMethod(implObj, "SetAdaptationData"), flags, 2)
     }
 
     Dispose() {

@@ -64,7 +64,7 @@ export default struct IMSVidDeviceEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StateChange := CallbackCreate(GetMethod(implObj, "StateChange"), flags, 4)
+        this.vtbl.StateChange := CallbackCreate(ObjBindMethod(implObj, "StateChange"), flags, 4)
     }
 
     Dispose() {

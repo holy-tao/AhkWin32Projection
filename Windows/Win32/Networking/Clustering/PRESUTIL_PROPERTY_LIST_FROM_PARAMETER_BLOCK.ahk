@@ -19,7 +19,6 @@ export default struct PRESUTIL_PROPERTY_LIST_FROM_PARAMETER_BLOCK {
     }
 
     /**
-     * 
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable 
      * @param {Integer} pOutPropertyList 
      * @param {Pointer<Integer>} pcbOutPropertyListSize 
@@ -29,12 +28,13 @@ export default struct PRESUTIL_PROPERTY_LIST_FROM_PARAMETER_BLOCK {
      * @returns {Integer} 
      */
     Call(pPropertyTable, pOutPropertyList, pcbOutPropertyListSize, pInParams, pcbBytesReturned, pcbRequired) {
-        pcbOutPropertyListSizeMarshal := pcbOutPropertyListSize is VarRef ? "uint*" : "ptr"
-        pInParamsMarshal := pInParams is VarRef ? "char*" : "ptr"
-        pcbBytesReturnedMarshal := pcbBytesReturned is VarRef ? "uint*" : "ptr"
-        pcbRequiredMarshal := pcbRequired is VarRef ? "uint*" : "ptr"
+        pOutPropertyListMarshal := pOutPropertyList == 0 ? IntPtr : IntPtr
+        pcbOutPropertyListSizeMarshal := pcbOutPropertyListSize is VarRef ? "uint*" : IntPtr
+        pInParamsMarshal := pInParams is VarRef ? "char*" : IntPtr
+        pcbBytesReturnedMarshal := pcbBytesReturned is VarRef ? "uint*" : IntPtr
+        pcbRequiredMarshal := pcbRequired is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, RESUTIL_PROPERTY_ITEM.Ptr, pPropertyTable, IntPtr, pOutPropertyList, pcbOutPropertyListSizeMarshal, pcbOutPropertyListSize, pInParamsMarshal, pInParams, pcbBytesReturnedMarshal, pcbBytesReturned, pcbRequiredMarshal, pcbRequired, UInt32)
+        result := DllCall(this.value, RESUTIL_PROPERTY_ITEM.Ptr, pPropertyTable, pOutPropertyListMarshal, pOutPropertyList, pcbOutPropertyListSizeMarshal, pcbOutPropertyListSize, pInParamsMarshal, pInParams, pcbBytesReturnedMarshal, pcbBytesReturned, pcbRequiredMarshal, pcbRequired, UInt32)
         return result
     }
 

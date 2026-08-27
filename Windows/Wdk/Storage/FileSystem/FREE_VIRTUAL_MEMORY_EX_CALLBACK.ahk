@@ -20,7 +20,6 @@ export default struct FREE_VIRTUAL_MEMORY_EX_CALLBACK {
     }
 
     /**
-     * 
      * @param {HANDLE} CallbackContext 
      * @param {HANDLE} ProcessHandle 
      * @param {Pointer<Pointer<Void>>} BaseAddress 
@@ -29,8 +28,8 @@ export default struct FREE_VIRTUAL_MEMORY_EX_CALLBACK {
      * @returns {NTSTATUS} 
      */
     Call(CallbackContext, ProcessHandle, BaseAddress, RegionSize, FreeType) {
-        BaseAddressMarshal := BaseAddress is VarRef ? "ptr*" : "ptr"
-        RegionSizeMarshal := RegionSize is VarRef ? "ptr*" : "ptr"
+        BaseAddressMarshal := BaseAddress is VarRef ? "ptr*" : IntPtr
+        RegionSizeMarshal := RegionSize is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, HANDLE, CallbackContext, HANDLE, ProcessHandle, BaseAddressMarshal, BaseAddress, RegionSizeMarshal, RegionSize, UInt32, FreeType, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

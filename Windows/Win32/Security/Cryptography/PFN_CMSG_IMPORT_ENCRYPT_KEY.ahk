@@ -20,7 +20,6 @@ export default struct PFN_CMSG_IMPORT_ENCRYPT_KEY {
     }
 
     /**
-     * 
      * @param {Pointer} hCryptProv 
      * @param {Integer} dwKeySpec 
      * @param {Pointer<CRYPT_ALGORITHM_IDENTIFIER>} paiEncrypt 
@@ -31,7 +30,7 @@ export default struct PFN_CMSG_IMPORT_ENCRYPT_KEY {
      * @returns {BOOL} 
      */
     Call(hCryptProv, dwKeySpec, paiEncrypt, paiPubKey, pbEncodedKey, cbEncodedKey, phEncryptKey) {
-        phEncryptKeyMarshal := phEncryptKey is VarRef ? "ptr*" : "ptr"
+        phEncryptKeyMarshal := phEncryptKey is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, IntPtr, hCryptProv, UInt32, dwKeySpec, CRYPT_ALGORITHM_IDENTIFIER.Ptr, paiEncrypt, CRYPT_ALGORITHM_IDENTIFIER.Ptr, paiPubKey, IntPtr, pbEncodedKey, UInt32, cbEncodedKey, phEncryptKeyMarshal, phEncryptKey, BOOL)
         return result

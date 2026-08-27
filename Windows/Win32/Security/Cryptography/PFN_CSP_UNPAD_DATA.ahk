@@ -19,15 +19,14 @@ export default struct PFN_CSP_UNPAD_DATA {
     }
 
     /**
-     * 
      * @param {Pointer<CARD_RSA_DECRYPT_INFO>} pRSADecryptInfo 
      * @param {Pointer<Integer>} pcbUnpaddedData 
      * @param {Pointer<Pointer<Integer>>} ppbUnpaddedData 
      * @returns {Integer} 
      */
     Call(pRSADecryptInfo, pcbUnpaddedData, ppbUnpaddedData) {
-        pcbUnpaddedDataMarshal := pcbUnpaddedData is VarRef ? "uint*" : "ptr"
-        ppbUnpaddedDataMarshal := ppbUnpaddedData is VarRef ? "ptr*" : "ptr"
+        pcbUnpaddedDataMarshal := pcbUnpaddedData is VarRef ? "uint*" : IntPtr
+        ppbUnpaddedDataMarshal := ppbUnpaddedData is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, CARD_RSA_DECRYPT_INFO.Ptr, pRSADecryptInfo, pcbUnpaddedDataMarshal, pcbUnpaddedData, ppbUnpaddedDataMarshal, ppbUnpaddedData, UInt32)
         return result

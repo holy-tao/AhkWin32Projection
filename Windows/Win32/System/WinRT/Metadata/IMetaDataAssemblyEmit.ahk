@@ -47,7 +47,6 @@ export default struct IMetaDataAssemblyEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pbPublicKey 
      * @param {Integer} cbPublicKey 
      * @param {Integer} ulHashAlgId 
@@ -60,15 +59,14 @@ export default struct IMetaDataAssemblyEmit extends IUnknown {
     DefineAssembly(pbPublicKey, cbPublicKey, ulHashAlgId, szName, pMetaData, dwAssemblyFlags, pma) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        pbPublicKeyMarshal := pbPublicKey is VarRef ? "ptr" : "ptr"
-        pmaMarshal := pma is VarRef ? "uint*" : "ptr"
+        pbPublicKeyMarshal := pbPublicKey is VarRef ? "ptr" : IntPtr
+        pmaMarshal := pma is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pbPublicKeyMarshal, pbPublicKey, UInt32, cbPublicKey, UInt32, ulHashAlgId, "ptr", szName, ASSEMBLYMETADATA.Ptr, pMetaData, UInt32, dwAssemblyFlags, pmaMarshal, pma, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pbPublicKeyOrToken 
      * @param {Integer} cbPublicKeyOrToken 
      * @param {PWSTR} szName 
@@ -82,16 +80,15 @@ export default struct IMetaDataAssemblyEmit extends IUnknown {
     DefineAssemblyRef(pbPublicKeyOrToken, cbPublicKeyOrToken, szName, pMetaData, pbHashValue, cbHashValue, dwAssemblyRefFlags, pmdar) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        pbPublicKeyOrTokenMarshal := pbPublicKeyOrToken is VarRef ? "ptr" : "ptr"
-        pbHashValueMarshal := pbHashValue is VarRef ? "ptr" : "ptr"
-        pmdarMarshal := pmdar is VarRef ? "uint*" : "ptr"
+        pbPublicKeyOrTokenMarshal := pbPublicKeyOrToken is VarRef ? "ptr" : IntPtr
+        pbHashValueMarshal := pbHashValue is VarRef ? "ptr" : IntPtr
+        pmdarMarshal := pmdar is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pbPublicKeyOrTokenMarshal, pbPublicKeyOrToken, UInt32, cbPublicKeyOrToken, "ptr", szName, ASSEMBLYMETADATA.Ptr, pMetaData, pbHashValueMarshal, pbHashValue, UInt32, cbHashValue, UInt32, dwAssemblyRefFlags, pmdarMarshal, pmdar, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} szName 
      * @param {Pointer<Void>} pbHashValue 
      * @param {Integer} cbHashValue 
@@ -102,15 +99,14 @@ export default struct IMetaDataAssemblyEmit extends IUnknown {
     DefineFile(szName, pbHashValue, cbHashValue, dwFileFlags, pmdf) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        pbHashValueMarshal := pbHashValue is VarRef ? "ptr" : "ptr"
-        pmdfMarshal := pmdf is VarRef ? "uint*" : "ptr"
+        pbHashValueMarshal := pbHashValue is VarRef ? "ptr" : IntPtr
+        pmdfMarshal := pmdf is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, "ptr", szName, pbHashValueMarshal, pbHashValue, UInt32, cbHashValue, UInt32, dwFileFlags, pmdfMarshal, pmdf, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} szName 
      * @param {Integer} tkImplementation 
      * @param {Integer} tkTypeDef 
@@ -121,14 +117,13 @@ export default struct IMetaDataAssemblyEmit extends IUnknown {
     DefineExportedType(szName, tkImplementation, tkTypeDef, dwExportedTypeFlags, pmdct) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        pmdctMarshal := pmdct is VarRef ? "uint*" : "ptr"
+        pmdctMarshal := pmdct is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, "ptr", szName, UInt32, tkImplementation, UInt32, tkTypeDef, UInt32, dwExportedTypeFlags, pmdctMarshal, pmdct, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} szName 
      * @param {Integer} tkImplementation 
      * @param {Integer} dwOffset 
@@ -139,14 +134,13 @@ export default struct IMetaDataAssemblyEmit extends IUnknown {
     DefineManifestResource(szName, tkImplementation, dwOffset, dwResourceFlags, pmdmr) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        pmdmrMarshal := pmdmr is VarRef ? "uint*" : "ptr"
+        pmdmrMarshal := pmdmr is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, "ptr", szName, UInt32, tkImplementation, UInt32, dwOffset, UInt32, dwResourceFlags, pmdmrMarshal, pmdmr, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} pma 
      * @param {Pointer<Void>} pbPublicKey 
      * @param {Integer} cbPublicKey 
@@ -159,14 +153,13 @@ export default struct IMetaDataAssemblyEmit extends IUnknown {
     SetAssemblyProps(pma, pbPublicKey, cbPublicKey, ulHashAlgId, szName, pMetaData, dwAssemblyFlags) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        pbPublicKeyMarshal := pbPublicKey is VarRef ? "ptr" : "ptr"
+        pbPublicKeyMarshal := pbPublicKey is VarRef ? "ptr" : IntPtr
 
         result := ComCall(8, this, UInt32, pma, pbPublicKeyMarshal, pbPublicKey, UInt32, cbPublicKey, UInt32, ulHashAlgId, "ptr", szName, ASSEMBLYMETADATA.Ptr, pMetaData, UInt32, dwAssemblyFlags, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} ar 
      * @param {Pointer<Void>} pbPublicKeyOrToken 
      * @param {Integer} cbPublicKeyOrToken 
@@ -180,15 +173,14 @@ export default struct IMetaDataAssemblyEmit extends IUnknown {
     SetAssemblyRefProps(ar, pbPublicKeyOrToken, cbPublicKeyOrToken, szName, pMetaData, pbHashValue, cbHashValue, dwAssemblyRefFlags) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        pbPublicKeyOrTokenMarshal := pbPublicKeyOrToken is VarRef ? "ptr" : "ptr"
-        pbHashValueMarshal := pbHashValue is VarRef ? "ptr" : "ptr"
+        pbPublicKeyOrTokenMarshal := pbPublicKeyOrToken is VarRef ? "ptr" : IntPtr
+        pbHashValueMarshal := pbHashValue is VarRef ? "ptr" : IntPtr
 
         result := ComCall(9, this, UInt32, ar, pbPublicKeyOrTokenMarshal, pbPublicKeyOrToken, UInt32, cbPublicKeyOrToken, "ptr", szName, ASSEMBLYMETADATA.Ptr, pMetaData, pbHashValueMarshal, pbHashValue, UInt32, cbHashValue, UInt32, dwAssemblyRefFlags, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} _file 
      * @param {Pointer<Void>} pbHashValue 
      * @param {Integer} cbHashValue 
@@ -196,14 +188,13 @@ export default struct IMetaDataAssemblyEmit extends IUnknown {
      * @returns {HRESULT} 
      */
     SetFileProps(_file, pbHashValue, cbHashValue, dwFileFlags) {
-        pbHashValueMarshal := pbHashValue is VarRef ? "ptr" : "ptr"
+        pbHashValueMarshal := pbHashValue is VarRef ? "ptr" : IntPtr
 
         result := ComCall(10, this, UInt32, _file, pbHashValueMarshal, pbHashValue, UInt32, cbHashValue, UInt32, dwFileFlags, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} ct 
      * @param {Integer} tkImplementation 
      * @param {Integer} tkTypeDef 
@@ -216,7 +207,6 @@ export default struct IMetaDataAssemblyEmit extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} mr 
      * @param {Integer} tkImplementation 
      * @param {Integer} dwOffset 
@@ -237,16 +227,16 @@ export default struct IMetaDataAssemblyEmit extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DefineAssembly := CallbackCreate(GetMethod(implObj, "DefineAssembly"), flags, 8)
-        this.vtbl.DefineAssemblyRef := CallbackCreate(GetMethod(implObj, "DefineAssemblyRef"), flags, 9)
-        this.vtbl.DefineFile := CallbackCreate(GetMethod(implObj, "DefineFile"), flags, 6)
-        this.vtbl.DefineExportedType := CallbackCreate(GetMethod(implObj, "DefineExportedType"), flags, 6)
-        this.vtbl.DefineManifestResource := CallbackCreate(GetMethod(implObj, "DefineManifestResource"), flags, 6)
-        this.vtbl.SetAssemblyProps := CallbackCreate(GetMethod(implObj, "SetAssemblyProps"), flags, 8)
-        this.vtbl.SetAssemblyRefProps := CallbackCreate(GetMethod(implObj, "SetAssemblyRefProps"), flags, 9)
-        this.vtbl.SetFileProps := CallbackCreate(GetMethod(implObj, "SetFileProps"), flags, 5)
-        this.vtbl.SetExportedTypeProps := CallbackCreate(GetMethod(implObj, "SetExportedTypeProps"), flags, 5)
-        this.vtbl.SetManifestResourceProps := CallbackCreate(GetMethod(implObj, "SetManifestResourceProps"), flags, 5)
+        this.vtbl.DefineAssembly := CallbackCreate(ObjBindMethod(implObj, "DefineAssembly"), flags, 8)
+        this.vtbl.DefineAssemblyRef := CallbackCreate(ObjBindMethod(implObj, "DefineAssemblyRef"), flags, 9)
+        this.vtbl.DefineFile := CallbackCreate(ObjBindMethod(implObj, "DefineFile"), flags, 6)
+        this.vtbl.DefineExportedType := CallbackCreate(ObjBindMethod(implObj, "DefineExportedType"), flags, 6)
+        this.vtbl.DefineManifestResource := CallbackCreate(ObjBindMethod(implObj, "DefineManifestResource"), flags, 6)
+        this.vtbl.SetAssemblyProps := CallbackCreate(ObjBindMethod(implObj, "SetAssemblyProps"), flags, 8)
+        this.vtbl.SetAssemblyRefProps := CallbackCreate(ObjBindMethod(implObj, "SetAssemblyRefProps"), flags, 9)
+        this.vtbl.SetFileProps := CallbackCreate(ObjBindMethod(implObj, "SetFileProps"), flags, 5)
+        this.vtbl.SetExportedTypeProps := CallbackCreate(ObjBindMethod(implObj, "SetExportedTypeProps"), flags, 5)
+        this.vtbl.SetManifestResourceProps := CallbackCreate(ObjBindMethod(implObj, "SetManifestResourceProps"), flags, 5)
     }
 
     Dispose() {

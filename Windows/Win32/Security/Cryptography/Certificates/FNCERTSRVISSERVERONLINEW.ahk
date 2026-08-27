@@ -21,7 +21,6 @@ export default struct FNCERTSRVISSERVERONLINEW {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszServerName 
      * @param {Pointer<BOOL>} pfServerOnline 
      * @returns {HRESULT} 
@@ -29,7 +28,7 @@ export default struct FNCERTSRVISSERVERONLINEW {
     Call(pwszServerName, pfServerOnline) {
         pwszServerName := pwszServerName is String ? StrPtr(pwszServerName) : pwszServerName
 
-        pfServerOnlineMarshal := pfServerOnline is VarRef ? "int*" : "ptr"
+        pfServerOnlineMarshal := pfServerOnline is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, "ptr", pwszServerName, pfServerOnlineMarshal, pfServerOnline, "HRESULT")
         return result

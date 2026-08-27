@@ -22,7 +22,6 @@ export default struct PFAXCONNECTFAXSERVERA {
     }
 
     /**
-     * 
      * @param {PSTR} MachineName 
      * @param {Pointer<HANDLE>} FaxHandle 
      * @returns {BOOL} 

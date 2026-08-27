@@ -35,7 +35,6 @@ export default struct ID3D12VideoEncoderHeap1 extends ID3D12VideoEncoderHeap {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetPow2DownscaleFactor() {
@@ -52,7 +51,7 @@ export default struct ID3D12VideoEncoderHeap1 extends ID3D12VideoEncoderHeap {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPow2DownscaleFactor := CallbackCreate(GetMethod(implObj, "GetPow2DownscaleFactor"), flags, 1)
+        this.vtbl.GetPow2DownscaleFactor := CallbackCreate(ObjBindMethod(implObj, "GetPow2DownscaleFactor"), flags, 1)
     }
 
     Dispose() {

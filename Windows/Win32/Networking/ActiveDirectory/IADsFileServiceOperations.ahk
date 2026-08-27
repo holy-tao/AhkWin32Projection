@@ -101,8 +101,8 @@ export default struct IADsFileServiceOperations extends IADsServiceOperations {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Sessions := CallbackCreate(GetMethod(implObj, "Sessions"), flags, 2)
-        this.vtbl.Resources := CallbackCreate(GetMethod(implObj, "Resources"), flags, 2)
+        this.vtbl.Sessions := CallbackCreate(ObjBindMethod(implObj, "Sessions"), flags, 2)
+        this.vtbl.Resources := CallbackCreate(ObjBindMethod(implObj, "Resources"), flags, 2)
     }
 
     Dispose() {

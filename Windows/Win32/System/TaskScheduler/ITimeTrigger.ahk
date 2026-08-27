@@ -84,8 +84,8 @@ export default struct ITimeTrigger extends ITrigger {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_RandomDelay := CallbackCreate(GetMethod(implObj, "get_RandomDelay"), flags, 2)
-        this.vtbl.put_RandomDelay := CallbackCreate(GetMethod(implObj, "put_RandomDelay"), flags, 2)
+        this.vtbl.get_RandomDelay := CallbackCreate(ObjBindMethod(implObj, "get_RandomDelay"), flags, 2)
+        this.vtbl.put_RandomDelay := CallbackCreate(ObjBindMethod(implObj, "put_RandomDelay"), flags, 2)
     }
 
     Dispose() {

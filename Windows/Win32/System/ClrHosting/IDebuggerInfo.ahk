@@ -37,7 +37,6 @@ export default struct IDebuggerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsDebuggerAttached() {
@@ -54,7 +53,7 @@ export default struct IDebuggerInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsDebuggerAttached := CallbackCreate(GetMethod(implObj, "IsDebuggerAttached"), flags, 2)
+        this.vtbl.IsDebuggerAttached := CallbackCreate(ObjBindMethod(implObj, "IsDebuggerAttached"), flags, 2)
     }
 
     Dispose() {

@@ -69,7 +69,7 @@ export default struct ITTAPIObjectEvent2 extends ITTAPIObjectEvent {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Phone := CallbackCreate(GetMethod(implObj, "get_Phone"), flags, 2)
+        this.vtbl.get_Phone := CallbackCreate(ObjBindMethod(implObj, "get_Phone"), flags, 2)
     }
 
     Dispose() {

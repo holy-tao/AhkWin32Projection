@@ -19,7 +19,6 @@ export default struct PFN_CARD_GET_SHARED_KEY_HANDLE {
     }
 
     /**
-     * 
      * @param {Pointer<CARD_DATA>} pCardData 
      * @param {Integer} pbInput 
      * @param {Integer} cbInput 
@@ -29,9 +28,11 @@ export default struct PFN_CARD_GET_SHARED_KEY_HANDLE {
      * @returns {Integer} 
      */
     Call(pCardData, pbInput, cbInput, ppbOutput, pcbOutput, phKey) {
-        ppbOutputMarshal := ppbOutput is VarRef ? "ptr*" : "ptr"
-        pcbOutputMarshal := pcbOutput is VarRef ? "uint*" : "ptr"
-        phKeyMarshal := phKey is VarRef ? "ptr*" : "ptr"
+        ppbOutputMarshal := ppbOutput is VarRef ? "ptr*" : IntPtr
+        ppbOutputMarshal := ppbOutput == 0 ? IntPtr : "ptr*"
+        pcbOutputMarshal := pcbOutput is VarRef ? "uint*" : IntPtr
+        pcbOutputMarshal := pcbOutput == 0 ? IntPtr : "uint*"
+        phKeyMarshal := phKey is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, CARD_DATA.Ptr, pCardData, IntPtr, pbInput, UInt32, cbInput, ppbOutputMarshal, ppbOutput, pcbOutputMarshal, pcbOutput, phKeyMarshal, phKey, UInt32)
         return result

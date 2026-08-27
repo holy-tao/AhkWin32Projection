@@ -63,8 +63,8 @@ export default struct IBDA_AutoDemodulateEx extends IBDA_AutoDemodulate {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_autodemodulateex-get_supportedvideoformats
      */
     get_SupportedVideoFormats(pulAMTunerModeType, pulAnalogVideoStandard) {
-        pulAMTunerModeTypeMarshal := pulAMTunerModeType is VarRef ? "uint*" : "ptr"
-        pulAnalogVideoStandardMarshal := pulAnalogVideoStandard is VarRef ? "uint*" : "ptr"
+        pulAMTunerModeTypeMarshal := pulAMTunerModeType is VarRef ? "uint*" : IntPtr
+        pulAnalogVideoStandardMarshal := pulAnalogVideoStandard is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, pulAMTunerModeTypeMarshal, pulAMTunerModeType, pulAnalogVideoStandardMarshal, pulAnalogVideoStandard, "HRESULT")
         return result
@@ -81,8 +81,8 @@ export default struct IBDA_AutoDemodulateEx extends IBDA_AutoDemodulate {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_autodemodulateex-get_auxinputcount
      */
     get_AuxInputCount(pulCompositeCount, pulSvideoCount) {
-        pulCompositeCountMarshal := pulCompositeCount is VarRef ? "uint*" : "ptr"
-        pulSvideoCountMarshal := pulSvideoCount is VarRef ? "uint*" : "ptr"
+        pulCompositeCountMarshal := pulCompositeCount is VarRef ? "uint*" : IntPtr
+        pulSvideoCountMarshal := pulSvideoCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, pulCompositeCountMarshal, pulCompositeCount, pulSvideoCountMarshal, pulSvideoCount, "HRESULT")
         return result
@@ -97,9 +97,9 @@ export default struct IBDA_AutoDemodulateEx extends IBDA_AutoDemodulate {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_SupportedDeviceNodeTypes := CallbackCreate(GetMethod(implObj, "get_SupportedDeviceNodeTypes"), flags, 4)
-        this.vtbl.get_SupportedVideoFormats := CallbackCreate(GetMethod(implObj, "get_SupportedVideoFormats"), flags, 3)
-        this.vtbl.get_AuxInputCount := CallbackCreate(GetMethod(implObj, "get_AuxInputCount"), flags, 3)
+        this.vtbl.get_SupportedDeviceNodeTypes := CallbackCreate(ObjBindMethod(implObj, "get_SupportedDeviceNodeTypes"), flags, 4)
+        this.vtbl.get_SupportedVideoFormats := CallbackCreate(ObjBindMethod(implObj, "get_SupportedVideoFormats"), flags, 3)
+        this.vtbl.get_AuxInputCount := CallbackCreate(ObjBindMethod(implObj, "get_AuxInputCount"), flags, 3)
     }
 
     Dispose() {

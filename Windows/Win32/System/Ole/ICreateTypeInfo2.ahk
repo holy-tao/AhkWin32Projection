@@ -862,7 +862,6 @@ export default struct ICreateTypeInfo2 extends ICreateTypeInfo {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Invalidate() {
@@ -935,21 +934,21 @@ export default struct ICreateTypeInfo2 extends ICreateTypeInfo {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DeleteFuncDesc := CallbackCreate(GetMethod(implObj, "DeleteFuncDesc"), flags, 2)
-        this.vtbl.DeleteFuncDescByMemId := CallbackCreate(GetMethod(implObj, "DeleteFuncDescByMemId"), flags, 3)
-        this.vtbl.DeleteVarDesc := CallbackCreate(GetMethod(implObj, "DeleteVarDesc"), flags, 2)
-        this.vtbl.DeleteVarDescByMemId := CallbackCreate(GetMethod(implObj, "DeleteVarDescByMemId"), flags, 2)
-        this.vtbl.DeleteImplType := CallbackCreate(GetMethod(implObj, "DeleteImplType"), flags, 2)
-        this.vtbl.SetCustData := CallbackCreate(GetMethod(implObj, "SetCustData"), flags, 3)
-        this.vtbl.SetFuncCustData := CallbackCreate(GetMethod(implObj, "SetFuncCustData"), flags, 4)
-        this.vtbl.SetParamCustData := CallbackCreate(GetMethod(implObj, "SetParamCustData"), flags, 5)
-        this.vtbl.SetVarCustData := CallbackCreate(GetMethod(implObj, "SetVarCustData"), flags, 4)
-        this.vtbl.SetImplTypeCustData := CallbackCreate(GetMethod(implObj, "SetImplTypeCustData"), flags, 4)
-        this.vtbl.SetHelpStringContext := CallbackCreate(GetMethod(implObj, "SetHelpStringContext"), flags, 2)
-        this.vtbl.SetFuncHelpStringContext := CallbackCreate(GetMethod(implObj, "SetFuncHelpStringContext"), flags, 3)
-        this.vtbl.SetVarHelpStringContext := CallbackCreate(GetMethod(implObj, "SetVarHelpStringContext"), flags, 3)
-        this.vtbl.Invalidate := CallbackCreate(GetMethod(implObj, "Invalidate"), flags, 1)
-        this.vtbl.SetName := CallbackCreate(GetMethod(implObj, "SetName"), flags, 2)
+        this.vtbl.DeleteFuncDesc := CallbackCreate(ObjBindMethod(implObj, "DeleteFuncDesc"), flags, 2)
+        this.vtbl.DeleteFuncDescByMemId := CallbackCreate(ObjBindMethod(implObj, "DeleteFuncDescByMemId"), flags, 3)
+        this.vtbl.DeleteVarDesc := CallbackCreate(ObjBindMethod(implObj, "DeleteVarDesc"), flags, 2)
+        this.vtbl.DeleteVarDescByMemId := CallbackCreate(ObjBindMethod(implObj, "DeleteVarDescByMemId"), flags, 2)
+        this.vtbl.DeleteImplType := CallbackCreate(ObjBindMethod(implObj, "DeleteImplType"), flags, 2)
+        this.vtbl.SetCustData := CallbackCreate(ObjBindMethod(implObj, "SetCustData"), flags, 3)
+        this.vtbl.SetFuncCustData := CallbackCreate(ObjBindMethod(implObj, "SetFuncCustData"), flags, 4)
+        this.vtbl.SetParamCustData := CallbackCreate(ObjBindMethod(implObj, "SetParamCustData"), flags, 5)
+        this.vtbl.SetVarCustData := CallbackCreate(ObjBindMethod(implObj, "SetVarCustData"), flags, 4)
+        this.vtbl.SetImplTypeCustData := CallbackCreate(ObjBindMethod(implObj, "SetImplTypeCustData"), flags, 4)
+        this.vtbl.SetHelpStringContext := CallbackCreate(ObjBindMethod(implObj, "SetHelpStringContext"), flags, 2)
+        this.vtbl.SetFuncHelpStringContext := CallbackCreate(ObjBindMethod(implObj, "SetFuncHelpStringContext"), flags, 3)
+        this.vtbl.SetVarHelpStringContext := CallbackCreate(ObjBindMethod(implObj, "SetVarHelpStringContext"), flags, 3)
+        this.vtbl.Invalidate := CallbackCreate(ObjBindMethod(implObj, "Invalidate"), flags, 1)
+        this.vtbl.SetName := CallbackCreate(ObjBindMethod(implObj, "SetName"), flags, 2)
     }
 
     Dispose() {

@@ -38,7 +38,6 @@ export default struct ISpDisplayAlternates extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SPDISPLAYPHRASE>} pPhrase 
      * @param {Integer} cRequestCount 
      * @param {Pointer<Pointer<SPDISPLAYPHRASE>>} ppCoMemPhrases 
@@ -46,15 +45,14 @@ export default struct ISpDisplayAlternates extends IUnknown {
      * @returns {HRESULT} 
      */
     GetDisplayAlternates(pPhrase, cRequestCount, ppCoMemPhrases, pcPhrasesReturned) {
-        ppCoMemPhrasesMarshal := ppCoMemPhrases is VarRef ? "ptr*" : "ptr"
-        pcPhrasesReturnedMarshal := pcPhrasesReturned is VarRef ? "uint*" : "ptr"
+        ppCoMemPhrasesMarshal := ppCoMemPhrases is VarRef ? "ptr*" : IntPtr
+        pcPhrasesReturnedMarshal := pcPhrasesReturned is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, SPDISPLAYPHRASE.Ptr, pPhrase, UInt32, cRequestCount, ppCoMemPhrasesMarshal, ppCoMemPhrases, pcPhrasesReturnedMarshal, pcPhrasesReturned, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} ulTrailSpace 
      * @returns {HRESULT} 
      */
@@ -72,8 +70,8 @@ export default struct ISpDisplayAlternates extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDisplayAlternates := CallbackCreate(GetMethod(implObj, "GetDisplayAlternates"), flags, 5)
-        this.vtbl.SetFullStopTrailSpace := CallbackCreate(GetMethod(implObj, "SetFullStopTrailSpace"), flags, 2)
+        this.vtbl.GetDisplayAlternates := CallbackCreate(ObjBindMethod(implObj, "GetDisplayAlternates"), flags, 5)
+        this.vtbl.SetFullStopTrailSpace := CallbackCreate(ObjBindMethod(implObj, "SetFullStopTrailSpace"), flags, 2)
     }
 
     Dispose() {

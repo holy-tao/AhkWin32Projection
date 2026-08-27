@@ -63,7 +63,7 @@ export default struct IX509MachineEnrollmentFactory extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateObject := CallbackCreate(GetMethod(implObj, "CreateObject"), flags, 3)
+        this.vtbl.CreateObject := CallbackCreate(ObjBindMethod(implObj, "CreateObject"), flags, 3)
     }
 
     Dispose() {

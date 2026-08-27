@@ -25,7 +25,6 @@ export default struct GOPHER_ATTRIBUTE_ENUMERATOR {
     }
 
     /**
-     * 
      * @param {Pointer<GOPHER_ATTRIBUTE_TYPE>} lpAttributeInfo Pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-gopher_attribute_type">GOPHER_ATTRIBUTE_TYPE</a> structure. The 
      * <i>lpBuffer</i> parameter of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-gophergetattributea">GopherGetAttribute</a> is used for storing this structure. The 

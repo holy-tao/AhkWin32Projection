@@ -37,7 +37,6 @@ export default struct IInterFilterCommunicator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<Void>} 
      */
     RequestReader() {
@@ -46,7 +45,6 @@ export default struct IInterFilterCommunicator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<Void>} 
      */
     RequestWriter() {
@@ -63,8 +61,8 @@ export default struct IInterFilterCommunicator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RequestReader := CallbackCreate(GetMethod(implObj, "RequestReader"), flags, 2)
-        this.vtbl.RequestWriter := CallbackCreate(GetMethod(implObj, "RequestWriter"), flags, 2)
+        this.vtbl.RequestReader := CallbackCreate(ObjBindMethod(implObj, "RequestReader"), flags, 2)
+        this.vtbl.RequestWriter := CallbackCreate(ObjBindMethod(implObj, "RequestWriter"), flags, 2)
     }
 
     Dispose() {

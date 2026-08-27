@@ -130,13 +130,13 @@ export default struct IDvbTeletextDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetCountOfRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRecords"), flags, 2)
-        this.vtbl.GetRecordLangId := CallbackCreate(GetMethod(implObj, "GetRecordLangId"), flags, 3)
-        this.vtbl.GetRecordTeletextType := CallbackCreate(GetMethod(implObj, "GetRecordTeletextType"), flags, 3)
-        this.vtbl.GetRecordMagazineNumber := CallbackCreate(GetMethod(implObj, "GetRecordMagazineNumber"), flags, 3)
-        this.vtbl.GetRecordPageNumber := CallbackCreate(GetMethod(implObj, "GetRecordPageNumber"), flags, 3)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetCountOfRecords := CallbackCreate(ObjBindMethod(implObj, "GetCountOfRecords"), flags, 2)
+        this.vtbl.GetRecordLangId := CallbackCreate(ObjBindMethod(implObj, "GetRecordLangId"), flags, 3)
+        this.vtbl.GetRecordTeletextType := CallbackCreate(ObjBindMethod(implObj, "GetRecordTeletextType"), flags, 3)
+        this.vtbl.GetRecordMagazineNumber := CallbackCreate(ObjBindMethod(implObj, "GetRecordMagazineNumber"), flags, 3)
+        this.vtbl.GetRecordPageNumber := CallbackCreate(ObjBindMethod(implObj, "GetRecordPageNumber"), flags, 3)
     }
 
     Dispose() {

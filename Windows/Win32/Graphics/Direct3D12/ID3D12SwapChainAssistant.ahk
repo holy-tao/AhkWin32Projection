@@ -40,7 +40,6 @@ export default struct ID3D12SwapChainAssistant extends IUnknown {
     }
 
     /**
-     * 
      * @returns {LUID} 
      */
     GetLUID() {
@@ -49,7 +48,6 @@ export default struct ID3D12SwapChainAssistant extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
@@ -59,7 +57,6 @@ export default struct ID3D12SwapChainAssistant extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riidResource 
      * @param {Pointer<Pointer<Void>>} ppvResource 
      * @param {Pointer<Guid>} riidQueue 
@@ -67,15 +64,14 @@ export default struct ID3D12SwapChainAssistant extends IUnknown {
      * @returns {HRESULT} 
      */
     GetCurrentResourceAndCommandQueue(riidResource, ppvResource, riidQueue, ppvQueue) {
-        ppvResourceMarshal := ppvResource is VarRef ? "ptr*" : "ptr"
-        ppvQueueMarshal := ppvQueue is VarRef ? "ptr*" : "ptr"
+        ppvResourceMarshal := ppvResource is VarRef ? "ptr*" : IntPtr
+        ppvQueueMarshal := ppvQueue is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, Guid.Ptr, riidResource, ppvResourceMarshal, ppvResource, Guid.Ptr, riidQueue, ppvQueueMarshal, ppvQueue, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     InsertImplicitSync() {
@@ -92,10 +88,10 @@ export default struct ID3D12SwapChainAssistant extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLUID := CallbackCreate(GetMethod(implObj, "GetLUID"), flags, 1)
-        this.vtbl.GetSwapChainObject := CallbackCreate(GetMethod(implObj, "GetSwapChainObject"), flags, 3)
-        this.vtbl.GetCurrentResourceAndCommandQueue := CallbackCreate(GetMethod(implObj, "GetCurrentResourceAndCommandQueue"), flags, 5)
-        this.vtbl.InsertImplicitSync := CallbackCreate(GetMethod(implObj, "InsertImplicitSync"), flags, 1)
+        this.vtbl.GetLUID := CallbackCreate(ObjBindMethod(implObj, "GetLUID"), flags, 1)
+        this.vtbl.GetSwapChainObject := CallbackCreate(ObjBindMethod(implObj, "GetSwapChainObject"), flags, 3)
+        this.vtbl.GetCurrentResourceAndCommandQueue := CallbackCreate(ObjBindMethod(implObj, "GetCurrentResourceAndCommandQueue"), flags, 5)
+        this.vtbl.InsertImplicitSync := CallbackCreate(ObjBindMethod(implObj, "InsertImplicitSync"), flags, 1)
     }
 
     Dispose() {

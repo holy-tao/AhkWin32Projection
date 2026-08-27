@@ -18,7 +18,6 @@ export default struct PLSA_ALLOCATE_LSA_HEAP {
     }
 
     /**
-     * 
      * @param {Integer} Length 
      * @returns {Pointer<Void>} 
      */

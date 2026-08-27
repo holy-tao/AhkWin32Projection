@@ -20,7 +20,6 @@ export default struct FNCERTSRVRESTOREPREPAREW {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszServerName 
      * @param {Integer} dwRestoreFlags 
      * @param {Pointer<Pointer<Void>>} phbc 
@@ -29,7 +28,7 @@ export default struct FNCERTSRVRESTOREPREPAREW {
     Call(pwszServerName, dwRestoreFlags, phbc) {
         pwszServerName := pwszServerName is String ? StrPtr(pwszServerName) : pwszServerName
 
-        phbcMarshal := phbc is VarRef ? "ptr*" : "ptr"
+        phbcMarshal := phbc is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, "ptr", pwszServerName, UInt32, dwRestoreFlags, phbcMarshal, phbc, "HRESULT")
         return result

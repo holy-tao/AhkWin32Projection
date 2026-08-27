@@ -36,7 +36,6 @@ export default struct IHTMLChangeSink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Notify() {
@@ -53,7 +52,7 @@ export default struct IHTMLChangeSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Notify := CallbackCreate(GetMethod(implObj, "Notify"), flags, 1)
+        this.vtbl.Notify := CallbackCreate(ObjBindMethod(implObj, "Notify"), flags, 1)
     }
 
     Dispose() {

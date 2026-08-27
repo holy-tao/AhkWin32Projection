@@ -19,14 +19,13 @@ export default struct PFN_DrvNotify {
     }
 
     /**
-     * 
      * @param {Pointer<SURFOBJ>} param0 
      * @param {Integer} param1 
      * @param {Pointer<Void>} param2 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(param0, param1, param2) {
-        param2Marshal := param2 is VarRef ? "ptr" : "ptr"
+        param2Marshal := param2 is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, SURFOBJ.Ptr, param0, UInt32, param1, param2Marshal, param2)
     }

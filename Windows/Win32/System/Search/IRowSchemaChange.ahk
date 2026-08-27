@@ -40,21 +40,19 @@ export default struct IRowSchemaChange extends IRowChange {
     }
 
     /**
-     * 
      * @param {Pointer} cColumns 
      * @param {Pointer<DBID>} rgColumnIDs 
      * @param {Pointer<Integer>} rgdwStatus 
      * @returns {HRESULT} 
      */
     DeleteColumns(cColumns, rgColumnIDs, rgdwStatus) {
-        rgdwStatusMarshal := rgdwStatus is VarRef ? "uint*" : "ptr"
+        rgdwStatusMarshal := rgdwStatus is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, IntPtr, cColumns, DBID.Ptr, rgColumnIDs, rgdwStatusMarshal, rgdwStatus, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} cColumns 
      * @param {Pointer<DBCOLUMNINFO>} rgNewColumnInfo 
      * @param {Pointer<DBCOLUMNACCESS>} rgColumns 
@@ -74,8 +72,8 @@ export default struct IRowSchemaChange extends IRowChange {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DeleteColumns := CallbackCreate(GetMethod(implObj, "DeleteColumns"), flags, 4)
-        this.vtbl.AddColumns := CallbackCreate(GetMethod(implObj, "AddColumns"), flags, 4)
+        this.vtbl.DeleteColumns := CallbackCreate(ObjBindMethod(implObj, "DeleteColumns"), flags, 4)
+        this.vtbl.AddColumns := CallbackCreate(ObjBindMethod(implObj, "AddColumns"), flags, 4)
     }
 
     Dispose() {

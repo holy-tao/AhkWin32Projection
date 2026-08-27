@@ -94,7 +94,7 @@ export default struct IMFSeekInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNearestKeyFrames := CallbackCreate(GetMethod(implObj, "GetNearestKeyFrames"), flags, 5)
+        this.vtbl.GetNearestKeyFrames := CallbackCreate(ObjBindMethod(implObj, "GetNearestKeyFrames"), flags, 5)
     }
 
     Dispose() {

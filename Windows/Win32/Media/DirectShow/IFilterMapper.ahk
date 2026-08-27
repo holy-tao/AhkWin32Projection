@@ -187,14 +187,14 @@ export default struct IFilterMapper extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterFilter := CallbackCreate(GetMethod(implObj, "RegisterFilter"), flags, 4)
-        this.vtbl.RegisterFilterInstance := CallbackCreate(GetMethod(implObj, "RegisterFilterInstance"), flags, 4)
-        this.vtbl.RegisterPin := CallbackCreate(GetMethod(implObj, "RegisterPin"), flags, 9)
-        this.vtbl.RegisterPinType := CallbackCreate(GetMethod(implObj, "RegisterPinType"), flags, 5)
-        this.vtbl.UnregisterFilter := CallbackCreate(GetMethod(implObj, "UnregisterFilter"), flags, 2)
-        this.vtbl.UnregisterFilterInstance := CallbackCreate(GetMethod(implObj, "UnregisterFilterInstance"), flags, 2)
-        this.vtbl.UnregisterPin := CallbackCreate(GetMethod(implObj, "UnregisterPin"), flags, 3)
-        this.vtbl.EnumMatchingFilters := CallbackCreate(GetMethod(implObj, "EnumMatchingFilters"), flags, 10)
+        this.vtbl.RegisterFilter := CallbackCreate(ObjBindMethod(implObj, "RegisterFilter"), flags, 4)
+        this.vtbl.RegisterFilterInstance := CallbackCreate(ObjBindMethod(implObj, "RegisterFilterInstance"), flags, 4)
+        this.vtbl.RegisterPin := CallbackCreate(ObjBindMethod(implObj, "RegisterPin"), flags, 9)
+        this.vtbl.RegisterPinType := CallbackCreate(ObjBindMethod(implObj, "RegisterPinType"), flags, 5)
+        this.vtbl.UnregisterFilter := CallbackCreate(ObjBindMethod(implObj, "UnregisterFilter"), flags, 2)
+        this.vtbl.UnregisterFilterInstance := CallbackCreate(ObjBindMethod(implObj, "UnregisterFilterInstance"), flags, 2)
+        this.vtbl.UnregisterPin := CallbackCreate(ObjBindMethod(implObj, "UnregisterPin"), flags, 3)
+        this.vtbl.EnumMatchingFilters := CallbackCreate(ObjBindMethod(implObj, "EnumMatchingFilters"), flags, 10)
     }
 
     Dispose() {

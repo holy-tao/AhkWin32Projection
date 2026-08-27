@@ -32,7 +32,6 @@ export default struct IPrintUnidiAsyncNotifyRegistration extends IPrintAsyncNoti
     }
 
     /**
-     * 
      * @param {IAsyncGetSendNotificationCookie} param0 
      * @returns {HRESULT} 
      */
@@ -50,7 +49,7 @@ export default struct IPrintUnidiAsyncNotifyRegistration extends IPrintAsyncNoti
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AsyncGetNotification := CallbackCreate(GetMethod(implObj, "AsyncGetNotification"), flags, 2)
+        this.vtbl.AsyncGetNotification := CallbackCreate(ObjBindMethod(implObj, "AsyncGetNotification"), flags, 2)
     }
 
     Dispose() {

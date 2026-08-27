@@ -23,7 +23,6 @@ export default struct PFINDFILEINPATHCALLBACK {
     }
 
     /**
-     * 
      * @param {PSTR} filename The name of the file located by <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symfindfileinpath">SymFindFileInPath</a>.
      * @param {Pointer<Void>} _context The user-defined value specified in 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symfindfileinpath">SymFindFileInPath</a>, or <b>NULL</b>. This parameter is typically used by an application to pass a pointer to a data structure that provides some context for the callback function.
@@ -34,7 +33,7 @@ export default struct PFINDFILEINPATHCALLBACK {
     Call(filename, _context) {
         filename := filename is String ? StrPtr(filename) : filename
 
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, "ptr", filename, _contextMarshal, _context, BOOL)
         return result

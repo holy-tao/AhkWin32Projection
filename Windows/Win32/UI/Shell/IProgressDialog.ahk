@@ -101,7 +101,10 @@ export default struct IProgressDialog extends IUnknown {
     StartProgressDialog(hwndParent, punkEnableModless, dwFlags) {
         static pvResevered := 0 ;Reserved parameters must always be NULL
 
-        result := ComCall(3, this, HWND, hwndParent, "ptr", punkEnableModless, UInt32, dwFlags, "ptr", pvResevered, "HRESULT")
+        hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+        punkEnableModlessMarshal := punkEnableModless == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, hwndParentMarshal, hwndParent, punkEnableModlessMarshal, punkEnableModless, UInt32, dwFlags, "ptr", pvResevered, "HRESULT")
         return result
     }
 
@@ -160,7 +163,9 @@ export default struct IProgressDialog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-iprogressdialog-setanimation
      */
     SetAnimation(hInstAnimation, idAnimation) {
-        result := ComCall(6, this, HINSTANCE, hInstAnimation, UInt32, idAnimation, "HRESULT")
+        hInstAnimationMarshal := hInstAnimation == 0 ? IntPtr : HINSTANCE
+
+        result := ComCall(6, this, hInstAnimationMarshal, hInstAnimation, UInt32, idAnimation, "HRESULT")
         return result
     }
 
@@ -292,16 +297,16 @@ export default struct IProgressDialog extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StartProgressDialog := CallbackCreate(GetMethod(implObj, "StartProgressDialog"), flags, 5)
-        this.vtbl.StopProgressDialog := CallbackCreate(GetMethod(implObj, "StopProgressDialog"), flags, 1)
-        this.vtbl.SetTitle := CallbackCreate(GetMethod(implObj, "SetTitle"), flags, 2)
-        this.vtbl.SetAnimation := CallbackCreate(GetMethod(implObj, "SetAnimation"), flags, 3)
-        this.vtbl.HasUserCancelled := CallbackCreate(GetMethod(implObj, "HasUserCancelled"), flags, 1)
-        this.vtbl.SetProgress := CallbackCreate(GetMethod(implObj, "SetProgress"), flags, 3)
-        this.vtbl.SetProgress64 := CallbackCreate(GetMethod(implObj, "SetProgress64"), flags, 3)
-        this.vtbl.SetLine := CallbackCreate(GetMethod(implObj, "SetLine"), flags, 5)
-        this.vtbl.SetCancelMsg := CallbackCreate(GetMethod(implObj, "SetCancelMsg"), flags, 3)
-        this.vtbl.Timer := CallbackCreate(GetMethod(implObj, "Timer"), flags, 3)
+        this.vtbl.StartProgressDialog := CallbackCreate(ObjBindMethod(implObj, "StartProgressDialog"), flags, 5)
+        this.vtbl.StopProgressDialog := CallbackCreate(ObjBindMethod(implObj, "StopProgressDialog"), flags, 1)
+        this.vtbl.SetTitle := CallbackCreate(ObjBindMethod(implObj, "SetTitle"), flags, 2)
+        this.vtbl.SetAnimation := CallbackCreate(ObjBindMethod(implObj, "SetAnimation"), flags, 3)
+        this.vtbl.HasUserCancelled := CallbackCreate(ObjBindMethod(implObj, "HasUserCancelled"), flags, 1)
+        this.vtbl.SetProgress := CallbackCreate(ObjBindMethod(implObj, "SetProgress"), flags, 3)
+        this.vtbl.SetProgress64 := CallbackCreate(ObjBindMethod(implObj, "SetProgress64"), flags, 3)
+        this.vtbl.SetLine := CallbackCreate(ObjBindMethod(implObj, "SetLine"), flags, 5)
+        this.vtbl.SetCancelMsg := CallbackCreate(ObjBindMethod(implObj, "SetCancelMsg"), flags, 3)
+        this.vtbl.Timer := CallbackCreate(ObjBindMethod(implObj, "Timer"), flags, 3)
     }
 
     Dispose() {

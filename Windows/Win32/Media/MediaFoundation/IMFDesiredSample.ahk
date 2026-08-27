@@ -76,8 +76,8 @@ export default struct IMFDesiredSample extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfdesiredsample-getdesiredsampletimeandduration
      */
     GetDesiredSampleTimeAndDuration(phnsSampleTime, phnsSampleDuration) {
-        phnsSampleTimeMarshal := phnsSampleTime is VarRef ? "int64*" : "ptr"
-        phnsSampleDurationMarshal := phnsSampleDuration is VarRef ? "int64*" : "ptr"
+        phnsSampleTimeMarshal := phnsSampleTime is VarRef ? "int64*" : IntPtr
+        phnsSampleDurationMarshal := phnsSampleDuration is VarRef ? "int64*" : IntPtr
 
         result := ComCall(3, this, phnsSampleTimeMarshal, phnsSampleTime, phnsSampleDurationMarshal, phnsSampleDuration, "HRESULT")
         return result
@@ -118,9 +118,9 @@ export default struct IMFDesiredSample extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDesiredSampleTimeAndDuration := CallbackCreate(GetMethod(implObj, "GetDesiredSampleTimeAndDuration"), flags, 3)
-        this.vtbl.SetDesiredSampleTimeAndDuration := CallbackCreate(GetMethod(implObj, "SetDesiredSampleTimeAndDuration"), flags, 3)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.GetDesiredSampleTimeAndDuration := CallbackCreate(ObjBindMethod(implObj, "GetDesiredSampleTimeAndDuration"), flags, 3)
+        this.vtbl.SetDesiredSampleTimeAndDuration := CallbackCreate(ObjBindMethod(implObj, "SetDesiredSampleTimeAndDuration"), flags, 3)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
     }
 
     Dispose() {

@@ -40,7 +40,6 @@ export default struct ISpProperties extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pName 
      * @param {Integer} lValue 
      * @returns {HRESULT} 
@@ -53,7 +52,6 @@ export default struct ISpProperties extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pName 
      * @param {Pointer<Integer>} plValue 
      * @returns {HRESULT} 
@@ -61,14 +59,13 @@ export default struct ISpProperties extends IUnknown {
     GetPropertyNum(pName, plValue) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        plValueMarshal := plValue is VarRef ? "int*" : "ptr"
+        plValueMarshal := plValue is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, "ptr", pName, plValueMarshal, plValue, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pName 
      * @param {PWSTR} pValue 
      * @returns {HRESULT} 
@@ -82,7 +79,6 @@ export default struct ISpProperties extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pName 
      * @returns {PWSTR} 
      */
@@ -102,10 +98,10 @@ export default struct ISpProperties extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetPropertyNum := CallbackCreate(GetMethod(implObj, "SetPropertyNum"), flags, 3)
-        this.vtbl.GetPropertyNum := CallbackCreate(GetMethod(implObj, "GetPropertyNum"), flags, 3)
-        this.vtbl.SetPropertyString := CallbackCreate(GetMethod(implObj, "SetPropertyString"), flags, 3)
-        this.vtbl.GetPropertyString := CallbackCreate(GetMethod(implObj, "GetPropertyString"), flags, 3)
+        this.vtbl.SetPropertyNum := CallbackCreate(ObjBindMethod(implObj, "SetPropertyNum"), flags, 3)
+        this.vtbl.GetPropertyNum := CallbackCreate(ObjBindMethod(implObj, "GetPropertyNum"), flags, 3)
+        this.vtbl.SetPropertyString := CallbackCreate(ObjBindMethod(implObj, "SetPropertyString"), flags, 3)
+        this.vtbl.GetPropertyString := CallbackCreate(ObjBindMethod(implObj, "GetPropertyString"), flags, 3)
     }
 
     Dispose() {

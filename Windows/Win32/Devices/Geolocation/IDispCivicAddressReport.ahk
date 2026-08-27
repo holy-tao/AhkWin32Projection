@@ -106,7 +106,6 @@ export default struct IDispCivicAddressReport extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_AddressLine1() {
@@ -116,7 +115,6 @@ export default struct IDispCivicAddressReport extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_AddressLine2() {
@@ -126,7 +124,6 @@ export default struct IDispCivicAddressReport extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_City() {
@@ -136,7 +133,6 @@ export default struct IDispCivicAddressReport extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_StateProvince() {
@@ -146,7 +142,6 @@ export default struct IDispCivicAddressReport extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PostalCode() {
@@ -156,7 +151,6 @@ export default struct IDispCivicAddressReport extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_CountryRegion() {
@@ -166,7 +160,6 @@ export default struct IDispCivicAddressReport extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DetailLevel() {
@@ -175,7 +168,6 @@ export default struct IDispCivicAddressReport extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_Timestamp() {
@@ -192,14 +184,14 @@ export default struct IDispCivicAddressReport extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_AddressLine1 := CallbackCreate(GetMethod(implObj, "get_AddressLine1"), flags, 2)
-        this.vtbl.get_AddressLine2 := CallbackCreate(GetMethod(implObj, "get_AddressLine2"), flags, 2)
-        this.vtbl.get_City := CallbackCreate(GetMethod(implObj, "get_City"), flags, 2)
-        this.vtbl.get_StateProvince := CallbackCreate(GetMethod(implObj, "get_StateProvince"), flags, 2)
-        this.vtbl.get_PostalCode := CallbackCreate(GetMethod(implObj, "get_PostalCode"), flags, 2)
-        this.vtbl.get_CountryRegion := CallbackCreate(GetMethod(implObj, "get_CountryRegion"), flags, 2)
-        this.vtbl.get_DetailLevel := CallbackCreate(GetMethod(implObj, "get_DetailLevel"), flags, 2)
-        this.vtbl.get_Timestamp := CallbackCreate(GetMethod(implObj, "get_Timestamp"), flags, 2)
+        this.vtbl.get_AddressLine1 := CallbackCreate(ObjBindMethod(implObj, "get_AddressLine1"), flags, 2)
+        this.vtbl.get_AddressLine2 := CallbackCreate(ObjBindMethod(implObj, "get_AddressLine2"), flags, 2)
+        this.vtbl.get_City := CallbackCreate(ObjBindMethod(implObj, "get_City"), flags, 2)
+        this.vtbl.get_StateProvince := CallbackCreate(ObjBindMethod(implObj, "get_StateProvince"), flags, 2)
+        this.vtbl.get_PostalCode := CallbackCreate(ObjBindMethod(implObj, "get_PostalCode"), flags, 2)
+        this.vtbl.get_CountryRegion := CallbackCreate(ObjBindMethod(implObj, "get_CountryRegion"), flags, 2)
+        this.vtbl.get_DetailLevel := CallbackCreate(ObjBindMethod(implObj, "get_DetailLevel"), flags, 2)
+        this.vtbl.get_Timestamp := CallbackCreate(ObjBindMethod(implObj, "get_Timestamp"), flags, 2)
     }
 
     Dispose() {

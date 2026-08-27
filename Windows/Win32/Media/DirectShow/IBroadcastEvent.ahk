@@ -101,7 +101,7 @@ export default struct IBroadcastEvent extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Fire := CallbackCreate(GetMethod(implObj, "Fire"), flags, 2)
+        this.vtbl.Fire := CallbackCreate(ObjBindMethod(implObj, "Fire"), flags, 2)
     }
 
     Dispose() {

@@ -88,9 +88,12 @@ export default struct IMFCapturePreviewSink extends IMFCaptureSink {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturepreviewsink-updatevideo
      */
     UpdateVideo(pSrc, pDst, pBorderClr) {
-        pBorderClrMarshal := pBorderClr is VarRef ? "uint*" : "ptr"
+        pSrcMarshal := pSrc == 0 ? IntPtr : MFVideoNormalizedRect.Ptr
+        pDstMarshal := pDst == 0 ? IntPtr : RECT.Ptr
+        pBorderClrMarshal := pBorderClr is VarRef ? "uint*" : IntPtr
+        pBorderClrMarshal := pBorderClr == 0 ? IntPtr : COLORREF.Ptr
 
-        result := ComCall(10, this, MFVideoNormalizedRect.Ptr, pSrc, RECT.Ptr, pDst, pBorderClrMarshal, pBorderClr, "HRESULT")
+        result := ComCall(10, this, pSrcMarshal, pSrc, pDstMarshal, pDst, pBorderClrMarshal, pBorderClr, "HRESULT")
         return result
     }
 
@@ -174,15 +177,15 @@ export default struct IMFCapturePreviewSink extends IMFCaptureSink {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetRenderHandle := CallbackCreate(GetMethod(implObj, "SetRenderHandle"), flags, 2)
-        this.vtbl.SetRenderSurface := CallbackCreate(GetMethod(implObj, "SetRenderSurface"), flags, 2)
-        this.vtbl.UpdateVideo := CallbackCreate(GetMethod(implObj, "UpdateVideo"), flags, 4)
-        this.vtbl.SetSampleCallback := CallbackCreate(GetMethod(implObj, "SetSampleCallback"), flags, 3)
-        this.vtbl.GetMirrorState := CallbackCreate(GetMethod(implObj, "GetMirrorState"), flags, 2)
-        this.vtbl.SetMirrorState := CallbackCreate(GetMethod(implObj, "SetMirrorState"), flags, 2)
-        this.vtbl.GetRotation := CallbackCreate(GetMethod(implObj, "GetRotation"), flags, 3)
-        this.vtbl.SetRotation := CallbackCreate(GetMethod(implObj, "SetRotation"), flags, 3)
-        this.vtbl.SetCustomSink := CallbackCreate(GetMethod(implObj, "SetCustomSink"), flags, 2)
+        this.vtbl.SetRenderHandle := CallbackCreate(ObjBindMethod(implObj, "SetRenderHandle"), flags, 2)
+        this.vtbl.SetRenderSurface := CallbackCreate(ObjBindMethod(implObj, "SetRenderSurface"), flags, 2)
+        this.vtbl.UpdateVideo := CallbackCreate(ObjBindMethod(implObj, "UpdateVideo"), flags, 4)
+        this.vtbl.SetSampleCallback := CallbackCreate(ObjBindMethod(implObj, "SetSampleCallback"), flags, 3)
+        this.vtbl.GetMirrorState := CallbackCreate(ObjBindMethod(implObj, "GetMirrorState"), flags, 2)
+        this.vtbl.SetMirrorState := CallbackCreate(ObjBindMethod(implObj, "SetMirrorState"), flags, 2)
+        this.vtbl.GetRotation := CallbackCreate(ObjBindMethod(implObj, "GetRotation"), flags, 3)
+        this.vtbl.SetRotation := CallbackCreate(ObjBindMethod(implObj, "SetRotation"), flags, 3)
+        this.vtbl.SetCustomSink := CallbackCreate(ObjBindMethod(implObj, "SetCustomSink"), flags, 2)
     }
 
     Dispose() {

@@ -18,7 +18,6 @@ export default struct PMPRADMINTERMINATEDLL {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Call() {

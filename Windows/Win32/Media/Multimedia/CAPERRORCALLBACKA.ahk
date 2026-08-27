@@ -33,7 +33,6 @@ export default struct CAPERRORCALLBACKA {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd Handle to the capture window associated with the callback function.
      * @param {Integer} nID Error identification number.
      * @param {PSTR} lpsz Pointer to a textual description of the returned error.

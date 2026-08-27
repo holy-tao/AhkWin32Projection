@@ -584,14 +584,14 @@ export default struct IWMDMDeviceControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
-        this.vtbl.GetCapabilities := CallbackCreate(GetMethod(implObj, "GetCapabilities"), flags, 2)
-        this.vtbl.Play := CallbackCreate(GetMethod(implObj, "Play"), flags, 1)
-        this.vtbl.Record := CallbackCreate(GetMethod(implObj, "Record"), flags, 2)
-        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
-        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 1)
-        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
-        this.vtbl.Seek := CallbackCreate(GetMethod(implObj, "Seek"), flags, 3)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.GetCapabilities := CallbackCreate(ObjBindMethod(implObj, "GetCapabilities"), flags, 2)
+        this.vtbl.Play := CallbackCreate(ObjBindMethod(implObj, "Play"), flags, 1)
+        this.vtbl.Record := CallbackCreate(ObjBindMethod(implObj, "Record"), flags, 2)
+        this.vtbl.Pause := CallbackCreate(ObjBindMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Resume := CallbackCreate(ObjBindMethod(implObj, "Resume"), flags, 1)
+        this.vtbl.Stop := CallbackCreate(ObjBindMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.Seek := CallbackCreate(ObjBindMethod(implObj, "Seek"), flags, 3)
     }
 
     Dispose() {

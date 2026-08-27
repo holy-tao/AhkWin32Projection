@@ -562,19 +562,19 @@ export default struct IPart extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
-        this.vtbl.GetLocalId := CallbackCreate(GetMethod(implObj, "GetLocalId"), flags, 2)
-        this.vtbl.GetGlobalId := CallbackCreate(GetMethod(implObj, "GetGlobalId"), flags, 2)
-        this.vtbl.GetPartType := CallbackCreate(GetMethod(implObj, "GetPartType"), flags, 2)
-        this.vtbl.GetSubType := CallbackCreate(GetMethod(implObj, "GetSubType"), flags, 2)
-        this.vtbl.GetControlInterfaceCount := CallbackCreate(GetMethod(implObj, "GetControlInterfaceCount"), flags, 2)
-        this.vtbl.GetControlInterface := CallbackCreate(GetMethod(implObj, "GetControlInterface"), flags, 3)
-        this.vtbl.EnumPartsIncoming := CallbackCreate(GetMethod(implObj, "EnumPartsIncoming"), flags, 2)
-        this.vtbl.EnumPartsOutgoing := CallbackCreate(GetMethod(implObj, "EnumPartsOutgoing"), flags, 2)
-        this.vtbl.GetTopologyObject := CallbackCreate(GetMethod(implObj, "GetTopologyObject"), flags, 2)
-        this.vtbl.Activate := CallbackCreate(GetMethod(implObj, "Activate"), flags, 4)
-        this.vtbl.RegisterControlChangeCallback := CallbackCreate(GetMethod(implObj, "RegisterControlChangeCallback"), flags, 3)
-        this.vtbl.UnregisterControlChangeCallback := CallbackCreate(GetMethod(implObj, "UnregisterControlChangeCallback"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetLocalId := CallbackCreate(ObjBindMethod(implObj, "GetLocalId"), flags, 2)
+        this.vtbl.GetGlobalId := CallbackCreate(ObjBindMethod(implObj, "GetGlobalId"), flags, 2)
+        this.vtbl.GetPartType := CallbackCreate(ObjBindMethod(implObj, "GetPartType"), flags, 2)
+        this.vtbl.GetSubType := CallbackCreate(ObjBindMethod(implObj, "GetSubType"), flags, 2)
+        this.vtbl.GetControlInterfaceCount := CallbackCreate(ObjBindMethod(implObj, "GetControlInterfaceCount"), flags, 2)
+        this.vtbl.GetControlInterface := CallbackCreate(ObjBindMethod(implObj, "GetControlInterface"), flags, 3)
+        this.vtbl.EnumPartsIncoming := CallbackCreate(ObjBindMethod(implObj, "EnumPartsIncoming"), flags, 2)
+        this.vtbl.EnumPartsOutgoing := CallbackCreate(ObjBindMethod(implObj, "EnumPartsOutgoing"), flags, 2)
+        this.vtbl.GetTopologyObject := CallbackCreate(ObjBindMethod(implObj, "GetTopologyObject"), flags, 2)
+        this.vtbl.Activate := CallbackCreate(ObjBindMethod(implObj, "Activate"), flags, 4)
+        this.vtbl.RegisterControlChangeCallback := CallbackCreate(ObjBindMethod(implObj, "RegisterControlChangeCallback"), flags, 3)
+        this.vtbl.UnregisterControlChangeCallback := CallbackCreate(ObjBindMethod(implObj, "UnregisterControlChangeCallback"), flags, 2)
     }
 
     Dispose() {

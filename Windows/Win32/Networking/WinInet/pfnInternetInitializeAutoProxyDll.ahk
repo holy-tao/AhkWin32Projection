@@ -22,7 +22,6 @@ export default struct pfnInternetInitializeAutoProxyDll {
     }
 
     /**
-     * 
      * @param {Integer} dwVersion 
      * @param {PSTR} lpszDownloadedTempFile 
      * @param {PSTR} lpszMime 

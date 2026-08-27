@@ -83,7 +83,7 @@ export default struct IDirectMusicSynth8 extends IDirectMusicSynth {
      * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynth8-getvoicestate
      */
     GetVoiceState(dwVoice, cbVoice, dwVoiceState) {
-        dwVoiceMarshal := dwVoice is VarRef ? "uint*" : "ptr"
+        dwVoiceMarshal := dwVoice is VarRef ? "uint*" : IntPtr
 
         result := ComCall(22, this, dwVoiceMarshal, dwVoice, UInt32, cbVoice, DMUS_VOICE_STATE.Ptr, dwVoiceState, "HRESULT")
         return result
@@ -111,7 +111,7 @@ export default struct IDirectMusicSynth8 extends IDirectMusicSynth {
      * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynth8-assignchanneltobuses
      */
     AssignChannelToBuses(dwChannelGroup, dwChannel, pdwBuses, cBuses) {
-        pdwBusesMarshal := pdwBuses is VarRef ? "uint*" : "ptr"
+        pdwBusesMarshal := pdwBuses is VarRef ? "uint*" : IntPtr
 
         result := ComCall(24, this, UInt32, dwChannelGroup, UInt32, dwChannel, pdwBusesMarshal, pdwBuses, UInt32, cBuses, "HRESULT")
         return result
@@ -126,11 +126,11 @@ export default struct IDirectMusicSynth8 extends IDirectMusicSynth {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PlayVoice := CallbackCreate(GetMethod(implObj, "PlayVoice"), flags, 11)
-        this.vtbl.StopVoice := CallbackCreate(GetMethod(implObj, "StopVoice"), flags, 3)
-        this.vtbl.GetVoiceState := CallbackCreate(GetMethod(implObj, "GetVoiceState"), flags, 4)
-        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 3)
-        this.vtbl.AssignChannelToBuses := CallbackCreate(GetMethod(implObj, "AssignChannelToBuses"), flags, 5)
+        this.vtbl.PlayVoice := CallbackCreate(ObjBindMethod(implObj, "PlayVoice"), flags, 11)
+        this.vtbl.StopVoice := CallbackCreate(ObjBindMethod(implObj, "StopVoice"), flags, 3)
+        this.vtbl.GetVoiceState := CallbackCreate(ObjBindMethod(implObj, "GetVoiceState"), flags, 4)
+        this.vtbl.Refresh := CallbackCreate(ObjBindMethod(implObj, "Refresh"), flags, 3)
+        this.vtbl.AssignChannelToBuses := CallbackCreate(ObjBindMethod(implObj, "AssignChannelToBuses"), flags, 5)
     }
 
     Dispose() {

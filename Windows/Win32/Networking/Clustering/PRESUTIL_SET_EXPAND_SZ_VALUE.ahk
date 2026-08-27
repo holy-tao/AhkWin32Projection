@@ -20,7 +20,6 @@ export default struct PRESUTIL_SET_EXPAND_SZ_VALUE {
     }
 
     /**
-     * 
      * @param {HKEY} hkeyClusterKey 
      * @param {PWSTR} pszValueName 
      * @param {PWSTR} pszNewValue 
@@ -31,7 +30,8 @@ export default struct PRESUTIL_SET_EXPAND_SZ_VALUE {
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
         pszNewValue := pszNewValue is String ? StrPtr(pszNewValue) : pszNewValue
 
-        ppszOutStringMarshal := ppszOutString is VarRef ? "ptr*" : "ptr"
+        ppszOutStringMarshal := ppszOutString is VarRef ? "ptr*" : IntPtr
+        ppszOutStringMarshal := ppszOutString == 0 ? IntPtr : PWSTR.Ptr
 
         result := DllCall(this.value, HKEY, hkeyClusterKey, "ptr", pszValueName, "ptr", pszNewValue, ppszOutStringMarshal, ppszOutString, UInt32)
         return result

@@ -54,7 +54,9 @@ export default struct IWindowsParentalControls extends IWindowsParentalControlsC
     GetGamesSettings(pcszSID) {
         pcszSID := pcszSID is String ? StrPtr(pcszSID) : pcszSID
 
-        result := ComCall(7, this, "ptr", pcszSID, "ptr*", &ppSettings := 0, "HRESULT")
+        pcszSIDMarshal := pcszSID == 0 ? IntPtr : PWSTR
+
+        result := ComCall(7, this, pcszSIDMarshal, pcszSID, "ptr*", &ppSettings := 0, "HRESULT")
         return IWPCGamesSettings(ppSettings)
     }
 
@@ -67,7 +69,7 @@ export default struct IWindowsParentalControls extends IWindowsParentalControlsC
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetGamesSettings := CallbackCreate(GetMethod(implObj, "GetGamesSettings"), flags, 3)
+        this.vtbl.GetGamesSettings := CallbackCreate(ObjBindMethod(implObj, "GetGamesSettings"), flags, 3)
     }
 
     Dispose() {

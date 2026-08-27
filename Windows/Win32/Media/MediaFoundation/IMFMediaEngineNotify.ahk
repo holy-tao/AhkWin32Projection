@@ -61,7 +61,7 @@ export default struct IMFMediaEngineNotify extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EventNotify := CallbackCreate(GetMethod(implObj, "EventNotify"), flags, 4)
+        this.vtbl.EventNotify := CallbackCreate(ObjBindMethod(implObj, "EventNotify"), flags, 4)
     }
 
     Dispose() {

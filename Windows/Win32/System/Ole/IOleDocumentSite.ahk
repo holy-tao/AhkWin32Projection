@@ -80,7 +80,7 @@ export default struct IOleDocumentSite extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ActivateMe := CallbackCreate(GetMethod(implObj, "ActivateMe"), flags, 2)
+        this.vtbl.ActivateMe := CallbackCreate(ObjBindMethod(implObj, "ActivateMe"), flags, 2)
     }
 
     Dispose() {

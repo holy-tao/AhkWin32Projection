@@ -43,7 +43,6 @@ export default struct IDebugFormatter extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvar 
      * @param {Integer} nRadix 
      * @returns {BSTR} 
@@ -55,7 +54,6 @@ export default struct IDebugFormatter extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwstrValue 
      * @returns {VARIANT} 
      */
@@ -68,7 +66,6 @@ export default struct IDebugFormatter extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARENUM} vt 
      * @param {Pointer<TYPEDESC>} ptdescArrayType 
      * @returns {BSTR} 
@@ -88,9 +85,9 @@ export default struct IDebugFormatter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStringForVariant := CallbackCreate(GetMethod(implObj, "GetStringForVariant"), flags, 4)
-        this.vtbl.GetVariantForString := CallbackCreate(GetMethod(implObj, "GetVariantForString"), flags, 3)
-        this.vtbl.GetStringForVarType := CallbackCreate(GetMethod(implObj, "GetStringForVarType"), flags, 4)
+        this.vtbl.GetStringForVariant := CallbackCreate(ObjBindMethod(implObj, "GetStringForVariant"), flags, 4)
+        this.vtbl.GetVariantForString := CallbackCreate(ObjBindMethod(implObj, "GetVariantForString"), flags, 3)
+        this.vtbl.GetStringForVarType := CallbackCreate(ObjBindMethod(implObj, "GetStringForVarType"), flags, 4)
     }
 
     Dispose() {

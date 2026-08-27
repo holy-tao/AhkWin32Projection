@@ -61,7 +61,7 @@ export default struct ID3D11CommandList extends ID3D11DeviceChild {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetContextFlags := CallbackCreate(GetMethod(implObj, "GetContextFlags"), flags, 1)
+        this.vtbl.GetContextFlags := CallbackCreate(ObjBindMethod(implObj, "GetContextFlags"), flags, 1)
     }
 
     Dispose() {

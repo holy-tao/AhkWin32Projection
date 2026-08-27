@@ -49,7 +49,6 @@ export default struct IDebugHostSymbol extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugHostContext} 
      */
     GetContext() {
@@ -58,7 +57,6 @@ export default struct IDebugHostSymbol extends IUnknown {
     }
 
     /**
-     * 
      * @param {SymbolKind} kind 
      * @param {PWSTR} name 
      * @returns {IDebugHostSymbolEnumerator} 
@@ -66,12 +64,13 @@ export default struct IDebugHostSymbol extends IUnknown {
     EnumerateChildren(kind, name) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(4, this, SymbolKind, kind, "ptr", name, "ptr*", &ppEnum := 0, "HRESULT")
+        nameMarshal := name == 0 ? IntPtr : PWSTR
+
+        result := ComCall(4, this, SymbolKind, kind, nameMarshal, name, "ptr*", &ppEnum := 0, "HRESULT")
         return IDebugHostSymbolEnumerator(ppEnum)
     }
 
     /**
-     * 
      * @returns {SymbolKind} 
      */
     GetSymbolKind() {
@@ -91,7 +90,6 @@ export default struct IDebugHostSymbol extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugHostType} 
      */
     GetType() {
@@ -100,7 +98,6 @@ export default struct IDebugHostSymbol extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugHostModule} 
      */
     GetContainingModule() {
@@ -109,7 +106,6 @@ export default struct IDebugHostSymbol extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugHostSymbol} pComparisonSymbol 
      * @param {Integer} comparisonFlags 
      * @returns {Boolean} 
@@ -128,13 +124,13 @@ export default struct IDebugHostSymbol extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetContext := CallbackCreate(GetMethod(implObj, "GetContext"), flags, 2)
-        this.vtbl.EnumerateChildren := CallbackCreate(GetMethod(implObj, "EnumerateChildren"), flags, 4)
-        this.vtbl.GetSymbolKind := CallbackCreate(GetMethod(implObj, "GetSymbolKind"), flags, 2)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
-        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
-        this.vtbl.GetContainingModule := CallbackCreate(GetMethod(implObj, "GetContainingModule"), flags, 2)
-        this.vtbl.CompareAgainst := CallbackCreate(GetMethod(implObj, "CompareAgainst"), flags, 4)
+        this.vtbl.GetContext := CallbackCreate(ObjBindMethod(implObj, "GetContext"), flags, 2)
+        this.vtbl.EnumerateChildren := CallbackCreate(ObjBindMethod(implObj, "EnumerateChildren"), flags, 4)
+        this.vtbl.GetSymbolKind := CallbackCreate(ObjBindMethod(implObj, "GetSymbolKind"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(ObjBindMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.GetContainingModule := CallbackCreate(ObjBindMethod(implObj, "GetContainingModule"), flags, 2)
+        this.vtbl.CompareAgainst := CallbackCreate(ObjBindMethod(implObj, "CompareAgainst"), flags, 4)
     }
 
     Dispose() {

@@ -41,7 +41,6 @@ export default struct IPrintPipelinePropertyBag extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszName 
      * @param {Pointer<VARIANT>} pVar 
      * @returns {HRESULT} 
@@ -72,7 +71,6 @@ export default struct IPrintPipelinePropertyBag extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszName 
      * @returns {BOOL} 
      */
@@ -92,9 +90,9 @@ export default struct IPrintPipelinePropertyBag extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddProperty := CallbackCreate(GetMethod(implObj, "AddProperty"), flags, 3)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
-        this.vtbl.DeleteProperty := CallbackCreate(GetMethod(implObj, "DeleteProperty"), flags, 2)
+        this.vtbl.AddProperty := CallbackCreate(ObjBindMethod(implObj, "AddProperty"), flags, 3)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.DeleteProperty := CallbackCreate(ObjBindMethod(implObj, "DeleteProperty"), flags, 2)
     }
 
     Dispose() {

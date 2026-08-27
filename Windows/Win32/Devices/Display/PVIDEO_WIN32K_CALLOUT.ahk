@@ -18,12 +18,11 @@ export default struct PVIDEO_WIN32K_CALLOUT {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Params 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(Params) {
-        ParamsMarshal := Params is VarRef ? "ptr" : "ptr"
+        ParamsMarshal := Params is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, ParamsMarshal, Params)
     }

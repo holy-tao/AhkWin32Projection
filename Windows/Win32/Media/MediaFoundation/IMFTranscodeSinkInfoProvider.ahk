@@ -157,10 +157,10 @@ export default struct IMFTranscodeSinkInfoProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetOutputFile := CallbackCreate(GetMethod(implObj, "SetOutputFile"), flags, 2)
-        this.vtbl.SetOutputByteStream := CallbackCreate(GetMethod(implObj, "SetOutputByteStream"), flags, 2)
-        this.vtbl.SetProfile := CallbackCreate(GetMethod(implObj, "SetProfile"), flags, 2)
-        this.vtbl.GetSinkInfo := CallbackCreate(GetMethod(implObj, "GetSinkInfo"), flags, 2)
+        this.vtbl.SetOutputFile := CallbackCreate(ObjBindMethod(implObj, "SetOutputFile"), flags, 2)
+        this.vtbl.SetOutputByteStream := CallbackCreate(ObjBindMethod(implObj, "SetOutputByteStream"), flags, 2)
+        this.vtbl.SetProfile := CallbackCreate(ObjBindMethod(implObj, "SetProfile"), flags, 2)
+        this.vtbl.GetSinkInfo := CallbackCreate(ObjBindMethod(implObj, "GetSinkInfo"), flags, 2)
     }
 
     Dispose() {

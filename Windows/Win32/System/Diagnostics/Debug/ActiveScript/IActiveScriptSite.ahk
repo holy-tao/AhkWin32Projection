@@ -50,7 +50,6 @@ export default struct IActiveScriptSite extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetLCID() {
@@ -59,7 +58,6 @@ export default struct IActiveScriptSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pstrName 
      * @param {Integer} dwReturnMask 
      * @param {Pointer<IUnknown>} ppiunkItem 
@@ -74,7 +72,6 @@ export default struct IActiveScriptSite extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetDocVersionString() {
@@ -84,7 +81,6 @@ export default struct IActiveScriptSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvarResult 
      * @param {Pointer<EXCEPINFO>} pexcepinfo 
      * @returns {HRESULT} 
@@ -95,7 +91,6 @@ export default struct IActiveScriptSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {SCRIPTSTATE} ssScriptState 
      * @returns {HRESULT} 
      */
@@ -105,7 +100,6 @@ export default struct IActiveScriptSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {IActiveScriptError} pscripterror 
      * @returns {HRESULT} 
      */
@@ -115,7 +109,6 @@ export default struct IActiveScriptSite extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     OnEnterScript() {
@@ -124,7 +117,6 @@ export default struct IActiveScriptSite extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     OnLeaveScript() {
@@ -141,14 +133,14 @@ export default struct IActiveScriptSite extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLCID := CallbackCreate(GetMethod(implObj, "GetLCID"), flags, 2)
-        this.vtbl.GetItemInfo := CallbackCreate(GetMethod(implObj, "GetItemInfo"), flags, 5)
-        this.vtbl.GetDocVersionString := CallbackCreate(GetMethod(implObj, "GetDocVersionString"), flags, 2)
-        this.vtbl.OnScriptTerminate := CallbackCreate(GetMethod(implObj, "OnScriptTerminate"), flags, 3)
-        this.vtbl.OnStateChange := CallbackCreate(GetMethod(implObj, "OnStateChange"), flags, 2)
-        this.vtbl.OnScriptError := CallbackCreate(GetMethod(implObj, "OnScriptError"), flags, 2)
-        this.vtbl.OnEnterScript := CallbackCreate(GetMethod(implObj, "OnEnterScript"), flags, 1)
-        this.vtbl.OnLeaveScript := CallbackCreate(GetMethod(implObj, "OnLeaveScript"), flags, 1)
+        this.vtbl.GetLCID := CallbackCreate(ObjBindMethod(implObj, "GetLCID"), flags, 2)
+        this.vtbl.GetItemInfo := CallbackCreate(ObjBindMethod(implObj, "GetItemInfo"), flags, 5)
+        this.vtbl.GetDocVersionString := CallbackCreate(ObjBindMethod(implObj, "GetDocVersionString"), flags, 2)
+        this.vtbl.OnScriptTerminate := CallbackCreate(ObjBindMethod(implObj, "OnScriptTerminate"), flags, 3)
+        this.vtbl.OnStateChange := CallbackCreate(ObjBindMethod(implObj, "OnStateChange"), flags, 2)
+        this.vtbl.OnScriptError := CallbackCreate(ObjBindMethod(implObj, "OnScriptError"), flags, 2)
+        this.vtbl.OnEnterScript := CallbackCreate(ObjBindMethod(implObj, "OnEnterScript"), flags, 1)
+        this.vtbl.OnLeaveScript := CallbackCreate(ObjBindMethod(implObj, "OnLeaveScript"), flags, 1)
     }
 
     Dispose() {

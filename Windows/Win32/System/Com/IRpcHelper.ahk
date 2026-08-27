@@ -37,7 +37,6 @@ export default struct IRpcHelper extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetDCOMProtocolVersion() {
@@ -46,12 +45,11 @@ export default struct IRpcHelper extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pObjRef 
      * @returns {Pointer<Guid>} 
      */
     GetIIDFromOBJREF(pObjRef) {
-        pObjRefMarshal := pObjRef is VarRef ? "ptr" : "ptr"
+        pObjRefMarshal := pObjRef is VarRef ? "ptr" : IntPtr
 
         result := ComCall(4, this, pObjRefMarshal, pObjRef, "ptr*", &piid := 0, "HRESULT")
         return piid
@@ -66,8 +64,8 @@ export default struct IRpcHelper extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDCOMProtocolVersion := CallbackCreate(GetMethod(implObj, "GetDCOMProtocolVersion"), flags, 2)
-        this.vtbl.GetIIDFromOBJREF := CallbackCreate(GetMethod(implObj, "GetIIDFromOBJREF"), flags, 3)
+        this.vtbl.GetDCOMProtocolVersion := CallbackCreate(ObjBindMethod(implObj, "GetDCOMProtocolVersion"), flags, 2)
+        this.vtbl.GetIIDFromOBJREF := CallbackCreate(ObjBindMethod(implObj, "GetIIDFromOBJREF"), flags, 3)
     }
 
     Dispose() {

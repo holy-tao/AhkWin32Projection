@@ -263,7 +263,7 @@ export default struct IShellWindows extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-findwindowsw
      */
     FindWindowSW(pvarLoc, pvarLocRoot, swClass, phwnd, swfwOptions) {
-        phwndMarshal := phwnd is VarRef ? "int*" : "ptr"
+        phwndMarshal := phwnd is VarRef ? "int*" : IntPtr
 
         result := ComCall(15, this, VARIANT.Ptr, pvarLoc, VARIANT.Ptr, pvarLocRoot, ShellWindowTypeConstants, swClass, phwndMarshal, phwnd, ShellWindowFindWindowOptions, swfwOptions, "ptr*", &ppdispOut := 0, "HRESULT")
         return IDispatch(ppdispOut)
@@ -313,17 +313,17 @@ export default struct IShellWindows extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 3)
-        this.vtbl._NewEnum := CallbackCreate(GetMethod(implObj, "_NewEnum"), flags, 2)
-        this.vtbl.Register := CallbackCreate(GetMethod(implObj, "Register"), flags, 5)
-        this.vtbl.RegisterPending := CallbackCreate(GetMethod(implObj, "RegisterPending"), flags, 6)
-        this.vtbl.Revoke := CallbackCreate(GetMethod(implObj, "Revoke"), flags, 2)
-        this.vtbl.OnNavigate := CallbackCreate(GetMethod(implObj, "OnNavigate"), flags, 3)
-        this.vtbl.OnActivated := CallbackCreate(GetMethod(implObj, "OnActivated"), flags, 3)
-        this.vtbl.FindWindowSW := CallbackCreate(GetMethod(implObj, "FindWindowSW"), flags, 7)
-        this.vtbl.OnCreated := CallbackCreate(GetMethod(implObj, "OnCreated"), flags, 3)
-        this.vtbl.ProcessAttachDetach := CallbackCreate(GetMethod(implObj, "ProcessAttachDetach"), flags, 2)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.Item := CallbackCreate(ObjBindMethod(implObj, "Item"), flags, 3)
+        this.vtbl._NewEnum := CallbackCreate(ObjBindMethod(implObj, "_NewEnum"), flags, 2)
+        this.vtbl.Register := CallbackCreate(ObjBindMethod(implObj, "Register"), flags, 5)
+        this.vtbl.RegisterPending := CallbackCreate(ObjBindMethod(implObj, "RegisterPending"), flags, 6)
+        this.vtbl.Revoke := CallbackCreate(ObjBindMethod(implObj, "Revoke"), flags, 2)
+        this.vtbl.OnNavigate := CallbackCreate(ObjBindMethod(implObj, "OnNavigate"), flags, 3)
+        this.vtbl.OnActivated := CallbackCreate(ObjBindMethod(implObj, "OnActivated"), flags, 3)
+        this.vtbl.FindWindowSW := CallbackCreate(ObjBindMethod(implObj, "FindWindowSW"), flags, 7)
+        this.vtbl.OnCreated := CallbackCreate(ObjBindMethod(implObj, "OnCreated"), flags, 3)
+        this.vtbl.ProcessAttachDetach := CallbackCreate(ObjBindMethod(implObj, "ProcessAttachDetach"), flags, 2)
     }
 
     Dispose() {

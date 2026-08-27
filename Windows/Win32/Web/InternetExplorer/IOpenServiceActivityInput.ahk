@@ -42,7 +42,6 @@ export default struct IOpenServiceActivityInput extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzVariableName 
      * @param {PWSTR} pwzVariableType 
      * @returns {BSTR} 
@@ -57,7 +56,6 @@ export default struct IOpenServiceActivityInput extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzVariableName 
      * @param {PWSTR} pwzVariableType 
      * @returns {BOOL} 
@@ -71,7 +69,6 @@ export default struct IOpenServiceActivityInput extends IUnknown {
     }
 
     /**
-     * 
      * @returns {OpenServiceActivityContentType} 
      */
     GetType() {
@@ -88,9 +85,9 @@ export default struct IOpenServiceActivityInput extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetVariable := CallbackCreate(GetMethod(implObj, "GetVariable"), flags, 4)
-        this.vtbl.HasVariable := CallbackCreate(GetMethod(implObj, "HasVariable"), flags, 4)
-        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.GetVariable := CallbackCreate(ObjBindMethod(implObj, "GetVariable"), flags, 4)
+        this.vtbl.HasVariable := CallbackCreate(ObjBindMethod(implObj, "HasVariable"), flags, 4)
+        this.vtbl.GetType := CallbackCreate(ObjBindMethod(implObj, "GetType"), flags, 2)
     }
 
     Dispose() {

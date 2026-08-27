@@ -36,13 +36,12 @@ export default struct IHttpNegotiate2 extends IHttpNegotiate {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcbSecurityId 
      * @param {Pointer} dwReserved 
      * @returns {Integer} 
      */
     GetRootSecurityId(pcbSecurityId, dwReserved) {
-        pcbSecurityIdMarshal := pcbSecurityId is VarRef ? "uint*" : "ptr"
+        pcbSecurityIdMarshal := pcbSecurityId is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, "char*", &pbSecurityId := 0, pcbSecurityIdMarshal, pcbSecurityId, IntPtr, dwReserved, "HRESULT")
         return pbSecurityId
@@ -57,7 +56,7 @@ export default struct IHttpNegotiate2 extends IHttpNegotiate {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRootSecurityId := CallbackCreate(GetMethod(implObj, "GetRootSecurityId"), flags, 4)
+        this.vtbl.GetRootSecurityId := CallbackCreate(ObjBindMethod(implObj, "GetRootSecurityId"), flags, 4)
     }
 
     Dispose() {

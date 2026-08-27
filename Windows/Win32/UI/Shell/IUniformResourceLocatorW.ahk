@@ -41,7 +41,6 @@ export default struct IUniformResourceLocatorW extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pcszURL 
      * @param {Integer} dwInFlags 
      * @returns {HRESULT} 
@@ -54,7 +53,6 @@ export default struct IUniformResourceLocatorW extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetURL() {
@@ -63,7 +61,6 @@ export default struct IUniformResourceLocatorW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<URLINVOKECOMMANDINFOW>} purlici 
      * @returns {HRESULT} 
      */
@@ -81,9 +78,9 @@ export default struct IUniformResourceLocatorW extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetURL := CallbackCreate(GetMethod(implObj, "SetURL"), flags, 3)
-        this.vtbl.GetURL := CallbackCreate(GetMethod(implObj, "GetURL"), flags, 2)
-        this.vtbl.InvokeCommand := CallbackCreate(GetMethod(implObj, "InvokeCommand"), flags, 2)
+        this.vtbl.SetURL := CallbackCreate(ObjBindMethod(implObj, "SetURL"), flags, 3)
+        this.vtbl.GetURL := CallbackCreate(ObjBindMethod(implObj, "GetURL"), flags, 2)
+        this.vtbl.InvokeCommand := CallbackCreate(ObjBindMethod(implObj, "InvokeCommand"), flags, 2)
     }
 
     Dispose() {

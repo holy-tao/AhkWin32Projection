@@ -86,8 +86,8 @@ export default struct ID3D12VideoEncodeCommandList2 extends ID3D12VideoEncodeCom
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EncodeFrame := CallbackCreate(GetMethod(implObj, "EncodeFrame"), flags, 5)
-        this.vtbl.ResolveEncoderOutputMetadata := CallbackCreate(GetMethod(implObj, "ResolveEncoderOutputMetadata"), flags, 3)
+        this.vtbl.EncodeFrame := CallbackCreate(ObjBindMethod(implObj, "EncodeFrame"), flags, 5)
+        this.vtbl.ResolveEncoderOutputMetadata := CallbackCreate(ObjBindMethod(implObj, "ResolveEncoderOutputMetadata"), flags, 3)
     }
 
     Dispose() {

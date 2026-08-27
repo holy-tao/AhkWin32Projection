@@ -170,12 +170,12 @@ export default struct IAMChannelInfo extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ChannelName := CallbackCreate(GetMethod(implObj, "get_ChannelName"), flags, 2)
-        this.vtbl.get_ChannelDescription := CallbackCreate(GetMethod(implObj, "get_ChannelDescription"), flags, 2)
-        this.vtbl.get_ChannelURL := CallbackCreate(GetMethod(implObj, "get_ChannelURL"), flags, 2)
-        this.vtbl.get_ContactAddress := CallbackCreate(GetMethod(implObj, "get_ContactAddress"), flags, 2)
-        this.vtbl.get_ContactPhone := CallbackCreate(GetMethod(implObj, "get_ContactPhone"), flags, 2)
-        this.vtbl.get_ContactEmail := CallbackCreate(GetMethod(implObj, "get_ContactEmail"), flags, 2)
+        this.vtbl.get_ChannelName := CallbackCreate(ObjBindMethod(implObj, "get_ChannelName"), flags, 2)
+        this.vtbl.get_ChannelDescription := CallbackCreate(ObjBindMethod(implObj, "get_ChannelDescription"), flags, 2)
+        this.vtbl.get_ChannelURL := CallbackCreate(ObjBindMethod(implObj, "get_ChannelURL"), flags, 2)
+        this.vtbl.get_ContactAddress := CallbackCreate(ObjBindMethod(implObj, "get_ContactAddress"), flags, 2)
+        this.vtbl.get_ContactPhone := CallbackCreate(ObjBindMethod(implObj, "get_ContactPhone"), flags, 2)
+        this.vtbl.get_ContactEmail := CallbackCreate(ObjBindMethod(implObj, "get_ContactEmail"), flags, 2)
     }
 
     Dispose() {

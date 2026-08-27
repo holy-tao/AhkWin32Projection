@@ -10,7 +10,6 @@
 
 ;@region Functions
 /**
- * 
  * @param {PWSTR} pszXmlIn 
  * @param {Pointer<PWSTR>} rgszAllowedCspNodes 
  * @param {Integer} dwNumAllowedCspNodes 
@@ -19,7 +18,7 @@
 export DMProcessConfigXMLFiltered(pszXmlIn, rgszAllowedCspNodes, dwNumAllowedCspNodes) {
     pszXmlIn := pszXmlIn is String ? StrPtr(pszXmlIn) : pszXmlIn
 
-    rgszAllowedCspNodesMarshal := rgszAllowedCspNodes is VarRef ? "ptr*" : "ptr"
+    rgszAllowedCspNodesMarshal := rgszAllowedCspNodes is VarRef ? "ptr*" : IntPtr
 
     pbstrXmlOut := BSTR.Owned()
     result := DllCall("DMProcessXMLFiltered.dll\DMProcessConfigXMLFiltered", "ptr", pszXmlIn, rgszAllowedCspNodesMarshal, rgszAllowedCspNodes, UInt32, dwNumAllowedCspNodes, BSTR.Ptr, pbstrXmlOut, "HRESULT")

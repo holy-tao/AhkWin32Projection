@@ -60,7 +60,6 @@ export default struct PDD_CANCREATESURFACE {
     }
 
     /**
-     * 
      * @param {Pointer<DD_CANCREATESURFACEDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_cancreatesurfacedata">DD_CANCREATESURFACEDATA</a> structure. This structure contains the information required for the driver to determine whether a command or vertex buffer can be created.
      * @returns {Integer} <b>CanCreateD3DBuffer</b> returns a callback code.
      */

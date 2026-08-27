@@ -20,7 +20,6 @@ export default struct PTM_RM_NOTIFICATION {
     }
 
     /**
-     * 
      * @param {Pointer<KENLISTMENT>} EnlistmentObject 
      * @param {Pointer<Void>} RMContext 
      * @param {Pointer<Void>} _TransactionContext 
@@ -31,11 +30,11 @@ export default struct PTM_RM_NOTIFICATION {
      * @returns {NTSTATUS} 
      */
     Call(EnlistmentObject, RMContext, _TransactionContext, TransactionNotification, TmVirtualClock, ArgumentLength, Argument) {
-        EnlistmentObjectMarshal := EnlistmentObject is VarRef ? "ptr*" : "ptr"
-        RMContextMarshal := RMContext is VarRef ? "ptr" : "ptr"
-        _TransactionContextMarshal := _TransactionContext is VarRef ? "ptr" : "ptr"
-        TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : "ptr"
-        ArgumentMarshal := Argument is VarRef ? "ptr" : "ptr"
+        EnlistmentObjectMarshal := EnlistmentObject is VarRef ? "ptr*" : IntPtr
+        RMContextMarshal := RMContext is VarRef ? "ptr" : IntPtr
+        _TransactionContextMarshal := _TransactionContext is VarRef ? "ptr" : IntPtr
+        TmVirtualClockMarshal := TmVirtualClock is VarRef ? "int64*" : IntPtr
+        ArgumentMarshal := Argument is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, EnlistmentObjectMarshal, EnlistmentObject, RMContextMarshal, RMContext, _TransactionContextMarshal, _TransactionContext, UInt32, TransactionNotification, TmVirtualClockMarshal, TmVirtualClock, UInt32, ArgumentLength, ArgumentMarshal, Argument, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

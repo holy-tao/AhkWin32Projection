@@ -20,14 +20,13 @@ export default struct PFNFCIGETNEXTCABINET {
     }
 
     /**
-     * 
      * @param {Pointer<CCAB>} pccab 
      * @param {Integer} cbPrevCab 
      * @param {Pointer<Void>} pv 
      * @returns {BOOL} 
      */
     Call(pccab, cbPrevCab, pv) {
-        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+        pvMarshal := pv is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, CCAB.Ptr, pccab, UInt32, cbPrevCab, pvMarshal, pv, BOOL)
         return result

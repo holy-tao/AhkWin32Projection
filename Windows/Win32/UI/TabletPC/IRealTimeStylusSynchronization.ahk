@@ -78,8 +78,8 @@ export default struct IRealTimeStylusSynchronization extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AcquireLock := CallbackCreate(GetMethod(implObj, "AcquireLock"), flags, 2)
-        this.vtbl.ReleaseLock := CallbackCreate(GetMethod(implObj, "ReleaseLock"), flags, 2)
+        this.vtbl.AcquireLock := CallbackCreate(ObjBindMethod(implObj, "AcquireLock"), flags, 2)
+        this.vtbl.ReleaseLock := CallbackCreate(ObjBindMethod(implObj, "ReleaseLock"), flags, 2)
     }
 
     Dispose() {

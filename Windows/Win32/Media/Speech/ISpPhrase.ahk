@@ -43,7 +43,6 @@ export default struct ISpPhrase extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<SPPHRASE>} 
      */
     GetPhrase() {
@@ -52,7 +51,6 @@ export default struct ISpPhrase extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<SPSERIALIZEDPHRASE>} 
      */
     GetSerializedPhrase() {
@@ -61,7 +59,6 @@ export default struct ISpPhrase extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulStart 
      * @param {Integer} ulCount 
      * @param {BOOL} fUseTextReplacements 
@@ -70,15 +67,15 @@ export default struct ISpPhrase extends IUnknown {
      * @returns {HRESULT} 
      */
     GetText(ulStart, ulCount, fUseTextReplacements, ppszCoMemText, pbDisplayAttributes) {
-        ppszCoMemTextMarshal := ppszCoMemText is VarRef ? "ptr*" : "ptr"
-        pbDisplayAttributesMarshal := pbDisplayAttributes is VarRef ? "char*" : "ptr"
+        ppszCoMemTextMarshal := ppszCoMemText is VarRef ? "ptr*" : IntPtr
+        pbDisplayAttributesMarshal := pbDisplayAttributes is VarRef ? "char*" : IntPtr
+        pbDisplayAttributesMarshal := pbDisplayAttributes == 0 ? IntPtr : "char*"
 
         result := ComCall(5, this, UInt32, ulStart, UInt32, ulCount, BOOL, fUseTextReplacements, ppszCoMemTextMarshal, ppszCoMemText, pbDisplayAttributesMarshal, pbDisplayAttributes, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwValueTypes 
      * @returns {HRESULT} 
      */
@@ -96,10 +93,10 @@ export default struct ISpPhrase extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPhrase := CallbackCreate(GetMethod(implObj, "GetPhrase"), flags, 2)
-        this.vtbl.GetSerializedPhrase := CallbackCreate(GetMethod(implObj, "GetSerializedPhrase"), flags, 2)
-        this.vtbl.GetText := CallbackCreate(GetMethod(implObj, "GetText"), flags, 6)
-        this.vtbl.Discard := CallbackCreate(GetMethod(implObj, "Discard"), flags, 2)
+        this.vtbl.GetPhrase := CallbackCreate(ObjBindMethod(implObj, "GetPhrase"), flags, 2)
+        this.vtbl.GetSerializedPhrase := CallbackCreate(ObjBindMethod(implObj, "GetSerializedPhrase"), flags, 2)
+        this.vtbl.GetText := CallbackCreate(ObjBindMethod(implObj, "GetText"), flags, 6)
+        this.vtbl.Discard := CallbackCreate(ObjBindMethod(implObj, "Discard"), flags, 2)
     }
 
     Dispose() {

@@ -146,10 +146,10 @@ export default struct ID2D1RenderInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetInputDescription := CallbackCreate(GetMethod(implObj, "SetInputDescription"), flags, 3)
-        this.vtbl.SetOutputBuffer := CallbackCreate(GetMethod(implObj, "SetOutputBuffer"), flags, 3)
-        this.vtbl.SetCached := CallbackCreate(GetMethod(implObj, "SetCached"), flags, 2)
-        this.vtbl.SetInstructionCountHint := CallbackCreate(GetMethod(implObj, "SetInstructionCountHint"), flags, 2)
+        this.vtbl.SetInputDescription := CallbackCreate(ObjBindMethod(implObj, "SetInputDescription"), flags, 3)
+        this.vtbl.SetOutputBuffer := CallbackCreate(ObjBindMethod(implObj, "SetOutputBuffer"), flags, 3)
+        this.vtbl.SetCached := CallbackCreate(ObjBindMethod(implObj, "SetCached"), flags, 2)
+        this.vtbl.SetInstructionCountHint := CallbackCreate(ObjBindMethod(implObj, "SetInstructionCountHint"), flags, 2)
     }
 
     Dispose() {

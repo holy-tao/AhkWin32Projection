@@ -50,7 +50,9 @@ export default struct ID3D12VideoDevice1 extends ID3D12VideoDevice {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice1-createvideomotionestimator
      */
     CreateVideoMotionEstimator(pDesc, pProtectedResourceSession, riid) {
-        result := ComCall(7, this, D3D12_VIDEO_MOTION_ESTIMATOR_DESC.Ptr, pDesc, "ptr", pProtectedResourceSession, Guid.Ptr, riid, "ptr*", &ppVideoMotionEstimator := 0, "HRESULT")
+        pProtectedResourceSessionMarshal := pProtectedResourceSession == 0 ? IntPtr : "ptr"
+
+        result := ComCall(7, this, D3D12_VIDEO_MOTION_ESTIMATOR_DESC.Ptr, pDesc, pProtectedResourceSessionMarshal, pProtectedResourceSession, Guid.Ptr, riid, "ptr*", &ppVideoMotionEstimator := 0, "HRESULT")
         return ppVideoMotionEstimator
     }
 
@@ -63,7 +65,9 @@ export default struct ID3D12VideoDevice1 extends ID3D12VideoDevice {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice1-createvideomotionvectorheap
      */
     CreateVideoMotionVectorHeap(pDesc, pProtectedResourceSession, riid) {
-        result := ComCall(8, this, D3D12_VIDEO_MOTION_VECTOR_HEAP_DESC.Ptr, pDesc, "ptr", pProtectedResourceSession, Guid.Ptr, riid, "ptr*", &ppVideoMotionVectorHeap := 0, "HRESULT")
+        pProtectedResourceSessionMarshal := pProtectedResourceSession == 0 ? IntPtr : "ptr"
+
+        result := ComCall(8, this, D3D12_VIDEO_MOTION_VECTOR_HEAP_DESC.Ptr, pDesc, pProtectedResourceSessionMarshal, pProtectedResourceSession, Guid.Ptr, riid, "ptr*", &ppVideoMotionVectorHeap := 0, "HRESULT")
         return ppVideoMotionVectorHeap
     }
 
@@ -76,8 +80,8 @@ export default struct ID3D12VideoDevice1 extends ID3D12VideoDevice {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateVideoMotionEstimator := CallbackCreate(GetMethod(implObj, "CreateVideoMotionEstimator"), flags, 5)
-        this.vtbl.CreateVideoMotionVectorHeap := CallbackCreate(GetMethod(implObj, "CreateVideoMotionVectorHeap"), flags, 5)
+        this.vtbl.CreateVideoMotionEstimator := CallbackCreate(ObjBindMethod(implObj, "CreateVideoMotionEstimator"), flags, 5)
+        this.vtbl.CreateVideoMotionVectorHeap := CallbackCreate(ObjBindMethod(implObj, "CreateVideoMotionVectorHeap"), flags, 5)
     }
 
     Dispose() {

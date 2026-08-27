@@ -38,7 +38,6 @@ export default struct IVariantChangeType extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvarDst 
      * @param {Pointer<VARIANT>} pvarSrc 
      * @param {Integer} lcid 
@@ -59,7 +58,7 @@ export default struct IVariantChangeType extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ChangeType := CallbackCreate(GetMethod(implObj, "ChangeType"), flags, 5)
+        this.vtbl.ChangeType := CallbackCreate(ObjBindMethod(implObj, "ChangeType"), flags, 5)
     }
 
     Dispose() {

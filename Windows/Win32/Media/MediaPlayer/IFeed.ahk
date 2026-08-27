@@ -291,7 +291,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} count 
      * @param {FEEDS_XML_SORT_PROPERTY} sortProperty 
      * @param {FEEDS_XML_SORT_ORDER} sortOrder 
@@ -306,7 +305,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -316,7 +314,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {HRESULT} 
      */
@@ -328,7 +325,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Url() {
@@ -338,7 +334,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} feedUrl 
      * @returns {HRESULT} 
      */
@@ -350,7 +345,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LocalId() {
@@ -360,7 +354,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Path() {
@@ -370,7 +363,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} newParentPath 
      * @returns {HRESULT} 
      */
@@ -382,7 +374,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Parent() {
@@ -391,7 +382,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_LastWriteTime() {
@@ -400,7 +390,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Delete() {
@@ -409,7 +398,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Download() {
@@ -418,7 +406,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     AsyncDownload() {
@@ -427,7 +414,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CancelAsyncDownload() {
@@ -436,7 +422,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {FEEDS_SYNC_SETTING} 
      */
     get_SyncSetting() {
@@ -445,7 +430,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @param {FEEDS_SYNC_SETTING} syncSetting 
      * @returns {HRESULT} 
      */
@@ -455,7 +439,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Interval() {
@@ -464,7 +447,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} minutes 
      * @returns {HRESULT} 
      */
@@ -474,7 +456,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_LastDownloadTime() {
@@ -483,7 +464,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LocalEnclosurePath() {
@@ -493,7 +473,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Items() {
@@ -502,7 +481,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} itemId 
      * @returns {IDispatch} 
      */
@@ -512,7 +490,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Title() {
@@ -522,7 +499,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Description() {
@@ -532,7 +508,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Link() {
@@ -542,7 +517,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Image() {
@@ -552,7 +526,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_LastBuildDate() {
@@ -561,7 +534,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_PubDate() {
@@ -570,7 +542,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Ttl() {
@@ -579,7 +550,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Language() {
@@ -589,7 +559,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Copyright() {
@@ -599,7 +568,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MaxItemCount() {
@@ -608,7 +576,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} count 
      * @returns {HRESULT} 
      */
@@ -618,7 +585,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_DownloadEnclosuresAutomatically() {
@@ -627,7 +593,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} downloadEnclosuresAutomatically 
      * @returns {HRESULT} 
      */
@@ -637,7 +602,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {FEEDS_DOWNLOAD_STATUS} 
      */
     get_DownloadStatus() {
@@ -646,7 +610,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {FEEDS_DOWNLOAD_ERROR} 
      */
     get_LastDownloadError() {
@@ -655,7 +618,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} feedXml 
      * @param {BSTR} feedUrl 
      * @returns {HRESULT} 
@@ -669,7 +631,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DownloadUrl() {
@@ -679,7 +640,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsList() {
@@ -688,7 +648,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     MarkAllItemsRead() {
@@ -697,7 +656,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @param {FEEDS_EVENTS_SCOPE} scope 
      * @param {FEEDS_EVENTS_MASK} mask 
      * @returns {IDispatch} 
@@ -708,7 +666,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_UnreadItemCount() {
@@ -717,7 +674,6 @@ export default struct IFeed extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ItemCount() {
@@ -734,50 +690,50 @@ export default struct IFeed extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Xml := CallbackCreate(GetMethod(implObj, "Xml"), flags, 7)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.Rename := CallbackCreate(GetMethod(implObj, "Rename"), flags, 2)
-        this.vtbl.get_Url := CallbackCreate(GetMethod(implObj, "get_Url"), flags, 2)
-        this.vtbl.put_Url := CallbackCreate(GetMethod(implObj, "put_Url"), flags, 2)
-        this.vtbl.get_LocalId := CallbackCreate(GetMethod(implObj, "get_LocalId"), flags, 2)
-        this.vtbl.get_Path := CallbackCreate(GetMethod(implObj, "get_Path"), flags, 2)
-        this.vtbl.Move := CallbackCreate(GetMethod(implObj, "Move"), flags, 2)
-        this.vtbl.get_Parent := CallbackCreate(GetMethod(implObj, "get_Parent"), flags, 2)
-        this.vtbl.get_LastWriteTime := CallbackCreate(GetMethod(implObj, "get_LastWriteTime"), flags, 2)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
-        this.vtbl.Download := CallbackCreate(GetMethod(implObj, "Download"), flags, 1)
-        this.vtbl.AsyncDownload := CallbackCreate(GetMethod(implObj, "AsyncDownload"), flags, 1)
-        this.vtbl.CancelAsyncDownload := CallbackCreate(GetMethod(implObj, "CancelAsyncDownload"), flags, 1)
-        this.vtbl.get_SyncSetting := CallbackCreate(GetMethod(implObj, "get_SyncSetting"), flags, 2)
-        this.vtbl.put_SyncSetting := CallbackCreate(GetMethod(implObj, "put_SyncSetting"), flags, 2)
-        this.vtbl.get_Interval := CallbackCreate(GetMethod(implObj, "get_Interval"), flags, 2)
-        this.vtbl.put_Interval := CallbackCreate(GetMethod(implObj, "put_Interval"), flags, 2)
-        this.vtbl.get_LastDownloadTime := CallbackCreate(GetMethod(implObj, "get_LastDownloadTime"), flags, 2)
-        this.vtbl.get_LocalEnclosurePath := CallbackCreate(GetMethod(implObj, "get_LocalEnclosurePath"), flags, 2)
-        this.vtbl.get_Items := CallbackCreate(GetMethod(implObj, "get_Items"), flags, 2)
-        this.vtbl.GetItem := CallbackCreate(GetMethod(implObj, "GetItem"), flags, 3)
-        this.vtbl.get_Title := CallbackCreate(GetMethod(implObj, "get_Title"), flags, 2)
-        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
-        this.vtbl.get_Link := CallbackCreate(GetMethod(implObj, "get_Link"), flags, 2)
-        this.vtbl.get_Image := CallbackCreate(GetMethod(implObj, "get_Image"), flags, 2)
-        this.vtbl.get_LastBuildDate := CallbackCreate(GetMethod(implObj, "get_LastBuildDate"), flags, 2)
-        this.vtbl.get_PubDate := CallbackCreate(GetMethod(implObj, "get_PubDate"), flags, 2)
-        this.vtbl.get_Ttl := CallbackCreate(GetMethod(implObj, "get_Ttl"), flags, 2)
-        this.vtbl.get_Language := CallbackCreate(GetMethod(implObj, "get_Language"), flags, 2)
-        this.vtbl.get_Copyright := CallbackCreate(GetMethod(implObj, "get_Copyright"), flags, 2)
-        this.vtbl.get_MaxItemCount := CallbackCreate(GetMethod(implObj, "get_MaxItemCount"), flags, 2)
-        this.vtbl.put_MaxItemCount := CallbackCreate(GetMethod(implObj, "put_MaxItemCount"), flags, 2)
-        this.vtbl.get_DownloadEnclosuresAutomatically := CallbackCreate(GetMethod(implObj, "get_DownloadEnclosuresAutomatically"), flags, 2)
-        this.vtbl.put_DownloadEnclosuresAutomatically := CallbackCreate(GetMethod(implObj, "put_DownloadEnclosuresAutomatically"), flags, 2)
-        this.vtbl.get_DownloadStatus := CallbackCreate(GetMethod(implObj, "get_DownloadStatus"), flags, 2)
-        this.vtbl.get_LastDownloadError := CallbackCreate(GetMethod(implObj, "get_LastDownloadError"), flags, 2)
-        this.vtbl.Merge := CallbackCreate(GetMethod(implObj, "Merge"), flags, 3)
-        this.vtbl.get_DownloadUrl := CallbackCreate(GetMethod(implObj, "get_DownloadUrl"), flags, 2)
-        this.vtbl.get_IsList := CallbackCreate(GetMethod(implObj, "get_IsList"), flags, 2)
-        this.vtbl.MarkAllItemsRead := CallbackCreate(GetMethod(implObj, "MarkAllItemsRead"), flags, 1)
-        this.vtbl.GetWatcher := CallbackCreate(GetMethod(implObj, "GetWatcher"), flags, 4)
-        this.vtbl.get_UnreadItemCount := CallbackCreate(GetMethod(implObj, "get_UnreadItemCount"), flags, 2)
-        this.vtbl.get_ItemCount := CallbackCreate(GetMethod(implObj, "get_ItemCount"), flags, 2)
+        this.vtbl.Xml := CallbackCreate(ObjBindMethod(implObj, "Xml"), flags, 7)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.Rename := CallbackCreate(ObjBindMethod(implObj, "Rename"), flags, 2)
+        this.vtbl.get_Url := CallbackCreate(ObjBindMethod(implObj, "get_Url"), flags, 2)
+        this.vtbl.put_Url := CallbackCreate(ObjBindMethod(implObj, "put_Url"), flags, 2)
+        this.vtbl.get_LocalId := CallbackCreate(ObjBindMethod(implObj, "get_LocalId"), flags, 2)
+        this.vtbl.get_Path := CallbackCreate(ObjBindMethod(implObj, "get_Path"), flags, 2)
+        this.vtbl.Move := CallbackCreate(ObjBindMethod(implObj, "Move"), flags, 2)
+        this.vtbl.get_Parent := CallbackCreate(ObjBindMethod(implObj, "get_Parent"), flags, 2)
+        this.vtbl.get_LastWriteTime := CallbackCreate(ObjBindMethod(implObj, "get_LastWriteTime"), flags, 2)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.Download := CallbackCreate(ObjBindMethod(implObj, "Download"), flags, 1)
+        this.vtbl.AsyncDownload := CallbackCreate(ObjBindMethod(implObj, "AsyncDownload"), flags, 1)
+        this.vtbl.CancelAsyncDownload := CallbackCreate(ObjBindMethod(implObj, "CancelAsyncDownload"), flags, 1)
+        this.vtbl.get_SyncSetting := CallbackCreate(ObjBindMethod(implObj, "get_SyncSetting"), flags, 2)
+        this.vtbl.put_SyncSetting := CallbackCreate(ObjBindMethod(implObj, "put_SyncSetting"), flags, 2)
+        this.vtbl.get_Interval := CallbackCreate(ObjBindMethod(implObj, "get_Interval"), flags, 2)
+        this.vtbl.put_Interval := CallbackCreate(ObjBindMethod(implObj, "put_Interval"), flags, 2)
+        this.vtbl.get_LastDownloadTime := CallbackCreate(ObjBindMethod(implObj, "get_LastDownloadTime"), flags, 2)
+        this.vtbl.get_LocalEnclosurePath := CallbackCreate(ObjBindMethod(implObj, "get_LocalEnclosurePath"), flags, 2)
+        this.vtbl.get_Items := CallbackCreate(ObjBindMethod(implObj, "get_Items"), flags, 2)
+        this.vtbl.GetItem := CallbackCreate(ObjBindMethod(implObj, "GetItem"), flags, 3)
+        this.vtbl.get_Title := CallbackCreate(ObjBindMethod(implObj, "get_Title"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(ObjBindMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.get_Link := CallbackCreate(ObjBindMethod(implObj, "get_Link"), flags, 2)
+        this.vtbl.get_Image := CallbackCreate(ObjBindMethod(implObj, "get_Image"), flags, 2)
+        this.vtbl.get_LastBuildDate := CallbackCreate(ObjBindMethod(implObj, "get_LastBuildDate"), flags, 2)
+        this.vtbl.get_PubDate := CallbackCreate(ObjBindMethod(implObj, "get_PubDate"), flags, 2)
+        this.vtbl.get_Ttl := CallbackCreate(ObjBindMethod(implObj, "get_Ttl"), flags, 2)
+        this.vtbl.get_Language := CallbackCreate(ObjBindMethod(implObj, "get_Language"), flags, 2)
+        this.vtbl.get_Copyright := CallbackCreate(ObjBindMethod(implObj, "get_Copyright"), flags, 2)
+        this.vtbl.get_MaxItemCount := CallbackCreate(ObjBindMethod(implObj, "get_MaxItemCount"), flags, 2)
+        this.vtbl.put_MaxItemCount := CallbackCreate(ObjBindMethod(implObj, "put_MaxItemCount"), flags, 2)
+        this.vtbl.get_DownloadEnclosuresAutomatically := CallbackCreate(ObjBindMethod(implObj, "get_DownloadEnclosuresAutomatically"), flags, 2)
+        this.vtbl.put_DownloadEnclosuresAutomatically := CallbackCreate(ObjBindMethod(implObj, "put_DownloadEnclosuresAutomatically"), flags, 2)
+        this.vtbl.get_DownloadStatus := CallbackCreate(ObjBindMethod(implObj, "get_DownloadStatus"), flags, 2)
+        this.vtbl.get_LastDownloadError := CallbackCreate(ObjBindMethod(implObj, "get_LastDownloadError"), flags, 2)
+        this.vtbl.Merge := CallbackCreate(ObjBindMethod(implObj, "Merge"), flags, 3)
+        this.vtbl.get_DownloadUrl := CallbackCreate(ObjBindMethod(implObj, "get_DownloadUrl"), flags, 2)
+        this.vtbl.get_IsList := CallbackCreate(ObjBindMethod(implObj, "get_IsList"), flags, 2)
+        this.vtbl.MarkAllItemsRead := CallbackCreate(ObjBindMethod(implObj, "MarkAllItemsRead"), flags, 1)
+        this.vtbl.GetWatcher := CallbackCreate(ObjBindMethod(implObj, "GetWatcher"), flags, 4)
+        this.vtbl.get_UnreadItemCount := CallbackCreate(ObjBindMethod(implObj, "get_UnreadItemCount"), flags, 2)
+        this.vtbl.get_ItemCount := CallbackCreate(ObjBindMethod(implObj, "get_ItemCount"), flags, 2)
     }
 
     Dispose() {

@@ -38,7 +38,6 @@ export default struct ICLRControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
@@ -48,7 +47,6 @@ export default struct ICLRControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzAppDomainManagerAssembly 
      * @param {PWSTR} pwzAppDomainManagerType 
      * @returns {HRESULT} 
@@ -70,8 +68,8 @@ export default struct ICLRControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCLRManager := CallbackCreate(GetMethod(implObj, "GetCLRManager"), flags, 3)
-        this.vtbl.SetAppDomainManagerType := CallbackCreate(GetMethod(implObj, "SetAppDomainManagerType"), flags, 3)
+        this.vtbl.GetCLRManager := CallbackCreate(ObjBindMethod(implObj, "GetCLRManager"), flags, 3)
+        this.vtbl.SetAppDomainManagerType := CallbackCreate(ObjBindMethod(implObj, "SetAppDomainManagerType"), flags, 3)
     }
 
     Dispose() {

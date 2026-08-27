@@ -46,7 +46,6 @@ export default struct IMSMQPrivateDestination extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Handle() {
@@ -56,7 +55,6 @@ export default struct IMSMQPrivateDestination extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varHandle 
      * @returns {HRESULT} 
      */
@@ -74,8 +72,8 @@ export default struct IMSMQPrivateDestination extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Handle := CallbackCreate(GetMethod(implObj, "get_Handle"), flags, 2)
-        this.vtbl.put_Handle := CallbackCreate(GetMethod(implObj, "put_Handle"), flags, 2)
+        this.vtbl.get_Handle := CallbackCreate(ObjBindMethod(implObj, "get_Handle"), flags, 2)
+        this.vtbl.put_Handle := CallbackCreate(ObjBindMethod(implObj, "put_Handle"), flags, 2)
     }
 
     Dispose() {

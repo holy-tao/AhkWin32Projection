@@ -77,8 +77,8 @@ export default struct IWMWatermarkInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetWatermarkEntryCount := CallbackCreate(GetMethod(implObj, "GetWatermarkEntryCount"), flags, 3)
-        this.vtbl.GetWatermarkEntry := CallbackCreate(GetMethod(implObj, "GetWatermarkEntry"), flags, 4)
+        this.vtbl.GetWatermarkEntryCount := CallbackCreate(ObjBindMethod(implObj, "GetWatermarkEntryCount"), flags, 3)
+        this.vtbl.GetWatermarkEntry := CallbackCreate(ObjBindMethod(implObj, "GetWatermarkEntry"), flags, 4)
     }
 
     Dispose() {

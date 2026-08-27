@@ -24,7 +24,6 @@ export default struct CAPCONTROLCALLBACK {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd Handle to the capture window associated with the callback function.
      * @param {Integer} nState Current state of the capture operation. The CONTROLCALLBACK_PREROLL value is sent initially to enable prerolling of the video sources and to return control to the capture application at the exact moment recording is to begin. The CONTROLCALLBACK_CAPTURING value is sent once per captured frame to indicate that streaming capture is in progress and to enable the application to end capture.
      * @returns {LRESULT} When <i>nState</i> is set to CONTROLCALLBACK_PREROLL, this callback function must return <b>TRUE</b> to start capture or <b>FALSE</b> to abort it. When <i>nState</i> is set to CONTROLCALLBACK_CAPTURING, this callback function must return <b>TRUE</b> to continue capture or <b>FALSE</b> to end it.

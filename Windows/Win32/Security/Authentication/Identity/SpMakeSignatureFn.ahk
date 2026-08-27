@@ -20,7 +20,6 @@ export default struct SpMakeSignatureFn {
     }
 
     /**
-     * 
      * @param {Pointer} ContextHandle 
      * @param {Integer} QualityOfProtection 
      * @param {Pointer<SecBufferDesc>} MessageBuffers 

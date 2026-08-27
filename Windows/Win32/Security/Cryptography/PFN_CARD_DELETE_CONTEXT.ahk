@@ -19,7 +19,6 @@ export default struct PFN_CARD_DELETE_CONTEXT {
     }
 
     /**
-     * 
      * @param {Pointer<CARD_DATA>} pCardData 
      * @returns {Integer} 
      */

@@ -19,7 +19,6 @@ export default struct PRTL_QUERY_REGISTRY_ROUTINE {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

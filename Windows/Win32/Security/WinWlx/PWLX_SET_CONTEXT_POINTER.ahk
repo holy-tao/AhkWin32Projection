@@ -24,14 +24,13 @@ export default struct PWLX_SET_CONTEXT_POINTER {
     }
 
     /**
-     * 
      * @param {HANDLE} hWlx Specifies the Winlogon handle passed to GINA in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nf-winwlx-wlxinitialize">WlxInitialize</a> call.
      * @param {Pointer<Void>} pWlxContext Pointer to the new context that Winlogon will use in future calls to GINA.
      * @returns {String} Nothing - always returns an empty string
      */
     Call(hWlx, pWlxContext) {
-        pWlxContextMarshal := pWlxContext is VarRef ? "ptr" : "ptr"
+        pWlxContextMarshal := pWlxContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, HANDLE, hWlx, pWlxContextMarshal, pWlxContext)
     }

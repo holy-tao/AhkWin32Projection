@@ -383,7 +383,9 @@ export default struct IMoniker extends IPersistStream {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-bindtoobject
      */
     BindToObject(pbc, pmkToLeft, riidResult) {
-        result := ComCall(8, this, "ptr", pbc, "ptr", pmkToLeft, Guid.Ptr, riidResult, "ptr*", &ppvResult := 0, "HRESULT")
+        pmkToLeftMarshal := pmkToLeft == 0 ? IntPtr : "ptr"
+
+        result := ComCall(8, this, "ptr", pbc, pmkToLeftMarshal, pmkToLeft, Guid.Ptr, riidResult, "ptr*", &ppvResult := 0, "HRESULT")
         return ppvResult
     }
 
@@ -488,7 +490,9 @@ export default struct IMoniker extends IPersistStream {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-bindtostorage
      */
     BindToStorage(pbc, pmkToLeft, riid) {
-        result := ComCall(9, this, "ptr", pbc, "ptr", pmkToLeft, Guid.Ptr, riid, "ptr*", &ppvObj := 0, "HRESULT")
+        pmkToLeftMarshal := pmkToLeft == 0 ? IntPtr : "ptr"
+
+        result := ComCall(9, this, "ptr", pbc, pmkToLeftMarshal, pmkToLeft, Guid.Ptr, riid, "ptr*", &ppvObj := 0, "HRESULT")
         return ppvObj
     }
 
@@ -1479,7 +1483,7 @@ export default struct IMoniker extends IPersistStream {
     ParseDisplayName(pbc, pmkToLeft, pszDisplayName, pchEaten, ppmkOut) {
         pszDisplayName := pszDisplayName is String ? StrPtr(pszDisplayName) : pszDisplayName
 
-        pchEatenMarshal := pchEaten is VarRef ? "uint*" : "ptr"
+        pchEatenMarshal := pchEaten is VarRef ? "uint*" : IntPtr
 
         result := ComCall(21, this, "ptr", pbc, "ptr", pmkToLeft, "ptr", pszDisplayName, pchEatenMarshal, pchEaten, IMoniker.Ptr, ppmkOut, "HRESULT")
         return result
@@ -1557,21 +1561,21 @@ export default struct IMoniker extends IPersistStream {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BindToObject := CallbackCreate(GetMethod(implObj, "BindToObject"), flags, 5)
-        this.vtbl.BindToStorage := CallbackCreate(GetMethod(implObj, "BindToStorage"), flags, 5)
-        this.vtbl.Reduce := CallbackCreate(GetMethod(implObj, "Reduce"), flags, 5)
-        this.vtbl.ComposeWith := CallbackCreate(GetMethod(implObj, "ComposeWith"), flags, 4)
-        this.vtbl.Enum := CallbackCreate(GetMethod(implObj, "Enum"), flags, 3)
-        this.vtbl.IsEqual := CallbackCreate(GetMethod(implObj, "IsEqual"), flags, 2)
-        this.vtbl.Hash := CallbackCreate(GetMethod(implObj, "Hash"), flags, 2)
-        this.vtbl.IsRunning := CallbackCreate(GetMethod(implObj, "IsRunning"), flags, 4)
-        this.vtbl.GetTimeOfLastChange := CallbackCreate(GetMethod(implObj, "GetTimeOfLastChange"), flags, 4)
-        this.vtbl.Inverse := CallbackCreate(GetMethod(implObj, "Inverse"), flags, 2)
-        this.vtbl.CommonPrefixWith := CallbackCreate(GetMethod(implObj, "CommonPrefixWith"), flags, 3)
-        this.vtbl.RelativePathTo := CallbackCreate(GetMethod(implObj, "RelativePathTo"), flags, 3)
-        this.vtbl.GetDisplayName := CallbackCreate(GetMethod(implObj, "GetDisplayName"), flags, 4)
-        this.vtbl.ParseDisplayName := CallbackCreate(GetMethod(implObj, "ParseDisplayName"), flags, 6)
-        this.vtbl.IsSystemMoniker := CallbackCreate(GetMethod(implObj, "IsSystemMoniker"), flags, 2)
+        this.vtbl.BindToObject := CallbackCreate(ObjBindMethod(implObj, "BindToObject"), flags, 5)
+        this.vtbl.BindToStorage := CallbackCreate(ObjBindMethod(implObj, "BindToStorage"), flags, 5)
+        this.vtbl.Reduce := CallbackCreate(ObjBindMethod(implObj, "Reduce"), flags, 5)
+        this.vtbl.ComposeWith := CallbackCreate(ObjBindMethod(implObj, "ComposeWith"), flags, 4)
+        this.vtbl.Enum := CallbackCreate(ObjBindMethod(implObj, "Enum"), flags, 3)
+        this.vtbl.IsEqual := CallbackCreate(ObjBindMethod(implObj, "IsEqual"), flags, 2)
+        this.vtbl.Hash := CallbackCreate(ObjBindMethod(implObj, "Hash"), flags, 2)
+        this.vtbl.IsRunning := CallbackCreate(ObjBindMethod(implObj, "IsRunning"), flags, 4)
+        this.vtbl.GetTimeOfLastChange := CallbackCreate(ObjBindMethod(implObj, "GetTimeOfLastChange"), flags, 4)
+        this.vtbl.Inverse := CallbackCreate(ObjBindMethod(implObj, "Inverse"), flags, 2)
+        this.vtbl.CommonPrefixWith := CallbackCreate(ObjBindMethod(implObj, "CommonPrefixWith"), flags, 3)
+        this.vtbl.RelativePathTo := CallbackCreate(ObjBindMethod(implObj, "RelativePathTo"), flags, 3)
+        this.vtbl.GetDisplayName := CallbackCreate(ObjBindMethod(implObj, "GetDisplayName"), flags, 4)
+        this.vtbl.ParseDisplayName := CallbackCreate(ObjBindMethod(implObj, "ParseDisplayName"), flags, 6)
+        this.vtbl.IsSystemMoniker := CallbackCreate(ObjBindMethod(implObj, "IsSystemMoniker"), flags, 2)
     }
 
     Dispose() {

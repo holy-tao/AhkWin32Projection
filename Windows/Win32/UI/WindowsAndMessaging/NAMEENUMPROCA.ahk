@@ -22,7 +22,6 @@ export default struct NAMEENUMPROCA {
     }
 
     /**
-     * 
      * @param {PSTR} param0 
      * @param {LPARAM} param1 
      * @returns {BOOL} 

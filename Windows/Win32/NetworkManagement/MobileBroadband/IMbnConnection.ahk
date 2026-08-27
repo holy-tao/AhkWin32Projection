@@ -204,7 +204,7 @@ export default struct IMbnConnection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnection-getconnectionstate
      */
     GetConnectionState(ConnectionState, ProfileName) {
-        ConnectionStateMarshal := ConnectionState is VarRef ? "int*" : "ptr"
+        ConnectionStateMarshal := ConnectionState is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, ConnectionStateMarshal, ConnectionState, BSTR.Ptr, ProfileName, "HRESULT")
         return result
@@ -247,13 +247,13 @@ export default struct IMbnConnection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ConnectionID := CallbackCreate(GetMethod(implObj, "get_ConnectionID"), flags, 2)
-        this.vtbl.get_InterfaceID := CallbackCreate(GetMethod(implObj, "get_InterfaceID"), flags, 2)
-        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 4)
-        this.vtbl.Disconnect := CallbackCreate(GetMethod(implObj, "Disconnect"), flags, 2)
-        this.vtbl.GetConnectionState := CallbackCreate(GetMethod(implObj, "GetConnectionState"), flags, 3)
-        this.vtbl.GetVoiceCallState := CallbackCreate(GetMethod(implObj, "GetVoiceCallState"), flags, 2)
-        this.vtbl.GetActivationNetworkError := CallbackCreate(GetMethod(implObj, "GetActivationNetworkError"), flags, 2)
+        this.vtbl.get_ConnectionID := CallbackCreate(ObjBindMethod(implObj, "get_ConnectionID"), flags, 2)
+        this.vtbl.get_InterfaceID := CallbackCreate(ObjBindMethod(implObj, "get_InterfaceID"), flags, 2)
+        this.vtbl.Connect := CallbackCreate(ObjBindMethod(implObj, "Connect"), flags, 4)
+        this.vtbl.Disconnect := CallbackCreate(ObjBindMethod(implObj, "Disconnect"), flags, 2)
+        this.vtbl.GetConnectionState := CallbackCreate(ObjBindMethod(implObj, "GetConnectionState"), flags, 3)
+        this.vtbl.GetVoiceCallState := CallbackCreate(ObjBindMethod(implObj, "GetVoiceCallState"), flags, 2)
+        this.vtbl.GetActivationNetworkError := CallbackCreate(ObjBindMethod(implObj, "GetActivationNetworkError"), flags, 2)
     }
 
     Dispose() {

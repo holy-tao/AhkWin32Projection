@@ -140,9 +140,9 @@ export default struct ISensOnNow extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnACPower := CallbackCreate(GetMethod(implObj, "OnACPower"), flags, 1)
-        this.vtbl.OnBatteryPower := CallbackCreate(GetMethod(implObj, "OnBatteryPower"), flags, 2)
-        this.vtbl.BatteryLow := CallbackCreate(GetMethod(implObj, "BatteryLow"), flags, 2)
+        this.vtbl.OnACPower := CallbackCreate(ObjBindMethod(implObj, "OnACPower"), flags, 1)
+        this.vtbl.OnBatteryPower := CallbackCreate(ObjBindMethod(implObj, "OnBatteryPower"), flags, 2)
+        this.vtbl.BatteryLow := CallbackCreate(ObjBindMethod(implObj, "BatteryLow"), flags, 2)
     }
 
     Dispose() {

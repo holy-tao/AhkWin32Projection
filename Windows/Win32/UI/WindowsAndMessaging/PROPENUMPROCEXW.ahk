@@ -38,7 +38,6 @@ export default struct PROPENUMPROCEXW {
     }
 
     /**
-     * 
      * @param {HWND} param0 Type: <b>HWND</b>
      * 
      * A handle to the window whose property list is being enumerated.

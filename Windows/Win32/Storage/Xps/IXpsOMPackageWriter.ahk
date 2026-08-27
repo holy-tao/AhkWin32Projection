@@ -380,11 +380,11 @@ export default struct IXpsOMPackageWriter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StartNewDocument := CallbackCreate(GetMethod(implObj, "StartNewDocument"), flags, 6)
-        this.vtbl.AddPage := CallbackCreate(GetMethod(implObj, "AddPage"), flags, 7)
-        this.vtbl.AddResource := CallbackCreate(GetMethod(implObj, "AddResource"), flags, 2)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
-        this.vtbl.IsClosed := CallbackCreate(GetMethod(implObj, "IsClosed"), flags, 2)
+        this.vtbl.StartNewDocument := CallbackCreate(ObjBindMethod(implObj, "StartNewDocument"), flags, 6)
+        this.vtbl.AddPage := CallbackCreate(ObjBindMethod(implObj, "AddPage"), flags, 7)
+        this.vtbl.AddResource := CallbackCreate(ObjBindMethod(implObj, "AddResource"), flags, 2)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
+        this.vtbl.IsClosed := CallbackCreate(ObjBindMethod(implObj, "IsClosed"), flags, 2)
     }
 
     Dispose() {

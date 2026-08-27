@@ -19,7 +19,6 @@ export default struct PPCI_SET_ATS {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

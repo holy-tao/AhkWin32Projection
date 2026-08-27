@@ -85,8 +85,8 @@
  * @since windows6.1
  */
 export WinBioEnumServiceProviders(Factor, BspSchemaArray, BspCount) {
-    BspSchemaArrayMarshal := BspSchemaArray is VarRef ? "ptr*" : "ptr"
-    BspCountMarshal := BspCount is VarRef ? "ptr*" : "ptr"
+    BspSchemaArrayMarshal := BspSchemaArray is VarRef ? "ptr*" : IntPtr
+    BspCountMarshal := BspCount is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("winbio.dll\WinBioEnumServiceProviders", UInt32, Factor, BspSchemaArrayMarshal, BspSchemaArray, BspCountMarshal, BspCount, "HRESULT")
     return result
@@ -161,8 +161,8 @@ export WinBioEnumServiceProviders(Factor, BspSchemaArray, BspCount) {
  * @since windows6.1
  */
 export WinBioEnumBiometricUnits(Factor, UnitSchemaArray, UnitCount) {
-    UnitSchemaArrayMarshal := UnitSchemaArray is VarRef ? "ptr*" : "ptr"
-    UnitCountMarshal := UnitCount is VarRef ? "ptr*" : "ptr"
+    UnitSchemaArrayMarshal := UnitSchemaArray is VarRef ? "ptr*" : IntPtr
+    UnitCountMarshal := UnitCount is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("winbio.dll\WinBioEnumBiometricUnits", UInt32, Factor, UnitSchemaArrayMarshal, UnitSchemaArray, UnitCountMarshal, UnitCount, "HRESULT")
     return result
@@ -224,8 +224,8 @@ export WinBioEnumBiometricUnits(Factor, UnitSchemaArray, UnitCount) {
  * @since windows6.1
  */
 export WinBioEnumDatabases(Factor, StorageSchemaArray, StorageCount) {
-    StorageSchemaArrayMarshal := StorageSchemaArray is VarRef ? "ptr*" : "ptr"
-    StorageCountMarshal := StorageCount is VarRef ? "ptr*" : "ptr"
+    StorageSchemaArrayMarshal := StorageSchemaArray is VarRef ? "ptr*" : IntPtr
+    StorageCountMarshal := StorageCount is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("winbio.dll\WinBioEnumDatabases", UInt32, Factor, StorageSchemaArrayMarshal, StorageSchemaArray, StorageCountMarshal, StorageCount, "HRESULT")
     return result
@@ -274,9 +274,13 @@ export WinBioEnumDatabases(Factor, StorageSchemaArray, StorageCount) {
  * @since windows8.0
  */
 export WinBioAsyncOpenFramework(NotificationMethod, TargetWindow, MessageCode, CallbackRoutine, _UserData, AsynchronousOpen) {
-    _UserDataMarshal := _UserData is VarRef ? "ptr" : "ptr"
+    TargetWindowMarshal := TargetWindow == 0 ? IntPtr : HWND
+    MessageCodeMarshal := MessageCode == 0 ? IntPtr : UInt32
+    CallbackRoutineMarshal := CallbackRoutine == 0 ? IntPtr : PWINBIO_ASYNC_COMPLETION_CALLBACK
+    _UserDataMarshal := _UserData is VarRef ? "ptr" : IntPtr
+    _UserDataMarshal := _UserData == 0 ? IntPtr : "ptr"
 
-    result := DllCall("winbio.dll\WinBioAsyncOpenFramework", WINBIO_ASYNC_NOTIFICATION_METHOD, NotificationMethod, HWND, TargetWindow, UInt32, MessageCode, PWINBIO_ASYNC_COMPLETION_CALLBACK, CallbackRoutine, _UserDataMarshal, _UserData, BOOL, AsynchronousOpen, "uint*", &FrameworkHandle := 0, "HRESULT")
+    result := DllCall("winbio.dll\WinBioAsyncOpenFramework", WINBIO_ASYNC_NOTIFICATION_METHOD, NotificationMethod, TargetWindowMarshal, TargetWindow, MessageCodeMarshal, MessageCode, CallbackRoutineMarshal, CallbackRoutine, _UserDataMarshal, _UserData, BOOL, AsynchronousOpen, "uint*", &FrameworkHandle := 0, "HRESULT")
     return FrameworkHandle
 }
 
@@ -763,9 +767,12 @@ export WinBioAsyncMonitorFrameworkChanges(FrameworkHandle, ChangeTypes) {
  * @since windows6.1
  */
 export WinBioOpenSession(Factor, PoolType, Flags, UnitArray, UnitCount, DatabaseId) {
-    UnitArrayMarshal := UnitArray is VarRef ? "uint*" : "ptr"
+    UnitArrayMarshal := UnitArray is VarRef ? "uint*" : IntPtr
+    UnitArrayMarshal := UnitArray == 0 ? IntPtr : "uint*"
+    UnitCountMarshal := UnitCount == 0 ? IntPtr : IntPtr
+    DatabaseIdMarshal := DatabaseId == 0 ? IntPtr : Guid.Ptr
 
-    result := DllCall("winbio.dll\WinBioOpenSession", UInt32, Factor, WINBIO_POOL, PoolType, UInt32, Flags, UnitArrayMarshal, UnitArray, IntPtr, UnitCount, Guid.Ptr, DatabaseId, "uint*", &SessionHandle := 0, "HRESULT")
+    result := DllCall("winbio.dll\WinBioOpenSession", UInt32, Factor, WINBIO_POOL, PoolType, UInt32, Flags, UnitArrayMarshal, UnitArray, UnitCountMarshal, UnitCount, DatabaseIdMarshal, DatabaseId, "uint*", &SessionHandle := 0, "HRESULT")
     return SessionHandle
 }
 
@@ -991,10 +998,17 @@ export WinBioOpenSession(Factor, PoolType, Flags, UnitArray, UnitCount, Database
  * @since windows8.0
  */
 export WinBioAsyncOpenSession(Factor, PoolType, Flags, UnitArray, UnitCount, DatabaseId, NotificationMethod, TargetWindow, MessageCode, CallbackRoutine, _UserData, AsynchronousOpen) {
-    UnitArrayMarshal := UnitArray is VarRef ? "uint*" : "ptr"
-    _UserDataMarshal := _UserData is VarRef ? "ptr" : "ptr"
+    UnitArrayMarshal := UnitArray is VarRef ? "uint*" : IntPtr
+    UnitArrayMarshal := UnitArray == 0 ? IntPtr : "uint*"
+    UnitCountMarshal := UnitCount == 0 ? IntPtr : IntPtr
+    DatabaseIdMarshal := DatabaseId == 0 ? IntPtr : Guid.Ptr
+    TargetWindowMarshal := TargetWindow == 0 ? IntPtr : HWND
+    MessageCodeMarshal := MessageCode == 0 ? IntPtr : UInt32
+    CallbackRoutineMarshal := CallbackRoutine == 0 ? IntPtr : PWINBIO_ASYNC_COMPLETION_CALLBACK
+    _UserDataMarshal := _UserData is VarRef ? "ptr" : IntPtr
+    _UserDataMarshal := _UserData == 0 ? IntPtr : "ptr"
 
-    result := DllCall("winbio.dll\WinBioAsyncOpenSession", UInt32, Factor, WINBIO_POOL, PoolType, UInt32, Flags, UnitArrayMarshal, UnitArray, IntPtr, UnitCount, Guid.Ptr, DatabaseId, WINBIO_ASYNC_NOTIFICATION_METHOD, NotificationMethod, HWND, TargetWindow, UInt32, MessageCode, PWINBIO_ASYNC_COMPLETION_CALLBACK, CallbackRoutine, _UserDataMarshal, _UserData, BOOL, AsynchronousOpen, "uint*", &SessionHandle := 0, "HRESULT")
+    result := DllCall("winbio.dll\WinBioAsyncOpenSession", UInt32, Factor, WINBIO_POOL, PoolType, UInt32, Flags, UnitArrayMarshal, UnitArray, UnitCountMarshal, UnitCount, DatabaseIdMarshal, DatabaseId, WINBIO_ASYNC_NOTIFICATION_METHOD, NotificationMethod, TargetWindowMarshal, TargetWindow, MessageCodeMarshal, MessageCode, CallbackRoutineMarshal, CallbackRoutine, _UserDataMarshal, _UserData, BOOL, AsynchronousOpen, "uint*", &SessionHandle := 0, "HRESULT")
     return SessionHandle
 }
 
@@ -1169,9 +1183,12 @@ export WinBioCloseSession(SessionHandle) {
  * @since windows6.1
  */
 export WinBioVerify(SessionHandle, Identity, SubFactor, UnitId, Match, RejectDetail) {
-    UnitIdMarshal := UnitId is VarRef ? "uint*" : "ptr"
-    MatchMarshal := Match is VarRef ? "char*" : "ptr"
-    RejectDetailMarshal := RejectDetail is VarRef ? "uint*" : "ptr"
+    UnitIdMarshal := UnitId is VarRef ? "uint*" : IntPtr
+    UnitIdMarshal := UnitId == 0 ? IntPtr : "uint*"
+    MatchMarshal := Match is VarRef ? "char*" : IntPtr
+    MatchMarshal := Match == 0 ? IntPtr : "char*"
+    RejectDetailMarshal := RejectDetail is VarRef ? "uint*" : IntPtr
+    RejectDetailMarshal := RejectDetail == 0 ? IntPtr : "uint*"
 
     result := DllCall("winbio.dll\WinBioVerify", UInt32, SessionHandle, WINBIO_IDENTITY.Ptr, Identity, Int8, SubFactor, UnitIdMarshal, UnitId, MatchMarshal, Match, RejectDetailMarshal, RejectDetail, "HRESULT")
     return result
@@ -1265,7 +1282,8 @@ export WinBioVerify(SessionHandle, Identity, SubFactor, UnitId, Match, RejectDet
  * @since windows6.1
  */
 export WinBioVerifyWithCallback(SessionHandle, Identity, SubFactor, VerifyCallback, VerifyCallbackContext) {
-    VerifyCallbackContextMarshal := VerifyCallbackContext is VarRef ? "ptr" : "ptr"
+    VerifyCallbackContextMarshal := VerifyCallbackContext is VarRef ? "ptr" : IntPtr
+    VerifyCallbackContextMarshal := VerifyCallbackContext == 0 ? IntPtr : "ptr"
 
     result := DllCall("winbio.dll\WinBioVerifyWithCallback", UInt32, SessionHandle, WINBIO_IDENTITY.Ptr, Identity, Int8, SubFactor, PWINBIO_VERIFY_CALLBACK, VerifyCallback, VerifyCallbackContextMarshal, VerifyCallbackContext, "HRESULT")
     return result
@@ -1386,11 +1404,15 @@ export WinBioVerifyWithCallback(SessionHandle, Identity, SubFactor, VerifyCallba
  * @since windows6.1
  */
 export WinBioIdentify(SessionHandle, UnitId, Identity, SubFactor, RejectDetail) {
-    UnitIdMarshal := UnitId is VarRef ? "uint*" : "ptr"
-    SubFactorMarshal := SubFactor is VarRef ? "char*" : "ptr"
-    RejectDetailMarshal := RejectDetail is VarRef ? "uint*" : "ptr"
+    UnitIdMarshal := UnitId is VarRef ? "uint*" : IntPtr
+    UnitIdMarshal := UnitId == 0 ? IntPtr : "uint*"
+    IdentityMarshal := Identity == 0 ? IntPtr : WINBIO_IDENTITY.Ptr
+    SubFactorMarshal := SubFactor is VarRef ? "char*" : IntPtr
+    SubFactorMarshal := SubFactor == 0 ? IntPtr : "char*"
+    RejectDetailMarshal := RejectDetail is VarRef ? "uint*" : IntPtr
+    RejectDetailMarshal := RejectDetail == 0 ? IntPtr : "uint*"
 
-    result := DllCall("winbio.dll\WinBioIdentify", UInt32, SessionHandle, UnitIdMarshal, UnitId, WINBIO_IDENTITY.Ptr, Identity, SubFactorMarshal, SubFactor, RejectDetailMarshal, RejectDetail, "HRESULT")
+    result := DllCall("winbio.dll\WinBioIdentify", UInt32, SessionHandle, UnitIdMarshal, UnitId, IdentityMarshal, Identity, SubFactorMarshal, SubFactor, RejectDetailMarshal, RejectDetail, "HRESULT")
     return result
 }
 
@@ -1449,7 +1471,8 @@ export WinBioIdentify(SessionHandle, UnitId, Identity, SubFactor, RejectDetail) 
  * @since windows6.1
  */
 export WinBioIdentifyWithCallback(SessionHandle, IdentifyCallback, IdentifyCallbackContext) {
-    IdentifyCallbackContextMarshal := IdentifyCallbackContext is VarRef ? "ptr" : "ptr"
+    IdentifyCallbackContextMarshal := IdentifyCallbackContext is VarRef ? "ptr" : IntPtr
+    IdentifyCallbackContextMarshal := IdentifyCallbackContext == 0 ? IntPtr : "ptr"
 
     result := DllCall("winbio.dll\WinBioIdentifyWithCallback", UInt32, SessionHandle, PWINBIO_IDENTIFY_CALLBACK, IdentifyCallback, IdentifyCallbackContextMarshal, IdentifyCallbackContext, "HRESULT")
     return result
@@ -1629,7 +1652,8 @@ export WinBioLocateSensor(SessionHandle) {
  * @since windows6.1
  */
 export WinBioLocateSensorWithCallback(SessionHandle, LocateCallback, LocateCallbackContext) {
-    LocateCallbackContextMarshal := LocateCallbackContext is VarRef ? "ptr" : "ptr"
+    LocateCallbackContextMarshal := LocateCallbackContext is VarRef ? "ptr" : IntPtr
+    LocateCallbackContextMarshal := LocateCallbackContext == 0 ? IntPtr : "ptr"
 
     result := DllCall("winbio.dll\WinBioLocateSensorWithCallback", UInt32, SessionHandle, PWINBIO_LOCATE_SENSOR_CALLBACK, LocateCallback, LocateCallbackContextMarshal, LocateCallbackContext, "HRESULT")
     return result
@@ -1887,7 +1911,8 @@ export WinBioEnrollCapture(SessionHandle) {
  * @since windows6.1
  */
 export WinBioEnrollCaptureWithCallback(SessionHandle, EnrollCallback, EnrollCallbackContext) {
-    EnrollCallbackContextMarshal := EnrollCallbackContext is VarRef ? "ptr" : "ptr"
+    EnrollCallbackContextMarshal := EnrollCallbackContext is VarRef ? "ptr" : IntPtr
+    EnrollCallbackContextMarshal := EnrollCallbackContext == 0 ? IntPtr : "ptr"
 
     result := DllCall("winbio.dll\WinBioEnrollCaptureWithCallback", UInt32, SessionHandle, PWINBIO_ENROLL_CAPTURE_CALLBACK, EnrollCallback, EnrollCallbackContextMarshal, EnrollCallbackContext, "HRESULT")
     return result
@@ -1928,7 +1953,9 @@ export WinBioEnrollCaptureWithCallback(SessionHandle, EnrollCallback, EnrollCall
  * @since windows6.1
  */
 export WinBioEnrollCommit(SessionHandle, Identity) {
-    result := DllCall("winbio.dll\WinBioEnrollCommit", UInt32, SessionHandle, WINBIO_IDENTITY.Ptr, Identity, "char*", &IsNewTemplate := 0, "HRESULT")
+    IdentityMarshal := Identity == 0 ? IntPtr : WINBIO_IDENTITY.Ptr
+
+    result := DllCall("winbio.dll\WinBioEnrollCommit", UInt32, SessionHandle, IdentityMarshal, Identity, "char*", &IsNewTemplate := 0, "HRESULT")
     return IsNewTemplate
 }
 
@@ -2084,15 +2111,15 @@ export WinBioEnrollDiscard(SessionHandle) {
  * @since windows6.1
  */
 export WinBioEnumEnrollments(SessionHandle, UnitId, Identity, SubFactorArray, SubFactorCount) {
-    SubFactorArrayMarshal := SubFactorArray is VarRef ? "ptr*" : "ptr"
-    SubFactorCountMarshal := SubFactorCount is VarRef ? "ptr*" : "ptr"
+    SubFactorArrayMarshal := SubFactorArray is VarRef ? "ptr*" : IntPtr
+    SubFactorCountMarshal := SubFactorCount is VarRef ? "ptr*" : IntPtr
+    SubFactorCountMarshal := SubFactorCount == 0 ? IntPtr : "ptr*"
 
     result := DllCall("winbio.dll\WinBioEnumEnrollments", UInt32, SessionHandle, UInt32, UnitId, WINBIO_IDENTITY.Ptr, Identity, SubFactorArrayMarshal, SubFactorArray, SubFactorCountMarshal, SubFactorCount, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {Integer} SessionHandle 
  * @param {Integer} UnitId 
  * @returns {HRESULT} 
@@ -2103,7 +2130,6 @@ export WinBioImproveBegin(SessionHandle, UnitId) {
 }
 
 /**
- * 
  * @param {Integer} SessionHandle 
  * @returns {HRESULT} 
  */
@@ -2219,7 +2245,8 @@ export WinBioImproveEnd(SessionHandle) {
  * @since windows6.1
  */
 export WinBioRegisterEventMonitor(SessionHandle, _EventMask, EventCallback, EventCallbackContext) {
-    EventCallbackContextMarshal := EventCallbackContext is VarRef ? "ptr" : "ptr"
+    EventCallbackContextMarshal := EventCallbackContext is VarRef ? "ptr" : IntPtr
+    EventCallbackContextMarshal := EventCallbackContext == 0 ? IntPtr : "ptr"
 
     result := DllCall("winbio.dll\WinBioRegisterEventMonitor", UInt32, SessionHandle, UInt32, _EventMask, PWINBIO_EVENT_CALLBACK, EventCallback, EventCallbackContextMarshal, EventCallbackContext, "HRESULT")
     return result
@@ -2463,10 +2490,13 @@ export WinBioMonitorPresence(SessionHandle, UnitId) {
  * @since windows6.1
  */
 export WinBioCaptureSample(SessionHandle, Purpose, Flags, UnitId, Sample, SampleSize, RejectDetail) {
-    UnitIdMarshal := UnitId is VarRef ? "uint*" : "ptr"
-    SampleMarshal := Sample is VarRef ? "ptr*" : "ptr"
-    SampleSizeMarshal := SampleSize is VarRef ? "ptr*" : "ptr"
-    RejectDetailMarshal := RejectDetail is VarRef ? "uint*" : "ptr"
+    UnitIdMarshal := UnitId is VarRef ? "uint*" : IntPtr
+    UnitIdMarshal := UnitId == 0 ? IntPtr : "uint*"
+    SampleMarshal := Sample is VarRef ? "ptr*" : IntPtr
+    SampleSizeMarshal := SampleSize is VarRef ? "ptr*" : IntPtr
+    SampleSizeMarshal := SampleSize == 0 ? IntPtr : "ptr*"
+    RejectDetailMarshal := RejectDetail is VarRef ? "uint*" : IntPtr
+    RejectDetailMarshal := RejectDetail == 0 ? IntPtr : "uint*"
 
     result := DllCall("winbio.dll\WinBioCaptureSample", UInt32, SessionHandle, Int8, Purpose, Int8, Flags, UnitIdMarshal, UnitId, SampleMarshal, Sample, SampleSizeMarshal, SampleSize, RejectDetailMarshal, RejectDetail, "HRESULT")
     return result
@@ -2591,7 +2621,8 @@ export WinBioCaptureSample(SessionHandle, Purpose, Flags, UnitId, Sample, Sample
  * @since windows6.1
  */
 export WinBioCaptureSampleWithCallback(SessionHandle, Purpose, Flags, CaptureCallback, CaptureCallbackContext) {
-    CaptureCallbackContextMarshal := CaptureCallbackContext is VarRef ? "ptr" : "ptr"
+    CaptureCallbackContextMarshal := CaptureCallbackContext is VarRef ? "ptr" : IntPtr
+    CaptureCallbackContextMarshal := CaptureCallbackContext == 0 ? IntPtr : "ptr"
 
     result := DllCall("winbio.dll\WinBioCaptureSampleWithCallback", UInt32, SessionHandle, Int8, Purpose, Int8, Flags, PWINBIO_CAPTURE_CALLBACK, CaptureCallback, CaptureCallbackContextMarshal, CaptureCallbackContext, "HRESULT")
     return result
@@ -2846,7 +2877,7 @@ export WinBioUnlockUnit(SessionHandle, UnitId) {
  * @since windows6.1
  */
 export WinBioControlUnit(SessionHandle, UnitId, _Component, ControlCode, SendBuffer, SendBufferSize, ReceiveBuffer, ReceiveBufferSize, ReceiveDataSize) {
-    ReceiveDataSizeMarshal := ReceiveDataSize is VarRef ? "ptr*" : "ptr"
+    ReceiveDataSizeMarshal := ReceiveDataSize is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("winbio.dll\WinBioControlUnit", UInt32, SessionHandle, UInt32, UnitId, WINBIO_COMPONENT, _Component, UInt32, ControlCode, IntPtr, SendBuffer, IntPtr, SendBufferSize, IntPtr, ReceiveBuffer, IntPtr, ReceiveBufferSize, ReceiveDataSizeMarshal, ReceiveDataSize, "uint*", &OperationStatus := 0, "HRESULT")
     return OperationStatus
@@ -2884,7 +2915,7 @@ export WinBioControlUnit(SessionHandle, UnitId, _Component, ControlCode, SendBuf
  * @since windows6.1
  */
 export WinBioControlUnitPrivileged(SessionHandle, UnitId, _Component, ControlCode, SendBuffer, SendBufferSize, ReceiveBuffer, ReceiveBufferSize, ReceiveDataSize) {
-    ReceiveDataSizeMarshal := ReceiveDataSize is VarRef ? "ptr*" : "ptr"
+    ReceiveDataSizeMarshal := ReceiveDataSize is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("winbio.dll\WinBioControlUnitPrivileged", UInt32, SessionHandle, UInt32, UnitId, WINBIO_COMPONENT, _Component, UInt32, ControlCode, IntPtr, SendBuffer, IntPtr, SendBufferSize, IntPtr, ReceiveBuffer, IntPtr, ReceiveBufferSize, ReceiveDataSizeMarshal, ReceiveDataSize, "uint*", &OperationStatus := 0, "HRESULT")
     return OperationStatus
@@ -3091,10 +3122,14 @@ export WinBioControlUnitPrivileged(SessionHandle, UnitId, _Component, ControlCod
  * @since windows6.1
  */
 export WinBioGetProperty(SessionHandle, PropertyType, PropertyId, UnitId, Identity, SubFactor, PropertyBuffer, PropertyBufferSize) {
-    PropertyBufferMarshal := PropertyBuffer is VarRef ? "ptr*" : "ptr"
-    PropertyBufferSizeMarshal := PropertyBufferSize is VarRef ? "ptr*" : "ptr"
+    UnitIdMarshal := UnitId == 0 ? IntPtr : UInt32
+    IdentityMarshal := Identity == 0 ? IntPtr : WINBIO_IDENTITY.Ptr
+    SubFactorMarshal := SubFactor == 0 ? IntPtr : Int8
+    PropertyBufferMarshal := PropertyBuffer is VarRef ? "ptr*" : IntPtr
+    PropertyBufferSizeMarshal := PropertyBufferSize is VarRef ? "ptr*" : IntPtr
+    PropertyBufferSizeMarshal := PropertyBufferSize == 0 ? IntPtr : "ptr*"
 
-    result := DllCall("winbio.dll\WinBioGetProperty", UInt32, SessionHandle, UInt32, PropertyType, UInt32, PropertyId, UInt32, UnitId, WINBIO_IDENTITY.Ptr, Identity, Int8, SubFactor, PropertyBufferMarshal, PropertyBuffer, PropertyBufferSizeMarshal, PropertyBufferSize, "HRESULT")
+    result := DllCall("winbio.dll\WinBioGetProperty", UInt32, SessionHandle, UInt32, PropertyType, UInt32, PropertyId, UnitIdMarshal, UnitId, IdentityMarshal, Identity, SubFactorMarshal, SubFactor, PropertyBufferMarshal, PropertyBuffer, PropertyBufferSizeMarshal, PropertyBufferSize, "HRESULT")
     return result
 }
 
@@ -3218,7 +3253,11 @@ export WinBioGetProperty(SessionHandle, PropertyType, PropertyId, UnitId, Identi
  * @since windows10.0.10240
  */
 export WinBioSetProperty(SessionHandle, PropertyType, PropertyId, UnitId, Identity, SubFactor, PropertyBuffer, PropertyBufferSize) {
-    result := DllCall("winbio.dll\WinBioSetProperty", UInt32, SessionHandle, UInt32, PropertyType, UInt32, PropertyId, UInt32, UnitId, WINBIO_IDENTITY.Ptr, Identity, Int8, SubFactor, IntPtr, PropertyBuffer, IntPtr, PropertyBufferSize, "HRESULT")
+    UnitIdMarshal := UnitId == 0 ? IntPtr : UInt32
+    IdentityMarshal := Identity == 0 ? IntPtr : WINBIO_IDENTITY.Ptr
+    SubFactorMarshal := SubFactor == 0 ? IntPtr : Int8
+
+    result := DllCall("winbio.dll\WinBioSetProperty", UInt32, SessionHandle, UInt32, PropertyType, UInt32, PropertyId, UnitIdMarshal, UnitId, IdentityMarshal, Identity, SubFactorMarshal, SubFactor, IntPtr, PropertyBuffer, IntPtr, PropertyBufferSize, "HRESULT")
     return result
 }
 
@@ -3303,7 +3342,7 @@ export WinBioSetProperty(SessionHandle, PropertyType, PropertyId, UnitId, Identi
  * @since windows6.1
  */
 export WinBioFree(_Address) {
-    _AddressMarshal := _Address is VarRef ? "ptr" : "ptr"
+    _AddressMarshal := _Address is VarRef ? "ptr" : IntPtr
 
     result := DllCall("winbio.dll\WinBioFree", _AddressMarshal, _Address, "HRESULT")
     return result
@@ -3657,8 +3696,8 @@ export WinBioGetEnrolledFactors(AccountOwner) {
  * @since windows6.1
  */
 export WinBioGetEnabledSetting(Value, Source) {
-    ValueMarshal := Value is VarRef ? "char*" : "ptr"
-    SourceMarshal := Source is VarRef ? "uint*" : "ptr"
+    ValueMarshal := Value is VarRef ? "char*" : IntPtr
+    SourceMarshal := Source is VarRef ? "uint*" : IntPtr
 
     DllCall("winbio.dll\WinBioGetEnabledSetting", ValueMarshal, Value, SourceMarshal, Source)
 }
@@ -3672,8 +3711,8 @@ export WinBioGetEnabledSetting(Value, Source) {
  * @since windows6.1
  */
 export WinBioGetLogonSetting(Value, Source) {
-    ValueMarshal := Value is VarRef ? "char*" : "ptr"
-    SourceMarshal := Source is VarRef ? "uint*" : "ptr"
+    ValueMarshal := Value is VarRef ? "char*" : IntPtr
+    SourceMarshal := Source is VarRef ? "uint*" : IntPtr
 
     DllCall("winbio.dll\WinBioGetLogonSetting", ValueMarshal, Value, SourceMarshal, Source)
 }
@@ -3687,14 +3726,13 @@ export WinBioGetLogonSetting(Value, Source) {
  * @since windows6.1
  */
 export WinBioGetDomainLogonSetting(Value, Source) {
-    ValueMarshal := Value is VarRef ? "char*" : "ptr"
-    SourceMarshal := Source is VarRef ? "uint*" : "ptr"
+    ValueMarshal := Value is VarRef ? "char*" : IntPtr
+    SourceMarshal := Source is VarRef ? "uint*" : IntPtr
 
     DllCall("winbio.dll\WinBioGetDomainLogonSetting", ValueMarshal, Value, SourceMarshal, Source)
 }
 
 /**
- * 
  * @returns {Integer} 
  */
 export WinBioIsESSCapable() {

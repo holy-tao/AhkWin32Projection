@@ -61,7 +61,7 @@ export default struct IAMResourceControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Reserve := CallbackCreate(GetMethod(implObj, "Reserve"), flags, 3)
+        this.vtbl.Reserve := CallbackCreate(ObjBindMethod(implObj, "Reserve"), flags, 3)
     }
 
     Dispose() {

@@ -22,7 +22,6 @@ export default struct PWAITCHAINCALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} WctHandle A handle to the WCT session created by the <a href="https://docs.microsoft.com/windows/desktop/api/wct/nf-wct-openthreadwaitchainsession">OpenThreadWaitChainSession</a> function.
      * @param {Pointer} _Context A optional pointer to an application-defined context structure specified by the <a href="https://docs.microsoft.com/windows/desktop/api/wct/nf-wct-getthreadwaitchain">GetThreadWaitChain</a> function.
      * @param {Integer} CallbackStatus 
@@ -32,9 +31,9 @@ export default struct PWAITCHAINCALLBACK {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(WctHandle, _Context, CallbackStatus, NodeCount, NodeInfoArray, IsCycle) {
-        WctHandleMarshal := WctHandle is VarRef ? "ptr" : "ptr"
-        NodeCountMarshal := NodeCount is VarRef ? "uint*" : "ptr"
-        IsCycleMarshal := IsCycle is VarRef ? "int*" : "ptr"
+        WctHandleMarshal := WctHandle is VarRef ? "ptr" : IntPtr
+        NodeCountMarshal := NodeCount is VarRef ? "uint*" : IntPtr
+        IsCycleMarshal := IsCycle is VarRef ? "int*" : IntPtr
 
         DllCall(this.value, WctHandleMarshal, WctHandle, IntPtr, _Context, UInt32, CallbackStatus, NodeCountMarshal, NodeCount, WAITCHAIN_NODE_INFO.Ptr, NodeInfoArray, IsCycleMarshal, IsCycle)
     }

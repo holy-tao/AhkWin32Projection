@@ -252,9 +252,10 @@ export ActivateKeyboardLayout(_hkl, Flags) {
 export ToUnicodeEx(wVirtKey, wScanCode, lpKeyState, pwszBuff, cchBuff, wFlags, dwhkl) {
     pwszBuff := pwszBuff is String ? StrPtr(pwszBuff) : pwszBuff
 
-    lpKeyStateMarshal := lpKeyState is VarRef ? "char*" : "ptr"
+    lpKeyStateMarshal := lpKeyState is VarRef ? "char*" : IntPtr
+    dwhklMarshal := dwhkl == 0 ? IntPtr : HKL
 
-    result := DllCall("USER32.dll\ToUnicodeEx", UInt32, wVirtKey, UInt32, wScanCode, lpKeyStateMarshal, lpKeyState, "ptr", pwszBuff, Int32, cchBuff, UInt32, wFlags, HKL, dwhkl, Int32)
+    result := DllCall("USER32.dll\ToUnicodeEx", UInt32, wVirtKey, UInt32, wScanCode, lpKeyStateMarshal, lpKeyState, "ptr", pwszBuff, Int32, cchBuff, UInt32, wFlags, dwhklMarshal, dwhkl, Int32)
     return result
 }
 
@@ -393,9 +394,11 @@ export GetKeyboardLayoutNameW(pwszKLID) {
  * @since windows5.0
  */
 export GetKeyboardLayoutList(nBuff, lpList) {
+    lpListMarshal := lpList == 0 ? IntPtr : HKL.Ptr
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetKeyboardLayoutList", Int32, nBuff, HKL.Ptr, lpList, Int32)
+    result := DllCall("USER32.dll\GetKeyboardLayoutList", Int32, nBuff, lpListMarshal, lpList, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -615,9 +618,11 @@ export TrackMouseEvent(lpEventTrack) {
  * @since windows6.0.6000
  */
 export RegisterHotKey(_hWnd, id, fsModifiers, vk) {
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\RegisterHotKey", HWND, _hWnd, Int32, id, HOT_KEY_MODIFIERS, fsModifiers, UInt32, vk, BOOL)
+    result := DllCall("USER32.dll\RegisterHotKey", _hWndMarshal, _hWnd, Int32, id, HOT_KEY_MODIFIERS, fsModifiers, UInt32, vk, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -642,9 +647,11 @@ export RegisterHotKey(_hWnd, id, fsModifiers, vk) {
  * @since windows5.0
  */
 export UnregisterHotKey(_hWnd, id) {
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\UnregisterHotKey", HWND, _hWnd, Int32, id, BOOL)
+    result := DllCall("USER32.dll\UnregisterHotKey", _hWndMarshal, _hWnd, Int32, id, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -731,9 +738,11 @@ export SetDoubleClickTime(param0) {
  * @since windows5.0
  */
 export SetFocus(_hWnd) {
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\SetFocus", HWND, _hWnd, HWND)
+    result := DllCall("USER32.dll\SetFocus", _hWndMarshal, _hWnd, HWND)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -971,7 +980,7 @@ export GetAsyncKeyState(vKey) {
  * @since windows5.0
  */
 export GetKeyboardState(lpKeyState) {
-    lpKeyStateMarshal := lpKeyState is VarRef ? "char*" : "ptr"
+    lpKeyStateMarshal := lpKeyState is VarRef ? "char*" : IntPtr
 
     A_LastError := 0
 
@@ -999,7 +1008,7 @@ export GetKeyboardState(lpKeyState) {
  * @since windows5.0
  */
 export SetKeyboardState(lpKeyState) {
-    lpKeyStateMarshal := lpKeyState is VarRef ? "char*" : "ptr"
+    lpKeyStateMarshal := lpKeyState is VarRef ? "char*" : IntPtr
 
     A_LastError := 0
 
@@ -1216,8 +1225,9 @@ export GetKeyboardType(nTypeFlag) {
  * @since windows5.0
  */
 export ToAscii(uVirtKey, uScanCode, lpKeyState, lpChar, uFlags) {
-    lpKeyStateMarshal := lpKeyState is VarRef ? "char*" : "ptr"
-    lpCharMarshal := lpChar is VarRef ? "ushort*" : "ptr"
+    lpKeyStateMarshal := lpKeyState is VarRef ? "char*" : IntPtr
+    lpKeyStateMarshal := lpKeyState == 0 ? IntPtr : "char*"
+    lpCharMarshal := lpChar is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("USER32.dll\ToAscii", UInt32, uVirtKey, UInt32, uScanCode, lpKeyStateMarshal, lpKeyState, lpCharMarshal, lpChar, UInt32, uFlags, Int32)
     return result
@@ -1303,10 +1313,12 @@ export ToAscii(uVirtKey, uScanCode, lpKeyState, lpChar, uFlags) {
  * @since windows5.0
  */
 export ToAsciiEx(uVirtKey, uScanCode, lpKeyState, lpChar, uFlags, dwhkl) {
-    lpKeyStateMarshal := lpKeyState is VarRef ? "char*" : "ptr"
-    lpCharMarshal := lpChar is VarRef ? "ushort*" : "ptr"
+    lpKeyStateMarshal := lpKeyState is VarRef ? "char*" : IntPtr
+    lpKeyStateMarshal := lpKeyState == 0 ? IntPtr : "char*"
+    lpCharMarshal := lpChar is VarRef ? "ushort*" : IntPtr
+    dwhklMarshal := dwhkl == 0 ? IntPtr : HKL
 
-    result := DllCall("USER32.dll\ToAsciiEx", UInt32, uVirtKey, UInt32, uScanCode, lpKeyStateMarshal, lpKeyState, lpCharMarshal, lpChar, UInt32, uFlags, HKL, dwhkl, Int32)
+    result := DllCall("USER32.dll\ToAsciiEx", UInt32, uVirtKey, UInt32, uScanCode, lpKeyStateMarshal, lpKeyState, lpCharMarshal, lpChar, UInt32, uFlags, dwhklMarshal, dwhkl, Int32)
     return result
 }
 
@@ -1397,7 +1409,8 @@ export ToAsciiEx(uVirtKey, uScanCode, lpKeyState, lpChar, uFlags, dwhkl) {
 export ToUnicode(wVirtKey, wScanCode, lpKeyState, pwszBuff, cchBuff, wFlags) {
     pwszBuff := pwszBuff is String ? StrPtr(pwszBuff) : pwszBuff
 
-    lpKeyStateMarshal := lpKeyState is VarRef ? "char*" : "ptr"
+    lpKeyStateMarshal := lpKeyState is VarRef ? "char*" : IntPtr
+    lpKeyStateMarshal := lpKeyState == 0 ? IntPtr : "char*"
 
     result := DllCall("USER32.dll\ToUnicode", UInt32, wVirtKey, UInt32, wScanCode, lpKeyStateMarshal, lpKeyState, "ptr", pwszBuff, Int32, cchBuff, UInt32, wFlags, Int32)
     return result
@@ -2258,7 +2271,9 @@ export MapVirtualKeyW(uCode, uMapType) {
  * @since windows5.0
  */
 export MapVirtualKeyExA(uCode, uMapType, dwhkl) {
-    result := DllCall("USER32.dll\MapVirtualKeyExA", UInt32, uCode, MAP_VIRTUAL_KEY_TYPE, uMapType, HKL, dwhkl, UInt32)
+    dwhklMarshal := dwhkl == 0 ? IntPtr : HKL
+
+    result := DllCall("USER32.dll\MapVirtualKeyExA", UInt32, uCode, MAP_VIRTUAL_KEY_TYPE, uMapType, dwhklMarshal, dwhkl, UInt32)
     return result
 }
 
@@ -2310,7 +2325,9 @@ export MapVirtualKeyExA(uCode, uMapType, dwhkl) {
  * @since windows5.0
  */
 export MapVirtualKeyExW(uCode, uMapType, dwhkl) {
-    result := DllCall("USER32.dll\MapVirtualKeyExW", UInt32, uCode, MAP_VIRTUAL_KEY_TYPE, uMapType, HKL, dwhkl, UInt32)
+    dwhklMarshal := dwhkl == 0 ? IntPtr : HKL
+
+    result := DllCall("USER32.dll\MapVirtualKeyExW", UInt32, uCode, MAP_VIRTUAL_KEY_TYPE, uMapType, dwhklMarshal, dwhkl, UInt32)
     return result
 }
 

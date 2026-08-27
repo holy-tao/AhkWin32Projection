@@ -83,7 +83,7 @@ export default struct ISearchProtocol2 extends ISearchProtocol {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateAccessorEx := CallbackCreate(GetMethod(implObj, "CreateAccessorEx"), flags, 7)
+        this.vtbl.CreateAccessorEx := CallbackCreate(ObjBindMethod(implObj, "CreateAccessorEx"), flags, 7)
     }
 
     Dispose() {

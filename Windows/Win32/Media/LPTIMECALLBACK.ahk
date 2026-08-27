@@ -18,7 +18,6 @@ export default struct LPTIMECALLBACK {
     }
 
     /**
-     * 
      * @param {Integer} uTimerID 
      * @param {Integer} uMsg 
      * @param {Pointer} dwUser 

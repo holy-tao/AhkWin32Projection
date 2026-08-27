@@ -80,9 +80,9 @@ export default struct IRDPSRAPIAudioStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiaudiostream-getbuffer
      */
     GetBuffer(ppbData, pcbData, pTimestamp) {
-        ppbDataMarshal := ppbData is VarRef ? "ptr*" : "ptr"
-        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
-        pTimestampMarshal := pTimestamp is VarRef ? "uint*" : "ptr"
+        ppbDataMarshal := ppbData is VarRef ? "ptr*" : IntPtr
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
+        pTimestampMarshal := pTimestamp is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, ppbDataMarshal, ppbData, pcbDataMarshal, pcbData, pTimestampMarshal, pTimestamp, "HRESULT")
         return result
@@ -107,11 +107,11 @@ export default struct IRDPSRAPIAudioStream extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 1)
-        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
-        this.vtbl.GetBuffer := CallbackCreate(GetMethod(implObj, "GetBuffer"), flags, 4)
-        this.vtbl.FreeBuffer := CallbackCreate(GetMethod(implObj, "FreeBuffer"), flags, 1)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.Start := CallbackCreate(ObjBindMethod(implObj, "Start"), flags, 1)
+        this.vtbl.Stop := CallbackCreate(ObjBindMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.GetBuffer := CallbackCreate(ObjBindMethod(implObj, "GetBuffer"), flags, 4)
+        this.vtbl.FreeBuffer := CallbackCreate(ObjBindMethod(implObj, "FreeBuffer"), flags, 1)
     }
 
     Dispose() {

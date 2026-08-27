@@ -43,7 +43,6 @@ export default struct IDxcCompilerArgs extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<PWSTR>} 
      */
     GetArguments() {
@@ -52,7 +51,6 @@ export default struct IDxcCompilerArgs extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCount() {
@@ -61,33 +59,32 @@ export default struct IDxcCompilerArgs extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PWSTR>} pArguments 
      * @param {Integer} argCount 
      * @returns {HRESULT} 
      */
     AddArguments(pArguments, argCount) {
-        pArgumentsMarshal := pArguments is VarRef ? "ptr*" : "ptr"
+        pArgumentsMarshal := pArguments is VarRef ? "ptr*" : IntPtr
+        pArgumentsMarshal := pArguments == 0 ? IntPtr : PWSTR.Ptr
 
         result := ComCall(5, this, pArgumentsMarshal, pArguments, UInt32, argCount, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<PSTR>} pArguments 
      * @param {Integer} argCount 
      * @returns {HRESULT} 
      */
     AddArgumentsUTF8(pArguments, argCount) {
-        pArgumentsMarshal := pArguments is VarRef ? "ptr*" : "ptr"
+        pArgumentsMarshal := pArguments is VarRef ? "ptr*" : IntPtr
+        pArgumentsMarshal := pArguments == 0 ? IntPtr : PSTR.Ptr
 
         result := ComCall(6, this, pArgumentsMarshal, pArguments, UInt32, argCount, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<DxcDefine>} pDefines 
      * @param {Integer} defineCount 
      * @returns {HRESULT} 
@@ -106,11 +103,11 @@ export default struct IDxcCompilerArgs extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetArguments := CallbackCreate(GetMethod(implObj, "GetArguments"), flags, 1)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 1)
-        this.vtbl.AddArguments := CallbackCreate(GetMethod(implObj, "AddArguments"), flags, 3)
-        this.vtbl.AddArgumentsUTF8 := CallbackCreate(GetMethod(implObj, "AddArgumentsUTF8"), flags, 3)
-        this.vtbl.AddDefines := CallbackCreate(GetMethod(implObj, "AddDefines"), flags, 3)
+        this.vtbl.GetArguments := CallbackCreate(ObjBindMethod(implObj, "GetArguments"), flags, 1)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 1)
+        this.vtbl.AddArguments := CallbackCreate(ObjBindMethod(implObj, "AddArguments"), flags, 3)
+        this.vtbl.AddArgumentsUTF8 := CallbackCreate(ObjBindMethod(implObj, "AddArgumentsUTF8"), flags, 3)
+        this.vtbl.AddDefines := CallbackCreate(ObjBindMethod(implObj, "AddDefines"), flags, 3)
     }
 
     Dispose() {

@@ -107,11 +107,11 @@ export default struct IWMWriterSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnHeader := CallbackCreate(GetMethod(implObj, "OnHeader"), flags, 2)
-        this.vtbl.IsRealTime := CallbackCreate(GetMethod(implObj, "IsRealTime"), flags, 2)
-        this.vtbl.AllocateDataUnit := CallbackCreate(GetMethod(implObj, "AllocateDataUnit"), flags, 3)
-        this.vtbl.OnDataUnit := CallbackCreate(GetMethod(implObj, "OnDataUnit"), flags, 2)
-        this.vtbl.OnEndWriting := CallbackCreate(GetMethod(implObj, "OnEndWriting"), flags, 1)
+        this.vtbl.OnHeader := CallbackCreate(ObjBindMethod(implObj, "OnHeader"), flags, 2)
+        this.vtbl.IsRealTime := CallbackCreate(ObjBindMethod(implObj, "IsRealTime"), flags, 2)
+        this.vtbl.AllocateDataUnit := CallbackCreate(ObjBindMethod(implObj, "AllocateDataUnit"), flags, 3)
+        this.vtbl.OnDataUnit := CallbackCreate(ObjBindMethod(implObj, "OnDataUnit"), flags, 2)
+        this.vtbl.OnEndWriting := CallbackCreate(ObjBindMethod(implObj, "OnEndWriting"), flags, 1)
     }
 
     Dispose() {

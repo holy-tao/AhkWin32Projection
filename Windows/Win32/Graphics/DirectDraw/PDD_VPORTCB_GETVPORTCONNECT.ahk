@@ -36,7 +36,6 @@ export default struct PDD_VPORTCB_GETVPORTCONNECT {
     }
 
     /**
-     * 
      * @param {Pointer<DD_GETVPORTCONNECTDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_getvportconnectdata">DD_GETVPORTCONNECTDATA</a> structure that contains the information required for the driver to return the VPE object connection data.
      * @returns {Integer} <i>DdVideoPortGetConnectInfo</i> returns one of the following callback codes:
      */

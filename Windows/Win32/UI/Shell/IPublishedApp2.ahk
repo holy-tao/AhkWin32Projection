@@ -68,7 +68,7 @@ export default struct IPublishedApp2 extends IPublishedApp {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Install2 := CallbackCreate(GetMethod(implObj, "Install2"), flags, 3)
+        this.vtbl.Install2 := CallbackCreate(ObjBindMethod(implObj, "Install2"), flags, 3)
     }
 
     Dispose() {

@@ -26,7 +26,6 @@ export default struct PSYM_ENUMERATESYMBOLS_CALLBACKW {
     }
 
     /**
-     * 
      * @param {Pointer<SYMBOL_INFOW>} pSymInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-symbol_info">SYMBOL_INFO</a> structure that 
      *       provides information about the symbol.
      * @param {Integer} SymbolSize The size of the symbol, in bytes. The size is calculated and is actually a guess. In some cases, this value 
@@ -41,7 +40,8 @@ export default struct PSYM_ENUMERATESYMBOLS_CALLBACKW {
      * If the function returns <b>FALSE</b>, the enumeration will stop.
      */
     Call(pSymInfo, SymbolSize, UserContext) {
-        UserContextMarshal := UserContext is VarRef ? "ptr" : "ptr"
+        UserContextMarshal := UserContext is VarRef ? "ptr" : IntPtr
+        UserContextMarshal := UserContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, SYMBOL_INFOW.Ptr, pSymInfo, UInt32, SymbolSize, UserContextMarshal, UserContext, BOOL)
         return result

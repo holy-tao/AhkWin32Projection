@@ -20,7 +20,6 @@ export default struct PIBIO_SENSOR_FINISH_NOTIFY_WAKE_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline 
      * @returns {Integer} 
      */

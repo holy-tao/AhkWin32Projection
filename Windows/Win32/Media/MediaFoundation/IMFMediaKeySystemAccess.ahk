@@ -55,17 +55,17 @@ export default struct IMFMediaKeySystemAccess extends IUnknown {
     }
 
     /**
-     * 
      * @param {IPropertyStore} pCdmCustomConfig 
      * @returns {IMFMediaKeys2} 
      */
     CreateMediaKeys(pCdmCustomConfig) {
-        result := ComCall(3, this, "ptr", pCdmCustomConfig, "ptr*", &ppKeys := 0, "HRESULT")
+        pCdmCustomConfigMarshal := pCdmCustomConfig == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pCdmCustomConfigMarshal, pCdmCustomConfig, "ptr*", &ppKeys := 0, "HRESULT")
         return IMFMediaKeys2(ppKeys)
     }
 
     /**
-     * 
      * @returns {IPropertyStore} 
      */
     get_SupportedConfiguration() {
@@ -74,7 +74,6 @@ export default struct IMFMediaKeySystemAccess extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_KeySystem() {
@@ -92,9 +91,9 @@ export default struct IMFMediaKeySystemAccess extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateMediaKeys := CallbackCreate(GetMethod(implObj, "CreateMediaKeys"), flags, 3)
-        this.vtbl.get_SupportedConfiguration := CallbackCreate(GetMethod(implObj, "get_SupportedConfiguration"), flags, 2)
-        this.vtbl.get_KeySystem := CallbackCreate(GetMethod(implObj, "get_KeySystem"), flags, 2)
+        this.vtbl.CreateMediaKeys := CallbackCreate(ObjBindMethod(implObj, "CreateMediaKeys"), flags, 3)
+        this.vtbl.get_SupportedConfiguration := CallbackCreate(ObjBindMethod(implObj, "get_SupportedConfiguration"), flags, 2)
+        this.vtbl.get_KeySystem := CallbackCreate(ObjBindMethod(implObj, "get_KeySystem"), flags, 2)
     }
 
     Dispose() {

@@ -169,12 +169,12 @@ export default struct ITTerminal extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
-        this.vtbl.get_TerminalType := CallbackCreate(GetMethod(implObj, "get_TerminalType"), flags, 2)
-        this.vtbl.get_TerminalClass := CallbackCreate(GetMethod(implObj, "get_TerminalClass"), flags, 2)
-        this.vtbl.get_MediaType := CallbackCreate(GetMethod(implObj, "get_MediaType"), flags, 2)
-        this.vtbl.get_Direction := CallbackCreate(GetMethod(implObj, "get_Direction"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(ObjBindMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.get_TerminalType := CallbackCreate(ObjBindMethod(implObj, "get_TerminalType"), flags, 2)
+        this.vtbl.get_TerminalClass := CallbackCreate(ObjBindMethod(implObj, "get_TerminalClass"), flags, 2)
+        this.vtbl.get_MediaType := CallbackCreate(ObjBindMethod(implObj, "get_MediaType"), flags, 2)
+        this.vtbl.get_Direction := CallbackCreate(ObjBindMethod(implObj, "get_Direction"), flags, 2)
     }
 
     Dispose() {

@@ -97,7 +97,7 @@ export default struct IRdcLibrary extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdclibrary-opengeneratorparameters
      */
     OpenGeneratorParameters(_size, parametersBlob) {
-        parametersBlobMarshal := parametersBlob is VarRef ? "char*" : "ptr"
+        parametersBlobMarshal := parametersBlob is VarRef ? "char*" : IntPtr
 
         result := ComCall(5, this, UInt32, _size, parametersBlobMarshal, parametersBlob, "ptr*", &iGeneratorParameters := 0, "HRESULT")
         return IRdcGeneratorParameters(iGeneratorParameters)
@@ -167,8 +167,8 @@ export default struct IRdcLibrary extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdclibrary-getrdcversion
      */
     GetRDCVersion(currentVersion, minimumCompatibleAppVersion) {
-        currentVersionMarshal := currentVersion is VarRef ? "uint*" : "ptr"
-        minimumCompatibleAppVersionMarshal := minimumCompatibleAppVersion is VarRef ? "uint*" : "ptr"
+        currentVersionMarshal := currentVersion is VarRef ? "uint*" : IntPtr
+        minimumCompatibleAppVersionMarshal := minimumCompatibleAppVersion is VarRef ? "uint*" : IntPtr
 
         result := ComCall(9, this, currentVersionMarshal, currentVersion, minimumCompatibleAppVersionMarshal, minimumCompatibleAppVersion, "HRESULT")
         return result
@@ -183,13 +183,13 @@ export default struct IRdcLibrary extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ComputeDefaultRecursionDepth := CallbackCreate(GetMethod(implObj, "ComputeDefaultRecursionDepth"), flags, 3)
-        this.vtbl.CreateGeneratorParameters := CallbackCreate(GetMethod(implObj, "CreateGeneratorParameters"), flags, 4)
-        this.vtbl.OpenGeneratorParameters := CallbackCreate(GetMethod(implObj, "OpenGeneratorParameters"), flags, 4)
-        this.vtbl.CreateGenerator := CallbackCreate(GetMethod(implObj, "CreateGenerator"), flags, 4)
-        this.vtbl.CreateComparator := CallbackCreate(GetMethod(implObj, "CreateComparator"), flags, 4)
-        this.vtbl.CreateSignatureReader := CallbackCreate(GetMethod(implObj, "CreateSignatureReader"), flags, 3)
-        this.vtbl.GetRDCVersion := CallbackCreate(GetMethod(implObj, "GetRDCVersion"), flags, 3)
+        this.vtbl.ComputeDefaultRecursionDepth := CallbackCreate(ObjBindMethod(implObj, "ComputeDefaultRecursionDepth"), flags, 3)
+        this.vtbl.CreateGeneratorParameters := CallbackCreate(ObjBindMethod(implObj, "CreateGeneratorParameters"), flags, 4)
+        this.vtbl.OpenGeneratorParameters := CallbackCreate(ObjBindMethod(implObj, "OpenGeneratorParameters"), flags, 4)
+        this.vtbl.CreateGenerator := CallbackCreate(ObjBindMethod(implObj, "CreateGenerator"), flags, 4)
+        this.vtbl.CreateComparator := CallbackCreate(ObjBindMethod(implObj, "CreateComparator"), flags, 4)
+        this.vtbl.CreateSignatureReader := CallbackCreate(ObjBindMethod(implObj, "CreateSignatureReader"), flags, 3)
+        this.vtbl.GetRDCVersion := CallbackCreate(ObjBindMethod(implObj, "GetRDCVersion"), flags, 3)
     }
 
     Dispose() {

@@ -20,14 +20,13 @@ export default struct UCharIteratorSetState {
     }
 
     /**
-     * 
      * @param {Pointer<UCharIterator>} iter 
      * @param {Integer} state 
      * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(iter, state, pErrorCode) {
-        pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
+        pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : IntPtr
 
         DllCall(this.value, UCharIterator.Ptr, iter, UInt32, state, pErrorCodeMarshal, pErrorCode)
     }

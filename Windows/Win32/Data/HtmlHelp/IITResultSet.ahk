@@ -74,7 +74,6 @@ export default struct IITResultSet extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lColumnIndex 
      * @param {PRIORITY} ColumnPriority 
      * @returns {HRESULT} 
@@ -85,21 +84,19 @@ export default struct IITResultSet extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lColumnIndex 
      * @param {Pointer<Void>} lpvHeap 
      * @param {Pointer<PFNCOLHEAPFREE>} _pfnColHeapFree 
      * @returns {HRESULT} 
      */
     SetColumnHeap(lColumnIndex, lpvHeap, _pfnColHeapFree) {
-        lpvHeapMarshal := lpvHeap is VarRef ? "ptr" : "ptr"
+        lpvHeapMarshal := lpvHeap is VarRef ? "ptr" : IntPtr
 
         result := ComCall(4, this, Int32, lColumnIndex, lpvHeapMarshal, lpvHeap, PFNCOLHEAPFREE, _pfnColHeapFree, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} PropID 
      * @returns {HRESULT} 
      */
@@ -245,7 +242,7 @@ export default struct IITResultSet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitresultset-add(propid_lpvoid_dword_priority)
      */
     Add2(PropID, lpvDefaultData, cbData, _Priority) {
-        lpvDefaultDataMarshal := lpvDefaultData is VarRef ? "ptr" : "ptr"
+        lpvDefaultDataMarshal := lpvDefaultData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(8, this, UInt32, PropID, lpvDefaultDataMarshal, lpvDefaultData, UInt32, cbData, PRIORITY, _Priority, "HRESULT")
         return result
@@ -291,7 +288,7 @@ export default struct IITResultSet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitresultset-add(propid_lpvoid_dword_priority)
      */
     Add3(lpvHdr) {
-        lpvHdrMarshal := lpvHdr is VarRef ? "ptr" : "ptr"
+        lpvHdrMarshal := lpvHdr is VarRef ? "ptr" : IntPtr
 
         result := ComCall(9, this, lpvHdrMarshal, lpvHdr, "HRESULT")
         return result
@@ -314,15 +311,14 @@ export default struct IITResultSet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/direct3dhlsl/dx-graphics-hlsl-so-append
      */
     Append(lpvHdr, lpvData) {
-        lpvHdrMarshal := lpvHdr is VarRef ? "ptr" : "ptr"
-        lpvDataMarshal := lpvData is VarRef ? "ptr" : "ptr"
+        lpvHdrMarshal := lpvHdr is VarRef ? "ptr" : IntPtr
+        lpvDataMarshal := lpvData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(10, this, lpvHdrMarshal, lpvHdr, lpvDataMarshal, lpvData, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} lRowIndex 
      * @param {Integer} lColumnIndex 
      * @param {Pointer<Void>} lpvData 
@@ -330,14 +326,13 @@ export default struct IITResultSet extends IUnknown {
      * @returns {HRESULT} 
      */
     Set(lRowIndex, lColumnIndex, lpvData, cbData) {
-        lpvDataMarshal := lpvData is VarRef ? "ptr" : "ptr"
+        lpvDataMarshal := lpvData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(11, this, Int32, lRowIndex, Int32, lColumnIndex, lpvDataMarshal, lpvData, UInt32, cbData, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} lRowIndex 
      * @param {Integer} lColumnIndex 
      * @param {PWSTR} lpwStr 
@@ -351,7 +346,6 @@ export default struct IITResultSet extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lRowIndex 
      * @param {Integer} lColumnIndex 
      * @param {Pointer} dwData 
@@ -363,22 +357,20 @@ export default struct IITResultSet extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lRowIndex 
      * @param {Pointer<Void>} lpvHdr 
      * @param {Pointer<Void>} lpvData 
      * @returns {HRESULT} 
      */
     Set3(lRowIndex, lpvHdr, lpvData) {
-        lpvHdrMarshal := lpvHdr is VarRef ? "ptr" : "ptr"
-        lpvDataMarshal := lpvData is VarRef ? "ptr" : "ptr"
+        lpvHdrMarshal := lpvHdr is VarRef ? "ptr" : IntPtr
+        lpvDataMarshal := lpvData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(14, this, Int32, lRowIndex, lpvHdrMarshal, lpvHdr, lpvDataMarshal, lpvData, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IITResultSet} pRSCopy 
      * @returns {HRESULT} 
      */
@@ -388,7 +380,6 @@ export default struct IITResultSet extends IUnknown {
     }
 
     /**
-     * 
      * @param {IITResultSet} pResSrc 
      * @param {Integer} lRowSrcFirst 
      * @param {Integer} cSrcRows 
@@ -396,7 +387,7 @@ export default struct IITResultSet extends IUnknown {
      * @returns {HRESULT} 
      */
     AppendRows(pResSrc, lRowSrcFirst, cSrcRows, lRowFirstDest) {
-        lRowFirstDestMarshal := lRowFirstDest is VarRef ? "int*" : "ptr"
+        lRowFirstDestMarshal := lRowFirstDest is VarRef ? "int*" : IntPtr
 
         result := ComCall(16, this, "ptr", pResSrc, Int32, lRowSrcFirst, Int32, cSrcRows, lRowFirstDestMarshal, lRowFirstDest, "HRESULT")
         return result
@@ -449,25 +440,23 @@ export default struct IITResultSet extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} KeyPropID 
      * @returns {HRESULT} 
      */
     GetKeyProp(KeyPropID) {
-        KeyPropIDMarshal := KeyPropID is VarRef ? "uint*" : "ptr"
+        KeyPropIDMarshal := KeyPropID is VarRef ? "uint*" : IntPtr
 
         result := ComCall(18, this, KeyPropIDMarshal, KeyPropID, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} lColumnIndex 
      * @param {Pointer<PRIORITY>} ColumnPriority 
      * @returns {HRESULT} 
      */
     GetColumnPriority(lColumnIndex, ColumnPriority) {
-        ColumnPriorityMarshal := ColumnPriority is VarRef ? "int*" : "ptr"
+        ColumnPriorityMarshal := ColumnPriority is VarRef ? "int*" : IntPtr
 
         result := ComCall(19, this, Int32, lColumnIndex, ColumnPriorityMarshal, ColumnPriority, "HRESULT")
         return result
@@ -500,26 +489,24 @@ export default struct IITResultSet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitresultset-getrowcount
      */
     GetRowCount(lNumberOfRows) {
-        lNumberOfRowsMarshal := lNumberOfRows is VarRef ? "int*" : "ptr"
+        lNumberOfRowsMarshal := lNumberOfRows is VarRef ? "int*" : IntPtr
 
         result := ComCall(20, this, lNumberOfRowsMarshal, lNumberOfRows, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} lNumberOfColumns 
      * @returns {HRESULT} 
      */
     GetColumnCount(lNumberOfColumns) {
-        lNumberOfColumnsMarshal := lNumberOfColumns is VarRef ? "int*" : "ptr"
+        lNumberOfColumnsMarshal := lNumberOfColumns is VarRef ? "int*" : IntPtr
 
         result := ComCall(21, this, lNumberOfColumnsMarshal, lNumberOfColumns, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} lColumnIndex 
      * @param {Pointer<Integer>} PropID 
      * @param {Pointer<Integer>} dwType 
@@ -529,37 +516,35 @@ export default struct IITResultSet extends IUnknown {
      * @returns {HRESULT} 
      */
     GetColumn(lColumnIndex, PropID, dwType, lpvDefaultValue, cbSize, ColumnPriority) {
-        PropIDMarshal := PropID is VarRef ? "uint*" : "ptr"
-        dwTypeMarshal := dwType is VarRef ? "uint*" : "ptr"
-        lpvDefaultValueMarshal := lpvDefaultValue is VarRef ? "ptr*" : "ptr"
-        cbSizeMarshal := cbSize is VarRef ? "uint*" : "ptr"
-        ColumnPriorityMarshal := ColumnPriority is VarRef ? "int*" : "ptr"
+        PropIDMarshal := PropID is VarRef ? "uint*" : IntPtr
+        dwTypeMarshal := dwType is VarRef ? "uint*" : IntPtr
+        lpvDefaultValueMarshal := lpvDefaultValue is VarRef ? "ptr*" : IntPtr
+        cbSizeMarshal := cbSize is VarRef ? "uint*" : IntPtr
+        ColumnPriorityMarshal := ColumnPriority is VarRef ? "int*" : IntPtr
 
         result := ComCall(22, this, Int32, lColumnIndex, PropIDMarshal, PropID, dwTypeMarshal, dwType, lpvDefaultValueMarshal, lpvDefaultValue, cbSizeMarshal, cbSize, ColumnPriorityMarshal, ColumnPriority, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} lColumnIndex 
      * @param {Pointer<Integer>} PropID 
      * @returns {HRESULT} 
      */
     GetColumn1(lColumnIndex, PropID) {
-        PropIDMarshal := PropID is VarRef ? "uint*" : "ptr"
+        PropIDMarshal := PropID is VarRef ? "uint*" : IntPtr
 
         result := ComCall(23, this, Int32, lColumnIndex, PropIDMarshal, PropID, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} PropID 
      * @param {Pointer<Integer>} lColumnIndex 
      * @returns {HRESULT} 
      */
     GetColumnFromPropID(PropID, lColumnIndex) {
-        lColumnIndexMarshal := lColumnIndex is VarRef ? "int*" : "ptr"
+        lColumnIndexMarshal := lColumnIndex is VarRef ? "int*" : IntPtr
 
         result := ComCall(24, this, UInt32, PropID, lColumnIndexMarshal, lColumnIndex, "HRESULT")
         return result
@@ -594,7 +579,6 @@ export default struct IITResultSet extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ClearRows() {
@@ -603,7 +587,6 @@ export default struct IITResultSet extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Free() {
@@ -612,7 +595,6 @@ export default struct IITResultSet extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     IsCompleted() {
@@ -621,7 +603,6 @@ export default struct IITResultSet extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Cancel() {
@@ -643,7 +624,6 @@ export default struct IITResultSet extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lRowFirst 
      * @param {Integer} cRows 
      * @param {Pointer<ROWSTATUS>} lpRowStatus 
@@ -655,7 +635,6 @@ export default struct IITResultSet extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<COLUMNSTATUS>} lpColStatus 
      * @returns {HRESULT} 
      */
@@ -673,36 +652,36 @@ export default struct IITResultSet extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetColumnPriority := CallbackCreate(GetMethod(implObj, "SetColumnPriority"), flags, 3)
-        this.vtbl.SetColumnHeap := CallbackCreate(GetMethod(implObj, "SetColumnHeap"), flags, 4)
-        this.vtbl.SetKeyProp := CallbackCreate(GetMethod(implObj, "SetKeyProp"), flags, 2)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 4)
-        this.vtbl.Add1 := CallbackCreate(GetMethod(implObj, "Add1"), flags, 4)
-        this.vtbl.Add2 := CallbackCreate(GetMethod(implObj, "Add2"), flags, 5)
-        this.vtbl.Add3 := CallbackCreate(GetMethod(implObj, "Add3"), flags, 2)
-        this.vtbl.Append := CallbackCreate(GetMethod(implObj, "Append"), flags, 3)
-        this.vtbl.Set := CallbackCreate(GetMethod(implObj, "Set"), flags, 5)
-        this.vtbl.Set1 := CallbackCreate(GetMethod(implObj, "Set1"), flags, 4)
-        this.vtbl.Set2 := CallbackCreate(GetMethod(implObj, "Set2"), flags, 4)
-        this.vtbl.Set3 := CallbackCreate(GetMethod(implObj, "Set3"), flags, 4)
-        this.vtbl.Copy := CallbackCreate(GetMethod(implObj, "Copy"), flags, 2)
-        this.vtbl.AppendRows := CallbackCreate(GetMethod(implObj, "AppendRows"), flags, 5)
-        this.vtbl.Get := CallbackCreate(GetMethod(implObj, "Get"), flags, 4)
-        this.vtbl.GetKeyProp := CallbackCreate(GetMethod(implObj, "GetKeyProp"), flags, 2)
-        this.vtbl.GetColumnPriority := CallbackCreate(GetMethod(implObj, "GetColumnPriority"), flags, 3)
-        this.vtbl.GetRowCount := CallbackCreate(GetMethod(implObj, "GetRowCount"), flags, 2)
-        this.vtbl.GetColumnCount := CallbackCreate(GetMethod(implObj, "GetColumnCount"), flags, 2)
-        this.vtbl.GetColumn := CallbackCreate(GetMethod(implObj, "GetColumn"), flags, 7)
-        this.vtbl.GetColumn1 := CallbackCreate(GetMethod(implObj, "GetColumn1"), flags, 3)
-        this.vtbl.GetColumnFromPropID := CallbackCreate(GetMethod(implObj, "GetColumnFromPropID"), flags, 3)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
-        this.vtbl.ClearRows := CallbackCreate(GetMethod(implObj, "ClearRows"), flags, 1)
-        this.vtbl.Free := CallbackCreate(GetMethod(implObj, "Free"), flags, 1)
-        this.vtbl.IsCompleted := CallbackCreate(GetMethod(implObj, "IsCompleted"), flags, 1)
-        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
-        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 2)
-        this.vtbl.GetRowStatus := CallbackCreate(GetMethod(implObj, "GetRowStatus"), flags, 4)
-        this.vtbl.GetColumnStatus := CallbackCreate(GetMethod(implObj, "GetColumnStatus"), flags, 2)
+        this.vtbl.SetColumnPriority := CallbackCreate(ObjBindMethod(implObj, "SetColumnPriority"), flags, 3)
+        this.vtbl.SetColumnHeap := CallbackCreate(ObjBindMethod(implObj, "SetColumnHeap"), flags, 4)
+        this.vtbl.SetKeyProp := CallbackCreate(ObjBindMethod(implObj, "SetKeyProp"), flags, 2)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 4)
+        this.vtbl.Add1 := CallbackCreate(ObjBindMethod(implObj, "Add1"), flags, 4)
+        this.vtbl.Add2 := CallbackCreate(ObjBindMethod(implObj, "Add2"), flags, 5)
+        this.vtbl.Add3 := CallbackCreate(ObjBindMethod(implObj, "Add3"), flags, 2)
+        this.vtbl.Append := CallbackCreate(ObjBindMethod(implObj, "Append"), flags, 3)
+        this.vtbl.Set := CallbackCreate(ObjBindMethod(implObj, "Set"), flags, 5)
+        this.vtbl.Set1 := CallbackCreate(ObjBindMethod(implObj, "Set1"), flags, 4)
+        this.vtbl.Set2 := CallbackCreate(ObjBindMethod(implObj, "Set2"), flags, 4)
+        this.vtbl.Set3 := CallbackCreate(ObjBindMethod(implObj, "Set3"), flags, 4)
+        this.vtbl.Copy := CallbackCreate(ObjBindMethod(implObj, "Copy"), flags, 2)
+        this.vtbl.AppendRows := CallbackCreate(ObjBindMethod(implObj, "AppendRows"), flags, 5)
+        this.vtbl.Get := CallbackCreate(ObjBindMethod(implObj, "Get"), flags, 4)
+        this.vtbl.GetKeyProp := CallbackCreate(ObjBindMethod(implObj, "GetKeyProp"), flags, 2)
+        this.vtbl.GetColumnPriority := CallbackCreate(ObjBindMethod(implObj, "GetColumnPriority"), flags, 3)
+        this.vtbl.GetRowCount := CallbackCreate(ObjBindMethod(implObj, "GetRowCount"), flags, 2)
+        this.vtbl.GetColumnCount := CallbackCreate(ObjBindMethod(implObj, "GetColumnCount"), flags, 2)
+        this.vtbl.GetColumn := CallbackCreate(ObjBindMethod(implObj, "GetColumn"), flags, 7)
+        this.vtbl.GetColumn1 := CallbackCreate(ObjBindMethod(implObj, "GetColumn1"), flags, 3)
+        this.vtbl.GetColumnFromPropID := CallbackCreate(ObjBindMethod(implObj, "GetColumnFromPropID"), flags, 3)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.ClearRows := CallbackCreate(ObjBindMethod(implObj, "ClearRows"), flags, 1)
+        this.vtbl.Free := CallbackCreate(ObjBindMethod(implObj, "Free"), flags, 1)
+        this.vtbl.IsCompleted := CallbackCreate(ObjBindMethod(implObj, "IsCompleted"), flags, 1)
+        this.vtbl.Cancel := CallbackCreate(ObjBindMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.Pause := CallbackCreate(ObjBindMethod(implObj, "Pause"), flags, 2)
+        this.vtbl.GetRowStatus := CallbackCreate(ObjBindMethod(implObj, "GetRowStatus"), flags, 4)
+        this.vtbl.GetColumnStatus := CallbackCreate(ObjBindMethod(implObj, "GetColumnStatus"), flags, 2)
     }
 
     Dispose() {

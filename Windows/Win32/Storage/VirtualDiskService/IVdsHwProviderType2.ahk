@@ -59,7 +59,7 @@ export default struct IVdsHwProviderType2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProviderType2 := CallbackCreate(GetMethod(implObj, "GetProviderType2"), flags, 2)
+        this.vtbl.GetProviderType2 := CallbackCreate(ObjBindMethod(implObj, "GetProviderType2"), flags, 2)
     }
 
     Dispose() {

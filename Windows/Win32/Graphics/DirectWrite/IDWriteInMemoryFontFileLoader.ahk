@@ -63,7 +63,9 @@ export default struct IDWriteInMemoryFontFileLoader extends IDWriteFontFileLoade
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwriteinmemoryfontfileloader-createinmemoryfontfilereference
      */
     CreateInMemoryFontFileReference(factory, fontData, fontDataSize, ownerObject) {
-        result := ComCall(4, this, "ptr", factory, IntPtr, fontData, UInt32, fontDataSize, "ptr", ownerObject, "ptr*", &fontFile := 0, "HRESULT")
+        ownerObjectMarshal := ownerObject == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, "ptr", factory, IntPtr, fontData, UInt32, fontDataSize, ownerObjectMarshal, ownerObject, "ptr*", &fontFile := 0, "HRESULT")
         return IDWriteFontFile(fontFile)
     }
 
@@ -88,8 +90,8 @@ export default struct IDWriteInMemoryFontFileLoader extends IDWriteFontFileLoade
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateInMemoryFontFileReference := CallbackCreate(GetMethod(implObj, "CreateInMemoryFontFileReference"), flags, 6)
-        this.vtbl.GetFileCount := CallbackCreate(GetMethod(implObj, "GetFileCount"), flags, 1)
+        this.vtbl.CreateInMemoryFontFileReference := CallbackCreate(ObjBindMethod(implObj, "CreateInMemoryFontFileReference"), flags, 6)
+        this.vtbl.GetFileCount := CallbackCreate(ObjBindMethod(implObj, "GetFileCount"), flags, 1)
     }
 
     Dispose() {

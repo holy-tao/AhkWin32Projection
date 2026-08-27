@@ -20,7 +20,6 @@ export default struct LPCLIPPERCALLBACK {
     }
 
     /**
-     * 
      * @param {IDirectDrawClipper} lpDDClipper 
      * @param {HWND} _hWnd 
      * @param {Integer} code 
@@ -28,7 +27,7 @@ export default struct LPCLIPPERCALLBACK {
      * @returns {Integer} 
      */
     Call(lpDDClipper, _hWnd, code, lpContext) {
-        lpContextMarshal := lpContext is VarRef ? "ptr" : "ptr"
+        lpContextMarshal := lpContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, "ptr", lpDDClipper, HWND, _hWnd, UInt32, code, lpContextMarshal, lpContext, UInt32)
         return result

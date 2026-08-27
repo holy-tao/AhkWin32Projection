@@ -250,7 +250,7 @@ export default struct IVssAsync extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vss/nf-vss-ivssasync-querystatus
      */
     QueryStatus(pReserved) {
-        pReservedMarshal := pReserved is VarRef ? "int*" : "ptr"
+        pReservedMarshal := pReserved is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, "int*", &pHrResult := 0, pReservedMarshal, pReserved, "HRESULT")
         return pHrResult
@@ -265,9 +265,9 @@ export default struct IVssAsync extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
-        this.vtbl.Wait := CallbackCreate(GetMethod(implObj, "Wait"), flags, 2)
-        this.vtbl.QueryStatus := CallbackCreate(GetMethod(implObj, "QueryStatus"), flags, 3)
+        this.vtbl.Cancel := CallbackCreate(ObjBindMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.Wait := CallbackCreate(ObjBindMethod(implObj, "Wait"), flags, 2)
+        this.vtbl.QueryStatus := CallbackCreate(ObjBindMethod(implObj, "QueryStatus"), flags, 3)
     }
 
     Dispose() {

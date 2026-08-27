@@ -85,8 +85,8 @@ export default struct IWMIndexer2 extends IWMIndexer {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmindexer2-configure
      */
     Configure(wStreamNum, nIndexerType, pvInterval, pvIndexType) {
-        pvIntervalMarshal := pvInterval is VarRef ? "ptr" : "ptr"
-        pvIndexTypeMarshal := pvIndexType is VarRef ? "ptr" : "ptr"
+        pvIntervalMarshal := pvInterval is VarRef ? "ptr" : IntPtr
+        pvIndexTypeMarshal := pvIndexType is VarRef ? "ptr" : IntPtr
 
         result := ComCall(5, this, UInt16, wStreamNum, WMT_INDEXER_TYPE, nIndexerType, pvIntervalMarshal, pvInterval, pvIndexTypeMarshal, pvIndexType, "HRESULT")
         return result
@@ -101,7 +101,7 @@ export default struct IWMIndexer2 extends IWMIndexer {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Configure := CallbackCreate(GetMethod(implObj, "Configure"), flags, 5)
+        this.vtbl.Configure := CallbackCreate(ObjBindMethod(implObj, "Configure"), flags, 5)
     }
 
     Dispose() {

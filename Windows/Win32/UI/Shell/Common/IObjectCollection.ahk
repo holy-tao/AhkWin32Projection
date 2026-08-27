@@ -110,10 +110,10 @@ export default struct IObjectCollection extends IObjectArray {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddObject := CallbackCreate(GetMethod(implObj, "AddObject"), flags, 2)
-        this.vtbl.AddFromArray := CallbackCreate(GetMethod(implObj, "AddFromArray"), flags, 2)
-        this.vtbl.RemoveObjectAt := CallbackCreate(GetMethod(implObj, "RemoveObjectAt"), flags, 2)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.AddObject := CallbackCreate(ObjBindMethod(implObj, "AddObject"), flags, 2)
+        this.vtbl.AddFromArray := CallbackCreate(ObjBindMethod(implObj, "AddFromArray"), flags, 2)
+        this.vtbl.RemoveObjectAt := CallbackCreate(ObjBindMethod(implObj, "RemoveObjectAt"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
     }
 
     Dispose() {

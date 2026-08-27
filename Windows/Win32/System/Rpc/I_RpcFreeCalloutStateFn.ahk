@@ -19,7 +19,6 @@ export default struct I_RpcFreeCalloutStateFn {
     }
 
     /**
-     * 
      * @param {Pointer<RDR_CALLOUT_STATE>} CallOutState 
      * @returns {String} Nothing - always returns an empty string
      */

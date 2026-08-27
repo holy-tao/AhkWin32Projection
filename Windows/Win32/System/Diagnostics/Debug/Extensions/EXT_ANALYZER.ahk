@@ -21,7 +21,6 @@ export default struct EXT_ANALYZER {
     }
 
     /**
-     * 
      * @param {IDebugClient} Client 
      * @param {Integer} BucketSuffix 
      * @param {Integer} cbBucketSuffix 
@@ -32,9 +31,10 @@ export default struct EXT_ANALYZER {
      * @returns {HRESULT} 
      */
     Call(Client, BucketSuffix, cbBucketSuffix, DebugText, cbDebugText, Flags, pAnalysis) {
-        FlagsMarshal := Flags is VarRef ? "uint*" : "ptr"
+        ClientMarshal := Client == 0 ? IntPtr : "ptr"
+        FlagsMarshal := Flags is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, "ptr", Client, IntPtr, BucketSuffix, UInt32, cbBucketSuffix, IntPtr, DebugText, UInt32, cbDebugText, FlagsMarshal, Flags, "ptr", pAnalysis, "HRESULT")
+        result := DllCall(this.value, ClientMarshal, Client, IntPtr, BucketSuffix, UInt32, cbBucketSuffix, IntPtr, DebugText, UInt32, cbDebugText, FlagsMarshal, Flags, "ptr", pAnalysis, "HRESULT")
         return result
     }
 

@@ -22,7 +22,6 @@ export default struct PFAXREGISTERROUTINGEXTENSIONW {
     }
 
     /**
-     * 
      * @param {HANDLE} FaxHandle 
      * @param {PWSTR} ExtensionName 
      * @param {PWSTR} FriendlyName 
@@ -36,7 +35,7 @@ export default struct PFAXREGISTERROUTINGEXTENSIONW {
         FriendlyName := FriendlyName is String ? StrPtr(FriendlyName) : FriendlyName
         ImageName := ImageName is String ? StrPtr(ImageName) : ImageName
 
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, HANDLE, FaxHandle, "ptr", ExtensionName, "ptr", FriendlyName, "ptr", ImageName, PFAX_ROUTING_INSTALLATION_CALLBACKW, CallBack, _ContextMarshal, _Context, BOOL)
         return result

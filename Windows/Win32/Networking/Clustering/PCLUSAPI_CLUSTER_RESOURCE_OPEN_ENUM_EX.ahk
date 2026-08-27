@@ -20,7 +20,6 @@ export default struct PCLUSAPI_CLUSTER_RESOURCE_OPEN_ENUM_EX {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {Integer} lpszProperties 
      * @param {Integer} cbProperties 
@@ -30,7 +29,10 @@ export default struct PCLUSAPI_CLUSTER_RESOURCE_OPEN_ENUM_EX {
      * @returns {HRESENUMEX} 
      */
     Call(_hCluster, lpszProperties, cbProperties, lpszRoProperties, cbRoProperties, dwFlags) {
-        result := DllCall(this.value, HCLUSTER, _hCluster, IntPtr, lpszProperties, UInt32, cbProperties, IntPtr, lpszRoProperties, UInt32, cbRoProperties, UInt32, dwFlags, HRESENUMEX)
+        lpszPropertiesMarshal := lpszProperties == 0 ? IntPtr : IntPtr
+        lpszRoPropertiesMarshal := lpszRoProperties == 0 ? IntPtr : IntPtr
+
+        result := DllCall(this.value, HCLUSTER, _hCluster, lpszPropertiesMarshal, lpszProperties, UInt32, cbProperties, lpszRoPropertiesMarshal, lpszRoProperties, UInt32, cbRoProperties, UInt32, dwFlags, HRESENUMEX)
         return result
     }
 

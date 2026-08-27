@@ -38,7 +38,6 @@ export default struct IMachineDebugManagerEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRemoteDebugApplication} pda 
      * @param {Integer} dwAppCookie 
      * @returns {HRESULT} 
@@ -49,7 +48,6 @@ export default struct IMachineDebugManagerEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRemoteDebugApplication} pda 
      * @param {Integer} dwAppCookie 
      * @returns {HRESULT} 
@@ -68,8 +66,8 @@ export default struct IMachineDebugManagerEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.onAddApplication := CallbackCreate(GetMethod(implObj, "onAddApplication"), flags, 3)
-        this.vtbl.onRemoveApplication := CallbackCreate(GetMethod(implObj, "onRemoveApplication"), flags, 3)
+        this.vtbl.onAddApplication := CallbackCreate(ObjBindMethod(implObj, "onAddApplication"), flags, 3)
+        this.vtbl.onRemoveApplication := CallbackCreate(ObjBindMethod(implObj, "onRemoveApplication"), flags, 3)
     }
 
     Dispose() {

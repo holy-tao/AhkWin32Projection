@@ -21,7 +21,6 @@ export default struct PLSA_AP_PRE_LOGON_USER_SURROGATE {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} ClientRequest 
      * @param {SECURITY_LOGON_TYPE} LogonType 
      * @param {Integer} ProtocolSubmitBuffer 
@@ -32,9 +31,9 @@ export default struct PLSA_AP_PRE_LOGON_USER_SURROGATE {
      * @returns {NTSTATUS} 
      */
     Call(ClientRequest, LogonType, ProtocolSubmitBuffer, ClientBufferBase, SubmitBufferSize, SurrogateLogon, SubStatus) {
-        ClientRequestMarshal := ClientRequest is VarRef ? "ptr*" : "ptr"
-        ClientBufferBaseMarshal := ClientBufferBase is VarRef ? "ptr" : "ptr"
-        SubStatusMarshal := SubStatus is VarRef ? "int*" : "ptr"
+        ClientRequestMarshal := ClientRequest is VarRef ? "ptr*" : IntPtr
+        ClientBufferBaseMarshal := ClientBufferBase is VarRef ? "ptr" : IntPtr
+        SubStatusMarshal := SubStatus is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, ClientRequestMarshal, ClientRequest, SECURITY_LOGON_TYPE, LogonType, IntPtr, ProtocolSubmitBuffer, ClientBufferBaseMarshal, ClientBufferBase, UInt32, SubmitBufferSize, SECPKG_SURROGATE_LOGON.Ptr, SurrogateLogon, SubStatusMarshal, SubStatus, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

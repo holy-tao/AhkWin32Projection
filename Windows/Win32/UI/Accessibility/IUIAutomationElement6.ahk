@@ -84,8 +84,8 @@ export default struct IUIAutomationElement6 extends IUIAutomationElement5 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_CurrentFullDescription := CallbackCreate(GetMethod(implObj, "get_CurrentFullDescription"), flags, 2)
-        this.vtbl.get_CachedFullDescription := CallbackCreate(GetMethod(implObj, "get_CachedFullDescription"), flags, 2)
+        this.vtbl.get_CurrentFullDescription := CallbackCreate(ObjBindMethod(implObj, "get_CurrentFullDescription"), flags, 2)
+        this.vtbl.get_CachedFullDescription := CallbackCreate(ObjBindMethod(implObj, "get_CachedFullDescription"), flags, 2)
     }
 
     Dispose() {

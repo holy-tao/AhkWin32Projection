@@ -20,7 +20,6 @@ export default struct EXT_GET_ENVIRONMENT_VARIABLE {
     }
 
     /**
-     * 
      * @param {Integer} _Peb 
      * @param {PSTR} Variable 
      * @param {PSTR} _Buffer 

@@ -49,7 +49,6 @@ export default struct PIBIO_ENGINE_VERIFY_FEATURE_SET_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/ns-winbio_adapter-winbio_pipeline">WINBIO_PIPELINE</a> structure associated with the biometric unit performing the operation.
      * @param {Pointer<WINBIO_IDENTITY>} Identity Pointer to a  <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-identity">WINBIO_IDENTITY</a> structure that contains a GUID or SID that is expected to match that of the template recovered from the database.
      * @param {Integer} SubFactor A <b>WINBIO_BIOMETRIC_SUBTYPE</b> value that is expected to match that of the template recovered from the database.
@@ -128,12 +127,12 @@ export default struct PIBIO_ENGINE_VERIFY_FEATURE_SET_FN {
      * </table>
      */
     Call(Pipeline, Identity, SubFactor, Match, PayloadBlob, PayloadBlobSize, HashValue, HashSize, RejectDetail) {
-        MatchMarshal := Match is VarRef ? "char*" : "ptr"
-        PayloadBlobMarshal := PayloadBlob is VarRef ? "ptr*" : "ptr"
-        PayloadBlobSizeMarshal := PayloadBlobSize is VarRef ? "ptr*" : "ptr"
-        HashValueMarshal := HashValue is VarRef ? "ptr*" : "ptr"
-        HashSizeMarshal := HashSize is VarRef ? "ptr*" : "ptr"
-        RejectDetailMarshal := RejectDetail is VarRef ? "uint*" : "ptr"
+        MatchMarshal := Match is VarRef ? "char*" : IntPtr
+        PayloadBlobMarshal := PayloadBlob is VarRef ? "ptr*" : IntPtr
+        PayloadBlobSizeMarshal := PayloadBlobSize is VarRef ? "ptr*" : IntPtr
+        HashValueMarshal := HashValue is VarRef ? "ptr*" : IntPtr
+        HashSizeMarshal := HashSize is VarRef ? "ptr*" : IntPtr
+        RejectDetailMarshal := RejectDetail is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, WINBIO_PIPELINE.Ptr, Pipeline, WINBIO_IDENTITY.Ptr, Identity, Int8, SubFactor, MatchMarshal, Match, PayloadBlobMarshal, PayloadBlob, PayloadBlobSizeMarshal, PayloadBlobSize, HashValueMarshal, HashValue, HashSizeMarshal, HashSize, RejectDetailMarshal, RejectDetail, "HRESULT")
         return result

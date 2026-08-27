@@ -61,7 +61,7 @@ export default struct IOleUILinkInfoA extends IOleUILinkContainerA {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLastUpdate := CallbackCreate(GetMethod(implObj, "GetLastUpdate"), flags, 3)
+        this.vtbl.GetLastUpdate := CallbackCreate(ObjBindMethod(implObj, "GetLastUpdate"), flags, 3)
     }
 
     Dispose() {

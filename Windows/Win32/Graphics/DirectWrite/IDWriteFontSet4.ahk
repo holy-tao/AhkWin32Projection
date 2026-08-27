@@ -75,7 +75,9 @@ export default struct IDWriteFontSet4 extends IDWriteFontSet3 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset4-convertweightstretchstyletofontaxisvalues
      */
     ConvertWeightStretchStyleToFontAxisValues(inputAxisValues, inputAxisCount, fontWeight, fontStretch, _fontStyle, fontSize, outputAxisValues) {
-        result := ComCall(30, this, DWRITE_FONT_AXIS_VALUE.Ptr, inputAxisValues, UInt32, inputAxisCount, DWRITE_FONT_WEIGHT, fontWeight, DWRITE_FONT_STRETCH, fontStretch, DWRITE_FONT_STYLE, _fontStyle, Float32, fontSize, DWRITE_FONT_AXIS_VALUE.Ptr, outputAxisValues, UInt32)
+        inputAxisValuesMarshal := inputAxisValues == 0 ? IntPtr : DWRITE_FONT_AXIS_VALUE.Ptr
+
+        result := ComCall(30, this, inputAxisValuesMarshal, inputAxisValues, UInt32, inputAxisCount, DWRITE_FONT_WEIGHT, fontWeight, DWRITE_FONT_STRETCH, fontStretch, DWRITE_FONT_STYLE, _fontStyle, Float32, fontSize, DWRITE_FONT_AXIS_VALUE.Ptr, outputAxisValues, UInt32)
         return result
     }
 
@@ -116,8 +118,8 @@ export default struct IDWriteFontSet4 extends IDWriteFontSet3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ConvertWeightStretchStyleToFontAxisValues := CallbackCreate(GetMethod(implObj, "ConvertWeightStretchStyleToFontAxisValues"), flags, 8)
-        this.vtbl.GetMatchingFonts := CallbackCreate(GetMethod(implObj, "GetMatchingFonts"), flags, 6)
+        this.vtbl.ConvertWeightStretchStyleToFontAxisValues := CallbackCreate(ObjBindMethod(implObj, "ConvertWeightStretchStyleToFontAxisValues"), flags, 8)
+        this.vtbl.GetMatchingFonts := CallbackCreate(ObjBindMethod(implObj, "GetMatchingFonts"), flags, 6)
     }
 
     Dispose() {

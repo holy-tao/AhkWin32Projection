@@ -30,7 +30,6 @@ export default struct WS_SERVICE_ACCEPT_CHANNEL_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<WS_OPERATION_CONTEXT>} _context The operation context.
      * @param {Pointer<WS_ASYNC_CONTEXT>} asyncContext Information on whether the function is getting invoked asynchronously.
      * @param {Pointer<WS_ERROR>} _error Specifies where additional error information should be stored if the function fails.
@@ -39,10 +38,12 @@ export default struct WS_SERVICE_ACCEPT_CHANNEL_CALLBACK {
      *                     the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_operation_context_property_id">WS_OPERATION_CONTEXT_PROPERTY_CHANNEL_USER_STATE</a>.
      */
     Call(_context, asyncContext, _error) {
-        _contextMarshal := _context is VarRef ? "ptr*" : "ptr"
-        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr*" : IntPtr
+        asyncContextMarshal := asyncContext == 0 ? IntPtr : WS_ASYNC_CONTEXT.Ptr
+        _errorMarshal := _error is VarRef ? "ptr*" : IntPtr
+        _errorMarshal := _error == 0 ? IntPtr : WS_ERROR.Ptr
 
-        result := DllCall(this.value, _contextMarshal, _context, "ptr*", &channelState := 0, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
+        result := DllCall(this.value, _contextMarshal, _context, "ptr*", &channelState := 0, asyncContextMarshal, asyncContext, _errorMarshal, _error, "HRESULT")
         return channelState
     }
 

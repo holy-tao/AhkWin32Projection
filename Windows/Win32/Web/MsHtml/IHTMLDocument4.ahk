@@ -93,7 +93,6 @@ export default struct IHTMLDocument4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     focus() {
@@ -102,7 +101,6 @@ export default struct IHTMLDocument4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     hasFocus() {
@@ -111,7 +109,6 @@ export default struct IHTMLDocument4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -121,7 +118,6 @@ export default struct IHTMLDocument4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onselectionchange() {
@@ -131,7 +127,6 @@ export default struct IHTMLDocument4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_namespaces() {
@@ -140,7 +135,6 @@ export default struct IHTMLDocument4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrUrl 
      * @param {BSTR} bstrOptions 
      * @returns {IHTMLDocument2} 
@@ -154,7 +148,6 @@ export default struct IHTMLDocument4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -166,7 +159,6 @@ export default struct IHTMLDocument4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_media() {
@@ -176,7 +168,6 @@ export default struct IHTMLDocument4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvarEventObject 
      * @returns {IHTMLEventObj} 
      */
@@ -186,7 +177,6 @@ export default struct IHTMLDocument4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrEventName 
      * @param {Pointer<VARIANT>} pvarEventObject 
      * @returns {VARIANT_BOOL} 
@@ -199,7 +189,6 @@ export default struct IHTMLDocument4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {IHTMLRenderStyle} 
      */
@@ -211,7 +200,6 @@ export default struct IHTMLDocument4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -221,7 +209,6 @@ export default struct IHTMLDocument4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_oncontrolselect() {
@@ -231,7 +218,6 @@ export default struct IHTMLDocument4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_URLUnencoded() {
@@ -249,20 +235,20 @@ export default struct IHTMLDocument4 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.focus := CallbackCreate(GetMethod(implObj, "focus"), flags, 1)
-        this.vtbl.hasFocus := CallbackCreate(GetMethod(implObj, "hasFocus"), flags, 2)
-        this.vtbl.put_onselectionchange := CallbackCreate(GetMethod(implObj, "put_onselectionchange"), flags, 2)
-        this.vtbl.get_onselectionchange := CallbackCreate(GetMethod(implObj, "get_onselectionchange"), flags, 2)
-        this.vtbl.get_namespaces := CallbackCreate(GetMethod(implObj, "get_namespaces"), flags, 2)
-        this.vtbl.createDocumentFromUrl := CallbackCreate(GetMethod(implObj, "createDocumentFromUrl"), flags, 4)
-        this.vtbl.put_media := CallbackCreate(GetMethod(implObj, "put_media"), flags, 2)
-        this.vtbl.get_media := CallbackCreate(GetMethod(implObj, "get_media"), flags, 2)
-        this.vtbl.createEventObject := CallbackCreate(GetMethod(implObj, "createEventObject"), flags, 3)
-        this.vtbl.fireEvent := CallbackCreate(GetMethod(implObj, "fireEvent"), flags, 4)
-        this.vtbl.createRenderStyle := CallbackCreate(GetMethod(implObj, "createRenderStyle"), flags, 3)
-        this.vtbl.put_oncontrolselect := CallbackCreate(GetMethod(implObj, "put_oncontrolselect"), flags, 2)
-        this.vtbl.get_oncontrolselect := CallbackCreate(GetMethod(implObj, "get_oncontrolselect"), flags, 2)
-        this.vtbl.get_URLUnencoded := CallbackCreate(GetMethod(implObj, "get_URLUnencoded"), flags, 2)
+        this.vtbl.focus := CallbackCreate(ObjBindMethod(implObj, "focus"), flags, 1)
+        this.vtbl.hasFocus := CallbackCreate(ObjBindMethod(implObj, "hasFocus"), flags, 2)
+        this.vtbl.put_onselectionchange := CallbackCreate(ObjBindMethod(implObj, "put_onselectionchange"), flags, 2)
+        this.vtbl.get_onselectionchange := CallbackCreate(ObjBindMethod(implObj, "get_onselectionchange"), flags, 2)
+        this.vtbl.get_namespaces := CallbackCreate(ObjBindMethod(implObj, "get_namespaces"), flags, 2)
+        this.vtbl.createDocumentFromUrl := CallbackCreate(ObjBindMethod(implObj, "createDocumentFromUrl"), flags, 4)
+        this.vtbl.put_media := CallbackCreate(ObjBindMethod(implObj, "put_media"), flags, 2)
+        this.vtbl.get_media := CallbackCreate(ObjBindMethod(implObj, "get_media"), flags, 2)
+        this.vtbl.createEventObject := CallbackCreate(ObjBindMethod(implObj, "createEventObject"), flags, 3)
+        this.vtbl.fireEvent := CallbackCreate(ObjBindMethod(implObj, "fireEvent"), flags, 4)
+        this.vtbl.createRenderStyle := CallbackCreate(ObjBindMethod(implObj, "createRenderStyle"), flags, 3)
+        this.vtbl.put_oncontrolselect := CallbackCreate(ObjBindMethod(implObj, "put_oncontrolselect"), flags, 2)
+        this.vtbl.get_oncontrolselect := CallbackCreate(ObjBindMethod(implObj, "get_oncontrolselect"), flags, 2)
+        this.vtbl.get_URLUnencoded := CallbackCreate(ObjBindMethod(implObj, "get_URLUnencoded"), flags, 2)
     }
 
     Dispose() {

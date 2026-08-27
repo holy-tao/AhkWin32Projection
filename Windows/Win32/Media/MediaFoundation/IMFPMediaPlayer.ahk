@@ -568,8 +568,8 @@ export default struct IMFPMediaPlayer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-getsupportedrates
      */
     GetSupportedRates(fForwardDirection, pflSlowestRate, pflFastestRate) {
-        pflSlowestRateMarshal := pflSlowestRate is VarRef ? "float*" : "ptr"
-        pflFastestRateMarshal := pflFastestRate is VarRef ? "float*" : "ptr"
+        pflSlowestRateMarshal := pflSlowestRate is VarRef ? "float*" : IntPtr
+        pflFastestRateMarshal := pflFastestRate is VarRef ? "float*" : IntPtr
 
         result := ComCall(12, this, BOOL, fForwardDirection, pflSlowestRateMarshal, pflSlowestRate, pflFastestRateMarshal, pflFastestRate, "HRESULT")
         return result
@@ -1020,7 +1020,10 @@ export default struct IMFPMediaPlayer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-getnativevideosize
      */
     GetNativeVideoSize(pszVideo, pszARVideo) {
-        result := ComCall(25, this, SIZE.Ptr, pszVideo, SIZE.Ptr, pszARVideo, "HRESULT")
+        pszVideoMarshal := pszVideo == 0 ? IntPtr : SIZE.Ptr
+        pszARVideoMarshal := pszARVideo == 0 ? IntPtr : SIZE.Ptr
+
+        result := ComCall(25, this, pszVideoMarshal, pszVideo, pszARVideoMarshal, pszARVideo, "HRESULT")
         return result
     }
 
@@ -1074,7 +1077,10 @@ export default struct IMFPMediaPlayer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-getidealvideosize
      */
     GetIdealVideoSize(pszMin, pszMax) {
-        result := ComCall(26, this, SIZE.Ptr, pszMin, SIZE.Ptr, pszMax, "HRESULT")
+        pszMinMarshal := pszMin == 0 ? IntPtr : SIZE.Ptr
+        pszMaxMarshal := pszMax == 0 ? IntPtr : SIZE.Ptr
+
+        result := ComCall(26, this, pszMinMarshal, pszMin, pszMaxMarshal, pszMax, "HRESULT")
         return result
     }
 
@@ -1533,42 +1539,42 @@ export default struct IMFPMediaPlayer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Play := CallbackCreate(GetMethod(implObj, "Play"), flags, 1)
-        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
-        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
-        this.vtbl.FrameStep := CallbackCreate(GetMethod(implObj, "FrameStep"), flags, 1)
-        this.vtbl.SetPosition := CallbackCreate(GetMethod(implObj, "SetPosition"), flags, 3)
-        this.vtbl.GetPosition := CallbackCreate(GetMethod(implObj, "GetPosition"), flags, 3)
-        this.vtbl.GetDuration := CallbackCreate(GetMethod(implObj, "GetDuration"), flags, 3)
-        this.vtbl.SetRate := CallbackCreate(GetMethod(implObj, "SetRate"), flags, 2)
-        this.vtbl.GetRate := CallbackCreate(GetMethod(implObj, "GetRate"), flags, 2)
-        this.vtbl.GetSupportedRates := CallbackCreate(GetMethod(implObj, "GetSupportedRates"), flags, 4)
-        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 2)
-        this.vtbl.CreateMediaItemFromURL := CallbackCreate(GetMethod(implObj, "CreateMediaItemFromURL"), flags, 5)
-        this.vtbl.CreateMediaItemFromObject := CallbackCreate(GetMethod(implObj, "CreateMediaItemFromObject"), flags, 5)
-        this.vtbl.SetMediaItem := CallbackCreate(GetMethod(implObj, "SetMediaItem"), flags, 2)
-        this.vtbl.ClearMediaItem := CallbackCreate(GetMethod(implObj, "ClearMediaItem"), flags, 1)
-        this.vtbl.GetMediaItem := CallbackCreate(GetMethod(implObj, "GetMediaItem"), flags, 2)
-        this.vtbl.GetVolume := CallbackCreate(GetMethod(implObj, "GetVolume"), flags, 2)
-        this.vtbl.SetVolume := CallbackCreate(GetMethod(implObj, "SetVolume"), flags, 2)
-        this.vtbl.GetBalance := CallbackCreate(GetMethod(implObj, "GetBalance"), flags, 2)
-        this.vtbl.SetBalance := CallbackCreate(GetMethod(implObj, "SetBalance"), flags, 2)
-        this.vtbl.GetMute := CallbackCreate(GetMethod(implObj, "GetMute"), flags, 2)
-        this.vtbl.SetMute := CallbackCreate(GetMethod(implObj, "SetMute"), flags, 2)
-        this.vtbl.GetNativeVideoSize := CallbackCreate(GetMethod(implObj, "GetNativeVideoSize"), flags, 3)
-        this.vtbl.GetIdealVideoSize := CallbackCreate(GetMethod(implObj, "GetIdealVideoSize"), flags, 3)
-        this.vtbl.SetVideoSourceRect := CallbackCreate(GetMethod(implObj, "SetVideoSourceRect"), flags, 2)
-        this.vtbl.GetVideoSourceRect := CallbackCreate(GetMethod(implObj, "GetVideoSourceRect"), flags, 2)
-        this.vtbl.SetAspectRatioMode := CallbackCreate(GetMethod(implObj, "SetAspectRatioMode"), flags, 2)
-        this.vtbl.GetAspectRatioMode := CallbackCreate(GetMethod(implObj, "GetAspectRatioMode"), flags, 2)
-        this.vtbl.GetVideoWindow := CallbackCreate(GetMethod(implObj, "GetVideoWindow"), flags, 2)
-        this.vtbl.UpdateVideo := CallbackCreate(GetMethod(implObj, "UpdateVideo"), flags, 1)
-        this.vtbl.SetBorderColor := CallbackCreate(GetMethod(implObj, "SetBorderColor"), flags, 2)
-        this.vtbl.GetBorderColor := CallbackCreate(GetMethod(implObj, "GetBorderColor"), flags, 2)
-        this.vtbl.InsertEffect := CallbackCreate(GetMethod(implObj, "InsertEffect"), flags, 3)
-        this.vtbl.RemoveEffect := CallbackCreate(GetMethod(implObj, "RemoveEffect"), flags, 2)
-        this.vtbl.RemoveAllEffects := CallbackCreate(GetMethod(implObj, "RemoveAllEffects"), flags, 1)
-        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 1)
+        this.vtbl.Play := CallbackCreate(ObjBindMethod(implObj, "Play"), flags, 1)
+        this.vtbl.Pause := CallbackCreate(ObjBindMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Stop := CallbackCreate(ObjBindMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.FrameStep := CallbackCreate(ObjBindMethod(implObj, "FrameStep"), flags, 1)
+        this.vtbl.SetPosition := CallbackCreate(ObjBindMethod(implObj, "SetPosition"), flags, 3)
+        this.vtbl.GetPosition := CallbackCreate(ObjBindMethod(implObj, "GetPosition"), flags, 3)
+        this.vtbl.GetDuration := CallbackCreate(ObjBindMethod(implObj, "GetDuration"), flags, 3)
+        this.vtbl.SetRate := CallbackCreate(ObjBindMethod(implObj, "SetRate"), flags, 2)
+        this.vtbl.GetRate := CallbackCreate(ObjBindMethod(implObj, "GetRate"), flags, 2)
+        this.vtbl.GetSupportedRates := CallbackCreate(ObjBindMethod(implObj, "GetSupportedRates"), flags, 4)
+        this.vtbl.GetState := CallbackCreate(ObjBindMethod(implObj, "GetState"), flags, 2)
+        this.vtbl.CreateMediaItemFromURL := CallbackCreate(ObjBindMethod(implObj, "CreateMediaItemFromURL"), flags, 5)
+        this.vtbl.CreateMediaItemFromObject := CallbackCreate(ObjBindMethod(implObj, "CreateMediaItemFromObject"), flags, 5)
+        this.vtbl.SetMediaItem := CallbackCreate(ObjBindMethod(implObj, "SetMediaItem"), flags, 2)
+        this.vtbl.ClearMediaItem := CallbackCreate(ObjBindMethod(implObj, "ClearMediaItem"), flags, 1)
+        this.vtbl.GetMediaItem := CallbackCreate(ObjBindMethod(implObj, "GetMediaItem"), flags, 2)
+        this.vtbl.GetVolume := CallbackCreate(ObjBindMethod(implObj, "GetVolume"), flags, 2)
+        this.vtbl.SetVolume := CallbackCreate(ObjBindMethod(implObj, "SetVolume"), flags, 2)
+        this.vtbl.GetBalance := CallbackCreate(ObjBindMethod(implObj, "GetBalance"), flags, 2)
+        this.vtbl.SetBalance := CallbackCreate(ObjBindMethod(implObj, "SetBalance"), flags, 2)
+        this.vtbl.GetMute := CallbackCreate(ObjBindMethod(implObj, "GetMute"), flags, 2)
+        this.vtbl.SetMute := CallbackCreate(ObjBindMethod(implObj, "SetMute"), flags, 2)
+        this.vtbl.GetNativeVideoSize := CallbackCreate(ObjBindMethod(implObj, "GetNativeVideoSize"), flags, 3)
+        this.vtbl.GetIdealVideoSize := CallbackCreate(ObjBindMethod(implObj, "GetIdealVideoSize"), flags, 3)
+        this.vtbl.SetVideoSourceRect := CallbackCreate(ObjBindMethod(implObj, "SetVideoSourceRect"), flags, 2)
+        this.vtbl.GetVideoSourceRect := CallbackCreate(ObjBindMethod(implObj, "GetVideoSourceRect"), flags, 2)
+        this.vtbl.SetAspectRatioMode := CallbackCreate(ObjBindMethod(implObj, "SetAspectRatioMode"), flags, 2)
+        this.vtbl.GetAspectRatioMode := CallbackCreate(ObjBindMethod(implObj, "GetAspectRatioMode"), flags, 2)
+        this.vtbl.GetVideoWindow := CallbackCreate(ObjBindMethod(implObj, "GetVideoWindow"), flags, 2)
+        this.vtbl.UpdateVideo := CallbackCreate(ObjBindMethod(implObj, "UpdateVideo"), flags, 1)
+        this.vtbl.SetBorderColor := CallbackCreate(ObjBindMethod(implObj, "SetBorderColor"), flags, 2)
+        this.vtbl.GetBorderColor := CallbackCreate(ObjBindMethod(implObj, "GetBorderColor"), flags, 2)
+        this.vtbl.InsertEffect := CallbackCreate(ObjBindMethod(implObj, "InsertEffect"), flags, 3)
+        this.vtbl.RemoveEffect := CallbackCreate(ObjBindMethod(implObj, "RemoveEffect"), flags, 2)
+        this.vtbl.RemoveAllEffects := CallbackCreate(ObjBindMethod(implObj, "RemoveAllEffects"), flags, 1)
+        this.vtbl.Shutdown := CallbackCreate(ObjBindMethod(implObj, "Shutdown"), flags, 1)
     }
 
     Dispose() {

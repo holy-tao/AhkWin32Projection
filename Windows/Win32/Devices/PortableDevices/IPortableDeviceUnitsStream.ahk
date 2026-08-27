@@ -54,7 +54,6 @@ export default struct IPortableDeviceUnitsStream extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Cancel() {
@@ -71,8 +70,8 @@ export default struct IPortableDeviceUnitsStream extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SeekInUnits := CallbackCreate(GetMethod(implObj, "SeekInUnits"), flags, 5)
-        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.SeekInUnits := CallbackCreate(ObjBindMethod(implObj, "SeekInUnits"), flags, 5)
+        this.vtbl.Cancel := CallbackCreate(ObjBindMethod(implObj, "Cancel"), flags, 1)
     }
 
     Dispose() {

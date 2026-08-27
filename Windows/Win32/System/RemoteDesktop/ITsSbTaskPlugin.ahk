@@ -76,8 +76,8 @@ export default struct ITsSbTaskPlugin extends ITsSbPlugin {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeTaskPlugin := CallbackCreate(GetMethod(implObj, "InitializeTaskPlugin"), flags, 2)
-        this.vtbl.SetTaskQueue := CallbackCreate(GetMethod(implObj, "SetTaskQueue"), flags, 4)
+        this.vtbl.InitializeTaskPlugin := CallbackCreate(ObjBindMethod(implObj, "InitializeTaskPlugin"), flags, 2)
+        this.vtbl.SetTaskQueue := CallbackCreate(ObjBindMethod(implObj, "SetTaskQueue"), flags, 4)
     }
 
     Dispose() {

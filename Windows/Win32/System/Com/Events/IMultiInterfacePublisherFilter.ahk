@@ -80,8 +80,8 @@ export default struct IMultiInterfacePublisherFilter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.PrepareToFire := CallbackCreate(GetMethod(implObj, "PrepareToFire"), flags, 4)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.PrepareToFire := CallbackCreate(ObjBindMethod(implObj, "PrepareToFire"), flags, 4)
     }
 
     Dispose() {

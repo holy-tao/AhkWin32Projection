@@ -80,8 +80,8 @@ export default struct IUPnPServiceCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StateVariableChanged := CallbackCreate(GetMethod(implObj, "StateVariableChanged"), flags, 4)
-        this.vtbl.ServiceInstanceDied := CallbackCreate(GetMethod(implObj, "ServiceInstanceDied"), flags, 2)
+        this.vtbl.StateVariableChanged := CallbackCreate(ObjBindMethod(implObj, "StateVariableChanged"), flags, 4)
+        this.vtbl.ServiceInstanceDied := CallbackCreate(ObjBindMethod(implObj, "ServiceInstanceDied"), flags, 2)
     }
 
     Dispose() {

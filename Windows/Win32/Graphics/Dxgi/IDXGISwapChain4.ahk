@@ -61,7 +61,8 @@ export default struct IDXGISwapChain4 extends IDXGISwapChain3 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_5/nf-dxgi1_5-idxgiswapchain4-sethdrmetadata
      */
     SetHDRMetaData(Type, _Size, pMetaData) {
-        pMetaDataMarshal := pMetaData is VarRef ? "ptr" : "ptr"
+        pMetaDataMarshal := pMetaData is VarRef ? "ptr" : IntPtr
+        pMetaDataMarshal := pMetaData == 0 ? IntPtr : "ptr"
 
         result := ComCall(40, this, DXGI_HDR_METADATA_TYPE, Type, UInt32, _Size, pMetaDataMarshal, pMetaData, "HRESULT")
         return result
@@ -76,7 +77,7 @@ export default struct IDXGISwapChain4 extends IDXGISwapChain3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetHDRMetaData := CallbackCreate(GetMethod(implObj, "SetHDRMetaData"), flags, 4)
+        this.vtbl.SetHDRMetaData := CallbackCreate(ObjBindMethod(implObj, "SetHDRMetaData"), flags, 4)
     }
 
     Dispose() {

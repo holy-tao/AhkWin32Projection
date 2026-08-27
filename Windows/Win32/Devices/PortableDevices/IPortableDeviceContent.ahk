@@ -141,7 +141,7 @@ export default struct IPortableDeviceContent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent-createobjectwithpropertiesonly
      */
     CreateObjectWithPropertiesOnly(pValues, ppszObjectID) {
-        ppszObjectIDMarshal := ppszObjectID is VarRef ? "ptr*" : "ptr"
+        ppszObjectIDMarshal := ppszObjectID is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(6, this, "ptr", pValues, ppszObjectIDMarshal, ppszObjectID, "HRESULT")
         return result
@@ -164,8 +164,8 @@ export default struct IPortableDeviceContent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent-createobjectwithpropertiesanddata
      */
     CreateObjectWithPropertiesAndData(pValues, pdwOptimalWriteBufferSize, ppszCookie) {
-        pdwOptimalWriteBufferSizeMarshal := pdwOptimalWriteBufferSize is VarRef ? "uint*" : "ptr"
-        ppszCookieMarshal := ppszCookie is VarRef ? "ptr*" : "ptr"
+        pdwOptimalWriteBufferSizeMarshal := pdwOptimalWriteBufferSize is VarRef ? "uint*" : IntPtr
+        ppszCookieMarshal := ppszCookie is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(7, this, "ptr", pValues, "ptr*", &ppData := 0, pdwOptimalWriteBufferSizeMarshal, pdwOptimalWriteBufferSize, ppszCookieMarshal, ppszCookie, "HRESULT")
         return IStream(ppData)
@@ -468,16 +468,16 @@ export default struct IPortableDeviceContent extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumObjects := CallbackCreate(GetMethod(implObj, "EnumObjects"), flags, 5)
-        this.vtbl.Properties := CallbackCreate(GetMethod(implObj, "Properties"), flags, 2)
-        this.vtbl.Transfer := CallbackCreate(GetMethod(implObj, "Transfer"), flags, 2)
-        this.vtbl.CreateObjectWithPropertiesOnly := CallbackCreate(GetMethod(implObj, "CreateObjectWithPropertiesOnly"), flags, 3)
-        this.vtbl.CreateObjectWithPropertiesAndData := CallbackCreate(GetMethod(implObj, "CreateObjectWithPropertiesAndData"), flags, 5)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 4)
-        this.vtbl.GetObjectIDsFromPersistentUniqueIDs := CallbackCreate(GetMethod(implObj, "GetObjectIDsFromPersistentUniqueIDs"), flags, 3)
-        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
-        this.vtbl.Move := CallbackCreate(GetMethod(implObj, "Move"), flags, 4)
-        this.vtbl.Copy := CallbackCreate(GetMethod(implObj, "Copy"), flags, 4)
+        this.vtbl.EnumObjects := CallbackCreate(ObjBindMethod(implObj, "EnumObjects"), flags, 5)
+        this.vtbl.Properties := CallbackCreate(ObjBindMethod(implObj, "Properties"), flags, 2)
+        this.vtbl.Transfer := CallbackCreate(ObjBindMethod(implObj, "Transfer"), flags, 2)
+        this.vtbl.CreateObjectWithPropertiesOnly := CallbackCreate(ObjBindMethod(implObj, "CreateObjectWithPropertiesOnly"), flags, 3)
+        this.vtbl.CreateObjectWithPropertiesAndData := CallbackCreate(ObjBindMethod(implObj, "CreateObjectWithPropertiesAndData"), flags, 5)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 4)
+        this.vtbl.GetObjectIDsFromPersistentUniqueIDs := CallbackCreate(ObjBindMethod(implObj, "GetObjectIDsFromPersistentUniqueIDs"), flags, 3)
+        this.vtbl.Cancel := CallbackCreate(ObjBindMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.Move := CallbackCreate(ObjBindMethod(implObj, "Move"), flags, 4)
+        this.vtbl.Copy := CallbackCreate(ObjBindMethod(implObj, "Copy"), flags, 4)
     }
 
     Dispose() {

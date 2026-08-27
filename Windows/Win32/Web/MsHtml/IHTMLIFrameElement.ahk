@@ -66,7 +66,6 @@ export default struct IHTMLIFrameElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -76,7 +75,6 @@ export default struct IHTMLIFrameElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_vspace() {
@@ -85,7 +83,6 @@ export default struct IHTMLIFrameElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -95,7 +92,6 @@ export default struct IHTMLIFrameElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_hspace() {
@@ -104,7 +100,6 @@ export default struct IHTMLIFrameElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -116,7 +111,6 @@ export default struct IHTMLIFrameElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_align() {
@@ -134,12 +128,12 @@ export default struct IHTMLIFrameElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_vspace := CallbackCreate(GetMethod(implObj, "put_vspace"), flags, 2)
-        this.vtbl.get_vspace := CallbackCreate(GetMethod(implObj, "get_vspace"), flags, 2)
-        this.vtbl.put_hspace := CallbackCreate(GetMethod(implObj, "put_hspace"), flags, 2)
-        this.vtbl.get_hspace := CallbackCreate(GetMethod(implObj, "get_hspace"), flags, 2)
-        this.vtbl.put_align := CallbackCreate(GetMethod(implObj, "put_align"), flags, 2)
-        this.vtbl.get_align := CallbackCreate(GetMethod(implObj, "get_align"), flags, 2)
+        this.vtbl.put_vspace := CallbackCreate(ObjBindMethod(implObj, "put_vspace"), flags, 2)
+        this.vtbl.get_vspace := CallbackCreate(ObjBindMethod(implObj, "get_vspace"), flags, 2)
+        this.vtbl.put_hspace := CallbackCreate(ObjBindMethod(implObj, "put_hspace"), flags, 2)
+        this.vtbl.get_hspace := CallbackCreate(ObjBindMethod(implObj, "get_hspace"), flags, 2)
+        this.vtbl.put_align := CallbackCreate(ObjBindMethod(implObj, "put_align"), flags, 2)
+        this.vtbl.get_align := CallbackCreate(ObjBindMethod(implObj, "get_align"), flags, 2)
     }
 
     Dispose() {

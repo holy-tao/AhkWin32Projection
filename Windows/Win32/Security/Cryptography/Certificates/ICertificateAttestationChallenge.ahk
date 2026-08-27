@@ -98,9 +98,9 @@ export default struct ICertificateAttestationChallenge extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.DecryptChallenge := CallbackCreate(GetMethod(implObj, "DecryptChallenge"), flags, 3)
-        this.vtbl.get_RequestID := CallbackCreate(GetMethod(implObj, "get_RequestID"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.DecryptChallenge := CallbackCreate(ObjBindMethod(implObj, "DecryptChallenge"), flags, 3)
+        this.vtbl.get_RequestID := CallbackCreate(ObjBindMethod(implObj, "get_RequestID"), flags, 2)
     }
 
     Dispose() {

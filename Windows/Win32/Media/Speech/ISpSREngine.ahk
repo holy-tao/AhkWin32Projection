@@ -82,7 +82,6 @@ export default struct ISpSREngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISpSREngineSite} pSite 
      * @returns {HRESULT} 
      */
@@ -92,7 +91,6 @@ export default struct ISpSREngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pguidSourceFormatId 
      * @param {Pointer<WAVEFORMATEX>} pSourceWaveFormatEx 
      * @param {Pointer<Guid>} pguidDesiredFormatId 
@@ -100,14 +98,13 @@ export default struct ISpSREngine extends IUnknown {
      * @returns {HRESULT} 
      */
     GetInputAudioFormat(pguidSourceFormatId, pSourceWaveFormatEx, pguidDesiredFormatId, ppCoMemDesiredWaveFormatEx) {
-        ppCoMemDesiredWaveFormatExMarshal := ppCoMemDesiredWaveFormatEx is VarRef ? "ptr*" : "ptr"
+        ppCoMemDesiredWaveFormatExMarshal := ppCoMemDesiredWaveFormatEx is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, Guid.Ptr, pguidSourceFormatId, WAVEFORMATEX.Ptr, pSourceWaveFormatEx, Guid.Ptr, pguidDesiredFormatId, ppCoMemDesiredWaveFormatExMarshal, ppCoMemDesiredWaveFormatEx, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rguidFmtId 
      * @param {Pointer<WAVEFORMATEX>} pWaveFormatEx 
      * @param {HANDLE} hRequestSync 
@@ -124,7 +121,6 @@ export default struct ISpSREngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISpObjectToken} pProfile 
      * @returns {HRESULT} 
      */
@@ -134,32 +130,29 @@ export default struct ISpSREngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineRecoContext 
      * @param {SPGRAMMARHANDLE} hSAPIGrammar 
      * @returns {Pointer<Void>} 
      */
     OnCreateGrammar(pvEngineRecoContext, hSAPIGrammar) {
-        pvEngineRecoContextMarshal := pvEngineRecoContext is VarRef ? "ptr" : "ptr"
+        pvEngineRecoContextMarshal := pvEngineRecoContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(7, this, pvEngineRecoContextMarshal, pvEngineRecoContext, SPGRAMMARHANDLE, hSAPIGrammar, "ptr*", &ppvEngineGrammarContext := 0, "HRESULT")
         return ppvEngineGrammarContext
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineGrammar 
      * @returns {HRESULT} 
      */
     OnDeleteGrammar(pvEngineGrammar) {
-        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
+        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : IntPtr
 
         result := ComCall(8, this, pvEngineGrammarMarshal, pvEngineGrammar, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineGrammar 
      * @param {Pointer<Guid>} rguidParam 
      * @param {PWSTR} pszStringParam 
@@ -171,27 +164,25 @@ export default struct ISpSREngine extends IUnknown {
     LoadProprietaryGrammar(pvEngineGrammar, rguidParam, pszStringParam, pvDataParam, ulDataSize, Options) {
         pszStringParam := pszStringParam is String ? StrPtr(pszStringParam) : pszStringParam
 
-        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
-        pvDataParamMarshal := pvDataParam is VarRef ? "ptr" : "ptr"
+        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : IntPtr
+        pvDataParamMarshal := pvDataParam is VarRef ? "ptr" : IntPtr
 
         result := ComCall(9, this, pvEngineGrammarMarshal, pvEngineGrammar, Guid.Ptr, rguidParam, "ptr", pszStringParam, pvDataParamMarshal, pvDataParam, UInt32, ulDataSize, SPLOADOPTIONS, Options, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineGrammar 
      * @returns {HRESULT} 
      */
     UnloadProprietaryGrammar(pvEngineGrammar) {
-        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
+        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : IntPtr
 
         result := ComCall(10, this, pvEngineGrammarMarshal, pvEngineGrammar, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineGrammar 
      * @param {PWSTR} pszName 
      * @param {Pointer<Void>} pReserved 
@@ -201,29 +192,27 @@ export default struct ISpSREngine extends IUnknown {
     SetProprietaryRuleState(pvEngineGrammar, pszName, pReserved, NewState) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
-        pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
+        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : IntPtr
+        pReservedMarshal := pReserved is VarRef ? "ptr" : IntPtr
 
         result := ComCall(11, this, pvEngineGrammarMarshal, pvEngineGrammar, "ptr", pszName, pReservedMarshal, pReserved, SPRULESTATE, NewState, "uint*", &pcRulesChanged := 0, "HRESULT")
         return pcRulesChanged
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineGrammar 
      * @param {Integer} dwRuleId 
      * @param {SPRULESTATE} NewState 
      * @returns {HRESULT} 
      */
     SetProprietaryRuleIdState(pvEngineGrammar, dwRuleId, NewState) {
-        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
+        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : IntPtr
 
         result := ComCall(12, this, pvEngineGrammarMarshal, pvEngineGrammar, UInt32, dwRuleId, SPRULESTATE, NewState, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineGrammar 
      * @param {PWSTR} pszTopicName 
      * @returns {HRESULT} 
@@ -231,39 +220,36 @@ export default struct ISpSREngine extends IUnknown {
     LoadSLM(pvEngineGrammar, pszTopicName) {
         pszTopicName := pszTopicName is String ? StrPtr(pszTopicName) : pszTopicName
 
-        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
+        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : IntPtr
 
         result := ComCall(13, this, pvEngineGrammarMarshal, pvEngineGrammar, "ptr", pszTopicName, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineGrammar 
      * @returns {HRESULT} 
      */
     UnloadSLM(pvEngineGrammar) {
-        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
+        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : IntPtr
 
         result := ComCall(14, this, pvEngineGrammarMarshal, pvEngineGrammar, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineGrammar 
      * @param {SPRULESTATE} NewState 
      * @returns {HRESULT} 
      */
     SetSLMState(pvEngineGrammar, NewState) {
-        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
+        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : IntPtr
 
         result := ComCall(15, this, pvEngineGrammarMarshal, pvEngineGrammar, SPRULESTATE, NewState, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineGrammar 
      * @param {PWSTR} pText 
      * @param {Integer} cchText 
@@ -273,27 +259,25 @@ export default struct ISpSREngine extends IUnknown {
     SetWordSequenceData(pvEngineGrammar, pText, cchText, pInfo) {
         pText := pText is String ? StrPtr(pText) : pText
 
-        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
+        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : IntPtr
 
         result := ComCall(16, this, pvEngineGrammarMarshal, pvEngineGrammar, "ptr", pText, UInt32, cchText, SPTEXTSELECTIONINFO.Ptr, pInfo, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineGrammar 
      * @param {Pointer<SPTEXTSELECTIONINFO>} pInfo 
      * @returns {HRESULT} 
      */
     SetTextSelection(pvEngineGrammar, pInfo) {
-        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
+        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : IntPtr
 
         result := ComCall(17, this, pvEngineGrammarMarshal, pvEngineGrammar, SPTEXTSELECTIONINFO.Ptr, pInfo, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineGrammar 
      * @param {PWSTR} pszWord 
      * @returns {SPWORDPRONOUNCEABLE} 
@@ -301,14 +285,13 @@ export default struct ISpSREngine extends IUnknown {
     IsPronounceable(pvEngineGrammar, pszWord) {
         pszWord := pszWord is String ? StrPtr(pszWord) : pszWord
 
-        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
+        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : IntPtr
 
         result := ComCall(18, this, pvEngineGrammarMarshal, pvEngineGrammar, "ptr", pszWord, "int*", &pWordPronounceable := 0, "HRESULT")
         return pWordPronounceable
     }
 
     /**
-     * 
      * @param {SPRECOCONTEXTHANDLE} hSAPIRecoContext 
      * @returns {Pointer<Void>} 
      */
@@ -318,34 +301,31 @@ export default struct ISpSREngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineContext 
      * @returns {HRESULT} 
      */
     OnDeleteRecoContext(pvEngineContext) {
-        pvEngineContextMarshal := pvEngineContext is VarRef ? "ptr" : "ptr"
+        pvEngineContextMarshal := pvEngineContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(20, this, pvEngineContextMarshal, pvEngineContext, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineContext 
      * @param {Pointer<Void>} pCallFrame 
      * @param {Integer} ulCallFrameSize 
      * @returns {HRESULT} 
      */
     PrivateCall(pvEngineContext, pCallFrame, ulCallFrameSize) {
-        pvEngineContextMarshal := pvEngineContext is VarRef ? "ptr" : "ptr"
-        pCallFrameMarshal := pCallFrame is VarRef ? "ptr" : "ptr"
+        pvEngineContextMarshal := pvEngineContext is VarRef ? "ptr" : IntPtr
+        pCallFrameMarshal := pCallFrame is VarRef ? "ptr" : IntPtr
 
         result := ComCall(21, this, pvEngineContextMarshal, pvEngineContext, pCallFrameMarshal, pCallFrame, UInt32, ulCallFrameSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineContext 
      * @param {PWSTR} pAdaptationData 
      * @param {Integer} cch 
@@ -354,14 +334,13 @@ export default struct ISpSREngine extends IUnknown {
     SetAdaptationData(pvEngineContext, pAdaptationData, cch) {
         pAdaptationData := pAdaptationData is String ? StrPtr(pAdaptationData) : pAdaptationData
 
-        pvEngineContextMarshal := pvEngineContext is VarRef ? "ptr" : "ptr"
+        pvEngineContextMarshal := pvEngineContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(22, this, pvEngineContextMarshal, pvEngineContext, "ptr", pAdaptationData, UInt32, cch, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {SPPROPSRC} eSrc 
      * @param {Pointer<Void>} pvSrcObj 
      * @param {PWSTR} pName 
@@ -371,14 +350,13 @@ export default struct ISpSREngine extends IUnknown {
     SetPropertyNum(eSrc, pvSrcObj, pName, lValue) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        pvSrcObjMarshal := pvSrcObj is VarRef ? "ptr" : "ptr"
+        pvSrcObjMarshal := pvSrcObj is VarRef ? "ptr" : IntPtr
 
         result := ComCall(23, this, SPPROPSRC, eSrc, pvSrcObjMarshal, pvSrcObj, "ptr", pName, Int32, lValue, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {SPPROPSRC} eSrc 
      * @param {Pointer<Void>} pvSrcObj 
      * @param {PWSTR} pName 
@@ -387,14 +365,13 @@ export default struct ISpSREngine extends IUnknown {
     GetPropertyNum(eSrc, pvSrcObj, pName) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        pvSrcObjMarshal := pvSrcObj is VarRef ? "ptr" : "ptr"
+        pvSrcObjMarshal := pvSrcObj is VarRef ? "ptr" : IntPtr
 
         result := ComCall(24, this, SPPROPSRC, eSrc, pvSrcObjMarshal, pvSrcObj, "ptr", pName, "int*", &lValue := 0, "HRESULT")
         return lValue
     }
 
     /**
-     * 
      * @param {SPPROPSRC} eSrc 
      * @param {Pointer<Void>} pvSrcObj 
      * @param {PWSTR} pName 
@@ -405,14 +382,13 @@ export default struct ISpSREngine extends IUnknown {
         pName := pName is String ? StrPtr(pName) : pName
         pValue := pValue is String ? StrPtr(pValue) : pValue
 
-        pvSrcObjMarshal := pvSrcObj is VarRef ? "ptr" : "ptr"
+        pvSrcObjMarshal := pvSrcObj is VarRef ? "ptr" : IntPtr
 
         result := ComCall(25, this, SPPROPSRC, eSrc, pvSrcObjMarshal, pvSrcObj, "ptr", pName, "ptr", pValue, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {SPPROPSRC} eSrc 
      * @param {Pointer<Void>} pvSrcObj 
      * @param {PWSTR} pName 
@@ -421,27 +397,25 @@ export default struct ISpSREngine extends IUnknown {
     GetPropertyString(eSrc, pvSrcObj, pName) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        pvSrcObjMarshal := pvSrcObj is VarRef ? "ptr" : "ptr"
+        pvSrcObjMarshal := pvSrcObj is VarRef ? "ptr" : IntPtr
 
         result := ComCall(26, this, SPPROPSRC, eSrc, pvSrcObjMarshal, pvSrcObj, "ptr", pName, PWSTR.Ptr, &ppCoMemValue := 0, "HRESULT")
         return ppCoMemValue
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineGrammar 
      * @param {SPGRAMMARSTATE} eGrammarState 
      * @returns {HRESULT} 
      */
     SetGrammarState(pvEngineGrammar, eGrammarState) {
-        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
+        pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : IntPtr
 
         result := ComCall(27, this, pvEngineGrammarMarshal, pvEngineGrammar, SPGRAMMARSTATE, eGrammarState, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {SPCFGNOTIFY} Action 
      * @param {Integer} cWords 
      * @param {Pointer<SPWORDENTRY>} pWords 
@@ -453,7 +427,6 @@ export default struct ISpSREngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {SPCFGNOTIFY} Action 
      * @param {Integer} cRules 
      * @param {Pointer<SPRULEENTRY>} pRules 
@@ -465,7 +438,6 @@ export default struct ISpSREngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineContext 
      * @param {Pointer<Void>} pInCallFrame 
      * @param {Integer} ulInCallFrameSize 
@@ -474,23 +446,22 @@ export default struct ISpSREngine extends IUnknown {
      * @returns {HRESULT} 
      */
     PrivateCallEx(pvEngineContext, pInCallFrame, ulInCallFrameSize, ppvCoMemResponse, pulResponseSize) {
-        pvEngineContextMarshal := pvEngineContext is VarRef ? "ptr" : "ptr"
-        pInCallFrameMarshal := pInCallFrame is VarRef ? "ptr" : "ptr"
-        ppvCoMemResponseMarshal := ppvCoMemResponse is VarRef ? "ptr*" : "ptr"
-        pulResponseSizeMarshal := pulResponseSize is VarRef ? "uint*" : "ptr"
+        pvEngineContextMarshal := pvEngineContext is VarRef ? "ptr" : IntPtr
+        pInCallFrameMarshal := pInCallFrame is VarRef ? "ptr" : IntPtr
+        ppvCoMemResponseMarshal := ppvCoMemResponse is VarRef ? "ptr*" : IntPtr
+        pulResponseSizeMarshal := pulResponseSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(30, this, pvEngineContextMarshal, pvEngineContext, pInCallFrameMarshal, pInCallFrame, UInt32, ulInCallFrameSize, ppvCoMemResponseMarshal, ppvCoMemResponse, pulResponseSizeMarshal, pulResponseSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvEngineContext 
      * @param {SPCONTEXTSTATE} eContextState 
      * @returns {HRESULT} 
      */
     SetContextState(pvEngineContext, eContextState) {
-        pvEngineContextMarshal := pvEngineContext is VarRef ? "ptr" : "ptr"
+        pvEngineContextMarshal := pvEngineContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(31, this, pvEngineContextMarshal, pvEngineContext, SPCONTEXTSTATE, eContextState, "HRESULT")
         return result
@@ -505,35 +476,35 @@ export default struct ISpSREngine extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetSite := CallbackCreate(GetMethod(implObj, "SetSite"), flags, 2)
-        this.vtbl.GetInputAudioFormat := CallbackCreate(GetMethod(implObj, "GetInputAudioFormat"), flags, 5)
-        this.vtbl.RecognizeStream := CallbackCreate(GetMethod(implObj, "RecognizeStream"), flags, 9)
-        this.vtbl.SetRecoProfile := CallbackCreate(GetMethod(implObj, "SetRecoProfile"), flags, 2)
-        this.vtbl.OnCreateGrammar := CallbackCreate(GetMethod(implObj, "OnCreateGrammar"), flags, 4)
-        this.vtbl.OnDeleteGrammar := CallbackCreate(GetMethod(implObj, "OnDeleteGrammar"), flags, 2)
-        this.vtbl.LoadProprietaryGrammar := CallbackCreate(GetMethod(implObj, "LoadProprietaryGrammar"), flags, 7)
-        this.vtbl.UnloadProprietaryGrammar := CallbackCreate(GetMethod(implObj, "UnloadProprietaryGrammar"), flags, 2)
-        this.vtbl.SetProprietaryRuleState := CallbackCreate(GetMethod(implObj, "SetProprietaryRuleState"), flags, 6)
-        this.vtbl.SetProprietaryRuleIdState := CallbackCreate(GetMethod(implObj, "SetProprietaryRuleIdState"), flags, 4)
-        this.vtbl.LoadSLM := CallbackCreate(GetMethod(implObj, "LoadSLM"), flags, 3)
-        this.vtbl.UnloadSLM := CallbackCreate(GetMethod(implObj, "UnloadSLM"), flags, 2)
-        this.vtbl.SetSLMState := CallbackCreate(GetMethod(implObj, "SetSLMState"), flags, 3)
-        this.vtbl.SetWordSequenceData := CallbackCreate(GetMethod(implObj, "SetWordSequenceData"), flags, 5)
-        this.vtbl.SetTextSelection := CallbackCreate(GetMethod(implObj, "SetTextSelection"), flags, 3)
-        this.vtbl.IsPronounceable := CallbackCreate(GetMethod(implObj, "IsPronounceable"), flags, 4)
-        this.vtbl.OnCreateRecoContext := CallbackCreate(GetMethod(implObj, "OnCreateRecoContext"), flags, 3)
-        this.vtbl.OnDeleteRecoContext := CallbackCreate(GetMethod(implObj, "OnDeleteRecoContext"), flags, 2)
-        this.vtbl.PrivateCall := CallbackCreate(GetMethod(implObj, "PrivateCall"), flags, 4)
-        this.vtbl.SetAdaptationData := CallbackCreate(GetMethod(implObj, "SetAdaptationData"), flags, 4)
-        this.vtbl.SetPropertyNum := CallbackCreate(GetMethod(implObj, "SetPropertyNum"), flags, 5)
-        this.vtbl.GetPropertyNum := CallbackCreate(GetMethod(implObj, "GetPropertyNum"), flags, 5)
-        this.vtbl.SetPropertyString := CallbackCreate(GetMethod(implObj, "SetPropertyString"), flags, 5)
-        this.vtbl.GetPropertyString := CallbackCreate(GetMethod(implObj, "GetPropertyString"), flags, 5)
-        this.vtbl.SetGrammarState := CallbackCreate(GetMethod(implObj, "SetGrammarState"), flags, 3)
-        this.vtbl.WordNotify := CallbackCreate(GetMethod(implObj, "WordNotify"), flags, 4)
-        this.vtbl.RuleNotify := CallbackCreate(GetMethod(implObj, "RuleNotify"), flags, 4)
-        this.vtbl.PrivateCallEx := CallbackCreate(GetMethod(implObj, "PrivateCallEx"), flags, 6)
-        this.vtbl.SetContextState := CallbackCreate(GetMethod(implObj, "SetContextState"), flags, 3)
+        this.vtbl.SetSite := CallbackCreate(ObjBindMethod(implObj, "SetSite"), flags, 2)
+        this.vtbl.GetInputAudioFormat := CallbackCreate(ObjBindMethod(implObj, "GetInputAudioFormat"), flags, 5)
+        this.vtbl.RecognizeStream := CallbackCreate(ObjBindMethod(implObj, "RecognizeStream"), flags, 9)
+        this.vtbl.SetRecoProfile := CallbackCreate(ObjBindMethod(implObj, "SetRecoProfile"), flags, 2)
+        this.vtbl.OnCreateGrammar := CallbackCreate(ObjBindMethod(implObj, "OnCreateGrammar"), flags, 4)
+        this.vtbl.OnDeleteGrammar := CallbackCreate(ObjBindMethod(implObj, "OnDeleteGrammar"), flags, 2)
+        this.vtbl.LoadProprietaryGrammar := CallbackCreate(ObjBindMethod(implObj, "LoadProprietaryGrammar"), flags, 7)
+        this.vtbl.UnloadProprietaryGrammar := CallbackCreate(ObjBindMethod(implObj, "UnloadProprietaryGrammar"), flags, 2)
+        this.vtbl.SetProprietaryRuleState := CallbackCreate(ObjBindMethod(implObj, "SetProprietaryRuleState"), flags, 6)
+        this.vtbl.SetProprietaryRuleIdState := CallbackCreate(ObjBindMethod(implObj, "SetProprietaryRuleIdState"), flags, 4)
+        this.vtbl.LoadSLM := CallbackCreate(ObjBindMethod(implObj, "LoadSLM"), flags, 3)
+        this.vtbl.UnloadSLM := CallbackCreate(ObjBindMethod(implObj, "UnloadSLM"), flags, 2)
+        this.vtbl.SetSLMState := CallbackCreate(ObjBindMethod(implObj, "SetSLMState"), flags, 3)
+        this.vtbl.SetWordSequenceData := CallbackCreate(ObjBindMethod(implObj, "SetWordSequenceData"), flags, 5)
+        this.vtbl.SetTextSelection := CallbackCreate(ObjBindMethod(implObj, "SetTextSelection"), flags, 3)
+        this.vtbl.IsPronounceable := CallbackCreate(ObjBindMethod(implObj, "IsPronounceable"), flags, 4)
+        this.vtbl.OnCreateRecoContext := CallbackCreate(ObjBindMethod(implObj, "OnCreateRecoContext"), flags, 3)
+        this.vtbl.OnDeleteRecoContext := CallbackCreate(ObjBindMethod(implObj, "OnDeleteRecoContext"), flags, 2)
+        this.vtbl.PrivateCall := CallbackCreate(ObjBindMethod(implObj, "PrivateCall"), flags, 4)
+        this.vtbl.SetAdaptationData := CallbackCreate(ObjBindMethod(implObj, "SetAdaptationData"), flags, 4)
+        this.vtbl.SetPropertyNum := CallbackCreate(ObjBindMethod(implObj, "SetPropertyNum"), flags, 5)
+        this.vtbl.GetPropertyNum := CallbackCreate(ObjBindMethod(implObj, "GetPropertyNum"), flags, 5)
+        this.vtbl.SetPropertyString := CallbackCreate(ObjBindMethod(implObj, "SetPropertyString"), flags, 5)
+        this.vtbl.GetPropertyString := CallbackCreate(ObjBindMethod(implObj, "GetPropertyString"), flags, 5)
+        this.vtbl.SetGrammarState := CallbackCreate(ObjBindMethod(implObj, "SetGrammarState"), flags, 3)
+        this.vtbl.WordNotify := CallbackCreate(ObjBindMethod(implObj, "WordNotify"), flags, 4)
+        this.vtbl.RuleNotify := CallbackCreate(ObjBindMethod(implObj, "RuleNotify"), flags, 4)
+        this.vtbl.PrivateCallEx := CallbackCreate(ObjBindMethod(implObj, "PrivateCallEx"), flags, 6)
+        this.vtbl.SetContextState := CallbackCreate(ObjBindMethod(implObj, "SetContextState"), flags, 3)
     }
 
     Dispose() {

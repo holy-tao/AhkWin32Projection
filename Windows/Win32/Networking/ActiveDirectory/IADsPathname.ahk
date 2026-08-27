@@ -177,7 +177,6 @@ export default struct IADsPathname extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_EscapedMode() {
@@ -186,7 +185,6 @@ export default struct IADsPathname extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnEscapedMode 
      * @returns {HRESULT} 
      */
@@ -204,17 +202,17 @@ export default struct IADsPathname extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Set := CallbackCreate(GetMethod(implObj, "Set"), flags, 3)
-        this.vtbl.SetDisplayType := CallbackCreate(GetMethod(implObj, "SetDisplayType"), flags, 2)
-        this.vtbl.Retrieve := CallbackCreate(GetMethod(implObj, "Retrieve"), flags, 3)
-        this.vtbl.GetNumElements := CallbackCreate(GetMethod(implObj, "GetNumElements"), flags, 2)
-        this.vtbl.GetElement := CallbackCreate(GetMethod(implObj, "GetElement"), flags, 3)
-        this.vtbl.AddLeafElement := CallbackCreate(GetMethod(implObj, "AddLeafElement"), flags, 2)
-        this.vtbl.RemoveLeafElement := CallbackCreate(GetMethod(implObj, "RemoveLeafElement"), flags, 1)
-        this.vtbl.CopyPath := CallbackCreate(GetMethod(implObj, "CopyPath"), flags, 2)
-        this.vtbl.GetEscapedElement := CallbackCreate(GetMethod(implObj, "GetEscapedElement"), flags, 4)
-        this.vtbl.get_EscapedMode := CallbackCreate(GetMethod(implObj, "get_EscapedMode"), flags, 2)
-        this.vtbl.put_EscapedMode := CallbackCreate(GetMethod(implObj, "put_EscapedMode"), flags, 2)
+        this.vtbl.Set := CallbackCreate(ObjBindMethod(implObj, "Set"), flags, 3)
+        this.vtbl.SetDisplayType := CallbackCreate(ObjBindMethod(implObj, "SetDisplayType"), flags, 2)
+        this.vtbl.Retrieve := CallbackCreate(ObjBindMethod(implObj, "Retrieve"), flags, 3)
+        this.vtbl.GetNumElements := CallbackCreate(ObjBindMethod(implObj, "GetNumElements"), flags, 2)
+        this.vtbl.GetElement := CallbackCreate(ObjBindMethod(implObj, "GetElement"), flags, 3)
+        this.vtbl.AddLeafElement := CallbackCreate(ObjBindMethod(implObj, "AddLeafElement"), flags, 2)
+        this.vtbl.RemoveLeafElement := CallbackCreate(ObjBindMethod(implObj, "RemoveLeafElement"), flags, 1)
+        this.vtbl.CopyPath := CallbackCreate(ObjBindMethod(implObj, "CopyPath"), flags, 2)
+        this.vtbl.GetEscapedElement := CallbackCreate(ObjBindMethod(implObj, "GetEscapedElement"), flags, 4)
+        this.vtbl.get_EscapedMode := CallbackCreate(ObjBindMethod(implObj, "get_EscapedMode"), flags, 2)
+        this.vtbl.put_EscapedMode := CallbackCreate(ObjBindMethod(implObj, "put_EscapedMode"), flags, 2)
     }
 
     Dispose() {

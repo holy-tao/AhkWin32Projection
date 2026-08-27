@@ -21,7 +21,6 @@ export default struct IOMMU_DOMAIN_ATTACH_DEVICE {
     }
 
     /**
-     * 
      * @param {Pointer<IOMMU_DMA_DOMAIN>} Domain 
      * @param {Pointer<DEVICE_OBJECT>} PhysicalDeviceObject 
      * @param {Integer} InputMappingIdBase 
@@ -29,7 +28,7 @@ export default struct IOMMU_DOMAIN_ATTACH_DEVICE {
      * @returns {NTSTATUS} 
      */
     Call(Domain, PhysicalDeviceObject, InputMappingIdBase, MappingCount) {
-        DomainMarshal := Domain is VarRef ? "ptr*" : "ptr"
+        DomainMarshal := Domain is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, DomainMarshal, Domain, DEVICE_OBJECT.Ptr, PhysicalDeviceObject, UInt32, InputMappingIdBase, UInt32, MappingCount, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

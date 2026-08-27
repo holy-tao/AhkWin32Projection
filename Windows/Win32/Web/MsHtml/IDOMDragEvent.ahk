@@ -55,7 +55,6 @@ export default struct IDOMDragEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDataTransfer} 
      */
     get_dataTransfer() {
@@ -64,7 +63,6 @@ export default struct IDOMDragEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 
@@ -99,8 +97,8 @@ export default struct IDOMDragEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_dataTransfer := CallbackCreate(GetMethod(implObj, "get_dataTransfer"), flags, 2)
-        this.vtbl.initDragEvent := CallbackCreate(GetMethod(implObj, "initDragEvent"), flags, 17)
+        this.vtbl.get_dataTransfer := CallbackCreate(ObjBindMethod(implObj, "get_dataTransfer"), flags, 2)
+        this.vtbl.initDragEvent := CallbackCreate(ObjBindMethod(implObj, "initDragEvent"), flags, 17)
     }
 
     Dispose() {

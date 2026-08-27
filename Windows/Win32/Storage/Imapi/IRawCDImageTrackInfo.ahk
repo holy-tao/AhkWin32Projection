@@ -268,7 +268,6 @@ export default struct IRawCDImageTrackInfo extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lbaOffset 
      * @returns {HRESULT} 
      */
@@ -278,7 +277,6 @@ export default struct IRawCDImageTrackInfo extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lbaOffset 
      * @returns {HRESULT} 
      */
@@ -296,19 +294,19 @@ export default struct IRawCDImageTrackInfo extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_StartingLba := CallbackCreate(GetMethod(implObj, "get_StartingLba"), flags, 2)
-        this.vtbl.get_SectorCount := CallbackCreate(GetMethod(implObj, "get_SectorCount"), flags, 2)
-        this.vtbl.get_TrackNumber := CallbackCreate(GetMethod(implObj, "get_TrackNumber"), flags, 2)
-        this.vtbl.get_SectorType := CallbackCreate(GetMethod(implObj, "get_SectorType"), flags, 2)
-        this.vtbl.get_ISRC := CallbackCreate(GetMethod(implObj, "get_ISRC"), flags, 2)
-        this.vtbl.put_ISRC := CallbackCreate(GetMethod(implObj, "put_ISRC"), flags, 2)
-        this.vtbl.get_DigitalAudioCopySetting := CallbackCreate(GetMethod(implObj, "get_DigitalAudioCopySetting"), flags, 2)
-        this.vtbl.put_DigitalAudioCopySetting := CallbackCreate(GetMethod(implObj, "put_DigitalAudioCopySetting"), flags, 2)
-        this.vtbl.get_AudioHasPreemphasis := CallbackCreate(GetMethod(implObj, "get_AudioHasPreemphasis"), flags, 2)
-        this.vtbl.put_AudioHasPreemphasis := CallbackCreate(GetMethod(implObj, "put_AudioHasPreemphasis"), flags, 2)
-        this.vtbl.get_TrackIndexes := CallbackCreate(GetMethod(implObj, "get_TrackIndexes"), flags, 2)
-        this.vtbl.AddTrackIndex := CallbackCreate(GetMethod(implObj, "AddTrackIndex"), flags, 2)
-        this.vtbl.ClearTrackIndex := CallbackCreate(GetMethod(implObj, "ClearTrackIndex"), flags, 2)
+        this.vtbl.get_StartingLba := CallbackCreate(ObjBindMethod(implObj, "get_StartingLba"), flags, 2)
+        this.vtbl.get_SectorCount := CallbackCreate(ObjBindMethod(implObj, "get_SectorCount"), flags, 2)
+        this.vtbl.get_TrackNumber := CallbackCreate(ObjBindMethod(implObj, "get_TrackNumber"), flags, 2)
+        this.vtbl.get_SectorType := CallbackCreate(ObjBindMethod(implObj, "get_SectorType"), flags, 2)
+        this.vtbl.get_ISRC := CallbackCreate(ObjBindMethod(implObj, "get_ISRC"), flags, 2)
+        this.vtbl.put_ISRC := CallbackCreate(ObjBindMethod(implObj, "put_ISRC"), flags, 2)
+        this.vtbl.get_DigitalAudioCopySetting := CallbackCreate(ObjBindMethod(implObj, "get_DigitalAudioCopySetting"), flags, 2)
+        this.vtbl.put_DigitalAudioCopySetting := CallbackCreate(ObjBindMethod(implObj, "put_DigitalAudioCopySetting"), flags, 2)
+        this.vtbl.get_AudioHasPreemphasis := CallbackCreate(ObjBindMethod(implObj, "get_AudioHasPreemphasis"), flags, 2)
+        this.vtbl.put_AudioHasPreemphasis := CallbackCreate(ObjBindMethod(implObj, "put_AudioHasPreemphasis"), flags, 2)
+        this.vtbl.get_TrackIndexes := CallbackCreate(ObjBindMethod(implObj, "get_TrackIndexes"), flags, 2)
+        this.vtbl.AddTrackIndex := CallbackCreate(ObjBindMethod(implObj, "AddTrackIndex"), flags, 2)
+        this.vtbl.ClearTrackIndex := CallbackCreate(ObjBindMethod(implObj, "ClearTrackIndex"), flags, 2)
     }
 
     Dispose() {

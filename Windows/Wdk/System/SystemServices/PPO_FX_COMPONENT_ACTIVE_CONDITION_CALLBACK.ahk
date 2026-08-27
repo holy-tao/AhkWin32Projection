@@ -18,7 +18,6 @@ export default struct PPO_FX_COMPONENT_ACTIVE_CONDITION_CALLBACK {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

@@ -20,7 +20,6 @@ export default struct BCryptDecryptFn {
     }
 
     /**
-     * 
      * @param {BCRYPT_KEY_HANDLE} _hKey 
      * @param {Integer} pbInput 
      * @param {Integer} cbInput 
@@ -34,10 +33,14 @@ export default struct BCryptDecryptFn {
      * @returns {NTSTATUS} 
      */
     Call(_hKey, pbInput, cbInput, pPaddingInfo, pbIV, cbIV, pbOutput, cbOutput, pcbResult, dwFlags) {
-        pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
-        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+        pbInputMarshal := pbInput == 0 ? IntPtr : IntPtr
+        pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : IntPtr
+        pPaddingInfoMarshal := pPaddingInfo == 0 ? IntPtr : "ptr"
+        pbIVMarshal := pbIV == 0 ? IntPtr : IntPtr
+        pbOutputMarshal := pbOutput == 0 ? IntPtr : IntPtr
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, BCRYPT_KEY_HANDLE, _hKey, IntPtr, pbInput, UInt32, cbInput, pPaddingInfoMarshal, pPaddingInfo, IntPtr, pbIV, UInt32, cbIV, IntPtr, pbOutput, UInt32, cbOutput, pcbResultMarshal, pcbResult, UInt32, dwFlags, NTSTATUS)
+        result := DllCall(this.value, BCRYPT_KEY_HANDLE, _hKey, pbInputMarshal, pbInput, UInt32, cbInput, pPaddingInfoMarshal, pPaddingInfo, pbIVMarshal, pbIV, UInt32, cbIV, pbOutputMarshal, pbOutput, UInt32, cbOutput, pcbResultMarshal, pcbResult, UInt32, dwFlags, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

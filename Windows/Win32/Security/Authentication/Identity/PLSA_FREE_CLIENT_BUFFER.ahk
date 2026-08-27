@@ -19,14 +19,13 @@ export default struct PLSA_FREE_CLIENT_BUFFER {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} ClientRequest 
      * @param {Pointer<Void>} ClientBaseAddress 
      * @returns {NTSTATUS} 
      */
     Call(ClientRequest, ClientBaseAddress) {
-        ClientRequestMarshal := ClientRequest is VarRef ? "ptr*" : "ptr"
-        ClientBaseAddressMarshal := ClientBaseAddress is VarRef ? "ptr" : "ptr"
+        ClientRequestMarshal := ClientRequest is VarRef ? "ptr*" : IntPtr
+        ClientBaseAddressMarshal := ClientBaseAddress is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, ClientRequestMarshal, ClientRequest, ClientBaseAddressMarshal, ClientBaseAddress, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

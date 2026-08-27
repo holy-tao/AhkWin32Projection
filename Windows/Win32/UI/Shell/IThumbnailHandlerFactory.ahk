@@ -71,7 +71,7 @@ export default struct IThumbnailHandlerFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetThumbnailHandler := CallbackCreate(GetMethod(implObj, "GetThumbnailHandler"), flags, 5)
+        this.vtbl.GetThumbnailHandler := CallbackCreate(ObjBindMethod(implObj, "GetThumbnailHandler"), flags, 5)
     }
 
     Dispose() {

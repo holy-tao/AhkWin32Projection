@@ -65,7 +65,7 @@ export default struct ID3D12DeviceChild extends ID3D12Object {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDevice := CallbackCreate(GetMethod(implObj, "GetDevice"), flags, 3)
+        this.vtbl.GetDevice := CallbackCreate(ObjBindMethod(implObj, "GetDevice"), flags, 3)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct PFN_FSRTLTEARDOWNPERSTREAMCONTEXTS {
     }
 
     /**
-     * 
      * @param {Pointer<FSRTL_ADVANCED_FCB_HEADER>} AdvancedHeader 
      * @returns {String} Nothing - always returns an empty string
      */

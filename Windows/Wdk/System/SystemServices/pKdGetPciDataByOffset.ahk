@@ -18,7 +18,6 @@ export default struct pKdGetPciDataByOffset {
     }
 
     /**
-     * 
      * @param {Integer} BusNumber 
      * @param {Integer} SlotNumber 
      * @param {Integer} _Buffer 

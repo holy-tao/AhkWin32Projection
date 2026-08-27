@@ -22,7 +22,6 @@ export default struct PLSA_REDIRECTED_LOGON_INIT {
     }
 
     /**
-     * 
      * @param {HANDLE} RedirectedLogonHandle 
      * @param {Pointer<LSA_UNICODE_STRING>} PackageName 
      * @param {Integer} SessionId 

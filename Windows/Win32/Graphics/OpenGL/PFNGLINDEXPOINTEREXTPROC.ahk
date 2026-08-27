@@ -18,7 +18,6 @@ export default struct PFNGLINDEXPOINTEREXTPROC {
     }
 
     /**
-     * 
      * @param {Integer} type 
      * @param {Integer} stride 
      * @param {Integer} count 
@@ -26,7 +25,7 @@ export default struct PFNGLINDEXPOINTEREXTPROC {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(type, stride, count, pointer) {
-        pointerMarshal := pointer is VarRef ? "ptr" : "ptr"
+        pointerMarshal := pointer is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, UInt32, type, Int32, stride, Int32, count, pointerMarshal, pointer)
     }

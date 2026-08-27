@@ -21,7 +21,6 @@ export default struct PFN_DrvSwapBuffers {
     }
 
     /**
-     * 
      * @param {Pointer<SURFOBJ>} param0 
      * @param {Pointer<WNDOBJ>} param1 
      * @returns {BOOL} 

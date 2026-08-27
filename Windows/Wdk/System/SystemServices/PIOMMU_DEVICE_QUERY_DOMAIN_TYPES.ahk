@@ -18,7 +18,6 @@ export default struct PIOMMU_DEVICE_QUERY_DOMAIN_TYPES {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

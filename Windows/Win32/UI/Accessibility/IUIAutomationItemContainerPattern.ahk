@@ -83,7 +83,7 @@ export default struct IUIAutomationItemContainerPattern extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FindItemByProperty := CallbackCreate(GetMethod(implObj, "FindItemByProperty"), flags, 5)
+        this.vtbl.FindItemByProperty := CallbackCreate(ObjBindMethod(implObj, "FindItemByProperty"), flags, 5)
     }
 
     Dispose() {

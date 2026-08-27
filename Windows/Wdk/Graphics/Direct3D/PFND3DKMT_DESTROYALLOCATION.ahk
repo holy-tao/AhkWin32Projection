@@ -20,7 +20,6 @@ export default struct PFND3DKMT_DESTROYALLOCATION {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_DESTROYALLOCATION>} param0 
      * @returns {NTSTATUS} 
      */

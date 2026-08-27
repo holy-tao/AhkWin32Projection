@@ -45,7 +45,6 @@ export default struct IDtcToXaHelperSinglePipe extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} pszDSN 
      * @param {PSTR} pszClientDll 
      * @param {Pointer<Integer>} pdwRMCookie 
@@ -55,28 +54,26 @@ export default struct IDtcToXaHelperSinglePipe extends IUnknown {
         pszDSN := pszDSN is String ? StrPtr(pszDSN) : pszDSN
         pszClientDll := pszClientDll is String ? StrPtr(pszClientDll) : pszClientDll
 
-        pdwRMCookieMarshal := pdwRMCookie is VarRef ? "uint*" : "ptr"
+        pdwRMCookieMarshal := pdwRMCookie is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, "ptr", pszDSN, "ptr", pszClientDll, pdwRMCookieMarshal, pdwRMCookie, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwITrans 
      * @param {Integer} dwRMCookie 
      * @param {Pointer<XID>} pxid 
      * @returns {HRESULT} 
      */
     ConvertTridToXID(pdwITrans, dwRMCookie, pxid) {
-        pdwITransMarshal := pdwITrans is VarRef ? "uint*" : "ptr"
+        pdwITransMarshal := pdwITrans is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pdwITransMarshal, pdwITrans, UInt32, dwRMCookie, XID.Ptr, pxid, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwRMCookie 
      * @param {ITransaction} i_pITransaction 
      * @param {ITransactionResourceAsync} i_pITransRes 
@@ -88,7 +85,6 @@ export default struct IDtcToXaHelperSinglePipe extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} i_dwRMCookie 
      * @param {BOOL} i_fNormal 
      * @returns {String} Nothing - always returns an empty string
@@ -106,10 +102,10 @@ export default struct IDtcToXaHelperSinglePipe extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.XARMCreate := CallbackCreate(GetMethod(implObj, "XARMCreate"), flags, 4)
-        this.vtbl.ConvertTridToXID := CallbackCreate(GetMethod(implObj, "ConvertTridToXID"), flags, 4)
-        this.vtbl.EnlistWithRM := CallbackCreate(GetMethod(implObj, "EnlistWithRM"), flags, 5)
-        this.vtbl.ReleaseRMCookie := CallbackCreate(GetMethod(implObj, "ReleaseRMCookie"), flags, 3)
+        this.vtbl.XARMCreate := CallbackCreate(ObjBindMethod(implObj, "XARMCreate"), flags, 4)
+        this.vtbl.ConvertTridToXID := CallbackCreate(ObjBindMethod(implObj, "ConvertTridToXID"), flags, 4)
+        this.vtbl.EnlistWithRM := CallbackCreate(ObjBindMethod(implObj, "EnlistWithRM"), flags, 5)
+        this.vtbl.ReleaseRMCookie := CallbackCreate(ObjBindMethod(implObj, "ReleaseRMCookie"), flags, 3)
     }
 
     Dispose() {

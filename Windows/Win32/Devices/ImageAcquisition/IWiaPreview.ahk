@@ -84,7 +84,10 @@ export default struct IWiaPreview extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiapreview-getnewpreview
      */
     GetNewPreview(lFlags, pWiaItem2, pWiaTransferCallback) {
-        result := ComCall(3, this, Int32, lFlags, "ptr", pWiaItem2, "ptr", pWiaTransferCallback, "HRESULT")
+        pWiaItem2Marshal := pWiaItem2 == 0 ? IntPtr : "ptr"
+        pWiaTransferCallbackMarshal := pWiaTransferCallback == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, Int32, lFlags, pWiaItem2Marshal, pWiaItem2, pWiaTransferCallbackMarshal, pWiaTransferCallback, "HRESULT")
         return result
     }
 
@@ -114,7 +117,10 @@ export default struct IWiaPreview extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiapreview-updatepreview
      */
     UpdatePreview(lFlags, pChildWiaItem2, pWiaTransferCallback) {
-        result := ComCall(4, this, Int32, lFlags, "ptr", pChildWiaItem2, "ptr", pWiaTransferCallback, "HRESULT")
+        pChildWiaItem2Marshal := pChildWiaItem2 == 0 ? IntPtr : "ptr"
+        pWiaTransferCallbackMarshal := pWiaTransferCallback == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, Int32, lFlags, pChildWiaItem2Marshal, pChildWiaItem2, pWiaTransferCallbackMarshal, pWiaTransferCallback, "HRESULT")
         return result
     }
 
@@ -177,10 +183,10 @@ export default struct IWiaPreview extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNewPreview := CallbackCreate(GetMethod(implObj, "GetNewPreview"), flags, 4)
-        this.vtbl.UpdatePreview := CallbackCreate(GetMethod(implObj, "UpdatePreview"), flags, 4)
-        this.vtbl.DetectRegions := CallbackCreate(GetMethod(implObj, "DetectRegions"), flags, 2)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.GetNewPreview := CallbackCreate(ObjBindMethod(implObj, "GetNewPreview"), flags, 4)
+        this.vtbl.UpdatePreview := CallbackCreate(ObjBindMethod(implObj, "UpdatePreview"), flags, 4)
+        this.vtbl.DetectRegions := CallbackCreate(ObjBindMethod(implObj, "DetectRegions"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
     }
 
     Dispose() {

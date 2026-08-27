@@ -20,13 +20,12 @@ export default struct PCANCEL_MAPPED_TRANSFER {
     }
 
     /**
-     * 
      * @param {Pointer<DMA_ADAPTER>} DmaAdapter 
      * @param {Pointer<Void>} DmaTransferContext 
      * @returns {NTSTATUS} 
      */
     Call(DmaAdapter, DmaTransferContext) {
-        DmaTransferContextMarshal := DmaTransferContext is VarRef ? "ptr" : "ptr"
+        DmaTransferContextMarshal := DmaTransferContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, DmaTransferContextMarshal, DmaTransferContext, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

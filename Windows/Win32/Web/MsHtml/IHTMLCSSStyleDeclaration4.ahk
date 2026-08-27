@@ -487,7 +487,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -499,7 +498,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitAppearance() {
@@ -509,7 +507,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -521,7 +518,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitUserSelect() {
@@ -531,7 +527,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -543,7 +538,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBoxAlign() {
@@ -553,7 +547,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -563,7 +556,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_webkitBoxOrdinalGroup() {
@@ -573,7 +565,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -585,7 +576,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBoxPack() {
@@ -595,7 +585,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -605,7 +594,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_webkitBoxFlex() {
@@ -615,7 +603,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -627,7 +614,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBoxOrient() {
@@ -637,7 +623,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -649,7 +634,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBoxDirection() {
@@ -659,7 +643,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -671,7 +654,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitTransform() {
@@ -681,7 +663,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -693,7 +674,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBackgroundSize() {
@@ -703,7 +683,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -715,7 +694,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBackfaceVisibility() {
@@ -725,7 +703,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -737,7 +714,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitAnimation() {
@@ -747,7 +723,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -759,7 +734,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitTransition() {
@@ -769,7 +743,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -781,7 +754,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitAnimationName() {
@@ -791,7 +763,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -803,7 +774,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitAnimationDuration() {
@@ -813,7 +783,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -825,7 +794,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitAnimationTimingFunction() {
@@ -835,7 +803,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -847,7 +814,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitAnimationDelay() {
@@ -857,7 +823,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -869,7 +834,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitAnimationIterationCount() {
@@ -879,7 +843,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -891,7 +854,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitAnimationDirection() {
@@ -901,7 +863,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -913,7 +874,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitAnimationPlayState() {
@@ -923,7 +883,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -935,7 +894,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitTransitionProperty() {
@@ -945,7 +903,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -957,7 +914,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitTransitionDuration() {
@@ -967,7 +923,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -979,7 +934,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitTransitionTimingFunction() {
@@ -989,7 +943,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1001,7 +954,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitTransitionDelay() {
@@ -1011,7 +963,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1023,7 +974,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBackgroundAttachment() {
@@ -1033,7 +983,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1043,7 +992,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_webkitBackgroundColor() {
@@ -1053,7 +1001,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1065,7 +1012,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBackgroundClip() {
@@ -1075,7 +1021,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1087,7 +1032,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBackgroundImage() {
@@ -1097,7 +1041,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1109,7 +1052,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBackgroundRepeat() {
@@ -1119,7 +1061,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1131,7 +1072,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBackgroundOrigin() {
@@ -1141,7 +1081,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1153,7 +1092,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBackgroundPosition() {
@@ -1163,7 +1101,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1173,7 +1110,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_webkitBackgroundPositionX() {
@@ -1183,7 +1119,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1193,7 +1128,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_webkitBackgroundPositionY() {
@@ -1203,7 +1137,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1215,7 +1148,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBackground() {
@@ -1225,7 +1157,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1237,7 +1168,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitTransformOrigin() {
@@ -1247,7 +1177,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1257,7 +1186,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msTextSizeAdjust() {
@@ -1267,7 +1195,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1277,7 +1204,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_webkitTextSizeAdjust() {
@@ -1287,7 +1213,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1299,7 +1224,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBorderImage() {
@@ -1309,7 +1233,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1321,7 +1244,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBorderImageSource() {
@@ -1331,7 +1253,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1343,7 +1264,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBorderImageSlice() {
@@ -1353,7 +1273,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1365,7 +1284,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBorderImageWidth() {
@@ -1375,7 +1293,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1387,7 +1304,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBorderImageOutset() {
@@ -1397,7 +1313,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1409,7 +1324,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBorderImageRepeat() {
@@ -1419,7 +1333,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1431,7 +1344,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitBoxSizing() {
@@ -1441,7 +1353,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1453,7 +1364,6 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_webkitAnimationFillMode() {
@@ -1471,96 +1381,96 @@ export default struct IHTMLCSSStyleDeclaration4 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_webkitAppearance := CallbackCreate(GetMethod(implObj, "put_webkitAppearance"), flags, 2)
-        this.vtbl.get_webkitAppearance := CallbackCreate(GetMethod(implObj, "get_webkitAppearance"), flags, 2)
-        this.vtbl.put_webkitUserSelect := CallbackCreate(GetMethod(implObj, "put_webkitUserSelect"), flags, 2)
-        this.vtbl.get_webkitUserSelect := CallbackCreate(GetMethod(implObj, "get_webkitUserSelect"), flags, 2)
-        this.vtbl.put_webkitBoxAlign := CallbackCreate(GetMethod(implObj, "put_webkitBoxAlign"), flags, 2)
-        this.vtbl.get_webkitBoxAlign := CallbackCreate(GetMethod(implObj, "get_webkitBoxAlign"), flags, 2)
-        this.vtbl.put_webkitBoxOrdinalGroup := CallbackCreate(GetMethod(implObj, "put_webkitBoxOrdinalGroup"), flags, 2)
-        this.vtbl.get_webkitBoxOrdinalGroup := CallbackCreate(GetMethod(implObj, "get_webkitBoxOrdinalGroup"), flags, 2)
-        this.vtbl.put_webkitBoxPack := CallbackCreate(GetMethod(implObj, "put_webkitBoxPack"), flags, 2)
-        this.vtbl.get_webkitBoxPack := CallbackCreate(GetMethod(implObj, "get_webkitBoxPack"), flags, 2)
-        this.vtbl.put_webkitBoxFlex := CallbackCreate(GetMethod(implObj, "put_webkitBoxFlex"), flags, 2)
-        this.vtbl.get_webkitBoxFlex := CallbackCreate(GetMethod(implObj, "get_webkitBoxFlex"), flags, 2)
-        this.vtbl.put_webkitBoxOrient := CallbackCreate(GetMethod(implObj, "put_webkitBoxOrient"), flags, 2)
-        this.vtbl.get_webkitBoxOrient := CallbackCreate(GetMethod(implObj, "get_webkitBoxOrient"), flags, 2)
-        this.vtbl.put_webkitBoxDirection := CallbackCreate(GetMethod(implObj, "put_webkitBoxDirection"), flags, 2)
-        this.vtbl.get_webkitBoxDirection := CallbackCreate(GetMethod(implObj, "get_webkitBoxDirection"), flags, 2)
-        this.vtbl.put_webkitTransform := CallbackCreate(GetMethod(implObj, "put_webkitTransform"), flags, 2)
-        this.vtbl.get_webkitTransform := CallbackCreate(GetMethod(implObj, "get_webkitTransform"), flags, 2)
-        this.vtbl.put_webkitBackgroundSize := CallbackCreate(GetMethod(implObj, "put_webkitBackgroundSize"), flags, 2)
-        this.vtbl.get_webkitBackgroundSize := CallbackCreate(GetMethod(implObj, "get_webkitBackgroundSize"), flags, 2)
-        this.vtbl.put_webkitBackfaceVisibility := CallbackCreate(GetMethod(implObj, "put_webkitBackfaceVisibility"), flags, 2)
-        this.vtbl.get_webkitBackfaceVisibility := CallbackCreate(GetMethod(implObj, "get_webkitBackfaceVisibility"), flags, 2)
-        this.vtbl.put_webkitAnimation := CallbackCreate(GetMethod(implObj, "put_webkitAnimation"), flags, 2)
-        this.vtbl.get_webkitAnimation := CallbackCreate(GetMethod(implObj, "get_webkitAnimation"), flags, 2)
-        this.vtbl.put_webkitTransition := CallbackCreate(GetMethod(implObj, "put_webkitTransition"), flags, 2)
-        this.vtbl.get_webkitTransition := CallbackCreate(GetMethod(implObj, "get_webkitTransition"), flags, 2)
-        this.vtbl.put_webkitAnimationName := CallbackCreate(GetMethod(implObj, "put_webkitAnimationName"), flags, 2)
-        this.vtbl.get_webkitAnimationName := CallbackCreate(GetMethod(implObj, "get_webkitAnimationName"), flags, 2)
-        this.vtbl.put_webkitAnimationDuration := CallbackCreate(GetMethod(implObj, "put_webkitAnimationDuration"), flags, 2)
-        this.vtbl.get_webkitAnimationDuration := CallbackCreate(GetMethod(implObj, "get_webkitAnimationDuration"), flags, 2)
-        this.vtbl.put_webkitAnimationTimingFunction := CallbackCreate(GetMethod(implObj, "put_webkitAnimationTimingFunction"), flags, 2)
-        this.vtbl.get_webkitAnimationTimingFunction := CallbackCreate(GetMethod(implObj, "get_webkitAnimationTimingFunction"), flags, 2)
-        this.vtbl.put_webkitAnimationDelay := CallbackCreate(GetMethod(implObj, "put_webkitAnimationDelay"), flags, 2)
-        this.vtbl.get_webkitAnimationDelay := CallbackCreate(GetMethod(implObj, "get_webkitAnimationDelay"), flags, 2)
-        this.vtbl.put_webkitAnimationIterationCount := CallbackCreate(GetMethod(implObj, "put_webkitAnimationIterationCount"), flags, 2)
-        this.vtbl.get_webkitAnimationIterationCount := CallbackCreate(GetMethod(implObj, "get_webkitAnimationIterationCount"), flags, 2)
-        this.vtbl.put_webkitAnimationDirection := CallbackCreate(GetMethod(implObj, "put_webkitAnimationDirection"), flags, 2)
-        this.vtbl.get_webkitAnimationDirection := CallbackCreate(GetMethod(implObj, "get_webkitAnimationDirection"), flags, 2)
-        this.vtbl.put_webkitAnimationPlayState := CallbackCreate(GetMethod(implObj, "put_webkitAnimationPlayState"), flags, 2)
-        this.vtbl.get_webkitAnimationPlayState := CallbackCreate(GetMethod(implObj, "get_webkitAnimationPlayState"), flags, 2)
-        this.vtbl.put_webkitTransitionProperty := CallbackCreate(GetMethod(implObj, "put_webkitTransitionProperty"), flags, 2)
-        this.vtbl.get_webkitTransitionProperty := CallbackCreate(GetMethod(implObj, "get_webkitTransitionProperty"), flags, 2)
-        this.vtbl.put_webkitTransitionDuration := CallbackCreate(GetMethod(implObj, "put_webkitTransitionDuration"), flags, 2)
-        this.vtbl.get_webkitTransitionDuration := CallbackCreate(GetMethod(implObj, "get_webkitTransitionDuration"), flags, 2)
-        this.vtbl.put_webkitTransitionTimingFunction := CallbackCreate(GetMethod(implObj, "put_webkitTransitionTimingFunction"), flags, 2)
-        this.vtbl.get_webkitTransitionTimingFunction := CallbackCreate(GetMethod(implObj, "get_webkitTransitionTimingFunction"), flags, 2)
-        this.vtbl.put_webkitTransitionDelay := CallbackCreate(GetMethod(implObj, "put_webkitTransitionDelay"), flags, 2)
-        this.vtbl.get_webkitTransitionDelay := CallbackCreate(GetMethod(implObj, "get_webkitTransitionDelay"), flags, 2)
-        this.vtbl.put_webkitBackgroundAttachment := CallbackCreate(GetMethod(implObj, "put_webkitBackgroundAttachment"), flags, 2)
-        this.vtbl.get_webkitBackgroundAttachment := CallbackCreate(GetMethod(implObj, "get_webkitBackgroundAttachment"), flags, 2)
-        this.vtbl.put_webkitBackgroundColor := CallbackCreate(GetMethod(implObj, "put_webkitBackgroundColor"), flags, 2)
-        this.vtbl.get_webkitBackgroundColor := CallbackCreate(GetMethod(implObj, "get_webkitBackgroundColor"), flags, 2)
-        this.vtbl.put_webkitBackgroundClip := CallbackCreate(GetMethod(implObj, "put_webkitBackgroundClip"), flags, 2)
-        this.vtbl.get_webkitBackgroundClip := CallbackCreate(GetMethod(implObj, "get_webkitBackgroundClip"), flags, 2)
-        this.vtbl.put_webkitBackgroundImage := CallbackCreate(GetMethod(implObj, "put_webkitBackgroundImage"), flags, 2)
-        this.vtbl.get_webkitBackgroundImage := CallbackCreate(GetMethod(implObj, "get_webkitBackgroundImage"), flags, 2)
-        this.vtbl.put_webkitBackgroundRepeat := CallbackCreate(GetMethod(implObj, "put_webkitBackgroundRepeat"), flags, 2)
-        this.vtbl.get_webkitBackgroundRepeat := CallbackCreate(GetMethod(implObj, "get_webkitBackgroundRepeat"), flags, 2)
-        this.vtbl.put_webkitBackgroundOrigin := CallbackCreate(GetMethod(implObj, "put_webkitBackgroundOrigin"), flags, 2)
-        this.vtbl.get_webkitBackgroundOrigin := CallbackCreate(GetMethod(implObj, "get_webkitBackgroundOrigin"), flags, 2)
-        this.vtbl.put_webkitBackgroundPosition := CallbackCreate(GetMethod(implObj, "put_webkitBackgroundPosition"), flags, 2)
-        this.vtbl.get_webkitBackgroundPosition := CallbackCreate(GetMethod(implObj, "get_webkitBackgroundPosition"), flags, 2)
-        this.vtbl.put_webkitBackgroundPositionX := CallbackCreate(GetMethod(implObj, "put_webkitBackgroundPositionX"), flags, 2)
-        this.vtbl.get_webkitBackgroundPositionX := CallbackCreate(GetMethod(implObj, "get_webkitBackgroundPositionX"), flags, 2)
-        this.vtbl.put_webkitBackgroundPositionY := CallbackCreate(GetMethod(implObj, "put_webkitBackgroundPositionY"), flags, 2)
-        this.vtbl.get_webkitBackgroundPositionY := CallbackCreate(GetMethod(implObj, "get_webkitBackgroundPositionY"), flags, 2)
-        this.vtbl.put_webkitBackground := CallbackCreate(GetMethod(implObj, "put_webkitBackground"), flags, 2)
-        this.vtbl.get_webkitBackground := CallbackCreate(GetMethod(implObj, "get_webkitBackground"), flags, 2)
-        this.vtbl.put_webkitTransformOrigin := CallbackCreate(GetMethod(implObj, "put_webkitTransformOrigin"), flags, 2)
-        this.vtbl.get_webkitTransformOrigin := CallbackCreate(GetMethod(implObj, "get_webkitTransformOrigin"), flags, 2)
-        this.vtbl.put_msTextSizeAdjust := CallbackCreate(GetMethod(implObj, "put_msTextSizeAdjust"), flags, 2)
-        this.vtbl.get_msTextSizeAdjust := CallbackCreate(GetMethod(implObj, "get_msTextSizeAdjust"), flags, 2)
-        this.vtbl.put_webkitTextSizeAdjust := CallbackCreate(GetMethod(implObj, "put_webkitTextSizeAdjust"), flags, 2)
-        this.vtbl.get_webkitTextSizeAdjust := CallbackCreate(GetMethod(implObj, "get_webkitTextSizeAdjust"), flags, 2)
-        this.vtbl.put_webkitBorderImage := CallbackCreate(GetMethod(implObj, "put_webkitBorderImage"), flags, 2)
-        this.vtbl.get_webkitBorderImage := CallbackCreate(GetMethod(implObj, "get_webkitBorderImage"), flags, 2)
-        this.vtbl.put_webkitBorderImageSource := CallbackCreate(GetMethod(implObj, "put_webkitBorderImageSource"), flags, 2)
-        this.vtbl.get_webkitBorderImageSource := CallbackCreate(GetMethod(implObj, "get_webkitBorderImageSource"), flags, 2)
-        this.vtbl.put_webkitBorderImageSlice := CallbackCreate(GetMethod(implObj, "put_webkitBorderImageSlice"), flags, 2)
-        this.vtbl.get_webkitBorderImageSlice := CallbackCreate(GetMethod(implObj, "get_webkitBorderImageSlice"), flags, 2)
-        this.vtbl.put_webkitBorderImageWidth := CallbackCreate(GetMethod(implObj, "put_webkitBorderImageWidth"), flags, 2)
-        this.vtbl.get_webkitBorderImageWidth := CallbackCreate(GetMethod(implObj, "get_webkitBorderImageWidth"), flags, 2)
-        this.vtbl.put_webkitBorderImageOutset := CallbackCreate(GetMethod(implObj, "put_webkitBorderImageOutset"), flags, 2)
-        this.vtbl.get_webkitBorderImageOutset := CallbackCreate(GetMethod(implObj, "get_webkitBorderImageOutset"), flags, 2)
-        this.vtbl.put_webkitBorderImageRepeat := CallbackCreate(GetMethod(implObj, "put_webkitBorderImageRepeat"), flags, 2)
-        this.vtbl.get_webkitBorderImageRepeat := CallbackCreate(GetMethod(implObj, "get_webkitBorderImageRepeat"), flags, 2)
-        this.vtbl.put_webkitBoxSizing := CallbackCreate(GetMethod(implObj, "put_webkitBoxSizing"), flags, 2)
-        this.vtbl.get_webkitBoxSizing := CallbackCreate(GetMethod(implObj, "get_webkitBoxSizing"), flags, 2)
-        this.vtbl.put_webkitAnimationFillMode := CallbackCreate(GetMethod(implObj, "put_webkitAnimationFillMode"), flags, 2)
-        this.vtbl.get_webkitAnimationFillMode := CallbackCreate(GetMethod(implObj, "get_webkitAnimationFillMode"), flags, 2)
+        this.vtbl.put_webkitAppearance := CallbackCreate(ObjBindMethod(implObj, "put_webkitAppearance"), flags, 2)
+        this.vtbl.get_webkitAppearance := CallbackCreate(ObjBindMethod(implObj, "get_webkitAppearance"), flags, 2)
+        this.vtbl.put_webkitUserSelect := CallbackCreate(ObjBindMethod(implObj, "put_webkitUserSelect"), flags, 2)
+        this.vtbl.get_webkitUserSelect := CallbackCreate(ObjBindMethod(implObj, "get_webkitUserSelect"), flags, 2)
+        this.vtbl.put_webkitBoxAlign := CallbackCreate(ObjBindMethod(implObj, "put_webkitBoxAlign"), flags, 2)
+        this.vtbl.get_webkitBoxAlign := CallbackCreate(ObjBindMethod(implObj, "get_webkitBoxAlign"), flags, 2)
+        this.vtbl.put_webkitBoxOrdinalGroup := CallbackCreate(ObjBindMethod(implObj, "put_webkitBoxOrdinalGroup"), flags, 2)
+        this.vtbl.get_webkitBoxOrdinalGroup := CallbackCreate(ObjBindMethod(implObj, "get_webkitBoxOrdinalGroup"), flags, 2)
+        this.vtbl.put_webkitBoxPack := CallbackCreate(ObjBindMethod(implObj, "put_webkitBoxPack"), flags, 2)
+        this.vtbl.get_webkitBoxPack := CallbackCreate(ObjBindMethod(implObj, "get_webkitBoxPack"), flags, 2)
+        this.vtbl.put_webkitBoxFlex := CallbackCreate(ObjBindMethod(implObj, "put_webkitBoxFlex"), flags, 2)
+        this.vtbl.get_webkitBoxFlex := CallbackCreate(ObjBindMethod(implObj, "get_webkitBoxFlex"), flags, 2)
+        this.vtbl.put_webkitBoxOrient := CallbackCreate(ObjBindMethod(implObj, "put_webkitBoxOrient"), flags, 2)
+        this.vtbl.get_webkitBoxOrient := CallbackCreate(ObjBindMethod(implObj, "get_webkitBoxOrient"), flags, 2)
+        this.vtbl.put_webkitBoxDirection := CallbackCreate(ObjBindMethod(implObj, "put_webkitBoxDirection"), flags, 2)
+        this.vtbl.get_webkitBoxDirection := CallbackCreate(ObjBindMethod(implObj, "get_webkitBoxDirection"), flags, 2)
+        this.vtbl.put_webkitTransform := CallbackCreate(ObjBindMethod(implObj, "put_webkitTransform"), flags, 2)
+        this.vtbl.get_webkitTransform := CallbackCreate(ObjBindMethod(implObj, "get_webkitTransform"), flags, 2)
+        this.vtbl.put_webkitBackgroundSize := CallbackCreate(ObjBindMethod(implObj, "put_webkitBackgroundSize"), flags, 2)
+        this.vtbl.get_webkitBackgroundSize := CallbackCreate(ObjBindMethod(implObj, "get_webkitBackgroundSize"), flags, 2)
+        this.vtbl.put_webkitBackfaceVisibility := CallbackCreate(ObjBindMethod(implObj, "put_webkitBackfaceVisibility"), flags, 2)
+        this.vtbl.get_webkitBackfaceVisibility := CallbackCreate(ObjBindMethod(implObj, "get_webkitBackfaceVisibility"), flags, 2)
+        this.vtbl.put_webkitAnimation := CallbackCreate(ObjBindMethod(implObj, "put_webkitAnimation"), flags, 2)
+        this.vtbl.get_webkitAnimation := CallbackCreate(ObjBindMethod(implObj, "get_webkitAnimation"), flags, 2)
+        this.vtbl.put_webkitTransition := CallbackCreate(ObjBindMethod(implObj, "put_webkitTransition"), flags, 2)
+        this.vtbl.get_webkitTransition := CallbackCreate(ObjBindMethod(implObj, "get_webkitTransition"), flags, 2)
+        this.vtbl.put_webkitAnimationName := CallbackCreate(ObjBindMethod(implObj, "put_webkitAnimationName"), flags, 2)
+        this.vtbl.get_webkitAnimationName := CallbackCreate(ObjBindMethod(implObj, "get_webkitAnimationName"), flags, 2)
+        this.vtbl.put_webkitAnimationDuration := CallbackCreate(ObjBindMethod(implObj, "put_webkitAnimationDuration"), flags, 2)
+        this.vtbl.get_webkitAnimationDuration := CallbackCreate(ObjBindMethod(implObj, "get_webkitAnimationDuration"), flags, 2)
+        this.vtbl.put_webkitAnimationTimingFunction := CallbackCreate(ObjBindMethod(implObj, "put_webkitAnimationTimingFunction"), flags, 2)
+        this.vtbl.get_webkitAnimationTimingFunction := CallbackCreate(ObjBindMethod(implObj, "get_webkitAnimationTimingFunction"), flags, 2)
+        this.vtbl.put_webkitAnimationDelay := CallbackCreate(ObjBindMethod(implObj, "put_webkitAnimationDelay"), flags, 2)
+        this.vtbl.get_webkitAnimationDelay := CallbackCreate(ObjBindMethod(implObj, "get_webkitAnimationDelay"), flags, 2)
+        this.vtbl.put_webkitAnimationIterationCount := CallbackCreate(ObjBindMethod(implObj, "put_webkitAnimationIterationCount"), flags, 2)
+        this.vtbl.get_webkitAnimationIterationCount := CallbackCreate(ObjBindMethod(implObj, "get_webkitAnimationIterationCount"), flags, 2)
+        this.vtbl.put_webkitAnimationDirection := CallbackCreate(ObjBindMethod(implObj, "put_webkitAnimationDirection"), flags, 2)
+        this.vtbl.get_webkitAnimationDirection := CallbackCreate(ObjBindMethod(implObj, "get_webkitAnimationDirection"), flags, 2)
+        this.vtbl.put_webkitAnimationPlayState := CallbackCreate(ObjBindMethod(implObj, "put_webkitAnimationPlayState"), flags, 2)
+        this.vtbl.get_webkitAnimationPlayState := CallbackCreate(ObjBindMethod(implObj, "get_webkitAnimationPlayState"), flags, 2)
+        this.vtbl.put_webkitTransitionProperty := CallbackCreate(ObjBindMethod(implObj, "put_webkitTransitionProperty"), flags, 2)
+        this.vtbl.get_webkitTransitionProperty := CallbackCreate(ObjBindMethod(implObj, "get_webkitTransitionProperty"), flags, 2)
+        this.vtbl.put_webkitTransitionDuration := CallbackCreate(ObjBindMethod(implObj, "put_webkitTransitionDuration"), flags, 2)
+        this.vtbl.get_webkitTransitionDuration := CallbackCreate(ObjBindMethod(implObj, "get_webkitTransitionDuration"), flags, 2)
+        this.vtbl.put_webkitTransitionTimingFunction := CallbackCreate(ObjBindMethod(implObj, "put_webkitTransitionTimingFunction"), flags, 2)
+        this.vtbl.get_webkitTransitionTimingFunction := CallbackCreate(ObjBindMethod(implObj, "get_webkitTransitionTimingFunction"), flags, 2)
+        this.vtbl.put_webkitTransitionDelay := CallbackCreate(ObjBindMethod(implObj, "put_webkitTransitionDelay"), flags, 2)
+        this.vtbl.get_webkitTransitionDelay := CallbackCreate(ObjBindMethod(implObj, "get_webkitTransitionDelay"), flags, 2)
+        this.vtbl.put_webkitBackgroundAttachment := CallbackCreate(ObjBindMethod(implObj, "put_webkitBackgroundAttachment"), flags, 2)
+        this.vtbl.get_webkitBackgroundAttachment := CallbackCreate(ObjBindMethod(implObj, "get_webkitBackgroundAttachment"), flags, 2)
+        this.vtbl.put_webkitBackgroundColor := CallbackCreate(ObjBindMethod(implObj, "put_webkitBackgroundColor"), flags, 2)
+        this.vtbl.get_webkitBackgroundColor := CallbackCreate(ObjBindMethod(implObj, "get_webkitBackgroundColor"), flags, 2)
+        this.vtbl.put_webkitBackgroundClip := CallbackCreate(ObjBindMethod(implObj, "put_webkitBackgroundClip"), flags, 2)
+        this.vtbl.get_webkitBackgroundClip := CallbackCreate(ObjBindMethod(implObj, "get_webkitBackgroundClip"), flags, 2)
+        this.vtbl.put_webkitBackgroundImage := CallbackCreate(ObjBindMethod(implObj, "put_webkitBackgroundImage"), flags, 2)
+        this.vtbl.get_webkitBackgroundImage := CallbackCreate(ObjBindMethod(implObj, "get_webkitBackgroundImage"), flags, 2)
+        this.vtbl.put_webkitBackgroundRepeat := CallbackCreate(ObjBindMethod(implObj, "put_webkitBackgroundRepeat"), flags, 2)
+        this.vtbl.get_webkitBackgroundRepeat := CallbackCreate(ObjBindMethod(implObj, "get_webkitBackgroundRepeat"), flags, 2)
+        this.vtbl.put_webkitBackgroundOrigin := CallbackCreate(ObjBindMethod(implObj, "put_webkitBackgroundOrigin"), flags, 2)
+        this.vtbl.get_webkitBackgroundOrigin := CallbackCreate(ObjBindMethod(implObj, "get_webkitBackgroundOrigin"), flags, 2)
+        this.vtbl.put_webkitBackgroundPosition := CallbackCreate(ObjBindMethod(implObj, "put_webkitBackgroundPosition"), flags, 2)
+        this.vtbl.get_webkitBackgroundPosition := CallbackCreate(ObjBindMethod(implObj, "get_webkitBackgroundPosition"), flags, 2)
+        this.vtbl.put_webkitBackgroundPositionX := CallbackCreate(ObjBindMethod(implObj, "put_webkitBackgroundPositionX"), flags, 2)
+        this.vtbl.get_webkitBackgroundPositionX := CallbackCreate(ObjBindMethod(implObj, "get_webkitBackgroundPositionX"), flags, 2)
+        this.vtbl.put_webkitBackgroundPositionY := CallbackCreate(ObjBindMethod(implObj, "put_webkitBackgroundPositionY"), flags, 2)
+        this.vtbl.get_webkitBackgroundPositionY := CallbackCreate(ObjBindMethod(implObj, "get_webkitBackgroundPositionY"), flags, 2)
+        this.vtbl.put_webkitBackground := CallbackCreate(ObjBindMethod(implObj, "put_webkitBackground"), flags, 2)
+        this.vtbl.get_webkitBackground := CallbackCreate(ObjBindMethod(implObj, "get_webkitBackground"), flags, 2)
+        this.vtbl.put_webkitTransformOrigin := CallbackCreate(ObjBindMethod(implObj, "put_webkitTransformOrigin"), flags, 2)
+        this.vtbl.get_webkitTransformOrigin := CallbackCreate(ObjBindMethod(implObj, "get_webkitTransformOrigin"), flags, 2)
+        this.vtbl.put_msTextSizeAdjust := CallbackCreate(ObjBindMethod(implObj, "put_msTextSizeAdjust"), flags, 2)
+        this.vtbl.get_msTextSizeAdjust := CallbackCreate(ObjBindMethod(implObj, "get_msTextSizeAdjust"), flags, 2)
+        this.vtbl.put_webkitTextSizeAdjust := CallbackCreate(ObjBindMethod(implObj, "put_webkitTextSizeAdjust"), flags, 2)
+        this.vtbl.get_webkitTextSizeAdjust := CallbackCreate(ObjBindMethod(implObj, "get_webkitTextSizeAdjust"), flags, 2)
+        this.vtbl.put_webkitBorderImage := CallbackCreate(ObjBindMethod(implObj, "put_webkitBorderImage"), flags, 2)
+        this.vtbl.get_webkitBorderImage := CallbackCreate(ObjBindMethod(implObj, "get_webkitBorderImage"), flags, 2)
+        this.vtbl.put_webkitBorderImageSource := CallbackCreate(ObjBindMethod(implObj, "put_webkitBorderImageSource"), flags, 2)
+        this.vtbl.get_webkitBorderImageSource := CallbackCreate(ObjBindMethod(implObj, "get_webkitBorderImageSource"), flags, 2)
+        this.vtbl.put_webkitBorderImageSlice := CallbackCreate(ObjBindMethod(implObj, "put_webkitBorderImageSlice"), flags, 2)
+        this.vtbl.get_webkitBorderImageSlice := CallbackCreate(ObjBindMethod(implObj, "get_webkitBorderImageSlice"), flags, 2)
+        this.vtbl.put_webkitBorderImageWidth := CallbackCreate(ObjBindMethod(implObj, "put_webkitBorderImageWidth"), flags, 2)
+        this.vtbl.get_webkitBorderImageWidth := CallbackCreate(ObjBindMethod(implObj, "get_webkitBorderImageWidth"), flags, 2)
+        this.vtbl.put_webkitBorderImageOutset := CallbackCreate(ObjBindMethod(implObj, "put_webkitBorderImageOutset"), flags, 2)
+        this.vtbl.get_webkitBorderImageOutset := CallbackCreate(ObjBindMethod(implObj, "get_webkitBorderImageOutset"), flags, 2)
+        this.vtbl.put_webkitBorderImageRepeat := CallbackCreate(ObjBindMethod(implObj, "put_webkitBorderImageRepeat"), flags, 2)
+        this.vtbl.get_webkitBorderImageRepeat := CallbackCreate(ObjBindMethod(implObj, "get_webkitBorderImageRepeat"), flags, 2)
+        this.vtbl.put_webkitBoxSizing := CallbackCreate(ObjBindMethod(implObj, "put_webkitBoxSizing"), flags, 2)
+        this.vtbl.get_webkitBoxSizing := CallbackCreate(ObjBindMethod(implObj, "get_webkitBoxSizing"), flags, 2)
+        this.vtbl.put_webkitAnimationFillMode := CallbackCreate(ObjBindMethod(implObj, "put_webkitAnimationFillMode"), flags, 2)
+        this.vtbl.get_webkitAnimationFillMode := CallbackCreate(ObjBindMethod(implObj, "get_webkitAnimationFillMode"), flags, 2)
     }
 
     Dispose() {

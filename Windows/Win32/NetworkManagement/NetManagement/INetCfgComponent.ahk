@@ -50,7 +50,6 @@ export default struct INetCfgComponent extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetDisplayName() {
@@ -59,7 +58,6 @@ export default struct INetCfgComponent extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszwDisplayName 
      * @returns {HRESULT} 
      */
@@ -71,7 +69,6 @@ export default struct INetCfgComponent extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetHelpText() {
@@ -80,7 +77,6 @@ export default struct INetCfgComponent extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetId() {
@@ -89,7 +85,6 @@ export default struct INetCfgComponent extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCharacteristics() {
@@ -98,7 +93,6 @@ export default struct INetCfgComponent extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     GetInstanceGuid() {
@@ -108,7 +102,6 @@ export default struct INetCfgComponent extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetPnpDevNodeId() {
@@ -117,7 +110,6 @@ export default struct INetCfgComponent extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     GetClassGuid() {
@@ -127,7 +119,6 @@ export default struct INetCfgComponent extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetBindName() {
@@ -136,7 +127,6 @@ export default struct INetCfgComponent extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetDeviceStatus() {
@@ -145,7 +135,6 @@ export default struct INetCfgComponent extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HKEY} 
      */
     OpenParamKey() {
@@ -155,14 +144,16 @@ export default struct INetCfgComponent extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} hwndParent 
      * @param {Integer} dwFlags 
      * @param {IUnknown} punkContext 
      * @returns {HRESULT} 
      */
     RaisePropertyUi(hwndParent, dwFlags, punkContext) {
-        result := ComCall(14, this, HWND, hwndParent, UInt32, dwFlags, "ptr", punkContext, "HRESULT")
+        hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+        punkContextMarshal := punkContext == 0 ? IntPtr : "ptr"
+
+        result := ComCall(14, this, hwndParentMarshal, hwndParent, UInt32, dwFlags, punkContextMarshal, punkContext, "HRESULT")
         return result
     }
 
@@ -175,18 +166,18 @@ export default struct INetCfgComponent extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDisplayName := CallbackCreate(GetMethod(implObj, "GetDisplayName"), flags, 2)
-        this.vtbl.SetDisplayName := CallbackCreate(GetMethod(implObj, "SetDisplayName"), flags, 2)
-        this.vtbl.GetHelpText := CallbackCreate(GetMethod(implObj, "GetHelpText"), flags, 2)
-        this.vtbl.GetId := CallbackCreate(GetMethod(implObj, "GetId"), flags, 2)
-        this.vtbl.GetCharacteristics := CallbackCreate(GetMethod(implObj, "GetCharacteristics"), flags, 2)
-        this.vtbl.GetInstanceGuid := CallbackCreate(GetMethod(implObj, "GetInstanceGuid"), flags, 2)
-        this.vtbl.GetPnpDevNodeId := CallbackCreate(GetMethod(implObj, "GetPnpDevNodeId"), flags, 2)
-        this.vtbl.GetClassGuid := CallbackCreate(GetMethod(implObj, "GetClassGuid"), flags, 2)
-        this.vtbl.GetBindName := CallbackCreate(GetMethod(implObj, "GetBindName"), flags, 2)
-        this.vtbl.GetDeviceStatus := CallbackCreate(GetMethod(implObj, "GetDeviceStatus"), flags, 2)
-        this.vtbl.OpenParamKey := CallbackCreate(GetMethod(implObj, "OpenParamKey"), flags, 2)
-        this.vtbl.RaisePropertyUi := CallbackCreate(GetMethod(implObj, "RaisePropertyUi"), flags, 4)
+        this.vtbl.GetDisplayName := CallbackCreate(ObjBindMethod(implObj, "GetDisplayName"), flags, 2)
+        this.vtbl.SetDisplayName := CallbackCreate(ObjBindMethod(implObj, "SetDisplayName"), flags, 2)
+        this.vtbl.GetHelpText := CallbackCreate(ObjBindMethod(implObj, "GetHelpText"), flags, 2)
+        this.vtbl.GetId := CallbackCreate(ObjBindMethod(implObj, "GetId"), flags, 2)
+        this.vtbl.GetCharacteristics := CallbackCreate(ObjBindMethod(implObj, "GetCharacteristics"), flags, 2)
+        this.vtbl.GetInstanceGuid := CallbackCreate(ObjBindMethod(implObj, "GetInstanceGuid"), flags, 2)
+        this.vtbl.GetPnpDevNodeId := CallbackCreate(ObjBindMethod(implObj, "GetPnpDevNodeId"), flags, 2)
+        this.vtbl.GetClassGuid := CallbackCreate(ObjBindMethod(implObj, "GetClassGuid"), flags, 2)
+        this.vtbl.GetBindName := CallbackCreate(ObjBindMethod(implObj, "GetBindName"), flags, 2)
+        this.vtbl.GetDeviceStatus := CallbackCreate(ObjBindMethod(implObj, "GetDeviceStatus"), flags, 2)
+        this.vtbl.OpenParamKey := CallbackCreate(ObjBindMethod(implObj, "OpenParamKey"), flags, 2)
+        this.vtbl.RaisePropertyUi := CallbackCreate(ObjBindMethod(implObj, "RaisePropertyUi"), flags, 4)
     }
 
     Dispose() {

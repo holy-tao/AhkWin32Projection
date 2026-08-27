@@ -21,7 +21,6 @@ export default struct PFN_DrvIcmCreateColorTransform {
     }
 
     /**
-     * 
      * @param {DHPDEV} param0 
      * @param {Pointer<LOGCOLORSPACEW>} param1 
      * @param {Pointer<Void>} param2 
@@ -34,9 +33,9 @@ export default struct PFN_DrvIcmCreateColorTransform {
      * @returns {HANDLE} 
      */
     Call(param0, param1, param2, param3, param4, param5, param6, param7, param8) {
-        param2Marshal := param2 is VarRef ? "ptr" : "ptr"
-        param4Marshal := param4 is VarRef ? "ptr" : "ptr"
-        param6Marshal := param6 is VarRef ? "ptr" : "ptr"
+        param2Marshal := param2 is VarRef ? "ptr" : IntPtr
+        param4Marshal := param4 is VarRef ? "ptr" : IntPtr
+        param6Marshal := param6 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, DHPDEV, param0, LOGCOLORSPACEW.Ptr, param1, param2Marshal, param2, UInt32, param3, param4Marshal, param4, UInt32, param5, param6Marshal, param6, UInt32, param7, UInt32, param8, HANDLE.Owned)
         return result

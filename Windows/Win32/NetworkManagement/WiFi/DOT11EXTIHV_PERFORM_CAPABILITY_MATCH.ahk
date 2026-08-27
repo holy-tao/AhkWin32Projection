@@ -23,7 +23,6 @@ export default struct DOT11EXTIHV_PERFORM_CAPABILITY_MATCH {
     }
 
     /**
-     * 
      * @param {HANDLE} hIhvExtAdapter 
      * @param {Pointer<DOT11EXT_IHV_PROFILE_PARAMS>} pIhvProfileParams 
      * @param {Pointer<DOT11EXT_IHV_CONNECTIVITY_PROFILE>} pIhvConnProfile 
@@ -33,9 +32,12 @@ export default struct DOT11EXTIHV_PERFORM_CAPABILITY_MATCH {
      * @returns {Integer} 
      */
     Call(hIhvExtAdapter, pIhvProfileParams, pIhvConnProfile, pIhvSecProfile, pConnectableBssid, pdwReasonCode) {
-        pdwReasonCodeMarshal := pdwReasonCode is VarRef ? "uint*" : "ptr"
+        hIhvExtAdapterMarshal := hIhvExtAdapter == 0 ? IntPtr : HANDLE
+        pIhvProfileParamsMarshal := pIhvProfileParams == 0 ? IntPtr : DOT11EXT_IHV_PROFILE_PARAMS.Ptr
+        pConnectableBssidMarshal := pConnectableBssid == 0 ? IntPtr : DOT11_BSS_LIST.Ptr
+        pdwReasonCodeMarshal := pdwReasonCode is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, HANDLE, hIhvExtAdapter, DOT11EXT_IHV_PROFILE_PARAMS.Ptr, pIhvProfileParams, DOT11EXT_IHV_CONNECTIVITY_PROFILE.Ptr, pIhvConnProfile, DOT11EXT_IHV_SECURITY_PROFILE.Ptr, pIhvSecProfile, DOT11_BSS_LIST.Ptr, pConnectableBssid, pdwReasonCodeMarshal, pdwReasonCode, UInt32)
+        result := DllCall(this.value, hIhvExtAdapterMarshal, hIhvExtAdapter, pIhvProfileParamsMarshal, pIhvProfileParams, DOT11EXT_IHV_CONNECTIVITY_PROFILE.Ptr, pIhvConnProfile, DOT11EXT_IHV_SECURITY_PROFILE.Ptr, pIhvSecProfile, pConnectableBssidMarshal, pConnectableBssid, pdwReasonCodeMarshal, pdwReasonCode, UInt32)
         return result
     }
 

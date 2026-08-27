@@ -35,7 +35,6 @@ export default struct PIBIO_ENGINE_IDENTIFY_ALL_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/ns-winbio_adapter-winbio_pipeline">WINBIO_PIPELINE</a> structure associated with the biometric unit performing the operation.
      * @param {Pointer<Pointer>} PresenceCount Address of a variable that receives the number of presences detected by the function.
      * @param {Pointer<Pointer<WINBIO_PRESENCE>>} PresenceArray Address of a variable that receives a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-presence">WINBIO_PRESENCE</a> elements.
@@ -60,8 +59,8 @@ export default struct PIBIO_ENGINE_IDENTIFY_ALL_FN {
      * </table>
      */
     Call(Pipeline, PresenceCount, PresenceArray) {
-        PresenceCountMarshal := PresenceCount is VarRef ? "ptr*" : "ptr"
-        PresenceArrayMarshal := PresenceArray is VarRef ? "ptr*" : "ptr"
+        PresenceCountMarshal := PresenceCount is VarRef ? "ptr*" : IntPtr
+        PresenceArrayMarshal := PresenceArray is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, WINBIO_PIPELINE.Ptr, Pipeline, PresenceCountMarshal, PresenceCount, PresenceArrayMarshal, PresenceArray, "HRESULT")
         return result

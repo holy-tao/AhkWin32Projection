@@ -21,7 +21,6 @@ export default struct PFN_CERT_STORE_PROV_FREE_FIND_CRL {
     }
 
     /**
-     * 
      * @param {HCERTSTOREPROV} hStoreProv 
      * @param {Pointer<CRL_CONTEXT>} pCrlContext 
      * @param {Pointer<Void>} pvStoreProvFindInfo 
@@ -29,7 +28,7 @@ export default struct PFN_CERT_STORE_PROV_FREE_FIND_CRL {
      * @returns {BOOL} 
      */
     Call(hStoreProv, pCrlContext, pvStoreProvFindInfo, dwFlags) {
-        pvStoreProvFindInfoMarshal := pvStoreProvFindInfo is VarRef ? "ptr" : "ptr"
+        pvStoreProvFindInfoMarshal := pvStoreProvFindInfo is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, HCERTSTOREPROV, hStoreProv, CRL_CONTEXT.Ptr, pCrlContext, pvStoreProvFindInfoMarshal, pvStoreProvFindInfo, UInt32, dwFlags, BOOL)
         return result

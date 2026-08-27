@@ -67,8 +67,8 @@ export default struct IPBDAEntitlementDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbdaentitlementdescriptor-gettoken
      */
     GetToken(ppbTokenBuffer, pdwTokenLength) {
-        ppbTokenBufferMarshal := ppbTokenBuffer is VarRef ? "ptr*" : "ptr"
-        pdwTokenLengthMarshal := pdwTokenLength is VarRef ? "uint*" : "ptr"
+        ppbTokenBufferMarshal := ppbTokenBuffer is VarRef ? "ptr*" : IntPtr
+        pdwTokenLengthMarshal := pdwTokenLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, ppbTokenBufferMarshal, ppbTokenBuffer, pdwTokenLengthMarshal, pdwTokenLength, "HRESULT")
         return result
@@ -83,9 +83,9 @@ export default struct IPBDAEntitlementDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetToken := CallbackCreate(GetMethod(implObj, "GetToken"), flags, 3)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetToken := CallbackCreate(ObjBindMethod(implObj, "GetToken"), flags, 3)
     }
 
     Dispose() {

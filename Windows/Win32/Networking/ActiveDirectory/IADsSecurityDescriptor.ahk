@@ -144,7 +144,6 @@ export default struct IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Revision() {
@@ -153,7 +152,6 @@ export default struct IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnRevision 
      * @returns {HRESULT} 
      */
@@ -163,7 +161,6 @@ export default struct IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Control() {
@@ -172,7 +169,6 @@ export default struct IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnControl 
      * @returns {HRESULT} 
      */
@@ -182,7 +178,6 @@ export default struct IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Owner() {
@@ -192,7 +187,6 @@ export default struct IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrOwner 
      * @returns {HRESULT} 
      */
@@ -204,7 +198,6 @@ export default struct IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_OwnerDefaulted() {
@@ -213,7 +206,6 @@ export default struct IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fOwnerDefaulted 
      * @returns {HRESULT} 
      */
@@ -223,7 +215,6 @@ export default struct IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Group() {
@@ -233,7 +224,6 @@ export default struct IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrGroup 
      * @returns {HRESULT} 
      */
@@ -245,7 +235,6 @@ export default struct IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_GroupDefaulted() {
@@ -254,7 +243,6 @@ export default struct IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fGroupDefaulted 
      * @returns {HRESULT} 
      */
@@ -264,7 +252,6 @@ export default struct IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_DiscretionaryAcl() {
@@ -273,17 +260,17 @@ export default struct IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} pDiscretionaryAcl 
      * @returns {HRESULT} 
      */
     put_DiscretionaryAcl(pDiscretionaryAcl) {
-        result := ComCall(20, this, "ptr", pDiscretionaryAcl, "HRESULT")
+        pDiscretionaryAclMarshal := pDiscretionaryAcl == 0 ? IntPtr : "ptr"
+
+        result := ComCall(20, this, pDiscretionaryAclMarshal, pDiscretionaryAcl, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_DaclDefaulted() {
@@ -292,7 +279,6 @@ export default struct IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fDaclDefaulted 
      * @returns {HRESULT} 
      */
@@ -302,7 +288,6 @@ export default struct IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_SystemAcl() {
@@ -311,17 +296,17 @@ export default struct IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} pSystemAcl 
      * @returns {HRESULT} 
      */
     put_SystemAcl(pSystemAcl) {
-        result := ComCall(24, this, "ptr", pSystemAcl, "HRESULT")
+        pSystemAclMarshal := pSystemAcl == 0 ? IntPtr : "ptr"
+
+        result := ComCall(24, this, pSystemAclMarshal, pSystemAcl, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_SaclDefaulted() {
@@ -330,7 +315,6 @@ export default struct IADsSecurityDescriptor extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fSaclDefaulted 
      * @returns {HRESULT} 
      */
@@ -358,27 +342,27 @@ export default struct IADsSecurityDescriptor extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Revision := CallbackCreate(GetMethod(implObj, "get_Revision"), flags, 2)
-        this.vtbl.put_Revision := CallbackCreate(GetMethod(implObj, "put_Revision"), flags, 2)
-        this.vtbl.get_Control := CallbackCreate(GetMethod(implObj, "get_Control"), flags, 2)
-        this.vtbl.put_Control := CallbackCreate(GetMethod(implObj, "put_Control"), flags, 2)
-        this.vtbl.get_Owner := CallbackCreate(GetMethod(implObj, "get_Owner"), flags, 2)
-        this.vtbl.put_Owner := CallbackCreate(GetMethod(implObj, "put_Owner"), flags, 2)
-        this.vtbl.get_OwnerDefaulted := CallbackCreate(GetMethod(implObj, "get_OwnerDefaulted"), flags, 2)
-        this.vtbl.put_OwnerDefaulted := CallbackCreate(GetMethod(implObj, "put_OwnerDefaulted"), flags, 2)
-        this.vtbl.get_Group := CallbackCreate(GetMethod(implObj, "get_Group"), flags, 2)
-        this.vtbl.put_Group := CallbackCreate(GetMethod(implObj, "put_Group"), flags, 2)
-        this.vtbl.get_GroupDefaulted := CallbackCreate(GetMethod(implObj, "get_GroupDefaulted"), flags, 2)
-        this.vtbl.put_GroupDefaulted := CallbackCreate(GetMethod(implObj, "put_GroupDefaulted"), flags, 2)
-        this.vtbl.get_DiscretionaryAcl := CallbackCreate(GetMethod(implObj, "get_DiscretionaryAcl"), flags, 2)
-        this.vtbl.put_DiscretionaryAcl := CallbackCreate(GetMethod(implObj, "put_DiscretionaryAcl"), flags, 2)
-        this.vtbl.get_DaclDefaulted := CallbackCreate(GetMethod(implObj, "get_DaclDefaulted"), flags, 2)
-        this.vtbl.put_DaclDefaulted := CallbackCreate(GetMethod(implObj, "put_DaclDefaulted"), flags, 2)
-        this.vtbl.get_SystemAcl := CallbackCreate(GetMethod(implObj, "get_SystemAcl"), flags, 2)
-        this.vtbl.put_SystemAcl := CallbackCreate(GetMethod(implObj, "put_SystemAcl"), flags, 2)
-        this.vtbl.get_SaclDefaulted := CallbackCreate(GetMethod(implObj, "get_SaclDefaulted"), flags, 2)
-        this.vtbl.put_SaclDefaulted := CallbackCreate(GetMethod(implObj, "put_SaclDefaulted"), flags, 2)
-        this.vtbl.CopySecurityDescriptor := CallbackCreate(GetMethod(implObj, "CopySecurityDescriptor"), flags, 2)
+        this.vtbl.get_Revision := CallbackCreate(ObjBindMethod(implObj, "get_Revision"), flags, 2)
+        this.vtbl.put_Revision := CallbackCreate(ObjBindMethod(implObj, "put_Revision"), flags, 2)
+        this.vtbl.get_Control := CallbackCreate(ObjBindMethod(implObj, "get_Control"), flags, 2)
+        this.vtbl.put_Control := CallbackCreate(ObjBindMethod(implObj, "put_Control"), flags, 2)
+        this.vtbl.get_Owner := CallbackCreate(ObjBindMethod(implObj, "get_Owner"), flags, 2)
+        this.vtbl.put_Owner := CallbackCreate(ObjBindMethod(implObj, "put_Owner"), flags, 2)
+        this.vtbl.get_OwnerDefaulted := CallbackCreate(ObjBindMethod(implObj, "get_OwnerDefaulted"), flags, 2)
+        this.vtbl.put_OwnerDefaulted := CallbackCreate(ObjBindMethod(implObj, "put_OwnerDefaulted"), flags, 2)
+        this.vtbl.get_Group := CallbackCreate(ObjBindMethod(implObj, "get_Group"), flags, 2)
+        this.vtbl.put_Group := CallbackCreate(ObjBindMethod(implObj, "put_Group"), flags, 2)
+        this.vtbl.get_GroupDefaulted := CallbackCreate(ObjBindMethod(implObj, "get_GroupDefaulted"), flags, 2)
+        this.vtbl.put_GroupDefaulted := CallbackCreate(ObjBindMethod(implObj, "put_GroupDefaulted"), flags, 2)
+        this.vtbl.get_DiscretionaryAcl := CallbackCreate(ObjBindMethod(implObj, "get_DiscretionaryAcl"), flags, 2)
+        this.vtbl.put_DiscretionaryAcl := CallbackCreate(ObjBindMethod(implObj, "put_DiscretionaryAcl"), flags, 2)
+        this.vtbl.get_DaclDefaulted := CallbackCreate(ObjBindMethod(implObj, "get_DaclDefaulted"), flags, 2)
+        this.vtbl.put_DaclDefaulted := CallbackCreate(ObjBindMethod(implObj, "put_DaclDefaulted"), flags, 2)
+        this.vtbl.get_SystemAcl := CallbackCreate(ObjBindMethod(implObj, "get_SystemAcl"), flags, 2)
+        this.vtbl.put_SystemAcl := CallbackCreate(ObjBindMethod(implObj, "put_SystemAcl"), flags, 2)
+        this.vtbl.get_SaclDefaulted := CallbackCreate(ObjBindMethod(implObj, "get_SaclDefaulted"), flags, 2)
+        this.vtbl.put_SaclDefaulted := CallbackCreate(ObjBindMethod(implObj, "put_SaclDefaulted"), flags, 2)
+        this.vtbl.CopySecurityDescriptor := CallbackCreate(ObjBindMethod(implObj, "CopySecurityDescriptor"), flags, 2)
     }
 
     Dispose() {

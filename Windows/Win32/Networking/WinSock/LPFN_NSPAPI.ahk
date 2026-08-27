@@ -18,7 +18,6 @@ export default struct LPFN_NSPAPI {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Call() {

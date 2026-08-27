@@ -40,7 +40,6 @@ export default struct IDxcLinker extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pLibName 
      * @param {IDxcBlob} pLib 
      * @returns {HRESULT} 
@@ -48,12 +47,13 @@ export default struct IDxcLinker extends IUnknown {
     RegisterLibrary(pLibName, pLib) {
         pLibName := pLibName is String ? StrPtr(pLibName) : pLibName
 
-        result := ComCall(3, this, "ptr", pLibName, "ptr", pLib, "HRESULT")
+        pLibNameMarshal := pLibName == 0 ? IntPtr : PWSTR
+
+        result := ComCall(3, this, pLibNameMarshal, pLibName, "ptr", pLib, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pEntryName 
      * @param {PWSTR} pTargetProfile 
      * @param {Pointer<PWSTR>} pLibNames 
@@ -66,10 +66,12 @@ export default struct IDxcLinker extends IUnknown {
         pEntryName := pEntryName is String ? StrPtr(pEntryName) : pEntryName
         pTargetProfile := pTargetProfile is String ? StrPtr(pTargetProfile) : pTargetProfile
 
-        pLibNamesMarshal := pLibNames is VarRef ? "ptr*" : "ptr"
-        pArgumentsMarshal := pArguments is VarRef ? "ptr*" : "ptr"
+        pEntryNameMarshal := pEntryName == 0 ? IntPtr : PWSTR
+        pLibNamesMarshal := pLibNames is VarRef ? "ptr*" : IntPtr
+        pArgumentsMarshal := pArguments is VarRef ? "ptr*" : IntPtr
+        pArgumentsMarshal := pArguments == 0 ? IntPtr : PWSTR.Ptr
 
-        result := ComCall(4, this, "ptr", pEntryName, "ptr", pTargetProfile, pLibNamesMarshal, pLibNames, UInt32, libCount, pArgumentsMarshal, pArguments, UInt32, argCount, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(4, this, pEntryNameMarshal, pEntryName, "ptr", pTargetProfile, pLibNamesMarshal, pLibNames, UInt32, libCount, pArgumentsMarshal, pArguments, UInt32, argCount, "ptr*", &ppResult := 0, "HRESULT")
         return IDxcOperationResult(ppResult)
     }
 
@@ -82,8 +84,8 @@ export default struct IDxcLinker extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterLibrary := CallbackCreate(GetMethod(implObj, "RegisterLibrary"), flags, 3)
-        this.vtbl.Link := CallbackCreate(GetMethod(implObj, "Link"), flags, 8)
+        this.vtbl.RegisterLibrary := CallbackCreate(ObjBindMethod(implObj, "RegisterLibrary"), flags, 3)
+        this.vtbl.Link := CallbackCreate(ObjBindMethod(implObj, "Link"), flags, 8)
     }
 
     Dispose() {

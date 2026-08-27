@@ -38,7 +38,6 @@ export default struct IActiveScriptSiteUIControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {SCRIPTUICITEM} UicItem 
      * @returns {SCRIPTUICHANDLING} 
      */
@@ -56,7 +55,7 @@ export default struct IActiveScriptSiteUIControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetUIBehavior := CallbackCreate(GetMethod(implObj, "GetUIBehavior"), flags, 3)
+        this.vtbl.GetUIBehavior := CallbackCreate(ObjBindMethod(implObj, "GetUIBehavior"), flags, 3)
     }
 
     Dispose() {

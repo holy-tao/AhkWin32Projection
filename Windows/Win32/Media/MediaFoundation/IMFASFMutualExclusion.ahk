@@ -113,7 +113,7 @@ export default struct IMFASFMutualExclusion extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfmutualexclusion-getstreamsforrecord
      */
     GetStreamsForRecord(dwRecordNumber, pcStreams) {
-        pcStreamsMarshal := pcStreams is VarRef ? "uint*" : "ptr"
+        pcStreamsMarshal := pcStreams is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, UInt32, dwRecordNumber, "ushort*", &pwStreamNumArray := 0, pcStreamsMarshal, pcStreams, "HRESULT")
         return pwStreamNumArray
@@ -269,15 +269,15 @@ export default struct IMFASFMutualExclusion extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
-        this.vtbl.SetType := CallbackCreate(GetMethod(implObj, "SetType"), flags, 2)
-        this.vtbl.GetRecordCount := CallbackCreate(GetMethod(implObj, "GetRecordCount"), flags, 2)
-        this.vtbl.GetStreamsForRecord := CallbackCreate(GetMethod(implObj, "GetStreamsForRecord"), flags, 4)
-        this.vtbl.AddStreamForRecord := CallbackCreate(GetMethod(implObj, "AddStreamForRecord"), flags, 3)
-        this.vtbl.RemoveStreamFromRecord := CallbackCreate(GetMethod(implObj, "RemoveStreamFromRecord"), flags, 3)
-        this.vtbl.RemoveRecord := CallbackCreate(GetMethod(implObj, "RemoveRecord"), flags, 2)
-        this.vtbl.AddRecord := CallbackCreate(GetMethod(implObj, "AddRecord"), flags, 2)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(ObjBindMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.SetType := CallbackCreate(ObjBindMethod(implObj, "SetType"), flags, 2)
+        this.vtbl.GetRecordCount := CallbackCreate(ObjBindMethod(implObj, "GetRecordCount"), flags, 2)
+        this.vtbl.GetStreamsForRecord := CallbackCreate(ObjBindMethod(implObj, "GetStreamsForRecord"), flags, 4)
+        this.vtbl.AddStreamForRecord := CallbackCreate(ObjBindMethod(implObj, "AddStreamForRecord"), flags, 3)
+        this.vtbl.RemoveStreamFromRecord := CallbackCreate(ObjBindMethod(implObj, "RemoveStreamFromRecord"), flags, 3)
+        this.vtbl.RemoveRecord := CallbackCreate(ObjBindMethod(implObj, "RemoveRecord"), flags, 2)
+        this.vtbl.AddRecord := CallbackCreate(ObjBindMethod(implObj, "AddRecord"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
     }
 
     Dispose() {

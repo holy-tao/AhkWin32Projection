@@ -138,7 +138,7 @@ export default struct IXAudio2VoiceCallback extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2voicecallback-onbufferstart
      */
     OnBufferStart(pBufferContext) {
-        pBufferContextMarshal := pBufferContext is VarRef ? "ptr" : "ptr"
+        pBufferContextMarshal := pBufferContext is VarRef ? "ptr" : IntPtr
 
         ComCall(3, this, pBufferContextMarshal, pBufferContext)
     }
@@ -167,7 +167,7 @@ export default struct IXAudio2VoiceCallback extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2voicecallback-onbufferend
      */
     OnBufferEnd(pBufferContext) {
-        pBufferContextMarshal := pBufferContext is VarRef ? "ptr" : "ptr"
+        pBufferContextMarshal := pBufferContext is VarRef ? "ptr" : IntPtr
 
         ComCall(4, this, pBufferContextMarshal, pBufferContext)
     }
@@ -192,7 +192,7 @@ export default struct IXAudio2VoiceCallback extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2voicecallback-onloopend
      */
     OnLoopEnd(pBufferContext) {
-        pBufferContextMarshal := pBufferContext is VarRef ? "ptr" : "ptr"
+        pBufferContextMarshal := pBufferContext is VarRef ? "ptr" : IntPtr
 
         ComCall(5, this, pBufferContextMarshal, pBufferContext)
     }
@@ -211,7 +211,7 @@ export default struct IXAudio2VoiceCallback extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2voicecallback-onvoiceerror
      */
     OnVoiceError(pBufferContext, _Error) {
-        pBufferContextMarshal := pBufferContext is VarRef ? "ptr" : "ptr"
+        pBufferContextMarshal := pBufferContext is VarRef ? "ptr" : IntPtr
 
         ComCall(6, this, pBufferContextMarshal, pBufferContext, "int", _Error)
     }

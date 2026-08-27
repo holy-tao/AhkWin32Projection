@@ -191,8 +191,8 @@ export IUnknown_Release_Proxy(_This) {
  * @since windows5.0
  */
 export RpcBindingCopy(SourceBinding, DestinationBinding) {
-    SourceBindingMarshal := SourceBinding is VarRef ? "ptr" : "ptr"
-    DestinationBindingMarshal := DestinationBinding is VarRef ? "ptr*" : "ptr"
+    SourceBindingMarshal := SourceBinding is VarRef ? "ptr" : IntPtr
+    DestinationBindingMarshal := DestinationBinding is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcBindingCopy", SourceBindingMarshal, SourceBinding, DestinationBindingMarshal, DestinationBinding, RPC_STATUS)
     return result
@@ -281,7 +281,7 @@ export RpcBindingCopy(SourceBinding, DestinationBinding) {
  * @since windows5.0
  */
 export RpcBindingFree(Binding) {
-    BindingMarshal := Binding is VarRef ? "ptr*" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcBindingFree", BindingMarshal, Binding, RPC_STATUS)
     return result
@@ -345,7 +345,7 @@ export RpcBindingFree(Binding) {
  * @since windows5.0
  */
 export RpcBindingSetOption(hBinding, option, optionValue) {
-    hBindingMarshal := hBinding is VarRef ? "ptr" : "ptr"
+    hBindingMarshal := hBinding is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcBindingSetOption", hBindingMarshal, hBinding, UInt32, option, IntPtr, optionValue, RPC_STATUS)
     return result
@@ -401,8 +401,8 @@ export RpcBindingSetOption(hBinding, option, optionValue) {
  * @since windows5.0
  */
 export RpcBindingInqOption(hBinding, option, pOptionValue) {
-    hBindingMarshal := hBinding is VarRef ? "ptr" : "ptr"
-    pOptionValueMarshal := pOptionValue is VarRef ? "ptr*" : "ptr"
+    hBindingMarshal := hBinding is VarRef ? "ptr" : IntPtr
+    pOptionValueMarshal := pOptionValue is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcBindingInqOption", hBindingMarshal, hBinding, UInt32, option, pOptionValueMarshal, pOptionValue, RPC_STATUS)
     return result
@@ -545,7 +545,7 @@ export RpcBindingInqOption(hBinding, option, pOptionValue) {
 export RpcBindingFromStringBindingA(StringBinding, Binding) {
     StringBinding := StringBinding is String ? StrPtr(StringBinding) : StringBinding
 
-    BindingMarshal := Binding is VarRef ? "ptr*" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcBindingFromStringBindingA", "ptr", StringBinding, BindingMarshal, Binding, RPC_STATUS)
     return result
@@ -688,35 +688,33 @@ export RpcBindingFromStringBindingA(StringBinding, Binding) {
 export RpcBindingFromStringBindingW(StringBinding, Binding) {
     StringBinding := StringBinding is String ? StrPtr(StringBinding) : StringBinding
 
-    BindingMarshal := Binding is VarRef ? "ptr*" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcBindingFromStringBindingW", "ptr", StringBinding, BindingMarshal, Binding, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} ContextHandle 
  * @param {Pointer<Pointer<Void>>} Binding 
  * @returns {RPC_STATUS} 
  */
 export RpcSsGetContextBinding(ContextHandle, Binding) {
-    ContextHandleMarshal := ContextHandle is VarRef ? "ptr" : "ptr"
-    BindingMarshal := Binding is VarRef ? "ptr*" : "ptr"
+    ContextHandleMarshal := ContextHandle is VarRef ? "ptr" : IntPtr
+    BindingMarshal := Binding is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcSsGetContextBinding", ContextHandleMarshal, ContextHandle, BindingMarshal, Binding, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} Binding 
  * @param {Pointer<Integer>} MaxCalls 
  * @returns {RPC_STATUS} 
  */
 export RpcBindingInqMaxCalls(Binding, MaxCalls) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    MaxCallsMarshal := MaxCalls is VarRef ? "uint*" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    MaxCallsMarshal := MaxCalls is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcBindingInqMaxCalls", BindingMarshal, Binding, MaxCallsMarshal, MaxCalls, RPC_STATUS)
     return result
@@ -768,7 +766,7 @@ export RpcBindingInqMaxCalls(Binding, MaxCalls) {
  * @since windows5.0
  */
 export RpcBindingInqObject(Binding, ObjectUuid) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcBindingInqObject", BindingMarshal, Binding, Guid.Ptr, ObjectUuid, RPC_STATUS)
     return result
@@ -841,7 +839,7 @@ export RpcBindingInqObject(Binding, ObjectUuid) {
  * @since windows5.0
  */
 export RpcBindingReset(Binding) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcBindingReset", BindingMarshal, Binding, RPC_STATUS)
     return result
@@ -907,7 +905,7 @@ export RpcBindingReset(Binding) {
  * @since windows5.0
  */
 export RpcBindingSetObject(Binding, ObjectUuid) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcBindingSetObject", BindingMarshal, Binding, Guid.Ptr, ObjectUuid, RPC_STATUS)
     return result
@@ -958,7 +956,7 @@ export RpcBindingSetObject(Binding, ObjectUuid) {
  * @since windows5.0
  */
 export RpcMgmtInqDefaultProtectLevel(AuthnSvc, AuthnLevel) {
-    AuthnLevelMarshal := AuthnLevel is VarRef ? "uint*" : "ptr"
+    AuthnLevelMarshal := AuthnLevel is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcMgmtInqDefaultProtectLevel", UInt32, AuthnSvc, AuthnLevelMarshal, AuthnLevel, RPC_STATUS)
     return result
@@ -1033,8 +1031,8 @@ export RpcMgmtInqDefaultProtectLevel(AuthnSvc, AuthnLevel) {
  * @since windows5.0
  */
 export RpcBindingToStringBindingA(Binding, StringBinding) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    StringBindingMarshal := StringBinding is VarRef ? "ptr*" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    StringBindingMarshal := StringBinding is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcBindingToStringBindingA", BindingMarshal, Binding, StringBindingMarshal, StringBinding, RPC_STATUS)
     return result
@@ -1109,8 +1107,8 @@ export RpcBindingToStringBindingA(Binding, StringBinding) {
  * @since windows5.0
  */
 export RpcBindingToStringBindingW(Binding, StringBinding) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    StringBindingMarshal := StringBinding is VarRef ? "ptr*" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    StringBindingMarshal := StringBinding is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcBindingToStringBindingW", BindingMarshal, Binding, StringBindingMarshal, StringBinding, RPC_STATUS)
     return result
@@ -1185,7 +1183,7 @@ export RpcBindingToStringBindingW(Binding, StringBinding) {
  * @since windows5.0
  */
 export RpcBindingVectorFree(BindingVector) {
-    BindingVectorMarshal := BindingVector is VarRef ? "ptr*" : "ptr"
+    BindingVectorMarshal := BindingVector is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcBindingVectorFree", BindingVectorMarshal, BindingVector, RPC_STATUS)
     return result
@@ -1271,9 +1269,15 @@ export RpcStringBindingComposeA(ObjUuid, ProtSeq, NetworkAddr, Endpoint, Options
     Endpoint := Endpoint is String ? StrPtr(Endpoint) : Endpoint
     Options := Options is String ? StrPtr(Options) : Options
 
-    StringBindingMarshal := StringBinding is VarRef ? "ptr*" : "ptr"
+    ObjUuidMarshal := ObjUuid == 0 ? IntPtr : PSTR
+    ProtSeqMarshal := ProtSeq == 0 ? IntPtr : PSTR
+    NetworkAddrMarshal := NetworkAddr == 0 ? IntPtr : PSTR
+    EndpointMarshal := Endpoint == 0 ? IntPtr : PSTR
+    OptionsMarshal := Options == 0 ? IntPtr : PSTR
+    StringBindingMarshal := StringBinding is VarRef ? "ptr*" : IntPtr
+    StringBindingMarshal := StringBinding == 0 ? IntPtr : PSTR.Ptr
 
-    result := DllCall("RPCRT4.dll\RpcStringBindingComposeA", "ptr", ObjUuid, "ptr", ProtSeq, "ptr", NetworkAddr, "ptr", Endpoint, "ptr", Options, StringBindingMarshal, StringBinding, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcStringBindingComposeA", ObjUuidMarshal, ObjUuid, ProtSeqMarshal, ProtSeq, NetworkAddrMarshal, NetworkAddr, EndpointMarshal, Endpoint, OptionsMarshal, Options, StringBindingMarshal, StringBinding, RPC_STATUS)
     return result
 }
 
@@ -1357,9 +1361,15 @@ export RpcStringBindingComposeW(ObjUuid, ProtSeq, NetworkAddr, Endpoint, Options
     Endpoint := Endpoint is String ? StrPtr(Endpoint) : Endpoint
     Options := Options is String ? StrPtr(Options) : Options
 
-    StringBindingMarshal := StringBinding is VarRef ? "ptr*" : "ptr"
+    ObjUuidMarshal := ObjUuid == 0 ? IntPtr : PWSTR
+    ProtSeqMarshal := ProtSeq == 0 ? IntPtr : PWSTR
+    NetworkAddrMarshal := NetworkAddr == 0 ? IntPtr : PWSTR
+    EndpointMarshal := Endpoint == 0 ? IntPtr : PWSTR
+    OptionsMarshal := Options == 0 ? IntPtr : PWSTR
+    StringBindingMarshal := StringBinding is VarRef ? "ptr*" : IntPtr
+    StringBindingMarshal := StringBinding == 0 ? IntPtr : PWSTR.Ptr
 
-    result := DllCall("RPCRT4.dll\RpcStringBindingComposeW", "ptr", ObjUuid, "ptr", ProtSeq, "ptr", NetworkAddr, "ptr", Endpoint, "ptr", Options, StringBindingMarshal, StringBinding, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcStringBindingComposeW", ObjUuidMarshal, ObjUuid, ProtSeqMarshal, ProtSeq, NetworkAddrMarshal, NetworkAddr, EndpointMarshal, Endpoint, OptionsMarshal, Options, StringBindingMarshal, StringBinding, RPC_STATUS)
     return result
 }
 
@@ -1455,11 +1465,16 @@ export RpcStringBindingComposeW(ObjUuid, ProtSeq, NetworkAddr, Endpoint, Options
 export RpcStringBindingParseA(StringBinding, ObjUuid, Protseq, NetworkAddr, Endpoint, NetworkOptions) {
     StringBinding := StringBinding is String ? StrPtr(StringBinding) : StringBinding
 
-    ObjUuidMarshal := ObjUuid is VarRef ? "ptr*" : "ptr"
-    ProtseqMarshal := Protseq is VarRef ? "ptr*" : "ptr"
-    NetworkAddrMarshal := NetworkAddr is VarRef ? "ptr*" : "ptr"
-    EndpointMarshal := Endpoint is VarRef ? "ptr*" : "ptr"
-    NetworkOptionsMarshal := NetworkOptions is VarRef ? "ptr*" : "ptr"
+    ObjUuidMarshal := ObjUuid is VarRef ? "ptr*" : IntPtr
+    ObjUuidMarshal := ObjUuid == 0 ? IntPtr : PSTR.Ptr
+    ProtseqMarshal := Protseq is VarRef ? "ptr*" : IntPtr
+    ProtseqMarshal := Protseq == 0 ? IntPtr : PSTR.Ptr
+    NetworkAddrMarshal := NetworkAddr is VarRef ? "ptr*" : IntPtr
+    NetworkAddrMarshal := NetworkAddr == 0 ? IntPtr : PSTR.Ptr
+    EndpointMarshal := Endpoint is VarRef ? "ptr*" : IntPtr
+    EndpointMarshal := Endpoint == 0 ? IntPtr : PSTR.Ptr
+    NetworkOptionsMarshal := NetworkOptions is VarRef ? "ptr*" : IntPtr
+    NetworkOptionsMarshal := NetworkOptions == 0 ? IntPtr : PSTR.Ptr
 
     result := DllCall("RPCRT4.dll\RpcStringBindingParseA", "ptr", StringBinding, ObjUuidMarshal, ObjUuid, ProtseqMarshal, Protseq, NetworkAddrMarshal, NetworkAddr, EndpointMarshal, Endpoint, NetworkOptionsMarshal, NetworkOptions, RPC_STATUS)
     return result
@@ -1557,11 +1572,16 @@ export RpcStringBindingParseA(StringBinding, ObjUuid, Protseq, NetworkAddr, Endp
 export RpcStringBindingParseW(StringBinding, ObjUuid, Protseq, NetworkAddr, Endpoint, NetworkOptions) {
     StringBinding := StringBinding is String ? StrPtr(StringBinding) : StringBinding
 
-    ObjUuidMarshal := ObjUuid is VarRef ? "ptr*" : "ptr"
-    ProtseqMarshal := Protseq is VarRef ? "ptr*" : "ptr"
-    NetworkAddrMarshal := NetworkAddr is VarRef ? "ptr*" : "ptr"
-    EndpointMarshal := Endpoint is VarRef ? "ptr*" : "ptr"
-    NetworkOptionsMarshal := NetworkOptions is VarRef ? "ptr*" : "ptr"
+    ObjUuidMarshal := ObjUuid is VarRef ? "ptr*" : IntPtr
+    ObjUuidMarshal := ObjUuid == 0 ? IntPtr : PWSTR.Ptr
+    ProtseqMarshal := Protseq is VarRef ? "ptr*" : IntPtr
+    ProtseqMarshal := Protseq == 0 ? IntPtr : PWSTR.Ptr
+    NetworkAddrMarshal := NetworkAddr is VarRef ? "ptr*" : IntPtr
+    NetworkAddrMarshal := NetworkAddr == 0 ? IntPtr : PWSTR.Ptr
+    EndpointMarshal := Endpoint is VarRef ? "ptr*" : IntPtr
+    EndpointMarshal := Endpoint == 0 ? IntPtr : PWSTR.Ptr
+    NetworkOptionsMarshal := NetworkOptions is VarRef ? "ptr*" : IntPtr
+    NetworkOptionsMarshal := NetworkOptions == 0 ? IntPtr : PWSTR.Ptr
 
     result := DllCall("RPCRT4.dll\RpcStringBindingParseW", "ptr", StringBinding, ObjUuidMarshal, ObjUuid, ProtseqMarshal, Protseq, NetworkAddrMarshal, NetworkAddr, EndpointMarshal, Endpoint, NetworkOptionsMarshal, NetworkOptions, RPC_STATUS)
     return result
@@ -1606,7 +1626,7 @@ export RpcStringBindingParseW(StringBinding, ObjUuid, Protseq, NetworkAddr, Endp
  * @since windows5.0
  */
 export RpcStringFreeA(_String) {
-    _StringMarshal := _String is VarRef ? "ptr*" : "ptr"
+    _StringMarshal := _String is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcStringFreeA", _StringMarshal, _String, RPC_STATUS)
     return result
@@ -1651,7 +1671,7 @@ export RpcStringFreeA(_String) {
  * @since windows5.0
  */
 export RpcStringFreeW(_String) {
-    _StringMarshal := _String is VarRef ? "ptr*" : "ptr"
+    _StringMarshal := _String is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcStringFreeW", _StringMarshal, _String, RPC_STATUS)
     return result
@@ -1692,7 +1712,7 @@ export RpcStringFreeW(_String) {
  * @since windows5.0
  */
 export RpcIfInqId(RpcIfHandle, RpcIfId) {
-    RpcIfHandleMarshal := RpcIfHandle is VarRef ? "ptr" : "ptr"
+    RpcIfHandleMarshal := RpcIfHandle is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcIfInqId", RpcIfHandleMarshal, RpcIfHandle, RPC_IF_ID.Ptr, RpcIfId, RPC_STATUS)
     return result
@@ -1912,8 +1932,8 @@ export RpcNetworkIsProtseqValidW(Protseq) {
  * @since windows5.0
  */
 export RpcMgmtInqComTimeout(Binding, Timeout) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    TimeoutMarshal := Timeout is VarRef ? "uint*" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    TimeoutMarshal := Timeout is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcMgmtInqComTimeout", BindingMarshal, Binding, TimeoutMarshal, Timeout, RPC_STATUS)
     return result
@@ -1996,7 +2016,7 @@ export RpcMgmtInqComTimeout(Binding, Timeout) {
  * @since windows5.0
  */
 export RpcMgmtSetComTimeout(Binding, Timeout) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcMgmtSetComTimeout", BindingMarshal, Binding, UInt32, Timeout, RPC_STATUS)
     return result
@@ -2104,7 +2124,7 @@ export RpcMgmtSetCancelTimeout(Timeout) {
  * @since windows5.0
  */
 export RpcNetworkInqProtseqsA(ProtseqVector) {
-    ProtseqVectorMarshal := ProtseqVector is VarRef ? "ptr*" : "ptr"
+    ProtseqVectorMarshal := ProtseqVector is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcNetworkInqProtseqsA", ProtseqVectorMarshal, ProtseqVector, RPC_STATUS)
     return result
@@ -2163,7 +2183,7 @@ export RpcNetworkInqProtseqsA(ProtseqVector) {
  * @since windows5.0
  */
 export RpcNetworkInqProtseqsW(ProtseqVector) {
-    ProtseqVectorMarshal := ProtseqVector is VarRef ? "ptr*" : "ptr"
+    ProtseqVectorMarshal := ProtseqVector is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcNetworkInqProtseqsW", ProtseqVectorMarshal, ProtseqVector, RPC_STATUS)
     return result
@@ -2254,7 +2274,9 @@ export RpcNetworkInqProtseqsW(ProtseqVector) {
  * @since windows5.0
  */
 export RpcObjectInqType(ObjUuid, TypeUuid) {
-    result := DllCall("RPCRT4.dll\RpcObjectInqType", Guid.Ptr, ObjUuid, Guid.Ptr, TypeUuid, RPC_STATUS)
+    TypeUuidMarshal := TypeUuid == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("RPCRT4.dll\RpcObjectInqType", Guid.Ptr, ObjUuid, TypeUuidMarshal, TypeUuid, RPC_STATUS)
     return result
 }
 
@@ -2388,7 +2410,9 @@ export RpcObjectSetInqFn(InquiryFn) {
  * @since windows5.0
  */
 export RpcObjectSetType(ObjUuid, TypeUuid) {
-    result := DllCall("RPCRT4.dll\RpcObjectSetType", Guid.Ptr, ObjUuid, Guid.Ptr, TypeUuid, RPC_STATUS)
+    TypeUuidMarshal := TypeUuid == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("RPCRT4.dll\RpcObjectSetType", Guid.Ptr, ObjUuid, TypeUuidMarshal, TypeUuid, RPC_STATUS)
     return result
 }
 
@@ -2440,7 +2464,7 @@ export RpcObjectSetType(ObjUuid, TypeUuid) {
  * @since windows5.0
  */
 export RpcProtseqVectorFreeA(ProtseqVector) {
-    ProtseqVectorMarshal := ProtseqVector is VarRef ? "ptr*" : "ptr"
+    ProtseqVectorMarshal := ProtseqVector is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcProtseqVectorFreeA", ProtseqVectorMarshal, ProtseqVector, RPC_STATUS)
     return result
@@ -2494,7 +2518,7 @@ export RpcProtseqVectorFreeA(ProtseqVector) {
  * @since windows5.0
  */
 export RpcProtseqVectorFreeW(ProtseqVector) {
-    ProtseqVectorMarshal := ProtseqVector is VarRef ? "ptr*" : "ptr"
+    ProtseqVectorMarshal := ProtseqVector is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcProtseqVectorFreeW", ProtseqVectorMarshal, ProtseqVector, RPC_STATUS)
     return result
@@ -2580,21 +2604,21 @@ export RpcProtseqVectorFreeW(ProtseqVector) {
  * @since windows5.0
  */
 export RpcServerInqBindings(BindingVector) {
-    BindingVectorMarshal := BindingVector is VarRef ? "ptr*" : "ptr"
+    BindingVectorMarshal := BindingVector is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcServerInqBindings", BindingVectorMarshal, BindingVector, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} _SecurityDescriptor 
  * @param {Pointer<Pointer<RPC_BINDING_VECTOR>>} BindingVector 
  * @returns {RPC_STATUS} 
  */
 export RpcServerInqBindingsEx(_SecurityDescriptor, BindingVector) {
-    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
-    BindingVectorMarshal := BindingVector is VarRef ? "ptr*" : "ptr"
+    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : IntPtr
+    _SecurityDescriptorMarshal := _SecurityDescriptor == 0 ? IntPtr : "ptr"
+    BindingVectorMarshal := BindingVector is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcServerInqBindingsEx", _SecurityDescriptorMarshal, _SecurityDescriptor, BindingVectorMarshal, BindingVector, RPC_STATUS)
     return result
@@ -2661,10 +2685,11 @@ export RpcServerInqBindingsEx(_SecurityDescriptor, BindingVector) {
  * @since windows5.0
  */
 export RpcServerInqIf(IfSpec, MgrTypeUuid, MgrEpv) {
-    IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
-    MgrEpvMarshal := MgrEpv is VarRef ? "ptr*" : "ptr"
+    IfSpecMarshal := IfSpec is VarRef ? "ptr" : IntPtr
+    MgrTypeUuidMarshal := MgrTypeUuid == 0 ? IntPtr : Guid.Ptr
+    MgrEpvMarshal := MgrEpv is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("RPCRT4.dll\RpcServerInqIf", IfSpecMarshal, IfSpec, Guid.Ptr, MgrTypeUuid, MgrEpvMarshal, MgrEpv, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerInqIf", IfSpecMarshal, IfSpec, MgrTypeUuidMarshal, MgrTypeUuid, MgrEpvMarshal, MgrEpv, RPC_STATUS)
     return result
 }
 
@@ -2816,10 +2841,12 @@ export RpcServerListen(MinimumCallThreads, MaxCalls, DontWait) {
  * @since windows5.0
  */
 export RpcServerRegisterIf(IfSpec, MgrTypeUuid, MgrEpv) {
-    IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
-    MgrEpvMarshal := MgrEpv is VarRef ? "ptr" : "ptr"
+    IfSpecMarshal := IfSpec is VarRef ? "ptr" : IntPtr
+    MgrTypeUuidMarshal := MgrTypeUuid == 0 ? IntPtr : Guid.Ptr
+    MgrEpvMarshal := MgrEpv is VarRef ? "ptr" : IntPtr
+    MgrEpvMarshal := MgrEpv == 0 ? IntPtr : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcServerRegisterIf", IfSpecMarshal, IfSpec, Guid.Ptr, MgrTypeUuid, MgrEpvMarshal, MgrEpv, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerRegisterIf", IfSpecMarshal, IfSpec, MgrTypeUuidMarshal, MgrTypeUuid, MgrEpvMarshal, MgrEpv, RPC_STATUS)
     return result
 }
 
@@ -2894,10 +2921,13 @@ export RpcServerRegisterIf(IfSpec, MgrTypeUuid, MgrEpv) {
  * @since windows5.1.2600
  */
 export RpcServerRegisterIfEx(IfSpec, MgrTypeUuid, MgrEpv, Flags, MaxCalls, IfCallback) {
-    IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
-    MgrEpvMarshal := MgrEpv is VarRef ? "ptr" : "ptr"
+    IfSpecMarshal := IfSpec is VarRef ? "ptr" : IntPtr
+    MgrTypeUuidMarshal := MgrTypeUuid == 0 ? IntPtr : Guid.Ptr
+    MgrEpvMarshal := MgrEpv is VarRef ? "ptr" : IntPtr
+    MgrEpvMarshal := MgrEpv == 0 ? IntPtr : "ptr"
+    IfCallbackMarshal := IfCallback == 0 ? IntPtr : RPC_IF_CALLBACK_FN
 
-    result := DllCall("RPCRT4.dll\RpcServerRegisterIfEx", IfSpecMarshal, IfSpec, Guid.Ptr, MgrTypeUuid, MgrEpvMarshal, MgrEpv, UInt32, Flags, UInt32, MaxCalls, RPC_IF_CALLBACK_FN, IfCallback, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerRegisterIfEx", IfSpecMarshal, IfSpec, MgrTypeUuidMarshal, MgrTypeUuid, MgrEpvMarshal, MgrEpv, UInt32, Flags, UInt32, MaxCalls, IfCallbackMarshal, IfCallback, RPC_STATUS)
     return result
 }
 
@@ -2972,10 +3002,13 @@ export RpcServerRegisterIfEx(IfSpec, MgrTypeUuid, MgrEpv, Flags, MaxCalls, IfCal
  * @since windows5.0
  */
 export RpcServerRegisterIf2(IfSpec, MgrTypeUuid, MgrEpv, Flags, MaxCalls, MaxRpcSize, IfCallbackFn) {
-    IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
-    MgrEpvMarshal := MgrEpv is VarRef ? "ptr" : "ptr"
+    IfSpecMarshal := IfSpec is VarRef ? "ptr" : IntPtr
+    MgrTypeUuidMarshal := MgrTypeUuid == 0 ? IntPtr : Guid.Ptr
+    MgrEpvMarshal := MgrEpv is VarRef ? "ptr" : IntPtr
+    MgrEpvMarshal := MgrEpv == 0 ? IntPtr : "ptr"
+    IfCallbackFnMarshal := IfCallbackFn == 0 ? IntPtr : RPC_IF_CALLBACK_FN
 
-    result := DllCall("RPCRT4.dll\RpcServerRegisterIf2", IfSpecMarshal, IfSpec, Guid.Ptr, MgrTypeUuid, MgrEpvMarshal, MgrEpv, UInt32, Flags, UInt32, MaxCalls, UInt32, MaxRpcSize, RPC_IF_CALLBACK_FN, IfCallbackFn, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerRegisterIf2", IfSpecMarshal, IfSpec, MgrTypeUuidMarshal, MgrTypeUuid, MgrEpvMarshal, MgrEpv, UInt32, Flags, UInt32, MaxCalls, UInt32, MaxRpcSize, IfCallbackFnMarshal, IfCallbackFn, RPC_STATUS)
     return result
 }
 
@@ -3015,11 +3048,15 @@ export RpcServerRegisterIf2(IfSpec, MgrTypeUuid, MgrEpv, Flags, MaxCalls, MaxRpc
  * @since windows8.0
  */
 export RpcServerRegisterIf3(IfSpec, MgrTypeUuid, MgrEpv, Flags, MaxCalls, MaxRpcSize, IfCallback, _SecurityDescriptor) {
-    IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
-    MgrEpvMarshal := MgrEpv is VarRef ? "ptr" : "ptr"
-    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
+    IfSpecMarshal := IfSpec is VarRef ? "ptr" : IntPtr
+    MgrTypeUuidMarshal := MgrTypeUuid == 0 ? IntPtr : Guid.Ptr
+    MgrEpvMarshal := MgrEpv is VarRef ? "ptr" : IntPtr
+    MgrEpvMarshal := MgrEpv == 0 ? IntPtr : "ptr"
+    IfCallbackMarshal := IfCallback == 0 ? IntPtr : RPC_IF_CALLBACK_FN
+    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : IntPtr
+    _SecurityDescriptorMarshal := _SecurityDescriptor == 0 ? IntPtr : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcServerRegisterIf3", IfSpecMarshal, IfSpec, Guid.Ptr, MgrTypeUuid, MgrEpvMarshal, MgrEpv, UInt32, Flags, UInt32, MaxCalls, UInt32, MaxRpcSize, RPC_IF_CALLBACK_FN, IfCallback, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerRegisterIf3", IfSpecMarshal, IfSpec, MgrTypeUuidMarshal, MgrTypeUuid, MgrEpvMarshal, MgrEpv, UInt32, Flags, UInt32, MaxCalls, UInt32, MaxRpcSize, IfCallbackMarshal, IfCallback, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_STATUS)
     return result
 }
 
@@ -3141,9 +3178,11 @@ export RpcServerRegisterIf3(IfSpec, MgrTypeUuid, MgrEpv, Flags, MaxCalls, MaxRpc
  * @since windows5.0
  */
 export RpcServerUnregisterIf(IfSpec, MgrTypeUuid, WaitForCallsToComplete) {
-    IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+    IfSpecMarshal := IfSpec is VarRef ? "ptr" : IntPtr
+    IfSpecMarshal := IfSpec == 0 ? IntPtr : "ptr"
+    MgrTypeUuidMarshal := MgrTypeUuid == 0 ? IntPtr : Guid.Ptr
 
-    result := DllCall("RPCRT4.dll\RpcServerUnregisterIf", IfSpecMarshal, IfSpec, Guid.Ptr, MgrTypeUuid, UInt32, WaitForCallsToComplete, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerUnregisterIf", IfSpecMarshal, IfSpec, MgrTypeUuidMarshal, MgrTypeUuid, UInt32, WaitForCallsToComplete, RPC_STATUS)
     return result
 }
 
@@ -3186,9 +3225,11 @@ export RpcServerUnregisterIf(IfSpec, MgrTypeUuid, WaitForCallsToComplete) {
  * @since windows5.1.2600
  */
 export RpcServerUnregisterIfEx(IfSpec, MgrTypeUuid, RundownContextHandles) {
-    IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+    IfSpecMarshal := IfSpec is VarRef ? "ptr" : IntPtr
+    IfSpecMarshal := IfSpec == 0 ? IntPtr : "ptr"
+    MgrTypeUuidMarshal := MgrTypeUuid == 0 ? IntPtr : Guid.Ptr
 
-    result := DllCall("RPCRT4.dll\RpcServerUnregisterIfEx", IfSpecMarshal, IfSpec, Guid.Ptr, MgrTypeUuid, Int32, RundownContextHandles, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerUnregisterIfEx", IfSpecMarshal, IfSpec, MgrTypeUuidMarshal, MgrTypeUuid, Int32, RundownContextHandles, RPC_STATUS)
     return result
 }
 
@@ -3302,7 +3343,8 @@ export RpcServerUnregisterIfEx(IfSpec, MgrTypeUuid, RundownContextHandles) {
  * @since windows5.0
  */
 export RpcServerUseAllProtseqs(MaxCalls, _SecurityDescriptor) {
-    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
+    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : IntPtr
+    _SecurityDescriptorMarshal := _SecurityDescriptor == 0 ? IntPtr : "ptr"
 
     result := DllCall("RPCRT4.dll\RpcServerUseAllProtseqs", UInt32, MaxCalls, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_STATUS)
     return result
@@ -3432,7 +3474,8 @@ export RpcServerUseAllProtseqs(MaxCalls, _SecurityDescriptor) {
  * @since windows5.0
  */
 export RpcServerUseAllProtseqsEx(MaxCalls, _SecurityDescriptor, Policy) {
-    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
+    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : IntPtr
+    _SecurityDescriptorMarshal := _SecurityDescriptor == 0 ? IntPtr : "ptr"
 
     result := DllCall("RPCRT4.dll\RpcServerUseAllProtseqsEx", UInt32, MaxCalls, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_POLICY.Ptr, Policy, RPC_STATUS)
     return result
@@ -3580,8 +3623,9 @@ export RpcServerUseAllProtseqsEx(MaxCalls, _SecurityDescriptor, Policy) {
  * @since windows5.0
  */
 export RpcServerUseAllProtseqsIf(MaxCalls, IfSpec, _SecurityDescriptor) {
-    IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
-    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
+    IfSpecMarshal := IfSpec is VarRef ? "ptr" : IntPtr
+    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : IntPtr
+    _SecurityDescriptorMarshal := _SecurityDescriptor == 0 ? IntPtr : "ptr"
 
     result := DllCall("RPCRT4.dll\RpcServerUseAllProtseqsIf", UInt32, MaxCalls, IfSpecMarshal, IfSpec, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_STATUS)
     return result
@@ -3740,8 +3784,9 @@ export RpcServerUseAllProtseqsIf(MaxCalls, IfSpec, _SecurityDescriptor) {
  * @since windows5.1.2600
  */
 export RpcServerUseAllProtseqsIfEx(MaxCalls, IfSpec, _SecurityDescriptor, Policy) {
-    IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
-    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
+    IfSpecMarshal := IfSpec is VarRef ? "ptr" : IntPtr
+    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : IntPtr
+    _SecurityDescriptorMarshal := _SecurityDescriptor == 0 ? IntPtr : "ptr"
 
     result := DllCall("RPCRT4.dll\RpcServerUseAllProtseqsIfEx", UInt32, MaxCalls, IfSpecMarshal, IfSpec, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_POLICY.Ptr, Policy, RPC_STATUS)
     return result
@@ -3851,7 +3896,8 @@ export RpcServerUseAllProtseqsIfEx(MaxCalls, IfSpec, _SecurityDescriptor, Policy
 export RpcServerUseProtseqA(Protseq, MaxCalls, _SecurityDescriptor) {
     Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
 
-    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
+    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : IntPtr
+    _SecurityDescriptorMarshal := _SecurityDescriptor == 0 ? IntPtr : "ptr"
 
     result := DllCall("RPCRT4.dll\RpcServerUseProtseqA", "ptr", Protseq, UInt32, MaxCalls, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_STATUS)
     return result
@@ -3975,7 +4021,8 @@ export RpcServerUseProtseqA(Protseq, MaxCalls, _SecurityDescriptor) {
 export RpcServerUseProtseqExA(Protseq, MaxCalls, _SecurityDescriptor, Policy) {
     Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
 
-    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
+    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : IntPtr
+    _SecurityDescriptorMarshal := _SecurityDescriptor == 0 ? IntPtr : "ptr"
 
     result := DllCall("RPCRT4.dll\RpcServerUseProtseqExA", "ptr", Protseq, UInt32, MaxCalls, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_POLICY.Ptr, Policy, RPC_STATUS)
     return result
@@ -4085,7 +4132,8 @@ export RpcServerUseProtseqExA(Protseq, MaxCalls, _SecurityDescriptor, Policy) {
 export RpcServerUseProtseqW(Protseq, MaxCalls, _SecurityDescriptor) {
     Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
 
-    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
+    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : IntPtr
+    _SecurityDescriptorMarshal := _SecurityDescriptor == 0 ? IntPtr : "ptr"
 
     result := DllCall("RPCRT4.dll\RpcServerUseProtseqW", "ptr", Protseq, UInt32, MaxCalls, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_STATUS)
     return result
@@ -4209,7 +4257,8 @@ export RpcServerUseProtseqW(Protseq, MaxCalls, _SecurityDescriptor) {
 export RpcServerUseProtseqExW(Protseq, MaxCalls, _SecurityDescriptor, Policy) {
     Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
 
-    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
+    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : IntPtr
+    _SecurityDescriptorMarshal := _SecurityDescriptor == 0 ? IntPtr : "ptr"
 
     result := DllCall("RPCRT4.dll\RpcServerUseProtseqExW", "ptr", Protseq, UInt32, MaxCalls, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_POLICY.Ptr, Policy, RPC_STATUS)
     return result
@@ -4341,7 +4390,8 @@ export RpcServerUseProtseqEpA(Protseq, MaxCalls, Endpoint, _SecurityDescriptor) 
     Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
     Endpoint := Endpoint is String ? StrPtr(Endpoint) : Endpoint
 
-    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
+    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : IntPtr
+    _SecurityDescriptorMarshal := _SecurityDescriptor == 0 ? IntPtr : "ptr"
 
     result := DllCall("RPCRT4.dll\RpcServerUseProtseqEpA", "ptr", Protseq, UInt32, MaxCalls, "ptr", Endpoint, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_STATUS)
     return result
@@ -4493,7 +4543,8 @@ export RpcServerUseProtseqEpExA(Protseq, MaxCalls, Endpoint, _SecurityDescriptor
     Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
     Endpoint := Endpoint is String ? StrPtr(Endpoint) : Endpoint
 
-    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
+    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : IntPtr
+    _SecurityDescriptorMarshal := _SecurityDescriptor == 0 ? IntPtr : "ptr"
 
     result := DllCall("RPCRT4.dll\RpcServerUseProtseqEpExA", "ptr", Protseq, UInt32, MaxCalls, "ptr", Endpoint, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_POLICY.Ptr, Policy, RPC_STATUS)
     return result
@@ -4625,7 +4676,8 @@ export RpcServerUseProtseqEpW(Protseq, MaxCalls, Endpoint, _SecurityDescriptor) 
     Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
     Endpoint := Endpoint is String ? StrPtr(Endpoint) : Endpoint
 
-    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
+    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : IntPtr
+    _SecurityDescriptorMarshal := _SecurityDescriptor == 0 ? IntPtr : "ptr"
 
     result := DllCall("RPCRT4.dll\RpcServerUseProtseqEpW", "ptr", Protseq, UInt32, MaxCalls, "ptr", Endpoint, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_STATUS)
     return result
@@ -4777,7 +4829,8 @@ export RpcServerUseProtseqEpExW(Protseq, MaxCalls, Endpoint, _SecurityDescriptor
     Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
     Endpoint := Endpoint is String ? StrPtr(Endpoint) : Endpoint
 
-    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
+    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : IntPtr
+    _SecurityDescriptorMarshal := _SecurityDescriptor == 0 ? IntPtr : "ptr"
 
     result := DllCall("RPCRT4.dll\RpcServerUseProtseqEpExW", "ptr", Protseq, UInt32, MaxCalls, "ptr", Endpoint, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_POLICY.Ptr, Policy, RPC_STATUS)
     return result
@@ -4913,8 +4966,9 @@ export RpcServerUseProtseqEpExW(Protseq, MaxCalls, Endpoint, _SecurityDescriptor
 export RpcServerUseProtseqIfA(Protseq, MaxCalls, IfSpec, _SecurityDescriptor) {
     Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
 
-    IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
-    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
+    IfSpecMarshal := IfSpec is VarRef ? "ptr" : IntPtr
+    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : IntPtr
+    _SecurityDescriptorMarshal := _SecurityDescriptor == 0 ? IntPtr : "ptr"
 
     result := DllCall("RPCRT4.dll\RpcServerUseProtseqIfA", "ptr", Protseq, UInt32, MaxCalls, IfSpecMarshal, IfSpec, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_STATUS)
     return result
@@ -5060,8 +5114,9 @@ export RpcServerUseProtseqIfA(Protseq, MaxCalls, IfSpec, _SecurityDescriptor) {
 export RpcServerUseProtseqIfExA(Protseq, MaxCalls, IfSpec, _SecurityDescriptor, Policy) {
     Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
 
-    IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
-    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
+    IfSpecMarshal := IfSpec is VarRef ? "ptr" : IntPtr
+    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : IntPtr
+    _SecurityDescriptorMarshal := _SecurityDescriptor == 0 ? IntPtr : "ptr"
 
     result := DllCall("RPCRT4.dll\RpcServerUseProtseqIfExA", "ptr", Protseq, UInt32, MaxCalls, IfSpecMarshal, IfSpec, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_POLICY.Ptr, Policy, RPC_STATUS)
     return result
@@ -5197,8 +5252,9 @@ export RpcServerUseProtseqIfExA(Protseq, MaxCalls, IfSpec, _SecurityDescriptor, 
 export RpcServerUseProtseqIfW(Protseq, MaxCalls, IfSpec, _SecurityDescriptor) {
     Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
 
-    IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
-    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
+    IfSpecMarshal := IfSpec is VarRef ? "ptr" : IntPtr
+    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : IntPtr
+    _SecurityDescriptorMarshal := _SecurityDescriptor == 0 ? IntPtr : "ptr"
 
     result := DllCall("RPCRT4.dll\RpcServerUseProtseqIfW", "ptr", Protseq, UInt32, MaxCalls, IfSpecMarshal, IfSpec, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_STATUS)
     return result
@@ -5344,15 +5400,15 @@ export RpcServerUseProtseqIfW(Protseq, MaxCalls, IfSpec, _SecurityDescriptor) {
 export RpcServerUseProtseqIfExW(Protseq, MaxCalls, IfSpec, _SecurityDescriptor, Policy) {
     Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
 
-    IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
-    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
+    IfSpecMarshal := IfSpec is VarRef ? "ptr" : IntPtr
+    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : IntPtr
+    _SecurityDescriptorMarshal := _SecurityDescriptor == 0 ? IntPtr : "ptr"
 
     result := DllCall("RPCRT4.dll\RpcServerUseProtseqIfExW", "ptr", Protseq, UInt32, MaxCalls, IfSpecMarshal, IfSpec, _SecurityDescriptorMarshal, _SecurityDescriptor, RPC_POLICY.Ptr, Policy, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @returns {String} Nothing - always returns an empty string
  */
 export RpcServerYield() {
@@ -5394,7 +5450,7 @@ export RpcServerYield() {
  * @since windows5.0
  */
 export RpcMgmtStatsVectorFree(StatsVector) {
-    StatsVectorMarshal := StatsVector is VarRef ? "ptr*" : "ptr"
+    StatsVectorMarshal := StatsVector is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcMgmtStatsVectorFree", StatsVectorMarshal, StatsVector, RPC_STATUS)
     return result
@@ -5490,8 +5546,9 @@ export RpcMgmtStatsVectorFree(StatsVector) {
  * @since windows5.0
  */
 export RpcMgmtInqStats(Binding, Statistics) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    StatisticsMarshal := Statistics is VarRef ? "ptr*" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    BindingMarshal := Binding == 0 ? IntPtr : "ptr"
+    StatisticsMarshal := Statistics is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcMgmtInqStats", BindingMarshal, Binding, StatisticsMarshal, Statistics, RPC_STATUS)
     return result
@@ -5576,7 +5633,8 @@ export RpcMgmtInqStats(Binding, Statistics) {
  * @since windows5.0
  */
 export RpcMgmtIsServerListening(Binding) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    BindingMarshal := Binding == 0 ? IntPtr : "ptr"
 
     result := DllCall("RPCRT4.dll\RpcMgmtIsServerListening", BindingMarshal, Binding, RPC_STATUS)
     return result
@@ -5647,7 +5705,8 @@ export RpcMgmtIsServerListening(Binding) {
  * @since windows5.0
  */
 export RpcMgmtStopServerListening(Binding) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    BindingMarshal := Binding == 0 ? IntPtr : "ptr"
 
     result := DllCall("RPCRT4.dll\RpcMgmtStopServerListening", BindingMarshal, Binding, RPC_STATUS)
     return result
@@ -5929,8 +5988,9 @@ export RpcMgmtEnableIdleCleanup() {
  * @since windows5.0
  */
 export RpcMgmtInqIfIds(Binding, IfIdVector) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    IfIdVectorMarshal := IfIdVector is VarRef ? "ptr*" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    BindingMarshal := Binding == 0 ? IntPtr : "ptr"
+    IfIdVectorMarshal := IfIdVector is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcMgmtInqIfIds", BindingMarshal, Binding, IfIdVectorMarshal, IfIdVector, RPC_STATUS)
     return result
@@ -5984,7 +6044,7 @@ export RpcMgmtInqIfIds(Binding, IfIdVector) {
  * @since windows5.0
  */
 export RpcIfIdVectorFree(IfIdVector) {
-    IfIdVectorMarshal := IfIdVector is VarRef ? "ptr*" : "ptr"
+    IfIdVectorMarshal := IfIdVector is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCNS4.dll\RpcIfIdVectorFree", IfIdVectorMarshal, IfIdVector, RPC_STATUS)
     return result
@@ -6059,8 +6119,9 @@ export RpcIfIdVectorFree(IfIdVector) {
  * @since windows5.0
  */
 export RpcMgmtInqServerPrincNameA(Binding, AuthnSvc, ServerPrincName) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    ServerPrincNameMarshal := ServerPrincName is VarRef ? "ptr*" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    BindingMarshal := Binding == 0 ? IntPtr : "ptr"
+    ServerPrincNameMarshal := ServerPrincName is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcMgmtInqServerPrincNameA", BindingMarshal, Binding, UInt32, AuthnSvc, ServerPrincNameMarshal, ServerPrincName, RPC_STATUS)
     return result
@@ -6135,8 +6196,9 @@ export RpcMgmtInqServerPrincNameA(Binding, AuthnSvc, ServerPrincName) {
  * @since windows5.0
  */
 export RpcMgmtInqServerPrincNameW(Binding, AuthnSvc, ServerPrincName) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    ServerPrincNameMarshal := ServerPrincName is VarRef ? "ptr*" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    BindingMarshal := Binding == 0 ? IntPtr : "ptr"
+    ServerPrincNameMarshal := ServerPrincName is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcMgmtInqServerPrincNameW", BindingMarshal, Binding, UInt32, AuthnSvc, ServerPrincNameMarshal, ServerPrincName, RPC_STATUS)
     return result
@@ -6192,7 +6254,7 @@ export RpcMgmtInqServerPrincNameW(Binding, AuthnSvc, ServerPrincName) {
  * @since windows5.0
  */
 export RpcServerInqDefaultPrincNameA(AuthnSvc, PrincName) {
-    PrincNameMarshal := PrincName is VarRef ? "ptr*" : "ptr"
+    PrincNameMarshal := PrincName is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcServerInqDefaultPrincNameA", UInt32, AuthnSvc, PrincNameMarshal, PrincName, RPC_STATUS)
     return result
@@ -6248,7 +6310,7 @@ export RpcServerInqDefaultPrincNameA(AuthnSvc, PrincName) {
  * @since windows5.0
  */
 export RpcServerInqDefaultPrincNameW(AuthnSvc, PrincName) {
-    PrincNameMarshal := PrincName is VarRef ? "ptr*" : "ptr"
+    PrincNameMarshal := PrincName is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcServerInqDefaultPrincNameW", UInt32, AuthnSvc, PrincNameMarshal, PrincName, RPC_STATUS)
     return result
@@ -6327,8 +6389,8 @@ export RpcServerInqDefaultPrincNameW(AuthnSvc, PrincName) {
  * @since windows5.0
  */
 export RpcEpResolveBinding(Binding, IfSpec) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    IfSpecMarshal := IfSpec is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcEpResolveBinding", BindingMarshal, Binding, IfSpecMarshal, IfSpec, RPC_STATUS)
     return result
@@ -6456,8 +6518,8 @@ export RpcEpResolveBinding(Binding, IfSpec) {
  * @since windows5.0
  */
 export RpcNsBindingInqEntryNameA(Binding, EntryNameSyntax, EntryName) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    EntryNameMarshal := EntryName is VarRef ? "ptr*" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    EntryNameMarshal := EntryName is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcNsBindingInqEntryNameA", BindingMarshal, Binding, UInt32, EntryNameSyntax, EntryNameMarshal, EntryName, RPC_STATUS)
     return result
@@ -6585,8 +6647,8 @@ export RpcNsBindingInqEntryNameA(Binding, EntryNameSyntax, EntryName) {
  * @since windows5.0
  */
 export RpcNsBindingInqEntryNameW(Binding, EntryNameSyntax, EntryName) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    EntryNameMarshal := EntryName is VarRef ? "ptr*" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    EntryNameMarshal := EntryName is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcNsBindingInqEntryNameW", BindingMarshal, Binding, UInt32, EntryNameSyntax, EntryNameMarshal, EntryName, RPC_STATUS)
     return result
@@ -6654,9 +6716,11 @@ export RpcNsBindingInqEntryNameW(Binding, EntryNameSyntax, EntryName) {
  * @since windows6.0.6000
  */
 export RpcBindingCreateA(Template, Security, Options, Binding) {
-    BindingMarshal := Binding is VarRef ? "ptr*" : "ptr"
+    SecurityMarshal := Security == 0 ? IntPtr : RPC_BINDING_HANDLE_SECURITY_V1_A.Ptr
+    OptionsMarshal := Options == 0 ? IntPtr : RPC_BINDING_HANDLE_OPTIONS_V1.Ptr
+    BindingMarshal := Binding is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("RPCRT4.dll\RpcBindingCreateA", RPC_BINDING_HANDLE_TEMPLATE_V1_A.Ptr, Template, RPC_BINDING_HANDLE_SECURITY_V1_A.Ptr, Security, RPC_BINDING_HANDLE_OPTIONS_V1.Ptr, Options, BindingMarshal, Binding, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcBindingCreateA", RPC_BINDING_HANDLE_TEMPLATE_V1_A.Ptr, Template, SecurityMarshal, Security, OptionsMarshal, Options, BindingMarshal, Binding, RPC_STATUS)
     return result
 }
 
@@ -6722,9 +6786,11 @@ export RpcBindingCreateA(Template, Security, Options, Binding) {
  * @since windows6.0.6000
  */
 export RpcBindingCreateW(Template, Security, Options, Binding) {
-    BindingMarshal := Binding is VarRef ? "ptr*" : "ptr"
+    SecurityMarshal := Security == 0 ? IntPtr : RPC_BINDING_HANDLE_SECURITY_V1_W.Ptr
+    OptionsMarshal := Options == 0 ? IntPtr : RPC_BINDING_HANDLE_OPTIONS_V1.Ptr
+    BindingMarshal := Binding is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("RPCRT4.dll\RpcBindingCreateW", RPC_BINDING_HANDLE_TEMPLATE_V1_W.Ptr, Template, RPC_BINDING_HANDLE_SECURITY_V1_W.Ptr, Security, RPC_BINDING_HANDLE_OPTIONS_V1.Ptr, Options, BindingMarshal, Binding, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcBindingCreateW", RPC_BINDING_HANDLE_TEMPLATE_V1_W.Ptr, Template, SecurityMarshal, Security, OptionsMarshal, Options, BindingMarshal, Binding, RPC_STATUS)
     return result
 }
 
@@ -6750,7 +6816,7 @@ export RpcBindingCreateW(Template, Security, Options, Binding) {
  * @since windows6.0.6000
  */
 export RpcServerInqBindingHandle(Binding) {
-    BindingMarshal := Binding is VarRef ? "ptr*" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcServerInqBindingHandle", BindingMarshal, Binding, RPC_STATUS)
     return result
@@ -6852,19 +6918,20 @@ export RpcServerInqBindingHandle(Binding) {
  * @since windows5.0
  */
 export RpcImpersonateClient(BindingHandle) {
-    BindingHandleMarshal := BindingHandle is VarRef ? "ptr" : "ptr"
+    BindingHandleMarshal := BindingHandle is VarRef ? "ptr" : IntPtr
+    BindingHandleMarshal := BindingHandle == 0 ? IntPtr : "ptr"
 
     result := DllCall("RPCRT4.dll\RpcImpersonateClient", BindingHandleMarshal, BindingHandle, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} BindingHandle 
  * @returns {RPC_STATUS} 
  */
 export RpcImpersonateClient2(BindingHandle) {
-    BindingHandleMarshal := BindingHandle is VarRef ? "ptr" : "ptr"
+    BindingHandleMarshal := BindingHandle is VarRef ? "ptr" : IntPtr
+    BindingHandleMarshal := BindingHandle == 0 ? IntPtr : "ptr"
 
     result := DllCall("RPCRT4.dll\RpcImpersonateClient2", BindingHandleMarshal, BindingHandle, RPC_STATUS)
     return result
@@ -6951,7 +7018,8 @@ export RpcImpersonateClient2(BindingHandle) {
  * @since windows5.0
  */
 export RpcRevertToSelfEx(BindingHandle) {
-    BindingHandleMarshal := BindingHandle is VarRef ? "ptr" : "ptr"
+    BindingHandleMarshal := BindingHandle is VarRef ? "ptr" : IntPtr
+    BindingHandleMarshal := BindingHandle == 0 ? IntPtr : "ptr"
 
     result := DllCall("RPCRT4.dll\RpcRevertToSelfEx", BindingHandleMarshal, BindingHandle, RPC_STATUS)
     return result
@@ -7045,7 +7113,8 @@ export RpcRevertToSelf() {
  * @since windows10.0.10240
  */
 export RpcImpersonateClientContainer(BindingHandle) {
-    BindingHandleMarshal := BindingHandle is VarRef ? "ptr" : "ptr"
+    BindingHandleMarshal := BindingHandle is VarRef ? "ptr" : IntPtr
+    BindingHandleMarshal := BindingHandle == 0 ? IntPtr : "ptr"
 
     result := DllCall("RPCRT4.dll\RpcImpersonateClientContainer", BindingHandleMarshal, BindingHandle, RPC_STATUS)
     return result
@@ -7165,12 +7234,17 @@ export RpcRevertContainerImpersonation() {
  * @since windows5.0
  */
 export RpcBindingInqAuthClientA(ClientBinding, Privs, ServerPrincName, AuthnLevel, AuthnSvc, AuthzSvc) {
-    ClientBindingMarshal := ClientBinding is VarRef ? "ptr" : "ptr"
-    PrivsMarshal := Privs is VarRef ? "ptr*" : "ptr"
-    ServerPrincNameMarshal := ServerPrincName is VarRef ? "ptr*" : "ptr"
-    AuthnLevelMarshal := AuthnLevel is VarRef ? "uint*" : "ptr"
-    AuthnSvcMarshal := AuthnSvc is VarRef ? "uint*" : "ptr"
-    AuthzSvcMarshal := AuthzSvc is VarRef ? "uint*" : "ptr"
+    ClientBindingMarshal := ClientBinding is VarRef ? "ptr" : IntPtr
+    ClientBindingMarshal := ClientBinding == 0 ? IntPtr : "ptr"
+    PrivsMarshal := Privs is VarRef ? "ptr*" : IntPtr
+    ServerPrincNameMarshal := ServerPrincName is VarRef ? "ptr*" : IntPtr
+    ServerPrincNameMarshal := ServerPrincName == 0 ? IntPtr : PSTR.Ptr
+    AuthnLevelMarshal := AuthnLevel is VarRef ? "uint*" : IntPtr
+    AuthnLevelMarshal := AuthnLevel == 0 ? IntPtr : "uint*"
+    AuthnSvcMarshal := AuthnSvc is VarRef ? "uint*" : IntPtr
+    AuthnSvcMarshal := AuthnSvc == 0 ? IntPtr : "uint*"
+    AuthzSvcMarshal := AuthzSvc is VarRef ? "uint*" : IntPtr
+    AuthzSvcMarshal := AuthzSvc == 0 ? IntPtr : "uint*"
 
     result := DllCall("RPCRT4.dll\RpcBindingInqAuthClientA", ClientBindingMarshal, ClientBinding, PrivsMarshal, Privs, ServerPrincNameMarshal, ServerPrincName, AuthnLevelMarshal, AuthnLevel, AuthnSvcMarshal, AuthnSvc, AuthzSvcMarshal, AuthzSvc, RPC_STATUS)
     return result
@@ -7279,12 +7353,17 @@ export RpcBindingInqAuthClientA(ClientBinding, Privs, ServerPrincName, AuthnLeve
  * @since windows5.0
  */
 export RpcBindingInqAuthClientW(ClientBinding, Privs, ServerPrincName, AuthnLevel, AuthnSvc, AuthzSvc) {
-    ClientBindingMarshal := ClientBinding is VarRef ? "ptr" : "ptr"
-    PrivsMarshal := Privs is VarRef ? "ptr*" : "ptr"
-    ServerPrincNameMarshal := ServerPrincName is VarRef ? "ptr*" : "ptr"
-    AuthnLevelMarshal := AuthnLevel is VarRef ? "uint*" : "ptr"
-    AuthnSvcMarshal := AuthnSvc is VarRef ? "uint*" : "ptr"
-    AuthzSvcMarshal := AuthzSvc is VarRef ? "uint*" : "ptr"
+    ClientBindingMarshal := ClientBinding is VarRef ? "ptr" : IntPtr
+    ClientBindingMarshal := ClientBinding == 0 ? IntPtr : "ptr"
+    PrivsMarshal := Privs is VarRef ? "ptr*" : IntPtr
+    ServerPrincNameMarshal := ServerPrincName is VarRef ? "ptr*" : IntPtr
+    ServerPrincNameMarshal := ServerPrincName == 0 ? IntPtr : PWSTR.Ptr
+    AuthnLevelMarshal := AuthnLevel is VarRef ? "uint*" : IntPtr
+    AuthnLevelMarshal := AuthnLevel == 0 ? IntPtr : "uint*"
+    AuthnSvcMarshal := AuthnSvc is VarRef ? "uint*" : IntPtr
+    AuthnSvcMarshal := AuthnSvc == 0 ? IntPtr : "uint*"
+    AuthzSvcMarshal := AuthzSvc is VarRef ? "uint*" : IntPtr
+    AuthzSvcMarshal := AuthzSvc == 0 ? IntPtr : "uint*"
 
     result := DllCall("RPCRT4.dll\RpcBindingInqAuthClientW", ClientBindingMarshal, ClientBinding, PrivsMarshal, Privs, ServerPrincNameMarshal, ServerPrincName, AuthnLevelMarshal, AuthnLevel, AuthnSvcMarshal, AuthnSvc, AuthzSvcMarshal, AuthzSvc, RPC_STATUS)
     return result
@@ -7417,12 +7496,17 @@ export RpcBindingInqAuthClientW(ClientBinding, Privs, ServerPrincName, AuthnLeve
  * @since windows5.0
  */
 export RpcBindingInqAuthClientExA(ClientBinding, Privs, ServerPrincName, AuthnLevel, AuthnSvc, AuthzSvc, Flags) {
-    ClientBindingMarshal := ClientBinding is VarRef ? "ptr" : "ptr"
-    PrivsMarshal := Privs is VarRef ? "ptr*" : "ptr"
-    ServerPrincNameMarshal := ServerPrincName is VarRef ? "ptr*" : "ptr"
-    AuthnLevelMarshal := AuthnLevel is VarRef ? "uint*" : "ptr"
-    AuthnSvcMarshal := AuthnSvc is VarRef ? "uint*" : "ptr"
-    AuthzSvcMarshal := AuthzSvc is VarRef ? "uint*" : "ptr"
+    ClientBindingMarshal := ClientBinding is VarRef ? "ptr" : IntPtr
+    ClientBindingMarshal := ClientBinding == 0 ? IntPtr : "ptr"
+    PrivsMarshal := Privs is VarRef ? "ptr*" : IntPtr
+    ServerPrincNameMarshal := ServerPrincName is VarRef ? "ptr*" : IntPtr
+    ServerPrincNameMarshal := ServerPrincName == 0 ? IntPtr : PSTR.Ptr
+    AuthnLevelMarshal := AuthnLevel is VarRef ? "uint*" : IntPtr
+    AuthnLevelMarshal := AuthnLevel == 0 ? IntPtr : "uint*"
+    AuthnSvcMarshal := AuthnSvc is VarRef ? "uint*" : IntPtr
+    AuthnSvcMarshal := AuthnSvc == 0 ? IntPtr : "uint*"
+    AuthzSvcMarshal := AuthzSvc is VarRef ? "uint*" : IntPtr
+    AuthzSvcMarshal := AuthzSvc == 0 ? IntPtr : "uint*"
 
     result := DllCall("RPCRT4.dll\RpcBindingInqAuthClientExA", ClientBindingMarshal, ClientBinding, PrivsMarshal, Privs, ServerPrincNameMarshal, ServerPrincName, AuthnLevelMarshal, AuthnLevel, AuthnSvcMarshal, AuthnSvc, AuthzSvcMarshal, AuthzSvc, UInt32, Flags, RPC_STATUS)
     return result
@@ -7555,12 +7639,17 @@ export RpcBindingInqAuthClientExA(ClientBinding, Privs, ServerPrincName, AuthnLe
  * @since windows5.0
  */
 export RpcBindingInqAuthClientExW(ClientBinding, Privs, ServerPrincName, AuthnLevel, AuthnSvc, AuthzSvc, Flags) {
-    ClientBindingMarshal := ClientBinding is VarRef ? "ptr" : "ptr"
-    PrivsMarshal := Privs is VarRef ? "ptr*" : "ptr"
-    ServerPrincNameMarshal := ServerPrincName is VarRef ? "ptr*" : "ptr"
-    AuthnLevelMarshal := AuthnLevel is VarRef ? "uint*" : "ptr"
-    AuthnSvcMarshal := AuthnSvc is VarRef ? "uint*" : "ptr"
-    AuthzSvcMarshal := AuthzSvc is VarRef ? "uint*" : "ptr"
+    ClientBindingMarshal := ClientBinding is VarRef ? "ptr" : IntPtr
+    ClientBindingMarshal := ClientBinding == 0 ? IntPtr : "ptr"
+    PrivsMarshal := Privs is VarRef ? "ptr*" : IntPtr
+    ServerPrincNameMarshal := ServerPrincName is VarRef ? "ptr*" : IntPtr
+    ServerPrincNameMarshal := ServerPrincName == 0 ? IntPtr : PWSTR.Ptr
+    AuthnLevelMarshal := AuthnLevel is VarRef ? "uint*" : IntPtr
+    AuthnLevelMarshal := AuthnLevel == 0 ? IntPtr : "uint*"
+    AuthnSvcMarshal := AuthnSvc is VarRef ? "uint*" : IntPtr
+    AuthnSvcMarshal := AuthnSvc == 0 ? IntPtr : "uint*"
+    AuthzSvcMarshal := AuthzSvc is VarRef ? "uint*" : IntPtr
+    AuthzSvcMarshal := AuthzSvc == 0 ? IntPtr : "uint*"
 
     result := DllCall("RPCRT4.dll\RpcBindingInqAuthClientExW", ClientBindingMarshal, ClientBinding, PrivsMarshal, Privs, ServerPrincNameMarshal, ServerPrincName, AuthnLevelMarshal, AuthnLevel, AuthnSvcMarshal, AuthnSvc, AuthzSvcMarshal, AuthzSvc, UInt32, Flags, RPC_STATUS)
     return result
@@ -7669,12 +7758,17 @@ export RpcBindingInqAuthClientExW(ClientBinding, Privs, ServerPrincName, AuthnLe
  * @since windows5.0
  */
 export RpcBindingInqAuthInfoA(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    ServerPrincNameMarshal := ServerPrincName is VarRef ? "ptr*" : "ptr"
-    AuthnLevelMarshal := AuthnLevel is VarRef ? "uint*" : "ptr"
-    AuthnSvcMarshal := AuthnSvc is VarRef ? "uint*" : "ptr"
-    AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr*" : "ptr"
-    AuthzSvcMarshal := AuthzSvc is VarRef ? "uint*" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    ServerPrincNameMarshal := ServerPrincName is VarRef ? "ptr*" : IntPtr
+    ServerPrincNameMarshal := ServerPrincName == 0 ? IntPtr : PSTR.Ptr
+    AuthnLevelMarshal := AuthnLevel is VarRef ? "uint*" : IntPtr
+    AuthnLevelMarshal := AuthnLevel == 0 ? IntPtr : "uint*"
+    AuthnSvcMarshal := AuthnSvc is VarRef ? "uint*" : IntPtr
+    AuthnSvcMarshal := AuthnSvc == 0 ? IntPtr : "uint*"
+    AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr*" : IntPtr
+    AuthIdentityMarshal := AuthIdentity == 0 ? IntPtr : "ptr*"
+    AuthzSvcMarshal := AuthzSvc is VarRef ? "uint*" : IntPtr
+    AuthzSvcMarshal := AuthzSvc == 0 ? IntPtr : "uint*"
 
     result := DllCall("RPCRT4.dll\RpcBindingInqAuthInfoA", BindingMarshal, Binding, ServerPrincNameMarshal, ServerPrincName, AuthnLevelMarshal, AuthnLevel, AuthnSvcMarshal, AuthnSvc, AuthIdentityMarshal, AuthIdentity, AuthzSvcMarshal, AuthzSvc, RPC_STATUS)
     return result
@@ -7783,12 +7877,17 @@ export RpcBindingInqAuthInfoA(Binding, ServerPrincName, AuthnLevel, AuthnSvc, Au
  * @since windows5.0
  */
 export RpcBindingInqAuthInfoW(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    ServerPrincNameMarshal := ServerPrincName is VarRef ? "ptr*" : "ptr"
-    AuthnLevelMarshal := AuthnLevel is VarRef ? "uint*" : "ptr"
-    AuthnSvcMarshal := AuthnSvc is VarRef ? "uint*" : "ptr"
-    AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr*" : "ptr"
-    AuthzSvcMarshal := AuthzSvc is VarRef ? "uint*" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    ServerPrincNameMarshal := ServerPrincName is VarRef ? "ptr*" : IntPtr
+    ServerPrincNameMarshal := ServerPrincName == 0 ? IntPtr : PWSTR.Ptr
+    AuthnLevelMarshal := AuthnLevel is VarRef ? "uint*" : IntPtr
+    AuthnLevelMarshal := AuthnLevel == 0 ? IntPtr : "uint*"
+    AuthnSvcMarshal := AuthnSvc is VarRef ? "uint*" : IntPtr
+    AuthnSvcMarshal := AuthnSvc == 0 ? IntPtr : "uint*"
+    AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr*" : IntPtr
+    AuthIdentityMarshal := AuthIdentity == 0 ? IntPtr : "ptr*"
+    AuthzSvcMarshal := AuthzSvc is VarRef ? "uint*" : IntPtr
+    AuthzSvcMarshal := AuthzSvc == 0 ? IntPtr : "uint*"
 
     result := DllCall("RPCRT4.dll\RpcBindingInqAuthInfoW", BindingMarshal, Binding, ServerPrincNameMarshal, ServerPrincName, AuthnLevelMarshal, AuthnLevel, AuthnSvcMarshal, AuthnSvc, AuthIdentityMarshal, AuthIdentity, AuthzSvcMarshal, AuthzSvc, RPC_STATUS)
     return result
@@ -7916,10 +8015,12 @@ export RpcBindingInqAuthInfoW(Binding, ServerPrincName, AuthnLevel, AuthnSvc, Au
 export RpcBindingSetAuthInfoA(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc) {
     ServerPrincName := ServerPrincName is String ? StrPtr(ServerPrincName) : ServerPrincName
 
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    ServerPrincNameMarshal := ServerPrincName == 0 ? IntPtr : PSTR
+    AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : IntPtr
+    AuthIdentityMarshal := AuthIdentity == 0 ? IntPtr : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcBindingSetAuthInfoA", BindingMarshal, Binding, "ptr", ServerPrincName, UInt32, AuthnLevel, UInt32, AuthnSvc, AuthIdentityMarshal, AuthIdentity, UInt32, AuthzSvc, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcBindingSetAuthInfoA", BindingMarshal, Binding, ServerPrincNameMarshal, ServerPrincName, UInt32, AuthnLevel, UInt32, AuthnSvc, AuthIdentityMarshal, AuthIdentity, UInt32, AuthzSvc, RPC_STATUS)
     return result
 }
 
@@ -8036,10 +8137,13 @@ export RpcBindingSetAuthInfoA(Binding, ServerPrincName, AuthnLevel, AuthnSvc, Au
 export RpcBindingSetAuthInfoExA(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc, SecurityQos) {
     ServerPrincName := ServerPrincName is String ? StrPtr(ServerPrincName) : ServerPrincName
 
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    ServerPrincNameMarshal := ServerPrincName == 0 ? IntPtr : PSTR
+    AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : IntPtr
+    AuthIdentityMarshal := AuthIdentity == 0 ? IntPtr : "ptr"
+    SecurityQosMarshal := SecurityQos == 0 ? IntPtr : RPC_SECURITY_QOS.Ptr
 
-    result := DllCall("RPCRT4.dll\RpcBindingSetAuthInfoExA", BindingMarshal, Binding, "ptr", ServerPrincName, UInt32, AuthnLevel, UInt32, AuthnSvc, AuthIdentityMarshal, AuthIdentity, UInt32, AuthzSvc, RPC_SECURITY_QOS.Ptr, SecurityQos, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcBindingSetAuthInfoExA", BindingMarshal, Binding, ServerPrincNameMarshal, ServerPrincName, UInt32, AuthnLevel, UInt32, AuthnSvc, AuthIdentityMarshal, AuthIdentity, UInt32, AuthzSvc, SecurityQosMarshal, SecurityQos, RPC_STATUS)
     return result
 }
 
@@ -8162,10 +8266,12 @@ export RpcBindingSetAuthInfoExA(Binding, ServerPrincName, AuthnLevel, AuthnSvc, 
 export RpcBindingSetAuthInfoW(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc) {
     ServerPrincName := ServerPrincName is String ? StrPtr(ServerPrincName) : ServerPrincName
 
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    ServerPrincNameMarshal := ServerPrincName == 0 ? IntPtr : PWSTR
+    AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : IntPtr
+    AuthIdentityMarshal := AuthIdentity == 0 ? IntPtr : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcBindingSetAuthInfoW", BindingMarshal, Binding, "ptr", ServerPrincName, UInt32, AuthnLevel, UInt32, AuthnSvc, AuthIdentityMarshal, AuthIdentity, UInt32, AuthzSvc, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcBindingSetAuthInfoW", BindingMarshal, Binding, ServerPrincNameMarshal, ServerPrincName, UInt32, AuthnLevel, UInt32, AuthnSvc, AuthIdentityMarshal, AuthIdentity, UInt32, AuthzSvc, RPC_STATUS)
     return result
 }
 
@@ -8290,10 +8396,13 @@ export RpcBindingSetAuthInfoW(Binding, ServerPrincName, AuthnLevel, AuthnSvc, Au
 export RpcBindingSetAuthInfoExW(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc, SecurityQOS) {
     ServerPrincName := ServerPrincName is String ? StrPtr(ServerPrincName) : ServerPrincName
 
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    ServerPrincNameMarshal := ServerPrincName == 0 ? IntPtr : PWSTR
+    AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : IntPtr
+    AuthIdentityMarshal := AuthIdentity == 0 ? IntPtr : "ptr"
+    SecurityQOSMarshal := SecurityQOS == 0 ? IntPtr : RPC_SECURITY_QOS.Ptr
 
-    result := DllCall("RPCRT4.dll\RpcBindingSetAuthInfoExW", BindingMarshal, Binding, "ptr", ServerPrincName, UInt32, AuthnLevel, UInt32, AuthnSvc, AuthIdentityMarshal, AuthIdentity, UInt32, AuthzSvc, RPC_SECURITY_QOS.Ptr, SecurityQOS, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcBindingSetAuthInfoExW", BindingMarshal, Binding, ServerPrincNameMarshal, ServerPrincName, UInt32, AuthnLevel, UInt32, AuthnSvc, AuthIdentityMarshal, AuthIdentity, UInt32, AuthzSvc, SecurityQOSMarshal, SecurityQOS, RPC_STATUS)
     return result
 }
 
@@ -8400,14 +8509,20 @@ export RpcBindingSetAuthInfoExW(Binding, ServerPrincName, AuthnLevel, AuthnSvc, 
  * @since windows5.0
  */
 export RpcBindingInqAuthInfoExA(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc, RpcQosVersion, SecurityQOS) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    ServerPrincNameMarshal := ServerPrincName is VarRef ? "ptr*" : "ptr"
-    AuthnLevelMarshal := AuthnLevel is VarRef ? "uint*" : "ptr"
-    AuthnSvcMarshal := AuthnSvc is VarRef ? "uint*" : "ptr"
-    AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr*" : "ptr"
-    AuthzSvcMarshal := AuthzSvc is VarRef ? "uint*" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    ServerPrincNameMarshal := ServerPrincName is VarRef ? "ptr*" : IntPtr
+    ServerPrincNameMarshal := ServerPrincName == 0 ? IntPtr : PSTR.Ptr
+    AuthnLevelMarshal := AuthnLevel is VarRef ? "uint*" : IntPtr
+    AuthnLevelMarshal := AuthnLevel == 0 ? IntPtr : "uint*"
+    AuthnSvcMarshal := AuthnSvc is VarRef ? "uint*" : IntPtr
+    AuthnSvcMarshal := AuthnSvc == 0 ? IntPtr : "uint*"
+    AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr*" : IntPtr
+    AuthIdentityMarshal := AuthIdentity == 0 ? IntPtr : "ptr*"
+    AuthzSvcMarshal := AuthzSvc is VarRef ? "uint*" : IntPtr
+    AuthzSvcMarshal := AuthzSvc == 0 ? IntPtr : "uint*"
+    SecurityQOSMarshal := SecurityQOS == 0 ? IntPtr : RPC_SECURITY_QOS.Ptr
 
-    result := DllCall("RPCRT4.dll\RpcBindingInqAuthInfoExA", BindingMarshal, Binding, ServerPrincNameMarshal, ServerPrincName, AuthnLevelMarshal, AuthnLevel, AuthnSvcMarshal, AuthnSvc, AuthIdentityMarshal, AuthIdentity, AuthzSvcMarshal, AuthzSvc, UInt32, RpcQosVersion, RPC_SECURITY_QOS.Ptr, SecurityQOS, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcBindingInqAuthInfoExA", BindingMarshal, Binding, ServerPrincNameMarshal, ServerPrincName, AuthnLevelMarshal, AuthnLevel, AuthnSvcMarshal, AuthnSvc, AuthIdentityMarshal, AuthIdentity, AuthzSvcMarshal, AuthzSvc, UInt32, RpcQosVersion, SecurityQOSMarshal, SecurityQOS, RPC_STATUS)
     return result
 }
 
@@ -8514,14 +8629,20 @@ export RpcBindingInqAuthInfoExA(Binding, ServerPrincName, AuthnLevel, AuthnSvc, 
  * @since windows5.0
  */
 export RpcBindingInqAuthInfoExW(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc, RpcQosVersion, SecurityQOS) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    ServerPrincNameMarshal := ServerPrincName is VarRef ? "ptr*" : "ptr"
-    AuthnLevelMarshal := AuthnLevel is VarRef ? "uint*" : "ptr"
-    AuthnSvcMarshal := AuthnSvc is VarRef ? "uint*" : "ptr"
-    AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr*" : "ptr"
-    AuthzSvcMarshal := AuthzSvc is VarRef ? "uint*" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    ServerPrincNameMarshal := ServerPrincName is VarRef ? "ptr*" : IntPtr
+    ServerPrincNameMarshal := ServerPrincName == 0 ? IntPtr : PWSTR.Ptr
+    AuthnLevelMarshal := AuthnLevel is VarRef ? "uint*" : IntPtr
+    AuthnLevelMarshal := AuthnLevel == 0 ? IntPtr : "uint*"
+    AuthnSvcMarshal := AuthnSvc is VarRef ? "uint*" : IntPtr
+    AuthnSvcMarshal := AuthnSvc == 0 ? IntPtr : "uint*"
+    AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr*" : IntPtr
+    AuthIdentityMarshal := AuthIdentity == 0 ? IntPtr : "ptr*"
+    AuthzSvcMarshal := AuthzSvc is VarRef ? "uint*" : IntPtr
+    AuthzSvcMarshal := AuthzSvc == 0 ? IntPtr : "uint*"
+    SecurityQOSMarshal := SecurityQOS == 0 ? IntPtr : RPC_SECURITY_QOS.Ptr
 
-    result := DllCall("RPCRT4.dll\RpcBindingInqAuthInfoExW", BindingMarshal, Binding, ServerPrincNameMarshal, ServerPrincName, AuthnLevelMarshal, AuthnLevel, AuthnSvcMarshal, AuthnSvc, AuthIdentityMarshal, AuthIdentity, AuthzSvcMarshal, AuthzSvc, UInt32, RpcQosVersion, RPC_SECURITY_QOS.Ptr, SecurityQOS, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcBindingInqAuthInfoExW", BindingMarshal, Binding, ServerPrincNameMarshal, ServerPrincName, AuthnLevelMarshal, AuthnLevel, AuthnSvcMarshal, AuthnSvc, AuthIdentityMarshal, AuthIdentity, AuthzSvcMarshal, AuthzSvc, UInt32, RpcQosVersion, SecurityQOSMarshal, SecurityQOS, RPC_STATUS)
     return result
 }
 
@@ -8538,7 +8659,7 @@ export RpcBindingInqAuthInfoExW(Binding, ServerPrincName, AuthnLevel, AuthnSvc, 
  * @since windows5.0
  */
 export RpcServerCompleteSecurityCallback(BindingHandle, _Status) {
-    BindingHandleMarshal := BindingHandle is VarRef ? "ptr" : "ptr"
+    BindingHandleMarshal := BindingHandle is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcServerCompleteSecurityCallback", BindingHandleMarshal, BindingHandle, RPC_STATUS, _Status, RPC_STATUS)
     return result
@@ -8700,9 +8821,12 @@ export RpcServerCompleteSecurityCallback(BindingHandle, _Status) {
 export RpcServerRegisterAuthInfoA(ServerPrincName, AuthnSvc, GetKeyFn, Arg) {
     ServerPrincName := ServerPrincName is String ? StrPtr(ServerPrincName) : ServerPrincName
 
-    ArgMarshal := Arg is VarRef ? "ptr" : "ptr"
+    ServerPrincNameMarshal := ServerPrincName == 0 ? IntPtr : PSTR
+    GetKeyFnMarshal := GetKeyFn == 0 ? IntPtr : RPC_AUTH_KEY_RETRIEVAL_FN
+    ArgMarshal := Arg is VarRef ? "ptr" : IntPtr
+    ArgMarshal := Arg == 0 ? IntPtr : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcServerRegisterAuthInfoA", "ptr", ServerPrincName, UInt32, AuthnSvc, RPC_AUTH_KEY_RETRIEVAL_FN, GetKeyFn, ArgMarshal, Arg, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerRegisterAuthInfoA", ServerPrincNameMarshal, ServerPrincName, UInt32, AuthnSvc, GetKeyFnMarshal, GetKeyFn, ArgMarshal, Arg, RPC_STATUS)
     return result
 }
 
@@ -8862,9 +8986,12 @@ export RpcServerRegisterAuthInfoA(ServerPrincName, AuthnSvc, GetKeyFn, Arg) {
 export RpcServerRegisterAuthInfoW(ServerPrincName, AuthnSvc, GetKeyFn, Arg) {
     ServerPrincName := ServerPrincName is String ? StrPtr(ServerPrincName) : ServerPrincName
 
-    ArgMarshal := Arg is VarRef ? "ptr" : "ptr"
+    ServerPrincNameMarshal := ServerPrincName == 0 ? IntPtr : PWSTR
+    GetKeyFnMarshal := GetKeyFn == 0 ? IntPtr : RPC_AUTH_KEY_RETRIEVAL_FN
+    ArgMarshal := Arg is VarRef ? "ptr" : IntPtr
+    ArgMarshal := Arg == 0 ? IntPtr : "ptr"
 
-    result := DllCall("RPCRT4.dll\RpcServerRegisterAuthInfoW", "ptr", ServerPrincName, UInt32, AuthnSvc, RPC_AUTH_KEY_RETRIEVAL_FN, GetKeyFn, ArgMarshal, Arg, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcServerRegisterAuthInfoW", ServerPrincNameMarshal, ServerPrincName, UInt32, AuthnSvc, GetKeyFnMarshal, GetKeyFn, ArgMarshal, Arg, RPC_STATUS)
     return result
 }
 
@@ -8977,8 +9104,9 @@ export RpcServerRegisterAuthInfoW(ServerPrincName, AuthnSvc, GetKeyFn, Arg) {
  * @since windows5.0
  */
 export RpcBindingServerFromClient(ClientBinding, ServerBinding) {
-    ClientBindingMarshal := ClientBinding is VarRef ? "ptr" : "ptr"
-    ServerBindingMarshal := ServerBinding is VarRef ? "ptr*" : "ptr"
+    ClientBindingMarshal := ClientBinding is VarRef ? "ptr" : IntPtr
+    ClientBindingMarshal := ClientBinding == 0 ? IntPtr : "ptr"
+    ServerBindingMarshal := ServerBinding is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcBindingServerFromClient", ClientBindingMarshal, ClientBinding, ServerBindingMarshal, ServerBinding, RPC_STATUS)
     return result
@@ -9119,7 +9247,8 @@ export RpcTestCancel() {
  * @since windows5.0
  */
 export RpcServerTestCancel(BindingHandle) {
-    BindingHandleMarshal := BindingHandle is VarRef ? "ptr" : "ptr"
+    BindingHandleMarshal := BindingHandle is VarRef ? "ptr" : IntPtr
+    BindingHandleMarshal := BindingHandle == 0 ? IntPtr : "ptr"
 
     result := DllCall("RPCRT4.dll\RpcServerTestCancel", BindingHandleMarshal, BindingHandle, RPC_STATUS)
     return result
@@ -9192,7 +9321,7 @@ export RpcServerTestCancel(BindingHandle) {
  * @since windows5.0
  */
 export RpcCancelThread(Thread) {
-    ThreadMarshal := Thread is VarRef ? "ptr" : "ptr"
+    ThreadMarshal := Thread is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcCancelThread", ThreadMarshal, Thread, RPC_STATUS)
     return result
@@ -9263,7 +9392,7 @@ export RpcCancelThread(Thread) {
  * @since windows5.0
  */
 export RpcCancelThreadEx(Thread, Timeout) {
-    ThreadMarshal := Thread is VarRef ? "ptr" : "ptr"
+    ThreadMarshal := Thread is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcCancelThreadEx", ThreadMarshal, Thread, Int32, Timeout, RPC_STATUS)
     return result
@@ -9449,7 +9578,7 @@ export UuidCreateSequential(Uuid) {
  * @since windows5.0
  */
 export UuidToStringA(Uuid, StringUuid) {
-    StringUuidMarshal := StringUuid is VarRef ? "ptr*" : "ptr"
+    StringUuidMarshal := StringUuid is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\UuidToStringA", Guid.Ptr, Uuid, StringUuidMarshal, StringUuid, RPC_STATUS)
     return result
@@ -9509,7 +9638,9 @@ export UuidToStringA(Uuid, StringUuid) {
 export UuidFromStringA(StringUuid, Uuid) {
     StringUuid := StringUuid is String ? StrPtr(StringUuid) : StringUuid
 
-    result := DllCall("RPCRT4.dll\UuidFromStringA", "ptr", StringUuid, Guid.Ptr, Uuid, RPC_STATUS)
+    StringUuidMarshal := StringUuid == 0 ? IntPtr : PSTR
+
+    result := DllCall("RPCRT4.dll\UuidFromStringA", StringUuidMarshal, StringUuid, Guid.Ptr, Uuid, RPC_STATUS)
     return result
 }
 
@@ -9566,7 +9697,7 @@ export UuidFromStringA(StringUuid, Uuid) {
  * @since windows5.0
  */
 export UuidToStringW(Uuid, StringUuid) {
-    StringUuidMarshal := StringUuid is VarRef ? "ptr*" : "ptr"
+    StringUuidMarshal := StringUuid is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\UuidToStringW", Guid.Ptr, Uuid, StringUuidMarshal, StringUuid, RPC_STATUS)
     return result
@@ -9626,7 +9757,9 @@ export UuidToStringW(Uuid, StringUuid) {
 export UuidFromStringW(StringUuid, Uuid) {
     StringUuid := StringUuid is String ? StrPtr(StringUuid) : StringUuid
 
-    result := DllCall("RPCRT4.dll\UuidFromStringW", "ptr", StringUuid, Guid.Ptr, Uuid, RPC_STATUS)
+    StringUuidMarshal := StringUuid == 0 ? IntPtr : PWSTR
+
+    result := DllCall("RPCRT4.dll\UuidFromStringW", StringUuidMarshal, StringUuid, Guid.Ptr, Uuid, RPC_STATUS)
     return result
 }
 
@@ -9684,7 +9817,7 @@ export UuidFromStringW(StringUuid, Uuid) {
  * @since windows5.0
  */
 export UuidCompare(Uuid1, Uuid2, _Status) {
-    _StatusMarshal := _Status is VarRef ? "int*" : "ptr"
+    _StatusMarshal := _Status is VarRef ? "int*" : IntPtr
 
     result := DllCall("RPCRT4.dll\UuidCompare", Guid.Ptr, Uuid1, Guid.Ptr, Uuid2, _StatusMarshal, _Status, Int32)
     return result
@@ -9750,7 +9883,7 @@ export UuidCreateNil(NilUuid) {
  * @since windows5.0
  */
 export UuidEqual(Uuid1, Uuid2, _Status) {
-    _StatusMarshal := _Status is VarRef ? "int*" : "ptr"
+    _StatusMarshal := _Status is VarRef ? "int*" : IntPtr
 
     result := DllCall("RPCRT4.dll\UuidEqual", Guid.Ptr, Uuid1, Guid.Ptr, Uuid2, _StatusMarshal, _Status, Int32)
     return result
@@ -9770,7 +9903,7 @@ export UuidEqual(Uuid1, Uuid2, _Status) {
  * @since windows5.0
  */
 export UuidHash(Uuid, _Status) {
-    _StatusMarshal := _Status is VarRef ? "int*" : "ptr"
+    _StatusMarshal := _Status is VarRef ? "int*" : IntPtr
 
     result := DllCall("RPCRT4.dll\UuidHash", Guid.Ptr, Uuid, _StatusMarshal, _Status, UInt16)
     return result
@@ -9812,7 +9945,7 @@ export UuidHash(Uuid, _Status) {
  * @since windows5.0
  */
 export UuidIsNil(Uuid, _Status) {
-    _StatusMarshal := _Status is VarRef ? "int*" : "ptr"
+    _StatusMarshal := _Status is VarRef ? "int*" : IntPtr
 
     result := DllCall("RPCRT4.dll\UuidIsNil", Guid.Ptr, Uuid, _StatusMarshal, _Status, Int32)
     return result
@@ -9957,9 +10090,11 @@ export UuidIsNil(Uuid, _Status) {
 export RpcEpRegisterNoReplaceA(IfSpec, BindingVector, UuidVector, Annotation) {
     Annotation := Annotation is String ? StrPtr(Annotation) : Annotation
 
-    IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+    IfSpecMarshal := IfSpec is VarRef ? "ptr" : IntPtr
+    UuidVectorMarshal := UuidVector == 0 ? IntPtr : UUID_VECTOR.Ptr
+    AnnotationMarshal := Annotation == 0 ? IntPtr : PSTR
 
-    result := DllCall("RPCRT4.dll\RpcEpRegisterNoReplaceA", IfSpecMarshal, IfSpec, RPC_BINDING_VECTOR.Ptr, BindingVector, UUID_VECTOR.Ptr, UuidVector, "ptr", Annotation, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcEpRegisterNoReplaceA", IfSpecMarshal, IfSpec, RPC_BINDING_VECTOR.Ptr, BindingVector, UuidVectorMarshal, UuidVector, AnnotationMarshal, Annotation, RPC_STATUS)
     return result
 }
 
@@ -10102,9 +10237,11 @@ export RpcEpRegisterNoReplaceA(IfSpec, BindingVector, UuidVector, Annotation) {
 export RpcEpRegisterNoReplaceW(IfSpec, BindingVector, UuidVector, Annotation) {
     Annotation := Annotation is String ? StrPtr(Annotation) : Annotation
 
-    IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+    IfSpecMarshal := IfSpec is VarRef ? "ptr" : IntPtr
+    UuidVectorMarshal := UuidVector == 0 ? IntPtr : UUID_VECTOR.Ptr
+    AnnotationMarshal := Annotation == 0 ? IntPtr : PWSTR
 
-    result := DllCall("RPCRT4.dll\RpcEpRegisterNoReplaceW", IfSpecMarshal, IfSpec, RPC_BINDING_VECTOR.Ptr, BindingVector, UUID_VECTOR.Ptr, UuidVector, "ptr", Annotation, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcEpRegisterNoReplaceW", IfSpecMarshal, IfSpec, RPC_BINDING_VECTOR.Ptr, BindingVector, UuidVectorMarshal, UuidVector, AnnotationMarshal, Annotation, RPC_STATUS)
     return result
 }
 
@@ -10234,9 +10371,11 @@ export RpcEpRegisterNoReplaceW(IfSpec, BindingVector, UuidVector, Annotation) {
 export RpcEpRegisterA(IfSpec, BindingVector, UuidVector, Annotation) {
     Annotation := Annotation is String ? StrPtr(Annotation) : Annotation
 
-    IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+    IfSpecMarshal := IfSpec is VarRef ? "ptr" : IntPtr
+    UuidVectorMarshal := UuidVector == 0 ? IntPtr : UUID_VECTOR.Ptr
+    AnnotationMarshal := Annotation == 0 ? IntPtr : PSTR
 
-    result := DllCall("RPCRT4.dll\RpcEpRegisterA", IfSpecMarshal, IfSpec, RPC_BINDING_VECTOR.Ptr, BindingVector, UUID_VECTOR.Ptr, UuidVector, "ptr", Annotation, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcEpRegisterA", IfSpecMarshal, IfSpec, RPC_BINDING_VECTOR.Ptr, BindingVector, UuidVectorMarshal, UuidVector, AnnotationMarshal, Annotation, RPC_STATUS)
     return result
 }
 
@@ -10366,9 +10505,11 @@ export RpcEpRegisterA(IfSpec, BindingVector, UuidVector, Annotation) {
 export RpcEpRegisterW(IfSpec, BindingVector, UuidVector, Annotation) {
     Annotation := Annotation is String ? StrPtr(Annotation) : Annotation
 
-    IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+    IfSpecMarshal := IfSpec is VarRef ? "ptr" : IntPtr
+    UuidVectorMarshal := UuidVector == 0 ? IntPtr : UUID_VECTOR.Ptr
+    AnnotationMarshal := Annotation == 0 ? IntPtr : PWSTR
 
-    result := DllCall("RPCRT4.dll\RpcEpRegisterW", IfSpecMarshal, IfSpec, RPC_BINDING_VECTOR.Ptr, BindingVector, UUID_VECTOR.Ptr, UuidVector, "ptr", Annotation, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcEpRegisterW", IfSpecMarshal, IfSpec, RPC_BINDING_VECTOR.Ptr, BindingVector, UuidVectorMarshal, UuidVector, AnnotationMarshal, Annotation, RPC_STATUS)
     return result
 }
 
@@ -10453,9 +10594,10 @@ export RpcEpRegisterW(IfSpec, BindingVector, UuidVector, Annotation) {
  * @since windows5.0
  */
 export RpcEpUnregister(IfSpec, BindingVector, UuidVector) {
-    IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+    IfSpecMarshal := IfSpec is VarRef ? "ptr" : IntPtr
+    UuidVectorMarshal := UuidVector == 0 ? IntPtr : UUID_VECTOR.Ptr
 
-    result := DllCall("RPCRT4.dll\RpcEpUnregister", IfSpecMarshal, IfSpec, RPC_BINDING_VECTOR.Ptr, BindingVector, UUID_VECTOR.Ptr, UuidVector, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcEpUnregister", IfSpecMarshal, IfSpec, RPC_BINDING_VECTOR.Ptr, BindingVector, UuidVectorMarshal, UuidVector, RPC_STATUS)
     return result
 }
 
@@ -10737,10 +10879,14 @@ export DceErrorInqTextW(RpcStatus, ErrorText) {
  * @since windows5.0
  */
 export RpcMgmtEpEltInqBegin(EpBinding, InquiryType, IfId, VersOption, ObjectUuid, InquiryContext) {
-    EpBindingMarshal := EpBinding is VarRef ? "ptr" : "ptr"
-    InquiryContextMarshal := InquiryContext is VarRef ? "ptr*" : "ptr"
+    EpBindingMarshal := EpBinding is VarRef ? "ptr" : IntPtr
+    EpBindingMarshal := EpBinding == 0 ? IntPtr : "ptr"
+    IfIdMarshal := IfId == 0 ? IntPtr : RPC_IF_ID.Ptr
+    VersOptionMarshal := VersOption == 0 ? IntPtr : UInt32
+    ObjectUuidMarshal := ObjectUuid == 0 ? IntPtr : Guid.Ptr
+    InquiryContextMarshal := InquiryContext is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("RPCRT4.dll\RpcMgmtEpEltInqBegin", EpBindingMarshal, EpBinding, UInt32, InquiryType, RPC_IF_ID.Ptr, IfId, UInt32, VersOption, Guid.Ptr, ObjectUuid, InquiryContextMarshal, InquiryContext, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcMgmtEpEltInqBegin", EpBindingMarshal, EpBinding, UInt32, InquiryType, IfIdMarshal, IfId, VersOptionMarshal, VersOption, ObjectUuidMarshal, ObjectUuid, InquiryContextMarshal, InquiryContext, RPC_STATUS)
     return result
 }
 
@@ -10778,7 +10924,7 @@ export RpcMgmtEpEltInqBegin(EpBinding, InquiryType, IfId, VersOption, ObjectUuid
  * @since windows5.0
  */
 export RpcMgmtEpEltInqDone(InquiryContext) {
-    InquiryContextMarshal := InquiryContext is VarRef ? "ptr*" : "ptr"
+    InquiryContextMarshal := InquiryContext is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcMgmtEpEltInqDone", InquiryContextMarshal, InquiryContext, RPC_STATUS)
     return result
@@ -10839,11 +10985,14 @@ export RpcMgmtEpEltInqDone(InquiryContext) {
  * @since windows5.0
  */
 export RpcMgmtEpEltInqNextA(InquiryContext, IfId, Binding, ObjectUuid, Annotation) {
-    InquiryContextMarshal := InquiryContext is VarRef ? "ptr*" : "ptr"
-    BindingMarshal := Binding is VarRef ? "ptr*" : "ptr"
-    AnnotationMarshal := Annotation is VarRef ? "ptr*" : "ptr"
+    InquiryContextMarshal := InquiryContext is VarRef ? "ptr*" : IntPtr
+    BindingMarshal := Binding is VarRef ? "ptr*" : IntPtr
+    BindingMarshal := Binding == 0 ? IntPtr : "ptr*"
+    ObjectUuidMarshal := ObjectUuid == 0 ? IntPtr : Guid.Ptr
+    AnnotationMarshal := Annotation is VarRef ? "ptr*" : IntPtr
+    AnnotationMarshal := Annotation == 0 ? IntPtr : PSTR.Ptr
 
-    result := DllCall("RPCRT4.dll\RpcMgmtEpEltInqNextA", InquiryContextMarshal, InquiryContext, RPC_IF_ID.Ptr, IfId, BindingMarshal, Binding, Guid.Ptr, ObjectUuid, AnnotationMarshal, Annotation, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcMgmtEpEltInqNextA", InquiryContextMarshal, InquiryContext, RPC_IF_ID.Ptr, IfId, BindingMarshal, Binding, ObjectUuidMarshal, ObjectUuid, AnnotationMarshal, Annotation, RPC_STATUS)
     return result
 }
 
@@ -10902,11 +11051,14 @@ export RpcMgmtEpEltInqNextA(InquiryContext, IfId, Binding, ObjectUuid, Annotatio
  * @since windows5.0
  */
 export RpcMgmtEpEltInqNextW(InquiryContext, IfId, Binding, ObjectUuid, Annotation) {
-    InquiryContextMarshal := InquiryContext is VarRef ? "ptr*" : "ptr"
-    BindingMarshal := Binding is VarRef ? "ptr*" : "ptr"
-    AnnotationMarshal := Annotation is VarRef ? "ptr*" : "ptr"
+    InquiryContextMarshal := InquiryContext is VarRef ? "ptr*" : IntPtr
+    BindingMarshal := Binding is VarRef ? "ptr*" : IntPtr
+    BindingMarshal := Binding == 0 ? IntPtr : "ptr*"
+    ObjectUuidMarshal := ObjectUuid == 0 ? IntPtr : Guid.Ptr
+    AnnotationMarshal := Annotation is VarRef ? "ptr*" : IntPtr
+    AnnotationMarshal := Annotation == 0 ? IntPtr : PWSTR.Ptr
 
-    result := DllCall("RPCRT4.dll\RpcMgmtEpEltInqNextW", InquiryContextMarshal, InquiryContext, RPC_IF_ID.Ptr, IfId, BindingMarshal, Binding, Guid.Ptr, ObjectUuid, AnnotationMarshal, Annotation, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcMgmtEpEltInqNextW", InquiryContextMarshal, InquiryContext, RPC_IF_ID.Ptr, IfId, BindingMarshal, Binding, ObjectUuidMarshal, ObjectUuid, AnnotationMarshal, Annotation, RPC_STATUS)
     return result
 }
 
@@ -10964,10 +11116,12 @@ export RpcMgmtEpEltInqNextW(InquiryContext, IfId, Binding, ObjectUuid, Annotatio
  * @see https://learn.microsoft.com/windows/win32/api/rpcdce/nf-rpcdce-rpcmgmtepunregister
  */
 export RpcMgmtEpUnregister(EpBinding, IfId, Binding, ObjectUuid) {
-    EpBindingMarshal := EpBinding is VarRef ? "ptr" : "ptr"
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+    EpBindingMarshal := EpBinding is VarRef ? "ptr" : IntPtr
+    EpBindingMarshal := EpBinding == 0 ? IntPtr : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    ObjectUuidMarshal := ObjectUuid == 0 ? IntPtr : Guid.Ptr
 
-    result := DllCall("RPCRT4.dll\RpcMgmtEpUnregister", EpBindingMarshal, EpBinding, RPC_IF_ID.Ptr, IfId, BindingMarshal, Binding, Guid.Ptr, ObjectUuid, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcMgmtEpUnregister", EpBindingMarshal, EpBinding, RPC_IF_ID.Ptr, IfId, BindingMarshal, Binding, ObjectUuidMarshal, ObjectUuid, RPC_STATUS)
     return result
 }
 
@@ -11162,8 +11316,8 @@ export RpcExceptionFilter(ExceptionCode) {
  * @since windows8.0
  */
 export RpcServerInterfaceGroupCreateW(Interfaces, NumIfs, Endpoints, NumEndpoints, IdlePeriod, IdleCallbackFn, IdleCallbackContext, IfGroup) {
-    IdleCallbackContextMarshal := IdleCallbackContext is VarRef ? "ptr" : "ptr"
-    IfGroupMarshal := IfGroup is VarRef ? "ptr*" : "ptr"
+    IdleCallbackContextMarshal := IdleCallbackContext is VarRef ? "ptr" : IntPtr
+    IfGroupMarshal := IfGroup is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcServerInterfaceGroupCreateW", RPC_INTERFACE_TEMPLATEW.Ptr, Interfaces, UInt32, NumIfs, RPC_ENDPOINT_TEMPLATEW.Ptr, Endpoints, UInt32, NumEndpoints, UInt32, IdlePeriod, RPC_INTERFACE_GROUP_IDLE_CALLBACK_FN, IdleCallbackFn, IdleCallbackContextMarshal, IdleCallbackContext, IfGroupMarshal, IfGroup, RPC_STATUS)
     return result
@@ -11220,8 +11374,8 @@ export RpcServerInterfaceGroupCreateW(Interfaces, NumIfs, Endpoints, NumEndpoint
  * @since windows8.0
  */
 export RpcServerInterfaceGroupCreateA(Interfaces, NumIfs, Endpoints, NumEndpoints, IdlePeriod, IdleCallbackFn, IdleCallbackContext, IfGroup) {
-    IdleCallbackContextMarshal := IdleCallbackContext is VarRef ? "ptr" : "ptr"
-    IfGroupMarshal := IfGroup is VarRef ? "ptr*" : "ptr"
+    IdleCallbackContextMarshal := IdleCallbackContext is VarRef ? "ptr" : IntPtr
+    IfGroupMarshal := IfGroup is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcServerInterfaceGroupCreateA", RPC_INTERFACE_TEMPLATEA.Ptr, Interfaces, UInt32, NumIfs, RPC_ENDPOINT_TEMPLATEA.Ptr, Endpoints, UInt32, NumEndpoints, UInt32, IdlePeriod, RPC_INTERFACE_GROUP_IDLE_CALLBACK_FN, IdleCallbackFn, IdleCallbackContextMarshal, IdleCallbackContext, IfGroupMarshal, IfGroup, RPC_STATUS)
     return result
@@ -11271,7 +11425,7 @@ export RpcServerInterfaceGroupCreateA(Interfaces, NumIfs, Endpoints, NumEndpoint
  * @since windows8.0
  */
 export RpcServerInterfaceGroupClose(IfGroup) {
-    IfGroupMarshal := IfGroup is VarRef ? "ptr" : "ptr"
+    IfGroupMarshal := IfGroup is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcServerInterfaceGroupClose", IfGroupMarshal, IfGroup, RPC_STATUS)
     return result
@@ -11373,7 +11527,7 @@ export RpcServerInterfaceGroupClose(IfGroup) {
  * @since windows8.0
  */
 export RpcServerInterfaceGroupActivate(IfGroup) {
-    IfGroupMarshal := IfGroup is VarRef ? "ptr" : "ptr"
+    IfGroupMarshal := IfGroup is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcServerInterfaceGroupActivate", IfGroupMarshal, IfGroup, RPC_STATUS)
     return result
@@ -11434,7 +11588,7 @@ export RpcServerInterfaceGroupActivate(IfGroup) {
  * @since windows8.0
  */
 export RpcServerInterfaceGroupDeactivate(IfGroup, ForceDeactivation) {
-    IfGroupMarshal := IfGroup is VarRef ? "ptr" : "ptr"
+    IfGroupMarshal := IfGroup is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcServerInterfaceGroupDeactivate", IfGroupMarshal, IfGroup, UInt32, ForceDeactivation, RPC_STATUS)
     return result
@@ -11487,15 +11641,14 @@ export RpcServerInterfaceGroupDeactivate(IfGroup, ForceDeactivation) {
  * @since windows8.0
  */
 export RpcServerInterfaceGroupInqBindings(IfGroup, BindingVector) {
-    IfGroupMarshal := IfGroup is VarRef ? "ptr" : "ptr"
-    BindingVectorMarshal := BindingVector is VarRef ? "ptr*" : "ptr"
+    IfGroupMarshal := IfGroup is VarRef ? "ptr" : IntPtr
+    BindingVectorMarshal := BindingVector is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcServerInterfaceGroupInqBindings", IfGroupMarshal, IfGroup, BindingVectorMarshal, BindingVector, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {Pointer<RPC_MESSAGE>} Message 
  * @returns {RPC_STATUS} 
  */
@@ -11505,7 +11658,6 @@ export I_RpcNegotiateTransferSyntax(Message) {
 }
 
 /**
- * 
  * @param {Pointer<RPC_MESSAGE>} Message 
  * @returns {RPC_STATUS} 
  */
@@ -11515,7 +11667,6 @@ export I_RpcGetBuffer(Message) {
 }
 
 /**
- * 
  * @param {Pointer<RPC_MESSAGE>} Message 
  * @param {Pointer<Guid>} ObjectUuid 
  * @returns {RPC_STATUS} 
@@ -11526,7 +11677,6 @@ export I_RpcGetBufferWithObject(Message, ObjectUuid) {
 }
 
 /**
- * 
  * @param {Pointer<RPC_MESSAGE>} Message 
  * @returns {RPC_STATUS} 
  */
@@ -11536,7 +11686,6 @@ export I_RpcSendReceive(Message) {
 }
 
 /**
- * 
  * @param {Pointer<RPC_MESSAGE>} Message 
  * @returns {RPC_STATUS} 
  */
@@ -11546,7 +11695,6 @@ export I_RpcFreeBuffer(Message) {
 }
 
 /**
- * 
  * @param {Pointer<RPC_MESSAGE>} Message 
  * @returns {RPC_STATUS} 
  */
@@ -11556,7 +11704,6 @@ export I_RpcSend(Message) {
 }
 
 /**
- * 
  * @param {Pointer<RPC_MESSAGE>} Message 
  * @param {Integer} _Size 
  * @returns {RPC_STATUS} 
@@ -11567,7 +11714,6 @@ export I_RpcReceive(Message, _Size) {
 }
 
 /**
- * 
  * @param {Pointer<RPC_MESSAGE>} Message 
  * @returns {RPC_STATUS} 
  */
@@ -11577,7 +11723,6 @@ export I_RpcFreePipeBuffer(Message) {
 }
 
 /**
- * 
  * @param {Pointer<RPC_MESSAGE>} Message 
  * @param {Integer} NewSize 
  * @returns {RPC_STATUS} 
@@ -11588,40 +11733,36 @@ export I_RpcReallocPipeBuffer(Message, NewSize) {
 }
 
 /**
- * 
  * @param {Pointer<Pointer<Void>>} Mutex 
  * @returns {String} Nothing - always returns an empty string
  */
 export I_RpcRequestMutex(Mutex) {
-    MutexMarshal := Mutex is VarRef ? "ptr*" : "ptr"
+    MutexMarshal := Mutex is VarRef ? "ptr*" : IntPtr
 
     DllCall("RPCRT4.dll\I_RpcRequestMutex", MutexMarshal, Mutex)
 }
 
 /**
- * 
  * @param {Pointer<Void>} Mutex 
  * @returns {String} Nothing - always returns an empty string
  */
 export I_RpcClearMutex(Mutex) {
-    MutexMarshal := Mutex is VarRef ? "ptr" : "ptr"
+    MutexMarshal := Mutex is VarRef ? "ptr" : IntPtr
 
     DllCall("RPCRT4.dll\I_RpcClearMutex", MutexMarshal, Mutex)
 }
 
 /**
- * 
  * @param {Pointer<Void>} Mutex 
  * @returns {String} Nothing - always returns an empty string
  */
 export I_RpcDeleteMutex(Mutex) {
-    MutexMarshal := Mutex is VarRef ? "ptr" : "ptr"
+    MutexMarshal := Mutex is VarRef ? "ptr" : IntPtr
 
     DllCall("RPCRT4.dll\I_RpcDeleteMutex", MutexMarshal, Mutex)
 }
 
 /**
- * 
  * @param {Integer} _Size 
  * @returns {Pointer<Void>} 
  */
@@ -11631,18 +11772,16 @@ export I_RpcAllocate(_Size) {
 }
 
 /**
- * 
  * @param {Pointer<Void>} _Object 
  * @returns {String} Nothing - always returns an empty string
  */
 export I_RpcFree(_Object) {
-    _ObjectMarshal := _Object is VarRef ? "ptr" : "ptr"
+    _ObjectMarshal := _Object is VarRef ? "ptr" : IntPtr
 
     DllCall("RPCRT4.dll\I_RpcFree", _ObjectMarshal, _Object)
 }
 
 /**
- * 
  * @param {Integer} Milliseconds 
  * @returns {String} Nothing - always returns an empty string
  */
@@ -11651,7 +11790,6 @@ export I_RpcPauseExecution(Milliseconds) {
 }
 
 /**
- * 
  * @returns {RPC_STATUS} 
  */
 export I_RpcGetExtendedError() {
@@ -11660,7 +11798,6 @@ export I_RpcGetExtendedError() {
 }
 
 /**
- * 
  * @param {Pointer<Void>} _Handle 
  * @param {Integer} ActualType 
  * @param {Integer} IdlType 
@@ -11668,14 +11805,13 @@ export I_RpcGetExtendedError() {
  * @returns {RPC_STATUS} 
  */
 export I_RpcSystemHandleTypeSpecificWork(_Handle, ActualType, IdlType, MarshalDirection) {
-    _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
+    _HandleMarshal := _Handle is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\I_RpcSystemHandleTypeSpecificWork", _HandleMarshal, _Handle, Int8, ActualType, Int8, IdlType, LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION, MarshalDirection, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @returns {Pointer<Void>} 
  */
 export I_RpcGetCurrentCallHandle() {
@@ -11684,100 +11820,94 @@ export I_RpcGetCurrentCallHandle() {
 }
 
 /**
- * 
  * @param {Integer} EntryNameSyntax 
  * @param {Pointer<Integer>} EntryName 
  * @param {Pointer<RPC_SERVER_INTERFACE>} RpcInterfaceInformation 
  * @returns {RPC_STATUS} 
  */
 export I_RpcNsInterfaceExported(EntryNameSyntax, EntryName, RpcInterfaceInformation) {
-    EntryNameMarshal := EntryName is VarRef ? "ushort*" : "ptr"
+    EntryNameMarshal := EntryName is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("RPCRT4.dll\I_RpcNsInterfaceExported", UInt32, EntryNameSyntax, EntryNameMarshal, EntryName, RPC_SERVER_INTERFACE.Ptr, RpcInterfaceInformation, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {Integer} EntryNameSyntax 
  * @param {Pointer<Integer>} EntryName 
  * @param {Pointer<RPC_SERVER_INTERFACE>} RpcInterfaceInformation 
  * @returns {RPC_STATUS} 
  */
 export I_RpcNsInterfaceUnexported(EntryNameSyntax, EntryName, RpcInterfaceInformation) {
-    EntryNameMarshal := EntryName is VarRef ? "ushort*" : "ptr"
+    EntryNameMarshal := EntryName is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("RPCRT4.dll\I_RpcNsInterfaceUnexported", UInt32, EntryNameSyntax, EntryNameMarshal, EntryName, RPC_SERVER_INTERFACE.Ptr, RpcInterfaceInformation, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} Binding 
  * @param {Pointer<Pointer<Integer>>} StringBinding 
  * @returns {RPC_STATUS} 
  */
 export I_RpcBindingToStaticStringBindingW(Binding, StringBinding) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    StringBindingMarshal := StringBinding is VarRef ? "ptr*" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    StringBindingMarshal := StringBinding is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\I_RpcBindingToStaticStringBindingW", BindingMarshal, Binding, StringBindingMarshal, StringBinding, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} Binding 
  * @param {Pointer<Pointer<Void>>} SecurityContextHandle 
  * @returns {RPC_STATUS} 
  */
 export I_RpcBindingInqSecurityContext(Binding, SecurityContextHandle) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    SecurityContextHandleMarshal := SecurityContextHandle is VarRef ? "ptr*" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    SecurityContextHandleMarshal := SecurityContextHandle is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\I_RpcBindingInqSecurityContext", BindingMarshal, Binding, SecurityContextHandleMarshal, SecurityContextHandle, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} Binding 
  * @param {Pointer<Void>} KeyInfo 
  * @returns {RPC_STATUS} 
  */
 export I_RpcBindingInqSecurityContextKeyInfo(Binding, KeyInfo) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    KeyInfoMarshal := KeyInfo is VarRef ? "ptr" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    BindingMarshal := Binding == 0 ? IntPtr : "ptr"
+    KeyInfoMarshal := KeyInfo is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\I_RpcBindingInqSecurityContextKeyInfo", BindingMarshal, Binding, KeyInfoMarshal, KeyInfo, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} Binding 
  * @param {Pointer<Integer>} WireId 
  * @returns {RPC_STATUS} 
  */
 export I_RpcBindingInqWireIdForSnego(Binding, WireId) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    WireIdMarshal := WireId is VarRef ? "char*" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    WireIdMarshal := WireId is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\I_RpcBindingInqWireIdForSnego", BindingMarshal, Binding, WireIdMarshal, WireId, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} Binding 
  * @param {Pointer<Integer>} MarshalledTargetInfoSize 
  * @param {Pointer<PSTR>} MarshalledTargetInfo 
  * @returns {RPC_STATUS} 
  */
 export I_RpcBindingInqMarshalledTargetInfo(Binding, MarshalledTargetInfoSize, MarshalledTargetInfo) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    MarshalledTargetInfoSizeMarshal := MarshalledTargetInfoSize is VarRef ? "uint*" : "ptr"
-    MarshalledTargetInfoMarshal := MarshalledTargetInfo is VarRef ? "ptr*" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    MarshalledTargetInfoSizeMarshal := MarshalledTargetInfoSize is VarRef ? "uint*" : IntPtr
+    MarshalledTargetInfoMarshal := MarshalledTargetInfo is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\I_RpcBindingInqMarshalledTargetInfo", BindingMarshal, Binding, MarshalledTargetInfoSizeMarshal, MarshalledTargetInfoSize, MarshalledTargetInfoMarshal, MarshalledTargetInfo, RPC_STATUS)
     return result
@@ -11837,29 +11967,27 @@ export I_RpcBindingInqMarshalledTargetInfo(Binding, MarshalledTargetInfoSize, Ma
  * @since windows5.1.2600
  */
 export I_RpcBindingInqLocalClientPID(Binding, Pid) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    PidMarshal := Pid is VarRef ? "uint*" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    PidMarshal := Pid is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RPCRT4.dll\I_RpcBindingInqLocalClientPID", BindingMarshal, Binding, PidMarshal, Pid, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} Binding 
  * @param {Pointer<Pointer<Void>>} AsyncHandle 
  * @returns {RPC_STATUS} 
  */
 export I_RpcBindingHandleToAsyncHandle(Binding, AsyncHandle) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    AsyncHandleMarshal := AsyncHandle is VarRef ? "ptr*" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    AsyncHandleMarshal := AsyncHandle is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\I_RpcBindingHandleToAsyncHandle", BindingMarshal, Binding, AsyncHandleMarshal, AsyncHandle, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} Binding 
  * @param {Integer} EntryNameSyntax 
  * @param {PWSTR} EntryName 
@@ -11868,14 +11996,13 @@ export I_RpcBindingHandleToAsyncHandle(Binding, AsyncHandle) {
 export I_RpcNsBindingSetEntryNameW(Binding, EntryNameSyntax, EntryName) {
     EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\I_RpcNsBindingSetEntryNameW", BindingMarshal, Binding, UInt32, EntryNameSyntax, "ptr", EntryName, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} Binding 
  * @param {Integer} EntryNameSyntax 
  * @param {PSTR} EntryName 
@@ -11884,14 +12011,13 @@ export I_RpcNsBindingSetEntryNameW(Binding, EntryNameSyntax, EntryName) {
 export I_RpcNsBindingSetEntryNameA(Binding, EntryNameSyntax, EntryName) {
     EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\I_RpcNsBindingSetEntryNameA", BindingMarshal, Binding, UInt32, EntryNameSyntax, "ptr", EntryName, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {PSTR} NetworkAddress 
  * @param {PSTR} Protseq 
  * @param {Integer} MaxCalls 
@@ -11905,15 +12031,16 @@ export I_RpcServerUseProtseqEp2A(NetworkAddress, Protseq, MaxCalls, Endpoint, _S
     Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
     Endpoint := Endpoint is String ? StrPtr(Endpoint) : Endpoint
 
-    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
-    PolicyMarshal := Policy is VarRef ? "ptr" : "ptr"
+    NetworkAddressMarshal := NetworkAddress == 0 ? IntPtr : PSTR
+    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : IntPtr
+    _SecurityDescriptorMarshal := _SecurityDescriptor == 0 ? IntPtr : "ptr"
+    PolicyMarshal := Policy is VarRef ? "ptr" : IntPtr
 
-    result := DllCall("RPCRT4.dll\I_RpcServerUseProtseqEp2A", "ptr", NetworkAddress, "ptr", Protseq, UInt32, MaxCalls, "ptr", Endpoint, _SecurityDescriptorMarshal, _SecurityDescriptor, PolicyMarshal, Policy, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\I_RpcServerUseProtseqEp2A", NetworkAddressMarshal, NetworkAddress, "ptr", Protseq, UInt32, MaxCalls, "ptr", Endpoint, _SecurityDescriptorMarshal, _SecurityDescriptor, PolicyMarshal, Policy, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} NetworkAddress 
  * @param {PWSTR} Protseq 
  * @param {Integer} MaxCalls 
@@ -11927,15 +12054,16 @@ export I_RpcServerUseProtseqEp2W(NetworkAddress, Protseq, MaxCalls, Endpoint, _S
     Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
     Endpoint := Endpoint is String ? StrPtr(Endpoint) : Endpoint
 
-    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
-    PolicyMarshal := Policy is VarRef ? "ptr" : "ptr"
+    NetworkAddressMarshal := NetworkAddress == 0 ? IntPtr : PWSTR
+    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : IntPtr
+    _SecurityDescriptorMarshal := _SecurityDescriptor == 0 ? IntPtr : "ptr"
+    PolicyMarshal := Policy is VarRef ? "ptr" : IntPtr
 
-    result := DllCall("RPCRT4.dll\I_RpcServerUseProtseqEp2W", "ptr", NetworkAddress, "ptr", Protseq, UInt32, MaxCalls, "ptr", Endpoint, _SecurityDescriptorMarshal, _SecurityDescriptor, PolicyMarshal, Policy, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\I_RpcServerUseProtseqEp2W", NetworkAddressMarshal, NetworkAddress, "ptr", Protseq, UInt32, MaxCalls, "ptr", Endpoint, _SecurityDescriptorMarshal, _SecurityDescriptor, PolicyMarshal, Policy, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} NetworkAddress 
  * @param {PWSTR} Protseq 
  * @param {Integer} MaxCalls 
@@ -11947,15 +12075,16 @@ export I_RpcServerUseProtseq2W(NetworkAddress, Protseq, MaxCalls, _SecurityDescr
     NetworkAddress := NetworkAddress is String ? StrPtr(NetworkAddress) : NetworkAddress
     Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
 
-    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
-    PolicyMarshal := Policy is VarRef ? "ptr" : "ptr"
+    NetworkAddressMarshal := NetworkAddress == 0 ? IntPtr : PWSTR
+    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : IntPtr
+    _SecurityDescriptorMarshal := _SecurityDescriptor == 0 ? IntPtr : "ptr"
+    PolicyMarshal := Policy is VarRef ? "ptr" : IntPtr
 
-    result := DllCall("RPCRT4.dll\I_RpcServerUseProtseq2W", "ptr", NetworkAddress, "ptr", Protseq, UInt32, MaxCalls, _SecurityDescriptorMarshal, _SecurityDescriptor, PolicyMarshal, Policy, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\I_RpcServerUseProtseq2W", NetworkAddressMarshal, NetworkAddress, "ptr", Protseq, UInt32, MaxCalls, _SecurityDescriptorMarshal, _SecurityDescriptor, PolicyMarshal, Policy, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {PSTR} NetworkAddress 
  * @param {PSTR} Protseq 
  * @param {Integer} MaxCalls 
@@ -11967,15 +12096,16 @@ export I_RpcServerUseProtseq2A(NetworkAddress, Protseq, MaxCalls, _SecurityDescr
     NetworkAddress := NetworkAddress is String ? StrPtr(NetworkAddress) : NetworkAddress
     Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
 
-    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : "ptr"
-    PolicyMarshal := Policy is VarRef ? "ptr" : "ptr"
+    NetworkAddressMarshal := NetworkAddress == 0 ? IntPtr : PSTR
+    _SecurityDescriptorMarshal := _SecurityDescriptor is VarRef ? "ptr" : IntPtr
+    _SecurityDescriptorMarshal := _SecurityDescriptor == 0 ? IntPtr : "ptr"
+    PolicyMarshal := Policy is VarRef ? "ptr" : IntPtr
 
-    result := DllCall("RPCRT4.dll\I_RpcServerUseProtseq2A", "ptr", NetworkAddress, "ptr", Protseq, UInt32, MaxCalls, _SecurityDescriptorMarshal, _SecurityDescriptor, PolicyMarshal, Policy, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\I_RpcServerUseProtseq2A", NetworkAddressMarshal, NetworkAddress, "ptr", Protseq, UInt32, MaxCalls, _SecurityDescriptorMarshal, _SecurityDescriptor, PolicyMarshal, Policy, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} Protseq 
  * @param {PWSTR} Endpoint 
  * @param {Pointer<Void>} IfSpec 
@@ -11985,68 +12115,63 @@ export I_RpcServerStartService(Protseq, Endpoint, IfSpec) {
     Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
     Endpoint := Endpoint is String ? StrPtr(Endpoint) : Endpoint
 
-    IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+    IfSpecMarshal := IfSpec is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\I_RpcServerStartService", "ptr", Protseq, "ptr", Endpoint, IfSpecMarshal, IfSpec, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} Binding 
  * @param {Pointer<PWSTR>} DynamicEndpoint 
  * @returns {RPC_STATUS} 
  */
 export I_RpcBindingInqDynamicEndpointW(Binding, DynamicEndpoint) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    DynamicEndpointMarshal := DynamicEndpoint is VarRef ? "ptr*" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    DynamicEndpointMarshal := DynamicEndpoint is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\I_RpcBindingInqDynamicEndpointW", BindingMarshal, Binding, DynamicEndpointMarshal, DynamicEndpoint, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} Binding 
  * @param {Pointer<PSTR>} DynamicEndpoint 
  * @returns {RPC_STATUS} 
  */
 export I_RpcBindingInqDynamicEndpointA(Binding, DynamicEndpoint) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    DynamicEndpointMarshal := DynamicEndpoint is VarRef ? "ptr*" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    DynamicEndpointMarshal := DynamicEndpoint is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\I_RpcBindingInqDynamicEndpointA", BindingMarshal, Binding, DynamicEndpointMarshal, DynamicEndpoint, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} _Context 
  * @returns {RPC_STATUS} 
  */
 export I_RpcServerCheckClientRestriction(_Context) {
-    _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+    _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\I_RpcServerCheckClientRestriction", _ContextMarshal, _Context, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} Binding 
  * @param {Pointer<Integer>} Type 
  * @returns {RPC_STATUS} 
  */
 export I_RpcBindingInqTransportType(Binding, Type) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    TypeMarshal := Type is VarRef ? "uint*" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    TypeMarshal := Type is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RPCRT4.dll\I_RpcBindingInqTransportType", BindingMarshal, Binding, TypeMarshal, Type, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} RpcIfHandle 
  * @param {Pointer<RPC_TRANSFER_SYNTAX>} TransferSyntaxes 
  * @param {Integer} TransferSyntaxSize 
@@ -12054,15 +12179,14 @@ export I_RpcBindingInqTransportType(Binding, Type) {
  * @returns {RPC_STATUS} 
  */
 export I_RpcIfInqTransferSyntaxes(RpcIfHandle, TransferSyntaxes, TransferSyntaxSize, TransferSyntaxCount) {
-    RpcIfHandleMarshal := RpcIfHandle is VarRef ? "ptr" : "ptr"
-    TransferSyntaxCountMarshal := TransferSyntaxCount is VarRef ? "uint*" : "ptr"
+    RpcIfHandleMarshal := RpcIfHandle is VarRef ? "ptr" : IntPtr
+    TransferSyntaxCountMarshal := TransferSyntaxCount is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RPCRT4.dll\I_RpcIfInqTransferSyntaxes", RpcIfHandleMarshal, RpcIfHandle, RPC_TRANSFER_SYNTAX.Ptr, TransferSyntaxes, UInt32, TransferSyntaxSize, TransferSyntaxCountMarshal, TransferSyntaxCount, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Guid>} Uuid 
  * @returns {RPC_STATUS} 
  */
@@ -12072,35 +12196,32 @@ export I_UuidCreate(Uuid) {
 }
 
 /**
- * 
  * @param {Pointer<Void>} SourceBinding 
  * @param {Pointer<Pointer<Void>>} DestinationBinding 
  * @returns {RPC_STATUS} 
  */
 export I_RpcBindingCopy(SourceBinding, DestinationBinding) {
-    SourceBindingMarshal := SourceBinding is VarRef ? "ptr" : "ptr"
-    DestinationBindingMarshal := DestinationBinding is VarRef ? "ptr*" : "ptr"
+    SourceBindingMarshal := SourceBinding is VarRef ? "ptr" : IntPtr
+    DestinationBindingMarshal := DestinationBinding is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\I_RpcBindingCopy", SourceBindingMarshal, SourceBinding, DestinationBindingMarshal, DestinationBinding, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} BindingHandle 
  * @param {Pointer<Integer>} ClientLocalFlag 
  * @returns {RPC_STATUS} 
  */
 export I_RpcBindingIsClientLocal(BindingHandle, ClientLocalFlag) {
-    BindingHandleMarshal := BindingHandle is VarRef ? "ptr" : "ptr"
-    ClientLocalFlagMarshal := ClientLocalFlag is VarRef ? "uint*" : "ptr"
+    BindingHandleMarshal := BindingHandle is VarRef ? "ptr" : IntPtr
+    ClientLocalFlagMarshal := ClientLocalFlag is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RPCRT4.dll\I_RpcBindingIsClientLocal", BindingHandleMarshal, BindingHandle, ClientLocalFlagMarshal, ClientLocalFlag, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} ServerName 
  * @param {PWSTR} ServiceName 
  * @param {PWSTR} NetworkOptions 
@@ -12112,14 +12233,13 @@ export I_RpcBindingCreateNP(ServerName, ServiceName, NetworkOptions, Binding) {
     ServiceName := ServiceName is String ? StrPtr(ServiceName) : ServiceName
     NetworkOptions := NetworkOptions is String ? StrPtr(NetworkOptions) : NetworkOptions
 
-    BindingMarshal := Binding is VarRef ? "ptr*" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\I_RpcBindingCreateNP", "ptr", ServerName, "ptr", ServiceName, "ptr", NetworkOptions, BindingMarshal, Binding, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @returns {String} Nothing - always returns an empty string
  */
 export I_RpcSsDontSerializeContext() {
@@ -12127,19 +12247,17 @@ export I_RpcSsDontSerializeContext() {
 }
 
 /**
- * 
  * @param {Pointer<Pointer<RPC_FORWARD_FUNCTION>>} pForwardFunction 
  * @returns {RPC_STATUS} 
  */
 export I_RpcServerRegisterForwardFunction(pForwardFunction) {
-    pForwardFunctionMarshal := pForwardFunction is VarRef ? "ptr*" : "ptr"
+    pForwardFunctionMarshal := pForwardFunction is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\I_RpcServerRegisterForwardFunction", pForwardFunctionMarshal, pForwardFunction, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @returns {Pointer<Pointer<RPC_ADDRESS_CHANGE_FN>>} 
  */
 export I_RpcServerInqAddressChangeFn() {
@@ -12148,19 +12266,17 @@ export I_RpcServerInqAddressChangeFn() {
 }
 
 /**
- * 
  * @param {Pointer<Pointer<RPC_ADDRESS_CHANGE_FN>>} pAddressChangeFn 
  * @returns {RPC_STATUS} 
  */
 export I_RpcServerSetAddressChangeFn(pAddressChangeFn) {
-    pAddressChangeFnMarshal := pAddressChangeFn is VarRef ? "ptr*" : "ptr"
+    pAddressChangeFnMarshal := pAddressChangeFn is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\I_RpcServerSetAddressChangeFn", pAddressChangeFnMarshal, pAddressChangeFn, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} Binding 
  * @param {Pointer<Void>} _Buffer 
  * @param {Pointer<Integer>} BufferSize 
@@ -12168,17 +12284,16 @@ export I_RpcServerSetAddressChangeFn(pAddressChangeFn) {
  * @returns {RPC_STATUS} 
  */
 export I_RpcServerInqLocalConnAddress(Binding, _Buffer, BufferSize, AddressFormat) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
-    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
-    AddressFormatMarshal := AddressFormat is VarRef ? "uint*" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    _BufferMarshal := _Buffer is VarRef ? "ptr" : IntPtr
+    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : IntPtr
+    AddressFormatMarshal := AddressFormat is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RPCRT4.dll\I_RpcServerInqLocalConnAddress", BindingMarshal, Binding, _BufferMarshal, _Buffer, BufferSizeMarshal, BufferSize, AddressFormatMarshal, AddressFormat, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} Binding 
  * @param {Pointer<Void>} _Buffer 
  * @param {Pointer<Integer>} BufferSize 
@@ -12186,17 +12301,16 @@ export I_RpcServerInqLocalConnAddress(Binding, _Buffer, BufferSize, AddressForma
  * @returns {RPC_STATUS} 
  */
 export I_RpcServerInqRemoteConnAddress(Binding, _Buffer, BufferSize, AddressFormat) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
-    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
-    AddressFormatMarshal := AddressFormat is VarRef ? "uint*" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    _BufferMarshal := _Buffer is VarRef ? "ptr" : IntPtr
+    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : IntPtr
+    AddressFormatMarshal := AddressFormat is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RPCRT4.dll\I_RpcServerInqRemoteConnAddress", BindingMarshal, Binding, _BufferMarshal, _Buffer, BufferSizeMarshal, BufferSize, AddressFormatMarshal, AddressFormat, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @returns {String} Nothing - always returns an empty string
  */
 export I_RpcSessionStrictContextHandle() {
@@ -12204,7 +12318,6 @@ export I_RpcSessionStrictContextHandle() {
 }
 
 /**
- * 
  * @returns {RPC_STATUS} 
  */
 export I_RpcTurnOnEEInfoPropagation() {
@@ -12213,19 +12326,17 @@ export I_RpcTurnOnEEInfoPropagation() {
 }
 
 /**
- * 
  * @param {Pointer<Integer>} Type 
  * @returns {RPC_STATUS} 
  */
 export I_RpcServerInqTransportType(Type) {
-    TypeMarshal := Type is VarRef ? "uint*" : "ptr"
+    TypeMarshal := Type is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RPCRT4.dll\I_RpcServerInqTransportType", TypeMarshal, Type, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {RPC_STATUS} _Status 
  * @returns {Integer} 
  */
@@ -12235,20 +12346,18 @@ export I_RpcMapWin32Status(_Status) {
 }
 
 /**
- * 
  * @param {RPC_STATUS} RpcStatus 
  * @param {Pointer<RDR_CALLOUT_STATE>} CallOutState 
  * @param {Pointer<Integer>} DllName 
  * @returns {String} Nothing - always returns an empty string
  */
 export I_RpcRecordCalloutFailure(RpcStatus, CallOutState, DllName) {
-    DllNameMarshal := DllName is VarRef ? "ushort*" : "ptr"
+    DllNameMarshal := DllName is VarRef ? "ushort*" : IntPtr
 
     DllCall("RPCRT4.dll\I_RpcRecordCalloutFailure", RPC_STATUS, RpcStatus, RDR_CALLOUT_STATE.Ptr, CallOutState, DllNameMarshal, DllName)
 }
 
 /**
- * 
  * @returns {RPC_STATUS} 
  */
 export I_RpcMgmtEnableDedicatedThreadPool() {
@@ -12257,90 +12366,87 @@ export I_RpcMgmtEnableDedicatedThreadPool() {
 }
 
 /**
- * 
  * @param {Pointer<Pointer<Void>>} ppSecurityDescriptor 
  * @returns {RPC_STATUS} 
  */
 export I_RpcGetDefaultSD(ppSecurityDescriptor) {
-    ppSecurityDescriptorMarshal := ppSecurityDescriptor is VarRef ? "ptr*" : "ptr"
+    ppSecurityDescriptorMarshal := ppSecurityDescriptor is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\I_RpcGetDefaultSD", ppSecurityDescriptorMarshal, ppSecurityDescriptor, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} Binding 
  * @param {Integer} DesiredAccess 
  * @param {Pointer<Pointer<Void>>} ClientProcess 
  * @returns {RPC_STATUS} 
  */
 export I_RpcOpenClientProcess(Binding, DesiredAccess, ClientProcess) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    ClientProcessMarshal := ClientProcess is VarRef ? "ptr*" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    BindingMarshal := Binding == 0 ? IntPtr : "ptr"
+    ClientProcessMarshal := ClientProcess is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\I_RpcOpenClientProcess", BindingMarshal, Binding, UInt32, DesiredAccess, ClientProcessMarshal, ClientProcess, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} Binding 
  * @param {Pointer<Integer>} ServerLocalFlag 
  * @returns {RPC_STATUS} 
  */
 export I_RpcBindingIsServerLocal(Binding, ServerLocalFlag) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    ServerLocalFlagMarshal := ServerLocalFlag is VarRef ? "uint*" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    ServerLocalFlagMarshal := ServerLocalFlag is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RPCRT4.dll\I_RpcBindingIsServerLocal", BindingMarshal, Binding, ServerLocalFlagMarshal, ServerLocalFlag, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} hBinding 
  * @param {Integer} option 
  * @param {Pointer} optionValue 
  * @returns {RPC_STATUS} 
  */
 export I_RpcBindingSetPrivateOption(hBinding, option, optionValue) {
-    hBindingMarshal := hBinding is VarRef ? "ptr" : "ptr"
+    hBindingMarshal := hBinding is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\I_RpcBindingSetPrivateOption", hBindingMarshal, hBinding, UInt32, option, IntPtr, optionValue, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} Binding 
  * @param {Pointer<Void>} hEvent 
  * @returns {RPC_STATUS} 
  */
 export I_RpcServerSubscribeForDisconnectNotification(Binding, hEvent) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    hEventMarshal := hEvent is VarRef ? "ptr" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    BindingMarshal := Binding == 0 ? IntPtr : "ptr"
+    hEventMarshal := hEvent is VarRef ? "ptr" : IntPtr
+    hEventMarshal := hEvent == 0 ? IntPtr : "ptr"
 
     result := DllCall("RPCRT4.dll\I_RpcServerSubscribeForDisconnectNotification", BindingMarshal, Binding, hEventMarshal, hEvent, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} Binding 
  * @param {Pointer<Integer>} AssociationID 
  * @returns {RPC_STATUS} 
  */
 export I_RpcServerGetAssociationID(Binding, AssociationID) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    AssociationIDMarshal := AssociationID is VarRef ? "uint*" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    BindingMarshal := Binding == 0 ? IntPtr : "ptr"
+    AssociationIDMarshal := AssociationID is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RPCRT4.dll\I_RpcServerGetAssociationID", BindingMarshal, Binding, AssociationIDMarshal, AssociationID, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @returns {Integer} 
  */
 export I_RpcServerDisableExceptionFilter() {
@@ -12349,28 +12455,28 @@ export I_RpcServerDisableExceptionFilter() {
 }
 
 /**
- * 
  * @param {Pointer<Void>} Binding 
  * @param {Pointer<Void>} hEvent 
  * @param {Pointer<Guid>} SubscriptionId 
  * @returns {RPC_STATUS} 
  */
 export I_RpcServerSubscribeForDisconnectNotification2(Binding, hEvent, SubscriptionId) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    hEventMarshal := hEvent is VarRef ? "ptr" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    BindingMarshal := Binding == 0 ? IntPtr : "ptr"
+    hEventMarshal := hEvent is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\I_RpcServerSubscribeForDisconnectNotification2", BindingMarshal, Binding, hEventMarshal, hEvent, Guid.Ptr, SubscriptionId, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} Binding 
  * @param {Guid} SubscriptionId 
  * @returns {RPC_STATUS} 
  */
 export I_RpcServerUnsubscribeForDisconnectNotification(Binding, SubscriptionId) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    BindingMarshal := Binding == 0 ? IntPtr : "ptr"
 
     result := DllCall("RPCRT4.dll\I_RpcServerUnsubscribeForDisconnectNotification", BindingMarshal, Binding, Guid, SubscriptionId, RPC_STATUS)
     return result
@@ -12578,9 +12684,13 @@ export I_RpcServerUnsubscribeForDisconnectNotification(Binding, SubscriptionId) 
 export RpcNsBindingExportA(EntryNameSyntax, EntryName, IfSpec, BindingVec, ObjectUuidVec) {
     EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-    IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+    EntryNameMarshal := EntryName == 0 ? IntPtr : PSTR
+    IfSpecMarshal := IfSpec is VarRef ? "ptr" : IntPtr
+    IfSpecMarshal := IfSpec == 0 ? IntPtr : "ptr"
+    BindingVecMarshal := BindingVec == 0 ? IntPtr : RPC_BINDING_VECTOR.Ptr
+    ObjectUuidVecMarshal := ObjectUuidVec == 0 ? IntPtr : UUID_VECTOR.Ptr
 
-    result := DllCall("RPCNS4.dll\RpcNsBindingExportA", UInt32, EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, RPC_BINDING_VECTOR.Ptr, BindingVec, UUID_VECTOR.Ptr, ObjectUuidVec, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsBindingExportA", UInt32, EntryNameSyntax, EntryNameMarshal, EntryName, IfSpecMarshal, IfSpec, BindingVecMarshal, BindingVec, ObjectUuidVecMarshal, ObjectUuidVec, RPC_STATUS)
     return result
 }
 
@@ -12750,9 +12860,12 @@ export RpcNsBindingExportA(EntryNameSyntax, EntryName, IfSpec, BindingVec, Objec
 export RpcNsBindingUnexportA(EntryNameSyntax, EntryName, IfSpec, ObjectUuidVec) {
     EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-    IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+    EntryNameMarshal := EntryName == 0 ? IntPtr : PSTR
+    IfSpecMarshal := IfSpec is VarRef ? "ptr" : IntPtr
+    IfSpecMarshal := IfSpec == 0 ? IntPtr : "ptr"
+    ObjectUuidVecMarshal := ObjectUuidVec == 0 ? IntPtr : UUID_VECTOR.Ptr
 
-    result := DllCall("RPCNS4.dll\RpcNsBindingUnexportA", UInt32, EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, UUID_VECTOR.Ptr, ObjectUuidVec, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsBindingUnexportA", UInt32, EntryNameSyntax, EntryNameMarshal, EntryName, IfSpecMarshal, IfSpec, ObjectUuidVecMarshal, ObjectUuidVec, RPC_STATUS)
     return result
 }
 
@@ -12958,9 +13071,13 @@ export RpcNsBindingUnexportA(EntryNameSyntax, EntryName, IfSpec, ObjectUuidVec) 
 export RpcNsBindingExportW(EntryNameSyntax, EntryName, IfSpec, BindingVec, ObjectUuidVec) {
     EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-    IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+    EntryNameMarshal := EntryName == 0 ? IntPtr : PWSTR
+    IfSpecMarshal := IfSpec is VarRef ? "ptr" : IntPtr
+    IfSpecMarshal := IfSpec == 0 ? IntPtr : "ptr"
+    BindingVecMarshal := BindingVec == 0 ? IntPtr : RPC_BINDING_VECTOR.Ptr
+    ObjectUuidVecMarshal := ObjectUuidVec == 0 ? IntPtr : UUID_VECTOR.Ptr
 
-    result := DllCall("RPCNS4.dll\RpcNsBindingExportW", UInt32, EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, RPC_BINDING_VECTOR.Ptr, BindingVec, UUID_VECTOR.Ptr, ObjectUuidVec, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsBindingExportW", UInt32, EntryNameSyntax, EntryNameMarshal, EntryName, IfSpecMarshal, IfSpec, BindingVecMarshal, BindingVec, ObjectUuidVecMarshal, ObjectUuidVec, RPC_STATUS)
     return result
 }
 
@@ -13130,9 +13247,12 @@ export RpcNsBindingExportW(EntryNameSyntax, EntryName, IfSpec, BindingVec, Objec
 export RpcNsBindingUnexportW(EntryNameSyntax, EntryName, IfSpec, ObjectUuidVec) {
     EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-    IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+    EntryNameMarshal := EntryName == 0 ? IntPtr : PWSTR
+    IfSpecMarshal := IfSpec is VarRef ? "ptr" : IntPtr
+    IfSpecMarshal := IfSpec == 0 ? IntPtr : "ptr"
+    ObjectUuidVecMarshal := ObjectUuidVec == 0 ? IntPtr : UUID_VECTOR.Ptr
 
-    result := DllCall("RPCNS4.dll\RpcNsBindingUnexportW", UInt32, EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, UUID_VECTOR.Ptr, ObjectUuidVec, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsBindingUnexportW", UInt32, EntryNameSyntax, EntryNameMarshal, EntryName, IfSpecMarshal, IfSpec, ObjectUuidVecMarshal, ObjectUuidVec, RPC_STATUS)
     return result
 }
 
@@ -13280,9 +13400,12 @@ export RpcNsBindingUnexportW(EntryNameSyntax, EntryName, IfSpec, ObjectUuidVec) 
 export RpcNsBindingExportPnPA(EntryNameSyntax, EntryName, IfSpec, ObjectVector) {
     EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-    IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+    EntryNameMarshal := EntryName == 0 ? IntPtr : PSTR
+    IfSpecMarshal := IfSpec is VarRef ? "ptr" : IntPtr
+    IfSpecMarshal := IfSpec == 0 ? IntPtr : "ptr"
+    ObjectVectorMarshal := ObjectVector == 0 ? IntPtr : UUID_VECTOR.Ptr
 
-    result := DllCall("RPCNS4.dll\RpcNsBindingExportPnPA", UInt32, EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, UUID_VECTOR.Ptr, ObjectVector, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsBindingExportPnPA", UInt32, EntryNameSyntax, EntryNameMarshal, EntryName, IfSpecMarshal, IfSpec, ObjectVectorMarshal, ObjectVector, RPC_STATUS)
     return result
 }
 
@@ -13424,9 +13547,12 @@ export RpcNsBindingExportPnPA(EntryNameSyntax, EntryName, IfSpec, ObjectVector) 
 export RpcNsBindingUnexportPnPA(EntryNameSyntax, EntryName, IfSpec, ObjectVector) {
     EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-    IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+    EntryNameMarshal := EntryName == 0 ? IntPtr : PSTR
+    IfSpecMarshal := IfSpec is VarRef ? "ptr" : IntPtr
+    IfSpecMarshal := IfSpec == 0 ? IntPtr : "ptr"
+    ObjectVectorMarshal := ObjectVector == 0 ? IntPtr : UUID_VECTOR.Ptr
 
-    result := DllCall("RPCNS4.dll\RpcNsBindingUnexportPnPA", UInt32, EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, UUID_VECTOR.Ptr, ObjectVector, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsBindingUnexportPnPA", UInt32, EntryNameSyntax, EntryNameMarshal, EntryName, IfSpecMarshal, IfSpec, ObjectVectorMarshal, ObjectVector, RPC_STATUS)
     return result
 }
 
@@ -13574,9 +13700,12 @@ export RpcNsBindingUnexportPnPA(EntryNameSyntax, EntryName, IfSpec, ObjectVector
 export RpcNsBindingExportPnPW(EntryNameSyntax, EntryName, IfSpec, ObjectVector) {
     EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-    IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+    EntryNameMarshal := EntryName == 0 ? IntPtr : PWSTR
+    IfSpecMarshal := IfSpec is VarRef ? "ptr" : IntPtr
+    IfSpecMarshal := IfSpec == 0 ? IntPtr : "ptr"
+    ObjectVectorMarshal := ObjectVector == 0 ? IntPtr : UUID_VECTOR.Ptr
 
-    result := DllCall("RPCNS4.dll\RpcNsBindingExportPnPW", UInt32, EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, UUID_VECTOR.Ptr, ObjectVector, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsBindingExportPnPW", UInt32, EntryNameSyntax, EntryNameMarshal, EntryName, IfSpecMarshal, IfSpec, ObjectVectorMarshal, ObjectVector, RPC_STATUS)
     return result
 }
 
@@ -13718,9 +13847,12 @@ export RpcNsBindingExportPnPW(EntryNameSyntax, EntryName, IfSpec, ObjectVector) 
 export RpcNsBindingUnexportPnPW(EntryNameSyntax, EntryName, IfSpec, ObjectVector) {
     EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-    IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+    EntryNameMarshal := EntryName == 0 ? IntPtr : PWSTR
+    IfSpecMarshal := IfSpec is VarRef ? "ptr" : IntPtr
+    IfSpecMarshal := IfSpec == 0 ? IntPtr : "ptr"
+    ObjectVectorMarshal := ObjectVector == 0 ? IntPtr : UUID_VECTOR.Ptr
 
-    result := DllCall("RPCNS4.dll\RpcNsBindingUnexportPnPW", UInt32, EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, UUID_VECTOR.Ptr, ObjectVector, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsBindingUnexportPnPW", UInt32, EntryNameSyntax, EntryNameMarshal, EntryName, IfSpecMarshal, IfSpec, ObjectVectorMarshal, ObjectVector, RPC_STATUS)
     return result
 }
 
@@ -13881,10 +14013,13 @@ export RpcNsBindingUnexportPnPW(EntryNameSyntax, EntryName, IfSpec, ObjectVector
 export RpcNsBindingLookupBeginA(EntryNameSyntax, EntryName, IfSpec, ObjUuid, BindingMaxCount, LookupContext) {
     EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-    IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
-    LookupContextMarshal := LookupContext is VarRef ? "ptr*" : "ptr"
+    EntryNameMarshal := EntryName == 0 ? IntPtr : PSTR
+    IfSpecMarshal := IfSpec is VarRef ? "ptr" : IntPtr
+    IfSpecMarshal := IfSpec == 0 ? IntPtr : "ptr"
+    ObjUuidMarshal := ObjUuid == 0 ? IntPtr : Guid.Ptr
+    LookupContextMarshal := LookupContext is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("RPCNS4.dll\RpcNsBindingLookupBeginA", UInt32, EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, Guid.Ptr, ObjUuid, UInt32, BindingMaxCount, LookupContextMarshal, LookupContext, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsBindingLookupBeginA", UInt32, EntryNameSyntax, EntryNameMarshal, EntryName, IfSpecMarshal, IfSpec, ObjUuidMarshal, ObjUuid, UInt32, BindingMaxCount, LookupContextMarshal, LookupContext, RPC_STATUS)
     return result
 }
 
@@ -14045,10 +14180,13 @@ export RpcNsBindingLookupBeginA(EntryNameSyntax, EntryName, IfSpec, ObjUuid, Bin
 export RpcNsBindingLookupBeginW(EntryNameSyntax, EntryName, IfSpec, ObjUuid, BindingMaxCount, LookupContext) {
     EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-    IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
-    LookupContextMarshal := LookupContext is VarRef ? "ptr*" : "ptr"
+    EntryNameMarshal := EntryName == 0 ? IntPtr : PWSTR
+    IfSpecMarshal := IfSpec is VarRef ? "ptr" : IntPtr
+    IfSpecMarshal := IfSpec == 0 ? IntPtr : "ptr"
+    ObjUuidMarshal := ObjUuid == 0 ? IntPtr : Guid.Ptr
+    LookupContextMarshal := LookupContext is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("RPCNS4.dll\RpcNsBindingLookupBeginW", UInt32, EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, Guid.Ptr, ObjUuid, UInt32, BindingMaxCount, LookupContextMarshal, LookupContext, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsBindingLookupBeginW", UInt32, EntryNameSyntax, EntryNameMarshal, EntryName, IfSpecMarshal, IfSpec, ObjUuidMarshal, ObjUuid, UInt32, BindingMaxCount, LookupContextMarshal, LookupContext, RPC_STATUS)
     return result
 }
 
@@ -14168,8 +14306,8 @@ export RpcNsBindingLookupBeginW(EntryNameSyntax, EntryName, IfSpec, ObjUuid, Bin
  * @since windows5.0
  */
 export RpcNsBindingLookupNext(LookupContext, BindingVec) {
-    LookupContextMarshal := LookupContext is VarRef ? "ptr" : "ptr"
-    BindingVecMarshal := BindingVec is VarRef ? "ptr*" : "ptr"
+    LookupContextMarshal := LookupContext is VarRef ? "ptr" : IntPtr
+    BindingVecMarshal := BindingVec is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCNS4.dll\RpcNsBindingLookupNext", LookupContextMarshal, LookupContext, BindingVecMarshal, BindingVec, RPC_STATUS)
     return result
@@ -14220,7 +14358,7 @@ export RpcNsBindingLookupNext(LookupContext, BindingVec) {
  * @since windows5.0
  */
 export RpcNsBindingLookupDone(LookupContext) {
-    LookupContextMarshal := LookupContext is VarRef ? "ptr*" : "ptr"
+    LookupContextMarshal := LookupContext is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCNS4.dll\RpcNsBindingLookupDone", LookupContextMarshal, LookupContext, RPC_STATUS)
     return result
@@ -14329,7 +14467,9 @@ export RpcNsBindingLookupDone(LookupContext) {
 export RpcNsGroupDeleteA(GroupNameSyntax, GroupName) {
     GroupName := GroupName is String ? StrPtr(GroupName) : GroupName
 
-    result := DllCall("RPCNS4.dll\RpcNsGroupDeleteA", GROUP_NAME_SYNTAX, GroupNameSyntax, "ptr", GroupName, RPC_STATUS)
+    GroupNameMarshal := GroupName == 0 ? IntPtr : PSTR
+
+    result := DllCall("RPCNS4.dll\RpcNsGroupDeleteA", GROUP_NAME_SYNTAX, GroupNameSyntax, GroupNameMarshal, GroupName, RPC_STATUS)
     return result
 }
 
@@ -14686,7 +14826,7 @@ export RpcNsGroupMbrRemoveA(GroupNameSyntax, GroupName, MemberNameSyntax, Member
 export RpcNsGroupMbrInqBeginA(GroupNameSyntax, GroupName, MemberNameSyntax, InquiryContext) {
     GroupName := GroupName is String ? StrPtr(GroupName) : GroupName
 
-    InquiryContextMarshal := InquiryContext is VarRef ? "ptr*" : "ptr"
+    InquiryContextMarshal := InquiryContext is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCNS4.dll\RpcNsGroupMbrInqBeginA", UInt32, GroupNameSyntax, "ptr", GroupName, UInt32, MemberNameSyntax, InquiryContextMarshal, InquiryContext, RPC_STATUS)
     return result
@@ -14784,8 +14924,8 @@ export RpcNsGroupMbrInqBeginA(GroupNameSyntax, GroupName, MemberNameSyntax, Inqu
  * @since windows5.0
  */
 export RpcNsGroupMbrInqNextA(InquiryContext, MemberName) {
-    InquiryContextMarshal := InquiryContext is VarRef ? "ptr" : "ptr"
-    MemberNameMarshal := MemberName is VarRef ? "ptr*" : "ptr"
+    InquiryContextMarshal := InquiryContext is VarRef ? "ptr" : IntPtr
+    MemberNameMarshal := MemberName is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCNS4.dll\RpcNsGroupMbrInqNextA", InquiryContextMarshal, InquiryContext, MemberNameMarshal, MemberName, RPC_STATUS)
     return result
@@ -14894,7 +15034,9 @@ export RpcNsGroupMbrInqNextA(InquiryContext, MemberName) {
 export RpcNsGroupDeleteW(GroupNameSyntax, GroupName) {
     GroupName := GroupName is String ? StrPtr(GroupName) : GroupName
 
-    result := DllCall("RPCNS4.dll\RpcNsGroupDeleteW", GROUP_NAME_SYNTAX, GroupNameSyntax, "ptr", GroupName, RPC_STATUS)
+    GroupNameMarshal := GroupName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("RPCNS4.dll\RpcNsGroupDeleteW", GROUP_NAME_SYNTAX, GroupNameSyntax, GroupNameMarshal, GroupName, RPC_STATUS)
     return result
 }
 
@@ -15251,7 +15393,7 @@ export RpcNsGroupMbrRemoveW(GroupNameSyntax, GroupName, MemberNameSyntax, Member
 export RpcNsGroupMbrInqBeginW(GroupNameSyntax, GroupName, MemberNameSyntax, InquiryContext) {
     GroupName := GroupName is String ? StrPtr(GroupName) : GroupName
 
-    InquiryContextMarshal := InquiryContext is VarRef ? "ptr*" : "ptr"
+    InquiryContextMarshal := InquiryContext is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCNS4.dll\RpcNsGroupMbrInqBeginW", UInt32, GroupNameSyntax, "ptr", GroupName, UInt32, MemberNameSyntax, InquiryContextMarshal, InquiryContext, RPC_STATUS)
     return result
@@ -15349,8 +15491,8 @@ export RpcNsGroupMbrInqBeginW(GroupNameSyntax, GroupName, MemberNameSyntax, Inqu
  * @since windows5.0
  */
 export RpcNsGroupMbrInqNextW(InquiryContext, MemberName) {
-    InquiryContextMarshal := InquiryContext is VarRef ? "ptr" : "ptr"
-    MemberNameMarshal := MemberName is VarRef ? "ptr*" : "ptr"
+    InquiryContextMarshal := InquiryContext is VarRef ? "ptr" : IntPtr
+    MemberNameMarshal := MemberName is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCNS4.dll\RpcNsGroupMbrInqNextW", InquiryContextMarshal, InquiryContext, MemberNameMarshal, MemberName, RPC_STATUS)
     return result
@@ -15405,7 +15547,7 @@ export RpcNsGroupMbrInqNextW(InquiryContext, MemberName) {
  * @since windows5.0
  */
 export RpcNsGroupMbrInqDone(InquiryContext) {
-    InquiryContextMarshal := InquiryContext is VarRef ? "ptr*" : "ptr"
+    InquiryContextMarshal := InquiryContext is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCNS4.dll\RpcNsGroupMbrInqDone", InquiryContextMarshal, InquiryContext, RPC_STATUS)
     return result
@@ -15637,7 +15779,10 @@ export RpcNsProfileEltAddA(ProfileNameSyntax, ProfileName, IfId, MemberNameSynta
     MemberName := MemberName is String ? StrPtr(MemberName) : MemberName
     Annotation := Annotation is String ? StrPtr(Annotation) : Annotation
 
-    result := DllCall("RPCNS4.dll\RpcNsProfileEltAddA", UInt32, ProfileNameSyntax, "ptr", ProfileName, RPC_IF_ID.Ptr, IfId, UInt32, MemberNameSyntax, "ptr", MemberName, UInt32, _Priority, "ptr", Annotation, RPC_STATUS)
+    IfIdMarshal := IfId == 0 ? IntPtr : RPC_IF_ID.Ptr
+    AnnotationMarshal := Annotation == 0 ? IntPtr : PSTR
+
+    result := DllCall("RPCNS4.dll\RpcNsProfileEltAddA", UInt32, ProfileNameSyntax, "ptr", ProfileName, IfIdMarshal, IfId, UInt32, MemberNameSyntax, "ptr", MemberName, UInt32, _Priority, AnnotationMarshal, Annotation, RPC_STATUS)
     return result
 }
 
@@ -15762,7 +15907,9 @@ export RpcNsProfileEltRemoveA(ProfileNameSyntax, ProfileName, IfId, MemberNameSy
     ProfileName := ProfileName is String ? StrPtr(ProfileName) : ProfileName
     MemberName := MemberName is String ? StrPtr(MemberName) : MemberName
 
-    result := DllCall("RPCNS4.dll\RpcNsProfileEltRemoveA", UInt32, ProfileNameSyntax, "ptr", ProfileName, RPC_IF_ID.Ptr, IfId, UInt32, MemberNameSyntax, "ptr", MemberName, RPC_STATUS)
+    IfIdMarshal := IfId == 0 ? IntPtr : RPC_IF_ID.Ptr
+
+    result := DllCall("RPCNS4.dll\RpcNsProfileEltRemoveA", UInt32, ProfileNameSyntax, "ptr", ProfileName, IfIdMarshal, IfId, UInt32, MemberNameSyntax, "ptr", MemberName, RPC_STATUS)
     return result
 }
 
@@ -16043,9 +16190,11 @@ export RpcNsProfileEltInqBeginA(ProfileNameSyntax, ProfileName, InquiryType, IfI
     ProfileName := ProfileName is String ? StrPtr(ProfileName) : ProfileName
     MemberName := MemberName is String ? StrPtr(MemberName) : MemberName
 
-    InquiryContextMarshal := InquiryContext is VarRef ? "ptr*" : "ptr"
+    IfIdMarshal := IfId == 0 ? IntPtr : RPC_IF_ID.Ptr
+    MemberNameMarshal := MemberName == 0 ? IntPtr : PSTR
+    InquiryContextMarshal := InquiryContext is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("RPCNS4.dll\RpcNsProfileEltInqBeginA", UInt32, ProfileNameSyntax, "ptr", ProfileName, UInt32, InquiryType, RPC_IF_ID.Ptr, IfId, UInt32, VersOption, UInt32, MemberNameSyntax, "ptr", MemberName, InquiryContextMarshal, InquiryContext, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsProfileEltInqBeginA", UInt32, ProfileNameSyntax, "ptr", ProfileName, UInt32, InquiryType, IfIdMarshal, IfId, UInt32, VersOption, UInt32, MemberNameSyntax, MemberNameMarshal, MemberName, InquiryContextMarshal, InquiryContext, RPC_STATUS)
     return result
 }
 
@@ -16154,12 +16303,13 @@ export RpcNsProfileEltInqBeginA(ProfileNameSyntax, ProfileName, InquiryType, IfI
  * @since windows5.0
  */
 export RpcNsProfileEltInqNextA(InquiryContext, IfId, MemberName, _Priority, Annotation) {
-    InquiryContextMarshal := InquiryContext is VarRef ? "ptr" : "ptr"
-    MemberNameMarshal := MemberName is VarRef ? "ptr*" : "ptr"
-    _PriorityMarshal := _Priority is VarRef ? "uint*" : "ptr"
-    AnnotationMarshal := Annotation is VarRef ? "ptr*" : "ptr"
+    InquiryContextMarshal := InquiryContext is VarRef ? "ptr" : IntPtr
+    IfIdMarshal := IfId == 0 ? IntPtr : RPC_IF_ID.Ptr
+    MemberNameMarshal := MemberName is VarRef ? "ptr*" : IntPtr
+    _PriorityMarshal := _Priority is VarRef ? "uint*" : IntPtr
+    AnnotationMarshal := Annotation is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("RPCNS4.dll\RpcNsProfileEltInqNextA", InquiryContextMarshal, InquiryContext, RPC_IF_ID.Ptr, IfId, MemberNameMarshal, MemberName, _PriorityMarshal, _Priority, AnnotationMarshal, Annotation, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsProfileEltInqNextA", InquiryContextMarshal, InquiryContext, IfIdMarshal, IfId, MemberNameMarshal, MemberName, _PriorityMarshal, _Priority, AnnotationMarshal, Annotation, RPC_STATUS)
     return result
 }
 
@@ -16389,7 +16539,10 @@ export RpcNsProfileEltAddW(ProfileNameSyntax, ProfileName, IfId, MemberNameSynta
     MemberName := MemberName is String ? StrPtr(MemberName) : MemberName
     Annotation := Annotation is String ? StrPtr(Annotation) : Annotation
 
-    result := DllCall("RPCNS4.dll\RpcNsProfileEltAddW", UInt32, ProfileNameSyntax, "ptr", ProfileName, RPC_IF_ID.Ptr, IfId, UInt32, MemberNameSyntax, "ptr", MemberName, UInt32, _Priority, "ptr", Annotation, RPC_STATUS)
+    IfIdMarshal := IfId == 0 ? IntPtr : RPC_IF_ID.Ptr
+    AnnotationMarshal := Annotation == 0 ? IntPtr : PWSTR
+
+    result := DllCall("RPCNS4.dll\RpcNsProfileEltAddW", UInt32, ProfileNameSyntax, "ptr", ProfileName, IfIdMarshal, IfId, UInt32, MemberNameSyntax, "ptr", MemberName, UInt32, _Priority, AnnotationMarshal, Annotation, RPC_STATUS)
     return result
 }
 
@@ -16514,7 +16667,9 @@ export RpcNsProfileEltRemoveW(ProfileNameSyntax, ProfileName, IfId, MemberNameSy
     ProfileName := ProfileName is String ? StrPtr(ProfileName) : ProfileName
     MemberName := MemberName is String ? StrPtr(MemberName) : MemberName
 
-    result := DllCall("RPCNS4.dll\RpcNsProfileEltRemoveW", UInt32, ProfileNameSyntax, "ptr", ProfileName, RPC_IF_ID.Ptr, IfId, UInt32, MemberNameSyntax, "ptr", MemberName, RPC_STATUS)
+    IfIdMarshal := IfId == 0 ? IntPtr : RPC_IF_ID.Ptr
+
+    result := DllCall("RPCNS4.dll\RpcNsProfileEltRemoveW", UInt32, ProfileNameSyntax, "ptr", ProfileName, IfIdMarshal, IfId, UInt32, MemberNameSyntax, "ptr", MemberName, RPC_STATUS)
     return result
 }
 
@@ -16795,9 +16950,11 @@ export RpcNsProfileEltInqBeginW(ProfileNameSyntax, ProfileName, InquiryType, IfI
     ProfileName := ProfileName is String ? StrPtr(ProfileName) : ProfileName
     MemberName := MemberName is String ? StrPtr(MemberName) : MemberName
 
-    InquiryContextMarshal := InquiryContext is VarRef ? "ptr*" : "ptr"
+    IfIdMarshal := IfId == 0 ? IntPtr : RPC_IF_ID.Ptr
+    MemberNameMarshal := MemberName == 0 ? IntPtr : PWSTR
+    InquiryContextMarshal := InquiryContext is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("RPCNS4.dll\RpcNsProfileEltInqBeginW", UInt32, ProfileNameSyntax, "ptr", ProfileName, UInt32, InquiryType, RPC_IF_ID.Ptr, IfId, UInt32, VersOption, UInt32, MemberNameSyntax, "ptr", MemberName, InquiryContextMarshal, InquiryContext, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsProfileEltInqBeginW", UInt32, ProfileNameSyntax, "ptr", ProfileName, UInt32, InquiryType, IfIdMarshal, IfId, UInt32, VersOption, UInt32, MemberNameSyntax, MemberNameMarshal, MemberName, InquiryContextMarshal, InquiryContext, RPC_STATUS)
     return result
 }
 
@@ -16906,12 +17063,13 @@ export RpcNsProfileEltInqBeginW(ProfileNameSyntax, ProfileName, InquiryType, IfI
  * @since windows5.0
  */
 export RpcNsProfileEltInqNextW(InquiryContext, IfId, MemberName, _Priority, Annotation) {
-    InquiryContextMarshal := InquiryContext is VarRef ? "ptr" : "ptr"
-    MemberNameMarshal := MemberName is VarRef ? "ptr*" : "ptr"
-    _PriorityMarshal := _Priority is VarRef ? "uint*" : "ptr"
-    AnnotationMarshal := Annotation is VarRef ? "ptr*" : "ptr"
+    InquiryContextMarshal := InquiryContext is VarRef ? "ptr" : IntPtr
+    IfIdMarshal := IfId == 0 ? IntPtr : RPC_IF_ID.Ptr
+    MemberNameMarshal := MemberName is VarRef ? "ptr*" : IntPtr
+    _PriorityMarshal := _Priority is VarRef ? "uint*" : IntPtr
+    AnnotationMarshal := Annotation is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("RPCNS4.dll\RpcNsProfileEltInqNextW", InquiryContextMarshal, InquiryContext, RPC_IF_ID.Ptr, IfId, MemberNameMarshal, MemberName, _PriorityMarshal, _Priority, AnnotationMarshal, Annotation, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsProfileEltInqNextW", InquiryContextMarshal, InquiryContext, IfIdMarshal, IfId, MemberNameMarshal, MemberName, _PriorityMarshal, _Priority, AnnotationMarshal, Annotation, RPC_STATUS)
     return result
 }
 
@@ -16961,7 +17119,7 @@ export RpcNsProfileEltInqNextW(InquiryContext, IfId, MemberName, _Priority, Anno
  * @since windows5.0
  */
 export RpcNsProfileEltInqDone(InquiryContext) {
-    InquiryContextMarshal := InquiryContext is VarRef ? "ptr*" : "ptr"
+    InquiryContextMarshal := InquiryContext is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCNS4.dll\RpcNsProfileEltInqDone", InquiryContextMarshal, InquiryContext, RPC_STATUS)
     return result
@@ -17079,7 +17237,7 @@ export RpcNsProfileEltInqDone(InquiryContext) {
 export RpcNsEntryObjectInqBeginA(EntryNameSyntax, EntryName, InquiryContext) {
     EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-    InquiryContextMarshal := InquiryContext is VarRef ? "ptr*" : "ptr"
+    InquiryContextMarshal := InquiryContext is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCNS4.dll\RpcNsEntryObjectInqBeginA", UInt32, EntryNameSyntax, "ptr", EntryName, InquiryContextMarshal, InquiryContext, RPC_STATUS)
     return result
@@ -17197,7 +17355,7 @@ export RpcNsEntryObjectInqBeginA(EntryNameSyntax, EntryName, InquiryContext) {
 export RpcNsEntryObjectInqBeginW(EntryNameSyntax, EntryName, InquiryContext) {
     EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-    InquiryContextMarshal := InquiryContext is VarRef ? "ptr*" : "ptr"
+    InquiryContextMarshal := InquiryContext is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCNS4.dll\RpcNsEntryObjectInqBeginW", UInt32, EntryNameSyntax, "ptr", EntryName, InquiryContextMarshal, InquiryContext, RPC_STATUS)
     return result
@@ -17291,7 +17449,7 @@ export RpcNsEntryObjectInqBeginW(EntryNameSyntax, EntryName, InquiryContext) {
  * @since windows5.0
  */
 export RpcNsEntryObjectInqNext(InquiryContext, ObjUuid) {
-    InquiryContextMarshal := InquiryContext is VarRef ? "ptr" : "ptr"
+    InquiryContextMarshal := InquiryContext is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCNS4.dll\RpcNsEntryObjectInqNext", InquiryContextMarshal, InquiryContext, Guid.Ptr, ObjUuid, RPC_STATUS)
     return result
@@ -17340,7 +17498,7 @@ export RpcNsEntryObjectInqNext(InquiryContext, ObjUuid) {
  * @since windows5.0
  */
 export RpcNsEntryObjectInqDone(InquiryContext) {
-    InquiryContextMarshal := InquiryContext is VarRef ? "ptr*" : "ptr"
+    InquiryContextMarshal := InquiryContext is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCNS4.dll\RpcNsEntryObjectInqDone", InquiryContextMarshal, InquiryContext, RPC_STATUS)
     return result
@@ -17412,7 +17570,7 @@ export RpcNsEntryObjectInqDone(InquiryContext) {
 export RpcNsEntryExpandNameA(EntryNameSyntax, EntryName, ExpandedName) {
     EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-    ExpandedNameMarshal := ExpandedName is VarRef ? "ptr*" : "ptr"
+    ExpandedNameMarshal := ExpandedName is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCNS4.dll\RpcNsEntryExpandNameA", UInt32, EntryNameSyntax, "ptr", EntryName, ExpandedNameMarshal, ExpandedName, RPC_STATUS)
     return result
@@ -17641,7 +17799,10 @@ export RpcNsEntryExpandNameA(EntryNameSyntax, EntryName, ExpandedName) {
 export RpcNsMgmtBindingUnexportA(EntryNameSyntax, EntryName, IfId, VersOption, ObjectUuidVec) {
     EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-    result := DllCall("RPCNS4.dll\RpcNsMgmtBindingUnexportA", UInt32, EntryNameSyntax, "ptr", EntryName, RPC_IF_ID.Ptr, IfId, UInt32, VersOption, UUID_VECTOR.Ptr, ObjectUuidVec, RPC_STATUS)
+    IfIdMarshal := IfId == 0 ? IntPtr : RPC_IF_ID.Ptr
+    ObjectUuidVecMarshal := ObjectUuidVec == 0 ? IntPtr : UUID_VECTOR.Ptr
+
+    result := DllCall("RPCNS4.dll\RpcNsMgmtBindingUnexportA", UInt32, EntryNameSyntax, "ptr", EntryName, IfIdMarshal, IfId, UInt32, VersOption, ObjectUuidVecMarshal, ObjectUuidVec, RPC_STATUS)
     return result
 }
 
@@ -17978,7 +18139,7 @@ export RpcNsMgmtEntryDeleteA(EntryNameSyntax, EntryName) {
 export RpcNsMgmtEntryInqIfIdsA(EntryNameSyntax, EntryName, IfIdVec) {
     EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-    IfIdVecMarshal := IfIdVec is VarRef ? "ptr*" : "ptr"
+    IfIdVecMarshal := IfIdVec is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCNS4.dll\RpcNsMgmtEntryInqIfIdsA", UInt32, EntryNameSyntax, "ptr", EntryName, IfIdVecMarshal, IfIdVec, RPC_STATUS)
     return result
@@ -18069,7 +18230,7 @@ export RpcNsMgmtEntryInqIfIdsA(EntryNameSyntax, EntryName, IfIdVec) {
  * @since windows5.0
  */
 export RpcNsMgmtHandleSetExpAge(NsHandle, ExpirationAge) {
-    NsHandleMarshal := NsHandle is VarRef ? "ptr" : "ptr"
+    NsHandleMarshal := NsHandle is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCNS4.dll\RpcNsMgmtHandleSetExpAge", NsHandleMarshal, NsHandle, UInt32, ExpirationAge, RPC_STATUS)
     return result
@@ -18114,7 +18275,7 @@ export RpcNsMgmtHandleSetExpAge(NsHandle, ExpirationAge) {
  * @since windows5.0
  */
 export RpcNsMgmtInqExpAge(ExpirationAge) {
-    ExpirationAgeMarshal := ExpirationAge is VarRef ? "uint*" : "ptr"
+    ExpirationAgeMarshal := ExpirationAge is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RPCNS4.dll\RpcNsMgmtInqExpAge", ExpirationAgeMarshal, ExpirationAge, RPC_STATUS)
     return result
@@ -18243,7 +18404,7 @@ export RpcNsMgmtSetExpAge(ExpirationAge) {
 export RpcNsEntryExpandNameW(EntryNameSyntax, EntryName, ExpandedName) {
     EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-    ExpandedNameMarshal := ExpandedName is VarRef ? "ptr*" : "ptr"
+    ExpandedNameMarshal := ExpandedName is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCNS4.dll\RpcNsEntryExpandNameW", UInt32, EntryNameSyntax, "ptr", EntryName, ExpandedNameMarshal, ExpandedName, RPC_STATUS)
     return result
@@ -18472,7 +18633,10 @@ export RpcNsEntryExpandNameW(EntryNameSyntax, EntryName, ExpandedName) {
 export RpcNsMgmtBindingUnexportW(EntryNameSyntax, EntryName, IfId, VersOption, ObjectUuidVec) {
     EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-    result := DllCall("RPCNS4.dll\RpcNsMgmtBindingUnexportW", UInt32, EntryNameSyntax, "ptr", EntryName, RPC_IF_ID.Ptr, IfId, UInt32, VersOption, UUID_VECTOR.Ptr, ObjectUuidVec, RPC_STATUS)
+    IfIdMarshal := IfId == 0 ? IntPtr : RPC_IF_ID.Ptr
+    ObjectUuidVecMarshal := ObjectUuidVec == 0 ? IntPtr : UUID_VECTOR.Ptr
+
+    result := DllCall("RPCNS4.dll\RpcNsMgmtBindingUnexportW", UInt32, EntryNameSyntax, "ptr", EntryName, IfIdMarshal, IfId, UInt32, VersOption, ObjectUuidVecMarshal, ObjectUuidVec, RPC_STATUS)
     return result
 }
 
@@ -18809,7 +18973,7 @@ export RpcNsMgmtEntryDeleteW(EntryNameSyntax, EntryName) {
 export RpcNsMgmtEntryInqIfIdsW(EntryNameSyntax, EntryName, IfIdVec) {
     EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-    IfIdVecMarshal := IfIdVec is VarRef ? "ptr*" : "ptr"
+    IfIdVecMarshal := IfIdVec is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCNS4.dll\RpcNsMgmtEntryInqIfIdsW", UInt32, EntryNameSyntax, "ptr", EntryName, IfIdVecMarshal, IfIdVec, RPC_STATUS)
     return result
@@ -18961,10 +19125,13 @@ export RpcNsMgmtEntryInqIfIdsW(EntryNameSyntax, EntryName, IfIdVec) {
 export RpcNsBindingImportBeginA(EntryNameSyntax, EntryName, IfSpec, ObjUuid, ImportContext) {
     EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-    IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
-    ImportContextMarshal := ImportContext is VarRef ? "ptr*" : "ptr"
+    EntryNameMarshal := EntryName == 0 ? IntPtr : PSTR
+    IfSpecMarshal := IfSpec is VarRef ? "ptr" : IntPtr
+    IfSpecMarshal := IfSpec == 0 ? IntPtr : "ptr"
+    ObjUuidMarshal := ObjUuid == 0 ? IntPtr : Guid.Ptr
+    ImportContextMarshal := ImportContext is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("RPCNS4.dll\RpcNsBindingImportBeginA", UInt32, EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, Guid.Ptr, ObjUuid, ImportContextMarshal, ImportContext, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsBindingImportBeginA", UInt32, EntryNameSyntax, EntryNameMarshal, EntryName, IfSpecMarshal, IfSpec, ObjUuidMarshal, ObjUuid, ImportContextMarshal, ImportContext, RPC_STATUS)
     return result
 }
 
@@ -19114,10 +19281,13 @@ export RpcNsBindingImportBeginA(EntryNameSyntax, EntryName, IfSpec, ObjUuid, Imp
 export RpcNsBindingImportBeginW(EntryNameSyntax, EntryName, IfSpec, ObjUuid, ImportContext) {
     EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-    IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
-    ImportContextMarshal := ImportContext is VarRef ? "ptr*" : "ptr"
+    EntryNameMarshal := EntryName == 0 ? IntPtr : PWSTR
+    IfSpecMarshal := IfSpec is VarRef ? "ptr" : IntPtr
+    IfSpecMarshal := IfSpec == 0 ? IntPtr : "ptr"
+    ObjUuidMarshal := ObjUuid == 0 ? IntPtr : Guid.Ptr
+    ImportContextMarshal := ImportContext is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("RPCNS4.dll\RpcNsBindingImportBeginW", UInt32, EntryNameSyntax, "ptr", EntryName, IfSpecMarshal, IfSpec, Guid.Ptr, ObjUuid, ImportContextMarshal, ImportContext, RPC_STATUS)
+    result := DllCall("RPCNS4.dll\RpcNsBindingImportBeginW", UInt32, EntryNameSyntax, EntryNameMarshal, EntryName, IfSpecMarshal, IfSpec, ObjUuidMarshal, ObjUuid, ImportContextMarshal, ImportContext, RPC_STATUS)
     return result
 }
 
@@ -19218,8 +19388,8 @@ export RpcNsBindingImportBeginW(EntryNameSyntax, EntryName, IfSpec, ObjUuid, Imp
  * @since windows5.0
  */
 export RpcNsBindingImportNext(ImportContext, Binding) {
-    ImportContextMarshal := ImportContext is VarRef ? "ptr" : "ptr"
-    BindingMarshal := Binding is VarRef ? "ptr*" : "ptr"
+    ImportContextMarshal := ImportContext is VarRef ? "ptr" : IntPtr
+    BindingMarshal := Binding is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCNS4.dll\RpcNsBindingImportNext", ImportContextMarshal, ImportContext, BindingMarshal, Binding, RPC_STATUS)
     return result
@@ -19267,7 +19437,7 @@ export RpcNsBindingImportNext(ImportContext, Binding) {
  * @since windows5.0
  */
 export RpcNsBindingImportDone(ImportContext) {
-    ImportContextMarshal := ImportContext is VarRef ? "ptr*" : "ptr"
+    ImportContextMarshal := ImportContext is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCNS4.dll\RpcNsBindingImportDone", ImportContextMarshal, ImportContext, RPC_STATUS)
     return result
@@ -19328,7 +19498,7 @@ export RpcNsBindingImportDone(ImportContext) {
  * @since windows5.0
  */
 export RpcNsBindingSelect(BindingVec, Binding) {
-    BindingMarshal := Binding is VarRef ? "ptr*" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCNS4.dll\RpcNsBindingSelect", RPC_BINDING_VECTOR.Ptr, BindingVec, BindingMarshal, Binding, RPC_STATUS)
     return result
@@ -19575,7 +19745,8 @@ export RpcAsyncGetCallStatus(pAsync) {
  * @since windows5.0
  */
 export RpcAsyncCompleteCall(pAsync, Reply) {
-    ReplyMarshal := Reply is VarRef ? "ptr" : "ptr"
+    ReplyMarshal := Reply is VarRef ? "ptr" : IntPtr
+    ReplyMarshal := Reply == 0 ? IntPtr : "ptr"
 
     result := DllCall("RPCRT4.dll\RpcAsyncCompleteCall", RPC_ASYNC_STATE.Ptr, pAsync, ReplyMarshal, Reply, RPC_STATUS)
     return result
@@ -19837,7 +20008,7 @@ export RpcErrorResetEnumeration(EnumHandle) {
  * @since windows5.1.2600
  */
 export RpcErrorGetNumberOfRecords(EnumHandle, Records) {
-    RecordsMarshal := Records is VarRef ? "int*" : "ptr"
+    RecordsMarshal := Records is VarRef ? "int*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcErrorGetNumberOfRecords", RPC_ERROR_ENUM_HANDLE.Ptr, EnumHandle, RecordsMarshal, Records, RPC_STATUS)
     return result
@@ -19864,8 +20035,8 @@ export RpcErrorGetNumberOfRecords(EnumHandle, Records) {
  * @since windows5.1.2600
  */
 export RpcErrorSaveErrorInfo(EnumHandle, ErrorBlob, BlobSize) {
-    ErrorBlobMarshal := ErrorBlob is VarRef ? "ptr*" : "ptr"
-    BlobSizeMarshal := BlobSize is VarRef ? "ptr*" : "ptr"
+    ErrorBlobMarshal := ErrorBlob is VarRef ? "ptr*" : IntPtr
+    BlobSizeMarshal := BlobSize is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcErrorSaveErrorInfo", RPC_ERROR_ENUM_HANDLE.Ptr, EnumHandle, ErrorBlobMarshal, ErrorBlob, BlobSizeMarshal, BlobSize, RPC_STATUS)
     return result
@@ -20037,11 +20208,15 @@ export RpcErrorClearInformation() {
  * @since windows5.1.2600
  */
 export RpcGetAuthorizationContextForClient(ClientBinding, ImpersonateOnReturn, Reserved1, pExpirationTime, Reserved2, Reserved3, Reserved4, pAuthzClientContext) {
-    ClientBindingMarshal := ClientBinding is VarRef ? "ptr" : "ptr"
-    Reserved1Marshal := Reserved1 is VarRef ? "ptr" : "ptr"
-    pExpirationTimeMarshal := pExpirationTime is VarRef ? "int64*" : "ptr"
-    Reserved4Marshal := Reserved4 is VarRef ? "ptr" : "ptr"
-    pAuthzClientContextMarshal := pAuthzClientContext is VarRef ? "ptr*" : "ptr"
+    ClientBindingMarshal := ClientBinding is VarRef ? "ptr" : IntPtr
+    ClientBindingMarshal := ClientBinding == 0 ? IntPtr : "ptr"
+    Reserved1Marshal := Reserved1 is VarRef ? "ptr" : IntPtr
+    Reserved1Marshal := Reserved1 == 0 ? IntPtr : "ptr"
+    pExpirationTimeMarshal := pExpirationTime is VarRef ? "int64*" : IntPtr
+    pExpirationTimeMarshal := pExpirationTime == 0 ? IntPtr : "int64*"
+    Reserved4Marshal := Reserved4 is VarRef ? "ptr" : IntPtr
+    Reserved4Marshal := Reserved4 == 0 ? IntPtr : "ptr"
+    pAuthzClientContextMarshal := pAuthzClientContext is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcGetAuthorizationContextForClient", ClientBindingMarshal, ClientBinding, BOOL, ImpersonateOnReturn, Reserved1Marshal, Reserved1, pExpirationTimeMarshal, pExpirationTime, LUID, Reserved2, UInt32, Reserved3, Reserved4Marshal, Reserved4, pAuthzClientContextMarshal, pAuthzClientContext, RPC_STATUS)
     return result
@@ -20061,7 +20236,7 @@ export RpcGetAuthorizationContextForClient(ClientBinding, ImpersonateOnReturn, R
  * @since windows5.1.2600
  */
 export RpcFreeAuthorizationContext(pAuthzClientContext) {
-    pAuthzClientContextMarshal := pAuthzClientContext is VarRef ? "ptr*" : "ptr"
+    pAuthzClientContextMarshal := pAuthzClientContext is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcFreeAuthorizationContext", pAuthzClientContextMarshal, pAuthzClientContext, RPC_STATUS)
     return result
@@ -20124,8 +20299,9 @@ export RpcFreeAuthorizationContext(pAuthzClientContext) {
  * @since windows5.1.2600
  */
 export RpcSsContextLockExclusive(ServerBindingHandle, UserContext) {
-    ServerBindingHandleMarshal := ServerBindingHandle is VarRef ? "ptr" : "ptr"
-    UserContextMarshal := UserContext is VarRef ? "ptr" : "ptr"
+    ServerBindingHandleMarshal := ServerBindingHandle is VarRef ? "ptr" : IntPtr
+    ServerBindingHandleMarshal := ServerBindingHandle == 0 ? IntPtr : "ptr"
+    UserContextMarshal := UserContext is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcSsContextLockExclusive", ServerBindingHandleMarshal, ServerBindingHandle, UserContextMarshal, UserContext, RPC_STATUS)
     return result
@@ -20184,8 +20360,8 @@ export RpcSsContextLockExclusive(ServerBindingHandle, UserContext) {
  * @since windows5.1.2600
  */
 export RpcSsContextLockShared(ServerBindingHandle, UserContext) {
-    ServerBindingHandleMarshal := ServerBindingHandle is VarRef ? "ptr" : "ptr"
-    UserContextMarshal := UserContext is VarRef ? "ptr" : "ptr"
+    ServerBindingHandleMarshal := ServerBindingHandle is VarRef ? "ptr" : IntPtr
+    UserContextMarshal := UserContext is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcSsContextLockShared", ServerBindingHandleMarshal, ServerBindingHandle, UserContextMarshal, UserContext, RPC_STATUS)
     return result
@@ -20222,8 +20398,9 @@ export RpcSsContextLockShared(ServerBindingHandle, UserContext) {
  * @since windows5.1.2600
  */
 export RpcServerInqCallAttributesW(ClientBinding, RpcCallAttributes) {
-    ClientBindingMarshal := ClientBinding is VarRef ? "ptr" : "ptr"
-    RpcCallAttributesMarshal := RpcCallAttributes is VarRef ? "ptr" : "ptr"
+    ClientBindingMarshal := ClientBinding is VarRef ? "ptr" : IntPtr
+    ClientBindingMarshal := ClientBinding == 0 ? IntPtr : "ptr"
+    RpcCallAttributesMarshal := RpcCallAttributes is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcServerInqCallAttributesW", ClientBindingMarshal, ClientBinding, RpcCallAttributesMarshal, RpcCallAttributes, RPC_STATUS)
     return result
@@ -20260,8 +20437,9 @@ export RpcServerInqCallAttributesW(ClientBinding, RpcCallAttributes) {
  * @since windows5.1.2600
  */
 export RpcServerInqCallAttributesA(ClientBinding, RpcCallAttributes) {
-    ClientBindingMarshal := ClientBinding is VarRef ? "ptr" : "ptr"
-    RpcCallAttributesMarshal := RpcCallAttributes is VarRef ? "ptr" : "ptr"
+    ClientBindingMarshal := ClientBinding is VarRef ? "ptr" : IntPtr
+    ClientBindingMarshal := ClientBinding == 0 ? IntPtr : "ptr"
+    RpcCallAttributesMarshal := RpcCallAttributes is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcServerInqCallAttributesA", ClientBindingMarshal, ClientBinding, RpcCallAttributesMarshal, RpcCallAttributes, RPC_STATUS)
     return result
@@ -20333,7 +20511,8 @@ export RpcServerInqCallAttributesA(ClientBinding, RpcCallAttributes) {
  * @since windows6.0.6000
  */
 export RpcServerSubscribeForNotification(Binding, _Notification, NotificationType, NotificationInfo) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    BindingMarshal := Binding == 0 ? IntPtr : "ptr"
 
     result := DllCall("RPCRT4.dll\RpcServerSubscribeForNotification", BindingMarshal, Binding, RPC_NOTIFICATIONS, _Notification, RPC_NOTIFICATION_TYPES, NotificationType, RPC_ASYNC_NOTIFICATION_INFO.Ptr, NotificationInfo, RPC_STATUS)
     return result
@@ -20361,8 +20540,9 @@ export RpcServerSubscribeForNotification(Binding, _Notification, NotificationTyp
  * @since windows6.0.6000
  */
 export RpcServerUnsubscribeForNotification(Binding, _Notification, NotificationsQueued) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    NotificationsQueuedMarshal := NotificationsQueued is VarRef ? "uint*" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    BindingMarshal := Binding == 0 ? IntPtr : "ptr"
+    NotificationsQueuedMarshal := NotificationsQueued is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcServerUnsubscribeForNotification", BindingMarshal, Binding, RPC_NOTIFICATIONS, _Notification, NotificationsQueuedMarshal, NotificationsQueued, RPC_STATUS)
     return result
@@ -20460,10 +20640,11 @@ export RpcServerUnsubscribeForNotification(Binding, _Notification, Notifications
  * @since windows6.0.6000
  */
 export RpcBindingBind(pAsync, Binding, IfSpec) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
-    IfSpecMarshal := IfSpec is VarRef ? "ptr" : "ptr"
+    pAsyncMarshal := pAsync == 0 ? IntPtr : RPC_ASYNC_STATE.Ptr
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    IfSpecMarshal := IfSpec is VarRef ? "ptr" : IntPtr
 
-    result := DllCall("RPCRT4.dll\RpcBindingBind", RPC_ASYNC_STATE.Ptr, pAsync, BindingMarshal, Binding, IfSpecMarshal, IfSpec, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\RpcBindingBind", pAsyncMarshal, pAsync, BindingMarshal, Binding, IfSpecMarshal, IfSpec, RPC_STATUS)
     return result
 }
 
@@ -20487,14 +20668,13 @@ export RpcBindingBind(pAsync, Binding, IfSpec) {
  * @since windows6.0.6000
  */
 export RpcBindingUnbind(Binding) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcBindingUnbind", BindingMarshal, Binding, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {Pointer<RPC_MESSAGE>} Message 
  * @param {Pointer<RPC_ASYNC_STATE>} pAsync 
  * @returns {RPC_STATUS} 
@@ -20505,7 +20685,6 @@ export I_RpcAsyncSetHandle(Message, pAsync) {
 }
 
 /**
- * 
  * @param {Pointer<RPC_ASYNC_STATE>} pAsync 
  * @param {Integer} ExceptionCode 
  * @returns {RPC_STATUS} 
@@ -20547,7 +20726,6 @@ export I_RpcExceptionFilter(ExceptionCode) {
 }
 
 /**
- * 
  * @param {Pointer<Void>} Binding 
  * @param {Pointer<LUID>} TokenId 
  * @param {Pointer<LUID>} AuthenticationId 
@@ -20555,14 +20733,16 @@ export I_RpcExceptionFilter(ExceptionCode) {
  * @returns {RPC_STATUS} 
  */
 export I_RpcBindingInqClientTokenAttributes(Binding, TokenId, AuthenticationId, ModifiedId) {
-    BindingMarshal := Binding is VarRef ? "ptr" : "ptr"
+    BindingMarshal := Binding is VarRef ? "ptr" : IntPtr
+    TokenIdMarshal := TokenId == 0 ? IntPtr : LUID.Ptr
+    AuthenticationIdMarshal := AuthenticationId == 0 ? IntPtr : LUID.Ptr
+    ModifiedIdMarshal := ModifiedId == 0 ? IntPtr : LUID.Ptr
 
-    result := DllCall("RPCRT4.dll\I_RpcBindingInqClientTokenAttributes", BindingMarshal, Binding, LUID.Ptr, TokenId, LUID.Ptr, AuthenticationId, LUID.Ptr, ModifiedId, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\I_RpcBindingInqClientTokenAttributes", BindingMarshal, Binding, TokenIdMarshal, TokenId, AuthenticationIdMarshal, AuthenticationId, ModifiedIdMarshal, ModifiedId, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {Pointer<RPC_MESSAGE>} Message 
  * @returns {RPC_STATUS} 
  */
@@ -20572,20 +20752,18 @@ export I_RpcNsGetBuffer(Message) {
 }
 
 /**
- * 
  * @param {Pointer<RPC_MESSAGE>} Message 
  * @param {Pointer<Pointer<Void>>} _Handle 
  * @returns {RPC_STATUS} 
  */
 export I_RpcNsSendReceive(Message, _Handle) {
-    _HandleMarshal := _Handle is VarRef ? "ptr*" : "ptr"
+    _HandleMarshal := _Handle is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCNS4.dll\I_RpcNsSendReceive", RPC_MESSAGE.Ptr, Message, _HandleMarshal, _Handle, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {Pointer<RPC_MESSAGE>} Message 
  * @param {RPC_STATUS} _Status 
  * @returns {String} Nothing - always returns an empty string
@@ -20595,7 +20773,6 @@ export I_RpcNsRaiseException(Message, _Status) {
 }
 
 /**
- * 
  * @param {Pointer<RPC_MESSAGE>} Message 
  * @returns {RPC_STATUS} 
  */
@@ -20605,7 +20782,6 @@ export I_RpcReBindBuffer(Message) {
 }
 
 /**
- * 
  * @param {Pointer} CContext 
  * @returns {Pointer<Void>} 
  */
@@ -20615,19 +20791,18 @@ export NDRCContextBinding(CContext) {
 }
 
 /**
- * 
  * @param {Pointer} CContext 
  * @param {Pointer<Void>} pBuff 
  * @returns {String} Nothing - always returns an empty string
  */
 export NDRCContextMarshall(CContext, pBuff) {
-    pBuffMarshal := pBuff is VarRef ? "ptr" : "ptr"
+    CContextMarshal := CContext == 0 ? IntPtr : IntPtr
+    pBuffMarshal := pBuff is VarRef ? "ptr" : IntPtr
 
-    DllCall("RPCRT4.dll\NDRCContextMarshall", IntPtr, CContext, pBuffMarshal, pBuff)
+    DllCall("RPCRT4.dll\NDRCContextMarshall", CContextMarshal, CContext, pBuffMarshal, pBuff)
 }
 
 /**
- * 
  * @param {Pointer<Pointer>} pCContext 
  * @param {Pointer<Void>} hBinding 
  * @param {Pointer<Void>} pBuff 
@@ -20635,41 +20810,39 @@ export NDRCContextMarshall(CContext, pBuff) {
  * @returns {String} Nothing - always returns an empty string
  */
 export NDRCContextUnmarshall(pCContext, hBinding, pBuff, DataRepresentation) {
-    pCContextMarshal := pCContext is VarRef ? "ptr*" : "ptr"
-    hBindingMarshal := hBinding is VarRef ? "ptr" : "ptr"
-    pBuffMarshal := pBuff is VarRef ? "ptr" : "ptr"
+    pCContextMarshal := pCContext is VarRef ? "ptr*" : IntPtr
+    pCContextMarshal := pCContext == 0 ? IntPtr : "ptr*"
+    hBindingMarshal := hBinding is VarRef ? "ptr" : IntPtr
+    pBuffMarshal := pBuff is VarRef ? "ptr" : IntPtr
 
     DllCall("RPCRT4.dll\NDRCContextUnmarshall", pCContextMarshal, pCContext, hBindingMarshal, hBinding, pBuffMarshal, pBuff, UInt32, DataRepresentation)
 }
 
 /**
- * 
  * @param {Pointer<NDR_SCONTEXT>} CContext 
  * @param {Pointer<Void>} pBuff 
  * @param {Pointer<NDR_RUNDOWN>} userRunDownIn 
  * @returns {String} Nothing - always returns an empty string
  */
 export NDRSContextMarshall(CContext, pBuff, userRunDownIn) {
-    pBuffMarshal := pBuff is VarRef ? "ptr" : "ptr"
+    pBuffMarshal := pBuff is VarRef ? "ptr" : IntPtr
 
     DllCall("RPCRT4.dll\NDRSContextMarshall", NDR_SCONTEXT.Ptr, CContext, pBuffMarshal, pBuff, NDR_RUNDOWN, userRunDownIn)
 }
 
 /**
- * 
  * @param {Pointer<Void>} pBuff 
  * @param {Integer} DataRepresentation 
  * @returns {Pointer<NDR_SCONTEXT>} 
  */
 export NDRSContextUnmarshall(pBuff, DataRepresentation) {
-    pBuffMarshal := pBuff is VarRef ? "ptr" : "ptr"
+    pBuffMarshal := pBuff is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\NDRSContextUnmarshall", pBuffMarshal, pBuff, UInt32, DataRepresentation, NDR_SCONTEXT.Ptr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} BindingHandle 
  * @param {Pointer<NDR_SCONTEXT>} CContext 
  * @param {Pointer<Void>} pBuff 
@@ -20677,14 +20850,13 @@ export NDRSContextUnmarshall(pBuff, DataRepresentation) {
  * @returns {String} Nothing - always returns an empty string
  */
 export NDRSContextMarshallEx(BindingHandle, CContext, pBuff, userRunDownIn) {
-    BindingHandleMarshal := BindingHandle is VarRef ? "ptr" : "ptr"
-    pBuffMarshal := pBuff is VarRef ? "ptr" : "ptr"
+    BindingHandleMarshal := BindingHandle is VarRef ? "ptr" : IntPtr
+    pBuffMarshal := pBuff is VarRef ? "ptr" : IntPtr
 
     DllCall("RPCRT4.dll\NDRSContextMarshallEx", BindingHandleMarshal, BindingHandle, NDR_SCONTEXT.Ptr, CContext, pBuffMarshal, pBuff, NDR_RUNDOWN, userRunDownIn)
 }
 
 /**
- * 
  * @param {Pointer<Void>} BindingHandle 
  * @param {Pointer<NDR_SCONTEXT>} CContext 
  * @param {Pointer<Void>} pBuff 
@@ -20694,30 +20866,29 @@ export NDRSContextMarshallEx(BindingHandle, CContext, pBuff, userRunDownIn) {
  * @returns {String} Nothing - always returns an empty string
  */
 export NDRSContextMarshall2(BindingHandle, CContext, pBuff, userRunDownIn, CtxGuard, Flags) {
-    BindingHandleMarshal := BindingHandle is VarRef ? "ptr" : "ptr"
-    pBuffMarshal := pBuff is VarRef ? "ptr" : "ptr"
-    CtxGuardMarshal := CtxGuard is VarRef ? "ptr" : "ptr"
+    BindingHandleMarshal := BindingHandle is VarRef ? "ptr" : IntPtr
+    pBuffMarshal := pBuff is VarRef ? "ptr" : IntPtr
+    CtxGuardMarshal := CtxGuard is VarRef ? "ptr" : IntPtr
+    CtxGuardMarshal := CtxGuard == 0 ? IntPtr : "ptr"
 
     DllCall("RPCRT4.dll\NDRSContextMarshall2", BindingHandleMarshal, BindingHandle, NDR_SCONTEXT.Ptr, CContext, pBuffMarshal, pBuff, NDR_RUNDOWN, userRunDownIn, CtxGuardMarshal, CtxGuard, UInt32, Flags)
 }
 
 /**
- * 
  * @param {Pointer<Void>} BindingHandle 
  * @param {Pointer<Void>} pBuff 
  * @param {Integer} DataRepresentation 
  * @returns {Pointer<NDR_SCONTEXT>} 
  */
 export NDRSContextUnmarshallEx(BindingHandle, pBuff, DataRepresentation) {
-    BindingHandleMarshal := BindingHandle is VarRef ? "ptr" : "ptr"
-    pBuffMarshal := pBuff is VarRef ? "ptr" : "ptr"
+    BindingHandleMarshal := BindingHandle is VarRef ? "ptr" : IntPtr
+    pBuffMarshal := pBuff is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\NDRSContextUnmarshallEx", BindingHandleMarshal, BindingHandle, pBuffMarshal, pBuff, UInt32, DataRepresentation, NDR_SCONTEXT.Ptr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} BindingHandle 
  * @param {Pointer<Void>} pBuff 
  * @param {Integer} DataRepresentation 
@@ -20726,9 +20897,11 @@ export NDRSContextUnmarshallEx(BindingHandle, pBuff, DataRepresentation) {
  * @returns {Pointer<NDR_SCONTEXT>} 
  */
 export NDRSContextUnmarshall2(BindingHandle, pBuff, DataRepresentation, CtxGuard, Flags) {
-    BindingHandleMarshal := BindingHandle is VarRef ? "ptr" : "ptr"
-    pBuffMarshal := pBuff is VarRef ? "ptr" : "ptr"
-    CtxGuardMarshal := CtxGuard is VarRef ? "ptr" : "ptr"
+    BindingHandleMarshal := BindingHandle is VarRef ? "ptr" : IntPtr
+    pBuffMarshal := pBuff is VarRef ? "ptr" : IntPtr
+    pBuffMarshal := pBuff == 0 ? IntPtr : "ptr"
+    CtxGuardMarshal := CtxGuard is VarRef ? "ptr" : IntPtr
+    CtxGuardMarshal := CtxGuard == 0 ? IntPtr : "ptr"
 
     result := DllCall("RPCRT4.dll\NDRSContextUnmarshall2", BindingHandleMarshal, BindingHandle, pBuffMarshal, pBuff, UInt32, DataRepresentation, CtxGuardMarshal, CtxGuard, UInt32, Flags, NDR_SCONTEXT.Ptr)
     return result
@@ -20753,7 +20926,7 @@ export NDRSContextUnmarshall2(BindingHandle, pBuff, DataRepresentation, CtxGuard
  * @since windows5.0
  */
 export RpcSsDestroyClientContext(ContextHandle) {
-    ContextHandleMarshal := ContextHandle is VarRef ? "ptr*" : "ptr"
+    ContextHandleMarshal := ContextHandle is VarRef ? "ptr*" : IntPtr
 
     DllCall("RPCRT4.dll\RpcSsDestroyClientContext", ContextHandleMarshal, ContextHandle)
 }
@@ -20768,7 +20941,7 @@ export RpcSsDestroyClientContext(ContextHandle) {
  * @since windows5.0
  */
 export NdrSimpleTypeMarshall(pStubMsg, pMemory, FormatChar) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrSimpleTypeMarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, Int8, FormatChar)
 }
@@ -20800,8 +20973,8 @@ export NdrSimpleTypeMarshall(pStubMsg, pMemory, FormatChar) {
  * @since windows5.0
  */
 export NdrPointerMarshall(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrPointerMarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat, IntPtr)
     return result
@@ -20832,38 +21005,36 @@ export NdrPointerMarshall(pStubMsg, pMemory, pFormat) {
  * @since windows5.0
  */
 export NdrSimpleStructMarshall(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrSimpleStructMarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pMemory 
  * @param {Pointer<Integer>} pFormat 
  * @returns {Pointer<Integer>} 
  */
 export NdrConformantStructMarshall(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrConformantStructMarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pMemory 
  * @param {Pointer<Integer>} pFormat 
  * @returns {Pointer<Integer>} 
  */
 export NdrConformantVaryingStructMarshall(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrConformantVaryingStructMarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat, IntPtr)
     return result
@@ -20894,23 +21065,22 @@ export NdrConformantVaryingStructMarshall(pStubMsg, pMemory, pFormat) {
  * @since windows5.0
  */
 export NdrComplexStructMarshall(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrComplexStructMarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pMemory 
  * @param {Pointer<Integer>} pFormat 
  * @returns {Pointer<Integer>} 
  */
 export NdrFixedArrayMarshall(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrFixedArrayMarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat, IntPtr)
     return result
@@ -20940,38 +21110,36 @@ export NdrFixedArrayMarshall(pStubMsg, pMemory, pFormat) {
  * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-ndrconformantarraymarshall
  */
 export NdrConformantArrayMarshall(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrConformantArrayMarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pMemory 
  * @param {Pointer<Integer>} pFormat 
  * @returns {Pointer<Integer>} 
  */
 export NdrConformantVaryingArrayMarshall(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrConformantVaryingArrayMarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pMemory 
  * @param {Pointer<Integer>} pFormat 
  * @returns {Pointer<Integer>} 
  */
 export NdrVaryingArrayMarshall(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrVaryingArrayMarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat, IntPtr)
     return result
@@ -21002,23 +21170,22 @@ export NdrVaryingArrayMarshall(pStubMsg, pMemory, pFormat) {
  * @since windows5.0
  */
 export NdrComplexArrayMarshall(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrComplexArrayMarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pMemory 
  * @param {Pointer<Integer>} pFormat 
  * @returns {Pointer<Integer>} 
  */
 export NdrNonConformantStringMarshall(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrNonConformantStringMarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat, IntPtr)
     return result
@@ -21049,68 +21216,64 @@ export NdrNonConformantStringMarshall(pStubMsg, pMemory, pFormat) {
  * @since windows5.0
  */
 export NdrConformantStringMarshall(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrConformantStringMarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pMemory 
  * @param {Pointer<Integer>} pFormat 
  * @returns {Pointer<Integer>} 
  */
 export NdrEncapsulatedUnionMarshall(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrEncapsulatedUnionMarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pMemory 
  * @param {Pointer<Integer>} pFormat 
  * @returns {Pointer<Integer>} 
  */
 export NdrNonEncapsulatedUnionMarshall(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrNonEncapsulatedUnionMarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pMemory 
  * @param {Pointer<Integer>} pFormat 
  * @returns {Pointer<Integer>} 
  */
 export NdrByteCountPointerMarshall(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrByteCountPointerMarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pMemory 
  * @param {Pointer<Integer>} pFormat 
  * @returns {Pointer<Integer>} 
  */
 export NdrXmitOrRepAsMarshall(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrXmitOrRepAsMarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat, IntPtr)
     return result
@@ -21141,8 +21304,8 @@ export NdrXmitOrRepAsMarshall(pStubMsg, pMemory, pFormat) {
  * @since windows5.0
  */
 export NdrUserMarshalMarshall(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrUserMarshalMarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat, IntPtr)
     return result
@@ -21173,15 +21336,14 @@ export NdrUserMarshalMarshall(pStubMsg, pMemory, pFormat) {
  * @since windows5.0
  */
 export NdrInterfacePointerMarshall(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrInterfacePointerMarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer} ContextHandle 
  * @param {Integer} fCheck 
@@ -21192,7 +21354,6 @@ export NdrClientContextMarshall(pStubMsg, ContextHandle, fCheck) {
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<NDR_SCONTEXT>} ContextHandle 
  * @param {Pointer<NDR_RUNDOWN>} RundownRoutine 
@@ -21203,7 +21364,6 @@ export NdrServerContextMarshall(pStubMsg, ContextHandle, RundownRoutine) {
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<NDR_SCONTEXT>} ContextHandle 
  * @param {Pointer<NDR_RUNDOWN>} RundownRoutine 
@@ -21211,7 +21371,7 @@ export NdrServerContextMarshall(pStubMsg, ContextHandle, RundownRoutine) {
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrServerContextNewMarshall(pStubMsg, ContextHandle, RundownRoutine, pFormat) {
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrServerContextNewMarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, NDR_SCONTEXT.Ptr, ContextHandle, NDR_RUNDOWN, RundownRoutine, pFormatMarshal, pFormat)
 }
@@ -21226,13 +21386,12 @@ export NdrServerContextNewMarshall(pStubMsg, ContextHandle, RundownRoutine, pFor
  * @since windows5.0
  */
 export NdrSimpleTypeUnmarshall(pStubMsg, pMemory, FormatChar) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrSimpleTypeUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, Int8, FormatChar)
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Pointer<Integer>>} ppMemory 
  * @param {Pointer<Integer>} pFormat 
@@ -21240,15 +21399,14 @@ export NdrSimpleTypeUnmarshall(pStubMsg, pMemory, FormatChar) {
  * @returns {Pointer<Integer>} 
  */
 export NdrRangeUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrRangeUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Void>} pMemory 
  * @param {Integer} CacheSize 
@@ -21256,13 +21414,12 @@ export NdrRangeUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrCorrelationInitialize(pStubMsg, pMemory, CacheSize, flags) {
-    pMemoryMarshal := pMemory is VarRef ? "ptr" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "ptr" : IntPtr
 
     DllCall("RPCRT4.dll\NdrCorrelationInitialize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, UInt32, CacheSize, UInt32, flags)
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @returns {String} Nothing - always returns an empty string
  */
@@ -21271,7 +21428,6 @@ export NdrCorrelationPass(pStubMsg) {
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @returns {String} Nothing - always returns an empty string
  */
@@ -21315,8 +21471,8 @@ export NdrCorrelationFree(pStubMsg) {
  * @since windows5.0
  */
 export NdrPointerUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrPointerUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
@@ -21356,15 +21512,14 @@ export NdrPointerUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
  * @since windows5.0
  */
 export NdrSimpleStructUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrSimpleStructUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Pointer<Integer>>} ppMemory 
  * @param {Pointer<Integer>} pFormat 
@@ -21372,15 +21527,14 @@ export NdrSimpleStructUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
  * @returns {Pointer<Integer>} 
  */
 export NdrConformantStructUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrConformantStructUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Pointer<Integer>>} ppMemory 
  * @param {Pointer<Integer>} pFormat 
@@ -21388,8 +21542,8 @@ export NdrConformantStructUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
  * @returns {Pointer<Integer>} 
  */
 export NdrConformantVaryingStructUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrConformantVaryingStructUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
@@ -21429,15 +21583,14 @@ export NdrConformantVaryingStructUnmarshall(pStubMsg, ppMemory, pFormat, fMustAl
  * @since windows5.0
  */
 export NdrComplexStructUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrComplexStructUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Pointer<Integer>>} ppMemory 
  * @param {Pointer<Integer>} pFormat 
@@ -21445,8 +21598,8 @@ export NdrComplexStructUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
  * @returns {Pointer<Integer>} 
  */
 export NdrFixedArrayUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrFixedArrayUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
@@ -21529,15 +21682,14 @@ export NdrFixedArrayUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
  * @since windows5.0
  */
 export NdrConformantArrayUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrConformantArrayUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Pointer<Integer>>} ppMemory 
  * @param {Pointer<Integer>} pFormat 
@@ -21545,15 +21697,14 @@ export NdrConformantArrayUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
  * @returns {Pointer<Integer>} 
  */
 export NdrConformantVaryingArrayUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrConformantVaryingArrayUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Pointer<Integer>>} ppMemory 
  * @param {Pointer<Integer>} pFormat 
@@ -21561,8 +21712,8 @@ export NdrConformantVaryingArrayUnmarshall(pStubMsg, ppMemory, pFormat, fMustAll
  * @returns {Pointer<Integer>} 
  */
 export NdrVaryingArrayUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrVaryingArrayUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
@@ -21602,15 +21753,14 @@ export NdrVaryingArrayUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
  * @since windows5.0
  */
 export NdrComplexArrayUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrComplexArrayUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Pointer<Integer>>} ppMemory 
  * @param {Pointer<Integer>} pFormat 
@@ -21618,8 +21768,8 @@ export NdrComplexArrayUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
  * @returns {Pointer<Integer>} 
  */
 export NdrNonConformantStringUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrNonConformantStringUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
@@ -21659,15 +21809,14 @@ export NdrNonConformantStringUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc)
  * @since windows5.0
  */
 export NdrConformantStringUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrConformantStringUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Pointer<Integer>>} ppMemory 
  * @param {Pointer<Integer>} pFormat 
@@ -21675,15 +21824,14 @@ export NdrConformantStringUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
  * @returns {Pointer<Integer>} 
  */
 export NdrEncapsulatedUnionUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrEncapsulatedUnionUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Pointer<Integer>>} ppMemory 
  * @param {Pointer<Integer>} pFormat 
@@ -21691,15 +21839,14 @@ export NdrEncapsulatedUnionUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
  * @returns {Pointer<Integer>} 
  */
 export NdrNonEncapsulatedUnionUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrNonEncapsulatedUnionUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Pointer<Integer>>} ppMemory 
  * @param {Pointer<Integer>} pFormat 
@@ -21707,15 +21854,14 @@ export NdrNonEncapsulatedUnionUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc
  * @returns {Pointer<Integer>} 
  */
 export NdrByteCountPointerUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrByteCountPointerUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Pointer<Integer>>} ppMemory 
  * @param {Pointer<Integer>} pFormat 
@@ -21723,8 +21869,8 @@ export NdrByteCountPointerUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
  * @returns {Pointer<Integer>} 
  */
 export NdrXmitOrRepAsUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrXmitOrRepAsUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
@@ -21756,8 +21902,8 @@ export NdrXmitOrRepAsUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
  * @since windows5.0
  */
 export NdrUserMarshalUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrUserMarshalUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
@@ -21797,29 +21943,27 @@ export NdrUserMarshalUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
  * @since windows5.0
  */
 export NdrInterfacePointerUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrInterfacePointerUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat, Int8, fMustAlloc, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Pointer>} pContextHandle 
  * @param {Pointer<Void>} BindHandle 
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrClientContextUnmarshall(pStubMsg, pContextHandle, BindHandle) {
-    pContextHandleMarshal := pContextHandle is VarRef ? "ptr*" : "ptr"
-    BindHandleMarshal := BindHandle is VarRef ? "ptr" : "ptr"
+    pContextHandleMarshal := pContextHandle is VarRef ? "ptr*" : IntPtr
+    BindHandleMarshal := BindHandle is VarRef ? "ptr" : IntPtr
 
     DllCall("RPCRT4.dll\NdrClientContextUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pContextHandleMarshal, pContextHandle, BindHandleMarshal, BindHandle)
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @returns {Pointer<NDR_SCONTEXT>} 
  */
@@ -21837,20 +21981,19 @@ export NdrServerContextUnmarshall(pStubMsg) {
  * @since windows5.1.2600
  */
 export NdrContextHandleInitialize(pStubMsg, pFormat) {
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrContextHandleInitialize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pFormatMarshal, pFormat, NDR_SCONTEXT.Ptr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pFormat 
  * @returns {Pointer<NDR_SCONTEXT>} 
  */
 export NdrServerContextNewUnmarshall(pStubMsg, pFormat) {
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrServerContextNewUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pFormatMarshal, pFormat, NDR_SCONTEXT.Ptr)
     return result
@@ -21871,8 +22014,8 @@ export NdrServerContextNewUnmarshall(pStubMsg, pFormat) {
  * @since windows5.0
  */
 export NdrPointerBufferSize(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrPointerBufferSize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
 }
@@ -21887,36 +22030,34 @@ export NdrPointerBufferSize(pStubMsg, pMemory, pFormat) {
  * @since windows5.0
  */
 export NdrSimpleStructBufferSize(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrSimpleStructBufferSize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pMemory 
  * @param {Pointer<Integer>} pFormat 
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrConformantStructBufferSize(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrConformantStructBufferSize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pMemory 
  * @param {Pointer<Integer>} pFormat 
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrConformantVaryingStructBufferSize(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrConformantVaryingStructBufferSize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
 }
@@ -21931,22 +22072,21 @@ export NdrConformantVaryingStructBufferSize(pStubMsg, pMemory, pFormat) {
  * @since windows5.0
  */
 export NdrComplexStructBufferSize(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrComplexStructBufferSize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pMemory 
  * @param {Pointer<Integer>} pFormat 
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrFixedArrayBufferSize(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrFixedArrayBufferSize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
 }
@@ -21960,36 +22100,34 @@ export NdrFixedArrayBufferSize(pStubMsg, pMemory, pFormat) {
  * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-ndrconformantarraybuffersize
  */
 export NdrConformantArrayBufferSize(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrConformantArrayBufferSize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pMemory 
  * @param {Pointer<Integer>} pFormat 
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrConformantVaryingArrayBufferSize(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrConformantVaryingArrayBufferSize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pMemory 
  * @param {Pointer<Integer>} pFormat 
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrVaryingArrayBufferSize(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrVaryingArrayBufferSize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
 }
@@ -22004,8 +22142,8 @@ export NdrVaryingArrayBufferSize(pStubMsg, pMemory, pFormat) {
  * @since windows5.0
  */
 export NdrComplexArrayBufferSize(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrComplexArrayBufferSize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
 }
@@ -22020,78 +22158,73 @@ export NdrComplexArrayBufferSize(pStubMsg, pMemory, pFormat) {
  * @since windows5.0
  */
 export NdrConformantStringBufferSize(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrConformantStringBufferSize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pMemory 
  * @param {Pointer<Integer>} pFormat 
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrNonConformantStringBufferSize(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrNonConformantStringBufferSize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pMemory 
  * @param {Pointer<Integer>} pFormat 
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrEncapsulatedUnionBufferSize(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrEncapsulatedUnionBufferSize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pMemory 
  * @param {Pointer<Integer>} pFormat 
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrNonEncapsulatedUnionBufferSize(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrNonEncapsulatedUnionBufferSize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pMemory 
  * @param {Pointer<Integer>} pFormat 
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrByteCountPointerBufferSize(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrByteCountPointerBufferSize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pMemory 
  * @param {Pointer<Integer>} pFormat 
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrXmitOrRepAsBufferSize(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrXmitOrRepAsBufferSize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
 }
@@ -22106,8 +22239,8 @@ export NdrXmitOrRepAsBufferSize(pStubMsg, pMemory, pFormat) {
  * @since windows5.0
  */
 export NdrUserMarshalBufferSize(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrUserMarshalBufferSize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
 }
@@ -22122,8 +22255,8 @@ export NdrUserMarshalBufferSize(pStubMsg, pMemory, pFormat) {
  * @since windows5.0
  */
 export NdrInterfacePointerBufferSize(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrInterfacePointerBufferSize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
 }
@@ -22138,228 +22271,211 @@ export NdrInterfacePointerBufferSize(pStubMsg, pMemory, pFormat) {
  * @since windows5.1.2600
  */
 export NdrContextHandleSize(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrContextHandleSize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pFormat 
  * @returns {Integer} 
  */
 export NdrPointerMemorySize(pStubMsg, pFormat) {
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrPointerMemorySize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pFormatMarshal, pFormat, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pFormat 
  * @returns {Integer} 
  */
 export NdrSimpleStructMemorySize(pStubMsg, pFormat) {
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrSimpleStructMemorySize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pFormatMarshal, pFormat, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pFormat 
  * @returns {Integer} 
  */
 export NdrConformantStructMemorySize(pStubMsg, pFormat) {
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrConformantStructMemorySize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pFormatMarshal, pFormat, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pFormat 
  * @returns {Integer} 
  */
 export NdrConformantVaryingStructMemorySize(pStubMsg, pFormat) {
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrConformantVaryingStructMemorySize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pFormatMarshal, pFormat, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pFormat 
  * @returns {Integer} 
  */
 export NdrComplexStructMemorySize(pStubMsg, pFormat) {
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrComplexStructMemorySize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pFormatMarshal, pFormat, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pFormat 
  * @returns {Integer} 
  */
 export NdrFixedArrayMemorySize(pStubMsg, pFormat) {
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrFixedArrayMemorySize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pFormatMarshal, pFormat, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pFormat 
  * @returns {Integer} 
  */
 export NdrConformantArrayMemorySize(pStubMsg, pFormat) {
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrConformantArrayMemorySize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pFormatMarshal, pFormat, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pFormat 
  * @returns {Integer} 
  */
 export NdrConformantVaryingArrayMemorySize(pStubMsg, pFormat) {
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrConformantVaryingArrayMemorySize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pFormatMarshal, pFormat, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pFormat 
  * @returns {Integer} 
  */
 export NdrVaryingArrayMemorySize(pStubMsg, pFormat) {
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrVaryingArrayMemorySize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pFormatMarshal, pFormat, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pFormat 
  * @returns {Integer} 
  */
 export NdrComplexArrayMemorySize(pStubMsg, pFormat) {
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrComplexArrayMemorySize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pFormatMarshal, pFormat, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pFormat 
  * @returns {Integer} 
  */
 export NdrConformantStringMemorySize(pStubMsg, pFormat) {
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrConformantStringMemorySize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pFormatMarshal, pFormat, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pFormat 
  * @returns {Integer} 
  */
 export NdrNonConformantStringMemorySize(pStubMsg, pFormat) {
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrNonConformantStringMemorySize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pFormatMarshal, pFormat, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pFormat 
  * @returns {Integer} 
  */
 export NdrEncapsulatedUnionMemorySize(pStubMsg, pFormat) {
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrEncapsulatedUnionMemorySize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pFormatMarshal, pFormat, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pFormat 
  * @returns {Integer} 
  */
 export NdrNonEncapsulatedUnionMemorySize(pStubMsg, pFormat) {
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrNonEncapsulatedUnionMemorySize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pFormatMarshal, pFormat, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pFormat 
  * @returns {Integer} 
  */
 export NdrXmitOrRepAsMemorySize(pStubMsg, pFormat) {
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrXmitOrRepAsMemorySize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pFormatMarshal, pFormat, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pFormat 
  * @returns {Integer} 
  */
 export NdrUserMarshalMemorySize(pStubMsg, pFormat) {
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrUserMarshalMemorySize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pFormatMarshal, pFormat, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pFormat 
  * @returns {Integer} 
  */
 export NdrInterfacePointerMemorySize(pStubMsg, pFormat) {
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrInterfacePointerMemorySize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pFormatMarshal, pFormat, UInt32)
     return result
@@ -22375,190 +22491,177 @@ export NdrInterfacePointerMemorySize(pStubMsg, pFormat) {
  * @since windows5.0
  */
 export NdrPointerFree(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrPointerFree", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pMemory 
  * @param {Pointer<Integer>} pFormat 
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrSimpleStructFree(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrSimpleStructFree", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pMemory 
  * @param {Pointer<Integer>} pFormat 
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrConformantStructFree(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrConformantStructFree", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pMemory 
  * @param {Pointer<Integer>} pFormat 
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrConformantVaryingStructFree(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrConformantVaryingStructFree", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pMemory 
  * @param {Pointer<Integer>} pFormat 
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrComplexStructFree(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrComplexStructFree", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pMemory 
  * @param {Pointer<Integer>} pFormat 
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrFixedArrayFree(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrFixedArrayFree", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pMemory 
  * @param {Pointer<Integer>} pFormat 
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrConformantArrayFree(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrConformantArrayFree", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pMemory 
  * @param {Pointer<Integer>} pFormat 
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrConformantVaryingArrayFree(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrConformantVaryingArrayFree", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pMemory 
  * @param {Pointer<Integer>} pFormat 
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrVaryingArrayFree(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrVaryingArrayFree", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pMemory 
  * @param {Pointer<Integer>} pFormat 
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrComplexArrayFree(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrComplexArrayFree", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pMemory 
  * @param {Pointer<Integer>} pFormat 
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrEncapsulatedUnionFree(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrEncapsulatedUnionFree", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pMemory 
  * @param {Pointer<Integer>} pFormat 
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrNonEncapsulatedUnionFree(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrNonEncapsulatedUnionFree", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pMemory 
  * @param {Pointer<Integer>} pFormat 
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrByteCountPointerFree(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrByteCountPointerFree", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pMemory 
  * @param {Pointer<Integer>} pFormat 
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrXmitOrRepAsFree(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrXmitOrRepAsFree", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
 }
@@ -22575,8 +22678,8 @@ export NdrXmitOrRepAsFree(pStubMsg, pMemory, pFormat) {
  * @since windows5.0
  */
 export NdrUserMarshalFree(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrUserMarshalFree", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
 }
@@ -22591,21 +22694,20 @@ export NdrUserMarshalFree(pStubMsg, pMemory, pFormat) {
  * @since windows5.0
  */
 export NdrInterfacePointerFree(pStubMsg, pMemory, pFormat) {
-    pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "char*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrInterfacePointerFree", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory, pFormatMarshal, pFormat)
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pFormat 
  * @param {Integer} NumberParams 
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrConvert2(pStubMsg, pFormat, NumberParams) {
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrConvert2", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pFormatMarshal, pFormat, Int32, NumberParams)
 }
@@ -22621,28 +22723,26 @@ export NdrConvert2(pStubMsg, pFormat, NumberParams) {
  * @since windows5.0
  */
 export NdrConvert(pStubMsg, pFormat) {
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrConvert", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pFormatMarshal, pFormat)
 }
 
 /**
- * 
  * @param {Pointer<Integer>} pFlags 
  * @param {Pointer<Integer>} pBuffer 
  * @param {Integer} FormatChar 
  * @returns {Pointer<Integer>} 
  */
 export NdrUserMarshalSimpleTypeConvert(pFlags, pBuffer, FormatChar) {
-    pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
-    pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+    pFlagsMarshal := pFlags is VarRef ? "uint*" : IntPtr
+    pBufferMarshal := pBuffer is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrUserMarshalSimpleTypeConvert", pFlagsMarshal, pFlags, pBufferMarshal, pBuffer, Int8, FormatChar, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<RPC_MESSAGE>} pRpcMsg 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<MIDL_STUB_DESC>} pStubDescriptor 
@@ -22654,7 +22754,6 @@ export NdrClientInitializeNew(pRpcMsg, pStubMsg, pStubDescriptor, ProcNum) {
 }
 
 /**
- * 
  * @param {Pointer<RPC_MESSAGE>} pRpcMsg 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<MIDL_STUB_DESC>} pStubDescriptor 
@@ -22666,7 +22765,6 @@ export NdrServerInitializeNew(pRpcMsg, pStubMsg, pStubDescriptor) {
 }
 
 /**
- * 
  * @param {Pointer<RPC_MESSAGE>} pRpcMsg 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<MIDL_STUB_DESC>} pStubDescriptor 
@@ -22678,7 +22776,6 @@ export NdrServerInitializePartial(pRpcMsg, pStubMsg, pStubDescriptor, RequestedB
 }
 
 /**
- * 
  * @param {Pointer<RPC_MESSAGE>} pRpcMsg 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<MIDL_STUB_DESC>} pStubDescriptor 
@@ -22690,7 +22787,6 @@ export NdrClientInitialize(pRpcMsg, pStubMsg, pStubDescriptor, ProcNum) {
 }
 
 /**
- * 
  * @param {Pointer<RPC_MESSAGE>} pRpcMsg 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<MIDL_STUB_DESC>} pStubDescriptor 
@@ -22702,7 +22798,6 @@ export NdrServerInitialize(pRpcMsg, pStubMsg, pStubDescriptor) {
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<MIDL_STUB_DESC>} pStubDescriptor 
  * @param {Pointer<RPC_MESSAGE>} pRpcMsg 
@@ -22714,7 +22809,6 @@ export NdrServerInitializeUnmarshall(pStubMsg, pStubDescriptor, pRpcMsg) {
 }
 
 /**
- * 
  * @param {Pointer<RPC_MESSAGE>} pRpcMsg 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @returns {String} Nothing - always returns an empty string
@@ -22724,63 +22818,58 @@ export NdrServerInitializeMarshall(pRpcMsg, pStubMsg) {
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Integer} BufferLength 
  * @param {Pointer<Void>} _Handle 
  * @returns {Pointer<Integer>} 
  */
 export NdrGetBuffer(pStubMsg, BufferLength, _Handle) {
-    _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
+    _HandleMarshal := _Handle is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrGetBuffer", MIDL_STUB_MESSAGE.Ptr, pStubMsg, UInt32, BufferLength, _HandleMarshal, _Handle, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Integer} BufferLength 
  * @param {Pointer<Void>} _Handle 
  * @returns {Pointer<Integer>} 
  */
 export NdrNsGetBuffer(pStubMsg, BufferLength, _Handle) {
-    _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
+    _HandleMarshal := _Handle is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrNsGetBuffer", MIDL_STUB_MESSAGE.Ptr, pStubMsg, UInt32, BufferLength, _HandleMarshal, _Handle, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pBufferEnd 
  * @returns {Pointer<Integer>} 
  */
 export NdrSendReceive(pStubMsg, pBufferEnd) {
-    pBufferEndMarshal := pBufferEnd is VarRef ? "char*" : "ptr"
+    pBufferEndMarshal := pBufferEnd is VarRef ? "char*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrSendReceive", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pBufferEndMarshal, pBufferEnd, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pBufferEnd 
  * @param {Pointer<Pointer<Void>>} pAutoHandle 
  * @returns {Pointer<Integer>} 
  */
 export NdrNsSendReceive(pStubMsg, pBufferEnd, pAutoHandle) {
-    pBufferEndMarshal := pBufferEnd is VarRef ? "char*" : "ptr"
-    pAutoHandleMarshal := pAutoHandle is VarRef ? "ptr*" : "ptr"
+    pBufferEndMarshal := pBufferEnd is VarRef ? "char*" : IntPtr
+    pAutoHandleMarshal := pAutoHandle is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrNsSendReceive", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pBufferEndMarshal, pBufferEnd, pAutoHandleMarshal, pAutoHandle, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @returns {String} Nothing - always returns an empty string
  */
@@ -22789,7 +22878,6 @@ export NdrFreeBuffer(pStubMsg) {
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<RPC_VERSION>} pVersion 
  * @returns {HRESULT} 
@@ -22813,7 +22901,7 @@ export NdrGetDcomProtocolVersion(pStubMsg, pVersion) {
  * @since windows5.0
  */
 export NdrClientCall2(pStubDescriptor, pFormat, args*) {
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     varArgs := [args*]
     varArgs.Push(CLIENT_CALL_RETURN)
@@ -22834,7 +22922,7 @@ export NdrClientCall2(pStubDescriptor, pFormat, args*) {
  * @since windows5.0
  */
 export NdrAsyncClientCall(pStubDescriptor, pFormat, args*) {
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     varArgs := [args*]
     varArgs.Push(CLIENT_CALL_RETURN)
@@ -22853,7 +22941,7 @@ export NdrAsyncClientCall(pStubDescriptor, pFormat, args*) {
  * @since windows5.0
  */
 export NdrDcomAsyncClientCall(pStubDescriptor, pFormat, args*) {
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     varArgs := [args*]
     varArgs.Push(CLIENT_CALL_RETURN)
@@ -22874,7 +22962,6 @@ export NdrAsyncServerCall(pRpcMsg) {
 }
 
 /**
- * 
  * @param {IRpcStubBuffer} pThis 
  * @param {IRpcChannelBuffer} pChannel 
  * @param {Pointer<RPC_MESSAGE>} pRpcMsg 
@@ -22882,7 +22969,7 @@ export NdrAsyncServerCall(pRpcMsg) {
  * @returns {Integer} 
  */
 export NdrDcomAsyncStubCall(pThis, pChannel, pRpcMsg, pdwStubPhase) {
-    pdwStubPhaseMarshal := pdwStubPhase is VarRef ? "uint*" : "ptr"
+    pdwStubPhaseMarshal := pdwStubPhase is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrDcomAsyncStubCall", "ptr", pThis, "ptr", pChannel, RPC_MESSAGE.Ptr, pRpcMsg, pdwStubPhaseMarshal, pdwStubPhase, Int32)
     return result
@@ -22926,9 +23013,9 @@ export NdrDcomAsyncStubCall(pThis, pChannel, pRpcMsg, pdwStubPhase) {
  * @since windows5.0
  */
 export NdrStubCall2(pThis, pChannel, pRpcMsg, pdwStubPhase) {
-    pThisMarshal := pThis is VarRef ? "ptr" : "ptr"
-    pChannelMarshal := pChannel is VarRef ? "ptr" : "ptr"
-    pdwStubPhaseMarshal := pdwStubPhase is VarRef ? "uint*" : "ptr"
+    pThisMarshal := pThis is VarRef ? "ptr" : IntPtr
+    pChannelMarshal := pChannel is VarRef ? "ptr" : IntPtr
+    pdwStubPhaseMarshal := pdwStubPhase is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrStubCall2", pThisMarshal, pThis, pChannelMarshal, pChannel, RPC_MESSAGE.Ptr, pRpcMsg, pdwStubPhaseMarshal, pdwStubPhase, Int32)
     return result
@@ -22946,7 +23033,6 @@ export NdrServerCall2(pRpcMsg) {
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Integer>} pCommStatus 
  * @param {Pointer<Integer>} pFaultStatus 
@@ -22954,8 +23040,8 @@ export NdrServerCall2(pRpcMsg) {
  * @returns {RPC_STATUS} 
  */
 export NdrMapCommAndFaultStatus(pStubMsg, pCommStatus, pFaultStatus, _Status) {
-    pCommStatusMarshal := pCommStatus is VarRef ? "uint*" : "ptr"
-    pFaultStatusMarshal := pFaultStatus is VarRef ? "uint*" : "ptr"
+    pCommStatusMarshal := pCommStatus is VarRef ? "uint*" : IntPtr
+    pFaultStatusMarshal := pFaultStatus is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrMapCommAndFaultStatus", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pCommStatusMarshal, pCommStatus, pFaultStatusMarshal, pFaultStatus, RPC_STATUS, _Status, RPC_STATUS)
     return result
@@ -23088,7 +23174,7 @@ export RpcSsEnableAllocate() {
  * @since windows5.0
  */
 export RpcSsFree(NodeToFree) {
-    NodeToFreeMarshal := NodeToFree is VarRef ? "ptr" : "ptr"
+    NodeToFreeMarshal := NodeToFree is VarRef ? "ptr" : IntPtr
 
     DllCall("RPCRT4.dll\RpcSsFree", NodeToFreeMarshal, NodeToFree)
 }
@@ -23206,7 +23292,7 @@ export RpcSsSetClientAllocFree(ClientAlloc, ClientFree) {
  * @since windows5.0
  */
 export RpcSsSetThreadHandle(Id) {
-    IdMarshal := Id is VarRef ? "ptr" : "ptr"
+    IdMarshal := Id is VarRef ? "ptr" : IntPtr
 
     DllCall("RPCRT4.dll\RpcSsSetThreadHandle", IdMarshal, Id)
 }
@@ -23228,8 +23314,8 @@ export RpcSsSetThreadHandle(Id) {
  * @since windows5.0
  */
 export RpcSsSwapClientAllocFree(ClientAlloc, ClientFree, OldClientAlloc, OldClientFree) {
-    OldClientAllocMarshal := OldClientAlloc is VarRef ? "ptr*" : "ptr"
-    OldClientFreeMarshal := OldClientFree is VarRef ? "ptr*" : "ptr"
+    OldClientAllocMarshal := OldClientAlloc is VarRef ? "ptr*" : IntPtr
+    OldClientFreeMarshal := OldClientFree is VarRef ? "ptr*" : IntPtr
 
     DllCall("RPCRT4.dll\RpcSsSwapClientAllocFree", RPC_CLIENT_ALLOC, ClientAlloc, RPC_CLIENT_FREE, ClientFree, OldClientAllocMarshal, OldClientAlloc, OldClientFreeMarshal, OldClientFree)
 }
@@ -23302,7 +23388,7 @@ export RpcSsSwapClientAllocFree(ClientAlloc, ClientFree, OldClientAlloc, OldClie
  * @since windows5.0
  */
 export RpcSmAllocate(_Size, pStatus) {
-    pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
+    pStatusMarshal := pStatus is VarRef ? "int*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcSmAllocate", IntPtr, _Size, pStatusMarshal, pStatus, IntPtr)
     return result
@@ -23345,7 +23431,7 @@ export RpcSmAllocate(_Size, pStatus) {
  * @since windows5.0
  */
 export RpcSmClientFree(pNodeToFree) {
-    pNodeToFreeMarshal := pNodeToFree is VarRef ? "ptr" : "ptr"
+    pNodeToFreeMarshal := pNodeToFree is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcSmClientFree", pNodeToFreeMarshal, pNodeToFree, RPC_STATUS)
     return result
@@ -23403,7 +23489,7 @@ export RpcSmClientFree(pNodeToFree) {
  * @since windows5.0
  */
 export RpcSmDestroyClientContext(ContextHandle) {
-    ContextHandleMarshal := ContextHandle is VarRef ? "ptr*" : "ptr"
+    ContextHandleMarshal := ContextHandle is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcSmDestroyClientContext", ContextHandleMarshal, ContextHandle, RPC_STATUS)
     return result
@@ -23557,7 +23643,7 @@ export RpcSmEnableAllocate() {
  * @since windows5.0
  */
 export RpcSmFree(NodeToFree) {
-    NodeToFreeMarshal := NodeToFree is VarRef ? "ptr" : "ptr"
+    NodeToFreeMarshal := NodeToFree is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcSmFree", NodeToFreeMarshal, NodeToFree, RPC_STATUS)
     return result
@@ -23611,7 +23697,7 @@ export RpcSmFree(NodeToFree) {
  * @since windows5.0
  */
 export RpcSmGetThreadHandle(pStatus) {
-    pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
+    pStatusMarshal := pStatus is VarRef ? "int*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcSmGetThreadHandle", pStatusMarshal, pStatus, IntPtr)
     return result
@@ -23717,7 +23803,7 @@ export RpcSmSetClientAllocFree(ClientAlloc, ClientFree) {
  * @since windows5.0
  */
 export RpcSmSetThreadHandle(Id) {
-    IdMarshal := Id is VarRef ? "ptr" : "ptr"
+    IdMarshal := Id is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcSmSetThreadHandle", IdMarshal, Id, RPC_STATUS)
     return result
@@ -23766,15 +23852,14 @@ export RpcSmSetThreadHandle(Id) {
  * @since windows5.0
  */
 export RpcSmSwapClientAllocFree(ClientAlloc, ClientFree, OldClientAlloc, OldClientFree) {
-    OldClientAllocMarshal := OldClientAlloc is VarRef ? "ptr*" : "ptr"
-    OldClientFreeMarshal := OldClientFree is VarRef ? "ptr*" : "ptr"
+    OldClientAllocMarshal := OldClientAlloc is VarRef ? "ptr*" : IntPtr
+    OldClientFreeMarshal := OldClientFree is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcSmSwapClientAllocFree", RPC_CLIENT_ALLOC, ClientAlloc, RPC_CLIENT_FREE, ClientFree, OldClientAllocMarshal, OldClientAlloc, OldClientFreeMarshal, OldClientFree, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pMessage 
  * @returns {String} Nothing - always returns an empty string
  */
@@ -23783,7 +23868,6 @@ export NdrRpcSsEnableAllocate(pMessage) {
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pMessage 
  * @returns {String} Nothing - always returns an empty string
  */
@@ -23792,7 +23876,6 @@ export NdrRpcSsDisableAllocate(pMessage) {
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pMessage 
  * @returns {String} Nothing - always returns an empty string
  */
@@ -23801,7 +23884,6 @@ export NdrRpcSmSetClientToOsf(pMessage) {
 }
 
 /**
- * 
  * @param {Pointer} _Size 
  * @returns {Pointer<Void>} 
  */
@@ -23811,18 +23893,16 @@ export NdrRpcSmClientAllocate(_Size) {
 }
 
 /**
- * 
  * @param {Pointer<Void>} NodeToFree 
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrRpcSmClientFree(NodeToFree) {
-    NodeToFreeMarshal := NodeToFree is VarRef ? "ptr" : "ptr"
+    NodeToFreeMarshal := NodeToFree is VarRef ? "ptr" : IntPtr
 
     DllCall("RPCRT4.dll\NdrRpcSmClientFree", NodeToFreeMarshal, NodeToFree)
 }
 
 /**
- * 
  * @param {Pointer} _Size 
  * @returns {Pointer<Void>} 
  */
@@ -23832,18 +23912,16 @@ export NdrRpcSsDefaultAllocate(_Size) {
 }
 
 /**
- * 
  * @param {Pointer<Void>} NodeToFree 
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrRpcSsDefaultFree(NodeToFree) {
-    NodeToFreeMarshal := NodeToFree is VarRef ? "ptr" : "ptr"
+    NodeToFreeMarshal := NodeToFree is VarRef ? "ptr" : IntPtr
 
     DllCall("RPCRT4.dll\NdrRpcSsDefaultFree", NodeToFreeMarshal, NodeToFree)
 }
 
 /**
- * 
  * @param {Integer} NumberOfPointers 
  * @param {XLAT_SIDE} XlatSide 
  * @returns {Pointer<FULL_PTR_XLAT_TABLES>} 
@@ -23854,7 +23932,6 @@ export NdrFullPointerXlatInit(NumberOfPointers, XlatSide) {
 }
 
 /**
- * 
  * @param {Pointer<FULL_PTR_XLAT_TABLES>} pXlatTables 
  * @returns {String} Nothing - always returns an empty string
  */
@@ -23863,7 +23940,6 @@ export NdrFullPointerXlatFree(pXlatTables) {
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer} Len 
  * @returns {Pointer<Void>} 
@@ -23883,8 +23959,8 @@ export NdrAllocate(pStubMsg, Len) {
  * @since windows5.0
  */
 export NdrClearOutParameters(pStubMsg, pFormat, ArgAddr) {
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
-    ArgAddrMarshal := ArgAddr is VarRef ? "ptr" : "ptr"
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
+    ArgAddrMarshal := ArgAddr is VarRef ? "ptr" : IntPtr
 
     DllCall("RPCRT4.dll\NdrClearOutParameters", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pFormatMarshal, pFormat, ArgAddrMarshal, ArgAddr)
 }
@@ -23911,7 +23987,7 @@ export NdrOleAllocate(_Size) {
  * @since windows5.0
  */
 export NdrOleFree(NodeToFree) {
-    NodeToFreeMarshal := NodeToFree is VarRef ? "ptr" : "ptr"
+    NodeToFreeMarshal := NodeToFree is VarRef ? "ptr" : IntPtr
 
     DllCall("RPCRT4.dll\NdrOleFree", NodeToFreeMarshal, NodeToFree)
 }
@@ -23971,14 +24047,13 @@ export NdrOleFree(NodeToFree) {
  * @since windows5.0
  */
 export NdrGetUserMarshalInfo(pFlags, InformationLevel, pMarshalInfo) {
-    pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
+    pFlagsMarshal := pFlags is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrGetUserMarshalInfo", pFlagsMarshal, pFlags, UInt32, InformationLevel, NDR_USER_MARSHAL_INFO.Ptr, pMarshalInfo, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {IRpcStubBuffer} pStub 
  * @param {Pointer<RPC_SERVER_INTERFACE>} pServerIf 
  * @returns {RPC_STATUS} 
@@ -23999,7 +24074,7 @@ export NdrCreateServerInterfaceFromStub(pStub, pServerIf) {
  * @since windows5.0
  */
 export NdrClientCall3(pProxyInfo, nProcNum, pReturnValue, args*) {
-    pReturnValueMarshal := pReturnValue is VarRef ? "ptr" : "ptr"
+    pReturnValueMarshal := pReturnValue is VarRef ? "ptr" : IntPtr
 
     varArgs := [args*]
     varArgs.Push(CLIENT_CALL_RETURN)
@@ -24019,7 +24094,7 @@ export NdrClientCall3(pProxyInfo, nProcNum, pReturnValue, args*) {
  * @since windows5.1.2600
  */
 export Ndr64AsyncClientCall(pProxyInfo, nProcNum, pReturnValue, args*) {
-    pReturnValueMarshal := pReturnValue is VarRef ? "ptr" : "ptr"
+    pReturnValueMarshal := pReturnValue is VarRef ? "ptr" : IntPtr
 
     varArgs := [args*]
     varArgs.Push(CLIENT_CALL_RETURN)
@@ -24029,7 +24104,6 @@ export Ndr64AsyncClientCall(pProxyInfo, nProcNum, pReturnValue, args*) {
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUBLESS_PROXY_INFO>} pProxyInfo 
  * @param {Integer} nProcNum 
  * @param {Pointer<Void>} pReturnValue 
@@ -24037,7 +24111,7 @@ export Ndr64AsyncClientCall(pProxyInfo, nProcNum, pReturnValue, args*) {
  * @returns {CLIENT_CALL_RETURN} 
  */
 export Ndr64DcomAsyncClientCall(pProxyInfo, nProcNum, pReturnValue, args*) {
-    pReturnValueMarshal := pReturnValue is VarRef ? "ptr" : "ptr"
+    pReturnValueMarshal := pReturnValue is VarRef ? "ptr" : IntPtr
 
     varArgs := [args*]
     varArgs.Push(CLIENT_CALL_RETURN)
@@ -24047,7 +24121,6 @@ export Ndr64DcomAsyncClientCall(pProxyInfo, nProcNum, pReturnValue, args*) {
 }
 
 /**
- * 
  * @param {Pointer<RPC_MESSAGE>} pRpcMsg 
  * @returns {String} Nothing - always returns an empty string
  */
@@ -24067,7 +24140,6 @@ export Ndr64AsyncServerCallAll(pRpcMsg) {
 }
 
 /**
- * 
  * @param {IRpcStubBuffer} pThis 
  * @param {IRpcChannelBuffer} pChannel 
  * @param {Pointer<RPC_MESSAGE>} pRpcMsg 
@@ -24075,7 +24147,7 @@ export Ndr64AsyncServerCallAll(pRpcMsg) {
  * @returns {Integer} 
  */
 export Ndr64DcomAsyncStubCall(pThis, pChannel, pRpcMsg, pdwStubPhase) {
-    pdwStubPhaseMarshal := pdwStubPhase is VarRef ? "uint*" : "ptr"
+    pdwStubPhaseMarshal := pdwStubPhase is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RPCRT4.dll\Ndr64DcomAsyncStubCall", "ptr", pThis, "ptr", pChannel, RPC_MESSAGE.Ptr, pRpcMsg, pdwStubPhaseMarshal, pdwStubPhase, Int32)
     return result
@@ -24092,9 +24164,9 @@ export Ndr64DcomAsyncStubCall(pThis, pChannel, pRpcMsg, pdwStubPhase) {
  * @since windows5.1.2600
  */
 export NdrStubCall3(pThis, pChannel, pRpcMsg, pdwStubPhase) {
-    pThisMarshal := pThis is VarRef ? "ptr" : "ptr"
-    pChannelMarshal := pChannel is VarRef ? "ptr" : "ptr"
-    pdwStubPhaseMarshal := pdwStubPhase is VarRef ? "uint*" : "ptr"
+    pThisMarshal := pThis is VarRef ? "ptr" : IntPtr
+    pChannelMarshal := pChannel is VarRef ? "ptr" : IntPtr
+    pdwStubPhaseMarshal := pdwStubPhase is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrStubCall3", pThisMarshal, pThis, pChannelMarshal, pChannel, RPC_MESSAGE.Ptr, pRpcMsg, pdwStubPhaseMarshal, pdwStubPhase, Int32)
     return result
@@ -24112,7 +24184,6 @@ export NdrServerCallAll(pRpcMsg) {
 }
 
 /**
- * 
  * @param {Pointer<RPC_MESSAGE>} pRpcMsg 
  * @returns {String} Nothing - always returns an empty string
  */
@@ -24121,51 +24192,47 @@ export NdrServerCallNdr64(pRpcMsg) {
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Void>} pMemory 
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrPartialIgnoreClientMarshall(pStubMsg, pMemory) {
-    pMemoryMarshal := pMemory is VarRef ? "ptr" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "ptr" : IntPtr
 
     DllCall("RPCRT4.dll\NdrPartialIgnoreClientMarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory)
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Pointer<Void>>} ppMemory 
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrPartialIgnoreServerUnmarshall(pStubMsg, ppMemory) {
-    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
+    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrPartialIgnoreServerUnmarshall", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory)
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Void>} pMemory 
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrPartialIgnoreClientBufferSize(pStubMsg, pMemory) {
-    pMemoryMarshal := pMemory is VarRef ? "ptr" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "ptr" : IntPtr
 
     DllCall("RPCRT4.dll\NdrPartialIgnoreClientBufferSize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, pMemoryMarshal, pMemory)
 }
 
 /**
- * 
  * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
  * @param {Pointer<Pointer<Void>>} ppMemory 
  * @param {Pointer<Integer>} pFormat 
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrPartialIgnoreServerInitialize(pStubMsg, ppMemory, pFormat) {
-    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : "ptr"
-    pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
+    ppMemoryMarshal := ppMemory is VarRef ? "ptr*" : IntPtr
+    pFormatMarshal := pFormat is VarRef ? "char*" : IntPtr
 
     DllCall("RPCRT4.dll\NdrPartialIgnoreServerInitialize", MIDL_STUB_MESSAGE.Ptr, pStubMsg, ppMemoryMarshal, ppMemory, pFormatMarshal, pFormat)
 }
@@ -24179,8 +24246,8 @@ export NdrPartialIgnoreServerInitialize(pStubMsg, ppMemory, pFormat) {
  * @since windows5.1.2600
  */
 export RpcUserFree(AsyncHandle, pBuffer) {
-    AsyncHandleMarshal := AsyncHandle is VarRef ? "ptr" : "ptr"
-    pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
+    AsyncHandleMarshal := AsyncHandle is VarRef ? "ptr" : IntPtr
+    pBufferMarshal := pBuffer is VarRef ? "ptr" : IntPtr
 
     DllCall("RPCRT4.dll\RpcUserFree", AsyncHandleMarshal, AsyncHandle, pBufferMarshal, pBuffer)
 }
@@ -24246,8 +24313,8 @@ export RpcUserFree(AsyncHandle, pBuffer) {
  * @since windows5.0
  */
 export MesEncodeIncrementalHandleCreate(UserState, AllocFn, WriteFn, pHandle) {
-    UserStateMarshal := UserState is VarRef ? "ptr" : "ptr"
-    pHandleMarshal := pHandle is VarRef ? "ptr*" : "ptr"
+    UserStateMarshal := UserState is VarRef ? "ptr" : IntPtr
+    pHandleMarshal := pHandle is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\MesEncodeIncrementalHandleCreate", UserStateMarshal, UserState, MIDL_ES_ALLOC, AllocFn, MIDL_ES_WRITE, WriteFn, pHandleMarshal, pHandle, RPC_STATUS)
     return result
@@ -24310,8 +24377,8 @@ export MesEncodeIncrementalHandleCreate(UserState, AllocFn, WriteFn, pHandle) {
  * @since windows5.0
  */
 export MesDecodeIncrementalHandleCreate(UserState, ReadFn, pHandle) {
-    UserStateMarshal := UserState is VarRef ? "ptr" : "ptr"
-    pHandleMarshal := pHandle is VarRef ? "ptr*" : "ptr"
+    UserStateMarshal := UserState is VarRef ? "ptr" : IntPtr
+    pHandleMarshal := pHandle is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\MesDecodeIncrementalHandleCreate", UserStateMarshal, UserState, MIDL_ES_READ, ReadFn, pHandleMarshal, pHandle, RPC_STATUS)
     return result
@@ -24377,8 +24444,8 @@ export MesDecodeIncrementalHandleCreate(UserState, ReadFn, pHandle) {
  * @since windows5.0
  */
 export MesIncrementalHandleReset(_Handle, UserState, AllocFn, WriteFn, ReadFn, Operation) {
-    _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
-    UserStateMarshal := UserState is VarRef ? "ptr" : "ptr"
+    _HandleMarshal := _Handle is VarRef ? "ptr" : IntPtr
+    UserStateMarshal := UserState is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\MesIncrementalHandleReset", _HandleMarshal, _Handle, UserStateMarshal, UserState, MIDL_ES_ALLOC, AllocFn, MIDL_ES_WRITE, WriteFn, MIDL_ES_READ, ReadFn, MIDL_ES_CODE, Operation, RPC_STATUS)
     return result
@@ -24446,8 +24513,8 @@ export MesIncrementalHandleReset(_Handle, UserState, AllocFn, WriteFn, ReadFn, O
  * @since windows5.0
  */
 export MesEncodeFixedBufferHandleCreate(pBuffer, BufferSize, pEncodedSize, pHandle) {
-    pEncodedSizeMarshal := pEncodedSize is VarRef ? "uint*" : "ptr"
-    pHandleMarshal := pHandle is VarRef ? "ptr*" : "ptr"
+    pEncodedSizeMarshal := pEncodedSize is VarRef ? "uint*" : IntPtr
+    pHandleMarshal := pHandle is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\MesEncodeFixedBufferHandleCreate", IntPtr, pBuffer, UInt32, BufferSize, pEncodedSizeMarshal, pEncodedSize, pHandleMarshal, pHandle, RPC_STATUS)
     return result
@@ -24514,9 +24581,9 @@ export MesEncodeFixedBufferHandleCreate(pBuffer, BufferSize, pEncodedSize, pHand
  * @since windows5.0
  */
 export MesEncodeDynBufferHandleCreate(pBuffer, pEncodedSize, pHandle) {
-    pBufferMarshal := pBuffer is VarRef ? "ptr*" : "ptr"
-    pEncodedSizeMarshal := pEncodedSize is VarRef ? "uint*" : "ptr"
-    pHandleMarshal := pHandle is VarRef ? "ptr*" : "ptr"
+    pBufferMarshal := pBuffer is VarRef ? "ptr*" : IntPtr
+    pEncodedSizeMarshal := pEncodedSize is VarRef ? "uint*" : IntPtr
+    pHandleMarshal := pHandle is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\MesEncodeDynBufferHandleCreate", pBufferMarshal, pBuffer, pEncodedSizeMarshal, pEncodedSize, pHandleMarshal, pHandle, RPC_STATUS)
     return result
@@ -24589,7 +24656,7 @@ export MesEncodeDynBufferHandleCreate(pBuffer, pEncodedSize, pHandle) {
  * @since windows5.0
  */
 export MesDecodeBufferHandleCreate(_Buffer, BufferSize, pHandle) {
-    pHandleMarshal := pHandle is VarRef ? "ptr*" : "ptr"
+    pHandleMarshal := pHandle is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\MesDecodeBufferHandleCreate", IntPtr, _Buffer, UInt32, BufferSize, pHandleMarshal, pHandle, RPC_STATUS)
     return result
@@ -24652,10 +24719,12 @@ export MesDecodeBufferHandleCreate(_Buffer, BufferSize, pHandle) {
  * @since windows5.0
  */
 export MesBufferHandleReset(_Handle, HandleStyle, Operation, pBuffer, BufferSize, pEncodedSize) {
-    _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
-    pEncodedSizeMarshal := pEncodedSize is VarRef ? "uint*" : "ptr"
+    _HandleMarshal := _Handle is VarRef ? "ptr" : IntPtr
+    pBufferMarshal := pBuffer == 0 ? IntPtr : IntPtr
+    pEncodedSizeMarshal := pEncodedSize is VarRef ? "uint*" : IntPtr
+    pEncodedSizeMarshal := pEncodedSize == 0 ? IntPtr : "uint*"
 
-    result := DllCall("RPCRT4.dll\MesBufferHandleReset", _HandleMarshal, _Handle, UInt32, HandleStyle, MIDL_ES_CODE, Operation, IntPtr, pBuffer, UInt32, BufferSize, pEncodedSizeMarshal, pEncodedSize, RPC_STATUS)
+    result := DllCall("RPCRT4.dll\MesBufferHandleReset", _HandleMarshal, _Handle, UInt32, HandleStyle, MIDL_ES_CODE, Operation, pBufferMarshal, pBuffer, UInt32, BufferSize, pEncodedSizeMarshal, pEncodedSize, RPC_STATUS)
     return result
 }
 
@@ -24691,7 +24760,7 @@ export MesBufferHandleReset(_Handle, HandleStyle, Operation, pBuffer, BufferSize
  * @since windows5.0
  */
 export MesHandleFree(_Handle) {
-    _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
+    _HandleMarshal := _Handle is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\MesHandleFree", _HandleMarshal, _Handle, RPC_STATUS)
     return result
@@ -24811,41 +24880,38 @@ export MesHandleFree(_Handle) {
  * @since windows5.0
  */
 export MesInqProcEncodingId(_Handle, pInterfaceId, pProcNum) {
-    _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
-    pProcNumMarshal := pProcNum is VarRef ? "uint*" : "ptr"
+    _HandleMarshal := _Handle is VarRef ? "ptr" : IntPtr
+    pProcNumMarshal := pProcNum is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RPCRT4.dll\MesInqProcEncodingId", _HandleMarshal, _Handle, RPC_SYNTAX_IDENTIFIER.Ptr, pInterfaceId, pProcNumMarshal, pProcNum, RPC_STATUS)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} param0 
  * @returns {Pointer} 
  */
 export NdrMesSimpleTypeAlignSize(param0) {
-    param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+    param0Marshal := param0 is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrMesSimpleTypeAlignSize", param0Marshal, param0, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} _Handle 
  * @param {Pointer<Void>} pObject 
  * @param {Integer} _Size 
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrMesSimpleTypeDecode(_Handle, pObject, _Size) {
-    _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
-    pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
+    _HandleMarshal := _Handle is VarRef ? "ptr" : IntPtr
+    pObjectMarshal := pObject is VarRef ? "ptr" : IntPtr
 
     DllCall("RPCRT4.dll\NdrMesSimpleTypeDecode", _HandleMarshal, _Handle, pObjectMarshal, pObject, Int16, _Size)
 }
 
 /**
- * 
  * @param {Pointer<Void>} _Handle 
  * @param {Pointer<MIDL_STUB_DESC>} pStubDesc 
  * @param {Pointer<Void>} pObject 
@@ -24853,14 +24919,13 @@ export NdrMesSimpleTypeDecode(_Handle, pObject, _Size) {
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrMesSimpleTypeEncode(_Handle, pStubDesc, pObject, _Size) {
-    _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
-    pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
+    _HandleMarshal := _Handle is VarRef ? "ptr" : IntPtr
+    pObjectMarshal := pObject is VarRef ? "ptr" : IntPtr
 
     DllCall("RPCRT4.dll\NdrMesSimpleTypeEncode", _HandleMarshal, _Handle, MIDL_STUB_DESC.Ptr, pStubDesc, pObjectMarshal, pObject, Int16, _Size)
 }
 
 /**
- * 
  * @param {Pointer<Void>} _Handle 
  * @param {Pointer<MIDL_STUB_DESC>} pStubDesc 
  * @param {Pointer<Integer>} pFormatString 
@@ -24868,16 +24933,15 @@ export NdrMesSimpleTypeEncode(_Handle, pStubDesc, pObject, _Size) {
  * @returns {Pointer} 
  */
 export NdrMesTypeAlignSize(_Handle, pStubDesc, pFormatString, pObject) {
-    _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
-    pFormatStringMarshal := pFormatString is VarRef ? "char*" : "ptr"
-    pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
+    _HandleMarshal := _Handle is VarRef ? "ptr" : IntPtr
+    pFormatStringMarshal := pFormatString is VarRef ? "char*" : IntPtr
+    pObjectMarshal := pObject is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrMesTypeAlignSize", _HandleMarshal, _Handle, MIDL_STUB_DESC.Ptr, pStubDesc, pFormatStringMarshal, pFormatString, pObjectMarshal, pObject, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} _Handle 
  * @param {Pointer<MIDL_STUB_DESC>} pStubDesc 
  * @param {Pointer<Integer>} pFormatString 
@@ -24885,15 +24949,14 @@ export NdrMesTypeAlignSize(_Handle, pStubDesc, pFormatString, pObject) {
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrMesTypeEncode(_Handle, pStubDesc, pFormatString, pObject) {
-    _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
-    pFormatStringMarshal := pFormatString is VarRef ? "char*" : "ptr"
-    pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
+    _HandleMarshal := _Handle is VarRef ? "ptr" : IntPtr
+    pFormatStringMarshal := pFormatString is VarRef ? "char*" : IntPtr
+    pObjectMarshal := pObject is VarRef ? "ptr" : IntPtr
 
     DllCall("RPCRT4.dll\NdrMesTypeEncode", _HandleMarshal, _Handle, MIDL_STUB_DESC.Ptr, pStubDesc, pFormatStringMarshal, pFormatString, pObjectMarshal, pObject)
 }
 
 /**
- * 
  * @param {Pointer<Void>} _Handle 
  * @param {Pointer<MIDL_STUB_DESC>} pStubDesc 
  * @param {Pointer<Integer>} pFormatString 
@@ -24901,15 +24964,14 @@ export NdrMesTypeEncode(_Handle, pStubDesc, pFormatString, pObject) {
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrMesTypeDecode(_Handle, pStubDesc, pFormatString, pObject) {
-    _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
-    pFormatStringMarshal := pFormatString is VarRef ? "char*" : "ptr"
-    pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
+    _HandleMarshal := _Handle is VarRef ? "ptr" : IntPtr
+    pFormatStringMarshal := pFormatString is VarRef ? "char*" : IntPtr
+    pObjectMarshal := pObject is VarRef ? "ptr" : IntPtr
 
     DllCall("RPCRT4.dll\NdrMesTypeDecode", _HandleMarshal, _Handle, MIDL_STUB_DESC.Ptr, pStubDesc, pFormatStringMarshal, pFormatString, pObjectMarshal, pObject)
 }
 
 /**
- * 
  * @param {Pointer<Void>} _Handle 
  * @param {Pointer<MIDL_TYPE_PICKLING_INFO>} pPicklingInfo 
  * @param {Pointer<MIDL_STUB_DESC>} pStubDesc 
@@ -24918,16 +24980,15 @@ export NdrMesTypeDecode(_Handle, pStubDesc, pFormatString, pObject) {
  * @returns {Pointer} 
  */
 export NdrMesTypeAlignSize2(_Handle, pPicklingInfo, pStubDesc, pFormatString, pObject) {
-    _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
-    pFormatStringMarshal := pFormatString is VarRef ? "char*" : "ptr"
-    pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
+    _HandleMarshal := _Handle is VarRef ? "ptr" : IntPtr
+    pFormatStringMarshal := pFormatString is VarRef ? "char*" : IntPtr
+    pObjectMarshal := pObject is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrMesTypeAlignSize2", _HandleMarshal, _Handle, MIDL_TYPE_PICKLING_INFO.Ptr, pPicklingInfo, MIDL_STUB_DESC.Ptr, pStubDesc, pFormatStringMarshal, pFormatString, pObjectMarshal, pObject, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} _Handle 
  * @param {Pointer<MIDL_TYPE_PICKLING_INFO>} pPicklingInfo 
  * @param {Pointer<MIDL_STUB_DESC>} pStubDesc 
@@ -24936,15 +24997,14 @@ export NdrMesTypeAlignSize2(_Handle, pPicklingInfo, pStubDesc, pFormatString, pO
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrMesTypeEncode2(_Handle, pPicklingInfo, pStubDesc, pFormatString, pObject) {
-    _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
-    pFormatStringMarshal := pFormatString is VarRef ? "char*" : "ptr"
-    pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
+    _HandleMarshal := _Handle is VarRef ? "ptr" : IntPtr
+    pFormatStringMarshal := pFormatString is VarRef ? "char*" : IntPtr
+    pObjectMarshal := pObject is VarRef ? "ptr" : IntPtr
 
     DllCall("RPCRT4.dll\NdrMesTypeEncode2", _HandleMarshal, _Handle, MIDL_TYPE_PICKLING_INFO.Ptr, pPicklingInfo, MIDL_STUB_DESC.Ptr, pStubDesc, pFormatStringMarshal, pFormatString, pObjectMarshal, pObject)
 }
 
 /**
- * 
  * @param {Pointer<Void>} _Handle 
  * @param {Pointer<MIDL_TYPE_PICKLING_INFO>} pPicklingInfo 
  * @param {Pointer<MIDL_STUB_DESC>} pStubDesc 
@@ -24953,15 +25013,14 @@ export NdrMesTypeEncode2(_Handle, pPicklingInfo, pStubDesc, pFormatString, pObje
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrMesTypeDecode2(_Handle, pPicklingInfo, pStubDesc, pFormatString, pObject) {
-    _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
-    pFormatStringMarshal := pFormatString is VarRef ? "char*" : "ptr"
-    pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
+    _HandleMarshal := _Handle is VarRef ? "ptr" : IntPtr
+    pFormatStringMarshal := pFormatString is VarRef ? "char*" : IntPtr
+    pObjectMarshal := pObject is VarRef ? "ptr" : IntPtr
 
     DllCall("RPCRT4.dll\NdrMesTypeDecode2", _HandleMarshal, _Handle, MIDL_TYPE_PICKLING_INFO.Ptr, pPicklingInfo, MIDL_STUB_DESC.Ptr, pStubDesc, pFormatStringMarshal, pFormatString, pObjectMarshal, pObject)
 }
 
 /**
- * 
  * @param {Pointer<Void>} _Handle 
  * @param {Pointer<MIDL_TYPE_PICKLING_INFO>} pPicklingInfo 
  * @param {Pointer<MIDL_STUB_DESC>} pStubDesc 
@@ -24970,15 +25029,14 @@ export NdrMesTypeDecode2(_Handle, pPicklingInfo, pStubDesc, pFormatString, pObje
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrMesTypeFree2(_Handle, pPicklingInfo, pStubDesc, pFormatString, pObject) {
-    _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
-    pFormatStringMarshal := pFormatString is VarRef ? "char*" : "ptr"
-    pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
+    _HandleMarshal := _Handle is VarRef ? "ptr" : IntPtr
+    pFormatStringMarshal := pFormatString is VarRef ? "char*" : IntPtr
+    pObjectMarshal := pObject is VarRef ? "ptr" : IntPtr
 
     DllCall("RPCRT4.dll\NdrMesTypeFree2", _HandleMarshal, _Handle, MIDL_TYPE_PICKLING_INFO.Ptr, pPicklingInfo, MIDL_STUB_DESC.Ptr, pStubDesc, pFormatStringMarshal, pFormatString, pObjectMarshal, pObject)
 }
 
 /**
- * 
  * @param {Pointer<Void>} _Handle 
  * @param {Pointer<MIDL_STUB_DESC>} pStubDesc 
  * @param {Pointer<Integer>} pFormatString 
@@ -24986,8 +25044,8 @@ export NdrMesTypeFree2(_Handle, pPicklingInfo, pStubDesc, pFormatString, pObject
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrMesProcEncodeDecode(_Handle, pStubDesc, pFormatString, args*) {
-    _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
-    pFormatStringMarshal := pFormatString is VarRef ? "char*" : "ptr"
+    _HandleMarshal := _Handle is VarRef ? "ptr" : IntPtr
+    pFormatStringMarshal := pFormatString is VarRef ? "char*" : IntPtr
 
     varArgs := [args*]
 
@@ -25005,8 +25063,8 @@ export NdrMesProcEncodeDecode(_Handle, pStubDesc, pFormatString, args*) {
  * @since windows5.0
  */
 export NdrMesProcEncodeDecode2(_Handle, pStubDesc, pFormatString, args*) {
-    _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
-    pFormatStringMarshal := pFormatString is VarRef ? "char*" : "ptr"
+    _HandleMarshal := _Handle is VarRef ? "ptr" : IntPtr
+    pFormatStringMarshal := pFormatString is VarRef ? "char*" : IntPtr
 
     varArgs := [args*]
     varArgs.Push(CLIENT_CALL_RETURN)
@@ -25016,7 +25074,6 @@ export NdrMesProcEncodeDecode2(_Handle, pStubDesc, pFormatString, args*) {
 }
 
 /**
- * 
  * @param {Pointer<Void>} _Handle 
  * @param {Pointer<MIDL_TYPE_PICKLING_INFO>} pPicklingInfo 
  * @param {Pointer<MIDL_STUBLESS_PROXY_INFO>} pProxyInfo 
@@ -25026,16 +25083,15 @@ export NdrMesProcEncodeDecode2(_Handle, pStubDesc, pFormatString, args*) {
  * @returns {Pointer} 
  */
 export NdrMesTypeAlignSize3(_Handle, pPicklingInfo, pProxyInfo, ArrTypeOffset, nTypeIndex, pObject) {
-    _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
-    ArrTypeOffsetMarshal := ArrTypeOffset is VarRef ? "ptr*" : "ptr"
-    pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
+    _HandleMarshal := _Handle is VarRef ? "ptr" : IntPtr
+    ArrTypeOffsetMarshal := ArrTypeOffset is VarRef ? "ptr*" : IntPtr
+    pObjectMarshal := pObject is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrMesTypeAlignSize3", _HandleMarshal, _Handle, MIDL_TYPE_PICKLING_INFO.Ptr, pPicklingInfo, MIDL_STUBLESS_PROXY_INFO.Ptr, pProxyInfo, ArrTypeOffsetMarshal, ArrTypeOffset, UInt32, nTypeIndex, pObjectMarshal, pObject, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} _Handle 
  * @param {Pointer<MIDL_TYPE_PICKLING_INFO>} pPicklingInfo 
  * @param {Pointer<MIDL_STUBLESS_PROXY_INFO>} pProxyInfo 
@@ -25045,15 +25101,14 @@ export NdrMesTypeAlignSize3(_Handle, pPicklingInfo, pProxyInfo, ArrTypeOffset, n
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrMesTypeEncode3(_Handle, pPicklingInfo, pProxyInfo, ArrTypeOffset, nTypeIndex, pObject) {
-    _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
-    ArrTypeOffsetMarshal := ArrTypeOffset is VarRef ? "ptr*" : "ptr"
-    pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
+    _HandleMarshal := _Handle is VarRef ? "ptr" : IntPtr
+    ArrTypeOffsetMarshal := ArrTypeOffset is VarRef ? "ptr*" : IntPtr
+    pObjectMarshal := pObject is VarRef ? "ptr" : IntPtr
 
     DllCall("RPCRT4.dll\NdrMesTypeEncode3", _HandleMarshal, _Handle, MIDL_TYPE_PICKLING_INFO.Ptr, pPicklingInfo, MIDL_STUBLESS_PROXY_INFO.Ptr, pProxyInfo, ArrTypeOffsetMarshal, ArrTypeOffset, UInt32, nTypeIndex, pObjectMarshal, pObject)
 }
 
 /**
- * 
  * @param {Pointer<Void>} _Handle 
  * @param {Pointer<MIDL_TYPE_PICKLING_INFO>} pPicklingInfo 
  * @param {Pointer<MIDL_STUBLESS_PROXY_INFO>} pProxyInfo 
@@ -25063,15 +25118,14 @@ export NdrMesTypeEncode3(_Handle, pPicklingInfo, pProxyInfo, ArrTypeOffset, nTyp
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrMesTypeDecode3(_Handle, pPicklingInfo, pProxyInfo, ArrTypeOffset, nTypeIndex, pObject) {
-    _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
-    ArrTypeOffsetMarshal := ArrTypeOffset is VarRef ? "ptr*" : "ptr"
-    pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
+    _HandleMarshal := _Handle is VarRef ? "ptr" : IntPtr
+    ArrTypeOffsetMarshal := ArrTypeOffset is VarRef ? "ptr*" : IntPtr
+    pObjectMarshal := pObject is VarRef ? "ptr" : IntPtr
 
     DllCall("RPCRT4.dll\NdrMesTypeDecode3", _HandleMarshal, _Handle, MIDL_TYPE_PICKLING_INFO.Ptr, pPicklingInfo, MIDL_STUBLESS_PROXY_INFO.Ptr, pProxyInfo, ArrTypeOffsetMarshal, ArrTypeOffset, UInt32, nTypeIndex, pObjectMarshal, pObject)
 }
 
 /**
- * 
  * @param {Pointer<Void>} _Handle 
  * @param {Pointer<MIDL_TYPE_PICKLING_INFO>} pPicklingInfo 
  * @param {Pointer<MIDL_STUBLESS_PROXY_INFO>} pProxyInfo 
@@ -25081,15 +25135,14 @@ export NdrMesTypeDecode3(_Handle, pPicklingInfo, pProxyInfo, ArrTypeOffset, nTyp
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrMesTypeFree3(_Handle, pPicklingInfo, pProxyInfo, ArrTypeOffset, nTypeIndex, pObject) {
-    _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
-    ArrTypeOffsetMarshal := ArrTypeOffset is VarRef ? "ptr*" : "ptr"
-    pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
+    _HandleMarshal := _Handle is VarRef ? "ptr" : IntPtr
+    ArrTypeOffsetMarshal := ArrTypeOffset is VarRef ? "ptr*" : IntPtr
+    pObjectMarshal := pObject is VarRef ? "ptr" : IntPtr
 
     DllCall("RPCRT4.dll\NdrMesTypeFree3", _HandleMarshal, _Handle, MIDL_TYPE_PICKLING_INFO.Ptr, pPicklingInfo, MIDL_STUBLESS_PROXY_INFO.Ptr, pProxyInfo, ArrTypeOffsetMarshal, ArrTypeOffset, UInt32, nTypeIndex, pObjectMarshal, pObject)
 }
 
 /**
- * 
  * @param {Pointer<Void>} _Handle 
  * @param {Pointer<MIDL_STUBLESS_PROXY_INFO>} pProxyInfo 
  * @param {Integer} nProcNum 
@@ -25098,8 +25151,8 @@ export NdrMesTypeFree3(_Handle, pPicklingInfo, pProxyInfo, ArrTypeOffset, nTypeI
  * @returns {CLIENT_CALL_RETURN} 
  */
 export NdrMesProcEncodeDecode3(_Handle, pProxyInfo, nProcNum, pReturnValue, args*) {
-    _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
-    pReturnValueMarshal := pReturnValue is VarRef ? "ptr" : "ptr"
+    _HandleMarshal := _Handle is VarRef ? "ptr" : IntPtr
+    pReturnValueMarshal := pReturnValue is VarRef ? "ptr" : IntPtr
 
     varArgs := [args*]
     varArgs.Push(CLIENT_CALL_RETURN)
@@ -25109,7 +25162,6 @@ export NdrMesProcEncodeDecode3(_Handle, pProxyInfo, nProcNum, pReturnValue, args
 }
 
 /**
- * 
  * @param {Pointer<Void>} _Handle 
  * @param {Pointer<MIDL_STUBLESS_PROXY_INFO>} pProxyInfo 
  * @param {Pointer<Void>} pObject 
@@ -25117,14 +25169,13 @@ export NdrMesProcEncodeDecode3(_Handle, pProxyInfo, nProcNum, pReturnValue, args
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrMesSimpleTypeDecodeAll(_Handle, pProxyInfo, pObject, _Size) {
-    _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
-    pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
+    _HandleMarshal := _Handle is VarRef ? "ptr" : IntPtr
+    pObjectMarshal := pObject is VarRef ? "ptr" : IntPtr
 
     DllCall("RPCRT4.dll\NdrMesSimpleTypeDecodeAll", _HandleMarshal, _Handle, MIDL_STUBLESS_PROXY_INFO.Ptr, pProxyInfo, pObjectMarshal, pObject, Int16, _Size)
 }
 
 /**
- * 
  * @param {Pointer<Void>} _Handle 
  * @param {Pointer<MIDL_STUBLESS_PROXY_INFO>} pProxyInfo 
  * @param {Pointer<Void>} pObject 
@@ -25132,20 +25183,19 @@ export NdrMesSimpleTypeDecodeAll(_Handle, pProxyInfo, pObject, _Size) {
  * @returns {String} Nothing - always returns an empty string
  */
 export NdrMesSimpleTypeEncodeAll(_Handle, pProxyInfo, pObject, _Size) {
-    _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
-    pObjectMarshal := pObject is VarRef ? "ptr" : "ptr"
+    _HandleMarshal := _Handle is VarRef ? "ptr" : IntPtr
+    pObjectMarshal := pObject is VarRef ? "ptr" : IntPtr
 
     DllCall("RPCRT4.dll\NdrMesSimpleTypeEncodeAll", _HandleMarshal, _Handle, MIDL_STUBLESS_PROXY_INFO.Ptr, pProxyInfo, pObjectMarshal, pObject, Int16, _Size)
 }
 
 /**
- * 
  * @param {Pointer<Void>} _Handle 
  * @param {Pointer<MIDL_STUBLESS_PROXY_INFO>} pProxyInfo 
  * @returns {Pointer} 
  */
 export NdrMesSimpleTypeAlignSizeAll(_Handle, pProxyInfo) {
-    _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
+    _HandleMarshal := _Handle is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RPCRT4.dll\NdrMesSimpleTypeAlignSizeAll", _HandleMarshal, _Handle, MIDL_STUBLESS_PROXY_INFO.Ptr, pProxyInfo, IntPtr)
     return result
@@ -25176,7 +25226,7 @@ export NdrMesSimpleTypeAlignSizeAll(_Handle, pProxyInfo) {
  * @since windows5.0
  */
 export RpcCertGeneratePrincipalNameW(_Context, Flags, pBuffer) {
-    pBufferMarshal := pBuffer is VarRef ? "ptr*" : "ptr"
+    pBufferMarshal := pBuffer is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcCertGeneratePrincipalNameW", CERT_CONTEXT.Ptr, _Context, UInt32, Flags, pBufferMarshal, pBuffer, RPC_STATUS)
     return result
@@ -25207,7 +25257,7 @@ export RpcCertGeneratePrincipalNameW(_Context, Flags, pBuffer) {
  * @since windows5.0
  */
 export RpcCertGeneratePrincipalNameA(_Context, Flags, pBuffer) {
-    pBufferMarshal := pBuffer is VarRef ? "ptr*" : "ptr"
+    pBufferMarshal := pBuffer is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RPCRT4.dll\RpcCertGeneratePrincipalNameA", CERT_CONTEXT.Ptr, _Context, UInt32, Flags, pBufferMarshal, pBuffer, RPC_STATUS)
     return result

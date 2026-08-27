@@ -554,17 +554,17 @@ export default struct IVdsVolume extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
-        this.vtbl.GetPack := CallbackCreate(GetMethod(implObj, "GetPack"), flags, 2)
-        this.vtbl.QueryPlexes := CallbackCreate(GetMethod(implObj, "QueryPlexes"), flags, 2)
-        this.vtbl.Extend := CallbackCreate(GetMethod(implObj, "Extend"), flags, 4)
-        this.vtbl.Shrink := CallbackCreate(GetMethod(implObj, "Shrink"), flags, 3)
-        this.vtbl.AddPlex := CallbackCreate(GetMethod(implObj, "AddPlex"), flags, 3)
-        this.vtbl.BreakPlex := CallbackCreate(GetMethod(implObj, "BreakPlex"), flags, 3)
-        this.vtbl.RemovePlex := CallbackCreate(GetMethod(implObj, "RemovePlex"), flags, 3)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 2)
-        this.vtbl.SetFlags := CallbackCreate(GetMethod(implObj, "SetFlags"), flags, 3)
-        this.vtbl.ClearFlags := CallbackCreate(GetMethod(implObj, "ClearFlags"), flags, 2)
+        this.vtbl.GetProperties := CallbackCreate(ObjBindMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.GetPack := CallbackCreate(ObjBindMethod(implObj, "GetPack"), flags, 2)
+        this.vtbl.QueryPlexes := CallbackCreate(ObjBindMethod(implObj, "QueryPlexes"), flags, 2)
+        this.vtbl.Extend := CallbackCreate(ObjBindMethod(implObj, "Extend"), flags, 4)
+        this.vtbl.Shrink := CallbackCreate(ObjBindMethod(implObj, "Shrink"), flags, 3)
+        this.vtbl.AddPlex := CallbackCreate(ObjBindMethod(implObj, "AddPlex"), flags, 3)
+        this.vtbl.BreakPlex := CallbackCreate(ObjBindMethod(implObj, "BreakPlex"), flags, 3)
+        this.vtbl.RemovePlex := CallbackCreate(ObjBindMethod(implObj, "RemovePlex"), flags, 3)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 2)
+        this.vtbl.SetFlags := CallbackCreate(ObjBindMethod(implObj, "SetFlags"), flags, 3)
+        this.vtbl.ClearFlags := CallbackCreate(ObjBindMethod(implObj, "ClearFlags"), flags, 2)
     }
 
     Dispose() {

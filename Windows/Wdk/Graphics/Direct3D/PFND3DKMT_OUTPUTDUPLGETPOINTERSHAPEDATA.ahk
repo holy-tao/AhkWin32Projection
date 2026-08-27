@@ -20,7 +20,6 @@ export default struct PFND3DKMT_OUTPUTDUPLGETPOINTERSHAPEDATA {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_OUTPUTDUPL_GET_POINTER_SHAPE_DATA>} param0 
      * @returns {NTSTATUS} 
      */

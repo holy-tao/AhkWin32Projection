@@ -21,7 +21,6 @@ export default struct EXT_TARGET_INFO {
     }
 
     /**
-     * 
      * @param {IDebugClient4} Client 
      * @param {Pointer<TARGET_DEBUG_INFO>} pTargetInfo 
      * @returns {HRESULT} 

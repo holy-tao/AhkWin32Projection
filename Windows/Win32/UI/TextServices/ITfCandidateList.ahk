@@ -136,10 +136,10 @@ export default struct ITfCandidateList extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumCandidates := CallbackCreate(GetMethod(implObj, "EnumCandidates"), flags, 2)
-        this.vtbl.GetCandidate := CallbackCreate(GetMethod(implObj, "GetCandidate"), flags, 3)
-        this.vtbl.GetCandidateNum := CallbackCreate(GetMethod(implObj, "GetCandidateNum"), flags, 2)
-        this.vtbl.SetResult := CallbackCreate(GetMethod(implObj, "SetResult"), flags, 3)
+        this.vtbl.EnumCandidates := CallbackCreate(ObjBindMethod(implObj, "EnumCandidates"), flags, 2)
+        this.vtbl.GetCandidate := CallbackCreate(ObjBindMethod(implObj, "GetCandidate"), flags, 3)
+        this.vtbl.GetCandidateNum := CallbackCreate(ObjBindMethod(implObj, "GetCandidateNum"), flags, 2)
+        this.vtbl.SetResult := CallbackCreate(ObjBindMethod(implObj, "SetResult"), flags, 3)
     }
 
     Dispose() {

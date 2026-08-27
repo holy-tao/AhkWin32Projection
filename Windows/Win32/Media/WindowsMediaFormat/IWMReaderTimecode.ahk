@@ -77,8 +77,8 @@ export default struct IWMReaderTimecode extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadertimecode-gettimecoderangebounds
      */
     GetTimecodeRangeBounds(wStreamNum, wRangeNum, pStartTimecode, pEndTimecode) {
-        pStartTimecodeMarshal := pStartTimecode is VarRef ? "uint*" : "ptr"
-        pEndTimecodeMarshal := pEndTimecode is VarRef ? "uint*" : "ptr"
+        pStartTimecodeMarshal := pStartTimecode is VarRef ? "uint*" : IntPtr
+        pEndTimecodeMarshal := pEndTimecode is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, UInt16, wStreamNum, UInt16, wRangeNum, pStartTimecodeMarshal, pStartTimecode, pEndTimecodeMarshal, pEndTimecode, "HRESULT")
         return result
@@ -93,8 +93,8 @@ export default struct IWMReaderTimecode extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTimecodeRangeCount := CallbackCreate(GetMethod(implObj, "GetTimecodeRangeCount"), flags, 3)
-        this.vtbl.GetTimecodeRangeBounds := CallbackCreate(GetMethod(implObj, "GetTimecodeRangeBounds"), flags, 5)
+        this.vtbl.GetTimecodeRangeCount := CallbackCreate(ObjBindMethod(implObj, "GetTimecodeRangeCount"), flags, 3)
+        this.vtbl.GetTimecodeRangeBounds := CallbackCreate(ObjBindMethod(implObj, "GetTimecodeRangeBounds"), flags, 5)
     }
 
     Dispose() {

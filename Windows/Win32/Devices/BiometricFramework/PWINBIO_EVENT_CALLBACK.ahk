@@ -22,14 +22,14 @@ export default struct PWINBIO_EVENT_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} EventCallbackContext Pointer to a buffer defined by the application and passed to the <i>EventCallbackContext</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioregistereventmonitor">WinBioRegisterEventMonitor</a> function. The buffer is not modified by the framework or the biometric unit. Your application can use the data to help it determine what actions to perform or to maintain additional information about the biometric capture.
      * @param {HRESULT} OperationStatus Error code returned by the capture operation.
      * @param {Pointer<WINBIO_EVENT>} Event Pointer to a WINBIO_EVENT value. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-event-constants">WINBIO_EVENT Constants</a>.
      * @returns {String} Nothing - always returns an empty string
      */
     Call(EventCallbackContext, OperationStatus, Event) {
-        EventCallbackContextMarshal := EventCallbackContext is VarRef ? "ptr" : "ptr"
+        EventCallbackContextMarshal := EventCallbackContext is VarRef ? "ptr" : IntPtr
+        EventCallbackContextMarshal := EventCallbackContext == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, EventCallbackContextMarshal, EventCallbackContext, "int", OperationStatus, WINBIO_EVENT.Ptr, Event)
     }

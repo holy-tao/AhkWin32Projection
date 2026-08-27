@@ -37,7 +37,6 @@ export default struct IDocumentRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDOMRange} 
      */
     createRange() {
@@ -54,7 +53,7 @@ export default struct IDocumentRange extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.createRange := CallbackCreate(GetMethod(implObj, "createRange"), flags, 2)
+        this.vtbl.createRange := CallbackCreate(ObjBindMethod(implObj, "createRange"), flags, 2)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct MIDL_ES_WRITE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} state 
      * @param {PSTR} _buffer 
      * @param {Integer} _size 
@@ -28,7 +27,7 @@ export default struct MIDL_ES_WRITE {
     Call(state, _buffer, _size) {
         _buffer := _buffer is String ? StrPtr(_buffer) : _buffer
 
-        stateMarshal := state is VarRef ? "ptr" : "ptr"
+        stateMarshal := state is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, stateMarshal, state, "ptr", _buffer, UInt32, _size)
     }

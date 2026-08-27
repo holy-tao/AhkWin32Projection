@@ -143,9 +143,9 @@ export default struct IOleInPlaceSiteEx extends IOleInPlaceSite {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnInPlaceActivateEx := CallbackCreate(GetMethod(implObj, "OnInPlaceActivateEx"), flags, 3)
-        this.vtbl.OnInPlaceDeactivateEx := CallbackCreate(GetMethod(implObj, "OnInPlaceDeactivateEx"), flags, 2)
-        this.vtbl.RequestUIActivate := CallbackCreate(GetMethod(implObj, "RequestUIActivate"), flags, 1)
+        this.vtbl.OnInPlaceActivateEx := CallbackCreate(ObjBindMethod(implObj, "OnInPlaceActivateEx"), flags, 3)
+        this.vtbl.OnInPlaceDeactivateEx := CallbackCreate(ObjBindMethod(implObj, "OnInPlaceDeactivateEx"), flags, 2)
+        this.vtbl.RequestUIActivate := CallbackCreate(ObjBindMethod(implObj, "RequestUIActivate"), flags, 1)
     }
 
     Dispose() {

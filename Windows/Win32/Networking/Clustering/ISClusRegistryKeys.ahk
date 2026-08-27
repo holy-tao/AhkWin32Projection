@@ -58,7 +58,6 @@ export default struct ISClusRegistryKeys extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -67,7 +66,6 @@ export default struct ISClusRegistryKeys extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -76,7 +74,6 @@ export default struct ISClusRegistryKeys extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Refresh() {
@@ -85,7 +82,6 @@ export default struct ISClusRegistryKeys extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varIndex 
      * @returns {BSTR} 
      */
@@ -96,7 +92,6 @@ export default struct ISClusRegistryKeys extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrRegistryKey 
      * @returns {HRESULT} 
      */
@@ -108,7 +103,6 @@ export default struct ISClusRegistryKeys extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varIndex 
      * @returns {HRESULT} 
      */
@@ -126,12 +120,12 @@ export default struct ISClusRegistryKeys extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
-        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
-        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
-        this.vtbl.AddItem := CallbackCreate(GetMethod(implObj, "AddItem"), flags, 2)
-        this.vtbl.RemoveItem := CallbackCreate(GetMethod(implObj, "RemoveItem"), flags, 2)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get__NewEnum := CallbackCreate(ObjBindMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(ObjBindMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.get_Item := CallbackCreate(ObjBindMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.AddItem := CallbackCreate(ObjBindMethod(implObj, "AddItem"), flags, 2)
+        this.vtbl.RemoveItem := CallbackCreate(ObjBindMethod(implObj, "RemoveItem"), flags, 2)
     }
 
     Dispose() {

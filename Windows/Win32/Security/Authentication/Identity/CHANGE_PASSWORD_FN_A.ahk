@@ -22,7 +22,6 @@ export default struct CHANGE_PASSWORD_FN_A {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<Integer>} param2 
@@ -34,11 +33,11 @@ export default struct CHANGE_PASSWORD_FN_A {
      * @returns {HRESULT} 
      */
     Call(param0, param1, param2, param3, param4, param5, param6, param7) {
-        param0Marshal := param0 is VarRef ? "char*" : "ptr"
-        param1Marshal := param1 is VarRef ? "char*" : "ptr"
-        param2Marshal := param2 is VarRef ? "char*" : "ptr"
-        param3Marshal := param3 is VarRef ? "char*" : "ptr"
-        param4Marshal := param4 is VarRef ? "char*" : "ptr"
+        param0Marshal := param0 is VarRef ? "char*" : IntPtr
+        param1Marshal := param1 is VarRef ? "char*" : IntPtr
+        param2Marshal := param2 is VarRef ? "char*" : IntPtr
+        param3Marshal := param3 is VarRef ? "char*" : IntPtr
+        param4Marshal := param4 is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, param3Marshal, param3, param4Marshal, param4, BOOLEAN, param5, UInt32, param6, SecBufferDesc.Ptr, param7, "HRESULT")
         return result

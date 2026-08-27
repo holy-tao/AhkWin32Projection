@@ -19,12 +19,11 @@ export default struct SECURE_DRIVER_PROCESS_REFERENCE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} InterfaceContext 
      * @returns {PEPROCESS} 
      */
     Call(InterfaceContext) {
-        InterfaceContextMarshal := InterfaceContext is VarRef ? "ptr" : "ptr"
+        InterfaceContextMarshal := InterfaceContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, InterfaceContextMarshal, InterfaceContext, PEPROCESS)
         return result

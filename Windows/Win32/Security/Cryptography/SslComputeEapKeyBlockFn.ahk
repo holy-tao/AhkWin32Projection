@@ -21,7 +21,6 @@ export default struct SslComputeEapKeyBlockFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_KEY_HANDLE} hMasterKey 
      * @param {Integer} pbRandoms 
@@ -32,7 +31,9 @@ export default struct SslComputeEapKeyBlockFn {
      * @returns {Integer} 
      */
     Call(hSslProvider, hMasterKey, pbRandoms, cbRandoms, pbOutput, cbOutput, dwFlags) {
-        result := DllCall(this.value, NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hMasterKey, IntPtr, pbRandoms, UInt32, cbRandoms, IntPtr, pbOutput, UInt32, cbOutput, "uint*", &pcbResult := 0, UInt32, dwFlags, "HRESULT")
+        pbOutputMarshal := pbOutput == 0 ? IntPtr : IntPtr
+
+        result := DllCall(this.value, NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hMasterKey, IntPtr, pbRandoms, UInt32, cbRandoms, pbOutputMarshal, pbOutput, UInt32, cbOutput, "uint*", &pcbResult := 0, UInt32, dwFlags, "HRESULT")
         return pcbResult
     }
 

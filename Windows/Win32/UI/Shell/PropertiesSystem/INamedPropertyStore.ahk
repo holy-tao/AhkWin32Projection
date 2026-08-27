@@ -118,10 +118,10 @@ export default struct INamedPropertyStore extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNamedValue := CallbackCreate(GetMethod(implObj, "GetNamedValue"), flags, 3)
-        this.vtbl.SetNamedValue := CallbackCreate(GetMethod(implObj, "SetNamedValue"), flags, 3)
-        this.vtbl.GetNameCount := CallbackCreate(GetMethod(implObj, "GetNameCount"), flags, 2)
-        this.vtbl.GetNameAt := CallbackCreate(GetMethod(implObj, "GetNameAt"), flags, 3)
+        this.vtbl.GetNamedValue := CallbackCreate(ObjBindMethod(implObj, "GetNamedValue"), flags, 3)
+        this.vtbl.SetNamedValue := CallbackCreate(ObjBindMethod(implObj, "SetNamedValue"), flags, 3)
+        this.vtbl.GetNameCount := CallbackCreate(ObjBindMethod(implObj, "GetNameCount"), flags, 2)
+        this.vtbl.GetNameAt := CallbackCreate(ObjBindMethod(implObj, "GetNameAt"), flags, 3)
     }
 
     Dispose() {

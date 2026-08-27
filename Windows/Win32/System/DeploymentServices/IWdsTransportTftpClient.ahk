@@ -180,13 +180,13 @@ export default struct IWdsTransportTftpClient extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_FileName := CallbackCreate(GetMethod(implObj, "get_FileName"), flags, 2)
-        this.vtbl.get_IpAddress := CallbackCreate(GetMethod(implObj, "get_IpAddress"), flags, 2)
-        this.vtbl.get_Timeout := CallbackCreate(GetMethod(implObj, "get_Timeout"), flags, 2)
-        this.vtbl.get_CurrentFileOffset := CallbackCreate(GetMethod(implObj, "get_CurrentFileOffset"), flags, 2)
-        this.vtbl.get_FileSize := CallbackCreate(GetMethod(implObj, "get_FileSize"), flags, 2)
-        this.vtbl.get_BlockSize := CallbackCreate(GetMethod(implObj, "get_BlockSize"), flags, 2)
-        this.vtbl.get_WindowSize := CallbackCreate(GetMethod(implObj, "get_WindowSize"), flags, 2)
+        this.vtbl.get_FileName := CallbackCreate(ObjBindMethod(implObj, "get_FileName"), flags, 2)
+        this.vtbl.get_IpAddress := CallbackCreate(ObjBindMethod(implObj, "get_IpAddress"), flags, 2)
+        this.vtbl.get_Timeout := CallbackCreate(ObjBindMethod(implObj, "get_Timeout"), flags, 2)
+        this.vtbl.get_CurrentFileOffset := CallbackCreate(ObjBindMethod(implObj, "get_CurrentFileOffset"), flags, 2)
+        this.vtbl.get_FileSize := CallbackCreate(ObjBindMethod(implObj, "get_FileSize"), flags, 2)
+        this.vtbl.get_BlockSize := CallbackCreate(ObjBindMethod(implObj, "get_BlockSize"), flags, 2)
+        this.vtbl.get_WindowSize := CallbackCreate(ObjBindMethod(implObj, "get_WindowSize"), flags, 2)
     }
 
     Dispose() {

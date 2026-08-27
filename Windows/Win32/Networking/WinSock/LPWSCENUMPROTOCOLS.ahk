@@ -18,7 +18,6 @@ export default struct LPWSCENUMPROTOCOLS {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} lpiProtocols 
      * @param {Integer} lpProtocolBuffer 
      * @param {Pointer<Integer>} lpdwBufferLength 
@@ -26,11 +25,13 @@ export default struct LPWSCENUMPROTOCOLS {
      * @returns {Integer} 
      */
     Call(lpiProtocols, lpProtocolBuffer, lpdwBufferLength, lpErrno) {
-        lpiProtocolsMarshal := lpiProtocols is VarRef ? "int*" : "ptr"
-        lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        lpiProtocolsMarshal := lpiProtocols is VarRef ? "int*" : IntPtr
+        lpiProtocolsMarshal := lpiProtocols == 0 ? IntPtr : "int*"
+        lpProtocolBufferMarshal := lpProtocolBuffer == 0 ? IntPtr : IntPtr
+        lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : IntPtr
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
-        result := DllCall(this.value, lpiProtocolsMarshal, lpiProtocols, IntPtr, lpProtocolBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, lpErrnoMarshal, lpErrno, Int32)
+        result := DllCall(this.value, lpiProtocolsMarshal, lpiProtocols, lpProtocolBufferMarshal, lpProtocolBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, lpErrnoMarshal, lpErrno, Int32)
         return result
     }
 

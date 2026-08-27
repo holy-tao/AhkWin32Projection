@@ -56,7 +56,6 @@ export default struct ISVGLangSpace extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -68,7 +67,6 @@ export default struct ISVGLangSpace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_xmllang() {
@@ -78,7 +76,6 @@ export default struct ISVGLangSpace extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -90,7 +87,6 @@ export default struct ISVGLangSpace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_xmlspace() {
@@ -108,10 +104,10 @@ export default struct ISVGLangSpace extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_xmllang := CallbackCreate(GetMethod(implObj, "put_xmllang"), flags, 2)
-        this.vtbl.get_xmllang := CallbackCreate(GetMethod(implObj, "get_xmllang"), flags, 2)
-        this.vtbl.put_xmlspace := CallbackCreate(GetMethod(implObj, "put_xmlspace"), flags, 2)
-        this.vtbl.get_xmlspace := CallbackCreate(GetMethod(implObj, "get_xmlspace"), flags, 2)
+        this.vtbl.put_xmllang := CallbackCreate(ObjBindMethod(implObj, "put_xmllang"), flags, 2)
+        this.vtbl.get_xmllang := CallbackCreate(ObjBindMethod(implObj, "get_xmllang"), flags, 2)
+        this.vtbl.put_xmlspace := CallbackCreate(ObjBindMethod(implObj, "put_xmlspace"), flags, 2)
+        this.vtbl.get_xmlspace := CallbackCreate(ObjBindMethod(implObj, "get_xmlspace"), flags, 2)
     }
 
     Dispose() {

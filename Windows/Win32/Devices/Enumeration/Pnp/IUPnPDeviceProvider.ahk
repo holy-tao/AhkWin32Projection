@@ -72,8 +72,8 @@ export default struct IUPnPDeviceProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 2)
-        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.Start := CallbackCreate(ObjBindMethod(implObj, "Start"), flags, 2)
+        this.vtbl.Stop := CallbackCreate(ObjBindMethod(implObj, "Stop"), flags, 1)
     }
 
     Dispose() {

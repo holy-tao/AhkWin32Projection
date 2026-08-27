@@ -23,7 +23,6 @@ export default struct PENUMDIRTREE_CALLBACK {
     }
 
     /**
-     * 
      * @param {PSTR} FilePath A pointer to a buffer that receives the full path of the file that is found.
      * @param {Pointer<Void>} CallerData A user-defined value specified in 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-enumdirtree">EnumDirTree</a>, or <b>NULL</b>. Typically, this parameter is used by an application to pass a pointer to a data structure that enables the callback function to establish some context.
@@ -34,7 +33,8 @@ export default struct PENUMDIRTREE_CALLBACK {
     Call(FilePath, CallerData) {
         FilePath := FilePath is String ? StrPtr(FilePath) : FilePath
 
-        CallerDataMarshal := CallerData is VarRef ? "ptr" : "ptr"
+        CallerDataMarshal := CallerData is VarRef ? "ptr" : IntPtr
+        CallerDataMarshal := CallerData == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, "ptr", FilePath, CallerDataMarshal, CallerData, BOOL)
         return result

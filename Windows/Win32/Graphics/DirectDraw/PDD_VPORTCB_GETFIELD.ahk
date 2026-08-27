@@ -25,7 +25,6 @@ export default struct PDD_VPORTCB_GETFIELD {
     }
 
     /**
-     * 
      * @param {Pointer<DD_GETVPORTFIELDDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_getvportfielddata">DD_GETVPORTFIELDDATA</a> structure that contains the information required for the driver to determine whether the current field is even or odd.
      * @returns {Integer} <b>DdVideoPortGetField</b> returns one of the following callback codes:
      */

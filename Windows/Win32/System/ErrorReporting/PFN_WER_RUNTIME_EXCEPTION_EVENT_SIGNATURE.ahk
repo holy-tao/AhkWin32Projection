@@ -29,7 +29,6 @@ export default struct PFN_WER_RUNTIME_EXCEPTION_EVENT_SIGNATURE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pContext A pointer to arbitrary context information that you specified when you called the <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werregisterruntimeexceptionmodule">WerRegisterRuntimeExceptionModule</a> function to register the exception handler.
      * @param {Pointer<WER_RUNTIME_EXCEPTION_INFORMATION>} pExceptionInformation A <a href="https://docs.microsoft.com/windows/desktop/api/werapi/ns-werapi-wer_runtime_exception_information">WER_RUNTIME_EXCEPTION_INFORMATION</a> structure that contains the exception information.
      * @param {Integer} dwIndex The index of the report parameter. Valid values are 0 to 9. The first call to this function must set the index to 0, and each successive call must increment the index value sequentially.
@@ -43,9 +42,9 @@ export default struct PFN_WER_RUNTIME_EXCEPTION_EVENT_SIGNATURE {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
         pwszValue := pwszValue is String ? StrPtr(pwszValue) : pwszValue
 
-        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
-        pchNameMarshal := pchName is VarRef ? "uint*" : "ptr"
-        pchValueMarshal := pchValue is VarRef ? "uint*" : "ptr"
+        pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
+        pchNameMarshal := pchName is VarRef ? "uint*" : IntPtr
+        pchValueMarshal := pchValue is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, pContextMarshal, pContext, WER_RUNTIME_EXCEPTION_INFORMATION.Ptr, pExceptionInformation, UInt32, dwIndex, "ptr", pwszName, pchNameMarshal, pchName, "ptr", pwszValue, pchValueMarshal, pchValue, "HRESULT")
         return result

@@ -76,8 +76,8 @@ export default struct INetDiagHelperEx extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelperex-reconfirmlowhealth
      */
     ReconfirmLowHealth(celt, pResults, ppwszUpdatedDescription, pUpdatedStatus) {
-        ppwszUpdatedDescriptionMarshal := ppwszUpdatedDescription is VarRef ? "ptr*" : "ptr"
-        pUpdatedStatusMarshal := pUpdatedStatus is VarRef ? "int*" : "ptr"
+        ppwszUpdatedDescriptionMarshal := ppwszUpdatedDescription is VarRef ? "ptr*" : IntPtr
+        pUpdatedStatusMarshal := pUpdatedStatus is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, UInt32, celt, HypothesisResult.Ptr, pResults, ppwszUpdatedDescriptionMarshal, ppwszUpdatedDescription, pUpdatedStatusMarshal, pUpdatedStatus, "HRESULT")
         return result
@@ -117,9 +117,9 @@ export default struct INetDiagHelperEx extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ReconfirmLowHealth := CallbackCreate(GetMethod(implObj, "ReconfirmLowHealth"), flags, 5)
-        this.vtbl.SetUtilities := CallbackCreate(GetMethod(implObj, "SetUtilities"), flags, 2)
-        this.vtbl.ReproduceFailure := CallbackCreate(GetMethod(implObj, "ReproduceFailure"), flags, 1)
+        this.vtbl.ReconfirmLowHealth := CallbackCreate(ObjBindMethod(implObj, "ReconfirmLowHealth"), flags, 5)
+        this.vtbl.SetUtilities := CallbackCreate(ObjBindMethod(implObj, "SetUtilities"), flags, 2)
+        this.vtbl.ReproduceFailure := CallbackCreate(ObjBindMethod(implObj, "ReproduceFailure"), flags, 1)
     }
 
     Dispose() {

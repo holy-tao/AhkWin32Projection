@@ -60,7 +60,7 @@ export default struct IEnumSpellingError extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 2)
+        this.vtbl.Next := CallbackCreate(ObjBindMethod(implObj, "Next"), flags, 2)
     }
 
     Dispose() {

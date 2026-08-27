@@ -60,7 +60,6 @@ export default struct IPrintManagerTemplatePrinter2 extends IPrintManagerTemplat
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_showHeaderFooter() {
@@ -69,7 +68,6 @@ export default struct IPrintManagerTemplatePrinter2 extends IPrintManagerTemplat
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_shrinkToFit() {
@@ -78,7 +76,6 @@ export default struct IPrintManagerTemplatePrinter2 extends IPrintManagerTemplat
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_percentScale() {
@@ -95,9 +92,9 @@ export default struct IPrintManagerTemplatePrinter2 extends IPrintManagerTemplat
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_showHeaderFooter := CallbackCreate(GetMethod(implObj, "get_showHeaderFooter"), flags, 2)
-        this.vtbl.get_shrinkToFit := CallbackCreate(GetMethod(implObj, "get_shrinkToFit"), flags, 2)
-        this.vtbl.get_percentScale := CallbackCreate(GetMethod(implObj, "get_percentScale"), flags, 2)
+        this.vtbl.get_showHeaderFooter := CallbackCreate(ObjBindMethod(implObj, "get_showHeaderFooter"), flags, 2)
+        this.vtbl.get_shrinkToFit := CallbackCreate(ObjBindMethod(implObj, "get_shrinkToFit"), flags, 2)
+        this.vtbl.get_percentScale := CallbackCreate(ObjBindMethod(implObj, "get_percentScale"), flags, 2)
     }
 
     Dispose() {

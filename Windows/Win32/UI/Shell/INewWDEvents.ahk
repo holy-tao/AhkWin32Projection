@@ -38,7 +38,6 @@ export default struct INewWDEvents extends IWebWizardHost {
     }
 
     /**
-     * 
      * @param {BSTR} bstrSignInUrl 
      * @returns {VARIANT_BOOL} 
      */
@@ -58,7 +57,7 @@ export default struct INewWDEvents extends IWebWizardHost {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PassportAuthenticate := CallbackCreate(GetMethod(implObj, "PassportAuthenticate"), flags, 3)
+        this.vtbl.PassportAuthenticate := CallbackCreate(ObjBindMethod(implObj, "PassportAuthenticate"), flags, 3)
     }
 
     Dispose() {

@@ -38,7 +38,6 @@ export default struct IDvbLogicalChannelDescriptor2 extends IDvbLogicalChannelDe
     }
 
     /**
-     * 
      * @param {Integer} bRecordIndex 
      * @returns {Integer} 
      */
@@ -56,7 +55,7 @@ export default struct IDvbLogicalChannelDescriptor2 extends IDvbLogicalChannelDe
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRecordLogicalChannelAndVisibility := CallbackCreate(GetMethod(implObj, "GetRecordLogicalChannelAndVisibility"), flags, 3)
+        this.vtbl.GetRecordLogicalChannelAndVisibility := CallbackCreate(ObjBindMethod(implObj, "GetRecordLogicalChannelAndVisibility"), flags, 3)
     }
 
     Dispose() {

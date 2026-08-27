@@ -19,7 +19,6 @@ export default struct PSET_RESOURCE_LOCKED_MODE_EX_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer} ResourceHandle 
      * @param {BOOL} LockedModeEnabled 
      * @param {Integer} LockedModeReason 

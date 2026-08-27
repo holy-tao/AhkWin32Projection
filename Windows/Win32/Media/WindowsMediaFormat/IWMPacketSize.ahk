@@ -103,8 +103,8 @@ export default struct IWMPacketSize extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMaxPacketSize := CallbackCreate(GetMethod(implObj, "GetMaxPacketSize"), flags, 2)
-        this.vtbl.SetMaxPacketSize := CallbackCreate(GetMethod(implObj, "SetMaxPacketSize"), flags, 2)
+        this.vtbl.GetMaxPacketSize := CallbackCreate(ObjBindMethod(implObj, "GetMaxPacketSize"), flags, 2)
+        this.vtbl.SetMaxPacketSize := CallbackCreate(ObjBindMethod(implObj, "SetMaxPacketSize"), flags, 2)
     }
 
     Dispose() {

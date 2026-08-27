@@ -50,7 +50,6 @@ export default struct ILogFileItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Path() {
@@ -68,7 +67,7 @@ export default struct ILogFileItem extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Path := CallbackCreate(GetMethod(implObj, "get_Path"), flags, 2)
+        this.vtbl.get_Path := CallbackCreate(ObjBindMethod(implObj, "get_Path"), flags, 2)
     }
 
     Dispose() {

@@ -76,8 +76,8 @@ export default struct IWbemEventProviderQuerySink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemeventproviderquerysink-newquery
      */
     NewQuery(dwId, wszQueryLanguage, wszQuery) {
-        wszQueryLanguageMarshal := wszQueryLanguage is VarRef ? "ushort*" : "ptr"
-        wszQueryMarshal := wszQuery is VarRef ? "ushort*" : "ptr"
+        wszQueryLanguageMarshal := wszQueryLanguage is VarRef ? "ushort*" : IntPtr
+        wszQueryMarshal := wszQuery is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(3, this, UInt32, dwId, wszQueryLanguageMarshal, wszQueryLanguage, wszQueryMarshal, wszQuery, "HRESULT")
         return result
@@ -109,8 +109,8 @@ export default struct IWbemEventProviderQuerySink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.NewQuery := CallbackCreate(GetMethod(implObj, "NewQuery"), flags, 4)
-        this.vtbl.CancelQuery := CallbackCreate(GetMethod(implObj, "CancelQuery"), flags, 2)
+        this.vtbl.NewQuery := CallbackCreate(ObjBindMethod(implObj, "NewQuery"), flags, 4)
+        this.vtbl.CancelQuery := CallbackCreate(ObjBindMethod(implObj, "CancelQuery"), flags, 2)
     }
 
     Dispose() {

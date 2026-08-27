@@ -21,7 +21,6 @@ export default struct PFND3DKMT_SETPROCESSSCHEDULINGPRIORITYCLASS {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @param {D3DKMT_SCHEDULINGPRIORITYCLASS} param1 
      * @returns {NTSTATUS} 

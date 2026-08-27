@@ -208,7 +208,6 @@ export default struct IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strEncodedData 
      * @param {EncodingType} Encoding 
      * @returns {HRESULT} 
@@ -221,7 +220,6 @@ export default struct IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Encode() {
@@ -230,7 +228,6 @@ export default struct IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ResetForEncode() {
@@ -239,17 +236,17 @@ export default struct IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @param {IX509PublicKey} pPublicKey 
      * @returns {HRESULT} 
      */
     CheckPublicKeySignature(pPublicKey) {
-        result := ComCall(11, this, "ptr", pPublicKey, "HRESULT")
+        pPublicKeyMarshal := pPublicKey == 0 ? IntPtr : "ptr"
+
+        result := ComCall(11, this, pPublicKeyMarshal, pPublicKey, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CheckSignature() {
@@ -258,7 +255,6 @@ export default struct IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IX500DistinguishedName} 
      */
     get_Issuer() {
@@ -267,17 +263,17 @@ export default struct IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @param {IX500DistinguishedName} pValue 
      * @returns {HRESULT} 
      */
     put_Issuer(pValue) {
-        result := ComCall(14, this, "ptr", pValue, "HRESULT")
+        pValueMarshal := pValue == 0 ? IntPtr : "ptr"
+
+        result := ComCall(14, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_ThisUpdate() {
@@ -286,7 +282,6 @@ export default struct IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} Value 
      * @returns {HRESULT} 
      */
@@ -296,7 +291,6 @@ export default struct IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_NextUpdate() {
@@ -305,7 +299,6 @@ export default struct IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} Value 
      * @returns {HRESULT} 
      */
@@ -315,7 +308,6 @@ export default struct IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IX509CertificateRevocationListEntries} 
      */
     get_X509CRLEntries() {
@@ -324,7 +316,6 @@ export default struct IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IX509Extensions} 
      */
     get_X509Extensions() {
@@ -333,7 +324,6 @@ export default struct IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IObjectIds} 
      */
     get_CriticalExtensions() {
@@ -342,7 +332,6 @@ export default struct IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISignerCertificate} 
      */
     get_SignerCertificate() {
@@ -351,17 +340,17 @@ export default struct IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISignerCertificate} pValue 
      * @returns {HRESULT} 
      */
     put_SignerCertificate(pValue) {
-        result := ComCall(23, this, "ptr", pValue, "HRESULT")
+        pValueMarshal := pValue == 0 ? IntPtr : "ptr"
+
+        result := ComCall(23, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      */
@@ -372,7 +361,6 @@ export default struct IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @param {EncodingType} Encoding 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
@@ -385,7 +373,6 @@ export default struct IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_CAVersion() {
@@ -394,7 +381,6 @@ export default struct IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} pValue 
      * @returns {HRESULT} 
      */
@@ -404,7 +390,6 @@ export default struct IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_BaseCRL() {
@@ -413,7 +398,6 @@ export default struct IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_NullSigned() {
@@ -422,7 +406,6 @@ export default struct IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IObjectId} 
      */
     get_HashAlgorithm() {
@@ -431,17 +414,17 @@ export default struct IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @param {IObjectId} pValue 
      * @returns {HRESULT} 
      */
     put_HashAlgorithm(pValue) {
-        result := ComCall(31, this, "ptr", pValue, "HRESULT")
+        pValueMarshal := pValue == 0 ? IntPtr : "ptr"
+
+        result := ComCall(31, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_AlternateSignatureAlgorithm() {
@@ -450,7 +433,6 @@ export default struct IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} Value 
      * @returns {HRESULT} 
      */
@@ -460,7 +442,6 @@ export default struct IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IX509SignatureInformation} 
      */
     get_SignatureInformation() {
@@ -469,7 +450,6 @@ export default struct IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      */
@@ -480,7 +460,6 @@ export default struct IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      */
@@ -491,7 +470,6 @@ export default struct IX509CertificateRevocationList extends IDispatch {
     }
 
     /**
-     * 
      * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      */
@@ -510,37 +488,37 @@ export default struct IX509CertificateRevocationList extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 1)
-        this.vtbl.InitializeDecode := CallbackCreate(GetMethod(implObj, "InitializeDecode"), flags, 3)
-        this.vtbl.Encode := CallbackCreate(GetMethod(implObj, "Encode"), flags, 1)
-        this.vtbl.ResetForEncode := CallbackCreate(GetMethod(implObj, "ResetForEncode"), flags, 1)
-        this.vtbl.CheckPublicKeySignature := CallbackCreate(GetMethod(implObj, "CheckPublicKeySignature"), flags, 2)
-        this.vtbl.CheckSignature := CallbackCreate(GetMethod(implObj, "CheckSignature"), flags, 1)
-        this.vtbl.get_Issuer := CallbackCreate(GetMethod(implObj, "get_Issuer"), flags, 2)
-        this.vtbl.put_Issuer := CallbackCreate(GetMethod(implObj, "put_Issuer"), flags, 2)
-        this.vtbl.get_ThisUpdate := CallbackCreate(GetMethod(implObj, "get_ThisUpdate"), flags, 2)
-        this.vtbl.put_ThisUpdate := CallbackCreate(GetMethod(implObj, "put_ThisUpdate"), flags, 2)
-        this.vtbl.get_NextUpdate := CallbackCreate(GetMethod(implObj, "get_NextUpdate"), flags, 2)
-        this.vtbl.put_NextUpdate := CallbackCreate(GetMethod(implObj, "put_NextUpdate"), flags, 2)
-        this.vtbl.get_X509CRLEntries := CallbackCreate(GetMethod(implObj, "get_X509CRLEntries"), flags, 2)
-        this.vtbl.get_X509Extensions := CallbackCreate(GetMethod(implObj, "get_X509Extensions"), flags, 2)
-        this.vtbl.get_CriticalExtensions := CallbackCreate(GetMethod(implObj, "get_CriticalExtensions"), flags, 2)
-        this.vtbl.get_SignerCertificate := CallbackCreate(GetMethod(implObj, "get_SignerCertificate"), flags, 2)
-        this.vtbl.put_SignerCertificate := CallbackCreate(GetMethod(implObj, "put_SignerCertificate"), flags, 2)
-        this.vtbl.get_CRLNumber := CallbackCreate(GetMethod(implObj, "get_CRLNumber"), flags, 3)
-        this.vtbl.put_CRLNumber := CallbackCreate(GetMethod(implObj, "put_CRLNumber"), flags, 3)
-        this.vtbl.get_CAVersion := CallbackCreate(GetMethod(implObj, "get_CAVersion"), flags, 2)
-        this.vtbl.put_CAVersion := CallbackCreate(GetMethod(implObj, "put_CAVersion"), flags, 2)
-        this.vtbl.get_BaseCRL := CallbackCreate(GetMethod(implObj, "get_BaseCRL"), flags, 2)
-        this.vtbl.get_NullSigned := CallbackCreate(GetMethod(implObj, "get_NullSigned"), flags, 2)
-        this.vtbl.get_HashAlgorithm := CallbackCreate(GetMethod(implObj, "get_HashAlgorithm"), flags, 2)
-        this.vtbl.put_HashAlgorithm := CallbackCreate(GetMethod(implObj, "put_HashAlgorithm"), flags, 2)
-        this.vtbl.get_AlternateSignatureAlgorithm := CallbackCreate(GetMethod(implObj, "get_AlternateSignatureAlgorithm"), flags, 2)
-        this.vtbl.put_AlternateSignatureAlgorithm := CallbackCreate(GetMethod(implObj, "put_AlternateSignatureAlgorithm"), flags, 2)
-        this.vtbl.get_SignatureInformation := CallbackCreate(GetMethod(implObj, "get_SignatureInformation"), flags, 2)
-        this.vtbl.get_RawData := CallbackCreate(GetMethod(implObj, "get_RawData"), flags, 3)
-        this.vtbl.get_RawDataToBeSigned := CallbackCreate(GetMethod(implObj, "get_RawDataToBeSigned"), flags, 3)
-        this.vtbl.get_Signature := CallbackCreate(GetMethod(implObj, "get_Signature"), flags, 3)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 1)
+        this.vtbl.InitializeDecode := CallbackCreate(ObjBindMethod(implObj, "InitializeDecode"), flags, 3)
+        this.vtbl.Encode := CallbackCreate(ObjBindMethod(implObj, "Encode"), flags, 1)
+        this.vtbl.ResetForEncode := CallbackCreate(ObjBindMethod(implObj, "ResetForEncode"), flags, 1)
+        this.vtbl.CheckPublicKeySignature := CallbackCreate(ObjBindMethod(implObj, "CheckPublicKeySignature"), flags, 2)
+        this.vtbl.CheckSignature := CallbackCreate(ObjBindMethod(implObj, "CheckSignature"), flags, 1)
+        this.vtbl.get_Issuer := CallbackCreate(ObjBindMethod(implObj, "get_Issuer"), flags, 2)
+        this.vtbl.put_Issuer := CallbackCreate(ObjBindMethod(implObj, "put_Issuer"), flags, 2)
+        this.vtbl.get_ThisUpdate := CallbackCreate(ObjBindMethod(implObj, "get_ThisUpdate"), flags, 2)
+        this.vtbl.put_ThisUpdate := CallbackCreate(ObjBindMethod(implObj, "put_ThisUpdate"), flags, 2)
+        this.vtbl.get_NextUpdate := CallbackCreate(ObjBindMethod(implObj, "get_NextUpdate"), flags, 2)
+        this.vtbl.put_NextUpdate := CallbackCreate(ObjBindMethod(implObj, "put_NextUpdate"), flags, 2)
+        this.vtbl.get_X509CRLEntries := CallbackCreate(ObjBindMethod(implObj, "get_X509CRLEntries"), flags, 2)
+        this.vtbl.get_X509Extensions := CallbackCreate(ObjBindMethod(implObj, "get_X509Extensions"), flags, 2)
+        this.vtbl.get_CriticalExtensions := CallbackCreate(ObjBindMethod(implObj, "get_CriticalExtensions"), flags, 2)
+        this.vtbl.get_SignerCertificate := CallbackCreate(ObjBindMethod(implObj, "get_SignerCertificate"), flags, 2)
+        this.vtbl.put_SignerCertificate := CallbackCreate(ObjBindMethod(implObj, "put_SignerCertificate"), flags, 2)
+        this.vtbl.get_CRLNumber := CallbackCreate(ObjBindMethod(implObj, "get_CRLNumber"), flags, 3)
+        this.vtbl.put_CRLNumber := CallbackCreate(ObjBindMethod(implObj, "put_CRLNumber"), flags, 3)
+        this.vtbl.get_CAVersion := CallbackCreate(ObjBindMethod(implObj, "get_CAVersion"), flags, 2)
+        this.vtbl.put_CAVersion := CallbackCreate(ObjBindMethod(implObj, "put_CAVersion"), flags, 2)
+        this.vtbl.get_BaseCRL := CallbackCreate(ObjBindMethod(implObj, "get_BaseCRL"), flags, 2)
+        this.vtbl.get_NullSigned := CallbackCreate(ObjBindMethod(implObj, "get_NullSigned"), flags, 2)
+        this.vtbl.get_HashAlgorithm := CallbackCreate(ObjBindMethod(implObj, "get_HashAlgorithm"), flags, 2)
+        this.vtbl.put_HashAlgorithm := CallbackCreate(ObjBindMethod(implObj, "put_HashAlgorithm"), flags, 2)
+        this.vtbl.get_AlternateSignatureAlgorithm := CallbackCreate(ObjBindMethod(implObj, "get_AlternateSignatureAlgorithm"), flags, 2)
+        this.vtbl.put_AlternateSignatureAlgorithm := CallbackCreate(ObjBindMethod(implObj, "put_AlternateSignatureAlgorithm"), flags, 2)
+        this.vtbl.get_SignatureInformation := CallbackCreate(ObjBindMethod(implObj, "get_SignatureInformation"), flags, 2)
+        this.vtbl.get_RawData := CallbackCreate(ObjBindMethod(implObj, "get_RawData"), flags, 3)
+        this.vtbl.get_RawDataToBeSigned := CallbackCreate(ObjBindMethod(implObj, "get_RawDataToBeSigned"), flags, 3)
+        this.vtbl.get_Signature := CallbackCreate(ObjBindMethod(implObj, "get_Signature"), flags, 3)
     }
 
     Dispose() {

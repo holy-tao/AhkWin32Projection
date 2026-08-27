@@ -89,7 +89,6 @@ export default struct IGPMSOM extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_GPOInheritanceBlocked() {
@@ -98,7 +97,6 @@ export default struct IGPMSOM extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} newVal 
      * @returns {HRESULT} 
      */
@@ -108,7 +106,6 @@ export default struct IGPMSOM extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -118,7 +115,6 @@ export default struct IGPMSOM extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Path() {
@@ -143,7 +139,6 @@ export default struct IGPMSOM extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMSOMType} 
      */
     get_Type() {
@@ -209,16 +204,16 @@ export default struct IGPMSOM extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_GPOInheritanceBlocked := CallbackCreate(GetMethod(implObj, "get_GPOInheritanceBlocked"), flags, 2)
-        this.vtbl.put_GPOInheritanceBlocked := CallbackCreate(GetMethod(implObj, "put_GPOInheritanceBlocked"), flags, 2)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_Path := CallbackCreate(GetMethod(implObj, "get_Path"), flags, 2)
-        this.vtbl.CreateGPOLink := CallbackCreate(GetMethod(implObj, "CreateGPOLink"), flags, 4)
-        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
-        this.vtbl.GetGPOLinks := CallbackCreate(GetMethod(implObj, "GetGPOLinks"), flags, 2)
-        this.vtbl.GetInheritedGPOLinks := CallbackCreate(GetMethod(implObj, "GetInheritedGPOLinks"), flags, 2)
-        this.vtbl.GetSecurityInfo := CallbackCreate(GetMethod(implObj, "GetSecurityInfo"), flags, 2)
-        this.vtbl.SetSecurityInfo := CallbackCreate(GetMethod(implObj, "SetSecurityInfo"), flags, 2)
+        this.vtbl.get_GPOInheritanceBlocked := CallbackCreate(ObjBindMethod(implObj, "get_GPOInheritanceBlocked"), flags, 2)
+        this.vtbl.put_GPOInheritanceBlocked := CallbackCreate(ObjBindMethod(implObj, "put_GPOInheritanceBlocked"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Path := CallbackCreate(ObjBindMethod(implObj, "get_Path"), flags, 2)
+        this.vtbl.CreateGPOLink := CallbackCreate(ObjBindMethod(implObj, "CreateGPOLink"), flags, 4)
+        this.vtbl.get_Type := CallbackCreate(ObjBindMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.GetGPOLinks := CallbackCreate(ObjBindMethod(implObj, "GetGPOLinks"), flags, 2)
+        this.vtbl.GetInheritedGPOLinks := CallbackCreate(ObjBindMethod(implObj, "GetInheritedGPOLinks"), flags, 2)
+        this.vtbl.GetSecurityInfo := CallbackCreate(ObjBindMethod(implObj, "GetSecurityInfo"), flags, 2)
+        this.vtbl.SetSecurityInfo := CallbackCreate(ObjBindMethod(implObj, "SetSecurityInfo"), flags, 2)
     }
 
     Dispose() {

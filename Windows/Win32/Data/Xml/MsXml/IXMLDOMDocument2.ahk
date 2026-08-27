@@ -59,7 +59,6 @@ export default struct IXMLDOMDocument2 extends IXMLDOMDocument {
     }
 
     /**
-     * 
      * @returns {IXMLDOMSchemaCollection} 
      */
     get_namespaces() {
@@ -68,7 +67,6 @@ export default struct IXMLDOMDocument2 extends IXMLDOMDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_schemas() {
@@ -78,7 +76,6 @@ export default struct IXMLDOMDocument2 extends IXMLDOMDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} otherCollection 
      * @returns {HRESULT} 
      */
@@ -88,7 +85,6 @@ export default struct IXMLDOMDocument2 extends IXMLDOMDocument {
     }
 
     /**
-     * 
      * @returns {IXMLDOMParseError} 
      */
     validate() {
@@ -97,7 +93,6 @@ export default struct IXMLDOMDocument2 extends IXMLDOMDocument {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @param {VARIANT} value 
      * @returns {HRESULT} 
@@ -110,7 +105,6 @@ export default struct IXMLDOMDocument2 extends IXMLDOMDocument {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {VARIANT} 
      */
@@ -131,12 +125,12 @@ export default struct IXMLDOMDocument2 extends IXMLDOMDocument {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_namespaces := CallbackCreate(GetMethod(implObj, "get_namespaces"), flags, 2)
-        this.vtbl.get_schemas := CallbackCreate(GetMethod(implObj, "get_schemas"), flags, 2)
-        this.vtbl.putref_schemas := CallbackCreate(GetMethod(implObj, "putref_schemas"), flags, 2)
-        this.vtbl.validate := CallbackCreate(GetMethod(implObj, "validate"), flags, 2)
-        this.vtbl.setProperty := CallbackCreate(GetMethod(implObj, "setProperty"), flags, 3)
-        this.vtbl.getProperty := CallbackCreate(GetMethod(implObj, "getProperty"), flags, 3)
+        this.vtbl.get_namespaces := CallbackCreate(ObjBindMethod(implObj, "get_namespaces"), flags, 2)
+        this.vtbl.get_schemas := CallbackCreate(ObjBindMethod(implObj, "get_schemas"), flags, 2)
+        this.vtbl.putref_schemas := CallbackCreate(ObjBindMethod(implObj, "putref_schemas"), flags, 2)
+        this.vtbl.validate := CallbackCreate(ObjBindMethod(implObj, "validate"), flags, 2)
+        this.vtbl.setProperty := CallbackCreate(ObjBindMethod(implObj, "setProperty"), flags, 3)
+        this.vtbl.getProperty := CallbackCreate(ObjBindMethod(implObj, "getProperty"), flags, 3)
     }
 
     Dispose() {

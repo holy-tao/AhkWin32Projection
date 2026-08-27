@@ -302,8 +302,8 @@ export default struct IAMExtTransport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-getcapability
      */
     GetCapability(Capability, pValue, pdblValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-        pdblValueMarshal := pdblValue is VarRef ? "double*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "int*" : IntPtr
+        pdblValueMarshal := pdblValue is VarRef ? "double*" : IntPtr
 
         result := ComCall(3, this, Int32, Capability, pValueMarshal, pValue, pdblValueMarshal, pdblValue, "HRESULT")
         return result
@@ -735,8 +735,8 @@ export default struct IAMExtTransport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-gettransportbasicparameters
      */
     GetTransportBasicParameters(Param, pValue, ppszData) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-        ppszDataMarshal := ppszData is VarRef ? "ptr*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "int*" : IntPtr
+        ppszDataMarshal := ppszData is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(9, this, Int32, Param, pValueMarshal, pValue, ppszDataMarshal, ppszData, "HRESULT")
         return result
@@ -1196,9 +1196,9 @@ export default struct IAMExtTransport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-getchase
      */
     GetChase(pEnabled, pOffset, phEvent) {
-        pEnabledMarshal := pEnabled is VarRef ? "int*" : "ptr"
-        pOffsetMarshal := pOffset is VarRef ? "int*" : "ptr"
-        phEventMarshal := phEvent is VarRef ? "ptr*" : "ptr"
+        pEnabledMarshal := pEnabled is VarRef ? "int*" : IntPtr
+        pOffsetMarshal := pOffset is VarRef ? "int*" : IntPtr
+        phEventMarshal := phEvent is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(19, this, pEnabledMarshal, pEnabled, pOffsetMarshal, pOffset, phEventMarshal, phEvent, "HRESULT")
         return result
@@ -1256,8 +1256,8 @@ export default struct IAMExtTransport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-getbump
      */
     GetBump(pSpeed, pDuration) {
-        pSpeedMarshal := pSpeed is VarRef ? "int*" : "ptr"
-        pDurationMarshal := pDuration is VarRef ? "int*" : "ptr"
+        pSpeedMarshal := pSpeed is VarRef ? "int*" : IntPtr
+        pDurationMarshal := pDuration is VarRef ? "int*" : IntPtr
 
         result := ComCall(21, this, pSpeedMarshal, pSpeed, pDurationMarshal, pDuration, "HRESULT")
         return result
@@ -1443,7 +1443,7 @@ export default struct IAMExtTransport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamexttransport-seteditpropertyset
      */
     SetEditPropertySet(pEditID, State) {
-        pEditIDMarshal := pEditID is VarRef ? "int*" : "ptr"
+        pEditIDMarshal := pEditID is VarRef ? "int*" : IntPtr
 
         result := ComCall(26, this, pEditIDMarshal, pEditID, Int32, State, "HRESULT")
         return result
@@ -1665,34 +1665,34 @@ export default struct IAMExtTransport extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCapability := CallbackCreate(GetMethod(implObj, "GetCapability"), flags, 4)
-        this.vtbl.put_MediaState := CallbackCreate(GetMethod(implObj, "put_MediaState"), flags, 2)
-        this.vtbl.get_MediaState := CallbackCreate(GetMethod(implObj, "get_MediaState"), flags, 2)
-        this.vtbl.put_LocalControl := CallbackCreate(GetMethod(implObj, "put_LocalControl"), flags, 2)
-        this.vtbl.get_LocalControl := CallbackCreate(GetMethod(implObj, "get_LocalControl"), flags, 2)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 3)
-        this.vtbl.GetTransportBasicParameters := CallbackCreate(GetMethod(implObj, "GetTransportBasicParameters"), flags, 4)
-        this.vtbl.SetTransportBasicParameters := CallbackCreate(GetMethod(implObj, "SetTransportBasicParameters"), flags, 4)
-        this.vtbl.GetTransportVideoParameters := CallbackCreate(GetMethod(implObj, "GetTransportVideoParameters"), flags, 3)
-        this.vtbl.SetTransportVideoParameters := CallbackCreate(GetMethod(implObj, "SetTransportVideoParameters"), flags, 3)
-        this.vtbl.GetTransportAudioParameters := CallbackCreate(GetMethod(implObj, "GetTransportAudioParameters"), flags, 3)
-        this.vtbl.SetTransportAudioParameters := CallbackCreate(GetMethod(implObj, "SetTransportAudioParameters"), flags, 3)
-        this.vtbl.put_Mode := CallbackCreate(GetMethod(implObj, "put_Mode"), flags, 2)
-        this.vtbl.get_Mode := CallbackCreate(GetMethod(implObj, "get_Mode"), flags, 2)
-        this.vtbl.put_Rate := CallbackCreate(GetMethod(implObj, "put_Rate"), flags, 2)
-        this.vtbl.get_Rate := CallbackCreate(GetMethod(implObj, "get_Rate"), flags, 2)
-        this.vtbl.GetChase := CallbackCreate(GetMethod(implObj, "GetChase"), flags, 4)
-        this.vtbl.SetChase := CallbackCreate(GetMethod(implObj, "SetChase"), flags, 4)
-        this.vtbl.GetBump := CallbackCreate(GetMethod(implObj, "GetBump"), flags, 3)
-        this.vtbl.SetBump := CallbackCreate(GetMethod(implObj, "SetBump"), flags, 3)
-        this.vtbl.get_AntiClogControl := CallbackCreate(GetMethod(implObj, "get_AntiClogControl"), flags, 2)
-        this.vtbl.put_AntiClogControl := CallbackCreate(GetMethod(implObj, "put_AntiClogControl"), flags, 2)
-        this.vtbl.GetEditPropertySet := CallbackCreate(GetMethod(implObj, "GetEditPropertySet"), flags, 3)
-        this.vtbl.SetEditPropertySet := CallbackCreate(GetMethod(implObj, "SetEditPropertySet"), flags, 3)
-        this.vtbl.GetEditProperty := CallbackCreate(GetMethod(implObj, "GetEditProperty"), flags, 4)
-        this.vtbl.SetEditProperty := CallbackCreate(GetMethod(implObj, "SetEditProperty"), flags, 4)
-        this.vtbl.get_EditStart := CallbackCreate(GetMethod(implObj, "get_EditStart"), flags, 2)
-        this.vtbl.put_EditStart := CallbackCreate(GetMethod(implObj, "put_EditStart"), flags, 2)
+        this.vtbl.GetCapability := CallbackCreate(ObjBindMethod(implObj, "GetCapability"), flags, 4)
+        this.vtbl.put_MediaState := CallbackCreate(ObjBindMethod(implObj, "put_MediaState"), flags, 2)
+        this.vtbl.get_MediaState := CallbackCreate(ObjBindMethod(implObj, "get_MediaState"), flags, 2)
+        this.vtbl.put_LocalControl := CallbackCreate(ObjBindMethod(implObj, "put_LocalControl"), flags, 2)
+        this.vtbl.get_LocalControl := CallbackCreate(ObjBindMethod(implObj, "get_LocalControl"), flags, 2)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 3)
+        this.vtbl.GetTransportBasicParameters := CallbackCreate(ObjBindMethod(implObj, "GetTransportBasicParameters"), flags, 4)
+        this.vtbl.SetTransportBasicParameters := CallbackCreate(ObjBindMethod(implObj, "SetTransportBasicParameters"), flags, 4)
+        this.vtbl.GetTransportVideoParameters := CallbackCreate(ObjBindMethod(implObj, "GetTransportVideoParameters"), flags, 3)
+        this.vtbl.SetTransportVideoParameters := CallbackCreate(ObjBindMethod(implObj, "SetTransportVideoParameters"), flags, 3)
+        this.vtbl.GetTransportAudioParameters := CallbackCreate(ObjBindMethod(implObj, "GetTransportAudioParameters"), flags, 3)
+        this.vtbl.SetTransportAudioParameters := CallbackCreate(ObjBindMethod(implObj, "SetTransportAudioParameters"), flags, 3)
+        this.vtbl.put_Mode := CallbackCreate(ObjBindMethod(implObj, "put_Mode"), flags, 2)
+        this.vtbl.get_Mode := CallbackCreate(ObjBindMethod(implObj, "get_Mode"), flags, 2)
+        this.vtbl.put_Rate := CallbackCreate(ObjBindMethod(implObj, "put_Rate"), flags, 2)
+        this.vtbl.get_Rate := CallbackCreate(ObjBindMethod(implObj, "get_Rate"), flags, 2)
+        this.vtbl.GetChase := CallbackCreate(ObjBindMethod(implObj, "GetChase"), flags, 4)
+        this.vtbl.SetChase := CallbackCreate(ObjBindMethod(implObj, "SetChase"), flags, 4)
+        this.vtbl.GetBump := CallbackCreate(ObjBindMethod(implObj, "GetBump"), flags, 3)
+        this.vtbl.SetBump := CallbackCreate(ObjBindMethod(implObj, "SetBump"), flags, 3)
+        this.vtbl.get_AntiClogControl := CallbackCreate(ObjBindMethod(implObj, "get_AntiClogControl"), flags, 2)
+        this.vtbl.put_AntiClogControl := CallbackCreate(ObjBindMethod(implObj, "put_AntiClogControl"), flags, 2)
+        this.vtbl.GetEditPropertySet := CallbackCreate(ObjBindMethod(implObj, "GetEditPropertySet"), flags, 3)
+        this.vtbl.SetEditPropertySet := CallbackCreate(ObjBindMethod(implObj, "SetEditPropertySet"), flags, 3)
+        this.vtbl.GetEditProperty := CallbackCreate(ObjBindMethod(implObj, "GetEditProperty"), flags, 4)
+        this.vtbl.SetEditProperty := CallbackCreate(ObjBindMethod(implObj, "SetEditProperty"), flags, 4)
+        this.vtbl.get_EditStart := CallbackCreate(ObjBindMethod(implObj, "get_EditStart"), flags, 2)
+        this.vtbl.put_EditStart := CallbackCreate(ObjBindMethod(implObj, "put_EditStart"), flags, 2)
     }
 
     Dispose() {

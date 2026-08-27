@@ -210,14 +210,14 @@ export default struct ID3D11ShaderTrace extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.TraceReady := CallbackCreate(GetMethod(implObj, "TraceReady"), flags, 2)
-        this.vtbl.ResetTrace := CallbackCreate(GetMethod(implObj, "ResetTrace"), flags, 1)
-        this.vtbl.GetTraceStats := CallbackCreate(GetMethod(implObj, "GetTraceStats"), flags, 2)
-        this.vtbl.PSSelectStamp := CallbackCreate(GetMethod(implObj, "PSSelectStamp"), flags, 2)
-        this.vtbl.GetInitialRegisterContents := CallbackCreate(GetMethod(implObj, "GetInitialRegisterContents"), flags, 3)
-        this.vtbl.GetStep := CallbackCreate(GetMethod(implObj, "GetStep"), flags, 3)
-        this.vtbl.GetWrittenRegister := CallbackCreate(GetMethod(implObj, "GetWrittenRegister"), flags, 5)
-        this.vtbl.GetReadRegister := CallbackCreate(GetMethod(implObj, "GetReadRegister"), flags, 5)
+        this.vtbl.TraceReady := CallbackCreate(ObjBindMethod(implObj, "TraceReady"), flags, 2)
+        this.vtbl.ResetTrace := CallbackCreate(ObjBindMethod(implObj, "ResetTrace"), flags, 1)
+        this.vtbl.GetTraceStats := CallbackCreate(ObjBindMethod(implObj, "GetTraceStats"), flags, 2)
+        this.vtbl.PSSelectStamp := CallbackCreate(ObjBindMethod(implObj, "PSSelectStamp"), flags, 2)
+        this.vtbl.GetInitialRegisterContents := CallbackCreate(ObjBindMethod(implObj, "GetInitialRegisterContents"), flags, 3)
+        this.vtbl.GetStep := CallbackCreate(ObjBindMethod(implObj, "GetStep"), flags, 3)
+        this.vtbl.GetWrittenRegister := CallbackCreate(ObjBindMethod(implObj, "GetWrittenRegister"), flags, 5)
+        this.vtbl.GetReadRegister := CallbackCreate(ObjBindMethod(implObj, "GetReadRegister"), flags, 5)
     }
 
     Dispose() {

@@ -59,7 +59,7 @@ export default struct IWPCGamesSettings extends IWPCSettings {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsBlocked := CallbackCreate(GetMethod(implObj, "IsBlocked"), flags, 3)
+        this.vtbl.IsBlocked := CallbackCreate(ObjBindMethod(implObj, "IsBlocked"), flags, 3)
     }
 
     Dispose() {

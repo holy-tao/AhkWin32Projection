@@ -276,14 +276,14 @@ export default struct IConfigAsfWriter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ConfigureFilterUsingProfileId := CallbackCreate(GetMethod(implObj, "ConfigureFilterUsingProfileId"), flags, 2)
-        this.vtbl.GetCurrentProfileId := CallbackCreate(GetMethod(implObj, "GetCurrentProfileId"), flags, 2)
-        this.vtbl.ConfigureFilterUsingProfileGuid := CallbackCreate(GetMethod(implObj, "ConfigureFilterUsingProfileGuid"), flags, 2)
-        this.vtbl.GetCurrentProfileGuid := CallbackCreate(GetMethod(implObj, "GetCurrentProfileGuid"), flags, 2)
-        this.vtbl.ConfigureFilterUsingProfile := CallbackCreate(GetMethod(implObj, "ConfigureFilterUsingProfile"), flags, 2)
-        this.vtbl.GetCurrentProfile := CallbackCreate(GetMethod(implObj, "GetCurrentProfile"), flags, 2)
-        this.vtbl.SetIndexMode := CallbackCreate(GetMethod(implObj, "SetIndexMode"), flags, 2)
-        this.vtbl.GetIndexMode := CallbackCreate(GetMethod(implObj, "GetIndexMode"), flags, 2)
+        this.vtbl.ConfigureFilterUsingProfileId := CallbackCreate(ObjBindMethod(implObj, "ConfigureFilterUsingProfileId"), flags, 2)
+        this.vtbl.GetCurrentProfileId := CallbackCreate(ObjBindMethod(implObj, "GetCurrentProfileId"), flags, 2)
+        this.vtbl.ConfigureFilterUsingProfileGuid := CallbackCreate(ObjBindMethod(implObj, "ConfigureFilterUsingProfileGuid"), flags, 2)
+        this.vtbl.GetCurrentProfileGuid := CallbackCreate(ObjBindMethod(implObj, "GetCurrentProfileGuid"), flags, 2)
+        this.vtbl.ConfigureFilterUsingProfile := CallbackCreate(ObjBindMethod(implObj, "ConfigureFilterUsingProfile"), flags, 2)
+        this.vtbl.GetCurrentProfile := CallbackCreate(ObjBindMethod(implObj, "GetCurrentProfile"), flags, 2)
+        this.vtbl.SetIndexMode := CallbackCreate(ObjBindMethod(implObj, "SetIndexMode"), flags, 2)
+        this.vtbl.GetIndexMode := CallbackCreate(ObjBindMethod(implObj, "GetIndexMode"), flags, 2)
     }
 
     Dispose() {

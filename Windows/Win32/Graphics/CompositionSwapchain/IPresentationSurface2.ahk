@@ -35,7 +35,6 @@ export default struct IPresentationSurface2 extends IPresentationSurface {
     }
 
     /**
-     * 
      * @param {Integer} isHdrContent 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -52,7 +51,7 @@ export default struct IPresentationSurface2 extends IPresentationSurface {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetIsHdrContent := CallbackCreate(GetMethod(implObj, "SetIsHdrContent"), flags, 2)
+        this.vtbl.SetIsHdrContent := CallbackCreate(ObjBindMethod(implObj, "SetIsHdrContent"), flags, 2)
     }
 
     Dispose() {

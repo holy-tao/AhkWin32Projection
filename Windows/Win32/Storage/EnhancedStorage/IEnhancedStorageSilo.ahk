@@ -101,8 +101,8 @@ export default struct IEnhancedStorageSilo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstoragesilo-getactions
      */
     GetActions(pppIEnhancedStorageSiloActions, pcEnhancedStorageSiloActions) {
-        pppIEnhancedStorageSiloActionsMarshal := pppIEnhancedStorageSiloActions is VarRef ? "ptr*" : "ptr"
-        pcEnhancedStorageSiloActionsMarshal := pcEnhancedStorageSiloActions is VarRef ? "uint*" : "ptr"
+        pppIEnhancedStorageSiloActionsMarshal := pppIEnhancedStorageSiloActions is VarRef ? "ptr*" : IntPtr
+        pcEnhancedStorageSiloActionsMarshal := pcEnhancedStorageSiloActions is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pppIEnhancedStorageSiloActionsMarshal, pppIEnhancedStorageSiloActions, pcEnhancedStorageSiloActionsMarshal, pcEnhancedStorageSiloActions, "HRESULT")
         return result
@@ -122,8 +122,8 @@ export default struct IEnhancedStorageSilo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstoragesilo-sendcommand
      */
     SendCommand(Command, pbCommandBuffer, cbCommandBuffer, pcbResponseBuffer) {
-        pbCommandBufferMarshal := pbCommandBuffer is VarRef ? "char*" : "ptr"
-        pcbResponseBufferMarshal := pcbResponseBuffer is VarRef ? "uint*" : "ptr"
+        pbCommandBufferMarshal := pbCommandBuffer is VarRef ? "char*" : IntPtr
+        pcbResponseBufferMarshal := pcbResponseBuffer is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, Int8, Command, pbCommandBufferMarshal, pbCommandBuffer, UInt32, cbCommandBuffer, "char*", &pbResponseBuffer := 0, pcbResponseBufferMarshal, pcbResponseBuffer, "HRESULT")
         return pbResponseBuffer
@@ -160,11 +160,11 @@ export default struct IEnhancedStorageSilo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetInfo := CallbackCreate(GetMethod(implObj, "GetInfo"), flags, 2)
-        this.vtbl.GetActions := CallbackCreate(GetMethod(implObj, "GetActions"), flags, 3)
-        this.vtbl.SendCommand := CallbackCreate(GetMethod(implObj, "SendCommand"), flags, 6)
-        this.vtbl.GetPortableDevice := CallbackCreate(GetMethod(implObj, "GetPortableDevice"), flags, 2)
-        this.vtbl.GetDevicePath := CallbackCreate(GetMethod(implObj, "GetDevicePath"), flags, 2)
+        this.vtbl.GetInfo := CallbackCreate(ObjBindMethod(implObj, "GetInfo"), flags, 2)
+        this.vtbl.GetActions := CallbackCreate(ObjBindMethod(implObj, "GetActions"), flags, 3)
+        this.vtbl.SendCommand := CallbackCreate(ObjBindMethod(implObj, "SendCommand"), flags, 6)
+        this.vtbl.GetPortableDevice := CallbackCreate(ObjBindMethod(implObj, "GetPortableDevice"), flags, 2)
+        this.vtbl.GetDevicePath := CallbackCreate(ObjBindMethod(implObj, "GetDevicePath"), flags, 2)
     }
 
     Dispose() {

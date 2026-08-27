@@ -153,12 +153,12 @@ export default struct IGPMDomain2 extends IGPMDomain {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateStarterGPO := CallbackCreate(GetMethod(implObj, "CreateStarterGPO"), flags, 2)
-        this.vtbl.CreateGPOFromStarterGPO := CallbackCreate(GetMethod(implObj, "CreateGPOFromStarterGPO"), flags, 3)
-        this.vtbl.GetStarterGPO := CallbackCreate(GetMethod(implObj, "GetStarterGPO"), flags, 3)
-        this.vtbl.SearchStarterGPOs := CallbackCreate(GetMethod(implObj, "SearchStarterGPOs"), flags, 3)
-        this.vtbl.LoadStarterGPO := CallbackCreate(GetMethod(implObj, "LoadStarterGPO"), flags, 6)
-        this.vtbl.RestoreStarterGPO := CallbackCreate(GetMethod(implObj, "RestoreStarterGPO"), flags, 5)
+        this.vtbl.CreateStarterGPO := CallbackCreate(ObjBindMethod(implObj, "CreateStarterGPO"), flags, 2)
+        this.vtbl.CreateGPOFromStarterGPO := CallbackCreate(ObjBindMethod(implObj, "CreateGPOFromStarterGPO"), flags, 3)
+        this.vtbl.GetStarterGPO := CallbackCreate(ObjBindMethod(implObj, "GetStarterGPO"), flags, 3)
+        this.vtbl.SearchStarterGPOs := CallbackCreate(ObjBindMethod(implObj, "SearchStarterGPOs"), flags, 3)
+        this.vtbl.LoadStarterGPO := CallbackCreate(ObjBindMethod(implObj, "LoadStarterGPO"), flags, 6)
+        this.vtbl.RestoreStarterGPO := CallbackCreate(ObjBindMethod(implObj, "RestoreStarterGPO"), flags, 5)
     }
 
     Dispose() {

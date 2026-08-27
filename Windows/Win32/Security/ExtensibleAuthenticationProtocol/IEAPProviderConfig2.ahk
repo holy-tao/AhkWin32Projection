@@ -38,7 +38,6 @@ export default struct IEAPProviderConfig2 extends IEAPProviderConfig {
     }
 
     /**
-     * 
      * @param {Integer} dwEapTypeId 
      * @param {Pointer} uConnectionParam 
      * @param {HWND} _hWnd 
@@ -49,24 +48,23 @@ export default struct IEAPProviderConfig2 extends IEAPProviderConfig {
      * @returns {HRESULT} 
      */
     ServerInvokeConfigUI2(dwEapTypeId, uConnectionParam, _hWnd, pConfigDataIn, dwSizeOfConfigDataIn, ppConfigDataOut, pdwSizeOfConfigDataOut) {
-        pConfigDataInMarshal := pConfigDataIn is VarRef ? "char*" : "ptr"
-        ppConfigDataOutMarshal := ppConfigDataOut is VarRef ? "ptr*" : "ptr"
-        pdwSizeOfConfigDataOutMarshal := pdwSizeOfConfigDataOut is VarRef ? "uint*" : "ptr"
+        pConfigDataInMarshal := pConfigDataIn is VarRef ? "char*" : IntPtr
+        ppConfigDataOutMarshal := ppConfigDataOut is VarRef ? "ptr*" : IntPtr
+        pdwSizeOfConfigDataOutMarshal := pdwSizeOfConfigDataOut is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, UInt32, dwEapTypeId, IntPtr, uConnectionParam, HWND, _hWnd, pConfigDataInMarshal, pConfigDataIn, UInt32, dwSizeOfConfigDataIn, ppConfigDataOutMarshal, ppConfigDataOut, pdwSizeOfConfigDataOutMarshal, pdwSizeOfConfigDataOut, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwEapTypeId 
      * @param {Pointer<Pointer<Integer>>} ppConfigDataOut 
      * @param {Pointer<Integer>} pdwSizeOfConfigDataOut 
      * @returns {HRESULT} 
      */
     GetGlobalConfig(dwEapTypeId, ppConfigDataOut, pdwSizeOfConfigDataOut) {
-        ppConfigDataOutMarshal := ppConfigDataOut is VarRef ? "ptr*" : "ptr"
-        pdwSizeOfConfigDataOutMarshal := pdwSizeOfConfigDataOut is VarRef ? "uint*" : "ptr"
+        ppConfigDataOutMarshal := ppConfigDataOut is VarRef ? "ptr*" : IntPtr
+        pdwSizeOfConfigDataOutMarshal := pdwSizeOfConfigDataOut is VarRef ? "uint*" : IntPtr
 
         result := ComCall(9, this, UInt32, dwEapTypeId, ppConfigDataOutMarshal, ppConfigDataOut, pdwSizeOfConfigDataOutMarshal, pdwSizeOfConfigDataOut, "HRESULT")
         return result
@@ -81,8 +79,8 @@ export default struct IEAPProviderConfig2 extends IEAPProviderConfig {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ServerInvokeConfigUI2 := CallbackCreate(GetMethod(implObj, "ServerInvokeConfigUI2"), flags, 8)
-        this.vtbl.GetGlobalConfig := CallbackCreate(GetMethod(implObj, "GetGlobalConfig"), flags, 4)
+        this.vtbl.ServerInvokeConfigUI2 := CallbackCreate(ObjBindMethod(implObj, "ServerInvokeConfigUI2"), flags, 8)
+        this.vtbl.GetGlobalConfig := CallbackCreate(ObjBindMethod(implObj, "GetGlobalConfig"), flags, 4)
     }
 
     Dispose() {

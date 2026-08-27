@@ -192,9 +192,9 @@ export default struct ILoadChangeContext extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSyncChange := CallbackCreate(GetMethod(implObj, "GetSyncChange"), flags, 2)
-        this.vtbl.SetRecoverableErrorOnChange := CallbackCreate(GetMethod(implObj, "SetRecoverableErrorOnChange"), flags, 3)
-        this.vtbl.SetRecoverableErrorOnChangeUnit := CallbackCreate(GetMethod(implObj, "SetRecoverableErrorOnChangeUnit"), flags, 4)
+        this.vtbl.GetSyncChange := CallbackCreate(ObjBindMethod(implObj, "GetSyncChange"), flags, 2)
+        this.vtbl.SetRecoverableErrorOnChange := CallbackCreate(ObjBindMethod(implObj, "SetRecoverableErrorOnChange"), flags, 3)
+        this.vtbl.SetRecoverableErrorOnChangeUnit := CallbackCreate(ObjBindMethod(implObj, "SetRecoverableErrorOnChangeUnit"), flags, 4)
     }
 
     Dispose() {

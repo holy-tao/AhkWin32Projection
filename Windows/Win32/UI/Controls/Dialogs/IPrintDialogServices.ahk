@@ -61,7 +61,7 @@ export default struct IPrintDialogServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commdlg/nf-commdlg-iprintdialogservices-getcurrentdevmode
      */
     GetCurrentDevMode(pDevMode, pcbSize) {
-        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, DEVMODEA.Ptr, pDevMode, pcbSizeMarshal, pcbSize, "HRESULT")
         return result
@@ -91,9 +91,10 @@ export default struct IPrintDialogServices extends IUnknown {
     GetCurrentPrinterName(pPrinterName, pcchSize) {
         pPrinterName := pPrinterName is String ? StrPtr(pPrinterName) : pPrinterName
 
-        pcchSizeMarshal := pcchSize is VarRef ? "uint*" : "ptr"
+        pPrinterNameMarshal := pPrinterName == 0 ? IntPtr : PWSTR
+        pcchSizeMarshal := pcchSize is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(4, this, "ptr", pPrinterName, pcchSizeMarshal, pcchSize, "HRESULT")
+        result := ComCall(4, this, pPrinterNameMarshal, pPrinterName, pcchSizeMarshal, pcchSize, "HRESULT")
         return result
     }
 
@@ -117,9 +118,10 @@ export default struct IPrintDialogServices extends IUnknown {
     GetCurrentPortName(pPortName, pcchSize) {
         pPortName := pPortName is String ? StrPtr(pPortName) : pPortName
 
-        pcchSizeMarshal := pcchSize is VarRef ? "uint*" : "ptr"
+        pPortNameMarshal := pPortName == 0 ? IntPtr : PWSTR
+        pcchSizeMarshal := pcchSize is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(5, this, "ptr", pPortName, pcchSizeMarshal, pcchSize, "HRESULT")
+        result := ComCall(5, this, pPortNameMarshal, pPortName, pcchSizeMarshal, pcchSize, "HRESULT")
         return result
     }
 
@@ -132,9 +134,9 @@ export default struct IPrintDialogServices extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCurrentDevMode := CallbackCreate(GetMethod(implObj, "GetCurrentDevMode"), flags, 3)
-        this.vtbl.GetCurrentPrinterName := CallbackCreate(GetMethod(implObj, "GetCurrentPrinterName"), flags, 3)
-        this.vtbl.GetCurrentPortName := CallbackCreate(GetMethod(implObj, "GetCurrentPortName"), flags, 3)
+        this.vtbl.GetCurrentDevMode := CallbackCreate(ObjBindMethod(implObj, "GetCurrentDevMode"), flags, 3)
+        this.vtbl.GetCurrentPrinterName := CallbackCreate(ObjBindMethod(implObj, "GetCurrentPrinterName"), flags, 3)
+        this.vtbl.GetCurrentPortName := CallbackCreate(ObjBindMethod(implObj, "GetCurrentPortName"), flags, 3)
     }
 
     Dispose() {

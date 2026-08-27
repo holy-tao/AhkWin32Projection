@@ -44,7 +44,6 @@ export default struct AsyncIFtpHomeDirectoryProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszSessionId 
      * @param {PWSTR} pszSiteName 
      * @param {PWSTR} pszUserName 
@@ -60,7 +59,6 @@ export default struct AsyncIFtpHomeDirectoryProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     Finish_GetUserHomeDirectoryData() {
@@ -77,8 +75,8 @@ export default struct AsyncIFtpHomeDirectoryProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Begin_GetUserHomeDirectoryData := CallbackCreate(GetMethod(implObj, "Begin_GetUserHomeDirectoryData"), flags, 4)
-        this.vtbl.Finish_GetUserHomeDirectoryData := CallbackCreate(GetMethod(implObj, "Finish_GetUserHomeDirectoryData"), flags, 2)
+        this.vtbl.Begin_GetUserHomeDirectoryData := CallbackCreate(ObjBindMethod(implObj, "Begin_GetUserHomeDirectoryData"), flags, 4)
+        this.vtbl.Finish_GetUserHomeDirectoryData := CallbackCreate(ObjBindMethod(implObj, "Finish_GetUserHomeDirectoryData"), flags, 2)
     }
 
     Dispose() {

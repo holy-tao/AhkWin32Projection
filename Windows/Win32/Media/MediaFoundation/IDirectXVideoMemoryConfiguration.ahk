@@ -105,8 +105,8 @@ export default struct IDirectXVideoMemoryConfiguration extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAvailableSurfaceTypeByIndex := CallbackCreate(GetMethod(implObj, "GetAvailableSurfaceTypeByIndex"), flags, 3)
-        this.vtbl.SetSurfaceType := CallbackCreate(GetMethod(implObj, "SetSurfaceType"), flags, 2)
+        this.vtbl.GetAvailableSurfaceTypeByIndex := CallbackCreate(ObjBindMethod(implObj, "GetAvailableSurfaceTypeByIndex"), flags, 3)
+        this.vtbl.SetSurfaceType := CallbackCreate(ObjBindMethod(implObj, "SetSurfaceType"), flags, 2)
     }
 
     Dispose() {

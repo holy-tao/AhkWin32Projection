@@ -59,7 +59,7 @@ export default struct ITfFnGetSAPIObject extends ITfFunction {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Get := CallbackCreate(GetMethod(implObj, "Get"), flags, 3)
+        this.vtbl.Get := CallbackCreate(ObjBindMethod(implObj, "Get"), flags, 3)
     }
 
     Dispose() {

@@ -74,8 +74,8 @@ export default struct IOfflineFilesSyncConflictHandler extends IUnknown {
     ResolveConflict(pszPath, fStateKnown, state, fChangeDetails, pConflictResolution, ppszNewName) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        pConflictResolutionMarshal := pConflictResolution is VarRef ? "int*" : "ptr"
-        ppszNewNameMarshal := ppszNewName is VarRef ? "ptr*" : "ptr"
+        pConflictResolutionMarshal := pConflictResolution is VarRef ? "int*" : IntPtr
+        ppszNewNameMarshal := ppszNewName is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, "ptr", pszPath, UInt32, fStateKnown, OFFLINEFILES_SYNC_STATE, state, UInt32, fChangeDetails, pConflictResolutionMarshal, pConflictResolution, ppszNewNameMarshal, ppszNewName, "HRESULT")
         return result
@@ -90,7 +90,7 @@ export default struct IOfflineFilesSyncConflictHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ResolveConflict := CallbackCreate(GetMethod(implObj, "ResolveConflict"), flags, 7)
+        this.vtbl.ResolveConflict := CallbackCreate(ObjBindMethod(implObj, "ResolveConflict"), flags, 7)
     }
 
     Dispose() {

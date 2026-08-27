@@ -220,7 +220,7 @@ export default struct IVssComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getcomponenttype
      */
     GetComponentType(pct) {
-        pctMarshal := pct is VarRef ? "int*" : "ptr"
+        pctMarshal := pct is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, pctMarshal, pct, "HRESULT")
         return result
@@ -377,7 +377,7 @@ export default struct IVssComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getbackupsucceeded
      */
     GetBackupSucceeded(pbSucceeded) {
-        pbSucceededMarshal := pbSucceeded is VarRef ? "int*" : "ptr"
+        pbSucceededMarshal := pbSucceeded is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, pbSucceededMarshal, pbSucceeded, "HRESULT")
         return result
@@ -441,7 +441,7 @@ export default struct IVssComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getalternatelocationmappingcount
      */
     GetAlternateLocationMappingCount(pcMappings) {
-        pcMappingsMarshal := pcMappings is VarRef ? "uint*" : "ptr"
+        pcMappingsMarshal := pcMappings is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, pcMappingsMarshal, pcMappings, "HRESULT")
         return result
@@ -848,7 +848,7 @@ export default struct IVssComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getpartialfilecount
      */
     GetPartialFileCount(pcPartialFiles) {
-        pcPartialFilesMarshal := pcPartialFiles is VarRef ? "uint*" : "ptr"
+        pcPartialFilesMarshal := pcPartialFiles is VarRef ? "uint*" : IntPtr
 
         result := ComCall(12, this, pcPartialFilesMarshal, pcPartialFiles, "HRESULT")
         return result
@@ -1042,7 +1042,7 @@ export default struct IVssComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-isselectedforrestore
      */
     IsSelectedForRestore(pbSelectedForRestore) {
-        pbSelectedForRestoreMarshal := pbSelectedForRestore is VarRef ? "int*" : "ptr"
+        pbSelectedForRestoreMarshal := pbSelectedForRestore is VarRef ? "int*" : IntPtr
 
         result := ComCall(14, this, pbSelectedForRestoreMarshal, pbSelectedForRestore, "HRESULT")
         return result
@@ -1135,7 +1135,7 @@ export default struct IVssComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getadditionalrestores
      */
     GetAdditionalRestores(pbAdditionalRestores) {
-        pbAdditionalRestoresMarshal := pbAdditionalRestores is VarRef ? "int*" : "ptr"
+        pbAdditionalRestoresMarshal := pbAdditionalRestores is VarRef ? "int*" : IntPtr
 
         result := ComCall(15, this, pbAdditionalRestoresMarshal, pbAdditionalRestores, "HRESULT")
         return result
@@ -1188,7 +1188,7 @@ export default struct IVssComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getnewtargetcount
      */
     GetNewTargetCount(pcNewTarget) {
-        pcNewTargetMarshal := pcNewTarget is VarRef ? "uint*" : "ptr"
+        pcNewTargetMarshal := pcNewTarget is VarRef ? "uint*" : IntPtr
 
         result := ComCall(16, this, pcNewTargetMarshal, pcNewTarget, "HRESULT")
         return result
@@ -1364,7 +1364,7 @@ export default struct IVssComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getdirectedtargetcount
      */
     GetDirectedTargetCount(pcDirectedTarget) {
-        pcDirectedTargetMarshal := pcDirectedTarget is VarRef ? "uint*" : "ptr"
+        pcDirectedTargetMarshal := pcDirectedTarget is VarRef ? "uint*" : IntPtr
 
         result := ComCall(19, this, pcDirectedTargetMarshal, pcDirectedTarget, "HRESULT")
         return result
@@ -1784,7 +1784,7 @@ export default struct IVssComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getrestoretarget
      */
     GetRestoreTarget(pTarget) {
-        pTargetMarshal := pTarget is VarRef ? "int*" : "ptr"
+        pTargetMarshal := pTarget is VarRef ? "int*" : IntPtr
 
         result := ComCall(24, this, pTargetMarshal, pTarget, "HRESULT")
         return result
@@ -2554,7 +2554,7 @@ export default struct IVssComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getrestoresubcomponentcount
      */
     GetRestoreSubcomponentCount(pcRestoreSubcomponent) {
-        pcRestoreSubcomponentMarshal := pcRestoreSubcomponent is VarRef ? "uint*" : "ptr"
+        pcRestoreSubcomponentMarshal := pcRestoreSubcomponent is VarRef ? "uint*" : IntPtr
 
         result := ComCall(34, this, pcRestoreSubcomponentMarshal, pcRestoreSubcomponent, "HRESULT")
         return result
@@ -2637,7 +2637,7 @@ export default struct IVssComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getrestoresubcomponent
      */
     GetRestoreSubcomponent(_iComponent, pbstrLogicalPath, pbstrComponentName, pbRepair) {
-        pbRepairMarshal := pbRepair is VarRef ? "int*" : "ptr"
+        pbRepairMarshal := pbRepair is VarRef ? "int*" : IntPtr
 
         result := ComCall(35, this, UInt32, _iComponent, BSTR.Ptr, pbstrLogicalPath, BSTR.Ptr, pbstrComponentName, pbRepairMarshal, pbRepair, "HRESULT")
         return result
@@ -2720,7 +2720,7 @@ export default struct IVssComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getfilerestorestatus
      */
     GetFileRestoreStatus(pStatus) {
-        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
+        pStatusMarshal := pStatus is VarRef ? "int*" : IntPtr
 
         result := ComCall(36, this, pStatusMarshal, pStatus, "HRESULT")
         return result
@@ -2974,7 +2974,7 @@ export default struct IVssComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getdifferencedfilescount
      */
     GetDifferencedFilesCount(pcDifferencedFiles) {
-        pcDifferencedFilesMarshal := pcDifferencedFiles is VarRef ? "uint*" : "ptr"
+        pcDifferencedFilesMarshal := pcDifferencedFiles is VarRef ? "uint*" : IntPtr
 
         result := ComCall(39, this, pcDifferencedFilesMarshal, pcDifferencedFiles, "HRESULT")
         return result
@@ -3136,7 +3136,7 @@ export default struct IVssComponent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponent-getdifferencedfile
      */
     GetDifferencedFile(iDifferencedFile, pbstrPath, pbstrFilespec, pbRecursive, pbstrLsnString, pftLastModifyTime) {
-        pbRecursiveMarshal := pbRecursive is VarRef ? "int*" : "ptr"
+        pbRecursiveMarshal := pbRecursive is VarRef ? "int*" : IntPtr
 
         result := ComCall(40, this, UInt32, iDifferencedFile, BSTR.Ptr, pbstrPath, BSTR.Ptr, pbstrFilespec, pbRecursiveMarshal, pbRecursive, BSTR.Ptr, pbstrLsnString, FILETIME.Ptr, pftLastModifyTime, "HRESULT")
         return result
@@ -3151,44 +3151,44 @@ export default struct IVssComponent extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLogicalPath := CallbackCreate(GetMethod(implObj, "GetLogicalPath"), flags, 2)
-        this.vtbl.GetComponentType := CallbackCreate(GetMethod(implObj, "GetComponentType"), flags, 2)
-        this.vtbl.GetComponentName := CallbackCreate(GetMethod(implObj, "GetComponentName"), flags, 2)
-        this.vtbl.GetBackupSucceeded := CallbackCreate(GetMethod(implObj, "GetBackupSucceeded"), flags, 2)
-        this.vtbl.GetAlternateLocationMappingCount := CallbackCreate(GetMethod(implObj, "GetAlternateLocationMappingCount"), flags, 2)
-        this.vtbl.GetAlternateLocationMapping := CallbackCreate(GetMethod(implObj, "GetAlternateLocationMapping"), flags, 3)
-        this.vtbl.SetBackupMetadata := CallbackCreate(GetMethod(implObj, "SetBackupMetadata"), flags, 2)
-        this.vtbl.GetBackupMetadata := CallbackCreate(GetMethod(implObj, "GetBackupMetadata"), flags, 2)
-        this.vtbl.AddPartialFile := CallbackCreate(GetMethod(implObj, "AddPartialFile"), flags, 5)
-        this.vtbl.GetPartialFileCount := CallbackCreate(GetMethod(implObj, "GetPartialFileCount"), flags, 2)
-        this.vtbl.GetPartialFile := CallbackCreate(GetMethod(implObj, "GetPartialFile"), flags, 6)
-        this.vtbl.IsSelectedForRestore := CallbackCreate(GetMethod(implObj, "IsSelectedForRestore"), flags, 2)
-        this.vtbl.GetAdditionalRestores := CallbackCreate(GetMethod(implObj, "GetAdditionalRestores"), flags, 2)
-        this.vtbl.GetNewTargetCount := CallbackCreate(GetMethod(implObj, "GetNewTargetCount"), flags, 2)
-        this.vtbl.GetNewTarget := CallbackCreate(GetMethod(implObj, "GetNewTarget"), flags, 3)
-        this.vtbl.AddDirectedTarget := CallbackCreate(GetMethod(implObj, "AddDirectedTarget"), flags, 7)
-        this.vtbl.GetDirectedTargetCount := CallbackCreate(GetMethod(implObj, "GetDirectedTargetCount"), flags, 2)
-        this.vtbl.GetDirectedTarget := CallbackCreate(GetMethod(implObj, "GetDirectedTarget"), flags, 8)
-        this.vtbl.SetRestoreMetadata := CallbackCreate(GetMethod(implObj, "SetRestoreMetadata"), flags, 2)
-        this.vtbl.GetRestoreMetadata := CallbackCreate(GetMethod(implObj, "GetRestoreMetadata"), flags, 2)
-        this.vtbl.SetRestoreTarget := CallbackCreate(GetMethod(implObj, "SetRestoreTarget"), flags, 2)
-        this.vtbl.GetRestoreTarget := CallbackCreate(GetMethod(implObj, "GetRestoreTarget"), flags, 2)
-        this.vtbl.SetPreRestoreFailureMsg := CallbackCreate(GetMethod(implObj, "SetPreRestoreFailureMsg"), flags, 2)
-        this.vtbl.GetPreRestoreFailureMsg := CallbackCreate(GetMethod(implObj, "GetPreRestoreFailureMsg"), flags, 2)
-        this.vtbl.SetPostRestoreFailureMsg := CallbackCreate(GetMethod(implObj, "SetPostRestoreFailureMsg"), flags, 2)
-        this.vtbl.GetPostRestoreFailureMsg := CallbackCreate(GetMethod(implObj, "GetPostRestoreFailureMsg"), flags, 2)
-        this.vtbl.SetBackupStamp := CallbackCreate(GetMethod(implObj, "SetBackupStamp"), flags, 2)
-        this.vtbl.GetBackupStamp := CallbackCreate(GetMethod(implObj, "GetBackupStamp"), flags, 2)
-        this.vtbl.GetPreviousBackupStamp := CallbackCreate(GetMethod(implObj, "GetPreviousBackupStamp"), flags, 2)
-        this.vtbl.GetBackupOptions := CallbackCreate(GetMethod(implObj, "GetBackupOptions"), flags, 2)
-        this.vtbl.GetRestoreOptions := CallbackCreate(GetMethod(implObj, "GetRestoreOptions"), flags, 2)
-        this.vtbl.GetRestoreSubcomponentCount := CallbackCreate(GetMethod(implObj, "GetRestoreSubcomponentCount"), flags, 2)
-        this.vtbl.GetRestoreSubcomponent := CallbackCreate(GetMethod(implObj, "GetRestoreSubcomponent"), flags, 5)
-        this.vtbl.GetFileRestoreStatus := CallbackCreate(GetMethod(implObj, "GetFileRestoreStatus"), flags, 2)
-        this.vtbl.AddDifferencedFilesByLastModifyTime := CallbackCreate(GetMethod(implObj, "AddDifferencedFilesByLastModifyTime"), flags, 5)
-        this.vtbl.AddDifferencedFilesByLastModifyLSN := CallbackCreate(GetMethod(implObj, "AddDifferencedFilesByLastModifyLSN"), flags, 5)
-        this.vtbl.GetDifferencedFilesCount := CallbackCreate(GetMethod(implObj, "GetDifferencedFilesCount"), flags, 2)
-        this.vtbl.GetDifferencedFile := CallbackCreate(GetMethod(implObj, "GetDifferencedFile"), flags, 7)
+        this.vtbl.GetLogicalPath := CallbackCreate(ObjBindMethod(implObj, "GetLogicalPath"), flags, 2)
+        this.vtbl.GetComponentType := CallbackCreate(ObjBindMethod(implObj, "GetComponentType"), flags, 2)
+        this.vtbl.GetComponentName := CallbackCreate(ObjBindMethod(implObj, "GetComponentName"), flags, 2)
+        this.vtbl.GetBackupSucceeded := CallbackCreate(ObjBindMethod(implObj, "GetBackupSucceeded"), flags, 2)
+        this.vtbl.GetAlternateLocationMappingCount := CallbackCreate(ObjBindMethod(implObj, "GetAlternateLocationMappingCount"), flags, 2)
+        this.vtbl.GetAlternateLocationMapping := CallbackCreate(ObjBindMethod(implObj, "GetAlternateLocationMapping"), flags, 3)
+        this.vtbl.SetBackupMetadata := CallbackCreate(ObjBindMethod(implObj, "SetBackupMetadata"), flags, 2)
+        this.vtbl.GetBackupMetadata := CallbackCreate(ObjBindMethod(implObj, "GetBackupMetadata"), flags, 2)
+        this.vtbl.AddPartialFile := CallbackCreate(ObjBindMethod(implObj, "AddPartialFile"), flags, 5)
+        this.vtbl.GetPartialFileCount := CallbackCreate(ObjBindMethod(implObj, "GetPartialFileCount"), flags, 2)
+        this.vtbl.GetPartialFile := CallbackCreate(ObjBindMethod(implObj, "GetPartialFile"), flags, 6)
+        this.vtbl.IsSelectedForRestore := CallbackCreate(ObjBindMethod(implObj, "IsSelectedForRestore"), flags, 2)
+        this.vtbl.GetAdditionalRestores := CallbackCreate(ObjBindMethod(implObj, "GetAdditionalRestores"), flags, 2)
+        this.vtbl.GetNewTargetCount := CallbackCreate(ObjBindMethod(implObj, "GetNewTargetCount"), flags, 2)
+        this.vtbl.GetNewTarget := CallbackCreate(ObjBindMethod(implObj, "GetNewTarget"), flags, 3)
+        this.vtbl.AddDirectedTarget := CallbackCreate(ObjBindMethod(implObj, "AddDirectedTarget"), flags, 7)
+        this.vtbl.GetDirectedTargetCount := CallbackCreate(ObjBindMethod(implObj, "GetDirectedTargetCount"), flags, 2)
+        this.vtbl.GetDirectedTarget := CallbackCreate(ObjBindMethod(implObj, "GetDirectedTarget"), flags, 8)
+        this.vtbl.SetRestoreMetadata := CallbackCreate(ObjBindMethod(implObj, "SetRestoreMetadata"), flags, 2)
+        this.vtbl.GetRestoreMetadata := CallbackCreate(ObjBindMethod(implObj, "GetRestoreMetadata"), flags, 2)
+        this.vtbl.SetRestoreTarget := CallbackCreate(ObjBindMethod(implObj, "SetRestoreTarget"), flags, 2)
+        this.vtbl.GetRestoreTarget := CallbackCreate(ObjBindMethod(implObj, "GetRestoreTarget"), flags, 2)
+        this.vtbl.SetPreRestoreFailureMsg := CallbackCreate(ObjBindMethod(implObj, "SetPreRestoreFailureMsg"), flags, 2)
+        this.vtbl.GetPreRestoreFailureMsg := CallbackCreate(ObjBindMethod(implObj, "GetPreRestoreFailureMsg"), flags, 2)
+        this.vtbl.SetPostRestoreFailureMsg := CallbackCreate(ObjBindMethod(implObj, "SetPostRestoreFailureMsg"), flags, 2)
+        this.vtbl.GetPostRestoreFailureMsg := CallbackCreate(ObjBindMethod(implObj, "GetPostRestoreFailureMsg"), flags, 2)
+        this.vtbl.SetBackupStamp := CallbackCreate(ObjBindMethod(implObj, "SetBackupStamp"), flags, 2)
+        this.vtbl.GetBackupStamp := CallbackCreate(ObjBindMethod(implObj, "GetBackupStamp"), flags, 2)
+        this.vtbl.GetPreviousBackupStamp := CallbackCreate(ObjBindMethod(implObj, "GetPreviousBackupStamp"), flags, 2)
+        this.vtbl.GetBackupOptions := CallbackCreate(ObjBindMethod(implObj, "GetBackupOptions"), flags, 2)
+        this.vtbl.GetRestoreOptions := CallbackCreate(ObjBindMethod(implObj, "GetRestoreOptions"), flags, 2)
+        this.vtbl.GetRestoreSubcomponentCount := CallbackCreate(ObjBindMethod(implObj, "GetRestoreSubcomponentCount"), flags, 2)
+        this.vtbl.GetRestoreSubcomponent := CallbackCreate(ObjBindMethod(implObj, "GetRestoreSubcomponent"), flags, 5)
+        this.vtbl.GetFileRestoreStatus := CallbackCreate(ObjBindMethod(implObj, "GetFileRestoreStatus"), flags, 2)
+        this.vtbl.AddDifferencedFilesByLastModifyTime := CallbackCreate(ObjBindMethod(implObj, "AddDifferencedFilesByLastModifyTime"), flags, 5)
+        this.vtbl.AddDifferencedFilesByLastModifyLSN := CallbackCreate(ObjBindMethod(implObj, "AddDifferencedFilesByLastModifyLSN"), flags, 5)
+        this.vtbl.GetDifferencedFilesCount := CallbackCreate(ObjBindMethod(implObj, "GetDifferencedFilesCount"), flags, 2)
+        this.vtbl.GetDifferencedFile := CallbackCreate(ObjBindMethod(implObj, "GetDifferencedFile"), flags, 7)
     }
 
     Dispose() {

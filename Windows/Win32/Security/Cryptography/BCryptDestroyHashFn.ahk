@@ -20,7 +20,6 @@ export default struct BCryptDestroyHashFn {
     }
 
     /**
-     * 
      * @param {BCRYPT_HASH_HANDLE} hHash 
      * @returns {NTSTATUS} 
      */

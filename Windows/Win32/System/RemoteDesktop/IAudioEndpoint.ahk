@@ -130,11 +130,11 @@ export default struct IAudioEndpoint extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFrameFormat := CallbackCreate(GetMethod(implObj, "GetFrameFormat"), flags, 2)
-        this.vtbl.GetFramesPerPacket := CallbackCreate(GetMethod(implObj, "GetFramesPerPacket"), flags, 2)
-        this.vtbl.GetLatency := CallbackCreate(GetMethod(implObj, "GetLatency"), flags, 2)
-        this.vtbl.SetStreamFlags := CallbackCreate(GetMethod(implObj, "SetStreamFlags"), flags, 2)
-        this.vtbl.SetEventHandle := CallbackCreate(GetMethod(implObj, "SetEventHandle"), flags, 2)
+        this.vtbl.GetFrameFormat := CallbackCreate(ObjBindMethod(implObj, "GetFrameFormat"), flags, 2)
+        this.vtbl.GetFramesPerPacket := CallbackCreate(ObjBindMethod(implObj, "GetFramesPerPacket"), flags, 2)
+        this.vtbl.GetLatency := CallbackCreate(ObjBindMethod(implObj, "GetLatency"), flags, 2)
+        this.vtbl.SetStreamFlags := CallbackCreate(ObjBindMethod(implObj, "SetStreamFlags"), flags, 2)
+        this.vtbl.SetEventHandle := CallbackCreate(ObjBindMethod(implObj, "SetEventHandle"), flags, 2)
     }
 
     Dispose() {

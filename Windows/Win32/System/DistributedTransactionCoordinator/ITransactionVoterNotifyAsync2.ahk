@@ -36,7 +36,6 @@ export default struct ITransactionVoterNotifyAsync2 extends ITransactionOutcomeE
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     VoteRequest() {
@@ -53,7 +52,7 @@ export default struct ITransactionVoterNotifyAsync2 extends ITransactionOutcomeE
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.VoteRequest := CallbackCreate(GetMethod(implObj, "VoteRequest"), flags, 1)
+        this.vtbl.VoteRequest := CallbackCreate(ObjBindMethod(implObj, "VoteRequest"), flags, 1)
     }
 
     Dispose() {

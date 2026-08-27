@@ -19,7 +19,6 @@ export default struct TRANSLATE_BUS_ADDRESS {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Integer} BusAddress 
      * @param {Integer} Length 
@@ -28,9 +27,10 @@ export default struct TRANSLATE_BUS_ADDRESS {
      * @returns {BOOLEAN} 
      */
     Call(_Context, BusAddress, Length, AddressSpace, TranslatedAddress) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        AddressSpaceMarshal := AddressSpace is VarRef ? "uint*" : "ptr"
-        TranslatedAddressMarshal := TranslatedAddress is VarRef ? "int64*" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
+        AddressSpaceMarshal := AddressSpace is VarRef ? "uint*" : IntPtr
+        TranslatedAddressMarshal := TranslatedAddress is VarRef ? "int64*" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, Int64, BusAddress, UInt32, Length, AddressSpaceMarshal, AddressSpace, TranslatedAddressMarshal, TranslatedAddress, BOOLEAN)
         return result

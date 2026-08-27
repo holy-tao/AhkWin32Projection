@@ -21,7 +21,6 @@ export default struct SslDeserializeCertificateStoreFn {
     }
 
     /**
-     * 
      * @param {CRYPT_INTEGER_BLOB} SerializedCertificateStore 
      * @returns {Pointer<CERT_CONTEXT>} 
      */

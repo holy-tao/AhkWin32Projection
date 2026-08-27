@@ -19,13 +19,13 @@ export default struct IO_WORKITEM_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<Void>} _Context 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(DeviceObject, _Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, DEVICE_OBJECT.Ptr, DeviceObject, _ContextMarshal, _Context)
     }

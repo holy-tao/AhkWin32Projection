@@ -19,7 +19,6 @@ export default struct PF_NPGetPropertyText {
     }
 
     /**
-     * 
      * @param {Integer} iButton 
      * @param {Integer} nPropSel 
      * @param {PWSTR} lpName 

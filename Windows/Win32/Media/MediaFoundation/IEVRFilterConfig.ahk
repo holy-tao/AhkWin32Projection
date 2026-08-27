@@ -114,8 +114,8 @@ export default struct IEVRFilterConfig extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetNumberOfStreams := CallbackCreate(GetMethod(implObj, "SetNumberOfStreams"), flags, 2)
-        this.vtbl.GetNumberOfStreams := CallbackCreate(GetMethod(implObj, "GetNumberOfStreams"), flags, 2)
+        this.vtbl.SetNumberOfStreams := CallbackCreate(ObjBindMethod(implObj, "SetNumberOfStreams"), flags, 2)
+        this.vtbl.GetNumberOfStreams := CallbackCreate(ObjBindMethod(implObj, "GetNumberOfStreams"), flags, 2)
     }
 
     Dispose() {

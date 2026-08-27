@@ -117,8 +117,8 @@ export default struct IVdsRemovable extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryMedia := CallbackCreate(GetMethod(implObj, "QueryMedia"), flags, 1)
-        this.vtbl.Eject := CallbackCreate(GetMethod(implObj, "Eject"), flags, 1)
+        this.vtbl.QueryMedia := CallbackCreate(ObjBindMethod(implObj, "QueryMedia"), flags, 1)
+        this.vtbl.Eject := CallbackCreate(ObjBindMethod(implObj, "Eject"), flags, 1)
     }
 
     Dispose() {

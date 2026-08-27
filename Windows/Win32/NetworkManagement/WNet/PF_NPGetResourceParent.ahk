@@ -19,14 +19,13 @@ export default struct PF_NPGetResourceParent {
     }
 
     /**
-     * 
      * @param {Pointer<NETRESOURCEW>} lpNetResource 
      * @param {Integer} lpBuffer 
      * @param {Pointer<Integer>} lpBufferSize 
      * @returns {Integer} 
      */
     Call(lpNetResource, lpBuffer, lpBufferSize) {
-        lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : "ptr"
+        lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, NETRESOURCEW.Ptr, lpNetResource, IntPtr, lpBuffer, lpBufferSizeMarshal, lpBufferSize, UInt32)
         return result

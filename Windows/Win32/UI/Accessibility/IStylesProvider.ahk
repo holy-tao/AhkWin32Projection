@@ -192,13 +192,13 @@ export default struct IStylesProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_StyleId := CallbackCreate(GetMethod(implObj, "get_StyleId"), flags, 2)
-        this.vtbl.get_StyleName := CallbackCreate(GetMethod(implObj, "get_StyleName"), flags, 2)
-        this.vtbl.get_FillColor := CallbackCreate(GetMethod(implObj, "get_FillColor"), flags, 2)
-        this.vtbl.get_FillPatternStyle := CallbackCreate(GetMethod(implObj, "get_FillPatternStyle"), flags, 2)
-        this.vtbl.get_Shape := CallbackCreate(GetMethod(implObj, "get_Shape"), flags, 2)
-        this.vtbl.get_FillPatternColor := CallbackCreate(GetMethod(implObj, "get_FillPatternColor"), flags, 2)
-        this.vtbl.get_ExtendedProperties := CallbackCreate(GetMethod(implObj, "get_ExtendedProperties"), flags, 2)
+        this.vtbl.get_StyleId := CallbackCreate(ObjBindMethod(implObj, "get_StyleId"), flags, 2)
+        this.vtbl.get_StyleName := CallbackCreate(ObjBindMethod(implObj, "get_StyleName"), flags, 2)
+        this.vtbl.get_FillColor := CallbackCreate(ObjBindMethod(implObj, "get_FillColor"), flags, 2)
+        this.vtbl.get_FillPatternStyle := CallbackCreate(ObjBindMethod(implObj, "get_FillPatternStyle"), flags, 2)
+        this.vtbl.get_Shape := CallbackCreate(ObjBindMethod(implObj, "get_Shape"), flags, 2)
+        this.vtbl.get_FillPatternColor := CallbackCreate(ObjBindMethod(implObj, "get_FillPatternColor"), flags, 2)
+        this.vtbl.get_ExtendedProperties := CallbackCreate(ObjBindMethod(implObj, "get_ExtendedProperties"), flags, 2)
     }
 
     Dispose() {

@@ -75,7 +75,7 @@ export default struct ID3D11VideoProcessorEnumerator1 extends ID3D11VideoProcess
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CheckVideoProcessorFormatConversion := CallbackCreate(GetMethod(implObj, "CheckVideoProcessorFormatConversion"), flags, 6)
+        this.vtbl.CheckVideoProcessorFormatConversion := CallbackCreate(ObjBindMethod(implObj, "CheckVideoProcessorFormatConversion"), flags, 6)
     }
 
     Dispose() {

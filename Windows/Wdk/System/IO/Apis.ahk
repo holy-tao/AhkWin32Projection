@@ -53,9 +53,14 @@
  * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-ntdeviceiocontrolfile
  */
 export NtDeviceIoControlFile(FileHandle, Event, ApcRoutine, ApcContext, IoStatusBlock, IoControlCode, InputBuffer, InputBufferLength, OutputBuffer, OutputBufferLength) {
-    ApcContextMarshal := ApcContext is VarRef ? "ptr" : "ptr"
+    EventMarshal := Event == 0 ? IntPtr : HANDLE
+    ApcRoutineMarshal := ApcRoutine == 0 ? IntPtr : PIO_APC_ROUTINE
+    ApcContextMarshal := ApcContext is VarRef ? "ptr" : IntPtr
+    ApcContextMarshal := ApcContext == 0 ? IntPtr : "ptr"
+    InputBufferMarshal := InputBuffer == 0 ? IntPtr : IntPtr
+    OutputBufferMarshal := OutputBuffer == 0 ? IntPtr : IntPtr
 
-    result := DllCall("ntdll.dll\NtDeviceIoControlFile", HANDLE, FileHandle, HANDLE, Event, PIO_APC_ROUTINE, ApcRoutine, ApcContextMarshal, ApcContext, IO_STATUS_BLOCK.Ptr, IoStatusBlock, UInt32, IoControlCode, IntPtr, InputBuffer, UInt32, InputBufferLength, IntPtr, OutputBuffer, UInt32, OutputBufferLength, NTSTATUS)
+    result := DllCall("ntdll.dll\NtDeviceIoControlFile", HANDLE, FileHandle, EventMarshal, Event, ApcRoutineMarshal, ApcRoutine, ApcContextMarshal, ApcContext, IO_STATUS_BLOCK.Ptr, IoStatusBlock, UInt32, IoControlCode, InputBufferMarshal, InputBuffer, UInt32, InputBufferLength, OutputBufferMarshal, OutputBuffer, UInt32, OutputBufferLength, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }

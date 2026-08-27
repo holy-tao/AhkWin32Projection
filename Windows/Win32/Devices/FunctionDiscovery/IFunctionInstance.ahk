@@ -131,8 +131,8 @@ export default struct IFunctionInstance extends IServiceProvider {
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstance-getcategory
      */
     GetCategory(ppszCoMemCategory, ppszCoMemSubCategory) {
-        ppszCoMemCategoryMarshal := ppszCoMemCategory is VarRef ? "ptr*" : "ptr"
-        ppszCoMemSubCategoryMarshal := ppszCoMemSubCategory is VarRef ? "ptr*" : "ptr"
+        ppszCoMemCategoryMarshal := ppszCoMemCategory is VarRef ? "ptr*" : IntPtr
+        ppszCoMemSubCategoryMarshal := ppszCoMemSubCategory is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(7, this, ppszCoMemCategoryMarshal, ppszCoMemCategory, ppszCoMemSubCategoryMarshal, ppszCoMemSubCategory, "HRESULT")
         return result
@@ -147,10 +147,10 @@ export default struct IFunctionInstance extends IServiceProvider {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetID := CallbackCreate(GetMethod(implObj, "GetID"), flags, 2)
-        this.vtbl.GetProviderInstanceID := CallbackCreate(GetMethod(implObj, "GetProviderInstanceID"), flags, 2)
-        this.vtbl.OpenPropertyStore := CallbackCreate(GetMethod(implObj, "OpenPropertyStore"), flags, 3)
-        this.vtbl.GetCategory := CallbackCreate(GetMethod(implObj, "GetCategory"), flags, 3)
+        this.vtbl.GetID := CallbackCreate(ObjBindMethod(implObj, "GetID"), flags, 2)
+        this.vtbl.GetProviderInstanceID := CallbackCreate(ObjBindMethod(implObj, "GetProviderInstanceID"), flags, 2)
+        this.vtbl.OpenPropertyStore := CallbackCreate(ObjBindMethod(implObj, "OpenPropertyStore"), flags, 3)
+        this.vtbl.GetCategory := CallbackCreate(ObjBindMethod(implObj, "GetCategory"), flags, 3)
     }
 
     Dispose() {

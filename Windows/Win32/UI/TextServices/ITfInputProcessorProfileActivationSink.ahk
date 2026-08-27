@@ -110,7 +110,7 @@ export default struct ITfInputProcessorProfileActivationSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnActivated := CallbackCreate(GetMethod(implObj, "OnActivated"), flags, 8)
+        this.vtbl.OnActivated := CallbackCreate(ObjBindMethod(implObj, "OnActivated"), flags, 8)
     }
 
     Dispose() {

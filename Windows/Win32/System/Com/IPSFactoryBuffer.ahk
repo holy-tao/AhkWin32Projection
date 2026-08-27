@@ -52,7 +52,7 @@ export default struct IPSFactoryBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-ipsfactorybuffer-createproxy
      */
     CreateProxy(pUnkOuter, riid, ppProxy, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+        ppvMarshal := ppv is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, "ptr", pUnkOuter, Guid.Ptr, riid, IRpcProxyBuffer.Ptr, ppProxy, ppvMarshal, ppv, "HRESULT")
         return result
@@ -66,7 +66,9 @@ export default struct IPSFactoryBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-ipsfactorybuffer-createstub
      */
     CreateStub(riid, pUnkServer) {
-        result := ComCall(4, this, Guid.Ptr, riid, "ptr", pUnkServer, "ptr*", &ppStub := 0, "HRESULT")
+        pUnkServerMarshal := pUnkServer == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, Guid.Ptr, riid, pUnkServerMarshal, pUnkServer, "ptr*", &ppStub := 0, "HRESULT")
         return IRpcStubBuffer(ppStub)
     }
 
@@ -79,8 +81,8 @@ export default struct IPSFactoryBuffer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateProxy := CallbackCreate(GetMethod(implObj, "CreateProxy"), flags, 5)
-        this.vtbl.CreateStub := CallbackCreate(GetMethod(implObj, "CreateStub"), flags, 4)
+        this.vtbl.CreateProxy := CallbackCreate(ObjBindMethod(implObj, "CreateProxy"), flags, 5)
+        this.vtbl.CreateStub := CallbackCreate(ObjBindMethod(implObj, "CreateStub"), flags, 4)
     }
 
     Dispose() {

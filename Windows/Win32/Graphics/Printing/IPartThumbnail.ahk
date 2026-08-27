@@ -39,7 +39,6 @@ export default struct IPartThumbnail extends IPartBase {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetThumbnailProperties() {
@@ -49,7 +48,6 @@ export default struct IPartThumbnail extends IPartBase {
     }
 
     /**
-     * 
      * @param {PWSTR} pContentType 
      * @returns {HRESULT} 
      */
@@ -69,8 +67,8 @@ export default struct IPartThumbnail extends IPartBase {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetThumbnailProperties := CallbackCreate(GetMethod(implObj, "GetThumbnailProperties"), flags, 2)
-        this.vtbl.SetThumbnailContent := CallbackCreate(GetMethod(implObj, "SetThumbnailContent"), flags, 2)
+        this.vtbl.GetThumbnailProperties := CallbackCreate(ObjBindMethod(implObj, "GetThumbnailProperties"), flags, 2)
+        this.vtbl.SetThumbnailContent := CallbackCreate(ObjBindMethod(implObj, "SetThumbnailContent"), flags, 2)
     }
 
     Dispose() {

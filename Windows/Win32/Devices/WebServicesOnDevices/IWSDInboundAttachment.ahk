@@ -102,8 +102,8 @@ export default struct IWSDInboundAttachment extends IWSDAttachment {
      * @see https://learn.microsoft.com/windows/win32/api/wsdattachment/nf-wsdattachment-iwsdinboundattachment-read
      */
     Read(pBuffer, dwBytesToRead, pdwNumberOfBytesRead) {
-        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
-        pdwNumberOfBytesReadMarshal := pdwNumberOfBytesRead is VarRef ? "uint*" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "char*" : IntPtr
+        pdwNumberOfBytesReadMarshal := pdwNumberOfBytesRead is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pBufferMarshal, pBuffer, UInt32, dwBytesToRead, pdwNumberOfBytesReadMarshal, pdwNumberOfBytesRead, "HRESULT")
         return result
@@ -155,8 +155,8 @@ export default struct IWSDInboundAttachment extends IWSDAttachment {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Read := CallbackCreate(GetMethod(implObj, "Read"), flags, 4)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.Read := CallbackCreate(ObjBindMethod(implObj, "Read"), flags, 4)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
     }
 
     Dispose() {

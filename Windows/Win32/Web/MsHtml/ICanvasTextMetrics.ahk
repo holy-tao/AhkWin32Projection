@@ -49,7 +49,6 @@ export default struct ICanvasTextMetrics extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_width() {
@@ -66,7 +65,7 @@ export default struct ICanvasTextMetrics extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_width := CallbackCreate(GetMethod(implObj, "get_width"), flags, 2)
+        this.vtbl.get_width := CallbackCreate(ObjBindMethod(implObj, "get_width"), flags, 2)
     }
 
     Dispose() {

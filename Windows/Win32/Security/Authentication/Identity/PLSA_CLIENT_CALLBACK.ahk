@@ -21,7 +21,6 @@ export default struct PLSA_CLIENT_CALLBACK {
     }
 
     /**
-     * 
      * @param {PSTR} Callback 
      * @param {Pointer} Argument1 
      * @param {Pointer} Argument2 

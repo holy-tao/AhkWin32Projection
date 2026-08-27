@@ -37,7 +37,6 @@ export default struct PSYMBOL_FUNCENTRY_CALLBACK {
     }
 
     /**
-     * 
      * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-stackwalk">StackWalk64</a> function.
      * @param {Integer} AddrBase The address of an instruction for which the callback function should return a function table entry.
@@ -48,7 +47,8 @@ export default struct PSYMBOL_FUNCENTRY_CALLBACK {
      * On success, return a pointer to an <b>IMAGE_RUNTIME_FUNCTION_ENTRY</b> structure. Refer to the header file WinNT.h for the definition of this function.
      */
     Call(hProcess, AddrBase, UserContext) {
-        UserContextMarshal := UserContext is VarRef ? "ptr" : "ptr"
+        UserContextMarshal := UserContext is VarRef ? "ptr" : IntPtr
+        UserContextMarshal := UserContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, HANDLE, hProcess, UInt32, AddrBase, UserContextMarshal, UserContext, IntPtr)
         return result

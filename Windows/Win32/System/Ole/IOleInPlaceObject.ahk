@@ -245,10 +245,10 @@ export default struct IOleInPlaceObject extends IOleWindow {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InPlaceDeactivate := CallbackCreate(GetMethod(implObj, "InPlaceDeactivate"), flags, 1)
-        this.vtbl.UIDeactivate := CallbackCreate(GetMethod(implObj, "UIDeactivate"), flags, 1)
-        this.vtbl.SetObjectRects := CallbackCreate(GetMethod(implObj, "SetObjectRects"), flags, 3)
-        this.vtbl.ReactivateAndUndo := CallbackCreate(GetMethod(implObj, "ReactivateAndUndo"), flags, 1)
+        this.vtbl.InPlaceDeactivate := CallbackCreate(ObjBindMethod(implObj, "InPlaceDeactivate"), flags, 1)
+        this.vtbl.UIDeactivate := CallbackCreate(ObjBindMethod(implObj, "UIDeactivate"), flags, 1)
+        this.vtbl.SetObjectRects := CallbackCreate(ObjBindMethod(implObj, "SetObjectRects"), flags, 3)
+        this.vtbl.ReactivateAndUndo := CallbackCreate(ObjBindMethod(implObj, "ReactivateAndUndo"), flags, 1)
     }
 
     Dispose() {

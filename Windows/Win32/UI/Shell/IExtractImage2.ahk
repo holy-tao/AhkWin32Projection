@@ -67,7 +67,7 @@ export default struct IExtractImage2 extends IExtractImage {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDateStamp := CallbackCreate(GetMethod(implObj, "GetDateStamp"), flags, 2)
+        this.vtbl.GetDateStamp := CallbackCreate(ObjBindMethod(implObj, "GetDateStamp"), flags, 2)
     }
 
     Dispose() {

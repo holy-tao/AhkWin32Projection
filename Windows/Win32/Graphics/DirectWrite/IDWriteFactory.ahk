@@ -202,7 +202,9 @@ export default struct IDWriteFactory extends IUnknown {
     CreateFontFileReference(filePath, lastWriteTime) {
         filePath := filePath is String ? StrPtr(filePath) : filePath
 
-        result := ComCall(7, this, "ptr", filePath, FILETIME.Ptr, lastWriteTime, "ptr*", &fontFile := 0, "HRESULT")
+        lastWriteTimeMarshal := lastWriteTime == 0 ? IntPtr : FILETIME.Ptr
+
+        result := ComCall(7, this, "ptr", filePath, lastWriteTimeMarshal, lastWriteTime, "ptr*", &fontFile := 0, "HRESULT")
         return IDWriteFontFile(fontFile)
     }
 
@@ -396,7 +398,9 @@ export default struct IDWriteFactory extends IUnknown {
         fontFamilyName := fontFamilyName is String ? StrPtr(fontFamilyName) : fontFamilyName
         localeName := localeName is String ? StrPtr(localeName) : localeName
 
-        result := ComCall(15, this, "ptr", fontFamilyName, "ptr", _fontCollection, DWRITE_FONT_WEIGHT, fontWeight, DWRITE_FONT_STYLE, _fontStyle, DWRITE_FONT_STRETCH, fontStretch, Float32, fontSize, "ptr", localeName, "ptr*", &textFormat := 0, "HRESULT")
+        _fontCollectionMarshal := _fontCollection == 0 ? IntPtr : "ptr"
+
+        result := ComCall(15, this, "ptr", fontFamilyName, _fontCollectionMarshal, _fontCollection, DWRITE_FONT_WEIGHT, fontWeight, DWRITE_FONT_STYLE, _fontStyle, DWRITE_FONT_STRETCH, fontStretch, Float32, fontSize, "ptr", localeName, "ptr*", &textFormat := 0, "HRESULT")
         return IDWriteTextFormat(textFormat)
     }
 
@@ -493,7 +497,9 @@ export default struct IDWriteFactory extends IUnknown {
     CreateGdiCompatibleTextLayout(_string, stringLength, textFormat, layoutWidth, layoutHeight, pixelsPerDip, transform, useGdiNatural) {
         _string := _string is String ? StrPtr(_string) : _string
 
-        result := ComCall(19, this, "ptr", _string, UInt32, stringLength, "ptr", textFormat, Float32, layoutWidth, Float32, layoutHeight, Float32, pixelsPerDip, DWRITE_MATRIX.Ptr, transform, BOOL, useGdiNatural, "ptr*", &textLayout := 0, "HRESULT")
+        transformMarshal := transform == 0 ? IntPtr : DWRITE_MATRIX.Ptr
+
+        result := ComCall(19, this, "ptr", _string, UInt32, stringLength, "ptr", textFormat, Float32, layoutWidth, Float32, layoutHeight, Float32, pixelsPerDip, transformMarshal, transform, BOOL, useGdiNatural, "ptr*", &textLayout := 0, "HRESULT")
         return IDWriteTextLayout(textLayout)
     }
 
@@ -582,7 +588,9 @@ export default struct IDWriteFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createglyphrunanalysis
      */
     CreateGlyphRunAnalysis(_glyphRun, pixelsPerDip, transform, renderingMode, measuringMode, baselineOriginX, baselineOriginY) {
-        result := ComCall(23, this, DWRITE_GLYPH_RUN.Ptr, _glyphRun, Float32, pixelsPerDip, DWRITE_MATRIX.Ptr, transform, DWRITE_RENDERING_MODE, renderingMode, DWRITE_MEASURING_MODE, measuringMode, Float32, baselineOriginX, Float32, baselineOriginY, "ptr*", &glyphRunAnalysis := 0, "HRESULT")
+        transformMarshal := transform == 0 ? IntPtr : DWRITE_MATRIX.Ptr
+
+        result := ComCall(23, this, DWRITE_GLYPH_RUN.Ptr, _glyphRun, Float32, pixelsPerDip, transformMarshal, transform, DWRITE_RENDERING_MODE, renderingMode, DWRITE_MEASURING_MODE, measuringMode, Float32, baselineOriginX, Float32, baselineOriginY, "ptr*", &glyphRunAnalysis := 0, "HRESULT")
         return IDWriteGlyphRunAnalysis(glyphRunAnalysis)
     }
 
@@ -595,27 +603,27 @@ export default struct IDWriteFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSystemFontCollection := CallbackCreate(GetMethod(implObj, "GetSystemFontCollection"), flags, 3)
-        this.vtbl.CreateCustomFontCollection := CallbackCreate(GetMethod(implObj, "CreateCustomFontCollection"), flags, 5)
-        this.vtbl.RegisterFontCollectionLoader := CallbackCreate(GetMethod(implObj, "RegisterFontCollectionLoader"), flags, 2)
-        this.vtbl.UnregisterFontCollectionLoader := CallbackCreate(GetMethod(implObj, "UnregisterFontCollectionLoader"), flags, 2)
-        this.vtbl.CreateFontFileReference := CallbackCreate(GetMethod(implObj, "CreateFontFileReference"), flags, 4)
-        this.vtbl.CreateCustomFontFileReference := CallbackCreate(GetMethod(implObj, "CreateCustomFontFileReference"), flags, 5)
-        this.vtbl.CreateFontFace := CallbackCreate(GetMethod(implObj, "CreateFontFace"), flags, 7)
-        this.vtbl.CreateRenderingParams := CallbackCreate(GetMethod(implObj, "CreateRenderingParams"), flags, 2)
-        this.vtbl.CreateMonitorRenderingParams := CallbackCreate(GetMethod(implObj, "CreateMonitorRenderingParams"), flags, 3)
-        this.vtbl.CreateCustomRenderingParams := CallbackCreate(GetMethod(implObj, "CreateCustomRenderingParams"), flags, 7)
-        this.vtbl.RegisterFontFileLoader := CallbackCreate(GetMethod(implObj, "RegisterFontFileLoader"), flags, 2)
-        this.vtbl.UnregisterFontFileLoader := CallbackCreate(GetMethod(implObj, "UnregisterFontFileLoader"), flags, 2)
-        this.vtbl.CreateTextFormat := CallbackCreate(GetMethod(implObj, "CreateTextFormat"), flags, 9)
-        this.vtbl.CreateTypography := CallbackCreate(GetMethod(implObj, "CreateTypography"), flags, 2)
-        this.vtbl.GetGdiInterop := CallbackCreate(GetMethod(implObj, "GetGdiInterop"), flags, 2)
-        this.vtbl.CreateTextLayout := CallbackCreate(GetMethod(implObj, "CreateTextLayout"), flags, 7)
-        this.vtbl.CreateGdiCompatibleTextLayout := CallbackCreate(GetMethod(implObj, "CreateGdiCompatibleTextLayout"), flags, 10)
-        this.vtbl.CreateEllipsisTrimmingSign := CallbackCreate(GetMethod(implObj, "CreateEllipsisTrimmingSign"), flags, 3)
-        this.vtbl.CreateTextAnalyzer := CallbackCreate(GetMethod(implObj, "CreateTextAnalyzer"), flags, 2)
-        this.vtbl.CreateNumberSubstitution := CallbackCreate(GetMethod(implObj, "CreateNumberSubstitution"), flags, 5)
-        this.vtbl.CreateGlyphRunAnalysis := CallbackCreate(GetMethod(implObj, "CreateGlyphRunAnalysis"), flags, 9)
+        this.vtbl.GetSystemFontCollection := CallbackCreate(ObjBindMethod(implObj, "GetSystemFontCollection"), flags, 3)
+        this.vtbl.CreateCustomFontCollection := CallbackCreate(ObjBindMethod(implObj, "CreateCustomFontCollection"), flags, 5)
+        this.vtbl.RegisterFontCollectionLoader := CallbackCreate(ObjBindMethod(implObj, "RegisterFontCollectionLoader"), flags, 2)
+        this.vtbl.UnregisterFontCollectionLoader := CallbackCreate(ObjBindMethod(implObj, "UnregisterFontCollectionLoader"), flags, 2)
+        this.vtbl.CreateFontFileReference := CallbackCreate(ObjBindMethod(implObj, "CreateFontFileReference"), flags, 4)
+        this.vtbl.CreateCustomFontFileReference := CallbackCreate(ObjBindMethod(implObj, "CreateCustomFontFileReference"), flags, 5)
+        this.vtbl.CreateFontFace := CallbackCreate(ObjBindMethod(implObj, "CreateFontFace"), flags, 7)
+        this.vtbl.CreateRenderingParams := CallbackCreate(ObjBindMethod(implObj, "CreateRenderingParams"), flags, 2)
+        this.vtbl.CreateMonitorRenderingParams := CallbackCreate(ObjBindMethod(implObj, "CreateMonitorRenderingParams"), flags, 3)
+        this.vtbl.CreateCustomRenderingParams := CallbackCreate(ObjBindMethod(implObj, "CreateCustomRenderingParams"), flags, 7)
+        this.vtbl.RegisterFontFileLoader := CallbackCreate(ObjBindMethod(implObj, "RegisterFontFileLoader"), flags, 2)
+        this.vtbl.UnregisterFontFileLoader := CallbackCreate(ObjBindMethod(implObj, "UnregisterFontFileLoader"), flags, 2)
+        this.vtbl.CreateTextFormat := CallbackCreate(ObjBindMethod(implObj, "CreateTextFormat"), flags, 9)
+        this.vtbl.CreateTypography := CallbackCreate(ObjBindMethod(implObj, "CreateTypography"), flags, 2)
+        this.vtbl.GetGdiInterop := CallbackCreate(ObjBindMethod(implObj, "GetGdiInterop"), flags, 2)
+        this.vtbl.CreateTextLayout := CallbackCreate(ObjBindMethod(implObj, "CreateTextLayout"), flags, 7)
+        this.vtbl.CreateGdiCompatibleTextLayout := CallbackCreate(ObjBindMethod(implObj, "CreateGdiCompatibleTextLayout"), flags, 10)
+        this.vtbl.CreateEllipsisTrimmingSign := CallbackCreate(ObjBindMethod(implObj, "CreateEllipsisTrimmingSign"), flags, 3)
+        this.vtbl.CreateTextAnalyzer := CallbackCreate(ObjBindMethod(implObj, "CreateTextAnalyzer"), flags, 2)
+        this.vtbl.CreateNumberSubstitution := CallbackCreate(ObjBindMethod(implObj, "CreateNumberSubstitution"), flags, 5)
+        this.vtbl.CreateGlyphRunAnalysis := CallbackCreate(ObjBindMethod(implObj, "CreateGlyphRunAnalysis"), flags, 9)
     }
 
     Dispose() {

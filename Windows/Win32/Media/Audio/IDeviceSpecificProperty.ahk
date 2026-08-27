@@ -61,7 +61,7 @@ export default struct IDeviceSpecificProperty extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-idevicespecificproperty-getvalue
      */
     GetValue(pcbValue) {
-        pcbValueMarshal := pcbValue is VarRef ? "uint*" : "ptr"
+        pcbValueMarshal := pcbValue is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, "ptr", &pvValue := 0, pcbValueMarshal, pcbValue, "HRESULT")
         return pvValue
@@ -116,9 +116,10 @@ export default struct IDeviceSpecificProperty extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-idevicespecificproperty-setvalue
      */
     SetValue(pvValue, cbValue, pguidEventContext) {
-        pvValueMarshal := pvValue is VarRef ? "ptr" : "ptr"
+        pvValueMarshal := pvValue is VarRef ? "ptr" : IntPtr
+        pguidEventContextMarshal := pguidEventContext == 0 ? IntPtr : Guid.Ptr
 
-        result := ComCall(5, this, pvValueMarshal, pvValue, UInt32, cbValue, Guid.Ptr, pguidEventContext, "HRESULT")
+        result := ComCall(5, this, pvValueMarshal, pvValue, UInt32, cbValue, pguidEventContextMarshal, pguidEventContext, "HRESULT")
         return result
     }
 
@@ -162,9 +163,9 @@ export default struct IDeviceSpecificProperty extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-idevicespecificproperty-get4brange
      */
     Get4BRange(plMin, plMax, plStepping) {
-        plMinMarshal := plMin is VarRef ? "int*" : "ptr"
-        plMaxMarshal := plMax is VarRef ? "int*" : "ptr"
-        plSteppingMarshal := plStepping is VarRef ? "int*" : "ptr"
+        plMinMarshal := plMin is VarRef ? "int*" : IntPtr
+        plMaxMarshal := plMax is VarRef ? "int*" : IntPtr
+        plSteppingMarshal := plStepping is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, plMinMarshal, plMin, plMaxMarshal, plMax, plSteppingMarshal, plStepping, "HRESULT")
         return result
@@ -179,10 +180,10 @@ export default struct IDeviceSpecificProperty extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
-        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 3)
-        this.vtbl.SetValue := CallbackCreate(GetMethod(implObj, "SetValue"), flags, 4)
-        this.vtbl.Get4BRange := CallbackCreate(GetMethod(implObj, "Get4BRange"), flags, 4)
+        this.vtbl.GetType := CallbackCreate(ObjBindMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.GetValue := CallbackCreate(ObjBindMethod(implObj, "GetValue"), flags, 3)
+        this.vtbl.SetValue := CallbackCreate(ObjBindMethod(implObj, "SetValue"), flags, 4)
+        this.vtbl.Get4BRange := CallbackCreate(ObjBindMethod(implObj, "Get4BRange"), flags, 4)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct PRESUTIL_GET_MULTI_SZ_PROPERTY {
     }
 
     /**
-     * 
      * @param {Pointer<PWSTR>} ppszOutValue 
      * @param {Pointer<Integer>} pcbOutValueSize 
      * @param {Pointer<CLUSPROP_SZ>} pValueStruct 
@@ -31,11 +30,12 @@ export default struct PRESUTIL_GET_MULTI_SZ_PROPERTY {
      * @returns {Integer} 
      */
     Call(ppszOutValue, pcbOutValueSize, pValueStruct, pszOldValue, cbOldValueSize, ppPropertyList, pcbPropertyListSize) {
-        ppszOutValueMarshal := ppszOutValue is VarRef ? "ptr*" : "ptr"
-        pcbOutValueSizeMarshal := pcbOutValueSize is VarRef ? "uint*" : "ptr"
-        pcbPropertyListSizeMarshal := pcbPropertyListSize is VarRef ? "uint*" : "ptr"
+        ppszOutValueMarshal := ppszOutValue is VarRef ? "ptr*" : IntPtr
+        pcbOutValueSizeMarshal := pcbOutValueSize is VarRef ? "uint*" : IntPtr
+        pszOldValueMarshal := pszOldValue == 0 ? IntPtr : IntPtr
+        pcbPropertyListSizeMarshal := pcbPropertyListSize is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, ppszOutValueMarshal, ppszOutValue, pcbOutValueSizeMarshal, pcbOutValueSize, CLUSPROP_SZ.Ptr, pValueStruct, IntPtr, pszOldValue, UInt32, cbOldValueSize, IntPtr, ppPropertyList, pcbPropertyListSizeMarshal, pcbPropertyListSize, UInt32)
+        result := DllCall(this.value, ppszOutValueMarshal, ppszOutValue, pcbOutValueSizeMarshal, pcbOutValueSize, CLUSPROP_SZ.Ptr, pValueStruct, pszOldValueMarshal, pszOldValue, UInt32, cbOldValueSize, IntPtr, ppPropertyList, pcbPropertyListSizeMarshal, pcbPropertyListSize, UInt32)
         return result
     }
 

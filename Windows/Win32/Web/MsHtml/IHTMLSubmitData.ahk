@@ -39,7 +39,6 @@ export default struct IHTMLSubmitData extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @param {BSTR} value 
      * @returns {HRESULT} 
@@ -53,7 +52,6 @@ export default struct IHTMLSubmitData extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @param {BSTR} filename 
      * @returns {HRESULT} 
@@ -67,7 +65,6 @@ export default struct IHTMLSubmitData extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     appendItemSeparator() {
@@ -84,9 +81,9 @@ export default struct IHTMLSubmitData extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.appendNameValuePair := CallbackCreate(GetMethod(implObj, "appendNameValuePair"), flags, 3)
-        this.vtbl.appendNameFilePair := CallbackCreate(GetMethod(implObj, "appendNameFilePair"), flags, 3)
-        this.vtbl.appendItemSeparator := CallbackCreate(GetMethod(implObj, "appendItemSeparator"), flags, 1)
+        this.vtbl.appendNameValuePair := CallbackCreate(ObjBindMethod(implObj, "appendNameValuePair"), flags, 3)
+        this.vtbl.appendNameFilePair := CallbackCreate(ObjBindMethod(implObj, "appendNameFilePair"), flags, 3)
+        this.vtbl.appendItemSeparator := CallbackCreate(ObjBindMethod(implObj, "appendItemSeparator"), flags, 1)
     }
 
     Dispose() {

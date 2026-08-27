@@ -72,8 +72,8 @@ export default struct IEnterpriseDropTarget extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetDropSourceEnterpriseId := CallbackCreate(GetMethod(implObj, "SetDropSourceEnterpriseId"), flags, 2)
-        this.vtbl.IsEvaluatingEdpPolicy := CallbackCreate(GetMethod(implObj, "IsEvaluatingEdpPolicy"), flags, 2)
+        this.vtbl.SetDropSourceEnterpriseId := CallbackCreate(ObjBindMethod(implObj, "SetDropSourceEnterpriseId"), flags, 2)
+        this.vtbl.IsEvaluatingEdpPolicy := CallbackCreate(ObjBindMethod(implObj, "IsEvaluatingEdpPolicy"), flags, 2)
     }
 
     Dispose() {

@@ -78,7 +78,6 @@ export default struct IHTMLProgressElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -88,7 +87,6 @@ export default struct IHTMLProgressElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_value() {
@@ -97,7 +95,6 @@ export default struct IHTMLProgressElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -107,7 +104,6 @@ export default struct IHTMLProgressElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_max() {
@@ -116,7 +112,6 @@ export default struct IHTMLProgressElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_position() {
@@ -125,7 +120,6 @@ export default struct IHTMLProgressElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLFormElement} 
      */
     get_form() {
@@ -142,12 +136,12 @@ export default struct IHTMLProgressElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_value := CallbackCreate(GetMethod(implObj, "put_value"), flags, 2)
-        this.vtbl.get_value := CallbackCreate(GetMethod(implObj, "get_value"), flags, 2)
-        this.vtbl.put_max := CallbackCreate(GetMethod(implObj, "put_max"), flags, 2)
-        this.vtbl.get_max := CallbackCreate(GetMethod(implObj, "get_max"), flags, 2)
-        this.vtbl.get_position := CallbackCreate(GetMethod(implObj, "get_position"), flags, 2)
-        this.vtbl.get_form := CallbackCreate(GetMethod(implObj, "get_form"), flags, 2)
+        this.vtbl.put_value := CallbackCreate(ObjBindMethod(implObj, "put_value"), flags, 2)
+        this.vtbl.get_value := CallbackCreate(ObjBindMethod(implObj, "get_value"), flags, 2)
+        this.vtbl.put_max := CallbackCreate(ObjBindMethod(implObj, "put_max"), flags, 2)
+        this.vtbl.get_max := CallbackCreate(ObjBindMethod(implObj, "get_max"), flags, 2)
+        this.vtbl.get_position := CallbackCreate(ObjBindMethod(implObj, "get_position"), flags, 2)
+        this.vtbl.get_form := CallbackCreate(ObjBindMethod(implObj, "get_form"), flags, 2)
     }
 
     Dispose() {

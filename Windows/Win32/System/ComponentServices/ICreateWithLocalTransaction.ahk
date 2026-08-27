@@ -47,7 +47,7 @@ export default struct ICreateWithLocalTransaction extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icreatewithlocaltransaction-createinstancewithsystx
      */
     CreateInstanceWithSysTx(pTransaction, rclsid, riid, pObject) {
-        pObjectMarshal := pObject is VarRef ? "ptr*" : "ptr"
+        pObjectMarshal := pObject is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, "ptr", pTransaction, Guid.Ptr, rclsid, Guid.Ptr, riid, pObjectMarshal, pObject, "HRESULT")
         return result
@@ -62,7 +62,7 @@ export default struct ICreateWithLocalTransaction extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateInstanceWithSysTx := CallbackCreate(GetMethod(implObj, "CreateInstanceWithSysTx"), flags, 5)
+        this.vtbl.CreateInstanceWithSysTx := CallbackCreate(ObjBindMethod(implObj, "CreateInstanceWithSysTx"), flags, 5)
     }
 
     Dispose() {

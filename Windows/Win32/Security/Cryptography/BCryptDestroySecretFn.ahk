@@ -20,7 +20,6 @@ export default struct BCryptDestroySecretFn {
     }
 
     /**
-     * 
      * @param {BCRYPT_SECRET_HANDLE} hSecret 
      * @returns {NTSTATUS} 
      */

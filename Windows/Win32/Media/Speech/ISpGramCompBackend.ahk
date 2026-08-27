@@ -46,7 +46,6 @@ export default struct ISpGramCompBackend extends ISpGrammarBuilder {
     }
 
     /**
-     * 
      * @param {IStream} pStream 
      * @param {ISpErrorLog} pErrorLog 
      * @returns {HRESULT} 
@@ -57,7 +56,6 @@ export default struct ISpGramCompBackend extends ISpGrammarBuilder {
     }
 
     /**
-     * 
      * @param {Pointer<SPBINARYGRAMMAR>} pBinaryData 
      * @returns {HRESULT} 
      */
@@ -75,8 +73,8 @@ export default struct ISpGramCompBackend extends ISpGrammarBuilder {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetSaveObjects := CallbackCreate(GetMethod(implObj, "SetSaveObjects"), flags, 3)
-        this.vtbl.InitFromBinaryGrammar := CallbackCreate(GetMethod(implObj, "InitFromBinaryGrammar"), flags, 2)
+        this.vtbl.SetSaveObjects := CallbackCreate(ObjBindMethod(implObj, "SetSaveObjects"), flags, 3)
+        this.vtbl.InitFromBinaryGrammar := CallbackCreate(ObjBindMethod(implObj, "InitFromBinaryGrammar"), flags, 2)
     }
 
     Dispose() {

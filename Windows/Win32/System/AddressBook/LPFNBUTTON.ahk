@@ -27,7 +27,6 @@ export default struct LPFNBUTTON {
     }
 
     /**
-     * 
      * @param {Pointer} ulUIParam > [in] Handle of the parent windows for any dialog boxes or windows this function displays.
      * @param {Pointer<Void>} lpvContext > [in] Pointer to an arbitrary value passed to the callback function when MAPI calls it. This value can represent an address of significance to the client application. Typically, for C++ code, _lpvContext_ represents a pointer to a C++ object.
      * @param {Integer} cbEntryID > [in] Size, in bytes, of the entry identifier pointed to by the  _lpSelection_ parameter.
@@ -38,7 +37,7 @@ export default struct LPFNBUTTON {
      * > The call succeeded and has returned the expected value or values.
      */
     Call(ulUIParam, lpvContext, cbEntryID, lpSelection, ulFlags) {
-        lpvContextMarshal := lpvContext is VarRef ? "ptr" : "ptr"
+        lpvContextMarshal := lpvContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, IntPtr, ulUIParam, lpvContextMarshal, lpvContext, UInt32, cbEntryID, ENTRYID.Ptr, lpSelection, UInt32, ulFlags, Int32)
         return result

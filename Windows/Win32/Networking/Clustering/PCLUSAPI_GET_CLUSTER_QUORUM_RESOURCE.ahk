@@ -20,7 +20,6 @@ export default struct PCLUSAPI_GET_CLUSTER_QUORUM_RESOURCE {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszResourceName 
      * @param {Pointer<Integer>} lpcchResourceName 
@@ -33,9 +32,9 @@ export default struct PCLUSAPI_GET_CLUSTER_QUORUM_RESOURCE {
         lpszResourceName := lpszResourceName is String ? StrPtr(lpszResourceName) : lpszResourceName
         lpszDeviceName := lpszDeviceName is String ? StrPtr(lpszDeviceName) : lpszDeviceName
 
-        lpcchResourceNameMarshal := lpcchResourceName is VarRef ? "uint*" : "ptr"
-        lpcchDeviceNameMarshal := lpcchDeviceName is VarRef ? "uint*" : "ptr"
-        lpdwMaxQuorumLogSizeMarshal := lpdwMaxQuorumLogSize is VarRef ? "uint*" : "ptr"
+        lpcchResourceNameMarshal := lpcchResourceName is VarRef ? "uint*" : IntPtr
+        lpcchDeviceNameMarshal := lpcchDeviceName is VarRef ? "uint*" : IntPtr
+        lpdwMaxQuorumLogSizeMarshal := lpdwMaxQuorumLogSize is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HCLUSTER, _hCluster, "ptr", lpszResourceName, lpcchResourceNameMarshal, lpcchResourceName, "ptr", lpszDeviceName, lpcchDeviceNameMarshal, lpcchDeviceName, lpdwMaxQuorumLogSizeMarshal, lpdwMaxQuorumLogSize, UInt32)
         return result

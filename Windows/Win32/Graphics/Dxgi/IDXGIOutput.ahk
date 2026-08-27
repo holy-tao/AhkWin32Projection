@@ -117,7 +117,7 @@ export default struct IDXGIOutput extends IDXGIObject {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgioutput-getdisplaymodelist
      */
     GetDisplayModeList(EnumFormat, Flags, pNumModes) {
-        pNumModesMarshal := pNumModes is VarRef ? "uint*" : "ptr"
+        pNumModesMarshal := pNumModes is VarRef ? "uint*" : IntPtr
 
         pDesc := DXGI_MODE_DESC()
         result := ComCall(8, this, DXGI_FORMAT, EnumFormat, DXGI_ENUM_MODES, Flags, pNumModesMarshal, pNumModes, DXGI_MODE_DESC.Ptr, pDesc, "HRESULT")
@@ -172,8 +172,10 @@ export default struct IDXGIOutput extends IDXGIObject {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgioutput-findclosestmatchingmode
      */
     FindClosestMatchingMode(pModeToMatch, pConcernedDevice) {
+        pConcernedDeviceMarshal := pConcernedDevice == 0 ? IntPtr : "ptr"
+
         pClosestMatch := DXGI_MODE_DESC()
-        result := ComCall(9, this, DXGI_MODE_DESC.Ptr, pModeToMatch, DXGI_MODE_DESC.Ptr, pClosestMatch, "ptr", pConcernedDevice, "HRESULT")
+        result := ComCall(9, this, DXGI_MODE_DESC.Ptr, pModeToMatch, DXGI_MODE_DESC.Ptr, pClosestMatch, pConcernedDeviceMarshal, pConcernedDevice, "HRESULT")
         return pClosestMatch
     }
 
@@ -355,18 +357,18 @@ export default struct IDXGIOutput extends IDXGIObject {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDesc := CallbackCreate(GetMethod(implObj, "GetDesc"), flags, 2)
-        this.vtbl.GetDisplayModeList := CallbackCreate(GetMethod(implObj, "GetDisplayModeList"), flags, 5)
-        this.vtbl.FindClosestMatchingMode := CallbackCreate(GetMethod(implObj, "FindClosestMatchingMode"), flags, 4)
-        this.vtbl.WaitForVBlank := CallbackCreate(GetMethod(implObj, "WaitForVBlank"), flags, 1)
-        this.vtbl.TakeOwnership := CallbackCreate(GetMethod(implObj, "TakeOwnership"), flags, 3)
-        this.vtbl.ReleaseOwnership := CallbackCreate(GetMethod(implObj, "ReleaseOwnership"), flags, 1)
-        this.vtbl.GetGammaControlCapabilities := CallbackCreate(GetMethod(implObj, "GetGammaControlCapabilities"), flags, 2)
-        this.vtbl.SetGammaControl := CallbackCreate(GetMethod(implObj, "SetGammaControl"), flags, 2)
-        this.vtbl.GetGammaControl := CallbackCreate(GetMethod(implObj, "GetGammaControl"), flags, 2)
-        this.vtbl.SetDisplaySurface := CallbackCreate(GetMethod(implObj, "SetDisplaySurface"), flags, 2)
-        this.vtbl.GetDisplaySurfaceData := CallbackCreate(GetMethod(implObj, "GetDisplaySurfaceData"), flags, 2)
-        this.vtbl.GetFrameStatistics := CallbackCreate(GetMethod(implObj, "GetFrameStatistics"), flags, 2)
+        this.vtbl.GetDesc := CallbackCreate(ObjBindMethod(implObj, "GetDesc"), flags, 2)
+        this.vtbl.GetDisplayModeList := CallbackCreate(ObjBindMethod(implObj, "GetDisplayModeList"), flags, 5)
+        this.vtbl.FindClosestMatchingMode := CallbackCreate(ObjBindMethod(implObj, "FindClosestMatchingMode"), flags, 4)
+        this.vtbl.WaitForVBlank := CallbackCreate(ObjBindMethod(implObj, "WaitForVBlank"), flags, 1)
+        this.vtbl.TakeOwnership := CallbackCreate(ObjBindMethod(implObj, "TakeOwnership"), flags, 3)
+        this.vtbl.ReleaseOwnership := CallbackCreate(ObjBindMethod(implObj, "ReleaseOwnership"), flags, 1)
+        this.vtbl.GetGammaControlCapabilities := CallbackCreate(ObjBindMethod(implObj, "GetGammaControlCapabilities"), flags, 2)
+        this.vtbl.SetGammaControl := CallbackCreate(ObjBindMethod(implObj, "SetGammaControl"), flags, 2)
+        this.vtbl.GetGammaControl := CallbackCreate(ObjBindMethod(implObj, "GetGammaControl"), flags, 2)
+        this.vtbl.SetDisplaySurface := CallbackCreate(ObjBindMethod(implObj, "SetDisplaySurface"), flags, 2)
+        this.vtbl.GetDisplaySurfaceData := CallbackCreate(ObjBindMethod(implObj, "GetDisplaySurfaceData"), flags, 2)
+        this.vtbl.GetFrameStatistics := CallbackCreate(ObjBindMethod(implObj, "GetFrameStatistics"), flags, 2)
     }
 
     Dispose() {

@@ -235,7 +235,7 @@ export default struct IMFASFMultiplexer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfmultiplexer-getnextpacket
      */
     GetNextPacket(pdwStatusFlags, ppIPacket) {
-        pdwStatusFlagsMarshal := pdwStatusFlags is VarRef ? "uint*" : "ptr"
+        pdwStatusFlagsMarshal := pdwStatusFlags is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, pdwStatusFlagsMarshal, pdwStatusFlags, IMFSample.Ptr, ppIPacket, "HRESULT")
         return result
@@ -367,15 +367,15 @@ export default struct IMFASFMultiplexer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.SetFlags := CallbackCreate(GetMethod(implObj, "SetFlags"), flags, 2)
-        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
-        this.vtbl.ProcessSample := CallbackCreate(GetMethod(implObj, "ProcessSample"), flags, 4)
-        this.vtbl.GetNextPacket := CallbackCreate(GetMethod(implObj, "GetNextPacket"), flags, 3)
-        this.vtbl.Flush := CallbackCreate(GetMethod(implObj, "Flush"), flags, 1)
-        this.vtbl.End := CallbackCreate(GetMethod(implObj, "End"), flags, 2)
-        this.vtbl.GetStatistics := CallbackCreate(GetMethod(implObj, "GetStatistics"), flags, 3)
-        this.vtbl.SetSyncTolerance := CallbackCreate(GetMethod(implObj, "SetSyncTolerance"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.SetFlags := CallbackCreate(ObjBindMethod(implObj, "SetFlags"), flags, 2)
+        this.vtbl.GetFlags := CallbackCreate(ObjBindMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.ProcessSample := CallbackCreate(ObjBindMethod(implObj, "ProcessSample"), flags, 4)
+        this.vtbl.GetNextPacket := CallbackCreate(ObjBindMethod(implObj, "GetNextPacket"), flags, 3)
+        this.vtbl.Flush := CallbackCreate(ObjBindMethod(implObj, "Flush"), flags, 1)
+        this.vtbl.End := CallbackCreate(ObjBindMethod(implObj, "End"), flags, 2)
+        this.vtbl.GetStatistics := CallbackCreate(ObjBindMethod(implObj, "GetStatistics"), flags, 3)
+        this.vtbl.SetSyncTolerance := CallbackCreate(ObjBindMethod(implObj, "SetSyncTolerance"), flags, 2)
     }
 
     Dispose() {

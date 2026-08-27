@@ -100,10 +100,10 @@ export default struct IInitializeSpy extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PreInitialize := CallbackCreate(GetMethod(implObj, "PreInitialize"), flags, 3)
-        this.vtbl.PostInitialize := CallbackCreate(GetMethod(implObj, "PostInitialize"), flags, 4)
-        this.vtbl.PreUninitialize := CallbackCreate(GetMethod(implObj, "PreUninitialize"), flags, 2)
-        this.vtbl.PostUninitialize := CallbackCreate(GetMethod(implObj, "PostUninitialize"), flags, 2)
+        this.vtbl.PreInitialize := CallbackCreate(ObjBindMethod(implObj, "PreInitialize"), flags, 3)
+        this.vtbl.PostInitialize := CallbackCreate(ObjBindMethod(implObj, "PostInitialize"), flags, 4)
+        this.vtbl.PreUninitialize := CallbackCreate(ObjBindMethod(implObj, "PreUninitialize"), flags, 2)
+        this.vtbl.PostUninitialize := CallbackCreate(ObjBindMethod(implObj, "PostUninitialize"), flags, 2)
     }
 
     Dispose() {

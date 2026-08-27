@@ -38,7 +38,6 @@ export default struct ID3D12StateObjectProperties2 extends ID3D12StateObjectProp
     }
 
     /**
-     * 
      * @param {PWSTR} pProgramName 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -51,7 +50,6 @@ export default struct ID3D12StateObjectProperties2 extends ID3D12StateObjectProp
     }
 
     /**
-     * 
      * @param {PWSTR} pExportName 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -72,8 +70,8 @@ export default struct ID3D12StateObjectProperties2 extends ID3D12StateObjectProp
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetGlobalRootSignatureForProgram := CallbackCreate(GetMethod(implObj, "GetGlobalRootSignatureForProgram"), flags, 4)
-        this.vtbl.GetGlobalRootSignatureForShader := CallbackCreate(GetMethod(implObj, "GetGlobalRootSignatureForShader"), flags, 4)
+        this.vtbl.GetGlobalRootSignatureForProgram := CallbackCreate(ObjBindMethod(implObj, "GetGlobalRootSignatureForProgram"), flags, 4)
+        this.vtbl.GetGlobalRootSignatureForShader := CallbackCreate(ObjBindMethod(implObj, "GetGlobalRootSignatureForShader"), flags, 4)
     }
 
     Dispose() {

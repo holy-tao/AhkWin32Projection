@@ -19,15 +19,14 @@ export default struct PROCESSOR_CALLBACK_FUNCTION {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} CallbackContext 
      * @param {Pointer<KE_PROCESSOR_CHANGE_NOTIFY_CONTEXT>} ChangeContext 
      * @param {Pointer<Integer>} OperationStatus 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(CallbackContext, ChangeContext, OperationStatus) {
-        CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
-        OperationStatusMarshal := OperationStatus is VarRef ? "int*" : "ptr"
+        CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : IntPtr
+        OperationStatusMarshal := OperationStatus is VarRef ? "int*" : IntPtr
 
         DllCall(this.value, CallbackContextMarshal, CallbackContext, KE_PROCESSOR_CHANGE_NOTIFY_CONTEXT.Ptr, ChangeContext, OperationStatusMarshal, OperationStatus)
     }

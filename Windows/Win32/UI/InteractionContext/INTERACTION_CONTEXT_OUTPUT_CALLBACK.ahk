@@ -21,13 +21,13 @@ export default struct INTERACTION_CONTEXT_OUTPUT_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} clientData A pointer to an object that contains information about the client. The value typically points to the object for which the member function is called.
      * @param {Pointer<INTERACTION_CONTEXT_OUTPUT>} output Output of the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a> object.
      * @returns {String} Nothing - always returns an empty string
      */
     Call(clientData, output) {
-        clientDataMarshal := clientData is VarRef ? "ptr" : "ptr"
+        clientDataMarshal := clientData is VarRef ? "ptr" : IntPtr
+        clientDataMarshal := clientData == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, clientDataMarshal, clientData, INTERACTION_CONTEXT_OUTPUT.Ptr, output)
     }

@@ -22,7 +22,6 @@ export default struct PCLUSTER_UPGRADE_PROGRESS_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvCallbackArg A pointer to the arguments.
      * @param {CLUSTER_UPGRADE_PHASE} eUpgradePhase A  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/ne-clusapi-cluster_upgrade_phase">CLUSTER_UPGRADE_PHASE</a> enumeration values that indicates the state of the rolling upgrade.
      * @returns {BOOL} This function returns one of the following values:
@@ -59,7 +58,7 @@ export default struct PCLUSTER_UPGRADE_PROGRESS_CALLBACK {
      * </table>
      */
     Call(pvCallbackArg, eUpgradePhase) {
-        pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
+        pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, pvCallbackArgMarshal, pvCallbackArg, CLUSTER_UPGRADE_PHASE, eUpgradePhase, BOOL)
         return result

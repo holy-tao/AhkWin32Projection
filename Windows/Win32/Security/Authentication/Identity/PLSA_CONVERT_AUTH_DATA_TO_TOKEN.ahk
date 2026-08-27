@@ -25,7 +25,6 @@ export default struct PLSA_CONVERT_AUTH_DATA_TO_TOKEN {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} UserAuthData 
      * @param {Integer} UserAuthDataSize 
      * @param {SECURITY_IMPERSONATION_LEVEL} ImpersonationLevel 
@@ -39,8 +38,8 @@ export default struct PLSA_CONVERT_AUTH_DATA_TO_TOKEN {
      * @returns {NTSTATUS} 
      */
     Call(UserAuthData, UserAuthDataSize, ImpersonationLevel, TokenSource, LogonType, AuthorityName, Token, LogonId, AccountName, SubStatus) {
-        UserAuthDataMarshal := UserAuthData is VarRef ? "ptr" : "ptr"
-        SubStatusMarshal := SubStatus is VarRef ? "int*" : "ptr"
+        UserAuthDataMarshal := UserAuthData is VarRef ? "ptr" : IntPtr
+        SubStatusMarshal := SubStatus is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, UserAuthDataMarshal, UserAuthData, UInt32, UserAuthDataSize, SECURITY_IMPERSONATION_LEVEL, ImpersonationLevel, TOKEN_SOURCE.Ptr, TokenSource, SECURITY_LOGON_TYPE, LogonType, LSA_UNICODE_STRING.Ptr, AuthorityName, HANDLE.Ptr, Token, LUID.Ptr, LogonId, LSA_UNICODE_STRING.Ptr, AccountName, SubStatusMarshal, SubStatus, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

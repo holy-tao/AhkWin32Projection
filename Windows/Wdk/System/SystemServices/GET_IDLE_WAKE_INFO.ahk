@@ -21,15 +21,15 @@ export default struct GET_IDLE_WAKE_INFO {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {SYSTEM_POWER_STATE} SystemPowerState 
      * @param {Pointer<DEVICE_WAKE_DEPTH>} DeepestWakeableDstate 
      * @returns {NTSTATUS} 
      */
     Call(_Context, SystemPowerState, DeepestWakeableDstate) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        DeepestWakeableDstateMarshal := DeepestWakeableDstate is VarRef ? "int*" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
+        DeepestWakeableDstateMarshal := DeepestWakeableDstate is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, SYSTEM_POWER_STATE, SystemPowerState, DeepestWakeableDstateMarshal, DeepestWakeableDstate, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

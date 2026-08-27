@@ -64,7 +64,7 @@ export default struct ISnapinHelp2 extends ISnapinHelp {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLinkedTopics := CallbackCreate(GetMethod(implObj, "GetLinkedTopics"), flags, 2)
+        this.vtbl.GetLinkedTopics := CallbackCreate(ObjBindMethod(implObj, "GetLinkedTopics"), flags, 2)
     }
 
     Dispose() {

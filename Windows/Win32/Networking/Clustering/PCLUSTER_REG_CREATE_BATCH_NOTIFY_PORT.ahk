@@ -20,13 +20,12 @@ export default struct PCLUSTER_REG_CREATE_BATCH_NOTIFY_PORT {
     }
 
     /**
-     * 
      * @param {HKEY} _hKey 
      * @param {Pointer<HREGBATCHPORT>} phBatchNotifyPort 
      * @returns {Integer} 
      */
     Call(_hKey, phBatchNotifyPort) {
-        phBatchNotifyPortMarshal := phBatchNotifyPort is VarRef ? "ptr*" : "ptr"
+        phBatchNotifyPortMarshal := phBatchNotifyPort is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, HKEY, _hKey, phBatchNotifyPortMarshal, phBatchNotifyPort, Int32)
         return result

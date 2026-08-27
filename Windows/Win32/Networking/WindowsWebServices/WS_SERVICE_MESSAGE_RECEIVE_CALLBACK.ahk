@@ -33,17 +33,18 @@ export default struct WS_SERVICE_MESSAGE_RECEIVE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<WS_OPERATION_CONTEXT>} _context The <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-operation-context">context</a> within which this callback is being invoked.
      * @param {Pointer<WS_ASYNC_CONTEXT>} asyncContext Specifies whether the callback can run asynchronously.
      * @param {Pointer<WS_ERROR>} _error Specifies where additional error information should be stored if the function fails.
      * @returns {HRESULT} This callback function does not return a value.
      */
     Call(_context, asyncContext, _error) {
-        _contextMarshal := _context is VarRef ? "ptr*" : "ptr"
-        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr*" : IntPtr
+        asyncContextMarshal := asyncContext == 0 ? IntPtr : WS_ASYNC_CONTEXT.Ptr
+        _errorMarshal := _error is VarRef ? "ptr*" : IntPtr
+        _errorMarshal := _error == 0 ? IntPtr : WS_ERROR.Ptr
 
-        result := DllCall(this.value, _contextMarshal, _context, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
+        result := DllCall(this.value, _contextMarshal, _context, asyncContextMarshal, asyncContext, _errorMarshal, _error, "HRESULT")
         return result
     }
 

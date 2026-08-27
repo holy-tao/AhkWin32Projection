@@ -20,7 +20,6 @@ export default struct PFLT_COMPLETED_ASYNC_IO_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @param {PFLT_CONTEXT} _Context 
      * @returns {String} Nothing - always returns an empty string

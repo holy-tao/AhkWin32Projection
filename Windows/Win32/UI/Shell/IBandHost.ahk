@@ -106,9 +106,9 @@ export default struct IBandHost extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateBand := CallbackCreate(GetMethod(implObj, "CreateBand"), flags, 6)
-        this.vtbl.SetBandAvailability := CallbackCreate(GetMethod(implObj, "SetBandAvailability"), flags, 3)
-        this.vtbl.DestroyBand := CallbackCreate(GetMethod(implObj, "DestroyBand"), flags, 2)
+        this.vtbl.CreateBand := CallbackCreate(ObjBindMethod(implObj, "CreateBand"), flags, 6)
+        this.vtbl.SetBandAvailability := CallbackCreate(ObjBindMethod(implObj, "SetBandAvailability"), flags, 3)
+        this.vtbl.DestroyBand := CallbackCreate(ObjBindMethod(implObj, "DestroyBand"), flags, 2)
     }
 
     Dispose() {

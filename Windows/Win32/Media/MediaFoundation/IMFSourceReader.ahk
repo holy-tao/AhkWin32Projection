@@ -690,11 +690,15 @@ export default struct IMFSourceReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-readsample
      */
     ReadSample(dwStreamIndex, dwControlFlags, pdwActualStreamIndex, pdwStreamFlags, pllTimestamp, ppSample) {
-        pdwActualStreamIndexMarshal := pdwActualStreamIndex is VarRef ? "uint*" : "ptr"
-        pdwStreamFlagsMarshal := pdwStreamFlags is VarRef ? "uint*" : "ptr"
-        pllTimestampMarshal := pllTimestamp is VarRef ? "int64*" : "ptr"
+        pdwActualStreamIndexMarshal := pdwActualStreamIndex is VarRef ? "uint*" : IntPtr
+        pdwActualStreamIndexMarshal := pdwActualStreamIndex == 0 ? IntPtr : "uint*"
+        pdwStreamFlagsMarshal := pdwStreamFlags is VarRef ? "uint*" : IntPtr
+        pdwStreamFlagsMarshal := pdwStreamFlags == 0 ? IntPtr : "uint*"
+        pllTimestampMarshal := pllTimestamp is VarRef ? "int64*" : IntPtr
+        pllTimestampMarshal := pllTimestamp == 0 ? IntPtr : "int64*"
+        ppSampleMarshal := ppSample == 0 ? IntPtr : IMFSample.Ptr
 
-        result := ComCall(9, this, UInt32, dwStreamIndex, UInt32, dwControlFlags, pdwActualStreamIndexMarshal, pdwActualStreamIndex, pdwStreamFlagsMarshal, pdwStreamFlags, pllTimestampMarshal, pllTimestamp, IMFSample.Ptr, ppSample, "HRESULT")
+        result := ComCall(9, this, UInt32, dwStreamIndex, UInt32, dwControlFlags, pdwActualStreamIndexMarshal, pdwActualStreamIndex, pdwStreamFlagsMarshal, pdwStreamFlags, pllTimestampMarshal, pllTimestamp, ppSampleMarshal, ppSample, "HRESULT")
         return result
     }
 
@@ -924,16 +928,16 @@ export default struct IMFSourceReader extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStreamSelection := CallbackCreate(GetMethod(implObj, "GetStreamSelection"), flags, 3)
-        this.vtbl.SetStreamSelection := CallbackCreate(GetMethod(implObj, "SetStreamSelection"), flags, 3)
-        this.vtbl.GetNativeMediaType := CallbackCreate(GetMethod(implObj, "GetNativeMediaType"), flags, 4)
-        this.vtbl.GetCurrentMediaType := CallbackCreate(GetMethod(implObj, "GetCurrentMediaType"), flags, 3)
-        this.vtbl.SetCurrentMediaType := CallbackCreate(GetMethod(implObj, "SetCurrentMediaType"), flags, 4)
-        this.vtbl.SetCurrentPosition := CallbackCreate(GetMethod(implObj, "SetCurrentPosition"), flags, 3)
-        this.vtbl.ReadSample := CallbackCreate(GetMethod(implObj, "ReadSample"), flags, 7)
-        this.vtbl.Flush := CallbackCreate(GetMethod(implObj, "Flush"), flags, 2)
-        this.vtbl.GetServiceForStream := CallbackCreate(GetMethod(implObj, "GetServiceForStream"), flags, 5)
-        this.vtbl.GetPresentationAttribute := CallbackCreate(GetMethod(implObj, "GetPresentationAttribute"), flags, 4)
+        this.vtbl.GetStreamSelection := CallbackCreate(ObjBindMethod(implObj, "GetStreamSelection"), flags, 3)
+        this.vtbl.SetStreamSelection := CallbackCreate(ObjBindMethod(implObj, "SetStreamSelection"), flags, 3)
+        this.vtbl.GetNativeMediaType := CallbackCreate(ObjBindMethod(implObj, "GetNativeMediaType"), flags, 4)
+        this.vtbl.GetCurrentMediaType := CallbackCreate(ObjBindMethod(implObj, "GetCurrentMediaType"), flags, 3)
+        this.vtbl.SetCurrentMediaType := CallbackCreate(ObjBindMethod(implObj, "SetCurrentMediaType"), flags, 4)
+        this.vtbl.SetCurrentPosition := CallbackCreate(ObjBindMethod(implObj, "SetCurrentPosition"), flags, 3)
+        this.vtbl.ReadSample := CallbackCreate(ObjBindMethod(implObj, "ReadSample"), flags, 7)
+        this.vtbl.Flush := CallbackCreate(ObjBindMethod(implObj, "Flush"), flags, 2)
+        this.vtbl.GetServiceForStream := CallbackCreate(ObjBindMethod(implObj, "GetServiceForStream"), flags, 5)
+        this.vtbl.GetPresentationAttribute := CallbackCreate(ObjBindMethod(implObj, "GetPresentationAttribute"), flags, 4)
     }
 
     Dispose() {

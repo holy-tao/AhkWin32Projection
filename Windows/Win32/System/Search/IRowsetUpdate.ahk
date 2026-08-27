@@ -41,7 +41,6 @@ export default struct IRowsetUpdate extends IRowsetChange {
     }
 
     /**
-     * 
      * @param {Pointer} hRow 
      * @param {HACCESSOR} _hAccessor 
      * @returns {Void} 
@@ -52,7 +51,6 @@ export default struct IRowsetUpdate extends IRowsetChange {
     }
 
     /**
-     * 
      * @param {Pointer} hReserved 
      * @param {Integer} dwRowStatus 
      * @param {Pointer<Pointer>} pcPendingRows 
@@ -61,23 +59,22 @@ export default struct IRowsetUpdate extends IRowsetChange {
      * @returns {HRESULT} 
      */
     GetPendingRows(hReserved, dwRowStatus, pcPendingRows, prgPendingRows, prgPendingStatus) {
-        pcPendingRowsMarshal := pcPendingRows is VarRef ? "ptr*" : "ptr"
-        prgPendingRowsMarshal := prgPendingRows is VarRef ? "ptr*" : "ptr"
-        prgPendingStatusMarshal := prgPendingStatus is VarRef ? "ptr*" : "ptr"
+        pcPendingRowsMarshal := pcPendingRows is VarRef ? "ptr*" : IntPtr
+        prgPendingRowsMarshal := prgPendingRows is VarRef ? "ptr*" : IntPtr
+        prgPendingStatusMarshal := prgPendingStatus is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(7, this, IntPtr, hReserved, UInt32, dwRowStatus, pcPendingRowsMarshal, pcPendingRows, prgPendingRowsMarshal, prgPendingRows, prgPendingStatusMarshal, prgPendingStatus, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} hReserved 
      * @param {Pointer} cRows 
      * @param {Pointer<Pointer>} rghRows 
      * @returns {Integer} 
      */
     GetRowStatus(hReserved, cRows, rghRows) {
-        rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
+        rghRowsMarshal := rghRows is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(8, this, IntPtr, hReserved, IntPtr, cRows, rghRowsMarshal, rghRows, "uint*", &rgPendingStatus := 0, "HRESULT")
         return rgPendingStatus
@@ -113,10 +110,10 @@ export default struct IRowsetUpdate extends IRowsetChange {
      * @see https://learn.microsoft.com/windows/win32/BEvtColProv/control-undo
      */
     Undo(hReserved, cRows, rghRows, pcRowsUndone, prgRowsUndone, prgRowStatus) {
-        rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
-        pcRowsUndoneMarshal := pcRowsUndone is VarRef ? "ptr*" : "ptr"
-        prgRowsUndoneMarshal := prgRowsUndone is VarRef ? "ptr*" : "ptr"
-        prgRowStatusMarshal := prgRowStatus is VarRef ? "ptr*" : "ptr"
+        rghRowsMarshal := rghRows is VarRef ? "ptr*" : IntPtr
+        pcRowsUndoneMarshal := pcRowsUndone is VarRef ? "ptr*" : IntPtr
+        prgRowsUndoneMarshal := prgRowsUndone is VarRef ? "ptr*" : IntPtr
+        prgRowStatusMarshal := prgRowStatus is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(9, this, IntPtr, hReserved, IntPtr, cRows, rghRowsMarshal, rghRows, pcRowsUndoneMarshal, pcRowsUndone, prgRowsUndoneMarshal, prgRowsUndone, prgRowStatusMarshal, prgRowStatus, "HRESULT")
         return result
@@ -134,10 +131,10 @@ export default struct IRowsetUpdate extends IRowsetChange {
      * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/update-constructor
      */
     Update(hReserved, cRows, rghRows, pcRows, prgRows, prgRowStatus) {
-        rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
-        pcRowsMarshal := pcRows is VarRef ? "ptr*" : "ptr"
-        prgRowsMarshal := prgRows is VarRef ? "ptr*" : "ptr"
-        prgRowStatusMarshal := prgRowStatus is VarRef ? "ptr*" : "ptr"
+        rghRowsMarshal := rghRows is VarRef ? "ptr*" : IntPtr
+        pcRowsMarshal := pcRows is VarRef ? "ptr*" : IntPtr
+        prgRowsMarshal := prgRows is VarRef ? "ptr*" : IntPtr
+        prgRowStatusMarshal := prgRowStatus is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(10, this, IntPtr, hReserved, IntPtr, cRows, rghRowsMarshal, rghRows, pcRowsMarshal, pcRows, prgRowsMarshal, prgRows, prgRowStatusMarshal, prgRowStatus, "HRESULT")
         return result
@@ -152,11 +149,11 @@ export default struct IRowsetUpdate extends IRowsetChange {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOriginalData := CallbackCreate(GetMethod(implObj, "GetOriginalData"), flags, 4)
-        this.vtbl.GetPendingRows := CallbackCreate(GetMethod(implObj, "GetPendingRows"), flags, 6)
-        this.vtbl.GetRowStatus := CallbackCreate(GetMethod(implObj, "GetRowStatus"), flags, 5)
-        this.vtbl.Undo := CallbackCreate(GetMethod(implObj, "Undo"), flags, 7)
-        this.vtbl.Update := CallbackCreate(GetMethod(implObj, "Update"), flags, 7)
+        this.vtbl.GetOriginalData := CallbackCreate(ObjBindMethod(implObj, "GetOriginalData"), flags, 4)
+        this.vtbl.GetPendingRows := CallbackCreate(ObjBindMethod(implObj, "GetPendingRows"), flags, 6)
+        this.vtbl.GetRowStatus := CallbackCreate(ObjBindMethod(implObj, "GetRowStatus"), flags, 5)
+        this.vtbl.Undo := CallbackCreate(ObjBindMethod(implObj, "Undo"), flags, 7)
+        this.vtbl.Update := CallbackCreate(ObjBindMethod(implObj, "Update"), flags, 7)
     }
 
     Dispose() {

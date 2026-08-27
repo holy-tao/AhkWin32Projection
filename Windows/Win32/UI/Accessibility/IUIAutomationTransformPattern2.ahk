@@ -221,16 +221,16 @@ export default struct IUIAutomationTransformPattern2 extends IUIAutomationTransf
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Zoom := CallbackCreate(GetMethod(implObj, "Zoom"), flags, 2)
-        this.vtbl.ZoomByUnit := CallbackCreate(GetMethod(implObj, "ZoomByUnit"), flags, 2)
-        this.vtbl.get_CurrentCanZoom := CallbackCreate(GetMethod(implObj, "get_CurrentCanZoom"), flags, 2)
-        this.vtbl.get_CachedCanZoom := CallbackCreate(GetMethod(implObj, "get_CachedCanZoom"), flags, 2)
-        this.vtbl.get_CurrentZoomLevel := CallbackCreate(GetMethod(implObj, "get_CurrentZoomLevel"), flags, 2)
-        this.vtbl.get_CachedZoomLevel := CallbackCreate(GetMethod(implObj, "get_CachedZoomLevel"), flags, 2)
-        this.vtbl.get_CurrentZoomMinimum := CallbackCreate(GetMethod(implObj, "get_CurrentZoomMinimum"), flags, 2)
-        this.vtbl.get_CachedZoomMinimum := CallbackCreate(GetMethod(implObj, "get_CachedZoomMinimum"), flags, 2)
-        this.vtbl.get_CurrentZoomMaximum := CallbackCreate(GetMethod(implObj, "get_CurrentZoomMaximum"), flags, 2)
-        this.vtbl.get_CachedZoomMaximum := CallbackCreate(GetMethod(implObj, "get_CachedZoomMaximum"), flags, 2)
+        this.vtbl.Zoom := CallbackCreate(ObjBindMethod(implObj, "Zoom"), flags, 2)
+        this.vtbl.ZoomByUnit := CallbackCreate(ObjBindMethod(implObj, "ZoomByUnit"), flags, 2)
+        this.vtbl.get_CurrentCanZoom := CallbackCreate(ObjBindMethod(implObj, "get_CurrentCanZoom"), flags, 2)
+        this.vtbl.get_CachedCanZoom := CallbackCreate(ObjBindMethod(implObj, "get_CachedCanZoom"), flags, 2)
+        this.vtbl.get_CurrentZoomLevel := CallbackCreate(ObjBindMethod(implObj, "get_CurrentZoomLevel"), flags, 2)
+        this.vtbl.get_CachedZoomLevel := CallbackCreate(ObjBindMethod(implObj, "get_CachedZoomLevel"), flags, 2)
+        this.vtbl.get_CurrentZoomMinimum := CallbackCreate(ObjBindMethod(implObj, "get_CurrentZoomMinimum"), flags, 2)
+        this.vtbl.get_CachedZoomMinimum := CallbackCreate(ObjBindMethod(implObj, "get_CachedZoomMinimum"), flags, 2)
+        this.vtbl.get_CurrentZoomMaximum := CallbackCreate(ObjBindMethod(implObj, "get_CurrentZoomMaximum"), flags, 2)
+        this.vtbl.get_CachedZoomMaximum := CallbackCreate(ObjBindMethod(implObj, "get_CachedZoomMaximum"), flags, 2)
     }
 
     Dispose() {

@@ -93,7 +93,7 @@ export default struct IAudioClockAdjustment extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetSampleRate := CallbackCreate(GetMethod(implObj, "SetSampleRate"), flags, 2)
+        this.vtbl.SetSampleRate := CallbackCreate(ObjBindMethod(implObj, "SetSampleRate"), flags, 2)
     }
 
     Dispose() {

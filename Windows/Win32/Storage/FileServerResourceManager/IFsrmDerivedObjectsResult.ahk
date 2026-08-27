@@ -84,8 +84,8 @@ export default struct IFsrmDerivedObjectsResult extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_DerivedObjects := CallbackCreate(GetMethod(implObj, "get_DerivedObjects"), flags, 2)
-        this.vtbl.get_Results := CallbackCreate(GetMethod(implObj, "get_Results"), flags, 2)
+        this.vtbl.get_DerivedObjects := CallbackCreate(ObjBindMethod(implObj, "get_DerivedObjects"), flags, 2)
+        this.vtbl.get_Results := CallbackCreate(ObjBindMethod(implObj, "get_Results"), flags, 2)
     }
 
     Dispose() {

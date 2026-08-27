@@ -405,14 +405,14 @@ export default struct ITaskScheduler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetTargetComputer := CallbackCreate(GetMethod(implObj, "SetTargetComputer"), flags, 2)
-        this.vtbl.GetTargetComputer := CallbackCreate(GetMethod(implObj, "GetTargetComputer"), flags, 2)
-        this.vtbl.Enum := CallbackCreate(GetMethod(implObj, "Enum"), flags, 2)
-        this.vtbl.Activate := CallbackCreate(GetMethod(implObj, "Activate"), flags, 4)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 2)
-        this.vtbl.NewWorkItem := CallbackCreate(GetMethod(implObj, "NewWorkItem"), flags, 5)
-        this.vtbl.AddWorkItem := CallbackCreate(GetMethod(implObj, "AddWorkItem"), flags, 3)
-        this.vtbl.IsOfType := CallbackCreate(GetMethod(implObj, "IsOfType"), flags, 3)
+        this.vtbl.SetTargetComputer := CallbackCreate(ObjBindMethod(implObj, "SetTargetComputer"), flags, 2)
+        this.vtbl.GetTargetComputer := CallbackCreate(ObjBindMethod(implObj, "GetTargetComputer"), flags, 2)
+        this.vtbl.Enum := CallbackCreate(ObjBindMethod(implObj, "Enum"), flags, 2)
+        this.vtbl.Activate := CallbackCreate(ObjBindMethod(implObj, "Activate"), flags, 4)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 2)
+        this.vtbl.NewWorkItem := CallbackCreate(ObjBindMethod(implObj, "NewWorkItem"), flags, 5)
+        this.vtbl.AddWorkItem := CallbackCreate(ObjBindMethod(implObj, "AddWorkItem"), flags, 3)
+        this.vtbl.IsOfType := CallbackCreate(ObjBindMethod(implObj, "IsOfType"), flags, 3)
     }
 
     Dispose() {

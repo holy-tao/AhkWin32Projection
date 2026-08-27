@@ -108,11 +108,11 @@ export default struct ILatLongReport extends ILocationReport {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLatitude := CallbackCreate(GetMethod(implObj, "GetLatitude"), flags, 2)
-        this.vtbl.GetLongitude := CallbackCreate(GetMethod(implObj, "GetLongitude"), flags, 2)
-        this.vtbl.GetErrorRadius := CallbackCreate(GetMethod(implObj, "GetErrorRadius"), flags, 2)
-        this.vtbl.GetAltitude := CallbackCreate(GetMethod(implObj, "GetAltitude"), flags, 2)
-        this.vtbl.GetAltitudeError := CallbackCreate(GetMethod(implObj, "GetAltitudeError"), flags, 2)
+        this.vtbl.GetLatitude := CallbackCreate(ObjBindMethod(implObj, "GetLatitude"), flags, 2)
+        this.vtbl.GetLongitude := CallbackCreate(ObjBindMethod(implObj, "GetLongitude"), flags, 2)
+        this.vtbl.GetErrorRadius := CallbackCreate(ObjBindMethod(implObj, "GetErrorRadius"), flags, 2)
+        this.vtbl.GetAltitude := CallbackCreate(ObjBindMethod(implObj, "GetAltitude"), flags, 2)
+        this.vtbl.GetAltitudeError := CallbackCreate(ObjBindMethod(implObj, "GetAltitudeError"), flags, 2)
     }
 
     Dispose() {

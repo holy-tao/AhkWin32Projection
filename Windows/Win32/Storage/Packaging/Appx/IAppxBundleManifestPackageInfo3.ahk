@@ -37,7 +37,6 @@ export default struct IAppxBundleManifestPackageInfo3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IAppxManifestTargetDeviceFamiliesEnumerator} 
      */
     GetTargetDeviceFamilies() {
@@ -54,7 +53,7 @@ export default struct IAppxBundleManifestPackageInfo3 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTargetDeviceFamilies := CallbackCreate(GetMethod(implObj, "GetTargetDeviceFamilies"), flags, 2)
+        this.vtbl.GetTargetDeviceFamilies := CallbackCreate(ObjBindMethod(implObj, "GetTargetDeviceFamilies"), flags, 2)
     }
 
     Dispose() {

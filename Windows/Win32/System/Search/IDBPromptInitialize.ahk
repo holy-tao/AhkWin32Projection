@@ -39,7 +39,6 @@ export default struct IDBPromptInitialize extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {HWND} hWndParent 
      * @param {Integer} dwPromptOptions 
@@ -53,14 +52,16 @@ export default struct IDBPromptInitialize extends IUnknown {
     PromptDataSource(pUnkOuter, hWndParent, dwPromptOptions, cSourceTypeFilter, rgSourceTypeFilter, pwszszzProviderFilter, riid, ppDataSource) {
         pwszszzProviderFilter := pwszszzProviderFilter is String ? StrPtr(pwszszzProviderFilter) : pwszszzProviderFilter
 
-        rgSourceTypeFilterMarshal := rgSourceTypeFilter is VarRef ? "uint*" : "ptr"
+        pUnkOuterMarshal := pUnkOuter == 0 ? IntPtr : "ptr"
+        rgSourceTypeFilterMarshal := rgSourceTypeFilter is VarRef ? "uint*" : IntPtr
+        rgSourceTypeFilterMarshal := rgSourceTypeFilter == 0 ? IntPtr : "uint*"
+        pwszszzProviderFilterMarshal := pwszszzProviderFilter == 0 ? IntPtr : PWSTR
 
-        result := ComCall(3, this, "ptr", pUnkOuter, HWND, hWndParent, UInt32, dwPromptOptions, UInt32, cSourceTypeFilter, rgSourceTypeFilterMarshal, rgSourceTypeFilter, "ptr", pwszszzProviderFilter, Guid.Ptr, riid, IUnknown.Ptr, ppDataSource, "HRESULT")
+        result := ComCall(3, this, pUnkOuterMarshal, pUnkOuter, HWND, hWndParent, UInt32, dwPromptOptions, UInt32, cSourceTypeFilter, rgSourceTypeFilterMarshal, rgSourceTypeFilter, pwszszzProviderFilterMarshal, pwszszzProviderFilter, Guid.Ptr, riid, IUnknown.Ptr, ppDataSource, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HWND} hWndParent 
      * @param {Integer} dwPromptOptions 
      * @param {PWSTR} pwszInitialDirectory 
@@ -84,8 +85,8 @@ export default struct IDBPromptInitialize extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PromptDataSource := CallbackCreate(GetMethod(implObj, "PromptDataSource"), flags, 9)
-        this.vtbl.PromptFileName := CallbackCreate(GetMethod(implObj, "PromptFileName"), flags, 6)
+        this.vtbl.PromptDataSource := CallbackCreate(ObjBindMethod(implObj, "PromptDataSource"), flags, 9)
+        this.vtbl.PromptFileName := CallbackCreate(ObjBindMethod(implObj, "PromptFileName"), flags, 6)
     }
 
     Dispose() {

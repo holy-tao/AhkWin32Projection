@@ -23,7 +23,6 @@ export default struct NCryptImportKeyFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} _hProvider 
      * @param {NCRYPT_KEY_HANDLE} hImportKey 
      * @param {PWSTR} pszBlobType 
@@ -36,8 +35,11 @@ export default struct NCryptImportKeyFn {
     Call(_hProvider, hImportKey, pszBlobType, pParameterList, pbData, cbData, dwFlags) {
         pszBlobType := pszBlobType is String ? StrPtr(pszBlobType) : pszBlobType
 
+        hImportKeyMarshal := hImportKey == 0 ? IntPtr : NCRYPT_KEY_HANDLE
+        pParameterListMarshal := pParameterList == 0 ? IntPtr : BCryptBufferDesc.Ptr
+
         phKey := NCRYPT_KEY_HANDLE.Owned()
-        result := DllCall(this.value, NCRYPT_PROV_HANDLE, _hProvider, NCRYPT_KEY_HANDLE, hImportKey, "ptr", pszBlobType, BCryptBufferDesc.Ptr, pParameterList, NCRYPT_KEY_HANDLE.Ptr, phKey, IntPtr, pbData, UInt32, cbData, UInt32, dwFlags, "HRESULT")
+        result := DllCall(this.value, NCRYPT_PROV_HANDLE, _hProvider, hImportKeyMarshal, hImportKey, "ptr", pszBlobType, pParameterListMarshal, pParameterList, NCRYPT_KEY_HANDLE.Ptr, phKey, IntPtr, pbData, UInt32, cbData, UInt32, dwFlags, "HRESULT")
         return phKey
     }
 

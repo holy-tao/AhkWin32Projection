@@ -66,7 +66,7 @@ export default struct IApoAuxiliaryInputRT extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AcceptInput := CallbackCreate(GetMethod(implObj, "AcceptInput"), flags, 3)
+        this.vtbl.AcceptInput := CallbackCreate(ObjBindMethod(implObj, "AcceptInput"), flags, 3)
     }
 
     Dispose() {

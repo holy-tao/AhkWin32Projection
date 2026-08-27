@@ -18,7 +18,6 @@ export default struct PSYMBOLSERVERGETOPTIONSPROC {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     Call() {

@@ -221,9 +221,9 @@ export default struct IMSVidAnalogTuner2 extends IMSVidAnalogTuner {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_TVFormats := CallbackCreate(GetMethod(implObj, "get_TVFormats"), flags, 2)
-        this.vtbl.get_TunerModes := CallbackCreate(GetMethod(implObj, "get_TunerModes"), flags, 2)
-        this.vtbl.get_NumAuxInputs := CallbackCreate(GetMethod(implObj, "get_NumAuxInputs"), flags, 2)
+        this.vtbl.get_TVFormats := CallbackCreate(ObjBindMethod(implObj, "get_TVFormats"), flags, 2)
+        this.vtbl.get_TunerModes := CallbackCreate(ObjBindMethod(implObj, "get_TunerModes"), flags, 2)
+        this.vtbl.get_NumAuxInputs := CallbackCreate(ObjBindMethod(implObj, "get_NumAuxInputs"), flags, 2)
     }
 
     Dispose() {

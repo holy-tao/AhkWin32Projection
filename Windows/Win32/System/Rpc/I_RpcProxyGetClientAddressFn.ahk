@@ -20,7 +20,6 @@ export default struct I_RpcProxyGetClientAddressFn {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {PSTR} _Buffer 
      * @param {Pointer<Integer>} BufferLength 
@@ -29,8 +28,8 @@ export default struct I_RpcProxyGetClientAddressFn {
     Call(_Context, _Buffer, BufferLength) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        BufferLengthMarshal := BufferLength is VarRef ? "uint*" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        BufferLengthMarshal := BufferLength is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, "ptr", _Buffer, BufferLengthMarshal, BufferLength, RPC_STATUS)
         return result

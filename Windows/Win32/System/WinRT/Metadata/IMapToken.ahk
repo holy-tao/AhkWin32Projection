@@ -36,7 +36,6 @@ export default struct IMapToken extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} tkImp 
      * @param {Integer} tkEmit 
      * @returns {HRESULT} 
@@ -55,7 +54,7 @@ export default struct IMapToken extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Map := CallbackCreate(GetMethod(implObj, "Map"), flags, 3)
+        this.vtbl.Map := CallbackCreate(ObjBindMethod(implObj, "Map"), flags, 3)
     }
 
     Dispose() {

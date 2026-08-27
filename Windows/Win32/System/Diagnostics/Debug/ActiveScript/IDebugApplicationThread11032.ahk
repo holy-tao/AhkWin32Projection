@@ -41,7 +41,6 @@ export default struct IDebugApplicationThread11032 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetActiveThreadRequestCount() {
@@ -50,7 +49,6 @@ export default struct IDebugApplicationThread11032 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsSuspendedForBreakPoint() {
@@ -59,7 +57,6 @@ export default struct IDebugApplicationThread11032 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsThreadCallable() {
@@ -68,7 +65,6 @@ export default struct IDebugApplicationThread11032 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugThreadCall32} pptc 
      * @param {Pointer} dwParam1 
      * @param {Pointer} dwParam2 
@@ -89,10 +85,10 @@ export default struct IDebugApplicationThread11032 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetActiveThreadRequestCount := CallbackCreate(GetMethod(implObj, "GetActiveThreadRequestCount"), flags, 2)
-        this.vtbl.IsSuspendedForBreakPoint := CallbackCreate(GetMethod(implObj, "IsSuspendedForBreakPoint"), flags, 2)
-        this.vtbl.IsThreadCallable := CallbackCreate(GetMethod(implObj, "IsThreadCallable"), flags, 2)
-        this.vtbl.AsynchronousCallIntoThread := CallbackCreate(GetMethod(implObj, "AsynchronousCallIntoThread"), flags, 5)
+        this.vtbl.GetActiveThreadRequestCount := CallbackCreate(ObjBindMethod(implObj, "GetActiveThreadRequestCount"), flags, 2)
+        this.vtbl.IsSuspendedForBreakPoint := CallbackCreate(ObjBindMethod(implObj, "IsSuspendedForBreakPoint"), flags, 2)
+        this.vtbl.IsThreadCallable := CallbackCreate(ObjBindMethod(implObj, "IsThreadCallable"), flags, 2)
+        this.vtbl.AsynchronousCallIntoThread := CallbackCreate(ObjBindMethod(implObj, "AsynchronousCallIntoThread"), flags, 5)
     }
 
     Dispose() {

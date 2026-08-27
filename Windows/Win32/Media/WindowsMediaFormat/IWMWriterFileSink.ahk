@@ -93,7 +93,7 @@ export default struct IWMWriterFileSink extends IWMWriterSink {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 2)
+        this.vtbl.Open := CallbackCreate(ObjBindMethod(implObj, "Open"), flags, 2)
     }
 
     Dispose() {

@@ -38,7 +38,6 @@ export default struct ITmNodeName extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNodeNameSize() {
@@ -47,7 +46,6 @@ export default struct ITmNodeName extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cbNodeNameBufferSize 
      * @param {PWSTR} pNodeNameBuffer 
      * @returns {HRESULT} 
@@ -68,8 +66,8 @@ export default struct ITmNodeName extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNodeNameSize := CallbackCreate(GetMethod(implObj, "GetNodeNameSize"), flags, 2)
-        this.vtbl.GetNodeName := CallbackCreate(GetMethod(implObj, "GetNodeName"), flags, 3)
+        this.vtbl.GetNodeNameSize := CallbackCreate(ObjBindMethod(implObj, "GetNodeNameSize"), flags, 2)
+        this.vtbl.GetNodeName := CallbackCreate(ObjBindMethod(implObj, "GetNodeName"), flags, 3)
     }
 
     Dispose() {

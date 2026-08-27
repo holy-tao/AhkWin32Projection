@@ -19,12 +19,11 @@ export default struct FREE_CONTEXT_BUFFER_FN {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} param0 
      * @returns {HRESULT} 
      */
     Call(param0) {
-        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+        param0Marshal := param0 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, param0Marshal, param0, "HRESULT")
         return result

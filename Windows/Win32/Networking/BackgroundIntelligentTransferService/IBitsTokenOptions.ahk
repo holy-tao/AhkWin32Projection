@@ -167,11 +167,11 @@ export default struct IBitsTokenOptions extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetHelperTokenFlags := CallbackCreate(GetMethod(implObj, "SetHelperTokenFlags"), flags, 2)
-        this.vtbl.GetHelperTokenFlags := CallbackCreate(GetMethod(implObj, "GetHelperTokenFlags"), flags, 2)
-        this.vtbl.SetHelperToken := CallbackCreate(GetMethod(implObj, "SetHelperToken"), flags, 1)
-        this.vtbl.ClearHelperToken := CallbackCreate(GetMethod(implObj, "ClearHelperToken"), flags, 1)
-        this.vtbl.GetHelperTokenSid := CallbackCreate(GetMethod(implObj, "GetHelperTokenSid"), flags, 2)
+        this.vtbl.SetHelperTokenFlags := CallbackCreate(ObjBindMethod(implObj, "SetHelperTokenFlags"), flags, 2)
+        this.vtbl.GetHelperTokenFlags := CallbackCreate(ObjBindMethod(implObj, "GetHelperTokenFlags"), flags, 2)
+        this.vtbl.SetHelperToken := CallbackCreate(ObjBindMethod(implObj, "SetHelperToken"), flags, 1)
+        this.vtbl.ClearHelperToken := CallbackCreate(ObjBindMethod(implObj, "ClearHelperToken"), flags, 1)
+        this.vtbl.GetHelperTokenSid := CallbackCreate(ObjBindMethod(implObj, "GetHelperTokenSid"), flags, 2)
     }
 
     Dispose() {

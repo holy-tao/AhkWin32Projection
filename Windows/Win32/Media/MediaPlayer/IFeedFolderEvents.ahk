@@ -63,7 +63,6 @@ export default struct IFeedFolderEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _path 
      * @returns {HRESULT} 
      */
@@ -75,7 +74,6 @@ export default struct IFeedFolderEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _path 
      * @returns {HRESULT} 
      */
@@ -87,7 +85,6 @@ export default struct IFeedFolderEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _path 
      * @param {BSTR} oldPath 
      * @returns {HRESULT} 
@@ -101,7 +98,6 @@ export default struct IFeedFolderEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _path 
      * @param {BSTR} oldPath 
      * @returns {HRESULT} 
@@ -115,7 +111,6 @@ export default struct IFeedFolderEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _path 
      * @param {BSTR} oldPath 
      * @returns {HRESULT} 
@@ -129,7 +124,6 @@ export default struct IFeedFolderEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _path 
      * @param {Integer} itemCountType 
      * @returns {HRESULT} 
@@ -142,7 +136,6 @@ export default struct IFeedFolderEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _path 
      * @returns {HRESULT} 
      */
@@ -154,7 +147,6 @@ export default struct IFeedFolderEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _path 
      * @returns {HRESULT} 
      */
@@ -166,7 +158,6 @@ export default struct IFeedFolderEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _path 
      * @param {BSTR} oldPath 
      * @returns {HRESULT} 
@@ -180,7 +171,6 @@ export default struct IFeedFolderEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _path 
      * @returns {HRESULT} 
      */
@@ -192,7 +182,6 @@ export default struct IFeedFolderEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _path 
      * @param {BSTR} oldPath 
      * @returns {HRESULT} 
@@ -206,7 +195,6 @@ export default struct IFeedFolderEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _path 
      * @param {BSTR} oldPath 
      * @returns {HRESULT} 
@@ -220,7 +208,6 @@ export default struct IFeedFolderEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _path 
      * @returns {HRESULT} 
      */
@@ -232,7 +219,6 @@ export default struct IFeedFolderEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _path 
      * @param {FEEDS_DOWNLOAD_ERROR} _error 
      * @returns {HRESULT} 
@@ -245,7 +231,6 @@ export default struct IFeedFolderEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _path 
      * @param {Integer} itemCountType 
      * @returns {HRESULT} 
@@ -266,22 +251,22 @@ export default struct IFeedFolderEvents extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Error := CallbackCreate(GetMethod(implObj, "Error"), flags, 1)
-        this.vtbl.FolderAdded := CallbackCreate(GetMethod(implObj, "FolderAdded"), flags, 2)
-        this.vtbl.FolderDeleted := CallbackCreate(GetMethod(implObj, "FolderDeleted"), flags, 2)
-        this.vtbl.FolderRenamed := CallbackCreate(GetMethod(implObj, "FolderRenamed"), flags, 3)
-        this.vtbl.FolderMovedFrom := CallbackCreate(GetMethod(implObj, "FolderMovedFrom"), flags, 3)
-        this.vtbl.FolderMovedTo := CallbackCreate(GetMethod(implObj, "FolderMovedTo"), flags, 3)
-        this.vtbl.FolderItemCountChanged := CallbackCreate(GetMethod(implObj, "FolderItemCountChanged"), flags, 3)
-        this.vtbl.FeedAdded := CallbackCreate(GetMethod(implObj, "FeedAdded"), flags, 2)
-        this.vtbl.FeedDeleted := CallbackCreate(GetMethod(implObj, "FeedDeleted"), flags, 2)
-        this.vtbl.FeedRenamed := CallbackCreate(GetMethod(implObj, "FeedRenamed"), flags, 3)
-        this.vtbl.FeedUrlChanged := CallbackCreate(GetMethod(implObj, "FeedUrlChanged"), flags, 2)
-        this.vtbl.FeedMovedFrom := CallbackCreate(GetMethod(implObj, "FeedMovedFrom"), flags, 3)
-        this.vtbl.FeedMovedTo := CallbackCreate(GetMethod(implObj, "FeedMovedTo"), flags, 3)
-        this.vtbl.FeedDownloading := CallbackCreate(GetMethod(implObj, "FeedDownloading"), flags, 2)
-        this.vtbl.FeedDownloadCompleted := CallbackCreate(GetMethod(implObj, "FeedDownloadCompleted"), flags, 3)
-        this.vtbl.FeedItemCountChanged := CallbackCreate(GetMethod(implObj, "FeedItemCountChanged"), flags, 3)
+        this.vtbl.Error := CallbackCreate(ObjBindMethod(implObj, "Error"), flags, 1)
+        this.vtbl.FolderAdded := CallbackCreate(ObjBindMethod(implObj, "FolderAdded"), flags, 2)
+        this.vtbl.FolderDeleted := CallbackCreate(ObjBindMethod(implObj, "FolderDeleted"), flags, 2)
+        this.vtbl.FolderRenamed := CallbackCreate(ObjBindMethod(implObj, "FolderRenamed"), flags, 3)
+        this.vtbl.FolderMovedFrom := CallbackCreate(ObjBindMethod(implObj, "FolderMovedFrom"), flags, 3)
+        this.vtbl.FolderMovedTo := CallbackCreate(ObjBindMethod(implObj, "FolderMovedTo"), flags, 3)
+        this.vtbl.FolderItemCountChanged := CallbackCreate(ObjBindMethod(implObj, "FolderItemCountChanged"), flags, 3)
+        this.vtbl.FeedAdded := CallbackCreate(ObjBindMethod(implObj, "FeedAdded"), flags, 2)
+        this.vtbl.FeedDeleted := CallbackCreate(ObjBindMethod(implObj, "FeedDeleted"), flags, 2)
+        this.vtbl.FeedRenamed := CallbackCreate(ObjBindMethod(implObj, "FeedRenamed"), flags, 3)
+        this.vtbl.FeedUrlChanged := CallbackCreate(ObjBindMethod(implObj, "FeedUrlChanged"), flags, 2)
+        this.vtbl.FeedMovedFrom := CallbackCreate(ObjBindMethod(implObj, "FeedMovedFrom"), flags, 3)
+        this.vtbl.FeedMovedTo := CallbackCreate(ObjBindMethod(implObj, "FeedMovedTo"), flags, 3)
+        this.vtbl.FeedDownloading := CallbackCreate(ObjBindMethod(implObj, "FeedDownloading"), flags, 2)
+        this.vtbl.FeedDownloadCompleted := CallbackCreate(ObjBindMethod(implObj, "FeedDownloadCompleted"), flags, 3)
+        this.vtbl.FeedItemCountChanged := CallbackCreate(ObjBindMethod(implObj, "FeedItemCountChanged"), flags, 3)
     }
 
     Dispose() {

@@ -73,12 +73,12 @@ export default struct ITpmVirtualSmartCardManager extends IUnknown {
     CreateVirtualSmartCard(pszFriendlyName, bAdminAlgId, pbAdminKey, cbAdminKey, pbAdminKcv, cbAdminKcv, pbPuk, cbPuk, pbPin, cbPin, fGenerate, pStatusCallback, ppszInstanceId, pfNeedReboot) {
         pszFriendlyName := pszFriendlyName is String ? StrPtr(pszFriendlyName) : pszFriendlyName
 
-        pbAdminKeyMarshal := pbAdminKey is VarRef ? "char*" : "ptr"
-        pbAdminKcvMarshal := pbAdminKcv is VarRef ? "char*" : "ptr"
-        pbPukMarshal := pbPuk is VarRef ? "char*" : "ptr"
-        pbPinMarshal := pbPin is VarRef ? "char*" : "ptr"
-        ppszInstanceIdMarshal := ppszInstanceId is VarRef ? "ptr*" : "ptr"
-        pfNeedRebootMarshal := pfNeedReboot is VarRef ? "int*" : "ptr"
+        pbAdminKeyMarshal := pbAdminKey is VarRef ? "char*" : IntPtr
+        pbAdminKcvMarshal := pbAdminKcv is VarRef ? "char*" : IntPtr
+        pbPukMarshal := pbPuk is VarRef ? "char*" : IntPtr
+        pbPinMarshal := pbPin is VarRef ? "char*" : IntPtr
+        ppszInstanceIdMarshal := ppszInstanceId is VarRef ? "ptr*" : IntPtr
+        pfNeedRebootMarshal := pfNeedReboot is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, "ptr", pszFriendlyName, Int8, bAdminAlgId, pbAdminKeyMarshal, pbAdminKey, UInt32, cbAdminKey, pbAdminKcvMarshal, pbAdminKcv, UInt32, cbAdminKcv, pbPukMarshal, pbPuk, UInt32, cbPuk, pbPinMarshal, pbPin, UInt32, cbPin, BOOL, fGenerate, "ptr", pStatusCallback, ppszInstanceIdMarshal, ppszInstanceId, pfNeedRebootMarshal, pfNeedReboot, "HRESULT")
         return result
@@ -107,8 +107,8 @@ export default struct ITpmVirtualSmartCardManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateVirtualSmartCard := CallbackCreate(GetMethod(implObj, "CreateVirtualSmartCard"), flags, 15)
-        this.vtbl.DestroyVirtualSmartCard := CallbackCreate(GetMethod(implObj, "DestroyVirtualSmartCard"), flags, 4)
+        this.vtbl.CreateVirtualSmartCard := CallbackCreate(ObjBindMethod(implObj, "CreateVirtualSmartCard"), flags, 15)
+        this.vtbl.DestroyVirtualSmartCard := CallbackCreate(ObjBindMethod(implObj, "DestroyVirtualSmartCard"), flags, 4)
     }
 
     Dispose() {

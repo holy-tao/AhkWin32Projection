@@ -78,7 +78,6 @@ export default struct IMLangString extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetLength() {
@@ -87,7 +86,6 @@ export default struct IMLangString extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lDestPos 
      * @param {Integer} lDestLen 
      * @param {IUnknown} pSrcMLStr 
@@ -101,7 +99,6 @@ export default struct IMLangString extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lSrcPos 
      * @param {Integer} lSrcLen 
      * @param {IUnknown} pUnkOuter 
@@ -113,8 +110,10 @@ export default struct IMLangString extends IUnknown {
      * @returns {HRESULT} 
      */
     GetMLStr(lSrcPos, lSrcLen, pUnkOuter, dwClsContext, piid, ppDestMLStr, plDestPos, plDestLen) {
-        plDestPosMarshal := plDestPos is VarRef ? "int*" : "ptr"
-        plDestLenMarshal := plDestLen is VarRef ? "int*" : "ptr"
+        plDestPosMarshal := plDestPos is VarRef ? "int*" : IntPtr
+        plDestPosMarshal := plDestPos == 0 ? IntPtr : "int*"
+        plDestLenMarshal := plDestLen is VarRef ? "int*" : IntPtr
+        plDestLenMarshal := plDestLen == 0 ? IntPtr : "int*"
 
         result := ComCall(6, this, Int32, lSrcPos, Int32, lSrcLen, "ptr", pUnkOuter, UInt32, dwClsContext, Guid.Ptr, piid, IUnknown.Ptr, ppDestMLStr, plDestPosMarshal, plDestPos, plDestLenMarshal, plDestLen, "HRESULT")
         return result
@@ -129,10 +128,10 @@ export default struct IMLangString extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Sync := CallbackCreate(GetMethod(implObj, "Sync"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.SetMLStr := CallbackCreate(GetMethod(implObj, "SetMLStr"), flags, 6)
-        this.vtbl.GetMLStr := CallbackCreate(GetMethod(implObj, "GetMLStr"), flags, 9)
+        this.vtbl.Sync := CallbackCreate(ObjBindMethod(implObj, "Sync"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.SetMLStr := CallbackCreate(ObjBindMethod(implObj, "SetMLStr"), flags, 6)
+        this.vtbl.GetMLStr := CallbackCreate(ObjBindMethod(implObj, "GetMLStr"), flags, 9)
     }
 
     Dispose() {

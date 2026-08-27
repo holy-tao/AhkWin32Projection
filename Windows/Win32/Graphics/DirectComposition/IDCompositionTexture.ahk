@@ -42,7 +42,6 @@ export default struct IDCompositionTexture extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<D2D_RECT_U>} sourceRect 
      * @returns {HRESULT} 
      */
@@ -65,7 +64,6 @@ export default struct IDCompositionTexture extends IUnknown {
     }
 
     /**
-     * 
      * @param {DXGI_ALPHA_MODE} alphaMode 
      * @returns {HRESULT} 
      */
@@ -75,15 +73,14 @@ export default struct IDCompositionTexture extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} fenceValue 
      * @param {Pointer<Guid>} iid 
      * @param {Pointer<Pointer<Void>>} availableFence 
      * @returns {HRESULT} 
      */
     GetAvailableFence(fenceValue, iid, availableFence) {
-        fenceValueMarshal := fenceValue is VarRef ? "uint*" : "ptr"
-        availableFenceMarshal := availableFence is VarRef ? "ptr*" : "ptr"
+        fenceValueMarshal := fenceValue is VarRef ? "uint*" : IntPtr
+        availableFenceMarshal := availableFence is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(6, this, fenceValueMarshal, fenceValue, Guid.Ptr, iid, availableFenceMarshal, availableFence, "HRESULT")
         return result
@@ -98,10 +95,10 @@ export default struct IDCompositionTexture extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetSourceRect := CallbackCreate(GetMethod(implObj, "SetSourceRect"), flags, 2)
-        this.vtbl.SetColorSpace := CallbackCreate(GetMethod(implObj, "SetColorSpace"), flags, 2)
-        this.vtbl.SetAlphaMode := CallbackCreate(GetMethod(implObj, "SetAlphaMode"), flags, 2)
-        this.vtbl.GetAvailableFence := CallbackCreate(GetMethod(implObj, "GetAvailableFence"), flags, 4)
+        this.vtbl.SetSourceRect := CallbackCreate(ObjBindMethod(implObj, "SetSourceRect"), flags, 2)
+        this.vtbl.SetColorSpace := CallbackCreate(ObjBindMethod(implObj, "SetColorSpace"), flags, 2)
+        this.vtbl.SetAlphaMode := CallbackCreate(ObjBindMethod(implObj, "SetAlphaMode"), flags, 2)
+        this.vtbl.GetAvailableFence := CallbackCreate(ObjBindMethod(implObj, "GetAvailableFence"), flags, 4)
     }
 
     Dispose() {

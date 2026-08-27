@@ -22,7 +22,6 @@ export default struct PFN_D3D12_SERIALIZE_ROOT_SIGNATURE {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_ROOT_SIGNATURE_DESC>} pRootSignature 
      * @param {D3D_ROOT_SIGNATURE_VERSION} _Version 
      * @param {Pointer<ID3DBlob>} ppBlob 
@@ -30,7 +29,9 @@ export default struct PFN_D3D12_SERIALIZE_ROOT_SIGNATURE {
      * @returns {HRESULT} 
      */
     Call(pRootSignature, _Version, ppBlob, ppErrorBlob) {
-        result := DllCall(this.value, D3D12_ROOT_SIGNATURE_DESC.Ptr, pRootSignature, D3D_ROOT_SIGNATURE_VERSION, _Version, ID3DBlob.Ptr, ppBlob, ID3DBlob.Ptr, ppErrorBlob, "HRESULT")
+        ppErrorBlobMarshal := ppErrorBlob == 0 ? IntPtr : ID3DBlob.Ptr
+
+        result := DllCall(this.value, D3D12_ROOT_SIGNATURE_DESC.Ptr, pRootSignature, D3D_ROOT_SIGNATURE_VERSION, _Version, ID3DBlob.Ptr, ppBlob, ppErrorBlobMarshal, ppErrorBlob, "HRESULT")
         return result
     }
 

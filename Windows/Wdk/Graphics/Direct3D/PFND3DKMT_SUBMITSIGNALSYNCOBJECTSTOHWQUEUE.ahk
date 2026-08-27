@@ -20,7 +20,6 @@ export default struct PFND3DKMT_SUBMITSIGNALSYNCOBJECTSTOHWQUEUE {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SUBMITSIGNALSYNCOBJECTSTOHWQUEUE>} param0 
      * @returns {NTSTATUS} 
      */

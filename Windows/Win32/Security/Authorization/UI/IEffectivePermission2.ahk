@@ -85,12 +85,21 @@ export default struct IEffectivePermission2 extends IUnknown {
     ComputeEffectivePermissionWithSecondarySecurity(_pSid, pDeviceSid, pszServerName, pSecurityObjects, dwSecurityObjectCount, pUserGroups, pAuthzUserGroupsOperations, pDeviceGroups, pAuthzDeviceGroupsOperations, pAuthzUserClaims, pAuthzUserClaimsOperations, pAuthzDeviceClaims, pAuthzDeviceClaimsOperations, pEffpermResultLists) {
         pszServerName := pszServerName is String ? StrPtr(pszServerName) : pszServerName
 
-        pAuthzUserGroupsOperationsMarshal := pAuthzUserGroupsOperations is VarRef ? "int*" : "ptr"
-        pAuthzDeviceGroupsOperationsMarshal := pAuthzDeviceGroupsOperations is VarRef ? "int*" : "ptr"
-        pAuthzUserClaimsOperationsMarshal := pAuthzUserClaimsOperations is VarRef ? "int*" : "ptr"
-        pAuthzDeviceClaimsOperationsMarshal := pAuthzDeviceClaimsOperations is VarRef ? "int*" : "ptr"
+        pDeviceSidMarshal := pDeviceSid == 0 ? IntPtr : PSID
+        pUserGroupsMarshal := pUserGroups == 0 ? IntPtr : TOKEN_GROUPS.Ptr
+        pAuthzUserGroupsOperationsMarshal := pAuthzUserGroupsOperations is VarRef ? "int*" : IntPtr
+        pAuthzUserGroupsOperationsMarshal := pAuthzUserGroupsOperations == 0 ? IntPtr : "int*"
+        pDeviceGroupsMarshal := pDeviceGroups == 0 ? IntPtr : TOKEN_GROUPS.Ptr
+        pAuthzDeviceGroupsOperationsMarshal := pAuthzDeviceGroupsOperations is VarRef ? "int*" : IntPtr
+        pAuthzDeviceGroupsOperationsMarshal := pAuthzDeviceGroupsOperations == 0 ? IntPtr : "int*"
+        pAuthzUserClaimsMarshal := pAuthzUserClaims == 0 ? IntPtr : AUTHZ_SECURITY_ATTRIBUTES_INFORMATION.Ptr
+        pAuthzUserClaimsOperationsMarshal := pAuthzUserClaimsOperations is VarRef ? "int*" : IntPtr
+        pAuthzUserClaimsOperationsMarshal := pAuthzUserClaimsOperations == 0 ? IntPtr : "int*"
+        pAuthzDeviceClaimsMarshal := pAuthzDeviceClaims == 0 ? IntPtr : AUTHZ_SECURITY_ATTRIBUTES_INFORMATION.Ptr
+        pAuthzDeviceClaimsOperationsMarshal := pAuthzDeviceClaimsOperations is VarRef ? "int*" : IntPtr
+        pAuthzDeviceClaimsOperationsMarshal := pAuthzDeviceClaimsOperations == 0 ? IntPtr : "int*"
 
-        result := ComCall(3, this, PSID, _pSid, PSID, pDeviceSid, "ptr", pszServerName, SECURITY_OBJECT.Ptr, pSecurityObjects, UInt32, dwSecurityObjectCount, TOKEN_GROUPS.Ptr, pUserGroups, pAuthzUserGroupsOperationsMarshal, pAuthzUserGroupsOperations, TOKEN_GROUPS.Ptr, pDeviceGroups, pAuthzDeviceGroupsOperationsMarshal, pAuthzDeviceGroupsOperations, AUTHZ_SECURITY_ATTRIBUTES_INFORMATION.Ptr, pAuthzUserClaims, pAuthzUserClaimsOperationsMarshal, pAuthzUserClaimsOperations, AUTHZ_SECURITY_ATTRIBUTES_INFORMATION.Ptr, pAuthzDeviceClaims, pAuthzDeviceClaimsOperationsMarshal, pAuthzDeviceClaimsOperations, EFFPERM_RESULT_LIST.Ptr, pEffpermResultLists, "HRESULT")
+        result := ComCall(3, this, PSID, _pSid, pDeviceSidMarshal, pDeviceSid, "ptr", pszServerName, SECURITY_OBJECT.Ptr, pSecurityObjects, UInt32, dwSecurityObjectCount, pUserGroupsMarshal, pUserGroups, pAuthzUserGroupsOperationsMarshal, pAuthzUserGroupsOperations, pDeviceGroupsMarshal, pDeviceGroups, pAuthzDeviceGroupsOperationsMarshal, pAuthzDeviceGroupsOperations, pAuthzUserClaimsMarshal, pAuthzUserClaims, pAuthzUserClaimsOperationsMarshal, pAuthzUserClaimsOperations, pAuthzDeviceClaimsMarshal, pAuthzDeviceClaims, pAuthzDeviceClaimsOperationsMarshal, pAuthzDeviceClaimsOperations, EFFPERM_RESULT_LIST.Ptr, pEffpermResultLists, "HRESULT")
         return result
     }
 
@@ -103,7 +112,7 @@ export default struct IEffectivePermission2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ComputeEffectivePermissionWithSecondarySecurity := CallbackCreate(GetMethod(implObj, "ComputeEffectivePermissionWithSecondarySecurity"), flags, 15)
+        this.vtbl.ComputeEffectivePermissionWithSecondarySecurity := CallbackCreate(ObjBindMethod(implObj, "ComputeEffectivePermissionWithSecondarySecurity"), flags, 15)
     }
 
     Dispose() {

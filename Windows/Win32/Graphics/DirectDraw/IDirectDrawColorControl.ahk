@@ -101,8 +101,8 @@ export default struct IDirectDrawColorControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetColorControls := CallbackCreate(GetMethod(implObj, "GetColorControls"), flags, 2)
-        this.vtbl.SetColorControls := CallbackCreate(GetMethod(implObj, "SetColorControls"), flags, 2)
+        this.vtbl.GetColorControls := CallbackCreate(ObjBindMethod(implObj, "GetColorControls"), flags, 2)
+        this.vtbl.SetColorControls := CallbackCreate(ObjBindMethod(implObj, "SetColorControls"), flags, 2)
     }
 
     Dispose() {

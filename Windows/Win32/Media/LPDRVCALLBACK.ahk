@@ -19,7 +19,6 @@ export default struct LPDRVCALLBACK {
     }
 
     /**
-     * 
      * @param {HDRVR} _hdrvr 
      * @param {Integer} uMsg 
      * @param {Pointer} dwUser 

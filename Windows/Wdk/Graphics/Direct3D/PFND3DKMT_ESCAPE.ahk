@@ -20,7 +20,6 @@ export default struct PFND3DKMT_ESCAPE {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_ESCAPE>} param0 
      * @returns {NTSTATUS} 
      */

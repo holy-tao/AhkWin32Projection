@@ -21,14 +21,14 @@ export default struct IO_COMPLETION_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<Void>} _Context 
      * @returns {NTSTATUS} 
      */
     Call(DeviceObject, _Irp, _Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, DEVICE_OBJECT.Ptr, DeviceObject, IRP.Ptr, _Irp, _ContextMarshal, _Context, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

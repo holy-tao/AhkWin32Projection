@@ -116,10 +116,10 @@ export default struct INetworkSettings extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
-        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
-        this.vtbl.put_Id := CallbackCreate(GetMethod(implObj, "put_Id"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(ObjBindMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(ObjBindMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.put_Id := CallbackCreate(ObjBindMethod(implObj, "put_Id"), flags, 2)
     }
 
     Dispose() {

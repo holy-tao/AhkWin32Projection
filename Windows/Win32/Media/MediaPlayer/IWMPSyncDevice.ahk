@@ -326,7 +326,7 @@ export default struct IWMPSyncDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice-get_partnershipindex
      */
     get_partnershipIndex(plIndex) {
-        plIndexMarshal := plIndex is VarRef ? "int*" : "ptr"
+        plIndexMarshal := plIndex is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, plIndexMarshal, plIndex, "HRESULT")
         return result
@@ -387,7 +387,7 @@ export default struct IWMPSyncDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice-get_connected
      */
     get_connected(pvbConnected) {
-        pvbConnectedMarshal := pvbConnected is VarRef ? "short*" : "ptr"
+        pvbConnectedMarshal := pvbConnected is VarRef ? "short*" : IntPtr
 
         result := ComCall(8, this, pvbConnectedMarshal, pvbConnected, "HRESULT")
         return result
@@ -433,7 +433,7 @@ export default struct IWMPSyncDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice-get_status
      */
     get_status(pwmpds) {
-        pwmpdsMarshal := pwmpds is VarRef ? "int*" : "ptr"
+        pwmpdsMarshal := pwmpds is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, pwmpdsMarshal, pwmpds, "HRESULT")
         return result
@@ -479,7 +479,7 @@ export default struct IWMPSyncDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice-get_syncstate
      */
     get_syncState(pwmpss) {
-        pwmpssMarshal := pwmpss is VarRef ? "int*" : "ptr"
+        pwmpssMarshal := pwmpss is VarRef ? "int*" : IntPtr
 
         result := ComCall(10, this, pwmpssMarshal, pwmpss, "HRESULT")
         return result
@@ -525,7 +525,7 @@ export default struct IWMPSyncDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice-get_progress
      */
     get_progress(plProgress) {
-        plProgressMarshal := plProgress is VarRef ? "int*" : "ptr"
+        plProgressMarshal := plProgress is VarRef ? "int*" : IntPtr
 
         result := ComCall(11, this, plProgressMarshal, plProgress, "HRESULT")
         return result
@@ -1166,7 +1166,7 @@ export default struct IWMPSyncDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice-isidentical
      */
     isIdentical(pDevice, pvbool) {
-        pvboolMarshal := pvbool is VarRef ? "short*" : "ptr"
+        pvboolMarshal := pvbool is VarRef ? "short*" : IntPtr
 
         result := ComCall(18, this, "ptr", pDevice, pvboolMarshal, pvbool, "HRESULT")
         return result
@@ -1181,22 +1181,22 @@ export default struct IWMPSyncDevice extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_friendlyName := CallbackCreate(GetMethod(implObj, "get_friendlyName"), flags, 2)
-        this.vtbl.put_friendlyName := CallbackCreate(GetMethod(implObj, "put_friendlyName"), flags, 2)
-        this.vtbl.get_deviceName := CallbackCreate(GetMethod(implObj, "get_deviceName"), flags, 2)
-        this.vtbl.get_deviceId := CallbackCreate(GetMethod(implObj, "get_deviceId"), flags, 2)
-        this.vtbl.get_partnershipIndex := CallbackCreate(GetMethod(implObj, "get_partnershipIndex"), flags, 2)
-        this.vtbl.get_connected := CallbackCreate(GetMethod(implObj, "get_connected"), flags, 2)
-        this.vtbl.get_status := CallbackCreate(GetMethod(implObj, "get_status"), flags, 2)
-        this.vtbl.get_syncState := CallbackCreate(GetMethod(implObj, "get_syncState"), flags, 2)
-        this.vtbl.get_progress := CallbackCreate(GetMethod(implObj, "get_progress"), flags, 2)
-        this.vtbl.getItemInfo := CallbackCreate(GetMethod(implObj, "getItemInfo"), flags, 3)
-        this.vtbl.createPartnership := CallbackCreate(GetMethod(implObj, "createPartnership"), flags, 2)
-        this.vtbl.deletePartnership := CallbackCreate(GetMethod(implObj, "deletePartnership"), flags, 1)
-        this.vtbl.start := CallbackCreate(GetMethod(implObj, "start"), flags, 1)
-        this.vtbl.stop := CallbackCreate(GetMethod(implObj, "stop"), flags, 1)
-        this.vtbl.showSettings := CallbackCreate(GetMethod(implObj, "showSettings"), flags, 1)
-        this.vtbl.isIdentical := CallbackCreate(GetMethod(implObj, "isIdentical"), flags, 3)
+        this.vtbl.get_friendlyName := CallbackCreate(ObjBindMethod(implObj, "get_friendlyName"), flags, 2)
+        this.vtbl.put_friendlyName := CallbackCreate(ObjBindMethod(implObj, "put_friendlyName"), flags, 2)
+        this.vtbl.get_deviceName := CallbackCreate(ObjBindMethod(implObj, "get_deviceName"), flags, 2)
+        this.vtbl.get_deviceId := CallbackCreate(ObjBindMethod(implObj, "get_deviceId"), flags, 2)
+        this.vtbl.get_partnershipIndex := CallbackCreate(ObjBindMethod(implObj, "get_partnershipIndex"), flags, 2)
+        this.vtbl.get_connected := CallbackCreate(ObjBindMethod(implObj, "get_connected"), flags, 2)
+        this.vtbl.get_status := CallbackCreate(ObjBindMethod(implObj, "get_status"), flags, 2)
+        this.vtbl.get_syncState := CallbackCreate(ObjBindMethod(implObj, "get_syncState"), flags, 2)
+        this.vtbl.get_progress := CallbackCreate(ObjBindMethod(implObj, "get_progress"), flags, 2)
+        this.vtbl.getItemInfo := CallbackCreate(ObjBindMethod(implObj, "getItemInfo"), flags, 3)
+        this.vtbl.createPartnership := CallbackCreate(ObjBindMethod(implObj, "createPartnership"), flags, 2)
+        this.vtbl.deletePartnership := CallbackCreate(ObjBindMethod(implObj, "deletePartnership"), flags, 1)
+        this.vtbl.start := CallbackCreate(ObjBindMethod(implObj, "start"), flags, 1)
+        this.vtbl.stop := CallbackCreate(ObjBindMethod(implObj, "stop"), flags, 1)
+        this.vtbl.showSettings := CallbackCreate(ObjBindMethod(implObj, "showSettings"), flags, 1)
+        this.vtbl.isIdentical := CallbackCreate(ObjBindMethod(implObj, "isIdentical"), flags, 3)
     }
 
     Dispose() {

@@ -454,16 +454,16 @@ export default struct IOleInPlaceSite extends IOleWindow {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CanInPlaceActivate := CallbackCreate(GetMethod(implObj, "CanInPlaceActivate"), flags, 1)
-        this.vtbl.OnInPlaceActivate := CallbackCreate(GetMethod(implObj, "OnInPlaceActivate"), flags, 1)
-        this.vtbl.OnUIActivate := CallbackCreate(GetMethod(implObj, "OnUIActivate"), flags, 1)
-        this.vtbl.GetWindowContext := CallbackCreate(GetMethod(implObj, "GetWindowContext"), flags, 6)
-        this.vtbl.Scroll := CallbackCreate(GetMethod(implObj, "Scroll"), flags, 2)
-        this.vtbl.OnUIDeactivate := CallbackCreate(GetMethod(implObj, "OnUIDeactivate"), flags, 2)
-        this.vtbl.OnInPlaceDeactivate := CallbackCreate(GetMethod(implObj, "OnInPlaceDeactivate"), flags, 1)
-        this.vtbl.DiscardUndoState := CallbackCreate(GetMethod(implObj, "DiscardUndoState"), flags, 1)
-        this.vtbl.DeactivateAndUndo := CallbackCreate(GetMethod(implObj, "DeactivateAndUndo"), flags, 1)
-        this.vtbl.OnPosRectChange := CallbackCreate(GetMethod(implObj, "OnPosRectChange"), flags, 2)
+        this.vtbl.CanInPlaceActivate := CallbackCreate(ObjBindMethod(implObj, "CanInPlaceActivate"), flags, 1)
+        this.vtbl.OnInPlaceActivate := CallbackCreate(ObjBindMethod(implObj, "OnInPlaceActivate"), flags, 1)
+        this.vtbl.OnUIActivate := CallbackCreate(ObjBindMethod(implObj, "OnUIActivate"), flags, 1)
+        this.vtbl.GetWindowContext := CallbackCreate(ObjBindMethod(implObj, "GetWindowContext"), flags, 6)
+        this.vtbl.Scroll := CallbackCreate(ObjBindMethod(implObj, "Scroll"), flags, 2)
+        this.vtbl.OnUIDeactivate := CallbackCreate(ObjBindMethod(implObj, "OnUIDeactivate"), flags, 2)
+        this.vtbl.OnInPlaceDeactivate := CallbackCreate(ObjBindMethod(implObj, "OnInPlaceDeactivate"), flags, 1)
+        this.vtbl.DiscardUndoState := CallbackCreate(ObjBindMethod(implObj, "DiscardUndoState"), flags, 1)
+        this.vtbl.DeactivateAndUndo := CallbackCreate(ObjBindMethod(implObj, "DeactivateAndUndo"), flags, 1)
+        this.vtbl.OnPosRectChange := CallbackCreate(ObjBindMethod(implObj, "OnPosRectChange"), flags, 2)
     }
 
     Dispose() {

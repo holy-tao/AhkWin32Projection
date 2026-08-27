@@ -87,8 +87,8 @@ export default struct IUpdate5 extends IUpdate4 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_AutoSelection := CallbackCreate(GetMethod(implObj, "get_AutoSelection"), flags, 2)
-        this.vtbl.get_AutoDownload := CallbackCreate(GetMethod(implObj, "get_AutoDownload"), flags, 2)
+        this.vtbl.get_AutoSelection := CallbackCreate(ObjBindMethod(implObj, "get_AutoSelection"), flags, 2)
+        this.vtbl.get_AutoDownload := CallbackCreate(ObjBindMethod(implObj, "get_AutoDownload"), flags, 2)
     }
 
     Dispose() {

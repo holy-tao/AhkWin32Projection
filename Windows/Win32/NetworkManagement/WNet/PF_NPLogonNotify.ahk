@@ -20,7 +20,6 @@ export default struct PF_NPLogonNotify {
     }
 
     /**
-     * 
      * @param {Pointer<LUID>} lpLogonId 
      * @param {PWSTR} lpAuthentInfoType 
      * @param {Pointer<Void>} lpAuthentInfo 
@@ -36,12 +35,15 @@ export default struct PF_NPLogonNotify {
         lpPreviousAuthentInfoType := lpPreviousAuthentInfoType is String ? StrPtr(lpPreviousAuthentInfoType) : lpPreviousAuthentInfoType
         lpStationName := lpStationName is String ? StrPtr(lpStationName) : lpStationName
 
-        lpAuthentInfoMarshal := lpAuthentInfo is VarRef ? "ptr" : "ptr"
-        lpPreviousAuthentInfoMarshal := lpPreviousAuthentInfo is VarRef ? "ptr" : "ptr"
-        StationHandleMarshal := StationHandle is VarRef ? "ptr" : "ptr"
-        lpLogonScriptMarshal := lpLogonScript is VarRef ? "ptr*" : "ptr"
+        lpAuthentInfoMarshal := lpAuthentInfo is VarRef ? "ptr" : IntPtr
+        lpPreviousAuthentInfoTypeMarshal := lpPreviousAuthentInfoType == 0 ? IntPtr : PWSTR
+        lpPreviousAuthentInfoMarshal := lpPreviousAuthentInfo is VarRef ? "ptr" : IntPtr
+        lpPreviousAuthentInfoMarshal := lpPreviousAuthentInfo == 0 ? IntPtr : "ptr"
+        StationHandleMarshal := StationHandle is VarRef ? "ptr" : IntPtr
+        StationHandleMarshal := StationHandle == 0 ? IntPtr : "ptr"
+        lpLogonScriptMarshal := lpLogonScript is VarRef ? "ptr*" : IntPtr
 
-        result := DllCall(this.value, LUID.Ptr, lpLogonId, "ptr", lpAuthentInfoType, lpAuthentInfoMarshal, lpAuthentInfo, "ptr", lpPreviousAuthentInfoType, lpPreviousAuthentInfoMarshal, lpPreviousAuthentInfo, "ptr", lpStationName, StationHandleMarshal, StationHandle, lpLogonScriptMarshal, lpLogonScript, UInt32)
+        result := DllCall(this.value, LUID.Ptr, lpLogonId, "ptr", lpAuthentInfoType, lpAuthentInfoMarshal, lpAuthentInfo, lpPreviousAuthentInfoTypeMarshal, lpPreviousAuthentInfoType, lpPreviousAuthentInfoMarshal, lpPreviousAuthentInfo, "ptr", lpStationName, StationHandleMarshal, StationHandle, lpLogonScriptMarshal, lpLogonScript, UInt32)
         return result
     }
 

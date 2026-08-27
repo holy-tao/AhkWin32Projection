@@ -91,10 +91,10 @@ export default struct IMFTransform extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-imftransform-getstreamlimits
      */
     GetStreamLimits(pdwInputMinimum, pdwInputMaximum, pdwOutputMinimum, pdwOutputMaximum) {
-        pdwInputMinimumMarshal := pdwInputMinimum is VarRef ? "uint*" : "ptr"
-        pdwInputMaximumMarshal := pdwInputMaximum is VarRef ? "uint*" : "ptr"
-        pdwOutputMinimumMarshal := pdwOutputMinimum is VarRef ? "uint*" : "ptr"
-        pdwOutputMaximumMarshal := pdwOutputMaximum is VarRef ? "uint*" : "ptr"
+        pdwInputMinimumMarshal := pdwInputMinimum is VarRef ? "uint*" : IntPtr
+        pdwInputMaximumMarshal := pdwInputMaximum is VarRef ? "uint*" : IntPtr
+        pdwOutputMinimumMarshal := pdwOutputMinimum is VarRef ? "uint*" : IntPtr
+        pdwOutputMaximumMarshal := pdwOutputMaximum is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pdwInputMinimumMarshal, pdwInputMinimum, pdwInputMaximumMarshal, pdwInputMaximum, pdwOutputMinimumMarshal, pdwOutputMinimum, pdwOutputMaximumMarshal, pdwOutputMaximum, "HRESULT")
         return result
@@ -115,8 +115,8 @@ export default struct IMFTransform extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-imftransform-getstreamcount
      */
     GetStreamCount(pcInputStreams, pcOutputStreams) {
-        pcInputStreamsMarshal := pcInputStreams is VarRef ? "uint*" : "ptr"
-        pcOutputStreamsMarshal := pcOutputStreams is VarRef ? "uint*" : "ptr"
+        pcInputStreamsMarshal := pcInputStreams is VarRef ? "uint*" : IntPtr
+        pcOutputStreamsMarshal := pcOutputStreams is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pcInputStreamsMarshal, pcInputStreams, pcOutputStreamsMarshal, pcOutputStreams, "HRESULT")
         return result
@@ -214,8 +214,8 @@ export default struct IMFTransform extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-imftransform-getstreamids
      */
     GetStreamIDs(dwInputIDArraySize, pdwInputIDs, dwOutputIDArraySize, pdwOutputIDs) {
-        pdwInputIDsMarshal := pdwInputIDs is VarRef ? "uint*" : "ptr"
-        pdwOutputIDsMarshal := pdwOutputIDs is VarRef ? "uint*" : "ptr"
+        pdwInputIDsMarshal := pdwInputIDs is VarRef ? "uint*" : IntPtr
+        pdwOutputIDsMarshal := pdwOutputIDs is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, UInt32, dwInputIDArraySize, pdwInputIDsMarshal, pdwInputIDs, UInt32, dwOutputIDArraySize, pdwOutputIDsMarshal, pdwOutputIDs, "HRESULT")
         return result
@@ -448,7 +448,7 @@ export default struct IMFTransform extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-imftransform-addinputstreams
      */
     AddInputStreams(cStreams, adwStreamIDs) {
-        adwStreamIDsMarshal := adwStreamIDs is VarRef ? "uint*" : "ptr"
+        adwStreamIDsMarshal := adwStreamIDs is VarRef ? "uint*" : IntPtr
 
         result := ComCall(12, this, UInt32, cStreams, adwStreamIDsMarshal, adwStreamIDs, "HRESULT")
         return result
@@ -1379,29 +1379,29 @@ export default struct IMFTransform extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStreamLimits := CallbackCreate(GetMethod(implObj, "GetStreamLimits"), flags, 5)
-        this.vtbl.GetStreamCount := CallbackCreate(GetMethod(implObj, "GetStreamCount"), flags, 3)
-        this.vtbl.GetStreamIDs := CallbackCreate(GetMethod(implObj, "GetStreamIDs"), flags, 5)
-        this.vtbl.GetInputStreamInfo := CallbackCreate(GetMethod(implObj, "GetInputStreamInfo"), flags, 3)
-        this.vtbl.GetOutputStreamInfo := CallbackCreate(GetMethod(implObj, "GetOutputStreamInfo"), flags, 3)
-        this.vtbl.GetAttributes := CallbackCreate(GetMethod(implObj, "GetAttributes"), flags, 2)
-        this.vtbl.GetInputStreamAttributes := CallbackCreate(GetMethod(implObj, "GetInputStreamAttributes"), flags, 3)
-        this.vtbl.GetOutputStreamAttributes := CallbackCreate(GetMethod(implObj, "GetOutputStreamAttributes"), flags, 3)
-        this.vtbl.DeleteInputStream := CallbackCreate(GetMethod(implObj, "DeleteInputStream"), flags, 2)
-        this.vtbl.AddInputStreams := CallbackCreate(GetMethod(implObj, "AddInputStreams"), flags, 3)
-        this.vtbl.GetInputAvailableType := CallbackCreate(GetMethod(implObj, "GetInputAvailableType"), flags, 4)
-        this.vtbl.GetOutputAvailableType := CallbackCreate(GetMethod(implObj, "GetOutputAvailableType"), flags, 4)
-        this.vtbl.SetInputType := CallbackCreate(GetMethod(implObj, "SetInputType"), flags, 4)
-        this.vtbl.SetOutputType := CallbackCreate(GetMethod(implObj, "SetOutputType"), flags, 4)
-        this.vtbl.GetInputCurrentType := CallbackCreate(GetMethod(implObj, "GetInputCurrentType"), flags, 3)
-        this.vtbl.GetOutputCurrentType := CallbackCreate(GetMethod(implObj, "GetOutputCurrentType"), flags, 3)
-        this.vtbl.GetInputStatus := CallbackCreate(GetMethod(implObj, "GetInputStatus"), flags, 3)
-        this.vtbl.GetOutputStatus := CallbackCreate(GetMethod(implObj, "GetOutputStatus"), flags, 2)
-        this.vtbl.SetOutputBounds := CallbackCreate(GetMethod(implObj, "SetOutputBounds"), flags, 3)
-        this.vtbl.ProcessEvent := CallbackCreate(GetMethod(implObj, "ProcessEvent"), flags, 3)
-        this.vtbl.ProcessMessage := CallbackCreate(GetMethod(implObj, "ProcessMessage"), flags, 3)
-        this.vtbl.ProcessInput := CallbackCreate(GetMethod(implObj, "ProcessInput"), flags, 4)
-        this.vtbl.ProcessOutput := CallbackCreate(GetMethod(implObj, "ProcessOutput"), flags, 5)
+        this.vtbl.GetStreamLimits := CallbackCreate(ObjBindMethod(implObj, "GetStreamLimits"), flags, 5)
+        this.vtbl.GetStreamCount := CallbackCreate(ObjBindMethod(implObj, "GetStreamCount"), flags, 3)
+        this.vtbl.GetStreamIDs := CallbackCreate(ObjBindMethod(implObj, "GetStreamIDs"), flags, 5)
+        this.vtbl.GetInputStreamInfo := CallbackCreate(ObjBindMethod(implObj, "GetInputStreamInfo"), flags, 3)
+        this.vtbl.GetOutputStreamInfo := CallbackCreate(ObjBindMethod(implObj, "GetOutputStreamInfo"), flags, 3)
+        this.vtbl.GetAttributes := CallbackCreate(ObjBindMethod(implObj, "GetAttributes"), flags, 2)
+        this.vtbl.GetInputStreamAttributes := CallbackCreate(ObjBindMethod(implObj, "GetInputStreamAttributes"), flags, 3)
+        this.vtbl.GetOutputStreamAttributes := CallbackCreate(ObjBindMethod(implObj, "GetOutputStreamAttributes"), flags, 3)
+        this.vtbl.DeleteInputStream := CallbackCreate(ObjBindMethod(implObj, "DeleteInputStream"), flags, 2)
+        this.vtbl.AddInputStreams := CallbackCreate(ObjBindMethod(implObj, "AddInputStreams"), flags, 3)
+        this.vtbl.GetInputAvailableType := CallbackCreate(ObjBindMethod(implObj, "GetInputAvailableType"), flags, 4)
+        this.vtbl.GetOutputAvailableType := CallbackCreate(ObjBindMethod(implObj, "GetOutputAvailableType"), flags, 4)
+        this.vtbl.SetInputType := CallbackCreate(ObjBindMethod(implObj, "SetInputType"), flags, 4)
+        this.vtbl.SetOutputType := CallbackCreate(ObjBindMethod(implObj, "SetOutputType"), flags, 4)
+        this.vtbl.GetInputCurrentType := CallbackCreate(ObjBindMethod(implObj, "GetInputCurrentType"), flags, 3)
+        this.vtbl.GetOutputCurrentType := CallbackCreate(ObjBindMethod(implObj, "GetOutputCurrentType"), flags, 3)
+        this.vtbl.GetInputStatus := CallbackCreate(ObjBindMethod(implObj, "GetInputStatus"), flags, 3)
+        this.vtbl.GetOutputStatus := CallbackCreate(ObjBindMethod(implObj, "GetOutputStatus"), flags, 2)
+        this.vtbl.SetOutputBounds := CallbackCreate(ObjBindMethod(implObj, "SetOutputBounds"), flags, 3)
+        this.vtbl.ProcessEvent := CallbackCreate(ObjBindMethod(implObj, "ProcessEvent"), flags, 3)
+        this.vtbl.ProcessMessage := CallbackCreate(ObjBindMethod(implObj, "ProcessMessage"), flags, 3)
+        this.vtbl.ProcessInput := CallbackCreate(ObjBindMethod(implObj, "ProcessInput"), flags, 4)
+        this.vtbl.ProcessOutput := CallbackCreate(ObjBindMethod(implObj, "ProcessOutput"), flags, 5)
     }
 
     Dispose() {

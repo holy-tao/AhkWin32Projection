@@ -43,7 +43,6 @@ export default struct ICorProfilerCallback4 extends ICorProfilerCallback3 {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {Pointer} rejitId 
      * @param {BOOL} fIsSafeToBlock 
@@ -55,7 +54,6 @@ export default struct ICorProfilerCallback4 extends ICorProfilerCallback3 {
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @param {Integer} methodId 
      * @param {ICorProfilerFunctionControl} pFunctionControl 
@@ -67,7 +65,6 @@ export default struct ICorProfilerCallback4 extends ICorProfilerCallback3 {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {Pointer} rejitId 
      * @param {HRESULT} hrStatus 
@@ -80,7 +77,6 @@ export default struct ICorProfilerCallback4 extends ICorProfilerCallback3 {
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @param {Integer} methodId 
      * @param {Pointer} functionId 
@@ -93,7 +89,6 @@ export default struct ICorProfilerCallback4 extends ICorProfilerCallback3 {
     }
 
     /**
-     * 
      * @param {Integer} cMovedObjectIDRanges 
      * @param {Pointer<Pointer>} oldObjectIDRangeStart 
      * @param {Pointer<Pointer>} newObjectIDRangeStart 
@@ -101,24 +96,23 @@ export default struct ICorProfilerCallback4 extends ICorProfilerCallback3 {
      * @returns {HRESULT} 
      */
     MovedReferences2(cMovedObjectIDRanges, oldObjectIDRangeStart, newObjectIDRangeStart, cObjectIDRangeLength) {
-        oldObjectIDRangeStartMarshal := oldObjectIDRangeStart is VarRef ? "ptr*" : "ptr"
-        newObjectIDRangeStartMarshal := newObjectIDRangeStart is VarRef ? "ptr*" : "ptr"
-        cObjectIDRangeLengthMarshal := cObjectIDRangeLength is VarRef ? "ptr*" : "ptr"
+        oldObjectIDRangeStartMarshal := oldObjectIDRangeStart is VarRef ? "ptr*" : IntPtr
+        newObjectIDRangeStartMarshal := newObjectIDRangeStart is VarRef ? "ptr*" : IntPtr
+        cObjectIDRangeLengthMarshal := cObjectIDRangeLength is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(87, this, UInt32, cMovedObjectIDRanges, oldObjectIDRangeStartMarshal, oldObjectIDRangeStart, newObjectIDRangeStartMarshal, newObjectIDRangeStart, cObjectIDRangeLengthMarshal, cObjectIDRangeLength, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} cSurvivingObjectIDRanges 
      * @param {Pointer<Pointer>} objectIDRangeStart 
      * @param {Pointer<Pointer>} cObjectIDRangeLength 
      * @returns {HRESULT} 
      */
     SurvivingReferences2(cSurvivingObjectIDRanges, objectIDRangeStart, cObjectIDRangeLength) {
-        objectIDRangeStartMarshal := objectIDRangeStart is VarRef ? "ptr*" : "ptr"
-        cObjectIDRangeLengthMarshal := cObjectIDRangeLength is VarRef ? "ptr*" : "ptr"
+        objectIDRangeStartMarshal := objectIDRangeStart is VarRef ? "ptr*" : IntPtr
+        cObjectIDRangeLengthMarshal := cObjectIDRangeLength is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(88, this, UInt32, cSurvivingObjectIDRanges, objectIDRangeStartMarshal, objectIDRangeStart, cObjectIDRangeLengthMarshal, cObjectIDRangeLength, "HRESULT")
         return result
@@ -133,12 +127,12 @@ export default struct ICorProfilerCallback4 extends ICorProfilerCallback3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ReJITCompilationStarted := CallbackCreate(GetMethod(implObj, "ReJITCompilationStarted"), flags, 4)
-        this.vtbl.GetReJITParameters := CallbackCreate(GetMethod(implObj, "GetReJITParameters"), flags, 4)
-        this.vtbl.ReJITCompilationFinished := CallbackCreate(GetMethod(implObj, "ReJITCompilationFinished"), flags, 5)
-        this.vtbl.ReJITError := CallbackCreate(GetMethod(implObj, "ReJITError"), flags, 5)
-        this.vtbl.MovedReferences2 := CallbackCreate(GetMethod(implObj, "MovedReferences2"), flags, 5)
-        this.vtbl.SurvivingReferences2 := CallbackCreate(GetMethod(implObj, "SurvivingReferences2"), flags, 4)
+        this.vtbl.ReJITCompilationStarted := CallbackCreate(ObjBindMethod(implObj, "ReJITCompilationStarted"), flags, 4)
+        this.vtbl.GetReJITParameters := CallbackCreate(ObjBindMethod(implObj, "GetReJITParameters"), flags, 4)
+        this.vtbl.ReJITCompilationFinished := CallbackCreate(ObjBindMethod(implObj, "ReJITCompilationFinished"), flags, 5)
+        this.vtbl.ReJITError := CallbackCreate(ObjBindMethod(implObj, "ReJITError"), flags, 5)
+        this.vtbl.MovedReferences2 := CallbackCreate(ObjBindMethod(implObj, "MovedReferences2"), flags, 5)
+        this.vtbl.SurvivingReferences2 := CallbackCreate(ObjBindMethod(implObj, "SurvivingReferences2"), flags, 4)
     }
 
     Dispose() {

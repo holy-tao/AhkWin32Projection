@@ -54,7 +54,6 @@ export default struct IDOMFocusEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IEventTarget} 
      */
     get_relatedTarget() {
@@ -63,7 +62,6 @@ export default struct IDOMFocusEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 
@@ -88,8 +86,8 @@ export default struct IDOMFocusEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_relatedTarget := CallbackCreate(GetMethod(implObj, "get_relatedTarget"), flags, 2)
-        this.vtbl.initFocusEvent := CallbackCreate(GetMethod(implObj, "initFocusEvent"), flags, 7)
+        this.vtbl.get_relatedTarget := CallbackCreate(ObjBindMethod(implObj, "get_relatedTarget"), flags, 2)
+        this.vtbl.initFocusEvent := CallbackCreate(ObjBindMethod(implObj, "initFocusEvent"), flags, 7)
     }
 
     Dispose() {

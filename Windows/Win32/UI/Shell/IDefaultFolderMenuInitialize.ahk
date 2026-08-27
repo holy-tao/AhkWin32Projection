@@ -77,9 +77,14 @@ export default struct IDefaultFolderMenuInitialize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idefaultfoldermenuinitialize-initialize
      */
     Initialize(_hwnd, pcmcb, pidlFolder, psf, cidl, apidl, punkAssociation, cKeys, aKeys) {
-        apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
+        pcmcbMarshal := pcmcb == 0 ? IntPtr : "ptr"
+        pidlFolderMarshal := pidlFolder == 0 ? IntPtr : ITEMIDLIST.Ptr
+        psfMarshal := psf == 0 ? IntPtr : "ptr"
+        apidlMarshal := apidl is VarRef ? "ptr*" : IntPtr
+        punkAssociationMarshal := punkAssociation == 0 ? IntPtr : "ptr"
+        aKeysMarshal := aKeys == 0 ? IntPtr : HKEY.Ptr
 
-        result := ComCall(3, this, HWND, _hwnd, "ptr", pcmcb, ITEMIDLIST.Ptr, pidlFolder, "ptr", psf, UInt32, cidl, apidlMarshal, apidl, "ptr", punkAssociation, UInt32, cKeys, HKEY.Ptr, aKeys, "HRESULT")
+        result := ComCall(3, this, HWND, _hwnd, pcmcbMarshal, pcmcb, pidlFolderMarshal, pidlFolder, psfMarshal, psf, UInt32, cidl, apidlMarshal, apidl, punkAssociationMarshal, punkAssociation, UInt32, cKeys, aKeysMarshal, aKeys, "HRESULT")
         return result
     }
 
@@ -127,10 +132,10 @@ export default struct IDefaultFolderMenuInitialize extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 10)
-        this.vtbl.SetMenuRestrictions := CallbackCreate(GetMethod(implObj, "SetMenuRestrictions"), flags, 2)
-        this.vtbl.GetMenuRestrictions := CallbackCreate(GetMethod(implObj, "GetMenuRestrictions"), flags, 3)
-        this.vtbl.SetHandlerClsid := CallbackCreate(GetMethod(implObj, "SetHandlerClsid"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 10)
+        this.vtbl.SetMenuRestrictions := CallbackCreate(ObjBindMethod(implObj, "SetMenuRestrictions"), flags, 2)
+        this.vtbl.GetMenuRestrictions := CallbackCreate(ObjBindMethod(implObj, "GetMenuRestrictions"), flags, 3)
+        this.vtbl.SetHandlerClsid := CallbackCreate(ObjBindMethod(implObj, "SetHandlerClsid"), flags, 2)
     }
 
     Dispose() {

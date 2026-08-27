@@ -62,7 +62,7 @@ export default struct IPersistTuneXmlUtility2 extends IPersistTuneXmlUtility {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Serialize := CallbackCreate(GetMethod(implObj, "Serialize"), flags, 3)
+        this.vtbl.Serialize := CallbackCreate(ObjBindMethod(implObj, "Serialize"), flags, 3)
     }
 
     Dispose() {

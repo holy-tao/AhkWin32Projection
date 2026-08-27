@@ -172,7 +172,6 @@ export default struct IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bEnabled 
      * @returns {HRESULT} 
      */
@@ -195,7 +194,6 @@ export default struct IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bEnabled 
      * @returns {HRESULT} 
      */
@@ -342,7 +340,6 @@ export default struct IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bEnabled 
      * @returns {HRESULT} 
      */
@@ -391,7 +388,6 @@ export default struct IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bEnabled 
      * @returns {HRESULT} 
      */
@@ -401,7 +397,6 @@ export default struct IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bEnabled 
      * @returns {HRESULT} 
      */
@@ -419,29 +414,29 @@ export default struct IMSVidWebDVDEvent extends IMSVidPlaybackEvent {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DVDNotify := CallbackCreate(GetMethod(implObj, "DVDNotify"), flags, 4)
-        this.vtbl.PlayForwards := CallbackCreate(GetMethod(implObj, "PlayForwards"), flags, 2)
-        this.vtbl.PlayBackwards := CallbackCreate(GetMethod(implObj, "PlayBackwards"), flags, 2)
-        this.vtbl.ShowMenu := CallbackCreate(GetMethod(implObj, "ShowMenu"), flags, 3)
-        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 2)
-        this.vtbl.SelectOrActivateButton := CallbackCreate(GetMethod(implObj, "SelectOrActivateButton"), flags, 2)
-        this.vtbl.StillOff := CallbackCreate(GetMethod(implObj, "StillOff"), flags, 2)
-        this.vtbl.PauseOn := CallbackCreate(GetMethod(implObj, "PauseOn"), flags, 2)
-        this.vtbl.ChangeCurrentAudioStream := CallbackCreate(GetMethod(implObj, "ChangeCurrentAudioStream"), flags, 2)
-        this.vtbl.ChangeCurrentSubpictureStream := CallbackCreate(GetMethod(implObj, "ChangeCurrentSubpictureStream"), flags, 2)
-        this.vtbl.ChangeCurrentAngle := CallbackCreate(GetMethod(implObj, "ChangeCurrentAngle"), flags, 2)
-        this.vtbl.PlayAtTimeInTitle := CallbackCreate(GetMethod(implObj, "PlayAtTimeInTitle"), flags, 2)
-        this.vtbl.PlayAtTime := CallbackCreate(GetMethod(implObj, "PlayAtTime"), flags, 2)
-        this.vtbl.PlayChapterInTitle := CallbackCreate(GetMethod(implObj, "PlayChapterInTitle"), flags, 2)
-        this.vtbl.PlayChapter := CallbackCreate(GetMethod(implObj, "PlayChapter"), flags, 2)
-        this.vtbl.ReplayChapter := CallbackCreate(GetMethod(implObj, "ReplayChapter"), flags, 2)
-        this.vtbl.PlayNextChapter := CallbackCreate(GetMethod(implObj, "PlayNextChapter"), flags, 2)
-        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 2)
-        this.vtbl.ReturnFromSubmenu := CallbackCreate(GetMethod(implObj, "ReturnFromSubmenu"), flags, 2)
-        this.vtbl.PlayTitle := CallbackCreate(GetMethod(implObj, "PlayTitle"), flags, 2)
-        this.vtbl.PlayPrevChapter := CallbackCreate(GetMethod(implObj, "PlayPrevChapter"), flags, 2)
-        this.vtbl.ChangeKaraokePresMode := CallbackCreate(GetMethod(implObj, "ChangeKaraokePresMode"), flags, 2)
-        this.vtbl.ChangeVideoPresMode := CallbackCreate(GetMethod(implObj, "ChangeVideoPresMode"), flags, 2)
+        this.vtbl.DVDNotify := CallbackCreate(ObjBindMethod(implObj, "DVDNotify"), flags, 4)
+        this.vtbl.PlayForwards := CallbackCreate(ObjBindMethod(implObj, "PlayForwards"), flags, 2)
+        this.vtbl.PlayBackwards := CallbackCreate(ObjBindMethod(implObj, "PlayBackwards"), flags, 2)
+        this.vtbl.ShowMenu := CallbackCreate(ObjBindMethod(implObj, "ShowMenu"), flags, 3)
+        this.vtbl.Resume := CallbackCreate(ObjBindMethod(implObj, "Resume"), flags, 2)
+        this.vtbl.SelectOrActivateButton := CallbackCreate(ObjBindMethod(implObj, "SelectOrActivateButton"), flags, 2)
+        this.vtbl.StillOff := CallbackCreate(ObjBindMethod(implObj, "StillOff"), flags, 2)
+        this.vtbl.PauseOn := CallbackCreate(ObjBindMethod(implObj, "PauseOn"), flags, 2)
+        this.vtbl.ChangeCurrentAudioStream := CallbackCreate(ObjBindMethod(implObj, "ChangeCurrentAudioStream"), flags, 2)
+        this.vtbl.ChangeCurrentSubpictureStream := CallbackCreate(ObjBindMethod(implObj, "ChangeCurrentSubpictureStream"), flags, 2)
+        this.vtbl.ChangeCurrentAngle := CallbackCreate(ObjBindMethod(implObj, "ChangeCurrentAngle"), flags, 2)
+        this.vtbl.PlayAtTimeInTitle := CallbackCreate(ObjBindMethod(implObj, "PlayAtTimeInTitle"), flags, 2)
+        this.vtbl.PlayAtTime := CallbackCreate(ObjBindMethod(implObj, "PlayAtTime"), flags, 2)
+        this.vtbl.PlayChapterInTitle := CallbackCreate(ObjBindMethod(implObj, "PlayChapterInTitle"), flags, 2)
+        this.vtbl.PlayChapter := CallbackCreate(ObjBindMethod(implObj, "PlayChapter"), flags, 2)
+        this.vtbl.ReplayChapter := CallbackCreate(ObjBindMethod(implObj, "ReplayChapter"), flags, 2)
+        this.vtbl.PlayNextChapter := CallbackCreate(ObjBindMethod(implObj, "PlayNextChapter"), flags, 2)
+        this.vtbl.Stop := CallbackCreate(ObjBindMethod(implObj, "Stop"), flags, 2)
+        this.vtbl.ReturnFromSubmenu := CallbackCreate(ObjBindMethod(implObj, "ReturnFromSubmenu"), flags, 2)
+        this.vtbl.PlayTitle := CallbackCreate(ObjBindMethod(implObj, "PlayTitle"), flags, 2)
+        this.vtbl.PlayPrevChapter := CallbackCreate(ObjBindMethod(implObj, "PlayPrevChapter"), flags, 2)
+        this.vtbl.ChangeKaraokePresMode := CallbackCreate(ObjBindMethod(implObj, "ChangeKaraokePresMode"), flags, 2)
+        this.vtbl.ChangeVideoPresMode := CallbackCreate(ObjBindMethod(implObj, "ChangeVideoPresMode"), flags, 2)
     }
 
     Dispose() {

@@ -73,7 +73,7 @@ export default struct IFolderFilterSite extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetFilter := CallbackCreate(GetMethod(implObj, "SetFilter"), flags, 2)
+        this.vtbl.SetFilter := CallbackCreate(ObjBindMethod(implObj, "SetFilter"), flags, 2)
     }
 
     Dispose() {

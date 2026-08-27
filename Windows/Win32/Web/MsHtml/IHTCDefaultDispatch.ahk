@@ -68,7 +68,6 @@ export default struct IHTCDefaultDispatch extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_element() {
@@ -77,7 +76,6 @@ export default struct IHTCDefaultDispatch extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLEventObj} 
      */
     createEventObject() {
@@ -86,7 +84,6 @@ export default struct IHTCDefaultDispatch extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_defaults() {
@@ -95,7 +92,6 @@ export default struct IHTCDefaultDispatch extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_document() {
@@ -112,10 +108,10 @@ export default struct IHTCDefaultDispatch extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_element := CallbackCreate(GetMethod(implObj, "get_element"), flags, 2)
-        this.vtbl.createEventObject := CallbackCreate(GetMethod(implObj, "createEventObject"), flags, 2)
-        this.vtbl.get_defaults := CallbackCreate(GetMethod(implObj, "get_defaults"), flags, 2)
-        this.vtbl.get_document := CallbackCreate(GetMethod(implObj, "get_document"), flags, 2)
+        this.vtbl.get_element := CallbackCreate(ObjBindMethod(implObj, "get_element"), flags, 2)
+        this.vtbl.createEventObject := CallbackCreate(ObjBindMethod(implObj, "createEventObject"), flags, 2)
+        this.vtbl.get_defaults := CallbackCreate(ObjBindMethod(implObj, "get_defaults"), flags, 2)
+        this.vtbl.get_document := CallbackCreate(ObjBindMethod(implObj, "get_document"), flags, 2)
     }
 
     Dispose() {

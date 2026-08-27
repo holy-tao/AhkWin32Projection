@@ -77,7 +77,7 @@ export default struct ISecurityInformation2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-isecurityinformation2-lookupsids
      */
     LookupSids(cSids, rgpSids) {
-        rgpSidsMarshal := rgpSids is VarRef ? "ptr*" : "ptr"
+        rgpSidsMarshal := rgpSids is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, UInt32, cSids, rgpSidsMarshal, rgpSids, "ptr*", &ppdo := 0, "HRESULT")
         return IDataObject(ppdo)
@@ -92,8 +92,8 @@ export default struct ISecurityInformation2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsDaclCanonical := CallbackCreate(GetMethod(implObj, "IsDaclCanonical"), flags, 2)
-        this.vtbl.LookupSids := CallbackCreate(GetMethod(implObj, "LookupSids"), flags, 4)
+        this.vtbl.IsDaclCanonical := CallbackCreate(ObjBindMethod(implObj, "IsDaclCanonical"), flags, 2)
+        this.vtbl.LookupSids := CallbackCreate(ObjBindMethod(implObj, "LookupSids"), flags, 4)
     }
 
     Dispose() {

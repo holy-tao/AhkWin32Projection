@@ -62,7 +62,7 @@ export default struct ITfQueryEmbedded extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryInsertEmbedded := CallbackCreate(GetMethod(implObj, "QueryInsertEmbedded"), flags, 4)
+        this.vtbl.QueryInsertEmbedded := CallbackCreate(ObjBindMethod(implObj, "QueryInsertEmbedded"), flags, 4)
     }
 
     Dispose() {

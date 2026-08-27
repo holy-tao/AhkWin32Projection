@@ -20,7 +20,6 @@ export default struct PIBIO_FRAMEWORK_ALLOCATE_MEMORY_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline 
      * @param {Pointer} AllocationSize 
      * @returns {Pointer<Void>} 

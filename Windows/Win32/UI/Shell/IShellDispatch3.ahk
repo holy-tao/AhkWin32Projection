@@ -75,7 +75,7 @@ export default struct IShellDispatch3 extends IShellDispatch2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddToRecent := CallbackCreate(GetMethod(implObj, "AddToRecent"), flags, 3)
+        this.vtbl.AddToRecent := CallbackCreate(ObjBindMethod(implObj, "AddToRecent"), flags, 3)
     }
 
     Dispose() {

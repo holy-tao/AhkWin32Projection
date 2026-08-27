@@ -19,14 +19,13 @@ export default struct PFILTER_REPORT_CHANGE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NotifyContext 
      * @param {Pointer<Void>} FilterContext 
      * @returns {BOOLEAN} 
      */
     Call(NotifyContext, FilterContext) {
-        NotifyContextMarshal := NotifyContext is VarRef ? "ptr" : "ptr"
-        FilterContextMarshal := FilterContext is VarRef ? "ptr" : "ptr"
+        NotifyContextMarshal := NotifyContext is VarRef ? "ptr" : IntPtr
+        FilterContextMarshal := FilterContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, NotifyContextMarshal, NotifyContext, FilterContextMarshal, FilterContext, BOOLEAN)
         return result

@@ -26,7 +26,6 @@ export default struct WS_SERVICE_STUB_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<WS_OPERATION_CONTEXT>} _context The <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-operation-context">context</a> within which this callback is being invoked.
      * @param {Pointer<Void>} _frame Pointer to the method frame.
      * @param {Pointer<Void>} callback Pointer to the callback function to which the stub function corresponds to.
@@ -35,12 +34,14 @@ export default struct WS_SERVICE_STUB_CALLBACK {
      * @returns {HRESULT} This callback function does not return a value.
      */
     Call(_context, _frame, callback, asyncContext, _error) {
-        _contextMarshal := _context is VarRef ? "ptr*" : "ptr"
-        _frameMarshal := _frame is VarRef ? "ptr" : "ptr"
-        callbackMarshal := callback is VarRef ? "ptr" : "ptr"
-        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr*" : IntPtr
+        _frameMarshal := _frame is VarRef ? "ptr" : IntPtr
+        callbackMarshal := callback is VarRef ? "ptr" : IntPtr
+        asyncContextMarshal := asyncContext == 0 ? IntPtr : WS_ASYNC_CONTEXT.Ptr
+        _errorMarshal := _error is VarRef ? "ptr*" : IntPtr
+        _errorMarshal := _error == 0 ? IntPtr : WS_ERROR.Ptr
 
-        result := DllCall(this.value, _contextMarshal, _context, _frameMarshal, _frame, callbackMarshal, callback, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
+        result := DllCall(this.value, _contextMarshal, _context, _frameMarshal, _frame, callbackMarshal, callback, asyncContextMarshal, asyncContext, _errorMarshal, _error, "HRESULT")
         return result
     }
 

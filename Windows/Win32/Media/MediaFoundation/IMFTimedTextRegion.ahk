@@ -84,9 +84,9 @@ export default struct IMFTimedTextRegion extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getposition
      */
     GetPosition(pX, pY, unitType) {
-        pXMarshal := pX is VarRef ? "double*" : "ptr"
-        pYMarshal := pY is VarRef ? "double*" : "ptr"
-        unitTypeMarshal := unitType is VarRef ? "int*" : "ptr"
+        pXMarshal := pX is VarRef ? "double*" : IntPtr
+        pYMarshal := pY is VarRef ? "double*" : IntPtr
+        unitTypeMarshal := unitType is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, pXMarshal, pX, pYMarshal, pY, unitTypeMarshal, unitType, "HRESULT")
         return result
@@ -109,9 +109,9 @@ export default struct IMFTimedTextRegion extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getextent
      */
     GetExtent(pWidth, pHeight, unitType) {
-        pWidthMarshal := pWidth is VarRef ? "double*" : "ptr"
-        pHeightMarshal := pHeight is VarRef ? "double*" : "ptr"
-        unitTypeMarshal := unitType is VarRef ? "int*" : "ptr"
+        pWidthMarshal := pWidth is VarRef ? "double*" : IntPtr
+        pHeightMarshal := pHeight is VarRef ? "double*" : IntPtr
+        unitTypeMarshal := unitType is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, pWidthMarshal, pWidth, pHeightMarshal, pHeight, unitTypeMarshal, unitType, "HRESULT")
         return result
@@ -168,8 +168,8 @@ export default struct IMFTimedTextRegion extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getlineheight
      */
     GetLineHeight(pLineHeight, unitType) {
-        pLineHeightMarshal := pLineHeight is VarRef ? "double*" : "ptr"
-        unitTypeMarshal := unitType is VarRef ? "int*" : "ptr"
+        pLineHeightMarshal := pLineHeight is VarRef ? "double*" : IntPtr
+        unitTypeMarshal := unitType is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, pLineHeightMarshal, pLineHeight, unitTypeMarshal, unitType, "HRESULT")
         return result
@@ -210,11 +210,11 @@ export default struct IMFTimedTextRegion extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getpadding
      */
     GetPadding(before, start, after, end, unitType) {
-        beforeMarshal := before is VarRef ? "double*" : "ptr"
-        startMarshal := start is VarRef ? "double*" : "ptr"
-        afterMarshal := after is VarRef ? "double*" : "ptr"
-        endMarshal := end is VarRef ? "double*" : "ptr"
-        unitTypeMarshal := unitType is VarRef ? "int*" : "ptr"
+        beforeMarshal := before is VarRef ? "double*" : IntPtr
+        startMarshal := start is VarRef ? "double*" : IntPtr
+        afterMarshal := after is VarRef ? "double*" : IntPtr
+        endMarshal := end is VarRef ? "double*" : IntPtr
+        unitTypeMarshal := unitType is VarRef ? "int*" : IntPtr
 
         result := ComCall(11, this, beforeMarshal, before, startMarshal, start, afterMarshal, after, endMarshal, end, unitTypeMarshal, unitType, "HRESULT")
         return result
@@ -265,18 +265,18 @@ export default struct IMFTimedTextRegion extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
-        this.vtbl.GetPosition := CallbackCreate(GetMethod(implObj, "GetPosition"), flags, 4)
-        this.vtbl.GetExtent := CallbackCreate(GetMethod(implObj, "GetExtent"), flags, 4)
-        this.vtbl.GetBackgroundColor := CallbackCreate(GetMethod(implObj, "GetBackgroundColor"), flags, 2)
-        this.vtbl.GetWritingMode := CallbackCreate(GetMethod(implObj, "GetWritingMode"), flags, 2)
-        this.vtbl.GetDisplayAlignment := CallbackCreate(GetMethod(implObj, "GetDisplayAlignment"), flags, 2)
-        this.vtbl.GetLineHeight := CallbackCreate(GetMethod(implObj, "GetLineHeight"), flags, 3)
-        this.vtbl.GetClipOverflow := CallbackCreate(GetMethod(implObj, "GetClipOverflow"), flags, 2)
-        this.vtbl.GetPadding := CallbackCreate(GetMethod(implObj, "GetPadding"), flags, 6)
-        this.vtbl.GetWrap := CallbackCreate(GetMethod(implObj, "GetWrap"), flags, 2)
-        this.vtbl.GetZIndex := CallbackCreate(GetMethod(implObj, "GetZIndex"), flags, 2)
-        this.vtbl.GetScrollMode := CallbackCreate(GetMethod(implObj, "GetScrollMode"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetPosition := CallbackCreate(ObjBindMethod(implObj, "GetPosition"), flags, 4)
+        this.vtbl.GetExtent := CallbackCreate(ObjBindMethod(implObj, "GetExtent"), flags, 4)
+        this.vtbl.GetBackgroundColor := CallbackCreate(ObjBindMethod(implObj, "GetBackgroundColor"), flags, 2)
+        this.vtbl.GetWritingMode := CallbackCreate(ObjBindMethod(implObj, "GetWritingMode"), flags, 2)
+        this.vtbl.GetDisplayAlignment := CallbackCreate(ObjBindMethod(implObj, "GetDisplayAlignment"), flags, 2)
+        this.vtbl.GetLineHeight := CallbackCreate(ObjBindMethod(implObj, "GetLineHeight"), flags, 3)
+        this.vtbl.GetClipOverflow := CallbackCreate(ObjBindMethod(implObj, "GetClipOverflow"), flags, 2)
+        this.vtbl.GetPadding := CallbackCreate(ObjBindMethod(implObj, "GetPadding"), flags, 6)
+        this.vtbl.GetWrap := CallbackCreate(ObjBindMethod(implObj, "GetWrap"), flags, 2)
+        this.vtbl.GetZIndex := CallbackCreate(ObjBindMethod(implObj, "GetZIndex"), flags, 2)
+        this.vtbl.GetScrollMode := CallbackCreate(ObjBindMethod(implObj, "GetScrollMode"), flags, 2)
     }
 
     Dispose() {

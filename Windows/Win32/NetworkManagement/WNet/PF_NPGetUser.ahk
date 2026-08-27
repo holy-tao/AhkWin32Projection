@@ -19,7 +19,6 @@ export default struct PF_NPGetUser {
     }
 
     /**
-     * 
      * @param {PWSTR} lpName 
      * @param {PWSTR} lpUserName 
      * @param {Pointer<Integer>} lpnBufferLen 
@@ -29,7 +28,7 @@ export default struct PF_NPGetUser {
         lpName := lpName is String ? StrPtr(lpName) : lpName
         lpUserName := lpUserName is String ? StrPtr(lpUserName) : lpUserName
 
-        lpnBufferLenMarshal := lpnBufferLen is VarRef ? "uint*" : "ptr"
+        lpnBufferLenMarshal := lpnBufferLen is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, "ptr", lpName, "ptr", lpUserName, lpnBufferLenMarshal, lpnBufferLen, UInt32)
         return result

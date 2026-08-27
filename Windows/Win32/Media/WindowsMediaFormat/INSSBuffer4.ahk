@@ -58,8 +58,8 @@ export default struct INSSBuffer4 extends INSSBuffer3 {
      * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nf-wmsbuffer-inssbuffer4-getpropertybyindex
      */
     GetPropertyByIndex(dwBufferPropertyIndex, pguidBufferProperty, pvBufferProperty, pdwBufferPropertySize) {
-        pvBufferPropertyMarshal := pvBufferProperty is VarRef ? "ptr" : "ptr"
-        pdwBufferPropertySizeMarshal := pdwBufferPropertySize is VarRef ? "uint*" : "ptr"
+        pvBufferPropertyMarshal := pvBufferProperty is VarRef ? "ptr" : IntPtr
+        pdwBufferPropertySizeMarshal := pdwBufferPropertySize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, UInt32, dwBufferPropertyIndex, Guid.Ptr, pguidBufferProperty, pvBufferPropertyMarshal, pvBufferProperty, pdwBufferPropertySizeMarshal, pdwBufferPropertySize, "HRESULT")
         return result
@@ -74,8 +74,8 @@ export default struct INSSBuffer4 extends INSSBuffer3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPropertyCount := CallbackCreate(GetMethod(implObj, "GetPropertyCount"), flags, 2)
-        this.vtbl.GetPropertyByIndex := CallbackCreate(GetMethod(implObj, "GetPropertyByIndex"), flags, 5)
+        this.vtbl.GetPropertyCount := CallbackCreate(ObjBindMethod(implObj, "GetPropertyCount"), flags, 2)
+        this.vtbl.GetPropertyByIndex := CallbackCreate(ObjBindMethod(implObj, "GetPropertyByIndex"), flags, 5)
     }
 
     Dispose() {

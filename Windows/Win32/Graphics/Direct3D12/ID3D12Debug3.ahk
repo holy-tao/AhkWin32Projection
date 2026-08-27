@@ -99,9 +99,9 @@ export default struct ID3D12Debug3 extends ID3D12Debug {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetEnableGPUBasedValidation := CallbackCreate(GetMethod(implObj, "SetEnableGPUBasedValidation"), flags, 2)
-        this.vtbl.SetEnableSynchronizedCommandQueueValidation := CallbackCreate(GetMethod(implObj, "SetEnableSynchronizedCommandQueueValidation"), flags, 2)
-        this.vtbl.SetGPUBasedValidationFlags := CallbackCreate(GetMethod(implObj, "SetGPUBasedValidationFlags"), flags, 2)
+        this.vtbl.SetEnableGPUBasedValidation := CallbackCreate(ObjBindMethod(implObj, "SetEnableGPUBasedValidation"), flags, 2)
+        this.vtbl.SetEnableSynchronizedCommandQueueValidation := CallbackCreate(ObjBindMethod(implObj, "SetEnableSynchronizedCommandQueueValidation"), flags, 2)
+        this.vtbl.SetGPUBasedValidationFlags := CallbackCreate(ObjBindMethod(implObj, "SetGPUBasedValidationFlags"), flags, 2)
     }
 
     Dispose() {

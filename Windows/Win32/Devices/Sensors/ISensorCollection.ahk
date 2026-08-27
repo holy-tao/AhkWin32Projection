@@ -107,7 +107,9 @@ export default struct ISensorCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensorcollection-add
      */
     Add(pSensor) {
-        result := ComCall(5, this, "ptr", pSensor, "HRESULT")
+        pSensorMarshal := pSensor == 0 ? IntPtr : "ptr"
+
+        result := ComCall(5, this, pSensorMarshal, pSensor, "HRESULT")
         return result
     }
 
@@ -147,7 +149,9 @@ export default struct ISensorCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensorcollection-remove
      */
     Remove(pSensor) {
-        result := ComCall(6, this, "ptr", pSensor, "HRESULT")
+        pSensorMarshal := pSensor == 0 ? IntPtr : "ptr"
+
+        result := ComCall(6, this, pSensorMarshal, pSensor, "HRESULT")
         return result
     }
 
@@ -230,12 +234,12 @@ export default struct ISensorCollection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAt := CallbackCreate(GetMethod(implObj, "GetAt"), flags, 3)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
-        this.vtbl.RemoveByID := CallbackCreate(GetMethod(implObj, "RemoveByID"), flags, 2)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.GetAt := CallbackCreate(ObjBindMethod(implObj, "GetAt"), flags, 3)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.RemoveByID := CallbackCreate(ObjBindMethod(implObj, "RemoveByID"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
     }
 
     Dispose() {

@@ -37,7 +37,6 @@ export default struct IVdsServiceSw extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszDeviceID 
      * @returns {IUnknown} 
      */
@@ -57,7 +56,7 @@ export default struct IVdsServiceSw extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDiskObject := CallbackCreate(GetMethod(implObj, "GetDiskObject"), flags, 3)
+        this.vtbl.GetDiskObject := CallbackCreate(ObjBindMethod(implObj, "GetDiskObject"), flags, 3)
     }
 
     Dispose() {

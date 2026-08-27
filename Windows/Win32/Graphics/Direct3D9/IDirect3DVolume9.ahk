@@ -133,7 +133,7 @@ export default struct IDirect3DVolume9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvolume9-setprivatedata
      */
     SetPrivateData(refguid, pData, SizeOfData, Flags) {
-        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+        pDataMarshal := pData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(4, this, Guid.Ptr, refguid, pDataMarshal, pData, UInt32, SizeOfData, UInt32, Flags, "HRESULT")
         return result
@@ -157,8 +157,8 @@ export default struct IDirect3DVolume9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvolume9-getprivatedata
      */
     GetPrivateData(refguid, pData, pSizeOfData) {
-        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
-        pSizeOfDataMarshal := pSizeOfData is VarRef ? "uint*" : "ptr"
+        pDataMarshal := pData is VarRef ? "ptr" : IntPtr
+        pSizeOfDataMarshal := pSizeOfData is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, Guid.Ptr, refguid, pDataMarshal, pData, pSizeOfDataMarshal, pSizeOfData, "HRESULT")
         return result
@@ -212,7 +212,7 @@ export default struct IDirect3DVolume9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvolume9-getcontainer
      */
     GetContainer(riid, ppContainer) {
-        ppContainerMarshal := ppContainer is VarRef ? "ptr*" : "ptr"
+        ppContainerMarshal := ppContainer is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(7, this, Guid.Ptr, riid, ppContainerMarshal, ppContainer, "HRESULT")
         return result
@@ -287,14 +287,14 @@ export default struct IDirect3DVolume9 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDevice := CallbackCreate(GetMethod(implObj, "GetDevice"), flags, 2)
-        this.vtbl.SetPrivateData := CallbackCreate(GetMethod(implObj, "SetPrivateData"), flags, 5)
-        this.vtbl.GetPrivateData := CallbackCreate(GetMethod(implObj, "GetPrivateData"), flags, 4)
-        this.vtbl.FreePrivateData := CallbackCreate(GetMethod(implObj, "FreePrivateData"), flags, 2)
-        this.vtbl.GetContainer := CallbackCreate(GetMethod(implObj, "GetContainer"), flags, 3)
-        this.vtbl.GetDesc := CallbackCreate(GetMethod(implObj, "GetDesc"), flags, 2)
-        this.vtbl.LockBox := CallbackCreate(GetMethod(implObj, "LockBox"), flags, 4)
-        this.vtbl.UnlockBox := CallbackCreate(GetMethod(implObj, "UnlockBox"), flags, 1)
+        this.vtbl.GetDevice := CallbackCreate(ObjBindMethod(implObj, "GetDevice"), flags, 2)
+        this.vtbl.SetPrivateData := CallbackCreate(ObjBindMethod(implObj, "SetPrivateData"), flags, 5)
+        this.vtbl.GetPrivateData := CallbackCreate(ObjBindMethod(implObj, "GetPrivateData"), flags, 4)
+        this.vtbl.FreePrivateData := CallbackCreate(ObjBindMethod(implObj, "FreePrivateData"), flags, 2)
+        this.vtbl.GetContainer := CallbackCreate(ObjBindMethod(implObj, "GetContainer"), flags, 3)
+        this.vtbl.GetDesc := CallbackCreate(ObjBindMethod(implObj, "GetDesc"), flags, 2)
+        this.vtbl.LockBox := CallbackCreate(ObjBindMethod(implObj, "LockBox"), flags, 4)
+        this.vtbl.UnlockBox := CallbackCreate(ObjBindMethod(implObj, "UnlockBox"), flags, 1)
     }
 
     Dispose() {

@@ -46,7 +46,6 @@ export default struct AsyncIMSAdminBaseSinkW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwMDNumElements 
      * @param {Pointer<MD_CHANGE_OBJECT_W>} pcoChangeList 
      * @returns {HRESULT} 
@@ -57,7 +56,6 @@ export default struct AsyncIMSAdminBaseSinkW extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_SinkNotify() {
@@ -66,7 +64,6 @@ export default struct AsyncIMSAdminBaseSinkW extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Begin_ShutdownNotify() {
@@ -75,7 +72,6 @@ export default struct AsyncIMSAdminBaseSinkW extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_ShutdownNotify() {
@@ -92,10 +88,10 @@ export default struct AsyncIMSAdminBaseSinkW extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Begin_SinkNotify := CallbackCreate(GetMethod(implObj, "Begin_SinkNotify"), flags, 3)
-        this.vtbl.Finish_SinkNotify := CallbackCreate(GetMethod(implObj, "Finish_SinkNotify"), flags, 1)
-        this.vtbl.Begin_ShutdownNotify := CallbackCreate(GetMethod(implObj, "Begin_ShutdownNotify"), flags, 1)
-        this.vtbl.Finish_ShutdownNotify := CallbackCreate(GetMethod(implObj, "Finish_ShutdownNotify"), flags, 1)
+        this.vtbl.Begin_SinkNotify := CallbackCreate(ObjBindMethod(implObj, "Begin_SinkNotify"), flags, 3)
+        this.vtbl.Finish_SinkNotify := CallbackCreate(ObjBindMethod(implObj, "Finish_SinkNotify"), flags, 1)
+        this.vtbl.Begin_ShutdownNotify := CallbackCreate(ObjBindMethod(implObj, "Begin_ShutdownNotify"), flags, 1)
+        this.vtbl.Finish_ShutdownNotify := CallbackCreate(ObjBindMethod(implObj, "Finish_ShutdownNotify"), flags, 1)
     }
 
     Dispose() {

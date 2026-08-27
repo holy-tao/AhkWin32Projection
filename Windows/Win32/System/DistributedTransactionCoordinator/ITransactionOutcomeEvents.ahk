@@ -41,7 +41,6 @@ export default struct ITransactionOutcomeEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fRetaining 
      * @param {Pointer<BOID>} pNewUOW 
      * @param {HRESULT} hr 
@@ -53,7 +52,6 @@ export default struct ITransactionOutcomeEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BOID>} pboidReason 
      * @param {BOOL} fRetaining 
      * @param {Pointer<BOID>} pNewUOW 
@@ -66,7 +64,6 @@ export default struct ITransactionOutcomeEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwDecision 
      * @param {Pointer<BOID>} pboidReason 
      * @param {HRESULT} hr 
@@ -78,7 +75,6 @@ export default struct ITransactionOutcomeEvents extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Indoubt() {
@@ -95,10 +91,10 @@ export default struct ITransactionOutcomeEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Committed := CallbackCreate(GetMethod(implObj, "Committed"), flags, 4)
-        this.vtbl.Aborted := CallbackCreate(GetMethod(implObj, "Aborted"), flags, 5)
-        this.vtbl.HeuristicDecision := CallbackCreate(GetMethod(implObj, "HeuristicDecision"), flags, 4)
-        this.vtbl.Indoubt := CallbackCreate(GetMethod(implObj, "Indoubt"), flags, 1)
+        this.vtbl.Committed := CallbackCreate(ObjBindMethod(implObj, "Committed"), flags, 4)
+        this.vtbl.Aborted := CallbackCreate(ObjBindMethod(implObj, "Aborted"), flags, 5)
+        this.vtbl.HeuristicDecision := CallbackCreate(ObjBindMethod(implObj, "HeuristicDecision"), flags, 4)
+        this.vtbl.Indoubt := CallbackCreate(ObjBindMethod(implObj, "Indoubt"), flags, 1)
     }
 
     Dispose() {

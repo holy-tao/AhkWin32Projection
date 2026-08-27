@@ -18,12 +18,11 @@ export default struct PFNFCIFREE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} memory 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(memory) {
-        memoryMarshal := memory is VarRef ? "ptr" : "ptr"
+        memoryMarshal := memory is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, memoryMarshal, memory)
     }

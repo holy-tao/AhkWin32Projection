@@ -35,7 +35,6 @@ export default struct IPrintAsyncNotifyServerReferral extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetServerReferral() {
@@ -44,7 +43,6 @@ export default struct IPrintAsyncNotifyServerReferral extends IUnknown {
     }
 
     /**
-     * 
      * @param {IAsyncGetSrvReferralCookie} param0 
      * @returns {HRESULT} 
      */
@@ -54,7 +52,6 @@ export default struct IPrintAsyncNotifyServerReferral extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pRmtServerReferral 
      * @returns {HRESULT} 
      */
@@ -74,9 +71,9 @@ export default struct IPrintAsyncNotifyServerReferral extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetServerReferral := CallbackCreate(GetMethod(implObj, "GetServerReferral"), flags, 2)
-        this.vtbl.AsyncGetServerReferral := CallbackCreate(GetMethod(implObj, "AsyncGetServerReferral"), flags, 2)
-        this.vtbl.SetServerReferral := CallbackCreate(GetMethod(implObj, "SetServerReferral"), flags, 2)
+        this.vtbl.GetServerReferral := CallbackCreate(ObjBindMethod(implObj, "GetServerReferral"), flags, 2)
+        this.vtbl.AsyncGetServerReferral := CallbackCreate(ObjBindMethod(implObj, "AsyncGetServerReferral"), flags, 2)
+        this.vtbl.SetServerReferral := CallbackCreate(ObjBindMethod(implObj, "SetServerReferral"), flags, 2)
     }
 
     Dispose() {

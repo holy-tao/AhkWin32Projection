@@ -22,7 +22,6 @@ export default struct SslEnumCipherSuitesExFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_KEY_HANDLE} hPrivateKey 
      * @param {Pointer<Pointer<Void>>} ppEnumState 
@@ -30,9 +29,10 @@ export default struct SslEnumCipherSuitesExFn {
      * @returns {Pointer<NCRYPT_SSL_CIPHER_SUITE_EX>} 
      */
     Call(hSslProvider, hPrivateKey, ppEnumState, dwFlags) {
-        ppEnumStateMarshal := ppEnumState is VarRef ? "ptr*" : "ptr"
+        hPrivateKeyMarshal := hPrivateKey == 0 ? IntPtr : NCRYPT_KEY_HANDLE
+        ppEnumStateMarshal := ppEnumState is VarRef ? "ptr*" : IntPtr
 
-        result := DllCall(this.value, NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hPrivateKey, "ptr*", &ppCipherSuite := 0, ppEnumStateMarshal, ppEnumState, UInt32, dwFlags, "HRESULT")
+        result := DllCall(this.value, NCRYPT_PROV_HANDLE, hSslProvider, hPrivateKeyMarshal, hPrivateKey, "ptr*", &ppCipherSuite := 0, ppEnumStateMarshal, ppEnumState, UInt32, dwFlags, "HRESULT")
         return ppCipherSuite
     }
 

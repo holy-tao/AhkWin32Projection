@@ -40,7 +40,6 @@ export default struct ICommandPersist extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DBID>} pCommandID 
      * @returns {HRESULT} 
      */
@@ -50,7 +49,6 @@ export default struct ICommandPersist extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<DBID>} 
      */
     GetCurrentCommand() {
@@ -59,7 +57,6 @@ export default struct ICommandPersist extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DBID>} pCommandID 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
@@ -70,7 +67,6 @@ export default struct ICommandPersist extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DBID>} pCommandID 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
@@ -89,10 +85,10 @@ export default struct ICommandPersist extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DeleteCommand := CallbackCreate(GetMethod(implObj, "DeleteCommand"), flags, 2)
-        this.vtbl.GetCurrentCommand := CallbackCreate(GetMethod(implObj, "GetCurrentCommand"), flags, 2)
-        this.vtbl.LoadCommand := CallbackCreate(GetMethod(implObj, "LoadCommand"), flags, 3)
-        this.vtbl.SaveCommand := CallbackCreate(GetMethod(implObj, "SaveCommand"), flags, 3)
+        this.vtbl.DeleteCommand := CallbackCreate(ObjBindMethod(implObj, "DeleteCommand"), flags, 2)
+        this.vtbl.GetCurrentCommand := CallbackCreate(ObjBindMethod(implObj, "GetCurrentCommand"), flags, 2)
+        this.vtbl.LoadCommand := CallbackCreate(ObjBindMethod(implObj, "LoadCommand"), flags, 3)
+        this.vtbl.SaveCommand := CallbackCreate(ObjBindMethod(implObj, "SaveCommand"), flags, 3)
     }
 
     Dispose() {

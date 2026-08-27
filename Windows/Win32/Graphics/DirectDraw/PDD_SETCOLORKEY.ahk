@@ -19,7 +19,6 @@ export default struct PDD_SETCOLORKEY {
     }
 
     /**
-     * 
      * @param {Pointer<DD_DRVSETCOLORKEYDATA>} param0 
      * @returns {Integer} 
      */

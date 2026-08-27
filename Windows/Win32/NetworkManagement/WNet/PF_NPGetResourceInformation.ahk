@@ -20,7 +20,6 @@ export default struct PF_NPGetResourceInformation {
     }
 
     /**
-     * 
      * @param {Pointer<NETRESOURCEW>} lpNetResource 
      * @param {Integer} lpBuffer 
      * @param {Pointer<Integer>} lpBufferSize 
@@ -28,8 +27,8 @@ export default struct PF_NPGetResourceInformation {
      * @returns {Integer} 
      */
     Call(lpNetResource, lpBuffer, lpBufferSize, lplpSystem) {
-        lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : "ptr"
-        lplpSystemMarshal := lplpSystem is VarRef ? "ptr*" : "ptr"
+        lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : IntPtr
+        lplpSystemMarshal := lplpSystem is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, NETRESOURCEW.Ptr, lpNetResource, IntPtr, lpBuffer, lpBufferSizeMarshal, lpBufferSize, lplpSystemMarshal, lplpSystem, UInt32)
         return result

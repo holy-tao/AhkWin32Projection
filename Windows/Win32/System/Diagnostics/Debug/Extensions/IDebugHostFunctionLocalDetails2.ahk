@@ -38,7 +38,6 @@ export default struct IDebugHostFunctionLocalDetails2 extends IDebugHostFunction
     }
 
     /**
-     * 
      * @returns {Boolean} 
      */
     IsInlineScope() {
@@ -47,7 +46,6 @@ export default struct IDebugHostFunctionLocalDetails2 extends IDebugHostFunction
     }
 
     /**
-     * 
      * @returns {IDebugHostSymbol} 
      */
     GetInlinedFunction() {
@@ -64,8 +62,8 @@ export default struct IDebugHostFunctionLocalDetails2 extends IDebugHostFunction
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsInlineScope := CallbackCreate(GetMethod(implObj, "IsInlineScope"), flags, 1)
-        this.vtbl.GetInlinedFunction := CallbackCreate(GetMethod(implObj, "GetInlinedFunction"), flags, 2)
+        this.vtbl.IsInlineScope := CallbackCreate(ObjBindMethod(implObj, "IsInlineScope"), flags, 1)
+        this.vtbl.GetInlinedFunction := CallbackCreate(ObjBindMethod(implObj, "GetInlinedFunction"), flags, 2)
     }
 
     Dispose() {

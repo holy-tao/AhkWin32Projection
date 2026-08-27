@@ -74,8 +74,8 @@ export default struct IDWriteAsyncResult extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetWaitHandle := CallbackCreate(GetMethod(implObj, "GetWaitHandle"), flags, 1)
-        this.vtbl.GetResult := CallbackCreate(GetMethod(implObj, "GetResult"), flags, 1)
+        this.vtbl.GetWaitHandle := CallbackCreate(ObjBindMethod(implObj, "GetWaitHandle"), flags, 1)
+        this.vtbl.GetResult := CallbackCreate(ObjBindMethod(implObj, "GetResult"), flags, 1)
     }
 
     Dispose() {

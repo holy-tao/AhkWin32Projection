@@ -128,7 +128,7 @@ export default struct IWbemHiPerfProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemhiperfprovider-createrefreshableobject
      */
     CreateRefreshableObject(pNamespace, pTemplate, pRefresher, lFlags, pContext, ppRefreshable, plId) {
-        plIdMarshal := plId is VarRef ? "int*" : "ptr"
+        plIdMarshal := plId is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, "ptr", pNamespace, "ptr", pTemplate, "ptr", pRefresher, Int32, lFlags, "ptr", pContext, IWbemObjectAccess.Ptr, ppRefreshable, plIdMarshal, plId, "HRESULT")
         return result
@@ -210,12 +210,12 @@ export default struct IWbemHiPerfProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryInstances := CallbackCreate(GetMethod(implObj, "QueryInstances"), flags, 6)
-        this.vtbl.CreateRefresher := CallbackCreate(GetMethod(implObj, "CreateRefresher"), flags, 4)
-        this.vtbl.CreateRefreshableObject := CallbackCreate(GetMethod(implObj, "CreateRefreshableObject"), flags, 8)
-        this.vtbl.StopRefreshing := CallbackCreate(GetMethod(implObj, "StopRefreshing"), flags, 4)
-        this.vtbl.CreateRefreshableEnum := CallbackCreate(GetMethod(implObj, "CreateRefreshableEnum"), flags, 8)
-        this.vtbl.GetObjects := CallbackCreate(GetMethod(implObj, "GetObjects"), flags, 6)
+        this.vtbl.QueryInstances := CallbackCreate(ObjBindMethod(implObj, "QueryInstances"), flags, 6)
+        this.vtbl.CreateRefresher := CallbackCreate(ObjBindMethod(implObj, "CreateRefresher"), flags, 4)
+        this.vtbl.CreateRefreshableObject := CallbackCreate(ObjBindMethod(implObj, "CreateRefreshableObject"), flags, 8)
+        this.vtbl.StopRefreshing := CallbackCreate(ObjBindMethod(implObj, "StopRefreshing"), flags, 4)
+        this.vtbl.CreateRefreshableEnum := CallbackCreate(ObjBindMethod(implObj, "CreateRefreshableEnum"), flags, 8)
+        this.vtbl.GetObjects := CallbackCreate(ObjBindMethod(implObj, "GetObjects"), flags, 6)
     }
 
     Dispose() {

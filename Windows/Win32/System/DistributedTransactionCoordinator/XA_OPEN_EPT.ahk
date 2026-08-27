@@ -19,7 +19,6 @@ export default struct XA_OPEN_EPT {
     }
 
     /**
-     * 
      * @param {PSTR} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 

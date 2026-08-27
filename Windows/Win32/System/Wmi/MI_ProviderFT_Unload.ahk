@@ -19,13 +19,13 @@ export default struct MI_ProviderFT_Unload {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} self 
      * @param {Pointer<MI_Context>} _context 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(self, _context) {
-        selfMarshal := self is VarRef ? "ptr" : "ptr"
+        selfMarshal := self is VarRef ? "ptr" : IntPtr
+        selfMarshal := self == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, selfMarshal, self, MI_Context.Ptr, _context)
     }

@@ -47,35 +47,32 @@ export default struct IPMExtensionShareTargetInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcTypes 
      * @param {Pointer<Pointer<BSTR>>} ppTypes 
      * @returns {HRESULT} 
      */
     get_AllFileTypes(pcTypes, ppTypes) {
-        pcTypesMarshal := pcTypes is VarRef ? "uint*" : "ptr"
-        ppTypesMarshal := ppTypes is VarRef ? "ptr*" : "ptr"
+        pcTypesMarshal := pcTypes is VarRef ? "uint*" : IntPtr
+        ppTypesMarshal := ppTypes is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, pcTypesMarshal, pcTypes, ppTypesMarshal, ppTypes, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcDataFormats 
      * @param {Pointer<Pointer<BSTR>>} ppDataFormats 
      * @returns {HRESULT} 
      */
     get_AllDataFormats(pcDataFormats, ppDataFormats) {
-        pcDataFormatsMarshal := pcDataFormats is VarRef ? "uint*" : "ptr"
-        ppDataFormatsMarshal := ppDataFormats is VarRef ? "ptr*" : "ptr"
+        pcDataFormatsMarshal := pcDataFormats is VarRef ? "uint*" : IntPtr
+        ppDataFormatsMarshal := ppDataFormats is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, pcDataFormatsMarshal, pcDataFormats, ppDataFormatsMarshal, ppDataFormats, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_SupportsAllFileTypes() {
@@ -92,9 +89,9 @@ export default struct IPMExtensionShareTargetInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_AllFileTypes := CallbackCreate(GetMethod(implObj, "get_AllFileTypes"), flags, 3)
-        this.vtbl.get_AllDataFormats := CallbackCreate(GetMethod(implObj, "get_AllDataFormats"), flags, 3)
-        this.vtbl.get_SupportsAllFileTypes := CallbackCreate(GetMethod(implObj, "get_SupportsAllFileTypes"), flags, 2)
+        this.vtbl.get_AllFileTypes := CallbackCreate(ObjBindMethod(implObj, "get_AllFileTypes"), flags, 3)
+        this.vtbl.get_AllDataFormats := CallbackCreate(ObjBindMethod(implObj, "get_AllDataFormats"), flags, 3)
+        this.vtbl.get_SupportsAllFileTypes := CallbackCreate(ObjBindMethod(implObj, "get_SupportsAllFileTypes"), flags, 2)
     }
 
     Dispose() {

@@ -22,7 +22,6 @@ export default struct BCryptImportKeyFn {
     }
 
     /**
-     * 
      * @param {BCRYPT_ALG_HANDLE} hAlgorithm 
      * @param {BCRYPT_KEY_HANDLE} hImportKey 
      * @param {PWSTR} pszBlobType 
@@ -37,7 +36,9 @@ export default struct BCryptImportKeyFn {
     Call(hAlgorithm, hImportKey, pszBlobType, phKey, pbKeyObject, cbKeyObject, pbInput, cbInput, dwFlags) {
         pszBlobType := pszBlobType is String ? StrPtr(pszBlobType) : pszBlobType
 
-        result := DllCall(this.value, BCRYPT_ALG_HANDLE, hAlgorithm, BCRYPT_KEY_HANDLE, hImportKey, "ptr", pszBlobType, BCRYPT_KEY_HANDLE.Ptr, phKey, IntPtr, pbKeyObject, UInt32, cbKeyObject, IntPtr, pbInput, UInt32, cbInput, UInt32, dwFlags, NTSTATUS)
+        hImportKeyMarshal := hImportKey == 0 ? IntPtr : BCRYPT_KEY_HANDLE
+
+        result := DllCall(this.value, BCRYPT_ALG_HANDLE, hAlgorithm, hImportKeyMarshal, hImportKey, "ptr", pszBlobType, BCRYPT_KEY_HANDLE.Ptr, phKey, IntPtr, pbKeyObject, UInt32, cbKeyObject, IntPtr, pbInput, UInt32, cbInput, UInt32, dwFlags, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

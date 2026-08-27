@@ -20,14 +20,13 @@ export default struct PCLUSAPI_EVICT_CLUSTER_NODE_EX {
     }
 
     /**
-     * 
      * @param {HNODE} _hNode 
      * @param {Integer} dwTimeOut 
      * @param {Pointer<HRESULT>} phrCleanupStatus 
      * @returns {Integer} 
      */
     Call(_hNode, dwTimeOut, phrCleanupStatus) {
-        phrCleanupStatusMarshal := phrCleanupStatus is VarRef ? "int*" : "ptr"
+        phrCleanupStatusMarshal := phrCleanupStatus is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, HNODE, _hNode, UInt32, dwTimeOut, phrCleanupStatusMarshal, phrCleanupStatus, UInt32)
         return result

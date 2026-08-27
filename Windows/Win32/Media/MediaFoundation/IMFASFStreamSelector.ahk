@@ -255,9 +255,9 @@ export default struct IMFASFStreamSelector extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamselector-getbandwidthstep
      */
     GetBandwidthStep(dwStepNum, pdwBitrate, rgwStreamNumbers, rgSelections) {
-        pdwBitrateMarshal := pdwBitrate is VarRef ? "uint*" : "ptr"
-        rgwStreamNumbersMarshal := rgwStreamNumbers is VarRef ? "ushort*" : "ptr"
-        rgSelectionsMarshal := rgSelections is VarRef ? "int*" : "ptr"
+        pdwBitrateMarshal := pdwBitrate is VarRef ? "uint*" : IntPtr
+        rgwStreamNumbersMarshal := rgwStreamNumbers is VarRef ? "ushort*" : IntPtr
+        rgSelectionsMarshal := rgSelections is VarRef ? "int*" : IntPtr
 
         result := ComCall(14, this, UInt32, dwStepNum, pdwBitrateMarshal, pdwBitrate, rgwStreamNumbersMarshal, rgwStreamNumbers, rgSelectionsMarshal, rgSelections, "HRESULT")
         return result
@@ -314,20 +314,20 @@ export default struct IMFASFStreamSelector extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStreamCount := CallbackCreate(GetMethod(implObj, "GetStreamCount"), flags, 2)
-        this.vtbl.GetOutputCount := CallbackCreate(GetMethod(implObj, "GetOutputCount"), flags, 2)
-        this.vtbl.GetOutputStreamCount := CallbackCreate(GetMethod(implObj, "GetOutputStreamCount"), flags, 3)
-        this.vtbl.GetOutputStreamNumbers := CallbackCreate(GetMethod(implObj, "GetOutputStreamNumbers"), flags, 3)
-        this.vtbl.GetOutputFromStream := CallbackCreate(GetMethod(implObj, "GetOutputFromStream"), flags, 3)
-        this.vtbl.GetOutputOverride := CallbackCreate(GetMethod(implObj, "GetOutputOverride"), flags, 3)
-        this.vtbl.SetOutputOverride := CallbackCreate(GetMethod(implObj, "SetOutputOverride"), flags, 3)
-        this.vtbl.GetOutputMutexCount := CallbackCreate(GetMethod(implObj, "GetOutputMutexCount"), flags, 3)
-        this.vtbl.GetOutputMutex := CallbackCreate(GetMethod(implObj, "GetOutputMutex"), flags, 4)
-        this.vtbl.SetOutputMutexSelection := CallbackCreate(GetMethod(implObj, "SetOutputMutexSelection"), flags, 4)
-        this.vtbl.GetBandwidthStepCount := CallbackCreate(GetMethod(implObj, "GetBandwidthStepCount"), flags, 2)
-        this.vtbl.GetBandwidthStep := CallbackCreate(GetMethod(implObj, "GetBandwidthStep"), flags, 5)
-        this.vtbl.BitrateToStepNumber := CallbackCreate(GetMethod(implObj, "BitrateToStepNumber"), flags, 3)
-        this.vtbl.SetStreamSelectorFlags := CallbackCreate(GetMethod(implObj, "SetStreamSelectorFlags"), flags, 2)
+        this.vtbl.GetStreamCount := CallbackCreate(ObjBindMethod(implObj, "GetStreamCount"), flags, 2)
+        this.vtbl.GetOutputCount := CallbackCreate(ObjBindMethod(implObj, "GetOutputCount"), flags, 2)
+        this.vtbl.GetOutputStreamCount := CallbackCreate(ObjBindMethod(implObj, "GetOutputStreamCount"), flags, 3)
+        this.vtbl.GetOutputStreamNumbers := CallbackCreate(ObjBindMethod(implObj, "GetOutputStreamNumbers"), flags, 3)
+        this.vtbl.GetOutputFromStream := CallbackCreate(ObjBindMethod(implObj, "GetOutputFromStream"), flags, 3)
+        this.vtbl.GetOutputOverride := CallbackCreate(ObjBindMethod(implObj, "GetOutputOverride"), flags, 3)
+        this.vtbl.SetOutputOverride := CallbackCreate(ObjBindMethod(implObj, "SetOutputOverride"), flags, 3)
+        this.vtbl.GetOutputMutexCount := CallbackCreate(ObjBindMethod(implObj, "GetOutputMutexCount"), flags, 3)
+        this.vtbl.GetOutputMutex := CallbackCreate(ObjBindMethod(implObj, "GetOutputMutex"), flags, 4)
+        this.vtbl.SetOutputMutexSelection := CallbackCreate(ObjBindMethod(implObj, "SetOutputMutexSelection"), flags, 4)
+        this.vtbl.GetBandwidthStepCount := CallbackCreate(ObjBindMethod(implObj, "GetBandwidthStepCount"), flags, 2)
+        this.vtbl.GetBandwidthStep := CallbackCreate(ObjBindMethod(implObj, "GetBandwidthStep"), flags, 5)
+        this.vtbl.BitrateToStepNumber := CallbackCreate(ObjBindMethod(implObj, "BitrateToStepNumber"), flags, 3)
+        this.vtbl.SetStreamSelectorFlags := CallbackCreate(ObjBindMethod(implObj, "SetStreamSelectorFlags"), flags, 2)
     }
 
     Dispose() {

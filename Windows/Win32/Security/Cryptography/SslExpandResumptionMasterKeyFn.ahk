@@ -23,7 +23,6 @@ export default struct SslExpandResumptionMasterKeyFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_KEY_HANDLE} hMasterKey 
      * @param {NCRYPT_HASH_HANDLE} hHashValue 
@@ -32,8 +31,10 @@ export default struct SslExpandResumptionMasterKeyFn {
      * @returns {NCRYPT_KEY_HANDLE} 
      */
     Call(hSslProvider, hMasterKey, hHashValue, pParameterList, dwFlags) {
+        pParameterListMarshal := pParameterList == 0 ? IntPtr : BCryptBufferDesc.Ptr
+
         phResumptionMasterKey := NCRYPT_KEY_HANDLE.Owned()
-        result := DllCall(this.value, NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hMasterKey, NCRYPT_HASH_HANDLE, hHashValue, NCRYPT_KEY_HANDLE.Ptr, phResumptionMasterKey, BCryptBufferDesc.Ptr, pParameterList, UInt32, dwFlags, "HRESULT")
+        result := DllCall(this.value, NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hMasterKey, NCRYPT_HASH_HANDLE, hHashValue, NCRYPT_KEY_HANDLE.Ptr, phResumptionMasterKey, pParameterListMarshal, pParameterList, UInt32, dwFlags, "HRESULT")
         return phResumptionMasterKey
     }
 

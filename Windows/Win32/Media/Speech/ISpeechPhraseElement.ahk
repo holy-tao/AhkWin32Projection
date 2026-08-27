@@ -143,7 +143,6 @@ export default struct ISpeechPhraseElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AudioTimeOffset() {
@@ -152,7 +151,6 @@ export default struct ISpeechPhraseElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AudioSizeTime() {
@@ -161,7 +159,6 @@ export default struct ISpeechPhraseElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AudioStreamOffset() {
@@ -170,7 +167,6 @@ export default struct ISpeechPhraseElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AudioSizeBytes() {
@@ -179,7 +175,6 @@ export default struct ISpeechPhraseElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_RetainedStreamOffset() {
@@ -188,7 +183,6 @@ export default struct ISpeechPhraseElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_RetainedSizeBytes() {
@@ -197,7 +191,6 @@ export default struct ISpeechPhraseElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DisplayText() {
@@ -207,7 +200,6 @@ export default struct ISpeechPhraseElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LexicalForm() {
@@ -217,7 +209,6 @@ export default struct ISpeechPhraseElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Pronunciation() {
@@ -227,7 +218,6 @@ export default struct ISpeechPhraseElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechDisplayAttributes} 
      */
     get_DisplayAttributes() {
@@ -236,7 +226,6 @@ export default struct ISpeechPhraseElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechEngineConfidence} 
      */
     get_RequiredConfidence() {
@@ -245,7 +234,6 @@ export default struct ISpeechPhraseElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechEngineConfidence} 
      */
     get_ActualConfidence() {
@@ -254,7 +242,6 @@ export default struct ISpeechPhraseElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_EngineConfidence() {
@@ -271,19 +258,19 @@ export default struct ISpeechPhraseElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_AudioTimeOffset := CallbackCreate(GetMethod(implObj, "get_AudioTimeOffset"), flags, 2)
-        this.vtbl.get_AudioSizeTime := CallbackCreate(GetMethod(implObj, "get_AudioSizeTime"), flags, 2)
-        this.vtbl.get_AudioStreamOffset := CallbackCreate(GetMethod(implObj, "get_AudioStreamOffset"), flags, 2)
-        this.vtbl.get_AudioSizeBytes := CallbackCreate(GetMethod(implObj, "get_AudioSizeBytes"), flags, 2)
-        this.vtbl.get_RetainedStreamOffset := CallbackCreate(GetMethod(implObj, "get_RetainedStreamOffset"), flags, 2)
-        this.vtbl.get_RetainedSizeBytes := CallbackCreate(GetMethod(implObj, "get_RetainedSizeBytes"), flags, 2)
-        this.vtbl.get_DisplayText := CallbackCreate(GetMethod(implObj, "get_DisplayText"), flags, 2)
-        this.vtbl.get_LexicalForm := CallbackCreate(GetMethod(implObj, "get_LexicalForm"), flags, 2)
-        this.vtbl.get_Pronunciation := CallbackCreate(GetMethod(implObj, "get_Pronunciation"), flags, 2)
-        this.vtbl.get_DisplayAttributes := CallbackCreate(GetMethod(implObj, "get_DisplayAttributes"), flags, 2)
-        this.vtbl.get_RequiredConfidence := CallbackCreate(GetMethod(implObj, "get_RequiredConfidence"), flags, 2)
-        this.vtbl.get_ActualConfidence := CallbackCreate(GetMethod(implObj, "get_ActualConfidence"), flags, 2)
-        this.vtbl.get_EngineConfidence := CallbackCreate(GetMethod(implObj, "get_EngineConfidence"), flags, 2)
+        this.vtbl.get_AudioTimeOffset := CallbackCreate(ObjBindMethod(implObj, "get_AudioTimeOffset"), flags, 2)
+        this.vtbl.get_AudioSizeTime := CallbackCreate(ObjBindMethod(implObj, "get_AudioSizeTime"), flags, 2)
+        this.vtbl.get_AudioStreamOffset := CallbackCreate(ObjBindMethod(implObj, "get_AudioStreamOffset"), flags, 2)
+        this.vtbl.get_AudioSizeBytes := CallbackCreate(ObjBindMethod(implObj, "get_AudioSizeBytes"), flags, 2)
+        this.vtbl.get_RetainedStreamOffset := CallbackCreate(ObjBindMethod(implObj, "get_RetainedStreamOffset"), flags, 2)
+        this.vtbl.get_RetainedSizeBytes := CallbackCreate(ObjBindMethod(implObj, "get_RetainedSizeBytes"), flags, 2)
+        this.vtbl.get_DisplayText := CallbackCreate(ObjBindMethod(implObj, "get_DisplayText"), flags, 2)
+        this.vtbl.get_LexicalForm := CallbackCreate(ObjBindMethod(implObj, "get_LexicalForm"), flags, 2)
+        this.vtbl.get_Pronunciation := CallbackCreate(ObjBindMethod(implObj, "get_Pronunciation"), flags, 2)
+        this.vtbl.get_DisplayAttributes := CallbackCreate(ObjBindMethod(implObj, "get_DisplayAttributes"), flags, 2)
+        this.vtbl.get_RequiredConfidence := CallbackCreate(ObjBindMethod(implObj, "get_RequiredConfidence"), flags, 2)
+        this.vtbl.get_ActualConfidence := CallbackCreate(ObjBindMethod(implObj, "get_ActualConfidence"), flags, 2)
+        this.vtbl.get_EngineConfidence := CallbackCreate(ObjBindMethod(implObj, "get_EngineConfidence"), flags, 2)
     }
 
     Dispose() {

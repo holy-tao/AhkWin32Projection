@@ -38,7 +38,6 @@ export default struct IDirectInput7A extends IDirectInput2A {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} param0 
      * @param {Pointer<Guid>} param1 
      * @param {Pointer<Pointer<Void>>} param2 
@@ -46,7 +45,7 @@ export default struct IDirectInput7A extends IDirectInput2A {
      * @returns {HRESULT} 
      */
     CreateDeviceEx(param0, param1, param2, param3) {
-        param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
+        param2Marshal := param2 is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(9, this, Guid.Ptr, param0, Guid.Ptr, param1, param2Marshal, param2, "ptr", param3, "HRESULT")
         return result
@@ -61,7 +60,7 @@ export default struct IDirectInput7A extends IDirectInput2A {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateDeviceEx := CallbackCreate(GetMethod(implObj, "CreateDeviceEx"), flags, 5)
+        this.vtbl.CreateDeviceEx := CallbackCreate(ObjBindMethod(implObj, "CreateDeviceEx"), flags, 5)
     }
 
     Dispose() {

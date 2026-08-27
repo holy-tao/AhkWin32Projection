@@ -165,9 +165,9 @@ export default struct ISharedPropertyGroupManager extends IDispatch {
     CreatePropertyGroup(Name, dwIsoMode, dwRelMode, fExists, ppGroup) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name
 
-        dwIsoModeMarshal := dwIsoMode is VarRef ? "int*" : "ptr"
-        dwRelModeMarshal := dwRelMode is VarRef ? "int*" : "ptr"
-        fExistsMarshal := fExists is VarRef ? "short*" : "ptr"
+        dwIsoModeMarshal := dwIsoMode is VarRef ? "int*" : IntPtr
+        dwRelModeMarshal := dwRelMode is VarRef ? "int*" : IntPtr
+        fExistsMarshal := fExists is VarRef ? "short*" : IntPtr
 
         result := ComCall(7, this, BSTR, Name, dwIsoModeMarshal, dwIsoMode, dwRelModeMarshal, dwRelMode, fExistsMarshal, fExists, ISharedPropertyGroup.Ptr, ppGroup, "HRESULT")
         return result
@@ -205,9 +205,9 @@ export default struct ISharedPropertyGroupManager extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreatePropertyGroup := CallbackCreate(GetMethod(implObj, "CreatePropertyGroup"), flags, 6)
-        this.vtbl.get_Group := CallbackCreate(GetMethod(implObj, "get_Group"), flags, 3)
-        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.CreatePropertyGroup := CallbackCreate(ObjBindMethod(implObj, "CreatePropertyGroup"), flags, 6)
+        this.vtbl.get_Group := CallbackCreate(ObjBindMethod(implObj, "get_Group"), flags, 3)
+        this.vtbl.get__NewEnum := CallbackCreate(ObjBindMethod(implObj, "get__NewEnum"), flags, 2)
     }
 
     Dispose() {

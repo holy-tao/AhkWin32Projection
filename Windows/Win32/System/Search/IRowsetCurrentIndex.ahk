@@ -38,7 +38,6 @@ export default struct IRowsetCurrentIndex extends IRowsetIndex {
     }
 
     /**
-     * 
      * @returns {Pointer<DBID>} 
      */
     GetIndex() {
@@ -47,7 +46,6 @@ export default struct IRowsetCurrentIndex extends IRowsetIndex {
     }
 
     /**
-     * 
      * @param {Pointer<DBID>} pIndexID 
      * @returns {HRESULT} 
      */
@@ -65,8 +63,8 @@ export default struct IRowsetCurrentIndex extends IRowsetIndex {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetIndex := CallbackCreate(GetMethod(implObj, "GetIndex"), flags, 2)
-        this.vtbl.SetIndex := CallbackCreate(GetMethod(implObj, "SetIndex"), flags, 2)
+        this.vtbl.GetIndex := CallbackCreate(ObjBindMethod(implObj, "GetIndex"), flags, 2)
+        this.vtbl.SetIndex := CallbackCreate(ObjBindMethod(implObj, "SetIndex"), flags, 2)
     }
 
     Dispose() {

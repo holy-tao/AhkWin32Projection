@@ -21,7 +21,6 @@ export default struct PCLUSAPI_REGISTER_CLUSTER_NOTIFY_V2 {
     }
 
     /**
-     * 
      * @param {HCHANGE} _hChange 
      * @param {NOTIFY_FILTER_AND_TYPE} Filter 
      * @param {HANDLE} hObject 

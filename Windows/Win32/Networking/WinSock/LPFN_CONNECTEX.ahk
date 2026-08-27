@@ -181,7 +181,6 @@ export default struct LPFN_CONNECTEX {
     }
 
     /**
-     * 
      * @param {SOCKET} s A descriptor that identifies an unconnected, previously bound socket. See Remarks for more information.
      * @param {Integer} name A pointer to  
      * a <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure that specifies the address to which to connect. For  IPv4, the <b>sockaddr</b> contains <b>AF_INET</b> for the address family, the destination IPv4 address, and the destination port. For  IPv6, the <b>sockaddr</b> structure contains <b>AF_INET6</b> for the address family, the destination IPv6 address, the destination port, and may contain additional IPv6 flow and scope-id information.
@@ -382,9 +381,10 @@ export default struct LPFN_CONNECTEX {
      * </table>
      */
     Call(s, name, namelen, lpSendBuffer, dwSendDataLength, lpdwBytesSent, lpOverlapped) {
-        lpdwBytesSentMarshal := lpdwBytesSent is VarRef ? "uint*" : "ptr"
+        lpSendBufferMarshal := lpSendBuffer == 0 ? IntPtr : IntPtr
+        lpdwBytesSentMarshal := lpdwBytesSent is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, SOCKET, s, IntPtr, name, Int32, namelen, IntPtr, lpSendBuffer, UInt32, dwSendDataLength, lpdwBytesSentMarshal, lpdwBytesSent, OVERLAPPED.Ptr, lpOverlapped, BOOL)
+        result := DllCall(this.value, SOCKET, s, IntPtr, name, Int32, namelen, lpSendBufferMarshal, lpSendBuffer, UInt32, dwSendDataLength, lpdwBytesSentMarshal, lpdwBytesSent, OVERLAPPED.Ptr, lpOverlapped, BOOL)
         return result
     }
 

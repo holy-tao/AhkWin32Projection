@@ -227,11 +227,11 @@ export default struct IRunnableTask extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Run := CallbackCreate(GetMethod(implObj, "Run"), flags, 1)
-        this.vtbl.Kill := CallbackCreate(GetMethod(implObj, "Kill"), flags, 2)
-        this.vtbl.Suspend := CallbackCreate(GetMethod(implObj, "Suspend"), flags, 1)
-        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 1)
-        this.vtbl.IsRunning := CallbackCreate(GetMethod(implObj, "IsRunning"), flags, 1)
+        this.vtbl.Run := CallbackCreate(ObjBindMethod(implObj, "Run"), flags, 1)
+        this.vtbl.Kill := CallbackCreate(ObjBindMethod(implObj, "Kill"), flags, 2)
+        this.vtbl.Suspend := CallbackCreate(ObjBindMethod(implObj, "Suspend"), flags, 1)
+        this.vtbl.Resume := CallbackCreate(ObjBindMethod(implObj, "Resume"), flags, 1)
+        this.vtbl.IsRunning := CallbackCreate(ObjBindMethod(implObj, "IsRunning"), flags, 1)
     }
 
     Dispose() {

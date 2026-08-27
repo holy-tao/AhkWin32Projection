@@ -19,7 +19,6 @@ export default struct PF_NPEnumResource {
     }
 
     /**
-     * 
      * @param {HANDLE} hEnum 
      * @param {Pointer<Integer>} lpcCount 
      * @param {Integer} lpBuffer 
@@ -27,8 +26,8 @@ export default struct PF_NPEnumResource {
      * @returns {Integer} 
      */
     Call(hEnum, lpcCount, lpBuffer, lpBufferSize) {
-        lpcCountMarshal := lpcCount is VarRef ? "uint*" : "ptr"
-        lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : "ptr"
+        lpcCountMarshal := lpcCount is VarRef ? "uint*" : IntPtr
+        lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HANDLE, hEnum, lpcCountMarshal, lpcCount, IntPtr, lpBuffer, lpBufferSizeMarshal, lpBufferSize, UInt32)
         return result

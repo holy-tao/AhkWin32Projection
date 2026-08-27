@@ -24,7 +24,6 @@ export default struct PLSA_AUDIT_LOGON {
     }
 
     /**
-     * 
      * @param {NTSTATUS} _Status 
      * @param {NTSTATUS} SubStatus 
      * @param {Pointer<LSA_UNICODE_STRING>} AccountName 
@@ -37,7 +36,12 @@ export default struct PLSA_AUDIT_LOGON {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Status, SubStatus, AccountName, AuthenticatingAuthority, WorkstationName, UserSid, LogonType, TokenSource, LogonId) {
-        DllCall(this.value, NTSTATUS, _Status, NTSTATUS, SubStatus, LSA_UNICODE_STRING.Ptr, AccountName, LSA_UNICODE_STRING.Ptr, AuthenticatingAuthority, LSA_UNICODE_STRING.Ptr, WorkstationName, PSID, UserSid, SECURITY_LOGON_TYPE, LogonType, TOKEN_SOURCE.Ptr, TokenSource, LUID.Ptr, LogonId)
+        AccountNameMarshal := AccountName == 0 ? IntPtr : LSA_UNICODE_STRING.Ptr
+        AuthenticatingAuthorityMarshal := AuthenticatingAuthority == 0 ? IntPtr : LSA_UNICODE_STRING.Ptr
+        WorkstationNameMarshal := WorkstationName == 0 ? IntPtr : LSA_UNICODE_STRING.Ptr
+        UserSidMarshal := UserSid == 0 ? IntPtr : PSID
+
+        DllCall(this.value, NTSTATUS, _Status, NTSTATUS, SubStatus, AccountNameMarshal, AccountName, AuthenticatingAuthorityMarshal, AuthenticatingAuthority, WorkstationNameMarshal, WorkstationName, UserSidMarshal, UserSid, SECURITY_LOGON_TYPE, LogonType, TOKEN_SOURCE.Ptr, TokenSource, LUID.Ptr, LogonId)
     }
 
     /**

@@ -90,7 +90,8 @@ export default struct IDirectManipulationPrimaryContent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationprimarycontent-setsnappoints
      */
     SetSnapPoints(motion, _points, pointCount) {
-        _pointsMarshal := _points is VarRef ? "float*" : "ptr"
+        _pointsMarshal := _points is VarRef ? "float*" : IntPtr
+        _pointsMarshal := _points == 0 ? IntPtr : "float*"
 
         result := ComCall(4, this, DIRECTMANIPULATION_MOTION_TYPES, motion, _pointsMarshal, _points, UInt32, pointCount, "HRESULT")
         return result
@@ -201,8 +202,8 @@ export default struct IDirectManipulationPrimaryContent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationprimarycontent-getcenterpoint
      */
     GetCenterPoint(centerX, centerY) {
-        centerXMarshal := centerX is VarRef ? "float*" : "ptr"
-        centerYMarshal := centerY is VarRef ? "float*" : "ptr"
+        centerXMarshal := centerX is VarRef ? "float*" : IntPtr
+        centerYMarshal := centerY is VarRef ? "float*" : IntPtr
 
         result := ComCall(11, this, centerXMarshal, centerX, centerYMarshal, centerY, "HRESULT")
         return result
@@ -217,15 +218,15 @@ export default struct IDirectManipulationPrimaryContent extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetSnapInterval := CallbackCreate(GetMethod(implObj, "SetSnapInterval"), flags, 4)
-        this.vtbl.SetSnapPoints := CallbackCreate(GetMethod(implObj, "SetSnapPoints"), flags, 4)
-        this.vtbl.SetSnapType := CallbackCreate(GetMethod(implObj, "SetSnapType"), flags, 3)
-        this.vtbl.SetSnapCoordinate := CallbackCreate(GetMethod(implObj, "SetSnapCoordinate"), flags, 4)
-        this.vtbl.SetZoomBoundaries := CallbackCreate(GetMethod(implObj, "SetZoomBoundaries"), flags, 3)
-        this.vtbl.SetHorizontalAlignment := CallbackCreate(GetMethod(implObj, "SetHorizontalAlignment"), flags, 2)
-        this.vtbl.SetVerticalAlignment := CallbackCreate(GetMethod(implObj, "SetVerticalAlignment"), flags, 2)
-        this.vtbl.GetInertiaEndTransform := CallbackCreate(GetMethod(implObj, "GetInertiaEndTransform"), flags, 3)
-        this.vtbl.GetCenterPoint := CallbackCreate(GetMethod(implObj, "GetCenterPoint"), flags, 3)
+        this.vtbl.SetSnapInterval := CallbackCreate(ObjBindMethod(implObj, "SetSnapInterval"), flags, 4)
+        this.vtbl.SetSnapPoints := CallbackCreate(ObjBindMethod(implObj, "SetSnapPoints"), flags, 4)
+        this.vtbl.SetSnapType := CallbackCreate(ObjBindMethod(implObj, "SetSnapType"), flags, 3)
+        this.vtbl.SetSnapCoordinate := CallbackCreate(ObjBindMethod(implObj, "SetSnapCoordinate"), flags, 4)
+        this.vtbl.SetZoomBoundaries := CallbackCreate(ObjBindMethod(implObj, "SetZoomBoundaries"), flags, 3)
+        this.vtbl.SetHorizontalAlignment := CallbackCreate(ObjBindMethod(implObj, "SetHorizontalAlignment"), flags, 2)
+        this.vtbl.SetVerticalAlignment := CallbackCreate(ObjBindMethod(implObj, "SetVerticalAlignment"), flags, 2)
+        this.vtbl.GetInertiaEndTransform := CallbackCreate(ObjBindMethod(implObj, "GetInertiaEndTransform"), flags, 3)
+        this.vtbl.GetCenterPoint := CallbackCreate(ObjBindMethod(implObj, "GetCenterPoint"), flags, 3)
     }
 
     Dispose() {

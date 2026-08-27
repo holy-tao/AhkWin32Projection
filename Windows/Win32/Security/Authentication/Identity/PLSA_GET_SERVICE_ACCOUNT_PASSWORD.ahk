@@ -22,7 +22,6 @@ export default struct PLSA_GET_SERVICE_ACCOUNT_PASSWORD {
     }
 
     /**
-     * 
      * @param {Pointer<LSA_UNICODE_STRING>} AccountName 
      * @param {Pointer<LSA_UNICODE_STRING>} DomainName 
      * @param {CRED_FETCH} CredFetch 
@@ -33,7 +32,10 @@ export default struct PLSA_GET_SERVICE_ACCOUNT_PASSWORD {
      * @returns {NTSTATUS} 
      */
     Call(AccountName, DomainName, CredFetch, FileTimeExpiry, CurrentPassword, PreviousPassword, FileTimeCurrPwdValidForOutbound) {
-        result := DllCall(this.value, LSA_UNICODE_STRING.Ptr, AccountName, LSA_UNICODE_STRING.Ptr, DomainName, CRED_FETCH, CredFetch, FILETIME.Ptr, FileTimeExpiry, LSA_UNICODE_STRING.Ptr, CurrentPassword, LSA_UNICODE_STRING.Ptr, PreviousPassword, FILETIME.Ptr, FileTimeCurrPwdValidForOutbound, NTSTATUS)
+        DomainNameMarshal := DomainName == 0 ? IntPtr : LSA_UNICODE_STRING.Ptr
+        FileTimeCurrPwdValidForOutboundMarshal := FileTimeCurrPwdValidForOutbound == 0 ? IntPtr : FILETIME.Ptr
+
+        result := DllCall(this.value, LSA_UNICODE_STRING.Ptr, AccountName, DomainNameMarshal, DomainName, CRED_FETCH, CredFetch, FILETIME.Ptr, FileTimeExpiry, LSA_UNICODE_STRING.Ptr, CurrentPassword, LSA_UNICODE_STRING.Ptr, PreviousPassword, FileTimeCurrPwdValidForOutboundMarshal, FileTimeCurrPwdValidForOutbound, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

@@ -40,7 +40,6 @@ export default struct INetCfgClass extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszwInfId 
      * @returns {INetCfgComponent} 
      */
@@ -52,7 +51,6 @@ export default struct INetCfgClass extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumNetCfgComponent} 
      */
     EnumComponents() {
@@ -69,8 +67,8 @@ export default struct INetCfgClass extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FindComponent := CallbackCreate(GetMethod(implObj, "FindComponent"), flags, 3)
-        this.vtbl.EnumComponents := CallbackCreate(GetMethod(implObj, "EnumComponents"), flags, 2)
+        this.vtbl.FindComponent := CallbackCreate(ObjBindMethod(implObj, "FindComponent"), flags, 3)
+        this.vtbl.EnumComponents := CallbackCreate(ObjBindMethod(implObj, "EnumComponents"), flags, 2)
     }
 
     Dispose() {

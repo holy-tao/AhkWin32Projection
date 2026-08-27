@@ -186,9 +186,9 @@ export default struct ISBE2StreamMap extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.MapStream := CallbackCreate(GetMethod(implObj, "MapStream"), flags, 2)
-        this.vtbl.UnmapStream := CallbackCreate(GetMethod(implObj, "UnmapStream"), flags, 2)
-        this.vtbl.EnumMappedStreams := CallbackCreate(GetMethod(implObj, "EnumMappedStreams"), flags, 2)
+        this.vtbl.MapStream := CallbackCreate(ObjBindMethod(implObj, "MapStream"), flags, 2)
+        this.vtbl.UnmapStream := CallbackCreate(ObjBindMethod(implObj, "UnmapStream"), flags, 2)
+        this.vtbl.EnumMappedStreams := CallbackCreate(ObjBindMethod(implObj, "EnumMappedStreams"), flags, 2)
     }
 
     Dispose() {

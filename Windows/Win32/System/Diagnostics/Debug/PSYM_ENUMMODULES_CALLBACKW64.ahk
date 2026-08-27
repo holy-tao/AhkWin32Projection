@@ -29,7 +29,6 @@ export default struct PSYM_ENUMMODULES_CALLBACKW64 {
     }
 
     /**
-     * 
      * @param {PWSTR} ModuleName The name of the module.
      * @param {Integer} BaseOfDll The base address where the module is loaded into memory.
      * @param {Pointer<Void>} UserContext The user-defined value specified in 
@@ -41,7 +40,8 @@ export default struct PSYM_ENUMMODULES_CALLBACKW64 {
     Call(ModuleName, BaseOfDll, UserContext) {
         ModuleName := ModuleName is String ? StrPtr(ModuleName) : ModuleName
 
-        UserContextMarshal := UserContext is VarRef ? "ptr" : "ptr"
+        UserContextMarshal := UserContext is VarRef ? "ptr" : IntPtr
+        UserContextMarshal := UserContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, "ptr", ModuleName, Int64, BaseOfDll, UserContextMarshal, UserContext, BOOL)
         return result

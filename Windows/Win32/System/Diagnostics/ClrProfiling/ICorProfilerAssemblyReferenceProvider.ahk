@@ -37,7 +37,6 @@ export default struct ICorProfilerAssemblyReferenceProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<COR_PRF_ASSEMBLY_REFERENCE_INFO>} pAssemblyRefInfo 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,7 @@ export default struct ICorProfilerAssemblyReferenceProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddAssemblyReference := CallbackCreate(GetMethod(implObj, "AddAssemblyReference"), flags, 2)
+        this.vtbl.AddAssemblyReference := CallbackCreate(ObjBindMethod(implObj, "AddAssemblyReference"), flags, 2)
     }
 
     Dispose() {

@@ -88,7 +88,10 @@ export default struct IPackageDebugSettings extends IUnknown {
         debuggerCommandLine := debuggerCommandLine is String ? StrPtr(debuggerCommandLine) : debuggerCommandLine
         environment := environment is String ? StrPtr(environment) : environment
 
-        result := ComCall(3, this, "ptr", packageFullName, "ptr", debuggerCommandLine, "ptr", environment, "HRESULT")
+        debuggerCommandLineMarshal := debuggerCommandLine == 0 ? IntPtr : PWSTR
+        environmentMarshal := environment == 0 ? IntPtr : PWSTR
+
+        result := ComCall(3, this, "ptr", packageFullName, debuggerCommandLineMarshal, debuggerCommandLine, environmentMarshal, environment, "HRESULT")
         return result
     }
 
@@ -192,9 +195,9 @@ export default struct IPackageDebugSettings extends IUnknown {
     EnumerateBackgroundTasks(packageFullName, taskCount, taskIds, taskNames) {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
 
-        taskCountMarshal := taskCount is VarRef ? "uint*" : "ptr"
-        taskIdsMarshal := taskIds is VarRef ? "ptr*" : "ptr"
-        taskNamesMarshal := taskNames is VarRef ? "ptr*" : "ptr"
+        taskCountMarshal := taskCount is VarRef ? "uint*" : IntPtr
+        taskIdsMarshal := taskIds is VarRef ? "ptr*" : IntPtr
+        taskNamesMarshal := taskNames is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(9, this, "ptr", packageFullName, taskCountMarshal, taskCount, taskIdsMarshal, taskIds, taskNamesMarshal, taskNames, "HRESULT")
         return result
@@ -325,21 +328,21 @@ export default struct IPackageDebugSettings extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnableDebugging := CallbackCreate(GetMethod(implObj, "EnableDebugging"), flags, 4)
-        this.vtbl.DisableDebugging := CallbackCreate(GetMethod(implObj, "DisableDebugging"), flags, 2)
-        this.vtbl.Suspend := CallbackCreate(GetMethod(implObj, "Suspend"), flags, 2)
-        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 2)
-        this.vtbl.TerminateAllProcesses := CallbackCreate(GetMethod(implObj, "TerminateAllProcesses"), flags, 2)
-        this.vtbl.SetTargetSessionId := CallbackCreate(GetMethod(implObj, "SetTargetSessionId"), flags, 2)
-        this.vtbl.EnumerateBackgroundTasks := CallbackCreate(GetMethod(implObj, "EnumerateBackgroundTasks"), flags, 5)
-        this.vtbl.ActivateBackgroundTask := CallbackCreate(GetMethod(implObj, "ActivateBackgroundTask"), flags, 2)
-        this.vtbl.StartServicing := CallbackCreate(GetMethod(implObj, "StartServicing"), flags, 2)
-        this.vtbl.StopServicing := CallbackCreate(GetMethod(implObj, "StopServicing"), flags, 2)
-        this.vtbl.StartSessionRedirection := CallbackCreate(GetMethod(implObj, "StartSessionRedirection"), flags, 3)
-        this.vtbl.StopSessionRedirection := CallbackCreate(GetMethod(implObj, "StopSessionRedirection"), flags, 2)
-        this.vtbl.GetPackageExecutionState := CallbackCreate(GetMethod(implObj, "GetPackageExecutionState"), flags, 3)
-        this.vtbl.RegisterForPackageStateChanges := CallbackCreate(GetMethod(implObj, "RegisterForPackageStateChanges"), flags, 4)
-        this.vtbl.UnregisterForPackageStateChanges := CallbackCreate(GetMethod(implObj, "UnregisterForPackageStateChanges"), flags, 2)
+        this.vtbl.EnableDebugging := CallbackCreate(ObjBindMethod(implObj, "EnableDebugging"), flags, 4)
+        this.vtbl.DisableDebugging := CallbackCreate(ObjBindMethod(implObj, "DisableDebugging"), flags, 2)
+        this.vtbl.Suspend := CallbackCreate(ObjBindMethod(implObj, "Suspend"), flags, 2)
+        this.vtbl.Resume := CallbackCreate(ObjBindMethod(implObj, "Resume"), flags, 2)
+        this.vtbl.TerminateAllProcesses := CallbackCreate(ObjBindMethod(implObj, "TerminateAllProcesses"), flags, 2)
+        this.vtbl.SetTargetSessionId := CallbackCreate(ObjBindMethod(implObj, "SetTargetSessionId"), flags, 2)
+        this.vtbl.EnumerateBackgroundTasks := CallbackCreate(ObjBindMethod(implObj, "EnumerateBackgroundTasks"), flags, 5)
+        this.vtbl.ActivateBackgroundTask := CallbackCreate(ObjBindMethod(implObj, "ActivateBackgroundTask"), flags, 2)
+        this.vtbl.StartServicing := CallbackCreate(ObjBindMethod(implObj, "StartServicing"), flags, 2)
+        this.vtbl.StopServicing := CallbackCreate(ObjBindMethod(implObj, "StopServicing"), flags, 2)
+        this.vtbl.StartSessionRedirection := CallbackCreate(ObjBindMethod(implObj, "StartSessionRedirection"), flags, 3)
+        this.vtbl.StopSessionRedirection := CallbackCreate(ObjBindMethod(implObj, "StopSessionRedirection"), flags, 2)
+        this.vtbl.GetPackageExecutionState := CallbackCreate(ObjBindMethod(implObj, "GetPackageExecutionState"), flags, 3)
+        this.vtbl.RegisterForPackageStateChanges := CallbackCreate(ObjBindMethod(implObj, "RegisterForPackageStateChanges"), flags, 4)
+        this.vtbl.UnregisterForPackageStateChanges := CallbackCreate(ObjBindMethod(implObj, "UnregisterForPackageStateChanges"), flags, 2)
     }
 
     Dispose() {

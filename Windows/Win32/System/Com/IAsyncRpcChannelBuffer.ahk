@@ -40,7 +40,6 @@ export default struct IAsyncRpcChannelBuffer extends IRpcChannelBuffer2 {
     }
 
     /**
-     * 
      * @param {Pointer<RPCOLEMESSAGE>} pMsg 
      * @param {ISynchronize} pSync 
      * @returns {Integer} 
@@ -51,7 +50,6 @@ export default struct IAsyncRpcChannelBuffer extends IRpcChannelBuffer2 {
     }
 
     /**
-     * 
      * @param {Pointer<RPCOLEMESSAGE>} pMsg 
      * @returns {Integer} 
      */
@@ -61,15 +59,15 @@ export default struct IAsyncRpcChannelBuffer extends IRpcChannelBuffer2 {
     }
 
     /**
-     * 
      * @param {Pointer<RPCOLEMESSAGE>} pMsg 
      * @param {Pointer<Integer>} pdwDestContext 
      * @param {Pointer<Pointer<Void>>} ppvDestContext 
      * @returns {HRESULT} 
      */
     GetDestCtxEx(pMsg, pdwDestContext, ppvDestContext) {
-        pdwDestContextMarshal := pdwDestContext is VarRef ? "uint*" : "ptr"
-        ppvDestContextMarshal := ppvDestContext is VarRef ? "ptr*" : "ptr"
+        pdwDestContextMarshal := pdwDestContext is VarRef ? "uint*" : IntPtr
+        ppvDestContextMarshal := ppvDestContext is VarRef ? "ptr*" : IntPtr
+        ppvDestContextMarshal := ppvDestContext == 0 ? IntPtr : "ptr*"
 
         result := ComCall(11, this, RPCOLEMESSAGE.Ptr, pMsg, pdwDestContextMarshal, pdwDestContext, ppvDestContextMarshal, ppvDestContext, "HRESULT")
         return result
@@ -84,9 +82,9 @@ export default struct IAsyncRpcChannelBuffer extends IRpcChannelBuffer2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Send := CallbackCreate(GetMethod(implObj, "Send"), flags, 4)
-        this.vtbl.Receive := CallbackCreate(GetMethod(implObj, "Receive"), flags, 3)
-        this.vtbl.GetDestCtxEx := CallbackCreate(GetMethod(implObj, "GetDestCtxEx"), flags, 4)
+        this.vtbl.Send := CallbackCreate(ObjBindMethod(implObj, "Send"), flags, 4)
+        this.vtbl.Receive := CallbackCreate(ObjBindMethod(implObj, "Receive"), flags, 3)
+        this.vtbl.GetDestCtxEx := CallbackCreate(ObjBindMethod(implObj, "GetDestCtxEx"), flags, 4)
     }
 
     Dispose() {

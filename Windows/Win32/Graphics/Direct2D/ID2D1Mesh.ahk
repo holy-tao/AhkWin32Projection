@@ -64,7 +64,7 @@ export default struct ID2D1Mesh extends ID2D1Resource {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 2)
+        this.vtbl.Open := CallbackCreate(ObjBindMethod(implObj, "Open"), flags, 2)
     }
 
     Dispose() {

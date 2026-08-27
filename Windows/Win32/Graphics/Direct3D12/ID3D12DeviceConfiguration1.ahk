@@ -37,7 +37,6 @@ export default struct ID3D12DeviceConfiguration1 extends ID3D12DeviceConfigurati
     }
 
     /**
-     * 
      * @param {Integer} pLibraryBlob 
      * @param {Pointer} _Size 
      * @param {PWSTR} RootSignatureSubobjectName 
@@ -60,7 +59,7 @@ export default struct ID3D12DeviceConfiguration1 extends ID3D12DeviceConfigurati
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateVersionedRootSignatureDeserializerFromSubobjectInLibrary := CallbackCreate(GetMethod(implObj, "CreateVersionedRootSignatureDeserializerFromSubobjectInLibrary"), flags, 6)
+        this.vtbl.CreateVersionedRootSignatureDeserializerFromSubobjectInLibrary := CallbackCreate(ObjBindMethod(implObj, "CreateVersionedRootSignatureDeserializerFromSubobjectInLibrary"), flags, 6)
     }
 
     Dispose() {

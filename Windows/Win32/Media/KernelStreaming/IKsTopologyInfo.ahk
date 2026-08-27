@@ -131,7 +131,9 @@ export default struct IKsTopologyInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ikstopologyinfo-get_nodename
      */
     get_NodeName(dwNodeId, pwchNodeName, dwBufSize) {
-        result := ComCall(7, this, UInt32, dwNodeId, IntPtr, pwchNodeName, UInt32, dwBufSize, "uint*", &pdwNameLen := 0, "HRESULT")
+        pwchNodeNameMarshal := pwchNodeName == 0 ? IntPtr : IntPtr
+
+        result := ComCall(7, this, UInt32, dwNodeId, pwchNodeNameMarshal, pwchNodeName, UInt32, dwBufSize, "uint*", &pdwNameLen := 0, "HRESULT")
         return pdwNameLen
     }
 
@@ -180,14 +182,14 @@ export default struct IKsTopologyInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_NumCategories := CallbackCreate(GetMethod(implObj, "get_NumCategories"), flags, 2)
-        this.vtbl.get_Category := CallbackCreate(GetMethod(implObj, "get_Category"), flags, 3)
-        this.vtbl.get_NumConnections := CallbackCreate(GetMethod(implObj, "get_NumConnections"), flags, 2)
-        this.vtbl.get_ConnectionInfo := CallbackCreate(GetMethod(implObj, "get_ConnectionInfo"), flags, 3)
-        this.vtbl.get_NodeName := CallbackCreate(GetMethod(implObj, "get_NodeName"), flags, 5)
-        this.vtbl.get_NumNodes := CallbackCreate(GetMethod(implObj, "get_NumNodes"), flags, 2)
-        this.vtbl.get_NodeType := CallbackCreate(GetMethod(implObj, "get_NodeType"), flags, 3)
-        this.vtbl.CreateNodeInstance := CallbackCreate(GetMethod(implObj, "CreateNodeInstance"), flags, 4)
+        this.vtbl.get_NumCategories := CallbackCreate(ObjBindMethod(implObj, "get_NumCategories"), flags, 2)
+        this.vtbl.get_Category := CallbackCreate(ObjBindMethod(implObj, "get_Category"), flags, 3)
+        this.vtbl.get_NumConnections := CallbackCreate(ObjBindMethod(implObj, "get_NumConnections"), flags, 2)
+        this.vtbl.get_ConnectionInfo := CallbackCreate(ObjBindMethod(implObj, "get_ConnectionInfo"), flags, 3)
+        this.vtbl.get_NodeName := CallbackCreate(ObjBindMethod(implObj, "get_NodeName"), flags, 5)
+        this.vtbl.get_NumNodes := CallbackCreate(ObjBindMethod(implObj, "get_NumNodes"), flags, 2)
+        this.vtbl.get_NodeType := CallbackCreate(ObjBindMethod(implObj, "get_NodeType"), flags, 3)
+        this.vtbl.CreateNodeInstance := CallbackCreate(ObjBindMethod(implObj, "CreateNodeInstance"), flags, 4)
     }
 
     Dispose() {

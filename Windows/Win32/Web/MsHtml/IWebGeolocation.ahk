@@ -44,7 +44,6 @@ export default struct IWebGeolocation extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} successCallback 
      * @param {IDispatch} errorCallback 
      * @param {IDispatch} options 
@@ -56,7 +55,6 @@ export default struct IWebGeolocation extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} successCallback 
      * @param {IDispatch} errorCallback 
      * @param {IDispatch} options 
@@ -68,7 +66,6 @@ export default struct IWebGeolocation extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} watchId 
      * @returns {HRESULT} 
      */
@@ -86,9 +83,9 @@ export default struct IWebGeolocation extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.getCurrentPosition := CallbackCreate(GetMethod(implObj, "getCurrentPosition"), flags, 4)
-        this.vtbl.watchPosition := CallbackCreate(GetMethod(implObj, "watchPosition"), flags, 5)
-        this.vtbl.clearWatch := CallbackCreate(GetMethod(implObj, "clearWatch"), flags, 2)
+        this.vtbl.getCurrentPosition := CallbackCreate(ObjBindMethod(implObj, "getCurrentPosition"), flags, 4)
+        this.vtbl.watchPosition := CallbackCreate(ObjBindMethod(implObj, "watchPosition"), flags, 5)
+        this.vtbl.clearWatch := CallbackCreate(ObjBindMethod(implObj, "clearWatch"), flags, 2)
     }
 
     Dispose() {

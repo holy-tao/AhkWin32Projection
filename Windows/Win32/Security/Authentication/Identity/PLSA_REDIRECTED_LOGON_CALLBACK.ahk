@@ -20,7 +20,6 @@ export default struct PLSA_REDIRECTED_LOGON_CALLBACK {
     }
 
     /**
-     * 
      * @param {HANDLE} RedirectedLogonHandle 
      * @param {Pointer<Void>} _Buffer 
      * @param {Integer} BufferLength 
@@ -29,9 +28,9 @@ export default struct PLSA_REDIRECTED_LOGON_CALLBACK {
      * @returns {NTSTATUS} 
      */
     Call(RedirectedLogonHandle, _Buffer, BufferLength, ReturnBuffer, ReturnBufferLength) {
-        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
-        ReturnBufferMarshal := ReturnBuffer is VarRef ? "ptr*" : "ptr"
-        ReturnBufferLengthMarshal := ReturnBufferLength is VarRef ? "uint*" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : IntPtr
+        ReturnBufferMarshal := ReturnBuffer is VarRef ? "ptr*" : IntPtr
+        ReturnBufferLengthMarshal := ReturnBufferLength is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HANDLE, RedirectedLogonHandle, _BufferMarshal, _Buffer, UInt32, BufferLength, ReturnBufferMarshal, ReturnBuffer, ReturnBufferLengthMarshal, ReturnBufferLength, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

@@ -66,7 +66,7 @@ export default struct IUpdate4 extends IUpdate3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_PerUser := CallbackCreate(GetMethod(implObj, "get_PerUser"), flags, 2)
+        this.vtbl.get_PerUser := CallbackCreate(ObjBindMethod(implObj, "get_PerUser"), flags, 2)
     }
 
     Dispose() {

@@ -43,7 +43,6 @@ export default struct IMDDataset extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} cAxes 
      * @param {Pointer<MDAXISINFO>} rgAxisInfo 
      * @returns {HRESULT} 
@@ -54,19 +53,17 @@ export default struct IMDDataset extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} pcAxes 
      * @returns {Pointer<MDAXISINFO>} 
      */
     GetAxisInfo(pcAxes) {
-        pcAxesMarshal := pcAxes is VarRef ? "ptr*" : "ptr"
+        pcAxesMarshal := pcAxes is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, pcAxesMarshal, pcAxes, "ptr*", &prgAxisInfo := 0, "HRESULT")
         return prgAxisInfo
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer} iAxis 
      * @param {Pointer<Guid>} riid 
@@ -80,7 +77,6 @@ export default struct IMDDataset extends IUnknown {
     }
 
     /**
-     * 
      * @param {HACCESSOR} _hAccessor 
      * @param {Pointer} ulStartCell 
      * @param {Pointer} ulEndCell 
@@ -92,7 +88,6 @@ export default struct IMDDataset extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
      */
@@ -110,11 +105,11 @@ export default struct IMDDataset extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FreeAxisInfo := CallbackCreate(GetMethod(implObj, "FreeAxisInfo"), flags, 3)
-        this.vtbl.GetAxisInfo := CallbackCreate(GetMethod(implObj, "GetAxisInfo"), flags, 3)
-        this.vtbl.GetAxisRowset := CallbackCreate(GetMethod(implObj, "GetAxisRowset"), flags, 7)
-        this.vtbl.GetCellData := CallbackCreate(GetMethod(implObj, "GetCellData"), flags, 5)
-        this.vtbl.GetSpecification := CallbackCreate(GetMethod(implObj, "GetSpecification"), flags, 3)
+        this.vtbl.FreeAxisInfo := CallbackCreate(ObjBindMethod(implObj, "FreeAxisInfo"), flags, 3)
+        this.vtbl.GetAxisInfo := CallbackCreate(ObjBindMethod(implObj, "GetAxisInfo"), flags, 3)
+        this.vtbl.GetAxisRowset := CallbackCreate(ObjBindMethod(implObj, "GetAxisRowset"), flags, 7)
+        this.vtbl.GetCellData := CallbackCreate(ObjBindMethod(implObj, "GetCellData"), flags, 5)
+        this.vtbl.GetSpecification := CallbackCreate(ObjBindMethod(implObj, "GetSpecification"), flags, 3)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct PFND3DKMT_SETDISPLAYMODE {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SETDISPLAYMODE>} param0 
      * @returns {NTSTATUS} 
      */

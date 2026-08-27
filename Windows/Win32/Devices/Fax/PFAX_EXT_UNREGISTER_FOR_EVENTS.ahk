@@ -19,7 +19,6 @@ export default struct PFAX_EXT_UNREGISTER_FOR_EVENTS {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @returns {Integer} 
      */

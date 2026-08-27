@@ -57,7 +57,7 @@ export default struct IVdsServiceHba extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryHbaPorts := CallbackCreate(GetMethod(implObj, "QueryHbaPorts"), flags, 2)
+        this.vtbl.QueryHbaPorts := CallbackCreate(ObjBindMethod(implObj, "QueryHbaPorts"), flags, 2)
     }
 
     Dispose() {

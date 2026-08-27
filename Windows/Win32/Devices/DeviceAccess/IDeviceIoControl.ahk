@@ -54,9 +54,11 @@ export default struct IDeviceIoControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/deviceaccess/nf-deviceaccess-ideviceiocontrol-deviceiocontrolsync
      */
     DeviceIoControlSync(ioControlCode, inputBuffer, inputBufferSize, outputBuffer, outputBufferSize, bytesReturned) {
-        inputBufferMarshal := inputBuffer is VarRef ? "char*" : "ptr"
-        outputBufferMarshal := outputBuffer is VarRef ? "char*" : "ptr"
-        bytesReturnedMarshal := bytesReturned is VarRef ? "uint*" : "ptr"
+        inputBufferMarshal := inputBuffer is VarRef ? "char*" : IntPtr
+        inputBufferMarshal := inputBuffer == 0 ? IntPtr : "char*"
+        outputBufferMarshal := outputBuffer is VarRef ? "char*" : IntPtr
+        outputBufferMarshal := outputBuffer == 0 ? IntPtr : "char*"
+        bytesReturnedMarshal := bytesReturned is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, UInt32, ioControlCode, inputBufferMarshal, inputBuffer, UInt32, inputBufferSize, outputBufferMarshal, outputBuffer, UInt32, outputBufferSize, bytesReturnedMarshal, bytesReturned, "HRESULT")
         return result
@@ -79,9 +81,12 @@ export default struct IDeviceIoControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/deviceaccess/nf-deviceaccess-ideviceiocontrol-deviceiocontrolasync
      */
     DeviceIoControlAsync(ioControlCode, inputBuffer, inputBufferSize, outputBuffer, outputBufferSize, requestCompletionCallback, cancelContext) {
-        inputBufferMarshal := inputBuffer is VarRef ? "char*" : "ptr"
-        outputBufferMarshal := outputBuffer is VarRef ? "char*" : "ptr"
-        cancelContextMarshal := cancelContext is VarRef ? "ptr*" : "ptr"
+        inputBufferMarshal := inputBuffer is VarRef ? "char*" : IntPtr
+        inputBufferMarshal := inputBuffer == 0 ? IntPtr : "char*"
+        outputBufferMarshal := outputBuffer is VarRef ? "char*" : IntPtr
+        outputBufferMarshal := outputBuffer == 0 ? IntPtr : "char*"
+        cancelContextMarshal := cancelContext is VarRef ? "ptr*" : IntPtr
+        cancelContextMarshal := cancelContext == 0 ? IntPtr : "ptr*"
 
         result := ComCall(4, this, UInt32, ioControlCode, inputBufferMarshal, inputBuffer, UInt32, inputBufferSize, outputBufferMarshal, outputBuffer, UInt32, outputBufferSize, "ptr", requestCompletionCallback, cancelContextMarshal, cancelContext, "HRESULT")
         return result
@@ -138,9 +143,9 @@ export default struct IDeviceIoControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DeviceIoControlSync := CallbackCreate(GetMethod(implObj, "DeviceIoControlSync"), flags, 7)
-        this.vtbl.DeviceIoControlAsync := CallbackCreate(GetMethod(implObj, "DeviceIoControlAsync"), flags, 8)
-        this.vtbl.CancelOperation := CallbackCreate(GetMethod(implObj, "CancelOperation"), flags, 2)
+        this.vtbl.DeviceIoControlSync := CallbackCreate(ObjBindMethod(implObj, "DeviceIoControlSync"), flags, 7)
+        this.vtbl.DeviceIoControlAsync := CallbackCreate(ObjBindMethod(implObj, "DeviceIoControlAsync"), flags, 8)
+        this.vtbl.CancelOperation := CallbackCreate(ObjBindMethod(implObj, "CancelOperation"), flags, 2)
     }
 
     Dispose() {

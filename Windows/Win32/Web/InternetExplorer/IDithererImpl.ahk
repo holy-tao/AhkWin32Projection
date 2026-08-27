@@ -39,7 +39,6 @@ export default struct IDithererImpl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nColors 
      * @param {Pointer<RGBQUAD>} prgbColors 
      * @returns {HRESULT} 
@@ -50,7 +49,6 @@ export default struct IDithererImpl extends IUnknown {
     }
 
     /**
-     * 
      * @param {IImageDecodeEventSink} pEventSink 
      * @returns {HRESULT} 
      */
@@ -68,8 +66,8 @@ export default struct IDithererImpl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetDestColorTable := CallbackCreate(GetMethod(implObj, "SetDestColorTable"), flags, 3)
-        this.vtbl.SetEventSink := CallbackCreate(GetMethod(implObj, "SetEventSink"), flags, 2)
+        this.vtbl.SetDestColorTable := CallbackCreate(ObjBindMethod(implObj, "SetDestColorTable"), flags, 3)
+        this.vtbl.SetEventSink := CallbackCreate(ObjBindMethod(implObj, "SetEventSink"), flags, 2)
     }
 
     Dispose() {

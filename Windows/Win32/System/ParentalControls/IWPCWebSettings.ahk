@@ -64,9 +64,11 @@ export default struct IWPCWebSettings extends IWPCSettings {
     RequestURLOverride(_hWnd, pcszURL, cURLs, ppcszSubURLs) {
         pcszURL := pcszURL is String ? StrPtr(pcszURL) : pcszURL
 
-        ppcszSubURLsMarshal := ppcszSubURLs is VarRef ? "ptr*" : "ptr"
+        _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+        ppcszSubURLsMarshal := ppcszSubURLs is VarRef ? "ptr*" : IntPtr
+        ppcszSubURLsMarshal := ppcszSubURLs == 0 ? IntPtr : PWSTR.Ptr
 
-        result := ComCall(7, this, HWND, _hWnd, "ptr", pcszURL, UInt32, cURLs, ppcszSubURLsMarshal, ppcszSubURLs, BOOL.Ptr, &pfChanged := 0, "HRESULT")
+        result := ComCall(7, this, _hWndMarshal, _hWnd, "ptr", pcszURL, UInt32, cURLs, ppcszSubURLsMarshal, ppcszSubURLs, BOOL.Ptr, &pfChanged := 0, "HRESULT")
         return pfChanged
     }
 
@@ -79,8 +81,8 @@ export default struct IWPCWebSettings extends IWPCSettings {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSettings := CallbackCreate(GetMethod(implObj, "GetSettings"), flags, 2)
-        this.vtbl.RequestURLOverride := CallbackCreate(GetMethod(implObj, "RequestURLOverride"), flags, 6)
+        this.vtbl.GetSettings := CallbackCreate(ObjBindMethod(implObj, "GetSettings"), flags, 2)
+        this.vtbl.RequestURLOverride := CallbackCreate(ObjBindMethod(implObj, "RequestURLOverride"), flags, 6)
     }
 
     Dispose() {

@@ -102,7 +102,10 @@ export default struct IPNPXDeviceAssociation extends IUnknown {
     Associate(pszSubCategory, pIFunctionDiscoveryNotification) {
         pszSubCategory := pszSubCategory is String ? StrPtr(pszSubCategory) : pszSubCategory
 
-        result := ComCall(3, this, "ptr", pszSubCategory, "ptr", pIFunctionDiscoveryNotification, "HRESULT")
+        pszSubCategoryMarshal := pszSubCategory == 0 ? IntPtr : PWSTR
+        pIFunctionDiscoveryNotificationMarshal := pIFunctionDiscoveryNotification == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pszSubCategoryMarshal, pszSubCategory, pIFunctionDiscoveryNotificationMarshal, pIFunctionDiscoveryNotification, "HRESULT")
         return result
     }
 
@@ -156,7 +159,10 @@ export default struct IPNPXDeviceAssociation extends IUnknown {
     Unassociate(pszSubCategory, pIFunctionDiscoveryNotification) {
         pszSubCategory := pszSubCategory is String ? StrPtr(pszSubCategory) : pszSubCategory
 
-        result := ComCall(4, this, "ptr", pszSubCategory, "ptr", pIFunctionDiscoveryNotification, "HRESULT")
+        pszSubCategoryMarshal := pszSubCategory == 0 ? IntPtr : PWSTR
+        pIFunctionDiscoveryNotificationMarshal := pIFunctionDiscoveryNotification == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, pszSubCategoryMarshal, pszSubCategory, pIFunctionDiscoveryNotificationMarshal, pIFunctionDiscoveryNotification, "HRESULT")
         return result
     }
 
@@ -210,7 +216,10 @@ export default struct IPNPXDeviceAssociation extends IUnknown {
     Delete(pszSubcategory, pIFunctionDiscoveryNotification) {
         pszSubcategory := pszSubcategory is String ? StrPtr(pszSubcategory) : pszSubcategory
 
-        result := ComCall(5, this, "ptr", pszSubcategory, "ptr", pIFunctionDiscoveryNotification, "HRESULT")
+        pszSubcategoryMarshal := pszSubcategory == 0 ? IntPtr : PWSTR
+        pIFunctionDiscoveryNotificationMarshal := pIFunctionDiscoveryNotification == 0 ? IntPtr : "ptr"
+
+        result := ComCall(5, this, pszSubcategoryMarshal, pszSubcategory, pIFunctionDiscoveryNotificationMarshal, pIFunctionDiscoveryNotification, "HRESULT")
         return result
     }
 
@@ -223,9 +232,9 @@ export default struct IPNPXDeviceAssociation extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Associate := CallbackCreate(GetMethod(implObj, "Associate"), flags, 3)
-        this.vtbl.Unassociate := CallbackCreate(GetMethod(implObj, "Unassociate"), flags, 3)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 3)
+        this.vtbl.Associate := CallbackCreate(ObjBindMethod(implObj, "Associate"), flags, 3)
+        this.vtbl.Unassociate := CallbackCreate(ObjBindMethod(implObj, "Unassociate"), flags, 3)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 3)
     }
 
     Dispose() {

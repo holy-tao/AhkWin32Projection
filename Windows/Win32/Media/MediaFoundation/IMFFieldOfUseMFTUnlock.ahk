@@ -61,7 +61,7 @@ export default struct IMFFieldOfUseMFTUnlock extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Unlock := CallbackCreate(GetMethod(implObj, "Unlock"), flags, 2)
+        this.vtbl.Unlock := CallbackCreate(ObjBindMethod(implObj, "Unlock"), flags, 2)
     }
 
     Dispose() {

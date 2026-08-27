@@ -38,7 +38,6 @@ export default struct IDxcIncludeHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pFilename 
      * @returns {IDxcBlob} 
      */
@@ -58,7 +57,7 @@ export default struct IDxcIncludeHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LoadSource := CallbackCreate(GetMethod(implObj, "LoadSource"), flags, 3)
+        this.vtbl.LoadSource := CallbackCreate(ObjBindMethod(implObj, "LoadSource"), flags, 3)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct PSECURE_DRIVER_PROCESS_REFERENCE {
     }
 
     /**
-     * 
      * @returns {PEPROCESS} 
      */
     Call() {

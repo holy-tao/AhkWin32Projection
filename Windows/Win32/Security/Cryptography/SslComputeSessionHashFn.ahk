@@ -21,7 +21,6 @@ export default struct SslComputeSessionHashFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_HASH_HANDLE} hHandshakeHash 
      * @param {Integer} dwProtocol 
@@ -31,7 +30,9 @@ export default struct SslComputeSessionHashFn {
      * @returns {Integer} 
      */
     Call(hSslProvider, hHandshakeHash, dwProtocol, pbOutput, cbOutput, dwFlags) {
-        result := DllCall(this.value, NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_HASH_HANDLE, hHandshakeHash, UInt32, dwProtocol, IntPtr, pbOutput, UInt32, cbOutput, "uint*", &pcbResult := 0, UInt32, dwFlags, "HRESULT")
+        pbOutputMarshal := pbOutput == 0 ? IntPtr : IntPtr
+
+        result := DllCall(this.value, NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_HASH_HANDLE, hHandshakeHash, UInt32, dwProtocol, pbOutputMarshal, pbOutput, UInt32, cbOutput, "uint*", &pcbResult := 0, UInt32, dwFlags, "HRESULT")
         return pcbResult
     }
 

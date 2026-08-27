@@ -64,7 +64,7 @@ export default struct IWMMediaProps extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmmediaprops-getmediatype
      */
     GetMediaType(pcbType) {
-        pcbTypeMarshal := pcbType is VarRef ? "uint*" : "ptr"
+        pcbTypeMarshal := pcbType is VarRef ? "uint*" : IntPtr
 
         pType := WM_MEDIA_TYPE()
         result := ComCall(4, this, WM_MEDIA_TYPE.Ptr, pType, pcbTypeMarshal, pcbType, "HRESULT")
@@ -133,9 +133,9 @@ export default struct IWMMediaProps extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
-        this.vtbl.GetMediaType := CallbackCreate(GetMethod(implObj, "GetMediaType"), flags, 3)
-        this.vtbl.SetMediaType := CallbackCreate(GetMethod(implObj, "SetMediaType"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(ObjBindMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.GetMediaType := CallbackCreate(ObjBindMethod(implObj, "GetMediaType"), flags, 3)
+        this.vtbl.SetMediaType := CallbackCreate(ObjBindMethod(implObj, "SetMediaType"), flags, 2)
     }
 
     Dispose() {

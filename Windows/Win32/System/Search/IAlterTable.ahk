@@ -40,7 +40,6 @@ export default struct IAlterTable extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DBID>} pTableId 
      * @param {Pointer<DBID>} pColumnId 
      * @param {Integer} dwColumnDescFlags 
@@ -53,7 +52,6 @@ export default struct IAlterTable extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DBID>} pTableId 
      * @param {Pointer<DBID>} pNewTableId 
      * @param {Integer} cPropertySets 
@@ -74,8 +72,8 @@ export default struct IAlterTable extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AlterColumn := CallbackCreate(GetMethod(implObj, "AlterColumn"), flags, 5)
-        this.vtbl.AlterTable := CallbackCreate(GetMethod(implObj, "AlterTable"), flags, 5)
+        this.vtbl.AlterColumn := CallbackCreate(ObjBindMethod(implObj, "AlterColumn"), flags, 5)
+        this.vtbl.AlterTable := CallbackCreate(ObjBindMethod(implObj, "AlterTable"), flags, 5)
     }
 
     Dispose() {

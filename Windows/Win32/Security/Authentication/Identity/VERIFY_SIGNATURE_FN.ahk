@@ -21,7 +21,6 @@ export default struct VERIFY_SIGNATURE_FN {
     }
 
     /**
-     * 
      * @param {Pointer<SecHandle>} param0 
      * @param {Pointer<SecBufferDesc>} param1 
      * @param {Integer} param2 
@@ -29,7 +28,7 @@ export default struct VERIFY_SIGNATURE_FN {
      * @returns {HRESULT} 
      */
     Call(param0, param1, param2, param3) {
-        param3Marshal := param3 is VarRef ? "uint*" : "ptr"
+        param3Marshal := param3 is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, SecHandle.Ptr, param0, SecBufferDesc.Ptr, param1, UInt32, param2, param3Marshal, param3, "HRESULT")
         return result

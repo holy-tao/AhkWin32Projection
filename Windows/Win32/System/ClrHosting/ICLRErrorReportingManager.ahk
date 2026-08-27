@@ -41,7 +41,6 @@ export default struct ICLRErrorReportingManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BucketParameters} 
      */
     GetBucketParametersForCurrentException() {
@@ -51,7 +50,6 @@ export default struct ICLRErrorReportingManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {ECustomDumpFlavor} dwFlavor 
      * @param {Integer} dwNumItems 
      * @param {Pointer<CustomDumpItem>} items 
@@ -64,7 +62,6 @@ export default struct ICLRErrorReportingManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     EndCustomDump() {
@@ -81,9 +78,9 @@ export default struct ICLRErrorReportingManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetBucketParametersForCurrentException := CallbackCreate(GetMethod(implObj, "GetBucketParametersForCurrentException"), flags, 2)
-        this.vtbl.BeginCustomDump := CallbackCreate(GetMethod(implObj, "BeginCustomDump"), flags, 5)
-        this.vtbl.EndCustomDump := CallbackCreate(GetMethod(implObj, "EndCustomDump"), flags, 1)
+        this.vtbl.GetBucketParametersForCurrentException := CallbackCreate(ObjBindMethod(implObj, "GetBucketParametersForCurrentException"), flags, 2)
+        this.vtbl.BeginCustomDump := CallbackCreate(ObjBindMethod(implObj, "BeginCustomDump"), flags, 5)
+        this.vtbl.EndCustomDump := CallbackCreate(ObjBindMethod(implObj, "EndCustomDump"), flags, 1)
     }
 
     Dispose() {

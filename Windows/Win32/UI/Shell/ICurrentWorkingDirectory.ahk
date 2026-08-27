@@ -89,8 +89,8 @@ export default struct ICurrentWorkingDirectory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDirectory := CallbackCreate(GetMethod(implObj, "GetDirectory"), flags, 3)
-        this.vtbl.SetDirectory := CallbackCreate(GetMethod(implObj, "SetDirectory"), flags, 2)
+        this.vtbl.GetDirectory := CallbackCreate(ObjBindMethod(implObj, "GetDirectory"), flags, 3)
+        this.vtbl.SetDirectory := CallbackCreate(ObjBindMethod(implObj, "SetDirectory"), flags, 2)
     }
 
     Dispose() {

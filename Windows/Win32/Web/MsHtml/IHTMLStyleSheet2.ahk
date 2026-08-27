@@ -46,7 +46,6 @@ export default struct IHTMLStyleSheet2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStyleSheetPagesCollection} 
      */
     get_pages() {
@@ -55,7 +54,6 @@ export default struct IHTMLStyleSheet2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrSelector 
      * @param {BSTR} bstrStyle 
      * @param {Integer} lIndex 
@@ -78,8 +76,8 @@ export default struct IHTMLStyleSheet2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_pages := CallbackCreate(GetMethod(implObj, "get_pages"), flags, 2)
-        this.vtbl.addPageRule := CallbackCreate(GetMethod(implObj, "addPageRule"), flags, 5)
+        this.vtbl.get_pages := CallbackCreate(ObjBindMethod(implObj, "get_pages"), flags, 2)
+        this.vtbl.addPageRule := CallbackCreate(ObjBindMethod(implObj, "addPageRule"), flags, 5)
     }
 
     Dispose() {

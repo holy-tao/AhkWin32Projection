@@ -21,7 +21,6 @@ export default struct QUERY_VIRTUAL_MEMORY_CALLBACK {
     }
 
     /**
-     * 
      * @param {HANDLE} CallbackContext 
      * @param {HANDLE} ProcessHandle 
      * @param {Pointer<Void>} BaseAddress 
@@ -32,8 +31,10 @@ export default struct QUERY_VIRTUAL_MEMORY_CALLBACK {
      * @returns {NTSTATUS} 
      */
     Call(CallbackContext, ProcessHandle, BaseAddress, MemoryInformationClass, MemoryInformation, MemoryInformationLength, ReturnLength) {
-        BaseAddressMarshal := BaseAddress is VarRef ? "ptr" : "ptr"
-        ReturnLengthMarshal := ReturnLength is VarRef ? "ptr*" : "ptr"
+        BaseAddressMarshal := BaseAddress is VarRef ? "ptr" : IntPtr
+        BaseAddressMarshal := BaseAddress == 0 ? IntPtr : "ptr"
+        ReturnLengthMarshal := ReturnLength is VarRef ? "ptr*" : IntPtr
+        ReturnLengthMarshal := ReturnLength == 0 ? IntPtr : "ptr*"
 
         result := DllCall(this.value, HANDLE, CallbackContext, HANDLE, ProcessHandle, BaseAddressMarshal, BaseAddress, HEAP_MEMORY_INFO_CLASS, MemoryInformationClass, IntPtr, MemoryInformation, IntPtr, MemoryInformationLength, ReturnLengthMarshal, ReturnLength, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

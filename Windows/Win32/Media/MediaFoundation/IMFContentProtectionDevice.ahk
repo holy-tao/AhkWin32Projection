@@ -49,7 +49,7 @@ export default struct IMFContentProtectionDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcontentprotectiondevice-invokefunction
      */
     InvokeFunction(FunctionId, InputBufferByteCount, InputBuffer, OutputBufferByteCount, OutputBuffer) {
-        OutputBufferByteCountMarshal := OutputBufferByteCount is VarRef ? "uint*" : "ptr"
+        OutputBufferByteCountMarshal := OutputBufferByteCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, UInt32, FunctionId, UInt32, InputBufferByteCount, IntPtr, InputBuffer, OutputBufferByteCountMarshal, OutputBufferByteCount, IntPtr, OutputBuffer, "HRESULT")
         return result
@@ -65,8 +65,8 @@ export default struct IMFContentProtectionDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcontentprotectiondevice-getprivatedatabytecount
      */
     GetPrivateDataByteCount(PrivateInputByteCount, PrivateOutputByteCount) {
-        PrivateInputByteCountMarshal := PrivateInputByteCount is VarRef ? "uint*" : "ptr"
-        PrivateOutputByteCountMarshal := PrivateOutputByteCount is VarRef ? "uint*" : "ptr"
+        PrivateInputByteCountMarshal := PrivateInputByteCount is VarRef ? "uint*" : IntPtr
+        PrivateOutputByteCountMarshal := PrivateOutputByteCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, PrivateInputByteCountMarshal, PrivateInputByteCount, PrivateOutputByteCountMarshal, PrivateOutputByteCount, "HRESULT")
         return result
@@ -81,8 +81,8 @@ export default struct IMFContentProtectionDevice extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InvokeFunction := CallbackCreate(GetMethod(implObj, "InvokeFunction"), flags, 6)
-        this.vtbl.GetPrivateDataByteCount := CallbackCreate(GetMethod(implObj, "GetPrivateDataByteCount"), flags, 3)
+        this.vtbl.InvokeFunction := CallbackCreate(ObjBindMethod(implObj, "InvokeFunction"), flags, 6)
+        this.vtbl.GetPrivateDataByteCount := CallbackCreate(ObjBindMethod(implObj, "GetPrivateDataByteCount"), flags, 3)
     }
 
     Dispose() {

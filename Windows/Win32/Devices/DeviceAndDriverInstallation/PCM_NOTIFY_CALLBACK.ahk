@@ -20,7 +20,6 @@ export default struct PCM_NOTIFY_CALLBACK {
     }
 
     /**
-     * 
      * @param {HCMNOTIFICATION} hNotify 
      * @param {Pointer<Void>} _Context 
      * @param {CM_NOTIFY_ACTION} Action 
@@ -29,7 +28,8 @@ export default struct PCM_NOTIFY_CALLBACK {
      * @returns {Integer} 
      */
     Call(hNotify, _Context, Action, EventData, EventDataSize) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, HCMNOTIFICATION, hNotify, _ContextMarshal, _Context, CM_NOTIFY_ACTION, Action, IntPtr, EventData, UInt32, EventDataSize, UInt32)
         return result

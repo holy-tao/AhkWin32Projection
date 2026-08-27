@@ -114,8 +114,8 @@ export default struct IExtractImage extends IUnknown {
     GetLocation(pszPathBuffer, cch, pdwPriority, prgSize, dwRecClrDepth, pdwFlags) {
         pszPathBuffer := pszPathBuffer is String ? StrPtr(pszPathBuffer) : pszPathBuffer
 
-        pdwPriorityMarshal := pdwPriority is VarRef ? "uint*" : "ptr"
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+        pdwPriorityMarshal := pdwPriority is VarRef ? "uint*" : IntPtr
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, "ptr", pszPathBuffer, UInt32, cch, pdwPriorityMarshal, pdwPriority, SIZE.Ptr, prgSize, UInt32, dwRecClrDepth, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
@@ -145,8 +145,8 @@ export default struct IExtractImage extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLocation := CallbackCreate(GetMethod(implObj, "GetLocation"), flags, 7)
-        this.vtbl.Extract := CallbackCreate(GetMethod(implObj, "Extract"), flags, 2)
+        this.vtbl.GetLocation := CallbackCreate(ObjBindMethod(implObj, "GetLocation"), flags, 7)
+        this.vtbl.Extract := CallbackCreate(ObjBindMethod(implObj, "Extract"), flags, 2)
     }
 
     Dispose() {

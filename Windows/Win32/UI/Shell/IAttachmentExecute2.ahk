@@ -38,7 +38,6 @@ export default struct IAttachmentExecute2 extends IAttachmentExecute {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SaveNoVirusCheck() {
@@ -47,7 +46,6 @@ export default struct IAttachmentExecute2 extends IAttachmentExecute {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @returns {HRESULT} 
      */
@@ -65,8 +63,8 @@ export default struct IAttachmentExecute2 extends IAttachmentExecute {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SaveNoVirusCheck := CallbackCreate(GetMethod(implObj, "SaveNoVirusCheck"), flags, 1)
-        this.vtbl.SaveWithUINoVirusCheck := CallbackCreate(GetMethod(implObj, "SaveWithUINoVirusCheck"), flags, 2)
+        this.vtbl.SaveNoVirusCheck := CallbackCreate(ObjBindMethod(implObj, "SaveNoVirusCheck"), flags, 1)
+        this.vtbl.SaveWithUINoVirusCheck := CallbackCreate(ObjBindMethod(implObj, "SaveWithUINoVirusCheck"), flags, 2)
     }
 
     Dispose() {

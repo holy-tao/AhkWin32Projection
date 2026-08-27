@@ -37,7 +37,6 @@ export default struct IDWriteBitmapRenderTarget2 extends IDWriteBitmapRenderTarg
     }
 
     /**
-     * 
      * @returns {DWRITE_BITMAP_DATA_BGRA32} 
      */
     GetBitmapData() {
@@ -55,7 +54,7 @@ export default struct IDWriteBitmapRenderTarget2 extends IDWriteBitmapRenderTarg
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetBitmapData := CallbackCreate(GetMethod(implObj, "GetBitmapData"), flags, 2)
+        this.vtbl.GetBitmapData := CallbackCreate(ObjBindMethod(implObj, "GetBitmapData"), flags, 2)
     }
 
     Dispose() {

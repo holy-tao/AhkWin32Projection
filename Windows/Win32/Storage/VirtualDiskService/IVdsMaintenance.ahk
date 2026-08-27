@@ -315,9 +315,9 @@ export default struct IVdsMaintenance extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StartMaintenance := CallbackCreate(GetMethod(implObj, "StartMaintenance"), flags, 2)
-        this.vtbl.StopMaintenance := CallbackCreate(GetMethod(implObj, "StopMaintenance"), flags, 2)
-        this.vtbl.PulseMaintenance := CallbackCreate(GetMethod(implObj, "PulseMaintenance"), flags, 3)
+        this.vtbl.StartMaintenance := CallbackCreate(ObjBindMethod(implObj, "StartMaintenance"), flags, 2)
+        this.vtbl.StopMaintenance := CallbackCreate(ObjBindMethod(implObj, "StopMaintenance"), flags, 2)
+        this.vtbl.PulseMaintenance := CallbackCreate(ObjBindMethod(implObj, "PulseMaintenance"), flags, 3)
     }
 
     Dispose() {

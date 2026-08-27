@@ -18,12 +18,11 @@ export default struct FNCERTSRVBACKUPFREE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pv 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(pv) {
-        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+        pvMarshal := pv is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, pvMarshal, pv)
     }

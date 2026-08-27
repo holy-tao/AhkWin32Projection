@@ -161,12 +161,12 @@ export default struct IWMPEvents2 extends IWMPEvents {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DeviceConnect := CallbackCreate(GetMethod(implObj, "DeviceConnect"), flags, 2)
-        this.vtbl.DeviceDisconnect := CallbackCreate(GetMethod(implObj, "DeviceDisconnect"), flags, 2)
-        this.vtbl.DeviceStatusChange := CallbackCreate(GetMethod(implObj, "DeviceStatusChange"), flags, 3)
-        this.vtbl.DeviceSyncStateChange := CallbackCreate(GetMethod(implObj, "DeviceSyncStateChange"), flags, 3)
-        this.vtbl.DeviceSyncError := CallbackCreate(GetMethod(implObj, "DeviceSyncError"), flags, 3)
-        this.vtbl.CreatePartnershipComplete := CallbackCreate(GetMethod(implObj, "CreatePartnershipComplete"), flags, 3)
+        this.vtbl.DeviceConnect := CallbackCreate(ObjBindMethod(implObj, "DeviceConnect"), flags, 2)
+        this.vtbl.DeviceDisconnect := CallbackCreate(ObjBindMethod(implObj, "DeviceDisconnect"), flags, 2)
+        this.vtbl.DeviceStatusChange := CallbackCreate(ObjBindMethod(implObj, "DeviceStatusChange"), flags, 3)
+        this.vtbl.DeviceSyncStateChange := CallbackCreate(ObjBindMethod(implObj, "DeviceSyncStateChange"), flags, 3)
+        this.vtbl.DeviceSyncError := CallbackCreate(ObjBindMethod(implObj, "DeviceSyncError"), flags, 3)
+        this.vtbl.CreatePartnershipComplete := CallbackCreate(ObjBindMethod(implObj, "CreatePartnershipComplete"), flags, 3)
     }
 
     Dispose() {

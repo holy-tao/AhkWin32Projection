@@ -259,13 +259,13 @@ export default struct ITuneRequestInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLocatorData := CallbackCreate(GetMethod(implObj, "GetLocatorData"), flags, 2)
-        this.vtbl.GetComponentData := CallbackCreate(GetMethod(implObj, "GetComponentData"), flags, 2)
-        this.vtbl.CreateComponentList := CallbackCreate(GetMethod(implObj, "CreateComponentList"), flags, 2)
-        this.vtbl.GetNextProgram := CallbackCreate(GetMethod(implObj, "GetNextProgram"), flags, 3)
-        this.vtbl.GetPreviousProgram := CallbackCreate(GetMethod(implObj, "GetPreviousProgram"), flags, 3)
-        this.vtbl.GetNextLocator := CallbackCreate(GetMethod(implObj, "GetNextLocator"), flags, 3)
-        this.vtbl.GetPreviousLocator := CallbackCreate(GetMethod(implObj, "GetPreviousLocator"), flags, 3)
+        this.vtbl.GetLocatorData := CallbackCreate(ObjBindMethod(implObj, "GetLocatorData"), flags, 2)
+        this.vtbl.GetComponentData := CallbackCreate(ObjBindMethod(implObj, "GetComponentData"), flags, 2)
+        this.vtbl.CreateComponentList := CallbackCreate(ObjBindMethod(implObj, "CreateComponentList"), flags, 2)
+        this.vtbl.GetNextProgram := CallbackCreate(ObjBindMethod(implObj, "GetNextProgram"), flags, 3)
+        this.vtbl.GetPreviousProgram := CallbackCreate(ObjBindMethod(implObj, "GetPreviousProgram"), flags, 3)
+        this.vtbl.GetNextLocator := CallbackCreate(ObjBindMethod(implObj, "GetNextLocator"), flags, 3)
+        this.vtbl.GetPreviousLocator := CallbackCreate(ObjBindMethod(implObj, "GetPreviousLocator"), flags, 3)
     }
 
     Dispose() {

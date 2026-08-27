@@ -51,8 +51,8 @@ export default struct IMFTimedTextBinary extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextbinary-getdata
      */
     GetData(data, length) {
-        dataMarshal := data is VarRef ? "ptr*" : "ptr"
-        lengthMarshal := length is VarRef ? "uint*" : "ptr"
+        dataMarshal := data is VarRef ? "ptr*" : IntPtr
+        lengthMarshal := length is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, dataMarshal, data, lengthMarshal, length, "HRESULT")
         return result
@@ -67,7 +67,7 @@ export default struct IMFTimedTextBinary extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetData := CallbackCreate(GetMethod(implObj, "GetData"), flags, 3)
+        this.vtbl.GetData := CallbackCreate(ObjBindMethod(implObj, "GetData"), flags, 3)
     }
 
     Dispose() {

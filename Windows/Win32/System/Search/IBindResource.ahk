@@ -82,9 +82,13 @@ export default struct IBindResource extends IUnknown {
     Bind(pUnkOuter, pwszURL, dwBindURLFlags, rguid, riid, pAuthenticate, pImplSession, pdwBindStatus, ppUnk) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        pdwBindStatusMarshal := pdwBindStatus is VarRef ? "uint*" : "ptr"
+        pUnkOuterMarshal := pUnkOuter == 0 ? IntPtr : "ptr"
+        pAuthenticateMarshal := pAuthenticate == 0 ? IntPtr : "ptr"
+        pImplSessionMarshal := pImplSession == 0 ? IntPtr : DBIMPLICITSESSION.Ptr
+        pdwBindStatusMarshal := pdwBindStatus is VarRef ? "uint*" : IntPtr
+        pdwBindStatusMarshal := pdwBindStatus == 0 ? IntPtr : "uint*"
 
-        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", pwszURL, UInt32, dwBindURLFlags, Guid.Ptr, rguid, Guid.Ptr, riid, "ptr", pAuthenticate, DBIMPLICITSESSION.Ptr, pImplSession, pdwBindStatusMarshal, pdwBindStatus, IUnknown.Ptr, ppUnk, "HRESULT")
+        result := ComCall(3, this, pUnkOuterMarshal, pUnkOuter, "ptr", pwszURL, UInt32, dwBindURLFlags, Guid.Ptr, rguid, Guid.Ptr, riid, pAuthenticateMarshal, pAuthenticate, pImplSessionMarshal, pImplSession, pdwBindStatusMarshal, pdwBindStatus, IUnknown.Ptr, ppUnk, "HRESULT")
         return result
     }
 
@@ -97,7 +101,7 @@ export default struct IBindResource extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Bind := CallbackCreate(GetMethod(implObj, "Bind"), flags, 10)
+        this.vtbl.Bind := CallbackCreate(ObjBindMethod(implObj, "Bind"), flags, 10)
     }
 
     Dispose() {

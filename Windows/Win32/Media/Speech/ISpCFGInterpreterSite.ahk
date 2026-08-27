@@ -41,7 +41,6 @@ export default struct ISpCFGInterpreterSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SPPHRASEREPLACEMENT>} pReplace 
      * @returns {HRESULT} 
      */
@@ -51,7 +50,6 @@ export default struct ISpCFGInterpreterSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SPPHRASEPROPERTY>} pProperty 
      * @returns {HRESULT} 
      */
@@ -61,7 +59,6 @@ export default struct ISpCFGInterpreterSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszResourceName 
      * @returns {PWSTR} 
      */
@@ -81,9 +78,9 @@ export default struct ISpCFGInterpreterSite extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddTextReplacement := CallbackCreate(GetMethod(implObj, "AddTextReplacement"), flags, 2)
-        this.vtbl.AddProperty := CallbackCreate(GetMethod(implObj, "AddProperty"), flags, 2)
-        this.vtbl.GetResourceValue := CallbackCreate(GetMethod(implObj, "GetResourceValue"), flags, 3)
+        this.vtbl.AddTextReplacement := CallbackCreate(ObjBindMethod(implObj, "AddTextReplacement"), flags, 2)
+        this.vtbl.AddProperty := CallbackCreate(ObjBindMethod(implObj, "AddProperty"), flags, 2)
+        this.vtbl.GetResourceValue := CallbackCreate(ObjBindMethod(implObj, "GetResourceValue"), flags, 3)
     }
 
     Dispose() {

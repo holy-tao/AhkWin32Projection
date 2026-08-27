@@ -96,7 +96,7 @@ export default struct ISyncFilterInfo2 extends ISyncFilterInfo {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncfilterinfo2-getflags
      */
     GetFlags(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
@@ -111,7 +111,7 @@ export default struct ISyncFilterInfo2 extends ISyncFilterInfo {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.GetFlags := CallbackCreate(ObjBindMethod(implObj, "GetFlags"), flags, 2)
     }
 
     Dispose() {

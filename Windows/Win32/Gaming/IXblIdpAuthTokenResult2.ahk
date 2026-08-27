@@ -39,7 +39,6 @@ export default struct IXblIdpAuthTokenResult2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetModernGamertag() {
@@ -48,7 +47,6 @@ export default struct IXblIdpAuthTokenResult2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetModernGamertagSuffix() {
@@ -57,7 +55,6 @@ export default struct IXblIdpAuthTokenResult2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetUniqueModernGamertag() {
@@ -74,9 +71,9 @@ export default struct IXblIdpAuthTokenResult2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetModernGamertag := CallbackCreate(GetMethod(implObj, "GetModernGamertag"), flags, 2)
-        this.vtbl.GetModernGamertagSuffix := CallbackCreate(GetMethod(implObj, "GetModernGamertagSuffix"), flags, 2)
-        this.vtbl.GetUniqueModernGamertag := CallbackCreate(GetMethod(implObj, "GetUniqueModernGamertag"), flags, 2)
+        this.vtbl.GetModernGamertag := CallbackCreate(ObjBindMethod(implObj, "GetModernGamertag"), flags, 2)
+        this.vtbl.GetModernGamertagSuffix := CallbackCreate(ObjBindMethod(implObj, "GetModernGamertagSuffix"), flags, 2)
+        this.vtbl.GetUniqueModernGamertag := CallbackCreate(ObjBindMethod(implObj, "GetUniqueModernGamertag"), flags, 2)
     }
 
     Dispose() {

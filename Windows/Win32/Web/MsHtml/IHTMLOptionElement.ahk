@@ -102,7 +102,6 @@ export default struct IHTMLOptionElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -112,7 +111,6 @@ export default struct IHTMLOptionElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_selected() {
@@ -121,7 +119,6 @@ export default struct IHTMLOptionElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -133,7 +130,6 @@ export default struct IHTMLOptionElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_value() {
@@ -143,7 +139,6 @@ export default struct IHTMLOptionElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -153,7 +148,6 @@ export default struct IHTMLOptionElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_defaultSelected() {
@@ -162,7 +156,6 @@ export default struct IHTMLOptionElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -172,7 +165,6 @@ export default struct IHTMLOptionElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_index() {
@@ -181,7 +173,6 @@ export default struct IHTMLOptionElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -193,7 +184,6 @@ export default struct IHTMLOptionElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_text() {
@@ -203,7 +193,6 @@ export default struct IHTMLOptionElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLFormElement} 
      */
     get_form() {
@@ -220,17 +209,17 @@ export default struct IHTMLOptionElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_selected := CallbackCreate(GetMethod(implObj, "put_selected"), flags, 2)
-        this.vtbl.get_selected := CallbackCreate(GetMethod(implObj, "get_selected"), flags, 2)
-        this.vtbl.put_value := CallbackCreate(GetMethod(implObj, "put_value"), flags, 2)
-        this.vtbl.get_value := CallbackCreate(GetMethod(implObj, "get_value"), flags, 2)
-        this.vtbl.put_defaultSelected := CallbackCreate(GetMethod(implObj, "put_defaultSelected"), flags, 2)
-        this.vtbl.get_defaultSelected := CallbackCreate(GetMethod(implObj, "get_defaultSelected"), flags, 2)
-        this.vtbl.put_index := CallbackCreate(GetMethod(implObj, "put_index"), flags, 2)
-        this.vtbl.get_index := CallbackCreate(GetMethod(implObj, "get_index"), flags, 2)
-        this.vtbl.put_text := CallbackCreate(GetMethod(implObj, "put_text"), flags, 2)
-        this.vtbl.get_text := CallbackCreate(GetMethod(implObj, "get_text"), flags, 2)
-        this.vtbl.get_form := CallbackCreate(GetMethod(implObj, "get_form"), flags, 2)
+        this.vtbl.put_selected := CallbackCreate(ObjBindMethod(implObj, "put_selected"), flags, 2)
+        this.vtbl.get_selected := CallbackCreate(ObjBindMethod(implObj, "get_selected"), flags, 2)
+        this.vtbl.put_value := CallbackCreate(ObjBindMethod(implObj, "put_value"), flags, 2)
+        this.vtbl.get_value := CallbackCreate(ObjBindMethod(implObj, "get_value"), flags, 2)
+        this.vtbl.put_defaultSelected := CallbackCreate(ObjBindMethod(implObj, "put_defaultSelected"), flags, 2)
+        this.vtbl.get_defaultSelected := CallbackCreate(ObjBindMethod(implObj, "get_defaultSelected"), flags, 2)
+        this.vtbl.put_index := CallbackCreate(ObjBindMethod(implObj, "put_index"), flags, 2)
+        this.vtbl.get_index := CallbackCreate(ObjBindMethod(implObj, "get_index"), flags, 2)
+        this.vtbl.put_text := CallbackCreate(ObjBindMethod(implObj, "put_text"), flags, 2)
+        this.vtbl.get_text := CallbackCreate(ObjBindMethod(implObj, "get_text"), flags, 2)
+        this.vtbl.get_form := CallbackCreate(ObjBindMethod(implObj, "get_form"), flags, 2)
     }
 
     Dispose() {

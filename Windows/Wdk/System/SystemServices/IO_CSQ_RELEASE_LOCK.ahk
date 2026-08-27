@@ -19,7 +19,6 @@ export default struct IO_CSQ_RELEASE_LOCK {
     }
 
     /**
-     * 
      * @param {Pointer<IO_CSQ>} Csq 
      * @param {Integer} Irql 
      * @returns {String} Nothing - always returns an empty string

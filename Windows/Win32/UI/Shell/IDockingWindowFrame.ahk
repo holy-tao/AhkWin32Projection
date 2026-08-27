@@ -132,9 +132,9 @@ export default struct IDockingWindowFrame extends IOleWindow {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddToolbar := CallbackCreate(GetMethod(implObj, "AddToolbar"), flags, 4)
-        this.vtbl.RemoveToolbar := CallbackCreate(GetMethod(implObj, "RemoveToolbar"), flags, 3)
-        this.vtbl.FindToolbar := CallbackCreate(GetMethod(implObj, "FindToolbar"), flags, 4)
+        this.vtbl.AddToolbar := CallbackCreate(ObjBindMethod(implObj, "AddToolbar"), flags, 4)
+        this.vtbl.RemoveToolbar := CallbackCreate(ObjBindMethod(implObj, "RemoveToolbar"), flags, 3)
+        this.vtbl.FindToolbar := CallbackCreate(ObjBindMethod(implObj, "FindToolbar"), flags, 4)
     }
 
     Dispose() {

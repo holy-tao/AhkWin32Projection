@@ -18,13 +18,12 @@ export default struct PROTOCOL_CL_DROP_PARTY_COMPLETE {
     }
 
     /**
-     * 
      * @param {Integer} _Status 
      * @param {Pointer<Void>} ProtocolPartyContext 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Status, ProtocolPartyContext) {
-        ProtocolPartyContextMarshal := ProtocolPartyContext is VarRef ? "ptr" : "ptr"
+        ProtocolPartyContextMarshal := ProtocolPartyContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, Int32, _Status, ProtocolPartyContextMarshal, ProtocolPartyContext)
     }

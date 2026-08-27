@@ -99,11 +99,11 @@ export WslConfigureDistribution(distributionName, defaultUID, wslDistributionFla
 export WslGetDistributionConfiguration(distributionName, distributionVersion, defaultUID, wslDistributionFlags, defaultEnvironmentVariables, defaultEnvironmentVariableCount) {
     distributionName := distributionName is String ? StrPtr(distributionName) : distributionName
 
-    distributionVersionMarshal := distributionVersion is VarRef ? "uint*" : "ptr"
-    defaultUIDMarshal := defaultUID is VarRef ? "uint*" : "ptr"
-    wslDistributionFlagsMarshal := wslDistributionFlags is VarRef ? "int*" : "ptr"
-    defaultEnvironmentVariablesMarshal := defaultEnvironmentVariables is VarRef ? "ptr*" : "ptr"
-    defaultEnvironmentVariableCountMarshal := defaultEnvironmentVariableCount is VarRef ? "uint*" : "ptr"
+    distributionVersionMarshal := distributionVersion is VarRef ? "uint*" : IntPtr
+    defaultUIDMarshal := defaultUID is VarRef ? "uint*" : IntPtr
+    wslDistributionFlagsMarshal := wslDistributionFlags is VarRef ? "int*" : IntPtr
+    defaultEnvironmentVariablesMarshal := defaultEnvironmentVariables is VarRef ? "ptr*" : IntPtr
+    defaultEnvironmentVariableCountMarshal := defaultEnvironmentVariableCount is VarRef ? "uint*" : IntPtr
 
     result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslGetDistributionConfiguration", "ptr", distributionName, distributionVersionMarshal, distributionVersion, defaultUIDMarshal, defaultUID, wslDistributionFlagsMarshal, wslDistributionFlags, defaultEnvironmentVariablesMarshal, defaultEnvironmentVariables, defaultEnvironmentVariableCountMarshal, defaultEnvironmentVariableCount, "HRESULT")
     return result
@@ -121,7 +121,9 @@ export WslLaunchInteractive(distributionName, command, useCurrentWorkingDirector
     distributionName := distributionName is String ? StrPtr(distributionName) : distributionName
     command := command is String ? StrPtr(command) : command
 
-    result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslLaunchInteractive", "ptr", distributionName, "ptr", command, BOOL, useCurrentWorkingDirectory, "uint*", &exitCode := 0, "HRESULT")
+    commandMarshal := command == 0 ? IntPtr : PWSTR
+
+    result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslLaunchInteractive", "ptr", distributionName, commandMarshal, command, BOOL, useCurrentWorkingDirectory, "uint*", &exitCode := 0, "HRESULT")
     return exitCode
 }
 
@@ -142,8 +144,10 @@ export WslLaunch(distributionName, command, useCurrentWorkingDirectory, stdIn, s
     distributionName := distributionName is String ? StrPtr(distributionName) : distributionName
     command := command is String ? StrPtr(command) : command
 
+    commandMarshal := command == 0 ? IntPtr : PWSTR
+
     process := HANDLE.Owned()
-    result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslLaunch", "ptr", distributionName, "ptr", command, BOOL, useCurrentWorkingDirectory, HANDLE, stdIn, HANDLE, stdOut, HANDLE, stdErr, HANDLE.Ptr, process, "HRESULT")
+    result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslLaunch", "ptr", distributionName, commandMarshal, command, BOOL, useCurrentWorkingDirectory, HANDLE, stdIn, HANDLE, stdOut, HANDLE, stdErr, HANDLE.Ptr, process, "HRESULT")
     return process
 }
 

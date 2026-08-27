@@ -76,8 +76,8 @@ export default struct IOfflineFilesSimpleProgress extends IOfflineFilesProgress 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ItemBegin := CallbackCreate(GetMethod(implObj, "ItemBegin"), flags, 3)
-        this.vtbl.ItemResult := CallbackCreate(GetMethod(implObj, "ItemResult"), flags, 4)
+        this.vtbl.ItemBegin := CallbackCreate(ObjBindMethod(implObj, "ItemBegin"), flags, 3)
+        this.vtbl.ItemResult := CallbackCreate(ObjBindMethod(implObj, "ItemResult"), flags, 4)
     }
 
     Dispose() {

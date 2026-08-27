@@ -136,7 +136,7 @@ export default struct IWMReaderNetworkConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadernetworkconfig-getudpportranges
      */
     GetUDPPortRanges(pcRanges) {
-        pcRangesMarshal := pcRanges is VarRef ? "uint*" : "ptr"
+        pcRangesMarshal := pcRanges is VarRef ? "uint*" : IntPtr
 
         pRangeArray := WM_PORT_NUMBER_RANGE()
         result := ComCall(5, this, WM_PORT_NUMBER_RANGE.Ptr, pRangeArray, pcRangesMarshal, pcRanges, "HRESULT")
@@ -300,7 +300,7 @@ export default struct IWMReaderNetworkConfig extends IUnknown {
         pwszProtocol := pwszProtocol is String ? StrPtr(pwszProtocol) : pwszProtocol
         pwszHostName := pwszHostName is String ? StrPtr(pwszHostName) : pwszHostName
 
-        pcchHostNameMarshal := pcchHostName is VarRef ? "uint*" : "ptr"
+        pcchHostNameMarshal := pcchHostName is VarRef ? "uint*" : IntPtr
 
         result := ComCall(9, this, "ptr", pwszProtocol, "ptr", pwszHostName, pcchHostNameMarshal, pcchHostName, "HRESULT")
         return result
@@ -466,7 +466,7 @@ export default struct IWMReaderNetworkConfig extends IUnknown {
         pwszProtocol := pwszProtocol is String ? StrPtr(pwszProtocol) : pwszProtocol
         pwszExceptionList := pwszExceptionList is String ? StrPtr(pwszExceptionList) : pwszExceptionList
 
-        pcchExceptionListMarshal := pcchExceptionList is VarRef ? "uint*" : "ptr"
+        pcchExceptionListMarshal := pcchExceptionList is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, "ptr", pwszProtocol, "ptr", pwszExceptionList, pcchExceptionListMarshal, pcchExceptionList, "HRESULT")
         return result
@@ -981,7 +981,7 @@ export default struct IWMReaderNetworkConfig extends IUnknown {
     GetSupportedProtocolName(dwProtocolNum, pwszProtocolName, pcchProtocolName) {
         pwszProtocolName := pwszProtocolName is String ? StrPtr(pwszProtocolName) : pwszProtocolName
 
-        pcchProtocolNameMarshal := pcchProtocolName is VarRef ? "uint*" : "ptr"
+        pcchProtocolNameMarshal := pcchProtocolName is VarRef ? "uint*" : IntPtr
 
         result := ComCall(31, this, UInt32, dwProtocolNum, "ptr", pwszProtocolName, pcchProtocolNameMarshal, pcchProtocolName, "HRESULT")
         return result
@@ -1095,7 +1095,7 @@ export default struct IWMReaderNetworkConfig extends IUnknown {
     GetLoggingUrl(dwIndex, pwszUrl, pcchUrl) {
         pwszUrl := pwszUrl is String ? StrPtr(pwszUrl) : pwszUrl
 
-        pcchUrlMarshal := pcchUrl is VarRef ? "uint*" : "ptr"
+        pcchUrlMarshal := pcchUrl is VarRef ? "uint*" : IntPtr
 
         result := ComCall(33, this, UInt32, dwIndex, "ptr", pwszUrl, pcchUrlMarshal, pcchUrl, "HRESULT")
         return result
@@ -1132,39 +1132,39 @@ export default struct IWMReaderNetworkConfig extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetBufferingTime := CallbackCreate(GetMethod(implObj, "GetBufferingTime"), flags, 2)
-        this.vtbl.SetBufferingTime := CallbackCreate(GetMethod(implObj, "SetBufferingTime"), flags, 2)
-        this.vtbl.GetUDPPortRanges := CallbackCreate(GetMethod(implObj, "GetUDPPortRanges"), flags, 3)
-        this.vtbl.SetUDPPortRanges := CallbackCreate(GetMethod(implObj, "SetUDPPortRanges"), flags, 3)
-        this.vtbl.GetProxySettings := CallbackCreate(GetMethod(implObj, "GetProxySettings"), flags, 3)
-        this.vtbl.SetProxySettings := CallbackCreate(GetMethod(implObj, "SetProxySettings"), flags, 3)
-        this.vtbl.GetProxyHostName := CallbackCreate(GetMethod(implObj, "GetProxyHostName"), flags, 4)
-        this.vtbl.SetProxyHostName := CallbackCreate(GetMethod(implObj, "SetProxyHostName"), flags, 3)
-        this.vtbl.GetProxyPort := CallbackCreate(GetMethod(implObj, "GetProxyPort"), flags, 3)
-        this.vtbl.SetProxyPort := CallbackCreate(GetMethod(implObj, "SetProxyPort"), flags, 3)
-        this.vtbl.GetProxyExceptionList := CallbackCreate(GetMethod(implObj, "GetProxyExceptionList"), flags, 4)
-        this.vtbl.SetProxyExceptionList := CallbackCreate(GetMethod(implObj, "SetProxyExceptionList"), flags, 3)
-        this.vtbl.GetProxyBypassForLocal := CallbackCreate(GetMethod(implObj, "GetProxyBypassForLocal"), flags, 3)
-        this.vtbl.SetProxyBypassForLocal := CallbackCreate(GetMethod(implObj, "SetProxyBypassForLocal"), flags, 3)
-        this.vtbl.GetForceRerunAutoProxyDetection := CallbackCreate(GetMethod(implObj, "GetForceRerunAutoProxyDetection"), flags, 2)
-        this.vtbl.SetForceRerunAutoProxyDetection := CallbackCreate(GetMethod(implObj, "SetForceRerunAutoProxyDetection"), flags, 2)
-        this.vtbl.GetEnableMulticast := CallbackCreate(GetMethod(implObj, "GetEnableMulticast"), flags, 2)
-        this.vtbl.SetEnableMulticast := CallbackCreate(GetMethod(implObj, "SetEnableMulticast"), flags, 2)
-        this.vtbl.GetEnableHTTP := CallbackCreate(GetMethod(implObj, "GetEnableHTTP"), flags, 2)
-        this.vtbl.SetEnableHTTP := CallbackCreate(GetMethod(implObj, "SetEnableHTTP"), flags, 2)
-        this.vtbl.GetEnableUDP := CallbackCreate(GetMethod(implObj, "GetEnableUDP"), flags, 2)
-        this.vtbl.SetEnableUDP := CallbackCreate(GetMethod(implObj, "SetEnableUDP"), flags, 2)
-        this.vtbl.GetEnableTCP := CallbackCreate(GetMethod(implObj, "GetEnableTCP"), flags, 2)
-        this.vtbl.SetEnableTCP := CallbackCreate(GetMethod(implObj, "SetEnableTCP"), flags, 2)
-        this.vtbl.ResetProtocolRollover := CallbackCreate(GetMethod(implObj, "ResetProtocolRollover"), flags, 1)
-        this.vtbl.GetConnectionBandwidth := CallbackCreate(GetMethod(implObj, "GetConnectionBandwidth"), flags, 2)
-        this.vtbl.SetConnectionBandwidth := CallbackCreate(GetMethod(implObj, "SetConnectionBandwidth"), flags, 2)
-        this.vtbl.GetNumProtocolsSupported := CallbackCreate(GetMethod(implObj, "GetNumProtocolsSupported"), flags, 2)
-        this.vtbl.GetSupportedProtocolName := CallbackCreate(GetMethod(implObj, "GetSupportedProtocolName"), flags, 4)
-        this.vtbl.AddLoggingUrl := CallbackCreate(GetMethod(implObj, "AddLoggingUrl"), flags, 2)
-        this.vtbl.GetLoggingUrl := CallbackCreate(GetMethod(implObj, "GetLoggingUrl"), flags, 4)
-        this.vtbl.GetLoggingUrlCount := CallbackCreate(GetMethod(implObj, "GetLoggingUrlCount"), flags, 2)
-        this.vtbl.ResetLoggingUrlList := CallbackCreate(GetMethod(implObj, "ResetLoggingUrlList"), flags, 1)
+        this.vtbl.GetBufferingTime := CallbackCreate(ObjBindMethod(implObj, "GetBufferingTime"), flags, 2)
+        this.vtbl.SetBufferingTime := CallbackCreate(ObjBindMethod(implObj, "SetBufferingTime"), flags, 2)
+        this.vtbl.GetUDPPortRanges := CallbackCreate(ObjBindMethod(implObj, "GetUDPPortRanges"), flags, 3)
+        this.vtbl.SetUDPPortRanges := CallbackCreate(ObjBindMethod(implObj, "SetUDPPortRanges"), flags, 3)
+        this.vtbl.GetProxySettings := CallbackCreate(ObjBindMethod(implObj, "GetProxySettings"), flags, 3)
+        this.vtbl.SetProxySettings := CallbackCreate(ObjBindMethod(implObj, "SetProxySettings"), flags, 3)
+        this.vtbl.GetProxyHostName := CallbackCreate(ObjBindMethod(implObj, "GetProxyHostName"), flags, 4)
+        this.vtbl.SetProxyHostName := CallbackCreate(ObjBindMethod(implObj, "SetProxyHostName"), flags, 3)
+        this.vtbl.GetProxyPort := CallbackCreate(ObjBindMethod(implObj, "GetProxyPort"), flags, 3)
+        this.vtbl.SetProxyPort := CallbackCreate(ObjBindMethod(implObj, "SetProxyPort"), flags, 3)
+        this.vtbl.GetProxyExceptionList := CallbackCreate(ObjBindMethod(implObj, "GetProxyExceptionList"), flags, 4)
+        this.vtbl.SetProxyExceptionList := CallbackCreate(ObjBindMethod(implObj, "SetProxyExceptionList"), flags, 3)
+        this.vtbl.GetProxyBypassForLocal := CallbackCreate(ObjBindMethod(implObj, "GetProxyBypassForLocal"), flags, 3)
+        this.vtbl.SetProxyBypassForLocal := CallbackCreate(ObjBindMethod(implObj, "SetProxyBypassForLocal"), flags, 3)
+        this.vtbl.GetForceRerunAutoProxyDetection := CallbackCreate(ObjBindMethod(implObj, "GetForceRerunAutoProxyDetection"), flags, 2)
+        this.vtbl.SetForceRerunAutoProxyDetection := CallbackCreate(ObjBindMethod(implObj, "SetForceRerunAutoProxyDetection"), flags, 2)
+        this.vtbl.GetEnableMulticast := CallbackCreate(ObjBindMethod(implObj, "GetEnableMulticast"), flags, 2)
+        this.vtbl.SetEnableMulticast := CallbackCreate(ObjBindMethod(implObj, "SetEnableMulticast"), flags, 2)
+        this.vtbl.GetEnableHTTP := CallbackCreate(ObjBindMethod(implObj, "GetEnableHTTP"), flags, 2)
+        this.vtbl.SetEnableHTTP := CallbackCreate(ObjBindMethod(implObj, "SetEnableHTTP"), flags, 2)
+        this.vtbl.GetEnableUDP := CallbackCreate(ObjBindMethod(implObj, "GetEnableUDP"), flags, 2)
+        this.vtbl.SetEnableUDP := CallbackCreate(ObjBindMethod(implObj, "SetEnableUDP"), flags, 2)
+        this.vtbl.GetEnableTCP := CallbackCreate(ObjBindMethod(implObj, "GetEnableTCP"), flags, 2)
+        this.vtbl.SetEnableTCP := CallbackCreate(ObjBindMethod(implObj, "SetEnableTCP"), flags, 2)
+        this.vtbl.ResetProtocolRollover := CallbackCreate(ObjBindMethod(implObj, "ResetProtocolRollover"), flags, 1)
+        this.vtbl.GetConnectionBandwidth := CallbackCreate(ObjBindMethod(implObj, "GetConnectionBandwidth"), flags, 2)
+        this.vtbl.SetConnectionBandwidth := CallbackCreate(ObjBindMethod(implObj, "SetConnectionBandwidth"), flags, 2)
+        this.vtbl.GetNumProtocolsSupported := CallbackCreate(ObjBindMethod(implObj, "GetNumProtocolsSupported"), flags, 2)
+        this.vtbl.GetSupportedProtocolName := CallbackCreate(ObjBindMethod(implObj, "GetSupportedProtocolName"), flags, 4)
+        this.vtbl.AddLoggingUrl := CallbackCreate(ObjBindMethod(implObj, "AddLoggingUrl"), flags, 2)
+        this.vtbl.GetLoggingUrl := CallbackCreate(ObjBindMethod(implObj, "GetLoggingUrl"), flags, 4)
+        this.vtbl.GetLoggingUrlCount := CallbackCreate(ObjBindMethod(implObj, "GetLoggingUrlCount"), flags, 2)
+        this.vtbl.ResetLoggingUrlList := CallbackCreate(ObjBindMethod(implObj, "ResetLoggingUrlList"), flags, 1)
     }
 
     Dispose() {

@@ -72,8 +72,8 @@ export default struct IManagedActivationEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateManagedStub := CallbackCreate(GetMethod(implObj, "CreateManagedStub"), flags, 3)
-        this.vtbl.DestroyManagedStub := CallbackCreate(GetMethod(implObj, "DestroyManagedStub"), flags, 2)
+        this.vtbl.CreateManagedStub := CallbackCreate(ObjBindMethod(implObj, "CreateManagedStub"), flags, 3)
+        this.vtbl.DestroyManagedStub := CallbackCreate(ObjBindMethod(implObj, "DestroyManagedStub"), flags, 2)
     }
 
     Dispose() {

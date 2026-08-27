@@ -39,7 +39,6 @@ export default struct IMultiLanguage3 extends IMultiLanguage2 {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @param {PWSTR} lpWideCharStr 
      * @param {Integer} cchWideChar 
@@ -53,15 +52,16 @@ export default struct IMultiLanguage3 extends IMultiLanguage2 {
         lpWideCharStr := lpWideCharStr is String ? StrPtr(lpWideCharStr) : lpWideCharStr
         lpSpecialChar := lpSpecialChar is String ? StrPtr(lpSpecialChar) : lpSpecialChar
 
-        puiPreferredCodePagesMarshal := puiPreferredCodePages is VarRef ? "uint*" : "ptr"
-        pnDetectedCodePagesMarshal := pnDetectedCodePages is VarRef ? "uint*" : "ptr"
+        puiPreferredCodePagesMarshal := puiPreferredCodePages is VarRef ? "uint*" : IntPtr
+        puiPreferredCodePagesMarshal := puiPreferredCodePages == 0 ? IntPtr : "uint*"
+        pnDetectedCodePagesMarshal := pnDetectedCodePages is VarRef ? "uint*" : IntPtr
+        lpSpecialCharMarshal := lpSpecialChar == 0 ? IntPtr : PWSTR
 
-        result := ComCall(30, this, UInt32, dwFlags, "ptr", lpWideCharStr, UInt32, cchWideChar, puiPreferredCodePagesMarshal, puiPreferredCodePages, UInt32, nPreferredCodePages, "uint*", &puiDetectedCodePages := 0, pnDetectedCodePagesMarshal, pnDetectedCodePages, "ptr", lpSpecialChar, "HRESULT")
+        result := ComCall(30, this, UInt32, dwFlags, "ptr", lpWideCharStr, UInt32, cchWideChar, puiPreferredCodePagesMarshal, puiPreferredCodePages, UInt32, nPreferredCodePages, "uint*", &puiDetectedCodePages := 0, pnDetectedCodePagesMarshal, pnDetectedCodePages, lpSpecialCharMarshal, lpSpecialChar, "HRESULT")
         return puiDetectedCodePages
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @param {IStream} pStrIn 
      * @param {Pointer<Integer>} puiPreferredCodePages 
@@ -73,10 +73,12 @@ export default struct IMultiLanguage3 extends IMultiLanguage2 {
     DetectOutboundCodePageInIStream(dwFlags, pStrIn, puiPreferredCodePages, nPreferredCodePages, pnDetectedCodePages, lpSpecialChar) {
         lpSpecialChar := lpSpecialChar is String ? StrPtr(lpSpecialChar) : lpSpecialChar
 
-        puiPreferredCodePagesMarshal := puiPreferredCodePages is VarRef ? "uint*" : "ptr"
-        pnDetectedCodePagesMarshal := pnDetectedCodePages is VarRef ? "uint*" : "ptr"
+        puiPreferredCodePagesMarshal := puiPreferredCodePages is VarRef ? "uint*" : IntPtr
+        puiPreferredCodePagesMarshal := puiPreferredCodePages == 0 ? IntPtr : "uint*"
+        pnDetectedCodePagesMarshal := pnDetectedCodePages is VarRef ? "uint*" : IntPtr
+        lpSpecialCharMarshal := lpSpecialChar == 0 ? IntPtr : PWSTR
 
-        result := ComCall(31, this, UInt32, dwFlags, "ptr", pStrIn, puiPreferredCodePagesMarshal, puiPreferredCodePages, UInt32, nPreferredCodePages, "uint*", &puiDetectedCodePages := 0, pnDetectedCodePagesMarshal, pnDetectedCodePages, "ptr", lpSpecialChar, "HRESULT")
+        result := ComCall(31, this, UInt32, dwFlags, "ptr", pStrIn, puiPreferredCodePagesMarshal, puiPreferredCodePages, UInt32, nPreferredCodePages, "uint*", &puiDetectedCodePages := 0, pnDetectedCodePagesMarshal, pnDetectedCodePages, lpSpecialCharMarshal, lpSpecialChar, "HRESULT")
         return puiDetectedCodePages
     }
 
@@ -89,8 +91,8 @@ export default struct IMultiLanguage3 extends IMultiLanguage2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DetectOutboundCodePage := CallbackCreate(GetMethod(implObj, "DetectOutboundCodePage"), flags, 9)
-        this.vtbl.DetectOutboundCodePageInIStream := CallbackCreate(GetMethod(implObj, "DetectOutboundCodePageInIStream"), flags, 8)
+        this.vtbl.DetectOutboundCodePage := CallbackCreate(ObjBindMethod(implObj, "DetectOutboundCodePage"), flags, 9)
+        this.vtbl.DetectOutboundCodePageInIStream := CallbackCreate(ObjBindMethod(implObj, "DetectOutboundCodePageInIStream"), flags, 8)
     }
 
     Dispose() {

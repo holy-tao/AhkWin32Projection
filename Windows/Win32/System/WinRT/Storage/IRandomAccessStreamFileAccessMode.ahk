@@ -56,7 +56,7 @@ export default struct IRandomAccessStreamFileAccessMode extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMode := CallbackCreate(GetMethod(implObj, "GetMode"), flags, 2)
+        this.vtbl.GetMode := CallbackCreate(ObjBindMethod(implObj, "GetMode"), flags, 2)
     }
 
     Dispose() {

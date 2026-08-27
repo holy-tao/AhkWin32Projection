@@ -48,7 +48,6 @@ export default struct IDebugPlmClient3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {Integer} Timeout 
      * @param {PWSTR} PackageFullName 
@@ -63,15 +62,15 @@ export default struct IDebugPlmClient3 extends IUnknown {
         AppName := AppName is String ? StrPtr(AppName) : AppName
         Arguments := Arguments is String ? StrPtr(Arguments) : Arguments
 
-        ProcessIdMarshal := ProcessId is VarRef ? "uint*" : "ptr"
-        ThreadIdMarshal := ThreadId is VarRef ? "uint*" : "ptr"
+        ArgumentsMarshal := Arguments == 0 ? IntPtr : PWSTR
+        ProcessIdMarshal := ProcessId is VarRef ? "uint*" : IntPtr
+        ThreadIdMarshal := ThreadId is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(3, this, Int64, Server, UInt32, Timeout, "ptr", PackageFullName, "ptr", AppName, "ptr", Arguments, ProcessIdMarshal, ProcessId, ThreadIdMarshal, ThreadId, "HRESULT")
+        result := ComCall(3, this, Int64, Server, UInt32, Timeout, "ptr", PackageFullName, "ptr", AppName, ArgumentsMarshal, Arguments, ProcessIdMarshal, ProcessId, ThreadIdMarshal, ThreadId, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {Integer} Timeout 
      * @param {PWSTR} PackageFullName 
@@ -84,15 +83,14 @@ export default struct IDebugPlmClient3 extends IUnknown {
         PackageFullName := PackageFullName is String ? StrPtr(PackageFullName) : PackageFullName
         BackgroundTaskId := BackgroundTaskId is String ? StrPtr(BackgroundTaskId) : BackgroundTaskId
 
-        ProcessIdMarshal := ProcessId is VarRef ? "uint*" : "ptr"
-        ThreadIdMarshal := ThreadId is VarRef ? "uint*" : "ptr"
+        ProcessIdMarshal := ProcessId is VarRef ? "uint*" : IntPtr
+        ThreadIdMarshal := ThreadId is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, Int64, Server, UInt32, Timeout, "ptr", PackageFullName, "ptr", BackgroundTaskId, ProcessIdMarshal, ProcessId, ThreadIdMarshal, ThreadId, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {PWSTR} PackageFullName 
      * @param {IDebugOutputStream} Stream 
@@ -106,7 +104,6 @@ export default struct IDebugPlmClient3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {IDebugOutputStream} Stream 
      * @returns {HRESULT} 
@@ -117,7 +114,6 @@ export default struct IDebugPlmClient3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {PWSTR} PackageFullName 
      * @returns {HRESULT} 
@@ -130,7 +126,6 @@ export default struct IDebugPlmClient3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {PWSTR} PackageFullName 
      * @returns {HRESULT} 
@@ -143,7 +138,6 @@ export default struct IDebugPlmClient3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {PWSTR} PackageFullName 
      * @returns {HRESULT} 
@@ -156,7 +150,6 @@ export default struct IDebugPlmClient3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {PWSTR} PackageFullName 
      * @returns {HRESULT} 
@@ -169,7 +162,6 @@ export default struct IDebugPlmClient3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {PWSTR} PackageFullName 
      * @returns {HRESULT} 
@@ -182,7 +174,6 @@ export default struct IDebugPlmClient3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {PWSTR} PackageFullName 
      * @param {PWSTR} AppName 
@@ -199,7 +190,6 @@ export default struct IDebugPlmClient3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {PWSTR} PackageFullName 
      * @param {PWSTR} BackgroundTaskId 
@@ -222,17 +212,17 @@ export default struct IDebugPlmClient3 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LaunchPlmPackageForDebugWide := CallbackCreate(GetMethod(implObj, "LaunchPlmPackageForDebugWide"), flags, 8)
-        this.vtbl.LaunchPlmBgTaskForDebugWide := CallbackCreate(GetMethod(implObj, "LaunchPlmBgTaskForDebugWide"), flags, 7)
-        this.vtbl.QueryPlmPackageWide := CallbackCreate(GetMethod(implObj, "QueryPlmPackageWide"), flags, 4)
-        this.vtbl.QueryPlmPackageList := CallbackCreate(GetMethod(implObj, "QueryPlmPackageList"), flags, 3)
-        this.vtbl.EnablePlmPackageDebugWide := CallbackCreate(GetMethod(implObj, "EnablePlmPackageDebugWide"), flags, 3)
-        this.vtbl.DisablePlmPackageDebugWide := CallbackCreate(GetMethod(implObj, "DisablePlmPackageDebugWide"), flags, 3)
-        this.vtbl.SuspendPlmPackageWide := CallbackCreate(GetMethod(implObj, "SuspendPlmPackageWide"), flags, 3)
-        this.vtbl.ResumePlmPackageWide := CallbackCreate(GetMethod(implObj, "ResumePlmPackageWide"), flags, 3)
-        this.vtbl.TerminatePlmPackageWide := CallbackCreate(GetMethod(implObj, "TerminatePlmPackageWide"), flags, 3)
-        this.vtbl.LaunchAndDebugPlmAppWide := CallbackCreate(GetMethod(implObj, "LaunchAndDebugPlmAppWide"), flags, 5)
-        this.vtbl.ActivateAndDebugPlmBgTaskWide := CallbackCreate(GetMethod(implObj, "ActivateAndDebugPlmBgTaskWide"), flags, 4)
+        this.vtbl.LaunchPlmPackageForDebugWide := CallbackCreate(ObjBindMethod(implObj, "LaunchPlmPackageForDebugWide"), flags, 8)
+        this.vtbl.LaunchPlmBgTaskForDebugWide := CallbackCreate(ObjBindMethod(implObj, "LaunchPlmBgTaskForDebugWide"), flags, 7)
+        this.vtbl.QueryPlmPackageWide := CallbackCreate(ObjBindMethod(implObj, "QueryPlmPackageWide"), flags, 4)
+        this.vtbl.QueryPlmPackageList := CallbackCreate(ObjBindMethod(implObj, "QueryPlmPackageList"), flags, 3)
+        this.vtbl.EnablePlmPackageDebugWide := CallbackCreate(ObjBindMethod(implObj, "EnablePlmPackageDebugWide"), flags, 3)
+        this.vtbl.DisablePlmPackageDebugWide := CallbackCreate(ObjBindMethod(implObj, "DisablePlmPackageDebugWide"), flags, 3)
+        this.vtbl.SuspendPlmPackageWide := CallbackCreate(ObjBindMethod(implObj, "SuspendPlmPackageWide"), flags, 3)
+        this.vtbl.ResumePlmPackageWide := CallbackCreate(ObjBindMethod(implObj, "ResumePlmPackageWide"), flags, 3)
+        this.vtbl.TerminatePlmPackageWide := CallbackCreate(ObjBindMethod(implObj, "TerminatePlmPackageWide"), flags, 3)
+        this.vtbl.LaunchAndDebugPlmAppWide := CallbackCreate(ObjBindMethod(implObj, "LaunchAndDebugPlmAppWide"), flags, 5)
+        this.vtbl.ActivateAndDebugPlmBgTaskWide := CallbackCreate(ObjBindMethod(implObj, "ActivateAndDebugPlmBgTaskWide"), flags, 4)
     }
 
     Dispose() {

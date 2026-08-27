@@ -58,7 +58,6 @@ export default struct IADsEmail extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Type() {
@@ -67,7 +66,6 @@ export default struct IADsEmail extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnType 
      * @returns {HRESULT} 
      */
@@ -77,7 +75,6 @@ export default struct IADsEmail extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Address() {
@@ -87,7 +84,6 @@ export default struct IADsEmail extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrAddress 
      * @returns {HRESULT} 
      */
@@ -107,10 +103,10 @@ export default struct IADsEmail extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
-        this.vtbl.put_Type := CallbackCreate(GetMethod(implObj, "put_Type"), flags, 2)
-        this.vtbl.get_Address := CallbackCreate(GetMethod(implObj, "get_Address"), flags, 2)
-        this.vtbl.put_Address := CallbackCreate(GetMethod(implObj, "put_Address"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(ObjBindMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.put_Type := CallbackCreate(ObjBindMethod(implObj, "put_Type"), flags, 2)
+        this.vtbl.get_Address := CallbackCreate(ObjBindMethod(implObj, "get_Address"), flags, 2)
+        this.vtbl.put_Address := CallbackCreate(ObjBindMethod(implObj, "put_Address"), flags, 2)
     }
 
     Dispose() {

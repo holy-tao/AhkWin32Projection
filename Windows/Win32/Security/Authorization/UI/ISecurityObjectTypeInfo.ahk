@@ -51,7 +51,7 @@ export default struct ISecurityObjectTypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-isecurityobjecttypeinfo-getinheritsource
      */
     GetInheritSource(si, pACL, ppInheritArray) {
-        ppInheritArrayMarshal := ppInheritArray is VarRef ? "ptr*" : "ptr"
+        ppInheritArrayMarshal := ppInheritArray is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, UInt32, si, ACL.Ptr, pACL, ppInheritArrayMarshal, ppInheritArray, "HRESULT")
         return result
@@ -66,7 +66,7 @@ export default struct ISecurityObjectTypeInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetInheritSource := CallbackCreate(GetMethod(implObj, "GetInheritSource"), flags, 4)
+        this.vtbl.GetInheritSource := CallbackCreate(ObjBindMethod(implObj, "GetInheritSource"), flags, 4)
     }
 
     Dispose() {

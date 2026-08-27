@@ -163,7 +163,6 @@ export default struct IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_javaEnabled() {
@@ -172,7 +171,6 @@ export default struct IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_cookieEnabled() {
@@ -181,7 +179,6 @@ export default struct IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_cpuClass() {
@@ -191,7 +188,6 @@ export default struct IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_systemLanguage() {
@@ -201,7 +197,6 @@ export default struct IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_userLanguage() {
@@ -211,7 +206,6 @@ export default struct IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_platform() {
@@ -221,7 +215,6 @@ export default struct IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_connectionSpeed() {
@@ -230,7 +223,6 @@ export default struct IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_onLine() {
@@ -239,7 +231,6 @@ export default struct IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_colorDepth() {
@@ -248,7 +239,6 @@ export default struct IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_bufferDepth() {
@@ -257,7 +247,6 @@ export default struct IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_width() {
@@ -266,7 +255,6 @@ export default struct IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_height() {
@@ -275,7 +263,6 @@ export default struct IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_availHeight() {
@@ -284,7 +271,6 @@ export default struct IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_availWidth() {
@@ -293,7 +279,6 @@ export default struct IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_connectionType() {
@@ -303,7 +288,6 @@ export default struct IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrUrl 
      * @param {BSTR} bStrVer 
@@ -319,7 +303,6 @@ export default struct IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrUrl 
      * @returns {BSTR} 
@@ -334,7 +317,6 @@ export default struct IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrVer1 
      * @param {BSTR} bstrVer2 
      * @returns {Integer} 
@@ -348,7 +330,6 @@ export default struct IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrUrl 
      * @param {BSTR} bStrVer 
@@ -364,7 +345,6 @@ export default struct IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     doComponentRequest() {
@@ -373,7 +353,6 @@ export default struct IClientCaps extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     clearComponentRequest() {
@@ -390,27 +369,27 @@ export default struct IClientCaps extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_javaEnabled := CallbackCreate(GetMethod(implObj, "get_javaEnabled"), flags, 2)
-        this.vtbl.get_cookieEnabled := CallbackCreate(GetMethod(implObj, "get_cookieEnabled"), flags, 2)
-        this.vtbl.get_cpuClass := CallbackCreate(GetMethod(implObj, "get_cpuClass"), flags, 2)
-        this.vtbl.get_systemLanguage := CallbackCreate(GetMethod(implObj, "get_systemLanguage"), flags, 2)
-        this.vtbl.get_userLanguage := CallbackCreate(GetMethod(implObj, "get_userLanguage"), flags, 2)
-        this.vtbl.get_platform := CallbackCreate(GetMethod(implObj, "get_platform"), flags, 2)
-        this.vtbl.get_connectionSpeed := CallbackCreate(GetMethod(implObj, "get_connectionSpeed"), flags, 2)
-        this.vtbl.get_onLine := CallbackCreate(GetMethod(implObj, "get_onLine"), flags, 2)
-        this.vtbl.get_colorDepth := CallbackCreate(GetMethod(implObj, "get_colorDepth"), flags, 2)
-        this.vtbl.get_bufferDepth := CallbackCreate(GetMethod(implObj, "get_bufferDepth"), flags, 2)
-        this.vtbl.get_width := CallbackCreate(GetMethod(implObj, "get_width"), flags, 2)
-        this.vtbl.get_height := CallbackCreate(GetMethod(implObj, "get_height"), flags, 2)
-        this.vtbl.get_availHeight := CallbackCreate(GetMethod(implObj, "get_availHeight"), flags, 2)
-        this.vtbl.get_availWidth := CallbackCreate(GetMethod(implObj, "get_availWidth"), flags, 2)
-        this.vtbl.get_connectionType := CallbackCreate(GetMethod(implObj, "get_connectionType"), flags, 2)
-        this.vtbl.isComponentInstalled := CallbackCreate(GetMethod(implObj, "isComponentInstalled"), flags, 5)
-        this.vtbl.getComponentVersion := CallbackCreate(GetMethod(implObj, "getComponentVersion"), flags, 4)
-        this.vtbl.compareVersions := CallbackCreate(GetMethod(implObj, "compareVersions"), flags, 4)
-        this.vtbl.addComponentRequest := CallbackCreate(GetMethod(implObj, "addComponentRequest"), flags, 4)
-        this.vtbl.doComponentRequest := CallbackCreate(GetMethod(implObj, "doComponentRequest"), flags, 2)
-        this.vtbl.clearComponentRequest := CallbackCreate(GetMethod(implObj, "clearComponentRequest"), flags, 1)
+        this.vtbl.get_javaEnabled := CallbackCreate(ObjBindMethod(implObj, "get_javaEnabled"), flags, 2)
+        this.vtbl.get_cookieEnabled := CallbackCreate(ObjBindMethod(implObj, "get_cookieEnabled"), flags, 2)
+        this.vtbl.get_cpuClass := CallbackCreate(ObjBindMethod(implObj, "get_cpuClass"), flags, 2)
+        this.vtbl.get_systemLanguage := CallbackCreate(ObjBindMethod(implObj, "get_systemLanguage"), flags, 2)
+        this.vtbl.get_userLanguage := CallbackCreate(ObjBindMethod(implObj, "get_userLanguage"), flags, 2)
+        this.vtbl.get_platform := CallbackCreate(ObjBindMethod(implObj, "get_platform"), flags, 2)
+        this.vtbl.get_connectionSpeed := CallbackCreate(ObjBindMethod(implObj, "get_connectionSpeed"), flags, 2)
+        this.vtbl.get_onLine := CallbackCreate(ObjBindMethod(implObj, "get_onLine"), flags, 2)
+        this.vtbl.get_colorDepth := CallbackCreate(ObjBindMethod(implObj, "get_colorDepth"), flags, 2)
+        this.vtbl.get_bufferDepth := CallbackCreate(ObjBindMethod(implObj, "get_bufferDepth"), flags, 2)
+        this.vtbl.get_width := CallbackCreate(ObjBindMethod(implObj, "get_width"), flags, 2)
+        this.vtbl.get_height := CallbackCreate(ObjBindMethod(implObj, "get_height"), flags, 2)
+        this.vtbl.get_availHeight := CallbackCreate(ObjBindMethod(implObj, "get_availHeight"), flags, 2)
+        this.vtbl.get_availWidth := CallbackCreate(ObjBindMethod(implObj, "get_availWidth"), flags, 2)
+        this.vtbl.get_connectionType := CallbackCreate(ObjBindMethod(implObj, "get_connectionType"), flags, 2)
+        this.vtbl.isComponentInstalled := CallbackCreate(ObjBindMethod(implObj, "isComponentInstalled"), flags, 5)
+        this.vtbl.getComponentVersion := CallbackCreate(ObjBindMethod(implObj, "getComponentVersion"), flags, 4)
+        this.vtbl.compareVersions := CallbackCreate(ObjBindMethod(implObj, "compareVersions"), flags, 4)
+        this.vtbl.addComponentRequest := CallbackCreate(ObjBindMethod(implObj, "addComponentRequest"), flags, 4)
+        this.vtbl.doComponentRequest := CallbackCreate(ObjBindMethod(implObj, "doComponentRequest"), flags, 2)
+        this.vtbl.clearComponentRequest := CallbackCreate(ObjBindMethod(implObj, "clearComponentRequest"), flags, 1)
     }
 
     Dispose() {

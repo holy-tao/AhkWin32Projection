@@ -111,12 +111,12 @@ export default struct IIsdbHierarchicalTransmissionDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetFutureUse1 := CallbackCreate(GetMethod(implObj, "GetFutureUse1"), flags, 2)
-        this.vtbl.GetQualityLevel := CallbackCreate(GetMethod(implObj, "GetQualityLevel"), flags, 2)
-        this.vtbl.GetFutureUse2 := CallbackCreate(GetMethod(implObj, "GetFutureUse2"), flags, 2)
-        this.vtbl.GetReferencePid := CallbackCreate(GetMethod(implObj, "GetReferencePid"), flags, 2)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetFutureUse1 := CallbackCreate(ObjBindMethod(implObj, "GetFutureUse1"), flags, 2)
+        this.vtbl.GetQualityLevel := CallbackCreate(ObjBindMethod(implObj, "GetQualityLevel"), flags, 2)
+        this.vtbl.GetFutureUse2 := CallbackCreate(ObjBindMethod(implObj, "GetFutureUse2"), flags, 2)
+        this.vtbl.GetReferencePid := CallbackCreate(ObjBindMethod(implObj, "GetReferencePid"), flags, 2)
     }
 
     Dispose() {

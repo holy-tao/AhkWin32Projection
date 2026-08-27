@@ -188,9 +188,9 @@ export default struct IOpcUri extends IUri {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRelationshipsPartUri := CallbackCreate(GetMethod(implObj, "GetRelationshipsPartUri"), flags, 2)
-        this.vtbl.GetRelativeUri := CallbackCreate(GetMethod(implObj, "GetRelativeUri"), flags, 3)
-        this.vtbl.CombinePartUri := CallbackCreate(GetMethod(implObj, "CombinePartUri"), flags, 3)
+        this.vtbl.GetRelationshipsPartUri := CallbackCreate(ObjBindMethod(implObj, "GetRelationshipsPartUri"), flags, 2)
+        this.vtbl.GetRelativeUri := CallbackCreate(ObjBindMethod(implObj, "GetRelativeUri"), flags, 3)
+        this.vtbl.CombinePartUri := CallbackCreate(ObjBindMethod(implObj, "CombinePartUri"), flags, 3)
     }
 
     Dispose() {

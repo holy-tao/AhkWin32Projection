@@ -105,7 +105,6 @@ export default struct LPWSPEVENTSELECT {
     }
 
     /**
-     * 
      * @param {SOCKET} s A descriptor identifying the socket.
      * @param {WSAEVENT} hEventObject The handle identifying the event object to be associated with the supplied set of network events.
      * @param {Integer} lNetworkEvents A bitmask that specifies the combination of network events in which the Windows Sockets SPI client has interest. Constructed by using the bitwise OR operator with any of these values.
@@ -301,9 +300,10 @@ export default struct LPWSPEVENTSELECT {
      * </table>
      */
     Call(s, hEventObject, lNetworkEvents, lpErrno) {
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        hEventObjectMarshal := hEventObject == 0 ? IntPtr : WSAEVENT
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
-        result := DllCall(this.value, SOCKET, s, WSAEVENT, hEventObject, Int32, lNetworkEvents, lpErrnoMarshal, lpErrno, Int32)
+        result := DllCall(this.value, SOCKET, s, hEventObjectMarshal, hEventObject, Int32, lNetworkEvents, lpErrnoMarshal, lpErrno, Int32)
         return result
     }
 

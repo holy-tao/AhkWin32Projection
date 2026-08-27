@@ -240,7 +240,9 @@ export default struct ID3D11Debug extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11debug-setswapchain
      */
     SetSwapChain(pSwapChain) {
-        result := ComCall(7, this, "ptr", pSwapChain, "HRESULT")
+        pSwapChainMarshal := pSwapChain == 0 ? IntPtr : "ptr"
+
+        result := ComCall(7, this, pSwapChainMarshal, pSwapChain, "HRESULT")
         return result
     }
 
@@ -319,15 +321,15 @@ export default struct ID3D11Debug extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetFeatureMask := CallbackCreate(GetMethod(implObj, "SetFeatureMask"), flags, 2)
-        this.vtbl.GetFeatureMask := CallbackCreate(GetMethod(implObj, "GetFeatureMask"), flags, 1)
-        this.vtbl.SetPresentPerRenderOpDelay := CallbackCreate(GetMethod(implObj, "SetPresentPerRenderOpDelay"), flags, 2)
-        this.vtbl.GetPresentPerRenderOpDelay := CallbackCreate(GetMethod(implObj, "GetPresentPerRenderOpDelay"), flags, 1)
-        this.vtbl.SetSwapChain := CallbackCreate(GetMethod(implObj, "SetSwapChain"), flags, 2)
-        this.vtbl.GetSwapChain := CallbackCreate(GetMethod(implObj, "GetSwapChain"), flags, 2)
-        this.vtbl.ValidateContext := CallbackCreate(GetMethod(implObj, "ValidateContext"), flags, 2)
-        this.vtbl.ReportLiveDeviceObjects := CallbackCreate(GetMethod(implObj, "ReportLiveDeviceObjects"), flags, 2)
-        this.vtbl.ValidateContextForDispatch := CallbackCreate(GetMethod(implObj, "ValidateContextForDispatch"), flags, 2)
+        this.vtbl.SetFeatureMask := CallbackCreate(ObjBindMethod(implObj, "SetFeatureMask"), flags, 2)
+        this.vtbl.GetFeatureMask := CallbackCreate(ObjBindMethod(implObj, "GetFeatureMask"), flags, 1)
+        this.vtbl.SetPresentPerRenderOpDelay := CallbackCreate(ObjBindMethod(implObj, "SetPresentPerRenderOpDelay"), flags, 2)
+        this.vtbl.GetPresentPerRenderOpDelay := CallbackCreate(ObjBindMethod(implObj, "GetPresentPerRenderOpDelay"), flags, 1)
+        this.vtbl.SetSwapChain := CallbackCreate(ObjBindMethod(implObj, "SetSwapChain"), flags, 2)
+        this.vtbl.GetSwapChain := CallbackCreate(ObjBindMethod(implObj, "GetSwapChain"), flags, 2)
+        this.vtbl.ValidateContext := CallbackCreate(ObjBindMethod(implObj, "ValidateContext"), flags, 2)
+        this.vtbl.ReportLiveDeviceObjects := CallbackCreate(ObjBindMethod(implObj, "ReportLiveDeviceObjects"), flags, 2)
+        this.vtbl.ValidateContextForDispatch := CallbackCreate(ObjBindMethod(implObj, "ValidateContextForDispatch"), flags, 2)
     }
 
     Dispose() {

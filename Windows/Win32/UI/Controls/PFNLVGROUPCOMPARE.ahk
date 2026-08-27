@@ -20,7 +20,6 @@ export default struct PFNLVGROUPCOMPARE {
     }
 
     /**
-     * 
      * @param {Integer} param0 Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">INT</a></b>
      * 
      * The ID of the first group.
@@ -35,7 +34,7 @@ export default struct PFNLVGROUPCOMPARE {
      * Returns a negative value if the data for <i>Group1_ID</i> is less than the data for <i>Group2_ID</i>, a positive value if it is greater, or zero if it is the same.
      */
     Call(param0, param1, param2) {
-        param2Marshal := param2 is VarRef ? "ptr" : "ptr"
+        param2Marshal := param2 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, Int32, param0, Int32, param1, param2Marshal, param2, Int32)
         return result

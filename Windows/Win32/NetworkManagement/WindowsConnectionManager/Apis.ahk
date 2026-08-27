@@ -92,10 +92,12 @@ export WcmQueryProperty(pInterface, strProfileName, _Property, pdwDataSize, ppDa
 
     strProfileName := strProfileName is String ? StrPtr(strProfileName) : strProfileName
 
-    pdwDataSizeMarshal := pdwDataSize is VarRef ? "uint*" : "ptr"
-    ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
+    pInterfaceMarshal := pInterface == 0 ? IntPtr : Guid.Ptr
+    strProfileNameMarshal := strProfileName == 0 ? IntPtr : PWSTR
+    pdwDataSizeMarshal := pdwDataSize is VarRef ? "uint*" : IntPtr
+    ppDataMarshal := ppData is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("wcmapi.dll\WcmQueryProperty", Guid.Ptr, pInterface, "ptr", strProfileName, WCM_PROPERTY, _Property, "ptr", pReserved, pdwDataSizeMarshal, pdwDataSize, ppDataMarshal, ppData, UInt32)
+    result := DllCall("wcmapi.dll\WcmQueryProperty", pInterfaceMarshal, pInterface, strProfileNameMarshal, strProfileName, WCM_PROPERTY, _Property, "ptr", pReserved, pdwDataSizeMarshal, pdwDataSize, ppDataMarshal, ppData, UInt32)
     return result
 }
 
@@ -176,9 +178,12 @@ export WcmSetProperty(pInterface, strProfileName, _Property, dwDataSize, pbData)
 
     strProfileName := strProfileName is String ? StrPtr(strProfileName) : strProfileName
 
-    pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
+    pInterfaceMarshal := pInterface == 0 ? IntPtr : Guid.Ptr
+    strProfileNameMarshal := strProfileName == 0 ? IntPtr : PWSTR
+    pbDataMarshal := pbData is VarRef ? "char*" : IntPtr
+    pbDataMarshal := pbData == 0 ? IntPtr : "char*"
 
-    result := DllCall("wcmapi.dll\WcmSetProperty", Guid.Ptr, pInterface, "ptr", strProfileName, WCM_PROPERTY, _Property, "ptr", pReserved, UInt32, dwDataSize, pbDataMarshal, pbData, UInt32)
+    result := DllCall("wcmapi.dll\WcmSetProperty", pInterfaceMarshal, pInterface, strProfileNameMarshal, strProfileName, WCM_PROPERTY, _Property, "ptr", pReserved, UInt32, dwDataSize, pbDataMarshal, pbData, UInt32)
     return result
 }
 
@@ -196,7 +201,7 @@ export WcmSetProperty(pInterface, strProfileName, _Property, dwDataSize, pbData)
 export WcmGetProfileList(ppProfileList) {
     static pReserved := 0 ;Reserved parameters must always be NULL
 
-    ppProfileListMarshal := ppProfileList is VarRef ? "ptr*" : "ptr"
+    ppProfileListMarshal := ppProfileList is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("wcmapi.dll\WcmGetProfileList", "ptr", pReserved, ppProfileListMarshal, ppProfileList, UInt32)
     return result
@@ -234,7 +239,7 @@ export WcmSetProfileList(pProfileList, dwPosition, fIgnoreUnknownProfiles) {
  * @since windows8.0
  */
 export WcmFreeMemory(pMemory) {
-    pMemoryMarshal := pMemory is VarRef ? "ptr" : "ptr"
+    pMemoryMarshal := pMemory is VarRef ? "ptr" : IntPtr
 
     DllCall("wcmapi.dll\WcmFreeMemory", pMemoryMarshal, pMemory)
 }
@@ -269,7 +274,8 @@ export OnDemandGetRoutingHint(destinationHostName) {
  * @since windows8.1
  */
 export OnDemandRegisterNotification(callback, callbackContext) {
-    callbackContextMarshal := callbackContext is VarRef ? "ptr" : "ptr"
+    callbackContextMarshal := callbackContext is VarRef ? "ptr" : IntPtr
+    callbackContextMarshal := callbackContext == 0 ? IntPtr : "ptr"
 
     registrationHandle := HANDLE.Owned()
     result := DllCall("OnDemandConnRouteHelper.dll\OnDemandRegisterNotification", ONDEMAND_NOTIFICATION_CALLBACK, callback, callbackContextMarshal, callbackContext, HANDLE.Ptr, registrationHandle, "HRESULT")
@@ -321,7 +327,11 @@ export GetInterfaceContextTableForHostName(HostName, ProxyName, Flags, Connectio
     HostName := HostName is String ? StrPtr(HostName) : HostName
     ProxyName := ProxyName is String ? StrPtr(ProxyName) : ProxyName
 
-    result := DllCall("OnDemandConnRouteHelper.dll\GetInterfaceContextTableForHostName", "ptr", HostName, "ptr", ProxyName, UInt32, Flags, IntPtr, ConnectionProfileFilterRawData, UInt32, ConnectionProfileFilterRawDataSize, "ptr*", &InterfaceContextTable := 0, "HRESULT")
+    HostNameMarshal := HostName == 0 ? IntPtr : PWSTR
+    ProxyNameMarshal := ProxyName == 0 ? IntPtr : PWSTR
+    ConnectionProfileFilterRawDataMarshal := ConnectionProfileFilterRawData == 0 ? IntPtr : IntPtr
+
+    result := DllCall("OnDemandConnRouteHelper.dll\GetInterfaceContextTableForHostName", HostNameMarshal, HostName, ProxyNameMarshal, ProxyName, UInt32, Flags, ConnectionProfileFilterRawDataMarshal, ConnectionProfileFilterRawData, UInt32, ConnectionProfileFilterRawDataSize, "ptr*", &InterfaceContextTable := 0, "HRESULT")
     return InterfaceContextTable
 }
 

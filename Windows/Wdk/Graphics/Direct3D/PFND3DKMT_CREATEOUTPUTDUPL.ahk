@@ -20,7 +20,6 @@ export default struct PFND3DKMT_CREATEOUTPUTDUPL {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CREATE_OUTPUTDUPL>} param0 
      * @returns {NTSTATUS} 
      */

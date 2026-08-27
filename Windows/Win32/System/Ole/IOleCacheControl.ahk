@@ -92,7 +92,9 @@ export default struct IOleCacheControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iolecachecontrol-onrun
      */
     OnRun(pDataObject) {
-        result := ComCall(3, this, "ptr", pDataObject, "HRESULT")
+        pDataObjectMarshal := pDataObject == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pDataObjectMarshal, pDataObject, "HRESULT")
         return result
     }
 
@@ -146,8 +148,8 @@ export default struct IOleCacheControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnRun := CallbackCreate(GetMethod(implObj, "OnRun"), flags, 2)
-        this.vtbl.OnStop := CallbackCreate(GetMethod(implObj, "OnStop"), flags, 1)
+        this.vtbl.OnRun := CallbackCreate(ObjBindMethod(implObj, "OnRun"), flags, 2)
+        this.vtbl.OnStop := CallbackCreate(ObjBindMethod(implObj, "OnStop"), flags, 1)
     }
 
     Dispose() {

@@ -81,8 +81,8 @@ export default struct IObjMgr extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Append := CallbackCreate(GetMethod(implObj, "Append"), flags, 2)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.Append := CallbackCreate(ObjBindMethod(implObj, "Append"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 2)
     }
 
     Dispose() {

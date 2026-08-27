@@ -127,7 +127,7 @@ export default struct IGestureRecognizer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-igesturerecognizer-enablegestures
      */
     EnableGestures(cGestures, pGestures) {
-        pGesturesMarshal := pGestures is VarRef ? "int*" : "ptr"
+        pGesturesMarshal := pGestures is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, UInt32, cGestures, pGesturesMarshal, pGestures, "HRESULT")
         return result
@@ -154,12 +154,12 @@ export default struct IGestureRecognizer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Enabled := CallbackCreate(GetMethod(implObj, "get_Enabled"), flags, 2)
-        this.vtbl.put_Enabled := CallbackCreate(GetMethod(implObj, "put_Enabled"), flags, 2)
-        this.vtbl.get_MaxStrokeCount := CallbackCreate(GetMethod(implObj, "get_MaxStrokeCount"), flags, 2)
-        this.vtbl.put_MaxStrokeCount := CallbackCreate(GetMethod(implObj, "put_MaxStrokeCount"), flags, 2)
-        this.vtbl.EnableGestures := CallbackCreate(GetMethod(implObj, "EnableGestures"), flags, 3)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.get_Enabled := CallbackCreate(ObjBindMethod(implObj, "get_Enabled"), flags, 2)
+        this.vtbl.put_Enabled := CallbackCreate(ObjBindMethod(implObj, "put_Enabled"), flags, 2)
+        this.vtbl.get_MaxStrokeCount := CallbackCreate(ObjBindMethod(implObj, "get_MaxStrokeCount"), flags, 2)
+        this.vtbl.put_MaxStrokeCount := CallbackCreate(ObjBindMethod(implObj, "put_MaxStrokeCount"), flags, 2)
+        this.vtbl.EnableGestures := CallbackCreate(ObjBindMethod(implObj, "EnableGestures"), flags, 3)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
     }
 
     Dispose() {

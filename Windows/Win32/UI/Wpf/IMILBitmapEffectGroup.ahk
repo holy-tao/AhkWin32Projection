@@ -96,9 +96,9 @@ export default struct IMILBitmapEffectGroup extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetInteriorInputConnector := CallbackCreate(GetMethod(implObj, "GetInteriorInputConnector"), flags, 3)
-        this.vtbl.GetInteriorOutputConnector := CallbackCreate(GetMethod(implObj, "GetInteriorOutputConnector"), flags, 3)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
+        this.vtbl.GetInteriorInputConnector := CallbackCreate(ObjBindMethod(implObj, "GetInteriorInputConnector"), flags, 3)
+        this.vtbl.GetInteriorOutputConnector := CallbackCreate(ObjBindMethod(implObj, "GetInteriorOutputConnector"), flags, 3)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 2)
     }
 
     Dispose() {

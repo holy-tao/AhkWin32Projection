@@ -79,7 +79,7 @@ export default struct ITfUIElementSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfuielementsink-beginuielement
      */
     BeginUIElement(dwUIElementId, pbShow) {
-        pbShowMarshal := pbShow is VarRef ? "int*" : "ptr"
+        pbShowMarshal := pbShow is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, UInt32, dwUIElementId, pbShowMarshal, pbShow, "HRESULT")
         return result
@@ -116,9 +116,9 @@ export default struct ITfUIElementSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BeginUIElement := CallbackCreate(GetMethod(implObj, "BeginUIElement"), flags, 3)
-        this.vtbl.UpdateUIElement := CallbackCreate(GetMethod(implObj, "UpdateUIElement"), flags, 2)
-        this.vtbl.EndUIElement := CallbackCreate(GetMethod(implObj, "EndUIElement"), flags, 2)
+        this.vtbl.BeginUIElement := CallbackCreate(ObjBindMethod(implObj, "BeginUIElement"), flags, 3)
+        this.vtbl.UpdateUIElement := CallbackCreate(ObjBindMethod(implObj, "UpdateUIElement"), flags, 2)
+        this.vtbl.EndUIElement := CallbackCreate(ObjBindMethod(implObj, "EndUIElement"), flags, 2)
     }
 
     Dispose() {

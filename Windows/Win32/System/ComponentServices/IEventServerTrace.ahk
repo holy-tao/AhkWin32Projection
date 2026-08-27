@@ -39,7 +39,6 @@ export default struct IEventServerTrace extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrguidEvent 
      * @param {BSTR} bstrguidFilter 
      * @param {Integer} lPidFilter 
@@ -54,7 +53,6 @@ export default struct IEventServerTrace extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrguidEvent 
      * @param {BSTR} bstrguidFilter 
      * @param {Integer} lPidFilter 
@@ -69,13 +67,12 @@ export default struct IEventServerTrace extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} plCntGuids 
      * @param {Pointer<BSTR>} pbstrGuidList 
      * @returns {HRESULT} 
      */
     EnumTraceGuid(plCntGuids, pbstrGuidList) {
-        plCntGuidsMarshal := plCntGuids is VarRef ? "int*" : "ptr"
+        plCntGuidsMarshal := plCntGuids is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, plCntGuidsMarshal, plCntGuids, BSTR.Ptr, pbstrGuidList, "HRESULT")
         return result
@@ -90,9 +87,9 @@ export default struct IEventServerTrace extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StartTraceGuid := CallbackCreate(GetMethod(implObj, "StartTraceGuid"), flags, 4)
-        this.vtbl.StopTraceGuid := CallbackCreate(GetMethod(implObj, "StopTraceGuid"), flags, 4)
-        this.vtbl.EnumTraceGuid := CallbackCreate(GetMethod(implObj, "EnumTraceGuid"), flags, 3)
+        this.vtbl.StartTraceGuid := CallbackCreate(ObjBindMethod(implObj, "StartTraceGuid"), flags, 4)
+        this.vtbl.StopTraceGuid := CallbackCreate(ObjBindMethod(implObj, "StopTraceGuid"), flags, 4)
+        this.vtbl.EnumTraceGuid := CallbackCreate(ObjBindMethod(implObj, "EnumTraceGuid"), flags, 3)
     }
 
     Dispose() {

@@ -93,7 +93,6 @@ export default struct IRDPSRAPITransportStreamBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<Integer>} 
      */
     get_Storage() {
@@ -102,7 +101,6 @@ export default struct IRDPSRAPITransportStreamBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_StorageSize() {
@@ -111,7 +109,6 @@ export default struct IRDPSRAPITransportStreamBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PayloadSize() {
@@ -120,7 +117,6 @@ export default struct IRDPSRAPITransportStreamBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lVal 
      * @returns {HRESULT} 
      */
@@ -130,7 +126,6 @@ export default struct IRDPSRAPITransportStreamBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PayloadOffset() {
@@ -139,7 +134,6 @@ export default struct IRDPSRAPITransportStreamBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lRetVal 
      * @returns {HRESULT} 
      */
@@ -149,7 +143,6 @@ export default struct IRDPSRAPITransportStreamBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Flags() {
@@ -158,7 +151,6 @@ export default struct IRDPSRAPITransportStreamBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lFlags 
      * @returns {HRESULT} 
      */
@@ -197,16 +189,16 @@ export default struct IRDPSRAPITransportStreamBuffer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Storage := CallbackCreate(GetMethod(implObj, "get_Storage"), flags, 2)
-        this.vtbl.get_StorageSize := CallbackCreate(GetMethod(implObj, "get_StorageSize"), flags, 2)
-        this.vtbl.get_PayloadSize := CallbackCreate(GetMethod(implObj, "get_PayloadSize"), flags, 2)
-        this.vtbl.put_PayloadSize := CallbackCreate(GetMethod(implObj, "put_PayloadSize"), flags, 2)
-        this.vtbl.get_PayloadOffset := CallbackCreate(GetMethod(implObj, "get_PayloadOffset"), flags, 2)
-        this.vtbl.put_PayloadOffset := CallbackCreate(GetMethod(implObj, "put_PayloadOffset"), flags, 2)
-        this.vtbl.get_Flags := CallbackCreate(GetMethod(implObj, "get_Flags"), flags, 2)
-        this.vtbl.put_Flags := CallbackCreate(GetMethod(implObj, "put_Flags"), flags, 2)
-        this.vtbl.get_Context := CallbackCreate(GetMethod(implObj, "get_Context"), flags, 2)
-        this.vtbl.put_Context := CallbackCreate(GetMethod(implObj, "put_Context"), flags, 2)
+        this.vtbl.get_Storage := CallbackCreate(ObjBindMethod(implObj, "get_Storage"), flags, 2)
+        this.vtbl.get_StorageSize := CallbackCreate(ObjBindMethod(implObj, "get_StorageSize"), flags, 2)
+        this.vtbl.get_PayloadSize := CallbackCreate(ObjBindMethod(implObj, "get_PayloadSize"), flags, 2)
+        this.vtbl.put_PayloadSize := CallbackCreate(ObjBindMethod(implObj, "put_PayloadSize"), flags, 2)
+        this.vtbl.get_PayloadOffset := CallbackCreate(ObjBindMethod(implObj, "get_PayloadOffset"), flags, 2)
+        this.vtbl.put_PayloadOffset := CallbackCreate(ObjBindMethod(implObj, "put_PayloadOffset"), flags, 2)
+        this.vtbl.get_Flags := CallbackCreate(ObjBindMethod(implObj, "get_Flags"), flags, 2)
+        this.vtbl.put_Flags := CallbackCreate(ObjBindMethod(implObj, "put_Flags"), flags, 2)
+        this.vtbl.get_Context := CallbackCreate(ObjBindMethod(implObj, "get_Context"), flags, 2)
+        this.vtbl.put_Context := CallbackCreate(ObjBindMethod(implObj, "put_Context"), flags, 2)
     }
 
     Dispose() {

@@ -81,9 +81,9 @@ export default struct IMFMediaEngineWebSupport extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ShouldDelayTheLoadEvent := CallbackCreate(GetMethod(implObj, "ShouldDelayTheLoadEvent"), flags, 1)
-        this.vtbl.ConnectWebAudio := CallbackCreate(GetMethod(implObj, "ConnectWebAudio"), flags, 3)
-        this.vtbl.DisconnectWebAudio := CallbackCreate(GetMethod(implObj, "DisconnectWebAudio"), flags, 1)
+        this.vtbl.ShouldDelayTheLoadEvent := CallbackCreate(ObjBindMethod(implObj, "ShouldDelayTheLoadEvent"), flags, 1)
+        this.vtbl.ConnectWebAudio := CallbackCreate(ObjBindMethod(implObj, "ConnectWebAudio"), flags, 3)
+        this.vtbl.DisconnectWebAudio := CallbackCreate(ObjBindMethod(implObj, "DisconnectWebAudio"), flags, 1)
     }
 
     Dispose() {

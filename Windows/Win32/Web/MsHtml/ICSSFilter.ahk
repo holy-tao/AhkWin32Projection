@@ -38,7 +38,6 @@ export default struct ICSSFilter extends IUnknown {
     }
 
     /**
-     * 
      * @param {ICSSFilterSite} pSink 
      * @returns {HRESULT} 
      */
@@ -48,7 +47,6 @@ export default struct ICSSFilter extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dispid 
      * @returns {HRESULT} 
      */
@@ -66,8 +64,8 @@ export default struct ICSSFilter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetSite := CallbackCreate(GetMethod(implObj, "SetSite"), flags, 2)
-        this.vtbl.OnAmbientPropertyChange := CallbackCreate(GetMethod(implObj, "OnAmbientPropertyChange"), flags, 2)
+        this.vtbl.SetSite := CallbackCreate(ObjBindMethod(implObj, "SetSite"), flags, 2)
+        this.vtbl.OnAmbientPropertyChange := CallbackCreate(ObjBindMethod(implObj, "OnAmbientPropertyChange"), flags, 2)
     }
 
     Dispose() {

@@ -21,7 +21,6 @@ export default struct PIBIO_ENGINE_IDENTIFY_FEATURE_SET_AUTHENTICATED_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline 
      * @param {Integer} Nonce 
      * @param {Pointer} NonceSize 
@@ -33,10 +32,10 @@ export default struct PIBIO_ENGINE_IDENTIFY_FEATURE_SET_AUTHENTICATED_FN {
      * @returns {HRESULT} 
      */
     Call(Pipeline, Nonce, NonceSize, Identity, SubFactor, RejectDetail, Authentication, AuthenticationSize) {
-        SubFactorMarshal := SubFactor is VarRef ? "char*" : "ptr"
-        RejectDetailMarshal := RejectDetail is VarRef ? "uint*" : "ptr"
-        AuthenticationMarshal := Authentication is VarRef ? "ptr*" : "ptr"
-        AuthenticationSizeMarshal := AuthenticationSize is VarRef ? "ptr*" : "ptr"
+        SubFactorMarshal := SubFactor is VarRef ? "char*" : IntPtr
+        RejectDetailMarshal := RejectDetail is VarRef ? "uint*" : IntPtr
+        AuthenticationMarshal := Authentication is VarRef ? "ptr*" : IntPtr
+        AuthenticationSizeMarshal := AuthenticationSize is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, WINBIO_PIPELINE.Ptr, Pipeline, IntPtr, Nonce, IntPtr, NonceSize, WINBIO_IDENTITY.Ptr, Identity, SubFactorMarshal, SubFactor, RejectDetailMarshal, RejectDetail, AuthenticationMarshal, Authentication, AuthenticationSizeMarshal, AuthenticationSize, "HRESULT")
         return result

@@ -98,8 +98,8 @@ export default struct IDecimateVideoImage extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetDecimationImageSize := CallbackCreate(GetMethod(implObj, "SetDecimationImageSize"), flags, 3)
-        this.vtbl.ResetDecimationImageSize := CallbackCreate(GetMethod(implObj, "ResetDecimationImageSize"), flags, 1)
+        this.vtbl.SetDecimationImageSize := CallbackCreate(ObjBindMethod(implObj, "SetDecimationImageSize"), flags, 3)
+        this.vtbl.ResetDecimationImageSize := CallbackCreate(ObjBindMethod(implObj, "ResetDecimationImageSize"), flags, 1)
     }
 
     Dispose() {

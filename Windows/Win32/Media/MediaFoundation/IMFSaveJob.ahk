@@ -152,10 +152,10 @@ export default struct IMFSaveJob extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BeginSave := CallbackCreate(GetMethod(implObj, "BeginSave"), flags, 4)
-        this.vtbl.EndSave := CallbackCreate(GetMethod(implObj, "EndSave"), flags, 2)
-        this.vtbl.CancelSave := CallbackCreate(GetMethod(implObj, "CancelSave"), flags, 1)
-        this.vtbl.GetProgress := CallbackCreate(GetMethod(implObj, "GetProgress"), flags, 2)
+        this.vtbl.BeginSave := CallbackCreate(ObjBindMethod(implObj, "BeginSave"), flags, 4)
+        this.vtbl.EndSave := CallbackCreate(ObjBindMethod(implObj, "EndSave"), flags, 2)
+        this.vtbl.CancelSave := CallbackCreate(ObjBindMethod(implObj, "CancelSave"), flags, 1)
+        this.vtbl.GetProgress := CallbackCreate(ObjBindMethod(implObj, "GetProgress"), flags, 2)
     }
 
     Dispose() {

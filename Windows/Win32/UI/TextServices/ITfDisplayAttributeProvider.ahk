@@ -70,8 +70,8 @@ export default struct ITfDisplayAttributeProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumDisplayAttributeInfo := CallbackCreate(GetMethod(implObj, "EnumDisplayAttributeInfo"), flags, 2)
-        this.vtbl.GetDisplayAttributeInfo := CallbackCreate(GetMethod(implObj, "GetDisplayAttributeInfo"), flags, 3)
+        this.vtbl.EnumDisplayAttributeInfo := CallbackCreate(ObjBindMethod(implObj, "EnumDisplayAttributeInfo"), flags, 2)
+        this.vtbl.GetDisplayAttributeInfo := CallbackCreate(ObjBindMethod(implObj, "GetDisplayAttributeInfo"), flags, 3)
     }
 
     Dispose() {

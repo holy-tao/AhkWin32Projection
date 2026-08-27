@@ -64,7 +64,7 @@ export default struct IMMEndpoint extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDataFlow := CallbackCreate(GetMethod(implObj, "GetDataFlow"), flags, 2)
+        this.vtbl.GetDataFlow := CallbackCreate(ObjBindMethod(implObj, "GetDataFlow"), flags, 2)
     }
 
     Dispose() {

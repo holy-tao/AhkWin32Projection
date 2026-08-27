@@ -41,15 +41,15 @@ export default struct WS_SERVICE_CLOSE_CHANNEL_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<WS_OPERATION_CONTEXT>} _context The operation context.
      * @param {Pointer<WS_ASYNC_CONTEXT>} asyncContext Information on whether the function is getting invoked asynchronously.
      * @returns {HRESULT} This callback function does not return a value.
      */
     Call(_context, asyncContext) {
-        _contextMarshal := _context is VarRef ? "ptr*" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr*" : IntPtr
+        asyncContextMarshal := asyncContext == 0 ? IntPtr : WS_ASYNC_CONTEXT.Ptr
 
-        result := DllCall(this.value, _contextMarshal, _context, WS_ASYNC_CONTEXT.Ptr, asyncContext, "HRESULT")
+        result := DllCall(this.value, _contextMarshal, _context, asyncContextMarshal, asyncContext, "HRESULT")
         return result
     }
 

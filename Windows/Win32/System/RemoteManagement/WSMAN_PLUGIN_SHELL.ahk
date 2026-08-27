@@ -25,7 +25,6 @@ export default struct WSMAN_PLUGIN_SHELL {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pluginContext Specifies the context that was returned by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nc-wsman-wsman_plugin_startup">WSManPluginStartup</a> method. This parameter represents a specific application initialization of a WinRM plug-in.
      * @param {Pointer<WSMAN_PLUGIN_REQUEST>} requestDetails A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_plugin_request">WSMAN_PLUGIN_REQUEST</a> structure that specifies the resource URI, options, locale, shutdown flag, and handle for the request.
      * @param {Integer} flags Reserved for future use. Must be set to zero.
@@ -34,9 +33,11 @@ export default struct WSMAN_PLUGIN_SHELL {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(pluginContext, requestDetails, flags, startupInfo, inboundShellInformation) {
-        pluginContextMarshal := pluginContext is VarRef ? "ptr" : "ptr"
+        pluginContextMarshal := pluginContext is VarRef ? "ptr" : IntPtr
+        startupInfoMarshal := startupInfo == 0 ? IntPtr : WSMAN_SHELL_STARTUP_INFO_V11.Ptr
+        inboundShellInformationMarshal := inboundShellInformation == 0 ? IntPtr : WSMAN_DATA.Ptr
 
-        DllCall(this.value, pluginContextMarshal, pluginContext, WSMAN_PLUGIN_REQUEST.Ptr, requestDetails, UInt32, flags, WSMAN_SHELL_STARTUP_INFO_V11.Ptr, startupInfo, WSMAN_DATA.Ptr, inboundShellInformation)
+        DllCall(this.value, pluginContextMarshal, pluginContext, WSMAN_PLUGIN_REQUEST.Ptr, requestDetails, UInt32, flags, startupInfoMarshal, startupInfo, inboundShellInformationMarshal, inboundShellInformation)
     }
 
     /**

@@ -130,17 +130,17 @@ export default struct ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISpeechObjectToken} Recognizer 
      * @returns {HRESULT} 
      */
     putref_Recognizer(Recognizer) {
-        result := ComCall(7, this, "ptr", Recognizer, "HRESULT")
+        RecognizerMarshal := Recognizer == 0 ? IntPtr : "ptr"
+
+        result := ComCall(7, this, RecognizerMarshal, Recognizer, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {ISpeechObjectToken} 
      */
     get_Recognizer() {
@@ -149,7 +149,6 @@ export default struct ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} Allow 
      * @returns {HRESULT} 
      */
@@ -159,7 +158,6 @@ export default struct ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_AllowAudioInputFormatChangesOnNextSet() {
@@ -168,17 +166,17 @@ export default struct ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISpeechObjectToken} AudioInput 
      * @returns {HRESULT} 
      */
     putref_AudioInput(AudioInput) {
-        result := ComCall(11, this, "ptr", AudioInput, "HRESULT")
+        AudioInputMarshal := AudioInput == 0 ? IntPtr : "ptr"
+
+        result := ComCall(11, this, AudioInputMarshal, AudioInput, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {ISpeechObjectToken} 
      */
     get_AudioInput() {
@@ -187,17 +185,17 @@ export default struct ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISpeechBaseStream} AudioInputStream 
      * @returns {HRESULT} 
      */
     putref_AudioInputStream(AudioInputStream) {
-        result := ComCall(13, this, "ptr", AudioInputStream, "HRESULT")
+        AudioInputStreamMarshal := AudioInputStream == 0 ? IntPtr : "ptr"
+
+        result := ComCall(13, this, AudioInputStreamMarshal, AudioInputStream, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {ISpeechBaseStream} 
      */
     get_AudioInputStream() {
@@ -206,7 +204,6 @@ export default struct ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsShared() {
@@ -215,7 +212,6 @@ export default struct ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @param {SpeechRecognizerState} State 
      * @returns {HRESULT} 
      */
@@ -225,7 +221,6 @@ export default struct ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechRecognizerState} 
      */
     get_State() {
@@ -234,7 +229,6 @@ export default struct ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechRecognizerStatus} 
      */
     get_Status() {
@@ -243,17 +237,17 @@ export default struct ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISpeechObjectToken} _Profile 
      * @returns {HRESULT} 
      */
     putref_Profile(_Profile) {
-        result := ComCall(19, this, "ptr", _Profile, "HRESULT")
+        _ProfileMarshal := _Profile == 0 ? IntPtr : "ptr"
+
+        result := ComCall(19, this, _ProfileMarshal, _Profile, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {ISpeechObjectToken} 
      */
     get_Profile() {
@@ -262,7 +256,6 @@ export default struct ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} TextElements 
      * @param {Pointer<VARIANT>} ElementDisplayAttributes 
      * @param {Integer} LanguageId 
@@ -274,7 +267,6 @@ export default struct ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechRecoContext} 
      */
     CreateRecoContext() {
@@ -283,7 +275,6 @@ export default struct ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @param {SpeechFormatType} Type 
      * @returns {ISpeechAudioFormat} 
      */
@@ -293,7 +284,6 @@ export default struct ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Name 
      * @param {Integer} Value 
      * @returns {VARIANT_BOOL} 
@@ -306,7 +296,6 @@ export default struct ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Name 
      * @param {Pointer<Integer>} Value 
      * @returns {VARIANT_BOOL} 
@@ -314,14 +303,13 @@ export default struct ISpeechRecognizer extends IDispatch {
     GetPropertyNumber(Name, Value) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name
 
-        ValueMarshal := Value is VarRef ? "int*" : "ptr"
+        ValueMarshal := Value is VarRef ? "int*" : IntPtr
 
         result := ComCall(25, this, BSTR, Name, ValueMarshal, Value, VARIANT_BOOL.Ptr, &Supported := 0, "HRESULT")
         return Supported
     }
 
     /**
-     * 
      * @param {BSTR} Name 
      * @param {BSTR} Value 
      * @returns {VARIANT_BOOL} 
@@ -335,7 +323,6 @@ export default struct ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Name 
      * @param {Pointer<BSTR>} Value 
      * @returns {VARIANT_BOOL} 
@@ -348,7 +335,6 @@ export default struct ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} TypeOfUI 
      * @param {Pointer<VARIANT>} ExtraData 
      * @returns {VARIANT_BOOL} 
@@ -361,7 +347,6 @@ export default struct ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} hWndParent 
      * @param {BSTR} Title 
      * @param {BSTR} TypeOfUI 
@@ -377,7 +362,6 @@ export default struct ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} RequiredAttributes 
      * @param {BSTR} OptionalAttributes 
      * @returns {ISpeechObjectTokens} 
@@ -391,7 +375,6 @@ export default struct ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} RequiredAttributes 
      * @param {BSTR} OptionalAttributes 
      * @returns {ISpeechObjectTokens} 
@@ -405,7 +388,6 @@ export default struct ISpeechRecognizer extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} RequiredAttributes 
      * @param {BSTR} OptionalAttributes 
      * @returns {ISpeechObjectTokens} 
@@ -427,32 +409,32 @@ export default struct ISpeechRecognizer extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.putref_Recognizer := CallbackCreate(GetMethod(implObj, "putref_Recognizer"), flags, 2)
-        this.vtbl.get_Recognizer := CallbackCreate(GetMethod(implObj, "get_Recognizer"), flags, 2)
-        this.vtbl.put_AllowAudioInputFormatChangesOnNextSet := CallbackCreate(GetMethod(implObj, "put_AllowAudioInputFormatChangesOnNextSet"), flags, 2)
-        this.vtbl.get_AllowAudioInputFormatChangesOnNextSet := CallbackCreate(GetMethod(implObj, "get_AllowAudioInputFormatChangesOnNextSet"), flags, 2)
-        this.vtbl.putref_AudioInput := CallbackCreate(GetMethod(implObj, "putref_AudioInput"), flags, 2)
-        this.vtbl.get_AudioInput := CallbackCreate(GetMethod(implObj, "get_AudioInput"), flags, 2)
-        this.vtbl.putref_AudioInputStream := CallbackCreate(GetMethod(implObj, "putref_AudioInputStream"), flags, 2)
-        this.vtbl.get_AudioInputStream := CallbackCreate(GetMethod(implObj, "get_AudioInputStream"), flags, 2)
-        this.vtbl.get_IsShared := CallbackCreate(GetMethod(implObj, "get_IsShared"), flags, 2)
-        this.vtbl.put_State := CallbackCreate(GetMethod(implObj, "put_State"), flags, 2)
-        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
-        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
-        this.vtbl.putref_Profile := CallbackCreate(GetMethod(implObj, "putref_Profile"), flags, 2)
-        this.vtbl.get_Profile := CallbackCreate(GetMethod(implObj, "get_Profile"), flags, 2)
-        this.vtbl.EmulateRecognition := CallbackCreate(GetMethod(implObj, "EmulateRecognition"), flags, 4)
-        this.vtbl.CreateRecoContext := CallbackCreate(GetMethod(implObj, "CreateRecoContext"), flags, 2)
-        this.vtbl.GetFormat := CallbackCreate(GetMethod(implObj, "GetFormat"), flags, 3)
-        this.vtbl.SetPropertyNumber := CallbackCreate(GetMethod(implObj, "SetPropertyNumber"), flags, 4)
-        this.vtbl.GetPropertyNumber := CallbackCreate(GetMethod(implObj, "GetPropertyNumber"), flags, 4)
-        this.vtbl.SetPropertyString := CallbackCreate(GetMethod(implObj, "SetPropertyString"), flags, 4)
-        this.vtbl.GetPropertyString := CallbackCreate(GetMethod(implObj, "GetPropertyString"), flags, 4)
-        this.vtbl.IsUISupported := CallbackCreate(GetMethod(implObj, "IsUISupported"), flags, 4)
-        this.vtbl.DisplayUI := CallbackCreate(GetMethod(implObj, "DisplayUI"), flags, 5)
-        this.vtbl.GetRecognizers := CallbackCreate(GetMethod(implObj, "GetRecognizers"), flags, 4)
-        this.vtbl.GetAudioInputs := CallbackCreate(GetMethod(implObj, "GetAudioInputs"), flags, 4)
-        this.vtbl.GetProfiles := CallbackCreate(GetMethod(implObj, "GetProfiles"), flags, 4)
+        this.vtbl.putref_Recognizer := CallbackCreate(ObjBindMethod(implObj, "putref_Recognizer"), flags, 2)
+        this.vtbl.get_Recognizer := CallbackCreate(ObjBindMethod(implObj, "get_Recognizer"), flags, 2)
+        this.vtbl.put_AllowAudioInputFormatChangesOnNextSet := CallbackCreate(ObjBindMethod(implObj, "put_AllowAudioInputFormatChangesOnNextSet"), flags, 2)
+        this.vtbl.get_AllowAudioInputFormatChangesOnNextSet := CallbackCreate(ObjBindMethod(implObj, "get_AllowAudioInputFormatChangesOnNextSet"), flags, 2)
+        this.vtbl.putref_AudioInput := CallbackCreate(ObjBindMethod(implObj, "putref_AudioInput"), flags, 2)
+        this.vtbl.get_AudioInput := CallbackCreate(ObjBindMethod(implObj, "get_AudioInput"), flags, 2)
+        this.vtbl.putref_AudioInputStream := CallbackCreate(ObjBindMethod(implObj, "putref_AudioInputStream"), flags, 2)
+        this.vtbl.get_AudioInputStream := CallbackCreate(ObjBindMethod(implObj, "get_AudioInputStream"), flags, 2)
+        this.vtbl.get_IsShared := CallbackCreate(ObjBindMethod(implObj, "get_IsShared"), flags, 2)
+        this.vtbl.put_State := CallbackCreate(ObjBindMethod(implObj, "put_State"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(ObjBindMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.get_Status := CallbackCreate(ObjBindMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.putref_Profile := CallbackCreate(ObjBindMethod(implObj, "putref_Profile"), flags, 2)
+        this.vtbl.get_Profile := CallbackCreate(ObjBindMethod(implObj, "get_Profile"), flags, 2)
+        this.vtbl.EmulateRecognition := CallbackCreate(ObjBindMethod(implObj, "EmulateRecognition"), flags, 4)
+        this.vtbl.CreateRecoContext := CallbackCreate(ObjBindMethod(implObj, "CreateRecoContext"), flags, 2)
+        this.vtbl.GetFormat := CallbackCreate(ObjBindMethod(implObj, "GetFormat"), flags, 3)
+        this.vtbl.SetPropertyNumber := CallbackCreate(ObjBindMethod(implObj, "SetPropertyNumber"), flags, 4)
+        this.vtbl.GetPropertyNumber := CallbackCreate(ObjBindMethod(implObj, "GetPropertyNumber"), flags, 4)
+        this.vtbl.SetPropertyString := CallbackCreate(ObjBindMethod(implObj, "SetPropertyString"), flags, 4)
+        this.vtbl.GetPropertyString := CallbackCreate(ObjBindMethod(implObj, "GetPropertyString"), flags, 4)
+        this.vtbl.IsUISupported := CallbackCreate(ObjBindMethod(implObj, "IsUISupported"), flags, 4)
+        this.vtbl.DisplayUI := CallbackCreate(ObjBindMethod(implObj, "DisplayUI"), flags, 5)
+        this.vtbl.GetRecognizers := CallbackCreate(ObjBindMethod(implObj, "GetRecognizers"), flags, 4)
+        this.vtbl.GetAudioInputs := CallbackCreate(ObjBindMethod(implObj, "GetAudioInputs"), flags, 4)
+        this.vtbl.GetProfiles := CallbackCreate(ObjBindMethod(implObj, "GetProfiles"), flags, 4)
     }
 
     Dispose() {

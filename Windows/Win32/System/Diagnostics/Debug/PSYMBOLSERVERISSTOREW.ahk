@@ -21,7 +21,6 @@ export default struct PSYMBOLSERVERISSTOREW {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @returns {BOOL} 
      */

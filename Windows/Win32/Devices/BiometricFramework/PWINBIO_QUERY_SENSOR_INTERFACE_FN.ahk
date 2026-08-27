@@ -20,7 +20,6 @@ export default struct PWINBIO_QUERY_SENSOR_INTERFACE_FN {
     }
 
     /**
-     * 
      * @returns {Pointer<WINBIO_SENSOR_INTERFACE>} 
      */
     Call() {

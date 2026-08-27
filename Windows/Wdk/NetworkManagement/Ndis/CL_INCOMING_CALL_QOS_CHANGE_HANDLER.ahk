@@ -18,7 +18,6 @@ export default struct CL_INCOMING_CALL_QOS_CHANGE_HANDLER {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

@@ -47,7 +47,6 @@ export default struct IOmHistory extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -56,7 +55,6 @@ export default struct IOmHistory extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvargdistance 
      * @returns {HRESULT} 
      */
@@ -66,7 +64,6 @@ export default struct IOmHistory extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvargdistance 
      * @returns {HRESULT} 
      */
@@ -76,7 +73,6 @@ export default struct IOmHistory extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvargdistance 
      * @returns {HRESULT} 
      */
@@ -94,10 +90,10 @@ export default struct IOmHistory extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_length := CallbackCreate(GetMethod(implObj, "get_length"), flags, 2)
-        this.vtbl.back := CallbackCreate(GetMethod(implObj, "back"), flags, 2)
-        this.vtbl.forward := CallbackCreate(GetMethod(implObj, "forward"), flags, 2)
-        this.vtbl.go := CallbackCreate(GetMethod(implObj, "go"), flags, 2)
+        this.vtbl.get_length := CallbackCreate(ObjBindMethod(implObj, "get_length"), flags, 2)
+        this.vtbl.back := CallbackCreate(ObjBindMethod(implObj, "back"), flags, 2)
+        this.vtbl.forward := CallbackCreate(ObjBindMethod(implObj, "forward"), flags, 2)
+        this.vtbl.go := CallbackCreate(ObjBindMethod(implObj, "go"), flags, 2)
     }
 
     Dispose() {

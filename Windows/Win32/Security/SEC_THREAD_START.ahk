@@ -18,12 +18,11 @@ export default struct SEC_THREAD_START {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} lpThreadParameter 
      * @returns {Integer} 
      */
     Call(lpThreadParameter) {
-        lpThreadParameterMarshal := lpThreadParameter is VarRef ? "ptr" : "ptr"
+        lpThreadParameterMarshal := lpThreadParameter is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, lpThreadParameterMarshal, lpThreadParameter, UInt32)
         return result

@@ -44,7 +44,6 @@ export default struct IDOMParser extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} xmlSource 
      * @param {BSTR} mimeType 
      * @returns {IHTMLDocument2} 
@@ -66,7 +65,7 @@ export default struct IDOMParser extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.parseFromString := CallbackCreate(GetMethod(implObj, "parseFromString"), flags, 4)
+        this.vtbl.parseFromString := CallbackCreate(ObjBindMethod(implObj, "parseFromString"), flags, 4)
     }
 
     Dispose() {

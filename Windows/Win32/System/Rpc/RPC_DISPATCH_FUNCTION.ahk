@@ -19,7 +19,6 @@ export default struct RPC_DISPATCH_FUNCTION {
     }
 
     /**
-     * 
      * @param {Pointer<RPC_MESSAGE>} Message 
      * @returns {String} Nothing - always returns an empty string
      */

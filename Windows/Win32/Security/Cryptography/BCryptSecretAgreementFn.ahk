@@ -21,7 +21,6 @@ export default struct BCryptSecretAgreementFn {
     }
 
     /**
-     * 
      * @param {BCRYPT_KEY_HANDLE} hPrivKey 
      * @param {BCRYPT_KEY_HANDLE} hPubKey 
      * @param {Pointer<BCRYPT_SECRET_HANDLE>} phAgreedSecret 

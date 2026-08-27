@@ -45,7 +45,6 @@ export default struct ID2D1DeviceContext7 extends ID2D1DeviceContext6 {
     }
 
     /**
-     * 
      * @returns {DWRITE_PAINT_FEATURE_LEVEL} 
      */
     GetPaintFeatureLevel() {
@@ -54,7 +53,6 @@ export default struct ID2D1DeviceContext7 extends ID2D1DeviceContext6 {
     }
 
     /**
-     * 
      * @param {D2D_POINT_2F} baselineOrigin 
      * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun 
      * @param {ID2D1Brush} defaultFillBrush 
@@ -63,11 +61,12 @@ export default struct ID2D1DeviceContext7 extends ID2D1DeviceContext6 {
      * @returns {String} Nothing - always returns an empty string
      */
     DrawPaintGlyphRun(baselineOrigin, _glyphRun, defaultFillBrush, colorPaletteIndex, measuringMode) {
-        ComCall(121, this, D2D_POINT_2F, baselineOrigin, DWRITE_GLYPH_RUN.Ptr, _glyphRun, "ptr", defaultFillBrush, UInt32, colorPaletteIndex, DWRITE_MEASURING_MODE, measuringMode)
+        defaultFillBrushMarshal := defaultFillBrush == 0 ? IntPtr : "ptr"
+
+        ComCall(121, this, D2D_POINT_2F, baselineOrigin, DWRITE_GLYPH_RUN.Ptr, _glyphRun, defaultFillBrushMarshal, defaultFillBrush, UInt32, colorPaletteIndex, DWRITE_MEASURING_MODE, measuringMode)
     }
 
     /**
-     * 
      * @param {D2D_POINT_2F} baselineOrigin 
      * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun 
      * @param {Pointer<DWRITE_GLYPH_RUN_DESCRIPTION>} glyphRunDescription 
@@ -79,7 +78,11 @@ export default struct ID2D1DeviceContext7 extends ID2D1DeviceContext6 {
      * @returns {String} Nothing - always returns an empty string
      */
     DrawGlyphRunWithColorSupport(baselineOrigin, _glyphRun, glyphRunDescription, foregroundBrush, svgGlyphStyle, colorPaletteIndex, measuringMode, bitmapSnapOption) {
-        ComCall(122, this, D2D_POINT_2F, baselineOrigin, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_GLYPH_RUN_DESCRIPTION.Ptr, glyphRunDescription, "ptr", foregroundBrush, "ptr", svgGlyphStyle, UInt32, colorPaletteIndex, DWRITE_MEASURING_MODE, measuringMode, D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION, bitmapSnapOption)
+        glyphRunDescriptionMarshal := glyphRunDescription == 0 ? IntPtr : DWRITE_GLYPH_RUN_DESCRIPTION.Ptr
+        foregroundBrushMarshal := foregroundBrush == 0 ? IntPtr : "ptr"
+        svgGlyphStyleMarshal := svgGlyphStyle == 0 ? IntPtr : "ptr"
+
+        ComCall(122, this, D2D_POINT_2F, baselineOrigin, DWRITE_GLYPH_RUN.Ptr, _glyphRun, glyphRunDescriptionMarshal, glyphRunDescription, foregroundBrushMarshal, foregroundBrush, svgGlyphStyleMarshal, svgGlyphStyle, UInt32, colorPaletteIndex, DWRITE_MEASURING_MODE, measuringMode, D2D1_COLOR_BITMAP_GLYPH_SNAP_OPTION, bitmapSnapOption)
     }
 
     _Query(iid) {
@@ -91,9 +94,9 @@ export default struct ID2D1DeviceContext7 extends ID2D1DeviceContext6 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPaintFeatureLevel := CallbackCreate(GetMethod(implObj, "GetPaintFeatureLevel"), flags, 1)
-        this.vtbl.DrawPaintGlyphRun := CallbackCreate(GetMethod(implObj, "DrawPaintGlyphRun"), flags, 6)
-        this.vtbl.DrawGlyphRunWithColorSupport := CallbackCreate(GetMethod(implObj, "DrawGlyphRunWithColorSupport"), flags, 9)
+        this.vtbl.GetPaintFeatureLevel := CallbackCreate(ObjBindMethod(implObj, "GetPaintFeatureLevel"), flags, 1)
+        this.vtbl.DrawPaintGlyphRun := CallbackCreate(ObjBindMethod(implObj, "DrawPaintGlyphRun"), flags, 6)
+        this.vtbl.DrawGlyphRunWithColorSupport := CallbackCreate(ObjBindMethod(implObj, "DrawGlyphRunWithColorSupport"), flags, 9)
     }
 
     Dispose() {

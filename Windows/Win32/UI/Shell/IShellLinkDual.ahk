@@ -101,7 +101,6 @@ export default struct IShellLinkDual extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Path() {
@@ -111,7 +110,6 @@ export default struct IShellLinkDual extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bs 
      * @returns {HRESULT} 
      */
@@ -123,7 +121,6 @@ export default struct IShellLinkDual extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Description() {
@@ -133,7 +130,6 @@ export default struct IShellLinkDual extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bs 
      * @returns {HRESULT} 
      */
@@ -145,7 +141,6 @@ export default struct IShellLinkDual extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_WorkingDirectory() {
@@ -155,7 +150,6 @@ export default struct IShellLinkDual extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bs 
      * @returns {HRESULT} 
      */
@@ -167,7 +161,6 @@ export default struct IShellLinkDual extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Arguments() {
@@ -177,7 +170,6 @@ export default struct IShellLinkDual extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bs 
      * @returns {HRESULT} 
      */
@@ -189,7 +181,6 @@ export default struct IShellLinkDual extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Hotkey() {
@@ -198,7 +189,6 @@ export default struct IShellLinkDual extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iHK 
      * @returns {HRESULT} 
      */
@@ -208,7 +198,6 @@ export default struct IShellLinkDual extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ShowCommand() {
@@ -217,7 +206,6 @@ export default struct IShellLinkDual extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iShowCommand 
      * @returns {HRESULT} 
      */
@@ -227,7 +215,6 @@ export default struct IShellLinkDual extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} fFlags 
      * @returns {HRESULT} 
      */
@@ -237,7 +224,6 @@ export default struct IShellLinkDual extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbs 
      * @returns {Integer} 
      */
@@ -247,7 +233,6 @@ export default struct IShellLinkDual extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bs 
      * @param {Integer} iIcon 
      * @returns {HRESULT} 
@@ -260,7 +245,6 @@ export default struct IShellLinkDual extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} vWhere 
      * @returns {HRESULT} 
      */
@@ -278,22 +262,22 @@ export default struct IShellLinkDual extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Path := CallbackCreate(GetMethod(implObj, "get_Path"), flags, 2)
-        this.vtbl.put_Path := CallbackCreate(GetMethod(implObj, "put_Path"), flags, 2)
-        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
-        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
-        this.vtbl.get_WorkingDirectory := CallbackCreate(GetMethod(implObj, "get_WorkingDirectory"), flags, 2)
-        this.vtbl.put_WorkingDirectory := CallbackCreate(GetMethod(implObj, "put_WorkingDirectory"), flags, 2)
-        this.vtbl.get_Arguments := CallbackCreate(GetMethod(implObj, "get_Arguments"), flags, 2)
-        this.vtbl.put_Arguments := CallbackCreate(GetMethod(implObj, "put_Arguments"), flags, 2)
-        this.vtbl.get_Hotkey := CallbackCreate(GetMethod(implObj, "get_Hotkey"), flags, 2)
-        this.vtbl.put_Hotkey := CallbackCreate(GetMethod(implObj, "put_Hotkey"), flags, 2)
-        this.vtbl.get_ShowCommand := CallbackCreate(GetMethod(implObj, "get_ShowCommand"), flags, 2)
-        this.vtbl.put_ShowCommand := CallbackCreate(GetMethod(implObj, "put_ShowCommand"), flags, 2)
-        this.vtbl.Resolve := CallbackCreate(GetMethod(implObj, "Resolve"), flags, 2)
-        this.vtbl.GetIconLocation := CallbackCreate(GetMethod(implObj, "GetIconLocation"), flags, 3)
-        this.vtbl.SetIconLocation := CallbackCreate(GetMethod(implObj, "SetIconLocation"), flags, 3)
-        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 2)
+        this.vtbl.get_Path := CallbackCreate(ObjBindMethod(implObj, "get_Path"), flags, 2)
+        this.vtbl.put_Path := CallbackCreate(ObjBindMethod(implObj, "put_Path"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(ObjBindMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(ObjBindMethod(implObj, "put_Description"), flags, 2)
+        this.vtbl.get_WorkingDirectory := CallbackCreate(ObjBindMethod(implObj, "get_WorkingDirectory"), flags, 2)
+        this.vtbl.put_WorkingDirectory := CallbackCreate(ObjBindMethod(implObj, "put_WorkingDirectory"), flags, 2)
+        this.vtbl.get_Arguments := CallbackCreate(ObjBindMethod(implObj, "get_Arguments"), flags, 2)
+        this.vtbl.put_Arguments := CallbackCreate(ObjBindMethod(implObj, "put_Arguments"), flags, 2)
+        this.vtbl.get_Hotkey := CallbackCreate(ObjBindMethod(implObj, "get_Hotkey"), flags, 2)
+        this.vtbl.put_Hotkey := CallbackCreate(ObjBindMethod(implObj, "put_Hotkey"), flags, 2)
+        this.vtbl.get_ShowCommand := CallbackCreate(ObjBindMethod(implObj, "get_ShowCommand"), flags, 2)
+        this.vtbl.put_ShowCommand := CallbackCreate(ObjBindMethod(implObj, "put_ShowCommand"), flags, 2)
+        this.vtbl.Resolve := CallbackCreate(ObjBindMethod(implObj, "Resolve"), flags, 2)
+        this.vtbl.GetIconLocation := CallbackCreate(ObjBindMethod(implObj, "GetIconLocation"), flags, 3)
+        this.vtbl.SetIconLocation := CallbackCreate(ObjBindMethod(implObj, "SetIconLocation"), flags, 3)
+        this.vtbl.Save := CallbackCreate(ObjBindMethod(implObj, "Save"), flags, 2)
     }
 
     Dispose() {

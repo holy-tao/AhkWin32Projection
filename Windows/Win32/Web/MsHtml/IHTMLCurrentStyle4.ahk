@@ -69,7 +69,6 @@ export default struct IHTMLCurrentStyle4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msInterpolationMode() {
@@ -79,7 +78,6 @@ export default struct IHTMLCurrentStyle4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_maxHeight() {
@@ -89,7 +87,6 @@ export default struct IHTMLCurrentStyle4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_minWidth() {
@@ -99,7 +96,6 @@ export default struct IHTMLCurrentStyle4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_maxWidth() {
@@ -117,10 +113,10 @@ export default struct IHTMLCurrentStyle4 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_msInterpolationMode := CallbackCreate(GetMethod(implObj, "get_msInterpolationMode"), flags, 2)
-        this.vtbl.get_maxHeight := CallbackCreate(GetMethod(implObj, "get_maxHeight"), flags, 2)
-        this.vtbl.get_minWidth := CallbackCreate(GetMethod(implObj, "get_minWidth"), flags, 2)
-        this.vtbl.get_maxWidth := CallbackCreate(GetMethod(implObj, "get_maxWidth"), flags, 2)
+        this.vtbl.get_msInterpolationMode := CallbackCreate(ObjBindMethod(implObj, "get_msInterpolationMode"), flags, 2)
+        this.vtbl.get_maxHeight := CallbackCreate(ObjBindMethod(implObj, "get_maxHeight"), flags, 2)
+        this.vtbl.get_minWidth := CallbackCreate(ObjBindMethod(implObj, "get_minWidth"), flags, 2)
+        this.vtbl.get_maxWidth := CallbackCreate(ObjBindMethod(implObj, "get_maxWidth"), flags, 2)
     }
 
     Dispose() {

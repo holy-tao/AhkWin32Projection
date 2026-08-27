@@ -109,9 +109,9 @@ export default struct ID3D12DebugDevice1 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetDebugParameter := CallbackCreate(GetMethod(implObj, "SetDebugParameter"), flags, 4)
-        this.vtbl.GetDebugParameter := CallbackCreate(GetMethod(implObj, "GetDebugParameter"), flags, 4)
-        this.vtbl.ReportLiveDeviceObjects := CallbackCreate(GetMethod(implObj, "ReportLiveDeviceObjects"), flags, 2)
+        this.vtbl.SetDebugParameter := CallbackCreate(ObjBindMethod(implObj, "SetDebugParameter"), flags, 4)
+        this.vtbl.GetDebugParameter := CallbackCreate(ObjBindMethod(implObj, "GetDebugParameter"), flags, 4)
+        this.vtbl.ReportLiveDeviceObjects := CallbackCreate(ObjBindMethod(implObj, "ReportLiveDeviceObjects"), flags, 2)
     }
 
     Dispose() {

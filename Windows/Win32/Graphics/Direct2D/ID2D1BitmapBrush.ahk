@@ -118,7 +118,9 @@ export default struct ID2D1BitmapBrush extends ID2D1Brush {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1bitmapbrush-setbitmap
      */
     SetBitmap(_bitmap) {
-        ComCall(11, this, "ptr", _bitmap)
+        _bitmapMarshal := _bitmap == 0 ? IntPtr : "ptr"
+
+        ComCall(11, this, _bitmapMarshal, _bitmap)
     }
 
     /**
@@ -188,14 +190,14 @@ export default struct ID2D1BitmapBrush extends ID2D1Brush {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetExtendModeX := CallbackCreate(GetMethod(implObj, "SetExtendModeX"), flags, 2)
-        this.vtbl.SetExtendModeY := CallbackCreate(GetMethod(implObj, "SetExtendModeY"), flags, 2)
-        this.vtbl.SetInterpolationMode := CallbackCreate(GetMethod(implObj, "SetInterpolationMode"), flags, 2)
-        this.vtbl.SetBitmap := CallbackCreate(GetMethod(implObj, "SetBitmap"), flags, 2)
-        this.vtbl.GetExtendModeX := CallbackCreate(GetMethod(implObj, "GetExtendModeX"), flags, 1)
-        this.vtbl.GetExtendModeY := CallbackCreate(GetMethod(implObj, "GetExtendModeY"), flags, 1)
-        this.vtbl.GetInterpolationMode := CallbackCreate(GetMethod(implObj, "GetInterpolationMode"), flags, 1)
-        this.vtbl.GetBitmap := CallbackCreate(GetMethod(implObj, "GetBitmap"), flags, 2)
+        this.vtbl.SetExtendModeX := CallbackCreate(ObjBindMethod(implObj, "SetExtendModeX"), flags, 2)
+        this.vtbl.SetExtendModeY := CallbackCreate(ObjBindMethod(implObj, "SetExtendModeY"), flags, 2)
+        this.vtbl.SetInterpolationMode := CallbackCreate(ObjBindMethod(implObj, "SetInterpolationMode"), flags, 2)
+        this.vtbl.SetBitmap := CallbackCreate(ObjBindMethod(implObj, "SetBitmap"), flags, 2)
+        this.vtbl.GetExtendModeX := CallbackCreate(ObjBindMethod(implObj, "GetExtendModeX"), flags, 1)
+        this.vtbl.GetExtendModeY := CallbackCreate(ObjBindMethod(implObj, "GetExtendModeY"), flags, 1)
+        this.vtbl.GetInterpolationMode := CallbackCreate(ObjBindMethod(implObj, "GetInterpolationMode"), flags, 1)
+        this.vtbl.GetBitmap := CallbackCreate(ObjBindMethod(implObj, "GetBitmap"), flags, 2)
     }
 
     Dispose() {

@@ -28,7 +28,6 @@ export default struct POFFLINE_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Resource Resource identifier for the resource to be taken offline.
      * @returns {Integer} <table>
      * <tr>
@@ -67,7 +66,7 @@ export default struct POFFLINE_ROUTINE {
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
      */
     Call(Resource) {
-        ResourceMarshal := Resource is VarRef ? "ptr" : "ptr"
+        ResourceMarshal := Resource is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, ResourceMarshal, Resource, UInt32)
         return result

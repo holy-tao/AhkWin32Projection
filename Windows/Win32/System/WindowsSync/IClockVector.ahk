@@ -96,7 +96,7 @@ export default struct IClockVector extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-iclockvector-getclockvectorelements
      */
     GetClockVectorElements(riid, ppiEnumClockVector) {
-        ppiEnumClockVectorMarshal := ppiEnumClockVector is VarRef ? "ptr*" : "ptr"
+        ppiEnumClockVectorMarshal := ppiEnumClockVector is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, Guid.Ptr, riid, ppiEnumClockVectorMarshal, ppiEnumClockVector, "HRESULT")
         return result
@@ -138,7 +138,7 @@ export default struct IClockVector extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-iclockvector-getclockvectorelementcount
      */
     GetClockVectorElementCount(pdwCount) {
-        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pdwCountMarshal, pdwCount, "HRESULT")
         return result
@@ -153,8 +153,8 @@ export default struct IClockVector extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetClockVectorElements := CallbackCreate(GetMethod(implObj, "GetClockVectorElements"), flags, 3)
-        this.vtbl.GetClockVectorElementCount := CallbackCreate(GetMethod(implObj, "GetClockVectorElementCount"), flags, 2)
+        this.vtbl.GetClockVectorElements := CallbackCreate(ObjBindMethod(implObj, "GetClockVectorElements"), flags, 3)
+        this.vtbl.GetClockVectorElementCount := CallbackCreate(ObjBindMethod(implObj, "GetClockVectorElementCount"), flags, 2)
     }
 
     Dispose() {

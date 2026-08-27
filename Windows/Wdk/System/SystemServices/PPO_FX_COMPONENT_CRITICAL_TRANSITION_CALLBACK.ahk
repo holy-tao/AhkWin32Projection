@@ -18,7 +18,6 @@ export default struct PPO_FX_COMPONENT_CRITICAL_TRANSITION_CALLBACK {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

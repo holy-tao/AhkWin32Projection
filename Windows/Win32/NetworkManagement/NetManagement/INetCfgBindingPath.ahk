@@ -47,7 +47,6 @@ export default struct INetCfgBindingPath extends IUnknown {
     }
 
     /**
-     * 
      * @param {INetCfgBindingPath} pPath 
      * @returns {HRESULT} 
      */
@@ -57,7 +56,6 @@ export default struct INetCfgBindingPath extends IUnknown {
     }
 
     /**
-     * 
      * @param {INetCfgBindingPath} pPath 
      * @returns {HRESULT} 
      */
@@ -132,7 +130,6 @@ export default struct INetCfgBindingPath extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetPathToken() {
@@ -141,7 +138,6 @@ export default struct INetCfgBindingPath extends IUnknown {
     }
 
     /**
-     * 
      * @returns {INetCfgComponent} 
      */
     GetOwner() {
@@ -150,7 +146,6 @@ export default struct INetCfgBindingPath extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetDepth() {
@@ -159,7 +154,6 @@ export default struct INetCfgBindingPath extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumNetCfgBindingInterface} 
      */
     EnumBindingInterfaces() {
@@ -176,14 +170,14 @@ export default struct INetCfgBindingPath extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsSamePathAs := CallbackCreate(GetMethod(implObj, "IsSamePathAs"), flags, 2)
-        this.vtbl.IsSubPathOf := CallbackCreate(GetMethod(implObj, "IsSubPathOf"), flags, 2)
-        this.vtbl.IsEnabled := CallbackCreate(GetMethod(implObj, "IsEnabled"), flags, 1)
-        this.vtbl.Enable := CallbackCreate(GetMethod(implObj, "Enable"), flags, 2)
-        this.vtbl.GetPathToken := CallbackCreate(GetMethod(implObj, "GetPathToken"), flags, 2)
-        this.vtbl.GetOwner := CallbackCreate(GetMethod(implObj, "GetOwner"), flags, 2)
-        this.vtbl.GetDepth := CallbackCreate(GetMethod(implObj, "GetDepth"), flags, 2)
-        this.vtbl.EnumBindingInterfaces := CallbackCreate(GetMethod(implObj, "EnumBindingInterfaces"), flags, 2)
+        this.vtbl.IsSamePathAs := CallbackCreate(ObjBindMethod(implObj, "IsSamePathAs"), flags, 2)
+        this.vtbl.IsSubPathOf := CallbackCreate(ObjBindMethod(implObj, "IsSubPathOf"), flags, 2)
+        this.vtbl.IsEnabled := CallbackCreate(ObjBindMethod(implObj, "IsEnabled"), flags, 1)
+        this.vtbl.Enable := CallbackCreate(ObjBindMethod(implObj, "Enable"), flags, 2)
+        this.vtbl.GetPathToken := CallbackCreate(ObjBindMethod(implObj, "GetPathToken"), flags, 2)
+        this.vtbl.GetOwner := CallbackCreate(ObjBindMethod(implObj, "GetOwner"), flags, 2)
+        this.vtbl.GetDepth := CallbackCreate(ObjBindMethod(implObj, "GetDepth"), flags, 2)
+        this.vtbl.EnumBindingInterfaces := CallbackCreate(ObjBindMethod(implObj, "EnumBindingInterfaces"), flags, 2)
     }
 
     Dispose() {

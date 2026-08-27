@@ -294,7 +294,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrTitle 
      * @returns {VARIANT_BOOL} 
      */
@@ -306,7 +305,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     stopDoc() {
@@ -315,7 +313,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     printBlankPage() {
@@ -324,7 +321,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} pElemDisp 
      * @returns {HRESULT} 
      */
@@ -334,7 +330,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     ensurePrintDialogDefaults() {
@@ -343,7 +338,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     showPrintDialog() {
@@ -352,7 +346,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     showPageSetupDialog() {
@@ -361,7 +354,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {IUnknown} pMarkup 
      * @returns {VARIANT_BOOL} 
      */
@@ -371,7 +363,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {IUnknown} pMarkup 
      * @param {VARIANT_BOOL} fActiveFrame 
      * @returns {HRESULT} 
@@ -382,7 +373,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -392,7 +382,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_framesetDocument() {
@@ -401,7 +390,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -411,7 +399,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_frameActive() {
@@ -420,7 +407,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -430,7 +416,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_frameAsShown() {
@@ -439,7 +424,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -449,7 +433,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_selection() {
@@ -458,7 +441,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -468,7 +450,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_selectedPages() {
@@ -477,7 +458,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -487,7 +467,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_currentPage() {
@@ -496,7 +475,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -506,7 +484,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_currentPageAvail() {
@@ -515,7 +492,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -525,7 +501,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_collate() {
@@ -534,7 +509,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_duplex() {
@@ -543,7 +517,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -553,7 +526,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_copies() {
@@ -562,7 +534,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -572,7 +543,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_pageFrom() {
@@ -581,7 +551,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -591,7 +560,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_pageTo() {
@@ -600,7 +568,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -610,7 +577,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_tableOfLinks() {
@@ -619,7 +585,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -629,7 +594,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_allLinkedDocuments() {
@@ -638,7 +602,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -650,7 +613,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_header() {
@@ -660,7 +622,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -672,7 +633,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_footer() {
@@ -682,7 +642,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -692,7 +651,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_marginLeft() {
@@ -701,7 +659,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -711,7 +668,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_marginRight() {
@@ -720,7 +676,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -730,7 +685,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_marginTop() {
@@ -739,7 +693,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -749,7 +702,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_marginBottom() {
@@ -758,7 +710,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_pageWidth() {
@@ -767,7 +718,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_pageHeight() {
@@ -776,7 +726,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_unprintableLeft() {
@@ -785,7 +734,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_unprintableTop() {
@@ -794,7 +742,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_unprintableRight() {
@@ -803,7 +750,6 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_unprintableBottom() {
@@ -812,12 +758,11 @@ export default struct ITemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} p 
      * @returns {HRESULT} 
      */
     updatePageStatus(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
+        pMarshal := p is VarRef ? "int*" : IntPtr
 
         result := ComCall(61, this, pMarshal, p, "HRESULT")
         return result
@@ -832,61 +777,61 @@ export default struct ITemplatePrinter extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.startDoc := CallbackCreate(GetMethod(implObj, "startDoc"), flags, 3)
-        this.vtbl.stopDoc := CallbackCreate(GetMethod(implObj, "stopDoc"), flags, 1)
-        this.vtbl.printBlankPage := CallbackCreate(GetMethod(implObj, "printBlankPage"), flags, 1)
-        this.vtbl.printPage := CallbackCreate(GetMethod(implObj, "printPage"), flags, 2)
-        this.vtbl.ensurePrintDialogDefaults := CallbackCreate(GetMethod(implObj, "ensurePrintDialogDefaults"), flags, 2)
-        this.vtbl.showPrintDialog := CallbackCreate(GetMethod(implObj, "showPrintDialog"), flags, 2)
-        this.vtbl.showPageSetupDialog := CallbackCreate(GetMethod(implObj, "showPageSetupDialog"), flags, 2)
-        this.vtbl.printNonNative := CallbackCreate(GetMethod(implObj, "printNonNative"), flags, 3)
-        this.vtbl.printNonNativeFrames := CallbackCreate(GetMethod(implObj, "printNonNativeFrames"), flags, 3)
-        this.vtbl.put_framesetDocument := CallbackCreate(GetMethod(implObj, "put_framesetDocument"), flags, 2)
-        this.vtbl.get_framesetDocument := CallbackCreate(GetMethod(implObj, "get_framesetDocument"), flags, 2)
-        this.vtbl.put_frameActive := CallbackCreate(GetMethod(implObj, "put_frameActive"), flags, 2)
-        this.vtbl.get_frameActive := CallbackCreate(GetMethod(implObj, "get_frameActive"), flags, 2)
-        this.vtbl.put_frameAsShown := CallbackCreate(GetMethod(implObj, "put_frameAsShown"), flags, 2)
-        this.vtbl.get_frameAsShown := CallbackCreate(GetMethod(implObj, "get_frameAsShown"), flags, 2)
-        this.vtbl.put_selection := CallbackCreate(GetMethod(implObj, "put_selection"), flags, 2)
-        this.vtbl.get_selection := CallbackCreate(GetMethod(implObj, "get_selection"), flags, 2)
-        this.vtbl.put_selectedPages := CallbackCreate(GetMethod(implObj, "put_selectedPages"), flags, 2)
-        this.vtbl.get_selectedPages := CallbackCreate(GetMethod(implObj, "get_selectedPages"), flags, 2)
-        this.vtbl.put_currentPage := CallbackCreate(GetMethod(implObj, "put_currentPage"), flags, 2)
-        this.vtbl.get_currentPage := CallbackCreate(GetMethod(implObj, "get_currentPage"), flags, 2)
-        this.vtbl.put_currentPageAvail := CallbackCreate(GetMethod(implObj, "put_currentPageAvail"), flags, 2)
-        this.vtbl.get_currentPageAvail := CallbackCreate(GetMethod(implObj, "get_currentPageAvail"), flags, 2)
-        this.vtbl.put_collate := CallbackCreate(GetMethod(implObj, "put_collate"), flags, 2)
-        this.vtbl.get_collate := CallbackCreate(GetMethod(implObj, "get_collate"), flags, 2)
-        this.vtbl.get_duplex := CallbackCreate(GetMethod(implObj, "get_duplex"), flags, 2)
-        this.vtbl.put_copies := CallbackCreate(GetMethod(implObj, "put_copies"), flags, 2)
-        this.vtbl.get_copies := CallbackCreate(GetMethod(implObj, "get_copies"), flags, 2)
-        this.vtbl.put_pageFrom := CallbackCreate(GetMethod(implObj, "put_pageFrom"), flags, 2)
-        this.vtbl.get_pageFrom := CallbackCreate(GetMethod(implObj, "get_pageFrom"), flags, 2)
-        this.vtbl.put_pageTo := CallbackCreate(GetMethod(implObj, "put_pageTo"), flags, 2)
-        this.vtbl.get_pageTo := CallbackCreate(GetMethod(implObj, "get_pageTo"), flags, 2)
-        this.vtbl.put_tableOfLinks := CallbackCreate(GetMethod(implObj, "put_tableOfLinks"), flags, 2)
-        this.vtbl.get_tableOfLinks := CallbackCreate(GetMethod(implObj, "get_tableOfLinks"), flags, 2)
-        this.vtbl.put_allLinkedDocuments := CallbackCreate(GetMethod(implObj, "put_allLinkedDocuments"), flags, 2)
-        this.vtbl.get_allLinkedDocuments := CallbackCreate(GetMethod(implObj, "get_allLinkedDocuments"), flags, 2)
-        this.vtbl.put_header := CallbackCreate(GetMethod(implObj, "put_header"), flags, 2)
-        this.vtbl.get_header := CallbackCreate(GetMethod(implObj, "get_header"), flags, 2)
-        this.vtbl.put_footer := CallbackCreate(GetMethod(implObj, "put_footer"), flags, 2)
-        this.vtbl.get_footer := CallbackCreate(GetMethod(implObj, "get_footer"), flags, 2)
-        this.vtbl.put_marginLeft := CallbackCreate(GetMethod(implObj, "put_marginLeft"), flags, 2)
-        this.vtbl.get_marginLeft := CallbackCreate(GetMethod(implObj, "get_marginLeft"), flags, 2)
-        this.vtbl.put_marginRight := CallbackCreate(GetMethod(implObj, "put_marginRight"), flags, 2)
-        this.vtbl.get_marginRight := CallbackCreate(GetMethod(implObj, "get_marginRight"), flags, 2)
-        this.vtbl.put_marginTop := CallbackCreate(GetMethod(implObj, "put_marginTop"), flags, 2)
-        this.vtbl.get_marginTop := CallbackCreate(GetMethod(implObj, "get_marginTop"), flags, 2)
-        this.vtbl.put_marginBottom := CallbackCreate(GetMethod(implObj, "put_marginBottom"), flags, 2)
-        this.vtbl.get_marginBottom := CallbackCreate(GetMethod(implObj, "get_marginBottom"), flags, 2)
-        this.vtbl.get_pageWidth := CallbackCreate(GetMethod(implObj, "get_pageWidth"), flags, 2)
-        this.vtbl.get_pageHeight := CallbackCreate(GetMethod(implObj, "get_pageHeight"), flags, 2)
-        this.vtbl.get_unprintableLeft := CallbackCreate(GetMethod(implObj, "get_unprintableLeft"), flags, 2)
-        this.vtbl.get_unprintableTop := CallbackCreate(GetMethod(implObj, "get_unprintableTop"), flags, 2)
-        this.vtbl.get_unprintableRight := CallbackCreate(GetMethod(implObj, "get_unprintableRight"), flags, 2)
-        this.vtbl.get_unprintableBottom := CallbackCreate(GetMethod(implObj, "get_unprintableBottom"), flags, 2)
-        this.vtbl.updatePageStatus := CallbackCreate(GetMethod(implObj, "updatePageStatus"), flags, 2)
+        this.vtbl.startDoc := CallbackCreate(ObjBindMethod(implObj, "startDoc"), flags, 3)
+        this.vtbl.stopDoc := CallbackCreate(ObjBindMethod(implObj, "stopDoc"), flags, 1)
+        this.vtbl.printBlankPage := CallbackCreate(ObjBindMethod(implObj, "printBlankPage"), flags, 1)
+        this.vtbl.printPage := CallbackCreate(ObjBindMethod(implObj, "printPage"), flags, 2)
+        this.vtbl.ensurePrintDialogDefaults := CallbackCreate(ObjBindMethod(implObj, "ensurePrintDialogDefaults"), flags, 2)
+        this.vtbl.showPrintDialog := CallbackCreate(ObjBindMethod(implObj, "showPrintDialog"), flags, 2)
+        this.vtbl.showPageSetupDialog := CallbackCreate(ObjBindMethod(implObj, "showPageSetupDialog"), flags, 2)
+        this.vtbl.printNonNative := CallbackCreate(ObjBindMethod(implObj, "printNonNative"), flags, 3)
+        this.vtbl.printNonNativeFrames := CallbackCreate(ObjBindMethod(implObj, "printNonNativeFrames"), flags, 3)
+        this.vtbl.put_framesetDocument := CallbackCreate(ObjBindMethod(implObj, "put_framesetDocument"), flags, 2)
+        this.vtbl.get_framesetDocument := CallbackCreate(ObjBindMethod(implObj, "get_framesetDocument"), flags, 2)
+        this.vtbl.put_frameActive := CallbackCreate(ObjBindMethod(implObj, "put_frameActive"), flags, 2)
+        this.vtbl.get_frameActive := CallbackCreate(ObjBindMethod(implObj, "get_frameActive"), flags, 2)
+        this.vtbl.put_frameAsShown := CallbackCreate(ObjBindMethod(implObj, "put_frameAsShown"), flags, 2)
+        this.vtbl.get_frameAsShown := CallbackCreate(ObjBindMethod(implObj, "get_frameAsShown"), flags, 2)
+        this.vtbl.put_selection := CallbackCreate(ObjBindMethod(implObj, "put_selection"), flags, 2)
+        this.vtbl.get_selection := CallbackCreate(ObjBindMethod(implObj, "get_selection"), flags, 2)
+        this.vtbl.put_selectedPages := CallbackCreate(ObjBindMethod(implObj, "put_selectedPages"), flags, 2)
+        this.vtbl.get_selectedPages := CallbackCreate(ObjBindMethod(implObj, "get_selectedPages"), flags, 2)
+        this.vtbl.put_currentPage := CallbackCreate(ObjBindMethod(implObj, "put_currentPage"), flags, 2)
+        this.vtbl.get_currentPage := CallbackCreate(ObjBindMethod(implObj, "get_currentPage"), flags, 2)
+        this.vtbl.put_currentPageAvail := CallbackCreate(ObjBindMethod(implObj, "put_currentPageAvail"), flags, 2)
+        this.vtbl.get_currentPageAvail := CallbackCreate(ObjBindMethod(implObj, "get_currentPageAvail"), flags, 2)
+        this.vtbl.put_collate := CallbackCreate(ObjBindMethod(implObj, "put_collate"), flags, 2)
+        this.vtbl.get_collate := CallbackCreate(ObjBindMethod(implObj, "get_collate"), flags, 2)
+        this.vtbl.get_duplex := CallbackCreate(ObjBindMethod(implObj, "get_duplex"), flags, 2)
+        this.vtbl.put_copies := CallbackCreate(ObjBindMethod(implObj, "put_copies"), flags, 2)
+        this.vtbl.get_copies := CallbackCreate(ObjBindMethod(implObj, "get_copies"), flags, 2)
+        this.vtbl.put_pageFrom := CallbackCreate(ObjBindMethod(implObj, "put_pageFrom"), flags, 2)
+        this.vtbl.get_pageFrom := CallbackCreate(ObjBindMethod(implObj, "get_pageFrom"), flags, 2)
+        this.vtbl.put_pageTo := CallbackCreate(ObjBindMethod(implObj, "put_pageTo"), flags, 2)
+        this.vtbl.get_pageTo := CallbackCreate(ObjBindMethod(implObj, "get_pageTo"), flags, 2)
+        this.vtbl.put_tableOfLinks := CallbackCreate(ObjBindMethod(implObj, "put_tableOfLinks"), flags, 2)
+        this.vtbl.get_tableOfLinks := CallbackCreate(ObjBindMethod(implObj, "get_tableOfLinks"), flags, 2)
+        this.vtbl.put_allLinkedDocuments := CallbackCreate(ObjBindMethod(implObj, "put_allLinkedDocuments"), flags, 2)
+        this.vtbl.get_allLinkedDocuments := CallbackCreate(ObjBindMethod(implObj, "get_allLinkedDocuments"), flags, 2)
+        this.vtbl.put_header := CallbackCreate(ObjBindMethod(implObj, "put_header"), flags, 2)
+        this.vtbl.get_header := CallbackCreate(ObjBindMethod(implObj, "get_header"), flags, 2)
+        this.vtbl.put_footer := CallbackCreate(ObjBindMethod(implObj, "put_footer"), flags, 2)
+        this.vtbl.get_footer := CallbackCreate(ObjBindMethod(implObj, "get_footer"), flags, 2)
+        this.vtbl.put_marginLeft := CallbackCreate(ObjBindMethod(implObj, "put_marginLeft"), flags, 2)
+        this.vtbl.get_marginLeft := CallbackCreate(ObjBindMethod(implObj, "get_marginLeft"), flags, 2)
+        this.vtbl.put_marginRight := CallbackCreate(ObjBindMethod(implObj, "put_marginRight"), flags, 2)
+        this.vtbl.get_marginRight := CallbackCreate(ObjBindMethod(implObj, "get_marginRight"), flags, 2)
+        this.vtbl.put_marginTop := CallbackCreate(ObjBindMethod(implObj, "put_marginTop"), flags, 2)
+        this.vtbl.get_marginTop := CallbackCreate(ObjBindMethod(implObj, "get_marginTop"), flags, 2)
+        this.vtbl.put_marginBottom := CallbackCreate(ObjBindMethod(implObj, "put_marginBottom"), flags, 2)
+        this.vtbl.get_marginBottom := CallbackCreate(ObjBindMethod(implObj, "get_marginBottom"), flags, 2)
+        this.vtbl.get_pageWidth := CallbackCreate(ObjBindMethod(implObj, "get_pageWidth"), flags, 2)
+        this.vtbl.get_pageHeight := CallbackCreate(ObjBindMethod(implObj, "get_pageHeight"), flags, 2)
+        this.vtbl.get_unprintableLeft := CallbackCreate(ObjBindMethod(implObj, "get_unprintableLeft"), flags, 2)
+        this.vtbl.get_unprintableTop := CallbackCreate(ObjBindMethod(implObj, "get_unprintableTop"), flags, 2)
+        this.vtbl.get_unprintableRight := CallbackCreate(ObjBindMethod(implObj, "get_unprintableRight"), flags, 2)
+        this.vtbl.get_unprintableBottom := CallbackCreate(ObjBindMethod(implObj, "get_unprintableBottom"), flags, 2)
+        this.vtbl.updatePageStatus := CallbackCreate(ObjBindMethod(implObj, "updatePageStatus"), flags, 2)
     }
 
     Dispose() {

@@ -85,8 +85,8 @@ export default struct IMFContentDecryptionModuleFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsTypeSupported := CallbackCreate(GetMethod(implObj, "IsTypeSupported"), flags, 3)
-        this.vtbl.CreateContentDecryptionModuleAccess := CallbackCreate(GetMethod(implObj, "CreateContentDecryptionModuleAccess"), flags, 5)
+        this.vtbl.IsTypeSupported := CallbackCreate(ObjBindMethod(implObj, "IsTypeSupported"), flags, 3)
+        this.vtbl.CreateContentDecryptionModuleAccess := CallbackCreate(ObjBindMethod(implObj, "CreateContentDecryptionModuleAccess"), flags, 5)
     }
 
     Dispose() {

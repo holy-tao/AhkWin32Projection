@@ -19,13 +19,12 @@ export default struct SQL_ASYNC_NOTIFICATION_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pContext 
      * @param {BOOL} fLast 
      * @returns {Integer} 
      */
     Call(pContext, fLast) {
-        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+        pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, pContextMarshal, pContext, BOOL, fLast, Int16)
         return result

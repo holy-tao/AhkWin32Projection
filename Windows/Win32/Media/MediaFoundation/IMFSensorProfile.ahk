@@ -103,10 +103,10 @@ export default struct IMFSensorProfile extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProfileId := CallbackCreate(GetMethod(implObj, "GetProfileId"), flags, 2)
-        this.vtbl.AddProfileFilter := CallbackCreate(GetMethod(implObj, "AddProfileFilter"), flags, 3)
-        this.vtbl.IsMediaTypeSupported := CallbackCreate(GetMethod(implObj, "IsMediaTypeSupported"), flags, 4)
-        this.vtbl.AddBlockedControl := CallbackCreate(GetMethod(implObj, "AddBlockedControl"), flags, 2)
+        this.vtbl.GetProfileId := CallbackCreate(ObjBindMethod(implObj, "GetProfileId"), flags, 2)
+        this.vtbl.AddProfileFilter := CallbackCreate(ObjBindMethod(implObj, "AddProfileFilter"), flags, 3)
+        this.vtbl.IsMediaTypeSupported := CallbackCreate(ObjBindMethod(implObj, "IsMediaTypeSupported"), flags, 4)
+        this.vtbl.AddBlockedControl := CallbackCreate(ObjBindMethod(implObj, "AddBlockedControl"), flags, 2)
     }
 
     Dispose() {

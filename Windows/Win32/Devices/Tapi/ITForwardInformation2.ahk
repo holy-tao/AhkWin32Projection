@@ -172,8 +172,8 @@ export default struct ITForwardInformation2 extends ITForwardInformation {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itforwardinformation2-getforwardtype2
      */
     GetForwardType2(ForwardType, ppDestinationAddress, pDestAddressType, ppCallerAddress, pCallerAddressType) {
-        pDestAddressTypeMarshal := pDestAddressType is VarRef ? "int*" : "ptr"
-        pCallerAddressTypeMarshal := pCallerAddressType is VarRef ? "int*" : "ptr"
+        pDestAddressTypeMarshal := pDestAddressType is VarRef ? "int*" : IntPtr
+        pCallerAddressTypeMarshal := pCallerAddressType is VarRef ? "int*" : IntPtr
 
         result := ComCall(15, this, Int32, ForwardType, BSTR.Ptr, ppDestinationAddress, pDestAddressTypeMarshal, pDestAddressType, BSTR.Ptr, ppCallerAddress, pCallerAddressTypeMarshal, pCallerAddressType, "HRESULT")
         return result
@@ -210,10 +210,10 @@ export default struct ITForwardInformation2 extends ITForwardInformation {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetForwardType2 := CallbackCreate(GetMethod(implObj, "SetForwardType2"), flags, 6)
-        this.vtbl.GetForwardType2 := CallbackCreate(GetMethod(implObj, "GetForwardType2"), flags, 6)
-        this.vtbl.get_ForwardTypeDestinationAddressType := CallbackCreate(GetMethod(implObj, "get_ForwardTypeDestinationAddressType"), flags, 3)
-        this.vtbl.get_ForwardTypeCallerAddressType := CallbackCreate(GetMethod(implObj, "get_ForwardTypeCallerAddressType"), flags, 3)
+        this.vtbl.SetForwardType2 := CallbackCreate(ObjBindMethod(implObj, "SetForwardType2"), flags, 6)
+        this.vtbl.GetForwardType2 := CallbackCreate(ObjBindMethod(implObj, "GetForwardType2"), flags, 6)
+        this.vtbl.get_ForwardTypeDestinationAddressType := CallbackCreate(ObjBindMethod(implObj, "get_ForwardTypeDestinationAddressType"), flags, 3)
+        this.vtbl.get_ForwardTypeCallerAddressType := CallbackCreate(ObjBindMethod(implObj, "get_ForwardTypeCallerAddressType"), flags, 3)
     }
 
     Dispose() {

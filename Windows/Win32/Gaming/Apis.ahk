@@ -127,7 +127,8 @@ export GetGamingDeviceModelInformation(information) {
  * @see https://learn.microsoft.com/windows/win32/api/gamingtcui/nf-gamingtcui-showgameinviteui
  */
 export ShowGameInviteUI(serviceConfigurationId, sessionTemplateName, sessionId, invitationDisplayText, completionRoutine, _context) {
-    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+    _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
     result := DllCall("api-ms-win-gaming-tcui-l1-1-0.dll\ShowGameInviteUI", HSTRING, serviceConfigurationId, HSTRING, sessionTemplateName, HSTRING, sessionId, HSTRING, invitationDisplayText, GameUICompletionRoutine, completionRoutine, _contextMarshal, _context, "HRESULT")
     return result
@@ -168,9 +169,11 @@ export ShowGameInviteUI(serviceConfigurationId, sessionTemplateName, sessionId, 
  * @see https://learn.microsoft.com/windows/win32/api/gamingtcui/nf-gamingtcui-showplayerpickerui
  */
 export ShowPlayerPickerUI(promptDisplayText, xuids, xuidsCount, preSelectedXuids, preSelectedXuidsCount, minSelectionCount, maxSelectionCount, completionRoutine, _context) {
-    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+    preSelectedXuidsMarshal := preSelectedXuids == 0 ? IntPtr : HSTRING.Ptr
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+    _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
-    result := DllCall("api-ms-win-gaming-tcui-l1-1-0.dll\ShowPlayerPickerUI", HSTRING, promptDisplayText, HSTRING.Ptr, xuids, IntPtr, xuidsCount, HSTRING.Ptr, preSelectedXuids, IntPtr, preSelectedXuidsCount, IntPtr, minSelectionCount, IntPtr, maxSelectionCount, PlayerPickerUICompletionRoutine, completionRoutine, _contextMarshal, _context, "HRESULT")
+    result := DllCall("api-ms-win-gaming-tcui-l1-1-0.dll\ShowPlayerPickerUI", HSTRING, promptDisplayText, HSTRING.Ptr, xuids, IntPtr, xuidsCount, preSelectedXuidsMarshal, preSelectedXuids, IntPtr, preSelectedXuidsCount, IntPtr, minSelectionCount, IntPtr, maxSelectionCount, PlayerPickerUICompletionRoutine, completionRoutine, _contextMarshal, _context, "HRESULT")
     return result
 }
 
@@ -191,7 +194,8 @@ export ShowPlayerPickerUI(promptDisplayText, xuids, xuidsCount, preSelectedXuids
  * @see https://learn.microsoft.com/windows/win32/api/gamingtcui/nf-gamingtcui-showprofilecardui
  */
 export ShowProfileCardUI(targetUserXuid, completionRoutine, _context) {
-    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+    _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
     result := DllCall("api-ms-win-gaming-tcui-l1-1-0.dll\ShowProfileCardUI", HSTRING, targetUserXuid, GameUICompletionRoutine, completionRoutine, _contextMarshal, _context, "HRESULT")
     return result
@@ -214,7 +218,8 @@ export ShowProfileCardUI(targetUserXuid, completionRoutine, _context) {
  * @see https://learn.microsoft.com/windows/win32/api/gamingtcui/nf-gamingtcui-showchangefriendrelationshipui
  */
 export ShowChangeFriendRelationshipUI(targetUserXuid, completionRoutine, _context) {
-    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+    _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
     result := DllCall("api-ms-win-gaming-tcui-l1-1-0.dll\ShowChangeFriendRelationshipUI", HSTRING, targetUserXuid, GameUICompletionRoutine, completionRoutine, _contextMarshal, _context, "HRESULT")
     return result
@@ -237,7 +242,8 @@ export ShowChangeFriendRelationshipUI(targetUserXuid, completionRoutine, _contex
  * @see https://learn.microsoft.com/windows/win32/api/gamingtcui/nf-gamingtcui-showtitleachievementsui
  */
 export ShowTitleAchievementsUI(titleId, completionRoutine, _context) {
-    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+    _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
     result := DllCall("api-ms-win-gaming-tcui-l1-1-0.dll\ShowTitleAchievementsUI", UInt32, titleId, GameUICompletionRoutine, completionRoutine, _contextMarshal, _context, "HRESULT")
     return result
@@ -296,14 +302,15 @@ export TryCancelPendingGameUI() {
  * @see https://learn.microsoft.com/windows/win32/api/gamingtcui/nf-gamingtcui-checkgamingprivilegewithui
  */
 export CheckGamingPrivilegeWithUI(privilegeId, scope, policy, friendlyMessage, completionRoutine, _context) {
-    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+    friendlyMessageMarshal := friendlyMessage == 0 ? IntPtr : HSTRING
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+    _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
-    result := DllCall("api-ms-win-gaming-tcui-l1-1-1.dll\CheckGamingPrivilegeWithUI", UInt32, privilegeId, HSTRING, scope, HSTRING, policy, HSTRING, friendlyMessage, GameUICompletionRoutine, completionRoutine, _contextMarshal, _context, "HRESULT")
+    result := DllCall("api-ms-win-gaming-tcui-l1-1-1.dll\CheckGamingPrivilegeWithUI", UInt32, privilegeId, HSTRING, scope, HSTRING, policy, friendlyMessageMarshal, friendlyMessage, GameUICompletionRoutine, completionRoutine, _contextMarshal, _context, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {Integer} privilegeId 
  * @param {HSTRING} scope 
  * @param {HSTRING} policy 
@@ -315,7 +322,6 @@ export CheckGamingPrivilegeSilently(privilegeId, scope, policy) {
 }
 
 /**
- * 
  * @param {IInspectable} user 
  * @param {HSTRING} serviceConfigurationId 
  * @param {HSTRING} sessionTemplateName 
@@ -326,14 +332,14 @@ export CheckGamingPrivilegeSilently(privilegeId, scope, policy) {
  * @returns {HRESULT} 
  */
 export ShowGameInviteUIForUser(user, serviceConfigurationId, sessionTemplateName, sessionId, invitationDisplayText, completionRoutine, _context) {
-    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+    _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
     result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\ShowGameInviteUIForUser", "ptr", user, HSTRING, serviceConfigurationId, HSTRING, sessionTemplateName, HSTRING, sessionId, HSTRING, invitationDisplayText, GameUICompletionRoutine, completionRoutine, _contextMarshal, _context, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {IInspectable} user 
  * @param {HSTRING} promptDisplayText 
  * @param {Pointer<HSTRING>} xuids 
@@ -347,14 +353,15 @@ export ShowGameInviteUIForUser(user, serviceConfigurationId, sessionTemplateName
  * @returns {HRESULT} 
  */
 export ShowPlayerPickerUIForUser(user, promptDisplayText, xuids, xuidsCount, preSelectedXuids, preSelectedXuidsCount, minSelectionCount, maxSelectionCount, completionRoutine, _context) {
-    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+    preSelectedXuidsMarshal := preSelectedXuids == 0 ? IntPtr : HSTRING.Ptr
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+    _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
-    result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\ShowPlayerPickerUIForUser", "ptr", user, HSTRING, promptDisplayText, HSTRING.Ptr, xuids, IntPtr, xuidsCount, HSTRING.Ptr, preSelectedXuids, IntPtr, preSelectedXuidsCount, IntPtr, minSelectionCount, IntPtr, maxSelectionCount, PlayerPickerUICompletionRoutine, completionRoutine, _contextMarshal, _context, "HRESULT")
+    result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\ShowPlayerPickerUIForUser", "ptr", user, HSTRING, promptDisplayText, HSTRING.Ptr, xuids, IntPtr, xuidsCount, preSelectedXuidsMarshal, preSelectedXuids, IntPtr, preSelectedXuidsCount, IntPtr, minSelectionCount, IntPtr, maxSelectionCount, PlayerPickerUICompletionRoutine, completionRoutine, _contextMarshal, _context, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {IInspectable} user 
  * @param {HSTRING} targetUserXuid 
  * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
@@ -362,14 +369,14 @@ export ShowPlayerPickerUIForUser(user, promptDisplayText, xuids, xuidsCount, pre
  * @returns {HRESULT} 
  */
 export ShowProfileCardUIForUser(user, targetUserXuid, completionRoutine, _context) {
-    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+    _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
     result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\ShowProfileCardUIForUser", "ptr", user, HSTRING, targetUserXuid, GameUICompletionRoutine, completionRoutine, _contextMarshal, _context, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {IInspectable} user 
  * @param {HSTRING} targetUserXuid 
  * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
@@ -377,14 +384,14 @@ export ShowProfileCardUIForUser(user, targetUserXuid, completionRoutine, _contex
  * @returns {HRESULT} 
  */
 export ShowChangeFriendRelationshipUIForUser(user, targetUserXuid, completionRoutine, _context) {
-    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+    _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
     result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\ShowChangeFriendRelationshipUIForUser", "ptr", user, HSTRING, targetUserXuid, GameUICompletionRoutine, completionRoutine, _contextMarshal, _context, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {IInspectable} user 
  * @param {Integer} titleId 
  * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
@@ -392,14 +399,14 @@ export ShowChangeFriendRelationshipUIForUser(user, targetUserXuid, completionRou
  * @returns {HRESULT} 
  */
 export ShowTitleAchievementsUIForUser(user, titleId, completionRoutine, _context) {
-    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+    _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
     result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\ShowTitleAchievementsUIForUser", "ptr", user, UInt32, titleId, GameUICompletionRoutine, completionRoutine, _contextMarshal, _context, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {IInspectable} user 
  * @param {Integer} privilegeId 
  * @param {HSTRING} scope 
@@ -410,14 +417,15 @@ export ShowTitleAchievementsUIForUser(user, titleId, completionRoutine, _context
  * @returns {HRESULT} 
  */
 export CheckGamingPrivilegeWithUIForUser(user, privilegeId, scope, policy, friendlyMessage, completionRoutine, _context) {
-    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+    friendlyMessageMarshal := friendlyMessage == 0 ? IntPtr : HSTRING
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+    _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
-    result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\CheckGamingPrivilegeWithUIForUser", "ptr", user, UInt32, privilegeId, HSTRING, scope, HSTRING, policy, HSTRING, friendlyMessage, GameUICompletionRoutine, completionRoutine, _contextMarshal, _context, "HRESULT")
+    result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\CheckGamingPrivilegeWithUIForUser", "ptr", user, UInt32, privilegeId, HSTRING, scope, HSTRING, policy, friendlyMessageMarshal, friendlyMessage, GameUICompletionRoutine, completionRoutine, _contextMarshal, _context, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {IInspectable} user 
  * @param {Integer} privilegeId 
  * @param {HSTRING} scope 
@@ -430,7 +438,6 @@ export CheckGamingPrivilegeSilentlyForUser(user, privilegeId, scope, policy) {
 }
 
 /**
- * 
  * @param {HSTRING} serviceConfigurationId 
  * @param {HSTRING} sessionTemplateName 
  * @param {HSTRING} sessionId 
@@ -441,14 +448,14 @@ export CheckGamingPrivilegeSilentlyForUser(user, privilegeId, scope, policy) {
  * @returns {HRESULT} 
  */
 export ShowGameInviteUIWithContext(serviceConfigurationId, sessionTemplateName, sessionId, invitationDisplayText, customActivationContext, completionRoutine, _context) {
-    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+    _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
     result := DllCall("api-ms-win-gaming-tcui-l1-1-3.dll\ShowGameInviteUIWithContext", HSTRING, serviceConfigurationId, HSTRING, sessionTemplateName, HSTRING, sessionId, HSTRING, invitationDisplayText, HSTRING, customActivationContext, GameUICompletionRoutine, completionRoutine, _contextMarshal, _context, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {IInspectable} user 
  * @param {HSTRING} serviceConfigurationId 
  * @param {HSTRING} sessionTemplateName 
@@ -460,28 +467,28 @@ export ShowGameInviteUIWithContext(serviceConfigurationId, sessionTemplateName, 
  * @returns {HRESULT} 
  */
 export ShowGameInviteUIWithContextForUser(user, serviceConfigurationId, sessionTemplateName, sessionId, invitationDisplayText, customActivationContext, completionRoutine, _context) {
-    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+    _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
     result := DllCall("api-ms-win-gaming-tcui-l1-1-3.dll\ShowGameInviteUIWithContextForUser", "ptr", user, HSTRING, serviceConfigurationId, HSTRING, sessionTemplateName, HSTRING, sessionId, HSTRING, invitationDisplayText, HSTRING, customActivationContext, GameUICompletionRoutine, completionRoutine, _contextMarshal, _context, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {Integer} titleId 
  * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
  * @param {Pointer<Void>} _context 
  * @returns {HRESULT} 
  */
 export ShowGameInfoUI(titleId, completionRoutine, _context) {
-    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+    _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
     result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowGameInfoUI", UInt32, titleId, GameUICompletionRoutine, completionRoutine, _contextMarshal, _context, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {IInspectable} user 
  * @param {Integer} titleId 
  * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
@@ -489,88 +496,89 @@ export ShowGameInfoUI(titleId, completionRoutine, _context) {
  * @returns {HRESULT} 
  */
 export ShowGameInfoUIForUser(user, titleId, completionRoutine, _context) {
-    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+    _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
     result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowGameInfoUIForUser", "ptr", user, UInt32, titleId, GameUICompletionRoutine, completionRoutine, _contextMarshal, _context, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
  * @param {Pointer<Void>} _context 
  * @returns {HRESULT} 
  */
 export ShowFindFriendsUI(completionRoutine, _context) {
-    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+    _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
     result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowFindFriendsUI", GameUICompletionRoutine, completionRoutine, _contextMarshal, _context, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {IInspectable} user 
  * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
  * @param {Pointer<Void>} _context 
  * @returns {HRESULT} 
  */
 export ShowFindFriendsUIForUser(user, completionRoutine, _context) {
-    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+    _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
     result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowFindFriendsUIForUser", "ptr", user, GameUICompletionRoutine, completionRoutine, _contextMarshal, _context, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
  * @param {Pointer<Void>} _context 
  * @returns {HRESULT} 
  */
 export ShowCustomizeUserProfileUI(completionRoutine, _context) {
-    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+    _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
     result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowCustomizeUserProfileUI", GameUICompletionRoutine, completionRoutine, _contextMarshal, _context, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {IInspectable} user 
  * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
  * @param {Pointer<Void>} _context 
  * @returns {HRESULT} 
  */
 export ShowCustomizeUserProfileUIForUser(user, completionRoutine, _context) {
-    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+    _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
     result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowCustomizeUserProfileUIForUser", "ptr", user, GameUICompletionRoutine, completionRoutine, _contextMarshal, _context, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
  * @param {Pointer<Void>} _context 
  * @returns {HRESULT} 
  */
 export ShowUserSettingsUI(completionRoutine, _context) {
-    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+    _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
     result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowUserSettingsUI", GameUICompletionRoutine, completionRoutine, _contextMarshal, _context, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {IInspectable} user 
  * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
  * @param {Pointer<Void>} _context 
  * @returns {HRESULT} 
  */
 export ShowUserSettingsUIForUser(user, completionRoutine, _context) {
-    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+    _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
     result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowUserSettingsUIForUser", "ptr", user, GameUICompletionRoutine, completionRoutine, _contextMarshal, _context, "HRESULT")
     return result

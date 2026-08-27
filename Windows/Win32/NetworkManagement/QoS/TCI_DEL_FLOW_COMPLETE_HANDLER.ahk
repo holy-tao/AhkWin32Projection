@@ -21,7 +21,6 @@ export default struct TCI_DEL_FLOW_COMPLETE_HANDLER {
     }
 
     /**
-     * 
      * @param {HANDLE} ClFlowCtx Client provided–flow context handle. This can be the container used to hold an arbitrary client-defined context for this instance of the client. This value will be the same as the value provided by the client during its corresponding call to 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcdeleteflow">TcDeleteFlow</a>.
      * @param {Integer} _Status Completion status for the 

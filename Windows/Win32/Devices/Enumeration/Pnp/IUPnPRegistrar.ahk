@@ -237,12 +237,12 @@ export default struct IUPnPRegistrar extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterDevice := CallbackCreate(GetMethod(implObj, "RegisterDevice"), flags, 8)
-        this.vtbl.RegisterRunningDevice := CallbackCreate(GetMethod(implObj, "RegisterRunningDevice"), flags, 7)
-        this.vtbl.RegisterDeviceProvider := CallbackCreate(GetMethod(implObj, "RegisterDeviceProvider"), flags, 5)
-        this.vtbl.GetUniqueDeviceName := CallbackCreate(GetMethod(implObj, "GetUniqueDeviceName"), flags, 4)
-        this.vtbl.UnregisterDevice := CallbackCreate(GetMethod(implObj, "UnregisterDevice"), flags, 3)
-        this.vtbl.UnregisterDeviceProvider := CallbackCreate(GetMethod(implObj, "UnregisterDeviceProvider"), flags, 2)
+        this.vtbl.RegisterDevice := CallbackCreate(ObjBindMethod(implObj, "RegisterDevice"), flags, 8)
+        this.vtbl.RegisterRunningDevice := CallbackCreate(ObjBindMethod(implObj, "RegisterRunningDevice"), flags, 7)
+        this.vtbl.RegisterDeviceProvider := CallbackCreate(ObjBindMethod(implObj, "RegisterDeviceProvider"), flags, 5)
+        this.vtbl.GetUniqueDeviceName := CallbackCreate(ObjBindMethod(implObj, "GetUniqueDeviceName"), flags, 4)
+        this.vtbl.UnregisterDevice := CallbackCreate(ObjBindMethod(implObj, "UnregisterDevice"), flags, 3)
+        this.vtbl.UnregisterDeviceProvider := CallbackCreate(ObjBindMethod(implObj, "UnregisterDeviceProvider"), flags, 2)
     }
 
     Dispose() {

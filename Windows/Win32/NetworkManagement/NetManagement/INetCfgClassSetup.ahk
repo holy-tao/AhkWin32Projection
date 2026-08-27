@@ -42,13 +42,14 @@ export default struct INetCfgClassSetup extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} hwndParent 
      * @param {Pointer<OBO_TOKEN>} pOboToken 
      * @returns {INetCfgComponent} 
      */
     SelectAndInstall(hwndParent, pOboToken) {
-        result := ComCall(3, this, HWND, hwndParent, OBO_TOKEN.Ptr, pOboToken, "ptr*", &ppnccItem := 0, "HRESULT")
+        pOboTokenMarshal := pOboToken == 0 ? IntPtr : OBO_TOKEN.Ptr
+
+        result := ComCall(3, this, HWND, hwndParent, pOboTokenMarshal, pOboToken, "ptr*", &ppnccItem := 0, "HRESULT")
         return INetCfgComponent(ppnccItem)
     }
 
@@ -73,21 +74,28 @@ export default struct INetCfgClassSetup extends IUnknown {
         pszwAnswerFile := pszwAnswerFile is String ? StrPtr(pszwAnswerFile) : pszwAnswerFile
         pszwAnswerSections := pszwAnswerSections is String ? StrPtr(pszwAnswerSections) : pszwAnswerSections
 
-        result := ComCall(4, this, "ptr", pszwInfId, OBO_TOKEN.Ptr, pOboToken, UInt32, dwSetupFlags, UInt32, dwUpgradeFromBuildNo, "ptr", pszwAnswerFile, "ptr", pszwAnswerSections, "ptr*", &ppnccItem := 0, "HRESULT")
+        pOboTokenMarshal := pOboToken == 0 ? IntPtr : OBO_TOKEN.Ptr
+        dwSetupFlagsMarshal := dwSetupFlags == 0 ? IntPtr : UInt32
+        dwUpgradeFromBuildNoMarshal := dwUpgradeFromBuildNo == 0 ? IntPtr : UInt32
+        pszwAnswerFileMarshal := pszwAnswerFile == 0 ? IntPtr : PWSTR
+        pszwAnswerSectionsMarshal := pszwAnswerSections == 0 ? IntPtr : PWSTR
+
+        result := ComCall(4, this, "ptr", pszwInfId, pOboTokenMarshal, pOboToken, dwSetupFlagsMarshal, dwSetupFlags, dwUpgradeFromBuildNoMarshal, dwUpgradeFromBuildNo, pszwAnswerFileMarshal, pszwAnswerFile, pszwAnswerSectionsMarshal, pszwAnswerSections, "ptr*", &ppnccItem := 0, "HRESULT")
         return INetCfgComponent(ppnccItem)
     }
 
     /**
-     * 
      * @param {INetCfgComponent} pComponent 
      * @param {Pointer<OBO_TOKEN>} pOboToken 
      * @param {Pointer<PWSTR>} pmszwRefs 
      * @returns {HRESULT} 
      */
     DeInstall(pComponent, pOboToken, pmszwRefs) {
-        pmszwRefsMarshal := pmszwRefs is VarRef ? "ptr*" : "ptr"
+        pOboTokenMarshal := pOboToken == 0 ? IntPtr : OBO_TOKEN.Ptr
+        pmszwRefsMarshal := pmszwRefs is VarRef ? "ptr*" : IntPtr
+        pmszwRefsMarshal := pmszwRefs == 0 ? IntPtr : PWSTR.Ptr
 
-        result := ComCall(5, this, "ptr", pComponent, OBO_TOKEN.Ptr, pOboToken, pmszwRefsMarshal, pmszwRefs, "HRESULT")
+        result := ComCall(5, this, "ptr", pComponent, pOboTokenMarshal, pOboToken, pmszwRefsMarshal, pmszwRefs, "HRESULT")
         return result
     }
 
@@ -100,9 +108,9 @@ export default struct INetCfgClassSetup extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SelectAndInstall := CallbackCreate(GetMethod(implObj, "SelectAndInstall"), flags, 4)
-        this.vtbl.Install := CallbackCreate(GetMethod(implObj, "Install"), flags, 8)
-        this.vtbl.DeInstall := CallbackCreate(GetMethod(implObj, "DeInstall"), flags, 4)
+        this.vtbl.SelectAndInstall := CallbackCreate(ObjBindMethod(implObj, "SelectAndInstall"), flags, 4)
+        this.vtbl.Install := CallbackCreate(ObjBindMethod(implObj, "Install"), flags, 8)
+        this.vtbl.DeInstall := CallbackCreate(ObjBindMethod(implObj, "DeInstall"), flags, 4)
     }
 
     Dispose() {

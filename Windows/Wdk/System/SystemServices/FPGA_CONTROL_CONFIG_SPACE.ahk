@@ -20,13 +20,13 @@ export default struct FPGA_CONTROL_CONFIG_SPACE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {BOOLEAN} Enable 
      * @returns {NTSTATUS} 
      */
     Call(_Context, Enable) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, BOOLEAN, Enable, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

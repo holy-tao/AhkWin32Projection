@@ -48,7 +48,6 @@ export default struct PMGM_PRUNE_ALERT_CALLBACK {
     }
 
     /**
-     * 
      * @param {Integer} dwSourceAddr Specifies the source address from which to stop receiving multicast data. Zero indicates to stop receiving data from all sources (a wildcard receiver for a group); otherwise, the value of <i>dwSourceAddr</i> is the IP address of the source or source network. 
      * 
      * 
@@ -93,7 +92,7 @@ export default struct PMGM_PRUNE_ALERT_CALLBACK {
      * @returns {Integer} RRAS does not expect the application to return any specific value; any value returned is ignored by RRAS.
      */
     Call(dwSourceAddr, dwSourceMask, dwGroupAddr, dwGroupMask, dwIfIndex, dwIfNextHopAddr, bMemberDelete, pdwTimeout) {
-        pdwTimeoutMarshal := pdwTimeout is VarRef ? "uint*" : "ptr"
+        pdwTimeoutMarshal := pdwTimeout is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, UInt32, dwSourceAddr, UInt32, dwSourceMask, UInt32, dwGroupAddr, UInt32, dwGroupMask, UInt32, dwIfIndex, UInt32, dwIfNextHopAddr, BOOL, bMemberDelete, pdwTimeoutMarshal, pdwTimeout, UInt32)
         return result

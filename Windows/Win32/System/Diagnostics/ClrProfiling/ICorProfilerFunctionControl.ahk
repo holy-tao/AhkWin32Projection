@@ -39,7 +39,6 @@ export default struct ICorProfilerFunctionControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} flags 
      * @returns {HRESULT} 
      */
@@ -49,20 +48,18 @@ export default struct ICorProfilerFunctionControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cbNewILMethodHeader 
      * @param {Pointer<Integer>} pbNewILMethodHeader 
      * @returns {HRESULT} 
      */
     SetILFunctionBody(cbNewILMethodHeader, pbNewILMethodHeader) {
-        pbNewILMethodHeaderMarshal := pbNewILMethodHeader is VarRef ? "char*" : "ptr"
+        pbNewILMethodHeaderMarshal := pbNewILMethodHeader is VarRef ? "char*" : IntPtr
 
         result := ComCall(4, this, UInt32, cbNewILMethodHeader, pbNewILMethodHeaderMarshal, pbNewILMethodHeader, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} cILMapEntries 
      * @param {Pointer<COR_IL_MAP>} rgILMapEntries 
      * @returns {HRESULT} 
@@ -81,9 +78,9 @@ export default struct ICorProfilerFunctionControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetCodegenFlags := CallbackCreate(GetMethod(implObj, "SetCodegenFlags"), flags, 2)
-        this.vtbl.SetILFunctionBody := CallbackCreate(GetMethod(implObj, "SetILFunctionBody"), flags, 3)
-        this.vtbl.SetILInstrumentedCodeMap := CallbackCreate(GetMethod(implObj, "SetILInstrumentedCodeMap"), flags, 3)
+        this.vtbl.SetCodegenFlags := CallbackCreate(ObjBindMethod(implObj, "SetCodegenFlags"), flags, 2)
+        this.vtbl.SetILFunctionBody := CallbackCreate(ObjBindMethod(implObj, "SetILFunctionBody"), flags, 3)
+        this.vtbl.SetILInstrumentedCodeMap := CallbackCreate(ObjBindMethod(implObj, "SetILInstrumentedCodeMap"), flags, 3)
     }
 
     Dispose() {

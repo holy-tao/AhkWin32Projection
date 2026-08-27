@@ -25,7 +25,6 @@ export default struct LPCQPAGEPROC {
     }
 
     /**
-     * 
      * @param {Pointer<CQPAGE>} pPage Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cmnquery/ns-cmnquery-cqpage">CQPAGE</a> structure that contains data about a query page.
      * @param {HWND} _hwnd Contains the window handle of the query page.
      * @param {Integer} uMsg Contains a value that identifies the event that this function is called for. This can be one of the <a href="https://docs.microsoft.com/windows/desktop/AD/messages-communicated-through-user-interfaces">Common Query Page Messages</a>.

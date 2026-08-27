@@ -117,8 +117,10 @@ export default struct IWbemClassObject extends IUnknown {
     Get(wszName, lFlags, pVal, pType, plFlavor) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
 
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-        plFlavorMarshal := plFlavor is VarRef ? "int*" : "ptr"
+        pTypeMarshal := pType is VarRef ? "int*" : IntPtr
+        pTypeMarshal := pType == 0 ? IntPtr : "int*"
+        plFlavorMarshal := plFlavor is VarRef ? "int*" : IntPtr
+        plFlavorMarshal := plFlavor == 0 ? IntPtr : "int*"
 
         result := ComCall(4, this, "ptr", wszName, Int32, lFlags, VARIANT.Ptr, pVal, pTypeMarshal, pType, plFlavorMarshal, plFlavor, "HRESULT")
         return result
@@ -359,8 +361,8 @@ export default struct IWbemClassObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemclassobject-next
      */
     Next(lFlags, strName, pVal, pType, plFlavor) {
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-        plFlavorMarshal := plFlavor is VarRef ? "int*" : "ptr"
+        pTypeMarshal := pType is VarRef ? "int*" : IntPtr
+        plFlavorMarshal := plFlavor is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, Int32, lFlags, BSTR.Ptr, strName, VARIANT.Ptr, pVal, pTypeMarshal, pType, plFlavorMarshal, plFlavor, "HRESULT")
         return result
@@ -709,30 +711,30 @@ export default struct IWbemClassObject extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetQualifierSet := CallbackCreate(GetMethod(implObj, "GetQualifierSet"), flags, 2)
-        this.vtbl.Get := CallbackCreate(GetMethod(implObj, "Get"), flags, 6)
-        this.vtbl.Put := CallbackCreate(GetMethod(implObj, "Put"), flags, 5)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 2)
-        this.vtbl.GetNames := CallbackCreate(GetMethod(implObj, "GetNames"), flags, 5)
-        this.vtbl.BeginEnumeration := CallbackCreate(GetMethod(implObj, "BeginEnumeration"), flags, 2)
-        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 6)
-        this.vtbl.EndEnumeration := CallbackCreate(GetMethod(implObj, "EndEnumeration"), flags, 1)
-        this.vtbl.GetPropertyQualifierSet := CallbackCreate(GetMethod(implObj, "GetPropertyQualifierSet"), flags, 3)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
-        this.vtbl.GetObjectText := CallbackCreate(GetMethod(implObj, "GetObjectText"), flags, 3)
-        this.vtbl.SpawnDerivedClass := CallbackCreate(GetMethod(implObj, "SpawnDerivedClass"), flags, 3)
-        this.vtbl.SpawnInstance := CallbackCreate(GetMethod(implObj, "SpawnInstance"), flags, 3)
-        this.vtbl.CompareTo := CallbackCreate(GetMethod(implObj, "CompareTo"), flags, 3)
-        this.vtbl.GetPropertyOrigin := CallbackCreate(GetMethod(implObj, "GetPropertyOrigin"), flags, 3)
-        this.vtbl.InheritsFrom := CallbackCreate(GetMethod(implObj, "InheritsFrom"), flags, 2)
-        this.vtbl.GetMethod := CallbackCreate(GetMethod(implObj, "GetMethod"), flags, 5)
-        this.vtbl.PutMethod := CallbackCreate(GetMethod(implObj, "PutMethod"), flags, 5)
-        this.vtbl.DeleteMethod := CallbackCreate(GetMethod(implObj, "DeleteMethod"), flags, 2)
-        this.vtbl.BeginMethodEnumeration := CallbackCreate(GetMethod(implObj, "BeginMethodEnumeration"), flags, 2)
-        this.vtbl.NextMethod := CallbackCreate(GetMethod(implObj, "NextMethod"), flags, 5)
-        this.vtbl.EndMethodEnumeration := CallbackCreate(GetMethod(implObj, "EndMethodEnumeration"), flags, 1)
-        this.vtbl.GetMethodQualifierSet := CallbackCreate(GetMethod(implObj, "GetMethodQualifierSet"), flags, 3)
-        this.vtbl.GetMethodOrigin := CallbackCreate(GetMethod(implObj, "GetMethodOrigin"), flags, 3)
+        this.vtbl.GetQualifierSet := CallbackCreate(ObjBindMethod(implObj, "GetQualifierSet"), flags, 2)
+        this.vtbl.Get := CallbackCreate(ObjBindMethod(implObj, "Get"), flags, 6)
+        this.vtbl.Put := CallbackCreate(ObjBindMethod(implObj, "Put"), flags, 5)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 2)
+        this.vtbl.GetNames := CallbackCreate(ObjBindMethod(implObj, "GetNames"), flags, 5)
+        this.vtbl.BeginEnumeration := CallbackCreate(ObjBindMethod(implObj, "BeginEnumeration"), flags, 2)
+        this.vtbl.Next := CallbackCreate(ObjBindMethod(implObj, "Next"), flags, 6)
+        this.vtbl.EndEnumeration := CallbackCreate(ObjBindMethod(implObj, "EndEnumeration"), flags, 1)
+        this.vtbl.GetPropertyQualifierSet := CallbackCreate(ObjBindMethod(implObj, "GetPropertyQualifierSet"), flags, 3)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.GetObjectText := CallbackCreate(ObjBindMethod(implObj, "GetObjectText"), flags, 3)
+        this.vtbl.SpawnDerivedClass := CallbackCreate(ObjBindMethod(implObj, "SpawnDerivedClass"), flags, 3)
+        this.vtbl.SpawnInstance := CallbackCreate(ObjBindMethod(implObj, "SpawnInstance"), flags, 3)
+        this.vtbl.CompareTo := CallbackCreate(ObjBindMethod(implObj, "CompareTo"), flags, 3)
+        this.vtbl.GetPropertyOrigin := CallbackCreate(ObjBindMethod(implObj, "GetPropertyOrigin"), flags, 3)
+        this.vtbl.InheritsFrom := CallbackCreate(ObjBindMethod(implObj, "InheritsFrom"), flags, 2)
+        this.vtbl.GetMethod := CallbackCreate(ObjBindMethod(implObj, "GetMethod"), flags, 5)
+        this.vtbl.PutMethod := CallbackCreate(ObjBindMethod(implObj, "PutMethod"), flags, 5)
+        this.vtbl.DeleteMethod := CallbackCreate(ObjBindMethod(implObj, "DeleteMethod"), flags, 2)
+        this.vtbl.BeginMethodEnumeration := CallbackCreate(ObjBindMethod(implObj, "BeginMethodEnumeration"), flags, 2)
+        this.vtbl.NextMethod := CallbackCreate(ObjBindMethod(implObj, "NextMethod"), flags, 5)
+        this.vtbl.EndMethodEnumeration := CallbackCreate(ObjBindMethod(implObj, "EndMethodEnumeration"), flags, 1)
+        this.vtbl.GetMethodQualifierSet := CallbackCreate(ObjBindMethod(implObj, "GetMethodQualifierSet"), flags, 3)
+        this.vtbl.GetMethodOrigin := CallbackCreate(ObjBindMethod(implObj, "GetMethodOrigin"), flags, 3)
     }
 
     Dispose() {

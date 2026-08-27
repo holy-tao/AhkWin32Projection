@@ -72,7 +72,7 @@ export default struct IDWriteFontCollectionLoader extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateEnumeratorFromKey := CallbackCreate(GetMethod(implObj, "CreateEnumeratorFromKey"), flags, 5)
+        this.vtbl.CreateEnumeratorFromKey := CallbackCreate(ObjBindMethod(implObj, "CreateEnumeratorFromKey"), flags, 5)
     }
 
     Dispose() {

@@ -63,8 +63,8 @@ export default struct IWICDdsFrameDecode extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicddsframedecode-getsizeinblocks
      */
     GetSizeInBlocks(pWidthInBlocks, pHeightInBlocks) {
-        pWidthInBlocksMarshal := pWidthInBlocks is VarRef ? "uint*" : "ptr"
-        pHeightInBlocksMarshal := pHeightInBlocks is VarRef ? "uint*" : "ptr"
+        pWidthInBlocksMarshal := pWidthInBlocks is VarRef ? "uint*" : IntPtr
+        pHeightInBlocksMarshal := pHeightInBlocks is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pWidthInBlocksMarshal, pWidthInBlocks, pHeightInBlocksMarshal, pHeightInBlocks, "HRESULT")
         return result
@@ -121,9 +121,9 @@ export default struct IWICDdsFrameDecode extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSizeInBlocks := CallbackCreate(GetMethod(implObj, "GetSizeInBlocks"), flags, 3)
-        this.vtbl.GetFormatInfo := CallbackCreate(GetMethod(implObj, "GetFormatInfo"), flags, 2)
-        this.vtbl.CopyBlocks := CallbackCreate(GetMethod(implObj, "CopyBlocks"), flags, 5)
+        this.vtbl.GetSizeInBlocks := CallbackCreate(ObjBindMethod(implObj, "GetSizeInBlocks"), flags, 3)
+        this.vtbl.GetFormatInfo := CallbackCreate(ObjBindMethod(implObj, "GetFormatInfo"), flags, 2)
+        this.vtbl.CopyBlocks := CallbackCreate(ObjBindMethod(implObj, "CopyBlocks"), flags, 5)
     }
 
     Dispose() {

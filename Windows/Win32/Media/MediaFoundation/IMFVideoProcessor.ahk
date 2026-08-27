@@ -95,7 +95,7 @@ export default struct IMFVideoProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/evr9/nf-evr9-imfvideoprocessor-getavailablevideoprocessormodes
      */
     GetAvailableVideoProcessorModes(lpdwNumProcessingModes) {
-        lpdwNumProcessingModesMarshal := lpdwNumProcessingModes is VarRef ? "uint*" : "ptr"
+        lpdwNumProcessingModesMarshal := lpdwNumProcessingModes is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, lpdwNumProcessingModesMarshal, lpdwNumProcessingModes, "ptr*", &ppVideoProcessingModes := 0, "HRESULT")
         return ppVideoProcessingModes
@@ -440,18 +440,18 @@ export default struct IMFVideoProcessor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAvailableVideoProcessorModes := CallbackCreate(GetMethod(implObj, "GetAvailableVideoProcessorModes"), flags, 3)
-        this.vtbl.GetVideoProcessorCaps := CallbackCreate(GetMethod(implObj, "GetVideoProcessorCaps"), flags, 3)
-        this.vtbl.GetVideoProcessorMode := CallbackCreate(GetMethod(implObj, "GetVideoProcessorMode"), flags, 2)
-        this.vtbl.SetVideoProcessorMode := CallbackCreate(GetMethod(implObj, "SetVideoProcessorMode"), flags, 2)
-        this.vtbl.GetProcAmpRange := CallbackCreate(GetMethod(implObj, "GetProcAmpRange"), flags, 3)
-        this.vtbl.GetProcAmpValues := CallbackCreate(GetMethod(implObj, "GetProcAmpValues"), flags, 3)
-        this.vtbl.SetProcAmpValues := CallbackCreate(GetMethod(implObj, "SetProcAmpValues"), flags, 3)
-        this.vtbl.GetFilteringRange := CallbackCreate(GetMethod(implObj, "GetFilteringRange"), flags, 3)
-        this.vtbl.GetFilteringValue := CallbackCreate(GetMethod(implObj, "GetFilteringValue"), flags, 3)
-        this.vtbl.SetFilteringValue := CallbackCreate(GetMethod(implObj, "SetFilteringValue"), flags, 3)
-        this.vtbl.GetBackgroundColor := CallbackCreate(GetMethod(implObj, "GetBackgroundColor"), flags, 2)
-        this.vtbl.SetBackgroundColor := CallbackCreate(GetMethod(implObj, "SetBackgroundColor"), flags, 2)
+        this.vtbl.GetAvailableVideoProcessorModes := CallbackCreate(ObjBindMethod(implObj, "GetAvailableVideoProcessorModes"), flags, 3)
+        this.vtbl.GetVideoProcessorCaps := CallbackCreate(ObjBindMethod(implObj, "GetVideoProcessorCaps"), flags, 3)
+        this.vtbl.GetVideoProcessorMode := CallbackCreate(ObjBindMethod(implObj, "GetVideoProcessorMode"), flags, 2)
+        this.vtbl.SetVideoProcessorMode := CallbackCreate(ObjBindMethod(implObj, "SetVideoProcessorMode"), flags, 2)
+        this.vtbl.GetProcAmpRange := CallbackCreate(ObjBindMethod(implObj, "GetProcAmpRange"), flags, 3)
+        this.vtbl.GetProcAmpValues := CallbackCreate(ObjBindMethod(implObj, "GetProcAmpValues"), flags, 3)
+        this.vtbl.SetProcAmpValues := CallbackCreate(ObjBindMethod(implObj, "SetProcAmpValues"), flags, 3)
+        this.vtbl.GetFilteringRange := CallbackCreate(ObjBindMethod(implObj, "GetFilteringRange"), flags, 3)
+        this.vtbl.GetFilteringValue := CallbackCreate(ObjBindMethod(implObj, "GetFilteringValue"), flags, 3)
+        this.vtbl.SetFilteringValue := CallbackCreate(ObjBindMethod(implObj, "SetFilteringValue"), flags, 3)
+        this.vtbl.GetBackgroundColor := CallbackCreate(ObjBindMethod(implObj, "GetBackgroundColor"), flags, 2)
+        this.vtbl.SetBackgroundColor := CallbackCreate(ObjBindMethod(implObj, "SetBackgroundColor"), flags, 2)
     }
 
     Dispose() {

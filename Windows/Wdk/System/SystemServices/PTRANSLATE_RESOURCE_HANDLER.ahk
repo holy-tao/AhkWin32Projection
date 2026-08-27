@@ -23,7 +23,6 @@ export default struct PTRANSLATE_RESOURCE_HANDLER {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<CM_PARTIAL_RESOURCE_DESCRIPTOR>} Source 
      * @param {RESOURCE_TRANSLATION_DIRECTION} _Direction 
@@ -34,9 +33,12 @@ export default struct PTRANSLATE_RESOURCE_HANDLER {
      * @returns {NTSTATUS} 
      */
     Call(_Context, Source, _Direction, AlternativesCount, Alternatives, PhysicalDeviceObject, Target) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
+        AlternativesCountMarshal := AlternativesCount == 0 ? IntPtr : UInt32
+        AlternativesMarshal := Alternatives == 0 ? IntPtr : IO_RESOURCE_DESCRIPTOR.Ptr
 
-        result := DllCall(this.value, _ContextMarshal, _Context, CM_PARTIAL_RESOURCE_DESCRIPTOR.Ptr, Source, RESOURCE_TRANSLATION_DIRECTION, _Direction, UInt32, AlternativesCount, IO_RESOURCE_DESCRIPTOR.Ptr, Alternatives, DEVICE_OBJECT.Ptr, PhysicalDeviceObject, CM_PARTIAL_RESOURCE_DESCRIPTOR.Ptr, Target, NTSTATUS)
+        result := DllCall(this.value, _ContextMarshal, _Context, CM_PARTIAL_RESOURCE_DESCRIPTOR.Ptr, Source, RESOURCE_TRANSLATION_DIRECTION, _Direction, AlternativesCountMarshal, AlternativesCount, AlternativesMarshal, Alternatives, DEVICE_OBJECT.Ptr, PhysicalDeviceObject, CM_PARTIAL_RESOURCE_DESCRIPTOR.Ptr, Target, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

@@ -61,7 +61,7 @@ export default struct IAudioFrameNative extends IInspectable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetData := CallbackCreate(GetMethod(implObj, "GetData"), flags, 3)
+        this.vtbl.GetData := CallbackCreate(ObjBindMethod(implObj, "GetData"), flags, 3)
     }
 
     Dispose() {

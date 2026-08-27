@@ -40,7 +40,6 @@ export default struct ITemplateSdo extends ISdo {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {IDispatch} pCollection 
      * @param {Pointer<IDispatch>} ppItem 
@@ -54,7 +53,6 @@ export default struct ITemplateSdo extends ISdo {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {IDispatch} pSdoTarget 
      * @param {Pointer<IDispatch>} ppItem 
@@ -68,7 +66,6 @@ export default struct ITemplateSdo extends ISdo {
     }
 
     /**
-     * 
      * @param {IDispatch} pSdoTarget 
      * @param {Integer} id 
      * @returns {HRESULT} 
@@ -87,9 +84,9 @@ export default struct ITemplateSdo extends ISdo {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddToCollection := CallbackCreate(GetMethod(implObj, "AddToCollection"), flags, 4)
-        this.vtbl.AddToSdo := CallbackCreate(GetMethod(implObj, "AddToSdo"), flags, 4)
-        this.vtbl.AddToSdoAsProperty := CallbackCreate(GetMethod(implObj, "AddToSdoAsProperty"), flags, 3)
+        this.vtbl.AddToCollection := CallbackCreate(ObjBindMethod(implObj, "AddToCollection"), flags, 4)
+        this.vtbl.AddToSdo := CallbackCreate(ObjBindMethod(implObj, "AddToSdo"), flags, 4)
+        this.vtbl.AddToSdoAsProperty := CallbackCreate(ObjBindMethod(implObj, "AddToSdoAsProperty"), flags, 3)
     }
 
     Dispose() {

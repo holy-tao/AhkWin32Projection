@@ -22,7 +22,6 @@ export default struct PFN_CERT_ENUM_SYSTEM_STORE_LOCATION {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszStoreLocation String that contains information on the store location found.
      * @param {Integer} dwFlags Flag used to call for an alteration of the presentation.
      * @param {Pointer<Void>} pvArg A pointer to information passed to the callback function in the <i>pvArg</i> 
@@ -36,7 +35,8 @@ export default struct PFN_CERT_ENUM_SYSTEM_STORE_LOCATION {
 
         pwszStoreLocation := pwszStoreLocation is String ? StrPtr(pwszStoreLocation) : pwszStoreLocation
 
-        pvArgMarshal := pvArg is VarRef ? "ptr" : "ptr"
+        pvArgMarshal := pvArg is VarRef ? "ptr" : IntPtr
+        pvArgMarshal := pvArg == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, "ptr", pwszStoreLocation, UInt32, dwFlags, "ptr", pvReserved, pvArgMarshal, pvArg, BOOL)
         return result

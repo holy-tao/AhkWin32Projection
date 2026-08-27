@@ -48,9 +48,9 @@ export default struct IDirectManipulationFrameInfoProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationframeinfoprovider-getnextframeinfo
      */
     GetNextFrameInfo(time, processTime, compositionTime) {
-        timeMarshal := time is VarRef ? "uint*" : "ptr"
-        processTimeMarshal := processTime is VarRef ? "uint*" : "ptr"
-        compositionTimeMarshal := compositionTime is VarRef ? "uint*" : "ptr"
+        timeMarshal := time is VarRef ? "uint*" : IntPtr
+        processTimeMarshal := processTime is VarRef ? "uint*" : IntPtr
+        compositionTimeMarshal := compositionTime is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, timeMarshal, time, processTimeMarshal, processTime, compositionTimeMarshal, compositionTime, "HRESULT")
         return result
@@ -65,7 +65,7 @@ export default struct IDirectManipulationFrameInfoProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNextFrameInfo := CallbackCreate(GetMethod(implObj, "GetNextFrameInfo"), flags, 4)
+        this.vtbl.GetNextFrameInfo := CallbackCreate(ObjBindMethod(implObj, "GetNextFrameInfo"), flags, 4)
     }
 
     Dispose() {

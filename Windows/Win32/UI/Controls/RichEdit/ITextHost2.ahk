@@ -138,7 +138,7 @@ export default struct ITextHost2 extends ITextHost {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost2-txgeteastasianflags
      */
     TxGetEastAsianFlags(pFlags) {
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+        pFlagsMarshal := pFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(46, this, pFlagsMarshal, pFlags, "HRESULT")
         return result
@@ -205,7 +205,7 @@ export default struct ITextHost2 extends ITextHost {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost2-txgeteditstyle
      */
     TxGetEditStyle(dwItem, pdwData) {
-        pdwDataMarshal := pdwData is VarRef ? "uint*" : "ptr"
+        pdwDataMarshal := pdwData is VarRef ? "uint*" : IntPtr
 
         result := ComCall(49, this, UInt32, dwItem, pdwDataMarshal, pdwData, "HRESULT")
         return result
@@ -225,8 +225,8 @@ export default struct ITextHost2 extends ITextHost {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost2-txgetwindowstyles
      */
     TxGetWindowStyles(pdwStyle, pdwExStyle) {
-        pdwStyleMarshal := pdwStyle is VarRef ? "uint*" : "ptr"
-        pdwExStyleMarshal := pdwExStyle is VarRef ? "uint*" : "ptr"
+        pdwStyleMarshal := pdwStyle is VarRef ? "uint*" : IntPtr
+        pdwExStyleMarshal := pdwExStyle is VarRef ? "uint*" : IntPtr
 
         result := ComCall(50, this, pdwStyleMarshal, pdwStyle, pdwExStyleMarshal, pdwExStyle, "HRESULT")
         return result
@@ -278,7 +278,7 @@ export default struct ITextHost2 extends ITextHost {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost2-txgethorzextent
      */
     TxGetHorzExtent(plHorzExtent) {
-        plHorzExtentMarshal := plHorzExtent is VarRef ? "int*" : "ptr"
+        plHorzExtentMarshal := plHorzExtent is VarRef ? "int*" : IntPtr
 
         result := ComCall(53, this, plHorzExtentMarshal, plHorzExtent, "HRESULT")
         return result
@@ -293,18 +293,18 @@ export default struct ITextHost2 extends ITextHost {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.TxIsDoubleClickPending := CallbackCreate(GetMethod(implObj, "TxIsDoubleClickPending"), flags, 1)
-        this.vtbl.TxGetWindow := CallbackCreate(GetMethod(implObj, "TxGetWindow"), flags, 2)
-        this.vtbl.TxSetForegroundWindow := CallbackCreate(GetMethod(implObj, "TxSetForegroundWindow"), flags, 1)
-        this.vtbl.TxGetPalette := CallbackCreate(GetMethod(implObj, "TxGetPalette"), flags, 1)
-        this.vtbl.TxGetEastAsianFlags := CallbackCreate(GetMethod(implObj, "TxGetEastAsianFlags"), flags, 2)
-        this.vtbl.TxSetCursor2 := CallbackCreate(GetMethod(implObj, "TxSetCursor2"), flags, 3)
-        this.vtbl.TxFreeTextServicesNotification := CallbackCreate(GetMethod(implObj, "TxFreeTextServicesNotification"), flags, 1)
-        this.vtbl.TxGetEditStyle := CallbackCreate(GetMethod(implObj, "TxGetEditStyle"), flags, 3)
-        this.vtbl.TxGetWindowStyles := CallbackCreate(GetMethod(implObj, "TxGetWindowStyles"), flags, 3)
-        this.vtbl.TxShowDropCaret := CallbackCreate(GetMethod(implObj, "TxShowDropCaret"), flags, 4)
-        this.vtbl.TxDestroyCaret := CallbackCreate(GetMethod(implObj, "TxDestroyCaret"), flags, 1)
-        this.vtbl.TxGetHorzExtent := CallbackCreate(GetMethod(implObj, "TxGetHorzExtent"), flags, 2)
+        this.vtbl.TxIsDoubleClickPending := CallbackCreate(ObjBindMethod(implObj, "TxIsDoubleClickPending"), flags, 1)
+        this.vtbl.TxGetWindow := CallbackCreate(ObjBindMethod(implObj, "TxGetWindow"), flags, 2)
+        this.vtbl.TxSetForegroundWindow := CallbackCreate(ObjBindMethod(implObj, "TxSetForegroundWindow"), flags, 1)
+        this.vtbl.TxGetPalette := CallbackCreate(ObjBindMethod(implObj, "TxGetPalette"), flags, 1)
+        this.vtbl.TxGetEastAsianFlags := CallbackCreate(ObjBindMethod(implObj, "TxGetEastAsianFlags"), flags, 2)
+        this.vtbl.TxSetCursor2 := CallbackCreate(ObjBindMethod(implObj, "TxSetCursor2"), flags, 3)
+        this.vtbl.TxFreeTextServicesNotification := CallbackCreate(ObjBindMethod(implObj, "TxFreeTextServicesNotification"), flags, 1)
+        this.vtbl.TxGetEditStyle := CallbackCreate(ObjBindMethod(implObj, "TxGetEditStyle"), flags, 3)
+        this.vtbl.TxGetWindowStyles := CallbackCreate(ObjBindMethod(implObj, "TxGetWindowStyles"), flags, 3)
+        this.vtbl.TxShowDropCaret := CallbackCreate(ObjBindMethod(implObj, "TxShowDropCaret"), flags, 4)
+        this.vtbl.TxDestroyCaret := CallbackCreate(ObjBindMethod(implObj, "TxDestroyCaret"), flags, 1)
+        this.vtbl.TxGetHorzExtent := CallbackCreate(ObjBindMethod(implObj, "TxGetHorzExtent"), flags, 2)
     }
 
     Dispose() {

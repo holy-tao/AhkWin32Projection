@@ -90,9 +90,9 @@ export default struct IWizardSite extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPreviousPage := CallbackCreate(GetMethod(implObj, "GetPreviousPage"), flags, 2)
-        this.vtbl.GetNextPage := CallbackCreate(GetMethod(implObj, "GetNextPage"), flags, 2)
-        this.vtbl.GetCancelledPage := CallbackCreate(GetMethod(implObj, "GetCancelledPage"), flags, 2)
+        this.vtbl.GetPreviousPage := CallbackCreate(ObjBindMethod(implObj, "GetPreviousPage"), flags, 2)
+        this.vtbl.GetNextPage := CallbackCreate(ObjBindMethod(implObj, "GetNextPage"), flags, 2)
+        this.vtbl.GetCancelledPage := CallbackCreate(ObjBindMethod(implObj, "GetCancelledPage"), flags, 2)
     }
 
     Dispose() {

@@ -33,12 +33,13 @@
 export HcsEnumerateComputeSystems(query, operation) {
     query := query is String ? StrPtr(query) : query
 
-    result := DllCall("computecore.dll\HcsEnumerateComputeSystems", "ptr", query, HCS_OPERATION, operation, "HRESULT")
+    queryMarshal := query == 0 ? IntPtr : PWSTR
+
+    result := DllCall("computecore.dll\HcsEnumerateComputeSystems", queryMarshal, query, HCS_OPERATION, operation, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {PWSTR} idNamespace 
  * @param {PWSTR} query 
  * @param {HCS_OPERATION} operation 
@@ -48,7 +49,9 @@ export HcsEnumerateComputeSystemsInNamespace(idNamespace, query, operation) {
     idNamespace := idNamespace is String ? StrPtr(idNamespace) : idNamespace
     query := query is String ? StrPtr(query) : query
 
-    result := DllCall("computecore.dll\HcsEnumerateComputeSystemsInNamespace", "ptr", idNamespace, "ptr", query, HCS_OPERATION, operation, "HRESULT")
+    queryMarshal := query == 0 ? IntPtr : PWSTR
+
+    result := DllCall("computecore.dll\HcsEnumerateComputeSystemsInNamespace", "ptr", idNamespace, queryMarshal, query, HCS_OPERATION, operation, "HRESULT")
     return result
 }
 
@@ -62,21 +65,23 @@ export HcsEnumerateComputeSystemsInNamespace(idNamespace, query, operation) {
  * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsCreateOperation
  */
 export HcsCreateOperation(_context, callback) {
-    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+    _contextMarshal := _context == 0 ? IntPtr : "ptr"
+    callbackMarshal := callback == 0 ? IntPtr : HCS_OPERATION_COMPLETION
 
-    result := DllCall("computecore.dll\HcsCreateOperation", _contextMarshal, _context, HCS_OPERATION_COMPLETION, callback, HCS_OPERATION.Owned)
+    result := DllCall("computecore.dll\HcsCreateOperation", _contextMarshal, _context, callbackMarshal, callback, HCS_OPERATION.Owned)
     return result
 }
 
 /**
- * 
  * @param {HCS_OPERATION_OPTIONS} eventTypes 
  * @param {Pointer<Void>} _context 
  * @param {Pointer<HCS_EVENT_CALLBACK>} callback 
  * @returns {HCS_OPERATION} 
  */
 export HcsCreateOperationWithNotifications(eventTypes, _context, callback) {
-    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+    _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
     result := DllCall("computecore.dll\HcsCreateOperationWithNotifications", HCS_OPERATION_OPTIONS, eventTypes, _contextMarshal, _context, HCS_EVENT_CALLBACK, callback, HCS_OPERATION.Owned)
     return result
@@ -111,7 +116,8 @@ export HcsGetOperationContext(operation) {
  * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsSetOperationContext
  */
 export HcsSetOperationContext(operation, _context) {
-    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+    _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
     result := DllCall("computecore.dll\HcsSetOperationContext", HCS_OPERATION, operation, _contextMarshal, _context, "HRESULT")
     return result
@@ -194,12 +200,13 @@ export HcsGetOperationResult(operation) {
  * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGetOperationResultAndProcessInfo
  */
 export HcsGetOperationResultAndProcessInfo(operation, processInformation) {
-    result := DllCall("computecore.dll\HcsGetOperationResultAndProcessInfo", HCS_OPERATION, operation, HCS_PROCESS_INFORMATION.Ptr, processInformation, PWSTR.Ptr, &resultDocument := 0, "HRESULT")
+    processInformationMarshal := processInformation == 0 ? IntPtr : HCS_PROCESS_INFORMATION.Ptr
+
+    result := DllCall("computecore.dll\HcsGetOperationResultAndProcessInfo", HCS_OPERATION, operation, processInformationMarshal, processInformation, PWSTR.Ptr, &resultDocument := 0, "HRESULT")
     return resultDocument
 }
 
 /**
- * 
  * @param {HCS_OPERATION} operation 
  * @param {HCS_RESOURCE_TYPE} type 
  * @param {PWSTR} uri 
@@ -261,7 +268,9 @@ export HcsWaitForOperationResult(operation, timeoutMs) {
  * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsWaitForOperationResultAndProcessInfo
  */
 export HcsWaitForOperationResultAndProcessInfo(operation, timeoutMs, processInformation) {
-    result := DllCall("computecore.dll\HcsWaitForOperationResultAndProcessInfo", HCS_OPERATION, operation, UInt32, timeoutMs, HCS_PROCESS_INFORMATION.Ptr, processInformation, PWSTR.Ptr, &resultDocument := 0, "HRESULT")
+    processInformationMarshal := processInformation == 0 ? IntPtr : HCS_PROCESS_INFORMATION.Ptr
+
+    result := DllCall("computecore.dll\HcsWaitForOperationResultAndProcessInfo", HCS_OPERATION, operation, UInt32, timeoutMs, processInformationMarshal, processInformation, PWSTR.Ptr, &resultDocument := 0, "HRESULT")
     return resultDocument
 }
 
@@ -274,7 +283,8 @@ export HcsWaitForOperationResultAndProcessInfo(operation, timeoutMs, processInfo
  * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsSetOperationCallback
  */
 export HcsSetOperationCallback(operation, _context, callback) {
-    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+    _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
     result := DllCall("computecore.dll\HcsSetOperationCallback", HCS_OPERATION, operation, _contextMarshal, _context, HCS_OPERATION_COMPLETION, callback, "HRESULT")
     return result
@@ -294,7 +304,6 @@ export HcsCancelOperation(operation) {
 }
 
 /**
- * 
  * @param {HCS_OPERATION} operation 
  * @param {PWSTR} options 
  * @returns {PWSTR} 
@@ -319,13 +328,14 @@ export HcsCreateComputeSystem(id, configuration, operation, _securityDescriptor)
     id := id is String ? StrPtr(id) : id
     configuration := configuration is String ? StrPtr(configuration) : configuration
 
+    _securityDescriptorMarshal := _securityDescriptor == 0 ? IntPtr : SECURITY_DESCRIPTOR.Ptr
+
     computeSystem := HCS_SYSTEM.Owned()
-    result := DllCall("computecore.dll\HcsCreateComputeSystem", "ptr", id, "ptr", configuration, HCS_OPERATION, operation, SECURITY_DESCRIPTOR.Ptr, _securityDescriptor, HCS_SYSTEM.Ptr, computeSystem, "HRESULT")
+    result := DllCall("computecore.dll\HcsCreateComputeSystem", "ptr", id, "ptr", configuration, HCS_OPERATION, operation, _securityDescriptorMarshal, _securityDescriptor, HCS_SYSTEM.Ptr, computeSystem, "HRESULT")
     return computeSystem
 }
 
 /**
- * 
  * @param {PWSTR} idNamespace 
  * @param {PWSTR} id 
  * @param {PWSTR} configuration 
@@ -338,7 +348,8 @@ export HcsCreateComputeSystemInNamespace(idNamespace, id, configuration, operati
     id := id is String ? StrPtr(id) : id
     configuration := configuration is String ? StrPtr(configuration) : configuration
 
-    optionsMarshal := options is VarRef ? "int*" : "ptr"
+    optionsMarshal := options is VarRef ? "int*" : IntPtr
+    optionsMarshal := options == 0 ? IntPtr : "int*"
 
     computeSystem := HCS_SYSTEM.Owned()
     result := DllCall("computecore.dll\HcsCreateComputeSystemInNamespace", "ptr", idNamespace, "ptr", id, "ptr", configuration, HCS_OPERATION, operation, optionsMarshal, options, HCS_SYSTEM.Ptr, computeSystem, "HRESULT")
@@ -361,7 +372,6 @@ export HcsOpenComputeSystem(id, requestedAccess) {
 }
 
 /**
- * 
  * @param {PWSTR} idNamespace 
  * @param {PWSTR} id 
  * @param {Integer} requestedAccess 
@@ -399,7 +409,9 @@ export HcsCloseComputeSystem(computeSystem) {
 export HcsStartComputeSystem(computeSystem, operation, options) {
     options := options is String ? StrPtr(options) : options
 
-    result := DllCall("computecore.dll\HcsStartComputeSystem", HCS_SYSTEM, computeSystem, HCS_OPERATION, operation, "ptr", options, "HRESULT")
+    optionsMarshal := options == 0 ? IntPtr : PWSTR
+
+    result := DllCall("computecore.dll\HcsStartComputeSystem", HCS_SYSTEM, computeSystem, HCS_OPERATION, operation, optionsMarshal, options, "HRESULT")
     return result
 }
 
@@ -416,7 +428,9 @@ export HcsStartComputeSystem(computeSystem, operation, options) {
 export HcsShutDownComputeSystem(computeSystem, operation, options) {
     options := options is String ? StrPtr(options) : options
 
-    result := DllCall("computecore.dll\HcsShutDownComputeSystem", HCS_SYSTEM, computeSystem, HCS_OPERATION, operation, "ptr", options, "HRESULT")
+    optionsMarshal := options == 0 ? IntPtr : PWSTR
+
+    result := DllCall("computecore.dll\HcsShutDownComputeSystem", HCS_SYSTEM, computeSystem, HCS_OPERATION, operation, optionsMarshal, options, "HRESULT")
     return result
 }
 
@@ -433,7 +447,9 @@ export HcsShutDownComputeSystem(computeSystem, operation, options) {
 export HcsTerminateComputeSystem(computeSystem, operation, options) {
     options := options is String ? StrPtr(options) : options
 
-    result := DllCall("computecore.dll\HcsTerminateComputeSystem", HCS_SYSTEM, computeSystem, HCS_OPERATION, operation, "ptr", options, "HRESULT")
+    optionsMarshal := options == 0 ? IntPtr : PWSTR
+
+    result := DllCall("computecore.dll\HcsTerminateComputeSystem", HCS_SYSTEM, computeSystem, HCS_OPERATION, operation, optionsMarshal, options, "HRESULT")
     return result
 }
 
@@ -450,7 +466,9 @@ export HcsTerminateComputeSystem(computeSystem, operation, options) {
 export HcsCrashComputeSystem(computeSystem, operation, options) {
     options := options is String ? StrPtr(options) : options
 
-    result := DllCall("computecore.dll\HcsCrashComputeSystem", HCS_SYSTEM, computeSystem, HCS_OPERATION, operation, "ptr", options, "HRESULT")
+    optionsMarshal := options == 0 ? IntPtr : PWSTR
+
+    result := DllCall("computecore.dll\HcsCrashComputeSystem", HCS_SYSTEM, computeSystem, HCS_OPERATION, operation, optionsMarshal, options, "HRESULT")
     return result
 }
 
@@ -467,7 +485,9 @@ export HcsCrashComputeSystem(computeSystem, operation, options) {
 export HcsPauseComputeSystem(computeSystem, operation, options) {
     options := options is String ? StrPtr(options) : options
 
-    result := DllCall("computecore.dll\HcsPauseComputeSystem", HCS_SYSTEM, computeSystem, HCS_OPERATION, operation, "ptr", options, "HRESULT")
+    optionsMarshal := options == 0 ? IntPtr : PWSTR
+
+    result := DllCall("computecore.dll\HcsPauseComputeSystem", HCS_SYSTEM, computeSystem, HCS_OPERATION, operation, optionsMarshal, options, "HRESULT")
     return result
 }
 
@@ -484,7 +504,9 @@ export HcsPauseComputeSystem(computeSystem, operation, options) {
 export HcsResumeComputeSystem(computeSystem, operation, options) {
     options := options is String ? StrPtr(options) : options
 
-    result := DllCall("computecore.dll\HcsResumeComputeSystem", HCS_SYSTEM, computeSystem, HCS_OPERATION, operation, "ptr", options, "HRESULT")
+    optionsMarshal := options == 0 ? IntPtr : PWSTR
+
+    result := DllCall("computecore.dll\HcsResumeComputeSystem", HCS_SYSTEM, computeSystem, HCS_OPERATION, operation, optionsMarshal, options, "HRESULT")
     return result
 }
 
@@ -501,7 +523,9 @@ export HcsResumeComputeSystem(computeSystem, operation, options) {
 export HcsSaveComputeSystem(computeSystem, operation, options) {
     options := options is String ? StrPtr(options) : options
 
-    result := DllCall("computecore.dll\HcsSaveComputeSystem", HCS_SYSTEM, computeSystem, HCS_OPERATION, operation, "ptr", options, "HRESULT")
+    optionsMarshal := options == 0 ? IntPtr : PWSTR
+
+    result := DllCall("computecore.dll\HcsSaveComputeSystem", HCS_SYSTEM, computeSystem, HCS_OPERATION, operation, optionsMarshal, options, "HRESULT")
     return result
 }
 
@@ -518,7 +542,9 @@ export HcsSaveComputeSystem(computeSystem, operation, options) {
 export HcsGetComputeSystemProperties(computeSystem, operation, propertyQuery) {
     propertyQuery := propertyQuery is String ? StrPtr(propertyQuery) : propertyQuery
 
-    result := DllCall("computecore.dll\HcsGetComputeSystemProperties", HCS_SYSTEM, computeSystem, HCS_OPERATION, operation, "ptr", propertyQuery, "HRESULT")
+    propertyQueryMarshal := propertyQuery == 0 ? IntPtr : PWSTR
+
+    result := DllCall("computecore.dll\HcsGetComputeSystemProperties", HCS_SYSTEM, computeSystem, HCS_OPERATION, operation, propertyQueryMarshal, propertyQuery, "HRESULT")
     return result
 }
 
@@ -557,7 +583,9 @@ export HcsGetComputeSystemProperties(computeSystem, operation, propertyQuery) {
 export HcsModifyComputeSystem(computeSystem, operation, configuration, identity) {
     configuration := configuration is String ? StrPtr(configuration) : configuration
 
-    result := DllCall("computecore.dll\HcsModifyComputeSystem", HCS_SYSTEM, computeSystem, HCS_OPERATION, operation, "ptr", configuration, HANDLE, identity, "HRESULT")
+    identityMarshal := identity == 0 ? IntPtr : HANDLE
+
+    result := DllCall("computecore.dll\HcsModifyComputeSystem", HCS_SYSTEM, computeSystem, HCS_OPERATION, operation, "ptr", configuration, identityMarshal, identity, "HRESULT")
     return result
 }
 
@@ -585,14 +613,14 @@ export HcsWaitForComputeSystemExit(computeSystem, timeoutMs) {
  * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsSetComputeSystemCallback
  */
 export HcsSetComputeSystemCallback(computeSystem, callbackOptions, _context, callback) {
-    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+    _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
     result := DllCall("computecore.dll\HcsSetComputeSystemCallback", HCS_SYSTEM, computeSystem, HCS_EVENT_OPTIONS, callbackOptions, _contextMarshal, _context, HCS_EVENT_CALLBACK, callback, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {HCS_SYSTEM} computeSystem 
  * @param {HCS_OPERATION} operation 
  * @param {PWSTR} options 
@@ -601,12 +629,13 @@ export HcsSetComputeSystemCallback(computeSystem, callbackOptions, _context, cal
 export HcsInitializeLiveMigrationOnSource(computeSystem, operation, options) {
     options := options is String ? StrPtr(options) : options
 
-    result := DllCall("computecore.dll\HcsInitializeLiveMigrationOnSource", HCS_SYSTEM, computeSystem, HCS_OPERATION, operation, "ptr", options, "HRESULT")
+    optionsMarshal := options == 0 ? IntPtr : PWSTR
+
+    result := DllCall("computecore.dll\HcsInitializeLiveMigrationOnSource", HCS_SYSTEM, computeSystem, HCS_OPERATION, operation, optionsMarshal, options, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {HCS_SYSTEM} computeSystem 
  * @param {HCS_OPERATION} operation 
  * @param {PWSTR} options 
@@ -615,12 +644,13 @@ export HcsInitializeLiveMigrationOnSource(computeSystem, operation, options) {
 export HcsStartLiveMigrationOnSource(computeSystem, operation, options) {
     options := options is String ? StrPtr(options) : options
 
-    result := DllCall("computecore.dll\HcsStartLiveMigrationOnSource", HCS_SYSTEM, computeSystem, HCS_OPERATION, operation, "ptr", options, "HRESULT")
+    optionsMarshal := options == 0 ? IntPtr : PWSTR
+
+    result := DllCall("computecore.dll\HcsStartLiveMigrationOnSource", HCS_SYSTEM, computeSystem, HCS_OPERATION, operation, optionsMarshal, options, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {HCS_SYSTEM} computeSystem 
  * @param {HCS_OPERATION} operation 
  * @param {PWSTR} options 
@@ -629,12 +659,13 @@ export HcsStartLiveMigrationOnSource(computeSystem, operation, options) {
 export HcsStartLiveMigrationTransfer(computeSystem, operation, options) {
     options := options is String ? StrPtr(options) : options
 
-    result := DllCall("computecore.dll\HcsStartLiveMigrationTransfer", HCS_SYSTEM, computeSystem, HCS_OPERATION, operation, "ptr", options, "HRESULT")
+    optionsMarshal := options == 0 ? IntPtr : PWSTR
+
+    result := DllCall("computecore.dll\HcsStartLiveMigrationTransfer", HCS_SYSTEM, computeSystem, HCS_OPERATION, operation, optionsMarshal, options, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {HCS_SYSTEM} computeSystem 
  * @param {HCS_OPERATION} operation 
  * @param {PWSTR} options 
@@ -643,7 +674,9 @@ export HcsStartLiveMigrationTransfer(computeSystem, operation, options) {
 export HcsFinalizeLiveMigration(computeSystem, operation, options) {
     options := options is String ? StrPtr(options) : options
 
-    result := DllCall("computecore.dll\HcsFinalizeLiveMigration", HCS_SYSTEM, computeSystem, HCS_OPERATION, operation, "ptr", options, "HRESULT")
+    optionsMarshal := options == 0 ? IntPtr : PWSTR
+
+    result := DllCall("computecore.dll\HcsFinalizeLiveMigration", HCS_SYSTEM, computeSystem, HCS_OPERATION, operation, optionsMarshal, options, "HRESULT")
     return result
 }
 
@@ -661,8 +694,10 @@ export HcsFinalizeLiveMigration(computeSystem, operation, options) {
 export HcsCreateProcess(computeSystem, processParameters, operation, _securityDescriptor) {
     processParameters := processParameters is String ? StrPtr(processParameters) : processParameters
 
+    _securityDescriptorMarshal := _securityDescriptor == 0 ? IntPtr : SECURITY_DESCRIPTOR.Ptr
+
     process := HCS_PROCESS.Owned()
-    result := DllCall("computecore.dll\HcsCreateProcess", HCS_SYSTEM, computeSystem, "ptr", processParameters, HCS_OPERATION, operation, SECURITY_DESCRIPTOR.Ptr, _securityDescriptor, HCS_PROCESS.Ptr, process, "HRESULT")
+    result := DllCall("computecore.dll\HcsCreateProcess", HCS_SYSTEM, computeSystem, "ptr", processParameters, HCS_OPERATION, operation, _securityDescriptorMarshal, _securityDescriptor, HCS_PROCESS.Ptr, process, "HRESULT")
     return process
 }
 
@@ -703,7 +738,9 @@ export HcsCloseProcess(process) {
 export HcsTerminateProcess(process, operation, options) {
     options := options is String ? StrPtr(options) : options
 
-    result := DllCall("computecore.dll\HcsTerminateProcess", HCS_PROCESS, process, HCS_OPERATION, operation, "ptr", options, "HRESULT")
+    optionsMarshal := options == 0 ? IntPtr : PWSTR
+
+    result := DllCall("computecore.dll\HcsTerminateProcess", HCS_PROCESS, process, HCS_OPERATION, operation, optionsMarshal, options, "HRESULT")
     return result
 }
 
@@ -720,7 +757,9 @@ export HcsTerminateProcess(process, operation, options) {
 export HcsSignalProcess(process, operation, options) {
     options := options is String ? StrPtr(options) : options
 
-    result := DllCall("computecore.dll\HcsSignalProcess", HCS_PROCESS, process, HCS_OPERATION, operation, "ptr", options, "HRESULT")
+    optionsMarshal := options == 0 ? IntPtr : PWSTR
+
+    result := DllCall("computecore.dll\HcsSignalProcess", HCS_PROCESS, process, HCS_OPERATION, operation, optionsMarshal, options, "HRESULT")
     return result
 }
 
@@ -751,7 +790,9 @@ export HcsGetProcessInfo(process, operation) {
 export HcsGetProcessProperties(process, operation, propertyQuery) {
     propertyQuery := propertyQuery is String ? StrPtr(propertyQuery) : propertyQuery
 
-    result := DllCall("computecore.dll\HcsGetProcessProperties", HCS_PROCESS, process, HCS_OPERATION, operation, "ptr", propertyQuery, "HRESULT")
+    propertyQueryMarshal := propertyQuery == 0 ? IntPtr : PWSTR
+
+    result := DllCall("computecore.dll\HcsGetProcessProperties", HCS_PROCESS, process, HCS_OPERATION, operation, propertyQueryMarshal, propertyQuery, "HRESULT")
     return result
 }
 
@@ -782,7 +823,7 @@ export HcsModifyProcess(process, operation, settings) {
  * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsSetProcessCallback
  */
 export HcsSetProcessCallback(process, callbackOptions, _context, callback) {
-    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
     result := DllCall("computecore.dll\HcsSetProcessCallback", HCS_PROCESS, process, HCS_EVENT_OPTIONS, callbackOptions, _contextMarshal, _context, HCS_EVENT_CALLBACK, callback, "HRESULT")
     return result
@@ -823,7 +864,9 @@ export HcsWaitForProcessExit(computeSystem, timeoutMs) {
 export HcsGetServiceProperties(propertyQuery) {
     propertyQuery := propertyQuery is String ? StrPtr(propertyQuery) : propertyQuery
 
-    result := DllCall("computecore.dll\HcsGetServiceProperties", "ptr", propertyQuery, PWSTR.Ptr, &result := 0, "HRESULT")
+    propertyQueryMarshal := propertyQuery == 0 ? IntPtr : PWSTR
+
+    result := DllCall("computecore.dll\HcsGetServiceProperties", propertyQueryMarshal, propertyQuery, PWSTR.Ptr, &result := 0, "HRESULT")
     return result
 }
 
@@ -874,7 +917,6 @@ export HcsCreateEmptyGuestStateFile(guestStateFilePath) {
 }
 
 /**
- * 
  * @param {PWSTR} runtimeStateFilePath 
  * @returns {HRESULT} 
  */
@@ -1041,7 +1083,9 @@ export HcsInitializeWritableLayer(writableLayerPath, layerData, options) {
     layerData := layerData is String ? StrPtr(layerData) : layerData
     options := options is String ? StrPtr(options) : options
 
-    result := DllCall("computestorage.dll\HcsInitializeWritableLayer", "ptr", writableLayerPath, "ptr", layerData, "ptr", options, "HRESULT")
+    optionsMarshal := options == 0 ? IntPtr : PWSTR
+
+    result := DllCall("computestorage.dll\HcsInitializeWritableLayer", "ptr", writableLayerPath, "ptr", layerData, optionsMarshal, options, "HRESULT")
     return result
 }
 
@@ -1060,7 +1104,9 @@ export HcsInitializeLegacyWritableLayer(writableLayerMountPath, writableLayerFol
     layerData := layerData is String ? StrPtr(layerData) : layerData
     options := options is String ? StrPtr(options) : options
 
-    result := DllCall("computestorage.dll\HcsInitializeLegacyWritableLayer", "ptr", writableLayerMountPath, "ptr", writableLayerFolderPath, "ptr", layerData, "ptr", options, "HRESULT")
+    optionsMarshal := options == 0 ? IntPtr : PWSTR
+
+    result := DllCall("computestorage.dll\HcsInitializeLegacyWritableLayer", "ptr", writableLayerMountPath, "ptr", writableLayerFolderPath, "ptr", layerData, optionsMarshal, options, "HRESULT")
     return result
 }
 
@@ -1132,7 +1178,6 @@ export HcsSetupBaseOSVolume(layerPath, volumePath, options) {
 }
 
 /**
- * 
  * @param {PWSTR} VolumeMountPoint 
  * @param {PWSTR} LayerData 
  * @returns {HRESULT} 
@@ -1146,7 +1191,6 @@ export HcsAttachOverlayFilter(VolumeMountPoint, LayerData) {
 }
 
 /**
- * 
  * @param {PWSTR} VolumeMountPoint 
  * @param {PWSTR} LayerData 
  * @returns {HRESULT} 

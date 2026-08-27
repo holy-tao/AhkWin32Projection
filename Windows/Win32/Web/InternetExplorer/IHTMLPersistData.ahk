@@ -67,7 +67,6 @@ export default struct IHTMLPersistData extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lType 
      * @returns {VARIANT_BOOL} 
      */
@@ -85,9 +84,9 @@ export default struct IHTMLPersistData extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.save := CallbackCreate(GetMethod(implObj, "save"), flags, 4)
-        this.vtbl.load := CallbackCreate(GetMethod(implObj, "load"), flags, 4)
-        this.vtbl.queryType := CallbackCreate(GetMethod(implObj, "queryType"), flags, 3)
+        this.vtbl.save := CallbackCreate(ObjBindMethod(implObj, "save"), flags, 4)
+        this.vtbl.load := CallbackCreate(ObjBindMethod(implObj, "load"), flags, 4)
+        this.vtbl.queryType := CallbackCreate(ObjBindMethod(implObj, "queryType"), flags, 3)
     }
 
     Dispose() {

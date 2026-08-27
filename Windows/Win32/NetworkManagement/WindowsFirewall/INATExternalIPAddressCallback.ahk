@@ -160,7 +160,7 @@ export default struct INATExternalIPAddressCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.NewExternalIPAddress := CallbackCreate(GetMethod(implObj, "NewExternalIPAddress"), flags, 2)
+        this.vtbl.NewExternalIPAddress := CallbackCreate(ObjBindMethod(implObj, "NewExternalIPAddress"), flags, 2)
     }
 
     Dispose() {

@@ -64,7 +64,7 @@ export default struct IVdsDrive2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProperties2 := CallbackCreate(GetMethod(implObj, "GetProperties2"), flags, 2)
+        this.vtbl.GetProperties2 := CallbackCreate(ObjBindMethod(implObj, "GetProperties2"), flags, 2)
     }
 
     Dispose() {

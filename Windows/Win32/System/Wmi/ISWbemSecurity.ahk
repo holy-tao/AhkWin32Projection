@@ -72,7 +72,6 @@ export default struct ISWbemSecurity extends IDispatch {
     }
 
     /**
-     * 
      * @returns {WbemImpersonationLevelEnum} 
      */
     get_ImpersonationLevel() {
@@ -81,7 +80,6 @@ export default struct ISWbemSecurity extends IDispatch {
     }
 
     /**
-     * 
      * @param {WbemImpersonationLevelEnum} iImpersonationLevel 
      * @returns {HRESULT} 
      */
@@ -91,7 +89,6 @@ export default struct ISWbemSecurity extends IDispatch {
     }
 
     /**
-     * 
      * @returns {WbemAuthenticationLevelEnum} 
      */
     get_AuthenticationLevel() {
@@ -100,7 +97,6 @@ export default struct ISWbemSecurity extends IDispatch {
     }
 
     /**
-     * 
      * @param {WbemAuthenticationLevelEnum} iAuthenticationLevel 
      * @returns {HRESULT} 
      */
@@ -110,7 +106,6 @@ export default struct ISWbemSecurity extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemPrivilegeSet} 
      */
     get_Privileges() {
@@ -127,11 +122,11 @@ export default struct ISWbemSecurity extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ImpersonationLevel := CallbackCreate(GetMethod(implObj, "get_ImpersonationLevel"), flags, 2)
-        this.vtbl.put_ImpersonationLevel := CallbackCreate(GetMethod(implObj, "put_ImpersonationLevel"), flags, 2)
-        this.vtbl.get_AuthenticationLevel := CallbackCreate(GetMethod(implObj, "get_AuthenticationLevel"), flags, 2)
-        this.vtbl.put_AuthenticationLevel := CallbackCreate(GetMethod(implObj, "put_AuthenticationLevel"), flags, 2)
-        this.vtbl.get_Privileges := CallbackCreate(GetMethod(implObj, "get_Privileges"), flags, 2)
+        this.vtbl.get_ImpersonationLevel := CallbackCreate(ObjBindMethod(implObj, "get_ImpersonationLevel"), flags, 2)
+        this.vtbl.put_ImpersonationLevel := CallbackCreate(ObjBindMethod(implObj, "put_ImpersonationLevel"), flags, 2)
+        this.vtbl.get_AuthenticationLevel := CallbackCreate(ObjBindMethod(implObj, "get_AuthenticationLevel"), flags, 2)
+        this.vtbl.put_AuthenticationLevel := CallbackCreate(ObjBindMethod(implObj, "put_AuthenticationLevel"), flags, 2)
+        this.vtbl.get_Privileges := CallbackCreate(ObjBindMethod(implObj, "get_Privileges"), flags, 2)
     }
 
     Dispose() {

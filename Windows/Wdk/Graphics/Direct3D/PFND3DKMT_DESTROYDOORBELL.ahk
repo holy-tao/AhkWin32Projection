@@ -20,7 +20,6 @@ export default struct PFND3DKMT_DESTROYDOORBELL {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_DESTROY_DOORBELL>} param0 
      * @returns {NTSTATUS} 
      */

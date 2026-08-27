@@ -18,7 +18,6 @@ export default struct PIO_TIMER_ROUTINE {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

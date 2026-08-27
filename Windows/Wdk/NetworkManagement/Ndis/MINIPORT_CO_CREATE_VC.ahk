@@ -18,16 +18,15 @@ export default struct MINIPORT_CO_CREATE_VC {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} MiniportAdapterContext 
      * @param {Pointer<Void>} NdisVcHandle 
      * @param {Pointer<Pointer<Void>>} MiniportVcContext 
      * @returns {Integer} 
      */
     Call(MiniportAdapterContext, NdisVcHandle, MiniportVcContext) {
-        MiniportAdapterContextMarshal := MiniportAdapterContext is VarRef ? "ptr" : "ptr"
-        NdisVcHandleMarshal := NdisVcHandle is VarRef ? "ptr" : "ptr"
-        MiniportVcContextMarshal := MiniportVcContext is VarRef ? "ptr*" : "ptr"
+        MiniportAdapterContextMarshal := MiniportAdapterContext is VarRef ? "ptr" : IntPtr
+        NdisVcHandleMarshal := NdisVcHandle is VarRef ? "ptr" : IntPtr
+        MiniportVcContextMarshal := MiniportVcContext is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, MiniportAdapterContextMarshal, MiniportAdapterContext, NdisVcHandleMarshal, NdisVcHandle, MiniportVcContextMarshal, MiniportVcContext, Int32)
         return result

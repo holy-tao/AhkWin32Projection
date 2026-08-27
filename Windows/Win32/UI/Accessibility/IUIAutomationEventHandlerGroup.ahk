@@ -114,7 +114,7 @@ export default struct IUIAutomationEventHandlerGroup extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationeventhandlergroup-addchangeseventhandler
      */
     AddChangesEventHandler(scope, changeTypes, changesCount, cacheRequest, handler) {
-        changeTypesMarshal := changeTypes is VarRef ? "int*" : "ptr"
+        changeTypesMarshal := changeTypes is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, TreeScope, scope, changeTypesMarshal, changeTypes, Int32, changesCount, "ptr", cacheRequest, "ptr", handler, "HRESULT")
         return result
@@ -148,7 +148,7 @@ export default struct IUIAutomationEventHandlerGroup extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationeventhandlergroup-addpropertychangedeventhandler
      */
     AddPropertyChangedEventHandler(scope, cacheRequest, handler, propertyArray, propertyCount) {
-        propertyArrayMarshal := propertyArray is VarRef ? "int*" : "ptr"
+        propertyArrayMarshal := propertyArray is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, TreeScope, scope, "ptr", cacheRequest, "ptr", handler, propertyArrayMarshal, propertyArray, Int32, propertyCount, "HRESULT")
         return result
@@ -194,13 +194,13 @@ export default struct IUIAutomationEventHandlerGroup extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddActiveTextPositionChangedEventHandler := CallbackCreate(GetMethod(implObj, "AddActiveTextPositionChangedEventHandler"), flags, 4)
-        this.vtbl.AddAutomationEventHandler := CallbackCreate(GetMethod(implObj, "AddAutomationEventHandler"), flags, 5)
-        this.vtbl.AddChangesEventHandler := CallbackCreate(GetMethod(implObj, "AddChangesEventHandler"), flags, 6)
-        this.vtbl.AddNotificationEventHandler := CallbackCreate(GetMethod(implObj, "AddNotificationEventHandler"), flags, 4)
-        this.vtbl.AddPropertyChangedEventHandler := CallbackCreate(GetMethod(implObj, "AddPropertyChangedEventHandler"), flags, 6)
-        this.vtbl.AddStructureChangedEventHandler := CallbackCreate(GetMethod(implObj, "AddStructureChangedEventHandler"), flags, 4)
-        this.vtbl.AddTextEditTextChangedEventHandler := CallbackCreate(GetMethod(implObj, "AddTextEditTextChangedEventHandler"), flags, 5)
+        this.vtbl.AddActiveTextPositionChangedEventHandler := CallbackCreate(ObjBindMethod(implObj, "AddActiveTextPositionChangedEventHandler"), flags, 4)
+        this.vtbl.AddAutomationEventHandler := CallbackCreate(ObjBindMethod(implObj, "AddAutomationEventHandler"), flags, 5)
+        this.vtbl.AddChangesEventHandler := CallbackCreate(ObjBindMethod(implObj, "AddChangesEventHandler"), flags, 6)
+        this.vtbl.AddNotificationEventHandler := CallbackCreate(ObjBindMethod(implObj, "AddNotificationEventHandler"), flags, 4)
+        this.vtbl.AddPropertyChangedEventHandler := CallbackCreate(ObjBindMethod(implObj, "AddPropertyChangedEventHandler"), flags, 6)
+        this.vtbl.AddStructureChangedEventHandler := CallbackCreate(ObjBindMethod(implObj, "AddStructureChangedEventHandler"), flags, 4)
+        this.vtbl.AddTextEditTextChangedEventHandler := CallbackCreate(ObjBindMethod(implObj, "AddTextEditTextChangedEventHandler"), flags, 5)
     }
 
     Dispose() {

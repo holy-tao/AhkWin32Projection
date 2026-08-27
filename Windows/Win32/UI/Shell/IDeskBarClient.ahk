@@ -41,17 +41,17 @@ export default struct IDeskBarClient extends IOleWindow {
     }
 
     /**
-     * 
      * @param {IUnknown} punkSite 
      * @returns {HRESULT} 
      */
     SetDeskBarSite(punkSite) {
-        result := ComCall(5, this, "ptr", punkSite, "HRESULT")
+        punkSiteMarshal := punkSite == 0 ? IntPtr : "ptr"
+
+        result := ComCall(5, this, punkSiteMarshal, punkSite, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwMode 
      * @returns {HRESULT} 
      */
@@ -61,7 +61,6 @@ export default struct IDeskBarClient extends IOleWindow {
     }
 
     /**
-     * 
      * @param {Integer} dwState 
      * @returns {HRESULT} 
      */
@@ -71,7 +70,6 @@ export default struct IDeskBarClient extends IOleWindow {
     }
 
     /**
-     * 
      * @param {Integer} dwWhich 
      * @returns {RECT} 
      */
@@ -90,10 +88,10 @@ export default struct IDeskBarClient extends IOleWindow {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetDeskBarSite := CallbackCreate(GetMethod(implObj, "SetDeskBarSite"), flags, 2)
-        this.vtbl.SetModeDBC := CallbackCreate(GetMethod(implObj, "SetModeDBC"), flags, 2)
-        this.vtbl.UIActivateDBC := CallbackCreate(GetMethod(implObj, "UIActivateDBC"), flags, 2)
-        this.vtbl.GetSize := CallbackCreate(GetMethod(implObj, "GetSize"), flags, 3)
+        this.vtbl.SetDeskBarSite := CallbackCreate(ObjBindMethod(implObj, "SetDeskBarSite"), flags, 2)
+        this.vtbl.SetModeDBC := CallbackCreate(ObjBindMethod(implObj, "SetModeDBC"), flags, 2)
+        this.vtbl.UIActivateDBC := CallbackCreate(ObjBindMethod(implObj, "UIActivateDBC"), flags, 2)
+        this.vtbl.GetSize := CallbackCreate(ObjBindMethod(implObj, "GetSize"), flags, 3)
     }
 
     Dispose() {

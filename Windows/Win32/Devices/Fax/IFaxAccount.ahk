@@ -133,10 +133,10 @@ export default struct IFaxAccount extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_AccountName := CallbackCreate(GetMethod(implObj, "get_AccountName"), flags, 2)
-        this.vtbl.get_Folders := CallbackCreate(GetMethod(implObj, "get_Folders"), flags, 2)
-        this.vtbl.ListenToAccountEvents := CallbackCreate(GetMethod(implObj, "ListenToAccountEvents"), flags, 2)
-        this.vtbl.get_RegisteredEvents := CallbackCreate(GetMethod(implObj, "get_RegisteredEvents"), flags, 2)
+        this.vtbl.get_AccountName := CallbackCreate(ObjBindMethod(implObj, "get_AccountName"), flags, 2)
+        this.vtbl.get_Folders := CallbackCreate(ObjBindMethod(implObj, "get_Folders"), flags, 2)
+        this.vtbl.ListenToAccountEvents := CallbackCreate(ObjBindMethod(implObj, "ListenToAccountEvents"), flags, 2)
+        this.vtbl.get_RegisteredEvents := CallbackCreate(ObjBindMethod(implObj, "get_RegisteredEvents"), flags, 2)
     }
 
     Dispose() {

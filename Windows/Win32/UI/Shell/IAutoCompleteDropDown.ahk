@@ -59,8 +59,8 @@ export default struct IAutoCompleteDropDown extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iautocompletedropdown-getdropdownstatus
      */
     GetDropDownStatus(pdwFlags, ppwszString) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-        ppwszStringMarshal := ppwszString is VarRef ? "ptr*" : "ptr"
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : IntPtr
+        ppwszStringMarshal := ppwszString is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, pdwFlagsMarshal, pdwFlags, ppwszStringMarshal, ppwszString, "HRESULT")
         return result
@@ -89,8 +89,8 @@ export default struct IAutoCompleteDropDown extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDropDownStatus := CallbackCreate(GetMethod(implObj, "GetDropDownStatus"), flags, 3)
-        this.vtbl.ResetEnumerator := CallbackCreate(GetMethod(implObj, "ResetEnumerator"), flags, 1)
+        this.vtbl.GetDropDownStatus := CallbackCreate(ObjBindMethod(implObj, "GetDropDownStatus"), flags, 3)
+        this.vtbl.ResetEnumerator := CallbackCreate(ObjBindMethod(implObj, "ResetEnumerator"), flags, 1)
     }
 
     Dispose() {

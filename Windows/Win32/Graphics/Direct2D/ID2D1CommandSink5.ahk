@@ -68,7 +68,10 @@ export default struct ID2D1CommandSink5 extends ID2D1CommandSink4 {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1commandsink5-blendimage
      */
     BlendImage(_image, blendMode, targetOffset, imageRectangle, _interpolationMode) {
-        result := ComCall(34, this, "ptr", _image, D2D1_BLEND_MODE, blendMode, D2D_POINT_2F.Ptr, targetOffset, D2D_RECT_F.Ptr, imageRectangle, D2D1_INTERPOLATION_MODE, _interpolationMode, "HRESULT")
+        targetOffsetMarshal := targetOffset == 0 ? IntPtr : D2D_POINT_2F.Ptr
+        imageRectangleMarshal := imageRectangle == 0 ? IntPtr : D2D_RECT_F.Ptr
+
+        result := ComCall(34, this, "ptr", _image, D2D1_BLEND_MODE, blendMode, targetOffsetMarshal, targetOffset, imageRectangleMarshal, imageRectangle, D2D1_INTERPOLATION_MODE, _interpolationMode, "HRESULT")
         return result
     }
 
@@ -81,7 +84,7 @@ export default struct ID2D1CommandSink5 extends ID2D1CommandSink4 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BlendImage := CallbackCreate(GetMethod(implObj, "BlendImage"), flags, 6)
+        this.vtbl.BlendImage := CallbackCreate(ObjBindMethod(implObj, "BlendImage"), flags, 6)
     }
 
     Dispose() {

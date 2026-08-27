@@ -29,7 +29,6 @@ export default struct PDD_SURFCB_UPDATEOVERLAY {
     }
 
     /**
-     * 
      * @param {Pointer<DD_UPDATEOVERLAYDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_updateoverlaydata">DD_UPDATEOVERLAYDATA</a> structure that contains the information required to update the overlay.
      * @returns {Integer} <b>DdUpdateOverlay</b> returns one of the following callback codes:
      */

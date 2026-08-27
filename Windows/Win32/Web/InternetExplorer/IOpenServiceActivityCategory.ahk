@@ -47,7 +47,6 @@ export default struct IOpenServiceActivityCategory extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     HasDefaultActivity() {
@@ -56,7 +55,6 @@ export default struct IOpenServiceActivityCategory extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IOpenServiceActivity} 
      */
     GetDefaultActivity() {
@@ -65,7 +63,6 @@ export default struct IOpenServiceActivityCategory extends IUnknown {
     }
 
     /**
-     * 
      * @param {IOpenServiceActivity} pActivity 
      * @param {HWND} _hwnd 
      * @returns {HRESULT} 
@@ -87,7 +84,6 @@ export default struct IOpenServiceActivityCategory extends IUnknown {
     }
 
     /**
-     * 
      * @param {IOpenServiceActivityInput} pInput 
      * @param {IOpenServiceActivityOutputContext} pOutput 
      * @returns {IEnumOpenServiceActivity} 
@@ -106,11 +102,11 @@ export default struct IOpenServiceActivityCategory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.HasDefaultActivity := CallbackCreate(GetMethod(implObj, "HasDefaultActivity"), flags, 2)
-        this.vtbl.GetDefaultActivity := CallbackCreate(GetMethod(implObj, "GetDefaultActivity"), flags, 2)
-        this.vtbl.SetDefaultActivity := CallbackCreate(GetMethod(implObj, "SetDefaultActivity"), flags, 3)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
-        this.vtbl.GetActivityEnumerator := CallbackCreate(GetMethod(implObj, "GetActivityEnumerator"), flags, 4)
+        this.vtbl.HasDefaultActivity := CallbackCreate(ObjBindMethod(implObj, "HasDefaultActivity"), flags, 2)
+        this.vtbl.GetDefaultActivity := CallbackCreate(ObjBindMethod(implObj, "GetDefaultActivity"), flags, 2)
+        this.vtbl.SetDefaultActivity := CallbackCreate(ObjBindMethod(implObj, "SetDefaultActivity"), flags, 3)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetActivityEnumerator := CallbackCreate(ObjBindMethod(implObj, "GetActivityEnumerator"), flags, 4)
     }
 
     Dispose() {

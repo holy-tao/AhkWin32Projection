@@ -52,8 +52,8 @@ export default struct ISecurityInformation4 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-isecurityinformation4-getsecondarysecurity
      */
     GetSecondarySecurity(pSecurityObjects, pSecurityObjectCount) {
-        pSecurityObjectsMarshal := pSecurityObjects is VarRef ? "ptr*" : "ptr"
-        pSecurityObjectCountMarshal := pSecurityObjectCount is VarRef ? "uint*" : "ptr"
+        pSecurityObjectsMarshal := pSecurityObjects is VarRef ? "ptr*" : IntPtr
+        pSecurityObjectCountMarshal := pSecurityObjectCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pSecurityObjectsMarshal, pSecurityObjects, pSecurityObjectCountMarshal, pSecurityObjectCount, "HRESULT")
         return result
@@ -68,7 +68,7 @@ export default struct ISecurityInformation4 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSecondarySecurity := CallbackCreate(GetMethod(implObj, "GetSecondarySecurity"), flags, 3)
+        this.vtbl.GetSecondarySecurity := CallbackCreate(ObjBindMethod(implObj, "GetSecondarySecurity"), flags, 3)
     }
 
     Dispose() {

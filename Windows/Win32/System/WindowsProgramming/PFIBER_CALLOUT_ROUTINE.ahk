@@ -18,12 +18,11 @@ export default struct PFIBER_CALLOUT_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} lpParameter 
      * @returns {Pointer<Void>} 
      */
     Call(lpParameter) {
-        lpParameterMarshal := lpParameter is VarRef ? "ptr" : "ptr"
+        lpParameterMarshal := lpParameter is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, lpParameterMarshal, lpParameter, IntPtr)
         return result

@@ -86,7 +86,6 @@ export default struct IDWriteFont3 extends IDWriteFont2 {
     }
 
     /**
-     * 
      * @param {Integer} unicodeValue 
      * @returns {BOOL} 
      */
@@ -118,11 +117,11 @@ export default struct IDWriteFont3 extends IDWriteFont2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateFontFace := CallbackCreate(GetMethod(implObj, "CreateFontFace"), flags, 2)
-        this.vtbl.Equals := CallbackCreate(GetMethod(implObj, "Equals"), flags, 2)
-        this.vtbl.GetFontFaceReference := CallbackCreate(GetMethod(implObj, "GetFontFaceReference"), flags, 2)
-        this.vtbl.HasCharacter := CallbackCreate(GetMethod(implObj, "HasCharacter"), flags, 2)
-        this.vtbl.GetLocality := CallbackCreate(GetMethod(implObj, "GetLocality"), flags, 1)
+        this.vtbl.CreateFontFace := CallbackCreate(ObjBindMethod(implObj, "CreateFontFace"), flags, 2)
+        this.vtbl.Equals := CallbackCreate(ObjBindMethod(implObj, "Equals"), flags, 2)
+        this.vtbl.GetFontFaceReference := CallbackCreate(ObjBindMethod(implObj, "GetFontFaceReference"), flags, 2)
+        this.vtbl.HasCharacter := CallbackCreate(ObjBindMethod(implObj, "HasCharacter"), flags, 2)
+        this.vtbl.GetLocality := CallbackCreate(ObjBindMethod(implObj, "GetLocality"), flags, 1)
     }
 
     Dispose() {

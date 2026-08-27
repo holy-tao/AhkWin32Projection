@@ -106,7 +106,9 @@ export default struct IWiaAppErrorHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaapperrorhandler-reportstatus
      */
     ReportStatus(lFlags, pWiaItem2, hrStatus, lPercentComplete) {
-        result := ComCall(4, this, Int32, lFlags, "ptr", pWiaItem2, "int", hrStatus, Int32, lPercentComplete, "HRESULT")
+        pWiaItem2Marshal := pWiaItem2 == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, Int32, lFlags, pWiaItem2Marshal, pWiaItem2, "int", hrStatus, Int32, lPercentComplete, "HRESULT")
         return result
     }
 
@@ -119,8 +121,8 @@ export default struct IWiaAppErrorHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetWindow := CallbackCreate(GetMethod(implObj, "GetWindow"), flags, 2)
-        this.vtbl.ReportStatus := CallbackCreate(GetMethod(implObj, "ReportStatus"), flags, 5)
+        this.vtbl.GetWindow := CallbackCreate(ObjBindMethod(implObj, "GetWindow"), flags, 2)
+        this.vtbl.ReportStatus := CallbackCreate(ObjBindMethod(implObj, "ReportStatus"), flags, 5)
     }
 
     Dispose() {

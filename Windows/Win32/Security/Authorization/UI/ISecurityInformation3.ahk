@@ -74,8 +74,8 @@ export default struct ISecurityInformation3 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFullResourceName := CallbackCreate(GetMethod(implObj, "GetFullResourceName"), flags, 2)
-        this.vtbl.OpenElevatedEditor := CallbackCreate(GetMethod(implObj, "OpenElevatedEditor"), flags, 3)
+        this.vtbl.GetFullResourceName := CallbackCreate(ObjBindMethod(implObj, "GetFullResourceName"), flags, 2)
+        this.vtbl.OpenElevatedEditor := CallbackCreate(ObjBindMethod(implObj, "OpenElevatedEditor"), flags, 3)
     }
 
     Dispose() {

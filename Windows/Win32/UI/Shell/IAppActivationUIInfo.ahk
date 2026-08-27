@@ -43,7 +43,6 @@ export default struct IAppActivationUIInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HMONITOR} 
      */
     GetMonitor() {
@@ -53,7 +52,6 @@ export default struct IAppActivationUIInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {POINT} 
      */
     GetInvokePoint() {
@@ -63,7 +61,6 @@ export default struct IAppActivationUIInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetShowCommand() {
@@ -72,7 +69,6 @@ export default struct IAppActivationUIInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetShowUI() {
@@ -117,11 +113,11 @@ export default struct IAppActivationUIInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMonitor := CallbackCreate(GetMethod(implObj, "GetMonitor"), flags, 2)
-        this.vtbl.GetInvokePoint := CallbackCreate(GetMethod(implObj, "GetInvokePoint"), flags, 2)
-        this.vtbl.GetShowCommand := CallbackCreate(GetMethod(implObj, "GetShowCommand"), flags, 2)
-        this.vtbl.GetShowUI := CallbackCreate(GetMethod(implObj, "GetShowUI"), flags, 2)
-        this.vtbl.GetKeyState := CallbackCreate(GetMethod(implObj, "GetKeyState"), flags, 2)
+        this.vtbl.GetMonitor := CallbackCreate(ObjBindMethod(implObj, "GetMonitor"), flags, 2)
+        this.vtbl.GetInvokePoint := CallbackCreate(ObjBindMethod(implObj, "GetInvokePoint"), flags, 2)
+        this.vtbl.GetShowCommand := CallbackCreate(ObjBindMethod(implObj, "GetShowCommand"), flags, 2)
+        this.vtbl.GetShowUI := CallbackCreate(ObjBindMethod(implObj, "GetShowUI"), flags, 2)
+        this.vtbl.GetKeyState := CallbackCreate(ObjBindMethod(implObj, "GetKeyState"), flags, 2)
     }
 
     Dispose() {

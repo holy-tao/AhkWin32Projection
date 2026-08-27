@@ -37,7 +37,6 @@ export default struct IActiveScriptSiteTraceInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {SCRIPTTRACEINFO} stiEventType 
      * @param {Guid} guidContextID 
      * @param {Integer} dwScriptContextCookie 
@@ -60,7 +59,7 @@ export default struct IActiveScriptSiteTraceInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SendScriptTraceInfo := CallbackCreate(GetMethod(implObj, "SendScriptTraceInfo"), flags, 7)
+        this.vtbl.SendScriptTraceInfo := CallbackCreate(ObjBindMethod(implObj, "SendScriptTraceInfo"), flags, 7)
     }
 
     Dispose() {

@@ -66,14 +66,13 @@ export default struct IHostThreadpoolManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/threadpoollegacyapiset/nf-threadpoollegacyapiset-queueuserworkitem
      */
     QueueUserWorkItem(Function, _Context, Flags) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, LPTHREAD_START_ROUTINE, Function, _ContextMarshal, _Context, UInt32, Flags, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwMaxWorkerThreads 
      * @returns {HRESULT} 
      */
@@ -83,7 +82,6 @@ export default struct IHostThreadpoolManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMaxThreads() {
@@ -92,7 +90,6 @@ export default struct IHostThreadpoolManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetAvailableThreads() {
@@ -101,7 +98,6 @@ export default struct IHostThreadpoolManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwMinIOCompletionThreads 
      * @returns {HRESULT} 
      */
@@ -111,7 +107,6 @@ export default struct IHostThreadpoolManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMinThreads() {
@@ -128,12 +123,12 @@ export default struct IHostThreadpoolManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueueUserWorkItem := CallbackCreate(GetMethod(implObj, "QueueUserWorkItem"), flags, 4)
-        this.vtbl.SetMaxThreads := CallbackCreate(GetMethod(implObj, "SetMaxThreads"), flags, 2)
-        this.vtbl.GetMaxThreads := CallbackCreate(GetMethod(implObj, "GetMaxThreads"), flags, 2)
-        this.vtbl.GetAvailableThreads := CallbackCreate(GetMethod(implObj, "GetAvailableThreads"), flags, 2)
-        this.vtbl.SetMinThreads := CallbackCreate(GetMethod(implObj, "SetMinThreads"), flags, 2)
-        this.vtbl.GetMinThreads := CallbackCreate(GetMethod(implObj, "GetMinThreads"), flags, 2)
+        this.vtbl.QueueUserWorkItem := CallbackCreate(ObjBindMethod(implObj, "QueueUserWorkItem"), flags, 4)
+        this.vtbl.SetMaxThreads := CallbackCreate(ObjBindMethod(implObj, "SetMaxThreads"), flags, 2)
+        this.vtbl.GetMaxThreads := CallbackCreate(ObjBindMethod(implObj, "GetMaxThreads"), flags, 2)
+        this.vtbl.GetAvailableThreads := CallbackCreate(ObjBindMethod(implObj, "GetAvailableThreads"), flags, 2)
+        this.vtbl.SetMinThreads := CallbackCreate(ObjBindMethod(implObj, "SetMinThreads"), flags, 2)
+        this.vtbl.GetMinThreads := CallbackCreate(ObjBindMethod(implObj, "GetMinThreads"), flags, 2)
     }
 
     Dispose() {

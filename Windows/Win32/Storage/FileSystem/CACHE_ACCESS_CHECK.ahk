@@ -23,7 +23,6 @@ export default struct CACHE_ACCESS_CHECK {
     }
 
     /**
-     * 
      * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor 
      * @param {HANDLE} hClientToken 
      * @param {Integer} dwDesiredAccess 
@@ -35,9 +34,9 @@ export default struct CACHE_ACCESS_CHECK {
      * @returns {BOOL} 
      */
     Call(pSecurityDescriptor, hClientToken, dwDesiredAccess, GenericMapping, PrivilegeSet, PrivilegeSetLength, GrantedAccess, AccessStatus) {
-        PrivilegeSetLengthMarshal := PrivilegeSetLength is VarRef ? "uint*" : "ptr"
-        GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : "ptr"
-        AccessStatusMarshal := AccessStatus is VarRef ? "int*" : "ptr"
+        PrivilegeSetLengthMarshal := PrivilegeSetLength is VarRef ? "uint*" : IntPtr
+        GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : IntPtr
+        AccessStatusMarshal := AccessStatus is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, PSECURITY_DESCRIPTOR, pSecurityDescriptor, HANDLE, hClientToken, UInt32, dwDesiredAccess, GENERIC_MAPPING.Ptr, GenericMapping, PRIVILEGE_SET.Ptr, PrivilegeSet, PrivilegeSetLengthMarshal, PrivilegeSetLength, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, BOOL)
         return result

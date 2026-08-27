@@ -19,13 +19,12 @@ export default struct ENUM_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<DCISURFACEINFO>} lpSurfaceInfo 
      * @param {Pointer<Void>} lpContext 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(lpSurfaceInfo, lpContext) {
-        lpContextMarshal := lpContext is VarRef ? "ptr" : "ptr"
+        lpContextMarshal := lpContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, DCISURFACEINFO.Ptr, lpSurfaceInfo, lpContextMarshal, lpContext)
     }

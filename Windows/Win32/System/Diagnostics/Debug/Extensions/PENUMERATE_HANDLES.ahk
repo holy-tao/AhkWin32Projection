@@ -21,7 +21,6 @@ export default struct PENUMERATE_HANDLES {
     }
 
     /**
-     * 
      * @param {IDebugClient} Client 
      * @param {Integer} Process 
      * @param {Integer} HandleToDump 
@@ -31,7 +30,8 @@ export default struct PENUMERATE_HANDLES {
      * @returns {HRESULT} 
      */
     Call(Client, Process, HandleToDump, Flags, Callback, _Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, "ptr", Client, Int64, Process, Int64, HandleToDump, UInt32, Flags, KDEXT_DUMP_HANDLE_CALLBACK, Callback, _ContextMarshal, _Context, "HRESULT")
         return result

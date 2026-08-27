@@ -137,13 +137,13 @@ export default struct IGuideDataEvent extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GuideDataAcquired := CallbackCreate(GetMethod(implObj, "GuideDataAcquired"), flags, 1)
-        this.vtbl.ProgramChanged := CallbackCreate(GetMethod(implObj, "ProgramChanged"), flags, 2)
-        this.vtbl.ServiceChanged := CallbackCreate(GetMethod(implObj, "ServiceChanged"), flags, 2)
-        this.vtbl.ScheduleEntryChanged := CallbackCreate(GetMethod(implObj, "ScheduleEntryChanged"), flags, 2)
-        this.vtbl.ProgramDeleted := CallbackCreate(GetMethod(implObj, "ProgramDeleted"), flags, 2)
-        this.vtbl.ServiceDeleted := CallbackCreate(GetMethod(implObj, "ServiceDeleted"), flags, 2)
-        this.vtbl.ScheduleDeleted := CallbackCreate(GetMethod(implObj, "ScheduleDeleted"), flags, 2)
+        this.vtbl.GuideDataAcquired := CallbackCreate(ObjBindMethod(implObj, "GuideDataAcquired"), flags, 1)
+        this.vtbl.ProgramChanged := CallbackCreate(ObjBindMethod(implObj, "ProgramChanged"), flags, 2)
+        this.vtbl.ServiceChanged := CallbackCreate(ObjBindMethod(implObj, "ServiceChanged"), flags, 2)
+        this.vtbl.ScheduleEntryChanged := CallbackCreate(ObjBindMethod(implObj, "ScheduleEntryChanged"), flags, 2)
+        this.vtbl.ProgramDeleted := CallbackCreate(ObjBindMethod(implObj, "ProgramDeleted"), flags, 2)
+        this.vtbl.ServiceDeleted := CallbackCreate(ObjBindMethod(implObj, "ServiceDeleted"), flags, 2)
+        this.vtbl.ScheduleDeleted := CallbackCreate(ObjBindMethod(implObj, "ScheduleDeleted"), flags, 2)
     }
 
     Dispose() {

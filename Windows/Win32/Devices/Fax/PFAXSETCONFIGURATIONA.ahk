@@ -22,7 +22,6 @@ export default struct PFAXSETCONFIGURATIONA {
     }
 
     /**
-     * 
      * @param {HANDLE} FaxHandle 
      * @param {Pointer<FAX_CONFIGURATIONA>} FaxConfig 
      * @returns {BOOL} 

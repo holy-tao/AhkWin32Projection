@@ -75,7 +75,7 @@ export default struct ID3D12Device2 extends ID3D12Device1 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreatePipelineState := CallbackCreate(GetMethod(implObj, "CreatePipelineState"), flags, 4)
+        this.vtbl.CreatePipelineState := CallbackCreate(ObjBindMethod(implObj, "CreatePipelineState"), flags, 4)
     }
 
     Dispose() {

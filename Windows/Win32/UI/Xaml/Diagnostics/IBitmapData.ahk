@@ -51,8 +51,8 @@ export default struct IBitmapData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ibitmapdata-copybytesto
      */
     CopyBytesTo(sourceOffsetInBytes, maxBytesToCopy, pvBytes, numberOfBytesCopied) {
-        pvBytesMarshal := pvBytes is VarRef ? "char*" : "ptr"
-        numberOfBytesCopiedMarshal := numberOfBytesCopied is VarRef ? "uint*" : "ptr"
+        pvBytesMarshal := pvBytes is VarRef ? "char*" : IntPtr
+        numberOfBytesCopiedMarshal := numberOfBytesCopied is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, UInt32, sourceOffsetInBytes, UInt32, maxBytesToCopy, pvBytesMarshal, pvBytes, numberOfBytesCopiedMarshal, numberOfBytesCopied, "HRESULT")
         return result
@@ -101,10 +101,10 @@ export default struct IBitmapData extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CopyBytesTo := CallbackCreate(GetMethod(implObj, "CopyBytesTo"), flags, 5)
-        this.vtbl.GetStride := CallbackCreate(GetMethod(implObj, "GetStride"), flags, 2)
-        this.vtbl.GetBitmapDescription := CallbackCreate(GetMethod(implObj, "GetBitmapDescription"), flags, 2)
-        this.vtbl.GetSourceBitmapDescription := CallbackCreate(GetMethod(implObj, "GetSourceBitmapDescription"), flags, 2)
+        this.vtbl.CopyBytesTo := CallbackCreate(ObjBindMethod(implObj, "CopyBytesTo"), flags, 5)
+        this.vtbl.GetStride := CallbackCreate(ObjBindMethod(implObj, "GetStride"), flags, 2)
+        this.vtbl.GetBitmapDescription := CallbackCreate(ObjBindMethod(implObj, "GetBitmapDescription"), flags, 2)
+        this.vtbl.GetSourceBitmapDescription := CallbackCreate(ObjBindMethod(implObj, "GetSourceBitmapDescription"), flags, 2)
     }
 
     Dispose() {

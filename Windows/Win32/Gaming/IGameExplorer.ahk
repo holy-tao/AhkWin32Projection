@@ -48,7 +48,6 @@ export default struct IGameExplorer extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrGDFBinaryPath 
      * @param {BSTR} bstrGameInstallDirectory 
      * @param {GAME_INSTALL_SCOPE} installScope 
@@ -64,7 +63,6 @@ export default struct IGameExplorer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} guidInstanceID 
      * @returns {HRESULT} 
      */
@@ -74,7 +72,6 @@ export default struct IGameExplorer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} guidInstanceID 
      * @returns {HRESULT} 
      */
@@ -84,7 +81,6 @@ export default struct IGameExplorer extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrGDFBinaryPath 
      * @returns {BOOL} 
      */
@@ -104,10 +100,10 @@ export default struct IGameExplorer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddGame := CallbackCreate(GetMethod(implObj, "AddGame"), flags, 5)
-        this.vtbl.RemoveGame := CallbackCreate(GetMethod(implObj, "RemoveGame"), flags, 2)
-        this.vtbl.UpdateGame := CallbackCreate(GetMethod(implObj, "UpdateGame"), flags, 2)
-        this.vtbl.VerifyAccess := CallbackCreate(GetMethod(implObj, "VerifyAccess"), flags, 3)
+        this.vtbl.AddGame := CallbackCreate(ObjBindMethod(implObj, "AddGame"), flags, 5)
+        this.vtbl.RemoveGame := CallbackCreate(ObjBindMethod(implObj, "RemoveGame"), flags, 2)
+        this.vtbl.UpdateGame := CallbackCreate(ObjBindMethod(implObj, "UpdateGame"), flags, 2)
+        this.vtbl.VerifyAccess := CallbackCreate(ObjBindMethod(implObj, "VerifyAccess"), flags, 3)
     }
 
     Dispose() {

@@ -245,13 +245,13 @@ export default struct IRunningObjectTable extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Register := CallbackCreate(GetMethod(implObj, "Register"), flags, 5)
-        this.vtbl.Revoke := CallbackCreate(GetMethod(implObj, "Revoke"), flags, 2)
-        this.vtbl.IsRunning := CallbackCreate(GetMethod(implObj, "IsRunning"), flags, 2)
-        this.vtbl.GetObject := CallbackCreate(GetMethod(implObj, "GetObject"), flags, 3)
-        this.vtbl.NoteChangeTime := CallbackCreate(GetMethod(implObj, "NoteChangeTime"), flags, 3)
-        this.vtbl.GetTimeOfLastChange := CallbackCreate(GetMethod(implObj, "GetTimeOfLastChange"), flags, 3)
-        this.vtbl.EnumRunning := CallbackCreate(GetMethod(implObj, "EnumRunning"), flags, 2)
+        this.vtbl.Register := CallbackCreate(ObjBindMethod(implObj, "Register"), flags, 5)
+        this.vtbl.Revoke := CallbackCreate(ObjBindMethod(implObj, "Revoke"), flags, 2)
+        this.vtbl.IsRunning := CallbackCreate(ObjBindMethod(implObj, "IsRunning"), flags, 2)
+        this.vtbl.GetObject := CallbackCreate(ObjBindMethod(implObj, "GetObject"), flags, 3)
+        this.vtbl.NoteChangeTime := CallbackCreate(ObjBindMethod(implObj, "NoteChangeTime"), flags, 3)
+        this.vtbl.GetTimeOfLastChange := CallbackCreate(ObjBindMethod(implObj, "GetTimeOfLastChange"), flags, 3)
+        this.vtbl.EnumRunning := CallbackCreate(ObjBindMethod(implObj, "EnumRunning"), flags, 2)
     }
 
     Dispose() {

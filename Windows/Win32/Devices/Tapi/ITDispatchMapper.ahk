@@ -67,7 +67,7 @@ export default struct ITDispatchMapper extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryDispatchInterface := CallbackCreate(GetMethod(implObj, "QueryDispatchInterface"), flags, 4)
+        this.vtbl.QueryDispatchInterface := CallbackCreate(ObjBindMethod(implObj, "QueryDispatchInterface"), flags, 4)
     }
 
     Dispose() {

@@ -60,7 +60,7 @@ export default struct IUIAutomationObjectModelPattern extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetUnderlyingObjectModel := CallbackCreate(GetMethod(implObj, "GetUnderlyingObjectModel"), flags, 2)
+        this.vtbl.GetUnderlyingObjectModel := CallbackCreate(ObjBindMethod(implObj, "GetUnderlyingObjectModel"), flags, 2)
     }
 
     Dispose() {

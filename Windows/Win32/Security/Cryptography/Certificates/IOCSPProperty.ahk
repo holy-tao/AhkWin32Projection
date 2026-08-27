@@ -123,10 +123,10 @@ export default struct IOCSPProperty extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_Value := CallbackCreate(GetMethod(implObj, "get_Value"), flags, 2)
-        this.vtbl.put_Value := CallbackCreate(GetMethod(implObj, "put_Value"), flags, 2)
-        this.vtbl.get_Modified := CallbackCreate(GetMethod(implObj, "get_Modified"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Value := CallbackCreate(ObjBindMethod(implObj, "get_Value"), flags, 2)
+        this.vtbl.put_Value := CallbackCreate(ObjBindMethod(implObj, "put_Value"), flags, 2)
+        this.vtbl.get_Modified := CallbackCreate(ObjBindMethod(implObj, "get_Modified"), flags, 2)
     }
 
     Dispose() {

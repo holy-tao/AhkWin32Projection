@@ -61,7 +61,7 @@ export default struct ISnapinPropertiesCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddPropertyName := CallbackCreate(GetMethod(implObj, "AddPropertyName"), flags, 3)
+        this.vtbl.AddPropertyName := CallbackCreate(ObjBindMethod(implObj, "AddPropertyName"), flags, 3)
     }
 
     Dispose() {

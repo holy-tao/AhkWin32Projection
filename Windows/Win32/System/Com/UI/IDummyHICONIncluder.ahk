@@ -38,7 +38,6 @@ export default struct IDummyHICONIncluder extends IUnknown {
     }
 
     /**
-     * 
      * @param {HICON} h1 
      * @param {HDC} h2 
      * @returns {HRESULT} 
@@ -57,7 +56,7 @@ export default struct IDummyHICONIncluder extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Dummy := CallbackCreate(GetMethod(implObj, "Dummy"), flags, 3)
+        this.vtbl.Dummy := CallbackCreate(ObjBindMethod(implObj, "Dummy"), flags, 3)
     }
 
     Dispose() {

@@ -23,7 +23,6 @@ export default struct LPFN_TRANSMITFILE {
     }
 
     /**
-     * 
      * @param {SOCKET} hSocket 
      * @param {HANDLE} hFile 
      * @param {Integer} nNumberOfBytesToWrite 
@@ -34,7 +33,10 @@ export default struct LPFN_TRANSMITFILE {
      * @returns {BOOL} 
      */
     Call(hSocket, hFile, nNumberOfBytesToWrite, nNumberOfBytesPerSend, lpOverlapped, lpTransmitBuffers, dwReserved) {
-        result := DllCall(this.value, SOCKET, hSocket, HANDLE, hFile, UInt32, nNumberOfBytesToWrite, UInt32, nNumberOfBytesPerSend, OVERLAPPED.Ptr, lpOverlapped, TRANSMIT_FILE_BUFFERS.Ptr, lpTransmitBuffers, UInt32, dwReserved, BOOL)
+        lpOverlappedMarshal := lpOverlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+        lpTransmitBuffersMarshal := lpTransmitBuffers == 0 ? IntPtr : TRANSMIT_FILE_BUFFERS.Ptr
+
+        result := DllCall(this.value, SOCKET, hSocket, HANDLE, hFile, UInt32, nNumberOfBytesToWrite, UInt32, nNumberOfBytesPerSend, lpOverlappedMarshal, lpOverlapped, lpTransmitBuffersMarshal, lpTransmitBuffers, UInt32, dwReserved, BOOL)
         return result
     }
 

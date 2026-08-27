@@ -88,9 +88,9 @@ export default struct ID2D1Multithread extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMultithreadProtected := CallbackCreate(GetMethod(implObj, "GetMultithreadProtected"), flags, 1)
-        this.vtbl.Enter := CallbackCreate(GetMethod(implObj, "Enter"), flags, 1)
-        this.vtbl.Leave := CallbackCreate(GetMethod(implObj, "Leave"), flags, 1)
+        this.vtbl.GetMultithreadProtected := CallbackCreate(ObjBindMethod(implObj, "GetMultithreadProtected"), flags, 1)
+        this.vtbl.Enter := CallbackCreate(ObjBindMethod(implObj, "Enter"), flags, 1)
+        this.vtbl.Leave := CallbackCreate(ObjBindMethod(implObj, "Leave"), flags, 1)
     }
 
     Dispose() {

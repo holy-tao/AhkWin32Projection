@@ -11,13 +11,12 @@
 
 ;@region Functions
 /**
- * 
  * @param {Pointer<VHF_CONFIG>} VhfConfig 
  * @param {Pointer<Pointer<Void>>} VhfHandle 
  * @returns {NTSTATUS} 
  */
 export VhfCreate(VhfConfig, VhfHandle) {
-    VhfHandleMarshal := VhfHandle is VarRef ? "ptr*" : "ptr"
+    VhfHandleMarshal := VhfHandle is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("VhfUm.DLL\VhfCreate", VHF_CONFIG.Ptr, VhfConfig, VhfHandleMarshal, VhfHandle, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -25,12 +24,11 @@ export VhfCreate(VhfConfig, VhfHandle) {
 }
 
 /**
- * 
  * @param {Pointer<Void>} VhfHandle 
  * @returns {NTSTATUS} 
  */
 export VhfStart(VhfHandle) {
-    VhfHandleMarshal := VhfHandle is VarRef ? "ptr" : "ptr"
+    VhfHandleMarshal := VhfHandle is VarRef ? "ptr" : IntPtr
 
     result := DllCall("VhfUm.DLL\VhfStart", VhfHandleMarshal, VhfHandle, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -38,25 +36,23 @@ export VhfStart(VhfHandle) {
 }
 
 /**
- * 
  * @param {Pointer<Void>} VhfHandle 
  * @param {BOOLEAN} Wait 
  * @returns {String} Nothing - always returns an empty string
  */
 export VhfDelete(VhfHandle, Wait) {
-    VhfHandleMarshal := VhfHandle is VarRef ? "ptr" : "ptr"
+    VhfHandleMarshal := VhfHandle is VarRef ? "ptr" : IntPtr
 
     DllCall("VhfUm.DLL\VhfDelete", VhfHandleMarshal, VhfHandle, BOOLEAN, Wait)
 }
 
 /**
- * 
  * @param {Pointer<Void>} VhfHandle 
  * @param {Pointer<HID_XFER_PACKET>} HidTransferPacket 
  * @returns {NTSTATUS} 
  */
 export VhfReadReportSubmit(VhfHandle, HidTransferPacket) {
-    VhfHandleMarshal := VhfHandle is VarRef ? "ptr" : "ptr"
+    VhfHandleMarshal := VhfHandle is VarRef ? "ptr" : IntPtr
 
     result := DllCall("VhfUm.DLL\VhfReadReportSubmit", VhfHandleMarshal, VhfHandle, HID_XFER_PACKET.Ptr, HidTransferPacket, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -64,13 +60,12 @@ export VhfReadReportSubmit(VhfHandle, HidTransferPacket) {
 }
 
 /**
- * 
  * @param {Pointer<Void>} VhfOperationHandle 
  * @param {NTSTATUS} CompletionStatus 
  * @returns {NTSTATUS} 
  */
 export VhfAsyncOperationComplete(VhfOperationHandle, CompletionStatus) {
-    VhfOperationHandleMarshal := VhfOperationHandle is VarRef ? "ptr" : "ptr"
+    VhfOperationHandleMarshal := VhfOperationHandle is VarRef ? "ptr" : IntPtr
 
     result := DllCall("VhfUm.DLL\VhfAsyncOperationComplete", VhfOperationHandleMarshal, VhfOperationHandle, NTSTATUS, CompletionStatus, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)

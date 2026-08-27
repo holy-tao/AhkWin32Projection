@@ -24,13 +24,12 @@ export default struct PERF_MEM_ALLOC {
     }
 
     /**
-     * 
      * @param {Pointer} AllocSize Number of bytes to allocate.
      * @param {Pointer<Void>} pContext Context information set in the <b>pMemContext</b> member of <a href="https://docs.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_provider_context">PERF_PROVIDER_CONTEXT</a>.
      * @returns {Pointer<Void>} Pointer to the allocated memory or <b>NULL</b> if an error occurred.
      */
     Call(AllocSize, pContext) {
-        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+        pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, IntPtr, AllocSize, pContextMarshal, pContext, IntPtr)
         return result

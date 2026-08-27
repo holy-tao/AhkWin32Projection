@@ -58,7 +58,6 @@ export default struct IHTMLCSSNamespaceRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_namespaceURI() {
@@ -68,7 +67,6 @@ export default struct IHTMLCSSNamespaceRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_prefix() {
@@ -86,8 +84,8 @@ export default struct IHTMLCSSNamespaceRule extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_namespaceURI := CallbackCreate(GetMethod(implObj, "get_namespaceURI"), flags, 2)
-        this.vtbl.get_prefix := CallbackCreate(GetMethod(implObj, "get_prefix"), flags, 2)
+        this.vtbl.get_namespaceURI := CallbackCreate(ObjBindMethod(implObj, "get_namespaceURI"), flags, 2)
+        this.vtbl.get_prefix := CallbackCreate(ObjBindMethod(implObj, "get_prefix"), flags, 2)
     }
 
     Dispose() {

@@ -57,7 +57,7 @@ export default struct IVdsControllerControllerPort extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryControllerPorts := CallbackCreate(GetMethod(implObj, "QueryControllerPorts"), flags, 2)
+        this.vtbl.QueryControllerPorts := CallbackCreate(ObjBindMethod(implObj, "QueryControllerPorts"), flags, 2)
     }
 
     Dispose() {

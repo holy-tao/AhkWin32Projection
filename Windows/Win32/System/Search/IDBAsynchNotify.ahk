@@ -39,7 +39,6 @@ export default struct IDBAsynchNotify extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} dwReserved 
      * @returns {HRESULT} 
      */
@@ -49,7 +48,6 @@ export default struct IDBAsynchNotify extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hChapter 
      * @param {Integer} eOperation 
      * @param {Pointer} ulProgress 
@@ -61,12 +59,13 @@ export default struct IDBAsynchNotify extends IUnknown {
     OnProgress(hChapter, eOperation, ulProgress, ulProgressMax, eAsynchPhase, pwszStatusText) {
         pwszStatusText := pwszStatusText is String ? StrPtr(pwszStatusText) : pwszStatusText
 
-        result := ComCall(4, this, IntPtr, hChapter, UInt32, eOperation, IntPtr, ulProgress, IntPtr, ulProgressMax, UInt32, eAsynchPhase, "ptr", pwszStatusText, "HRESULT")
+        pwszStatusTextMarshal := pwszStatusText == 0 ? IntPtr : PWSTR
+
+        result := ComCall(4, this, IntPtr, hChapter, UInt32, eOperation, IntPtr, ulProgress, IntPtr, ulProgressMax, UInt32, eAsynchPhase, pwszStatusTextMarshal, pwszStatusText, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} hChapter 
      * @param {Integer} eOperation 
      * @param {HRESULT} hrStatus 
@@ -76,7 +75,9 @@ export default struct IDBAsynchNotify extends IUnknown {
     OnStop(hChapter, eOperation, hrStatus, pwszStatusText) {
         pwszStatusText := pwszStatusText is String ? StrPtr(pwszStatusText) : pwszStatusText
 
-        result := ComCall(5, this, IntPtr, hChapter, UInt32, eOperation, "int", hrStatus, "ptr", pwszStatusText, "HRESULT")
+        pwszStatusTextMarshal := pwszStatusText == 0 ? IntPtr : PWSTR
+
+        result := ComCall(5, this, IntPtr, hChapter, UInt32, eOperation, "int", hrStatus, pwszStatusTextMarshal, pwszStatusText, "HRESULT")
         return result
     }
 
@@ -89,9 +90,9 @@ export default struct IDBAsynchNotify extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnLowResource := CallbackCreate(GetMethod(implObj, "OnLowResource"), flags, 2)
-        this.vtbl.OnProgress := CallbackCreate(GetMethod(implObj, "OnProgress"), flags, 7)
-        this.vtbl.OnStop := CallbackCreate(GetMethod(implObj, "OnStop"), flags, 5)
+        this.vtbl.OnLowResource := CallbackCreate(ObjBindMethod(implObj, "OnLowResource"), flags, 2)
+        this.vtbl.OnProgress := CallbackCreate(ObjBindMethod(implObj, "OnProgress"), flags, 7)
+        this.vtbl.OnStop := CallbackCreate(ObjBindMethod(implObj, "OnStop"), flags, 5)
     }
 
     Dispose() {

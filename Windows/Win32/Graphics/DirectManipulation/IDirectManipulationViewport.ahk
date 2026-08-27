@@ -192,8 +192,10 @@ export default struct IDirectManipulationViewport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-gettag
      */
     GetTag(riid, _object, id) {
-        _objectMarshal := _object is VarRef ? "ptr*" : "ptr"
-        idMarshal := id is VarRef ? "uint*" : "ptr"
+        _objectMarshal := _object is VarRef ? "ptr*" : IntPtr
+        _objectMarshal := _object == 0 ? IntPtr : "ptr*"
+        idMarshal := id is VarRef ? "uint*" : IntPtr
+        idMarshal := id == 0 ? IntPtr : "uint*"
 
         result := ComCall(9, this, Guid.Ptr, riid, _objectMarshal, _object, idMarshal, id, "HRESULT")
         return result
@@ -211,7 +213,9 @@ export default struct IDirectManipulationViewport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-settag
      */
     SetTag(_object, id) {
-        result := ComCall(10, this, "ptr", _object, UInt32, id, "HRESULT")
+        _objectMarshal := _object == 0 ? IntPtr : "ptr"
+
+        result := ComCall(10, this, _objectMarshal, _object, UInt32, id, "HRESULT")
         return result
     }
 
@@ -282,7 +286,7 @@ export default struct IDirectManipulationViewport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-setviewporttransform
      */
     SetViewportTransform(_matrix, pointCount) {
-        _matrixMarshal := _matrix is VarRef ? "float*" : "ptr"
+        _matrixMarshal := _matrix is VarRef ? "float*" : IntPtr
 
         result := ComCall(14, this, _matrixMarshal, _matrix, UInt32, pointCount, "HRESULT")
         return result
@@ -307,7 +311,7 @@ export default struct IDirectManipulationViewport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-syncdisplaytransform
      */
     SyncDisplayTransform(_matrix, pointCount) {
-        _matrixMarshal := _matrix is VarRef ? "float*" : "ptr"
+        _matrixMarshal := _matrix is VarRef ? "float*" : IntPtr
 
         result := ComCall(15, this, _matrixMarshal, _matrix, UInt32, pointCount, "HRESULT")
         return result
@@ -473,7 +477,9 @@ export default struct IDirectManipulationViewport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationviewport-addeventhandler
      */
     AddEventHandler(window, eventHandler) {
-        result := ComCall(25, this, HWND, window, "ptr", eventHandler, "uint*", &cookie := 0, "HRESULT")
+        windowMarshal := window == 0 ? IntPtr : HWND
+
+        result := ComCall(25, this, windowMarshal, window, "ptr", eventHandler, "uint*", &cookie := 0, "HRESULT")
         return cookie
     }
 
@@ -564,34 +570,34 @@ export default struct IDirectManipulationViewport extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Enable := CallbackCreate(GetMethod(implObj, "Enable"), flags, 1)
-        this.vtbl.Disable := CallbackCreate(GetMethod(implObj, "Disable"), flags, 1)
-        this.vtbl.SetContact := CallbackCreate(GetMethod(implObj, "SetContact"), flags, 2)
-        this.vtbl.ReleaseContact := CallbackCreate(GetMethod(implObj, "ReleaseContact"), flags, 2)
-        this.vtbl.ReleaseAllContacts := CallbackCreate(GetMethod(implObj, "ReleaseAllContacts"), flags, 1)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 4)
-        this.vtbl.SetTag := CallbackCreate(GetMethod(implObj, "SetTag"), flags, 3)
-        this.vtbl.GetViewportRect := CallbackCreate(GetMethod(implObj, "GetViewportRect"), flags, 2)
-        this.vtbl.SetViewportRect := CallbackCreate(GetMethod(implObj, "SetViewportRect"), flags, 2)
-        this.vtbl.ZoomToRect := CallbackCreate(GetMethod(implObj, "ZoomToRect"), flags, 6)
-        this.vtbl.SetViewportTransform := CallbackCreate(GetMethod(implObj, "SetViewportTransform"), flags, 3)
-        this.vtbl.SyncDisplayTransform := CallbackCreate(GetMethod(implObj, "SyncDisplayTransform"), flags, 3)
-        this.vtbl.GetPrimaryContent := CallbackCreate(GetMethod(implObj, "GetPrimaryContent"), flags, 3)
-        this.vtbl.AddContent := CallbackCreate(GetMethod(implObj, "AddContent"), flags, 2)
-        this.vtbl.RemoveContent := CallbackCreate(GetMethod(implObj, "RemoveContent"), flags, 2)
-        this.vtbl.SetViewportOptions := CallbackCreate(GetMethod(implObj, "SetViewportOptions"), flags, 2)
-        this.vtbl.AddConfiguration := CallbackCreate(GetMethod(implObj, "AddConfiguration"), flags, 2)
-        this.vtbl.RemoveConfiguration := CallbackCreate(GetMethod(implObj, "RemoveConfiguration"), flags, 2)
-        this.vtbl.ActivateConfiguration := CallbackCreate(GetMethod(implObj, "ActivateConfiguration"), flags, 2)
-        this.vtbl.SetManualGesture := CallbackCreate(GetMethod(implObj, "SetManualGesture"), flags, 2)
-        this.vtbl.SetChaining := CallbackCreate(GetMethod(implObj, "SetChaining"), flags, 2)
-        this.vtbl.AddEventHandler := CallbackCreate(GetMethod(implObj, "AddEventHandler"), flags, 4)
-        this.vtbl.RemoveEventHandler := CallbackCreate(GetMethod(implObj, "RemoveEventHandler"), flags, 2)
-        this.vtbl.SetInputMode := CallbackCreate(GetMethod(implObj, "SetInputMode"), flags, 2)
-        this.vtbl.SetUpdateMode := CallbackCreate(GetMethod(implObj, "SetUpdateMode"), flags, 2)
-        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
-        this.vtbl.Abandon := CallbackCreate(GetMethod(implObj, "Abandon"), flags, 1)
+        this.vtbl.Enable := CallbackCreate(ObjBindMethod(implObj, "Enable"), flags, 1)
+        this.vtbl.Disable := CallbackCreate(ObjBindMethod(implObj, "Disable"), flags, 1)
+        this.vtbl.SetContact := CallbackCreate(ObjBindMethod(implObj, "SetContact"), flags, 2)
+        this.vtbl.ReleaseContact := CallbackCreate(ObjBindMethod(implObj, "ReleaseContact"), flags, 2)
+        this.vtbl.ReleaseAllContacts := CallbackCreate(ObjBindMethod(implObj, "ReleaseAllContacts"), flags, 1)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 4)
+        this.vtbl.SetTag := CallbackCreate(ObjBindMethod(implObj, "SetTag"), flags, 3)
+        this.vtbl.GetViewportRect := CallbackCreate(ObjBindMethod(implObj, "GetViewportRect"), flags, 2)
+        this.vtbl.SetViewportRect := CallbackCreate(ObjBindMethod(implObj, "SetViewportRect"), flags, 2)
+        this.vtbl.ZoomToRect := CallbackCreate(ObjBindMethod(implObj, "ZoomToRect"), flags, 6)
+        this.vtbl.SetViewportTransform := CallbackCreate(ObjBindMethod(implObj, "SetViewportTransform"), flags, 3)
+        this.vtbl.SyncDisplayTransform := CallbackCreate(ObjBindMethod(implObj, "SyncDisplayTransform"), flags, 3)
+        this.vtbl.GetPrimaryContent := CallbackCreate(ObjBindMethod(implObj, "GetPrimaryContent"), flags, 3)
+        this.vtbl.AddContent := CallbackCreate(ObjBindMethod(implObj, "AddContent"), flags, 2)
+        this.vtbl.RemoveContent := CallbackCreate(ObjBindMethod(implObj, "RemoveContent"), flags, 2)
+        this.vtbl.SetViewportOptions := CallbackCreate(ObjBindMethod(implObj, "SetViewportOptions"), flags, 2)
+        this.vtbl.AddConfiguration := CallbackCreate(ObjBindMethod(implObj, "AddConfiguration"), flags, 2)
+        this.vtbl.RemoveConfiguration := CallbackCreate(ObjBindMethod(implObj, "RemoveConfiguration"), flags, 2)
+        this.vtbl.ActivateConfiguration := CallbackCreate(ObjBindMethod(implObj, "ActivateConfiguration"), flags, 2)
+        this.vtbl.SetManualGesture := CallbackCreate(ObjBindMethod(implObj, "SetManualGesture"), flags, 2)
+        this.vtbl.SetChaining := CallbackCreate(ObjBindMethod(implObj, "SetChaining"), flags, 2)
+        this.vtbl.AddEventHandler := CallbackCreate(ObjBindMethod(implObj, "AddEventHandler"), flags, 4)
+        this.vtbl.RemoveEventHandler := CallbackCreate(ObjBindMethod(implObj, "RemoveEventHandler"), flags, 2)
+        this.vtbl.SetInputMode := CallbackCreate(ObjBindMethod(implObj, "SetInputMode"), flags, 2)
+        this.vtbl.SetUpdateMode := CallbackCreate(ObjBindMethod(implObj, "SetUpdateMode"), flags, 2)
+        this.vtbl.Stop := CallbackCreate(ObjBindMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.Abandon := CallbackCreate(ObjBindMethod(implObj, "Abandon"), flags, 1)
     }
 
     Dispose() {

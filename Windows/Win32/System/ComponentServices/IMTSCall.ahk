@@ -58,7 +58,7 @@ export default struct IMTSCall extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnCall := CallbackCreate(GetMethod(implObj, "OnCall"), flags, 1)
+        this.vtbl.OnCall := CallbackCreate(ObjBindMethod(implObj, "OnCall"), flags, 1)
     }
 
     Dispose() {

@@ -50,7 +50,6 @@ export default struct INetCfgBindingInterface extends IUnknown {
     }
 
     /**
-     * 
      * @returns {INetCfgComponent} 
      */
     GetUpperComponent() {
@@ -59,7 +58,6 @@ export default struct INetCfgBindingInterface extends IUnknown {
     }
 
     /**
-     * 
      * @returns {INetCfgComponent} 
      */
     GetLowerComponent() {
@@ -76,9 +74,9 @@ export default struct INetCfgBindingInterface extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
-        this.vtbl.GetUpperComponent := CallbackCreate(GetMethod(implObj, "GetUpperComponent"), flags, 2)
-        this.vtbl.GetLowerComponent := CallbackCreate(GetMethod(implObj, "GetLowerComponent"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetUpperComponent := CallbackCreate(ObjBindMethod(implObj, "GetUpperComponent"), flags, 2)
+        this.vtbl.GetLowerComponent := CallbackCreate(ObjBindMethod(implObj, "GetLowerComponent"), flags, 2)
     }
 
     Dispose() {

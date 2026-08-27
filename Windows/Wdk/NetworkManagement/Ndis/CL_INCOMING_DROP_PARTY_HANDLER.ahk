@@ -18,7 +18,6 @@ export default struct CL_INCOMING_DROP_PARTY_HANDLER {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

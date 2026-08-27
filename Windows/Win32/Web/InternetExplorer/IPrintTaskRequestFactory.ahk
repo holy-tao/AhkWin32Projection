@@ -37,12 +37,13 @@ export default struct IPrintTaskRequestFactory extends IUnknown {
     }
 
     /**
-     * 
      * @param {IPrintTaskRequestHandler} pPrintTaskRequestHandler 
      * @returns {HRESULT} 
      */
     CreatePrintTaskRequest(pPrintTaskRequestHandler) {
-        result := ComCall(3, this, "ptr", pPrintTaskRequestHandler, "HRESULT")
+        pPrintTaskRequestHandlerMarshal := pPrintTaskRequestHandler == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pPrintTaskRequestHandlerMarshal, pPrintTaskRequestHandler, "HRESULT")
         return result
     }
 
@@ -55,7 +56,7 @@ export default struct IPrintTaskRequestFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreatePrintTaskRequest := CallbackCreate(GetMethod(implObj, "CreatePrintTaskRequest"), flags, 2)
+        this.vtbl.CreatePrintTaskRequest := CallbackCreate(ObjBindMethod(implObj, "CreatePrintTaskRequest"), flags, 2)
     }
 
     Dispose() {

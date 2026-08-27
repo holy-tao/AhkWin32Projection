@@ -36,7 +36,6 @@ export default struct IDebugAsyncOperationCallBack extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     onComplete() {
@@ -53,7 +52,7 @@ export default struct IDebugAsyncOperationCallBack extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.onComplete := CallbackCreate(GetMethod(implObj, "onComplete"), flags, 1)
+        this.vtbl.onComplete := CallbackCreate(ObjBindMethod(implObj, "onComplete"), flags, 1)
     }
 
     Dispose() {

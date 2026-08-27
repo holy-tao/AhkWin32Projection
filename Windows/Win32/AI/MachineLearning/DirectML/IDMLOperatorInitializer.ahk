@@ -63,7 +63,9 @@ export default struct IDMLOperatorInitializer extends IDMLDispatchable {
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmloperatorinitializer-reset
      */
     Reset(operatorCount, operators) {
-        result := ComCall(9, this, UInt32, operatorCount, IDMLCompiledOperator.Ptr, operators, "HRESULT")
+        operatorsMarshal := operators == 0 ? IntPtr : IDMLCompiledOperator.Ptr
+
+        result := ComCall(9, this, UInt32, operatorCount, operatorsMarshal, operators, "HRESULT")
         return result
     }
 
@@ -76,7 +78,7 @@ export default struct IDMLOperatorInitializer extends IDMLDispatchable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 3)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 3)
     }
 
     Dispose() {

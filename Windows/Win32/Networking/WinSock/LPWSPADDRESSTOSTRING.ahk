@@ -38,7 +38,6 @@ export default struct LPWSPADDRESSTOSTRING {
     }
 
     /**
-     * 
      * @param {Integer} lpsaAddress Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure to translate into a string.
      * @param {Integer} dwAddressLength Length of the address of <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a>, in bytes.
@@ -88,10 +87,11 @@ export default struct LPWSPADDRESSTOSTRING {
     Call(lpsaAddress, dwAddressLength, lpProtocolInfo, lpszAddressString, lpdwAddressStringLength, lpErrno) {
         lpszAddressString := lpszAddressString is String ? StrPtr(lpszAddressString) : lpszAddressString
 
-        lpdwAddressStringLengthMarshal := lpdwAddressStringLength is VarRef ? "uint*" : "ptr"
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        lpProtocolInfoMarshal := lpProtocolInfo == 0 ? IntPtr : WSAPROTOCOL_INFOW.Ptr
+        lpdwAddressStringLengthMarshal := lpdwAddressStringLength is VarRef ? "uint*" : IntPtr
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
-        result := DllCall(this.value, IntPtr, lpsaAddress, UInt32, dwAddressLength, WSAPROTOCOL_INFOW.Ptr, lpProtocolInfo, "ptr", lpszAddressString, lpdwAddressStringLengthMarshal, lpdwAddressStringLength, lpErrnoMarshal, lpErrno, Int32)
+        result := DllCall(this.value, IntPtr, lpsaAddress, UInt32, dwAddressLength, lpProtocolInfoMarshal, lpProtocolInfo, "ptr", lpszAddressString, lpdwAddressStringLengthMarshal, lpdwAddressStringLength, lpErrnoMarshal, lpErrno, Int32)
         return result
     }
 

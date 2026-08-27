@@ -20,7 +20,6 @@ export default struct PF_NPFMXGetPermHelp {
     }
 
     /**
-     * 
      * @param {PWSTR} lpDriveName 
      * @param {Integer} nDialogType 
      * @param {BOOL} fDirectory 
@@ -32,9 +31,9 @@ export default struct PF_NPFMXGetPermHelp {
     Call(lpDriveName, nDialogType, fDirectory, lpFileNameBuffer, lpBufferSize, lpnHelpContext) {
         lpDriveName := lpDriveName is String ? StrPtr(lpDriveName) : lpDriveName
 
-        lpFileNameBufferMarshal := lpFileNameBuffer is VarRef ? "ptr" : "ptr"
-        lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : "ptr"
-        lpnHelpContextMarshal := lpnHelpContext is VarRef ? "uint*" : "ptr"
+        lpFileNameBufferMarshal := lpFileNameBuffer is VarRef ? "ptr" : IntPtr
+        lpBufferSizeMarshal := lpBufferSize is VarRef ? "uint*" : IntPtr
+        lpnHelpContextMarshal := lpnHelpContext is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, "ptr", lpDriveName, UInt32, nDialogType, BOOL, fDirectory, lpFileNameBufferMarshal, lpFileNameBuffer, lpBufferSizeMarshal, lpBufferSize, lpnHelpContextMarshal, lpnHelpContext, UInt32)
         return result

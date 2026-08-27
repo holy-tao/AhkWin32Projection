@@ -118,10 +118,10 @@ export default struct IFsrmActionEventLog extends IFsrmAction {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_EventType := CallbackCreate(GetMethod(implObj, "get_EventType"), flags, 2)
-        this.vtbl.put_EventType := CallbackCreate(GetMethod(implObj, "put_EventType"), flags, 2)
-        this.vtbl.get_MessageText := CallbackCreate(GetMethod(implObj, "get_MessageText"), flags, 2)
-        this.vtbl.put_MessageText := CallbackCreate(GetMethod(implObj, "put_MessageText"), flags, 2)
+        this.vtbl.get_EventType := CallbackCreate(ObjBindMethod(implObj, "get_EventType"), flags, 2)
+        this.vtbl.put_EventType := CallbackCreate(ObjBindMethod(implObj, "put_EventType"), flags, 2)
+        this.vtbl.get_MessageText := CallbackCreate(ObjBindMethod(implObj, "get_MessageText"), flags, 2)
+        this.vtbl.put_MessageText := CallbackCreate(ObjBindMethod(implObj, "put_MessageText"), flags, 2)
     }
 
     Dispose() {

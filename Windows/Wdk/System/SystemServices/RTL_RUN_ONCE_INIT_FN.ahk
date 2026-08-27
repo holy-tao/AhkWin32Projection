@@ -19,15 +19,16 @@ export default struct RTL_RUN_ONCE_INIT_FN {
     }
 
     /**
-     * 
      * @param {Pointer<INIT_ONCE>} RunOnce 
      * @param {Pointer<Void>} Parameter 
      * @param {Pointer<Pointer<Void>>} _Context 
      * @returns {Integer} 
      */
     Call(RunOnce, Parameter, _Context) {
-        ParameterMarshal := Parameter is VarRef ? "ptr" : "ptr"
-        _ContextMarshal := _Context is VarRef ? "ptr*" : "ptr"
+        ParameterMarshal := Parameter is VarRef ? "ptr" : IntPtr
+        ParameterMarshal := Parameter == 0 ? IntPtr : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr*" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr*"
 
         result := DllCall(this.value, INIT_ONCE.Ptr, RunOnce, ParameterMarshal, Parameter, _ContextMarshal, _Context, UInt32)
         return result

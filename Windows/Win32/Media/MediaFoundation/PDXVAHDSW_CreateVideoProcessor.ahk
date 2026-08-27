@@ -23,7 +23,6 @@ export default struct PDXVAHDSW_CreateVideoProcessor {
     }
 
     /**
-     * 
      * @param {HANDLE} hDevice A handle to the plug-in DXVA-HD device that creates the video processor.
      * @param {Pointer<Guid>} pVPGuid A GUID that identifies the video processor to create.
      * @returns {HANDLE} Receives a handle to the software video processor.

@@ -19,7 +19,6 @@ export default struct LPDDHAL_GETHEAPALIGNMENT {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_GETHEAPALIGNMENTDATA>} param0 
      * @returns {Integer} 
      */

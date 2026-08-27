@@ -22,7 +22,6 @@ export default struct PFN_CMSG_GEN_ENCRYPT_KEY {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} phCryptProv 
      * @param {Pointer<CRYPT_ALGORITHM_IDENTIFIER>} paiEncrypt 
      * @param {Pointer<Void>} pvEncryptAuxInfo 
@@ -34,11 +33,12 @@ export default struct PFN_CMSG_GEN_ENCRYPT_KEY {
      * @returns {BOOL} 
      */
     Call(phCryptProv, paiEncrypt, pvEncryptAuxInfo, pPublicKeyInfo, _pfnAlloc, phEncryptKey, ppbEncryptParameters, pcbEncryptParameters) {
-        phCryptProvMarshal := phCryptProv is VarRef ? "ptr*" : "ptr"
-        pvEncryptAuxInfoMarshal := pvEncryptAuxInfo is VarRef ? "ptr" : "ptr"
-        phEncryptKeyMarshal := phEncryptKey is VarRef ? "ptr*" : "ptr"
-        ppbEncryptParametersMarshal := ppbEncryptParameters is VarRef ? "ptr*" : "ptr"
-        pcbEncryptParametersMarshal := pcbEncryptParameters is VarRef ? "uint*" : "ptr"
+        phCryptProvMarshal := phCryptProv is VarRef ? "ptr*" : IntPtr
+        pvEncryptAuxInfoMarshal := pvEncryptAuxInfo is VarRef ? "ptr" : IntPtr
+        pvEncryptAuxInfoMarshal := pvEncryptAuxInfo == 0 ? IntPtr : "ptr"
+        phEncryptKeyMarshal := phEncryptKey is VarRef ? "ptr*" : IntPtr
+        ppbEncryptParametersMarshal := ppbEncryptParameters is VarRef ? "ptr*" : IntPtr
+        pcbEncryptParametersMarshal := pcbEncryptParameters is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, phCryptProvMarshal, phCryptProv, CRYPT_ALGORITHM_IDENTIFIER.Ptr, paiEncrypt, pvEncryptAuxInfoMarshal, pvEncryptAuxInfo, CERT_PUBLIC_KEY_INFO.Ptr, pPublicKeyInfo, PFN_CMSG_ALLOC, _pfnAlloc, phEncryptKeyMarshal, phEncryptKey, ppbEncryptParametersMarshal, ppbEncryptParameters, pcbEncryptParametersMarshal, pcbEncryptParameters, BOOL)
         return result

@@ -20,7 +20,6 @@ export default struct PFND3DKMT_GETPOSTCOMPOSITIONCAPS {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_GET_POST_COMPOSITION_CAPS>} param0 
      * @returns {NTSTATUS} 
      */

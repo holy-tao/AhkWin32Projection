@@ -19,7 +19,6 @@ export default struct PFN_RTL_IS_SERVICE_PACK_VERSION_INSTALLED {
     }
 
     /**
-     * 
      * @param {Integer} _Version 
      * @returns {BOOLEAN} 
      */

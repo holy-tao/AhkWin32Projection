@@ -20,7 +20,6 @@ export default struct PFND3DKMT_EVICT {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_EVICT>} param0 
      * @returns {NTSTATUS} 
      */

@@ -22,7 +22,6 @@ export default struct MI_Deserializer_ClassObjectNeeded {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context A pointer to the context.
      * @param {Pointer<Integer>} serverName The name of the server.
      * @param {Pointer<Integer>} namespaceName The namespace of the object.
@@ -31,11 +30,14 @@ export default struct MI_Deserializer_ClassObjectNeeded {
      * @returns {MI_Result} Returns a <a href="https://docs.microsoft.com/windows/desktop/api/mi/ne-mi-mi_result">MI_Result</a> indicating the status of the operation.
      */
     Call(_context, serverName, namespaceName, className, requestedClassObject) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
-        serverNameMarshal := serverName is VarRef ? "ushort*" : "ptr"
-        namespaceNameMarshal := namespaceName is VarRef ? "ushort*" : "ptr"
-        classNameMarshal := className is VarRef ? "ushort*" : "ptr"
-        requestedClassObjectMarshal := requestedClassObject is VarRef ? "ptr*" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+        _contextMarshal := _context == 0 ? IntPtr : "ptr"
+        serverNameMarshal := serverName is VarRef ? "ushort*" : IntPtr
+        serverNameMarshal := serverName == 0 ? IntPtr : "ushort*"
+        namespaceNameMarshal := namespaceName is VarRef ? "ushort*" : IntPtr
+        namespaceNameMarshal := namespaceName == 0 ? IntPtr : "ushort*"
+        classNameMarshal := className is VarRef ? "ushort*" : IntPtr
+        requestedClassObjectMarshal := requestedClassObject is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, _contextMarshal, _context, serverNameMarshal, serverName, namespaceNameMarshal, namespaceName, classNameMarshal, className, requestedClassObjectMarshal, requestedClassObject, MI_Result)
         return result

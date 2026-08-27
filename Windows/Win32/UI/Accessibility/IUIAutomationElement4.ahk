@@ -227,16 +227,16 @@ export default struct IUIAutomationElement4 extends IUIAutomationElement3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_CurrentPositionInSet := CallbackCreate(GetMethod(implObj, "get_CurrentPositionInSet"), flags, 2)
-        this.vtbl.get_CurrentSizeOfSet := CallbackCreate(GetMethod(implObj, "get_CurrentSizeOfSet"), flags, 2)
-        this.vtbl.get_CurrentLevel := CallbackCreate(GetMethod(implObj, "get_CurrentLevel"), flags, 2)
-        this.vtbl.get_CurrentAnnotationTypes := CallbackCreate(GetMethod(implObj, "get_CurrentAnnotationTypes"), flags, 2)
-        this.vtbl.get_CurrentAnnotationObjects := CallbackCreate(GetMethod(implObj, "get_CurrentAnnotationObjects"), flags, 2)
-        this.vtbl.get_CachedPositionInSet := CallbackCreate(GetMethod(implObj, "get_CachedPositionInSet"), flags, 2)
-        this.vtbl.get_CachedSizeOfSet := CallbackCreate(GetMethod(implObj, "get_CachedSizeOfSet"), flags, 2)
-        this.vtbl.get_CachedLevel := CallbackCreate(GetMethod(implObj, "get_CachedLevel"), flags, 2)
-        this.vtbl.get_CachedAnnotationTypes := CallbackCreate(GetMethod(implObj, "get_CachedAnnotationTypes"), flags, 2)
-        this.vtbl.get_CachedAnnotationObjects := CallbackCreate(GetMethod(implObj, "get_CachedAnnotationObjects"), flags, 2)
+        this.vtbl.get_CurrentPositionInSet := CallbackCreate(ObjBindMethod(implObj, "get_CurrentPositionInSet"), flags, 2)
+        this.vtbl.get_CurrentSizeOfSet := CallbackCreate(ObjBindMethod(implObj, "get_CurrentSizeOfSet"), flags, 2)
+        this.vtbl.get_CurrentLevel := CallbackCreate(ObjBindMethod(implObj, "get_CurrentLevel"), flags, 2)
+        this.vtbl.get_CurrentAnnotationTypes := CallbackCreate(ObjBindMethod(implObj, "get_CurrentAnnotationTypes"), flags, 2)
+        this.vtbl.get_CurrentAnnotationObjects := CallbackCreate(ObjBindMethod(implObj, "get_CurrentAnnotationObjects"), flags, 2)
+        this.vtbl.get_CachedPositionInSet := CallbackCreate(ObjBindMethod(implObj, "get_CachedPositionInSet"), flags, 2)
+        this.vtbl.get_CachedSizeOfSet := CallbackCreate(ObjBindMethod(implObj, "get_CachedSizeOfSet"), flags, 2)
+        this.vtbl.get_CachedLevel := CallbackCreate(ObjBindMethod(implObj, "get_CachedLevel"), flags, 2)
+        this.vtbl.get_CachedAnnotationTypes := CallbackCreate(ObjBindMethod(implObj, "get_CachedAnnotationTypes"), flags, 2)
+        this.vtbl.get_CachedAnnotationObjects := CallbackCreate(ObjBindMethod(implObj, "get_CachedAnnotationObjects"), flags, 2)
     }
 
     Dispose() {

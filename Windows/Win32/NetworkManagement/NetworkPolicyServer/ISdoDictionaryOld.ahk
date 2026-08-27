@@ -148,11 +148,11 @@ export default struct ISdoDictionaryOld extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumAttributes := CallbackCreate(GetMethod(implObj, "EnumAttributes"), flags, 3)
-        this.vtbl.GetAttributeInfo := CallbackCreate(GetMethod(implObj, "GetAttributeInfo"), flags, 4)
-        this.vtbl.EnumAttributeValues := CallbackCreate(GetMethod(implObj, "EnumAttributeValues"), flags, 4)
-        this.vtbl.CreateAttribute := CallbackCreate(GetMethod(implObj, "CreateAttribute"), flags, 3)
-        this.vtbl.GetAttributeID := CallbackCreate(GetMethod(implObj, "GetAttributeID"), flags, 3)
+        this.vtbl.EnumAttributes := CallbackCreate(ObjBindMethod(implObj, "EnumAttributes"), flags, 3)
+        this.vtbl.GetAttributeInfo := CallbackCreate(ObjBindMethod(implObj, "GetAttributeInfo"), flags, 4)
+        this.vtbl.EnumAttributeValues := CallbackCreate(ObjBindMethod(implObj, "EnumAttributeValues"), flags, 4)
+        this.vtbl.CreateAttribute := CallbackCreate(ObjBindMethod(implObj, "CreateAttribute"), flags, 3)
+        this.vtbl.GetAttributeID := CallbackCreate(ObjBindMethod(implObj, "GetAttributeID"), flags, 3)
     }
 
     Dispose() {

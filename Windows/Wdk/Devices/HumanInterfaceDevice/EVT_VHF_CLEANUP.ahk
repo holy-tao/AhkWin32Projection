@@ -18,12 +18,11 @@ export default struct EVT_VHF_CLEANUP {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} VhfClientContext 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(VhfClientContext) {
-        VhfClientContextMarshal := VhfClientContext is VarRef ? "ptr" : "ptr"
+        VhfClientContextMarshal := VhfClientContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, VhfClientContextMarshal, VhfClientContext)
     }

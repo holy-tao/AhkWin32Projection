@@ -95,7 +95,7 @@ export default struct IVdsCreatePartitionEx extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreatePartitionEx := CallbackCreate(GetMethod(implObj, "CreatePartitionEx"), flags, 6)
+        this.vtbl.CreatePartitionEx := CallbackCreate(ObjBindMethod(implObj, "CreatePartitionEx"), flags, 6)
     }
 
     Dispose() {

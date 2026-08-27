@@ -55,8 +55,8 @@ export default struct IAudioProcessingObjectRT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobjectrt-apoprocess
      */
     APOProcess(u32NumInputConnections, ppInputConnections, u32NumOutputConnections, ppOutputConnections) {
-        ppInputConnectionsMarshal := ppInputConnections is VarRef ? "ptr*" : "ptr"
-        ppOutputConnectionsMarshal := ppOutputConnections is VarRef ? "ptr*" : "ptr"
+        ppInputConnectionsMarshal := ppInputConnections is VarRef ? "ptr*" : IntPtr
+        ppOutputConnectionsMarshal := ppOutputConnections is VarRef ? "ptr*" : IntPtr
 
         ComCall(3, this, UInt32, u32NumInputConnections, ppInputConnectionsMarshal, ppInputConnections, UInt32, u32NumOutputConnections, ppOutputConnectionsMarshal, ppOutputConnections)
     }
@@ -110,9 +110,9 @@ export default struct IAudioProcessingObjectRT extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.APOProcess := CallbackCreate(GetMethod(implObj, "APOProcess"), flags, 5)
-        this.vtbl.CalcInputFrames := CallbackCreate(GetMethod(implObj, "CalcInputFrames"), flags, 2)
-        this.vtbl.CalcOutputFrames := CallbackCreate(GetMethod(implObj, "CalcOutputFrames"), flags, 2)
+        this.vtbl.APOProcess := CallbackCreate(ObjBindMethod(implObj, "APOProcess"), flags, 5)
+        this.vtbl.CalcInputFrames := CallbackCreate(ObjBindMethod(implObj, "CalcInputFrames"), flags, 2)
+        this.vtbl.CalcOutputFrames := CallbackCreate(ObjBindMethod(implObj, "CalcOutputFrames"), flags, 2)
     }
 
     Dispose() {

@@ -92,9 +92,9 @@ export default struct IMFCameraOcclusionStateMonitor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 1)
-        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
-        this.vtbl.GetSupportedStates := CallbackCreate(GetMethod(implObj, "GetSupportedStates"), flags, 1)
+        this.vtbl.Start := CallbackCreate(ObjBindMethod(implObj, "Start"), flags, 1)
+        this.vtbl.Stop := CallbackCreate(ObjBindMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.GetSupportedStates := CallbackCreate(ObjBindMethod(implObj, "GetSupportedStates"), flags, 1)
     }
 
     Dispose() {

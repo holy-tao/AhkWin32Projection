@@ -20,7 +20,6 @@ export default struct PFLT_CONNECT_NOTIFY {
     }
 
     /**
-     * 
      * @param {PFLT_PORT} ClientPort 
      * @param {Pointer<Void>} ServerPortCookie 
      * @param {Integer} ConnectionContext 
@@ -29,10 +28,12 @@ export default struct PFLT_CONNECT_NOTIFY {
      * @returns {NTSTATUS} 
      */
     Call(ClientPort, ServerPortCookie, ConnectionContext, SizeOfContext, ConnectionPortCookie) {
-        ServerPortCookieMarshal := ServerPortCookie is VarRef ? "ptr" : "ptr"
-        ConnectionPortCookieMarshal := ConnectionPortCookie is VarRef ? "ptr*" : "ptr"
+        ServerPortCookieMarshal := ServerPortCookie is VarRef ? "ptr" : IntPtr
+        ServerPortCookieMarshal := ServerPortCookie == 0 ? IntPtr : "ptr"
+        ConnectionContextMarshal := ConnectionContext == 0 ? IntPtr : IntPtr
+        ConnectionPortCookieMarshal := ConnectionPortCookie is VarRef ? "ptr*" : IntPtr
 
-        result := DllCall(this.value, PFLT_PORT, ClientPort, ServerPortCookieMarshal, ServerPortCookie, IntPtr, ConnectionContext, UInt32, SizeOfContext, ConnectionPortCookieMarshal, ConnectionPortCookie, NTSTATUS)
+        result := DllCall(this.value, PFLT_PORT, ClientPort, ServerPortCookieMarshal, ServerPortCookie, ConnectionContextMarshal, ConnectionContext, UInt32, SizeOfContext, ConnectionPortCookieMarshal, ConnectionPortCookie, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

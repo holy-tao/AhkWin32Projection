@@ -103,7 +103,7 @@ export default struct ITTAPIEventNotification extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Event := CallbackCreate(GetMethod(implObj, "Event"), flags, 3)
+        this.vtbl.Event := CallbackCreate(ObjBindMethod(implObj, "Event"), flags, 3)
     }
 
     Dispose() {

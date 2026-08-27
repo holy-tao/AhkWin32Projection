@@ -37,7 +37,6 @@ export default struct IWebBrowserEventsUrlService extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetUrlForEvents() {
@@ -55,7 +54,7 @@ export default struct IWebBrowserEventsUrlService extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetUrlForEvents := CallbackCreate(GetMethod(implObj, "GetUrlForEvents"), flags, 2)
+        this.vtbl.GetUrlForEvents := CallbackCreate(ObjBindMethod(implObj, "GetUrlForEvents"), flags, 2)
     }
 
     Dispose() {

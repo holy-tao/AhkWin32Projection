@@ -106,7 +106,7 @@ export default struct IWiaDataCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiadatacallback-bandeddatacallback
      */
     BandedDataCallback(lMessage, lStatus, lPercentComplete, lOffset, lLength, lReserved, lResLength, pbBuffer) {
-        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, Int32, lMessage, Int32, lStatus, Int32, lPercentComplete, Int32, lOffset, Int32, lLength, Int32, lReserved, Int32, lResLength, pbBufferMarshal, pbBuffer, "HRESULT")
         return result
@@ -121,7 +121,7 @@ export default struct IWiaDataCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BandedDataCallback := CallbackCreate(GetMethod(implObj, "BandedDataCallback"), flags, 9)
+        this.vtbl.BandedDataCallback := CallbackCreate(ObjBindMethod(implObj, "BandedDataCallback"), flags, 9)
     }
 
     Dispose() {

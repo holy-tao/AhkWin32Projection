@@ -46,7 +46,6 @@ export default struct IOpenServiceManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzServiceUrl 
      * @returns {IOpenService} 
      */
@@ -58,7 +57,6 @@ export default struct IOpenServiceManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {IOpenService} pService 
      * @returns {HRESULT} 
      */
@@ -68,7 +66,6 @@ export default struct IOpenServiceManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzID 
      * @returns {IOpenService} 
      */
@@ -88,9 +85,9 @@ export default struct IOpenServiceManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InstallService := CallbackCreate(GetMethod(implObj, "InstallService"), flags, 3)
-        this.vtbl.UninstallService := CallbackCreate(GetMethod(implObj, "UninstallService"), flags, 2)
-        this.vtbl.GetServiceByID := CallbackCreate(GetMethod(implObj, "GetServiceByID"), flags, 3)
+        this.vtbl.InstallService := CallbackCreate(ObjBindMethod(implObj, "InstallService"), flags, 3)
+        this.vtbl.UninstallService := CallbackCreate(ObjBindMethod(implObj, "UninstallService"), flags, 2)
+        this.vtbl.GetServiceByID := CallbackCreate(ObjBindMethod(implObj, "GetServiceByID"), flags, 3)
     }
 
     Dispose() {

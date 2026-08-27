@@ -38,7 +38,6 @@ export default struct IGameInputDispatcher extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} quotaInMicroseconds 
      * @returns {Boolean} 
      */
@@ -48,7 +47,6 @@ export default struct IGameInputDispatcher extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HANDLE} 
      */
     OpenWaitHandle() {
@@ -66,8 +64,8 @@ export default struct IGameInputDispatcher extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Dispatch := CallbackCreate(GetMethod(implObj, "Dispatch"), flags, 2)
-        this.vtbl.OpenWaitHandle := CallbackCreate(GetMethod(implObj, "OpenWaitHandle"), flags, 2)
+        this.vtbl.Dispatch := CallbackCreate(ObjBindMethod(implObj, "Dispatch"), flags, 2)
+        this.vtbl.OpenWaitHandle := CallbackCreate(ObjBindMethod(implObj, "OpenWaitHandle"), flags, 2)
     }
 
     Dispose() {

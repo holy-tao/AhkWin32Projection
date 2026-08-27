@@ -176,7 +176,9 @@ export default struct IConditionFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditionfactory-resolve
      */
     Resolve(pc, sqro, pstReferenceTime) {
-        result := ComCall(6, this, "ptr", pc, STRUCTURED_QUERY_RESOLVE_OPTION, sqro, SYSTEMTIME.Ptr, pstReferenceTime, "ptr*", &ppcResolved := 0, "HRESULT")
+        pstReferenceTimeMarshal := pstReferenceTime == 0 ? IntPtr : SYSTEMTIME.Ptr
+
+        result := ComCall(6, this, "ptr", pc, STRUCTURED_QUERY_RESOLVE_OPTION, sqro, pstReferenceTimeMarshal, pstReferenceTime, "ptr*", &ppcResolved := 0, "HRESULT")
         return ICondition(ppcResolved)
     }
 
@@ -189,10 +191,10 @@ export default struct IConditionFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.MakeNot := CallbackCreate(GetMethod(implObj, "MakeNot"), flags, 4)
-        this.vtbl.MakeAndOr := CallbackCreate(GetMethod(implObj, "MakeAndOr"), flags, 5)
-        this.vtbl.MakeLeaf := CallbackCreate(GetMethod(implObj, "MakeLeaf"), flags, 10)
-        this.vtbl.Resolve := CallbackCreate(GetMethod(implObj, "Resolve"), flags, 5)
+        this.vtbl.MakeNot := CallbackCreate(ObjBindMethod(implObj, "MakeNot"), flags, 4)
+        this.vtbl.MakeAndOr := CallbackCreate(ObjBindMethod(implObj, "MakeAndOr"), flags, 5)
+        this.vtbl.MakeLeaf := CallbackCreate(ObjBindMethod(implObj, "MakeLeaf"), flags, 10)
+        this.vtbl.Resolve := CallbackCreate(ObjBindMethod(implObj, "Resolve"), flags, 5)
     }
 
     Dispose() {

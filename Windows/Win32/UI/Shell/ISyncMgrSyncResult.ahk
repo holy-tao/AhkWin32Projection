@@ -68,7 +68,7 @@ export default struct ISyncMgrSyncResult extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Result := CallbackCreate(GetMethod(implObj, "Result"), flags, 4)
+        this.vtbl.Result := CallbackCreate(ObjBindMethod(implObj, "Result"), flags, 4)
     }
 
     Dispose() {

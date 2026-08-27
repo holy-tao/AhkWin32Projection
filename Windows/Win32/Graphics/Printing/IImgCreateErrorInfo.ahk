@@ -37,7 +37,6 @@ export default struct IImgCreateErrorInfo extends ICreateErrorInfo {
     }
 
     /**
-     * 
      * @param {Pointer<ImgErrorInfo>} pErrorInfo 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,7 @@ export default struct IImgCreateErrorInfo extends ICreateErrorInfo {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AttachToErrorInfo := CallbackCreate(GetMethod(implObj, "AttachToErrorInfo"), flags, 2)
+        this.vtbl.AttachToErrorInfo := CallbackCreate(ObjBindMethod(implObj, "AttachToErrorInfo"), flags, 2)
     }
 
     Dispose() {

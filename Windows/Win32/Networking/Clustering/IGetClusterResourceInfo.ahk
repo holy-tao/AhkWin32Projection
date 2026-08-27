@@ -164,7 +164,7 @@ export default struct IGetClusterResourceInfo extends IUnknown {
     GetResourceTypeName(lObjIndex, lpszResTypeName, pcchResTypeName) {
         lpszResTypeName := lpszResTypeName is String ? BSTR.Alloc(lpszResTypeName).Value : lpszResTypeName
 
-        pcchResTypeNameMarshal := pcchResTypeName is VarRef ? "int*" : "ptr"
+        pcchResTypeNameMarshal := pcchResTypeName is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, Int32, lObjIndex, BSTR, lpszResTypeName, pcchResTypeNameMarshal, pcchResTypeName, "HRESULT")
         return result
@@ -234,7 +234,7 @@ export default struct IGetClusterResourceInfo extends IUnknown {
     GetResourceNetworkName(lObjIndex, lpszNetName, pcchNetName) {
         lpszNetName := lpszNetName is String ? BSTR.Alloc(lpszNetName).Value : lpszNetName
 
-        pcchNetNameMarshal := pcchNetName is VarRef ? "uint*" : "ptr"
+        pcchNetNameMarshal := pcchNetName is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, Int32, lObjIndex, BSTR, lpszNetName, pcchNetNameMarshal, pcchNetName, BOOL)
         return result
@@ -249,9 +249,9 @@ export default struct IGetClusterResourceInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetResourceHandle := CallbackCreate(GetMethod(implObj, "GetResourceHandle"), flags, 2)
-        this.vtbl.GetResourceTypeName := CallbackCreate(GetMethod(implObj, "GetResourceTypeName"), flags, 4)
-        this.vtbl.GetResourceNetworkName := CallbackCreate(GetMethod(implObj, "GetResourceNetworkName"), flags, 4)
+        this.vtbl.GetResourceHandle := CallbackCreate(ObjBindMethod(implObj, "GetResourceHandle"), flags, 2)
+        this.vtbl.GetResourceTypeName := CallbackCreate(ObjBindMethod(implObj, "GetResourceTypeName"), flags, 4)
+        this.vtbl.GetResourceNetworkName := CallbackCreate(ObjBindMethod(implObj, "GetResourceNetworkName"), flags, 4)
     }
 
     Dispose() {

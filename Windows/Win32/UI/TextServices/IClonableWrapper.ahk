@@ -36,7 +36,6 @@ export default struct IClonableWrapper extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
@@ -54,7 +53,7 @@ export default struct IClonableWrapper extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CloneNewWrapper := CallbackCreate(GetMethod(implObj, "CloneNewWrapper"), flags, 3)
+        this.vtbl.CloneNewWrapper := CallbackCreate(ObjBindMethod(implObj, "CloneNewWrapper"), flags, 3)
     }
 
     Dispose() {

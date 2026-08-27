@@ -54,10 +54,11 @@ export default struct IAudioSystemEffects3 extends IAudioSystemEffects2 {
      * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/nf-audioengineextensionapo-iaudiosystemeffects3-getcontrollablesystemeffectslist
      */
     GetControllableSystemEffectsList(effects, numEffects, event) {
-        effectsMarshal := effects is VarRef ? "ptr*" : "ptr"
-        numEffectsMarshal := numEffects is VarRef ? "uint*" : "ptr"
+        effectsMarshal := effects is VarRef ? "ptr*" : IntPtr
+        numEffectsMarshal := numEffects is VarRef ? "uint*" : IntPtr
+        eventMarshal := event == 0 ? IntPtr : HANDLE
 
-        result := ComCall(4, this, effectsMarshal, effects, numEffectsMarshal, numEffects, HANDLE, event, "HRESULT")
+        result := ComCall(4, this, effectsMarshal, effects, numEffectsMarshal, numEffects, eventMarshal, event, "HRESULT")
         return result
     }
 
@@ -84,8 +85,8 @@ export default struct IAudioSystemEffects3 extends IAudioSystemEffects2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetControllableSystemEffectsList := CallbackCreate(GetMethod(implObj, "GetControllableSystemEffectsList"), flags, 4)
-        this.vtbl.SetAudioSystemEffectState := CallbackCreate(GetMethod(implObj, "SetAudioSystemEffectState"), flags, 3)
+        this.vtbl.GetControllableSystemEffectsList := CallbackCreate(ObjBindMethod(implObj, "GetControllableSystemEffectsList"), flags, 4)
+        this.vtbl.SetAudioSystemEffectState := CallbackCreate(ObjBindMethod(implObj, "SetAudioSystemEffectState"), flags, 3)
     }
 
     Dispose() {

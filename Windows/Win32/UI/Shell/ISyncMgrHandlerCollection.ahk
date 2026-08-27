@@ -126,8 +126,8 @@ export default struct ISyncMgrHandlerCollection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetHandlerEnumerator := CallbackCreate(GetMethod(implObj, "GetHandlerEnumerator"), flags, 2)
-        this.vtbl.BindToHandler := CallbackCreate(GetMethod(implObj, "BindToHandler"), flags, 4)
+        this.vtbl.GetHandlerEnumerator := CallbackCreate(ObjBindMethod(implObj, "GetHandlerEnumerator"), flags, 2)
+        this.vtbl.BindToHandler := CallbackCreate(ObjBindMethod(implObj, "BindToHandler"), flags, 4)
     }
 
     Dispose() {

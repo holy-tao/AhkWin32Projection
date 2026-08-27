@@ -21,7 +21,6 @@ export default struct PRESUTIL_GET_EXPAND_SZ_VALUE {
     }
 
     /**
-     * 
      * @param {HKEY} hkeyClusterKey 
      * @param {PWSTR} pszValueName 
      * @param {BOOL} bExpand 

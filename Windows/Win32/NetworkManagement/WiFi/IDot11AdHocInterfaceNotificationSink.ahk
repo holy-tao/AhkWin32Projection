@@ -89,7 +89,7 @@ export default struct IDot11AdHocInterfaceNotificationSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnConnectionStatusChange := CallbackCreate(GetMethod(implObj, "OnConnectionStatusChange"), flags, 2)
+        this.vtbl.OnConnectionStatusChange := CallbackCreate(ObjBindMethod(implObj, "OnConnectionStatusChange"), flags, 2)
     }
 
     Dispose() {

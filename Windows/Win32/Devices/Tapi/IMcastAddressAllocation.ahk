@@ -122,7 +122,9 @@ export default struct IMcastAddressAllocation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastaddressallocation-requestaddress
      */
     RequestAddress(pScope, LeaseStartTime, LeaseStopTime, NumAddresses) {
-        result := ComCall(9, this, "ptr", pScope, Float64, LeaseStartTime, Float64, LeaseStopTime, Int32, NumAddresses, "ptr*", &ppLeaseResponse := 0, "HRESULT")
+        pScopeMarshal := pScope == 0 ? IntPtr : "ptr"
+
+        result := ComCall(9, this, pScopeMarshal, pScope, Float64, LeaseStartTime, Float64, LeaseStopTime, Int32, NumAddresses, "ptr*", &ppLeaseResponse := 0, "HRESULT")
         return IMcastLeaseInfo(ppLeaseResponse)
     }
 
@@ -138,7 +140,9 @@ export default struct IMcastAddressAllocation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastaddressallocation-renewaddress
      */
     RenewAddress(lReserved, pRenewRequest) {
-        result := ComCall(10, this, Int32, lReserved, "ptr", pRenewRequest, "ptr*", &ppRenewResponse := 0, "HRESULT")
+        pRenewRequestMarshal := pRenewRequest == 0 ? IntPtr : "ptr"
+
+        result := ComCall(10, this, Int32, lReserved, pRenewRequestMarshal, pRenewRequest, "ptr*", &ppRenewResponse := 0, "HRESULT")
         return IMcastLeaseInfo(ppRenewResponse)
     }
 
@@ -189,7 +193,9 @@ export default struct IMcastAddressAllocation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastaddressallocation-releaseaddress
      */
     ReleaseAddress(pReleaseRequest) {
-        result := ComCall(11, this, "ptr", pReleaseRequest, "HRESULT")
+        pReleaseRequestMarshal := pReleaseRequest == 0 ? IntPtr : "ptr"
+
+        result := ComCall(11, this, pReleaseRequestMarshal, pReleaseRequest, "HRESULT")
         return result
     }
 
@@ -220,7 +226,7 @@ export default struct IMcastAddressAllocation extends IDispatch {
         pRequestID := pRequestID is String ? StrPtr(pRequestID) : pRequestID
         pServerAddress := pServerAddress is String ? StrPtr(pServerAddress) : pServerAddress
 
-        ppAddressesMarshal := ppAddresses is VarRef ? "ptr*" : "ptr"
+        ppAddressesMarshal := ppAddresses is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(12, this, Float64, LeaseStartTime, Float64, LeaseStopTime, UInt32, dwNumAddresses, ppAddressesMarshal, ppAddresses, "ptr", pRequestID, "ptr", pServerAddress, "ptr*", &ppReleaseRequest := 0, "HRESULT")
         return IMcastLeaseInfo(ppReleaseRequest)
@@ -269,13 +275,13 @@ export default struct IMcastAddressAllocation extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Scopes := CallbackCreate(GetMethod(implObj, "get_Scopes"), flags, 2)
-        this.vtbl.EnumerateScopes := CallbackCreate(GetMethod(implObj, "EnumerateScopes"), flags, 2)
-        this.vtbl.RequestAddress := CallbackCreate(GetMethod(implObj, "RequestAddress"), flags, 6)
-        this.vtbl.RenewAddress := CallbackCreate(GetMethod(implObj, "RenewAddress"), flags, 4)
-        this.vtbl.ReleaseAddress := CallbackCreate(GetMethod(implObj, "ReleaseAddress"), flags, 2)
-        this.vtbl.CreateLeaseInfo := CallbackCreate(GetMethod(implObj, "CreateLeaseInfo"), flags, 8)
-        this.vtbl.CreateLeaseInfoFromVariant := CallbackCreate(GetMethod(implObj, "CreateLeaseInfoFromVariant"), flags, 7)
+        this.vtbl.get_Scopes := CallbackCreate(ObjBindMethod(implObj, "get_Scopes"), flags, 2)
+        this.vtbl.EnumerateScopes := CallbackCreate(ObjBindMethod(implObj, "EnumerateScopes"), flags, 2)
+        this.vtbl.RequestAddress := CallbackCreate(ObjBindMethod(implObj, "RequestAddress"), flags, 6)
+        this.vtbl.RenewAddress := CallbackCreate(ObjBindMethod(implObj, "RenewAddress"), flags, 4)
+        this.vtbl.ReleaseAddress := CallbackCreate(ObjBindMethod(implObj, "ReleaseAddress"), flags, 2)
+        this.vtbl.CreateLeaseInfo := CallbackCreate(ObjBindMethod(implObj, "CreateLeaseInfo"), flags, 8)
+        this.vtbl.CreateLeaseInfoFromVariant := CallbackCreate(ObjBindMethod(implObj, "CreateLeaseInfoFromVariant"), flags, 7)
     }
 
     Dispose() {

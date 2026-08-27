@@ -20,7 +20,6 @@ export default struct PCLUSAPI_CLOSE_CLUSTER_NET_INTERFACE {
     }
 
     /**
-     * 
      * @param {HNETINTERFACE} _hNetInterface 
      * @returns {BOOL} 
      */

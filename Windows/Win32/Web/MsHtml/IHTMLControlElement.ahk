@@ -124,7 +124,6 @@ export default struct IHTMLControlElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -134,7 +133,6 @@ export default struct IHTMLControlElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_tabIndex() {
@@ -143,7 +141,6 @@ export default struct IHTMLControlElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     focus() {
@@ -152,7 +149,6 @@ export default struct IHTMLControlElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -164,7 +160,6 @@ export default struct IHTMLControlElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_accessKey() {
@@ -174,7 +169,6 @@ export default struct IHTMLControlElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -184,7 +178,6 @@ export default struct IHTMLControlElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onblur() {
@@ -194,7 +187,6 @@ export default struct IHTMLControlElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -204,7 +196,6 @@ export default struct IHTMLControlElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onfocus() {
@@ -214,7 +205,6 @@ export default struct IHTMLControlElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -224,7 +214,6 @@ export default struct IHTMLControlElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onresize() {
@@ -234,7 +223,6 @@ export default struct IHTMLControlElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     blur() {
@@ -243,7 +231,6 @@ export default struct IHTMLControlElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnk 
      * @returns {HRESULT} 
      */
@@ -253,7 +240,6 @@ export default struct IHTMLControlElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnk 
      * @returns {HRESULT} 
      */
@@ -263,7 +249,6 @@ export default struct IHTMLControlElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_clientHeight() {
@@ -272,7 +257,6 @@ export default struct IHTMLControlElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_clientWidth() {
@@ -281,7 +265,6 @@ export default struct IHTMLControlElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_clientTop() {
@@ -290,7 +273,6 @@ export default struct IHTMLControlElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_clientLeft() {
@@ -307,24 +289,24 @@ export default struct IHTMLControlElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_tabIndex := CallbackCreate(GetMethod(implObj, "put_tabIndex"), flags, 2)
-        this.vtbl.get_tabIndex := CallbackCreate(GetMethod(implObj, "get_tabIndex"), flags, 2)
-        this.vtbl.focus := CallbackCreate(GetMethod(implObj, "focus"), flags, 1)
-        this.vtbl.put_accessKey := CallbackCreate(GetMethod(implObj, "put_accessKey"), flags, 2)
-        this.vtbl.get_accessKey := CallbackCreate(GetMethod(implObj, "get_accessKey"), flags, 2)
-        this.vtbl.put_onblur := CallbackCreate(GetMethod(implObj, "put_onblur"), flags, 2)
-        this.vtbl.get_onblur := CallbackCreate(GetMethod(implObj, "get_onblur"), flags, 2)
-        this.vtbl.put_onfocus := CallbackCreate(GetMethod(implObj, "put_onfocus"), flags, 2)
-        this.vtbl.get_onfocus := CallbackCreate(GetMethod(implObj, "get_onfocus"), flags, 2)
-        this.vtbl.put_onresize := CallbackCreate(GetMethod(implObj, "put_onresize"), flags, 2)
-        this.vtbl.get_onresize := CallbackCreate(GetMethod(implObj, "get_onresize"), flags, 2)
-        this.vtbl.blur := CallbackCreate(GetMethod(implObj, "blur"), flags, 1)
-        this.vtbl.addFilter := CallbackCreate(GetMethod(implObj, "addFilter"), flags, 2)
-        this.vtbl.removeFilter := CallbackCreate(GetMethod(implObj, "removeFilter"), flags, 2)
-        this.vtbl.get_clientHeight := CallbackCreate(GetMethod(implObj, "get_clientHeight"), flags, 2)
-        this.vtbl.get_clientWidth := CallbackCreate(GetMethod(implObj, "get_clientWidth"), flags, 2)
-        this.vtbl.get_clientTop := CallbackCreate(GetMethod(implObj, "get_clientTop"), flags, 2)
-        this.vtbl.get_clientLeft := CallbackCreate(GetMethod(implObj, "get_clientLeft"), flags, 2)
+        this.vtbl.put_tabIndex := CallbackCreate(ObjBindMethod(implObj, "put_tabIndex"), flags, 2)
+        this.vtbl.get_tabIndex := CallbackCreate(ObjBindMethod(implObj, "get_tabIndex"), flags, 2)
+        this.vtbl.focus := CallbackCreate(ObjBindMethod(implObj, "focus"), flags, 1)
+        this.vtbl.put_accessKey := CallbackCreate(ObjBindMethod(implObj, "put_accessKey"), flags, 2)
+        this.vtbl.get_accessKey := CallbackCreate(ObjBindMethod(implObj, "get_accessKey"), flags, 2)
+        this.vtbl.put_onblur := CallbackCreate(ObjBindMethod(implObj, "put_onblur"), flags, 2)
+        this.vtbl.get_onblur := CallbackCreate(ObjBindMethod(implObj, "get_onblur"), flags, 2)
+        this.vtbl.put_onfocus := CallbackCreate(ObjBindMethod(implObj, "put_onfocus"), flags, 2)
+        this.vtbl.get_onfocus := CallbackCreate(ObjBindMethod(implObj, "get_onfocus"), flags, 2)
+        this.vtbl.put_onresize := CallbackCreate(ObjBindMethod(implObj, "put_onresize"), flags, 2)
+        this.vtbl.get_onresize := CallbackCreate(ObjBindMethod(implObj, "get_onresize"), flags, 2)
+        this.vtbl.blur := CallbackCreate(ObjBindMethod(implObj, "blur"), flags, 1)
+        this.vtbl.addFilter := CallbackCreate(ObjBindMethod(implObj, "addFilter"), flags, 2)
+        this.vtbl.removeFilter := CallbackCreate(ObjBindMethod(implObj, "removeFilter"), flags, 2)
+        this.vtbl.get_clientHeight := CallbackCreate(ObjBindMethod(implObj, "get_clientHeight"), flags, 2)
+        this.vtbl.get_clientWidth := CallbackCreate(ObjBindMethod(implObj, "get_clientWidth"), flags, 2)
+        this.vtbl.get_clientTop := CallbackCreate(ObjBindMethod(implObj, "get_clientTop"), flags, 2)
+        this.vtbl.get_clientLeft := CallbackCreate(ObjBindMethod(implObj, "get_clientLeft"), flags, 2)
     }
 
     Dispose() {

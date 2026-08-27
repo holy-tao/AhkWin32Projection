@@ -28,7 +28,6 @@ export default struct SpUnsealMessageFn {
     }
 
     /**
-     * 
      * @param {Pointer} ContextHandle Handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security context</a> used to seal the message.
      * @param {Pointer<SecBufferDesc>} MessageBuffers Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secbufferdesc">SecBufferDesc</a> structure that contains the message buffers and a signature buffer.
@@ -39,7 +38,8 @@ export default struct SpUnsealMessageFn {
      * If the function fails, return an <b>NTSTATUS</b> code that indicates the reason it failed.
      */
     Call(ContextHandle, MessageBuffers, MessageSequenceNumber, QualityOfProtection) {
-        QualityOfProtectionMarshal := QualityOfProtection is VarRef ? "uint*" : "ptr"
+        QualityOfProtectionMarshal := QualityOfProtection is VarRef ? "uint*" : IntPtr
+        QualityOfProtectionMarshal := QualityOfProtection == 0 ? IntPtr : "uint*"
 
         result := DllCall(this.value, IntPtr, ContextHandle, SecBufferDesc.Ptr, MessageBuffers, UInt32, MessageSequenceNumber, QualityOfProtectionMarshal, QualityOfProtection, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

@@ -109,9 +109,9 @@ export default struct IApplicationActivationManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ActivateApplication := CallbackCreate(GetMethod(implObj, "ActivateApplication"), flags, 5)
-        this.vtbl.ActivateForFile := CallbackCreate(GetMethod(implObj, "ActivateForFile"), flags, 5)
-        this.vtbl.ActivateForProtocol := CallbackCreate(GetMethod(implObj, "ActivateForProtocol"), flags, 4)
+        this.vtbl.ActivateApplication := CallbackCreate(ObjBindMethod(implObj, "ActivateApplication"), flags, 5)
+        this.vtbl.ActivateForFile := CallbackCreate(ObjBindMethod(implObj, "ActivateForFile"), flags, 5)
+        this.vtbl.ActivateForProtocol := CallbackCreate(ObjBindMethod(implObj, "ActivateForProtocol"), flags, 4)
     }
 
     Dispose() {

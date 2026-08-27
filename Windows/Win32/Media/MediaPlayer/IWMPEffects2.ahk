@@ -115,7 +115,7 @@ export default struct IWMPEffects2 extends IWMPEffects {
      * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects2-onwindowmessage
      */
     OnWindowMessage(_msg, _WParam, _LParam, plResultParam) {
-        plResultParamMarshal := plResultParam is VarRef ? "ptr*" : "ptr"
+        plResultParamMarshal := plResultParam is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(18, this, UInt32, _msg, WPARAM, _WParam, LPARAM, _LParam, plResultParamMarshal, plResultParam, "HRESULT")
         return result
@@ -146,12 +146,12 @@ export default struct IWMPEffects2 extends IWMPEffects {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetCore := CallbackCreate(GetMethod(implObj, "SetCore"), flags, 2)
-        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 2)
-        this.vtbl.Destroy := CallbackCreate(GetMethod(implObj, "Destroy"), flags, 1)
-        this.vtbl.NotifyNewMedia := CallbackCreate(GetMethod(implObj, "NotifyNewMedia"), flags, 2)
-        this.vtbl.OnWindowMessage := CallbackCreate(GetMethod(implObj, "OnWindowMessage"), flags, 5)
-        this.vtbl.RenderWindowed := CallbackCreate(GetMethod(implObj, "RenderWindowed"), flags, 3)
+        this.vtbl.SetCore := CallbackCreate(ObjBindMethod(implObj, "SetCore"), flags, 2)
+        this.vtbl.Create := CallbackCreate(ObjBindMethod(implObj, "Create"), flags, 2)
+        this.vtbl.Destroy := CallbackCreate(ObjBindMethod(implObj, "Destroy"), flags, 1)
+        this.vtbl.NotifyNewMedia := CallbackCreate(ObjBindMethod(implObj, "NotifyNewMedia"), flags, 2)
+        this.vtbl.OnWindowMessage := CallbackCreate(ObjBindMethod(implObj, "OnWindowMessage"), flags, 5)
+        this.vtbl.RenderWindowed := CallbackCreate(ObjBindMethod(implObj, "RenderWindowed"), flags, 3)
     }
 
     Dispose() {

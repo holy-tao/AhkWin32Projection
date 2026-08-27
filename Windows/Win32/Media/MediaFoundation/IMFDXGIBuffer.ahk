@@ -120,7 +120,9 @@ export default struct IMFDXGIBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfdxgibuffer-setunknown
      */
     SetUnknown(guid, pUnkData) {
-        result := ComCall(6, this, Guid.Ptr, guid, "ptr", pUnkData, "HRESULT")
+        pUnkDataMarshal := pUnkData == 0 ? IntPtr : "ptr"
+
+        result := ComCall(6, this, Guid.Ptr, guid, pUnkDataMarshal, pUnkData, "HRESULT")
         return result
     }
 
@@ -133,10 +135,10 @@ export default struct IMFDXGIBuffer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetResource := CallbackCreate(GetMethod(implObj, "GetResource"), flags, 3)
-        this.vtbl.GetSubresourceIndex := CallbackCreate(GetMethod(implObj, "GetSubresourceIndex"), flags, 2)
-        this.vtbl.GetUnknown := CallbackCreate(GetMethod(implObj, "GetUnknown"), flags, 4)
-        this.vtbl.SetUnknown := CallbackCreate(GetMethod(implObj, "SetUnknown"), flags, 3)
+        this.vtbl.GetResource := CallbackCreate(ObjBindMethod(implObj, "GetResource"), flags, 3)
+        this.vtbl.GetSubresourceIndex := CallbackCreate(ObjBindMethod(implObj, "GetSubresourceIndex"), flags, 2)
+        this.vtbl.GetUnknown := CallbackCreate(ObjBindMethod(implObj, "GetUnknown"), flags, 4)
+        this.vtbl.SetUnknown := CallbackCreate(ObjBindMethod(implObj, "SetUnknown"), flags, 3)
     }
 
     Dispose() {

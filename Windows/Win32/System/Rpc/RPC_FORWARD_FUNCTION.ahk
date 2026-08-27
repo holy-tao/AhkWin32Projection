@@ -21,7 +21,6 @@ export default struct RPC_FORWARD_FUNCTION {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} InterfaceId 
      * @param {Pointer<RPC_VERSION>} InterfaceVersion 
      * @param {Pointer<Guid>} _ObjectId 
@@ -30,8 +29,8 @@ export default struct RPC_FORWARD_FUNCTION {
      * @returns {RPC_STATUS} 
      */
     Call(InterfaceId, InterfaceVersion, _ObjectId, Rpcpro, ppDestEndpoint) {
-        RpcproMarshal := Rpcpro is VarRef ? "char*" : "ptr"
-        ppDestEndpointMarshal := ppDestEndpoint is VarRef ? "ptr*" : "ptr"
+        RpcproMarshal := Rpcpro is VarRef ? "char*" : IntPtr
+        ppDestEndpointMarshal := ppDestEndpoint is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, Guid.Ptr, InterfaceId, RPC_VERSION.Ptr, InterfaceVersion, Guid.Ptr, _ObjectId, RpcproMarshal, Rpcpro, ppDestEndpointMarshal, ppDestEndpoint, RPC_STATUS)
         return result

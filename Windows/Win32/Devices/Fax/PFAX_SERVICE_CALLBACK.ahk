@@ -20,7 +20,6 @@ export default struct PFAX_SERVICE_CALLBACK {
     }
 
     /**
-     * 
      * @param {HANDLE} FaxHandle 
      * @param {Integer} DeviceId 
      * @param {Pointer} Param1 

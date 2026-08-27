@@ -57,7 +57,7 @@ export default struct IDWriteRenderingParams1 extends IDWriteRenderingParams {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetGrayscaleEnhancedContrast := CallbackCreate(GetMethod(implObj, "GetGrayscaleEnhancedContrast"), flags, 1)
+        this.vtbl.GetGrayscaleEnhancedContrast := CallbackCreate(ObjBindMethod(implObj, "GetGrayscaleEnhancedContrast"), flags, 1)
     }
 
     Dispose() {

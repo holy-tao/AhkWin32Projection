@@ -18,7 +18,6 @@ export default struct CS_TYPE_TO_NETCS_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hBinding 
      * @param {Integer} ulNetworkCodeSet 
      * @param {Pointer<Void>} pLocalData 
@@ -29,11 +28,11 @@ export default struct CS_TYPE_TO_NETCS_ROUTINE {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(hBinding, ulNetworkCodeSet, pLocalData, ulLocalDataLength, pNetworkData, pulNetworkDataLength, pStatus) {
-        hBindingMarshal := hBinding is VarRef ? "ptr" : "ptr"
-        pLocalDataMarshal := pLocalData is VarRef ? "ptr" : "ptr"
-        pNetworkDataMarshal := pNetworkData is VarRef ? "char*" : "ptr"
-        pulNetworkDataLengthMarshal := pulNetworkDataLength is VarRef ? "uint*" : "ptr"
-        pStatusMarshal := pStatus is VarRef ? "uint*" : "ptr"
+        hBindingMarshal := hBinding is VarRef ? "ptr" : IntPtr
+        pLocalDataMarshal := pLocalData is VarRef ? "ptr" : IntPtr
+        pNetworkDataMarshal := pNetworkData is VarRef ? "char*" : IntPtr
+        pulNetworkDataLengthMarshal := pulNetworkDataLength is VarRef ? "uint*" : IntPtr
+        pStatusMarshal := pStatus is VarRef ? "uint*" : IntPtr
 
         DllCall(this.value, hBindingMarshal, hBinding, UInt32, ulNetworkCodeSet, pLocalDataMarshal, pLocalData, UInt32, ulLocalDataLength, pNetworkDataMarshal, pNetworkData, pulNetworkDataLengthMarshal, pulNetworkDataLength, pStatusMarshal, pStatus)
     }

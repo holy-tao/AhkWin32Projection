@@ -75,8 +75,8 @@ export default struct IDataTransferManagerInterop extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetForWindow := CallbackCreate(GetMethod(implObj, "GetForWindow"), flags, 4)
-        this.vtbl.ShowShareUIForWindow := CallbackCreate(GetMethod(implObj, "ShowShareUIForWindow"), flags, 2)
+        this.vtbl.GetForWindow := CallbackCreate(ObjBindMethod(implObj, "GetForWindow"), flags, 4)
+        this.vtbl.ShowShareUIForWindow := CallbackCreate(ObjBindMethod(implObj, "ShowShareUIForWindow"), flags, 2)
     }
 
     Dispose() {

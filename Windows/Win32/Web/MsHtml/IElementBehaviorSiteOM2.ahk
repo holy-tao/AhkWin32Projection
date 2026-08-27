@@ -37,7 +37,6 @@ export default struct IElementBehaviorSiteOM2 extends IElementBehaviorSiteOM {
     }
 
     /**
-     * 
      * @returns {IHTMLElementDefaults} 
      */
     GetDefaults() {
@@ -54,7 +53,7 @@ export default struct IElementBehaviorSiteOM2 extends IElementBehaviorSiteOM {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDefaults := CallbackCreate(GetMethod(implObj, "GetDefaults"), flags, 2)
+        this.vtbl.GetDefaults := CallbackCreate(ObjBindMethod(implObj, "GetDefaults"), flags, 2)
     }
 
     Dispose() {

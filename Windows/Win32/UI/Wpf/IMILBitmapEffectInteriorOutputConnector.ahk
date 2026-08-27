@@ -57,7 +57,7 @@ export default struct IMILBitmapEffectInteriorOutputConnector extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOutputConnector := CallbackCreate(GetMethod(implObj, "GetOutputConnector"), flags, 2)
+        this.vtbl.GetOutputConnector := CallbackCreate(ObjBindMethod(implObj, "GetOutputConnector"), flags, 2)
     }
 
     Dispose() {

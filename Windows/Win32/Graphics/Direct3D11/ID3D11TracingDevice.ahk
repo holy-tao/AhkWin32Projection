@@ -83,8 +83,8 @@ export default struct ID3D11TracingDevice extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetShaderTrackingOptionsByType := CallbackCreate(GetMethod(implObj, "SetShaderTrackingOptionsByType"), flags, 3)
-        this.vtbl.SetShaderTrackingOptions := CallbackCreate(GetMethod(implObj, "SetShaderTrackingOptions"), flags, 3)
+        this.vtbl.SetShaderTrackingOptionsByType := CallbackCreate(ObjBindMethod(implObj, "SetShaderTrackingOptionsByType"), flags, 3)
+        this.vtbl.SetShaderTrackingOptions := CallbackCreate(ObjBindMethod(implObj, "SetShaderTrackingOptions"), flags, 3)
     }
 
     Dispose() {

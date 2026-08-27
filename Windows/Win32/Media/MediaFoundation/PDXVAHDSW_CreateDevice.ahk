@@ -23,7 +23,6 @@ export default struct PDXVAHDSW_CreateDevice {
     }
 
     /**
-     * 
      * @param {IDirect3DDevice9Ex} pD3DDevice A pointer to the <b>IDirect3DDevice9Ex</b> interface of the Direct3D device.
      * @returns {HANDLE} Receives a handle to the plug-in DXVA-HD device.
      */

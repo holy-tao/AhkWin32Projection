@@ -231,12 +231,12 @@ export default struct IGuideData extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetServices := CallbackCreate(GetMethod(implObj, "GetServices"), flags, 2)
-        this.vtbl.GetServiceProperties := CallbackCreate(GetMethod(implObj, "GetServiceProperties"), flags, 3)
-        this.vtbl.GetGuideProgramIDs := CallbackCreate(GetMethod(implObj, "GetGuideProgramIDs"), flags, 2)
-        this.vtbl.GetProgramProperties := CallbackCreate(GetMethod(implObj, "GetProgramProperties"), flags, 3)
-        this.vtbl.GetScheduleEntryIDs := CallbackCreate(GetMethod(implObj, "GetScheduleEntryIDs"), flags, 2)
-        this.vtbl.GetScheduleEntryProperties := CallbackCreate(GetMethod(implObj, "GetScheduleEntryProperties"), flags, 3)
+        this.vtbl.GetServices := CallbackCreate(ObjBindMethod(implObj, "GetServices"), flags, 2)
+        this.vtbl.GetServiceProperties := CallbackCreate(ObjBindMethod(implObj, "GetServiceProperties"), flags, 3)
+        this.vtbl.GetGuideProgramIDs := CallbackCreate(ObjBindMethod(implObj, "GetGuideProgramIDs"), flags, 2)
+        this.vtbl.GetProgramProperties := CallbackCreate(ObjBindMethod(implObj, "GetProgramProperties"), flags, 3)
+        this.vtbl.GetScheduleEntryIDs := CallbackCreate(ObjBindMethod(implObj, "GetScheduleEntryIDs"), flags, 2)
+        this.vtbl.GetScheduleEntryProperties := CallbackCreate(ObjBindMethod(implObj, "GetScheduleEntryProperties"), flags, 3)
     }
 
     Dispose() {

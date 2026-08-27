@@ -18,7 +18,6 @@ export default struct PSE_IMAGE_VERIFICATION_CALLBACK_FUNCTION {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

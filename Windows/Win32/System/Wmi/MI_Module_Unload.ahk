@@ -20,13 +20,13 @@ export default struct MI_Module_Unload {
     }
 
     /**
-     * 
      * @param {Pointer<MI_Module_Self>} self 
      * @param {Pointer<MI_Context>} _context 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(self, _context) {
-        selfMarshal := self is VarRef ? "ptr*" : "ptr"
+        selfMarshal := self is VarRef ? "ptr*" : IntPtr
+        selfMarshal := self == 0 ? IntPtr : MI_Module_Self.Ptr
 
         DllCall(this.value, selfMarshal, self, MI_Context.Ptr, _context)
     }

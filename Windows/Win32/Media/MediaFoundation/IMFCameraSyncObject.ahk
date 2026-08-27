@@ -77,8 +77,8 @@ export default struct IMFCameraSyncObject extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.WaitOnSignal := CallbackCreate(GetMethod(implObj, "WaitOnSignal"), flags, 2)
-        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 1)
+        this.vtbl.WaitOnSignal := CallbackCreate(ObjBindMethod(implObj, "WaitOnSignal"), flags, 2)
+        this.vtbl.Shutdown := CallbackCreate(ObjBindMethod(implObj, "Shutdown"), flags, 1)
     }
 
     Dispose() {

@@ -186,7 +186,11 @@ export default struct IWSDDeviceHost extends IUnknown {
     Init(pszLocalId, pContext, ppHostAddresses, dwHostAddressCount) {
         pszLocalId := pszLocalId is String ? StrPtr(pszLocalId) : pszLocalId
 
-        result := ComCall(3, this, "ptr", pszLocalId, "ptr", pContext, IWSDAddress.Ptr, ppHostAddresses, UInt32, dwHostAddressCount, "HRESULT")
+        pContextMarshal := pContext == 0 ? IntPtr : "ptr"
+        ppHostAddressesMarshal := ppHostAddresses == 0 ? IntPtr : IWSDAddress.Ptr
+        dwHostAddressCountMarshal := dwHostAddressCount == 0 ? IntPtr : UInt32
+
+        result := ComCall(3, this, "ptr", pszLocalId, pContextMarshal, pContext, ppHostAddressesMarshal, ppHostAddresses, dwHostAddressCountMarshal, dwHostAddressCount, "HRESULT")
         return result
     }
 
@@ -253,7 +257,9 @@ export default struct IWSDDeviceHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wsdhost/nf-wsdhost-iwsddevicehost-start
      */
     Start(ullInstanceId, pScopeList, pNotificationSink) {
-        result := ComCall(4, this, Int64, ullInstanceId, WSD_URI_LIST.Ptr, pScopeList, "ptr", pNotificationSink, "HRESULT")
+        pNotificationSinkMarshal := pNotificationSink == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, Int64, ullInstanceId, WSD_URI_LIST.Ptr, pScopeList, pNotificationSinkMarshal, pNotificationSink, "HRESULT")
         return result
     }
 
@@ -465,7 +471,10 @@ export default struct IWSDDeviceHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wsdhost/nf-wsdhost-iwsddevicehost-setmetadata
      */
     SetMetadata(pThisModelMetadata, pThisDeviceMetadata, pHostMetadata, pCustomMetadata) {
-        result := ComCall(8, this, WSD_THIS_MODEL_METADATA.Ptr, pThisModelMetadata, WSD_THIS_DEVICE_METADATA.Ptr, pThisDeviceMetadata, WSD_HOST_METADATA.Ptr, pHostMetadata, WSD_METADATA_SECTION_LIST.Ptr, pCustomMetadata, "HRESULT")
+        pHostMetadataMarshal := pHostMetadata == 0 ? IntPtr : WSD_HOST_METADATA.Ptr
+        pCustomMetadataMarshal := pCustomMetadata == 0 ? IntPtr : WSD_METADATA_SECTION_LIST.Ptr
+
+        result := ComCall(8, this, WSD_THIS_MODEL_METADATA.Ptr, pThisModelMetadata, WSD_THIS_DEVICE_METADATA.Ptr, pThisDeviceMetadata, pHostMetadataMarshal, pHostMetadata, pCustomMetadataMarshal, pCustomMetadata, "HRESULT")
         return result
     }
 
@@ -658,7 +667,13 @@ export default struct IWSDDeviceHost extends IUnknown {
         pszServiceId := pszServiceId is String ? StrPtr(pszServiceId) : pszServiceId
         pszEndpointAddress := pszEndpointAddress is String ? StrPtr(pszEndpointAddress) : pszEndpointAddress
 
-        result := ComCall(11, this, "ptr", pszServiceId, "ptr", pszEndpointAddress, WSD_PORT_TYPE.Ptr, pPortType, WSDXML_NAME.Ptr, pPortName, WSDXML_ELEMENT.Ptr, pAny, "ptr", pService, "HRESULT")
+        pszEndpointAddressMarshal := pszEndpointAddress == 0 ? IntPtr : PWSTR
+        pPortTypeMarshal := pPortType == 0 ? IntPtr : WSD_PORT_TYPE.Ptr
+        pPortNameMarshal := pPortName == 0 ? IntPtr : WSDXML_NAME.Ptr
+        pAnyMarshal := pAny == 0 ? IntPtr : WSDXML_ELEMENT.Ptr
+        pServiceMarshal := pService == 0 ? IntPtr : "ptr"
+
+        result := ComCall(11, this, "ptr", pszServiceId, pszEndpointAddressMarshal, pszEndpointAddress, pPortTypeMarshal, pPortType, pPortNameMarshal, pPortName, pAnyMarshal, pAny, pServiceMarshal, pService, "HRESULT")
         return result
     }
 
@@ -819,7 +834,8 @@ export default struct IWSDDeviceHost extends IUnknown {
     SignalEvent(pszServiceId, pBody, pOperation) {
         pszServiceId := pszServiceId is String ? StrPtr(pszServiceId) : pszServiceId
 
-        pBodyMarshal := pBody is VarRef ? "ptr" : "ptr"
+        pBodyMarshal := pBody is VarRef ? "ptr" : IntPtr
+        pBodyMarshal := pBody == 0 ? IntPtr : "ptr"
 
         result := ComCall(14, this, "ptr", pszServiceId, pBodyMarshal, pBody, WSD_OPERATION.Ptr, pOperation, "HRESULT")
         return result
@@ -834,18 +850,18 @@ export default struct IWSDDeviceHost extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 5)
-        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 4)
-        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
-        this.vtbl.Terminate := CallbackCreate(GetMethod(implObj, "Terminate"), flags, 1)
-        this.vtbl.RegisterPortType := CallbackCreate(GetMethod(implObj, "RegisterPortType"), flags, 2)
-        this.vtbl.SetMetadata := CallbackCreate(GetMethod(implObj, "SetMetadata"), flags, 5)
-        this.vtbl.RegisterService := CallbackCreate(GetMethod(implObj, "RegisterService"), flags, 3)
-        this.vtbl.RetireService := CallbackCreate(GetMethod(implObj, "RetireService"), flags, 2)
-        this.vtbl.AddDynamicService := CallbackCreate(GetMethod(implObj, "AddDynamicService"), flags, 7)
-        this.vtbl.RemoveDynamicService := CallbackCreate(GetMethod(implObj, "RemoveDynamicService"), flags, 2)
-        this.vtbl.SetServiceDiscoverable := CallbackCreate(GetMethod(implObj, "SetServiceDiscoverable"), flags, 3)
-        this.vtbl.SignalEvent := CallbackCreate(GetMethod(implObj, "SignalEvent"), flags, 4)
+        this.vtbl.Init := CallbackCreate(ObjBindMethod(implObj, "Init"), flags, 5)
+        this.vtbl.Start := CallbackCreate(ObjBindMethod(implObj, "Start"), flags, 4)
+        this.vtbl.Stop := CallbackCreate(ObjBindMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.Terminate := CallbackCreate(ObjBindMethod(implObj, "Terminate"), flags, 1)
+        this.vtbl.RegisterPortType := CallbackCreate(ObjBindMethod(implObj, "RegisterPortType"), flags, 2)
+        this.vtbl.SetMetadata := CallbackCreate(ObjBindMethod(implObj, "SetMetadata"), flags, 5)
+        this.vtbl.RegisterService := CallbackCreate(ObjBindMethod(implObj, "RegisterService"), flags, 3)
+        this.vtbl.RetireService := CallbackCreate(ObjBindMethod(implObj, "RetireService"), flags, 2)
+        this.vtbl.AddDynamicService := CallbackCreate(ObjBindMethod(implObj, "AddDynamicService"), flags, 7)
+        this.vtbl.RemoveDynamicService := CallbackCreate(ObjBindMethod(implObj, "RemoveDynamicService"), flags, 2)
+        this.vtbl.SetServiceDiscoverable := CallbackCreate(ObjBindMethod(implObj, "SetServiceDiscoverable"), flags, 3)
+        this.vtbl.SignalEvent := CallbackCreate(ObjBindMethod(implObj, "SignalEvent"), flags, 4)
     }
 
     Dispose() {

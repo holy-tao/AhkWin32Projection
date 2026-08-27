@@ -103,7 +103,7 @@ export default struct IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getcount
      */
     GetCount(pcelt) {
-        pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
+        pceltMarshal := pcelt is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pceltMarshal, pcelt, "HRESULT")
         return result
@@ -533,7 +533,7 @@ export default struct IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-setbuffervalue
      */
     SetBufferValue(key, pValue, cbValue) {
-        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "char*" : IntPtr
 
         result := ComCall(29, this, PROPERTYKEY.Ptr, key, pValueMarshal, pValue, UInt32, cbValue, "HRESULT")
         return result
@@ -558,8 +558,8 @@ export default struct IPortableDeviceValues extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevalues-getbuffervalue
      */
     GetBufferValue(key, ppValue, pcbValue) {
-        ppValueMarshal := ppValue is VarRef ? "ptr*" : "ptr"
-        pcbValueMarshal := pcbValue is VarRef ? "uint*" : "ptr"
+        ppValueMarshal := ppValue is VarRef ? "ptr*" : IntPtr
+        pcbValueMarshal := pcbValue is VarRef ? "uint*" : IntPtr
 
         result := ComCall(30, this, PROPERTYKEY.Ptr, key, ppValueMarshal, ppValue, pcbValueMarshal, pcbValue, "HRESULT")
         return result
@@ -780,46 +780,46 @@ export default struct IPortableDeviceValues extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
-        this.vtbl.GetAt := CallbackCreate(GetMethod(implObj, "GetAt"), flags, 4)
-        this.vtbl.SetValue := CallbackCreate(GetMethod(implObj, "SetValue"), flags, 3)
-        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 3)
-        this.vtbl.SetStringValue := CallbackCreate(GetMethod(implObj, "SetStringValue"), flags, 3)
-        this.vtbl.GetStringValue := CallbackCreate(GetMethod(implObj, "GetStringValue"), flags, 3)
-        this.vtbl.SetUnsignedIntegerValue := CallbackCreate(GetMethod(implObj, "SetUnsignedIntegerValue"), flags, 3)
-        this.vtbl.GetUnsignedIntegerValue := CallbackCreate(GetMethod(implObj, "GetUnsignedIntegerValue"), flags, 3)
-        this.vtbl.SetSignedIntegerValue := CallbackCreate(GetMethod(implObj, "SetSignedIntegerValue"), flags, 3)
-        this.vtbl.GetSignedIntegerValue := CallbackCreate(GetMethod(implObj, "GetSignedIntegerValue"), flags, 3)
-        this.vtbl.SetUnsignedLargeIntegerValue := CallbackCreate(GetMethod(implObj, "SetUnsignedLargeIntegerValue"), flags, 3)
-        this.vtbl.GetUnsignedLargeIntegerValue := CallbackCreate(GetMethod(implObj, "GetUnsignedLargeIntegerValue"), flags, 3)
-        this.vtbl.SetSignedLargeIntegerValue := CallbackCreate(GetMethod(implObj, "SetSignedLargeIntegerValue"), flags, 3)
-        this.vtbl.GetSignedLargeIntegerValue := CallbackCreate(GetMethod(implObj, "GetSignedLargeIntegerValue"), flags, 3)
-        this.vtbl.SetFloatValue := CallbackCreate(GetMethod(implObj, "SetFloatValue"), flags, 3)
-        this.vtbl.GetFloatValue := CallbackCreate(GetMethod(implObj, "GetFloatValue"), flags, 3)
-        this.vtbl.SetErrorValue := CallbackCreate(GetMethod(implObj, "SetErrorValue"), flags, 3)
-        this.vtbl.GetErrorValue := CallbackCreate(GetMethod(implObj, "GetErrorValue"), flags, 3)
-        this.vtbl.SetKeyValue := CallbackCreate(GetMethod(implObj, "SetKeyValue"), flags, 3)
-        this.vtbl.GetKeyValue := CallbackCreate(GetMethod(implObj, "GetKeyValue"), flags, 3)
-        this.vtbl.SetBoolValue := CallbackCreate(GetMethod(implObj, "SetBoolValue"), flags, 3)
-        this.vtbl.GetBoolValue := CallbackCreate(GetMethod(implObj, "GetBoolValue"), flags, 3)
-        this.vtbl.SetIUnknownValue := CallbackCreate(GetMethod(implObj, "SetIUnknownValue"), flags, 3)
-        this.vtbl.GetIUnknownValue := CallbackCreate(GetMethod(implObj, "GetIUnknownValue"), flags, 3)
-        this.vtbl.SetGuidValue := CallbackCreate(GetMethod(implObj, "SetGuidValue"), flags, 3)
-        this.vtbl.GetGuidValue := CallbackCreate(GetMethod(implObj, "GetGuidValue"), flags, 3)
-        this.vtbl.SetBufferValue := CallbackCreate(GetMethod(implObj, "SetBufferValue"), flags, 4)
-        this.vtbl.GetBufferValue := CallbackCreate(GetMethod(implObj, "GetBufferValue"), flags, 4)
-        this.vtbl.SetIPortableDeviceValuesValue := CallbackCreate(GetMethod(implObj, "SetIPortableDeviceValuesValue"), flags, 3)
-        this.vtbl.GetIPortableDeviceValuesValue := CallbackCreate(GetMethod(implObj, "GetIPortableDeviceValuesValue"), flags, 3)
-        this.vtbl.SetIPortableDevicePropVariantCollectionValue := CallbackCreate(GetMethod(implObj, "SetIPortableDevicePropVariantCollectionValue"), flags, 3)
-        this.vtbl.GetIPortableDevicePropVariantCollectionValue := CallbackCreate(GetMethod(implObj, "GetIPortableDevicePropVariantCollectionValue"), flags, 3)
-        this.vtbl.SetIPortableDeviceKeyCollectionValue := CallbackCreate(GetMethod(implObj, "SetIPortableDeviceKeyCollectionValue"), flags, 3)
-        this.vtbl.GetIPortableDeviceKeyCollectionValue := CallbackCreate(GetMethod(implObj, "GetIPortableDeviceKeyCollectionValue"), flags, 3)
-        this.vtbl.SetIPortableDeviceValuesCollectionValue := CallbackCreate(GetMethod(implObj, "SetIPortableDeviceValuesCollectionValue"), flags, 3)
-        this.vtbl.GetIPortableDeviceValuesCollectionValue := CallbackCreate(GetMethod(implObj, "GetIPortableDeviceValuesCollectionValue"), flags, 3)
-        this.vtbl.RemoveValue := CallbackCreate(GetMethod(implObj, "RemoveValue"), flags, 2)
-        this.vtbl.CopyValuesFromPropertyStore := CallbackCreate(GetMethod(implObj, "CopyValuesFromPropertyStore"), flags, 2)
-        this.vtbl.CopyValuesToPropertyStore := CallbackCreate(GetMethod(implObj, "CopyValuesToPropertyStore"), flags, 2)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetAt := CallbackCreate(ObjBindMethod(implObj, "GetAt"), flags, 4)
+        this.vtbl.SetValue := CallbackCreate(ObjBindMethod(implObj, "SetValue"), flags, 3)
+        this.vtbl.GetValue := CallbackCreate(ObjBindMethod(implObj, "GetValue"), flags, 3)
+        this.vtbl.SetStringValue := CallbackCreate(ObjBindMethod(implObj, "SetStringValue"), flags, 3)
+        this.vtbl.GetStringValue := CallbackCreate(ObjBindMethod(implObj, "GetStringValue"), flags, 3)
+        this.vtbl.SetUnsignedIntegerValue := CallbackCreate(ObjBindMethod(implObj, "SetUnsignedIntegerValue"), flags, 3)
+        this.vtbl.GetUnsignedIntegerValue := CallbackCreate(ObjBindMethod(implObj, "GetUnsignedIntegerValue"), flags, 3)
+        this.vtbl.SetSignedIntegerValue := CallbackCreate(ObjBindMethod(implObj, "SetSignedIntegerValue"), flags, 3)
+        this.vtbl.GetSignedIntegerValue := CallbackCreate(ObjBindMethod(implObj, "GetSignedIntegerValue"), flags, 3)
+        this.vtbl.SetUnsignedLargeIntegerValue := CallbackCreate(ObjBindMethod(implObj, "SetUnsignedLargeIntegerValue"), flags, 3)
+        this.vtbl.GetUnsignedLargeIntegerValue := CallbackCreate(ObjBindMethod(implObj, "GetUnsignedLargeIntegerValue"), flags, 3)
+        this.vtbl.SetSignedLargeIntegerValue := CallbackCreate(ObjBindMethod(implObj, "SetSignedLargeIntegerValue"), flags, 3)
+        this.vtbl.GetSignedLargeIntegerValue := CallbackCreate(ObjBindMethod(implObj, "GetSignedLargeIntegerValue"), flags, 3)
+        this.vtbl.SetFloatValue := CallbackCreate(ObjBindMethod(implObj, "SetFloatValue"), flags, 3)
+        this.vtbl.GetFloatValue := CallbackCreate(ObjBindMethod(implObj, "GetFloatValue"), flags, 3)
+        this.vtbl.SetErrorValue := CallbackCreate(ObjBindMethod(implObj, "SetErrorValue"), flags, 3)
+        this.vtbl.GetErrorValue := CallbackCreate(ObjBindMethod(implObj, "GetErrorValue"), flags, 3)
+        this.vtbl.SetKeyValue := CallbackCreate(ObjBindMethod(implObj, "SetKeyValue"), flags, 3)
+        this.vtbl.GetKeyValue := CallbackCreate(ObjBindMethod(implObj, "GetKeyValue"), flags, 3)
+        this.vtbl.SetBoolValue := CallbackCreate(ObjBindMethod(implObj, "SetBoolValue"), flags, 3)
+        this.vtbl.GetBoolValue := CallbackCreate(ObjBindMethod(implObj, "GetBoolValue"), flags, 3)
+        this.vtbl.SetIUnknownValue := CallbackCreate(ObjBindMethod(implObj, "SetIUnknownValue"), flags, 3)
+        this.vtbl.GetIUnknownValue := CallbackCreate(ObjBindMethod(implObj, "GetIUnknownValue"), flags, 3)
+        this.vtbl.SetGuidValue := CallbackCreate(ObjBindMethod(implObj, "SetGuidValue"), flags, 3)
+        this.vtbl.GetGuidValue := CallbackCreate(ObjBindMethod(implObj, "GetGuidValue"), flags, 3)
+        this.vtbl.SetBufferValue := CallbackCreate(ObjBindMethod(implObj, "SetBufferValue"), flags, 4)
+        this.vtbl.GetBufferValue := CallbackCreate(ObjBindMethod(implObj, "GetBufferValue"), flags, 4)
+        this.vtbl.SetIPortableDeviceValuesValue := CallbackCreate(ObjBindMethod(implObj, "SetIPortableDeviceValuesValue"), flags, 3)
+        this.vtbl.GetIPortableDeviceValuesValue := CallbackCreate(ObjBindMethod(implObj, "GetIPortableDeviceValuesValue"), flags, 3)
+        this.vtbl.SetIPortableDevicePropVariantCollectionValue := CallbackCreate(ObjBindMethod(implObj, "SetIPortableDevicePropVariantCollectionValue"), flags, 3)
+        this.vtbl.GetIPortableDevicePropVariantCollectionValue := CallbackCreate(ObjBindMethod(implObj, "GetIPortableDevicePropVariantCollectionValue"), flags, 3)
+        this.vtbl.SetIPortableDeviceKeyCollectionValue := CallbackCreate(ObjBindMethod(implObj, "SetIPortableDeviceKeyCollectionValue"), flags, 3)
+        this.vtbl.GetIPortableDeviceKeyCollectionValue := CallbackCreate(ObjBindMethod(implObj, "GetIPortableDeviceKeyCollectionValue"), flags, 3)
+        this.vtbl.SetIPortableDeviceValuesCollectionValue := CallbackCreate(ObjBindMethod(implObj, "SetIPortableDeviceValuesCollectionValue"), flags, 3)
+        this.vtbl.GetIPortableDeviceValuesCollectionValue := CallbackCreate(ObjBindMethod(implObj, "GetIPortableDeviceValuesCollectionValue"), flags, 3)
+        this.vtbl.RemoveValue := CallbackCreate(ObjBindMethod(implObj, "RemoveValue"), flags, 2)
+        this.vtbl.CopyValuesFromPropertyStore := CallbackCreate(ObjBindMethod(implObj, "CopyValuesFromPropertyStore"), flags, 2)
+        this.vtbl.CopyValuesToPropertyStore := CallbackCreate(ObjBindMethod(implObj, "CopyValuesToPropertyStore"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
     }
 
     Dispose() {

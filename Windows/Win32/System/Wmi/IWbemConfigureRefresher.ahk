@@ -70,7 +70,7 @@ export default struct IWbemConfigureRefresher extends IUnknown {
     AddObjectByPath(pNamespace, wszPath, lFlags, pContext, plId) {
         wszPath := wszPath is String ? StrPtr(wszPath) : wszPath
 
-        plIdMarshal := plId is VarRef ? "int*" : "ptr"
+        plIdMarshal := plId is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, "ptr", pNamespace, "ptr", wszPath, Int32, lFlags, "ptr", pContext, "ptr*", &ppRefreshable := 0, plIdMarshal, plId, "HRESULT")
         return IWbemClassObject(ppRefreshable)
@@ -97,7 +97,7 @@ export default struct IWbemConfigureRefresher extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemconfigurerefresher-addobjectbytemplate
      */
     AddObjectByTemplate(pNamespace, pTemplate, lFlags, pContext, plId) {
-        plIdMarshal := plId is VarRef ? "int*" : "ptr"
+        plIdMarshal := plId is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, "ptr", pNamespace, "ptr", pTemplate, Int32, lFlags, "ptr", pContext, "ptr*", &ppRefreshable := 0, plIdMarshal, plId, "HRESULT")
         return IWbemClassObject(ppRefreshable)
@@ -116,7 +116,7 @@ export default struct IWbemConfigureRefresher extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemconfigurerefresher-addrefresher
      */
     AddRefresher(pRefresher, lFlags, plId) {
-        plIdMarshal := plId is VarRef ? "int*" : "ptr"
+        plIdMarshal := plId is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, "ptr", pRefresher, Int32, lFlags, plIdMarshal, plId, "HRESULT")
         return result
@@ -160,7 +160,7 @@ export default struct IWbemConfigureRefresher extends IUnknown {
     AddEnum(pNamespace, wszClassName, lFlags, pContext, plId) {
         wszClassName := wszClassName is String ? StrPtr(wszClassName) : wszClassName
 
-        plIdMarshal := plId is VarRef ? "int*" : "ptr"
+        plIdMarshal := plId is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, "ptr", pNamespace, "ptr", wszClassName, Int32, lFlags, "ptr", pContext, "ptr*", &ppEnum := 0, plIdMarshal, plId, "HRESULT")
         return IWbemHiPerfEnum(ppEnum)
@@ -175,11 +175,11 @@ export default struct IWbemConfigureRefresher extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddObjectByPath := CallbackCreate(GetMethod(implObj, "AddObjectByPath"), flags, 7)
-        this.vtbl.AddObjectByTemplate := CallbackCreate(GetMethod(implObj, "AddObjectByTemplate"), flags, 7)
-        this.vtbl.AddRefresher := CallbackCreate(GetMethod(implObj, "AddRefresher"), flags, 4)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 3)
-        this.vtbl.AddEnum := CallbackCreate(GetMethod(implObj, "AddEnum"), flags, 7)
+        this.vtbl.AddObjectByPath := CallbackCreate(ObjBindMethod(implObj, "AddObjectByPath"), flags, 7)
+        this.vtbl.AddObjectByTemplate := CallbackCreate(ObjBindMethod(implObj, "AddObjectByTemplate"), flags, 7)
+        this.vtbl.AddRefresher := CallbackCreate(ObjBindMethod(implObj, "AddRefresher"), flags, 4)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 3)
+        this.vtbl.AddEnum := CallbackCreate(ObjBindMethod(implObj, "AddEnum"), flags, 7)
     }
 
     Dispose() {

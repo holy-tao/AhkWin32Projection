@@ -236,7 +236,7 @@ export default struct IMFWorkQueueServices extends IUnknown {
     GetTopologyWorkQueueMMCSSClass(dwTopologyWorkQueueId, pwszClass, pcchClass) {
         pwszClass := pwszClass is String ? StrPtr(pwszClass) : pwszClass
 
-        pcchClassMarshal := pcchClass is VarRef ? "uint*" : "ptr"
+        pcchClassMarshal := pcchClass is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, UInt32, dwTopologyWorkQueueId, "ptr", pwszClass, pcchClassMarshal, pcchClass, "HRESULT")
         return result
@@ -394,7 +394,7 @@ export default struct IMFWorkQueueServices extends IUnknown {
     GetPlaftormWorkQueueMMCSSClass(dwPlatformWorkQueueId, pwszClass, pcchClass) {
         pwszClass := pwszClass is String ? StrPtr(pwszClass) : pwszClass
 
-        pcchClassMarshal := pcchClass is VarRef ? "uint*" : "ptr"
+        pcchClassMarshal := pcchClass is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, UInt32, dwPlatformWorkQueueId, "ptr", pwszClass, pcchClassMarshal, pcchClass, "HRESULT")
         return result
@@ -420,18 +420,18 @@ export default struct IMFWorkQueueServices extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BeginRegisterTopologyWorkQueuesWithMMCSS := CallbackCreate(GetMethod(implObj, "BeginRegisterTopologyWorkQueuesWithMMCSS"), flags, 3)
-        this.vtbl.EndRegisterTopologyWorkQueuesWithMMCSS := CallbackCreate(GetMethod(implObj, "EndRegisterTopologyWorkQueuesWithMMCSS"), flags, 2)
-        this.vtbl.BeginUnregisterTopologyWorkQueuesWithMMCSS := CallbackCreate(GetMethod(implObj, "BeginUnregisterTopologyWorkQueuesWithMMCSS"), flags, 3)
-        this.vtbl.EndUnregisterTopologyWorkQueuesWithMMCSS := CallbackCreate(GetMethod(implObj, "EndUnregisterTopologyWorkQueuesWithMMCSS"), flags, 2)
-        this.vtbl.GetTopologyWorkQueueMMCSSClass := CallbackCreate(GetMethod(implObj, "GetTopologyWorkQueueMMCSSClass"), flags, 4)
-        this.vtbl.GetTopologyWorkQueueMMCSSTaskId := CallbackCreate(GetMethod(implObj, "GetTopologyWorkQueueMMCSSTaskId"), flags, 3)
-        this.vtbl.BeginRegisterPlatformWorkQueueWithMMCSS := CallbackCreate(GetMethod(implObj, "BeginRegisterPlatformWorkQueueWithMMCSS"), flags, 6)
-        this.vtbl.EndRegisterPlatformWorkQueueWithMMCSS := CallbackCreate(GetMethod(implObj, "EndRegisterPlatformWorkQueueWithMMCSS"), flags, 3)
-        this.vtbl.BeginUnregisterPlatformWorkQueueWithMMCSS := CallbackCreate(GetMethod(implObj, "BeginUnregisterPlatformWorkQueueWithMMCSS"), flags, 4)
-        this.vtbl.EndUnregisterPlatformWorkQueueWithMMCSS := CallbackCreate(GetMethod(implObj, "EndUnregisterPlatformWorkQueueWithMMCSS"), flags, 2)
-        this.vtbl.GetPlaftormWorkQueueMMCSSClass := CallbackCreate(GetMethod(implObj, "GetPlaftormWorkQueueMMCSSClass"), flags, 4)
-        this.vtbl.GetPlatformWorkQueueMMCSSTaskId := CallbackCreate(GetMethod(implObj, "GetPlatformWorkQueueMMCSSTaskId"), flags, 3)
+        this.vtbl.BeginRegisterTopologyWorkQueuesWithMMCSS := CallbackCreate(ObjBindMethod(implObj, "BeginRegisterTopologyWorkQueuesWithMMCSS"), flags, 3)
+        this.vtbl.EndRegisterTopologyWorkQueuesWithMMCSS := CallbackCreate(ObjBindMethod(implObj, "EndRegisterTopologyWorkQueuesWithMMCSS"), flags, 2)
+        this.vtbl.BeginUnregisterTopologyWorkQueuesWithMMCSS := CallbackCreate(ObjBindMethod(implObj, "BeginUnregisterTopologyWorkQueuesWithMMCSS"), flags, 3)
+        this.vtbl.EndUnregisterTopologyWorkQueuesWithMMCSS := CallbackCreate(ObjBindMethod(implObj, "EndUnregisterTopologyWorkQueuesWithMMCSS"), flags, 2)
+        this.vtbl.GetTopologyWorkQueueMMCSSClass := CallbackCreate(ObjBindMethod(implObj, "GetTopologyWorkQueueMMCSSClass"), flags, 4)
+        this.vtbl.GetTopologyWorkQueueMMCSSTaskId := CallbackCreate(ObjBindMethod(implObj, "GetTopologyWorkQueueMMCSSTaskId"), flags, 3)
+        this.vtbl.BeginRegisterPlatformWorkQueueWithMMCSS := CallbackCreate(ObjBindMethod(implObj, "BeginRegisterPlatformWorkQueueWithMMCSS"), flags, 6)
+        this.vtbl.EndRegisterPlatformWorkQueueWithMMCSS := CallbackCreate(ObjBindMethod(implObj, "EndRegisterPlatformWorkQueueWithMMCSS"), flags, 3)
+        this.vtbl.BeginUnregisterPlatformWorkQueueWithMMCSS := CallbackCreate(ObjBindMethod(implObj, "BeginUnregisterPlatformWorkQueueWithMMCSS"), flags, 4)
+        this.vtbl.EndUnregisterPlatformWorkQueueWithMMCSS := CallbackCreate(ObjBindMethod(implObj, "EndUnregisterPlatformWorkQueueWithMMCSS"), flags, 2)
+        this.vtbl.GetPlaftormWorkQueueMMCSSClass := CallbackCreate(ObjBindMethod(implObj, "GetPlaftormWorkQueueMMCSSClass"), flags, 4)
+        this.vtbl.GetPlatformWorkQueueMMCSSTaskId := CallbackCreate(ObjBindMethod(implObj, "GetPlatformWorkQueueMMCSSTaskId"), flags, 3)
     }
 
     Dispose() {

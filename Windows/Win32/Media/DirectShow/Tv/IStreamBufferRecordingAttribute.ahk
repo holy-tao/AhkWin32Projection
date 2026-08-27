@@ -63,7 +63,7 @@ export default struct IStreamBufferRecordingAttribute extends IUnknown {
     SetAttribute(ulReserved, pszAttributeName, StreamBufferAttributeType, pbAttribute, cbAttributeLength) {
         pszAttributeName := pszAttributeName is String ? StrPtr(pszAttributeName) : pszAttributeName
 
-        pbAttributeMarshal := pbAttribute is VarRef ? "char*" : "ptr"
+        pbAttributeMarshal := pbAttribute is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, UInt32, ulReserved, "ptr", pszAttributeName, STREAMBUFFER_ATTR_DATATYPE, StreamBufferAttributeType, pbAttributeMarshal, pbAttribute, UInt16, cbAttributeLength, "HRESULT")
         return result
@@ -122,10 +122,10 @@ export default struct IStreamBufferRecordingAttribute extends IUnknown {
     GetAttributeByName(pszAttributeName, pulReserved, pStreamBufferAttributeType, pbAttribute, pcbLength) {
         pszAttributeName := pszAttributeName is String ? StrPtr(pszAttributeName) : pszAttributeName
 
-        pulReservedMarshal := pulReserved is VarRef ? "uint*" : "ptr"
-        pStreamBufferAttributeTypeMarshal := pStreamBufferAttributeType is VarRef ? "int*" : "ptr"
-        pbAttributeMarshal := pbAttribute is VarRef ? "char*" : "ptr"
-        pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : "ptr"
+        pulReservedMarshal := pulReserved is VarRef ? "uint*" : IntPtr
+        pStreamBufferAttributeTypeMarshal := pStreamBufferAttributeType is VarRef ? "int*" : IntPtr
+        pbAttributeMarshal := pbAttribute is VarRef ? "char*" : IntPtr
+        pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(5, this, "ptr", pszAttributeName, pulReservedMarshal, pulReserved, pStreamBufferAttributeTypeMarshal, pStreamBufferAttributeType, pbAttributeMarshal, pbAttribute, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
@@ -175,11 +175,11 @@ export default struct IStreamBufferRecordingAttribute extends IUnknown {
     GetAttributeByIndex(wIndex, pulReserved, pszAttributeName, pcchNameLength, pStreamBufferAttributeType, pbAttribute, pcbLength) {
         pszAttributeName := pszAttributeName is String ? StrPtr(pszAttributeName) : pszAttributeName
 
-        pulReservedMarshal := pulReserved is VarRef ? "uint*" : "ptr"
-        pcchNameLengthMarshal := pcchNameLength is VarRef ? "ushort*" : "ptr"
-        pStreamBufferAttributeTypeMarshal := pStreamBufferAttributeType is VarRef ? "int*" : "ptr"
-        pbAttributeMarshal := pbAttribute is VarRef ? "char*" : "ptr"
-        pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : "ptr"
+        pulReservedMarshal := pulReserved is VarRef ? "uint*" : IntPtr
+        pcchNameLengthMarshal := pcchNameLength is VarRef ? "ushort*" : IntPtr
+        pStreamBufferAttributeTypeMarshal := pStreamBufferAttributeType is VarRef ? "int*" : IntPtr
+        pbAttributeMarshal := pbAttribute is VarRef ? "char*" : IntPtr
+        pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(6, this, UInt16, wIndex, pulReservedMarshal, pulReserved, "ptr", pszAttributeName, pcchNameLengthMarshal, pcchNameLength, pStreamBufferAttributeTypeMarshal, pStreamBufferAttributeType, pbAttributeMarshal, pbAttribute, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
@@ -205,11 +205,11 @@ export default struct IStreamBufferRecordingAttribute extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAttribute := CallbackCreate(GetMethod(implObj, "SetAttribute"), flags, 6)
-        this.vtbl.GetAttributeCount := CallbackCreate(GetMethod(implObj, "GetAttributeCount"), flags, 3)
-        this.vtbl.GetAttributeByName := CallbackCreate(GetMethod(implObj, "GetAttributeByName"), flags, 6)
-        this.vtbl.GetAttributeByIndex := CallbackCreate(GetMethod(implObj, "GetAttributeByIndex"), flags, 8)
-        this.vtbl.EnumAttributes := CallbackCreate(GetMethod(implObj, "EnumAttributes"), flags, 2)
+        this.vtbl.SetAttribute := CallbackCreate(ObjBindMethod(implObj, "SetAttribute"), flags, 6)
+        this.vtbl.GetAttributeCount := CallbackCreate(ObjBindMethod(implObj, "GetAttributeCount"), flags, 3)
+        this.vtbl.GetAttributeByName := CallbackCreate(ObjBindMethod(implObj, "GetAttributeByName"), flags, 6)
+        this.vtbl.GetAttributeByIndex := CallbackCreate(ObjBindMethod(implObj, "GetAttributeByIndex"), flags, 8)
+        this.vtbl.EnumAttributes := CallbackCreate(ObjBindMethod(implObj, "EnumAttributes"), flags, 2)
     }
 
     Dispose() {

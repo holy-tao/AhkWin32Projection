@@ -153,9 +153,9 @@ export default struct IVMRImagePresenter9 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StartPresenting := CallbackCreate(GetMethod(implObj, "StartPresenting"), flags, 2)
-        this.vtbl.StopPresenting := CallbackCreate(GetMethod(implObj, "StopPresenting"), flags, 2)
-        this.vtbl.PresentImage := CallbackCreate(GetMethod(implObj, "PresentImage"), flags, 3)
+        this.vtbl.StartPresenting := CallbackCreate(ObjBindMethod(implObj, "StartPresenting"), flags, 2)
+        this.vtbl.StopPresenting := CallbackCreate(ObjBindMethod(implObj, "StopPresenting"), flags, 2)
+        this.vtbl.PresentImage := CallbackCreate(ObjBindMethod(implObj, "PresentImage"), flags, 3)
     }
 
     Dispose() {

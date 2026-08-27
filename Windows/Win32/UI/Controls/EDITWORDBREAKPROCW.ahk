@@ -38,7 +38,6 @@ export default struct EDITWORDBREAKPROCW {
     }
 
     /**
-     * 
      * @param {PWSTR} lpch Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * A pointer to the text of the edit control.

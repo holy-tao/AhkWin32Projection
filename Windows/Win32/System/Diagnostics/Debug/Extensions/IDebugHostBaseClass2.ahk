@@ -37,7 +37,6 @@ export default struct IDebugHostBaseClass2 extends IDebugHostBaseClass {
     }
 
     /**
-     * 
      * @returns {Boolean} 
      */
     IsVirtual() {
@@ -46,7 +45,6 @@ export default struct IDebugHostBaseClass2 extends IDebugHostBaseClass {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pTableOffset 
      * @param {Pointer<Integer>} pSlotOffset 
      * @param {Pointer<Integer>} pSlotSize 
@@ -54,10 +52,10 @@ export default struct IDebugHostBaseClass2 extends IDebugHostBaseClass {
      * @returns {HRESULT} 
      */
     GetVirtualBaseOffsetLocation(pTableOffset, pSlotOffset, pSlotSize, pSlotIsSigned) {
-        pTableOffsetMarshal := pTableOffset is VarRef ? "int64*" : "ptr"
-        pSlotOffsetMarshal := pSlotOffset is VarRef ? "int64*" : "ptr"
-        pSlotSizeMarshal := pSlotSize is VarRef ? "uint*" : "ptr"
-        pSlotIsSignedMarshal := pSlotIsSigned is VarRef ? "int*" : "ptr"
+        pTableOffsetMarshal := pTableOffset is VarRef ? "int64*" : IntPtr
+        pSlotOffsetMarshal := pSlotOffset is VarRef ? "int64*" : IntPtr
+        pSlotSizeMarshal := pSlotSize is VarRef ? "uint*" : IntPtr
+        pSlotIsSignedMarshal := pSlotIsSigned is VarRef ? "int*" : IntPtr
 
         result := ComCall(12, this, pTableOffsetMarshal, pTableOffset, pSlotOffsetMarshal, pSlotOffset, pSlotSizeMarshal, pSlotSize, pSlotIsSignedMarshal, pSlotIsSigned, "HRESULT")
         return result
@@ -72,8 +70,8 @@ export default struct IDebugHostBaseClass2 extends IDebugHostBaseClass {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsVirtual := CallbackCreate(GetMethod(implObj, "IsVirtual"), flags, 2)
-        this.vtbl.GetVirtualBaseOffsetLocation := CallbackCreate(GetMethod(implObj, "GetVirtualBaseOffsetLocation"), flags, 5)
+        this.vtbl.IsVirtual := CallbackCreate(ObjBindMethod(implObj, "IsVirtual"), flags, 2)
+        this.vtbl.GetVirtualBaseOffsetLocation := CallbackCreate(ObjBindMethod(implObj, "GetVirtualBaseOffsetLocation"), flags, 5)
     }
 
     Dispose() {

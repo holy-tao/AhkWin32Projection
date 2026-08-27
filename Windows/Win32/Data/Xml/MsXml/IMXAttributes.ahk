@@ -48,7 +48,6 @@ export default struct IMXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strURI 
      * @param {BSTR} strLocalName 
      * @param {BSTR} strQName 
@@ -68,7 +67,6 @@ export default struct IMXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varAtts 
      * @param {Integer} nIndex 
      * @returns {HRESULT} 
@@ -79,7 +77,6 @@ export default struct IMXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     clear() {
@@ -88,7 +85,6 @@ export default struct IMXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @returns {HRESULT} 
      */
@@ -98,7 +94,6 @@ export default struct IMXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @param {BSTR} strURI 
      * @param {BSTR} strLocalName 
@@ -119,7 +114,6 @@ export default struct IMXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varAtts 
      * @returns {HRESULT} 
      */
@@ -129,7 +123,6 @@ export default struct IMXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @param {BSTR} strLocalName 
      * @returns {HRESULT} 
@@ -142,7 +135,6 @@ export default struct IMXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @param {BSTR} strQName 
      * @returns {HRESULT} 
@@ -155,7 +147,6 @@ export default struct IMXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @param {BSTR} strType 
      * @returns {HRESULT} 
@@ -168,7 +159,6 @@ export default struct IMXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @param {BSTR} strURI 
      * @returns {HRESULT} 
@@ -181,7 +171,6 @@ export default struct IMXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @param {BSTR} strValue 
      * @returns {HRESULT} 
@@ -202,17 +191,17 @@ export default struct IMXAttributes extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.addAttribute := CallbackCreate(GetMethod(implObj, "addAttribute"), flags, 6)
-        this.vtbl.addAttributeFromIndex := CallbackCreate(GetMethod(implObj, "addAttributeFromIndex"), flags, 3)
-        this.vtbl.clear := CallbackCreate(GetMethod(implObj, "clear"), flags, 1)
-        this.vtbl.removeAttribute := CallbackCreate(GetMethod(implObj, "removeAttribute"), flags, 2)
-        this.vtbl.setAttribute := CallbackCreate(GetMethod(implObj, "setAttribute"), flags, 7)
-        this.vtbl.setAttributes := CallbackCreate(GetMethod(implObj, "setAttributes"), flags, 2)
-        this.vtbl.setLocalName := CallbackCreate(GetMethod(implObj, "setLocalName"), flags, 3)
-        this.vtbl.setQName := CallbackCreate(GetMethod(implObj, "setQName"), flags, 3)
-        this.vtbl.setType := CallbackCreate(GetMethod(implObj, "setType"), flags, 3)
-        this.vtbl.setURI := CallbackCreate(GetMethod(implObj, "setURI"), flags, 3)
-        this.vtbl.setValue := CallbackCreate(GetMethod(implObj, "setValue"), flags, 3)
+        this.vtbl.addAttribute := CallbackCreate(ObjBindMethod(implObj, "addAttribute"), flags, 6)
+        this.vtbl.addAttributeFromIndex := CallbackCreate(ObjBindMethod(implObj, "addAttributeFromIndex"), flags, 3)
+        this.vtbl.clear := CallbackCreate(ObjBindMethod(implObj, "clear"), flags, 1)
+        this.vtbl.removeAttribute := CallbackCreate(ObjBindMethod(implObj, "removeAttribute"), flags, 2)
+        this.vtbl.setAttribute := CallbackCreate(ObjBindMethod(implObj, "setAttribute"), flags, 7)
+        this.vtbl.setAttributes := CallbackCreate(ObjBindMethod(implObj, "setAttributes"), flags, 2)
+        this.vtbl.setLocalName := CallbackCreate(ObjBindMethod(implObj, "setLocalName"), flags, 3)
+        this.vtbl.setQName := CallbackCreate(ObjBindMethod(implObj, "setQName"), flags, 3)
+        this.vtbl.setType := CallbackCreate(ObjBindMethod(implObj, "setType"), flags, 3)
+        this.vtbl.setURI := CallbackCreate(ObjBindMethod(implObj, "setURI"), flags, 3)
+        this.vtbl.setValue := CallbackCreate(ObjBindMethod(implObj, "setValue"), flags, 3)
     }
 
     Dispose() {

@@ -236,10 +236,10 @@ export default struct IPinConnection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DynamicQueryAccept := CallbackCreate(GetMethod(implObj, "DynamicQueryAccept"), flags, 2)
-        this.vtbl.NotifyEndOfStream := CallbackCreate(GetMethod(implObj, "NotifyEndOfStream"), flags, 2)
-        this.vtbl.IsEndPin := CallbackCreate(GetMethod(implObj, "IsEndPin"), flags, 1)
-        this.vtbl.DynamicDisconnect := CallbackCreate(GetMethod(implObj, "DynamicDisconnect"), flags, 1)
+        this.vtbl.DynamicQueryAccept := CallbackCreate(ObjBindMethod(implObj, "DynamicQueryAccept"), flags, 2)
+        this.vtbl.NotifyEndOfStream := CallbackCreate(ObjBindMethod(implObj, "NotifyEndOfStream"), flags, 2)
+        this.vtbl.IsEndPin := CallbackCreate(ObjBindMethod(implObj, "IsEndPin"), flags, 1)
+        this.vtbl.DynamicDisconnect := CallbackCreate(ObjBindMethod(implObj, "DynamicDisconnect"), flags, 1)
     }
 
     Dispose() {

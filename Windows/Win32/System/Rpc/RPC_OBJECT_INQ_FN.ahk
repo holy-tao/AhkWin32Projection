@@ -25,7 +25,6 @@ export default struct RPC_OBJECT_INQ_FN {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} ObjectUuid Pointer to the variable that specifies the object 
      * <a href="https://msdn.microsoft.com/">UUID</a> that is to be mapped to a type UUID.
      * @param {Pointer<Guid>} TypeUuid Pointer to the address of the variable that is to contain the type UUID derived from the object UUID. The type UUID is returned by the function.
@@ -33,7 +32,7 @@ export default struct RPC_OBJECT_INQ_FN {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(ObjectUuid, TypeUuid, _Status) {
-        _StatusMarshal := _Status is VarRef ? "int*" : "ptr"
+        _StatusMarshal := _Status is VarRef ? "int*" : IntPtr
 
         DllCall(this.value, Guid.Ptr, ObjectUuid, Guid.Ptr, TypeUuid, _StatusMarshal, _Status)
     }

@@ -19,13 +19,12 @@ export default struct PROTOCOL_CO_AF_REGISTER_NOTIFY {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} ProtocolBindingContext 
      * @param {Pointer<CO_ADDRESS_FAMILY>} AddressFamily 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(ProtocolBindingContext, AddressFamily) {
-        ProtocolBindingContextMarshal := ProtocolBindingContext is VarRef ? "ptr" : "ptr"
+        ProtocolBindingContextMarshal := ProtocolBindingContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, ProtocolBindingContextMarshal, ProtocolBindingContext, CO_ADDRESS_FAMILY.Ptr, AddressFamily)
     }

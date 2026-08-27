@@ -42,9 +42,10 @@ export EcOpenSubscriptionEnum(Flags) {
 export EcEnumNextSubscription(SubscriptionEnum, SubscriptionNameBufferSize, SubscriptionNameBuffer, SubscriptionNameBufferUsed) {
     SubscriptionNameBuffer := SubscriptionNameBuffer is String ? StrPtr(SubscriptionNameBuffer) : SubscriptionNameBuffer
 
-    SubscriptionNameBufferUsedMarshal := SubscriptionNameBufferUsed is VarRef ? "uint*" : "ptr"
+    SubscriptionNameBufferMarshal := SubscriptionNameBuffer == 0 ? IntPtr : PWSTR
+    SubscriptionNameBufferUsedMarshal := SubscriptionNameBufferUsed is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("WecApi.dll\EcEnumNextSubscription", IntPtr, SubscriptionEnum, UInt32, SubscriptionNameBufferSize, "ptr", SubscriptionNameBuffer, SubscriptionNameBufferUsedMarshal, SubscriptionNameBufferUsed, BOOL)
+    result := DllCall("WecApi.dll\EcEnumNextSubscription", IntPtr, SubscriptionEnum, UInt32, SubscriptionNameBufferSize, SubscriptionNameBufferMarshal, SubscriptionNameBuffer, SubscriptionNameBufferUsedMarshal, SubscriptionNameBufferUsed, BOOL)
     return result
 }
 
@@ -98,7 +99,7 @@ export EcSetSubscriptionProperty(Subscription, PropertyId, Flags, _PropertyValue
  * @since windows6.0.6000
  */
 export EcGetSubscriptionProperty(Subscription, PropertyId, Flags, PropertyValueBufferSize, PropertyValueBuffer, PropertyValueBufferUsed) {
-    PropertyValueBufferUsedMarshal := PropertyValueBufferUsed is VarRef ? "uint*" : "ptr"
+    PropertyValueBufferUsedMarshal := PropertyValueBufferUsed is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WecApi.dll\EcGetSubscriptionProperty", IntPtr, Subscription, EC_SUBSCRIPTION_PROPERTY_ID, PropertyId, UInt32, Flags, UInt32, PropertyValueBufferSize, EC_VARIANT.Ptr, PropertyValueBuffer, PropertyValueBufferUsedMarshal, PropertyValueBufferUsed, BOOL)
     return result
@@ -147,7 +148,7 @@ export EcDeleteSubscription(SubscriptionName, Flags) {
  * @since windows6.0.6000
  */
 export EcGetObjectArraySize(ObjectArray, ObjectArraySize) {
-    ObjectArraySizeMarshal := ObjectArraySize is VarRef ? "uint*" : "ptr"
+    ObjectArraySizeMarshal := ObjectArraySize is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WecApi.dll\EcGetObjectArraySize", IntPtr, ObjectArray, ObjectArraySizeMarshal, ObjectArraySize, BOOL)
     return result
@@ -191,7 +192,7 @@ export EcSetObjectArrayProperty(ObjectArray, PropertyId, ArrayIndex, Flags, _Pro
  * @since windows6.0.6000
  */
 export EcGetObjectArrayProperty(ObjectArray, PropertyId, ArrayIndex, Flags, PropertyValueBufferSize, PropertyValueBuffer, PropertyValueBufferUsed) {
-    PropertyValueBufferUsedMarshal := PropertyValueBufferUsed is VarRef ? "uint*" : "ptr"
+    PropertyValueBufferUsedMarshal := PropertyValueBufferUsed is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WecApi.dll\EcGetObjectArrayProperty", IntPtr, ObjectArray, EC_SUBSCRIPTION_PROPERTY_ID, PropertyId, UInt32, ArrayIndex, UInt32, Flags, UInt32, PropertyValueBufferSize, EC_VARIANT.Ptr, PropertyValueBuffer, PropertyValueBufferUsedMarshal, PropertyValueBufferUsed, BOOL)
     return result
@@ -246,7 +247,7 @@ export EcGetSubscriptionRunTimeStatus(SubscriptionName, StatusInfoId, EventSourc
     SubscriptionName := SubscriptionName is String ? StrPtr(SubscriptionName) : SubscriptionName
     EventSourceName := EventSourceName is String ? StrPtr(EventSourceName) : EventSourceName
 
-    StatusValueBufferUsedMarshal := StatusValueBufferUsed is VarRef ? "uint*" : "ptr"
+    StatusValueBufferUsedMarshal := StatusValueBufferUsed is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WecApi.dll\EcGetSubscriptionRunTimeStatus", "ptr", SubscriptionName, EC_SUBSCRIPTION_RUNTIME_STATUS_INFO_ID, StatusInfoId, "ptr", EventSourceName, UInt32, Flags, UInt32, StatusValueBufferSize, EC_VARIANT.Ptr, StatusValueBuffer, StatusValueBufferUsedMarshal, StatusValueBufferUsed, BOOL)
     return result

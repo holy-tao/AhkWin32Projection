@@ -105,8 +105,8 @@ export default struct IVdsStoragePool extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsstoragepool-querydriveextents
      */
     QueryDriveExtents(ppExtentArray, plNumberOfExtents) {
-        ppExtentArrayMarshal := ppExtentArray is VarRef ? "ptr*" : "ptr"
-        plNumberOfExtentsMarshal := plNumberOfExtents is VarRef ? "int*" : "ptr"
+        ppExtentArrayMarshal := ppExtentArray is VarRef ? "ptr*" : IntPtr
+        plNumberOfExtentsMarshal := plNumberOfExtents is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, ppExtentArrayMarshal, ppExtentArray, plNumberOfExtentsMarshal, plNumberOfExtents, "HRESULT")
         return result
@@ -143,12 +143,12 @@ export default struct IVdsStoragePool extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProvider := CallbackCreate(GetMethod(implObj, "GetProvider"), flags, 2)
-        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
-        this.vtbl.GetAttributes := CallbackCreate(GetMethod(implObj, "GetAttributes"), flags, 2)
-        this.vtbl.QueryDriveExtents := CallbackCreate(GetMethod(implObj, "QueryDriveExtents"), flags, 3)
-        this.vtbl.QueryAllocatedLuns := CallbackCreate(GetMethod(implObj, "QueryAllocatedLuns"), flags, 2)
-        this.vtbl.QueryAllocatedStoragePools := CallbackCreate(GetMethod(implObj, "QueryAllocatedStoragePools"), flags, 2)
+        this.vtbl.GetProvider := CallbackCreate(ObjBindMethod(implObj, "GetProvider"), flags, 2)
+        this.vtbl.GetProperties := CallbackCreate(ObjBindMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.GetAttributes := CallbackCreate(ObjBindMethod(implObj, "GetAttributes"), flags, 2)
+        this.vtbl.QueryDriveExtents := CallbackCreate(ObjBindMethod(implObj, "QueryDriveExtents"), flags, 3)
+        this.vtbl.QueryAllocatedLuns := CallbackCreate(ObjBindMethod(implObj, "QueryAllocatedLuns"), flags, 2)
+        this.vtbl.QueryAllocatedStoragePools := CallbackCreate(ObjBindMethod(implObj, "QueryAllocatedStoragePools"), flags, 2)
     }
 
     Dispose() {

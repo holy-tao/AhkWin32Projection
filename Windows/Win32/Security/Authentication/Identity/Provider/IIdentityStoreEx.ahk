@@ -38,7 +38,6 @@ export default struct IIdentityStoreEx extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} LocalName 
      * @param {PWSTR} ConnectedName 
      * @param {Pointer<Guid>} ProviderGUID 
@@ -48,7 +47,9 @@ export default struct IIdentityStoreEx extends IUnknown {
         LocalName := LocalName is String ? StrPtr(LocalName) : LocalName
         ConnectedName := ConnectedName is String ? StrPtr(ConnectedName) : ConnectedName
 
-        result := ComCall(3, this, "ptr", LocalName, "ptr", ConnectedName, Guid.Ptr, ProviderGUID, "HRESULT")
+        LocalNameMarshal := LocalName == 0 ? IntPtr : PWSTR
+
+        result := ComCall(3, this, LocalNameMarshal, LocalName, "ptr", ConnectedName, Guid.Ptr, ProviderGUID, "HRESULT")
         return result
     }
 
@@ -85,8 +86,8 @@ export default struct IIdentityStoreEx extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateConnectedIdentity := CallbackCreate(GetMethod(implObj, "CreateConnectedIdentity"), flags, 4)
-        this.vtbl.DeleteConnectedIdentity := CallbackCreate(GetMethod(implObj, "DeleteConnectedIdentity"), flags, 3)
+        this.vtbl.CreateConnectedIdentity := CallbackCreate(ObjBindMethod(implObj, "CreateConnectedIdentity"), flags, 4)
+        this.vtbl.DeleteConnectedIdentity := CallbackCreate(ObjBindMethod(implObj, "DeleteConnectedIdentity"), flags, 3)
     }
 
     Dispose() {

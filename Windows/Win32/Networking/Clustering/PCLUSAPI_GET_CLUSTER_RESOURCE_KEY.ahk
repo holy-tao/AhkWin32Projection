@@ -20,7 +20,6 @@ export default struct PCLUSAPI_GET_CLUSTER_RESOURCE_KEY {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {Integer} samDesired 
      * @returns {HKEY} 

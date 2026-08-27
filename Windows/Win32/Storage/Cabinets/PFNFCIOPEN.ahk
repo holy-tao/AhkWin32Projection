@@ -19,7 +19,6 @@ export default struct PFNFCIOPEN {
     }
 
     /**
-     * 
      * @param {PSTR} pszFile 
      * @param {Integer} oflag 
      * @param {Integer} pmode 
@@ -30,8 +29,8 @@ export default struct PFNFCIOPEN {
     Call(pszFile, oflag, pmode, err, pv) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        errMarshal := err is VarRef ? "int*" : "ptr"
-        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+        errMarshal := err is VarRef ? "int*" : IntPtr
+        pvMarshal := pv is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, "ptr", pszFile, Int32, oflag, Int32, pmode, errMarshal, err, pvMarshal, pv, IntPtr)
         return result

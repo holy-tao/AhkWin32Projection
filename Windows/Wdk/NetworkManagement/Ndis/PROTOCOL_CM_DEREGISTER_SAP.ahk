@@ -18,12 +18,11 @@ export default struct PROTOCOL_CM_DEREGISTER_SAP {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} CallMgrSapContext 
      * @returns {Integer} 
      */
     Call(CallMgrSapContext) {
-        CallMgrSapContextMarshal := CallMgrSapContext is VarRef ? "ptr" : "ptr"
+        CallMgrSapContextMarshal := CallMgrSapContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, CallMgrSapContextMarshal, CallMgrSapContext, Int32)
         return result

@@ -20,7 +20,6 @@ export default struct PFND3DKMT_DESTROYPAGINGQUEUE {
     }
 
     /**
-     * 
      * @param {Pointer<D3DDDI_DESTROYPAGINGQUEUE>} param0 
      * @returns {NTSTATUS} 
      */

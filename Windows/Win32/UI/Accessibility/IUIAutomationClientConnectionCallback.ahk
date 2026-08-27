@@ -38,7 +38,6 @@ export default struct IUIAutomationClientConnectionCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUIAutomationClientInfo} clientInfo 
      * @returns {HRESULT} 
      */
@@ -48,7 +47,6 @@ export default struct IUIAutomationClientConnectionCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUIAutomationClientInfo} clientInfo 
      * @returns {HRESULT} 
      */
@@ -66,8 +64,8 @@ export default struct IUIAutomationClientConnectionCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnConnected := CallbackCreate(GetMethod(implObj, "OnConnected"), flags, 2)
-        this.vtbl.OnDisconnected := CallbackCreate(GetMethod(implObj, "OnDisconnected"), flags, 2)
+        this.vtbl.OnConnected := CallbackCreate(ObjBindMethod(implObj, "OnConnected"), flags, 2)
+        this.vtbl.OnDisconnected := CallbackCreate(ObjBindMethod(implObj, "OnDisconnected"), flags, 2)
     }
 
     Dispose() {

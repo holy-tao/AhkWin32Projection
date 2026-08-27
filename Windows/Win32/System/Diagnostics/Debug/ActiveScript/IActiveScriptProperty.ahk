@@ -55,7 +55,6 @@ export default struct IActiveScriptProperty extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwProperty 
      * @param {Pointer<VARIANT>} pvarIndex 
      * @param {Pointer<VARIANT>} pvarValue 
@@ -75,8 +74,8 @@ export default struct IActiveScriptProperty extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 4)
-        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 4)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 4)
+        this.vtbl.SetProperty := CallbackCreate(ObjBindMethod(implObj, "SetProperty"), flags, 4)
     }
 
     Dispose() {

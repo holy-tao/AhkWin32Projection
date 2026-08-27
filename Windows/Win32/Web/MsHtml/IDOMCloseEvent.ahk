@@ -52,7 +52,6 @@ export default struct IDOMCloseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_wasClean() {
@@ -61,7 +60,6 @@ export default struct IDOMCloseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 
@@ -87,8 +85,8 @@ export default struct IDOMCloseEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_wasClean := CallbackCreate(GetMethod(implObj, "get_wasClean"), flags, 2)
-        this.vtbl.initCloseEvent := CallbackCreate(GetMethod(implObj, "initCloseEvent"), flags, 7)
+        this.vtbl.get_wasClean := CallbackCreate(ObjBindMethod(implObj, "get_wasClean"), flags, 2)
+        this.vtbl.initCloseEvent := CallbackCreate(ObjBindMethod(implObj, "initCloseEvent"), flags, 7)
     }
 
     Dispose() {

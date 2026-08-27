@@ -20,7 +20,6 @@ export default struct PCLUSAPI_GET_CLUSTER_NET_INTERFACE {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszNodeName 
      * @param {PWSTR} lpszNetworkName 
@@ -33,9 +32,10 @@ export default struct PCLUSAPI_GET_CLUSTER_NET_INTERFACE {
         lpszNetworkName := lpszNetworkName is String ? StrPtr(lpszNetworkName) : lpszNetworkName
         lpszInterfaceName := lpszInterfaceName is String ? StrPtr(lpszInterfaceName) : lpszInterfaceName
 
-        lpcchInterfaceNameMarshal := lpcchInterfaceName is VarRef ? "uint*" : "ptr"
+        lpszInterfaceNameMarshal := lpszInterfaceName == 0 ? IntPtr : PWSTR
+        lpcchInterfaceNameMarshal := lpcchInterfaceName is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, HCLUSTER, _hCluster, "ptr", lpszNodeName, "ptr", lpszNetworkName, "ptr", lpszInterfaceName, lpcchInterfaceNameMarshal, lpcchInterfaceName, UInt32)
+        result := DllCall(this.value, HCLUSTER, _hCluster, "ptr", lpszNodeName, "ptr", lpszNetworkName, lpszInterfaceNameMarshal, lpszInterfaceName, lpcchInterfaceNameMarshal, lpcchInterfaceName, UInt32)
         return result
     }
 

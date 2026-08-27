@@ -38,7 +38,6 @@ export default struct ILaunchUIContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} value 
      * @returns {HRESULT} 
      */
@@ -48,7 +47,6 @@ export default struct ILaunchUIContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} value 
      * @returns {HRESULT} 
      */
@@ -66,8 +64,8 @@ export default struct ILaunchUIContext extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAssociatedWindow := CallbackCreate(GetMethod(implObj, "SetAssociatedWindow"), flags, 2)
-        this.vtbl.SetTabGroupingPreference := CallbackCreate(GetMethod(implObj, "SetTabGroupingPreference"), flags, 2)
+        this.vtbl.SetAssociatedWindow := CallbackCreate(ObjBindMethod(implObj, "SetAssociatedWindow"), flags, 2)
+        this.vtbl.SetTabGroupingPreference := CallbackCreate(ObjBindMethod(implObj, "SetTabGroupingPreference"), flags, 2)
     }
 
     Dispose() {

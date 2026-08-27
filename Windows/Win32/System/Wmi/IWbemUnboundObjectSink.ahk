@@ -76,7 +76,7 @@ export default struct IWbemUnboundObjectSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IndicateToConsumer := CallbackCreate(GetMethod(implObj, "IndicateToConsumer"), flags, 4)
+        this.vtbl.IndicateToConsumer := CallbackCreate(ObjBindMethod(implObj, "IndicateToConsumer"), flags, 4)
     }
 
     Dispose() {

@@ -80,7 +80,9 @@ export default struct IGroupPolicyObject extends IUnknown {
         pszDomainName := pszDomainName is String ? StrPtr(pszDomainName) : pszDomainName
         pszDisplayName := pszDisplayName is String ? StrPtr(pszDisplayName) : pszDisplayName
 
-        result := ComCall(3, this, "ptr", pszDomainName, "ptr", pszDisplayName, UInt32, dwFlags, "HRESULT")
+        pszDisplayNameMarshal := pszDisplayName == 0 ? IntPtr : PWSTR
+
+        result := ComCall(3, this, "ptr", pszDomainName, pszDisplayNameMarshal, pszDisplayName, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -301,7 +303,7 @@ export default struct IGroupPolicyObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-igrouppolicyobject-getoptions
      */
     GetOptions(dwOptions) {
-        dwOptionsMarshal := dwOptions is VarRef ? "uint*" : "ptr"
+        dwOptionsMarshal := dwOptions is VarRef ? "uint*" : IntPtr
 
         result := ComCall(16, this, dwOptionsMarshal, dwOptions, "HRESULT")
         return result
@@ -349,7 +351,7 @@ export default struct IGroupPolicyObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-igrouppolicyobject-gettype
      */
     GetType(gpoType) {
-        gpoTypeMarshal := gpoType is VarRef ? "int*" : "ptr"
+        gpoTypeMarshal := gpoType is VarRef ? "int*" : IntPtr
 
         result := ComCall(18, this, gpoTypeMarshal, gpoType, "HRESULT")
         return result
@@ -381,8 +383,8 @@ export default struct IGroupPolicyObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-igrouppolicyobject-getpropertysheetpages
      */
     GetPropertySheetPages(hPages, uPageCount) {
-        hPagesMarshal := hPages is VarRef ? "ptr*" : "ptr"
-        uPageCountMarshal := uPageCount is VarRef ? "uint*" : "ptr"
+        hPagesMarshal := hPages is VarRef ? "ptr*" : IntPtr
+        uPageCountMarshal := uPageCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(20, this, hPagesMarshal, hPages, uPageCountMarshal, uPageCount, "HRESULT")
         return result
@@ -397,24 +399,24 @@ export default struct IGroupPolicyObject extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.New := CallbackCreate(GetMethod(implObj, "New"), flags, 4)
-        this.vtbl.OpenDSGPO := CallbackCreate(GetMethod(implObj, "OpenDSGPO"), flags, 3)
-        this.vtbl.OpenLocalMachineGPO := CallbackCreate(GetMethod(implObj, "OpenLocalMachineGPO"), flags, 2)
-        this.vtbl.OpenRemoteMachineGPO := CallbackCreate(GetMethod(implObj, "OpenRemoteMachineGPO"), flags, 3)
-        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 5)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 3)
-        this.vtbl.GetDisplayName := CallbackCreate(GetMethod(implObj, "GetDisplayName"), flags, 3)
-        this.vtbl.SetDisplayName := CallbackCreate(GetMethod(implObj, "SetDisplayName"), flags, 2)
-        this.vtbl.GetPath := CallbackCreate(GetMethod(implObj, "GetPath"), flags, 3)
-        this.vtbl.GetDSPath := CallbackCreate(GetMethod(implObj, "GetDSPath"), flags, 4)
-        this.vtbl.GetFileSysPath := CallbackCreate(GetMethod(implObj, "GetFileSysPath"), flags, 4)
-        this.vtbl.GetRegistryKey := CallbackCreate(GetMethod(implObj, "GetRegistryKey"), flags, 3)
-        this.vtbl.GetOptions := CallbackCreate(GetMethod(implObj, "GetOptions"), flags, 2)
-        this.vtbl.SetOptions := CallbackCreate(GetMethod(implObj, "SetOptions"), flags, 3)
-        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
-        this.vtbl.GetMachineName := CallbackCreate(GetMethod(implObj, "GetMachineName"), flags, 3)
-        this.vtbl.GetPropertySheetPages := CallbackCreate(GetMethod(implObj, "GetPropertySheetPages"), flags, 3)
+        this.vtbl.New := CallbackCreate(ObjBindMethod(implObj, "New"), flags, 4)
+        this.vtbl.OpenDSGPO := CallbackCreate(ObjBindMethod(implObj, "OpenDSGPO"), flags, 3)
+        this.vtbl.OpenLocalMachineGPO := CallbackCreate(ObjBindMethod(implObj, "OpenLocalMachineGPO"), flags, 2)
+        this.vtbl.OpenRemoteMachineGPO := CallbackCreate(ObjBindMethod(implObj, "OpenRemoteMachineGPO"), flags, 3)
+        this.vtbl.Save := CallbackCreate(ObjBindMethod(implObj, "Save"), flags, 5)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 3)
+        this.vtbl.GetDisplayName := CallbackCreate(ObjBindMethod(implObj, "GetDisplayName"), flags, 3)
+        this.vtbl.SetDisplayName := CallbackCreate(ObjBindMethod(implObj, "SetDisplayName"), flags, 2)
+        this.vtbl.GetPath := CallbackCreate(ObjBindMethod(implObj, "GetPath"), flags, 3)
+        this.vtbl.GetDSPath := CallbackCreate(ObjBindMethod(implObj, "GetDSPath"), flags, 4)
+        this.vtbl.GetFileSysPath := CallbackCreate(ObjBindMethod(implObj, "GetFileSysPath"), flags, 4)
+        this.vtbl.GetRegistryKey := CallbackCreate(ObjBindMethod(implObj, "GetRegistryKey"), flags, 3)
+        this.vtbl.GetOptions := CallbackCreate(ObjBindMethod(implObj, "GetOptions"), flags, 2)
+        this.vtbl.SetOptions := CallbackCreate(ObjBindMethod(implObj, "SetOptions"), flags, 3)
+        this.vtbl.GetType := CallbackCreate(ObjBindMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.GetMachineName := CallbackCreate(ObjBindMethod(implObj, "GetMachineName"), flags, 3)
+        this.vtbl.GetPropertySheetPages := CallbackCreate(ObjBindMethod(implObj, "GetPropertySheetPages"), flags, 3)
     }
 
     Dispose() {

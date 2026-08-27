@@ -72,8 +72,8 @@ export default struct IDsAdminNewObj extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nf-dsadmin-idsadminnewobj-getpagecounts
      */
     GetPageCounts(pnTotal, pnStartIndex) {
-        pnTotalMarshal := pnTotal is VarRef ? "int*" : "ptr"
-        pnStartIndexMarshal := pnStartIndex is VarRef ? "int*" : "ptr"
+        pnTotalMarshal := pnTotal is VarRef ? "int*" : IntPtr
+        pnStartIndexMarshal := pnStartIndex is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, pnTotalMarshal, pnTotal, pnStartIndexMarshal, pnStartIndex, "HRESULT")
         return result
@@ -88,8 +88,8 @@ export default struct IDsAdminNewObj extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetButtons := CallbackCreate(GetMethod(implObj, "SetButtons"), flags, 3)
-        this.vtbl.GetPageCounts := CallbackCreate(GetMethod(implObj, "GetPageCounts"), flags, 3)
+        this.vtbl.SetButtons := CallbackCreate(ObjBindMethod(implObj, "SetButtons"), flags, 3)
+        this.vtbl.GetPageCounts := CallbackCreate(ObjBindMethod(implObj, "GetPageCounts"), flags, 3)
     }
 
     Dispose() {

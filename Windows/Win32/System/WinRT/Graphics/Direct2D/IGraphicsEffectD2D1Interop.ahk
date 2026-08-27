@@ -76,8 +76,8 @@ export default struct IGraphicsEffectD2D1Interop extends IUnknown {
     GetNamedPropertyMapping(name, index, mapping) {
         name := name is String ? StrPtr(name) : name
 
-        indexMarshal := index is VarRef ? "uint*" : "ptr"
-        mappingMarshal := mapping is VarRef ? "int*" : "ptr"
+        indexMarshal := index is VarRef ? "uint*" : IntPtr
+        mappingMarshal := mapping is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, "ptr", name, indexMarshal, index, mappingMarshal, mapping, "HRESULT")
         return result
@@ -146,12 +146,12 @@ export default struct IGraphicsEffectD2D1Interop extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetEffectId := CallbackCreate(GetMethod(implObj, "GetEffectId"), flags, 2)
-        this.vtbl.GetNamedPropertyMapping := CallbackCreate(GetMethod(implObj, "GetNamedPropertyMapping"), flags, 4)
-        this.vtbl.GetPropertyCount := CallbackCreate(GetMethod(implObj, "GetPropertyCount"), flags, 2)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
-        this.vtbl.GetSource := CallbackCreate(GetMethod(implObj, "GetSource"), flags, 3)
-        this.vtbl.GetSourceCount := CallbackCreate(GetMethod(implObj, "GetSourceCount"), flags, 2)
+        this.vtbl.GetEffectId := CallbackCreate(ObjBindMethod(implObj, "GetEffectId"), flags, 2)
+        this.vtbl.GetNamedPropertyMapping := CallbackCreate(ObjBindMethod(implObj, "GetNamedPropertyMapping"), flags, 4)
+        this.vtbl.GetPropertyCount := CallbackCreate(ObjBindMethod(implObj, "GetPropertyCount"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.GetSource := CallbackCreate(ObjBindMethod(implObj, "GetSource"), flags, 3)
+        this.vtbl.GetSourceCount := CallbackCreate(ObjBindMethod(implObj, "GetSourceCount"), flags, 2)
     }
 
     Dispose() {

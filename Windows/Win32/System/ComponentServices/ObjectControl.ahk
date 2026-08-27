@@ -95,7 +95,7 @@ export default struct ObjectControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-objectcontrol-canbepooled
      */
     CanBePooled(pbPoolable) {
-        pbPoolableMarshal := pbPoolable is VarRef ? "short*" : "ptr"
+        pbPoolableMarshal := pbPoolable is VarRef ? "short*" : IntPtr
 
         result := ComCall(5, this, pbPoolableMarshal, pbPoolable, "HRESULT")
         return result
@@ -110,9 +110,9 @@ export default struct ObjectControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Activate := CallbackCreate(GetMethod(implObj, "Activate"), flags, 1)
-        this.vtbl.Deactivate := CallbackCreate(GetMethod(implObj, "Deactivate"), flags, 1)
-        this.vtbl.CanBePooled := CallbackCreate(GetMethod(implObj, "CanBePooled"), flags, 2)
+        this.vtbl.Activate := CallbackCreate(ObjBindMethod(implObj, "Activate"), flags, 1)
+        this.vtbl.Deactivate := CallbackCreate(ObjBindMethod(implObj, "Deactivate"), flags, 1)
+        this.vtbl.CanBePooled := CallbackCreate(ObjBindMethod(implObj, "CanBePooled"), flags, 2)
     }
 
     Dispose() {

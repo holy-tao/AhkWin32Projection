@@ -19,7 +19,6 @@ export default struct LPMAPILOGON {
     }
 
     /**
-     * 
      * @param {Pointer} ulUIParam 
      * @param {PSTR} lpszProfileName 
      * @param {PSTR} lpszPassword 
@@ -32,9 +31,11 @@ export default struct LPMAPILOGON {
         lpszProfileName := lpszProfileName is String ? StrPtr(lpszProfileName) : lpszProfileName
         lpszPassword := lpszPassword is String ? StrPtr(lpszPassword) : lpszPassword
 
-        lplhSessionMarshal := lplhSession is VarRef ? "ptr*" : "ptr"
+        lpszProfileNameMarshal := lpszProfileName == 0 ? IntPtr : PSTR
+        lpszPasswordMarshal := lpszPassword == 0 ? IntPtr : PSTR
+        lplhSessionMarshal := lplhSession is VarRef ? "ptr*" : IntPtr
 
-        result := DllCall(this.value, IntPtr, ulUIParam, "ptr", lpszProfileName, "ptr", lpszPassword, UInt32, flFlags, UInt32, ulReserved, lplhSessionMarshal, lplhSession, UInt32)
+        result := DllCall(this.value, IntPtr, ulUIParam, lpszProfileNameMarshal, lpszProfileName, lpszPasswordMarshal, lpszPassword, UInt32, flFlags, UInt32, ulReserved, lplhSessionMarshal, lplhSession, UInt32)
         return result
     }
 

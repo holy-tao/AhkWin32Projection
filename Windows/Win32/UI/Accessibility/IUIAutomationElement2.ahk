@@ -172,12 +172,12 @@ export default struct IUIAutomationElement2 extends IUIAutomationElement {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_CurrentOptimizeForVisualContent := CallbackCreate(GetMethod(implObj, "get_CurrentOptimizeForVisualContent"), flags, 2)
-        this.vtbl.get_CachedOptimizeForVisualContent := CallbackCreate(GetMethod(implObj, "get_CachedOptimizeForVisualContent"), flags, 2)
-        this.vtbl.get_CurrentLiveSetting := CallbackCreate(GetMethod(implObj, "get_CurrentLiveSetting"), flags, 2)
-        this.vtbl.get_CachedLiveSetting := CallbackCreate(GetMethod(implObj, "get_CachedLiveSetting"), flags, 2)
-        this.vtbl.get_CurrentFlowsFrom := CallbackCreate(GetMethod(implObj, "get_CurrentFlowsFrom"), flags, 2)
-        this.vtbl.get_CachedFlowsFrom := CallbackCreate(GetMethod(implObj, "get_CachedFlowsFrom"), flags, 2)
+        this.vtbl.get_CurrentOptimizeForVisualContent := CallbackCreate(ObjBindMethod(implObj, "get_CurrentOptimizeForVisualContent"), flags, 2)
+        this.vtbl.get_CachedOptimizeForVisualContent := CallbackCreate(ObjBindMethod(implObj, "get_CachedOptimizeForVisualContent"), flags, 2)
+        this.vtbl.get_CurrentLiveSetting := CallbackCreate(ObjBindMethod(implObj, "get_CurrentLiveSetting"), flags, 2)
+        this.vtbl.get_CachedLiveSetting := CallbackCreate(ObjBindMethod(implObj, "get_CachedLiveSetting"), flags, 2)
+        this.vtbl.get_CurrentFlowsFrom := CallbackCreate(ObjBindMethod(implObj, "get_CurrentFlowsFrom"), flags, 2)
+        this.vtbl.get_CachedFlowsFrom := CallbackCreate(ObjBindMethod(implObj, "get_CachedFlowsFrom"), flags, 2)
     }
 
     Dispose() {

@@ -49,7 +49,6 @@ export default struct IHTMLMediaError extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_code() {
@@ -66,7 +65,7 @@ export default struct IHTMLMediaError extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_code := CallbackCreate(GetMethod(implObj, "get_code"), flags, 2)
+        this.vtbl.get_code := CallbackCreate(ObjBindMethod(implObj, "get_code"), flags, 2)
     }
 
     Dispose() {

@@ -69,8 +69,8 @@ export default struct IMFRemoteProxy extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRemoteObject := CallbackCreate(GetMethod(implObj, "GetRemoteObject"), flags, 3)
-        this.vtbl.GetRemoteHost := CallbackCreate(GetMethod(implObj, "GetRemoteHost"), flags, 3)
+        this.vtbl.GetRemoteObject := CallbackCreate(ObjBindMethod(implObj, "GetRemoteObject"), flags, 3)
+        this.vtbl.GetRemoteHost := CallbackCreate(ObjBindMethod(implObj, "GetRemoteHost"), flags, 3)
     }
 
     Dispose() {

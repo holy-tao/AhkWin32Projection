@@ -39,19 +39,17 @@ export default struct IFileClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pqwSize 
      * @returns {HRESULT} 
      */
     GetObjectDiskSize(pqwSize) {
-        pqwSizeMarshal := pqwSize is VarRef ? "uint*" : "ptr"
+        pqwSizeMarshal := pqwSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pqwSizeMarshal, pqwSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IFileIo} pFio 
      * @returns {HRESULT} 
      */
@@ -61,7 +59,6 @@ export default struct IFileClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {IFileIo} pFio 
      * @returns {HRESULT} 
      */
@@ -79,9 +76,9 @@ export default struct IFileClient extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetObjectDiskSize := CallbackCreate(GetMethod(implObj, "GetObjectDiskSize"), flags, 2)
-        this.vtbl.Write := CallbackCreate(GetMethod(implObj, "Write"), flags, 2)
-        this.vtbl.Read := CallbackCreate(GetMethod(implObj, "Read"), flags, 2)
+        this.vtbl.GetObjectDiskSize := CallbackCreate(ObjBindMethod(implObj, "GetObjectDiskSize"), flags, 2)
+        this.vtbl.Write := CallbackCreate(ObjBindMethod(implObj, "Write"), flags, 2)
+        this.vtbl.Read := CallbackCreate(ObjBindMethod(implObj, "Read"), flags, 2)
     }
 
     Dispose() {

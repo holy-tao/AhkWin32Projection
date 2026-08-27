@@ -31,7 +31,6 @@ export default struct SpGetInfoFn {
     }
 
     /**
-     * 
      * @param {Pointer<SecPkgInfoA>} PackageInfo Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secpkginfoa">SecPkgInfo</a> structure that is allocated by the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">Local Security Authority</a> (LSA) and must be populated by the package.
      * @returns {NTSTATUS} If the function succeeds, return STATUS_SUCCESS.

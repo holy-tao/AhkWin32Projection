@@ -47,7 +47,6 @@ export default struct IMLOperatorKernelCreationContext extends IMLOperatorAttrib
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetInputCount() {
@@ -56,7 +55,6 @@ export default struct IMLOperatorKernelCreationContext extends IMLOperatorAttrib
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetOutputCount() {
@@ -65,7 +63,6 @@ export default struct IMLOperatorKernelCreationContext extends IMLOperatorAttrib
     }
 
     /**
-     * 
      * @param {Integer} inputIndex 
      * @returns {Boolean} 
      */
@@ -75,7 +72,6 @@ export default struct IMLOperatorKernelCreationContext extends IMLOperatorAttrib
     }
 
     /**
-     * 
      * @param {Integer} outputIndex 
      * @returns {Boolean} 
      */
@@ -85,7 +81,6 @@ export default struct IMLOperatorKernelCreationContext extends IMLOperatorAttrib
     }
 
     /**
-     * 
      * @param {Integer} inputIndex 
      * @returns {MLOperatorEdgeDescription} 
      */
@@ -96,7 +91,6 @@ export default struct IMLOperatorKernelCreationContext extends IMLOperatorAttrib
     }
 
     /**
-     * 
      * @param {Integer} outputIndex 
      * @returns {MLOperatorEdgeDescription} 
      */
@@ -107,7 +101,6 @@ export default struct IMLOperatorKernelCreationContext extends IMLOperatorAttrib
     }
 
     /**
-     * 
      * @returns {Boolean} 
      */
     HasTensorShapeDescription() {
@@ -116,7 +109,6 @@ export default struct IMLOperatorKernelCreationContext extends IMLOperatorAttrib
     }
 
     /**
-     * 
      * @returns {IMLOperatorTensorShapeDescription} 
      */
     GetTensorShapeDescription() {
@@ -125,7 +117,6 @@ export default struct IMLOperatorKernelCreationContext extends IMLOperatorAttrib
     }
 
     /**
-     * 
      * @param {Pointer<IUnknown>} executionObject 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -142,15 +133,15 @@ export default struct IMLOperatorKernelCreationContext extends IMLOperatorAttrib
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetInputCount := CallbackCreate(GetMethod(implObj, "GetInputCount"), flags, 1)
-        this.vtbl.GetOutputCount := CallbackCreate(GetMethod(implObj, "GetOutputCount"), flags, 1)
-        this.vtbl.IsInputValid := CallbackCreate(GetMethod(implObj, "IsInputValid"), flags, 2)
-        this.vtbl.IsOutputValid := CallbackCreate(GetMethod(implObj, "IsOutputValid"), flags, 2)
-        this.vtbl.GetInputEdgeDescription := CallbackCreate(GetMethod(implObj, "GetInputEdgeDescription"), flags, 3)
-        this.vtbl.GetOutputEdgeDescription := CallbackCreate(GetMethod(implObj, "GetOutputEdgeDescription"), flags, 3)
-        this.vtbl.HasTensorShapeDescription := CallbackCreate(GetMethod(implObj, "HasTensorShapeDescription"), flags, 1)
-        this.vtbl.GetTensorShapeDescription := CallbackCreate(GetMethod(implObj, "GetTensorShapeDescription"), flags, 2)
-        this.vtbl.GetExecutionInterface := CallbackCreate(GetMethod(implObj, "GetExecutionInterface"), flags, 2)
+        this.vtbl.GetInputCount := CallbackCreate(ObjBindMethod(implObj, "GetInputCount"), flags, 1)
+        this.vtbl.GetOutputCount := CallbackCreate(ObjBindMethod(implObj, "GetOutputCount"), flags, 1)
+        this.vtbl.IsInputValid := CallbackCreate(ObjBindMethod(implObj, "IsInputValid"), flags, 2)
+        this.vtbl.IsOutputValid := CallbackCreate(ObjBindMethod(implObj, "IsOutputValid"), flags, 2)
+        this.vtbl.GetInputEdgeDescription := CallbackCreate(ObjBindMethod(implObj, "GetInputEdgeDescription"), flags, 3)
+        this.vtbl.GetOutputEdgeDescription := CallbackCreate(ObjBindMethod(implObj, "GetOutputEdgeDescription"), flags, 3)
+        this.vtbl.HasTensorShapeDescription := CallbackCreate(ObjBindMethod(implObj, "HasTensorShapeDescription"), flags, 1)
+        this.vtbl.GetTensorShapeDescription := CallbackCreate(ObjBindMethod(implObj, "GetTensorShapeDescription"), flags, 2)
+        this.vtbl.GetExecutionInterface := CallbackCreate(ObjBindMethod(implObj, "GetExecutionInterface"), flags, 2)
     }
 
     Dispose() {

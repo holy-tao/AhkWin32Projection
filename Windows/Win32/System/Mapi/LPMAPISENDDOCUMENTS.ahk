@@ -19,7 +19,6 @@ export default struct LPMAPISENDDOCUMENTS {
     }
 
     /**
-     * 
      * @param {Pointer} ulUIParam 
      * @param {PSTR} lpszDelimChar 
      * @param {PSTR} lpszFilePaths 

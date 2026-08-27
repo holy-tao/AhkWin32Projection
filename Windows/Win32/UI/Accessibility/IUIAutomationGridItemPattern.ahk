@@ -226,16 +226,16 @@ export default struct IUIAutomationGridItemPattern extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_CurrentContainingGrid := CallbackCreate(GetMethod(implObj, "get_CurrentContainingGrid"), flags, 2)
-        this.vtbl.get_CurrentRow := CallbackCreate(GetMethod(implObj, "get_CurrentRow"), flags, 2)
-        this.vtbl.get_CurrentColumn := CallbackCreate(GetMethod(implObj, "get_CurrentColumn"), flags, 2)
-        this.vtbl.get_CurrentRowSpan := CallbackCreate(GetMethod(implObj, "get_CurrentRowSpan"), flags, 2)
-        this.vtbl.get_CurrentColumnSpan := CallbackCreate(GetMethod(implObj, "get_CurrentColumnSpan"), flags, 2)
-        this.vtbl.get_CachedContainingGrid := CallbackCreate(GetMethod(implObj, "get_CachedContainingGrid"), flags, 2)
-        this.vtbl.get_CachedRow := CallbackCreate(GetMethod(implObj, "get_CachedRow"), flags, 2)
-        this.vtbl.get_CachedColumn := CallbackCreate(GetMethod(implObj, "get_CachedColumn"), flags, 2)
-        this.vtbl.get_CachedRowSpan := CallbackCreate(GetMethod(implObj, "get_CachedRowSpan"), flags, 2)
-        this.vtbl.get_CachedColumnSpan := CallbackCreate(GetMethod(implObj, "get_CachedColumnSpan"), flags, 2)
+        this.vtbl.get_CurrentContainingGrid := CallbackCreate(ObjBindMethod(implObj, "get_CurrentContainingGrid"), flags, 2)
+        this.vtbl.get_CurrentRow := CallbackCreate(ObjBindMethod(implObj, "get_CurrentRow"), flags, 2)
+        this.vtbl.get_CurrentColumn := CallbackCreate(ObjBindMethod(implObj, "get_CurrentColumn"), flags, 2)
+        this.vtbl.get_CurrentRowSpan := CallbackCreate(ObjBindMethod(implObj, "get_CurrentRowSpan"), flags, 2)
+        this.vtbl.get_CurrentColumnSpan := CallbackCreate(ObjBindMethod(implObj, "get_CurrentColumnSpan"), flags, 2)
+        this.vtbl.get_CachedContainingGrid := CallbackCreate(ObjBindMethod(implObj, "get_CachedContainingGrid"), flags, 2)
+        this.vtbl.get_CachedRow := CallbackCreate(ObjBindMethod(implObj, "get_CachedRow"), flags, 2)
+        this.vtbl.get_CachedColumn := CallbackCreate(ObjBindMethod(implObj, "get_CachedColumn"), flags, 2)
+        this.vtbl.get_CachedRowSpan := CallbackCreate(ObjBindMethod(implObj, "get_CachedRowSpan"), flags, 2)
+        this.vtbl.get_CachedColumnSpan := CallbackCreate(ObjBindMethod(implObj, "get_CachedColumnSpan"), flags, 2)
     }
 
     Dispose() {

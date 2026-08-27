@@ -36,7 +36,6 @@ export default struct IResourceManagerSink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     TMDown() {
@@ -53,7 +52,7 @@ export default struct IResourceManagerSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.TMDown := CallbackCreate(GetMethod(implObj, "TMDown"), flags, 1)
+        this.vtbl.TMDown := CallbackCreate(ObjBindMethod(implObj, "TMDown"), flags, 1)
     }
 
     Dispose() {

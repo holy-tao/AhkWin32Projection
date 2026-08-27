@@ -20,7 +20,6 @@ export default struct VDMBREAKTHREADPROC {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @returns {BOOL} 
      */

@@ -19,7 +19,6 @@ export default struct PFN_CARD_AUTHENTICATE_EX {
     }
 
     /**
-     * 
      * @param {Pointer<CARD_DATA>} pCardData 
      * @param {Integer} PinId 
      * @param {Integer} dwFlags 
@@ -31,9 +30,12 @@ export default struct PFN_CARD_AUTHENTICATE_EX {
      * @returns {Integer} 
      */
     Call(pCardData, PinId, dwFlags, pbPinData, cbPinData, ppbSessionPin, pcbSessionPin, pcAttemptsRemaining) {
-        ppbSessionPinMarshal := ppbSessionPin is VarRef ? "ptr*" : "ptr"
-        pcbSessionPinMarshal := pcbSessionPin is VarRef ? "uint*" : "ptr"
-        pcAttemptsRemainingMarshal := pcAttemptsRemaining is VarRef ? "uint*" : "ptr"
+        ppbSessionPinMarshal := ppbSessionPin is VarRef ? "ptr*" : IntPtr
+        ppbSessionPinMarshal := ppbSessionPin == 0 ? IntPtr : "ptr*"
+        pcbSessionPinMarshal := pcbSessionPin is VarRef ? "uint*" : IntPtr
+        pcbSessionPinMarshal := pcbSessionPin == 0 ? IntPtr : "uint*"
+        pcAttemptsRemainingMarshal := pcAttemptsRemaining is VarRef ? "uint*" : IntPtr
+        pcAttemptsRemainingMarshal := pcAttemptsRemaining == 0 ? IntPtr : "uint*"
 
         result := DllCall(this.value, CARD_DATA.Ptr, pCardData, UInt32, PinId, UInt32, dwFlags, IntPtr, pbPinData, UInt32, cbPinData, ppbSessionPinMarshal, ppbSessionPin, pcbSessionPinMarshal, pcbSessionPin, pcAttemptsRemainingMarshal, pcAttemptsRemaining, UInt32)
         return result

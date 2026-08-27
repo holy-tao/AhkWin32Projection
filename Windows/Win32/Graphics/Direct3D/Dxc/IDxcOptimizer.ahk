@@ -42,7 +42,6 @@ export default struct IDxcOptimizer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetAvailablePassCount() {
@@ -51,7 +50,6 @@ export default struct IDxcOptimizer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {IDxcOptimizerPass} 
      */
@@ -61,7 +59,6 @@ export default struct IDxcOptimizer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDxcBlob} pBlob 
      * @param {Pointer<PWSTR>} ppOptions 
      * @param {Integer} optionCount 
@@ -70,9 +67,10 @@ export default struct IDxcOptimizer extends IUnknown {
      * @returns {HRESULT} 
      */
     RunOptimizer(pBlob, ppOptions, optionCount, pOutputModule, ppOutputText) {
-        ppOptionsMarshal := ppOptions is VarRef ? "ptr*" : "ptr"
+        ppOptionsMarshal := ppOptions is VarRef ? "ptr*" : IntPtr
+        ppOutputTextMarshal := ppOutputText == 0 ? IntPtr : IDxcBlobEncoding.Ptr
 
-        result := ComCall(5, this, "ptr", pBlob, ppOptionsMarshal, ppOptions, UInt32, optionCount, IDxcBlob.Ptr, pOutputModule, IDxcBlobEncoding.Ptr, ppOutputText, "HRESULT")
+        result := ComCall(5, this, "ptr", pBlob, ppOptionsMarshal, ppOptions, UInt32, optionCount, IDxcBlob.Ptr, pOutputModule, ppOutputTextMarshal, ppOutputText, "HRESULT")
         return result
     }
 
@@ -85,9 +83,9 @@ export default struct IDxcOptimizer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAvailablePassCount := CallbackCreate(GetMethod(implObj, "GetAvailablePassCount"), flags, 2)
-        this.vtbl.GetAvailablePass := CallbackCreate(GetMethod(implObj, "GetAvailablePass"), flags, 3)
-        this.vtbl.RunOptimizer := CallbackCreate(GetMethod(implObj, "RunOptimizer"), flags, 6)
+        this.vtbl.GetAvailablePassCount := CallbackCreate(ObjBindMethod(implObj, "GetAvailablePassCount"), flags, 2)
+        this.vtbl.GetAvailablePass := CallbackCreate(ObjBindMethod(implObj, "GetAvailablePass"), flags, 3)
+        this.vtbl.RunOptimizer := CallbackCreate(ObjBindMethod(implObj, "RunOptimizer"), flags, 6)
     }
 
     Dispose() {

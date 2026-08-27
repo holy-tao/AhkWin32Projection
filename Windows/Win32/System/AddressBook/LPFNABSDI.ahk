@@ -19,13 +19,12 @@ export default struct LPFNABSDI {
     }
 
     /**
-     * 
      * @param {Pointer} ulUIParam 
      * @param {Pointer<Void>} lpvmsg 
      * @returns {BOOL} 
      */
     Call(ulUIParam, lpvmsg) {
-        lpvmsgMarshal := lpvmsg is VarRef ? "ptr" : "ptr"
+        lpvmsgMarshal := lpvmsg is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, IntPtr, ulUIParam, lpvmsgMarshal, lpvmsg, BOOL)
         return result

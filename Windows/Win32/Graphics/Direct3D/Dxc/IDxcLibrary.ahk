@@ -52,17 +52,17 @@ export default struct IDxcLibrary extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMalloc} pMalloc 
      * @returns {HRESULT} 
      */
     SetMalloc(pMalloc) {
-        result := ComCall(3, this, "ptr", pMalloc, "HRESULT")
+        pMallocMarshal := pMalloc == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pMallocMarshal, pMalloc, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IDxcBlob} pBlob 
      * @param {Integer} offset 
      * @param {Integer} length 
@@ -74,7 +74,6 @@ export default struct IDxcLibrary extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pFileName 
      * @param {Pointer<DXC_CP>} codePage 
      * @returns {IDxcBlobEncoding} 
@@ -82,14 +81,14 @@ export default struct IDxcLibrary extends IUnknown {
     CreateBlobFromFile(pFileName, codePage) {
         pFileName := pFileName is String ? StrPtr(pFileName) : pFileName
 
-        codePageMarshal := codePage is VarRef ? "uint*" : "ptr"
+        codePageMarshal := codePage is VarRef ? "uint*" : IntPtr
+        codePageMarshal := codePage == 0 ? IntPtr : "uint*"
 
         result := ComCall(5, this, "ptr", pFileName, codePageMarshal, codePage, "ptr*", &pBlobEncoding := 0, "HRESULT")
         return IDxcBlobEncoding(pBlobEncoding)
     }
 
     /**
-     * 
      * @param {Integer} pText 
      * @param {Integer} _size 
      * @param {DXC_CP} codePage 
@@ -101,7 +100,6 @@ export default struct IDxcLibrary extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pText 
      * @param {Integer} _size 
      * @param {DXC_CP} codePage 
@@ -113,7 +111,6 @@ export default struct IDxcLibrary extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pText 
      * @param {IMalloc} pIMalloc 
      * @param {Integer} _size 
@@ -126,7 +123,6 @@ export default struct IDxcLibrary extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDxcIncludeHandler} 
      */
     CreateIncludeHandler() {
@@ -135,7 +131,6 @@ export default struct IDxcLibrary extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDxcBlob} pBlob 
      * @returns {IStream} 
      */
@@ -145,7 +140,6 @@ export default struct IDxcLibrary extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDxcBlob} pBlob 
      * @returns {IDxcBlobEncoding} 
      */
@@ -155,7 +149,6 @@ export default struct IDxcLibrary extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDxcBlob} pBlob 
      * @returns {IDxcBlobEncoding} 
      */
@@ -173,16 +166,16 @@ export default struct IDxcLibrary extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetMalloc := CallbackCreate(GetMethod(implObj, "SetMalloc"), flags, 2)
-        this.vtbl.CreateBlobFromBlob := CallbackCreate(GetMethod(implObj, "CreateBlobFromBlob"), flags, 5)
-        this.vtbl.CreateBlobFromFile := CallbackCreate(GetMethod(implObj, "CreateBlobFromFile"), flags, 4)
-        this.vtbl.CreateBlobWithEncodingFromPinned := CallbackCreate(GetMethod(implObj, "CreateBlobWithEncodingFromPinned"), flags, 5)
-        this.vtbl.CreateBlobWithEncodingOnHeapCopy := CallbackCreate(GetMethod(implObj, "CreateBlobWithEncodingOnHeapCopy"), flags, 5)
-        this.vtbl.CreateBlobWithEncodingOnMalloc := CallbackCreate(GetMethod(implObj, "CreateBlobWithEncodingOnMalloc"), flags, 6)
-        this.vtbl.CreateIncludeHandler := CallbackCreate(GetMethod(implObj, "CreateIncludeHandler"), flags, 2)
-        this.vtbl.CreateStreamFromBlobReadOnly := CallbackCreate(GetMethod(implObj, "CreateStreamFromBlobReadOnly"), flags, 3)
-        this.vtbl.GetBlobAsUtf8 := CallbackCreate(GetMethod(implObj, "GetBlobAsUtf8"), flags, 3)
-        this.vtbl.GetBlobAsWide := CallbackCreate(GetMethod(implObj, "GetBlobAsWide"), flags, 3)
+        this.vtbl.SetMalloc := CallbackCreate(ObjBindMethod(implObj, "SetMalloc"), flags, 2)
+        this.vtbl.CreateBlobFromBlob := CallbackCreate(ObjBindMethod(implObj, "CreateBlobFromBlob"), flags, 5)
+        this.vtbl.CreateBlobFromFile := CallbackCreate(ObjBindMethod(implObj, "CreateBlobFromFile"), flags, 4)
+        this.vtbl.CreateBlobWithEncodingFromPinned := CallbackCreate(ObjBindMethod(implObj, "CreateBlobWithEncodingFromPinned"), flags, 5)
+        this.vtbl.CreateBlobWithEncodingOnHeapCopy := CallbackCreate(ObjBindMethod(implObj, "CreateBlobWithEncodingOnHeapCopy"), flags, 5)
+        this.vtbl.CreateBlobWithEncodingOnMalloc := CallbackCreate(ObjBindMethod(implObj, "CreateBlobWithEncodingOnMalloc"), flags, 6)
+        this.vtbl.CreateIncludeHandler := CallbackCreate(ObjBindMethod(implObj, "CreateIncludeHandler"), flags, 2)
+        this.vtbl.CreateStreamFromBlobReadOnly := CallbackCreate(ObjBindMethod(implObj, "CreateStreamFromBlobReadOnly"), flags, 3)
+        this.vtbl.GetBlobAsUtf8 := CallbackCreate(ObjBindMethod(implObj, "GetBlobAsUtf8"), flags, 3)
+        this.vtbl.GetBlobAsWide := CallbackCreate(ObjBindMethod(implObj, "GetBlobAsWide"), flags, 3)
     }
 
     Dispose() {

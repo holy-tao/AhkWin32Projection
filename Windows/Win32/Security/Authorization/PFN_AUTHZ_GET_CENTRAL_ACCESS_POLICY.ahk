@@ -21,7 +21,6 @@ export default struct PFN_AUTHZ_GET_CENTRAL_ACCESS_POLICY {
     }
 
     /**
-     * 
      * @param {AUTHZ_CLIENT_CONTEXT_HANDLE} hAuthzClientContext 
      * @param {PSID} capid 
      * @param {Pointer<Void>} pArgs 
@@ -30,9 +29,10 @@ export default struct PFN_AUTHZ_GET_CENTRAL_ACCESS_POLICY {
      * @returns {BOOL} 
      */
     Call(hAuthzClientContext, capid, pArgs, pCentralAccessPolicyApplicable, ppCentralAccessPolicy) {
-        pArgsMarshal := pArgs is VarRef ? "ptr" : "ptr"
-        pCentralAccessPolicyApplicableMarshal := pCentralAccessPolicyApplicable is VarRef ? "int*" : "ptr"
-        ppCentralAccessPolicyMarshal := ppCentralAccessPolicy is VarRef ? "ptr*" : "ptr"
+        pArgsMarshal := pArgs is VarRef ? "ptr" : IntPtr
+        pArgsMarshal := pArgs == 0 ? IntPtr : "ptr"
+        pCentralAccessPolicyApplicableMarshal := pCentralAccessPolicyApplicable is VarRef ? "int*" : IntPtr
+        ppCentralAccessPolicyMarshal := ppCentralAccessPolicy is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, AUTHZ_CLIENT_CONTEXT_HANDLE, hAuthzClientContext, PSID, capid, pArgsMarshal, pArgs, pCentralAccessPolicyApplicableMarshal, pCentralAccessPolicyApplicable, ppCentralAccessPolicyMarshal, ppCentralAccessPolicy, BOOL)
         return result

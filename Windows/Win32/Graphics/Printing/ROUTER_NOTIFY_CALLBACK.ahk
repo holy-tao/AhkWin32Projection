@@ -20,7 +20,6 @@ export default struct ROUTER_NOTIFY_CALLBACK {
     }
 
     /**
-     * 
      * @param {Integer} dwCommand 
      * @param {Pointer<Void>} pContext 
      * @param {Integer} dwColor 
@@ -30,8 +29,8 @@ export default struct ROUTER_NOTIFY_CALLBACK {
      * @returns {BOOL} 
      */
     Call(dwCommand, pContext, dwColor, pNofityInfo, fdwFlags, pdwResult) {
-        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
-        pdwResultMarshal := pdwResult is VarRef ? "uint*" : "ptr"
+        pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
+        pdwResultMarshal := pdwResult is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, UInt32, dwCommand, pContextMarshal, pContext, UInt32, dwColor, PRINTER_NOTIFY_INFO.Ptr, pNofityInfo, UInt32, fdwFlags, pdwResultMarshal, pdwResult, BOOL)
         return result

@@ -294,18 +294,18 @@ export default struct IUIAnimationTransitionLibrary extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateInstantaneousTransition := CallbackCreate(GetMethod(implObj, "CreateInstantaneousTransition"), flags, 3)
-        this.vtbl.CreateConstantTransition := CallbackCreate(GetMethod(implObj, "CreateConstantTransition"), flags, 3)
-        this.vtbl.CreateDiscreteTransition := CallbackCreate(GetMethod(implObj, "CreateDiscreteTransition"), flags, 5)
-        this.vtbl.CreateLinearTransition := CallbackCreate(GetMethod(implObj, "CreateLinearTransition"), flags, 4)
-        this.vtbl.CreateLinearTransitionFromSpeed := CallbackCreate(GetMethod(implObj, "CreateLinearTransitionFromSpeed"), flags, 4)
-        this.vtbl.CreateSinusoidalTransitionFromVelocity := CallbackCreate(GetMethod(implObj, "CreateSinusoidalTransitionFromVelocity"), flags, 4)
-        this.vtbl.CreateSinusoidalTransitionFromRange := CallbackCreate(GetMethod(implObj, "CreateSinusoidalTransitionFromRange"), flags, 7)
-        this.vtbl.CreateAccelerateDecelerateTransition := CallbackCreate(GetMethod(implObj, "CreateAccelerateDecelerateTransition"), flags, 6)
-        this.vtbl.CreateReversalTransition := CallbackCreate(GetMethod(implObj, "CreateReversalTransition"), flags, 3)
-        this.vtbl.CreateCubicTransition := CallbackCreate(GetMethod(implObj, "CreateCubicTransition"), flags, 5)
-        this.vtbl.CreateSmoothStopTransition := CallbackCreate(GetMethod(implObj, "CreateSmoothStopTransition"), flags, 4)
-        this.vtbl.CreateParabolicTransitionFromAcceleration := CallbackCreate(GetMethod(implObj, "CreateParabolicTransitionFromAcceleration"), flags, 5)
+        this.vtbl.CreateInstantaneousTransition := CallbackCreate(ObjBindMethod(implObj, "CreateInstantaneousTransition"), flags, 3)
+        this.vtbl.CreateConstantTransition := CallbackCreate(ObjBindMethod(implObj, "CreateConstantTransition"), flags, 3)
+        this.vtbl.CreateDiscreteTransition := CallbackCreate(ObjBindMethod(implObj, "CreateDiscreteTransition"), flags, 5)
+        this.vtbl.CreateLinearTransition := CallbackCreate(ObjBindMethod(implObj, "CreateLinearTransition"), flags, 4)
+        this.vtbl.CreateLinearTransitionFromSpeed := CallbackCreate(ObjBindMethod(implObj, "CreateLinearTransitionFromSpeed"), flags, 4)
+        this.vtbl.CreateSinusoidalTransitionFromVelocity := CallbackCreate(ObjBindMethod(implObj, "CreateSinusoidalTransitionFromVelocity"), flags, 4)
+        this.vtbl.CreateSinusoidalTransitionFromRange := CallbackCreate(ObjBindMethod(implObj, "CreateSinusoidalTransitionFromRange"), flags, 7)
+        this.vtbl.CreateAccelerateDecelerateTransition := CallbackCreate(ObjBindMethod(implObj, "CreateAccelerateDecelerateTransition"), flags, 6)
+        this.vtbl.CreateReversalTransition := CallbackCreate(ObjBindMethod(implObj, "CreateReversalTransition"), flags, 3)
+        this.vtbl.CreateCubicTransition := CallbackCreate(ObjBindMethod(implObj, "CreateCubicTransition"), flags, 5)
+        this.vtbl.CreateSmoothStopTransition := CallbackCreate(ObjBindMethod(implObj, "CreateSmoothStopTransition"), flags, 4)
+        this.vtbl.CreateParabolicTransitionFromAcceleration := CallbackCreate(ObjBindMethod(implObj, "CreateParabolicTransitionFromAcceleration"), flags, 5)
     }
 
     Dispose() {

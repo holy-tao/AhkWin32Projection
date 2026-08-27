@@ -73,8 +73,8 @@ export default struct IBDA_DRMService extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetDRM := CallbackCreate(GetMethod(implObj, "SetDRM"), flags, 2)
-        this.vtbl.GetDRMStatus := CallbackCreate(GetMethod(implObj, "GetDRMStatus"), flags, 3)
+        this.vtbl.SetDRM := CallbackCreate(ObjBindMethod(implObj, "SetDRM"), flags, 2)
+        this.vtbl.GetDRMStatus := CallbackCreate(ObjBindMethod(implObj, "GetDRMStatus"), flags, 3)
     }
 
     Dispose() {

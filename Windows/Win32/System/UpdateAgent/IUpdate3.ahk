@@ -64,7 +64,7 @@ export default struct IUpdate3 extends IUpdate2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_BrowseOnly := CallbackCreate(GetMethod(implObj, "get_BrowseOnly"), flags, 2)
+        this.vtbl.get_BrowseOnly := CallbackCreate(ObjBindMethod(implObj, "get_BrowseOnly"), flags, 2)
     }
 
     Dispose() {

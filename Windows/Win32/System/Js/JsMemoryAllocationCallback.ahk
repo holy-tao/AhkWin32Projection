@@ -19,14 +19,14 @@ export default struct JsMemoryAllocationCallback {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} callbackState 
      * @param {JsMemoryEventType} allocationEvent 
      * @param {Pointer} allocationSize 
      * @returns {Boolean} 
      */
     Call(callbackState, allocationEvent, allocationSize) {
-        callbackStateMarshal := callbackState is VarRef ? "ptr" : "ptr"
+        callbackStateMarshal := callbackState is VarRef ? "ptr" : IntPtr
+        callbackStateMarshal := callbackState == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, callbackStateMarshal, callbackState, JsMemoryEventType, allocationEvent, IntPtr, allocationSize, Int32)
         return result

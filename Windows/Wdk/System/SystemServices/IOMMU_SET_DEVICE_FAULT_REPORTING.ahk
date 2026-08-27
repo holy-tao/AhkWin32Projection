@@ -22,7 +22,6 @@ export default struct IOMMU_SET_DEVICE_FAULT_REPORTING {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} PhysicalDeviceObject 
      * @param {Integer} InputMappingIdBase 
      * @param {BOOLEAN} Enable 
@@ -30,7 +29,9 @@ export default struct IOMMU_SET_DEVICE_FAULT_REPORTING {
      * @returns {NTSTATUS} 
      */
     Call(PhysicalDeviceObject, InputMappingIdBase, Enable, FaultConfig) {
-        result := DllCall(this.value, DEVICE_OBJECT.Ptr, PhysicalDeviceObject, UInt32, InputMappingIdBase, BOOLEAN, Enable, DEVICE_FAULT_CONFIGURATION.Ptr, FaultConfig, NTSTATUS)
+        FaultConfigMarshal := FaultConfig == 0 ? IntPtr : DEVICE_FAULT_CONFIGURATION.Ptr
+
+        result := DllCall(this.value, DEVICE_OBJECT.Ptr, PhysicalDeviceObject, UInt32, InputMappingIdBase, BOOLEAN, Enable, FaultConfigMarshal, FaultConfig, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

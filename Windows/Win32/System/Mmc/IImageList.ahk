@@ -78,7 +78,7 @@ export default struct IImageList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iimagelist-imagelistseticon
      */
     ImageListSetIcon(pIcon, nLoc) {
-        pIconMarshal := pIcon is VarRef ? "ptr*" : "ptr"
+        pIconMarshal := pIcon is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, pIconMarshal, pIcon, Int32, nLoc, "HRESULT")
         return result
@@ -98,8 +98,8 @@ export default struct IImageList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iimagelist-imagelistsetstrip
      */
     ImageListSetStrip(pBMapSm, pBMapLg, nStartLoc, cMask) {
-        pBMapSmMarshal := pBMapSm is VarRef ? "ptr*" : "ptr"
-        pBMapLgMarshal := pBMapLg is VarRef ? "ptr*" : "ptr"
+        pBMapSmMarshal := pBMapSm is VarRef ? "ptr*" : IntPtr
+        pBMapLgMarshal := pBMapLg is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, pBMapSmMarshal, pBMapSm, pBMapLgMarshal, pBMapLg, Int32, nStartLoc, COLORREF, cMask, "HRESULT")
         return result
@@ -114,8 +114,8 @@ export default struct IImageList extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ImageListSetIcon := CallbackCreate(GetMethod(implObj, "ImageListSetIcon"), flags, 3)
-        this.vtbl.ImageListSetStrip := CallbackCreate(GetMethod(implObj, "ImageListSetStrip"), flags, 5)
+        this.vtbl.ImageListSetIcon := CallbackCreate(ObjBindMethod(implObj, "ImageListSetIcon"), flags, 3)
+        this.vtbl.ImageListSetStrip := CallbackCreate(ObjBindMethod(implObj, "ImageListSetStrip"), flags, 5)
     }
 
     Dispose() {

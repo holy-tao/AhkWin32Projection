@@ -38,21 +38,19 @@ export default struct IMDFind extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} ulStartingOrdinal 
      * @param {Pointer} cMembers 
      * @param {Pointer<PWSTR>} rgpwszMember 
      * @returns {Pointer} 
      */
     FindCell(ulStartingOrdinal, cMembers, rgpwszMember) {
-        rgpwszMemberMarshal := rgpwszMember is VarRef ? "ptr*" : "ptr"
+        rgpwszMemberMarshal := rgpwszMember is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, IntPtr, ulStartingOrdinal, IntPtr, cMembers, rgpwszMemberMarshal, rgpwszMember, "ptr*", &pulCellOrdinal := 0, "HRESULT")
         return pulCellOrdinal
     }
 
     /**
-     * 
      * @param {Integer} ulAxisIdentifier 
      * @param {Pointer} ulStartingOrdinal 
      * @param {Pointer} cMembers 
@@ -60,7 +58,7 @@ export default struct IMDFind extends IUnknown {
      * @returns {Integer} 
      */
     FindTuple(ulAxisIdentifier, ulStartingOrdinal, cMembers, rgpwszMember) {
-        rgpwszMemberMarshal := rgpwszMember is VarRef ? "ptr*" : "ptr"
+        rgpwszMemberMarshal := rgpwszMember is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, UInt32, ulAxisIdentifier, IntPtr, ulStartingOrdinal, IntPtr, cMembers, rgpwszMemberMarshal, rgpwszMember, "uint*", &pulTupleOrdinal := 0, "HRESULT")
         return pulTupleOrdinal
@@ -75,8 +73,8 @@ export default struct IMDFind extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FindCell := CallbackCreate(GetMethod(implObj, "FindCell"), flags, 5)
-        this.vtbl.FindTuple := CallbackCreate(GetMethod(implObj, "FindTuple"), flags, 6)
+        this.vtbl.FindCell := CallbackCreate(ObjBindMethod(implObj, "FindCell"), flags, 5)
+        this.vtbl.FindTuple := CallbackCreate(ObjBindMethod(implObj, "FindTuple"), flags, 6)
     }
 
     Dispose() {

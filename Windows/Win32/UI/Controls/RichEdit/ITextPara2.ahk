@@ -130,7 +130,9 @@ export default struct ITextPara2 extends ITextPara {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-setduplicate2
      */
     SetDuplicate2(pPara) {
-        result := ComCall(57, this, "ptr", pPara, "HRESULT")
+        pParaMarshal := pPara == 0 ? IntPtr : "ptr"
+
+        result := ComCall(57, this, pParaMarshal, pPara, "HRESULT")
         return result
     }
 
@@ -364,8 +366,8 @@ export default struct ITextPara2 extends ITextPara {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-geteffects
      */
     GetEffects(pValue, pMask) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-        pMaskMarshal := pMask is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "int*" : IntPtr
+        pMaskMarshal := pMask is VarRef ? "int*" : IntPtr
 
         result := ComCall(66, this, pValueMarshal, pValue, pMaskMarshal, pMask, "HRESULT")
         return result
@@ -405,7 +407,9 @@ export default struct ITextPara2 extends ITextPara {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-isequal2
      */
     IsEqual2(pPara) {
-        result := ComCall(68, this, "ptr", pPara, "int*", &pB := 0, "HRESULT")
+        pParaMarshal := pPara == 0 ? IntPtr : "ptr"
+
+        result := ComCall(68, this, pParaMarshal, pPara, "int*", &pB := 0, "HRESULT")
         return pB
     }
 
@@ -460,22 +464,22 @@ export default struct ITextPara2 extends ITextPara {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetBorders := CallbackCreate(GetMethod(implObj, "GetBorders"), flags, 2)
-        this.vtbl.GetDuplicate2 := CallbackCreate(GetMethod(implObj, "GetDuplicate2"), flags, 2)
-        this.vtbl.SetDuplicate2 := CallbackCreate(GetMethod(implObj, "SetDuplicate2"), flags, 2)
-        this.vtbl.GetFontAlignment := CallbackCreate(GetMethod(implObj, "GetFontAlignment"), flags, 2)
-        this.vtbl.SetFontAlignment := CallbackCreate(GetMethod(implObj, "SetFontAlignment"), flags, 2)
-        this.vtbl.GetHangingPunctuation := CallbackCreate(GetMethod(implObj, "GetHangingPunctuation"), flags, 2)
-        this.vtbl.SetHangingPunctuation := CallbackCreate(GetMethod(implObj, "SetHangingPunctuation"), flags, 2)
-        this.vtbl.GetSnapToGrid := CallbackCreate(GetMethod(implObj, "GetSnapToGrid"), flags, 2)
-        this.vtbl.SetSnapToGrid := CallbackCreate(GetMethod(implObj, "SetSnapToGrid"), flags, 2)
-        this.vtbl.GetTrimPunctuationAtStart := CallbackCreate(GetMethod(implObj, "GetTrimPunctuationAtStart"), flags, 2)
-        this.vtbl.SetTrimPunctuationAtStart := CallbackCreate(GetMethod(implObj, "SetTrimPunctuationAtStart"), flags, 2)
-        this.vtbl.GetEffects := CallbackCreate(GetMethod(implObj, "GetEffects"), flags, 3)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
-        this.vtbl.IsEqual2 := CallbackCreate(GetMethod(implObj, "IsEqual2"), flags, 3)
-        this.vtbl.SetEffects := CallbackCreate(GetMethod(implObj, "SetEffects"), flags, 3)
-        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 3)
+        this.vtbl.GetBorders := CallbackCreate(ObjBindMethod(implObj, "GetBorders"), flags, 2)
+        this.vtbl.GetDuplicate2 := CallbackCreate(ObjBindMethod(implObj, "GetDuplicate2"), flags, 2)
+        this.vtbl.SetDuplicate2 := CallbackCreate(ObjBindMethod(implObj, "SetDuplicate2"), flags, 2)
+        this.vtbl.GetFontAlignment := CallbackCreate(ObjBindMethod(implObj, "GetFontAlignment"), flags, 2)
+        this.vtbl.SetFontAlignment := CallbackCreate(ObjBindMethod(implObj, "SetFontAlignment"), flags, 2)
+        this.vtbl.GetHangingPunctuation := CallbackCreate(ObjBindMethod(implObj, "GetHangingPunctuation"), flags, 2)
+        this.vtbl.SetHangingPunctuation := CallbackCreate(ObjBindMethod(implObj, "SetHangingPunctuation"), flags, 2)
+        this.vtbl.GetSnapToGrid := CallbackCreate(ObjBindMethod(implObj, "GetSnapToGrid"), flags, 2)
+        this.vtbl.SetSnapToGrid := CallbackCreate(ObjBindMethod(implObj, "SetSnapToGrid"), flags, 2)
+        this.vtbl.GetTrimPunctuationAtStart := CallbackCreate(ObjBindMethod(implObj, "GetTrimPunctuationAtStart"), flags, 2)
+        this.vtbl.SetTrimPunctuationAtStart := CallbackCreate(ObjBindMethod(implObj, "SetTrimPunctuationAtStart"), flags, 2)
+        this.vtbl.GetEffects := CallbackCreate(ObjBindMethod(implObj, "GetEffects"), flags, 3)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.IsEqual2 := CallbackCreate(ObjBindMethod(implObj, "IsEqual2"), flags, 3)
+        this.vtbl.SetEffects := CallbackCreate(ObjBindMethod(implObj, "SetEffects"), flags, 3)
+        this.vtbl.SetProperty := CallbackCreate(ObjBindMethod(implObj, "SetProperty"), flags, 3)
     }
 
     Dispose() {

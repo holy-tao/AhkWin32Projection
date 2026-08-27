@@ -114,7 +114,6 @@ export default struct IDynamicPortMapping extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ExternalIPAddress() {
@@ -124,7 +123,6 @@ export default struct IDynamicPortMapping extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_RemoteHost() {
@@ -134,7 +132,6 @@ export default struct IDynamicPortMapping extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ExternalPort() {
@@ -143,7 +140,6 @@ export default struct IDynamicPortMapping extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Protocol() {
@@ -153,7 +149,6 @@ export default struct IDynamicPortMapping extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_InternalPort() {
@@ -162,7 +157,6 @@ export default struct IDynamicPortMapping extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_InternalClient() {
@@ -172,7 +166,6 @@ export default struct IDynamicPortMapping extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Enabled() {
@@ -181,7 +174,6 @@ export default struct IDynamicPortMapping extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Description() {
@@ -191,7 +183,6 @@ export default struct IDynamicPortMapping extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_LeaseDuration() {
@@ -200,7 +191,6 @@ export default struct IDynamicPortMapping extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lLeaseDurationDesired 
      * @returns {Integer} 
      */
@@ -210,7 +200,6 @@ export default struct IDynamicPortMapping extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrInternalClient 
      * @returns {HRESULT} 
      */
@@ -239,7 +228,6 @@ export default struct IDynamicPortMapping extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDescription 
      * @returns {HRESULT} 
      */
@@ -251,7 +239,6 @@ export default struct IDynamicPortMapping extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lInternalPort 
      * @returns {HRESULT} 
      */
@@ -269,20 +256,20 @@ export default struct IDynamicPortMapping extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ExternalIPAddress := CallbackCreate(GetMethod(implObj, "get_ExternalIPAddress"), flags, 2)
-        this.vtbl.get_RemoteHost := CallbackCreate(GetMethod(implObj, "get_RemoteHost"), flags, 2)
-        this.vtbl.get_ExternalPort := CallbackCreate(GetMethod(implObj, "get_ExternalPort"), flags, 2)
-        this.vtbl.get_Protocol := CallbackCreate(GetMethod(implObj, "get_Protocol"), flags, 2)
-        this.vtbl.get_InternalPort := CallbackCreate(GetMethod(implObj, "get_InternalPort"), flags, 2)
-        this.vtbl.get_InternalClient := CallbackCreate(GetMethod(implObj, "get_InternalClient"), flags, 2)
-        this.vtbl.get_Enabled := CallbackCreate(GetMethod(implObj, "get_Enabled"), flags, 2)
-        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
-        this.vtbl.get_LeaseDuration := CallbackCreate(GetMethod(implObj, "get_LeaseDuration"), flags, 2)
-        this.vtbl.RenewLease := CallbackCreate(GetMethod(implObj, "RenewLease"), flags, 3)
-        this.vtbl.EditInternalClient := CallbackCreate(GetMethod(implObj, "EditInternalClient"), flags, 2)
-        this.vtbl.Enable := CallbackCreate(GetMethod(implObj, "Enable"), flags, 2)
-        this.vtbl.EditDescription := CallbackCreate(GetMethod(implObj, "EditDescription"), flags, 2)
-        this.vtbl.EditInternalPort := CallbackCreate(GetMethod(implObj, "EditInternalPort"), flags, 2)
+        this.vtbl.get_ExternalIPAddress := CallbackCreate(ObjBindMethod(implObj, "get_ExternalIPAddress"), flags, 2)
+        this.vtbl.get_RemoteHost := CallbackCreate(ObjBindMethod(implObj, "get_RemoteHost"), flags, 2)
+        this.vtbl.get_ExternalPort := CallbackCreate(ObjBindMethod(implObj, "get_ExternalPort"), flags, 2)
+        this.vtbl.get_Protocol := CallbackCreate(ObjBindMethod(implObj, "get_Protocol"), flags, 2)
+        this.vtbl.get_InternalPort := CallbackCreate(ObjBindMethod(implObj, "get_InternalPort"), flags, 2)
+        this.vtbl.get_InternalClient := CallbackCreate(ObjBindMethod(implObj, "get_InternalClient"), flags, 2)
+        this.vtbl.get_Enabled := CallbackCreate(ObjBindMethod(implObj, "get_Enabled"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(ObjBindMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.get_LeaseDuration := CallbackCreate(ObjBindMethod(implObj, "get_LeaseDuration"), flags, 2)
+        this.vtbl.RenewLease := CallbackCreate(ObjBindMethod(implObj, "RenewLease"), flags, 3)
+        this.vtbl.EditInternalClient := CallbackCreate(ObjBindMethod(implObj, "EditInternalClient"), flags, 2)
+        this.vtbl.Enable := CallbackCreate(ObjBindMethod(implObj, "Enable"), flags, 2)
+        this.vtbl.EditDescription := CallbackCreate(ObjBindMethod(implObj, "EditDescription"), flags, 2)
+        this.vtbl.EditInternalPort := CallbackCreate(ObjBindMethod(implObj, "EditInternalPort"), flags, 2)
     }
 
     Dispose() {

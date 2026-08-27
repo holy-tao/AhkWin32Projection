@@ -49,7 +49,6 @@ export default struct ISpeechPhoneConverter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_LanguageId() {
@@ -58,7 +57,6 @@ export default struct ISpeechPhoneConverter extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} LanguageId 
      * @returns {HRESULT} 
      */
@@ -68,7 +66,6 @@ export default struct ISpeechPhoneConverter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Phonemes 
      * @returns {VARIANT} 
      */
@@ -81,7 +78,6 @@ export default struct ISpeechPhoneConverter extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} IdArray 
      * @returns {BSTR} 
      */
@@ -100,10 +96,10 @@ export default struct ISpeechPhoneConverter extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_LanguageId := CallbackCreate(GetMethod(implObj, "get_LanguageId"), flags, 2)
-        this.vtbl.put_LanguageId := CallbackCreate(GetMethod(implObj, "put_LanguageId"), flags, 2)
-        this.vtbl.PhoneToId := CallbackCreate(GetMethod(implObj, "PhoneToId"), flags, 3)
-        this.vtbl.IdToPhone := CallbackCreate(GetMethod(implObj, "IdToPhone"), flags, 3)
+        this.vtbl.get_LanguageId := CallbackCreate(ObjBindMethod(implObj, "get_LanguageId"), flags, 2)
+        this.vtbl.put_LanguageId := CallbackCreate(ObjBindMethod(implObj, "put_LanguageId"), flags, 2)
+        this.vtbl.PhoneToId := CallbackCreate(ObjBindMethod(implObj, "PhoneToId"), flags, 3)
+        this.vtbl.IdToPhone := CallbackCreate(ObjBindMethod(implObj, "IdToPhone"), flags, 3)
     }
 
     Dispose() {

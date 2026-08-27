@@ -87,8 +87,8 @@ export default struct IVdsServiceSAN extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSANPolicy := CallbackCreate(GetMethod(implObj, "GetSANPolicy"), flags, 2)
-        this.vtbl.SetSANPolicy := CallbackCreate(GetMethod(implObj, "SetSANPolicy"), flags, 2)
+        this.vtbl.GetSANPolicy := CallbackCreate(ObjBindMethod(implObj, "GetSANPolicy"), flags, 2)
+        this.vtbl.SetSANPolicy := CallbackCreate(ObjBindMethod(implObj, "SetSANPolicy"), flags, 2)
     }
 
     Dispose() {

@@ -114,7 +114,6 @@ export default struct IFeedEnclosure extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Url() {
@@ -124,7 +123,6 @@ export default struct IFeedEnclosure extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Type() {
@@ -134,7 +132,6 @@ export default struct IFeedEnclosure extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Length() {
@@ -143,7 +140,6 @@ export default struct IFeedEnclosure extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     AsyncDownload() {
@@ -152,7 +148,6 @@ export default struct IFeedEnclosure extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CancelAsyncDownload() {
@@ -161,7 +156,6 @@ export default struct IFeedEnclosure extends IDispatch {
     }
 
     /**
-     * 
      * @returns {FEEDS_DOWNLOAD_STATUS} 
      */
     get_DownloadStatus() {
@@ -170,7 +164,6 @@ export default struct IFeedEnclosure extends IDispatch {
     }
 
     /**
-     * 
      * @returns {FEEDS_DOWNLOAD_ERROR} 
      */
     get_LastDownloadError() {
@@ -179,7 +172,6 @@ export default struct IFeedEnclosure extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LocalPath() {
@@ -189,7 +181,6 @@ export default struct IFeedEnclosure extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Parent() {
@@ -198,7 +189,6 @@ export default struct IFeedEnclosure extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DownloadUrl() {
@@ -208,7 +198,6 @@ export default struct IFeedEnclosure extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DownloadMimeType() {
@@ -218,7 +207,6 @@ export default struct IFeedEnclosure extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RemoveFile() {
@@ -227,7 +215,6 @@ export default struct IFeedEnclosure extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} downloadUrl 
      * @param {BSTR} downloadFilePath 
      * @param {BSTR} downloadMimeType 
@@ -253,19 +240,19 @@ export default struct IFeedEnclosure extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Url := CallbackCreate(GetMethod(implObj, "get_Url"), flags, 2)
-        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
-        this.vtbl.get_Length := CallbackCreate(GetMethod(implObj, "get_Length"), flags, 2)
-        this.vtbl.AsyncDownload := CallbackCreate(GetMethod(implObj, "AsyncDownload"), flags, 1)
-        this.vtbl.CancelAsyncDownload := CallbackCreate(GetMethod(implObj, "CancelAsyncDownload"), flags, 1)
-        this.vtbl.get_DownloadStatus := CallbackCreate(GetMethod(implObj, "get_DownloadStatus"), flags, 2)
-        this.vtbl.get_LastDownloadError := CallbackCreate(GetMethod(implObj, "get_LastDownloadError"), flags, 2)
-        this.vtbl.get_LocalPath := CallbackCreate(GetMethod(implObj, "get_LocalPath"), flags, 2)
-        this.vtbl.get_Parent := CallbackCreate(GetMethod(implObj, "get_Parent"), flags, 2)
-        this.vtbl.get_DownloadUrl := CallbackCreate(GetMethod(implObj, "get_DownloadUrl"), flags, 2)
-        this.vtbl.get_DownloadMimeType := CallbackCreate(GetMethod(implObj, "get_DownloadMimeType"), flags, 2)
-        this.vtbl.RemoveFile := CallbackCreate(GetMethod(implObj, "RemoveFile"), flags, 1)
-        this.vtbl.SetFile := CallbackCreate(GetMethod(implObj, "SetFile"), flags, 5)
+        this.vtbl.get_Url := CallbackCreate(ObjBindMethod(implObj, "get_Url"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(ObjBindMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_Length := CallbackCreate(ObjBindMethod(implObj, "get_Length"), flags, 2)
+        this.vtbl.AsyncDownload := CallbackCreate(ObjBindMethod(implObj, "AsyncDownload"), flags, 1)
+        this.vtbl.CancelAsyncDownload := CallbackCreate(ObjBindMethod(implObj, "CancelAsyncDownload"), flags, 1)
+        this.vtbl.get_DownloadStatus := CallbackCreate(ObjBindMethod(implObj, "get_DownloadStatus"), flags, 2)
+        this.vtbl.get_LastDownloadError := CallbackCreate(ObjBindMethod(implObj, "get_LastDownloadError"), flags, 2)
+        this.vtbl.get_LocalPath := CallbackCreate(ObjBindMethod(implObj, "get_LocalPath"), flags, 2)
+        this.vtbl.get_Parent := CallbackCreate(ObjBindMethod(implObj, "get_Parent"), flags, 2)
+        this.vtbl.get_DownloadUrl := CallbackCreate(ObjBindMethod(implObj, "get_DownloadUrl"), flags, 2)
+        this.vtbl.get_DownloadMimeType := CallbackCreate(ObjBindMethod(implObj, "get_DownloadMimeType"), flags, 2)
+        this.vtbl.RemoveFile := CallbackCreate(ObjBindMethod(implObj, "RemoveFile"), flags, 1)
+        this.vtbl.SetFile := CallbackCreate(ObjBindMethod(implObj, "SetFile"), flags, 5)
     }
 
     Dispose() {

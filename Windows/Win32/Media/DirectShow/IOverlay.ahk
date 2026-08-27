@@ -59,7 +59,7 @@ export default struct IOverlay extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ioverlay-getpalette
      */
     GetPalette(pdwColors) {
-        pdwColorsMarshal := pdwColors is VarRef ? "uint*" : "ptr"
+        pdwColorsMarshal := pdwColors is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pdwColorsMarshal, pdwColors, "ptr*", &ppPalette := 0, "HRESULT")
         return ppPalette
@@ -152,7 +152,7 @@ export default struct IOverlay extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ioverlay-getcliplist
      */
     GetClipList(pSourceRect, pDestinationRect, ppRgnData) {
-        ppRgnDataMarshal := ppRgnData is VarRef ? "ptr*" : "ptr"
+        ppRgnDataMarshal := ppRgnData is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(9, this, RECT.Ptr, pSourceRect, RECT.Ptr, pDestinationRect, ppRgnDataMarshal, ppRgnData, "HRESULT")
         return result
@@ -244,16 +244,16 @@ export default struct IOverlay extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPalette := CallbackCreate(GetMethod(implObj, "GetPalette"), flags, 3)
-        this.vtbl.SetPalette := CallbackCreate(GetMethod(implObj, "SetPalette"), flags, 3)
-        this.vtbl.GetDefaultColorKey := CallbackCreate(GetMethod(implObj, "GetDefaultColorKey"), flags, 2)
-        this.vtbl.GetColorKey := CallbackCreate(GetMethod(implObj, "GetColorKey"), flags, 2)
-        this.vtbl.SetColorKey := CallbackCreate(GetMethod(implObj, "SetColorKey"), flags, 2)
-        this.vtbl.GetWindowHandle := CallbackCreate(GetMethod(implObj, "GetWindowHandle"), flags, 2)
-        this.vtbl.GetClipList := CallbackCreate(GetMethod(implObj, "GetClipList"), flags, 4)
-        this.vtbl.GetVideoPosition := CallbackCreate(GetMethod(implObj, "GetVideoPosition"), flags, 3)
-        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 3)
-        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 1)
+        this.vtbl.GetPalette := CallbackCreate(ObjBindMethod(implObj, "GetPalette"), flags, 3)
+        this.vtbl.SetPalette := CallbackCreate(ObjBindMethod(implObj, "SetPalette"), flags, 3)
+        this.vtbl.GetDefaultColorKey := CallbackCreate(ObjBindMethod(implObj, "GetDefaultColorKey"), flags, 2)
+        this.vtbl.GetColorKey := CallbackCreate(ObjBindMethod(implObj, "GetColorKey"), flags, 2)
+        this.vtbl.SetColorKey := CallbackCreate(ObjBindMethod(implObj, "SetColorKey"), flags, 2)
+        this.vtbl.GetWindowHandle := CallbackCreate(ObjBindMethod(implObj, "GetWindowHandle"), flags, 2)
+        this.vtbl.GetClipList := CallbackCreate(ObjBindMethod(implObj, "GetClipList"), flags, 4)
+        this.vtbl.GetVideoPosition := CallbackCreate(ObjBindMethod(implObj, "GetVideoPosition"), flags, 3)
+        this.vtbl.Advise := CallbackCreate(ObjBindMethod(implObj, "Advise"), flags, 3)
+        this.vtbl.Unadvise := CallbackCreate(ObjBindMethod(implObj, "Unadvise"), flags, 1)
     }
 
     Dispose() {

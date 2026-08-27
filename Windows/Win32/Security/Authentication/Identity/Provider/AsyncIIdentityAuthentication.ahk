@@ -46,20 +46,19 @@ export default struct AsyncIIdentityAuthentication extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} CredBuffer 
      * @param {Integer} CredBufferLength 
      * @returns {HRESULT} 
      */
     Begin_SetIdentityCredential(CredBuffer, CredBufferLength) {
-        CredBufferMarshal := CredBuffer is VarRef ? "char*" : "ptr"
+        CredBufferMarshal := CredBuffer is VarRef ? "char*" : IntPtr
+        CredBufferMarshal := CredBuffer == 0 ? IntPtr : "char*"
 
         result := ComCall(3, this, CredBufferMarshal, CredBuffer, UInt32, CredBufferLength, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_SetIdentityCredential() {
@@ -68,26 +67,27 @@ export default struct AsyncIIdentityAuthentication extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} CredBuffer 
      * @param {Integer} CredBufferLength 
      * @param {Pointer<IPropertyStore>} ppIdentityProperties 
      * @returns {HRESULT} 
      */
     Begin_ValidateIdentityCredential(CredBuffer, CredBufferLength, ppIdentityProperties) {
-        CredBufferMarshal := CredBuffer is VarRef ? "char*" : "ptr"
+        CredBufferMarshal := CredBuffer is VarRef ? "char*" : IntPtr
+        ppIdentityPropertiesMarshal := ppIdentityProperties == 0 ? IntPtr : IPropertyStore.Ptr
 
-        result := ComCall(5, this, CredBufferMarshal, CredBuffer, UInt32, CredBufferLength, IPropertyStore.Ptr, ppIdentityProperties, "HRESULT")
+        result := ComCall(5, this, CredBufferMarshal, CredBuffer, UInt32, CredBufferLength, ppIdentityPropertiesMarshal, ppIdentityProperties, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<IPropertyStore>} ppIdentityProperties 
      * @returns {HRESULT} 
      */
     Finish_ValidateIdentityCredential(ppIdentityProperties) {
-        result := ComCall(6, this, IPropertyStore.Ptr, ppIdentityProperties, "HRESULT")
+        ppIdentityPropertiesMarshal := ppIdentityProperties == 0 ? IntPtr : IPropertyStore.Ptr
+
+        result := ComCall(6, this, ppIdentityPropertiesMarshal, ppIdentityProperties, "HRESULT")
         return result
     }
 
@@ -100,10 +100,10 @@ export default struct AsyncIIdentityAuthentication extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Begin_SetIdentityCredential := CallbackCreate(GetMethod(implObj, "Begin_SetIdentityCredential"), flags, 3)
-        this.vtbl.Finish_SetIdentityCredential := CallbackCreate(GetMethod(implObj, "Finish_SetIdentityCredential"), flags, 1)
-        this.vtbl.Begin_ValidateIdentityCredential := CallbackCreate(GetMethod(implObj, "Begin_ValidateIdentityCredential"), flags, 4)
-        this.vtbl.Finish_ValidateIdentityCredential := CallbackCreate(GetMethod(implObj, "Finish_ValidateIdentityCredential"), flags, 2)
+        this.vtbl.Begin_SetIdentityCredential := CallbackCreate(ObjBindMethod(implObj, "Begin_SetIdentityCredential"), flags, 3)
+        this.vtbl.Finish_SetIdentityCredential := CallbackCreate(ObjBindMethod(implObj, "Finish_SetIdentityCredential"), flags, 1)
+        this.vtbl.Begin_ValidateIdentityCredential := CallbackCreate(ObjBindMethod(implObj, "Begin_ValidateIdentityCredential"), flags, 4)
+        this.vtbl.Finish_ValidateIdentityCredential := CallbackCreate(ObjBindMethod(implObj, "Finish_ValidateIdentityCredential"), flags, 2)
     }
 
     Dispose() {

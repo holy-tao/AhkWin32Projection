@@ -77,7 +77,9 @@ export default struct ISpatialAudioMetadataClient extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataclient-activatespatialaudiometadataitems
      */
     ActivateSpatialAudioMetadataItems(maxItemCount, frameCount, metadataItemsBuffer, metadataItems) {
-        result := ComCall(3, this, UInt16, maxItemCount, UInt16, frameCount, ISpatialAudioMetadataItemsBuffer.Ptr, metadataItemsBuffer, ISpatialAudioMetadataItems.Ptr, metadataItems, "HRESULT")
+        metadataItemsBufferMarshal := metadataItemsBuffer == 0 ? IntPtr : ISpatialAudioMetadataItemsBuffer.Ptr
+
+        result := ComCall(3, this, UInt16, maxItemCount, UInt16, frameCount, metadataItemsBufferMarshal, metadataItemsBuffer, ISpatialAudioMetadataItems.Ptr, metadataItems, "HRESULT")
         return result
     }
 
@@ -132,11 +134,11 @@ export default struct ISpatialAudioMetadataClient extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ActivateSpatialAudioMetadataItems := CallbackCreate(GetMethod(implObj, "ActivateSpatialAudioMetadataItems"), flags, 5)
-        this.vtbl.GetSpatialAudioMetadataItemsBufferLength := CallbackCreate(GetMethod(implObj, "GetSpatialAudioMetadataItemsBufferLength"), flags, 3)
-        this.vtbl.ActivateSpatialAudioMetadataWriter := CallbackCreate(GetMethod(implObj, "ActivateSpatialAudioMetadataWriter"), flags, 3)
-        this.vtbl.ActivateSpatialAudioMetadataCopier := CallbackCreate(GetMethod(implObj, "ActivateSpatialAudioMetadataCopier"), flags, 2)
-        this.vtbl.ActivateSpatialAudioMetadataReader := CallbackCreate(GetMethod(implObj, "ActivateSpatialAudioMetadataReader"), flags, 2)
+        this.vtbl.ActivateSpatialAudioMetadataItems := CallbackCreate(ObjBindMethod(implObj, "ActivateSpatialAudioMetadataItems"), flags, 5)
+        this.vtbl.GetSpatialAudioMetadataItemsBufferLength := CallbackCreate(ObjBindMethod(implObj, "GetSpatialAudioMetadataItemsBufferLength"), flags, 3)
+        this.vtbl.ActivateSpatialAudioMetadataWriter := CallbackCreate(ObjBindMethod(implObj, "ActivateSpatialAudioMetadataWriter"), flags, 3)
+        this.vtbl.ActivateSpatialAudioMetadataCopier := CallbackCreate(ObjBindMethod(implObj, "ActivateSpatialAudioMetadataCopier"), flags, 2)
+        this.vtbl.ActivateSpatialAudioMetadataReader := CallbackCreate(ObjBindMethod(implObj, "ActivateSpatialAudioMetadataReader"), flags, 2)
     }
 
     Dispose() {

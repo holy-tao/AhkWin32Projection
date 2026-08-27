@@ -643,18 +643,18 @@ export default struct IVdsSubSystem extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
-        this.vtbl.GetProvider := CallbackCreate(GetMethod(implObj, "GetProvider"), flags, 2)
-        this.vtbl.QueryControllers := CallbackCreate(GetMethod(implObj, "QueryControllers"), flags, 2)
-        this.vtbl.QueryLuns := CallbackCreate(GetMethod(implObj, "QueryLuns"), flags, 2)
-        this.vtbl.QueryDrives := CallbackCreate(GetMethod(implObj, "QueryDrives"), flags, 2)
-        this.vtbl.GetDrive := CallbackCreate(GetMethod(implObj, "GetDrive"), flags, 4)
-        this.vtbl.Reenumerate := CallbackCreate(GetMethod(implObj, "Reenumerate"), flags, 1)
-        this.vtbl.SetControllerStatus := CallbackCreate(GetMethod(implObj, "SetControllerStatus"), flags, 5)
-        this.vtbl.CreateLun := CallbackCreate(GetMethod(implObj, "CreateLun"), flags, 8)
-        this.vtbl.ReplaceDrive := CallbackCreate(GetMethod(implObj, "ReplaceDrive"), flags, 3)
-        this.vtbl.SetStatus := CallbackCreate(GetMethod(implObj, "SetStatus"), flags, 2)
-        this.vtbl.QueryMaxLunCreateSize := CallbackCreate(GetMethod(implObj, "QueryMaxLunCreateSize"), flags, 6)
+        this.vtbl.GetProperties := CallbackCreate(ObjBindMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.GetProvider := CallbackCreate(ObjBindMethod(implObj, "GetProvider"), flags, 2)
+        this.vtbl.QueryControllers := CallbackCreate(ObjBindMethod(implObj, "QueryControllers"), flags, 2)
+        this.vtbl.QueryLuns := CallbackCreate(ObjBindMethod(implObj, "QueryLuns"), flags, 2)
+        this.vtbl.QueryDrives := CallbackCreate(ObjBindMethod(implObj, "QueryDrives"), flags, 2)
+        this.vtbl.GetDrive := CallbackCreate(ObjBindMethod(implObj, "GetDrive"), flags, 4)
+        this.vtbl.Reenumerate := CallbackCreate(ObjBindMethod(implObj, "Reenumerate"), flags, 1)
+        this.vtbl.SetControllerStatus := CallbackCreate(ObjBindMethod(implObj, "SetControllerStatus"), flags, 5)
+        this.vtbl.CreateLun := CallbackCreate(ObjBindMethod(implObj, "CreateLun"), flags, 8)
+        this.vtbl.ReplaceDrive := CallbackCreate(ObjBindMethod(implObj, "ReplaceDrive"), flags, 3)
+        this.vtbl.SetStatus := CallbackCreate(ObjBindMethod(implObj, "SetStatus"), flags, 2)
+        this.vtbl.QueryMaxLunCreateSize := CallbackCreate(ObjBindMethod(implObj, "QueryMaxLunCreateSize"), flags, 6)
     }
 
     Dispose() {

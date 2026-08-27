@@ -20,7 +20,6 @@ export default struct PLSA_SET_SECPKG_FAILURE_REASON {
     }
 
     /**
-     * 
      * @param {SECPKG_FAILURE_REASON} Reason 
      * @returns {NTSTATUS} 
      */

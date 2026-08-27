@@ -38,7 +38,6 @@ export default struct IStaticVerbProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} verbName 
      * @returns {BOOL} 
      */
@@ -58,7 +57,7 @@ export default struct IStaticVerbProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsVerbSupported := CallbackCreate(GetMethod(implObj, "IsVerbSupported"), flags, 3)
+        this.vtbl.IsVerbSupported := CallbackCreate(ObjBindMethod(implObj, "IsVerbSupported"), flags, 3)
     }
 
     Dispose() {

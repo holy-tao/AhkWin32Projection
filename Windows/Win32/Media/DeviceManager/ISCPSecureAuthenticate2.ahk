@@ -59,7 +59,7 @@ export default struct ISCPSecureAuthenticate2 extends ISCPSecureAuthenticate {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSCPSession := CallbackCreate(GetMethod(implObj, "GetSCPSession"), flags, 2)
+        this.vtbl.GetSCPSession := CallbackCreate(ObjBindMethod(implObj, "GetSCPSession"), flags, 2)
     }
 
     Dispose() {

@@ -42,7 +42,6 @@ export default struct IBDA_DRIWMDRMSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {HRESULT} hrLicenseAck 
      * @returns {HRESULT} 
      */
@@ -52,7 +51,6 @@ export default struct IBDA_DRIWMDRMSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwcbLicenseMessage 
      * @param {Pointer<Integer>} pbLicenseMessage 
      * @param {Pointer<Integer>} pdwcbLicenseResponse 
@@ -60,16 +58,15 @@ export default struct IBDA_DRIWMDRMSession extends IUnknown {
      * @returns {HRESULT} 
      */
     ProcessLicenseChallenge(dwcbLicenseMessage, pbLicenseMessage, pdwcbLicenseResponse, ppbLicenseResponse) {
-        pbLicenseMessageMarshal := pbLicenseMessage is VarRef ? "char*" : "ptr"
-        pdwcbLicenseResponseMarshal := pdwcbLicenseResponse is VarRef ? "uint*" : "ptr"
-        ppbLicenseResponseMarshal := ppbLicenseResponse is VarRef ? "ptr*" : "ptr"
+        pbLicenseMessageMarshal := pbLicenseMessage is VarRef ? "char*" : IntPtr
+        pdwcbLicenseResponseMarshal := pdwcbLicenseResponse is VarRef ? "uint*" : IntPtr
+        ppbLicenseResponseMarshal := ppbLicenseResponse is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, UInt32, dwcbLicenseMessage, pbLicenseMessageMarshal, pbLicenseMessage, pdwcbLicenseResponseMarshal, pdwcbLicenseResponse, ppbLicenseResponseMarshal, ppbLicenseResponse, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwcbRegistrationMessage 
      * @param {Pointer<Integer>} pbRegistrationMessage 
      * @param {Pointer<Integer>} pdwcbRegistrationResponse 
@@ -77,46 +74,43 @@ export default struct IBDA_DRIWMDRMSession extends IUnknown {
      * @returns {HRESULT} 
      */
     ProcessRegistrationChallenge(dwcbRegistrationMessage, pbRegistrationMessage, pdwcbRegistrationResponse, ppbRegistrationResponse) {
-        pbRegistrationMessageMarshal := pbRegistrationMessage is VarRef ? "char*" : "ptr"
-        pdwcbRegistrationResponseMarshal := pdwcbRegistrationResponse is VarRef ? "uint*" : "ptr"
-        ppbRegistrationResponseMarshal := ppbRegistrationResponse is VarRef ? "ptr*" : "ptr"
+        pbRegistrationMessageMarshal := pbRegistrationMessage is VarRef ? "char*" : IntPtr
+        pdwcbRegistrationResponseMarshal := pdwcbRegistrationResponse is VarRef ? "uint*" : IntPtr
+        ppbRegistrationResponseMarshal := ppbRegistrationResponse is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, UInt32, dwcbRegistrationMessage, pbRegistrationMessageMarshal, pbRegistrationMessage, pdwcbRegistrationResponseMarshal, pdwcbRegistrationResponse, ppbRegistrationResponseMarshal, ppbRegistrationResponse, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwRevInfoLen 
      * @param {Pointer<Integer>} pbRevInfo 
      * @param {Pointer<Integer>} pdwResponse 
      * @returns {HRESULT} 
      */
     SetRevInfo(dwRevInfoLen, pbRevInfo, pdwResponse) {
-        pbRevInfoMarshal := pbRevInfo is VarRef ? "char*" : "ptr"
-        pdwResponseMarshal := pdwResponse is VarRef ? "uint*" : "ptr"
+        pbRevInfoMarshal := pbRevInfo is VarRef ? "char*" : IntPtr
+        pdwResponseMarshal := pdwResponse is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, UInt32, dwRevInfoLen, pbRevInfoMarshal, pbRevInfo, pdwResponseMarshal, pdwResponse, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwCrlLen 
      * @param {Pointer<Integer>} pbCrlLen 
      * @param {Pointer<Integer>} pdwResponse 
      * @returns {HRESULT} 
      */
     SetCrl(dwCrlLen, pbCrlLen, pdwResponse) {
-        pbCrlLenMarshal := pbCrlLen is VarRef ? "char*" : "ptr"
-        pdwResponseMarshal := pdwResponse is VarRef ? "uint*" : "ptr"
+        pbCrlLenMarshal := pbCrlLen is VarRef ? "char*" : IntPtr
+        pdwResponseMarshal := pdwResponse is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, UInt32, dwCrlLen, pbCrlLenMarshal, pbCrlLen, pdwResponseMarshal, pdwResponse, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     GetHMSAssociationData() {
@@ -125,12 +119,11 @@ export default struct IBDA_DRIWMDRMSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwError 
      * @returns {HRESULT} 
      */
     GetLastCardeaError(pdwError) {
-        pdwErrorMarshal := pdwError is VarRef ? "uint*" : "ptr"
+        pdwErrorMarshal := pdwError is VarRef ? "uint*" : IntPtr
 
         result := ComCall(9, this, pdwErrorMarshal, pdwError, "HRESULT")
         return result
@@ -145,13 +138,13 @@ export default struct IBDA_DRIWMDRMSession extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AcknowledgeLicense := CallbackCreate(GetMethod(implObj, "AcknowledgeLicense"), flags, 2)
-        this.vtbl.ProcessLicenseChallenge := CallbackCreate(GetMethod(implObj, "ProcessLicenseChallenge"), flags, 5)
-        this.vtbl.ProcessRegistrationChallenge := CallbackCreate(GetMethod(implObj, "ProcessRegistrationChallenge"), flags, 5)
-        this.vtbl.SetRevInfo := CallbackCreate(GetMethod(implObj, "SetRevInfo"), flags, 4)
-        this.vtbl.SetCrl := CallbackCreate(GetMethod(implObj, "SetCrl"), flags, 4)
-        this.vtbl.GetHMSAssociationData := CallbackCreate(GetMethod(implObj, "GetHMSAssociationData"), flags, 1)
-        this.vtbl.GetLastCardeaError := CallbackCreate(GetMethod(implObj, "GetLastCardeaError"), flags, 2)
+        this.vtbl.AcknowledgeLicense := CallbackCreate(ObjBindMethod(implObj, "AcknowledgeLicense"), flags, 2)
+        this.vtbl.ProcessLicenseChallenge := CallbackCreate(ObjBindMethod(implObj, "ProcessLicenseChallenge"), flags, 5)
+        this.vtbl.ProcessRegistrationChallenge := CallbackCreate(ObjBindMethod(implObj, "ProcessRegistrationChallenge"), flags, 5)
+        this.vtbl.SetRevInfo := CallbackCreate(ObjBindMethod(implObj, "SetRevInfo"), flags, 4)
+        this.vtbl.SetCrl := CallbackCreate(ObjBindMethod(implObj, "SetCrl"), flags, 4)
+        this.vtbl.GetHMSAssociationData := CallbackCreate(ObjBindMethod(implObj, "GetHMSAssociationData"), flags, 1)
+        this.vtbl.GetLastCardeaError := CallbackCreate(ObjBindMethod(implObj, "GetLastCardeaError"), flags, 2)
     }
 
     Dispose() {

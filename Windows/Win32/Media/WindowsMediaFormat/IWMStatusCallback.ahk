@@ -310,8 +310,8 @@ export default struct IWMStatusCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstatuscallback-onstatus
      */
     OnStatus(_Status, hr, dwType, pValue, pvContext) {
-        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        pValueMarshal := pValue is VarRef ? "char*" : IntPtr
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, WMT_STATUS, _Status, "int", hr, WMT_ATTR_DATATYPE, dwType, pValueMarshal, pValue, pvContextMarshal, pvContext, "HRESULT")
         return result
@@ -326,7 +326,7 @@ export default struct IWMStatusCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnStatus := CallbackCreate(GetMethod(implObj, "OnStatus"), flags, 6)
+        this.vtbl.OnStatus := CallbackCreate(ObjBindMethod(implObj, "OnStatus"), flags, 6)
     }
 
     Dispose() {

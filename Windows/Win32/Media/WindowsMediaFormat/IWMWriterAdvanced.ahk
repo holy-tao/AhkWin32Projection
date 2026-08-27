@@ -362,17 +362,17 @@ export default struct IWMWriterAdvanced extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSinkCount := CallbackCreate(GetMethod(implObj, "GetSinkCount"), flags, 2)
-        this.vtbl.GetSink := CallbackCreate(GetMethod(implObj, "GetSink"), flags, 3)
-        this.vtbl.AddSink := CallbackCreate(GetMethod(implObj, "AddSink"), flags, 2)
-        this.vtbl.RemoveSink := CallbackCreate(GetMethod(implObj, "RemoveSink"), flags, 2)
-        this.vtbl.WriteStreamSample := CallbackCreate(GetMethod(implObj, "WriteStreamSample"), flags, 7)
-        this.vtbl.SetLiveSource := CallbackCreate(GetMethod(implObj, "SetLiveSource"), flags, 2)
-        this.vtbl.IsRealTime := CallbackCreate(GetMethod(implObj, "IsRealTime"), flags, 2)
-        this.vtbl.GetWriterTime := CallbackCreate(GetMethod(implObj, "GetWriterTime"), flags, 2)
-        this.vtbl.GetStatistics := CallbackCreate(GetMethod(implObj, "GetStatistics"), flags, 3)
-        this.vtbl.SetSyncTolerance := CallbackCreate(GetMethod(implObj, "SetSyncTolerance"), flags, 2)
-        this.vtbl.GetSyncTolerance := CallbackCreate(GetMethod(implObj, "GetSyncTolerance"), flags, 2)
+        this.vtbl.GetSinkCount := CallbackCreate(ObjBindMethod(implObj, "GetSinkCount"), flags, 2)
+        this.vtbl.GetSink := CallbackCreate(ObjBindMethod(implObj, "GetSink"), flags, 3)
+        this.vtbl.AddSink := CallbackCreate(ObjBindMethod(implObj, "AddSink"), flags, 2)
+        this.vtbl.RemoveSink := CallbackCreate(ObjBindMethod(implObj, "RemoveSink"), flags, 2)
+        this.vtbl.WriteStreamSample := CallbackCreate(ObjBindMethod(implObj, "WriteStreamSample"), flags, 7)
+        this.vtbl.SetLiveSource := CallbackCreate(ObjBindMethod(implObj, "SetLiveSource"), flags, 2)
+        this.vtbl.IsRealTime := CallbackCreate(ObjBindMethod(implObj, "IsRealTime"), flags, 2)
+        this.vtbl.GetWriterTime := CallbackCreate(ObjBindMethod(implObj, "GetWriterTime"), flags, 2)
+        this.vtbl.GetStatistics := CallbackCreate(ObjBindMethod(implObj, "GetStatistics"), flags, 3)
+        this.vtbl.SetSyncTolerance := CallbackCreate(ObjBindMethod(implObj, "SetSyncTolerance"), flags, 2)
+        this.vtbl.GetSyncTolerance := CallbackCreate(ObjBindMethod(implObj, "GetSyncTolerance"), flags, 2)
     }
 
     Dispose() {

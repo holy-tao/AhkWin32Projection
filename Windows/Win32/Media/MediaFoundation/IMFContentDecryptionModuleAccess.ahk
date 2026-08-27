@@ -97,9 +97,9 @@ export default struct IMFContentDecryptionModuleAccess extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateContentDecryptionModule := CallbackCreate(GetMethod(implObj, "CreateContentDecryptionModule"), flags, 3)
-        this.vtbl.GetConfiguration := CallbackCreate(GetMethod(implObj, "GetConfiguration"), flags, 2)
-        this.vtbl.GetKeySystem := CallbackCreate(GetMethod(implObj, "GetKeySystem"), flags, 2)
+        this.vtbl.CreateContentDecryptionModule := CallbackCreate(ObjBindMethod(implObj, "CreateContentDecryptionModule"), flags, 3)
+        this.vtbl.GetConfiguration := CallbackCreate(ObjBindMethod(implObj, "GetConfiguration"), flags, 2)
+        this.vtbl.GetKeySystem := CallbackCreate(ObjBindMethod(implObj, "GetKeySystem"), flags, 2)
     }
 
     Dispose() {

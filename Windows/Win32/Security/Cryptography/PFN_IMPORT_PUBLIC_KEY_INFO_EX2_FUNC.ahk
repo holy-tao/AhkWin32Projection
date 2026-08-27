@@ -37,7 +37,6 @@ export default struct PFN_IMPORT_PUBLIC_KEY_INFO_EX2_FUNC {
     }
 
     /**
-     * 
      * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate encoding type</a> that was used to encrypt the subject. The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding type</a> identifier, contained in the high <b>WORD</b> of this value, is ignored by this function.
      * 
      * 
@@ -72,7 +71,8 @@ export default struct PFN_IMPORT_PUBLIC_KEY_INFO_EX2_FUNC {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      */
     Call(dwCertEncodingType, pInfo, dwFlags, pvAuxInfo, phKey) {
-        pvAuxInfoMarshal := pvAuxInfo is VarRef ? "ptr" : "ptr"
+        pvAuxInfoMarshal := pvAuxInfo is VarRef ? "ptr" : IntPtr
+        pvAuxInfoMarshal := pvAuxInfo == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, CERT_PUBLIC_KEY_INFO.Ptr, pInfo, UInt32, dwFlags, pvAuxInfoMarshal, pvAuxInfo, BCRYPT_KEY_HANDLE.Ptr, phKey, BOOL)
         return result

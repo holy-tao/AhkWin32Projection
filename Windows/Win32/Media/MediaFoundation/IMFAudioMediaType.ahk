@@ -78,7 +78,7 @@ export default struct IMFAudioMediaType extends IMFMediaType {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAudioFormat := CallbackCreate(GetMethod(implObj, "GetAudioFormat"), flags, 1)
+        this.vtbl.GetAudioFormat := CallbackCreate(ObjBindMethod(implObj, "GetAudioFormat"), flags, 1)
     }
 
     Dispose() {

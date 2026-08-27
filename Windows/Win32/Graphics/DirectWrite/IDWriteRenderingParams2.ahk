@@ -58,7 +58,7 @@ export default struct IDWriteRenderingParams2 extends IDWriteRenderingParams1 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetGridFitMode := CallbackCreate(GetMethod(implObj, "GetGridFitMode"), flags, 1)
+        this.vtbl.GetGridFitMode := CallbackCreate(ObjBindMethod(implObj, "GetGridFitMode"), flags, 1)
     }
 
     Dispose() {

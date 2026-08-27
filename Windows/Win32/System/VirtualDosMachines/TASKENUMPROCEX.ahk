@@ -24,7 +24,6 @@ export default struct TASKENUMPROCEX {
     }
 
     /**
-     * 
      * @param {Integer} dwThreadId The thread ID.
      * @param {Integer} hMod16 The module handle.
      * @param {Integer} hTask16 The task handle.
@@ -34,8 +33,8 @@ export default struct TASKENUMPROCEX {
      * @returns {BOOL} Return <b>TRUE</b> to stop the enumeration and <b>FALSE</b> to continue.
      */
     Call(dwThreadId, hMod16, hTask16, pszModName, pszFileName, lpUserDefined) {
-        pszModNameMarshal := pszModName is VarRef ? "char*" : "ptr"
-        pszFileNameMarshal := pszFileName is VarRef ? "char*" : "ptr"
+        pszModNameMarshal := pszModName is VarRef ? "char*" : IntPtr
+        pszFileNameMarshal := pszFileName is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, UInt32, dwThreadId, UInt16, hMod16, UInt16, hTask16, pszModNameMarshal, pszModName, pszFileNameMarshal, pszFileName, LPARAM, lpUserDefined, BOOL)
         return result

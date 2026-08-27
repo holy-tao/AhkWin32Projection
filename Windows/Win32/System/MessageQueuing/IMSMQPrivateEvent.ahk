@@ -46,7 +46,6 @@ export default struct IMSMQPrivateEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Hwnd() {
@@ -55,25 +54,27 @@ export default struct IMSMQPrivateEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {IMSMQQueue} pq 
      * @param {Integer} msgcursor 
      * @returns {HRESULT} 
      */
     FireArrivedEvent(pq, msgcursor) {
-        result := ComCall(8, this, "ptr", pq, Int32, msgcursor, "HRESULT")
+        pqMarshal := pq == 0 ? IntPtr : "ptr"
+
+        result := ComCall(8, this, pqMarshal, pq, Int32, msgcursor, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IMSMQQueue} pq 
      * @param {HRESULT} hrStatus 
      * @param {Integer} msgcursor 
      * @returns {HRESULT} 
      */
     FireArrivedErrorEvent(pq, hrStatus, msgcursor) {
-        result := ComCall(9, this, "ptr", pq, "int", hrStatus, Int32, msgcursor, "HRESULT")
+        pqMarshal := pq == 0 ? IntPtr : "ptr"
+
+        result := ComCall(9, this, pqMarshal, pq, "int", hrStatus, Int32, msgcursor, "HRESULT")
         return result
     }
 
@@ -86,9 +87,9 @@ export default struct IMSMQPrivateEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Hwnd := CallbackCreate(GetMethod(implObj, "get_Hwnd"), flags, 2)
-        this.vtbl.FireArrivedEvent := CallbackCreate(GetMethod(implObj, "FireArrivedEvent"), flags, 3)
-        this.vtbl.FireArrivedErrorEvent := CallbackCreate(GetMethod(implObj, "FireArrivedErrorEvent"), flags, 4)
+        this.vtbl.get_Hwnd := CallbackCreate(ObjBindMethod(implObj, "get_Hwnd"), flags, 2)
+        this.vtbl.FireArrivedEvent := CallbackCreate(ObjBindMethod(implObj, "FireArrivedEvent"), flags, 3)
+        this.vtbl.FireArrivedErrorEvent := CallbackCreate(ObjBindMethod(implObj, "FireArrivedErrorEvent"), flags, 4)
     }
 
     Dispose() {

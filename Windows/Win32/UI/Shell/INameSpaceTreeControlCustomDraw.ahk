@@ -104,8 +104,8 @@ export default struct INameSpaceTreeControlCustomDraw extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolcustomdraw-itemprepaint
      */
     ItemPrePaint(_hdc, prc, pnstccdItem, pclrText, pclrTextBk) {
-        pclrTextMarshal := pclrText is VarRef ? "uint*" : "ptr"
-        pclrTextBkMarshal := pclrTextBk is VarRef ? "uint*" : "ptr"
+        pclrTextMarshal := pclrText is VarRef ? "uint*" : IntPtr
+        pclrTextBkMarshal := pclrTextBk is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, HDC, _hdc, RECT.Ptr, prc, NSTCCUSTOMDRAW.Ptr, pnstccdItem, pclrTextMarshal, pclrText, pclrTextBkMarshal, pclrTextBk, LRESULT.Ptr, &plres := 0, "HRESULT")
         return plres
@@ -141,10 +141,10 @@ export default struct INameSpaceTreeControlCustomDraw extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PrePaint := CallbackCreate(GetMethod(implObj, "PrePaint"), flags, 4)
-        this.vtbl.PostPaint := CallbackCreate(GetMethod(implObj, "PostPaint"), flags, 3)
-        this.vtbl.ItemPrePaint := CallbackCreate(GetMethod(implObj, "ItemPrePaint"), flags, 7)
-        this.vtbl.ItemPostPaint := CallbackCreate(GetMethod(implObj, "ItemPostPaint"), flags, 4)
+        this.vtbl.PrePaint := CallbackCreate(ObjBindMethod(implObj, "PrePaint"), flags, 4)
+        this.vtbl.PostPaint := CallbackCreate(ObjBindMethod(implObj, "PostPaint"), flags, 3)
+        this.vtbl.ItemPrePaint := CallbackCreate(ObjBindMethod(implObj, "ItemPrePaint"), flags, 7)
+        this.vtbl.ItemPostPaint := CallbackCreate(ObjBindMethod(implObj, "ItemPostPaint"), flags, 4)
     }
 
     Dispose() {

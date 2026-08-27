@@ -43,7 +43,6 @@ export default struct IHlinkTarget extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHlinkBrowseContext} pihlbc 
      * @returns {HRESULT} 
      */
@@ -53,7 +52,6 @@ export default struct IHlinkTarget extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IHlinkBrowseContext} 
      */
     GetBrowseContext() {
@@ -76,7 +74,6 @@ export default struct IHlinkTarget extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzLocation 
      * @param {Integer} dwAssign 
      * @returns {IMoniker} 
@@ -89,7 +86,6 @@ export default struct IHlinkTarget extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzLocation 
      * @returns {PWSTR} 
      */
@@ -109,11 +105,11 @@ export default struct IHlinkTarget extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetBrowseContext := CallbackCreate(GetMethod(implObj, "SetBrowseContext"), flags, 2)
-        this.vtbl.GetBrowseContext := CallbackCreate(GetMethod(implObj, "GetBrowseContext"), flags, 2)
-        this.vtbl.Navigate := CallbackCreate(GetMethod(implObj, "Navigate"), flags, 3)
-        this.vtbl.GetMoniker := CallbackCreate(GetMethod(implObj, "GetMoniker"), flags, 4)
-        this.vtbl.GetFriendlyName := CallbackCreate(GetMethod(implObj, "GetFriendlyName"), flags, 3)
+        this.vtbl.SetBrowseContext := CallbackCreate(ObjBindMethod(implObj, "SetBrowseContext"), flags, 2)
+        this.vtbl.GetBrowseContext := CallbackCreate(ObjBindMethod(implObj, "GetBrowseContext"), flags, 2)
+        this.vtbl.Navigate := CallbackCreate(ObjBindMethod(implObj, "Navigate"), flags, 3)
+        this.vtbl.GetMoniker := CallbackCreate(ObjBindMethod(implObj, "GetMoniker"), flags, 4)
+        this.vtbl.GetFriendlyName := CallbackCreate(ObjBindMethod(implObj, "GetFriendlyName"), flags, 3)
     }
 
     Dispose() {

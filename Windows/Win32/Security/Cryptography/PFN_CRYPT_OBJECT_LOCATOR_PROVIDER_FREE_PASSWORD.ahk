@@ -23,7 +23,6 @@ export default struct PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE_PASSWORD {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pPluginContext Pointer to an optional buffer defined by this provider and returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pfn_crypt_object_locator_provider_initialize">PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_INITIALIZE</a> function. The buffer is not modified by the caller. Your provider can use the data to help it determine what actions to perform or to maintain additional information.
      * @param {PWSTR} pwszPassword Null-terminated Unicode string that contains the password.
      * @returns {String} Nothing - always returns an empty string
@@ -31,7 +30,8 @@ export default struct PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE_PASSWORD {
     Call(pPluginContext, pwszPassword) {
         pwszPassword := pwszPassword is String ? StrPtr(pwszPassword) : pwszPassword
 
-        pPluginContextMarshal := pPluginContext is VarRef ? "ptr" : "ptr"
+        pPluginContextMarshal := pPluginContext is VarRef ? "ptr" : IntPtr
+        pPluginContextMarshal := pPluginContext == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, pPluginContextMarshal, pPluginContext, "ptr", pwszPassword)
     }

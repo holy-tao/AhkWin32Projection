@@ -185,10 +185,10 @@ export default struct IBackgroundCopyJob1 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopyjob1-getstatus
      */
     GetStatus(pdwStatus, pdwWin32Result, pdwTransportResult, pdwNumOfRetries) {
-        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
-        pdwWin32ResultMarshal := pdwWin32Result is VarRef ? "uint*" : "ptr"
-        pdwTransportResultMarshal := pdwTransportResult is VarRef ? "uint*" : "ptr"
-        pdwNumOfRetriesMarshal := pdwNumOfRetries is VarRef ? "uint*" : "ptr"
+        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : IntPtr
+        pdwWin32ResultMarshal := pdwWin32Result is VarRef ? "uint*" : IntPtr
+        pdwTransportResultMarshal := pdwTransportResult is VarRef ? "uint*" : IntPtr
+        pdwNumOfRetriesMarshal := pdwNumOfRetries is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, pdwStatusMarshal, pdwStatus, pdwWin32ResultMarshal, pdwWin32Result, pdwTransportResultMarshal, pdwTransportResult, pdwNumOfRetriesMarshal, pdwNumOfRetries, "HRESULT")
         return result
@@ -242,7 +242,7 @@ export default struct IBackgroundCopyJob1 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopyjob1-addfiles
      */
     AddFiles(cFileCount, ppFileSet) {
-        ppFileSetMarshal := ppFileSet is VarRef ? "ptr*" : "ptr"
+        ppFileSetMarshal := ppFileSet is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(6, this, UInt32, cFileCount, ppFileSetMarshal, ppFileSet, "HRESULT")
         return result
@@ -302,14 +302,14 @@ export default struct IBackgroundCopyJob1 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CancelJob := CallbackCreate(GetMethod(implObj, "CancelJob"), flags, 1)
-        this.vtbl.GetProgress := CallbackCreate(GetMethod(implObj, "GetProgress"), flags, 3)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 5)
-        this.vtbl.AddFiles := CallbackCreate(GetMethod(implObj, "AddFiles"), flags, 3)
-        this.vtbl.GetFile := CallbackCreate(GetMethod(implObj, "GetFile"), flags, 3)
-        this.vtbl.GetFileCount := CallbackCreate(GetMethod(implObj, "GetFileCount"), flags, 2)
-        this.vtbl.SwitchToForeground := CallbackCreate(GetMethod(implObj, "SwitchToForeground"), flags, 1)
-        this.vtbl.get_JobID := CallbackCreate(GetMethod(implObj, "get_JobID"), flags, 2)
+        this.vtbl.CancelJob := CallbackCreate(ObjBindMethod(implObj, "CancelJob"), flags, 1)
+        this.vtbl.GetProgress := CallbackCreate(ObjBindMethod(implObj, "GetProgress"), flags, 3)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 5)
+        this.vtbl.AddFiles := CallbackCreate(ObjBindMethod(implObj, "AddFiles"), flags, 3)
+        this.vtbl.GetFile := CallbackCreate(ObjBindMethod(implObj, "GetFile"), flags, 3)
+        this.vtbl.GetFileCount := CallbackCreate(ObjBindMethod(implObj, "GetFileCount"), flags, 2)
+        this.vtbl.SwitchToForeground := CallbackCreate(ObjBindMethod(implObj, "SwitchToForeground"), flags, 1)
+        this.vtbl.get_JobID := CallbackCreate(ObjBindMethod(implObj, "get_JobID"), flags, 2)
     }
 
     Dispose() {

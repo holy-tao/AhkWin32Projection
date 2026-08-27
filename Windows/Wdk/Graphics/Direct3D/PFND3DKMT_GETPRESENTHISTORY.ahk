@@ -20,7 +20,6 @@ export default struct PFND3DKMT_GETPRESENTHISTORY {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_GETPRESENTHISTORY>} param0 
      * @returns {NTSTATUS} 
      */

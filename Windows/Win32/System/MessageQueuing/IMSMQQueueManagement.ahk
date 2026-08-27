@@ -59,7 +59,6 @@ export default struct IMSMQQueueManagement extends IMSMQManagement {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_JournalMessageCount() {
@@ -68,7 +67,6 @@ export default struct IMSMQQueueManagement extends IMSMQManagement {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_BytesInJournal() {
@@ -78,7 +76,6 @@ export default struct IMSMQQueueManagement extends IMSMQManagement {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     EodGetReceiveInfo() {
@@ -96,9 +93,9 @@ export default struct IMSMQQueueManagement extends IMSMQManagement {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_JournalMessageCount := CallbackCreate(GetMethod(implObj, "get_JournalMessageCount"), flags, 2)
-        this.vtbl.get_BytesInJournal := CallbackCreate(GetMethod(implObj, "get_BytesInJournal"), flags, 2)
-        this.vtbl.EodGetReceiveInfo := CallbackCreate(GetMethod(implObj, "EodGetReceiveInfo"), flags, 2)
+        this.vtbl.get_JournalMessageCount := CallbackCreate(ObjBindMethod(implObj, "get_JournalMessageCount"), flags, 2)
+        this.vtbl.get_BytesInJournal := CallbackCreate(ObjBindMethod(implObj, "get_BytesInJournal"), flags, 2)
+        this.vtbl.EodGetReceiveInfo := CallbackCreate(ObjBindMethod(implObj, "EodGetReceiveInfo"), flags, 2)
     }
 
     Dispose() {

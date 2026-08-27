@@ -19,7 +19,6 @@ export default struct PFNOPEN {
     }
 
     /**
-     * 
      * @param {PSTR} pszFile 
      * @param {Integer} oflag 
      * @param {Integer} pmode 

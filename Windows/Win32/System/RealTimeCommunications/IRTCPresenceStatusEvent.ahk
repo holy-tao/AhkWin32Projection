@@ -54,7 +54,6 @@ export default struct IRTCPresenceStatusEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_StatusCode() {
@@ -63,7 +62,6 @@ export default struct IRTCPresenceStatusEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_StatusText() {
@@ -73,13 +71,12 @@ export default struct IRTCPresenceStatusEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<RTC_PRESENCE_STATUS>} penStatus 
      * @param {Pointer<BSTR>} pbstrNotes 
      * @returns {HRESULT} 
      */
     GetLocalPresenceInfo(penStatus, pbstrNotes) {
-        penStatusMarshal := penStatus is VarRef ? "int*" : "ptr"
+        penStatusMarshal := penStatus is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, penStatusMarshal, penStatus, BSTR.Ptr, pbstrNotes, "HRESULT")
         return result
@@ -94,9 +91,9 @@ export default struct IRTCPresenceStatusEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_StatusCode := CallbackCreate(GetMethod(implObj, "get_StatusCode"), flags, 2)
-        this.vtbl.get_StatusText := CallbackCreate(GetMethod(implObj, "get_StatusText"), flags, 2)
-        this.vtbl.GetLocalPresenceInfo := CallbackCreate(GetMethod(implObj, "GetLocalPresenceInfo"), flags, 3)
+        this.vtbl.get_StatusCode := CallbackCreate(ObjBindMethod(implObj, "get_StatusCode"), flags, 2)
+        this.vtbl.get_StatusText := CallbackCreate(ObjBindMethod(implObj, "get_StatusText"), flags, 2)
+        this.vtbl.GetLocalPresenceInfo := CallbackCreate(ObjBindMethod(implObj, "GetLocalPresenceInfo"), flags, 3)
     }
 
     Dispose() {

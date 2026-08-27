@@ -157,12 +157,12 @@ export default struct IOleAdviseHolder extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 3)
-        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 2)
-        this.vtbl.EnumAdvise := CallbackCreate(GetMethod(implObj, "EnumAdvise"), flags, 2)
-        this.vtbl.SendOnRename := CallbackCreate(GetMethod(implObj, "SendOnRename"), flags, 2)
-        this.vtbl.SendOnSave := CallbackCreate(GetMethod(implObj, "SendOnSave"), flags, 1)
-        this.vtbl.SendOnClose := CallbackCreate(GetMethod(implObj, "SendOnClose"), flags, 1)
+        this.vtbl.Advise := CallbackCreate(ObjBindMethod(implObj, "Advise"), flags, 3)
+        this.vtbl.Unadvise := CallbackCreate(ObjBindMethod(implObj, "Unadvise"), flags, 2)
+        this.vtbl.EnumAdvise := CallbackCreate(ObjBindMethod(implObj, "EnumAdvise"), flags, 2)
+        this.vtbl.SendOnRename := CallbackCreate(ObjBindMethod(implObj, "SendOnRename"), flags, 2)
+        this.vtbl.SendOnSave := CallbackCreate(ObjBindMethod(implObj, "SendOnSave"), flags, 1)
+        this.vtbl.SendOnClose := CallbackCreate(ObjBindMethod(implObj, "SendOnClose"), flags, 1)
     }
 
     Dispose() {

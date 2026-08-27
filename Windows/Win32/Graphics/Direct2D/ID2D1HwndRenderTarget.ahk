@@ -117,9 +117,9 @@ export default struct ID2D1HwndRenderTarget extends ID2D1RenderTarget {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CheckWindowState := CallbackCreate(GetMethod(implObj, "CheckWindowState"), flags, 1)
-        this.vtbl.Resize := CallbackCreate(GetMethod(implObj, "Resize"), flags, 2)
-        this.vtbl.GetHwnd := CallbackCreate(GetMethod(implObj, "GetHwnd"), flags, 1)
+        this.vtbl.CheckWindowState := CallbackCreate(ObjBindMethod(implObj, "CheckWindowState"), flags, 1)
+        this.vtbl.Resize := CallbackCreate(ObjBindMethod(implObj, "Resize"), flags, 2)
+        this.vtbl.GetHwnd := CallbackCreate(ObjBindMethod(implObj, "GetHwnd"), flags, 1)
     }
 
     Dispose() {

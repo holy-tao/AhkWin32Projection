@@ -44,36 +44,33 @@ export default struct DataSourceListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} bstrDM 
      * @returns {HRESULT} 
      */
     dataMemberChanged(bstrDM) {
-        bstrDMMarshal := bstrDM is VarRef ? "ushort*" : "ptr"
+        bstrDMMarshal := bstrDM is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(3, this, bstrDMMarshal, bstrDM, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} bstrDM 
      * @returns {HRESULT} 
      */
     dataMemberAdded(bstrDM) {
-        bstrDMMarshal := bstrDM is VarRef ? "ushort*" : "ptr"
+        bstrDMMarshal := bstrDM is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(4, this, bstrDMMarshal, bstrDM, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} bstrDM 
      * @returns {HRESULT} 
      */
     dataMemberRemoved(bstrDM) {
-        bstrDMMarshal := bstrDM is VarRef ? "ushort*" : "ptr"
+        bstrDMMarshal := bstrDM is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(5, this, bstrDMMarshal, bstrDM, "HRESULT")
         return result
@@ -88,9 +85,9 @@ export default struct DataSourceListener extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.dataMemberChanged := CallbackCreate(GetMethod(implObj, "dataMemberChanged"), flags, 2)
-        this.vtbl.dataMemberAdded := CallbackCreate(GetMethod(implObj, "dataMemberAdded"), flags, 2)
-        this.vtbl.dataMemberRemoved := CallbackCreate(GetMethod(implObj, "dataMemberRemoved"), flags, 2)
+        this.vtbl.dataMemberChanged := CallbackCreate(ObjBindMethod(implObj, "dataMemberChanged"), flags, 2)
+        this.vtbl.dataMemberAdded := CallbackCreate(ObjBindMethod(implObj, "dataMemberAdded"), flags, 2)
+        this.vtbl.dataMemberRemoved := CallbackCreate(ObjBindMethod(implObj, "dataMemberRemoved"), flags, 2)
     }
 
     Dispose() {

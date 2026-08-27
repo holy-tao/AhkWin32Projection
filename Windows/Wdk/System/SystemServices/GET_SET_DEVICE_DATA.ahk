@@ -18,7 +18,6 @@ export default struct GET_SET_DEVICE_DATA {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Integer} DataType 
      * @param {Integer} _Buffer 
@@ -27,7 +26,8 @@ export default struct GET_SET_DEVICE_DATA {
      * @returns {Integer} 
      */
     Call(_Context, DataType, _Buffer, Offset, Length) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, UInt32, DataType, IntPtr, _Buffer, UInt32, Offset, UInt32, Length, UInt32)
         return result

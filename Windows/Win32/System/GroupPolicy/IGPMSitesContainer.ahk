@@ -73,7 +73,6 @@ export default struct IGPMSitesContainer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DomainController() {
@@ -83,7 +82,6 @@ export default struct IGPMSitesContainer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Domain() {
@@ -93,7 +91,6 @@ export default struct IGPMSitesContainer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Forest() {
@@ -137,11 +134,11 @@ export default struct IGPMSitesContainer extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_DomainController := CallbackCreate(GetMethod(implObj, "get_DomainController"), flags, 2)
-        this.vtbl.get_Domain := CallbackCreate(GetMethod(implObj, "get_Domain"), flags, 2)
-        this.vtbl.get_Forest := CallbackCreate(GetMethod(implObj, "get_Forest"), flags, 2)
-        this.vtbl.GetSite := CallbackCreate(GetMethod(implObj, "GetSite"), flags, 3)
-        this.vtbl.SearchSites := CallbackCreate(GetMethod(implObj, "SearchSites"), flags, 3)
+        this.vtbl.get_DomainController := CallbackCreate(ObjBindMethod(implObj, "get_DomainController"), flags, 2)
+        this.vtbl.get_Domain := CallbackCreate(ObjBindMethod(implObj, "get_Domain"), flags, 2)
+        this.vtbl.get_Forest := CallbackCreate(ObjBindMethod(implObj, "get_Forest"), flags, 2)
+        this.vtbl.GetSite := CallbackCreate(ObjBindMethod(implObj, "GetSite"), flags, 3)
+        this.vtbl.SearchSites := CallbackCreate(ObjBindMethod(implObj, "SearchSites"), flags, 3)
     }
 
     Dispose() {

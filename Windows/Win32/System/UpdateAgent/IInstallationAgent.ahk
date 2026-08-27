@@ -63,7 +63,7 @@ export default struct IInstallationAgent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RecordInstallationResult := CallbackCreate(GetMethod(implObj, "RecordInstallationResult"), flags, 4)
+        this.vtbl.RecordInstallationResult := CallbackCreate(ObjBindMethod(implObj, "RecordInstallationResult"), flags, 4)
     }
 
     Dispose() {

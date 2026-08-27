@@ -159,12 +159,12 @@ export default struct ID3D10EffectShaderVariable extends ID3D10EffectVariable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetShaderDesc := CallbackCreate(GetMethod(implObj, "GetShaderDesc"), flags, 3)
-        this.vtbl.GetVertexShader := CallbackCreate(GetMethod(implObj, "GetVertexShader"), flags, 3)
-        this.vtbl.GetGeometryShader := CallbackCreate(GetMethod(implObj, "GetGeometryShader"), flags, 3)
-        this.vtbl.GetPixelShader := CallbackCreate(GetMethod(implObj, "GetPixelShader"), flags, 3)
-        this.vtbl.GetInputSignatureElementDesc := CallbackCreate(GetMethod(implObj, "GetInputSignatureElementDesc"), flags, 4)
-        this.vtbl.GetOutputSignatureElementDesc := CallbackCreate(GetMethod(implObj, "GetOutputSignatureElementDesc"), flags, 4)
+        this.vtbl.GetShaderDesc := CallbackCreate(ObjBindMethod(implObj, "GetShaderDesc"), flags, 3)
+        this.vtbl.GetVertexShader := CallbackCreate(ObjBindMethod(implObj, "GetVertexShader"), flags, 3)
+        this.vtbl.GetGeometryShader := CallbackCreate(ObjBindMethod(implObj, "GetGeometryShader"), flags, 3)
+        this.vtbl.GetPixelShader := CallbackCreate(ObjBindMethod(implObj, "GetPixelShader"), flags, 3)
+        this.vtbl.GetInputSignatureElementDesc := CallbackCreate(ObjBindMethod(implObj, "GetInputSignatureElementDesc"), flags, 4)
+        this.vtbl.GetOutputSignatureElementDesc := CallbackCreate(ObjBindMethod(implObj, "GetOutputSignatureElementDesc"), flags, 4)
     }
 
     Dispose() {

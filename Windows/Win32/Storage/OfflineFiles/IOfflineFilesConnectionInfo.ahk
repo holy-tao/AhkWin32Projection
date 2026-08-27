@@ -60,8 +60,8 @@ export default struct IOfflineFilesConnectionInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesconnectioninfo-getconnectstate
      */
     GetConnectState(pConnectState, pOfflineReason) {
-        pConnectStateMarshal := pConnectState is VarRef ? "int*" : "ptr"
-        pOfflineReasonMarshal := pOfflineReason is VarRef ? "int*" : "ptr"
+        pConnectStateMarshal := pConnectState is VarRef ? "int*" : IntPtr
+        pOfflineReasonMarshal := pOfflineReason is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, pConnectStateMarshal, pConnectState, pOfflineReasonMarshal, pOfflineReason, "HRESULT")
         return result
@@ -78,7 +78,9 @@ export default struct IOfflineFilesConnectionInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesconnectioninfo-setconnectstate
      */
     SetConnectState(hwndParent, dwFlags, ConnectState) {
-        result := ComCall(4, this, HWND, hwndParent, UInt32, dwFlags, OFFLINEFILES_CONNECT_STATE, ConnectState, "HRESULT")
+        hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+
+        result := ComCall(4, this, hwndParentMarshal, hwndParent, UInt32, dwFlags, OFFLINEFILES_CONNECT_STATE, ConnectState, "HRESULT")
         return result
     }
 
@@ -92,7 +94,9 @@ export default struct IOfflineFilesConnectionInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesconnectioninfo-transitiononline
      */
     TransitionOnline(hwndParent, dwFlags) {
-        result := ComCall(5, this, HWND, hwndParent, UInt32, dwFlags, "HRESULT")
+        hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+
+        result := ComCall(5, this, hwndParentMarshal, hwndParent, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -114,7 +118,9 @@ export default struct IOfflineFilesConnectionInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesconnectioninfo-transitionoffline
      */
     TransitionOffline(hwndParent, dwFlags, bForceOpenFilesClosed) {
-        result := ComCall(6, this, HWND, hwndParent, UInt32, dwFlags, BOOL, bForceOpenFilesClosed, BOOL.Ptr, &pbOpenFilesPreventedTransition := 0, "HRESULT")
+        hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+
+        result := ComCall(6, this, hwndParentMarshal, hwndParent, UInt32, dwFlags, BOOL, bForceOpenFilesClosed, BOOL.Ptr, &pbOpenFilesPreventedTransition := 0, "HRESULT")
         return pbOpenFilesPreventedTransition
     }
 
@@ -127,10 +133,10 @@ export default struct IOfflineFilesConnectionInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetConnectState := CallbackCreate(GetMethod(implObj, "GetConnectState"), flags, 3)
-        this.vtbl.SetConnectState := CallbackCreate(GetMethod(implObj, "SetConnectState"), flags, 4)
-        this.vtbl.TransitionOnline := CallbackCreate(GetMethod(implObj, "TransitionOnline"), flags, 3)
-        this.vtbl.TransitionOffline := CallbackCreate(GetMethod(implObj, "TransitionOffline"), flags, 5)
+        this.vtbl.GetConnectState := CallbackCreate(ObjBindMethod(implObj, "GetConnectState"), flags, 3)
+        this.vtbl.SetConnectState := CallbackCreate(ObjBindMethod(implObj, "SetConnectState"), flags, 4)
+        this.vtbl.TransitionOnline := CallbackCreate(ObjBindMethod(implObj, "TransitionOnline"), flags, 3)
+        this.vtbl.TransitionOffline := CallbackCreate(ObjBindMethod(implObj, "TransitionOffline"), flags, 5)
     }
 
     Dispose() {

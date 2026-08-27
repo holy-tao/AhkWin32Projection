@@ -37,18 +37,18 @@ export default struct IRowsetView extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
      */
     CreateView(pUnkOuter, riid) {
-        result := ComCall(3, this, "ptr", pUnkOuter, Guid.Ptr, riid, "ptr*", &ppView := 0, "HRESULT")
+        pUnkOuterMarshal := pUnkOuter == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pUnkOuterMarshal, pUnkOuter, Guid.Ptr, riid, "ptr*", &ppView := 0, "HRESULT")
         return IUnknown(ppView)
     }
 
     /**
-     * 
      * @param {Pointer} hChapter 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Pointer>} phChapterSource 
@@ -56,7 +56,7 @@ export default struct IRowsetView extends IUnknown {
      * @returns {HRESULT} 
      */
     GetView(hChapter, riid, phChapterSource, ppView) {
-        phChapterSourceMarshal := phChapterSource is VarRef ? "ptr*" : "ptr"
+        phChapterSourceMarshal := phChapterSource is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, IntPtr, hChapter, Guid.Ptr, riid, phChapterSourceMarshal, phChapterSource, IUnknown.Ptr, ppView, "HRESULT")
         return result
@@ -71,8 +71,8 @@ export default struct IRowsetView extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateView := CallbackCreate(GetMethod(implObj, "CreateView"), flags, 4)
-        this.vtbl.GetView := CallbackCreate(GetMethod(implObj, "GetView"), flags, 5)
+        this.vtbl.CreateView := CallbackCreate(ObjBindMethod(implObj, "CreateView"), flags, 4)
+        this.vtbl.GetView := CallbackCreate(ObjBindMethod(implObj, "GetView"), flags, 5)
     }
 
     Dispose() {

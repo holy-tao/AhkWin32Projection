@@ -456,7 +456,9 @@ export default struct IInkCollector extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-putref_defaultdrawingattributes
      */
     putref_DefaultDrawingAttributes(NewAttributes) {
-        result := ComCall(12, this, "ptr", NewAttributes, "HRESULT")
+        NewAttributesMarshal := NewAttributes == 0 ? IntPtr : "ptr"
+
+        result := ComCall(12, this, NewAttributesMarshal, NewAttributes, "HRESULT")
         return result
     }
 
@@ -481,7 +483,9 @@ export default struct IInkCollector extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-putref_renderer
      */
     putref_Renderer(NewInkRenderer) {
-        result := ComCall(14, this, "ptr", NewInkRenderer, "HRESULT")
+        NewInkRendererMarshal := NewInkRenderer == 0 ? IntPtr : "ptr"
+
+        result := ComCall(14, this, NewInkRendererMarshal, NewInkRenderer, "HRESULT")
         return result
     }
 
@@ -510,7 +514,9 @@ export default struct IInkCollector extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-putref_ink
      */
     putref_Ink(NewInk) {
-        result := ComCall(16, this, "ptr", NewInk, "HRESULT")
+        NewInkMarshal := NewInk == 0 ? IntPtr : "ptr"
+
+        result := ComCall(16, this, NewInkMarshal, NewInk, "HRESULT")
         return result
     }
 
@@ -827,12 +833,13 @@ export default struct IInkCollector extends IDispatch {
     }
 
     /**
-     * 
      * @param {IPictureDisp} MouseIcon 
      * @returns {HRESULT} 
      */
     put_MouseIcon(MouseIcon) {
-        result := ComCall(27, this, "ptr", MouseIcon, "HRESULT")
+        MouseIconMarshal := MouseIcon == 0 ? IntPtr : "ptr"
+
+        result := ComCall(27, this, MouseIconMarshal, MouseIcon, "HRESULT")
         return result
     }
 
@@ -849,7 +856,9 @@ export default struct IInkCollector extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-putref_mouseicon
      */
     putref_MouseIcon(MouseIcon) {
-        result := ComCall(28, this, "ptr", MouseIcon, "HRESULT")
+        MouseIconMarshal := MouseIcon == 0 ? IntPtr : "ptr"
+
+        result := ComCall(28, this, MouseIconMarshal, MouseIcon, "HRESULT")
         return result
     }
 
@@ -1311,7 +1320,9 @@ export default struct IInkCollector extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-setwindowinputrectangle
      */
     SetWindowInputRectangle(WindowInputRectangle) {
-        result := ComCall(42, this, "ptr", WindowInputRectangle, "HRESULT")
+        WindowInputRectangleMarshal := WindowInputRectangle == 0 ? IntPtr : "ptr"
+
+        result := ComCall(42, this, WindowInputRectangleMarshal, WindowInputRectangle, "HRESULT")
         return result
     }
 
@@ -1461,7 +1472,9 @@ export default struct IInkCollector extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-setsingletabletintegratedmode
      */
     SetSingleTabletIntegratedMode(Tablet) {
-        result := ComCall(44, this, "ptr", Tablet, "HRESULT")
+        TabletMarshal := Tablet == 0 ? IntPtr : "ptr"
+
+        result := ComCall(44, this, TabletMarshal, Tablet, "HRESULT")
         return result
     }
 
@@ -1552,46 +1565,46 @@ export default struct IInkCollector extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_hWnd := CallbackCreate(GetMethod(implObj, "get_hWnd"), flags, 2)
-        this.vtbl.put_hWnd := CallbackCreate(GetMethod(implObj, "put_hWnd"), flags, 2)
-        this.vtbl.get_Enabled := CallbackCreate(GetMethod(implObj, "get_Enabled"), flags, 2)
-        this.vtbl.put_Enabled := CallbackCreate(GetMethod(implObj, "put_Enabled"), flags, 2)
-        this.vtbl.get_DefaultDrawingAttributes := CallbackCreate(GetMethod(implObj, "get_DefaultDrawingAttributes"), flags, 2)
-        this.vtbl.putref_DefaultDrawingAttributes := CallbackCreate(GetMethod(implObj, "putref_DefaultDrawingAttributes"), flags, 2)
-        this.vtbl.get_Renderer := CallbackCreate(GetMethod(implObj, "get_Renderer"), flags, 2)
-        this.vtbl.putref_Renderer := CallbackCreate(GetMethod(implObj, "putref_Renderer"), flags, 2)
-        this.vtbl.get_Ink := CallbackCreate(GetMethod(implObj, "get_Ink"), flags, 2)
-        this.vtbl.putref_Ink := CallbackCreate(GetMethod(implObj, "putref_Ink"), flags, 2)
-        this.vtbl.get_AutoRedraw := CallbackCreate(GetMethod(implObj, "get_AutoRedraw"), flags, 2)
-        this.vtbl.put_AutoRedraw := CallbackCreate(GetMethod(implObj, "put_AutoRedraw"), flags, 2)
-        this.vtbl.get_CollectingInk := CallbackCreate(GetMethod(implObj, "get_CollectingInk"), flags, 2)
-        this.vtbl.get_CollectionMode := CallbackCreate(GetMethod(implObj, "get_CollectionMode"), flags, 2)
-        this.vtbl.put_CollectionMode := CallbackCreate(GetMethod(implObj, "put_CollectionMode"), flags, 2)
-        this.vtbl.get_DynamicRendering := CallbackCreate(GetMethod(implObj, "get_DynamicRendering"), flags, 2)
-        this.vtbl.put_DynamicRendering := CallbackCreate(GetMethod(implObj, "put_DynamicRendering"), flags, 2)
-        this.vtbl.get_DesiredPacketDescription := CallbackCreate(GetMethod(implObj, "get_DesiredPacketDescription"), flags, 2)
-        this.vtbl.put_DesiredPacketDescription := CallbackCreate(GetMethod(implObj, "put_DesiredPacketDescription"), flags, 2)
-        this.vtbl.get_MouseIcon := CallbackCreate(GetMethod(implObj, "get_MouseIcon"), flags, 2)
-        this.vtbl.put_MouseIcon := CallbackCreate(GetMethod(implObj, "put_MouseIcon"), flags, 2)
-        this.vtbl.putref_MouseIcon := CallbackCreate(GetMethod(implObj, "putref_MouseIcon"), flags, 2)
-        this.vtbl.get_MousePointer := CallbackCreate(GetMethod(implObj, "get_MousePointer"), flags, 2)
-        this.vtbl.put_MousePointer := CallbackCreate(GetMethod(implObj, "put_MousePointer"), flags, 2)
-        this.vtbl.get_Cursors := CallbackCreate(GetMethod(implObj, "get_Cursors"), flags, 2)
-        this.vtbl.get_MarginX := CallbackCreate(GetMethod(implObj, "get_MarginX"), flags, 2)
-        this.vtbl.put_MarginX := CallbackCreate(GetMethod(implObj, "put_MarginX"), flags, 2)
-        this.vtbl.get_MarginY := CallbackCreate(GetMethod(implObj, "get_MarginY"), flags, 2)
-        this.vtbl.put_MarginY := CallbackCreate(GetMethod(implObj, "put_MarginY"), flags, 2)
-        this.vtbl.get_Tablet := CallbackCreate(GetMethod(implObj, "get_Tablet"), flags, 2)
-        this.vtbl.get_SupportHighContrastInk := CallbackCreate(GetMethod(implObj, "get_SupportHighContrastInk"), flags, 2)
-        this.vtbl.put_SupportHighContrastInk := CallbackCreate(GetMethod(implObj, "put_SupportHighContrastInk"), flags, 2)
-        this.vtbl.SetGestureStatus := CallbackCreate(GetMethod(implObj, "SetGestureStatus"), flags, 3)
-        this.vtbl.GetGestureStatus := CallbackCreate(GetMethod(implObj, "GetGestureStatus"), flags, 3)
-        this.vtbl.GetWindowInputRectangle := CallbackCreate(GetMethod(implObj, "GetWindowInputRectangle"), flags, 2)
-        this.vtbl.SetWindowInputRectangle := CallbackCreate(GetMethod(implObj, "SetWindowInputRectangle"), flags, 2)
-        this.vtbl.SetAllTabletsMode := CallbackCreate(GetMethod(implObj, "SetAllTabletsMode"), flags, 2)
-        this.vtbl.SetSingleTabletIntegratedMode := CallbackCreate(GetMethod(implObj, "SetSingleTabletIntegratedMode"), flags, 2)
-        this.vtbl.GetEventInterest := CallbackCreate(GetMethod(implObj, "GetEventInterest"), flags, 3)
-        this.vtbl.SetEventInterest := CallbackCreate(GetMethod(implObj, "SetEventInterest"), flags, 3)
+        this.vtbl.get_hWnd := CallbackCreate(ObjBindMethod(implObj, "get_hWnd"), flags, 2)
+        this.vtbl.put_hWnd := CallbackCreate(ObjBindMethod(implObj, "put_hWnd"), flags, 2)
+        this.vtbl.get_Enabled := CallbackCreate(ObjBindMethod(implObj, "get_Enabled"), flags, 2)
+        this.vtbl.put_Enabled := CallbackCreate(ObjBindMethod(implObj, "put_Enabled"), flags, 2)
+        this.vtbl.get_DefaultDrawingAttributes := CallbackCreate(ObjBindMethod(implObj, "get_DefaultDrawingAttributes"), flags, 2)
+        this.vtbl.putref_DefaultDrawingAttributes := CallbackCreate(ObjBindMethod(implObj, "putref_DefaultDrawingAttributes"), flags, 2)
+        this.vtbl.get_Renderer := CallbackCreate(ObjBindMethod(implObj, "get_Renderer"), flags, 2)
+        this.vtbl.putref_Renderer := CallbackCreate(ObjBindMethod(implObj, "putref_Renderer"), flags, 2)
+        this.vtbl.get_Ink := CallbackCreate(ObjBindMethod(implObj, "get_Ink"), flags, 2)
+        this.vtbl.putref_Ink := CallbackCreate(ObjBindMethod(implObj, "putref_Ink"), flags, 2)
+        this.vtbl.get_AutoRedraw := CallbackCreate(ObjBindMethod(implObj, "get_AutoRedraw"), flags, 2)
+        this.vtbl.put_AutoRedraw := CallbackCreate(ObjBindMethod(implObj, "put_AutoRedraw"), flags, 2)
+        this.vtbl.get_CollectingInk := CallbackCreate(ObjBindMethod(implObj, "get_CollectingInk"), flags, 2)
+        this.vtbl.get_CollectionMode := CallbackCreate(ObjBindMethod(implObj, "get_CollectionMode"), flags, 2)
+        this.vtbl.put_CollectionMode := CallbackCreate(ObjBindMethod(implObj, "put_CollectionMode"), flags, 2)
+        this.vtbl.get_DynamicRendering := CallbackCreate(ObjBindMethod(implObj, "get_DynamicRendering"), flags, 2)
+        this.vtbl.put_DynamicRendering := CallbackCreate(ObjBindMethod(implObj, "put_DynamicRendering"), flags, 2)
+        this.vtbl.get_DesiredPacketDescription := CallbackCreate(ObjBindMethod(implObj, "get_DesiredPacketDescription"), flags, 2)
+        this.vtbl.put_DesiredPacketDescription := CallbackCreate(ObjBindMethod(implObj, "put_DesiredPacketDescription"), flags, 2)
+        this.vtbl.get_MouseIcon := CallbackCreate(ObjBindMethod(implObj, "get_MouseIcon"), flags, 2)
+        this.vtbl.put_MouseIcon := CallbackCreate(ObjBindMethod(implObj, "put_MouseIcon"), flags, 2)
+        this.vtbl.putref_MouseIcon := CallbackCreate(ObjBindMethod(implObj, "putref_MouseIcon"), flags, 2)
+        this.vtbl.get_MousePointer := CallbackCreate(ObjBindMethod(implObj, "get_MousePointer"), flags, 2)
+        this.vtbl.put_MousePointer := CallbackCreate(ObjBindMethod(implObj, "put_MousePointer"), flags, 2)
+        this.vtbl.get_Cursors := CallbackCreate(ObjBindMethod(implObj, "get_Cursors"), flags, 2)
+        this.vtbl.get_MarginX := CallbackCreate(ObjBindMethod(implObj, "get_MarginX"), flags, 2)
+        this.vtbl.put_MarginX := CallbackCreate(ObjBindMethod(implObj, "put_MarginX"), flags, 2)
+        this.vtbl.get_MarginY := CallbackCreate(ObjBindMethod(implObj, "get_MarginY"), flags, 2)
+        this.vtbl.put_MarginY := CallbackCreate(ObjBindMethod(implObj, "put_MarginY"), flags, 2)
+        this.vtbl.get_Tablet := CallbackCreate(ObjBindMethod(implObj, "get_Tablet"), flags, 2)
+        this.vtbl.get_SupportHighContrastInk := CallbackCreate(ObjBindMethod(implObj, "get_SupportHighContrastInk"), flags, 2)
+        this.vtbl.put_SupportHighContrastInk := CallbackCreate(ObjBindMethod(implObj, "put_SupportHighContrastInk"), flags, 2)
+        this.vtbl.SetGestureStatus := CallbackCreate(ObjBindMethod(implObj, "SetGestureStatus"), flags, 3)
+        this.vtbl.GetGestureStatus := CallbackCreate(ObjBindMethod(implObj, "GetGestureStatus"), flags, 3)
+        this.vtbl.GetWindowInputRectangle := CallbackCreate(ObjBindMethod(implObj, "GetWindowInputRectangle"), flags, 2)
+        this.vtbl.SetWindowInputRectangle := CallbackCreate(ObjBindMethod(implObj, "SetWindowInputRectangle"), flags, 2)
+        this.vtbl.SetAllTabletsMode := CallbackCreate(ObjBindMethod(implObj, "SetAllTabletsMode"), flags, 2)
+        this.vtbl.SetSingleTabletIntegratedMode := CallbackCreate(ObjBindMethod(implObj, "SetSingleTabletIntegratedMode"), flags, 2)
+        this.vtbl.GetEventInterest := CallbackCreate(ObjBindMethod(implObj, "GetEventInterest"), flags, 3)
+        this.vtbl.SetEventInterest := CallbackCreate(ObjBindMethod(implObj, "SetEventInterest"), flags, 3)
     }
 
     Dispose() {

@@ -48,7 +48,6 @@ export default struct IADsOctetList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_OctetList() {
@@ -58,7 +57,6 @@ export default struct IADsOctetList extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} vOctetList 
      * @returns {HRESULT} 
      */
@@ -76,8 +74,8 @@ export default struct IADsOctetList extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_OctetList := CallbackCreate(GetMethod(implObj, "get_OctetList"), flags, 2)
-        this.vtbl.put_OctetList := CallbackCreate(GetMethod(implObj, "put_OctetList"), flags, 2)
+        this.vtbl.get_OctetList := CallbackCreate(ObjBindMethod(implObj, "get_OctetList"), flags, 2)
+        this.vtbl.put_OctetList := CallbackCreate(ObjBindMethod(implObj, "put_OctetList"), flags, 2)
     }
 
     Dispose() {

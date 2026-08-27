@@ -22,7 +22,6 @@ export default struct PFN_PRINTING_OPENPORTEX {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @param {PWSTR} param1 
      * @param {PWSTR} param2 

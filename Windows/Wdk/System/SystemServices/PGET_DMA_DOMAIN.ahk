@@ -20,7 +20,6 @@ export default struct PGET_DMA_DOMAIN {
     }
 
     /**
-     * 
      * @param {Pointer<DMA_ADAPTER>} DmaAdapter 
      * @returns {HANDLE} 
      */

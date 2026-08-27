@@ -83,7 +83,7 @@ export default struct IMFLocalMFTRegistration extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterMFTs := CallbackCreate(GetMethod(implObj, "RegisterMFTs"), flags, 3)
+        this.vtbl.RegisterMFTs := CallbackCreate(ObjBindMethod(implObj, "RegisterMFTs"), flags, 3)
     }
 
     Dispose() {

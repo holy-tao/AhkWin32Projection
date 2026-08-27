@@ -217,10 +217,10 @@ export default struct IBackgroundCopyManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateJob := CallbackCreate(GetMethod(implObj, "CreateJob"), flags, 5)
-        this.vtbl.GetJob := CallbackCreate(GetMethod(implObj, "GetJob"), flags, 3)
-        this.vtbl.EnumJobs := CallbackCreate(GetMethod(implObj, "EnumJobs"), flags, 3)
-        this.vtbl.GetErrorDescription := CallbackCreate(GetMethod(implObj, "GetErrorDescription"), flags, 4)
+        this.vtbl.CreateJob := CallbackCreate(ObjBindMethod(implObj, "CreateJob"), flags, 5)
+        this.vtbl.GetJob := CallbackCreate(ObjBindMethod(implObj, "GetJob"), flags, 3)
+        this.vtbl.EnumJobs := CallbackCreate(ObjBindMethod(implObj, "EnumJobs"), flags, 3)
+        this.vtbl.GetErrorDescription := CallbackCreate(ObjBindMethod(implObj, "GetErrorDescription"), flags, 4)
     }
 
     Dispose() {

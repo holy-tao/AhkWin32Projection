@@ -50,7 +50,6 @@ export default struct IContactAggregationContactCollection extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IContactAggregationContact} 
      */
     FindFirst() {
@@ -59,7 +58,6 @@ export default struct IContactAggregationContactCollection extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IContactAggregationContact} 
      */
     FindNext() {
@@ -68,7 +66,6 @@ export default struct IContactAggregationContactCollection extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pSourceType 
      * @param {PWSTR} pAccountId 
      * @param {Pointer<CONTACT_AGGREGATION_BLOB>} pIdentityHash 
@@ -83,7 +80,6 @@ export default struct IContactAggregationContactCollection extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -92,7 +88,6 @@ export default struct IContactAggregationContactCollection extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pSourceType 
      * @param {PWSTR} pAccountId 
      * @param {Pointer<CONTACT_AGGREGATION_BLOB>} pRemoteObjectId 
@@ -115,11 +110,11 @@ export default struct IContactAggregationContactCollection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FindFirst := CallbackCreate(GetMethod(implObj, "FindFirst"), flags, 2)
-        this.vtbl.FindNext := CallbackCreate(GetMethod(implObj, "FindNext"), flags, 2)
-        this.vtbl.FindFirstByIdentityHash := CallbackCreate(GetMethod(implObj, "FindFirstByIdentityHash"), flags, 5)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.FindFirstByRemoteId := CallbackCreate(GetMethod(implObj, "FindFirstByRemoteId"), flags, 5)
+        this.vtbl.FindFirst := CallbackCreate(ObjBindMethod(implObj, "FindFirst"), flags, 2)
+        this.vtbl.FindNext := CallbackCreate(ObjBindMethod(implObj, "FindNext"), flags, 2)
+        this.vtbl.FindFirstByIdentityHash := CallbackCreate(ObjBindMethod(implObj, "FindFirstByIdentityHash"), flags, 5)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.FindFirstByRemoteId := CallbackCreate(ObjBindMethod(implObj, "FindFirstByRemoteId"), flags, 5)
     }
 
     Dispose() {

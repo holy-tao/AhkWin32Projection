@@ -64,7 +64,6 @@ export default struct IXMLDOMSelection extends IXMLDOMNodeList {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_expr() {
@@ -74,7 +73,6 @@ export default struct IXMLDOMSelection extends IXMLDOMNodeList {
     }
 
     /**
-     * 
      * @param {BSTR} expression 
      * @returns {HRESULT} 
      */
@@ -86,7 +84,6 @@ export default struct IXMLDOMSelection extends IXMLDOMNodeList {
     }
 
     /**
-     * 
      * @returns {IXMLDOMNode} 
      */
     get_context() {
@@ -95,7 +92,6 @@ export default struct IXMLDOMSelection extends IXMLDOMNodeList {
     }
 
     /**
-     * 
      * @param {IXMLDOMNode} pNode 
      * @returns {HRESULT} 
      */
@@ -105,7 +101,6 @@ export default struct IXMLDOMSelection extends IXMLDOMNodeList {
     }
 
     /**
-     * 
      * @returns {IXMLDOMNode} 
      */
     peekNode() {
@@ -114,7 +109,6 @@ export default struct IXMLDOMSelection extends IXMLDOMNodeList {
     }
 
     /**
-     * 
      * @param {IXMLDOMNode} pNode 
      * @returns {IXMLDOMNode} 
      */
@@ -124,7 +118,6 @@ export default struct IXMLDOMSelection extends IXMLDOMNodeList {
     }
 
     /**
-     * 
      * @returns {IXMLDOMNode} 
      */
     removeNext() {
@@ -133,7 +126,6 @@ export default struct IXMLDOMSelection extends IXMLDOMNodeList {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     removeAll() {
@@ -142,7 +134,6 @@ export default struct IXMLDOMSelection extends IXMLDOMNodeList {
     }
 
     /**
-     * 
      * @returns {IXMLDOMSelection} 
      */
     clone() {
@@ -151,7 +142,6 @@ export default struct IXMLDOMSelection extends IXMLDOMNodeList {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {VARIANT} 
      */
@@ -164,7 +154,6 @@ export default struct IXMLDOMSelection extends IXMLDOMNodeList {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @param {VARIANT} value 
      * @returns {HRESULT} 
@@ -185,17 +174,17 @@ export default struct IXMLDOMSelection extends IXMLDOMNodeList {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_expr := CallbackCreate(GetMethod(implObj, "get_expr"), flags, 2)
-        this.vtbl.put_expr := CallbackCreate(GetMethod(implObj, "put_expr"), flags, 2)
-        this.vtbl.get_context := CallbackCreate(GetMethod(implObj, "get_context"), flags, 2)
-        this.vtbl.putref_context := CallbackCreate(GetMethod(implObj, "putref_context"), flags, 2)
-        this.vtbl.peekNode := CallbackCreate(GetMethod(implObj, "peekNode"), flags, 2)
-        this.vtbl.matches := CallbackCreate(GetMethod(implObj, "matches"), flags, 3)
-        this.vtbl.removeNext := CallbackCreate(GetMethod(implObj, "removeNext"), flags, 2)
-        this.vtbl.removeAll := CallbackCreate(GetMethod(implObj, "removeAll"), flags, 1)
-        this.vtbl.clone := CallbackCreate(GetMethod(implObj, "clone"), flags, 2)
-        this.vtbl.getProperty := CallbackCreate(GetMethod(implObj, "getProperty"), flags, 3)
-        this.vtbl.setProperty := CallbackCreate(GetMethod(implObj, "setProperty"), flags, 3)
+        this.vtbl.get_expr := CallbackCreate(ObjBindMethod(implObj, "get_expr"), flags, 2)
+        this.vtbl.put_expr := CallbackCreate(ObjBindMethod(implObj, "put_expr"), flags, 2)
+        this.vtbl.get_context := CallbackCreate(ObjBindMethod(implObj, "get_context"), flags, 2)
+        this.vtbl.putref_context := CallbackCreate(ObjBindMethod(implObj, "putref_context"), flags, 2)
+        this.vtbl.peekNode := CallbackCreate(ObjBindMethod(implObj, "peekNode"), flags, 2)
+        this.vtbl.matches := CallbackCreate(ObjBindMethod(implObj, "matches"), flags, 3)
+        this.vtbl.removeNext := CallbackCreate(ObjBindMethod(implObj, "removeNext"), flags, 2)
+        this.vtbl.removeAll := CallbackCreate(ObjBindMethod(implObj, "removeAll"), flags, 1)
+        this.vtbl.clone := CallbackCreate(ObjBindMethod(implObj, "clone"), flags, 2)
+        this.vtbl.getProperty := CallbackCreate(ObjBindMethod(implObj, "getProperty"), flags, 3)
+        this.vtbl.setProperty := CallbackCreate(ObjBindMethod(implObj, "setProperty"), flags, 3)
     }
 
     Dispose() {

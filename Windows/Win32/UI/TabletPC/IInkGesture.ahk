@@ -151,8 +151,8 @@ export default struct IInkGesture extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkgesture-gethotpoint
      */
     GetHotPoint(X, Y) {
-        XMarshal := X is VarRef ? "int*" : "ptr"
-        YMarshal := Y is VarRef ? "int*" : "ptr"
+        XMarshal := X is VarRef ? "int*" : IntPtr
+        YMarshal := Y is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, XMarshal, X, YMarshal, Y, "HRESULT")
         return result
@@ -167,9 +167,9 @@ export default struct IInkGesture extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Confidence := CallbackCreate(GetMethod(implObj, "get_Confidence"), flags, 2)
-        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
-        this.vtbl.GetHotPoint := CallbackCreate(GetMethod(implObj, "GetHotPoint"), flags, 3)
+        this.vtbl.get_Confidence := CallbackCreate(ObjBindMethod(implObj, "get_Confidence"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(ObjBindMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.GetHotPoint := CallbackCreate(ObjBindMethod(implObj, "GetHotPoint"), flags, 3)
     }
 
     Dispose() {

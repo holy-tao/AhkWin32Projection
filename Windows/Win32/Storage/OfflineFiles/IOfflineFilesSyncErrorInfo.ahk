@@ -75,9 +75,9 @@ export default struct IOfflineFilesSyncErrorInfo extends IOfflineFilesErrorInfo 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessyncerrorinfo-infoenumerated
      */
     InfoEnumerated(pbLocalEnumerated, pbRemoteEnumerated, pbOriginalEnumerated) {
-        pbLocalEnumeratedMarshal := pbLocalEnumerated is VarRef ? "int*" : "ptr"
-        pbRemoteEnumeratedMarshal := pbRemoteEnumerated is VarRef ? "int*" : "ptr"
-        pbOriginalEnumeratedMarshal := pbOriginalEnumerated is VarRef ? "int*" : "ptr"
+        pbLocalEnumeratedMarshal := pbLocalEnumerated is VarRef ? "int*" : IntPtr
+        pbRemoteEnumeratedMarshal := pbRemoteEnumerated is VarRef ? "int*" : IntPtr
+        pbOriginalEnumeratedMarshal := pbOriginalEnumerated is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, pbLocalEnumeratedMarshal, pbLocalEnumerated, pbRemoteEnumeratedMarshal, pbRemoteEnumerated, pbOriginalEnumeratedMarshal, pbOriginalEnumerated, "HRESULT")
         return result
@@ -92,9 +92,9 @@ export default struct IOfflineFilesSyncErrorInfo extends IOfflineFilesErrorInfo 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessyncerrorinfo-infoavailable
      */
     InfoAvailable(pbLocalInfo, pbRemoteInfo, pbOriginalInfo) {
-        pbLocalInfoMarshal := pbLocalInfo is VarRef ? "int*" : "ptr"
-        pbRemoteInfoMarshal := pbRemoteInfo is VarRef ? "int*" : "ptr"
-        pbOriginalInfoMarshal := pbOriginalInfo is VarRef ? "int*" : "ptr"
+        pbLocalInfoMarshal := pbLocalInfo is VarRef ? "int*" : IntPtr
+        pbRemoteInfoMarshal := pbRemoteInfo is VarRef ? "int*" : IntPtr
+        pbOriginalInfoMarshal := pbOriginalInfo is VarRef ? "int*" : IntPtr
 
         result := ComCall(8, this, pbLocalInfoMarshal, pbLocalInfo, pbRemoteInfoMarshal, pbRemoteInfo, pbOriginalInfoMarshal, pbOriginalInfo, "HRESULT")
         return result
@@ -139,13 +139,13 @@ export default struct IOfflineFilesSyncErrorInfo extends IOfflineFilesErrorInfo 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSyncOperation := CallbackCreate(GetMethod(implObj, "GetSyncOperation"), flags, 2)
-        this.vtbl.GetItemChangeFlags := CallbackCreate(GetMethod(implObj, "GetItemChangeFlags"), flags, 2)
-        this.vtbl.InfoEnumerated := CallbackCreate(GetMethod(implObj, "InfoEnumerated"), flags, 4)
-        this.vtbl.InfoAvailable := CallbackCreate(GetMethod(implObj, "InfoAvailable"), flags, 4)
-        this.vtbl.GetLocalInfo := CallbackCreate(GetMethod(implObj, "GetLocalInfo"), flags, 2)
-        this.vtbl.GetRemoteInfo := CallbackCreate(GetMethod(implObj, "GetRemoteInfo"), flags, 2)
-        this.vtbl.GetOriginalInfo := CallbackCreate(GetMethod(implObj, "GetOriginalInfo"), flags, 2)
+        this.vtbl.GetSyncOperation := CallbackCreate(ObjBindMethod(implObj, "GetSyncOperation"), flags, 2)
+        this.vtbl.GetItemChangeFlags := CallbackCreate(ObjBindMethod(implObj, "GetItemChangeFlags"), flags, 2)
+        this.vtbl.InfoEnumerated := CallbackCreate(ObjBindMethod(implObj, "InfoEnumerated"), flags, 4)
+        this.vtbl.InfoAvailable := CallbackCreate(ObjBindMethod(implObj, "InfoAvailable"), flags, 4)
+        this.vtbl.GetLocalInfo := CallbackCreate(ObjBindMethod(implObj, "GetLocalInfo"), flags, 2)
+        this.vtbl.GetRemoteInfo := CallbackCreate(ObjBindMethod(implObj, "GetRemoteInfo"), flags, 2)
+        this.vtbl.GetOriginalInfo := CallbackCreate(ObjBindMethod(implObj, "GetOriginalInfo"), flags, 2)
     }
 
     Dispose() {

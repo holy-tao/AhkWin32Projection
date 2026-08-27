@@ -20,14 +20,14 @@ export default struct PFNPEER_ON_PASSWORD_AUTH_FAILED {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hGraph 
      * @param {Pointer<Void>} pvContext 
      * @returns {HRESULT} 
      */
     Call(hGraph, pvContext) {
-        hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        hGraphMarshal := hGraph is VarRef ? "ptr" : IntPtr
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
+        pvContextMarshal := pvContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, hGraphMarshal, hGraph, pvContextMarshal, pvContext, "HRESULT")
         return result

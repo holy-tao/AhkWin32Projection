@@ -22,7 +22,6 @@ export default struct PROCESSENUMPROC {
     }
 
     /**
-     * 
      * @param {Integer} dwProcessId The process ID of the NTVDM.exe process. Use this ID when calling other VDM debug functions.
      * @param {Integer} dwAttributes The process attributes.
      * @param {LPARAM} lpUserDefined The user-defined data that was passed to the <a href="https://docs.microsoft.com/windows/desktop/api/vdmdbg/nf-vdmdbg-vdmenumprocesswow">VDMEnumProcessWOW</a> function.

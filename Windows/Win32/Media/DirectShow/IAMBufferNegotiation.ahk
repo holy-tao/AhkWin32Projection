@@ -127,8 +127,8 @@ export default struct IAMBufferNegotiation extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SuggestAllocatorProperties := CallbackCreate(GetMethod(implObj, "SuggestAllocatorProperties"), flags, 2)
-        this.vtbl.GetAllocatorProperties := CallbackCreate(GetMethod(implObj, "GetAllocatorProperties"), flags, 2)
+        this.vtbl.SuggestAllocatorProperties := CallbackCreate(ObjBindMethod(implObj, "SuggestAllocatorProperties"), flags, 2)
+        this.vtbl.GetAllocatorProperties := CallbackCreate(ObjBindMethod(implObj, "GetAllocatorProperties"), flags, 2)
     }
 
     Dispose() {

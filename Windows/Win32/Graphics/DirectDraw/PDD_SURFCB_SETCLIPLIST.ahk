@@ -19,7 +19,6 @@ export default struct PDD_SURFCB_SETCLIPLIST {
     }
 
     /**
-     * 
      * @param {Pointer<DD_SETCLIPLISTDATA>} param0 
      * @returns {Integer} 
      */

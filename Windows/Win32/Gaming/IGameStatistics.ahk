@@ -55,7 +55,6 @@ export default struct IGameStatistics extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMaxCategoryLength() {
@@ -64,7 +63,6 @@ export default struct IGameStatistics extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMaxNameLength() {
@@ -73,7 +71,6 @@ export default struct IGameStatistics extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMaxValueLength() {
@@ -82,7 +79,6 @@ export default struct IGameStatistics extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMaxCategories() {
@@ -91,7 +87,6 @@ export default struct IGameStatistics extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMaxStatsPerCategory() {
@@ -100,7 +95,6 @@ export default struct IGameStatistics extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} categoryIndex 
      * @param {PWSTR} title 
      * @returns {HRESULT} 
@@ -113,7 +107,6 @@ export default struct IGameStatistics extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} categoryIndex 
      * @returns {PWSTR} 
      */
@@ -123,7 +116,6 @@ export default struct IGameStatistics extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} categoryIndex 
      * @param {Integer} statIndex 
      * @param {Pointer<PWSTR>} pName 
@@ -131,15 +123,16 @@ export default struct IGameStatistics extends IUnknown {
      * @returns {HRESULT} 
      */
     GetStatistic(categoryIndex, statIndex, pName, pValue) {
-        pNameMarshal := pName is VarRef ? "ptr*" : "ptr"
-        pValueMarshal := pValue is VarRef ? "ptr*" : "ptr"
+        pNameMarshal := pName is VarRef ? "ptr*" : IntPtr
+        pNameMarshal := pName == 0 ? IntPtr : PWSTR.Ptr
+        pValueMarshal := pValue is VarRef ? "ptr*" : IntPtr
+        pValueMarshal := pValue == 0 ? IntPtr : PWSTR.Ptr
 
         result := ComCall(10, this, UInt16, categoryIndex, UInt16, statIndex, pNameMarshal, pName, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} categoryIndex 
      * @param {Integer} statIndex 
      * @param {PWSTR} name 
@@ -155,7 +148,6 @@ export default struct IGameStatistics extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} trackChanges 
      * @returns {HRESULT} 
      */
@@ -165,7 +157,6 @@ export default struct IGameStatistics extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} categoryIndex 
      * @returns {HRESULT} 
      */
@@ -175,7 +166,6 @@ export default struct IGameStatistics extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetLastPlayedCategory() {
@@ -192,18 +182,18 @@ export default struct IGameStatistics extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMaxCategoryLength := CallbackCreate(GetMethod(implObj, "GetMaxCategoryLength"), flags, 2)
-        this.vtbl.GetMaxNameLength := CallbackCreate(GetMethod(implObj, "GetMaxNameLength"), flags, 2)
-        this.vtbl.GetMaxValueLength := CallbackCreate(GetMethod(implObj, "GetMaxValueLength"), flags, 2)
-        this.vtbl.GetMaxCategories := CallbackCreate(GetMethod(implObj, "GetMaxCategories"), flags, 2)
-        this.vtbl.GetMaxStatsPerCategory := CallbackCreate(GetMethod(implObj, "GetMaxStatsPerCategory"), flags, 2)
-        this.vtbl.SetCategoryTitle := CallbackCreate(GetMethod(implObj, "SetCategoryTitle"), flags, 3)
-        this.vtbl.GetCategoryTitle := CallbackCreate(GetMethod(implObj, "GetCategoryTitle"), flags, 3)
-        this.vtbl.GetStatistic := CallbackCreate(GetMethod(implObj, "GetStatistic"), flags, 5)
-        this.vtbl.SetStatistic := CallbackCreate(GetMethod(implObj, "SetStatistic"), flags, 5)
-        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 2)
-        this.vtbl.SetLastPlayedCategory := CallbackCreate(GetMethod(implObj, "SetLastPlayedCategory"), flags, 2)
-        this.vtbl.GetLastPlayedCategory := CallbackCreate(GetMethod(implObj, "GetLastPlayedCategory"), flags, 2)
+        this.vtbl.GetMaxCategoryLength := CallbackCreate(ObjBindMethod(implObj, "GetMaxCategoryLength"), flags, 2)
+        this.vtbl.GetMaxNameLength := CallbackCreate(ObjBindMethod(implObj, "GetMaxNameLength"), flags, 2)
+        this.vtbl.GetMaxValueLength := CallbackCreate(ObjBindMethod(implObj, "GetMaxValueLength"), flags, 2)
+        this.vtbl.GetMaxCategories := CallbackCreate(ObjBindMethod(implObj, "GetMaxCategories"), flags, 2)
+        this.vtbl.GetMaxStatsPerCategory := CallbackCreate(ObjBindMethod(implObj, "GetMaxStatsPerCategory"), flags, 2)
+        this.vtbl.SetCategoryTitle := CallbackCreate(ObjBindMethod(implObj, "SetCategoryTitle"), flags, 3)
+        this.vtbl.GetCategoryTitle := CallbackCreate(ObjBindMethod(implObj, "GetCategoryTitle"), flags, 3)
+        this.vtbl.GetStatistic := CallbackCreate(ObjBindMethod(implObj, "GetStatistic"), flags, 5)
+        this.vtbl.SetStatistic := CallbackCreate(ObjBindMethod(implObj, "SetStatistic"), flags, 5)
+        this.vtbl.Save := CallbackCreate(ObjBindMethod(implObj, "Save"), flags, 2)
+        this.vtbl.SetLastPlayedCategory := CallbackCreate(ObjBindMethod(implObj, "SetLastPlayedCategory"), flags, 2)
+        this.vtbl.GetLastPlayedCategory := CallbackCreate(ObjBindMethod(implObj, "GetLastPlayedCategory"), flags, 2)
     }
 
     Dispose() {

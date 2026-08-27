@@ -43,7 +43,6 @@ export default struct IScriptEventHandler extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     FunctionName() {
@@ -53,7 +52,6 @@ export default struct IScriptEventHandler extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     DebugDocumentContext() {
@@ -62,7 +60,6 @@ export default struct IScriptEventHandler extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     EventHandlerDispatch() {
@@ -71,7 +68,6 @@ export default struct IScriptEventHandler extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     UsesCapture() {
@@ -80,7 +76,6 @@ export default struct IScriptEventHandler extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Cookie() {
@@ -97,11 +92,11 @@ export default struct IScriptEventHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FunctionName := CallbackCreate(GetMethod(implObj, "FunctionName"), flags, 2)
-        this.vtbl.DebugDocumentContext := CallbackCreate(GetMethod(implObj, "DebugDocumentContext"), flags, 2)
-        this.vtbl.EventHandlerDispatch := CallbackCreate(GetMethod(implObj, "EventHandlerDispatch"), flags, 2)
-        this.vtbl.UsesCapture := CallbackCreate(GetMethod(implObj, "UsesCapture"), flags, 2)
-        this.vtbl.Cookie := CallbackCreate(GetMethod(implObj, "Cookie"), flags, 2)
+        this.vtbl.FunctionName := CallbackCreate(ObjBindMethod(implObj, "FunctionName"), flags, 2)
+        this.vtbl.DebugDocumentContext := CallbackCreate(ObjBindMethod(implObj, "DebugDocumentContext"), flags, 2)
+        this.vtbl.EventHandlerDispatch := CallbackCreate(ObjBindMethod(implObj, "EventHandlerDispatch"), flags, 2)
+        this.vtbl.UsesCapture := CallbackCreate(ObjBindMethod(implObj, "UsesCapture"), flags, 2)
+        this.vtbl.Cookie := CallbackCreate(ObjBindMethod(implObj, "Cookie"), flags, 2)
     }
 
     Dispose() {

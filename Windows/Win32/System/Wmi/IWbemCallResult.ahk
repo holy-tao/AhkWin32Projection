@@ -138,10 +138,10 @@ export default struct IWbemCallResult extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetResultObject := CallbackCreate(GetMethod(implObj, "GetResultObject"), flags, 3)
-        this.vtbl.GetResultString := CallbackCreate(GetMethod(implObj, "GetResultString"), flags, 3)
-        this.vtbl.GetResultServices := CallbackCreate(GetMethod(implObj, "GetResultServices"), flags, 3)
-        this.vtbl.GetCallStatus := CallbackCreate(GetMethod(implObj, "GetCallStatus"), flags, 3)
+        this.vtbl.GetResultObject := CallbackCreate(ObjBindMethod(implObj, "GetResultObject"), flags, 3)
+        this.vtbl.GetResultString := CallbackCreate(ObjBindMethod(implObj, "GetResultString"), flags, 3)
+        this.vtbl.GetResultServices := CallbackCreate(ObjBindMethod(implObj, "GetResultServices"), flags, 3)
+        this.vtbl.GetCallStatus := CallbackCreate(ObjBindMethod(implObj, "GetCallStatus"), flags, 3)
     }
 
     Dispose() {

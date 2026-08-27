@@ -219,7 +219,7 @@ export default struct IMFASFSplitter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfsplitter-selectstreams
      */
     SelectStreams(pwStreamNumbers, wNumStreams) {
-        pwStreamNumbersMarshal := pwStreamNumbers is VarRef ? "ushort*" : "ptr"
+        pwStreamNumbersMarshal := pwStreamNumbers is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(6, this, pwStreamNumbersMarshal, pwStreamNumbers, UInt16, wNumStreams, "HRESULT")
         return result
@@ -277,7 +277,7 @@ export default struct IMFASFSplitter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfsplitter-getselectedstreams
      */
     GetSelectedStreams(pwNumStreams) {
-        pwNumStreamsMarshal := pwNumStreams is VarRef ? "ushort*" : "ptr"
+        pwNumStreamsMarshal := pwNumStreams is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(7, this, "ushort*", &pwStreamNumbers := 0, pwNumStreamsMarshal, pwNumStreams, "HRESULT")
         return pwStreamNumbers
@@ -412,8 +412,8 @@ export default struct IMFASFSplitter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfsplitter-getnextsample
      */
     GetNextSample(pdwStatusFlags, pwStreamNumber, ppISample) {
-        pdwStatusFlagsMarshal := pdwStatusFlags is VarRef ? "int*" : "ptr"
-        pwStreamNumberMarshal := pwStreamNumber is VarRef ? "ushort*" : "ptr"
+        pdwStatusFlagsMarshal := pdwStatusFlags is VarRef ? "int*" : IntPtr
+        pwStreamNumberMarshal := pwStreamNumber is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(9, this, pdwStatusFlagsMarshal, pdwStatusFlags, pwStreamNumberMarshal, pwStreamNumber, IMFSample.Ptr, ppISample, "HRESULT")
         return result
@@ -468,15 +468,15 @@ export default struct IMFASFSplitter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.SetFlags := CallbackCreate(GetMethod(implObj, "SetFlags"), flags, 2)
-        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
-        this.vtbl.SelectStreams := CallbackCreate(GetMethod(implObj, "SelectStreams"), flags, 3)
-        this.vtbl.GetSelectedStreams := CallbackCreate(GetMethod(implObj, "GetSelectedStreams"), flags, 3)
-        this.vtbl.ParseData := CallbackCreate(GetMethod(implObj, "ParseData"), flags, 4)
-        this.vtbl.GetNextSample := CallbackCreate(GetMethod(implObj, "GetNextSample"), flags, 4)
-        this.vtbl.Flush := CallbackCreate(GetMethod(implObj, "Flush"), flags, 1)
-        this.vtbl.GetLastSendTime := CallbackCreate(GetMethod(implObj, "GetLastSendTime"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.SetFlags := CallbackCreate(ObjBindMethod(implObj, "SetFlags"), flags, 2)
+        this.vtbl.GetFlags := CallbackCreate(ObjBindMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.SelectStreams := CallbackCreate(ObjBindMethod(implObj, "SelectStreams"), flags, 3)
+        this.vtbl.GetSelectedStreams := CallbackCreate(ObjBindMethod(implObj, "GetSelectedStreams"), flags, 3)
+        this.vtbl.ParseData := CallbackCreate(ObjBindMethod(implObj, "ParseData"), flags, 4)
+        this.vtbl.GetNextSample := CallbackCreate(ObjBindMethod(implObj, "GetNextSample"), flags, 4)
+        this.vtbl.Flush := CallbackCreate(ObjBindMethod(implObj, "Flush"), flags, 1)
+        this.vtbl.GetLastSendTime := CallbackCreate(ObjBindMethod(implObj, "GetLastSendTime"), flags, 2)
     }
 
     Dispose() {

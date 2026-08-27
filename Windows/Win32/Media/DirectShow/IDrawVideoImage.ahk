@@ -137,9 +137,9 @@ export default struct IDrawVideoImage extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DrawVideoImageBegin := CallbackCreate(GetMethod(implObj, "DrawVideoImageBegin"), flags, 1)
-        this.vtbl.DrawVideoImageEnd := CallbackCreate(GetMethod(implObj, "DrawVideoImageEnd"), flags, 1)
-        this.vtbl.DrawVideoImageDraw := CallbackCreate(GetMethod(implObj, "DrawVideoImageDraw"), flags, 4)
+        this.vtbl.DrawVideoImageBegin := CallbackCreate(ObjBindMethod(implObj, "DrawVideoImageBegin"), flags, 1)
+        this.vtbl.DrawVideoImageEnd := CallbackCreate(ObjBindMethod(implObj, "DrawVideoImageEnd"), flags, 1)
+        this.vtbl.DrawVideoImageDraw := CallbackCreate(ObjBindMethod(implObj, "DrawVideoImageDraw"), flags, 4)
     }
 
     Dispose() {

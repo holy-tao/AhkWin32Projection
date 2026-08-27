@@ -24,7 +24,6 @@ export default struct WS_PUSH_BYTES_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} callbackState A 
      *            void pointer to the user-defined state that was passed to <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wspushbytes">WsPushBytes</a>.
      * @param {Pointer<WS_WRITE_CALLBACK>} writeCallback The
@@ -35,11 +34,15 @@ export default struct WS_PUSH_BYTES_CALLBACK {
      * @returns {HRESULT} This callback function does not return a value.
      */
     Call(callbackState, writeCallback, writeCallbackState, asyncContext, _error) {
-        callbackStateMarshal := callbackState is VarRef ? "ptr" : "ptr"
-        writeCallbackStateMarshal := writeCallbackState is VarRef ? "ptr" : "ptr"
-        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
+        callbackStateMarshal := callbackState is VarRef ? "ptr" : IntPtr
+        callbackStateMarshal := callbackState == 0 ? IntPtr : "ptr"
+        writeCallbackStateMarshal := writeCallbackState is VarRef ? "ptr" : IntPtr
+        writeCallbackStateMarshal := writeCallbackState == 0 ? IntPtr : "ptr"
+        asyncContextMarshal := asyncContext == 0 ? IntPtr : WS_ASYNC_CONTEXT.Ptr
+        _errorMarshal := _error is VarRef ? "ptr*" : IntPtr
+        _errorMarshal := _error == 0 ? IntPtr : WS_ERROR.Ptr
 
-        result := DllCall(this.value, callbackStateMarshal, callbackState, WS_WRITE_CALLBACK, writeCallback, writeCallbackStateMarshal, writeCallbackState, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
+        result := DllCall(this.value, callbackStateMarshal, callbackState, WS_WRITE_CALLBACK, writeCallback, writeCallbackStateMarshal, writeCallbackState, asyncContextMarshal, asyncContext, _errorMarshal, _error, "HRESULT")
         return result
     }
 

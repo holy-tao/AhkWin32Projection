@@ -57,7 +57,7 @@ export default struct IADsDeleteOps extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DeleteObject := CallbackCreate(GetMethod(implObj, "DeleteObject"), flags, 2)
+        this.vtbl.DeleteObject := CallbackCreate(ObjBindMethod(implObj, "DeleteObject"), flags, 2)
     }
 
     Dispose() {

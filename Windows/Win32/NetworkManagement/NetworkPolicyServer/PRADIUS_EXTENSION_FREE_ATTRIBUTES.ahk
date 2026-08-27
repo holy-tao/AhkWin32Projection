@@ -25,7 +25,6 @@ export default struct PRADIUS_EXTENSION_FREE_ATTRIBUTES {
     }
 
     /**
-     * 
      * @param {Pointer<RADIUS_ATTRIBUTE>} pAttrs Pointer to an array of attributes. The 
      * <b>RadiusExtensionFreeAttributes</b> function should deallocate the memory occupied by these attributes.
      * 

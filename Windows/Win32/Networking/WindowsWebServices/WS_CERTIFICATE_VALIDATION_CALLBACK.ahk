@@ -26,7 +26,6 @@ export default struct WS_CERTIFICATE_VALIDATION_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<CERT_CONTEXT>} certContext A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure that is associated with the connection. Applications must free this structure using <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certfreecertificatecontext">CertFreeCertificateContext</a>.
      * @param {Pointer<Void>} state A pointer to application specific state information. This parameter corresponds to the <b>state</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_certificate_validation_callback_context">WS_CERTIFICATE_VALIDATION_CALLBACK_CONTEXT</a> structure.
      * @returns {HRESULT} This callback function can return one of these values.
@@ -61,7 +60,8 @@ export default struct WS_CERTIFICATE_VALIDATION_CALLBACK {
      * </table>
      */
     Call(certContext, state) {
-        stateMarshal := state is VarRef ? "ptr" : "ptr"
+        stateMarshal := state is VarRef ? "ptr" : IntPtr
+        stateMarshal := state == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, CERT_CONTEXT.Ptr, certContext, stateMarshal, state, "HRESULT")
         return result

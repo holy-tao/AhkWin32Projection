@@ -19,7 +19,6 @@ export default struct PNS_CONTEXT_CONNECT_FN {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszMachine 
      * @returns {Integer} 
      */

@@ -42,7 +42,6 @@ export default struct IBidiSpl2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszDeviceName 
      * @param {Integer} dwAccess 
      * @returns {HRESULT} 
@@ -55,7 +54,6 @@ export default struct IBidiSpl2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     UnbindDevice() {
@@ -64,7 +62,6 @@ export default struct IBidiSpl2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrRequest 
      * @returns {BSTR} 
      */
@@ -77,12 +74,13 @@ export default struct IBidiSpl2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IStream} pSRequest 
      * @returns {IStream} 
      */
     SendRecvXMLStream(pSRequest) {
-        result := ComCall(6, this, "ptr", pSRequest, "ptr*", &ppSResponse := 0, "HRESULT")
+        pSRequestMarshal := pSRequest == 0 ? IntPtr : "ptr"
+
+        result := ComCall(6, this, pSRequestMarshal, pSRequest, "ptr*", &ppSResponse := 0, "HRESULT")
         return IStream(ppSResponse)
     }
 
@@ -95,10 +93,10 @@ export default struct IBidiSpl2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BindDevice := CallbackCreate(GetMethod(implObj, "BindDevice"), flags, 3)
-        this.vtbl.UnbindDevice := CallbackCreate(GetMethod(implObj, "UnbindDevice"), flags, 1)
-        this.vtbl.SendRecvXMLString := CallbackCreate(GetMethod(implObj, "SendRecvXMLString"), flags, 3)
-        this.vtbl.SendRecvXMLStream := CallbackCreate(GetMethod(implObj, "SendRecvXMLStream"), flags, 3)
+        this.vtbl.BindDevice := CallbackCreate(ObjBindMethod(implObj, "BindDevice"), flags, 3)
+        this.vtbl.UnbindDevice := CallbackCreate(ObjBindMethod(implObj, "UnbindDevice"), flags, 1)
+        this.vtbl.SendRecvXMLString := CallbackCreate(ObjBindMethod(implObj, "SendRecvXMLString"), flags, 3)
+        this.vtbl.SendRecvXMLStream := CallbackCreate(ObjBindMethod(implObj, "SendRecvXMLStream"), flags, 3)
     }
 
     Dispose() {

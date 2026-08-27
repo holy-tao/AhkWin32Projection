@@ -117,8 +117,8 @@ export default struct IMFClock extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfclock-getcorrelatedtime
      */
     GetCorrelatedTime(dwReserved, pllClockTime, phnsSystemTime) {
-        pllClockTimeMarshal := pllClockTime is VarRef ? "int64*" : "ptr"
-        phnsSystemTimeMarshal := phnsSystemTime is VarRef ? "int64*" : "ptr"
+        pllClockTimeMarshal := pllClockTime is VarRef ? "int64*" : IntPtr
+        phnsSystemTimeMarshal := phnsSystemTime is VarRef ? "int64*" : IntPtr
 
         result := ComCall(4, this, UInt32, dwReserved, pllClockTimeMarshal, pllClockTime, phnsSystemTimeMarshal, phnsSystemTime, "HRESULT")
         return result
@@ -167,11 +167,11 @@ export default struct IMFClock extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetClockCharacteristics := CallbackCreate(GetMethod(implObj, "GetClockCharacteristics"), flags, 2)
-        this.vtbl.GetCorrelatedTime := CallbackCreate(GetMethod(implObj, "GetCorrelatedTime"), flags, 4)
-        this.vtbl.GetContinuityKey := CallbackCreate(GetMethod(implObj, "GetContinuityKey"), flags, 2)
-        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 3)
-        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.GetClockCharacteristics := CallbackCreate(ObjBindMethod(implObj, "GetClockCharacteristics"), flags, 2)
+        this.vtbl.GetCorrelatedTime := CallbackCreate(ObjBindMethod(implObj, "GetCorrelatedTime"), flags, 4)
+        this.vtbl.GetContinuityKey := CallbackCreate(ObjBindMethod(implObj, "GetContinuityKey"), flags, 2)
+        this.vtbl.GetState := CallbackCreate(ObjBindMethod(implObj, "GetState"), flags, 3)
+        this.vtbl.GetProperties := CallbackCreate(ObjBindMethod(implObj, "GetProperties"), flags, 2)
     }
 
     Dispose() {

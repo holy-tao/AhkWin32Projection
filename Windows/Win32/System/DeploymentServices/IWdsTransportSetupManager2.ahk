@@ -82,8 +82,8 @@ export default struct IWdsTransportSetupManager2 extends IWdsTransportSetupManag
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_TftpCapabilities := CallbackCreate(GetMethod(implObj, "get_TftpCapabilities"), flags, 2)
-        this.vtbl.get_ContentProviders := CallbackCreate(GetMethod(implObj, "get_ContentProviders"), flags, 2)
+        this.vtbl.get_TftpCapabilities := CallbackCreate(ObjBindMethod(implObj, "get_TftpCapabilities"), flags, 2)
+        this.vtbl.get_ContentProviders := CallbackCreate(ObjBindMethod(implObj, "get_ContentProviders"), flags, 2)
     }
 
     Dispose() {

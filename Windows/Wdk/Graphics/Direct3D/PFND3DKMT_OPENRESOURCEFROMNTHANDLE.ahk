@@ -20,7 +20,6 @@ export default struct PFND3DKMT_OPENRESOURCEFROMNTHANDLE {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_OPENRESOURCEFROMNTHANDLE>} param0 
      * @returns {NTSTATUS} 
      */

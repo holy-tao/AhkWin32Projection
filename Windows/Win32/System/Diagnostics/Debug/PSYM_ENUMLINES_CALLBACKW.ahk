@@ -23,7 +23,6 @@ export default struct PSYM_ENUMLINES_CALLBACKW {
     }
 
     /**
-     * 
      * @param {Pointer<SRCCODEINFOW>} LineInfo A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-srccodeinfo">SRCCODEINFO</a> structure that provides information about the line.
      * @param {Pointer<Void>} UserContext The user-defined value passed from the 
@@ -33,7 +32,8 @@ export default struct PSYM_ENUMLINES_CALLBACKW {
      * If the function returns <b>FALSE</b>, the enumeration will stop.
      */
     Call(LineInfo, UserContext) {
-        UserContextMarshal := UserContext is VarRef ? "ptr" : "ptr"
+        UserContextMarshal := UserContext is VarRef ? "ptr" : IntPtr
+        UserContextMarshal := UserContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, SRCCODEINFOW.Ptr, LineInfo, UserContextMarshal, UserContext, BOOL)
         return result

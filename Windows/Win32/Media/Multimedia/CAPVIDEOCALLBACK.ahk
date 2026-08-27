@@ -25,7 +25,6 @@ export default struct CAPVIDEOCALLBACK {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd Handle to the capture window associated with the callback function.
      * @param {Pointer<VIDEOHDR>} lpVHdr Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-videohdr">VIDEOHDR</a> structure containing information about the captured frame.
      * @returns {LRESULT} 

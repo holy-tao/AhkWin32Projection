@@ -23,7 +23,6 @@ export default struct WS_CREATE_LISTENER_CALLBACK {
     }
 
     /**
-     * 
      * @param {WS_CHANNEL_TYPE} _channelType The type of channel the listener listens for.
      * @param {Integer} listenerParameters The pointer to the value that was specified by the
      *                     <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_listener_property_id">WS_LISTENER_PROPERTY_CUSTOM_LISTENER_PARAMETERS</a> property when the custom listener is created using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wscreatelistener">WsCreateListener</a>.
@@ -44,7 +43,8 @@ export default struct WS_CREATE_LISTENER_CALLBACK {
      * If this callback is successful, then the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_free_listener_callback">WS_FREE_LISTENER_CALLBACK</a> will be used to free the listener instance.
      */
     Call(_channelType, listenerParameters, listenerParametersSize, _error) {
-        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
+        _errorMarshal := _error is VarRef ? "ptr*" : IntPtr
+        _errorMarshal := _error == 0 ? IntPtr : WS_ERROR.Ptr
 
         result := DllCall(this.value, WS_CHANNEL_TYPE, _channelType, IntPtr, listenerParameters, UInt32, listenerParametersSize, "ptr*", &listenerInstance := 0, _errorMarshal, _error, "HRESULT")
         return listenerInstance

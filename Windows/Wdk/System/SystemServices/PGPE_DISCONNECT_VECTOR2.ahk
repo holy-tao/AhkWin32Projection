@@ -19,14 +19,13 @@ export default struct PGPE_DISCONNECT_VECTOR2 {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<Void>} _ObjectContext 
      * @returns {NTSTATUS} 
      */
     Call(_Context, _ObjectContext) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        _ObjectContextMarshal := _ObjectContext is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ObjectContextMarshal := _ObjectContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, _ObjectContextMarshal, _ObjectContext, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

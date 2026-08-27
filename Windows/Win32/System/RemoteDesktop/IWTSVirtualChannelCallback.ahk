@@ -46,7 +46,7 @@ export default struct IWTSVirtualChannelCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nf-tsvirtualchannels-iwtsvirtualchannelcallback-ondatareceived
      */
     OnDataReceived(cbSize, pBuffer) {
-        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, UInt32, cbSize, pBufferMarshal, pBuffer, "HRESULT")
         return result
@@ -71,8 +71,8 @@ export default struct IWTSVirtualChannelCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnDataReceived := CallbackCreate(GetMethod(implObj, "OnDataReceived"), flags, 3)
-        this.vtbl.OnClose := CallbackCreate(GetMethod(implObj, "OnClose"), flags, 1)
+        this.vtbl.OnDataReceived := CallbackCreate(ObjBindMethod(implObj, "OnDataReceived"), flags, 3)
+        this.vtbl.OnClose := CallbackCreate(ObjBindMethod(implObj, "OnClose"), flags, 1)
     }
 
     Dispose() {

@@ -83,7 +83,6 @@ export default struct IOfflineFilesItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwQueryFlags 
      * @returns {HRESULT} 
      */
@@ -115,11 +114,11 @@ export default struct IOfflineFilesItem extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetItemType := CallbackCreate(GetMethod(implObj, "GetItemType"), flags, 2)
-        this.vtbl.GetPath := CallbackCreate(GetMethod(implObj, "GetPath"), flags, 2)
-        this.vtbl.GetParentItem := CallbackCreate(GetMethod(implObj, "GetParentItem"), flags, 2)
-        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 2)
-        this.vtbl.IsMarkedForDeletion := CallbackCreate(GetMethod(implObj, "IsMarkedForDeletion"), flags, 2)
+        this.vtbl.GetItemType := CallbackCreate(ObjBindMethod(implObj, "GetItemType"), flags, 2)
+        this.vtbl.GetPath := CallbackCreate(ObjBindMethod(implObj, "GetPath"), flags, 2)
+        this.vtbl.GetParentItem := CallbackCreate(ObjBindMethod(implObj, "GetParentItem"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(ObjBindMethod(implObj, "Refresh"), flags, 2)
+        this.vtbl.IsMarkedForDeletion := CallbackCreate(ObjBindMethod(implObj, "IsMarkedForDeletion"), flags, 2)
     }
 
     Dispose() {

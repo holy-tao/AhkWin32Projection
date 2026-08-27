@@ -20,7 +20,6 @@ export default struct BCryptGenRandomFn {
     }
 
     /**
-     * 
      * @param {BCRYPT_ALG_HANDLE} hAlgorithm 
      * @param {Integer} pbBuffer 
      * @param {Integer} cbBuffer 
@@ -28,7 +27,9 @@ export default struct BCryptGenRandomFn {
      * @returns {NTSTATUS} 
      */
     Call(hAlgorithm, pbBuffer, cbBuffer, dwFlags) {
-        result := DllCall(this.value, BCRYPT_ALG_HANDLE, hAlgorithm, IntPtr, pbBuffer, UInt32, cbBuffer, UInt32, dwFlags, NTSTATUS)
+        hAlgorithmMarshal := hAlgorithm == 0 ? IntPtr : BCRYPT_ALG_HANDLE
+
+        result := DllCall(this.value, hAlgorithmMarshal, hAlgorithm, IntPtr, pbBuffer, UInt32, cbBuffer, UInt32, dwFlags, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

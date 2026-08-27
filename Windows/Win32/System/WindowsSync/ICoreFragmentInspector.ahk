@@ -49,7 +49,7 @@ export default struct ICoreFragmentInspector extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-icorefragmentinspector-nextcorefragments
      */
     NextCoreFragments(requestedCount, pFetchedCount) {
-        pFetchedCountMarshal := pFetchedCount is VarRef ? "uint*" : "ptr"
+        pFetchedCountMarshal := pFetchedCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, UInt32, requestedCount, "ptr*", &ppiCoreFragments := 0, pFetchedCountMarshal, pFetchedCount, "HRESULT")
         return ICoreFragment(ppiCoreFragments)
@@ -103,8 +103,8 @@ export default struct ICoreFragmentInspector extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.NextCoreFragments := CallbackCreate(GetMethod(implObj, "NextCoreFragments"), flags, 4)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.NextCoreFragments := CallbackCreate(ObjBindMethod(implObj, "NextCoreFragments"), flags, 4)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
     }
 
     Dispose() {

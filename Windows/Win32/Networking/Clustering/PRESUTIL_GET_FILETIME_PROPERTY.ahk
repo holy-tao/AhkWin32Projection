@@ -20,7 +20,6 @@ export default struct PRESUTIL_GET_FILETIME_PROPERTY {
     }
 
     /**
-     * 
      * @param {Pointer<FILETIME>} pftOutValue 
      * @param {Pointer<CLUSPROP_FILETIME>} pValueStruct 
      * @param {FILETIME} ftOldValue 
@@ -31,8 +30,8 @@ export default struct PRESUTIL_GET_FILETIME_PROPERTY {
      * @returns {Integer} 
      */
     Call(pftOutValue, pValueStruct, ftOldValue, ftMinimum, ftMaximum, ppPropertyList, pcbPropertyListSize) {
-        ppPropertyListMarshal := ppPropertyList is VarRef ? "ptr*" : "ptr"
-        pcbPropertyListSizeMarshal := pcbPropertyListSize is VarRef ? "uint*" : "ptr"
+        ppPropertyListMarshal := ppPropertyList is VarRef ? "ptr*" : IntPtr
+        pcbPropertyListSizeMarshal := pcbPropertyListSize is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, FILETIME.Ptr, pftOutValue, CLUSPROP_FILETIME.Ptr, pValueStruct, FILETIME, ftOldValue, FILETIME, ftMinimum, FILETIME, ftMaximum, ppPropertyListMarshal, ppPropertyList, pcbPropertyListSizeMarshal, pcbPropertyListSize, UInt32)
         return result

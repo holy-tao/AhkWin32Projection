@@ -23,7 +23,6 @@ export default struct PFN_DrvTransparentBlt {
     }
 
     /**
-     * 
      * @param {Pointer<SURFOBJ>} param0 
      * @param {Pointer<SURFOBJ>} param1 
      * @param {Pointer<CLIPOBJ>} param2 

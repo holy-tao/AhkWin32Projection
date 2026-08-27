@@ -63,7 +63,6 @@ export default struct IActiveIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSystemInfoFlags 
      * @param {Pointer<IMEINFO>} pIMEInfo 
      * @param {PWSTR} szWndClass 
@@ -73,14 +72,13 @@ export default struct IActiveIME extends IUnknown {
     Inquire(dwSystemInfoFlags, pIMEInfo, szWndClass, pdwPrivate) {
         szWndClass := szWndClass is String ? StrPtr(szWndClass) : szWndClass
 
-        pdwPrivateMarshal := pdwPrivate is VarRef ? "uint*" : "ptr"
+        pdwPrivateMarshal := pdwPrivate is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, UInt32, dwSystemInfoFlags, IMEINFO.Ptr, pIMEInfo, "ptr", szWndClass, pdwPrivateMarshal, pdwPrivate, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {PWSTR} szSource 
      * @param {Integer} uFlag 
@@ -92,7 +90,7 @@ export default struct IActiveIME extends IUnknown {
     ConversionList(_hIMC, szSource, uFlag, uBufLen, pDest, puCopied) {
         szSource := szSource is String ? StrPtr(szSource) : szSource
 
-        puCopiedMarshal := puCopied is VarRef ? "uint*" : "ptr"
+        puCopiedMarshal := puCopied is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, HIMC, _hIMC, "ptr", szSource, UInt32, uFlag, UInt32, uBufLen, CANDIDATELIST.Ptr, pDest, puCopiedMarshal, puCopied, "HRESULT")
         return result
@@ -123,7 +121,6 @@ export default struct IActiveIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uReserved 
      * @returns {HRESULT} 
      */
@@ -179,14 +176,13 @@ export default struct IActiveIME extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-escape
      */
     Escape(_hIMC, uEscape, pData) {
-        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+        pDataMarshal := pData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(7, this, HIMC, _hIMC, UInt32, uEscape, pDataMarshal, pData, LRESULT.Ptr, &plResult := 0, "HRESULT")
         return plResult
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {BOOL} fFlag 
      * @returns {HRESULT} 
@@ -197,7 +193,6 @@ export default struct IActiveIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} uVirKey 
      * @param {Integer} _lParam 
@@ -205,14 +200,13 @@ export default struct IActiveIME extends IUnknown {
      * @returns {HRESULT} 
      */
     ProcessKey(_hIMC, uVirKey, _lParam, pbKeyState) {
-        pbKeyStateMarshal := pbKeyState is VarRef ? "char*" : "ptr"
+        pbKeyStateMarshal := pbKeyState is VarRef ? "char*" : IntPtr
 
         result := ComCall(9, this, HIMC, _hIMC, UInt32, uVirKey, UInt32, _lParam, pbKeyStateMarshal, pbKeyState, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwAction 
      * @param {Integer} dwIndex 
@@ -237,7 +231,6 @@ export default struct IActiveIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwIndex 
      * @param {Pointer<Void>} pComp 
@@ -247,8 +240,8 @@ export default struct IActiveIME extends IUnknown {
      * @returns {HRESULT} 
      */
     SetCompositionString(_hIMC, dwIndex, pComp, dwCompLen, pRead, dwReadLen) {
-        pCompMarshal := pComp is VarRef ? "ptr" : "ptr"
-        pReadMarshal := pRead is VarRef ? "ptr" : "ptr"
+        pCompMarshal := pComp is VarRef ? "ptr" : IntPtr
+        pReadMarshal := pRead is VarRef ? "ptr" : IntPtr
 
         result := ComCall(12, this, HIMC, _hIMC, UInt32, dwIndex, pCompMarshal, pComp, UInt32, dwCompLen, pReadMarshal, pRead, UInt32, dwReadLen, "HRESULT")
         return result
@@ -322,16 +315,15 @@ export default struct IActiveIME extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-toasciiex
      */
     ToAsciiEx(uVirKey, uScanCode, pbKeyState, fuState, _hIMC, pdwTransBuf, puSize) {
-        pbKeyStateMarshal := pbKeyState is VarRef ? "char*" : "ptr"
-        pdwTransBufMarshal := pdwTransBuf is VarRef ? "uint*" : "ptr"
-        puSizeMarshal := puSize is VarRef ? "uint*" : "ptr"
+        pbKeyStateMarshal := pbKeyState is VarRef ? "char*" : IntPtr
+        pdwTransBufMarshal := pdwTransBuf is VarRef ? "uint*" : IntPtr
+        puSizeMarshal := puSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, UInt32, uVirKey, UInt32, uScanCode, pbKeyStateMarshal, pbKeyState, UInt32, fuState, HIMC, _hIMC, pdwTransBufMarshal, pdwTransBuf, puSizeMarshal, puSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} szReading 
      * @param {Integer} dwStyle 
      * @param {PWSTR} szString 
@@ -346,7 +338,6 @@ export default struct IActiveIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} szReading 
      * @param {Integer} dwStyle 
      * @param {PWSTR} szString 
@@ -361,21 +352,19 @@ export default struct IActiveIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nItem 
      * @param {Pointer<STYLEBUFW>} pStyleBuf 
      * @param {Pointer<Integer>} puBufSize 
      * @returns {HRESULT} 
      */
     GetRegisterWordStyle(nItem, pStyleBuf, puBufSize) {
-        puBufSizeMarshal := puBufSize is VarRef ? "uint*" : "ptr"
+        puBufSizeMarshal := puBufSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(16, this, UInt32, nItem, STYLEBUFW.Ptr, pStyleBuf, puBufSizeMarshal, puBufSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} szReading 
      * @param {Integer} dwStyle 
      * @param {PWSTR} szRegister 
@@ -386,14 +375,13 @@ export default struct IActiveIME extends IUnknown {
         szReading := szReading is String ? StrPtr(szReading) : szReading
         szRegister := szRegister is String ? StrPtr(szRegister) : szRegister
 
-        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+        pDataMarshal := pData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(17, this, "ptr", szReading, UInt32, dwStyle, "ptr", szRegister, pDataMarshal, pData, "ptr*", &ppEnum := 0, "HRESULT")
         return IEnumRegisterWordW(ppEnum)
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCodePageA() {
@@ -402,7 +390,6 @@ export default struct IActiveIME extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetLangId() {
@@ -419,23 +406,23 @@ export default struct IActiveIME extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Inquire := CallbackCreate(GetMethod(implObj, "Inquire"), flags, 5)
-        this.vtbl.ConversionList := CallbackCreate(GetMethod(implObj, "ConversionList"), flags, 7)
-        this.vtbl.Configure := CallbackCreate(GetMethod(implObj, "Configure"), flags, 5)
-        this.vtbl.Destroy := CallbackCreate(GetMethod(implObj, "Destroy"), flags, 2)
-        this.vtbl.Escape := CallbackCreate(GetMethod(implObj, "Escape"), flags, 5)
-        this.vtbl.SetActiveContext := CallbackCreate(GetMethod(implObj, "SetActiveContext"), flags, 3)
-        this.vtbl.ProcessKey := CallbackCreate(GetMethod(implObj, "ProcessKey"), flags, 5)
-        this.vtbl.Notify := CallbackCreate(GetMethod(implObj, "Notify"), flags, 5)
-        this.vtbl.Select := CallbackCreate(GetMethod(implObj, "Select"), flags, 3)
-        this.vtbl.SetCompositionString := CallbackCreate(GetMethod(implObj, "SetCompositionString"), flags, 7)
-        this.vtbl.ToAsciiEx := CallbackCreate(GetMethod(implObj, "ToAsciiEx"), flags, 8)
-        this.vtbl.RegisterWord := CallbackCreate(GetMethod(implObj, "RegisterWord"), flags, 4)
-        this.vtbl.UnregisterWord := CallbackCreate(GetMethod(implObj, "UnregisterWord"), flags, 4)
-        this.vtbl.GetRegisterWordStyle := CallbackCreate(GetMethod(implObj, "GetRegisterWordStyle"), flags, 4)
-        this.vtbl.EnumRegisterWord := CallbackCreate(GetMethod(implObj, "EnumRegisterWord"), flags, 6)
-        this.vtbl.GetCodePageA := CallbackCreate(GetMethod(implObj, "GetCodePageA"), flags, 2)
-        this.vtbl.GetLangId := CallbackCreate(GetMethod(implObj, "GetLangId"), flags, 2)
+        this.vtbl.Inquire := CallbackCreate(ObjBindMethod(implObj, "Inquire"), flags, 5)
+        this.vtbl.ConversionList := CallbackCreate(ObjBindMethod(implObj, "ConversionList"), flags, 7)
+        this.vtbl.Configure := CallbackCreate(ObjBindMethod(implObj, "Configure"), flags, 5)
+        this.vtbl.Destroy := CallbackCreate(ObjBindMethod(implObj, "Destroy"), flags, 2)
+        this.vtbl.Escape := CallbackCreate(ObjBindMethod(implObj, "Escape"), flags, 5)
+        this.vtbl.SetActiveContext := CallbackCreate(ObjBindMethod(implObj, "SetActiveContext"), flags, 3)
+        this.vtbl.ProcessKey := CallbackCreate(ObjBindMethod(implObj, "ProcessKey"), flags, 5)
+        this.vtbl.Notify := CallbackCreate(ObjBindMethod(implObj, "Notify"), flags, 5)
+        this.vtbl.Select := CallbackCreate(ObjBindMethod(implObj, "Select"), flags, 3)
+        this.vtbl.SetCompositionString := CallbackCreate(ObjBindMethod(implObj, "SetCompositionString"), flags, 7)
+        this.vtbl.ToAsciiEx := CallbackCreate(ObjBindMethod(implObj, "ToAsciiEx"), flags, 8)
+        this.vtbl.RegisterWord := CallbackCreate(ObjBindMethod(implObj, "RegisterWord"), flags, 4)
+        this.vtbl.UnregisterWord := CallbackCreate(ObjBindMethod(implObj, "UnregisterWord"), flags, 4)
+        this.vtbl.GetRegisterWordStyle := CallbackCreate(ObjBindMethod(implObj, "GetRegisterWordStyle"), flags, 4)
+        this.vtbl.EnumRegisterWord := CallbackCreate(ObjBindMethod(implObj, "EnumRegisterWord"), flags, 6)
+        this.vtbl.GetCodePageA := CallbackCreate(ObjBindMethod(implObj, "GetCodePageA"), flags, 2)
+        this.vtbl.GetLangId := CallbackCreate(ObjBindMethod(implObj, "GetLangId"), flags, 2)
     }
 
     Dispose() {

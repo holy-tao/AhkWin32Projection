@@ -157,11 +157,11 @@ export default struct IWSDMessageParameters extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLocalAddress := CallbackCreate(GetMethod(implObj, "GetLocalAddress"), flags, 2)
-        this.vtbl.SetLocalAddress := CallbackCreate(GetMethod(implObj, "SetLocalAddress"), flags, 2)
-        this.vtbl.GetRemoteAddress := CallbackCreate(GetMethod(implObj, "GetRemoteAddress"), flags, 2)
-        this.vtbl.SetRemoteAddress := CallbackCreate(GetMethod(implObj, "SetRemoteAddress"), flags, 2)
-        this.vtbl.GetLowerParameters := CallbackCreate(GetMethod(implObj, "GetLowerParameters"), flags, 2)
+        this.vtbl.GetLocalAddress := CallbackCreate(ObjBindMethod(implObj, "GetLocalAddress"), flags, 2)
+        this.vtbl.SetLocalAddress := CallbackCreate(ObjBindMethod(implObj, "SetLocalAddress"), flags, 2)
+        this.vtbl.GetRemoteAddress := CallbackCreate(ObjBindMethod(implObj, "GetRemoteAddress"), flags, 2)
+        this.vtbl.SetRemoteAddress := CallbackCreate(ObjBindMethod(implObj, "SetRemoteAddress"), flags, 2)
+        this.vtbl.GetLowerParameters := CallbackCreate(ObjBindMethod(implObj, "GetLowerParameters"), flags, 2)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct PKMESSAGE_SERVICE_ROUTINE {
     }
 
     /**
-     * 
      * @returns {BOOLEAN} 
      */
     Call() {

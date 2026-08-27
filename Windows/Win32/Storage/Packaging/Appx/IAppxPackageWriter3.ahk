@@ -60,7 +60,7 @@ export default struct IAppxPackageWriter3 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddPayloadFiles := CallbackCreate(GetMethod(implObj, "AddPayloadFiles"), flags, 4)
+        this.vtbl.AddPayloadFiles := CallbackCreate(ObjBindMethod(implObj, "AddPayloadFiles"), flags, 4)
     }
 
     Dispose() {

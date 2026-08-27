@@ -35,7 +35,6 @@ export default struct ITxProxyHolder extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pGuidLtx 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -52,7 +51,7 @@ export default struct ITxProxyHolder extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetIdentifier := CallbackCreate(GetMethod(implObj, "GetIdentifier"), flags, 2)
+        this.vtbl.GetIdentifier := CallbackCreate(ObjBindMethod(implObj, "GetIdentifier"), flags, 2)
     }
 
     Dispose() {

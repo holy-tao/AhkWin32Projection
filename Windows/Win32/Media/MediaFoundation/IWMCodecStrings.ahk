@@ -70,9 +70,10 @@ export default struct IWMCodecStrings extends IUnknown {
     GetName(pmt, cchLength, szName, pcchLength) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        pcchLengthMarshal := pcchLength is VarRef ? "uint*" : "ptr"
+        szNameMarshal := szName == 0 ? IntPtr : PWSTR
+        pcchLengthMarshal := pcchLength is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(3, this, DMO_MEDIA_TYPE.Ptr, pmt, UInt32, cchLength, "ptr", szName, pcchLengthMarshal, pcchLength, "HRESULT")
+        result := ComCall(3, this, DMO_MEDIA_TYPE.Ptr, pmt, UInt32, cchLength, szNameMarshal, szName, pcchLengthMarshal, pcchLength, "HRESULT")
         return result
     }
 
@@ -106,9 +107,10 @@ export default struct IWMCodecStrings extends IUnknown {
     GetDescription(pmt, cchLength, szDescription, pcchLength) {
         szDescription := szDescription is String ? StrPtr(szDescription) : szDescription
 
-        pcchLengthMarshal := pcchLength is VarRef ? "uint*" : "ptr"
+        szDescriptionMarshal := szDescription == 0 ? IntPtr : PWSTR
+        pcchLengthMarshal := pcchLength is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(4, this, DMO_MEDIA_TYPE.Ptr, pmt, UInt32, cchLength, "ptr", szDescription, pcchLengthMarshal, pcchLength, "HRESULT")
+        result := ComCall(4, this, DMO_MEDIA_TYPE.Ptr, pmt, UInt32, cchLength, szDescriptionMarshal, szDescription, pcchLengthMarshal, pcchLength, "HRESULT")
         return result
     }
 
@@ -121,8 +123,8 @@ export default struct IWMCodecStrings extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 5)
-        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 5)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 5)
+        this.vtbl.GetDescription := CallbackCreate(ObjBindMethod(implObj, "GetDescription"), flags, 5)
     }
 
     Dispose() {

@@ -161,10 +161,16 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-d3d11createdevice
  */
 export D3D11CreateDevice(pAdapter, DriverType, Software, Flags, pFeatureLevels, FeatureLevels, SDKVersion, ppDevice, pFeatureLevel, ppImmediateContext) {
-    pFeatureLevelsMarshal := pFeatureLevels is VarRef ? "int*" : "ptr"
-    pFeatureLevelMarshal := pFeatureLevel is VarRef ? "int*" : "ptr"
+    pAdapterMarshal := pAdapter == 0 ? IntPtr : "ptr"
+    SoftwareMarshal := Software == 0 ? IntPtr : HMODULE
+    pFeatureLevelsMarshal := pFeatureLevels is VarRef ? "int*" : IntPtr
+    pFeatureLevelsMarshal := pFeatureLevels == 0 ? IntPtr : "int*"
+    ppDeviceMarshal := ppDevice == 0 ? IntPtr : ID3D11Device.Ptr
+    pFeatureLevelMarshal := pFeatureLevel is VarRef ? "int*" : IntPtr
+    pFeatureLevelMarshal := pFeatureLevel == 0 ? IntPtr : "int*"
+    ppImmediateContextMarshal := ppImmediateContext == 0 ? IntPtr : ID3D11DeviceContext.Ptr
 
-    result := DllCall("d3d11.dll\D3D11CreateDevice", "ptr", pAdapter, D3D_DRIVER_TYPE, DriverType, HMODULE, Software, D3D11_CREATE_DEVICE_FLAG, Flags, pFeatureLevelsMarshal, pFeatureLevels, UInt32, FeatureLevels, UInt32, SDKVersion, ID3D11Device.Ptr, ppDevice, pFeatureLevelMarshal, pFeatureLevel, ID3D11DeviceContext.Ptr, ppImmediateContext, "HRESULT")
+    result := DllCall("d3d11.dll\D3D11CreateDevice", pAdapterMarshal, pAdapter, D3D_DRIVER_TYPE, DriverType, SoftwareMarshal, Software, D3D11_CREATE_DEVICE_FLAG, Flags, pFeatureLevelsMarshal, pFeatureLevels, UInt32, FeatureLevels, UInt32, SDKVersion, ppDeviceMarshal, ppDevice, pFeatureLevelMarshal, pFeatureLevel, ppImmediateContextMarshal, ppImmediateContext, "HRESULT")
     return result
 }
 
@@ -286,10 +292,17 @@ export D3D11CreateDevice(pAdapter, DriverType, Software, Flags, pFeatureLevels, 
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-d3d11createdeviceandswapchain
  */
 export D3D11CreateDeviceAndSwapChain(pAdapter, DriverType, Software, Flags, pFeatureLevels, FeatureLevels, SDKVersion, pSwapChainDesc, ppSwapChain, ppDevice, pFeatureLevel, ppImmediateContext) {
-    pFeatureLevelsMarshal := pFeatureLevels is VarRef ? "int*" : "ptr"
-    pFeatureLevelMarshal := pFeatureLevel is VarRef ? "int*" : "ptr"
+    pAdapterMarshal := pAdapter == 0 ? IntPtr : "ptr"
+    pFeatureLevelsMarshal := pFeatureLevels is VarRef ? "int*" : IntPtr
+    pFeatureLevelsMarshal := pFeatureLevels == 0 ? IntPtr : "int*"
+    pSwapChainDescMarshal := pSwapChainDesc == 0 ? IntPtr : DXGI_SWAP_CHAIN_DESC.Ptr
+    ppSwapChainMarshal := ppSwapChain == 0 ? IntPtr : IDXGISwapChain.Ptr
+    ppDeviceMarshal := ppDevice == 0 ? IntPtr : ID3D11Device.Ptr
+    pFeatureLevelMarshal := pFeatureLevel is VarRef ? "int*" : IntPtr
+    pFeatureLevelMarshal := pFeatureLevel == 0 ? IntPtr : "int*"
+    ppImmediateContextMarshal := ppImmediateContext == 0 ? IntPtr : ID3D11DeviceContext.Ptr
 
-    result := DllCall("d3d11.dll\D3D11CreateDeviceAndSwapChain", "ptr", pAdapter, D3D_DRIVER_TYPE, DriverType, HMODULE, Software, D3D11_CREATE_DEVICE_FLAG, Flags, pFeatureLevelsMarshal, pFeatureLevels, UInt32, FeatureLevels, UInt32, SDKVersion, DXGI_SWAP_CHAIN_DESC.Ptr, pSwapChainDesc, IDXGISwapChain.Ptr, ppSwapChain, ID3D11Device.Ptr, ppDevice, pFeatureLevelMarshal, pFeatureLevel, ID3D11DeviceContext.Ptr, ppImmediateContext, "HRESULT")
+    result := DllCall("d3d11.dll\D3D11CreateDeviceAndSwapChain", pAdapterMarshal, pAdapter, D3D_DRIVER_TYPE, DriverType, HMODULE, Software, D3D11_CREATE_DEVICE_FLAG, Flags, pFeatureLevelsMarshal, pFeatureLevels, UInt32, FeatureLevels, UInt32, SDKVersion, pSwapChainDescMarshal, pSwapChainDesc, ppSwapChainMarshal, ppSwapChain, ppDeviceMarshal, ppDevice, pFeatureLevelMarshal, pFeatureLevel, ppImmediateContextMarshal, ppImmediateContext, "HRESULT")
     return result
 }
 

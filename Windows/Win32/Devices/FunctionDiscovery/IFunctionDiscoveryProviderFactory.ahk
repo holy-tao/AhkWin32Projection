@@ -112,9 +112,9 @@ export default struct IFunctionDiscoveryProviderFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreatePropertyStore := CallbackCreate(GetMethod(implObj, "CreatePropertyStore"), flags, 2)
-        this.vtbl.CreateInstance := CallbackCreate(GetMethod(implObj, "CreateInstance"), flags, 7)
-        this.vtbl.CreateFunctionInstanceCollection := CallbackCreate(GetMethod(implObj, "CreateFunctionInstanceCollection"), flags, 2)
+        this.vtbl.CreatePropertyStore := CallbackCreate(ObjBindMethod(implObj, "CreatePropertyStore"), flags, 2)
+        this.vtbl.CreateInstance := CallbackCreate(ObjBindMethod(implObj, "CreateInstance"), flags, 7)
+        this.vtbl.CreateFunctionInstanceCollection := CallbackCreate(ObjBindMethod(implObj, "CreateFunctionInstanceCollection"), flags, 2)
     }
 
     Dispose() {

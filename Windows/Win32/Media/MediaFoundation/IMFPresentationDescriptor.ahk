@@ -85,7 +85,7 @@ export default struct IMFPresentationDescriptor extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfpresentationdescriptor-getstreamdescriptorbyindex
      */
     GetStreamDescriptorByIndex(dwIndex, pfSelected, ppDescriptor) {
-        pfSelectedMarshal := pfSelected is VarRef ? "int*" : "ptr"
+        pfSelectedMarshal := pfSelected is VarRef ? "int*" : IntPtr
 
         result := ComCall(34, this, UInt32, dwIndex, pfSelectedMarshal, pfSelected, IMFStreamDescriptor.Ptr, ppDescriptor, "HRESULT")
         return result
@@ -231,11 +231,11 @@ export default struct IMFPresentationDescriptor extends IMFAttributes {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStreamDescriptorCount := CallbackCreate(GetMethod(implObj, "GetStreamDescriptorCount"), flags, 2)
-        this.vtbl.GetStreamDescriptorByIndex := CallbackCreate(GetMethod(implObj, "GetStreamDescriptorByIndex"), flags, 4)
-        this.vtbl.SelectStream := CallbackCreate(GetMethod(implObj, "SelectStream"), flags, 2)
-        this.vtbl.DeselectStream := CallbackCreate(GetMethod(implObj, "DeselectStream"), flags, 2)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.GetStreamDescriptorCount := CallbackCreate(ObjBindMethod(implObj, "GetStreamDescriptorCount"), flags, 2)
+        this.vtbl.GetStreamDescriptorByIndex := CallbackCreate(ObjBindMethod(implObj, "GetStreamDescriptorByIndex"), flags, 4)
+        this.vtbl.SelectStream := CallbackCreate(ObjBindMethod(implObj, "SelectStream"), flags, 2)
+        this.vtbl.DeselectStream := CallbackCreate(ObjBindMethod(implObj, "DeselectStream"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
     }
 
     Dispose() {

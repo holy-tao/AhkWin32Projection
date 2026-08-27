@@ -27,7 +27,6 @@ export default struct GEO_ENUMNAMEPROC {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @param {LPARAM} param1 
      * @returns {BOOL} Returns <b>TRUE</b> to continue enumeration or <b>FALSE</b> otherwise.

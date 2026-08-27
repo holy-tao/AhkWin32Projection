@@ -37,13 +37,12 @@ export default struct ICaretPositionProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<POINT>} pptCaret 
      * @param {Pointer<Float>} pflHeight 
      * @returns {HRESULT} 
      */
     GetCaretPosition(pptCaret, pflHeight) {
-        pflHeightMarshal := pflHeight is VarRef ? "float*" : "ptr"
+        pflHeightMarshal := pflHeight is VarRef ? "float*" : IntPtr
 
         result := ComCall(3, this, POINT.Ptr, pptCaret, pflHeightMarshal, pflHeight, "HRESULT")
         return result
@@ -58,7 +57,7 @@ export default struct ICaretPositionProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCaretPosition := CallbackCreate(GetMethod(implObj, "GetCaretPosition"), flags, 3)
+        this.vtbl.GetCaretPosition := CallbackCreate(ObjBindMethod(implObj, "GetCaretPosition"), flags, 3)
     }
 
     Dispose() {

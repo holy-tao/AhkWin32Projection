@@ -102,8 +102,8 @@ export default struct IFileDialog2 extends IFileDialog {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetCancelButtonLabel := CallbackCreate(GetMethod(implObj, "SetCancelButtonLabel"), flags, 2)
-        this.vtbl.SetNavigationRoot := CallbackCreate(GetMethod(implObj, "SetNavigationRoot"), flags, 2)
+        this.vtbl.SetCancelButtonLabel := CallbackCreate(ObjBindMethod(implObj, "SetCancelButtonLabel"), flags, 2)
+        this.vtbl.SetNavigationRoot := CallbackCreate(ObjBindMethod(implObj, "SetNavigationRoot"), flags, 2)
     }
 
     Dispose() {

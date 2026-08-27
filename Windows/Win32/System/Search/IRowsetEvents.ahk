@@ -169,10 +169,10 @@ export default struct IRowsetEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnNewItem := CallbackCreate(GetMethod(implObj, "OnNewItem"), flags, 3)
-        this.vtbl.OnChangedItem := CallbackCreate(GetMethod(implObj, "OnChangedItem"), flags, 4)
-        this.vtbl.OnDeletedItem := CallbackCreate(GetMethod(implObj, "OnDeletedItem"), flags, 3)
-        this.vtbl.OnRowsetEvent := CallbackCreate(GetMethod(implObj, "OnRowsetEvent"), flags, 3)
+        this.vtbl.OnNewItem := CallbackCreate(ObjBindMethod(implObj, "OnNewItem"), flags, 3)
+        this.vtbl.OnChangedItem := CallbackCreate(ObjBindMethod(implObj, "OnChangedItem"), flags, 4)
+        this.vtbl.OnDeletedItem := CallbackCreate(ObjBindMethod(implObj, "OnDeletedItem"), flags, 3)
+        this.vtbl.OnRowsetEvent := CallbackCreate(ObjBindMethod(implObj, "OnRowsetEvent"), flags, 3)
     }
 
     Dispose() {

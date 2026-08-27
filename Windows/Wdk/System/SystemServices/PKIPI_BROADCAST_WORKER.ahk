@@ -18,7 +18,6 @@ export default struct PKIPI_BROADCAST_WORKER {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     Call() {

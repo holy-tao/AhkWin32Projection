@@ -26,7 +26,6 @@ export default struct ACMDRIVERENUMCB {
     }
 
     /**
-     * 
      * @param {HACMDRIVERID} hadid Handle to an ACM driver identifier.
      * @param {Pointer} dwInstance Application-defined value specified in <a href="https://docs.microsoft.com/windows/desktop/api/msacm/nf-msacm-acmdriverenum">acmDriverEnum</a>.
      * @param {Integer} fdwSupport 

@@ -37,7 +37,6 @@ export default struct IAddrTrackingControl extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     EnableCOMDynamicAddrTracking() {
@@ -46,7 +45,6 @@ export default struct IAddrTrackingControl extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DisableCOMDynamicAddrTracking() {
@@ -63,8 +61,8 @@ export default struct IAddrTrackingControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnableCOMDynamicAddrTracking := CallbackCreate(GetMethod(implObj, "EnableCOMDynamicAddrTracking"), flags, 1)
-        this.vtbl.DisableCOMDynamicAddrTracking := CallbackCreate(GetMethod(implObj, "DisableCOMDynamicAddrTracking"), flags, 1)
+        this.vtbl.EnableCOMDynamicAddrTracking := CallbackCreate(ObjBindMethod(implObj, "EnableCOMDynamicAddrTracking"), flags, 1)
+        this.vtbl.DisableCOMDynamicAddrTracking := CallbackCreate(ObjBindMethod(implObj, "DisableCOMDynamicAddrTracking"), flags, 1)
     }
 
     Dispose() {

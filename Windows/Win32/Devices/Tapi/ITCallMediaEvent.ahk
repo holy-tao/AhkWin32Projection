@@ -180,12 +180,12 @@ export default struct ITCallMediaEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Call := CallbackCreate(GetMethod(implObj, "get_Call"), flags, 2)
-        this.vtbl.get_Event := CallbackCreate(GetMethod(implObj, "get_Event"), flags, 2)
-        this.vtbl.get_Error := CallbackCreate(GetMethod(implObj, "get_Error"), flags, 2)
-        this.vtbl.get_Terminal := CallbackCreate(GetMethod(implObj, "get_Terminal"), flags, 2)
-        this.vtbl.get_Stream := CallbackCreate(GetMethod(implObj, "get_Stream"), flags, 2)
-        this.vtbl.get_Cause := CallbackCreate(GetMethod(implObj, "get_Cause"), flags, 2)
+        this.vtbl.get_Call := CallbackCreate(ObjBindMethod(implObj, "get_Call"), flags, 2)
+        this.vtbl.get_Event := CallbackCreate(ObjBindMethod(implObj, "get_Event"), flags, 2)
+        this.vtbl.get_Error := CallbackCreate(ObjBindMethod(implObj, "get_Error"), flags, 2)
+        this.vtbl.get_Terminal := CallbackCreate(ObjBindMethod(implObj, "get_Terminal"), flags, 2)
+        this.vtbl.get_Stream := CallbackCreate(ObjBindMethod(implObj, "get_Stream"), flags, 2)
+        this.vtbl.get_Cause := CallbackCreate(ObjBindMethod(implObj, "get_Cause"), flags, 2)
     }
 
     Dispose() {

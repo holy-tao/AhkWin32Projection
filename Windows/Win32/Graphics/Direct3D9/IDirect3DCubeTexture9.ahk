@@ -196,11 +196,11 @@ export default struct IDirect3DCubeTexture9 extends IDirect3DBaseTexture9 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLevelDesc := CallbackCreate(GetMethod(implObj, "GetLevelDesc"), flags, 3)
-        this.vtbl.GetCubeMapSurface := CallbackCreate(GetMethod(implObj, "GetCubeMapSurface"), flags, 4)
-        this.vtbl.LockRect := CallbackCreate(GetMethod(implObj, "LockRect"), flags, 6)
-        this.vtbl.UnlockRect := CallbackCreate(GetMethod(implObj, "UnlockRect"), flags, 3)
-        this.vtbl.AddDirtyRect := CallbackCreate(GetMethod(implObj, "AddDirtyRect"), flags, 3)
+        this.vtbl.GetLevelDesc := CallbackCreate(ObjBindMethod(implObj, "GetLevelDesc"), flags, 3)
+        this.vtbl.GetCubeMapSurface := CallbackCreate(ObjBindMethod(implObj, "GetCubeMapSurface"), flags, 4)
+        this.vtbl.LockRect := CallbackCreate(ObjBindMethod(implObj, "LockRect"), flags, 6)
+        this.vtbl.UnlockRect := CallbackCreate(ObjBindMethod(implObj, "UnlockRect"), flags, 3)
+        this.vtbl.AddDirtyRect := CallbackCreate(ObjBindMethod(implObj, "AddDirtyRect"), flags, 3)
     }
 
     Dispose() {

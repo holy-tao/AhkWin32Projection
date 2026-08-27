@@ -60,7 +60,7 @@ export default struct IWTSBitmapRenderService extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMappedRenderer := CallbackCreate(GetMethod(implObj, "GetMappedRenderer"), flags, 4)
+        this.vtbl.GetMappedRenderer := CallbackCreate(ObjBindMethod(implObj, "GetMappedRenderer"), flags, 4)
     }
 
     Dispose() {

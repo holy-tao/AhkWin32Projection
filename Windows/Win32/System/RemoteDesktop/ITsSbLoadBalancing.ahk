@@ -70,7 +70,7 @@ export default struct ITsSbLoadBalancing extends ITsSbPlugin {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMostSuitableTarget := CallbackCreate(GetMethod(implObj, "GetMostSuitableTarget"), flags, 3)
+        this.vtbl.GetMostSuitableTarget := CallbackCreate(ObjBindMethod(implObj, "GetMostSuitableTarget"), flags, 3)
     }
 
     Dispose() {

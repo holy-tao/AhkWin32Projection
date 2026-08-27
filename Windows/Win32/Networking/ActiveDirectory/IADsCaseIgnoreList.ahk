@@ -48,7 +48,6 @@ export default struct IADsCaseIgnoreList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_CaseIgnoreList() {
@@ -58,7 +57,6 @@ export default struct IADsCaseIgnoreList extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} vCaseIgnoreList 
      * @returns {HRESULT} 
      */
@@ -76,8 +74,8 @@ export default struct IADsCaseIgnoreList extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_CaseIgnoreList := CallbackCreate(GetMethod(implObj, "get_CaseIgnoreList"), flags, 2)
-        this.vtbl.put_CaseIgnoreList := CallbackCreate(GetMethod(implObj, "put_CaseIgnoreList"), flags, 2)
+        this.vtbl.get_CaseIgnoreList := CallbackCreate(ObjBindMethod(implObj, "get_CaseIgnoreList"), flags, 2)
+        this.vtbl.put_CaseIgnoreList := CallbackCreate(ObjBindMethod(implObj, "put_CaseIgnoreList"), flags, 2)
     }
 
     Dispose() {

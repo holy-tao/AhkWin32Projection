@@ -147,11 +147,11 @@ export default struct IFileSystemImageResult extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ImageStream := CallbackCreate(GetMethod(implObj, "get_ImageStream"), flags, 2)
-        this.vtbl.get_ProgressItems := CallbackCreate(GetMethod(implObj, "get_ProgressItems"), flags, 2)
-        this.vtbl.get_TotalBlocks := CallbackCreate(GetMethod(implObj, "get_TotalBlocks"), flags, 2)
-        this.vtbl.get_BlockSize := CallbackCreate(GetMethod(implObj, "get_BlockSize"), flags, 2)
-        this.vtbl.get_DiscId := CallbackCreate(GetMethod(implObj, "get_DiscId"), flags, 2)
+        this.vtbl.get_ImageStream := CallbackCreate(ObjBindMethod(implObj, "get_ImageStream"), flags, 2)
+        this.vtbl.get_ProgressItems := CallbackCreate(ObjBindMethod(implObj, "get_ProgressItems"), flags, 2)
+        this.vtbl.get_TotalBlocks := CallbackCreate(ObjBindMethod(implObj, "get_TotalBlocks"), flags, 2)
+        this.vtbl.get_BlockSize := CallbackCreate(ObjBindMethod(implObj, "get_BlockSize"), flags, 2)
+        this.vtbl.get_DiscId := CallbackCreate(ObjBindMethod(implObj, "get_DiscId"), flags, 2)
     }
 
     Dispose() {

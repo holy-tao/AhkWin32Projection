@@ -73,7 +73,6 @@ export default struct IADsPrintJobOperations extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Status() {
@@ -82,7 +81,6 @@ export default struct IADsPrintJobOperations extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_TimeElapsed() {
@@ -91,7 +89,6 @@ export default struct IADsPrintJobOperations extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PagesPrinted() {
@@ -100,7 +97,6 @@ export default struct IADsPrintJobOperations extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Position() {
@@ -109,7 +105,6 @@ export default struct IADsPrintJobOperations extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnPosition 
      * @returns {HRESULT} 
      */
@@ -147,13 +142,13 @@ export default struct IADsPrintJobOperations extends IADs {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
-        this.vtbl.get_TimeElapsed := CallbackCreate(GetMethod(implObj, "get_TimeElapsed"), flags, 2)
-        this.vtbl.get_PagesPrinted := CallbackCreate(GetMethod(implObj, "get_PagesPrinted"), flags, 2)
-        this.vtbl.get_Position := CallbackCreate(GetMethod(implObj, "get_Position"), flags, 2)
-        this.vtbl.put_Position := CallbackCreate(GetMethod(implObj, "put_Position"), flags, 2)
-        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
-        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 1)
+        this.vtbl.get_Status := CallbackCreate(ObjBindMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.get_TimeElapsed := CallbackCreate(ObjBindMethod(implObj, "get_TimeElapsed"), flags, 2)
+        this.vtbl.get_PagesPrinted := CallbackCreate(ObjBindMethod(implObj, "get_PagesPrinted"), flags, 2)
+        this.vtbl.get_Position := CallbackCreate(ObjBindMethod(implObj, "get_Position"), flags, 2)
+        this.vtbl.put_Position := CallbackCreate(ObjBindMethod(implObj, "put_Position"), flags, 2)
+        this.vtbl.Pause := CallbackCreate(ObjBindMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Resume := CallbackCreate(ObjBindMethod(implObj, "Resume"), flags, 1)
     }
 
     Dispose() {

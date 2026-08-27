@@ -21,7 +21,6 @@ export default struct PSET_RESOURCE_LOCKED_MODE_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer} ResourceHandle A handle to the resource to configure.
      * @param {BOOL} LockedModeEnabled <b>TRUE</b> to enable locked mode; otherwise <b>FALSE</b>.
      * @param {Integer} LockedModeReason A flag that specifies the reason that locked mode was configured.

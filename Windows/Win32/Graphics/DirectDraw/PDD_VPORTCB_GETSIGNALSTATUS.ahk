@@ -25,7 +25,6 @@ export default struct PDD_VPORTCB_GETSIGNALSTATUS {
     }
 
     /**
-     * 
      * @param {Pointer<DD_GETVPORTSIGNALDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_getvportsignaldata">DD_GETVPORTSIGNALDATA</a> structure that contains the information required for the driver to retrieve the status of the video signal.
      * @returns {Integer} <i>DdVideoPortGetSignalStatus</i> returns one of the following callback codes:
      */

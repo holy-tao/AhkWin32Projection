@@ -110,7 +110,6 @@ export default struct IRemoteDesktopClientTouchPointer extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} pointerSpeed 
      * @returns {HRESULT} 
      */
@@ -138,12 +137,12 @@ export default struct IRemoteDesktopClientTouchPointer extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_Enabled := CallbackCreate(GetMethod(implObj, "put_Enabled"), flags, 2)
-        this.vtbl.get_Enabled := CallbackCreate(GetMethod(implObj, "get_Enabled"), flags, 2)
-        this.vtbl.put_EventsEnabled := CallbackCreate(GetMethod(implObj, "put_EventsEnabled"), flags, 2)
-        this.vtbl.get_EventsEnabled := CallbackCreate(GetMethod(implObj, "get_EventsEnabled"), flags, 2)
-        this.vtbl.put_PointerSpeed := CallbackCreate(GetMethod(implObj, "put_PointerSpeed"), flags, 2)
-        this.vtbl.get_PointerSpeed := CallbackCreate(GetMethod(implObj, "get_PointerSpeed"), flags, 2)
+        this.vtbl.put_Enabled := CallbackCreate(ObjBindMethod(implObj, "put_Enabled"), flags, 2)
+        this.vtbl.get_Enabled := CallbackCreate(ObjBindMethod(implObj, "get_Enabled"), flags, 2)
+        this.vtbl.put_EventsEnabled := CallbackCreate(ObjBindMethod(implObj, "put_EventsEnabled"), flags, 2)
+        this.vtbl.get_EventsEnabled := CallbackCreate(ObjBindMethod(implObj, "get_EventsEnabled"), flags, 2)
+        this.vtbl.put_PointerSpeed := CallbackCreate(ObjBindMethod(implObj, "put_PointerSpeed"), flags, 2)
+        this.vtbl.get_PointerSpeed := CallbackCreate(ObjBindMethod(implObj, "get_PointerSpeed"), flags, 2)
     }
 
     Dispose() {

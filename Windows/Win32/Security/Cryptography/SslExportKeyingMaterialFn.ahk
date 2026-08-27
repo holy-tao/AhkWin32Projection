@@ -22,7 +22,6 @@ export default struct SslExportKeyingMaterialFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_KEY_HANDLE} hMasterKey 
      * @param {PSTR} sLabel 
@@ -38,7 +37,10 @@ export default struct SslExportKeyingMaterialFn {
     Call(hSslProvider, hMasterKey, sLabel, pbRandoms, cbRandoms, pbContextValue, cbContextValue, pbOutput, cbOutput, dwFlags) {
         sLabel := sLabel is String ? StrPtr(sLabel) : sLabel
 
-        result := DllCall(this.value, NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hMasterKey, "ptr", sLabel, IntPtr, pbRandoms, UInt32, cbRandoms, IntPtr, pbContextValue, UInt16, cbContextValue, IntPtr, pbOutput, UInt32, cbOutput, UInt32, dwFlags, "HRESULT")
+        pbRandomsMarshal := pbRandoms == 0 ? IntPtr : IntPtr
+        pbContextValueMarshal := pbContextValue == 0 ? IntPtr : IntPtr
+
+        result := DllCall(this.value, NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hMasterKey, "ptr", sLabel, pbRandomsMarshal, pbRandoms, UInt32, cbRandoms, pbContextValueMarshal, pbContextValue, UInt16, cbContextValue, IntPtr, pbOutput, UInt32, cbOutput, UInt32, dwFlags, "HRESULT")
         return result
     }
 

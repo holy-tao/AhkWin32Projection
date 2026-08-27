@@ -18,14 +18,13 @@ export default struct RPCLT_PDU_FILTER_FUNC {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Buffer 
      * @param {Integer} BufferLength 
      * @param {Integer} fDatagram 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Buffer, BufferLength, fDatagram) {
-        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _BufferMarshal, _Buffer, UInt32, BufferLength, Int32, fDatagram)
     }

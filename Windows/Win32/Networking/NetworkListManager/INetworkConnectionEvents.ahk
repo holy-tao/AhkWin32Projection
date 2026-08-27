@@ -73,8 +73,8 @@ export default struct INetworkConnectionEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.NetworkConnectionConnectivityChanged := CallbackCreate(GetMethod(implObj, "NetworkConnectionConnectivityChanged"), flags, 3)
-        this.vtbl.NetworkConnectionPropertyChanged := CallbackCreate(GetMethod(implObj, "NetworkConnectionPropertyChanged"), flags, 3)
+        this.vtbl.NetworkConnectionConnectivityChanged := CallbackCreate(ObjBindMethod(implObj, "NetworkConnectionConnectivityChanged"), flags, 3)
+        this.vtbl.NetworkConnectionPropertyChanged := CallbackCreate(ObjBindMethod(implObj, "NetworkConnectionPropertyChanged"), flags, 3)
     }
 
     Dispose() {

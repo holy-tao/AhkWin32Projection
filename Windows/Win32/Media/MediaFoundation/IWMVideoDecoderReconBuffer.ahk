@@ -65,7 +65,7 @@ export default struct IWMVideoDecoderReconBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmvideodecoderreconbuffer-getreconstructedvideoframesize
      */
     GetReconstructedVideoFrameSize(pdwSize) {
-        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pdwSizeMarshal, pdwSize, "HRESULT")
         return result
@@ -138,9 +138,9 @@ export default struct IWMVideoDecoderReconBuffer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetReconstructedVideoFrameSize := CallbackCreate(GetMethod(implObj, "GetReconstructedVideoFrameSize"), flags, 2)
-        this.vtbl.GetReconstructedVideoFrame := CallbackCreate(GetMethod(implObj, "GetReconstructedVideoFrame"), flags, 2)
-        this.vtbl.SetReconstructedVideoFrame := CallbackCreate(GetMethod(implObj, "SetReconstructedVideoFrame"), flags, 2)
+        this.vtbl.GetReconstructedVideoFrameSize := CallbackCreate(ObjBindMethod(implObj, "GetReconstructedVideoFrameSize"), flags, 2)
+        this.vtbl.GetReconstructedVideoFrame := CallbackCreate(ObjBindMethod(implObj, "GetReconstructedVideoFrame"), flags, 2)
+        this.vtbl.SetReconstructedVideoFrame := CallbackCreate(ObjBindMethod(implObj, "SetReconstructedVideoFrame"), flags, 2)
     }
 
     Dispose() {

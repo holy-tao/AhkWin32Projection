@@ -94,8 +94,8 @@ export default struct ID2D1VertexBuffer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Map := CallbackCreate(GetMethod(implObj, "Map"), flags, 3)
-        this.vtbl.Unmap := CallbackCreate(GetMethod(implObj, "Unmap"), flags, 1)
+        this.vtbl.Map := CallbackCreate(ObjBindMethod(implObj, "Map"), flags, 3)
+        this.vtbl.Unmap := CallbackCreate(ObjBindMethod(implObj, "Unmap"), flags, 1)
     }
 
     Dispose() {

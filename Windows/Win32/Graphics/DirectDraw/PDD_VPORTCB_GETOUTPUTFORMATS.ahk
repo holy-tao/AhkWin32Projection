@@ -37,7 +37,6 @@ export default struct PDD_VPORTCB_GETOUTPUTFORMATS {
     }
 
     /**
-     * 
      * @param {Pointer<DD_GETVPORTOUTPUTFORMATDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_getvportoutputformatdata">DD_GETVPORTOUTPUTFORMATDATA</a> structure that contains the information required for the driver to return the output formats the VPE object supports.
      * @returns {Integer} <b>DdVideoPortGetOutputFormats</b> returns one of the following callback codes:
      */

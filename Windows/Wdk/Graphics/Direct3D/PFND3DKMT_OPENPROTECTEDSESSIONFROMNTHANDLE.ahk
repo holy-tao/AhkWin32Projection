@@ -20,7 +20,6 @@ export default struct PFND3DKMT_OPENPROTECTEDSESSIONFROMNTHANDLE {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_OPENPROTECTEDSESSIONFROMNTHANDLE>} param0 
      * @returns {NTSTATUS} 
      */

@@ -21,7 +21,6 @@ export default struct IOMMU_QUERY_INPUT_MAPPINGS {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} PhysicalDeviceObject 
      * @param {Pointer<INPUT_MAPPING_ELEMENT>} _Buffer 
      * @param {Integer} BufferLength 
@@ -29,7 +28,8 @@ export default struct IOMMU_QUERY_INPUT_MAPPINGS {
      * @returns {NTSTATUS} 
      */
     Call(PhysicalDeviceObject, _Buffer, BufferLength, ReturnLength) {
-        ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
+        ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : IntPtr
+        ReturnLengthMarshal := ReturnLength == 0 ? IntPtr : "uint*"
 
         result := DllCall(this.value, DEVICE_OBJECT.Ptr, PhysicalDeviceObject, INPUT_MAPPING_ELEMENT.Ptr, _Buffer, UInt32, BufferLength, ReturnLengthMarshal, ReturnLength, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

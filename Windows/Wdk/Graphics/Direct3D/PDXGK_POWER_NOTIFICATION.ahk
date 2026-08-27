@@ -20,7 +20,6 @@ export default struct PDXGK_POWER_NOTIFICATION {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} GraphicsDeviceHandle 
      * @param {DEVICE_POWER_STATE} NewGrfxPowerState 
      * @param {BOOLEAN} PreNotification 
@@ -28,8 +27,8 @@ export default struct PDXGK_POWER_NOTIFICATION {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(GraphicsDeviceHandle, NewGrfxPowerState, PreNotification, PrivateHandle) {
-        GraphicsDeviceHandleMarshal := GraphicsDeviceHandle is VarRef ? "ptr" : "ptr"
-        PrivateHandleMarshal := PrivateHandle is VarRef ? "ptr" : "ptr"
+        GraphicsDeviceHandleMarshal := GraphicsDeviceHandle is VarRef ? "ptr" : IntPtr
+        PrivateHandleMarshal := PrivateHandle is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, GraphicsDeviceHandleMarshal, GraphicsDeviceHandle, DEVICE_POWER_STATE, NewGrfxPowerState, BOOLEAN, PreNotification, PrivateHandleMarshal, PrivateHandle)
     }

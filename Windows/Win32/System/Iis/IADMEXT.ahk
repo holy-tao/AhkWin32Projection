@@ -71,7 +71,6 @@ export default struct IADMEXT extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pclsidDcom 
      * @param {Integer} dwEnumIndex 
      * @returns {HRESULT} 
@@ -82,7 +81,6 @@ export default struct IADMEXT extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Terminate() {
@@ -99,9 +97,9 @@ export default struct IADMEXT extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 1)
-        this.vtbl.EnumDcomCLSIDs := CallbackCreate(GetMethod(implObj, "EnumDcomCLSIDs"), flags, 3)
-        this.vtbl.Terminate := CallbackCreate(GetMethod(implObj, "Terminate"), flags, 1)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 1)
+        this.vtbl.EnumDcomCLSIDs := CallbackCreate(ObjBindMethod(implObj, "EnumDcomCLSIDs"), flags, 3)
+        this.vtbl.Terminate := CallbackCreate(ObjBindMethod(implObj, "Terminate"), flags, 1)
     }
 
     Dispose() {

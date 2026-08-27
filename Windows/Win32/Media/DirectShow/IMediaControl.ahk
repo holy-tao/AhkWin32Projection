@@ -302,15 +302,15 @@ export default struct IMediaControl extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Run := CallbackCreate(GetMethod(implObj, "Run"), flags, 1)
-        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
-        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
-        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 3)
-        this.vtbl.RenderFile := CallbackCreate(GetMethod(implObj, "RenderFile"), flags, 2)
-        this.vtbl.AddSourceFilter := CallbackCreate(GetMethod(implObj, "AddSourceFilter"), flags, 3)
-        this.vtbl.get_FilterCollection := CallbackCreate(GetMethod(implObj, "get_FilterCollection"), flags, 2)
-        this.vtbl.get_RegFilterCollection := CallbackCreate(GetMethod(implObj, "get_RegFilterCollection"), flags, 2)
-        this.vtbl.StopWhenReady := CallbackCreate(GetMethod(implObj, "StopWhenReady"), flags, 1)
+        this.vtbl.Run := CallbackCreate(ObjBindMethod(implObj, "Run"), flags, 1)
+        this.vtbl.Pause := CallbackCreate(ObjBindMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Stop := CallbackCreate(ObjBindMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.GetState := CallbackCreate(ObjBindMethod(implObj, "GetState"), flags, 3)
+        this.vtbl.RenderFile := CallbackCreate(ObjBindMethod(implObj, "RenderFile"), flags, 2)
+        this.vtbl.AddSourceFilter := CallbackCreate(ObjBindMethod(implObj, "AddSourceFilter"), flags, 3)
+        this.vtbl.get_FilterCollection := CallbackCreate(ObjBindMethod(implObj, "get_FilterCollection"), flags, 2)
+        this.vtbl.get_RegFilterCollection := CallbackCreate(ObjBindMethod(implObj, "get_RegFilterCollection"), flags, 2)
+        this.vtbl.StopWhenReady := CallbackCreate(ObjBindMethod(implObj, "StopWhenReady"), flags, 1)
     }
 
     Dispose() {

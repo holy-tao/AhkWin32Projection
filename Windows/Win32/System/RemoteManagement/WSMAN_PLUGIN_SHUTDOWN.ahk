@@ -24,7 +24,6 @@ export default struct WSMAN_PLUGIN_SHUTDOWN {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pluginContext Specifies the context that was returned by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nc-wsman-wsman_plugin_startup">WSManPluginStartup</a> method. This parameter represents a specific application initialization of a WinRM plug-in. The shutdown entry point will be called for each application that initialized it.
      * @param {Integer} flags Reserved for future use. Must be set to zero.
      * @param {Integer} reason Specifies the reason that the plug-in is shutting down.
@@ -34,7 +33,8 @@ export default struct WSMAN_PLUGIN_SHUTDOWN {
      * <div> </div>
      */
     Call(pluginContext, flags, reason) {
-        pluginContextMarshal := pluginContext is VarRef ? "ptr" : "ptr"
+        pluginContextMarshal := pluginContext is VarRef ? "ptr" : IntPtr
+        pluginContextMarshal := pluginContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, pluginContextMarshal, pluginContext, UInt32, flags, UInt32, reason, UInt32)
         return result

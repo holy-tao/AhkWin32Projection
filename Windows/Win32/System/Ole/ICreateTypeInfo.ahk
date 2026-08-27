@@ -526,7 +526,7 @@ export default struct ICreateTypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo-addreftypeinfo
      */
     AddRefTypeInfo(pTInfo, phRefType) {
-        phRefTypeMarshal := phRefType is VarRef ? "uint*" : "ptr"
+        phRefTypeMarshal := phRefType is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, "ptr", pTInfo, phRefTypeMarshal, phRefType, "HRESULT")
         return result
@@ -892,7 +892,6 @@ export default struct ICreateTypeInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pStrSchema 
      * @returns {HRESULT} 
      */
@@ -1091,7 +1090,7 @@ export default struct ICreateTypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo-setfuncandparamnames
      */
     SetFuncAndParamNames(index, rgszNames, cNames) {
-        rgszNamesMarshal := rgszNames is VarRef ? "ptr*" : "ptr"
+        rgszNamesMarshal := rgszNames is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(15, this, UInt32, index, rgszNamesMarshal, rgszNames, UInt32, cNames, "HRESULT")
         return result
@@ -1795,7 +1794,6 @@ export default struct ICreateTypeInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<IDLDESC>} pIdlDesc 
      * @returns {HRESULT} 
      */
@@ -1971,29 +1969,29 @@ export default struct ICreateTypeInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetGuid := CallbackCreate(GetMethod(implObj, "SetGuid"), flags, 2)
-        this.vtbl.SetTypeFlags := CallbackCreate(GetMethod(implObj, "SetTypeFlags"), flags, 2)
-        this.vtbl.SetDocString := CallbackCreate(GetMethod(implObj, "SetDocString"), flags, 2)
-        this.vtbl.SetHelpContext := CallbackCreate(GetMethod(implObj, "SetHelpContext"), flags, 2)
-        this.vtbl.SetVersion := CallbackCreate(GetMethod(implObj, "SetVersion"), flags, 3)
-        this.vtbl.AddRefTypeInfo := CallbackCreate(GetMethod(implObj, "AddRefTypeInfo"), flags, 3)
-        this.vtbl.AddFuncDesc := CallbackCreate(GetMethod(implObj, "AddFuncDesc"), flags, 3)
-        this.vtbl.AddImplType := CallbackCreate(GetMethod(implObj, "AddImplType"), flags, 3)
-        this.vtbl.SetImplTypeFlags := CallbackCreate(GetMethod(implObj, "SetImplTypeFlags"), flags, 3)
-        this.vtbl.SetAlignment := CallbackCreate(GetMethod(implObj, "SetAlignment"), flags, 2)
-        this.vtbl.SetSchema := CallbackCreate(GetMethod(implObj, "SetSchema"), flags, 2)
-        this.vtbl.AddVarDesc := CallbackCreate(GetMethod(implObj, "AddVarDesc"), flags, 3)
-        this.vtbl.SetFuncAndParamNames := CallbackCreate(GetMethod(implObj, "SetFuncAndParamNames"), flags, 4)
-        this.vtbl.SetVarName := CallbackCreate(GetMethod(implObj, "SetVarName"), flags, 3)
-        this.vtbl.SetTypeDescAlias := CallbackCreate(GetMethod(implObj, "SetTypeDescAlias"), flags, 2)
-        this.vtbl.DefineFuncAsDllEntry := CallbackCreate(GetMethod(implObj, "DefineFuncAsDllEntry"), flags, 4)
-        this.vtbl.SetFuncDocString := CallbackCreate(GetMethod(implObj, "SetFuncDocString"), flags, 3)
-        this.vtbl.SetVarDocString := CallbackCreate(GetMethod(implObj, "SetVarDocString"), flags, 3)
-        this.vtbl.SetFuncHelpContext := CallbackCreate(GetMethod(implObj, "SetFuncHelpContext"), flags, 3)
-        this.vtbl.SetVarHelpContext := CallbackCreate(GetMethod(implObj, "SetVarHelpContext"), flags, 3)
-        this.vtbl.SetMops := CallbackCreate(GetMethod(implObj, "SetMops"), flags, 3)
-        this.vtbl.SetTypeIdldesc := CallbackCreate(GetMethod(implObj, "SetTypeIdldesc"), flags, 2)
-        this.vtbl.LayOut := CallbackCreate(GetMethod(implObj, "LayOut"), flags, 1)
+        this.vtbl.SetGuid := CallbackCreate(ObjBindMethod(implObj, "SetGuid"), flags, 2)
+        this.vtbl.SetTypeFlags := CallbackCreate(ObjBindMethod(implObj, "SetTypeFlags"), flags, 2)
+        this.vtbl.SetDocString := CallbackCreate(ObjBindMethod(implObj, "SetDocString"), flags, 2)
+        this.vtbl.SetHelpContext := CallbackCreate(ObjBindMethod(implObj, "SetHelpContext"), flags, 2)
+        this.vtbl.SetVersion := CallbackCreate(ObjBindMethod(implObj, "SetVersion"), flags, 3)
+        this.vtbl.AddRefTypeInfo := CallbackCreate(ObjBindMethod(implObj, "AddRefTypeInfo"), flags, 3)
+        this.vtbl.AddFuncDesc := CallbackCreate(ObjBindMethod(implObj, "AddFuncDesc"), flags, 3)
+        this.vtbl.AddImplType := CallbackCreate(ObjBindMethod(implObj, "AddImplType"), flags, 3)
+        this.vtbl.SetImplTypeFlags := CallbackCreate(ObjBindMethod(implObj, "SetImplTypeFlags"), flags, 3)
+        this.vtbl.SetAlignment := CallbackCreate(ObjBindMethod(implObj, "SetAlignment"), flags, 2)
+        this.vtbl.SetSchema := CallbackCreate(ObjBindMethod(implObj, "SetSchema"), flags, 2)
+        this.vtbl.AddVarDesc := CallbackCreate(ObjBindMethod(implObj, "AddVarDesc"), flags, 3)
+        this.vtbl.SetFuncAndParamNames := CallbackCreate(ObjBindMethod(implObj, "SetFuncAndParamNames"), flags, 4)
+        this.vtbl.SetVarName := CallbackCreate(ObjBindMethod(implObj, "SetVarName"), flags, 3)
+        this.vtbl.SetTypeDescAlias := CallbackCreate(ObjBindMethod(implObj, "SetTypeDescAlias"), flags, 2)
+        this.vtbl.DefineFuncAsDllEntry := CallbackCreate(ObjBindMethod(implObj, "DefineFuncAsDllEntry"), flags, 4)
+        this.vtbl.SetFuncDocString := CallbackCreate(ObjBindMethod(implObj, "SetFuncDocString"), flags, 3)
+        this.vtbl.SetVarDocString := CallbackCreate(ObjBindMethod(implObj, "SetVarDocString"), flags, 3)
+        this.vtbl.SetFuncHelpContext := CallbackCreate(ObjBindMethod(implObj, "SetFuncHelpContext"), flags, 3)
+        this.vtbl.SetVarHelpContext := CallbackCreate(ObjBindMethod(implObj, "SetVarHelpContext"), flags, 3)
+        this.vtbl.SetMops := CallbackCreate(ObjBindMethod(implObj, "SetMops"), flags, 3)
+        this.vtbl.SetTypeIdldesc := CallbackCreate(ObjBindMethod(implObj, "SetTypeIdldesc"), flags, 2)
+        this.vtbl.LayOut := CallbackCreate(ObjBindMethod(implObj, "LayOut"), flags, 1)
     }
 
     Dispose() {

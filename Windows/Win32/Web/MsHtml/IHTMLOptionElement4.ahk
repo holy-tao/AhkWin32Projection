@@ -46,7 +46,6 @@ export default struct IHTMLOptionElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -58,7 +57,6 @@ export default struct IHTMLOptionElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_value() {
@@ -76,8 +74,8 @@ export default struct IHTMLOptionElement4 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_value := CallbackCreate(GetMethod(implObj, "put_value"), flags, 2)
-        this.vtbl.get_value := CallbackCreate(GetMethod(implObj, "get_value"), flags, 2)
+        this.vtbl.put_value := CallbackCreate(ObjBindMethod(implObj, "put_value"), flags, 2)
+        this.vtbl.get_value := CallbackCreate(ObjBindMethod(implObj, "get_value"), flags, 2)
     }
 
     Dispose() {

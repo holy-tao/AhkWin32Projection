@@ -290,18 +290,18 @@ export default struct IFaxDeviceProvider extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_FriendlyName := CallbackCreate(GetMethod(implObj, "get_FriendlyName"), flags, 2)
-        this.vtbl.get_ImageName := CallbackCreate(GetMethod(implObj, "get_ImageName"), flags, 2)
-        this.vtbl.get_UniqueName := CallbackCreate(GetMethod(implObj, "get_UniqueName"), flags, 2)
-        this.vtbl.get_TapiProviderName := CallbackCreate(GetMethod(implObj, "get_TapiProviderName"), flags, 2)
-        this.vtbl.get_MajorVersion := CallbackCreate(GetMethod(implObj, "get_MajorVersion"), flags, 2)
-        this.vtbl.get_MinorVersion := CallbackCreate(GetMethod(implObj, "get_MinorVersion"), flags, 2)
-        this.vtbl.get_MajorBuild := CallbackCreate(GetMethod(implObj, "get_MajorBuild"), flags, 2)
-        this.vtbl.get_MinorBuild := CallbackCreate(GetMethod(implObj, "get_MinorBuild"), flags, 2)
-        this.vtbl.get_Debug := CallbackCreate(GetMethod(implObj, "get_Debug"), flags, 2)
-        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
-        this.vtbl.get_InitErrorCode := CallbackCreate(GetMethod(implObj, "get_InitErrorCode"), flags, 2)
-        this.vtbl.get_DeviceIds := CallbackCreate(GetMethod(implObj, "get_DeviceIds"), flags, 2)
+        this.vtbl.get_FriendlyName := CallbackCreate(ObjBindMethod(implObj, "get_FriendlyName"), flags, 2)
+        this.vtbl.get_ImageName := CallbackCreate(ObjBindMethod(implObj, "get_ImageName"), flags, 2)
+        this.vtbl.get_UniqueName := CallbackCreate(ObjBindMethod(implObj, "get_UniqueName"), flags, 2)
+        this.vtbl.get_TapiProviderName := CallbackCreate(ObjBindMethod(implObj, "get_TapiProviderName"), flags, 2)
+        this.vtbl.get_MajorVersion := CallbackCreate(ObjBindMethod(implObj, "get_MajorVersion"), flags, 2)
+        this.vtbl.get_MinorVersion := CallbackCreate(ObjBindMethod(implObj, "get_MinorVersion"), flags, 2)
+        this.vtbl.get_MajorBuild := CallbackCreate(ObjBindMethod(implObj, "get_MajorBuild"), flags, 2)
+        this.vtbl.get_MinorBuild := CallbackCreate(ObjBindMethod(implObj, "get_MinorBuild"), flags, 2)
+        this.vtbl.get_Debug := CallbackCreate(ObjBindMethod(implObj, "get_Debug"), flags, 2)
+        this.vtbl.get_Status := CallbackCreate(ObjBindMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.get_InitErrorCode := CallbackCreate(ObjBindMethod(implObj, "get_InitErrorCode"), flags, 2)
+        this.vtbl.get_DeviceIds := CallbackCreate(ObjBindMethod(implObj, "get_DeviceIds"), flags, 2)
     }
 
     Dispose() {

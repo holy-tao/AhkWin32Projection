@@ -86,7 +86,6 @@ export default struct IHTMLDOMNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -96,7 +95,6 @@ export default struct IHTMLDOMNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_prefix() {
@@ -106,7 +104,6 @@ export default struct IHTMLDOMNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_localName() {
@@ -116,7 +113,6 @@ export default struct IHTMLDOMNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_namespaceURI() {
@@ -126,7 +122,6 @@ export default struct IHTMLDOMNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -136,7 +131,6 @@ export default struct IHTMLDOMNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_textContent() {
@@ -146,7 +140,6 @@ export default struct IHTMLDOMNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMNode3} otherNode 
      * @returns {VARIANT_BOOL} 
      */
@@ -156,7 +149,6 @@ export default struct IHTMLDOMNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvarPrefix 
      * @returns {VARIANT} 
      */
@@ -167,7 +159,6 @@ export default struct IHTMLDOMNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvarNamespaceURI 
      * @returns {VARIANT} 
      */
@@ -178,7 +169,6 @@ export default struct IHTMLDOMNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvarNamespace 
      * @returns {VARIANT_BOOL} 
      */
@@ -188,7 +178,6 @@ export default struct IHTMLDOMNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMNode} newChild 
      * @returns {IHTMLDOMNode} 
      */
@@ -198,7 +187,6 @@ export default struct IHTMLDOMNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMNode} newChild 
      * @param {VARIANT} refChild 
      * @returns {IHTMLDOMNode} 
@@ -209,7 +197,6 @@ export default struct IHTMLDOMNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMNode} oldChild 
      * @returns {IHTMLDOMNode} 
      */
@@ -219,7 +206,6 @@ export default struct IHTMLDOMNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMNode} newChild 
      * @param {IHTMLDOMNode} oldChild 
      * @returns {IHTMLDOMNode} 
@@ -230,7 +216,6 @@ export default struct IHTMLDOMNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMNode3} otherNode 
      * @returns {VARIANT_BOOL} 
      */
@@ -240,7 +225,6 @@ export default struct IHTMLDOMNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMNode} otherNode 
      * @returns {Integer} 
      */
@@ -250,7 +234,6 @@ export default struct IHTMLDOMNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} feature 
      * @param {VARIANT} _version 
      * @returns {VARIANT_BOOL} 
@@ -271,23 +254,23 @@ export default struct IHTMLDOMNode3 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_prefix := CallbackCreate(GetMethod(implObj, "put_prefix"), flags, 2)
-        this.vtbl.get_prefix := CallbackCreate(GetMethod(implObj, "get_prefix"), flags, 2)
-        this.vtbl.get_localName := CallbackCreate(GetMethod(implObj, "get_localName"), flags, 2)
-        this.vtbl.get_namespaceURI := CallbackCreate(GetMethod(implObj, "get_namespaceURI"), flags, 2)
-        this.vtbl.put_textContent := CallbackCreate(GetMethod(implObj, "put_textContent"), flags, 2)
-        this.vtbl.get_textContent := CallbackCreate(GetMethod(implObj, "get_textContent"), flags, 2)
-        this.vtbl.isEqualNode := CallbackCreate(GetMethod(implObj, "isEqualNode"), flags, 3)
-        this.vtbl.lookupNamespaceURI := CallbackCreate(GetMethod(implObj, "lookupNamespaceURI"), flags, 3)
-        this.vtbl.lookupPrefix := CallbackCreate(GetMethod(implObj, "lookupPrefix"), flags, 3)
-        this.vtbl.isDefaultNamespace := CallbackCreate(GetMethod(implObj, "isDefaultNamespace"), flags, 3)
-        this.vtbl.appendChild := CallbackCreate(GetMethod(implObj, "appendChild"), flags, 3)
-        this.vtbl.insertBefore := CallbackCreate(GetMethod(implObj, "insertBefore"), flags, 4)
-        this.vtbl.removeChild := CallbackCreate(GetMethod(implObj, "removeChild"), flags, 3)
-        this.vtbl.replaceChild := CallbackCreate(GetMethod(implObj, "replaceChild"), flags, 4)
-        this.vtbl.isSameNode := CallbackCreate(GetMethod(implObj, "isSameNode"), flags, 3)
-        this.vtbl.compareDocumentPosition := CallbackCreate(GetMethod(implObj, "compareDocumentPosition"), flags, 3)
-        this.vtbl.isSupported := CallbackCreate(GetMethod(implObj, "isSupported"), flags, 4)
+        this.vtbl.put_prefix := CallbackCreate(ObjBindMethod(implObj, "put_prefix"), flags, 2)
+        this.vtbl.get_prefix := CallbackCreate(ObjBindMethod(implObj, "get_prefix"), flags, 2)
+        this.vtbl.get_localName := CallbackCreate(ObjBindMethod(implObj, "get_localName"), flags, 2)
+        this.vtbl.get_namespaceURI := CallbackCreate(ObjBindMethod(implObj, "get_namespaceURI"), flags, 2)
+        this.vtbl.put_textContent := CallbackCreate(ObjBindMethod(implObj, "put_textContent"), flags, 2)
+        this.vtbl.get_textContent := CallbackCreate(ObjBindMethod(implObj, "get_textContent"), flags, 2)
+        this.vtbl.isEqualNode := CallbackCreate(ObjBindMethod(implObj, "isEqualNode"), flags, 3)
+        this.vtbl.lookupNamespaceURI := CallbackCreate(ObjBindMethod(implObj, "lookupNamespaceURI"), flags, 3)
+        this.vtbl.lookupPrefix := CallbackCreate(ObjBindMethod(implObj, "lookupPrefix"), flags, 3)
+        this.vtbl.isDefaultNamespace := CallbackCreate(ObjBindMethod(implObj, "isDefaultNamespace"), flags, 3)
+        this.vtbl.appendChild := CallbackCreate(ObjBindMethod(implObj, "appendChild"), flags, 3)
+        this.vtbl.insertBefore := CallbackCreate(ObjBindMethod(implObj, "insertBefore"), flags, 4)
+        this.vtbl.removeChild := CallbackCreate(ObjBindMethod(implObj, "removeChild"), flags, 3)
+        this.vtbl.replaceChild := CallbackCreate(ObjBindMethod(implObj, "replaceChild"), flags, 4)
+        this.vtbl.isSameNode := CallbackCreate(ObjBindMethod(implObj, "isSameNode"), flags, 3)
+        this.vtbl.compareDocumentPosition := CallbackCreate(ObjBindMethod(implObj, "compareDocumentPosition"), flags, 3)
+        this.vtbl.isSupported := CallbackCreate(ObjBindMethod(implObj, "isSupported"), flags, 4)
     }
 
     Dispose() {

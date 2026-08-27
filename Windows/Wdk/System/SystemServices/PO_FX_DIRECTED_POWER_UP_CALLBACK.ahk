@@ -18,13 +18,12 @@ export default struct PO_FX_DIRECTED_POWER_UP_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Integer} Flags 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Context, Flags) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _ContextMarshal, _Context, UInt32, Flags)
     }

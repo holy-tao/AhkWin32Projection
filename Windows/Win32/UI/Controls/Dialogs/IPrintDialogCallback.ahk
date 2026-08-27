@@ -112,7 +112,7 @@ export default struct IPrintDialogCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commdlg/nf-commdlg-iprintdialogcallback-handlemessage
      */
     HandleMessage(hDlg, uMsg, _wParam, _lParam, pResult) {
-        pResultMarshal := pResult is VarRef ? "ptr*" : "ptr"
+        pResultMarshal := pResult is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, HWND, hDlg, UInt32, uMsg, WPARAM, _wParam, LPARAM, _lParam, pResultMarshal, pResult, "HRESULT")
         return result
@@ -127,9 +127,9 @@ export default struct IPrintDialogCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitDone := CallbackCreate(GetMethod(implObj, "InitDone"), flags, 1)
-        this.vtbl.SelectionChange := CallbackCreate(GetMethod(implObj, "SelectionChange"), flags, 1)
-        this.vtbl.HandleMessage := CallbackCreate(GetMethod(implObj, "HandleMessage"), flags, 6)
+        this.vtbl.InitDone := CallbackCreate(ObjBindMethod(implObj, "InitDone"), flags, 1)
+        this.vtbl.SelectionChange := CallbackCreate(ObjBindMethod(implObj, "SelectionChange"), flags, 1)
+        this.vtbl.HandleMessage := CallbackCreate(ObjBindMethod(implObj, "HandleMessage"), flags, 6)
     }
 
     Dispose() {

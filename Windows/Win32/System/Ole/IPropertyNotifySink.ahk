@@ -112,8 +112,8 @@ export default struct IPropertyNotifySink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnChanged := CallbackCreate(GetMethod(implObj, "OnChanged"), flags, 2)
-        this.vtbl.OnRequestEdit := CallbackCreate(GetMethod(implObj, "OnRequestEdit"), flags, 2)
+        this.vtbl.OnChanged := CallbackCreate(ObjBindMethod(implObj, "OnChanged"), flags, 2)
+        this.vtbl.OnRequestEdit := CallbackCreate(ObjBindMethod(implObj, "OnRequestEdit"), flags, 2)
     }
 
     Dispose() {

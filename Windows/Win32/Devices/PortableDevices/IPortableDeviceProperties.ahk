@@ -204,12 +204,12 @@ export default struct IPortableDeviceProperties extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSupportedProperties := CallbackCreate(GetMethod(implObj, "GetSupportedProperties"), flags, 3)
-        this.vtbl.GetPropertyAttributes := CallbackCreate(GetMethod(implObj, "GetPropertyAttributes"), flags, 4)
-        this.vtbl.GetValues := CallbackCreate(GetMethod(implObj, "GetValues"), flags, 4)
-        this.vtbl.SetValues := CallbackCreate(GetMethod(implObj, "SetValues"), flags, 4)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 3)
-        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.GetSupportedProperties := CallbackCreate(ObjBindMethod(implObj, "GetSupportedProperties"), flags, 3)
+        this.vtbl.GetPropertyAttributes := CallbackCreate(ObjBindMethod(implObj, "GetPropertyAttributes"), flags, 4)
+        this.vtbl.GetValues := CallbackCreate(ObjBindMethod(implObj, "GetValues"), flags, 4)
+        this.vtbl.SetValues := CallbackCreate(ObjBindMethod(implObj, "SetValues"), flags, 4)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 3)
+        this.vtbl.Cancel := CallbackCreate(ObjBindMethod(implObj, "Cancel"), flags, 1)
     }
 
     Dispose() {

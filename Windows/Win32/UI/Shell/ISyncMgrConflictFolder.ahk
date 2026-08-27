@@ -63,7 +63,7 @@ export default struct ISyncMgrConflictFolder extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetConflictIDList := CallbackCreate(GetMethod(implObj, "GetConflictIDList"), flags, 3)
+        this.vtbl.GetConflictIDList := CallbackCreate(ObjBindMethod(implObj, "GetConflictIDList"), flags, 3)
     }
 
     Dispose() {

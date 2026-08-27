@@ -38,7 +38,6 @@ export default struct ICatalogFileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PSTR} 
      */
     GetCatalogFile() {
@@ -47,7 +46,6 @@ export default struct ICatalogFileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<Void>} 
      */
     GetJavaTrust() {
@@ -64,8 +62,8 @@ export default struct ICatalogFileInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCatalogFile := CallbackCreate(GetMethod(implObj, "GetCatalogFile"), flags, 2)
-        this.vtbl.GetJavaTrust := CallbackCreate(GetMethod(implObj, "GetJavaTrust"), flags, 2)
+        this.vtbl.GetCatalogFile := CallbackCreate(ObjBindMethod(implObj, "GetCatalogFile"), flags, 2)
+        this.vtbl.GetJavaTrust := CallbackCreate(ObjBindMethod(implObj, "GetJavaTrust"), flags, 2)
     }
 
     Dispose() {

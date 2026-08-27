@@ -37,7 +37,6 @@ export default struct IRadialControllerIndependentInputSourceInterop extends IIn
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -56,7 +55,7 @@ export default struct IRadialControllerIndependentInputSourceInterop extends IIn
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateForWindow := CallbackCreate(GetMethod(implObj, "CreateForWindow"), flags, 4)
+        this.vtbl.CreateForWindow := CallbackCreate(ObjBindMethod(implObj, "CreateForWindow"), flags, 4)
     }
 
     Dispose() {

@@ -52,7 +52,6 @@ export default struct IHTMLHtmlElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -64,7 +63,6 @@ export default struct IHTMLHtmlElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_version() {
@@ -82,8 +80,8 @@ export default struct IHTMLHtmlElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_version := CallbackCreate(GetMethod(implObj, "put_version"), flags, 2)
-        this.vtbl.get_version := CallbackCreate(GetMethod(implObj, "get_version"), flags, 2)
+        this.vtbl.put_version := CallbackCreate(ObjBindMethod(implObj, "put_version"), flags, 2)
+        this.vtbl.get_version := CallbackCreate(ObjBindMethod(implObj, "get_version"), flags, 2)
     }
 
     Dispose() {

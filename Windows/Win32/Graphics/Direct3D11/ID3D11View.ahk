@@ -75,7 +75,7 @@ export default struct ID3D11View extends ID3D11DeviceChild {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetResource := CallbackCreate(GetMethod(implObj, "GetResource"), flags, 2)
+        this.vtbl.GetResource := CallbackCreate(ObjBindMethod(implObj, "GetResource"), flags, 2)
     }
 
     Dispose() {

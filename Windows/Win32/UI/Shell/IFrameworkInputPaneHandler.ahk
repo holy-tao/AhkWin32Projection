@@ -85,8 +85,8 @@ export default struct IFrameworkInputPaneHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Showing := CallbackCreate(GetMethod(implObj, "Showing"), flags, 3)
-        this.vtbl.Hiding := CallbackCreate(GetMethod(implObj, "Hiding"), flags, 2)
+        this.vtbl.Showing := CallbackCreate(ObjBindMethod(implObj, "Showing"), flags, 3)
+        this.vtbl.Hiding := CallbackCreate(ObjBindMethod(implObj, "Hiding"), flags, 2)
     }
 
     Dispose() {

@@ -127,7 +127,6 @@ export default struct IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -139,7 +138,6 @@ export default struct IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_href() {
@@ -149,7 +147,6 @@ export default struct IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -161,7 +158,6 @@ export default struct IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_protocol() {
@@ -171,7 +167,6 @@ export default struct IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -183,7 +178,6 @@ export default struct IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_host() {
@@ -193,7 +187,6 @@ export default struct IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -205,7 +198,6 @@ export default struct IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_hostname() {
@@ -215,7 +207,6 @@ export default struct IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -227,7 +218,6 @@ export default struct IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_port() {
@@ -237,7 +227,6 @@ export default struct IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -249,7 +238,6 @@ export default struct IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_pathname() {
@@ -259,7 +247,6 @@ export default struct IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -271,7 +258,6 @@ export default struct IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_search() {
@@ -281,7 +267,6 @@ export default struct IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -293,7 +278,6 @@ export default struct IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_hash() {
@@ -303,7 +287,6 @@ export default struct IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} flag 
      * @returns {HRESULT} 
      */
@@ -313,7 +296,6 @@ export default struct IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _bstr 
      * @returns {HRESULT} 
      */
@@ -325,7 +307,6 @@ export default struct IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _bstr 
      * @returns {HRESULT} 
      */
@@ -337,7 +318,6 @@ export default struct IHTMLLocation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     toString() {
@@ -355,26 +335,26 @@ export default struct IHTMLLocation extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_href := CallbackCreate(GetMethod(implObj, "put_href"), flags, 2)
-        this.vtbl.get_href := CallbackCreate(GetMethod(implObj, "get_href"), flags, 2)
-        this.vtbl.put_protocol := CallbackCreate(GetMethod(implObj, "put_protocol"), flags, 2)
-        this.vtbl.get_protocol := CallbackCreate(GetMethod(implObj, "get_protocol"), flags, 2)
-        this.vtbl.put_host := CallbackCreate(GetMethod(implObj, "put_host"), flags, 2)
-        this.vtbl.get_host := CallbackCreate(GetMethod(implObj, "get_host"), flags, 2)
-        this.vtbl.put_hostname := CallbackCreate(GetMethod(implObj, "put_hostname"), flags, 2)
-        this.vtbl.get_hostname := CallbackCreate(GetMethod(implObj, "get_hostname"), flags, 2)
-        this.vtbl.put_port := CallbackCreate(GetMethod(implObj, "put_port"), flags, 2)
-        this.vtbl.get_port := CallbackCreate(GetMethod(implObj, "get_port"), flags, 2)
-        this.vtbl.put_pathname := CallbackCreate(GetMethod(implObj, "put_pathname"), flags, 2)
-        this.vtbl.get_pathname := CallbackCreate(GetMethod(implObj, "get_pathname"), flags, 2)
-        this.vtbl.put_search := CallbackCreate(GetMethod(implObj, "put_search"), flags, 2)
-        this.vtbl.get_search := CallbackCreate(GetMethod(implObj, "get_search"), flags, 2)
-        this.vtbl.put_hash := CallbackCreate(GetMethod(implObj, "put_hash"), flags, 2)
-        this.vtbl.get_hash := CallbackCreate(GetMethod(implObj, "get_hash"), flags, 2)
-        this.vtbl.reload := CallbackCreate(GetMethod(implObj, "reload"), flags, 2)
-        this.vtbl.replace := CallbackCreate(GetMethod(implObj, "replace"), flags, 2)
-        this.vtbl.assign := CallbackCreate(GetMethod(implObj, "assign"), flags, 2)
-        this.vtbl.toString := CallbackCreate(GetMethod(implObj, "toString"), flags, 2)
+        this.vtbl.put_href := CallbackCreate(ObjBindMethod(implObj, "put_href"), flags, 2)
+        this.vtbl.get_href := CallbackCreate(ObjBindMethod(implObj, "get_href"), flags, 2)
+        this.vtbl.put_protocol := CallbackCreate(ObjBindMethod(implObj, "put_protocol"), flags, 2)
+        this.vtbl.get_protocol := CallbackCreate(ObjBindMethod(implObj, "get_protocol"), flags, 2)
+        this.vtbl.put_host := CallbackCreate(ObjBindMethod(implObj, "put_host"), flags, 2)
+        this.vtbl.get_host := CallbackCreate(ObjBindMethod(implObj, "get_host"), flags, 2)
+        this.vtbl.put_hostname := CallbackCreate(ObjBindMethod(implObj, "put_hostname"), flags, 2)
+        this.vtbl.get_hostname := CallbackCreate(ObjBindMethod(implObj, "get_hostname"), flags, 2)
+        this.vtbl.put_port := CallbackCreate(ObjBindMethod(implObj, "put_port"), flags, 2)
+        this.vtbl.get_port := CallbackCreate(ObjBindMethod(implObj, "get_port"), flags, 2)
+        this.vtbl.put_pathname := CallbackCreate(ObjBindMethod(implObj, "put_pathname"), flags, 2)
+        this.vtbl.get_pathname := CallbackCreate(ObjBindMethod(implObj, "get_pathname"), flags, 2)
+        this.vtbl.put_search := CallbackCreate(ObjBindMethod(implObj, "put_search"), flags, 2)
+        this.vtbl.get_search := CallbackCreate(ObjBindMethod(implObj, "get_search"), flags, 2)
+        this.vtbl.put_hash := CallbackCreate(ObjBindMethod(implObj, "put_hash"), flags, 2)
+        this.vtbl.get_hash := CallbackCreate(ObjBindMethod(implObj, "get_hash"), flags, 2)
+        this.vtbl.reload := CallbackCreate(ObjBindMethod(implObj, "reload"), flags, 2)
+        this.vtbl.replace := CallbackCreate(ObjBindMethod(implObj, "replace"), flags, 2)
+        this.vtbl.assign := CallbackCreate(ObjBindMethod(implObj, "assign"), flags, 2)
+        this.vtbl.toString := CallbackCreate(ObjBindMethod(implObj, "toString"), flags, 2)
     }
 
     Dispose() {

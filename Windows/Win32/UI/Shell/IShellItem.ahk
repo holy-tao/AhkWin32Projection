@@ -151,11 +151,11 @@ export default struct IShellItem extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BindToHandler := CallbackCreate(GetMethod(implObj, "BindToHandler"), flags, 5)
-        this.vtbl.GetParent := CallbackCreate(GetMethod(implObj, "GetParent"), flags, 2)
-        this.vtbl.GetDisplayName := CallbackCreate(GetMethod(implObj, "GetDisplayName"), flags, 3)
-        this.vtbl.GetAttributes := CallbackCreate(GetMethod(implObj, "GetAttributes"), flags, 3)
-        this.vtbl.Compare := CallbackCreate(GetMethod(implObj, "Compare"), flags, 4)
+        this.vtbl.BindToHandler := CallbackCreate(ObjBindMethod(implObj, "BindToHandler"), flags, 5)
+        this.vtbl.GetParent := CallbackCreate(ObjBindMethod(implObj, "GetParent"), flags, 2)
+        this.vtbl.GetDisplayName := CallbackCreate(ObjBindMethod(implObj, "GetDisplayName"), flags, 3)
+        this.vtbl.GetAttributes := CallbackCreate(ObjBindMethod(implObj, "GetAttributes"), flags, 3)
+        this.vtbl.Compare := CallbackCreate(ObjBindMethod(implObj, "Compare"), flags, 4)
     }
 
     Dispose() {

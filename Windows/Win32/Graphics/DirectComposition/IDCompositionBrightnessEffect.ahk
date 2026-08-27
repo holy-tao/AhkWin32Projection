@@ -200,16 +200,16 @@ export default struct IDCompositionBrightnessEffect extends IDCompositionFilterE
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetWhitePoint := CallbackCreate(GetMethod(implObj, "SetWhitePoint"), flags, 2)
-        this.vtbl.SetBlackPoint := CallbackCreate(GetMethod(implObj, "SetBlackPoint"), flags, 2)
-        this.vtbl.SetWhitePointX := CallbackCreate(GetMethod(implObj, "SetWhitePointX"), flags, 2)
-        this.vtbl.SetWhitePointX1 := CallbackCreate(GetMethod(implObj, "SetWhitePointX1"), flags, 2)
-        this.vtbl.SetWhitePointY := CallbackCreate(GetMethod(implObj, "SetWhitePointY"), flags, 2)
-        this.vtbl.SetWhitePointY1 := CallbackCreate(GetMethod(implObj, "SetWhitePointY1"), flags, 2)
-        this.vtbl.SetBlackPointX := CallbackCreate(GetMethod(implObj, "SetBlackPointX"), flags, 2)
-        this.vtbl.SetBlackPointX1 := CallbackCreate(GetMethod(implObj, "SetBlackPointX1"), flags, 2)
-        this.vtbl.SetBlackPointY := CallbackCreate(GetMethod(implObj, "SetBlackPointY"), flags, 2)
-        this.vtbl.SetBlackPointY1 := CallbackCreate(GetMethod(implObj, "SetBlackPointY1"), flags, 2)
+        this.vtbl.SetWhitePoint := CallbackCreate(ObjBindMethod(implObj, "SetWhitePoint"), flags, 2)
+        this.vtbl.SetBlackPoint := CallbackCreate(ObjBindMethod(implObj, "SetBlackPoint"), flags, 2)
+        this.vtbl.SetWhitePointX := CallbackCreate(ObjBindMethod(implObj, "SetWhitePointX"), flags, 2)
+        this.vtbl.SetWhitePointX1 := CallbackCreate(ObjBindMethod(implObj, "SetWhitePointX1"), flags, 2)
+        this.vtbl.SetWhitePointY := CallbackCreate(ObjBindMethod(implObj, "SetWhitePointY"), flags, 2)
+        this.vtbl.SetWhitePointY1 := CallbackCreate(ObjBindMethod(implObj, "SetWhitePointY1"), flags, 2)
+        this.vtbl.SetBlackPointX := CallbackCreate(ObjBindMethod(implObj, "SetBlackPointX"), flags, 2)
+        this.vtbl.SetBlackPointX1 := CallbackCreate(ObjBindMethod(implObj, "SetBlackPointX1"), flags, 2)
+        this.vtbl.SetBlackPointY := CallbackCreate(ObjBindMethod(implObj, "SetBlackPointY"), flags, 2)
+        this.vtbl.SetBlackPointY1 := CallbackCreate(ObjBindMethod(implObj, "SetBlackPointY1"), flags, 2)
     }
 
     Dispose() {

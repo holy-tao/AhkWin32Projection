@@ -1712,10 +1712,12 @@ export default struct ID3D11Device1 extends ID3D11Device {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11device1-createdevicecontextstate
      */
     CreateDeviceContextState(Flags, pFeatureLevels, FeatureLevels, SDKVersion, EmulatedInterface, pChosenFeatureLevel, ppContextState) {
-        pFeatureLevelsMarshal := pFeatureLevels is VarRef ? "int*" : "ptr"
-        pChosenFeatureLevelMarshal := pChosenFeatureLevel is VarRef ? "int*" : "ptr"
+        pFeatureLevelsMarshal := pFeatureLevels is VarRef ? "int*" : IntPtr
+        pChosenFeatureLevelMarshal := pChosenFeatureLevel is VarRef ? "int*" : IntPtr
+        pChosenFeatureLevelMarshal := pChosenFeatureLevel == 0 ? IntPtr : "int*"
+        ppContextStateMarshal := ppContextState == 0 ? IntPtr : ID3DDeviceContextState.Ptr
 
-        result := ComCall(47, this, UInt32, Flags, pFeatureLevelsMarshal, pFeatureLevels, UInt32, FeatureLevels, UInt32, SDKVersion, Guid.Ptr, EmulatedInterface, pChosenFeatureLevelMarshal, pChosenFeatureLevel, ID3DDeviceContextState.Ptr, ppContextState, "HRESULT")
+        result := ComCall(47, this, UInt32, Flags, pFeatureLevelsMarshal, pFeatureLevels, UInt32, FeatureLevels, UInt32, SDKVersion, Guid.Ptr, EmulatedInterface, pChosenFeatureLevelMarshal, pChosenFeatureLevel, ppContextStateMarshal, ppContextState, "HRESULT")
         return result
     }
 
@@ -1783,13 +1785,13 @@ export default struct ID3D11Device1 extends ID3D11Device {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetImmediateContext1 := CallbackCreate(GetMethod(implObj, "GetImmediateContext1"), flags, 2)
-        this.vtbl.CreateDeferredContext1 := CallbackCreate(GetMethod(implObj, "CreateDeferredContext1"), flags, 3)
-        this.vtbl.CreateBlendState1 := CallbackCreate(GetMethod(implObj, "CreateBlendState1"), flags, 3)
-        this.vtbl.CreateRasterizerState1 := CallbackCreate(GetMethod(implObj, "CreateRasterizerState1"), flags, 3)
-        this.vtbl.CreateDeviceContextState := CallbackCreate(GetMethod(implObj, "CreateDeviceContextState"), flags, 8)
-        this.vtbl.OpenSharedResource1 := CallbackCreate(GetMethod(implObj, "OpenSharedResource1"), flags, 4)
-        this.vtbl.OpenSharedResourceByName := CallbackCreate(GetMethod(implObj, "OpenSharedResourceByName"), flags, 5)
+        this.vtbl.GetImmediateContext1 := CallbackCreate(ObjBindMethod(implObj, "GetImmediateContext1"), flags, 2)
+        this.vtbl.CreateDeferredContext1 := CallbackCreate(ObjBindMethod(implObj, "CreateDeferredContext1"), flags, 3)
+        this.vtbl.CreateBlendState1 := CallbackCreate(ObjBindMethod(implObj, "CreateBlendState1"), flags, 3)
+        this.vtbl.CreateRasterizerState1 := CallbackCreate(ObjBindMethod(implObj, "CreateRasterizerState1"), flags, 3)
+        this.vtbl.CreateDeviceContextState := CallbackCreate(ObjBindMethod(implObj, "CreateDeviceContextState"), flags, 8)
+        this.vtbl.OpenSharedResource1 := CallbackCreate(ObjBindMethod(implObj, "OpenSharedResource1"), flags, 4)
+        this.vtbl.OpenSharedResourceByName := CallbackCreate(ObjBindMethod(implObj, "OpenSharedResourceByName"), flags, 5)
     }
 
     Dispose() {

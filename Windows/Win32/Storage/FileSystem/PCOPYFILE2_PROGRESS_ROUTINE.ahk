@@ -90,7 +90,6 @@ export default struct PCOPYFILE2_PROGRESS_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<COPYFILE2_MESSAGE>} pMessage Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-copyfile2_message">COPYFILE2_MESSAGE</a> structure.
      * @param {Pointer<Void>} pvCallbackContext Copy of value passed in the <b>pvCallbackContext</b> member of the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-copyfile2_extended_parameters">COPYFILE2_EXTENDED_PARAMETERS</a> structure 
@@ -183,7 +182,8 @@ export default struct PCOPYFILE2_PROGRESS_ROUTINE {
      * </table>
      */
     Call(pMessage, pvCallbackContext) {
-        pvCallbackContextMarshal := pvCallbackContext is VarRef ? "ptr" : "ptr"
+        pvCallbackContextMarshal := pvCallbackContext is VarRef ? "ptr" : IntPtr
+        pvCallbackContextMarshal := pvCallbackContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, COPYFILE2_MESSAGE.Ptr, pMessage, pvCallbackContextMarshal, pvCallbackContext, COPYFILE2_MESSAGE_ACTION)
         return result

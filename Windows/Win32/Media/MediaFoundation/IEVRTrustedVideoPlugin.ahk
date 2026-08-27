@@ -168,10 +168,10 @@ export default struct IEVRTrustedVideoPlugin extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsInTrustedVideoMode := CallbackCreate(GetMethod(implObj, "IsInTrustedVideoMode"), flags, 2)
-        this.vtbl.CanConstrict := CallbackCreate(GetMethod(implObj, "CanConstrict"), flags, 2)
-        this.vtbl.SetConstriction := CallbackCreate(GetMethod(implObj, "SetConstriction"), flags, 2)
-        this.vtbl.DisableImageExport := CallbackCreate(GetMethod(implObj, "DisableImageExport"), flags, 2)
+        this.vtbl.IsInTrustedVideoMode := CallbackCreate(ObjBindMethod(implObj, "IsInTrustedVideoMode"), flags, 2)
+        this.vtbl.CanConstrict := CallbackCreate(ObjBindMethod(implObj, "CanConstrict"), flags, 2)
+        this.vtbl.SetConstriction := CallbackCreate(ObjBindMethod(implObj, "SetConstriction"), flags, 2)
+        this.vtbl.DisableImageExport := CallbackCreate(ObjBindMethod(implObj, "DisableImageExport"), flags, 2)
     }
 
     Dispose() {

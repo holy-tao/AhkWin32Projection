@@ -20,7 +20,6 @@ export default struct PFND3DKMT_QUERYVIDEOMEMORYINFO {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_QUERYVIDEOMEMORYINFO>} param0 
      * @returns {NTSTATUS} 
      */

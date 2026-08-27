@@ -97,7 +97,9 @@ export default struct IShellImageDataFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedatafactory-createimagefromstream
      */
     CreateImageFromStream(pStream) {
-        result := ComCall(5, this, "ptr", pStream, "ptr*", &ppshimg := 0, "HRESULT")
+        pStreamMarshal := pStream == 0 ? IntPtr : "ptr"
+
+        result := ComCall(5, this, pStreamMarshal, pStream, "ptr*", &ppshimg := 0, "HRESULT")
         return IShellImageData(ppshimg)
     }
 
@@ -130,10 +132,10 @@ export default struct IShellImageDataFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateIShellImageData := CallbackCreate(GetMethod(implObj, "CreateIShellImageData"), flags, 2)
-        this.vtbl.CreateImageFromFile := CallbackCreate(GetMethod(implObj, "CreateImageFromFile"), flags, 3)
-        this.vtbl.CreateImageFromStream := CallbackCreate(GetMethod(implObj, "CreateImageFromStream"), flags, 3)
-        this.vtbl.GetDataFormatFromPath := CallbackCreate(GetMethod(implObj, "GetDataFormatFromPath"), flags, 3)
+        this.vtbl.CreateIShellImageData := CallbackCreate(ObjBindMethod(implObj, "CreateIShellImageData"), flags, 2)
+        this.vtbl.CreateImageFromFile := CallbackCreate(ObjBindMethod(implObj, "CreateImageFromFile"), flags, 3)
+        this.vtbl.CreateImageFromStream := CallbackCreate(ObjBindMethod(implObj, "CreateImageFromStream"), flags, 3)
+        this.vtbl.GetDataFormatFromPath := CallbackCreate(ObjBindMethod(implObj, "GetDataFormatFromPath"), flags, 3)
     }
 
     Dispose() {

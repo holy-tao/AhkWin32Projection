@@ -95,7 +95,7 @@ export default struct IShellItemImageFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetImage := CallbackCreate(GetMethod(implObj, "GetImage"), flags, 4)
+        this.vtbl.GetImage := CallbackCreate(ObjBindMethod(implObj, "GetImage"), flags, 4)
     }
 
     Dispose() {

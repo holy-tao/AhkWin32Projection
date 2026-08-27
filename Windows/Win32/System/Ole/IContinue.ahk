@@ -36,7 +36,6 @@ export default struct IContinue extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     FContinue() {
@@ -53,7 +52,7 @@ export default struct IContinue extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FContinue := CallbackCreate(GetMethod(implObj, "FContinue"), flags, 1)
+        this.vtbl.FContinue := CallbackCreate(ObjBindMethod(implObj, "FContinue"), flags, 1)
     }
 
     Dispose() {

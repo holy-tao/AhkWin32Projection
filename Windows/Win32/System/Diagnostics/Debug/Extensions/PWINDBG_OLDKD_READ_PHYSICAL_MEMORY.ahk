@@ -18,7 +18,6 @@ export default struct PWINDBG_OLDKD_READ_PHYSICAL_MEMORY {
     }
 
     /**
-     * 
      * @param {Integer} _address 
      * @param {Pointer<Void>} _buffer 
      * @param {Integer} count 
@@ -26,8 +25,8 @@ export default struct PWINDBG_OLDKD_READ_PHYSICAL_MEMORY {
      * @returns {Integer} 
      */
     Call(_address, _buffer, count, bytesread) {
-        _bufferMarshal := _buffer is VarRef ? "ptr" : "ptr"
-        bytesreadMarshal := bytesread is VarRef ? "uint*" : "ptr"
+        _bufferMarshal := _buffer is VarRef ? "ptr" : IntPtr
+        bytesreadMarshal := bytesread is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, Int64, _address, _bufferMarshal, _buffer, UInt32, count, bytesreadMarshal, bytesread, UInt32)
         return result

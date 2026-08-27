@@ -23,7 +23,6 @@ export default struct PGPE_CONNECT_VECTOR {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} param0 
      * @param {Integer} param1 
      * @param {KINTERRUPT_MODE} param2 
@@ -34,8 +33,8 @@ export default struct PGPE_CONNECT_VECTOR {
      * @returns {NTSTATUS} 
      */
     Call(param0, param1, param2, param3, param4, param5, param6) {
-        param5Marshal := param5 is VarRef ? "ptr" : "ptr"
-        param6Marshal := param6 is VarRef ? "ptr" : "ptr"
+        param5Marshal := param5 is VarRef ? "ptr" : IntPtr
+        param6Marshal := param6 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, DEVICE_OBJECT.Ptr, param0, UInt32, param1, KINTERRUPT_MODE, param2, BOOLEAN, param3, PGPE_SERVICE_ROUTINE, param4, param5Marshal, param5, param6Marshal, param6, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

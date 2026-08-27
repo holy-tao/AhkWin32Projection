@@ -127,7 +127,7 @@ export default struct IChangeConflict extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ichangeconflict-getresolveactionforchange
      */
     GetResolveActionForChange(pResolveAction) {
-        pResolveActionMarshal := pResolveAction is VarRef ? "int*" : "ptr"
+        pResolveActionMarshal := pResolveAction is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, pResolveActionMarshal, pResolveAction, "HRESULT")
         return result
@@ -223,7 +223,7 @@ export default struct IChangeConflict extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ichangeconflict-getresolveactionforchangeunit
      */
     GetResolveActionForChangeUnit(pChangeUnit, pResolveAction) {
-        pResolveActionMarshal := pResolveAction is VarRef ? "int*" : "ptr"
+        pResolveActionMarshal := pResolveAction is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, "ptr", pChangeUnit, pResolveActionMarshal, pResolveAction, "HRESULT")
         return result
@@ -294,14 +294,14 @@ export default struct IChangeConflict extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDestinationProviderConflictingChange := CallbackCreate(GetMethod(implObj, "GetDestinationProviderConflictingChange"), flags, 2)
-        this.vtbl.GetSourceProviderConflictingChange := CallbackCreate(GetMethod(implObj, "GetSourceProviderConflictingChange"), flags, 2)
-        this.vtbl.GetDestinationProviderConflictingData := CallbackCreate(GetMethod(implObj, "GetDestinationProviderConflictingData"), flags, 2)
-        this.vtbl.GetSourceProviderConflictingData := CallbackCreate(GetMethod(implObj, "GetSourceProviderConflictingData"), flags, 2)
-        this.vtbl.GetResolveActionForChange := CallbackCreate(GetMethod(implObj, "GetResolveActionForChange"), flags, 2)
-        this.vtbl.SetResolveActionForChange := CallbackCreate(GetMethod(implObj, "SetResolveActionForChange"), flags, 2)
-        this.vtbl.GetResolveActionForChangeUnit := CallbackCreate(GetMethod(implObj, "GetResolveActionForChangeUnit"), flags, 3)
-        this.vtbl.SetResolveActionForChangeUnit := CallbackCreate(GetMethod(implObj, "SetResolveActionForChangeUnit"), flags, 3)
+        this.vtbl.GetDestinationProviderConflictingChange := CallbackCreate(ObjBindMethod(implObj, "GetDestinationProviderConflictingChange"), flags, 2)
+        this.vtbl.GetSourceProviderConflictingChange := CallbackCreate(ObjBindMethod(implObj, "GetSourceProviderConflictingChange"), flags, 2)
+        this.vtbl.GetDestinationProviderConflictingData := CallbackCreate(ObjBindMethod(implObj, "GetDestinationProviderConflictingData"), flags, 2)
+        this.vtbl.GetSourceProviderConflictingData := CallbackCreate(ObjBindMethod(implObj, "GetSourceProviderConflictingData"), flags, 2)
+        this.vtbl.GetResolveActionForChange := CallbackCreate(ObjBindMethod(implObj, "GetResolveActionForChange"), flags, 2)
+        this.vtbl.SetResolveActionForChange := CallbackCreate(ObjBindMethod(implObj, "SetResolveActionForChange"), flags, 2)
+        this.vtbl.GetResolveActionForChangeUnit := CallbackCreate(ObjBindMethod(implObj, "GetResolveActionForChangeUnit"), flags, 3)
+        this.vtbl.SetResolveActionForChangeUnit := CallbackCreate(ObjBindMethod(implObj, "SetResolveActionForChangeUnit"), flags, 3)
     }
 
     Dispose() {

@@ -60,7 +60,6 @@ export default struct IADsFileService extends IADsService {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Description() {
@@ -70,7 +69,6 @@ export default struct IADsFileService extends IADsService {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDescription 
      * @returns {HRESULT} 
      */
@@ -82,7 +80,6 @@ export default struct IADsFileService extends IADsService {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MaxUserCount() {
@@ -91,7 +88,6 @@ export default struct IADsFileService extends IADsService {
     }
 
     /**
-     * 
      * @param {Integer} lnMaxUserCount 
      * @returns {HRESULT} 
      */
@@ -109,10 +105,10 @@ export default struct IADsFileService extends IADsService {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
-        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
-        this.vtbl.get_MaxUserCount := CallbackCreate(GetMethod(implObj, "get_MaxUserCount"), flags, 2)
-        this.vtbl.put_MaxUserCount := CallbackCreate(GetMethod(implObj, "put_MaxUserCount"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(ObjBindMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(ObjBindMethod(implObj, "put_Description"), flags, 2)
+        this.vtbl.get_MaxUserCount := CallbackCreate(ObjBindMethod(implObj, "get_MaxUserCount"), flags, 2)
+        this.vtbl.put_MaxUserCount := CallbackCreate(ObjBindMethod(implObj, "put_MaxUserCount"), flags, 2)
     }
 
     Dispose() {

@@ -18,12 +18,12 @@ export default struct JsBeforeCollectCallback {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} callbackState 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(callbackState) {
-        callbackStateMarshal := callbackState is VarRef ? "ptr" : "ptr"
+        callbackStateMarshal := callbackState is VarRef ? "ptr" : IntPtr
+        callbackStateMarshal := callbackState == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, callbackStateMarshal, callbackState)
     }

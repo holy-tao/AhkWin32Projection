@@ -20,14 +20,13 @@ export default struct PCOGETACTIVATIONSTATE {
     }
 
     /**
-     * 
      * @param {Guid} param0 
      * @param {Integer} param1 
      * @param {Pointer<Integer>} param2 
      * @returns {HRESULT} 
      */
     Call(param0, param1, param2) {
-        param2Marshal := param2 is VarRef ? "uint*" : "ptr"
+        param2Marshal := param2 is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, Guid, param0, UInt32, param1, param2Marshal, param2, "HRESULT")
         return result

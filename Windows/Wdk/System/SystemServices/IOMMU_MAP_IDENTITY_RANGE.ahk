@@ -21,14 +21,13 @@ export default struct IOMMU_MAP_IDENTITY_RANGE {
     }
 
     /**
-     * 
      * @param {Pointer<IOMMU_DMA_DOMAIN>} Domain 
      * @param {Integer} Permissions 
      * @param {Pointer<MDL>} _Mdl 
      * @returns {NTSTATUS} 
      */
     Call(Domain, Permissions, _Mdl) {
-        DomainMarshal := Domain is VarRef ? "ptr*" : "ptr"
+        DomainMarshal := Domain is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, DomainMarshal, Domain, UInt32, Permissions, MDL.Ptr, _Mdl, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

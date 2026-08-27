@@ -20,7 +20,6 @@ export default struct PFND3DKMT_ACQUIREKEYEDMUTEX {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_ACQUIREKEYEDMUTEX>} param0 
      * @returns {NTSTATUS} 
      */

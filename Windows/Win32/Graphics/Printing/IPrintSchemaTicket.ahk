@@ -55,7 +55,6 @@ export default struct IPrintSchemaTicket extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @param {BSTR} bstrKeyName 
      * @returns {IPrintSchemaFeature} 
      */
@@ -67,7 +66,6 @@ export default struct IPrintSchemaTicket extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrNamespaceUri 
      * @returns {IPrintSchemaFeature} 
@@ -81,7 +79,6 @@ export default struct IPrintSchemaTicket extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @returns {IPrintSchemaAsyncOperation} 
      */
     ValidateAsync() {
@@ -90,7 +87,6 @@ export default struct IPrintSchemaTicket extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @param {IPrintSchemaTicket} pPrintTicketCommit 
      * @returns {IPrintSchemaAsyncOperation} 
      */
@@ -100,7 +96,6 @@ export default struct IPrintSchemaTicket extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     NotifyXmlChanged() {
@@ -109,7 +104,6 @@ export default struct IPrintSchemaTicket extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @returns {IPrintSchemaCapabilities} 
      */
     GetCapabilities() {
@@ -118,7 +112,6 @@ export default struct IPrintSchemaTicket extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_JobCopiesAllDocuments() {
@@ -127,7 +120,6 @@ export default struct IPrintSchemaTicket extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @param {Integer} ulJobCopiesAllDocuments 
      * @returns {HRESULT} 
      */
@@ -145,14 +137,14 @@ export default struct IPrintSchemaTicket extends IPrintSchemaElement {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFeatureByKeyName := CallbackCreate(GetMethod(implObj, "GetFeatureByKeyName"), flags, 3)
-        this.vtbl.GetFeature := CallbackCreate(GetMethod(implObj, "GetFeature"), flags, 4)
-        this.vtbl.ValidateAsync := CallbackCreate(GetMethod(implObj, "ValidateAsync"), flags, 2)
-        this.vtbl.CommitAsync := CallbackCreate(GetMethod(implObj, "CommitAsync"), flags, 3)
-        this.vtbl.NotifyXmlChanged := CallbackCreate(GetMethod(implObj, "NotifyXmlChanged"), flags, 1)
-        this.vtbl.GetCapabilities := CallbackCreate(GetMethod(implObj, "GetCapabilities"), flags, 2)
-        this.vtbl.get_JobCopiesAllDocuments := CallbackCreate(GetMethod(implObj, "get_JobCopiesAllDocuments"), flags, 2)
-        this.vtbl.put_JobCopiesAllDocuments := CallbackCreate(GetMethod(implObj, "put_JobCopiesAllDocuments"), flags, 2)
+        this.vtbl.GetFeatureByKeyName := CallbackCreate(ObjBindMethod(implObj, "GetFeatureByKeyName"), flags, 3)
+        this.vtbl.GetFeature := CallbackCreate(ObjBindMethod(implObj, "GetFeature"), flags, 4)
+        this.vtbl.ValidateAsync := CallbackCreate(ObjBindMethod(implObj, "ValidateAsync"), flags, 2)
+        this.vtbl.CommitAsync := CallbackCreate(ObjBindMethod(implObj, "CommitAsync"), flags, 3)
+        this.vtbl.NotifyXmlChanged := CallbackCreate(ObjBindMethod(implObj, "NotifyXmlChanged"), flags, 1)
+        this.vtbl.GetCapabilities := CallbackCreate(ObjBindMethod(implObj, "GetCapabilities"), flags, 2)
+        this.vtbl.get_JobCopiesAllDocuments := CallbackCreate(ObjBindMethod(implObj, "get_JobCopiesAllDocuments"), flags, 2)
+        this.vtbl.put_JobCopiesAllDocuments := CallbackCreate(ObjBindMethod(implObj, "put_JobCopiesAllDocuments"), flags, 2)
     }
 
     Dispose() {

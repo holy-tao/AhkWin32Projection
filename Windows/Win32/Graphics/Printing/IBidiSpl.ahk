@@ -48,7 +48,6 @@ export default struct IBidiSpl extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszDeviceName 
      * @param {Integer} dwAccess 
      * @returns {HRESULT} 
@@ -61,7 +60,6 @@ export default struct IBidiSpl extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     UnbindDevice() {
@@ -70,7 +68,6 @@ export default struct IBidiSpl extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszAction 
      * @param {IBidiRequest} pRequest 
      * @returns {HRESULT} 
@@ -78,12 +75,13 @@ export default struct IBidiSpl extends IUnknown {
     SendRecv(pszAction, pRequest) {
         pszAction := pszAction is String ? StrPtr(pszAction) : pszAction
 
-        result := ComCall(5, this, "ptr", pszAction, "ptr", pRequest, "HRESULT")
+        pRequestMarshal := pRequest == 0 ? IntPtr : "ptr"
+
+        result := ComCall(5, this, "ptr", pszAction, pRequestMarshal, pRequest, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pszAction 
      * @param {IBidiRequestContainer} pRequestContainer 
      * @returns {HRESULT} 
@@ -91,7 +89,9 @@ export default struct IBidiSpl extends IUnknown {
     MultiSendRecv(pszAction, pRequestContainer) {
         pszAction := pszAction is String ? StrPtr(pszAction) : pszAction
 
-        result := ComCall(6, this, "ptr", pszAction, "ptr", pRequestContainer, "HRESULT")
+        pRequestContainerMarshal := pRequestContainer == 0 ? IntPtr : "ptr"
+
+        result := ComCall(6, this, "ptr", pszAction, pRequestContainerMarshal, pRequestContainer, "HRESULT")
         return result
     }
 
@@ -104,10 +104,10 @@ export default struct IBidiSpl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BindDevice := CallbackCreate(GetMethod(implObj, "BindDevice"), flags, 3)
-        this.vtbl.UnbindDevice := CallbackCreate(GetMethod(implObj, "UnbindDevice"), flags, 1)
-        this.vtbl.SendRecv := CallbackCreate(GetMethod(implObj, "SendRecv"), flags, 3)
-        this.vtbl.MultiSendRecv := CallbackCreate(GetMethod(implObj, "MultiSendRecv"), flags, 3)
+        this.vtbl.BindDevice := CallbackCreate(ObjBindMethod(implObj, "BindDevice"), flags, 3)
+        this.vtbl.UnbindDevice := CallbackCreate(ObjBindMethod(implObj, "UnbindDevice"), flags, 1)
+        this.vtbl.SendRecv := CallbackCreate(ObjBindMethod(implObj, "SendRecv"), flags, 3)
+        this.vtbl.MultiSendRecv := CallbackCreate(ObjBindMethod(implObj, "MultiSendRecv"), flags, 3)
     }
 
     Dispose() {

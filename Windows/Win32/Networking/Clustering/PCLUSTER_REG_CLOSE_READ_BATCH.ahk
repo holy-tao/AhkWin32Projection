@@ -20,13 +20,12 @@ export default struct PCLUSTER_REG_CLOSE_READ_BATCH {
     }
 
     /**
-     * 
      * @param {HREGREADBATCH} _hRegReadBatch 
      * @param {Pointer<HREGREADBATCHREPLY>} phRegReadBatchReply 
      * @returns {Integer} 
      */
     Call(_hRegReadBatch, phRegReadBatchReply) {
-        phRegReadBatchReplyMarshal := phRegReadBatchReply is VarRef ? "ptr*" : "ptr"
+        phRegReadBatchReplyMarshal := phRegReadBatchReply is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, HREGREADBATCH, _hRegReadBatch, phRegReadBatchReplyMarshal, phRegReadBatchReply, Int32)
         return result

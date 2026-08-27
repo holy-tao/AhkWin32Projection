@@ -20,7 +20,6 @@ export default struct PLSA_CALLBACK_FUNCTION {
     }
 
     /**
-     * 
      * @param {Pointer} Argument1 
      * @param {Pointer} Argument2 
      * @param {Pointer<SecBuffer>} InputBuffer 

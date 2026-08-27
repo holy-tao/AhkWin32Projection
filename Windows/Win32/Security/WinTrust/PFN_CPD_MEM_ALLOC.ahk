@@ -18,7 +18,6 @@ export default struct PFN_CPD_MEM_ALLOC {
     }
 
     /**
-     * 
      * @param {Integer} cbSize 
      * @returns {Pointer<Void>} 
      */

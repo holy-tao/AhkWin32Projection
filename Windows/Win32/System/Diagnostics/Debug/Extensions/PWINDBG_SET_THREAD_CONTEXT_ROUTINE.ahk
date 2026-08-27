@@ -19,7 +19,6 @@ export default struct PWINDBG_SET_THREAD_CONTEXT_ROUTINE {
     }
 
     /**
-     * 
      * @param {Integer} Processor 
      * @param {Pointer<CONTEXT>} lpContext 
      * @param {Integer} cbSizeOfContext 

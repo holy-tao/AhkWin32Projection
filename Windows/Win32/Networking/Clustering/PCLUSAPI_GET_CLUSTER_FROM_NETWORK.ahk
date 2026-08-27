@@ -20,7 +20,6 @@ export default struct PCLUSAPI_GET_CLUSTER_FROM_NETWORK {
     }
 
     /**
-     * 
      * @param {HNETWORK} _hNetwork 
      * @returns {HCLUSTER} 
      */

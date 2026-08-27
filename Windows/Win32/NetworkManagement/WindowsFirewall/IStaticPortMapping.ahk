@@ -627,17 +627,17 @@ export default struct IStaticPortMapping extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ExternalIPAddress := CallbackCreate(GetMethod(implObj, "get_ExternalIPAddress"), flags, 2)
-        this.vtbl.get_ExternalPort := CallbackCreate(GetMethod(implObj, "get_ExternalPort"), flags, 2)
-        this.vtbl.get_InternalPort := CallbackCreate(GetMethod(implObj, "get_InternalPort"), flags, 2)
-        this.vtbl.get_Protocol := CallbackCreate(GetMethod(implObj, "get_Protocol"), flags, 2)
-        this.vtbl.get_InternalClient := CallbackCreate(GetMethod(implObj, "get_InternalClient"), flags, 2)
-        this.vtbl.get_Enabled := CallbackCreate(GetMethod(implObj, "get_Enabled"), flags, 2)
-        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
-        this.vtbl.EditInternalClient := CallbackCreate(GetMethod(implObj, "EditInternalClient"), flags, 2)
-        this.vtbl.Enable := CallbackCreate(GetMethod(implObj, "Enable"), flags, 2)
-        this.vtbl.EditDescription := CallbackCreate(GetMethod(implObj, "EditDescription"), flags, 2)
-        this.vtbl.EditInternalPort := CallbackCreate(GetMethod(implObj, "EditInternalPort"), flags, 2)
+        this.vtbl.get_ExternalIPAddress := CallbackCreate(ObjBindMethod(implObj, "get_ExternalIPAddress"), flags, 2)
+        this.vtbl.get_ExternalPort := CallbackCreate(ObjBindMethod(implObj, "get_ExternalPort"), flags, 2)
+        this.vtbl.get_InternalPort := CallbackCreate(ObjBindMethod(implObj, "get_InternalPort"), flags, 2)
+        this.vtbl.get_Protocol := CallbackCreate(ObjBindMethod(implObj, "get_Protocol"), flags, 2)
+        this.vtbl.get_InternalClient := CallbackCreate(ObjBindMethod(implObj, "get_InternalClient"), flags, 2)
+        this.vtbl.get_Enabled := CallbackCreate(ObjBindMethod(implObj, "get_Enabled"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(ObjBindMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.EditInternalClient := CallbackCreate(ObjBindMethod(implObj, "EditInternalClient"), flags, 2)
+        this.vtbl.Enable := CallbackCreate(ObjBindMethod(implObj, "Enable"), flags, 2)
+        this.vtbl.EditDescription := CallbackCreate(ObjBindMethod(implObj, "EditDescription"), flags, 2)
+        this.vtbl.EditInternalPort := CallbackCreate(ObjBindMethod(implObj, "EditInternalPort"), flags, 2)
     }
 
     Dispose() {

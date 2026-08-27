@@ -36,7 +36,6 @@ export default struct LPFN_RIODEREGISTERBUFFER {
     }
 
     /**
-     * 
      * @param {RIO_BUFFERID} BufferId A descriptor identifying a registered buffer.
      * @returns {String} Nothing - always returns an empty string
      */

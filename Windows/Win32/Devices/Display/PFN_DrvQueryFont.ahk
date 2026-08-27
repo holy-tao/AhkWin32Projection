@@ -20,7 +20,6 @@ export default struct PFN_DrvQueryFont {
     }
 
     /**
-     * 
      * @param {DHPDEV} param0 
      * @param {Pointer} param1 
      * @param {Integer} param2 
@@ -28,7 +27,7 @@ export default struct PFN_DrvQueryFont {
      * @returns {Pointer<IFIMETRICS>} 
      */
     Call(param0, param1, param2, param3) {
-        param3Marshal := param3 is VarRef ? "ptr*" : "ptr"
+        param3Marshal := param3 is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, DHPDEV, param0, IntPtr, param1, UInt32, param2, param3Marshal, param3, IFIMETRICS.Ptr)
         return result

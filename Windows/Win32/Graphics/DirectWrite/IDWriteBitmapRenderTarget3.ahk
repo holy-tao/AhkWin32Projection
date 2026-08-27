@@ -45,7 +45,6 @@ export default struct IDWriteBitmapRenderTarget3 extends IDWriteBitmapRenderTarg
     }
 
     /**
-     * 
      * @returns {DWRITE_PAINT_FEATURE_LEVEL} 
      */
     GetPaintFeatureLevel() {
@@ -54,7 +53,6 @@ export default struct IDWriteBitmapRenderTarget3 extends IDWriteBitmapRenderTarg
     }
 
     /**
-     * 
      * @param {Float} baselineOriginX 
      * @param {Float} baselineOriginY 
      * @param {DWRITE_MEASURING_MODE} measuringMode 
@@ -71,7 +69,6 @@ export default struct IDWriteBitmapRenderTarget3 extends IDWriteBitmapRenderTarg
     }
 
     /**
-     * 
      * @param {Float} baselineOriginX 
      * @param {Float} baselineOriginY 
      * @param {DWRITE_MEASURING_MODE} measuringMode 
@@ -96,9 +93,9 @@ export default struct IDWriteBitmapRenderTarget3 extends IDWriteBitmapRenderTarg
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPaintFeatureLevel := CallbackCreate(GetMethod(implObj, "GetPaintFeatureLevel"), flags, 1)
-        this.vtbl.DrawPaintGlyphRun := CallbackCreate(GetMethod(implObj, "DrawPaintGlyphRun"), flags, 9)
-        this.vtbl.DrawGlyphRunWithColorSupport := CallbackCreate(GetMethod(implObj, "DrawGlyphRunWithColorSupport"), flags, 9)
+        this.vtbl.GetPaintFeatureLevel := CallbackCreate(ObjBindMethod(implObj, "GetPaintFeatureLevel"), flags, 1)
+        this.vtbl.DrawPaintGlyphRun := CallbackCreate(ObjBindMethod(implObj, "DrawPaintGlyphRun"), flags, 9)
+        this.vtbl.DrawGlyphRunWithColorSupport := CallbackCreate(ObjBindMethod(implObj, "DrawGlyphRunWithColorSupport"), flags, 9)
     }
 
     Dispose() {

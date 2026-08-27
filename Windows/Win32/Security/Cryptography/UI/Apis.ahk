@@ -78,10 +78,12 @@
 export CryptUIDlgViewContext(dwContextType, pvContext, _hwnd, pwszTitle, dwFlags, pvReserved) {
     pwszTitle := pwszTitle is String ? StrPtr(pwszTitle) : pwszTitle
 
-    pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
-    pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
+    pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
+    _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+    pwszTitleMarshal := pwszTitle == 0 ? IntPtr : PWSTR
+    pvReservedMarshal := pvReserved is VarRef ? "ptr" : IntPtr
 
-    result := DllCall("CRYPTUI.dll\CryptUIDlgViewContext", UInt32, dwContextType, pvContextMarshal, pvContext, HWND, _hwnd, "ptr", pwszTitle, UInt32, dwFlags, pvReservedMarshal, pvReserved, BOOL)
+    result := DllCall("CRYPTUI.dll\CryptUIDlgViewContext", UInt32, dwContextType, pvContextMarshal, pvContext, _hwndMarshal, _hwnd, pwszTitleMarshal, pwszTitle, UInt32, dwFlags, pvReservedMarshal, pvReserved, BOOL)
     return result
 }
 
@@ -173,9 +175,12 @@ export CryptUIDlgSelectCertificateFromStore(_hCertStore, _hwnd, pwszTitle, pwszD
     pwszTitle := pwszTitle is String ? StrPtr(pwszTitle) : pwszTitle
     pwszDisplayString := pwszDisplayString is String ? StrPtr(pwszDisplayString) : pwszDisplayString
 
-    pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
+    _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+    pwszTitleMarshal := pwszTitle == 0 ? IntPtr : PWSTR
+    pwszDisplayStringMarshal := pwszDisplayString == 0 ? IntPtr : PWSTR
+    pvReservedMarshal := pvReserved is VarRef ? "ptr" : IntPtr
 
-    result := DllCall("CRYPTUI.dll\CryptUIDlgSelectCertificateFromStore", HCERTSTORE, _hCertStore, HWND, _hwnd, "ptr", pwszTitle, "ptr", pwszDisplayString, UInt32, dwDontUseColumn, UInt32, dwFlags, pvReservedMarshal, pvReserved, CERT_CONTEXT.Ptr)
+    result := DllCall("CRYPTUI.dll\CryptUIDlgSelectCertificateFromStore", HCERTSTORE, _hCertStore, _hwndMarshal, _hwnd, pwszTitleMarshal, pwszTitle, pwszDisplayStringMarshal, pwszDisplayString, UInt32, dwDontUseColumn, UInt32, dwFlags, pvReservedMarshal, pvReserved, CERT_CONTEXT.Ptr)
     return result
 }
 
@@ -259,8 +264,8 @@ export CryptUIDlgSelectCertificateFromStore(_hCertStore, _hwnd, pwszTitle, pwszD
  * @since windows6.1
  */
 export CertSelectionGetSerializedBlob(pcsi, ppOutBuffer, pulOutBufferSize) {
-    ppOutBufferMarshal := ppOutBuffer is VarRef ? "ptr*" : "ptr"
-    pulOutBufferSizeMarshal := pulOutBufferSize is VarRef ? "uint*" : "ptr"
+    ppOutBufferMarshal := ppOutBuffer is VarRef ? "ptr*" : IntPtr
+    pulOutBufferSizeMarshal := pulOutBufferSize is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CRYPTUI.dll\CertSelectionGetSerializedBlob", CERT_SELECTUI_INPUT.Ptr, pcsi, ppOutBufferMarshal, ppOutBuffer, pulOutBufferSizeMarshal, pulOutBufferSize, "HRESULT")
     return result
@@ -312,9 +317,12 @@ export CryptUIDlgCertMgr(pCryptUICertMgr) {
 export CryptUIWizDigitalSign(dwFlags, hwndParent, pwszWizardTitle, pDigitalSignInfo, ppSignContext) {
     pwszWizardTitle := pwszWizardTitle is String ? StrPtr(pwszWizardTitle) : pwszWizardTitle
 
-    ppSignContextMarshal := ppSignContext is VarRef ? "ptr*" : "ptr"
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+    pwszWizardTitleMarshal := pwszWizardTitle == 0 ? IntPtr : PWSTR
+    ppSignContextMarshal := ppSignContext is VarRef ? "ptr*" : IntPtr
+    ppSignContextMarshal := ppSignContext == 0 ? IntPtr : "ptr*"
 
-    result := DllCall("CRYPTUI.dll\CryptUIWizDigitalSign", UInt32, dwFlags, HWND, hwndParent, "ptr", pwszWizardTitle, CRYPTUI_WIZ_DIGITAL_SIGN_INFO.Ptr, pDigitalSignInfo, ppSignContextMarshal, ppSignContext, BOOL)
+    result := DllCall("CRYPTUI.dll\CryptUIWizDigitalSign", UInt32, dwFlags, hwndParentMarshal, hwndParent, pwszWizardTitleMarshal, pwszWizardTitle, CRYPTUI_WIZ_DIGITAL_SIGN_INFO.Ptr, pDigitalSignInfo, ppSignContextMarshal, ppSignContext, BOOL)
     return result
 }
 
@@ -347,7 +355,7 @@ export CryptUIWizFreeDigitalSignContext(pSignContext) {
  * @since windows5.1.2600
  */
 export CryptUIDlgViewCertificateW(pCertViewInfo, pfPropertiesChanged) {
-    pfPropertiesChangedMarshal := pfPropertiesChanged is VarRef ? "int*" : "ptr"
+    pfPropertiesChangedMarshal := pfPropertiesChanged is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
@@ -374,7 +382,7 @@ export CryptUIDlgViewCertificateW(pCertViewInfo, pfPropertiesChanged) {
  * @since windows5.1.2600
  */
 export CryptUIDlgViewCertificateA(pCertViewInfo, pfPropertiesChanged) {
-    pfPropertiesChangedMarshal := pfPropertiesChanged is VarRef ? "int*" : "ptr"
+    pfPropertiesChangedMarshal := pfPropertiesChanged is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
@@ -405,11 +413,14 @@ export CryptUIDlgViewCertificateA(pCertViewInfo, pfPropertiesChanged) {
 export CryptUIWizExport(dwFlags, hwndParent, pwszWizardTitle, pExportInfo, pvoid) {
     pwszWizardTitle := pwszWizardTitle is String ? StrPtr(pwszWizardTitle) : pwszWizardTitle
 
-    pvoidMarshal := pvoid is VarRef ? "ptr" : "ptr"
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+    pwszWizardTitleMarshal := pwszWizardTitle == 0 ? IntPtr : PWSTR
+    pvoidMarshal := pvoid is VarRef ? "ptr" : IntPtr
+    pvoidMarshal := pvoid == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
-    result := DllCall("CRYPTUI.dll\CryptUIWizExport", CRYPTUI_WIZ_FLAGS, dwFlags, HWND, hwndParent, "ptr", pwszWizardTitle, CRYPTUI_WIZ_EXPORT_INFO.Ptr, pExportInfo, pvoidMarshal, pvoid, BOOL)
+    result := DllCall("CRYPTUI.dll\CryptUIWizExport", CRYPTUI_WIZ_FLAGS, dwFlags, hwndParentMarshal, hwndParent, pwszWizardTitleMarshal, pwszWizardTitle, CRYPTUI_WIZ_EXPORT_INFO.Ptr, pExportInfo, pvoidMarshal, pvoid, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -450,9 +461,14 @@ export CryptUIWizExport(dwFlags, hwndParent, pwszWizardTitle, pExportInfo, pvoid
 export CryptUIWizImport(dwFlags, hwndParent, pwszWizardTitle, pImportSrc, hDestCertStore) {
     pwszWizardTitle := pwszWizardTitle is String ? StrPtr(pwszWizardTitle) : pwszWizardTitle
 
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+    pwszWizardTitleMarshal := pwszWizardTitle == 0 ? IntPtr : PWSTR
+    pImportSrcMarshal := pImportSrc == 0 ? IntPtr : CRYPTUI_WIZ_IMPORT_SRC_INFO.Ptr
+    hDestCertStoreMarshal := hDestCertStore == 0 ? IntPtr : HCERTSTORE
+
     A_LastError := 0
 
-    result := DllCall("CRYPTUI.dll\CryptUIWizImport", CRYPTUI_WIZ_FLAGS, dwFlags, HWND, hwndParent, "ptr", pwszWizardTitle, CRYPTUI_WIZ_IMPORT_SRC_INFO.Ptr, pImportSrc, HCERTSTORE, hDestCertStore, BOOL)
+    result := DllCall("CRYPTUI.dll\CryptUIWizImport", CRYPTUI_WIZ_FLAGS, dwFlags, hwndParentMarshal, hwndParent, pwszWizardTitleMarshal, pwszWizardTitle, pImportSrcMarshal, pImportSrc, hDestCertStoreMarshal, hDestCertStore, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }

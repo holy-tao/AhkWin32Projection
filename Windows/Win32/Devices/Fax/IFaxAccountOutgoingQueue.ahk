@@ -85,8 +85,8 @@ export default struct IFaxAccountOutgoingQueue extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetJobs := CallbackCreate(GetMethod(implObj, "GetJobs"), flags, 2)
-        this.vtbl.GetJob := CallbackCreate(GetMethod(implObj, "GetJob"), flags, 3)
+        this.vtbl.GetJobs := CallbackCreate(ObjBindMethod(implObj, "GetJobs"), flags, 2)
+        this.vtbl.GetJob := CallbackCreate(ObjBindMethod(implObj, "GetJob"), flags, 3)
     }
 
     Dispose() {

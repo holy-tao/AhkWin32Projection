@@ -20,7 +20,6 @@ export default struct PRESUTIL_GET_RESOURCE_NAME_DEPENDENCY {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszResourceName 
      * @param {PWSTR} lpszResourceType 
      * @returns {HRESOURCE} 

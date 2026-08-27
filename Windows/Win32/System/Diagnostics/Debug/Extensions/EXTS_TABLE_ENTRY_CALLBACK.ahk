@@ -19,13 +19,13 @@ export default struct EXTS_TABLE_ENTRY_CALLBACK {
     }
 
     /**
-     * 
      * @param {Integer} Entry 
      * @param {Pointer<Void>} _Context 
      * @returns {BOOLEAN} 
      */
     Call(Entry, _Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, Int64, Entry, _ContextMarshal, _Context, BOOLEAN)
         return result

@@ -36,7 +36,6 @@ export default struct IMFFaceDetectionTransformCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} countOfBounds 
      * @param {Pointer<DetectedFaceBound>} detectedFaceBounds 
      * @returns {String} Nothing - always returns an empty string
@@ -54,7 +53,7 @@ export default struct IMFFaceDetectionTransformCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnFaceDetectionResult := CallbackCreate(GetMethod(implObj, "OnFaceDetectionResult"), flags, 3)
+        this.vtbl.OnFaceDetectionResult := CallbackCreate(ObjBindMethod(implObj, "OnFaceDetectionResult"), flags, 3)
     }
 
     Dispose() {

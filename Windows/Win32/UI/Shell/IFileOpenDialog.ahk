@@ -92,8 +92,8 @@ export default struct IFileOpenDialog extends IFileDialog {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetResults := CallbackCreate(GetMethod(implObj, "GetResults"), flags, 2)
-        this.vtbl.GetSelectedItems := CallbackCreate(GetMethod(implObj, "GetSelectedItems"), flags, 2)
+        this.vtbl.GetResults := CallbackCreate(ObjBindMethod(implObj, "GetResults"), flags, 2)
+        this.vtbl.GetSelectedItems := CallbackCreate(ObjBindMethod(implObj, "GetSelectedItems"), flags, 2)
     }
 
     Dispose() {

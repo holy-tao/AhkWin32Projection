@@ -20,7 +20,6 @@ export default struct PFN_D3D12_CREATE_VERSIONED_ROOT_SIGNATURE_DESERIALIZER {
     }
 
     /**
-     * 
      * @param {Integer} pSrcData 
      * @param {Pointer} SrcDataSizeInBytes 
      * @param {Pointer<Guid>} pRootSignatureDeserializerInterface 

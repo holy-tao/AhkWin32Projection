@@ -159,7 +159,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     GetInterrupt() {
@@ -168,7 +167,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @returns {HRESULT} 
      */
@@ -178,7 +176,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetInterruptTimeout() {
@@ -187,7 +184,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Seconds 
      * @returns {HRESULT} 
      */
@@ -197,7 +193,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @param {Pointer<Integer>} FileSize 
@@ -207,15 +202,16 @@ export default struct IDebugControl3 extends IUnknown {
     GetLogFile(_Buffer, BufferSize, FileSize, Append) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        FileSizeMarshal := FileSize is VarRef ? "uint*" : "ptr"
-        AppendMarshal := Append is VarRef ? "int*" : "ptr"
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PSTR
+        FileSizeMarshal := FileSize is VarRef ? "uint*" : IntPtr
+        FileSizeMarshal := FileSize == 0 ? IntPtr : "uint*"
+        AppendMarshal := Append is VarRef ? "int*" : IntPtr
 
-        result := ComCall(7, this, "ptr", _Buffer, UInt32, BufferSize, FileSizeMarshal, FileSize, AppendMarshal, Append, "HRESULT")
+        result := ComCall(7, this, _BufferMarshal, _Buffer, UInt32, BufferSize, FileSizeMarshal, FileSize, AppendMarshal, Append, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PSTR} _File 
      * @param {BOOL} Append 
      * @returns {HRESULT} 
@@ -228,7 +224,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CloseLogFile() {
@@ -237,7 +232,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetLogMask() {
@@ -246,7 +240,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Mask 
      * @returns {HRESULT} 
      */
@@ -270,7 +263,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _Buffer 
      * @returns {HRESULT} 
      */
@@ -282,7 +274,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Mask 
      * @param {PSTR} Format 
      * @returns {HRESULT} 
@@ -295,7 +286,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Mask 
      * @param {PSTR} Format 
      * @param {Pointer<Integer>} Args 
@@ -304,14 +294,13 @@ export default struct IDebugControl3 extends IUnknown {
     OutputVaList(Mask, Format, Args) {
         Format := Format is String ? StrPtr(Format) : Format
 
-        ArgsMarshal := Args is VarRef ? "char*" : "ptr"
+        ArgsMarshal := Args is VarRef ? "char*" : IntPtr
 
         result := ComCall(15, this, UInt32, Mask, "ptr", Format, ArgsMarshal, Args, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {Integer} Mask 
      * @param {PSTR} Format 
@@ -325,7 +314,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {Integer} Mask 
      * @param {PSTR} Format 
@@ -335,14 +323,13 @@ export default struct IDebugControl3 extends IUnknown {
     ControlledOutputVaList(OutputControl, Mask, Format, Args) {
         Format := Format is String ? StrPtr(Format) : Format
 
-        ArgsMarshal := Args is VarRef ? "char*" : "ptr"
+        ArgsMarshal := Args is VarRef ? "char*" : IntPtr
 
         result := ComCall(17, this, UInt32, OutputControl, UInt32, Mask, "ptr", Format, ArgsMarshal, Args, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {PSTR} Format 
      * @returns {HRESULT} 
@@ -350,12 +337,13 @@ export default struct IDebugControl3 extends IUnknown {
     OutputPrompt(OutputControl, Format) {
         Format := Format is String ? StrPtr(Format) : Format
 
-        result := ComCall(18, this, UInt32, OutputControl, "ptr", Format, "HRESULT")
+        FormatMarshal := Format == 0 ? IntPtr : PSTR
+
+        result := ComCall(18, this, UInt32, OutputControl, FormatMarshal, Format, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {PSTR} Format 
      * @param {Pointer<Integer>} Args 
@@ -364,14 +352,14 @@ export default struct IDebugControl3 extends IUnknown {
     OutputPromptVaList(OutputControl, Format, Args) {
         Format := Format is String ? StrPtr(Format) : Format
 
-        ArgsMarshal := Args is VarRef ? "char*" : "ptr"
+        FormatMarshal := Format == 0 ? IntPtr : PSTR
+        ArgsMarshal := Args is VarRef ? "char*" : IntPtr
 
-        result := ComCall(19, this, UInt32, OutputControl, "ptr", Format, ArgsMarshal, Args, "HRESULT")
+        result := ComCall(19, this, UInt32, OutputControl, FormatMarshal, Format, ArgsMarshal, Args, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -379,12 +367,13 @@ export default struct IDebugControl3 extends IUnknown {
     GetPromptText(_Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(20, this, "ptr", _Buffer, UInt32, BufferSize, "uint*", &TextSize := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PSTR
+
+        result := ComCall(20, this, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &TextSize := 0, "HRESULT")
         return TextSize
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {Integer} Flags 
      * @returns {HRESULT} 
@@ -395,7 +384,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @returns {HRESULT} 
      */
@@ -415,7 +403,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Handle 
      * @returns {HRESULT} 
      */
@@ -425,7 +412,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {PSTR} Instr 
      * @returns {Integer} 
@@ -438,7 +424,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} Flags 
      * @param {PSTR} _Buffer 
@@ -450,15 +435,16 @@ export default struct IDebugControl3 extends IUnknown {
     Disassemble(Offset, Flags, _Buffer, BufferSize, DisassemblySize, EndOffset) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        DisassemblySizeMarshal := DisassemblySize is VarRef ? "uint*" : "ptr"
-        EndOffsetMarshal := EndOffset is VarRef ? "uint*" : "ptr"
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PSTR
+        DisassemblySizeMarshal := DisassemblySize is VarRef ? "uint*" : IntPtr
+        DisassemblySizeMarshal := DisassemblySize == 0 ? IntPtr : "uint*"
+        EndOffsetMarshal := EndOffset is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(26, this, Int64, Offset, UInt32, Flags, "ptr", _Buffer, UInt32, BufferSize, DisassemblySizeMarshal, DisassemblySize, EndOffsetMarshal, EndOffset, "HRESULT")
+        result := ComCall(26, this, Int64, Offset, UInt32, Flags, _BufferMarshal, _Buffer, UInt32, BufferSize, DisassemblySizeMarshal, DisassemblySize, EndOffsetMarshal, EndOffset, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetDisassembleEffectiveOffset() {
@@ -467,7 +453,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {Integer} Offset 
      * @param {Integer} Flags 
@@ -479,7 +464,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {Integer} PreviousLines 
      * @param {Integer} TotalLines 
@@ -492,17 +476,20 @@ export default struct IDebugControl3 extends IUnknown {
      * @returns {HRESULT} 
      */
     OutputDisassemblyLines(OutputControl, PreviousLines, TotalLines, Offset, Flags, OffsetLine, StartOffset, EndOffset, LineOffsets) {
-        OffsetLineMarshal := OffsetLine is VarRef ? "uint*" : "ptr"
-        StartOffsetMarshal := StartOffset is VarRef ? "uint*" : "ptr"
-        EndOffsetMarshal := EndOffset is VarRef ? "uint*" : "ptr"
-        LineOffsetsMarshal := LineOffsets is VarRef ? "uint*" : "ptr"
+        OffsetLineMarshal := OffsetLine is VarRef ? "uint*" : IntPtr
+        OffsetLineMarshal := OffsetLine == 0 ? IntPtr : "uint*"
+        StartOffsetMarshal := StartOffset is VarRef ? "uint*" : IntPtr
+        StartOffsetMarshal := StartOffset == 0 ? IntPtr : "uint*"
+        EndOffsetMarshal := EndOffset is VarRef ? "uint*" : IntPtr
+        EndOffsetMarshal := EndOffset == 0 ? IntPtr : "uint*"
+        LineOffsetsMarshal := LineOffsets is VarRef ? "uint*" : IntPtr
+        LineOffsetsMarshal := LineOffsets == 0 ? IntPtr : "uint*"
 
         result := ComCall(29, this, UInt32, OutputControl, UInt32, PreviousLines, UInt32, TotalLines, Int64, Offset, UInt32, Flags, OffsetLineMarshal, OffsetLine, StartOffsetMarshal, StartOffset, EndOffsetMarshal, EndOffset, LineOffsetsMarshal, LineOffsets, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} Delta 
      * @returns {Integer} 
@@ -513,7 +500,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} FrameOffset 
      * @param {Integer} StackOffset 
      * @param {Integer} InstructionOffset 
@@ -523,14 +509,14 @@ export default struct IDebugControl3 extends IUnknown {
      * @returns {HRESULT} 
      */
     GetStackTrace(FrameOffset, StackOffset, InstructionOffset, Frames, FramesSize, FramesFilled) {
-        FramesFilledMarshal := FramesFilled is VarRef ? "uint*" : "ptr"
+        FramesFilledMarshal := FramesFilled is VarRef ? "uint*" : IntPtr
+        FramesFilledMarshal := FramesFilled == 0 ? IntPtr : "uint*"
 
         result := ComCall(31, this, Int64, FrameOffset, Int64, StackOffset, Int64, InstructionOffset, DEBUG_STACK_FRAME.Ptr, Frames, UInt32, FramesSize, FramesFilledMarshal, FramesFilled, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetReturnOffset() {
@@ -539,7 +525,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {Pointer<DEBUG_STACK_FRAME>} Frames 
      * @param {Integer} FramesSize 
@@ -547,26 +532,26 @@ export default struct IDebugControl3 extends IUnknown {
      * @returns {HRESULT} 
      */
     OutputStackTrace(OutputControl, Frames, FramesSize, Flags) {
-        result := ComCall(33, this, UInt32, OutputControl, DEBUG_STACK_FRAME.Ptr, Frames, UInt32, FramesSize, UInt32, Flags, "HRESULT")
+        FramesMarshal := Frames == 0 ? IntPtr : DEBUG_STACK_FRAME.Ptr
+
+        result := ComCall(33, this, UInt32, OutputControl, FramesMarshal, Frames, UInt32, FramesSize, UInt32, Flags, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} _Class 
      * @param {Pointer<Integer>} Qualifier 
      * @returns {HRESULT} 
      */
     GetDebuggeeType(_Class, Qualifier) {
-        _ClassMarshal := _Class is VarRef ? "uint*" : "ptr"
-        QualifierMarshal := Qualifier is VarRef ? "uint*" : "ptr"
+        _ClassMarshal := _Class is VarRef ? "uint*" : IntPtr
+        QualifierMarshal := Qualifier is VarRef ? "uint*" : IntPtr
 
         result := ComCall(34, this, _ClassMarshal, _Class, QualifierMarshal, Qualifier, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetActualProcessorType() {
@@ -575,7 +560,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetExecutingProcessorType() {
@@ -584,7 +568,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberPossibleExecutingProcessorTypes() {
@@ -593,7 +576,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Start 
      * @param {Integer} Count 
      * @returns {Integer} 
@@ -604,7 +586,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberProcessors() {
@@ -613,7 +594,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} _PlatformId 
      * @param {Pointer<Integer>} Major 
      * @param {Pointer<Integer>} Minor 
@@ -630,19 +610,22 @@ export default struct IDebugControl3 extends IUnknown {
         ServicePackString := ServicePackString is String ? StrPtr(ServicePackString) : ServicePackString
         BuildString := BuildString is String ? StrPtr(BuildString) : BuildString
 
-        _PlatformIdMarshal := _PlatformId is VarRef ? "uint*" : "ptr"
-        MajorMarshal := Major is VarRef ? "uint*" : "ptr"
-        MinorMarshal := Minor is VarRef ? "uint*" : "ptr"
-        ServicePackStringUsedMarshal := ServicePackStringUsed is VarRef ? "uint*" : "ptr"
-        ServicePackNumberMarshal := ServicePackNumber is VarRef ? "uint*" : "ptr"
-        BuildStringUsedMarshal := BuildStringUsed is VarRef ? "uint*" : "ptr"
+        _PlatformIdMarshal := _PlatformId is VarRef ? "uint*" : IntPtr
+        MajorMarshal := Major is VarRef ? "uint*" : IntPtr
+        MinorMarshal := Minor is VarRef ? "uint*" : IntPtr
+        ServicePackStringMarshal := ServicePackString == 0 ? IntPtr : PSTR
+        ServicePackStringUsedMarshal := ServicePackStringUsed is VarRef ? "uint*" : IntPtr
+        ServicePackStringUsedMarshal := ServicePackStringUsed == 0 ? IntPtr : "uint*"
+        ServicePackNumberMarshal := ServicePackNumber is VarRef ? "uint*" : IntPtr
+        BuildStringMarshal := BuildString == 0 ? IntPtr : PSTR
+        BuildStringUsedMarshal := BuildStringUsed is VarRef ? "uint*" : IntPtr
+        BuildStringUsedMarshal := BuildStringUsed == 0 ? IntPtr : "uint*"
 
-        result := ComCall(40, this, _PlatformIdMarshal, _PlatformId, MajorMarshal, Major, MinorMarshal, Minor, "ptr", ServicePackString, UInt32, ServicePackStringSize, ServicePackStringUsedMarshal, ServicePackStringUsed, ServicePackNumberMarshal, ServicePackNumber, "ptr", BuildString, UInt32, BuildStringSize, BuildStringUsedMarshal, BuildStringUsed, "HRESULT")
+        result := ComCall(40, this, _PlatformIdMarshal, _PlatformId, MajorMarshal, Major, MinorMarshal, Minor, ServicePackStringMarshal, ServicePackString, UInt32, ServicePackStringSize, ServicePackStringUsedMarshal, ServicePackStringUsed, ServicePackNumberMarshal, ServicePackNumber, BuildStringMarshal, BuildString, UInt32, BuildStringSize, BuildStringUsedMarshal, BuildStringUsed, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetPageSize() {
@@ -651,7 +634,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     IsPointer64Bit() {
@@ -660,7 +642,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} Code 
      * @param {Pointer<Integer>} Arg1 
      * @param {Pointer<Integer>} Arg2 
@@ -669,18 +650,17 @@ export default struct IDebugControl3 extends IUnknown {
      * @returns {HRESULT} 
      */
     ReadBugCheckData(Code, Arg1, Arg2, Arg3, Arg4) {
-        CodeMarshal := Code is VarRef ? "uint*" : "ptr"
-        Arg1Marshal := Arg1 is VarRef ? "uint*" : "ptr"
-        Arg2Marshal := Arg2 is VarRef ? "uint*" : "ptr"
-        Arg3Marshal := Arg3 is VarRef ? "uint*" : "ptr"
-        Arg4Marshal := Arg4 is VarRef ? "uint*" : "ptr"
+        CodeMarshal := Code is VarRef ? "uint*" : IntPtr
+        Arg1Marshal := Arg1 is VarRef ? "uint*" : IntPtr
+        Arg2Marshal := Arg2 is VarRef ? "uint*" : IntPtr
+        Arg3Marshal := Arg3 is VarRef ? "uint*" : IntPtr
+        Arg4Marshal := Arg4 is VarRef ? "uint*" : IntPtr
 
         result := ComCall(43, this, CodeMarshal, Code, Arg1Marshal, Arg1, Arg2Marshal, Arg2, Arg3Marshal, Arg3, Arg4Marshal, Arg4, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberSupportedProcessorTypes() {
@@ -689,7 +669,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Start 
      * @param {Integer} Count 
      * @returns {Integer} 
@@ -700,7 +679,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Type 
      * @param {PSTR} FullNameBuffer 
      * @param {Integer} FullNameBufferSize 
@@ -714,15 +692,18 @@ export default struct IDebugControl3 extends IUnknown {
         FullNameBuffer := FullNameBuffer is String ? StrPtr(FullNameBuffer) : FullNameBuffer
         AbbrevNameBuffer := AbbrevNameBuffer is String ? StrPtr(AbbrevNameBuffer) : AbbrevNameBuffer
 
-        FullNameSizeMarshal := FullNameSize is VarRef ? "uint*" : "ptr"
-        AbbrevNameSizeMarshal := AbbrevNameSize is VarRef ? "uint*" : "ptr"
+        FullNameBufferMarshal := FullNameBuffer == 0 ? IntPtr : PSTR
+        FullNameSizeMarshal := FullNameSize is VarRef ? "uint*" : IntPtr
+        FullNameSizeMarshal := FullNameSize == 0 ? IntPtr : "uint*"
+        AbbrevNameBufferMarshal := AbbrevNameBuffer == 0 ? IntPtr : PSTR
+        AbbrevNameSizeMarshal := AbbrevNameSize is VarRef ? "uint*" : IntPtr
+        AbbrevNameSizeMarshal := AbbrevNameSize == 0 ? IntPtr : "uint*"
 
-        result := ComCall(46, this, UInt32, Type, "ptr", FullNameBuffer, UInt32, FullNameBufferSize, FullNameSizeMarshal, FullNameSize, "ptr", AbbrevNameBuffer, UInt32, AbbrevNameBufferSize, AbbrevNameSizeMarshal, AbbrevNameSize, "HRESULT")
+        result := ComCall(46, this, UInt32, Type, FullNameBufferMarshal, FullNameBuffer, UInt32, FullNameBufferSize, FullNameSizeMarshal, FullNameSize, AbbrevNameBufferMarshal, AbbrevNameBuffer, UInt32, AbbrevNameBufferSize, AbbrevNameSizeMarshal, AbbrevNameSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetEffectiveProcessorType() {
@@ -731,7 +712,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Type 
      * @returns {HRESULT} 
      */
@@ -741,7 +721,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetExecutionStatus() {
@@ -750,7 +729,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Status 
      * @returns {HRESULT} 
      */
@@ -760,7 +738,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCodeLevel() {
@@ -769,7 +746,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Level 
      * @returns {HRESULT} 
      */
@@ -779,7 +755,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetEngineOptions() {
@@ -788,7 +763,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
@@ -798,7 +772,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
@@ -808,7 +781,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
@@ -818,21 +790,19 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} OutputLevel 
      * @param {Pointer<Integer>} BreakLevel 
      * @returns {HRESULT} 
      */
     GetSystemErrorControl(OutputLevel, BreakLevel) {
-        OutputLevelMarshal := OutputLevel is VarRef ? "uint*" : "ptr"
-        BreakLevelMarshal := BreakLevel is VarRef ? "uint*" : "ptr"
+        OutputLevelMarshal := OutputLevel is VarRef ? "uint*" : IntPtr
+        BreakLevelMarshal := BreakLevel is VarRef ? "uint*" : IntPtr
 
         result := ComCall(57, this, OutputLevelMarshal, OutputLevel, BreakLevelMarshal, BreakLevel, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} OutputLevel 
      * @param {Integer} BreakLevel 
      * @returns {HRESULT} 
@@ -843,7 +813,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Slot 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
@@ -852,12 +821,13 @@ export default struct IDebugControl3 extends IUnknown {
     GetTextMacro(Slot, _Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(59, this, UInt32, Slot, "ptr", _Buffer, UInt32, BufferSize, "uint*", &MacroSize := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PSTR
+
+        result := ComCall(59, this, UInt32, Slot, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &MacroSize := 0, "HRESULT")
         return MacroSize
     }
 
     /**
-     * 
      * @param {Integer} Slot 
      * @param {PSTR} Macro 
      * @returns {HRESULT} 
@@ -870,7 +840,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetRadix() {
@@ -879,7 +848,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Radix 
      * @returns {HRESULT} 
      */
@@ -889,7 +857,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Expression 
      * @param {Integer} DesiredType 
      * @param {Pointer<DEBUG_VALUE>} Value 
@@ -899,14 +866,14 @@ export default struct IDebugControl3 extends IUnknown {
     Evaluate(Expression, DesiredType, Value, RemainderIndex) {
         Expression := Expression is String ? StrPtr(Expression) : Expression
 
-        RemainderIndexMarshal := RemainderIndex is VarRef ? "uint*" : "ptr"
+        RemainderIndexMarshal := RemainderIndex is VarRef ? "uint*" : IntPtr
+        RemainderIndexMarshal := RemainderIndex == 0 ? IntPtr : "uint*"
 
         result := ComCall(63, this, "ptr", Expression, UInt32, DesiredType, DEBUG_VALUE.Ptr, Value, RemainderIndexMarshal, RemainderIndex, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<DEBUG_VALUE>} _In 
      * @param {Integer} OutType 
      * @returns {DEBUG_VALUE} 
@@ -918,14 +885,13 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Count 
      * @param {Pointer<DEBUG_VALUE>} _In 
      * @param {Pointer<Integer>} OutTypes 
      * @returns {DEBUG_VALUE} 
      */
     CoerceValues(Count, _In, OutTypes) {
-        OutTypesMarshal := OutTypes is VarRef ? "uint*" : "ptr"
+        OutTypesMarshal := OutTypes is VarRef ? "uint*" : IntPtr
 
         Out := DEBUG_VALUE()
         result := ComCall(65, this, UInt32, Count, DEBUG_VALUE.Ptr, _In, OutTypesMarshal, OutTypes, DEBUG_VALUE.Ptr, Out, "HRESULT")
@@ -933,7 +899,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {PSTR} Command 
      * @param {Integer} Flags 
@@ -947,7 +912,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {PSTR} CommandFile 
      * @param {Integer} Flags 
@@ -961,7 +925,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberBreakpoints() {
@@ -970,7 +933,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {IDebugBreakpoint} 
      */
@@ -980,7 +942,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Id 
      * @returns {IDebugBreakpoint} 
      */
@@ -990,14 +951,14 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Count 
      * @param {Pointer<Integer>} Ids 
      * @param {Integer} Start 
      * @returns {DEBUG_BREAKPOINT_PARAMETERS} 
      */
     GetBreakpointParameters(Count, Ids, Start) {
-        IdsMarshal := Ids is VarRef ? "uint*" : "ptr"
+        IdsMarshal := Ids is VarRef ? "uint*" : IntPtr
+        IdsMarshal := Ids == 0 ? IntPtr : "uint*"
 
         Params := DEBUG_BREAKPOINT_PARAMETERS()
         result := ComCall(71, this, UInt32, Count, IdsMarshal, Ids, UInt32, Start, DEBUG_BREAKPOINT_PARAMETERS.Ptr, Params, "HRESULT")
@@ -1005,7 +966,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Type 
      * @param {Integer} DesiredId 
      * @returns {IDebugBreakpoint} 
@@ -1016,7 +976,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugBreakpoint} Bp 
      * @returns {HRESULT} 
      */
@@ -1026,7 +985,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _Path 
      * @param {Integer} Flags 
      * @returns {Integer} 
@@ -1039,7 +997,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Handle 
      * @returns {HRESULT} 
      */
@@ -1049,7 +1006,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _Path 
      * @returns {Integer} 
      */
@@ -1061,7 +1017,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Handle 
      * @param {PSTR} Function 
      * @param {PSTR} Arguments 
@@ -1071,12 +1026,13 @@ export default struct IDebugControl3 extends IUnknown {
         Function := Function is String ? StrPtr(Function) : Function
         Arguments := Arguments is String ? StrPtr(Arguments) : Arguments
 
-        result := ComCall(77, this, Int64, _Handle, "ptr", Function, "ptr", Arguments, "HRESULT")
+        ArgumentsMarshal := Arguments == 0 ? IntPtr : PSTR
+
+        result := ComCall(77, this, Int64, _Handle, "ptr", Function, ArgumentsMarshal, Arguments, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} _Handle 
      * @param {PSTR} FuncName 
      * @returns {Pointer<FARPROC>} 
@@ -1089,7 +1045,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<WINDBG_EXTENSION_APIS32>} Api 
      * @returns {HRESULT} 
      */
@@ -1099,7 +1054,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<WINDBG_EXTENSION_APIS64>} Api 
      * @returns {HRESULT} 
      */
@@ -1109,23 +1063,21 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} SpecificEvents 
      * @param {Pointer<Integer>} SpecificExceptions 
      * @param {Pointer<Integer>} ArbitraryExceptions 
      * @returns {HRESULT} 
      */
     GetNumberEventFilters(SpecificEvents, SpecificExceptions, ArbitraryExceptions) {
-        SpecificEventsMarshal := SpecificEvents is VarRef ? "uint*" : "ptr"
-        SpecificExceptionsMarshal := SpecificExceptions is VarRef ? "uint*" : "ptr"
-        ArbitraryExceptionsMarshal := ArbitraryExceptions is VarRef ? "uint*" : "ptr"
+        SpecificEventsMarshal := SpecificEvents is VarRef ? "uint*" : IntPtr
+        SpecificExceptionsMarshal := SpecificExceptions is VarRef ? "uint*" : IntPtr
+        ArbitraryExceptionsMarshal := ArbitraryExceptions is VarRef ? "uint*" : IntPtr
 
         result := ComCall(81, this, SpecificEventsMarshal, SpecificEvents, SpecificExceptionsMarshal, SpecificExceptions, ArbitraryExceptionsMarshal, ArbitraryExceptions, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
@@ -1134,12 +1086,13 @@ export default struct IDebugControl3 extends IUnknown {
     GetEventFilterText(Index, _Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(82, this, UInt32, Index, "ptr", _Buffer, UInt32, BufferSize, "uint*", &TextSize := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PSTR
+
+        result := ComCall(82, this, UInt32, Index, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &TextSize := 0, "HRESULT")
         return TextSize
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
@@ -1148,12 +1101,13 @@ export default struct IDebugControl3 extends IUnknown {
     GetEventFilterCommand(Index, _Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(83, this, UInt32, Index, "ptr", _Buffer, UInt32, BufferSize, "uint*", &CommandSize := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PSTR
+
+        result := ComCall(83, this, UInt32, Index, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &CommandSize := 0, "HRESULT")
         return CommandSize
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {PSTR} Command 
      * @returns {HRESULT} 
@@ -1166,7 +1120,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Start 
      * @param {Integer} Count 
      * @returns {DEBUG_SPECIFIC_FILTER_PARAMETERS} 
@@ -1178,7 +1131,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Start 
      * @param {Integer} Count 
      * @param {Pointer<DEBUG_SPECIFIC_FILTER_PARAMETERS>} Params 
@@ -1190,7 +1142,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
@@ -1199,12 +1150,13 @@ export default struct IDebugControl3 extends IUnknown {
     GetSpecificFilterArgument(Index, _Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(87, this, UInt32, Index, "ptr", _Buffer, UInt32, BufferSize, "uint*", &ArgumentSize := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PSTR
+
+        result := ComCall(87, this, UInt32, Index, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &ArgumentSize := 0, "HRESULT")
         return ArgumentSize
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {PSTR} Argument 
      * @returns {HRESULT} 
@@ -1217,14 +1169,14 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Count 
      * @param {Pointer<Integer>} Codes 
      * @param {Integer} Start 
      * @returns {DEBUG_EXCEPTION_FILTER_PARAMETERS} 
      */
     GetExceptionFilterParameters(Count, Codes, Start) {
-        CodesMarshal := Codes is VarRef ? "uint*" : "ptr"
+        CodesMarshal := Codes is VarRef ? "uint*" : IntPtr
+        CodesMarshal := Codes == 0 ? IntPtr : "uint*"
 
         Params := DEBUG_EXCEPTION_FILTER_PARAMETERS()
         result := ComCall(89, this, UInt32, Count, CodesMarshal, Codes, UInt32, Start, DEBUG_EXCEPTION_FILTER_PARAMETERS.Ptr, Params, "HRESULT")
@@ -1232,7 +1184,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Count 
      * @param {Pointer<DEBUG_EXCEPTION_FILTER_PARAMETERS>} Params 
      * @returns {HRESULT} 
@@ -1243,7 +1194,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
@@ -1252,12 +1202,13 @@ export default struct IDebugControl3 extends IUnknown {
     GetExceptionFilterSecondCommand(Index, _Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(91, this, UInt32, Index, "ptr", _Buffer, UInt32, BufferSize, "uint*", &CommandSize := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PSTR
+
+        result := ComCall(91, this, UInt32, Index, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &CommandSize := 0, "HRESULT")
         return CommandSize
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {PSTR} Command 
      * @returns {HRESULT} 
@@ -1270,7 +1221,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @param {Integer} Timeout 
      * @returns {HRESULT} 
@@ -1281,7 +1231,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} Type 
      * @param {Pointer<Integer>} ProcessId 
      * @param {Pointer<Integer>} ThreadId 
@@ -1296,18 +1245,21 @@ export default struct IDebugControl3 extends IUnknown {
     GetLastEventInformation(Type, ProcessId, ThreadId, ExtraInformation, ExtraInformationSize, ExtraInformationUsed, Description, DescriptionSize, DescriptionUsed) {
         Description := Description is String ? StrPtr(Description) : Description
 
-        TypeMarshal := Type is VarRef ? "uint*" : "ptr"
-        ProcessIdMarshal := ProcessId is VarRef ? "uint*" : "ptr"
-        ThreadIdMarshal := ThreadId is VarRef ? "uint*" : "ptr"
-        ExtraInformationUsedMarshal := ExtraInformationUsed is VarRef ? "uint*" : "ptr"
-        DescriptionUsedMarshal := DescriptionUsed is VarRef ? "uint*" : "ptr"
+        TypeMarshal := Type is VarRef ? "uint*" : IntPtr
+        ProcessIdMarshal := ProcessId is VarRef ? "uint*" : IntPtr
+        ThreadIdMarshal := ThreadId is VarRef ? "uint*" : IntPtr
+        ExtraInformationMarshal := ExtraInformation == 0 ? IntPtr : IntPtr
+        ExtraInformationUsedMarshal := ExtraInformationUsed is VarRef ? "uint*" : IntPtr
+        ExtraInformationUsedMarshal := ExtraInformationUsed == 0 ? IntPtr : "uint*"
+        DescriptionMarshal := Description == 0 ? IntPtr : PSTR
+        DescriptionUsedMarshal := DescriptionUsed is VarRef ? "uint*" : IntPtr
+        DescriptionUsedMarshal := DescriptionUsed == 0 ? IntPtr : "uint*"
 
-        result := ComCall(94, this, TypeMarshal, Type, ProcessIdMarshal, ProcessId, ThreadIdMarshal, ThreadId, IntPtr, ExtraInformation, UInt32, ExtraInformationSize, ExtraInformationUsedMarshal, ExtraInformationUsed, "ptr", Description, UInt32, DescriptionSize, DescriptionUsedMarshal, DescriptionUsed, "HRESULT")
+        result := ComCall(94, this, TypeMarshal, Type, ProcessIdMarshal, ProcessId, ThreadIdMarshal, ThreadId, ExtraInformationMarshal, ExtraInformation, UInt32, ExtraInformationSize, ExtraInformationUsedMarshal, ExtraInformationUsed, DescriptionMarshal, Description, UInt32, DescriptionSize, DescriptionUsedMarshal, DescriptionUsed, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentTimeDate() {
@@ -1316,7 +1268,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentSystemUpTime() {
@@ -1325,7 +1276,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetDumpFormatFlags() {
@@ -1334,7 +1284,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberTextReplacements() {
@@ -1343,7 +1292,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} SrcText 
      * @param {Integer} Index 
      * @param {PSTR} SrcBuffer 
@@ -1359,15 +1307,19 @@ export default struct IDebugControl3 extends IUnknown {
         SrcBuffer := SrcBuffer is String ? StrPtr(SrcBuffer) : SrcBuffer
         DstBuffer := DstBuffer is String ? StrPtr(DstBuffer) : DstBuffer
 
-        SrcSizeMarshal := SrcSize is VarRef ? "uint*" : "ptr"
-        DstSizeMarshal := DstSize is VarRef ? "uint*" : "ptr"
+        SrcTextMarshal := SrcText == 0 ? IntPtr : PSTR
+        SrcBufferMarshal := SrcBuffer == 0 ? IntPtr : PSTR
+        SrcSizeMarshal := SrcSize is VarRef ? "uint*" : IntPtr
+        SrcSizeMarshal := SrcSize == 0 ? IntPtr : "uint*"
+        DstBufferMarshal := DstBuffer == 0 ? IntPtr : PSTR
+        DstSizeMarshal := DstSize is VarRef ? "uint*" : IntPtr
+        DstSizeMarshal := DstSize == 0 ? IntPtr : "uint*"
 
-        result := ComCall(99, this, "ptr", SrcText, UInt32, Index, "ptr", SrcBuffer, UInt32, SrcBufferSize, SrcSizeMarshal, SrcSize, "ptr", DstBuffer, UInt32, DstBufferSize, DstSizeMarshal, DstSize, "HRESULT")
+        result := ComCall(99, this, SrcTextMarshal, SrcText, UInt32, Index, SrcBufferMarshal, SrcBuffer, UInt32, SrcBufferSize, SrcSizeMarshal, SrcSize, DstBufferMarshal, DstBuffer, UInt32, DstBufferSize, DstSizeMarshal, DstSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PSTR} SrcText 
      * @param {PSTR} DstText 
      * @returns {HRESULT} 
@@ -1376,12 +1328,13 @@ export default struct IDebugControl3 extends IUnknown {
         SrcText := SrcText is String ? StrPtr(SrcText) : SrcText
         DstText := DstText is String ? StrPtr(DstText) : DstText
 
-        result := ComCall(100, this, "ptr", SrcText, "ptr", DstText, "HRESULT")
+        DstTextMarshal := DstText == 0 ? IntPtr : PSTR
+
+        result := ComCall(100, this, "ptr", SrcText, DstTextMarshal, DstText, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RemoveTextReplacements() {
@@ -1390,7 +1343,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {Integer} Flags 
      * @returns {HRESULT} 
@@ -1401,7 +1353,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetAssemblyOptions() {
@@ -1410,7 +1361,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
@@ -1420,7 +1370,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
@@ -1430,7 +1379,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
@@ -1440,7 +1388,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetExpressionSyntax() {
@@ -1449,7 +1396,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @returns {HRESULT} 
      */
@@ -1459,7 +1405,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} AbbrevName 
      * @returns {HRESULT} 
      */
@@ -1471,7 +1416,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberExpressionSyntaxes() {
@@ -1480,7 +1424,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {PSTR} FullNameBuffer 
      * @param {Integer} FullNameBufferSize 
@@ -1494,15 +1437,18 @@ export default struct IDebugControl3 extends IUnknown {
         FullNameBuffer := FullNameBuffer is String ? StrPtr(FullNameBuffer) : FullNameBuffer
         AbbrevNameBuffer := AbbrevNameBuffer is String ? StrPtr(AbbrevNameBuffer) : AbbrevNameBuffer
 
-        FullNameSizeMarshal := FullNameSize is VarRef ? "uint*" : "ptr"
-        AbbrevNameSizeMarshal := AbbrevNameSize is VarRef ? "uint*" : "ptr"
+        FullNameBufferMarshal := FullNameBuffer == 0 ? IntPtr : PSTR
+        FullNameSizeMarshal := FullNameSize is VarRef ? "uint*" : IntPtr
+        FullNameSizeMarshal := FullNameSize == 0 ? IntPtr : "uint*"
+        AbbrevNameBufferMarshal := AbbrevNameBuffer == 0 ? IntPtr : PSTR
+        AbbrevNameSizeMarshal := AbbrevNameSize is VarRef ? "uint*" : IntPtr
+        AbbrevNameSizeMarshal := AbbrevNameSize == 0 ? IntPtr : "uint*"
 
-        result := ComCall(111, this, UInt32, Index, "ptr", FullNameBuffer, UInt32, FullNameBufferSize, FullNameSizeMarshal, FullNameSize, "ptr", AbbrevNameBuffer, UInt32, AbbrevNameBufferSize, AbbrevNameSizeMarshal, AbbrevNameSize, "HRESULT")
+        result := ComCall(111, this, UInt32, Index, FullNameBufferMarshal, FullNameBuffer, UInt32, FullNameBufferSize, FullNameSizeMarshal, FullNameSize, AbbrevNameBufferMarshal, AbbrevNameBuffer, UInt32, AbbrevNameBufferSize, AbbrevNameSizeMarshal, AbbrevNameSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberEvents() {
@@ -1511,7 +1457,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {Integer} Which 
      * @param {PSTR} _Buffer 
@@ -1521,12 +1466,13 @@ export default struct IDebugControl3 extends IUnknown {
     GetEventIndexDescription(Index, Which, _Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(113, this, UInt32, Index, UInt32, Which, "ptr", _Buffer, UInt32, BufferSize, "uint*", &DescSize := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PSTR
+
+        result := ComCall(113, this, UInt32, Index, UInt32, Which, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &DescSize := 0, "HRESULT")
         return DescSize
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentEventIndex() {
@@ -1535,7 +1481,6 @@ export default struct IDebugControl3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Relation 
      * @param {Integer} Value 
      * @returns {Integer} 
@@ -1554,119 +1499,119 @@ export default struct IDebugControl3 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetInterrupt := CallbackCreate(GetMethod(implObj, "GetInterrupt"), flags, 1)
-        this.vtbl.SetInterrupt := CallbackCreate(GetMethod(implObj, "SetInterrupt"), flags, 2)
-        this.vtbl.GetInterruptTimeout := CallbackCreate(GetMethod(implObj, "GetInterruptTimeout"), flags, 2)
-        this.vtbl.SetInterruptTimeout := CallbackCreate(GetMethod(implObj, "SetInterruptTimeout"), flags, 2)
-        this.vtbl.GetLogFile := CallbackCreate(GetMethod(implObj, "GetLogFile"), flags, 5)
-        this.vtbl.OpenLogFile := CallbackCreate(GetMethod(implObj, "OpenLogFile"), flags, 3)
-        this.vtbl.CloseLogFile := CallbackCreate(GetMethod(implObj, "CloseLogFile"), flags, 1)
-        this.vtbl.GetLogMask := CallbackCreate(GetMethod(implObj, "GetLogMask"), flags, 2)
-        this.vtbl.SetLogMask := CallbackCreate(GetMethod(implObj, "SetLogMask"), flags, 2)
-        this.vtbl.Input := CallbackCreate(GetMethod(implObj, "Input"), flags, 4)
-        this.vtbl.ReturnInput := CallbackCreate(GetMethod(implObj, "ReturnInput"), flags, 2)
-        this.vtbl.Output := CallbackCreate(GetMethod(implObj, "Output"), flags, 3)
-        this.vtbl.OutputVaList := CallbackCreate(GetMethod(implObj, "OutputVaList"), flags, 4)
-        this.vtbl.ControlledOutput := CallbackCreate(GetMethod(implObj, "ControlledOutput"), flags, 4)
-        this.vtbl.ControlledOutputVaList := CallbackCreate(GetMethod(implObj, "ControlledOutputVaList"), flags, 5)
-        this.vtbl.OutputPrompt := CallbackCreate(GetMethod(implObj, "OutputPrompt"), flags, 3)
-        this.vtbl.OutputPromptVaList := CallbackCreate(GetMethod(implObj, "OutputPromptVaList"), flags, 4)
-        this.vtbl.GetPromptText := CallbackCreate(GetMethod(implObj, "GetPromptText"), flags, 4)
-        this.vtbl.OutputCurrentState := CallbackCreate(GetMethod(implObj, "OutputCurrentState"), flags, 3)
-        this.vtbl.OutputVersionInformation := CallbackCreate(GetMethod(implObj, "OutputVersionInformation"), flags, 2)
-        this.vtbl.GetNotifyEventHandle := CallbackCreate(GetMethod(implObj, "GetNotifyEventHandle"), flags, 2)
-        this.vtbl.SetNotifyEventHandle := CallbackCreate(GetMethod(implObj, "SetNotifyEventHandle"), flags, 2)
-        this.vtbl.Assemble := CallbackCreate(GetMethod(implObj, "Assemble"), flags, 4)
-        this.vtbl.Disassemble := CallbackCreate(GetMethod(implObj, "Disassemble"), flags, 7)
-        this.vtbl.GetDisassembleEffectiveOffset := CallbackCreate(GetMethod(implObj, "GetDisassembleEffectiveOffset"), flags, 2)
-        this.vtbl.OutputDisassembly := CallbackCreate(GetMethod(implObj, "OutputDisassembly"), flags, 5)
-        this.vtbl.OutputDisassemblyLines := CallbackCreate(GetMethod(implObj, "OutputDisassemblyLines"), flags, 10)
-        this.vtbl.GetNearInstruction := CallbackCreate(GetMethod(implObj, "GetNearInstruction"), flags, 4)
-        this.vtbl.GetStackTrace := CallbackCreate(GetMethod(implObj, "GetStackTrace"), flags, 7)
-        this.vtbl.GetReturnOffset := CallbackCreate(GetMethod(implObj, "GetReturnOffset"), flags, 2)
-        this.vtbl.OutputStackTrace := CallbackCreate(GetMethod(implObj, "OutputStackTrace"), flags, 5)
-        this.vtbl.GetDebuggeeType := CallbackCreate(GetMethod(implObj, "GetDebuggeeType"), flags, 3)
-        this.vtbl.GetActualProcessorType := CallbackCreate(GetMethod(implObj, "GetActualProcessorType"), flags, 2)
-        this.vtbl.GetExecutingProcessorType := CallbackCreate(GetMethod(implObj, "GetExecutingProcessorType"), flags, 2)
-        this.vtbl.GetNumberPossibleExecutingProcessorTypes := CallbackCreate(GetMethod(implObj, "GetNumberPossibleExecutingProcessorTypes"), flags, 2)
-        this.vtbl.GetPossibleExecutingProcessorTypes := CallbackCreate(GetMethod(implObj, "GetPossibleExecutingProcessorTypes"), flags, 4)
-        this.vtbl.GetNumberProcessors := CallbackCreate(GetMethod(implObj, "GetNumberProcessors"), flags, 2)
-        this.vtbl.GetSystemVersion := CallbackCreate(GetMethod(implObj, "GetSystemVersion"), flags, 11)
-        this.vtbl.GetPageSize := CallbackCreate(GetMethod(implObj, "GetPageSize"), flags, 2)
-        this.vtbl.IsPointer64Bit := CallbackCreate(GetMethod(implObj, "IsPointer64Bit"), flags, 1)
-        this.vtbl.ReadBugCheckData := CallbackCreate(GetMethod(implObj, "ReadBugCheckData"), flags, 6)
-        this.vtbl.GetNumberSupportedProcessorTypes := CallbackCreate(GetMethod(implObj, "GetNumberSupportedProcessorTypes"), flags, 2)
-        this.vtbl.GetSupportedProcessorTypes := CallbackCreate(GetMethod(implObj, "GetSupportedProcessorTypes"), flags, 4)
-        this.vtbl.GetProcessorTypeNames := CallbackCreate(GetMethod(implObj, "GetProcessorTypeNames"), flags, 8)
-        this.vtbl.GetEffectiveProcessorType := CallbackCreate(GetMethod(implObj, "GetEffectiveProcessorType"), flags, 2)
-        this.vtbl.SetEffectiveProcessorType := CallbackCreate(GetMethod(implObj, "SetEffectiveProcessorType"), flags, 2)
-        this.vtbl.GetExecutionStatus := CallbackCreate(GetMethod(implObj, "GetExecutionStatus"), flags, 2)
-        this.vtbl.SetExecutionStatus := CallbackCreate(GetMethod(implObj, "SetExecutionStatus"), flags, 2)
-        this.vtbl.GetCodeLevel := CallbackCreate(GetMethod(implObj, "GetCodeLevel"), flags, 2)
-        this.vtbl.SetCodeLevel := CallbackCreate(GetMethod(implObj, "SetCodeLevel"), flags, 2)
-        this.vtbl.GetEngineOptions := CallbackCreate(GetMethod(implObj, "GetEngineOptions"), flags, 2)
-        this.vtbl.AddEngineOptions := CallbackCreate(GetMethod(implObj, "AddEngineOptions"), flags, 2)
-        this.vtbl.RemoveEngineOptions := CallbackCreate(GetMethod(implObj, "RemoveEngineOptions"), flags, 2)
-        this.vtbl.SetEngineOptions := CallbackCreate(GetMethod(implObj, "SetEngineOptions"), flags, 2)
-        this.vtbl.GetSystemErrorControl := CallbackCreate(GetMethod(implObj, "GetSystemErrorControl"), flags, 3)
-        this.vtbl.SetSystemErrorControl := CallbackCreate(GetMethod(implObj, "SetSystemErrorControl"), flags, 3)
-        this.vtbl.GetTextMacro := CallbackCreate(GetMethod(implObj, "GetTextMacro"), flags, 5)
-        this.vtbl.SetTextMacro := CallbackCreate(GetMethod(implObj, "SetTextMacro"), flags, 3)
-        this.vtbl.GetRadix := CallbackCreate(GetMethod(implObj, "GetRadix"), flags, 2)
-        this.vtbl.SetRadix := CallbackCreate(GetMethod(implObj, "SetRadix"), flags, 2)
-        this.vtbl.Evaluate := CallbackCreate(GetMethod(implObj, "Evaluate"), flags, 5)
-        this.vtbl.CoerceValue := CallbackCreate(GetMethod(implObj, "CoerceValue"), flags, 4)
-        this.vtbl.CoerceValues := CallbackCreate(GetMethod(implObj, "CoerceValues"), flags, 5)
-        this.vtbl.Execute := CallbackCreate(GetMethod(implObj, "Execute"), flags, 4)
-        this.vtbl.ExecuteCommandFile := CallbackCreate(GetMethod(implObj, "ExecuteCommandFile"), flags, 4)
-        this.vtbl.GetNumberBreakpoints := CallbackCreate(GetMethod(implObj, "GetNumberBreakpoints"), flags, 2)
-        this.vtbl.GetBreakpointByIndex := CallbackCreate(GetMethod(implObj, "GetBreakpointByIndex"), flags, 3)
-        this.vtbl.GetBreakpointById := CallbackCreate(GetMethod(implObj, "GetBreakpointById"), flags, 3)
-        this.vtbl.GetBreakpointParameters := CallbackCreate(GetMethod(implObj, "GetBreakpointParameters"), flags, 5)
-        this.vtbl.AddBreakpoint := CallbackCreate(GetMethod(implObj, "AddBreakpoint"), flags, 4)
-        this.vtbl.RemoveBreakpoint := CallbackCreate(GetMethod(implObj, "RemoveBreakpoint"), flags, 2)
-        this.vtbl.AddExtension := CallbackCreate(GetMethod(implObj, "AddExtension"), flags, 4)
-        this.vtbl.RemoveExtension := CallbackCreate(GetMethod(implObj, "RemoveExtension"), flags, 2)
-        this.vtbl.GetExtensionByPath := CallbackCreate(GetMethod(implObj, "GetExtensionByPath"), flags, 3)
-        this.vtbl.CallExtension := CallbackCreate(GetMethod(implObj, "CallExtension"), flags, 4)
-        this.vtbl.GetExtensionFunction := CallbackCreate(GetMethod(implObj, "GetExtensionFunction"), flags, 4)
-        this.vtbl.GetWindbgExtensionApis32 := CallbackCreate(GetMethod(implObj, "GetWindbgExtensionApis32"), flags, 2)
-        this.vtbl.GetWindbgExtensionApis64 := CallbackCreate(GetMethod(implObj, "GetWindbgExtensionApis64"), flags, 2)
-        this.vtbl.GetNumberEventFilters := CallbackCreate(GetMethod(implObj, "GetNumberEventFilters"), flags, 4)
-        this.vtbl.GetEventFilterText := CallbackCreate(GetMethod(implObj, "GetEventFilterText"), flags, 5)
-        this.vtbl.GetEventFilterCommand := CallbackCreate(GetMethod(implObj, "GetEventFilterCommand"), flags, 5)
-        this.vtbl.SetEventFilterCommand := CallbackCreate(GetMethod(implObj, "SetEventFilterCommand"), flags, 3)
-        this.vtbl.GetSpecificFilterParameters := CallbackCreate(GetMethod(implObj, "GetSpecificFilterParameters"), flags, 4)
-        this.vtbl.SetSpecificFilterParameters := CallbackCreate(GetMethod(implObj, "SetSpecificFilterParameters"), flags, 4)
-        this.vtbl.GetSpecificFilterArgument := CallbackCreate(GetMethod(implObj, "GetSpecificFilterArgument"), flags, 5)
-        this.vtbl.SetSpecificFilterArgument := CallbackCreate(GetMethod(implObj, "SetSpecificFilterArgument"), flags, 3)
-        this.vtbl.GetExceptionFilterParameters := CallbackCreate(GetMethod(implObj, "GetExceptionFilterParameters"), flags, 5)
-        this.vtbl.SetExceptionFilterParameters := CallbackCreate(GetMethod(implObj, "SetExceptionFilterParameters"), flags, 3)
-        this.vtbl.GetExceptionFilterSecondCommand := CallbackCreate(GetMethod(implObj, "GetExceptionFilterSecondCommand"), flags, 5)
-        this.vtbl.SetExceptionFilterSecondCommand := CallbackCreate(GetMethod(implObj, "SetExceptionFilterSecondCommand"), flags, 3)
-        this.vtbl.WaitForEvent := CallbackCreate(GetMethod(implObj, "WaitForEvent"), flags, 3)
-        this.vtbl.GetLastEventInformation := CallbackCreate(GetMethod(implObj, "GetLastEventInformation"), flags, 10)
-        this.vtbl.GetCurrentTimeDate := CallbackCreate(GetMethod(implObj, "GetCurrentTimeDate"), flags, 2)
-        this.vtbl.GetCurrentSystemUpTime := CallbackCreate(GetMethod(implObj, "GetCurrentSystemUpTime"), flags, 2)
-        this.vtbl.GetDumpFormatFlags := CallbackCreate(GetMethod(implObj, "GetDumpFormatFlags"), flags, 2)
-        this.vtbl.GetNumberTextReplacements := CallbackCreate(GetMethod(implObj, "GetNumberTextReplacements"), flags, 2)
-        this.vtbl.GetTextReplacement := CallbackCreate(GetMethod(implObj, "GetTextReplacement"), flags, 9)
-        this.vtbl.SetTextReplacement := CallbackCreate(GetMethod(implObj, "SetTextReplacement"), flags, 3)
-        this.vtbl.RemoveTextReplacements := CallbackCreate(GetMethod(implObj, "RemoveTextReplacements"), flags, 1)
-        this.vtbl.OutputTextReplacements := CallbackCreate(GetMethod(implObj, "OutputTextReplacements"), flags, 3)
-        this.vtbl.GetAssemblyOptions := CallbackCreate(GetMethod(implObj, "GetAssemblyOptions"), flags, 2)
-        this.vtbl.AddAssemblyOptions := CallbackCreate(GetMethod(implObj, "AddAssemblyOptions"), flags, 2)
-        this.vtbl.RemoveAssemblyOptions := CallbackCreate(GetMethod(implObj, "RemoveAssemblyOptions"), flags, 2)
-        this.vtbl.SetAssemblyOptions := CallbackCreate(GetMethod(implObj, "SetAssemblyOptions"), flags, 2)
-        this.vtbl.GetExpressionSyntax := CallbackCreate(GetMethod(implObj, "GetExpressionSyntax"), flags, 2)
-        this.vtbl.SetExpressionSyntax := CallbackCreate(GetMethod(implObj, "SetExpressionSyntax"), flags, 2)
-        this.vtbl.SetExpressionSyntaxByName := CallbackCreate(GetMethod(implObj, "SetExpressionSyntaxByName"), flags, 2)
-        this.vtbl.GetNumberExpressionSyntaxes := CallbackCreate(GetMethod(implObj, "GetNumberExpressionSyntaxes"), flags, 2)
-        this.vtbl.GetExpressionSyntaxNames := CallbackCreate(GetMethod(implObj, "GetExpressionSyntaxNames"), flags, 8)
-        this.vtbl.GetNumberEvents := CallbackCreate(GetMethod(implObj, "GetNumberEvents"), flags, 2)
-        this.vtbl.GetEventIndexDescription := CallbackCreate(GetMethod(implObj, "GetEventIndexDescription"), flags, 6)
-        this.vtbl.GetCurrentEventIndex := CallbackCreate(GetMethod(implObj, "GetCurrentEventIndex"), flags, 2)
-        this.vtbl.SetNextEventIndex := CallbackCreate(GetMethod(implObj, "SetNextEventIndex"), flags, 4)
+        this.vtbl.GetInterrupt := CallbackCreate(ObjBindMethod(implObj, "GetInterrupt"), flags, 1)
+        this.vtbl.SetInterrupt := CallbackCreate(ObjBindMethod(implObj, "SetInterrupt"), flags, 2)
+        this.vtbl.GetInterruptTimeout := CallbackCreate(ObjBindMethod(implObj, "GetInterruptTimeout"), flags, 2)
+        this.vtbl.SetInterruptTimeout := CallbackCreate(ObjBindMethod(implObj, "SetInterruptTimeout"), flags, 2)
+        this.vtbl.GetLogFile := CallbackCreate(ObjBindMethod(implObj, "GetLogFile"), flags, 5)
+        this.vtbl.OpenLogFile := CallbackCreate(ObjBindMethod(implObj, "OpenLogFile"), flags, 3)
+        this.vtbl.CloseLogFile := CallbackCreate(ObjBindMethod(implObj, "CloseLogFile"), flags, 1)
+        this.vtbl.GetLogMask := CallbackCreate(ObjBindMethod(implObj, "GetLogMask"), flags, 2)
+        this.vtbl.SetLogMask := CallbackCreate(ObjBindMethod(implObj, "SetLogMask"), flags, 2)
+        this.vtbl.Input := CallbackCreate(ObjBindMethod(implObj, "Input"), flags, 4)
+        this.vtbl.ReturnInput := CallbackCreate(ObjBindMethod(implObj, "ReturnInput"), flags, 2)
+        this.vtbl.Output := CallbackCreate(ObjBindMethod(implObj, "Output"), flags, 3)
+        this.vtbl.OutputVaList := CallbackCreate(ObjBindMethod(implObj, "OutputVaList"), flags, 4)
+        this.vtbl.ControlledOutput := CallbackCreate(ObjBindMethod(implObj, "ControlledOutput"), flags, 4)
+        this.vtbl.ControlledOutputVaList := CallbackCreate(ObjBindMethod(implObj, "ControlledOutputVaList"), flags, 5)
+        this.vtbl.OutputPrompt := CallbackCreate(ObjBindMethod(implObj, "OutputPrompt"), flags, 3)
+        this.vtbl.OutputPromptVaList := CallbackCreate(ObjBindMethod(implObj, "OutputPromptVaList"), flags, 4)
+        this.vtbl.GetPromptText := CallbackCreate(ObjBindMethod(implObj, "GetPromptText"), flags, 4)
+        this.vtbl.OutputCurrentState := CallbackCreate(ObjBindMethod(implObj, "OutputCurrentState"), flags, 3)
+        this.vtbl.OutputVersionInformation := CallbackCreate(ObjBindMethod(implObj, "OutputVersionInformation"), flags, 2)
+        this.vtbl.GetNotifyEventHandle := CallbackCreate(ObjBindMethod(implObj, "GetNotifyEventHandle"), flags, 2)
+        this.vtbl.SetNotifyEventHandle := CallbackCreate(ObjBindMethod(implObj, "SetNotifyEventHandle"), flags, 2)
+        this.vtbl.Assemble := CallbackCreate(ObjBindMethod(implObj, "Assemble"), flags, 4)
+        this.vtbl.Disassemble := CallbackCreate(ObjBindMethod(implObj, "Disassemble"), flags, 7)
+        this.vtbl.GetDisassembleEffectiveOffset := CallbackCreate(ObjBindMethod(implObj, "GetDisassembleEffectiveOffset"), flags, 2)
+        this.vtbl.OutputDisassembly := CallbackCreate(ObjBindMethod(implObj, "OutputDisassembly"), flags, 5)
+        this.vtbl.OutputDisassemblyLines := CallbackCreate(ObjBindMethod(implObj, "OutputDisassemblyLines"), flags, 10)
+        this.vtbl.GetNearInstruction := CallbackCreate(ObjBindMethod(implObj, "GetNearInstruction"), flags, 4)
+        this.vtbl.GetStackTrace := CallbackCreate(ObjBindMethod(implObj, "GetStackTrace"), flags, 7)
+        this.vtbl.GetReturnOffset := CallbackCreate(ObjBindMethod(implObj, "GetReturnOffset"), flags, 2)
+        this.vtbl.OutputStackTrace := CallbackCreate(ObjBindMethod(implObj, "OutputStackTrace"), flags, 5)
+        this.vtbl.GetDebuggeeType := CallbackCreate(ObjBindMethod(implObj, "GetDebuggeeType"), flags, 3)
+        this.vtbl.GetActualProcessorType := CallbackCreate(ObjBindMethod(implObj, "GetActualProcessorType"), flags, 2)
+        this.vtbl.GetExecutingProcessorType := CallbackCreate(ObjBindMethod(implObj, "GetExecutingProcessorType"), flags, 2)
+        this.vtbl.GetNumberPossibleExecutingProcessorTypes := CallbackCreate(ObjBindMethod(implObj, "GetNumberPossibleExecutingProcessorTypes"), flags, 2)
+        this.vtbl.GetPossibleExecutingProcessorTypes := CallbackCreate(ObjBindMethod(implObj, "GetPossibleExecutingProcessorTypes"), flags, 4)
+        this.vtbl.GetNumberProcessors := CallbackCreate(ObjBindMethod(implObj, "GetNumberProcessors"), flags, 2)
+        this.vtbl.GetSystemVersion := CallbackCreate(ObjBindMethod(implObj, "GetSystemVersion"), flags, 11)
+        this.vtbl.GetPageSize := CallbackCreate(ObjBindMethod(implObj, "GetPageSize"), flags, 2)
+        this.vtbl.IsPointer64Bit := CallbackCreate(ObjBindMethod(implObj, "IsPointer64Bit"), flags, 1)
+        this.vtbl.ReadBugCheckData := CallbackCreate(ObjBindMethod(implObj, "ReadBugCheckData"), flags, 6)
+        this.vtbl.GetNumberSupportedProcessorTypes := CallbackCreate(ObjBindMethod(implObj, "GetNumberSupportedProcessorTypes"), flags, 2)
+        this.vtbl.GetSupportedProcessorTypes := CallbackCreate(ObjBindMethod(implObj, "GetSupportedProcessorTypes"), flags, 4)
+        this.vtbl.GetProcessorTypeNames := CallbackCreate(ObjBindMethod(implObj, "GetProcessorTypeNames"), flags, 8)
+        this.vtbl.GetEffectiveProcessorType := CallbackCreate(ObjBindMethod(implObj, "GetEffectiveProcessorType"), flags, 2)
+        this.vtbl.SetEffectiveProcessorType := CallbackCreate(ObjBindMethod(implObj, "SetEffectiveProcessorType"), flags, 2)
+        this.vtbl.GetExecutionStatus := CallbackCreate(ObjBindMethod(implObj, "GetExecutionStatus"), flags, 2)
+        this.vtbl.SetExecutionStatus := CallbackCreate(ObjBindMethod(implObj, "SetExecutionStatus"), flags, 2)
+        this.vtbl.GetCodeLevel := CallbackCreate(ObjBindMethod(implObj, "GetCodeLevel"), flags, 2)
+        this.vtbl.SetCodeLevel := CallbackCreate(ObjBindMethod(implObj, "SetCodeLevel"), flags, 2)
+        this.vtbl.GetEngineOptions := CallbackCreate(ObjBindMethod(implObj, "GetEngineOptions"), flags, 2)
+        this.vtbl.AddEngineOptions := CallbackCreate(ObjBindMethod(implObj, "AddEngineOptions"), flags, 2)
+        this.vtbl.RemoveEngineOptions := CallbackCreate(ObjBindMethod(implObj, "RemoveEngineOptions"), flags, 2)
+        this.vtbl.SetEngineOptions := CallbackCreate(ObjBindMethod(implObj, "SetEngineOptions"), flags, 2)
+        this.vtbl.GetSystemErrorControl := CallbackCreate(ObjBindMethod(implObj, "GetSystemErrorControl"), flags, 3)
+        this.vtbl.SetSystemErrorControl := CallbackCreate(ObjBindMethod(implObj, "SetSystemErrorControl"), flags, 3)
+        this.vtbl.GetTextMacro := CallbackCreate(ObjBindMethod(implObj, "GetTextMacro"), flags, 5)
+        this.vtbl.SetTextMacro := CallbackCreate(ObjBindMethod(implObj, "SetTextMacro"), flags, 3)
+        this.vtbl.GetRadix := CallbackCreate(ObjBindMethod(implObj, "GetRadix"), flags, 2)
+        this.vtbl.SetRadix := CallbackCreate(ObjBindMethod(implObj, "SetRadix"), flags, 2)
+        this.vtbl.Evaluate := CallbackCreate(ObjBindMethod(implObj, "Evaluate"), flags, 5)
+        this.vtbl.CoerceValue := CallbackCreate(ObjBindMethod(implObj, "CoerceValue"), flags, 4)
+        this.vtbl.CoerceValues := CallbackCreate(ObjBindMethod(implObj, "CoerceValues"), flags, 5)
+        this.vtbl.Execute := CallbackCreate(ObjBindMethod(implObj, "Execute"), flags, 4)
+        this.vtbl.ExecuteCommandFile := CallbackCreate(ObjBindMethod(implObj, "ExecuteCommandFile"), flags, 4)
+        this.vtbl.GetNumberBreakpoints := CallbackCreate(ObjBindMethod(implObj, "GetNumberBreakpoints"), flags, 2)
+        this.vtbl.GetBreakpointByIndex := CallbackCreate(ObjBindMethod(implObj, "GetBreakpointByIndex"), flags, 3)
+        this.vtbl.GetBreakpointById := CallbackCreate(ObjBindMethod(implObj, "GetBreakpointById"), flags, 3)
+        this.vtbl.GetBreakpointParameters := CallbackCreate(ObjBindMethod(implObj, "GetBreakpointParameters"), flags, 5)
+        this.vtbl.AddBreakpoint := CallbackCreate(ObjBindMethod(implObj, "AddBreakpoint"), flags, 4)
+        this.vtbl.RemoveBreakpoint := CallbackCreate(ObjBindMethod(implObj, "RemoveBreakpoint"), flags, 2)
+        this.vtbl.AddExtension := CallbackCreate(ObjBindMethod(implObj, "AddExtension"), flags, 4)
+        this.vtbl.RemoveExtension := CallbackCreate(ObjBindMethod(implObj, "RemoveExtension"), flags, 2)
+        this.vtbl.GetExtensionByPath := CallbackCreate(ObjBindMethod(implObj, "GetExtensionByPath"), flags, 3)
+        this.vtbl.CallExtension := CallbackCreate(ObjBindMethod(implObj, "CallExtension"), flags, 4)
+        this.vtbl.GetExtensionFunction := CallbackCreate(ObjBindMethod(implObj, "GetExtensionFunction"), flags, 4)
+        this.vtbl.GetWindbgExtensionApis32 := CallbackCreate(ObjBindMethod(implObj, "GetWindbgExtensionApis32"), flags, 2)
+        this.vtbl.GetWindbgExtensionApis64 := CallbackCreate(ObjBindMethod(implObj, "GetWindbgExtensionApis64"), flags, 2)
+        this.vtbl.GetNumberEventFilters := CallbackCreate(ObjBindMethod(implObj, "GetNumberEventFilters"), flags, 4)
+        this.vtbl.GetEventFilterText := CallbackCreate(ObjBindMethod(implObj, "GetEventFilterText"), flags, 5)
+        this.vtbl.GetEventFilterCommand := CallbackCreate(ObjBindMethod(implObj, "GetEventFilterCommand"), flags, 5)
+        this.vtbl.SetEventFilterCommand := CallbackCreate(ObjBindMethod(implObj, "SetEventFilterCommand"), flags, 3)
+        this.vtbl.GetSpecificFilterParameters := CallbackCreate(ObjBindMethod(implObj, "GetSpecificFilterParameters"), flags, 4)
+        this.vtbl.SetSpecificFilterParameters := CallbackCreate(ObjBindMethod(implObj, "SetSpecificFilterParameters"), flags, 4)
+        this.vtbl.GetSpecificFilterArgument := CallbackCreate(ObjBindMethod(implObj, "GetSpecificFilterArgument"), flags, 5)
+        this.vtbl.SetSpecificFilterArgument := CallbackCreate(ObjBindMethod(implObj, "SetSpecificFilterArgument"), flags, 3)
+        this.vtbl.GetExceptionFilterParameters := CallbackCreate(ObjBindMethod(implObj, "GetExceptionFilterParameters"), flags, 5)
+        this.vtbl.SetExceptionFilterParameters := CallbackCreate(ObjBindMethod(implObj, "SetExceptionFilterParameters"), flags, 3)
+        this.vtbl.GetExceptionFilterSecondCommand := CallbackCreate(ObjBindMethod(implObj, "GetExceptionFilterSecondCommand"), flags, 5)
+        this.vtbl.SetExceptionFilterSecondCommand := CallbackCreate(ObjBindMethod(implObj, "SetExceptionFilterSecondCommand"), flags, 3)
+        this.vtbl.WaitForEvent := CallbackCreate(ObjBindMethod(implObj, "WaitForEvent"), flags, 3)
+        this.vtbl.GetLastEventInformation := CallbackCreate(ObjBindMethod(implObj, "GetLastEventInformation"), flags, 10)
+        this.vtbl.GetCurrentTimeDate := CallbackCreate(ObjBindMethod(implObj, "GetCurrentTimeDate"), flags, 2)
+        this.vtbl.GetCurrentSystemUpTime := CallbackCreate(ObjBindMethod(implObj, "GetCurrentSystemUpTime"), flags, 2)
+        this.vtbl.GetDumpFormatFlags := CallbackCreate(ObjBindMethod(implObj, "GetDumpFormatFlags"), flags, 2)
+        this.vtbl.GetNumberTextReplacements := CallbackCreate(ObjBindMethod(implObj, "GetNumberTextReplacements"), flags, 2)
+        this.vtbl.GetTextReplacement := CallbackCreate(ObjBindMethod(implObj, "GetTextReplacement"), flags, 9)
+        this.vtbl.SetTextReplacement := CallbackCreate(ObjBindMethod(implObj, "SetTextReplacement"), flags, 3)
+        this.vtbl.RemoveTextReplacements := CallbackCreate(ObjBindMethod(implObj, "RemoveTextReplacements"), flags, 1)
+        this.vtbl.OutputTextReplacements := CallbackCreate(ObjBindMethod(implObj, "OutputTextReplacements"), flags, 3)
+        this.vtbl.GetAssemblyOptions := CallbackCreate(ObjBindMethod(implObj, "GetAssemblyOptions"), flags, 2)
+        this.vtbl.AddAssemblyOptions := CallbackCreate(ObjBindMethod(implObj, "AddAssemblyOptions"), flags, 2)
+        this.vtbl.RemoveAssemblyOptions := CallbackCreate(ObjBindMethod(implObj, "RemoveAssemblyOptions"), flags, 2)
+        this.vtbl.SetAssemblyOptions := CallbackCreate(ObjBindMethod(implObj, "SetAssemblyOptions"), flags, 2)
+        this.vtbl.GetExpressionSyntax := CallbackCreate(ObjBindMethod(implObj, "GetExpressionSyntax"), flags, 2)
+        this.vtbl.SetExpressionSyntax := CallbackCreate(ObjBindMethod(implObj, "SetExpressionSyntax"), flags, 2)
+        this.vtbl.SetExpressionSyntaxByName := CallbackCreate(ObjBindMethod(implObj, "SetExpressionSyntaxByName"), flags, 2)
+        this.vtbl.GetNumberExpressionSyntaxes := CallbackCreate(ObjBindMethod(implObj, "GetNumberExpressionSyntaxes"), flags, 2)
+        this.vtbl.GetExpressionSyntaxNames := CallbackCreate(ObjBindMethod(implObj, "GetExpressionSyntaxNames"), flags, 8)
+        this.vtbl.GetNumberEvents := CallbackCreate(ObjBindMethod(implObj, "GetNumberEvents"), flags, 2)
+        this.vtbl.GetEventIndexDescription := CallbackCreate(ObjBindMethod(implObj, "GetEventIndexDescription"), flags, 6)
+        this.vtbl.GetCurrentEventIndex := CallbackCreate(ObjBindMethod(implObj, "GetCurrentEventIndex"), flags, 2)
+        this.vtbl.SetNextEventIndex := CallbackCreate(ObjBindMethod(implObj, "SetNextEventIndex"), flags, 4)
     }
 
     Dispose() {

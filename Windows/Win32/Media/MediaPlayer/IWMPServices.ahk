@@ -50,7 +50,7 @@ export default struct IWMPServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nf-wmpservices-iwmpservices-getstreamtime
      */
     GetStreamTime(prt) {
-        prtMarshal := prt is VarRef ? "int64*" : "ptr"
+        prtMarshal := prt is VarRef ? "int64*" : IntPtr
 
         result := ComCall(3, this, prtMarshal, prt, "HRESULT")
         return result
@@ -65,7 +65,7 @@ export default struct IWMPServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nf-wmpservices-iwmpservices-getstreamstate
      */
     GetStreamState(pState) {
-        pStateMarshal := pState is VarRef ? "int*" : "ptr"
+        pStateMarshal := pState is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, pStateMarshal, pState, "HRESULT")
         return result
@@ -80,8 +80,8 @@ export default struct IWMPServices extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStreamTime := CallbackCreate(GetMethod(implObj, "GetStreamTime"), flags, 2)
-        this.vtbl.GetStreamState := CallbackCreate(GetMethod(implObj, "GetStreamState"), flags, 2)
+        this.vtbl.GetStreamTime := CallbackCreate(ObjBindMethod(implObj, "GetStreamTime"), flags, 2)
+        this.vtbl.GetStreamState := CallbackCreate(ObjBindMethod(implObj, "GetStreamState"), flags, 2)
     }
 
     Dispose() {

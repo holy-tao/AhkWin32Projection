@@ -80,9 +80,9 @@ export default struct IRdcFileWriter extends IRdcFileReader {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Write := CallbackCreate(GetMethod(implObj, "Write"), flags, 4)
-        this.vtbl.Truncate := CallbackCreate(GetMethod(implObj, "Truncate"), flags, 1)
-        this.vtbl.DeleteOnClose := CallbackCreate(GetMethod(implObj, "DeleteOnClose"), flags, 1)
+        this.vtbl.Write := CallbackCreate(ObjBindMethod(implObj, "Write"), flags, 4)
+        this.vtbl.Truncate := CallbackCreate(ObjBindMethod(implObj, "Truncate"), flags, 1)
+        this.vtbl.DeleteOnClose := CallbackCreate(ObjBindMethod(implObj, "DeleteOnClose"), flags, 1)
     }
 
     Dispose() {

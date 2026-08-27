@@ -52,7 +52,6 @@ export default struct Folder3 extends Folder2 {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ShowWebViewBarricade() {
@@ -61,7 +60,6 @@ export default struct Folder3 extends Folder2 {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bShowWebViewBarricade 
      * @returns {HRESULT} 
      */
@@ -79,8 +77,8 @@ export default struct Folder3 extends Folder2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ShowWebViewBarricade := CallbackCreate(GetMethod(implObj, "get_ShowWebViewBarricade"), flags, 2)
-        this.vtbl.put_ShowWebViewBarricade := CallbackCreate(GetMethod(implObj, "put_ShowWebViewBarricade"), flags, 2)
+        this.vtbl.get_ShowWebViewBarricade := CallbackCreate(ObjBindMethod(implObj, "get_ShowWebViewBarricade"), flags, 2)
+        this.vtbl.put_ShowWebViewBarricade := CallbackCreate(ObjBindMethod(implObj, "put_ShowWebViewBarricade"), flags, 2)
     }
 
     Dispose() {

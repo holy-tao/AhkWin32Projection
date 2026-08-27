@@ -126,10 +126,10 @@ export default struct ITSGAuthenticateUserSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnUserAuthenticated := CallbackCreate(GetMethod(implObj, "OnUserAuthenticated"), flags, 5)
-        this.vtbl.OnUserAuthenticationFailed := CallbackCreate(GetMethod(implObj, "OnUserAuthenticationFailed"), flags, 4)
-        this.vtbl.ReauthenticateUser := CallbackCreate(GetMethod(implObj, "ReauthenticateUser"), flags, 2)
-        this.vtbl.DisconnectUser := CallbackCreate(GetMethod(implObj, "DisconnectUser"), flags, 2)
+        this.vtbl.OnUserAuthenticated := CallbackCreate(ObjBindMethod(implObj, "OnUserAuthenticated"), flags, 5)
+        this.vtbl.OnUserAuthenticationFailed := CallbackCreate(ObjBindMethod(implObj, "OnUserAuthenticationFailed"), flags, 4)
+        this.vtbl.ReauthenticateUser := CallbackCreate(ObjBindMethod(implObj, "ReauthenticateUser"), flags, 2)
+        this.vtbl.DisconnectUser := CallbackCreate(ObjBindMethod(implObj, "DisconnectUser"), flags, 2)
     }
 
     Dispose() {

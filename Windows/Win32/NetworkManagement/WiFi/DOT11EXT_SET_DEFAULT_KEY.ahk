@@ -21,14 +21,15 @@ export default struct DOT11EXT_SET_DEFAULT_KEY {
     }
 
     /**
-     * 
      * @param {HANDLE} hDot11SvcHandle 
      * @param {Pointer<DOT11_CIPHER_DEFAULT_KEY_VALUE>} pKey 
      * @param {DOT11_DIRECTION} dot11Direction 
      * @returns {Integer} 
      */
     Call(hDot11SvcHandle, pKey, dot11Direction) {
-        result := DllCall(this.value, HANDLE, hDot11SvcHandle, DOT11_CIPHER_DEFAULT_KEY_VALUE.Ptr, pKey, DOT11_DIRECTION, dot11Direction, UInt32)
+        hDot11SvcHandleMarshal := hDot11SvcHandle == 0 ? IntPtr : HANDLE
+
+        result := DllCall(this.value, hDot11SvcHandleMarshal, hDot11SvcHandle, DOT11_CIPHER_DEFAULT_KEY_VALUE.Ptr, pKey, DOT11_DIRECTION, dot11Direction, UInt32)
         return result
     }
 

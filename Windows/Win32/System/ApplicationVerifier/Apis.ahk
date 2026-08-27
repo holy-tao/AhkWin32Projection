@@ -28,7 +28,7 @@
  * @see https://learn.microsoft.com/windows/win32/api/avrfsdk/nf-avrfsdk-verifierenumerateresource
  */
 export VerifierEnumerateResource(Process, Flags, _ResourceType, ResourceCallback, EnumerationContext) {
-    EnumerationContextMarshal := EnumerationContext is VarRef ? "ptr" : "ptr"
+    EnumerationContextMarshal := EnumerationContext is VarRef ? "ptr" : IntPtr
 
     result := DllCall("verifier.dll\VerifierEnumerateResource", HANDLE, Process, VERIFIER_ENUM_RESOURCE_FLAGS, Flags, UInt32, _ResourceType, AVRF_RESOURCE_ENUMERATE_CALLBACK, ResourceCallback, EnumerationContextMarshal, EnumerationContext, UInt32)
     return result

@@ -38,7 +38,6 @@ export default struct IXpsDocument extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IPartThumbnail} 
      */
     GetThumbnail() {
@@ -47,7 +46,6 @@ export default struct IXpsDocument extends IUnknown {
     }
 
     /**
-     * 
      * @param {IPartThumbnail} pThumbnail 
      * @returns {HRESULT} 
      */
@@ -65,8 +63,8 @@ export default struct IXpsDocument extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetThumbnail := CallbackCreate(GetMethod(implObj, "GetThumbnail"), flags, 2)
-        this.vtbl.SetThumbnail := CallbackCreate(GetMethod(implObj, "SetThumbnail"), flags, 2)
+        this.vtbl.GetThumbnail := CallbackCreate(ObjBindMethod(implObj, "GetThumbnail"), flags, 2)
+        this.vtbl.SetThumbnail := CallbackCreate(ObjBindMethod(implObj, "SetThumbnail"), flags, 2)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct VDMGETSEGMENTINFOPROC {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @param {BOOL} param2 

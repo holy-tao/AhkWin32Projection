@@ -21,7 +21,6 @@ export default struct PLSA_CRACK_SINGLE_NAME {
     }
 
     /**
-     * 
      * @param {Integer} FormatOffered 
      * @param {BOOLEAN} PerformAtGC 
      * @param {Pointer<LSA_UNICODE_STRING>} NameInput 
@@ -33,9 +32,10 @@ export default struct PLSA_CRACK_SINGLE_NAME {
      * @returns {NTSTATUS} 
      */
     Call(FormatOffered, PerformAtGC, NameInput, Prefix, RequestedFormat, CrackedName, DnsDomainName, SubStatus) {
-        SubStatusMarshal := SubStatus is VarRef ? "uint*" : "ptr"
+        PrefixMarshal := Prefix == 0 ? IntPtr : LSA_UNICODE_STRING.Ptr
+        SubStatusMarshal := SubStatus is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, UInt32, FormatOffered, BOOLEAN, PerformAtGC, LSA_UNICODE_STRING.Ptr, NameInput, LSA_UNICODE_STRING.Ptr, Prefix, UInt32, RequestedFormat, LSA_UNICODE_STRING.Ptr, CrackedName, LSA_UNICODE_STRING.Ptr, DnsDomainName, SubStatusMarshal, SubStatus, NTSTATUS)
+        result := DllCall(this.value, UInt32, FormatOffered, BOOLEAN, PerformAtGC, LSA_UNICODE_STRING.Ptr, NameInput, PrefixMarshal, Prefix, UInt32, RequestedFormat, LSA_UNICODE_STRING.Ptr, CrackedName, LSA_UNICODE_STRING.Ptr, DnsDomainName, SubStatusMarshal, SubStatus, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

@@ -97,9 +97,9 @@ export default struct IDTFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter-getcurrrating
      */
     GetCurrRating(pEnSystem, pEnRating, plbfEnAttr) {
-        pEnSystemMarshal := pEnSystem is VarRef ? "int*" : "ptr"
-        pEnRatingMarshal := pEnRating is VarRef ? "int*" : "ptr"
-        plbfEnAttrMarshal := plbfEnAttr is VarRef ? "int*" : "ptr"
+        pEnSystemMarshal := pEnSystem is VarRef ? "int*" : IntPtr
+        pEnRatingMarshal := pEnRating is VarRef ? "int*" : IntPtr
+        plbfEnAttrMarshal := plbfEnAttr is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, pEnSystemMarshal, pEnSystem, pEnRatingMarshal, pEnRating, plbfEnAttrMarshal, plbfEnAttr, "HRESULT")
         return result
@@ -280,14 +280,14 @@ export default struct IDTFilter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_EvalRatObjOK := CallbackCreate(GetMethod(implObj, "get_EvalRatObjOK"), flags, 2)
-        this.vtbl.GetCurrRating := CallbackCreate(GetMethod(implObj, "GetCurrRating"), flags, 4)
-        this.vtbl.get_BlockedRatingAttributes := CallbackCreate(GetMethod(implObj, "get_BlockedRatingAttributes"), flags, 4)
-        this.vtbl.put_BlockedRatingAttributes := CallbackCreate(GetMethod(implObj, "put_BlockedRatingAttributes"), flags, 4)
-        this.vtbl.get_BlockUnRated := CallbackCreate(GetMethod(implObj, "get_BlockUnRated"), flags, 2)
-        this.vtbl.put_BlockUnRated := CallbackCreate(GetMethod(implObj, "put_BlockUnRated"), flags, 2)
-        this.vtbl.get_BlockUnRatedDelay := CallbackCreate(GetMethod(implObj, "get_BlockUnRatedDelay"), flags, 2)
-        this.vtbl.put_BlockUnRatedDelay := CallbackCreate(GetMethod(implObj, "put_BlockUnRatedDelay"), flags, 2)
+        this.vtbl.get_EvalRatObjOK := CallbackCreate(ObjBindMethod(implObj, "get_EvalRatObjOK"), flags, 2)
+        this.vtbl.GetCurrRating := CallbackCreate(ObjBindMethod(implObj, "GetCurrRating"), flags, 4)
+        this.vtbl.get_BlockedRatingAttributes := CallbackCreate(ObjBindMethod(implObj, "get_BlockedRatingAttributes"), flags, 4)
+        this.vtbl.put_BlockedRatingAttributes := CallbackCreate(ObjBindMethod(implObj, "put_BlockedRatingAttributes"), flags, 4)
+        this.vtbl.get_BlockUnRated := CallbackCreate(ObjBindMethod(implObj, "get_BlockUnRated"), flags, 2)
+        this.vtbl.put_BlockUnRated := CallbackCreate(ObjBindMethod(implObj, "put_BlockUnRated"), flags, 2)
+        this.vtbl.get_BlockUnRatedDelay := CallbackCreate(ObjBindMethod(implObj, "get_BlockUnRatedDelay"), flags, 2)
+        this.vtbl.put_BlockUnRatedDelay := CallbackCreate(ObjBindMethod(implObj, "put_BlockUnRatedDelay"), flags, 2)
     }
 
     Dispose() {

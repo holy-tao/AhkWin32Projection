@@ -112,10 +112,10 @@ export default struct IAutomaticUpdatesSettings3 extends IAutomaticUpdatesSettin
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_NonAdministratorsElevated := CallbackCreate(GetMethod(implObj, "get_NonAdministratorsElevated"), flags, 2)
-        this.vtbl.put_NonAdministratorsElevated := CallbackCreate(GetMethod(implObj, "put_NonAdministratorsElevated"), flags, 2)
-        this.vtbl.get_FeaturedUpdatesEnabled := CallbackCreate(GetMethod(implObj, "get_FeaturedUpdatesEnabled"), flags, 2)
-        this.vtbl.put_FeaturedUpdatesEnabled := CallbackCreate(GetMethod(implObj, "put_FeaturedUpdatesEnabled"), flags, 2)
+        this.vtbl.get_NonAdministratorsElevated := CallbackCreate(ObjBindMethod(implObj, "get_NonAdministratorsElevated"), flags, 2)
+        this.vtbl.put_NonAdministratorsElevated := CallbackCreate(ObjBindMethod(implObj, "put_NonAdministratorsElevated"), flags, 2)
+        this.vtbl.get_FeaturedUpdatesEnabled := CallbackCreate(ObjBindMethod(implObj, "get_FeaturedUpdatesEnabled"), flags, 2)
+        this.vtbl.put_FeaturedUpdatesEnabled := CallbackCreate(ObjBindMethod(implObj, "put_FeaturedUpdatesEnabled"), flags, 2)
     }
 
     Dispose() {

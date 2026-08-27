@@ -84,7 +84,7 @@ export default struct IVssSnapshotMgmt extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivsssnapshotmgmt-querysnapshotsbyvolume
      */
     QuerySnapshotsByVolume(pwszVolumeName, ProviderId) {
-        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
+        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(5, this, pwszVolumeNameMarshal, pwszVolumeName, Guid, ProviderId, "ptr*", &ppEnum := 0, "HRESULT")
         return IVssEnumObject(ppEnum)
@@ -99,9 +99,9 @@ export default struct IVssSnapshotMgmt extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProviderMgmtInterface := CallbackCreate(GetMethod(implObj, "GetProviderMgmtInterface"), flags, 4)
-        this.vtbl.QueryVolumesSupportedForSnapshots := CallbackCreate(GetMethod(implObj, "QueryVolumesSupportedForSnapshots"), flags, 4)
-        this.vtbl.QuerySnapshotsByVolume := CallbackCreate(GetMethod(implObj, "QuerySnapshotsByVolume"), flags, 4)
+        this.vtbl.GetProviderMgmtInterface := CallbackCreate(ObjBindMethod(implObj, "GetProviderMgmtInterface"), flags, 4)
+        this.vtbl.QueryVolumesSupportedForSnapshots := CallbackCreate(ObjBindMethod(implObj, "QueryVolumesSupportedForSnapshots"), flags, 4)
+        this.vtbl.QuerySnapshotsByVolume := CallbackCreate(ObjBindMethod(implObj, "QuerySnapshotsByVolume"), flags, 4)
     }
 
     Dispose() {

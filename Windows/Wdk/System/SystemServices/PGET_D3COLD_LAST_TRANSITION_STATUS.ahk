@@ -18,7 +18,6 @@ export default struct PGET_D3COLD_LAST_TRANSITION_STATUS {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

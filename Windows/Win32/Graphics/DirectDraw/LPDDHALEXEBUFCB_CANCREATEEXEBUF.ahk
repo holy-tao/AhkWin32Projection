@@ -19,7 +19,6 @@ export default struct LPDDHALEXEBUFCB_CANCREATEEXEBUF {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_CANCREATESURFACEDATA>} param0 
      * @returns {Integer} 
      */

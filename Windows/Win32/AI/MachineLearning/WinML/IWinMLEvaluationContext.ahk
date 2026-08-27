@@ -84,9 +84,9 @@ export default struct IWinMLEvaluationContext extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BindValue := CallbackCreate(GetMethod(implObj, "BindValue"), flags, 2)
-        this.vtbl.GetValueByName := CallbackCreate(GetMethod(implObj, "GetValueByName"), flags, 3)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.BindValue := CallbackCreate(ObjBindMethod(implObj, "BindValue"), flags, 2)
+        this.vtbl.GetValueByName := CallbackCreate(ObjBindMethod(implObj, "GetValueByName"), flags, 3)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
     }
 
     Dispose() {

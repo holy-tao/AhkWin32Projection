@@ -53,7 +53,7 @@ export default struct IDirect3DAuthenticatedChannel9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dauthenticatedchannel9-getcertificatesize
      */
     GetCertificateSize(pCertificateSize) {
-        pCertificateSizeMarshal := pCertificateSize is VarRef ? "uint*" : "ptr"
+        pCertificateSizeMarshal := pCertificateSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pCertificateSizeMarshal, pCertificateSize, "HRESULT")
         return result
@@ -71,7 +71,7 @@ export default struct IDirect3DAuthenticatedChannel9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dauthenticatedchannel9-getcertificate
      */
     GetCertificate(CertifacteSize, ppCertificate) {
-        ppCertificateMarshal := ppCertificate is VarRef ? "char*" : "ptr"
+        ppCertificateMarshal := ppCertificate is VarRef ? "char*" : IntPtr
 
         result := ComCall(4, this, UInt32, CertifacteSize, ppCertificateMarshal, ppCertificate, "HRESULT")
         return result
@@ -87,7 +87,7 @@ export default struct IDirect3DAuthenticatedChannel9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dauthenticatedchannel9-negotiatekeyexchange
      */
     NegotiateKeyExchange(DataSize, pData) {
-        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+        pDataMarshal := pData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(5, this, UInt32, DataSize, pDataMarshal, pData, "HRESULT")
         return result
@@ -105,8 +105,8 @@ export default struct IDirect3DAuthenticatedChannel9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dauthenticatedchannel9-query
      */
     Query(InputSize, pInput, OutputSize, pOutput) {
-        pInputMarshal := pInput is VarRef ? "ptr" : "ptr"
-        pOutputMarshal := pOutput is VarRef ? "ptr" : "ptr"
+        pInputMarshal := pInput is VarRef ? "ptr" : IntPtr
+        pOutputMarshal := pOutput is VarRef ? "ptr" : IntPtr
 
         result := ComCall(6, this, UInt32, InputSize, pInputMarshal, pInput, UInt32, OutputSize, pOutputMarshal, pOutput, "HRESULT")
         return result
@@ -123,7 +123,7 @@ export default struct IDirect3DAuthenticatedChannel9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dauthenticatedchannel9-configure
      */
     Configure(InputSize, pInput, pOutput) {
-        pInputMarshal := pInput is VarRef ? "ptr" : "ptr"
+        pInputMarshal := pInput is VarRef ? "ptr" : IntPtr
 
         result := ComCall(7, this, UInt32, InputSize, pInputMarshal, pInput, D3DAUTHENTICATEDCHANNEL_CONFIGURE_OUTPUT.Ptr, pOutput, "HRESULT")
         return result
@@ -138,11 +138,11 @@ export default struct IDirect3DAuthenticatedChannel9 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCertificateSize := CallbackCreate(GetMethod(implObj, "GetCertificateSize"), flags, 2)
-        this.vtbl.GetCertificate := CallbackCreate(GetMethod(implObj, "GetCertificate"), flags, 3)
-        this.vtbl.NegotiateKeyExchange := CallbackCreate(GetMethod(implObj, "NegotiateKeyExchange"), flags, 3)
-        this.vtbl.Query := CallbackCreate(GetMethod(implObj, "Query"), flags, 5)
-        this.vtbl.Configure := CallbackCreate(GetMethod(implObj, "Configure"), flags, 4)
+        this.vtbl.GetCertificateSize := CallbackCreate(ObjBindMethod(implObj, "GetCertificateSize"), flags, 2)
+        this.vtbl.GetCertificate := CallbackCreate(ObjBindMethod(implObj, "GetCertificate"), flags, 3)
+        this.vtbl.NegotiateKeyExchange := CallbackCreate(ObjBindMethod(implObj, "NegotiateKeyExchange"), flags, 3)
+        this.vtbl.Query := CallbackCreate(ObjBindMethod(implObj, "Query"), flags, 5)
+        this.vtbl.Configure := CallbackCreate(ObjBindMethod(implObj, "Configure"), flags, 4)
     }
 
     Dispose() {

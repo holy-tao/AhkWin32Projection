@@ -202,7 +202,6 @@ export default struct IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PrinterPath() {
@@ -212,7 +211,6 @@ export default struct IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPrinterPath 
      * @returns {HRESULT} 
      */
@@ -224,7 +222,6 @@ export default struct IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Model() {
@@ -234,7 +231,6 @@ export default struct IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrModel 
      * @returns {HRESULT} 
      */
@@ -246,7 +242,6 @@ export default struct IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Datatype() {
@@ -256,7 +251,6 @@ export default struct IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDatatype 
      * @returns {HRESULT} 
      */
@@ -268,7 +262,6 @@ export default struct IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PrintProcessor() {
@@ -278,7 +271,6 @@ export default struct IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPrintProcessor 
      * @returns {HRESULT} 
      */
@@ -290,7 +282,6 @@ export default struct IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Description() {
@@ -300,7 +291,6 @@ export default struct IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDescription 
      * @returns {HRESULT} 
      */
@@ -312,7 +302,6 @@ export default struct IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Location() {
@@ -322,7 +311,6 @@ export default struct IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrLocation 
      * @returns {HRESULT} 
      */
@@ -334,7 +322,6 @@ export default struct IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_StartTime() {
@@ -343,7 +330,6 @@ export default struct IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @param {Float} daStartTime 
      * @returns {HRESULT} 
      */
@@ -353,7 +339,6 @@ export default struct IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_UntilTime() {
@@ -362,7 +347,6 @@ export default struct IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @param {Float} daUntilTime 
      * @returns {HRESULT} 
      */
@@ -372,7 +356,6 @@ export default struct IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DefaultJobPriority() {
@@ -381,7 +364,6 @@ export default struct IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnDefaultJobPriority 
      * @returns {HRESULT} 
      */
@@ -391,7 +373,6 @@ export default struct IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Priority() {
@@ -400,7 +381,6 @@ export default struct IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnPriority 
      * @returns {HRESULT} 
      */
@@ -410,7 +390,6 @@ export default struct IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_BannerPage() {
@@ -420,7 +399,6 @@ export default struct IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrBannerPage 
      * @returns {HRESULT} 
      */
@@ -432,7 +410,6 @@ export default struct IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_PrintDevices() {
@@ -442,7 +419,6 @@ export default struct IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vPrintDevices 
      * @returns {HRESULT} 
      */
@@ -452,7 +428,6 @@ export default struct IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_NetAddresses() {
@@ -462,7 +437,6 @@ export default struct IADsPrintQueue extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vNetAddresses 
      * @returns {HRESULT} 
      */
@@ -480,32 +454,32 @@ export default struct IADsPrintQueue extends IADs {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_PrinterPath := CallbackCreate(GetMethod(implObj, "get_PrinterPath"), flags, 2)
-        this.vtbl.put_PrinterPath := CallbackCreate(GetMethod(implObj, "put_PrinterPath"), flags, 2)
-        this.vtbl.get_Model := CallbackCreate(GetMethod(implObj, "get_Model"), flags, 2)
-        this.vtbl.put_Model := CallbackCreate(GetMethod(implObj, "put_Model"), flags, 2)
-        this.vtbl.get_Datatype := CallbackCreate(GetMethod(implObj, "get_Datatype"), flags, 2)
-        this.vtbl.put_Datatype := CallbackCreate(GetMethod(implObj, "put_Datatype"), flags, 2)
-        this.vtbl.get_PrintProcessor := CallbackCreate(GetMethod(implObj, "get_PrintProcessor"), flags, 2)
-        this.vtbl.put_PrintProcessor := CallbackCreate(GetMethod(implObj, "put_PrintProcessor"), flags, 2)
-        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
-        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
-        this.vtbl.get_Location := CallbackCreate(GetMethod(implObj, "get_Location"), flags, 2)
-        this.vtbl.put_Location := CallbackCreate(GetMethod(implObj, "put_Location"), flags, 2)
-        this.vtbl.get_StartTime := CallbackCreate(GetMethod(implObj, "get_StartTime"), flags, 2)
-        this.vtbl.put_StartTime := CallbackCreate(GetMethod(implObj, "put_StartTime"), flags, 2)
-        this.vtbl.get_UntilTime := CallbackCreate(GetMethod(implObj, "get_UntilTime"), flags, 2)
-        this.vtbl.put_UntilTime := CallbackCreate(GetMethod(implObj, "put_UntilTime"), flags, 2)
-        this.vtbl.get_DefaultJobPriority := CallbackCreate(GetMethod(implObj, "get_DefaultJobPriority"), flags, 2)
-        this.vtbl.put_DefaultJobPriority := CallbackCreate(GetMethod(implObj, "put_DefaultJobPriority"), flags, 2)
-        this.vtbl.get_Priority := CallbackCreate(GetMethod(implObj, "get_Priority"), flags, 2)
-        this.vtbl.put_Priority := CallbackCreate(GetMethod(implObj, "put_Priority"), flags, 2)
-        this.vtbl.get_BannerPage := CallbackCreate(GetMethod(implObj, "get_BannerPage"), flags, 2)
-        this.vtbl.put_BannerPage := CallbackCreate(GetMethod(implObj, "put_BannerPage"), flags, 2)
-        this.vtbl.get_PrintDevices := CallbackCreate(GetMethod(implObj, "get_PrintDevices"), flags, 2)
-        this.vtbl.put_PrintDevices := CallbackCreate(GetMethod(implObj, "put_PrintDevices"), flags, 2)
-        this.vtbl.get_NetAddresses := CallbackCreate(GetMethod(implObj, "get_NetAddresses"), flags, 2)
-        this.vtbl.put_NetAddresses := CallbackCreate(GetMethod(implObj, "put_NetAddresses"), flags, 2)
+        this.vtbl.get_PrinterPath := CallbackCreate(ObjBindMethod(implObj, "get_PrinterPath"), flags, 2)
+        this.vtbl.put_PrinterPath := CallbackCreate(ObjBindMethod(implObj, "put_PrinterPath"), flags, 2)
+        this.vtbl.get_Model := CallbackCreate(ObjBindMethod(implObj, "get_Model"), flags, 2)
+        this.vtbl.put_Model := CallbackCreate(ObjBindMethod(implObj, "put_Model"), flags, 2)
+        this.vtbl.get_Datatype := CallbackCreate(ObjBindMethod(implObj, "get_Datatype"), flags, 2)
+        this.vtbl.put_Datatype := CallbackCreate(ObjBindMethod(implObj, "put_Datatype"), flags, 2)
+        this.vtbl.get_PrintProcessor := CallbackCreate(ObjBindMethod(implObj, "get_PrintProcessor"), flags, 2)
+        this.vtbl.put_PrintProcessor := CallbackCreate(ObjBindMethod(implObj, "put_PrintProcessor"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(ObjBindMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(ObjBindMethod(implObj, "put_Description"), flags, 2)
+        this.vtbl.get_Location := CallbackCreate(ObjBindMethod(implObj, "get_Location"), flags, 2)
+        this.vtbl.put_Location := CallbackCreate(ObjBindMethod(implObj, "put_Location"), flags, 2)
+        this.vtbl.get_StartTime := CallbackCreate(ObjBindMethod(implObj, "get_StartTime"), flags, 2)
+        this.vtbl.put_StartTime := CallbackCreate(ObjBindMethod(implObj, "put_StartTime"), flags, 2)
+        this.vtbl.get_UntilTime := CallbackCreate(ObjBindMethod(implObj, "get_UntilTime"), flags, 2)
+        this.vtbl.put_UntilTime := CallbackCreate(ObjBindMethod(implObj, "put_UntilTime"), flags, 2)
+        this.vtbl.get_DefaultJobPriority := CallbackCreate(ObjBindMethod(implObj, "get_DefaultJobPriority"), flags, 2)
+        this.vtbl.put_DefaultJobPriority := CallbackCreate(ObjBindMethod(implObj, "put_DefaultJobPriority"), flags, 2)
+        this.vtbl.get_Priority := CallbackCreate(ObjBindMethod(implObj, "get_Priority"), flags, 2)
+        this.vtbl.put_Priority := CallbackCreate(ObjBindMethod(implObj, "put_Priority"), flags, 2)
+        this.vtbl.get_BannerPage := CallbackCreate(ObjBindMethod(implObj, "get_BannerPage"), flags, 2)
+        this.vtbl.put_BannerPage := CallbackCreate(ObjBindMethod(implObj, "put_BannerPage"), flags, 2)
+        this.vtbl.get_PrintDevices := CallbackCreate(ObjBindMethod(implObj, "get_PrintDevices"), flags, 2)
+        this.vtbl.put_PrintDevices := CallbackCreate(ObjBindMethod(implObj, "put_PrintDevices"), flags, 2)
+        this.vtbl.get_NetAddresses := CallbackCreate(ObjBindMethod(implObj, "get_NetAddresses"), flags, 2)
+        this.vtbl.put_NetAddresses := CallbackCreate(ObjBindMethod(implObj, "put_NetAddresses"), flags, 2)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct PRESUTIL_DUP_STRING {
     }
 
     /**
-     * 
      * @param {PWSTR} pszInString 
      * @returns {PWSTR} 
      */

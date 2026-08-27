@@ -36,7 +36,6 @@ export default struct ID3D12CompilerStateObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
@@ -54,7 +53,7 @@ export default struct ID3D12CompilerStateObject extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCompiler := CallbackCreate(GetMethod(implObj, "GetCompiler"), flags, 3)
+        this.vtbl.GetCompiler := CallbackCreate(ObjBindMethod(implObj, "GetCompiler"), flags, 3)
     }
 
     Dispose() {

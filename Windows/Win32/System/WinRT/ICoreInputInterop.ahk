@@ -54,7 +54,9 @@ export default struct ICoreInputInterop extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/corewindow/nf-corewindow-icoreinputinterop-setinputsource
      */
     SetInputSource(value) {
-        result := ComCall(3, this, "ptr", value, "HRESULT")
+        valueMarshal := value == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -78,8 +80,8 @@ export default struct ICoreInputInterop extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetInputSource := CallbackCreate(GetMethod(implObj, "SetInputSource"), flags, 2)
-        this.vtbl.put_MessageHandled := CallbackCreate(GetMethod(implObj, "put_MessageHandled"), flags, 2)
+        this.vtbl.SetInputSource := CallbackCreate(ObjBindMethod(implObj, "SetInputSource"), flags, 2)
+        this.vtbl.put_MessageHandled := CallbackCreate(ObjBindMethod(implObj, "put_MessageHandled"), flags, 2)
     }
 
     Dispose() {

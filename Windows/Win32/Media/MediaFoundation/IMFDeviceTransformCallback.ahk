@@ -61,7 +61,7 @@ export default struct IMFDeviceTransformCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnBufferSent := CallbackCreate(GetMethod(implObj, "OnBufferSent"), flags, 3)
+        this.vtbl.OnBufferSent := CallbackCreate(ObjBindMethod(implObj, "OnBufferSent"), flags, 3)
     }
 
     Dispose() {

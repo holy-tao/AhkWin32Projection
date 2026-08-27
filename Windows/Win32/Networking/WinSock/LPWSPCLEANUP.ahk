@@ -28,7 +28,6 @@ export default struct LPWSPCLEANUP {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} lpErrno Pointer to the error code.
      * @returns {Integer} The return value is zero if the operation has been successfully initiated. Otherwise, the value SOCKET_ERROR is returned, and a specific error number is available in <i>lpErrno</i>.
      * 
@@ -73,7 +72,7 @@ export default struct LPWSPCLEANUP {
      * </table>
      */
     Call(lpErrno) {
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, lpErrnoMarshal, lpErrno, Int32)
         return result

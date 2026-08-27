@@ -22,7 +22,6 @@ export default struct LPWABOPEN {
     }
 
     /**
-     * 
      * @param {Pointer<IAddrBook>} lppAdrBook 
      * @param {Pointer<IWABObject>} lppWABObject 
      * @param {Pointer<WAB_PARAM>} lpWP 

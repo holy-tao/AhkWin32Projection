@@ -110,9 +110,9 @@ export default struct IUPnPNAT extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_StaticPortMappingCollection := CallbackCreate(GetMethod(implObj, "get_StaticPortMappingCollection"), flags, 2)
-        this.vtbl.get_DynamicPortMappingCollection := CallbackCreate(GetMethod(implObj, "get_DynamicPortMappingCollection"), flags, 2)
-        this.vtbl.get_NATEventManager := CallbackCreate(GetMethod(implObj, "get_NATEventManager"), flags, 2)
+        this.vtbl.get_StaticPortMappingCollection := CallbackCreate(ObjBindMethod(implObj, "get_StaticPortMappingCollection"), flags, 2)
+        this.vtbl.get_DynamicPortMappingCollection := CallbackCreate(ObjBindMethod(implObj, "get_DynamicPortMappingCollection"), flags, 2)
+        this.vtbl.get_NATEventManager := CallbackCreate(ObjBindMethod(implObj, "get_NATEventManager"), flags, 2)
     }
 
     Dispose() {

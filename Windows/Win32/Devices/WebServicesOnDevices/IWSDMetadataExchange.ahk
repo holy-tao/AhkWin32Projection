@@ -57,7 +57,7 @@ export default struct IWSDMetadataExchange extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMetadata := CallbackCreate(GetMethod(implObj, "GetMetadata"), flags, 2)
+        this.vtbl.GetMetadata := CallbackCreate(ObjBindMethod(implObj, "GetMetadata"), flags, 2)
     }
 
     Dispose() {

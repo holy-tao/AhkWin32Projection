@@ -27,7 +27,6 @@ export default struct KspDeleteContextFn {
     }
 
     /**
-     * 
      * @param {Pointer} ContextId A handle to the security context to delete.
      * @param {Pointer<Pointer>} LsaContextId 
      * @returns {NTSTATUS} If the function succeeds, return STATUS_SUCCESS.
@@ -53,7 +52,7 @@ export default struct KspDeleteContextFn {
      * </table>
      */
     Call(ContextId, LsaContextId) {
-        LsaContextIdMarshal := LsaContextId is VarRef ? "ptr*" : "ptr"
+        LsaContextIdMarshal := LsaContextId is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, IntPtr, ContextId, LsaContextIdMarshal, LsaContextId, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

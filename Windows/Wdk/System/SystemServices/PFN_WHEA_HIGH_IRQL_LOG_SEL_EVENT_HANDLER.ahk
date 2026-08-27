@@ -20,13 +20,12 @@ export default struct PFN_WHEA_HIGH_IRQL_LOG_SEL_EVENT_HANDLER {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<IPMI_OS_SEL_RECORD>} OsSelRecord 
      * @returns {NTSTATUS} 
      */
     Call(_Context, OsSelRecord) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, IPMI_OS_SEL_RECORD.Ptr, OsSelRecord, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

@@ -20,7 +20,6 @@ export default struct PShutdownTextServices {
     }
 
     /**
-     * 
      * @param {IUnknown} pTextServices 
      * @returns {HRESULT} 
      */

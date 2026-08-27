@@ -109,8 +109,8 @@ export default struct ITfFnLangProfileUtil extends ITfFunction {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterActiveProfiles := CallbackCreate(GetMethod(implObj, "RegisterActiveProfiles"), flags, 1)
-        this.vtbl.IsProfileAvailableForLang := CallbackCreate(GetMethod(implObj, "IsProfileAvailableForLang"), flags, 3)
+        this.vtbl.RegisterActiveProfiles := CallbackCreate(ObjBindMethod(implObj, "RegisterActiveProfiles"), flags, 1)
+        this.vtbl.IsProfileAvailableForLang := CallbackCreate(ObjBindMethod(implObj, "IsProfileAvailableForLang"), flags, 3)
     }
 
     Dispose() {

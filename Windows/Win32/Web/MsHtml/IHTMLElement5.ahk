@@ -336,7 +336,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrname 
      * @returns {IHTMLDOMAttribute2} 
      */
@@ -348,7 +347,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMAttribute2} pattr 
      * @returns {IHTMLDOMAttribute2} 
      */
@@ -358,7 +356,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMAttribute2} pattr 
      * @returns {IHTMLDOMAttribute2} 
      */
@@ -368,7 +365,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {VARIANT_BOOL} 
      */
@@ -380,7 +376,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -392,7 +387,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_role() {
@@ -402,7 +396,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -414,7 +407,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaBusy() {
@@ -424,7 +416,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -436,7 +427,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaChecked() {
@@ -446,7 +436,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -458,7 +447,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaDisabled() {
@@ -468,7 +456,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -480,7 +467,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaExpanded() {
@@ -490,7 +476,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -502,7 +487,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaHaspopup() {
@@ -512,7 +496,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -524,7 +507,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaHidden() {
@@ -534,7 +516,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -546,7 +527,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaInvalid() {
@@ -556,7 +536,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -568,7 +547,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaMultiselectable() {
@@ -578,7 +556,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -590,7 +567,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaPressed() {
@@ -600,7 +576,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -612,7 +587,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaReadonly() {
@@ -622,7 +596,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -634,7 +607,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaRequired() {
@@ -644,7 +616,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -656,7 +627,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaSecret() {
@@ -666,7 +636,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -678,7 +647,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaSelected() {
@@ -688,7 +656,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strAttributeName 
      * @returns {VARIANT} 
      */
@@ -701,7 +668,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strAttributeName 
      * @param {VARIANT} AttributeValue 
      * @returns {HRESULT} 
@@ -714,7 +680,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strAttributeName 
      * @returns {VARIANT_BOOL} 
      */
@@ -726,7 +691,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLAttributeCollection3} 
      */
     get_attributes() {
@@ -735,7 +699,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -747,7 +710,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaValuenow() {
@@ -757,7 +719,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -767,7 +728,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ariaPosinset() {
@@ -776,7 +736,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -786,7 +745,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ariaSetsize() {
@@ -795,7 +753,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -805,7 +762,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ariaLevel() {
@@ -814,7 +770,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -826,7 +781,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaValuemin() {
@@ -836,7 +790,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -848,7 +801,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaValuemax() {
@@ -858,7 +810,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -870,7 +821,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaControls() {
@@ -880,7 +830,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -892,7 +841,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaDescribedby() {
@@ -902,7 +850,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -914,7 +861,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaFlowto() {
@@ -924,7 +870,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -936,7 +881,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaLabelledby() {
@@ -946,7 +890,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -958,7 +901,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaActivedescendant() {
@@ -968,7 +910,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -980,7 +921,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaOwns() {
@@ -990,7 +930,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     hasAttributes() {
@@ -999,7 +938,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1011,7 +949,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaLive() {
@@ -1021,7 +958,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1033,7 +969,6 @@ export default struct IHTMLElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ariaRelevant() {
@@ -1051,71 +986,71 @@ export default struct IHTMLElement5 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.getAttributeNode := CallbackCreate(GetMethod(implObj, "getAttributeNode"), flags, 3)
-        this.vtbl.setAttributeNode := CallbackCreate(GetMethod(implObj, "setAttributeNode"), flags, 3)
-        this.vtbl.removeAttributeNode := CallbackCreate(GetMethod(implObj, "removeAttributeNode"), flags, 3)
-        this.vtbl.hasAttribute := CallbackCreate(GetMethod(implObj, "hasAttribute"), flags, 3)
-        this.vtbl.put_role := CallbackCreate(GetMethod(implObj, "put_role"), flags, 2)
-        this.vtbl.get_role := CallbackCreate(GetMethod(implObj, "get_role"), flags, 2)
-        this.vtbl.put_ariaBusy := CallbackCreate(GetMethod(implObj, "put_ariaBusy"), flags, 2)
-        this.vtbl.get_ariaBusy := CallbackCreate(GetMethod(implObj, "get_ariaBusy"), flags, 2)
-        this.vtbl.put_ariaChecked := CallbackCreate(GetMethod(implObj, "put_ariaChecked"), flags, 2)
-        this.vtbl.get_ariaChecked := CallbackCreate(GetMethod(implObj, "get_ariaChecked"), flags, 2)
-        this.vtbl.put_ariaDisabled := CallbackCreate(GetMethod(implObj, "put_ariaDisabled"), flags, 2)
-        this.vtbl.get_ariaDisabled := CallbackCreate(GetMethod(implObj, "get_ariaDisabled"), flags, 2)
-        this.vtbl.put_ariaExpanded := CallbackCreate(GetMethod(implObj, "put_ariaExpanded"), flags, 2)
-        this.vtbl.get_ariaExpanded := CallbackCreate(GetMethod(implObj, "get_ariaExpanded"), flags, 2)
-        this.vtbl.put_ariaHaspopup := CallbackCreate(GetMethod(implObj, "put_ariaHaspopup"), flags, 2)
-        this.vtbl.get_ariaHaspopup := CallbackCreate(GetMethod(implObj, "get_ariaHaspopup"), flags, 2)
-        this.vtbl.put_ariaHidden := CallbackCreate(GetMethod(implObj, "put_ariaHidden"), flags, 2)
-        this.vtbl.get_ariaHidden := CallbackCreate(GetMethod(implObj, "get_ariaHidden"), flags, 2)
-        this.vtbl.put_ariaInvalid := CallbackCreate(GetMethod(implObj, "put_ariaInvalid"), flags, 2)
-        this.vtbl.get_ariaInvalid := CallbackCreate(GetMethod(implObj, "get_ariaInvalid"), flags, 2)
-        this.vtbl.put_ariaMultiselectable := CallbackCreate(GetMethod(implObj, "put_ariaMultiselectable"), flags, 2)
-        this.vtbl.get_ariaMultiselectable := CallbackCreate(GetMethod(implObj, "get_ariaMultiselectable"), flags, 2)
-        this.vtbl.put_ariaPressed := CallbackCreate(GetMethod(implObj, "put_ariaPressed"), flags, 2)
-        this.vtbl.get_ariaPressed := CallbackCreate(GetMethod(implObj, "get_ariaPressed"), flags, 2)
-        this.vtbl.put_ariaReadonly := CallbackCreate(GetMethod(implObj, "put_ariaReadonly"), flags, 2)
-        this.vtbl.get_ariaReadonly := CallbackCreate(GetMethod(implObj, "get_ariaReadonly"), flags, 2)
-        this.vtbl.put_ariaRequired := CallbackCreate(GetMethod(implObj, "put_ariaRequired"), flags, 2)
-        this.vtbl.get_ariaRequired := CallbackCreate(GetMethod(implObj, "get_ariaRequired"), flags, 2)
-        this.vtbl.put_ariaSecret := CallbackCreate(GetMethod(implObj, "put_ariaSecret"), flags, 2)
-        this.vtbl.get_ariaSecret := CallbackCreate(GetMethod(implObj, "get_ariaSecret"), flags, 2)
-        this.vtbl.put_ariaSelected := CallbackCreate(GetMethod(implObj, "put_ariaSelected"), flags, 2)
-        this.vtbl.get_ariaSelected := CallbackCreate(GetMethod(implObj, "get_ariaSelected"), flags, 2)
-        this.vtbl.getAttribute := CallbackCreate(GetMethod(implObj, "getAttribute"), flags, 3)
-        this.vtbl.setAttribute := CallbackCreate(GetMethod(implObj, "setAttribute"), flags, 3)
-        this.vtbl.removeAttribute := CallbackCreate(GetMethod(implObj, "removeAttribute"), flags, 3)
-        this.vtbl.get_attributes := CallbackCreate(GetMethod(implObj, "get_attributes"), flags, 2)
-        this.vtbl.put_ariaValuenow := CallbackCreate(GetMethod(implObj, "put_ariaValuenow"), flags, 2)
-        this.vtbl.get_ariaValuenow := CallbackCreate(GetMethod(implObj, "get_ariaValuenow"), flags, 2)
-        this.vtbl.put_ariaPosinset := CallbackCreate(GetMethod(implObj, "put_ariaPosinset"), flags, 2)
-        this.vtbl.get_ariaPosinset := CallbackCreate(GetMethod(implObj, "get_ariaPosinset"), flags, 2)
-        this.vtbl.put_ariaSetsize := CallbackCreate(GetMethod(implObj, "put_ariaSetsize"), flags, 2)
-        this.vtbl.get_ariaSetsize := CallbackCreate(GetMethod(implObj, "get_ariaSetsize"), flags, 2)
-        this.vtbl.put_ariaLevel := CallbackCreate(GetMethod(implObj, "put_ariaLevel"), flags, 2)
-        this.vtbl.get_ariaLevel := CallbackCreate(GetMethod(implObj, "get_ariaLevel"), flags, 2)
-        this.vtbl.put_ariaValuemin := CallbackCreate(GetMethod(implObj, "put_ariaValuemin"), flags, 2)
-        this.vtbl.get_ariaValuemin := CallbackCreate(GetMethod(implObj, "get_ariaValuemin"), flags, 2)
-        this.vtbl.put_ariaValuemax := CallbackCreate(GetMethod(implObj, "put_ariaValuemax"), flags, 2)
-        this.vtbl.get_ariaValuemax := CallbackCreate(GetMethod(implObj, "get_ariaValuemax"), flags, 2)
-        this.vtbl.put_ariaControls := CallbackCreate(GetMethod(implObj, "put_ariaControls"), flags, 2)
-        this.vtbl.get_ariaControls := CallbackCreate(GetMethod(implObj, "get_ariaControls"), flags, 2)
-        this.vtbl.put_ariaDescribedby := CallbackCreate(GetMethod(implObj, "put_ariaDescribedby"), flags, 2)
-        this.vtbl.get_ariaDescribedby := CallbackCreate(GetMethod(implObj, "get_ariaDescribedby"), flags, 2)
-        this.vtbl.put_ariaFlowto := CallbackCreate(GetMethod(implObj, "put_ariaFlowto"), flags, 2)
-        this.vtbl.get_ariaFlowto := CallbackCreate(GetMethod(implObj, "get_ariaFlowto"), flags, 2)
-        this.vtbl.put_ariaLabelledby := CallbackCreate(GetMethod(implObj, "put_ariaLabelledby"), flags, 2)
-        this.vtbl.get_ariaLabelledby := CallbackCreate(GetMethod(implObj, "get_ariaLabelledby"), flags, 2)
-        this.vtbl.put_ariaActivedescendant := CallbackCreate(GetMethod(implObj, "put_ariaActivedescendant"), flags, 2)
-        this.vtbl.get_ariaActivedescendant := CallbackCreate(GetMethod(implObj, "get_ariaActivedescendant"), flags, 2)
-        this.vtbl.put_ariaOwns := CallbackCreate(GetMethod(implObj, "put_ariaOwns"), flags, 2)
-        this.vtbl.get_ariaOwns := CallbackCreate(GetMethod(implObj, "get_ariaOwns"), flags, 2)
-        this.vtbl.hasAttributes := CallbackCreate(GetMethod(implObj, "hasAttributes"), flags, 2)
-        this.vtbl.put_ariaLive := CallbackCreate(GetMethod(implObj, "put_ariaLive"), flags, 2)
-        this.vtbl.get_ariaLive := CallbackCreate(GetMethod(implObj, "get_ariaLive"), flags, 2)
-        this.vtbl.put_ariaRelevant := CallbackCreate(GetMethod(implObj, "put_ariaRelevant"), flags, 2)
-        this.vtbl.get_ariaRelevant := CallbackCreate(GetMethod(implObj, "get_ariaRelevant"), flags, 2)
+        this.vtbl.getAttributeNode := CallbackCreate(ObjBindMethod(implObj, "getAttributeNode"), flags, 3)
+        this.vtbl.setAttributeNode := CallbackCreate(ObjBindMethod(implObj, "setAttributeNode"), flags, 3)
+        this.vtbl.removeAttributeNode := CallbackCreate(ObjBindMethod(implObj, "removeAttributeNode"), flags, 3)
+        this.vtbl.hasAttribute := CallbackCreate(ObjBindMethod(implObj, "hasAttribute"), flags, 3)
+        this.vtbl.put_role := CallbackCreate(ObjBindMethod(implObj, "put_role"), flags, 2)
+        this.vtbl.get_role := CallbackCreate(ObjBindMethod(implObj, "get_role"), flags, 2)
+        this.vtbl.put_ariaBusy := CallbackCreate(ObjBindMethod(implObj, "put_ariaBusy"), flags, 2)
+        this.vtbl.get_ariaBusy := CallbackCreate(ObjBindMethod(implObj, "get_ariaBusy"), flags, 2)
+        this.vtbl.put_ariaChecked := CallbackCreate(ObjBindMethod(implObj, "put_ariaChecked"), flags, 2)
+        this.vtbl.get_ariaChecked := CallbackCreate(ObjBindMethod(implObj, "get_ariaChecked"), flags, 2)
+        this.vtbl.put_ariaDisabled := CallbackCreate(ObjBindMethod(implObj, "put_ariaDisabled"), flags, 2)
+        this.vtbl.get_ariaDisabled := CallbackCreate(ObjBindMethod(implObj, "get_ariaDisabled"), flags, 2)
+        this.vtbl.put_ariaExpanded := CallbackCreate(ObjBindMethod(implObj, "put_ariaExpanded"), flags, 2)
+        this.vtbl.get_ariaExpanded := CallbackCreate(ObjBindMethod(implObj, "get_ariaExpanded"), flags, 2)
+        this.vtbl.put_ariaHaspopup := CallbackCreate(ObjBindMethod(implObj, "put_ariaHaspopup"), flags, 2)
+        this.vtbl.get_ariaHaspopup := CallbackCreate(ObjBindMethod(implObj, "get_ariaHaspopup"), flags, 2)
+        this.vtbl.put_ariaHidden := CallbackCreate(ObjBindMethod(implObj, "put_ariaHidden"), flags, 2)
+        this.vtbl.get_ariaHidden := CallbackCreate(ObjBindMethod(implObj, "get_ariaHidden"), flags, 2)
+        this.vtbl.put_ariaInvalid := CallbackCreate(ObjBindMethod(implObj, "put_ariaInvalid"), flags, 2)
+        this.vtbl.get_ariaInvalid := CallbackCreate(ObjBindMethod(implObj, "get_ariaInvalid"), flags, 2)
+        this.vtbl.put_ariaMultiselectable := CallbackCreate(ObjBindMethod(implObj, "put_ariaMultiselectable"), flags, 2)
+        this.vtbl.get_ariaMultiselectable := CallbackCreate(ObjBindMethod(implObj, "get_ariaMultiselectable"), flags, 2)
+        this.vtbl.put_ariaPressed := CallbackCreate(ObjBindMethod(implObj, "put_ariaPressed"), flags, 2)
+        this.vtbl.get_ariaPressed := CallbackCreate(ObjBindMethod(implObj, "get_ariaPressed"), flags, 2)
+        this.vtbl.put_ariaReadonly := CallbackCreate(ObjBindMethod(implObj, "put_ariaReadonly"), flags, 2)
+        this.vtbl.get_ariaReadonly := CallbackCreate(ObjBindMethod(implObj, "get_ariaReadonly"), flags, 2)
+        this.vtbl.put_ariaRequired := CallbackCreate(ObjBindMethod(implObj, "put_ariaRequired"), flags, 2)
+        this.vtbl.get_ariaRequired := CallbackCreate(ObjBindMethod(implObj, "get_ariaRequired"), flags, 2)
+        this.vtbl.put_ariaSecret := CallbackCreate(ObjBindMethod(implObj, "put_ariaSecret"), flags, 2)
+        this.vtbl.get_ariaSecret := CallbackCreate(ObjBindMethod(implObj, "get_ariaSecret"), flags, 2)
+        this.vtbl.put_ariaSelected := CallbackCreate(ObjBindMethod(implObj, "put_ariaSelected"), flags, 2)
+        this.vtbl.get_ariaSelected := CallbackCreate(ObjBindMethod(implObj, "get_ariaSelected"), flags, 2)
+        this.vtbl.getAttribute := CallbackCreate(ObjBindMethod(implObj, "getAttribute"), flags, 3)
+        this.vtbl.setAttribute := CallbackCreate(ObjBindMethod(implObj, "setAttribute"), flags, 3)
+        this.vtbl.removeAttribute := CallbackCreate(ObjBindMethod(implObj, "removeAttribute"), flags, 3)
+        this.vtbl.get_attributes := CallbackCreate(ObjBindMethod(implObj, "get_attributes"), flags, 2)
+        this.vtbl.put_ariaValuenow := CallbackCreate(ObjBindMethod(implObj, "put_ariaValuenow"), flags, 2)
+        this.vtbl.get_ariaValuenow := CallbackCreate(ObjBindMethod(implObj, "get_ariaValuenow"), flags, 2)
+        this.vtbl.put_ariaPosinset := CallbackCreate(ObjBindMethod(implObj, "put_ariaPosinset"), flags, 2)
+        this.vtbl.get_ariaPosinset := CallbackCreate(ObjBindMethod(implObj, "get_ariaPosinset"), flags, 2)
+        this.vtbl.put_ariaSetsize := CallbackCreate(ObjBindMethod(implObj, "put_ariaSetsize"), flags, 2)
+        this.vtbl.get_ariaSetsize := CallbackCreate(ObjBindMethod(implObj, "get_ariaSetsize"), flags, 2)
+        this.vtbl.put_ariaLevel := CallbackCreate(ObjBindMethod(implObj, "put_ariaLevel"), flags, 2)
+        this.vtbl.get_ariaLevel := CallbackCreate(ObjBindMethod(implObj, "get_ariaLevel"), flags, 2)
+        this.vtbl.put_ariaValuemin := CallbackCreate(ObjBindMethod(implObj, "put_ariaValuemin"), flags, 2)
+        this.vtbl.get_ariaValuemin := CallbackCreate(ObjBindMethod(implObj, "get_ariaValuemin"), flags, 2)
+        this.vtbl.put_ariaValuemax := CallbackCreate(ObjBindMethod(implObj, "put_ariaValuemax"), flags, 2)
+        this.vtbl.get_ariaValuemax := CallbackCreate(ObjBindMethod(implObj, "get_ariaValuemax"), flags, 2)
+        this.vtbl.put_ariaControls := CallbackCreate(ObjBindMethod(implObj, "put_ariaControls"), flags, 2)
+        this.vtbl.get_ariaControls := CallbackCreate(ObjBindMethod(implObj, "get_ariaControls"), flags, 2)
+        this.vtbl.put_ariaDescribedby := CallbackCreate(ObjBindMethod(implObj, "put_ariaDescribedby"), flags, 2)
+        this.vtbl.get_ariaDescribedby := CallbackCreate(ObjBindMethod(implObj, "get_ariaDescribedby"), flags, 2)
+        this.vtbl.put_ariaFlowto := CallbackCreate(ObjBindMethod(implObj, "put_ariaFlowto"), flags, 2)
+        this.vtbl.get_ariaFlowto := CallbackCreate(ObjBindMethod(implObj, "get_ariaFlowto"), flags, 2)
+        this.vtbl.put_ariaLabelledby := CallbackCreate(ObjBindMethod(implObj, "put_ariaLabelledby"), flags, 2)
+        this.vtbl.get_ariaLabelledby := CallbackCreate(ObjBindMethod(implObj, "get_ariaLabelledby"), flags, 2)
+        this.vtbl.put_ariaActivedescendant := CallbackCreate(ObjBindMethod(implObj, "put_ariaActivedescendant"), flags, 2)
+        this.vtbl.get_ariaActivedescendant := CallbackCreate(ObjBindMethod(implObj, "get_ariaActivedescendant"), flags, 2)
+        this.vtbl.put_ariaOwns := CallbackCreate(ObjBindMethod(implObj, "put_ariaOwns"), flags, 2)
+        this.vtbl.get_ariaOwns := CallbackCreate(ObjBindMethod(implObj, "get_ariaOwns"), flags, 2)
+        this.vtbl.hasAttributes := CallbackCreate(ObjBindMethod(implObj, "hasAttributes"), flags, 2)
+        this.vtbl.put_ariaLive := CallbackCreate(ObjBindMethod(implObj, "put_ariaLive"), flags, 2)
+        this.vtbl.get_ariaLive := CallbackCreate(ObjBindMethod(implObj, "get_ariaLive"), flags, 2)
+        this.vtbl.put_ariaRelevant := CallbackCreate(ObjBindMethod(implObj, "put_ariaRelevant"), flags, 2)
+        this.vtbl.get_ariaRelevant := CallbackCreate(ObjBindMethod(implObj, "get_ariaRelevant"), flags, 2)
     }
 
     Dispose() {

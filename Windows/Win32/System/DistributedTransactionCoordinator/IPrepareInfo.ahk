@@ -37,24 +37,22 @@ export default struct IPrepareInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcbPrepInfo 
      * @returns {HRESULT} 
      */
     GetPrepareInfoSize(pcbPrepInfo) {
-        pcbPrepInfoMarshal := pcbPrepInfo is VarRef ? "uint*" : "ptr"
+        pcbPrepInfoMarshal := pcbPrepInfo is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pcbPrepInfoMarshal, pcbPrepInfo, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pPrepInfo 
      * @returns {HRESULT} 
      */
     GetPrepareInfo(pPrepInfo) {
-        pPrepInfoMarshal := pPrepInfo is VarRef ? "char*" : "ptr"
+        pPrepInfoMarshal := pPrepInfo is VarRef ? "char*" : IntPtr
 
         result := ComCall(4, this, pPrepInfoMarshal, pPrepInfo, "HRESULT")
         return result
@@ -69,8 +67,8 @@ export default struct IPrepareInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPrepareInfoSize := CallbackCreate(GetMethod(implObj, "GetPrepareInfoSize"), flags, 2)
-        this.vtbl.GetPrepareInfo := CallbackCreate(GetMethod(implObj, "GetPrepareInfo"), flags, 2)
+        this.vtbl.GetPrepareInfoSize := CallbackCreate(ObjBindMethod(implObj, "GetPrepareInfoSize"), flags, 2)
+        this.vtbl.GetPrepareInfo := CallbackCreate(ObjBindMethod(implObj, "GetPrepareInfo"), flags, 2)
     }
 
     Dispose() {

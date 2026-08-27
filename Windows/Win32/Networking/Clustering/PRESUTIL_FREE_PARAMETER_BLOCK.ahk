@@ -19,15 +19,14 @@ export default struct PRESUTIL_FREE_PARAMETER_BLOCK {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pOutParams 
      * @param {Pointer<Integer>} pInParams 
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(pOutParams, pInParams, pPropertyTable) {
-        pOutParamsMarshal := pOutParams is VarRef ? "char*" : "ptr"
-        pInParamsMarshal := pInParams is VarRef ? "char*" : "ptr"
+        pOutParamsMarshal := pOutParams is VarRef ? "char*" : IntPtr
+        pInParamsMarshal := pInParams is VarRef ? "char*" : IntPtr
 
         DllCall(this.value, pOutParamsMarshal, pOutParams, pInParamsMarshal, pInParams, RESUTIL_PROPERTY_ITEM.Ptr, pPropertyTable)
     }

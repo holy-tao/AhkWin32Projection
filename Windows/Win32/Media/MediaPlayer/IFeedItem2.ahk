@@ -43,7 +43,6 @@ export default struct IFeedItem2 extends IFeedItem {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_EffectiveId() {
@@ -60,7 +59,7 @@ export default struct IFeedItem2 extends IFeedItem {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_EffectiveId := CallbackCreate(GetMethod(implObj, "get_EffectiveId"), flags, 2)
+        this.vtbl.get_EffectiveId := CallbackCreate(ObjBindMethod(implObj, "get_EffectiveId"), flags, 2)
     }
 
     Dispose() {

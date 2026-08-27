@@ -20,14 +20,15 @@ export default struct PTP_CLEANUP_GROUP_CANCEL_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _ObjectContext Optional application-defined data specified during creation of the object.
      * @param {Pointer<Void>} CleanupContext Optional application-defined data specified using <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-closethreadpoolcleanupgroupmembers">CloseThreadpoolCleanupGroupMembers</a>.
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_ObjectContext, CleanupContext) {
-        _ObjectContextMarshal := _ObjectContext is VarRef ? "ptr" : "ptr"
-        CleanupContextMarshal := CleanupContext is VarRef ? "ptr" : "ptr"
+        _ObjectContextMarshal := _ObjectContext is VarRef ? "ptr" : IntPtr
+        _ObjectContextMarshal := _ObjectContext == 0 ? IntPtr : "ptr"
+        CleanupContextMarshal := CleanupContext is VarRef ? "ptr" : IntPtr
+        CleanupContextMarshal := CleanupContext == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, _ObjectContextMarshal, _ObjectContext, CleanupContextMarshal, CleanupContext)
     }

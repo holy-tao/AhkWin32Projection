@@ -40,7 +40,6 @@ export default struct IRowPosition extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ClearRowPosition() {
@@ -49,23 +48,23 @@ export default struct IRowPosition extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} phChapter 
      * @param {Pointer<Pointer>} phRow 
      * @param {Pointer<Integer>} pdwPositionFlags 
      * @returns {HRESULT} 
      */
     GetRowPosition(phChapter, phRow, pdwPositionFlags) {
-        phChapterMarshal := phChapter is VarRef ? "ptr*" : "ptr"
-        phRowMarshal := phRow is VarRef ? "ptr*" : "ptr"
-        pdwPositionFlagsMarshal := pdwPositionFlags is VarRef ? "uint*" : "ptr"
+        phChapterMarshal := phChapter is VarRef ? "ptr*" : IntPtr
+        phChapterMarshal := phChapter == 0 ? IntPtr : "ptr*"
+        phRowMarshal := phRow is VarRef ? "ptr*" : IntPtr
+        pdwPositionFlagsMarshal := pdwPositionFlags is VarRef ? "uint*" : IntPtr
+        pdwPositionFlagsMarshal := pdwPositionFlags == 0 ? IntPtr : "uint*"
 
         result := ComCall(4, this, phChapterMarshal, phChapter, phRowMarshal, phRow, pdwPositionFlagsMarshal, pdwPositionFlags, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
      */
@@ -109,7 +108,6 @@ export default struct IRowPosition extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hChapter 
      * @param {Pointer} hRow 
      * @param {Integer} dwPositionFlags 
@@ -129,11 +127,11 @@ export default struct IRowPosition extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ClearRowPosition := CallbackCreate(GetMethod(implObj, "ClearRowPosition"), flags, 1)
-        this.vtbl.GetRowPosition := CallbackCreate(GetMethod(implObj, "GetRowPosition"), flags, 4)
-        this.vtbl.GetRowset := CallbackCreate(GetMethod(implObj, "GetRowset"), flags, 3)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.SetRowPosition := CallbackCreate(GetMethod(implObj, "SetRowPosition"), flags, 4)
+        this.vtbl.ClearRowPosition := CallbackCreate(ObjBindMethod(implObj, "ClearRowPosition"), flags, 1)
+        this.vtbl.GetRowPosition := CallbackCreate(ObjBindMethod(implObj, "GetRowPosition"), flags, 4)
+        this.vtbl.GetRowset := CallbackCreate(ObjBindMethod(implObj, "GetRowset"), flags, 3)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.SetRowPosition := CallbackCreate(ObjBindMethod(implObj, "SetRowPosition"), flags, 4)
     }
 
     Dispose() {

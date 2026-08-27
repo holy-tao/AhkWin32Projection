@@ -37,7 +37,6 @@ export default struct ISourcesRowset extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<Guid>} riid 
      * @param {Integer} cPropertySets 
@@ -45,7 +44,10 @@ export default struct ISourcesRowset extends IUnknown {
      * @returns {IUnknown} 
      */
     GetSourcesRowset(pUnkOuter, riid, cPropertySets, rgProperties) {
-        result := ComCall(3, this, "ptr", pUnkOuter, Guid.Ptr, riid, UInt32, cPropertySets, DBPROPSET.Ptr, rgProperties, "ptr*", &ppSourcesRowset := 0, "HRESULT")
+        pUnkOuterMarshal := pUnkOuter == 0 ? IntPtr : "ptr"
+        rgPropertiesMarshal := rgProperties == 0 ? IntPtr : DBPROPSET.Ptr
+
+        result := ComCall(3, this, pUnkOuterMarshal, pUnkOuter, Guid.Ptr, riid, UInt32, cPropertySets, rgPropertiesMarshal, rgProperties, "ptr*", &ppSourcesRowset := 0, "HRESULT")
         return IUnknown(ppSourcesRowset)
     }
 
@@ -58,7 +60,7 @@ export default struct ISourcesRowset extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSourcesRowset := CallbackCreate(GetMethod(implObj, "GetSourcesRowset"), flags, 6)
+        this.vtbl.GetSourcesRowset := CallbackCreate(ObjBindMethod(implObj, "GetSourcesRowset"), flags, 6)
     }
 
     Dispose() {

@@ -104,7 +104,10 @@ export default struct IMFHttpDownloadSession extends IUnknown {
         szVerb := szVerb is String ? StrPtr(szVerb) : szVerb
         szReferrer := szReferrer is String ? StrPtr(szReferrer) : szReferrer
 
-        result := ComCall(4, this, "ptr", szObjectName, BOOL, fBypassProxyCache, BOOL, fSecure, "ptr", szVerb, "ptr", szReferrer, "ptr*", &ppRequest := 0, "HRESULT")
+        szVerbMarshal := szVerb == 0 ? IntPtr : PWSTR
+        szReferrerMarshal := szReferrer == 0 ? IntPtr : PWSTR
+
+        result := ComCall(4, this, "ptr", szObjectName, BOOL, fBypassProxyCache, BOOL, fSecure, szVerbMarshal, szVerb, szReferrerMarshal, szReferrer, "ptr*", &ppRequest := 0, "HRESULT")
         return IMFHttpDownloadRequest(ppRequest)
     }
 
@@ -146,9 +149,9 @@ export default struct IMFHttpDownloadSession extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetServer := CallbackCreate(GetMethod(implObj, "SetServer"), flags, 3)
-        this.vtbl.CreateRequest := CallbackCreate(GetMethod(implObj, "CreateRequest"), flags, 7)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.SetServer := CallbackCreate(ObjBindMethod(implObj, "SetServer"), flags, 3)
+        this.vtbl.CreateRequest := CallbackCreate(ObjBindMethod(implObj, "CreateRequest"), flags, 7)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
     }
 
     Dispose() {

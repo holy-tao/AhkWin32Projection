@@ -58,7 +58,7 @@ export default struct IServiceComTIIntrinsicsConfig extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ComTIIntrinsicsConfig := CallbackCreate(GetMethod(implObj, "ComTIIntrinsicsConfig"), flags, 2)
+        this.vtbl.ComTIIntrinsicsConfig := CallbackCreate(ObjBindMethod(implObj, "ComTIIntrinsicsConfig"), flags, 2)
     }
 
     Dispose() {

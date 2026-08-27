@@ -192,7 +192,6 @@ export default struct IADsClass extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PrimaryInterface() {
@@ -202,7 +201,6 @@ export default struct IADsClass extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_CLSID() {
@@ -212,7 +210,6 @@ export default struct IADsClass extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrCLSID 
      * @returns {HRESULT} 
      */
@@ -224,7 +221,6 @@ export default struct IADsClass extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_OID() {
@@ -234,7 +230,6 @@ export default struct IADsClass extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrOID 
      * @returns {HRESULT} 
      */
@@ -246,7 +241,6 @@ export default struct IADsClass extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Abstract() {
@@ -255,7 +249,6 @@ export default struct IADsClass extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fAbstract 
      * @returns {HRESULT} 
      */
@@ -265,7 +258,6 @@ export default struct IADsClass extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Auxiliary() {
@@ -274,7 +266,6 @@ export default struct IADsClass extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fAuxiliary 
      * @returns {HRESULT} 
      */
@@ -284,7 +275,6 @@ export default struct IADsClass extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_MandatoryProperties() {
@@ -294,7 +284,6 @@ export default struct IADsClass extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vMandatoryProperties 
      * @returns {HRESULT} 
      */
@@ -304,7 +293,6 @@ export default struct IADsClass extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_OptionalProperties() {
@@ -314,7 +302,6 @@ export default struct IADsClass extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vOptionalProperties 
      * @returns {HRESULT} 
      */
@@ -324,7 +311,6 @@ export default struct IADsClass extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_NamingProperties() {
@@ -334,7 +320,6 @@ export default struct IADsClass extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vNamingProperties 
      * @returns {HRESULT} 
      */
@@ -344,7 +329,6 @@ export default struct IADsClass extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_DerivedFrom() {
@@ -354,7 +338,6 @@ export default struct IADsClass extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vDerivedFrom 
      * @returns {HRESULT} 
      */
@@ -364,7 +347,6 @@ export default struct IADsClass extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_AuxDerivedFrom() {
@@ -374,7 +356,6 @@ export default struct IADsClass extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vAuxDerivedFrom 
      * @returns {HRESULT} 
      */
@@ -384,7 +365,6 @@ export default struct IADsClass extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_PossibleSuperiors() {
@@ -394,7 +374,6 @@ export default struct IADsClass extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vPossibleSuperiors 
      * @returns {HRESULT} 
      */
@@ -404,7 +383,6 @@ export default struct IADsClass extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Containment() {
@@ -414,7 +392,6 @@ export default struct IADsClass extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vContainment 
      * @returns {HRESULT} 
      */
@@ -424,7 +401,6 @@ export default struct IADsClass extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Container() {
@@ -433,7 +409,6 @@ export default struct IADsClass extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fContainer 
      * @returns {HRESULT} 
      */
@@ -443,7 +418,6 @@ export default struct IADsClass extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_HelpFileName() {
@@ -453,7 +427,6 @@ export default struct IADsClass extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrHelpFileName 
      * @returns {HRESULT} 
      */
@@ -465,7 +438,6 @@ export default struct IADsClass extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_HelpFileContext() {
@@ -474,7 +446,6 @@ export default struct IADsClass extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnHelpFileContext 
      * @returns {HRESULT} 
      */
@@ -506,36 +477,36 @@ export default struct IADsClass extends IADs {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_PrimaryInterface := CallbackCreate(GetMethod(implObj, "get_PrimaryInterface"), flags, 2)
-        this.vtbl.get_CLSID := CallbackCreate(GetMethod(implObj, "get_CLSID"), flags, 2)
-        this.vtbl.put_CLSID := CallbackCreate(GetMethod(implObj, "put_CLSID"), flags, 2)
-        this.vtbl.get_OID := CallbackCreate(GetMethod(implObj, "get_OID"), flags, 2)
-        this.vtbl.put_OID := CallbackCreate(GetMethod(implObj, "put_OID"), flags, 2)
-        this.vtbl.get_Abstract := CallbackCreate(GetMethod(implObj, "get_Abstract"), flags, 2)
-        this.vtbl.put_Abstract := CallbackCreate(GetMethod(implObj, "put_Abstract"), flags, 2)
-        this.vtbl.get_Auxiliary := CallbackCreate(GetMethod(implObj, "get_Auxiliary"), flags, 2)
-        this.vtbl.put_Auxiliary := CallbackCreate(GetMethod(implObj, "put_Auxiliary"), flags, 2)
-        this.vtbl.get_MandatoryProperties := CallbackCreate(GetMethod(implObj, "get_MandatoryProperties"), flags, 2)
-        this.vtbl.put_MandatoryProperties := CallbackCreate(GetMethod(implObj, "put_MandatoryProperties"), flags, 2)
-        this.vtbl.get_OptionalProperties := CallbackCreate(GetMethod(implObj, "get_OptionalProperties"), flags, 2)
-        this.vtbl.put_OptionalProperties := CallbackCreate(GetMethod(implObj, "put_OptionalProperties"), flags, 2)
-        this.vtbl.get_NamingProperties := CallbackCreate(GetMethod(implObj, "get_NamingProperties"), flags, 2)
-        this.vtbl.put_NamingProperties := CallbackCreate(GetMethod(implObj, "put_NamingProperties"), flags, 2)
-        this.vtbl.get_DerivedFrom := CallbackCreate(GetMethod(implObj, "get_DerivedFrom"), flags, 2)
-        this.vtbl.put_DerivedFrom := CallbackCreate(GetMethod(implObj, "put_DerivedFrom"), flags, 2)
-        this.vtbl.get_AuxDerivedFrom := CallbackCreate(GetMethod(implObj, "get_AuxDerivedFrom"), flags, 2)
-        this.vtbl.put_AuxDerivedFrom := CallbackCreate(GetMethod(implObj, "put_AuxDerivedFrom"), flags, 2)
-        this.vtbl.get_PossibleSuperiors := CallbackCreate(GetMethod(implObj, "get_PossibleSuperiors"), flags, 2)
-        this.vtbl.put_PossibleSuperiors := CallbackCreate(GetMethod(implObj, "put_PossibleSuperiors"), flags, 2)
-        this.vtbl.get_Containment := CallbackCreate(GetMethod(implObj, "get_Containment"), flags, 2)
-        this.vtbl.put_Containment := CallbackCreate(GetMethod(implObj, "put_Containment"), flags, 2)
-        this.vtbl.get_Container := CallbackCreate(GetMethod(implObj, "get_Container"), flags, 2)
-        this.vtbl.put_Container := CallbackCreate(GetMethod(implObj, "put_Container"), flags, 2)
-        this.vtbl.get_HelpFileName := CallbackCreate(GetMethod(implObj, "get_HelpFileName"), flags, 2)
-        this.vtbl.put_HelpFileName := CallbackCreate(GetMethod(implObj, "put_HelpFileName"), flags, 2)
-        this.vtbl.get_HelpFileContext := CallbackCreate(GetMethod(implObj, "get_HelpFileContext"), flags, 2)
-        this.vtbl.put_HelpFileContext := CallbackCreate(GetMethod(implObj, "put_HelpFileContext"), flags, 2)
-        this.vtbl.Qualifiers := CallbackCreate(GetMethod(implObj, "Qualifiers"), flags, 2)
+        this.vtbl.get_PrimaryInterface := CallbackCreate(ObjBindMethod(implObj, "get_PrimaryInterface"), flags, 2)
+        this.vtbl.get_CLSID := CallbackCreate(ObjBindMethod(implObj, "get_CLSID"), flags, 2)
+        this.vtbl.put_CLSID := CallbackCreate(ObjBindMethod(implObj, "put_CLSID"), flags, 2)
+        this.vtbl.get_OID := CallbackCreate(ObjBindMethod(implObj, "get_OID"), flags, 2)
+        this.vtbl.put_OID := CallbackCreate(ObjBindMethod(implObj, "put_OID"), flags, 2)
+        this.vtbl.get_Abstract := CallbackCreate(ObjBindMethod(implObj, "get_Abstract"), flags, 2)
+        this.vtbl.put_Abstract := CallbackCreate(ObjBindMethod(implObj, "put_Abstract"), flags, 2)
+        this.vtbl.get_Auxiliary := CallbackCreate(ObjBindMethod(implObj, "get_Auxiliary"), flags, 2)
+        this.vtbl.put_Auxiliary := CallbackCreate(ObjBindMethod(implObj, "put_Auxiliary"), flags, 2)
+        this.vtbl.get_MandatoryProperties := CallbackCreate(ObjBindMethod(implObj, "get_MandatoryProperties"), flags, 2)
+        this.vtbl.put_MandatoryProperties := CallbackCreate(ObjBindMethod(implObj, "put_MandatoryProperties"), flags, 2)
+        this.vtbl.get_OptionalProperties := CallbackCreate(ObjBindMethod(implObj, "get_OptionalProperties"), flags, 2)
+        this.vtbl.put_OptionalProperties := CallbackCreate(ObjBindMethod(implObj, "put_OptionalProperties"), flags, 2)
+        this.vtbl.get_NamingProperties := CallbackCreate(ObjBindMethod(implObj, "get_NamingProperties"), flags, 2)
+        this.vtbl.put_NamingProperties := CallbackCreate(ObjBindMethod(implObj, "put_NamingProperties"), flags, 2)
+        this.vtbl.get_DerivedFrom := CallbackCreate(ObjBindMethod(implObj, "get_DerivedFrom"), flags, 2)
+        this.vtbl.put_DerivedFrom := CallbackCreate(ObjBindMethod(implObj, "put_DerivedFrom"), flags, 2)
+        this.vtbl.get_AuxDerivedFrom := CallbackCreate(ObjBindMethod(implObj, "get_AuxDerivedFrom"), flags, 2)
+        this.vtbl.put_AuxDerivedFrom := CallbackCreate(ObjBindMethod(implObj, "put_AuxDerivedFrom"), flags, 2)
+        this.vtbl.get_PossibleSuperiors := CallbackCreate(ObjBindMethod(implObj, "get_PossibleSuperiors"), flags, 2)
+        this.vtbl.put_PossibleSuperiors := CallbackCreate(ObjBindMethod(implObj, "put_PossibleSuperiors"), flags, 2)
+        this.vtbl.get_Containment := CallbackCreate(ObjBindMethod(implObj, "get_Containment"), flags, 2)
+        this.vtbl.put_Containment := CallbackCreate(ObjBindMethod(implObj, "put_Containment"), flags, 2)
+        this.vtbl.get_Container := CallbackCreate(ObjBindMethod(implObj, "get_Container"), flags, 2)
+        this.vtbl.put_Container := CallbackCreate(ObjBindMethod(implObj, "put_Container"), flags, 2)
+        this.vtbl.get_HelpFileName := CallbackCreate(ObjBindMethod(implObj, "get_HelpFileName"), flags, 2)
+        this.vtbl.put_HelpFileName := CallbackCreate(ObjBindMethod(implObj, "put_HelpFileName"), flags, 2)
+        this.vtbl.get_HelpFileContext := CallbackCreate(ObjBindMethod(implObj, "get_HelpFileContext"), flags, 2)
+        this.vtbl.put_HelpFileContext := CallbackCreate(ObjBindMethod(implObj, "put_HelpFileContext"), flags, 2)
+        this.vtbl.Qualifiers := CallbackCreate(ObjBindMethod(implObj, "Qualifiers"), flags, 2)
     }
 
     Dispose() {

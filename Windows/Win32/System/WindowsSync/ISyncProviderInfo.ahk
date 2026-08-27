@@ -64,7 +64,7 @@ export default struct ISyncProviderInfo extends IPropertyStore {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSyncProvider := CallbackCreate(GetMethod(implObj, "GetSyncProvider"), flags, 3)
+        this.vtbl.GetSyncProvider := CallbackCreate(ObjBindMethod(implObj, "GetSyncProvider"), flags, 3)
     }
 
     Dispose() {

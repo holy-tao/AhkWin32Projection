@@ -21,7 +21,6 @@ export default struct PMAP_TRANSFER {
     }
 
     /**
-     * 
      * @param {Pointer<DMA_ADAPTER>} DmaAdapter 
      * @param {Pointer<MDL>} _Mdl 
      * @param {Pointer<Void>} MapRegisterBase 
@@ -31,9 +30,9 @@ export default struct PMAP_TRANSFER {
      * @returns {Integer} 
      */
     Call(DmaAdapter, _Mdl, MapRegisterBase, CurrentVa, Length, WriteToDevice) {
-        MapRegisterBaseMarshal := MapRegisterBase is VarRef ? "ptr" : "ptr"
-        CurrentVaMarshal := CurrentVa is VarRef ? "ptr" : "ptr"
-        LengthMarshal := Length is VarRef ? "uint*" : "ptr"
+        MapRegisterBaseMarshal := MapRegisterBase is VarRef ? "ptr" : IntPtr
+        CurrentVaMarshal := CurrentVa is VarRef ? "ptr" : IntPtr
+        LengthMarshal := Length is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, MDL.Ptr, _Mdl, MapRegisterBaseMarshal, MapRegisterBase, CurrentVaMarshal, CurrentVa, LengthMarshal, Length, BOOLEAN, WriteToDevice, Int64)
         return result

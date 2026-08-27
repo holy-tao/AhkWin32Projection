@@ -18,12 +18,11 @@ export default struct PFREE_CLUSTER_CRYPT {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pCryptInfo 
      * @returns {Integer} 
      */
     Call(pCryptInfo) {
-        pCryptInfoMarshal := pCryptInfo is VarRef ? "ptr" : "ptr"
+        pCryptInfoMarshal := pCryptInfo is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, pCryptInfoMarshal, pCryptInfo, UInt32)
         return result

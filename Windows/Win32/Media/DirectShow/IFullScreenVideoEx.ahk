@@ -96,10 +96,10 @@ export default struct IFullScreenVideoEx extends IFullScreenVideo {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAcceleratorTable := CallbackCreate(GetMethod(implObj, "SetAcceleratorTable"), flags, 3)
-        this.vtbl.GetAcceleratorTable := CallbackCreate(GetMethod(implObj, "GetAcceleratorTable"), flags, 3)
-        this.vtbl.KeepPixelAspectRatio := CallbackCreate(GetMethod(implObj, "KeepPixelAspectRatio"), flags, 2)
-        this.vtbl.IsKeepPixelAspectRatio := CallbackCreate(GetMethod(implObj, "IsKeepPixelAspectRatio"), flags, 2)
+        this.vtbl.SetAcceleratorTable := CallbackCreate(ObjBindMethod(implObj, "SetAcceleratorTable"), flags, 3)
+        this.vtbl.GetAcceleratorTable := CallbackCreate(ObjBindMethod(implObj, "GetAcceleratorTable"), flags, 3)
+        this.vtbl.KeepPixelAspectRatio := CallbackCreate(ObjBindMethod(implObj, "KeepPixelAspectRatio"), flags, 2)
+        this.vtbl.IsKeepPixelAspectRatio := CallbackCreate(ObjBindMethod(implObj, "IsKeepPixelAspectRatio"), flags, 2)
     }
 
     Dispose() {

@@ -46,7 +46,6 @@ export default struct PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_INITIALIZE {
     }
 
     /**
-     * 
      * @param {Pointer<PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FLUSH>} pfnFlush Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pfn_crypt_object_locator_provider_flush">PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FLUSH</a> function implementation.
      * @param {Pointer<Void>} pContext Pointer to a provider defined object that contains information about the provider and the objects.
      * @param {Pointer<Integer>} pdwExpectedObjectCount Specifies the number of unique objects that the provider expects to locate. This value tells the caller how much memory to allocate for storing objects. Set this value to zero (0) to specify the default value of 10,000 objects.
@@ -57,10 +56,10 @@ export default struct PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_INITIALIZE {
      * If the function fails, return zero (<b>FALSE</b>) and specify an appropriate error in the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-setlasterror">SetLastError</a> function. Most errors are passed through Schannel unaltered but this behavior is not guaranteed. Some errors may be mapped to other errors.
      */
     Call(pfnFlush, pContext, pdwExpectedObjectCount, ppFuncTable, ppPluginContext) {
-        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
-        pdwExpectedObjectCountMarshal := pdwExpectedObjectCount is VarRef ? "uint*" : "ptr"
-        ppFuncTableMarshal := ppFuncTable is VarRef ? "ptr*" : "ptr"
-        ppPluginContextMarshal := ppPluginContext is VarRef ? "ptr*" : "ptr"
+        pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
+        pdwExpectedObjectCountMarshal := pdwExpectedObjectCount is VarRef ? "uint*" : IntPtr
+        ppFuncTableMarshal := ppFuncTable is VarRef ? "ptr*" : IntPtr
+        ppPluginContextMarshal := ppPluginContext is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FLUSH, pfnFlush, pContextMarshal, pContext, pdwExpectedObjectCountMarshal, pdwExpectedObjectCount, ppFuncTableMarshal, ppFuncTable, ppPluginContextMarshal, ppPluginContext, BOOL)
         return result

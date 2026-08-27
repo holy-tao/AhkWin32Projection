@@ -37,7 +37,6 @@ export default struct IDirectMusicThru extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSourceChannelGroup 
      * @param {Integer} dwSourceChannel 
      * @param {Integer} dwDestinationChannelGroup 
@@ -59,7 +58,7 @@ export default struct IDirectMusicThru extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ThruChannel := CallbackCreate(GetMethod(implObj, "ThruChannel"), flags, 6)
+        this.vtbl.ThruChannel := CallbackCreate(ObjBindMethod(implObj, "ThruChannel"), flags, 6)
     }
 
     Dispose() {

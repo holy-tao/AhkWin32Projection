@@ -58,7 +58,7 @@ export default struct IServiceSysTxnConfig extends IServiceTransactionConfig {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ConfigureBYOTSysTxn := CallbackCreate(GetMethod(implObj, "ConfigureBYOTSysTxn"), flags, 2)
+        this.vtbl.ConfigureBYOTSysTxn := CallbackCreate(ObjBindMethod(implObj, "ConfigureBYOTSysTxn"), flags, 2)
     }
 
     Dispose() {

@@ -19,14 +19,13 @@ export default struct PCI_MSIX_GET_TABLE_SIZE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<Integer>} TableSize 
      * @returns {NTSTATUS} 
      */
     Call(_Context, TableSize) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        TableSizeMarshal := TableSize is VarRef ? "uint*" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        TableSizeMarshal := TableSize is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, TableSizeMarshal, TableSize, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

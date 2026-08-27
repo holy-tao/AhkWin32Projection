@@ -19,13 +19,12 @@ export default struct PCLFS_CLIENT_LOG_UNPINNED_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} LogFile 
      * @param {Pointer<Void>} ClientData 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(LogFile, ClientData) {
-        ClientDataMarshal := ClientData is VarRef ? "ptr" : "ptr"
+        ClientDataMarshal := ClientData is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, FILE_OBJECT.Ptr, LogFile, ClientDataMarshal, ClientData)
     }

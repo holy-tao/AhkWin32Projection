@@ -61,7 +61,7 @@ export default struct IDWriteFont2 extends IDWriteFont1 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsColorFont := CallbackCreate(GetMethod(implObj, "IsColorFont"), flags, 1)
+        this.vtbl.IsColorFont := CallbackCreate(ObjBindMethod(implObj, "IsColorFont"), flags, 1)
     }
 
     Dispose() {

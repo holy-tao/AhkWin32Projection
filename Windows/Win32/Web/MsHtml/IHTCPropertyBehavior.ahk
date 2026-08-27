@@ -53,7 +53,6 @@ export default struct IHTCPropertyBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     fireChange() {
@@ -62,7 +61,6 @@ export default struct IHTCPropertyBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -72,7 +70,6 @@ export default struct IHTCPropertyBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_value() {
@@ -90,9 +87,9 @@ export default struct IHTCPropertyBehavior extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.fireChange := CallbackCreate(GetMethod(implObj, "fireChange"), flags, 1)
-        this.vtbl.put_value := CallbackCreate(GetMethod(implObj, "put_value"), flags, 2)
-        this.vtbl.get_value := CallbackCreate(GetMethod(implObj, "get_value"), flags, 2)
+        this.vtbl.fireChange := CallbackCreate(ObjBindMethod(implObj, "fireChange"), flags, 1)
+        this.vtbl.put_value := CallbackCreate(ObjBindMethod(implObj, "put_value"), flags, 2)
+        this.vtbl.get_value := CallbackCreate(ObjBindMethod(implObj, "get_value"), flags, 2)
     }
 
     Dispose() {

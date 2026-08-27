@@ -60,8 +60,8 @@ export default struct IAudioEndpointOffloadStreamVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpointoffloadstreamvolume-setchannelvolumes
      */
     SetChannelVolumes(u32ChannelCount, pf32Volumes, u32CurveType, pCurveDuration) {
-        pf32VolumesMarshal := pf32Volumes is VarRef ? "float*" : "ptr"
-        pCurveDurationMarshal := pCurveDuration is VarRef ? "int64*" : "ptr"
+        pf32VolumesMarshal := pf32Volumes is VarRef ? "float*" : IntPtr
+        pCurveDurationMarshal := pCurveDuration is VarRef ? "int64*" : IntPtr
 
         result := ComCall(4, this, UInt32, u32ChannelCount, pf32VolumesMarshal, pf32Volumes, AUDIO_CURVE_TYPE, u32CurveType, pCurveDurationMarshal, pCurveDuration, "HRESULT")
         return result
@@ -87,9 +87,9 @@ export default struct IAudioEndpointOffloadStreamVolume extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetVolumeChannelCount := CallbackCreate(GetMethod(implObj, "GetVolumeChannelCount"), flags, 2)
-        this.vtbl.SetChannelVolumes := CallbackCreate(GetMethod(implObj, "SetChannelVolumes"), flags, 5)
-        this.vtbl.GetChannelVolumes := CallbackCreate(GetMethod(implObj, "GetChannelVolumes"), flags, 3)
+        this.vtbl.GetVolumeChannelCount := CallbackCreate(ObjBindMethod(implObj, "GetVolumeChannelCount"), flags, 2)
+        this.vtbl.SetChannelVolumes := CallbackCreate(ObjBindMethod(implObj, "SetChannelVolumes"), flags, 5)
+        this.vtbl.GetChannelVolumes := CallbackCreate(ObjBindMethod(implObj, "GetChannelVolumes"), flags, 3)
     }
 
     Dispose() {

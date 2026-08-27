@@ -102,9 +102,9 @@ export default struct ICredentialProviderCredentialEvents2 extends ICredentialPr
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BeginFieldUpdates := CallbackCreate(GetMethod(implObj, "BeginFieldUpdates"), flags, 1)
-        this.vtbl.EndFieldUpdates := CallbackCreate(GetMethod(implObj, "EndFieldUpdates"), flags, 1)
-        this.vtbl.SetFieldOptions := CallbackCreate(GetMethod(implObj, "SetFieldOptions"), flags, 4)
+        this.vtbl.BeginFieldUpdates := CallbackCreate(ObjBindMethod(implObj, "BeginFieldUpdates"), flags, 1)
+        this.vtbl.EndFieldUpdates := CallbackCreate(ObjBindMethod(implObj, "EndFieldUpdates"), flags, 1)
+        this.vtbl.SetFieldOptions := CallbackCreate(ObjBindMethod(implObj, "SetFieldOptions"), flags, 4)
     }
 
     Dispose() {

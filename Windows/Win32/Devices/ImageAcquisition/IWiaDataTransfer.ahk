@@ -217,7 +217,9 @@ export default struct IWiaDataTransfer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiadatatransfer-idtquerygetdata
      */
     idtQueryGetData(pfe) {
-        result := ComCall(5, this, WIA_FORMAT_INFO.Ptr, pfe, "HRESULT")
+        pfeMarshal := pfe == 0 ? IntPtr : WIA_FORMAT_INFO.Ptr
+
+        result := ComCall(5, this, pfeMarshal, pfe, "HRESULT")
         return result
     }
 
@@ -259,11 +261,11 @@ export default struct IWiaDataTransfer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.idtGetData := CallbackCreate(GetMethod(implObj, "idtGetData"), flags, 3)
-        this.vtbl.idtGetBandedData := CallbackCreate(GetMethod(implObj, "idtGetBandedData"), flags, 3)
-        this.vtbl.idtQueryGetData := CallbackCreate(GetMethod(implObj, "idtQueryGetData"), flags, 2)
-        this.vtbl.idtEnumWIA_FORMAT_INFO := CallbackCreate(GetMethod(implObj, "idtEnumWIA_FORMAT_INFO"), flags, 2)
-        this.vtbl.idtGetExtendedTransferInfo := CallbackCreate(GetMethod(implObj, "idtGetExtendedTransferInfo"), flags, 2)
+        this.vtbl.idtGetData := CallbackCreate(ObjBindMethod(implObj, "idtGetData"), flags, 3)
+        this.vtbl.idtGetBandedData := CallbackCreate(ObjBindMethod(implObj, "idtGetBandedData"), flags, 3)
+        this.vtbl.idtQueryGetData := CallbackCreate(ObjBindMethod(implObj, "idtQueryGetData"), flags, 2)
+        this.vtbl.idtEnumWIA_FORMAT_INFO := CallbackCreate(ObjBindMethod(implObj, "idtEnumWIA_FORMAT_INFO"), flags, 2)
+        this.vtbl.idtGetExtendedTransferInfo := CallbackCreate(ObjBindMethod(implObj, "idtGetExtendedTransferInfo"), flags, 2)
     }
 
     Dispose() {

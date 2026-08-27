@@ -39,7 +39,6 @@ export default struct IHTMLTextRangeMetrics2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLRectCollection} 
      */
     getClientRects() {
@@ -48,7 +47,6 @@ export default struct IHTMLTextRangeMetrics2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLRect} 
      */
     getBoundingClientRect() {
@@ -65,8 +63,8 @@ export default struct IHTMLTextRangeMetrics2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.getClientRects := CallbackCreate(GetMethod(implObj, "getClientRects"), flags, 2)
-        this.vtbl.getBoundingClientRect := CallbackCreate(GetMethod(implObj, "getBoundingClientRect"), flags, 2)
+        this.vtbl.getClientRects := CallbackCreate(ObjBindMethod(implObj, "getClientRects"), flags, 2)
+        this.vtbl.getBoundingClientRect := CallbackCreate(ObjBindMethod(implObj, "getBoundingClientRect"), flags, 2)
     }
 
     Dispose() {

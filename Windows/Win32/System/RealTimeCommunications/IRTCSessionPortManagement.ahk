@@ -37,7 +37,6 @@ export default struct IRTCSessionPortManagement extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRTCPortManager} pPortManager 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,7 @@ export default struct IRTCSessionPortManagement extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetPortManager := CallbackCreate(GetMethod(implObj, "SetPortManager"), flags, 2)
+        this.vtbl.SetPortManager := CallbackCreate(ObjBindMethod(implObj, "SetPortManager"), flags, 2)
     }
 
     Dispose() {

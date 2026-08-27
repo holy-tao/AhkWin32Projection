@@ -22,7 +22,6 @@ export default struct CFP_ALLOCPROC {
     }
 
     /**
-     * 
      * @param {Pointer} param0 Number of bytes to allocate.
      * @returns {Pointer<Void>} Returns a void pointer to the allocated space, or <b>NULL</b> if there is insufficient memory available.
      */

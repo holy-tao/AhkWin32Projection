@@ -20,7 +20,6 @@ export default struct PCLUSAPI_CLUSTER_NETWORK_OPEN_ENUM {
     }
 
     /**
-     * 
      * @param {HNETWORK} _hNetwork 
      * @param {Integer} dwType 
      * @returns {HNETWORKENUM} 

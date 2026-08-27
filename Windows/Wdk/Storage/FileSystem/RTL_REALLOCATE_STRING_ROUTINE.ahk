@@ -18,13 +18,12 @@ export default struct RTL_REALLOCATE_STRING_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer} NumberOfBytes 
      * @param {Pointer<Void>} _Buffer 
      * @returns {Pointer<Void>} 
      */
     Call(NumberOfBytes, _Buffer) {
-        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, IntPtr, NumberOfBytes, _BufferMarshal, _Buffer, IntPtr)
         return result

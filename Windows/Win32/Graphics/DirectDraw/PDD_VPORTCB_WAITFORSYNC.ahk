@@ -25,7 +25,6 @@ export default struct PDD_VPORTCB_WAITFORSYNC {
     }
 
     /**
-     * 
      * @param {Pointer<DD_WAITFORVPORTSYNCDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_waitforvportsyncdata">DD_WAITFORVPORTSYNCDATA</a> structure that contains the information required for the driver to synchronize the VPE object.
      * @returns {Integer} <i>DdVideoPortWaitForSync</i> returns one of the following callback codes:
      */

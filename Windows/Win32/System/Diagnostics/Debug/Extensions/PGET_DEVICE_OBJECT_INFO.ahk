@@ -21,7 +21,6 @@ export default struct PGET_DEVICE_OBJECT_INFO {
     }
 
     /**
-     * 
      * @param {IDebugClient} Client 
      * @param {Integer} DeviceObject 
      * @param {Pointer<DEBUG_DEVICE_OBJECT_INFO>} pDevObjInfo 

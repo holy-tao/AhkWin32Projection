@@ -90,8 +90,8 @@ export default struct IDShowPlugin extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_URL := CallbackCreate(GetMethod(implObj, "get_URL"), flags, 2)
-        this.vtbl.get_UserAgent := CallbackCreate(GetMethod(implObj, "get_UserAgent"), flags, 2)
+        this.vtbl.get_URL := CallbackCreate(ObjBindMethod(implObj, "get_URL"), flags, 2)
+        this.vtbl.get_UserAgent := CallbackCreate(ObjBindMethod(implObj, "get_UserAgent"), flags, 2)
     }
 
     Dispose() {

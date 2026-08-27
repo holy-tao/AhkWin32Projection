@@ -44,7 +44,6 @@ export default struct IHTMLLinkElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStyleSheet} 
      */
     get_sheet() {
@@ -61,7 +60,7 @@ export default struct IHTMLLinkElement5 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_sheet := CallbackCreate(GetMethod(implObj, "get_sheet"), flags, 2)
+        this.vtbl.get_sheet := CallbackCreate(ObjBindMethod(implObj, "get_sheet"), flags, 2)
     }
 
     Dispose() {

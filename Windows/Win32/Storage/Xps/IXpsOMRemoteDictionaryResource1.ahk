@@ -75,8 +75,8 @@ export default struct IXpsOMRemoteDictionaryResource1 extends IXpsOMRemoteDictio
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDocumentType := CallbackCreate(GetMethod(implObj, "GetDocumentType"), flags, 2)
-        this.vtbl.Write1 := CallbackCreate(GetMethod(implObj, "Write1"), flags, 3)
+        this.vtbl.GetDocumentType := CallbackCreate(ObjBindMethod(implObj, "GetDocumentType"), flags, 2)
+        this.vtbl.Write1 := CallbackCreate(ObjBindMethod(implObj, "Write1"), flags, 3)
     }
 
     Dispose() {

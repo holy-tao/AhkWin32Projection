@@ -19,7 +19,6 @@ export default struct RTWQPERIODICCALLBACK {
     }
 
     /**
-     * 
      * @param {IUnknown} _context 
      * @returns {String} Nothing - always returns an empty string
      */

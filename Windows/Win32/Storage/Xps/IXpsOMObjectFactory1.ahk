@@ -254,7 +254,6 @@ export default struct IXpsOMObjectFactory1 extends IXpsOMObjectFactory {
     }
 
     /**
-     * 
      * @returns {IXpsOMPackage1} 
      */
     CreatePackage1() {
@@ -301,7 +300,6 @@ export default struct IXpsOMObjectFactory1 extends IXpsOMObjectFactory {
     }
 
     /**
-     * 
      * @param {Pointer<XPS_SIZE>} pageDimensions 
      * @param {PWSTR} language 
      * @param {IOpcPartUri} partUri 
@@ -360,18 +358,18 @@ export default struct IXpsOMObjectFactory1 extends IXpsOMObjectFactory {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDocumentTypeFromFile := CallbackCreate(GetMethod(implObj, "GetDocumentTypeFromFile"), flags, 3)
-        this.vtbl.GetDocumentTypeFromStream := CallbackCreate(GetMethod(implObj, "GetDocumentTypeFromStream"), flags, 3)
-        this.vtbl.ConvertHDPhotoToJpegXR := CallbackCreate(GetMethod(implObj, "ConvertHDPhotoToJpegXR"), flags, 2)
-        this.vtbl.ConvertJpegXRToHDPhoto := CallbackCreate(GetMethod(implObj, "ConvertJpegXRToHDPhoto"), flags, 2)
-        this.vtbl.CreatePackageWriterOnFile1 := CallbackCreate(GetMethod(implObj, "CreatePackageWriterOnFile1"), flags, 13)
-        this.vtbl.CreatePackageWriterOnStream1 := CallbackCreate(GetMethod(implObj, "CreatePackageWriterOnStream1"), flags, 11)
-        this.vtbl.CreatePackage1 := CallbackCreate(GetMethod(implObj, "CreatePackage1"), flags, 2)
-        this.vtbl.CreatePackageFromStream1 := CallbackCreate(GetMethod(implObj, "CreatePackageFromStream1"), flags, 4)
-        this.vtbl.CreatePackageFromFile1 := CallbackCreate(GetMethod(implObj, "CreatePackageFromFile1"), flags, 4)
-        this.vtbl.CreatePage1 := CallbackCreate(GetMethod(implObj, "CreatePage1"), flags, 5)
-        this.vtbl.CreatePageFromStream1 := CallbackCreate(GetMethod(implObj, "CreatePageFromStream1"), flags, 6)
-        this.vtbl.CreateRemoteDictionaryResourceFromStream1 := CallbackCreate(GetMethod(implObj, "CreateRemoteDictionaryResourceFromStream1"), flags, 5)
+        this.vtbl.GetDocumentTypeFromFile := CallbackCreate(ObjBindMethod(implObj, "GetDocumentTypeFromFile"), flags, 3)
+        this.vtbl.GetDocumentTypeFromStream := CallbackCreate(ObjBindMethod(implObj, "GetDocumentTypeFromStream"), flags, 3)
+        this.vtbl.ConvertHDPhotoToJpegXR := CallbackCreate(ObjBindMethod(implObj, "ConvertHDPhotoToJpegXR"), flags, 2)
+        this.vtbl.ConvertJpegXRToHDPhoto := CallbackCreate(ObjBindMethod(implObj, "ConvertJpegXRToHDPhoto"), flags, 2)
+        this.vtbl.CreatePackageWriterOnFile1 := CallbackCreate(ObjBindMethod(implObj, "CreatePackageWriterOnFile1"), flags, 13)
+        this.vtbl.CreatePackageWriterOnStream1 := CallbackCreate(ObjBindMethod(implObj, "CreatePackageWriterOnStream1"), flags, 11)
+        this.vtbl.CreatePackage1 := CallbackCreate(ObjBindMethod(implObj, "CreatePackage1"), flags, 2)
+        this.vtbl.CreatePackageFromStream1 := CallbackCreate(ObjBindMethod(implObj, "CreatePackageFromStream1"), flags, 4)
+        this.vtbl.CreatePackageFromFile1 := CallbackCreate(ObjBindMethod(implObj, "CreatePackageFromFile1"), flags, 4)
+        this.vtbl.CreatePage1 := CallbackCreate(ObjBindMethod(implObj, "CreatePage1"), flags, 5)
+        this.vtbl.CreatePageFromStream1 := CallbackCreate(ObjBindMethod(implObj, "CreatePageFromStream1"), flags, 6)
+        this.vtbl.CreateRemoteDictionaryResourceFromStream1 := CallbackCreate(ObjBindMethod(implObj, "CreateRemoteDictionaryResourceFromStream1"), flags, 5)
     }
 
     Dispose() {

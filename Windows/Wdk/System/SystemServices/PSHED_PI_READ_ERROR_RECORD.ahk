@@ -19,7 +19,6 @@ export default struct PSHED_PI_READ_ERROR_RECORD {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} PluginContext 
      * @param {Integer} Flags 
      * @param {Integer} ErrorRecordId 
@@ -29,9 +28,10 @@ export default struct PSHED_PI_READ_ERROR_RECORD {
      * @returns {NTSTATUS} 
      */
     Call(PluginContext, Flags, ErrorRecordId, NextErrorRecordId, RecordLength, ErrorRecord) {
-        PluginContextMarshal := PluginContext is VarRef ? "ptr" : "ptr"
-        NextErrorRecordIdMarshal := NextErrorRecordId is VarRef ? "uint*" : "ptr"
-        RecordLengthMarshal := RecordLength is VarRef ? "uint*" : "ptr"
+        PluginContextMarshal := PluginContext is VarRef ? "ptr" : IntPtr
+        PluginContextMarshal := PluginContext == 0 ? IntPtr : "ptr"
+        NextErrorRecordIdMarshal := NextErrorRecordId is VarRef ? "uint*" : IntPtr
+        RecordLengthMarshal := RecordLength is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, PluginContextMarshal, PluginContext, UInt32, Flags, Int64, ErrorRecordId, NextErrorRecordIdMarshal, NextErrorRecordId, RecordLengthMarshal, RecordLength, IntPtr, ErrorRecord, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

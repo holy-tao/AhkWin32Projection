@@ -126,7 +126,9 @@ export default struct IUIApplication extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiapplication-ondestroyuicommand
      */
     OnDestroyUICommand(commandId, typeID, commandHandler) {
-        result := ComCall(5, this, UInt32, commandId, UI_COMMANDTYPE, typeID, "ptr", commandHandler, "HRESULT")
+        commandHandlerMarshal := commandHandler == 0 ? IntPtr : "ptr"
+
+        result := ComCall(5, this, UInt32, commandId, UI_COMMANDTYPE, typeID, commandHandlerMarshal, commandHandler, "HRESULT")
         return result
     }
 
@@ -139,9 +141,9 @@ export default struct IUIApplication extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnViewChanged := CallbackCreate(GetMethod(implObj, "OnViewChanged"), flags, 6)
-        this.vtbl.OnCreateUICommand := CallbackCreate(GetMethod(implObj, "OnCreateUICommand"), flags, 4)
-        this.vtbl.OnDestroyUICommand := CallbackCreate(GetMethod(implObj, "OnDestroyUICommand"), flags, 4)
+        this.vtbl.OnViewChanged := CallbackCreate(ObjBindMethod(implObj, "OnViewChanged"), flags, 6)
+        this.vtbl.OnCreateUICommand := CallbackCreate(ObjBindMethod(implObj, "OnCreateUICommand"), flags, 4)
+        this.vtbl.OnDestroyUICommand := CallbackCreate(ObjBindMethod(implObj, "OnDestroyUICommand"), flags, 4)
     }
 
     Dispose() {

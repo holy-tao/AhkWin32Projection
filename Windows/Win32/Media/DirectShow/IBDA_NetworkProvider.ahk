@@ -63,7 +63,7 @@ export default struct IBDA_NetworkProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_networkprovider-getsignalsource
      */
     GetSignalSource(pulSignalSource) {
-        pulSignalSourceMarshal := pulSignalSource is VarRef ? "uint*" : "ptr"
+        pulSignalSourceMarshal := pulSignalSource is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pulSignalSourceMarshal, pulSignalSource, "HRESULT")
         return result
@@ -110,7 +110,7 @@ export default struct IBDA_NetworkProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_networkprovider-registerdevicefilter
      */
     RegisterDeviceFilter(pUnkFilterControl, ppvRegisitrationContext) {
-        ppvRegisitrationContextMarshal := ppvRegisitrationContext is VarRef ? "uint*" : "ptr"
+        ppvRegisitrationContextMarshal := ppvRegisitrationContext is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, "ptr", pUnkFilterControl, ppvRegisitrationContextMarshal, ppvRegisitrationContext, "HRESULT")
         return result
@@ -136,13 +136,13 @@ export default struct IBDA_NetworkProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PutSignalSource := CallbackCreate(GetMethod(implObj, "PutSignalSource"), flags, 2)
-        this.vtbl.GetSignalSource := CallbackCreate(GetMethod(implObj, "GetSignalSource"), flags, 2)
-        this.vtbl.GetNetworkType := CallbackCreate(GetMethod(implObj, "GetNetworkType"), flags, 2)
-        this.vtbl.PutTuningSpace := CallbackCreate(GetMethod(implObj, "PutTuningSpace"), flags, 2)
-        this.vtbl.GetTuningSpace := CallbackCreate(GetMethod(implObj, "GetTuningSpace"), flags, 2)
-        this.vtbl.RegisterDeviceFilter := CallbackCreate(GetMethod(implObj, "RegisterDeviceFilter"), flags, 3)
-        this.vtbl.UnRegisterDeviceFilter := CallbackCreate(GetMethod(implObj, "UnRegisterDeviceFilter"), flags, 2)
+        this.vtbl.PutSignalSource := CallbackCreate(ObjBindMethod(implObj, "PutSignalSource"), flags, 2)
+        this.vtbl.GetSignalSource := CallbackCreate(ObjBindMethod(implObj, "GetSignalSource"), flags, 2)
+        this.vtbl.GetNetworkType := CallbackCreate(ObjBindMethod(implObj, "GetNetworkType"), flags, 2)
+        this.vtbl.PutTuningSpace := CallbackCreate(ObjBindMethod(implObj, "PutTuningSpace"), flags, 2)
+        this.vtbl.GetTuningSpace := CallbackCreate(ObjBindMethod(implObj, "GetTuningSpace"), flags, 2)
+        this.vtbl.RegisterDeviceFilter := CallbackCreate(ObjBindMethod(implObj, "RegisterDeviceFilter"), flags, 3)
+        this.vtbl.UnRegisterDeviceFilter := CallbackCreate(ObjBindMethod(implObj, "UnRegisterDeviceFilter"), flags, 2)
     }
 
     Dispose() {

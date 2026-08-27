@@ -85,7 +85,6 @@ export default struct IUpdateServiceRegistration extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ServiceID() {
@@ -125,10 +124,10 @@ export default struct IUpdateServiceRegistration extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_RegistrationState := CallbackCreate(GetMethod(implObj, "get_RegistrationState"), flags, 2)
-        this.vtbl.get_ServiceID := CallbackCreate(GetMethod(implObj, "get_ServiceID"), flags, 2)
-        this.vtbl.get_IsPendingRegistrationWithAU := CallbackCreate(GetMethod(implObj, "get_IsPendingRegistrationWithAU"), flags, 2)
-        this.vtbl.get_Service := CallbackCreate(GetMethod(implObj, "get_Service"), flags, 2)
+        this.vtbl.get_RegistrationState := CallbackCreate(ObjBindMethod(implObj, "get_RegistrationState"), flags, 2)
+        this.vtbl.get_ServiceID := CallbackCreate(ObjBindMethod(implObj, "get_ServiceID"), flags, 2)
+        this.vtbl.get_IsPendingRegistrationWithAU := CallbackCreate(ObjBindMethod(implObj, "get_IsPendingRegistrationWithAU"), flags, 2)
+        this.vtbl.get_Service := CallbackCreate(ObjBindMethod(implObj, "get_Service"), flags, 2)
     }
 
     Dispose() {

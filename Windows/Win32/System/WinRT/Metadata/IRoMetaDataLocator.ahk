@@ -34,7 +34,6 @@ export default struct IRoMetaDataLocator extends Win32ComInterface {
     }
 
     /**
-     * 
      * @param {PWSTR} nameElement 
      * @param {IRoSimpleMetaDataBuilder} metaDataDestination 
      * @returns {HRESULT} 

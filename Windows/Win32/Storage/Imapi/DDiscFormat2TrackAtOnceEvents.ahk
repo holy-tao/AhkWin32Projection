@@ -72,7 +72,7 @@ export default struct DDiscFormat2TrackAtOnceEvents extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Update := CallbackCreate(GetMethod(implObj, "Update"), flags, 3)
+        this.vtbl.Update := CallbackCreate(ObjBindMethod(implObj, "Update"), flags, 3)
     }
 
     Dispose() {

@@ -37,7 +37,6 @@ export default struct ITfFnCustomSpeechCommand extends ITfFunction {
     }
 
     /**
-     * 
      * @param {IUnknown} pspcmdProvider 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,7 @@ export default struct ITfFnCustomSpeechCommand extends ITfFunction {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetSpeechCommandProvider := CallbackCreate(GetMethod(implObj, "SetSpeechCommandProvider"), flags, 2)
+        this.vtbl.SetSpeechCommandProvider := CallbackCreate(ObjBindMethod(implObj, "SetSpeechCommandProvider"), flags, 2)
     }
 
     Dispose() {

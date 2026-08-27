@@ -196,13 +196,13 @@ export default struct IWICComponentFactory extends IWICImagingFactory {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateMetadataReader := CallbackCreate(GetMethod(implObj, "CreateMetadataReader"), flags, 6)
-        this.vtbl.CreateMetadataReaderFromContainer := CallbackCreate(GetMethod(implObj, "CreateMetadataReaderFromContainer"), flags, 6)
-        this.vtbl.CreateMetadataWriter := CallbackCreate(GetMethod(implObj, "CreateMetadataWriter"), flags, 5)
-        this.vtbl.CreateMetadataWriterFromReader := CallbackCreate(GetMethod(implObj, "CreateMetadataWriterFromReader"), flags, 4)
-        this.vtbl.CreateQueryReaderFromBlockReader := CallbackCreate(GetMethod(implObj, "CreateQueryReaderFromBlockReader"), flags, 3)
-        this.vtbl.CreateQueryWriterFromBlockWriter := CallbackCreate(GetMethod(implObj, "CreateQueryWriterFromBlockWriter"), flags, 3)
-        this.vtbl.CreateEncoderPropertyBag := CallbackCreate(GetMethod(implObj, "CreateEncoderPropertyBag"), flags, 4)
+        this.vtbl.CreateMetadataReader := CallbackCreate(ObjBindMethod(implObj, "CreateMetadataReader"), flags, 6)
+        this.vtbl.CreateMetadataReaderFromContainer := CallbackCreate(ObjBindMethod(implObj, "CreateMetadataReaderFromContainer"), flags, 6)
+        this.vtbl.CreateMetadataWriter := CallbackCreate(ObjBindMethod(implObj, "CreateMetadataWriter"), flags, 5)
+        this.vtbl.CreateMetadataWriterFromReader := CallbackCreate(ObjBindMethod(implObj, "CreateMetadataWriterFromReader"), flags, 4)
+        this.vtbl.CreateQueryReaderFromBlockReader := CallbackCreate(ObjBindMethod(implObj, "CreateQueryReaderFromBlockReader"), flags, 3)
+        this.vtbl.CreateQueryWriterFromBlockWriter := CallbackCreate(ObjBindMethod(implObj, "CreateQueryWriterFromBlockWriter"), flags, 3)
+        this.vtbl.CreateEncoderPropertyBag := CallbackCreate(ObjBindMethod(implObj, "CreateEncoderPropertyBag"), flags, 4)
     }
 
     Dispose() {

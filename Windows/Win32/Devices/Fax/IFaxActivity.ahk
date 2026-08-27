@@ -150,11 +150,11 @@ export default struct IFaxActivity extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_IncomingMessages := CallbackCreate(GetMethod(implObj, "get_IncomingMessages"), flags, 2)
-        this.vtbl.get_RoutingMessages := CallbackCreate(GetMethod(implObj, "get_RoutingMessages"), flags, 2)
-        this.vtbl.get_OutgoingMessages := CallbackCreate(GetMethod(implObj, "get_OutgoingMessages"), flags, 2)
-        this.vtbl.get_QueuedMessages := CallbackCreate(GetMethod(implObj, "get_QueuedMessages"), flags, 2)
-        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.get_IncomingMessages := CallbackCreate(ObjBindMethod(implObj, "get_IncomingMessages"), flags, 2)
+        this.vtbl.get_RoutingMessages := CallbackCreate(ObjBindMethod(implObj, "get_RoutingMessages"), flags, 2)
+        this.vtbl.get_OutgoingMessages := CallbackCreate(ObjBindMethod(implObj, "get_OutgoingMessages"), flags, 2)
+        this.vtbl.get_QueuedMessages := CallbackCreate(ObjBindMethod(implObj, "get_QueuedMessages"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(ObjBindMethod(implObj, "Refresh"), flags, 1)
     }
 
     Dispose() {

@@ -21,7 +21,6 @@ export default struct LANGUAGEGROUP_ENUMPROCW {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {PWSTR} param1 
      * @param {PWSTR} param2 

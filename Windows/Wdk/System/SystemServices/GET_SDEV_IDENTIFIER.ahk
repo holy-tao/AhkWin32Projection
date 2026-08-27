@@ -18,12 +18,11 @@ export default struct GET_SDEV_IDENTIFIER {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} InterfaceContext 
      * @returns {Integer} 
      */
     Call(InterfaceContext) {
-        InterfaceContextMarshal := InterfaceContext is VarRef ? "ptr" : "ptr"
+        InterfaceContextMarshal := InterfaceContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, InterfaceContextMarshal, InterfaceContext, Int64)
         return result

@@ -20,7 +20,6 @@ export default struct TDI_PNP_HANDLER {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} UpperComponent 
      * @param {Pointer<UNICODE_STRING>} LowerComponent 
      * @param {Pointer<UNICODE_STRING>} BindList 
@@ -30,7 +29,7 @@ export default struct TDI_PNP_HANDLER {
      * @returns {NTSTATUS} 
      */
     Call(UpperComponent, LowerComponent, BindList, ReconfigBuffer, ReconfigBufferSize, Operation) {
-        ReconfigBufferMarshal := ReconfigBuffer is VarRef ? "ptr" : "ptr"
+        ReconfigBufferMarshal := ReconfigBuffer is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, UNICODE_STRING.Ptr, UpperComponent, UNICODE_STRING.Ptr, LowerComponent, UNICODE_STRING.Ptr, BindList, ReconfigBufferMarshal, ReconfigBuffer, UInt32, ReconfigBufferSize, UInt32, Operation, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

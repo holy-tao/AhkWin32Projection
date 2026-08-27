@@ -20,7 +20,6 @@ export default struct PCLUSAPI_DELETE_CLUSTER_RESOURCE_TYPE {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszResourceTypeName 
      * @returns {Integer} 

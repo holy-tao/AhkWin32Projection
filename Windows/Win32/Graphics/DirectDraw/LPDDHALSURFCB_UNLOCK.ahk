@@ -19,7 +19,6 @@ export default struct LPDDHALSURFCB_UNLOCK {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_UNLOCKDATA>} param0 
      * @returns {Integer} 
      */

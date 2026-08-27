@@ -62,8 +62,8 @@ export default struct ITSGAuthorizeConnectionSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tsgpolicyengine/nf-tsgpolicyengine-itsgauthorizeconnectionsink-onconnectionauthorized
      */
     OnConnectionAuthorized(hrIn, mainSessionId, cbSoHResponse, pbSoHResponse, idleTimeout, sessionTimeout, sessionTimeoutAction, trustClass, policyAttributes) {
-        pbSoHResponseMarshal := pbSoHResponse is VarRef ? "char*" : "ptr"
-        policyAttributesMarshal := policyAttributes is VarRef ? "uint*" : "ptr"
+        pbSoHResponseMarshal := pbSoHResponse is VarRef ? "char*" : IntPtr
+        policyAttributesMarshal := policyAttributes is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, "int", hrIn, Guid, mainSessionId, UInt32, cbSoHResponse, pbSoHResponseMarshal, pbSoHResponse, UInt32, idleTimeout, UInt32, sessionTimeout, SESSION_TIMEOUT_ACTION_TYPE, sessionTimeoutAction, AATrustClassID, trustClass, policyAttributesMarshal, policyAttributes, "HRESULT")
         return result
@@ -78,7 +78,7 @@ export default struct ITSGAuthorizeConnectionSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnConnectionAuthorized := CallbackCreate(GetMethod(implObj, "OnConnectionAuthorized"), flags, 10)
+        this.vtbl.OnConnectionAuthorized := CallbackCreate(ObjBindMethod(implObj, "OnConnectionAuthorized"), flags, 10)
     }
 
     Dispose() {

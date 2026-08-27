@@ -125,7 +125,7 @@ export default struct IMFByteStreamHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfbytestreamhandler-endcreateobject
      */
     EndCreateObject(pResult, pObjectType, ppObject) {
-        pObjectTypeMarshal := pObjectType is VarRef ? "int*" : "ptr"
+        pObjectTypeMarshal := pObjectType is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, "ptr", pResult, pObjectTypeMarshal, pObjectType, IUnknown.Ptr, ppObject, "HRESULT")
         return result
@@ -181,10 +181,10 @@ export default struct IMFByteStreamHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BeginCreateObject := CallbackCreate(GetMethod(implObj, "BeginCreateObject"), flags, 8)
-        this.vtbl.EndCreateObject := CallbackCreate(GetMethod(implObj, "EndCreateObject"), flags, 4)
-        this.vtbl.CancelObjectCreation := CallbackCreate(GetMethod(implObj, "CancelObjectCreation"), flags, 2)
-        this.vtbl.GetMaxNumberOfBytesRequiredForResolution := CallbackCreate(GetMethod(implObj, "GetMaxNumberOfBytesRequiredForResolution"), flags, 2)
+        this.vtbl.BeginCreateObject := CallbackCreate(ObjBindMethod(implObj, "BeginCreateObject"), flags, 8)
+        this.vtbl.EndCreateObject := CallbackCreate(ObjBindMethod(implObj, "EndCreateObject"), flags, 4)
+        this.vtbl.CancelObjectCreation := CallbackCreate(ObjBindMethod(implObj, "CancelObjectCreation"), flags, 2)
+        this.vtbl.GetMaxNumberOfBytesRequiredForResolution := CallbackCreate(ObjBindMethod(implObj, "GetMaxNumberOfBytesRequiredForResolution"), flags, 2)
     }
 
     Dispose() {

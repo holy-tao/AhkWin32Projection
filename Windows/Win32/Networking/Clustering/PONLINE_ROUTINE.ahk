@@ -37,7 +37,6 @@ export default struct PONLINE_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Resource Resource identifier for the resource to be made available.
      * @param {Pointer<HANDLE>} EventHandle On input, <i>EventHandle</i> is <b>NULL</b>. On output, 
      *        <i>EventHandle</i> contains a handle to a nonsignaled 
@@ -98,7 +97,7 @@ export default struct PONLINE_ROUTINE {
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
      */
     Call(Resource, EventHandle) {
-        ResourceMarshal := Resource is VarRef ? "ptr" : "ptr"
+        ResourceMarshal := Resource is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, ResourceMarshal, Resource, HANDLE.Ptr, EventHandle, UInt32)
         return result

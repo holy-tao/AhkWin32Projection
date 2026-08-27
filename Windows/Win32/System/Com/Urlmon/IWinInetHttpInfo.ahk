@@ -36,7 +36,6 @@ export default struct IWinInetHttpInfo extends IWinInetInfo {
     }
 
     /**
-     * 
      * @param {Integer} dwOption 
      * @param {Pointer<Void>} pBuffer 
      * @param {Pointer<Integer>} pcbBuf 
@@ -45,10 +44,10 @@ export default struct IWinInetHttpInfo extends IWinInetInfo {
      * @returns {HRESULT} 
      */
     QueryInfo(dwOption, pBuffer, pcbBuf, pdwFlags, pdwReserved) {
-        pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
-        pcbBufMarshal := pcbBuf is VarRef ? "uint*" : "ptr"
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-        pdwReservedMarshal := pdwReserved is VarRef ? "uint*" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "ptr" : IntPtr
+        pcbBufMarshal := pcbBuf is VarRef ? "uint*" : IntPtr
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : IntPtr
+        pdwReservedMarshal := pdwReserved is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, UInt32, dwOption, pBufferMarshal, pBuffer, pcbBufMarshal, pcbBuf, pdwFlagsMarshal, pdwFlags, pdwReservedMarshal, pdwReserved, "HRESULT")
         return result
@@ -63,7 +62,7 @@ export default struct IWinInetHttpInfo extends IWinInetInfo {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryInfo := CallbackCreate(GetMethod(implObj, "QueryInfo"), flags, 6)
+        this.vtbl.QueryInfo := CallbackCreate(ObjBindMethod(implObj, "QueryInfo"), flags, 6)
     }
 
     Dispose() {

@@ -68,8 +68,8 @@ export default struct IOPMVideoOutput extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/opmapi/nf-opmapi-iopmvideooutput-startinitialization
      */
     StartInitialization(prnRandomNumber, ppbCertificate, pulCertificateLength) {
-        ppbCertificateMarshal := ppbCertificate is VarRef ? "ptr*" : "ptr"
-        pulCertificateLengthMarshal := pulCertificateLength is VarRef ? "uint*" : "ptr"
+        ppbCertificateMarshal := ppbCertificate is VarRef ? "ptr*" : IntPtr
+        pulCertificateLengthMarshal := pulCertificateLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, OPM_RANDOM_NUMBER.Ptr, prnRandomNumber, ppbCertificateMarshal, ppbCertificate, pulCertificateLengthMarshal, pulCertificateLength, "HRESULT")
         return result
@@ -191,7 +191,9 @@ export default struct IOPMVideoOutput extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/opmapi/nf-opmapi-iopmvideooutput-configure
      */
     Configure(pParameters, ulAdditionalParametersSize, pbAdditionalParameters) {
-        result := ComCall(7, this, OPM_CONFIGURE_PARAMETERS.Ptr, pParameters, UInt32, ulAdditionalParametersSize, IntPtr, pbAdditionalParameters, "HRESULT")
+        pbAdditionalParametersMarshal := pbAdditionalParameters == 0 ? IntPtr : IntPtr
+
+        result := ComCall(7, this, OPM_CONFIGURE_PARAMETERS.Ptr, pParameters, UInt32, ulAdditionalParametersSize, pbAdditionalParametersMarshal, pbAdditionalParameters, "HRESULT")
         return result
     }
 
@@ -204,11 +206,11 @@ export default struct IOPMVideoOutput extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StartInitialization := CallbackCreate(GetMethod(implObj, "StartInitialization"), flags, 4)
-        this.vtbl.FinishInitialization := CallbackCreate(GetMethod(implObj, "FinishInitialization"), flags, 2)
-        this.vtbl.GetInformation := CallbackCreate(GetMethod(implObj, "GetInformation"), flags, 3)
-        this.vtbl.COPPCompatibleGetInformation := CallbackCreate(GetMethod(implObj, "COPPCompatibleGetInformation"), flags, 3)
-        this.vtbl.Configure := CallbackCreate(GetMethod(implObj, "Configure"), flags, 4)
+        this.vtbl.StartInitialization := CallbackCreate(ObjBindMethod(implObj, "StartInitialization"), flags, 4)
+        this.vtbl.FinishInitialization := CallbackCreate(ObjBindMethod(implObj, "FinishInitialization"), flags, 2)
+        this.vtbl.GetInformation := CallbackCreate(ObjBindMethod(implObj, "GetInformation"), flags, 3)
+        this.vtbl.COPPCompatibleGetInformation := CallbackCreate(ObjBindMethod(implObj, "COPPCompatibleGetInformation"), flags, 3)
+        this.vtbl.Configure := CallbackCreate(ObjBindMethod(implObj, "Configure"), flags, 4)
     }
 
     Dispose() {

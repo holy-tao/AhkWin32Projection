@@ -46,7 +46,6 @@ export default struct IHTMLMetaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -58,7 +57,6 @@ export default struct IHTMLMetaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_scheme() {
@@ -76,8 +74,8 @@ export default struct IHTMLMetaElement2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_scheme := CallbackCreate(GetMethod(implObj, "put_scheme"), flags, 2)
-        this.vtbl.get_scheme := CallbackCreate(GetMethod(implObj, "get_scheme"), flags, 2)
+        this.vtbl.put_scheme := CallbackCreate(ObjBindMethod(implObj, "put_scheme"), flags, 2)
+        this.vtbl.get_scheme := CallbackCreate(ObjBindMethod(implObj, "get_scheme"), flags, 2)
     }
 
     Dispose() {

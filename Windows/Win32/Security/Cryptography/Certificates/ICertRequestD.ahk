@@ -40,7 +40,6 @@ export default struct ICertRequestD extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @param {PWSTR} pwszAuthority 
      * @param {Pointer<Integer>} pdwRequestId 
@@ -56,15 +55,16 @@ export default struct ICertRequestD extends IUnknown {
         pwszAuthority := pwszAuthority is String ? StrPtr(pwszAuthority) : pwszAuthority
         pwszAttributes := pwszAttributes is String ? StrPtr(pwszAttributes) : pwszAttributes
 
-        pdwRequestIdMarshal := pdwRequestId is VarRef ? "uint*" : "ptr"
-        pdwDispositionMarshal := pdwDisposition is VarRef ? "uint*" : "ptr"
+        pwszAuthorityMarshal := pwszAuthority == 0 ? IntPtr : PWSTR
+        pdwRequestIdMarshal := pdwRequestId is VarRef ? "uint*" : IntPtr
+        pdwDispositionMarshal := pdwDisposition is VarRef ? "uint*" : IntPtr
+        pwszAttributesMarshal := pwszAttributes == 0 ? IntPtr : PWSTR
 
-        result := ComCall(3, this, UInt32, dwFlags, "ptr", pwszAuthority, pdwRequestIdMarshal, pdwRequestId, pdwDispositionMarshal, pdwDisposition, "ptr", pwszAttributes, CERTTRANSBLOB.Ptr, pctbRequest, CERTTRANSBLOB.Ptr, pctbCertChain, CERTTRANSBLOB.Ptr, pctbEncodedCert, CERTTRANSBLOB.Ptr, pctbDispositionMessage, "HRESULT")
+        result := ComCall(3, this, UInt32, dwFlags, pwszAuthorityMarshal, pwszAuthority, pdwRequestIdMarshal, pdwRequestId, pdwDispositionMarshal, pdwDisposition, pwszAttributesMarshal, pwszAttributes, CERTTRANSBLOB.Ptr, pctbRequest, CERTTRANSBLOB.Ptr, pctbCertChain, CERTTRANSBLOB.Ptr, pctbEncodedCert, CERTTRANSBLOB.Ptr, pctbDispositionMessage, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} fchain 
      * @param {PWSTR} pwszAuthority 
      * @returns {CERTTRANSBLOB} 
@@ -72,8 +72,10 @@ export default struct ICertRequestD extends IUnknown {
     GetCACert(fchain, pwszAuthority) {
         pwszAuthority := pwszAuthority is String ? StrPtr(pwszAuthority) : pwszAuthority
 
+        pwszAuthorityMarshal := pwszAuthority == 0 ? IntPtr : PWSTR
+
         pctbOut := CERTTRANSBLOB()
-        result := ComCall(4, this, UInt32, fchain, "ptr", pwszAuthority, CERTTRANSBLOB.Ptr, pctbOut, "HRESULT")
+        result := ComCall(4, this, UInt32, fchain, pwszAuthorityMarshal, pwszAuthority, CERTTRANSBLOB.Ptr, pctbOut, "HRESULT")
         return pctbOut
     }
 
@@ -88,7 +90,9 @@ export default struct ICertRequestD extends IUnknown {
     Ping(pwszAuthority) {
         pwszAuthority := pwszAuthority is String ? StrPtr(pwszAuthority) : pwszAuthority
 
-        result := ComCall(5, this, "ptr", pwszAuthority, "HRESULT")
+        pwszAuthorityMarshal := pwszAuthority == 0 ? IntPtr : PWSTR
+
+        result := ComCall(5, this, pwszAuthorityMarshal, pwszAuthority, "HRESULT")
         return result
     }
 
@@ -101,9 +105,9 @@ export default struct ICertRequestD extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Request := CallbackCreate(GetMethod(implObj, "Request"), flags, 10)
-        this.vtbl.GetCACert := CallbackCreate(GetMethod(implObj, "GetCACert"), flags, 4)
-        this.vtbl.Ping := CallbackCreate(GetMethod(implObj, "Ping"), flags, 2)
+        this.vtbl.Request := CallbackCreate(ObjBindMethod(implObj, "Request"), flags, 10)
+        this.vtbl.GetCACert := CallbackCreate(ObjBindMethod(implObj, "GetCACert"), flags, 4)
+        this.vtbl.Ping := CallbackCreate(ObjBindMethod(implObj, "Ping"), flags, 2)
     }
 
     Dispose() {

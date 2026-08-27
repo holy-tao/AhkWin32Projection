@@ -105,7 +105,7 @@ export default struct IDsDisplaySpecifier extends IUnknown {
     GetDisplaySpecifier(pszObjectClass, riid, ppv) {
         pszObjectClass := pszObjectClass is String ? StrPtr(pszObjectClass) : pszObjectClass
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+        ppvMarshal := ppv is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, "ptr", pszObjectClass, Guid.Ptr, riid, ppvMarshal, ppv, "HRESULT")
         return result
@@ -210,7 +210,7 @@ export default struct IDsDisplaySpecifier extends IUnknown {
     GetClassCreationInfo(pszObjectClass, ppdscci) {
         pszObjectClass := pszObjectClass is String ? StrPtr(pszObjectClass) : pszObjectClass
 
-        ppdscciMarshal := ppdscci is VarRef ? "ptr*" : "ptr"
+        ppdscciMarshal := ppdscci is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(11, this, "ptr", pszObjectClass, ppdscciMarshal, ppdscci, "HRESULT")
         return result
@@ -253,17 +253,17 @@ export default struct IDsDisplaySpecifier extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetServer := CallbackCreate(GetMethod(implObj, "SetServer"), flags, 5)
-        this.vtbl.SetLanguageID := CallbackCreate(GetMethod(implObj, "SetLanguageID"), flags, 2)
-        this.vtbl.GetDisplaySpecifier := CallbackCreate(GetMethod(implObj, "GetDisplaySpecifier"), flags, 4)
-        this.vtbl.GetIconLocation := CallbackCreate(GetMethod(implObj, "GetIconLocation"), flags, 6)
-        this.vtbl.GetIcon := CallbackCreate(GetMethod(implObj, "GetIcon"), flags, 5)
-        this.vtbl.GetFriendlyClassName := CallbackCreate(GetMethod(implObj, "GetFriendlyClassName"), flags, 4)
-        this.vtbl.GetFriendlyAttributeName := CallbackCreate(GetMethod(implObj, "GetFriendlyAttributeName"), flags, 5)
-        this.vtbl.IsClassContainer := CallbackCreate(GetMethod(implObj, "IsClassContainer"), flags, 4)
-        this.vtbl.GetClassCreationInfo := CallbackCreate(GetMethod(implObj, "GetClassCreationInfo"), flags, 3)
-        this.vtbl.EnumClassAttributes := CallbackCreate(GetMethod(implObj, "EnumClassAttributes"), flags, 4)
-        this.vtbl.GetAttributeADsType := CallbackCreate(GetMethod(implObj, "GetAttributeADsType"), flags, 2)
+        this.vtbl.SetServer := CallbackCreate(ObjBindMethod(implObj, "SetServer"), flags, 5)
+        this.vtbl.SetLanguageID := CallbackCreate(ObjBindMethod(implObj, "SetLanguageID"), flags, 2)
+        this.vtbl.GetDisplaySpecifier := CallbackCreate(ObjBindMethod(implObj, "GetDisplaySpecifier"), flags, 4)
+        this.vtbl.GetIconLocation := CallbackCreate(ObjBindMethod(implObj, "GetIconLocation"), flags, 6)
+        this.vtbl.GetIcon := CallbackCreate(ObjBindMethod(implObj, "GetIcon"), flags, 5)
+        this.vtbl.GetFriendlyClassName := CallbackCreate(ObjBindMethod(implObj, "GetFriendlyClassName"), flags, 4)
+        this.vtbl.GetFriendlyAttributeName := CallbackCreate(ObjBindMethod(implObj, "GetFriendlyAttributeName"), flags, 5)
+        this.vtbl.IsClassContainer := CallbackCreate(ObjBindMethod(implObj, "IsClassContainer"), flags, 4)
+        this.vtbl.GetClassCreationInfo := CallbackCreate(ObjBindMethod(implObj, "GetClassCreationInfo"), flags, 3)
+        this.vtbl.EnumClassAttributes := CallbackCreate(ObjBindMethod(implObj, "EnumClassAttributes"), flags, 4)
+        this.vtbl.GetAttributeADsType := CallbackCreate(ObjBindMethod(implObj, "GetAttributeADsType"), flags, 2)
     }
 
     Dispose() {

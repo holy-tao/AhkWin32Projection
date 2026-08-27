@@ -18,7 +18,6 @@ export default struct LPMAPILOGOFF {
     }
 
     /**
-     * 
      * @param {Pointer} lhSession 
      * @param {Pointer} ulUIParam 
      * @param {Integer} flFlags 

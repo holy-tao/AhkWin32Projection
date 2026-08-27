@@ -151,10 +151,10 @@ export default struct ISBE2MediaTypeProfile extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStreamCount := CallbackCreate(GetMethod(implObj, "GetStreamCount"), flags, 2)
-        this.vtbl.GetStream := CallbackCreate(GetMethod(implObj, "GetStream"), flags, 3)
-        this.vtbl.AddStream := CallbackCreate(GetMethod(implObj, "AddStream"), flags, 2)
-        this.vtbl.DeleteStream := CallbackCreate(GetMethod(implObj, "DeleteStream"), flags, 2)
+        this.vtbl.GetStreamCount := CallbackCreate(ObjBindMethod(implObj, "GetStreamCount"), flags, 2)
+        this.vtbl.GetStream := CallbackCreate(ObjBindMethod(implObj, "GetStream"), flags, 3)
+        this.vtbl.AddStream := CallbackCreate(ObjBindMethod(implObj, "AddStream"), flags, 2)
+        this.vtbl.DeleteStream := CallbackCreate(ObjBindMethod(implObj, "DeleteStream"), flags, 2)
     }
 
     Dispose() {

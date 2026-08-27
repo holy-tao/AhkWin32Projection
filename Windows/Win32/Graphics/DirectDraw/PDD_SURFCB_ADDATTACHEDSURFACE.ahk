@@ -25,7 +25,6 @@ export default struct PDD_SURFCB_ADDATTACHEDSURFACE {
     }
 
     /**
-     * 
      * @param {Pointer<DD_ADDATTACHEDSURFACEDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_addattachedsurfacedata">DD_ADDATTACHEDSURFACEDATA</a> structure that contains information required for the driver to perform the attachment.
      * @returns {Integer} <b>DdAddAttachedSurface</b> returns one of the following callback codes:
      */

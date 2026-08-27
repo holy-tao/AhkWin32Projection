@@ -90,8 +90,8 @@ export default struct IVersionInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iversioninfo-getbuildversion
      */
     GetBuildVersion(ulSub, pdwMajor, pdwMinor) {
-        pdwMajorMarshal := pdwMajor is VarRef ? "uint*" : "ptr"
-        pdwMinorMarshal := pdwMinor is VarRef ? "uint*" : "ptr"
+        pdwMajorMarshal := pdwMajor is VarRef ? "uint*" : IntPtr
+        pdwMinorMarshal := pdwMinor is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, UInt32, ulSub, pdwMajorMarshal, pdwMajor, pdwMinorMarshal, pdwMinor, "HRESULT")
         return result
@@ -139,11 +139,11 @@ export default struct IVersionInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSubcomponentCount := CallbackCreate(GetMethod(implObj, "GetSubcomponentCount"), flags, 3)
-        this.vtbl.GetImplementationID := CallbackCreate(GetMethod(implObj, "GetImplementationID"), flags, 3)
-        this.vtbl.GetBuildVersion := CallbackCreate(GetMethod(implObj, "GetBuildVersion"), flags, 4)
-        this.vtbl.GetComponentDescription := CallbackCreate(GetMethod(implObj, "GetComponentDescription"), flags, 3)
-        this.vtbl.GetInstanceDescription := CallbackCreate(GetMethod(implObj, "GetInstanceDescription"), flags, 3)
+        this.vtbl.GetSubcomponentCount := CallbackCreate(ObjBindMethod(implObj, "GetSubcomponentCount"), flags, 3)
+        this.vtbl.GetImplementationID := CallbackCreate(ObjBindMethod(implObj, "GetImplementationID"), flags, 3)
+        this.vtbl.GetBuildVersion := CallbackCreate(ObjBindMethod(implObj, "GetBuildVersion"), flags, 4)
+        this.vtbl.GetComponentDescription := CallbackCreate(ObjBindMethod(implObj, "GetComponentDescription"), flags, 3)
+        this.vtbl.GetInstanceDescription := CallbackCreate(ObjBindMethod(implObj, "GetInstanceDescription"), flags, 3)
     }
 
     Dispose() {

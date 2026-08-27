@@ -61,7 +61,6 @@ export default struct IHTMLMSCSSKeyframeRule extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -73,7 +72,6 @@ export default struct IHTMLMSCSSKeyframeRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_keyText() {
@@ -83,7 +81,6 @@ export default struct IHTMLMSCSSKeyframeRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLRuleStyle} 
      */
     get_style() {
@@ -100,9 +97,9 @@ export default struct IHTMLMSCSSKeyframeRule extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_keyText := CallbackCreate(GetMethod(implObj, "put_keyText"), flags, 2)
-        this.vtbl.get_keyText := CallbackCreate(GetMethod(implObj, "get_keyText"), flags, 2)
-        this.vtbl.get_style := CallbackCreate(GetMethod(implObj, "get_style"), flags, 2)
+        this.vtbl.put_keyText := CallbackCreate(ObjBindMethod(implObj, "put_keyText"), flags, 2)
+        this.vtbl.get_keyText := CallbackCreate(ObjBindMethod(implObj, "get_keyText"), flags, 2)
+        this.vtbl.get_style := CallbackCreate(ObjBindMethod(implObj, "get_style"), flags, 2)
     }
 
     Dispose() {

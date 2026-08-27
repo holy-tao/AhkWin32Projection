@@ -20,7 +20,6 @@ export default struct PF_NPSearchDialog {
     }
 
     /**
-     * 
      * @param {HWND} hwndParent 
      * @param {Pointer<NETRESOURCEW>} lpNetResource 
      * @param {Pointer<Void>} lpBuffer 
@@ -29,10 +28,11 @@ export default struct PF_NPSearchDialog {
      * @returns {Integer} 
      */
     Call(hwndParent, lpNetResource, lpBuffer, cbBuffer, lpnFlags) {
-        lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
-        lpnFlagsMarshal := lpnFlags is VarRef ? "uint*" : "ptr"
+        lpNetResourceMarshal := lpNetResource == 0 ? IntPtr : NETRESOURCEW.Ptr
+        lpBufferMarshal := lpBuffer is VarRef ? "ptr" : IntPtr
+        lpnFlagsMarshal := lpnFlags is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, HWND, hwndParent, NETRESOURCEW.Ptr, lpNetResource, lpBufferMarshal, lpBuffer, UInt32, cbBuffer, lpnFlagsMarshal, lpnFlags, UInt32)
+        result := DllCall(this.value, HWND, hwndParent, lpNetResourceMarshal, lpNetResource, lpBufferMarshal, lpBuffer, UInt32, cbBuffer, lpnFlagsMarshal, lpnFlags, UInt32)
         return result
     }
 

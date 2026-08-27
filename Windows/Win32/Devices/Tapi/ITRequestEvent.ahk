@@ -170,12 +170,12 @@ export default struct ITRequestEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_RegistrationInstance := CallbackCreate(GetMethod(implObj, "get_RegistrationInstance"), flags, 2)
-        this.vtbl.get_RequestMode := CallbackCreate(GetMethod(implObj, "get_RequestMode"), flags, 2)
-        this.vtbl.get_DestAddress := CallbackCreate(GetMethod(implObj, "get_DestAddress"), flags, 2)
-        this.vtbl.get_AppName := CallbackCreate(GetMethod(implObj, "get_AppName"), flags, 2)
-        this.vtbl.get_CalledParty := CallbackCreate(GetMethod(implObj, "get_CalledParty"), flags, 2)
-        this.vtbl.get_Comment := CallbackCreate(GetMethod(implObj, "get_Comment"), flags, 2)
+        this.vtbl.get_RegistrationInstance := CallbackCreate(ObjBindMethod(implObj, "get_RegistrationInstance"), flags, 2)
+        this.vtbl.get_RequestMode := CallbackCreate(ObjBindMethod(implObj, "get_RequestMode"), flags, 2)
+        this.vtbl.get_DestAddress := CallbackCreate(ObjBindMethod(implObj, "get_DestAddress"), flags, 2)
+        this.vtbl.get_AppName := CallbackCreate(ObjBindMethod(implObj, "get_AppName"), flags, 2)
+        this.vtbl.get_CalledParty := CallbackCreate(ObjBindMethod(implObj, "get_CalledParty"), flags, 2)
+        this.vtbl.get_Comment := CallbackCreate(ObjBindMethod(implObj, "get_Comment"), flags, 2)
     }
 
     Dispose() {

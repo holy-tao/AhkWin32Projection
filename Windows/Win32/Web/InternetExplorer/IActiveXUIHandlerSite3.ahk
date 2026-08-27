@@ -82,7 +82,11 @@ export default struct IActiveXUIHandlerSite3 extends IUnknown {
         text := text is String ? StrPtr(text) : text
         caption := caption is String ? StrPtr(caption) : caption
 
-        result := ComCall(3, this, HWND, _hwnd, "ptr", text, "ptr", caption, UInt32, type, "int*", &result := 0, "HRESULT")
+        _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+        textMarshal := text == 0 ? IntPtr : PWSTR
+        captionMarshal := caption == 0 ? IntPtr : PWSTR
+
+        result := ComCall(3, this, _hwndMarshal, _hwnd, textMarshal, text, captionMarshal, caption, UInt32, type, "int*", &result := 0, "HRESULT")
         return result
     }
 
@@ -95,7 +99,7 @@ export default struct IActiveXUIHandlerSite3 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.MessageBoxW := CallbackCreate(GetMethod(implObj, "MessageBoxW"), flags, 6)
+        this.vtbl.MessageBoxW := CallbackCreate(ObjBindMethod(implObj, "MessageBoxW"), flags, 6)
     }
 
     Dispose() {

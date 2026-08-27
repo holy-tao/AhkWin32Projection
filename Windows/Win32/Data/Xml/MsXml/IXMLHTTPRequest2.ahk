@@ -543,8 +543,8 @@ export default struct IXMLHTTPRequest2 extends IUnknown {
         pwszUrl := pwszUrl is String ? StrPtr(pwszUrl) : pwszUrl
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        pcCookiesMarshal := pcCookies is VarRef ? "uint*" : "ptr"
-        ppCookiesMarshal := ppCookies is VarRef ? "ptr*" : "ptr"
+        pcCookiesMarshal := pcCookies is VarRef ? "uint*" : IntPtr
+        ppCookiesMarshal := ppCookies is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(11, this, "ptr", pwszUrl, "ptr", pwszName, UInt32, dwFlags, pcCookiesMarshal, pcCookies, ppCookiesMarshal, ppCookies, "HRESULT")
         return result
@@ -574,16 +574,16 @@ export default struct IXMLHTTPRequest2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 8)
-        this.vtbl.Send := CallbackCreate(GetMethod(implObj, "Send"), flags, 3)
-        this.vtbl.Abort := CallbackCreate(GetMethod(implObj, "Abort"), flags, 1)
-        this.vtbl.SetCookie := CallbackCreate(GetMethod(implObj, "SetCookie"), flags, 3)
-        this.vtbl.SetCustomResponseStream := CallbackCreate(GetMethod(implObj, "SetCustomResponseStream"), flags, 2)
-        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 3)
-        this.vtbl.SetRequestHeader := CallbackCreate(GetMethod(implObj, "SetRequestHeader"), flags, 3)
-        this.vtbl.GetAllResponseHeaders := CallbackCreate(GetMethod(implObj, "GetAllResponseHeaders"), flags, 2)
-        this.vtbl.GetCookie := CallbackCreate(GetMethod(implObj, "GetCookie"), flags, 6)
-        this.vtbl.GetResponseHeader := CallbackCreate(GetMethod(implObj, "GetResponseHeader"), flags, 3)
+        this.vtbl.Open := CallbackCreate(ObjBindMethod(implObj, "Open"), flags, 8)
+        this.vtbl.Send := CallbackCreate(ObjBindMethod(implObj, "Send"), flags, 3)
+        this.vtbl.Abort := CallbackCreate(ObjBindMethod(implObj, "Abort"), flags, 1)
+        this.vtbl.SetCookie := CallbackCreate(ObjBindMethod(implObj, "SetCookie"), flags, 3)
+        this.vtbl.SetCustomResponseStream := CallbackCreate(ObjBindMethod(implObj, "SetCustomResponseStream"), flags, 2)
+        this.vtbl.SetProperty := CallbackCreate(ObjBindMethod(implObj, "SetProperty"), flags, 3)
+        this.vtbl.SetRequestHeader := CallbackCreate(ObjBindMethod(implObj, "SetRequestHeader"), flags, 3)
+        this.vtbl.GetAllResponseHeaders := CallbackCreate(ObjBindMethod(implObj, "GetAllResponseHeaders"), flags, 2)
+        this.vtbl.GetCookie := CallbackCreate(ObjBindMethod(implObj, "GetCookie"), flags, 6)
+        this.vtbl.GetResponseHeader := CallbackCreate(ObjBindMethod(implObj, "GetResponseHeader"), flags, 3)
     }
 
     Dispose() {

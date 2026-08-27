@@ -38,7 +38,6 @@ export default struct IDebugHostExtensibility3 extends IDebugHostExtensibility2 
     }
 
     /**
-     * 
      * @param {Integer} blobSize 
      * @param {Pointer<Guid>} identifier 
      * @returns {Integer} 
@@ -49,22 +48,20 @@ export default struct IDebugHostExtensibility3 extends IDebugHostExtensibility2 
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} identifier 
      * @param {Pointer<Integer>} blobId 
      * @param {Pointer<Integer>} blobSize 
      * @returns {HRESULT} 
      */
     QueryHostContextExtension(identifier, blobId, blobSize) {
-        blobIdMarshal := blobId is VarRef ? "uint*" : "ptr"
-        blobSizeMarshal := blobSize is VarRef ? "uint*" : "ptr"
+        blobIdMarshal := blobId is VarRef ? "uint*" : IntPtr
+        blobSizeMarshal := blobSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, Guid.Ptr, identifier, blobIdMarshal, blobId, blobSizeMarshal, blobSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} blobId 
      * @returns {HRESULT} 
      */
@@ -82,9 +79,9 @@ export default struct IDebugHostExtensibility3 extends IDebugHostExtensibility2 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ExtendHostContext := CallbackCreate(GetMethod(implObj, "ExtendHostContext"), flags, 4)
-        this.vtbl.QueryHostContextExtension := CallbackCreate(GetMethod(implObj, "QueryHostContextExtension"), flags, 4)
-        this.vtbl.ReleaseHostContextExtension := CallbackCreate(GetMethod(implObj, "ReleaseHostContextExtension"), flags, 2)
+        this.vtbl.ExtendHostContext := CallbackCreate(ObjBindMethod(implObj, "ExtendHostContext"), flags, 4)
+        this.vtbl.QueryHostContextExtension := CallbackCreate(ObjBindMethod(implObj, "QueryHostContextExtension"), flags, 4)
+        this.vtbl.ReleaseHostContextExtension := CallbackCreate(ObjBindMethod(implObj, "ReleaseHostContextExtension"), flags, 2)
     }
 
     Dispose() {

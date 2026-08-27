@@ -154,9 +154,9 @@ export default struct IX509ExtensionAuthorityKeyIdentifier extends IX509Extensio
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeEncode := CallbackCreate(GetMethod(implObj, "InitializeEncode"), flags, 3)
-        this.vtbl.InitializeDecode := CallbackCreate(GetMethod(implObj, "InitializeDecode"), flags, 3)
-        this.vtbl.get_AuthorityKeyIdentifier := CallbackCreate(GetMethod(implObj, "get_AuthorityKeyIdentifier"), flags, 3)
+        this.vtbl.InitializeEncode := CallbackCreate(ObjBindMethod(implObj, "InitializeEncode"), flags, 3)
+        this.vtbl.InitializeDecode := CallbackCreate(ObjBindMethod(implObj, "InitializeDecode"), flags, 3)
+        this.vtbl.get_AuthorityKeyIdentifier := CallbackCreate(ObjBindMethod(implObj, "get_AuthorityKeyIdentifier"), flags, 3)
     }
 
     Dispose() {

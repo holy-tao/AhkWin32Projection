@@ -20,7 +20,6 @@ export default struct PFAXDEVSTARTJOB {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @param {Pointer<HANDLE>} param2 

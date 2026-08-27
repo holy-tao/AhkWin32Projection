@@ -58,7 +58,6 @@ export default struct IADsDNWithString extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_StringValue() {
@@ -68,7 +67,6 @@ export default struct IADsDNWithString extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrStringValue 
      * @returns {HRESULT} 
      */
@@ -80,7 +78,6 @@ export default struct IADsDNWithString extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DNString() {
@@ -90,7 +87,6 @@ export default struct IADsDNWithString extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDNString 
      * @returns {HRESULT} 
      */
@@ -110,10 +106,10 @@ export default struct IADsDNWithString extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_StringValue := CallbackCreate(GetMethod(implObj, "get_StringValue"), flags, 2)
-        this.vtbl.put_StringValue := CallbackCreate(GetMethod(implObj, "put_StringValue"), flags, 2)
-        this.vtbl.get_DNString := CallbackCreate(GetMethod(implObj, "get_DNString"), flags, 2)
-        this.vtbl.put_DNString := CallbackCreate(GetMethod(implObj, "put_DNString"), flags, 2)
+        this.vtbl.get_StringValue := CallbackCreate(ObjBindMethod(implObj, "get_StringValue"), flags, 2)
+        this.vtbl.put_StringValue := CallbackCreate(ObjBindMethod(implObj, "put_StringValue"), flags, 2)
+        this.vtbl.get_DNString := CallbackCreate(ObjBindMethod(implObj, "get_DNString"), flags, 2)
+        this.vtbl.put_DNString := CallbackCreate(ObjBindMethod(implObj, "put_DNString"), flags, 2)
     }
 
     Dispose() {

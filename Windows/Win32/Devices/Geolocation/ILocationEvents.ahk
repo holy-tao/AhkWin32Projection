@@ -55,7 +55,9 @@ export default struct ILocationEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocationevents-onlocationchanged
      */
     OnLocationChanged(reportType, pLocationReport) {
-        result := ComCall(3, this, Guid.Ptr, reportType, "ptr", pLocationReport, "HRESULT")
+        pLocationReportMarshal := pLocationReport == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, Guid.Ptr, reportType, pLocationReportMarshal, pLocationReport, "HRESULT")
         return result
     }
 
@@ -82,8 +84,8 @@ export default struct ILocationEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnLocationChanged := CallbackCreate(GetMethod(implObj, "OnLocationChanged"), flags, 3)
-        this.vtbl.OnStatusChanged := CallbackCreate(GetMethod(implObj, "OnStatusChanged"), flags, 3)
+        this.vtbl.OnLocationChanged := CallbackCreate(ObjBindMethod(implObj, "OnLocationChanged"), flags, 3)
+        this.vtbl.OnStatusChanged := CallbackCreate(ObjBindMethod(implObj, "OnStatusChanged"), flags, 3)
     }
 
     Dispose() {

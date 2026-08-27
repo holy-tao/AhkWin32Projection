@@ -174,13 +174,13 @@ export default struct IWMDMObjectInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPlayLength := CallbackCreate(GetMethod(implObj, "GetPlayLength"), flags, 2)
-        this.vtbl.SetPlayLength := CallbackCreate(GetMethod(implObj, "SetPlayLength"), flags, 2)
-        this.vtbl.GetPlayOffset := CallbackCreate(GetMethod(implObj, "GetPlayOffset"), flags, 2)
-        this.vtbl.SetPlayOffset := CallbackCreate(GetMethod(implObj, "SetPlayOffset"), flags, 2)
-        this.vtbl.GetTotalLength := CallbackCreate(GetMethod(implObj, "GetTotalLength"), flags, 2)
-        this.vtbl.GetLastPlayPosition := CallbackCreate(GetMethod(implObj, "GetLastPlayPosition"), flags, 2)
-        this.vtbl.GetLongestPlayPosition := CallbackCreate(GetMethod(implObj, "GetLongestPlayPosition"), flags, 2)
+        this.vtbl.GetPlayLength := CallbackCreate(ObjBindMethod(implObj, "GetPlayLength"), flags, 2)
+        this.vtbl.SetPlayLength := CallbackCreate(ObjBindMethod(implObj, "SetPlayLength"), flags, 2)
+        this.vtbl.GetPlayOffset := CallbackCreate(ObjBindMethod(implObj, "GetPlayOffset"), flags, 2)
+        this.vtbl.SetPlayOffset := CallbackCreate(ObjBindMethod(implObj, "SetPlayOffset"), flags, 2)
+        this.vtbl.GetTotalLength := CallbackCreate(ObjBindMethod(implObj, "GetTotalLength"), flags, 2)
+        this.vtbl.GetLastPlayPosition := CallbackCreate(ObjBindMethod(implObj, "GetLastPlayPosition"), flags, 2)
+        this.vtbl.GetLongestPlayPosition := CallbackCreate(ObjBindMethod(implObj, "GetLongestPlayPosition"), flags, 2)
     }
 
     Dispose() {

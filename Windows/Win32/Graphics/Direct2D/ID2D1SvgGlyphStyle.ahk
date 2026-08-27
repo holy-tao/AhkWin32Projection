@@ -55,7 +55,9 @@ export default struct ID2D1SvgGlyphStyle extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1svgglyphstyle-setfill
      */
     SetFill(brush) {
-        result := ComCall(4, this, "ptr", brush, "HRESULT")
+        brushMarshal := brush == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, brushMarshal, brush, "HRESULT")
         return result
     }
 
@@ -95,9 +97,11 @@ export default struct ID2D1SvgGlyphStyle extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1svgglyphstyle-setstroke
      */
     SetStroke(brush, strokeWidth, dashes, dashesCount, dashOffset) {
-        dashesMarshal := dashes is VarRef ? "float*" : "ptr"
+        brushMarshal := brush == 0 ? IntPtr : "ptr"
+        dashesMarshal := dashes is VarRef ? "float*" : IntPtr
+        dashesMarshal := dashes == 0 ? IntPtr : "float*"
 
-        result := ComCall(6, this, "ptr", brush, Float32, strokeWidth, dashesMarshal, dashes, UInt32, dashesCount, Float32, dashOffset, "HRESULT")
+        result := ComCall(6, this, brushMarshal, brush, Float32, strokeWidth, dashesMarshal, dashes, UInt32, dashesCount, Float32, dashOffset, "HRESULT")
         return result
     }
 
@@ -135,11 +139,15 @@ export default struct ID2D1SvgGlyphStyle extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1svgglyphstyle-getstroke
      */
     GetStroke(brush, strokeWidth, dashes, dashesCount, dashOffset) {
-        strokeWidthMarshal := strokeWidth is VarRef ? "float*" : "ptr"
-        dashesMarshal := dashes is VarRef ? "float*" : "ptr"
-        dashOffsetMarshal := dashOffset is VarRef ? "float*" : "ptr"
+        brushMarshal := brush == 0 ? IntPtr : ID2D1Brush.Ptr
+        strokeWidthMarshal := strokeWidth is VarRef ? "float*" : IntPtr
+        strokeWidthMarshal := strokeWidth == 0 ? IntPtr : "float*"
+        dashesMarshal := dashes is VarRef ? "float*" : IntPtr
+        dashesMarshal := dashes == 0 ? IntPtr : "float*"
+        dashOffsetMarshal := dashOffset is VarRef ? "float*" : IntPtr
+        dashOffsetMarshal := dashOffset == 0 ? IntPtr : "float*"
 
-        ComCall(8, this, ID2D1Brush.Ptr, brush, strokeWidthMarshal, strokeWidth, dashesMarshal, dashes, UInt32, dashesCount, dashOffsetMarshal, dashOffset)
+        ComCall(8, this, brushMarshal, brush, strokeWidthMarshal, strokeWidth, dashesMarshal, dashes, UInt32, dashesCount, dashOffsetMarshal, dashOffset)
     }
 
     _Query(iid) {
@@ -151,11 +159,11 @@ export default struct ID2D1SvgGlyphStyle extends ID2D1Resource {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetFill := CallbackCreate(GetMethod(implObj, "SetFill"), flags, 2)
-        this.vtbl.GetFill := CallbackCreate(GetMethod(implObj, "GetFill"), flags, 2)
-        this.vtbl.SetStroke := CallbackCreate(GetMethod(implObj, "SetStroke"), flags, 6)
-        this.vtbl.GetStrokeDashesCount := CallbackCreate(GetMethod(implObj, "GetStrokeDashesCount"), flags, 1)
-        this.vtbl.GetStroke := CallbackCreate(GetMethod(implObj, "GetStroke"), flags, 6)
+        this.vtbl.SetFill := CallbackCreate(ObjBindMethod(implObj, "SetFill"), flags, 2)
+        this.vtbl.GetFill := CallbackCreate(ObjBindMethod(implObj, "GetFill"), flags, 2)
+        this.vtbl.SetStroke := CallbackCreate(ObjBindMethod(implObj, "SetStroke"), flags, 6)
+        this.vtbl.GetStrokeDashesCount := CallbackCreate(ObjBindMethod(implObj, "GetStrokeDashesCount"), flags, 1)
+        this.vtbl.GetStroke := CallbackCreate(ObjBindMethod(implObj, "GetStroke"), flags, 6)
     }
 
     Dispose() {

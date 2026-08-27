@@ -137,12 +137,12 @@ export default struct IUIAutomationTablePattern extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCurrentRowHeaders := CallbackCreate(GetMethod(implObj, "GetCurrentRowHeaders"), flags, 2)
-        this.vtbl.GetCurrentColumnHeaders := CallbackCreate(GetMethod(implObj, "GetCurrentColumnHeaders"), flags, 2)
-        this.vtbl.get_CurrentRowOrColumnMajor := CallbackCreate(GetMethod(implObj, "get_CurrentRowOrColumnMajor"), flags, 2)
-        this.vtbl.GetCachedRowHeaders := CallbackCreate(GetMethod(implObj, "GetCachedRowHeaders"), flags, 2)
-        this.vtbl.GetCachedColumnHeaders := CallbackCreate(GetMethod(implObj, "GetCachedColumnHeaders"), flags, 2)
-        this.vtbl.get_CachedRowOrColumnMajor := CallbackCreate(GetMethod(implObj, "get_CachedRowOrColumnMajor"), flags, 2)
+        this.vtbl.GetCurrentRowHeaders := CallbackCreate(ObjBindMethod(implObj, "GetCurrentRowHeaders"), flags, 2)
+        this.vtbl.GetCurrentColumnHeaders := CallbackCreate(ObjBindMethod(implObj, "GetCurrentColumnHeaders"), flags, 2)
+        this.vtbl.get_CurrentRowOrColumnMajor := CallbackCreate(ObjBindMethod(implObj, "get_CurrentRowOrColumnMajor"), flags, 2)
+        this.vtbl.GetCachedRowHeaders := CallbackCreate(ObjBindMethod(implObj, "GetCachedRowHeaders"), flags, 2)
+        this.vtbl.GetCachedColumnHeaders := CallbackCreate(ObjBindMethod(implObj, "GetCachedColumnHeaders"), flags, 2)
+        this.vtbl.get_CachedRowOrColumnMajor := CallbackCreate(ObjBindMethod(implObj, "get_CachedRowOrColumnMajor"), flags, 2)
     }
 
     Dispose() {

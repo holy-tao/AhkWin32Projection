@@ -39,7 +39,6 @@ export default struct IDebugSyncOperation extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugApplicationThread} 
      */
     GetTargetThread() {
@@ -48,7 +47,6 @@ export default struct IDebugSyncOperation extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     Execute() {
@@ -57,7 +55,6 @@ export default struct IDebugSyncOperation extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     InProgressAbort() {
@@ -74,9 +71,9 @@ export default struct IDebugSyncOperation extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTargetThread := CallbackCreate(GetMethod(implObj, "GetTargetThread"), flags, 2)
-        this.vtbl.Execute := CallbackCreate(GetMethod(implObj, "Execute"), flags, 2)
-        this.vtbl.InProgressAbort := CallbackCreate(GetMethod(implObj, "InProgressAbort"), flags, 1)
+        this.vtbl.GetTargetThread := CallbackCreate(ObjBindMethod(implObj, "GetTargetThread"), flags, 2)
+        this.vtbl.Execute := CallbackCreate(ObjBindMethod(implObj, "Execute"), flags, 2)
+        this.vtbl.InProgressAbort := CallbackCreate(ObjBindMethod(implObj, "InProgressAbort"), flags, 1)
     }
 
     Dispose() {

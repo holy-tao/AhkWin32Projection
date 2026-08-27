@@ -37,7 +37,6 @@ export default struct IContainerActivationHelper extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     CanActivateClientVM() {
@@ -54,7 +53,7 @@ export default struct IContainerActivationHelper extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CanActivateClientVM := CallbackCreate(GetMethod(implObj, "CanActivateClientVM"), flags, 2)
+        this.vtbl.CanActivateClientVM := CallbackCreate(ObjBindMethod(implObj, "CanActivateClientVM"), flags, 2)
     }
 
     Dispose() {

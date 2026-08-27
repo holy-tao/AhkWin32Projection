@@ -62,14 +62,13 @@ export default struct IDirect3DSwapChain9Ex extends IDirect3DSwapChain9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dswapchain9ex-getlastpresentcount
      */
     GetLastPresentCount(pLastPresentCount) {
-        pLastPresentCountMarshal := pLastPresentCount is VarRef ? "uint*" : "ptr"
+        pLastPresentCountMarshal := pLastPresentCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(10, this, pLastPresentCountMarshal, pLastPresentCount, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<D3DPRESENTSTATS>} pPresentationStatistics 
      * @returns {HRESULT} 
      */
@@ -92,7 +91,7 @@ export default struct IDirect3DSwapChain9Ex extends IDirect3DSwapChain9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dswapchain9ex-getdisplaymodeex
      */
     GetDisplayModeEx(pMode, pRotation) {
-        pRotationMarshal := pRotation is VarRef ? "int*" : "ptr"
+        pRotationMarshal := pRotation is VarRef ? "int*" : IntPtr
 
         result := ComCall(12, this, D3DDISPLAYMODEEX.Ptr, pMode, pRotationMarshal, pRotation, "HRESULT")
         return result
@@ -107,9 +106,9 @@ export default struct IDirect3DSwapChain9Ex extends IDirect3DSwapChain9 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLastPresentCount := CallbackCreate(GetMethod(implObj, "GetLastPresentCount"), flags, 2)
-        this.vtbl.GetPresentStats := CallbackCreate(GetMethod(implObj, "GetPresentStats"), flags, 2)
-        this.vtbl.GetDisplayModeEx := CallbackCreate(GetMethod(implObj, "GetDisplayModeEx"), flags, 3)
+        this.vtbl.GetLastPresentCount := CallbackCreate(ObjBindMethod(implObj, "GetLastPresentCount"), flags, 2)
+        this.vtbl.GetPresentStats := CallbackCreate(ObjBindMethod(implObj, "GetPresentStats"), flags, 2)
+        this.vtbl.GetDisplayModeEx := CallbackCreate(ObjBindMethod(implObj, "GetDisplayModeEx"), flags, 3)
     }
 
     Dispose() {

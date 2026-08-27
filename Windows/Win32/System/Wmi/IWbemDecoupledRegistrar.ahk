@@ -87,8 +87,8 @@ export default struct IWbemDecoupledRegistrar extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Register := CallbackCreate(GetMethod(implObj, "Register"), flags, 8)
-        this.vtbl.UnRegister := CallbackCreate(GetMethod(implObj, "UnRegister"), flags, 1)
+        this.vtbl.Register := CallbackCreate(ObjBindMethod(implObj, "Register"), flags, 8)
+        this.vtbl.UnRegister := CallbackCreate(ObjBindMethod(implObj, "UnRegister"), flags, 1)
     }
 
     Dispose() {

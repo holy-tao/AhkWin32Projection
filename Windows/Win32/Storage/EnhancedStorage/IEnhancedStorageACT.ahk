@@ -205,8 +205,8 @@ export default struct IEnhancedStorageACT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstorageact-getsilos
      */
     GetSilos(pppIEnhancedStorageSilos, pcEnhancedStorageSilos) {
-        pppIEnhancedStorageSilosMarshal := pppIEnhancedStorageSilos is VarRef ? "ptr*" : "ptr"
-        pcEnhancedStorageSilosMarshal := pcEnhancedStorageSilos is VarRef ? "uint*" : "ptr"
+        pppIEnhancedStorageSilosMarshal := pppIEnhancedStorageSilos is VarRef ? "ptr*" : IntPtr
+        pcEnhancedStorageSilosMarshal := pcEnhancedStorageSilos is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, pppIEnhancedStorageSilosMarshal, pppIEnhancedStorageSilos, pcEnhancedStorageSilosMarshal, pcEnhancedStorageSilos, "HRESULT")
         return result
@@ -221,12 +221,12 @@ export default struct IEnhancedStorageACT extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Authorize := CallbackCreate(GetMethod(implObj, "Authorize"), flags, 3)
-        this.vtbl.Unauthorize := CallbackCreate(GetMethod(implObj, "Unauthorize"), flags, 1)
-        this.vtbl.GetAuthorizationState := CallbackCreate(GetMethod(implObj, "GetAuthorizationState"), flags, 2)
-        this.vtbl.GetMatchingVolume := CallbackCreate(GetMethod(implObj, "GetMatchingVolume"), flags, 2)
-        this.vtbl.GetUniqueIdentity := CallbackCreate(GetMethod(implObj, "GetUniqueIdentity"), flags, 2)
-        this.vtbl.GetSilos := CallbackCreate(GetMethod(implObj, "GetSilos"), flags, 3)
+        this.vtbl.Authorize := CallbackCreate(ObjBindMethod(implObj, "Authorize"), flags, 3)
+        this.vtbl.Unauthorize := CallbackCreate(ObjBindMethod(implObj, "Unauthorize"), flags, 1)
+        this.vtbl.GetAuthorizationState := CallbackCreate(ObjBindMethod(implObj, "GetAuthorizationState"), flags, 2)
+        this.vtbl.GetMatchingVolume := CallbackCreate(ObjBindMethod(implObj, "GetMatchingVolume"), flags, 2)
+        this.vtbl.GetUniqueIdentity := CallbackCreate(ObjBindMethod(implObj, "GetUniqueIdentity"), flags, 2)
+        this.vtbl.GetSilos := CallbackCreate(ObjBindMethod(implObj, "GetSilos"), flags, 3)
     }
 
     Dispose() {

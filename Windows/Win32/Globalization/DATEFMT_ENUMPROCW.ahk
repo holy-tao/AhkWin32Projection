@@ -21,7 +21,6 @@ export default struct DATEFMT_ENUMPROCW {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @returns {BOOL} 
      */

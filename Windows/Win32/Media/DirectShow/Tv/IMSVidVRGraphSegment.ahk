@@ -132,7 +132,6 @@ export default struct IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @param {Integer} dwMode 
      * @returns {HRESULT} 
      */
@@ -142,7 +141,6 @@ export default struct IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @param {HWND} Window 
      * @returns {HRESULT} 
      */
@@ -152,7 +150,6 @@ export default struct IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @returns {HWND} 
      */
     get_Owner() {
@@ -162,7 +159,6 @@ export default struct IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_UseOverlay() {
@@ -171,7 +167,6 @@ export default struct IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} UseOverlayVal 
      * @returns {HRESULT} 
      */
@@ -181,7 +176,6 @@ export default struct IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Visible() {
@@ -190,7 +184,6 @@ export default struct IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} Visible 
      * @returns {HRESULT} 
      */
@@ -200,7 +193,6 @@ export default struct IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ColorKey() {
@@ -209,7 +201,6 @@ export default struct IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @param {Integer} _ColorKey 
      * @returns {HRESULT} 
      */
@@ -219,7 +210,6 @@ export default struct IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @returns {RECT} 
      */
     get_Source() {
@@ -229,7 +219,6 @@ export default struct IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @param {RECT} r 
      * @returns {HRESULT} 
      */
@@ -239,7 +228,6 @@ export default struct IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @returns {RECT} 
      */
     get_Destination() {
@@ -249,7 +237,6 @@ export default struct IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @param {RECT} r 
      * @returns {HRESULT} 
      */
@@ -259,7 +246,6 @@ export default struct IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @param {Pointer<SIZE>} sizeval 
      * @param {Pointer<SIZE>} aspectratio 
      * @returns {HRESULT} 
@@ -270,7 +256,6 @@ export default struct IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_BorderColor() {
@@ -279,7 +264,6 @@ export default struct IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @param {Integer} _color 
      * @returns {HRESULT} 
      */
@@ -289,7 +273,6 @@ export default struct IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_MaintainAspectRatio() {
@@ -298,7 +281,6 @@ export default struct IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fMaintain 
      * @returns {HRESULT} 
      */
@@ -308,7 +290,6 @@ export default struct IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Refresh() {
@@ -317,7 +298,6 @@ export default struct IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DisplayChange() {
@@ -326,7 +306,6 @@ export default struct IMSVidVRGraphSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @param {HDC} _hdc 
      * @returns {HRESULT} 
      */
@@ -344,27 +323,27 @@ export default struct IMSVidVRGraphSegment extends IMSVidGraphSegment {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put__VMRendererMode := CallbackCreate(GetMethod(implObj, "put__VMRendererMode"), flags, 2)
-        this.vtbl.put_Owner := CallbackCreate(GetMethod(implObj, "put_Owner"), flags, 2)
-        this.vtbl.get_Owner := CallbackCreate(GetMethod(implObj, "get_Owner"), flags, 2)
-        this.vtbl.get_UseOverlay := CallbackCreate(GetMethod(implObj, "get_UseOverlay"), flags, 2)
-        this.vtbl.put_UseOverlay := CallbackCreate(GetMethod(implObj, "put_UseOverlay"), flags, 2)
-        this.vtbl.get_Visible := CallbackCreate(GetMethod(implObj, "get_Visible"), flags, 2)
-        this.vtbl.put_Visible := CallbackCreate(GetMethod(implObj, "put_Visible"), flags, 2)
-        this.vtbl.get_ColorKey := CallbackCreate(GetMethod(implObj, "get_ColorKey"), flags, 2)
-        this.vtbl.put_ColorKey := CallbackCreate(GetMethod(implObj, "put_ColorKey"), flags, 2)
-        this.vtbl.get_Source := CallbackCreate(GetMethod(implObj, "get_Source"), flags, 2)
-        this.vtbl.put_Source := CallbackCreate(GetMethod(implObj, "put_Source"), flags, 2)
-        this.vtbl.get_Destination := CallbackCreate(GetMethod(implObj, "get_Destination"), flags, 2)
-        this.vtbl.put_Destination := CallbackCreate(GetMethod(implObj, "put_Destination"), flags, 2)
-        this.vtbl.get_NativeSize := CallbackCreate(GetMethod(implObj, "get_NativeSize"), flags, 3)
-        this.vtbl.get_BorderColor := CallbackCreate(GetMethod(implObj, "get_BorderColor"), flags, 2)
-        this.vtbl.put_BorderColor := CallbackCreate(GetMethod(implObj, "put_BorderColor"), flags, 2)
-        this.vtbl.get_MaintainAspectRatio := CallbackCreate(GetMethod(implObj, "get_MaintainAspectRatio"), flags, 2)
-        this.vtbl.put_MaintainAspectRatio := CallbackCreate(GetMethod(implObj, "put_MaintainAspectRatio"), flags, 2)
-        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
-        this.vtbl.DisplayChange := CallbackCreate(GetMethod(implObj, "DisplayChange"), flags, 1)
-        this.vtbl.RePaint := CallbackCreate(GetMethod(implObj, "RePaint"), flags, 2)
+        this.vtbl.put__VMRendererMode := CallbackCreate(ObjBindMethod(implObj, "put__VMRendererMode"), flags, 2)
+        this.vtbl.put_Owner := CallbackCreate(ObjBindMethod(implObj, "put_Owner"), flags, 2)
+        this.vtbl.get_Owner := CallbackCreate(ObjBindMethod(implObj, "get_Owner"), flags, 2)
+        this.vtbl.get_UseOverlay := CallbackCreate(ObjBindMethod(implObj, "get_UseOverlay"), flags, 2)
+        this.vtbl.put_UseOverlay := CallbackCreate(ObjBindMethod(implObj, "put_UseOverlay"), flags, 2)
+        this.vtbl.get_Visible := CallbackCreate(ObjBindMethod(implObj, "get_Visible"), flags, 2)
+        this.vtbl.put_Visible := CallbackCreate(ObjBindMethod(implObj, "put_Visible"), flags, 2)
+        this.vtbl.get_ColorKey := CallbackCreate(ObjBindMethod(implObj, "get_ColorKey"), flags, 2)
+        this.vtbl.put_ColorKey := CallbackCreate(ObjBindMethod(implObj, "put_ColorKey"), flags, 2)
+        this.vtbl.get_Source := CallbackCreate(ObjBindMethod(implObj, "get_Source"), flags, 2)
+        this.vtbl.put_Source := CallbackCreate(ObjBindMethod(implObj, "put_Source"), flags, 2)
+        this.vtbl.get_Destination := CallbackCreate(ObjBindMethod(implObj, "get_Destination"), flags, 2)
+        this.vtbl.put_Destination := CallbackCreate(ObjBindMethod(implObj, "put_Destination"), flags, 2)
+        this.vtbl.get_NativeSize := CallbackCreate(ObjBindMethod(implObj, "get_NativeSize"), flags, 3)
+        this.vtbl.get_BorderColor := CallbackCreate(ObjBindMethod(implObj, "get_BorderColor"), flags, 2)
+        this.vtbl.put_BorderColor := CallbackCreate(ObjBindMethod(implObj, "put_BorderColor"), flags, 2)
+        this.vtbl.get_MaintainAspectRatio := CallbackCreate(ObjBindMethod(implObj, "get_MaintainAspectRatio"), flags, 2)
+        this.vtbl.put_MaintainAspectRatio := CallbackCreate(ObjBindMethod(implObj, "put_MaintainAspectRatio"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(ObjBindMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.DisplayChange := CallbackCreate(ObjBindMethod(implObj, "DisplayChange"), flags, 1)
+        this.vtbl.RePaint := CallbackCreate(ObjBindMethod(implObj, "RePaint"), flags, 2)
     }
 
     Dispose() {

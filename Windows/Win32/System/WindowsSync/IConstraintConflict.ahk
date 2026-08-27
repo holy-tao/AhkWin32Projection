@@ -51,7 +51,6 @@ export default struct IConstraintConflict extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ISyncChange} 
      */
     GetDestinationProviderConflictingChange() {
@@ -60,7 +59,6 @@ export default struct IConstraintConflict extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ISyncChange} 
      */
     GetSourceProviderConflictingChange() {
@@ -69,7 +67,6 @@ export default struct IConstraintConflict extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ISyncChange} 
      */
     GetDestinationProviderOriginalChange() {
@@ -78,7 +75,6 @@ export default struct IConstraintConflict extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     GetDestinationProviderConflictingData() {
@@ -87,7 +83,6 @@ export default struct IConstraintConflict extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     GetSourceProviderConflictingData() {
@@ -96,7 +91,6 @@ export default struct IConstraintConflict extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     GetDestinationProviderOriginalData() {
@@ -105,19 +99,17 @@ export default struct IConstraintConflict extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SYNC_CONSTRAINT_RESOLVE_ACTION>} pConstraintResolveAction 
      * @returns {HRESULT} 
      */
     GetConstraintResolveActionForChange(pConstraintResolveAction) {
-        pConstraintResolveActionMarshal := pConstraintResolveAction is VarRef ? "int*" : "ptr"
+        pConstraintResolveActionMarshal := pConstraintResolveAction is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, pConstraintResolveActionMarshal, pConstraintResolveAction, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {SYNC_CONSTRAINT_RESOLVE_ACTION} constraintResolveAction 
      * @returns {HRESULT} 
      */
@@ -127,20 +119,18 @@ export default struct IConstraintConflict extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISyncChangeUnit} pChangeUnit 
      * @param {Pointer<SYNC_CONSTRAINT_RESOLVE_ACTION>} pConstraintResolveAction 
      * @returns {HRESULT} 
      */
     GetConstraintResolveActionForChangeUnit(pChangeUnit, pConstraintResolveAction) {
-        pConstraintResolveActionMarshal := pConstraintResolveAction is VarRef ? "int*" : "ptr"
+        pConstraintResolveActionMarshal := pConstraintResolveAction is VarRef ? "int*" : IntPtr
 
         result := ComCall(11, this, "ptr", pChangeUnit, pConstraintResolveActionMarshal, pConstraintResolveAction, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {ISyncChangeUnit} pChangeUnit 
      * @param {SYNC_CONSTRAINT_RESOLVE_ACTION} constraintResolveAction 
      * @returns {HRESULT} 
@@ -151,19 +141,17 @@ export default struct IConstraintConflict extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<CONSTRAINT_CONFLICT_REASON>} pConstraintConflictReason 
      * @returns {HRESULT} 
      */
     GetConstraintConflictReason(pConstraintConflictReason) {
-        pConstraintConflictReasonMarshal := pConstraintConflictReason is VarRef ? "int*" : "ptr"
+        pConstraintConflictReasonMarshal := pConstraintConflictReason is VarRef ? "int*" : IntPtr
 
         result := ComCall(13, this, pConstraintConflictReasonMarshal, pConstraintConflictReason, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     IsTemporary() {
@@ -180,18 +168,18 @@ export default struct IConstraintConflict extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDestinationProviderConflictingChange := CallbackCreate(GetMethod(implObj, "GetDestinationProviderConflictingChange"), flags, 2)
-        this.vtbl.GetSourceProviderConflictingChange := CallbackCreate(GetMethod(implObj, "GetSourceProviderConflictingChange"), flags, 2)
-        this.vtbl.GetDestinationProviderOriginalChange := CallbackCreate(GetMethod(implObj, "GetDestinationProviderOriginalChange"), flags, 2)
-        this.vtbl.GetDestinationProviderConflictingData := CallbackCreate(GetMethod(implObj, "GetDestinationProviderConflictingData"), flags, 2)
-        this.vtbl.GetSourceProviderConflictingData := CallbackCreate(GetMethod(implObj, "GetSourceProviderConflictingData"), flags, 2)
-        this.vtbl.GetDestinationProviderOriginalData := CallbackCreate(GetMethod(implObj, "GetDestinationProviderOriginalData"), flags, 2)
-        this.vtbl.GetConstraintResolveActionForChange := CallbackCreate(GetMethod(implObj, "GetConstraintResolveActionForChange"), flags, 2)
-        this.vtbl.SetConstraintResolveActionForChange := CallbackCreate(GetMethod(implObj, "SetConstraintResolveActionForChange"), flags, 2)
-        this.vtbl.GetConstraintResolveActionForChangeUnit := CallbackCreate(GetMethod(implObj, "GetConstraintResolveActionForChangeUnit"), flags, 3)
-        this.vtbl.SetConstraintResolveActionForChangeUnit := CallbackCreate(GetMethod(implObj, "SetConstraintResolveActionForChangeUnit"), flags, 3)
-        this.vtbl.GetConstraintConflictReason := CallbackCreate(GetMethod(implObj, "GetConstraintConflictReason"), flags, 2)
-        this.vtbl.IsTemporary := CallbackCreate(GetMethod(implObj, "IsTemporary"), flags, 1)
+        this.vtbl.GetDestinationProviderConflictingChange := CallbackCreate(ObjBindMethod(implObj, "GetDestinationProviderConflictingChange"), flags, 2)
+        this.vtbl.GetSourceProviderConflictingChange := CallbackCreate(ObjBindMethod(implObj, "GetSourceProviderConflictingChange"), flags, 2)
+        this.vtbl.GetDestinationProviderOriginalChange := CallbackCreate(ObjBindMethod(implObj, "GetDestinationProviderOriginalChange"), flags, 2)
+        this.vtbl.GetDestinationProviderConflictingData := CallbackCreate(ObjBindMethod(implObj, "GetDestinationProviderConflictingData"), flags, 2)
+        this.vtbl.GetSourceProviderConflictingData := CallbackCreate(ObjBindMethod(implObj, "GetSourceProviderConflictingData"), flags, 2)
+        this.vtbl.GetDestinationProviderOriginalData := CallbackCreate(ObjBindMethod(implObj, "GetDestinationProviderOriginalData"), flags, 2)
+        this.vtbl.GetConstraintResolveActionForChange := CallbackCreate(ObjBindMethod(implObj, "GetConstraintResolveActionForChange"), flags, 2)
+        this.vtbl.SetConstraintResolveActionForChange := CallbackCreate(ObjBindMethod(implObj, "SetConstraintResolveActionForChange"), flags, 2)
+        this.vtbl.GetConstraintResolveActionForChangeUnit := CallbackCreate(ObjBindMethod(implObj, "GetConstraintResolveActionForChangeUnit"), flags, 3)
+        this.vtbl.SetConstraintResolveActionForChangeUnit := CallbackCreate(ObjBindMethod(implObj, "SetConstraintResolveActionForChangeUnit"), flags, 3)
+        this.vtbl.GetConstraintConflictReason := CallbackCreate(ObjBindMethod(implObj, "GetConstraintConflictReason"), flags, 2)
+        this.vtbl.IsTemporary := CallbackCreate(ObjBindMethod(implObj, "IsTemporary"), flags, 1)
     }
 
     Dispose() {

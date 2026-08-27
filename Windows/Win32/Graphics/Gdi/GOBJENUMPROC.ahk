@@ -23,7 +23,6 @@ export default struct GOBJENUMPROC {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} param0 
      * @param {LPARAM} param1 
      * @returns {Integer} To continue enumeration, the callback function must return a nonzero value. This value is user-defined.
@@ -31,7 +30,7 @@ export default struct GOBJENUMPROC {
      * To stop enumeration, the callback function must return zero.
      */
     Call(param0, param1) {
-        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+        param0Marshal := param0 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, param0Marshal, param0, LPARAM, param1, Int32)
         return result

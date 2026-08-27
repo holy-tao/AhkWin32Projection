@@ -31,7 +31,6 @@ export default struct LINEEVENT {
     }
 
     /**
-     * 
      * @param {HTAPILINE} htLine The TAPI handle for the line on which the event occurred.
      * @param {HTAPICALL} htCall The TAPI handle for the call on which the event occurred if this is a call-related event. For line-related events where there is no call, this parameter is set to <b>NULL</b>.
      * @param {Integer} dwMsg Specifies the kind of event that is being reported. Interpretation of the other parameters is performed in different ways according to the context indicated by <i>dwMsg</i>.

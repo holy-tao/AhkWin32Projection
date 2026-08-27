@@ -79,9 +79,9 @@ export default struct IRdcFileReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcfilereader-read
      */
     Read(offsetFileStart, bytesToRead, bytesActuallyRead, _buffer, eof) {
-        bytesActuallyReadMarshal := bytesActuallyRead is VarRef ? "uint*" : "ptr"
-        _bufferMarshal := _buffer is VarRef ? "char*" : "ptr"
-        eofMarshal := eof is VarRef ? "int*" : "ptr"
+        bytesActuallyReadMarshal := bytesActuallyRead is VarRef ? "uint*" : IntPtr
+        _bufferMarshal := _buffer is VarRef ? "char*" : IntPtr
+        eofMarshal := eof is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, Int64, offsetFileStart, UInt32, bytesToRead, bytesActuallyReadMarshal, bytesActuallyRead, _bufferMarshal, _buffer, eofMarshal, eof, "HRESULT")
         return result
@@ -107,9 +107,9 @@ export default struct IRdcFileReader extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFileSize := CallbackCreate(GetMethod(implObj, "GetFileSize"), flags, 2)
-        this.vtbl.Read := CallbackCreate(GetMethod(implObj, "Read"), flags, 6)
-        this.vtbl.GetFilePosition := CallbackCreate(GetMethod(implObj, "GetFilePosition"), flags, 2)
+        this.vtbl.GetFileSize := CallbackCreate(ObjBindMethod(implObj, "GetFileSize"), flags, 2)
+        this.vtbl.Read := CallbackCreate(ObjBindMethod(implObj, "Read"), flags, 6)
+        this.vtbl.GetFilePosition := CallbackCreate(ObjBindMethod(implObj, "GetFilePosition"), flags, 2)
     }
 
     Dispose() {

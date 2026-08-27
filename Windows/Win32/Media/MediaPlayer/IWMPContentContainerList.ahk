@@ -81,9 +81,9 @@ export default struct IWMPContentContainerList extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTransactionType := CallbackCreate(GetMethod(implObj, "GetTransactionType"), flags, 2)
-        this.vtbl.GetContainerCount := CallbackCreate(GetMethod(implObj, "GetContainerCount"), flags, 2)
-        this.vtbl.GetContainer := CallbackCreate(GetMethod(implObj, "GetContainer"), flags, 3)
+        this.vtbl.GetTransactionType := CallbackCreate(ObjBindMethod(implObj, "GetTransactionType"), flags, 2)
+        this.vtbl.GetContainerCount := CallbackCreate(ObjBindMethod(implObj, "GetContainerCount"), flags, 2)
+        this.vtbl.GetContainer := CallbackCreate(ObjBindMethod(implObj, "GetContainer"), flags, 3)
     }
 
     Dispose() {

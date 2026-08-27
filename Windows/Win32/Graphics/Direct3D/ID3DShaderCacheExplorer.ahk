@@ -37,7 +37,6 @@ export default struct ID3DShaderCacheExplorer extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pFullExePath 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -58,7 +57,7 @@ export default struct ID3DShaderCacheExplorer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetApplicationFromExePath := CallbackCreate(GetMethod(implObj, "GetApplicationFromExePath"), flags, 4)
+        this.vtbl.GetApplicationFromExePath := CallbackCreate(ObjBindMethod(implObj, "GetApplicationFromExePath"), flags, 4)
     }
 
     Dispose() {

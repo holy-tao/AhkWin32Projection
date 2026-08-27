@@ -152,8 +152,8 @@ export default struct IOleInPlaceObjectWindowless extends IOleInPlaceObject {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnWindowMessage := CallbackCreate(GetMethod(implObj, "OnWindowMessage"), flags, 5)
-        this.vtbl.GetDropTarget := CallbackCreate(GetMethod(implObj, "GetDropTarget"), flags, 2)
+        this.vtbl.OnWindowMessage := CallbackCreate(ObjBindMethod(implObj, "OnWindowMessage"), flags, 5)
+        this.vtbl.GetDropTarget := CallbackCreate(ObjBindMethod(implObj, "GetDropTarget"), flags, 2)
     }
 
     Dispose() {

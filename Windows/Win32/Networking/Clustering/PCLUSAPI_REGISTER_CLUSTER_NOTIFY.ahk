@@ -20,7 +20,6 @@ export default struct PCLUSAPI_REGISTER_CLUSTER_NOTIFY {
     }
 
     /**
-     * 
      * @param {HCHANGE} _hChange 
      * @param {Integer} dwFilterType 
      * @param {HANDLE} hObject 

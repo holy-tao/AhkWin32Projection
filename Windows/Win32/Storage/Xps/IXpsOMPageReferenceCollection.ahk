@@ -139,12 +139,12 @@ export default struct IXpsOMPageReferenceCollection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
-        this.vtbl.GetAt := CallbackCreate(GetMethod(implObj, "GetAt"), flags, 3)
-        this.vtbl.InsertAt := CallbackCreate(GetMethod(implObj, "InsertAt"), flags, 3)
-        this.vtbl.RemoveAt := CallbackCreate(GetMethod(implObj, "RemoveAt"), flags, 2)
-        this.vtbl.SetAt := CallbackCreate(GetMethod(implObj, "SetAt"), flags, 3)
-        this.vtbl.Append := CallbackCreate(GetMethod(implObj, "Append"), flags, 2)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetAt := CallbackCreate(ObjBindMethod(implObj, "GetAt"), flags, 3)
+        this.vtbl.InsertAt := CallbackCreate(ObjBindMethod(implObj, "InsertAt"), flags, 3)
+        this.vtbl.RemoveAt := CallbackCreate(ObjBindMethod(implObj, "RemoveAt"), flags, 2)
+        this.vtbl.SetAt := CallbackCreate(ObjBindMethod(implObj, "SetAt"), flags, 3)
+        this.vtbl.Append := CallbackCreate(ObjBindMethod(implObj, "Append"), flags, 2)
     }
 
     Dispose() {

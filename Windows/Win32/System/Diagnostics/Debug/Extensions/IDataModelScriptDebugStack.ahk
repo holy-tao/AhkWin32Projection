@@ -38,7 +38,6 @@ export default struct IDataModelScriptDebugStack extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetFrameCount() {
@@ -47,7 +46,6 @@ export default struct IDataModelScriptDebugStack extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} frameNumber 
      * @returns {IDataModelScriptDebugStackFrame} 
      */
@@ -65,8 +63,8 @@ export default struct IDataModelScriptDebugStack extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFrameCount := CallbackCreate(GetMethod(implObj, "GetFrameCount"), flags, 1)
-        this.vtbl.GetStackFrame := CallbackCreate(GetMethod(implObj, "GetStackFrame"), flags, 3)
+        this.vtbl.GetFrameCount := CallbackCreate(ObjBindMethod(implObj, "GetFrameCount"), flags, 1)
+        this.vtbl.GetStackFrame := CallbackCreate(ObjBindMethod(implObj, "GetStackFrame"), flags, 3)
     }
 
     Dispose() {

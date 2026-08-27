@@ -98,7 +98,7 @@ export default struct IAzBizRuleInterfaces extends IDispatch {
     GetInterfaceValue(bstrInterfaceName, lInterfaceFlag, varInterface) {
         bstrInterfaceName := bstrInterfaceName is String ? BSTR.Alloc(bstrInterfaceName).Value : bstrInterfaceName
 
-        lInterfaceFlagMarshal := lInterfaceFlag is VarRef ? "int*" : "ptr"
+        lInterfaceFlagMarshal := lInterfaceFlag is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, BSTR, bstrInterfaceName, lInterfaceFlagMarshal, lInterfaceFlag, VARIANT.Ptr, varInterface, "HRESULT")
         return result
@@ -148,12 +148,12 @@ export default struct IAzBizRuleInterfaces extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddInterface := CallbackCreate(GetMethod(implObj, "AddInterface"), flags, 4)
-        this.vtbl.AddInterfaces := CallbackCreate(GetMethod(implObj, "AddInterfaces"), flags, 4)
-        this.vtbl.GetInterfaceValue := CallbackCreate(GetMethod(implObj, "GetInterfaceValue"), flags, 4)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
-        this.vtbl.RemoveAll := CallbackCreate(GetMethod(implObj, "RemoveAll"), flags, 1)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.AddInterface := CallbackCreate(ObjBindMethod(implObj, "AddInterface"), flags, 4)
+        this.vtbl.AddInterfaces := CallbackCreate(ObjBindMethod(implObj, "AddInterfaces"), flags, 4)
+        this.vtbl.GetInterfaceValue := CallbackCreate(ObjBindMethod(implObj, "GetInterfaceValue"), flags, 4)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.RemoveAll := CallbackCreate(ObjBindMethod(implObj, "RemoveAll"), flags, 1)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
     }
 
     Dispose() {

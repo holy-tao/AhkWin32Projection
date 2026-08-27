@@ -19,7 +19,6 @@ export default struct PKSEC_CREATE_CONTEXT_LIST {
     }
 
     /**
-     * 
      * @param {KSEC_CONTEXT_TYPE} Type 
      * @returns {Pointer<Void>} 
      */

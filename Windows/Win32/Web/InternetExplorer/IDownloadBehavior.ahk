@@ -37,7 +37,6 @@ export default struct IDownloadBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrUrl 
      * @param {IDispatch} pdispCallback 
      * @returns {HRESULT} 
@@ -58,7 +57,7 @@ export default struct IDownloadBehavior extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.startDownload := CallbackCreate(GetMethod(implObj, "startDownload"), flags, 3)
+        this.vtbl.startDownload := CallbackCreate(ObjBindMethod(implObj, "startDownload"), flags, 3)
     }
 
     Dispose() {

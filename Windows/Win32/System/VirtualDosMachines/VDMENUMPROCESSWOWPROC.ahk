@@ -20,7 +20,6 @@ export default struct VDMENUMPROCESSWOWPROC {
     }
 
     /**
-     * 
      * @param {Pointer<PROCESSENUMPROC>} param0 
      * @param {LPARAM} param1 
      * @returns {Integer} 

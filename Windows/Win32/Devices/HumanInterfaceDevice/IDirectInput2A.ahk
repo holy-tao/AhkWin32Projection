@@ -38,7 +38,6 @@ export default struct IDirectInput2A extends IDirectInputA {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} param0 
      * @param {PSTR} param1 
      * @param {Pointer<Guid>} param2 
@@ -60,7 +59,7 @@ export default struct IDirectInput2A extends IDirectInputA {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FindDevice := CallbackCreate(GetMethod(implObj, "FindDevice"), flags, 4)
+        this.vtbl.FindDevice := CallbackCreate(ObjBindMethod(implObj, "FindDevice"), flags, 4)
     }
 
     Dispose() {

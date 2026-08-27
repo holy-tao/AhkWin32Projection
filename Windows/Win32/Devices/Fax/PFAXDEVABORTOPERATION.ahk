@@ -20,7 +20,6 @@ export default struct PFAXDEVABORTOPERATION {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @returns {BOOL} 
      */

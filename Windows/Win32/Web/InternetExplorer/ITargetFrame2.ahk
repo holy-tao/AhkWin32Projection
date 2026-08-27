@@ -49,7 +49,6 @@ export default struct ITargetFrame2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszFrameName 
      * @returns {HRESULT} 
      */
@@ -61,7 +60,6 @@ export default struct ITargetFrame2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetFrameName() {
@@ -70,7 +68,6 @@ export default struct ITargetFrame2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     GetParentFrame() {
@@ -79,7 +76,6 @@ export default struct ITargetFrame2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszFrameSrc 
      * @returns {HRESULT} 
      */
@@ -91,7 +87,6 @@ export default struct ITargetFrame2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetFrameSrc() {
@@ -100,7 +95,6 @@ export default struct ITargetFrame2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IOleContainer} 
      */
     GetFramesContainer() {
@@ -109,7 +103,6 @@ export default struct ITargetFrame2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
@@ -119,7 +112,6 @@ export default struct ITargetFrame2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetFrameOptions() {
@@ -128,7 +120,6 @@ export default struct ITargetFrame2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwWidth 
      * @param {Integer} dwHeight 
      * @returns {HRESULT} 
@@ -139,21 +130,19 @@ export default struct ITargetFrame2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwWidth 
      * @param {Pointer<Integer>} pdwHeight 
      * @returns {HRESULT} 
      */
     GetFrameMargins(pdwWidth, pdwHeight) {
-        pdwWidthMarshal := pdwWidth is VarRef ? "uint*" : "ptr"
-        pdwHeightMarshal := pdwHeight is VarRef ? "uint*" : "ptr"
+        pdwWidthMarshal := pdwWidth is VarRef ? "uint*" : IntPtr
+        pdwHeightMarshal := pdwHeight is VarRef ? "uint*" : IntPtr
 
         result := ComCall(12, this, pdwWidthMarshal, pdwWidth, pdwHeightMarshal, pdwHeight, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pszTargetName 
      * @param {Integer} dwFlags 
      * @returns {IUnknown} 
@@ -166,7 +155,6 @@ export default struct ITargetFrame2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszTargetName 
      * @returns {PWSTR} 
      */
@@ -186,18 +174,18 @@ export default struct ITargetFrame2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetFrameName := CallbackCreate(GetMethod(implObj, "SetFrameName"), flags, 2)
-        this.vtbl.GetFrameName := CallbackCreate(GetMethod(implObj, "GetFrameName"), flags, 2)
-        this.vtbl.GetParentFrame := CallbackCreate(GetMethod(implObj, "GetParentFrame"), flags, 2)
-        this.vtbl.SetFrameSrc := CallbackCreate(GetMethod(implObj, "SetFrameSrc"), flags, 2)
-        this.vtbl.GetFrameSrc := CallbackCreate(GetMethod(implObj, "GetFrameSrc"), flags, 2)
-        this.vtbl.GetFramesContainer := CallbackCreate(GetMethod(implObj, "GetFramesContainer"), flags, 2)
-        this.vtbl.SetFrameOptions := CallbackCreate(GetMethod(implObj, "SetFrameOptions"), flags, 2)
-        this.vtbl.GetFrameOptions := CallbackCreate(GetMethod(implObj, "GetFrameOptions"), flags, 2)
-        this.vtbl.SetFrameMargins := CallbackCreate(GetMethod(implObj, "SetFrameMargins"), flags, 3)
-        this.vtbl.GetFrameMargins := CallbackCreate(GetMethod(implObj, "GetFrameMargins"), flags, 3)
-        this.vtbl.FindFrame := CallbackCreate(GetMethod(implObj, "FindFrame"), flags, 4)
-        this.vtbl.GetTargetAlias := CallbackCreate(GetMethod(implObj, "GetTargetAlias"), flags, 3)
+        this.vtbl.SetFrameName := CallbackCreate(ObjBindMethod(implObj, "SetFrameName"), flags, 2)
+        this.vtbl.GetFrameName := CallbackCreate(ObjBindMethod(implObj, "GetFrameName"), flags, 2)
+        this.vtbl.GetParentFrame := CallbackCreate(ObjBindMethod(implObj, "GetParentFrame"), flags, 2)
+        this.vtbl.SetFrameSrc := CallbackCreate(ObjBindMethod(implObj, "SetFrameSrc"), flags, 2)
+        this.vtbl.GetFrameSrc := CallbackCreate(ObjBindMethod(implObj, "GetFrameSrc"), flags, 2)
+        this.vtbl.GetFramesContainer := CallbackCreate(ObjBindMethod(implObj, "GetFramesContainer"), flags, 2)
+        this.vtbl.SetFrameOptions := CallbackCreate(ObjBindMethod(implObj, "SetFrameOptions"), flags, 2)
+        this.vtbl.GetFrameOptions := CallbackCreate(ObjBindMethod(implObj, "GetFrameOptions"), flags, 2)
+        this.vtbl.SetFrameMargins := CallbackCreate(ObjBindMethod(implObj, "SetFrameMargins"), flags, 3)
+        this.vtbl.GetFrameMargins := CallbackCreate(ObjBindMethod(implObj, "GetFrameMargins"), flags, 3)
+        this.vtbl.FindFrame := CallbackCreate(ObjBindMethod(implObj, "FindFrame"), flags, 4)
+        this.vtbl.GetTargetAlias := CallbackCreate(ObjBindMethod(implObj, "GetTargetAlias"), flags, 3)
     }
 
     Dispose() {

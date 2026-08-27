@@ -22,14 +22,13 @@ export default struct PFAXCOMPLETEJOBPARAMSW {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<FAX_JOB_PARAMW>>} JobParams 
      * @param {Pointer<Pointer<FAX_COVERPAGE_INFOW>>} CoverpageInfo 
      * @returns {BOOL} 
      */
     Call(JobParams, CoverpageInfo) {
-        JobParamsMarshal := JobParams is VarRef ? "ptr*" : "ptr"
-        CoverpageInfoMarshal := CoverpageInfo is VarRef ? "ptr*" : "ptr"
+        JobParamsMarshal := JobParams is VarRef ? "ptr*" : IntPtr
+        CoverpageInfoMarshal := CoverpageInfo is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, JobParamsMarshal, JobParams, CoverpageInfoMarshal, CoverpageInfo, BOOL)
         return result

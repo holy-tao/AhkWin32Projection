@@ -36,7 +36,6 @@ export default struct IDebugHostContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugHostContext} pContext 
      * @returns {Boolean} 
      */
@@ -54,7 +53,7 @@ export default struct IDebugHostContext extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsEqualTo := CallbackCreate(GetMethod(implObj, "IsEqualTo"), flags, 3)
+        this.vtbl.IsEqualTo := CallbackCreate(ObjBindMethod(implObj, "IsEqualTo"), flags, 3)
     }
 
     Dispose() {

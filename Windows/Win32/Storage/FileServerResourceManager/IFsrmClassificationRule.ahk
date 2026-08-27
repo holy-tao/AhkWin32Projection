@@ -172,12 +172,12 @@ export default struct IFsrmClassificationRule extends IFsrmRule {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ExecutionOption := CallbackCreate(GetMethod(implObj, "get_ExecutionOption"), flags, 2)
-        this.vtbl.put_ExecutionOption := CallbackCreate(GetMethod(implObj, "put_ExecutionOption"), flags, 2)
-        this.vtbl.get_PropertyAffected := CallbackCreate(GetMethod(implObj, "get_PropertyAffected"), flags, 2)
-        this.vtbl.put_PropertyAffected := CallbackCreate(GetMethod(implObj, "put_PropertyAffected"), flags, 2)
-        this.vtbl.get_Value := CallbackCreate(GetMethod(implObj, "get_Value"), flags, 2)
-        this.vtbl.put_Value := CallbackCreate(GetMethod(implObj, "put_Value"), flags, 2)
+        this.vtbl.get_ExecutionOption := CallbackCreate(ObjBindMethod(implObj, "get_ExecutionOption"), flags, 2)
+        this.vtbl.put_ExecutionOption := CallbackCreate(ObjBindMethod(implObj, "put_ExecutionOption"), flags, 2)
+        this.vtbl.get_PropertyAffected := CallbackCreate(ObjBindMethod(implObj, "get_PropertyAffected"), flags, 2)
+        this.vtbl.put_PropertyAffected := CallbackCreate(ObjBindMethod(implObj, "put_PropertyAffected"), flags, 2)
+        this.vtbl.get_Value := CallbackCreate(ObjBindMethod(implObj, "get_Value"), flags, 2)
+        this.vtbl.put_Value := CallbackCreate(ObjBindMethod(implObj, "put_Value"), flags, 2)
     }
 
     Dispose() {

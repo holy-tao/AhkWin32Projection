@@ -63,7 +63,7 @@ export default struct IBrowserFrameOptions extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFrameOptions := CallbackCreate(GetMethod(implObj, "GetFrameOptions"), flags, 3)
+        this.vtbl.GetFrameOptions := CallbackCreate(ObjBindMethod(implObj, "GetFrameOptions"), flags, 3)
     }
 
     Dispose() {

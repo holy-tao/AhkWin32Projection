@@ -19,15 +19,15 @@ export default struct IO_WORKITEM_ROUTINE_EX {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} IoObject 
      * @param {Pointer<Void>} _Context 
      * @param {PIO_WORKITEM} IoWorkItem 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(IoObject, _Context, IoWorkItem) {
-        IoObjectMarshal := IoObject is VarRef ? "ptr" : "ptr"
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        IoObjectMarshal := IoObject is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, IoObjectMarshal, IoObject, _ContextMarshal, _Context, PIO_WORKITEM, IoWorkItem)
     }

@@ -49,7 +49,6 @@ export default struct IHTMLDOMConstructor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_constructor() {
@@ -58,7 +57,6 @@ export default struct IHTMLDOMConstructor extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} propname 
      * @returns {VARIANT} 
      */
@@ -71,7 +69,6 @@ export default struct IHTMLDOMConstructor extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} propname 
      * @returns {VARIANT} 
      */
@@ -84,7 +81,6 @@ export default struct IHTMLDOMConstructor extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} propname 
      * @param {Pointer<VARIANT>} pdispHandler 
      * @returns {HRESULT} 
@@ -97,7 +93,6 @@ export default struct IHTMLDOMConstructor extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} propname 
      * @param {Pointer<VARIANT>} pdispHandler 
      * @returns {HRESULT} 
@@ -118,11 +113,11 @@ export default struct IHTMLDOMConstructor extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_constructor := CallbackCreate(GetMethod(implObj, "get_constructor"), flags, 2)
-        this.vtbl.LookupGetter := CallbackCreate(GetMethod(implObj, "LookupGetter"), flags, 3)
-        this.vtbl.LookupSetter := CallbackCreate(GetMethod(implObj, "LookupSetter"), flags, 3)
-        this.vtbl.DefineGetter := CallbackCreate(GetMethod(implObj, "DefineGetter"), flags, 3)
-        this.vtbl.DefineSetter := CallbackCreate(GetMethod(implObj, "DefineSetter"), flags, 3)
+        this.vtbl.get_constructor := CallbackCreate(ObjBindMethod(implObj, "get_constructor"), flags, 2)
+        this.vtbl.LookupGetter := CallbackCreate(ObjBindMethod(implObj, "LookupGetter"), flags, 3)
+        this.vtbl.LookupSetter := CallbackCreate(ObjBindMethod(implObj, "LookupSetter"), flags, 3)
+        this.vtbl.DefineGetter := CallbackCreate(ObjBindMethod(implObj, "DefineGetter"), flags, 3)
+        this.vtbl.DefineSetter := CallbackCreate(ObjBindMethod(implObj, "DefineSetter"), flags, 3)
     }
 
     Dispose() {

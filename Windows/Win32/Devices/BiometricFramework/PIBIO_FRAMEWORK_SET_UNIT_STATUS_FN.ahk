@@ -20,7 +20,6 @@ export default struct PIBIO_FRAMEWORK_SET_UNIT_STATUS_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline 
      * @param {Integer} ExtendedStatus 
      * @param {Pointer} ExtendedStatusSize 

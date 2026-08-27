@@ -10,7 +10,6 @@
 
 ;@region Functions
 /**
- * 
  * @param {Integer} dwFlags 
  * @param {HANDLE} hEventForServiceStop 
  * @returns {BOOL} 

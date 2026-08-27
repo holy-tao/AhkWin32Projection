@@ -351,7 +351,7 @@ export default struct IMpegAudioDecoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpegtype/nf-mpegtype-impegaudiodecoder-get_dualmode
      */
     get_DualMode(pIntDecode) {
-        pIntDecodeMarshal := pIntDecode is VarRef ? "uint*" : "ptr"
+        pIntDecodeMarshal := pIntDecode is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, pIntDecodeMarshal, pIntDecode, "HRESULT")
         return result
@@ -435,19 +435,19 @@ export default struct IMpegAudioDecoder extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_FrequencyDivider := CallbackCreate(GetMethod(implObj, "get_FrequencyDivider"), flags, 2)
-        this.vtbl.put_FrequencyDivider := CallbackCreate(GetMethod(implObj, "put_FrequencyDivider"), flags, 2)
-        this.vtbl.get_DecoderAccuracy := CallbackCreate(GetMethod(implObj, "get_DecoderAccuracy"), flags, 2)
-        this.vtbl.put_DecoderAccuracy := CallbackCreate(GetMethod(implObj, "put_DecoderAccuracy"), flags, 2)
-        this.vtbl.get_Stereo := CallbackCreate(GetMethod(implObj, "get_Stereo"), flags, 2)
-        this.vtbl.put_Stereo := CallbackCreate(GetMethod(implObj, "put_Stereo"), flags, 2)
-        this.vtbl.get_DecoderWordSize := CallbackCreate(GetMethod(implObj, "get_DecoderWordSize"), flags, 2)
-        this.vtbl.put_DecoderWordSize := CallbackCreate(GetMethod(implObj, "put_DecoderWordSize"), flags, 2)
-        this.vtbl.get_IntegerDecode := CallbackCreate(GetMethod(implObj, "get_IntegerDecode"), flags, 2)
-        this.vtbl.put_IntegerDecode := CallbackCreate(GetMethod(implObj, "put_IntegerDecode"), flags, 2)
-        this.vtbl.get_DualMode := CallbackCreate(GetMethod(implObj, "get_DualMode"), flags, 2)
-        this.vtbl.put_DualMode := CallbackCreate(GetMethod(implObj, "put_DualMode"), flags, 2)
-        this.vtbl.get_AudioFormat := CallbackCreate(GetMethod(implObj, "get_AudioFormat"), flags, 2)
+        this.vtbl.get_FrequencyDivider := CallbackCreate(ObjBindMethod(implObj, "get_FrequencyDivider"), flags, 2)
+        this.vtbl.put_FrequencyDivider := CallbackCreate(ObjBindMethod(implObj, "put_FrequencyDivider"), flags, 2)
+        this.vtbl.get_DecoderAccuracy := CallbackCreate(ObjBindMethod(implObj, "get_DecoderAccuracy"), flags, 2)
+        this.vtbl.put_DecoderAccuracy := CallbackCreate(ObjBindMethod(implObj, "put_DecoderAccuracy"), flags, 2)
+        this.vtbl.get_Stereo := CallbackCreate(ObjBindMethod(implObj, "get_Stereo"), flags, 2)
+        this.vtbl.put_Stereo := CallbackCreate(ObjBindMethod(implObj, "put_Stereo"), flags, 2)
+        this.vtbl.get_DecoderWordSize := CallbackCreate(ObjBindMethod(implObj, "get_DecoderWordSize"), flags, 2)
+        this.vtbl.put_DecoderWordSize := CallbackCreate(ObjBindMethod(implObj, "put_DecoderWordSize"), flags, 2)
+        this.vtbl.get_IntegerDecode := CallbackCreate(ObjBindMethod(implObj, "get_IntegerDecode"), flags, 2)
+        this.vtbl.put_IntegerDecode := CallbackCreate(ObjBindMethod(implObj, "put_IntegerDecode"), flags, 2)
+        this.vtbl.get_DualMode := CallbackCreate(ObjBindMethod(implObj, "get_DualMode"), flags, 2)
+        this.vtbl.put_DualMode := CallbackCreate(ObjBindMethod(implObj, "put_DualMode"), flags, 2)
+        this.vtbl.get_AudioFormat := CallbackCreate(ObjBindMethod(implObj, "get_AudioFormat"), flags, 2)
     }
 
     Dispose() {

@@ -113,8 +113,8 @@ export default struct ISyncChangeBatchAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchadvanced-getupperbounditemid
      */
     GetUpperBoundItemId(pbItemId, pcbIdSize) {
-        pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
-        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
+        pbItemIdMarshal := pbItemId is VarRef ? "char*" : IntPtr
+        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, pbItemIdMarshal, pbItemId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
         return result
@@ -169,7 +169,7 @@ export default struct ISyncChangeBatchAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchadvanced-getbatchlevelknowledgeshouldbeapplied
      */
     GetBatchLevelKnowledgeShouldBeApplied(pfBatchKnowledgeShouldBeApplied) {
-        pfBatchKnowledgeShouldBeAppliedMarshal := pfBatchKnowledgeShouldBeApplied is VarRef ? "int*" : "ptr"
+        pfBatchKnowledgeShouldBeAppliedMarshal := pfBatchKnowledgeShouldBeApplied is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, pfBatchKnowledgeShouldBeAppliedMarshal, pfBatchKnowledgeShouldBeApplied, "HRESULT")
         return result
@@ -184,10 +184,10 @@ export default struct ISyncChangeBatchAdvanced extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFilterInfo := CallbackCreate(GetMethod(implObj, "GetFilterInfo"), flags, 2)
-        this.vtbl.ConvertFullEnumerationChangeBatchToRegularChangeBatch := CallbackCreate(GetMethod(implObj, "ConvertFullEnumerationChangeBatchToRegularChangeBatch"), flags, 2)
-        this.vtbl.GetUpperBoundItemId := CallbackCreate(GetMethod(implObj, "GetUpperBoundItemId"), flags, 3)
-        this.vtbl.GetBatchLevelKnowledgeShouldBeApplied := CallbackCreate(GetMethod(implObj, "GetBatchLevelKnowledgeShouldBeApplied"), flags, 2)
+        this.vtbl.GetFilterInfo := CallbackCreate(ObjBindMethod(implObj, "GetFilterInfo"), flags, 2)
+        this.vtbl.ConvertFullEnumerationChangeBatchToRegularChangeBatch := CallbackCreate(ObjBindMethod(implObj, "ConvertFullEnumerationChangeBatchToRegularChangeBatch"), flags, 2)
+        this.vtbl.GetUpperBoundItemId := CallbackCreate(ObjBindMethod(implObj, "GetUpperBoundItemId"), flags, 3)
+        this.vtbl.GetBatchLevelKnowledgeShouldBeApplied := CallbackCreate(ObjBindMethod(implObj, "GetBatchLevelKnowledgeShouldBeApplied"), flags, 2)
     }
 
     Dispose() {

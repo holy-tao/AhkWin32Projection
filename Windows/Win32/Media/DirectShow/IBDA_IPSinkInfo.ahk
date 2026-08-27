@@ -65,7 +65,7 @@ export default struct IBDA_IPSinkInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ipsinkinfo-get_multicastlist
      */
     get_MulticastList(pulcbAddresses) {
-        pulcbAddressesMarshal := pulcbAddresses is VarRef ? "uint*" : "ptr"
+        pulcbAddressesMarshal := pulcbAddresses is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pulcbAddressesMarshal, pulcbAddresses, "ptr*", &ppbAddressList := 0, "HRESULT")
         return ppbAddressList
@@ -106,9 +106,9 @@ export default struct IBDA_IPSinkInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_MulticastList := CallbackCreate(GetMethod(implObj, "get_MulticastList"), flags, 3)
-        this.vtbl.get_AdapterIPAddress := CallbackCreate(GetMethod(implObj, "get_AdapterIPAddress"), flags, 2)
-        this.vtbl.get_AdapterDescription := CallbackCreate(GetMethod(implObj, "get_AdapterDescription"), flags, 2)
+        this.vtbl.get_MulticastList := CallbackCreate(ObjBindMethod(implObj, "get_MulticastList"), flags, 3)
+        this.vtbl.get_AdapterIPAddress := CallbackCreate(ObjBindMethod(implObj, "get_AdapterIPAddress"), flags, 2)
+        this.vtbl.get_AdapterDescription := CallbackCreate(ObjBindMethod(implObj, "get_AdapterDescription"), flags, 2)
     }
 
     Dispose() {

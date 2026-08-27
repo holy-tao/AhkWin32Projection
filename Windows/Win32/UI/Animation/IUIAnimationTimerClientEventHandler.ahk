@@ -59,7 +59,7 @@ export default struct IUIAnimationTimerClientEventHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnTimerClientStatusChanged := CallbackCreate(GetMethod(implObj, "OnTimerClientStatusChanged"), flags, 3)
+        this.vtbl.OnTimerClientStatusChanged := CallbackCreate(ObjBindMethod(implObj, "OnTimerClientStatusChanged"), flags, 3)
     }
 
     Dispose() {

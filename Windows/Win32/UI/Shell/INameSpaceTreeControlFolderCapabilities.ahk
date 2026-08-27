@@ -66,7 +66,7 @@ export default struct INameSpaceTreeControlFolderCapabilities extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFolderCapabilities := CallbackCreate(GetMethod(implObj, "GetFolderCapabilities"), flags, 3)
+        this.vtbl.GetFolderCapabilities := CallbackCreate(ObjBindMethod(implObj, "GetFolderCapabilities"), flags, 3)
     }
 
     Dispose() {

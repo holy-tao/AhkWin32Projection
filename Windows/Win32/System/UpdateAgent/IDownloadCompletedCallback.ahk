@@ -60,7 +60,7 @@ export default struct IDownloadCompletedCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Invoke := CallbackCreate(GetMethod(implObj, "Invoke"), flags, 3)
+        this.vtbl.Invoke := CallbackCreate(ObjBindMethod(implObj, "Invoke"), flags, 3)
     }
 
     Dispose() {

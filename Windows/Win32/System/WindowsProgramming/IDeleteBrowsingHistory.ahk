@@ -36,7 +36,6 @@ export default struct IDeleteBrowsingHistory extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
@@ -54,7 +53,7 @@ export default struct IDeleteBrowsingHistory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DeleteBrowsingHistory := CallbackCreate(GetMethod(implObj, "DeleteBrowsingHistory"), flags, 2)
+        this.vtbl.DeleteBrowsingHistory := CallbackCreate(ObjBindMethod(implObj, "DeleteBrowsingHistory"), flags, 2)
     }
 
     Dispose() {

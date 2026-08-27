@@ -91,8 +91,8 @@ export default struct ITACDGroupEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Group := CallbackCreate(GetMethod(implObj, "get_Group"), flags, 2)
-        this.vtbl.get_Event := CallbackCreate(GetMethod(implObj, "get_Event"), flags, 2)
+        this.vtbl.get_Group := CallbackCreate(ObjBindMethod(implObj, "get_Group"), flags, 2)
+        this.vtbl.get_Event := CallbackCreate(ObjBindMethod(implObj, "get_Event"), flags, 2)
     }
 
     Dispose() {

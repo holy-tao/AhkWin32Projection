@@ -54,7 +54,6 @@ export default struct PIBIO_ENGINE_IDENTIFY_FEATURE_SET_SECURE_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline Pointer to a WINBIO_PIPELINE structure associated with the biometric unit performing the operation.
      * @param {Pointer<Integer>} Nonce Pointer to a buffer that contains a nonce.
      * @param {Pointer} NonceSize Size, in bytes, of the buffer specified by the <i>Nonce</i> parameter.
@@ -68,12 +67,12 @@ export default struct PIBIO_ENGINE_IDENTIFY_FEATURE_SET_SECURE_FN {
      * @returns {HRESULT} <b>WINBIO_E_INVALID_KEY_IDENTIFIER</b> must be returned in the case where the key cannot be used for whatever reason. When <b>WINBIO_E_INVALID_KEY_IDENTIFIER </b> is returned, the sensor and TPM will be re-provisioned.
      */
     Call(Pipeline, Nonce, NonceSize, KeyIdentifier, KeyIdentifierSize, Identity, SubFactor, RejectDetail, Authorization, AuthorizationSize) {
-        NonceMarshal := Nonce is VarRef ? "char*" : "ptr"
-        KeyIdentifierMarshal := KeyIdentifier is VarRef ? "char*" : "ptr"
-        SubFactorMarshal := SubFactor is VarRef ? "char*" : "ptr"
-        RejectDetailMarshal := RejectDetail is VarRef ? "uint*" : "ptr"
-        AuthorizationMarshal := Authorization is VarRef ? "ptr*" : "ptr"
-        AuthorizationSizeMarshal := AuthorizationSize is VarRef ? "ptr*" : "ptr"
+        NonceMarshal := Nonce is VarRef ? "char*" : IntPtr
+        KeyIdentifierMarshal := KeyIdentifier is VarRef ? "char*" : IntPtr
+        SubFactorMarshal := SubFactor is VarRef ? "char*" : IntPtr
+        RejectDetailMarshal := RejectDetail is VarRef ? "uint*" : IntPtr
+        AuthorizationMarshal := Authorization is VarRef ? "ptr*" : IntPtr
+        AuthorizationSizeMarshal := AuthorizationSize is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, WINBIO_PIPELINE.Ptr, Pipeline, NonceMarshal, Nonce, IntPtr, NonceSize, KeyIdentifierMarshal, KeyIdentifier, IntPtr, KeyIdentifierSize, WINBIO_IDENTITY.Ptr, Identity, SubFactorMarshal, SubFactor, RejectDetailMarshal, RejectDetail, AuthorizationMarshal, Authorization, AuthorizationSizeMarshal, AuthorizationSize, "HRESULT")
         return result

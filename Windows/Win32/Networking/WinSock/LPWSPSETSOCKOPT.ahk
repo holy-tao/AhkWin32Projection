@@ -27,7 +27,6 @@ export default struct LPWSPSETSOCKOPT {
     }
 
     /**
-     * 
      * @param {SOCKET} s The descriptor that identifies a socket.
      * @param {Integer} level The level at which the option is defined; the supported levels include <b><a href="https://docs.microsoft.com/windows/win32/winsock/sol-socket-socket-options">SOL_SOCKET</a></b>. For more information, see [Winsock Annexes](/windows/win32/winsock/winsock-annexes).
      * @param {Integer} optname The socket option for which the value is to be set.
@@ -142,9 +141,10 @@ export default struct LPWSPSETSOCKOPT {
      * </table>
      */
     Call(s, level, optname, optval, optlen, lpErrno) {
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        optvalMarshal := optval == 0 ? IntPtr : IntPtr
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
-        result := DllCall(this.value, SOCKET, s, Int32, level, Int32, optname, IntPtr, optval, Int32, optlen, lpErrnoMarshal, lpErrno, Int32)
+        result := DllCall(this.value, SOCKET, s, Int32, level, Int32, optname, optvalMarshal, optval, Int32, optlen, lpErrnoMarshal, lpErrno, Int32)
         return result
     }
 

@@ -130,11 +130,11 @@ export default struct IWorkspaceResTypeRegistry extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddResourceType := CallbackCreate(GetMethod(implObj, "AddResourceType"), flags, 4)
-        this.vtbl.DeleteResourceType := CallbackCreate(GetMethod(implObj, "DeleteResourceType"), flags, 3)
-        this.vtbl.GetRegisteredFileExtensions := CallbackCreate(GetMethod(implObj, "GetRegisteredFileExtensions"), flags, 3)
-        this.vtbl.GetResourceTypeInfo := CallbackCreate(GetMethod(implObj, "GetResourceTypeInfo"), flags, 4)
-        this.vtbl.ModifyResourceType := CallbackCreate(GetMethod(implObj, "ModifyResourceType"), flags, 4)
+        this.vtbl.AddResourceType := CallbackCreate(ObjBindMethod(implObj, "AddResourceType"), flags, 4)
+        this.vtbl.DeleteResourceType := CallbackCreate(ObjBindMethod(implObj, "DeleteResourceType"), flags, 3)
+        this.vtbl.GetRegisteredFileExtensions := CallbackCreate(ObjBindMethod(implObj, "GetRegisteredFileExtensions"), flags, 3)
+        this.vtbl.GetResourceTypeInfo := CallbackCreate(ObjBindMethod(implObj, "GetResourceTypeInfo"), flags, 4)
+        this.vtbl.ModifyResourceType := CallbackCreate(ObjBindMethod(implObj, "ModifyResourceType"), flags, 4)
     }
 
     Dispose() {

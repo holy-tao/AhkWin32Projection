@@ -96,8 +96,8 @@ export default struct IEnumEnhancedStorageACT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienumenhancedstorageact-getacts
      */
     GetACTs(pppIEnhancedStorageACTs, pcEnhancedStorageACTs) {
-        pppIEnhancedStorageACTsMarshal := pppIEnhancedStorageACTs is VarRef ? "ptr*" : "ptr"
-        pcEnhancedStorageACTsMarshal := pcEnhancedStorageACTs is VarRef ? "uint*" : "ptr"
+        pppIEnhancedStorageACTsMarshal := pppIEnhancedStorageACTs is VarRef ? "ptr*" : IntPtr
+        pcEnhancedStorageACTsMarshal := pcEnhancedStorageACTs is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pppIEnhancedStorageACTsMarshal, pppIEnhancedStorageACTs, pcEnhancedStorageACTsMarshal, pcEnhancedStorageACTs, "HRESULT")
         return result
@@ -127,8 +127,8 @@ export default struct IEnumEnhancedStorageACT extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetACTs := CallbackCreate(GetMethod(implObj, "GetACTs"), flags, 3)
-        this.vtbl.GetMatchingACT := CallbackCreate(GetMethod(implObj, "GetMatchingACT"), flags, 3)
+        this.vtbl.GetACTs := CallbackCreate(ObjBindMethod(implObj, "GetACTs"), flags, 3)
+        this.vtbl.GetMatchingACT := CallbackCreate(ObjBindMethod(implObj, "GetMatchingACT"), flags, 3)
     }
 
     Dispose() {

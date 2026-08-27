@@ -283,8 +283,8 @@ export default struct IVdsService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsservice-queryfilesystemtypes
      */
     QueryFileSystemTypes(ppFileSystemTypeProps, plNumberOfFileSystems) {
-        ppFileSystemTypePropsMarshal := ppFileSystemTypeProps is VarRef ? "ptr*" : "ptr"
-        plNumberOfFileSystemsMarshal := plNumberOfFileSystems is VarRef ? "int*" : "ptr"
+        ppFileSystemTypePropsMarshal := ppFileSystemTypeProps is VarRef ? "ptr*" : IntPtr
+        plNumberOfFileSystemsMarshal := plNumberOfFileSystems is VarRef ? "int*" : IntPtr
 
         result := ComCall(11, this, ppFileSystemTypePropsMarshal, ppFileSystemTypeProps, plNumberOfFileSystemsMarshal, plNumberOfFileSystems, "HRESULT")
         return result
@@ -678,23 +678,23 @@ export default struct IVdsService extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsServiceReady := CallbackCreate(GetMethod(implObj, "IsServiceReady"), flags, 1)
-        this.vtbl.WaitForServiceReady := CallbackCreate(GetMethod(implObj, "WaitForServiceReady"), flags, 1)
-        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
-        this.vtbl.QueryProviders := CallbackCreate(GetMethod(implObj, "QueryProviders"), flags, 3)
-        this.vtbl.QueryMaskedDisks := CallbackCreate(GetMethod(implObj, "QueryMaskedDisks"), flags, 2)
-        this.vtbl.QueryUnallocatedDisks := CallbackCreate(GetMethod(implObj, "QueryUnallocatedDisks"), flags, 2)
-        this.vtbl.GetObject := CallbackCreate(GetMethod(implObj, "GetObject"), flags, 4)
-        this.vtbl.QueryDriveLetters := CallbackCreate(GetMethod(implObj, "QueryDriveLetters"), flags, 4)
-        this.vtbl.QueryFileSystemTypes := CallbackCreate(GetMethod(implObj, "QueryFileSystemTypes"), flags, 3)
-        this.vtbl.Reenumerate := CallbackCreate(GetMethod(implObj, "Reenumerate"), flags, 1)
-        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
-        this.vtbl.CleanupObsoleteMountPoints := CallbackCreate(GetMethod(implObj, "CleanupObsoleteMountPoints"), flags, 1)
-        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 3)
-        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 2)
-        this.vtbl.Reboot := CallbackCreate(GetMethod(implObj, "Reboot"), flags, 1)
-        this.vtbl.SetFlags := CallbackCreate(GetMethod(implObj, "SetFlags"), flags, 2)
-        this.vtbl.ClearFlags := CallbackCreate(GetMethod(implObj, "ClearFlags"), flags, 2)
+        this.vtbl.IsServiceReady := CallbackCreate(ObjBindMethod(implObj, "IsServiceReady"), flags, 1)
+        this.vtbl.WaitForServiceReady := CallbackCreate(ObjBindMethod(implObj, "WaitForServiceReady"), flags, 1)
+        this.vtbl.GetProperties := CallbackCreate(ObjBindMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.QueryProviders := CallbackCreate(ObjBindMethod(implObj, "QueryProviders"), flags, 3)
+        this.vtbl.QueryMaskedDisks := CallbackCreate(ObjBindMethod(implObj, "QueryMaskedDisks"), flags, 2)
+        this.vtbl.QueryUnallocatedDisks := CallbackCreate(ObjBindMethod(implObj, "QueryUnallocatedDisks"), flags, 2)
+        this.vtbl.GetObject := CallbackCreate(ObjBindMethod(implObj, "GetObject"), flags, 4)
+        this.vtbl.QueryDriveLetters := CallbackCreate(ObjBindMethod(implObj, "QueryDriveLetters"), flags, 4)
+        this.vtbl.QueryFileSystemTypes := CallbackCreate(ObjBindMethod(implObj, "QueryFileSystemTypes"), flags, 3)
+        this.vtbl.Reenumerate := CallbackCreate(ObjBindMethod(implObj, "Reenumerate"), flags, 1)
+        this.vtbl.Refresh := CallbackCreate(ObjBindMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.CleanupObsoleteMountPoints := CallbackCreate(ObjBindMethod(implObj, "CleanupObsoleteMountPoints"), flags, 1)
+        this.vtbl.Advise := CallbackCreate(ObjBindMethod(implObj, "Advise"), flags, 3)
+        this.vtbl.Unadvise := CallbackCreate(ObjBindMethod(implObj, "Unadvise"), flags, 2)
+        this.vtbl.Reboot := CallbackCreate(ObjBindMethod(implObj, "Reboot"), flags, 1)
+        this.vtbl.SetFlags := CallbackCreate(ObjBindMethod(implObj, "SetFlags"), flags, 2)
+        this.vtbl.ClearFlags := CallbackCreate(ObjBindMethod(implObj, "ClearFlags"), flags, 2)
     }
 
     Dispose() {

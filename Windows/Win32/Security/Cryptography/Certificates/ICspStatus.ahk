@@ -116,7 +116,10 @@ export default struct ICspStatus extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspstatus-initialize
      */
     Initialize(pCsp, pAlgorithm) {
-        result := ComCall(7, this, "ptr", pCsp, "ptr", pAlgorithm, "HRESULT")
+        pCspMarshal := pCsp == 0 ? IntPtr : "ptr"
+        pAlgorithmMarshal := pAlgorithm == 0 ? IntPtr : "ptr"
+
+        result := ComCall(7, this, pCspMarshal, pCsp, pAlgorithmMarshal, pAlgorithm, "HRESULT")
         return result
     }
 
@@ -269,13 +272,13 @@ export default struct ICspStatus extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.get_Ordinal := CallbackCreate(GetMethod(implObj, "get_Ordinal"), flags, 2)
-        this.vtbl.put_Ordinal := CallbackCreate(GetMethod(implObj, "put_Ordinal"), flags, 2)
-        this.vtbl.get_CspAlgorithm := CallbackCreate(GetMethod(implObj, "get_CspAlgorithm"), flags, 2)
-        this.vtbl.get_CspInformation := CallbackCreate(GetMethod(implObj, "get_CspInformation"), flags, 2)
-        this.vtbl.get_EnrollmentStatus := CallbackCreate(GetMethod(implObj, "get_EnrollmentStatus"), flags, 2)
-        this.vtbl.get_DisplayName := CallbackCreate(GetMethod(implObj, "get_DisplayName"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.get_Ordinal := CallbackCreate(ObjBindMethod(implObj, "get_Ordinal"), flags, 2)
+        this.vtbl.put_Ordinal := CallbackCreate(ObjBindMethod(implObj, "put_Ordinal"), flags, 2)
+        this.vtbl.get_CspAlgorithm := CallbackCreate(ObjBindMethod(implObj, "get_CspAlgorithm"), flags, 2)
+        this.vtbl.get_CspInformation := CallbackCreate(ObjBindMethod(implObj, "get_CspInformation"), flags, 2)
+        this.vtbl.get_EnrollmentStatus := CallbackCreate(ObjBindMethod(implObj, "get_EnrollmentStatus"), flags, 2)
+        this.vtbl.get_DisplayName := CallbackCreate(ObjBindMethod(implObj, "get_DisplayName"), flags, 2)
     }
 
     Dispose() {

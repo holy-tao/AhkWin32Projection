@@ -61,7 +61,7 @@ export default struct ICredentialProviderCredentialWithFieldOptions extends IUnk
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFieldOptions := CallbackCreate(GetMethod(implObj, "GetFieldOptions"), flags, 3)
+        this.vtbl.GetFieldOptions := CallbackCreate(ObjBindMethod(implObj, "GetFieldOptions"), flags, 3)
     }
 
     Dispose() {

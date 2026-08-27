@@ -18,7 +18,6 @@ export default struct PLSA_PROTECT_MEMORY {
     }
 
     /**
-     * 
      * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {String} Nothing - always returns an empty string

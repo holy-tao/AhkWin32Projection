@@ -18,7 +18,6 @@ export default struct PFN_NCRYPT_ALLOC {
     }
 
     /**
-     * 
      * @param {Pointer} cbSize 
      * @returns {Pointer<Void>} 
      */

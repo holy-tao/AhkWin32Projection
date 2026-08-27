@@ -27,7 +27,6 @@ export default struct PRJ_GET_DIRECTORY_ENUMERATION_CB {
     }
 
     /**
-     * 
      * @param {Pointer<PRJ_CALLBACK_DATA>} callbackData Information about the operation. The following <i>callbackData</i> members are necessary to implement this callback:<dl>
      * <dd><b>FilePathName</b> Identifies the directory to be enumerated.
      * 
@@ -117,7 +116,9 @@ export default struct PRJ_GET_DIRECTORY_ENUMERATION_CB {
     Call(callbackData, enumerationId, searchExpression, dirEntryBufferHandle) {
         searchExpression := searchExpression is String ? StrPtr(searchExpression) : searchExpression
 
-        result := DllCall(this.value, PRJ_CALLBACK_DATA.Ptr, callbackData, Guid.Ptr, enumerationId, "ptr", searchExpression, PRJ_DIR_ENTRY_BUFFER_HANDLE, dirEntryBufferHandle, "HRESULT")
+        searchExpressionMarshal := searchExpression == 0 ? IntPtr : PWSTR
+
+        result := DllCall(this.value, PRJ_CALLBACK_DATA.Ptr, callbackData, Guid.Ptr, enumerationId, searchExpressionMarshal, searchExpression, PRJ_DIR_ENTRY_BUFFER_HANDLE, dirEntryBufferHandle, "HRESULT")
         return result
     }
 

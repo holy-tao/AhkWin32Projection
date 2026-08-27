@@ -37,7 +37,6 @@ export default struct ISpErrorLog extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lLineNumber 
      * @param {HRESULT} hr 
      * @param {PWSTR} pszDescription 
@@ -49,7 +48,9 @@ export default struct ISpErrorLog extends IUnknown {
         pszDescription := pszDescription is String ? StrPtr(pszDescription) : pszDescription
         pszHelpFile := pszHelpFile is String ? StrPtr(pszHelpFile) : pszHelpFile
 
-        result := ComCall(3, this, Int32, lLineNumber, "int", hr, "ptr", pszDescription, "ptr", pszHelpFile, UInt32, dwHelpContext, "HRESULT")
+        pszHelpFileMarshal := pszHelpFile == 0 ? IntPtr : PWSTR
+
+        result := ComCall(3, this, Int32, lLineNumber, "int", hr, "ptr", pszDescription, pszHelpFileMarshal, pszHelpFile, UInt32, dwHelpContext, "HRESULT")
         return result
     }
 
@@ -62,7 +63,7 @@ export default struct ISpErrorLog extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddError := CallbackCreate(GetMethod(implObj, "AddError"), flags, 6)
+        this.vtbl.AddError := CallbackCreate(ObjBindMethod(implObj, "AddError"), flags, 6)
     }
 
     Dispose() {

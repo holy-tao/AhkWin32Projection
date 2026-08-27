@@ -73,7 +73,6 @@ export default struct IClusterDetector extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwMaxNumClusters 
      * @param {Float} fMinClusterDuration 
      * @param {Float} fMaxClusterDuration 
@@ -94,8 +93,8 @@ export default struct IClusterDetector extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.Detect := CallbackCreate(GetMethod(implObj, "Detect"), flags, 6)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.Detect := CallbackCreate(ObjBindMethod(implObj, "Detect"), flags, 6)
     }
 
     Dispose() {

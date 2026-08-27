@@ -47,18 +47,18 @@ export default struct IDirectSound extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DSBUFFERDESC>} pcDSBufferDesc 
      * @param {IUnknown} pUnkOuter 
      * @returns {IDirectSoundBuffer} 
      */
     CreateSoundBuffer(pcDSBufferDesc, pUnkOuter) {
-        result := ComCall(3, this, DSBUFFERDESC.Ptr, pcDSBufferDesc, "ptr*", &ppDSBuffer := 0, "ptr", pUnkOuter, "HRESULT")
+        pUnkOuterMarshal := pUnkOuter == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, DSBUFFERDESC.Ptr, pcDSBufferDesc, "ptr*", &ppDSBuffer := 0, pUnkOuterMarshal, pUnkOuter, "HRESULT")
         return IDirectSoundBuffer(ppDSBuffer)
     }
 
     /**
-     * 
      * @returns {DSCAPS} 
      */
     GetCaps() {
@@ -68,7 +68,6 @@ export default struct IDirectSound extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDirectSoundBuffer} pDSBufferOriginal 
      * @returns {IDirectSoundBuffer} 
      */
@@ -78,7 +77,6 @@ export default struct IDirectSound extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {Integer} dwLevel 
      * @returns {HRESULT} 
@@ -89,7 +87,6 @@ export default struct IDirectSound extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Compact() {
@@ -98,7 +95,6 @@ export default struct IDirectSound extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetSpeakerConfig() {
@@ -107,7 +103,6 @@ export default struct IDirectSound extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSpeakerConfig 
      * @returns {HRESULT} 
      */
@@ -146,7 +141,9 @@ export default struct IDirectSound extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-initialize
      */
     Initialize(pcGuidDevice) {
-        result := ComCall(10, this, Guid.Ptr, pcGuidDevice, "HRESULT")
+        pcGuidDeviceMarshal := pcGuidDevice == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(10, this, pcGuidDeviceMarshal, pcGuidDevice, "HRESULT")
         return result
     }
 
@@ -159,14 +156,14 @@ export default struct IDirectSound extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateSoundBuffer := CallbackCreate(GetMethod(implObj, "CreateSoundBuffer"), flags, 4)
-        this.vtbl.GetCaps := CallbackCreate(GetMethod(implObj, "GetCaps"), flags, 2)
-        this.vtbl.DuplicateSoundBuffer := CallbackCreate(GetMethod(implObj, "DuplicateSoundBuffer"), flags, 3)
-        this.vtbl.SetCooperativeLevel := CallbackCreate(GetMethod(implObj, "SetCooperativeLevel"), flags, 3)
-        this.vtbl.Compact := CallbackCreate(GetMethod(implObj, "Compact"), flags, 1)
-        this.vtbl.GetSpeakerConfig := CallbackCreate(GetMethod(implObj, "GetSpeakerConfig"), flags, 2)
-        this.vtbl.SetSpeakerConfig := CallbackCreate(GetMethod(implObj, "SetSpeakerConfig"), flags, 2)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.CreateSoundBuffer := CallbackCreate(ObjBindMethod(implObj, "CreateSoundBuffer"), flags, 4)
+        this.vtbl.GetCaps := CallbackCreate(ObjBindMethod(implObj, "GetCaps"), flags, 2)
+        this.vtbl.DuplicateSoundBuffer := CallbackCreate(ObjBindMethod(implObj, "DuplicateSoundBuffer"), flags, 3)
+        this.vtbl.SetCooperativeLevel := CallbackCreate(ObjBindMethod(implObj, "SetCooperativeLevel"), flags, 3)
+        this.vtbl.Compact := CallbackCreate(ObjBindMethod(implObj, "Compact"), flags, 1)
+        this.vtbl.GetSpeakerConfig := CallbackCreate(ObjBindMethod(implObj, "GetSpeakerConfig"), flags, 2)
+        this.vtbl.SetSpeakerConfig := CallbackCreate(ObjBindMethod(implObj, "SetSpeakerConfig"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
     }
 
     Dispose() {

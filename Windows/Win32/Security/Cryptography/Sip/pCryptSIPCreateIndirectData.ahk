@@ -21,14 +21,13 @@ export default struct pCryptSIPCreateIndirectData {
     }
 
     /**
-     * 
      * @param {Pointer<SIP_SUBJECTINFO>} pSubjectInfo 
      * @param {Pointer<Integer>} pcbIndirectData 
      * @param {Pointer<SIP_INDIRECT_DATA>} pIndirectData 
      * @returns {BOOL} 
      */
     Call(pSubjectInfo, pcbIndirectData, pIndirectData) {
-        pcbIndirectDataMarshal := pcbIndirectData is VarRef ? "uint*" : "ptr"
+        pcbIndirectDataMarshal := pcbIndirectData is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, SIP_SUBJECTINFO.Ptr, pSubjectInfo, pcbIndirectDataMarshal, pcbIndirectData, SIP_INDIRECT_DATA.Ptr, pIndirectData, BOOL)
         return result

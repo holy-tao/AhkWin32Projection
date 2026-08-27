@@ -139,7 +139,6 @@ export default struct IDOMEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_bubbles() {
@@ -148,7 +147,6 @@ export default struct IDOMEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_cancelable() {
@@ -157,7 +155,6 @@ export default struct IDOMEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IEventTarget} 
      */
     get_currentTarget() {
@@ -166,7 +163,6 @@ export default struct IDOMEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_defaultPrevented() {
@@ -175,7 +171,6 @@ export default struct IDOMEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_eventPhase() {
@@ -184,7 +179,6 @@ export default struct IDOMEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IEventTarget} 
      */
     get_target() {
@@ -193,7 +187,6 @@ export default struct IDOMEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_timeStamp() {
@@ -202,7 +195,6 @@ export default struct IDOMEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -212,7 +204,6 @@ export default struct IDOMEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 
@@ -226,7 +217,6 @@ export default struct IDOMEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     preventDefault() {
@@ -235,7 +225,6 @@ export default struct IDOMEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     stopPropagation() {
@@ -244,7 +233,6 @@ export default struct IDOMEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     stopImmediatePropagation() {
@@ -253,7 +241,6 @@ export default struct IDOMEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_isTrusted() {
@@ -262,7 +249,6 @@ export default struct IDOMEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -272,7 +258,6 @@ export default struct IDOMEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_cancelBubble() {
@@ -281,7 +266,6 @@ export default struct IDOMEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_srcElement() {
@@ -298,22 +282,22 @@ export default struct IDOMEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_bubbles := CallbackCreate(GetMethod(implObj, "get_bubbles"), flags, 2)
-        this.vtbl.get_cancelable := CallbackCreate(GetMethod(implObj, "get_cancelable"), flags, 2)
-        this.vtbl.get_currentTarget := CallbackCreate(GetMethod(implObj, "get_currentTarget"), flags, 2)
-        this.vtbl.get_defaultPrevented := CallbackCreate(GetMethod(implObj, "get_defaultPrevented"), flags, 2)
-        this.vtbl.get_eventPhase := CallbackCreate(GetMethod(implObj, "get_eventPhase"), flags, 2)
-        this.vtbl.get_target := CallbackCreate(GetMethod(implObj, "get_target"), flags, 2)
-        this.vtbl.get_timeStamp := CallbackCreate(GetMethod(implObj, "get_timeStamp"), flags, 2)
-        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
-        this.vtbl.initEvent := CallbackCreate(GetMethod(implObj, "initEvent"), flags, 4)
-        this.vtbl.preventDefault := CallbackCreate(GetMethod(implObj, "preventDefault"), flags, 1)
-        this.vtbl.stopPropagation := CallbackCreate(GetMethod(implObj, "stopPropagation"), flags, 1)
-        this.vtbl.stopImmediatePropagation := CallbackCreate(GetMethod(implObj, "stopImmediatePropagation"), flags, 1)
-        this.vtbl.get_isTrusted := CallbackCreate(GetMethod(implObj, "get_isTrusted"), flags, 2)
-        this.vtbl.put_cancelBubble := CallbackCreate(GetMethod(implObj, "put_cancelBubble"), flags, 2)
-        this.vtbl.get_cancelBubble := CallbackCreate(GetMethod(implObj, "get_cancelBubble"), flags, 2)
-        this.vtbl.get_srcElement := CallbackCreate(GetMethod(implObj, "get_srcElement"), flags, 2)
+        this.vtbl.get_bubbles := CallbackCreate(ObjBindMethod(implObj, "get_bubbles"), flags, 2)
+        this.vtbl.get_cancelable := CallbackCreate(ObjBindMethod(implObj, "get_cancelable"), flags, 2)
+        this.vtbl.get_currentTarget := CallbackCreate(ObjBindMethod(implObj, "get_currentTarget"), flags, 2)
+        this.vtbl.get_defaultPrevented := CallbackCreate(ObjBindMethod(implObj, "get_defaultPrevented"), flags, 2)
+        this.vtbl.get_eventPhase := CallbackCreate(ObjBindMethod(implObj, "get_eventPhase"), flags, 2)
+        this.vtbl.get_target := CallbackCreate(ObjBindMethod(implObj, "get_target"), flags, 2)
+        this.vtbl.get_timeStamp := CallbackCreate(ObjBindMethod(implObj, "get_timeStamp"), flags, 2)
+        this.vtbl.get_type := CallbackCreate(ObjBindMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.initEvent := CallbackCreate(ObjBindMethod(implObj, "initEvent"), flags, 4)
+        this.vtbl.preventDefault := CallbackCreate(ObjBindMethod(implObj, "preventDefault"), flags, 1)
+        this.vtbl.stopPropagation := CallbackCreate(ObjBindMethod(implObj, "stopPropagation"), flags, 1)
+        this.vtbl.stopImmediatePropagation := CallbackCreate(ObjBindMethod(implObj, "stopImmediatePropagation"), flags, 1)
+        this.vtbl.get_isTrusted := CallbackCreate(ObjBindMethod(implObj, "get_isTrusted"), flags, 2)
+        this.vtbl.put_cancelBubble := CallbackCreate(ObjBindMethod(implObj, "put_cancelBubble"), flags, 2)
+        this.vtbl.get_cancelBubble := CallbackCreate(ObjBindMethod(implObj, "get_cancelBubble"), flags, 2)
+        this.vtbl.get_srcElement := CallbackCreate(ObjBindMethod(implObj, "get_srcElement"), flags, 2)
     }
 
     Dispose() {

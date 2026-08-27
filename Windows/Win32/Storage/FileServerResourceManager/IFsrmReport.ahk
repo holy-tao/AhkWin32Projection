@@ -290,15 +290,15 @@ export default struct IFsrmReport extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
-        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
-        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
-        this.vtbl.get_LastGeneratedFileNamePrefix := CallbackCreate(GetMethod(implObj, "get_LastGeneratedFileNamePrefix"), flags, 2)
-        this.vtbl.GetFilter := CallbackCreate(GetMethod(implObj, "GetFilter"), flags, 3)
-        this.vtbl.SetFilter := CallbackCreate(GetMethod(implObj, "SetFilter"), flags, 3)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.get_Type := CallbackCreate(ObjBindMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(ObjBindMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(ObjBindMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(ObjBindMethod(implObj, "put_Description"), flags, 2)
+        this.vtbl.get_LastGeneratedFileNamePrefix := CallbackCreate(ObjBindMethod(implObj, "get_LastGeneratedFileNamePrefix"), flags, 2)
+        this.vtbl.GetFilter := CallbackCreate(ObjBindMethod(implObj, "GetFilter"), flags, 3)
+        this.vtbl.SetFilter := CallbackCreate(ObjBindMethod(implObj, "SetFilter"), flags, 3)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 1)
     }
 
     Dispose() {

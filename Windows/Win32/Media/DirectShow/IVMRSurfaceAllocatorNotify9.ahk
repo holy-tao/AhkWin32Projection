@@ -160,7 +160,7 @@ export default struct IVMRSurfaceAllocatorNotify9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrsurfaceallocatornotify9-allocatesurfacehelper
      */
     AllocateSurfaceHelper(lpAllocInfo, lpNumBuffers) {
-        lpNumBuffersMarshal := lpNumBuffers is VarRef ? "uint*" : "ptr"
+        lpNumBuffersMarshal := lpNumBuffers is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, VMR9AllocationInfo.Ptr, lpAllocInfo, lpNumBuffersMarshal, lpNumBuffers, "ptr*", &lplpSurface := 0, "HRESULT")
         return IDirect3DSurface9(lplpSurface)
@@ -210,11 +210,11 @@ export default struct IVMRSurfaceAllocatorNotify9 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AdviseSurfaceAllocator := CallbackCreate(GetMethod(implObj, "AdviseSurfaceAllocator"), flags, 3)
-        this.vtbl.SetD3DDevice := CallbackCreate(GetMethod(implObj, "SetD3DDevice"), flags, 3)
-        this.vtbl.ChangeD3DDevice := CallbackCreate(GetMethod(implObj, "ChangeD3DDevice"), flags, 3)
-        this.vtbl.AllocateSurfaceHelper := CallbackCreate(GetMethod(implObj, "AllocateSurfaceHelper"), flags, 4)
-        this.vtbl.NotifyEvent := CallbackCreate(GetMethod(implObj, "NotifyEvent"), flags, 4)
+        this.vtbl.AdviseSurfaceAllocator := CallbackCreate(ObjBindMethod(implObj, "AdviseSurfaceAllocator"), flags, 3)
+        this.vtbl.SetD3DDevice := CallbackCreate(ObjBindMethod(implObj, "SetD3DDevice"), flags, 3)
+        this.vtbl.ChangeD3DDevice := CallbackCreate(ObjBindMethod(implObj, "ChangeD3DDevice"), flags, 3)
+        this.vtbl.AllocateSurfaceHelper := CallbackCreate(ObjBindMethod(implObj, "AllocateSurfaceHelper"), flags, 4)
+        this.vtbl.NotifyEvent := CallbackCreate(ObjBindMethod(implObj, "NotifyEvent"), flags, 4)
     }
 
     Dispose() {

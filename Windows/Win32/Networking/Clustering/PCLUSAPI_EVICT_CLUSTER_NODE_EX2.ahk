@@ -21,7 +21,6 @@ export default struct PCLUSAPI_EVICT_CLUSTER_NODE_EX2 {
     }
 
     /**
-     * 
      * @param {HNODE} _hNode 
      * @param {Integer} dwTimeout 
      * @param {Pointer<HRESULT>} phrCleanupStatus 
@@ -31,9 +30,10 @@ export default struct PCLUSAPI_EVICT_CLUSTER_NODE_EX2 {
     Call(_hNode, dwTimeout, phrCleanupStatus, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        phrCleanupStatusMarshal := phrCleanupStatus is VarRef ? "int*" : "ptr"
+        phrCleanupStatusMarshal := phrCleanupStatus is VarRef ? "int*" : IntPtr
+        lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
 
-        result := DllCall(this.value, HNODE, _hNode, UInt32, dwTimeout, phrCleanupStatusMarshal, phrCleanupStatus, "ptr", lpszReason, UInt32)
+        result := DllCall(this.value, HNODE, _hNode, UInt32, dwTimeout, phrCleanupStatusMarshal, phrCleanupStatus, lpszReasonMarshal, lpszReason, UInt32)
         return result
     }
 

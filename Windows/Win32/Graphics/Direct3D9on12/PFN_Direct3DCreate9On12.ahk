@@ -20,7 +20,6 @@ export default struct PFN_Direct3DCreate9On12 {
     }
 
     /**
-     * 
      * @param {Integer} SDKVersion 
      * @param {Pointer<D3D9ON12_ARGS>} pOverrideList 
      * @param {Integer} NumOverrideEntries 

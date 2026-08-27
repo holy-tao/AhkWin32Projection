@@ -223,7 +223,9 @@ export default struct IX509CertificateRequestCmc extends IX509CertificateRequest
     InitializeFromInnerRequestTemplateName(pInnerRequest, strTemplateName) {
         strTemplateName := strTemplateName is String ? BSTR.Alloc(strTemplateName).Value : strTemplateName
 
-        result := ComCall(40, this, "ptr", pInnerRequest, BSTR, strTemplateName, "HRESULT")
+        pInnerRequestMarshal := pInnerRequest == 0 ? IntPtr : "ptr"
+
+        result := ComCall(40, this, pInnerRequestMarshal, pInnerRequest, BSTR, strTemplateName, "HRESULT")
         return result
     }
 
@@ -873,7 +875,9 @@ export default struct IX509CertificateRequestCmc extends IX509CertificateRequest
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-put_encryptionalgorithm
      */
     put_EncryptionAlgorithm(pValue) {
-        result := ComCall(58, this, "ptr", pValue, "HRESULT")
+        pValueMarshal := pValue == 0 ? IntPtr : "ptr"
+
+        result := ComCall(58, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -1034,29 +1038,29 @@ export default struct IX509CertificateRequestCmc extends IX509CertificateRequest
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeFromInnerRequestTemplateName := CallbackCreate(GetMethod(implObj, "InitializeFromInnerRequestTemplateName"), flags, 3)
-        this.vtbl.get_TemplateObjectId := CallbackCreate(GetMethod(implObj, "get_TemplateObjectId"), flags, 2)
-        this.vtbl.get_NullSigned := CallbackCreate(GetMethod(implObj, "get_NullSigned"), flags, 2)
-        this.vtbl.get_CryptAttributes := CallbackCreate(GetMethod(implObj, "get_CryptAttributes"), flags, 2)
-        this.vtbl.get_NameValuePairs := CallbackCreate(GetMethod(implObj, "get_NameValuePairs"), flags, 2)
-        this.vtbl.get_X509Extensions := CallbackCreate(GetMethod(implObj, "get_X509Extensions"), flags, 2)
-        this.vtbl.get_CriticalExtensions := CallbackCreate(GetMethod(implObj, "get_CriticalExtensions"), flags, 2)
-        this.vtbl.get_SuppressOids := CallbackCreate(GetMethod(implObj, "get_SuppressOids"), flags, 2)
-        this.vtbl.get_TransactionId := CallbackCreate(GetMethod(implObj, "get_TransactionId"), flags, 2)
-        this.vtbl.put_TransactionId := CallbackCreate(GetMethod(implObj, "put_TransactionId"), flags, 2)
-        this.vtbl.get_SenderNonce := CallbackCreate(GetMethod(implObj, "get_SenderNonce"), flags, 3)
-        this.vtbl.put_SenderNonce := CallbackCreate(GetMethod(implObj, "put_SenderNonce"), flags, 3)
-        this.vtbl.get_SignatureInformation := CallbackCreate(GetMethod(implObj, "get_SignatureInformation"), flags, 2)
-        this.vtbl.get_ArchivePrivateKey := CallbackCreate(GetMethod(implObj, "get_ArchivePrivateKey"), flags, 2)
-        this.vtbl.put_ArchivePrivateKey := CallbackCreate(GetMethod(implObj, "put_ArchivePrivateKey"), flags, 2)
-        this.vtbl.get_KeyArchivalCertificate := CallbackCreate(GetMethod(implObj, "get_KeyArchivalCertificate"), flags, 3)
-        this.vtbl.put_KeyArchivalCertificate := CallbackCreate(GetMethod(implObj, "put_KeyArchivalCertificate"), flags, 3)
-        this.vtbl.get_EncryptionAlgorithm := CallbackCreate(GetMethod(implObj, "get_EncryptionAlgorithm"), flags, 2)
-        this.vtbl.put_EncryptionAlgorithm := CallbackCreate(GetMethod(implObj, "put_EncryptionAlgorithm"), flags, 2)
-        this.vtbl.get_EncryptionStrength := CallbackCreate(GetMethod(implObj, "get_EncryptionStrength"), flags, 2)
-        this.vtbl.put_EncryptionStrength := CallbackCreate(GetMethod(implObj, "put_EncryptionStrength"), flags, 2)
-        this.vtbl.get_EncryptedKeyHash := CallbackCreate(GetMethod(implObj, "get_EncryptedKeyHash"), flags, 3)
-        this.vtbl.get_SignerCertificates := CallbackCreate(GetMethod(implObj, "get_SignerCertificates"), flags, 2)
+        this.vtbl.InitializeFromInnerRequestTemplateName := CallbackCreate(ObjBindMethod(implObj, "InitializeFromInnerRequestTemplateName"), flags, 3)
+        this.vtbl.get_TemplateObjectId := CallbackCreate(ObjBindMethod(implObj, "get_TemplateObjectId"), flags, 2)
+        this.vtbl.get_NullSigned := CallbackCreate(ObjBindMethod(implObj, "get_NullSigned"), flags, 2)
+        this.vtbl.get_CryptAttributes := CallbackCreate(ObjBindMethod(implObj, "get_CryptAttributes"), flags, 2)
+        this.vtbl.get_NameValuePairs := CallbackCreate(ObjBindMethod(implObj, "get_NameValuePairs"), flags, 2)
+        this.vtbl.get_X509Extensions := CallbackCreate(ObjBindMethod(implObj, "get_X509Extensions"), flags, 2)
+        this.vtbl.get_CriticalExtensions := CallbackCreate(ObjBindMethod(implObj, "get_CriticalExtensions"), flags, 2)
+        this.vtbl.get_SuppressOids := CallbackCreate(ObjBindMethod(implObj, "get_SuppressOids"), flags, 2)
+        this.vtbl.get_TransactionId := CallbackCreate(ObjBindMethod(implObj, "get_TransactionId"), flags, 2)
+        this.vtbl.put_TransactionId := CallbackCreate(ObjBindMethod(implObj, "put_TransactionId"), flags, 2)
+        this.vtbl.get_SenderNonce := CallbackCreate(ObjBindMethod(implObj, "get_SenderNonce"), flags, 3)
+        this.vtbl.put_SenderNonce := CallbackCreate(ObjBindMethod(implObj, "put_SenderNonce"), flags, 3)
+        this.vtbl.get_SignatureInformation := CallbackCreate(ObjBindMethod(implObj, "get_SignatureInformation"), flags, 2)
+        this.vtbl.get_ArchivePrivateKey := CallbackCreate(ObjBindMethod(implObj, "get_ArchivePrivateKey"), flags, 2)
+        this.vtbl.put_ArchivePrivateKey := CallbackCreate(ObjBindMethod(implObj, "put_ArchivePrivateKey"), flags, 2)
+        this.vtbl.get_KeyArchivalCertificate := CallbackCreate(ObjBindMethod(implObj, "get_KeyArchivalCertificate"), flags, 3)
+        this.vtbl.put_KeyArchivalCertificate := CallbackCreate(ObjBindMethod(implObj, "put_KeyArchivalCertificate"), flags, 3)
+        this.vtbl.get_EncryptionAlgorithm := CallbackCreate(ObjBindMethod(implObj, "get_EncryptionAlgorithm"), flags, 2)
+        this.vtbl.put_EncryptionAlgorithm := CallbackCreate(ObjBindMethod(implObj, "put_EncryptionAlgorithm"), flags, 2)
+        this.vtbl.get_EncryptionStrength := CallbackCreate(ObjBindMethod(implObj, "get_EncryptionStrength"), flags, 2)
+        this.vtbl.put_EncryptionStrength := CallbackCreate(ObjBindMethod(implObj, "put_EncryptionStrength"), flags, 2)
+        this.vtbl.get_EncryptedKeyHash := CallbackCreate(ObjBindMethod(implObj, "get_EncryptedKeyHash"), flags, 3)
+        this.vtbl.get_SignerCertificates := CallbackCreate(ObjBindMethod(implObj, "get_SignerCertificates"), flags, 2)
     }
 
     Dispose() {

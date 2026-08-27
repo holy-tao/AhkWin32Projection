@@ -129,8 +129,8 @@ export default struct ISearchManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchmanager-getindexerversion
      */
     GetIndexerVersion(pdwMajor, pdwMinor) {
-        pdwMajorMarshal := pdwMajor is VarRef ? "uint*" : "ptr"
-        pdwMinorMarshal := pdwMinor is VarRef ? "uint*" : "ptr"
+        pdwMajorMarshal := pdwMajor is VarRef ? "uint*" : IntPtr
+        pdwMinorMarshal := pdwMinor is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pdwMajorMarshal, pdwMajor, pdwMinorMarshal, pdwMinor, "HRESULT")
         return result
@@ -352,19 +352,19 @@ export default struct ISearchManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetIndexerVersionStr := CallbackCreate(GetMethod(implObj, "GetIndexerVersionStr"), flags, 2)
-        this.vtbl.GetIndexerVersion := CallbackCreate(GetMethod(implObj, "GetIndexerVersion"), flags, 3)
-        this.vtbl.GetParameter := CallbackCreate(GetMethod(implObj, "GetParameter"), flags, 3)
-        this.vtbl.SetParameter := CallbackCreate(GetMethod(implObj, "SetParameter"), flags, 3)
-        this.vtbl.get_ProxyName := CallbackCreate(GetMethod(implObj, "get_ProxyName"), flags, 2)
-        this.vtbl.get_BypassList := CallbackCreate(GetMethod(implObj, "get_BypassList"), flags, 2)
-        this.vtbl.SetProxy := CallbackCreate(GetMethod(implObj, "SetProxy"), flags, 6)
-        this.vtbl.GetCatalog := CallbackCreate(GetMethod(implObj, "GetCatalog"), flags, 3)
-        this.vtbl.get_UserAgent := CallbackCreate(GetMethod(implObj, "get_UserAgent"), flags, 2)
-        this.vtbl.put_UserAgent := CallbackCreate(GetMethod(implObj, "put_UserAgent"), flags, 2)
-        this.vtbl.get_UseProxy := CallbackCreate(GetMethod(implObj, "get_UseProxy"), flags, 2)
-        this.vtbl.get_LocalBypass := CallbackCreate(GetMethod(implObj, "get_LocalBypass"), flags, 2)
-        this.vtbl.get_PortNumber := CallbackCreate(GetMethod(implObj, "get_PortNumber"), flags, 2)
+        this.vtbl.GetIndexerVersionStr := CallbackCreate(ObjBindMethod(implObj, "GetIndexerVersionStr"), flags, 2)
+        this.vtbl.GetIndexerVersion := CallbackCreate(ObjBindMethod(implObj, "GetIndexerVersion"), flags, 3)
+        this.vtbl.GetParameter := CallbackCreate(ObjBindMethod(implObj, "GetParameter"), flags, 3)
+        this.vtbl.SetParameter := CallbackCreate(ObjBindMethod(implObj, "SetParameter"), flags, 3)
+        this.vtbl.get_ProxyName := CallbackCreate(ObjBindMethod(implObj, "get_ProxyName"), flags, 2)
+        this.vtbl.get_BypassList := CallbackCreate(ObjBindMethod(implObj, "get_BypassList"), flags, 2)
+        this.vtbl.SetProxy := CallbackCreate(ObjBindMethod(implObj, "SetProxy"), flags, 6)
+        this.vtbl.GetCatalog := CallbackCreate(ObjBindMethod(implObj, "GetCatalog"), flags, 3)
+        this.vtbl.get_UserAgent := CallbackCreate(ObjBindMethod(implObj, "get_UserAgent"), flags, 2)
+        this.vtbl.put_UserAgent := CallbackCreate(ObjBindMethod(implObj, "put_UserAgent"), flags, 2)
+        this.vtbl.get_UseProxy := CallbackCreate(ObjBindMethod(implObj, "get_UseProxy"), flags, 2)
+        this.vtbl.get_LocalBypass := CallbackCreate(ObjBindMethod(implObj, "get_LocalBypass"), flags, 2)
+        this.vtbl.get_PortNumber := CallbackCreate(ObjBindMethod(implObj, "get_PortNumber"), flags, 2)
     }
 
     Dispose() {

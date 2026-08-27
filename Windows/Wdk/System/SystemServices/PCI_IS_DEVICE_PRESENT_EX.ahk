@@ -20,13 +20,12 @@ export default struct PCI_IS_DEVICE_PRESENT_EX {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<PCI_DEVICE_PRESENCE_PARAMETERS>} Parameters 
      * @returns {BOOLEAN} 
      */
     Call(_Context, Parameters) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, PCI_DEVICE_PRESENCE_PARAMETERS.Ptr, Parameters, BOOLEAN)
         return result

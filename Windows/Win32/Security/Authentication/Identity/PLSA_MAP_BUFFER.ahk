@@ -20,7 +20,6 @@ export default struct PLSA_MAP_BUFFER {
     }
 
     /**
-     * 
      * @param {Pointer<SecBuffer>} InputBuffer 
      * @param {Pointer<SecBuffer>} OutputBuffer 
      * @returns {NTSTATUS} 

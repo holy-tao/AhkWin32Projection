@@ -193,12 +193,12 @@ export default struct IDirect3DBaseTexture9 extends IDirect3DResource9 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetLOD := CallbackCreate(GetMethod(implObj, "SetLOD"), flags, 2)
-        this.vtbl.GetLOD := CallbackCreate(GetMethod(implObj, "GetLOD"), flags, 1)
-        this.vtbl.GetLevelCount := CallbackCreate(GetMethod(implObj, "GetLevelCount"), flags, 1)
-        this.vtbl.SetAutoGenFilterType := CallbackCreate(GetMethod(implObj, "SetAutoGenFilterType"), flags, 2)
-        this.vtbl.GetAutoGenFilterType := CallbackCreate(GetMethod(implObj, "GetAutoGenFilterType"), flags, 1)
-        this.vtbl.GenerateMipSubLevels := CallbackCreate(GetMethod(implObj, "GenerateMipSubLevels"), flags, 1)
+        this.vtbl.SetLOD := CallbackCreate(ObjBindMethod(implObj, "SetLOD"), flags, 2)
+        this.vtbl.GetLOD := CallbackCreate(ObjBindMethod(implObj, "GetLOD"), flags, 1)
+        this.vtbl.GetLevelCount := CallbackCreate(ObjBindMethod(implObj, "GetLevelCount"), flags, 1)
+        this.vtbl.SetAutoGenFilterType := CallbackCreate(ObjBindMethod(implObj, "SetAutoGenFilterType"), flags, 2)
+        this.vtbl.GetAutoGenFilterType := CallbackCreate(ObjBindMethod(implObj, "GetAutoGenFilterType"), flags, 1)
+        this.vtbl.GenerateMipSubLevels := CallbackCreate(ObjBindMethod(implObj, "GenerateMipSubLevels"), flags, 1)
     }
 
     Dispose() {

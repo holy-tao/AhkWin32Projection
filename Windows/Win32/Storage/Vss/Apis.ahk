@@ -200,9 +200,9 @@ export CreateVssExamineWriterMetadataInternal(bstrXML) {
  * @since windows5.1.2600
  */
 export IsVolumeSnapshottedInternal(pwszVolumeName, pbSnapshotsPresent, plSnapshotCapability) {
-    pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
-    pbSnapshotsPresentMarshal := pbSnapshotsPresent is VarRef ? "int*" : "ptr"
-    plSnapshotCapabilityMarshal := plSnapshotCapability is VarRef ? "int*" : "ptr"
+    pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : IntPtr
+    pbSnapshotsPresentMarshal := pbSnapshotsPresent is VarRef ? "int*" : IntPtr
+    plSnapshotCapabilityMarshal := plSnapshotCapability is VarRef ? "int*" : IntPtr
 
     result := DllCall("VSSAPI.dll\IsVolumeSnapshottedInternal", pwszVolumeNameMarshal, pwszVolumeName, pbSnapshotsPresentMarshal, pbSnapshotsPresent, plSnapshotCapabilityMarshal, plSnapshotCapability, "HRESULT")
     return result
@@ -221,7 +221,6 @@ export VssFreeSnapshotPropertiesInternal(pProp) {
 }
 
 /**
- * 
  * @param {Guid} ProviderId 
  * @param {Guid} InterfaceId 
  * @returns {IUnknown} 
@@ -232,7 +231,6 @@ export GetProviderMgmtInterfaceInternal(ProviderId, InterfaceId) {
 }
 
 /**
- * 
  * @param {PWSTR} wszVolumeName 
  * @returns {Boolean} 
  */

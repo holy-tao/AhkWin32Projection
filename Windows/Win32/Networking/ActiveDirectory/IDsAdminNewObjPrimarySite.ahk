@@ -76,8 +76,8 @@ export default struct IDsAdminNewObjPrimarySite extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateNew := CallbackCreate(GetMethod(implObj, "CreateNew"), flags, 2)
-        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 1)
+        this.vtbl.CreateNew := CallbackCreate(ObjBindMethod(implObj, "CreateNew"), flags, 2)
+        this.vtbl.Commit := CallbackCreate(ObjBindMethod(implObj, "Commit"), flags, 1)
     }
 
     Dispose() {

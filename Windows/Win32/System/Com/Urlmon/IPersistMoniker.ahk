@@ -44,7 +44,6 @@ export default struct IPersistMoniker extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     GetClassID() {
@@ -54,7 +53,6 @@ export default struct IPersistMoniker extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     IsDirty() {
@@ -142,7 +140,6 @@ export default struct IPersistMoniker extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMoniker} pimkName 
      * @param {IBindCtx} pbc 
      * @param {BOOL} fRemember 
@@ -154,7 +151,6 @@ export default struct IPersistMoniker extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMoniker} pimkName 
      * @param {IBindCtx} pibc 
      * @returns {HRESULT} 
@@ -165,7 +161,6 @@ export default struct IPersistMoniker extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IMoniker} 
      */
     GetCurMoniker() {
@@ -182,12 +177,12 @@ export default struct IPersistMoniker extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetClassID := CallbackCreate(GetMethod(implObj, "GetClassID"), flags, 2)
-        this.vtbl.IsDirty := CallbackCreate(GetMethod(implObj, "IsDirty"), flags, 1)
-        this.vtbl.Load := CallbackCreate(GetMethod(implObj, "Load"), flags, 5)
-        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 4)
-        this.vtbl.SaveCompleted := CallbackCreate(GetMethod(implObj, "SaveCompleted"), flags, 3)
-        this.vtbl.GetCurMoniker := CallbackCreate(GetMethod(implObj, "GetCurMoniker"), flags, 2)
+        this.vtbl.GetClassID := CallbackCreate(ObjBindMethod(implObj, "GetClassID"), flags, 2)
+        this.vtbl.IsDirty := CallbackCreate(ObjBindMethod(implObj, "IsDirty"), flags, 1)
+        this.vtbl.Load := CallbackCreate(ObjBindMethod(implObj, "Load"), flags, 5)
+        this.vtbl.Save := CallbackCreate(ObjBindMethod(implObj, "Save"), flags, 4)
+        this.vtbl.SaveCompleted := CallbackCreate(ObjBindMethod(implObj, "SaveCompleted"), flags, 3)
+        this.vtbl.GetCurMoniker := CallbackCreate(ObjBindMethod(implObj, "GetCurMoniker"), flags, 2)
     }
 
     Dispose() {

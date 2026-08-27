@@ -59,7 +59,7 @@ export default struct IAppxBlockMapBlock extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapblock-gethash
      */
     GetHash(bufferSize) {
-        bufferSizeMarshal := bufferSize is VarRef ? "uint*" : "ptr"
+        bufferSizeMarshal := bufferSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, bufferSizeMarshal, bufferSize, "ptr*", &_buffer := 0, "HRESULT")
         return _buffer
@@ -90,8 +90,8 @@ export default struct IAppxBlockMapBlock extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetHash := CallbackCreate(GetMethod(implObj, "GetHash"), flags, 3)
-        this.vtbl.GetCompressedSize := CallbackCreate(GetMethod(implObj, "GetCompressedSize"), flags, 2)
+        this.vtbl.GetHash := CallbackCreate(ObjBindMethod(implObj, "GetHash"), flags, 3)
+        this.vtbl.GetCompressedSize := CallbackCreate(ObjBindMethod(implObj, "GetCompressedSize"), flags, 2)
     }
 
     Dispose() {

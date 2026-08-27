@@ -131,12 +131,12 @@ export default struct ICertEncodeLongArray extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Decode := CallbackCreate(GetMethod(implObj, "Decode"), flags, 2)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
-        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 3)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 2)
-        this.vtbl.SetValue := CallbackCreate(GetMethod(implObj, "SetValue"), flags, 3)
-        this.vtbl.Encode := CallbackCreate(GetMethod(implObj, "Encode"), flags, 2)
+        this.vtbl.Decode := CallbackCreate(ObjBindMethod(implObj, "Decode"), flags, 2)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetValue := CallbackCreate(ObjBindMethod(implObj, "GetValue"), flags, 3)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 2)
+        this.vtbl.SetValue := CallbackCreate(ObjBindMethod(implObj, "SetValue"), flags, 3)
+        this.vtbl.Encode := CallbackCreate(ObjBindMethod(implObj, "Encode"), flags, 2)
     }
 
     Dispose() {

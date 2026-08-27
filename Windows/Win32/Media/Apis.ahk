@@ -120,7 +120,6 @@ export timeEndPeriod(uPeriod) {
 }
 
 /**
- * 
  * @param {Integer} uDelay 
  * @param {Integer} uResolution 
  * @param {Pointer<LPTIMECALLBACK>} fptc 
@@ -134,7 +133,6 @@ export timeSetEvent(uDelay, uResolution, fptc, dwUser, fuEvent) {
 }
 
 /**
- * 
  * @param {Integer} uTimerID 
  * @returns {Integer} 
  */

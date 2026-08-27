@@ -49,7 +49,6 @@ export default struct RASDIALFUNC {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {RASCONNSTATE} param1 
      * @param {Integer} param2 

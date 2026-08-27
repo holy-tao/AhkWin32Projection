@@ -45,7 +45,6 @@ export default struct IVBSAXXMLFilter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IVBSAXXMLReader} 
      */
     get_parent() {
@@ -54,7 +53,6 @@ export default struct IVBSAXXMLFilter extends IDispatch {
     }
 
     /**
-     * 
      * @param {IVBSAXXMLReader} oReader 
      * @returns {HRESULT} 
      */
@@ -72,8 +70,8 @@ export default struct IVBSAXXMLFilter extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_parent := CallbackCreate(GetMethod(implObj, "get_parent"), flags, 2)
-        this.vtbl.putref_parent := CallbackCreate(GetMethod(implObj, "putref_parent"), flags, 2)
+        this.vtbl.get_parent := CallbackCreate(ObjBindMethod(implObj, "get_parent"), flags, 2)
+        this.vtbl.putref_parent := CallbackCreate(ObjBindMethod(implObj, "putref_parent"), flags, 2)
     }
 
     Dispose() {

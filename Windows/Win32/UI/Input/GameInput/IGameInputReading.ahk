@@ -69,7 +69,6 @@ export default struct IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @returns {GameInputKind} 
      */
     GetInputKind() {
@@ -78,7 +77,6 @@ export default struct IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @param {GameInputKind} inputKind 
      * @returns {Integer} 
      */
@@ -88,7 +86,6 @@ export default struct IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetTimestamp() {
@@ -97,7 +94,6 @@ export default struct IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<IGameInputDevice>} device 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -106,7 +102,6 @@ export default struct IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<IGameInputRawDeviceReport>} report 
      * @returns {Boolean} 
      */
@@ -116,7 +111,6 @@ export default struct IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetControllerAxisCount() {
@@ -125,20 +119,18 @@ export default struct IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} stateArrayCount 
      * @param {Pointer<Float>} stateArray 
      * @returns {Integer} 
      */
     GetControllerAxisState(stateArrayCount, stateArray) {
-        stateArrayMarshal := stateArray is VarRef ? "float*" : "ptr"
+        stateArrayMarshal := stateArray is VarRef ? "float*" : IntPtr
 
         result := ComCall(9, this, UInt32, stateArrayCount, stateArrayMarshal, stateArray, UInt32)
         return result
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetControllerButtonCount() {
@@ -147,20 +139,18 @@ export default struct IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} stateArrayCount 
      * @param {Pointer<Boolean>} stateArray 
      * @returns {Integer} 
      */
     GetControllerButtonState(stateArrayCount, stateArray) {
-        stateArrayMarshal := stateArray is VarRef ? "int*" : "ptr"
+        stateArrayMarshal := stateArray is VarRef ? "int*" : IntPtr
 
         result := ComCall(11, this, UInt32, stateArrayCount, stateArrayMarshal, stateArray, UInt32)
         return result
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetControllerSwitchCount() {
@@ -169,20 +159,18 @@ export default struct IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} stateArrayCount 
      * @param {Pointer<GameInputSwitchPosition>} stateArray 
      * @returns {Integer} 
      */
     GetControllerSwitchState(stateArrayCount, stateArray) {
-        stateArrayMarshal := stateArray is VarRef ? "int*" : "ptr"
+        stateArrayMarshal := stateArray is VarRef ? "int*" : IntPtr
 
         result := ComCall(13, this, UInt32, stateArrayCount, stateArrayMarshal, stateArray, UInt32)
         return result
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetKeyCount() {
@@ -228,7 +216,6 @@ export default struct IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<GameInputMouseState>} state 
      * @returns {Boolean} 
      */
@@ -238,7 +225,6 @@ export default struct IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetTouchCount() {
@@ -247,7 +233,6 @@ export default struct IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} stateArrayCount 
      * @param {Pointer<GameInputTouchState>} stateArray 
      * @returns {Integer} 
@@ -258,7 +243,6 @@ export default struct IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<GameInputMotionState>} state 
      * @returns {Boolean} 
      */
@@ -268,7 +252,6 @@ export default struct IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<GameInputArcadeStickState>} state 
      * @returns {Boolean} 
      */
@@ -278,7 +261,6 @@ export default struct IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<GameInputFlightStickState>} state 
      * @returns {Boolean} 
      */
@@ -288,7 +270,6 @@ export default struct IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<GameInputGamepadState>} state 
      * @returns {Boolean} 
      */
@@ -298,7 +279,6 @@ export default struct IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<GameInputRacingWheelState>} state 
      * @returns {Boolean} 
      */
@@ -308,7 +288,6 @@ export default struct IGameInputReading extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<GameInputUiNavigationState>} state 
      * @returns {Boolean} 
      */
@@ -326,28 +305,28 @@ export default struct IGameInputReading extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetInputKind := CallbackCreate(GetMethod(implObj, "GetInputKind"), flags, 1)
-        this.vtbl.GetSequenceNumber := CallbackCreate(GetMethod(implObj, "GetSequenceNumber"), flags, 2)
-        this.vtbl.GetTimestamp := CallbackCreate(GetMethod(implObj, "GetTimestamp"), flags, 1)
-        this.vtbl.GetDevice := CallbackCreate(GetMethod(implObj, "GetDevice"), flags, 2)
-        this.vtbl.GetRawReport := CallbackCreate(GetMethod(implObj, "GetRawReport"), flags, 2)
-        this.vtbl.GetControllerAxisCount := CallbackCreate(GetMethod(implObj, "GetControllerAxisCount"), flags, 1)
-        this.vtbl.GetControllerAxisState := CallbackCreate(GetMethod(implObj, "GetControllerAxisState"), flags, 3)
-        this.vtbl.GetControllerButtonCount := CallbackCreate(GetMethod(implObj, "GetControllerButtonCount"), flags, 1)
-        this.vtbl.GetControllerButtonState := CallbackCreate(GetMethod(implObj, "GetControllerButtonState"), flags, 3)
-        this.vtbl.GetControllerSwitchCount := CallbackCreate(GetMethod(implObj, "GetControllerSwitchCount"), flags, 1)
-        this.vtbl.GetControllerSwitchState := CallbackCreate(GetMethod(implObj, "GetControllerSwitchState"), flags, 3)
-        this.vtbl.GetKeyCount := CallbackCreate(GetMethod(implObj, "GetKeyCount"), flags, 1)
-        this.vtbl.GetKeyState := CallbackCreate(GetMethod(implObj, "GetKeyState"), flags, 3)
-        this.vtbl.GetMouseState := CallbackCreate(GetMethod(implObj, "GetMouseState"), flags, 2)
-        this.vtbl.GetTouchCount := CallbackCreate(GetMethod(implObj, "GetTouchCount"), flags, 1)
-        this.vtbl.GetTouchState := CallbackCreate(GetMethod(implObj, "GetTouchState"), flags, 3)
-        this.vtbl.GetMotionState := CallbackCreate(GetMethod(implObj, "GetMotionState"), flags, 2)
-        this.vtbl.GetArcadeStickState := CallbackCreate(GetMethod(implObj, "GetArcadeStickState"), flags, 2)
-        this.vtbl.GetFlightStickState := CallbackCreate(GetMethod(implObj, "GetFlightStickState"), flags, 2)
-        this.vtbl.GetGamepadState := CallbackCreate(GetMethod(implObj, "GetGamepadState"), flags, 2)
-        this.vtbl.GetRacingWheelState := CallbackCreate(GetMethod(implObj, "GetRacingWheelState"), flags, 2)
-        this.vtbl.GetUiNavigationState := CallbackCreate(GetMethod(implObj, "GetUiNavigationState"), flags, 2)
+        this.vtbl.GetInputKind := CallbackCreate(ObjBindMethod(implObj, "GetInputKind"), flags, 1)
+        this.vtbl.GetSequenceNumber := CallbackCreate(ObjBindMethod(implObj, "GetSequenceNumber"), flags, 2)
+        this.vtbl.GetTimestamp := CallbackCreate(ObjBindMethod(implObj, "GetTimestamp"), flags, 1)
+        this.vtbl.GetDevice := CallbackCreate(ObjBindMethod(implObj, "GetDevice"), flags, 2)
+        this.vtbl.GetRawReport := CallbackCreate(ObjBindMethod(implObj, "GetRawReport"), flags, 2)
+        this.vtbl.GetControllerAxisCount := CallbackCreate(ObjBindMethod(implObj, "GetControllerAxisCount"), flags, 1)
+        this.vtbl.GetControllerAxisState := CallbackCreate(ObjBindMethod(implObj, "GetControllerAxisState"), flags, 3)
+        this.vtbl.GetControllerButtonCount := CallbackCreate(ObjBindMethod(implObj, "GetControllerButtonCount"), flags, 1)
+        this.vtbl.GetControllerButtonState := CallbackCreate(ObjBindMethod(implObj, "GetControllerButtonState"), flags, 3)
+        this.vtbl.GetControllerSwitchCount := CallbackCreate(ObjBindMethod(implObj, "GetControllerSwitchCount"), flags, 1)
+        this.vtbl.GetControllerSwitchState := CallbackCreate(ObjBindMethod(implObj, "GetControllerSwitchState"), flags, 3)
+        this.vtbl.GetKeyCount := CallbackCreate(ObjBindMethod(implObj, "GetKeyCount"), flags, 1)
+        this.vtbl.GetKeyState := CallbackCreate(ObjBindMethod(implObj, "GetKeyState"), flags, 3)
+        this.vtbl.GetMouseState := CallbackCreate(ObjBindMethod(implObj, "GetMouseState"), flags, 2)
+        this.vtbl.GetTouchCount := CallbackCreate(ObjBindMethod(implObj, "GetTouchCount"), flags, 1)
+        this.vtbl.GetTouchState := CallbackCreate(ObjBindMethod(implObj, "GetTouchState"), flags, 3)
+        this.vtbl.GetMotionState := CallbackCreate(ObjBindMethod(implObj, "GetMotionState"), flags, 2)
+        this.vtbl.GetArcadeStickState := CallbackCreate(ObjBindMethod(implObj, "GetArcadeStickState"), flags, 2)
+        this.vtbl.GetFlightStickState := CallbackCreate(ObjBindMethod(implObj, "GetFlightStickState"), flags, 2)
+        this.vtbl.GetGamepadState := CallbackCreate(ObjBindMethod(implObj, "GetGamepadState"), flags, 2)
+        this.vtbl.GetRacingWheelState := CallbackCreate(ObjBindMethod(implObj, "GetRacingWheelState"), flags, 2)
+        this.vtbl.GetUiNavigationState := CallbackCreate(ObjBindMethod(implObj, "GetUiNavigationState"), flags, 2)
     }
 
     Dispose() {

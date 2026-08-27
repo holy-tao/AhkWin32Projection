@@ -21,7 +21,6 @@ export default struct SslGetExtensionsFn {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} clientHello 
      * @param {Integer} clientHelloByteSize 
      * @param {Pointer<SCH_EXTENSION_DATA>} genericExtensions 
@@ -30,7 +29,7 @@ export default struct SslGetExtensionsFn {
      * @returns {Integer} 
      */
     Call(clientHello, clientHelloByteSize, genericExtensions, genericExtensionsCount, flags) {
-        clientHelloMarshal := clientHello is VarRef ? "char*" : "ptr"
+        clientHelloMarshal := clientHello is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, clientHelloMarshal, clientHello, UInt32, clientHelloByteSize, SCH_EXTENSION_DATA.Ptr, genericExtensions, Int8, genericExtensionsCount, "uint*", &bytesToRead := 0, SchGetExtensionsOptions, flags, "HRESULT")
         return bytesToRead

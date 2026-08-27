@@ -24,7 +24,6 @@ export default struct FWPM_CONNECTION_CALLBACK0 {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context Type: <b>void*</b>
      * 
      * Optional context pointer. It contains the value of the <i>context</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmconnectionsubscribe0">FwpmConnectionSubscribe0</a> function.
@@ -37,7 +36,7 @@ export default struct FWPM_CONNECTION_CALLBACK0 {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_context, eventType, _connection) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _contextMarshal, _context, FWPM_CONNECTION_EVENT_TYPE, eventType, FWPM_CONNECTION0.Ptr, _connection)
     }

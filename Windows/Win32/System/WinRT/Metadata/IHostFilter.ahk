@@ -36,7 +36,6 @@ export default struct IHostFilter extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} tk 
      * @returns {HRESULT} 
      */
@@ -54,7 +53,7 @@ export default struct IHostFilter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.MarkToken := CallbackCreate(GetMethod(implObj, "MarkToken"), flags, 2)
+        this.vtbl.MarkToken := CallbackCreate(ObjBindMethod(implObj, "MarkToken"), flags, 2)
     }
 
     Dispose() {

@@ -69,8 +69,8 @@ export default struct ISyncRegistrationChange extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetEvent := CallbackCreate(GetMethod(implObj, "GetEvent"), flags, 2)
-        this.vtbl.GetInstanceId := CallbackCreate(GetMethod(implObj, "GetInstanceId"), flags, 2)
+        this.vtbl.GetEvent := CallbackCreate(ObjBindMethod(implObj, "GetEvent"), flags, 2)
+        this.vtbl.GetInstanceId := CallbackCreate(ObjBindMethod(implObj, "GetInstanceId"), flags, 2)
     }
 
     Dispose() {

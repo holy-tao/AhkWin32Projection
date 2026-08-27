@@ -64,7 +64,7 @@ export default struct ID3D12MetaCommand extends ID3D12Pageable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRequiredParameterResourceSize := CallbackCreate(GetMethod(implObj, "GetRequiredParameterResourceSize"), flags, 3)
+        this.vtbl.GetRequiredParameterResourceSize := CallbackCreate(ObjBindMethod(implObj, "GetRequiredParameterResourceSize"), flags, 3)
     }
 
     Dispose() {

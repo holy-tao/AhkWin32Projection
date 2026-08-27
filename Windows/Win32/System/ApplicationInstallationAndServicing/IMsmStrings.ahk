@@ -53,7 +53,6 @@ export default struct IMsmStrings extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} Item 
      * @param {Pointer<BSTR>} _Return 
      * @returns {HRESULT} 
@@ -64,19 +63,17 @@ export default struct IMsmStrings extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} Count 
      * @returns {HRESULT} 
      */
     get_Count(Count) {
-        CountMarshal := Count is VarRef ? "int*" : "ptr"
+        CountMarshal := Count is VarRef ? "int*" : IntPtr
 
         result := ComCall(8, this, CountMarshal, Count, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -93,9 +90,9 @@ export default struct IMsmStrings extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(ObjBindMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get__NewEnum := CallbackCreate(ObjBindMethod(implObj, "get__NewEnum"), flags, 2)
     }
 
     Dispose() {

@@ -23,7 +23,6 @@ export default struct PCLUSTER_SETUP_PROGRESS_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvCallbackArg 
      * @param {CLUSTER_SETUP_PHASE} eSetupPhase 
      * @param {CLUSTER_SETUP_PHASE_TYPE} ePhaseType 
@@ -36,9 +35,10 @@ export default struct PCLUSTER_SETUP_PROGRESS_CALLBACK {
     Call(pvCallbackArg, eSetupPhase, ePhaseType, ePhaseSeverity, dwPercentComplete, lpszObjectName, dwStatus) {
         lpszObjectName := lpszObjectName is String ? StrPtr(lpszObjectName) : lpszObjectName
 
-        pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
+        pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : IntPtr
+        lpszObjectNameMarshal := lpszObjectName == 0 ? IntPtr : PWSTR
 
-        result := DllCall(this.value, pvCallbackArgMarshal, pvCallbackArg, CLUSTER_SETUP_PHASE, eSetupPhase, CLUSTER_SETUP_PHASE_TYPE, ePhaseType, CLUSTER_SETUP_PHASE_SEVERITY, ePhaseSeverity, UInt32, dwPercentComplete, "ptr", lpszObjectName, UInt32, dwStatus, BOOL)
+        result := DllCall(this.value, pvCallbackArgMarshal, pvCallbackArg, CLUSTER_SETUP_PHASE, eSetupPhase, CLUSTER_SETUP_PHASE_TYPE, ePhaseType, CLUSTER_SETUP_PHASE_SEVERITY, ePhaseSeverity, UInt32, dwPercentComplete, lpszObjectNameMarshal, lpszObjectName, UInt32, dwStatus, BOOL)
         return result
     }
 

@@ -19,7 +19,6 @@ export default struct LPDDHAL_CANCREATESURFACE {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_CANCREATESURFACEDATA>} param0 
      * @returns {Integer} 
      */

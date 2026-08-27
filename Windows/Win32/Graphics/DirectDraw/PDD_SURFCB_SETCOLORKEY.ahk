@@ -23,7 +23,6 @@ export default struct PDD_SURFCB_SETCOLORKEY {
     }
 
     /**
-     * 
      * @param {Pointer<DD_SETCOLORKEYDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_setcolorkeydata">DD_SETCOLORKEYDATA</a> structure that contains the information required to set the color key for the specified surface.
      * @returns {Integer} <i>DdSetColorKey</i> returns one of the following callback codes:
      */

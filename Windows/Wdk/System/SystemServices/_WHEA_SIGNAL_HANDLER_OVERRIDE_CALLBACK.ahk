@@ -19,12 +19,13 @@ export default struct _WHEA_SIGNAL_HANDLER_OVERRIDE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer} _Context 
      * @returns {BOOLEAN} 
      */
     Call(_Context) {
-        result := DllCall(this.value, IntPtr, _Context, BOOLEAN)
+        _ContextMarshal := _Context == 0 ? IntPtr : IntPtr
+
+        result := DllCall(this.value, _ContextMarshal, _Context, BOOLEAN)
         return result
     }
 

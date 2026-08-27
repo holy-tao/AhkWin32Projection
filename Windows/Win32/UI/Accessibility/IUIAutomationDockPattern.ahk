@@ -98,9 +98,9 @@ export default struct IUIAutomationDockPattern extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetDockPosition := CallbackCreate(GetMethod(implObj, "SetDockPosition"), flags, 2)
-        this.vtbl.get_CurrentDockPosition := CallbackCreate(GetMethod(implObj, "get_CurrentDockPosition"), flags, 2)
-        this.vtbl.get_CachedDockPosition := CallbackCreate(GetMethod(implObj, "get_CachedDockPosition"), flags, 2)
+        this.vtbl.SetDockPosition := CallbackCreate(ObjBindMethod(implObj, "SetDockPosition"), flags, 2)
+        this.vtbl.get_CurrentDockPosition := CallbackCreate(ObjBindMethod(implObj, "get_CurrentDockPosition"), flags, 2)
+        this.vtbl.get_CachedDockPosition := CallbackCreate(ObjBindMethod(implObj, "get_CachedDockPosition"), flags, 2)
     }
 
     Dispose() {

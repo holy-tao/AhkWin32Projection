@@ -93,7 +93,6 @@ export default struct ICoreWindowAdapterInterop extends IInspectable {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_AppActivationClientAdapter() {
@@ -102,7 +101,6 @@ export default struct ICoreWindowAdapterInterop extends IInspectable {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_ApplicationViewClientAdapter() {
@@ -111,7 +109,6 @@ export default struct ICoreWindowAdapterInterop extends IInspectable {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_CoreApplicationViewClientAdapter() {
@@ -120,7 +117,6 @@ export default struct ICoreWindowAdapterInterop extends IInspectable {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_HoloViewClientAdapter() {
@@ -129,7 +125,6 @@ export default struct ICoreWindowAdapterInterop extends IInspectable {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_PositionerClientAdapter() {
@@ -138,7 +133,6 @@ export default struct ICoreWindowAdapterInterop extends IInspectable {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_SystemNavigationClientAdapter() {
@@ -147,7 +141,6 @@ export default struct ICoreWindowAdapterInterop extends IInspectable {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_TitleBarClientAdapter() {
@@ -156,12 +149,13 @@ export default struct ICoreWindowAdapterInterop extends IInspectable {
     }
 
     /**
-     * 
      * @param {IUnknown} value 
      * @returns {HRESULT} 
      */
     SetWindowClientAdapter(value) {
-        result := ComCall(13, this, "ptr", value, "HRESULT")
+        valueMarshal := value == 0 ? IntPtr : "ptr"
+
+        result := ComCall(13, this, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -174,14 +168,14 @@ export default struct ICoreWindowAdapterInterop extends IInspectable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_AppActivationClientAdapter := CallbackCreate(GetMethod(implObj, "get_AppActivationClientAdapter"), flags, 2)
-        this.vtbl.get_ApplicationViewClientAdapter := CallbackCreate(GetMethod(implObj, "get_ApplicationViewClientAdapter"), flags, 2)
-        this.vtbl.get_CoreApplicationViewClientAdapter := CallbackCreate(GetMethod(implObj, "get_CoreApplicationViewClientAdapter"), flags, 2)
-        this.vtbl.get_HoloViewClientAdapter := CallbackCreate(GetMethod(implObj, "get_HoloViewClientAdapter"), flags, 2)
-        this.vtbl.get_PositionerClientAdapter := CallbackCreate(GetMethod(implObj, "get_PositionerClientAdapter"), flags, 2)
-        this.vtbl.get_SystemNavigationClientAdapter := CallbackCreate(GetMethod(implObj, "get_SystemNavigationClientAdapter"), flags, 2)
-        this.vtbl.get_TitleBarClientAdapter := CallbackCreate(GetMethod(implObj, "get_TitleBarClientAdapter"), flags, 2)
-        this.vtbl.SetWindowClientAdapter := CallbackCreate(GetMethod(implObj, "SetWindowClientAdapter"), flags, 2)
+        this.vtbl.get_AppActivationClientAdapter := CallbackCreate(ObjBindMethod(implObj, "get_AppActivationClientAdapter"), flags, 2)
+        this.vtbl.get_ApplicationViewClientAdapter := CallbackCreate(ObjBindMethod(implObj, "get_ApplicationViewClientAdapter"), flags, 2)
+        this.vtbl.get_CoreApplicationViewClientAdapter := CallbackCreate(ObjBindMethod(implObj, "get_CoreApplicationViewClientAdapter"), flags, 2)
+        this.vtbl.get_HoloViewClientAdapter := CallbackCreate(ObjBindMethod(implObj, "get_HoloViewClientAdapter"), flags, 2)
+        this.vtbl.get_PositionerClientAdapter := CallbackCreate(ObjBindMethod(implObj, "get_PositionerClientAdapter"), flags, 2)
+        this.vtbl.get_SystemNavigationClientAdapter := CallbackCreate(ObjBindMethod(implObj, "get_SystemNavigationClientAdapter"), flags, 2)
+        this.vtbl.get_TitleBarClientAdapter := CallbackCreate(ObjBindMethod(implObj, "get_TitleBarClientAdapter"), flags, 2)
+        this.vtbl.SetWindowClientAdapter := CallbackCreate(ObjBindMethod(implObj, "SetWindowClientAdapter"), flags, 2)
     }
 
     Dispose() {

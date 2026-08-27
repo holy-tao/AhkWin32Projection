@@ -65,8 +65,8 @@ export default struct IUrlAccessor3 extends IUrlAccessor2 {
     GetImpersonationSidBlobs(pcwszURL, pcSidCount, ppSidBlobs) {
         pcwszURL := pcwszURL is String ? StrPtr(pcwszURL) : pcwszURL
 
-        pcSidCountMarshal := pcSidCount is VarRef ? "uint*" : "ptr"
-        ppSidBlobsMarshal := ppSidBlobs is VarRef ? "ptr*" : "ptr"
+        pcSidCountMarshal := pcSidCount is VarRef ? "uint*" : IntPtr
+        ppSidBlobsMarshal := ppSidBlobs is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(19, this, "ptr", pcwszURL, pcSidCountMarshal, pcSidCount, ppSidBlobsMarshal, ppSidBlobs, "HRESULT")
         return result
@@ -81,7 +81,7 @@ export default struct IUrlAccessor3 extends IUrlAccessor2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetImpersonationSidBlobs := CallbackCreate(GetMethod(implObj, "GetImpersonationSidBlobs"), flags, 4)
+        this.vtbl.GetImpersonationSidBlobs := CallbackCreate(ObjBindMethod(implObj, "GetImpersonationSidBlobs"), flags, 4)
     }
 
     Dispose() {

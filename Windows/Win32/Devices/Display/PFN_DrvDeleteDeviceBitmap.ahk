@@ -19,7 +19,6 @@ export default struct PFN_DrvDeleteDeviceBitmap {
     }
 
     /**
-     * 
      * @param {DHSURF} param0 
      * @returns {String} Nothing - always returns an empty string
      */

@@ -48,7 +48,6 @@ export default struct ISelectionServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {SELECTION_TYPE} eType 
      * @param {ISelectionServicesListener} pIListener 
      * @returns {HRESULT} 
@@ -59,7 +58,6 @@ export default struct ISelectionServices extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IMarkupContainer} 
      */
     GetMarkupContainer() {
@@ -68,7 +66,6 @@ export default struct ISelectionServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pIStart 
      * @param {IMarkupPointer} pIEnd 
      * @returns {ISegment} 
@@ -79,7 +76,6 @@ export default struct ISelectionServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHTMLElement} pIElement 
      * @returns {IElementSegment} 
      */
@@ -89,7 +85,6 @@ export default struct ISelectionServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISegment} pISegment 
      * @returns {HRESULT} 
      */
@@ -99,7 +94,6 @@ export default struct ISelectionServices extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ISelectionServicesListener} 
      */
     GetSelectionServicesListener() {
@@ -116,12 +110,12 @@ export default struct ISelectionServices extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetSelectionType := CallbackCreate(GetMethod(implObj, "SetSelectionType"), flags, 3)
-        this.vtbl.GetMarkupContainer := CallbackCreate(GetMethod(implObj, "GetMarkupContainer"), flags, 2)
-        this.vtbl.AddSegment := CallbackCreate(GetMethod(implObj, "AddSegment"), flags, 4)
-        this.vtbl.AddElementSegment := CallbackCreate(GetMethod(implObj, "AddElementSegment"), flags, 3)
-        this.vtbl.RemoveSegment := CallbackCreate(GetMethod(implObj, "RemoveSegment"), flags, 2)
-        this.vtbl.GetSelectionServicesListener := CallbackCreate(GetMethod(implObj, "GetSelectionServicesListener"), flags, 2)
+        this.vtbl.SetSelectionType := CallbackCreate(ObjBindMethod(implObj, "SetSelectionType"), flags, 3)
+        this.vtbl.GetMarkupContainer := CallbackCreate(ObjBindMethod(implObj, "GetMarkupContainer"), flags, 2)
+        this.vtbl.AddSegment := CallbackCreate(ObjBindMethod(implObj, "AddSegment"), flags, 4)
+        this.vtbl.AddElementSegment := CallbackCreate(ObjBindMethod(implObj, "AddElementSegment"), flags, 3)
+        this.vtbl.RemoveSegment := CallbackCreate(ObjBindMethod(implObj, "RemoveSegment"), flags, 2)
+        this.vtbl.GetSelectionServicesListener := CallbackCreate(ObjBindMethod(implObj, "GetSelectionServicesListener"), flags, 2)
     }
 
     Dispose() {

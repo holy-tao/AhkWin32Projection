@@ -70,8 +70,8 @@ export default struct IKsJackDescription2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetJackCount := CallbackCreate(GetMethod(implObj, "GetJackCount"), flags, 2)
-        this.vtbl.GetJackDescription2 := CallbackCreate(GetMethod(implObj, "GetJackDescription2"), flags, 3)
+        this.vtbl.GetJackCount := CallbackCreate(ObjBindMethod(implObj, "GetJackCount"), flags, 2)
+        this.vtbl.GetJackDescription2 := CallbackCreate(ObjBindMethod(implObj, "GetJackDescription2"), flags, 3)
     }
 
     Dispose() {

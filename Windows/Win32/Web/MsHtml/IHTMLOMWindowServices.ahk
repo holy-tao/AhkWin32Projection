@@ -39,7 +39,6 @@ export default struct IHTMLOMWindowServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {HRESULT} 
@@ -50,7 +49,6 @@ export default struct IHTMLOMWindowServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {HRESULT} 
@@ -61,7 +59,6 @@ export default struct IHTMLOMWindowServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {HRESULT} 
@@ -72,7 +69,6 @@ export default struct IHTMLOMWindowServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {HRESULT} 
@@ -91,10 +87,10 @@ export default struct IHTMLOMWindowServices extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.moveTo := CallbackCreate(GetMethod(implObj, "moveTo"), flags, 3)
-        this.vtbl.moveBy := CallbackCreate(GetMethod(implObj, "moveBy"), flags, 3)
-        this.vtbl.resizeTo := CallbackCreate(GetMethod(implObj, "resizeTo"), flags, 3)
-        this.vtbl.resizeBy := CallbackCreate(GetMethod(implObj, "resizeBy"), flags, 3)
+        this.vtbl.moveTo := CallbackCreate(ObjBindMethod(implObj, "moveTo"), flags, 3)
+        this.vtbl.moveBy := CallbackCreate(ObjBindMethod(implObj, "moveBy"), flags, 3)
+        this.vtbl.resizeTo := CallbackCreate(ObjBindMethod(implObj, "resizeTo"), flags, 3)
+        this.vtbl.resizeBy := CallbackCreate(ObjBindMethod(implObj, "resizeBy"), flags, 3)
     }
 
     Dispose() {

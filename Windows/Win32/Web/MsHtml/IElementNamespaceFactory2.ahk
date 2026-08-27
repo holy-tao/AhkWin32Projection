@@ -38,7 +38,6 @@ export default struct IElementNamespaceFactory2 extends IElementNamespaceFactory
     }
 
     /**
-     * 
      * @param {IElementNamespace} pNamespace 
      * @param {BSTR} bstrImplementation 
      * @returns {HRESULT} 
@@ -59,7 +58,7 @@ export default struct IElementNamespaceFactory2 extends IElementNamespaceFactory
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateWithImplementation := CallbackCreate(GetMethod(implObj, "CreateWithImplementation"), flags, 3)
+        this.vtbl.CreateWithImplementation := CallbackCreate(ObjBindMethod(implObj, "CreateWithImplementation"), flags, 3)
     }
 
     Dispose() {

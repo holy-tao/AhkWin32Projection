@@ -48,7 +48,6 @@
 
 ;@region Functions
 /**
- * 
  * @param {Integer} mciId 
  * @param {Integer} uMsg 
  * @param {Pointer} dwParam1 
@@ -56,12 +55,14 @@
  * @returns {Integer} 
  */
 export mciSendCommandA(mciId, uMsg, dwParam1, dwParam2) {
-    result := DllCall("WINMM.dll\mciSendCommandA", UInt32, mciId, UInt32, uMsg, IntPtr, dwParam1, IntPtr, dwParam2, UInt32)
+    dwParam1Marshal := dwParam1 == 0 ? IntPtr : IntPtr
+    dwParam2Marshal := dwParam2 == 0 ? IntPtr : IntPtr
+
+    result := DllCall("WINMM.dll\mciSendCommandA", UInt32, mciId, UInt32, uMsg, dwParam1Marshal, dwParam1, dwParam2Marshal, dwParam2, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Integer} mciId 
  * @param {Integer} uMsg 
  * @param {Pointer} dwParam1 
@@ -69,12 +70,14 @@ export mciSendCommandA(mciId, uMsg, dwParam1, dwParam2) {
  * @returns {Integer} 
  */
 export mciSendCommandW(mciId, uMsg, dwParam1, dwParam2) {
-    result := DllCall("WINMM.dll\mciSendCommandW", UInt32, mciId, UInt32, uMsg, IntPtr, dwParam1, IntPtr, dwParam2, UInt32)
+    dwParam1Marshal := dwParam1 == 0 ? IntPtr : IntPtr
+    dwParam2Marshal := dwParam2 == 0 ? IntPtr : IntPtr
+
+    result := DllCall("WINMM.dll\mciSendCommandW", UInt32, mciId, UInt32, uMsg, dwParam1Marshal, dwParam1, dwParam2Marshal, dwParam2, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PSTR} lpstrCommand 
  * @param {PSTR} lpstrReturnString 
  * @param {Integer} uReturnLength 
@@ -85,12 +88,14 @@ export mciSendStringA(lpstrCommand, lpstrReturnString, uReturnLength, hwndCallba
     lpstrCommand := lpstrCommand is String ? StrPtr(lpstrCommand) : lpstrCommand
     lpstrReturnString := lpstrReturnString is String ? StrPtr(lpstrReturnString) : lpstrReturnString
 
-    result := DllCall("WINMM.dll\mciSendStringA", "ptr", lpstrCommand, "ptr", lpstrReturnString, UInt32, uReturnLength, HWND, hwndCallback, UInt32)
+    lpstrReturnStringMarshal := lpstrReturnString == 0 ? IntPtr : PSTR
+    hwndCallbackMarshal := hwndCallback == 0 ? IntPtr : HWND
+
+    result := DllCall("WINMM.dll\mciSendStringA", "ptr", lpstrCommand, lpstrReturnStringMarshal, lpstrReturnString, UInt32, uReturnLength, hwndCallbackMarshal, hwndCallback, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} lpstrCommand 
  * @param {PWSTR} lpstrReturnString 
  * @param {Integer} uReturnLength 
@@ -101,12 +106,14 @@ export mciSendStringW(lpstrCommand, lpstrReturnString, uReturnLength, hwndCallba
     lpstrCommand := lpstrCommand is String ? StrPtr(lpstrCommand) : lpstrCommand
     lpstrReturnString := lpstrReturnString is String ? StrPtr(lpstrReturnString) : lpstrReturnString
 
-    result := DllCall("WINMM.dll\mciSendStringW", "ptr", lpstrCommand, "ptr", lpstrReturnString, UInt32, uReturnLength, HWND, hwndCallback, UInt32)
+    lpstrReturnStringMarshal := lpstrReturnString == 0 ? IntPtr : PWSTR
+    hwndCallbackMarshal := hwndCallback == 0 ? IntPtr : HWND
+
+    result := DllCall("WINMM.dll\mciSendStringW", "ptr", lpstrCommand, lpstrReturnStringMarshal, lpstrReturnString, UInt32, uReturnLength, hwndCallbackMarshal, hwndCallback, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PSTR} pszDevice 
  * @returns {Integer} 
  */
@@ -118,7 +125,6 @@ export mciGetDeviceIDA(pszDevice) {
 }
 
 /**
- * 
  * @param {PWSTR} pszDevice 
  * @returns {Integer} 
  */
@@ -130,7 +136,6 @@ export mciGetDeviceIDW(pszDevice) {
 }
 
 /**
- * 
  * @param {Integer} dwElementID 
  * @param {PSTR} lpstrType 
  * @returns {Integer} 
@@ -143,7 +148,6 @@ export mciGetDeviceIDFromElementIDA(dwElementID, lpstrType) {
 }
 
 /**
- * 
  * @param {Integer} dwElementID 
  * @param {PWSTR} lpstrType 
  * @returns {Integer} 
@@ -156,7 +160,6 @@ export mciGetDeviceIDFromElementIDW(dwElementID, lpstrType) {
 }
 
 /**
- * 
  * @param {Integer} mcierr 
  * @param {PSTR} pszText 
  * @param {Integer} cchText 
@@ -170,7 +173,6 @@ export mciGetErrorStringA(mcierr, pszText, cchText) {
 }
 
 /**
- * 
  * @param {Integer} mcierr 
  * @param {PWSTR} pszText 
  * @param {Integer} cchText 
@@ -184,19 +186,19 @@ export mciGetErrorStringW(mcierr, pszText, cchText) {
 }
 
 /**
- * 
  * @param {Integer} mciId 
  * @param {Pointer<YIELDPROC>} fpYieldProc 
  * @param {Integer} dwYieldData 
  * @returns {BOOL} 
  */
 export mciSetYieldProc(mciId, fpYieldProc, dwYieldData) {
-    result := DllCall("WINMM.dll\mciSetYieldProc", UInt32, mciId, YIELDPROC, fpYieldProc, UInt32, dwYieldData, BOOL)
+    fpYieldProcMarshal := fpYieldProc == 0 ? IntPtr : YIELDPROC
+
+    result := DllCall("WINMM.dll\mciSetYieldProc", UInt32, mciId, fpYieldProcMarshal, fpYieldProc, UInt32, dwYieldData, BOOL)
     return result
 }
 
 /**
- * 
  * @param {Integer} mciId 
  * @returns {HTASK} 
  */
@@ -206,20 +208,18 @@ export mciGetCreatorTask(mciId) {
 }
 
 /**
- * 
  * @param {Integer} mciId 
  * @param {Pointer<Integer>} pdwYieldData 
  * @returns {Pointer<YIELDPROC>} 
  */
 export mciGetYieldProc(mciId, pdwYieldData) {
-    pdwYieldDataMarshal := pdwYieldData is VarRef ? "uint*" : "ptr"
+    pdwYieldDataMarshal := pdwYieldData is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WINMM.dll\mciGetYieldProc", UInt32, mciId, pdwYieldDataMarshal, pdwYieldData, YIELDPROC)
     return result
 }
 
 /**
- * 
  * @param {Integer} wDeviceID 
  * @returns {Pointer} 
  */
@@ -229,7 +229,6 @@ export mciGetDriverData(wDeviceID) {
 }
 
 /**
- * 
  * @param {HANDLE} _hInstance 
  * @param {PWSTR} lpResName 
  * @param {Integer} wType 
@@ -243,7 +242,6 @@ export mciLoadCommandResource(_hInstance, lpResName, wType) {
 }
 
 /**
- * 
  * @param {Integer} wDeviceID 
  * @param {Pointer} dwData 
  * @returns {BOOL} 
@@ -254,7 +252,6 @@ export mciSetDriverData(wDeviceID, dwData) {
 }
 
 /**
- * 
  * @param {Integer} wDeviceID 
  * @returns {Integer} 
  */
@@ -264,7 +261,6 @@ export mciDriverYield(wDeviceID) {
 }
 
 /**
- * 
  * @param {HANDLE} hwndCallback 
  * @param {Integer} wDeviceID 
  * @param {Integer} uStatus 
@@ -276,7 +272,6 @@ export mciDriverNotify(hwndCallback, wDeviceID, uStatus) {
 }
 
 /**
- * 
  * @param {Integer} wTable 
  * @returns {BOOL} 
  */
@@ -508,7 +503,6 @@ export sndOpenSound(EventName, AppName, Flags, FileHandle) {
 }
 
 /**
- * 
  * @param {HDRVR} hDriver 
  * @param {PWSTR} wszDrvEntry 
  * @param {Pointer<DRIVERMSGPROC>} drvMessage 
@@ -632,7 +626,9 @@ export mmioStringToFOURCCW(sz, uFlags) {
  * @since windows5.0
  */
 export mmioInstallIOProcA(fccIOProc, pIOProc, dwFlags) {
-    result := DllCall("WINMM.dll\mmioInstallIOProcA", UInt32, fccIOProc, LPMMIOPROC, pIOProc, UInt32, dwFlags, LPMMIOPROC)
+    pIOProcMarshal := pIOProc == 0 ? IntPtr : LPMMIOPROC
+
+    result := DllCall("WINMM.dll\mmioInstallIOProcA", UInt32, fccIOProc, pIOProcMarshal, pIOProc, UInt32, dwFlags, LPMMIOPROC)
     return result
 }
 
@@ -674,7 +670,9 @@ export mmioInstallIOProcA(fccIOProc, pIOProc, dwFlags) {
  * @since windows5.0
  */
 export mmioInstallIOProcW(fccIOProc, pIOProc, dwFlags) {
-    result := DllCall("WINMM.dll\mmioInstallIOProcW", UInt32, fccIOProc, LPMMIOPROC, pIOProc, UInt32, dwFlags, LPMMIOPROC)
+    pIOProcMarshal := pIOProc == 0 ? IntPtr : LPMMIOPROC
+
+    result := DllCall("WINMM.dll\mmioInstallIOProcW", UInt32, fccIOProc, pIOProcMarshal, pIOProc, UInt32, dwFlags, LPMMIOPROC)
     return result
 }
 
@@ -807,7 +805,10 @@ export mmioInstallIOProcW(fccIOProc, pIOProc, dwFlags) {
 export mmioOpenA(pszFileName, pmmioinfo, fdwOpen) {
     pszFileName := pszFileName is String ? StrPtr(pszFileName) : pszFileName
 
-    result := DllCall("WINMM.dll\mmioOpenA", "ptr", pszFileName, MMIOINFO.Ptr, pmmioinfo, UInt32, fdwOpen, HMMIO)
+    pszFileNameMarshal := pszFileName == 0 ? IntPtr : PSTR
+    pmmioinfoMarshal := pmmioinfo == 0 ? IntPtr : MMIOINFO.Ptr
+
+    result := DllCall("WINMM.dll\mmioOpenA", pszFileNameMarshal, pszFileName, pmmioinfoMarshal, pmmioinfo, UInt32, fdwOpen, HMMIO)
     return result
 }
 
@@ -940,7 +941,10 @@ export mmioOpenA(pszFileName, pmmioinfo, fdwOpen) {
 export mmioOpenW(pszFileName, pmmioinfo, fdwOpen) {
     pszFileName := pszFileName is String ? StrPtr(pszFileName) : pszFileName
 
-    result := DllCall("WINMM.dll\mmioOpenW", "ptr", pszFileName, MMIOINFO.Ptr, pmmioinfo, UInt32, fdwOpen, HMMIO)
+    pszFileNameMarshal := pszFileName == 0 ? IntPtr : PWSTR
+    pmmioinfoMarshal := pmmioinfo == 0 ? IntPtr : MMIOINFO.Ptr
+
+    result := DllCall("WINMM.dll\mmioOpenW", pszFileNameMarshal, pszFileName, pmmioinfoMarshal, pmmioinfo, UInt32, fdwOpen, HMMIO)
     return result
 }
 
@@ -961,7 +965,9 @@ export mmioRenameA(pszFileName, pszNewFileName, pmmioinfo, fdwRename) {
     pszFileName := pszFileName is String ? StrPtr(pszFileName) : pszFileName
     pszNewFileName := pszNewFileName is String ? StrPtr(pszNewFileName) : pszNewFileName
 
-    result := DllCall("WINMM.dll\mmioRenameA", "ptr", pszFileName, "ptr", pszNewFileName, MMIOINFO.Ptr, pmmioinfo, UInt32, fdwRename, UInt32)
+    pmmioinfoMarshal := pmmioinfo == 0 ? IntPtr : MMIOINFO.Ptr
+
+    result := DllCall("WINMM.dll\mmioRenameA", "ptr", pszFileName, "ptr", pszNewFileName, pmmioinfoMarshal, pmmioinfo, UInt32, fdwRename, UInt32)
     return result
 }
 
@@ -982,7 +988,9 @@ export mmioRenameW(pszFileName, pszNewFileName, pmmioinfo, fdwRename) {
     pszFileName := pszFileName is String ? StrPtr(pszFileName) : pszFileName
     pszNewFileName := pszNewFileName is String ? StrPtr(pszNewFileName) : pszNewFileName
 
-    result := DllCall("WINMM.dll\mmioRenameW", "ptr", pszFileName, "ptr", pszNewFileName, MMIOINFO.Ptr, pmmioinfo, UInt32, fdwRename, UInt32)
+    pmmioinfoMarshal := pmmioinfo == 0 ? IntPtr : MMIOINFO.Ptr
+
+    result := DllCall("WINMM.dll\mmioRenameW", "ptr", pszFileName, "ptr", pszNewFileName, pmmioinfoMarshal, pmmioinfo, UInt32, fdwRename, UInt32)
     return result
 }
 
@@ -1210,7 +1218,9 @@ export mmioSetInfo(_hmmio, pmmioinfo, fuInfo) {
 export mmioSetBuffer(_hmmio, pchBuffer, cchBuffer, fuBuffer) {
     pchBuffer := pchBuffer is String ? StrPtr(pchBuffer) : pchBuffer
 
-    result := DllCall("WINMM.dll\mmioSetBuffer", HMMIO, _hmmio, "ptr", pchBuffer, Int32, cchBuffer, UInt32, fuBuffer, UInt32)
+    pchBufferMarshal := pchBuffer == 0 ? IntPtr : PSTR
+
+    result := DllCall("WINMM.dll\mmioSetBuffer", HMMIO, _hmmio, pchBufferMarshal, pchBuffer, Int32, cchBuffer, UInt32, fuBuffer, UInt32)
     return result
 }
 
@@ -1361,7 +1371,9 @@ export mmioFlush(_hmmio, fuFlush) {
  * @since windows5.0
  */
 export mmioAdvance(_hmmio, pmmioinfo, fuAdvance) {
-    result := DllCall("WINMM.dll\mmioAdvance", HMMIO, _hmmio, MMIOINFO.Ptr, pmmioinfo, UInt32, fuAdvance, UInt32)
+    pmmioinfoMarshal := pmmioinfo == 0 ? IntPtr : MMIOINFO.Ptr
+
+    result := DllCall("WINMM.dll\mmioAdvance", HMMIO, _hmmio, pmmioinfoMarshal, pmmioinfo, UInt32, fuAdvance, UInt32)
     return result
 }
 
@@ -1378,7 +1390,10 @@ export mmioAdvance(_hmmio, pmmioinfo, fuAdvance) {
  * @since windows5.0
  */
 export mmioSendMessage(_hmmio, uMsg, lParam1, lParam2) {
-    result := DllCall("WINMM.dll\mmioSendMessage", HMMIO, _hmmio, UInt32, uMsg, LPARAM, lParam1, LPARAM, lParam2, LRESULT)
+    lParam1Marshal := lParam1 == 0 ? IntPtr : LPARAM
+    lParam2Marshal := lParam2 == 0 ? IntPtr : LPARAM
+
+    result := DllCall("WINMM.dll\mmioSendMessage", HMMIO, _hmmio, UInt32, uMsg, lParam1Marshal, lParam1, lParam2Marshal, lParam2, LRESULT)
     return result
 }
 
@@ -1448,7 +1463,9 @@ export mmioSendMessage(_hmmio, uMsg, lParam1, lParam2) {
  * @since windows5.0
  */
 export mmioDescend(_hmmio, pmmcki, pmmckiParent, fuDescend) {
-    result := DllCall("WINMM.dll\mmioDescend", HMMIO, _hmmio, MMCKINFO.Ptr, pmmcki, MMCKINFO.Ptr, pmmckiParent, UInt32, fuDescend, UInt32)
+    pmmckiParentMarshal := pmmckiParent == 0 ? IntPtr : MMCKINFO.Ptr
+
+    result := DllCall("WINMM.dll\mmioDescend", HMMIO, _hmmio, MMCKINFO.Ptr, pmmcki, pmmckiParentMarshal, pmmckiParent, UInt32, fuDescend, UInt32)
     return result
 }
 
@@ -1861,7 +1878,7 @@ export joyGetPos(uJoyID, pji) {
  * @since windows5.0
  */
 export joyGetThreshold(uJoyID, puThreshold) {
-    puThresholdMarshal := puThreshold is VarRef ? "uint*" : "ptr"
+    puThresholdMarshal := puThreshold is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WINMM.dll\joyGetThreshold", UInt32, uJoyID, puThresholdMarshal, puThreshold, UInt32)
     return result
@@ -2045,7 +2062,6 @@ export joySetThreshold(uJoyID, uThreshold) {
 }
 
 /**
- * 
  * @returns {Integer} 
  */
 export VideoForWindowsVersion() {
@@ -2286,13 +2302,17 @@ export ICSendMessage(_hic, _msg, dw1, dw2) {
  * @since windows5.0
  */
 export ICCompress(_hic, dwFlags, lpbiOutput, lpData, lpbiInput, lpBits, lpckid, lpdwFlags, lFrameNum, dwFrameSize, dwQuality, lpbiPrev, lpPrev) {
-    lpDataMarshal := lpData is VarRef ? "ptr" : "ptr"
-    lpBitsMarshal := lpBits is VarRef ? "ptr" : "ptr"
-    lpckidMarshal := lpckid is VarRef ? "uint*" : "ptr"
-    lpdwFlagsMarshal := lpdwFlags is VarRef ? "uint*" : "ptr"
-    lpPrevMarshal := lpPrev is VarRef ? "ptr" : "ptr"
+    lpDataMarshal := lpData is VarRef ? "ptr" : IntPtr
+    lpBitsMarshal := lpBits is VarRef ? "ptr" : IntPtr
+    lpckidMarshal := lpckid is VarRef ? "uint*" : IntPtr
+    lpckidMarshal := lpckid == 0 ? IntPtr : "uint*"
+    lpdwFlagsMarshal := lpdwFlags is VarRef ? "uint*" : IntPtr
+    lpdwFlagsMarshal := lpdwFlags == 0 ? IntPtr : "uint*"
+    lpbiPrevMarshal := lpbiPrev == 0 ? IntPtr : BITMAPINFOHEADER.Ptr
+    lpPrevMarshal := lpPrev is VarRef ? "ptr" : IntPtr
+    lpPrevMarshal := lpPrev == 0 ? IntPtr : "ptr"
 
-    result := DllCall("MSVFW32.dll\ICCompress", HIC, _hic, UInt32, dwFlags, BITMAPINFOHEADER.Ptr, lpbiOutput, lpDataMarshal, lpData, BITMAPINFOHEADER.Ptr, lpbiInput, lpBitsMarshal, lpBits, lpckidMarshal, lpckid, lpdwFlagsMarshal, lpdwFlags, Int32, lFrameNum, UInt32, dwFrameSize, UInt32, dwQuality, BITMAPINFOHEADER.Ptr, lpbiPrev, lpPrevMarshal, lpPrev, UInt32)
+    result := DllCall("MSVFW32.dll\ICCompress", HIC, _hic, UInt32, dwFlags, BITMAPINFOHEADER.Ptr, lpbiOutput, lpDataMarshal, lpData, BITMAPINFOHEADER.Ptr, lpbiInput, lpBitsMarshal, lpBits, lpckidMarshal, lpckid, lpdwFlagsMarshal, lpdwFlags, Int32, lFrameNum, UInt32, dwFrameSize, UInt32, dwQuality, lpbiPrevMarshal, lpbiPrev, lpPrevMarshal, lpPrev, UInt32)
     return result
 }
 
@@ -2338,8 +2358,8 @@ export ICCompress(_hic, dwFlags, lpbiOutput, lpData, lpbiInput, lpBits, lpckid, 
  * @since windows5.0
  */
 export ICDecompress(_hic, dwFlags, lpbiFormat, lpData, lpbi, lpBits) {
-    lpDataMarshal := lpData is VarRef ? "ptr" : "ptr"
-    lpBitsMarshal := lpBits is VarRef ? "ptr" : "ptr"
+    lpDataMarshal := lpData is VarRef ? "ptr" : IntPtr
+    lpBitsMarshal := lpBits is VarRef ? "ptr" : IntPtr
 
     result := DllCall("MSVFW32.dll\ICDecompress", HIC, _hic, UInt32, dwFlags, BITMAPINFOHEADER.Ptr, lpbiFormat, lpDataMarshal, lpData, BITMAPINFOHEADER.Ptr, lpbi, lpBitsMarshal, lpBits, UInt32)
     return result
@@ -2414,7 +2434,11 @@ export ICDecompress(_hic, dwFlags, lpbiFormat, lpData, lpbi, lpBits) {
  * @since windows5.0
  */
 export ICDrawBegin(_hic, dwFlags, hpal, _hwnd, _hdc, xDst, yDst, dxDst, dyDst, lpbi, xSrc, ySrc, dxSrc, dySrc, dwRate, dwScale) {
-    result := DllCall("MSVFW32.dll\ICDrawBegin", HIC, _hic, UInt32, dwFlags, HPALETTE, hpal, HWND, _hwnd, HDC, _hdc, Int32, xDst, Int32, yDst, Int32, dxDst, Int32, dyDst, BITMAPINFOHEADER.Ptr, lpbi, Int32, xSrc, Int32, ySrc, Int32, dxSrc, Int32, dySrc, UInt32, dwRate, UInt32, dwScale, UInt32)
+    hpalMarshal := hpal == 0 ? IntPtr : HPALETTE
+    _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+    _hdcMarshal := _hdc == 0 ? IntPtr : HDC
+
+    result := DllCall("MSVFW32.dll\ICDrawBegin", HIC, _hic, UInt32, dwFlags, hpalMarshal, hpal, _hwndMarshal, _hwnd, _hdcMarshal, _hdc, Int32, xDst, Int32, yDst, Int32, dxDst, Int32, dyDst, BITMAPINFOHEADER.Ptr, lpbi, Int32, xSrc, Int32, ySrc, Int32, dxSrc, Int32, dySrc, UInt32, dwRate, UInt32, dwScale, UInt32)
     return result
 }
 
@@ -2462,9 +2486,10 @@ export ICDrawBegin(_hic, dwFlags, hpal, _hwnd, _hdc, xDst, yDst, dxDst, dyDst, l
  * @since windows5.0
  */
 export ICDraw(_hic, dwFlags, lpFormat, lpData, cbData, lTime) {
-    lpFormatMarshal := lpFormat is VarRef ? "ptr" : "ptr"
+    lpFormatMarshal := lpFormat is VarRef ? "ptr" : IntPtr
+    lpDataMarshal := lpData == 0 ? IntPtr : IntPtr
 
-    result := DllCall("MSVFW32.dll\ICDraw", HIC, _hic, UInt32, dwFlags, lpFormatMarshal, lpFormat, IntPtr, lpData, UInt32, cbData, Int32, lTime, UInt32)
+    result := DllCall("MSVFW32.dll\ICDraw", HIC, _hic, UInt32, dwFlags, lpFormatMarshal, lpFormat, lpDataMarshal, lpData, UInt32, cbData, Int32, lTime, UInt32)
     return result
 }
 
@@ -2544,7 +2569,9 @@ export ICDraw(_hic, dwFlags, lpFormat, lpData, cbData, lTime) {
  * @since windows5.0
  */
 export ICLocate(fccType, fccHandler, lpbiIn, lpbiOut, wFlags) {
-    result := DllCall("MSVFW32.dll\ICLocate", UInt32, fccType, UInt32, fccHandler, BITMAPINFOHEADER.Ptr, lpbiIn, BITMAPINFOHEADER.Ptr, lpbiOut, UInt16, wFlags, HIC.Owned)
+    lpbiOutMarshal := lpbiOut == 0 ? IntPtr : BITMAPINFOHEADER.Ptr
+
+    result := DllCall("MSVFW32.dll\ICLocate", UInt32, fccType, UInt32, fccHandler, BITMAPINFOHEADER.Ptr, lpbiIn, lpbiOutMarshal, lpbiOut, UInt16, wFlags, HIC.Owned)
     return result
 }
 
@@ -2561,7 +2588,9 @@ export ICLocate(fccType, fccHandler, lpbiIn, lpbiOut, wFlags) {
  * @since windows5.0
  */
 export ICGetDisplayFormat(_hic, lpbiIn, lpbiOut, BitDepth, dx, dy) {
-    result := DllCall("MSVFW32.dll\ICGetDisplayFormat", HIC, _hic, BITMAPINFOHEADER.Ptr, lpbiIn, BITMAPINFOHEADER.Ptr, lpbiOut, Int32, BitDepth, Int32, dx, Int32, dy, HIC.Owned)
+    _hicMarshal := _hic == 0 ? IntPtr : HIC
+
+    result := DllCall("MSVFW32.dll\ICGetDisplayFormat", _hicMarshal, _hic, BITMAPINFOHEADER.Ptr, lpbiIn, BITMAPINFOHEADER.Ptr, lpbiOut, Int32, BitDepth, Int32, dx, Int32, dy, HIC.Owned)
     return result
 }
 
@@ -2581,10 +2610,12 @@ export ICGetDisplayFormat(_hic, lpbiIn, lpbiOut, BitDepth, dx, dy) {
  * @since windows5.0
  */
 export ICImageCompress(_hic, uiFlags, lpbiIn, lpBits, lpbiOut, lQuality, plSize) {
-    lpBitsMarshal := lpBits is VarRef ? "ptr" : "ptr"
-    plSizeMarshal := plSize is VarRef ? "int*" : "ptr"
+    lpBitsMarshal := lpBits is VarRef ? "ptr" : IntPtr
+    lpbiOutMarshal := lpbiOut == 0 ? IntPtr : BITMAPINFO.Ptr
+    plSizeMarshal := plSize is VarRef ? "int*" : IntPtr
+    plSizeMarshal := plSize == 0 ? IntPtr : "int*"
 
-    result := DllCall("MSVFW32.dll\ICImageCompress", HIC, _hic, UInt32, uiFlags, BITMAPINFO.Ptr, lpbiIn, lpBitsMarshal, lpBits, BITMAPINFO.Ptr, lpbiOut, Int32, lQuality, plSizeMarshal, plSize, HANDLE.Owned)
+    result := DllCall("MSVFW32.dll\ICImageCompress", HIC, _hic, UInt32, uiFlags, BITMAPINFO.Ptr, lpbiIn, lpBitsMarshal, lpBits, lpbiOutMarshal, lpbiOut, Int32, lQuality, plSizeMarshal, plSize, HANDLE.Owned)
     return result
 }
 
@@ -2602,9 +2633,11 @@ export ICImageCompress(_hic, uiFlags, lpbiIn, lpBits, lpbiOut, lQuality, plSize)
  * @since windows5.0
  */
 export ICImageDecompress(_hic, uiFlags, lpbiIn, lpBits, lpbiOut) {
-    lpBitsMarshal := lpBits is VarRef ? "ptr" : "ptr"
+    _hicMarshal := _hic == 0 ? IntPtr : HIC
+    lpBitsMarshal := lpBits is VarRef ? "ptr" : IntPtr
+    lpbiOutMarshal := lpbiOut == 0 ? IntPtr : BITMAPINFO.Ptr
 
-    result := DllCall("MSVFW32.dll\ICImageDecompress", HIC, _hic, UInt32, uiFlags, BITMAPINFO.Ptr, lpbiIn, lpBitsMarshal, lpBits, BITMAPINFO.Ptr, lpbiOut, HANDLE.Owned)
+    result := DllCall("MSVFW32.dll\ICImageDecompress", _hicMarshal, _hic, UInt32, uiFlags, BITMAPINFO.Ptr, lpbiIn, lpBitsMarshal, lpBits, lpbiOutMarshal, lpbiOut, HANDLE.Owned)
     return result
 }
 
@@ -2650,10 +2683,14 @@ export ICImageDecompress(_hic, uiFlags, lpbiIn, lpBits, lpbiOut) {
 export ICCompressorChoose(_hwnd, uiFlags, pvIn, lpData, pc, lpszTitle) {
     lpszTitle := lpszTitle is String ? StrPtr(lpszTitle) : lpszTitle
 
-    pvInMarshal := pvIn is VarRef ? "ptr" : "ptr"
-    lpDataMarshal := lpData is VarRef ? "ptr" : "ptr"
+    _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+    pvInMarshal := pvIn is VarRef ? "ptr" : IntPtr
+    pvInMarshal := pvIn == 0 ? IntPtr : "ptr"
+    lpDataMarshal := lpData is VarRef ? "ptr" : IntPtr
+    lpDataMarshal := lpData == 0 ? IntPtr : "ptr"
+    lpszTitleMarshal := lpszTitle == 0 ? IntPtr : PSTR
 
-    result := DllCall("MSVFW32.dll\ICCompressorChoose", HWND, _hwnd, UInt32, uiFlags, pvInMarshal, pvIn, lpDataMarshal, lpData, COMPVARS.Ptr, pc, "ptr", lpszTitle, BOOL)
+    result := DllCall("MSVFW32.dll\ICCompressorChoose", _hwndMarshal, _hwnd, UInt32, uiFlags, pvInMarshal, pvIn, lpDataMarshal, lpData, COMPVARS.Ptr, pc, lpszTitleMarshal, lpszTitle, BOOL)
     return result
 }
 
@@ -2715,9 +2752,10 @@ export ICSeqCompressFrameEnd(pc) {
 export ICSeqCompressFrame(pc, lpBits, pfKey, plSize) {
     static uiFlags := 0 ;Reserved parameters must always be NULL
 
-    lpBitsMarshal := lpBits is VarRef ? "ptr" : "ptr"
-    pfKeyMarshal := pfKey is VarRef ? "int*" : "ptr"
-    plSizeMarshal := plSize is VarRef ? "int*" : "ptr"
+    lpBitsMarshal := lpBits is VarRef ? "ptr" : IntPtr
+    pfKeyMarshal := pfKey is VarRef ? "int*" : IntPtr
+    plSizeMarshal := plSize is VarRef ? "int*" : IntPtr
+    plSizeMarshal := plSize == 0 ? IntPtr : "int*"
 
     result := DllCall("MSVFW32.dll\ICSeqCompressFrame", COMPVARS.Ptr, pc, UInt32, uiFlags, lpBitsMarshal, lpBits, pfKeyMarshal, pfKey, plSizeMarshal, plSize, IntPtr)
     return result
@@ -2801,7 +2839,9 @@ export DrawDibGetPalette(hdd) {
  * @since windows5.0
  */
 export DrawDibSetPalette(hdd, hpal) {
-    result := DllCall("MSVFW32.dll\DrawDibSetPalette", IntPtr, hdd, HPALETTE, hpal, BOOL)
+    hpalMarshal := hpal == 0 ? IntPtr : HPALETTE
+
+    result := DllCall("MSVFW32.dll\DrawDibSetPalette", IntPtr, hdd, hpalMarshal, hpal, BOOL)
     return result
 }
 
@@ -2936,7 +2976,9 @@ export DrawDibStop(hdd) {
  * @since windows5.0
  */
 export DrawDibBegin(hdd, _hdc, dxDst, dyDst, lpbi, dxSrc, dySrc, wFlags) {
-    result := DllCall("MSVFW32.dll\DrawDibBegin", IntPtr, hdd, HDC, _hdc, Int32, dxDst, Int32, dyDst, BITMAPINFOHEADER.Ptr, lpbi, Int32, dxSrc, Int32, dySrc, UInt32, wFlags, BOOL)
+    _hdcMarshal := _hdc == 0 ? IntPtr : HDC
+
+    result := DllCall("MSVFW32.dll\DrawDibBegin", IntPtr, hdd, _hdcMarshal, _hdc, Int32, dxDst, Int32, dyDst, BITMAPINFOHEADER.Ptr, lpbi, Int32, dxSrc, Int32, dySrc, UInt32, wFlags, BOOL)
     return result
 }
 
@@ -3014,9 +3056,11 @@ export DrawDibBegin(hdd, _hdc, dxDst, dyDst, lpbi, dxSrc, dySrc, wFlags) {
  * @since windows5.0
  */
 export DrawDibDraw(hdd, _hdc, xDst, yDst, dxDst, dyDst, lpbi, lpBits, xSrc, ySrc, dxSrc, dySrc, wFlags) {
-    lpBitsMarshal := lpBits is VarRef ? "ptr" : "ptr"
+    lpbiMarshal := lpbi == 0 ? IntPtr : BITMAPINFOHEADER.Ptr
+    lpBitsMarshal := lpBits is VarRef ? "ptr" : IntPtr
+    lpBitsMarshal := lpBits == 0 ? IntPtr : "ptr"
 
-    result := DllCall("MSVFW32.dll\DrawDibDraw", IntPtr, hdd, HDC, _hdc, Int32, xDst, Int32, yDst, Int32, dxDst, Int32, dyDst, BITMAPINFOHEADER.Ptr, lpbi, lpBitsMarshal, lpBits, Int32, xSrc, Int32, ySrc, Int32, dxSrc, Int32, dySrc, UInt32, wFlags, BOOL)
+    result := DllCall("MSVFW32.dll\DrawDibDraw", IntPtr, hdd, HDC, _hdc, Int32, xDst, Int32, yDst, Int32, dxDst, Int32, dyDst, lpbiMarshal, lpbi, lpBitsMarshal, lpBits, Int32, xSrc, Int32, ySrc, Int32, dxSrc, Int32, dySrc, UInt32, wFlags, BOOL)
     return result
 }
 
@@ -3233,7 +3277,9 @@ export AVIFileRelease(pfile) {
 export AVIFileOpenA(szFile, uMode, lpHandler) {
     szFile := szFile is String ? StrPtr(szFile) : szFile
 
-    result := DllCall("AVIFIL32.dll\AVIFileOpenA", "ptr*", &ppfile := 0, "ptr", szFile, UInt32, uMode, Guid.Ptr, lpHandler, "HRESULT")
+    lpHandlerMarshal := lpHandler == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("AVIFIL32.dll\AVIFileOpenA", "ptr*", &ppfile := 0, "ptr", szFile, UInt32, uMode, lpHandlerMarshal, lpHandler, "HRESULT")
     return IAVIFile(ppfile)
 }
 
@@ -3297,7 +3343,9 @@ export AVIFileOpenA(szFile, uMode, lpHandler) {
 export AVIFileOpenW(szFile, uMode, lpHandler) {
     szFile := szFile is String ? StrPtr(szFile) : szFile
 
-    result := DllCall("AVIFIL32.dll\AVIFileOpenW", "ptr*", &ppfile := 0, "ptr", szFile, UInt32, uMode, Guid.Ptr, lpHandler, "HRESULT")
+    lpHandlerMarshal := lpHandler == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("AVIFIL32.dll\AVIFileOpenW", "ptr*", &ppfile := 0, "ptr", szFile, UInt32, uMode, lpHandlerMarshal, lpHandler, "HRESULT")
     return IAVIFile(ppfile)
 }
 
@@ -3470,7 +3518,7 @@ export AVIFileWriteData(pfile, ckid, lpData, cbData) {
  * @since windows5.0
  */
 export AVIFileReadData(pfile, ckid, lpData, lpcbData) {
-    lpcbDataMarshal := lpcbData is VarRef ? "int*" : "ptr"
+    lpcbDataMarshal := lpcbData is VarRef ? "int*" : IntPtr
 
     result := DllCall("AVIFIL32.dll\AVIFileReadData", "ptr", pfile, UInt32, ckid, IntPtr, lpData, lpcbDataMarshal, lpcbData, "HRESULT")
     return result
@@ -3624,9 +3672,10 @@ export AVIStreamFindSample(pavi, lPos, lFlags) {
  * @since windows5.0
  */
 export AVIStreamReadFormat(pavi, lPos, lpFormat, lpcbFormat) {
-    lpcbFormatMarshal := lpcbFormat is VarRef ? "int*" : "ptr"
+    lpFormatMarshal := lpFormat == 0 ? IntPtr : IntPtr
+    lpcbFormatMarshal := lpcbFormat is VarRef ? "int*" : IntPtr
 
-    result := DllCall("AVIFIL32.dll\AVIStreamReadFormat", "ptr", pavi, Int32, lPos, IntPtr, lpFormat, lpcbFormatMarshal, lpcbFormat, "HRESULT")
+    result := DllCall("AVIFIL32.dll\AVIStreamReadFormat", "ptr", pavi, Int32, lPos, lpFormatMarshal, lpFormat, lpcbFormatMarshal, lpcbFormat, "HRESULT")
     return result
 }
 
@@ -3664,9 +3713,10 @@ export AVIStreamSetFormat(pavi, lPos, lpFormat, cbFormat) {
  * @since windows5.0
  */
 export AVIStreamReadData(pavi, fcc, lp, lpcb) {
-    lpcbMarshal := lpcb is VarRef ? "int*" : "ptr"
+    lpMarshal := lp == 0 ? IntPtr : IntPtr
+    lpcbMarshal := lpcb is VarRef ? "int*" : IntPtr
 
-    result := DllCall("AVIFIL32.dll\AVIStreamReadData", "ptr", pavi, UInt32, fcc, IntPtr, lp, lpcbMarshal, lpcb, "HRESULT")
+    result := DllCall("AVIFIL32.dll\AVIStreamReadData", "ptr", pavi, UInt32, fcc, lpMarshal, lp, lpcbMarshal, lpcb, "HRESULT")
     return result
 }
 
@@ -3747,10 +3797,13 @@ export AVIStreamWriteData(pavi, fcc, lp, cb) {
  * @since windows5.0
  */
 export AVIStreamRead(pavi, lStart, lSamples, lpBuffer, cbBuffer, plBytes, plSamples) {
-    plBytesMarshal := plBytes is VarRef ? "int*" : "ptr"
-    plSamplesMarshal := plSamples is VarRef ? "int*" : "ptr"
+    lpBufferMarshal := lpBuffer == 0 ? IntPtr : IntPtr
+    plBytesMarshal := plBytes is VarRef ? "int*" : IntPtr
+    plBytesMarshal := plBytes == 0 ? IntPtr : "int*"
+    plSamplesMarshal := plSamples is VarRef ? "int*" : IntPtr
+    plSamplesMarshal := plSamples == 0 ? IntPtr : "int*"
 
-    result := DllCall("AVIFIL32.dll\AVIStreamRead", "ptr", pavi, Int32, lStart, Int32, lSamples, IntPtr, lpBuffer, Int32, cbBuffer, plBytesMarshal, plBytes, plSamplesMarshal, plSamples, "HRESULT")
+    result := DllCall("AVIFIL32.dll\AVIStreamRead", "ptr", pavi, Int32, lStart, Int32, lSamples, lpBufferMarshal, lpBuffer, Int32, cbBuffer, plBytesMarshal, plBytes, plSamplesMarshal, plSamples, "HRESULT")
     return result
 }
 
@@ -3792,8 +3845,10 @@ export AVIStreamRead(pavi, lStart, lSamples, lpBuffer, cbBuffer, plBytes, plSamp
  * @since windows5.0
  */
 export AVIStreamWrite(pavi, lStart, lSamples, lpBuffer, cbBuffer, dwFlags, plSampWritten, plBytesWritten) {
-    plSampWrittenMarshal := plSampWritten is VarRef ? "int*" : "ptr"
-    plBytesWrittenMarshal := plBytesWritten is VarRef ? "int*" : "ptr"
+    plSampWrittenMarshal := plSampWritten is VarRef ? "int*" : IntPtr
+    plSampWrittenMarshal := plSampWritten == 0 ? IntPtr : "int*"
+    plBytesWrittenMarshal := plBytesWritten is VarRef ? "int*" : IntPtr
+    plBytesWrittenMarshal := plBytesWritten == 0 ? IntPtr : "int*"
 
     result := DllCall("AVIFIL32.dll\AVIStreamWrite", "ptr", pavi, Int32, lStart, Int32, lSamples, IntPtr, lpBuffer, Int32, cbBuffer, UInt32, dwFlags, plSampWrittenMarshal, plSampWritten, plBytesWrittenMarshal, plBytesWritten, "HRESULT")
     return result
@@ -3903,7 +3958,9 @@ export AVIStreamEndStreaming(pavi) {
  * @since windows5.0
  */
 export AVIStreamGetFrameOpen(pavi, lpbiWanted) {
-    result := DllCall("AVIFIL32.dll\AVIStreamGetFrameOpen", "ptr", pavi, BITMAPINFOHEADER.Ptr, lpbiWanted, IGetFrame)
+    lpbiWantedMarshal := lpbiWanted == 0 ? IntPtr : BITMAPINFOHEADER.Ptr
+
+    result := DllCall("AVIFIL32.dll\AVIStreamGetFrameOpen", "ptr", pavi, lpbiWantedMarshal, lpbiWanted, IGetFrame)
     return result
 }
 
@@ -3982,7 +4039,9 @@ export AVIStreamGetFrameClose(pg) {
 export AVIStreamOpenFromFileA(szFile, fccType, _lParam, _mode, pclsidHandler) {
     szFile := szFile is String ? StrPtr(szFile) : szFile
 
-    result := DllCall("AVIFIL32.dll\AVIStreamOpenFromFileA", "ptr*", &ppavi := 0, "ptr", szFile, UInt32, fccType, Int32, _lParam, UInt32, _mode, Guid.Ptr, pclsidHandler, "HRESULT")
+    pclsidHandlerMarshal := pclsidHandler == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("AVIFIL32.dll\AVIStreamOpenFromFileA", "ptr*", &ppavi := 0, "ptr", szFile, UInt32, fccType, Int32, _lParam, UInt32, _mode, pclsidHandlerMarshal, pclsidHandler, "HRESULT")
     return IAVIStream(ppavi)
 }
 
@@ -4034,7 +4093,9 @@ export AVIStreamOpenFromFileA(szFile, fccType, _lParam, _mode, pclsidHandler) {
 export AVIStreamOpenFromFileW(szFile, fccType, _lParam, _mode, pclsidHandler) {
     szFile := szFile is String ? StrPtr(szFile) : szFile
 
-    result := DllCall("AVIFIL32.dll\AVIStreamOpenFromFileW", "ptr*", &ppavi := 0, "ptr", szFile, UInt32, fccType, Int32, _lParam, UInt32, _mode, Guid.Ptr, pclsidHandler, "HRESULT")
+    pclsidHandlerMarshal := pclsidHandler == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("AVIFIL32.dll\AVIStreamOpenFromFileW", "ptr*", &ppavi := 0, "ptr", szFile, UInt32, fccType, Int32, _lParam, UInt32, _mode, pclsidHandlerMarshal, pclsidHandler, "HRESULT")
     return IAVIStream(ppavi)
 }
 
@@ -4052,7 +4113,9 @@ export AVIStreamOpenFromFileW(szFile, fccType, _lParam, _mode, pclsidHandler) {
  * @since windows5.0
  */
 export AVIStreamCreate(lParam1, lParam2, pclsidHandler) {
-    result := DllCall("AVIFIL32.dll\AVIStreamCreate", "ptr*", &ppavi := 0, Int32, lParam1, Int32, lParam2, Guid.Ptr, pclsidHandler, "HRESULT")
+    pclsidHandlerMarshal := pclsidHandler == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("AVIFIL32.dll\AVIStreamCreate", "ptr*", &ppavi := 0, Int32, lParam1, Int32, lParam2, pclsidHandlerMarshal, pclsidHandler, "HRESULT")
     return IAVIStream(ppavi)
 }
 
@@ -4070,7 +4133,9 @@ export AVIStreamCreate(lParam1, lParam2, pclsidHandler) {
  * @since windows5.0
  */
 export AVIMakeCompressedStream(ppsSource, lpOptions, pclsidHandler) {
-    result := DllCall("AVIFIL32.dll\AVIMakeCompressedStream", "ptr*", &ppsCompressed := 0, "ptr", ppsSource, AVICOMPRESSOPTIONS.Ptr, lpOptions, Guid.Ptr, pclsidHandler, "HRESULT")
+    pclsidHandlerMarshal := pclsidHandler == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("AVIFIL32.dll\AVIMakeCompressedStream", "ptr*", &ppsCompressed := 0, "ptr", ppsSource, AVICOMPRESSOPTIONS.Ptr, lpOptions, pclsidHandlerMarshal, pclsidHandler, "HRESULT")
     return IAVIStream(ppsCompressed)
 }
 
@@ -4115,10 +4180,12 @@ export AVIMakeCompressedStream(ppsSource, lpOptions, pclsidHandler) {
 export AVISaveA(szFile, pclsidHandler, lpfnCallback, nStreams, pfile, lpOptions, args*) {
     szFile := szFile is String ? StrPtr(szFile) : szFile
 
+    pclsidHandlerMarshal := pclsidHandler == 0 ? IntPtr : Guid.Ptr
+
     varArgs := [args*]
     varArgs.Push("HRESULT")
 
-    result := DllCall("AVIFIL32.dll\AVISaveA", "ptr", szFile, Guid.Ptr, pclsidHandler, AVISAVECALLBACK, lpfnCallback, Int32, nStreams, "ptr", pfile, AVICOMPRESSOPTIONS.Ptr, lpOptions, varArgs*)
+    result := DllCall("AVIFIL32.dll\AVISaveA", "ptr", szFile, pclsidHandlerMarshal, pclsidHandler, AVISAVECALLBACK, lpfnCallback, Int32, nStreams, "ptr", pfile, AVICOMPRESSOPTIONS.Ptr, lpOptions, varArgs*)
     return result
 }
 
@@ -4152,9 +4219,10 @@ export AVISaveA(szFile, pclsidHandler, lpfnCallback, nStreams, pfile, lpOptions,
 export AVISaveVA(szFile, pclsidHandler, lpfnCallback, nStreams, ppavi, plpOptions) {
     szFile := szFile is String ? StrPtr(szFile) : szFile
 
-    plpOptionsMarshal := plpOptions is VarRef ? "ptr*" : "ptr"
+    pclsidHandlerMarshal := pclsidHandler == 0 ? IntPtr : Guid.Ptr
+    plpOptionsMarshal := plpOptions is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("AVIFIL32.dll\AVISaveVA", "ptr", szFile, Guid.Ptr, pclsidHandler, AVISAVECALLBACK, lpfnCallback, Int32, nStreams, IAVIStream.Ptr, ppavi, plpOptionsMarshal, plpOptions, "HRESULT")
+    result := DllCall("AVIFIL32.dll\AVISaveVA", "ptr", szFile, pclsidHandlerMarshal, pclsidHandler, AVISAVECALLBACK, lpfnCallback, Int32, nStreams, IAVIStream.Ptr, ppavi, plpOptionsMarshal, plpOptions, "HRESULT")
     return result
 }
 
@@ -4199,10 +4267,12 @@ export AVISaveVA(szFile, pclsidHandler, lpfnCallback, nStreams, ppavi, plpOption
 export AVISaveW(szFile, pclsidHandler, lpfnCallback, nStreams, pfile, lpOptions, args*) {
     szFile := szFile is String ? StrPtr(szFile) : szFile
 
+    pclsidHandlerMarshal := pclsidHandler == 0 ? IntPtr : Guid.Ptr
+
     varArgs := [args*]
     varArgs.Push("HRESULT")
 
-    result := DllCall("AVIFIL32.dll\AVISaveW", "ptr", szFile, Guid.Ptr, pclsidHandler, AVISAVECALLBACK, lpfnCallback, Int32, nStreams, "ptr", pfile, AVICOMPRESSOPTIONS.Ptr, lpOptions, varArgs*)
+    result := DllCall("AVIFIL32.dll\AVISaveW", "ptr", szFile, pclsidHandlerMarshal, pclsidHandler, AVISAVECALLBACK, lpfnCallback, Int32, nStreams, "ptr", pfile, AVICOMPRESSOPTIONS.Ptr, lpOptions, varArgs*)
     return result
 }
 
@@ -4236,9 +4306,10 @@ export AVISaveW(szFile, pclsidHandler, lpfnCallback, nStreams, pfile, lpOptions,
 export AVISaveVW(szFile, pclsidHandler, lpfnCallback, nStreams, ppavi, plpOptions) {
     szFile := szFile is String ? StrPtr(szFile) : szFile
 
-    plpOptionsMarshal := plpOptions is VarRef ? "ptr*" : "ptr"
+    pclsidHandlerMarshal := pclsidHandler == 0 ? IntPtr : Guid.Ptr
+    plpOptionsMarshal := plpOptions is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("AVIFIL32.dll\AVISaveVW", "ptr", szFile, Guid.Ptr, pclsidHandler, AVISAVECALLBACK, lpfnCallback, Int32, nStreams, IAVIStream.Ptr, ppavi, plpOptionsMarshal, plpOptions, "HRESULT")
+    result := DllCall("AVIFIL32.dll\AVISaveVW", "ptr", szFile, pclsidHandlerMarshal, pclsidHandler, AVISAVECALLBACK, lpfnCallback, Int32, nStreams, IAVIStream.Ptr, ppavi, plpOptionsMarshal, plpOptions, "HRESULT")
     return result
 }
 
@@ -4281,7 +4352,7 @@ export AVISaveVW(szFile, pclsidHandler, lpfnCallback, nStreams, ppavi, plpOption
  * @since windows5.0
  */
 export AVISaveOptions(_hwnd, uiFlags, nStreams, ppavi, plpOptions) {
-    plpOptionsMarshal := plpOptions is VarRef ? "ptr*" : "ptr"
+    plpOptionsMarshal := plpOptions is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("AVIFIL32.dll\AVISaveOptions", HWND, _hwnd, UInt32, uiFlags, Int32, nStreams, IAVIStream.Ptr, ppavi, plpOptionsMarshal, plpOptions, IntPtr)
     return result
@@ -4296,7 +4367,7 @@ export AVISaveOptions(_hwnd, uiFlags, nStreams, ppavi, plpOptions) {
  * @since windows5.0
  */
 export AVISaveOptionsFree(nStreams, plpOptions) {
-    plpOptionsMarshal := plpOptions is VarRef ? "ptr*" : "ptr"
+    plpOptionsMarshal := plpOptions is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("AVIFIL32.dll\AVISaveOptionsFree", Int32, nStreams, plpOptionsMarshal, plpOptions, "HRESULT")
     return result
@@ -4518,8 +4589,8 @@ export CreateEditableStream(psSource) {
  * @since windows5.0
  */
 export EditStreamCut(pavi, plStart, plLength) {
-    plStartMarshal := plStart is VarRef ? "int*" : "ptr"
-    plLengthMarshal := plLength is VarRef ? "int*" : "ptr"
+    plStartMarshal := plStart is VarRef ? "int*" : IntPtr
+    plLengthMarshal := plLength is VarRef ? "int*" : IntPtr
 
     result := DllCall("AVIFIL32.dll\EditStreamCut", "ptr", pavi, plStartMarshal, plStart, plLengthMarshal, plLength, "ptr*", &ppResult := 0, "HRESULT")
     return IAVIStream(ppResult)
@@ -4539,8 +4610,8 @@ export EditStreamCut(pavi, plStart, plLength) {
  * @since windows5.0
  */
 export EditStreamCopy(pavi, plStart, plLength) {
-    plStartMarshal := plStart is VarRef ? "int*" : "ptr"
-    plLengthMarshal := plLength is VarRef ? "int*" : "ptr"
+    plStartMarshal := plStart is VarRef ? "int*" : IntPtr
+    plLengthMarshal := plLength is VarRef ? "int*" : IntPtr
 
     result := DllCall("AVIFIL32.dll\EditStreamCopy", "ptr", pavi, plStartMarshal, plStart, plLengthMarshal, plLength, "ptr*", &ppResult := 0, "HRESULT")
     return IAVIStream(ppResult)
@@ -4563,8 +4634,8 @@ export EditStreamCopy(pavi, plStart, plLength) {
  * @since windows5.0
  */
 export EditStreamPaste(pavi, plPos, plLength, pstream, lStart, lEnd) {
-    plPosMarshal := plPos is VarRef ? "int*" : "ptr"
-    plLengthMarshal := plLength is VarRef ? "int*" : "ptr"
+    plPosMarshal := plPos is VarRef ? "int*" : IntPtr
+    plLengthMarshal := plLength is VarRef ? "int*" : IntPtr
 
     result := DllCall("AVIFIL32.dll\EditStreamPaste", "ptr", pavi, plPosMarshal, plPos, plLengthMarshal, plLength, "ptr", pstream, Int32, lStart, Int32, lEnd, "HRESULT")
     return result
@@ -4837,7 +4908,11 @@ export EditStreamSetInfoA(pavi, lpInfo, cbInfo) {
 export MCIWndCreateA(hwndParent, _hInstance, dwStyle, szFile) {
     szFile := szFile is String ? StrPtr(szFile) : szFile
 
-    result := DllCall("MSVFW32.dll\MCIWndCreateA", HWND, hwndParent, HINSTANCE, _hInstance, UInt32, dwStyle, "ptr", szFile, HWND)
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+    _hInstanceMarshal := _hInstance == 0 ? IntPtr : HINSTANCE
+    szFileMarshal := szFile == 0 ? IntPtr : PSTR
+
+    result := DllCall("MSVFW32.dll\MCIWndCreateA", hwndParentMarshal, hwndParent, _hInstanceMarshal, _hInstance, UInt32, dwStyle, szFileMarshal, szFile, HWND)
     return result
 }
 
@@ -4948,7 +5023,11 @@ export MCIWndCreateA(hwndParent, _hInstance, dwStyle, szFile) {
 export MCIWndCreateW(hwndParent, _hInstance, dwStyle, szFile) {
     szFile := szFile is String ? StrPtr(szFile) : szFile
 
-    result := DllCall("MSVFW32.dll\MCIWndCreateW", HWND, hwndParent, HINSTANCE, _hInstance, UInt32, dwStyle, "ptr", szFile, HWND)
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+    _hInstanceMarshal := _hInstance == 0 ? IntPtr : HINSTANCE
+    szFileMarshal := szFile == 0 ? IntPtr : PWSTR
+
+    result := DllCall("MSVFW32.dll\MCIWndCreateW", hwndParentMarshal, hwndParent, _hInstanceMarshal, _hInstance, UInt32, dwStyle, szFileMarshal, szFile, HWND)
     return result
 }
 
@@ -4985,7 +5064,9 @@ export MCIWndRegisterClass() {
 export capCreateCaptureWindowA(lpszWindowName, dwStyle, x, y, nWidth, nHeight, hwndParent, nID) {
     lpszWindowName := lpszWindowName is String ? StrPtr(lpszWindowName) : lpszWindowName
 
-    result := DllCall("AVICAP32.dll\capCreateCaptureWindowA", "ptr", lpszWindowName, UInt32, dwStyle, Int32, x, Int32, y, Int32, nWidth, Int32, nHeight, HWND, hwndParent, Int32, nID, HWND)
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+
+    result := DllCall("AVICAP32.dll\capCreateCaptureWindowA", "ptr", lpszWindowName, UInt32, dwStyle, Int32, x, Int32, y, Int32, nWidth, Int32, nHeight, hwndParentMarshal, hwndParent, Int32, nID, HWND)
     return result
 }
 
@@ -5039,7 +5120,9 @@ export capGetDriverDescriptionA(wDriverIndex, lpszName, cbName, lpszVer, cbVer) 
 export capCreateCaptureWindowW(lpszWindowName, dwStyle, x, y, nWidth, nHeight, hwndParent, nID) {
     lpszWindowName := lpszWindowName is String ? StrPtr(lpszWindowName) : lpszWindowName
 
-    result := DllCall("AVICAP32.dll\capCreateCaptureWindowW", "ptr", lpszWindowName, UInt32, dwStyle, Int32, x, Int32, y, Int32, nWidth, Int32, nHeight, HWND, hwndParent, Int32, nID, HWND)
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+
+    result := DllCall("AVICAP32.dll\capCreateCaptureWindowW", "ptr", lpszWindowName, UInt32, dwStyle, Int32, x, Int32, y, Int32, nWidth, Int32, nHeight, hwndParentMarshal, hwndParent, Int32, nID, HWND)
     return result
 }
 

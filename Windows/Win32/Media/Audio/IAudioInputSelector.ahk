@@ -91,7 +91,9 @@ export default struct IAudioInputSelector extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iaudioinputselector-setselection
      */
     SetSelection(nIdSelect, pguidEventContext) {
-        result := ComCall(4, this, UInt32, nIdSelect, Guid.Ptr, pguidEventContext, "HRESULT")
+        pguidEventContextMarshal := pguidEventContext == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(4, this, UInt32, nIdSelect, pguidEventContextMarshal, pguidEventContext, "HRESULT")
         return result
     }
 
@@ -104,8 +106,8 @@ export default struct IAudioInputSelector extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSelection := CallbackCreate(GetMethod(implObj, "GetSelection"), flags, 2)
-        this.vtbl.SetSelection := CallbackCreate(GetMethod(implObj, "SetSelection"), flags, 3)
+        this.vtbl.GetSelection := CallbackCreate(ObjBindMethod(implObj, "GetSelection"), flags, 2)
+        this.vtbl.SetSelection := CallbackCreate(ObjBindMethod(implObj, "SetSelection"), flags, 3)
     }
 
     Dispose() {

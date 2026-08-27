@@ -19,14 +19,13 @@ export default struct PGPE_SERVICE_ROUTINE2 {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _ObjectContext 
      * @param {Pointer<Void>} ServiceContext 
      * @returns {BOOLEAN} 
      */
     Call(_ObjectContext, ServiceContext) {
-        _ObjectContextMarshal := _ObjectContext is VarRef ? "ptr" : "ptr"
-        ServiceContextMarshal := ServiceContext is VarRef ? "ptr" : "ptr"
+        _ObjectContextMarshal := _ObjectContext is VarRef ? "ptr" : IntPtr
+        ServiceContextMarshal := ServiceContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _ObjectContextMarshal, _ObjectContext, ServiceContextMarshal, ServiceContext, BOOLEAN)
         return result

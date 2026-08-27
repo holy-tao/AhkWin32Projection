@@ -48,7 +48,6 @@ export default struct IXpsDocumentConsumer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnknown 
      * @returns {HRESULT} 
      */
@@ -58,7 +57,6 @@ export default struct IXpsDocumentConsumer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IXpsDocument} pIXpsDocument 
      * @returns {HRESULT} 
      */
@@ -68,7 +66,6 @@ export default struct IXpsDocumentConsumer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IFixedDocumentSequence} pIFixedDocumentSequence 
      * @returns {HRESULT} 
      */
@@ -78,7 +75,6 @@ export default struct IXpsDocumentConsumer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IFixedDocument} pIFixedDocument 
      * @returns {HRESULT} 
      */
@@ -88,7 +84,6 @@ export default struct IXpsDocumentConsumer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IFixedPage} pIFixedPage 
      * @returns {HRESULT} 
      */
@@ -98,7 +93,6 @@ export default struct IXpsDocumentConsumer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CloseSender() {
@@ -107,7 +101,6 @@ export default struct IXpsDocumentConsumer extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} uri 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Pointer<Void>>} ppNewObject 
@@ -117,7 +110,7 @@ export default struct IXpsDocumentConsumer extends IUnknown {
     GetNewEmptyPart(uri, riid, ppNewObject, ppWriteStream) {
         uri := uri is String ? StrPtr(uri) : uri
 
-        ppNewObjectMarshal := ppNewObject is VarRef ? "ptr*" : "ptr"
+        ppNewObjectMarshal := ppNewObject is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(9, this, "ptr", uri, Guid.Ptr, riid, ppNewObjectMarshal, ppNewObject, IPrintWriteStream.Ptr, ppWriteStream, "HRESULT")
         return result
@@ -132,13 +125,13 @@ export default struct IXpsDocumentConsumer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SendXpsUnknown := CallbackCreate(GetMethod(implObj, "SendXpsUnknown"), flags, 2)
-        this.vtbl.SendXpsDocument := CallbackCreate(GetMethod(implObj, "SendXpsDocument"), flags, 2)
-        this.vtbl.SendFixedDocumentSequence := CallbackCreate(GetMethod(implObj, "SendFixedDocumentSequence"), flags, 2)
-        this.vtbl.SendFixedDocument := CallbackCreate(GetMethod(implObj, "SendFixedDocument"), flags, 2)
-        this.vtbl.SendFixedPage := CallbackCreate(GetMethod(implObj, "SendFixedPage"), flags, 2)
-        this.vtbl.CloseSender := CallbackCreate(GetMethod(implObj, "CloseSender"), flags, 1)
-        this.vtbl.GetNewEmptyPart := CallbackCreate(GetMethod(implObj, "GetNewEmptyPart"), flags, 5)
+        this.vtbl.SendXpsUnknown := CallbackCreate(ObjBindMethod(implObj, "SendXpsUnknown"), flags, 2)
+        this.vtbl.SendXpsDocument := CallbackCreate(ObjBindMethod(implObj, "SendXpsDocument"), flags, 2)
+        this.vtbl.SendFixedDocumentSequence := CallbackCreate(ObjBindMethod(implObj, "SendFixedDocumentSequence"), flags, 2)
+        this.vtbl.SendFixedDocument := CallbackCreate(ObjBindMethod(implObj, "SendFixedDocument"), flags, 2)
+        this.vtbl.SendFixedPage := CallbackCreate(ObjBindMethod(implObj, "SendFixedPage"), flags, 2)
+        this.vtbl.CloseSender := CallbackCreate(ObjBindMethod(implObj, "CloseSender"), flags, 1)
+        this.vtbl.GetNewEmptyPart := CallbackCreate(ObjBindMethod(implObj, "GetNewEmptyPart"), flags, 5)
     }
 
     Dispose() {

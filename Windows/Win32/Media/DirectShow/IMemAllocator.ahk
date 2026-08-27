@@ -187,8 +187,10 @@ export default struct IMemAllocator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imemallocator-getbuffer
      */
     GetBuffer(pStartTime, pEndTime, dwFlags) {
-        pStartTimeMarshal := pStartTime is VarRef ? "int64*" : "ptr"
-        pEndTimeMarshal := pEndTime is VarRef ? "int64*" : "ptr"
+        pStartTimeMarshal := pStartTime is VarRef ? "int64*" : IntPtr
+        pStartTimeMarshal := pStartTime == 0 ? IntPtr : "int64*"
+        pEndTimeMarshal := pEndTime is VarRef ? "int64*" : IntPtr
+        pEndTimeMarshal := pEndTime == 0 ? IntPtr : "int64*"
 
         result := ComCall(7, this, "ptr*", &ppBuffer := 0, pStartTimeMarshal, pStartTime, pEndTimeMarshal, pEndTime, UInt32, dwFlags, "HRESULT")
         return IMediaSample(ppBuffer)
@@ -216,12 +218,12 @@ export default struct IMemAllocator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetProperties := CallbackCreate(GetMethod(implObj, "SetProperties"), flags, 3)
-        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
-        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 1)
-        this.vtbl.Decommit := CallbackCreate(GetMethod(implObj, "Decommit"), flags, 1)
-        this.vtbl.GetBuffer := CallbackCreate(GetMethod(implObj, "GetBuffer"), flags, 5)
-        this.vtbl.ReleaseBuffer := CallbackCreate(GetMethod(implObj, "ReleaseBuffer"), flags, 2)
+        this.vtbl.SetProperties := CallbackCreate(ObjBindMethod(implObj, "SetProperties"), flags, 3)
+        this.vtbl.GetProperties := CallbackCreate(ObjBindMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.Commit := CallbackCreate(ObjBindMethod(implObj, "Commit"), flags, 1)
+        this.vtbl.Decommit := CallbackCreate(ObjBindMethod(implObj, "Decommit"), flags, 1)
+        this.vtbl.GetBuffer := CallbackCreate(ObjBindMethod(implObj, "GetBuffer"), flags, 5)
+        this.vtbl.ReleaseBuffer := CallbackCreate(ObjBindMethod(implObj, "ReleaseBuffer"), flags, 2)
     }
 
     Dispose() {

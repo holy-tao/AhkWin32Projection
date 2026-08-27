@@ -97,8 +97,8 @@ export default struct IWICMetadataQueryWriter extends IWICMetadataQueryReader {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetMetadataByName := CallbackCreate(GetMethod(implObj, "SetMetadataByName"), flags, 3)
-        this.vtbl.RemoveMetadataByName := CallbackCreate(GetMethod(implObj, "RemoveMetadataByName"), flags, 2)
+        this.vtbl.SetMetadataByName := CallbackCreate(ObjBindMethod(implObj, "SetMetadataByName"), flags, 3)
+        this.vtbl.RemoveMetadataByName := CallbackCreate(ObjBindMethod(implObj, "RemoveMetadataByName"), flags, 2)
     }
 
     Dispose() {

@@ -70,8 +70,8 @@ export default struct INetworkConnectionCostEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ConnectionCostChanged := CallbackCreate(GetMethod(implObj, "ConnectionCostChanged"), flags, 3)
-        this.vtbl.ConnectionDataPlanStatusChanged := CallbackCreate(GetMethod(implObj, "ConnectionDataPlanStatusChanged"), flags, 2)
+        this.vtbl.ConnectionCostChanged := CallbackCreate(ObjBindMethod(implObj, "ConnectionCostChanged"), flags, 3)
+        this.vtbl.ConnectionDataPlanStatusChanged := CallbackCreate(ObjBindMethod(implObj, "ConnectionDataPlanStatusChanged"), flags, 2)
     }
 
     Dispose() {

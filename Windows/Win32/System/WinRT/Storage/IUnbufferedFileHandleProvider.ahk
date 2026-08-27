@@ -73,8 +73,8 @@ export default struct IUnbufferedFileHandleProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OpenUnbufferedFileHandle := CallbackCreate(GetMethod(implObj, "OpenUnbufferedFileHandle"), flags, 3)
-        this.vtbl.CloseUnbufferedFileHandle := CallbackCreate(GetMethod(implObj, "CloseUnbufferedFileHandle"), flags, 1)
+        this.vtbl.OpenUnbufferedFileHandle := CallbackCreate(ObjBindMethod(implObj, "OpenUnbufferedFileHandle"), flags, 3)
+        this.vtbl.CloseUnbufferedFileHandle := CallbackCreate(ObjBindMethod(implObj, "CloseUnbufferedFileHandle"), flags, 1)
     }
 
     Dispose() {

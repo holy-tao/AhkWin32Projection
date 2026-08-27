@@ -38,7 +38,6 @@ export default struct ISpEventSink extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SPEVENT>} pEventArray 
      * @param {Integer} ulCount 
      * @returns {HRESULT} 
@@ -49,12 +48,11 @@ export default struct ISpEventSink extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pullEventInterest 
      * @returns {HRESULT} 
      */
     GetEventInterest(pullEventInterest) {
-        pullEventInterestMarshal := pullEventInterest is VarRef ? "uint*" : "ptr"
+        pullEventInterestMarshal := pullEventInterest is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pullEventInterestMarshal, pullEventInterest, "HRESULT")
         return result
@@ -69,8 +67,8 @@ export default struct ISpEventSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddEvents := CallbackCreate(GetMethod(implObj, "AddEvents"), flags, 3)
-        this.vtbl.GetEventInterest := CallbackCreate(GetMethod(implObj, "GetEventInterest"), flags, 2)
+        this.vtbl.AddEvents := CallbackCreate(ObjBindMethod(implObj, "AddEvents"), flags, 3)
+        this.vtbl.GetEventInterest := CallbackCreate(ObjBindMethod(implObj, "GetEventInterest"), flags, 2)
     }
 
     Dispose() {

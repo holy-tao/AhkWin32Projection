@@ -141,8 +141,8 @@ export default struct IVdsDisk extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsdisk-queryextents
      */
     QueryExtents(ppExtentArray, plNumberOfExtents) {
-        ppExtentArrayMarshal := ppExtentArray is VarRef ? "ptr*" : "ptr"
-        plNumberOfExtentsMarshal := plNumberOfExtents is VarRef ? "int*" : "ptr"
+        ppExtentArrayMarshal := ppExtentArray is VarRef ? "ptr*" : IntPtr
+        plNumberOfExtentsMarshal := plNumberOfExtents is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, ppExtentArrayMarshal, ppExtentArray, plNumberOfExtentsMarshal, plNumberOfExtents, "HRESULT")
         return result
@@ -296,13 +296,13 @@ export default struct IVdsDisk extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
-        this.vtbl.GetPack := CallbackCreate(GetMethod(implObj, "GetPack"), flags, 2)
-        this.vtbl.GetIdentificationData := CallbackCreate(GetMethod(implObj, "GetIdentificationData"), flags, 2)
-        this.vtbl.QueryExtents := CallbackCreate(GetMethod(implObj, "QueryExtents"), flags, 3)
-        this.vtbl.ConvertStyle := CallbackCreate(GetMethod(implObj, "ConvertStyle"), flags, 2)
-        this.vtbl.SetFlags := CallbackCreate(GetMethod(implObj, "SetFlags"), flags, 2)
-        this.vtbl.ClearFlags := CallbackCreate(GetMethod(implObj, "ClearFlags"), flags, 2)
+        this.vtbl.GetProperties := CallbackCreate(ObjBindMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.GetPack := CallbackCreate(ObjBindMethod(implObj, "GetPack"), flags, 2)
+        this.vtbl.GetIdentificationData := CallbackCreate(ObjBindMethod(implObj, "GetIdentificationData"), flags, 2)
+        this.vtbl.QueryExtents := CallbackCreate(ObjBindMethod(implObj, "QueryExtents"), flags, 3)
+        this.vtbl.ConvertStyle := CallbackCreate(ObjBindMethod(implObj, "ConvertStyle"), flags, 2)
+        this.vtbl.SetFlags := CallbackCreate(ObjBindMethod(implObj, "SetFlags"), flags, 2)
+        this.vtbl.ClearFlags := CallbackCreate(ObjBindMethod(implObj, "ClearFlags"), flags, 2)
     }
 
     Dispose() {

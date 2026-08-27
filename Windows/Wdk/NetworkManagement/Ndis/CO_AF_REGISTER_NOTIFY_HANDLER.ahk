@@ -18,7 +18,6 @@ export default struct CO_AF_REGISTER_NOTIFY_HANDLER {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

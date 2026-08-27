@@ -39,7 +39,6 @@ export default struct IThumbnailExtractor extends IUnknown {
     }
 
     /**
-     * 
      * @param {IStorage} pStg 
      * @param {Integer} ulLength 
      * @param {Integer} ulHeight 
@@ -49,15 +48,14 @@ export default struct IThumbnailExtractor extends IUnknown {
      * @returns {HRESULT} 
      */
     ExtractThumbnail(pStg, ulLength, ulHeight, pulOutputLength, pulOutputHeight, phOutputBitmap) {
-        pulOutputLengthMarshal := pulOutputLength is VarRef ? "uint*" : "ptr"
-        pulOutputHeightMarshal := pulOutputHeight is VarRef ? "uint*" : "ptr"
+        pulOutputLengthMarshal := pulOutputLength is VarRef ? "uint*" : IntPtr
+        pulOutputHeightMarshal := pulOutputHeight is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, "ptr", pStg, UInt32, ulLength, UInt32, ulHeight, pulOutputLengthMarshal, pulOutputLength, pulOutputHeightMarshal, pulOutputHeight, HBITMAP.Ptr, phOutputBitmap, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IStorage} pStg 
      * @returns {HRESULT} 
      */
@@ -75,8 +73,8 @@ export default struct IThumbnailExtractor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ExtractThumbnail := CallbackCreate(GetMethod(implObj, "ExtractThumbnail"), flags, 7)
-        this.vtbl.OnFileUpdated := CallbackCreate(GetMethod(implObj, "OnFileUpdated"), flags, 2)
+        this.vtbl.ExtractThumbnail := CallbackCreate(ObjBindMethod(implObj, "ExtractThumbnail"), flags, 7)
+        this.vtbl.OnFileUpdated := CallbackCreate(ObjBindMethod(implObj, "OnFileUpdated"), flags, 2)
     }
 
     Dispose() {

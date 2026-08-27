@@ -113,7 +113,6 @@ export default struct IFeedFolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Feeds() {
@@ -122,7 +121,6 @@ export default struct IFeedFolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Subfolders() {
@@ -131,7 +129,6 @@ export default struct IFeedFolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} feedName 
      * @param {BSTR} feedUrl 
      * @returns {IDispatch} 
@@ -145,7 +142,6 @@ export default struct IFeedFolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} folderName 
      * @returns {IDispatch} 
      */
@@ -157,7 +153,6 @@ export default struct IFeedFolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} feedName 
      * @returns {VARIANT_BOOL} 
      */
@@ -169,7 +164,6 @@ export default struct IFeedFolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} feedName 
      * @returns {IDispatch} 
      */
@@ -181,7 +175,6 @@ export default struct IFeedFolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} folderName 
      * @returns {VARIANT_BOOL} 
      */
@@ -193,7 +186,6 @@ export default struct IFeedFolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} folderName 
      * @returns {IDispatch} 
      */
@@ -205,7 +197,6 @@ export default struct IFeedFolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Delete() {
@@ -214,7 +205,6 @@ export default struct IFeedFolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -224,7 +214,6 @@ export default struct IFeedFolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} folderName 
      * @returns {HRESULT} 
      */
@@ -236,7 +225,6 @@ export default struct IFeedFolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Path() {
@@ -246,7 +234,6 @@ export default struct IFeedFolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} newParentPath 
      * @returns {HRESULT} 
      */
@@ -258,7 +245,6 @@ export default struct IFeedFolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Parent() {
@@ -267,7 +253,6 @@ export default struct IFeedFolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsRoot() {
@@ -276,7 +261,6 @@ export default struct IFeedFolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_TotalUnreadItemCount() {
@@ -285,7 +269,6 @@ export default struct IFeedFolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_TotalItemCount() {
@@ -294,7 +277,6 @@ export default struct IFeedFolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {FEEDS_EVENTS_SCOPE} scope 
      * @param {FEEDS_EVENTS_MASK} mask 
      * @returns {IDispatch} 
@@ -313,24 +295,24 @@ export default struct IFeedFolder extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Feeds := CallbackCreate(GetMethod(implObj, "get_Feeds"), flags, 2)
-        this.vtbl.get_Subfolders := CallbackCreate(GetMethod(implObj, "get_Subfolders"), flags, 2)
-        this.vtbl.CreateFeed := CallbackCreate(GetMethod(implObj, "CreateFeed"), flags, 4)
-        this.vtbl.CreateSubfolder := CallbackCreate(GetMethod(implObj, "CreateSubfolder"), flags, 3)
-        this.vtbl.ExistsFeed := CallbackCreate(GetMethod(implObj, "ExistsFeed"), flags, 3)
-        this.vtbl.GetFeed := CallbackCreate(GetMethod(implObj, "GetFeed"), flags, 3)
-        this.vtbl.ExistsSubfolder := CallbackCreate(GetMethod(implObj, "ExistsSubfolder"), flags, 3)
-        this.vtbl.GetSubfolder := CallbackCreate(GetMethod(implObj, "GetSubfolder"), flags, 3)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.Rename := CallbackCreate(GetMethod(implObj, "Rename"), flags, 2)
-        this.vtbl.get_Path := CallbackCreate(GetMethod(implObj, "get_Path"), flags, 2)
-        this.vtbl.Move := CallbackCreate(GetMethod(implObj, "Move"), flags, 2)
-        this.vtbl.get_Parent := CallbackCreate(GetMethod(implObj, "get_Parent"), flags, 2)
-        this.vtbl.get_IsRoot := CallbackCreate(GetMethod(implObj, "get_IsRoot"), flags, 2)
-        this.vtbl.get_TotalUnreadItemCount := CallbackCreate(GetMethod(implObj, "get_TotalUnreadItemCount"), flags, 2)
-        this.vtbl.get_TotalItemCount := CallbackCreate(GetMethod(implObj, "get_TotalItemCount"), flags, 2)
-        this.vtbl.GetWatcher := CallbackCreate(GetMethod(implObj, "GetWatcher"), flags, 4)
+        this.vtbl.get_Feeds := CallbackCreate(ObjBindMethod(implObj, "get_Feeds"), flags, 2)
+        this.vtbl.get_Subfolders := CallbackCreate(ObjBindMethod(implObj, "get_Subfolders"), flags, 2)
+        this.vtbl.CreateFeed := CallbackCreate(ObjBindMethod(implObj, "CreateFeed"), flags, 4)
+        this.vtbl.CreateSubfolder := CallbackCreate(ObjBindMethod(implObj, "CreateSubfolder"), flags, 3)
+        this.vtbl.ExistsFeed := CallbackCreate(ObjBindMethod(implObj, "ExistsFeed"), flags, 3)
+        this.vtbl.GetFeed := CallbackCreate(ObjBindMethod(implObj, "GetFeed"), flags, 3)
+        this.vtbl.ExistsSubfolder := CallbackCreate(ObjBindMethod(implObj, "ExistsSubfolder"), flags, 3)
+        this.vtbl.GetSubfolder := CallbackCreate(ObjBindMethod(implObj, "GetSubfolder"), flags, 3)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.Rename := CallbackCreate(ObjBindMethod(implObj, "Rename"), flags, 2)
+        this.vtbl.get_Path := CallbackCreate(ObjBindMethod(implObj, "get_Path"), flags, 2)
+        this.vtbl.Move := CallbackCreate(ObjBindMethod(implObj, "Move"), flags, 2)
+        this.vtbl.get_Parent := CallbackCreate(ObjBindMethod(implObj, "get_Parent"), flags, 2)
+        this.vtbl.get_IsRoot := CallbackCreate(ObjBindMethod(implObj, "get_IsRoot"), flags, 2)
+        this.vtbl.get_TotalUnreadItemCount := CallbackCreate(ObjBindMethod(implObj, "get_TotalUnreadItemCount"), flags, 2)
+        this.vtbl.get_TotalItemCount := CallbackCreate(ObjBindMethod(implObj, "get_TotalItemCount"), flags, 2)
+        this.vtbl.GetWatcher := CallbackCreate(ObjBindMethod(implObj, "GetWatcher"), flags, 4)
     }
 
     Dispose() {

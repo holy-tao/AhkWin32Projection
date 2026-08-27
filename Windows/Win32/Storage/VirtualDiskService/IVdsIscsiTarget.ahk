@@ -467,8 +467,8 @@ export default struct IVdsIscsiTarget extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsiscsitarget-getconnectedinitiators
      */
     GetConnectedInitiators(pppwszInitiatorList, plNumberOfInitiators) {
-        pppwszInitiatorListMarshal := pppwszInitiatorList is VarRef ? "ptr*" : "ptr"
-        plNumberOfInitiatorsMarshal := plNumberOfInitiators is VarRef ? "int*" : "ptr"
+        pppwszInitiatorListMarshal := pppwszInitiatorList is VarRef ? "ptr*" : IntPtr
+        plNumberOfInitiatorsMarshal := plNumberOfInitiators is VarRef ? "int*" : IntPtr
 
         result := ComCall(12, this, pppwszInitiatorListMarshal, pppwszInitiatorList, plNumberOfInitiatorsMarshal, plNumberOfInitiators, "HRESULT")
         return result
@@ -483,16 +483,16 @@ export default struct IVdsIscsiTarget extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
-        this.vtbl.GetSubSystem := CallbackCreate(GetMethod(implObj, "GetSubSystem"), flags, 2)
-        this.vtbl.QueryPortalGroups := CallbackCreate(GetMethod(implObj, "QueryPortalGroups"), flags, 2)
-        this.vtbl.QueryAssociatedLuns := CallbackCreate(GetMethod(implObj, "QueryAssociatedLuns"), flags, 2)
-        this.vtbl.CreatePortalGroup := CallbackCreate(GetMethod(implObj, "CreatePortalGroup"), flags, 2)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 2)
-        this.vtbl.SetFriendlyName := CallbackCreate(GetMethod(implObj, "SetFriendlyName"), flags, 2)
-        this.vtbl.SetSharedSecret := CallbackCreate(GetMethod(implObj, "SetSharedSecret"), flags, 3)
-        this.vtbl.RememberInitiatorSharedSecret := CallbackCreate(GetMethod(implObj, "RememberInitiatorSharedSecret"), flags, 3)
-        this.vtbl.GetConnectedInitiators := CallbackCreate(GetMethod(implObj, "GetConnectedInitiators"), flags, 3)
+        this.vtbl.GetProperties := CallbackCreate(ObjBindMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.GetSubSystem := CallbackCreate(ObjBindMethod(implObj, "GetSubSystem"), flags, 2)
+        this.vtbl.QueryPortalGroups := CallbackCreate(ObjBindMethod(implObj, "QueryPortalGroups"), flags, 2)
+        this.vtbl.QueryAssociatedLuns := CallbackCreate(ObjBindMethod(implObj, "QueryAssociatedLuns"), flags, 2)
+        this.vtbl.CreatePortalGroup := CallbackCreate(ObjBindMethod(implObj, "CreatePortalGroup"), flags, 2)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 2)
+        this.vtbl.SetFriendlyName := CallbackCreate(ObjBindMethod(implObj, "SetFriendlyName"), flags, 2)
+        this.vtbl.SetSharedSecret := CallbackCreate(ObjBindMethod(implObj, "SetSharedSecret"), flags, 3)
+        this.vtbl.RememberInitiatorSharedSecret := CallbackCreate(ObjBindMethod(implObj, "RememberInitiatorSharedSecret"), flags, 3)
+        this.vtbl.GetConnectedInitiators := CallbackCreate(ObjBindMethod(implObj, "GetConnectedInitiators"), flags, 3)
     }
 
     Dispose() {

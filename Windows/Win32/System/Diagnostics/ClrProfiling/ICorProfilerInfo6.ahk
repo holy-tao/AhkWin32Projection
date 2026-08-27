@@ -38,7 +38,6 @@ export default struct ICorProfilerInfo6 extends ICorProfilerInfo5 {
     }
 
     /**
-     * 
      * @param {Pointer} inlinersModuleId 
      * @param {Pointer} inlineeModuleId 
      * @param {Integer} inlineeMethodId 
@@ -47,7 +46,7 @@ export default struct ICorProfilerInfo6 extends ICorProfilerInfo5 {
      * @returns {HRESULT} 
      */
     EnumNgenModuleMethodsInliningThisMethod(inlinersModuleId, inlineeModuleId, inlineeMethodId, incompleteData, ppEnum) {
-        incompleteDataMarshal := incompleteData is VarRef ? "int*" : "ptr"
+        incompleteDataMarshal := incompleteData is VarRef ? "int*" : IntPtr
 
         result := ComCall(83, this, IntPtr, inlinersModuleId, IntPtr, inlineeModuleId, UInt32, inlineeMethodId, incompleteDataMarshal, incompleteData, ICorProfilerMethodEnum.Ptr, ppEnum, "HRESULT")
         return result
@@ -62,7 +61,7 @@ export default struct ICorProfilerInfo6 extends ICorProfilerInfo5 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumNgenModuleMethodsInliningThisMethod := CallbackCreate(GetMethod(implObj, "EnumNgenModuleMethodsInliningThisMethod"), flags, 6)
+        this.vtbl.EnumNgenModuleMethodsInliningThisMethod := CallbackCreate(ObjBindMethod(implObj, "EnumNgenModuleMethodsInliningThisMethod"), flags, 6)
     }
 
     Dispose() {

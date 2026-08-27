@@ -22,7 +22,6 @@ export default struct PFNWRITEOBJECTSECURITY {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @param {Integer} param1 
      * @param {PSECURITY_DESCRIPTOR} param2 

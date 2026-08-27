@@ -89,9 +89,9 @@ export default struct ICcgDomainAuthCredentials extends IUnknown {
     GetPasswordCredentials(pluginInput, domainName, username, password) {
         pluginInput := pluginInput is String ? StrPtr(pluginInput) : pluginInput
 
-        domainNameMarshal := domainName is VarRef ? "ptr*" : "ptr"
-        usernameMarshal := username is VarRef ? "ptr*" : "ptr"
-        passwordMarshal := password is VarRef ? "ptr*" : "ptr"
+        domainNameMarshal := domainName is VarRef ? "ptr*" : IntPtr
+        usernameMarshal := username is VarRef ? "ptr*" : IntPtr
+        passwordMarshal := password is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, "ptr", pluginInput, domainNameMarshal, domainName, usernameMarshal, username, passwordMarshal, password, "HRESULT")
         return result
@@ -106,7 +106,7 @@ export default struct ICcgDomainAuthCredentials extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPasswordCredentials := CallbackCreate(GetMethod(implObj, "GetPasswordCredentials"), flags, 5)
+        this.vtbl.GetPasswordCredentials := CallbackCreate(ObjBindMethod(implObj, "GetPasswordCredentials"), flags, 5)
     }
 
     Dispose() {

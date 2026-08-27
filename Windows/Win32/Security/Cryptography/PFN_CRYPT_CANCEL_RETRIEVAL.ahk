@@ -19,13 +19,13 @@ export default struct PFN_CRYPT_CANCEL_RETRIEVAL {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @param {Pointer<Void>} pvArg 
      * @returns {BOOL} 
      */
     Call(dwFlags, pvArg) {
-        pvArgMarshal := pvArg is VarRef ? "ptr" : "ptr"
+        pvArgMarshal := pvArg is VarRef ? "ptr" : IntPtr
+        pvArgMarshal := pvArg == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, UInt32, dwFlags, pvArgMarshal, pvArg, BOOL)
         return result

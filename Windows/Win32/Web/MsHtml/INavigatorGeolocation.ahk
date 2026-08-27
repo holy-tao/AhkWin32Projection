@@ -44,7 +44,6 @@ export default struct INavigatorGeolocation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IWebGeolocation} 
      */
     get_geolocation() {
@@ -61,7 +60,7 @@ export default struct INavigatorGeolocation extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_geolocation := CallbackCreate(GetMethod(implObj, "get_geolocation"), flags, 2)
+        this.vtbl.get_geolocation := CallbackCreate(ObjBindMethod(implObj, "get_geolocation"), flags, 2)
     }
 
     Dispose() {

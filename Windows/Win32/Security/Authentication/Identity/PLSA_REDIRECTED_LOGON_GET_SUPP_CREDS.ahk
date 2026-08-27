@@ -21,13 +21,12 @@ export default struct PLSA_REDIRECTED_LOGON_GET_SUPP_CREDS {
     }
 
     /**
-     * 
      * @param {HANDLE} RedirectedLogonHandle 
      * @param {Pointer<Pointer<SECPKG_SUPPLEMENTAL_CRED_ARRAY>>} SupplementalCredentials 
      * @returns {NTSTATUS} 
      */
     Call(RedirectedLogonHandle, SupplementalCredentials) {
-        SupplementalCredentialsMarshal := SupplementalCredentials is VarRef ? "ptr*" : "ptr"
+        SupplementalCredentialsMarshal := SupplementalCredentials is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, HANDLE, RedirectedLogonHandle, SupplementalCredentialsMarshal, SupplementalCredentials, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

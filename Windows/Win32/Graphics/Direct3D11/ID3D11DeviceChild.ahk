@@ -87,9 +87,10 @@ export default struct ID3D11DeviceChild extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicechild-getprivatedata
      */
     GetPrivateData(guid, pDataSize, pData) {
-        pDataSizeMarshal := pDataSize is VarRef ? "uint*" : "ptr"
+        pDataSizeMarshal := pDataSize is VarRef ? "uint*" : IntPtr
+        pDataMarshal := pData == 0 ? IntPtr : IntPtr
 
-        result := ComCall(4, this, Guid.Ptr, guid, pDataSizeMarshal, pDataSize, IntPtr, pData, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, guid, pDataSizeMarshal, pDataSize, pDataMarshal, pData, "HRESULT")
         return result
     }
 
@@ -122,7 +123,9 @@ export default struct ID3D11DeviceChild extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicechild-setprivatedata
      */
     SetPrivateData(guid, DataSize, pData) {
-        result := ComCall(5, this, Guid.Ptr, guid, UInt32, DataSize, IntPtr, pData, "HRESULT")
+        pDataMarshal := pData == 0 ? IntPtr : IntPtr
+
+        result := ComCall(5, this, Guid.Ptr, guid, UInt32, DataSize, pDataMarshal, pData, "HRESULT")
         return result
     }
 
@@ -142,7 +145,9 @@ export default struct ID3D11DeviceChild extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicechild-setprivatedatainterface
      */
     SetPrivateDataInterface(guid, pData) {
-        result := ComCall(6, this, Guid.Ptr, guid, "ptr", pData, "HRESULT")
+        pDataMarshal := pData == 0 ? IntPtr : "ptr"
+
+        result := ComCall(6, this, Guid.Ptr, guid, pDataMarshal, pData, "HRESULT")
         return result
     }
 
@@ -155,10 +160,10 @@ export default struct ID3D11DeviceChild extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDevice := CallbackCreate(GetMethod(implObj, "GetDevice"), flags, 2)
-        this.vtbl.GetPrivateData := CallbackCreate(GetMethod(implObj, "GetPrivateData"), flags, 4)
-        this.vtbl.SetPrivateData := CallbackCreate(GetMethod(implObj, "SetPrivateData"), flags, 4)
-        this.vtbl.SetPrivateDataInterface := CallbackCreate(GetMethod(implObj, "SetPrivateDataInterface"), flags, 3)
+        this.vtbl.GetDevice := CallbackCreate(ObjBindMethod(implObj, "GetDevice"), flags, 2)
+        this.vtbl.GetPrivateData := CallbackCreate(ObjBindMethod(implObj, "GetPrivateData"), flags, 4)
+        this.vtbl.SetPrivateData := CallbackCreate(ObjBindMethod(implObj, "SetPrivateData"), flags, 4)
+        this.vtbl.SetPrivateDataInterface := CallbackCreate(ObjBindMethod(implObj, "SetPrivateDataInterface"), flags, 3)
     }
 
     Dispose() {

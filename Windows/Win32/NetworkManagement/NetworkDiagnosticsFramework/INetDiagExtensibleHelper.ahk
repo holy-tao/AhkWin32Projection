@@ -37,7 +37,6 @@ export default struct INetDiagExtensibleHelper extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} celt 
      * @param {Pointer<HELPER_ATTRIBUTE>} rgKeyAttributes 
      * @param {Pointer<Integer>} pcelt 
@@ -45,8 +44,8 @@ export default struct INetDiagExtensibleHelper extends IUnknown {
      * @returns {HRESULT} 
      */
     ResolveAttributes(celt, rgKeyAttributes, pcelt, prgMatchValues) {
-        pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
-        prgMatchValuesMarshal := prgMatchValues is VarRef ? "ptr*" : "ptr"
+        pceltMarshal := pcelt is VarRef ? "uint*" : IntPtr
+        prgMatchValuesMarshal := prgMatchValues is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, UInt32, celt, HELPER_ATTRIBUTE.Ptr, rgKeyAttributes, pceltMarshal, pcelt, prgMatchValuesMarshal, prgMatchValues, "HRESULT")
         return result
@@ -61,7 +60,7 @@ export default struct INetDiagExtensibleHelper extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ResolveAttributes := CallbackCreate(GetMethod(implObj, "ResolveAttributes"), flags, 5)
+        this.vtbl.ResolveAttributes := CallbackCreate(ObjBindMethod(implObj, "ResolveAttributes"), flags, 5)
     }
 
     Dispose() {

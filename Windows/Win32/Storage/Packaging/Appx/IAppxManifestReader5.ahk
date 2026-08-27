@@ -57,7 +57,7 @@ export default struct IAppxManifestReader5 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMainPackageDependencies := CallbackCreate(GetMethod(implObj, "GetMainPackageDependencies"), flags, 2)
+        this.vtbl.GetMainPackageDependencies := CallbackCreate(ObjBindMethod(implObj, "GetMainPackageDependencies"), flags, 2)
     }
 
     Dispose() {

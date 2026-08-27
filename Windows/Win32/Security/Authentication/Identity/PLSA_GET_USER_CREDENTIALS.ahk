@@ -19,7 +19,6 @@ export default struct PLSA_GET_USER_CREDENTIALS {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} UserHandle 
      * @param {Pointer<Pointer<Void>>} PrimaryCreds 
      * @param {Pointer<Integer>} PrimaryCredsSize 
@@ -28,11 +27,11 @@ export default struct PLSA_GET_USER_CREDENTIALS {
      * @returns {NTSTATUS} 
      */
     Call(UserHandle, PrimaryCreds, PrimaryCredsSize, SupplementalCreds, SupplementalCredsSize) {
-        UserHandleMarshal := UserHandle is VarRef ? "ptr" : "ptr"
-        PrimaryCredsMarshal := PrimaryCreds is VarRef ? "ptr*" : "ptr"
-        PrimaryCredsSizeMarshal := PrimaryCredsSize is VarRef ? "uint*" : "ptr"
-        SupplementalCredsMarshal := SupplementalCreds is VarRef ? "ptr*" : "ptr"
-        SupplementalCredsSizeMarshal := SupplementalCredsSize is VarRef ? "uint*" : "ptr"
+        UserHandleMarshal := UserHandle is VarRef ? "ptr" : IntPtr
+        PrimaryCredsMarshal := PrimaryCreds is VarRef ? "ptr*" : IntPtr
+        PrimaryCredsSizeMarshal := PrimaryCredsSize is VarRef ? "uint*" : IntPtr
+        SupplementalCredsMarshal := SupplementalCreds is VarRef ? "ptr*" : IntPtr
+        SupplementalCredsSizeMarshal := SupplementalCredsSize is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, UserHandleMarshal, UserHandle, PrimaryCredsMarshal, PrimaryCreds, PrimaryCredsSizeMarshal, PrimaryCredsSize, SupplementalCredsMarshal, SupplementalCreds, SupplementalCredsSizeMarshal, SupplementalCredsSize, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

@@ -20,7 +20,6 @@ export default struct PLSA_REGISTER_NOTIFICATION {
     }
 
     /**
-     * 
      * @param {Pointer<LPTHREAD_START_ROUTINE>} StartFunction 
      * @param {Pointer<Void>} Parameter 
      * @param {Integer} NotificationType 
@@ -31,9 +30,11 @@ export default struct PLSA_REGISTER_NOTIFICATION {
      * @returns {HANDLE} 
      */
     Call(StartFunction, Parameter, NotificationType, NotificationClass, NotificationFlags, IntervalMinutes, WaitEvent) {
-        ParameterMarshal := Parameter is VarRef ? "ptr" : "ptr"
+        ParameterMarshal := Parameter is VarRef ? "ptr" : IntPtr
+        ParameterMarshal := Parameter == 0 ? IntPtr : "ptr"
+        WaitEventMarshal := WaitEvent == 0 ? IntPtr : HANDLE
 
-        result := DllCall(this.value, LPTHREAD_START_ROUTINE, StartFunction, ParameterMarshal, Parameter, UInt32, NotificationType, UInt32, NotificationClass, UInt32, NotificationFlags, UInt32, IntervalMinutes, HANDLE, WaitEvent, HANDLE.Owned)
+        result := DllCall(this.value, LPTHREAD_START_ROUTINE, StartFunction, ParameterMarshal, Parameter, UInt32, NotificationType, UInt32, NotificationClass, UInt32, NotificationFlags, UInt32, IntervalMinutes, WaitEventMarshal, WaitEvent, HANDLE.Owned)
         return result
     }
 

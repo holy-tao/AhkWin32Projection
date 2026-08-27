@@ -806,16 +806,16 @@ export default struct ITextSelection extends ITextRange {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
-        this.vtbl.SetFlags := CallbackCreate(GetMethod(implObj, "SetFlags"), flags, 2)
-        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
-        this.vtbl.MoveLeft := CallbackCreate(GetMethod(implObj, "MoveLeft"), flags, 5)
-        this.vtbl.MoveRight := CallbackCreate(GetMethod(implObj, "MoveRight"), flags, 5)
-        this.vtbl.MoveUp := CallbackCreate(GetMethod(implObj, "MoveUp"), flags, 5)
-        this.vtbl.MoveDown := CallbackCreate(GetMethod(implObj, "MoveDown"), flags, 5)
-        this.vtbl.HomeKey := CallbackCreate(GetMethod(implObj, "HomeKey"), flags, 4)
-        this.vtbl.EndKey := CallbackCreate(GetMethod(implObj, "EndKey"), flags, 4)
-        this.vtbl.TypeText := CallbackCreate(GetMethod(implObj, "TypeText"), flags, 2)
+        this.vtbl.GetFlags := CallbackCreate(ObjBindMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.SetFlags := CallbackCreate(ObjBindMethod(implObj, "SetFlags"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(ObjBindMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.MoveLeft := CallbackCreate(ObjBindMethod(implObj, "MoveLeft"), flags, 5)
+        this.vtbl.MoveRight := CallbackCreate(ObjBindMethod(implObj, "MoveRight"), flags, 5)
+        this.vtbl.MoveUp := CallbackCreate(ObjBindMethod(implObj, "MoveUp"), flags, 5)
+        this.vtbl.MoveDown := CallbackCreate(ObjBindMethod(implObj, "MoveDown"), flags, 5)
+        this.vtbl.HomeKey := CallbackCreate(ObjBindMethod(implObj, "HomeKey"), flags, 4)
+        this.vtbl.EndKey := CallbackCreate(ObjBindMethod(implObj, "EndKey"), flags, 4)
+        this.vtbl.TypeText := CallbackCreate(ObjBindMethod(implObj, "TypeText"), flags, 2)
     }
 
     Dispose() {

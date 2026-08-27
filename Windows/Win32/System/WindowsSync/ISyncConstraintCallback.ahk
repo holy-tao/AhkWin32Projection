@@ -37,7 +37,6 @@ export default struct ISyncConstraintCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {IConstraintConflict} pConflict 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,7 @@ export default struct ISyncConstraintCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnConstraintConflict := CallbackCreate(GetMethod(implObj, "OnConstraintConflict"), flags, 2)
+        this.vtbl.OnConstraintConflict := CallbackCreate(ObjBindMethod(implObj, "OnConstraintConflict"), flags, 2)
     }
 
     Dispose() {

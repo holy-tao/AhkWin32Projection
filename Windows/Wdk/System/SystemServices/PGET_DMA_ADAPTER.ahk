@@ -19,7 +19,6 @@ export default struct PGET_DMA_ADAPTER {
     }
 
     /**
-     * 
      * @returns {Pointer<DMA_ADAPTER>} 
      */
     Call() {

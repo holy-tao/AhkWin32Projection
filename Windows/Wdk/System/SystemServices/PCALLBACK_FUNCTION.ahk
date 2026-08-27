@@ -18,7 +18,6 @@ export default struct PCALLBACK_FUNCTION {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

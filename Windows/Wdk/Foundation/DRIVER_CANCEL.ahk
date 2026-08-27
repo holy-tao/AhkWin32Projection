@@ -20,7 +20,6 @@ export default struct DRIVER_CANCEL {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<IRP>} _Irp 
      * @returns {String} Nothing - always returns an empty string

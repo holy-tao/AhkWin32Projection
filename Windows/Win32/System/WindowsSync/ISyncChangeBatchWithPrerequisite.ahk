@@ -117,9 +117,9 @@ export default struct ISyncChangeBatchWithPrerequisite extends ISyncChangeBatchB
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetPrerequisiteKnowledge := CallbackCreate(GetMethod(implObj, "SetPrerequisiteKnowledge"), flags, 2)
-        this.vtbl.GetLearnedKnowledgeWithPrerequisite := CallbackCreate(GetMethod(implObj, "GetLearnedKnowledgeWithPrerequisite"), flags, 3)
-        this.vtbl.GetLearnedForgottenKnowledge := CallbackCreate(GetMethod(implObj, "GetLearnedForgottenKnowledge"), flags, 2)
+        this.vtbl.SetPrerequisiteKnowledge := CallbackCreate(ObjBindMethod(implObj, "SetPrerequisiteKnowledge"), flags, 2)
+        this.vtbl.GetLearnedKnowledgeWithPrerequisite := CallbackCreate(ObjBindMethod(implObj, "GetLearnedKnowledgeWithPrerequisite"), flags, 3)
+        this.vtbl.GetLearnedForgottenKnowledge := CallbackCreate(ObjBindMethod(implObj, "GetLearnedForgottenKnowledge"), flags, 2)
     }
 
     Dispose() {

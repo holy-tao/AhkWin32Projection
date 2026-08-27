@@ -152,7 +152,6 @@ export default struct IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_htmlHead() {
@@ -162,7 +161,6 @@ export default struct IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_htmlFoot() {
@@ -172,7 +170,6 @@ export default struct IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -184,7 +181,6 @@ export default struct IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textHead() {
@@ -194,7 +190,6 @@ export default struct IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -206,7 +201,6 @@ export default struct IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textFoot() {
@@ -216,7 +210,6 @@ export default struct IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -226,7 +219,6 @@ export default struct IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_page() {
@@ -235,7 +227,6 @@ export default struct IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -245,7 +236,6 @@ export default struct IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_pageTotal() {
@@ -254,7 +244,6 @@ export default struct IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -266,7 +255,6 @@ export default struct IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_URL() {
@@ -276,7 +264,6 @@ export default struct IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -288,7 +275,6 @@ export default struct IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_title() {
@@ -298,7 +284,6 @@ export default struct IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -310,7 +295,6 @@ export default struct IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_dateShort() {
@@ -320,7 +304,6 @@ export default struct IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -332,7 +315,6 @@ export default struct IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_dateLong() {
@@ -342,7 +324,6 @@ export default struct IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -354,7 +335,6 @@ export default struct IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_timeShort() {
@@ -364,7 +344,6 @@ export default struct IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -376,7 +355,6 @@ export default struct IHeaderFooter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_timeLong() {
@@ -394,28 +372,28 @@ export default struct IHeaderFooter extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_htmlHead := CallbackCreate(GetMethod(implObj, "get_htmlHead"), flags, 2)
-        this.vtbl.get_htmlFoot := CallbackCreate(GetMethod(implObj, "get_htmlFoot"), flags, 2)
-        this.vtbl.put_textHead := CallbackCreate(GetMethod(implObj, "put_textHead"), flags, 2)
-        this.vtbl.get_textHead := CallbackCreate(GetMethod(implObj, "get_textHead"), flags, 2)
-        this.vtbl.put_textFoot := CallbackCreate(GetMethod(implObj, "put_textFoot"), flags, 2)
-        this.vtbl.get_textFoot := CallbackCreate(GetMethod(implObj, "get_textFoot"), flags, 2)
-        this.vtbl.put_page := CallbackCreate(GetMethod(implObj, "put_page"), flags, 2)
-        this.vtbl.get_page := CallbackCreate(GetMethod(implObj, "get_page"), flags, 2)
-        this.vtbl.put_pageTotal := CallbackCreate(GetMethod(implObj, "put_pageTotal"), flags, 2)
-        this.vtbl.get_pageTotal := CallbackCreate(GetMethod(implObj, "get_pageTotal"), flags, 2)
-        this.vtbl.put_URL := CallbackCreate(GetMethod(implObj, "put_URL"), flags, 2)
-        this.vtbl.get_URL := CallbackCreate(GetMethod(implObj, "get_URL"), flags, 2)
-        this.vtbl.put_title := CallbackCreate(GetMethod(implObj, "put_title"), flags, 2)
-        this.vtbl.get_title := CallbackCreate(GetMethod(implObj, "get_title"), flags, 2)
-        this.vtbl.put_dateShort := CallbackCreate(GetMethod(implObj, "put_dateShort"), flags, 2)
-        this.vtbl.get_dateShort := CallbackCreate(GetMethod(implObj, "get_dateShort"), flags, 2)
-        this.vtbl.put_dateLong := CallbackCreate(GetMethod(implObj, "put_dateLong"), flags, 2)
-        this.vtbl.get_dateLong := CallbackCreate(GetMethod(implObj, "get_dateLong"), flags, 2)
-        this.vtbl.put_timeShort := CallbackCreate(GetMethod(implObj, "put_timeShort"), flags, 2)
-        this.vtbl.get_timeShort := CallbackCreate(GetMethod(implObj, "get_timeShort"), flags, 2)
-        this.vtbl.put_timeLong := CallbackCreate(GetMethod(implObj, "put_timeLong"), flags, 2)
-        this.vtbl.get_timeLong := CallbackCreate(GetMethod(implObj, "get_timeLong"), flags, 2)
+        this.vtbl.get_htmlHead := CallbackCreate(ObjBindMethod(implObj, "get_htmlHead"), flags, 2)
+        this.vtbl.get_htmlFoot := CallbackCreate(ObjBindMethod(implObj, "get_htmlFoot"), flags, 2)
+        this.vtbl.put_textHead := CallbackCreate(ObjBindMethod(implObj, "put_textHead"), flags, 2)
+        this.vtbl.get_textHead := CallbackCreate(ObjBindMethod(implObj, "get_textHead"), flags, 2)
+        this.vtbl.put_textFoot := CallbackCreate(ObjBindMethod(implObj, "put_textFoot"), flags, 2)
+        this.vtbl.get_textFoot := CallbackCreate(ObjBindMethod(implObj, "get_textFoot"), flags, 2)
+        this.vtbl.put_page := CallbackCreate(ObjBindMethod(implObj, "put_page"), flags, 2)
+        this.vtbl.get_page := CallbackCreate(ObjBindMethod(implObj, "get_page"), flags, 2)
+        this.vtbl.put_pageTotal := CallbackCreate(ObjBindMethod(implObj, "put_pageTotal"), flags, 2)
+        this.vtbl.get_pageTotal := CallbackCreate(ObjBindMethod(implObj, "get_pageTotal"), flags, 2)
+        this.vtbl.put_URL := CallbackCreate(ObjBindMethod(implObj, "put_URL"), flags, 2)
+        this.vtbl.get_URL := CallbackCreate(ObjBindMethod(implObj, "get_URL"), flags, 2)
+        this.vtbl.put_title := CallbackCreate(ObjBindMethod(implObj, "put_title"), flags, 2)
+        this.vtbl.get_title := CallbackCreate(ObjBindMethod(implObj, "get_title"), flags, 2)
+        this.vtbl.put_dateShort := CallbackCreate(ObjBindMethod(implObj, "put_dateShort"), flags, 2)
+        this.vtbl.get_dateShort := CallbackCreate(ObjBindMethod(implObj, "get_dateShort"), flags, 2)
+        this.vtbl.put_dateLong := CallbackCreate(ObjBindMethod(implObj, "put_dateLong"), flags, 2)
+        this.vtbl.get_dateLong := CallbackCreate(ObjBindMethod(implObj, "get_dateLong"), flags, 2)
+        this.vtbl.put_timeShort := CallbackCreate(ObjBindMethod(implObj, "put_timeShort"), flags, 2)
+        this.vtbl.get_timeShort := CallbackCreate(ObjBindMethod(implObj, "get_timeShort"), flags, 2)
+        this.vtbl.put_timeLong := CallbackCreate(ObjBindMethod(implObj, "put_timeLong"), flags, 2)
+        this.vtbl.get_timeLong := CallbackCreate(ObjBindMethod(implObj, "get_timeLong"), flags, 2)
     }
 
     Dispose() {

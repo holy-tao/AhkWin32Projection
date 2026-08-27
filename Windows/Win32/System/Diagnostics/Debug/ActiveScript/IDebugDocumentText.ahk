@@ -44,7 +44,6 @@ export default struct IDebugDocumentText extends IDebugDocument {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetDocumentAttributes() {
@@ -53,21 +52,19 @@ export default struct IDebugDocumentText extends IDebugDocument {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcNumLines 
      * @param {Pointer<Integer>} pcNumChars 
      * @returns {HRESULT} 
      */
     GetSize(pcNumLines, pcNumChars) {
-        pcNumLinesMarshal := pcNumLines is VarRef ? "uint*" : "ptr"
-        pcNumCharsMarshal := pcNumChars is VarRef ? "uint*" : "ptr"
+        pcNumLinesMarshal := pcNumLines is VarRef ? "uint*" : IntPtr
+        pcNumCharsMarshal := pcNumChars is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, pcNumLinesMarshal, pcNumLines, pcNumCharsMarshal, pcNumChars, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} cLineNumber 
      * @returns {Integer} 
      */
@@ -77,22 +74,20 @@ export default struct IDebugDocumentText extends IDebugDocument {
     }
 
     /**
-     * 
      * @param {Integer} cCharacterPosition 
      * @param {Pointer<Integer>} pcLineNumber 
      * @param {Pointer<Integer>} pcCharacterOffsetInLine 
      * @returns {HRESULT} 
      */
     GetLineOfPosition(cCharacterPosition, pcLineNumber, pcCharacterOffsetInLine) {
-        pcLineNumberMarshal := pcLineNumber is VarRef ? "uint*" : "ptr"
-        pcCharacterOffsetInLineMarshal := pcCharacterOffsetInLine is VarRef ? "uint*" : "ptr"
+        pcLineNumberMarshal := pcLineNumber is VarRef ? "uint*" : IntPtr
+        pcCharacterOffsetInLineMarshal := pcCharacterOffsetInLine is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, UInt32, cCharacterPosition, pcLineNumberMarshal, pcLineNumber, pcCharacterOffsetInLineMarshal, pcCharacterOffsetInLine, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} cCharacterPosition 
      * @param {PWSTR} pcharText 
      * @param {Pointer<Integer>} pstaTextAttr 
@@ -103,30 +98,29 @@ export default struct IDebugDocumentText extends IDebugDocument {
     GetText(cCharacterPosition, pcharText, pstaTextAttr, pcNumChars, cMaxChars) {
         pcharText := pcharText is String ? StrPtr(pcharText) : pcharText
 
-        pstaTextAttrMarshal := pstaTextAttr is VarRef ? "ushort*" : "ptr"
-        pcNumCharsMarshal := pcNumChars is VarRef ? "uint*" : "ptr"
+        pstaTextAttrMarshal := pstaTextAttr is VarRef ? "ushort*" : IntPtr
+        pstaTextAttrMarshal := pstaTextAttr == 0 ? IntPtr : "ushort*"
+        pcNumCharsMarshal := pcNumChars is VarRef ? "uint*" : IntPtr
 
         result := ComCall(9, this, UInt32, cCharacterPosition, "ptr", pcharText, pstaTextAttrMarshal, pstaTextAttr, pcNumCharsMarshal, pcNumChars, UInt32, cMaxChars, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IDebugDocumentContext} psc 
      * @param {Pointer<Integer>} pcCharacterPosition 
      * @param {Pointer<Integer>} cNumChars 
      * @returns {HRESULT} 
      */
     GetPositionOfContext(psc, pcCharacterPosition, cNumChars) {
-        pcCharacterPositionMarshal := pcCharacterPosition is VarRef ? "uint*" : "ptr"
-        cNumCharsMarshal := cNumChars is VarRef ? "uint*" : "ptr"
+        pcCharacterPositionMarshal := pcCharacterPosition is VarRef ? "uint*" : IntPtr
+        cNumCharsMarshal := cNumChars is VarRef ? "uint*" : IntPtr
 
         result := ComCall(10, this, "ptr", psc, pcCharacterPositionMarshal, pcCharacterPosition, cNumCharsMarshal, cNumChars, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} cCharacterPosition 
      * @param {Integer} cNumChars 
      * @returns {IDebugDocumentContext} 
@@ -145,13 +139,13 @@ export default struct IDebugDocumentText extends IDebugDocument {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDocumentAttributes := CallbackCreate(GetMethod(implObj, "GetDocumentAttributes"), flags, 2)
-        this.vtbl.GetSize := CallbackCreate(GetMethod(implObj, "GetSize"), flags, 3)
-        this.vtbl.GetPositionOfLine := CallbackCreate(GetMethod(implObj, "GetPositionOfLine"), flags, 3)
-        this.vtbl.GetLineOfPosition := CallbackCreate(GetMethod(implObj, "GetLineOfPosition"), flags, 4)
-        this.vtbl.GetText := CallbackCreate(GetMethod(implObj, "GetText"), flags, 6)
-        this.vtbl.GetPositionOfContext := CallbackCreate(GetMethod(implObj, "GetPositionOfContext"), flags, 4)
-        this.vtbl.GetContextOfPosition := CallbackCreate(GetMethod(implObj, "GetContextOfPosition"), flags, 4)
+        this.vtbl.GetDocumentAttributes := CallbackCreate(ObjBindMethod(implObj, "GetDocumentAttributes"), flags, 2)
+        this.vtbl.GetSize := CallbackCreate(ObjBindMethod(implObj, "GetSize"), flags, 3)
+        this.vtbl.GetPositionOfLine := CallbackCreate(ObjBindMethod(implObj, "GetPositionOfLine"), flags, 3)
+        this.vtbl.GetLineOfPosition := CallbackCreate(ObjBindMethod(implObj, "GetLineOfPosition"), flags, 4)
+        this.vtbl.GetText := CallbackCreate(ObjBindMethod(implObj, "GetText"), flags, 6)
+        this.vtbl.GetPositionOfContext := CallbackCreate(ObjBindMethod(implObj, "GetPositionOfContext"), flags, 4)
+        this.vtbl.GetContextOfPosition := CallbackCreate(ObjBindMethod(implObj, "GetContextOfPosition"), flags, 4)
     }
 
     Dispose() {

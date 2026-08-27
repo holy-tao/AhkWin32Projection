@@ -39,7 +39,6 @@ export default struct IPrintCoreHelperPS extends IPrintCoreHelper {
     }
 
     /**
-     * 
      * @param {PSTR} pszAttribute 
      * @param {Pointer<Integer>} pdwDataType 
      * @param {Pointer<Pointer<Integer>>} ppbData 
@@ -49,16 +48,15 @@ export default struct IPrintCoreHelperPS extends IPrintCoreHelper {
     GetGlobalAttribute(pszAttribute, pdwDataType, ppbData, pcbSize) {
         pszAttribute := pszAttribute is String ? StrPtr(pszAttribute) : pszAttribute
 
-        pdwDataTypeMarshal := pdwDataType is VarRef ? "uint*" : "ptr"
-        ppbDataMarshal := ppbData is VarRef ? "ptr*" : "ptr"
-        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+        pdwDataTypeMarshal := pdwDataType is VarRef ? "uint*" : IntPtr
+        ppbDataMarshal := ppbData is VarRef ? "ptr*" : IntPtr
+        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(12, this, "ptr", pszAttribute, pdwDataTypeMarshal, pdwDataType, ppbDataMarshal, ppbData, pcbSizeMarshal, pcbSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PSTR} pszFeatureKeyword 
      * @param {PSTR} pszAttribute 
      * @param {Pointer<Integer>} pdwDataType 
@@ -70,16 +68,15 @@ export default struct IPrintCoreHelperPS extends IPrintCoreHelper {
         pszFeatureKeyword := pszFeatureKeyword is String ? StrPtr(pszFeatureKeyword) : pszFeatureKeyword
         pszAttribute := pszAttribute is String ? StrPtr(pszAttribute) : pszAttribute
 
-        pdwDataTypeMarshal := pdwDataType is VarRef ? "uint*" : "ptr"
-        ppbDataMarshal := ppbData is VarRef ? "ptr*" : "ptr"
-        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+        pdwDataTypeMarshal := pdwDataType is VarRef ? "uint*" : IntPtr
+        ppbDataMarshal := ppbData is VarRef ? "ptr*" : IntPtr
+        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, "ptr", pszFeatureKeyword, "ptr", pszAttribute, pdwDataTypeMarshal, pdwDataType, ppbDataMarshal, ppbData, pcbSizeMarshal, pcbSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PSTR} pszFeatureKeyword 
      * @param {PSTR} pszOptionKeyword 
      * @param {PSTR} pszAttribute 
@@ -93,11 +90,12 @@ export default struct IPrintCoreHelperPS extends IPrintCoreHelper {
         pszOptionKeyword := pszOptionKeyword is String ? StrPtr(pszOptionKeyword) : pszOptionKeyword
         pszAttribute := pszAttribute is String ? StrPtr(pszAttribute) : pszAttribute
 
-        pdwDataTypeMarshal := pdwDataType is VarRef ? "uint*" : "ptr"
-        ppbDataMarshal := ppbData is VarRef ? "ptr*" : "ptr"
-        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+        pszAttributeMarshal := pszAttribute == 0 ? IntPtr : PSTR
+        pdwDataTypeMarshal := pdwDataType is VarRef ? "uint*" : IntPtr
+        ppbDataMarshal := ppbData is VarRef ? "ptr*" : IntPtr
+        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(14, this, "ptr", pszFeatureKeyword, "ptr", pszOptionKeyword, "ptr", pszAttribute, pdwDataTypeMarshal, pdwDataType, ppbDataMarshal, ppbData, pcbSizeMarshal, pcbSize, "HRESULT")
+        result := ComCall(14, this, "ptr", pszFeatureKeyword, "ptr", pszOptionKeyword, pszAttributeMarshal, pszAttribute, pdwDataTypeMarshal, pdwDataType, ppbDataMarshal, ppbData, pcbSizeMarshal, pcbSize, "HRESULT")
         return result
     }
 
@@ -110,9 +108,9 @@ export default struct IPrintCoreHelperPS extends IPrintCoreHelper {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetGlobalAttribute := CallbackCreate(GetMethod(implObj, "GetGlobalAttribute"), flags, 5)
-        this.vtbl.GetFeatureAttribute := CallbackCreate(GetMethod(implObj, "GetFeatureAttribute"), flags, 6)
-        this.vtbl.GetOptionAttribute := CallbackCreate(GetMethod(implObj, "GetOptionAttribute"), flags, 7)
+        this.vtbl.GetGlobalAttribute := CallbackCreate(ObjBindMethod(implObj, "GetGlobalAttribute"), flags, 5)
+        this.vtbl.GetFeatureAttribute := CallbackCreate(ObjBindMethod(implObj, "GetFeatureAttribute"), flags, 6)
+        this.vtbl.GetOptionAttribute := CallbackCreate(ObjBindMethod(implObj, "GetOptionAttribute"), flags, 7)
     }
 
     Dispose() {

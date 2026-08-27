@@ -51,7 +51,6 @@ export default struct ITargetFrame extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszFrameName 
      * @returns {HRESULT} 
      */
@@ -63,7 +62,6 @@ export default struct ITargetFrame extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetFrameName() {
@@ -72,7 +70,6 @@ export default struct ITargetFrame extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     GetParentFrame() {
@@ -81,7 +78,6 @@ export default struct ITargetFrame extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszTargetName 
      * @param {IUnknown} ppunkContextFrame 
      * @param {Integer} dwFlags 
@@ -95,7 +91,6 @@ export default struct ITargetFrame extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszFrameSrc 
      * @returns {HRESULT} 
      */
@@ -107,7 +102,6 @@ export default struct ITargetFrame extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetFrameSrc() {
@@ -116,7 +110,6 @@ export default struct ITargetFrame extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IOleContainer} 
      */
     GetFramesContainer() {
@@ -125,7 +118,6 @@ export default struct ITargetFrame extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
@@ -135,7 +127,6 @@ export default struct ITargetFrame extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetFrameOptions() {
@@ -144,7 +135,6 @@ export default struct ITargetFrame extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwWidth 
      * @param {Integer} dwHeight 
      * @returns {HRESULT} 
@@ -155,34 +145,31 @@ export default struct ITargetFrame extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwWidth 
      * @param {Pointer<Integer>} pdwHeight 
      * @returns {HRESULT} 
      */
     GetFrameMargins(pdwWidth, pdwHeight) {
-        pdwWidthMarshal := pdwWidth is VarRef ? "uint*" : "ptr"
-        pdwHeightMarshal := pdwHeight is VarRef ? "uint*" : "ptr"
+        pdwWidthMarshal := pdwWidth is VarRef ? "uint*" : IntPtr
+        pdwHeightMarshal := pdwHeight is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, pdwWidthMarshal, pdwWidth, pdwHeightMarshal, pdwHeight, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} cLength 
      * @param {Pointer<Integer>} pulData 
      * @returns {HRESULT} 
      */
     RemoteNavigate(cLength, pulData) {
-        pulDataMarshal := pulData is VarRef ? "uint*" : "ptr"
+        pulDataMarshal := pulData is VarRef ? "uint*" : IntPtr
 
         result := ComCall(14, this, UInt32, cLength, pulDataMarshal, pulData, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkChildFrame 
      * @returns {HRESULT} 
      */
@@ -192,7 +179,6 @@ export default struct ITargetFrame extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkChildFrame 
      * @returns {HRESULT} 
      */
@@ -210,20 +196,20 @@ export default struct ITargetFrame extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetFrameName := CallbackCreate(GetMethod(implObj, "SetFrameName"), flags, 2)
-        this.vtbl.GetFrameName := CallbackCreate(GetMethod(implObj, "GetFrameName"), flags, 2)
-        this.vtbl.GetParentFrame := CallbackCreate(GetMethod(implObj, "GetParentFrame"), flags, 2)
-        this.vtbl.FindFrame := CallbackCreate(GetMethod(implObj, "FindFrame"), flags, 5)
-        this.vtbl.SetFrameSrc := CallbackCreate(GetMethod(implObj, "SetFrameSrc"), flags, 2)
-        this.vtbl.GetFrameSrc := CallbackCreate(GetMethod(implObj, "GetFrameSrc"), flags, 2)
-        this.vtbl.GetFramesContainer := CallbackCreate(GetMethod(implObj, "GetFramesContainer"), flags, 2)
-        this.vtbl.SetFrameOptions := CallbackCreate(GetMethod(implObj, "SetFrameOptions"), flags, 2)
-        this.vtbl.GetFrameOptions := CallbackCreate(GetMethod(implObj, "GetFrameOptions"), flags, 2)
-        this.vtbl.SetFrameMargins := CallbackCreate(GetMethod(implObj, "SetFrameMargins"), flags, 3)
-        this.vtbl.GetFrameMargins := CallbackCreate(GetMethod(implObj, "GetFrameMargins"), flags, 3)
-        this.vtbl.RemoteNavigate := CallbackCreate(GetMethod(implObj, "RemoteNavigate"), flags, 3)
-        this.vtbl.OnChildFrameActivate := CallbackCreate(GetMethod(implObj, "OnChildFrameActivate"), flags, 2)
-        this.vtbl.OnChildFrameDeactivate := CallbackCreate(GetMethod(implObj, "OnChildFrameDeactivate"), flags, 2)
+        this.vtbl.SetFrameName := CallbackCreate(ObjBindMethod(implObj, "SetFrameName"), flags, 2)
+        this.vtbl.GetFrameName := CallbackCreate(ObjBindMethod(implObj, "GetFrameName"), flags, 2)
+        this.vtbl.GetParentFrame := CallbackCreate(ObjBindMethod(implObj, "GetParentFrame"), flags, 2)
+        this.vtbl.FindFrame := CallbackCreate(ObjBindMethod(implObj, "FindFrame"), flags, 5)
+        this.vtbl.SetFrameSrc := CallbackCreate(ObjBindMethod(implObj, "SetFrameSrc"), flags, 2)
+        this.vtbl.GetFrameSrc := CallbackCreate(ObjBindMethod(implObj, "GetFrameSrc"), flags, 2)
+        this.vtbl.GetFramesContainer := CallbackCreate(ObjBindMethod(implObj, "GetFramesContainer"), flags, 2)
+        this.vtbl.SetFrameOptions := CallbackCreate(ObjBindMethod(implObj, "SetFrameOptions"), flags, 2)
+        this.vtbl.GetFrameOptions := CallbackCreate(ObjBindMethod(implObj, "GetFrameOptions"), flags, 2)
+        this.vtbl.SetFrameMargins := CallbackCreate(ObjBindMethod(implObj, "SetFrameMargins"), flags, 3)
+        this.vtbl.GetFrameMargins := CallbackCreate(ObjBindMethod(implObj, "GetFrameMargins"), flags, 3)
+        this.vtbl.RemoteNavigate := CallbackCreate(ObjBindMethod(implObj, "RemoteNavigate"), flags, 3)
+        this.vtbl.OnChildFrameActivate := CallbackCreate(ObjBindMethod(implObj, "OnChildFrameActivate"), flags, 2)
+        this.vtbl.OnChildFrameDeactivate := CallbackCreate(ObjBindMethod(implObj, "OnChildFrameDeactivate"), flags, 2)
     }
 
     Dispose() {

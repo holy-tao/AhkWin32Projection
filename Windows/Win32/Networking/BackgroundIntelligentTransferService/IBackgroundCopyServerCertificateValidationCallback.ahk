@@ -115,8 +115,8 @@ export default struct IBackgroundCopyServerCertificateValidationCallback extends
      * @see https://learn.microsoft.com/windows/win32/api/bits10_3/nf-bits10_3-ibackgroundcopyservercertificatevalidationcallback-validateservercertificate
      */
     ValidateServerCertificate(job, _file, certLength, certData, certEncodingType, certStoreLength, certStoreData) {
-        certDataMarshal := certData is VarRef ? "char*" : "ptr"
-        certStoreDataMarshal := certStoreData is VarRef ? "char*" : "ptr"
+        certDataMarshal := certData is VarRef ? "char*" : IntPtr
+        certStoreDataMarshal := certStoreData is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, "ptr", job, "ptr", _file, UInt32, certLength, certDataMarshal, certData, UInt32, certEncodingType, UInt32, certStoreLength, certStoreDataMarshal, certStoreData, "HRESULT")
         return result
@@ -131,7 +131,7 @@ export default struct IBackgroundCopyServerCertificateValidationCallback extends
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ValidateServerCertificate := CallbackCreate(GetMethod(implObj, "ValidateServerCertificate"), flags, 8)
+        this.vtbl.ValidateServerCertificate := CallbackCreate(ObjBindMethod(implObj, "ValidateServerCertificate"), flags, 8)
     }
 
     Dispose() {

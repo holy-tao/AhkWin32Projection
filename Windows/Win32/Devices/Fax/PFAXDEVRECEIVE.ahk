@@ -21,7 +21,6 @@ export default struct PFAXDEVRECEIVE {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @param {Integer} param1 
      * @param {Pointer<FAX_RECEIVE>} param2 

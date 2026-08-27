@@ -192,17 +192,17 @@ export default struct IIsdbComponentGroupDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetComponentGroupType := CallbackCreate(GetMethod(implObj, "GetComponentGroupType"), flags, 2)
-        this.vtbl.GetCountOfRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRecords"), flags, 2)
-        this.vtbl.GetRecordGroupId := CallbackCreate(GetMethod(implObj, "GetRecordGroupId"), flags, 3)
-        this.vtbl.GetRecordNumberOfCAUnit := CallbackCreate(GetMethod(implObj, "GetRecordNumberOfCAUnit"), flags, 3)
-        this.vtbl.GetRecordCAUnitCAUnitId := CallbackCreate(GetMethod(implObj, "GetRecordCAUnitCAUnitId"), flags, 4)
-        this.vtbl.GetRecordCAUnitNumberOfComponents := CallbackCreate(GetMethod(implObj, "GetRecordCAUnitNumberOfComponents"), flags, 4)
-        this.vtbl.GetRecordCAUnitComponentTag := CallbackCreate(GetMethod(implObj, "GetRecordCAUnitComponentTag"), flags, 5)
-        this.vtbl.GetRecordTotalBitRate := CallbackCreate(GetMethod(implObj, "GetRecordTotalBitRate"), flags, 3)
-        this.vtbl.GetRecordTextW := CallbackCreate(GetMethod(implObj, "GetRecordTextW"), flags, 4)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetComponentGroupType := CallbackCreate(ObjBindMethod(implObj, "GetComponentGroupType"), flags, 2)
+        this.vtbl.GetCountOfRecords := CallbackCreate(ObjBindMethod(implObj, "GetCountOfRecords"), flags, 2)
+        this.vtbl.GetRecordGroupId := CallbackCreate(ObjBindMethod(implObj, "GetRecordGroupId"), flags, 3)
+        this.vtbl.GetRecordNumberOfCAUnit := CallbackCreate(ObjBindMethod(implObj, "GetRecordNumberOfCAUnit"), flags, 3)
+        this.vtbl.GetRecordCAUnitCAUnitId := CallbackCreate(ObjBindMethod(implObj, "GetRecordCAUnitCAUnitId"), flags, 4)
+        this.vtbl.GetRecordCAUnitNumberOfComponents := CallbackCreate(ObjBindMethod(implObj, "GetRecordCAUnitNumberOfComponents"), flags, 4)
+        this.vtbl.GetRecordCAUnitComponentTag := CallbackCreate(ObjBindMethod(implObj, "GetRecordCAUnitComponentTag"), flags, 5)
+        this.vtbl.GetRecordTotalBitRate := CallbackCreate(ObjBindMethod(implObj, "GetRecordTotalBitRate"), flags, 3)
+        this.vtbl.GetRecordTextW := CallbackCreate(ObjBindMethod(implObj, "GetRecordTextW"), flags, 4)
     }
 
     Dispose() {

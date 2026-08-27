@@ -86,8 +86,8 @@ export default struct ITfInsertAtSelection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InsertTextAtSelection := CallbackCreate(GetMethod(implObj, "InsertTextAtSelection"), flags, 6)
-        this.vtbl.InsertEmbeddedAtSelection := CallbackCreate(GetMethod(implObj, "InsertEmbeddedAtSelection"), flags, 5)
+        this.vtbl.InsertTextAtSelection := CallbackCreate(ObjBindMethod(implObj, "InsertTextAtSelection"), flags, 6)
+        this.vtbl.InsertEmbeddedAtSelection := CallbackCreate(ObjBindMethod(implObj, "InsertEmbeddedAtSelection"), flags, 5)
     }
 
     Dispose() {

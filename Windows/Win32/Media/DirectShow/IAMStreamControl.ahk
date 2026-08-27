@@ -69,7 +69,8 @@ export default struct IAMStreamControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamstreamcontrol-startat
      */
     StartAt(ptStart, dwCookie) {
-        ptStartMarshal := ptStart is VarRef ? "int64*" : "ptr"
+        ptStartMarshal := ptStart is VarRef ? "int64*" : IntPtr
+        ptStartMarshal := ptStart == 0 ? IntPtr : "int64*"
 
         result := ComCall(3, this, ptStartMarshal, ptStart, UInt32, dwCookie, "HRESULT")
         return result
@@ -98,7 +99,8 @@ export default struct IAMStreamControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamstreamcontrol-stopat
      */
     StopAt(ptStop, bSendExtra, dwCookie) {
-        ptStopMarshal := ptStop is VarRef ? "int64*" : "ptr"
+        ptStopMarshal := ptStop is VarRef ? "int64*" : IntPtr
+        ptStopMarshal := ptStop == 0 ? IntPtr : "int64*"
 
         result := ComCall(4, this, ptStopMarshal, ptStop, BOOL, bSendExtra, UInt32, dwCookie, "HRESULT")
         return result
@@ -124,9 +126,9 @@ export default struct IAMStreamControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StartAt := CallbackCreate(GetMethod(implObj, "StartAt"), flags, 3)
-        this.vtbl.StopAt := CallbackCreate(GetMethod(implObj, "StopAt"), flags, 4)
-        this.vtbl.GetInfo := CallbackCreate(GetMethod(implObj, "GetInfo"), flags, 2)
+        this.vtbl.StartAt := CallbackCreate(ObjBindMethod(implObj, "StartAt"), flags, 3)
+        this.vtbl.StopAt := CallbackCreate(ObjBindMethod(implObj, "StopAt"), flags, 4)
+        this.vtbl.GetInfo := CallbackCreate(ObjBindMethod(implObj, "GetInfo"), flags, 2)
     }
 
     Dispose() {

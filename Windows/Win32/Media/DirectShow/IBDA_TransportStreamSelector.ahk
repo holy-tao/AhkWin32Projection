@@ -37,7 +37,6 @@ export default struct IBDA_TransportStreamSelector extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} usTSID 
      * @returns {HRESULT} 
      */
@@ -47,12 +46,11 @@ export default struct IBDA_TransportStreamSelector extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pulTSInformationBufferLen 
      * @returns {Integer} 
      */
     GetTSInformation(pulTSInformationBufferLen) {
-        pulTSInformationBufferLenMarshal := pulTSInformationBufferLen is VarRef ? "uint*" : "ptr"
+        pulTSInformationBufferLenMarshal := pulTSInformationBufferLen is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pulTSInformationBufferLenMarshal, pulTSInformationBufferLen, "char*", &pbTSInformationBuffer := 0, "HRESULT")
         return pbTSInformationBuffer
@@ -67,8 +65,8 @@ export default struct IBDA_TransportStreamSelector extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetTSID := CallbackCreate(GetMethod(implObj, "SetTSID"), flags, 2)
-        this.vtbl.GetTSInformation := CallbackCreate(GetMethod(implObj, "GetTSInformation"), flags, 3)
+        this.vtbl.SetTSID := CallbackCreate(ObjBindMethod(implObj, "SetTSID"), flags, 2)
+        this.vtbl.GetTSInformation := CallbackCreate(ObjBindMethod(implObj, "GetTSInformation"), flags, 3)
     }
 
     Dispose() {

@@ -82,8 +82,8 @@ export default struct IMFNetResourceFilter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnRedirect := CallbackCreate(GetMethod(implObj, "OnRedirect"), flags, 3)
-        this.vtbl.OnSendingRequest := CallbackCreate(GetMethod(implObj, "OnSendingRequest"), flags, 2)
+        this.vtbl.OnRedirect := CallbackCreate(ObjBindMethod(implObj, "OnRedirect"), flags, 3)
+        this.vtbl.OnSendingRequest := CallbackCreate(ObjBindMethod(implObj, "OnSendingRequest"), flags, 2)
     }
 
     Dispose() {

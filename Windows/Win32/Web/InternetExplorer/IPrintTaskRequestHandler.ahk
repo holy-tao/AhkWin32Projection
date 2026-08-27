@@ -37,7 +37,6 @@ export default struct IPrintTaskRequestHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {IInspectable} pPrintTaskRequest 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,7 @@ export default struct IPrintTaskRequestHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.HandlePrintTaskRequest := CallbackCreate(GetMethod(implObj, "HandlePrintTaskRequest"), flags, 2)
+        this.vtbl.HandlePrintTaskRequest := CallbackCreate(ObjBindMethod(implObj, "HandlePrintTaskRequest"), flags, 2)
     }
 
     Dispose() {

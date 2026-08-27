@@ -175,8 +175,8 @@ export default struct IVdsLunIscsi extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AssociateTargets := CallbackCreate(GetMethod(implObj, "AssociateTargets"), flags, 3)
-        this.vtbl.QueryAssociatedTargets := CallbackCreate(GetMethod(implObj, "QueryAssociatedTargets"), flags, 2)
+        this.vtbl.AssociateTargets := CallbackCreate(ObjBindMethod(implObj, "AssociateTargets"), flags, 3)
+        this.vtbl.QueryAssociatedTargets := CallbackCreate(ObjBindMethod(implObj, "QueryAssociatedTargets"), flags, 2)
     }
 
     Dispose() {

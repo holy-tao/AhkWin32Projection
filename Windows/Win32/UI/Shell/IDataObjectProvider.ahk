@@ -74,8 +74,8 @@ export default struct IDataObjectProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDataObject := CallbackCreate(GetMethod(implObj, "GetDataObject"), flags, 2)
-        this.vtbl.SetDataObject := CallbackCreate(GetMethod(implObj, "SetDataObject"), flags, 2)
+        this.vtbl.GetDataObject := CallbackCreate(ObjBindMethod(implObj, "GetDataObject"), flags, 2)
+        this.vtbl.SetDataObject := CallbackCreate(ObjBindMethod(implObj, "SetDataObject"), flags, 2)
     }
 
     Dispose() {

@@ -52,7 +52,9 @@ export default struct IDeskBar extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ideskbar-setclient
      */
     SetClient(punkClient) {
-        result := ComCall(5, this, "ptr", punkClient, "HRESULT")
+        punkClientMarshal := punkClient == 0 ? IntPtr : "ptr"
+
+        result := ComCall(5, this, punkClientMarshal, punkClient, "HRESULT")
         return result
     }
 
@@ -92,9 +94,9 @@ export default struct IDeskBar extends IOleWindow {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetClient := CallbackCreate(GetMethod(implObj, "SetClient"), flags, 2)
-        this.vtbl.GetClient := CallbackCreate(GetMethod(implObj, "GetClient"), flags, 2)
-        this.vtbl.OnPosRectChangeDB := CallbackCreate(GetMethod(implObj, "OnPosRectChangeDB"), flags, 2)
+        this.vtbl.SetClient := CallbackCreate(ObjBindMethod(implObj, "SetClient"), flags, 2)
+        this.vtbl.GetClient := CallbackCreate(ObjBindMethod(implObj, "GetClient"), flags, 2)
+        this.vtbl.OnPosRectChangeDB := CallbackCreate(ObjBindMethod(implObj, "OnPosRectChangeDB"), flags, 2)
     }
 
     Dispose() {

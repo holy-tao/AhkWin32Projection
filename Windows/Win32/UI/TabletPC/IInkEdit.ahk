@@ -537,7 +537,9 @@ export default struct IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-putref_drawingattributes
      */
     putref_DrawingAttributes(newVal) {
-        result := ComCall(15, this, "ptr", newVal, "HRESULT")
+        newValMarshal := newVal == 0 ? IntPtr : "ptr"
+
+        result := ComCall(15, this, newValMarshal, newVal, "HRESULT")
         return result
     }
 
@@ -591,7 +593,9 @@ export default struct IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-putref_recognizer
      */
     putref_Recognizer(newVal) {
-        result := ComCall(19, this, "ptr", newVal, "HRESULT")
+        newValMarshal := newVal == 0 ? IntPtr : "ptr"
+
+        result := ComCall(19, this, newValMarshal, newVal, "HRESULT")
         return result
     }
 
@@ -982,7 +986,9 @@ export default struct IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-putref_font
      */
     putref_Font(ppFont) {
-        result := ComCall(37, this, "ptr", ppFont, "HRESULT")
+        ppFontMarshal := ppFont == 0 ? IntPtr : "ptr"
+
+        result := ComCall(37, this, ppFontMarshal, ppFont, "HRESULT")
         return result
     }
 
@@ -1039,7 +1045,9 @@ export default struct IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-put_mouseicon
      */
     put_MouseIcon(MouseIcon) {
-        result := ComCall(41, this, "ptr", MouseIcon, "HRESULT")
+        MouseIconMarshal := MouseIcon == 0 ? IntPtr : "ptr"
+
+        result := ComCall(41, this, MouseIconMarshal, MouseIcon, "HRESULT")
         return result
     }
 
@@ -1052,7 +1060,9 @@ export default struct IInkEdit extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-putref_mouseicon
      */
     putref_MouseIcon(MouseIcon) {
-        result := ComCall(42, this, "ptr", MouseIcon, "HRESULT")
+        MouseIconMarshal := MouseIcon == 0 ? IntPtr : "ptr"
+
+        result := ComCall(42, this, MouseIconMarshal, MouseIcon, "HRESULT")
         return result
     }
 
@@ -1648,83 +1658,83 @@ export default struct IInkEdit extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
-        this.vtbl.get_UseMouseForInput := CallbackCreate(GetMethod(implObj, "get_UseMouseForInput"), flags, 2)
-        this.vtbl.put_UseMouseForInput := CallbackCreate(GetMethod(implObj, "put_UseMouseForInput"), flags, 2)
-        this.vtbl.get_InkMode := CallbackCreate(GetMethod(implObj, "get_InkMode"), flags, 2)
-        this.vtbl.put_InkMode := CallbackCreate(GetMethod(implObj, "put_InkMode"), flags, 2)
-        this.vtbl.get_InkInsertMode := CallbackCreate(GetMethod(implObj, "get_InkInsertMode"), flags, 2)
-        this.vtbl.put_InkInsertMode := CallbackCreate(GetMethod(implObj, "put_InkInsertMode"), flags, 2)
-        this.vtbl.get_DrawingAttributes := CallbackCreate(GetMethod(implObj, "get_DrawingAttributes"), flags, 2)
-        this.vtbl.putref_DrawingAttributes := CallbackCreate(GetMethod(implObj, "putref_DrawingAttributes"), flags, 2)
-        this.vtbl.get_RecognitionTimeout := CallbackCreate(GetMethod(implObj, "get_RecognitionTimeout"), flags, 2)
-        this.vtbl.put_RecognitionTimeout := CallbackCreate(GetMethod(implObj, "put_RecognitionTimeout"), flags, 2)
-        this.vtbl.get_Recognizer := CallbackCreate(GetMethod(implObj, "get_Recognizer"), flags, 2)
-        this.vtbl.putref_Recognizer := CallbackCreate(GetMethod(implObj, "putref_Recognizer"), flags, 2)
-        this.vtbl.get_Factoid := CallbackCreate(GetMethod(implObj, "get_Factoid"), flags, 2)
-        this.vtbl.put_Factoid := CallbackCreate(GetMethod(implObj, "put_Factoid"), flags, 2)
-        this.vtbl.get_SelInks := CallbackCreate(GetMethod(implObj, "get_SelInks"), flags, 2)
-        this.vtbl.put_SelInks := CallbackCreate(GetMethod(implObj, "put_SelInks"), flags, 2)
-        this.vtbl.get_SelInksDisplayMode := CallbackCreate(GetMethod(implObj, "get_SelInksDisplayMode"), flags, 2)
-        this.vtbl.put_SelInksDisplayMode := CallbackCreate(GetMethod(implObj, "put_SelInksDisplayMode"), flags, 2)
-        this.vtbl.Recognize := CallbackCreate(GetMethod(implObj, "Recognize"), flags, 1)
-        this.vtbl.GetGestureStatus := CallbackCreate(GetMethod(implObj, "GetGestureStatus"), flags, 3)
-        this.vtbl.SetGestureStatus := CallbackCreate(GetMethod(implObj, "SetGestureStatus"), flags, 3)
-        this.vtbl.put_BackColor := CallbackCreate(GetMethod(implObj, "put_BackColor"), flags, 2)
-        this.vtbl.get_BackColor := CallbackCreate(GetMethod(implObj, "get_BackColor"), flags, 2)
-        this.vtbl.get_Appearance := CallbackCreate(GetMethod(implObj, "get_Appearance"), flags, 2)
-        this.vtbl.put_Appearance := CallbackCreate(GetMethod(implObj, "put_Appearance"), flags, 2)
-        this.vtbl.get_BorderStyle := CallbackCreate(GetMethod(implObj, "get_BorderStyle"), flags, 2)
-        this.vtbl.put_BorderStyle := CallbackCreate(GetMethod(implObj, "put_BorderStyle"), flags, 2)
-        this.vtbl.get_Hwnd := CallbackCreate(GetMethod(implObj, "get_Hwnd"), flags, 2)
-        this.vtbl.get_Font := CallbackCreate(GetMethod(implObj, "get_Font"), flags, 2)
-        this.vtbl.putref_Font := CallbackCreate(GetMethod(implObj, "putref_Font"), flags, 2)
-        this.vtbl.get_Text := CallbackCreate(GetMethod(implObj, "get_Text"), flags, 2)
-        this.vtbl.put_Text := CallbackCreate(GetMethod(implObj, "put_Text"), flags, 2)
-        this.vtbl.get_MouseIcon := CallbackCreate(GetMethod(implObj, "get_MouseIcon"), flags, 2)
-        this.vtbl.put_MouseIcon := CallbackCreate(GetMethod(implObj, "put_MouseIcon"), flags, 2)
-        this.vtbl.putref_MouseIcon := CallbackCreate(GetMethod(implObj, "putref_MouseIcon"), flags, 2)
-        this.vtbl.get_MousePointer := CallbackCreate(GetMethod(implObj, "get_MousePointer"), flags, 2)
-        this.vtbl.put_MousePointer := CallbackCreate(GetMethod(implObj, "put_MousePointer"), flags, 2)
-        this.vtbl.get_Locked := CallbackCreate(GetMethod(implObj, "get_Locked"), flags, 2)
-        this.vtbl.put_Locked := CallbackCreate(GetMethod(implObj, "put_Locked"), flags, 2)
-        this.vtbl.get_Enabled := CallbackCreate(GetMethod(implObj, "get_Enabled"), flags, 2)
-        this.vtbl.put_Enabled := CallbackCreate(GetMethod(implObj, "put_Enabled"), flags, 2)
-        this.vtbl.get_MaxLength := CallbackCreate(GetMethod(implObj, "get_MaxLength"), flags, 2)
-        this.vtbl.put_MaxLength := CallbackCreate(GetMethod(implObj, "put_MaxLength"), flags, 2)
-        this.vtbl.get_MultiLine := CallbackCreate(GetMethod(implObj, "get_MultiLine"), flags, 2)
-        this.vtbl.put_MultiLine := CallbackCreate(GetMethod(implObj, "put_MultiLine"), flags, 2)
-        this.vtbl.get_ScrollBars := CallbackCreate(GetMethod(implObj, "get_ScrollBars"), flags, 2)
-        this.vtbl.put_ScrollBars := CallbackCreate(GetMethod(implObj, "put_ScrollBars"), flags, 2)
-        this.vtbl.get_DisableNoScroll := CallbackCreate(GetMethod(implObj, "get_DisableNoScroll"), flags, 2)
-        this.vtbl.put_DisableNoScroll := CallbackCreate(GetMethod(implObj, "put_DisableNoScroll"), flags, 2)
-        this.vtbl.get_SelAlignment := CallbackCreate(GetMethod(implObj, "get_SelAlignment"), flags, 2)
-        this.vtbl.put_SelAlignment := CallbackCreate(GetMethod(implObj, "put_SelAlignment"), flags, 2)
-        this.vtbl.get_SelBold := CallbackCreate(GetMethod(implObj, "get_SelBold"), flags, 2)
-        this.vtbl.put_SelBold := CallbackCreate(GetMethod(implObj, "put_SelBold"), flags, 2)
-        this.vtbl.get_SelItalic := CallbackCreate(GetMethod(implObj, "get_SelItalic"), flags, 2)
-        this.vtbl.put_SelItalic := CallbackCreate(GetMethod(implObj, "put_SelItalic"), flags, 2)
-        this.vtbl.get_SelUnderline := CallbackCreate(GetMethod(implObj, "get_SelUnderline"), flags, 2)
-        this.vtbl.put_SelUnderline := CallbackCreate(GetMethod(implObj, "put_SelUnderline"), flags, 2)
-        this.vtbl.get_SelColor := CallbackCreate(GetMethod(implObj, "get_SelColor"), flags, 2)
-        this.vtbl.put_SelColor := CallbackCreate(GetMethod(implObj, "put_SelColor"), flags, 2)
-        this.vtbl.get_SelFontName := CallbackCreate(GetMethod(implObj, "get_SelFontName"), flags, 2)
-        this.vtbl.put_SelFontName := CallbackCreate(GetMethod(implObj, "put_SelFontName"), flags, 2)
-        this.vtbl.get_SelFontSize := CallbackCreate(GetMethod(implObj, "get_SelFontSize"), flags, 2)
-        this.vtbl.put_SelFontSize := CallbackCreate(GetMethod(implObj, "put_SelFontSize"), flags, 2)
-        this.vtbl.get_SelCharOffset := CallbackCreate(GetMethod(implObj, "get_SelCharOffset"), flags, 2)
-        this.vtbl.put_SelCharOffset := CallbackCreate(GetMethod(implObj, "put_SelCharOffset"), flags, 2)
-        this.vtbl.get_TextRTF := CallbackCreate(GetMethod(implObj, "get_TextRTF"), flags, 2)
-        this.vtbl.put_TextRTF := CallbackCreate(GetMethod(implObj, "put_TextRTF"), flags, 2)
-        this.vtbl.get_SelStart := CallbackCreate(GetMethod(implObj, "get_SelStart"), flags, 2)
-        this.vtbl.put_SelStart := CallbackCreate(GetMethod(implObj, "put_SelStart"), flags, 2)
-        this.vtbl.get_SelLength := CallbackCreate(GetMethod(implObj, "get_SelLength"), flags, 2)
-        this.vtbl.put_SelLength := CallbackCreate(GetMethod(implObj, "put_SelLength"), flags, 2)
-        this.vtbl.get_SelText := CallbackCreate(GetMethod(implObj, "get_SelText"), flags, 2)
-        this.vtbl.put_SelText := CallbackCreate(GetMethod(implObj, "put_SelText"), flags, 2)
-        this.vtbl.get_SelRTF := CallbackCreate(GetMethod(implObj, "get_SelRTF"), flags, 2)
-        this.vtbl.put_SelRTF := CallbackCreate(GetMethod(implObj, "put_SelRTF"), flags, 2)
-        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.get_Status := CallbackCreate(ObjBindMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.get_UseMouseForInput := CallbackCreate(ObjBindMethod(implObj, "get_UseMouseForInput"), flags, 2)
+        this.vtbl.put_UseMouseForInput := CallbackCreate(ObjBindMethod(implObj, "put_UseMouseForInput"), flags, 2)
+        this.vtbl.get_InkMode := CallbackCreate(ObjBindMethod(implObj, "get_InkMode"), flags, 2)
+        this.vtbl.put_InkMode := CallbackCreate(ObjBindMethod(implObj, "put_InkMode"), flags, 2)
+        this.vtbl.get_InkInsertMode := CallbackCreate(ObjBindMethod(implObj, "get_InkInsertMode"), flags, 2)
+        this.vtbl.put_InkInsertMode := CallbackCreate(ObjBindMethod(implObj, "put_InkInsertMode"), flags, 2)
+        this.vtbl.get_DrawingAttributes := CallbackCreate(ObjBindMethod(implObj, "get_DrawingAttributes"), flags, 2)
+        this.vtbl.putref_DrawingAttributes := CallbackCreate(ObjBindMethod(implObj, "putref_DrawingAttributes"), flags, 2)
+        this.vtbl.get_RecognitionTimeout := CallbackCreate(ObjBindMethod(implObj, "get_RecognitionTimeout"), flags, 2)
+        this.vtbl.put_RecognitionTimeout := CallbackCreate(ObjBindMethod(implObj, "put_RecognitionTimeout"), flags, 2)
+        this.vtbl.get_Recognizer := CallbackCreate(ObjBindMethod(implObj, "get_Recognizer"), flags, 2)
+        this.vtbl.putref_Recognizer := CallbackCreate(ObjBindMethod(implObj, "putref_Recognizer"), flags, 2)
+        this.vtbl.get_Factoid := CallbackCreate(ObjBindMethod(implObj, "get_Factoid"), flags, 2)
+        this.vtbl.put_Factoid := CallbackCreate(ObjBindMethod(implObj, "put_Factoid"), flags, 2)
+        this.vtbl.get_SelInks := CallbackCreate(ObjBindMethod(implObj, "get_SelInks"), flags, 2)
+        this.vtbl.put_SelInks := CallbackCreate(ObjBindMethod(implObj, "put_SelInks"), flags, 2)
+        this.vtbl.get_SelInksDisplayMode := CallbackCreate(ObjBindMethod(implObj, "get_SelInksDisplayMode"), flags, 2)
+        this.vtbl.put_SelInksDisplayMode := CallbackCreate(ObjBindMethod(implObj, "put_SelInksDisplayMode"), flags, 2)
+        this.vtbl.Recognize := CallbackCreate(ObjBindMethod(implObj, "Recognize"), flags, 1)
+        this.vtbl.GetGestureStatus := CallbackCreate(ObjBindMethod(implObj, "GetGestureStatus"), flags, 3)
+        this.vtbl.SetGestureStatus := CallbackCreate(ObjBindMethod(implObj, "SetGestureStatus"), flags, 3)
+        this.vtbl.put_BackColor := CallbackCreate(ObjBindMethod(implObj, "put_BackColor"), flags, 2)
+        this.vtbl.get_BackColor := CallbackCreate(ObjBindMethod(implObj, "get_BackColor"), flags, 2)
+        this.vtbl.get_Appearance := CallbackCreate(ObjBindMethod(implObj, "get_Appearance"), flags, 2)
+        this.vtbl.put_Appearance := CallbackCreate(ObjBindMethod(implObj, "put_Appearance"), flags, 2)
+        this.vtbl.get_BorderStyle := CallbackCreate(ObjBindMethod(implObj, "get_BorderStyle"), flags, 2)
+        this.vtbl.put_BorderStyle := CallbackCreate(ObjBindMethod(implObj, "put_BorderStyle"), flags, 2)
+        this.vtbl.get_Hwnd := CallbackCreate(ObjBindMethod(implObj, "get_Hwnd"), flags, 2)
+        this.vtbl.get_Font := CallbackCreate(ObjBindMethod(implObj, "get_Font"), flags, 2)
+        this.vtbl.putref_Font := CallbackCreate(ObjBindMethod(implObj, "putref_Font"), flags, 2)
+        this.vtbl.get_Text := CallbackCreate(ObjBindMethod(implObj, "get_Text"), flags, 2)
+        this.vtbl.put_Text := CallbackCreate(ObjBindMethod(implObj, "put_Text"), flags, 2)
+        this.vtbl.get_MouseIcon := CallbackCreate(ObjBindMethod(implObj, "get_MouseIcon"), flags, 2)
+        this.vtbl.put_MouseIcon := CallbackCreate(ObjBindMethod(implObj, "put_MouseIcon"), flags, 2)
+        this.vtbl.putref_MouseIcon := CallbackCreate(ObjBindMethod(implObj, "putref_MouseIcon"), flags, 2)
+        this.vtbl.get_MousePointer := CallbackCreate(ObjBindMethod(implObj, "get_MousePointer"), flags, 2)
+        this.vtbl.put_MousePointer := CallbackCreate(ObjBindMethod(implObj, "put_MousePointer"), flags, 2)
+        this.vtbl.get_Locked := CallbackCreate(ObjBindMethod(implObj, "get_Locked"), flags, 2)
+        this.vtbl.put_Locked := CallbackCreate(ObjBindMethod(implObj, "put_Locked"), flags, 2)
+        this.vtbl.get_Enabled := CallbackCreate(ObjBindMethod(implObj, "get_Enabled"), flags, 2)
+        this.vtbl.put_Enabled := CallbackCreate(ObjBindMethod(implObj, "put_Enabled"), flags, 2)
+        this.vtbl.get_MaxLength := CallbackCreate(ObjBindMethod(implObj, "get_MaxLength"), flags, 2)
+        this.vtbl.put_MaxLength := CallbackCreate(ObjBindMethod(implObj, "put_MaxLength"), flags, 2)
+        this.vtbl.get_MultiLine := CallbackCreate(ObjBindMethod(implObj, "get_MultiLine"), flags, 2)
+        this.vtbl.put_MultiLine := CallbackCreate(ObjBindMethod(implObj, "put_MultiLine"), flags, 2)
+        this.vtbl.get_ScrollBars := CallbackCreate(ObjBindMethod(implObj, "get_ScrollBars"), flags, 2)
+        this.vtbl.put_ScrollBars := CallbackCreate(ObjBindMethod(implObj, "put_ScrollBars"), flags, 2)
+        this.vtbl.get_DisableNoScroll := CallbackCreate(ObjBindMethod(implObj, "get_DisableNoScroll"), flags, 2)
+        this.vtbl.put_DisableNoScroll := CallbackCreate(ObjBindMethod(implObj, "put_DisableNoScroll"), flags, 2)
+        this.vtbl.get_SelAlignment := CallbackCreate(ObjBindMethod(implObj, "get_SelAlignment"), flags, 2)
+        this.vtbl.put_SelAlignment := CallbackCreate(ObjBindMethod(implObj, "put_SelAlignment"), flags, 2)
+        this.vtbl.get_SelBold := CallbackCreate(ObjBindMethod(implObj, "get_SelBold"), flags, 2)
+        this.vtbl.put_SelBold := CallbackCreate(ObjBindMethod(implObj, "put_SelBold"), flags, 2)
+        this.vtbl.get_SelItalic := CallbackCreate(ObjBindMethod(implObj, "get_SelItalic"), flags, 2)
+        this.vtbl.put_SelItalic := CallbackCreate(ObjBindMethod(implObj, "put_SelItalic"), flags, 2)
+        this.vtbl.get_SelUnderline := CallbackCreate(ObjBindMethod(implObj, "get_SelUnderline"), flags, 2)
+        this.vtbl.put_SelUnderline := CallbackCreate(ObjBindMethod(implObj, "put_SelUnderline"), flags, 2)
+        this.vtbl.get_SelColor := CallbackCreate(ObjBindMethod(implObj, "get_SelColor"), flags, 2)
+        this.vtbl.put_SelColor := CallbackCreate(ObjBindMethod(implObj, "put_SelColor"), flags, 2)
+        this.vtbl.get_SelFontName := CallbackCreate(ObjBindMethod(implObj, "get_SelFontName"), flags, 2)
+        this.vtbl.put_SelFontName := CallbackCreate(ObjBindMethod(implObj, "put_SelFontName"), flags, 2)
+        this.vtbl.get_SelFontSize := CallbackCreate(ObjBindMethod(implObj, "get_SelFontSize"), flags, 2)
+        this.vtbl.put_SelFontSize := CallbackCreate(ObjBindMethod(implObj, "put_SelFontSize"), flags, 2)
+        this.vtbl.get_SelCharOffset := CallbackCreate(ObjBindMethod(implObj, "get_SelCharOffset"), flags, 2)
+        this.vtbl.put_SelCharOffset := CallbackCreate(ObjBindMethod(implObj, "put_SelCharOffset"), flags, 2)
+        this.vtbl.get_TextRTF := CallbackCreate(ObjBindMethod(implObj, "get_TextRTF"), flags, 2)
+        this.vtbl.put_TextRTF := CallbackCreate(ObjBindMethod(implObj, "put_TextRTF"), flags, 2)
+        this.vtbl.get_SelStart := CallbackCreate(ObjBindMethod(implObj, "get_SelStart"), flags, 2)
+        this.vtbl.put_SelStart := CallbackCreate(ObjBindMethod(implObj, "put_SelStart"), flags, 2)
+        this.vtbl.get_SelLength := CallbackCreate(ObjBindMethod(implObj, "get_SelLength"), flags, 2)
+        this.vtbl.put_SelLength := CallbackCreate(ObjBindMethod(implObj, "put_SelLength"), flags, 2)
+        this.vtbl.get_SelText := CallbackCreate(ObjBindMethod(implObj, "get_SelText"), flags, 2)
+        this.vtbl.put_SelText := CallbackCreate(ObjBindMethod(implObj, "put_SelText"), flags, 2)
+        this.vtbl.get_SelRTF := CallbackCreate(ObjBindMethod(implObj, "get_SelRTF"), flags, 2)
+        this.vtbl.put_SelRTF := CallbackCreate(ObjBindMethod(implObj, "put_SelRTF"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(ObjBindMethod(implObj, "Refresh"), flags, 1)
     }
 
     Dispose() {

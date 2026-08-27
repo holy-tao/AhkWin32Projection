@@ -78,9 +78,12 @@ export default struct IDWriteFontFallbackBuilder extends IUnknown {
         localeName := localeName is String ? StrPtr(localeName) : localeName
         baseFamilyName := baseFamilyName is String ? StrPtr(baseFamilyName) : baseFamilyName
 
-        targetFamilyNamesMarshal := targetFamilyNames is VarRef ? "ptr*" : "ptr"
+        targetFamilyNamesMarshal := targetFamilyNames is VarRef ? "ptr*" : IntPtr
+        _fontCollectionMarshal := _fontCollection == 0 ? IntPtr : "ptr"
+        localeNameMarshal := localeName == 0 ? IntPtr : PWSTR
+        baseFamilyNameMarshal := baseFamilyName == 0 ? IntPtr : PWSTR
 
-        result := ComCall(3, this, DWRITE_UNICODE_RANGE.Ptr, ranges, UInt32, rangesCount, targetFamilyNamesMarshal, targetFamilyNames, UInt32, targetFamilyNamesCount, "ptr", _fontCollection, "ptr", localeName, "ptr", baseFamilyName, Float32, scale, "HRESULT")
+        result := ComCall(3, this, DWRITE_UNICODE_RANGE.Ptr, ranges, UInt32, rangesCount, targetFamilyNamesMarshal, targetFamilyNames, UInt32, targetFamilyNamesCount, _fontCollectionMarshal, _fontCollection, localeNameMarshal, localeName, baseFamilyNameMarshal, baseFamilyName, Float32, scale, "HRESULT")
         return result
     }
 
@@ -118,9 +121,9 @@ export default struct IDWriteFontFallbackBuilder extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddMapping := CallbackCreate(GetMethod(implObj, "AddMapping"), flags, 9)
-        this.vtbl.AddMappings := CallbackCreate(GetMethod(implObj, "AddMappings"), flags, 2)
-        this.vtbl.CreateFontFallback := CallbackCreate(GetMethod(implObj, "CreateFontFallback"), flags, 2)
+        this.vtbl.AddMapping := CallbackCreate(ObjBindMethod(implObj, "AddMapping"), flags, 9)
+        this.vtbl.AddMappings := CallbackCreate(ObjBindMethod(implObj, "AddMappings"), flags, 2)
+        this.vtbl.CreateFontFallback := CallbackCreate(ObjBindMethod(implObj, "CreateFontFallback"), flags, 2)
     }
 
     Dispose() {

@@ -36,7 +36,6 @@ export default struct IInternalDocWrap extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     NotifyRevoke() {
@@ -53,7 +52,7 @@ export default struct IInternalDocWrap extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.NotifyRevoke := CallbackCreate(GetMethod(implObj, "NotifyRevoke"), flags, 1)
+        this.vtbl.NotifyRevoke := CallbackCreate(ObjBindMethod(implObj, "NotifyRevoke"), flags, 1)
     }
 
     Dispose() {

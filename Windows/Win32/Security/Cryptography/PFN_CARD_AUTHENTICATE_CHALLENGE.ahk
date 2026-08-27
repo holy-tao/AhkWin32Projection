@@ -19,7 +19,6 @@ export default struct PFN_CARD_AUTHENTICATE_CHALLENGE {
     }
 
     /**
-     * 
      * @param {Pointer<CARD_DATA>} pCardData 
      * @param {Integer} pbResponseData 
      * @param {Integer} cbResponseData 
@@ -27,7 +26,8 @@ export default struct PFN_CARD_AUTHENTICATE_CHALLENGE {
      * @returns {Integer} 
      */
     Call(pCardData, pbResponseData, cbResponseData, pcAttemptsRemaining) {
-        pcAttemptsRemainingMarshal := pcAttemptsRemaining is VarRef ? "uint*" : "ptr"
+        pcAttemptsRemainingMarshal := pcAttemptsRemaining is VarRef ? "uint*" : IntPtr
+        pcAttemptsRemainingMarshal := pcAttemptsRemaining == 0 ? IntPtr : "uint*"
 
         result := DllCall(this.value, CARD_DATA.Ptr, pCardData, IntPtr, pbResponseData, UInt32, cbResponseData, pcAttemptsRemainingMarshal, pcAttemptsRemaining, UInt32)
         return result

@@ -25,7 +25,6 @@ export default struct PWLX_ASSIGN_SHELL_PROTECTION {
     }
 
     /**
-     * 
      * @param {HANDLE} hWlx Specifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/w-gly">Winlogon</a> handle passed to GINA in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nf-winwlx-wlxinitialize">WlxInitialize</a> call.
      * @param {HANDLE} hToken Specifies the handle to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">primary token</a>.

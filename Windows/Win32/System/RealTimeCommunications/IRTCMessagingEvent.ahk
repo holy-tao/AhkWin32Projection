@@ -88,7 +88,6 @@ export default struct IRTCMessagingEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCSession} 
      */
     get_Session() {
@@ -97,7 +96,6 @@ export default struct IRTCMessagingEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCParticipant} 
      */
     get_Participant() {
@@ -106,7 +104,6 @@ export default struct IRTCMessagingEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {RTC_MESSAGING_EVENT_TYPE} 
      */
     get_EventType() {
@@ -115,7 +112,6 @@ export default struct IRTCMessagingEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Message() {
@@ -125,7 +121,6 @@ export default struct IRTCMessagingEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_MessageHeader() {
@@ -135,7 +130,6 @@ export default struct IRTCMessagingEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {RTC_MESSAGING_USER_STATUS} 
      */
     get_UserStatus() {
@@ -152,12 +146,12 @@ export default struct IRTCMessagingEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Session := CallbackCreate(GetMethod(implObj, "get_Session"), flags, 2)
-        this.vtbl.get_Participant := CallbackCreate(GetMethod(implObj, "get_Participant"), flags, 2)
-        this.vtbl.get_EventType := CallbackCreate(GetMethod(implObj, "get_EventType"), flags, 2)
-        this.vtbl.get_Message := CallbackCreate(GetMethod(implObj, "get_Message"), flags, 2)
-        this.vtbl.get_MessageHeader := CallbackCreate(GetMethod(implObj, "get_MessageHeader"), flags, 2)
-        this.vtbl.get_UserStatus := CallbackCreate(GetMethod(implObj, "get_UserStatus"), flags, 2)
+        this.vtbl.get_Session := CallbackCreate(ObjBindMethod(implObj, "get_Session"), flags, 2)
+        this.vtbl.get_Participant := CallbackCreate(ObjBindMethod(implObj, "get_Participant"), flags, 2)
+        this.vtbl.get_EventType := CallbackCreate(ObjBindMethod(implObj, "get_EventType"), flags, 2)
+        this.vtbl.get_Message := CallbackCreate(ObjBindMethod(implObj, "get_Message"), flags, 2)
+        this.vtbl.get_MessageHeader := CallbackCreate(ObjBindMethod(implObj, "get_MessageHeader"), flags, 2)
+        this.vtbl.get_UserStatus := CallbackCreate(ObjBindMethod(implObj, "get_UserStatus"), flags, 2)
     }
 
     Dispose() {

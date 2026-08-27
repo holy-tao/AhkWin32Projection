@@ -23,7 +23,6 @@ export default struct SpGetRemoteCredGuardLogonBufferFn {
     }
 
     /**
-     * 
      * @param {Pointer} CredHandle 
      * @param {Pointer} ContextHandle 
      * @param {Pointer<LSA_UNICODE_STRING>} TargetName 
@@ -35,10 +34,10 @@ export default struct SpGetRemoteCredGuardLogonBufferFn {
      * @returns {NTSTATUS} 
      */
     Call(CredHandle, ContextHandle, TargetName, RedirectedLogonHandle, Callback, CleanupCallback, LogonBufferSize, LogonBuffer) {
-        CallbackMarshal := Callback is VarRef ? "ptr*" : "ptr"
-        CleanupCallbackMarshal := CleanupCallback is VarRef ? "ptr*" : "ptr"
-        LogonBufferSizeMarshal := LogonBufferSize is VarRef ? "uint*" : "ptr"
-        LogonBufferMarshal := LogonBuffer is VarRef ? "ptr*" : "ptr"
+        CallbackMarshal := Callback is VarRef ? "ptr*" : IntPtr
+        CleanupCallbackMarshal := CleanupCallback is VarRef ? "ptr*" : IntPtr
+        LogonBufferSizeMarshal := LogonBufferSize is VarRef ? "uint*" : IntPtr
+        LogonBufferMarshal := LogonBuffer is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, IntPtr, CredHandle, IntPtr, ContextHandle, LSA_UNICODE_STRING.Ptr, TargetName, HANDLE.Ptr, RedirectedLogonHandle, CallbackMarshal, Callback, CleanupCallbackMarshal, CleanupCallback, LogonBufferSizeMarshal, LogonBufferSize, LogonBufferMarshal, LogonBuffer, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

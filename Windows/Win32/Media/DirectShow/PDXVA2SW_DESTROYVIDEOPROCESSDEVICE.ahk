@@ -20,7 +20,6 @@ export default struct PDXVA2SW_DESTROYVIDEOPROCESSDEVICE {
     }
 
     /**
-     * 
      * @param {HANDLE} hDevice 
      * @returns {HRESULT} 
      */

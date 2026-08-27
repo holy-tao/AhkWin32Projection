@@ -38,7 +38,6 @@ export default struct IDirectSoundFXWavesReverb extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DSFXWavesReverb>} pcDsFxWavesReverb 
      * @returns {HRESULT} 
      */
@@ -48,7 +47,6 @@ export default struct IDirectSoundFXWavesReverb extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DSFXWavesReverb} 
      */
     GetAllParameters() {
@@ -66,8 +64,8 @@ export default struct IDirectSoundFXWavesReverb extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAllParameters := CallbackCreate(GetMethod(implObj, "SetAllParameters"), flags, 2)
-        this.vtbl.GetAllParameters := CallbackCreate(GetMethod(implObj, "GetAllParameters"), flags, 2)
+        this.vtbl.SetAllParameters := CallbackCreate(ObjBindMethod(implObj, "SetAllParameters"), flags, 2)
+        this.vtbl.GetAllParameters := CallbackCreate(ObjBindMethod(implObj, "GetAllParameters"), flags, 2)
     }
 
     Dispose() {

@@ -85,7 +85,6 @@ export default struct IHTMLFrameBase2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLWindow2} 
      */
     get_contentWindow() {
@@ -94,7 +93,6 @@ export default struct IHTMLFrameBase2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -104,7 +102,6 @@ export default struct IHTMLFrameBase2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onload() {
@@ -114,7 +111,6 @@ export default struct IHTMLFrameBase2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -124,7 +120,6 @@ export default struct IHTMLFrameBase2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onreadystatechange() {
@@ -134,7 +129,6 @@ export default struct IHTMLFrameBase2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_readyState() {
@@ -144,7 +138,6 @@ export default struct IHTMLFrameBase2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -154,7 +147,6 @@ export default struct IHTMLFrameBase2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_allowTransparency() {
@@ -171,14 +163,14 @@ export default struct IHTMLFrameBase2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_contentWindow := CallbackCreate(GetMethod(implObj, "get_contentWindow"), flags, 2)
-        this.vtbl.put_onload := CallbackCreate(GetMethod(implObj, "put_onload"), flags, 2)
-        this.vtbl.get_onload := CallbackCreate(GetMethod(implObj, "get_onload"), flags, 2)
-        this.vtbl.put_onreadystatechange := CallbackCreate(GetMethod(implObj, "put_onreadystatechange"), flags, 2)
-        this.vtbl.get_onreadystatechange := CallbackCreate(GetMethod(implObj, "get_onreadystatechange"), flags, 2)
-        this.vtbl.get_readyState := CallbackCreate(GetMethod(implObj, "get_readyState"), flags, 2)
-        this.vtbl.put_allowTransparency := CallbackCreate(GetMethod(implObj, "put_allowTransparency"), flags, 2)
-        this.vtbl.get_allowTransparency := CallbackCreate(GetMethod(implObj, "get_allowTransparency"), flags, 2)
+        this.vtbl.get_contentWindow := CallbackCreate(ObjBindMethod(implObj, "get_contentWindow"), flags, 2)
+        this.vtbl.put_onload := CallbackCreate(ObjBindMethod(implObj, "put_onload"), flags, 2)
+        this.vtbl.get_onload := CallbackCreate(ObjBindMethod(implObj, "get_onload"), flags, 2)
+        this.vtbl.put_onreadystatechange := CallbackCreate(ObjBindMethod(implObj, "put_onreadystatechange"), flags, 2)
+        this.vtbl.get_onreadystatechange := CallbackCreate(ObjBindMethod(implObj, "get_onreadystatechange"), flags, 2)
+        this.vtbl.get_readyState := CallbackCreate(ObjBindMethod(implObj, "get_readyState"), flags, 2)
+        this.vtbl.put_allowTransparency := CallbackCreate(ObjBindMethod(implObj, "put_allowTransparency"), flags, 2)
+        this.vtbl.get_allowTransparency := CallbackCreate(ObjBindMethod(implObj, "get_allowTransparency"), flags, 2)
     }
 
     Dispose() {

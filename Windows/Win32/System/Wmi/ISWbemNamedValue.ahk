@@ -61,7 +61,6 @@ export default struct ISWbemNamedValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Value() {
@@ -71,7 +70,6 @@ export default struct ISWbemNamedValue extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} varValue 
      * @returns {HRESULT} 
      */
@@ -81,7 +79,6 @@ export default struct ISWbemNamedValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -99,9 +96,9 @@ export default struct ISWbemNamedValue extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Value := CallbackCreate(GetMethod(implObj, "get_Value"), flags, 2)
-        this.vtbl.put_Value := CallbackCreate(GetMethod(implObj, "put_Value"), flags, 2)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Value := CallbackCreate(ObjBindMethod(implObj, "get_Value"), flags, 2)
+        this.vtbl.put_Value := CallbackCreate(ObjBindMethod(implObj, "put_Value"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
     }
 
     Dispose() {

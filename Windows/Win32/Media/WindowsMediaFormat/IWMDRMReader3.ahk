@@ -65,8 +65,8 @@ export default struct IWMDRMReader3 extends IWMDRMReader2 {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdrmreader3-getinclusionlist
      */
     GetInclusionList(ppGuids, pcGuids) {
-        ppGuidsMarshal := ppGuids is VarRef ? "ptr*" : "ptr"
-        pcGuidsMarshal := pcGuids is VarRef ? "uint*" : "ptr"
+        ppGuidsMarshal := ppGuids is VarRef ? "ptr*" : IntPtr
+        pcGuidsMarshal := pcGuids is VarRef ? "uint*" : IntPtr
 
         result := ComCall(15, this, ppGuidsMarshal, ppGuids, pcGuidsMarshal, pcGuids, "HRESULT")
         return result
@@ -81,7 +81,7 @@ export default struct IWMDRMReader3 extends IWMDRMReader2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetInclusionList := CallbackCreate(GetMethod(implObj, "GetInclusionList"), flags, 3)
+        this.vtbl.GetInclusionList := CallbackCreate(ObjBindMethod(implObj, "GetInclusionList"), flags, 3)
     }
 
     Dispose() {

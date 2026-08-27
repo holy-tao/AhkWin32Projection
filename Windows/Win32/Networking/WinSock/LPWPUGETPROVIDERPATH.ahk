@@ -20,7 +20,6 @@ export default struct LPWPUGETPROVIDERPATH {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} lpProviderId 
      * @param {PWSTR} lpszProviderDllPath 
      * @param {Pointer<Integer>} lpProviderDllPathLen 
@@ -30,8 +29,8 @@ export default struct LPWPUGETPROVIDERPATH {
     Call(lpProviderId, lpszProviderDllPath, lpProviderDllPathLen, lpErrno) {
         lpszProviderDllPath := lpszProviderDllPath is String ? StrPtr(lpszProviderDllPath) : lpszProviderDllPath
 
-        lpProviderDllPathLenMarshal := lpProviderDllPathLen is VarRef ? "int*" : "ptr"
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        lpProviderDllPathLenMarshal := lpProviderDllPathLen is VarRef ? "int*" : IntPtr
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, Guid.Ptr, lpProviderId, "ptr", lpszProviderDllPath, lpProviderDllPathLenMarshal, lpProviderDllPathLen, lpErrnoMarshal, lpErrno, Int32)
         return result

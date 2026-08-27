@@ -75,7 +75,7 @@ export default struct IPersist extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetClassID := CallbackCreate(GetMethod(implObj, "GetClassID"), flags, 2)
+        this.vtbl.GetClassID := CallbackCreate(ObjBindMethod(implObj, "GetClassID"), flags, 2)
     }
 
     Dispose() {

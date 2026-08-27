@@ -93,7 +93,9 @@ export default struct IWSDiscoveryProviderNotify extends IUnknown {
     SearchFailed(hr, pszTag) {
         pszTag := pszTag is String ? StrPtr(pszTag) : pszTag
 
-        result := ComCall(5, this, "int", hr, "ptr", pszTag, "HRESULT")
+        pszTagMarshal := pszTag == 0 ? IntPtr : PWSTR
+
+        result := ComCall(5, this, "int", hr, pszTagMarshal, pszTag, "HRESULT")
         return result
     }
 
@@ -111,7 +113,9 @@ export default struct IWSDiscoveryProviderNotify extends IUnknown {
     SearchComplete(pszTag) {
         pszTag := pszTag is String ? StrPtr(pszTag) : pszTag
 
-        result := ComCall(6, this, "ptr", pszTag, "HRESULT")
+        pszTagMarshal := pszTag == 0 ? IntPtr : PWSTR
+
+        result := ComCall(6, this, pszTagMarshal, pszTag, "HRESULT")
         return result
     }
 
@@ -124,10 +128,10 @@ export default struct IWSDiscoveryProviderNotify extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
-        this.vtbl.SearchFailed := CallbackCreate(GetMethod(implObj, "SearchFailed"), flags, 3)
-        this.vtbl.SearchComplete := CallbackCreate(GetMethod(implObj, "SearchComplete"), flags, 2)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.SearchFailed := CallbackCreate(ObjBindMethod(implObj, "SearchFailed"), flags, 3)
+        this.vtbl.SearchComplete := CallbackCreate(ObjBindMethod(implObj, "SearchComplete"), flags, 2)
     }
 
     Dispose() {

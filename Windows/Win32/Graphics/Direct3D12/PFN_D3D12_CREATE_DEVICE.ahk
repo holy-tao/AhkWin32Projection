@@ -22,14 +22,15 @@ export default struct PFN_D3D12_CREATE_DEVICE {
     }
 
     /**
-     * 
      * @param {IUnknown} param0 
      * @param {D3D_FEATURE_LEVEL} param1 
      * @param {Pointer<Guid>} param2 
      * @returns {Pointer<Void>} 
      */
     Call(param0, param1, param2) {
-        result := DllCall(this.value, "ptr", param0, D3D_FEATURE_LEVEL, param1, Guid.Ptr, param2, "ptr*", &param3 := 0, "HRESULT")
+        param0Marshal := param0 == 0 ? IntPtr : "ptr"
+
+        result := DllCall(this.value, param0Marshal, param0, D3D_FEATURE_LEVEL, param1, Guid.Ptr, param2, "ptr*", &param3 := 0, "HRESULT")
         return param3
     }
 

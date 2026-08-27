@@ -103,7 +103,6 @@ export default struct ISClusNetInterface extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_CommonProperties() {
@@ -112,7 +111,6 @@ export default struct ISClusNetInterface extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_PrivateProperties() {
@@ -121,7 +119,6 @@ export default struct ISClusNetInterface extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_CommonROProperties() {
@@ -130,7 +127,6 @@ export default struct ISClusNetInterface extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_PrivateROProperties() {
@@ -139,7 +135,6 @@ export default struct ISClusNetInterface extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -149,7 +144,6 @@ export default struct ISClusNetInterface extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     get_Handle() {
@@ -158,7 +152,6 @@ export default struct ISClusNetInterface extends IDispatch {
     }
 
     /**
-     * 
      * @returns {CLUSTER_NETINTERFACE_STATE} 
      */
     get_State() {
@@ -167,7 +160,6 @@ export default struct ISClusNetInterface extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISCluster} 
      */
     get_Cluster() {
@@ -184,14 +176,14 @@ export default struct ISClusNetInterface extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_CommonProperties := CallbackCreate(GetMethod(implObj, "get_CommonProperties"), flags, 2)
-        this.vtbl.get_PrivateProperties := CallbackCreate(GetMethod(implObj, "get_PrivateProperties"), flags, 2)
-        this.vtbl.get_CommonROProperties := CallbackCreate(GetMethod(implObj, "get_CommonROProperties"), flags, 2)
-        this.vtbl.get_PrivateROProperties := CallbackCreate(GetMethod(implObj, "get_PrivateROProperties"), flags, 2)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_Handle := CallbackCreate(GetMethod(implObj, "get_Handle"), flags, 2)
-        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
-        this.vtbl.get_Cluster := CallbackCreate(GetMethod(implObj, "get_Cluster"), flags, 2)
+        this.vtbl.get_CommonProperties := CallbackCreate(ObjBindMethod(implObj, "get_CommonProperties"), flags, 2)
+        this.vtbl.get_PrivateProperties := CallbackCreate(ObjBindMethod(implObj, "get_PrivateProperties"), flags, 2)
+        this.vtbl.get_CommonROProperties := CallbackCreate(ObjBindMethod(implObj, "get_CommonROProperties"), flags, 2)
+        this.vtbl.get_PrivateROProperties := CallbackCreate(ObjBindMethod(implObj, "get_PrivateROProperties"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Handle := CallbackCreate(ObjBindMethod(implObj, "get_Handle"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(ObjBindMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.get_Cluster := CallbackCreate(ObjBindMethod(implObj, "get_Cluster"), flags, 2)
     }
 
     Dispose() {

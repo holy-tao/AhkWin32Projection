@@ -106,10 +106,10 @@ export default struct ITfContextComposition extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StartComposition := CallbackCreate(GetMethod(implObj, "StartComposition"), flags, 5)
-        this.vtbl.EnumCompositions := CallbackCreate(GetMethod(implObj, "EnumCompositions"), flags, 2)
-        this.vtbl.FindComposition := CallbackCreate(GetMethod(implObj, "FindComposition"), flags, 4)
-        this.vtbl.TakeOwnership := CallbackCreate(GetMethod(implObj, "TakeOwnership"), flags, 5)
+        this.vtbl.StartComposition := CallbackCreate(ObjBindMethod(implObj, "StartComposition"), flags, 5)
+        this.vtbl.EnumCompositions := CallbackCreate(ObjBindMethod(implObj, "EnumCompositions"), flags, 2)
+        this.vtbl.FindComposition := CallbackCreate(ObjBindMethod(implObj, "FindComposition"), flags, 4)
+        this.vtbl.TakeOwnership := CallbackCreate(ObjBindMethod(implObj, "TakeOwnership"), flags, 5)
     }
 
     Dispose() {

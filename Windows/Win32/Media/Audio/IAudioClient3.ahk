@@ -89,10 +89,10 @@ export default struct IAudioClient3 extends IAudioClient2 {
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclient3-getsharedmodeengineperiod
      */
     GetSharedModeEnginePeriod(pFormat, pDefaultPeriodInFrames, pFundamentalPeriodInFrames, pMinPeriodInFrames, pMaxPeriodInFrames) {
-        pDefaultPeriodInFramesMarshal := pDefaultPeriodInFrames is VarRef ? "uint*" : "ptr"
-        pFundamentalPeriodInFramesMarshal := pFundamentalPeriodInFrames is VarRef ? "uint*" : "ptr"
-        pMinPeriodInFramesMarshal := pMinPeriodInFrames is VarRef ? "uint*" : "ptr"
-        pMaxPeriodInFramesMarshal := pMaxPeriodInFrames is VarRef ? "uint*" : "ptr"
+        pDefaultPeriodInFramesMarshal := pDefaultPeriodInFrames is VarRef ? "uint*" : IntPtr
+        pFundamentalPeriodInFramesMarshal := pFundamentalPeriodInFrames is VarRef ? "uint*" : IntPtr
+        pMinPeriodInFramesMarshal := pMinPeriodInFrames is VarRef ? "uint*" : IntPtr
+        pMaxPeriodInFramesMarshal := pMaxPeriodInFrames is VarRef ? "uint*" : IntPtr
 
         result := ComCall(18, this, WAVEFORMATEX.Ptr, pFormat, pDefaultPeriodInFramesMarshal, pDefaultPeriodInFrames, pFundamentalPeriodInFramesMarshal, pFundamentalPeriodInFrames, pMinPeriodInFramesMarshal, pMinPeriodInFrames, pMaxPeriodInFramesMarshal, pMaxPeriodInFrames, "HRESULT")
         return result
@@ -117,8 +117,8 @@ export default struct IAudioClient3 extends IAudioClient2 {
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclient3-getcurrentsharedmodeengineperiod
      */
     GetCurrentSharedModeEnginePeriod(ppFormat, pCurrentPeriodInFrames) {
-        ppFormatMarshal := ppFormat is VarRef ? "ptr*" : "ptr"
-        pCurrentPeriodInFramesMarshal := pCurrentPeriodInFrames is VarRef ? "uint*" : "ptr"
+        ppFormatMarshal := ppFormat is VarRef ? "ptr*" : IntPtr
+        pCurrentPeriodInFramesMarshal := pCurrentPeriodInFrames is VarRef ? "uint*" : IntPtr
 
         result := ComCall(19, this, ppFormatMarshal, ppFormat, pCurrentPeriodInFramesMarshal, pCurrentPeriodInFrames, "HRESULT")
         return result
@@ -331,7 +331,9 @@ export default struct IAudioClient3 extends IAudioClient2 {
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclient3-initializesharedaudiostream
      */
     InitializeSharedAudioStream(StreamFlags, PeriodInFrames, pFormat, AudioSessionGuid) {
-        result := ComCall(20, this, UInt32, StreamFlags, UInt32, PeriodInFrames, WAVEFORMATEX.Ptr, pFormat, Guid.Ptr, AudioSessionGuid, "HRESULT")
+        AudioSessionGuidMarshal := AudioSessionGuid == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(20, this, UInt32, StreamFlags, UInt32, PeriodInFrames, WAVEFORMATEX.Ptr, pFormat, AudioSessionGuidMarshal, AudioSessionGuid, "HRESULT")
         return result
     }
 
@@ -344,9 +346,9 @@ export default struct IAudioClient3 extends IAudioClient2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSharedModeEnginePeriod := CallbackCreate(GetMethod(implObj, "GetSharedModeEnginePeriod"), flags, 6)
-        this.vtbl.GetCurrentSharedModeEnginePeriod := CallbackCreate(GetMethod(implObj, "GetCurrentSharedModeEnginePeriod"), flags, 3)
-        this.vtbl.InitializeSharedAudioStream := CallbackCreate(GetMethod(implObj, "InitializeSharedAudioStream"), flags, 5)
+        this.vtbl.GetSharedModeEnginePeriod := CallbackCreate(ObjBindMethod(implObj, "GetSharedModeEnginePeriod"), flags, 6)
+        this.vtbl.GetCurrentSharedModeEnginePeriod := CallbackCreate(ObjBindMethod(implObj, "GetCurrentSharedModeEnginePeriod"), flags, 3)
+        this.vtbl.InitializeSharedAudioStream := CallbackCreate(ObjBindMethod(implObj, "InitializeSharedAudioStream"), flags, 5)
     }
 
     Dispose() {

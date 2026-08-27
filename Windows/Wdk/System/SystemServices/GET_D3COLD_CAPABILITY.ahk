@@ -20,14 +20,14 @@ export default struct GET_D3COLD_CAPABILITY {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<BOOLEAN>} D3ColdSupported 
      * @returns {NTSTATUS} 
      */
     Call(_Context, D3ColdSupported) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        D3ColdSupportedMarshal := D3ColdSupported is VarRef ? "char*" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
+        D3ColdSupportedMarshal := D3ColdSupported is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, D3ColdSupportedMarshal, D3ColdSupported, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

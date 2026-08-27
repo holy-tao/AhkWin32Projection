@@ -40,7 +40,6 @@ export default struct IHTMLEditDesigner extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} inEvtDispId 
      * @param {IHTMLEventObj} pIEventObj 
      * @returns {HRESULT} 
@@ -51,7 +50,6 @@ export default struct IHTMLEditDesigner extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} inEvtDispId 
      * @param {IHTMLEventObj} pIEventObj 
      * @returns {HRESULT} 
@@ -102,7 +100,6 @@ export default struct IHTMLEditDesigner extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} inEvtDispId 
      * @param {IHTMLEventObj} pIEventObj 
      * @returns {HRESULT} 
@@ -121,10 +118,10 @@ export default struct IHTMLEditDesigner extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PreHandleEvent := CallbackCreate(GetMethod(implObj, "PreHandleEvent"), flags, 3)
-        this.vtbl.PostHandleEvent := CallbackCreate(GetMethod(implObj, "PostHandleEvent"), flags, 3)
-        this.vtbl.TranslateAccelerator := CallbackCreate(GetMethod(implObj, "TranslateAccelerator"), flags, 3)
-        this.vtbl.PostEditorEventNotify := CallbackCreate(GetMethod(implObj, "PostEditorEventNotify"), flags, 3)
+        this.vtbl.PreHandleEvent := CallbackCreate(ObjBindMethod(implObj, "PreHandleEvent"), flags, 3)
+        this.vtbl.PostHandleEvent := CallbackCreate(ObjBindMethod(implObj, "PostHandleEvent"), flags, 3)
+        this.vtbl.TranslateAccelerator := CallbackCreate(ObjBindMethod(implObj, "TranslateAccelerator"), flags, 3)
+        this.vtbl.PostEditorEventNotify := CallbackCreate(ObjBindMethod(implObj, "PostEditorEventNotify"), flags, 3)
     }
 
     Dispose() {

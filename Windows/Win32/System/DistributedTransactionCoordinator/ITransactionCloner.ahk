@@ -36,7 +36,6 @@ export default struct ITransactionCloner extends ITransaction {
     }
 
     /**
-     * 
      * @returns {ITransaction} 
      */
     CloneWithCommitDisabled() {
@@ -53,7 +52,7 @@ export default struct ITransactionCloner extends ITransaction {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CloneWithCommitDisabled := CallbackCreate(GetMethod(implObj, "CloneWithCommitDisabled"), flags, 2)
+        this.vtbl.CloneWithCommitDisabled := CallbackCreate(ObjBindMethod(implObj, "CloneWithCommitDisabled"), flags, 2)
     }
 
     Dispose() {

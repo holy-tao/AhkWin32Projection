@@ -20,7 +20,6 @@ export default struct PFND3DKMT_CHECKVIDPNEXCLUSIVEOWNERSHIP {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CHECKVIDPNEXCLUSIVEOWNERSHIP>} param0 
      * @returns {NTSTATUS} 
      */

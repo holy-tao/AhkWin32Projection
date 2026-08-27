@@ -43,7 +43,6 @@ export default struct IHTMLDOMNode2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_ownerDocument() {
@@ -60,7 +59,7 @@ export default struct IHTMLDOMNode2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ownerDocument := CallbackCreate(GetMethod(implObj, "get_ownerDocument"), flags, 2)
+        this.vtbl.get_ownerDocument := CallbackCreate(ObjBindMethod(implObj, "get_ownerDocument"), flags, 2)
     }
 
     Dispose() {

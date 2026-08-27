@@ -21,7 +21,6 @@ export default struct SslInitializeInterfaceFn {
     }
 
     /**
-     * 
      * @param {PWSTR} pszProviderName 
      * @param {Pointer<NCRYPT_SSL_FUNCTION_TABLE>} pFunctionTable 
      * @param {Integer} dwFlags 

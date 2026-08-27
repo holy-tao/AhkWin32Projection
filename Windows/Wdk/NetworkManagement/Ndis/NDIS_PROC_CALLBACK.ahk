@@ -19,13 +19,13 @@ export default struct NDIS_PROC_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<NDIS_WORK_ITEM>} WorkItem 
      * @param {Pointer<Void>} _Context 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(WorkItem, _Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, NDIS_WORK_ITEM.Ptr, WorkItem, _ContextMarshal, _Context)
     }

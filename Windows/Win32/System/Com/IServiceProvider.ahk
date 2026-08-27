@@ -68,7 +68,7 @@ export default struct IServiceProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryService := CallbackCreate(GetMethod(implObj, "QueryService"), flags, 4)
+        this.vtbl.QueryService := CallbackCreate(ObjBindMethod(implObj, "QueryService"), flags, 4)
     }
 
     Dispose() {

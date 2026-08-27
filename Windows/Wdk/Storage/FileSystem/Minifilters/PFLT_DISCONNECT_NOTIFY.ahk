@@ -18,12 +18,12 @@ export default struct PFLT_DISCONNECT_NOTIFY {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} ConnectionCookie 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(ConnectionCookie) {
-        ConnectionCookieMarshal := ConnectionCookie is VarRef ? "ptr" : "ptr"
+        ConnectionCookieMarshal := ConnectionCookie is VarRef ? "ptr" : IntPtr
+        ConnectionCookieMarshal := ConnectionCookie == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, ConnectionCookieMarshal, ConnectionCookie)
     }

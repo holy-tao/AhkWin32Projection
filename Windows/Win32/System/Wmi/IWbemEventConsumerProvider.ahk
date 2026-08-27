@@ -96,7 +96,7 @@ export default struct IWbemEventConsumerProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FindConsumer := CallbackCreate(GetMethod(implObj, "FindConsumer"), flags, 3)
+        this.vtbl.FindConsumer := CallbackCreate(ObjBindMethod(implObj, "FindConsumer"), flags, 3)
     }
 
     Dispose() {

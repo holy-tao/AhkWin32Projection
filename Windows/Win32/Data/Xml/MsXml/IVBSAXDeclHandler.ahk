@@ -40,7 +40,6 @@ export default struct IVBSAXDeclHandler extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} strName 
      * @param {Pointer<BSTR>} strModel 
      * @returns {HRESULT} 
@@ -51,7 +50,6 @@ export default struct IVBSAXDeclHandler extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} strElementName 
      * @param {Pointer<BSTR>} strAttributeName 
      * @param {Pointer<BSTR>} strType 
@@ -65,7 +63,6 @@ export default struct IVBSAXDeclHandler extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} strName 
      * @param {Pointer<BSTR>} strValue 
      * @returns {HRESULT} 
@@ -76,7 +73,6 @@ export default struct IVBSAXDeclHandler extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} strName 
      * @param {Pointer<BSTR>} strPublicId 
      * @param {Pointer<BSTR>} strSystemId 
@@ -96,10 +92,10 @@ export default struct IVBSAXDeclHandler extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.elementDecl := CallbackCreate(GetMethod(implObj, "elementDecl"), flags, 3)
-        this.vtbl.attributeDecl := CallbackCreate(GetMethod(implObj, "attributeDecl"), flags, 6)
-        this.vtbl.internalEntityDecl := CallbackCreate(GetMethod(implObj, "internalEntityDecl"), flags, 3)
-        this.vtbl.externalEntityDecl := CallbackCreate(GetMethod(implObj, "externalEntityDecl"), flags, 4)
+        this.vtbl.elementDecl := CallbackCreate(ObjBindMethod(implObj, "elementDecl"), flags, 3)
+        this.vtbl.attributeDecl := CallbackCreate(ObjBindMethod(implObj, "attributeDecl"), flags, 6)
+        this.vtbl.internalEntityDecl := CallbackCreate(ObjBindMethod(implObj, "internalEntityDecl"), flags, 3)
+        this.vtbl.externalEntityDecl := CallbackCreate(ObjBindMethod(implObj, "externalEntityDecl"), flags, 4)
     }
 
     Dispose() {

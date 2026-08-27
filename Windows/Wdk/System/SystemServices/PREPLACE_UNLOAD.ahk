@@ -18,7 +18,6 @@ export default struct PREPLACE_UNLOAD {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

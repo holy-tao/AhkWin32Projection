@@ -104,7 +104,6 @@ export default struct IVBSAXXMLReader extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strName 
      * @returns {VARIANT_BOOL} 
      */
@@ -116,7 +115,6 @@ export default struct IVBSAXXMLReader extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strName 
      * @param {VARIANT_BOOL} fValue 
      * @returns {HRESULT} 
@@ -129,7 +127,6 @@ export default struct IVBSAXXMLReader extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strName 
      * @returns {VARIANT} 
      */
@@ -142,7 +139,6 @@ export default struct IVBSAXXMLReader extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strName 
      * @param {VARIANT} varValue 
      * @returns {HRESULT} 
@@ -155,7 +151,6 @@ export default struct IVBSAXXMLReader extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IVBSAXEntityResolver} 
      */
     get_entityResolver() {
@@ -164,7 +159,6 @@ export default struct IVBSAXXMLReader extends IDispatch {
     }
 
     /**
-     * 
      * @param {IVBSAXEntityResolver} oResolver 
      * @returns {HRESULT} 
      */
@@ -174,7 +168,6 @@ export default struct IVBSAXXMLReader extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IVBSAXContentHandler} 
      */
     get_contentHandler() {
@@ -183,7 +176,6 @@ export default struct IVBSAXXMLReader extends IDispatch {
     }
 
     /**
-     * 
      * @param {IVBSAXContentHandler} oHandler 
      * @returns {HRESULT} 
      */
@@ -193,7 +185,6 @@ export default struct IVBSAXXMLReader extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IVBSAXDTDHandler} 
      */
     get_dtdHandler() {
@@ -202,7 +193,6 @@ export default struct IVBSAXXMLReader extends IDispatch {
     }
 
     /**
-     * 
      * @param {IVBSAXDTDHandler} oHandler 
      * @returns {HRESULT} 
      */
@@ -212,7 +202,6 @@ export default struct IVBSAXXMLReader extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IVBSAXErrorHandler} 
      */
     get_errorHandler() {
@@ -221,7 +210,6 @@ export default struct IVBSAXXMLReader extends IDispatch {
     }
 
     /**
-     * 
      * @param {IVBSAXErrorHandler} oHandler 
      * @returns {HRESULT} 
      */
@@ -231,7 +219,6 @@ export default struct IVBSAXXMLReader extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_baseURL() {
@@ -241,7 +228,6 @@ export default struct IVBSAXXMLReader extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strBaseURL 
      * @returns {HRESULT} 
      */
@@ -253,7 +239,6 @@ export default struct IVBSAXXMLReader extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_secureBaseURL() {
@@ -263,7 +248,6 @@ export default struct IVBSAXXMLReader extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strSecureBaseURL 
      * @returns {HRESULT} 
      */
@@ -275,7 +259,6 @@ export default struct IVBSAXXMLReader extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varInput 
      * @returns {HRESULT} 
      */
@@ -285,7 +268,6 @@ export default struct IVBSAXXMLReader extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strURL 
      * @returns {HRESULT} 
      */
@@ -305,24 +287,24 @@ export default struct IVBSAXXMLReader extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.getFeature := CallbackCreate(GetMethod(implObj, "getFeature"), flags, 3)
-        this.vtbl.putFeature := CallbackCreate(GetMethod(implObj, "putFeature"), flags, 3)
-        this.vtbl.getProperty := CallbackCreate(GetMethod(implObj, "getProperty"), flags, 3)
-        this.vtbl.putProperty := CallbackCreate(GetMethod(implObj, "putProperty"), flags, 3)
-        this.vtbl.get_entityResolver := CallbackCreate(GetMethod(implObj, "get_entityResolver"), flags, 2)
-        this.vtbl.putref_entityResolver := CallbackCreate(GetMethod(implObj, "putref_entityResolver"), flags, 2)
-        this.vtbl.get_contentHandler := CallbackCreate(GetMethod(implObj, "get_contentHandler"), flags, 2)
-        this.vtbl.putref_contentHandler := CallbackCreate(GetMethod(implObj, "putref_contentHandler"), flags, 2)
-        this.vtbl.get_dtdHandler := CallbackCreate(GetMethod(implObj, "get_dtdHandler"), flags, 2)
-        this.vtbl.putref_dtdHandler := CallbackCreate(GetMethod(implObj, "putref_dtdHandler"), flags, 2)
-        this.vtbl.get_errorHandler := CallbackCreate(GetMethod(implObj, "get_errorHandler"), flags, 2)
-        this.vtbl.putref_errorHandler := CallbackCreate(GetMethod(implObj, "putref_errorHandler"), flags, 2)
-        this.vtbl.get_baseURL := CallbackCreate(GetMethod(implObj, "get_baseURL"), flags, 2)
-        this.vtbl.put_baseURL := CallbackCreate(GetMethod(implObj, "put_baseURL"), flags, 2)
-        this.vtbl.get_secureBaseURL := CallbackCreate(GetMethod(implObj, "get_secureBaseURL"), flags, 2)
-        this.vtbl.put_secureBaseURL := CallbackCreate(GetMethod(implObj, "put_secureBaseURL"), flags, 2)
-        this.vtbl.parse := CallbackCreate(GetMethod(implObj, "parse"), flags, 2)
-        this.vtbl.parseURL := CallbackCreate(GetMethod(implObj, "parseURL"), flags, 2)
+        this.vtbl.getFeature := CallbackCreate(ObjBindMethod(implObj, "getFeature"), flags, 3)
+        this.vtbl.putFeature := CallbackCreate(ObjBindMethod(implObj, "putFeature"), flags, 3)
+        this.vtbl.getProperty := CallbackCreate(ObjBindMethod(implObj, "getProperty"), flags, 3)
+        this.vtbl.putProperty := CallbackCreate(ObjBindMethod(implObj, "putProperty"), flags, 3)
+        this.vtbl.get_entityResolver := CallbackCreate(ObjBindMethod(implObj, "get_entityResolver"), flags, 2)
+        this.vtbl.putref_entityResolver := CallbackCreate(ObjBindMethod(implObj, "putref_entityResolver"), flags, 2)
+        this.vtbl.get_contentHandler := CallbackCreate(ObjBindMethod(implObj, "get_contentHandler"), flags, 2)
+        this.vtbl.putref_contentHandler := CallbackCreate(ObjBindMethod(implObj, "putref_contentHandler"), flags, 2)
+        this.vtbl.get_dtdHandler := CallbackCreate(ObjBindMethod(implObj, "get_dtdHandler"), flags, 2)
+        this.vtbl.putref_dtdHandler := CallbackCreate(ObjBindMethod(implObj, "putref_dtdHandler"), flags, 2)
+        this.vtbl.get_errorHandler := CallbackCreate(ObjBindMethod(implObj, "get_errorHandler"), flags, 2)
+        this.vtbl.putref_errorHandler := CallbackCreate(ObjBindMethod(implObj, "putref_errorHandler"), flags, 2)
+        this.vtbl.get_baseURL := CallbackCreate(ObjBindMethod(implObj, "get_baseURL"), flags, 2)
+        this.vtbl.put_baseURL := CallbackCreate(ObjBindMethod(implObj, "put_baseURL"), flags, 2)
+        this.vtbl.get_secureBaseURL := CallbackCreate(ObjBindMethod(implObj, "get_secureBaseURL"), flags, 2)
+        this.vtbl.put_secureBaseURL := CallbackCreate(ObjBindMethod(implObj, "put_secureBaseURL"), flags, 2)
+        this.vtbl.parse := CallbackCreate(ObjBindMethod(implObj, "parse"), flags, 2)
+        this.vtbl.parseURL := CallbackCreate(ObjBindMethod(implObj, "parseURL"), flags, 2)
     }
 
     Dispose() {

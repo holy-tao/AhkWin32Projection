@@ -123,7 +123,7 @@ export default struct IAMMediaContent2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iammediacontent2-get_playlistcount
      */
     get_PlaylistCount(pNumberEntries) {
-        pNumberEntriesMarshal := pNumberEntries is VarRef ? "int*" : "ptr"
+        pNumberEntriesMarshal := pNumberEntries is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, pNumberEntriesMarshal, pNumberEntries, "HRESULT")
         return result
@@ -138,9 +138,9 @@ export default struct IAMMediaContent2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_MediaParameter := CallbackCreate(GetMethod(implObj, "get_MediaParameter"), flags, 4)
-        this.vtbl.get_MediaParameterName := CallbackCreate(GetMethod(implObj, "get_MediaParameterName"), flags, 4)
-        this.vtbl.get_PlaylistCount := CallbackCreate(GetMethod(implObj, "get_PlaylistCount"), flags, 2)
+        this.vtbl.get_MediaParameter := CallbackCreate(ObjBindMethod(implObj, "get_MediaParameter"), flags, 4)
+        this.vtbl.get_MediaParameterName := CallbackCreate(ObjBindMethod(implObj, "get_MediaParameterName"), flags, 4)
+        this.vtbl.get_PlaylistCount := CallbackCreate(ObjBindMethod(implObj, "get_PlaylistCount"), flags, 2)
     }
 
     Dispose() {

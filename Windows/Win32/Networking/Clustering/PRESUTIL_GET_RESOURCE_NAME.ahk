@@ -20,7 +20,6 @@ export default struct PRESUTIL_GET_RESOURCE_NAME {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {PWSTR} pszResourceName 
      * @param {Pointer<Integer>} pcchResourceNameInOut 
@@ -29,7 +28,7 @@ export default struct PRESUTIL_GET_RESOURCE_NAME {
     Call(_hResource, pszResourceName, pcchResourceNameInOut) {
         pszResourceName := pszResourceName is String ? StrPtr(pszResourceName) : pszResourceName
 
-        pcchResourceNameInOutMarshal := pcchResourceNameInOut is VarRef ? "uint*" : "ptr"
+        pcchResourceNameInOutMarshal := pcchResourceNameInOut is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HRESOURCE, _hResource, "ptr", pszResourceName, pcchResourceNameInOutMarshal, pcchResourceNameInOut, UInt32)
         return result

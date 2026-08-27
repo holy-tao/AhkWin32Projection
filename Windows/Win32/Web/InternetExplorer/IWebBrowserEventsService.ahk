@@ -41,7 +41,6 @@ export default struct IWebBrowserEventsService extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     FireBeforeNavigate2Event() {
@@ -50,7 +49,6 @@ export default struct IWebBrowserEventsService extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     FireNavigateComplete2Event() {
@@ -59,7 +57,6 @@ export default struct IWebBrowserEventsService extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     FireDownloadBeginEvent() {
@@ -68,7 +65,6 @@ export default struct IWebBrowserEventsService extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     FireDownloadCompleteEvent() {
@@ -77,7 +73,6 @@ export default struct IWebBrowserEventsService extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     FireDocumentCompleteEvent() {
@@ -94,11 +89,11 @@ export default struct IWebBrowserEventsService extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FireBeforeNavigate2Event := CallbackCreate(GetMethod(implObj, "FireBeforeNavigate2Event"), flags, 2)
-        this.vtbl.FireNavigateComplete2Event := CallbackCreate(GetMethod(implObj, "FireNavigateComplete2Event"), flags, 1)
-        this.vtbl.FireDownloadBeginEvent := CallbackCreate(GetMethod(implObj, "FireDownloadBeginEvent"), flags, 1)
-        this.vtbl.FireDownloadCompleteEvent := CallbackCreate(GetMethod(implObj, "FireDownloadCompleteEvent"), flags, 1)
-        this.vtbl.FireDocumentCompleteEvent := CallbackCreate(GetMethod(implObj, "FireDocumentCompleteEvent"), flags, 1)
+        this.vtbl.FireBeforeNavigate2Event := CallbackCreate(ObjBindMethod(implObj, "FireBeforeNavigate2Event"), flags, 2)
+        this.vtbl.FireNavigateComplete2Event := CallbackCreate(ObjBindMethod(implObj, "FireNavigateComplete2Event"), flags, 1)
+        this.vtbl.FireDownloadBeginEvent := CallbackCreate(ObjBindMethod(implObj, "FireDownloadBeginEvent"), flags, 1)
+        this.vtbl.FireDownloadCompleteEvent := CallbackCreate(ObjBindMethod(implObj, "FireDownloadCompleteEvent"), flags, 1)
+        this.vtbl.FireDocumentCompleteEvent := CallbackCreate(ObjBindMethod(implObj, "FireDocumentCompleteEvent"), flags, 1)
     }
 
     Dispose() {

@@ -21,7 +21,6 @@ export default struct PCLUSTER_REG_BATCH_ADD_COMMAND {
     }
 
     /**
-     * 
      * @param {HREGBATCH} _hRegBatch 
      * @param {CLUSTER_REG_COMMAND} dwCommand 
      * @param {PWSTR} wzName 
@@ -33,7 +32,10 @@ export default struct PCLUSTER_REG_BATCH_ADD_COMMAND {
     Call(_hRegBatch, dwCommand, wzName, dwOptions, lpData, cbData) {
         wzName := wzName is String ? StrPtr(wzName) : wzName
 
-        result := DllCall(this.value, HREGBATCH, _hRegBatch, CLUSTER_REG_COMMAND, dwCommand, "ptr", wzName, UInt32, dwOptions, IntPtr, lpData, UInt32, cbData, Int32)
+        wzNameMarshal := wzName == 0 ? IntPtr : PWSTR
+        lpDataMarshal := lpData == 0 ? IntPtr : IntPtr
+
+        result := DllCall(this.value, HREGBATCH, _hRegBatch, CLUSTER_REG_COMMAND, dwCommand, wzNameMarshal, wzName, UInt32, dwOptions, lpDataMarshal, lpData, UInt32, cbData, Int32)
         return result
     }
 

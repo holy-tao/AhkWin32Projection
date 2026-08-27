@@ -21,7 +21,6 @@ export default struct LPFNCREATESTDACCESSIBLEOBJECT {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {Integer} idObject 
      * @param {Pointer<Guid>} riid 
@@ -29,7 +28,7 @@ export default struct LPFNCREATESTDACCESSIBLEOBJECT {
      * @returns {HRESULT} 
      */
     Call(_hwnd, idObject, riid, ppvObject) {
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, HWND, _hwnd, Int32, idObject, Guid.Ptr, riid, ppvObjectMarshal, ppvObject, "HRESULT")
         return result

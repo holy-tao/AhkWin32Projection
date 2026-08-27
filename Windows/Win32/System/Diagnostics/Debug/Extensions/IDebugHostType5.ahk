@@ -37,7 +37,6 @@ export default struct IDebugHostType5 extends IDebugHostType4 {
     }
 
     /**
-     * 
      * @param {IDebugHostType} pOtherType 
      * @returns {Boolean} 
      */
@@ -55,7 +54,7 @@ export default struct IDebugHostType5 extends IDebugHostType4 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsBaseTypeOf := CallbackCreate(GetMethod(implObj, "IsBaseTypeOf"), flags, 3)
+        this.vtbl.IsBaseTypeOf := CallbackCreate(ObjBindMethod(implObj, "IsBaseTypeOf"), flags, 3)
     }
 
     Dispose() {

@@ -148,10 +148,10 @@ export default struct IDeferredCommand extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
-        this.vtbl.Confidence := CallbackCreate(GetMethod(implObj, "Confidence"), flags, 2)
-        this.vtbl.Postpone := CallbackCreate(GetMethod(implObj, "Postpone"), flags, 2)
-        this.vtbl.GetHResult := CallbackCreate(GetMethod(implObj, "GetHResult"), flags, 2)
+        this.vtbl.Cancel := CallbackCreate(ObjBindMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.Confidence := CallbackCreate(ObjBindMethod(implObj, "Confidence"), flags, 2)
+        this.vtbl.Postpone := CallbackCreate(ObjBindMethod(implObj, "Postpone"), flags, 2)
+        this.vtbl.GetHResult := CallbackCreate(ObjBindMethod(implObj, "GetHResult"), flags, 2)
     }
 
     Dispose() {

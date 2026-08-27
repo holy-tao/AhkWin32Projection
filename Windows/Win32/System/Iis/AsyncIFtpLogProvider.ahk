@@ -44,7 +44,6 @@ export default struct AsyncIFtpLogProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<LOGGING_PARAMETERS>} pLoggingParameters 
      * @returns {HRESULT} 
      */
@@ -54,7 +53,6 @@ export default struct AsyncIFtpLogProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_Log() {
@@ -71,8 +69,8 @@ export default struct AsyncIFtpLogProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Begin_Log := CallbackCreate(GetMethod(implObj, "Begin_Log"), flags, 2)
-        this.vtbl.Finish_Log := CallbackCreate(GetMethod(implObj, "Finish_Log"), flags, 1)
+        this.vtbl.Begin_Log := CallbackCreate(ObjBindMethod(implObj, "Begin_Log"), flags, 2)
+        this.vtbl.Finish_Log := CallbackCreate(ObjBindMethod(implObj, "Finish_Log"), flags, 1)
     }
 
     Dispose() {

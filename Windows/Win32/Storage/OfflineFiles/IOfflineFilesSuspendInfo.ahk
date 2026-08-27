@@ -46,8 +46,8 @@ export default struct IOfflineFilesSuspendInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessuspendinfo-issuspended
      */
     IsSuspended(pbSuspended, pbSuspendedRoot) {
-        pbSuspendedMarshal := pbSuspended is VarRef ? "int*" : "ptr"
-        pbSuspendedRootMarshal := pbSuspendedRoot is VarRef ? "int*" : "ptr"
+        pbSuspendedMarshal := pbSuspended is VarRef ? "int*" : IntPtr
+        pbSuspendedRootMarshal := pbSuspendedRoot is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, pbSuspendedMarshal, pbSuspended, pbSuspendedRootMarshal, pbSuspendedRoot, "HRESULT")
         return result
@@ -62,7 +62,7 @@ export default struct IOfflineFilesSuspendInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsSuspended := CallbackCreate(GetMethod(implObj, "IsSuspended"), flags, 3)
+        this.vtbl.IsSuspended := CallbackCreate(ObjBindMethod(implObj, "IsSuspended"), flags, 3)
     }
 
     Dispose() {

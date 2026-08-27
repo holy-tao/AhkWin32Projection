@@ -227,9 +227,9 @@ export default struct IPersistMediaPropertyBag extends IPersist {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitNew := CallbackCreate(GetMethod(implObj, "InitNew"), flags, 1)
-        this.vtbl.Load := CallbackCreate(GetMethod(implObj, "Load"), flags, 3)
-        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 4)
+        this.vtbl.InitNew := CallbackCreate(ObjBindMethod(implObj, "InitNew"), flags, 1)
+        this.vtbl.Load := CallbackCreate(ObjBindMethod(implObj, "Load"), flags, 3)
+        this.vtbl.Save := CallbackCreate(ObjBindMethod(implObj, "Save"), flags, 4)
     }
 
     Dispose() {

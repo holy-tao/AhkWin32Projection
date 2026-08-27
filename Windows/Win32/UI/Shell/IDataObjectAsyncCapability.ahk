@@ -95,7 +95,9 @@ export default struct IDataObjectAsyncCapability extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-idataobjectasynccapability-startoperation
      */
     StartOperation(pbcReserved) {
-        result := ComCall(5, this, "ptr", pbcReserved, "HRESULT")
+        pbcReservedMarshal := pbcReserved == 0 ? IntPtr : "ptr"
+
+        result := ComCall(5, this, pbcReservedMarshal, pbcReserved, "HRESULT")
         return result
     }
 
@@ -147,11 +149,11 @@ export default struct IDataObjectAsyncCapability extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAsyncMode := CallbackCreate(GetMethod(implObj, "SetAsyncMode"), flags, 2)
-        this.vtbl.GetAsyncMode := CallbackCreate(GetMethod(implObj, "GetAsyncMode"), flags, 2)
-        this.vtbl.StartOperation := CallbackCreate(GetMethod(implObj, "StartOperation"), flags, 2)
-        this.vtbl.InOperation := CallbackCreate(GetMethod(implObj, "InOperation"), flags, 2)
-        this.vtbl.EndOperation := CallbackCreate(GetMethod(implObj, "EndOperation"), flags, 4)
+        this.vtbl.SetAsyncMode := CallbackCreate(ObjBindMethod(implObj, "SetAsyncMode"), flags, 2)
+        this.vtbl.GetAsyncMode := CallbackCreate(ObjBindMethod(implObj, "GetAsyncMode"), flags, 2)
+        this.vtbl.StartOperation := CallbackCreate(ObjBindMethod(implObj, "StartOperation"), flags, 2)
+        this.vtbl.InOperation := CallbackCreate(ObjBindMethod(implObj, "InOperation"), flags, 2)
+        this.vtbl.EndOperation := CallbackCreate(ObjBindMethod(implObj, "EndOperation"), flags, 4)
     }
 
     Dispose() {

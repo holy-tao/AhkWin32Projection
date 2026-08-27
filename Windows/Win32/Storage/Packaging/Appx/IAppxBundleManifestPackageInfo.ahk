@@ -133,12 +133,12 @@ export default struct IAppxBundleManifestPackageInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPackageType := CallbackCreate(GetMethod(implObj, "GetPackageType"), flags, 2)
-        this.vtbl.GetPackageId := CallbackCreate(GetMethod(implObj, "GetPackageId"), flags, 2)
-        this.vtbl.GetFileName := CallbackCreate(GetMethod(implObj, "GetFileName"), flags, 2)
-        this.vtbl.GetOffset := CallbackCreate(GetMethod(implObj, "GetOffset"), flags, 2)
-        this.vtbl.GetSize := CallbackCreate(GetMethod(implObj, "GetSize"), flags, 2)
-        this.vtbl.GetResources := CallbackCreate(GetMethod(implObj, "GetResources"), flags, 2)
+        this.vtbl.GetPackageType := CallbackCreate(ObjBindMethod(implObj, "GetPackageType"), flags, 2)
+        this.vtbl.GetPackageId := CallbackCreate(ObjBindMethod(implObj, "GetPackageId"), flags, 2)
+        this.vtbl.GetFileName := CallbackCreate(ObjBindMethod(implObj, "GetFileName"), flags, 2)
+        this.vtbl.GetOffset := CallbackCreate(ObjBindMethod(implObj, "GetOffset"), flags, 2)
+        this.vtbl.GetSize := CallbackCreate(ObjBindMethod(implObj, "GetSize"), flags, 2)
+        this.vtbl.GetResources := CallbackCreate(ObjBindMethod(implObj, "GetResources"), flags, 2)
     }
 
     Dispose() {

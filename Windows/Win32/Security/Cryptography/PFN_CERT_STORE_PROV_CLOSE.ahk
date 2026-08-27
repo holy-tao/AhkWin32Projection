@@ -21,7 +21,6 @@ export default struct PFN_CERT_STORE_PROV_CLOSE {
     }
 
     /**
-     * 
      * @param {HCERTSTOREPROV} hStoreProv Provider-specific value returned in 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_store_prov_info">CERT_STORE_PROV_INFO</a> by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pfn_cert_dll_open_store_prov_func">CertDllOpenStoreProv</a>.
@@ -30,7 +29,9 @@ export default struct PFN_CERT_STORE_PROV_CLOSE {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(hStoreProv, dwFlags) {
-        DllCall(this.value, HCERTSTOREPROV, hStoreProv, UInt32, dwFlags)
+        hStoreProvMarshal := hStoreProv == 0 ? IntPtr : HCERTSTOREPROV
+
+        DllCall(this.value, hStoreProvMarshal, hStoreProv, UInt32, dwFlags)
     }
 
     /**

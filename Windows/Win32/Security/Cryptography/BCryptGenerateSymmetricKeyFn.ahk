@@ -21,7 +21,6 @@ export default struct BCryptGenerateSymmetricKeyFn {
     }
 
     /**
-     * 
      * @param {BCRYPT_ALG_HANDLE} hAlgorithm 
      * @param {Pointer<BCRYPT_KEY_HANDLE>} phKey 
      * @param {Integer} pbKeyObject 

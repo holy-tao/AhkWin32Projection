@@ -37,7 +37,6 @@ export default struct ISpStreamFormat extends IStream {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pguidFormatId 
      * @returns {Pointer<WAVEFORMATEX>} 
      */
@@ -55,7 +54,7 @@ export default struct ISpStreamFormat extends IStream {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFormat := CallbackCreate(GetMethod(implObj, "GetFormat"), flags, 3)
+        this.vtbl.GetFormat := CallbackCreate(ObjBindMethod(implObj, "GetFormat"), flags, 3)
     }
 
     Dispose() {

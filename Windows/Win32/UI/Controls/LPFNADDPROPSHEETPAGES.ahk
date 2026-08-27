@@ -21,14 +21,13 @@ export default struct LPFNADDPROPSHEETPAGES {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} param0 
      * @param {Pointer<LPFNSVADDPROPSHEETPAGE>} param1 
      * @param {LPARAM} param2 
      * @returns {BOOL} 
      */
     Call(param0, param1, param2) {
-        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+        param0Marshal := param0 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, param0Marshal, param0, LPFNSVADDPROPSHEETPAGE, param1, LPARAM, param2, BOOL)
         return result

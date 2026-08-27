@@ -44,7 +44,6 @@ export default struct ISchemaModelGroup extends ISchemaParticle {
     }
 
     /**
-     * 
      * @returns {ISchemaItemCollection} 
      */
     get_particles() {
@@ -61,7 +60,7 @@ export default struct ISchemaModelGroup extends ISchemaParticle {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_particles := CallbackCreate(GetMethod(implObj, "get_particles"), flags, 2)
+        this.vtbl.get_particles := CallbackCreate(ObjBindMethod(implObj, "get_particles"), flags, 2)
     }
 
     Dispose() {

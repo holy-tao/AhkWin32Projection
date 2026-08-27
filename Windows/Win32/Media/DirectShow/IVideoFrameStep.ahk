@@ -91,7 +91,9 @@ export default struct IVideoFrameStep extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivideoframestep-step
      */
     Step(dwFrames, pStepObject) {
-        result := ComCall(3, this, UInt32, dwFrames, "ptr", pStepObject, "HRESULT")
+        pStepObjectMarshal := pStepObject == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, UInt32, dwFrames, pStepObjectMarshal, pStepObject, "HRESULT")
         return result
     }
 
@@ -103,7 +105,9 @@ export default struct IVideoFrameStep extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivideoframestep-canstep
      */
     CanStep(bMultiple, pStepObject) {
-        result := ComCall(4, this, Int32, bMultiple, "ptr", pStepObject, "HRESULT")
+        pStepObjectMarshal := pStepObject == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, Int32, bMultiple, pStepObjectMarshal, pStepObject, "HRESULT")
         return result
     }
 
@@ -126,9 +130,9 @@ export default struct IVideoFrameStep extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Step := CallbackCreate(GetMethod(implObj, "Step"), flags, 3)
-        this.vtbl.CanStep := CallbackCreate(GetMethod(implObj, "CanStep"), flags, 3)
-        this.vtbl.CancelStep := CallbackCreate(GetMethod(implObj, "CancelStep"), flags, 1)
+        this.vtbl.Step := CallbackCreate(ObjBindMethod(implObj, "Step"), flags, 3)
+        this.vtbl.CanStep := CallbackCreate(ObjBindMethod(implObj, "CanStep"), flags, 3)
+        this.vtbl.CancelStep := CallbackCreate(ObjBindMethod(implObj, "CancelStep"), flags, 1)
     }
 
     Dispose() {

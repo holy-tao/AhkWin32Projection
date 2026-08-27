@@ -173,8 +173,8 @@ export default struct IDvbExtendedEventDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbextendedeventdescriptor-getrecorditemrawbytes
      */
     GetRecordItemRawBytes(bRecordIndex, ppbRawItem, pbItemLength) {
-        ppbRawItemMarshal := ppbRawItem is VarRef ? "ptr*" : "ptr"
-        pbItemLengthMarshal := pbItemLength is VarRef ? "char*" : "ptr"
+        ppbRawItemMarshal := ppbRawItem is VarRef ? "ptr*" : IntPtr
+        pbItemLengthMarshal := pbItemLength is VarRef ? "char*" : IntPtr
 
         result := ComCall(13, this, Int8, bRecordIndex, ppbRawItemMarshal, ppbRawItem, pbItemLengthMarshal, pbItemLength, "HRESULT")
         return result
@@ -189,17 +189,17 @@ export default struct IDvbExtendedEventDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetDescriptorNumber := CallbackCreate(GetMethod(implObj, "GetDescriptorNumber"), flags, 2)
-        this.vtbl.GetLastDescriptorNumber := CallbackCreate(GetMethod(implObj, "GetLastDescriptorNumber"), flags, 2)
-        this.vtbl.GetLanguageCode := CallbackCreate(GetMethod(implObj, "GetLanguageCode"), flags, 2)
-        this.vtbl.GetCountOfRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRecords"), flags, 2)
-        this.vtbl.GetRecordItemW := CallbackCreate(GetMethod(implObj, "GetRecordItemW"), flags, 5)
-        this.vtbl.GetConcatenatedItemW := CallbackCreate(GetMethod(implObj, "GetConcatenatedItemW"), flags, 5)
-        this.vtbl.GetTextW := CallbackCreate(GetMethod(implObj, "GetTextW"), flags, 3)
-        this.vtbl.GetConcatenatedTextW := CallbackCreate(GetMethod(implObj, "GetConcatenatedTextW"), flags, 4)
-        this.vtbl.GetRecordItemRawBytes := CallbackCreate(GetMethod(implObj, "GetRecordItemRawBytes"), flags, 4)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetDescriptorNumber := CallbackCreate(ObjBindMethod(implObj, "GetDescriptorNumber"), flags, 2)
+        this.vtbl.GetLastDescriptorNumber := CallbackCreate(ObjBindMethod(implObj, "GetLastDescriptorNumber"), flags, 2)
+        this.vtbl.GetLanguageCode := CallbackCreate(ObjBindMethod(implObj, "GetLanguageCode"), flags, 2)
+        this.vtbl.GetCountOfRecords := CallbackCreate(ObjBindMethod(implObj, "GetCountOfRecords"), flags, 2)
+        this.vtbl.GetRecordItemW := CallbackCreate(ObjBindMethod(implObj, "GetRecordItemW"), flags, 5)
+        this.vtbl.GetConcatenatedItemW := CallbackCreate(ObjBindMethod(implObj, "GetConcatenatedItemW"), flags, 5)
+        this.vtbl.GetTextW := CallbackCreate(ObjBindMethod(implObj, "GetTextW"), flags, 3)
+        this.vtbl.GetConcatenatedTextW := CallbackCreate(ObjBindMethod(implObj, "GetConcatenatedTextW"), flags, 4)
+        this.vtbl.GetRecordItemRawBytes := CallbackCreate(ObjBindMethod(implObj, "GetRecordItemRawBytes"), flags, 4)
     }
 
     Dispose() {

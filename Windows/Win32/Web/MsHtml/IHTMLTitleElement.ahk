@@ -52,7 +52,6 @@ export default struct IHTMLTitleElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -64,7 +63,6 @@ export default struct IHTMLTitleElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_text() {
@@ -82,8 +80,8 @@ export default struct IHTMLTitleElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_text := CallbackCreate(GetMethod(implObj, "put_text"), flags, 2)
-        this.vtbl.get_text := CallbackCreate(GetMethod(implObj, "get_text"), flags, 2)
+        this.vtbl.put_text := CallbackCreate(ObjBindMethod(implObj, "put_text"), flags, 2)
+        this.vtbl.get_text := CallbackCreate(ObjBindMethod(implObj, "get_text"), flags, 2)
     }
 
     Dispose() {

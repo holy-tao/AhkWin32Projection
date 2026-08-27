@@ -20,13 +20,12 @@ export default struct PGPE_CLEAR_STATUS {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} param0 
      * @param {Pointer<Void>} param1 
      * @returns {NTSTATUS} 
      */
     Call(param0, param1) {
-        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+        param1Marshal := param1 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, DEVICE_OBJECT.Ptr, param0, param1Marshal, param1, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

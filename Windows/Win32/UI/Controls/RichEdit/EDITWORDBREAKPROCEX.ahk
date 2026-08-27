@@ -26,7 +26,6 @@ export default struct EDITWORDBREAKPROCEX {
     }
 
     /**
-     * 
      * @param {PSTR} pchText Type: <b>char*</b>
      * 
      * Pointer to the text at the current position. If 

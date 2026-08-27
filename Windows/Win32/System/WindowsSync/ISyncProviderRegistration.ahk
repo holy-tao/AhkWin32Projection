@@ -146,7 +146,9 @@ export default struct ISyncProviderRegistration extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderregistration-enumeratesyncproviderconfiguis
      */
     EnumerateSyncProviderConfigUIs(pguidContentType, dwSupportedArchitecture) {
-        result := ComCall(5, this, Guid.Ptr, pguidContentType, UInt32, dwSupportedArchitecture, "ptr*", &ppEnumSyncProviderConfigUIInfos := 0, "HRESULT")
+        pguidContentTypeMarshal := pguidContentType == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(5, this, pguidContentTypeMarshal, pguidContentType, UInt32, dwSupportedArchitecture, "ptr*", &ppEnumSyncProviderConfigUIInfos := 0, "HRESULT")
         return IEnumSyncProviderConfigUIInfos(ppEnumSyncProviderConfigUIInfos)
     }
 
@@ -256,7 +258,9 @@ export default struct ISyncProviderRegistration extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderregistration-enumeratesyncproviders
      */
     EnumerateSyncProviders(pguidContentType, dwStateFlagsToFilterMask, dwStateFlagsToFilter, refProviderClsId, dwSupportedArchitecture) {
-        result := ComCall(9, this, Guid.Ptr, pguidContentType, UInt32, dwStateFlagsToFilterMask, UInt32, dwStateFlagsToFilter, Guid.Ptr, refProviderClsId, UInt32, dwSupportedArchitecture, "ptr*", &ppEnumSyncProviderInfos := 0, "HRESULT")
+        pguidContentTypeMarshal := pguidContentType == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(9, this, pguidContentTypeMarshal, pguidContentType, UInt32, dwStateFlagsToFilterMask, UInt32, dwStateFlagsToFilter, Guid.Ptr, refProviderClsId, UInt32, dwSupportedArchitecture, "ptr*", &ppEnumSyncProviderInfos := 0, "HRESULT")
         return IEnumSyncProviderInfos(ppEnumSyncProviderInfos)
     }
 
@@ -517,22 +521,22 @@ export default struct ISyncProviderRegistration extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateSyncProviderConfigUIRegistrationInstance := CallbackCreate(GetMethod(implObj, "CreateSyncProviderConfigUIRegistrationInstance"), flags, 3)
-        this.vtbl.UnregisterSyncProviderConfigUI := CallbackCreate(GetMethod(implObj, "UnregisterSyncProviderConfigUI"), flags, 2)
-        this.vtbl.EnumerateSyncProviderConfigUIs := CallbackCreate(GetMethod(implObj, "EnumerateSyncProviderConfigUIs"), flags, 4)
-        this.vtbl.CreateSyncProviderRegistrationInstance := CallbackCreate(GetMethod(implObj, "CreateSyncProviderRegistrationInstance"), flags, 3)
-        this.vtbl.UnregisterSyncProvider := CallbackCreate(GetMethod(implObj, "UnregisterSyncProvider"), flags, 2)
-        this.vtbl.GetSyncProviderConfigUIInfoforProvider := CallbackCreate(GetMethod(implObj, "GetSyncProviderConfigUIInfoforProvider"), flags, 3)
-        this.vtbl.EnumerateSyncProviders := CallbackCreate(GetMethod(implObj, "EnumerateSyncProviders"), flags, 7)
-        this.vtbl.GetSyncProviderInfo := CallbackCreate(GetMethod(implObj, "GetSyncProviderInfo"), flags, 3)
-        this.vtbl.GetSyncProviderFromInstanceId := CallbackCreate(GetMethod(implObj, "GetSyncProviderFromInstanceId"), flags, 4)
-        this.vtbl.GetSyncProviderConfigUIInfo := CallbackCreate(GetMethod(implObj, "GetSyncProviderConfigUIInfo"), flags, 3)
-        this.vtbl.GetSyncProviderConfigUIFromInstanceId := CallbackCreate(GetMethod(implObj, "GetSyncProviderConfigUIFromInstanceId"), flags, 4)
-        this.vtbl.GetSyncProviderState := CallbackCreate(GetMethod(implObj, "GetSyncProviderState"), flags, 3)
-        this.vtbl.SetSyncProviderState := CallbackCreate(GetMethod(implObj, "SetSyncProviderState"), flags, 4)
-        this.vtbl.RegisterForEvent := CallbackCreate(GetMethod(implObj, "RegisterForEvent"), flags, 2)
-        this.vtbl.RevokeEvent := CallbackCreate(GetMethod(implObj, "RevokeEvent"), flags, 2)
-        this.vtbl.GetChange := CallbackCreate(GetMethod(implObj, "GetChange"), flags, 3)
+        this.vtbl.CreateSyncProviderConfigUIRegistrationInstance := CallbackCreate(ObjBindMethod(implObj, "CreateSyncProviderConfigUIRegistrationInstance"), flags, 3)
+        this.vtbl.UnregisterSyncProviderConfigUI := CallbackCreate(ObjBindMethod(implObj, "UnregisterSyncProviderConfigUI"), flags, 2)
+        this.vtbl.EnumerateSyncProviderConfigUIs := CallbackCreate(ObjBindMethod(implObj, "EnumerateSyncProviderConfigUIs"), flags, 4)
+        this.vtbl.CreateSyncProviderRegistrationInstance := CallbackCreate(ObjBindMethod(implObj, "CreateSyncProviderRegistrationInstance"), flags, 3)
+        this.vtbl.UnregisterSyncProvider := CallbackCreate(ObjBindMethod(implObj, "UnregisterSyncProvider"), flags, 2)
+        this.vtbl.GetSyncProviderConfigUIInfoforProvider := CallbackCreate(ObjBindMethod(implObj, "GetSyncProviderConfigUIInfoforProvider"), flags, 3)
+        this.vtbl.EnumerateSyncProviders := CallbackCreate(ObjBindMethod(implObj, "EnumerateSyncProviders"), flags, 7)
+        this.vtbl.GetSyncProviderInfo := CallbackCreate(ObjBindMethod(implObj, "GetSyncProviderInfo"), flags, 3)
+        this.vtbl.GetSyncProviderFromInstanceId := CallbackCreate(ObjBindMethod(implObj, "GetSyncProviderFromInstanceId"), flags, 4)
+        this.vtbl.GetSyncProviderConfigUIInfo := CallbackCreate(ObjBindMethod(implObj, "GetSyncProviderConfigUIInfo"), flags, 3)
+        this.vtbl.GetSyncProviderConfigUIFromInstanceId := CallbackCreate(ObjBindMethod(implObj, "GetSyncProviderConfigUIFromInstanceId"), flags, 4)
+        this.vtbl.GetSyncProviderState := CallbackCreate(ObjBindMethod(implObj, "GetSyncProviderState"), flags, 3)
+        this.vtbl.SetSyncProviderState := CallbackCreate(ObjBindMethod(implObj, "SetSyncProviderState"), flags, 4)
+        this.vtbl.RegisterForEvent := CallbackCreate(ObjBindMethod(implObj, "RegisterForEvent"), flags, 2)
+        this.vtbl.RevokeEvent := CallbackCreate(ObjBindMethod(implObj, "RevokeEvent"), flags, 2)
+        this.vtbl.GetChange := CallbackCreate(ObjBindMethod(implObj, "GetChange"), flags, 3)
     }
 
     Dispose() {

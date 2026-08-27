@@ -104,8 +104,8 @@ export default struct ISynchronizeContainer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddSynchronize := CallbackCreate(GetMethod(implObj, "AddSynchronize"), flags, 2)
-        this.vtbl.WaitMultiple := CallbackCreate(GetMethod(implObj, "WaitMultiple"), flags, 4)
+        this.vtbl.AddSynchronize := CallbackCreate(ObjBindMethod(implObj, "AddSynchronize"), flags, 2)
+        this.vtbl.WaitMultiple := CallbackCreate(ObjBindMethod(implObj, "WaitMultiple"), flags, 4)
     }
 
     Dispose() {

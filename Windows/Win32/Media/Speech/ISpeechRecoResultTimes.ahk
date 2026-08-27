@@ -68,7 +68,6 @@ export default struct ISpeechRecoResultTimes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_StreamTime() {
@@ -78,7 +77,6 @@ export default struct ISpeechRecoResultTimes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Length() {
@@ -88,7 +86,6 @@ export default struct ISpeechRecoResultTimes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_TickCount() {
@@ -97,7 +94,6 @@ export default struct ISpeechRecoResultTimes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_OffsetFromStart() {
@@ -115,10 +111,10 @@ export default struct ISpeechRecoResultTimes extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_StreamTime := CallbackCreate(GetMethod(implObj, "get_StreamTime"), flags, 2)
-        this.vtbl.get_Length := CallbackCreate(GetMethod(implObj, "get_Length"), flags, 2)
-        this.vtbl.get_TickCount := CallbackCreate(GetMethod(implObj, "get_TickCount"), flags, 2)
-        this.vtbl.get_OffsetFromStart := CallbackCreate(GetMethod(implObj, "get_OffsetFromStart"), flags, 2)
+        this.vtbl.get_StreamTime := CallbackCreate(ObjBindMethod(implObj, "get_StreamTime"), flags, 2)
+        this.vtbl.get_Length := CallbackCreate(ObjBindMethod(implObj, "get_Length"), flags, 2)
+        this.vtbl.get_TickCount := CallbackCreate(ObjBindMethod(implObj, "get_TickCount"), flags, 2)
+        this.vtbl.get_OffsetFromStart := CallbackCreate(ObjBindMethod(implObj, "get_OffsetFromStart"), flags, 2)
     }
 
     Dispose() {

@@ -43,7 +43,6 @@ export default struct ID3D12Compiler extends ID3D12CompilerFactoryChild {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_COMPILER_CACHE_GROUP_KEY>} pGroupKey 
      * @param {Integer} GroupVersion 
      * @param {Pointer<D3D12_PIPELINE_STATE_STREAM_DESC>} pDesc 
@@ -55,7 +54,6 @@ export default struct ID3D12Compiler extends ID3D12CompilerFactoryChild {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_COMPILER_CACHE_GROUP_KEY>} pGroupKey 
      * @param {Integer} GroupVersion 
      * @param {Pointer<D3D12_STATE_OBJECT_DESC>} pDesc 
@@ -68,7 +66,6 @@ export default struct ID3D12Compiler extends ID3D12CompilerFactoryChild {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_COMPILER_CACHE_GROUP_KEY>} pGroupKey 
      * @param {Integer} GroupVersion 
      * @param {Pointer<D3D12_STATE_OBJECT_DESC>} pAddition 
@@ -82,7 +79,6 @@ export default struct ID3D12Compiler extends ID3D12CompilerFactoryChild {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
@@ -100,10 +96,10 @@ export default struct ID3D12Compiler extends ID3D12CompilerFactoryChild {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CompilePipelineState := CallbackCreate(GetMethod(implObj, "CompilePipelineState"), flags, 4)
-        this.vtbl.CompileStateObject := CallbackCreate(GetMethod(implObj, "CompileStateObject"), flags, 6)
-        this.vtbl.CompileAddToStateObject := CallbackCreate(GetMethod(implObj, "CompileAddToStateObject"), flags, 7)
-        this.vtbl.GetCacheSession := CallbackCreate(GetMethod(implObj, "GetCacheSession"), flags, 3)
+        this.vtbl.CompilePipelineState := CallbackCreate(ObjBindMethod(implObj, "CompilePipelineState"), flags, 4)
+        this.vtbl.CompileStateObject := CallbackCreate(ObjBindMethod(implObj, "CompileStateObject"), flags, 6)
+        this.vtbl.CompileAddToStateObject := CallbackCreate(ObjBindMethod(implObj, "CompileAddToStateObject"), flags, 7)
+        this.vtbl.GetCacheSession := CallbackCreate(ObjBindMethod(implObj, "GetCacheSession"), flags, 3)
     }
 
     Dispose() {

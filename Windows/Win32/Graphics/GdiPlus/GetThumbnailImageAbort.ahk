@@ -19,7 +19,6 @@ export default struct GetThumbnailImageAbort {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     Call() {

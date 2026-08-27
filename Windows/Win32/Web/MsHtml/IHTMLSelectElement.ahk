@@ -163,7 +163,6 @@ export default struct IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -173,7 +172,6 @@ export default struct IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_size() {
@@ -182,7 +180,6 @@ export default struct IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -192,7 +189,6 @@ export default struct IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_multiple() {
@@ -201,7 +197,6 @@ export default struct IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -213,7 +208,6 @@ export default struct IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -223,7 +217,6 @@ export default struct IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_options() {
@@ -232,7 +225,6 @@ export default struct IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -242,7 +234,6 @@ export default struct IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onchange() {
@@ -252,7 +243,6 @@ export default struct IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -262,7 +252,6 @@ export default struct IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_selectedIndex() {
@@ -271,7 +260,6 @@ export default struct IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -281,7 +269,6 @@ export default struct IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -293,7 +280,6 @@ export default struct IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_value() {
@@ -303,7 +289,6 @@ export default struct IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -313,7 +298,6 @@ export default struct IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_disabled() {
@@ -322,7 +306,6 @@ export default struct IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLFormElement} 
      */
     get_form() {
@@ -371,7 +354,6 @@ export default struct IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {HRESULT} 
      */
@@ -381,7 +363,6 @@ export default struct IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -391,7 +372,6 @@ export default struct IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -400,7 +380,6 @@ export default struct IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__newEnum() {
@@ -409,7 +388,6 @@ export default struct IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} name 
      * @param {VARIANT} index 
      * @returns {IDispatch} 
@@ -420,7 +398,6 @@ export default struct IHTMLSelectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} tagName 
      * @returns {IDispatch} 
      */
@@ -438,30 +415,30 @@ export default struct IHTMLSelectElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_size := CallbackCreate(GetMethod(implObj, "put_size"), flags, 2)
-        this.vtbl.get_size := CallbackCreate(GetMethod(implObj, "get_size"), flags, 2)
-        this.vtbl.put_multiple := CallbackCreate(GetMethod(implObj, "put_multiple"), flags, 2)
-        this.vtbl.get_multiple := CallbackCreate(GetMethod(implObj, "get_multiple"), flags, 2)
-        this.vtbl.put_name := CallbackCreate(GetMethod(implObj, "put_name"), flags, 2)
-        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
-        this.vtbl.get_options := CallbackCreate(GetMethod(implObj, "get_options"), flags, 2)
-        this.vtbl.put_onchange := CallbackCreate(GetMethod(implObj, "put_onchange"), flags, 2)
-        this.vtbl.get_onchange := CallbackCreate(GetMethod(implObj, "get_onchange"), flags, 2)
-        this.vtbl.put_selectedIndex := CallbackCreate(GetMethod(implObj, "put_selectedIndex"), flags, 2)
-        this.vtbl.get_selectedIndex := CallbackCreate(GetMethod(implObj, "get_selectedIndex"), flags, 2)
-        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
-        this.vtbl.put_value := CallbackCreate(GetMethod(implObj, "put_value"), flags, 2)
-        this.vtbl.get_value := CallbackCreate(GetMethod(implObj, "get_value"), flags, 2)
-        this.vtbl.put_disabled := CallbackCreate(GetMethod(implObj, "put_disabled"), flags, 2)
-        this.vtbl.get_disabled := CallbackCreate(GetMethod(implObj, "get_disabled"), flags, 2)
-        this.vtbl.get_form := CallbackCreate(GetMethod(implObj, "get_form"), flags, 2)
-        this.vtbl.add := CallbackCreate(GetMethod(implObj, "add"), flags, 3)
-        this.vtbl.remove := CallbackCreate(GetMethod(implObj, "remove"), flags, 2)
-        this.vtbl.put_length := CallbackCreate(GetMethod(implObj, "put_length"), flags, 2)
-        this.vtbl.get_length := CallbackCreate(GetMethod(implObj, "get_length"), flags, 2)
-        this.vtbl.get__newEnum := CallbackCreate(GetMethod(implObj, "get__newEnum"), flags, 2)
-        this.vtbl.item := CallbackCreate(GetMethod(implObj, "item"), flags, 4)
-        this.vtbl.tags := CallbackCreate(GetMethod(implObj, "tags"), flags, 3)
+        this.vtbl.put_size := CallbackCreate(ObjBindMethod(implObj, "put_size"), flags, 2)
+        this.vtbl.get_size := CallbackCreate(ObjBindMethod(implObj, "get_size"), flags, 2)
+        this.vtbl.put_multiple := CallbackCreate(ObjBindMethod(implObj, "put_multiple"), flags, 2)
+        this.vtbl.get_multiple := CallbackCreate(ObjBindMethod(implObj, "get_multiple"), flags, 2)
+        this.vtbl.put_name := CallbackCreate(ObjBindMethod(implObj, "put_name"), flags, 2)
+        this.vtbl.get_name := CallbackCreate(ObjBindMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.get_options := CallbackCreate(ObjBindMethod(implObj, "get_options"), flags, 2)
+        this.vtbl.put_onchange := CallbackCreate(ObjBindMethod(implObj, "put_onchange"), flags, 2)
+        this.vtbl.get_onchange := CallbackCreate(ObjBindMethod(implObj, "get_onchange"), flags, 2)
+        this.vtbl.put_selectedIndex := CallbackCreate(ObjBindMethod(implObj, "put_selectedIndex"), flags, 2)
+        this.vtbl.get_selectedIndex := CallbackCreate(ObjBindMethod(implObj, "get_selectedIndex"), flags, 2)
+        this.vtbl.get_type := CallbackCreate(ObjBindMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.put_value := CallbackCreate(ObjBindMethod(implObj, "put_value"), flags, 2)
+        this.vtbl.get_value := CallbackCreate(ObjBindMethod(implObj, "get_value"), flags, 2)
+        this.vtbl.put_disabled := CallbackCreate(ObjBindMethod(implObj, "put_disabled"), flags, 2)
+        this.vtbl.get_disabled := CallbackCreate(ObjBindMethod(implObj, "get_disabled"), flags, 2)
+        this.vtbl.get_form := CallbackCreate(ObjBindMethod(implObj, "get_form"), flags, 2)
+        this.vtbl.add := CallbackCreate(ObjBindMethod(implObj, "add"), flags, 3)
+        this.vtbl.remove := CallbackCreate(ObjBindMethod(implObj, "remove"), flags, 2)
+        this.vtbl.put_length := CallbackCreate(ObjBindMethod(implObj, "put_length"), flags, 2)
+        this.vtbl.get_length := CallbackCreate(ObjBindMethod(implObj, "get_length"), flags, 2)
+        this.vtbl.get__newEnum := CallbackCreate(ObjBindMethod(implObj, "get__newEnum"), flags, 2)
+        this.vtbl.item := CallbackCreate(ObjBindMethod(implObj, "item"), flags, 4)
+        this.vtbl.tags := CallbackCreate(ObjBindMethod(implObj, "tags"), flags, 3)
     }
 
     Dispose() {

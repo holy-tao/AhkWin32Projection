@@ -710,17 +710,17 @@ export default struct IXpsOMTileBrush extends IXpsOMBrush {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTransform := CallbackCreate(GetMethod(implObj, "GetTransform"), flags, 2)
-        this.vtbl.GetTransformLocal := CallbackCreate(GetMethod(implObj, "GetTransformLocal"), flags, 2)
-        this.vtbl.SetTransformLocal := CallbackCreate(GetMethod(implObj, "SetTransformLocal"), flags, 2)
-        this.vtbl.GetTransformLookup := CallbackCreate(GetMethod(implObj, "GetTransformLookup"), flags, 2)
-        this.vtbl.SetTransformLookup := CallbackCreate(GetMethod(implObj, "SetTransformLookup"), flags, 2)
-        this.vtbl.GetViewbox := CallbackCreate(GetMethod(implObj, "GetViewbox"), flags, 2)
-        this.vtbl.SetViewbox := CallbackCreate(GetMethod(implObj, "SetViewbox"), flags, 2)
-        this.vtbl.GetViewport := CallbackCreate(GetMethod(implObj, "GetViewport"), flags, 2)
-        this.vtbl.SetViewport := CallbackCreate(GetMethod(implObj, "SetViewport"), flags, 2)
-        this.vtbl.GetTileMode := CallbackCreate(GetMethod(implObj, "GetTileMode"), flags, 2)
-        this.vtbl.SetTileMode := CallbackCreate(GetMethod(implObj, "SetTileMode"), flags, 2)
+        this.vtbl.GetTransform := CallbackCreate(ObjBindMethod(implObj, "GetTransform"), flags, 2)
+        this.vtbl.GetTransformLocal := CallbackCreate(ObjBindMethod(implObj, "GetTransformLocal"), flags, 2)
+        this.vtbl.SetTransformLocal := CallbackCreate(ObjBindMethod(implObj, "SetTransformLocal"), flags, 2)
+        this.vtbl.GetTransformLookup := CallbackCreate(ObjBindMethod(implObj, "GetTransformLookup"), flags, 2)
+        this.vtbl.SetTransformLookup := CallbackCreate(ObjBindMethod(implObj, "SetTransformLookup"), flags, 2)
+        this.vtbl.GetViewbox := CallbackCreate(ObjBindMethod(implObj, "GetViewbox"), flags, 2)
+        this.vtbl.SetViewbox := CallbackCreate(ObjBindMethod(implObj, "SetViewbox"), flags, 2)
+        this.vtbl.GetViewport := CallbackCreate(ObjBindMethod(implObj, "GetViewport"), flags, 2)
+        this.vtbl.SetViewport := CallbackCreate(ObjBindMethod(implObj, "SetViewport"), flags, 2)
+        this.vtbl.GetTileMode := CallbackCreate(ObjBindMethod(implObj, "GetTileMode"), flags, 2)
+        this.vtbl.SetTileMode := CallbackCreate(ObjBindMethod(implObj, "SetTileMode"), flags, 2)
     }
 
     Dispose() {

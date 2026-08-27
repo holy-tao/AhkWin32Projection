@@ -39,7 +39,6 @@ export default struct IFilteredNamespacePropertyToken extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RemoveFilter() {
@@ -48,7 +47,6 @@ export default struct IFilteredNamespacePropertyToken extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IModelMethod} 
      */
     GetFilter() {
@@ -57,7 +55,6 @@ export default struct IFilteredNamespacePropertyToken extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelMethod} pFilter 
      * @returns {HRESULT} 
      */
@@ -75,9 +72,9 @@ export default struct IFilteredNamespacePropertyToken extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RemoveFilter := CallbackCreate(GetMethod(implObj, "RemoveFilter"), flags, 1)
-        this.vtbl.GetFilter := CallbackCreate(GetMethod(implObj, "GetFilter"), flags, 2)
-        this.vtbl.TrySetFilter := CallbackCreate(GetMethod(implObj, "TrySetFilter"), flags, 2)
+        this.vtbl.RemoveFilter := CallbackCreate(ObjBindMethod(implObj, "RemoveFilter"), flags, 1)
+        this.vtbl.GetFilter := CallbackCreate(ObjBindMethod(implObj, "GetFilter"), flags, 2)
+        this.vtbl.TrySetFilter := CallbackCreate(ObjBindMethod(implObj, "TrySetFilter"), flags, 2)
     }
 
     Dispose() {

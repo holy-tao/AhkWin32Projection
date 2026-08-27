@@ -19,12 +19,11 @@ export default struct fpCreateIFECommonInstanceType {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} ppvObj 
      * @returns {HRESULT} 
      */
     Call(ppvObj) {
-        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, ppvObjMarshal, ppvObj, "HRESULT")
         return result

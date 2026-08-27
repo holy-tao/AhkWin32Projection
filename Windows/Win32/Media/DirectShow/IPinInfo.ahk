@@ -106,7 +106,6 @@ export default struct IPinInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_Pin() {
@@ -115,7 +114,6 @@ export default struct IPinInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_ConnectedTo() {
@@ -124,7 +122,6 @@ export default struct IPinInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_ConnectionMediaType() {
@@ -133,7 +130,6 @@ export default struct IPinInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_FilterInfo() {
@@ -142,7 +138,6 @@ export default struct IPinInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -152,7 +147,6 @@ export default struct IPinInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Direction() {
@@ -161,7 +155,6 @@ export default struct IPinInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PinID() {
@@ -171,7 +164,6 @@ export default struct IPinInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_MediaTypes() {
@@ -180,33 +172,37 @@ export default struct IPinInfo extends IDispatch {
     }
 
     /**
-     * 
      * @param {IUnknown} pPin 
      * @returns {HRESULT} 
      */
     Connect(pPin) {
-        result := ComCall(15, this, "ptr", pPin, "HRESULT")
+        pPinMarshal := pPin == 0 ? IntPtr : "ptr"
+
+        result := ComCall(15, this, pPinMarshal, pPin, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IUnknown} pPin 
      * @returns {HRESULT} 
      */
     ConnectDirect(pPin) {
-        result := ComCall(16, this, "ptr", pPin, "HRESULT")
+        pPinMarshal := pPin == 0 ? IntPtr : "ptr"
+
+        result := ComCall(16, this, pPinMarshal, pPin, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IUnknown} pPin 
      * @param {IDispatch} pMediaType 
      * @returns {HRESULT} 
      */
     ConnectWithType(pPin, pMediaType) {
-        result := ComCall(17, this, "ptr", pPin, "ptr", pMediaType, "HRESULT")
+        pPinMarshal := pPin == 0 ? IntPtr : "ptr"
+        pMediaTypeMarshal := pMediaType == 0 ? IntPtr : "ptr"
+
+        result := ComCall(17, this, pPinMarshal, pPin, pMediaTypeMarshal, pMediaType, "HRESULT")
         return result
     }
 
@@ -260,19 +256,19 @@ export default struct IPinInfo extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Pin := CallbackCreate(GetMethod(implObj, "get_Pin"), flags, 2)
-        this.vtbl.get_ConnectedTo := CallbackCreate(GetMethod(implObj, "get_ConnectedTo"), flags, 2)
-        this.vtbl.get_ConnectionMediaType := CallbackCreate(GetMethod(implObj, "get_ConnectionMediaType"), flags, 2)
-        this.vtbl.get_FilterInfo := CallbackCreate(GetMethod(implObj, "get_FilterInfo"), flags, 2)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_Direction := CallbackCreate(GetMethod(implObj, "get_Direction"), flags, 2)
-        this.vtbl.get_PinID := CallbackCreate(GetMethod(implObj, "get_PinID"), flags, 2)
-        this.vtbl.get_MediaTypes := CallbackCreate(GetMethod(implObj, "get_MediaTypes"), flags, 2)
-        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 2)
-        this.vtbl.ConnectDirect := CallbackCreate(GetMethod(implObj, "ConnectDirect"), flags, 2)
-        this.vtbl.ConnectWithType := CallbackCreate(GetMethod(implObj, "ConnectWithType"), flags, 3)
-        this.vtbl.Disconnect := CallbackCreate(GetMethod(implObj, "Disconnect"), flags, 1)
-        this.vtbl.Render := CallbackCreate(GetMethod(implObj, "Render"), flags, 1)
+        this.vtbl.get_Pin := CallbackCreate(ObjBindMethod(implObj, "get_Pin"), flags, 2)
+        this.vtbl.get_ConnectedTo := CallbackCreate(ObjBindMethod(implObj, "get_ConnectedTo"), flags, 2)
+        this.vtbl.get_ConnectionMediaType := CallbackCreate(ObjBindMethod(implObj, "get_ConnectionMediaType"), flags, 2)
+        this.vtbl.get_FilterInfo := CallbackCreate(ObjBindMethod(implObj, "get_FilterInfo"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Direction := CallbackCreate(ObjBindMethod(implObj, "get_Direction"), flags, 2)
+        this.vtbl.get_PinID := CallbackCreate(ObjBindMethod(implObj, "get_PinID"), flags, 2)
+        this.vtbl.get_MediaTypes := CallbackCreate(ObjBindMethod(implObj, "get_MediaTypes"), flags, 2)
+        this.vtbl.Connect := CallbackCreate(ObjBindMethod(implObj, "Connect"), flags, 2)
+        this.vtbl.ConnectDirect := CallbackCreate(ObjBindMethod(implObj, "ConnectDirect"), flags, 2)
+        this.vtbl.ConnectWithType := CallbackCreate(ObjBindMethod(implObj, "ConnectWithType"), flags, 3)
+        this.vtbl.Disconnect := CallbackCreate(ObjBindMethod(implObj, "Disconnect"), flags, 1)
+        this.vtbl.Render := CallbackCreate(ObjBindMethod(implObj, "Render"), flags, 1)
     }
 
     Dispose() {

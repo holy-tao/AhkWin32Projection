@@ -81,9 +81,9 @@ export default struct IWorkspaceClientExt extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetResourceId := CallbackCreate(GetMethod(implObj, "GetResourceId"), flags, 2)
-        this.vtbl.GetResourceDisplayName := CallbackCreate(GetMethod(implObj, "GetResourceDisplayName"), flags, 2)
-        this.vtbl.IssueDisconnect := CallbackCreate(GetMethod(implObj, "IssueDisconnect"), flags, 1)
+        this.vtbl.GetResourceId := CallbackCreate(ObjBindMethod(implObj, "GetResourceId"), flags, 2)
+        this.vtbl.GetResourceDisplayName := CallbackCreate(ObjBindMethod(implObj, "GetResourceDisplayName"), flags, 2)
+        this.vtbl.IssueDisconnect := CallbackCreate(ObjBindMethod(implObj, "IssueDisconnect"), flags, 1)
     }
 
     Dispose() {

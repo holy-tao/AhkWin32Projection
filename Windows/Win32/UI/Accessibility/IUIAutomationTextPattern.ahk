@@ -189,12 +189,12 @@ export default struct IUIAutomationTextPattern extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RangeFromPoint := CallbackCreate(GetMethod(implObj, "RangeFromPoint"), flags, 3)
-        this.vtbl.RangeFromChild := CallbackCreate(GetMethod(implObj, "RangeFromChild"), flags, 3)
-        this.vtbl.GetSelection := CallbackCreate(GetMethod(implObj, "GetSelection"), flags, 2)
-        this.vtbl.GetVisibleRanges := CallbackCreate(GetMethod(implObj, "GetVisibleRanges"), flags, 2)
-        this.vtbl.get_DocumentRange := CallbackCreate(GetMethod(implObj, "get_DocumentRange"), flags, 2)
-        this.vtbl.get_SupportedTextSelection := CallbackCreate(GetMethod(implObj, "get_SupportedTextSelection"), flags, 2)
+        this.vtbl.RangeFromPoint := CallbackCreate(ObjBindMethod(implObj, "RangeFromPoint"), flags, 3)
+        this.vtbl.RangeFromChild := CallbackCreate(ObjBindMethod(implObj, "RangeFromChild"), flags, 3)
+        this.vtbl.GetSelection := CallbackCreate(ObjBindMethod(implObj, "GetSelection"), flags, 2)
+        this.vtbl.GetVisibleRanges := CallbackCreate(ObjBindMethod(implObj, "GetVisibleRanges"), flags, 2)
+        this.vtbl.get_DocumentRange := CallbackCreate(ObjBindMethod(implObj, "get_DocumentRange"), flags, 2)
+        this.vtbl.get_SupportedTextSelection := CallbackCreate(ObjBindMethod(implObj, "get_SupportedTextSelection"), flags, 2)
     }
 
     Dispose() {

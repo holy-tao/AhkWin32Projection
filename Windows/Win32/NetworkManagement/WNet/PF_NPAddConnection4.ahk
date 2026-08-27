@@ -20,7 +20,6 @@ export default struct PF_NPAddConnection4 {
     }
 
     /**
-     * 
      * @param {HWND} hwndOwner 
      * @param {Pointer<NETRESOURCEW>} lpNetResource 
      * @param {Integer} lpAuthBuffer 
@@ -31,7 +30,11 @@ export default struct PF_NPAddConnection4 {
      * @returns {Integer} 
      */
     Call(hwndOwner, lpNetResource, lpAuthBuffer, cbAuthBuffer, dwFlags, lpUseOptions, cbUseOptions) {
-        result := DllCall(this.value, HWND, hwndOwner, NETRESOURCEW.Ptr, lpNetResource, IntPtr, lpAuthBuffer, UInt32, cbAuthBuffer, UInt32, dwFlags, IntPtr, lpUseOptions, UInt32, cbUseOptions, UInt32)
+        hwndOwnerMarshal := hwndOwner == 0 ? IntPtr : HWND
+        lpAuthBufferMarshal := lpAuthBuffer == 0 ? IntPtr : IntPtr
+        lpUseOptionsMarshal := lpUseOptions == 0 ? IntPtr : IntPtr
+
+        result := DllCall(this.value, hwndOwnerMarshal, hwndOwner, NETRESOURCEW.Ptr, lpNetResource, lpAuthBufferMarshal, lpAuthBuffer, UInt32, cbAuthBuffer, UInt32, dwFlags, lpUseOptionsMarshal, lpUseOptions, UInt32, cbUseOptions, UInt32)
         return result
     }
 

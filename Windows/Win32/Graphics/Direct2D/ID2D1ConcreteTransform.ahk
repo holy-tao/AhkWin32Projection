@@ -99,8 +99,8 @@ export default struct ID2D1ConcreteTransform extends ID2D1TransformNode {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetOutputBuffer := CallbackCreate(GetMethod(implObj, "SetOutputBuffer"), flags, 3)
-        this.vtbl.SetCached := CallbackCreate(GetMethod(implObj, "SetCached"), flags, 2)
+        this.vtbl.SetOutputBuffer := CallbackCreate(ObjBindMethod(implObj, "SetOutputBuffer"), flags, 3)
+        this.vtbl.SetCached := CallbackCreate(ObjBindMethod(implObj, "SetCached"), flags, 2)
     }
 
     Dispose() {

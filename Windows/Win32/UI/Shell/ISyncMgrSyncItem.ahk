@@ -209,14 +209,14 @@ export default struct ISyncMgrSyncItem extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetItemID := CallbackCreate(GetMethod(implObj, "GetItemID"), flags, 2)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
-        this.vtbl.GetItemInfo := CallbackCreate(GetMethod(implObj, "GetItemInfo"), flags, 2)
-        this.vtbl.GetObject := CallbackCreate(GetMethod(implObj, "GetObject"), flags, 4)
-        this.vtbl.GetCapabilities := CallbackCreate(GetMethod(implObj, "GetCapabilities"), flags, 2)
-        this.vtbl.GetPolicies := CallbackCreate(GetMethod(implObj, "GetPolicies"), flags, 2)
-        this.vtbl.Enable := CallbackCreate(GetMethod(implObj, "Enable"), flags, 2)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.GetItemID := CallbackCreate(ObjBindMethod(implObj, "GetItemID"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetItemInfo := CallbackCreate(ObjBindMethod(implObj, "GetItemInfo"), flags, 2)
+        this.vtbl.GetObject := CallbackCreate(ObjBindMethod(implObj, "GetObject"), flags, 4)
+        this.vtbl.GetCapabilities := CallbackCreate(ObjBindMethod(implObj, "GetCapabilities"), flags, 2)
+        this.vtbl.GetPolicies := CallbackCreate(ObjBindMethod(implObj, "GetPolicies"), flags, 2)
+        this.vtbl.Enable := CallbackCreate(ObjBindMethod(implObj, "Enable"), flags, 2)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 1)
     }
 
     Dispose() {

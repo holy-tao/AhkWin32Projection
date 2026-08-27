@@ -370,12 +370,12 @@ export default struct ICertRequest2 extends ICertRequest {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetIssuedCertificate := CallbackCreate(GetMethod(implObj, "GetIssuedCertificate"), flags, 5)
-        this.vtbl.GetErrorMessageText := CallbackCreate(GetMethod(implObj, "GetErrorMessageText"), flags, 4)
-        this.vtbl.GetCAProperty := CallbackCreate(GetMethod(implObj, "GetCAProperty"), flags, 7)
-        this.vtbl.GetCAPropertyFlags := CallbackCreate(GetMethod(implObj, "GetCAPropertyFlags"), flags, 4)
-        this.vtbl.GetCAPropertyDisplayName := CallbackCreate(GetMethod(implObj, "GetCAPropertyDisplayName"), flags, 4)
-        this.vtbl.GetFullResponseProperty := CallbackCreate(GetMethod(implObj, "GetFullResponseProperty"), flags, 6)
+        this.vtbl.GetIssuedCertificate := CallbackCreate(ObjBindMethod(implObj, "GetIssuedCertificate"), flags, 5)
+        this.vtbl.GetErrorMessageText := CallbackCreate(ObjBindMethod(implObj, "GetErrorMessageText"), flags, 4)
+        this.vtbl.GetCAProperty := CallbackCreate(ObjBindMethod(implObj, "GetCAProperty"), flags, 7)
+        this.vtbl.GetCAPropertyFlags := CallbackCreate(ObjBindMethod(implObj, "GetCAPropertyFlags"), flags, 4)
+        this.vtbl.GetCAPropertyDisplayName := CallbackCreate(ObjBindMethod(implObj, "GetCAPropertyDisplayName"), flags, 4)
+        this.vtbl.GetFullResponseProperty := CallbackCreate(ObjBindMethod(implObj, "GetFullResponseProperty"), flags, 6)
     }
 
     Dispose() {

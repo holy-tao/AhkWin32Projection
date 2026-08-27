@@ -84,7 +84,6 @@ export default struct IDOMMutationEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_relatedNode() {
@@ -93,7 +92,6 @@ export default struct IDOMMutationEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_prevValue() {
@@ -103,7 +101,6 @@ export default struct IDOMMutationEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_newValue() {
@@ -113,7 +110,6 @@ export default struct IDOMMutationEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_attrName() {
@@ -123,7 +119,6 @@ export default struct IDOMMutationEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_attrChange() {
@@ -132,7 +127,6 @@ export default struct IDOMMutationEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 
@@ -162,12 +156,12 @@ export default struct IDOMMutationEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_relatedNode := CallbackCreate(GetMethod(implObj, "get_relatedNode"), flags, 2)
-        this.vtbl.get_prevValue := CallbackCreate(GetMethod(implObj, "get_prevValue"), flags, 2)
-        this.vtbl.get_newValue := CallbackCreate(GetMethod(implObj, "get_newValue"), flags, 2)
-        this.vtbl.get_attrName := CallbackCreate(GetMethod(implObj, "get_attrName"), flags, 2)
-        this.vtbl.get_attrChange := CallbackCreate(GetMethod(implObj, "get_attrChange"), flags, 2)
-        this.vtbl.initMutationEvent := CallbackCreate(GetMethod(implObj, "initMutationEvent"), flags, 9)
+        this.vtbl.get_relatedNode := CallbackCreate(ObjBindMethod(implObj, "get_relatedNode"), flags, 2)
+        this.vtbl.get_prevValue := CallbackCreate(ObjBindMethod(implObj, "get_prevValue"), flags, 2)
+        this.vtbl.get_newValue := CallbackCreate(ObjBindMethod(implObj, "get_newValue"), flags, 2)
+        this.vtbl.get_attrName := CallbackCreate(ObjBindMethod(implObj, "get_attrName"), flags, 2)
+        this.vtbl.get_attrChange := CallbackCreate(ObjBindMethod(implObj, "get_attrChange"), flags, 2)
+        this.vtbl.initMutationEvent := CallbackCreate(ObjBindMethod(implObj, "initMutationEvent"), flags, 9)
     }
 
     Dispose() {

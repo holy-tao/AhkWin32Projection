@@ -27,7 +27,6 @@ export default struct WS_ENCODER_ENCODE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} encoderContext The encoder instance returned by the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_create_encoder_callback">WS_CREATE_ENCODER_CALLBACK</a>.
      * @param {Pointer<WS_BYTES>} buffers The buffers of data to write.
      * @param {Integer} count The number of buffers to write.
@@ -74,10 +73,12 @@ export default struct WS_ENCODER_ENCODE_CALLBACK {
      * </table>
      */
     Call(encoderContext, buffers, count, asyncContext, _error) {
-        encoderContextMarshal := encoderContext is VarRef ? "ptr" : "ptr"
-        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
+        encoderContextMarshal := encoderContext is VarRef ? "ptr" : IntPtr
+        asyncContextMarshal := asyncContext == 0 ? IntPtr : WS_ASYNC_CONTEXT.Ptr
+        _errorMarshal := _error is VarRef ? "ptr*" : IntPtr
+        _errorMarshal := _error == 0 ? IntPtr : WS_ERROR.Ptr
 
-        result := DllCall(this.value, encoderContextMarshal, encoderContext, WS_BYTES.Ptr, buffers, UInt32, count, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
+        result := DllCall(this.value, encoderContextMarshal, encoderContext, WS_BYTES.Ptr, buffers, UInt32, count, asyncContextMarshal, asyncContext, _errorMarshal, _error, "HRESULT")
         return result
     }
 

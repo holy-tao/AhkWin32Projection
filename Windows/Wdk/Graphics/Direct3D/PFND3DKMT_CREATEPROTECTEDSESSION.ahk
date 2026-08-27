@@ -20,7 +20,6 @@ export default struct PFND3DKMT_CREATEPROTECTEDSESSION {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CREATEPROTECTEDSESSION>} param0 
      * @returns {NTSTATUS} 
      */

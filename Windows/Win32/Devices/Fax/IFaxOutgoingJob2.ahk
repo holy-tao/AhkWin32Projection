@@ -126,9 +126,9 @@ export default struct IFaxOutgoingJob2 extends IFaxOutgoingJob {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_HasCoverPage := CallbackCreate(GetMethod(implObj, "get_HasCoverPage"), flags, 2)
-        this.vtbl.get_ReceiptAddress := CallbackCreate(GetMethod(implObj, "get_ReceiptAddress"), flags, 2)
-        this.vtbl.get_ScheduleType := CallbackCreate(GetMethod(implObj, "get_ScheduleType"), flags, 2)
+        this.vtbl.get_HasCoverPage := CallbackCreate(ObjBindMethod(implObj, "get_HasCoverPage"), flags, 2)
+        this.vtbl.get_ReceiptAddress := CallbackCreate(ObjBindMethod(implObj, "get_ReceiptAddress"), flags, 2)
+        this.vtbl.get_ScheduleType := CallbackCreate(ObjBindMethod(implObj, "get_ScheduleType"), flags, 2)
     }
 
     Dispose() {

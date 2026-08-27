@@ -38,7 +38,6 @@ export default struct ICorProfilerCallback6 extends ICorProfilerCallback5 {
     }
 
     /**
-     * 
      * @param {PWSTR} wszAssemblyPath 
      * @param {ICorProfilerAssemblyReferenceProvider} pAsmRefProvider 
      * @returns {HRESULT} 
@@ -59,7 +58,7 @@ export default struct ICorProfilerCallback6 extends ICorProfilerCallback5 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAssemblyReferences := CallbackCreate(GetMethod(implObj, "GetAssemblyReferences"), flags, 3)
+        this.vtbl.GetAssemblyReferences := CallbackCreate(ObjBindMethod(implObj, "GetAssemblyReferences"), flags, 3)
     }
 
     Dispose() {

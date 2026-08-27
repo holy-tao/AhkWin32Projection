@@ -41,7 +41,6 @@ export default struct IDebugApplicationNode100 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwCookie 
      * @param {APPLICATION_NODE_EVENT_FILTER} filter 
      * @returns {HRESULT} 
@@ -52,7 +51,6 @@ export default struct IDebugApplicationNode100 extends IUnknown {
     }
 
     /**
-     * 
      * @param {APPLICATION_NODE_EVENT_FILTER} filter 
      * @returns {TEXT_DOCUMENT_ARRAY} 
      */
@@ -63,7 +61,6 @@ export default struct IDebugApplicationNode100 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugDocument} pSearchKey 
      * @returns {HRESULT} 
      */
@@ -81,9 +78,9 @@ export default struct IDebugApplicationNode100 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetFilterForEventSink := CallbackCreate(GetMethod(implObj, "SetFilterForEventSink"), flags, 3)
-        this.vtbl.GetExcludedDocuments := CallbackCreate(GetMethod(implObj, "GetExcludedDocuments"), flags, 3)
-        this.vtbl.QueryIsChildNode := CallbackCreate(GetMethod(implObj, "QueryIsChildNode"), flags, 2)
+        this.vtbl.SetFilterForEventSink := CallbackCreate(ObjBindMethod(implObj, "SetFilterForEventSink"), flags, 3)
+        this.vtbl.GetExcludedDocuments := CallbackCreate(ObjBindMethod(implObj, "GetExcludedDocuments"), flags, 3)
+        this.vtbl.QueryIsChildNode := CallbackCreate(ObjBindMethod(implObj, "QueryIsChildNode"), flags, 2)
     }
 
     Dispose() {

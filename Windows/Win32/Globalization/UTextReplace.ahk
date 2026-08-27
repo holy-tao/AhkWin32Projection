@@ -20,7 +20,6 @@ export default struct UTextReplace {
     }
 
     /**
-     * 
      * @param {Pointer<UText>} ut 
      * @param {Integer} nativeStart 
      * @param {Integer} nativeLimit 
@@ -30,8 +29,8 @@ export default struct UTextReplace {
      * @returns {Integer} 
      */
     Call(ut, nativeStart, nativeLimit, replacementText, replacmentLength, _status) {
-        replacementTextMarshal := replacementText is VarRef ? "ushort*" : "ptr"
-        _statusMarshal := _status is VarRef ? "int*" : "ptr"
+        replacementTextMarshal := replacementText is VarRef ? "ushort*" : IntPtr
+        _statusMarshal := _status is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, UText.Ptr, ut, Int64, nativeStart, Int64, nativeLimit, replacementTextMarshal, replacementText, Int32, replacmentLength, _statusMarshal, _status, Int32)
         return result

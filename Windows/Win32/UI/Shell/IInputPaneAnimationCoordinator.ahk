@@ -37,7 +37,6 @@ export default struct IInputPaneAnimationCoordinator extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} device 
      * @param {IDCompositionAnimation} animation 
      * @returns {HRESULT} 
@@ -56,7 +55,7 @@ export default struct IInputPaneAnimationCoordinator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddAnimation := CallbackCreate(GetMethod(implObj, "AddAnimation"), flags, 3)
+        this.vtbl.AddAnimation := CallbackCreate(ObjBindMethod(implObj, "AddAnimation"), flags, 3)
     }
 
     Dispose() {

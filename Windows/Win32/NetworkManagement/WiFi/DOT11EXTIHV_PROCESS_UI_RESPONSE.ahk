@@ -19,14 +19,15 @@ export default struct DOT11EXTIHV_PROCESS_UI_RESPONSE {
     }
 
     /**
-     * 
      * @param {Guid} guidUIRequest 
      * @param {Integer} dwByteCount 
      * @param {Integer} pvResponseBuffer 
      * @returns {Integer} 
      */
     Call(guidUIRequest, dwByteCount, pvResponseBuffer) {
-        result := DllCall(this.value, Guid, guidUIRequest, UInt32, dwByteCount, IntPtr, pvResponseBuffer, UInt32)
+        pvResponseBufferMarshal := pvResponseBuffer == 0 ? IntPtr : IntPtr
+
+        result := DllCall(this.value, Guid, guidUIRequest, UInt32, dwByteCount, pvResponseBufferMarshal, pvResponseBuffer, UInt32)
         return result
     }
 

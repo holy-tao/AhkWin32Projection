@@ -20,7 +20,6 @@ export default struct PF_NPCancelConnection2 {
     }
 
     /**
-     * 
      * @param {PWSTR} lpName 
      * @param {BOOL} fForce 
      * @param {Integer} dwFlags 

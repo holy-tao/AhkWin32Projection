@@ -98,10 +98,10 @@ export default struct ITMediaControl extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 1)
-        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
-        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
-        this.vtbl.get_MediaState := CallbackCreate(GetMethod(implObj, "get_MediaState"), flags, 2)
+        this.vtbl.Start := CallbackCreate(ObjBindMethod(implObj, "Start"), flags, 1)
+        this.vtbl.Stop := CallbackCreate(ObjBindMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.Pause := CallbackCreate(ObjBindMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.get_MediaState := CallbackCreate(ObjBindMethod(implObj, "get_MediaState"), flags, 2)
     }
 
     Dispose() {

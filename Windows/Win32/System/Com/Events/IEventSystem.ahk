@@ -93,7 +93,7 @@ export default struct IEventSystem extends IDispatch {
         progID := progID is String ? BSTR.Alloc(progID).Value : progID
         queryCriteria := queryCriteria is String ? BSTR.Alloc(queryCriteria).Value : queryCriteria
 
-        errorIndexMarshal := errorIndex is VarRef ? "int*" : "ptr"
+        errorIndexMarshal := errorIndex is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, BSTR, progID, BSTR, queryCriteria, errorIndexMarshal, errorIndex, "ptr*", &ppInterface := 0, "HRESULT")
         return IUnknown(ppInterface)
@@ -319,12 +319,12 @@ export default struct IEventSystem extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Query := CallbackCreate(GetMethod(implObj, "Query"), flags, 5)
-        this.vtbl.Store := CallbackCreate(GetMethod(implObj, "Store"), flags, 3)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 4)
-        this.vtbl.get_EventObjectChangeEventClassID := CallbackCreate(GetMethod(implObj, "get_EventObjectChangeEventClassID"), flags, 2)
-        this.vtbl.QueryS := CallbackCreate(GetMethod(implObj, "QueryS"), flags, 4)
-        this.vtbl.RemoveS := CallbackCreate(GetMethod(implObj, "RemoveS"), flags, 3)
+        this.vtbl.Query := CallbackCreate(ObjBindMethod(implObj, "Query"), flags, 5)
+        this.vtbl.Store := CallbackCreate(ObjBindMethod(implObj, "Store"), flags, 3)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 4)
+        this.vtbl.get_EventObjectChangeEventClassID := CallbackCreate(ObjBindMethod(implObj, "get_EventObjectChangeEventClassID"), flags, 2)
+        this.vtbl.QueryS := CallbackCreate(ObjBindMethod(implObj, "QueryS"), flags, 4)
+        this.vtbl.RemoveS := CallbackCreate(ObjBindMethod(implObj, "RemoveS"), flags, 3)
     }
 
     Dispose() {

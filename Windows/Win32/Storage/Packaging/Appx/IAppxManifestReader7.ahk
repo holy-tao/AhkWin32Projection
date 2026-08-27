@@ -41,7 +41,6 @@ export default struct IAppxManifestReader7 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IAppxManifestDriverDependenciesEnumerator} 
      */
     GetDriverDependencies() {
@@ -50,7 +49,6 @@ export default struct IAppxManifestReader7 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IAppxManifestOSPackageDependenciesEnumerator} 
      */
     GetOSPackageDependencies() {
@@ -59,7 +57,6 @@ export default struct IAppxManifestReader7 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IAppxManifestHostRuntimeDependenciesEnumerator} 
      */
     GetHostRuntimeDependencies() {
@@ -76,9 +73,9 @@ export default struct IAppxManifestReader7 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDriverDependencies := CallbackCreate(GetMethod(implObj, "GetDriverDependencies"), flags, 2)
-        this.vtbl.GetOSPackageDependencies := CallbackCreate(GetMethod(implObj, "GetOSPackageDependencies"), flags, 2)
-        this.vtbl.GetHostRuntimeDependencies := CallbackCreate(GetMethod(implObj, "GetHostRuntimeDependencies"), flags, 2)
+        this.vtbl.GetDriverDependencies := CallbackCreate(ObjBindMethod(implObj, "GetDriverDependencies"), flags, 2)
+        this.vtbl.GetOSPackageDependencies := CallbackCreate(ObjBindMethod(implObj, "GetOSPackageDependencies"), flags, 2)
+        this.vtbl.GetHostRuntimeDependencies := CallbackCreate(ObjBindMethod(implObj, "GetHostRuntimeDependencies"), flags, 2)
     }
 
     Dispose() {

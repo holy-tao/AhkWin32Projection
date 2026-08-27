@@ -36,7 +36,6 @@ export default struct IViewObjectPresentNotifySite extends IViewObjectPresentSit
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RequestFrame() {
@@ -53,7 +52,7 @@ export default struct IViewObjectPresentNotifySite extends IViewObjectPresentSit
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RequestFrame := CallbackCreate(GetMethod(implObj, "RequestFrame"), flags, 1)
+        this.vtbl.RequestFrame := CallbackCreate(ObjBindMethod(implObj, "RequestFrame"), flags, 1)
     }
 
     Dispose() {

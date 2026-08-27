@@ -65,10 +65,12 @@ export default struct IWICBitmapDecoderInfo extends IWICBitmapCodecInfo {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapdecoderinfo-getpatterns
      */
     GetPatterns(cbSizePatterns, pPatterns, pcPatterns, pcbPatternsActual) {
-        pcPatternsMarshal := pcPatterns is VarRef ? "uint*" : "ptr"
-        pcbPatternsActualMarshal := pcbPatternsActual is VarRef ? "uint*" : "ptr"
+        pPatternsMarshal := pPatterns == 0 ? IntPtr : IntPtr
+        pcPatternsMarshal := pcPatterns is VarRef ? "uint*" : IntPtr
+        pcPatternsMarshal := pcPatterns == 0 ? IntPtr : "uint*"
+        pcbPatternsActualMarshal := pcbPatternsActual is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(23, this, UInt32, cbSizePatterns, IntPtr, pPatterns, pcPatternsMarshal, pcPatterns, pcbPatternsActualMarshal, pcbPatternsActual, "HRESULT")
+        result := ComCall(23, this, UInt32, cbSizePatterns, pPatternsMarshal, pPatterns, pcPatternsMarshal, pcPatterns, pcbPatternsActualMarshal, pcbPatternsActual, "HRESULT")
         return result
     }
 
@@ -108,9 +110,9 @@ export default struct IWICBitmapDecoderInfo extends IWICBitmapCodecInfo {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPatterns := CallbackCreate(GetMethod(implObj, "GetPatterns"), flags, 5)
-        this.vtbl.MatchesPattern := CallbackCreate(GetMethod(implObj, "MatchesPattern"), flags, 3)
-        this.vtbl.CreateInstance := CallbackCreate(GetMethod(implObj, "CreateInstance"), flags, 2)
+        this.vtbl.GetPatterns := CallbackCreate(ObjBindMethod(implObj, "GetPatterns"), flags, 5)
+        this.vtbl.MatchesPattern := CallbackCreate(ObjBindMethod(implObj, "MatchesPattern"), flags, 3)
+        this.vtbl.CreateInstance := CallbackCreate(ObjBindMethod(implObj, "CreateInstance"), flags, 2)
     }
 
     Dispose() {

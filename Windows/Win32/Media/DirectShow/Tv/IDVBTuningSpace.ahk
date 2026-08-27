@@ -85,8 +85,8 @@ export default struct IDVBTuningSpace extends ITuningSpace {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_SystemType := CallbackCreate(GetMethod(implObj, "get_SystemType"), flags, 2)
-        this.vtbl.put_SystemType := CallbackCreate(GetMethod(implObj, "put_SystemType"), flags, 2)
+        this.vtbl.get_SystemType := CallbackCreate(ObjBindMethod(implObj, "get_SystemType"), flags, 2)
+        this.vtbl.put_SystemType := CallbackCreate(ObjBindMethod(implObj, "put_SystemType"), flags, 2)
     }
 
     Dispose() {

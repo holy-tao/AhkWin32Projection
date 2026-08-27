@@ -48,7 +48,6 @@ export default struct IMXNamespaceManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fOverride 
      * @returns {HRESULT} 
      */
@@ -58,7 +57,6 @@ export default struct IMXNamespaceManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     getAllowOverride() {
@@ -67,7 +65,6 @@ export default struct IMXNamespaceManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     reset() {
@@ -76,7 +73,6 @@ export default struct IMXNamespaceManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     pushContext() {
@@ -85,7 +81,6 @@ export default struct IMXNamespaceManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {IXMLDOMNode} contextNode 
      * @param {VARIANT_BOOL} fDeep 
      * @returns {HRESULT} 
@@ -96,7 +91,6 @@ export default struct IMXNamespaceManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     popContext() {
@@ -105,7 +99,6 @@ export default struct IMXNamespaceManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} prefix 
      * @param {PWSTR} namespaceURI 
      * @returns {HRESULT} 
@@ -119,7 +112,6 @@ export default struct IMXNamespaceManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @param {PWSTR} pwchPrefix 
      * @param {Pointer<Integer>} pcchPrefix 
@@ -128,14 +120,13 @@ export default struct IMXNamespaceManager extends IUnknown {
     getDeclaredPrefix(nIndex, pwchPrefix, pcchPrefix) {
         pwchPrefix := pwchPrefix is String ? StrPtr(pwchPrefix) : pwchPrefix
 
-        pcchPrefixMarshal := pcchPrefix is VarRef ? "int*" : "ptr"
+        pcchPrefixMarshal := pcchPrefix is VarRef ? "int*" : IntPtr
 
         result := ComCall(10, this, Int32, nIndex, "ptr", pwchPrefix, pcchPrefixMarshal, pcchPrefix, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwszNamespaceURI 
      * @param {Integer} nIndex 
      * @param {PWSTR} pwchPrefix 
@@ -146,14 +137,13 @@ export default struct IMXNamespaceManager extends IUnknown {
         pwszNamespaceURI := pwszNamespaceURI is String ? StrPtr(pwszNamespaceURI) : pwszNamespaceURI
         pwchPrefix := pwchPrefix is String ? StrPtr(pwchPrefix) : pwchPrefix
 
-        pcchPrefixMarshal := pcchPrefix is VarRef ? "int*" : "ptr"
+        pcchPrefixMarshal := pcchPrefix is VarRef ? "int*" : IntPtr
 
         result := ComCall(11, this, "ptr", pwszNamespaceURI, Int32, nIndex, "ptr", pwchPrefix, pcchPrefixMarshal, pcchPrefix, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwchPrefix 
      * @param {IXMLDOMNode} pContextNode 
      * @param {PWSTR} pwchUri 
@@ -164,7 +154,7 @@ export default struct IMXNamespaceManager extends IUnknown {
         pwchPrefix := pwchPrefix is String ? StrPtr(pwchPrefix) : pwchPrefix
         pwchUri := pwchUri is String ? StrPtr(pwchUri) : pwchUri
 
-        pcchUriMarshal := pcchUri is VarRef ? "int*" : "ptr"
+        pcchUriMarshal := pcchUri is VarRef ? "int*" : IntPtr
 
         result := ComCall(12, this, "ptr", pwchPrefix, "ptr", pContextNode, "ptr", pwchUri, pcchUriMarshal, pcchUri, "HRESULT")
         return result
@@ -179,16 +169,16 @@ export default struct IMXNamespaceManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.putAllowOverride := CallbackCreate(GetMethod(implObj, "putAllowOverride"), flags, 2)
-        this.vtbl.getAllowOverride := CallbackCreate(GetMethod(implObj, "getAllowOverride"), flags, 2)
-        this.vtbl.reset := CallbackCreate(GetMethod(implObj, "reset"), flags, 1)
-        this.vtbl.pushContext := CallbackCreate(GetMethod(implObj, "pushContext"), flags, 1)
-        this.vtbl.pushNodeContext := CallbackCreate(GetMethod(implObj, "pushNodeContext"), flags, 3)
-        this.vtbl.popContext := CallbackCreate(GetMethod(implObj, "popContext"), flags, 1)
-        this.vtbl.declarePrefix := CallbackCreate(GetMethod(implObj, "declarePrefix"), flags, 3)
-        this.vtbl.getDeclaredPrefix := CallbackCreate(GetMethod(implObj, "getDeclaredPrefix"), flags, 4)
-        this.vtbl.getPrefix := CallbackCreate(GetMethod(implObj, "getPrefix"), flags, 5)
-        this.vtbl.getURI := CallbackCreate(GetMethod(implObj, "getURI"), flags, 5)
+        this.vtbl.putAllowOverride := CallbackCreate(ObjBindMethod(implObj, "putAllowOverride"), flags, 2)
+        this.vtbl.getAllowOverride := CallbackCreate(ObjBindMethod(implObj, "getAllowOverride"), flags, 2)
+        this.vtbl.reset := CallbackCreate(ObjBindMethod(implObj, "reset"), flags, 1)
+        this.vtbl.pushContext := CallbackCreate(ObjBindMethod(implObj, "pushContext"), flags, 1)
+        this.vtbl.pushNodeContext := CallbackCreate(ObjBindMethod(implObj, "pushNodeContext"), flags, 3)
+        this.vtbl.popContext := CallbackCreate(ObjBindMethod(implObj, "popContext"), flags, 1)
+        this.vtbl.declarePrefix := CallbackCreate(ObjBindMethod(implObj, "declarePrefix"), flags, 3)
+        this.vtbl.getDeclaredPrefix := CallbackCreate(ObjBindMethod(implObj, "getDeclaredPrefix"), flags, 4)
+        this.vtbl.getPrefix := CallbackCreate(ObjBindMethod(implObj, "getPrefix"), flags, 5)
+        this.vtbl.getURI := CallbackCreate(ObjBindMethod(implObj, "getURI"), flags, 5)
     }
 
     Dispose() {

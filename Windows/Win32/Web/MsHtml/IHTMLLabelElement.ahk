@@ -62,7 +62,6 @@ export default struct IHTMLLabelElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -74,7 +73,6 @@ export default struct IHTMLLabelElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_htmlFor() {
@@ -84,7 +82,6 @@ export default struct IHTMLLabelElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -96,7 +93,6 @@ export default struct IHTMLLabelElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_accessKey() {
@@ -114,10 +110,10 @@ export default struct IHTMLLabelElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_htmlFor := CallbackCreate(GetMethod(implObj, "put_htmlFor"), flags, 2)
-        this.vtbl.get_htmlFor := CallbackCreate(GetMethod(implObj, "get_htmlFor"), flags, 2)
-        this.vtbl.put_accessKey := CallbackCreate(GetMethod(implObj, "put_accessKey"), flags, 2)
-        this.vtbl.get_accessKey := CallbackCreate(GetMethod(implObj, "get_accessKey"), flags, 2)
+        this.vtbl.put_htmlFor := CallbackCreate(ObjBindMethod(implObj, "put_htmlFor"), flags, 2)
+        this.vtbl.get_htmlFor := CallbackCreate(ObjBindMethod(implObj, "get_htmlFor"), flags, 2)
+        this.vtbl.put_accessKey := CallbackCreate(ObjBindMethod(implObj, "put_accessKey"), flags, 2)
+        this.vtbl.get_accessKey := CallbackCreate(ObjBindMethod(implObj, "get_accessKey"), flags, 2)
     }
 
     Dispose() {

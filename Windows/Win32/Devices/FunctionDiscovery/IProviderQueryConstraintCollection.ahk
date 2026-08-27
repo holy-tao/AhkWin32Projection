@@ -104,8 +104,8 @@ export default struct IProviderQueryConstraintCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderqueryconstraintcollection-item
      */
     Item(dwIndex, ppszConstraintName, ppszConstraintValue) {
-        ppszConstraintNameMarshal := ppszConstraintName is VarRef ? "ptr*" : "ptr"
-        ppszConstraintValueMarshal := ppszConstraintValue is VarRef ? "ptr*" : "ptr"
+        ppszConstraintNameMarshal := ppszConstraintName is VarRef ? "ptr*" : IntPtr
+        ppszConstraintValueMarshal := ppszConstraintValue is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, UInt32, dwIndex, ppszConstraintNameMarshal, ppszConstraintName, ppszConstraintValueMarshal, ppszConstraintValue, "HRESULT")
         return result
@@ -119,8 +119,8 @@ export default struct IProviderQueryConstraintCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderqueryconstraintcollection-next
      */
     Next(ppszConstraintName, ppszConstraintValue) {
-        ppszConstraintNameMarshal := ppszConstraintName is VarRef ? "ptr*" : "ptr"
-        ppszConstraintValueMarshal := ppszConstraintValue is VarRef ? "ptr*" : "ptr"
+        ppszConstraintNameMarshal := ppszConstraintName is VarRef ? "ptr*" : IntPtr
+        ppszConstraintValueMarshal := ppszConstraintValue is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(6, this, ppszConstraintNameMarshal, ppszConstraintName, ppszConstraintValueMarshal, ppszConstraintValue, "HRESULT")
         return result
@@ -193,12 +193,12 @@ export default struct IProviderQueryConstraintCollection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
-        this.vtbl.Get := CallbackCreate(GetMethod(implObj, "Get"), flags, 3)
-        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 4)
-        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 3)
-        this.vtbl.Skip := CallbackCreate(GetMethod(implObj, "Skip"), flags, 1)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.Get := CallbackCreate(ObjBindMethod(implObj, "Get"), flags, 3)
+        this.vtbl.Item := CallbackCreate(ObjBindMethod(implObj, "Item"), flags, 4)
+        this.vtbl.Next := CallbackCreate(ObjBindMethod(implObj, "Next"), flags, 3)
+        this.vtbl.Skip := CallbackCreate(ObjBindMethod(implObj, "Skip"), flags, 1)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
     }
 
     Dispose() {

@@ -45,7 +45,6 @@ export default struct ISubscriptionMgr2 extends ISubscriptionMgr {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszURL 
      * @returns {ISubscriptionItem} 
      */
@@ -57,7 +56,6 @@ export default struct ISubscriptionMgr2 extends ISubscriptionMgr {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pSubscriptionCookie 
      * @returns {ISubscriptionItem} 
      */
@@ -67,7 +65,6 @@ export default struct ISubscriptionMgr2 extends ISubscriptionMgr {
     }
 
     /**
-     * 
      * @param {Integer} dwNumCookies 
      * @param {Pointer<Guid>} pCookies 
      * @returns {Integer} 
@@ -78,7 +75,6 @@ export default struct ISubscriptionMgr2 extends ISubscriptionMgr {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @returns {IEnumSubscription} 
      */
@@ -88,7 +84,6 @@ export default struct ISubscriptionMgr2 extends ISubscriptionMgr {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @param {Integer} dwNumCookies 
      * @param {Pointer<Guid>} pCookies 
@@ -100,7 +95,6 @@ export default struct ISubscriptionMgr2 extends ISubscriptionMgr {
     }
 
     /**
-     * 
      * @param {Integer} dwNumCookies 
      * @param {Pointer<Guid>} pCookies 
      * @returns {HRESULT} 
@@ -111,7 +105,6 @@ export default struct ISubscriptionMgr2 extends ISubscriptionMgr {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     AbortAll() {
@@ -128,13 +121,13 @@ export default struct ISubscriptionMgr2 extends ISubscriptionMgr {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetItemFromURL := CallbackCreate(GetMethod(implObj, "GetItemFromURL"), flags, 3)
-        this.vtbl.GetItemFromCookie := CallbackCreate(GetMethod(implObj, "GetItemFromCookie"), flags, 3)
-        this.vtbl.GetSubscriptionRunState := CallbackCreate(GetMethod(implObj, "GetSubscriptionRunState"), flags, 4)
-        this.vtbl.EnumSubscriptions := CallbackCreate(GetMethod(implObj, "EnumSubscriptions"), flags, 3)
-        this.vtbl.UpdateItems := CallbackCreate(GetMethod(implObj, "UpdateItems"), flags, 4)
-        this.vtbl.AbortItems := CallbackCreate(GetMethod(implObj, "AbortItems"), flags, 3)
-        this.vtbl.AbortAll := CallbackCreate(GetMethod(implObj, "AbortAll"), flags, 1)
+        this.vtbl.GetItemFromURL := CallbackCreate(ObjBindMethod(implObj, "GetItemFromURL"), flags, 3)
+        this.vtbl.GetItemFromCookie := CallbackCreate(ObjBindMethod(implObj, "GetItemFromCookie"), flags, 3)
+        this.vtbl.GetSubscriptionRunState := CallbackCreate(ObjBindMethod(implObj, "GetSubscriptionRunState"), flags, 4)
+        this.vtbl.EnumSubscriptions := CallbackCreate(ObjBindMethod(implObj, "EnumSubscriptions"), flags, 3)
+        this.vtbl.UpdateItems := CallbackCreate(ObjBindMethod(implObj, "UpdateItems"), flags, 4)
+        this.vtbl.AbortItems := CallbackCreate(ObjBindMethod(implObj, "AbortItems"), flags, 3)
+        this.vtbl.AbortAll := CallbackCreate(ObjBindMethod(implObj, "AbortAll"), flags, 1)
     }
 
     Dispose() {

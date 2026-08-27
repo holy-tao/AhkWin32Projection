@@ -26,7 +26,6 @@ export default struct PFN_WER_RUNTIME_EXCEPTION_EVENT {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pContext A pointer to arbitrary context information that you specified when you called the <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werregisterruntimeexceptionmodule">WerRegisterRuntimeExceptionModule</a> function to register the exception handler.
      * @param {Pointer<WER_RUNTIME_EXCEPTION_INFORMATION>} pExceptionInformation A <a href="https://docs.microsoft.com/windows/desktop/api/werapi/ns-werapi-wer_runtime_exception_information">WER_RUNTIME_EXCEPTION_INFORMATION</a> structure that contains the exception information. Use the information to determine whether you want to claim the crash.
      * @param {Pointer<BOOL>} pbOwnershipClaimed Set to <b>TRUE</b> if the exception handler is claiming this crash; otherwise, <b>FALSE</b>. If you set this parameter to <b>FALSE</b>, do not set the rest of the out parameters.
@@ -40,10 +39,10 @@ export default struct PFN_WER_RUNTIME_EXCEPTION_EVENT {
     Call(pContext, pExceptionInformation, pbOwnershipClaimed, pwszEventName, pchSize, pdwSignatureCount) {
         pwszEventName := pwszEventName is String ? StrPtr(pwszEventName) : pwszEventName
 
-        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
-        pbOwnershipClaimedMarshal := pbOwnershipClaimed is VarRef ? "int*" : "ptr"
-        pchSizeMarshal := pchSize is VarRef ? "uint*" : "ptr"
-        pdwSignatureCountMarshal := pdwSignatureCount is VarRef ? "uint*" : "ptr"
+        pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
+        pbOwnershipClaimedMarshal := pbOwnershipClaimed is VarRef ? "int*" : IntPtr
+        pchSizeMarshal := pchSize is VarRef ? "uint*" : IntPtr
+        pdwSignatureCountMarshal := pdwSignatureCount is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, pContextMarshal, pContext, WER_RUNTIME_EXCEPTION_INFORMATION.Ptr, pExceptionInformation, pbOwnershipClaimedMarshal, pbOwnershipClaimed, "ptr", pwszEventName, pchSizeMarshal, pchSize, pdwSignatureCountMarshal, pdwSignatureCount, "HRESULT")
         return result

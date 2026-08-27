@@ -118,9 +118,9 @@ export default struct IMediaEvent extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaevent-getevent
      */
     GetEvent(lEventCode, lParam1, lParam2, msTimeout) {
-        lEventCodeMarshal := lEventCode is VarRef ? "int*" : "ptr"
-        lParam1Marshal := lParam1 is VarRef ? "ptr*" : "ptr"
-        lParam2Marshal := lParam2 is VarRef ? "ptr*" : "ptr"
+        lEventCodeMarshal := lEventCode is VarRef ? "int*" : IntPtr
+        lParam1Marshal := lParam1 is VarRef ? "ptr*" : IntPtr
+        lParam2Marshal := lParam2 is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(8, this, lEventCodeMarshal, lEventCode, lParam1Marshal, lParam1, lParam2Marshal, lParam2, Int32, msTimeout, "HRESULT")
         return result
@@ -262,12 +262,12 @@ export default struct IMediaEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetEventHandle := CallbackCreate(GetMethod(implObj, "GetEventHandle"), flags, 2)
-        this.vtbl.GetEvent := CallbackCreate(GetMethod(implObj, "GetEvent"), flags, 5)
-        this.vtbl.WaitForCompletion := CallbackCreate(GetMethod(implObj, "WaitForCompletion"), flags, 3)
-        this.vtbl.CancelDefaultHandling := CallbackCreate(GetMethod(implObj, "CancelDefaultHandling"), flags, 2)
-        this.vtbl.RestoreDefaultHandling := CallbackCreate(GetMethod(implObj, "RestoreDefaultHandling"), flags, 2)
-        this.vtbl.FreeEventParams := CallbackCreate(GetMethod(implObj, "FreeEventParams"), flags, 4)
+        this.vtbl.GetEventHandle := CallbackCreate(ObjBindMethod(implObj, "GetEventHandle"), flags, 2)
+        this.vtbl.GetEvent := CallbackCreate(ObjBindMethod(implObj, "GetEvent"), flags, 5)
+        this.vtbl.WaitForCompletion := CallbackCreate(ObjBindMethod(implObj, "WaitForCompletion"), flags, 3)
+        this.vtbl.CancelDefaultHandling := CallbackCreate(ObjBindMethod(implObj, "CancelDefaultHandling"), flags, 2)
+        this.vtbl.RestoreDefaultHandling := CallbackCreate(ObjBindMethod(implObj, "RestoreDefaultHandling"), flags, 2)
+        this.vtbl.FreeEventParams := CallbackCreate(ObjBindMethod(implObj, "FreeEventParams"), flags, 4)
     }
 
     Dispose() {

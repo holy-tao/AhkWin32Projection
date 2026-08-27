@@ -63,7 +63,7 @@ export default struct IVssSnapshotMgmt2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMinDiffAreaSize := CallbackCreate(GetMethod(implObj, "GetMinDiffAreaSize"), flags, 2)
+        this.vtbl.GetMinDiffAreaSize := CallbackCreate(ObjBindMethod(implObj, "GetMinDiffAreaSize"), flags, 2)
     }
 
     Dispose() {

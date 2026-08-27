@@ -115,12 +115,12 @@ export default struct IESFileExpiryDateEvent extends IESEvent {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTunerId := CallbackCreate(GetMethod(implObj, "GetTunerId"), flags, 2)
-        this.vtbl.GetExpiryDate := CallbackCreate(GetMethod(implObj, "GetExpiryDate"), flags, 2)
-        this.vtbl.GetFinalExpiryDate := CallbackCreate(GetMethod(implObj, "GetFinalExpiryDate"), flags, 2)
-        this.vtbl.GetMaxRenewalCount := CallbackCreate(GetMethod(implObj, "GetMaxRenewalCount"), flags, 2)
-        this.vtbl.IsEntitlementTokenPresent := CallbackCreate(GetMethod(implObj, "IsEntitlementTokenPresent"), flags, 2)
-        this.vtbl.DoesExpireAfterFirstUse := CallbackCreate(GetMethod(implObj, "DoesExpireAfterFirstUse"), flags, 2)
+        this.vtbl.GetTunerId := CallbackCreate(ObjBindMethod(implObj, "GetTunerId"), flags, 2)
+        this.vtbl.GetExpiryDate := CallbackCreate(ObjBindMethod(implObj, "GetExpiryDate"), flags, 2)
+        this.vtbl.GetFinalExpiryDate := CallbackCreate(ObjBindMethod(implObj, "GetFinalExpiryDate"), flags, 2)
+        this.vtbl.GetMaxRenewalCount := CallbackCreate(ObjBindMethod(implObj, "GetMaxRenewalCount"), flags, 2)
+        this.vtbl.IsEntitlementTokenPresent := CallbackCreate(ObjBindMethod(implObj, "IsEntitlementTokenPresent"), flags, 2)
+        this.vtbl.DoesExpireAfterFirstUse := CallbackCreate(ObjBindMethod(implObj, "DoesExpireAfterFirstUse"), flags, 2)
     }
 
     Dispose() {

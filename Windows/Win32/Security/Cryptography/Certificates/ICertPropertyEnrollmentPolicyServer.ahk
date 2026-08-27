@@ -189,15 +189,15 @@ export default struct ICertPropertyEnrollmentPolicyServer extends ICertProperty 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 9)
-        this.vtbl.GetPolicyServerUrl := CallbackCreate(GetMethod(implObj, "GetPolicyServerUrl"), flags, 2)
-        this.vtbl.GetPolicyServerId := CallbackCreate(GetMethod(implObj, "GetPolicyServerId"), flags, 2)
-        this.vtbl.GetEnrollmentServerUrl := CallbackCreate(GetMethod(implObj, "GetEnrollmentServerUrl"), flags, 2)
-        this.vtbl.GetRequestIdString := CallbackCreate(GetMethod(implObj, "GetRequestIdString"), flags, 2)
-        this.vtbl.GetPropertyFlags := CallbackCreate(GetMethod(implObj, "GetPropertyFlags"), flags, 2)
-        this.vtbl.GetUrlFlags := CallbackCreate(GetMethod(implObj, "GetUrlFlags"), flags, 2)
-        this.vtbl.GetAuthentication := CallbackCreate(GetMethod(implObj, "GetAuthentication"), flags, 2)
-        this.vtbl.GetEnrollmentServerAuthentication := CallbackCreate(GetMethod(implObj, "GetEnrollmentServerAuthentication"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 9)
+        this.vtbl.GetPolicyServerUrl := CallbackCreate(ObjBindMethod(implObj, "GetPolicyServerUrl"), flags, 2)
+        this.vtbl.GetPolicyServerId := CallbackCreate(ObjBindMethod(implObj, "GetPolicyServerId"), flags, 2)
+        this.vtbl.GetEnrollmentServerUrl := CallbackCreate(ObjBindMethod(implObj, "GetEnrollmentServerUrl"), flags, 2)
+        this.vtbl.GetRequestIdString := CallbackCreate(ObjBindMethod(implObj, "GetRequestIdString"), flags, 2)
+        this.vtbl.GetPropertyFlags := CallbackCreate(ObjBindMethod(implObj, "GetPropertyFlags"), flags, 2)
+        this.vtbl.GetUrlFlags := CallbackCreate(ObjBindMethod(implObj, "GetUrlFlags"), flags, 2)
+        this.vtbl.GetAuthentication := CallbackCreate(ObjBindMethod(implObj, "GetAuthentication"), flags, 2)
+        this.vtbl.GetEnrollmentServerAuthentication := CallbackCreate(ObjBindMethod(implObj, "GetEnrollmentServerAuthentication"), flags, 2)
     }
 
     Dispose() {

@@ -252,9 +252,9 @@ export default struct ISpatialAudioMetadataItemsBuffer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AttachToBuffer := CallbackCreate(GetMethod(implObj, "AttachToBuffer"), flags, 3)
-        this.vtbl.AttachToPopulatedBuffer := CallbackCreate(GetMethod(implObj, "AttachToPopulatedBuffer"), flags, 3)
-        this.vtbl.DetachBuffer := CallbackCreate(GetMethod(implObj, "DetachBuffer"), flags, 1)
+        this.vtbl.AttachToBuffer := CallbackCreate(ObjBindMethod(implObj, "AttachToBuffer"), flags, 3)
+        this.vtbl.AttachToPopulatedBuffer := CallbackCreate(ObjBindMethod(implObj, "AttachToPopulatedBuffer"), flags, 3)
+        this.vtbl.DetachBuffer := CallbackCreate(ObjBindMethod(implObj, "DetachBuffer"), flags, 1)
     }
 
     Dispose() {

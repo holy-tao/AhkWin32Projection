@@ -19,7 +19,6 @@ export default struct LPDDHALPALCB_SETENTRIES {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_SETENTRIESDATA>} param0 
      * @returns {Integer} 
      */

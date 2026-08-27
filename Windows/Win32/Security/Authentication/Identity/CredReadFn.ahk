@@ -28,7 +28,6 @@ export default struct CredReadFn {
     }
 
     /**
-     * 
      * @param {Pointer<LUID>} LogonId The logon ID for which to read credentials.
      * @param {Integer} CredFlags Flags that determine the behavior of this function. The following flags are defined.
      * 
@@ -115,7 +114,7 @@ export default struct CredReadFn {
     Call(LogonId, CredFlags, TargetName, Type, Flags, Credential) {
         TargetName := TargetName is String ? StrPtr(TargetName) : TargetName
 
-        CredentialMarshal := Credential is VarRef ? "ptr*" : "ptr"
+        CredentialMarshal := Credential is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, LUID.Ptr, LogonId, UInt32, CredFlags, "ptr", TargetName, UInt32, Type, UInt32, Flags, CredentialMarshal, Credential, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

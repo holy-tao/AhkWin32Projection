@@ -48,7 +48,6 @@ export default struct ICorProfilerCallback2 extends ICorProfilerCallback {
     }
 
     /**
-     * 
      * @param {Pointer} threadId 
      * @param {Integer} cchName 
      * @param {PWSTR} name 
@@ -57,41 +56,40 @@ export default struct ICorProfilerCallback2 extends ICorProfilerCallback {
     ThreadNameChanged(threadId, cchName, name) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(72, this, IntPtr, threadId, UInt32, cchName, "ptr", name, "HRESULT")
+        nameMarshal := name == 0 ? IntPtr : PWSTR
+
+        result := ComCall(72, this, IntPtr, threadId, UInt32, cchName, nameMarshal, name, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} cGenerations 
      * @param {Pointer<BOOL>} generationCollected 
      * @param {COR_PRF_GC_REASON} reason 
      * @returns {HRESULT} 
      */
     GarbageCollectionStarted(cGenerations, generationCollected, reason) {
-        generationCollectedMarshal := generationCollected is VarRef ? "int*" : "ptr"
+        generationCollectedMarshal := generationCollected is VarRef ? "int*" : IntPtr
 
         result := ComCall(73, this, Int32, cGenerations, generationCollectedMarshal, generationCollected, COR_PRF_GC_REASON, reason, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} cSurvivingObjectIDRanges 
      * @param {Pointer<Pointer>} objectIDRangeStart 
      * @param {Pointer<Integer>} cObjectIDRangeLength 
      * @returns {HRESULT} 
      */
     SurvivingReferences(cSurvivingObjectIDRanges, objectIDRangeStart, cObjectIDRangeLength) {
-        objectIDRangeStartMarshal := objectIDRangeStart is VarRef ? "ptr*" : "ptr"
-        cObjectIDRangeLengthMarshal := cObjectIDRangeLength is VarRef ? "uint*" : "ptr"
+        objectIDRangeStartMarshal := objectIDRangeStart is VarRef ? "ptr*" : IntPtr
+        cObjectIDRangeLengthMarshal := cObjectIDRangeLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(74, this, UInt32, cSurvivingObjectIDRanges, objectIDRangeStartMarshal, objectIDRangeStart, cObjectIDRangeLengthMarshal, cObjectIDRangeLength, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     GarbageCollectionFinished() {
@@ -100,7 +98,6 @@ export default struct ICorProfilerCallback2 extends ICorProfilerCallback {
     }
 
     /**
-     * 
      * @param {Integer} finalizerFlags 
      * @param {Pointer} _objectID 
      * @returns {HRESULT} 
@@ -111,7 +108,6 @@ export default struct ICorProfilerCallback2 extends ICorProfilerCallback {
     }
 
     /**
-     * 
      * @param {Integer} cRootRefs 
      * @param {Pointer<Pointer>} rootRefIds 
      * @param {Pointer<COR_PRF_GC_ROOT_KIND>} rootKinds 
@@ -120,17 +116,16 @@ export default struct ICorProfilerCallback2 extends ICorProfilerCallback {
      * @returns {HRESULT} 
      */
     RootReferences2(cRootRefs, rootRefIds, rootKinds, rootFlags, rootIds) {
-        rootRefIdsMarshal := rootRefIds is VarRef ? "ptr*" : "ptr"
-        rootKindsMarshal := rootKinds is VarRef ? "int*" : "ptr"
-        rootFlagsMarshal := rootFlags is VarRef ? "int*" : "ptr"
-        rootIdsMarshal := rootIds is VarRef ? "ptr*" : "ptr"
+        rootRefIdsMarshal := rootRefIds is VarRef ? "ptr*" : IntPtr
+        rootKindsMarshal := rootKinds is VarRef ? "int*" : IntPtr
+        rootFlagsMarshal := rootFlags is VarRef ? "int*" : IntPtr
+        rootIdsMarshal := rootIds is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(77, this, UInt32, cRootRefs, rootRefIdsMarshal, rootRefIds, rootKindsMarshal, rootKinds, rootFlagsMarshal, rootFlags, rootIdsMarshal, rootIds, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} handleId 
      * @param {Pointer} initialObjectId 
      * @returns {HRESULT} 
@@ -141,7 +136,6 @@ export default struct ICorProfilerCallback2 extends ICorProfilerCallback {
     }
 
     /**
-     * 
      * @param {Pointer} handleId 
      * @returns {HRESULT} 
      */
@@ -159,14 +153,14 @@ export default struct ICorProfilerCallback2 extends ICorProfilerCallback {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ThreadNameChanged := CallbackCreate(GetMethod(implObj, "ThreadNameChanged"), flags, 4)
-        this.vtbl.GarbageCollectionStarted := CallbackCreate(GetMethod(implObj, "GarbageCollectionStarted"), flags, 4)
-        this.vtbl.SurvivingReferences := CallbackCreate(GetMethod(implObj, "SurvivingReferences"), flags, 4)
-        this.vtbl.GarbageCollectionFinished := CallbackCreate(GetMethod(implObj, "GarbageCollectionFinished"), flags, 1)
-        this.vtbl.FinalizeableObjectQueued := CallbackCreate(GetMethod(implObj, "FinalizeableObjectQueued"), flags, 3)
-        this.vtbl.RootReferences2 := CallbackCreate(GetMethod(implObj, "RootReferences2"), flags, 6)
-        this.vtbl.HandleCreated := CallbackCreate(GetMethod(implObj, "HandleCreated"), flags, 3)
-        this.vtbl.HandleDestroyed := CallbackCreate(GetMethod(implObj, "HandleDestroyed"), flags, 2)
+        this.vtbl.ThreadNameChanged := CallbackCreate(ObjBindMethod(implObj, "ThreadNameChanged"), flags, 4)
+        this.vtbl.GarbageCollectionStarted := CallbackCreate(ObjBindMethod(implObj, "GarbageCollectionStarted"), flags, 4)
+        this.vtbl.SurvivingReferences := CallbackCreate(ObjBindMethod(implObj, "SurvivingReferences"), flags, 4)
+        this.vtbl.GarbageCollectionFinished := CallbackCreate(ObjBindMethod(implObj, "GarbageCollectionFinished"), flags, 1)
+        this.vtbl.FinalizeableObjectQueued := CallbackCreate(ObjBindMethod(implObj, "FinalizeableObjectQueued"), flags, 3)
+        this.vtbl.RootReferences2 := CallbackCreate(ObjBindMethod(implObj, "RootReferences2"), flags, 6)
+        this.vtbl.HandleCreated := CallbackCreate(ObjBindMethod(implObj, "HandleCreated"), flags, 3)
+        this.vtbl.HandleDestroyed := CallbackCreate(ObjBindMethod(implObj, "HandleDestroyed"), flags, 2)
     }
 
     Dispose() {

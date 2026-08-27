@@ -59,7 +59,7 @@ export default struct IRadialControllerConfigurationInterop extends IInspectable
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetForWindow := CallbackCreate(GetMethod(implObj, "GetForWindow"), flags, 4)
+        this.vtbl.GetForWindow := CallbackCreate(ObjBindMethod(implObj, "GetForWindow"), flags, 4)
     }
 
     Dispose() {

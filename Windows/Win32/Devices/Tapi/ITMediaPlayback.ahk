@@ -88,8 +88,8 @@ export default struct ITMediaPlayback extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_PlayList := CallbackCreate(GetMethod(implObj, "put_PlayList"), flags, 2)
-        this.vtbl.get_PlayList := CallbackCreate(GetMethod(implObj, "get_PlayList"), flags, 2)
+        this.vtbl.put_PlayList := CallbackCreate(ObjBindMethod(implObj, "put_PlayList"), flags, 2)
+        this.vtbl.get_PlayList := CallbackCreate(ObjBindMethod(implObj, "get_PlayList"), flags, 2)
     }
 
     Dispose() {

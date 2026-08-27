@@ -116,10 +116,10 @@ export default struct IVisualTreeService3 extends IVisualTreeService2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ResolveResource := CallbackCreate(GetMethod(implObj, "ResolveResource"), flags, 5)
-        this.vtbl.GetDictionaryItem := CallbackCreate(GetMethod(implObj, "GetDictionaryItem"), flags, 5)
-        this.vtbl.AddDictionaryItem := CallbackCreate(GetMethod(implObj, "AddDictionaryItem"), flags, 4)
-        this.vtbl.RemoveDictionaryItem := CallbackCreate(GetMethod(implObj, "RemoveDictionaryItem"), flags, 3)
+        this.vtbl.ResolveResource := CallbackCreate(ObjBindMethod(implObj, "ResolveResource"), flags, 5)
+        this.vtbl.GetDictionaryItem := CallbackCreate(ObjBindMethod(implObj, "GetDictionaryItem"), flags, 5)
+        this.vtbl.AddDictionaryItem := CallbackCreate(ObjBindMethod(implObj, "AddDictionaryItem"), flags, 4)
+        this.vtbl.RemoveDictionaryItem := CallbackCreate(ObjBindMethod(implObj, "RemoveDictionaryItem"), flags, 3)
     }
 
     Dispose() {

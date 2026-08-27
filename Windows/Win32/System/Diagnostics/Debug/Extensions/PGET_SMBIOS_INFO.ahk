@@ -21,7 +21,6 @@ export default struct PGET_SMBIOS_INFO {
     }
 
     /**
-     * 
      * @param {IDebugClient} Client 
      * @param {Pointer<DEBUG_SMBIOS_INFO>} pSmbiosInfo 
      * @returns {HRESULT} 

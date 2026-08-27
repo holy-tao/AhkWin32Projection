@@ -20,7 +20,6 @@ export default struct PTM_PROPAGATE_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} PropagationCookie 
      * @param {Pointer<Void>} CallbackData 
      * @param {NTSTATUS} PropagationStatus 
@@ -28,8 +27,8 @@ export default struct PTM_PROPAGATE_ROUTINE {
      * @returns {NTSTATUS} 
      */
     Call(PropagationCookie, CallbackData, PropagationStatus, TransactionGuid) {
-        PropagationCookieMarshal := PropagationCookie is VarRef ? "ptr" : "ptr"
-        CallbackDataMarshal := CallbackData is VarRef ? "ptr" : "ptr"
+        PropagationCookieMarshal := PropagationCookie is VarRef ? "ptr" : IntPtr
+        CallbackDataMarshal := CallbackData is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, PropagationCookieMarshal, PropagationCookie, CallbackDataMarshal, CallbackData, NTSTATUS, PropagationStatus, Guid, TransactionGuid, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

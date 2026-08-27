@@ -40,7 +40,6 @@ export default struct IDataModelScriptDebugVariableSetEnumerator extends IUnknow
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -49,14 +48,16 @@ export default struct IDataModelScriptDebugVariableSetEnumerator extends IUnknow
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} variableName 
      * @param {Pointer<IModelObject>} variableValue 
      * @param {Pointer<IKeyStore>} variableMetadata 
      * @returns {HRESULT} 
      */
     GetNext(variableName, variableValue, variableMetadata) {
-        result := ComCall(4, this, BSTR.Ptr, variableName, IModelObject.Ptr, variableValue, IKeyStore.Ptr, variableMetadata, "HRESULT")
+        variableValueMarshal := variableValue == 0 ? IntPtr : IModelObject.Ptr
+        variableMetadataMarshal := variableMetadata == 0 ? IntPtr : IKeyStore.Ptr
+
+        result := ComCall(4, this, BSTR.Ptr, variableName, variableValueMarshal, variableValue, variableMetadataMarshal, variableMetadata, "HRESULT")
         return result
     }
 
@@ -69,8 +70,8 @@ export default struct IDataModelScriptDebugVariableSetEnumerator extends IUnknow
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.GetNext := CallbackCreate(GetMethod(implObj, "GetNext"), flags, 4)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.GetNext := CallbackCreate(ObjBindMethod(implObj, "GetNext"), flags, 4)
     }
 
     Dispose() {

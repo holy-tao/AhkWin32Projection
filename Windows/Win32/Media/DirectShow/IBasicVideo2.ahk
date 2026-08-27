@@ -85,8 +85,8 @@ export default struct IBasicVideo2 extends IBasicVideo {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ibasicvideo2-getpreferredaspectratio
      */
     GetPreferredAspectRatio(plAspectX, plAspectY) {
-        plAspectXMarshal := plAspectX is VarRef ? "int*" : "ptr"
-        plAspectYMarshal := plAspectY is VarRef ? "int*" : "ptr"
+        plAspectXMarshal := plAspectX is VarRef ? "int*" : IntPtr
+        plAspectYMarshal := plAspectY is VarRef ? "int*" : IntPtr
 
         result := ComCall(39, this, plAspectXMarshal, plAspectX, plAspectYMarshal, plAspectY, "HRESULT")
         return result
@@ -101,7 +101,7 @@ export default struct IBasicVideo2 extends IBasicVideo {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPreferredAspectRatio := CallbackCreate(GetMethod(implObj, "GetPreferredAspectRatio"), flags, 3)
+        this.vtbl.GetPreferredAspectRatio := CallbackCreate(ObjBindMethod(implObj, "GetPreferredAspectRatio"), flags, 3)
     }
 
     Dispose() {

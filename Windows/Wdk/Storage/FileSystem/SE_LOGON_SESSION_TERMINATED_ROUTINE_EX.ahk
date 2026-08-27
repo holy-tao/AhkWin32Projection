@@ -21,14 +21,14 @@ export default struct SE_LOGON_SESSION_TERMINATED_ROUTINE_EX {
     }
 
     /**
-     * 
      * @param {Pointer<LUID>} LogonId 
      * @param {PESILO} pServerSilo 
      * @param {Pointer<Void>} _Context 
      * @returns {NTSTATUS} 
      */
     Call(LogonId, pServerSilo, _Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, LUID.Ptr, LogonId, PESILO, pServerSilo, _ContextMarshal, _Context, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

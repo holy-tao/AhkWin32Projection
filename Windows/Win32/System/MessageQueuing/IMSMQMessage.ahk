@@ -307,7 +307,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Class() {
@@ -316,7 +315,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PrivLevel() {
@@ -325,7 +323,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lPrivLevel 
      * @returns {HRESULT} 
      */
@@ -335,7 +332,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AuthLevel() {
@@ -344,7 +340,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lAuthLevel 
      * @returns {HRESULT} 
      */
@@ -354,7 +349,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_IsAuthenticated() {
@@ -363,7 +357,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Delivery() {
@@ -372,7 +365,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lDelivery 
      * @returns {HRESULT} 
      */
@@ -382,7 +374,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Trace() {
@@ -391,7 +382,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lTrace 
      * @returns {HRESULT} 
      */
@@ -401,7 +391,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Priority() {
@@ -410,7 +399,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lPriority 
      * @returns {HRESULT} 
      */
@@ -420,7 +408,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Journal() {
@@ -429,7 +416,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lJournal 
      * @returns {HRESULT} 
      */
@@ -439,7 +425,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IMSMQQueueInfo} 
      */
     get_ResponseQueueInfo() {
@@ -448,17 +433,17 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {IMSMQQueueInfo} pqinfoResponse 
      * @returns {HRESULT} 
      */
     putref_ResponseQueueInfo(pqinfoResponse) {
-        result := ComCall(22, this, "ptr", pqinfoResponse, "HRESULT")
+        pqinfoResponseMarshal := pqinfoResponse == 0 ? IntPtr : "ptr"
+
+        result := ComCall(22, this, pqinfoResponseMarshal, pqinfoResponse, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AppSpecific() {
@@ -467,7 +452,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lAppSpecific 
      * @returns {HRESULT} 
      */
@@ -477,7 +461,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_SourceMachineGuid() {
@@ -487,7 +470,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_BodyLength() {
@@ -496,7 +478,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Body() {
@@ -506,7 +487,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varBody 
      * @returns {HRESULT} 
      */
@@ -516,7 +496,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IMSMQQueueInfo} 
      */
     get_AdminQueueInfo() {
@@ -525,17 +504,17 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {IMSMQQueueInfo} pqinfoAdmin 
      * @returns {HRESULT} 
      */
     putref_AdminQueueInfo(pqinfoAdmin) {
-        result := ComCall(30, this, "ptr", pqinfoAdmin, "HRESULT")
+        pqinfoAdminMarshal := pqinfoAdmin == 0 ? IntPtr : "ptr"
+
+        result := ComCall(30, this, pqinfoAdminMarshal, pqinfoAdmin, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Id() {
@@ -545,7 +524,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_CorrelationId() {
@@ -555,7 +533,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varMsgId 
      * @returns {HRESULT} 
      */
@@ -565,7 +542,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Ack() {
@@ -574,7 +550,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lAck 
      * @returns {HRESULT} 
      */
@@ -584,7 +559,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Label() {
@@ -594,7 +568,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrLabel 
      * @returns {HRESULT} 
      */
@@ -606,7 +579,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MaxTimeToReachQueue() {
@@ -615,7 +587,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lMaxTimeToReachQueue 
      * @returns {HRESULT} 
      */
@@ -625,7 +596,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MaxTimeToReceive() {
@@ -634,7 +604,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lMaxTimeToReceive 
      * @returns {HRESULT} 
      */
@@ -644,7 +613,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_HashAlgorithm() {
@@ -653,7 +621,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lHashAlg 
      * @returns {HRESULT} 
      */
@@ -663,7 +630,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_EncryptAlgorithm() {
@@ -672,7 +638,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lEncryptAlg 
      * @returns {HRESULT} 
      */
@@ -682,7 +647,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_SentTime() {
@@ -692,7 +656,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ArrivedTime() {
@@ -702,7 +665,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IMSMQQueueInfo} 
      */
     get_DestinationQueueInfo() {
@@ -711,7 +673,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_SenderCertificate() {
@@ -721,7 +682,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varSenderCert 
      * @returns {HRESULT} 
      */
@@ -731,7 +691,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_SenderId() {
@@ -741,7 +700,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_SenderIdType() {
@@ -750,7 +708,6 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lSenderIdType 
      * @returns {HRESULT} 
      */
@@ -760,18 +717,18 @@ export default struct IMSMQMessage extends IDispatch {
     }
 
     /**
-     * 
      * @param {IMSMQQueue} DestinationQueue 
      * @param {Pointer<VARIANT>} Transaction 
      * @returns {HRESULT} 
      */
     Send(DestinationQueue, Transaction) {
-        result := ComCall(54, this, "ptr", DestinationQueue, VARIANT.Ptr, Transaction, "HRESULT")
+        DestinationQueueMarshal := DestinationQueue == 0 ? IntPtr : "ptr"
+
+        result := ComCall(54, this, DestinationQueueMarshal, DestinationQueue, VARIANT.Ptr, Transaction, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     AttachCurrentSecurityContext() {
@@ -788,55 +745,55 @@ export default struct IMSMQMessage extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Class := CallbackCreate(GetMethod(implObj, "get_Class"), flags, 2)
-        this.vtbl.get_PrivLevel := CallbackCreate(GetMethod(implObj, "get_PrivLevel"), flags, 2)
-        this.vtbl.put_PrivLevel := CallbackCreate(GetMethod(implObj, "put_PrivLevel"), flags, 2)
-        this.vtbl.get_AuthLevel := CallbackCreate(GetMethod(implObj, "get_AuthLevel"), flags, 2)
-        this.vtbl.put_AuthLevel := CallbackCreate(GetMethod(implObj, "put_AuthLevel"), flags, 2)
-        this.vtbl.get_IsAuthenticated := CallbackCreate(GetMethod(implObj, "get_IsAuthenticated"), flags, 2)
-        this.vtbl.get_Delivery := CallbackCreate(GetMethod(implObj, "get_Delivery"), flags, 2)
-        this.vtbl.put_Delivery := CallbackCreate(GetMethod(implObj, "put_Delivery"), flags, 2)
-        this.vtbl.get_Trace := CallbackCreate(GetMethod(implObj, "get_Trace"), flags, 2)
-        this.vtbl.put_Trace := CallbackCreate(GetMethod(implObj, "put_Trace"), flags, 2)
-        this.vtbl.get_Priority := CallbackCreate(GetMethod(implObj, "get_Priority"), flags, 2)
-        this.vtbl.put_Priority := CallbackCreate(GetMethod(implObj, "put_Priority"), flags, 2)
-        this.vtbl.get_Journal := CallbackCreate(GetMethod(implObj, "get_Journal"), flags, 2)
-        this.vtbl.put_Journal := CallbackCreate(GetMethod(implObj, "put_Journal"), flags, 2)
-        this.vtbl.get_ResponseQueueInfo := CallbackCreate(GetMethod(implObj, "get_ResponseQueueInfo"), flags, 2)
-        this.vtbl.putref_ResponseQueueInfo := CallbackCreate(GetMethod(implObj, "putref_ResponseQueueInfo"), flags, 2)
-        this.vtbl.get_AppSpecific := CallbackCreate(GetMethod(implObj, "get_AppSpecific"), flags, 2)
-        this.vtbl.put_AppSpecific := CallbackCreate(GetMethod(implObj, "put_AppSpecific"), flags, 2)
-        this.vtbl.get_SourceMachineGuid := CallbackCreate(GetMethod(implObj, "get_SourceMachineGuid"), flags, 2)
-        this.vtbl.get_BodyLength := CallbackCreate(GetMethod(implObj, "get_BodyLength"), flags, 2)
-        this.vtbl.get_Body := CallbackCreate(GetMethod(implObj, "get_Body"), flags, 2)
-        this.vtbl.put_Body := CallbackCreate(GetMethod(implObj, "put_Body"), flags, 2)
-        this.vtbl.get_AdminQueueInfo := CallbackCreate(GetMethod(implObj, "get_AdminQueueInfo"), flags, 2)
-        this.vtbl.putref_AdminQueueInfo := CallbackCreate(GetMethod(implObj, "putref_AdminQueueInfo"), flags, 2)
-        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
-        this.vtbl.get_CorrelationId := CallbackCreate(GetMethod(implObj, "get_CorrelationId"), flags, 2)
-        this.vtbl.put_CorrelationId := CallbackCreate(GetMethod(implObj, "put_CorrelationId"), flags, 2)
-        this.vtbl.get_Ack := CallbackCreate(GetMethod(implObj, "get_Ack"), flags, 2)
-        this.vtbl.put_Ack := CallbackCreate(GetMethod(implObj, "put_Ack"), flags, 2)
-        this.vtbl.get_Label := CallbackCreate(GetMethod(implObj, "get_Label"), flags, 2)
-        this.vtbl.put_Label := CallbackCreate(GetMethod(implObj, "put_Label"), flags, 2)
-        this.vtbl.get_MaxTimeToReachQueue := CallbackCreate(GetMethod(implObj, "get_MaxTimeToReachQueue"), flags, 2)
-        this.vtbl.put_MaxTimeToReachQueue := CallbackCreate(GetMethod(implObj, "put_MaxTimeToReachQueue"), flags, 2)
-        this.vtbl.get_MaxTimeToReceive := CallbackCreate(GetMethod(implObj, "get_MaxTimeToReceive"), flags, 2)
-        this.vtbl.put_MaxTimeToReceive := CallbackCreate(GetMethod(implObj, "put_MaxTimeToReceive"), flags, 2)
-        this.vtbl.get_HashAlgorithm := CallbackCreate(GetMethod(implObj, "get_HashAlgorithm"), flags, 2)
-        this.vtbl.put_HashAlgorithm := CallbackCreate(GetMethod(implObj, "put_HashAlgorithm"), flags, 2)
-        this.vtbl.get_EncryptAlgorithm := CallbackCreate(GetMethod(implObj, "get_EncryptAlgorithm"), flags, 2)
-        this.vtbl.put_EncryptAlgorithm := CallbackCreate(GetMethod(implObj, "put_EncryptAlgorithm"), flags, 2)
-        this.vtbl.get_SentTime := CallbackCreate(GetMethod(implObj, "get_SentTime"), flags, 2)
-        this.vtbl.get_ArrivedTime := CallbackCreate(GetMethod(implObj, "get_ArrivedTime"), flags, 2)
-        this.vtbl.get_DestinationQueueInfo := CallbackCreate(GetMethod(implObj, "get_DestinationQueueInfo"), flags, 2)
-        this.vtbl.get_SenderCertificate := CallbackCreate(GetMethod(implObj, "get_SenderCertificate"), flags, 2)
-        this.vtbl.put_SenderCertificate := CallbackCreate(GetMethod(implObj, "put_SenderCertificate"), flags, 2)
-        this.vtbl.get_SenderId := CallbackCreate(GetMethod(implObj, "get_SenderId"), flags, 2)
-        this.vtbl.get_SenderIdType := CallbackCreate(GetMethod(implObj, "get_SenderIdType"), flags, 2)
-        this.vtbl.put_SenderIdType := CallbackCreate(GetMethod(implObj, "put_SenderIdType"), flags, 2)
-        this.vtbl.Send := CallbackCreate(GetMethod(implObj, "Send"), flags, 3)
-        this.vtbl.AttachCurrentSecurityContext := CallbackCreate(GetMethod(implObj, "AttachCurrentSecurityContext"), flags, 1)
+        this.vtbl.get_Class := CallbackCreate(ObjBindMethod(implObj, "get_Class"), flags, 2)
+        this.vtbl.get_PrivLevel := CallbackCreate(ObjBindMethod(implObj, "get_PrivLevel"), flags, 2)
+        this.vtbl.put_PrivLevel := CallbackCreate(ObjBindMethod(implObj, "put_PrivLevel"), flags, 2)
+        this.vtbl.get_AuthLevel := CallbackCreate(ObjBindMethod(implObj, "get_AuthLevel"), flags, 2)
+        this.vtbl.put_AuthLevel := CallbackCreate(ObjBindMethod(implObj, "put_AuthLevel"), flags, 2)
+        this.vtbl.get_IsAuthenticated := CallbackCreate(ObjBindMethod(implObj, "get_IsAuthenticated"), flags, 2)
+        this.vtbl.get_Delivery := CallbackCreate(ObjBindMethod(implObj, "get_Delivery"), flags, 2)
+        this.vtbl.put_Delivery := CallbackCreate(ObjBindMethod(implObj, "put_Delivery"), flags, 2)
+        this.vtbl.get_Trace := CallbackCreate(ObjBindMethod(implObj, "get_Trace"), flags, 2)
+        this.vtbl.put_Trace := CallbackCreate(ObjBindMethod(implObj, "put_Trace"), flags, 2)
+        this.vtbl.get_Priority := CallbackCreate(ObjBindMethod(implObj, "get_Priority"), flags, 2)
+        this.vtbl.put_Priority := CallbackCreate(ObjBindMethod(implObj, "put_Priority"), flags, 2)
+        this.vtbl.get_Journal := CallbackCreate(ObjBindMethod(implObj, "get_Journal"), flags, 2)
+        this.vtbl.put_Journal := CallbackCreate(ObjBindMethod(implObj, "put_Journal"), flags, 2)
+        this.vtbl.get_ResponseQueueInfo := CallbackCreate(ObjBindMethod(implObj, "get_ResponseQueueInfo"), flags, 2)
+        this.vtbl.putref_ResponseQueueInfo := CallbackCreate(ObjBindMethod(implObj, "putref_ResponseQueueInfo"), flags, 2)
+        this.vtbl.get_AppSpecific := CallbackCreate(ObjBindMethod(implObj, "get_AppSpecific"), flags, 2)
+        this.vtbl.put_AppSpecific := CallbackCreate(ObjBindMethod(implObj, "put_AppSpecific"), flags, 2)
+        this.vtbl.get_SourceMachineGuid := CallbackCreate(ObjBindMethod(implObj, "get_SourceMachineGuid"), flags, 2)
+        this.vtbl.get_BodyLength := CallbackCreate(ObjBindMethod(implObj, "get_BodyLength"), flags, 2)
+        this.vtbl.get_Body := CallbackCreate(ObjBindMethod(implObj, "get_Body"), flags, 2)
+        this.vtbl.put_Body := CallbackCreate(ObjBindMethod(implObj, "put_Body"), flags, 2)
+        this.vtbl.get_AdminQueueInfo := CallbackCreate(ObjBindMethod(implObj, "get_AdminQueueInfo"), flags, 2)
+        this.vtbl.putref_AdminQueueInfo := CallbackCreate(ObjBindMethod(implObj, "putref_AdminQueueInfo"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(ObjBindMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.get_CorrelationId := CallbackCreate(ObjBindMethod(implObj, "get_CorrelationId"), flags, 2)
+        this.vtbl.put_CorrelationId := CallbackCreate(ObjBindMethod(implObj, "put_CorrelationId"), flags, 2)
+        this.vtbl.get_Ack := CallbackCreate(ObjBindMethod(implObj, "get_Ack"), flags, 2)
+        this.vtbl.put_Ack := CallbackCreate(ObjBindMethod(implObj, "put_Ack"), flags, 2)
+        this.vtbl.get_Label := CallbackCreate(ObjBindMethod(implObj, "get_Label"), flags, 2)
+        this.vtbl.put_Label := CallbackCreate(ObjBindMethod(implObj, "put_Label"), flags, 2)
+        this.vtbl.get_MaxTimeToReachQueue := CallbackCreate(ObjBindMethod(implObj, "get_MaxTimeToReachQueue"), flags, 2)
+        this.vtbl.put_MaxTimeToReachQueue := CallbackCreate(ObjBindMethod(implObj, "put_MaxTimeToReachQueue"), flags, 2)
+        this.vtbl.get_MaxTimeToReceive := CallbackCreate(ObjBindMethod(implObj, "get_MaxTimeToReceive"), flags, 2)
+        this.vtbl.put_MaxTimeToReceive := CallbackCreate(ObjBindMethod(implObj, "put_MaxTimeToReceive"), flags, 2)
+        this.vtbl.get_HashAlgorithm := CallbackCreate(ObjBindMethod(implObj, "get_HashAlgorithm"), flags, 2)
+        this.vtbl.put_HashAlgorithm := CallbackCreate(ObjBindMethod(implObj, "put_HashAlgorithm"), flags, 2)
+        this.vtbl.get_EncryptAlgorithm := CallbackCreate(ObjBindMethod(implObj, "get_EncryptAlgorithm"), flags, 2)
+        this.vtbl.put_EncryptAlgorithm := CallbackCreate(ObjBindMethod(implObj, "put_EncryptAlgorithm"), flags, 2)
+        this.vtbl.get_SentTime := CallbackCreate(ObjBindMethod(implObj, "get_SentTime"), flags, 2)
+        this.vtbl.get_ArrivedTime := CallbackCreate(ObjBindMethod(implObj, "get_ArrivedTime"), flags, 2)
+        this.vtbl.get_DestinationQueueInfo := CallbackCreate(ObjBindMethod(implObj, "get_DestinationQueueInfo"), flags, 2)
+        this.vtbl.get_SenderCertificate := CallbackCreate(ObjBindMethod(implObj, "get_SenderCertificate"), flags, 2)
+        this.vtbl.put_SenderCertificate := CallbackCreate(ObjBindMethod(implObj, "put_SenderCertificate"), flags, 2)
+        this.vtbl.get_SenderId := CallbackCreate(ObjBindMethod(implObj, "get_SenderId"), flags, 2)
+        this.vtbl.get_SenderIdType := CallbackCreate(ObjBindMethod(implObj, "get_SenderIdType"), flags, 2)
+        this.vtbl.put_SenderIdType := CallbackCreate(ObjBindMethod(implObj, "put_SenderIdType"), flags, 2)
+        this.vtbl.Send := CallbackCreate(ObjBindMethod(implObj, "Send"), flags, 3)
+        this.vtbl.AttachCurrentSecurityContext := CallbackCreate(ObjBindMethod(implObj, "AttachCurrentSecurityContext"), flags, 1)
     }
 
     Dispose() {

@@ -90,7 +90,7 @@ export default struct IOpcSignatureCustomObjectSet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturecustomobjectset-create
      */
     Create(xmlMarkup, count) {
-        xmlMarkupMarshal := xmlMarkup is VarRef ? "char*" : "ptr"
+        xmlMarkupMarshal := xmlMarkup is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, xmlMarkupMarshal, xmlMarkup, UInt32, count, "ptr*", &customObject := 0, "HRESULT")
         return IOpcSignatureCustomObject(customObject)
@@ -157,9 +157,9 @@ export default struct IOpcSignatureCustomObjectSet extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 4)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 2)
-        this.vtbl.GetEnumerator := CallbackCreate(GetMethod(implObj, "GetEnumerator"), flags, 2)
+        this.vtbl.Create := CallbackCreate(ObjBindMethod(implObj, "Create"), flags, 4)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 2)
+        this.vtbl.GetEnumerator := CallbackCreate(ObjBindMethod(implObj, "GetEnumerator"), flags, 2)
     }
 
     Dispose() {

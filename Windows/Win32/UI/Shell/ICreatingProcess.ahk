@@ -62,7 +62,7 @@ export default struct ICreatingProcess extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnCreating := CallbackCreate(GetMethod(implObj, "OnCreating"), flags, 2)
+        this.vtbl.OnCreating := CallbackCreate(ObjBindMethod(implObj, "OnCreating"), flags, 2)
     }
 
     Dispose() {

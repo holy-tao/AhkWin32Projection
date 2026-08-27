@@ -131,10 +131,10 @@ export default struct ID3DUserDefinedAnnotation extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BeginEvent := CallbackCreate(GetMethod(implObj, "BeginEvent"), flags, 2)
-        this.vtbl.EndEvent := CallbackCreate(GetMethod(implObj, "EndEvent"), flags, 1)
-        this.vtbl.SetMarker := CallbackCreate(GetMethod(implObj, "SetMarker"), flags, 2)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 1)
+        this.vtbl.BeginEvent := CallbackCreate(ObjBindMethod(implObj, "BeginEvent"), flags, 2)
+        this.vtbl.EndEvent := CallbackCreate(ObjBindMethod(implObj, "EndEvent"), flags, 1)
+        this.vtbl.SetMarker := CallbackCreate(ObjBindMethod(implObj, "SetMarker"), flags, 2)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 1)
     }
 
     Dispose() {

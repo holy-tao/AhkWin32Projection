@@ -21,7 +21,6 @@ export default struct IEISXMLNSREGISTEREDFN {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszURI 
      * @param {Pointer<Guid>} pCLSID 
      * @returns {HRESULT} 

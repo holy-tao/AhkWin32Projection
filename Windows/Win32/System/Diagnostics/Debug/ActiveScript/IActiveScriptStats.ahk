@@ -38,37 +38,34 @@ export default struct IActiveScriptStats extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} stid 
      * @param {Pointer<Integer>} pluHi 
      * @param {Pointer<Integer>} pluLo 
      * @returns {HRESULT} 
      */
     GetStat(stid, pluHi, pluLo) {
-        pluHiMarshal := pluHi is VarRef ? "uint*" : "ptr"
-        pluLoMarshal := pluLo is VarRef ? "uint*" : "ptr"
+        pluHiMarshal := pluHi is VarRef ? "uint*" : IntPtr
+        pluLoMarshal := pluLo is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, UInt32, stid, pluHiMarshal, pluHi, pluLoMarshal, pluLo, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} guid 
      * @param {Pointer<Integer>} pluHi 
      * @param {Pointer<Integer>} pluLo 
      * @returns {HRESULT} 
      */
     GetStatEx(guid, pluHi, pluLo) {
-        pluHiMarshal := pluHi is VarRef ? "uint*" : "ptr"
-        pluLoMarshal := pluLo is VarRef ? "uint*" : "ptr"
+        pluHiMarshal := pluHi is VarRef ? "uint*" : IntPtr
+        pluLoMarshal := pluLo is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, Guid.Ptr, guid, pluHiMarshal, pluHi, pluLoMarshal, pluLo, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ResetStats() {
@@ -85,9 +82,9 @@ export default struct IActiveScriptStats extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStat := CallbackCreate(GetMethod(implObj, "GetStat"), flags, 4)
-        this.vtbl.GetStatEx := CallbackCreate(GetMethod(implObj, "GetStatEx"), flags, 4)
-        this.vtbl.ResetStats := CallbackCreate(GetMethod(implObj, "ResetStats"), flags, 1)
+        this.vtbl.GetStat := CallbackCreate(ObjBindMethod(implObj, "GetStat"), flags, 4)
+        this.vtbl.GetStatEx := CallbackCreate(ObjBindMethod(implObj, "GetStatEx"), flags, 4)
+        this.vtbl.ResetStats := CallbackCreate(ObjBindMethod(implObj, "ResetStats"), flags, 1)
     }
 
     Dispose() {

@@ -80,8 +80,8 @@ export default struct IWSManConnectionOptionsEx extends IWSManConnectionOptions 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_CertificateThumbprint := CallbackCreate(GetMethod(implObj, "get_CertificateThumbprint"), flags, 2)
-        this.vtbl.put_CertificateThumbprint := CallbackCreate(GetMethod(implObj, "put_CertificateThumbprint"), flags, 2)
+        this.vtbl.get_CertificateThumbprint := CallbackCreate(ObjBindMethod(implObj, "get_CertificateThumbprint"), flags, 2)
+        this.vtbl.put_CertificateThumbprint := CallbackCreate(ObjBindMethod(implObj, "put_CertificateThumbprint"), flags, 2)
     }
 
     Dispose() {

@@ -25,7 +25,6 @@ export default struct PIBIO_SENSOR_SET_CALIBRATION_FORMAT_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/ns-winbio_adapter-winbio_pipeline">WINBIO_PIPELINE</a> structure associated with the biometric unit performing the operation.
      * @param {Pointer<Guid>} Format Address of a <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/winbio_ioctl/ns-winbio_ioctl-_winbio_capture_parameters">WINBIO_UUID</a> identifying the calibration data format selected by the Engine Adapter.
      * @returns {HRESULT} The function will return one of the following <b>HRESULT</b> values. 

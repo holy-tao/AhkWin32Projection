@@ -79,7 +79,6 @@ export default struct ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} _objectId 
      * @returns {Pointer} 
      */
@@ -89,7 +88,6 @@ export default struct ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @param {Integer} typeDef 
      * @returns {Pointer} 
@@ -100,22 +98,20 @@ export default struct ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {Pointer<Pointer<Integer>>} pStart 
      * @param {Pointer<Integer>} pcSize 
      * @returns {HRESULT} 
      */
     GetCodeInfo(functionId, pStart, pcSize) {
-        pStartMarshal := pStart is VarRef ? "ptr*" : "ptr"
-        pcSizeMarshal := pcSize is VarRef ? "uint*" : "ptr"
+        pStartMarshal := pStart is VarRef ? "ptr*" : IntPtr
+        pcSizeMarshal := pcSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, IntPtr, functionId, pStartMarshal, pStart, pcSizeMarshal, pcSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetEventMask() {
@@ -124,19 +120,17 @@ export default struct ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} ip 
      * @returns {Pointer} 
      */
     GetFunctionFromIP(ip) {
-        ipMarshal := ip is VarRef ? "char*" : "ptr"
+        ipMarshal := ip is VarRef ? "char*" : IntPtr
 
         result := ComCall(7, this, ipMarshal, ip, "ptr*", &pFunctionId := 0, "HRESULT")
         return pFunctionId
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @param {Integer} token 
      * @returns {Pointer} 
@@ -147,7 +141,6 @@ export default struct ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} threadId 
      * @returns {HANDLE} 
      */
@@ -158,7 +151,6 @@ export default struct ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} _objectId 
      * @returns {Integer} 
      */
@@ -168,7 +160,6 @@ export default struct ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} classId 
      * @param {Pointer<CorElementType>} pBaseElemType 
      * @param {Pointer<Pointer>} pBaseClassId 
@@ -176,16 +167,15 @@ export default struct ICorProfilerInfo extends IUnknown {
      * @returns {HRESULT} 
      */
     IsArrayClass(classId, pBaseElemType, pBaseClassId, pcRank) {
-        pBaseElemTypeMarshal := pBaseElemType is VarRef ? "char*" : "ptr"
-        pBaseClassIdMarshal := pBaseClassId is VarRef ? "ptr*" : "ptr"
-        pcRankMarshal := pcRank is VarRef ? "uint*" : "ptr"
+        pBaseElemTypeMarshal := pBaseElemType is VarRef ? "char*" : IntPtr
+        pBaseClassIdMarshal := pBaseClassId is VarRef ? "ptr*" : IntPtr
+        pcRankMarshal := pcRank is VarRef ? "uint*" : IntPtr
 
         result := ComCall(11, this, IntPtr, classId, pBaseElemTypeMarshal, pBaseElemType, pBaseClassIdMarshal, pBaseClassId, pcRankMarshal, pcRank, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} threadId 
      * @returns {Integer} 
      */
@@ -195,7 +185,6 @@ export default struct ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     GetCurrentThreadID() {
@@ -204,22 +193,20 @@ export default struct ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} classId 
      * @param {Pointer<Pointer>} pModuleId 
      * @param {Pointer<Integer>} pTypeDefToken 
      * @returns {HRESULT} 
      */
     GetClassIDInfo(classId, pModuleId, pTypeDefToken) {
-        pModuleIdMarshal := pModuleId is VarRef ? "ptr*" : "ptr"
-        pTypeDefTokenMarshal := pTypeDefToken is VarRef ? "uint*" : "ptr"
+        pModuleIdMarshal := pModuleId is VarRef ? "ptr*" : IntPtr
+        pTypeDefTokenMarshal := pTypeDefToken is VarRef ? "uint*" : IntPtr
 
         result := ComCall(14, this, IntPtr, classId, pModuleIdMarshal, pModuleId, pTypeDefTokenMarshal, pTypeDefToken, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {Pointer<Pointer>} pClassId 
      * @param {Pointer<Pointer>} pModuleId 
@@ -227,16 +214,15 @@ export default struct ICorProfilerInfo extends IUnknown {
      * @returns {HRESULT} 
      */
     GetFunctionInfo(functionId, pClassId, pModuleId, pToken) {
-        pClassIdMarshal := pClassId is VarRef ? "ptr*" : "ptr"
-        pModuleIdMarshal := pModuleId is VarRef ? "ptr*" : "ptr"
-        pTokenMarshal := pToken is VarRef ? "uint*" : "ptr"
+        pClassIdMarshal := pClassId is VarRef ? "ptr*" : IntPtr
+        pModuleIdMarshal := pModuleId is VarRef ? "ptr*" : IntPtr
+        pTokenMarshal := pToken is VarRef ? "uint*" : IntPtr
 
         result := ComCall(15, this, IntPtr, functionId, pClassIdMarshal, pClassId, pModuleIdMarshal, pModuleId, pTokenMarshal, pToken, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwEvents 
      * @returns {HRESULT} 
      */
@@ -246,35 +232,32 @@ export default struct ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<FunctionEnter>>} pFuncEnter 
      * @param {Pointer<Pointer<FunctionLeave>>} pFuncLeave 
      * @param {Pointer<Pointer<FunctionTailcall>>} pFuncTailcall 
      * @returns {HRESULT} 
      */
     SetEnterLeaveFunctionHooks(pFuncEnter, pFuncLeave, pFuncTailcall) {
-        pFuncEnterMarshal := pFuncEnter is VarRef ? "ptr*" : "ptr"
-        pFuncLeaveMarshal := pFuncLeave is VarRef ? "ptr*" : "ptr"
-        pFuncTailcallMarshal := pFuncTailcall is VarRef ? "ptr*" : "ptr"
+        pFuncEnterMarshal := pFuncEnter is VarRef ? "ptr*" : IntPtr
+        pFuncLeaveMarshal := pFuncLeave is VarRef ? "ptr*" : IntPtr
+        pFuncTailcallMarshal := pFuncTailcall is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(17, this, pFuncEnterMarshal, pFuncEnter, pFuncLeaveMarshal, pFuncLeave, pFuncTailcallMarshal, pFuncTailcall, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<FunctionIDMapper>>} pFunc 
      * @returns {HRESULT} 
      */
     SetFunctionIDMapper(pFunc) {
-        pFuncMarshal := pFunc is VarRef ? "ptr*" : "ptr"
+        pFuncMarshal := pFunc is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(18, this, pFuncMarshal, pFunc, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<IUnknown>} ppImport 
@@ -282,14 +265,13 @@ export default struct ICorProfilerInfo extends IUnknown {
      * @returns {HRESULT} 
      */
     GetTokenAndMetaDataFromFunction(functionId, riid, ppImport, pToken) {
-        pTokenMarshal := pToken is VarRef ? "uint*" : "ptr"
+        pTokenMarshal := pToken is VarRef ? "uint*" : IntPtr
 
         result := ComCall(19, this, IntPtr, functionId, Guid.Ptr, riid, IUnknown.Ptr, ppImport, pTokenMarshal, pToken, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @param {Pointer<Pointer<Integer>>} ppBaseLoadAddress 
      * @param {Integer} cchName 
@@ -301,16 +283,15 @@ export default struct ICorProfilerInfo extends IUnknown {
     GetModuleInfo(moduleId, ppBaseLoadAddress, cchName, pcchName, szName, pAssemblyId) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        ppBaseLoadAddressMarshal := ppBaseLoadAddress is VarRef ? "ptr*" : "ptr"
-        pcchNameMarshal := pcchName is VarRef ? "uint*" : "ptr"
-        pAssemblyIdMarshal := pAssemblyId is VarRef ? "ptr*" : "ptr"
+        ppBaseLoadAddressMarshal := ppBaseLoadAddress is VarRef ? "ptr*" : IntPtr
+        pcchNameMarshal := pcchName is VarRef ? "uint*" : IntPtr
+        pAssemblyIdMarshal := pAssemblyId is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(20, this, IntPtr, moduleId, ppBaseLoadAddressMarshal, ppBaseLoadAddress, UInt32, cchName, pcchNameMarshal, pcchName, "ptr", szName, pAssemblyIdMarshal, pAssemblyId, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @param {Integer} dwOpenFlags 
      * @param {Pointer<Guid>} riid 
@@ -322,7 +303,6 @@ export default struct ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @param {Integer} methodId 
      * @param {Pointer<Pointer<Integer>>} ppMethodHeader 
@@ -330,15 +310,14 @@ export default struct ICorProfilerInfo extends IUnknown {
      * @returns {HRESULT} 
      */
     GetILFunctionBody(moduleId, methodId, ppMethodHeader, pcbMethodSize) {
-        ppMethodHeaderMarshal := ppMethodHeader is VarRef ? "ptr*" : "ptr"
-        pcbMethodSizeMarshal := pcbMethodSize is VarRef ? "uint*" : "ptr"
+        ppMethodHeaderMarshal := ppMethodHeader is VarRef ? "ptr*" : IntPtr
+        pcbMethodSizeMarshal := pcbMethodSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(22, this, IntPtr, moduleId, UInt32, methodId, ppMethodHeaderMarshal, ppMethodHeader, pcbMethodSizeMarshal, pcbMethodSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @returns {IMethodMalloc} 
      */
@@ -348,21 +327,19 @@ export default struct ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @param {Integer} methodid 
      * @param {Pointer<Integer>} pbNewILMethodHeader 
      * @returns {HRESULT} 
      */
     SetILFunctionBody(moduleId, methodid, pbNewILMethodHeader) {
-        pbNewILMethodHeaderMarshal := pbNewILMethodHeader is VarRef ? "char*" : "ptr"
+        pbNewILMethodHeaderMarshal := pbNewILMethodHeader is VarRef ? "char*" : IntPtr
 
         result := ComCall(24, this, IntPtr, moduleId, UInt32, methodid, pbNewILMethodHeaderMarshal, pbNewILMethodHeader, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} appDomainId 
      * @param {Integer} cchName 
      * @param {Pointer<Integer>} pcchName 
@@ -373,15 +350,14 @@ export default struct ICorProfilerInfo extends IUnknown {
     GetAppDomainInfo(appDomainId, cchName, pcchName, szName, pProcessId) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        pcchNameMarshal := pcchName is VarRef ? "uint*" : "ptr"
-        pProcessIdMarshal := pProcessId is VarRef ? "ptr*" : "ptr"
+        pcchNameMarshal := pcchName is VarRef ? "uint*" : IntPtr
+        pProcessIdMarshal := pProcessId is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(25, this, IntPtr, appDomainId, UInt32, cchName, pcchNameMarshal, pcchName, "ptr", szName, pProcessIdMarshal, pProcessId, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} assemblyId 
      * @param {Integer} cchName 
      * @param {Pointer<Integer>} pcchName 
@@ -393,16 +369,15 @@ export default struct ICorProfilerInfo extends IUnknown {
     GetAssemblyInfo(assemblyId, cchName, pcchName, szName, pAppDomainId, pModuleId) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        pcchNameMarshal := pcchName is VarRef ? "uint*" : "ptr"
-        pAppDomainIdMarshal := pAppDomainId is VarRef ? "ptr*" : "ptr"
-        pModuleIdMarshal := pModuleId is VarRef ? "ptr*" : "ptr"
+        pcchNameMarshal := pcchName is VarRef ? "uint*" : IntPtr
+        pAppDomainIdMarshal := pAppDomainId is VarRef ? "ptr*" : IntPtr
+        pModuleIdMarshal := pModuleId is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(26, this, IntPtr, assemblyId, UInt32, cchName, pcchNameMarshal, pcchName, "ptr", szName, pAppDomainIdMarshal, pAppDomainId, pModuleIdMarshal, pModuleId, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @returns {HRESULT} 
      */
@@ -412,7 +387,6 @@ export default struct ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ForceGC() {
@@ -421,7 +395,6 @@ export default struct ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {BOOL} fStartJit 
      * @param {Integer} cILMapEntries 
@@ -434,7 +407,6 @@ export default struct ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     GetInprocInspectionInterface() {
@@ -443,7 +415,6 @@ export default struct ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     GetInprocInspectionIThisThread() {
@@ -469,7 +440,6 @@ export default struct ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fThisThreadOnly 
      * @returns {Integer} 
      */
@@ -479,7 +449,6 @@ export default struct ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwProfilerContext 
      * @returns {HRESULT} 
      */
@@ -489,7 +458,6 @@ export default struct ICorProfilerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {Integer} cMap 
      * @param {Pointer<Integer>} pcMap 
@@ -497,7 +465,7 @@ export default struct ICorProfilerInfo extends IUnknown {
      * @returns {HRESULT} 
      */
     GetILToNativeMapping(functionId, cMap, pcMap, _map) {
-        pcMapMarshal := pcMap is VarRef ? "uint*" : "ptr"
+        pcMapMarshal := pcMap is VarRef ? "uint*" : IntPtr
 
         result := ComCall(35, this, IntPtr, functionId, UInt32, cMap, pcMapMarshal, pcMap, COR_DEBUG_IL_TO_NATIVE_MAP.Ptr, _map, "HRESULT")
         return result
@@ -512,39 +480,39 @@ export default struct ICorProfilerInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetClassFromObject := CallbackCreate(GetMethod(implObj, "GetClassFromObject"), flags, 3)
-        this.vtbl.GetClassFromToken := CallbackCreate(GetMethod(implObj, "GetClassFromToken"), flags, 4)
-        this.vtbl.GetCodeInfo := CallbackCreate(GetMethod(implObj, "GetCodeInfo"), flags, 4)
-        this.vtbl.GetEventMask := CallbackCreate(GetMethod(implObj, "GetEventMask"), flags, 2)
-        this.vtbl.GetFunctionFromIP := CallbackCreate(GetMethod(implObj, "GetFunctionFromIP"), flags, 3)
-        this.vtbl.GetFunctionFromToken := CallbackCreate(GetMethod(implObj, "GetFunctionFromToken"), flags, 4)
-        this.vtbl.GetHandleFromThread := CallbackCreate(GetMethod(implObj, "GetHandleFromThread"), flags, 3)
-        this.vtbl.GetObjectSize := CallbackCreate(GetMethod(implObj, "GetObjectSize"), flags, 3)
-        this.vtbl.IsArrayClass := CallbackCreate(GetMethod(implObj, "IsArrayClass"), flags, 5)
-        this.vtbl.GetThreadInfo := CallbackCreate(GetMethod(implObj, "GetThreadInfo"), flags, 3)
-        this.vtbl.GetCurrentThreadID := CallbackCreate(GetMethod(implObj, "GetCurrentThreadID"), flags, 2)
-        this.vtbl.GetClassIDInfo := CallbackCreate(GetMethod(implObj, "GetClassIDInfo"), flags, 4)
-        this.vtbl.GetFunctionInfo := CallbackCreate(GetMethod(implObj, "GetFunctionInfo"), flags, 5)
-        this.vtbl.SetEventMask := CallbackCreate(GetMethod(implObj, "SetEventMask"), flags, 2)
-        this.vtbl.SetEnterLeaveFunctionHooks := CallbackCreate(GetMethod(implObj, "SetEnterLeaveFunctionHooks"), flags, 4)
-        this.vtbl.SetFunctionIDMapper := CallbackCreate(GetMethod(implObj, "SetFunctionIDMapper"), flags, 2)
-        this.vtbl.GetTokenAndMetaDataFromFunction := CallbackCreate(GetMethod(implObj, "GetTokenAndMetaDataFromFunction"), flags, 5)
-        this.vtbl.GetModuleInfo := CallbackCreate(GetMethod(implObj, "GetModuleInfo"), flags, 7)
-        this.vtbl.GetModuleMetaData := CallbackCreate(GetMethod(implObj, "GetModuleMetaData"), flags, 5)
-        this.vtbl.GetILFunctionBody := CallbackCreate(GetMethod(implObj, "GetILFunctionBody"), flags, 5)
-        this.vtbl.GetILFunctionBodyAllocator := CallbackCreate(GetMethod(implObj, "GetILFunctionBodyAllocator"), flags, 3)
-        this.vtbl.SetILFunctionBody := CallbackCreate(GetMethod(implObj, "SetILFunctionBody"), flags, 4)
-        this.vtbl.GetAppDomainInfo := CallbackCreate(GetMethod(implObj, "GetAppDomainInfo"), flags, 6)
-        this.vtbl.GetAssemblyInfo := CallbackCreate(GetMethod(implObj, "GetAssemblyInfo"), flags, 7)
-        this.vtbl.SetFunctionReJIT := CallbackCreate(GetMethod(implObj, "SetFunctionReJIT"), flags, 2)
-        this.vtbl.ForceGC := CallbackCreate(GetMethod(implObj, "ForceGC"), flags, 1)
-        this.vtbl.SetILInstrumentedCodeMap := CallbackCreate(GetMethod(implObj, "SetILInstrumentedCodeMap"), flags, 5)
-        this.vtbl.GetInprocInspectionInterface := CallbackCreate(GetMethod(implObj, "GetInprocInspectionInterface"), flags, 2)
-        this.vtbl.GetInprocInspectionIThisThread := CallbackCreate(GetMethod(implObj, "GetInprocInspectionIThisThread"), flags, 2)
-        this.vtbl.GetThreadContext := CallbackCreate(GetMethod(implObj, "GetThreadContext"), flags, 3)
-        this.vtbl.BeginInprocDebugging := CallbackCreate(GetMethod(implObj, "BeginInprocDebugging"), flags, 3)
-        this.vtbl.EndInprocDebugging := CallbackCreate(GetMethod(implObj, "EndInprocDebugging"), flags, 2)
-        this.vtbl.GetILToNativeMapping := CallbackCreate(GetMethod(implObj, "GetILToNativeMapping"), flags, 5)
+        this.vtbl.GetClassFromObject := CallbackCreate(ObjBindMethod(implObj, "GetClassFromObject"), flags, 3)
+        this.vtbl.GetClassFromToken := CallbackCreate(ObjBindMethod(implObj, "GetClassFromToken"), flags, 4)
+        this.vtbl.GetCodeInfo := CallbackCreate(ObjBindMethod(implObj, "GetCodeInfo"), flags, 4)
+        this.vtbl.GetEventMask := CallbackCreate(ObjBindMethod(implObj, "GetEventMask"), flags, 2)
+        this.vtbl.GetFunctionFromIP := CallbackCreate(ObjBindMethod(implObj, "GetFunctionFromIP"), flags, 3)
+        this.vtbl.GetFunctionFromToken := CallbackCreate(ObjBindMethod(implObj, "GetFunctionFromToken"), flags, 4)
+        this.vtbl.GetHandleFromThread := CallbackCreate(ObjBindMethod(implObj, "GetHandleFromThread"), flags, 3)
+        this.vtbl.GetObjectSize := CallbackCreate(ObjBindMethod(implObj, "GetObjectSize"), flags, 3)
+        this.vtbl.IsArrayClass := CallbackCreate(ObjBindMethod(implObj, "IsArrayClass"), flags, 5)
+        this.vtbl.GetThreadInfo := CallbackCreate(ObjBindMethod(implObj, "GetThreadInfo"), flags, 3)
+        this.vtbl.GetCurrentThreadID := CallbackCreate(ObjBindMethod(implObj, "GetCurrentThreadID"), flags, 2)
+        this.vtbl.GetClassIDInfo := CallbackCreate(ObjBindMethod(implObj, "GetClassIDInfo"), flags, 4)
+        this.vtbl.GetFunctionInfo := CallbackCreate(ObjBindMethod(implObj, "GetFunctionInfo"), flags, 5)
+        this.vtbl.SetEventMask := CallbackCreate(ObjBindMethod(implObj, "SetEventMask"), flags, 2)
+        this.vtbl.SetEnterLeaveFunctionHooks := CallbackCreate(ObjBindMethod(implObj, "SetEnterLeaveFunctionHooks"), flags, 4)
+        this.vtbl.SetFunctionIDMapper := CallbackCreate(ObjBindMethod(implObj, "SetFunctionIDMapper"), flags, 2)
+        this.vtbl.GetTokenAndMetaDataFromFunction := CallbackCreate(ObjBindMethod(implObj, "GetTokenAndMetaDataFromFunction"), flags, 5)
+        this.vtbl.GetModuleInfo := CallbackCreate(ObjBindMethod(implObj, "GetModuleInfo"), flags, 7)
+        this.vtbl.GetModuleMetaData := CallbackCreate(ObjBindMethod(implObj, "GetModuleMetaData"), flags, 5)
+        this.vtbl.GetILFunctionBody := CallbackCreate(ObjBindMethod(implObj, "GetILFunctionBody"), flags, 5)
+        this.vtbl.GetILFunctionBodyAllocator := CallbackCreate(ObjBindMethod(implObj, "GetILFunctionBodyAllocator"), flags, 3)
+        this.vtbl.SetILFunctionBody := CallbackCreate(ObjBindMethod(implObj, "SetILFunctionBody"), flags, 4)
+        this.vtbl.GetAppDomainInfo := CallbackCreate(ObjBindMethod(implObj, "GetAppDomainInfo"), flags, 6)
+        this.vtbl.GetAssemblyInfo := CallbackCreate(ObjBindMethod(implObj, "GetAssemblyInfo"), flags, 7)
+        this.vtbl.SetFunctionReJIT := CallbackCreate(ObjBindMethod(implObj, "SetFunctionReJIT"), flags, 2)
+        this.vtbl.ForceGC := CallbackCreate(ObjBindMethod(implObj, "ForceGC"), flags, 1)
+        this.vtbl.SetILInstrumentedCodeMap := CallbackCreate(ObjBindMethod(implObj, "SetILInstrumentedCodeMap"), flags, 5)
+        this.vtbl.GetInprocInspectionInterface := CallbackCreate(ObjBindMethod(implObj, "GetInprocInspectionInterface"), flags, 2)
+        this.vtbl.GetInprocInspectionIThisThread := CallbackCreate(ObjBindMethod(implObj, "GetInprocInspectionIThisThread"), flags, 2)
+        this.vtbl.GetThreadContext := CallbackCreate(ObjBindMethod(implObj, "GetThreadContext"), flags, 3)
+        this.vtbl.BeginInprocDebugging := CallbackCreate(ObjBindMethod(implObj, "BeginInprocDebugging"), flags, 3)
+        this.vtbl.EndInprocDebugging := CallbackCreate(ObjBindMethod(implObj, "EndInprocDebugging"), flags, 2)
+        this.vtbl.GetILToNativeMapping := CallbackCreate(ObjBindMethod(implObj, "GetILToNativeMapping"), flags, 5)
     }
 
     Dispose() {

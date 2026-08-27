@@ -57,7 +57,7 @@ export default struct ISendMethodEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isendmethodevents-sendmethodcall
      */
     SendMethodCall(pIdentity, riid, dwMeth) {
-        pIdentityMarshal := pIdentity is VarRef ? "ptr" : "ptr"
+        pIdentityMarshal := pIdentity is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, pIdentityMarshal, pIdentity, Guid.Ptr, riid, UInt32, dwMeth, "HRESULT")
         return result
@@ -74,7 +74,7 @@ export default struct ISendMethodEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isendmethodevents-sendmethodreturn
      */
     SendMethodReturn(pIdentity, riid, dwMeth, hrCall, hrServer) {
-        pIdentityMarshal := pIdentity is VarRef ? "ptr" : "ptr"
+        pIdentityMarshal := pIdentity is VarRef ? "ptr" : IntPtr
 
         result := ComCall(4, this, pIdentityMarshal, pIdentity, Guid.Ptr, riid, UInt32, dwMeth, "int", hrCall, "int", hrServer, "HRESULT")
         return result
@@ -89,8 +89,8 @@ export default struct ISendMethodEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SendMethodCall := CallbackCreate(GetMethod(implObj, "SendMethodCall"), flags, 4)
-        this.vtbl.SendMethodReturn := CallbackCreate(GetMethod(implObj, "SendMethodReturn"), flags, 6)
+        this.vtbl.SendMethodCall := CallbackCreate(ObjBindMethod(implObj, "SendMethodCall"), flags, 4)
+        this.vtbl.SendMethodReturn := CallbackCreate(ObjBindMethod(implObj, "SendMethodReturn"), flags, 6)
     }
 
     Dispose() {

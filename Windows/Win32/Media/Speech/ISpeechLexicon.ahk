@@ -56,7 +56,6 @@ export default struct ISpeechLexicon extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_GenerationId() {
@@ -65,21 +64,19 @@ export default struct ISpeechLexicon extends IDispatch {
     }
 
     /**
-     * 
      * @param {SpeechLexiconType} Flags 
      * @param {Pointer<Integer>} GenerationID 
      * @param {Pointer<ISpeechLexiconWords>} Words 
      * @returns {HRESULT} 
      */
     GetWords(Flags, GenerationID, Words) {
-        GenerationIDMarshal := GenerationID is VarRef ? "int*" : "ptr"
+        GenerationIDMarshal := GenerationID is VarRef ? "int*" : IntPtr
 
         result := ComCall(8, this, SpeechLexiconType, Flags, GenerationIDMarshal, GenerationID, ISpeechLexiconWords.Ptr, Words, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {BSTR} bstrWord 
      * @param {Integer} LangId 
      * @param {SpeechPartOfSpeech} PartOfSpeech 
@@ -95,7 +92,6 @@ export default struct ISpeechLexicon extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrWord 
      * @param {Integer} LangId 
      * @param {SpeechPartOfSpeech} PartOfSpeech 
@@ -110,7 +106,6 @@ export default struct ISpeechLexicon extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrWord 
      * @param {Integer} LangId 
      * @param {SpeechPartOfSpeech} PartOfSpeech 
@@ -126,7 +121,6 @@ export default struct ISpeechLexicon extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrWord 
      * @param {Integer} LangId 
      * @param {SpeechPartOfSpeech} PartOfSpeech 
@@ -141,7 +135,6 @@ export default struct ISpeechLexicon extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrWord 
      * @param {Integer} LangId 
      * @param {SpeechLexiconType} _TypeFlags 
@@ -155,12 +148,11 @@ export default struct ISpeechLexicon extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} GenerationID 
      * @returns {ISpeechLexiconWords} 
      */
     GetGenerationChange(GenerationID) {
-        GenerationIDMarshal := GenerationID is VarRef ? "int*" : "ptr"
+        GenerationIDMarshal := GenerationID is VarRef ? "int*" : IntPtr
 
         result := ComCall(14, this, GenerationIDMarshal, GenerationID, "ptr*", &ppWords := 0, "HRESULT")
         return ISpeechLexiconWords(ppWords)
@@ -175,14 +167,14 @@ export default struct ISpeechLexicon extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_GenerationId := CallbackCreate(GetMethod(implObj, "get_GenerationId"), flags, 2)
-        this.vtbl.GetWords := CallbackCreate(GetMethod(implObj, "GetWords"), flags, 4)
-        this.vtbl.AddPronunciation := CallbackCreate(GetMethod(implObj, "AddPronunciation"), flags, 5)
-        this.vtbl.AddPronunciationByPhoneIds := CallbackCreate(GetMethod(implObj, "AddPronunciationByPhoneIds"), flags, 5)
-        this.vtbl.RemovePronunciation := CallbackCreate(GetMethod(implObj, "RemovePronunciation"), flags, 5)
-        this.vtbl.RemovePronunciationByPhoneIds := CallbackCreate(GetMethod(implObj, "RemovePronunciationByPhoneIds"), flags, 5)
-        this.vtbl.GetPronunciations := CallbackCreate(GetMethod(implObj, "GetPronunciations"), flags, 5)
-        this.vtbl.GetGenerationChange := CallbackCreate(GetMethod(implObj, "GetGenerationChange"), flags, 3)
+        this.vtbl.get_GenerationId := CallbackCreate(ObjBindMethod(implObj, "get_GenerationId"), flags, 2)
+        this.vtbl.GetWords := CallbackCreate(ObjBindMethod(implObj, "GetWords"), flags, 4)
+        this.vtbl.AddPronunciation := CallbackCreate(ObjBindMethod(implObj, "AddPronunciation"), flags, 5)
+        this.vtbl.AddPronunciationByPhoneIds := CallbackCreate(ObjBindMethod(implObj, "AddPronunciationByPhoneIds"), flags, 5)
+        this.vtbl.RemovePronunciation := CallbackCreate(ObjBindMethod(implObj, "RemovePronunciation"), flags, 5)
+        this.vtbl.RemovePronunciationByPhoneIds := CallbackCreate(ObjBindMethod(implObj, "RemovePronunciationByPhoneIds"), flags, 5)
+        this.vtbl.GetPronunciations := CallbackCreate(ObjBindMethod(implObj, "GetPronunciations"), flags, 5)
+        this.vtbl.GetGenerationChange := CallbackCreate(ObjBindMethod(implObj, "GetGenerationChange"), flags, 3)
     }
 
     Dispose() {

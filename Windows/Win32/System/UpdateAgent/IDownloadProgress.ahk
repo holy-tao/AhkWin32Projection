@@ -208,15 +208,15 @@ export default struct IDownloadProgress extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_CurrentUpdateBytesDownloaded := CallbackCreate(GetMethod(implObj, "get_CurrentUpdateBytesDownloaded"), flags, 2)
-        this.vtbl.get_CurrentUpdateBytesToDownload := CallbackCreate(GetMethod(implObj, "get_CurrentUpdateBytesToDownload"), flags, 2)
-        this.vtbl.get_CurrentUpdateIndex := CallbackCreate(GetMethod(implObj, "get_CurrentUpdateIndex"), flags, 2)
-        this.vtbl.get_PercentComplete := CallbackCreate(GetMethod(implObj, "get_PercentComplete"), flags, 2)
-        this.vtbl.get_TotalBytesDownloaded := CallbackCreate(GetMethod(implObj, "get_TotalBytesDownloaded"), flags, 2)
-        this.vtbl.get_TotalBytesToDownload := CallbackCreate(GetMethod(implObj, "get_TotalBytesToDownload"), flags, 2)
-        this.vtbl.GetUpdateResult := CallbackCreate(GetMethod(implObj, "GetUpdateResult"), flags, 3)
-        this.vtbl.get_CurrentUpdateDownloadPhase := CallbackCreate(GetMethod(implObj, "get_CurrentUpdateDownloadPhase"), flags, 2)
-        this.vtbl.get_CurrentUpdatePercentComplete := CallbackCreate(GetMethod(implObj, "get_CurrentUpdatePercentComplete"), flags, 2)
+        this.vtbl.get_CurrentUpdateBytesDownloaded := CallbackCreate(ObjBindMethod(implObj, "get_CurrentUpdateBytesDownloaded"), flags, 2)
+        this.vtbl.get_CurrentUpdateBytesToDownload := CallbackCreate(ObjBindMethod(implObj, "get_CurrentUpdateBytesToDownload"), flags, 2)
+        this.vtbl.get_CurrentUpdateIndex := CallbackCreate(ObjBindMethod(implObj, "get_CurrentUpdateIndex"), flags, 2)
+        this.vtbl.get_PercentComplete := CallbackCreate(ObjBindMethod(implObj, "get_PercentComplete"), flags, 2)
+        this.vtbl.get_TotalBytesDownloaded := CallbackCreate(ObjBindMethod(implObj, "get_TotalBytesDownloaded"), flags, 2)
+        this.vtbl.get_TotalBytesToDownload := CallbackCreate(ObjBindMethod(implObj, "get_TotalBytesToDownload"), flags, 2)
+        this.vtbl.GetUpdateResult := CallbackCreate(ObjBindMethod(implObj, "GetUpdateResult"), flags, 3)
+        this.vtbl.get_CurrentUpdateDownloadPhase := CallbackCreate(ObjBindMethod(implObj, "get_CurrentUpdateDownloadPhase"), flags, 2)
+        this.vtbl.get_CurrentUpdatePercentComplete := CallbackCreate(ObjBindMethod(implObj, "get_CurrentUpdatePercentComplete"), flags, 2)
     }
 
     Dispose() {

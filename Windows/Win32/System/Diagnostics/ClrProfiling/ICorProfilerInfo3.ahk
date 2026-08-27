@@ -62,7 +62,6 @@ export default struct ICorProfilerInfo3 extends ICorProfilerInfo2 {
     }
 
     /**
-     * 
      * @returns {ICorProfilerFunctionEnum} 
      */
     EnumJITedFunctions() {
@@ -71,7 +70,6 @@ export default struct ICorProfilerInfo3 extends ICorProfilerInfo2 {
     }
 
     /**
-     * 
      * @param {Integer} dwExpectedCompletionMilliseconds 
      * @returns {HRESULT} 
      */
@@ -81,67 +79,62 @@ export default struct ICorProfilerInfo3 extends ICorProfilerInfo2 {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<FunctionIDMapper2>>} pFunc 
      * @param {Pointer<Void>} clientData 
      * @returns {HRESULT} 
      */
     SetFunctionIDMapper2(pFunc, clientData) {
-        pFuncMarshal := pFunc is VarRef ? "ptr*" : "ptr"
-        clientDataMarshal := clientData is VarRef ? "ptr" : "ptr"
+        pFuncMarshal := pFunc is VarRef ? "ptr*" : IntPtr
+        clientDataMarshal := clientData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(59, this, pFuncMarshal, pFunc, clientDataMarshal, clientData, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pStringLengthOffset 
      * @param {Pointer<Integer>} pBufferOffset 
      * @returns {HRESULT} 
      */
     GetStringLayout2(pStringLengthOffset, pBufferOffset) {
-        pStringLengthOffsetMarshal := pStringLengthOffset is VarRef ? "uint*" : "ptr"
-        pBufferOffsetMarshal := pBufferOffset is VarRef ? "uint*" : "ptr"
+        pStringLengthOffsetMarshal := pStringLengthOffset is VarRef ? "uint*" : IntPtr
+        pBufferOffsetMarshal := pBufferOffset is VarRef ? "uint*" : IntPtr
 
         result := ComCall(60, this, pStringLengthOffsetMarshal, pStringLengthOffset, pBufferOffsetMarshal, pBufferOffset, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<FunctionEnter3>>} pFuncEnter3 
      * @param {Pointer<Pointer<FunctionLeave3>>} pFuncLeave3 
      * @param {Pointer<Pointer<FunctionTailcall3>>} pFuncTailcall3 
      * @returns {HRESULT} 
      */
     SetEnterLeaveFunctionHooks3(pFuncEnter3, pFuncLeave3, pFuncTailcall3) {
-        pFuncEnter3Marshal := pFuncEnter3 is VarRef ? "ptr*" : "ptr"
-        pFuncLeave3Marshal := pFuncLeave3 is VarRef ? "ptr*" : "ptr"
-        pFuncTailcall3Marshal := pFuncTailcall3 is VarRef ? "ptr*" : "ptr"
+        pFuncEnter3Marshal := pFuncEnter3 is VarRef ? "ptr*" : IntPtr
+        pFuncLeave3Marshal := pFuncLeave3 is VarRef ? "ptr*" : IntPtr
+        pFuncTailcall3Marshal := pFuncTailcall3 is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(61, this, pFuncEnter3Marshal, pFuncEnter3, pFuncLeave3Marshal, pFuncLeave3, pFuncTailcall3Marshal, pFuncTailcall3, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<FunctionEnter3WithInfo>>} pFuncEnter3WithInfo 
      * @param {Pointer<Pointer<FunctionLeave3WithInfo>>} pFuncLeave3WithInfo 
      * @param {Pointer<Pointer<FunctionTailcall3WithInfo>>} pFuncTailcall3WithInfo 
      * @returns {HRESULT} 
      */
     SetEnterLeaveFunctionHooks3WithInfo(pFuncEnter3WithInfo, pFuncLeave3WithInfo, pFuncTailcall3WithInfo) {
-        pFuncEnter3WithInfoMarshal := pFuncEnter3WithInfo is VarRef ? "ptr*" : "ptr"
-        pFuncLeave3WithInfoMarshal := pFuncLeave3WithInfo is VarRef ? "ptr*" : "ptr"
-        pFuncTailcall3WithInfoMarshal := pFuncTailcall3WithInfo is VarRef ? "ptr*" : "ptr"
+        pFuncEnter3WithInfoMarshal := pFuncEnter3WithInfo is VarRef ? "ptr*" : IntPtr
+        pFuncLeave3WithInfoMarshal := pFuncLeave3WithInfo is VarRef ? "ptr*" : IntPtr
+        pFuncTailcall3WithInfoMarshal := pFuncTailcall3WithInfo is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(62, this, pFuncEnter3WithInfoMarshal, pFuncEnter3WithInfo, pFuncLeave3WithInfoMarshal, pFuncLeave3WithInfo, pFuncTailcall3WithInfoMarshal, pFuncTailcall3WithInfo, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {Pointer} eltInfo 
      * @param {Pointer<Pointer>} pFrameInfo 
@@ -150,15 +143,14 @@ export default struct ICorProfilerInfo3 extends ICorProfilerInfo2 {
      * @returns {HRESULT} 
      */
     GetFunctionEnter3Info(functionId, eltInfo, pFrameInfo, pcbArgumentInfo, pArgumentInfo) {
-        pFrameInfoMarshal := pFrameInfo is VarRef ? "ptr*" : "ptr"
-        pcbArgumentInfoMarshal := pcbArgumentInfo is VarRef ? "uint*" : "ptr"
+        pFrameInfoMarshal := pFrameInfo is VarRef ? "ptr*" : IntPtr
+        pcbArgumentInfoMarshal := pcbArgumentInfo is VarRef ? "uint*" : IntPtr
 
         result := ComCall(63, this, IntPtr, functionId, IntPtr, eltInfo, pFrameInfoMarshal, pFrameInfo, pcbArgumentInfoMarshal, pcbArgumentInfo, COR_PRF_FUNCTION_ARGUMENT_INFO.Ptr, pArgumentInfo, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {Pointer} eltInfo 
      * @param {Pointer<Pointer>} pFrameInfo 
@@ -166,14 +158,13 @@ export default struct ICorProfilerInfo3 extends ICorProfilerInfo2 {
      * @returns {HRESULT} 
      */
     GetFunctionLeave3Info(functionId, eltInfo, pFrameInfo, pRetvalRange) {
-        pFrameInfoMarshal := pFrameInfo is VarRef ? "ptr*" : "ptr"
+        pFrameInfoMarshal := pFrameInfo is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(64, this, IntPtr, functionId, IntPtr, eltInfo, pFrameInfoMarshal, pFrameInfo, COR_PRF_FUNCTION_ARGUMENT_RANGE.Ptr, pRetvalRange, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {Pointer} eltInfo 
      * @returns {Pointer} 
@@ -184,7 +175,6 @@ export default struct ICorProfilerInfo3 extends ICorProfilerInfo2 {
     }
 
     /**
-     * 
      * @returns {ICorProfilerModuleEnum} 
      */
     EnumModules() {
@@ -193,7 +183,6 @@ export default struct ICorProfilerInfo3 extends ICorProfilerInfo2 {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pClrInstanceId 
      * @param {Pointer<COR_PRF_RUNTIME_TYPE>} pRuntimeType 
      * @param {Pointer<Integer>} pMajorVersion 
@@ -208,20 +197,19 @@ export default struct ICorProfilerInfo3 extends ICorProfilerInfo2 {
     GetRuntimeInformation(pClrInstanceId, pRuntimeType, pMajorVersion, pMinorVersion, pBuildNumber, pQFEVersion, cchVersionString, pcchVersionString, szVersionString) {
         szVersionString := szVersionString is String ? StrPtr(szVersionString) : szVersionString
 
-        pClrInstanceIdMarshal := pClrInstanceId is VarRef ? "ushort*" : "ptr"
-        pRuntimeTypeMarshal := pRuntimeType is VarRef ? "int*" : "ptr"
-        pMajorVersionMarshal := pMajorVersion is VarRef ? "ushort*" : "ptr"
-        pMinorVersionMarshal := pMinorVersion is VarRef ? "ushort*" : "ptr"
-        pBuildNumberMarshal := pBuildNumber is VarRef ? "ushort*" : "ptr"
-        pQFEVersionMarshal := pQFEVersion is VarRef ? "ushort*" : "ptr"
-        pcchVersionStringMarshal := pcchVersionString is VarRef ? "uint*" : "ptr"
+        pClrInstanceIdMarshal := pClrInstanceId is VarRef ? "ushort*" : IntPtr
+        pRuntimeTypeMarshal := pRuntimeType is VarRef ? "int*" : IntPtr
+        pMajorVersionMarshal := pMajorVersion is VarRef ? "ushort*" : IntPtr
+        pMinorVersionMarshal := pMinorVersion is VarRef ? "ushort*" : IntPtr
+        pBuildNumberMarshal := pBuildNumber is VarRef ? "ushort*" : IntPtr
+        pQFEVersionMarshal := pQFEVersion is VarRef ? "ushort*" : IntPtr
+        pcchVersionStringMarshal := pcchVersionString is VarRef ? "uint*" : IntPtr
 
         result := ComCall(67, this, pClrInstanceIdMarshal, pClrInstanceId, pRuntimeTypeMarshal, pRuntimeType, pMajorVersionMarshal, pMajorVersion, pMinorVersionMarshal, pMinorVersion, pBuildNumberMarshal, pBuildNumber, pQFEVersionMarshal, pQFEVersion, UInt32, cchVersionString, pcchVersionStringMarshal, pcchVersionString, "ptr", szVersionString, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} classId 
      * @param {Integer} fieldToken 
      * @param {Pointer} appDomainId 
@@ -234,7 +222,6 @@ export default struct ICorProfilerInfo3 extends ICorProfilerInfo2 {
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @param {Integer} cAppDomainIds 
      * @param {Pointer<Integer>} pcAppDomainIds 
@@ -242,15 +229,14 @@ export default struct ICorProfilerInfo3 extends ICorProfilerInfo2 {
      * @returns {HRESULT} 
      */
     GetAppDomainsContainingModule(moduleId, cAppDomainIds, pcAppDomainIds, appDomainIds) {
-        pcAppDomainIdsMarshal := pcAppDomainIds is VarRef ? "uint*" : "ptr"
-        appDomainIdsMarshal := appDomainIds is VarRef ? "ptr*" : "ptr"
+        pcAppDomainIdsMarshal := pcAppDomainIds is VarRef ? "uint*" : IntPtr
+        appDomainIdsMarshal := appDomainIds is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(69, this, IntPtr, moduleId, UInt32, cAppDomainIds, pcAppDomainIdsMarshal, pcAppDomainIds, appDomainIdsMarshal, appDomainIds, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @param {Pointer<Pointer<Integer>>} ppBaseLoadAddress 
      * @param {Integer} cchName 
@@ -263,10 +249,10 @@ export default struct ICorProfilerInfo3 extends ICorProfilerInfo2 {
     GetModuleInfo2(moduleId, ppBaseLoadAddress, cchName, pcchName, szName, pAssemblyId, pdwModuleFlags) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        ppBaseLoadAddressMarshal := ppBaseLoadAddress is VarRef ? "ptr*" : "ptr"
-        pcchNameMarshal := pcchName is VarRef ? "uint*" : "ptr"
-        pAssemblyIdMarshal := pAssemblyId is VarRef ? "ptr*" : "ptr"
-        pdwModuleFlagsMarshal := pdwModuleFlags is VarRef ? "uint*" : "ptr"
+        ppBaseLoadAddressMarshal := ppBaseLoadAddress is VarRef ? "ptr*" : IntPtr
+        pcchNameMarshal := pcchName is VarRef ? "uint*" : IntPtr
+        pAssemblyIdMarshal := pAssemblyId is VarRef ? "ptr*" : IntPtr
+        pdwModuleFlagsMarshal := pdwModuleFlags is VarRef ? "uint*" : IntPtr
 
         result := ComCall(70, this, IntPtr, moduleId, ppBaseLoadAddressMarshal, ppBaseLoadAddress, UInt32, cchName, pcchNameMarshal, pcchName, "ptr", szName, pAssemblyIdMarshal, pAssemblyId, pdwModuleFlagsMarshal, pdwModuleFlags, "HRESULT")
         return result
@@ -281,20 +267,20 @@ export default struct ICorProfilerInfo3 extends ICorProfilerInfo2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumJITedFunctions := CallbackCreate(GetMethod(implObj, "EnumJITedFunctions"), flags, 2)
-        this.vtbl.RequestProfilerDetach := CallbackCreate(GetMethod(implObj, "RequestProfilerDetach"), flags, 2)
-        this.vtbl.SetFunctionIDMapper2 := CallbackCreate(GetMethod(implObj, "SetFunctionIDMapper2"), flags, 3)
-        this.vtbl.GetStringLayout2 := CallbackCreate(GetMethod(implObj, "GetStringLayout2"), flags, 3)
-        this.vtbl.SetEnterLeaveFunctionHooks3 := CallbackCreate(GetMethod(implObj, "SetEnterLeaveFunctionHooks3"), flags, 4)
-        this.vtbl.SetEnterLeaveFunctionHooks3WithInfo := CallbackCreate(GetMethod(implObj, "SetEnterLeaveFunctionHooks3WithInfo"), flags, 4)
-        this.vtbl.GetFunctionEnter3Info := CallbackCreate(GetMethod(implObj, "GetFunctionEnter3Info"), flags, 6)
-        this.vtbl.GetFunctionLeave3Info := CallbackCreate(GetMethod(implObj, "GetFunctionLeave3Info"), flags, 5)
-        this.vtbl.GetFunctionTailcall3Info := CallbackCreate(GetMethod(implObj, "GetFunctionTailcall3Info"), flags, 4)
-        this.vtbl.EnumModules := CallbackCreate(GetMethod(implObj, "EnumModules"), flags, 2)
-        this.vtbl.GetRuntimeInformation := CallbackCreate(GetMethod(implObj, "GetRuntimeInformation"), flags, 10)
-        this.vtbl.GetThreadStaticAddress2 := CallbackCreate(GetMethod(implObj, "GetThreadStaticAddress2"), flags, 6)
-        this.vtbl.GetAppDomainsContainingModule := CallbackCreate(GetMethod(implObj, "GetAppDomainsContainingModule"), flags, 5)
-        this.vtbl.GetModuleInfo2 := CallbackCreate(GetMethod(implObj, "GetModuleInfo2"), flags, 8)
+        this.vtbl.EnumJITedFunctions := CallbackCreate(ObjBindMethod(implObj, "EnumJITedFunctions"), flags, 2)
+        this.vtbl.RequestProfilerDetach := CallbackCreate(ObjBindMethod(implObj, "RequestProfilerDetach"), flags, 2)
+        this.vtbl.SetFunctionIDMapper2 := CallbackCreate(ObjBindMethod(implObj, "SetFunctionIDMapper2"), flags, 3)
+        this.vtbl.GetStringLayout2 := CallbackCreate(ObjBindMethod(implObj, "GetStringLayout2"), flags, 3)
+        this.vtbl.SetEnterLeaveFunctionHooks3 := CallbackCreate(ObjBindMethod(implObj, "SetEnterLeaveFunctionHooks3"), flags, 4)
+        this.vtbl.SetEnterLeaveFunctionHooks3WithInfo := CallbackCreate(ObjBindMethod(implObj, "SetEnterLeaveFunctionHooks3WithInfo"), flags, 4)
+        this.vtbl.GetFunctionEnter3Info := CallbackCreate(ObjBindMethod(implObj, "GetFunctionEnter3Info"), flags, 6)
+        this.vtbl.GetFunctionLeave3Info := CallbackCreate(ObjBindMethod(implObj, "GetFunctionLeave3Info"), flags, 5)
+        this.vtbl.GetFunctionTailcall3Info := CallbackCreate(ObjBindMethod(implObj, "GetFunctionTailcall3Info"), flags, 4)
+        this.vtbl.EnumModules := CallbackCreate(ObjBindMethod(implObj, "EnumModules"), flags, 2)
+        this.vtbl.GetRuntimeInformation := CallbackCreate(ObjBindMethod(implObj, "GetRuntimeInformation"), flags, 10)
+        this.vtbl.GetThreadStaticAddress2 := CallbackCreate(ObjBindMethod(implObj, "GetThreadStaticAddress2"), flags, 6)
+        this.vtbl.GetAppDomainsContainingModule := CallbackCreate(ObjBindMethod(implObj, "GetAppDomainsContainingModule"), flags, 5)
+        this.vtbl.GetModuleInfo2 := CallbackCreate(ObjBindMethod(implObj, "GetModuleInfo2"), flags, 8)
     }
 
     Dispose() {

@@ -242,7 +242,9 @@ export default struct ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommandlist
      */
     CreateCommandList(nodeMask, type, pCommandAllocator, pInitialState, riid) {
-        result := ComCall(12, this, UInt32, nodeMask, D3D12_COMMAND_LIST_TYPE, type, "ptr", pCommandAllocator, "ptr", pInitialState, Guid.Ptr, riid, "ptr*", &ppCommandList := 0, "HRESULT")
+        pInitialStateMarshal := pInitialState == 0 ? IntPtr : "ptr"
+
+        result := ComCall(12, this, UInt32, nodeMask, D3D12_COMMAND_LIST_TYPE, type, "ptr", pCommandAllocator, pInitialStateMarshal, pInitialState, Guid.Ptr, riid, "ptr*", &ppCommandList := 0, "HRESULT")
         return ppCommandList
     }
 
@@ -364,7 +366,7 @@ export default struct ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createrootsignature
      */
     CreateRootSignature(nodeMask, pBlobWithRootSignature, blobLengthInBytes, riid) {
-        pBlobWithRootSignatureMarshal := pBlobWithRootSignature is VarRef ? "ptr" : "ptr"
+        pBlobWithRootSignatureMarshal := pBlobWithRootSignature is VarRef ? "ptr" : IntPtr
 
         result := ComCall(16, this, UInt32, nodeMask, pBlobWithRootSignatureMarshal, pBlobWithRootSignature, IntPtr, blobLengthInBytes, Guid.Ptr, riid, "ptr*", &ppvRootSignature := 0, "HRESULT")
         return ppvRootSignature
@@ -382,7 +384,9 @@ export default struct ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createconstantbufferview
      */
     CreateConstantBufferView(pDesc, DestDescriptor) {
-        ComCall(17, this, D3D12_CONSTANT_BUFFER_VIEW_DESC.Ptr, pDesc, D3D12_CPU_DESCRIPTOR_HANDLE, DestDescriptor)
+        pDescMarshal := pDesc == 0 ? IntPtr : D3D12_CONSTANT_BUFFER_VIEW_DESC.Ptr
+
+        ComCall(17, this, pDescMarshal, pDesc, D3D12_CPU_DESCRIPTOR_HANDLE, DestDescriptor)
     }
 
     /**
@@ -410,7 +414,10 @@ export default struct ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createshaderresourceview
      */
     CreateShaderResourceView(pResource, pDesc, DestDescriptor) {
-        ComCall(18, this, "ptr", pResource, D3D12_SHADER_RESOURCE_VIEW_DESC.Ptr, pDesc, D3D12_CPU_DESCRIPTOR_HANDLE, DestDescriptor)
+        pResourceMarshal := pResource == 0 ? IntPtr : "ptr"
+        pDescMarshal := pDesc == 0 ? IntPtr : D3D12_SHADER_RESOURCE_VIEW_DESC.Ptr
+
+        ComCall(18, this, pResourceMarshal, pResource, pDescMarshal, pDesc, D3D12_CPU_DESCRIPTOR_HANDLE, DestDescriptor)
     }
 
     /**
@@ -458,7 +465,11 @@ export default struct ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createunorderedaccessview
      */
     CreateUnorderedAccessView(pResource, pCounterResource, pDesc, DestDescriptor) {
-        ComCall(19, this, "ptr", pResource, "ptr", pCounterResource, D3D12_UNORDERED_ACCESS_VIEW_DESC.Ptr, pDesc, D3D12_CPU_DESCRIPTOR_HANDLE, DestDescriptor)
+        pResourceMarshal := pResource == 0 ? IntPtr : "ptr"
+        pCounterResourceMarshal := pCounterResource == 0 ? IntPtr : "ptr"
+        pDescMarshal := pDesc == 0 ? IntPtr : D3D12_UNORDERED_ACCESS_VIEW_DESC.Ptr
+
+        ComCall(19, this, pResourceMarshal, pResource, pCounterResourceMarshal, pCounterResource, pDescMarshal, pDesc, D3D12_CPU_DESCRIPTOR_HANDLE, DestDescriptor)
     }
 
     /**
@@ -482,7 +493,10 @@ export default struct ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createrendertargetview
      */
     CreateRenderTargetView(pResource, pDesc, DestDescriptor) {
-        ComCall(20, this, "ptr", pResource, D3D12_RENDER_TARGET_VIEW_DESC.Ptr, pDesc, D3D12_CPU_DESCRIPTOR_HANDLE, DestDescriptor)
+        pResourceMarshal := pResource == 0 ? IntPtr : "ptr"
+        pDescMarshal := pDesc == 0 ? IntPtr : D3D12_RENDER_TARGET_VIEW_DESC.Ptr
+
+        ComCall(20, this, pResourceMarshal, pResource, pDescMarshal, pDesc, D3D12_CPU_DESCRIPTOR_HANDLE, DestDescriptor)
     }
 
     /**
@@ -507,7 +521,10 @@ export default struct ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createdepthstencilview
      */
     CreateDepthStencilView(pResource, pDesc, DestDescriptor) {
-        ComCall(21, this, "ptr", pResource, D3D12_DEPTH_STENCIL_VIEW_DESC.Ptr, pDesc, D3D12_CPU_DESCRIPTOR_HANDLE, DestDescriptor)
+        pResourceMarshal := pResource == 0 ? IntPtr : "ptr"
+        pDescMarshal := pDesc == 0 ? IntPtr : D3D12_DEPTH_STENCIL_VIEW_DESC.Ptr
+
+        ComCall(21, this, pResourceMarshal, pResource, pDescMarshal, pDesc, D3D12_CPU_DESCRIPTOR_HANDLE, DestDescriptor)
     }
 
     /**
@@ -561,8 +578,10 @@ export default struct ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-copydescriptors
      */
     CopyDescriptors(NumDestDescriptorRanges, pDestDescriptorRangeStarts, pDestDescriptorRangeSizes, NumSrcDescriptorRanges, pSrcDescriptorRangeStarts, pSrcDescriptorRangeSizes, DescriptorHeapsType) {
-        pDestDescriptorRangeSizesMarshal := pDestDescriptorRangeSizes is VarRef ? "uint*" : "ptr"
-        pSrcDescriptorRangeSizesMarshal := pSrcDescriptorRangeSizes is VarRef ? "uint*" : "ptr"
+        pDestDescriptorRangeSizesMarshal := pDestDescriptorRangeSizes is VarRef ? "uint*" : IntPtr
+        pDestDescriptorRangeSizesMarshal := pDestDescriptorRangeSizes == 0 ? IntPtr : "uint*"
+        pSrcDescriptorRangeSizesMarshal := pSrcDescriptorRangeSizes is VarRef ? "uint*" : IntPtr
+        pSrcDescriptorRangeSizesMarshal := pSrcDescriptorRangeSizes == 0 ? IntPtr : "uint*"
 
         ComCall(23, this, UInt32, NumDestDescriptorRanges, D3D12_CPU_DESCRIPTOR_HANDLE.Ptr, pDestDescriptorRangeStarts, pDestDescriptorRangeSizesMarshal, pDestDescriptorRangeSizes, UInt32, NumSrcDescriptorRanges, D3D12_CPU_DESCRIPTOR_HANDLE.Ptr, pSrcDescriptorRangeStarts, pSrcDescriptorRangeSizesMarshal, pSrcDescriptorRangeSizes, D3D12_DESCRIPTOR_HEAP_TYPE, DescriptorHeapsType)
     }
@@ -778,7 +797,9 @@ export default struct ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommittedresource
      */
     CreateCommittedResource(pHeapProperties, HeapFlags, pDesc, InitialResourceState, pOptimizedClearValue, riidResource) {
-        result := ComCall(27, this, D3D12_HEAP_PROPERTIES.Ptr, pHeapProperties, D3D12_HEAP_FLAGS, HeapFlags, D3D12_RESOURCE_DESC.Ptr, pDesc, D3D12_RESOURCE_STATES, InitialResourceState, D3D12_CLEAR_VALUE.Ptr, pOptimizedClearValue, Guid.Ptr, riidResource, "ptr*", &ppvResource := 0, "HRESULT")
+        pOptimizedClearValueMarshal := pOptimizedClearValue == 0 ? IntPtr : D3D12_CLEAR_VALUE.Ptr
+
+        result := ComCall(27, this, D3D12_HEAP_PROPERTIES.Ptr, pHeapProperties, D3D12_HEAP_FLAGS, HeapFlags, D3D12_RESOURCE_DESC.Ptr, pDesc, D3D12_RESOURCE_STATES, InitialResourceState, pOptimizedClearValueMarshal, pOptimizedClearValue, Guid.Ptr, riidResource, "ptr*", &ppvResource := 0, "HRESULT")
         return ppvResource
     }
 
@@ -852,7 +873,9 @@ export default struct ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createplacedresource
      */
     CreatePlacedResource(pHeap, HeapOffset, pDesc, InitialState, pOptimizedClearValue, riid) {
-        result := ComCall(29, this, "ptr", pHeap, Int64, HeapOffset, D3D12_RESOURCE_DESC.Ptr, pDesc, D3D12_RESOURCE_STATES, InitialState, D3D12_CLEAR_VALUE.Ptr, pOptimizedClearValue, Guid.Ptr, riid, "ptr*", &ppvResource := 0, "HRESULT")
+        pOptimizedClearValueMarshal := pOptimizedClearValue == 0 ? IntPtr : D3D12_CLEAR_VALUE.Ptr
+
+        result := ComCall(29, this, "ptr", pHeap, Int64, HeapOffset, D3D12_RESOURCE_DESC.Ptr, pDesc, D3D12_RESOURCE_STATES, InitialState, pOptimizedClearValueMarshal, pOptimizedClearValue, Guid.Ptr, riid, "ptr*", &ppvResource := 0, "HRESULT")
         return ppvResource
     }
 
@@ -890,7 +913,9 @@ export default struct ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createreservedresource
      */
     CreateReservedResource(pDesc, InitialState, pOptimizedClearValue, riid) {
-        result := ComCall(30, this, D3D12_RESOURCE_DESC.Ptr, pDesc, D3D12_RESOURCE_STATES, InitialState, D3D12_CLEAR_VALUE.Ptr, pOptimizedClearValue, Guid.Ptr, riid, "ptr*", &ppvResource := 0, "HRESULT")
+        pOptimizedClearValueMarshal := pOptimizedClearValue == 0 ? IntPtr : D3D12_CLEAR_VALUE.Ptr
+
+        result := ComCall(30, this, D3D12_RESOURCE_DESC.Ptr, pDesc, D3D12_RESOURCE_STATES, InitialState, pOptimizedClearValueMarshal, pOptimizedClearValue, Guid.Ptr, riid, "ptr*", &ppvResource := 0, "HRESULT")
         return ppvResource
     }
 
@@ -968,8 +993,11 @@ export default struct ID3D12Device extends ID3D12Object {
     CreateSharedHandle(pObject, pAttributes, Access, Name) {
         Name := Name is String ? StrPtr(Name) : Name
 
+        pAttributesMarshal := pAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+        NameMarshal := Name == 0 ? IntPtr : PWSTR
+
         pHandle := HANDLE.Owned()
-        result := ComCall(31, this, "ptr", pObject, SECURITY_ATTRIBUTES.Ptr, pAttributes, UInt32, Access, "ptr", Name, HANDLE.Ptr, pHandle, "HRESULT")
+        result := ComCall(31, this, "ptr", pObject, pAttributesMarshal, pAttributes, UInt32, Access, NameMarshal, Name, HANDLE.Ptr, pHandle, "HRESULT")
         return pHandle
     }
 
@@ -1193,11 +1221,15 @@ export default struct ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-getcopyablefootprints
      */
     GetCopyableFootprints(pResourceDesc, FirstSubresource, NumSubresources, BaseOffset, pLayouts, pNumRows, pRowSizeInBytes, pTotalBytes) {
-        pNumRowsMarshal := pNumRows is VarRef ? "uint*" : "ptr"
-        pRowSizeInBytesMarshal := pRowSizeInBytes is VarRef ? "uint*" : "ptr"
-        pTotalBytesMarshal := pTotalBytes is VarRef ? "uint*" : "ptr"
+        pLayoutsMarshal := pLayouts == 0 ? IntPtr : D3D12_PLACED_SUBRESOURCE_FOOTPRINT.Ptr
+        pNumRowsMarshal := pNumRows is VarRef ? "uint*" : IntPtr
+        pNumRowsMarshal := pNumRows == 0 ? IntPtr : "uint*"
+        pRowSizeInBytesMarshal := pRowSizeInBytes is VarRef ? "uint*" : IntPtr
+        pRowSizeInBytesMarshal := pRowSizeInBytes == 0 ? IntPtr : "uint*"
+        pTotalBytesMarshal := pTotalBytes is VarRef ? "uint*" : IntPtr
+        pTotalBytesMarshal := pTotalBytes == 0 ? IntPtr : "uint*"
 
-        ComCall(38, this, D3D12_RESOURCE_DESC.Ptr, pResourceDesc, UInt32, FirstSubresource, UInt32, NumSubresources, Int64, BaseOffset, D3D12_PLACED_SUBRESOURCE_FOOTPRINT.Ptr, pLayouts, pNumRowsMarshal, pNumRows, pRowSizeInBytesMarshal, pRowSizeInBytes, pTotalBytesMarshal, pTotalBytes)
+        ComCall(38, this, D3D12_RESOURCE_DESC.Ptr, pResourceDesc, UInt32, FirstSubresource, UInt32, NumSubresources, Int64, BaseOffset, pLayoutsMarshal, pLayouts, pNumRowsMarshal, pNumRows, pRowSizeInBytesMarshal, pRowSizeInBytes, pTotalBytesMarshal, pTotalBytes)
     }
 
     /**
@@ -1265,7 +1297,9 @@ export default struct ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommandsignature
      */
     CreateCommandSignature(pDesc, pRootSignature, riid) {
-        result := ComCall(41, this, D3D12_COMMAND_SIGNATURE_DESC.Ptr, pDesc, "ptr", pRootSignature, Guid.Ptr, riid, "ptr*", &ppvCommandSignature := 0, "HRESULT")
+        pRootSignatureMarshal := pRootSignature == 0 ? IntPtr : "ptr"
+
+        result := ComCall(41, this, D3D12_COMMAND_SIGNATURE_DESC.Ptr, pDesc, pRootSignatureMarshal, pRootSignature, Guid.Ptr, riid, "ptr*", &ppvCommandSignature := 0, "HRESULT")
         return ppvCommandSignature
     }
 
@@ -1302,10 +1336,14 @@ export default struct ID3D12Device extends ID3D12Object {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-getresourcetiling
      */
     GetResourceTiling(pTiledResource, pNumTilesForEntireResource, pPackedMipDesc, pStandardTileShapeForNonPackedMips, pNumSubresourceTilings, FirstSubresourceTilingToGet, pSubresourceTilingsForNonPackedMips) {
-        pNumTilesForEntireResourceMarshal := pNumTilesForEntireResource is VarRef ? "uint*" : "ptr"
-        pNumSubresourceTilingsMarshal := pNumSubresourceTilings is VarRef ? "uint*" : "ptr"
+        pNumTilesForEntireResourceMarshal := pNumTilesForEntireResource is VarRef ? "uint*" : IntPtr
+        pNumTilesForEntireResourceMarshal := pNumTilesForEntireResource == 0 ? IntPtr : "uint*"
+        pPackedMipDescMarshal := pPackedMipDesc == 0 ? IntPtr : D3D12_PACKED_MIP_INFO.Ptr
+        pStandardTileShapeForNonPackedMipsMarshal := pStandardTileShapeForNonPackedMips == 0 ? IntPtr : D3D12_TILE_SHAPE.Ptr
+        pNumSubresourceTilingsMarshal := pNumSubresourceTilings is VarRef ? "uint*" : IntPtr
+        pNumSubresourceTilingsMarshal := pNumSubresourceTilings == 0 ? IntPtr : "uint*"
 
-        ComCall(42, this, "ptr", pTiledResource, pNumTilesForEntireResourceMarshal, pNumTilesForEntireResource, D3D12_PACKED_MIP_INFO.Ptr, pPackedMipDesc, D3D12_TILE_SHAPE.Ptr, pStandardTileShapeForNonPackedMips, pNumSubresourceTilingsMarshal, pNumSubresourceTilings, UInt32, FirstSubresourceTilingToGet, D3D12_SUBRESOURCE_TILING.Ptr, pSubresourceTilingsForNonPackedMips)
+        ComCall(42, this, "ptr", pTiledResource, pNumTilesForEntireResourceMarshal, pNumTilesForEntireResource, pPackedMipDescMarshal, pPackedMipDesc, pStandardTileShapeForNonPackedMipsMarshal, pStandardTileShapeForNonPackedMips, pNumSubresourceTilingsMarshal, pNumSubresourceTilings, UInt32, FirstSubresourceTilingToGet, D3D12_SUBRESOURCE_TILING.Ptr, pSubresourceTilingsForNonPackedMips)
     }
 
     /**
@@ -1336,43 +1374,43 @@ export default struct ID3D12Device extends ID3D12Object {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNodeCount := CallbackCreate(GetMethod(implObj, "GetNodeCount"), flags, 1)
-        this.vtbl.CreateCommandQueue := CallbackCreate(GetMethod(implObj, "CreateCommandQueue"), flags, 4)
-        this.vtbl.CreateCommandAllocator := CallbackCreate(GetMethod(implObj, "CreateCommandAllocator"), flags, 4)
-        this.vtbl.CreateGraphicsPipelineState := CallbackCreate(GetMethod(implObj, "CreateGraphicsPipelineState"), flags, 4)
-        this.vtbl.CreateComputePipelineState := CallbackCreate(GetMethod(implObj, "CreateComputePipelineState"), flags, 4)
-        this.vtbl.CreateCommandList := CallbackCreate(GetMethod(implObj, "CreateCommandList"), flags, 7)
-        this.vtbl.CheckFeatureSupport := CallbackCreate(GetMethod(implObj, "CheckFeatureSupport"), flags, 4)
-        this.vtbl.CreateDescriptorHeap := CallbackCreate(GetMethod(implObj, "CreateDescriptorHeap"), flags, 4)
-        this.vtbl.GetDescriptorHandleIncrementSize := CallbackCreate(GetMethod(implObj, "GetDescriptorHandleIncrementSize"), flags, 2)
-        this.vtbl.CreateRootSignature := CallbackCreate(GetMethod(implObj, "CreateRootSignature"), flags, 6)
-        this.vtbl.CreateConstantBufferView := CallbackCreate(GetMethod(implObj, "CreateConstantBufferView"), flags, 3)
-        this.vtbl.CreateShaderResourceView := CallbackCreate(GetMethod(implObj, "CreateShaderResourceView"), flags, 4)
-        this.vtbl.CreateUnorderedAccessView := CallbackCreate(GetMethod(implObj, "CreateUnorderedAccessView"), flags, 5)
-        this.vtbl.CreateRenderTargetView := CallbackCreate(GetMethod(implObj, "CreateRenderTargetView"), flags, 4)
-        this.vtbl.CreateDepthStencilView := CallbackCreate(GetMethod(implObj, "CreateDepthStencilView"), flags, 4)
-        this.vtbl.CreateSampler := CallbackCreate(GetMethod(implObj, "CreateSampler"), flags, 3)
-        this.vtbl.CopyDescriptors := CallbackCreate(GetMethod(implObj, "CopyDescriptors"), flags, 8)
-        this.vtbl.CopyDescriptorsSimple := CallbackCreate(GetMethod(implObj, "CopyDescriptorsSimple"), flags, 5)
-        this.vtbl.GetResourceAllocationInfo := CallbackCreate(GetMethod(implObj, "GetResourceAllocationInfo"), flags, 4)
-        this.vtbl.GetCustomHeapProperties := CallbackCreate(GetMethod(implObj, "GetCustomHeapProperties"), flags, 3)
-        this.vtbl.CreateCommittedResource := CallbackCreate(GetMethod(implObj, "CreateCommittedResource"), flags, 8)
-        this.vtbl.CreateHeap := CallbackCreate(GetMethod(implObj, "CreateHeap"), flags, 4)
-        this.vtbl.CreatePlacedResource := CallbackCreate(GetMethod(implObj, "CreatePlacedResource"), flags, 8)
-        this.vtbl.CreateReservedResource := CallbackCreate(GetMethod(implObj, "CreateReservedResource"), flags, 6)
-        this.vtbl.CreateSharedHandle := CallbackCreate(GetMethod(implObj, "CreateSharedHandle"), flags, 6)
-        this.vtbl.OpenSharedHandle := CallbackCreate(GetMethod(implObj, "OpenSharedHandle"), flags, 4)
-        this.vtbl.OpenSharedHandleByName := CallbackCreate(GetMethod(implObj, "OpenSharedHandleByName"), flags, 4)
-        this.vtbl.MakeResident := CallbackCreate(GetMethod(implObj, "MakeResident"), flags, 3)
-        this.vtbl.Evict := CallbackCreate(GetMethod(implObj, "Evict"), flags, 3)
-        this.vtbl.CreateFence := CallbackCreate(GetMethod(implObj, "CreateFence"), flags, 5)
-        this.vtbl.GetDeviceRemovedReason := CallbackCreate(GetMethod(implObj, "GetDeviceRemovedReason"), flags, 1)
-        this.vtbl.GetCopyableFootprints := CallbackCreate(GetMethod(implObj, "GetCopyableFootprints"), flags, 9)
-        this.vtbl.CreateQueryHeap := CallbackCreate(GetMethod(implObj, "CreateQueryHeap"), flags, 4)
-        this.vtbl.SetStablePowerState := CallbackCreate(GetMethod(implObj, "SetStablePowerState"), flags, 2)
-        this.vtbl.CreateCommandSignature := CallbackCreate(GetMethod(implObj, "CreateCommandSignature"), flags, 5)
-        this.vtbl.GetResourceTiling := CallbackCreate(GetMethod(implObj, "GetResourceTiling"), flags, 8)
-        this.vtbl.GetAdapterLuid := CallbackCreate(GetMethod(implObj, "GetAdapterLuid"), flags, 1)
+        this.vtbl.GetNodeCount := CallbackCreate(ObjBindMethod(implObj, "GetNodeCount"), flags, 1)
+        this.vtbl.CreateCommandQueue := CallbackCreate(ObjBindMethod(implObj, "CreateCommandQueue"), flags, 4)
+        this.vtbl.CreateCommandAllocator := CallbackCreate(ObjBindMethod(implObj, "CreateCommandAllocator"), flags, 4)
+        this.vtbl.CreateGraphicsPipelineState := CallbackCreate(ObjBindMethod(implObj, "CreateGraphicsPipelineState"), flags, 4)
+        this.vtbl.CreateComputePipelineState := CallbackCreate(ObjBindMethod(implObj, "CreateComputePipelineState"), flags, 4)
+        this.vtbl.CreateCommandList := CallbackCreate(ObjBindMethod(implObj, "CreateCommandList"), flags, 7)
+        this.vtbl.CheckFeatureSupport := CallbackCreate(ObjBindMethod(implObj, "CheckFeatureSupport"), flags, 4)
+        this.vtbl.CreateDescriptorHeap := CallbackCreate(ObjBindMethod(implObj, "CreateDescriptorHeap"), flags, 4)
+        this.vtbl.GetDescriptorHandleIncrementSize := CallbackCreate(ObjBindMethod(implObj, "GetDescriptorHandleIncrementSize"), flags, 2)
+        this.vtbl.CreateRootSignature := CallbackCreate(ObjBindMethod(implObj, "CreateRootSignature"), flags, 6)
+        this.vtbl.CreateConstantBufferView := CallbackCreate(ObjBindMethod(implObj, "CreateConstantBufferView"), flags, 3)
+        this.vtbl.CreateShaderResourceView := CallbackCreate(ObjBindMethod(implObj, "CreateShaderResourceView"), flags, 4)
+        this.vtbl.CreateUnorderedAccessView := CallbackCreate(ObjBindMethod(implObj, "CreateUnorderedAccessView"), flags, 5)
+        this.vtbl.CreateRenderTargetView := CallbackCreate(ObjBindMethod(implObj, "CreateRenderTargetView"), flags, 4)
+        this.vtbl.CreateDepthStencilView := CallbackCreate(ObjBindMethod(implObj, "CreateDepthStencilView"), flags, 4)
+        this.vtbl.CreateSampler := CallbackCreate(ObjBindMethod(implObj, "CreateSampler"), flags, 3)
+        this.vtbl.CopyDescriptors := CallbackCreate(ObjBindMethod(implObj, "CopyDescriptors"), flags, 8)
+        this.vtbl.CopyDescriptorsSimple := CallbackCreate(ObjBindMethod(implObj, "CopyDescriptorsSimple"), flags, 5)
+        this.vtbl.GetResourceAllocationInfo := CallbackCreate(ObjBindMethod(implObj, "GetResourceAllocationInfo"), flags, 4)
+        this.vtbl.GetCustomHeapProperties := CallbackCreate(ObjBindMethod(implObj, "GetCustomHeapProperties"), flags, 3)
+        this.vtbl.CreateCommittedResource := CallbackCreate(ObjBindMethod(implObj, "CreateCommittedResource"), flags, 8)
+        this.vtbl.CreateHeap := CallbackCreate(ObjBindMethod(implObj, "CreateHeap"), flags, 4)
+        this.vtbl.CreatePlacedResource := CallbackCreate(ObjBindMethod(implObj, "CreatePlacedResource"), flags, 8)
+        this.vtbl.CreateReservedResource := CallbackCreate(ObjBindMethod(implObj, "CreateReservedResource"), flags, 6)
+        this.vtbl.CreateSharedHandle := CallbackCreate(ObjBindMethod(implObj, "CreateSharedHandle"), flags, 6)
+        this.vtbl.OpenSharedHandle := CallbackCreate(ObjBindMethod(implObj, "OpenSharedHandle"), flags, 4)
+        this.vtbl.OpenSharedHandleByName := CallbackCreate(ObjBindMethod(implObj, "OpenSharedHandleByName"), flags, 4)
+        this.vtbl.MakeResident := CallbackCreate(ObjBindMethod(implObj, "MakeResident"), flags, 3)
+        this.vtbl.Evict := CallbackCreate(ObjBindMethod(implObj, "Evict"), flags, 3)
+        this.vtbl.CreateFence := CallbackCreate(ObjBindMethod(implObj, "CreateFence"), flags, 5)
+        this.vtbl.GetDeviceRemovedReason := CallbackCreate(ObjBindMethod(implObj, "GetDeviceRemovedReason"), flags, 1)
+        this.vtbl.GetCopyableFootprints := CallbackCreate(ObjBindMethod(implObj, "GetCopyableFootprints"), flags, 9)
+        this.vtbl.CreateQueryHeap := CallbackCreate(ObjBindMethod(implObj, "CreateQueryHeap"), flags, 4)
+        this.vtbl.SetStablePowerState := CallbackCreate(ObjBindMethod(implObj, "SetStablePowerState"), flags, 2)
+        this.vtbl.CreateCommandSignature := CallbackCreate(ObjBindMethod(implObj, "CreateCommandSignature"), flags, 5)
+        this.vtbl.GetResourceTiling := CallbackCreate(ObjBindMethod(implObj, "GetResourceTiling"), flags, 8)
+        this.vtbl.GetAdapterLuid := CallbackCreate(ObjBindMethod(implObj, "GetAdapterLuid"), flags, 1)
     }
 
     Dispose() {

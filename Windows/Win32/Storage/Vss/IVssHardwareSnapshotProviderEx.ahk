@@ -220,10 +220,10 @@ export default struct IVssHardwareSnapshotProviderEx extends IVssHardwareSnapsho
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProviderCapabilities := CallbackCreate(GetMethod(implObj, "GetProviderCapabilities"), flags, 2)
-        this.vtbl.OnLunStateChange := CallbackCreate(GetMethod(implObj, "OnLunStateChange"), flags, 5)
-        this.vtbl.ResyncLuns := CallbackCreate(GetMethod(implObj, "ResyncLuns"), flags, 5)
-        this.vtbl.OnReuseLuns := CallbackCreate(GetMethod(implObj, "OnReuseLuns"), flags, 4)
+        this.vtbl.GetProviderCapabilities := CallbackCreate(ObjBindMethod(implObj, "GetProviderCapabilities"), flags, 2)
+        this.vtbl.OnLunStateChange := CallbackCreate(ObjBindMethod(implObj, "OnLunStateChange"), flags, 5)
+        this.vtbl.ResyncLuns := CallbackCreate(ObjBindMethod(implObj, "ResyncLuns"), flags, 5)
+        this.vtbl.OnReuseLuns := CallbackCreate(ObjBindMethod(implObj, "OnReuseLuns"), flags, 4)
     }
 
     Dispose() {

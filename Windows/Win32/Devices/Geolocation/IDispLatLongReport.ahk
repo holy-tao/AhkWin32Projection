@@ -89,7 +89,6 @@ export default struct IDispLatLongReport extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_Latitude() {
@@ -98,7 +97,6 @@ export default struct IDispLatLongReport extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_Longitude() {
@@ -107,7 +105,6 @@ export default struct IDispLatLongReport extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_ErrorRadius() {
@@ -116,7 +113,6 @@ export default struct IDispLatLongReport extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_Altitude() {
@@ -125,7 +121,6 @@ export default struct IDispLatLongReport extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_AltitudeError() {
@@ -134,7 +129,6 @@ export default struct IDispLatLongReport extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_Timestamp() {
@@ -151,12 +145,12 @@ export default struct IDispLatLongReport extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Latitude := CallbackCreate(GetMethod(implObj, "get_Latitude"), flags, 2)
-        this.vtbl.get_Longitude := CallbackCreate(GetMethod(implObj, "get_Longitude"), flags, 2)
-        this.vtbl.get_ErrorRadius := CallbackCreate(GetMethod(implObj, "get_ErrorRadius"), flags, 2)
-        this.vtbl.get_Altitude := CallbackCreate(GetMethod(implObj, "get_Altitude"), flags, 2)
-        this.vtbl.get_AltitudeError := CallbackCreate(GetMethod(implObj, "get_AltitudeError"), flags, 2)
-        this.vtbl.get_Timestamp := CallbackCreate(GetMethod(implObj, "get_Timestamp"), flags, 2)
+        this.vtbl.get_Latitude := CallbackCreate(ObjBindMethod(implObj, "get_Latitude"), flags, 2)
+        this.vtbl.get_Longitude := CallbackCreate(ObjBindMethod(implObj, "get_Longitude"), flags, 2)
+        this.vtbl.get_ErrorRadius := CallbackCreate(ObjBindMethod(implObj, "get_ErrorRadius"), flags, 2)
+        this.vtbl.get_Altitude := CallbackCreate(ObjBindMethod(implObj, "get_Altitude"), flags, 2)
+        this.vtbl.get_AltitudeError := CallbackCreate(ObjBindMethod(implObj, "get_AltitudeError"), flags, 2)
+        this.vtbl.get_Timestamp := CallbackCreate(ObjBindMethod(implObj, "get_Timestamp"), flags, 2)
     }
 
     Dispose() {

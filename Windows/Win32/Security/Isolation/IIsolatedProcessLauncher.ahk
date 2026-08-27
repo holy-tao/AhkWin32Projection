@@ -42,7 +42,6 @@ export default struct IIsolatedProcessLauncher extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} process 
      * @param {PWSTR} arguments 
      * @param {PWSTR} workingDirectory 
@@ -58,7 +57,6 @@ export default struct IIsolatedProcessLauncher extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} hostPath 
      * @param {PWSTR} containerPath 
      * @param {BOOL} readOnly 
@@ -73,7 +71,6 @@ export default struct IIsolatedProcessLauncher extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     GetContainerGuid() {
@@ -83,7 +80,6 @@ export default struct IIsolatedProcessLauncher extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pid 
      * @returns {HRESULT} 
      */
@@ -93,7 +89,6 @@ export default struct IIsolatedProcessLauncher extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsContainerRunning() {
@@ -110,11 +105,11 @@ export default struct IIsolatedProcessLauncher extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LaunchProcess := CallbackCreate(GetMethod(implObj, "LaunchProcess"), flags, 4)
-        this.vtbl.ShareDirectory := CallbackCreate(GetMethod(implObj, "ShareDirectory"), flags, 4)
-        this.vtbl.GetContainerGuid := CallbackCreate(GetMethod(implObj, "GetContainerGuid"), flags, 2)
-        this.vtbl.AllowSetForegroundAccess := CallbackCreate(GetMethod(implObj, "AllowSetForegroundAccess"), flags, 2)
-        this.vtbl.IsContainerRunning := CallbackCreate(GetMethod(implObj, "IsContainerRunning"), flags, 2)
+        this.vtbl.LaunchProcess := CallbackCreate(ObjBindMethod(implObj, "LaunchProcess"), flags, 4)
+        this.vtbl.ShareDirectory := CallbackCreate(ObjBindMethod(implObj, "ShareDirectory"), flags, 4)
+        this.vtbl.GetContainerGuid := CallbackCreate(ObjBindMethod(implObj, "GetContainerGuid"), flags, 2)
+        this.vtbl.AllowSetForegroundAccess := CallbackCreate(ObjBindMethod(implObj, "AllowSetForegroundAccess"), flags, 2)
+        this.vtbl.IsContainerRunning := CallbackCreate(ObjBindMethod(implObj, "IsContainerRunning"), flags, 2)
     }
 
     Dispose() {

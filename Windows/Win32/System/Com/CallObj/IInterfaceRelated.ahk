@@ -37,7 +37,6 @@ export default struct IInterfaceRelated extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} iid 
      * @returns {HRESULT} 
      */
@@ -47,7 +46,6 @@ export default struct IInterfaceRelated extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     GetIID() {
@@ -65,8 +63,8 @@ export default struct IInterfaceRelated extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetIID := CallbackCreate(GetMethod(implObj, "SetIID"), flags, 2)
-        this.vtbl.GetIID := CallbackCreate(GetMethod(implObj, "GetIID"), flags, 2)
+        this.vtbl.SetIID := CallbackCreate(ObjBindMethod(implObj, "SetIID"), flags, 2)
+        this.vtbl.GetIID := CallbackCreate(ObjBindMethod(implObj, "GetIID"), flags, 2)
     }
 
     Dispose() {

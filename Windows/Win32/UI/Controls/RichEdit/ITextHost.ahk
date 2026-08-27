@@ -510,7 +510,7 @@ export default struct ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txactivate
      */
     TxActivate(plOldState) {
-        plOldStateMarshal := plOldState is VarRef ? "int*" : "ptr"
+        plOldStateMarshal := plOldState is VarRef ? "int*" : IntPtr
 
         result := ComCall(22, this, plOldStateMarshal, plOldState, "HRESULT")
         return result
@@ -658,7 +658,7 @@ export default struct ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txgetcharformat
      */
     TxGetCharFormat(ppCF) {
-        ppCFMarshal := ppCF is VarRef ? "ptr*" : "ptr"
+        ppCFMarshal := ppCF is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(26, this, ppCFMarshal, ppCF, "HRESULT")
         return result
@@ -697,7 +697,7 @@ export default struct ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txgetparaformat
      */
     TxGetParaFormat(ppPF) {
-        ppPFMarshal := ppPF is VarRef ? "ptr*" : "ptr"
+        ppPFMarshal := ppPF is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(27, this, ppPFMarshal, ppPF, "HRESULT")
         return result
@@ -733,7 +733,7 @@ export default struct ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txgetbackstyle
      */
     TxGetBackStyle(pstyle) {
-        pstyleMarshal := pstyle is VarRef ? "int*" : "ptr"
+        pstyleMarshal := pstyle is VarRef ? "int*" : IntPtr
 
         result := ComCall(29, this, pstyleMarshal, pstyle, "HRESULT")
         return result
@@ -758,7 +758,7 @@ export default struct ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txgetmaxlength
      */
     TxGetMaxLength(plength) {
-        plengthMarshal := plength is VarRef ? "uint*" : "ptr"
+        plengthMarshal := plength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(30, this, plengthMarshal, plength, "HRESULT")
         return result
@@ -832,7 +832,7 @@ export default struct ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txgetscrollbars
      */
     TxGetScrollBars(pdwScrollBar) {
-        pdwScrollBarMarshal := pdwScrollBar is VarRef ? "uint*" : "ptr"
+        pdwScrollBarMarshal := pdwScrollBar is VarRef ? "uint*" : IntPtr
 
         result := ComCall(31, this, pdwScrollBarMarshal, pdwScrollBar, "HRESULT")
         return result
@@ -874,7 +874,7 @@ export default struct ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txgetacceleratorpos
      */
     TxGetAcceleratorPos(pcp) {
-        pcpMarshal := pcp is VarRef ? "int*" : "ptr"
+        pcpMarshal := pcp is VarRef ? "int*" : IntPtr
 
         result := ComCall(33, this, pcpMarshal, pcp, "HRESULT")
         return result
@@ -1031,7 +1031,7 @@ export default struct ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txgetpropertybits
      */
     TxGetPropertyBits(dwMask, pdwBits) {
-        pdwBitsMarshal := pdwBits is VarRef ? "uint*" : "ptr"
+        pdwBitsMarshal := pdwBits is VarRef ? "uint*" : IntPtr
 
         result := ComCall(37, this, UInt32, dwMask, pdwBitsMarshal, pdwBits, "HRESULT")
         return result
@@ -1178,7 +1178,7 @@ export default struct ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txnotify
      */
     TxNotify(iNotify, pv) {
-        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+        pvMarshal := pv is VarRef ? "ptr" : IntPtr
 
         result := ComCall(38, this, UInt32, iNotify, pvMarshal, pv, "HRESULT")
         return result
@@ -1219,7 +1219,7 @@ export default struct ITextHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txgetselectionbarwidth
      */
     TxGetSelectionBarWidth(lSelBarWidth) {
-        lSelBarWidthMarshal := lSelBarWidth is VarRef ? "int*" : "ptr"
+        lSelBarWidthMarshal := lSelBarWidth is VarRef ? "int*" : IntPtr
 
         result := ComCall(41, this, lSelBarWidthMarshal, lSelBarWidth, "HRESULT")
         return result
@@ -1234,45 +1234,45 @@ export default struct ITextHost extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.TxGetDC := CallbackCreate(GetMethod(implObj, "TxGetDC"), flags, 1)
-        this.vtbl.TxReleaseDC := CallbackCreate(GetMethod(implObj, "TxReleaseDC"), flags, 2)
-        this.vtbl.TxShowScrollBar := CallbackCreate(GetMethod(implObj, "TxShowScrollBar"), flags, 3)
-        this.vtbl.TxEnableScrollBar := CallbackCreate(GetMethod(implObj, "TxEnableScrollBar"), flags, 3)
-        this.vtbl.TxSetScrollRange := CallbackCreate(GetMethod(implObj, "TxSetScrollRange"), flags, 5)
-        this.vtbl.TxSetScrollPos := CallbackCreate(GetMethod(implObj, "TxSetScrollPos"), flags, 4)
-        this.vtbl.TxInvalidateRect := CallbackCreate(GetMethod(implObj, "TxInvalidateRect"), flags, 3)
-        this.vtbl.TxViewChange := CallbackCreate(GetMethod(implObj, "TxViewChange"), flags, 2)
-        this.vtbl.TxCreateCaret := CallbackCreate(GetMethod(implObj, "TxCreateCaret"), flags, 4)
-        this.vtbl.TxShowCaret := CallbackCreate(GetMethod(implObj, "TxShowCaret"), flags, 2)
-        this.vtbl.TxSetCaretPos := CallbackCreate(GetMethod(implObj, "TxSetCaretPos"), flags, 3)
-        this.vtbl.TxSetTimer := CallbackCreate(GetMethod(implObj, "TxSetTimer"), flags, 3)
-        this.vtbl.TxKillTimer := CallbackCreate(GetMethod(implObj, "TxKillTimer"), flags, 2)
-        this.vtbl.TxScrollWindowEx := CallbackCreate(GetMethod(implObj, "TxScrollWindowEx"), flags, 8)
-        this.vtbl.TxSetCapture := CallbackCreate(GetMethod(implObj, "TxSetCapture"), flags, 2)
-        this.vtbl.TxSetFocus := CallbackCreate(GetMethod(implObj, "TxSetFocus"), flags, 1)
-        this.vtbl.TxSetCursor := CallbackCreate(GetMethod(implObj, "TxSetCursor"), flags, 3)
-        this.vtbl.TxScreenToClient := CallbackCreate(GetMethod(implObj, "TxScreenToClient"), flags, 2)
-        this.vtbl.TxClientToScreen := CallbackCreate(GetMethod(implObj, "TxClientToScreen"), flags, 2)
-        this.vtbl.TxActivate := CallbackCreate(GetMethod(implObj, "TxActivate"), flags, 2)
-        this.vtbl.TxDeactivate := CallbackCreate(GetMethod(implObj, "TxDeactivate"), flags, 2)
-        this.vtbl.TxGetClientRect := CallbackCreate(GetMethod(implObj, "TxGetClientRect"), flags, 2)
-        this.vtbl.TxGetViewInset := CallbackCreate(GetMethod(implObj, "TxGetViewInset"), flags, 2)
-        this.vtbl.TxGetCharFormat := CallbackCreate(GetMethod(implObj, "TxGetCharFormat"), flags, 2)
-        this.vtbl.TxGetParaFormat := CallbackCreate(GetMethod(implObj, "TxGetParaFormat"), flags, 2)
-        this.vtbl.TxGetSysColor := CallbackCreate(GetMethod(implObj, "TxGetSysColor"), flags, 2)
-        this.vtbl.TxGetBackStyle := CallbackCreate(GetMethod(implObj, "TxGetBackStyle"), flags, 2)
-        this.vtbl.TxGetMaxLength := CallbackCreate(GetMethod(implObj, "TxGetMaxLength"), flags, 2)
-        this.vtbl.TxGetScrollBars := CallbackCreate(GetMethod(implObj, "TxGetScrollBars"), flags, 2)
-        this.vtbl.TxGetPasswordChar := CallbackCreate(GetMethod(implObj, "TxGetPasswordChar"), flags, 2)
-        this.vtbl.TxGetAcceleratorPos := CallbackCreate(GetMethod(implObj, "TxGetAcceleratorPos"), flags, 2)
-        this.vtbl.TxGetExtent := CallbackCreate(GetMethod(implObj, "TxGetExtent"), flags, 2)
-        this.vtbl.OnTxCharFormatChange := CallbackCreate(GetMethod(implObj, "OnTxCharFormatChange"), flags, 2)
-        this.vtbl.OnTxParaFormatChange := CallbackCreate(GetMethod(implObj, "OnTxParaFormatChange"), flags, 2)
-        this.vtbl.TxGetPropertyBits := CallbackCreate(GetMethod(implObj, "TxGetPropertyBits"), flags, 3)
-        this.vtbl.TxNotify := CallbackCreate(GetMethod(implObj, "TxNotify"), flags, 3)
-        this.vtbl.TxImmGetContext := CallbackCreate(GetMethod(implObj, "TxImmGetContext"), flags, 1)
-        this.vtbl.TxImmReleaseContext := CallbackCreate(GetMethod(implObj, "TxImmReleaseContext"), flags, 2)
-        this.vtbl.TxGetSelectionBarWidth := CallbackCreate(GetMethod(implObj, "TxGetSelectionBarWidth"), flags, 2)
+        this.vtbl.TxGetDC := CallbackCreate(ObjBindMethod(implObj, "TxGetDC"), flags, 1)
+        this.vtbl.TxReleaseDC := CallbackCreate(ObjBindMethod(implObj, "TxReleaseDC"), flags, 2)
+        this.vtbl.TxShowScrollBar := CallbackCreate(ObjBindMethod(implObj, "TxShowScrollBar"), flags, 3)
+        this.vtbl.TxEnableScrollBar := CallbackCreate(ObjBindMethod(implObj, "TxEnableScrollBar"), flags, 3)
+        this.vtbl.TxSetScrollRange := CallbackCreate(ObjBindMethod(implObj, "TxSetScrollRange"), flags, 5)
+        this.vtbl.TxSetScrollPos := CallbackCreate(ObjBindMethod(implObj, "TxSetScrollPos"), flags, 4)
+        this.vtbl.TxInvalidateRect := CallbackCreate(ObjBindMethod(implObj, "TxInvalidateRect"), flags, 3)
+        this.vtbl.TxViewChange := CallbackCreate(ObjBindMethod(implObj, "TxViewChange"), flags, 2)
+        this.vtbl.TxCreateCaret := CallbackCreate(ObjBindMethod(implObj, "TxCreateCaret"), flags, 4)
+        this.vtbl.TxShowCaret := CallbackCreate(ObjBindMethod(implObj, "TxShowCaret"), flags, 2)
+        this.vtbl.TxSetCaretPos := CallbackCreate(ObjBindMethod(implObj, "TxSetCaretPos"), flags, 3)
+        this.vtbl.TxSetTimer := CallbackCreate(ObjBindMethod(implObj, "TxSetTimer"), flags, 3)
+        this.vtbl.TxKillTimer := CallbackCreate(ObjBindMethod(implObj, "TxKillTimer"), flags, 2)
+        this.vtbl.TxScrollWindowEx := CallbackCreate(ObjBindMethod(implObj, "TxScrollWindowEx"), flags, 8)
+        this.vtbl.TxSetCapture := CallbackCreate(ObjBindMethod(implObj, "TxSetCapture"), flags, 2)
+        this.vtbl.TxSetFocus := CallbackCreate(ObjBindMethod(implObj, "TxSetFocus"), flags, 1)
+        this.vtbl.TxSetCursor := CallbackCreate(ObjBindMethod(implObj, "TxSetCursor"), flags, 3)
+        this.vtbl.TxScreenToClient := CallbackCreate(ObjBindMethod(implObj, "TxScreenToClient"), flags, 2)
+        this.vtbl.TxClientToScreen := CallbackCreate(ObjBindMethod(implObj, "TxClientToScreen"), flags, 2)
+        this.vtbl.TxActivate := CallbackCreate(ObjBindMethod(implObj, "TxActivate"), flags, 2)
+        this.vtbl.TxDeactivate := CallbackCreate(ObjBindMethod(implObj, "TxDeactivate"), flags, 2)
+        this.vtbl.TxGetClientRect := CallbackCreate(ObjBindMethod(implObj, "TxGetClientRect"), flags, 2)
+        this.vtbl.TxGetViewInset := CallbackCreate(ObjBindMethod(implObj, "TxGetViewInset"), flags, 2)
+        this.vtbl.TxGetCharFormat := CallbackCreate(ObjBindMethod(implObj, "TxGetCharFormat"), flags, 2)
+        this.vtbl.TxGetParaFormat := CallbackCreate(ObjBindMethod(implObj, "TxGetParaFormat"), flags, 2)
+        this.vtbl.TxGetSysColor := CallbackCreate(ObjBindMethod(implObj, "TxGetSysColor"), flags, 2)
+        this.vtbl.TxGetBackStyle := CallbackCreate(ObjBindMethod(implObj, "TxGetBackStyle"), flags, 2)
+        this.vtbl.TxGetMaxLength := CallbackCreate(ObjBindMethod(implObj, "TxGetMaxLength"), flags, 2)
+        this.vtbl.TxGetScrollBars := CallbackCreate(ObjBindMethod(implObj, "TxGetScrollBars"), flags, 2)
+        this.vtbl.TxGetPasswordChar := CallbackCreate(ObjBindMethod(implObj, "TxGetPasswordChar"), flags, 2)
+        this.vtbl.TxGetAcceleratorPos := CallbackCreate(ObjBindMethod(implObj, "TxGetAcceleratorPos"), flags, 2)
+        this.vtbl.TxGetExtent := CallbackCreate(ObjBindMethod(implObj, "TxGetExtent"), flags, 2)
+        this.vtbl.OnTxCharFormatChange := CallbackCreate(ObjBindMethod(implObj, "OnTxCharFormatChange"), flags, 2)
+        this.vtbl.OnTxParaFormatChange := CallbackCreate(ObjBindMethod(implObj, "OnTxParaFormatChange"), flags, 2)
+        this.vtbl.TxGetPropertyBits := CallbackCreate(ObjBindMethod(implObj, "TxGetPropertyBits"), flags, 3)
+        this.vtbl.TxNotify := CallbackCreate(ObjBindMethod(implObj, "TxNotify"), flags, 3)
+        this.vtbl.TxImmGetContext := CallbackCreate(ObjBindMethod(implObj, "TxImmGetContext"), flags, 1)
+        this.vtbl.TxImmReleaseContext := CallbackCreate(ObjBindMethod(implObj, "TxImmReleaseContext"), flags, 2)
+        this.vtbl.TxGetSelectionBarWidth := CallbackCreate(ObjBindMethod(implObj, "TxGetSelectionBarWidth"), flags, 2)
     }
 
     Dispose() {

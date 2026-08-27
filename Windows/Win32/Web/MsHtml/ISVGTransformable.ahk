@@ -44,7 +44,6 @@ export default struct ISVGTransformable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedTransformList} 
      */
     get_transform() {
@@ -61,7 +60,7 @@ export default struct ISVGTransformable extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_transform := CallbackCreate(GetMethod(implObj, "get_transform"), flags, 2)
+        this.vtbl.get_transform := CallbackCreate(ObjBindMethod(implObj, "get_transform"), flags, 2)
     }
 
     Dispose() {

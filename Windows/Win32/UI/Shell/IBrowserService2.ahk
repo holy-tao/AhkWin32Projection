@@ -573,7 +573,6 @@ export default struct IBrowserService2 extends IBrowserService {
     }
 
     /**
-     * 
      * @param {Pointer<ITEMIDLIST>} pidl 
      * @param {Integer} grfHLNF 
      * @param {Integer} dwFlags 
@@ -649,7 +648,11 @@ export default struct IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_execchildren
      */
     _ExecChildren(punkBar, fBroadcast, pguidCmdGroup, nCmdID, nCmdexecopt, pvarargIn, pvarargOut) {
-        result := ComCall(67, this, "ptr", punkBar, BOOL, fBroadcast, Guid.Ptr, pguidCmdGroup, UInt32, nCmdID, UInt32, nCmdexecopt, VARIANT.Ptr, pvarargIn, VARIANT.Ptr, pvarargOut, "HRESULT")
+        pguidCmdGroupMarshal := pguidCmdGroup == 0 ? IntPtr : Guid.Ptr
+        pvarargInMarshal := pvarargIn == 0 ? IntPtr : VARIANT.Ptr
+        pvarargOutMarshal := pvarargOut == 0 ? IntPtr : VARIANT.Ptr
+
+        result := ComCall(67, this, "ptr", punkBar, BOOL, fBroadcast, pguidCmdGroupMarshal, pguidCmdGroup, UInt32, nCmdID, UInt32, nCmdexecopt, pvarargInMarshal, pvarargIn, pvarargOutMarshal, pvarargOut, "HRESULT")
         return result
     }
 
@@ -1005,7 +1008,7 @@ export default struct IBrowserService2 extends IBrowserService {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-v_maygetnexttoolbarfocus
      */
     v_MayGetNextToolbarFocus(lpMsg, itbNext, citb, pptbi, phwnd) {
-        pptbiMarshal := pptbi is VarRef ? "ptr*" : "ptr"
+        pptbiMarshal := pptbi is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(88, this, MSG.Ptr, lpMsg, UInt32, itbNext, Int32, citb, pptbiMarshal, pptbi, HWND.Ptr, phwnd, "HRESULT")
         return result
@@ -1123,68 +1126,68 @@ export default struct IBrowserService2 extends IBrowserService {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.WndProcBS := CallbackCreate(GetMethod(implObj, "WndProcBS"), flags, 5)
-        this.vtbl.SetAsDefFolderSettings := CallbackCreate(GetMethod(implObj, "SetAsDefFolderSettings"), flags, 1)
-        this.vtbl.GetViewRect := CallbackCreate(GetMethod(implObj, "GetViewRect"), flags, 2)
-        this.vtbl.OnSize := CallbackCreate(GetMethod(implObj, "OnSize"), flags, 2)
-        this.vtbl.OnCreate := CallbackCreate(GetMethod(implObj, "OnCreate"), flags, 2)
-        this.vtbl.OnCommand := CallbackCreate(GetMethod(implObj, "OnCommand"), flags, 3)
-        this.vtbl.OnDestroy := CallbackCreate(GetMethod(implObj, "OnDestroy"), flags, 1)
-        this.vtbl.OnNotify := CallbackCreate(GetMethod(implObj, "OnNotify"), flags, 2)
-        this.vtbl.OnSetFocus := CallbackCreate(GetMethod(implObj, "OnSetFocus"), flags, 1)
-        this.vtbl.OnFrameWindowActivateBS := CallbackCreate(GetMethod(implObj, "OnFrameWindowActivateBS"), flags, 2)
-        this.vtbl.ReleaseShellView := CallbackCreate(GetMethod(implObj, "ReleaseShellView"), flags, 1)
-        this.vtbl.ActivatePendingView := CallbackCreate(GetMethod(implObj, "ActivatePendingView"), flags, 1)
-        this.vtbl.CreateViewWindow := CallbackCreate(GetMethod(implObj, "CreateViewWindow"), flags, 5)
-        this.vtbl.CreateBrowserPropSheetExt := CallbackCreate(GetMethod(implObj, "CreateBrowserPropSheetExt"), flags, 3)
-        this.vtbl.GetViewWindow := CallbackCreate(GetMethod(implObj, "GetViewWindow"), flags, 2)
-        this.vtbl.GetBaseBrowserData := CallbackCreate(GetMethod(implObj, "GetBaseBrowserData"), flags, 2)
-        this.vtbl.PutBaseBrowserData := CallbackCreate(GetMethod(implObj, "PutBaseBrowserData"), flags, 1)
-        this.vtbl.InitializeTravelLog := CallbackCreate(GetMethod(implObj, "InitializeTravelLog"), flags, 3)
-        this.vtbl.SetTopBrowser := CallbackCreate(GetMethod(implObj, "SetTopBrowser"), flags, 1)
-        this.vtbl.Offline := CallbackCreate(GetMethod(implObj, "Offline"), flags, 2)
-        this.vtbl.AllowViewResize := CallbackCreate(GetMethod(implObj, "AllowViewResize"), flags, 2)
-        this.vtbl.SetActivateState := CallbackCreate(GetMethod(implObj, "SetActivateState"), flags, 2)
-        this.vtbl.UpdateSecureLockIcon := CallbackCreate(GetMethod(implObj, "UpdateSecureLockIcon"), flags, 2)
-        this.vtbl.InitializeDownloadManager := CallbackCreate(GetMethod(implObj, "InitializeDownloadManager"), flags, 1)
-        this.vtbl.InitializeTransitionSite := CallbackCreate(GetMethod(implObj, "InitializeTransitionSite"), flags, 1)
-        this.vtbl._Initialize := CallbackCreate(GetMethod(implObj, "_Initialize"), flags, 3)
-        this.vtbl._CancelPendingNavigationAsync := CallbackCreate(GetMethod(implObj, "_CancelPendingNavigationAsync"), flags, 1)
-        this.vtbl._CancelPendingView := CallbackCreate(GetMethod(implObj, "_CancelPendingView"), flags, 1)
-        this.vtbl._MaySaveChanges := CallbackCreate(GetMethod(implObj, "_MaySaveChanges"), flags, 1)
-        this.vtbl._PauseOrResumeView := CallbackCreate(GetMethod(implObj, "_PauseOrResumeView"), flags, 2)
-        this.vtbl._DisableModeless := CallbackCreate(GetMethod(implObj, "_DisableModeless"), flags, 1)
-        this.vtbl._NavigateToPidl2 := CallbackCreate(GetMethod(implObj, "_NavigateToPidl2"), flags, 4)
-        this.vtbl._TryShell2Rename := CallbackCreate(GetMethod(implObj, "_TryShell2Rename"), flags, 3)
-        this.vtbl._SwitchActivationNow := CallbackCreate(GetMethod(implObj, "_SwitchActivationNow"), flags, 1)
-        this.vtbl._ExecChildren := CallbackCreate(GetMethod(implObj, "_ExecChildren"), flags, 8)
-        this.vtbl._SendChildren := CallbackCreate(GetMethod(implObj, "_SendChildren"), flags, 6)
-        this.vtbl.GetFolderSetData := CallbackCreate(GetMethod(implObj, "GetFolderSetData"), flags, 2)
-        this.vtbl._OnFocusChange := CallbackCreate(GetMethod(implObj, "_OnFocusChange"), flags, 2)
-        this.vtbl.v_ShowHideChildWindows := CallbackCreate(GetMethod(implObj, "v_ShowHideChildWindows"), flags, 2)
-        this.vtbl._get_itbLastFocus := CallbackCreate(GetMethod(implObj, "_get_itbLastFocus"), flags, 1)
-        this.vtbl._put_itbLastFocus := CallbackCreate(GetMethod(implObj, "_put_itbLastFocus"), flags, 2)
-        this.vtbl._UIActivateView := CallbackCreate(GetMethod(implObj, "_UIActivateView"), flags, 2)
-        this.vtbl._GetViewBorderRect := CallbackCreate(GetMethod(implObj, "_GetViewBorderRect"), flags, 2)
-        this.vtbl._UpdateViewRectSize := CallbackCreate(GetMethod(implObj, "_UpdateViewRectSize"), flags, 1)
-        this.vtbl._ResizeNextBorder := CallbackCreate(GetMethod(implObj, "_ResizeNextBorder"), flags, 2)
-        this.vtbl._ResizeView := CallbackCreate(GetMethod(implObj, "_ResizeView"), flags, 1)
-        this.vtbl._GetEffectiveClientArea := CallbackCreate(GetMethod(implObj, "_GetEffectiveClientArea"), flags, 3)
-        this.vtbl.v_GetViewStream := CallbackCreate(GetMethod(implObj, "v_GetViewStream"), flags, 4)
-        this.vtbl.ForwardViewMsg := CallbackCreate(GetMethod(implObj, "ForwardViewMsg"), flags, 4)
-        this.vtbl.SetAcceleratorMenu := CallbackCreate(GetMethod(implObj, "SetAcceleratorMenu"), flags, 2)
-        this.vtbl._GetToolbarCount := CallbackCreate(GetMethod(implObj, "_GetToolbarCount"), flags, 1)
-        this.vtbl._GetToolbarItem := CallbackCreate(GetMethod(implObj, "_GetToolbarItem"), flags, 2)
-        this.vtbl._SaveToolbars := CallbackCreate(GetMethod(implObj, "_SaveToolbars"), flags, 2)
-        this.vtbl._LoadToolbars := CallbackCreate(GetMethod(implObj, "_LoadToolbars"), flags, 2)
-        this.vtbl._CloseAndReleaseToolbars := CallbackCreate(GetMethod(implObj, "_CloseAndReleaseToolbars"), flags, 2)
-        this.vtbl.v_MayGetNextToolbarFocus := CallbackCreate(GetMethod(implObj, "v_MayGetNextToolbarFocus"), flags, 6)
-        this.vtbl._ResizeNextBorderHelper := CallbackCreate(GetMethod(implObj, "_ResizeNextBorderHelper"), flags, 3)
-        this.vtbl._FindTBar := CallbackCreate(GetMethod(implObj, "_FindTBar"), flags, 2)
-        this.vtbl._SetFocus := CallbackCreate(GetMethod(implObj, "_SetFocus"), flags, 4)
-        this.vtbl.v_MayTranslateAccelerator := CallbackCreate(GetMethod(implObj, "v_MayTranslateAccelerator"), flags, 2)
-        this.vtbl._GetBorderDWHelper := CallbackCreate(GetMethod(implObj, "_GetBorderDWHelper"), flags, 4)
-        this.vtbl.v_CheckZoneCrossing := CallbackCreate(GetMethod(implObj, "v_CheckZoneCrossing"), flags, 2)
+        this.vtbl.WndProcBS := CallbackCreate(ObjBindMethod(implObj, "WndProcBS"), flags, 5)
+        this.vtbl.SetAsDefFolderSettings := CallbackCreate(ObjBindMethod(implObj, "SetAsDefFolderSettings"), flags, 1)
+        this.vtbl.GetViewRect := CallbackCreate(ObjBindMethod(implObj, "GetViewRect"), flags, 2)
+        this.vtbl.OnSize := CallbackCreate(ObjBindMethod(implObj, "OnSize"), flags, 2)
+        this.vtbl.OnCreate := CallbackCreate(ObjBindMethod(implObj, "OnCreate"), flags, 2)
+        this.vtbl.OnCommand := CallbackCreate(ObjBindMethod(implObj, "OnCommand"), flags, 3)
+        this.vtbl.OnDestroy := CallbackCreate(ObjBindMethod(implObj, "OnDestroy"), flags, 1)
+        this.vtbl.OnNotify := CallbackCreate(ObjBindMethod(implObj, "OnNotify"), flags, 2)
+        this.vtbl.OnSetFocus := CallbackCreate(ObjBindMethod(implObj, "OnSetFocus"), flags, 1)
+        this.vtbl.OnFrameWindowActivateBS := CallbackCreate(ObjBindMethod(implObj, "OnFrameWindowActivateBS"), flags, 2)
+        this.vtbl.ReleaseShellView := CallbackCreate(ObjBindMethod(implObj, "ReleaseShellView"), flags, 1)
+        this.vtbl.ActivatePendingView := CallbackCreate(ObjBindMethod(implObj, "ActivatePendingView"), flags, 1)
+        this.vtbl.CreateViewWindow := CallbackCreate(ObjBindMethod(implObj, "CreateViewWindow"), flags, 5)
+        this.vtbl.CreateBrowserPropSheetExt := CallbackCreate(ObjBindMethod(implObj, "CreateBrowserPropSheetExt"), flags, 3)
+        this.vtbl.GetViewWindow := CallbackCreate(ObjBindMethod(implObj, "GetViewWindow"), flags, 2)
+        this.vtbl.GetBaseBrowserData := CallbackCreate(ObjBindMethod(implObj, "GetBaseBrowserData"), flags, 2)
+        this.vtbl.PutBaseBrowserData := CallbackCreate(ObjBindMethod(implObj, "PutBaseBrowserData"), flags, 1)
+        this.vtbl.InitializeTravelLog := CallbackCreate(ObjBindMethod(implObj, "InitializeTravelLog"), flags, 3)
+        this.vtbl.SetTopBrowser := CallbackCreate(ObjBindMethod(implObj, "SetTopBrowser"), flags, 1)
+        this.vtbl.Offline := CallbackCreate(ObjBindMethod(implObj, "Offline"), flags, 2)
+        this.vtbl.AllowViewResize := CallbackCreate(ObjBindMethod(implObj, "AllowViewResize"), flags, 2)
+        this.vtbl.SetActivateState := CallbackCreate(ObjBindMethod(implObj, "SetActivateState"), flags, 2)
+        this.vtbl.UpdateSecureLockIcon := CallbackCreate(ObjBindMethod(implObj, "UpdateSecureLockIcon"), flags, 2)
+        this.vtbl.InitializeDownloadManager := CallbackCreate(ObjBindMethod(implObj, "InitializeDownloadManager"), flags, 1)
+        this.vtbl.InitializeTransitionSite := CallbackCreate(ObjBindMethod(implObj, "InitializeTransitionSite"), flags, 1)
+        this.vtbl._Initialize := CallbackCreate(ObjBindMethod(implObj, "_Initialize"), flags, 3)
+        this.vtbl._CancelPendingNavigationAsync := CallbackCreate(ObjBindMethod(implObj, "_CancelPendingNavigationAsync"), flags, 1)
+        this.vtbl._CancelPendingView := CallbackCreate(ObjBindMethod(implObj, "_CancelPendingView"), flags, 1)
+        this.vtbl._MaySaveChanges := CallbackCreate(ObjBindMethod(implObj, "_MaySaveChanges"), flags, 1)
+        this.vtbl._PauseOrResumeView := CallbackCreate(ObjBindMethod(implObj, "_PauseOrResumeView"), flags, 2)
+        this.vtbl._DisableModeless := CallbackCreate(ObjBindMethod(implObj, "_DisableModeless"), flags, 1)
+        this.vtbl._NavigateToPidl2 := CallbackCreate(ObjBindMethod(implObj, "_NavigateToPidl2"), flags, 4)
+        this.vtbl._TryShell2Rename := CallbackCreate(ObjBindMethod(implObj, "_TryShell2Rename"), flags, 3)
+        this.vtbl._SwitchActivationNow := CallbackCreate(ObjBindMethod(implObj, "_SwitchActivationNow"), flags, 1)
+        this.vtbl._ExecChildren := CallbackCreate(ObjBindMethod(implObj, "_ExecChildren"), flags, 8)
+        this.vtbl._SendChildren := CallbackCreate(ObjBindMethod(implObj, "_SendChildren"), flags, 6)
+        this.vtbl.GetFolderSetData := CallbackCreate(ObjBindMethod(implObj, "GetFolderSetData"), flags, 2)
+        this.vtbl._OnFocusChange := CallbackCreate(ObjBindMethod(implObj, "_OnFocusChange"), flags, 2)
+        this.vtbl.v_ShowHideChildWindows := CallbackCreate(ObjBindMethod(implObj, "v_ShowHideChildWindows"), flags, 2)
+        this.vtbl._get_itbLastFocus := CallbackCreate(ObjBindMethod(implObj, "_get_itbLastFocus"), flags, 1)
+        this.vtbl._put_itbLastFocus := CallbackCreate(ObjBindMethod(implObj, "_put_itbLastFocus"), flags, 2)
+        this.vtbl._UIActivateView := CallbackCreate(ObjBindMethod(implObj, "_UIActivateView"), flags, 2)
+        this.vtbl._GetViewBorderRect := CallbackCreate(ObjBindMethod(implObj, "_GetViewBorderRect"), flags, 2)
+        this.vtbl._UpdateViewRectSize := CallbackCreate(ObjBindMethod(implObj, "_UpdateViewRectSize"), flags, 1)
+        this.vtbl._ResizeNextBorder := CallbackCreate(ObjBindMethod(implObj, "_ResizeNextBorder"), flags, 2)
+        this.vtbl._ResizeView := CallbackCreate(ObjBindMethod(implObj, "_ResizeView"), flags, 1)
+        this.vtbl._GetEffectiveClientArea := CallbackCreate(ObjBindMethod(implObj, "_GetEffectiveClientArea"), flags, 3)
+        this.vtbl.v_GetViewStream := CallbackCreate(ObjBindMethod(implObj, "v_GetViewStream"), flags, 4)
+        this.vtbl.ForwardViewMsg := CallbackCreate(ObjBindMethod(implObj, "ForwardViewMsg"), flags, 4)
+        this.vtbl.SetAcceleratorMenu := CallbackCreate(ObjBindMethod(implObj, "SetAcceleratorMenu"), flags, 2)
+        this.vtbl._GetToolbarCount := CallbackCreate(ObjBindMethod(implObj, "_GetToolbarCount"), flags, 1)
+        this.vtbl._GetToolbarItem := CallbackCreate(ObjBindMethod(implObj, "_GetToolbarItem"), flags, 2)
+        this.vtbl._SaveToolbars := CallbackCreate(ObjBindMethod(implObj, "_SaveToolbars"), flags, 2)
+        this.vtbl._LoadToolbars := CallbackCreate(ObjBindMethod(implObj, "_LoadToolbars"), flags, 2)
+        this.vtbl._CloseAndReleaseToolbars := CallbackCreate(ObjBindMethod(implObj, "_CloseAndReleaseToolbars"), flags, 2)
+        this.vtbl.v_MayGetNextToolbarFocus := CallbackCreate(ObjBindMethod(implObj, "v_MayGetNextToolbarFocus"), flags, 6)
+        this.vtbl._ResizeNextBorderHelper := CallbackCreate(ObjBindMethod(implObj, "_ResizeNextBorderHelper"), flags, 3)
+        this.vtbl._FindTBar := CallbackCreate(ObjBindMethod(implObj, "_FindTBar"), flags, 2)
+        this.vtbl._SetFocus := CallbackCreate(ObjBindMethod(implObj, "_SetFocus"), flags, 4)
+        this.vtbl.v_MayTranslateAccelerator := CallbackCreate(ObjBindMethod(implObj, "v_MayTranslateAccelerator"), flags, 2)
+        this.vtbl._GetBorderDWHelper := CallbackCreate(ObjBindMethod(implObj, "_GetBorderDWHelper"), flags, 4)
+        this.vtbl.v_CheckZoneCrossing := CallbackCreate(ObjBindMethod(implObj, "v_CheckZoneCrossing"), flags, 2)
     }
 
     Dispose() {

@@ -21,7 +21,6 @@ export default struct PCLUSAPI_CLUSTER_ADD_GROUP_TO_GROUPSET_WITH_DOMAINS_EX {
     }
 
     /**
-     * 
      * @param {HGROUPSET} _hGroupSet 
      * @param {HGROUP} _hGroup 
      * @param {Integer} faultDomain 
@@ -32,7 +31,9 @@ export default struct PCLUSAPI_CLUSTER_ADD_GROUP_TO_GROUPSET_WITH_DOMAINS_EX {
     Call(_hGroupSet, _hGroup, faultDomain, updateDomain, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall(this.value, HGROUPSET, _hGroupSet, HGROUP, _hGroup, UInt32, faultDomain, UInt32, updateDomain, "ptr", lpszReason, UInt32)
+        lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+        result := DllCall(this.value, HGROUPSET, _hGroupSet, HGROUP, _hGroup, UInt32, faultDomain, UInt32, updateDomain, lpszReasonMarshal, lpszReason, UInt32)
         return result
     }
 

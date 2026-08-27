@@ -52,7 +52,9 @@ export default struct ID3D10EffectRenderTargetViewVariable extends ID3D10EffectV
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectrendertargetviewvariable-setrendertarget
      */
     SetRenderTarget(pResource) {
-        result := ComCall(25, this, "ptr", pResource, "HRESULT")
+        pResourceMarshal := pResource == 0 ? IntPtr : "ptr"
+
+        result := ComCall(25, this, pResourceMarshal, pResource, "HRESULT")
         return result
     }
 
@@ -116,10 +118,10 @@ export default struct ID3D10EffectRenderTargetViewVariable extends ID3D10EffectV
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetRenderTarget := CallbackCreate(GetMethod(implObj, "SetRenderTarget"), flags, 2)
-        this.vtbl.GetRenderTarget := CallbackCreate(GetMethod(implObj, "GetRenderTarget"), flags, 2)
-        this.vtbl.SetRenderTargetArray := CallbackCreate(GetMethod(implObj, "SetRenderTargetArray"), flags, 4)
-        this.vtbl.GetRenderTargetArray := CallbackCreate(GetMethod(implObj, "GetRenderTargetArray"), flags, 4)
+        this.vtbl.SetRenderTarget := CallbackCreate(ObjBindMethod(implObj, "SetRenderTarget"), flags, 2)
+        this.vtbl.GetRenderTarget := CallbackCreate(ObjBindMethod(implObj, "GetRenderTarget"), flags, 2)
+        this.vtbl.SetRenderTargetArray := CallbackCreate(ObjBindMethod(implObj, "SetRenderTargetArray"), flags, 4)
+        this.vtbl.GetRenderTargetArray := CallbackCreate(ObjBindMethod(implObj, "GetRenderTargetArray"), flags, 4)
     }
 
     Dispose() {

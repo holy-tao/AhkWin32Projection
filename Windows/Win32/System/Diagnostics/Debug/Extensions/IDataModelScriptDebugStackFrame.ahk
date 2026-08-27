@@ -59,19 +59,20 @@ export default struct IDataModelScriptDebugStackFrame extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<ScriptDebugPosition>} position 
      * @param {Pointer<ScriptDebugPosition>} positionSpanEnd 
      * @param {Pointer<BSTR>} lineText 
      * @returns {HRESULT} 
      */
     GetPosition(position, positionSpanEnd, lineText) {
-        result := ComCall(4, this, ScriptDebugPosition.Ptr, position, ScriptDebugPosition.Ptr, positionSpanEnd, BSTR.Ptr, lineText, "HRESULT")
+        positionSpanEndMarshal := positionSpanEnd == 0 ? IntPtr : ScriptDebugPosition.Ptr
+        lineTextMarshal := lineText == 0 ? IntPtr : BSTR.Ptr
+
+        result := ComCall(4, this, ScriptDebugPosition.Ptr, position, positionSpanEndMarshal, positionSpanEnd, lineTextMarshal, lineText, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Boolean} 
      */
     IsTransitionPoint() {
@@ -80,20 +81,18 @@ export default struct IDataModelScriptDebugStackFrame extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<IDataModelScript>} transitionScript 
      * @param {Pointer<Boolean>} isTransitionContiguous 
      * @returns {HRESULT} 
      */
     GetTransition(transitionScript, isTransitionContiguous) {
-        isTransitionContiguousMarshal := isTransitionContiguous is VarRef ? "int*" : "ptr"
+        isTransitionContiguousMarshal := isTransitionContiguous is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, IDataModelScript.Ptr, transitionScript, isTransitionContiguousMarshal, isTransitionContiguous, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwszExpression 
      * @returns {IModelObject} 
      */
@@ -105,7 +104,6 @@ export default struct IDataModelScriptDebugStackFrame extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDataModelScriptDebugVariableSetEnumerator} 
      */
     EnumerateLocals() {
@@ -114,7 +112,6 @@ export default struct IDataModelScriptDebugStackFrame extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDataModelScriptDebugVariableSetEnumerator} 
      */
     EnumerateArguments() {
@@ -131,13 +128,13 @@ export default struct IDataModelScriptDebugStackFrame extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
-        this.vtbl.GetPosition := CallbackCreate(GetMethod(implObj, "GetPosition"), flags, 4)
-        this.vtbl.IsTransitionPoint := CallbackCreate(GetMethod(implObj, "IsTransitionPoint"), flags, 2)
-        this.vtbl.GetTransition := CallbackCreate(GetMethod(implObj, "GetTransition"), flags, 3)
-        this.vtbl.Evaluate := CallbackCreate(GetMethod(implObj, "Evaluate"), flags, 3)
-        this.vtbl.EnumerateLocals := CallbackCreate(GetMethod(implObj, "EnumerateLocals"), flags, 2)
-        this.vtbl.EnumerateArguments := CallbackCreate(GetMethod(implObj, "EnumerateArguments"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetPosition := CallbackCreate(ObjBindMethod(implObj, "GetPosition"), flags, 4)
+        this.vtbl.IsTransitionPoint := CallbackCreate(ObjBindMethod(implObj, "IsTransitionPoint"), flags, 2)
+        this.vtbl.GetTransition := CallbackCreate(ObjBindMethod(implObj, "GetTransition"), flags, 3)
+        this.vtbl.Evaluate := CallbackCreate(ObjBindMethod(implObj, "Evaluate"), flags, 3)
+        this.vtbl.EnumerateLocals := CallbackCreate(ObjBindMethod(implObj, "EnumerateLocals"), flags, 2)
+        this.vtbl.EnumerateArguments := CallbackCreate(ObjBindMethod(implObj, "EnumerateArguments"), flags, 2)
     }
 
     Dispose() {

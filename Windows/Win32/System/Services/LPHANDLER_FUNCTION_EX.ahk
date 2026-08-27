@@ -69,7 +69,6 @@ export default struct LPHANDLER_FUNCTION_EX {
     }
 
     /**
-     * 
      * @param {Integer} dwControl 
      * @param {Integer} dwEventType The type of event that has occurred. This parameter is used if <i>dwControl</i> is 
      *       <b>SERVICE_CONTROL_DEVICEEVENT</b>, <b>SERVICE_CONTROL_HARDWAREPROFILECHANGE</b>, <b>SERVICE_CONTROL_POWEREVENT</b>, or 
@@ -139,8 +138,8 @@ export default struct LPHANDLER_FUNCTION_EX {
      * </ul>
      */
     Call(dwControl, dwEventType, lpEventData, lpContext) {
-        lpEventDataMarshal := lpEventData is VarRef ? "ptr" : "ptr"
-        lpContextMarshal := lpContext is VarRef ? "ptr" : "ptr"
+        lpEventDataMarshal := lpEventData is VarRef ? "ptr" : IntPtr
+        lpContextMarshal := lpContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, UInt32, dwControl, UInt32, dwEventType, lpEventDataMarshal, lpEventData, lpContextMarshal, lpContext, UInt32)
         return result

@@ -48,7 +48,6 @@ export default struct IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown 
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetTag() {
@@ -57,7 +56,6 @@ export default struct IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown 
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetLength() {
@@ -66,7 +64,6 @@ export default struct IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown 
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetTagExtension() {
@@ -75,7 +72,6 @@ export default struct IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown 
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCentreFrequency() {
@@ -84,7 +80,6 @@ export default struct IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown 
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetPLPId() {
@@ -93,7 +88,6 @@ export default struct IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown 
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetT2SystemId() {
@@ -102,7 +96,6 @@ export default struct IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown 
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMultipleInputMode() {
@@ -111,7 +104,6 @@ export default struct IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown 
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetBandwidth() {
@@ -120,7 +112,6 @@ export default struct IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown 
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetGuardInterval() {
@@ -129,7 +120,6 @@ export default struct IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown 
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetTransmissionMode() {
@@ -138,7 +128,6 @@ export default struct IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown 
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCellId() {
@@ -147,7 +136,6 @@ export default struct IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown 
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetOtherFrequencyFlag() {
@@ -156,7 +144,6 @@ export default struct IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown 
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetTFSFlag() {
@@ -173,19 +160,19 @@ export default struct IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetTagExtension := CallbackCreate(GetMethod(implObj, "GetTagExtension"), flags, 2)
-        this.vtbl.GetCentreFrequency := CallbackCreate(GetMethod(implObj, "GetCentreFrequency"), flags, 2)
-        this.vtbl.GetPLPId := CallbackCreate(GetMethod(implObj, "GetPLPId"), flags, 2)
-        this.vtbl.GetT2SystemId := CallbackCreate(GetMethod(implObj, "GetT2SystemId"), flags, 2)
-        this.vtbl.GetMultipleInputMode := CallbackCreate(GetMethod(implObj, "GetMultipleInputMode"), flags, 2)
-        this.vtbl.GetBandwidth := CallbackCreate(GetMethod(implObj, "GetBandwidth"), flags, 2)
-        this.vtbl.GetGuardInterval := CallbackCreate(GetMethod(implObj, "GetGuardInterval"), flags, 2)
-        this.vtbl.GetTransmissionMode := CallbackCreate(GetMethod(implObj, "GetTransmissionMode"), flags, 2)
-        this.vtbl.GetCellId := CallbackCreate(GetMethod(implObj, "GetCellId"), flags, 2)
-        this.vtbl.GetOtherFrequencyFlag := CallbackCreate(GetMethod(implObj, "GetOtherFrequencyFlag"), flags, 2)
-        this.vtbl.GetTFSFlag := CallbackCreate(GetMethod(implObj, "GetTFSFlag"), flags, 2)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetTagExtension := CallbackCreate(ObjBindMethod(implObj, "GetTagExtension"), flags, 2)
+        this.vtbl.GetCentreFrequency := CallbackCreate(ObjBindMethod(implObj, "GetCentreFrequency"), flags, 2)
+        this.vtbl.GetPLPId := CallbackCreate(ObjBindMethod(implObj, "GetPLPId"), flags, 2)
+        this.vtbl.GetT2SystemId := CallbackCreate(ObjBindMethod(implObj, "GetT2SystemId"), flags, 2)
+        this.vtbl.GetMultipleInputMode := CallbackCreate(ObjBindMethod(implObj, "GetMultipleInputMode"), flags, 2)
+        this.vtbl.GetBandwidth := CallbackCreate(ObjBindMethod(implObj, "GetBandwidth"), flags, 2)
+        this.vtbl.GetGuardInterval := CallbackCreate(ObjBindMethod(implObj, "GetGuardInterval"), flags, 2)
+        this.vtbl.GetTransmissionMode := CallbackCreate(ObjBindMethod(implObj, "GetTransmissionMode"), flags, 2)
+        this.vtbl.GetCellId := CallbackCreate(ObjBindMethod(implObj, "GetCellId"), flags, 2)
+        this.vtbl.GetOtherFrequencyFlag := CallbackCreate(ObjBindMethod(implObj, "GetOtherFrequencyFlag"), flags, 2)
+        this.vtbl.GetTFSFlag := CallbackCreate(ObjBindMethod(implObj, "GetTFSFlag"), flags, 2)
     }
 
     Dispose() {

@@ -23,7 +23,6 @@ export default struct PLSA_AP_LOGON_USER {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} ClientRequest 
      * @param {SECURITY_LOGON_TYPE} LogonType 
      * @param {Integer} AuthenticationInformation 
@@ -40,15 +39,15 @@ export default struct PLSA_AP_LOGON_USER {
      * @returns {NTSTATUS} 
      */
     Call(ClientRequest, LogonType, AuthenticationInformation, ClientAuthenticationBase, AuthenticationInformationLength, ProfileBuffer, ProfileBufferLength, LogonId, SubStatus, TokenInformationType, TokenInformation, AccountName, AuthenticatingAuthority) {
-        ClientRequestMarshal := ClientRequest is VarRef ? "ptr*" : "ptr"
-        ClientAuthenticationBaseMarshal := ClientAuthenticationBase is VarRef ? "ptr" : "ptr"
-        ProfileBufferMarshal := ProfileBuffer is VarRef ? "ptr*" : "ptr"
-        ProfileBufferLengthMarshal := ProfileBufferLength is VarRef ? "uint*" : "ptr"
-        SubStatusMarshal := SubStatus is VarRef ? "int*" : "ptr"
-        TokenInformationTypeMarshal := TokenInformationType is VarRef ? "int*" : "ptr"
-        TokenInformationMarshal := TokenInformation is VarRef ? "ptr*" : "ptr"
-        AccountNameMarshal := AccountName is VarRef ? "ptr*" : "ptr"
-        AuthenticatingAuthorityMarshal := AuthenticatingAuthority is VarRef ? "ptr*" : "ptr"
+        ClientRequestMarshal := ClientRequest is VarRef ? "ptr*" : IntPtr
+        ClientAuthenticationBaseMarshal := ClientAuthenticationBase is VarRef ? "ptr" : IntPtr
+        ProfileBufferMarshal := ProfileBuffer is VarRef ? "ptr*" : IntPtr
+        ProfileBufferLengthMarshal := ProfileBufferLength is VarRef ? "uint*" : IntPtr
+        SubStatusMarshal := SubStatus is VarRef ? "int*" : IntPtr
+        TokenInformationTypeMarshal := TokenInformationType is VarRef ? "int*" : IntPtr
+        TokenInformationMarshal := TokenInformation is VarRef ? "ptr*" : IntPtr
+        AccountNameMarshal := AccountName is VarRef ? "ptr*" : IntPtr
+        AuthenticatingAuthorityMarshal := AuthenticatingAuthority is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, ClientRequestMarshal, ClientRequest, SECURITY_LOGON_TYPE, LogonType, IntPtr, AuthenticationInformation, ClientAuthenticationBaseMarshal, ClientAuthenticationBase, UInt32, AuthenticationInformationLength, ProfileBufferMarshal, ProfileBuffer, ProfileBufferLengthMarshal, ProfileBufferLength, LUID.Ptr, LogonId, SubStatusMarshal, SubStatus, TokenInformationTypeMarshal, TokenInformationType, TokenInformationMarshal, TokenInformation, AccountNameMarshal, AccountName, AuthenticatingAuthorityMarshal, AuthenticatingAuthority, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

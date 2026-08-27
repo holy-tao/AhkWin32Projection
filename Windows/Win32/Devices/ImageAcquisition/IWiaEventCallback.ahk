@@ -106,7 +106,7 @@ export default struct IWiaEventCallback extends IUnknown {
         bstrDeviceDescription := bstrDeviceDescription is String ? BSTR.Alloc(bstrDeviceDescription).Value : bstrDeviceDescription
         bstrFullItemName := bstrFullItemName is String ? BSTR.Alloc(bstrFullItemName).Value : bstrFullItemName
 
-        pulEventTypeMarshal := pulEventType is VarRef ? "uint*" : "ptr"
+        pulEventTypeMarshal := pulEventType is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, Guid.Ptr, pEventGUID, BSTR, bstrEventDescription, BSTR, bstrDeviceID, BSTR, bstrDeviceDescription, UInt32, dwDeviceType, BSTR, bstrFullItemName, pulEventTypeMarshal, pulEventType, UInt32, ulReserved, "HRESULT")
         return result
@@ -121,7 +121,7 @@ export default struct IWiaEventCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ImageEventCallback := CallbackCreate(GetMethod(implObj, "ImageEventCallback"), flags, 9)
+        this.vtbl.ImageEventCallback := CallbackCreate(ObjBindMethod(implObj, "ImageEventCallback"), flags, 9)
     }
 
     Dispose() {

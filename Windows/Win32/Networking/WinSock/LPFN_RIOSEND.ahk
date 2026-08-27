@@ -38,7 +38,6 @@ export default struct LPFN_RIOSEND {
     }
 
     /**
-     * 
      * @param {RIO_RQ} SocketQueue A descriptor that identifies a connected registered I/O TCP socket or a bound registered I/O UDP socket.
      * @param {Pointer<RIO_BUF>} pData A description of the portion of the registered buffer from which to send data.
      * 
@@ -69,7 +68,8 @@ export default struct LPFN_RIOSEND {
      * | <dl> <dt>**[WSA\_IO\_PENDING](/windows/win32/winsock/windows-sockets-error-codes-2#wsa-io-pending)**</dt> </dl> | The operation has been successfully initiated and the completion will be queued at a later time.<br/>                                                                                                                                                                                                                                          |
      */
     Call(SocketQueue, pData, DataBufferCount, Flags, RequestContext) {
-        RequestContextMarshal := RequestContext is VarRef ? "ptr" : "ptr"
+        RequestContextMarshal := RequestContext is VarRef ? "ptr" : IntPtr
+        RequestContextMarshal := RequestContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, RIO_RQ, SocketQueue, RIO_BUF.Ptr, pData, UInt32, DataBufferCount, UInt32, Flags, RequestContextMarshal, RequestContext, BOOL)
         return result

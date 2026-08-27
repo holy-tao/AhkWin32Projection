@@ -81,7 +81,10 @@ export default struct IDWriteFactory4 extends IDWriteFactory3 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory4-translatecolorglyphrun
      */
     TranslateColorGlyphRun(baselineOrigin, _glyphRun, glyphRunDescription, desiredGlyphImageFormats, measuringMode, worldAndDpiTransform, colorPaletteIndex) {
-        result := ComCall(40, this, D2D_POINT_2F, baselineOrigin, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_GLYPH_RUN_DESCRIPTION.Ptr, glyphRunDescription, DWRITE_GLYPH_IMAGE_FORMATS, desiredGlyphImageFormats, DWRITE_MEASURING_MODE, measuringMode, DWRITE_MATRIX.Ptr, worldAndDpiTransform, UInt32, colorPaletteIndex, "ptr*", &colorLayers := 0, "HRESULT")
+        glyphRunDescriptionMarshal := glyphRunDescription == 0 ? IntPtr : DWRITE_GLYPH_RUN_DESCRIPTION.Ptr
+        worldAndDpiTransformMarshal := worldAndDpiTransform == 0 ? IntPtr : DWRITE_MATRIX.Ptr
+
+        result := ComCall(40, this, D2D_POINT_2F, baselineOrigin, DWRITE_GLYPH_RUN.Ptr, _glyphRun, glyphRunDescriptionMarshal, glyphRunDescription, DWRITE_GLYPH_IMAGE_FORMATS, desiredGlyphImageFormats, DWRITE_MEASURING_MODE, measuringMode, worldAndDpiTransformMarshal, worldAndDpiTransform, UInt32, colorPaletteIndex, "ptr*", &colorLayers := 0, "HRESULT")
         return IDWriteColorGlyphRunEnumerator1(colorLayers)
     }
 
@@ -124,8 +127,10 @@ export default struct IDWriteFactory4 extends IDWriteFactory3 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory4-computeglyphorigins(dwrite_glyph_runconst_dwrite_measuring_mode_d2d1_point_2f_dwrite_matrixconst_d2d1_point_2f)
      */
     ComputeGlyphOrigins1(_glyphRun, measuringMode, baselineOrigin, worldAndDpiTransform) {
+        worldAndDpiTransformMarshal := worldAndDpiTransform == 0 ? IntPtr : DWRITE_MATRIX.Ptr
+
         glyphOrigins := D2D_POINT_2F()
-        result := ComCall(42, this, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_MEASURING_MODE, measuringMode, D2D_POINT_2F, baselineOrigin, DWRITE_MATRIX.Ptr, worldAndDpiTransform, D2D_POINT_2F.Ptr, glyphOrigins, "HRESULT")
+        result := ComCall(42, this, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_MEASURING_MODE, measuringMode, D2D_POINT_2F, baselineOrigin, worldAndDpiTransformMarshal, worldAndDpiTransform, D2D_POINT_2F.Ptr, glyphOrigins, "HRESULT")
         return glyphOrigins
     }
 
@@ -138,9 +143,9 @@ export default struct IDWriteFactory4 extends IDWriteFactory3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.TranslateColorGlyphRun := CallbackCreate(GetMethod(implObj, "TranslateColorGlyphRun"), flags, 9)
-        this.vtbl.ComputeGlyphOrigins := CallbackCreate(GetMethod(implObj, "ComputeGlyphOrigins"), flags, 4)
-        this.vtbl.ComputeGlyphOrigins1 := CallbackCreate(GetMethod(implObj, "ComputeGlyphOrigins1"), flags, 6)
+        this.vtbl.TranslateColorGlyphRun := CallbackCreate(ObjBindMethod(implObj, "TranslateColorGlyphRun"), flags, 9)
+        this.vtbl.ComputeGlyphOrigins := CallbackCreate(ObjBindMethod(implObj, "ComputeGlyphOrigins"), flags, 4)
+        this.vtbl.ComputeGlyphOrigins1 := CallbackCreate(ObjBindMethod(implObj, "ComputeGlyphOrigins1"), flags, 6)
     }
 
     Dispose() {

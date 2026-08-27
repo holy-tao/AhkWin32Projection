@@ -91,7 +91,7 @@ export default struct IWinHttpRequestEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/WinHttp/iwinhttprequestevents-onresponsedataavailable
      */
     OnResponseDataAvailable(Data) {
-        DataMarshal := Data is VarRef ? "ptr*" : "ptr"
+        DataMarshal := Data is VarRef ? "ptr*" : IntPtr
 
         ComCall(4, this, DataMarshal, Data)
     }
@@ -135,10 +135,10 @@ export default struct IWinHttpRequestEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnResponseStart := CallbackCreate(GetMethod(implObj, "OnResponseStart"), flags, 3)
-        this.vtbl.OnResponseDataAvailable := CallbackCreate(GetMethod(implObj, "OnResponseDataAvailable"), flags, 2)
-        this.vtbl.OnResponseFinished := CallbackCreate(GetMethod(implObj, "OnResponseFinished"), flags, 1)
-        this.vtbl.OnError := CallbackCreate(GetMethod(implObj, "OnError"), flags, 3)
+        this.vtbl.OnResponseStart := CallbackCreate(ObjBindMethod(implObj, "OnResponseStart"), flags, 3)
+        this.vtbl.OnResponseDataAvailable := CallbackCreate(ObjBindMethod(implObj, "OnResponseDataAvailable"), flags, 2)
+        this.vtbl.OnResponseFinished := CallbackCreate(ObjBindMethod(implObj, "OnResponseFinished"), flags, 1)
+        this.vtbl.OnError := CallbackCreate(ObjBindMethod(implObj, "OnError"), flags, 3)
     }
 
     Dispose() {

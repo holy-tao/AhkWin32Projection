@@ -84,8 +84,8 @@ export default struct IDVBTLocator2 extends IDVBTLocator {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_PhysicalLayerPipeId := CallbackCreate(GetMethod(implObj, "get_PhysicalLayerPipeId"), flags, 2)
-        this.vtbl.put_PhysicalLayerPipeId := CallbackCreate(GetMethod(implObj, "put_PhysicalLayerPipeId"), flags, 2)
+        this.vtbl.get_PhysicalLayerPipeId := CallbackCreate(ObjBindMethod(implObj, "get_PhysicalLayerPipeId"), flags, 2)
+        this.vtbl.put_PhysicalLayerPipeId := CallbackCreate(ObjBindMethod(implObj, "put_PhysicalLayerPipeId"), flags, 2)
     }
 
     Dispose() {

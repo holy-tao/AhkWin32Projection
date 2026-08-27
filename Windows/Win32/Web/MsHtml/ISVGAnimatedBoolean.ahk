@@ -62,7 +62,6 @@ export default struct ISVGAnimatedBoolean extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -72,7 +71,6 @@ export default struct ISVGAnimatedBoolean extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_baseVal() {
@@ -81,7 +79,6 @@ export default struct ISVGAnimatedBoolean extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -91,7 +88,6 @@ export default struct ISVGAnimatedBoolean extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_animVal() {
@@ -108,10 +104,10 @@ export default struct ISVGAnimatedBoolean extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_baseVal := CallbackCreate(GetMethod(implObj, "put_baseVal"), flags, 2)
-        this.vtbl.get_baseVal := CallbackCreate(GetMethod(implObj, "get_baseVal"), flags, 2)
-        this.vtbl.put_animVal := CallbackCreate(GetMethod(implObj, "put_animVal"), flags, 2)
-        this.vtbl.get_animVal := CallbackCreate(GetMethod(implObj, "get_animVal"), flags, 2)
+        this.vtbl.put_baseVal := CallbackCreate(ObjBindMethod(implObj, "put_baseVal"), flags, 2)
+        this.vtbl.get_baseVal := CallbackCreate(ObjBindMethod(implObj, "get_baseVal"), flags, 2)
+        this.vtbl.put_animVal := CallbackCreate(ObjBindMethod(implObj, "put_animVal"), flags, 2)
+        this.vtbl.get_animVal := CallbackCreate(ObjBindMethod(implObj, "get_animVal"), flags, 2)
     }
 
     Dispose() {

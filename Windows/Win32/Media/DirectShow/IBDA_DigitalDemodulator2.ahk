@@ -89,7 +89,7 @@ export default struct IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-put_guardinterval
      */
     put_GuardInterval(pGuardInterval) {
-        pGuardIntervalMarshal := pGuardInterval is VarRef ? "int*" : "ptr"
+        pGuardIntervalMarshal := pGuardInterval is VarRef ? "int*" : IntPtr
 
         result := ComCall(17, this, pGuardIntervalMarshal, pGuardInterval, "HRESULT")
         return result
@@ -102,7 +102,7 @@ export default struct IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-get_guardinterval
      */
     get_GuardInterval(pGuardInterval) {
-        pGuardIntervalMarshal := pGuardInterval is VarRef ? "int*" : "ptr"
+        pGuardIntervalMarshal := pGuardInterval is VarRef ? "int*" : IntPtr
 
         result := ComCall(18, this, pGuardIntervalMarshal, pGuardInterval, "HRESULT")
         return result
@@ -115,7 +115,7 @@ export default struct IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-put_transmissionmode
      */
     put_TransmissionMode(pTransmissionMode) {
-        pTransmissionModeMarshal := pTransmissionMode is VarRef ? "int*" : "ptr"
+        pTransmissionModeMarshal := pTransmissionMode is VarRef ? "int*" : IntPtr
 
         result := ComCall(19, this, pTransmissionModeMarshal, pTransmissionMode, "HRESULT")
         return result
@@ -128,7 +128,7 @@ export default struct IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-get_transmissionmode
      */
     get_TransmissionMode(pTransmissionMode) {
-        pTransmissionModeMarshal := pTransmissionMode is VarRef ? "int*" : "ptr"
+        pTransmissionModeMarshal := pTransmissionMode is VarRef ? "int*" : IntPtr
 
         result := ComCall(20, this, pTransmissionModeMarshal, pTransmissionMode, "HRESULT")
         return result
@@ -141,7 +141,7 @@ export default struct IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-put_rolloff
      */
     put_RollOff(pRollOff) {
-        pRollOffMarshal := pRollOff is VarRef ? "int*" : "ptr"
+        pRollOffMarshal := pRollOff is VarRef ? "int*" : IntPtr
 
         result := ComCall(21, this, pRollOffMarshal, pRollOff, "HRESULT")
         return result
@@ -154,7 +154,7 @@ export default struct IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-get_rolloff
      */
     get_RollOff(pRollOff) {
-        pRollOffMarshal := pRollOff is VarRef ? "int*" : "ptr"
+        pRollOffMarshal := pRollOff is VarRef ? "int*" : IntPtr
 
         result := ComCall(22, this, pRollOffMarshal, pRollOff, "HRESULT")
         return result
@@ -167,7 +167,7 @@ export default struct IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-put_pilot
      */
     put_Pilot(pPilot) {
-        pPilotMarshal := pPilot is VarRef ? "int*" : "ptr"
+        pPilotMarshal := pPilot is VarRef ? "int*" : IntPtr
 
         result := ComCall(23, this, pPilotMarshal, pPilot, "HRESULT")
         return result
@@ -180,7 +180,7 @@ export default struct IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-get_pilot
      */
     get_Pilot(pPilot) {
-        pPilotMarshal := pPilot is VarRef ? "int*" : "ptr"
+        pPilotMarshal := pPilot is VarRef ? "int*" : IntPtr
 
         result := ComCall(24, this, pPilotMarshal, pPilot, "HRESULT")
         return result
@@ -195,14 +195,14 @@ export default struct IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_GuardInterval := CallbackCreate(GetMethod(implObj, "put_GuardInterval"), flags, 2)
-        this.vtbl.get_GuardInterval := CallbackCreate(GetMethod(implObj, "get_GuardInterval"), flags, 2)
-        this.vtbl.put_TransmissionMode := CallbackCreate(GetMethod(implObj, "put_TransmissionMode"), flags, 2)
-        this.vtbl.get_TransmissionMode := CallbackCreate(GetMethod(implObj, "get_TransmissionMode"), flags, 2)
-        this.vtbl.put_RollOff := CallbackCreate(GetMethod(implObj, "put_RollOff"), flags, 2)
-        this.vtbl.get_RollOff := CallbackCreate(GetMethod(implObj, "get_RollOff"), flags, 2)
-        this.vtbl.put_Pilot := CallbackCreate(GetMethod(implObj, "put_Pilot"), flags, 2)
-        this.vtbl.get_Pilot := CallbackCreate(GetMethod(implObj, "get_Pilot"), flags, 2)
+        this.vtbl.put_GuardInterval := CallbackCreate(ObjBindMethod(implObj, "put_GuardInterval"), flags, 2)
+        this.vtbl.get_GuardInterval := CallbackCreate(ObjBindMethod(implObj, "get_GuardInterval"), flags, 2)
+        this.vtbl.put_TransmissionMode := CallbackCreate(ObjBindMethod(implObj, "put_TransmissionMode"), flags, 2)
+        this.vtbl.get_TransmissionMode := CallbackCreate(ObjBindMethod(implObj, "get_TransmissionMode"), flags, 2)
+        this.vtbl.put_RollOff := CallbackCreate(ObjBindMethod(implObj, "put_RollOff"), flags, 2)
+        this.vtbl.get_RollOff := CallbackCreate(ObjBindMethod(implObj, "get_RollOff"), flags, 2)
+        this.vtbl.put_Pilot := CallbackCreate(ObjBindMethod(implObj, "put_Pilot"), flags, 2)
+        this.vtbl.get_Pilot := CallbackCreate(ObjBindMethod(implObj, "get_Pilot"), flags, 2)
     }
 
     Dispose() {

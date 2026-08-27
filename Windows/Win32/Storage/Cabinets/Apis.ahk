@@ -57,7 +57,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/fci/nf-fci-fcicreate
  */
 export FCICreate(perf, pfnfcifp, pfna, pfnf, _pfnopen, _pfnread, _pfnwrite, _pfnclose, _pfnseek, pfndelete, pfnfcigtf, pccab, pv) {
-    pvMarshal := pv is VarRef ? "ptr" : "ptr"
+    pvMarshal := pv is VarRef ? "ptr" : IntPtr
+    pvMarshal := pv == 0 ? IntPtr : "ptr"
 
     result := DllCall("Cabinet.dll\FCICreate", ERF.Ptr, perf, PFNFCIFILEPLACED, pfnfcifp, PFNFCIALLOC, pfna, PFNFCIFREE, pfnf, PFNFCIOPEN, _pfnopen, PFNFCIREAD, _pfnread, PFNFCIWRITE, _pfnwrite, PFNFCICLOSE, _pfnclose, PFNFCISEEK, _pfnseek, PFNFCIDELETE, pfndelete, PFNFCIGETTEMPFILE, pfnfcigtf, CCAB.Ptr, pccab, pvMarshal, pv, IntPtr)
     return result
@@ -115,7 +116,7 @@ export FCIAddFile(hfci, pszSourceFile, pszFileName, fExecute, pfnfcignc, pfnfcis
     pszSourceFile := pszSourceFile is String ? StrPtr(pszSourceFile) : pszSourceFile
     pszFileName := pszFileName is String ? StrPtr(pszFileName) : pszFileName
 
-    hfciMarshal := hfci is VarRef ? "ptr" : "ptr"
+    hfciMarshal := hfci is VarRef ? "ptr" : IntPtr
 
     result := DllCall("Cabinet.dll\FCIAddFile", hfciMarshal, hfci, "ptr", pszSourceFile, "ptr", pszFileName, BOOL, fExecute, PFNFCIGETNEXTCABINET, pfnfcignc, PFNFCISTATUS, pfnfcis, PFNFCIGETOPENINFO, pfnfcigoi, UInt16, typeCompress, BOOL)
     return result
@@ -139,7 +140,7 @@ export FCIAddFile(hfci, pszSourceFile, pszFileName, fExecute, pfnfcignc, pfnfcis
  * @see https://learn.microsoft.com/windows/win32/api/fci/nf-fci-fciflushcabinet
  */
 export FCIFlushCabinet(hfci, fGetNextCab, pfnfcignc, pfnfcis) {
-    hfciMarshal := hfci is VarRef ? "ptr" : "ptr"
+    hfciMarshal := hfci is VarRef ? "ptr" : IntPtr
 
     result := DllCall("Cabinet.dll\FCIFlushCabinet", hfciMarshal, hfci, BOOL, fGetNextCab, PFNFCIGETNEXTCABINET, pfnfcignc, PFNFCISTATUS, pfnfcis, BOOL)
     return result
@@ -160,7 +161,7 @@ export FCIFlushCabinet(hfci, fGetNextCab, pfnfcignc, pfnfcis) {
  * @see https://learn.microsoft.com/windows/win32/api/fci/nf-fci-fciflushfolder
  */
 export FCIFlushFolder(hfci, pfnfcignc, pfnfcis) {
-    hfciMarshal := hfci is VarRef ? "ptr" : "ptr"
+    hfciMarshal := hfci is VarRef ? "ptr" : IntPtr
 
     result := DllCall("Cabinet.dll\FCIFlushFolder", hfciMarshal, hfci, PFNFCIGETNEXTCABINET, pfnfcignc, PFNFCISTATUS, pfnfcis, BOOL)
     return result
@@ -175,7 +176,7 @@ export FCIFlushFolder(hfci, pfnfcignc, pfnfcis) {
  * @see https://learn.microsoft.com/windows/win32/api/fci/nf-fci-fcidestroy
  */
 export FCIDestroy(hfci) {
-    hfciMarshal := hfci is VarRef ? "ptr" : "ptr"
+    hfciMarshal := hfci is VarRef ? "ptr" : IntPtr
 
     result := DllCall("Cabinet.dll\FCIDestroy", hfciMarshal, hfci, BOOL)
     return result
@@ -215,9 +216,10 @@ export FDICreate(_pfnalloc, _pfnfree, _pfnopen, _pfnread, _pfnwrite, _pfnclose, 
  * @since windows5.0
  */
 export FDIIsCabinet(hfdi, hf, pfdici) {
-    hfdiMarshal := hfdi is VarRef ? "ptr" : "ptr"
+    hfdiMarshal := hfdi is VarRef ? "ptr" : IntPtr
+    pfdiciMarshal := pfdici == 0 ? IntPtr : FDICABINETINFO.Ptr
 
-    result := DllCall("Cabinet.dll\FDIIsCabinet", hfdiMarshal, hfdi, IntPtr, hf, FDICABINETINFO.Ptr, pfdici, BOOL)
+    result := DllCall("Cabinet.dll\FDIIsCabinet", hfdiMarshal, hfdi, IntPtr, hf, pfdiciMarshal, pfdici, BOOL)
     return result
 }
 
@@ -242,8 +244,9 @@ export FDICopy(hfdi, pszCabinet, pszCabPath, flags, pfnfdin, pfnfdid, pvUser) {
     pszCabinet := pszCabinet is String ? StrPtr(pszCabinet) : pszCabinet
     pszCabPath := pszCabPath is String ? StrPtr(pszCabPath) : pszCabPath
 
-    hfdiMarshal := hfdi is VarRef ? "ptr" : "ptr"
-    pvUserMarshal := pvUser is VarRef ? "ptr" : "ptr"
+    hfdiMarshal := hfdi is VarRef ? "ptr" : IntPtr
+    pvUserMarshal := pvUser is VarRef ? "ptr" : IntPtr
+    pvUserMarshal := pvUser == 0 ? IntPtr : "ptr"
 
     result := DllCall("Cabinet.dll\FDICopy", hfdiMarshal, hfdi, "ptr", pszCabinet, "ptr", pszCabPath, Int32, flags, PFNFDINOTIFY, pfnfdin, PFNFDIDECRYPT, pfnfdid, pvUserMarshal, pvUser, BOOL)
     return result
@@ -259,7 +262,7 @@ export FDICopy(hfdi, pszCabinet, pszCabPath, flags, pfnfdin, pfnfdid, pvUser) {
  * @since windows5.0
  */
 export FDIDestroy(hfdi) {
-    hfdiMarshal := hfdi is VarRef ? "ptr" : "ptr"
+    hfdiMarshal := hfdi is VarRef ? "ptr" : IntPtr
 
     result := DllCall("Cabinet.dll\FDIDestroy", hfdiMarshal, hfdi, BOOL)
     return result
@@ -278,7 +281,7 @@ export FDIDestroy(hfdi) {
 export FDITruncateCabinet(hfdi, pszCabinetName, iFolderToDelete) {
     pszCabinetName := pszCabinetName is String ? StrPtr(pszCabinetName) : pszCabinetName
 
-    hfdiMarshal := hfdi is VarRef ? "ptr" : "ptr"
+    hfdiMarshal := hfdi is VarRef ? "ptr" : IntPtr
 
     result := DllCall("Cabinet.dll\FDITruncateCabinet", hfdiMarshal, hfdi, "ptr", pszCabinetName, UInt16, iFolderToDelete, BOOL)
     return result

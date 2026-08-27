@@ -102,10 +102,10 @@ export default struct ID3D10Multithread extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Enter := CallbackCreate(GetMethod(implObj, "Enter"), flags, 1)
-        this.vtbl.Leave := CallbackCreate(GetMethod(implObj, "Leave"), flags, 1)
-        this.vtbl.SetMultithreadProtected := CallbackCreate(GetMethod(implObj, "SetMultithreadProtected"), flags, 2)
-        this.vtbl.GetMultithreadProtected := CallbackCreate(GetMethod(implObj, "GetMultithreadProtected"), flags, 1)
+        this.vtbl.Enter := CallbackCreate(ObjBindMethod(implObj, "Enter"), flags, 1)
+        this.vtbl.Leave := CallbackCreate(ObjBindMethod(implObj, "Leave"), flags, 1)
+        this.vtbl.SetMultithreadProtected := CallbackCreate(ObjBindMethod(implObj, "SetMultithreadProtected"), flags, 2)
+        this.vtbl.GetMultithreadProtected := CallbackCreate(ObjBindMethod(implObj, "GetMultithreadProtected"), flags, 1)
     }
 
     Dispose() {

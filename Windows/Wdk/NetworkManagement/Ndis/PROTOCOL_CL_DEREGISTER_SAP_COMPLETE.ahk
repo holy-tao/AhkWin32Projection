@@ -18,13 +18,12 @@ export default struct PROTOCOL_CL_DEREGISTER_SAP_COMPLETE {
     }
 
     /**
-     * 
      * @param {Integer} _Status 
      * @param {Pointer<Void>} ProtocolSapContext 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Status, ProtocolSapContext) {
-        ProtocolSapContextMarshal := ProtocolSapContext is VarRef ? "ptr" : "ptr"
+        ProtocolSapContextMarshal := ProtocolSapContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, Int32, _Status, ProtocolSapContextMarshal, ProtocolSapContext)
     }

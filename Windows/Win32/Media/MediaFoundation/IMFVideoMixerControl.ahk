@@ -205,10 +205,10 @@ export default struct IMFVideoMixerControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetStreamZOrder := CallbackCreate(GetMethod(implObj, "SetStreamZOrder"), flags, 3)
-        this.vtbl.GetStreamZOrder := CallbackCreate(GetMethod(implObj, "GetStreamZOrder"), flags, 3)
-        this.vtbl.SetStreamOutputRect := CallbackCreate(GetMethod(implObj, "SetStreamOutputRect"), flags, 3)
-        this.vtbl.GetStreamOutputRect := CallbackCreate(GetMethod(implObj, "GetStreamOutputRect"), flags, 3)
+        this.vtbl.SetStreamZOrder := CallbackCreate(ObjBindMethod(implObj, "SetStreamZOrder"), flags, 3)
+        this.vtbl.GetStreamZOrder := CallbackCreate(ObjBindMethod(implObj, "GetStreamZOrder"), flags, 3)
+        this.vtbl.SetStreamOutputRect := CallbackCreate(ObjBindMethod(implObj, "SetStreamOutputRect"), flags, 3)
+        this.vtbl.GetStreamOutputRect := CallbackCreate(ObjBindMethod(implObj, "GetStreamOutputRect"), flags, 3)
     }
 
     Dispose() {

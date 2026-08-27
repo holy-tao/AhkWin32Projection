@@ -39,7 +39,6 @@ export default struct ICLRGCManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Generation 
      * @returns {HRESULT} 
      */
@@ -49,7 +48,6 @@ export default struct ICLRGCManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<COR_GC_STATS>} pStats 
      * @returns {HRESULT} 
      */
@@ -59,7 +57,6 @@ export default struct ICLRGCManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} SegmentSize 
      * @param {Integer} MaxGen0Size 
      * @returns {HRESULT} 
@@ -78,9 +75,9 @@ export default struct ICLRGCManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Collect := CallbackCreate(GetMethod(implObj, "Collect"), flags, 2)
-        this.vtbl.GetStats := CallbackCreate(GetMethod(implObj, "GetStats"), flags, 2)
-        this.vtbl.SetGCStartupLimits := CallbackCreate(GetMethod(implObj, "SetGCStartupLimits"), flags, 3)
+        this.vtbl.Collect := CallbackCreate(ObjBindMethod(implObj, "Collect"), flags, 2)
+        this.vtbl.GetStats := CallbackCreate(ObjBindMethod(implObj, "GetStats"), flags, 2)
+        this.vtbl.SetGCStartupLimits := CallbackCreate(ObjBindMethod(implObj, "SetGCStartupLimits"), flags, 3)
     }
 
     Dispose() {

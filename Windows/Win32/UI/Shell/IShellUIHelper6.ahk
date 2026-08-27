@@ -52,7 +52,6 @@ export default struct IShellUIHelper6 extends IShellUIHelper5 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     msStopPeriodicTileUpdate() {
@@ -61,7 +60,6 @@ export default struct IShellUIHelper6 extends IShellUIHelper5 {
     }
 
     /**
-     * 
      * @param {VARIANT} pollingUris 
      * @param {VARIANT} startTime 
      * @param {VARIANT} uiUpdateRecurrence 
@@ -73,7 +71,6 @@ export default struct IShellUIHelper6 extends IShellUIHelper5 {
     }
 
     /**
-     * 
      * @param {VARIANT} pollingUris 
      * @param {VARIANT} startTime 
      * @param {VARIANT} uiUpdateRecurrence 
@@ -85,7 +82,6 @@ export default struct IShellUIHelper6 extends IShellUIHelper5 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     msClearTile() {
@@ -94,7 +90,6 @@ export default struct IShellUIHelper6 extends IShellUIHelper5 {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fChange 
      * @returns {HRESULT} 
      */
@@ -104,7 +99,6 @@ export default struct IShellUIHelper6 extends IShellUIHelper5 {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     msPinnedSiteState() {
@@ -114,7 +108,6 @@ export default struct IShellUIHelper6 extends IShellUIHelper5 {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fChange 
      * @returns {HRESULT} 
      */
@@ -124,7 +117,6 @@ export default struct IShellUIHelper6 extends IShellUIHelper5 {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fChange 
      * @returns {HRESULT} 
      */
@@ -134,7 +126,6 @@ export default struct IShellUIHelper6 extends IShellUIHelper5 {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fChange 
      * @returns {HRESULT} 
      */
@@ -144,7 +135,6 @@ export default struct IShellUIHelper6 extends IShellUIHelper5 {
     }
 
     /**
-     * 
      * @param {BSTR} bstrNotificationXml 
      * @param {BSTR} bstrNotificationId 
      * @param {BSTR} bstrNotificationTag 
@@ -162,7 +152,6 @@ export default struct IShellUIHelper6 extends IShellUIHelper5 {
     }
 
     /**
-     * 
      * @param {BSTR} bstrNotificationId 
      * @returns {HRESULT} 
      */
@@ -174,7 +163,6 @@ export default struct IShellUIHelper6 extends IShellUIHelper5 {
     }
 
     /**
-     * 
      * @param {BSTR} pollingUri 
      * @param {VARIANT} startTime 
      * @param {VARIANT} uiUpdateRecurrence 
@@ -188,7 +176,6 @@ export default struct IShellUIHelper6 extends IShellUIHelper5 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     msStopPeriodicBadgeUpdate() {
@@ -197,7 +184,6 @@ export default struct IShellUIHelper6 extends IShellUIHelper5 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     msLaunchInternetOptions() {
@@ -214,20 +200,20 @@ export default struct IShellUIHelper6 extends IShellUIHelper5 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.msStopPeriodicTileUpdate := CallbackCreate(GetMethod(implObj, "msStopPeriodicTileUpdate"), flags, 1)
-        this.vtbl.msStartPeriodicTileUpdate := CallbackCreate(GetMethod(implObj, "msStartPeriodicTileUpdate"), flags, 4)
-        this.vtbl.msStartPeriodicTileUpdateBatch := CallbackCreate(GetMethod(implObj, "msStartPeriodicTileUpdateBatch"), flags, 4)
-        this.vtbl.msClearTile := CallbackCreate(GetMethod(implObj, "msClearTile"), flags, 1)
-        this.vtbl.msEnableTileNotificationQueue := CallbackCreate(GetMethod(implObj, "msEnableTileNotificationQueue"), flags, 2)
-        this.vtbl.msPinnedSiteState := CallbackCreate(GetMethod(implObj, "msPinnedSiteState"), flags, 2)
-        this.vtbl.msEnableTileNotificationQueueForSquare150x150 := CallbackCreate(GetMethod(implObj, "msEnableTileNotificationQueueForSquare150x150"), flags, 2)
-        this.vtbl.msEnableTileNotificationQueueForWide310x150 := CallbackCreate(GetMethod(implObj, "msEnableTileNotificationQueueForWide310x150"), flags, 2)
-        this.vtbl.msEnableTileNotificationQueueForSquare310x310 := CallbackCreate(GetMethod(implObj, "msEnableTileNotificationQueueForSquare310x310"), flags, 2)
-        this.vtbl.msScheduledTileNotification := CallbackCreate(GetMethod(implObj, "msScheduledTileNotification"), flags, 6)
-        this.vtbl.msRemoveScheduledTileNotification := CallbackCreate(GetMethod(implObj, "msRemoveScheduledTileNotification"), flags, 2)
-        this.vtbl.msStartPeriodicBadgeUpdate := CallbackCreate(GetMethod(implObj, "msStartPeriodicBadgeUpdate"), flags, 4)
-        this.vtbl.msStopPeriodicBadgeUpdate := CallbackCreate(GetMethod(implObj, "msStopPeriodicBadgeUpdate"), flags, 1)
-        this.vtbl.msLaunchInternetOptions := CallbackCreate(GetMethod(implObj, "msLaunchInternetOptions"), flags, 1)
+        this.vtbl.msStopPeriodicTileUpdate := CallbackCreate(ObjBindMethod(implObj, "msStopPeriodicTileUpdate"), flags, 1)
+        this.vtbl.msStartPeriodicTileUpdate := CallbackCreate(ObjBindMethod(implObj, "msStartPeriodicTileUpdate"), flags, 4)
+        this.vtbl.msStartPeriodicTileUpdateBatch := CallbackCreate(ObjBindMethod(implObj, "msStartPeriodicTileUpdateBatch"), flags, 4)
+        this.vtbl.msClearTile := CallbackCreate(ObjBindMethod(implObj, "msClearTile"), flags, 1)
+        this.vtbl.msEnableTileNotificationQueue := CallbackCreate(ObjBindMethod(implObj, "msEnableTileNotificationQueue"), flags, 2)
+        this.vtbl.msPinnedSiteState := CallbackCreate(ObjBindMethod(implObj, "msPinnedSiteState"), flags, 2)
+        this.vtbl.msEnableTileNotificationQueueForSquare150x150 := CallbackCreate(ObjBindMethod(implObj, "msEnableTileNotificationQueueForSquare150x150"), flags, 2)
+        this.vtbl.msEnableTileNotificationQueueForWide310x150 := CallbackCreate(ObjBindMethod(implObj, "msEnableTileNotificationQueueForWide310x150"), flags, 2)
+        this.vtbl.msEnableTileNotificationQueueForSquare310x310 := CallbackCreate(ObjBindMethod(implObj, "msEnableTileNotificationQueueForSquare310x310"), flags, 2)
+        this.vtbl.msScheduledTileNotification := CallbackCreate(ObjBindMethod(implObj, "msScheduledTileNotification"), flags, 6)
+        this.vtbl.msRemoveScheduledTileNotification := CallbackCreate(ObjBindMethod(implObj, "msRemoveScheduledTileNotification"), flags, 2)
+        this.vtbl.msStartPeriodicBadgeUpdate := CallbackCreate(ObjBindMethod(implObj, "msStartPeriodicBadgeUpdate"), flags, 4)
+        this.vtbl.msStopPeriodicBadgeUpdate := CallbackCreate(ObjBindMethod(implObj, "msStopPeriodicBadgeUpdate"), flags, 1)
+        this.vtbl.msLaunchInternetOptions := CallbackCreate(ObjBindMethod(implObj, "msLaunchInternetOptions"), flags, 1)
     }
 
     Dispose() {

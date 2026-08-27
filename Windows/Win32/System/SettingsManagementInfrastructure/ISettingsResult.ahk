@@ -115,12 +115,12 @@ export default struct ISettingsResult extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 2)
-        this.vtbl.GetErrorCode := CallbackCreate(GetMethod(implObj, "GetErrorCode"), flags, 2)
-        this.vtbl.GetContextDescription := CallbackCreate(GetMethod(implObj, "GetContextDescription"), flags, 2)
-        this.vtbl.GetLine := CallbackCreate(GetMethod(implObj, "GetLine"), flags, 2)
-        this.vtbl.GetColumn := CallbackCreate(GetMethod(implObj, "GetColumn"), flags, 2)
-        this.vtbl.GetSource := CallbackCreate(GetMethod(implObj, "GetSource"), flags, 2)
+        this.vtbl.GetDescription := CallbackCreate(ObjBindMethod(implObj, "GetDescription"), flags, 2)
+        this.vtbl.GetErrorCode := CallbackCreate(ObjBindMethod(implObj, "GetErrorCode"), flags, 2)
+        this.vtbl.GetContextDescription := CallbackCreate(ObjBindMethod(implObj, "GetContextDescription"), flags, 2)
+        this.vtbl.GetLine := CallbackCreate(ObjBindMethod(implObj, "GetLine"), flags, 2)
+        this.vtbl.GetColumn := CallbackCreate(ObjBindMethod(implObj, "GetColumn"), flags, 2)
+        this.vtbl.GetSource := CallbackCreate(ObjBindMethod(implObj, "GetSource"), flags, 2)
     }
 
     Dispose() {

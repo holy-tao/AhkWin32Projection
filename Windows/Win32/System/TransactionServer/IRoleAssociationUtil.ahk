@@ -44,7 +44,6 @@ export default struct IRoleAssociationUtil extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrRoleID 
      * @returns {HRESULT} 
      */
@@ -56,7 +55,6 @@ export default struct IRoleAssociationUtil extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrRoleName 
      * @returns {HRESULT} 
      */
@@ -76,8 +74,8 @@ export default struct IRoleAssociationUtil extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AssociateRole := CallbackCreate(GetMethod(implObj, "AssociateRole"), flags, 2)
-        this.vtbl.AssociateRoleByName := CallbackCreate(GetMethod(implObj, "AssociateRoleByName"), flags, 2)
+        this.vtbl.AssociateRole := CallbackCreate(ObjBindMethod(implObj, "AssociateRole"), flags, 2)
+        this.vtbl.AssociateRoleByName := CallbackCreate(ObjBindMethod(implObj, "AssociateRoleByName"), flags, 2)
     }
 
     Dispose() {

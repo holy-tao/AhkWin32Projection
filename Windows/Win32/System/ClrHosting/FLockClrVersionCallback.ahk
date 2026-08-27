@@ -19,7 +19,6 @@ export default struct FLockClrVersionCallback {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Call() {

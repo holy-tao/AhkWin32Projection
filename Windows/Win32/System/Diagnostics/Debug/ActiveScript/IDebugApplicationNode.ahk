@@ -42,7 +42,6 @@ export default struct IDebugApplicationNode extends IDebugDocumentProvider {
     }
 
     /**
-     * 
      * @returns {IEnumDebugApplicationNodes} 
      */
     EnumChildren() {
@@ -63,7 +62,6 @@ export default struct IDebugApplicationNode extends IDebugDocumentProvider {
     }
 
     /**
-     * 
      * @param {IDebugDocumentProvider} pddp 
      * @returns {HRESULT} 
      */
@@ -73,7 +71,6 @@ export default struct IDebugApplicationNode extends IDebugDocumentProvider {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Close() {
@@ -82,7 +79,6 @@ export default struct IDebugApplicationNode extends IDebugDocumentProvider {
     }
 
     /**
-     * 
      * @param {IDebugApplicationNode} pdanParent 
      * @returns {HRESULT} 
      */
@@ -92,7 +88,6 @@ export default struct IDebugApplicationNode extends IDebugDocumentProvider {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Detach() {
@@ -109,12 +104,12 @@ export default struct IDebugApplicationNode extends IDebugDocumentProvider {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumChildren := CallbackCreate(GetMethod(implObj, "EnumChildren"), flags, 2)
-        this.vtbl.GetParent := CallbackCreate(GetMethod(implObj, "GetParent"), flags, 2)
-        this.vtbl.SetDocumentProvider := CallbackCreate(GetMethod(implObj, "SetDocumentProvider"), flags, 2)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
-        this.vtbl.Attach := CallbackCreate(GetMethod(implObj, "Attach"), flags, 2)
-        this.vtbl.Detach := CallbackCreate(GetMethod(implObj, "Detach"), flags, 1)
+        this.vtbl.EnumChildren := CallbackCreate(ObjBindMethod(implObj, "EnumChildren"), flags, 2)
+        this.vtbl.GetParent := CallbackCreate(ObjBindMethod(implObj, "GetParent"), flags, 2)
+        this.vtbl.SetDocumentProvider := CallbackCreate(ObjBindMethod(implObj, "SetDocumentProvider"), flags, 2)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
+        this.vtbl.Attach := CallbackCreate(ObjBindMethod(implObj, "Attach"), flags, 2)
+        this.vtbl.Detach := CallbackCreate(ObjBindMethod(implObj, "Detach"), flags, 1)
     }
 
     Dispose() {

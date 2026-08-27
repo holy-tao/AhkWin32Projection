@@ -133,13 +133,13 @@ export default struct ID3D12VideoEncoderHeap extends ID3D12Pageable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNodeMask := CallbackCreate(GetMethod(implObj, "GetNodeMask"), flags, 1)
-        this.vtbl.GetEncoderHeapFlags := CallbackCreate(GetMethod(implObj, "GetEncoderHeapFlags"), flags, 1)
-        this.vtbl.GetCodec := CallbackCreate(GetMethod(implObj, "GetCodec"), flags, 1)
-        this.vtbl.GetCodecProfile := CallbackCreate(GetMethod(implObj, "GetCodecProfile"), flags, 2)
-        this.vtbl.GetCodecLevel := CallbackCreate(GetMethod(implObj, "GetCodecLevel"), flags, 2)
-        this.vtbl.GetResolutionListCount := CallbackCreate(GetMethod(implObj, "GetResolutionListCount"), flags, 1)
-        this.vtbl.GetResolutionList := CallbackCreate(GetMethod(implObj, "GetResolutionList"), flags, 3)
+        this.vtbl.GetNodeMask := CallbackCreate(ObjBindMethod(implObj, "GetNodeMask"), flags, 1)
+        this.vtbl.GetEncoderHeapFlags := CallbackCreate(ObjBindMethod(implObj, "GetEncoderHeapFlags"), flags, 1)
+        this.vtbl.GetCodec := CallbackCreate(ObjBindMethod(implObj, "GetCodec"), flags, 1)
+        this.vtbl.GetCodecProfile := CallbackCreate(ObjBindMethod(implObj, "GetCodecProfile"), flags, 2)
+        this.vtbl.GetCodecLevel := CallbackCreate(ObjBindMethod(implObj, "GetCodecLevel"), flags, 2)
+        this.vtbl.GetResolutionListCount := CallbackCreate(ObjBindMethod(implObj, "GetResolutionListCount"), flags, 1)
+        this.vtbl.GetResolutionList := CallbackCreate(ObjBindMethod(implObj, "GetResolutionList"), flags, 3)
     }
 
     Dispose() {

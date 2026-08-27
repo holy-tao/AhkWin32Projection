@@ -66,7 +66,7 @@ export default struct IUPnPHttpHeaderControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddRequestHeaders := CallbackCreate(GetMethod(implObj, "AddRequestHeaders"), flags, 2)
+        this.vtbl.AddRequestHeaders := CallbackCreate(ObjBindMethod(implObj, "AddRequestHeaders"), flags, 2)
     }
 
     Dispose() {

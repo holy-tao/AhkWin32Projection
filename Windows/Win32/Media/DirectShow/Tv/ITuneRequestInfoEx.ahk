@@ -38,7 +38,6 @@ export default struct ITuneRequestInfoEx extends ITuneRequestInfo {
     }
 
     /**
-     * 
      * @param {ITuneRequest} CurrentRequest 
      * @returns {IUnknown} 
      */
@@ -56,7 +55,7 @@ export default struct ITuneRequestInfoEx extends ITuneRequestInfo {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateComponentListEx := CallbackCreate(GetMethod(implObj, "CreateComponentListEx"), flags, 3)
+        this.vtbl.CreateComponentListEx := CallbackCreate(ObjBindMethod(implObj, "CreateComponentListEx"), flags, 3)
     }
 
     Dispose() {

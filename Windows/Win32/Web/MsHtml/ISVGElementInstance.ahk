@@ -108,7 +108,6 @@ export default struct ISVGElementInstance extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGElement} 
      */
     get_correspondingElement() {
@@ -117,7 +116,6 @@ export default struct ISVGElementInstance extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGUseElement} 
      */
     get_correspondingUseElement() {
@@ -126,7 +124,6 @@ export default struct ISVGElementInstance extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGElementInstance} 
      */
     get_parentNode() {
@@ -135,7 +132,6 @@ export default struct ISVGElementInstance extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGElementInstanceList} 
      */
     get_childNodes() {
@@ -144,7 +140,6 @@ export default struct ISVGElementInstance extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGElementInstance} 
      */
     get_firstChild() {
@@ -153,7 +148,6 @@ export default struct ISVGElementInstance extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGElementInstance} 
      */
     get_lastChild() {
@@ -162,7 +156,6 @@ export default struct ISVGElementInstance extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGElementInstance} 
      */
     get_previousSibling() {
@@ -171,7 +164,6 @@ export default struct ISVGElementInstance extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGElementInstance} 
      */
     get_nextSibling() {
@@ -188,14 +180,14 @@ export default struct ISVGElementInstance extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_correspondingElement := CallbackCreate(GetMethod(implObj, "get_correspondingElement"), flags, 2)
-        this.vtbl.get_correspondingUseElement := CallbackCreate(GetMethod(implObj, "get_correspondingUseElement"), flags, 2)
-        this.vtbl.get_parentNode := CallbackCreate(GetMethod(implObj, "get_parentNode"), flags, 2)
-        this.vtbl.get_childNodes := CallbackCreate(GetMethod(implObj, "get_childNodes"), flags, 2)
-        this.vtbl.get_firstChild := CallbackCreate(GetMethod(implObj, "get_firstChild"), flags, 2)
-        this.vtbl.get_lastChild := CallbackCreate(GetMethod(implObj, "get_lastChild"), flags, 2)
-        this.vtbl.get_previousSibling := CallbackCreate(GetMethod(implObj, "get_previousSibling"), flags, 2)
-        this.vtbl.get_nextSibling := CallbackCreate(GetMethod(implObj, "get_nextSibling"), flags, 2)
+        this.vtbl.get_correspondingElement := CallbackCreate(ObjBindMethod(implObj, "get_correspondingElement"), flags, 2)
+        this.vtbl.get_correspondingUseElement := CallbackCreate(ObjBindMethod(implObj, "get_correspondingUseElement"), flags, 2)
+        this.vtbl.get_parentNode := CallbackCreate(ObjBindMethod(implObj, "get_parentNode"), flags, 2)
+        this.vtbl.get_childNodes := CallbackCreate(ObjBindMethod(implObj, "get_childNodes"), flags, 2)
+        this.vtbl.get_firstChild := CallbackCreate(ObjBindMethod(implObj, "get_firstChild"), flags, 2)
+        this.vtbl.get_lastChild := CallbackCreate(ObjBindMethod(implObj, "get_lastChild"), flags, 2)
+        this.vtbl.get_previousSibling := CallbackCreate(ObjBindMethod(implObj, "get_previousSibling"), flags, 2)
+        this.vtbl.get_nextSibling := CallbackCreate(ObjBindMethod(implObj, "get_nextSibling"), flags, 2)
     }
 
     Dispose() {

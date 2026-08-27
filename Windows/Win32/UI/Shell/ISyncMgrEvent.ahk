@@ -209,17 +209,17 @@ export default struct ISyncMgrEvent extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetEventID := CallbackCreate(GetMethod(implObj, "GetEventID"), flags, 2)
-        this.vtbl.GetHandlerID := CallbackCreate(GetMethod(implObj, "GetHandlerID"), flags, 2)
-        this.vtbl.GetItemID := CallbackCreate(GetMethod(implObj, "GetItemID"), flags, 2)
-        this.vtbl.GetLevel := CallbackCreate(GetMethod(implObj, "GetLevel"), flags, 2)
-        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
-        this.vtbl.GetTime := CallbackCreate(GetMethod(implObj, "GetTime"), flags, 2)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
-        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 2)
-        this.vtbl.GetLinkText := CallbackCreate(GetMethod(implObj, "GetLinkText"), flags, 2)
-        this.vtbl.GetLinkReference := CallbackCreate(GetMethod(implObj, "GetLinkReference"), flags, 2)
-        this.vtbl.GetContext := CallbackCreate(GetMethod(implObj, "GetContext"), flags, 2)
+        this.vtbl.GetEventID := CallbackCreate(ObjBindMethod(implObj, "GetEventID"), flags, 2)
+        this.vtbl.GetHandlerID := CallbackCreate(ObjBindMethod(implObj, "GetHandlerID"), flags, 2)
+        this.vtbl.GetItemID := CallbackCreate(ObjBindMethod(implObj, "GetItemID"), flags, 2)
+        this.vtbl.GetLevel := CallbackCreate(ObjBindMethod(implObj, "GetLevel"), flags, 2)
+        this.vtbl.GetFlags := CallbackCreate(ObjBindMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.GetTime := CallbackCreate(ObjBindMethod(implObj, "GetTime"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetDescription := CallbackCreate(ObjBindMethod(implObj, "GetDescription"), flags, 2)
+        this.vtbl.GetLinkText := CallbackCreate(ObjBindMethod(implObj, "GetLinkText"), flags, 2)
+        this.vtbl.GetLinkReference := CallbackCreate(ObjBindMethod(implObj, "GetLinkReference"), flags, 2)
+        this.vtbl.GetContext := CallbackCreate(ObjBindMethod(implObj, "GetContext"), flags, 2)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct LPDDHALVPORTCB_CANCREATEVIDEOPORT {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_CANCREATEVPORTDATA>} param0 
      * @returns {Integer} 
      */

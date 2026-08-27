@@ -37,7 +37,6 @@ export default struct IElementBehaviorCategory extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetCategory() {
@@ -54,7 +53,7 @@ export default struct IElementBehaviorCategory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCategory := CallbackCreate(GetMethod(implObj, "GetCategory"), flags, 2)
+        this.vtbl.GetCategory := CallbackCreate(ObjBindMethod(implObj, "GetCategory"), flags, 2)
     }
 
     Dispose() {

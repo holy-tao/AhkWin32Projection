@@ -39,7 +39,6 @@ export default struct IDebugFAEntryTags extends Win32ComInterface {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @returns {FA_ENTRY_TYPE} 
      */
@@ -49,7 +48,6 @@ export default struct IDebugFAEntryTags extends Win32ComInterface {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {FA_ENTRY_TYPE} EntryType 
      * @returns {HRESULT} 
@@ -60,7 +58,6 @@ export default struct IDebugFAEntryTags extends Win32ComInterface {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {Integer} Name 
      * @param {Pointer<Integer>} NameSize 
@@ -69,15 +66,18 @@ export default struct IDebugFAEntryTags extends Win32ComInterface {
      * @returns {Integer} 
      */
     GetProperties(Tag, Name, NameSize, Description, DescSize) {
-        NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
-        DescSizeMarshal := DescSize is VarRef ? "uint*" : "ptr"
+        NameMarshal := Name == 0 ? IntPtr : IntPtr
+        NameSizeMarshal := NameSize is VarRef ? "uint*" : IntPtr
+        NameSizeMarshal := NameSize == 0 ? IntPtr : "uint*"
+        DescriptionMarshal := Description == 0 ? IntPtr : IntPtr
+        DescSizeMarshal := DescSize is VarRef ? "uint*" : IntPtr
+        DescSizeMarshal := DescSize == 0 ? IntPtr : "uint*"
 
-        result := ComCall(2, this, DEBUG_FLR_PARAM_TYPE, Tag, IntPtr, Name, NameSizeMarshal, NameSize, IntPtr, Description, DescSizeMarshal, DescSize, "uint*", &Flags := 0, "HRESULT")
+        result := ComCall(2, this, DEBUG_FLR_PARAM_TYPE, Tag, NameMarshal, Name, NameSizeMarshal, NameSize, DescriptionMarshal, Description, DescSizeMarshal, DescSize, "uint*", &Flags := 0, "HRESULT")
         return Flags
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {PSTR} Name 
      * @param {PSTR} Description 
@@ -88,12 +88,15 @@ export default struct IDebugFAEntryTags extends Win32ComInterface {
         Name := Name is String ? StrPtr(Name) : Name
         Description := Description is String ? StrPtr(Description) : Description
 
-        result := ComCall(3, this, DEBUG_FLR_PARAM_TYPE, Tag, "ptr", Name, "ptr", Description, UInt32, Flags, "HRESULT")
+        NameMarshal := Name == 0 ? IntPtr : PSTR
+        DescriptionMarshal := Description == 0 ? IntPtr : PSTR
+        FlagsMarshal := Flags == 0 ? IntPtr : UInt32
+
+        result := ComCall(3, this, DEBUG_FLR_PARAM_TYPE, Tag, NameMarshal, Name, DescriptionMarshal, Description, FlagsMarshal, Flags, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PSTR} PluginId 
      * @param {PSTR} TagName 
      * @returns {DEBUG_FLR_PARAM_TYPE} 
@@ -102,12 +105,13 @@ export default struct IDebugFAEntryTags extends Win32ComInterface {
         PluginId := PluginId is String ? StrPtr(PluginId) : PluginId
         TagName := TagName is String ? StrPtr(TagName) : TagName
 
-        result := ComCall(4, this, "ptr", PluginId, "ptr", TagName, "int*", &Tag := 0, "HRESULT")
+        PluginIdMarshal := PluginId == 0 ? IntPtr : PSTR
+
+        result := ComCall(4, this, PluginIdMarshal, PluginId, "ptr", TagName, "int*", &Tag := 0, "HRESULT")
         return Tag
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @returns {BOOL} 
      */

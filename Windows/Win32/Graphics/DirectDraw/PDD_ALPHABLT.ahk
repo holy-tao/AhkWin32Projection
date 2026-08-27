@@ -19,7 +19,6 @@ export default struct PDD_ALPHABLT {
     }
 
     /**
-     * 
      * @param {Pointer<DD_BLTDATA>} param0 
      * @returns {Integer} 
      */

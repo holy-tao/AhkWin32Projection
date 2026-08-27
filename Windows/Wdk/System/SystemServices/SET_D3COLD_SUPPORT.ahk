@@ -19,13 +19,13 @@ export default struct SET_D3COLD_SUPPORT {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {BOOLEAN} D3ColdSupport 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Context, D3ColdSupport) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, _ContextMarshal, _Context, BOOLEAN, D3ColdSupport)
     }

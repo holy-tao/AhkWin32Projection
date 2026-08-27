@@ -20,7 +20,6 @@ export default struct PFN_HSE_CACHE_INVALIDATION_CALLBACK {
     }
 
     /**
-     * 
      * @param {PWSTR} pszUrl 
      * @returns {HRESULT} 
      */

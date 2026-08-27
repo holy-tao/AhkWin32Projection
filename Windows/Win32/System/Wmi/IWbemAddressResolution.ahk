@@ -37,7 +37,6 @@ export default struct IWbemAddressResolution extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} wszNamespacePath 
      * @param {PWSTR} wszAddressType 
      * @param {Pointer<Integer>} pdwAddressLength 
@@ -48,8 +47,8 @@ export default struct IWbemAddressResolution extends IUnknown {
         wszNamespacePath := wszNamespacePath is String ? StrPtr(wszNamespacePath) : wszNamespacePath
         wszAddressType := wszAddressType is String ? StrPtr(wszAddressType) : wszAddressType
 
-        pdwAddressLengthMarshal := pdwAddressLength is VarRef ? "uint*" : "ptr"
-        pabBinaryAddressMarshal := pabBinaryAddress is VarRef ? "ptr*" : "ptr"
+        pdwAddressLengthMarshal := pdwAddressLength is VarRef ? "uint*" : IntPtr
+        pabBinaryAddressMarshal := pabBinaryAddress is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, "ptr", wszNamespacePath, "ptr", wszAddressType, pdwAddressLengthMarshal, pdwAddressLength, pabBinaryAddressMarshal, pabBinaryAddress, "HRESULT")
         return result
@@ -64,7 +63,7 @@ export default struct IWbemAddressResolution extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Resolve := CallbackCreate(GetMethod(implObj, "Resolve"), flags, 5)
+        this.vtbl.Resolve := CallbackCreate(ObjBindMethod(implObj, "Resolve"), flags, 5)
     }
 
     Dispose() {

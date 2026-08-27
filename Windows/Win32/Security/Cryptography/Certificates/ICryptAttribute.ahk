@@ -86,7 +86,9 @@ export default struct ICryptAttribute extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icryptattribute-initializefromobjectid
      */
     InitializeFromObjectId(pObjectId) {
-        result := ComCall(7, this, "ptr", pObjectId, "HRESULT")
+        pObjectIdMarshal := pObjectId == 0 ? IntPtr : "ptr"
+
+        result := ComCall(7, this, pObjectIdMarshal, pObjectId, "HRESULT")
         return result
     }
 
@@ -101,7 +103,9 @@ export default struct ICryptAttribute extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icryptattribute-initializefromvalues
      */
     InitializeFromValues(pAttributes) {
-        result := ComCall(8, this, "ptr", pAttributes, "HRESULT")
+        pAttributesMarshal := pAttributes == 0 ? IntPtr : "ptr"
+
+        result := ComCall(8, this, pAttributesMarshal, pAttributes, "HRESULT")
         return result
     }
 
@@ -136,10 +140,10 @@ export default struct ICryptAttribute extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeFromObjectId := CallbackCreate(GetMethod(implObj, "InitializeFromObjectId"), flags, 2)
-        this.vtbl.InitializeFromValues := CallbackCreate(GetMethod(implObj, "InitializeFromValues"), flags, 2)
-        this.vtbl.get_ObjectId := CallbackCreate(GetMethod(implObj, "get_ObjectId"), flags, 2)
-        this.vtbl.get_Values := CallbackCreate(GetMethod(implObj, "get_Values"), flags, 2)
+        this.vtbl.InitializeFromObjectId := CallbackCreate(ObjBindMethod(implObj, "InitializeFromObjectId"), flags, 2)
+        this.vtbl.InitializeFromValues := CallbackCreate(ObjBindMethod(implObj, "InitializeFromValues"), flags, 2)
+        this.vtbl.get_ObjectId := CallbackCreate(ObjBindMethod(implObj, "get_ObjectId"), flags, 2)
+        this.vtbl.get_Values := CallbackCreate(ObjBindMethod(implObj, "get_Values"), flags, 2)
     }
 
     Dispose() {

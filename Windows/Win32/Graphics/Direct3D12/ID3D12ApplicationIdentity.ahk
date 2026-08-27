@@ -37,7 +37,6 @@ export default struct ID3D12ApplicationIdentity extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_APPLICATION_DESC>} pDesc 
      * @param {Pointer<Guid>} AppId 
      * @returns {HRESULT} 
@@ -56,7 +55,7 @@ export default struct ID3D12ApplicationIdentity extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetApplicationIdentity := CallbackCreate(GetMethod(implObj, "SetApplicationIdentity"), flags, 3)
+        this.vtbl.SetApplicationIdentity := CallbackCreate(ObjBindMethod(implObj, "SetApplicationIdentity"), flags, 3)
     }
 
     Dispose() {

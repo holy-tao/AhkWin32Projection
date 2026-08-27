@@ -22,7 +22,6 @@ export default struct PFN_DrvIcmCheckBitmapBits {
     }
 
     /**
-     * 
      * @param {DHPDEV} param0 
      * @param {HANDLE} param1 
      * @param {Pointer<SURFOBJ>} param2 
@@ -30,7 +29,7 @@ export default struct PFN_DrvIcmCheckBitmapBits {
      * @returns {BOOL} 
      */
     Call(param0, param1, param2, param3) {
-        param3Marshal := param3 is VarRef ? "char*" : "ptr"
+        param3Marshal := param3 is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, DHPDEV, param0, HANDLE, param1, SURFOBJ.Ptr, param2, param3Marshal, param3, BOOL)
         return result

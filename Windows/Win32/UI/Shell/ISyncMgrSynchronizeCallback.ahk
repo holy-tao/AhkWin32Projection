@@ -454,15 +454,15 @@ export default struct ISyncMgrSynchronizeCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ShowPropertiesCompleted := CallbackCreate(GetMethod(implObj, "ShowPropertiesCompleted"), flags, 2)
-        this.vtbl.PrepareForSyncCompleted := CallbackCreate(GetMethod(implObj, "PrepareForSyncCompleted"), flags, 2)
-        this.vtbl.SynchronizeCompleted := CallbackCreate(GetMethod(implObj, "SynchronizeCompleted"), flags, 2)
-        this.vtbl.ShowErrorCompleted := CallbackCreate(GetMethod(implObj, "ShowErrorCompleted"), flags, 4)
-        this.vtbl.EnableModeless := CallbackCreate(GetMethod(implObj, "EnableModeless"), flags, 2)
-        this.vtbl.Progress := CallbackCreate(GetMethod(implObj, "Progress"), flags, 3)
-        this.vtbl.LogError := CallbackCreate(GetMethod(implObj, "LogError"), flags, 4)
-        this.vtbl.DeleteLogError := CallbackCreate(GetMethod(implObj, "DeleteLogError"), flags, 3)
-        this.vtbl.EstablishConnection := CallbackCreate(GetMethod(implObj, "EstablishConnection"), flags, 3)
+        this.vtbl.ShowPropertiesCompleted := CallbackCreate(ObjBindMethod(implObj, "ShowPropertiesCompleted"), flags, 2)
+        this.vtbl.PrepareForSyncCompleted := CallbackCreate(ObjBindMethod(implObj, "PrepareForSyncCompleted"), flags, 2)
+        this.vtbl.SynchronizeCompleted := CallbackCreate(ObjBindMethod(implObj, "SynchronizeCompleted"), flags, 2)
+        this.vtbl.ShowErrorCompleted := CallbackCreate(ObjBindMethod(implObj, "ShowErrorCompleted"), flags, 4)
+        this.vtbl.EnableModeless := CallbackCreate(ObjBindMethod(implObj, "EnableModeless"), flags, 2)
+        this.vtbl.Progress := CallbackCreate(ObjBindMethod(implObj, "Progress"), flags, 3)
+        this.vtbl.LogError := CallbackCreate(ObjBindMethod(implObj, "LogError"), flags, 4)
+        this.vtbl.DeleteLogError := CallbackCreate(ObjBindMethod(implObj, "DeleteLogError"), flags, 3)
+        this.vtbl.EstablishConnection := CallbackCreate(ObjBindMethod(implObj, "EstablishConnection"), flags, 3)
     }
 
     Dispose() {

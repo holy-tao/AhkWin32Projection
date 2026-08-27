@@ -20,7 +20,6 @@ export default struct PWINBIO_QUERY_STORAGE_INTERFACE_FN {
     }
 
     /**
-     * 
      * @returns {Pointer<WINBIO_STORAGE_INTERFACE>} 
      */
     Call() {

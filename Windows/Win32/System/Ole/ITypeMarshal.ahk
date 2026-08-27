@@ -47,15 +47,14 @@ export default struct ITypeMarshal extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/windows.foundation/ns-windows-foundation-size
      */
     Size(pvType, dwDestContext, pvDestContext) {
-        pvTypeMarshal := pvType is VarRef ? "ptr" : "ptr"
-        pvDestContextMarshal := pvDestContext is VarRef ? "ptr" : "ptr"
+        pvTypeMarshal := pvType is VarRef ? "ptr" : IntPtr
+        pvDestContextMarshal := pvDestContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, pvTypeMarshal, pvType, UInt32, dwDestContext, pvDestContextMarshal, pvDestContext, "uint*", &pSize := 0, "HRESULT")
         return pSize
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvType 
      * @param {Integer} dwDestContext 
      * @param {Pointer<Void>} pvDestContext 
@@ -64,15 +63,14 @@ export default struct ITypeMarshal extends IUnknown {
      * @returns {Integer} 
      */
     Marshal(pvType, dwDestContext, pvDestContext, cbBufferLength, pBuffer) {
-        pvTypeMarshal := pvType is VarRef ? "ptr" : "ptr"
-        pvDestContextMarshal := pvDestContext is VarRef ? "ptr" : "ptr"
+        pvTypeMarshal := pvType is VarRef ? "ptr" : IntPtr
+        pvDestContextMarshal := pvDestContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(4, this, pvTypeMarshal, pvType, UInt32, dwDestContext, pvDestContextMarshal, pvDestContext, UInt32, cbBufferLength, IntPtr, pBuffer, "uint*", &pcbWritten := 0, "HRESULT")
         return pcbWritten
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvType 
      * @param {Integer} dwFlags 
      * @param {Integer} cbBufferLength 
@@ -81,21 +79,20 @@ export default struct ITypeMarshal extends IUnknown {
      * @returns {HRESULT} 
      */
     Unmarshal(pvType, dwFlags, cbBufferLength, pBuffer, pcbRead) {
-        pvTypeMarshal := pvType is VarRef ? "ptr" : "ptr"
-        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
-        pcbReadMarshal := pcbRead is VarRef ? "uint*" : "ptr"
+        pvTypeMarshal := pvType is VarRef ? "ptr" : IntPtr
+        pBufferMarshal := pBuffer is VarRef ? "char*" : IntPtr
+        pcbReadMarshal := pcbRead is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, pvTypeMarshal, pvType, UInt32, dwFlags, UInt32, cbBufferLength, pBufferMarshal, pBuffer, pcbReadMarshal, pcbRead, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvType 
      * @returns {HRESULT} 
      */
     Free(pvType) {
-        pvTypeMarshal := pvType is VarRef ? "ptr" : "ptr"
+        pvTypeMarshal := pvType is VarRef ? "ptr" : IntPtr
 
         result := ComCall(6, this, pvTypeMarshal, pvType, "HRESULT")
         return result
@@ -110,10 +107,10 @@ export default struct ITypeMarshal extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Size := CallbackCreate(GetMethod(implObj, "Size"), flags, 5)
-        this.vtbl.Marshal := CallbackCreate(GetMethod(implObj, "Marshal"), flags, 7)
-        this.vtbl.Unmarshal := CallbackCreate(GetMethod(implObj, "Unmarshal"), flags, 6)
-        this.vtbl.Free := CallbackCreate(GetMethod(implObj, "Free"), flags, 2)
+        this.vtbl.Size := CallbackCreate(ObjBindMethod(implObj, "Size"), flags, 5)
+        this.vtbl.Marshal := CallbackCreate(ObjBindMethod(implObj, "Marshal"), flags, 7)
+        this.vtbl.Unmarshal := CallbackCreate(ObjBindMethod(implObj, "Unmarshal"), flags, 6)
+        this.vtbl.Free := CallbackCreate(ObjBindMethod(implObj, "Free"), flags, 2)
     }
 
     Dispose() {

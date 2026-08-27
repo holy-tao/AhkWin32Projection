@@ -18,7 +18,6 @@ export default struct PFN {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     Call() {

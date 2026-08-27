@@ -18,7 +18,6 @@ export default struct PFN_RPC_ALLOCATE {
     }
 
     /**
-     * 
      * @param {Pointer} param0 
      * @returns {Pointer<Void>} 
      */

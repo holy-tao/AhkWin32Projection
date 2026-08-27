@@ -87,8 +87,8 @@ export default struct IExplorerCommandProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCommands := CallbackCreate(GetMethod(implObj, "GetCommands"), flags, 4)
-        this.vtbl.GetCommand := CallbackCreate(GetMethod(implObj, "GetCommand"), flags, 4)
+        this.vtbl.GetCommands := CallbackCreate(ObjBindMethod(implObj, "GetCommands"), flags, 4)
+        this.vtbl.GetCommand := CallbackCreate(ObjBindMethod(implObj, "GetCommand"), flags, 4)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct SILO_MONITOR_CREATE_CALLBACK {
     }
 
     /**
-     * 
      * @param {PESILO} Silo 
      * @returns {NTSTATUS} 
      */

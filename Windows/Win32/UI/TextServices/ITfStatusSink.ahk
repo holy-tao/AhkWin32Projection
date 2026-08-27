@@ -61,7 +61,7 @@ export default struct ITfStatusSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnStatusChange := CallbackCreate(GetMethod(implObj, "OnStatusChange"), flags, 3)
+        this.vtbl.OnStatusChange := CallbackCreate(ObjBindMethod(implObj, "OnStatusChange"), flags, 3)
     }
 
     Dispose() {

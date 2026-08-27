@@ -58,7 +58,7 @@ export default struct INetworkListManagerEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ConnectivityChanged := CallbackCreate(GetMethod(implObj, "ConnectivityChanged"), flags, 2)
+        this.vtbl.ConnectivityChanged := CallbackCreate(ObjBindMethod(implObj, "ConnectivityChanged"), flags, 2)
     }
 
     Dispose() {

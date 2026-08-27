@@ -59,7 +59,7 @@ export default struct IESValueUpdatedEvent extends IESEvent {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetValueNames := CallbackCreate(GetMethod(implObj, "GetValueNames"), flags, 2)
+        this.vtbl.GetValueNames := CallbackCreate(ObjBindMethod(implObj, "GetValueNames"), flags, 2)
     }
 
     Dispose() {

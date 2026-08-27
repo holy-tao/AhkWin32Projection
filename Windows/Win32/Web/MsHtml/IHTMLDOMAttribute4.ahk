@@ -110,7 +110,6 @@ export default struct IHTMLDOMAttribute4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -120,7 +119,6 @@ export default struct IHTMLDOMAttribute4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_nodeValue() {
@@ -130,7 +128,6 @@ export default struct IHTMLDOMAttribute4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_nodeName() {
@@ -140,7 +137,6 @@ export default struct IHTMLDOMAttribute4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -150,7 +146,6 @@ export default struct IHTMLDOMAttribute4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -162,7 +157,6 @@ export default struct IHTMLDOMAttribute4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_value() {
@@ -172,7 +166,6 @@ export default struct IHTMLDOMAttribute4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDOMNode} 
      */
     get_firstChild() {
@@ -181,7 +174,6 @@ export default struct IHTMLDOMAttribute4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDOMNode} 
      */
     get_lastChild() {
@@ -190,7 +182,6 @@ export default struct IHTMLDOMAttribute4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_childNodes() {
@@ -199,7 +190,6 @@ export default struct IHTMLDOMAttribute4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     hasAttributes() {
@@ -208,7 +198,6 @@ export default struct IHTMLDOMAttribute4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     hasChildNodes() {
@@ -238,7 +227,6 @@ export default struct IHTMLDOMAttribute4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_specified() {
@@ -255,19 +243,19 @@ export default struct IHTMLDOMAttribute4 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_nodeValue := CallbackCreate(GetMethod(implObj, "put_nodeValue"), flags, 2)
-        this.vtbl.get_nodeValue := CallbackCreate(GetMethod(implObj, "get_nodeValue"), flags, 2)
-        this.vtbl.get_nodeName := CallbackCreate(GetMethod(implObj, "get_nodeName"), flags, 2)
-        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
-        this.vtbl.put_value := CallbackCreate(GetMethod(implObj, "put_value"), flags, 2)
-        this.vtbl.get_value := CallbackCreate(GetMethod(implObj, "get_value"), flags, 2)
-        this.vtbl.get_firstChild := CallbackCreate(GetMethod(implObj, "get_firstChild"), flags, 2)
-        this.vtbl.get_lastChild := CallbackCreate(GetMethod(implObj, "get_lastChild"), flags, 2)
-        this.vtbl.get_childNodes := CallbackCreate(GetMethod(implObj, "get_childNodes"), flags, 2)
-        this.vtbl.hasAttributes := CallbackCreate(GetMethod(implObj, "hasAttributes"), flags, 2)
-        this.vtbl.hasChildNodes := CallbackCreate(GetMethod(implObj, "hasChildNodes"), flags, 2)
-        this.vtbl.normalize := CallbackCreate(GetMethod(implObj, "normalize"), flags, 1)
-        this.vtbl.get_specified := CallbackCreate(GetMethod(implObj, "get_specified"), flags, 2)
+        this.vtbl.put_nodeValue := CallbackCreate(ObjBindMethod(implObj, "put_nodeValue"), flags, 2)
+        this.vtbl.get_nodeValue := CallbackCreate(ObjBindMethod(implObj, "get_nodeValue"), flags, 2)
+        this.vtbl.get_nodeName := CallbackCreate(ObjBindMethod(implObj, "get_nodeName"), flags, 2)
+        this.vtbl.get_name := CallbackCreate(ObjBindMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.put_value := CallbackCreate(ObjBindMethod(implObj, "put_value"), flags, 2)
+        this.vtbl.get_value := CallbackCreate(ObjBindMethod(implObj, "get_value"), flags, 2)
+        this.vtbl.get_firstChild := CallbackCreate(ObjBindMethod(implObj, "get_firstChild"), flags, 2)
+        this.vtbl.get_lastChild := CallbackCreate(ObjBindMethod(implObj, "get_lastChild"), flags, 2)
+        this.vtbl.get_childNodes := CallbackCreate(ObjBindMethod(implObj, "get_childNodes"), flags, 2)
+        this.vtbl.hasAttributes := CallbackCreate(ObjBindMethod(implObj, "hasAttributes"), flags, 2)
+        this.vtbl.hasChildNodes := CallbackCreate(ObjBindMethod(implObj, "hasChildNodes"), flags, 2)
+        this.vtbl.normalize := CallbackCreate(ObjBindMethod(implObj, "normalize"), flags, 1)
+        this.vtbl.get_specified := CallbackCreate(ObjBindMethod(implObj, "get_specified"), flags, 2)
     }
 
     Dispose() {

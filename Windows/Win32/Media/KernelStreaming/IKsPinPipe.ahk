@@ -53,36 +53,33 @@ export default struct IKsPinPipe extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<KSALLOCATOR_FRAMING_EX>>} FramingEx 
      * @param {Pointer<FRAMING_PROP>} FramingProp 
      * @param {FRAMING_CACHE_OPS} Option 
      * @returns {HRESULT} 
      */
     KsGetPinFramingCache(FramingEx, FramingProp, Option) {
-        FramingExMarshal := FramingEx is VarRef ? "ptr*" : "ptr"
-        FramingPropMarshal := FramingProp is VarRef ? "int*" : "ptr"
+        FramingExMarshal := FramingEx is VarRef ? "ptr*" : IntPtr
+        FramingPropMarshal := FramingProp is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, FramingExMarshal, FramingEx, FramingPropMarshal, FramingProp, FRAMING_CACHE_OPS, Option, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<KSALLOCATOR_FRAMING_EX>} FramingEx 
      * @param {Pointer<FRAMING_PROP>} FramingProp 
      * @param {FRAMING_CACHE_OPS} Option 
      * @returns {HRESULT} 
      */
     KsSetPinFramingCache(FramingEx, FramingProp, Option) {
-        FramingPropMarshal := FramingProp is VarRef ? "int*" : "ptr"
+        FramingPropMarshal := FramingProp is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, KSALLOCATOR_FRAMING_EX.Ptr, FramingEx, FramingPropMarshal, FramingProp, FRAMING_CACHE_OPS, Option, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {IPin} 
      */
     KsGetConnectedPin() {
@@ -91,7 +88,6 @@ export default struct IKsPinPipe extends IUnknown {
     }
 
     /**
-     * 
      * @param {KSPEEKOPERATION} Operation 
      * @returns {IKsAllocatorEx} 
      */
@@ -101,7 +97,6 @@ export default struct IKsPinPipe extends IUnknown {
     }
 
     /**
-     * 
      * @param {IKsAllocatorEx} KsAllocator 
      * @returns {HRESULT} 
      */
@@ -111,7 +106,6 @@ export default struct IKsPinPipe extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     KsGetPipeAllocatorFlag() {
@@ -120,7 +114,6 @@ export default struct IKsPinPipe extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Flag 
      * @returns {HRESULT} 
      */
@@ -130,7 +123,6 @@ export default struct IKsPinPipe extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     KsGetPinBusCache() {
@@ -139,7 +131,6 @@ export default struct IKsPinPipe extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} Bus 
      * @returns {HRESULT} 
      */
@@ -149,7 +140,6 @@ export default struct IKsPinPipe extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     KsGetPinName() {
@@ -158,7 +148,6 @@ export default struct IKsPinPipe extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     KsGetFilterName() {
@@ -175,17 +164,17 @@ export default struct IKsPinPipe extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.KsGetPinFramingCache := CallbackCreate(GetMethod(implObj, "KsGetPinFramingCache"), flags, 4)
-        this.vtbl.KsSetPinFramingCache := CallbackCreate(GetMethod(implObj, "KsSetPinFramingCache"), flags, 4)
-        this.vtbl.KsGetConnectedPin := CallbackCreate(GetMethod(implObj, "KsGetConnectedPin"), flags, 1)
-        this.vtbl.KsGetPipe := CallbackCreate(GetMethod(implObj, "KsGetPipe"), flags, 2)
-        this.vtbl.KsSetPipe := CallbackCreate(GetMethod(implObj, "KsSetPipe"), flags, 2)
-        this.vtbl.KsGetPipeAllocatorFlag := CallbackCreate(GetMethod(implObj, "KsGetPipeAllocatorFlag"), flags, 1)
-        this.vtbl.KsSetPipeAllocatorFlag := CallbackCreate(GetMethod(implObj, "KsSetPipeAllocatorFlag"), flags, 2)
-        this.vtbl.KsGetPinBusCache := CallbackCreate(GetMethod(implObj, "KsGetPinBusCache"), flags, 1)
-        this.vtbl.KsSetPinBusCache := CallbackCreate(GetMethod(implObj, "KsSetPinBusCache"), flags, 2)
-        this.vtbl.KsGetPinName := CallbackCreate(GetMethod(implObj, "KsGetPinName"), flags, 1)
-        this.vtbl.KsGetFilterName := CallbackCreate(GetMethod(implObj, "KsGetFilterName"), flags, 1)
+        this.vtbl.KsGetPinFramingCache := CallbackCreate(ObjBindMethod(implObj, "KsGetPinFramingCache"), flags, 4)
+        this.vtbl.KsSetPinFramingCache := CallbackCreate(ObjBindMethod(implObj, "KsSetPinFramingCache"), flags, 4)
+        this.vtbl.KsGetConnectedPin := CallbackCreate(ObjBindMethod(implObj, "KsGetConnectedPin"), flags, 1)
+        this.vtbl.KsGetPipe := CallbackCreate(ObjBindMethod(implObj, "KsGetPipe"), flags, 2)
+        this.vtbl.KsSetPipe := CallbackCreate(ObjBindMethod(implObj, "KsSetPipe"), flags, 2)
+        this.vtbl.KsGetPipeAllocatorFlag := CallbackCreate(ObjBindMethod(implObj, "KsGetPipeAllocatorFlag"), flags, 1)
+        this.vtbl.KsSetPipeAllocatorFlag := CallbackCreate(ObjBindMethod(implObj, "KsSetPipeAllocatorFlag"), flags, 2)
+        this.vtbl.KsGetPinBusCache := CallbackCreate(ObjBindMethod(implObj, "KsGetPinBusCache"), flags, 1)
+        this.vtbl.KsSetPinBusCache := CallbackCreate(ObjBindMethod(implObj, "KsSetPinBusCache"), flags, 2)
+        this.vtbl.KsGetPinName := CallbackCreate(ObjBindMethod(implObj, "KsGetPinName"), flags, 1)
+        this.vtbl.KsGetFilterName := CallbackCreate(ObjBindMethod(implObj, "KsGetFilterName"), flags, 1)
     }
 
     Dispose() {

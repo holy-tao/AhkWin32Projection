@@ -38,7 +38,6 @@ export default struct ISpRegDataKey extends ISpDataKey {
     }
 
     /**
-     * 
      * @param {HKEY} _hkey 
      * @param {BOOL} fReadOnly 
      * @returns {HRESULT} 
@@ -57,7 +56,7 @@ export default struct ISpRegDataKey extends ISpDataKey {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetKey := CallbackCreate(GetMethod(implObj, "SetKey"), flags, 3)
+        this.vtbl.SetKey := CallbackCreate(ObjBindMethod(implObj, "SetKey"), flags, 3)
     }
 
     Dispose() {

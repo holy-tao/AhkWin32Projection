@@ -59,7 +59,6 @@ export default struct IOpenServiceActivity extends IOpenService {
     }
 
     /**
-     * 
      * @param {IOpenServiceActivityInput} pInput 
      * @param {IOpenServiceActivityOutputContext} pOutput 
      * @returns {HRESULT} 
@@ -70,7 +69,6 @@ export default struct IOpenServiceActivity extends IOpenService {
     }
 
     /**
-     * 
      * @param {IOpenServiceActivityInput} pInput 
      * @param {IOpenServiceActivityOutputContext} pOutput 
      * @returns {BOOL} 
@@ -81,7 +79,6 @@ export default struct IOpenServiceActivity extends IOpenService {
     }
 
     /**
-     * 
      * @param {OpenServiceActivityContentType} type 
      * @returns {BOOL} 
      */
@@ -91,7 +88,6 @@ export default struct IOpenServiceActivity extends IOpenService {
     }
 
     /**
-     * 
      * @param {IOpenServiceActivityInput} pInput 
      * @param {IOpenServiceActivityOutputContext} pOutput 
      * @returns {HRESULT} 
@@ -102,7 +98,6 @@ export default struct IOpenServiceActivity extends IOpenService {
     }
 
     /**
-     * 
      * @param {IOpenServiceActivityInput} pInput 
      * @param {IOpenServiceActivityOutputContext} pOutput 
      * @returns {BOOL} 
@@ -113,7 +108,6 @@ export default struct IOpenServiceActivity extends IOpenService {
     }
 
     /**
-     * 
      * @param {OpenServiceActivityContentType} type 
      * @returns {BOOL} 
      */
@@ -123,7 +117,6 @@ export default struct IOpenServiceActivity extends IOpenService {
     }
 
     /**
-     * 
      * @param {IOpenServiceActivityInput} pInput 
      * @returns {BSTR} 
      */
@@ -134,7 +127,6 @@ export default struct IOpenServiceActivity extends IOpenService {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetHomepageUrl() {
@@ -144,7 +136,6 @@ export default struct IOpenServiceActivity extends IOpenService {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetDisplayName() {
@@ -165,7 +156,6 @@ export default struct IOpenServiceActivity extends IOpenService {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetCategoryName() {
@@ -175,7 +165,6 @@ export default struct IOpenServiceActivity extends IOpenService {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetIconPath() {
@@ -185,7 +174,6 @@ export default struct IOpenServiceActivity extends IOpenService {
     }
 
     /**
-     * 
      * @param {BOOL} fSmallIcon 
      * @returns {HICON} 
      */
@@ -196,7 +184,6 @@ export default struct IOpenServiceActivity extends IOpenService {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetDescriptionFilePath() {
@@ -206,7 +193,6 @@ export default struct IOpenServiceActivity extends IOpenService {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetDownloadUrl() {
@@ -216,7 +202,6 @@ export default struct IOpenServiceActivity extends IOpenService {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetInstallUrl() {
@@ -264,7 +249,6 @@ export default struct IOpenServiceActivity extends IOpenService {
     }
 
     /**
-     * 
      * @param {BOOL} fEnable 
      * @returns {HRESULT} 
      */
@@ -282,24 +266,24 @@ export default struct IOpenServiceActivity extends IOpenService {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Execute := CallbackCreate(GetMethod(implObj, "Execute"), flags, 3)
-        this.vtbl.CanExecute := CallbackCreate(GetMethod(implObj, "CanExecute"), flags, 4)
-        this.vtbl.CanExecuteType := CallbackCreate(GetMethod(implObj, "CanExecuteType"), flags, 3)
-        this.vtbl.Preview := CallbackCreate(GetMethod(implObj, "Preview"), flags, 3)
-        this.vtbl.CanPreview := CallbackCreate(GetMethod(implObj, "CanPreview"), flags, 4)
-        this.vtbl.CanPreviewType := CallbackCreate(GetMethod(implObj, "CanPreviewType"), flags, 3)
-        this.vtbl.GetStatusText := CallbackCreate(GetMethod(implObj, "GetStatusText"), flags, 3)
-        this.vtbl.GetHomepageUrl := CallbackCreate(GetMethod(implObj, "GetHomepageUrl"), flags, 2)
-        this.vtbl.GetDisplayName := CallbackCreate(GetMethod(implObj, "GetDisplayName"), flags, 2)
-        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 2)
-        this.vtbl.GetCategoryName := CallbackCreate(GetMethod(implObj, "GetCategoryName"), flags, 2)
-        this.vtbl.GetIconPath := CallbackCreate(GetMethod(implObj, "GetIconPath"), flags, 2)
-        this.vtbl.GetIcon := CallbackCreate(GetMethod(implObj, "GetIcon"), flags, 3)
-        this.vtbl.GetDescriptionFilePath := CallbackCreate(GetMethod(implObj, "GetDescriptionFilePath"), flags, 2)
-        this.vtbl.GetDownloadUrl := CallbackCreate(GetMethod(implObj, "GetDownloadUrl"), flags, 2)
-        this.vtbl.GetInstallUrl := CallbackCreate(GetMethod(implObj, "GetInstallUrl"), flags, 2)
-        this.vtbl.IsEnabled := CallbackCreate(GetMethod(implObj, "IsEnabled"), flags, 2)
-        this.vtbl.SetEnabled := CallbackCreate(GetMethod(implObj, "SetEnabled"), flags, 2)
+        this.vtbl.Execute := CallbackCreate(ObjBindMethod(implObj, "Execute"), flags, 3)
+        this.vtbl.CanExecute := CallbackCreate(ObjBindMethod(implObj, "CanExecute"), flags, 4)
+        this.vtbl.CanExecuteType := CallbackCreate(ObjBindMethod(implObj, "CanExecuteType"), flags, 3)
+        this.vtbl.Preview := CallbackCreate(ObjBindMethod(implObj, "Preview"), flags, 3)
+        this.vtbl.CanPreview := CallbackCreate(ObjBindMethod(implObj, "CanPreview"), flags, 4)
+        this.vtbl.CanPreviewType := CallbackCreate(ObjBindMethod(implObj, "CanPreviewType"), flags, 3)
+        this.vtbl.GetStatusText := CallbackCreate(ObjBindMethod(implObj, "GetStatusText"), flags, 3)
+        this.vtbl.GetHomepageUrl := CallbackCreate(ObjBindMethod(implObj, "GetHomepageUrl"), flags, 2)
+        this.vtbl.GetDisplayName := CallbackCreate(ObjBindMethod(implObj, "GetDisplayName"), flags, 2)
+        this.vtbl.GetDescription := CallbackCreate(ObjBindMethod(implObj, "GetDescription"), flags, 2)
+        this.vtbl.GetCategoryName := CallbackCreate(ObjBindMethod(implObj, "GetCategoryName"), flags, 2)
+        this.vtbl.GetIconPath := CallbackCreate(ObjBindMethod(implObj, "GetIconPath"), flags, 2)
+        this.vtbl.GetIcon := CallbackCreate(ObjBindMethod(implObj, "GetIcon"), flags, 3)
+        this.vtbl.GetDescriptionFilePath := CallbackCreate(ObjBindMethod(implObj, "GetDescriptionFilePath"), flags, 2)
+        this.vtbl.GetDownloadUrl := CallbackCreate(ObjBindMethod(implObj, "GetDownloadUrl"), flags, 2)
+        this.vtbl.GetInstallUrl := CallbackCreate(ObjBindMethod(implObj, "GetInstallUrl"), flags, 2)
+        this.vtbl.IsEnabled := CallbackCreate(ObjBindMethod(implObj, "IsEnabled"), flags, 2)
+        this.vtbl.SetEnabled := CallbackCreate(ObjBindMethod(implObj, "SetEnabled"), flags, 2)
     }
 
     Dispose() {

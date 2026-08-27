@@ -36,7 +36,6 @@ export default struct IDxcBlob extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<Void>} 
      */
     GetBufferPointer() {
@@ -45,7 +44,6 @@ export default struct IDxcBlob extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     GetBufferSize() {
@@ -62,8 +60,8 @@ export default struct IDxcBlob extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetBufferPointer := CallbackCreate(GetMethod(implObj, "GetBufferPointer"), flags, 1)
-        this.vtbl.GetBufferSize := CallbackCreate(GetMethod(implObj, "GetBufferSize"), flags, 1)
+        this.vtbl.GetBufferPointer := CallbackCreate(ObjBindMethod(implObj, "GetBufferPointer"), flags, 1)
+        this.vtbl.GetBufferSize := CallbackCreate(ObjBindMethod(implObj, "GetBufferSize"), flags, 1)
     }
 
     Dispose() {

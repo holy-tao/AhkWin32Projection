@@ -91,7 +91,6 @@ export default struct IHTMLMediaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -101,7 +100,6 @@ export default struct IHTMLMediaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_currentTimeDouble() {
@@ -110,7 +108,6 @@ export default struct IHTMLMediaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_initialTimeDouble() {
@@ -119,7 +116,6 @@ export default struct IHTMLMediaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_durationDouble() {
@@ -128,7 +124,6 @@ export default struct IHTMLMediaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -138,7 +133,6 @@ export default struct IHTMLMediaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_defaultPlaybackRateDouble() {
@@ -147,7 +141,6 @@ export default struct IHTMLMediaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -157,7 +150,6 @@ export default struct IHTMLMediaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_playbackRateDouble() {
@@ -166,7 +158,6 @@ export default struct IHTMLMediaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -176,7 +167,6 @@ export default struct IHTMLMediaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_volumeDouble() {
@@ -193,16 +183,16 @@ export default struct IHTMLMediaElement2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_currentTimeDouble := CallbackCreate(GetMethod(implObj, "put_currentTimeDouble"), flags, 2)
-        this.vtbl.get_currentTimeDouble := CallbackCreate(GetMethod(implObj, "get_currentTimeDouble"), flags, 2)
-        this.vtbl.get_initialTimeDouble := CallbackCreate(GetMethod(implObj, "get_initialTimeDouble"), flags, 2)
-        this.vtbl.get_durationDouble := CallbackCreate(GetMethod(implObj, "get_durationDouble"), flags, 2)
-        this.vtbl.put_defaultPlaybackRateDouble := CallbackCreate(GetMethod(implObj, "put_defaultPlaybackRateDouble"), flags, 2)
-        this.vtbl.get_defaultPlaybackRateDouble := CallbackCreate(GetMethod(implObj, "get_defaultPlaybackRateDouble"), flags, 2)
-        this.vtbl.put_playbackRateDouble := CallbackCreate(GetMethod(implObj, "put_playbackRateDouble"), flags, 2)
-        this.vtbl.get_playbackRateDouble := CallbackCreate(GetMethod(implObj, "get_playbackRateDouble"), flags, 2)
-        this.vtbl.put_volumeDouble := CallbackCreate(GetMethod(implObj, "put_volumeDouble"), flags, 2)
-        this.vtbl.get_volumeDouble := CallbackCreate(GetMethod(implObj, "get_volumeDouble"), flags, 2)
+        this.vtbl.put_currentTimeDouble := CallbackCreate(ObjBindMethod(implObj, "put_currentTimeDouble"), flags, 2)
+        this.vtbl.get_currentTimeDouble := CallbackCreate(ObjBindMethod(implObj, "get_currentTimeDouble"), flags, 2)
+        this.vtbl.get_initialTimeDouble := CallbackCreate(ObjBindMethod(implObj, "get_initialTimeDouble"), flags, 2)
+        this.vtbl.get_durationDouble := CallbackCreate(ObjBindMethod(implObj, "get_durationDouble"), flags, 2)
+        this.vtbl.put_defaultPlaybackRateDouble := CallbackCreate(ObjBindMethod(implObj, "put_defaultPlaybackRateDouble"), flags, 2)
+        this.vtbl.get_defaultPlaybackRateDouble := CallbackCreate(ObjBindMethod(implObj, "get_defaultPlaybackRateDouble"), flags, 2)
+        this.vtbl.put_playbackRateDouble := CallbackCreate(ObjBindMethod(implObj, "put_playbackRateDouble"), flags, 2)
+        this.vtbl.get_playbackRateDouble := CallbackCreate(ObjBindMethod(implObj, "get_playbackRateDouble"), flags, 2)
+        this.vtbl.put_volumeDouble := CallbackCreate(ObjBindMethod(implObj, "put_volumeDouble"), flags, 2)
+        this.vtbl.get_volumeDouble := CallbackCreate(ObjBindMethod(implObj, "get_volumeDouble"), flags, 2)
     }
 
     Dispose() {

@@ -200,7 +200,7 @@ export default struct ISyncCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isynccallback-onfullenumerationneeded
      */
     OnFullEnumerationNeeded(pFullEnumerationAction) {
-        pFullEnumerationActionMarshal := pFullEnumerationAction is VarRef ? "int*" : "ptr"
+        pFullEnumerationActionMarshal := pFullEnumerationAction is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, pFullEnumerationActionMarshal, pFullEnumerationAction, "HRESULT")
         return result
@@ -252,11 +252,11 @@ export default struct ISyncCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnProgress := CallbackCreate(GetMethod(implObj, "OnProgress"), flags, 5)
-        this.vtbl.OnChange := CallbackCreate(GetMethod(implObj, "OnChange"), flags, 2)
-        this.vtbl.OnConflict := CallbackCreate(GetMethod(implObj, "OnConflict"), flags, 2)
-        this.vtbl.OnFullEnumerationNeeded := CallbackCreate(GetMethod(implObj, "OnFullEnumerationNeeded"), flags, 2)
-        this.vtbl.OnRecoverableError := CallbackCreate(GetMethod(implObj, "OnRecoverableError"), flags, 2)
+        this.vtbl.OnProgress := CallbackCreate(ObjBindMethod(implObj, "OnProgress"), flags, 5)
+        this.vtbl.OnChange := CallbackCreate(ObjBindMethod(implObj, "OnChange"), flags, 2)
+        this.vtbl.OnConflict := CallbackCreate(ObjBindMethod(implObj, "OnConflict"), flags, 2)
+        this.vtbl.OnFullEnumerationNeeded := CallbackCreate(ObjBindMethod(implObj, "OnFullEnumerationNeeded"), flags, 2)
+        this.vtbl.OnRecoverableError := CallbackCreate(ObjBindMethod(implObj, "OnRecoverableError"), flags, 2)
     }
 
     Dispose() {

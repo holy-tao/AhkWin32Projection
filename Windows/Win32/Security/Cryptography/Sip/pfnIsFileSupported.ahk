@@ -27,7 +27,6 @@ export default struct pfnIsFileSupported {
     }
 
     /**
-     * 
      * @param {HANDLE} hFile A handle to the file.
      * @param {Pointer<Guid>} pgSubject The GUID that identifies the SIP that handles the file type.
      * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>.

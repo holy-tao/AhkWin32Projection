@@ -55,7 +55,6 @@ export default struct IDebugHostFunctionLocalDetails extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugHostType} 
      */
     GetType() {
@@ -64,7 +63,6 @@ export default struct IDebugHostFunctionLocalDetails extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugHostFunctionLocalStorageEnumerator} 
      */
     EnumerateStorage() {
@@ -73,7 +71,6 @@ export default struct IDebugHostFunctionLocalDetails extends IUnknown {
     }
 
     /**
-     * 
      * @returns {LocalKind} 
      */
     GetLocalKind() {
@@ -82,7 +79,6 @@ export default struct IDebugHostFunctionLocalDetails extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetArgumentPosition() {
@@ -99,11 +95,11 @@ export default struct IDebugHostFunctionLocalDetails extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
-        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
-        this.vtbl.EnumerateStorage := CallbackCreate(GetMethod(implObj, "EnumerateStorage"), flags, 2)
-        this.vtbl.GetLocalKind := CallbackCreate(GetMethod(implObj, "GetLocalKind"), flags, 2)
-        this.vtbl.GetArgumentPosition := CallbackCreate(GetMethod(implObj, "GetArgumentPosition"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(ObjBindMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.EnumerateStorage := CallbackCreate(ObjBindMethod(implObj, "EnumerateStorage"), flags, 2)
+        this.vtbl.GetLocalKind := CallbackCreate(ObjBindMethod(implObj, "GetLocalKind"), flags, 2)
+        this.vtbl.GetArgumentPosition := CallbackCreate(ObjBindMethod(implObj, "GetArgumentPosition"), flags, 2)
     }
 
     Dispose() {

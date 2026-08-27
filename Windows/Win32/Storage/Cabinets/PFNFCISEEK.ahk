@@ -18,7 +18,6 @@ export default struct PFNFCISEEK {
     }
 
     /**
-     * 
      * @param {Pointer} hf 
      * @param {Integer} dist 
      * @param {Integer} seektype 
@@ -27,8 +26,8 @@ export default struct PFNFCISEEK {
      * @returns {Integer} 
      */
     Call(hf, dist, seektype, err, pv) {
-        errMarshal := err is VarRef ? "int*" : "ptr"
-        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+        errMarshal := err is VarRef ? "int*" : IntPtr
+        pvMarshal := pv is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, IntPtr, hf, Int32, dist, Int32, seektype, errMarshal, err, pvMarshal, pv, Int32)
         return result

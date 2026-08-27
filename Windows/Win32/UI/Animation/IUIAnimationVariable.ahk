@@ -194,7 +194,9 @@ export default struct IUIAnimationVariable extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable-settag
      */
     SetTag(_object, id) {
-        result := ComCall(13, this, "ptr", _object, UInt32, id, "HRESULT")
+        _objectMarshal := _object == 0 ? IntPtr : "ptr"
+
+        result := ComCall(13, this, _objectMarshal, _object, UInt32, id, "HRESULT")
         return result
     }
 
@@ -228,9 +230,11 @@ export default struct IUIAnimationVariable extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable-gettag
      */
     GetTag(_object, id) {
-        idMarshal := id is VarRef ? "uint*" : "ptr"
+        _objectMarshal := _object == 0 ? IntPtr : IUnknown.Ptr
+        idMarshal := id is VarRef ? "uint*" : IntPtr
+        idMarshal := id == 0 ? IntPtr : "uint*"
 
-        result := ComCall(14, this, IUnknown.Ptr, _object, idMarshal, id, "HRESULT")
+        result := ComCall(14, this, _objectMarshal, _object, idMarshal, id, "HRESULT")
         return result
     }
 
@@ -247,7 +251,9 @@ export default struct IUIAnimationVariable extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable-setvariablechangehandler
      */
     SetVariableChangeHandler(handler) {
-        result := ComCall(15, this, "ptr", handler, "HRESULT")
+        handlerMarshal := handler == 0 ? IntPtr : "ptr"
+
+        result := ComCall(15, this, handlerMarshal, handler, "HRESULT")
         return result
     }
 
@@ -267,7 +273,9 @@ export default struct IUIAnimationVariable extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable-setvariableintegerchangehandler
      */
     SetVariableIntegerChangeHandler(handler) {
-        result := ComCall(16, this, "ptr", handler, "HRESULT")
+        handlerMarshal := handler == 0 ? IntPtr : "ptr"
+
+        result := ComCall(16, this, handlerMarshal, handler, "HRESULT")
         return result
     }
 
@@ -280,20 +288,20 @@ export default struct IUIAnimationVariable extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 2)
-        this.vtbl.GetFinalValue := CallbackCreate(GetMethod(implObj, "GetFinalValue"), flags, 2)
-        this.vtbl.GetPreviousValue := CallbackCreate(GetMethod(implObj, "GetPreviousValue"), flags, 2)
-        this.vtbl.GetIntegerValue := CallbackCreate(GetMethod(implObj, "GetIntegerValue"), flags, 2)
-        this.vtbl.GetFinalIntegerValue := CallbackCreate(GetMethod(implObj, "GetFinalIntegerValue"), flags, 2)
-        this.vtbl.GetPreviousIntegerValue := CallbackCreate(GetMethod(implObj, "GetPreviousIntegerValue"), flags, 2)
-        this.vtbl.GetCurrentStoryboard := CallbackCreate(GetMethod(implObj, "GetCurrentStoryboard"), flags, 2)
-        this.vtbl.SetLowerBound := CallbackCreate(GetMethod(implObj, "SetLowerBound"), flags, 2)
-        this.vtbl.SetUpperBound := CallbackCreate(GetMethod(implObj, "SetUpperBound"), flags, 2)
-        this.vtbl.SetRoundingMode := CallbackCreate(GetMethod(implObj, "SetRoundingMode"), flags, 2)
-        this.vtbl.SetTag := CallbackCreate(GetMethod(implObj, "SetTag"), flags, 3)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 3)
-        this.vtbl.SetVariableChangeHandler := CallbackCreate(GetMethod(implObj, "SetVariableChangeHandler"), flags, 2)
-        this.vtbl.SetVariableIntegerChangeHandler := CallbackCreate(GetMethod(implObj, "SetVariableIntegerChangeHandler"), flags, 2)
+        this.vtbl.GetValue := CallbackCreate(ObjBindMethod(implObj, "GetValue"), flags, 2)
+        this.vtbl.GetFinalValue := CallbackCreate(ObjBindMethod(implObj, "GetFinalValue"), flags, 2)
+        this.vtbl.GetPreviousValue := CallbackCreate(ObjBindMethod(implObj, "GetPreviousValue"), flags, 2)
+        this.vtbl.GetIntegerValue := CallbackCreate(ObjBindMethod(implObj, "GetIntegerValue"), flags, 2)
+        this.vtbl.GetFinalIntegerValue := CallbackCreate(ObjBindMethod(implObj, "GetFinalIntegerValue"), flags, 2)
+        this.vtbl.GetPreviousIntegerValue := CallbackCreate(ObjBindMethod(implObj, "GetPreviousIntegerValue"), flags, 2)
+        this.vtbl.GetCurrentStoryboard := CallbackCreate(ObjBindMethod(implObj, "GetCurrentStoryboard"), flags, 2)
+        this.vtbl.SetLowerBound := CallbackCreate(ObjBindMethod(implObj, "SetLowerBound"), flags, 2)
+        this.vtbl.SetUpperBound := CallbackCreate(ObjBindMethod(implObj, "SetUpperBound"), flags, 2)
+        this.vtbl.SetRoundingMode := CallbackCreate(ObjBindMethod(implObj, "SetRoundingMode"), flags, 2)
+        this.vtbl.SetTag := CallbackCreate(ObjBindMethod(implObj, "SetTag"), flags, 3)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 3)
+        this.vtbl.SetVariableChangeHandler := CallbackCreate(ObjBindMethod(implObj, "SetVariableChangeHandler"), flags, 2)
+        this.vtbl.SetVariableIntegerChangeHandler := CallbackCreate(ObjBindMethod(implObj, "SetVariableIntegerChangeHandler"), flags, 2)
     }
 
     Dispose() {

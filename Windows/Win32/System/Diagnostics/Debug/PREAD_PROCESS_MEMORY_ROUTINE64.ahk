@@ -32,7 +32,6 @@ export default struct PREAD_PROCESS_MEMORY_ROUTINE64 {
     }
 
     /**
-     * 
      * @param {HANDLE} hProcess A handle to the process for which the stack trace is generated.
      * @param {Integer} qwBaseAddress The base address of the memory to be read.
      * @param {Integer} lpBuffer A pointer to a buffer that receives the memory to be read.
@@ -41,7 +40,7 @@ export default struct PREAD_PROCESS_MEMORY_ROUTINE64 {
      * @returns {BOOL} If the function succeeds, the return value should be <b>TRUE</b>. If the function fails, the return value should be <b>FALSE</b>.
      */
     Call(hProcess, qwBaseAddress, lpBuffer, nSize, lpNumberOfBytesRead) {
-        lpNumberOfBytesReadMarshal := lpNumberOfBytesRead is VarRef ? "uint*" : "ptr"
+        lpNumberOfBytesReadMarshal := lpNumberOfBytesRead is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HANDLE, hProcess, Int64, qwBaseAddress, IntPtr, lpBuffer, UInt32, nSize, lpNumberOfBytesReadMarshal, lpNumberOfBytesRead, BOOL)
         return result

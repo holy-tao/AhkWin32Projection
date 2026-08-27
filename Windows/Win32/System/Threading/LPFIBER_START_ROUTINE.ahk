@@ -18,12 +18,11 @@ export default struct LPFIBER_START_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} lpFiberParameter 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(lpFiberParameter) {
-        lpFiberParameterMarshal := lpFiberParameter is VarRef ? "ptr" : "ptr"
+        lpFiberParameterMarshal := lpFiberParameter is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, lpFiberParameterMarshal, lpFiberParameter)
     }

@@ -64,7 +64,7 @@ export default struct IUpdateService2 extends IUpdateService {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_IsDefaultAUService := CallbackCreate(GetMethod(implObj, "get_IsDefaultAUService"), flags, 2)
+        this.vtbl.get_IsDefaultAUService := CallbackCreate(ObjBindMethod(implObj, "get_IsDefaultAUService"), flags, 2)
     }
 
     Dispose() {

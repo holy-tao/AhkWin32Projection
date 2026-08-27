@@ -19,7 +19,6 @@ export default struct alljoyn_buslistener_lost_advertised_name_ptr {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {PSTR} name 
      * @param {Integer} transport 
@@ -30,7 +29,7 @@ export default struct alljoyn_buslistener_lost_advertised_name_ptr {
         name := name is String ? StrPtr(name) : name
         namePrefix := namePrefix is String ? StrPtr(namePrefix) : namePrefix
 
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _contextMarshal, _context, "ptr", name, UInt16, transport, "ptr", namePrefix)
     }

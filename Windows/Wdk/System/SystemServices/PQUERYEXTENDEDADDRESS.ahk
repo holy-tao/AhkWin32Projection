@@ -18,14 +18,13 @@ export default struct PQUERYEXTENDEDADDRESS {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<Integer>} ExtendedAddress 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Context, ExtendedAddress) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        ExtendedAddressMarshal := ExtendedAddress is VarRef ? "uint*" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        ExtendedAddressMarshal := ExtendedAddress is VarRef ? "uint*" : IntPtr
 
         DllCall(this.value, _ContextMarshal, _Context, ExtendedAddressMarshal, ExtendedAddress)
     }

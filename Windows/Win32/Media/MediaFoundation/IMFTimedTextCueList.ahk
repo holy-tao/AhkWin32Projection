@@ -44,7 +44,6 @@ export default struct IMFTimedTextCueList extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetLength() {
@@ -53,7 +52,6 @@ export default struct IMFTimedTextCueList extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {IMFTimedTextCue} 
      */
@@ -63,7 +61,6 @@ export default struct IMFTimedTextCueList extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} id 
      * @returns {IMFTimedTextCue} 
      */
@@ -73,7 +70,6 @@ export default struct IMFTimedTextCueList extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} originalId 
      * @returns {IMFTimedTextCue} 
      */
@@ -85,7 +81,6 @@ export default struct IMFTimedTextCueList extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} start 
      * @param {Float} duration 
      * @param {PWSTR} text 
@@ -99,7 +94,6 @@ export default struct IMFTimedTextCueList extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} start 
      * @param {Float} duration 
      * @param {Integer} data 
@@ -112,7 +106,6 @@ export default struct IMFTimedTextCueList extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMFTimedTextCue} cue 
      * @returns {HRESULT} 
      */
@@ -130,13 +123,13 @@ export default struct IMFTimedTextCueList extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 1)
-        this.vtbl.GetCueByIndex := CallbackCreate(GetMethod(implObj, "GetCueByIndex"), flags, 3)
-        this.vtbl.GetCueById := CallbackCreate(GetMethod(implObj, "GetCueById"), flags, 3)
-        this.vtbl.GetCueByOriginalId := CallbackCreate(GetMethod(implObj, "GetCueByOriginalId"), flags, 3)
-        this.vtbl.AddTextCue := CallbackCreate(GetMethod(implObj, "AddTextCue"), flags, 5)
-        this.vtbl.AddDataCue := CallbackCreate(GetMethod(implObj, "AddDataCue"), flags, 6)
-        this.vtbl.RemoveCue := CallbackCreate(GetMethod(implObj, "RemoveCue"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 1)
+        this.vtbl.GetCueByIndex := CallbackCreate(ObjBindMethod(implObj, "GetCueByIndex"), flags, 3)
+        this.vtbl.GetCueById := CallbackCreate(ObjBindMethod(implObj, "GetCueById"), flags, 3)
+        this.vtbl.GetCueByOriginalId := CallbackCreate(ObjBindMethod(implObj, "GetCueByOriginalId"), flags, 3)
+        this.vtbl.AddTextCue := CallbackCreate(ObjBindMethod(implObj, "AddTextCue"), flags, 5)
+        this.vtbl.AddDataCue := CallbackCreate(ObjBindMethod(implObj, "AddDataCue"), flags, 6)
+        this.vtbl.RemoveCue := CallbackCreate(ObjBindMethod(implObj, "RemoveCue"), flags, 2)
     }
 
     Dispose() {

@@ -39,7 +39,6 @@ export default struct ICLRStrongName2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzKeyContainer 
      * @param {Pointer<Integer>} pbKeyBlob 
      * @param {Integer} cbKeyBlob 
@@ -52,16 +51,15 @@ export default struct ICLRStrongName2 extends IUnknown {
     StrongNameGetPublicKeyEx(pwzKeyContainer, pbKeyBlob, cbKeyBlob, ppbPublicKeyBlob, pcbPublicKeyBlob, uHashAlgId, uReserved) {
         pwzKeyContainer := pwzKeyContainer is String ? StrPtr(pwzKeyContainer) : pwzKeyContainer
 
-        pbKeyBlobMarshal := pbKeyBlob is VarRef ? "char*" : "ptr"
-        ppbPublicKeyBlobMarshal := ppbPublicKeyBlob is VarRef ? "ptr*" : "ptr"
-        pcbPublicKeyBlobMarshal := pcbPublicKeyBlob is VarRef ? "uint*" : "ptr"
+        pbKeyBlobMarshal := pbKeyBlob is VarRef ? "char*" : IntPtr
+        ppbPublicKeyBlobMarshal := ppbPublicKeyBlob is VarRef ? "ptr*" : IntPtr
+        pcbPublicKeyBlobMarshal := pcbPublicKeyBlob is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, "ptr", pwzKeyContainer, pbKeyBlobMarshal, pbKeyBlob, UInt32, cbKeyBlob, ppbPublicKeyBlobMarshal, ppbPublicKeyBlob, pcbPublicKeyBlobMarshal, pcbPublicKeyBlob, UInt32, uHashAlgId, UInt32, uReserved, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} wszFilePath 
      * @param {BOOLEAN} fForceVerification 
      * @param {Pointer<Integer>} pbEcmaPublicKey 
@@ -71,7 +69,7 @@ export default struct ICLRStrongName2 extends IUnknown {
     StrongNameSignatureVerificationEx2(wszFilePath, fForceVerification, pbEcmaPublicKey, cbEcmaPublicKey) {
         wszFilePath := wszFilePath is String ? StrPtr(wszFilePath) : wszFilePath
 
-        pbEcmaPublicKeyMarshal := pbEcmaPublicKey is VarRef ? "char*" : "ptr"
+        pbEcmaPublicKeyMarshal := pbEcmaPublicKey is VarRef ? "char*" : IntPtr
 
         result := ComCall(4, this, "ptr", wszFilePath, BOOLEAN, fForceVerification, pbEcmaPublicKeyMarshal, pbEcmaPublicKey, UInt32, cbEcmaPublicKey, "char*", &pfWasVerified := 0, "HRESULT")
         return pfWasVerified
@@ -86,8 +84,8 @@ export default struct ICLRStrongName2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StrongNameGetPublicKeyEx := CallbackCreate(GetMethod(implObj, "StrongNameGetPublicKeyEx"), flags, 8)
-        this.vtbl.StrongNameSignatureVerificationEx2 := CallbackCreate(GetMethod(implObj, "StrongNameSignatureVerificationEx2"), flags, 6)
+        this.vtbl.StrongNameGetPublicKeyEx := CallbackCreate(ObjBindMethod(implObj, "StrongNameGetPublicKeyEx"), flags, 8)
+        this.vtbl.StrongNameSignatureVerificationEx2 := CallbackCreate(ObjBindMethod(implObj, "StrongNameSignatureVerificationEx2"), flags, 6)
     }
 
     Dispose() {

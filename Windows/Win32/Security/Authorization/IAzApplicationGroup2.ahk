@@ -165,13 +165,13 @@ export default struct IAzApplicationGroup2 extends IAzApplicationGroup {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_BizRule := CallbackCreate(GetMethod(implObj, "get_BizRule"), flags, 2)
-        this.vtbl.put_BizRule := CallbackCreate(GetMethod(implObj, "put_BizRule"), flags, 2)
-        this.vtbl.get_BizRuleLanguage := CallbackCreate(GetMethod(implObj, "get_BizRuleLanguage"), flags, 2)
-        this.vtbl.put_BizRuleLanguage := CallbackCreate(GetMethod(implObj, "put_BizRuleLanguage"), flags, 2)
-        this.vtbl.get_BizRuleImportedPath := CallbackCreate(GetMethod(implObj, "get_BizRuleImportedPath"), flags, 2)
-        this.vtbl.put_BizRuleImportedPath := CallbackCreate(GetMethod(implObj, "put_BizRuleImportedPath"), flags, 2)
-        this.vtbl.RoleAssignments := CallbackCreate(GetMethod(implObj, "RoleAssignments"), flags, 4)
+        this.vtbl.get_BizRule := CallbackCreate(ObjBindMethod(implObj, "get_BizRule"), flags, 2)
+        this.vtbl.put_BizRule := CallbackCreate(ObjBindMethod(implObj, "put_BizRule"), flags, 2)
+        this.vtbl.get_BizRuleLanguage := CallbackCreate(ObjBindMethod(implObj, "get_BizRuleLanguage"), flags, 2)
+        this.vtbl.put_BizRuleLanguage := CallbackCreate(ObjBindMethod(implObj, "put_BizRuleLanguage"), flags, 2)
+        this.vtbl.get_BizRuleImportedPath := CallbackCreate(ObjBindMethod(implObj, "get_BizRuleImportedPath"), flags, 2)
+        this.vtbl.put_BizRuleImportedPath := CallbackCreate(ObjBindMethod(implObj, "put_BizRuleImportedPath"), flags, 2)
+        this.vtbl.RoleAssignments := CallbackCreate(ObjBindMethod(implObj, "RoleAssignments"), flags, 4)
     }
 
     Dispose() {

@@ -140,9 +140,9 @@ export default struct IFsrmAutoApplyQuota extends IFsrmQuotaObject {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ExcludeFolders := CallbackCreate(GetMethod(implObj, "get_ExcludeFolders"), flags, 2)
-        this.vtbl.put_ExcludeFolders := CallbackCreate(GetMethod(implObj, "put_ExcludeFolders"), flags, 2)
-        this.vtbl.CommitAndUpdateDerived := CallbackCreate(GetMethod(implObj, "CommitAndUpdateDerived"), flags, 4)
+        this.vtbl.get_ExcludeFolders := CallbackCreate(ObjBindMethod(implObj, "get_ExcludeFolders"), flags, 2)
+        this.vtbl.put_ExcludeFolders := CallbackCreate(ObjBindMethod(implObj, "put_ExcludeFolders"), flags, 2)
+        this.vtbl.CommitAndUpdateDerived := CallbackCreate(ObjBindMethod(implObj, "CommitAndUpdateDerived"), flags, 4)
     }
 
     Dispose() {

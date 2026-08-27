@@ -39,7 +39,6 @@ export default struct IWMPNodeRealEstateHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SIZE>} pSize 
      * @returns {HRESULT} 
      */
@@ -49,7 +48,6 @@ export default struct IWMPNodeRealEstateHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fFullScreen 
      * @returns {HRESULT} 
      */
@@ -67,8 +65,8 @@ export default struct IWMPNodeRealEstateHost extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnDesiredSizeChange := CallbackCreate(GetMethod(implObj, "OnDesiredSizeChange"), flags, 2)
-        this.vtbl.OnFullScreenTransition := CallbackCreate(GetMethod(implObj, "OnFullScreenTransition"), flags, 2)
+        this.vtbl.OnDesiredSizeChange := CallbackCreate(ObjBindMethod(implObj, "OnDesiredSizeChange"), flags, 2)
+        this.vtbl.OnFullScreenTransition := CallbackCreate(ObjBindMethod(implObj, "OnFullScreenTransition"), flags, 2)
     }
 
     Dispose() {

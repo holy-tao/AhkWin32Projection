@@ -39,7 +39,6 @@ export default struct IAudioSessionSite extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     GetAudioSessionGuid() {
@@ -49,7 +48,6 @@ export default struct IAudioSessionSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} endpointID 
      * @returns {HRESULT} 
      */
@@ -61,7 +59,6 @@ export default struct IAudioSessionSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} endpointID 
      * @returns {HRESULT} 
      */
@@ -81,9 +78,9 @@ export default struct IAudioSessionSite extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAudioSessionGuid := CallbackCreate(GetMethod(implObj, "GetAudioSessionGuid"), flags, 2)
-        this.vtbl.OnAudioStreamCreated := CallbackCreate(GetMethod(implObj, "OnAudioStreamCreated"), flags, 2)
-        this.vtbl.OnAudioStreamDestroyed := CallbackCreate(GetMethod(implObj, "OnAudioStreamDestroyed"), flags, 2)
+        this.vtbl.GetAudioSessionGuid := CallbackCreate(ObjBindMethod(implObj, "GetAudioSessionGuid"), flags, 2)
+        this.vtbl.OnAudioStreamCreated := CallbackCreate(ObjBindMethod(implObj, "OnAudioStreamCreated"), flags, 2)
+        this.vtbl.OnAudioStreamDestroyed := CallbackCreate(ObjBindMethod(implObj, "OnAudioStreamDestroyed"), flags, 2)
     }
 
     Dispose() {

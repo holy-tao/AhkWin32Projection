@@ -20,7 +20,6 @@ export default struct PCLUSTER_REG_READ_BATCH_ADD_COMMAND {
     }
 
     /**
-     * 
      * @param {HREGREADBATCH} _hRegReadBatch 
      * @param {PWSTR} wzSubkeyName 
      * @param {PWSTR} wzValueName 

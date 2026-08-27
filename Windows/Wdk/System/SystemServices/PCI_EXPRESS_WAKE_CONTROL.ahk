@@ -19,13 +19,12 @@ export default struct PCI_EXPRESS_WAKE_CONTROL {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {BOOLEAN} EnableWake 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Context, EnableWake) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _ContextMarshal, _Context, BOOLEAN, EnableWake)
     }

@@ -124,7 +124,6 @@ export default struct IADsContainer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -149,7 +148,6 @@ export default struct IADsContainer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Filter() {
@@ -159,7 +157,6 @@ export default struct IADsContainer extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} Var 
      * @returns {HRESULT} 
      */
@@ -169,7 +166,6 @@ export default struct IADsContainer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Hints() {
@@ -179,7 +175,6 @@ export default struct IADsContainer extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} vHints 
      * @returns {HRESULT} 
      */
@@ -384,17 +379,17 @@ export default struct IADsContainer extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
-        this.vtbl.get_Filter := CallbackCreate(GetMethod(implObj, "get_Filter"), flags, 2)
-        this.vtbl.put_Filter := CallbackCreate(GetMethod(implObj, "put_Filter"), flags, 2)
-        this.vtbl.get_Hints := CallbackCreate(GetMethod(implObj, "get_Hints"), flags, 2)
-        this.vtbl.put_Hints := CallbackCreate(GetMethod(implObj, "put_Hints"), flags, 2)
-        this.vtbl.GetObject := CallbackCreate(GetMethod(implObj, "GetObject"), flags, 4)
-        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 4)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 3)
-        this.vtbl.CopyHere := CallbackCreate(GetMethod(implObj, "CopyHere"), flags, 4)
-        this.vtbl.MoveHere := CallbackCreate(GetMethod(implObj, "MoveHere"), flags, 4)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get__NewEnum := CallbackCreate(ObjBindMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Filter := CallbackCreate(ObjBindMethod(implObj, "get_Filter"), flags, 2)
+        this.vtbl.put_Filter := CallbackCreate(ObjBindMethod(implObj, "put_Filter"), flags, 2)
+        this.vtbl.get_Hints := CallbackCreate(ObjBindMethod(implObj, "get_Hints"), flags, 2)
+        this.vtbl.put_Hints := CallbackCreate(ObjBindMethod(implObj, "put_Hints"), flags, 2)
+        this.vtbl.GetObject := CallbackCreate(ObjBindMethod(implObj, "GetObject"), flags, 4)
+        this.vtbl.Create := CallbackCreate(ObjBindMethod(implObj, "Create"), flags, 4)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 3)
+        this.vtbl.CopyHere := CallbackCreate(ObjBindMethod(implObj, "CopyHere"), flags, 4)
+        this.vtbl.MoveHere := CallbackCreate(ObjBindMethod(implObj, "MoveHere"), flags, 4)
     }
 
     Dispose() {

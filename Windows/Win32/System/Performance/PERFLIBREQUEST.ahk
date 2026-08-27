@@ -26,7 +26,6 @@ export default struct PERFLIBREQUEST {
     }
 
     /**
-     * 
      * @param {Integer} RequestCode 
      * @param {Pointer<Void>} _Buffer The contents of the buffer depends on the request. For possible content, see the <i>RequestCode</i> parameter.
      * @param {Integer} BufferSize Size, in bytes, of the <i>Buffer</i> parameter.
@@ -35,7 +34,7 @@ export default struct PERFLIBREQUEST {
      * If the callback fails, PERFLIB will return the error code to the consumer if the request is <b>PERF_ADD_COUNTER</b>, <b>PERF_ENUM_INSTANCES</b>, or <b>PERF_COLLECT_START</b>; otherwise, the error code is ignored.
      */
     Call(RequestCode, _Buffer, BufferSize) {
-        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, UInt32, RequestCode, _BufferMarshal, _Buffer, UInt32, BufferSize, UInt32)
         return result

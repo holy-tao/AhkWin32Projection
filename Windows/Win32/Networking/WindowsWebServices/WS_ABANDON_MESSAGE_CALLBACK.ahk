@@ -26,7 +26,6 @@ export default struct WS_ABANDON_MESSAGE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} channelInstance Pointer to the state specific to this channel instance,
      *                     as created by the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_create_channel_callback">WS_CREATE_CHANNEL_CALLBACK</a>.
      * @param {Pointer<WS_MESSAGE>} message The message that is current being read or written.  This should be
@@ -64,9 +63,10 @@ export default struct WS_ABANDON_MESSAGE_CALLBACK {
      * </table>
      */
     Call(channelInstance, message, _error) {
-        channelInstanceMarshal := channelInstance is VarRef ? "ptr" : "ptr"
-        messageMarshal := message is VarRef ? "ptr*" : "ptr"
-        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
+        channelInstanceMarshal := channelInstance is VarRef ? "ptr" : IntPtr
+        messageMarshal := message is VarRef ? "ptr*" : IntPtr
+        _errorMarshal := _error is VarRef ? "ptr*" : IntPtr
+        _errorMarshal := _error == 0 ? IntPtr : WS_ERROR.Ptr
 
         result := DllCall(this.value, channelInstanceMarshal, channelInstance, messageMarshal, message, _errorMarshal, _error, "HRESULT")
         return result

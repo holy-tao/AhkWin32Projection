@@ -214,8 +214,8 @@ export default struct IOperationsProgressDialog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ioperationsprogressdialog-getmilliseconds
      */
     GetMilliseconds(pullElapsed, pullRemaining) {
-        pullElapsedMarshal := pullElapsed is VarRef ? "uint*" : "ptr"
-        pullRemainingMarshal := pullRemaining is VarRef ? "uint*" : "ptr"
+        pullElapsedMarshal := pullElapsed is VarRef ? "uint*" : IntPtr
+        pullRemainingMarshal := pullRemaining is VarRef ? "uint*" : IntPtr
 
         result := ComCall(12, this, pullElapsedMarshal, pullElapsed, pullRemainingMarshal, pullRemaining, "HRESULT")
         return result
@@ -242,17 +242,17 @@ export default struct IOperationsProgressDialog extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StartProgressDialog := CallbackCreate(GetMethod(implObj, "StartProgressDialog"), flags, 3)
-        this.vtbl.StopProgressDialog := CallbackCreate(GetMethod(implObj, "StopProgressDialog"), flags, 1)
-        this.vtbl.SetOperation := CallbackCreate(GetMethod(implObj, "SetOperation"), flags, 2)
-        this.vtbl.SetMode := CallbackCreate(GetMethod(implObj, "SetMode"), flags, 2)
-        this.vtbl.UpdateProgress := CallbackCreate(GetMethod(implObj, "UpdateProgress"), flags, 7)
-        this.vtbl.UpdateLocations := CallbackCreate(GetMethod(implObj, "UpdateLocations"), flags, 4)
-        this.vtbl.ResetTimer := CallbackCreate(GetMethod(implObj, "ResetTimer"), flags, 1)
-        this.vtbl.PauseTimer := CallbackCreate(GetMethod(implObj, "PauseTimer"), flags, 1)
-        this.vtbl.ResumeTimer := CallbackCreate(GetMethod(implObj, "ResumeTimer"), flags, 1)
-        this.vtbl.GetMilliseconds := CallbackCreate(GetMethod(implObj, "GetMilliseconds"), flags, 3)
-        this.vtbl.GetOperationStatus := CallbackCreate(GetMethod(implObj, "GetOperationStatus"), flags, 2)
+        this.vtbl.StartProgressDialog := CallbackCreate(ObjBindMethod(implObj, "StartProgressDialog"), flags, 3)
+        this.vtbl.StopProgressDialog := CallbackCreate(ObjBindMethod(implObj, "StopProgressDialog"), flags, 1)
+        this.vtbl.SetOperation := CallbackCreate(ObjBindMethod(implObj, "SetOperation"), flags, 2)
+        this.vtbl.SetMode := CallbackCreate(ObjBindMethod(implObj, "SetMode"), flags, 2)
+        this.vtbl.UpdateProgress := CallbackCreate(ObjBindMethod(implObj, "UpdateProgress"), flags, 7)
+        this.vtbl.UpdateLocations := CallbackCreate(ObjBindMethod(implObj, "UpdateLocations"), flags, 4)
+        this.vtbl.ResetTimer := CallbackCreate(ObjBindMethod(implObj, "ResetTimer"), flags, 1)
+        this.vtbl.PauseTimer := CallbackCreate(ObjBindMethod(implObj, "PauseTimer"), flags, 1)
+        this.vtbl.ResumeTimer := CallbackCreate(ObjBindMethod(implObj, "ResumeTimer"), flags, 1)
+        this.vtbl.GetMilliseconds := CallbackCreate(ObjBindMethod(implObj, "GetMilliseconds"), flags, 3)
+        this.vtbl.GetOperationStatus := CallbackCreate(ObjBindMethod(implObj, "GetOperationStatus"), flags, 2)
     }
 
     Dispose() {

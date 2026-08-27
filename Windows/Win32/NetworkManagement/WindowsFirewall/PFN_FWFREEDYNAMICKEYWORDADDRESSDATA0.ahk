@@ -23,7 +23,6 @@ export default struct PFN_FWFREEDYNAMICKEYWORDADDRESSDATA0 {
     }
 
     /**
-     * 
      * @param {Pointer<FW_DYNAMIC_KEYWORD_ADDRESS_DATA0>} dynamicKeywordAddressData Type: \_In\_ **[PFW_DYNAMIC_KEYWORD_ADDRESS0](ns-netfw-fw_dynamic_keyword_address0.md)**
      * 
      * A pointer to either a single dynamic keyword address data object to be freed, or the head of a list of dynamic keyword address data object to be freed.

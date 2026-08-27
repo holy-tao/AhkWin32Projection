@@ -122,10 +122,10 @@ export default struct IFsrmPropertyDefinitionValue extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_DisplayName := CallbackCreate(GetMethod(implObj, "get_DisplayName"), flags, 2)
-        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
-        this.vtbl.get_UniqueID := CallbackCreate(GetMethod(implObj, "get_UniqueID"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_DisplayName := CallbackCreate(ObjBindMethod(implObj, "get_DisplayName"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(ObjBindMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.get_UniqueID := CallbackCreate(ObjBindMethod(implObj, "get_UniqueID"), flags, 2)
     }
 
     Dispose() {

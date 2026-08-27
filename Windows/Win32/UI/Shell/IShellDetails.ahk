@@ -97,8 +97,10 @@ export default struct IShellDetails extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishelldetails-getdetailsof
      */
     GetDetailsOf(pidl, iColumn) {
+        pidlMarshal := pidl == 0 ? IntPtr : ITEMIDLIST.Ptr
+
         pDetails := SHELLDETAILS()
-        result := ComCall(3, this, ITEMIDLIST.Ptr, pidl, UInt32, iColumn, SHELLDETAILS.Ptr, pDetails, "HRESULT")
+        result := ComCall(3, this, pidlMarshal, pidl, UInt32, iColumn, SHELLDETAILS.Ptr, pDetails, "HRESULT")
         return pDetails
     }
 
@@ -131,8 +133,8 @@ export default struct IShellDetails extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDetailsOf := CallbackCreate(GetMethod(implObj, "GetDetailsOf"), flags, 4)
-        this.vtbl.ColumnClick := CallbackCreate(GetMethod(implObj, "ColumnClick"), flags, 2)
+        this.vtbl.GetDetailsOf := CallbackCreate(ObjBindMethod(implObj, "GetDetailsOf"), flags, 4)
+        this.vtbl.ColumnClick := CallbackCreate(ObjBindMethod(implObj, "ColumnClick"), flags, 2)
     }
 
     Dispose() {

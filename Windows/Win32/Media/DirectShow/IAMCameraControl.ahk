@@ -53,11 +53,11 @@ export default struct IAMCameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamcameracontrol-getrange
      */
     GetRange(_Property, pMin, pMax, pSteppingDelta, pDefault, pCapsFlags) {
-        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
-        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
-        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
-        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
-        pCapsFlagsMarshal := pCapsFlags is VarRef ? "int*" : "ptr"
+        pMinMarshal := pMin is VarRef ? "int*" : IntPtr
+        pMaxMarshal := pMax is VarRef ? "int*" : IntPtr
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : IntPtr
+        pDefaultMarshal := pDefault is VarRef ? "int*" : IntPtr
+        pCapsFlagsMarshal := pCapsFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, Int32, _Property, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagsMarshal, pCapsFlags, "HRESULT")
         return result
@@ -87,8 +87,8 @@ export default struct IAMCameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamcameracontrol-get
      */
     Get(_Property, lValue, Flags) {
-        lValueMarshal := lValue is VarRef ? "int*" : "ptr"
-        FlagsMarshal := Flags is VarRef ? "int*" : "ptr"
+        lValueMarshal := lValue is VarRef ? "int*" : IntPtr
+        FlagsMarshal := Flags is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, Int32, _Property, lValueMarshal, lValue, FlagsMarshal, Flags, "HRESULT")
         return result
@@ -103,9 +103,9 @@ export default struct IAMCameraControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRange := CallbackCreate(GetMethod(implObj, "GetRange"), flags, 7)
-        this.vtbl.Set := CallbackCreate(GetMethod(implObj, "Set"), flags, 4)
-        this.vtbl.Get := CallbackCreate(GetMethod(implObj, "Get"), flags, 4)
+        this.vtbl.GetRange := CallbackCreate(ObjBindMethod(implObj, "GetRange"), flags, 7)
+        this.vtbl.Set := CallbackCreate(ObjBindMethod(implObj, "Set"), flags, 4)
+        this.vtbl.Get := CallbackCreate(ObjBindMethod(implObj, "Get"), flags, 4)
     }
 
     Dispose() {

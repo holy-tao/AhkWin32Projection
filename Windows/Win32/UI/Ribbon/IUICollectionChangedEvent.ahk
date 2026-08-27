@@ -76,7 +76,10 @@ export default struct IUICollectionChangedEvent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuicollectionchangedevent-onchanged
      */
     OnChanged(action, oldIndex, oldItem, newIndex, newItem) {
-        result := ComCall(3, this, UI_COLLECTIONCHANGE, action, UInt32, oldIndex, "ptr", oldItem, UInt32, newIndex, "ptr", newItem, "HRESULT")
+        oldItemMarshal := oldItem == 0 ? IntPtr : "ptr"
+        newItemMarshal := newItem == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, UI_COLLECTIONCHANGE, action, UInt32, oldIndex, oldItemMarshal, oldItem, UInt32, newIndex, newItemMarshal, newItem, "HRESULT")
         return result
     }
 
@@ -89,7 +92,7 @@ export default struct IUICollectionChangedEvent extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnChanged := CallbackCreate(GetMethod(implObj, "OnChanged"), flags, 6)
+        this.vtbl.OnChanged := CallbackCreate(ObjBindMethod(implObj, "OnChanged"), flags, 6)
     }
 
     Dispose() {

@@ -38,15 +38,14 @@ export default struct IAuthenticate extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<HWND>} phwnd 
      * @param {Pointer<PWSTR>} pszUsername 
      * @param {Pointer<PWSTR>} pszPassword 
      * @returns {HRESULT} 
      */
     Authenticate(phwnd, pszUsername, pszPassword) {
-        pszUsernameMarshal := pszUsername is VarRef ? "ptr*" : "ptr"
-        pszPasswordMarshal := pszPassword is VarRef ? "ptr*" : "ptr"
+        pszUsernameMarshal := pszUsername is VarRef ? "ptr*" : IntPtr
+        pszPasswordMarshal := pszPassword is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, HWND.Ptr, phwnd, pszUsernameMarshal, pszUsername, pszPasswordMarshal, pszPassword, "HRESULT")
         return result
@@ -61,7 +60,7 @@ export default struct IAuthenticate extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Authenticate := CallbackCreate(GetMethod(implObj, "Authenticate"), flags, 4)
+        this.vtbl.Authenticate := CallbackCreate(ObjBindMethod(implObj, "Authenticate"), flags, 4)
     }
 
     Dispose() {

@@ -55,7 +55,6 @@ export default struct IADsPropertyList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PropertyCount() {
@@ -323,15 +322,15 @@ export default struct IADsPropertyList extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_PropertyCount := CallbackCreate(GetMethod(implObj, "get_PropertyCount"), flags, 2)
-        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 2)
-        this.vtbl.Skip := CallbackCreate(GetMethod(implObj, "Skip"), flags, 2)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 3)
-        this.vtbl.GetPropertyItem := CallbackCreate(GetMethod(implObj, "GetPropertyItem"), flags, 4)
-        this.vtbl.PutPropertyItem := CallbackCreate(GetMethod(implObj, "PutPropertyItem"), flags, 2)
-        this.vtbl.ResetPropertyItem := CallbackCreate(GetMethod(implObj, "ResetPropertyItem"), flags, 2)
-        this.vtbl.PurgePropertyList := CallbackCreate(GetMethod(implObj, "PurgePropertyList"), flags, 1)
+        this.vtbl.get_PropertyCount := CallbackCreate(ObjBindMethod(implObj, "get_PropertyCount"), flags, 2)
+        this.vtbl.Next := CallbackCreate(ObjBindMethod(implObj, "Next"), flags, 2)
+        this.vtbl.Skip := CallbackCreate(ObjBindMethod(implObj, "Skip"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Item := CallbackCreate(ObjBindMethod(implObj, "Item"), flags, 3)
+        this.vtbl.GetPropertyItem := CallbackCreate(ObjBindMethod(implObj, "GetPropertyItem"), flags, 4)
+        this.vtbl.PutPropertyItem := CallbackCreate(ObjBindMethod(implObj, "PutPropertyItem"), flags, 2)
+        this.vtbl.ResetPropertyItem := CallbackCreate(ObjBindMethod(implObj, "ResetPropertyItem"), flags, 2)
+        this.vtbl.PurgePropertyList := CallbackCreate(ObjBindMethod(implObj, "PurgePropertyList"), flags, 1)
     }
 
     Dispose() {

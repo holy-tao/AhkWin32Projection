@@ -21,7 +21,6 @@ export default struct PCLUSAPI_OPEN_CLUSTER_GROUP {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszGroupName 
      * @returns {HGROUP} 

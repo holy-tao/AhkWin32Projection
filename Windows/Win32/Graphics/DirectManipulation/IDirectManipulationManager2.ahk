@@ -58,7 +58,7 @@ export default struct IDirectManipulationManager2 extends IDirectManipulationMan
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateBehavior := CallbackCreate(GetMethod(implObj, "CreateBehavior"), flags, 4)
+        this.vtbl.CreateBehavior := CallbackCreate(ObjBindMethod(implObj, "CreateBehavior"), flags, 4)
     }
 
     Dispose() {

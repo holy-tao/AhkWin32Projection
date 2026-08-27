@@ -42,7 +42,6 @@ export default struct IElementBehaviorRender extends IUnknown {
     }
 
     /**
-     * 
      * @param {HDC} _hdc 
      * @param {Integer} lLayer 
      * @param {Pointer<RECT>} pRect 
@@ -55,7 +54,6 @@ export default struct IElementBehaviorRender extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetRenderInfo() {
@@ -64,7 +62,6 @@ export default struct IElementBehaviorRender extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<POINT>} pPoint 
      * @param {IUnknown} pReserved 
      * @returns {BOOL} 
@@ -83,9 +80,9 @@ export default struct IElementBehaviorRender extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Draw := CallbackCreate(GetMethod(implObj, "Draw"), flags, 5)
-        this.vtbl.GetRenderInfo := CallbackCreate(GetMethod(implObj, "GetRenderInfo"), flags, 2)
-        this.vtbl.HitTestPoint := CallbackCreate(GetMethod(implObj, "HitTestPoint"), flags, 4)
+        this.vtbl.Draw := CallbackCreate(ObjBindMethod(implObj, "Draw"), flags, 5)
+        this.vtbl.GetRenderInfo := CallbackCreate(ObjBindMethod(implObj, "GetRenderInfo"), flags, 2)
+        this.vtbl.HitTestPoint := CallbackCreate(ObjBindMethod(implObj, "HitTestPoint"), flags, 4)
     }
 
     Dispose() {

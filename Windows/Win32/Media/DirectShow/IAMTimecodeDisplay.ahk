@@ -324,10 +324,10 @@ export default struct IAMTimecodeDisplay extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTCDisplayEnable := CallbackCreate(GetMethod(implObj, "GetTCDisplayEnable"), flags, 2)
-        this.vtbl.SetTCDisplayEnable := CallbackCreate(GetMethod(implObj, "SetTCDisplayEnable"), flags, 2)
-        this.vtbl.GetTCDisplay := CallbackCreate(GetMethod(implObj, "GetTCDisplay"), flags, 3)
-        this.vtbl.SetTCDisplay := CallbackCreate(GetMethod(implObj, "SetTCDisplay"), flags, 3)
+        this.vtbl.GetTCDisplayEnable := CallbackCreate(ObjBindMethod(implObj, "GetTCDisplayEnable"), flags, 2)
+        this.vtbl.SetTCDisplayEnable := CallbackCreate(ObjBindMethod(implObj, "SetTCDisplayEnable"), flags, 2)
+        this.vtbl.GetTCDisplay := CallbackCreate(ObjBindMethod(implObj, "GetTCDisplay"), flags, 3)
+        this.vtbl.SetTCDisplay := CallbackCreate(ObjBindMethod(implObj, "SetTCDisplay"), flags, 3)
     }
 
     Dispose() {

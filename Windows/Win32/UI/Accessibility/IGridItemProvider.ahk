@@ -142,11 +142,11 @@ export default struct IGridItemProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Row := CallbackCreate(GetMethod(implObj, "get_Row"), flags, 2)
-        this.vtbl.get_Column := CallbackCreate(GetMethod(implObj, "get_Column"), flags, 2)
-        this.vtbl.get_RowSpan := CallbackCreate(GetMethod(implObj, "get_RowSpan"), flags, 2)
-        this.vtbl.get_ColumnSpan := CallbackCreate(GetMethod(implObj, "get_ColumnSpan"), flags, 2)
-        this.vtbl.get_ContainingGrid := CallbackCreate(GetMethod(implObj, "get_ContainingGrid"), flags, 2)
+        this.vtbl.get_Row := CallbackCreate(ObjBindMethod(implObj, "get_Row"), flags, 2)
+        this.vtbl.get_Column := CallbackCreate(ObjBindMethod(implObj, "get_Column"), flags, 2)
+        this.vtbl.get_RowSpan := CallbackCreate(ObjBindMethod(implObj, "get_RowSpan"), flags, 2)
+        this.vtbl.get_ColumnSpan := CallbackCreate(ObjBindMethod(implObj, "get_ColumnSpan"), flags, 2)
+        this.vtbl.get_ContainingGrid := CallbackCreate(ObjBindMethod(implObj, "get_ContainingGrid"), flags, 2)
     }
 
     Dispose() {

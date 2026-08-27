@@ -21,7 +21,6 @@ export default struct NCryptSetProviderPropertyFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} _hProvider 
      * @param {PWSTR} pszProperty 
      * @param {Integer} pbInput 

@@ -20,7 +20,6 @@ export default struct WINHTTP_PROXY_CHANGE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Integer} ullFlags Type: \_In\_ **[ULONGLONG](/windows/win32/winprog/windows-data-types)**
      * 
      * The flag passed to the [WinHttpRegisterProxyChangeNotification](nf-winhttp-winhttpregisterproxychangenotification.md) function (for example, **WINHTTP_PROXY_NOTIFY_CHANGE**).
@@ -30,7 +29,7 @@ export default struct WINHTTP_PROXY_CHANGE_CALLBACK {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(ullFlags, pvContext) {
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, Int64, ullFlags, pvContextMarshal, pvContext)
     }

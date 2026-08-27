@@ -25,7 +25,6 @@ export default struct RasCustomHangUpFn {
     }
 
     /**
-     * 
      * @param {HRASCONN} _hRasConn Handle to the RAS connection to hang up.
      * @returns {Integer} If the function succeeds, the return value should be <b>ERROR_SUCCESS</b>.
      * 

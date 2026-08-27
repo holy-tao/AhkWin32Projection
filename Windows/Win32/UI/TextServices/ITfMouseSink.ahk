@@ -66,7 +66,7 @@ export default struct ITfMouseSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnMouseEvent := CallbackCreate(GetMethod(implObj, "OnMouseEvent"), flags, 5)
+        this.vtbl.OnMouseEvent := CallbackCreate(ObjBindMethod(implObj, "OnMouseEvent"), flags, 5)
     }
 
     Dispose() {

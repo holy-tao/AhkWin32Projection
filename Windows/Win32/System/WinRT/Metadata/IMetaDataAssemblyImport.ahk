@@ -69,13 +69,14 @@ export default struct IMetaDataAssemblyImport extends IUnknown {
     GetAssemblyProps(mda, ppbPublicKey, pcbPublicKey, pulHashAlgId, szName, cchName, pchName, pMetaData, pdwAssemblyFlags) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        ppbPublicKeyMarshal := ppbPublicKey is VarRef ? "ptr*" : "ptr"
-        pcbPublicKeyMarshal := pcbPublicKey is VarRef ? "uint*" : "ptr"
-        pulHashAlgIdMarshal := pulHashAlgId is VarRef ? "uint*" : "ptr"
-        pchNameMarshal := pchName is VarRef ? "uint*" : "ptr"
-        pdwAssemblyFlagsMarshal := pdwAssemblyFlags is VarRef ? "uint*" : "ptr"
+        ppbPublicKeyMarshal := ppbPublicKey is VarRef ? "ptr*" : IntPtr
+        pcbPublicKeyMarshal := pcbPublicKey is VarRef ? "uint*" : IntPtr
+        pulHashAlgIdMarshal := pulHashAlgId is VarRef ? "uint*" : IntPtr
+        szNameMarshal := szName == 0 ? IntPtr : PWSTR
+        pchNameMarshal := pchName is VarRef ? "uint*" : IntPtr
+        pdwAssemblyFlagsMarshal := pdwAssemblyFlags is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(3, this, UInt32, mda, ppbPublicKeyMarshal, ppbPublicKey, pcbPublicKeyMarshal, pcbPublicKey, pulHashAlgIdMarshal, pulHashAlgId, "ptr", szName, UInt32, cchName, pchNameMarshal, pchName, ASSEMBLYMETADATA.Ptr, pMetaData, pdwAssemblyFlagsMarshal, pdwAssemblyFlags, "HRESULT")
+        result := ComCall(3, this, UInt32, mda, ppbPublicKeyMarshal, ppbPublicKey, pcbPublicKeyMarshal, pcbPublicKey, pulHashAlgIdMarshal, pulHashAlgId, szNameMarshal, szName, UInt32, cchName, pchNameMarshal, pchName, ASSEMBLYMETADATA.Ptr, pMetaData, pdwAssemblyFlagsMarshal, pdwAssemblyFlags, "HRESULT")
         return result
     }
 
@@ -97,14 +98,15 @@ export default struct IMetaDataAssemblyImport extends IUnknown {
     GetAssemblyRefProps(mdar, ppbPublicKeyOrToken, pcbPublicKeyOrToken, szName, cchName, pchName, pMetaData, ppbHashValue, pcbHashValue, pdwAssemblyRefFlags) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        ppbPublicKeyOrTokenMarshal := ppbPublicKeyOrToken is VarRef ? "ptr*" : "ptr"
-        pcbPublicKeyOrTokenMarshal := pcbPublicKeyOrToken is VarRef ? "uint*" : "ptr"
-        pchNameMarshal := pchName is VarRef ? "uint*" : "ptr"
-        ppbHashValueMarshal := ppbHashValue is VarRef ? "ptr*" : "ptr"
-        pcbHashValueMarshal := pcbHashValue is VarRef ? "uint*" : "ptr"
-        pdwAssemblyRefFlagsMarshal := pdwAssemblyRefFlags is VarRef ? "uint*" : "ptr"
+        ppbPublicKeyOrTokenMarshal := ppbPublicKeyOrToken is VarRef ? "ptr*" : IntPtr
+        pcbPublicKeyOrTokenMarshal := pcbPublicKeyOrToken is VarRef ? "uint*" : IntPtr
+        szNameMarshal := szName == 0 ? IntPtr : PWSTR
+        pchNameMarshal := pchName is VarRef ? "uint*" : IntPtr
+        ppbHashValueMarshal := ppbHashValue is VarRef ? "ptr*" : IntPtr
+        pcbHashValueMarshal := pcbHashValue is VarRef ? "uint*" : IntPtr
+        pdwAssemblyRefFlagsMarshal := pdwAssemblyRefFlags is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(4, this, UInt32, mdar, ppbPublicKeyOrTokenMarshal, ppbPublicKeyOrToken, pcbPublicKeyOrTokenMarshal, pcbPublicKeyOrToken, "ptr", szName, UInt32, cchName, pchNameMarshal, pchName, ASSEMBLYMETADATA.Ptr, pMetaData, ppbHashValueMarshal, ppbHashValue, pcbHashValueMarshal, pcbHashValue, pdwAssemblyRefFlagsMarshal, pdwAssemblyRefFlags, "HRESULT")
+        result := ComCall(4, this, UInt32, mdar, ppbPublicKeyOrTokenMarshal, ppbPublicKeyOrToken, pcbPublicKeyOrTokenMarshal, pcbPublicKeyOrToken, szNameMarshal, szName, UInt32, cchName, pchNameMarshal, pchName, ASSEMBLYMETADATA.Ptr, pMetaData, ppbHashValueMarshal, ppbHashValue, pcbHashValueMarshal, pcbHashValue, pdwAssemblyRefFlagsMarshal, pdwAssemblyRefFlags, "HRESULT")
         return result
     }
 
@@ -123,12 +125,13 @@ export default struct IMetaDataAssemblyImport extends IUnknown {
     GetFileProps(mdf, szName, cchName, pchName, ppbHashValue, pcbHashValue, pdwFileFlags) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        pchNameMarshal := pchName is VarRef ? "uint*" : "ptr"
-        ppbHashValueMarshal := ppbHashValue is VarRef ? "ptr*" : "ptr"
-        pcbHashValueMarshal := pcbHashValue is VarRef ? "uint*" : "ptr"
-        pdwFileFlagsMarshal := pdwFileFlags is VarRef ? "uint*" : "ptr"
+        szNameMarshal := szName == 0 ? IntPtr : PWSTR
+        pchNameMarshal := pchName is VarRef ? "uint*" : IntPtr
+        ppbHashValueMarshal := ppbHashValue is VarRef ? "ptr*" : IntPtr
+        pcbHashValueMarshal := pcbHashValue is VarRef ? "uint*" : IntPtr
+        pdwFileFlagsMarshal := pdwFileFlags is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(5, this, UInt32, mdf, "ptr", szName, UInt32, cchName, pchNameMarshal, pchName, ppbHashValueMarshal, ppbHashValue, pcbHashValueMarshal, pcbHashValue, pdwFileFlagsMarshal, pdwFileFlags, "HRESULT")
+        result := ComCall(5, this, UInt32, mdf, szNameMarshal, szName, UInt32, cchName, pchNameMarshal, pchName, ppbHashValueMarshal, ppbHashValue, pcbHashValueMarshal, pcbHashValue, pdwFileFlagsMarshal, pdwFileFlags, "HRESULT")
         return result
     }
 
@@ -147,12 +150,13 @@ export default struct IMetaDataAssemblyImport extends IUnknown {
     GetExportedTypeProps(mdct, szName, cchName, pchName, ptkImplementation, ptkTypeDef, pdwExportedTypeFlags) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        pchNameMarshal := pchName is VarRef ? "uint*" : "ptr"
-        ptkImplementationMarshal := ptkImplementation is VarRef ? "uint*" : "ptr"
-        ptkTypeDefMarshal := ptkTypeDef is VarRef ? "uint*" : "ptr"
-        pdwExportedTypeFlagsMarshal := pdwExportedTypeFlags is VarRef ? "uint*" : "ptr"
+        szNameMarshal := szName == 0 ? IntPtr : PWSTR
+        pchNameMarshal := pchName is VarRef ? "uint*" : IntPtr
+        ptkImplementationMarshal := ptkImplementation is VarRef ? "uint*" : IntPtr
+        ptkTypeDefMarshal := ptkTypeDef is VarRef ? "uint*" : IntPtr
+        pdwExportedTypeFlagsMarshal := pdwExportedTypeFlags is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(6, this, UInt32, mdct, "ptr", szName, UInt32, cchName, pchNameMarshal, pchName, ptkImplementationMarshal, ptkImplementation, ptkTypeDefMarshal, ptkTypeDef, pdwExportedTypeFlagsMarshal, pdwExportedTypeFlags, "HRESULT")
+        result := ComCall(6, this, UInt32, mdct, szNameMarshal, szName, UInt32, cchName, pchNameMarshal, pchName, ptkImplementationMarshal, ptkImplementation, ptkTypeDefMarshal, ptkTypeDef, pdwExportedTypeFlagsMarshal, pdwExportedTypeFlags, "HRESULT")
         return result
     }
 
@@ -171,12 +175,13 @@ export default struct IMetaDataAssemblyImport extends IUnknown {
     GetManifestResourceProps(mdmr, szName, cchName, pchName, ptkImplementation, pdwOffset, pdwResourceFlags) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        pchNameMarshal := pchName is VarRef ? "uint*" : "ptr"
-        ptkImplementationMarshal := ptkImplementation is VarRef ? "uint*" : "ptr"
-        pdwOffsetMarshal := pdwOffset is VarRef ? "uint*" : "ptr"
-        pdwResourceFlagsMarshal := pdwResourceFlags is VarRef ? "uint*" : "ptr"
+        szNameMarshal := szName == 0 ? IntPtr : PWSTR
+        pchNameMarshal := pchName is VarRef ? "uint*" : IntPtr
+        ptkImplementationMarshal := ptkImplementation is VarRef ? "uint*" : IntPtr
+        pdwOffsetMarshal := pdwOffset is VarRef ? "uint*" : IntPtr
+        pdwResourceFlagsMarshal := pdwResourceFlags is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(7, this, UInt32, mdmr, "ptr", szName, UInt32, cchName, pchNameMarshal, pchName, ptkImplementationMarshal, ptkImplementation, pdwOffsetMarshal, pdwOffset, pdwResourceFlagsMarshal, pdwResourceFlags, "HRESULT")
+        result := ComCall(7, this, UInt32, mdmr, szNameMarshal, szName, UInt32, cchName, pchNameMarshal, pchName, ptkImplementationMarshal, ptkImplementation, pdwOffsetMarshal, pdwOffset, pdwResourceFlagsMarshal, pdwResourceFlags, "HRESULT")
         return result
     }
 
@@ -206,9 +211,9 @@ export default struct IMetaDataAssemblyImport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataassemblyimport-enumassemblyrefs
      */
     EnumAssemblyRefs(phEnum, rAssemblyRefs, cMax, pcTokens) {
-        phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
-        rAssemblyRefsMarshal := rAssemblyRefs is VarRef ? "uint*" : "ptr"
-        pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
+        phEnumMarshal := phEnum is VarRef ? "ptr*" : IntPtr
+        rAssemblyRefsMarshal := rAssemblyRefs is VarRef ? "uint*" : IntPtr
+        pcTokensMarshal := pcTokens is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, phEnumMarshal, phEnum, rAssemblyRefsMarshal, rAssemblyRefs, UInt32, cMax, pcTokensMarshal, pcTokens, "HRESULT")
         return result
@@ -240,9 +245,9 @@ export default struct IMetaDataAssemblyImport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataassemblyimport-enumfiles
      */
     EnumFiles(phEnum, rFiles, cMax, pcTokens) {
-        phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
-        rFilesMarshal := rFiles is VarRef ? "uint*" : "ptr"
-        pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
+        phEnumMarshal := phEnum is VarRef ? "ptr*" : IntPtr
+        rFilesMarshal := rFiles is VarRef ? "uint*" : IntPtr
+        pcTokensMarshal := pcTokens is VarRef ? "uint*" : IntPtr
 
         result := ComCall(9, this, phEnumMarshal, phEnum, rFilesMarshal, rFiles, UInt32, cMax, pcTokensMarshal, pcTokens, "HRESULT")
         return result
@@ -274,9 +279,9 @@ export default struct IMetaDataAssemblyImport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataassemblyimport-enumexportedtypes
      */
     EnumExportedTypes(phEnum, rExportedTypes, cMax, pcTokens) {
-        phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
-        rExportedTypesMarshal := rExportedTypes is VarRef ? "uint*" : "ptr"
-        pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
+        phEnumMarshal := phEnum is VarRef ? "ptr*" : IntPtr
+        rExportedTypesMarshal := rExportedTypes is VarRef ? "uint*" : IntPtr
+        pcTokensMarshal := pcTokens is VarRef ? "uint*" : IntPtr
 
         result := ComCall(10, this, phEnumMarshal, phEnum, rExportedTypesMarshal, rExportedTypes, UInt32, cMax, pcTokensMarshal, pcTokens, "HRESULT")
         return result
@@ -308,9 +313,9 @@ export default struct IMetaDataAssemblyImport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataassemblyimport-enummanifestresources
      */
     EnumManifestResources(phEnum, rManifestResources, cMax, pcTokens) {
-        phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
-        rManifestResourcesMarshal := rManifestResources is VarRef ? "uint*" : "ptr"
-        pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
+        phEnumMarshal := phEnum is VarRef ? "ptr*" : IntPtr
+        rManifestResourcesMarshal := rManifestResources is VarRef ? "uint*" : IntPtr
+        pcTokensMarshal := pcTokens is VarRef ? "uint*" : IntPtr
 
         result := ComCall(11, this, phEnumMarshal, phEnum, rManifestResourcesMarshal, rManifestResources, UInt32, cMax, pcTokensMarshal, pcTokens, "HRESULT")
         return result
@@ -323,7 +328,7 @@ export default struct IMetaDataAssemblyImport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataassemblyimport-getassemblyfromscope
      */
     GetAssemblyFromScope(ptkAssembly) {
-        ptkAssemblyMarshal := ptkAssembly is VarRef ? "uint*" : "ptr"
+        ptkAssemblyMarshal := ptkAssembly is VarRef ? "uint*" : IntPtr
 
         result := ComCall(12, this, ptkAssemblyMarshal, ptkAssembly, "HRESULT")
         return result
@@ -342,7 +347,7 @@ export default struct IMetaDataAssemblyImport extends IUnknown {
     FindExportedTypeByName(szName, mdtExportedType, ptkExportedType) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        ptkExportedTypeMarshal := ptkExportedType is VarRef ? "uint*" : "ptr"
+        ptkExportedTypeMarshal := ptkExportedType is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, "ptr", szName, UInt32, mdtExportedType, ptkExportedTypeMarshal, ptkExportedType, "HRESULT")
         return result
@@ -360,7 +365,7 @@ export default struct IMetaDataAssemblyImport extends IUnknown {
     FindManifestResourceByName(szName, ptkManifestResource) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        ptkManifestResourceMarshal := ptkManifestResource is VarRef ? "uint*" : "ptr"
+        ptkManifestResourceMarshal := ptkManifestResource is VarRef ? "uint*" : IntPtr
 
         result := ComCall(14, this, "ptr", szName, ptkManifestResourceMarshal, ptkManifestResource, "HRESULT")
         return result
@@ -373,7 +378,7 @@ export default struct IMetaDataAssemblyImport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataassemblyimport-closeenum
      */
     CloseEnum(hEnum) {
-        hEnumMarshal := hEnum is VarRef ? "ptr" : "ptr"
+        hEnumMarshal := hEnum is VarRef ? "ptr" : IntPtr
 
         ComCall(15, this, hEnumMarshal, hEnum)
     }
@@ -399,7 +404,7 @@ export default struct IMetaDataAssemblyImport extends IUnknown {
         szPrivateBin := szPrivateBin is String ? StrPtr(szPrivateBin) : szPrivateBin
         szAssemblyName := szAssemblyName is String ? StrPtr(szAssemblyName) : szAssemblyName
 
-        pcAssembliesMarshal := pcAssemblies is VarRef ? "uint*" : "ptr"
+        pcAssembliesMarshal := pcAssemblies is VarRef ? "uint*" : IntPtr
 
         result := ComCall(16, this, "ptr", szAppBase, "ptr", szPrivateBin, "ptr", szAssemblyName, "ptr*", &ppIUnk := 0, UInt32, cMax, pcAssembliesMarshal, pcAssemblies, "HRESULT")
         return IUnknown(ppIUnk)
@@ -414,20 +419,20 @@ export default struct IMetaDataAssemblyImport extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAssemblyProps := CallbackCreate(GetMethod(implObj, "GetAssemblyProps"), flags, 10)
-        this.vtbl.GetAssemblyRefProps := CallbackCreate(GetMethod(implObj, "GetAssemblyRefProps"), flags, 11)
-        this.vtbl.GetFileProps := CallbackCreate(GetMethod(implObj, "GetFileProps"), flags, 8)
-        this.vtbl.GetExportedTypeProps := CallbackCreate(GetMethod(implObj, "GetExportedTypeProps"), flags, 8)
-        this.vtbl.GetManifestResourceProps := CallbackCreate(GetMethod(implObj, "GetManifestResourceProps"), flags, 8)
-        this.vtbl.EnumAssemblyRefs := CallbackCreate(GetMethod(implObj, "EnumAssemblyRefs"), flags, 5)
-        this.vtbl.EnumFiles := CallbackCreate(GetMethod(implObj, "EnumFiles"), flags, 5)
-        this.vtbl.EnumExportedTypes := CallbackCreate(GetMethod(implObj, "EnumExportedTypes"), flags, 5)
-        this.vtbl.EnumManifestResources := CallbackCreate(GetMethod(implObj, "EnumManifestResources"), flags, 5)
-        this.vtbl.GetAssemblyFromScope := CallbackCreate(GetMethod(implObj, "GetAssemblyFromScope"), flags, 2)
-        this.vtbl.FindExportedTypeByName := CallbackCreate(GetMethod(implObj, "FindExportedTypeByName"), flags, 4)
-        this.vtbl.FindManifestResourceByName := CallbackCreate(GetMethod(implObj, "FindManifestResourceByName"), flags, 3)
-        this.vtbl.CloseEnum := CallbackCreate(GetMethod(implObj, "CloseEnum"), flags, 2)
-        this.vtbl.FindAssembliesByName := CallbackCreate(GetMethod(implObj, "FindAssembliesByName"), flags, 7)
+        this.vtbl.GetAssemblyProps := CallbackCreate(ObjBindMethod(implObj, "GetAssemblyProps"), flags, 10)
+        this.vtbl.GetAssemblyRefProps := CallbackCreate(ObjBindMethod(implObj, "GetAssemblyRefProps"), flags, 11)
+        this.vtbl.GetFileProps := CallbackCreate(ObjBindMethod(implObj, "GetFileProps"), flags, 8)
+        this.vtbl.GetExportedTypeProps := CallbackCreate(ObjBindMethod(implObj, "GetExportedTypeProps"), flags, 8)
+        this.vtbl.GetManifestResourceProps := CallbackCreate(ObjBindMethod(implObj, "GetManifestResourceProps"), flags, 8)
+        this.vtbl.EnumAssemblyRefs := CallbackCreate(ObjBindMethod(implObj, "EnumAssemblyRefs"), flags, 5)
+        this.vtbl.EnumFiles := CallbackCreate(ObjBindMethod(implObj, "EnumFiles"), flags, 5)
+        this.vtbl.EnumExportedTypes := CallbackCreate(ObjBindMethod(implObj, "EnumExportedTypes"), flags, 5)
+        this.vtbl.EnumManifestResources := CallbackCreate(ObjBindMethod(implObj, "EnumManifestResources"), flags, 5)
+        this.vtbl.GetAssemblyFromScope := CallbackCreate(ObjBindMethod(implObj, "GetAssemblyFromScope"), flags, 2)
+        this.vtbl.FindExportedTypeByName := CallbackCreate(ObjBindMethod(implObj, "FindExportedTypeByName"), flags, 4)
+        this.vtbl.FindManifestResourceByName := CallbackCreate(ObjBindMethod(implObj, "FindManifestResourceByName"), flags, 3)
+        this.vtbl.CloseEnum := CallbackCreate(ObjBindMethod(implObj, "CloseEnum"), flags, 2)
+        this.vtbl.FindAssembliesByName := CallbackCreate(ObjBindMethod(implObj, "FindAssembliesByName"), flags, 7)
     }
 
     Dispose() {

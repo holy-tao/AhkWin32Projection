@@ -115,10 +115,10 @@ export default struct ID2D1Brush extends ID2D1Resource {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetOpacity := CallbackCreate(GetMethod(implObj, "SetOpacity"), flags, 2)
-        this.vtbl.SetTransform := CallbackCreate(GetMethod(implObj, "SetTransform"), flags, 2)
-        this.vtbl.GetOpacity := CallbackCreate(GetMethod(implObj, "GetOpacity"), flags, 1)
-        this.vtbl.GetTransform := CallbackCreate(GetMethod(implObj, "GetTransform"), flags, 2)
+        this.vtbl.SetOpacity := CallbackCreate(ObjBindMethod(implObj, "SetOpacity"), flags, 2)
+        this.vtbl.SetTransform := CallbackCreate(ObjBindMethod(implObj, "SetTransform"), flags, 2)
+        this.vtbl.GetOpacity := CallbackCreate(ObjBindMethod(implObj, "GetOpacity"), flags, 1)
+        this.vtbl.GetTransform := CallbackCreate(ObjBindMethod(implObj, "GetTransform"), flags, 2)
     }
 
     Dispose() {

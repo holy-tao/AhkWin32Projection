@@ -18,7 +18,6 @@ export default struct PFNFCIALLOC {
     }
 
     /**
-     * 
      * @param {Integer} cb 
      * @returns {Pointer<Void>} 
      */

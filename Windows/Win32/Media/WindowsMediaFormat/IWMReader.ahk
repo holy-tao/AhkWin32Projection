@@ -120,7 +120,7 @@ export default struct IWMReader extends IUnknown {
     Open(pwszURL, pCallback, pvContext) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, "ptr", pwszURL, "ptr", pCallback, pvContextMarshal, pvContext, "HRESULT")
         return result
@@ -361,7 +361,7 @@ export default struct IWMReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreader-start
      */
     Start(cnsStart, cnsDuration, fRate, pvContext) {
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(10, this, Int64, cnsStart, Int64, cnsDuration, Float32, fRate, pvContextMarshal, pvContext, "HRESULT")
         return result
@@ -490,17 +490,17 @@ export default struct IWMReader extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 4)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
-        this.vtbl.GetOutputCount := CallbackCreate(GetMethod(implObj, "GetOutputCount"), flags, 2)
-        this.vtbl.GetOutputProps := CallbackCreate(GetMethod(implObj, "GetOutputProps"), flags, 3)
-        this.vtbl.SetOutputProps := CallbackCreate(GetMethod(implObj, "SetOutputProps"), flags, 3)
-        this.vtbl.GetOutputFormatCount := CallbackCreate(GetMethod(implObj, "GetOutputFormatCount"), flags, 3)
-        this.vtbl.GetOutputFormat := CallbackCreate(GetMethod(implObj, "GetOutputFormat"), flags, 4)
-        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 5)
-        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
-        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
-        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 1)
+        this.vtbl.Open := CallbackCreate(ObjBindMethod(implObj, "Open"), flags, 4)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
+        this.vtbl.GetOutputCount := CallbackCreate(ObjBindMethod(implObj, "GetOutputCount"), flags, 2)
+        this.vtbl.GetOutputProps := CallbackCreate(ObjBindMethod(implObj, "GetOutputProps"), flags, 3)
+        this.vtbl.SetOutputProps := CallbackCreate(ObjBindMethod(implObj, "SetOutputProps"), flags, 3)
+        this.vtbl.GetOutputFormatCount := CallbackCreate(ObjBindMethod(implObj, "GetOutputFormatCount"), flags, 3)
+        this.vtbl.GetOutputFormat := CallbackCreate(ObjBindMethod(implObj, "GetOutputFormat"), flags, 4)
+        this.vtbl.Start := CallbackCreate(ObjBindMethod(implObj, "Start"), flags, 5)
+        this.vtbl.Stop := CallbackCreate(ObjBindMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.Pause := CallbackCreate(ObjBindMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Resume := CallbackCreate(ObjBindMethod(implObj, "Resume"), flags, 1)
     }
 
     Dispose() {

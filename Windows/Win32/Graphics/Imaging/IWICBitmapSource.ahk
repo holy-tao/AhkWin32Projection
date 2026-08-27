@@ -61,8 +61,8 @@ export default struct IWICBitmapSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapsource-getsize
      */
     GetSize(puiWidth, puiHeight) {
-        puiWidthMarshal := puiWidth is VarRef ? "uint*" : "ptr"
-        puiHeightMarshal := puiHeight is VarRef ? "uint*" : "ptr"
+        puiWidthMarshal := puiWidth is VarRef ? "uint*" : IntPtr
+        puiHeightMarshal := puiHeight is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, puiWidthMarshal, puiWidth, puiHeightMarshal, puiHeight, "HRESULT")
         return result
@@ -106,8 +106,8 @@ export default struct IWICBitmapSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapsource-getresolution
      */
     GetResolution(pDpiX, pDpiY) {
-        pDpiXMarshal := pDpiX is VarRef ? "double*" : "ptr"
-        pDpiYMarshal := pDpiY is VarRef ? "double*" : "ptr"
+        pDpiXMarshal := pDpiX is VarRef ? "double*" : IntPtr
+        pDpiYMarshal := pDpiY is VarRef ? "double*" : IntPtr
 
         result := ComCall(5, this, pDpiXMarshal, pDpiX, pDpiYMarshal, pDpiY, "HRESULT")
         return result
@@ -198,7 +198,9 @@ export default struct IWICBitmapSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapsource-copypixels
      */
     CopyPixels(prc, cbStride, cbBufferSize) {
-        result := ComCall(7, this, WICRect.Ptr, prc, UInt32, cbStride, UInt32, cbBufferSize, "char*", &pbBuffer := 0, "HRESULT")
+        prcMarshal := prc == 0 ? IntPtr : WICRect.Ptr
+
+        result := ComCall(7, this, prcMarshal, prc, UInt32, cbStride, UInt32, cbBufferSize, "char*", &pbBuffer := 0, "HRESULT")
         return pbBuffer
     }
 
@@ -211,11 +213,11 @@ export default struct IWICBitmapSource extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSize := CallbackCreate(GetMethod(implObj, "GetSize"), flags, 3)
-        this.vtbl.GetPixelFormat := CallbackCreate(GetMethod(implObj, "GetPixelFormat"), flags, 2)
-        this.vtbl.GetResolution := CallbackCreate(GetMethod(implObj, "GetResolution"), flags, 3)
-        this.vtbl.CopyPalette := CallbackCreate(GetMethod(implObj, "CopyPalette"), flags, 2)
-        this.vtbl.CopyPixels := CallbackCreate(GetMethod(implObj, "CopyPixels"), flags, 5)
+        this.vtbl.GetSize := CallbackCreate(ObjBindMethod(implObj, "GetSize"), flags, 3)
+        this.vtbl.GetPixelFormat := CallbackCreate(ObjBindMethod(implObj, "GetPixelFormat"), flags, 2)
+        this.vtbl.GetResolution := CallbackCreate(ObjBindMethod(implObj, "GetResolution"), flags, 3)
+        this.vtbl.CopyPalette := CallbackCreate(ObjBindMethod(implObj, "CopyPalette"), flags, 2)
+        this.vtbl.CopyPixels := CallbackCreate(ObjBindMethod(implObj, "CopyPixels"), flags, 5)
     }
 
     Dispose() {

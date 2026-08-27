@@ -20,7 +20,6 @@ export default struct CLAIMMEDIALABELEX {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pBuffer 
      * @param {Integer} nBufferSize 
      * @param {Pointer<MediaLabelInfo>} pLabelInfo 
@@ -28,7 +27,7 @@ export default struct CLAIMMEDIALABELEX {
      * @returns {Integer} 
      */
     Call(pBuffer, nBufferSize, pLabelInfo, LabelGuid) {
-        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, pBufferMarshal, pBuffer, UInt32, nBufferSize, MediaLabelInfo.Ptr, pLabelInfo, Guid.Ptr, LabelGuid, UInt32)
         return result

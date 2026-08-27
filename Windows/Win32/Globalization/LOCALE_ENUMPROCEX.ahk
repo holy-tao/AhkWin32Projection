@@ -25,7 +25,6 @@ export default struct LOCALE_ENUMPROCEX {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 Pointer to a buffer containing a null-terminated [locale name](/windows/win32/intl/locale-names) string.
      * @param {Integer} param1 Flags defining locale information. Values for this parameter can include a binary OR of flags, but some flag combinations never occur. If the application specifies[LOCALE_WINDOWS](/windows/win32/intl/locale-windows) or [LOCALE_ALTERNATE_SORTS](/windows/win32/intl/locale-alternate-sorts), it can also specify [LOCALE_REPLACEMENT](/windows/win32/intl/locale-replacement) so that the [EnumSystemLocalesEx](./nf-winnls-enumsystemlocalesex.md) function can test to see if the locale is a replacement.
      * 

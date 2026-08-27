@@ -20,7 +20,6 @@ export default struct PFND3DKMT_SUBMITCOMMAND {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SUBMITCOMMAND>} param0 
      * @returns {NTSTATUS} 
      */

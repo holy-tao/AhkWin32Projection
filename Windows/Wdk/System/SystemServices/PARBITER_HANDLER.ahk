@@ -21,14 +21,14 @@ export default struct PARBITER_HANDLER {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {ARBITER_ACTION} Action 
      * @param {Pointer<ARBITER_PARAMETERS>} Parameters 
      * @returns {NTSTATUS} 
      */
     Call(_Context, Action, Parameters) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, ARBITER_ACTION, Action, ARBITER_PARAMETERS.Ptr, Parameters, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

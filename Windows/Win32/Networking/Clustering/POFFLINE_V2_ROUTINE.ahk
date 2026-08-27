@@ -21,7 +21,6 @@ export default struct POFFLINE_V2_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Resource A resource identifier for the resource to be taken offline.
      * @param {PWSTR} DestinationNodeName The name of the node that is to contain the resource when the operation completes.
      * @param {Integer} OfflineFlags 
@@ -67,9 +66,11 @@ export default struct POFFLINE_V2_ROUTINE {
     Call(Resource, DestinationNodeName, OfflineFlags, InBuffer, InBufferSize, Reserved) {
         DestinationNodeName := DestinationNodeName is String ? StrPtr(DestinationNodeName) : DestinationNodeName
 
-        ResourceMarshal := Resource is VarRef ? "ptr" : "ptr"
+        ResourceMarshal := Resource is VarRef ? "ptr" : IntPtr
+        DestinationNodeNameMarshal := DestinationNodeName == 0 ? IntPtr : PWSTR
+        InBufferMarshal := InBuffer == 0 ? IntPtr : IntPtr
 
-        result := DllCall(this.value, ResourceMarshal, Resource, "ptr", DestinationNodeName, UInt32, OfflineFlags, IntPtr, InBuffer, UInt32, InBufferSize, UInt32, Reserved, UInt32)
+        result := DllCall(this.value, ResourceMarshal, Resource, DestinationNodeNameMarshal, DestinationNodeName, UInt32, OfflineFlags, InBufferMarshal, InBuffer, UInt32, InBufferSize, UInt32, Reserved, UInt32)
         return result
     }
 

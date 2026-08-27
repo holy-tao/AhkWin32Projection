@@ -166,9 +166,9 @@ export default struct ITfCandidateListUIElementBehavior extends ITfCandidateList
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetSelection := CallbackCreate(GetMethod(implObj, "SetSelection"), flags, 2)
-        this.vtbl.Finalize := CallbackCreate(GetMethod(implObj, "Finalize"), flags, 1)
-        this.vtbl.Abort := CallbackCreate(GetMethod(implObj, "Abort"), flags, 1)
+        this.vtbl.SetSelection := CallbackCreate(ObjBindMethod(implObj, "SetSelection"), flags, 2)
+        this.vtbl.Finalize := CallbackCreate(ObjBindMethod(implObj, "Finalize"), flags, 1)
+        this.vtbl.Abort := CallbackCreate(ObjBindMethod(implObj, "Abort"), flags, 1)
     }
 
     Dispose() {

@@ -36,7 +36,6 @@ export default struct PFN_CMSG_IMPORT_KEY_TRANS {
     }
 
     /**
-     * 
      * @param {Pointer<CRYPT_ALGORITHM_IDENTIFIER>} pContentEncryptionAlgorithm A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure that specifies the algorithm used to encrypt the message contents and any associated parameters.
      * @param {Pointer<CMSG_CTRL_KEY_TRANS_DECRYPT_PARA>} pKeyTransDecryptPara A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cmsg_ctrl_key_trans_decrypt_para">CMSG_CTRL_KEY_TRANS_DECRYPT_PARA</a> structure that contains information about the key transport recipient.
      * @param {Integer} dwFlags This value is not used. Set it to zero.
@@ -52,7 +51,7 @@ export default struct PFN_CMSG_IMPORT_KEY_TRANS {
     Call(pContentEncryptionAlgorithm, pKeyTransDecryptPara, dwFlags, phContentEncryptKey) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
-        phContentEncryptKeyMarshal := phContentEncryptKey is VarRef ? "ptr*" : "ptr"
+        phContentEncryptKeyMarshal := phContentEncryptKey is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, CRYPT_ALGORITHM_IDENTIFIER.Ptr, pContentEncryptionAlgorithm, CMSG_CTRL_KEY_TRANS_DECRYPT_PARA.Ptr, pKeyTransDecryptPara, UInt32, dwFlags, "ptr", pvReserved, phContentEncryptKeyMarshal, phContentEncryptKey, BOOL)
         return result

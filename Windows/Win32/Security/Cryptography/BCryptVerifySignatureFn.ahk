@@ -20,7 +20,6 @@ export default struct BCryptVerifySignatureFn {
     }
 
     /**
-     * 
      * @param {BCRYPT_KEY_HANDLE} _hKey 
      * @param {Pointer<Void>} pPaddingInfo 
      * @param {Integer} pbHash 
@@ -31,7 +30,8 @@ export default struct BCryptVerifySignatureFn {
      * @returns {NTSTATUS} 
      */
     Call(_hKey, pPaddingInfo, pbHash, cbHash, pbSignature, cbSignature, dwFlags) {
-        pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
+        pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : IntPtr
+        pPaddingInfoMarshal := pPaddingInfo == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, BCRYPT_KEY_HANDLE, _hKey, pPaddingInfoMarshal, pPaddingInfo, IntPtr, pbHash, UInt32, cbHash, IntPtr, pbSignature, UInt32, cbSignature, UInt32, dwFlags, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

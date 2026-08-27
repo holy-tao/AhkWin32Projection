@@ -134,8 +134,8 @@ export default struct IAMAsyncReaderTimestampScaling extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTimestampMode := CallbackCreate(GetMethod(implObj, "GetTimestampMode"), flags, 2)
-        this.vtbl.SetTimestampMode := CallbackCreate(GetMethod(implObj, "SetTimestampMode"), flags, 2)
+        this.vtbl.GetTimestampMode := CallbackCreate(ObjBindMethod(implObj, "GetTimestampMode"), flags, 2)
+        this.vtbl.SetTimestampMode := CallbackCreate(ObjBindMethod(implObj, "SetTimestampMode"), flags, 2)
     }
 
     Dispose() {

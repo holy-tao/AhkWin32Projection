@@ -19,7 +19,6 @@ export default struct PD3COLD_REQUEST_AUX_POWER {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

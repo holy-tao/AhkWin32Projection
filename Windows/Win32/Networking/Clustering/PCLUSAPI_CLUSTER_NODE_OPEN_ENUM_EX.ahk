@@ -20,14 +20,14 @@ export default struct PCLUSAPI_CLUSTER_NODE_OPEN_ENUM_EX {
     }
 
     /**
-     * 
      * @param {HNODE} _hNode 
      * @param {Integer} dwType 
      * @param {Pointer<Void>} pOptions 
      * @returns {HNODEENUMEX} 
      */
     Call(_hNode, dwType, pOptions) {
-        pOptionsMarshal := pOptions is VarRef ? "ptr" : "ptr"
+        pOptionsMarshal := pOptions is VarRef ? "ptr" : IntPtr
+        pOptionsMarshal := pOptions == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, HNODE, _hNode, UInt32, dwType, pOptionsMarshal, pOptions, HNODEENUMEX)
         return result

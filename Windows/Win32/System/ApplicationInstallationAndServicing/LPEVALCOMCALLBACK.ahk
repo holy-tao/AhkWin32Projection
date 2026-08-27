@@ -25,7 +25,6 @@ export default struct LPEVALCOMCALLBACK {
     }
 
     /**
-     * 
      * @param {STATUSTYPES} iStatus Specifies the status message sent by evalcom2. 
      * 
      * <table>
@@ -191,7 +190,7 @@ export default struct LPEVALCOMCALLBACK {
     Call(iStatus, szData, pContext) {
         szData := szData is String ? StrPtr(szData) : szData
 
-        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+        pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, STATUSTYPES, iStatus, "ptr", szData, pContextMarshal, pContext, BOOL)
         return result

@@ -42,7 +42,6 @@ export default struct IPropertyKeyStore extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetKeyCount() {
@@ -51,7 +50,6 @@ export default struct IPropertyKeyStore extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {PROPERTYKEY} 
      */
@@ -62,7 +60,6 @@ export default struct IPropertyKeyStore extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PROPERTYKEY>} key 
      * @returns {HRESULT} 
      */
@@ -72,7 +69,6 @@ export default struct IPropertyKeyStore extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {HRESULT} 
      */
@@ -82,7 +78,6 @@ export default struct IPropertyKeyStore extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PROPERTYKEY>} key 
      * @returns {HRESULT} 
      */
@@ -92,7 +87,6 @@ export default struct IPropertyKeyStore extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PROPERTYKEY>} key 
      * @returns {HRESULT} 
      */
@@ -110,12 +104,12 @@ export default struct IPropertyKeyStore extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetKeyCount := CallbackCreate(GetMethod(implObj, "GetKeyCount"), flags, 2)
-        this.vtbl.GetKeyAt := CallbackCreate(GetMethod(implObj, "GetKeyAt"), flags, 3)
-        this.vtbl.AppendKey := CallbackCreate(GetMethod(implObj, "AppendKey"), flags, 2)
-        this.vtbl.DeleteKey := CallbackCreate(GetMethod(implObj, "DeleteKey"), flags, 2)
-        this.vtbl.IsKeyInStore := CallbackCreate(GetMethod(implObj, "IsKeyInStore"), flags, 2)
-        this.vtbl.RemoveKey := CallbackCreate(GetMethod(implObj, "RemoveKey"), flags, 2)
+        this.vtbl.GetKeyCount := CallbackCreate(ObjBindMethod(implObj, "GetKeyCount"), flags, 2)
+        this.vtbl.GetKeyAt := CallbackCreate(ObjBindMethod(implObj, "GetKeyAt"), flags, 3)
+        this.vtbl.AppendKey := CallbackCreate(ObjBindMethod(implObj, "AppendKey"), flags, 2)
+        this.vtbl.DeleteKey := CallbackCreate(ObjBindMethod(implObj, "DeleteKey"), flags, 2)
+        this.vtbl.IsKeyInStore := CallbackCreate(ObjBindMethod(implObj, "IsKeyInStore"), flags, 2)
+        this.vtbl.RemoveKey := CallbackCreate(ObjBindMethod(implObj, "RemoveKey"), flags, 2)
     }
 
     Dispose() {

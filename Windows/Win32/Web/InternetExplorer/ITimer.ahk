@@ -42,7 +42,6 @@ export default struct ITimer extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT} vtimeMin 
      * @param {VARIANT} vtimeMax 
      * @param {VARIANT} vtimeInterval 
@@ -56,7 +55,6 @@ export default struct ITimer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwCookie 
      * @returns {HRESULT} 
      */
@@ -66,7 +64,6 @@ export default struct ITimer extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fFreeze 
      * @returns {HRESULT} 
      */
@@ -76,7 +73,6 @@ export default struct ITimer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     GetTime() {
@@ -94,10 +90,10 @@ export default struct ITimer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 7)
-        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 2)
-        this.vtbl.Freeze := CallbackCreate(GetMethod(implObj, "Freeze"), flags, 2)
-        this.vtbl.GetTime := CallbackCreate(GetMethod(implObj, "GetTime"), flags, 2)
+        this.vtbl.Advise := CallbackCreate(ObjBindMethod(implObj, "Advise"), flags, 7)
+        this.vtbl.Unadvise := CallbackCreate(ObjBindMethod(implObj, "Unadvise"), flags, 2)
+        this.vtbl.Freeze := CallbackCreate(ObjBindMethod(implObj, "Freeze"), flags, 2)
+        this.vtbl.GetTime := CallbackCreate(ObjBindMethod(implObj, "GetTime"), flags, 2)
     }
 
     Dispose() {

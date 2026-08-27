@@ -229,11 +229,11 @@ export default struct IXpsOMImageBrush extends IXpsOMTileBrush {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetImageResource := CallbackCreate(GetMethod(implObj, "GetImageResource"), flags, 2)
-        this.vtbl.SetImageResource := CallbackCreate(GetMethod(implObj, "SetImageResource"), flags, 2)
-        this.vtbl.GetColorProfileResource := CallbackCreate(GetMethod(implObj, "GetColorProfileResource"), flags, 2)
-        this.vtbl.SetColorProfileResource := CallbackCreate(GetMethod(implObj, "SetColorProfileResource"), flags, 2)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.GetImageResource := CallbackCreate(ObjBindMethod(implObj, "GetImageResource"), flags, 2)
+        this.vtbl.SetImageResource := CallbackCreate(ObjBindMethod(implObj, "SetImageResource"), flags, 2)
+        this.vtbl.GetColorProfileResource := CallbackCreate(ObjBindMethod(implObj, "GetColorProfileResource"), flags, 2)
+        this.vtbl.SetColorProfileResource := CallbackCreate(ObjBindMethod(implObj, "SetColorProfileResource"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
     }
 
     Dispose() {

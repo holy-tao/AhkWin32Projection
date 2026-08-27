@@ -19,7 +19,6 @@ export default struct alljoyn_applicationstatelistener_state_ptr {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} busName 
      * @param {Pointer<Integer>} publicKey 
      * @param {alljoyn_applicationstate} applicationState 
@@ -27,9 +26,9 @@ export default struct alljoyn_applicationstatelistener_state_ptr {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(busName, publicKey, applicationState, _context) {
-        busNameMarshal := busName is VarRef ? "char*" : "ptr"
-        publicKeyMarshal := publicKey is VarRef ? "char*" : "ptr"
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        busNameMarshal := busName is VarRef ? "char*" : IntPtr
+        publicKeyMarshal := publicKey is VarRef ? "char*" : IntPtr
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, busNameMarshal, busName, publicKeyMarshal, publicKey, alljoyn_applicationstate, applicationState, _contextMarshal, _context)
     }

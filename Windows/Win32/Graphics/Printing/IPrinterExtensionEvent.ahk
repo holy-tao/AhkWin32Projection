@@ -39,7 +39,6 @@ export default struct IPrinterExtensionEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {IPrinterExtensionEventArgs} pEventArgs 
      * @returns {HRESULT} 
      */
@@ -49,7 +48,6 @@ export default struct IPrinterExtensionEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {IPrinterExtensionContextCollection} pContextCollection 
      * @returns {HRESULT} 
      */
@@ -67,8 +65,8 @@ export default struct IPrinterExtensionEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnDriverEvent := CallbackCreate(GetMethod(implObj, "OnDriverEvent"), flags, 2)
-        this.vtbl.OnPrinterQueuesEnumerated := CallbackCreate(GetMethod(implObj, "OnPrinterQueuesEnumerated"), flags, 2)
+        this.vtbl.OnDriverEvent := CallbackCreate(ObjBindMethod(implObj, "OnDriverEvent"), flags, 2)
+        this.vtbl.OnPrinterQueuesEnumerated := CallbackCreate(ObjBindMethod(implObj, "OnPrinterQueuesEnumerated"), flags, 2)
     }
 
     Dispose() {

@@ -169,8 +169,8 @@ export default struct IMFExtendedCameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfextendedcameracontrol-lockpayload
      */
     LockPayload(ppPayload, pulPayload) {
-        ppPayloadMarshal := ppPayload is VarRef ? "ptr*" : "ptr"
-        pulPayloadMarshal := pulPayload is VarRef ? "uint*" : "ptr"
+        ppPayloadMarshal := ppPayload is VarRef ? "ptr*" : IntPtr
+        pulPayloadMarshal := pulPayload is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, ppPayloadMarshal, ppPayload, pulPayloadMarshal, pulPayload, "HRESULT")
         return result
@@ -235,12 +235,12 @@ export default struct IMFExtendedCameraControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCapabilities := CallbackCreate(GetMethod(implObj, "GetCapabilities"), flags, 1)
-        this.vtbl.SetFlags := CallbackCreate(GetMethod(implObj, "SetFlags"), flags, 2)
-        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 1)
-        this.vtbl.LockPayload := CallbackCreate(GetMethod(implObj, "LockPayload"), flags, 3)
-        this.vtbl.UnlockPayload := CallbackCreate(GetMethod(implObj, "UnlockPayload"), flags, 1)
-        this.vtbl.CommitSettings := CallbackCreate(GetMethod(implObj, "CommitSettings"), flags, 1)
+        this.vtbl.GetCapabilities := CallbackCreate(ObjBindMethod(implObj, "GetCapabilities"), flags, 1)
+        this.vtbl.SetFlags := CallbackCreate(ObjBindMethod(implObj, "SetFlags"), flags, 2)
+        this.vtbl.GetFlags := CallbackCreate(ObjBindMethod(implObj, "GetFlags"), flags, 1)
+        this.vtbl.LockPayload := CallbackCreate(ObjBindMethod(implObj, "LockPayload"), flags, 3)
+        this.vtbl.UnlockPayload := CallbackCreate(ObjBindMethod(implObj, "UnlockPayload"), flags, 1)
+        this.vtbl.CommitSettings := CallbackCreate(ObjBindMethod(implObj, "CommitSettings"), flags, 1)
     }
 
     Dispose() {

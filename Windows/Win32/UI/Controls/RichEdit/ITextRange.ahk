@@ -535,7 +535,9 @@ export default struct ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-setformattedtext
      */
     SetFormattedText(pRange) {
-        result := ComCall(13, this, "ptr", pRange, "HRESULT")
+        pRangeMarshal := pRange == 0 ? IntPtr : "ptr"
+
+        result := ComCall(13, this, pRangeMarshal, pRange, "HRESULT")
         return result
     }
 
@@ -711,7 +713,9 @@ export default struct ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-setfont
      */
     SetFont(pFont) {
-        result := ComCall(19, this, "ptr", pFont, "HRESULT")
+        pFontMarshal := pFont == 0 ? IntPtr : "ptr"
+
+        result := ComCall(19, this, pFontMarshal, pFont, "HRESULT")
         return result
     }
 
@@ -780,7 +784,9 @@ export default struct ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-setpara
      */
     SetPara(pPara) {
-        result := ComCall(21, this, "ptr", pPara, "HRESULT")
+        pParaMarshal := pPara == 0 ? IntPtr : "ptr"
+
+        result := ComCall(21, this, pParaMarshal, pPara, "HRESULT")
         return result
     }
 
@@ -1012,7 +1018,9 @@ export default struct ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-inrange
      */
     InRange(pRange) {
-        result := ComCall(29, this, "ptr", pRange, "int*", &pValue := 0, "HRESULT")
+        pRangeMarshal := pRange == 0 ? IntPtr : "ptr"
+
+        result := ComCall(29, this, pRangeMarshal, pRange, "int*", &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -1027,7 +1035,9 @@ export default struct ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-instory
      */
     InStory(pRange) {
-        result := ComCall(30, this, "ptr", pRange, "int*", &pValue := 0, "HRESULT")
+        pRangeMarshal := pRange == 0 ? IntPtr : "ptr"
+
+        result := ComCall(30, this, pRangeMarshal, pRange, "int*", &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -1045,7 +1055,9 @@ export default struct ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-isequal
      */
     IsEqual(pRange) {
-        result := ComCall(31, this, "ptr", pRange, "int*", &pValue := 0, "HRESULT")
+        pRangeMarshal := pRange == 0 ? IntPtr : "ptr"
+
+        result := ComCall(31, this, pRangeMarshal, pRange, "int*", &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -2018,8 +2030,8 @@ export default struct ITextRange extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange-getpoint
      */
     GetPoint(Type, px, py) {
-        pxMarshal := px is VarRef ? "int*" : "ptr"
-        pyMarshal := py is VarRef ? "int*" : "ptr"
+        pxMarshal := px is VarRef ? "int*" : IntPtr
+        pyMarshal := py is VarRef ? "int*" : IntPtr
 
         result := ComCall(54, this, tomConstants, Type, pxMarshal, px, pyMarshal, py, "HRESULT")
         return result
@@ -2142,57 +2154,57 @@ export default struct ITextRange extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetText := CallbackCreate(GetMethod(implObj, "GetText"), flags, 2)
-        this.vtbl.SetText := CallbackCreate(GetMethod(implObj, "SetText"), flags, 2)
-        this.vtbl.GetChar := CallbackCreate(GetMethod(implObj, "GetChar"), flags, 2)
-        this.vtbl.SetChar := CallbackCreate(GetMethod(implObj, "SetChar"), flags, 2)
-        this.vtbl.GetDuplicate := CallbackCreate(GetMethod(implObj, "GetDuplicate"), flags, 2)
-        this.vtbl.GetFormattedText := CallbackCreate(GetMethod(implObj, "GetFormattedText"), flags, 2)
-        this.vtbl.SetFormattedText := CallbackCreate(GetMethod(implObj, "SetFormattedText"), flags, 2)
-        this.vtbl.GetStart := CallbackCreate(GetMethod(implObj, "GetStart"), flags, 2)
-        this.vtbl.SetStart := CallbackCreate(GetMethod(implObj, "SetStart"), flags, 2)
-        this.vtbl.GetEnd := CallbackCreate(GetMethod(implObj, "GetEnd"), flags, 2)
-        this.vtbl.SetEnd := CallbackCreate(GetMethod(implObj, "SetEnd"), flags, 2)
-        this.vtbl.GetFont := CallbackCreate(GetMethod(implObj, "GetFont"), flags, 2)
-        this.vtbl.SetFont := CallbackCreate(GetMethod(implObj, "SetFont"), flags, 2)
-        this.vtbl.GetPara := CallbackCreate(GetMethod(implObj, "GetPara"), flags, 2)
-        this.vtbl.SetPara := CallbackCreate(GetMethod(implObj, "SetPara"), flags, 2)
-        this.vtbl.GetStoryLength := CallbackCreate(GetMethod(implObj, "GetStoryLength"), flags, 2)
-        this.vtbl.GetStoryType := CallbackCreate(GetMethod(implObj, "GetStoryType"), flags, 2)
-        this.vtbl.Collapse := CallbackCreate(GetMethod(implObj, "Collapse"), flags, 2)
-        this.vtbl.Expand := CallbackCreate(GetMethod(implObj, "Expand"), flags, 3)
-        this.vtbl.GetIndex := CallbackCreate(GetMethod(implObj, "GetIndex"), flags, 3)
-        this.vtbl.SetIndex := CallbackCreate(GetMethod(implObj, "SetIndex"), flags, 4)
-        this.vtbl.SetRange := CallbackCreate(GetMethod(implObj, "SetRange"), flags, 3)
-        this.vtbl.InRange := CallbackCreate(GetMethod(implObj, "InRange"), flags, 3)
-        this.vtbl.InStory := CallbackCreate(GetMethod(implObj, "InStory"), flags, 3)
-        this.vtbl.IsEqual := CallbackCreate(GetMethod(implObj, "IsEqual"), flags, 3)
-        this.vtbl.Select := CallbackCreate(GetMethod(implObj, "Select"), flags, 1)
-        this.vtbl.StartOf := CallbackCreate(GetMethod(implObj, "StartOf"), flags, 4)
-        this.vtbl.EndOf := CallbackCreate(GetMethod(implObj, "EndOf"), flags, 4)
-        this.vtbl.Move := CallbackCreate(GetMethod(implObj, "Move"), flags, 4)
-        this.vtbl.MoveStart := CallbackCreate(GetMethod(implObj, "MoveStart"), flags, 4)
-        this.vtbl.MoveEnd := CallbackCreate(GetMethod(implObj, "MoveEnd"), flags, 4)
-        this.vtbl.MoveWhile := CallbackCreate(GetMethod(implObj, "MoveWhile"), flags, 4)
-        this.vtbl.MoveStartWhile := CallbackCreate(GetMethod(implObj, "MoveStartWhile"), flags, 4)
-        this.vtbl.MoveEndWhile := CallbackCreate(GetMethod(implObj, "MoveEndWhile"), flags, 4)
-        this.vtbl.MoveUntil := CallbackCreate(GetMethod(implObj, "MoveUntil"), flags, 4)
-        this.vtbl.MoveStartUntil := CallbackCreate(GetMethod(implObj, "MoveStartUntil"), flags, 4)
-        this.vtbl.MoveEndUntil := CallbackCreate(GetMethod(implObj, "MoveEndUntil"), flags, 4)
-        this.vtbl.FindText := CallbackCreate(GetMethod(implObj, "FindText"), flags, 5)
-        this.vtbl.FindTextStart := CallbackCreate(GetMethod(implObj, "FindTextStart"), flags, 5)
-        this.vtbl.FindTextEnd := CallbackCreate(GetMethod(implObj, "FindTextEnd"), flags, 5)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 4)
-        this.vtbl.Cut := CallbackCreate(GetMethod(implObj, "Cut"), flags, 2)
-        this.vtbl.Copy := CallbackCreate(GetMethod(implObj, "Copy"), flags, 2)
-        this.vtbl.Paste := CallbackCreate(GetMethod(implObj, "Paste"), flags, 3)
-        this.vtbl.CanPaste := CallbackCreate(GetMethod(implObj, "CanPaste"), flags, 4)
-        this.vtbl.CanEdit := CallbackCreate(GetMethod(implObj, "CanEdit"), flags, 2)
-        this.vtbl.ChangeCase := CallbackCreate(GetMethod(implObj, "ChangeCase"), flags, 2)
-        this.vtbl.GetPoint := CallbackCreate(GetMethod(implObj, "GetPoint"), flags, 4)
-        this.vtbl.SetPoint := CallbackCreate(GetMethod(implObj, "SetPoint"), flags, 5)
-        this.vtbl.ScrollIntoView := CallbackCreate(GetMethod(implObj, "ScrollIntoView"), flags, 2)
-        this.vtbl.GetEmbeddedObject := CallbackCreate(GetMethod(implObj, "GetEmbeddedObject"), flags, 2)
+        this.vtbl.GetText := CallbackCreate(ObjBindMethod(implObj, "GetText"), flags, 2)
+        this.vtbl.SetText := CallbackCreate(ObjBindMethod(implObj, "SetText"), flags, 2)
+        this.vtbl.GetChar := CallbackCreate(ObjBindMethod(implObj, "GetChar"), flags, 2)
+        this.vtbl.SetChar := CallbackCreate(ObjBindMethod(implObj, "SetChar"), flags, 2)
+        this.vtbl.GetDuplicate := CallbackCreate(ObjBindMethod(implObj, "GetDuplicate"), flags, 2)
+        this.vtbl.GetFormattedText := CallbackCreate(ObjBindMethod(implObj, "GetFormattedText"), flags, 2)
+        this.vtbl.SetFormattedText := CallbackCreate(ObjBindMethod(implObj, "SetFormattedText"), flags, 2)
+        this.vtbl.GetStart := CallbackCreate(ObjBindMethod(implObj, "GetStart"), flags, 2)
+        this.vtbl.SetStart := CallbackCreate(ObjBindMethod(implObj, "SetStart"), flags, 2)
+        this.vtbl.GetEnd := CallbackCreate(ObjBindMethod(implObj, "GetEnd"), flags, 2)
+        this.vtbl.SetEnd := CallbackCreate(ObjBindMethod(implObj, "SetEnd"), flags, 2)
+        this.vtbl.GetFont := CallbackCreate(ObjBindMethod(implObj, "GetFont"), flags, 2)
+        this.vtbl.SetFont := CallbackCreate(ObjBindMethod(implObj, "SetFont"), flags, 2)
+        this.vtbl.GetPara := CallbackCreate(ObjBindMethod(implObj, "GetPara"), flags, 2)
+        this.vtbl.SetPara := CallbackCreate(ObjBindMethod(implObj, "SetPara"), flags, 2)
+        this.vtbl.GetStoryLength := CallbackCreate(ObjBindMethod(implObj, "GetStoryLength"), flags, 2)
+        this.vtbl.GetStoryType := CallbackCreate(ObjBindMethod(implObj, "GetStoryType"), flags, 2)
+        this.vtbl.Collapse := CallbackCreate(ObjBindMethod(implObj, "Collapse"), flags, 2)
+        this.vtbl.Expand := CallbackCreate(ObjBindMethod(implObj, "Expand"), flags, 3)
+        this.vtbl.GetIndex := CallbackCreate(ObjBindMethod(implObj, "GetIndex"), flags, 3)
+        this.vtbl.SetIndex := CallbackCreate(ObjBindMethod(implObj, "SetIndex"), flags, 4)
+        this.vtbl.SetRange := CallbackCreate(ObjBindMethod(implObj, "SetRange"), flags, 3)
+        this.vtbl.InRange := CallbackCreate(ObjBindMethod(implObj, "InRange"), flags, 3)
+        this.vtbl.InStory := CallbackCreate(ObjBindMethod(implObj, "InStory"), flags, 3)
+        this.vtbl.IsEqual := CallbackCreate(ObjBindMethod(implObj, "IsEqual"), flags, 3)
+        this.vtbl.Select := CallbackCreate(ObjBindMethod(implObj, "Select"), flags, 1)
+        this.vtbl.StartOf := CallbackCreate(ObjBindMethod(implObj, "StartOf"), flags, 4)
+        this.vtbl.EndOf := CallbackCreate(ObjBindMethod(implObj, "EndOf"), flags, 4)
+        this.vtbl.Move := CallbackCreate(ObjBindMethod(implObj, "Move"), flags, 4)
+        this.vtbl.MoveStart := CallbackCreate(ObjBindMethod(implObj, "MoveStart"), flags, 4)
+        this.vtbl.MoveEnd := CallbackCreate(ObjBindMethod(implObj, "MoveEnd"), flags, 4)
+        this.vtbl.MoveWhile := CallbackCreate(ObjBindMethod(implObj, "MoveWhile"), flags, 4)
+        this.vtbl.MoveStartWhile := CallbackCreate(ObjBindMethod(implObj, "MoveStartWhile"), flags, 4)
+        this.vtbl.MoveEndWhile := CallbackCreate(ObjBindMethod(implObj, "MoveEndWhile"), flags, 4)
+        this.vtbl.MoveUntil := CallbackCreate(ObjBindMethod(implObj, "MoveUntil"), flags, 4)
+        this.vtbl.MoveStartUntil := CallbackCreate(ObjBindMethod(implObj, "MoveStartUntil"), flags, 4)
+        this.vtbl.MoveEndUntil := CallbackCreate(ObjBindMethod(implObj, "MoveEndUntil"), flags, 4)
+        this.vtbl.FindText := CallbackCreate(ObjBindMethod(implObj, "FindText"), flags, 5)
+        this.vtbl.FindTextStart := CallbackCreate(ObjBindMethod(implObj, "FindTextStart"), flags, 5)
+        this.vtbl.FindTextEnd := CallbackCreate(ObjBindMethod(implObj, "FindTextEnd"), flags, 5)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 4)
+        this.vtbl.Cut := CallbackCreate(ObjBindMethod(implObj, "Cut"), flags, 2)
+        this.vtbl.Copy := CallbackCreate(ObjBindMethod(implObj, "Copy"), flags, 2)
+        this.vtbl.Paste := CallbackCreate(ObjBindMethod(implObj, "Paste"), flags, 3)
+        this.vtbl.CanPaste := CallbackCreate(ObjBindMethod(implObj, "CanPaste"), flags, 4)
+        this.vtbl.CanEdit := CallbackCreate(ObjBindMethod(implObj, "CanEdit"), flags, 2)
+        this.vtbl.ChangeCase := CallbackCreate(ObjBindMethod(implObj, "ChangeCase"), flags, 2)
+        this.vtbl.GetPoint := CallbackCreate(ObjBindMethod(implObj, "GetPoint"), flags, 4)
+        this.vtbl.SetPoint := CallbackCreate(ObjBindMethod(implObj, "SetPoint"), flags, 5)
+        this.vtbl.ScrollIntoView := CallbackCreate(ObjBindMethod(implObj, "ScrollIntoView"), flags, 2)
+        this.vtbl.GetEmbeddedObject := CallbackCreate(ObjBindMethod(implObj, "GetEmbeddedObject"), flags, 2)
     }
 
     Dispose() {

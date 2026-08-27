@@ -188,8 +188,8 @@ export default struct IAudioRenderClient extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetBuffer := CallbackCreate(GetMethod(implObj, "GetBuffer"), flags, 3)
-        this.vtbl.ReleaseBuffer := CallbackCreate(GetMethod(implObj, "ReleaseBuffer"), flags, 3)
+        this.vtbl.GetBuffer := CallbackCreate(ObjBindMethod(implObj, "GetBuffer"), flags, 3)
+        this.vtbl.ReleaseBuffer := CallbackCreate(ObjBindMethod(implObj, "ReleaseBuffer"), flags, 3)
     }
 
     Dispose() {

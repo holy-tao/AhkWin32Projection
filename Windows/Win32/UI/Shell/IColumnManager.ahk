@@ -257,11 +257,11 @@ export default struct IColumnManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetColumnInfo := CallbackCreate(GetMethod(implObj, "SetColumnInfo"), flags, 3)
-        this.vtbl.GetColumnInfo := CallbackCreate(GetMethod(implObj, "GetColumnInfo"), flags, 3)
-        this.vtbl.GetColumnCount := CallbackCreate(GetMethod(implObj, "GetColumnCount"), flags, 3)
-        this.vtbl.GetColumns := CallbackCreate(GetMethod(implObj, "GetColumns"), flags, 4)
-        this.vtbl.SetColumns := CallbackCreate(GetMethod(implObj, "SetColumns"), flags, 3)
+        this.vtbl.SetColumnInfo := CallbackCreate(ObjBindMethod(implObj, "SetColumnInfo"), flags, 3)
+        this.vtbl.GetColumnInfo := CallbackCreate(ObjBindMethod(implObj, "GetColumnInfo"), flags, 3)
+        this.vtbl.GetColumnCount := CallbackCreate(ObjBindMethod(implObj, "GetColumnCount"), flags, 3)
+        this.vtbl.GetColumns := CallbackCreate(ObjBindMethod(implObj, "GetColumns"), flags, 4)
+        this.vtbl.SetColumns := CallbackCreate(ObjBindMethod(implObj, "SetColumns"), flags, 3)
     }
 
     Dispose() {

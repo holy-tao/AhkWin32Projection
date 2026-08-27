@@ -37,16 +37,15 @@ export default struct IDTFilterLicenseRenewal extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PWSTR>} ppwszFileName 
      * @param {Pointer<PWSTR>} ppwszExpiredKid 
      * @param {Pointer<PWSTR>} ppwszTunerId 
      * @returns {HRESULT} 
      */
     GetLicenseRenewalData(ppwszFileName, ppwszExpiredKid, ppwszTunerId) {
-        ppwszFileNameMarshal := ppwszFileName is VarRef ? "ptr*" : "ptr"
-        ppwszExpiredKidMarshal := ppwszExpiredKid is VarRef ? "ptr*" : "ptr"
-        ppwszTunerIdMarshal := ppwszTunerId is VarRef ? "ptr*" : "ptr"
+        ppwszFileNameMarshal := ppwszFileName is VarRef ? "ptr*" : IntPtr
+        ppwszExpiredKidMarshal := ppwszExpiredKid is VarRef ? "ptr*" : IntPtr
+        ppwszTunerIdMarshal := ppwszTunerId is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, ppwszFileNameMarshal, ppwszFileName, ppwszExpiredKidMarshal, ppwszExpiredKid, ppwszTunerIdMarshal, ppwszTunerId, "HRESULT")
         return result
@@ -61,7 +60,7 @@ export default struct IDTFilterLicenseRenewal extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLicenseRenewalData := CallbackCreate(GetMethod(implObj, "GetLicenseRenewalData"), flags, 4)
+        this.vtbl.GetLicenseRenewalData := CallbackCreate(ObjBindMethod(implObj, "GetLicenseRenewalData"), flags, 4)
     }
 
     Dispose() {

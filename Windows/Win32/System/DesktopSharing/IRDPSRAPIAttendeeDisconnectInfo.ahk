@@ -109,9 +109,9 @@ export default struct IRDPSRAPIAttendeeDisconnectInfo extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Attendee := CallbackCreate(GetMethod(implObj, "get_Attendee"), flags, 2)
-        this.vtbl.get_Reason := CallbackCreate(GetMethod(implObj, "get_Reason"), flags, 2)
-        this.vtbl.get_Code := CallbackCreate(GetMethod(implObj, "get_Code"), flags, 2)
+        this.vtbl.get_Attendee := CallbackCreate(ObjBindMethod(implObj, "get_Attendee"), flags, 2)
+        this.vtbl.get_Reason := CallbackCreate(ObjBindMethod(implObj, "get_Reason"), flags, 2)
+        this.vtbl.get_Code := CallbackCreate(ObjBindMethod(implObj, "get_Code"), flags, 2)
     }
 
     Dispose() {

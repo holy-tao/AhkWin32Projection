@@ -76,8 +76,8 @@ export default struct IWSDSSLClientCertificate extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetClientCertificate := CallbackCreate(GetMethod(implObj, "GetClientCertificate"), flags, 2)
-        this.vtbl.GetMappedAccessToken := CallbackCreate(GetMethod(implObj, "GetMappedAccessToken"), flags, 2)
+        this.vtbl.GetClientCertificate := CallbackCreate(ObjBindMethod(implObj, "GetClientCertificate"), flags, 2)
+        this.vtbl.GetMappedAccessToken := CallbackCreate(ObjBindMethod(implObj, "GetMappedAccessToken"), flags, 2)
     }
 
     Dispose() {

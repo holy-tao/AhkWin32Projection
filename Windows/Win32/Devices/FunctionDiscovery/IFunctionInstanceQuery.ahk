@@ -69,7 +69,7 @@ export default struct IFunctionInstanceQuery extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Execute := CallbackCreate(GetMethod(implObj, "Execute"), flags, 2)
+        this.vtbl.Execute := CallbackCreate(ObjBindMethod(implObj, "Execute"), flags, 2)
     }
 
     Dispose() {

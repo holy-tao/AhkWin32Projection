@@ -62,7 +62,7 @@ export default struct ISpatialAudioObjectForMetadataItems extends ISpatialAudioO
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSpatialAudioMetadataItems := CallbackCreate(GetMethod(implObj, "GetSpatialAudioMetadataItems"), flags, 2)
+        this.vtbl.GetSpatialAudioMetadataItems := CallbackCreate(ObjBindMethod(implObj, "GetSpatialAudioMetadataItems"), flags, 2)
     }
 
     Dispose() {

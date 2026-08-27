@@ -41,7 +41,6 @@ export default struct IKsAllocatorEx extends IKsAllocator {
     }
 
     /**
-     * 
      * @returns {Pointer<ALLOCATOR_PROPERTIES_EX>} 
      */
     KsGetProperties() {
@@ -50,7 +49,6 @@ export default struct IKsAllocatorEx extends IKsAllocator {
     }
 
     /**
-     * 
      * @param {Pointer<ALLOCATOR_PROPERTIES_EX>} param0 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -59,7 +57,6 @@ export default struct IKsAllocatorEx extends IKsAllocator {
     }
 
     /**
-     * 
      * @param {HANDLE} AllocatorHandle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -68,7 +65,6 @@ export default struct IKsAllocatorEx extends IKsAllocator {
     }
 
     /**
-     * 
      * @param {IKsPin} KsPin 
      * @returns {HANDLE} 
      */
@@ -86,10 +82,10 @@ export default struct IKsAllocatorEx extends IKsAllocator {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.KsGetProperties := CallbackCreate(GetMethod(implObj, "KsGetProperties"), flags, 1)
-        this.vtbl.KsSetProperties := CallbackCreate(GetMethod(implObj, "KsSetProperties"), flags, 2)
-        this.vtbl.KsSetAllocatorHandle := CallbackCreate(GetMethod(implObj, "KsSetAllocatorHandle"), flags, 2)
-        this.vtbl.KsCreateAllocatorAndGetHandle := CallbackCreate(GetMethod(implObj, "KsCreateAllocatorAndGetHandle"), flags, 2)
+        this.vtbl.KsGetProperties := CallbackCreate(ObjBindMethod(implObj, "KsGetProperties"), flags, 1)
+        this.vtbl.KsSetProperties := CallbackCreate(ObjBindMethod(implObj, "KsSetProperties"), flags, 2)
+        this.vtbl.KsSetAllocatorHandle := CallbackCreate(ObjBindMethod(implObj, "KsSetAllocatorHandle"), flags, 2)
+        this.vtbl.KsCreateAllocatorAndGetHandle := CallbackCreate(ObjBindMethod(implObj, "KsCreateAllocatorAndGetHandle"), flags, 2)
     }
 
     Dispose() {

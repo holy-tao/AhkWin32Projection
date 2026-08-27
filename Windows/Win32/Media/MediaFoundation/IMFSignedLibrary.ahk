@@ -64,7 +64,7 @@ export default struct IMFSignedLibrary extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProcedureAddress := CallbackCreate(GetMethod(implObj, "GetProcedureAddress"), flags, 3)
+        this.vtbl.GetProcedureAddress := CallbackCreate(ObjBindMethod(implObj, "GetProcedureAddress"), flags, 3)
     }
 
     Dispose() {

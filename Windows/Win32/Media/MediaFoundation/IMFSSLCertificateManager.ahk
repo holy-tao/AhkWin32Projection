@@ -57,8 +57,8 @@ export default struct IMFSSLCertificateManager extends IUnknown {
     GetClientCertificate(pszURL, ppbData, pcbData) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        ppbDataMarshal := ppbData is VarRef ? "ptr*" : "ptr"
-        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+        ppbDataMarshal := ppbData is VarRef ? "ptr*" : IntPtr
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, "ptr", pszURL, ppbDataMarshal, ppbData, pcbDataMarshal, pcbData, "HRESULT")
         return result
@@ -93,8 +93,8 @@ export default struct IMFSSLCertificateManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsslcertificatemanager-endgetclientcertificate
      */
     EndGetClientCertificate(pResult, ppbData, pcbData) {
-        ppbDataMarshal := ppbData is VarRef ? "ptr*" : "ptr"
-        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+        ppbDataMarshal := ppbData is VarRef ? "ptr*" : IntPtr
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, "ptr", pResult, ppbDataMarshal, ppbData, pcbDataMarshal, pcbData, "HRESULT")
         return result
@@ -112,8 +112,8 @@ export default struct IMFSSLCertificateManager extends IUnknown {
     GetCertificatePolicy(pszURL, pfOverrideAutomaticCheck, pfClientCertificateAvailable) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        pfOverrideAutomaticCheckMarshal := pfOverrideAutomaticCheck is VarRef ? "int*" : "ptr"
-        pfClientCertificateAvailableMarshal := pfClientCertificateAvailable is VarRef ? "int*" : "ptr"
+        pfOverrideAutomaticCheckMarshal := pfOverrideAutomaticCheck is VarRef ? "int*" : IntPtr
+        pfClientCertificateAvailableMarshal := pfClientCertificateAvailable is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, "ptr", pszURL, pfOverrideAutomaticCheckMarshal, pfOverrideAutomaticCheck, pfClientCertificateAvailableMarshal, pfClientCertificateAvailable, "HRESULT")
         return result
@@ -143,11 +143,11 @@ export default struct IMFSSLCertificateManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetClientCertificate := CallbackCreate(GetMethod(implObj, "GetClientCertificate"), flags, 4)
-        this.vtbl.BeginGetClientCertificate := CallbackCreate(GetMethod(implObj, "BeginGetClientCertificate"), flags, 4)
-        this.vtbl.EndGetClientCertificate := CallbackCreate(GetMethod(implObj, "EndGetClientCertificate"), flags, 4)
-        this.vtbl.GetCertificatePolicy := CallbackCreate(GetMethod(implObj, "GetCertificatePolicy"), flags, 4)
-        this.vtbl.OnServerCertificate := CallbackCreate(GetMethod(implObj, "OnServerCertificate"), flags, 5)
+        this.vtbl.GetClientCertificate := CallbackCreate(ObjBindMethod(implObj, "GetClientCertificate"), flags, 4)
+        this.vtbl.BeginGetClientCertificate := CallbackCreate(ObjBindMethod(implObj, "BeginGetClientCertificate"), flags, 4)
+        this.vtbl.EndGetClientCertificate := CallbackCreate(ObjBindMethod(implObj, "EndGetClientCertificate"), flags, 4)
+        this.vtbl.GetCertificatePolicy := CallbackCreate(ObjBindMethod(implObj, "GetCertificatePolicy"), flags, 4)
+        this.vtbl.OnServerCertificate := CallbackCreate(ObjBindMethod(implObj, "OnServerCertificate"), flags, 5)
     }
 
     Dispose() {

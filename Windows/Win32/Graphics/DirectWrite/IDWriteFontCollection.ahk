@@ -114,8 +114,8 @@ export default struct IDWriteFontCollection extends IUnknown {
     FindFamilyName(familyName, index, exists) {
         familyName := familyName is String ? StrPtr(familyName) : familyName
 
-        indexMarshal := index is VarRef ? "uint*" : "ptr"
-        existsMarshal := exists is VarRef ? "int*" : "ptr"
+        indexMarshal := index is VarRef ? "uint*" : IntPtr
+        existsMarshal := exists is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, "ptr", familyName, indexMarshal, index, existsMarshal, exists, "HRESULT")
         return result
@@ -145,10 +145,10 @@ export default struct IDWriteFontCollection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFontFamilyCount := CallbackCreate(GetMethod(implObj, "GetFontFamilyCount"), flags, 1)
-        this.vtbl.GetFontFamily := CallbackCreate(GetMethod(implObj, "GetFontFamily"), flags, 3)
-        this.vtbl.FindFamilyName := CallbackCreate(GetMethod(implObj, "FindFamilyName"), flags, 4)
-        this.vtbl.GetFontFromFontFace := CallbackCreate(GetMethod(implObj, "GetFontFromFontFace"), flags, 3)
+        this.vtbl.GetFontFamilyCount := CallbackCreate(ObjBindMethod(implObj, "GetFontFamilyCount"), flags, 1)
+        this.vtbl.GetFontFamily := CallbackCreate(ObjBindMethod(implObj, "GetFontFamily"), flags, 3)
+        this.vtbl.FindFamilyName := CallbackCreate(ObjBindMethod(implObj, "FindFamilyName"), flags, 4)
+        this.vtbl.GetFontFromFontFace := CallbackCreate(ObjBindMethod(implObj, "GetFontFromFontFace"), flags, 3)
     }
 
     Dispose() {

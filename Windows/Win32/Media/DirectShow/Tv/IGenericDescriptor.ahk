@@ -110,7 +110,7 @@ export default struct IGenericDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-igenericdescriptor-initialize
      */
     Initialize(pbDesc, bCount) {
-        pbDescMarshal := pbDesc is VarRef ? "char*" : "ptr"
+        pbDescMarshal := pbDesc is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, pbDescMarshal, pbDesc, Int32, bCount, "HRESULT")
         return result
@@ -155,10 +155,10 @@ export default struct IGenericDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetBody := CallbackCreate(GetMethod(implObj, "GetBody"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetBody := CallbackCreate(ObjBindMethod(implObj, "GetBody"), flags, 2)
     }
 
     Dispose() {

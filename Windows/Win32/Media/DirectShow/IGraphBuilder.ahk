@@ -500,7 +500,9 @@ export default struct IGraphBuilder extends IFilterGraph {
         lpcwstrFile := lpcwstrFile is String ? StrPtr(lpcwstrFile) : lpcwstrFile
         lpcwstrPlayList := lpcwstrPlayList is String ? StrPtr(lpcwstrPlayList) : lpcwstrPlayList
 
-        result := ComCall(13, this, "ptr", lpcwstrFile, "ptr", lpcwstrPlayList, "HRESULT")
+        lpcwstrPlayListMarshal := lpcwstrPlayList == 0 ? IntPtr : PWSTR
+
+        result := ComCall(13, this, "ptr", lpcwstrFile, lpcwstrPlayListMarshal, lpcwstrPlayList, "HRESULT")
         return result
     }
 
@@ -525,7 +527,9 @@ export default struct IGraphBuilder extends IFilterGraph {
         lpcwstrFileName := lpcwstrFileName is String ? StrPtr(lpcwstrFileName) : lpcwstrFileName
         lpcwstrFilterName := lpcwstrFilterName is String ? StrPtr(lpcwstrFilterName) : lpcwstrFilterName
 
-        result := ComCall(14, this, "ptr", lpcwstrFileName, "ptr", lpcwstrFilterName, "ptr*", &ppFilter := 0, "HRESULT")
+        lpcwstrFilterNameMarshal := lpcwstrFilterName == 0 ? IntPtr : PWSTR
+
+        result := ComCall(14, this, "ptr", lpcwstrFileName, lpcwstrFilterNameMarshal, lpcwstrFilterName, "ptr*", &ppFilter := 0, "HRESULT")
         return IBaseFilter(ppFilter)
     }
 
@@ -613,13 +617,13 @@ export default struct IGraphBuilder extends IFilterGraph {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 3)
-        this.vtbl.Render := CallbackCreate(GetMethod(implObj, "Render"), flags, 2)
-        this.vtbl.RenderFile := CallbackCreate(GetMethod(implObj, "RenderFile"), flags, 3)
-        this.vtbl.AddSourceFilter := CallbackCreate(GetMethod(implObj, "AddSourceFilter"), flags, 4)
-        this.vtbl.SetLogFile := CallbackCreate(GetMethod(implObj, "SetLogFile"), flags, 2)
-        this.vtbl.Abort := CallbackCreate(GetMethod(implObj, "Abort"), flags, 1)
-        this.vtbl.ShouldOperationContinue := CallbackCreate(GetMethod(implObj, "ShouldOperationContinue"), flags, 1)
+        this.vtbl.Connect := CallbackCreate(ObjBindMethod(implObj, "Connect"), flags, 3)
+        this.vtbl.Render := CallbackCreate(ObjBindMethod(implObj, "Render"), flags, 2)
+        this.vtbl.RenderFile := CallbackCreate(ObjBindMethod(implObj, "RenderFile"), flags, 3)
+        this.vtbl.AddSourceFilter := CallbackCreate(ObjBindMethod(implObj, "AddSourceFilter"), flags, 4)
+        this.vtbl.SetLogFile := CallbackCreate(ObjBindMethod(implObj, "SetLogFile"), flags, 2)
+        this.vtbl.Abort := CallbackCreate(ObjBindMethod(implObj, "Abort"), flags, 1)
+        this.vtbl.ShouldOperationContinue := CallbackCreate(ObjBindMethod(implObj, "ShouldOperationContinue"), flags, 1)
     }
 
     Dispose() {

@@ -86,8 +86,8 @@ export default struct IInkRecognizerContext2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_EnabledUnicodeRanges := CallbackCreate(GetMethod(implObj, "get_EnabledUnicodeRanges"), flags, 2)
-        this.vtbl.put_EnabledUnicodeRanges := CallbackCreate(GetMethod(implObj, "put_EnabledUnicodeRanges"), flags, 2)
+        this.vtbl.get_EnabledUnicodeRanges := CallbackCreate(ObjBindMethod(implObj, "get_EnabledUnicodeRanges"), flags, 2)
+        this.vtbl.put_EnabledUnicodeRanges := CallbackCreate(ObjBindMethod(implObj, "put_EnabledUnicodeRanges"), flags, 2)
     }
 
     Dispose() {

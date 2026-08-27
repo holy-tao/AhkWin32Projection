@@ -169,11 +169,11 @@ export default struct IOleParentUndoUnit extends IOleUndoUnit {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 2)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 3)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
-        this.vtbl.FindUnit := CallbackCreate(GetMethod(implObj, "FindUnit"), flags, 2)
-        this.vtbl.GetParentState := CallbackCreate(GetMethod(implObj, "GetParentState"), flags, 2)
+        this.vtbl.Open := CallbackCreate(ObjBindMethod(implObj, "Open"), flags, 2)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 3)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 2)
+        this.vtbl.FindUnit := CallbackCreate(ObjBindMethod(implObj, "FindUnit"), flags, 2)
+        this.vtbl.GetParentState := CallbackCreate(ObjBindMethod(implObj, "GetParentState"), flags, 2)
     }
 
     Dispose() {

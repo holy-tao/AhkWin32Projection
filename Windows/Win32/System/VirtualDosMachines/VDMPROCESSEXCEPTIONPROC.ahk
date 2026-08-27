@@ -20,7 +20,6 @@ export default struct VDMPROCESSEXCEPTIONPROC {
     }
 
     /**
-     * 
      * @param {Pointer<DEBUG_EVENT>} param0 
      * @returns {BOOL} 
      */

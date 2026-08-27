@@ -89,8 +89,8 @@ export default struct ID3D10EffectBlendVariable extends ID3D10EffectVariable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetBlendState := CallbackCreate(GetMethod(implObj, "GetBlendState"), flags, 3)
-        this.vtbl.GetBackingStore := CallbackCreate(GetMethod(implObj, "GetBackingStore"), flags, 3)
+        this.vtbl.GetBlendState := CallbackCreate(ObjBindMethod(implObj, "GetBlendState"), flags, 3)
+        this.vtbl.GetBackingStore := CallbackCreate(ObjBindMethod(implObj, "GetBackingStore"), flags, 3)
     }
 
     Dispose() {

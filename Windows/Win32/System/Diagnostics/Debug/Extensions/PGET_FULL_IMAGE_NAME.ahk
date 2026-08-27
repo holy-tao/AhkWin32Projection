@@ -21,14 +21,13 @@ export default struct PGET_FULL_IMAGE_NAME {
     }
 
     /**
-     * 
      * @param {IDebugClient} Client 
      * @param {Integer} Process 
      * @param {Pointer<PSTR>} FullImageName 
      * @returns {HRESULT} 
      */
     Call(Client, Process, FullImageName) {
-        FullImageNameMarshal := FullImageName is VarRef ? "ptr*" : "ptr"
+        FullImageNameMarshal := FullImageName is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, "ptr", Client, Int64, Process, FullImageNameMarshal, FullImageName, "HRESULT")
         return result

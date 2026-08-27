@@ -21,7 +21,6 @@ export default struct PRESUTIL_IS_RESOURCE_CLASS_EQUAL {
     }
 
     /**
-     * 
      * @param {Pointer<CLUS_RESOURCE_CLASS_INFO>} prci 
      * @param {HRESOURCE} _hResource 
      * @returns {BOOL} 

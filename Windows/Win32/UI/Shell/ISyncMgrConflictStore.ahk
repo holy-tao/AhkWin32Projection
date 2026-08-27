@@ -144,10 +144,10 @@ export default struct ISyncMgrConflictStore extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumConflicts := CallbackCreate(GetMethod(implObj, "EnumConflicts"), flags, 4)
-        this.vtbl.BindToConflict := CallbackCreate(GetMethod(implObj, "BindToConflict"), flags, 4)
-        this.vtbl.RemoveConflicts := CallbackCreate(GetMethod(implObj, "RemoveConflicts"), flags, 3)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 4)
+        this.vtbl.EnumConflicts := CallbackCreate(ObjBindMethod(implObj, "EnumConflicts"), flags, 4)
+        this.vtbl.BindToConflict := CallbackCreate(ObjBindMethod(implObj, "BindToConflict"), flags, 4)
+        this.vtbl.RemoveConflicts := CallbackCreate(ObjBindMethod(implObj, "RemoveConflicts"), flags, 3)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 4)
     }
 
     Dispose() {

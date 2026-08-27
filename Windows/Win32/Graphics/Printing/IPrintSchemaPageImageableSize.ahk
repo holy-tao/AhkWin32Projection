@@ -83,7 +83,6 @@ export default struct IPrintSchemaPageImageableSize extends IPrintSchemaElement 
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ImageableSizeWidthInMicrons() {
@@ -92,7 +91,6 @@ export default struct IPrintSchemaPageImageableSize extends IPrintSchemaElement 
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ImageableSizeHeightInMicrons() {
@@ -101,7 +99,6 @@ export default struct IPrintSchemaPageImageableSize extends IPrintSchemaElement 
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_OriginWidthInMicrons() {
@@ -110,7 +107,6 @@ export default struct IPrintSchemaPageImageableSize extends IPrintSchemaElement 
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_OriginHeightInMicrons() {
@@ -119,7 +115,6 @@ export default struct IPrintSchemaPageImageableSize extends IPrintSchemaElement 
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ExtentWidthInMicrons() {
@@ -128,7 +123,6 @@ export default struct IPrintSchemaPageImageableSize extends IPrintSchemaElement 
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ExtentHeightInMicrons() {
@@ -145,12 +139,12 @@ export default struct IPrintSchemaPageImageableSize extends IPrintSchemaElement 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ImageableSizeWidthInMicrons := CallbackCreate(GetMethod(implObj, "get_ImageableSizeWidthInMicrons"), flags, 2)
-        this.vtbl.get_ImageableSizeHeightInMicrons := CallbackCreate(GetMethod(implObj, "get_ImageableSizeHeightInMicrons"), flags, 2)
-        this.vtbl.get_OriginWidthInMicrons := CallbackCreate(GetMethod(implObj, "get_OriginWidthInMicrons"), flags, 2)
-        this.vtbl.get_OriginHeightInMicrons := CallbackCreate(GetMethod(implObj, "get_OriginHeightInMicrons"), flags, 2)
-        this.vtbl.get_ExtentWidthInMicrons := CallbackCreate(GetMethod(implObj, "get_ExtentWidthInMicrons"), flags, 2)
-        this.vtbl.get_ExtentHeightInMicrons := CallbackCreate(GetMethod(implObj, "get_ExtentHeightInMicrons"), flags, 2)
+        this.vtbl.get_ImageableSizeWidthInMicrons := CallbackCreate(ObjBindMethod(implObj, "get_ImageableSizeWidthInMicrons"), flags, 2)
+        this.vtbl.get_ImageableSizeHeightInMicrons := CallbackCreate(ObjBindMethod(implObj, "get_ImageableSizeHeightInMicrons"), flags, 2)
+        this.vtbl.get_OriginWidthInMicrons := CallbackCreate(ObjBindMethod(implObj, "get_OriginWidthInMicrons"), flags, 2)
+        this.vtbl.get_OriginHeightInMicrons := CallbackCreate(ObjBindMethod(implObj, "get_OriginHeightInMicrons"), flags, 2)
+        this.vtbl.get_ExtentWidthInMicrons := CallbackCreate(ObjBindMethod(implObj, "get_ExtentWidthInMicrons"), flags, 2)
+        this.vtbl.get_ExtentHeightInMicrons := CallbackCreate(ObjBindMethod(implObj, "get_ExtentHeightInMicrons"), flags, 2)
     }
 
     Dispose() {

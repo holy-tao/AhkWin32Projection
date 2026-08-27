@@ -36,7 +36,6 @@ export default struct PWLX_QUERY_IC_CREDENTIALS {
     }
 
     /**
-     * 
      * @param {Pointer<WLX_CLIENT_CREDENTIALS_INFO_V1_0>} pCred When the return value is <b>TRUE</b>, <i>pCred</i> specifies a pointer to a 
      * <a href="https://docs.microsoft.com/windows/win32/api/winwlx/ns-winwlx-wlx_client_credentials_info_v1_0">WLX_CLIENT_CREDENTIALS_INFO_V1_0</a> structure that contains the credentials to use for auto logon.
      * @returns {BOOL} The <b>WlxQueryInetConnectorCredentials</b> function returns one of the following values.

@@ -119,7 +119,7 @@ export default struct IAcousticEchoCancellationControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetEchoCancellationRenderEndpoint := CallbackCreate(GetMethod(implObj, "SetEchoCancellationRenderEndpoint"), flags, 2)
+        this.vtbl.SetEchoCancellationRenderEndpoint := CallbackCreate(ObjBindMethod(implObj, "SetEchoCancellationRenderEndpoint"), flags, 2)
     }
 
     Dispose() {

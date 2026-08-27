@@ -20,7 +20,6 @@ export default struct PQUERYACTCTXW_FUNC {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @param {HANDLE} hActCtx 
      * @param {Pointer<Void>} pvSubInstance 
@@ -31,10 +30,13 @@ export default struct PQUERYACTCTXW_FUNC {
      * @returns {BOOL} 
      */
     Call(dwFlags, hActCtx, pvSubInstance, ulInfoClass, pvBuffer, cbBuffer, pcbWrittenOrRequired) {
-        pvSubInstanceMarshal := pvSubInstance is VarRef ? "ptr" : "ptr"
-        pcbWrittenOrRequiredMarshal := pcbWrittenOrRequired is VarRef ? "ptr*" : "ptr"
+        pvSubInstanceMarshal := pvSubInstance is VarRef ? "ptr" : IntPtr
+        pvSubInstanceMarshal := pvSubInstance == 0 ? IntPtr : "ptr"
+        pvBufferMarshal := pvBuffer == 0 ? IntPtr : IntPtr
+        pcbWrittenOrRequiredMarshal := pcbWrittenOrRequired is VarRef ? "ptr*" : IntPtr
+        pcbWrittenOrRequiredMarshal := pcbWrittenOrRequired == 0 ? IntPtr : "ptr*"
 
-        result := DllCall(this.value, UInt32, dwFlags, HANDLE, hActCtx, pvSubInstanceMarshal, pvSubInstance, UInt32, ulInfoClass, IntPtr, pvBuffer, IntPtr, cbBuffer, pcbWrittenOrRequiredMarshal, pcbWrittenOrRequired, BOOL)
+        result := DllCall(this.value, UInt32, dwFlags, HANDLE, hActCtx, pvSubInstanceMarshal, pvSubInstance, UInt32, ulInfoClass, pvBufferMarshal, pvBuffer, IntPtr, cbBuffer, pcbWrittenOrRequiredMarshal, pcbWrittenOrRequired, BOOL)
         return result
     }
 

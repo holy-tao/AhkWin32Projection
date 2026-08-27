@@ -19,15 +19,14 @@ export default struct PRESUTIL_DUP_PARAMETER_BLOCK {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pOutParams 
      * @param {Pointer<Integer>} pInParams 
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable 
      * @returns {Integer} 
      */
     Call(pOutParams, pInParams, pPropertyTable) {
-        pOutParamsMarshal := pOutParams is VarRef ? "char*" : "ptr"
-        pInParamsMarshal := pInParams is VarRef ? "char*" : "ptr"
+        pOutParamsMarshal := pOutParams is VarRef ? "char*" : IntPtr
+        pInParamsMarshal := pInParams is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, pOutParamsMarshal, pOutParams, pInParamsMarshal, pInParams, RESUTIL_PROPERTY_ITEM.Ptr, pPropertyTable, UInt32)
         return result

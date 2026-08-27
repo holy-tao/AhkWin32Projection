@@ -75,8 +75,8 @@ export default struct ITpmVirtualSmartCardManagerStatusCallback extends IUnknown
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ReportProgress := CallbackCreate(GetMethod(implObj, "ReportProgress"), flags, 2)
-        this.vtbl.ReportError := CallbackCreate(GetMethod(implObj, "ReportError"), flags, 2)
+        this.vtbl.ReportProgress := CallbackCreate(ObjBindMethod(implObj, "ReportProgress"), flags, 2)
+        this.vtbl.ReportError := CallbackCreate(ObjBindMethod(implObj, "ReportError"), flags, 2)
     }
 
     Dispose() {

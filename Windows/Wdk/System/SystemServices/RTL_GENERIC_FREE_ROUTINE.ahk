@@ -19,13 +19,12 @@ export default struct RTL_GENERIC_FREE_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_GENERIC_TABLE>} Table 
      * @param {Pointer<Void>} _Buffer 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(Table, _Buffer) {
-        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, RTL_GENERIC_TABLE.Ptr, Table, _BufferMarshal, _Buffer)
     }

@@ -32,7 +32,6 @@ export default struct LPWSPSHUTDOWN {
     }
 
     /**
-     * 
      * @param {SOCKET} s Descriptor identifying a socket.
      * @param {Integer} how Flag that describes what types of operation will no longer be allowed.
      * @param {Pointer<Integer>} lpErrno Pointer to the error code.
@@ -101,7 +100,7 @@ export default struct LPWSPSHUTDOWN {
      * </table>
      */
     Call(s, how, lpErrno) {
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, SOCKET, s, Int32, how, lpErrnoMarshal, lpErrno, Int32)
         return result

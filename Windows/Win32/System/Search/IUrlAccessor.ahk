@@ -243,8 +243,8 @@ export default struct IUrlAccessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-iurlaccessor-getsecuritydescriptor
      */
     GetSecurityDescriptor(pSD, dwSize, pdwLength) {
-        pSDMarshal := pSD is VarRef ? "char*" : "ptr"
-        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
+        pSDMarshal := pSD is VarRef ? "char*" : IntPtr
+        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(11, this, pSDMarshal, pSD, UInt32, dwSize, pdwLengthMarshal, pdwLength, "HRESULT")
         return result
@@ -331,19 +331,19 @@ export default struct IUrlAccessor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddRequestParameter := CallbackCreate(GetMethod(implObj, "AddRequestParameter"), flags, 3)
-        this.vtbl.GetDocFormat := CallbackCreate(GetMethod(implObj, "GetDocFormat"), flags, 4)
-        this.vtbl.GetCLSID := CallbackCreate(GetMethod(implObj, "GetCLSID"), flags, 2)
-        this.vtbl.GetHost := CallbackCreate(GetMethod(implObj, "GetHost"), flags, 4)
-        this.vtbl.IsDirectory := CallbackCreate(GetMethod(implObj, "IsDirectory"), flags, 1)
-        this.vtbl.GetSize := CallbackCreate(GetMethod(implObj, "GetSize"), flags, 2)
-        this.vtbl.GetLastModified := CallbackCreate(GetMethod(implObj, "GetLastModified"), flags, 2)
-        this.vtbl.GetFileName := CallbackCreate(GetMethod(implObj, "GetFileName"), flags, 4)
-        this.vtbl.GetSecurityDescriptor := CallbackCreate(GetMethod(implObj, "GetSecurityDescriptor"), flags, 4)
-        this.vtbl.GetRedirectedURL := CallbackCreate(GetMethod(implObj, "GetRedirectedURL"), flags, 4)
-        this.vtbl.GetSecurityProvider := CallbackCreate(GetMethod(implObj, "GetSecurityProvider"), flags, 2)
-        this.vtbl.BindToStream := CallbackCreate(GetMethod(implObj, "BindToStream"), flags, 2)
-        this.vtbl.BindToFilter := CallbackCreate(GetMethod(implObj, "BindToFilter"), flags, 2)
+        this.vtbl.AddRequestParameter := CallbackCreate(ObjBindMethod(implObj, "AddRequestParameter"), flags, 3)
+        this.vtbl.GetDocFormat := CallbackCreate(ObjBindMethod(implObj, "GetDocFormat"), flags, 4)
+        this.vtbl.GetCLSID := CallbackCreate(ObjBindMethod(implObj, "GetCLSID"), flags, 2)
+        this.vtbl.GetHost := CallbackCreate(ObjBindMethod(implObj, "GetHost"), flags, 4)
+        this.vtbl.IsDirectory := CallbackCreate(ObjBindMethod(implObj, "IsDirectory"), flags, 1)
+        this.vtbl.GetSize := CallbackCreate(ObjBindMethod(implObj, "GetSize"), flags, 2)
+        this.vtbl.GetLastModified := CallbackCreate(ObjBindMethod(implObj, "GetLastModified"), flags, 2)
+        this.vtbl.GetFileName := CallbackCreate(ObjBindMethod(implObj, "GetFileName"), flags, 4)
+        this.vtbl.GetSecurityDescriptor := CallbackCreate(ObjBindMethod(implObj, "GetSecurityDescriptor"), flags, 4)
+        this.vtbl.GetRedirectedURL := CallbackCreate(ObjBindMethod(implObj, "GetRedirectedURL"), flags, 4)
+        this.vtbl.GetSecurityProvider := CallbackCreate(ObjBindMethod(implObj, "GetSecurityProvider"), flags, 2)
+        this.vtbl.BindToStream := CallbackCreate(ObjBindMethod(implObj, "BindToStream"), flags, 2)
+        this.vtbl.BindToFilter := CallbackCreate(ObjBindMethod(implObj, "BindToFilter"), flags, 2)
     }
 
     Dispose() {

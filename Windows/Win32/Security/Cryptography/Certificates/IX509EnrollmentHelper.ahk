@@ -292,10 +292,10 @@ export default struct IX509EnrollmentHelper extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddPolicyServer := CallbackCreate(GetMethod(implObj, "AddPolicyServer"), flags, 7)
-        this.vtbl.AddEnrollmentServer := CallbackCreate(GetMethod(implObj, "AddEnrollmentServer"), flags, 5)
-        this.vtbl.Enroll := CallbackCreate(GetMethod(implObj, "Enroll"), flags, 6)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.AddPolicyServer := CallbackCreate(ObjBindMethod(implObj, "AddPolicyServer"), flags, 7)
+        this.vtbl.AddEnrollmentServer := CallbackCreate(ObjBindMethod(implObj, "AddEnrollmentServer"), flags, 5)
+        this.vtbl.Enroll := CallbackCreate(ObjBindMethod(implObj, "Enroll"), flags, 6)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
     }
 
     Dispose() {

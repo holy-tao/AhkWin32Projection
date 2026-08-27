@@ -116,8 +116,8 @@ export default struct ITfFnPropertyUIStatus extends ITfFunction {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 3)
-        this.vtbl.SetStatus := CallbackCreate(GetMethod(implObj, "SetStatus"), flags, 3)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 3)
+        this.vtbl.SetStatus := CallbackCreate(ObjBindMethod(implObj, "SetStatus"), flags, 3)
     }
 
     Dispose() {

@@ -61,7 +61,7 @@ export default struct ID3D12VideoProcessCommandList1 extends ID3D12VideoProcessC
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ProcessFrames1 := CallbackCreate(GetMethod(implObj, "ProcessFrames1"), flags, 5)
+        this.vtbl.ProcessFrames1 := CallbackCreate(ObjBindMethod(implObj, "ProcessFrames1"), flags, 5)
     }
 
     Dispose() {

@@ -103,8 +103,8 @@ export default struct IVdsHbaPort extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
-        this.vtbl.SetAllPathStatuses := CallbackCreate(GetMethod(implObj, "SetAllPathStatuses"), flags, 2)
+        this.vtbl.GetProperties := CallbackCreate(ObjBindMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.SetAllPathStatuses := CallbackCreate(ObjBindMethod(implObj, "SetAllPathStatuses"), flags, 2)
     }
 
     Dispose() {

@@ -91,7 +91,7 @@ export default struct IWMDRMWriter3 extends IWMDRMWriter2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetProtectStreamSamples := CallbackCreate(GetMethod(implObj, "SetProtectStreamSamples"), flags, 2)
+        this.vtbl.SetProtectStreamSamples := CallbackCreate(ObjBindMethod(implObj, "SetProtectStreamSamples"), flags, 2)
     }
 
     Dispose() {

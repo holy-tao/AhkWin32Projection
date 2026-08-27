@@ -38,7 +38,6 @@ export default struct ID2D1Device7 extends ID2D1Device6 {
     }
 
     /**
-     * 
      * @param {D2D1_DEVICE_CONTEXT_OPTIONS} options 
      * @returns {ID2D1DeviceContext7} 
      */
@@ -56,7 +55,7 @@ export default struct ID2D1Device7 extends ID2D1Device6 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateDeviceContext := CallbackCreate(GetMethod(implObj, "CreateDeviceContext"), flags, 3)
+        this.vtbl.CreateDeviceContext := CallbackCreate(ObjBindMethod(implObj, "CreateDeviceContext"), flags, 3)
     }
 
     Dispose() {

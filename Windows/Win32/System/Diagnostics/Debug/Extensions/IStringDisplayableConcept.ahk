@@ -39,14 +39,15 @@ export default struct IStringDisplayableConcept extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @param {IKeyStore} metadata 
      * @returns {BSTR} 
      */
     ToDisplayString(contextObject, metadata) {
+        metadataMarshal := metadata == 0 ? IntPtr : "ptr"
+
         displayString := BSTR.Owned()
-        result := ComCall(3, this, "ptr", contextObject, "ptr", metadata, BSTR.Ptr, displayString, "HRESULT")
+        result := ComCall(3, this, "ptr", contextObject, metadataMarshal, metadata, BSTR.Ptr, displayString, "HRESULT")
         return displayString
     }
 
@@ -59,7 +60,7 @@ export default struct IStringDisplayableConcept extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ToDisplayString := CallbackCreate(GetMethod(implObj, "ToDisplayString"), flags, 4)
+        this.vtbl.ToDisplayString := CallbackCreate(ObjBindMethod(implObj, "ToDisplayString"), flags, 4)
     }
 
     Dispose() {

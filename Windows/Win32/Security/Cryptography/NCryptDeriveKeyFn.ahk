@@ -23,7 +23,6 @@ export default struct NCryptDeriveKeyFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} _hProvider 
      * @param {NCRYPT_SECRET_HANDLE} hSharedSecret 
      * @param {PWSTR} pwszKDF 
@@ -36,7 +35,10 @@ export default struct NCryptDeriveKeyFn {
     Call(_hProvider, hSharedSecret, pwszKDF, pParameterList, pbDerivedKey, cbDerivedKey, dwFlags) {
         pwszKDF := pwszKDF is String ? StrPtr(pwszKDF) : pwszKDF
 
-        result := DllCall(this.value, NCRYPT_PROV_HANDLE, _hProvider, NCRYPT_SECRET_HANDLE, hSharedSecret, "ptr", pwszKDF, BCryptBufferDesc.Ptr, pParameterList, IntPtr, pbDerivedKey, UInt32, cbDerivedKey, "uint*", &pcbResult := 0, UInt32, dwFlags, "HRESULT")
+        pParameterListMarshal := pParameterList == 0 ? IntPtr : BCryptBufferDesc.Ptr
+        pbDerivedKeyMarshal := pbDerivedKey == 0 ? IntPtr : IntPtr
+
+        result := DllCall(this.value, NCRYPT_PROV_HANDLE, _hProvider, NCRYPT_SECRET_HANDLE, hSharedSecret, "ptr", pwszKDF, pParameterListMarshal, pParameterList, pbDerivedKeyMarshal, pbDerivedKey, UInt32, cbDerivedKey, "uint*", &pcbResult := 0, UInt32, dwFlags, "HRESULT")
         return pcbResult
     }
 

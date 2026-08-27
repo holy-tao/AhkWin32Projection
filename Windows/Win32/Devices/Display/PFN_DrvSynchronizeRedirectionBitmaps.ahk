@@ -20,13 +20,12 @@ export default struct PFN_DrvSynchronizeRedirectionBitmaps {
     }
 
     /**
-     * 
      * @param {DHPDEV} param0 
      * @param {Pointer<Integer>} param1 
      * @returns {NTSTATUS} 
      */
     Call(param0, param1) {
-        param1Marshal := param1 is VarRef ? "uint*" : "ptr"
+        param1Marshal := param1 is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, DHPDEV, param0, param1Marshal, param1, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

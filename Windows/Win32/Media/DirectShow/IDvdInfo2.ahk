@@ -184,7 +184,7 @@ export default struct IDvdInfo2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-gettotaltitletime
      */
     GetTotalTitleTime(pTotalTime, ulTimeCodeFlags) {
-        ulTimeCodeFlagsMarshal := ulTimeCodeFlags is VarRef ? "uint*" : "ptr"
+        ulTimeCodeFlagsMarshal := ulTimeCodeFlags is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, DVD_HMSF_TIMECODE.Ptr, pTotalTime, ulTimeCodeFlagsMarshal, ulTimeCodeFlags, "HRESULT")
         return result
@@ -229,8 +229,8 @@ export default struct IDvdInfo2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getcurrentbutton
      */
     GetCurrentButton(pulButtonsAvailable, pulCurrentButton) {
-        pulButtonsAvailableMarshal := pulButtonsAvailable is VarRef ? "uint*" : "ptr"
-        pulCurrentButtonMarshal := pulCurrentButton is VarRef ? "uint*" : "ptr"
+        pulButtonsAvailableMarshal := pulButtonsAvailable is VarRef ? "uint*" : IntPtr
+        pulCurrentButtonMarshal := pulCurrentButton is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, pulButtonsAvailableMarshal, pulButtonsAvailable, pulCurrentButtonMarshal, pulCurrentButton, "HRESULT")
         return result
@@ -288,8 +288,8 @@ export default struct IDvdInfo2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getcurrentangle
      */
     GetCurrentAngle(pulAnglesAvailable, pulCurrentAngle) {
-        pulAnglesAvailableMarshal := pulAnglesAvailable is VarRef ? "uint*" : "ptr"
-        pulCurrentAngleMarshal := pulCurrentAngle is VarRef ? "uint*" : "ptr"
+        pulAnglesAvailableMarshal := pulAnglesAvailable is VarRef ? "uint*" : IntPtr
+        pulCurrentAngleMarshal := pulCurrentAngle is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, pulAnglesAvailableMarshal, pulAnglesAvailable, pulCurrentAngleMarshal, pulCurrentAngle, "HRESULT")
         return result
@@ -345,8 +345,8 @@ export default struct IDvdInfo2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getcurrentaudio
      */
     GetCurrentAudio(pulStreamsAvailable, pulCurrentStream) {
-        pulStreamsAvailableMarshal := pulStreamsAvailable is VarRef ? "uint*" : "ptr"
-        pulCurrentStreamMarshal := pulCurrentStream is VarRef ? "uint*" : "ptr"
+        pulStreamsAvailableMarshal := pulStreamsAvailable is VarRef ? "uint*" : IntPtr
+        pulCurrentStreamMarshal := pulCurrentStream is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, pulStreamsAvailableMarshal, pulStreamsAvailable, pulCurrentStreamMarshal, pulCurrentStream, "HRESULT")
         return result
@@ -403,9 +403,9 @@ export default struct IDvdInfo2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getcurrentsubpicture
      */
     GetCurrentSubpicture(pulStreamsAvailable, pulCurrentStream, pbIsDisabled) {
-        pulStreamsAvailableMarshal := pulStreamsAvailable is VarRef ? "uint*" : "ptr"
-        pulCurrentStreamMarshal := pulCurrentStream is VarRef ? "uint*" : "ptr"
-        pbIsDisabledMarshal := pbIsDisabled is VarRef ? "int*" : "ptr"
+        pulStreamsAvailableMarshal := pulStreamsAvailable is VarRef ? "uint*" : IntPtr
+        pulCurrentStreamMarshal := pulCurrentStream is VarRef ? "uint*" : IntPtr
+        pbIsDisabledMarshal := pbIsDisabled is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, pulStreamsAvailableMarshal, pulStreamsAvailable, pulCurrentStreamMarshal, pulCurrentStream, pbIsDisabledMarshal, pbIsDisabled, "HRESULT")
         return result
@@ -878,10 +878,10 @@ export default struct IDvdInfo2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getdvdvolumeinfo
      */
     GetDVDVolumeInfo(pulNumOfVolumes, pulVolume, pSide, pulNumOfTitles) {
-        pulNumOfVolumesMarshal := pulNumOfVolumes is VarRef ? "uint*" : "ptr"
-        pulVolumeMarshal := pulVolume is VarRef ? "uint*" : "ptr"
-        pSideMarshal := pSide is VarRef ? "int*" : "ptr"
-        pulNumOfTitlesMarshal := pulNumOfTitles is VarRef ? "uint*" : "ptr"
+        pulNumOfVolumesMarshal := pulNumOfVolumes is VarRef ? "uint*" : IntPtr
+        pulVolumeMarshal := pulVolume is VarRef ? "uint*" : IntPtr
+        pSideMarshal := pSide is VarRef ? "int*" : IntPtr
+        pulNumOfTitlesMarshal := pulNumOfTitles is VarRef ? "uint*" : IntPtr
 
         result := ComCall(21, this, pulNumOfVolumesMarshal, pulNumOfVolumes, pulVolumeMarshal, pulVolume, pSideMarshal, pSide, pulNumOfTitlesMarshal, pulNumOfTitles, "HRESULT")
         return result
@@ -964,9 +964,9 @@ export default struct IDvdInfo2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getdvdtextlanguageinfo
      */
     GetDVDTextLanguageInfo(ulLangIndex, pulNumOfStrings, pLangCode, pbCharacterSet) {
-        pulNumOfStringsMarshal := pulNumOfStrings is VarRef ? "uint*" : "ptr"
-        pLangCodeMarshal := pLangCode is VarRef ? "uint*" : "ptr"
-        pbCharacterSetMarshal := pbCharacterSet is VarRef ? "int*" : "ptr"
+        pulNumOfStringsMarshal := pulNumOfStrings is VarRef ? "uint*" : IntPtr
+        pLangCodeMarshal := pLangCode is VarRef ? "uint*" : IntPtr
+        pbCharacterSetMarshal := pbCharacterSet is VarRef ? "int*" : IntPtr
 
         result := ComCall(23, this, UInt32, ulLangIndex, pulNumOfStringsMarshal, pulNumOfStrings, pLangCodeMarshal, pLangCode, pbCharacterSetMarshal, pbCharacterSet, "HRESULT")
         return result
@@ -1030,9 +1030,9 @@ export default struct IDvdInfo2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getdvdtextstringasnative
      */
     GetDVDTextStringAsNative(ulLangIndex, ulStringIndex, pbBuffer, ulMaxBufferSize, pulActualSize, pType) {
-        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
-        pulActualSizeMarshal := pulActualSize is VarRef ? "uint*" : "ptr"
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : IntPtr
+        pulActualSizeMarshal := pulActualSize is VarRef ? "uint*" : IntPtr
+        pTypeMarshal := pType is VarRef ? "int*" : IntPtr
 
         result := ComCall(24, this, UInt32, ulLangIndex, UInt32, ulStringIndex, pbBufferMarshal, pbBuffer, UInt32, ulMaxBufferSize, pulActualSizeMarshal, pulActualSize, pTypeMarshal, pType, "HRESULT")
         return result
@@ -1107,8 +1107,8 @@ export default struct IDvdInfo2 extends IUnknown {
     GetDVDTextStringAsUnicode(ulLangIndex, ulStringIndex, pchwBuffer, ulMaxBufferSize, pulActualSize, pType) {
         pchwBuffer := pchwBuffer is String ? StrPtr(pchwBuffer) : pchwBuffer
 
-        pulActualSizeMarshal := pulActualSize is VarRef ? "uint*" : "ptr"
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        pulActualSizeMarshal := pulActualSize is VarRef ? "uint*" : IntPtr
+        pTypeMarshal := pType is VarRef ? "int*" : IntPtr
 
         result := ComCall(25, this, UInt32, ulLangIndex, UInt32, ulStringIndex, "ptr", pchwBuffer, UInt32, ulMaxBufferSize, pulActualSizeMarshal, pulActualSize, pTypeMarshal, pType, "HRESULT")
         return result
@@ -1153,8 +1153,8 @@ export default struct IDvdInfo2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getplayerparentallevel
      */
     GetPlayerParentalLevel(pulParentalLevel, pbCountryCode) {
-        pulParentalLevelMarshal := pulParentalLevel is VarRef ? "uint*" : "ptr"
-        pbCountryCodeMarshal := pbCountryCode is VarRef ? "char*" : "ptr"
+        pulParentalLevelMarshal := pulParentalLevel is VarRef ? "uint*" : IntPtr
+        pbCountryCodeMarshal := pbCountryCode is VarRef ? "char*" : IntPtr
 
         result := ComCall(26, this, pulParentalLevelMarshal, pulParentalLevel, pbCountryCodeMarshal, pbCountryCode, "HRESULT")
         return result
@@ -1295,8 +1295,8 @@ export default struct IDvdInfo2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getmenulanguages
      */
     GetMenuLanguages(pLanguages, ulMaxLanguages, pulActualLanguages) {
-        pLanguagesMarshal := pLanguages is VarRef ? "uint*" : "ptr"
-        pulActualLanguagesMarshal := pulActualLanguages is VarRef ? "uint*" : "ptr"
+        pLanguagesMarshal := pLanguages is VarRef ? "uint*" : IntPtr
+        pulActualLanguagesMarshal := pulActualLanguages is VarRef ? "uint*" : IntPtr
 
         result := ComCall(33, this, pLanguagesMarshal, pLanguages, UInt32, ulMaxLanguages, pulActualLanguagesMarshal, pulActualLanguages, "HRESULT")
         return result
@@ -1408,8 +1408,8 @@ export default struct IDvdInfo2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getdefaultaudiolanguage
      */
     GetDefaultAudioLanguage(pLanguage, pAudioExtension) {
-        pLanguageMarshal := pLanguage is VarRef ? "uint*" : "ptr"
-        pAudioExtensionMarshal := pAudioExtension is VarRef ? "int*" : "ptr"
+        pLanguageMarshal := pLanguage is VarRef ? "uint*" : IntPtr
+        pAudioExtensionMarshal := pAudioExtension is VarRef ? "int*" : IntPtr
 
         result := ComCall(37, this, pLanguageMarshal, pLanguage, pAudioExtensionMarshal, pAudioExtension, "HRESULT")
         return result
@@ -1485,8 +1485,8 @@ export default struct IDvdInfo2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getdefaultsubpicturelanguage
      */
     GetDefaultSubpictureLanguage(pLanguage, pSubpictureExtension) {
-        pLanguageMarshal := pLanguage is VarRef ? "uint*" : "ptr"
-        pSubpictureExtensionMarshal := pSubpictureExtension is VarRef ? "int*" : "ptr"
+        pLanguageMarshal := pLanguage is VarRef ? "uint*" : IntPtr
+        pSubpictureExtensionMarshal := pSubpictureExtension is VarRef ? "int*" : IntPtr
 
         result := ComCall(38, this, pLanguageMarshal, pLanguage, pSubpictureExtensionMarshal, pSubpictureExtension, "HRESULT")
         return result
@@ -1537,45 +1537,45 @@ export default struct IDvdInfo2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCurrentDomain := CallbackCreate(GetMethod(implObj, "GetCurrentDomain"), flags, 2)
-        this.vtbl.GetCurrentLocation := CallbackCreate(GetMethod(implObj, "GetCurrentLocation"), flags, 2)
-        this.vtbl.GetTotalTitleTime := CallbackCreate(GetMethod(implObj, "GetTotalTitleTime"), flags, 3)
-        this.vtbl.GetCurrentButton := CallbackCreate(GetMethod(implObj, "GetCurrentButton"), flags, 3)
-        this.vtbl.GetCurrentAngle := CallbackCreate(GetMethod(implObj, "GetCurrentAngle"), flags, 3)
-        this.vtbl.GetCurrentAudio := CallbackCreate(GetMethod(implObj, "GetCurrentAudio"), flags, 3)
-        this.vtbl.GetCurrentSubpicture := CallbackCreate(GetMethod(implObj, "GetCurrentSubpicture"), flags, 4)
-        this.vtbl.GetCurrentUOPS := CallbackCreate(GetMethod(implObj, "GetCurrentUOPS"), flags, 2)
-        this.vtbl.GetAllSPRMs := CallbackCreate(GetMethod(implObj, "GetAllSPRMs"), flags, 2)
-        this.vtbl.GetAllGPRMs := CallbackCreate(GetMethod(implObj, "GetAllGPRMs"), flags, 2)
-        this.vtbl.GetAudioLanguage := CallbackCreate(GetMethod(implObj, "GetAudioLanguage"), flags, 3)
-        this.vtbl.GetSubpictureLanguage := CallbackCreate(GetMethod(implObj, "GetSubpictureLanguage"), flags, 3)
-        this.vtbl.GetTitleAttributes := CallbackCreate(GetMethod(implObj, "GetTitleAttributes"), flags, 4)
-        this.vtbl.GetVMGAttributes := CallbackCreate(GetMethod(implObj, "GetVMGAttributes"), flags, 2)
-        this.vtbl.GetCurrentVideoAttributes := CallbackCreate(GetMethod(implObj, "GetCurrentVideoAttributes"), flags, 2)
-        this.vtbl.GetAudioAttributes := CallbackCreate(GetMethod(implObj, "GetAudioAttributes"), flags, 3)
-        this.vtbl.GetKaraokeAttributes := CallbackCreate(GetMethod(implObj, "GetKaraokeAttributes"), flags, 3)
-        this.vtbl.GetSubpictureAttributes := CallbackCreate(GetMethod(implObj, "GetSubpictureAttributes"), flags, 3)
-        this.vtbl.GetDVDVolumeInfo := CallbackCreate(GetMethod(implObj, "GetDVDVolumeInfo"), flags, 5)
-        this.vtbl.GetDVDTextNumberOfLanguages := CallbackCreate(GetMethod(implObj, "GetDVDTextNumberOfLanguages"), flags, 2)
-        this.vtbl.GetDVDTextLanguageInfo := CallbackCreate(GetMethod(implObj, "GetDVDTextLanguageInfo"), flags, 5)
-        this.vtbl.GetDVDTextStringAsNative := CallbackCreate(GetMethod(implObj, "GetDVDTextStringAsNative"), flags, 7)
-        this.vtbl.GetDVDTextStringAsUnicode := CallbackCreate(GetMethod(implObj, "GetDVDTextStringAsUnicode"), flags, 7)
-        this.vtbl.GetPlayerParentalLevel := CallbackCreate(GetMethod(implObj, "GetPlayerParentalLevel"), flags, 3)
-        this.vtbl.GetNumberOfChapters := CallbackCreate(GetMethod(implObj, "GetNumberOfChapters"), flags, 3)
-        this.vtbl.GetTitleParentalLevels := CallbackCreate(GetMethod(implObj, "GetTitleParentalLevels"), flags, 3)
-        this.vtbl.GetDVDDirectory := CallbackCreate(GetMethod(implObj, "GetDVDDirectory"), flags, 4)
-        this.vtbl.IsAudioStreamEnabled := CallbackCreate(GetMethod(implObj, "IsAudioStreamEnabled"), flags, 3)
-        this.vtbl.GetDiscID := CallbackCreate(GetMethod(implObj, "GetDiscID"), flags, 3)
-        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 2)
-        this.vtbl.GetMenuLanguages := CallbackCreate(GetMethod(implObj, "GetMenuLanguages"), flags, 4)
-        this.vtbl.GetButtonAtPosition := CallbackCreate(GetMethod(implObj, "GetButtonAtPosition"), flags, 3)
-        this.vtbl.GetCmdFromEvent := CallbackCreate(GetMethod(implObj, "GetCmdFromEvent"), flags, 3)
-        this.vtbl.GetDefaultMenuLanguage := CallbackCreate(GetMethod(implObj, "GetDefaultMenuLanguage"), flags, 2)
-        this.vtbl.GetDefaultAudioLanguage := CallbackCreate(GetMethod(implObj, "GetDefaultAudioLanguage"), flags, 3)
-        this.vtbl.GetDefaultSubpictureLanguage := CallbackCreate(GetMethod(implObj, "GetDefaultSubpictureLanguage"), flags, 3)
-        this.vtbl.GetDecoderCaps := CallbackCreate(GetMethod(implObj, "GetDecoderCaps"), flags, 2)
-        this.vtbl.GetButtonRect := CallbackCreate(GetMethod(implObj, "GetButtonRect"), flags, 3)
-        this.vtbl.IsSubpictureStreamEnabled := CallbackCreate(GetMethod(implObj, "IsSubpictureStreamEnabled"), flags, 3)
+        this.vtbl.GetCurrentDomain := CallbackCreate(ObjBindMethod(implObj, "GetCurrentDomain"), flags, 2)
+        this.vtbl.GetCurrentLocation := CallbackCreate(ObjBindMethod(implObj, "GetCurrentLocation"), flags, 2)
+        this.vtbl.GetTotalTitleTime := CallbackCreate(ObjBindMethod(implObj, "GetTotalTitleTime"), flags, 3)
+        this.vtbl.GetCurrentButton := CallbackCreate(ObjBindMethod(implObj, "GetCurrentButton"), flags, 3)
+        this.vtbl.GetCurrentAngle := CallbackCreate(ObjBindMethod(implObj, "GetCurrentAngle"), flags, 3)
+        this.vtbl.GetCurrentAudio := CallbackCreate(ObjBindMethod(implObj, "GetCurrentAudio"), flags, 3)
+        this.vtbl.GetCurrentSubpicture := CallbackCreate(ObjBindMethod(implObj, "GetCurrentSubpicture"), flags, 4)
+        this.vtbl.GetCurrentUOPS := CallbackCreate(ObjBindMethod(implObj, "GetCurrentUOPS"), flags, 2)
+        this.vtbl.GetAllSPRMs := CallbackCreate(ObjBindMethod(implObj, "GetAllSPRMs"), flags, 2)
+        this.vtbl.GetAllGPRMs := CallbackCreate(ObjBindMethod(implObj, "GetAllGPRMs"), flags, 2)
+        this.vtbl.GetAudioLanguage := CallbackCreate(ObjBindMethod(implObj, "GetAudioLanguage"), flags, 3)
+        this.vtbl.GetSubpictureLanguage := CallbackCreate(ObjBindMethod(implObj, "GetSubpictureLanguage"), flags, 3)
+        this.vtbl.GetTitleAttributes := CallbackCreate(ObjBindMethod(implObj, "GetTitleAttributes"), flags, 4)
+        this.vtbl.GetVMGAttributes := CallbackCreate(ObjBindMethod(implObj, "GetVMGAttributes"), flags, 2)
+        this.vtbl.GetCurrentVideoAttributes := CallbackCreate(ObjBindMethod(implObj, "GetCurrentVideoAttributes"), flags, 2)
+        this.vtbl.GetAudioAttributes := CallbackCreate(ObjBindMethod(implObj, "GetAudioAttributes"), flags, 3)
+        this.vtbl.GetKaraokeAttributes := CallbackCreate(ObjBindMethod(implObj, "GetKaraokeAttributes"), flags, 3)
+        this.vtbl.GetSubpictureAttributes := CallbackCreate(ObjBindMethod(implObj, "GetSubpictureAttributes"), flags, 3)
+        this.vtbl.GetDVDVolumeInfo := CallbackCreate(ObjBindMethod(implObj, "GetDVDVolumeInfo"), flags, 5)
+        this.vtbl.GetDVDTextNumberOfLanguages := CallbackCreate(ObjBindMethod(implObj, "GetDVDTextNumberOfLanguages"), flags, 2)
+        this.vtbl.GetDVDTextLanguageInfo := CallbackCreate(ObjBindMethod(implObj, "GetDVDTextLanguageInfo"), flags, 5)
+        this.vtbl.GetDVDTextStringAsNative := CallbackCreate(ObjBindMethod(implObj, "GetDVDTextStringAsNative"), flags, 7)
+        this.vtbl.GetDVDTextStringAsUnicode := CallbackCreate(ObjBindMethod(implObj, "GetDVDTextStringAsUnicode"), flags, 7)
+        this.vtbl.GetPlayerParentalLevel := CallbackCreate(ObjBindMethod(implObj, "GetPlayerParentalLevel"), flags, 3)
+        this.vtbl.GetNumberOfChapters := CallbackCreate(ObjBindMethod(implObj, "GetNumberOfChapters"), flags, 3)
+        this.vtbl.GetTitleParentalLevels := CallbackCreate(ObjBindMethod(implObj, "GetTitleParentalLevels"), flags, 3)
+        this.vtbl.GetDVDDirectory := CallbackCreate(ObjBindMethod(implObj, "GetDVDDirectory"), flags, 4)
+        this.vtbl.IsAudioStreamEnabled := CallbackCreate(ObjBindMethod(implObj, "IsAudioStreamEnabled"), flags, 3)
+        this.vtbl.GetDiscID := CallbackCreate(ObjBindMethod(implObj, "GetDiscID"), flags, 3)
+        this.vtbl.GetState := CallbackCreate(ObjBindMethod(implObj, "GetState"), flags, 2)
+        this.vtbl.GetMenuLanguages := CallbackCreate(ObjBindMethod(implObj, "GetMenuLanguages"), flags, 4)
+        this.vtbl.GetButtonAtPosition := CallbackCreate(ObjBindMethod(implObj, "GetButtonAtPosition"), flags, 3)
+        this.vtbl.GetCmdFromEvent := CallbackCreate(ObjBindMethod(implObj, "GetCmdFromEvent"), flags, 3)
+        this.vtbl.GetDefaultMenuLanguage := CallbackCreate(ObjBindMethod(implObj, "GetDefaultMenuLanguage"), flags, 2)
+        this.vtbl.GetDefaultAudioLanguage := CallbackCreate(ObjBindMethod(implObj, "GetDefaultAudioLanguage"), flags, 3)
+        this.vtbl.GetDefaultSubpictureLanguage := CallbackCreate(ObjBindMethod(implObj, "GetDefaultSubpictureLanguage"), flags, 3)
+        this.vtbl.GetDecoderCaps := CallbackCreate(ObjBindMethod(implObj, "GetDecoderCaps"), flags, 2)
+        this.vtbl.GetButtonRect := CallbackCreate(ObjBindMethod(implObj, "GetButtonRect"), flags, 3)
+        this.vtbl.IsSubpictureStreamEnabled := CallbackCreate(ObjBindMethod(implObj, "IsSubpictureStreamEnabled"), flags, 3)
     }
 
     Dispose() {

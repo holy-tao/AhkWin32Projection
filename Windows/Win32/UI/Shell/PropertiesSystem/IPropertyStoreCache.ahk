@@ -84,14 +84,13 @@ export default struct IPropertyStoreCache extends IPropertyStore {
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertystorecache-getvalueandstate
      */
     GetValueAndState(key, ppropvar, pstate) {
-        pstateMarshal := pstate is VarRef ? "int*" : "ptr"
+        pstateMarshal := pstate is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, PROPERTYKEY.Ptr, key, PROPVARIANT.Ptr, ppropvar, pstateMarshal, pstate, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<PROPERTYKEY>} key 
      * @param {PSC_STATE} state 
      * @returns {HRESULT} 
@@ -131,10 +130,10 @@ export default struct IPropertyStoreCache extends IPropertyStore {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 3)
-        this.vtbl.GetValueAndState := CallbackCreate(GetMethod(implObj, "GetValueAndState"), flags, 4)
-        this.vtbl.SetState := CallbackCreate(GetMethod(implObj, "SetState"), flags, 3)
-        this.vtbl.SetValueAndState := CallbackCreate(GetMethod(implObj, "SetValueAndState"), flags, 4)
+        this.vtbl.GetState := CallbackCreate(ObjBindMethod(implObj, "GetState"), flags, 3)
+        this.vtbl.GetValueAndState := CallbackCreate(ObjBindMethod(implObj, "GetValueAndState"), flags, 4)
+        this.vtbl.SetState := CallbackCreate(ObjBindMethod(implObj, "SetState"), flags, 3)
+        this.vtbl.SetValueAndState := CallbackCreate(ObjBindMethod(implObj, "SetValueAndState"), flags, 4)
     }
 
     Dispose() {

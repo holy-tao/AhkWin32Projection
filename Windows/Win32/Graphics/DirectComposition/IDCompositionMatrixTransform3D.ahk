@@ -123,9 +123,9 @@ export default struct IDCompositionMatrixTransform3D extends IDCompositionTransf
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetMatrix := CallbackCreate(GetMethod(implObj, "SetMatrix"), flags, 2)
-        this.vtbl.SetMatrixElement := CallbackCreate(GetMethod(implObj, "SetMatrixElement"), flags, 4)
-        this.vtbl.SetMatrixElement1 := CallbackCreate(GetMethod(implObj, "SetMatrixElement1"), flags, 4)
+        this.vtbl.SetMatrix := CallbackCreate(ObjBindMethod(implObj, "SetMatrix"), flags, 2)
+        this.vtbl.SetMatrixElement := CallbackCreate(ObjBindMethod(implObj, "SetMatrixElement"), flags, 4)
+        this.vtbl.SetMatrixElement1 := CallbackCreate(ObjBindMethod(implObj, "SetMatrixElement1"), flags, 4)
     }
 
     Dispose() {

@@ -172,12 +172,12 @@ export default struct ITfReadingInformationUIElement extends ITfUIElement {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetUpdatedFlags := CallbackCreate(GetMethod(implObj, "GetUpdatedFlags"), flags, 2)
-        this.vtbl.GetContext := CallbackCreate(GetMethod(implObj, "GetContext"), flags, 2)
-        this.vtbl.GetString := CallbackCreate(GetMethod(implObj, "GetString"), flags, 2)
-        this.vtbl.GetMaxReadingStringLength := CallbackCreate(GetMethod(implObj, "GetMaxReadingStringLength"), flags, 2)
-        this.vtbl.GetErrorIndex := CallbackCreate(GetMethod(implObj, "GetErrorIndex"), flags, 2)
-        this.vtbl.IsVerticalOrderPreferred := CallbackCreate(GetMethod(implObj, "IsVerticalOrderPreferred"), flags, 2)
+        this.vtbl.GetUpdatedFlags := CallbackCreate(ObjBindMethod(implObj, "GetUpdatedFlags"), flags, 2)
+        this.vtbl.GetContext := CallbackCreate(ObjBindMethod(implObj, "GetContext"), flags, 2)
+        this.vtbl.GetString := CallbackCreate(ObjBindMethod(implObj, "GetString"), flags, 2)
+        this.vtbl.GetMaxReadingStringLength := CallbackCreate(ObjBindMethod(implObj, "GetMaxReadingStringLength"), flags, 2)
+        this.vtbl.GetErrorIndex := CallbackCreate(ObjBindMethod(implObj, "GetErrorIndex"), flags, 2)
+        this.vtbl.IsVerticalOrderPreferred := CallbackCreate(ObjBindMethod(implObj, "IsVerticalOrderPreferred"), flags, 2)
     }
 
     Dispose() {

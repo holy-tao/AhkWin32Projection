@@ -72,8 +72,8 @@ export default struct IOfflineFilesFileItem extends IOfflineFilesItem {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsSparse := CallbackCreate(GetMethod(implObj, "IsSparse"), flags, 2)
-        this.vtbl.IsEncrypted := CallbackCreate(GetMethod(implObj, "IsEncrypted"), flags, 2)
+        this.vtbl.IsSparse := CallbackCreate(ObjBindMethod(implObj, "IsSparse"), flags, 2)
+        this.vtbl.IsEncrypted := CallbackCreate(ObjBindMethod(implObj, "IsEncrypted"), flags, 2)
     }
 
     Dispose() {

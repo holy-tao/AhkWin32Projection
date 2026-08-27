@@ -165,7 +165,9 @@ export default struct IMMDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immdevice-activate
      */
     Activate(iid, dwClsCtx, pActivationParams) {
-        result := ComCall(3, this, Guid.Ptr, iid, CLSCTX, dwClsCtx, PROPVARIANT.Ptr, pActivationParams, "ptr*", &ppInterface := 0, "HRESULT")
+        pActivationParamsMarshal := pActivationParams == 0 ? IntPtr : PROPVARIANT.Ptr
+
+        result := ComCall(3, this, Guid.Ptr, iid, CLSCTX, dwClsCtx, pActivationParamsMarshal, pActivationParams, "ptr*", &ppInterface := 0, "HRESULT")
         return ppInterface
     }
 
@@ -251,10 +253,10 @@ export default struct IMMDevice extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Activate := CallbackCreate(GetMethod(implObj, "Activate"), flags, 5)
-        this.vtbl.OpenPropertyStore := CallbackCreate(GetMethod(implObj, "OpenPropertyStore"), flags, 3)
-        this.vtbl.GetId := CallbackCreate(GetMethod(implObj, "GetId"), flags, 2)
-        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 2)
+        this.vtbl.Activate := CallbackCreate(ObjBindMethod(implObj, "Activate"), flags, 5)
+        this.vtbl.OpenPropertyStore := CallbackCreate(ObjBindMethod(implObj, "OpenPropertyStore"), flags, 3)
+        this.vtbl.GetId := CallbackCreate(ObjBindMethod(implObj, "GetId"), flags, 2)
+        this.vtbl.GetState := CallbackCreate(ObjBindMethod(implObj, "GetState"), flags, 2)
     }
 
     Dispose() {

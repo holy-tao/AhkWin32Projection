@@ -20,7 +20,6 @@ export default struct PFN_CARD_GET_ALGORITHM_PROPERTY {
     }
 
     /**
-     * 
      * @param {Pointer<CARD_DATA>} pCardData 
      * @param {PWSTR} pwszAlgId 
      * @param {PWSTR} pwszProperty 
@@ -34,9 +33,10 @@ export default struct PFN_CARD_GET_ALGORITHM_PROPERTY {
         pwszAlgId := pwszAlgId is String ? StrPtr(pwszAlgId) : pwszAlgId
         pwszProperty := pwszProperty is String ? StrPtr(pwszProperty) : pwszProperty
 
-        pdwDataLenMarshal := pdwDataLen is VarRef ? "uint*" : "ptr"
+        pbDataMarshal := pbData == 0 ? IntPtr : IntPtr
+        pdwDataLenMarshal := pdwDataLen is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, CARD_DATA.Ptr, pCardData, "ptr", pwszAlgId, "ptr", pwszProperty, IntPtr, pbData, UInt32, cbData, pdwDataLenMarshal, pdwDataLen, UInt32, dwFlags, UInt32)
+        result := DllCall(this.value, CARD_DATA.Ptr, pCardData, "ptr", pwszAlgId, "ptr", pwszProperty, pbDataMarshal, pbData, UInt32, cbData, pdwDataLenMarshal, pdwDataLen, UInt32, dwFlags, UInt32)
         return result
     }
 

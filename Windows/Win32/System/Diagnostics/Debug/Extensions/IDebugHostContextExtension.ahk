@@ -38,21 +38,19 @@ export default struct IDebugHostContextExtension extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} blobId 
      * @param {Integer} dataSize 
      * @param {Pointer<Void>} data 
      * @returns {HRESULT} 
      */
     AddExtensionData(blobId, dataSize, data) {
-        dataMarshal := data is VarRef ? "ptr" : "ptr"
+        dataMarshal := data is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, UInt32, blobId, UInt32, dataSize, dataMarshal, data, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {IDebugHostContext} 
      */
     FinalizeContext() {
@@ -69,8 +67,8 @@ export default struct IDebugHostContextExtension extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddExtensionData := CallbackCreate(GetMethod(implObj, "AddExtensionData"), flags, 4)
-        this.vtbl.FinalizeContext := CallbackCreate(GetMethod(implObj, "FinalizeContext"), flags, 2)
+        this.vtbl.AddExtensionData := CallbackCreate(ObjBindMethod(implObj, "AddExtensionData"), flags, 4)
+        this.vtbl.FinalizeContext := CallbackCreate(ObjBindMethod(implObj, "FinalizeContext"), flags, 2)
     }
 
     Dispose() {

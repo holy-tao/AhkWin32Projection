@@ -107,9 +107,11 @@
 export CreateMailslotA(lpName, nMaxMessageSize, lReadTimeout, lpSecurityAttributes) {
     lpName := lpName is String ? StrPtr(lpName) : lpName
 
+    lpSecurityAttributesMarshal := lpSecurityAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateMailslotA", "ptr", lpName, UInt32, nMaxMessageSize, UInt32, lReadTimeout, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateMailslotA", "ptr", lpName, UInt32, nMaxMessageSize, UInt32, lReadTimeout, lpSecurityAttributesMarshal, lpSecurityAttributes, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -213,9 +215,11 @@ export CreateMailslotA(lpName, nMaxMessageSize, lReadTimeout, lpSecurityAttribut
 export CreateMailslotW(lpName, nMaxMessageSize, lReadTimeout, lpSecurityAttributes) {
     lpName := lpName is String ? StrPtr(lpName) : lpName
 
+    lpSecurityAttributesMarshal := lpSecurityAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateMailslotW", "ptr", lpName, UInt32, nMaxMessageSize, UInt32, lReadTimeout, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateMailslotW", "ptr", lpName, UInt32, nMaxMessageSize, UInt32, lReadTimeout, lpSecurityAttributesMarshal, lpSecurityAttributes, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -261,10 +265,14 @@ export CreateMailslotW(lpName, nMaxMessageSize, lReadTimeout, lpSecurityAttribut
  * @since windows5.0
  */
 export GetMailslotInfo(hMailslot, lpMaxMessageSize, lpNextSize, lpMessageCount, lpReadTimeout) {
-    lpMaxMessageSizeMarshal := lpMaxMessageSize is VarRef ? "uint*" : "ptr"
-    lpNextSizeMarshal := lpNextSize is VarRef ? "uint*" : "ptr"
-    lpMessageCountMarshal := lpMessageCount is VarRef ? "uint*" : "ptr"
-    lpReadTimeoutMarshal := lpReadTimeout is VarRef ? "uint*" : "ptr"
+    lpMaxMessageSizeMarshal := lpMaxMessageSize is VarRef ? "uint*" : IntPtr
+    lpMaxMessageSizeMarshal := lpMaxMessageSize == 0 ? IntPtr : "uint*"
+    lpNextSizeMarshal := lpNextSize is VarRef ? "uint*" : IntPtr
+    lpNextSizeMarshal := lpNextSize == 0 ? IntPtr : "uint*"
+    lpMessageCountMarshal := lpMessageCount is VarRef ? "uint*" : IntPtr
+    lpMessageCountMarshal := lpMessageCount == 0 ? IntPtr : "uint*"
+    lpReadTimeoutMarshal := lpReadTimeout is VarRef ? "uint*" : IntPtr
+    lpReadTimeoutMarshal := lpReadTimeout == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 

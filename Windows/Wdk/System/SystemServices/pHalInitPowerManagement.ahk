@@ -20,13 +20,12 @@ export default struct pHalInitPowerManagement {
     }
 
     /**
-     * 
      * @param {Pointer<PM_DISPATCH_TABLE>} PmDriverDispatchTable 
      * @param {Pointer<Pointer<PM_DISPATCH_TABLE>>} PmHalDispatchTable 
      * @returns {NTSTATUS} 
      */
     Call(PmDriverDispatchTable, PmHalDispatchTable) {
-        PmHalDispatchTableMarshal := PmHalDispatchTable is VarRef ? "ptr*" : "ptr"
+        PmHalDispatchTableMarshal := PmHalDispatchTable is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, PM_DISPATCH_TABLE.Ptr, PmDriverDispatchTable, PmHalDispatchTableMarshal, PmHalDispatchTable, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

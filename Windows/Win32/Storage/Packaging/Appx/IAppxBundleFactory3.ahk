@@ -38,7 +38,6 @@ export default struct IAppxBundleFactory3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} uri 
      * @param {PWSTR} expectedDigest 
      * @returns {IAppxBundleReader} 
@@ -60,7 +59,7 @@ export default struct IAppxBundleFactory3 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateBundleReaderFromSourceUri := CallbackCreate(GetMethod(implObj, "CreateBundleReaderFromSourceUri"), flags, 4)
+        this.vtbl.CreateBundleReaderFromSourceUri := CallbackCreate(ObjBindMethod(implObj, "CreateBundleReaderFromSourceUri"), flags, 4)
     }
 
     Dispose() {

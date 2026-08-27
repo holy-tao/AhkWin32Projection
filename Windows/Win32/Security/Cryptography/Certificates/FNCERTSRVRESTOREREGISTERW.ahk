@@ -21,7 +21,6 @@ export default struct FNCERTSRVRESTOREREGISTERW {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hbc 
      * @param {PWSTR} pwszCheckPointFilePath 
      * @param {PWSTR} pwszLogPath 
@@ -37,7 +36,7 @@ export default struct FNCERTSRVRESTOREREGISTERW {
         pwszLogPath := pwszLogPath is String ? StrPtr(pwszLogPath) : pwszLogPath
         pwszBackupLogPath := pwszBackupLogPath is String ? StrPtr(pwszBackupLogPath) : pwszBackupLogPath
 
-        hbcMarshal := hbc is VarRef ? "ptr" : "ptr"
+        hbcMarshal := hbc is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, hbcMarshal, hbc, "ptr", pwszCheckPointFilePath, "ptr", pwszLogPath, CSEDB_RSTMAPW.Ptr, rgrstmap, Int32, crstmap, "ptr", pwszBackupLogPath, UInt32, genLow, UInt32, genHigh, "HRESULT")
         return result

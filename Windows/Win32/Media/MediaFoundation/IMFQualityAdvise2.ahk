@@ -70,7 +70,7 @@ export default struct IMFQualityAdvise2 extends IMFQualityAdvise {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.NotifyQualityEvent := CallbackCreate(GetMethod(implObj, "NotifyQualityEvent"), flags, 3)
+        this.vtbl.NotifyQualityEvent := CallbackCreate(ObjBindMethod(implObj, "NotifyQualityEvent"), flags, 3)
     }
 
     Dispose() {

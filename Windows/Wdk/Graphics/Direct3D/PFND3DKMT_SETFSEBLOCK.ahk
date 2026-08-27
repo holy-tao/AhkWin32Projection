@@ -20,7 +20,6 @@ export default struct PFND3DKMT_SETFSEBLOCK {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SETFSEBLOCK>} param0 
      * @returns {NTSTATUS} 
      */

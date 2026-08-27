@@ -20,7 +20,6 @@ export default struct PFND3DKMT_GETSHAREDRESOURCEADAPTERLUID {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_GETSHAREDRESOURCEADAPTERLUID>} param0 
      * @returns {NTSTATUS} 
      */

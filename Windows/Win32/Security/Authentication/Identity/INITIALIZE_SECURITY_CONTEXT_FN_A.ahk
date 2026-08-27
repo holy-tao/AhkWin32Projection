@@ -22,7 +22,6 @@ export default struct INITIALIZE_SECURITY_CONTEXT_FN_A {
     }
 
     /**
-     * 
      * @param {Pointer<SecHandle>} param0 
      * @param {Pointer<SecHandle>} param1 
      * @param {Pointer<Integer>} param2 
@@ -38,9 +37,9 @@ export default struct INITIALIZE_SECURITY_CONTEXT_FN_A {
      * @returns {HRESULT} 
      */
     Call(param0, param1, param2, param3, param4, param5, param6, param7, param8, param9, param10, param11) {
-        param2Marshal := param2 is VarRef ? "char*" : "ptr"
-        param10Marshal := param10 is VarRef ? "uint*" : "ptr"
-        param11Marshal := param11 is VarRef ? "int64*" : "ptr"
+        param2Marshal := param2 is VarRef ? "char*" : IntPtr
+        param10Marshal := param10 is VarRef ? "uint*" : IntPtr
+        param11Marshal := param11 is VarRef ? "int64*" : IntPtr
 
         result := DllCall(this.value, SecHandle.Ptr, param0, SecHandle.Ptr, param1, param2Marshal, param2, UInt32, param3, UInt32, param4, UInt32, param5, SecBufferDesc.Ptr, param6, UInt32, param7, SecHandle.Ptr, param8, SecBufferDesc.Ptr, param9, param10Marshal, param10, param11Marshal, param11, "HRESULT")
         return result

@@ -22,7 +22,6 @@ export default struct PFN_NT_OPEN_TRANSACTION {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} TransactionHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -31,7 +30,10 @@ export default struct PFN_NT_OPEN_TRANSACTION {
      * @returns {NTSTATUS} 
      */
     Call(TransactionHandle, DesiredAccess, ObjectAttributes, Uow, TmHandle) {
-        result := DllCall(this.value, HANDLE.Ptr, TransactionHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, Guid.Ptr, Uow, HANDLE, TmHandle, NTSTATUS)
+        UowMarshal := Uow == 0 ? IntPtr : Guid.Ptr
+        TmHandleMarshal := TmHandle == 0 ? IntPtr : HANDLE
+
+        result := DllCall(this.value, HANDLE.Ptr, TransactionHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, UowMarshal, Uow, TmHandleMarshal, TmHandle, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

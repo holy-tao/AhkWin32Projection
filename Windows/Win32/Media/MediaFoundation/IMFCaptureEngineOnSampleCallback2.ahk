@@ -60,7 +60,7 @@ export default struct IMFCaptureEngineOnSampleCallback2 extends IMFCaptureEngine
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnSynchronizedEvent := CallbackCreate(GetMethod(implObj, "OnSynchronizedEvent"), flags, 2)
+        this.vtbl.OnSynchronizedEvent := CallbackCreate(ObjBindMethod(implObj, "OnSynchronizedEvent"), flags, 2)
     }
 
     Dispose() {

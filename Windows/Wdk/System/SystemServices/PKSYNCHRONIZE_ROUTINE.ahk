@@ -19,7 +19,6 @@ export default struct PKSYNCHRONIZE_ROUTINE {
     }
 
     /**
-     * 
      * @returns {BOOLEAN} 
      */
     Call() {

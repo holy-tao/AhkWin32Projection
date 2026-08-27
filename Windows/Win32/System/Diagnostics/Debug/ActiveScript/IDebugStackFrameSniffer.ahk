@@ -37,7 +37,6 @@ export default struct IDebugStackFrameSniffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumDebugStackFrames} 
      */
     EnumStackFrames() {
@@ -54,7 +53,7 @@ export default struct IDebugStackFrameSniffer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumStackFrames := CallbackCreate(GetMethod(implObj, "EnumStackFrames"), flags, 2)
+        this.vtbl.EnumStackFrames := CallbackCreate(ObjBindMethod(implObj, "EnumStackFrames"), flags, 2)
     }
 
     Dispose() {

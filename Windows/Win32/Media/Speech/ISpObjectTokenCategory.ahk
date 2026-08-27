@@ -51,7 +51,6 @@ export default struct ISpObjectTokenCategory extends ISpDataKey {
     }
 
     /**
-     * 
      * @param {PWSTR} pszCategoryId 
      * @param {BOOL} fCreateIfNotExist 
      * @returns {HRESULT} 
@@ -64,7 +63,6 @@ export default struct ISpObjectTokenCategory extends ISpDataKey {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetId() {
@@ -73,7 +71,6 @@ export default struct ISpObjectTokenCategory extends ISpDataKey {
     }
 
     /**
-     * 
      * @param {SPDATAKEYLOCATION} spdkl 
      * @returns {ISpDataKey} 
      */
@@ -83,7 +80,6 @@ export default struct ISpObjectTokenCategory extends ISpDataKey {
     }
 
     /**
-     * 
      * @param {PWSTR} pzsReqAttribs 
      * @param {PWSTR} pszOptAttribs 
      * @returns {IEnumSpObjectTokens} 
@@ -92,12 +88,14 @@ export default struct ISpObjectTokenCategory extends ISpDataKey {
         pzsReqAttribs := pzsReqAttribs is String ? StrPtr(pzsReqAttribs) : pzsReqAttribs
         pszOptAttribs := pszOptAttribs is String ? StrPtr(pszOptAttribs) : pszOptAttribs
 
-        result := ComCall(18, this, "ptr", pzsReqAttribs, "ptr", pszOptAttribs, "ptr*", &ppEnum := 0, "HRESULT")
+        pzsReqAttribsMarshal := pzsReqAttribs == 0 ? IntPtr : PWSTR
+        pszOptAttribsMarshal := pszOptAttribs == 0 ? IntPtr : PWSTR
+
+        result := ComCall(18, this, pzsReqAttribsMarshal, pzsReqAttribs, pszOptAttribsMarshal, pszOptAttribs, "ptr*", &ppEnum := 0, "HRESULT")
         return IEnumSpObjectTokens(ppEnum)
     }
 
     /**
-     * 
      * @param {PWSTR} pszTokenId 
      * @returns {HRESULT} 
      */
@@ -109,7 +107,6 @@ export default struct ISpObjectTokenCategory extends ISpDataKey {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetDefaultTokenId() {
@@ -126,12 +123,12 @@ export default struct ISpObjectTokenCategory extends ISpDataKey {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetId := CallbackCreate(GetMethod(implObj, "SetId"), flags, 3)
-        this.vtbl.GetId := CallbackCreate(GetMethod(implObj, "GetId"), flags, 2)
-        this.vtbl.GetDataKey := CallbackCreate(GetMethod(implObj, "GetDataKey"), flags, 3)
-        this.vtbl.EnumTokens := CallbackCreate(GetMethod(implObj, "EnumTokens"), flags, 4)
-        this.vtbl.SetDefaultTokenId := CallbackCreate(GetMethod(implObj, "SetDefaultTokenId"), flags, 2)
-        this.vtbl.GetDefaultTokenId := CallbackCreate(GetMethod(implObj, "GetDefaultTokenId"), flags, 2)
+        this.vtbl.SetId := CallbackCreate(ObjBindMethod(implObj, "SetId"), flags, 3)
+        this.vtbl.GetId := CallbackCreate(ObjBindMethod(implObj, "GetId"), flags, 2)
+        this.vtbl.GetDataKey := CallbackCreate(ObjBindMethod(implObj, "GetDataKey"), flags, 3)
+        this.vtbl.EnumTokens := CallbackCreate(ObjBindMethod(implObj, "EnumTokens"), flags, 4)
+        this.vtbl.SetDefaultTokenId := CallbackCreate(ObjBindMethod(implObj, "SetDefaultTokenId"), flags, 2)
+        this.vtbl.GetDefaultTokenId := CallbackCreate(ObjBindMethod(implObj, "GetDefaultTokenId"), flags, 2)
     }
 
     Dispose() {

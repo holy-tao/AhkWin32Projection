@@ -122,8 +122,8 @@ export default struct IPhraseSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PutSmallPhrase := CallbackCreate(GetMethod(implObj, "PutSmallPhrase"), flags, 6)
-        this.vtbl.PutPhrase := CallbackCreate(GetMethod(implObj, "PutPhrase"), flags, 3)
+        this.vtbl.PutSmallPhrase := CallbackCreate(ObjBindMethod(implObj, "PutSmallPhrase"), flags, 6)
+        this.vtbl.PutPhrase := CallbackCreate(ObjBindMethod(implObj, "PutPhrase"), flags, 3)
     }
 
     Dispose() {

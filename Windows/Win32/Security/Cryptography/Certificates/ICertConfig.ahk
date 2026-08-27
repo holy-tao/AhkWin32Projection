@@ -510,10 +510,10 @@ export default struct ICertConfig extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 3)
-        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 2)
-        this.vtbl.GetField := CallbackCreate(GetMethod(implObj, "GetField"), flags, 3)
-        this.vtbl.GetConfig := CallbackCreate(GetMethod(implObj, "GetConfig"), flags, 3)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 3)
+        this.vtbl.Next := CallbackCreate(ObjBindMethod(implObj, "Next"), flags, 2)
+        this.vtbl.GetField := CallbackCreate(ObjBindMethod(implObj, "GetField"), flags, 3)
+        this.vtbl.GetConfig := CallbackCreate(ObjBindMethod(implObj, "GetConfig"), flags, 3)
     }
 
     Dispose() {

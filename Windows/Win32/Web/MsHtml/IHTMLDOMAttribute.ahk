@@ -70,7 +70,6 @@ export default struct IHTMLDOMAttribute extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_nodeName() {
@@ -80,7 +79,6 @@ export default struct IHTMLDOMAttribute extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -90,7 +88,6 @@ export default struct IHTMLDOMAttribute extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_nodeValue() {
@@ -100,7 +97,6 @@ export default struct IHTMLDOMAttribute extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_specified() {
@@ -117,10 +113,10 @@ export default struct IHTMLDOMAttribute extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_nodeName := CallbackCreate(GetMethod(implObj, "get_nodeName"), flags, 2)
-        this.vtbl.put_nodeValue := CallbackCreate(GetMethod(implObj, "put_nodeValue"), flags, 2)
-        this.vtbl.get_nodeValue := CallbackCreate(GetMethod(implObj, "get_nodeValue"), flags, 2)
-        this.vtbl.get_specified := CallbackCreate(GetMethod(implObj, "get_specified"), flags, 2)
+        this.vtbl.get_nodeName := CallbackCreate(ObjBindMethod(implObj, "get_nodeName"), flags, 2)
+        this.vtbl.put_nodeValue := CallbackCreate(ObjBindMethod(implObj, "put_nodeValue"), flags, 2)
+        this.vtbl.get_nodeValue := CallbackCreate(ObjBindMethod(implObj, "get_nodeValue"), flags, 2)
+        this.vtbl.get_specified := CallbackCreate(ObjBindMethod(implObj, "get_specified"), flags, 2)
     }
 
     Dispose() {

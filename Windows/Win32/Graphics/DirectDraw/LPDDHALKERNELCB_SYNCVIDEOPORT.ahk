@@ -19,7 +19,6 @@ export default struct LPDDHALKERNELCB_SYNCVIDEOPORT {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_SYNCVIDEOPORTDATA>} param0 
      * @returns {Integer} 
      */

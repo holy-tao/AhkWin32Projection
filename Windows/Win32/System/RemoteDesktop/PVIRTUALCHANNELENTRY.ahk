@@ -20,7 +20,6 @@ export default struct PVIRTUALCHANNELENTRY {
     }
 
     /**
-     * 
      * @param {Pointer<CHANNEL_ENTRY_POINTS>} pEntryPoints 
      * @returns {BOOL} 
      */

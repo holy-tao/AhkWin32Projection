@@ -200,11 +200,11 @@ export default struct IHolographicQuadLayerInterop extends IInspectable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateDirect3D12ContentBufferResource := CallbackCreate(GetMethod(implObj, "CreateDirect3D12ContentBufferResource"), flags, 4)
-        this.vtbl.CreateDirect3D12HardwareProtectedContentBufferResource := CallbackCreate(GetMethod(implObj, "CreateDirect3D12HardwareProtectedContentBufferResource"), flags, 5)
-        this.vtbl.AcquireDirect3D12BufferResource := CallbackCreate(GetMethod(implObj, "AcquireDirect3D12BufferResource"), flags, 3)
-        this.vtbl.AcquireDirect3D12BufferResourceWithTimeout := CallbackCreate(GetMethod(implObj, "AcquireDirect3D12BufferResourceWithTimeout"), flags, 4)
-        this.vtbl.UnacquireDirect3D12BufferResource := CallbackCreate(GetMethod(implObj, "UnacquireDirect3D12BufferResource"), flags, 2)
+        this.vtbl.CreateDirect3D12ContentBufferResource := CallbackCreate(ObjBindMethod(implObj, "CreateDirect3D12ContentBufferResource"), flags, 4)
+        this.vtbl.CreateDirect3D12HardwareProtectedContentBufferResource := CallbackCreate(ObjBindMethod(implObj, "CreateDirect3D12HardwareProtectedContentBufferResource"), flags, 5)
+        this.vtbl.AcquireDirect3D12BufferResource := CallbackCreate(ObjBindMethod(implObj, "AcquireDirect3D12BufferResource"), flags, 3)
+        this.vtbl.AcquireDirect3D12BufferResourceWithTimeout := CallbackCreate(ObjBindMethod(implObj, "AcquireDirect3D12BufferResourceWithTimeout"), flags, 4)
+        this.vtbl.UnacquireDirect3D12BufferResource := CallbackCreate(ObjBindMethod(implObj, "UnacquireDirect3D12BufferResource"), flags, 2)
     }
 
     Dispose() {

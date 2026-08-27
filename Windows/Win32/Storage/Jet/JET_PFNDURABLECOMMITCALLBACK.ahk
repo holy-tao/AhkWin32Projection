@@ -22,7 +22,6 @@ export default struct JET_PFNDURABLECOMMITCALLBACK {
     }
 
     /**
-     * 
      * @param {JET_INSTANCE} instance 
      * @param {Pointer<JET_COMMIT_ID>} pCommitIdSeen 
      * @param {Integer} grbit 

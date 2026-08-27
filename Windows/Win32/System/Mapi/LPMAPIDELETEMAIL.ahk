@@ -19,7 +19,6 @@ export default struct LPMAPIDELETEMAIL {
     }
 
     /**
-     * 
      * @param {Pointer} lhSession 
      * @param {Pointer} ulUIParam 
      * @param {PSTR} lpszMessageID 

@@ -61,7 +61,6 @@ export default struct IDOMMSManipulationEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_lastState() {
@@ -70,7 +69,6 @@ export default struct IDOMMSManipulationEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_currentState() {
@@ -79,7 +77,6 @@ export default struct IDOMMSManipulationEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 
@@ -105,9 +102,9 @@ export default struct IDOMMSManipulationEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_lastState := CallbackCreate(GetMethod(implObj, "get_lastState"), flags, 2)
-        this.vtbl.get_currentState := CallbackCreate(GetMethod(implObj, "get_currentState"), flags, 2)
-        this.vtbl.initMSManipulationEvent := CallbackCreate(GetMethod(implObj, "initMSManipulationEvent"), flags, 8)
+        this.vtbl.get_lastState := CallbackCreate(ObjBindMethod(implObj, "get_lastState"), flags, 2)
+        this.vtbl.get_currentState := CallbackCreate(ObjBindMethod(implObj, "get_currentState"), flags, 2)
+        this.vtbl.initMSManipulationEvent := CallbackCreate(ObjBindMethod(implObj, "initMSManipulationEvent"), flags, 8)
     }
 
     Dispose() {

@@ -157,13 +157,13 @@ export default struct IUICollection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
-        this.vtbl.GetItem := CallbackCreate(GetMethod(implObj, "GetItem"), flags, 3)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
-        this.vtbl.Insert := CallbackCreate(GetMethod(implObj, "Insert"), flags, 3)
-        this.vtbl.RemoveAt := CallbackCreate(GetMethod(implObj, "RemoveAt"), flags, 2)
-        this.vtbl.Replace := CallbackCreate(GetMethod(implObj, "Replace"), flags, 3)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetItem := CallbackCreate(ObjBindMethod(implObj, "GetItem"), flags, 3)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Insert := CallbackCreate(ObjBindMethod(implObj, "Insert"), flags, 3)
+        this.vtbl.RemoveAt := CallbackCreate(ObjBindMethod(implObj, "RemoveAt"), flags, 2)
+        this.vtbl.Replace := CallbackCreate(ObjBindMethod(implObj, "Replace"), flags, 3)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
     }
 
     Dispose() {

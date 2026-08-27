@@ -360,18 +360,18 @@ export default struct IFsrmQuotaManager extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ActionVariables := CallbackCreate(GetMethod(implObj, "get_ActionVariables"), flags, 2)
-        this.vtbl.get_ActionVariableDescriptions := CallbackCreate(GetMethod(implObj, "get_ActionVariableDescriptions"), flags, 2)
-        this.vtbl.CreateQuota := CallbackCreate(GetMethod(implObj, "CreateQuota"), flags, 3)
-        this.vtbl.CreateAutoApplyQuota := CallbackCreate(GetMethod(implObj, "CreateAutoApplyQuota"), flags, 4)
-        this.vtbl.GetQuota := CallbackCreate(GetMethod(implObj, "GetQuota"), flags, 3)
-        this.vtbl.GetAutoApplyQuota := CallbackCreate(GetMethod(implObj, "GetAutoApplyQuota"), flags, 3)
-        this.vtbl.GetRestrictiveQuota := CallbackCreate(GetMethod(implObj, "GetRestrictiveQuota"), flags, 3)
-        this.vtbl.EnumQuotas := CallbackCreate(GetMethod(implObj, "EnumQuotas"), flags, 4)
-        this.vtbl.EnumAutoApplyQuotas := CallbackCreate(GetMethod(implObj, "EnumAutoApplyQuotas"), flags, 4)
-        this.vtbl.EnumEffectiveQuotas := CallbackCreate(GetMethod(implObj, "EnumEffectiveQuotas"), flags, 4)
-        this.vtbl.Scan := CallbackCreate(GetMethod(implObj, "Scan"), flags, 2)
-        this.vtbl.CreateQuotaCollection := CallbackCreate(GetMethod(implObj, "CreateQuotaCollection"), flags, 2)
+        this.vtbl.get_ActionVariables := CallbackCreate(ObjBindMethod(implObj, "get_ActionVariables"), flags, 2)
+        this.vtbl.get_ActionVariableDescriptions := CallbackCreate(ObjBindMethod(implObj, "get_ActionVariableDescriptions"), flags, 2)
+        this.vtbl.CreateQuota := CallbackCreate(ObjBindMethod(implObj, "CreateQuota"), flags, 3)
+        this.vtbl.CreateAutoApplyQuota := CallbackCreate(ObjBindMethod(implObj, "CreateAutoApplyQuota"), flags, 4)
+        this.vtbl.GetQuota := CallbackCreate(ObjBindMethod(implObj, "GetQuota"), flags, 3)
+        this.vtbl.GetAutoApplyQuota := CallbackCreate(ObjBindMethod(implObj, "GetAutoApplyQuota"), flags, 3)
+        this.vtbl.GetRestrictiveQuota := CallbackCreate(ObjBindMethod(implObj, "GetRestrictiveQuota"), flags, 3)
+        this.vtbl.EnumQuotas := CallbackCreate(ObjBindMethod(implObj, "EnumQuotas"), flags, 4)
+        this.vtbl.EnumAutoApplyQuotas := CallbackCreate(ObjBindMethod(implObj, "EnumAutoApplyQuotas"), flags, 4)
+        this.vtbl.EnumEffectiveQuotas := CallbackCreate(ObjBindMethod(implObj, "EnumEffectiveQuotas"), flags, 4)
+        this.vtbl.Scan := CallbackCreate(ObjBindMethod(implObj, "Scan"), flags, 2)
+        this.vtbl.CreateQuotaCollection := CallbackCreate(ObjBindMethod(implObj, "CreateQuotaCollection"), flags, 2)
     }
 
     Dispose() {

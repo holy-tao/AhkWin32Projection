@@ -102,7 +102,9 @@ export default struct IDCompositionFilterEffect extends IDCompositionEffect {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionfiltereffect-setinput
      */
     SetInput(index, _input, flags) {
-        result := ComCall(3, this, UInt32, index, "ptr", _input, UInt32, flags, "HRESULT")
+        _inputMarshal := _input == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, UInt32, index, _inputMarshal, _input, UInt32, flags, "HRESULT")
         return result
     }
 
@@ -115,7 +117,7 @@ export default struct IDCompositionFilterEffect extends IDCompositionEffect {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetInput := CallbackCreate(GetMethod(implObj, "SetInput"), flags, 4)
+        this.vtbl.SetInput := CallbackCreate(ObjBindMethod(implObj, "SetInput"), flags, 4)
     }
 
     Dispose() {

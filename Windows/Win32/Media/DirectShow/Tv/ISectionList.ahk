@@ -289,8 +289,8 @@ export default struct ISectionList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2data/nf-mpeg2data-isectionlist-getsectiondata
      */
     GetSectionData(sectionNumber, pdwRawPacketLength, ppSection) {
-        pdwRawPacketLengthMarshal := pdwRawPacketLength is VarRef ? "uint*" : "ptr"
-        ppSectionMarshal := ppSection is VarRef ? "ptr*" : "ptr"
+        pdwRawPacketLengthMarshal := pdwRawPacketLength is VarRef ? "uint*" : IntPtr
+        ppSectionMarshal := ppSection is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(7, this, UInt16, sectionNumber, pdwRawPacketLengthMarshal, pdwRawPacketLength, ppSectionMarshal, ppSection, "HRESULT")
         return result
@@ -334,7 +334,7 @@ export default struct ISectionList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2data/nf-mpeg2data-isectionlist-getprogramidentifier
      */
     GetProgramIdentifier(pPid) {
-        pPidMarshal := pPid is VarRef ? "ushort*" : "ptr"
+        pPidMarshal := pPid is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(8, this, pPidMarshal, pPid, "HRESULT")
         return result
@@ -378,7 +378,7 @@ export default struct ISectionList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2data/nf-mpeg2data-isectionlist-gettableidentifier
      */
     GetTableIdentifier(pTableId) {
-        pTableIdMarshal := pTableId is VarRef ? "char*" : "ptr"
+        pTableIdMarshal := pTableId is VarRef ? "char*" : IntPtr
 
         result := ComCall(9, this, pTableIdMarshal, pTableId, "HRESULT")
         return result
@@ -393,13 +393,13 @@ export default struct ISectionList extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 9)
-        this.vtbl.InitializeWithRawSections := CallbackCreate(GetMethod(implObj, "InitializeWithRawSections"), flags, 2)
-        this.vtbl.CancelPendingRequest := CallbackCreate(GetMethod(implObj, "CancelPendingRequest"), flags, 1)
-        this.vtbl.GetNumberOfSections := CallbackCreate(GetMethod(implObj, "GetNumberOfSections"), flags, 2)
-        this.vtbl.GetSectionData := CallbackCreate(GetMethod(implObj, "GetSectionData"), flags, 4)
-        this.vtbl.GetProgramIdentifier := CallbackCreate(GetMethod(implObj, "GetProgramIdentifier"), flags, 2)
-        this.vtbl.GetTableIdentifier := CallbackCreate(GetMethod(implObj, "GetTableIdentifier"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 9)
+        this.vtbl.InitializeWithRawSections := CallbackCreate(ObjBindMethod(implObj, "InitializeWithRawSections"), flags, 2)
+        this.vtbl.CancelPendingRequest := CallbackCreate(ObjBindMethod(implObj, "CancelPendingRequest"), flags, 1)
+        this.vtbl.GetNumberOfSections := CallbackCreate(ObjBindMethod(implObj, "GetNumberOfSections"), flags, 2)
+        this.vtbl.GetSectionData := CallbackCreate(ObjBindMethod(implObj, "GetSectionData"), flags, 4)
+        this.vtbl.GetProgramIdentifier := CallbackCreate(ObjBindMethod(implObj, "GetProgramIdentifier"), flags, 2)
+        this.vtbl.GetTableIdentifier := CallbackCreate(ObjBindMethod(implObj, "GetTableIdentifier"), flags, 2)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct PGET_IDLE_WAKE_INFO {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

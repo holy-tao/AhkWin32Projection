@@ -109,7 +109,7 @@ export default struct ITocParser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocparser-gettoccount
      */
     GetTocCount(enumTocPosType, pdwTocCount) {
-        pdwTocCountMarshal := pdwTocCount is VarRef ? "uint*" : "ptr"
+        pdwTocCountMarshal := pdwTocCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, TOC_POS_TYPE, enumTocPosType, pdwTocCountMarshal, pdwTocCount, "HRESULT")
         return result
@@ -168,7 +168,7 @@ export default struct ITocParser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocparser-addtoc
      */
     AddToc(enumTocPosType, pToc, pdwTocIndex) {
-        pdwTocIndexMarshal := pdwTocIndex is VarRef ? "uint*" : "ptr"
+        pdwTocIndexMarshal := pdwTocIndex is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, TOC_POS_TYPE, enumTocPosType, "ptr", pToc, pdwTocIndexMarshal, pdwTocIndex, "HRESULT")
         return result
@@ -275,14 +275,14 @@ export default struct ITocParser extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 2)
-        this.vtbl.GetTocCount := CallbackCreate(GetMethod(implObj, "GetTocCount"), flags, 3)
-        this.vtbl.GetTocByIndex := CallbackCreate(GetMethod(implObj, "GetTocByIndex"), flags, 4)
-        this.vtbl.GetTocByType := CallbackCreate(GetMethod(implObj, "GetTocByType"), flags, 4)
-        this.vtbl.AddToc := CallbackCreate(GetMethod(implObj, "AddToc"), flags, 4)
-        this.vtbl.RemoveTocByIndex := CallbackCreate(GetMethod(implObj, "RemoveTocByIndex"), flags, 3)
-        this.vtbl.RemoveTocByType := CallbackCreate(GetMethod(implObj, "RemoveTocByType"), flags, 3)
-        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 1)
+        this.vtbl.Init := CallbackCreate(ObjBindMethod(implObj, "Init"), flags, 2)
+        this.vtbl.GetTocCount := CallbackCreate(ObjBindMethod(implObj, "GetTocCount"), flags, 3)
+        this.vtbl.GetTocByIndex := CallbackCreate(ObjBindMethod(implObj, "GetTocByIndex"), flags, 4)
+        this.vtbl.GetTocByType := CallbackCreate(ObjBindMethod(implObj, "GetTocByType"), flags, 4)
+        this.vtbl.AddToc := CallbackCreate(ObjBindMethod(implObj, "AddToc"), flags, 4)
+        this.vtbl.RemoveTocByIndex := CallbackCreate(ObjBindMethod(implObj, "RemoveTocByIndex"), flags, 3)
+        this.vtbl.RemoveTocByType := CallbackCreate(ObjBindMethod(implObj, "RemoveTocByType"), flags, 3)
+        this.vtbl.Commit := CallbackCreate(ObjBindMethod(implObj, "Commit"), flags, 1)
     }
 
     Dispose() {

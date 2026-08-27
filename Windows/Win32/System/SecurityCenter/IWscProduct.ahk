@@ -150,7 +150,6 @@ export default struct IWscProduct extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ProductGuid() {
@@ -160,7 +159,6 @@ export default struct IWscProduct extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_ProductIsDefault() {
@@ -177,13 +175,13 @@ export default struct IWscProduct extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ProductName := CallbackCreate(GetMethod(implObj, "get_ProductName"), flags, 2)
-        this.vtbl.get_ProductState := CallbackCreate(GetMethod(implObj, "get_ProductState"), flags, 2)
-        this.vtbl.get_SignatureStatus := CallbackCreate(GetMethod(implObj, "get_SignatureStatus"), flags, 2)
-        this.vtbl.get_RemediationPath := CallbackCreate(GetMethod(implObj, "get_RemediationPath"), flags, 2)
-        this.vtbl.get_ProductStateTimestamp := CallbackCreate(GetMethod(implObj, "get_ProductStateTimestamp"), flags, 2)
-        this.vtbl.get_ProductGuid := CallbackCreate(GetMethod(implObj, "get_ProductGuid"), flags, 2)
-        this.vtbl.get_ProductIsDefault := CallbackCreate(GetMethod(implObj, "get_ProductIsDefault"), flags, 2)
+        this.vtbl.get_ProductName := CallbackCreate(ObjBindMethod(implObj, "get_ProductName"), flags, 2)
+        this.vtbl.get_ProductState := CallbackCreate(ObjBindMethod(implObj, "get_ProductState"), flags, 2)
+        this.vtbl.get_SignatureStatus := CallbackCreate(ObjBindMethod(implObj, "get_SignatureStatus"), flags, 2)
+        this.vtbl.get_RemediationPath := CallbackCreate(ObjBindMethod(implObj, "get_RemediationPath"), flags, 2)
+        this.vtbl.get_ProductStateTimestamp := CallbackCreate(ObjBindMethod(implObj, "get_ProductStateTimestamp"), flags, 2)
+        this.vtbl.get_ProductGuid := CallbackCreate(ObjBindMethod(implObj, "get_ProductGuid"), flags, 2)
+        this.vtbl.get_ProductIsDefault := CallbackCreate(ObjBindMethod(implObj, "get_ProductIsDefault"), flags, 2)
     }
 
     Dispose() {

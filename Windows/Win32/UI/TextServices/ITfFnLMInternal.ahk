@@ -87,7 +87,7 @@ export default struct ITfFnLMInternal extends ITfFnLMProcessor {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ProcessLattice := CallbackCreate(GetMethod(implObj, "ProcessLattice"), flags, 2)
+        this.vtbl.ProcessLattice := CallbackCreate(ObjBindMethod(implObj, "ProcessLattice"), flags, 2)
     }
 
     Dispose() {

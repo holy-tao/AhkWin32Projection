@@ -19,7 +19,6 @@ export default struct LPDDHALSURFCB_BLT {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_BLTDATA>} param0 
      * @returns {Integer} 
      */

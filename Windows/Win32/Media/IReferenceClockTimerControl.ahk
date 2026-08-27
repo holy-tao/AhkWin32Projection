@@ -100,8 +100,8 @@ export default struct IReferenceClockTimerControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetDefaultTimerResolution := CallbackCreate(GetMethod(implObj, "SetDefaultTimerResolution"), flags, 2)
-        this.vtbl.GetDefaultTimerResolution := CallbackCreate(GetMethod(implObj, "GetDefaultTimerResolution"), flags, 2)
+        this.vtbl.SetDefaultTimerResolution := CallbackCreate(ObjBindMethod(implObj, "SetDefaultTimerResolution"), flags, 2)
+        this.vtbl.GetDefaultTimerResolution := CallbackCreate(ObjBindMethod(implObj, "GetDefaultTimerResolution"), flags, 2)
     }
 
     Dispose() {

@@ -27,7 +27,6 @@ export default struct WS_OPEN_CHANNEL_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} channelInstance The pointer to the state specific to this channel instance,
      *                     as created by the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_create_channel_callback">WS_CREATE_CHANNEL_CALLBACK</a>.
      * @param {Pointer<WS_ENDPOINT_ADDRESS>} _endpointAddress The address of the endpoint.
@@ -361,10 +360,12 @@ export default struct WS_OPEN_CHANNEL_CALLBACK {
      * </table>
      */
     Call(channelInstance, _endpointAddress, asyncContext, _error) {
-        channelInstanceMarshal := channelInstance is VarRef ? "ptr" : "ptr"
-        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
+        channelInstanceMarshal := channelInstance is VarRef ? "ptr" : IntPtr
+        asyncContextMarshal := asyncContext == 0 ? IntPtr : WS_ASYNC_CONTEXT.Ptr
+        _errorMarshal := _error is VarRef ? "ptr*" : IntPtr
+        _errorMarshal := _error == 0 ? IntPtr : WS_ERROR.Ptr
 
-        result := DllCall(this.value, channelInstanceMarshal, channelInstance, WS_ENDPOINT_ADDRESS.Ptr, _endpointAddress, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
+        result := DllCall(this.value, channelInstanceMarshal, channelInstance, WS_ENDPOINT_ADDRESS.Ptr, _endpointAddress, asyncContextMarshal, asyncContext, _errorMarshal, _error, "HRESULT")
         return result
     }
 

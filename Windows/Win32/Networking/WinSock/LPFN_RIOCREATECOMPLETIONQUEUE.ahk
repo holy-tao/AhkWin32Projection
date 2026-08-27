@@ -51,7 +51,6 @@ export default struct LPFN_RIOCREATECOMPLETIONQUEUE {
     }
 
     /**
-     * 
      * @param {Integer} QueueSize The size, in number of entries, of the completion queue to create.
      * @param {Pointer<RIO_NOTIFICATION_COMPLETION>} NotificationCompletion The type of notification completion to use based on the **Type** member of the [**RIO\_NOTIFICATION\_COMPLETION**](./ns-mswsock-rio_notification_completion.md) structure (I/O completion or event notification).
      * 
@@ -69,7 +68,9 @@ export default struct LPFN_RIOCREATECOMPLETIONQUEUE {
      * | <dl> <dt>**[WSAENOBUFS](/windows/win32/winsock/windows-sockets-error-codes-2#wsaenobufs)**</dt> </dl> | Sufficient memory could not be allocated. This error is returned if there was insufficient memory to allocate the completion queue requested based on the *QueueSize* parameter. <br/>                                 |
      */
     Call(QueueSize, NotificationCompletion) {
-        result := DllCall(this.value, UInt32, QueueSize, RIO_NOTIFICATION_COMPLETION.Ptr, NotificationCompletion, RIO_CQ)
+        NotificationCompletionMarshal := NotificationCompletion == 0 ? IntPtr : RIO_NOTIFICATION_COMPLETION.Ptr
+
+        result := DllCall(this.value, UInt32, QueueSize, NotificationCompletionMarshal, NotificationCompletion, RIO_CQ)
         return result
     }
 

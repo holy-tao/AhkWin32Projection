@@ -103,8 +103,10 @@ export default struct IMediaBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediabuffer-getbufferandlength
      */
     GetBufferAndLength(ppBuffer, pcbLength) {
-        ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
-        pcbLengthMarshal := pcbLength is VarRef ? "uint*" : "ptr"
+        ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : IntPtr
+        ppBufferMarshal := ppBuffer == 0 ? IntPtr : "ptr*"
+        pcbLengthMarshal := pcbLength is VarRef ? "uint*" : IntPtr
+        pcbLengthMarshal := pcbLength == 0 ? IntPtr : "uint*"
 
         result := ComCall(5, this, ppBufferMarshal, ppBuffer, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
@@ -119,9 +121,9 @@ export default struct IMediaBuffer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetLength := CallbackCreate(GetMethod(implObj, "SetLength"), flags, 2)
-        this.vtbl.GetMaxLength := CallbackCreate(GetMethod(implObj, "GetMaxLength"), flags, 2)
-        this.vtbl.GetBufferAndLength := CallbackCreate(GetMethod(implObj, "GetBufferAndLength"), flags, 3)
+        this.vtbl.SetLength := CallbackCreate(ObjBindMethod(implObj, "SetLength"), flags, 2)
+        this.vtbl.GetMaxLength := CallbackCreate(ObjBindMethod(implObj, "GetMaxLength"), flags, 2)
+        this.vtbl.GetBufferAndLength := CallbackCreate(ObjBindMethod(implObj, "GetBufferAndLength"), flags, 3)
     }
 
     Dispose() {

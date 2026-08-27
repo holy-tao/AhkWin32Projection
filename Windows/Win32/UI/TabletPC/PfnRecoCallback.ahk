@@ -20,14 +20,13 @@ export default struct PfnRecoCallback {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<Integer>} param1 
      * @param {HRECOCONTEXT} param2 
      * @returns {HRESULT} 
      */
     Call(param0, param1, param2) {
-        param1Marshal := param1 is VarRef ? "char*" : "ptr"
+        param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, UInt32, param0, param1Marshal, param1, HRECOCONTEXT, param2, "HRESULT")
         return result

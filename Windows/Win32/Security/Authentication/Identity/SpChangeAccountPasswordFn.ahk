@@ -22,7 +22,6 @@ export default struct SpChangeAccountPasswordFn {
     }
 
     /**
-     * 
      * @param {Pointer<LSA_UNICODE_STRING>} pDomainName 
      * @param {Pointer<LSA_UNICODE_STRING>} pAccountName 
      * @param {Pointer<LSA_UNICODE_STRING>} pOldPassword 

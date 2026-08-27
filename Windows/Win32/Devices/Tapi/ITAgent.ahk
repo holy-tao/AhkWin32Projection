@@ -180,7 +180,10 @@ export default struct ITAgent extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-createsession
      */
     CreateSession(pACDGroup, pAddress) {
-        result := ComCall(8, this, "ptr", pACDGroup, "ptr", pAddress, "ptr*", &ppAgentSession := 0, "HRESULT")
+        pACDGroupMarshal := pACDGroup == 0 ? IntPtr : "ptr"
+        pAddressMarshal := pAddress == 0 ? IntPtr : "ptr"
+
+        result := ComCall(8, this, pACDGroupMarshal, pACDGroup, pAddressMarshal, pAddress, "ptr*", &ppAgentSession := 0, "HRESULT")
         return ITAgentSession(ppAgentSession)
     }
 
@@ -205,7 +208,10 @@ export default struct ITAgent extends IDispatch {
     CreateSessionWithPIN(pACDGroup, pAddress, pPIN) {
         pPIN := pPIN is String ? BSTR.Alloc(pPIN).Value : pPIN
 
-        result := ComCall(9, this, "ptr", pACDGroup, "ptr", pAddress, BSTR, pPIN, "ptr*", &ppAgentSession := 0, "HRESULT")
+        pACDGroupMarshal := pACDGroup == 0 ? IntPtr : "ptr"
+        pAddressMarshal := pAddress == 0 ? IntPtr : "ptr"
+
+        result := ComCall(9, this, pACDGroupMarshal, pACDGroup, pAddressMarshal, pAddress, BSTR, pPIN, "ptr*", &ppAgentSession := 0, "HRESULT")
         return ITAgentSession(ppAgentSession)
     }
 
@@ -492,23 +498,23 @@ export default struct ITAgent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumerateAgentSessions := CallbackCreate(GetMethod(implObj, "EnumerateAgentSessions"), flags, 2)
-        this.vtbl.CreateSession := CallbackCreate(GetMethod(implObj, "CreateSession"), flags, 4)
-        this.vtbl.CreateSessionWithPIN := CallbackCreate(GetMethod(implObj, "CreateSessionWithPIN"), flags, 5)
-        this.vtbl.get_ID := CallbackCreate(GetMethod(implObj, "get_ID"), flags, 2)
-        this.vtbl.get_User := CallbackCreate(GetMethod(implObj, "get_User"), flags, 2)
-        this.vtbl.put_State := CallbackCreate(GetMethod(implObj, "put_State"), flags, 2)
-        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
-        this.vtbl.put_MeasurementPeriod := CallbackCreate(GetMethod(implObj, "put_MeasurementPeriod"), flags, 2)
-        this.vtbl.get_MeasurementPeriod := CallbackCreate(GetMethod(implObj, "get_MeasurementPeriod"), flags, 2)
-        this.vtbl.get_OverallCallRate := CallbackCreate(GetMethod(implObj, "get_OverallCallRate"), flags, 2)
-        this.vtbl.get_NumberOfACDCalls := CallbackCreate(GetMethod(implObj, "get_NumberOfACDCalls"), flags, 2)
-        this.vtbl.get_NumberOfIncomingCalls := CallbackCreate(GetMethod(implObj, "get_NumberOfIncomingCalls"), flags, 2)
-        this.vtbl.get_NumberOfOutgoingCalls := CallbackCreate(GetMethod(implObj, "get_NumberOfOutgoingCalls"), flags, 2)
-        this.vtbl.get_TotalACDTalkTime := CallbackCreate(GetMethod(implObj, "get_TotalACDTalkTime"), flags, 2)
-        this.vtbl.get_TotalACDCallTime := CallbackCreate(GetMethod(implObj, "get_TotalACDCallTime"), flags, 2)
-        this.vtbl.get_TotalWrapUpTime := CallbackCreate(GetMethod(implObj, "get_TotalWrapUpTime"), flags, 2)
-        this.vtbl.get_AgentSessions := CallbackCreate(GetMethod(implObj, "get_AgentSessions"), flags, 2)
+        this.vtbl.EnumerateAgentSessions := CallbackCreate(ObjBindMethod(implObj, "EnumerateAgentSessions"), flags, 2)
+        this.vtbl.CreateSession := CallbackCreate(ObjBindMethod(implObj, "CreateSession"), flags, 4)
+        this.vtbl.CreateSessionWithPIN := CallbackCreate(ObjBindMethod(implObj, "CreateSessionWithPIN"), flags, 5)
+        this.vtbl.get_ID := CallbackCreate(ObjBindMethod(implObj, "get_ID"), flags, 2)
+        this.vtbl.get_User := CallbackCreate(ObjBindMethod(implObj, "get_User"), flags, 2)
+        this.vtbl.put_State := CallbackCreate(ObjBindMethod(implObj, "put_State"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(ObjBindMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.put_MeasurementPeriod := CallbackCreate(ObjBindMethod(implObj, "put_MeasurementPeriod"), flags, 2)
+        this.vtbl.get_MeasurementPeriod := CallbackCreate(ObjBindMethod(implObj, "get_MeasurementPeriod"), flags, 2)
+        this.vtbl.get_OverallCallRate := CallbackCreate(ObjBindMethod(implObj, "get_OverallCallRate"), flags, 2)
+        this.vtbl.get_NumberOfACDCalls := CallbackCreate(ObjBindMethod(implObj, "get_NumberOfACDCalls"), flags, 2)
+        this.vtbl.get_NumberOfIncomingCalls := CallbackCreate(ObjBindMethod(implObj, "get_NumberOfIncomingCalls"), flags, 2)
+        this.vtbl.get_NumberOfOutgoingCalls := CallbackCreate(ObjBindMethod(implObj, "get_NumberOfOutgoingCalls"), flags, 2)
+        this.vtbl.get_TotalACDTalkTime := CallbackCreate(ObjBindMethod(implObj, "get_TotalACDTalkTime"), flags, 2)
+        this.vtbl.get_TotalACDCallTime := CallbackCreate(ObjBindMethod(implObj, "get_TotalACDCallTime"), flags, 2)
+        this.vtbl.get_TotalWrapUpTime := CallbackCreate(ObjBindMethod(implObj, "get_TotalWrapUpTime"), flags, 2)
+        this.vtbl.get_AgentSessions := CallbackCreate(ObjBindMethod(implObj, "get_AgentSessions"), flags, 2)
     }
 
     Dispose() {

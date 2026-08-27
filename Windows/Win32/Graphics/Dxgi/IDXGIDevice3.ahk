@@ -72,7 +72,7 @@ export default struct IDXGIDevice3 extends IDXGIDevice2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Trim := CallbackCreate(GetMethod(implObj, "Trim"), flags, 1)
+        this.vtbl.Trim := CallbackCreate(ObjBindMethod(implObj, "Trim"), flags, 1)
     }
 
     Dispose() {

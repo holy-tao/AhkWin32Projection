@@ -21,7 +21,6 @@ export default struct DATEFMT_ENUMPROCEXEX {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @param {Integer} param1 
      * @param {LPARAM} param2 

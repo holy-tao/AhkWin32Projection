@@ -94,7 +94,6 @@ export default struct ISideShowNotification extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_NotificationId() {
@@ -103,7 +102,6 @@ export default struct ISideShowNotification extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} in_notificationId 
      * @returns {HRESULT} 
      */
@@ -113,7 +111,6 @@ export default struct ISideShowNotification extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_Title() {
@@ -122,7 +119,6 @@ export default struct ISideShowNotification extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} in_pwszTitle 
      * @returns {HRESULT} 
      */
@@ -134,7 +130,6 @@ export default struct ISideShowNotification extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_Message() {
@@ -143,7 +138,6 @@ export default struct ISideShowNotification extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} in_pwszMessage 
      * @returns {HRESULT} 
      */
@@ -155,7 +149,6 @@ export default struct ISideShowNotification extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HICON} 
      */
     get_Image() {
@@ -165,7 +158,6 @@ export default struct ISideShowNotification extends IUnknown {
     }
 
     /**
-     * 
      * @param {HICON} in_hIcon 
      * @returns {HRESULT} 
      */
@@ -175,7 +167,6 @@ export default struct ISideShowNotification extends IUnknown {
     }
 
     /**
-     * 
      * @returns {SYSTEMTIME} 
      */
     get_ExpirationTime() {
@@ -185,12 +176,13 @@ export default struct ISideShowNotification extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SYSTEMTIME>} in_pTime 
      * @returns {HRESULT} 
      */
     put_ExpirationTime(in_pTime) {
-        result := ComCall(12, this, SYSTEMTIME.Ptr, in_pTime, "HRESULT")
+        in_pTimeMarshal := in_pTime == 0 ? IntPtr : SYSTEMTIME.Ptr
+
+        result := ComCall(12, this, in_pTimeMarshal, in_pTime, "HRESULT")
         return result
     }
 
@@ -203,16 +195,16 @@ export default struct ISideShowNotification extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_NotificationId := CallbackCreate(GetMethod(implObj, "get_NotificationId"), flags, 2)
-        this.vtbl.put_NotificationId := CallbackCreate(GetMethod(implObj, "put_NotificationId"), flags, 2)
-        this.vtbl.get_Title := CallbackCreate(GetMethod(implObj, "get_Title"), flags, 2)
-        this.vtbl.put_Title := CallbackCreate(GetMethod(implObj, "put_Title"), flags, 2)
-        this.vtbl.get_Message := CallbackCreate(GetMethod(implObj, "get_Message"), flags, 2)
-        this.vtbl.put_Message := CallbackCreate(GetMethod(implObj, "put_Message"), flags, 2)
-        this.vtbl.get_Image := CallbackCreate(GetMethod(implObj, "get_Image"), flags, 2)
-        this.vtbl.put_Image := CallbackCreate(GetMethod(implObj, "put_Image"), flags, 2)
-        this.vtbl.get_ExpirationTime := CallbackCreate(GetMethod(implObj, "get_ExpirationTime"), flags, 2)
-        this.vtbl.put_ExpirationTime := CallbackCreate(GetMethod(implObj, "put_ExpirationTime"), flags, 2)
+        this.vtbl.get_NotificationId := CallbackCreate(ObjBindMethod(implObj, "get_NotificationId"), flags, 2)
+        this.vtbl.put_NotificationId := CallbackCreate(ObjBindMethod(implObj, "put_NotificationId"), flags, 2)
+        this.vtbl.get_Title := CallbackCreate(ObjBindMethod(implObj, "get_Title"), flags, 2)
+        this.vtbl.put_Title := CallbackCreate(ObjBindMethod(implObj, "put_Title"), flags, 2)
+        this.vtbl.get_Message := CallbackCreate(ObjBindMethod(implObj, "get_Message"), flags, 2)
+        this.vtbl.put_Message := CallbackCreate(ObjBindMethod(implObj, "put_Message"), flags, 2)
+        this.vtbl.get_Image := CallbackCreate(ObjBindMethod(implObj, "get_Image"), flags, 2)
+        this.vtbl.put_Image := CallbackCreate(ObjBindMethod(implObj, "put_Image"), flags, 2)
+        this.vtbl.get_ExpirationTime := CallbackCreate(ObjBindMethod(implObj, "get_ExpirationTime"), flags, 2)
+        this.vtbl.put_ExpirationTime := CallbackCreate(ObjBindMethod(implObj, "put_ExpirationTime"), flags, 2)
     }
 
     Dispose() {

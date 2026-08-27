@@ -18,12 +18,11 @@ export default struct KSTART_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} StartContext 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(StartContext) {
-        StartContextMarshal := StartContext is VarRef ? "ptr" : "ptr"
+        StartContextMarshal := StartContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, StartContextMarshal, StartContext)
     }

@@ -19,7 +19,6 @@ export default struct UCharEnumTypeRange {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {Integer} start 
      * @param {Integer} limit 
@@ -27,7 +26,7 @@ export default struct UCharEnumTypeRange {
      * @returns {Integer} 
      */
     Call(_context, start, limit, type) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _contextMarshal, _context, Int32, start, Int32, limit, UCharCategory, type, Int8)
         return result

@@ -36,14 +36,13 @@ export default struct ITransactionImport extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cbTransactionCookie 
      * @param {Pointer<Integer>} rgbTransactionCookie 
      * @param {Pointer<Guid>} piid 
      * @returns {Pointer<Void>} 
      */
     Import(cbTransactionCookie, rgbTransactionCookie, piid) {
-        rgbTransactionCookieMarshal := rgbTransactionCookie is VarRef ? "char*" : "ptr"
+        rgbTransactionCookieMarshal := rgbTransactionCookie is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, UInt32, cbTransactionCookie, rgbTransactionCookieMarshal, rgbTransactionCookie, Guid.Ptr, piid, "ptr*", &ppvTransaction := 0, "HRESULT")
         return ppvTransaction
@@ -58,7 +57,7 @@ export default struct ITransactionImport extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Import := CallbackCreate(GetMethod(implObj, "Import"), flags, 5)
+        this.vtbl.Import := CallbackCreate(ObjBindMethod(implObj, "Import"), flags, 5)
     }
 
     Dispose() {

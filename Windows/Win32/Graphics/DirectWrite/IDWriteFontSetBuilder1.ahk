@@ -62,7 +62,7 @@ export default struct IDWriteFontSetBuilder1 extends IDWriteFontSetBuilder {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddFontFile := CallbackCreate(GetMethod(implObj, "AddFontFile"), flags, 2)
+        this.vtbl.AddFontFile := CallbackCreate(ObjBindMethod(implObj, "AddFontFile"), flags, 2)
     }
 
     Dispose() {

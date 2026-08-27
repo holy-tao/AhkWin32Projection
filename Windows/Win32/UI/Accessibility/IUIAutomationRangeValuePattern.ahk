@@ -286,19 +286,19 @@ export default struct IUIAutomationRangeValuePattern extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetValue := CallbackCreate(GetMethod(implObj, "SetValue"), flags, 2)
-        this.vtbl.get_CurrentValue := CallbackCreate(GetMethod(implObj, "get_CurrentValue"), flags, 2)
-        this.vtbl.get_CurrentIsReadOnly := CallbackCreate(GetMethod(implObj, "get_CurrentIsReadOnly"), flags, 2)
-        this.vtbl.get_CurrentMaximum := CallbackCreate(GetMethod(implObj, "get_CurrentMaximum"), flags, 2)
-        this.vtbl.get_CurrentMinimum := CallbackCreate(GetMethod(implObj, "get_CurrentMinimum"), flags, 2)
-        this.vtbl.get_CurrentLargeChange := CallbackCreate(GetMethod(implObj, "get_CurrentLargeChange"), flags, 2)
-        this.vtbl.get_CurrentSmallChange := CallbackCreate(GetMethod(implObj, "get_CurrentSmallChange"), flags, 2)
-        this.vtbl.get_CachedValue := CallbackCreate(GetMethod(implObj, "get_CachedValue"), flags, 2)
-        this.vtbl.get_CachedIsReadOnly := CallbackCreate(GetMethod(implObj, "get_CachedIsReadOnly"), flags, 2)
-        this.vtbl.get_CachedMaximum := CallbackCreate(GetMethod(implObj, "get_CachedMaximum"), flags, 2)
-        this.vtbl.get_CachedMinimum := CallbackCreate(GetMethod(implObj, "get_CachedMinimum"), flags, 2)
-        this.vtbl.get_CachedLargeChange := CallbackCreate(GetMethod(implObj, "get_CachedLargeChange"), flags, 2)
-        this.vtbl.get_CachedSmallChange := CallbackCreate(GetMethod(implObj, "get_CachedSmallChange"), flags, 2)
+        this.vtbl.SetValue := CallbackCreate(ObjBindMethod(implObj, "SetValue"), flags, 2)
+        this.vtbl.get_CurrentValue := CallbackCreate(ObjBindMethod(implObj, "get_CurrentValue"), flags, 2)
+        this.vtbl.get_CurrentIsReadOnly := CallbackCreate(ObjBindMethod(implObj, "get_CurrentIsReadOnly"), flags, 2)
+        this.vtbl.get_CurrentMaximum := CallbackCreate(ObjBindMethod(implObj, "get_CurrentMaximum"), flags, 2)
+        this.vtbl.get_CurrentMinimum := CallbackCreate(ObjBindMethod(implObj, "get_CurrentMinimum"), flags, 2)
+        this.vtbl.get_CurrentLargeChange := CallbackCreate(ObjBindMethod(implObj, "get_CurrentLargeChange"), flags, 2)
+        this.vtbl.get_CurrentSmallChange := CallbackCreate(ObjBindMethod(implObj, "get_CurrentSmallChange"), flags, 2)
+        this.vtbl.get_CachedValue := CallbackCreate(ObjBindMethod(implObj, "get_CachedValue"), flags, 2)
+        this.vtbl.get_CachedIsReadOnly := CallbackCreate(ObjBindMethod(implObj, "get_CachedIsReadOnly"), flags, 2)
+        this.vtbl.get_CachedMaximum := CallbackCreate(ObjBindMethod(implObj, "get_CachedMaximum"), flags, 2)
+        this.vtbl.get_CachedMinimum := CallbackCreate(ObjBindMethod(implObj, "get_CachedMinimum"), flags, 2)
+        this.vtbl.get_CachedLargeChange := CallbackCreate(ObjBindMethod(implObj, "get_CachedLargeChange"), flags, 2)
+        this.vtbl.get_CachedSmallChange := CallbackCreate(ObjBindMethod(implObj, "get_CachedSmallChange"), flags, 2)
     }
 
     Dispose() {

@@ -55,7 +55,9 @@ export default struct IMDSPStorage3 extends IMDSPStorage2 {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorage3-getmetadata
      */
     GetMetadata(pMetadata) {
-        result := ComCall(17, this, "ptr", pMetadata, "HRESULT")
+        pMetadataMarshal := pMetadata == 0 ? IntPtr : "ptr"
+
+        result := ComCall(17, this, pMetadataMarshal, pMetadata, "HRESULT")
         return result
     }
 
@@ -97,7 +99,9 @@ export default struct IMDSPStorage3 extends IMDSPStorage2 {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorage3-setmetadata
      */
     SetMetadata(pMetadata) {
-        result := ComCall(18, this, "ptr", pMetadata, "HRESULT")
+        pMetadataMarshal := pMetadata == 0 ? IntPtr : "ptr"
+
+        result := ComCall(18, this, pMetadataMarshal, pMetadata, "HRESULT")
         return result
     }
 
@@ -110,8 +114,8 @@ export default struct IMDSPStorage3 extends IMDSPStorage2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMetadata := CallbackCreate(GetMethod(implObj, "GetMetadata"), flags, 2)
-        this.vtbl.SetMetadata := CallbackCreate(GetMethod(implObj, "SetMetadata"), flags, 2)
+        this.vtbl.GetMetadata := CallbackCreate(ObjBindMethod(implObj, "GetMetadata"), flags, 2)
+        this.vtbl.SetMetadata := CallbackCreate(ObjBindMethod(implObj, "SetMetadata"), flags, 2)
     }
 
     Dispose() {

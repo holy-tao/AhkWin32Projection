@@ -479,7 +479,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-enumattachedsurfaces
      */
     EnumAttachedSurfaces(param0, param1) {
-        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+        param0Marshal := param0 is VarRef ? "ptr" : IntPtr
 
         result := ComCall(9, this, param0Marshal, param0, LPDDENUMSURFACESCALLBACK7, param1, "HRESULT")
         return result
@@ -505,7 +505,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-enumoverlayzorders
      */
     EnumOverlayZOrders(param0, param1, param2) {
-        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+        param1Marshal := param1 is VarRef ? "ptr" : IntPtr
 
         result := ComCall(10, this, UInt32, param0, param1Marshal, param1, LPDDENUMSURFACESCALLBACK7, param2, "HRESULT")
         return result
@@ -716,8 +716,8 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-getoverlayposition
      */
     GetOverlayPosition(param0, param1) {
-        param0Marshal := param0 is VarRef ? "int*" : "ptr"
-        param1Marshal := param1 is VarRef ? "int*" : "ptr"
+        param0Marshal := param0 is VarRef ? "int*" : IntPtr
+        param1Marshal := param1 is VarRef ? "int*" : IntPtr
 
         result := ComCall(19, this, param0Marshal, param0, param1Marshal, param1, "HRESULT")
         return result
@@ -1118,7 +1118,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-getddinterface
      */
     GetDDInterface(param0) {
-        param0Marshal := param0 is VarRef ? "ptr*" : "ptr"
+        param0Marshal := param0 is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(36, this, param0Marshal, param0, "HRESULT")
         return result
@@ -1235,7 +1235,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-setprivatedata
      */
     SetPrivateData(param0, param1, param2, param3) {
-        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+        param1Marshal := param1 is VarRef ? "ptr" : IntPtr
 
         result := ComCall(40, this, Guid.Ptr, param0, param1Marshal, param1, UInt32, param2, UInt32, param3, "HRESULT")
         return result
@@ -1263,8 +1263,8 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-getprivatedata
      */
     GetPrivateData(param0, param1, param2) {
-        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
-        param2Marshal := param2 is VarRef ? "uint*" : "ptr"
+        param1Marshal := param1 is VarRef ? "ptr" : IntPtr
+        param2Marshal := param2 is VarRef ? "uint*" : IntPtr
 
         result := ComCall(41, this, Guid.Ptr, param0, param1Marshal, param1, param2Marshal, param2, "HRESULT")
         return result
@@ -1309,7 +1309,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-getuniquenessvalue
      */
     GetUniquenessValue(param0) {
-        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+        param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
         result := ComCall(43, this, param0Marshal, param0, "HRESULT")
         return result
@@ -1371,7 +1371,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-getpriority
      */
     GetPriority(param0) {
-        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+        param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
         result := ComCall(46, this, param0Marshal, param0, "HRESULT")
         return result
@@ -1419,7 +1419,7 @@ export default struct IDirectDrawSurface7 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawsurface7-getlod
      */
     GetLOD(param0) {
-        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+        param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
         result := ComCall(48, this, param0Marshal, param0, "HRESULT")
         return result
@@ -1434,52 +1434,52 @@ export default struct IDirectDrawSurface7 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddAttachedSurface := CallbackCreate(GetMethod(implObj, "AddAttachedSurface"), flags, 2)
-        this.vtbl.AddOverlayDirtyRect := CallbackCreate(GetMethod(implObj, "AddOverlayDirtyRect"), flags, 2)
-        this.vtbl.Blt := CallbackCreate(GetMethod(implObj, "Blt"), flags, 6)
-        this.vtbl.BltBatch := CallbackCreate(GetMethod(implObj, "BltBatch"), flags, 4)
-        this.vtbl.BltFast := CallbackCreate(GetMethod(implObj, "BltFast"), flags, 6)
-        this.vtbl.DeleteAttachedSurface := CallbackCreate(GetMethod(implObj, "DeleteAttachedSurface"), flags, 3)
-        this.vtbl.EnumAttachedSurfaces := CallbackCreate(GetMethod(implObj, "EnumAttachedSurfaces"), flags, 3)
-        this.vtbl.EnumOverlayZOrders := CallbackCreate(GetMethod(implObj, "EnumOverlayZOrders"), flags, 4)
-        this.vtbl.Flip := CallbackCreate(GetMethod(implObj, "Flip"), flags, 3)
-        this.vtbl.GetAttachedSurface := CallbackCreate(GetMethod(implObj, "GetAttachedSurface"), flags, 3)
-        this.vtbl.GetBltStatus := CallbackCreate(GetMethod(implObj, "GetBltStatus"), flags, 2)
-        this.vtbl.GetCaps := CallbackCreate(GetMethod(implObj, "GetCaps"), flags, 2)
-        this.vtbl.GetClipper := CallbackCreate(GetMethod(implObj, "GetClipper"), flags, 2)
-        this.vtbl.GetColorKey := CallbackCreate(GetMethod(implObj, "GetColorKey"), flags, 3)
-        this.vtbl.GetDC := CallbackCreate(GetMethod(implObj, "GetDC"), flags, 2)
-        this.vtbl.GetFlipStatus := CallbackCreate(GetMethod(implObj, "GetFlipStatus"), flags, 2)
-        this.vtbl.GetOverlayPosition := CallbackCreate(GetMethod(implObj, "GetOverlayPosition"), flags, 3)
-        this.vtbl.GetPalette := CallbackCreate(GetMethod(implObj, "GetPalette"), flags, 2)
-        this.vtbl.GetPixelFormat := CallbackCreate(GetMethod(implObj, "GetPixelFormat"), flags, 2)
-        this.vtbl.GetSurfaceDesc := CallbackCreate(GetMethod(implObj, "GetSurfaceDesc"), flags, 2)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.IsLost := CallbackCreate(GetMethod(implObj, "IsLost"), flags, 1)
-        this.vtbl.Lock := CallbackCreate(GetMethod(implObj, "Lock"), flags, 5)
-        this.vtbl.ReleaseDC := CallbackCreate(GetMethod(implObj, "ReleaseDC"), flags, 2)
-        this.vtbl.Restore := CallbackCreate(GetMethod(implObj, "Restore"), flags, 1)
-        this.vtbl.SetClipper := CallbackCreate(GetMethod(implObj, "SetClipper"), flags, 2)
-        this.vtbl.SetColorKey := CallbackCreate(GetMethod(implObj, "SetColorKey"), flags, 3)
-        this.vtbl.SetOverlayPosition := CallbackCreate(GetMethod(implObj, "SetOverlayPosition"), flags, 3)
-        this.vtbl.SetPalette := CallbackCreate(GetMethod(implObj, "SetPalette"), flags, 2)
-        this.vtbl.Unlock := CallbackCreate(GetMethod(implObj, "Unlock"), flags, 2)
-        this.vtbl.UpdateOverlay := CallbackCreate(GetMethod(implObj, "UpdateOverlay"), flags, 6)
-        this.vtbl.UpdateOverlayDisplay := CallbackCreate(GetMethod(implObj, "UpdateOverlayDisplay"), flags, 2)
-        this.vtbl.UpdateOverlayZOrder := CallbackCreate(GetMethod(implObj, "UpdateOverlayZOrder"), flags, 3)
-        this.vtbl.GetDDInterface := CallbackCreate(GetMethod(implObj, "GetDDInterface"), flags, 2)
-        this.vtbl.PageLock := CallbackCreate(GetMethod(implObj, "PageLock"), flags, 2)
-        this.vtbl.PageUnlock := CallbackCreate(GetMethod(implObj, "PageUnlock"), flags, 2)
-        this.vtbl.SetSurfaceDesc := CallbackCreate(GetMethod(implObj, "SetSurfaceDesc"), flags, 3)
-        this.vtbl.SetPrivateData := CallbackCreate(GetMethod(implObj, "SetPrivateData"), flags, 5)
-        this.vtbl.GetPrivateData := CallbackCreate(GetMethod(implObj, "GetPrivateData"), flags, 4)
-        this.vtbl.FreePrivateData := CallbackCreate(GetMethod(implObj, "FreePrivateData"), flags, 2)
-        this.vtbl.GetUniquenessValue := CallbackCreate(GetMethod(implObj, "GetUniquenessValue"), flags, 2)
-        this.vtbl.ChangeUniquenessValue := CallbackCreate(GetMethod(implObj, "ChangeUniquenessValue"), flags, 1)
-        this.vtbl.SetPriority := CallbackCreate(GetMethod(implObj, "SetPriority"), flags, 2)
-        this.vtbl.GetPriority := CallbackCreate(GetMethod(implObj, "GetPriority"), flags, 2)
-        this.vtbl.SetLOD := CallbackCreate(GetMethod(implObj, "SetLOD"), flags, 2)
-        this.vtbl.GetLOD := CallbackCreate(GetMethod(implObj, "GetLOD"), flags, 2)
+        this.vtbl.AddAttachedSurface := CallbackCreate(ObjBindMethod(implObj, "AddAttachedSurface"), flags, 2)
+        this.vtbl.AddOverlayDirtyRect := CallbackCreate(ObjBindMethod(implObj, "AddOverlayDirtyRect"), flags, 2)
+        this.vtbl.Blt := CallbackCreate(ObjBindMethod(implObj, "Blt"), flags, 6)
+        this.vtbl.BltBatch := CallbackCreate(ObjBindMethod(implObj, "BltBatch"), flags, 4)
+        this.vtbl.BltFast := CallbackCreate(ObjBindMethod(implObj, "BltFast"), flags, 6)
+        this.vtbl.DeleteAttachedSurface := CallbackCreate(ObjBindMethod(implObj, "DeleteAttachedSurface"), flags, 3)
+        this.vtbl.EnumAttachedSurfaces := CallbackCreate(ObjBindMethod(implObj, "EnumAttachedSurfaces"), flags, 3)
+        this.vtbl.EnumOverlayZOrders := CallbackCreate(ObjBindMethod(implObj, "EnumOverlayZOrders"), flags, 4)
+        this.vtbl.Flip := CallbackCreate(ObjBindMethod(implObj, "Flip"), flags, 3)
+        this.vtbl.GetAttachedSurface := CallbackCreate(ObjBindMethod(implObj, "GetAttachedSurface"), flags, 3)
+        this.vtbl.GetBltStatus := CallbackCreate(ObjBindMethod(implObj, "GetBltStatus"), flags, 2)
+        this.vtbl.GetCaps := CallbackCreate(ObjBindMethod(implObj, "GetCaps"), flags, 2)
+        this.vtbl.GetClipper := CallbackCreate(ObjBindMethod(implObj, "GetClipper"), flags, 2)
+        this.vtbl.GetColorKey := CallbackCreate(ObjBindMethod(implObj, "GetColorKey"), flags, 3)
+        this.vtbl.GetDC := CallbackCreate(ObjBindMethod(implObj, "GetDC"), flags, 2)
+        this.vtbl.GetFlipStatus := CallbackCreate(ObjBindMethod(implObj, "GetFlipStatus"), flags, 2)
+        this.vtbl.GetOverlayPosition := CallbackCreate(ObjBindMethod(implObj, "GetOverlayPosition"), flags, 3)
+        this.vtbl.GetPalette := CallbackCreate(ObjBindMethod(implObj, "GetPalette"), flags, 2)
+        this.vtbl.GetPixelFormat := CallbackCreate(ObjBindMethod(implObj, "GetPixelFormat"), flags, 2)
+        this.vtbl.GetSurfaceDesc := CallbackCreate(ObjBindMethod(implObj, "GetSurfaceDesc"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.IsLost := CallbackCreate(ObjBindMethod(implObj, "IsLost"), flags, 1)
+        this.vtbl.Lock := CallbackCreate(ObjBindMethod(implObj, "Lock"), flags, 5)
+        this.vtbl.ReleaseDC := CallbackCreate(ObjBindMethod(implObj, "ReleaseDC"), flags, 2)
+        this.vtbl.Restore := CallbackCreate(ObjBindMethod(implObj, "Restore"), flags, 1)
+        this.vtbl.SetClipper := CallbackCreate(ObjBindMethod(implObj, "SetClipper"), flags, 2)
+        this.vtbl.SetColorKey := CallbackCreate(ObjBindMethod(implObj, "SetColorKey"), flags, 3)
+        this.vtbl.SetOverlayPosition := CallbackCreate(ObjBindMethod(implObj, "SetOverlayPosition"), flags, 3)
+        this.vtbl.SetPalette := CallbackCreate(ObjBindMethod(implObj, "SetPalette"), flags, 2)
+        this.vtbl.Unlock := CallbackCreate(ObjBindMethod(implObj, "Unlock"), flags, 2)
+        this.vtbl.UpdateOverlay := CallbackCreate(ObjBindMethod(implObj, "UpdateOverlay"), flags, 6)
+        this.vtbl.UpdateOverlayDisplay := CallbackCreate(ObjBindMethod(implObj, "UpdateOverlayDisplay"), flags, 2)
+        this.vtbl.UpdateOverlayZOrder := CallbackCreate(ObjBindMethod(implObj, "UpdateOverlayZOrder"), flags, 3)
+        this.vtbl.GetDDInterface := CallbackCreate(ObjBindMethod(implObj, "GetDDInterface"), flags, 2)
+        this.vtbl.PageLock := CallbackCreate(ObjBindMethod(implObj, "PageLock"), flags, 2)
+        this.vtbl.PageUnlock := CallbackCreate(ObjBindMethod(implObj, "PageUnlock"), flags, 2)
+        this.vtbl.SetSurfaceDesc := CallbackCreate(ObjBindMethod(implObj, "SetSurfaceDesc"), flags, 3)
+        this.vtbl.SetPrivateData := CallbackCreate(ObjBindMethod(implObj, "SetPrivateData"), flags, 5)
+        this.vtbl.GetPrivateData := CallbackCreate(ObjBindMethod(implObj, "GetPrivateData"), flags, 4)
+        this.vtbl.FreePrivateData := CallbackCreate(ObjBindMethod(implObj, "FreePrivateData"), flags, 2)
+        this.vtbl.GetUniquenessValue := CallbackCreate(ObjBindMethod(implObj, "GetUniquenessValue"), flags, 2)
+        this.vtbl.ChangeUniquenessValue := CallbackCreate(ObjBindMethod(implObj, "ChangeUniquenessValue"), flags, 1)
+        this.vtbl.SetPriority := CallbackCreate(ObjBindMethod(implObj, "SetPriority"), flags, 2)
+        this.vtbl.GetPriority := CallbackCreate(ObjBindMethod(implObj, "GetPriority"), flags, 2)
+        this.vtbl.SetLOD := CallbackCreate(ObjBindMethod(implObj, "SetLOD"), flags, 2)
+        this.vtbl.GetLOD := CallbackCreate(ObjBindMethod(implObj, "GetLOD"), flags, 2)
     }
 
     Dispose() {

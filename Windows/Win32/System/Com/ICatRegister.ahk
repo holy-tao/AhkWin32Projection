@@ -316,12 +316,12 @@ export default struct ICatRegister extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterCategories := CallbackCreate(GetMethod(implObj, "RegisterCategories"), flags, 3)
-        this.vtbl.UnRegisterCategories := CallbackCreate(GetMethod(implObj, "UnRegisterCategories"), flags, 3)
-        this.vtbl.RegisterClassImplCategories := CallbackCreate(GetMethod(implObj, "RegisterClassImplCategories"), flags, 4)
-        this.vtbl.UnRegisterClassImplCategories := CallbackCreate(GetMethod(implObj, "UnRegisterClassImplCategories"), flags, 4)
-        this.vtbl.RegisterClassReqCategories := CallbackCreate(GetMethod(implObj, "RegisterClassReqCategories"), flags, 4)
-        this.vtbl.UnRegisterClassReqCategories := CallbackCreate(GetMethod(implObj, "UnRegisterClassReqCategories"), flags, 4)
+        this.vtbl.RegisterCategories := CallbackCreate(ObjBindMethod(implObj, "RegisterCategories"), flags, 3)
+        this.vtbl.UnRegisterCategories := CallbackCreate(ObjBindMethod(implObj, "UnRegisterCategories"), flags, 3)
+        this.vtbl.RegisterClassImplCategories := CallbackCreate(ObjBindMethod(implObj, "RegisterClassImplCategories"), flags, 4)
+        this.vtbl.UnRegisterClassImplCategories := CallbackCreate(ObjBindMethod(implObj, "UnRegisterClassImplCategories"), flags, 4)
+        this.vtbl.RegisterClassReqCategories := CallbackCreate(ObjBindMethod(implObj, "RegisterClassReqCategories"), flags, 4)
+        this.vtbl.UnRegisterClassReqCategories := CallbackCreate(ObjBindMethod(implObj, "UnRegisterClassReqCategories"), flags, 4)
     }
 
     Dispose() {

@@ -45,7 +45,6 @@ export default struct IRegFilterInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -73,8 +72,8 @@ export default struct IRegFilterInfo extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.Filter := CallbackCreate(GetMethod(implObj, "Filter"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.Filter := CallbackCreate(ObjBindMethod(implObj, "Filter"), flags, 2)
     }
 
     Dispose() {

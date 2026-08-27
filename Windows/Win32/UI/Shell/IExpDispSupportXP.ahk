@@ -109,7 +109,7 @@ export default struct IExpDispSupportXP extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-iexpdispsupportxp-oninvoke
      */
     OnInvoke(dispidMember, iid, lcid, wFlags, pdispparams, pVarResult, pexcepinfo, puArgErr) {
-        puArgErrMarshal := puArgErr is VarRef ? "uint*" : "ptr"
+        puArgErrMarshal := puArgErr is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, Int32, dispidMember, Guid.Ptr, iid, UInt32, lcid, UInt16, wFlags, DISPPARAMS.Ptr, pdispparams, VARIANT.Ptr, pVarResult, EXCEPINFO.Ptr, pexcepinfo, puArgErrMarshal, puArgErr, "HRESULT")
         return result
@@ -124,9 +124,9 @@ export default struct IExpDispSupportXP extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FindCIE4ConnectionPoint := CallbackCreate(GetMethod(implObj, "FindCIE4ConnectionPoint"), flags, 3)
-        this.vtbl.OnTranslateAccelerator := CallbackCreate(GetMethod(implObj, "OnTranslateAccelerator"), flags, 3)
-        this.vtbl.OnInvoke := CallbackCreate(GetMethod(implObj, "OnInvoke"), flags, 9)
+        this.vtbl.FindCIE4ConnectionPoint := CallbackCreate(ObjBindMethod(implObj, "FindCIE4ConnectionPoint"), flags, 3)
+        this.vtbl.OnTranslateAccelerator := CallbackCreate(ObjBindMethod(implObj, "OnTranslateAccelerator"), flags, 3)
+        this.vtbl.OnInvoke := CallbackCreate(ObjBindMethod(implObj, "OnInvoke"), flags, 9)
     }
 
     Dispose() {

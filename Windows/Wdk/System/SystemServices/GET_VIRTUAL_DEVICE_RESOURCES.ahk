@@ -18,14 +18,13 @@ export default struct GET_VIRTUAL_DEVICE_RESOURCES {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<Integer>} CapturedBusNumbers 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Context, CapturedBusNumbers) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        CapturedBusNumbersMarshal := CapturedBusNumbers is VarRef ? "char*" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        CapturedBusNumbersMarshal := CapturedBusNumbers is VarRef ? "char*" : IntPtr
 
         DllCall(this.value, _ContextMarshal, _Context, CapturedBusNumbersMarshal, CapturedBusNumbers)
     }

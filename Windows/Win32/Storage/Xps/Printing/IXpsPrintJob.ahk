@@ -81,8 +81,8 @@ export default struct IXpsPrintJob extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
-        this.vtbl.GetJobStatus := CallbackCreate(GetMethod(implObj, "GetJobStatus"), flags, 2)
+        this.vtbl.Cancel := CallbackCreate(ObjBindMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.GetJobStatus := CallbackCreate(ObjBindMethod(implObj, "GetJobStatus"), flags, 2)
     }
 
     Dispose() {

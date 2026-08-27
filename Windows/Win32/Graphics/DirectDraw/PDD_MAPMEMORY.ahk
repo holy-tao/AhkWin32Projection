@@ -31,7 +31,6 @@ export default struct PDD_MAPMEMORY {
     }
 
     /**
-     * 
      * @param {Pointer<DD_MAPMEMORYDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_mapmemorydata">DD_MAPMEMORYDATA</a> structure that contains details for the memory mapping or unmapping operation.
      * @returns {Integer} <b>DdMapMemory</b> returns one of the following callback codes:
      */

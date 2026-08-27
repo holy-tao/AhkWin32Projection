@@ -36,7 +36,6 @@ export default struct ILearningModelSessionOptionsNative1 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} allowSpinning 
      * @returns {HRESULT} 
      */
@@ -54,7 +53,7 @@ export default struct ILearningModelSessionOptionsNative1 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetIntraOpThreadSpinning := CallbackCreate(GetMethod(implObj, "SetIntraOpThreadSpinning"), flags, 2)
+        this.vtbl.SetIntraOpThreadSpinning := CallbackCreate(ObjBindMethod(implObj, "SetIntraOpThreadSpinning"), flags, 2)
     }
 
     Dispose() {

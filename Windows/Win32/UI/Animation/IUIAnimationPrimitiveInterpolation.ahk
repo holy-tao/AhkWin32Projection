@@ -87,8 +87,8 @@ export default struct IUIAnimationPrimitiveInterpolation extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddCubic := CallbackCreate(GetMethod(implObj, "AddCubic"), flags, 7)
-        this.vtbl.AddSinusoidal := CallbackCreate(GetMethod(implObj, "AddSinusoidal"), flags, 7)
+        this.vtbl.AddCubic := CallbackCreate(ObjBindMethod(implObj, "AddCubic"), flags, 7)
+        this.vtbl.AddSinusoidal := CallbackCreate(ObjBindMethod(implObj, "AddSinusoidal"), flags, 7)
     }
 
     Dispose() {

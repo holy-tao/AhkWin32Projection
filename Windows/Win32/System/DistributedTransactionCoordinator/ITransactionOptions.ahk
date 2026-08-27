@@ -38,7 +38,6 @@ export default struct ITransactionOptions extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<XACTOPT>} pOptions 
      * @returns {HRESULT} 
      */
@@ -48,7 +47,6 @@ export default struct ITransactionOptions extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<XACTOPT>} pOptions 
      * @returns {HRESULT} 
      */
@@ -66,8 +64,8 @@ export default struct ITransactionOptions extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetOptions := CallbackCreate(GetMethod(implObj, "SetOptions"), flags, 2)
-        this.vtbl.GetOptions := CallbackCreate(GetMethod(implObj, "GetOptions"), flags, 2)
+        this.vtbl.SetOptions := CallbackCreate(ObjBindMethod(implObj, "SetOptions"), flags, 2)
+        this.vtbl.GetOptions := CallbackCreate(ObjBindMethod(implObj, "GetOptions"), flags, 2)
     }
 
     Dispose() {

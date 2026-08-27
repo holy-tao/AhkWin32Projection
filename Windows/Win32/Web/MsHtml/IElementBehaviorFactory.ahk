@@ -39,7 +39,6 @@ export default struct IElementBehaviorFactory extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrBehavior 
      * @param {BSTR} bstrBehaviorUrl 
      * @param {IElementBehaviorSite} pSite 
@@ -62,7 +61,7 @@ export default struct IElementBehaviorFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FindBehavior := CallbackCreate(GetMethod(implObj, "FindBehavior"), flags, 5)
+        this.vtbl.FindBehavior := CallbackCreate(ObjBindMethod(implObj, "FindBehavior"), flags, 5)
     }
 
     Dispose() {

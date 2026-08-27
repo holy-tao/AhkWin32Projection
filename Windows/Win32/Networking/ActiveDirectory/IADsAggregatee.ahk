@@ -39,17 +39,17 @@ export default struct IADsAggregatee extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pOuterUnknown 
      * @returns {HRESULT} 
      */
     ConnectAsAggregatee(pOuterUnknown) {
-        result := ComCall(3, this, "ptr", pOuterUnknown, "HRESULT")
+        pOuterUnknownMarshal := pOuterUnknown == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pOuterUnknownMarshal, pOuterUnknown, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DisconnectAsAggregatee() {
@@ -58,7 +58,6 @@ export default struct IADsAggregatee extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {HRESULT} 
      */
@@ -68,7 +67,6 @@ export default struct IADsAggregatee extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {HRESULT} 
      */
@@ -86,10 +84,10 @@ export default struct IADsAggregatee extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ConnectAsAggregatee := CallbackCreate(GetMethod(implObj, "ConnectAsAggregatee"), flags, 2)
-        this.vtbl.DisconnectAsAggregatee := CallbackCreate(GetMethod(implObj, "DisconnectAsAggregatee"), flags, 1)
-        this.vtbl.RelinquishInterface := CallbackCreate(GetMethod(implObj, "RelinquishInterface"), flags, 2)
-        this.vtbl.RestoreInterface := CallbackCreate(GetMethod(implObj, "RestoreInterface"), flags, 2)
+        this.vtbl.ConnectAsAggregatee := CallbackCreate(ObjBindMethod(implObj, "ConnectAsAggregatee"), flags, 2)
+        this.vtbl.DisconnectAsAggregatee := CallbackCreate(ObjBindMethod(implObj, "DisconnectAsAggregatee"), flags, 1)
+        this.vtbl.RelinquishInterface := CallbackCreate(ObjBindMethod(implObj, "RelinquishInterface"), flags, 2)
+        this.vtbl.RestoreInterface := CallbackCreate(ObjBindMethod(implObj, "RestoreInterface"), flags, 2)
     }
 
     Dispose() {

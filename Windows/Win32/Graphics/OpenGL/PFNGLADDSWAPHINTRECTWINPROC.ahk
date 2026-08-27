@@ -18,7 +18,6 @@ export default struct PFNGLADDSWAPHINTRECTWINPROC {
     }
 
     /**
-     * 
      * @param {Integer} x 
      * @param {Integer} y 
      * @param {Integer} width 

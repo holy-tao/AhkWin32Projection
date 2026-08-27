@@ -24,7 +24,6 @@ export default struct WSMAN_PLUGIN_RECEIVE {
     }
 
     /**
-     * 
      * @param {Pointer<WSMAN_PLUGIN_REQUEST>} requestDetails A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_plugin_request">WSMAN_PLUGIN_REQUEST</a> structure that specifies the resource URI, options, locale, shutdown flag, and handle for the request.
      * @param {Integer} flags Reserved for future use. Must be zero.
      * @param {Pointer<Void>} shellContext Specifies the context that was received when the shell was created.
@@ -33,10 +32,12 @@ export default struct WSMAN_PLUGIN_RECEIVE {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(requestDetails, flags, shellContext, commandContext, streamSet) {
-        shellContextMarshal := shellContext is VarRef ? "ptr" : "ptr"
-        commandContextMarshal := commandContext is VarRef ? "ptr" : "ptr"
+        shellContextMarshal := shellContext is VarRef ? "ptr" : IntPtr
+        commandContextMarshal := commandContext is VarRef ? "ptr" : IntPtr
+        commandContextMarshal := commandContext == 0 ? IntPtr : "ptr"
+        streamSetMarshal := streamSet == 0 ? IntPtr : WSMAN_STREAM_ID_SET.Ptr
 
-        DllCall(this.value, WSMAN_PLUGIN_REQUEST.Ptr, requestDetails, UInt32, flags, shellContextMarshal, shellContext, commandContextMarshal, commandContext, WSMAN_STREAM_ID_SET.Ptr, streamSet)
+        DllCall(this.value, WSMAN_PLUGIN_REQUEST.Ptr, requestDetails, UInt32, flags, shellContextMarshal, shellContext, commandContextMarshal, commandContext, streamSetMarshal, streamSet)
     }
 
     /**

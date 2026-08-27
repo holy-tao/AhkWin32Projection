@@ -78,7 +78,7 @@ export default struct IAccessibleEx extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iaccessibleex-getiaccessiblepair
      */
     GetIAccessiblePair(ppAcc, pidChild) {
-        pidChildMarshal := pidChild is VarRef ? "int*" : "ptr"
+        pidChildMarshal := pidChild is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, IAccessible.Ptr, ppAcc, pidChildMarshal, pidChild, "HRESULT")
         return result
@@ -126,10 +126,10 @@ export default struct IAccessibleEx extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetObjectForChild := CallbackCreate(GetMethod(implObj, "GetObjectForChild"), flags, 3)
-        this.vtbl.GetIAccessiblePair := CallbackCreate(GetMethod(implObj, "GetIAccessiblePair"), flags, 3)
-        this.vtbl.GetRuntimeId := CallbackCreate(GetMethod(implObj, "GetRuntimeId"), flags, 2)
-        this.vtbl.ConvertReturnedElement := CallbackCreate(GetMethod(implObj, "ConvertReturnedElement"), flags, 3)
+        this.vtbl.GetObjectForChild := CallbackCreate(ObjBindMethod(implObj, "GetObjectForChild"), flags, 3)
+        this.vtbl.GetIAccessiblePair := CallbackCreate(ObjBindMethod(implObj, "GetIAccessiblePair"), flags, 3)
+        this.vtbl.GetRuntimeId := CallbackCreate(ObjBindMethod(implObj, "GetRuntimeId"), flags, 2)
+        this.vtbl.ConvertReturnedElement := CallbackCreate(ObjBindMethod(implObj, "ConvertReturnedElement"), flags, 3)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct PVIRTUALCHANNELINIT {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} ppInitHandle 
      * @param {Pointer<CHANNEL_DEF>} pChannel 
      * @param {Integer} channelCount 
@@ -29,7 +28,7 @@ export default struct PVIRTUALCHANNELINIT {
      * @returns {Integer} 
      */
     Call(ppInitHandle, pChannel, channelCount, versionRequested, pChannelInitEventProc) {
-        ppInitHandleMarshal := ppInitHandle is VarRef ? "ptr*" : "ptr"
+        ppInitHandleMarshal := ppInitHandle is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, ppInitHandleMarshal, ppInitHandle, CHANNEL_DEF.Ptr, pChannel, Int32, channelCount, UInt32, versionRequested, PCHANNEL_INIT_EVENT_FN, pChannelInitEventProc, UInt32)
         return result

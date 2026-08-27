@@ -40,7 +40,6 @@ export default struct IServerXMLHTTPRequest2 extends IServerXMLHTTPRequest {
     }
 
     /**
-     * 
      * @param {SXH_PROXY_SETTING} proxySetting 
      * @param {VARIANT} varProxyServer 
      * @param {VARIANT} varBypassList 
@@ -52,7 +51,6 @@ export default struct IServerXMLHTTPRequest2 extends IServerXMLHTTPRequest {
     }
 
     /**
-     * 
      * @param {BSTR} bstrUserName 
      * @param {BSTR} bstrPassword 
      * @returns {HRESULT} 
@@ -74,8 +72,8 @@ export default struct IServerXMLHTTPRequest2 extends IServerXMLHTTPRequest {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.setProxy := CallbackCreate(GetMethod(implObj, "setProxy"), flags, 4)
-        this.vtbl.setProxyCredentials := CallbackCreate(GetMethod(implObj, "setProxyCredentials"), flags, 3)
+        this.vtbl.setProxy := CallbackCreate(ObjBindMethod(implObj, "setProxy"), flags, 4)
+        this.vtbl.setProxyCredentials := CallbackCreate(ObjBindMethod(implObj, "setProxyCredentials"), flags, 3)
     }
 
     Dispose() {

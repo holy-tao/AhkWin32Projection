@@ -65,9 +65,10 @@ export default struct ICompositionDrawingSurfaceInterop extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.composition.interop/nf-windows-ui-composition-interop-icompositiondrawingsurfaceinterop-begindraw
      */
     BeginDraw(updateRect, iid, updateObject, updateOffset) {
-        updateObjectMarshal := updateObject is VarRef ? "ptr*" : "ptr"
+        updateRectMarshal := updateRect == 0 ? IntPtr : RECT.Ptr
+        updateObjectMarshal := updateObject is VarRef ? "ptr*" : IntPtr
 
-        result := ComCall(3, this, RECT.Ptr, updateRect, Guid.Ptr, iid, updateObjectMarshal, updateObject, POINT.Ptr, updateOffset, "HRESULT")
+        result := ComCall(3, this, updateRectMarshal, updateRect, Guid.Ptr, iid, updateObjectMarshal, updateObject, POINT.Ptr, updateOffset, "HRESULT")
         return result
     }
 
@@ -118,7 +119,10 @@ export default struct ICompositionDrawingSurfaceInterop extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.composition.interop/nf-windows-ui-composition-interop-icompositiondrawingsurfaceinterop-scroll
      */
     Scroll(scrollRect, clipRect, offsetX, offsetY) {
-        result := ComCall(6, this, RECT.Ptr, scrollRect, RECT.Ptr, clipRect, Int32, offsetX, Int32, offsetY, "HRESULT")
+        scrollRectMarshal := scrollRect == 0 ? IntPtr : RECT.Ptr
+        clipRectMarshal := clipRect == 0 ? IntPtr : RECT.Ptr
+
+        result := ComCall(6, this, scrollRectMarshal, scrollRect, clipRectMarshal, clipRect, Int32, offsetX, Int32, offsetY, "HRESULT")
         return result
     }
 
@@ -155,12 +159,12 @@ export default struct ICompositionDrawingSurfaceInterop extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BeginDraw := CallbackCreate(GetMethod(implObj, "BeginDraw"), flags, 5)
-        this.vtbl.EndDraw := CallbackCreate(GetMethod(implObj, "EndDraw"), flags, 1)
-        this.vtbl.Resize := CallbackCreate(GetMethod(implObj, "Resize"), flags, 2)
-        this.vtbl.Scroll := CallbackCreate(GetMethod(implObj, "Scroll"), flags, 5)
-        this.vtbl.ResumeDraw := CallbackCreate(GetMethod(implObj, "ResumeDraw"), flags, 1)
-        this.vtbl.SuspendDraw := CallbackCreate(GetMethod(implObj, "SuspendDraw"), flags, 1)
+        this.vtbl.BeginDraw := CallbackCreate(ObjBindMethod(implObj, "BeginDraw"), flags, 5)
+        this.vtbl.EndDraw := CallbackCreate(ObjBindMethod(implObj, "EndDraw"), flags, 1)
+        this.vtbl.Resize := CallbackCreate(ObjBindMethod(implObj, "Resize"), flags, 2)
+        this.vtbl.Scroll := CallbackCreate(ObjBindMethod(implObj, "Scroll"), flags, 5)
+        this.vtbl.ResumeDraw := CallbackCreate(ObjBindMethod(implObj, "ResumeDraw"), flags, 1)
+        this.vtbl.SuspendDraw := CallbackCreate(ObjBindMethod(implObj, "SuspendDraw"), flags, 1)
     }
 
     Dispose() {

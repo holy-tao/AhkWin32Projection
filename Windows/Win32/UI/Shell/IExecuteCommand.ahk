@@ -169,13 +169,13 @@ export default struct IExecuteCommand extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetKeyState := CallbackCreate(GetMethod(implObj, "SetKeyState"), flags, 2)
-        this.vtbl.SetParameters := CallbackCreate(GetMethod(implObj, "SetParameters"), flags, 2)
-        this.vtbl.SetPosition := CallbackCreate(GetMethod(implObj, "SetPosition"), flags, 2)
-        this.vtbl.SetShowWindow := CallbackCreate(GetMethod(implObj, "SetShowWindow"), flags, 2)
-        this.vtbl.SetNoShowUI := CallbackCreate(GetMethod(implObj, "SetNoShowUI"), flags, 2)
-        this.vtbl.SetDirectory := CallbackCreate(GetMethod(implObj, "SetDirectory"), flags, 2)
-        this.vtbl.Execute := CallbackCreate(GetMethod(implObj, "Execute"), flags, 1)
+        this.vtbl.SetKeyState := CallbackCreate(ObjBindMethod(implObj, "SetKeyState"), flags, 2)
+        this.vtbl.SetParameters := CallbackCreate(ObjBindMethod(implObj, "SetParameters"), flags, 2)
+        this.vtbl.SetPosition := CallbackCreate(ObjBindMethod(implObj, "SetPosition"), flags, 2)
+        this.vtbl.SetShowWindow := CallbackCreate(ObjBindMethod(implObj, "SetShowWindow"), flags, 2)
+        this.vtbl.SetNoShowUI := CallbackCreate(ObjBindMethod(implObj, "SetNoShowUI"), flags, 2)
+        this.vtbl.SetDirectory := CallbackCreate(ObjBindMethod(implObj, "SetDirectory"), flags, 2)
+        this.vtbl.Execute := CallbackCreate(ObjBindMethod(implObj, "Execute"), flags, 1)
     }
 
     Dispose() {

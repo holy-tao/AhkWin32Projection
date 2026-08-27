@@ -70,7 +70,11 @@ export NdfCreateWinSockIncident(sock, host, port, appId, userId) {
     host := host is String ? StrPtr(host) : host
     appId := appId is String ? StrPtr(appId) : appId
 
-    result := DllCall("NDFAPI.dll\NdfCreateWinSockIncident", SOCKET, sock, "ptr", host, UInt16, port, "ptr", appId, SID.Ptr, userId, "ptr*", &_handle := 0, "HRESULT")
+    hostMarshal := host == 0 ? IntPtr : PWSTR
+    appIdMarshal := appId == 0 ? IntPtr : PWSTR
+    userIdMarshal := userId == 0 ? IntPtr : SID.Ptr
+
+    result := DllCall("NDFAPI.dll\NdfCreateWinSockIncident", SOCKET, sock, hostMarshal, host, UInt16, port, appIdMarshal, appId, userIdMarshal, userId, "ptr*", &_handle := 0, "HRESULT")
     return _handle
 }
 
@@ -115,7 +119,9 @@ export NdfCreateWebIncidentEx(url, useWinHTTP, moduleName) {
     url := url is String ? StrPtr(url) : url
     moduleName := moduleName is String ? StrPtr(moduleName) : moduleName
 
-    result := DllCall("NDFAPI.dll\NdfCreateWebIncidentEx", "ptr", url, BOOL, useWinHTTP, "ptr", moduleName, "ptr*", &_handle := 0, "HRESULT")
+    moduleNameMarshal := moduleName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("NDFAPI.dll\NdfCreateWebIncidentEx", "ptr", url, BOOL, useWinHTTP, moduleNameMarshal, moduleName, "ptr*", &_handle := 0, "HRESULT")
     return _handle
 }
 
@@ -226,7 +232,10 @@ export NdfCreatePnrpIncident(cloudname, peername, diagnosePublish, appId) {
     peername := peername is String ? StrPtr(peername) : peername
     appId := appId is String ? StrPtr(appId) : appId
 
-    result := DllCall("NDFAPI.dll\NdfCreatePnrpIncident", "ptr", cloudname, "ptr", peername, BOOL, diagnosePublish, "ptr", appId, "ptr*", &_handle := 0, "HRESULT")
+    peernameMarshal := peername == 0 ? IntPtr : PWSTR
+    appIdMarshal := appId == 0 ? IntPtr : PWSTR
+
+    result := DllCall("NDFAPI.dll\NdfCreatePnrpIncident", "ptr", cloudname, peernameMarshal, peername, BOOL, diagnosePublish, appIdMarshal, appId, "ptr*", &_handle := 0, "HRESULT")
     return _handle
 }
 
@@ -273,7 +282,14 @@ export NdfCreateGroupingIncident(CloudName, GroupName, Identity, Invitation, Add
     Invitation := Invitation is String ? StrPtr(Invitation) : Invitation
     appId := appId is String ? StrPtr(appId) : appId
 
-    result := DllCall("NDFAPI.dll\NdfCreateGroupingIncident", "ptr", CloudName, "ptr", GroupName, "ptr", Identity, "ptr", Invitation, SOCKET_ADDRESS_LIST.Ptr, Addresses, "ptr", appId, "ptr*", &_handle := 0, "HRESULT")
+    CloudNameMarshal := CloudName == 0 ? IntPtr : PWSTR
+    GroupNameMarshal := GroupName == 0 ? IntPtr : PWSTR
+    IdentityMarshal := Identity == 0 ? IntPtr : PWSTR
+    InvitationMarshal := Invitation == 0 ? IntPtr : PWSTR
+    AddressesMarshal := Addresses == 0 ? IntPtr : SOCKET_ADDRESS_LIST.Ptr
+    appIdMarshal := appId == 0 ? IntPtr : PWSTR
+
+    result := DllCall("NDFAPI.dll\NdfCreateGroupingIncident", CloudNameMarshal, CloudName, GroupNameMarshal, GroupName, IdentityMarshal, Identity, InvitationMarshal, Invitation, AddressesMarshal, Addresses, appIdMarshal, appId, "ptr*", &_handle := 0, "HRESULT")
     return _handle
 }
 
@@ -322,9 +338,10 @@ export NdfCreateGroupingIncident(CloudName, GroupName, Identity, Invitation, Add
  * @since windows6.0.6000
  */
 export NdfExecuteDiagnosis(_handle, _hwnd) {
-    _handleMarshal := _handle is VarRef ? "ptr" : "ptr"
+    _handleMarshal := _handle is VarRef ? "ptr" : IntPtr
+    _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
 
-    result := DllCall("NDFAPI.dll\NdfExecuteDiagnosis", _handleMarshal, _handle, HWND, _hwnd, "HRESULT")
+    result := DllCall("NDFAPI.dll\NdfExecuteDiagnosis", _handleMarshal, _handle, _hwndMarshal, _hwnd, "HRESULT")
     return result
 }
 
@@ -359,7 +376,7 @@ export NdfExecuteDiagnosis(_handle, _hwnd) {
  * @since windows6.0.6000
  */
 export NdfCloseIncident(_handle) {
-    _handleMarshal := _handle is VarRef ? "ptr" : "ptr"
+    _handleMarshal := _handle is VarRef ? "ptr" : IntPtr
 
     result := DllCall("NDFAPI.dll\NdfCloseIncident", _handleMarshal, _handle, "HRESULT")
     return result
@@ -494,9 +511,9 @@ export NdfCloseIncident(_handle) {
  * @since windows6.1
  */
 export NdfDiagnoseIncident(_Handle, RootCauseCount, RootCauses, dwWait, dwFlags) {
-    _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
-    RootCauseCountMarshal := RootCauseCount is VarRef ? "uint*" : "ptr"
-    RootCausesMarshal := RootCauses is VarRef ? "ptr*" : "ptr"
+    _HandleMarshal := _Handle is VarRef ? "ptr" : IntPtr
+    RootCauseCountMarshal := RootCauseCount is VarRef ? "uint*" : IntPtr
+    RootCausesMarshal := RootCauses is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("NDFAPI.dll\NdfDiagnoseIncident", _HandleMarshal, _Handle, RootCauseCountMarshal, RootCauseCount, RootCausesMarshal, RootCauses, UInt32, dwWait, UInt32, dwFlags, "HRESULT")
     return result
@@ -579,7 +596,7 @@ export NdfDiagnoseIncident(_Handle, RootCauseCount, RootCauses, dwWait, dwFlags)
  * @since windows6.1
  */
 export NdfRepairIncident(_Handle, RepairEx, dwWait) {
-    _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
+    _HandleMarshal := _Handle is VarRef ? "ptr" : IntPtr
 
     result := DllCall("NDFAPI.dll\NdfRepairIncident", _HandleMarshal, _Handle, RepairInfoEx.Ptr, RepairEx, UInt32, dwWait, "HRESULT")
     return result
@@ -626,7 +643,7 @@ export NdfRepairIncident(_Handle, RepairEx, dwWait) {
  * @since windows6.1
  */
 export NdfCancelIncident(_Handle) {
-    _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
+    _HandleMarshal := _Handle is VarRef ? "ptr" : IntPtr
 
     result := DllCall("NDFAPI.dll\NdfCancelIncident", _HandleMarshal, _Handle, "HRESULT")
     return result
@@ -649,7 +666,7 @@ export NdfCancelIncident(_Handle) {
  * @since windows6.1
  */
 export NdfGetTraceFile(_Handle) {
-    _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
+    _HandleMarshal := _Handle is VarRef ? "ptr" : IntPtr
 
     result := DllCall("NDFAPI.dll\NdfGetTraceFile", _HandleMarshal, _Handle, PWSTR.Ptr, &TraceFileLocation := 0, "HRESULT")
     return TraceFileLocation

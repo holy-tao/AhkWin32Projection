@@ -124,8 +124,10 @@ export default struct IStream extends ISequentialStream {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-istream-copyto
      */
     CopyTo(pstm, cb, pcbRead, pcbWritten) {
-        pcbReadMarshal := pcbRead is VarRef ? "uint*" : "ptr"
-        pcbWrittenMarshal := pcbWritten is VarRef ? "uint*" : "ptr"
+        pcbReadMarshal := pcbRead is VarRef ? "uint*" : IntPtr
+        pcbReadMarshal := pcbRead == 0 ? IntPtr : "uint*"
+        pcbWrittenMarshal := pcbWritten is VarRef ? "uint*" : IntPtr
+        pcbWrittenMarshal := pcbWritten == 0 ? IntPtr : "uint*"
 
         result := ComCall(7, this, "ptr", pstm, Int64, cb, pcbReadMarshal, pcbRead, pcbWrittenMarshal, pcbWritten, "HRESULT")
         return result
@@ -282,15 +284,15 @@ export default struct IStream extends ISequentialStream {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Seek := CallbackCreate(GetMethod(implObj, "Seek"), flags, 4)
-        this.vtbl.SetSize := CallbackCreate(GetMethod(implObj, "SetSize"), flags, 2)
-        this.vtbl.CopyTo := CallbackCreate(GetMethod(implObj, "CopyTo"), flags, 5)
-        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 2)
-        this.vtbl.Revert := CallbackCreate(GetMethod(implObj, "Revert"), flags, 1)
-        this.vtbl.LockRegion := CallbackCreate(GetMethod(implObj, "LockRegion"), flags, 4)
-        this.vtbl.UnlockRegion := CallbackCreate(GetMethod(implObj, "UnlockRegion"), flags, 4)
-        this.vtbl.Stat := CallbackCreate(GetMethod(implObj, "Stat"), flags, 3)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.Seek := CallbackCreate(ObjBindMethod(implObj, "Seek"), flags, 4)
+        this.vtbl.SetSize := CallbackCreate(ObjBindMethod(implObj, "SetSize"), flags, 2)
+        this.vtbl.CopyTo := CallbackCreate(ObjBindMethod(implObj, "CopyTo"), flags, 5)
+        this.vtbl.Commit := CallbackCreate(ObjBindMethod(implObj, "Commit"), flags, 2)
+        this.vtbl.Revert := CallbackCreate(ObjBindMethod(implObj, "Revert"), flags, 1)
+        this.vtbl.LockRegion := CallbackCreate(ObjBindMethod(implObj, "LockRegion"), flags, 4)
+        this.vtbl.UnlockRegion := CallbackCreate(ObjBindMethod(implObj, "UnlockRegion"), flags, 4)
+        this.vtbl.Stat := CallbackCreate(ObjBindMethod(implObj, "Stat"), flags, 3)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
     }
 
     Dispose() {

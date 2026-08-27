@@ -87,8 +87,8 @@ export default struct IEnumerableView extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetEnumReadyCallback := CallbackCreate(GetMethod(implObj, "SetEnumReadyCallback"), flags, 2)
-        this.vtbl.CreateEnumIDListFromContents := CallbackCreate(GetMethod(implObj, "CreateEnumIDListFromContents"), flags, 4)
+        this.vtbl.SetEnumReadyCallback := CallbackCreate(ObjBindMethod(implObj, "SetEnumReadyCallback"), flags, 2)
+        this.vtbl.CreateEnumIDListFromContents := CallbackCreate(ObjBindMethod(implObj, "CreateEnumIDListFromContents"), flags, 4)
     }
 
     Dispose() {

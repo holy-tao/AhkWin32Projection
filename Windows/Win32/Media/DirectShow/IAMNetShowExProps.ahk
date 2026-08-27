@@ -94,7 +94,7 @@ export default struct IAMNetShowExProps extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowexprops-get_sourceprotocol
      */
     get_SourceProtocol(pSourceProtocol) {
-        pSourceProtocolMarshal := pSourceProtocol is VarRef ? "int*" : "ptr"
+        pSourceProtocolMarshal := pSourceProtocol is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, pSourceProtocolMarshal, pSourceProtocol, "HRESULT")
         return result
@@ -107,7 +107,7 @@ export default struct IAMNetShowExProps extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowexprops-get_bandwidth
      */
     get_Bandwidth(pBandwidth) {
-        pBandwidthMarshal := pBandwidth is VarRef ? "int*" : "ptr"
+        pBandwidthMarshal := pBandwidth is VarRef ? "int*" : IntPtr
 
         result := ComCall(8, this, pBandwidthMarshal, pBandwidth, "HRESULT")
         return result
@@ -133,7 +133,7 @@ export default struct IAMNetShowExProps extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowexprops-get_codeccount
      */
     get_CodecCount(pCodecCount) {
-        pCodecCountMarshal := pCodecCount is VarRef ? "int*" : "ptr"
+        pCodecCountMarshal := pCodecCount is VarRef ? "int*" : IntPtr
 
         result := ComCall(10, this, pCodecCountMarshal, pCodecCount, "HRESULT")
         return result
@@ -147,7 +147,7 @@ export default struct IAMNetShowExProps extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowexprops-getcodecinstalled
      */
     GetCodecInstalled(CodecNum, pCodecInstalled) {
-        pCodecInstalledMarshal := pCodecInstalled is VarRef ? "short*" : "ptr"
+        pCodecInstalledMarshal := pCodecInstalled is VarRef ? "short*" : IntPtr
 
         result := ComCall(11, this, Int32, CodecNum, pCodecInstalledMarshal, pCodecInstalled, "HRESULT")
         return result
@@ -188,7 +188,7 @@ export default struct IAMNetShowExProps extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowexprops-get_creationdate
      */
     get_CreationDate(pCreationDate) {
-        pCreationDateMarshal := pCreationDate is VarRef ? "double*" : "ptr"
+        pCreationDateMarshal := pCreationDate is VarRef ? "double*" : IntPtr
 
         result := ComCall(14, this, pCreationDateMarshal, pCreationDate, "HRESULT")
         return result
@@ -216,15 +216,15 @@ export default struct IAMNetShowExProps extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_SourceProtocol := CallbackCreate(GetMethod(implObj, "get_SourceProtocol"), flags, 2)
-        this.vtbl.get_Bandwidth := CallbackCreate(GetMethod(implObj, "get_Bandwidth"), flags, 2)
-        this.vtbl.get_ErrorCorrection := CallbackCreate(GetMethod(implObj, "get_ErrorCorrection"), flags, 2)
-        this.vtbl.get_CodecCount := CallbackCreate(GetMethod(implObj, "get_CodecCount"), flags, 2)
-        this.vtbl.GetCodecInstalled := CallbackCreate(GetMethod(implObj, "GetCodecInstalled"), flags, 3)
-        this.vtbl.GetCodecDescription := CallbackCreate(GetMethod(implObj, "GetCodecDescription"), flags, 3)
-        this.vtbl.GetCodecURL := CallbackCreate(GetMethod(implObj, "GetCodecURL"), flags, 3)
-        this.vtbl.get_CreationDate := CallbackCreate(GetMethod(implObj, "get_CreationDate"), flags, 2)
-        this.vtbl.get_SourceLink := CallbackCreate(GetMethod(implObj, "get_SourceLink"), flags, 2)
+        this.vtbl.get_SourceProtocol := CallbackCreate(ObjBindMethod(implObj, "get_SourceProtocol"), flags, 2)
+        this.vtbl.get_Bandwidth := CallbackCreate(ObjBindMethod(implObj, "get_Bandwidth"), flags, 2)
+        this.vtbl.get_ErrorCorrection := CallbackCreate(ObjBindMethod(implObj, "get_ErrorCorrection"), flags, 2)
+        this.vtbl.get_CodecCount := CallbackCreate(ObjBindMethod(implObj, "get_CodecCount"), flags, 2)
+        this.vtbl.GetCodecInstalled := CallbackCreate(ObjBindMethod(implObj, "GetCodecInstalled"), flags, 3)
+        this.vtbl.GetCodecDescription := CallbackCreate(ObjBindMethod(implObj, "GetCodecDescription"), flags, 3)
+        this.vtbl.GetCodecURL := CallbackCreate(ObjBindMethod(implObj, "GetCodecURL"), flags, 3)
+        this.vtbl.get_CreationDate := CallbackCreate(ObjBindMethod(implObj, "get_CreationDate"), flags, 2)
+        this.vtbl.get_SourceLink := CallbackCreate(ObjBindMethod(implObj, "get_SourceLink"), flags, 2)
     }
 
     Dispose() {

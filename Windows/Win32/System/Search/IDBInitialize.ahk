@@ -70,7 +70,6 @@ export default struct IDBInitialize extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Uninitialize() {
@@ -87,8 +86,8 @@ export default struct IDBInitialize extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 1)
-        this.vtbl.Uninitialize := CallbackCreate(GetMethod(implObj, "Uninitialize"), flags, 1)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 1)
+        this.vtbl.Uninitialize := CallbackCreate(ObjBindMethod(implObj, "Uninitialize"), flags, 1)
     }
 
     Dispose() {

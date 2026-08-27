@@ -92,8 +92,8 @@ export default struct ISearchLanguageSupport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchlanguagesupport-loadwordbreaker
      */
     LoadWordBreaker(lcid, riid, ppWordBreaker, pLcidUsed) {
-        ppWordBreakerMarshal := ppWordBreaker is VarRef ? "ptr*" : "ptr"
-        pLcidUsedMarshal := pLcidUsed is VarRef ? "uint*" : "ptr"
+        ppWordBreakerMarshal := ppWordBreaker is VarRef ? "ptr*" : IntPtr
+        pLcidUsedMarshal := pLcidUsed is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, UInt32, lcid, Guid.Ptr, riid, ppWordBreakerMarshal, ppWordBreaker, pLcidUsedMarshal, pLcidUsed, "HRESULT")
         return result
@@ -119,8 +119,8 @@ export default struct ISearchLanguageSupport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchlanguagesupport-loadstemmer
      */
     LoadStemmer(lcid, riid, ppStemmer, pLcidUsed) {
-        ppStemmerMarshal := ppStemmer is VarRef ? "ptr*" : "ptr"
-        pLcidUsedMarshal := pLcidUsed is VarRef ? "uint*" : "ptr"
+        ppStemmerMarshal := ppStemmer is VarRef ? "ptr*" : IntPtr
+        pLcidUsedMarshal := pLcidUsed is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, UInt32, lcid, Guid.Ptr, riid, ppStemmerMarshal, ppStemmer, pLcidUsedMarshal, pLcidUsed, "HRESULT")
         return result
@@ -162,11 +162,11 @@ export default struct ISearchLanguageSupport extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetDiacriticSensitivity := CallbackCreate(GetMethod(implObj, "SetDiacriticSensitivity"), flags, 2)
-        this.vtbl.GetDiacriticSensitivity := CallbackCreate(GetMethod(implObj, "GetDiacriticSensitivity"), flags, 2)
-        this.vtbl.LoadWordBreaker := CallbackCreate(GetMethod(implObj, "LoadWordBreaker"), flags, 5)
-        this.vtbl.LoadStemmer := CallbackCreate(GetMethod(implObj, "LoadStemmer"), flags, 5)
-        this.vtbl.IsPrefixNormalized := CallbackCreate(GetMethod(implObj, "IsPrefixNormalized"), flags, 6)
+        this.vtbl.SetDiacriticSensitivity := CallbackCreate(ObjBindMethod(implObj, "SetDiacriticSensitivity"), flags, 2)
+        this.vtbl.GetDiacriticSensitivity := CallbackCreate(ObjBindMethod(implObj, "GetDiacriticSensitivity"), flags, 2)
+        this.vtbl.LoadWordBreaker := CallbackCreate(ObjBindMethod(implObj, "LoadWordBreaker"), flags, 5)
+        this.vtbl.LoadStemmer := CallbackCreate(ObjBindMethod(implObj, "LoadStemmer"), flags, 5)
+        this.vtbl.IsPrefixNormalized := CallbackCreate(ObjBindMethod(implObj, "IsPrefixNormalized"), flags, 6)
     }
 
     Dispose() {

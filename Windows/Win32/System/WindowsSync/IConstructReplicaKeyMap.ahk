@@ -87,8 +87,8 @@ export default struct IConstructReplicaKeyMap extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-iconstructreplicakeymap-findoraddreplica
      */
     FindOrAddReplica(pbReplicaId, pdwReplicaKey) {
-        pbReplicaIdMarshal := pbReplicaId is VarRef ? "char*" : "ptr"
-        pdwReplicaKeyMarshal := pdwReplicaKey is VarRef ? "uint*" : "ptr"
+        pbReplicaIdMarshal := pbReplicaId is VarRef ? "char*" : IntPtr
+        pdwReplicaKeyMarshal := pdwReplicaKey is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pbReplicaIdMarshal, pbReplicaId, pdwReplicaKeyMarshal, pdwReplicaKey, "HRESULT")
         return result
@@ -103,7 +103,7 @@ export default struct IConstructReplicaKeyMap extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FindOrAddReplica := CallbackCreate(GetMethod(implObj, "FindOrAddReplica"), flags, 3)
+        this.vtbl.FindOrAddReplica := CallbackCreate(ObjBindMethod(implObj, "FindOrAddReplica"), flags, 3)
     }
 
     Dispose() {

@@ -193,7 +193,7 @@ export default struct IWMPNetwork extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpnetwork-get_bandwidth
      */
     get_bandWidth(plBandwidth) {
-        plBandwidthMarshal := plBandwidth is VarRef ? "int*" : "ptr"
+        plBandwidthMarshal := plBandwidth is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, plBandwidthMarshal, plBandwidth, "HRESULT")
         return result
@@ -228,7 +228,7 @@ export default struct IWMPNetwork extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpnetwork-get_recoveredpackets
      */
     get_recoveredPackets(plRecoveredPackets) {
-        plRecoveredPacketsMarshal := plRecoveredPackets is VarRef ? "int*" : "ptr"
+        plRecoveredPacketsMarshal := plRecoveredPackets is VarRef ? "int*" : IntPtr
 
         result := ComCall(8, this, plRecoveredPacketsMarshal, plRecoveredPackets, "HRESULT")
         return result
@@ -292,7 +292,7 @@ export default struct IWMPNetwork extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpnetwork-get_receivedpackets
      */
     get_receivedPackets(plReceivedPackets) {
-        plReceivedPacketsMarshal := plReceivedPackets is VarRef ? "int*" : "ptr"
+        plReceivedPacketsMarshal := plReceivedPackets is VarRef ? "int*" : IntPtr
 
         result := ComCall(10, this, plReceivedPacketsMarshal, plReceivedPackets, "HRESULT")
         return result
@@ -329,7 +329,7 @@ export default struct IWMPNetwork extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpnetwork-get_lostpackets
      */
     get_lostPackets(plLostPackets) {
-        plLostPacketsMarshal := plLostPackets is VarRef ? "int*" : "ptr"
+        plLostPacketsMarshal := plLostPackets is VarRef ? "int*" : IntPtr
 
         result := ComCall(11, this, plLostPacketsMarshal, plLostPackets, "HRESULT")
         return result
@@ -366,7 +366,7 @@ export default struct IWMPNetwork extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpnetwork-get_receptionquality
      */
     get_receptionQuality(plReceptionQuality) {
-        plReceptionQualityMarshal := plReceptionQuality is VarRef ? "int*" : "ptr"
+        plReceptionQualityMarshal := plReceptionQuality is VarRef ? "int*" : IntPtr
 
         result := ComCall(12, this, plReceptionQualityMarshal, plReceptionQuality, "HRESULT")
         return result
@@ -401,7 +401,7 @@ export default struct IWMPNetwork extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpnetwork-get_bufferingcount
      */
     get_bufferingCount(plBufferingCount) {
-        plBufferingCountMarshal := plBufferingCount is VarRef ? "int*" : "ptr"
+        plBufferingCountMarshal := plBufferingCount is VarRef ? "int*" : IntPtr
 
         result := ComCall(13, this, plBufferingCountMarshal, plBufferingCount, "HRESULT")
         return result
@@ -438,7 +438,7 @@ export default struct IWMPNetwork extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpnetwork-get_bufferingprogress
      */
     get_bufferingProgress(plBufferingProgress) {
-        plBufferingProgressMarshal := plBufferingProgress is VarRef ? "int*" : "ptr"
+        plBufferingProgressMarshal := plBufferingProgress is VarRef ? "int*" : IntPtr
 
         result := ComCall(14, this, plBufferingProgressMarshal, plBufferingProgress, "HRESULT")
         return result
@@ -469,7 +469,7 @@ export default struct IWMPNetwork extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpnetwork-get_bufferingtime
      */
     get_bufferingTime(plBufferingTime) {
-        plBufferingTimeMarshal := plBufferingTime is VarRef ? "int*" : "ptr"
+        plBufferingTimeMarshal := plBufferingTime is VarRef ? "int*" : IntPtr
 
         result := ComCall(15, this, plBufferingTimeMarshal, plBufferingTime, "HRESULT")
         return result
@@ -531,7 +531,7 @@ export default struct IWMPNetwork extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpnetwork-get_framerate
      */
     get_frameRate(plFrameRate) {
-        plFrameRateMarshal := plFrameRate is VarRef ? "int*" : "ptr"
+        plFrameRateMarshal := plFrameRate is VarRef ? "int*" : IntPtr
 
         result := ComCall(17, this, plFrameRateMarshal, plFrameRate, "HRESULT")
         return result
@@ -562,7 +562,7 @@ export default struct IWMPNetwork extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpnetwork-get_maxbitrate
      */
     get_maxBitRate(plBitRate) {
-        plBitRateMarshal := plBitRate is VarRef ? "int*" : "ptr"
+        plBitRateMarshal := plBitRate is VarRef ? "int*" : IntPtr
 
         result := ComCall(18, this, plBitRateMarshal, plBitRate, "HRESULT")
         return result
@@ -595,7 +595,7 @@ export default struct IWMPNetwork extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpnetwork-get_bitrate
      */
     get_bitRate(plBitRate) {
-        plBitRateMarshal := plBitRate is VarRef ? "int*" : "ptr"
+        plBitRateMarshal := plBitRate is VarRef ? "int*" : IntPtr
 
         result := ComCall(19, this, plBitRateMarshal, plBitRate, "HRESULT")
         return result
@@ -633,7 +633,7 @@ export default struct IWMPNetwork extends IDispatch {
     getProxySettings(bstrProtocol, plProxySetting) {
         bstrProtocol := bstrProtocol is String ? BSTR.Alloc(bstrProtocol).Value : bstrProtocol
 
-        plProxySettingMarshal := plProxySetting is VarRef ? "int*" : "ptr"
+        plProxySettingMarshal := plProxySetting is VarRef ? "int*" : IntPtr
 
         result := ComCall(20, this, BSTR, bstrProtocol, plProxySettingMarshal, plProxySetting, "HRESULT")
         return result
@@ -782,7 +782,7 @@ export default struct IWMPNetwork extends IDispatch {
     getProxyPort(bstrProtocol, lProxyPort) {
         bstrProtocol := bstrProtocol is String ? BSTR.Alloc(bstrProtocol).Value : bstrProtocol
 
-        lProxyPortMarshal := lProxyPort is VarRef ? "int*" : "ptr"
+        lProxyPortMarshal := lProxyPort is VarRef ? "int*" : IntPtr
 
         result := ComCall(24, this, BSTR, bstrProtocol, lProxyPortMarshal, lProxyPort, "HRESULT")
         return result
@@ -941,7 +941,7 @@ export default struct IWMPNetwork extends IDispatch {
     getProxyBypassForLocal(bstrProtocol, pfBypassForLocal) {
         bstrProtocol := bstrProtocol is String ? BSTR.Alloc(bstrProtocol).Value : bstrProtocol
 
-        pfBypassForLocalMarshal := pfBypassForLocal is VarRef ? "short*" : "ptr"
+        pfBypassForLocalMarshal := pfBypassForLocal is VarRef ? "short*" : IntPtr
 
         result := ComCall(28, this, BSTR, bstrProtocol, pfBypassForLocalMarshal, pfBypassForLocal, "HRESULT")
         return result
@@ -1010,7 +1010,7 @@ export default struct IWMPNetwork extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpnetwork-get_maxbandwidth
      */
     get_maxBandwidth(lMaxBandwidth) {
-        lMaxBandwidthMarshal := lMaxBandwidth is VarRef ? "int*" : "ptr"
+        lMaxBandwidthMarshal := lMaxBandwidth is VarRef ? "int*" : IntPtr
 
         result := ComCall(30, this, lMaxBandwidthMarshal, lMaxBandwidth, "HRESULT")
         return result
@@ -1088,7 +1088,7 @@ export default struct IWMPNetwork extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpnetwork-get_downloadprogress
      */
     get_downloadProgress(plDownloadProgress) {
-        plDownloadProgressMarshal := plDownloadProgress is VarRef ? "int*" : "ptr"
+        plDownloadProgressMarshal := plDownloadProgress is VarRef ? "int*" : IntPtr
 
         result := ComCall(32, this, plDownloadProgressMarshal, plDownloadProgress, "HRESULT")
         return result
@@ -1119,7 +1119,7 @@ export default struct IWMPNetwork extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpnetwork-get_encodedframerate
      */
     get_encodedFrameRate(plFrameRate) {
-        plFrameRateMarshal := plFrameRate is VarRef ? "int*" : "ptr"
+        plFrameRateMarshal := plFrameRate is VarRef ? "int*" : IntPtr
 
         result := ComCall(33, this, plFrameRateMarshal, plFrameRate, "HRESULT")
         return result
@@ -1150,7 +1150,7 @@ export default struct IWMPNetwork extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpnetwork-get_framesskipped
      */
     get_framesSkipped(plFrames) {
-        plFramesMarshal := plFrames is VarRef ? "int*" : "ptr"
+        plFramesMarshal := plFrames is VarRef ? "int*" : IntPtr
 
         result := ComCall(34, this, plFramesMarshal, plFrames, "HRESULT")
         return result
@@ -1165,34 +1165,34 @@ export default struct IWMPNetwork extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_bandWidth := CallbackCreate(GetMethod(implObj, "get_bandWidth"), flags, 2)
-        this.vtbl.get_recoveredPackets := CallbackCreate(GetMethod(implObj, "get_recoveredPackets"), flags, 2)
-        this.vtbl.get_sourceProtocol := CallbackCreate(GetMethod(implObj, "get_sourceProtocol"), flags, 2)
-        this.vtbl.get_receivedPackets := CallbackCreate(GetMethod(implObj, "get_receivedPackets"), flags, 2)
-        this.vtbl.get_lostPackets := CallbackCreate(GetMethod(implObj, "get_lostPackets"), flags, 2)
-        this.vtbl.get_receptionQuality := CallbackCreate(GetMethod(implObj, "get_receptionQuality"), flags, 2)
-        this.vtbl.get_bufferingCount := CallbackCreate(GetMethod(implObj, "get_bufferingCount"), flags, 2)
-        this.vtbl.get_bufferingProgress := CallbackCreate(GetMethod(implObj, "get_bufferingProgress"), flags, 2)
-        this.vtbl.get_bufferingTime := CallbackCreate(GetMethod(implObj, "get_bufferingTime"), flags, 2)
-        this.vtbl.put_bufferingTime := CallbackCreate(GetMethod(implObj, "put_bufferingTime"), flags, 2)
-        this.vtbl.get_frameRate := CallbackCreate(GetMethod(implObj, "get_frameRate"), flags, 2)
-        this.vtbl.get_maxBitRate := CallbackCreate(GetMethod(implObj, "get_maxBitRate"), flags, 2)
-        this.vtbl.get_bitRate := CallbackCreate(GetMethod(implObj, "get_bitRate"), flags, 2)
-        this.vtbl.getProxySettings := CallbackCreate(GetMethod(implObj, "getProxySettings"), flags, 3)
-        this.vtbl.setProxySettings := CallbackCreate(GetMethod(implObj, "setProxySettings"), flags, 3)
-        this.vtbl.getProxyName := CallbackCreate(GetMethod(implObj, "getProxyName"), flags, 3)
-        this.vtbl.setProxyName := CallbackCreate(GetMethod(implObj, "setProxyName"), flags, 3)
-        this.vtbl.getProxyPort := CallbackCreate(GetMethod(implObj, "getProxyPort"), flags, 3)
-        this.vtbl.setProxyPort := CallbackCreate(GetMethod(implObj, "setProxyPort"), flags, 3)
-        this.vtbl.getProxyExceptionList := CallbackCreate(GetMethod(implObj, "getProxyExceptionList"), flags, 3)
-        this.vtbl.setProxyExceptionList := CallbackCreate(GetMethod(implObj, "setProxyExceptionList"), flags, 3)
-        this.vtbl.getProxyBypassForLocal := CallbackCreate(GetMethod(implObj, "getProxyBypassForLocal"), flags, 3)
-        this.vtbl.setProxyBypassForLocal := CallbackCreate(GetMethod(implObj, "setProxyBypassForLocal"), flags, 3)
-        this.vtbl.get_maxBandwidth := CallbackCreate(GetMethod(implObj, "get_maxBandwidth"), flags, 2)
-        this.vtbl.put_maxBandwidth := CallbackCreate(GetMethod(implObj, "put_maxBandwidth"), flags, 2)
-        this.vtbl.get_downloadProgress := CallbackCreate(GetMethod(implObj, "get_downloadProgress"), flags, 2)
-        this.vtbl.get_encodedFrameRate := CallbackCreate(GetMethod(implObj, "get_encodedFrameRate"), flags, 2)
-        this.vtbl.get_framesSkipped := CallbackCreate(GetMethod(implObj, "get_framesSkipped"), flags, 2)
+        this.vtbl.get_bandWidth := CallbackCreate(ObjBindMethod(implObj, "get_bandWidth"), flags, 2)
+        this.vtbl.get_recoveredPackets := CallbackCreate(ObjBindMethod(implObj, "get_recoveredPackets"), flags, 2)
+        this.vtbl.get_sourceProtocol := CallbackCreate(ObjBindMethod(implObj, "get_sourceProtocol"), flags, 2)
+        this.vtbl.get_receivedPackets := CallbackCreate(ObjBindMethod(implObj, "get_receivedPackets"), flags, 2)
+        this.vtbl.get_lostPackets := CallbackCreate(ObjBindMethod(implObj, "get_lostPackets"), flags, 2)
+        this.vtbl.get_receptionQuality := CallbackCreate(ObjBindMethod(implObj, "get_receptionQuality"), flags, 2)
+        this.vtbl.get_bufferingCount := CallbackCreate(ObjBindMethod(implObj, "get_bufferingCount"), flags, 2)
+        this.vtbl.get_bufferingProgress := CallbackCreate(ObjBindMethod(implObj, "get_bufferingProgress"), flags, 2)
+        this.vtbl.get_bufferingTime := CallbackCreate(ObjBindMethod(implObj, "get_bufferingTime"), flags, 2)
+        this.vtbl.put_bufferingTime := CallbackCreate(ObjBindMethod(implObj, "put_bufferingTime"), flags, 2)
+        this.vtbl.get_frameRate := CallbackCreate(ObjBindMethod(implObj, "get_frameRate"), flags, 2)
+        this.vtbl.get_maxBitRate := CallbackCreate(ObjBindMethod(implObj, "get_maxBitRate"), flags, 2)
+        this.vtbl.get_bitRate := CallbackCreate(ObjBindMethod(implObj, "get_bitRate"), flags, 2)
+        this.vtbl.getProxySettings := CallbackCreate(ObjBindMethod(implObj, "getProxySettings"), flags, 3)
+        this.vtbl.setProxySettings := CallbackCreate(ObjBindMethod(implObj, "setProxySettings"), flags, 3)
+        this.vtbl.getProxyName := CallbackCreate(ObjBindMethod(implObj, "getProxyName"), flags, 3)
+        this.vtbl.setProxyName := CallbackCreate(ObjBindMethod(implObj, "setProxyName"), flags, 3)
+        this.vtbl.getProxyPort := CallbackCreate(ObjBindMethod(implObj, "getProxyPort"), flags, 3)
+        this.vtbl.setProxyPort := CallbackCreate(ObjBindMethod(implObj, "setProxyPort"), flags, 3)
+        this.vtbl.getProxyExceptionList := CallbackCreate(ObjBindMethod(implObj, "getProxyExceptionList"), flags, 3)
+        this.vtbl.setProxyExceptionList := CallbackCreate(ObjBindMethod(implObj, "setProxyExceptionList"), flags, 3)
+        this.vtbl.getProxyBypassForLocal := CallbackCreate(ObjBindMethod(implObj, "getProxyBypassForLocal"), flags, 3)
+        this.vtbl.setProxyBypassForLocal := CallbackCreate(ObjBindMethod(implObj, "setProxyBypassForLocal"), flags, 3)
+        this.vtbl.get_maxBandwidth := CallbackCreate(ObjBindMethod(implObj, "get_maxBandwidth"), flags, 2)
+        this.vtbl.put_maxBandwidth := CallbackCreate(ObjBindMethod(implObj, "put_maxBandwidth"), flags, 2)
+        this.vtbl.get_downloadProgress := CallbackCreate(ObjBindMethod(implObj, "get_downloadProgress"), flags, 2)
+        this.vtbl.get_encodedFrameRate := CallbackCreate(ObjBindMethod(implObj, "get_encodedFrameRate"), flags, 2)
+        this.vtbl.get_framesSkipped := CallbackCreate(ObjBindMethod(implObj, "get_framesSkipped"), flags, 2)
     }
 
     Dispose() {

@@ -82,8 +82,8 @@ export default struct ITfTextInputProcessor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Activate := CallbackCreate(GetMethod(implObj, "Activate"), flags, 3)
-        this.vtbl.Deactivate := CallbackCreate(GetMethod(implObj, "Deactivate"), flags, 1)
+        this.vtbl.Activate := CallbackCreate(ObjBindMethod(implObj, "Activate"), flags, 3)
+        this.vtbl.Deactivate := CallbackCreate(ObjBindMethod(implObj, "Deactivate"), flags, 1)
     }
 
     Dispose() {

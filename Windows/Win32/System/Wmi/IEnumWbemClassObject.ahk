@@ -102,7 +102,7 @@ export default struct IEnumWbemClassObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-ienumwbemclassobject-next
      */
     Next(lTimeout, uCount, apObjects, puReturned) {
-        puReturnedMarshal := puReturned is VarRef ? "uint*" : "ptr"
+        puReturnedMarshal := puReturned is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, Int32, lTimeout, UInt32, uCount, IWbemClassObject.Ptr, apObjects, puReturnedMarshal, puReturned, Int32)
         return result
@@ -191,11 +191,11 @@ export default struct IEnumWbemClassObject extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 5)
-        this.vtbl.NextAsync := CallbackCreate(GetMethod(implObj, "NextAsync"), flags, 3)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
-        this.vtbl.Skip := CallbackCreate(GetMethod(implObj, "Skip"), flags, 3)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Next := CallbackCreate(ObjBindMethod(implObj, "Next"), flags, 5)
+        this.vtbl.NextAsync := CallbackCreate(ObjBindMethod(implObj, "NextAsync"), flags, 3)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.Skip := CallbackCreate(ObjBindMethod(implObj, "Skip"), flags, 3)
     }
 
     Dispose() {

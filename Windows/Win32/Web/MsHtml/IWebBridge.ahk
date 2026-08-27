@@ -84,7 +84,6 @@ export default struct IWebBridge extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -96,7 +95,6 @@ export default struct IWebBridge extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_URL() {
@@ -106,7 +104,6 @@ export default struct IWebBridge extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -116,7 +113,6 @@ export default struct IWebBridge extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Scrollbar() {
@@ -125,7 +121,6 @@ export default struct IWebBridge extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -135,7 +130,6 @@ export default struct IWebBridge extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_embed() {
@@ -144,7 +138,6 @@ export default struct IWebBridge extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_event() {
@@ -153,7 +146,6 @@ export default struct IWebBridge extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_readyState() {
@@ -162,7 +154,6 @@ export default struct IWebBridge extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     AboutBox() {
@@ -179,15 +170,15 @@ export default struct IWebBridge extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_URL := CallbackCreate(GetMethod(implObj, "put_URL"), flags, 2)
-        this.vtbl.get_URL := CallbackCreate(GetMethod(implObj, "get_URL"), flags, 2)
-        this.vtbl.put_Scrollbar := CallbackCreate(GetMethod(implObj, "put_Scrollbar"), flags, 2)
-        this.vtbl.get_Scrollbar := CallbackCreate(GetMethod(implObj, "get_Scrollbar"), flags, 2)
-        this.vtbl.put_embed := CallbackCreate(GetMethod(implObj, "put_embed"), flags, 2)
-        this.vtbl.get_embed := CallbackCreate(GetMethod(implObj, "get_embed"), flags, 2)
-        this.vtbl.get_event := CallbackCreate(GetMethod(implObj, "get_event"), flags, 2)
-        this.vtbl.get_readyState := CallbackCreate(GetMethod(implObj, "get_readyState"), flags, 2)
-        this.vtbl.AboutBox := CallbackCreate(GetMethod(implObj, "AboutBox"), flags, 1)
+        this.vtbl.put_URL := CallbackCreate(ObjBindMethod(implObj, "put_URL"), flags, 2)
+        this.vtbl.get_URL := CallbackCreate(ObjBindMethod(implObj, "get_URL"), flags, 2)
+        this.vtbl.put_Scrollbar := CallbackCreate(ObjBindMethod(implObj, "put_Scrollbar"), flags, 2)
+        this.vtbl.get_Scrollbar := CallbackCreate(ObjBindMethod(implObj, "get_Scrollbar"), flags, 2)
+        this.vtbl.put_embed := CallbackCreate(ObjBindMethod(implObj, "put_embed"), flags, 2)
+        this.vtbl.get_embed := CallbackCreate(ObjBindMethod(implObj, "get_embed"), flags, 2)
+        this.vtbl.get_event := CallbackCreate(ObjBindMethod(implObj, "get_event"), flags, 2)
+        this.vtbl.get_readyState := CallbackCreate(ObjBindMethod(implObj, "get_readyState"), flags, 2)
+        this.vtbl.AboutBox := CallbackCreate(ObjBindMethod(implObj, "AboutBox"), flags, 1)
     }
 
     Dispose() {

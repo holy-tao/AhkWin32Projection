@@ -167,8 +167,8 @@ export default struct ISearchCatalogManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcatalogmanager-getcatalogstatus
      */
     GetCatalogStatus(pStatus, pPausedReason) {
-        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
-        pPausedReasonMarshal := pPausedReason is VarRef ? "int*" : "ptr"
+        pStatusMarshal := pStatus is VarRef ? "int*" : IntPtr
+        pPausedReasonMarshal := pPausedReason is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, pStatusMarshal, pStatus, pPausedReasonMarshal, pPausedReason, "HRESULT")
         return result
@@ -333,9 +333,9 @@ export default struct ISearchCatalogManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcatalogmanager-numberofitemstoindex
      */
     NumberOfItemsToIndex(plIncrementalCount, plNotificationQueue, plHighPriorityQueue) {
-        plIncrementalCountMarshal := plIncrementalCount is VarRef ? "int*" : "ptr"
-        plNotificationQueueMarshal := plNotificationQueue is VarRef ? "int*" : "ptr"
-        plHighPriorityQueueMarshal := plHighPriorityQueue is VarRef ? "int*" : "ptr"
+        plIncrementalCountMarshal := plIncrementalCount is VarRef ? "int*" : IntPtr
+        plNotificationQueueMarshal := plNotificationQueue is VarRef ? "int*" : IntPtr
+        plHighPriorityQueueMarshal := plHighPriorityQueue is VarRef ? "int*" : IntPtr
 
         result := ComCall(16, this, plIncrementalCountMarshal, plIncrementalCount, plNotificationQueueMarshal, plNotificationQueue, plHighPriorityQueueMarshal, plHighPriorityQueue, "HRESULT")
         return result
@@ -422,8 +422,8 @@ export default struct ISearchCatalogManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcatalogmanager-getitemschangedsink
      */
     GetItemsChangedSink(pISearchNotifyInlineSite, riid, ppv, pGUIDCatalogResetSignature, pGUIDCheckPointSignature, pdwLastCheckPointNumber) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-        pdwLastCheckPointNumberMarshal := pdwLastCheckPointNumber is VarRef ? "uint*" : "ptr"
+        ppvMarshal := ppv is VarRef ? "ptr*" : IntPtr
+        pdwLastCheckPointNumberMarshal := pdwLastCheckPointNumber is VarRef ? "uint*" : IntPtr
 
         result := ComCall(21, this, "ptr", pISearchNotifyInlineSite, Guid.Ptr, riid, ppvMarshal, ppv, Guid.Ptr, pGUIDCatalogResetSignature, Guid.Ptr, pGUIDCheckPointSignature, pdwLastCheckPointNumberMarshal, pdwLastCheckPointNumber, "HRESULT")
         return result
@@ -532,32 +532,32 @@ export default struct ISearchCatalogManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.GetParameter := CallbackCreate(GetMethod(implObj, "GetParameter"), flags, 3)
-        this.vtbl.SetParameter := CallbackCreate(GetMethod(implObj, "SetParameter"), flags, 3)
-        this.vtbl.GetCatalogStatus := CallbackCreate(GetMethod(implObj, "GetCatalogStatus"), flags, 3)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.Reindex := CallbackCreate(GetMethod(implObj, "Reindex"), flags, 1)
-        this.vtbl.ReindexMatchingURLs := CallbackCreate(GetMethod(implObj, "ReindexMatchingURLs"), flags, 2)
-        this.vtbl.ReindexSearchRoot := CallbackCreate(GetMethod(implObj, "ReindexSearchRoot"), flags, 2)
-        this.vtbl.put_ConnectTimeout := CallbackCreate(GetMethod(implObj, "put_ConnectTimeout"), flags, 2)
-        this.vtbl.get_ConnectTimeout := CallbackCreate(GetMethod(implObj, "get_ConnectTimeout"), flags, 2)
-        this.vtbl.put_DataTimeout := CallbackCreate(GetMethod(implObj, "put_DataTimeout"), flags, 2)
-        this.vtbl.get_DataTimeout := CallbackCreate(GetMethod(implObj, "get_DataTimeout"), flags, 2)
-        this.vtbl.NumberOfItems := CallbackCreate(GetMethod(implObj, "NumberOfItems"), flags, 2)
-        this.vtbl.NumberOfItemsToIndex := CallbackCreate(GetMethod(implObj, "NumberOfItemsToIndex"), flags, 4)
-        this.vtbl.URLBeingIndexed := CallbackCreate(GetMethod(implObj, "URLBeingIndexed"), flags, 2)
-        this.vtbl.GetURLIndexingState := CallbackCreate(GetMethod(implObj, "GetURLIndexingState"), flags, 3)
-        this.vtbl.GetPersistentItemsChangedSink := CallbackCreate(GetMethod(implObj, "GetPersistentItemsChangedSink"), flags, 2)
-        this.vtbl.RegisterViewForNotification := CallbackCreate(GetMethod(implObj, "RegisterViewForNotification"), flags, 4)
-        this.vtbl.GetItemsChangedSink := CallbackCreate(GetMethod(implObj, "GetItemsChangedSink"), flags, 7)
-        this.vtbl.UnregisterViewForNotification := CallbackCreate(GetMethod(implObj, "UnregisterViewForNotification"), flags, 2)
-        this.vtbl.SetExtensionClusion := CallbackCreate(GetMethod(implObj, "SetExtensionClusion"), flags, 3)
-        this.vtbl.EnumerateExcludedExtensions := CallbackCreate(GetMethod(implObj, "EnumerateExcludedExtensions"), flags, 2)
-        this.vtbl.GetQueryHelper := CallbackCreate(GetMethod(implObj, "GetQueryHelper"), flags, 2)
-        this.vtbl.put_DiacriticSensitivity := CallbackCreate(GetMethod(implObj, "put_DiacriticSensitivity"), flags, 2)
-        this.vtbl.get_DiacriticSensitivity := CallbackCreate(GetMethod(implObj, "get_DiacriticSensitivity"), flags, 2)
-        this.vtbl.GetCrawlScopeManager := CallbackCreate(GetMethod(implObj, "GetCrawlScopeManager"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.GetParameter := CallbackCreate(ObjBindMethod(implObj, "GetParameter"), flags, 3)
+        this.vtbl.SetParameter := CallbackCreate(ObjBindMethod(implObj, "SetParameter"), flags, 3)
+        this.vtbl.GetCatalogStatus := CallbackCreate(ObjBindMethod(implObj, "GetCatalogStatus"), flags, 3)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Reindex := CallbackCreate(ObjBindMethod(implObj, "Reindex"), flags, 1)
+        this.vtbl.ReindexMatchingURLs := CallbackCreate(ObjBindMethod(implObj, "ReindexMatchingURLs"), flags, 2)
+        this.vtbl.ReindexSearchRoot := CallbackCreate(ObjBindMethod(implObj, "ReindexSearchRoot"), flags, 2)
+        this.vtbl.put_ConnectTimeout := CallbackCreate(ObjBindMethod(implObj, "put_ConnectTimeout"), flags, 2)
+        this.vtbl.get_ConnectTimeout := CallbackCreate(ObjBindMethod(implObj, "get_ConnectTimeout"), flags, 2)
+        this.vtbl.put_DataTimeout := CallbackCreate(ObjBindMethod(implObj, "put_DataTimeout"), flags, 2)
+        this.vtbl.get_DataTimeout := CallbackCreate(ObjBindMethod(implObj, "get_DataTimeout"), flags, 2)
+        this.vtbl.NumberOfItems := CallbackCreate(ObjBindMethod(implObj, "NumberOfItems"), flags, 2)
+        this.vtbl.NumberOfItemsToIndex := CallbackCreate(ObjBindMethod(implObj, "NumberOfItemsToIndex"), flags, 4)
+        this.vtbl.URLBeingIndexed := CallbackCreate(ObjBindMethod(implObj, "URLBeingIndexed"), flags, 2)
+        this.vtbl.GetURLIndexingState := CallbackCreate(ObjBindMethod(implObj, "GetURLIndexingState"), flags, 3)
+        this.vtbl.GetPersistentItemsChangedSink := CallbackCreate(ObjBindMethod(implObj, "GetPersistentItemsChangedSink"), flags, 2)
+        this.vtbl.RegisterViewForNotification := CallbackCreate(ObjBindMethod(implObj, "RegisterViewForNotification"), flags, 4)
+        this.vtbl.GetItemsChangedSink := CallbackCreate(ObjBindMethod(implObj, "GetItemsChangedSink"), flags, 7)
+        this.vtbl.UnregisterViewForNotification := CallbackCreate(ObjBindMethod(implObj, "UnregisterViewForNotification"), flags, 2)
+        this.vtbl.SetExtensionClusion := CallbackCreate(ObjBindMethod(implObj, "SetExtensionClusion"), flags, 3)
+        this.vtbl.EnumerateExcludedExtensions := CallbackCreate(ObjBindMethod(implObj, "EnumerateExcludedExtensions"), flags, 2)
+        this.vtbl.GetQueryHelper := CallbackCreate(ObjBindMethod(implObj, "GetQueryHelper"), flags, 2)
+        this.vtbl.put_DiacriticSensitivity := CallbackCreate(ObjBindMethod(implObj, "put_DiacriticSensitivity"), flags, 2)
+        this.vtbl.get_DiacriticSensitivity := CallbackCreate(ObjBindMethod(implObj, "get_DiacriticSensitivity"), flags, 2)
+        this.vtbl.GetCrawlScopeManager := CallbackCreate(ObjBindMethod(implObj, "GetCrawlScopeManager"), flags, 2)
     }
 
     Dispose() {

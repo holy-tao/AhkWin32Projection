@@ -142,8 +142,8 @@ export default struct IMenuBand extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsMenuMessage := CallbackCreate(GetMethod(implObj, "IsMenuMessage"), flags, 2)
-        this.vtbl.TranslateMenuMessage := CallbackCreate(GetMethod(implObj, "TranslateMenuMessage"), flags, 3)
+        this.vtbl.IsMenuMessage := CallbackCreate(ObjBindMethod(implObj, "IsMenuMessage"), flags, 2)
+        this.vtbl.TranslateMenuMessage := CallbackCreate(ObjBindMethod(implObj, "TranslateMenuMessage"), flags, 3)
     }
 
     Dispose() {

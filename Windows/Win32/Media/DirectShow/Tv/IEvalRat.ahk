@@ -217,9 +217,9 @@ export default struct IEvalRat extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tvratings/nf-tvratings-ievalrat-mostrestrictiverating
      */
     MostRestrictiveRating(enSystem1, enEnLevel1, lbfEnAttr1, enSystem2, enEnLevel2, lbfEnAttr2, penSystem, penEnLevel, plbfEnAttr) {
-        penSystemMarshal := penSystem is VarRef ? "int*" : "ptr"
-        penEnLevelMarshal := penEnLevel is VarRef ? "int*" : "ptr"
-        plbfEnAttrMarshal := plbfEnAttr is VarRef ? "int*" : "ptr"
+        penSystemMarshal := penSystem is VarRef ? "int*" : IntPtr
+        penEnLevelMarshal := penEnLevel is VarRef ? "int*" : IntPtr
+        plbfEnAttrMarshal := plbfEnAttr is VarRef ? "int*" : IntPtr
 
         result := ComCall(11, this, EnTvRat_System, enSystem1, EnTvRat_GenericLevel, enEnLevel1, Int32, lbfEnAttr1, EnTvRat_System, enSystem2, EnTvRat_GenericLevel, enEnLevel2, Int32, lbfEnAttr2, penSystemMarshal, penSystem, penEnLevelMarshal, penEnLevel, plbfEnAttrMarshal, plbfEnAttr, "HRESULT")
         return result
@@ -317,12 +317,12 @@ export default struct IEvalRat extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_BlockedRatingAttributes := CallbackCreate(GetMethod(implObj, "get_BlockedRatingAttributes"), flags, 4)
-        this.vtbl.put_BlockedRatingAttributes := CallbackCreate(GetMethod(implObj, "put_BlockedRatingAttributes"), flags, 4)
-        this.vtbl.get_BlockUnRated := CallbackCreate(GetMethod(implObj, "get_BlockUnRated"), flags, 2)
-        this.vtbl.put_BlockUnRated := CallbackCreate(GetMethod(implObj, "put_BlockUnRated"), flags, 2)
-        this.vtbl.MostRestrictiveRating := CallbackCreate(GetMethod(implObj, "MostRestrictiveRating"), flags, 10)
-        this.vtbl.TestRating := CallbackCreate(GetMethod(implObj, "TestRating"), flags, 4)
+        this.vtbl.get_BlockedRatingAttributes := CallbackCreate(ObjBindMethod(implObj, "get_BlockedRatingAttributes"), flags, 4)
+        this.vtbl.put_BlockedRatingAttributes := CallbackCreate(ObjBindMethod(implObj, "put_BlockedRatingAttributes"), flags, 4)
+        this.vtbl.get_BlockUnRated := CallbackCreate(ObjBindMethod(implObj, "get_BlockUnRated"), flags, 2)
+        this.vtbl.put_BlockUnRated := CallbackCreate(ObjBindMethod(implObj, "put_BlockUnRated"), flags, 2)
+        this.vtbl.MostRestrictiveRating := CallbackCreate(ObjBindMethod(implObj, "MostRestrictiveRating"), flags, 10)
+        this.vtbl.TestRating := CallbackCreate(ObjBindMethod(implObj, "TestRating"), flags, 4)
     }
 
     Dispose() {

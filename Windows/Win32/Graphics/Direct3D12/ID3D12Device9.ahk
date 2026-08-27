@@ -111,9 +111,9 @@ export default struct ID3D12Device9 extends ID3D12Device8 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateShaderCacheSession := CallbackCreate(GetMethod(implObj, "CreateShaderCacheSession"), flags, 4)
-        this.vtbl.ShaderCacheControl := CallbackCreate(GetMethod(implObj, "ShaderCacheControl"), flags, 3)
-        this.vtbl.CreateCommandQueue1 := CallbackCreate(GetMethod(implObj, "CreateCommandQueue1"), flags, 5)
+        this.vtbl.CreateShaderCacheSession := CallbackCreate(ObjBindMethod(implObj, "CreateShaderCacheSession"), flags, 4)
+        this.vtbl.ShaderCacheControl := CallbackCreate(ObjBindMethod(implObj, "ShaderCacheControl"), flags, 3)
+        this.vtbl.CreateCommandQueue1 := CallbackCreate(ObjBindMethod(implObj, "CreateCommandQueue1"), flags, 5)
     }
 
     Dispose() {

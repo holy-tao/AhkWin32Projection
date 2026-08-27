@@ -94,10 +94,10 @@ export default struct IReferenceTrackerTarget extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddRefFromReferenceTracker := CallbackCreate(GetMethod(implObj, "AddRefFromReferenceTracker"), flags, 1)
-        this.vtbl.ReleaseFromReferenceTracker := CallbackCreate(GetMethod(implObj, "ReleaseFromReferenceTracker"), flags, 1)
-        this.vtbl.Peg := CallbackCreate(GetMethod(implObj, "Peg"), flags, 1)
-        this.vtbl.Unpeg := CallbackCreate(GetMethod(implObj, "Unpeg"), flags, 1)
+        this.vtbl.AddRefFromReferenceTracker := CallbackCreate(ObjBindMethod(implObj, "AddRefFromReferenceTracker"), flags, 1)
+        this.vtbl.ReleaseFromReferenceTracker := CallbackCreate(ObjBindMethod(implObj, "ReleaseFromReferenceTracker"), flags, 1)
+        this.vtbl.Peg := CallbackCreate(ObjBindMethod(implObj, "Peg"), flags, 1)
+        this.vtbl.Unpeg := CallbackCreate(ObjBindMethod(implObj, "Unpeg"), flags, 1)
     }
 
     Dispose() {

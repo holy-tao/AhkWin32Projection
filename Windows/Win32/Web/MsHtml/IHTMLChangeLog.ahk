@@ -36,13 +36,12 @@ export default struct IHTMLChangeLog extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbBuffer 
      * @param {Integer} nBufferSize 
      * @returns {Integer} 
      */
     GetNextChange(pbBuffer, nBufferSize) {
-        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, pbBufferMarshal, pbBuffer, Int32, nBufferSize, "int*", &pnRecordLength := 0, "HRESULT")
         return pnRecordLength
@@ -57,7 +56,7 @@ export default struct IHTMLChangeLog extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNextChange := CallbackCreate(GetMethod(implObj, "GetNextChange"), flags, 4)
+        this.vtbl.GetNextChange := CallbackCreate(ObjBindMethod(implObj, "GetNextChange"), flags, 4)
     }
 
     Dispose() {

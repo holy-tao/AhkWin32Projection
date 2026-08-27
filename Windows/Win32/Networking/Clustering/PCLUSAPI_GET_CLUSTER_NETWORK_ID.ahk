@@ -20,7 +20,6 @@ export default struct PCLUSAPI_GET_CLUSTER_NETWORK_ID {
     }
 
     /**
-     * 
      * @param {HNETWORK} _hNetwork 
      * @param {PWSTR} lpszNetworkId 
      * @param {Pointer<Integer>} lpcchName 
@@ -29,7 +28,7 @@ export default struct PCLUSAPI_GET_CLUSTER_NETWORK_ID {
     Call(_hNetwork, lpszNetworkId, lpcchName) {
         lpszNetworkId := lpszNetworkId is String ? StrPtr(lpszNetworkId) : lpszNetworkId
 
-        lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
+        lpcchNameMarshal := lpcchName is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HNETWORK, _hNetwork, "ptr", lpszNetworkId, lpcchNameMarshal, lpcchName, UInt32)
         return result

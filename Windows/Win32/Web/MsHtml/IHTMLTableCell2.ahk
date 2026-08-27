@@ -96,7 +96,6 @@ export default struct IHTMLTableCell2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -108,7 +107,6 @@ export default struct IHTMLTableCell2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_abbr() {
@@ -118,7 +116,6 @@ export default struct IHTMLTableCell2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -130,7 +127,6 @@ export default struct IHTMLTableCell2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_axis() {
@@ -140,7 +136,6 @@ export default struct IHTMLTableCell2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -152,7 +147,6 @@ export default struct IHTMLTableCell2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ch() {
@@ -162,7 +156,6 @@ export default struct IHTMLTableCell2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -174,7 +167,6 @@ export default struct IHTMLTableCell2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_chOff() {
@@ -184,7 +176,6 @@ export default struct IHTMLTableCell2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -196,7 +187,6 @@ export default struct IHTMLTableCell2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_headers() {
@@ -206,7 +196,6 @@ export default struct IHTMLTableCell2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -218,7 +207,6 @@ export default struct IHTMLTableCell2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_scope() {
@@ -236,18 +224,18 @@ export default struct IHTMLTableCell2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_abbr := CallbackCreate(GetMethod(implObj, "put_abbr"), flags, 2)
-        this.vtbl.get_abbr := CallbackCreate(GetMethod(implObj, "get_abbr"), flags, 2)
-        this.vtbl.put_axis := CallbackCreate(GetMethod(implObj, "put_axis"), flags, 2)
-        this.vtbl.get_axis := CallbackCreate(GetMethod(implObj, "get_axis"), flags, 2)
-        this.vtbl.put_ch := CallbackCreate(GetMethod(implObj, "put_ch"), flags, 2)
-        this.vtbl.get_ch := CallbackCreate(GetMethod(implObj, "get_ch"), flags, 2)
-        this.vtbl.put_chOff := CallbackCreate(GetMethod(implObj, "put_chOff"), flags, 2)
-        this.vtbl.get_chOff := CallbackCreate(GetMethod(implObj, "get_chOff"), flags, 2)
-        this.vtbl.put_headers := CallbackCreate(GetMethod(implObj, "put_headers"), flags, 2)
-        this.vtbl.get_headers := CallbackCreate(GetMethod(implObj, "get_headers"), flags, 2)
-        this.vtbl.put_scope := CallbackCreate(GetMethod(implObj, "put_scope"), flags, 2)
-        this.vtbl.get_scope := CallbackCreate(GetMethod(implObj, "get_scope"), flags, 2)
+        this.vtbl.put_abbr := CallbackCreate(ObjBindMethod(implObj, "put_abbr"), flags, 2)
+        this.vtbl.get_abbr := CallbackCreate(ObjBindMethod(implObj, "get_abbr"), flags, 2)
+        this.vtbl.put_axis := CallbackCreate(ObjBindMethod(implObj, "put_axis"), flags, 2)
+        this.vtbl.get_axis := CallbackCreate(ObjBindMethod(implObj, "get_axis"), flags, 2)
+        this.vtbl.put_ch := CallbackCreate(ObjBindMethod(implObj, "put_ch"), flags, 2)
+        this.vtbl.get_ch := CallbackCreate(ObjBindMethod(implObj, "get_ch"), flags, 2)
+        this.vtbl.put_chOff := CallbackCreate(ObjBindMethod(implObj, "put_chOff"), flags, 2)
+        this.vtbl.get_chOff := CallbackCreate(ObjBindMethod(implObj, "get_chOff"), flags, 2)
+        this.vtbl.put_headers := CallbackCreate(ObjBindMethod(implObj, "put_headers"), flags, 2)
+        this.vtbl.get_headers := CallbackCreate(ObjBindMethod(implObj, "get_headers"), flags, 2)
+        this.vtbl.put_scope := CallbackCreate(ObjBindMethod(implObj, "put_scope"), flags, 2)
+        this.vtbl.get_scope := CallbackCreate(ObjBindMethod(implObj, "get_scope"), flags, 2)
     }
 
     Dispose() {

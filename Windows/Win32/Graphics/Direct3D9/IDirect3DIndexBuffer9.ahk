@@ -92,7 +92,7 @@ export default struct IDirect3DIndexBuffer9 extends IDirect3DResource9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dindexbuffer9-lock
      */
     Lock(OffsetToLock, SizeToLock, ppbData, Flags) {
-        ppbDataMarshal := ppbData is VarRef ? "ptr*" : "ptr"
+        ppbDataMarshal := ppbData is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(11, this, UInt32, OffsetToLock, UInt32, SizeToLock, ppbDataMarshal, ppbData, UInt32, Flags, "HRESULT")
         return result
@@ -134,9 +134,9 @@ export default struct IDirect3DIndexBuffer9 extends IDirect3DResource9 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Lock := CallbackCreate(GetMethod(implObj, "Lock"), flags, 5)
-        this.vtbl.Unlock := CallbackCreate(GetMethod(implObj, "Unlock"), flags, 1)
-        this.vtbl.GetDesc := CallbackCreate(GetMethod(implObj, "GetDesc"), flags, 2)
+        this.vtbl.Lock := CallbackCreate(ObjBindMethod(implObj, "Lock"), flags, 5)
+        this.vtbl.Unlock := CallbackCreate(ObjBindMethod(implObj, "Unlock"), flags, 1)
+        this.vtbl.GetDesc := CallbackCreate(ObjBindMethod(implObj, "GetDesc"), flags, 2)
     }
 
     Dispose() {

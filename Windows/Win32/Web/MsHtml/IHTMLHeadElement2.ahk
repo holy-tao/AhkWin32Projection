@@ -46,7 +46,6 @@ export default struct IHTMLHeadElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -58,7 +57,6 @@ export default struct IHTMLHeadElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_profile() {
@@ -76,8 +74,8 @@ export default struct IHTMLHeadElement2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_profile := CallbackCreate(GetMethod(implObj, "put_profile"), flags, 2)
-        this.vtbl.get_profile := CallbackCreate(GetMethod(implObj, "get_profile"), flags, 2)
+        this.vtbl.put_profile := CallbackCreate(ObjBindMethod(implObj, "put_profile"), flags, 2)
+        this.vtbl.get_profile := CallbackCreate(ObjBindMethod(implObj, "get_profile"), flags, 2)
     }
 
     Dispose() {

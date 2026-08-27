@@ -59,7 +59,7 @@ export default struct ITextInputPanelRunInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsTipRunning := CallbackCreate(GetMethod(implObj, "IsTipRunning"), flags, 2)
+        this.vtbl.IsTipRunning := CallbackCreate(ObjBindMethod(implObj, "IsTipRunning"), flags, 2)
     }
 
     Dispose() {

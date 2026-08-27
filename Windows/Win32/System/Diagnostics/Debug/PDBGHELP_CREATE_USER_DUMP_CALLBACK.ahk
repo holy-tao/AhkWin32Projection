@@ -19,7 +19,6 @@ export default struct PDBGHELP_CREATE_USER_DUMP_CALLBACK {
     }
 
     /**
-     * 
      * @param {Integer} DataType 
      * @param {Pointer<Pointer<Void>>} Data 
      * @param {Pointer<Integer>} DataLength 
@@ -27,9 +26,10 @@ export default struct PDBGHELP_CREATE_USER_DUMP_CALLBACK {
      * @returns {BOOL} 
      */
     Call(DataType, Data, DataLength, _UserData) {
-        DataMarshal := Data is VarRef ? "ptr*" : "ptr"
-        DataLengthMarshal := DataLength is VarRef ? "uint*" : "ptr"
-        _UserDataMarshal := _UserData is VarRef ? "ptr" : "ptr"
+        DataMarshal := Data is VarRef ? "ptr*" : IntPtr
+        DataLengthMarshal := DataLength is VarRef ? "uint*" : IntPtr
+        _UserDataMarshal := _UserData is VarRef ? "ptr" : IntPtr
+        _UserDataMarshal := _UserData == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, UInt32, DataType, DataMarshal, Data, DataLengthMarshal, DataLength, _UserDataMarshal, _UserData, BOOL)
         return result

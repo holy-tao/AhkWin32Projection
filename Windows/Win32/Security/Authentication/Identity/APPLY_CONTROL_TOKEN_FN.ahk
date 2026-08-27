@@ -21,7 +21,6 @@ export default struct APPLY_CONTROL_TOKEN_FN {
     }
 
     /**
-     * 
      * @param {Pointer<SecHandle>} param0 
      * @param {Pointer<SecBufferDesc>} param1 
      * @returns {HRESULT} 

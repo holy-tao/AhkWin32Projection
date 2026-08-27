@@ -152,8 +152,8 @@ export default struct IOpcRelationshipSelector extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSelectorType := CallbackCreate(GetMethod(implObj, "GetSelectorType"), flags, 2)
-        this.vtbl.GetSelectionCriterion := CallbackCreate(GetMethod(implObj, "GetSelectionCriterion"), flags, 2)
+        this.vtbl.GetSelectorType := CallbackCreate(ObjBindMethod(implObj, "GetSelectorType"), flags, 2)
+        this.vtbl.GetSelectionCriterion := CallbackCreate(ObjBindMethod(implObj, "GetSelectionCriterion"), flags, 2)
     }
 
     Dispose() {

@@ -37,7 +37,6 @@ export default struct IDirectSoundNotify extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwPositionNotifies 
      * @param {Pointer<DSBPOSITIONNOTIFY>} pcPositionNotifies 
      * @returns {HRESULT} 
@@ -56,7 +55,7 @@ export default struct IDirectSoundNotify extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetNotificationPositions := CallbackCreate(GetMethod(implObj, "SetNotificationPositions"), flags, 3)
+        this.vtbl.SetNotificationPositions := CallbackCreate(ObjBindMethod(implObj, "SetNotificationPositions"), flags, 3)
     }
 
     Dispose() {

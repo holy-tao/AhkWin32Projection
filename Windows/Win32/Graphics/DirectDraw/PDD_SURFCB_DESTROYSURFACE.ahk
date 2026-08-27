@@ -29,7 +29,6 @@ export default struct PDD_SURFCB_DESTROYSURFACE {
     }
 
     /**
-     * 
      * @param {Pointer<DD_DESTROYSURFACEDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_destroysurfacedata">DD_DESTROYSURFACEDATA</a> structure that contains the information needed to destroy a surface.
      * @returns {Integer} <b>DdDestroySurface</b> returns one of the following callback codes:
      */

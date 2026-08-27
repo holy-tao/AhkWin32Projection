@@ -95,8 +95,8 @@ export default struct IAzObjectPicker extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPrincipals := CallbackCreate(GetMethod(implObj, "GetPrincipals"), flags, 6)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.GetPrincipals := CallbackCreate(ObjBindMethod(implObj, "GetPrincipals"), flags, 6)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
     }
 
     Dispose() {

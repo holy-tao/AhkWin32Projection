@@ -117,7 +117,9 @@
 export OpenVirtualDisk(VirtualStorageType, _Path, VirtualDiskAccessMask, Flags, Parameters, _Handle) {
     _Path := _Path is String ? StrPtr(_Path) : _Path
 
-    result := DllCall("VirtDisk.dll\OpenVirtualDisk", VIRTUAL_STORAGE_TYPE.Ptr, VirtualStorageType, "ptr", _Path, VIRTUAL_DISK_ACCESS_MASK, VirtualDiskAccessMask, OPEN_VIRTUAL_DISK_FLAG, Flags, OPEN_VIRTUAL_DISK_PARAMETERS.Ptr, Parameters, HANDLE.Ptr, _Handle, WIN32_ERROR)
+    ParametersMarshal := Parameters == 0 ? IntPtr : OPEN_VIRTUAL_DISK_PARAMETERS.Ptr
+
+    result := DllCall("VirtDisk.dll\OpenVirtualDisk", VIRTUAL_STORAGE_TYPE.Ptr, VirtualStorageType, "ptr", _Path, VIRTUAL_DISK_ACCESS_MASK, VirtualDiskAccessMask, OPEN_VIRTUAL_DISK_FLAG, Flags, ParametersMarshal, Parameters, HANDLE.Ptr, _Handle, WIN32_ERROR)
     return result
 }
 
@@ -212,7 +214,10 @@ export OpenVirtualDisk(VirtualStorageType, _Path, VirtualDiskAccessMask, Flags, 
 export CreateVirtualDisk(VirtualStorageType, _Path, VirtualDiskAccessMask, _SecurityDescriptor, Flags, ProviderSpecificFlags, Parameters, _Overlapped, _Handle) {
     _Path := _Path is String ? StrPtr(_Path) : _Path
 
-    result := DllCall("VirtDisk.dll\CreateVirtualDisk", VIRTUAL_STORAGE_TYPE.Ptr, VirtualStorageType, "ptr", _Path, VIRTUAL_DISK_ACCESS_MASK, VirtualDiskAccessMask, PSECURITY_DESCRIPTOR, _SecurityDescriptor, CREATE_VIRTUAL_DISK_FLAG, Flags, UInt32, ProviderSpecificFlags, CREATE_VIRTUAL_DISK_PARAMETERS.Ptr, Parameters, OVERLAPPED.Ptr, _Overlapped, HANDLE.Ptr, _Handle, WIN32_ERROR)
+    _SecurityDescriptorMarshal := _SecurityDescriptor == 0 ? IntPtr : PSECURITY_DESCRIPTOR
+    _OverlappedMarshal := _Overlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+
+    result := DllCall("VirtDisk.dll\CreateVirtualDisk", VIRTUAL_STORAGE_TYPE.Ptr, VirtualStorageType, "ptr", _Path, VIRTUAL_DISK_ACCESS_MASK, VirtualDiskAccessMask, _SecurityDescriptorMarshal, _SecurityDescriptor, CREATE_VIRTUAL_DISK_FLAG, Flags, UInt32, ProviderSpecificFlags, CREATE_VIRTUAL_DISK_PARAMETERS.Ptr, Parameters, _OverlappedMarshal, _Overlapped, HANDLE.Ptr, _Handle, WIN32_ERROR)
     return result
 }
 
@@ -282,7 +287,11 @@ export CreateVirtualDisk(VirtualStorageType, _Path, VirtualDiskAccessMask, _Secu
  * @since windows6.1
  */
 export AttachVirtualDisk(VirtualDiskHandle, _SecurityDescriptor, Flags, ProviderSpecificFlags, Parameters, _Overlapped) {
-    result := DllCall("VirtDisk.dll\AttachVirtualDisk", HANDLE, VirtualDiskHandle, PSECURITY_DESCRIPTOR, _SecurityDescriptor, ATTACH_VIRTUAL_DISK_FLAG, Flags, UInt32, ProviderSpecificFlags, ATTACH_VIRTUAL_DISK_PARAMETERS.Ptr, Parameters, OVERLAPPED.Ptr, _Overlapped, WIN32_ERROR)
+    _SecurityDescriptorMarshal := _SecurityDescriptor == 0 ? IntPtr : PSECURITY_DESCRIPTOR
+    ParametersMarshal := Parameters == 0 ? IntPtr : ATTACH_VIRTUAL_DISK_PARAMETERS.Ptr
+    _OverlappedMarshal := _Overlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+
+    result := DllCall("VirtDisk.dll\AttachVirtualDisk", HANDLE, VirtualDiskHandle, _SecurityDescriptorMarshal, _SecurityDescriptor, ATTACH_VIRTUAL_DISK_FLAG, Flags, UInt32, ProviderSpecificFlags, ParametersMarshal, Parameters, _OverlappedMarshal, _Overlapped, WIN32_ERROR)
     return result
 }
 
@@ -370,20 +379,19 @@ export DetachVirtualDisk(VirtualDiskHandle, Flags, ProviderSpecificFlags) {
  * @since windows6.1
  */
 export GetVirtualDiskPhysicalPath(VirtualDiskHandle, DiskPathSizeInBytes, DiskPath) {
-    DiskPathSizeInBytesMarshal := DiskPathSizeInBytes is VarRef ? "uint*" : "ptr"
+    DiskPathSizeInBytesMarshal := DiskPathSizeInBytes is VarRef ? "uint*" : IntPtr
 
     result := DllCall("VirtDisk.dll\GetVirtualDiskPhysicalPath", HANDLE, VirtualDiskHandle, DiskPathSizeInBytesMarshal, DiskPathSizeInBytes, IntPtr, DiskPath, WIN32_ERROR)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} PathsBufferSizeInBytes 
  * @param {Integer} PathsBuffer 
  * @returns {WIN32_ERROR} 
  */
 export GetAllAttachedVirtualDiskPhysicalPaths(PathsBufferSizeInBytes, PathsBuffer) {
-    PathsBufferSizeInBytesMarshal := PathsBufferSizeInBytes is VarRef ? "uint*" : "ptr"
+    PathsBufferSizeInBytesMarshal := PathsBufferSizeInBytes is VarRef ? "uint*" : IntPtr
 
     result := DllCall("VirtDisk.dll\GetAllAttachedVirtualDiskPhysicalPaths", PathsBufferSizeInBytesMarshal, PathsBufferSizeInBytes, IntPtr, PathsBuffer, WIN32_ERROR)
     return result
@@ -421,7 +429,8 @@ export GetAllAttachedVirtualDiskPhysicalPaths(PathsBufferSizeInBytes, PathsBuffe
  * @since windows6.1
  */
 export GetStorageDependencyInformation(ObjectHandle, Flags, StorageDependencyInfoSize, StorageDependencyInfo, SizeUsed) {
-    SizeUsedMarshal := SizeUsed is VarRef ? "uint*" : "ptr"
+    SizeUsedMarshal := SizeUsed is VarRef ? "uint*" : IntPtr
+    SizeUsedMarshal := SizeUsed == 0 ? IntPtr : "uint*"
 
     result := DllCall("VirtDisk.dll\GetStorageDependencyInformation", HANDLE, ObjectHandle, GET_STORAGE_DEPENDENCY_FLAG, Flags, UInt32, StorageDependencyInfoSize, STORAGE_DEPENDENCY_INFO.Ptr, StorageDependencyInfo, SizeUsedMarshal, SizeUsed, WIN32_ERROR)
     return result
@@ -456,8 +465,9 @@ export GetStorageDependencyInformation(ObjectHandle, Flags, StorageDependencyInf
  * @since windows6.1
  */
 export GetVirtualDiskInformation(VirtualDiskHandle, VirtualDiskInfoSize, VirtualDiskInfo, SizeUsed) {
-    VirtualDiskInfoSizeMarshal := VirtualDiskInfoSize is VarRef ? "uint*" : "ptr"
-    SizeUsedMarshal := SizeUsed is VarRef ? "uint*" : "ptr"
+    VirtualDiskInfoSizeMarshal := VirtualDiskInfoSize is VarRef ? "uint*" : IntPtr
+    SizeUsedMarshal := SizeUsed is VarRef ? "uint*" : IntPtr
+    SizeUsedMarshal := SizeUsed == 0 ? IntPtr : "uint*"
 
     result := DllCall("VirtDisk.dll\GetVirtualDiskInformation", HANDLE, VirtualDiskHandle, VirtualDiskInfoSizeMarshal, VirtualDiskInfoSize, IntPtr, VirtualDiskInfo, SizeUsedMarshal, SizeUsed, WIN32_ERROR)
     return result
@@ -519,7 +529,7 @@ export SetVirtualDiskInformation(VirtualDiskHandle, VirtualDiskInfo) {
  * @since windows8.0
  */
 export EnumerateVirtualDiskMetadata(VirtualDiskHandle, NumberOfItems, Items) {
-    NumberOfItemsMarshal := NumberOfItems is VarRef ? "uint*" : "ptr"
+    NumberOfItemsMarshal := NumberOfItems is VarRef ? "uint*" : IntPtr
 
     result := DllCall("VirtDisk.dll\EnumerateVirtualDiskMetadata", HANDLE, VirtualDiskHandle, NumberOfItemsMarshal, NumberOfItems, Guid.Ptr, Items, WIN32_ERROR)
     return result
@@ -548,7 +558,7 @@ export EnumerateVirtualDiskMetadata(VirtualDiskHandle, NumberOfItems, Items) {
  * @since windows8.0
  */
 export GetVirtualDiskMetadata(VirtualDiskHandle, Item, MetaDataSize, MetaData) {
-    MetaDataSizeMarshal := MetaDataSize is VarRef ? "uint*" : "ptr"
+    MetaDataSizeMarshal := MetaDataSize is VarRef ? "uint*" : IntPtr
 
     result := DllCall("VirtDisk.dll\GetVirtualDiskMetadata", HANDLE, VirtualDiskHandle, Guid.Ptr, Item, MetaDataSizeMarshal, MetaDataSize, IntPtr, MetaData, WIN32_ERROR)
     return result
@@ -679,7 +689,10 @@ export GetVirtualDiskOperationProgress(VirtualDiskHandle, _Overlapped, Progress)
  * @since windows6.1
  */
 export CompactVirtualDisk(VirtualDiskHandle, Flags, Parameters, _Overlapped) {
-    result := DllCall("VirtDisk.dll\CompactVirtualDisk", HANDLE, VirtualDiskHandle, COMPACT_VIRTUAL_DISK_FLAG, Flags, COMPACT_VIRTUAL_DISK_PARAMETERS.Ptr, Parameters, OVERLAPPED.Ptr, _Overlapped, WIN32_ERROR)
+    ParametersMarshal := Parameters == 0 ? IntPtr : COMPACT_VIRTUAL_DISK_PARAMETERS.Ptr
+    _OverlappedMarshal := _Overlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+
+    result := DllCall("VirtDisk.dll\CompactVirtualDisk", HANDLE, VirtualDiskHandle, COMPACT_VIRTUAL_DISK_FLAG, Flags, ParametersMarshal, Parameters, _OverlappedMarshal, _Overlapped, WIN32_ERROR)
     return result
 }
 
@@ -722,7 +735,9 @@ export CompactVirtualDisk(VirtualDiskHandle, Flags, Parameters, _Overlapped) {
  * @since windows6.1
  */
 export MergeVirtualDisk(VirtualDiskHandle, Flags, Parameters, _Overlapped) {
-    result := DllCall("VirtDisk.dll\MergeVirtualDisk", HANDLE, VirtualDiskHandle, MERGE_VIRTUAL_DISK_FLAG, Flags, MERGE_VIRTUAL_DISK_PARAMETERS.Ptr, Parameters, OVERLAPPED.Ptr, _Overlapped, WIN32_ERROR)
+    _OverlappedMarshal := _Overlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+
+    result := DllCall("VirtDisk.dll\MergeVirtualDisk", HANDLE, VirtualDiskHandle, MERGE_VIRTUAL_DISK_FLAG, Flags, MERGE_VIRTUAL_DISK_PARAMETERS.Ptr, Parameters, _OverlappedMarshal, _Overlapped, WIN32_ERROR)
     return result
 }
 
@@ -753,7 +768,9 @@ export MergeVirtualDisk(VirtualDiskHandle, Flags, Parameters, _Overlapped) {
  * @since windows6.1
  */
 export ExpandVirtualDisk(VirtualDiskHandle, Flags, Parameters, _Overlapped) {
-    result := DllCall("VirtDisk.dll\ExpandVirtualDisk", HANDLE, VirtualDiskHandle, EXPAND_VIRTUAL_DISK_FLAG, Flags, EXPAND_VIRTUAL_DISK_PARAMETERS.Ptr, Parameters, OVERLAPPED.Ptr, _Overlapped, WIN32_ERROR)
+    _OverlappedMarshal := _Overlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+
+    result := DllCall("VirtDisk.dll\ExpandVirtualDisk", HANDLE, VirtualDiskHandle, EXPAND_VIRTUAL_DISK_FLAG, Flags, EXPAND_VIRTUAL_DISK_PARAMETERS.Ptr, Parameters, _OverlappedMarshal, _Overlapped, WIN32_ERROR)
     return result
 }
 
@@ -777,7 +794,9 @@ export ExpandVirtualDisk(VirtualDiskHandle, Flags, Parameters, _Overlapped) {
  * @since windows8.0
  */
 export ResizeVirtualDisk(VirtualDiskHandle, Flags, Parameters, _Overlapped) {
-    result := DllCall("VirtDisk.dll\ResizeVirtualDisk", HANDLE, VirtualDiskHandle, RESIZE_VIRTUAL_DISK_FLAG, Flags, RESIZE_VIRTUAL_DISK_PARAMETERS.Ptr, Parameters, OVERLAPPED.Ptr, _Overlapped, WIN32_ERROR)
+    _OverlappedMarshal := _Overlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+
+    result := DllCall("VirtDisk.dll\ResizeVirtualDisk", HANDLE, VirtualDiskHandle, RESIZE_VIRTUAL_DISK_FLAG, Flags, RESIZE_VIRTUAL_DISK_PARAMETERS.Ptr, Parameters, _OverlappedMarshal, _Overlapped, WIN32_ERROR)
     return result
 }
 
@@ -906,8 +925,8 @@ export AddVirtualDiskParent(VirtualDiskHandle, ParentPath) {
 export QueryChangesVirtualDisk(VirtualDiskHandle, ChangeTrackingId, ByteOffset, ByteLength, Flags, Ranges, RangeCount, ProcessedLength) {
     ChangeTrackingId := ChangeTrackingId is String ? StrPtr(ChangeTrackingId) : ChangeTrackingId
 
-    RangeCountMarshal := RangeCount is VarRef ? "uint*" : "ptr"
-    ProcessedLengthMarshal := ProcessedLength is VarRef ? "uint*" : "ptr"
+    RangeCountMarshal := RangeCount is VarRef ? "uint*" : IntPtr
+    ProcessedLengthMarshal := ProcessedLength is VarRef ? "uint*" : IntPtr
 
     result := DllCall("VirtDisk.dll\QueryChangesVirtualDisk", HANDLE, VirtualDiskHandle, "ptr", ChangeTrackingId, Int64, ByteOffset, Int64, ByteLength, QUERY_CHANGES_VIRTUAL_DISK_FLAG, Flags, QUERY_CHANGES_VIRTUAL_DISK_RANGE.Ptr, Ranges, RangeCountMarshal, RangeCount, ProcessedLengthMarshal, ProcessedLength, WIN32_ERROR)
     return result
@@ -1015,7 +1034,6 @@ export RawSCSIVirtualDisk(VirtualDiskHandle, Parameters, Flags, Response) {
 }
 
 /**
- * 
  * @param {HANDLE} VirtualDiskHandle 
  * @param {FORK_VIRTUAL_DISK_FLAG} Flags 
  * @param {Pointer<FORK_VIRTUAL_DISK_PARAMETERS>} Parameters 
@@ -1028,7 +1046,6 @@ export ForkVirtualDisk(VirtualDiskHandle, Flags, Parameters, _Overlapped) {
 }
 
 /**
- * 
  * @param {HANDLE} VirtualDiskHandle 
  * @returns {WIN32_ERROR} 
  */

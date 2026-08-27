@@ -49,7 +49,6 @@ export default struct IScriptEntry extends IScriptNode {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetText() {
@@ -59,7 +58,6 @@ export default struct IScriptEntry extends IScriptNode {
     }
 
     /**
-     * 
      * @param {PWSTR} psz 
      * @returns {HRESULT} 
      */
@@ -71,7 +69,6 @@ export default struct IScriptEntry extends IScriptNode {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetBody() {
@@ -81,7 +78,6 @@ export default struct IScriptEntry extends IScriptNode {
     }
 
     /**
-     * 
      * @param {PWSTR} psz 
      * @returns {HRESULT} 
      */
@@ -104,7 +100,6 @@ export default struct IScriptEntry extends IScriptNode {
     }
 
     /**
-     * 
      * @param {PWSTR} psz 
      * @returns {HRESULT} 
      */
@@ -116,7 +111,6 @@ export default struct IScriptEntry extends IScriptNode {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetItemName() {
@@ -126,7 +120,6 @@ export default struct IScriptEntry extends IScriptNode {
     }
 
     /**
-     * 
      * @param {PWSTR} psz 
      * @returns {HRESULT} 
      */
@@ -138,20 +131,18 @@ export default struct IScriptEntry extends IScriptNode {
     }
 
     /**
-     * 
      * @param {Pointer<ITypeInfo>} ppti 
      * @param {Pointer<Integer>} piMethod 
      * @returns {HRESULT} 
      */
     GetSignature(ppti, piMethod) {
-        piMethodMarshal := piMethod is VarRef ? "uint*" : "ptr"
+        piMethodMarshal := piMethod is VarRef ? "uint*" : IntPtr
 
         result := ComCall(21, this, ITypeInfo.Ptr, ppti, piMethodMarshal, piMethod, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {ITypeInfo} pti 
      * @param {Integer} iMethod 
      * @returns {HRESULT} 
@@ -162,14 +153,13 @@ export default struct IScriptEntry extends IScriptNode {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pichMin 
      * @param {Pointer<Integer>} pcch 
      * @returns {HRESULT} 
      */
     GetRange(pichMin, pcch) {
-        pichMinMarshal := pichMin is VarRef ? "uint*" : "ptr"
-        pcchMarshal := pcch is VarRef ? "uint*" : "ptr"
+        pichMinMarshal := pichMin is VarRef ? "uint*" : IntPtr
+        pcchMarshal := pcch is VarRef ? "uint*" : IntPtr
 
         result := ComCall(23, this, pichMinMarshal, pichMin, pcchMarshal, pcch, "HRESULT")
         return result
@@ -184,17 +174,17 @@ export default struct IScriptEntry extends IScriptNode {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetText := CallbackCreate(GetMethod(implObj, "GetText"), flags, 2)
-        this.vtbl.SetText := CallbackCreate(GetMethod(implObj, "SetText"), flags, 2)
-        this.vtbl.GetBody := CallbackCreate(GetMethod(implObj, "GetBody"), flags, 2)
-        this.vtbl.SetBody := CallbackCreate(GetMethod(implObj, "SetBody"), flags, 2)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
-        this.vtbl.SetName := CallbackCreate(GetMethod(implObj, "SetName"), flags, 2)
-        this.vtbl.GetItemName := CallbackCreate(GetMethod(implObj, "GetItemName"), flags, 2)
-        this.vtbl.SetItemName := CallbackCreate(GetMethod(implObj, "SetItemName"), flags, 2)
-        this.vtbl.GetSignature := CallbackCreate(GetMethod(implObj, "GetSignature"), flags, 3)
-        this.vtbl.SetSignature := CallbackCreate(GetMethod(implObj, "SetSignature"), flags, 3)
-        this.vtbl.GetRange := CallbackCreate(GetMethod(implObj, "GetRange"), flags, 3)
+        this.vtbl.GetText := CallbackCreate(ObjBindMethod(implObj, "GetText"), flags, 2)
+        this.vtbl.SetText := CallbackCreate(ObjBindMethod(implObj, "SetText"), flags, 2)
+        this.vtbl.GetBody := CallbackCreate(ObjBindMethod(implObj, "GetBody"), flags, 2)
+        this.vtbl.SetBody := CallbackCreate(ObjBindMethod(implObj, "SetBody"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.SetName := CallbackCreate(ObjBindMethod(implObj, "SetName"), flags, 2)
+        this.vtbl.GetItemName := CallbackCreate(ObjBindMethod(implObj, "GetItemName"), flags, 2)
+        this.vtbl.SetItemName := CallbackCreate(ObjBindMethod(implObj, "SetItemName"), flags, 2)
+        this.vtbl.GetSignature := CallbackCreate(ObjBindMethod(implObj, "GetSignature"), flags, 3)
+        this.vtbl.SetSignature := CallbackCreate(ObjBindMethod(implObj, "SetSignature"), flags, 3)
+        this.vtbl.GetRange := CallbackCreate(ObjBindMethod(implObj, "GetRange"), flags, 3)
     }
 
     Dispose() {

@@ -59,7 +59,7 @@ export default struct IWPCProviderSupport extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCurrent := CallbackCreate(GetMethod(implObj, "GetCurrent"), flags, 2)
+        this.vtbl.GetCurrent := CallbackCreate(ObjBindMethod(implObj, "GetCurrent"), flags, 2)
     }
 
     Dispose() {

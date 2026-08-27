@@ -37,7 +37,6 @@ export default struct IBFCacheable extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     EnterBFCache() {
@@ -46,7 +45,6 @@ export default struct IBFCacheable extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ExitBFCache() {
@@ -63,8 +61,8 @@ export default struct IBFCacheable extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnterBFCache := CallbackCreate(GetMethod(implObj, "EnterBFCache"), flags, 1)
-        this.vtbl.ExitBFCache := CallbackCreate(GetMethod(implObj, "ExitBFCache"), flags, 1)
+        this.vtbl.EnterBFCache := CallbackCreate(ObjBindMethod(implObj, "EnterBFCache"), flags, 1)
+        this.vtbl.ExitBFCache := CallbackCreate(ObjBindMethod(implObj, "ExitBFCache"), flags, 1)
     }
 
     Dispose() {

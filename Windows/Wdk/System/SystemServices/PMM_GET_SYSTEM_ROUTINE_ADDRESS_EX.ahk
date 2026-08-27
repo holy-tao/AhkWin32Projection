@@ -20,7 +20,6 @@ export default struct PMM_GET_SYSTEM_ROUTINE_ADDRESS_EX {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} ModuleName 
      * @param {PSTR} FunctionName 
      * @returns {Pointer<Void>} 

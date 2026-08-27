@@ -41,7 +41,6 @@ export default struct IXpsRasterizationFactory2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IXpsOMPage} xpsPage 
      * @param {Float} DPIX 
      * @param {Float} DPIY 
@@ -52,7 +51,9 @@ export default struct IXpsRasterizationFactory2 extends IUnknown {
      * @returns {IXpsRasterizer} 
      */
     CreateRasterizer(xpsPage, DPIX, DPIY, nonTextRenderingMode, textRenderingMode, pixelFormat, backgroundColor) {
-        result := ComCall(3, this, "ptr", xpsPage, Float32, DPIX, Float32, DPIY, XPSRAS_RENDERING_MODE, nonTextRenderingMode, XPSRAS_RENDERING_MODE, textRenderingMode, XPSRAS_PIXEL_FORMAT, pixelFormat, XPSRAS_BACKGROUND_COLOR, backgroundColor, "ptr*", &ppIXpsRasterizer := 0, "HRESULT")
+        xpsPageMarshal := xpsPage == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, xpsPageMarshal, xpsPage, Float32, DPIX, Float32, DPIY, XPSRAS_RENDERING_MODE, nonTextRenderingMode, XPSRAS_RENDERING_MODE, textRenderingMode, XPSRAS_PIXEL_FORMAT, pixelFormat, XPSRAS_BACKGROUND_COLOR, backgroundColor, "ptr*", &ppIXpsRasterizer := 0, "HRESULT")
         return IXpsRasterizer(ppIXpsRasterizer)
     }
 
@@ -65,7 +66,7 @@ export default struct IXpsRasterizationFactory2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateRasterizer := CallbackCreate(GetMethod(implObj, "CreateRasterizer"), flags, 9)
+        this.vtbl.CreateRasterizer := CallbackCreate(ObjBindMethod(implObj, "CreateRasterizer"), flags, 9)
     }
 
     Dispose() {

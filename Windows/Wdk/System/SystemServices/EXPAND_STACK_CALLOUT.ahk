@@ -18,12 +18,12 @@ export default struct EXPAND_STACK_CALLOUT {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Parameter 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(Parameter) {
-        ParameterMarshal := Parameter is VarRef ? "ptr" : "ptr"
+        ParameterMarshal := Parameter is VarRef ? "ptr" : IntPtr
+        ParameterMarshal := Parameter == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, ParameterMarshal, Parameter)
     }

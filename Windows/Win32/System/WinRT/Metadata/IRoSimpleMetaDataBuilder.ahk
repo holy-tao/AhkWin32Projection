@@ -42,7 +42,6 @@ export default struct IRoSimpleMetaDataBuilder extends Win32ComInterface {
     }
 
     /**
-     * 
      * @param {Guid} iid 
      * @returns {HRESULT} 
      */
@@ -52,7 +51,6 @@ export default struct IRoSimpleMetaDataBuilder extends Win32ComInterface {
     }
 
     /**
-     * 
      * @param {Guid} iid 
      * @returns {HRESULT} 
      */
@@ -62,7 +60,6 @@ export default struct IRoSimpleMetaDataBuilder extends Win32ComInterface {
     }
 
     /**
-     * 
      * @param {PWSTR} name 
      * @param {PWSTR} defaultInterfaceName 
      * @param {Pointer<Guid>} defaultInterfaceIID 
@@ -72,12 +69,13 @@ export default struct IRoSimpleMetaDataBuilder extends Win32ComInterface {
         name := name is String ? StrPtr(name) : name
         defaultInterfaceName := defaultInterfaceName is String ? StrPtr(defaultInterfaceName) : defaultInterfaceName
 
-        result := ComCall(2, this, "ptr", name, "ptr", defaultInterfaceName, Guid.Ptr, defaultInterfaceIID, "HRESULT")
+        defaultInterfaceIIDMarshal := defaultInterfaceIID == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(2, this, "ptr", name, "ptr", defaultInterfaceName, defaultInterfaceIIDMarshal, defaultInterfaceIID, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} name 
      * @param {Integer} elementCount 
      * @param {Pointer<PWSTR>} defaultInterfaceNameElements 
@@ -86,14 +84,13 @@ export default struct IRoSimpleMetaDataBuilder extends Win32ComInterface {
     SetInterfaceGroupParameterizedDefault(name, elementCount, defaultInterfaceNameElements) {
         name := name is String ? StrPtr(name) : name
 
-        defaultInterfaceNameElementsMarshal := defaultInterfaceNameElements is VarRef ? "ptr*" : "ptr"
+        defaultInterfaceNameElementsMarshal := defaultInterfaceNameElements is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, "ptr", name, UInt32, elementCount, defaultInterfaceNameElementsMarshal, defaultInterfaceNameElements, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} name 
      * @param {PWSTR} defaultInterfaceName 
      * @param {Pointer<Guid>} defaultInterfaceIID 
@@ -103,12 +100,13 @@ export default struct IRoSimpleMetaDataBuilder extends Win32ComInterface {
         name := name is String ? StrPtr(name) : name
         defaultInterfaceName := defaultInterfaceName is String ? StrPtr(defaultInterfaceName) : defaultInterfaceName
 
-        result := ComCall(4, this, "ptr", name, "ptr", defaultInterfaceName, Guid.Ptr, defaultInterfaceIID, "HRESULT")
+        defaultInterfaceIIDMarshal := defaultInterfaceIID == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(4, this, "ptr", name, "ptr", defaultInterfaceName, defaultInterfaceIIDMarshal, defaultInterfaceIID, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} name 
      * @param {Integer} elementCount 
      * @param {Pointer<PWSTR>} defaultInterfaceNameElements 
@@ -117,14 +115,13 @@ export default struct IRoSimpleMetaDataBuilder extends Win32ComInterface {
     SetRuntimeClassParameterizedDefault(name, elementCount, defaultInterfaceNameElements) {
         name := name is String ? StrPtr(name) : name
 
-        defaultInterfaceNameElementsMarshal := defaultInterfaceNameElements is VarRef ? "ptr*" : "ptr"
+        defaultInterfaceNameElementsMarshal := defaultInterfaceNameElements is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, "ptr", name, UInt32, elementCount, defaultInterfaceNameElementsMarshal, defaultInterfaceNameElements, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} name 
      * @param {Integer} numFields 
      * @param {Pointer<PWSTR>} fieldTypeNames 
@@ -133,14 +130,13 @@ export default struct IRoSimpleMetaDataBuilder extends Win32ComInterface {
     SetStruct(name, numFields, fieldTypeNames) {
         name := name is String ? StrPtr(name) : name
 
-        fieldTypeNamesMarshal := fieldTypeNames is VarRef ? "ptr*" : "ptr"
+        fieldTypeNamesMarshal := fieldTypeNames is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(6, this, "ptr", name, UInt32, numFields, fieldTypeNamesMarshal, fieldTypeNames, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} name 
      * @param {PWSTR} baseType 
      * @returns {HRESULT} 
@@ -154,7 +150,6 @@ export default struct IRoSimpleMetaDataBuilder extends Win32ComInterface {
     }
 
     /**
-     * 
      * @param {Guid} piid 
      * @param {Integer} numArgs 
      * @returns {HRESULT} 
@@ -165,7 +160,6 @@ export default struct IRoSimpleMetaDataBuilder extends Win32ComInterface {
     }
 
     /**
-     * 
      * @param {Guid} piid 
      * @param {Integer} numArgs 
      * @returns {HRESULT} 

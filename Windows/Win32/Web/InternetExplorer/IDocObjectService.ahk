@@ -51,7 +51,6 @@ export default struct IDocObjectService extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDispatch} pDispatch 
      * @param {PWSTR} lpszUrl 
      * @param {Integer} dwFlags 
@@ -67,25 +66,26 @@ export default struct IDocObjectService extends IUnknown {
         lpszFrameName := lpszFrameName is String ? StrPtr(lpszFrameName) : lpszFrameName
         lpszHeaders := lpszHeaders is String ? StrPtr(lpszHeaders) : lpszHeaders
 
-        pPostDataMarshal := pPostData is VarRef ? "char*" : "ptr"
+        pDispatchMarshal := pDispatch == 0 ? IntPtr : "ptr"
+        pPostDataMarshal := pPostData is VarRef ? "char*" : IntPtr
 
-        result := ComCall(3, this, "ptr", pDispatch, "ptr", lpszUrl, UInt32, dwFlags, "ptr", lpszFrameName, pPostDataMarshal, pPostData, UInt32, cbPostData, "ptr", lpszHeaders, BOOL, fPlayNavSound, BOOL.Ptr, &pfCancel := 0, "HRESULT")
+        result := ComCall(3, this, pDispatchMarshal, pDispatch, "ptr", lpszUrl, UInt32, dwFlags, "ptr", lpszFrameName, pPostDataMarshal, pPostData, UInt32, cbPostData, "ptr", lpszHeaders, BOOL, fPlayNavSound, BOOL.Ptr, &pfCancel := 0, "HRESULT")
         return pfCancel
     }
 
     /**
-     * 
      * @param {IHTMLWindow2} pHTMLWindow2 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
     FireNavigateComplete2(pHTMLWindow2, dwFlags) {
-        result := ComCall(4, this, "ptr", pHTMLWindow2, UInt32, dwFlags, "HRESULT")
+        pHTMLWindow2Marshal := pHTMLWindow2 == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, pHTMLWindow2Marshal, pHTMLWindow2, UInt32, dwFlags, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     FireDownloadBegin() {
@@ -94,7 +94,6 @@ export default struct IDocObjectService extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     FireDownloadComplete() {
@@ -103,28 +102,29 @@ export default struct IDocObjectService extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHTMLWindow2} pHTMLWindow 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
     FireDocumentComplete(pHTMLWindow, dwFlags) {
-        result := ComCall(7, this, "ptr", pHTMLWindow, UInt32, dwFlags, "HRESULT")
+        pHTMLWindowMarshal := pHTMLWindow == 0 ? IntPtr : "ptr"
+
+        result := ComCall(7, this, pHTMLWindowMarshal, pHTMLWindow, UInt32, dwFlags, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IHTMLWindow2} pHTMLWindow 
      * @returns {HRESULT} 
      */
     UpdateDesktopComponent(pHTMLWindow) {
-        result := ComCall(8, this, "ptr", pHTMLWindow, "HRESULT")
+        pHTMLWindowMarshal := pHTMLWindow == 0 ? IntPtr : "ptr"
+
+        result := ComCall(8, this, pHTMLWindowMarshal, pHTMLWindow, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetPendingUrl() {
@@ -134,17 +134,17 @@ export default struct IDocObjectService extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHTMLElement} pHTMLElement 
      * @returns {HRESULT} 
      */
     ActiveElementChanged(pHTMLElement) {
-        result := ComCall(10, this, "ptr", pHTMLElement, "HRESULT")
+        pHTMLElementMarshal := pHTMLElement == 0 ? IntPtr : "ptr"
+
+        result := ComCall(10, this, pHTMLElementMarshal, pHTMLElement, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetUrlSearchComponent() {
@@ -154,7 +154,6 @@ export default struct IDocObjectService extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszUrl 
      * @returns {BOOL} 
      */
@@ -174,16 +173,16 @@ export default struct IDocObjectService extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FireBeforeNavigate2 := CallbackCreate(GetMethod(implObj, "FireBeforeNavigate2"), flags, 10)
-        this.vtbl.FireNavigateComplete2 := CallbackCreate(GetMethod(implObj, "FireNavigateComplete2"), flags, 3)
-        this.vtbl.FireDownloadBegin := CallbackCreate(GetMethod(implObj, "FireDownloadBegin"), flags, 1)
-        this.vtbl.FireDownloadComplete := CallbackCreate(GetMethod(implObj, "FireDownloadComplete"), flags, 1)
-        this.vtbl.FireDocumentComplete := CallbackCreate(GetMethod(implObj, "FireDocumentComplete"), flags, 3)
-        this.vtbl.UpdateDesktopComponent := CallbackCreate(GetMethod(implObj, "UpdateDesktopComponent"), flags, 2)
-        this.vtbl.GetPendingUrl := CallbackCreate(GetMethod(implObj, "GetPendingUrl"), flags, 2)
-        this.vtbl.ActiveElementChanged := CallbackCreate(GetMethod(implObj, "ActiveElementChanged"), flags, 2)
-        this.vtbl.GetUrlSearchComponent := CallbackCreate(GetMethod(implObj, "GetUrlSearchComponent"), flags, 2)
-        this.vtbl.IsErrorUrl := CallbackCreate(GetMethod(implObj, "IsErrorUrl"), flags, 3)
+        this.vtbl.FireBeforeNavigate2 := CallbackCreate(ObjBindMethod(implObj, "FireBeforeNavigate2"), flags, 10)
+        this.vtbl.FireNavigateComplete2 := CallbackCreate(ObjBindMethod(implObj, "FireNavigateComplete2"), flags, 3)
+        this.vtbl.FireDownloadBegin := CallbackCreate(ObjBindMethod(implObj, "FireDownloadBegin"), flags, 1)
+        this.vtbl.FireDownloadComplete := CallbackCreate(ObjBindMethod(implObj, "FireDownloadComplete"), flags, 1)
+        this.vtbl.FireDocumentComplete := CallbackCreate(ObjBindMethod(implObj, "FireDocumentComplete"), flags, 3)
+        this.vtbl.UpdateDesktopComponent := CallbackCreate(ObjBindMethod(implObj, "UpdateDesktopComponent"), flags, 2)
+        this.vtbl.GetPendingUrl := CallbackCreate(ObjBindMethod(implObj, "GetPendingUrl"), flags, 2)
+        this.vtbl.ActiveElementChanged := CallbackCreate(ObjBindMethod(implObj, "ActiveElementChanged"), flags, 2)
+        this.vtbl.GetUrlSearchComponent := CallbackCreate(ObjBindMethod(implObj, "GetUrlSearchComponent"), flags, 2)
+        this.vtbl.IsErrorUrl := CallbackCreate(ObjBindMethod(implObj, "IsErrorUrl"), flags, 3)
     }
 
     Dispose() {

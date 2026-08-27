@@ -86,7 +86,7 @@ export default struct IHTMLSelectElement5 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.add := CallbackCreate(GetMethod(implObj, "add"), flags, 3)
+        this.vtbl.add := CallbackCreate(ObjBindMethod(implObj, "add"), flags, 3)
     }
 
     Dispose() {

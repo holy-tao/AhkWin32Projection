@@ -156,7 +156,6 @@ export default struct ITsSbSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} targetName 
      * @returns {HRESULT} 
      */
@@ -330,23 +329,23 @@ export default struct ITsSbSession extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_SessionId := CallbackCreate(GetMethod(implObj, "get_SessionId"), flags, 2)
-        this.vtbl.get_TargetName := CallbackCreate(GetMethod(implObj, "get_TargetName"), flags, 2)
-        this.vtbl.put_TargetName := CallbackCreate(GetMethod(implObj, "put_TargetName"), flags, 2)
-        this.vtbl.get_Username := CallbackCreate(GetMethod(implObj, "get_Username"), flags, 2)
-        this.vtbl.get_Domain := CallbackCreate(GetMethod(implObj, "get_Domain"), flags, 2)
-        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
-        this.vtbl.put_State := CallbackCreate(GetMethod(implObj, "put_State"), flags, 2)
-        this.vtbl.get_CreateTime := CallbackCreate(GetMethod(implObj, "get_CreateTime"), flags, 2)
-        this.vtbl.put_CreateTime := CallbackCreate(GetMethod(implObj, "put_CreateTime"), flags, 2)
-        this.vtbl.get_DisconnectTime := CallbackCreate(GetMethod(implObj, "get_DisconnectTime"), flags, 2)
-        this.vtbl.put_DisconnectTime := CallbackCreate(GetMethod(implObj, "put_DisconnectTime"), flags, 2)
-        this.vtbl.get_InitialProgram := CallbackCreate(GetMethod(implObj, "get_InitialProgram"), flags, 2)
-        this.vtbl.put_InitialProgram := CallbackCreate(GetMethod(implObj, "put_InitialProgram"), flags, 2)
-        this.vtbl.get_ClientDisplay := CallbackCreate(GetMethod(implObj, "get_ClientDisplay"), flags, 2)
-        this.vtbl.put_ClientDisplay := CallbackCreate(GetMethod(implObj, "put_ClientDisplay"), flags, 2)
-        this.vtbl.get_ProtocolType := CallbackCreate(GetMethod(implObj, "get_ProtocolType"), flags, 2)
-        this.vtbl.put_ProtocolType := CallbackCreate(GetMethod(implObj, "put_ProtocolType"), flags, 2)
+        this.vtbl.get_SessionId := CallbackCreate(ObjBindMethod(implObj, "get_SessionId"), flags, 2)
+        this.vtbl.get_TargetName := CallbackCreate(ObjBindMethod(implObj, "get_TargetName"), flags, 2)
+        this.vtbl.put_TargetName := CallbackCreate(ObjBindMethod(implObj, "put_TargetName"), flags, 2)
+        this.vtbl.get_Username := CallbackCreate(ObjBindMethod(implObj, "get_Username"), flags, 2)
+        this.vtbl.get_Domain := CallbackCreate(ObjBindMethod(implObj, "get_Domain"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(ObjBindMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.put_State := CallbackCreate(ObjBindMethod(implObj, "put_State"), flags, 2)
+        this.vtbl.get_CreateTime := CallbackCreate(ObjBindMethod(implObj, "get_CreateTime"), flags, 2)
+        this.vtbl.put_CreateTime := CallbackCreate(ObjBindMethod(implObj, "put_CreateTime"), flags, 2)
+        this.vtbl.get_DisconnectTime := CallbackCreate(ObjBindMethod(implObj, "get_DisconnectTime"), flags, 2)
+        this.vtbl.put_DisconnectTime := CallbackCreate(ObjBindMethod(implObj, "put_DisconnectTime"), flags, 2)
+        this.vtbl.get_InitialProgram := CallbackCreate(ObjBindMethod(implObj, "get_InitialProgram"), flags, 2)
+        this.vtbl.put_InitialProgram := CallbackCreate(ObjBindMethod(implObj, "put_InitialProgram"), flags, 2)
+        this.vtbl.get_ClientDisplay := CallbackCreate(ObjBindMethod(implObj, "get_ClientDisplay"), flags, 2)
+        this.vtbl.put_ClientDisplay := CallbackCreate(ObjBindMethod(implObj, "put_ClientDisplay"), flags, 2)
+        this.vtbl.get_ProtocolType := CallbackCreate(ObjBindMethod(implObj, "get_ProtocolType"), flags, 2)
+        this.vtbl.put_ProtocolType := CallbackCreate(ObjBindMethod(implObj, "put_ProtocolType"), flags, 2)
     }
 
     Dispose() {

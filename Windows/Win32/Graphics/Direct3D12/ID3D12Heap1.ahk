@@ -36,7 +36,6 @@ export default struct ID3D12Heap1 extends ID3D12Heap {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
@@ -54,7 +53,7 @@ export default struct ID3D12Heap1 extends ID3D12Heap {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProtectedResourceSession := CallbackCreate(GetMethod(implObj, "GetProtectedResourceSession"), flags, 3)
+        this.vtbl.GetProtectedResourceSession := CallbackCreate(ObjBindMethod(implObj, "GetProtectedResourceSession"), flags, 3)
     }
 
     Dispose() {

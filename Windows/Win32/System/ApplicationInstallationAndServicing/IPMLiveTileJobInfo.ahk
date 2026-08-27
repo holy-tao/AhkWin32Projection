@@ -138,7 +138,6 @@ export default struct IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     get_ProductID() {
@@ -148,7 +147,6 @@ export default struct IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pTileID 
      * @returns {HRESULT} 
      */
@@ -158,7 +156,6 @@ export default struct IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {FILETIME} 
      */
     get_NextSchedule() {
@@ -168,7 +165,6 @@ export default struct IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {FILETIME} ftNextSchedule 
      * @returns {HRESULT} 
      */
@@ -178,7 +174,6 @@ export default struct IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {FILETIME} 
      */
     get_StartSchedule() {
@@ -188,7 +183,6 @@ export default struct IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {FILETIME} ftStartSchedule 
      * @returns {HRESULT} 
      */
@@ -198,7 +192,6 @@ export default struct IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_IntervalDuration() {
@@ -207,7 +200,6 @@ export default struct IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulIntervalDuration 
      * @returns {HRESULT} 
      */
@@ -217,7 +209,6 @@ export default struct IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_RunForever() {
@@ -226,7 +217,6 @@ export default struct IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fRunForever 
      * @returns {HRESULT} 
      */
@@ -236,7 +226,6 @@ export default struct IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MaxRunCount() {
@@ -245,7 +234,6 @@ export default struct IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulMaxRunCount 
      * @returns {HRESULT} 
      */
@@ -255,7 +243,6 @@ export default struct IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_RunCount() {
@@ -264,7 +251,6 @@ export default struct IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulRunCount 
      * @returns {HRESULT} 
      */
@@ -274,7 +260,6 @@ export default struct IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_RecurrenceType() {
@@ -283,7 +268,6 @@ export default struct IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulRecurrenceType 
      * @returns {HRESULT} 
      */
@@ -293,61 +277,56 @@ export default struct IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Integer>>} pTileXml 
      * @param {Pointer<Integer>} pcbTileXml 
      * @returns {HRESULT} 
      */
     get_TileXML(pTileXml, pcbTileXml) {
-        pTileXmlMarshal := pTileXml is VarRef ? "ptr*" : "ptr"
-        pcbTileXmlMarshal := pcbTileXml is VarRef ? "uint*" : "ptr"
+        pTileXmlMarshal := pTileXml is VarRef ? "ptr*" : IntPtr
+        pcbTileXmlMarshal := pcbTileXml is VarRef ? "uint*" : IntPtr
 
         result := ComCall(19, this, pTileXmlMarshal, pTileXml, pcbTileXmlMarshal, pcbTileXml, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pTileXml 
      * @param {Integer} cbTileXml 
      * @returns {HRESULT} 
      */
     set_TileXML(pTileXml, cbTileXml) {
-        pTileXmlMarshal := pTileXml is VarRef ? "char*" : "ptr"
+        pTileXmlMarshal := pTileXml is VarRef ? "char*" : IntPtr
 
         result := ComCall(20, this, pTileXmlMarshal, pTileXml, UInt32, cbTileXml, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Integer>>} pUrlXML 
      * @param {Pointer<Integer>} pcbUrlXML 
      * @returns {HRESULT} 
      */
     get_UrlXML(pUrlXML, pcbUrlXML) {
-        pUrlXMLMarshal := pUrlXML is VarRef ? "ptr*" : "ptr"
-        pcbUrlXMLMarshal := pcbUrlXML is VarRef ? "uint*" : "ptr"
+        pUrlXMLMarshal := pUrlXML is VarRef ? "ptr*" : IntPtr
+        pcbUrlXMLMarshal := pcbUrlXML is VarRef ? "uint*" : IntPtr
 
         result := ComCall(21, this, pUrlXMLMarshal, pUrlXML, pcbUrlXMLMarshal, pcbUrlXML, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pUrlXML 
      * @param {Integer} cbUrlXML 
      * @returns {HRESULT} 
      */
     set_UrlXML(pUrlXML, cbUrlXML) {
-        pUrlXMLMarshal := pUrlXML is VarRef ? "char*" : "ptr"
+        pUrlXMLMarshal := pUrlXML is VarRef ? "char*" : IntPtr
 
         result := ComCall(22, this, pUrlXMLMarshal, pUrlXML, UInt32, cbUrlXML, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AttemptCount() {
@@ -356,7 +335,6 @@ export default struct IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulAttemptCount 
      * @returns {HRESULT} 
      */
@@ -366,7 +344,6 @@ export default struct IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DownloadState() {
@@ -375,7 +352,6 @@ export default struct IPMLiveTileJobInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulDownloadState 
      * @returns {HRESULT} 
      */
@@ -393,30 +369,30 @@ export default struct IPMLiveTileJobInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ProductID := CallbackCreate(GetMethod(implObj, "get_ProductID"), flags, 2)
-        this.vtbl.get_TileID := CallbackCreate(GetMethod(implObj, "get_TileID"), flags, 2)
-        this.vtbl.get_NextSchedule := CallbackCreate(GetMethod(implObj, "get_NextSchedule"), flags, 2)
-        this.vtbl.set_NextSchedule := CallbackCreate(GetMethod(implObj, "set_NextSchedule"), flags, 2)
-        this.vtbl.get_StartSchedule := CallbackCreate(GetMethod(implObj, "get_StartSchedule"), flags, 2)
-        this.vtbl.set_StartSchedule := CallbackCreate(GetMethod(implObj, "set_StartSchedule"), flags, 2)
-        this.vtbl.get_IntervalDuration := CallbackCreate(GetMethod(implObj, "get_IntervalDuration"), flags, 2)
-        this.vtbl.set_IntervalDuration := CallbackCreate(GetMethod(implObj, "set_IntervalDuration"), flags, 2)
-        this.vtbl.get_RunForever := CallbackCreate(GetMethod(implObj, "get_RunForever"), flags, 2)
-        this.vtbl.set_RunForever := CallbackCreate(GetMethod(implObj, "set_RunForever"), flags, 2)
-        this.vtbl.get_MaxRunCount := CallbackCreate(GetMethod(implObj, "get_MaxRunCount"), flags, 2)
-        this.vtbl.set_MaxRunCount := CallbackCreate(GetMethod(implObj, "set_MaxRunCount"), flags, 2)
-        this.vtbl.get_RunCount := CallbackCreate(GetMethod(implObj, "get_RunCount"), flags, 2)
-        this.vtbl.set_RunCount := CallbackCreate(GetMethod(implObj, "set_RunCount"), flags, 2)
-        this.vtbl.get_RecurrenceType := CallbackCreate(GetMethod(implObj, "get_RecurrenceType"), flags, 2)
-        this.vtbl.set_RecurrenceType := CallbackCreate(GetMethod(implObj, "set_RecurrenceType"), flags, 2)
-        this.vtbl.get_TileXML := CallbackCreate(GetMethod(implObj, "get_TileXML"), flags, 3)
-        this.vtbl.set_TileXML := CallbackCreate(GetMethod(implObj, "set_TileXML"), flags, 3)
-        this.vtbl.get_UrlXML := CallbackCreate(GetMethod(implObj, "get_UrlXML"), flags, 3)
-        this.vtbl.set_UrlXML := CallbackCreate(GetMethod(implObj, "set_UrlXML"), flags, 3)
-        this.vtbl.get_AttemptCount := CallbackCreate(GetMethod(implObj, "get_AttemptCount"), flags, 2)
-        this.vtbl.set_AttemptCount := CallbackCreate(GetMethod(implObj, "set_AttemptCount"), flags, 2)
-        this.vtbl.get_DownloadState := CallbackCreate(GetMethod(implObj, "get_DownloadState"), flags, 2)
-        this.vtbl.set_DownloadState := CallbackCreate(GetMethod(implObj, "set_DownloadState"), flags, 2)
+        this.vtbl.get_ProductID := CallbackCreate(ObjBindMethod(implObj, "get_ProductID"), flags, 2)
+        this.vtbl.get_TileID := CallbackCreate(ObjBindMethod(implObj, "get_TileID"), flags, 2)
+        this.vtbl.get_NextSchedule := CallbackCreate(ObjBindMethod(implObj, "get_NextSchedule"), flags, 2)
+        this.vtbl.set_NextSchedule := CallbackCreate(ObjBindMethod(implObj, "set_NextSchedule"), flags, 2)
+        this.vtbl.get_StartSchedule := CallbackCreate(ObjBindMethod(implObj, "get_StartSchedule"), flags, 2)
+        this.vtbl.set_StartSchedule := CallbackCreate(ObjBindMethod(implObj, "set_StartSchedule"), flags, 2)
+        this.vtbl.get_IntervalDuration := CallbackCreate(ObjBindMethod(implObj, "get_IntervalDuration"), flags, 2)
+        this.vtbl.set_IntervalDuration := CallbackCreate(ObjBindMethod(implObj, "set_IntervalDuration"), flags, 2)
+        this.vtbl.get_RunForever := CallbackCreate(ObjBindMethod(implObj, "get_RunForever"), flags, 2)
+        this.vtbl.set_RunForever := CallbackCreate(ObjBindMethod(implObj, "set_RunForever"), flags, 2)
+        this.vtbl.get_MaxRunCount := CallbackCreate(ObjBindMethod(implObj, "get_MaxRunCount"), flags, 2)
+        this.vtbl.set_MaxRunCount := CallbackCreate(ObjBindMethod(implObj, "set_MaxRunCount"), flags, 2)
+        this.vtbl.get_RunCount := CallbackCreate(ObjBindMethod(implObj, "get_RunCount"), flags, 2)
+        this.vtbl.set_RunCount := CallbackCreate(ObjBindMethod(implObj, "set_RunCount"), flags, 2)
+        this.vtbl.get_RecurrenceType := CallbackCreate(ObjBindMethod(implObj, "get_RecurrenceType"), flags, 2)
+        this.vtbl.set_RecurrenceType := CallbackCreate(ObjBindMethod(implObj, "set_RecurrenceType"), flags, 2)
+        this.vtbl.get_TileXML := CallbackCreate(ObjBindMethod(implObj, "get_TileXML"), flags, 3)
+        this.vtbl.set_TileXML := CallbackCreate(ObjBindMethod(implObj, "set_TileXML"), flags, 3)
+        this.vtbl.get_UrlXML := CallbackCreate(ObjBindMethod(implObj, "get_UrlXML"), flags, 3)
+        this.vtbl.set_UrlXML := CallbackCreate(ObjBindMethod(implObj, "set_UrlXML"), flags, 3)
+        this.vtbl.get_AttemptCount := CallbackCreate(ObjBindMethod(implObj, "get_AttemptCount"), flags, 2)
+        this.vtbl.set_AttemptCount := CallbackCreate(ObjBindMethod(implObj, "set_AttemptCount"), flags, 2)
+        this.vtbl.get_DownloadState := CallbackCreate(ObjBindMethod(implObj, "get_DownloadState"), flags, 2)
+        this.vtbl.set_DownloadState := CallbackCreate(ObjBindMethod(implObj, "set_DownloadState"), flags, 2)
     }
 
     Dispose() {

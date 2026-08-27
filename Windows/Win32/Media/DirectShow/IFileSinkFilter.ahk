@@ -54,7 +54,9 @@ export default struct IFileSinkFilter extends IUnknown {
     SetFileName(pszFileName, pmt) {
         pszFileName := pszFileName is String ? StrPtr(pszFileName) : pszFileName
 
-        result := ComCall(3, this, "ptr", pszFileName, AM_MEDIA_TYPE.Ptr, pmt, "HRESULT")
+        pmtMarshal := pmt == 0 ? IntPtr : AM_MEDIA_TYPE.Ptr
+
+        result := ComCall(3, this, "ptr", pszFileName, pmtMarshal, pmt, "HRESULT")
         return result
     }
 
@@ -121,7 +123,7 @@ export default struct IFileSinkFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifilesinkfilter-getcurfile
      */
     GetCurFile(ppszFileName, pmt) {
-        ppszFileNameMarshal := ppszFileName is VarRef ? "ptr*" : "ptr"
+        ppszFileNameMarshal := ppszFileName is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, ppszFileNameMarshal, ppszFileName, AM_MEDIA_TYPE.Ptr, pmt, "HRESULT")
         return result
@@ -136,8 +138,8 @@ export default struct IFileSinkFilter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetFileName := CallbackCreate(GetMethod(implObj, "SetFileName"), flags, 3)
-        this.vtbl.GetCurFile := CallbackCreate(GetMethod(implObj, "GetCurFile"), flags, 3)
+        this.vtbl.SetFileName := CallbackCreate(ObjBindMethod(implObj, "SetFileName"), flags, 3)
+        this.vtbl.GetCurFile := CallbackCreate(ObjBindMethod(implObj, "GetCurFile"), flags, 3)
     }
 
     Dispose() {

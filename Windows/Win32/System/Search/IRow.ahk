@@ -40,7 +40,6 @@ export default struct IRow extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} cColumns 
      * @param {Pointer<DBCOLUMNACCESS>} rgColumns 
      * @returns {HRESULT} 
@@ -51,21 +50,21 @@ export default struct IRow extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<IUnknown>} ppRowset 
      * @param {Pointer<Pointer>} phRow 
      * @returns {HRESULT} 
      */
     GetSourceRowset(riid, ppRowset, phRow) {
-        phRowMarshal := phRow is VarRef ? "ptr*" : "ptr"
+        ppRowsetMarshal := ppRowset == 0 ? IntPtr : IUnknown.Ptr
+        phRowMarshal := phRow is VarRef ? "ptr*" : IntPtr
+        phRowMarshal := phRow == 0 ? IntPtr : "ptr*"
 
-        result := ComCall(4, this, Guid.Ptr, riid, IUnknown.Ptr, ppRowset, phRowMarshal, phRow, "HRESULT")
+        result := ComCall(4, this, Guid.Ptr, riid, ppRowsetMarshal, ppRowset, phRowMarshal, phRow, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<DBID>} pColumnID 
      * @param {Pointer<Guid>} rguidColumnType 
@@ -74,7 +73,9 @@ export default struct IRow extends IUnknown {
      * @returns {IUnknown} 
      */
     Open(pUnkOuter, pColumnID, rguidColumnType, dwBindFlags, riid) {
-        result := ComCall(5, this, "ptr", pUnkOuter, DBID.Ptr, pColumnID, Guid.Ptr, rguidColumnType, UInt32, dwBindFlags, Guid.Ptr, riid, "ptr*", &ppUnk := 0, "HRESULT")
+        pUnkOuterMarshal := pUnkOuter == 0 ? IntPtr : "ptr"
+
+        result := ComCall(5, this, pUnkOuterMarshal, pUnkOuter, DBID.Ptr, pColumnID, Guid.Ptr, rguidColumnType, UInt32, dwBindFlags, Guid.Ptr, riid, "ptr*", &ppUnk := 0, "HRESULT")
         return IUnknown(ppUnk)
     }
 
@@ -87,9 +88,9 @@ export default struct IRow extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetColumns := CallbackCreate(GetMethod(implObj, "GetColumns"), flags, 3)
-        this.vtbl.GetSourceRowset := CallbackCreate(GetMethod(implObj, "GetSourceRowset"), flags, 4)
-        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 7)
+        this.vtbl.GetColumns := CallbackCreate(ObjBindMethod(implObj, "GetColumns"), flags, 3)
+        this.vtbl.GetSourceRowset := CallbackCreate(ObjBindMethod(implObj, "GetSourceRowset"), flags, 4)
+        this.vtbl.Open := CallbackCreate(ObjBindMethod(implObj, "Open"), flags, 7)
     }
 
     Dispose() {

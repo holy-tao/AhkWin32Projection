@@ -142,11 +142,11 @@ export default struct IWdsTransportServer extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_SetupManager := CallbackCreate(GetMethod(implObj, "get_SetupManager"), flags, 2)
-        this.vtbl.get_ConfigurationManager := CallbackCreate(GetMethod(implObj, "get_ConfigurationManager"), flags, 2)
-        this.vtbl.get_NamespaceManager := CallbackCreate(GetMethod(implObj, "get_NamespaceManager"), flags, 2)
-        this.vtbl.DisconnectClient := CallbackCreate(GetMethod(implObj, "DisconnectClient"), flags, 3)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_SetupManager := CallbackCreate(ObjBindMethod(implObj, "get_SetupManager"), flags, 2)
+        this.vtbl.get_ConfigurationManager := CallbackCreate(ObjBindMethod(implObj, "get_ConfigurationManager"), flags, 2)
+        this.vtbl.get_NamespaceManager := CallbackCreate(ObjBindMethod(implObj, "get_NamespaceManager"), flags, 2)
+        this.vtbl.DisconnectClient := CallbackCreate(ObjBindMethod(implObj, "DisconnectClient"), flags, 3)
     }
 
     Dispose() {

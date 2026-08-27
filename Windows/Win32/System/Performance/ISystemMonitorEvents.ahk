@@ -39,7 +39,6 @@ export default struct ISystemMonitorEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -48,7 +47,6 @@ export default struct ISystemMonitorEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -57,7 +55,6 @@ export default struct ISystemMonitorEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -66,7 +63,6 @@ export default struct ISystemMonitorEvents extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     OnSampleCollected() {
@@ -74,7 +70,6 @@ export default struct ISystemMonitorEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -91,11 +86,11 @@ export default struct ISystemMonitorEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnCounterSelected := CallbackCreate(GetMethod(implObj, "OnCounterSelected"), flags, 2)
-        this.vtbl.OnCounterAdded := CallbackCreate(GetMethod(implObj, "OnCounterAdded"), flags, 2)
-        this.vtbl.OnCounterDeleted := CallbackCreate(GetMethod(implObj, "OnCounterDeleted"), flags, 2)
-        this.vtbl.OnSampleCollected := CallbackCreate(GetMethod(implObj, "OnSampleCollected"), flags, 1)
-        this.vtbl.OnDblClick := CallbackCreate(GetMethod(implObj, "OnDblClick"), flags, 2)
+        this.vtbl.OnCounterSelected := CallbackCreate(ObjBindMethod(implObj, "OnCounterSelected"), flags, 2)
+        this.vtbl.OnCounterAdded := CallbackCreate(ObjBindMethod(implObj, "OnCounterAdded"), flags, 2)
+        this.vtbl.OnCounterDeleted := CallbackCreate(ObjBindMethod(implObj, "OnCounterDeleted"), flags, 2)
+        this.vtbl.OnSampleCollected := CallbackCreate(ObjBindMethod(implObj, "OnSampleCollected"), flags, 1)
+        this.vtbl.OnDblClick := CallbackCreate(ObjBindMethod(implObj, "OnDblClick"), flags, 2)
     }
 
     Dispose() {

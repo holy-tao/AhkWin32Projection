@@ -88,7 +88,7 @@ export default struct IDWriteTextAnalysisSink1 extends IDWriteTextAnalysisSink {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetGlyphOrientation := CallbackCreate(GetMethod(implObj, "SetGlyphOrientation"), flags, 7)
+        this.vtbl.SetGlyphOrientation := CallbackCreate(ObjBindMethod(implObj, "SetGlyphOrientation"), flags, 7)
     }
 
     Dispose() {

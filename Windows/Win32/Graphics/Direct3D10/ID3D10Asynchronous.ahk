@@ -264,7 +264,9 @@ export default struct ID3D10Asynchronous extends ID3D10DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10asynchronous-getdata
      */
     GetData(pData, DataSize, GetDataFlags) {
-        result := ComCall(9, this, IntPtr, pData, UInt32, DataSize, UInt32, GetDataFlags, "HRESULT")
+        pDataMarshal := pData == 0 ? IntPtr : IntPtr
+
+        result := ComCall(9, this, pDataMarshal, pData, UInt32, DataSize, UInt32, GetDataFlags, "HRESULT")
         return result
     }
 
@@ -289,10 +291,10 @@ export default struct ID3D10Asynchronous extends ID3D10DeviceChild {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Begin := CallbackCreate(GetMethod(implObj, "Begin"), flags, 1)
-        this.vtbl.End := CallbackCreate(GetMethod(implObj, "End"), flags, 1)
-        this.vtbl.GetData := CallbackCreate(GetMethod(implObj, "GetData"), flags, 4)
-        this.vtbl.GetDataSize := CallbackCreate(GetMethod(implObj, "GetDataSize"), flags, 1)
+        this.vtbl.Begin := CallbackCreate(ObjBindMethod(implObj, "Begin"), flags, 1)
+        this.vtbl.End := CallbackCreate(ObjBindMethod(implObj, "End"), flags, 1)
+        this.vtbl.GetData := CallbackCreate(ObjBindMethod(implObj, "GetData"), flags, 4)
+        this.vtbl.GetDataSize := CallbackCreate(ObjBindMethod(implObj, "GetDataSize"), flags, 1)
     }
 
     Dispose() {

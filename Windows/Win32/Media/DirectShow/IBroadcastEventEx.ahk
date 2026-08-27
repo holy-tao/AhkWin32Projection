@@ -65,7 +65,7 @@ export default struct IBroadcastEventEx extends IBroadcastEvent {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FireEx := CallbackCreate(GetMethod(implObj, "FireEx"), flags, 6)
+        this.vtbl.FireEx := CallbackCreate(ObjBindMethod(implObj, "FireEx"), flags, 6)
     }
 
     Dispose() {

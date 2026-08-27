@@ -134,14 +134,15 @@ export default struct ISpeechResourceLoader extends IDispatch {
     LoadResource(bstrResourceUri, fAlwaysReload, pStream, pbstrMIMEType, pfModified, pbstrRedirectUrl) {
         bstrResourceUri := bstrResourceUri is String ? BSTR.Alloc(bstrResourceUri).Value : bstrResourceUri
 
-        pfModifiedMarshal := pfModified is VarRef ? "short*" : "ptr"
+        pbstrMIMETypeMarshal := pbstrMIMEType == 0 ? IntPtr : BSTR.Ptr
+        pfModifiedMarshal := pfModified is VarRef ? "short*" : IntPtr
+        pbstrRedirectUrlMarshal := pbstrRedirectUrl == 0 ? IntPtr : BSTR.Ptr
 
-        result := ComCall(7, this, BSTR, bstrResourceUri, VARIANT_BOOL, fAlwaysReload, IUnknown.Ptr, pStream, BSTR.Ptr, pbstrMIMEType, pfModifiedMarshal, pfModified, BSTR.Ptr, pbstrRedirectUrl, "HRESULT")
+        result := ComCall(7, this, BSTR, bstrResourceUri, VARIANT_BOOL, fAlwaysReload, IUnknown.Ptr, pStream, pbstrMIMETypeMarshal, pbstrMIMEType, pfModifiedMarshal, pfModified, pbstrRedirectUrlMarshal, pbstrRedirectUrl, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {BSTR} bstrResourceUri 
      * @param {Pointer<BSTR>} pbstrLocalPath 
      * @param {Pointer<BSTR>} pbstrMIMEType 
@@ -151,12 +152,14 @@ export default struct ISpeechResourceLoader extends IDispatch {
     GetLocalCopy(bstrResourceUri, pbstrLocalPath, pbstrMIMEType, pbstrRedirectUrl) {
         bstrResourceUri := bstrResourceUri is String ? BSTR.Alloc(bstrResourceUri).Value : bstrResourceUri
 
-        result := ComCall(8, this, BSTR, bstrResourceUri, BSTR.Ptr, pbstrLocalPath, BSTR.Ptr, pbstrMIMEType, BSTR.Ptr, pbstrRedirectUrl, "HRESULT")
+        pbstrMIMETypeMarshal := pbstrMIMEType == 0 ? IntPtr : BSTR.Ptr
+        pbstrRedirectUrlMarshal := pbstrRedirectUrl == 0 ? IntPtr : BSTR.Ptr
+
+        result := ComCall(8, this, BSTR, bstrResourceUri, BSTR.Ptr, pbstrLocalPath, pbstrMIMETypeMarshal, pbstrMIMEType, pbstrRedirectUrlMarshal, pbstrRedirectUrl, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {BSTR} pbstrLocalPath 
      * @returns {HRESULT} 
      */
@@ -176,9 +179,9 @@ export default struct ISpeechResourceLoader extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LoadResource := CallbackCreate(GetMethod(implObj, "LoadResource"), flags, 7)
-        this.vtbl.GetLocalCopy := CallbackCreate(GetMethod(implObj, "GetLocalCopy"), flags, 5)
-        this.vtbl.ReleaseLocalCopy := CallbackCreate(GetMethod(implObj, "ReleaseLocalCopy"), flags, 2)
+        this.vtbl.LoadResource := CallbackCreate(ObjBindMethod(implObj, "LoadResource"), flags, 7)
+        this.vtbl.GetLocalCopy := CallbackCreate(ObjBindMethod(implObj, "GetLocalCopy"), flags, 5)
+        this.vtbl.ReleaseLocalCopy := CallbackCreate(ObjBindMethod(implObj, "ReleaseLocalCopy"), flags, 2)
     }
 
     Dispose() {

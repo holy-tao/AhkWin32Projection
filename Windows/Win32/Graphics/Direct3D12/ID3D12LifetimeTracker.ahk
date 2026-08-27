@@ -59,7 +59,7 @@ export default struct ID3D12LifetimeTracker extends ID3D12DeviceChild {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DestroyOwnedObject := CallbackCreate(GetMethod(implObj, "DestroyOwnedObject"), flags, 2)
+        this.vtbl.DestroyOwnedObject := CallbackCreate(ObjBindMethod(implObj, "DestroyOwnedObject"), flags, 2)
     }
 
     Dispose() {

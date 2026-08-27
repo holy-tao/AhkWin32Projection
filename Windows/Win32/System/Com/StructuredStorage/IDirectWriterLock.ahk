@@ -102,9 +102,9 @@ export default struct IDirectWriterLock extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.WaitForWriteAccess := CallbackCreate(GetMethod(implObj, "WaitForWriteAccess"), flags, 2)
-        this.vtbl.ReleaseWriteAccess := CallbackCreate(GetMethod(implObj, "ReleaseWriteAccess"), flags, 1)
-        this.vtbl.HaveWriteAccess := CallbackCreate(GetMethod(implObj, "HaveWriteAccess"), flags, 1)
+        this.vtbl.WaitForWriteAccess := CallbackCreate(ObjBindMethod(implObj, "WaitForWriteAccess"), flags, 2)
+        this.vtbl.ReleaseWriteAccess := CallbackCreate(ObjBindMethod(implObj, "ReleaseWriteAccess"), flags, 1)
+        this.vtbl.HaveWriteAccess := CallbackCreate(ObjBindMethod(implObj, "HaveWriteAccess"), flags, 1)
     }
 
     Dispose() {

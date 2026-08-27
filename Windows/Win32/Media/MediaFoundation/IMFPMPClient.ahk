@@ -62,7 +62,7 @@ export default struct IMFPMPClient extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetPMPHost := CallbackCreate(GetMethod(implObj, "SetPMPHost"), flags, 2)
+        this.vtbl.SetPMPHost := CallbackCreate(ObjBindMethod(implObj, "SetPMPHost"), flags, 2)
     }
 
     Dispose() {

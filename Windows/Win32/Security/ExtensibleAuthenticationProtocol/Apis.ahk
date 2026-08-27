@@ -35,7 +35,7 @@
  * @since windows6.0.6000
  */
 export EapHostPeerGetMethods(pEapMethodInfoArray, ppEapError) {
-    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : "ptr"
+    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("eappcfg.dll\EapHostPeerGetMethods", EAP_METHOD_INFO_ARRAY.Ptr, pEapMethodInfoArray, ppEapErrorMarshal, ppEapError, UInt32)
     return result
@@ -61,9 +61,9 @@ export EapHostPeerGetMethods(pEapMethodInfoArray, ppEapError) {
  * @since windows6.1
  */
 export EapHostPeerGetMethodProperties(dwVersion, dwFlags, eapMethodType, hUserImpersonationToken, dwEapConnDataSize, pbEapConnData, dwUserDataSize, pbUserData, pMethodPropertyArray, ppEapError) {
-    pbEapConnDataMarshal := pbEapConnData is VarRef ? "char*" : "ptr"
-    pbUserDataMarshal := pbUserData is VarRef ? "char*" : "ptr"
-    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : "ptr"
+    pbEapConnDataMarshal := pbEapConnData is VarRef ? "char*" : IntPtr
+    pbUserDataMarshal := pbUserData is VarRef ? "char*" : IntPtr
+    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("eappcfg.dll\EapHostPeerGetMethodProperties", UInt32, dwVersion, UInt32, dwFlags, EAP_METHOD_TYPE, eapMethodType, HANDLE, hUserImpersonationToken, UInt32, dwEapConnDataSize, pbEapConnDataMarshal, pbEapConnData, UInt32, dwUserDataSize, pbUserDataMarshal, pbUserData, EAP_METHOD_PROPERTY_ARRAY.Ptr, pMethodPropertyArray, ppEapErrorMarshal, ppEapError, UInt32)
     return result
@@ -84,10 +84,11 @@ export EapHostPeerGetMethodProperties(dwVersion, dwFlags, eapMethodType, hUserIm
  * @since windows6.0.6000
  */
 export EapHostPeerInvokeConfigUI(hwndParent, dwFlags, eapMethodType, dwSizeOfConfigIn, pConfigIn, pdwSizeOfConfigOut, ppConfigOut, ppEapError) {
-    pConfigInMarshal := pConfigIn is VarRef ? "char*" : "ptr"
-    pdwSizeOfConfigOutMarshal := pdwSizeOfConfigOut is VarRef ? "uint*" : "ptr"
-    ppConfigOutMarshal := ppConfigOut is VarRef ? "ptr*" : "ptr"
-    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : "ptr"
+    pConfigInMarshal := pConfigIn is VarRef ? "char*" : IntPtr
+    pConfigInMarshal := pConfigIn == 0 ? IntPtr : "char*"
+    pdwSizeOfConfigOutMarshal := pdwSizeOfConfigOut is VarRef ? "uint*" : IntPtr
+    ppConfigOutMarshal := ppConfigOut is VarRef ? "ptr*" : IntPtr
+    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("eappcfg.dll\EapHostPeerInvokeConfigUI", HWND, hwndParent, UInt32, dwFlags, EAP_METHOD_TYPE, eapMethodType, UInt32, dwSizeOfConfigIn, pConfigInMarshal, pConfigIn, pdwSizeOfConfigOutMarshal, pdwSizeOfConfigOut, ppConfigOutMarshal, ppConfigOut, ppEapErrorMarshal, ppEapError, UInt32)
     return result
@@ -114,8 +115,8 @@ export EapHostPeerInvokeConfigUI(hwndParent, dwFlags, eapMethodType, dwSizeOfCon
  * @since windows6.0.6000
  */
 export EapHostPeerQueryCredentialInputFields(hUserImpersonationToken, eapMethodType, dwFlags, dwEapConnDataSize, pbEapConnData, pEapConfigInputFieldArray, ppEapError) {
-    pbEapConnDataMarshal := pbEapConnData is VarRef ? "char*" : "ptr"
-    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : "ptr"
+    pbEapConnDataMarshal := pbEapConnData is VarRef ? "char*" : IntPtr
+    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("eappcfg.dll\EapHostPeerQueryCredentialInputFields", HANDLE, hUserImpersonationToken, EAP_METHOD_TYPE, eapMethodType, UInt32, dwFlags, UInt32, dwEapConnDataSize, pbEapConnDataMarshal, pbEapConnData, EAP_CONFIG_INPUT_FIELD_ARRAY.Ptr, pEapConfigInputFieldArray, ppEapErrorMarshal, ppEapError, UInt32)
     return result
@@ -143,10 +144,10 @@ export EapHostPeerQueryCredentialInputFields(hUserImpersonationToken, eapMethodT
  * @since windows6.0.6000
  */
 export EapHostPeerQueryUserBlobFromCredentialInputFields(hUserImpersonationToken, eapMethodType, dwFlags, dwEapConnDataSize, pbEapConnData, pEapConfigInputFieldArray, pdwUserBlobSize, ppbUserBlob, ppEapError) {
-    pbEapConnDataMarshal := pbEapConnData is VarRef ? "char*" : "ptr"
-    pdwUserBlobSizeMarshal := pdwUserBlobSize is VarRef ? "uint*" : "ptr"
-    ppbUserBlobMarshal := ppbUserBlob is VarRef ? "ptr*" : "ptr"
-    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : "ptr"
+    pbEapConnDataMarshal := pbEapConnData is VarRef ? "char*" : IntPtr
+    pdwUserBlobSizeMarshal := pdwUserBlobSize is VarRef ? "uint*" : IntPtr
+    ppbUserBlobMarshal := ppbUserBlob is VarRef ? "ptr*" : IntPtr
+    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("eappcfg.dll\EapHostPeerQueryUserBlobFromCredentialInputFields", HANDLE, hUserImpersonationToken, EAP_METHOD_TYPE, eapMethodType, UInt32, dwFlags, UInt32, dwEapConnDataSize, pbEapConnDataMarshal, pbEapConnData, EAP_CONFIG_INPUT_FIELD_ARRAY.Ptr, pEapConfigInputFieldArray, pdwUserBlobSizeMarshal, pdwUserBlobSize, ppbUserBlobMarshal, ppbUserBlob, ppEapErrorMarshal, ppEapError, UInt32)
     return result
@@ -172,13 +173,14 @@ export EapHostPeerQueryUserBlobFromCredentialInputFields(hUserImpersonationToken
  * @since windows6.0.6000
  */
 export EapHostPeerInvokeIdentityUI(dwVersion, eapMethodType, dwFlags, hwndParent, dwSizeofConnectionData, pConnectionData, dwSizeofUserData, pUserData, pdwSizeOfUserDataOut, ppUserDataOut, ppwszIdentity, ppEapError, ppvReserved) {
-    pConnectionDataMarshal := pConnectionData is VarRef ? "char*" : "ptr"
-    pUserDataMarshal := pUserData is VarRef ? "char*" : "ptr"
-    pdwSizeOfUserDataOutMarshal := pdwSizeOfUserDataOut is VarRef ? "uint*" : "ptr"
-    ppUserDataOutMarshal := ppUserDataOut is VarRef ? "ptr*" : "ptr"
-    ppwszIdentityMarshal := ppwszIdentity is VarRef ? "ptr*" : "ptr"
-    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : "ptr"
-    ppvReservedMarshal := ppvReserved is VarRef ? "ptr*" : "ptr"
+    pConnectionDataMarshal := pConnectionData is VarRef ? "char*" : IntPtr
+    pUserDataMarshal := pUserData is VarRef ? "char*" : IntPtr
+    pUserDataMarshal := pUserData == 0 ? IntPtr : "char*"
+    pdwSizeOfUserDataOutMarshal := pdwSizeOfUserDataOut is VarRef ? "uint*" : IntPtr
+    ppUserDataOutMarshal := ppUserDataOut is VarRef ? "ptr*" : IntPtr
+    ppwszIdentityMarshal := ppwszIdentity is VarRef ? "ptr*" : IntPtr
+    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : IntPtr
+    ppvReservedMarshal := ppvReserved is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("eappcfg.dll\EapHostPeerInvokeIdentityUI", UInt32, dwVersion, EAP_METHOD_TYPE, eapMethodType, UInt32, dwFlags, HWND, hwndParent, UInt32, dwSizeofConnectionData, pConnectionDataMarshal, pConnectionData, UInt32, dwSizeofUserData, pUserDataMarshal, pUserData, pdwSizeOfUserDataOutMarshal, pdwSizeOfUserDataOut, ppUserDataOutMarshal, ppUserDataOut, ppwszIdentityMarshal, ppwszIdentity, ppEapErrorMarshal, ppEapError, ppvReservedMarshal, ppvReserved, UInt32)
     return result
@@ -203,10 +205,11 @@ export EapHostPeerInvokeIdentityUI(dwVersion, eapMethodType, dwFlags, hwndParent
  * @since windows6.0.6000
  */
 export EapHostPeerInvokeInteractiveUI(hwndParent, dwSizeofUIContextData, pUIContextData, pdwSizeOfDataFromInteractiveUI, ppDataFromInteractiveUI, ppEapError) {
-    pUIContextDataMarshal := pUIContextData is VarRef ? "char*" : "ptr"
-    pdwSizeOfDataFromInteractiveUIMarshal := pdwSizeOfDataFromInteractiveUI is VarRef ? "uint*" : "ptr"
-    ppDataFromInteractiveUIMarshal := ppDataFromInteractiveUI is VarRef ? "ptr*" : "ptr"
-    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : "ptr"
+    pUIContextDataMarshal := pUIContextData is VarRef ? "char*" : IntPtr
+    pUIContextDataMarshal := pUIContextData == 0 ? IntPtr : "char*"
+    pdwSizeOfDataFromInteractiveUIMarshal := pdwSizeOfDataFromInteractiveUI is VarRef ? "uint*" : IntPtr
+    ppDataFromInteractiveUIMarshal := ppDataFromInteractiveUI is VarRef ? "ptr*" : IntPtr
+    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("eappcfg.dll\EapHostPeerInvokeInteractiveUI", HWND, hwndParent, UInt32, dwSizeofUIContextData, pUIContextDataMarshal, pUIContextData, pdwSizeOfDataFromInteractiveUIMarshal, pdwSizeOfDataFromInteractiveUI, ppDataFromInteractiveUIMarshal, ppDataFromInteractiveUI, ppEapErrorMarshal, ppEapError, UInt32)
     return result
@@ -249,9 +252,9 @@ export EapHostPeerInvokeInteractiveUI(hwndParent, dwSizeofUIContextData, pUICont
  * @since windows6.0.6000
  */
 export EapHostPeerQueryInteractiveUIInputFields(dwVersion, dwFlags, dwSizeofUIContextData, pUIContextData, pEapInteractiveUIData, ppEapError, ppvReserved) {
-    pUIContextDataMarshal := pUIContextData is VarRef ? "char*" : "ptr"
-    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : "ptr"
-    ppvReservedMarshal := ppvReserved is VarRef ? "ptr*" : "ptr"
+    pUIContextDataMarshal := pUIContextData is VarRef ? "char*" : IntPtr
+    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : IntPtr
+    ppvReservedMarshal := ppvReserved is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("eappcfg.dll\EapHostPeerQueryInteractiveUIInputFields", UInt32, dwVersion, UInt32, dwFlags, UInt32, dwSizeofUIContextData, pUIContextDataMarshal, pUIContextData, EAP_INTERACTIVE_UI_DATA.Ptr, pEapInteractiveUIData, ppEapErrorMarshal, ppEapError, ppvReservedMarshal, ppvReserved, UInt32)
     return result
@@ -295,11 +298,11 @@ export EapHostPeerQueryInteractiveUIInputFields(dwVersion, dwFlags, dwSizeofUICo
  * @since windows6.0.6000
  */
 export EapHostPeerQueryUIBlobFromInteractiveUIInputFields(dwVersion, dwFlags, dwSizeofUIContextData, pUIContextData, pEapInteractiveUIData, pdwSizeOfDataFromInteractiveUI, ppDataFromInteractiveUI, ppEapError, ppvReserved) {
-    pUIContextDataMarshal := pUIContextData is VarRef ? "char*" : "ptr"
-    pdwSizeOfDataFromInteractiveUIMarshal := pdwSizeOfDataFromInteractiveUI is VarRef ? "uint*" : "ptr"
-    ppDataFromInteractiveUIMarshal := ppDataFromInteractiveUI is VarRef ? "ptr*" : "ptr"
-    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : "ptr"
-    ppvReservedMarshal := ppvReserved is VarRef ? "ptr*" : "ptr"
+    pUIContextDataMarshal := pUIContextData is VarRef ? "char*" : IntPtr
+    pdwSizeOfDataFromInteractiveUIMarshal := pdwSizeOfDataFromInteractiveUI is VarRef ? "uint*" : IntPtr
+    ppDataFromInteractiveUIMarshal := ppDataFromInteractiveUI is VarRef ? "ptr*" : IntPtr
+    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : IntPtr
+    ppvReservedMarshal := ppvReserved is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("eappcfg.dll\EapHostPeerQueryUIBlobFromInteractiveUIInputFields", UInt32, dwVersion, UInt32, dwFlags, UInt32, dwSizeofUIContextData, pUIContextDataMarshal, pUIContextData, EAP_INTERACTIVE_UI_DATA.Ptr, pEapInteractiveUIData, pdwSizeOfDataFromInteractiveUIMarshal, pdwSizeOfDataFromInteractiveUI, ppDataFromInteractiveUIMarshal, ppDataFromInteractiveUI, ppEapErrorMarshal, ppEapError, ppvReservedMarshal, ppvReserved, UInt32)
     return result
@@ -318,9 +321,9 @@ export EapHostPeerQueryUIBlobFromInteractiveUIInputFields(dwVersion, dwFlags, dw
  * @since windows6.0.6000
  */
 export EapHostPeerConfigXml2Blob(dwFlags, pConfigDoc, pdwSizeOfConfigOut, ppConfigOut, pEapMethodType, ppEapError) {
-    pdwSizeOfConfigOutMarshal := pdwSizeOfConfigOut is VarRef ? "uint*" : "ptr"
-    ppConfigOutMarshal := ppConfigOut is VarRef ? "ptr*" : "ptr"
-    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : "ptr"
+    pdwSizeOfConfigOutMarshal := pdwSizeOfConfigOut is VarRef ? "uint*" : IntPtr
+    ppConfigOutMarshal := ppConfigOut is VarRef ? "ptr*" : IntPtr
+    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("eappcfg.dll\EapHostPeerConfigXml2Blob", UInt32, dwFlags, "ptr", pConfigDoc, pdwSizeOfConfigOutMarshal, pdwSizeOfConfigOut, ppConfigOutMarshal, ppConfigOut, EAP_METHOD_TYPE.Ptr, pEapMethodType, ppEapErrorMarshal, ppEapError, UInt32)
     return result
@@ -356,10 +359,10 @@ export EapHostPeerConfigXml2Blob(dwFlags, pConfigDoc, pdwSizeOfConfigOut, ppConf
  * @since windows6.0.6000
  */
 export EapHostPeerCredentialsXml2Blob(dwFlags, pCredentialsDoc, dwSizeOfConfigIn, pConfigIn, pdwSizeOfCredentialsOut, ppCredentialsOut, pEapMethodType, ppEapError) {
-    pConfigInMarshal := pConfigIn is VarRef ? "char*" : "ptr"
-    pdwSizeOfCredentialsOutMarshal := pdwSizeOfCredentialsOut is VarRef ? "uint*" : "ptr"
-    ppCredentialsOutMarshal := ppCredentialsOut is VarRef ? "ptr*" : "ptr"
-    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : "ptr"
+    pConfigInMarshal := pConfigIn is VarRef ? "char*" : IntPtr
+    pdwSizeOfCredentialsOutMarshal := pdwSizeOfCredentialsOut is VarRef ? "uint*" : IntPtr
+    ppCredentialsOutMarshal := ppCredentialsOut is VarRef ? "ptr*" : IntPtr
+    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("eappcfg.dll\EapHostPeerCredentialsXml2Blob", UInt32, dwFlags, "ptr", pCredentialsDoc, UInt32, dwSizeOfConfigIn, pConfigInMarshal, pConfigIn, pdwSizeOfCredentialsOutMarshal, pdwSizeOfCredentialsOut, ppCredentialsOutMarshal, ppCredentialsOut, EAP_METHOD_TYPE.Ptr, pEapMethodType, ppEapErrorMarshal, ppEapError, UInt32)
     return result
@@ -379,8 +382,8 @@ export EapHostPeerCredentialsXml2Blob(dwFlags, pCredentialsDoc, dwSizeOfConfigIn
  * @since windows6.0.6000
  */
 export EapHostPeerConfigBlob2Xml(dwFlags, eapMethodType, dwSizeOfConfigIn, pConfigIn, ppConfigDoc, ppEapError) {
-    pConfigInMarshal := pConfigIn is VarRef ? "char*" : "ptr"
-    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : "ptr"
+    pConfigInMarshal := pConfigIn is VarRef ? "char*" : IntPtr
+    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("eappcfg.dll\EapHostPeerConfigBlob2Xml", UInt32, dwFlags, EAP_METHOD_TYPE, eapMethodType, UInt32, dwSizeOfConfigIn, pConfigInMarshal, pConfigIn, IXMLDOMDocument2.Ptr, ppConfigDoc, ppEapErrorMarshal, ppEapError, UInt32)
     return result
@@ -394,7 +397,7 @@ export EapHostPeerConfigBlob2Xml(dwFlags, eapMethodType, dwSizeOfConfigIn, pConf
  * @since windows6.0.6000
  */
 export EapHostPeerFreeMemory(pData) {
-    pDataMarshal := pData is VarRef ? "char*" : "ptr"
+    pDataMarshal := pData is VarRef ? "char*" : IntPtr
 
     DllCall("eappcfg.dll\EapHostPeerFreeMemory", pDataMarshal, pData)
 }
@@ -495,13 +498,16 @@ export EapHostPeerUninitialize() {
  * @since windows6.0.6000
  */
 export EapHostPeerBeginSession(dwFlags, eapType, pAttributeArray, hTokenImpersonateUser, dwSizeofConnectionData, pConnectionData, dwSizeofUserData, pUserData, dwMaxSendPacketSize, pConnectionId, _func, pContextData, pSessionId, ppEapError) {
-    pConnectionDataMarshal := pConnectionData is VarRef ? "char*" : "ptr"
-    pUserDataMarshal := pUserData is VarRef ? "char*" : "ptr"
-    pContextDataMarshal := pContextData is VarRef ? "ptr" : "ptr"
-    pSessionIdMarshal := pSessionId is VarRef ? "uint*" : "ptr"
-    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : "ptr"
+    pConnectionDataMarshal := pConnectionData is VarRef ? "char*" : IntPtr
+    pUserDataMarshal := pUserData is VarRef ? "char*" : IntPtr
+    pConnectionIdMarshal := pConnectionId == 0 ? IntPtr : Guid.Ptr
+    _funcMarshal := _func == 0 ? IntPtr : NotificationHandler
+    pContextDataMarshal := pContextData is VarRef ? "ptr" : IntPtr
+    pContextDataMarshal := pContextData == 0 ? IntPtr : "ptr"
+    pSessionIdMarshal := pSessionId is VarRef ? "uint*" : IntPtr
+    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("eappprxy.dll\EapHostPeerBeginSession", UInt32, dwFlags, EAP_METHOD_TYPE, eapType, EAP_ATTRIBUTES.Ptr, pAttributeArray, HANDLE, hTokenImpersonateUser, UInt32, dwSizeofConnectionData, pConnectionDataMarshal, pConnectionData, UInt32, dwSizeofUserData, pUserDataMarshal, pUserData, UInt32, dwMaxSendPacketSize, Guid.Ptr, pConnectionId, NotificationHandler, _func, pContextDataMarshal, pContextData, pSessionIdMarshal, pSessionId, ppEapErrorMarshal, ppEapError, UInt32)
+    result := DllCall("eappprxy.dll\EapHostPeerBeginSession", UInt32, dwFlags, EAP_METHOD_TYPE, eapType, EAP_ATTRIBUTES.Ptr, pAttributeArray, HANDLE, hTokenImpersonateUser, UInt32, dwSizeofConnectionData, pConnectionDataMarshal, pConnectionData, UInt32, dwSizeofUserData, pUserDataMarshal, pUserData, UInt32, dwMaxSendPacketSize, pConnectionIdMarshal, pConnectionId, _funcMarshal, _func, pContextDataMarshal, pContextData, pSessionIdMarshal, pSessionId, ppEapErrorMarshal, ppEapError, UInt32)
     return result
 }
 
@@ -519,9 +525,9 @@ export EapHostPeerBeginSession(dwFlags, eapType, pAttributeArray, hTokenImperson
  * @since windows6.0.6000
  */
 export EapHostPeerProcessReceivedPacket(sessionHandle, cbReceivePacket, pReceivePacket, pEapOutput, ppEapError) {
-    pReceivePacketMarshal := pReceivePacket is VarRef ? "char*" : "ptr"
-    pEapOutputMarshal := pEapOutput is VarRef ? "int*" : "ptr"
-    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : "ptr"
+    pReceivePacketMarshal := pReceivePacket is VarRef ? "char*" : IntPtr
+    pEapOutputMarshal := pEapOutput is VarRef ? "int*" : IntPtr
+    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("eappprxy.dll\EapHostPeerProcessReceivedPacket", UInt32, sessionHandle, UInt32, cbReceivePacket, pReceivePacketMarshal, pReceivePacket, pEapOutputMarshal, pEapOutput, ppEapErrorMarshal, ppEapError, UInt32)
     return result
@@ -538,9 +544,9 @@ export EapHostPeerProcessReceivedPacket(sessionHandle, cbReceivePacket, pReceive
  * @since windows6.0.6000
  */
 export EapHostPeerGetSendPacket(sessionHandle, pcbSendPacket, ppSendPacket, ppEapError) {
-    pcbSendPacketMarshal := pcbSendPacket is VarRef ? "uint*" : "ptr"
-    ppSendPacketMarshal := ppSendPacket is VarRef ? "ptr*" : "ptr"
-    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : "ptr"
+    pcbSendPacketMarshal := pcbSendPacket is VarRef ? "uint*" : IntPtr
+    ppSendPacketMarshal := ppSendPacket is VarRef ? "ptr*" : IntPtr
+    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("eappprxy.dll\EapHostPeerGetSendPacket", UInt32, sessionHandle, pcbSendPacketMarshal, pcbSendPacket, ppSendPacketMarshal, ppSendPacket, ppEapErrorMarshal, ppEapError, UInt32)
     return result
@@ -570,7 +576,7 @@ export EapHostPeerGetSendPacket(sessionHandle, pcbSendPacket, ppSendPacket, ppEa
  * @since windows6.0.6000
  */
 export EapHostPeerGetResult(sessionHandle, reason, ppResult, ppEapError) {
-    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : "ptr"
+    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("eappprxy.dll\EapHostPeerGetResult", UInt32, sessionHandle, EapHostPeerMethodResultReason, reason, EapHostPeerMethodResult.Ptr, ppResult, ppEapErrorMarshal, ppEapError, UInt32)
     return result
@@ -587,9 +593,9 @@ export EapHostPeerGetResult(sessionHandle, reason, ppResult, ppEapError) {
  * @since windows6.0.6000
  */
 export EapHostPeerGetUIContext(sessionHandle, pdwSizeOfUIContextData, ppUIContextData, ppEapError) {
-    pdwSizeOfUIContextDataMarshal := pdwSizeOfUIContextData is VarRef ? "uint*" : "ptr"
-    ppUIContextDataMarshal := ppUIContextData is VarRef ? "ptr*" : "ptr"
-    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : "ptr"
+    pdwSizeOfUIContextDataMarshal := pdwSizeOfUIContextData is VarRef ? "uint*" : IntPtr
+    ppUIContextDataMarshal := ppUIContextData is VarRef ? "ptr*" : IntPtr
+    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("eappprxy.dll\EapHostPeerGetUIContext", UInt32, sessionHandle, pdwSizeOfUIContextDataMarshal, pdwSizeOfUIContextData, ppUIContextDataMarshal, ppUIContextData, ppEapErrorMarshal, ppEapError, UInt32)
     return result
@@ -607,9 +613,9 @@ export EapHostPeerGetUIContext(sessionHandle, pdwSizeOfUIContextData, ppUIContex
  * @since windows6.0.6000
  */
 export EapHostPeerSetUIContext(sessionHandle, dwSizeOfUIContextData, pUIContextData, pEapOutput, ppEapError) {
-    pUIContextDataMarshal := pUIContextData is VarRef ? "char*" : "ptr"
-    pEapOutputMarshal := pEapOutput is VarRef ? "int*" : "ptr"
-    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : "ptr"
+    pUIContextDataMarshal := pUIContextData is VarRef ? "char*" : IntPtr
+    pEapOutputMarshal := pEapOutput is VarRef ? "int*" : IntPtr
+    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("eappprxy.dll\EapHostPeerSetUIContext", UInt32, sessionHandle, UInt32, dwSizeOfUIContextData, pUIContextDataMarshal, pUIContextData, pEapOutputMarshal, pEapOutput, ppEapErrorMarshal, ppEapError, UInt32)
     return result
@@ -625,7 +631,7 @@ export EapHostPeerSetUIContext(sessionHandle, dwSizeOfUIContextData, pUIContextD
  * @since windows6.0.6000
  */
 export EapHostPeerGetResponseAttributes(sessionHandle, pAttribs, ppEapError) {
-    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : "ptr"
+    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("eappprxy.dll\EapHostPeerGetResponseAttributes", UInt32, sessionHandle, EAP_ATTRIBUTES.Ptr, pAttribs, ppEapErrorMarshal, ppEapError, UInt32)
     return result
@@ -658,8 +664,8 @@ export EapHostPeerGetResponseAttributes(sessionHandle, pAttribs, ppEapError) {
  * @since windows6.0.6000
  */
 export EapHostPeerSetResponseAttributes(sessionHandle, pAttribs, pEapOutput, ppEapError) {
-    pEapOutputMarshal := pEapOutput is VarRef ? "int*" : "ptr"
-    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : "ptr"
+    pEapOutputMarshal := pEapOutput is VarRef ? "int*" : IntPtr
+    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("eappprxy.dll\EapHostPeerSetResponseAttributes", UInt32, sessionHandle, EAP_ATTRIBUTES.Ptr, pAttribs, pEapOutputMarshal, pEapOutput, ppEapErrorMarshal, ppEapError, UInt32)
     return result
@@ -724,9 +730,9 @@ export EapHostPeerSetResponseAttributes(sessionHandle, pAttribs, pEapOutput, ppE
  * @since windows6.0.6000
  */
 export EapHostPeerGetAuthStatus(sessionHandle, authParam, pcbAuthData, ppAuthData, ppEapError) {
-    pcbAuthDataMarshal := pcbAuthData is VarRef ? "uint*" : "ptr"
-    ppAuthDataMarshal := ppAuthData is VarRef ? "ptr*" : "ptr"
-    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : "ptr"
+    pcbAuthDataMarshal := pcbAuthData is VarRef ? "uint*" : IntPtr
+    ppAuthDataMarshal := ppAuthData is VarRef ? "ptr*" : IntPtr
+    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("eappprxy.dll\EapHostPeerGetAuthStatus", UInt32, sessionHandle, EapHostPeerAuthParams, authParam, pcbAuthDataMarshal, pcbAuthData, ppAuthDataMarshal, ppAuthData, ppEapErrorMarshal, ppEapError, UInt32)
     return result
@@ -741,7 +747,7 @@ export EapHostPeerGetAuthStatus(sessionHandle, authParam, pcbAuthData, ppAuthDat
  * @since windows6.0.6000
  */
 export EapHostPeerEndSession(sessionHandle, ppEapError) {
-    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : "ptr"
+    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("eappprxy.dll\EapHostPeerEndSession", UInt32, sessionHandle, ppEapErrorMarshal, ppEapError, UInt32)
     return result
@@ -759,9 +765,9 @@ export EapHostPeerEndSession(sessionHandle, ppEapError) {
  * @since windows10.0.10240
  */
 export EapHostPeerGetDataToUnplumbCredentials(pConnectionIdThatLastSavedCreds, phCredentialImpersonationToken, sessionHandle, ppEapError, fSaveToCredMan) {
-    phCredentialImpersonationTokenMarshal := phCredentialImpersonationToken is VarRef ? "ptr*" : "ptr"
-    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : "ptr"
-    fSaveToCredManMarshal := fSaveToCredMan is VarRef ? "int*" : "ptr"
+    phCredentialImpersonationTokenMarshal := phCredentialImpersonationToken is VarRef ? "ptr*" : IntPtr
+    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : IntPtr
+    fSaveToCredManMarshal := fSaveToCredMan is VarRef ? "int*" : IntPtr
 
     result := DllCall("eappprxy.dll\EapHostPeerGetDataToUnplumbCredentials", Guid.Ptr, pConnectionIdThatLastSavedCreds, phCredentialImpersonationTokenMarshal, phCredentialImpersonationToken, UInt32, sessionHandle, ppEapErrorMarshal, ppEapError, fSaveToCredManMarshal, fSaveToCredMan, UInt32)
     return result
@@ -776,7 +782,7 @@ export EapHostPeerGetDataToUnplumbCredentials(pConnectionIdThatLastSavedCreds, p
  * @since windows6.0.6000
  */
 export EapHostPeerClearConnection(pConnectionId, ppEapError) {
-    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : "ptr"
+    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("eappprxy.dll\EapHostPeerClearConnection", Guid.Ptr, pConnectionId, ppEapErrorMarshal, ppEapError, UInt32)
     return result
@@ -818,28 +824,28 @@ export EapHostPeerFreeEapError(pEapError) {
  * @since windows6.0.6000
  */
 export EapHostPeerGetIdentity(dwVersion, dwFlags, eapMethodType, dwSizeofConnectionData, pConnectionData, dwSizeofUserData, pUserData, hTokenImpersonateUser, pfInvokeUI, pdwSizeOfUserDataOut, ppUserDataOut, ppwszIdentity, ppEapError, ppvReserved) {
-    pConnectionDataMarshal := pConnectionData is VarRef ? "char*" : "ptr"
-    pUserDataMarshal := pUserData is VarRef ? "char*" : "ptr"
-    pfInvokeUIMarshal := pfInvokeUI is VarRef ? "int*" : "ptr"
-    pdwSizeOfUserDataOutMarshal := pdwSizeOfUserDataOut is VarRef ? "uint*" : "ptr"
-    ppUserDataOutMarshal := ppUserDataOut is VarRef ? "ptr*" : "ptr"
-    ppwszIdentityMarshal := ppwszIdentity is VarRef ? "ptr*" : "ptr"
-    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : "ptr"
-    ppvReservedMarshal := ppvReserved is VarRef ? "ptr*" : "ptr"
+    pConnectionDataMarshal := pConnectionData is VarRef ? "char*" : IntPtr
+    pUserDataMarshal := pUserData is VarRef ? "char*" : IntPtr
+    pUserDataMarshal := pUserData == 0 ? IntPtr : "char*"
+    pfInvokeUIMarshal := pfInvokeUI is VarRef ? "int*" : IntPtr
+    pdwSizeOfUserDataOutMarshal := pdwSizeOfUserDataOut is VarRef ? "uint*" : IntPtr
+    ppUserDataOutMarshal := ppUserDataOut is VarRef ? "ptr*" : IntPtr
+    ppwszIdentityMarshal := ppwszIdentity is VarRef ? "ptr*" : IntPtr
+    ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : IntPtr
+    ppvReservedMarshal := ppvReserved is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("eappprxy.dll\EapHostPeerGetIdentity", UInt32, dwVersion, UInt32, dwFlags, EAP_METHOD_TYPE, eapMethodType, UInt32, dwSizeofConnectionData, pConnectionDataMarshal, pConnectionData, UInt32, dwSizeofUserData, pUserDataMarshal, pUserData, HANDLE, hTokenImpersonateUser, pfInvokeUIMarshal, pfInvokeUI, pdwSizeOfUserDataOutMarshal, pdwSizeOfUserDataOut, ppUserDataOutMarshal, ppUserDataOut, ppwszIdentityMarshal, ppwszIdentity, ppEapErrorMarshal, ppEapError, ppvReservedMarshal, ppvReserved, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Integer} dwSizeofPassword 
  * @param {Integer} szPassword 
  * @param {Pointer<PWSTR>} ppszEncPassword 
  * @returns {Integer} 
  */
 export EapHostPeerGetEncryptedPassword(dwSizeofPassword, szPassword, ppszEncPassword) {
-    ppszEncPasswordMarshal := ppszEncPassword is VarRef ? "ptr*" : "ptr"
+    ppszEncPasswordMarshal := ppszEncPassword is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("eappprxy.dll\EapHostPeerGetEncryptedPassword", UInt32, dwSizeofPassword, IntPtr, szPassword, ppszEncPasswordMarshal, ppszEncPassword, UInt32)
     return result
@@ -857,7 +863,7 @@ export EapHostPeerGetEncryptedPassword(dwSizeofPassword, szPassword, ppszEncPass
  * @since windows6.0.6000
  */
 export EapHostPeerFreeRuntimeMemory(pData) {
-    pDataMarshal := pData is VarRef ? "char*" : "ptr"
+    pDataMarshal := pData is VarRef ? "char*" : IntPtr
 
     DllCall("eappprxy.dll\EapHostPeerFreeRuntimeMemory", pDataMarshal, pData)
 }

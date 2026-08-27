@@ -20,7 +20,6 @@ export default struct PCLUSAPI_SET_CLUSTER_QUORUM_RESOURCE_EX {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {PWSTR} lpszDeviceName 
      * @param {Integer} dwMaxQuorumLogSize 
@@ -31,7 +30,10 @@ export default struct PCLUSAPI_SET_CLUSTER_QUORUM_RESOURCE_EX {
         lpszDeviceName := lpszDeviceName is String ? StrPtr(lpszDeviceName) : lpszDeviceName
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall(this.value, HRESOURCE, _hResource, "ptr", lpszDeviceName, UInt32, dwMaxQuorumLogSize, "ptr", lpszReason, UInt32)
+        lpszDeviceNameMarshal := lpszDeviceName == 0 ? IntPtr : PWSTR
+        lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+        result := DllCall(this.value, HRESOURCE, _hResource, lpszDeviceNameMarshal, lpszDeviceName, UInt32, dwMaxQuorumLogSize, lpszReasonMarshal, lpszReason, UInt32)
         return result
     }
 

@@ -45,7 +45,6 @@ export default struct FolderItem2 extends FolderItem {
     }
 
     /**
-     * 
      * @param {VARIANT} vVerb 
      * @param {VARIANT} vArgs 
      * @returns {HRESULT} 
@@ -87,8 +86,8 @@ export default struct FolderItem2 extends FolderItem {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InvokeVerbEx := CallbackCreate(GetMethod(implObj, "InvokeVerbEx"), flags, 3)
-        this.vtbl.ExtendedProperty := CallbackCreate(GetMethod(implObj, "ExtendedProperty"), flags, 3)
+        this.vtbl.InvokeVerbEx := CallbackCreate(ObjBindMethod(implObj, "InvokeVerbEx"), flags, 3)
+        this.vtbl.ExtendedProperty := CallbackCreate(ObjBindMethod(implObj, "ExtendedProperty"), flags, 3)
     }
 
     Dispose() {

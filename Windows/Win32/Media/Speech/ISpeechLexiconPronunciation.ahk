@@ -79,7 +79,6 @@ export default struct ISpeechLexiconPronunciation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechLexiconType} 
      */
     get_Type() {
@@ -88,7 +87,6 @@ export default struct ISpeechLexiconPronunciation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_LangId() {
@@ -97,7 +95,6 @@ export default struct ISpeechLexiconPronunciation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechPartOfSpeech} 
      */
     get_PartOfSpeech() {
@@ -106,7 +103,6 @@ export default struct ISpeechLexiconPronunciation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_PhoneIds() {
@@ -116,7 +112,6 @@ export default struct ISpeechLexiconPronunciation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Symbolic() {
@@ -134,11 +129,11 @@ export default struct ISpeechLexiconPronunciation extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
-        this.vtbl.get_LangId := CallbackCreate(GetMethod(implObj, "get_LangId"), flags, 2)
-        this.vtbl.get_PartOfSpeech := CallbackCreate(GetMethod(implObj, "get_PartOfSpeech"), flags, 2)
-        this.vtbl.get_PhoneIds := CallbackCreate(GetMethod(implObj, "get_PhoneIds"), flags, 2)
-        this.vtbl.get_Symbolic := CallbackCreate(GetMethod(implObj, "get_Symbolic"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(ObjBindMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_LangId := CallbackCreate(ObjBindMethod(implObj, "get_LangId"), flags, 2)
+        this.vtbl.get_PartOfSpeech := CallbackCreate(ObjBindMethod(implObj, "get_PartOfSpeech"), flags, 2)
+        this.vtbl.get_PhoneIds := CallbackCreate(ObjBindMethod(implObj, "get_PhoneIds"), flags, 2)
+        this.vtbl.get_Symbolic := CallbackCreate(ObjBindMethod(implObj, "get_Symbolic"), flags, 2)
     }
 
     Dispose() {

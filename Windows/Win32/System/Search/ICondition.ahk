@@ -106,10 +106,13 @@ export default struct ICondition extends IPersistStream {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquerycondition/nf-structuredquerycondition-icondition-getcomparisoninfo
      */
     GetComparisonInfo(ppszPropertyName, pcop, ppropvar) {
-        ppszPropertyNameMarshal := ppszPropertyName is VarRef ? "ptr*" : "ptr"
-        pcopMarshal := pcop is VarRef ? "int*" : "ptr"
+        ppszPropertyNameMarshal := ppszPropertyName is VarRef ? "ptr*" : IntPtr
+        ppszPropertyNameMarshal := ppszPropertyName == 0 ? IntPtr : PWSTR.Ptr
+        pcopMarshal := pcop is VarRef ? "int*" : IntPtr
+        pcopMarshal := pcop == 0 ? IntPtr : "int*"
+        ppropvarMarshal := ppropvar == 0 ? IntPtr : PROPVARIANT.Ptr
 
-        result := ComCall(10, this, ppszPropertyNameMarshal, ppszPropertyName, pcopMarshal, pcop, PROPVARIANT.Ptr, ppropvar, "HRESULT")
+        result := ComCall(10, this, ppszPropertyNameMarshal, ppszPropertyName, pcopMarshal, pcop, ppropvarMarshal, ppropvar, "HRESULT")
         return result
     }
 
@@ -160,7 +163,11 @@ export default struct ICondition extends IPersistStream {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquerycondition/nf-structuredquerycondition-icondition-getinputterms
      */
     GetInputTerms(ppPropertyTerm, ppOperationTerm, ppValueTerm) {
-        result := ComCall(13, this, IRichChunk.Ptr, ppPropertyTerm, IRichChunk.Ptr, ppOperationTerm, IRichChunk.Ptr, ppValueTerm, "HRESULT")
+        ppPropertyTermMarshal := ppPropertyTerm == 0 ? IntPtr : IRichChunk.Ptr
+        ppOperationTermMarshal := ppOperationTerm == 0 ? IntPtr : IRichChunk.Ptr
+        ppValueTermMarshal := ppValueTerm == 0 ? IntPtr : IRichChunk.Ptr
+
+        result := ComCall(13, this, ppPropertyTermMarshal, ppPropertyTerm, ppOperationTermMarshal, ppOperationTerm, ppValueTermMarshal, ppValueTerm, "HRESULT")
         return result
     }
 
@@ -187,13 +194,13 @@ export default struct ICondition extends IPersistStream {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetConditionType := CallbackCreate(GetMethod(implObj, "GetConditionType"), flags, 2)
-        this.vtbl.GetSubConditions := CallbackCreate(GetMethod(implObj, "GetSubConditions"), flags, 3)
-        this.vtbl.GetComparisonInfo := CallbackCreate(GetMethod(implObj, "GetComparisonInfo"), flags, 4)
-        this.vtbl.GetValueType := CallbackCreate(GetMethod(implObj, "GetValueType"), flags, 2)
-        this.vtbl.GetValueNormalization := CallbackCreate(GetMethod(implObj, "GetValueNormalization"), flags, 2)
-        this.vtbl.GetInputTerms := CallbackCreate(GetMethod(implObj, "GetInputTerms"), flags, 4)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.GetConditionType := CallbackCreate(ObjBindMethod(implObj, "GetConditionType"), flags, 2)
+        this.vtbl.GetSubConditions := CallbackCreate(ObjBindMethod(implObj, "GetSubConditions"), flags, 3)
+        this.vtbl.GetComparisonInfo := CallbackCreate(ObjBindMethod(implObj, "GetComparisonInfo"), flags, 4)
+        this.vtbl.GetValueType := CallbackCreate(ObjBindMethod(implObj, "GetValueType"), flags, 2)
+        this.vtbl.GetValueNormalization := CallbackCreate(ObjBindMethod(implObj, "GetValueNormalization"), flags, 2)
+        this.vtbl.GetInputTerms := CallbackCreate(ObjBindMethod(implObj, "GetInputTerms"), flags, 4)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
     }
 
     Dispose() {

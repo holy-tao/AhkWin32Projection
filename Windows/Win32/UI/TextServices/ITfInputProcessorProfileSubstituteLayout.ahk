@@ -61,7 +61,7 @@ export default struct ITfInputProcessorProfileSubstituteLayout extends IUnknown 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSubstituteKeyboardLayout := CallbackCreate(GetMethod(implObj, "GetSubstituteKeyboardLayout"), flags, 5)
+        this.vtbl.GetSubstituteKeyboardLayout := CallbackCreate(ObjBindMethod(implObj, "GetSubstituteKeyboardLayout"), flags, 5)
     }
 
     Dispose() {

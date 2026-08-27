@@ -19,7 +19,6 @@ export default struct CallbackThreadSetFnPtr {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Call() {

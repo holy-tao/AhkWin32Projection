@@ -102,7 +102,7 @@ export default struct IDvbDataBroadcastDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbdatabroadcastdescriptor-getselectorbytes
      */
     GetSelectorBytes(pbLen) {
-        pbLenMarshal := pbLen is VarRef ? "char*" : "ptr"
+        pbLenMarshal := pbLen is VarRef ? "char*" : IntPtr
 
         result := ComCall(8, this, pbLenMarshal, pbLen, "char*", &pbVal := 0, "HRESULT")
         return pbVal
@@ -136,7 +136,7 @@ export default struct IDvbDataBroadcastDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbdatabroadcastdescriptor-gettext
      */
     GetText(pbLen) {
-        pbLenMarshal := pbLen is VarRef ? "char*" : "ptr"
+        pbLenMarshal := pbLen is VarRef ? "char*" : IntPtr
 
         result := ComCall(11, this, pbLenMarshal, pbLen, "char*", &pbVal := 0, "HRESULT")
         return pbVal
@@ -151,15 +151,15 @@ export default struct IDvbDataBroadcastDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetDataBroadcastID := CallbackCreate(GetMethod(implObj, "GetDataBroadcastID"), flags, 2)
-        this.vtbl.GetComponentTag := CallbackCreate(GetMethod(implObj, "GetComponentTag"), flags, 2)
-        this.vtbl.GetSelectorLength := CallbackCreate(GetMethod(implObj, "GetSelectorLength"), flags, 2)
-        this.vtbl.GetSelectorBytes := CallbackCreate(GetMethod(implObj, "GetSelectorBytes"), flags, 3)
-        this.vtbl.GetLangID := CallbackCreate(GetMethod(implObj, "GetLangID"), flags, 2)
-        this.vtbl.GetTextLength := CallbackCreate(GetMethod(implObj, "GetTextLength"), flags, 2)
-        this.vtbl.GetText := CallbackCreate(GetMethod(implObj, "GetText"), flags, 3)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetDataBroadcastID := CallbackCreate(ObjBindMethod(implObj, "GetDataBroadcastID"), flags, 2)
+        this.vtbl.GetComponentTag := CallbackCreate(ObjBindMethod(implObj, "GetComponentTag"), flags, 2)
+        this.vtbl.GetSelectorLength := CallbackCreate(ObjBindMethod(implObj, "GetSelectorLength"), flags, 2)
+        this.vtbl.GetSelectorBytes := CallbackCreate(ObjBindMethod(implObj, "GetSelectorBytes"), flags, 3)
+        this.vtbl.GetLangID := CallbackCreate(ObjBindMethod(implObj, "GetLangID"), flags, 2)
+        this.vtbl.GetTextLength := CallbackCreate(ObjBindMethod(implObj, "GetTextLength"), flags, 2)
+        this.vtbl.GetText := CallbackCreate(ObjBindMethod(implObj, "GetText"), flags, 3)
     }
 
     Dispose() {

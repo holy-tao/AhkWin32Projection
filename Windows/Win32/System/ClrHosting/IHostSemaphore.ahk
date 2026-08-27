@@ -37,7 +37,6 @@ export default struct IHostSemaphore extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwMilliseconds 
      * @param {Integer} option 
      * @returns {HRESULT} 
@@ -84,8 +83,8 @@ export default struct IHostSemaphore extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Wait := CallbackCreate(GetMethod(implObj, "Wait"), flags, 3)
-        this.vtbl.ReleaseSemaphore := CallbackCreate(GetMethod(implObj, "ReleaseSemaphore"), flags, 3)
+        this.vtbl.Wait := CallbackCreate(ObjBindMethod(implObj, "Wait"), flags, 3)
+        this.vtbl.ReleaseSemaphore := CallbackCreate(ObjBindMethod(implObj, "ReleaseSemaphore"), flags, 3)
     }
 
     Dispose() {

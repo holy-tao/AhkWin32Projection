@@ -21,7 +21,6 @@ export default struct BCryptOpenAlgorithmProviderFn {
     }
 
     /**
-     * 
      * @param {Pointer<BCRYPT_ALG_HANDLE>} phAlgorithm 
      * @param {PWSTR} pszAlgId 
      * @param {Integer} dwFlags 

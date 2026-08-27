@@ -144,7 +144,6 @@ export default struct IHostSecurityManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {EContextType} _eContextType 
      * @returns {IHostSecurityContext} 
      */
@@ -154,7 +153,6 @@ export default struct IHostSecurityManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {EContextType} _eContextType 
      * @param {IHostSecurityContext} pSecurityContext 
      * @returns {HRESULT} 
@@ -173,12 +171,12 @@ export default struct IHostSecurityManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ImpersonateLoggedOnUser := CallbackCreate(GetMethod(implObj, "ImpersonateLoggedOnUser"), flags, 2)
-        this.vtbl.RevertToSelf := CallbackCreate(GetMethod(implObj, "RevertToSelf"), flags, 1)
-        this.vtbl.OpenThreadToken := CallbackCreate(GetMethod(implObj, "OpenThreadToken"), flags, 4)
-        this.vtbl.SetThreadToken := CallbackCreate(GetMethod(implObj, "SetThreadToken"), flags, 2)
-        this.vtbl.GetSecurityContext := CallbackCreate(GetMethod(implObj, "GetSecurityContext"), flags, 3)
-        this.vtbl.SetSecurityContext := CallbackCreate(GetMethod(implObj, "SetSecurityContext"), flags, 3)
+        this.vtbl.ImpersonateLoggedOnUser := CallbackCreate(ObjBindMethod(implObj, "ImpersonateLoggedOnUser"), flags, 2)
+        this.vtbl.RevertToSelf := CallbackCreate(ObjBindMethod(implObj, "RevertToSelf"), flags, 1)
+        this.vtbl.OpenThreadToken := CallbackCreate(ObjBindMethod(implObj, "OpenThreadToken"), flags, 4)
+        this.vtbl.SetThreadToken := CallbackCreate(ObjBindMethod(implObj, "SetThreadToken"), flags, 2)
+        this.vtbl.GetSecurityContext := CallbackCreate(ObjBindMethod(implObj, "GetSecurityContext"), flags, 3)
+        this.vtbl.SetSecurityContext := CallbackCreate(ObjBindMethod(implObj, "SetSecurityContext"), flags, 3)
     }
 
     Dispose() {

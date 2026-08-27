@@ -20,7 +20,6 @@ export default struct pCryptSIPGetSignedDataMsg {
     }
 
     /**
-     * 
      * @param {Pointer<SIP_SUBJECTINFO>} pSubjectInfo 
      * @param {Pointer<Integer>} pdwEncodingType 
      * @param {Integer} dwIndex 
@@ -29,9 +28,9 @@ export default struct pCryptSIPGetSignedDataMsg {
      * @returns {BOOL} 
      */
     Call(pSubjectInfo, pdwEncodingType, dwIndex, pcbSignedDataMsg, pbSignedDataMsg) {
-        pdwEncodingTypeMarshal := pdwEncodingType is VarRef ? "uint*" : "ptr"
-        pcbSignedDataMsgMarshal := pcbSignedDataMsg is VarRef ? "uint*" : "ptr"
-        pbSignedDataMsgMarshal := pbSignedDataMsg is VarRef ? "char*" : "ptr"
+        pdwEncodingTypeMarshal := pdwEncodingType is VarRef ? "uint*" : IntPtr
+        pcbSignedDataMsgMarshal := pcbSignedDataMsg is VarRef ? "uint*" : IntPtr
+        pbSignedDataMsgMarshal := pbSignedDataMsg is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, SIP_SUBJECTINFO.Ptr, pSubjectInfo, pdwEncodingTypeMarshal, pdwEncodingType, UInt32, dwIndex, pcbSignedDataMsgMarshal, pcbSignedDataMsg, pbSignedDataMsgMarshal, pbSignedDataMsg, BOOL)
         return result

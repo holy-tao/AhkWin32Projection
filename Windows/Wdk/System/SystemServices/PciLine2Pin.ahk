@@ -20,7 +20,6 @@ export default struct PciLine2Pin {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} BusHandler 
      * @param {Pointer<Pointer>} RootHandler 
      * @param {PCI_SLOT_NUMBER} SlotNumber 
@@ -29,8 +28,8 @@ export default struct PciLine2Pin {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(BusHandler, RootHandler, SlotNumber, PciNewData, PciOldData) {
-        BusHandlerMarshal := BusHandler is VarRef ? "ptr*" : "ptr"
-        RootHandlerMarshal := RootHandler is VarRef ? "ptr*" : "ptr"
+        BusHandlerMarshal := BusHandler is VarRef ? "ptr*" : IntPtr
+        RootHandlerMarshal := RootHandler is VarRef ? "ptr*" : IntPtr
 
         DllCall(this.value, BusHandlerMarshal, BusHandler, RootHandlerMarshal, RootHandler, PCI_SLOT_NUMBER, SlotNumber, PCI_COMMON_CONFIG.Ptr, PciNewData, PCI_COMMON_CONFIG.Ptr, PciOldData)
     }

@@ -38,7 +38,6 @@ export default struct ITransactionLocal extends ITransaction {
     }
 
     /**
-     * 
      * @returns {ITransactionOptions} 
      */
     GetOptionsObject() {
@@ -47,14 +46,15 @@ export default struct ITransactionLocal extends ITransaction {
     }
 
     /**
-     * 
      * @param {Integer} isoLevel 
      * @param {Integer} isoFlags 
      * @param {ITransactionOptions} pOtherOptions 
      * @returns {Integer} 
      */
     StartTransaction(isoLevel, isoFlags, pOtherOptions) {
-        result := ComCall(7, this, Int32, isoLevel, UInt32, isoFlags, "ptr", pOtherOptions, "uint*", &pulTransactionLevel := 0, "HRESULT")
+        pOtherOptionsMarshal := pOtherOptions == 0 ? IntPtr : "ptr"
+
+        result := ComCall(7, this, Int32, isoLevel, UInt32, isoFlags, pOtherOptionsMarshal, pOtherOptions, "uint*", &pulTransactionLevel := 0, "HRESULT")
         return pulTransactionLevel
     }
 
@@ -67,8 +67,8 @@ export default struct ITransactionLocal extends ITransaction {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOptionsObject := CallbackCreate(GetMethod(implObj, "GetOptionsObject"), flags, 2)
-        this.vtbl.StartTransaction := CallbackCreate(GetMethod(implObj, "StartTransaction"), flags, 5)
+        this.vtbl.GetOptionsObject := CallbackCreate(ObjBindMethod(implObj, "GetOptionsObject"), flags, 2)
+        this.vtbl.StartTransaction := CallbackCreate(ObjBindMethod(implObj, "StartTransaction"), flags, 5)
     }
 
     Dispose() {

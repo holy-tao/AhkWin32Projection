@@ -61,7 +61,7 @@ export default struct ID2D1DrawInfo extends ID2D1RenderInfo {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1drawinfo-setpixelshaderconstantbuffer
      */
     SetPixelShaderConstantBuffer(_buffer, bufferCount) {
-        _bufferMarshal := _buffer is VarRef ? "char*" : "ptr"
+        _bufferMarshal := _buffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(7, this, _bufferMarshal, _buffer, UInt32, bufferCount, "HRESULT")
         return result
@@ -99,7 +99,7 @@ export default struct ID2D1DrawInfo extends ID2D1RenderInfo {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1drawinfo-setvertexshaderconstantbuffer
      */
     SetVertexShaderConstantBuffer(_buffer, bufferCount) {
-        _bufferMarshal := _buffer is VarRef ? "char*" : "ptr"
+        _bufferMarshal := _buffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(9, this, _bufferMarshal, _buffer, UInt32, bufferCount, "HRESULT")
         return result
@@ -179,7 +179,12 @@ export default struct ID2D1DrawInfo extends ID2D1RenderInfo {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1drawinfo-setvertexprocessing
      */
     SetVertexProcessing(vertexBuffer, vertexOptions, blendDescription, vertexRange, vertexShader) {
-        result := ComCall(11, this, "ptr", vertexBuffer, D2D1_VERTEX_OPTIONS, vertexOptions, D2D1_BLEND_DESCRIPTION.Ptr, blendDescription, D2D1_VERTEX_RANGE.Ptr, vertexRange, Guid.Ptr, vertexShader, "HRESULT")
+        vertexBufferMarshal := vertexBuffer == 0 ? IntPtr : "ptr"
+        blendDescriptionMarshal := blendDescription == 0 ? IntPtr : D2D1_BLEND_DESCRIPTION.Ptr
+        vertexRangeMarshal := vertexRange == 0 ? IntPtr : D2D1_VERTEX_RANGE.Ptr
+        vertexShaderMarshal := vertexShader == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(11, this, vertexBufferMarshal, vertexBuffer, D2D1_VERTEX_OPTIONS, vertexOptions, blendDescriptionMarshal, blendDescription, vertexRangeMarshal, vertexRange, vertexShaderMarshal, vertexShader, "HRESULT")
         return result
     }
 
@@ -192,11 +197,11 @@ export default struct ID2D1DrawInfo extends ID2D1RenderInfo {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetPixelShaderConstantBuffer := CallbackCreate(GetMethod(implObj, "SetPixelShaderConstantBuffer"), flags, 3)
-        this.vtbl.SetResourceTexture := CallbackCreate(GetMethod(implObj, "SetResourceTexture"), flags, 3)
-        this.vtbl.SetVertexShaderConstantBuffer := CallbackCreate(GetMethod(implObj, "SetVertexShaderConstantBuffer"), flags, 3)
-        this.vtbl.SetPixelShader := CallbackCreate(GetMethod(implObj, "SetPixelShader"), flags, 3)
-        this.vtbl.SetVertexProcessing := CallbackCreate(GetMethod(implObj, "SetVertexProcessing"), flags, 6)
+        this.vtbl.SetPixelShaderConstantBuffer := CallbackCreate(ObjBindMethod(implObj, "SetPixelShaderConstantBuffer"), flags, 3)
+        this.vtbl.SetResourceTexture := CallbackCreate(ObjBindMethod(implObj, "SetResourceTexture"), flags, 3)
+        this.vtbl.SetVertexShaderConstantBuffer := CallbackCreate(ObjBindMethod(implObj, "SetVertexShaderConstantBuffer"), flags, 3)
+        this.vtbl.SetPixelShader := CallbackCreate(ObjBindMethod(implObj, "SetPixelShader"), flags, 3)
+        this.vtbl.SetVertexProcessing := CallbackCreate(ObjBindMethod(implObj, "SetVertexProcessing"), flags, 6)
     }
 
     Dispose() {

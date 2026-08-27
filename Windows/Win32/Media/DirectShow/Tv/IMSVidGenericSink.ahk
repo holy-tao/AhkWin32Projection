@@ -118,9 +118,9 @@ export default struct IMSVidGenericSink extends IMSVidOutputDevice {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetSinkFilter := CallbackCreate(GetMethod(implObj, "SetSinkFilter"), flags, 2)
-        this.vtbl.get_SinkStreams := CallbackCreate(GetMethod(implObj, "get_SinkStreams"), flags, 2)
-        this.vtbl.put_SinkStreams := CallbackCreate(GetMethod(implObj, "put_SinkStreams"), flags, 2)
+        this.vtbl.SetSinkFilter := CallbackCreate(ObjBindMethod(implObj, "SetSinkFilter"), flags, 2)
+        this.vtbl.get_SinkStreams := CallbackCreate(ObjBindMethod(implObj, "get_SinkStreams"), flags, 2)
+        this.vtbl.put_SinkStreams := CallbackCreate(ObjBindMethod(implObj, "put_SinkStreams"), flags, 2)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct PF_NPGetUniversalName {
     }
 
     /**
-     * 
      * @param {PWSTR} lpLocalPath 
      * @param {Integer} dwInfoLevel 
      * @param {Integer} lpBuffer 
@@ -29,7 +28,7 @@ export default struct PF_NPGetUniversalName {
     Call(lpLocalPath, dwInfoLevel, lpBuffer, lpnBufferSize) {
         lpLocalPath := lpLocalPath is String ? StrPtr(lpLocalPath) : lpLocalPath
 
-        lpnBufferSizeMarshal := lpnBufferSize is VarRef ? "uint*" : "ptr"
+        lpnBufferSizeMarshal := lpnBufferSize is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, "ptr", lpLocalPath, UInt32, dwInfoLevel, IntPtr, lpBuffer, lpnBufferSizeMarshal, lpnBufferSize, UInt32)
         return result

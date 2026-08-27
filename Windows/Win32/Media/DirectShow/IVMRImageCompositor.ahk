@@ -108,10 +108,10 @@ export default struct IVMRImageCompositor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitCompositionTarget := CallbackCreate(GetMethod(implObj, "InitCompositionTarget"), flags, 3)
-        this.vtbl.TermCompositionTarget := CallbackCreate(GetMethod(implObj, "TermCompositionTarget"), flags, 3)
-        this.vtbl.SetStreamMediaType := CallbackCreate(GetMethod(implObj, "SetStreamMediaType"), flags, 4)
-        this.vtbl.CompositeImage := CallbackCreate(GetMethod(implObj, "CompositeImage"), flags, 9)
+        this.vtbl.InitCompositionTarget := CallbackCreate(ObjBindMethod(implObj, "InitCompositionTarget"), flags, 3)
+        this.vtbl.TermCompositionTarget := CallbackCreate(ObjBindMethod(implObj, "TermCompositionTarget"), flags, 3)
+        this.vtbl.SetStreamMediaType := CallbackCreate(ObjBindMethod(implObj, "SetStreamMediaType"), flags, 4)
+        this.vtbl.CompositeImage := CallbackCreate(ObjBindMethod(implObj, "CompositeImage"), flags, 9)
     }
 
     Dispose() {

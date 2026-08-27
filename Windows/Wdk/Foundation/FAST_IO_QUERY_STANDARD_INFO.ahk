@@ -23,7 +23,6 @@ export default struct FAST_IO_QUERY_STANDARD_INFO {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {BOOLEAN} Wait 
      * @param {Pointer<FILE_STANDARD_INFORMATION>} _Buffer 

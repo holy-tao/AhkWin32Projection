@@ -37,7 +37,6 @@ export default struct IPrintAsyncNotifyRegistration extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RegisterForNotifications() {
@@ -46,7 +45,6 @@ export default struct IPrintAsyncNotifyRegistration extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     UnregisterForNotifications() {
@@ -63,8 +61,8 @@ export default struct IPrintAsyncNotifyRegistration extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterForNotifications := CallbackCreate(GetMethod(implObj, "RegisterForNotifications"), flags, 1)
-        this.vtbl.UnregisterForNotifications := CallbackCreate(GetMethod(implObj, "UnregisterForNotifications"), flags, 1)
+        this.vtbl.RegisterForNotifications := CallbackCreate(ObjBindMethod(implObj, "RegisterForNotifications"), flags, 1)
+        this.vtbl.UnregisterForNotifications := CallbackCreate(ObjBindMethod(implObj, "UnregisterForNotifications"), flags, 1)
     }
 
     Dispose() {

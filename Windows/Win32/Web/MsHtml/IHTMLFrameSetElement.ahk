@@ -137,7 +137,6 @@ export default struct IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -149,7 +148,6 @@ export default struct IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_rows() {
@@ -159,7 +157,6 @@ export default struct IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -171,7 +168,6 @@ export default struct IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_cols() {
@@ -181,7 +177,6 @@ export default struct IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -191,7 +186,6 @@ export default struct IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_border() {
@@ -201,7 +195,6 @@ export default struct IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -211,7 +204,6 @@ export default struct IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_borderColor() {
@@ -221,7 +213,6 @@ export default struct IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -233,7 +224,6 @@ export default struct IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_frameBorder() {
@@ -243,7 +233,6 @@ export default struct IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -253,7 +242,6 @@ export default struct IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_frameSpacing() {
@@ -263,7 +251,6 @@ export default struct IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -275,7 +262,6 @@ export default struct IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -285,7 +271,6 @@ export default struct IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -295,7 +280,6 @@ export default struct IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onload() {
@@ -305,7 +289,6 @@ export default struct IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -315,7 +298,6 @@ export default struct IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onunload() {
@@ -325,7 +307,6 @@ export default struct IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -335,7 +316,6 @@ export default struct IHTMLFrameSetElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onbeforeunload() {
@@ -353,26 +333,26 @@ export default struct IHTMLFrameSetElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_rows := CallbackCreate(GetMethod(implObj, "put_rows"), flags, 2)
-        this.vtbl.get_rows := CallbackCreate(GetMethod(implObj, "get_rows"), flags, 2)
-        this.vtbl.put_cols := CallbackCreate(GetMethod(implObj, "put_cols"), flags, 2)
-        this.vtbl.get_cols := CallbackCreate(GetMethod(implObj, "get_cols"), flags, 2)
-        this.vtbl.put_border := CallbackCreate(GetMethod(implObj, "put_border"), flags, 2)
-        this.vtbl.get_border := CallbackCreate(GetMethod(implObj, "get_border"), flags, 2)
-        this.vtbl.put_borderColor := CallbackCreate(GetMethod(implObj, "put_borderColor"), flags, 2)
-        this.vtbl.get_borderColor := CallbackCreate(GetMethod(implObj, "get_borderColor"), flags, 2)
-        this.vtbl.put_frameBorder := CallbackCreate(GetMethod(implObj, "put_frameBorder"), flags, 2)
-        this.vtbl.get_frameBorder := CallbackCreate(GetMethod(implObj, "get_frameBorder"), flags, 2)
-        this.vtbl.put_frameSpacing := CallbackCreate(GetMethod(implObj, "put_frameSpacing"), flags, 2)
-        this.vtbl.get_frameSpacing := CallbackCreate(GetMethod(implObj, "get_frameSpacing"), flags, 2)
-        this.vtbl.put_name := CallbackCreate(GetMethod(implObj, "put_name"), flags, 2)
-        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
-        this.vtbl.put_onload := CallbackCreate(GetMethod(implObj, "put_onload"), flags, 2)
-        this.vtbl.get_onload := CallbackCreate(GetMethod(implObj, "get_onload"), flags, 2)
-        this.vtbl.put_onunload := CallbackCreate(GetMethod(implObj, "put_onunload"), flags, 2)
-        this.vtbl.get_onunload := CallbackCreate(GetMethod(implObj, "get_onunload"), flags, 2)
-        this.vtbl.put_onbeforeunload := CallbackCreate(GetMethod(implObj, "put_onbeforeunload"), flags, 2)
-        this.vtbl.get_onbeforeunload := CallbackCreate(GetMethod(implObj, "get_onbeforeunload"), flags, 2)
+        this.vtbl.put_rows := CallbackCreate(ObjBindMethod(implObj, "put_rows"), flags, 2)
+        this.vtbl.get_rows := CallbackCreate(ObjBindMethod(implObj, "get_rows"), flags, 2)
+        this.vtbl.put_cols := CallbackCreate(ObjBindMethod(implObj, "put_cols"), flags, 2)
+        this.vtbl.get_cols := CallbackCreate(ObjBindMethod(implObj, "get_cols"), flags, 2)
+        this.vtbl.put_border := CallbackCreate(ObjBindMethod(implObj, "put_border"), flags, 2)
+        this.vtbl.get_border := CallbackCreate(ObjBindMethod(implObj, "get_border"), flags, 2)
+        this.vtbl.put_borderColor := CallbackCreate(ObjBindMethod(implObj, "put_borderColor"), flags, 2)
+        this.vtbl.get_borderColor := CallbackCreate(ObjBindMethod(implObj, "get_borderColor"), flags, 2)
+        this.vtbl.put_frameBorder := CallbackCreate(ObjBindMethod(implObj, "put_frameBorder"), flags, 2)
+        this.vtbl.get_frameBorder := CallbackCreate(ObjBindMethod(implObj, "get_frameBorder"), flags, 2)
+        this.vtbl.put_frameSpacing := CallbackCreate(ObjBindMethod(implObj, "put_frameSpacing"), flags, 2)
+        this.vtbl.get_frameSpacing := CallbackCreate(ObjBindMethod(implObj, "get_frameSpacing"), flags, 2)
+        this.vtbl.put_name := CallbackCreate(ObjBindMethod(implObj, "put_name"), flags, 2)
+        this.vtbl.get_name := CallbackCreate(ObjBindMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.put_onload := CallbackCreate(ObjBindMethod(implObj, "put_onload"), flags, 2)
+        this.vtbl.get_onload := CallbackCreate(ObjBindMethod(implObj, "get_onload"), flags, 2)
+        this.vtbl.put_onunload := CallbackCreate(ObjBindMethod(implObj, "put_onunload"), flags, 2)
+        this.vtbl.get_onunload := CallbackCreate(ObjBindMethod(implObj, "get_onunload"), flags, 2)
+        this.vtbl.put_onbeforeunload := CallbackCreate(ObjBindMethod(implObj, "put_onbeforeunload"), flags, 2)
+        this.vtbl.get_onbeforeunload := CallbackCreate(ObjBindMethod(implObj, "get_onbeforeunload"), flags, 2)
     }
 
     Dispose() {

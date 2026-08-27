@@ -28,7 +28,6 @@ export default struct PFN_DrvQueryGlyphAttrs {
     }
 
     /**
-     * 
      * @param {Pointer<FONTOBJ>} param0 
      * @param {Integer} param1 
      * @returns {Pointer<FD_GLYPHATTR>} <b>DrvQueryGlyphAttrs</b> should return a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-fd_glyphattr">FD_GLYPHATTR</a> structure. If an error is encountered, such as an invalid input argument, or if the font described by the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-fontobj">FONTOBJ</a> structure is not a vertical font, the function should return <b>NULL</b>.

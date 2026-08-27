@@ -19,7 +19,6 @@ export default struct PRESUTIL_GET_PROPERTY_FORMATS {
     }
 
     /**
-     * 
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable 
      * @param {Integer} pOutPropertyFormatList 
      * @param {Integer} cbPropertyFormatListSize 
@@ -28,8 +27,8 @@ export default struct PRESUTIL_GET_PROPERTY_FORMATS {
      * @returns {Integer} 
      */
     Call(pPropertyTable, pOutPropertyFormatList, cbPropertyFormatListSize, pcbBytesReturned, pcbRequired) {
-        pcbBytesReturnedMarshal := pcbBytesReturned is VarRef ? "uint*" : "ptr"
-        pcbRequiredMarshal := pcbRequired is VarRef ? "uint*" : "ptr"
+        pcbBytesReturnedMarshal := pcbBytesReturned is VarRef ? "uint*" : IntPtr
+        pcbRequiredMarshal := pcbRequired is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, RESUTIL_PROPERTY_ITEM.Ptr, pPropertyTable, IntPtr, pOutPropertyFormatList, UInt32, cbPropertyFormatListSize, pcbBytesReturnedMarshal, pcbBytesReturned, pcbRequiredMarshal, pcbRequired, UInt32)
         return result

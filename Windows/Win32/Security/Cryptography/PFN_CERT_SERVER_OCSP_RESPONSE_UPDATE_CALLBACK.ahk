@@ -21,7 +21,6 @@ export default struct PFN_CERT_SERVER_OCSP_RESPONSE_UPDATE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<CERT_CHAIN_CONTEXT>} pChainContext 
      * @param {Pointer<CERT_SERVER_OCSP_RESPONSE_CONTEXT>} pServerOcspResponseContext 
      * @param {Pointer<CRL_CONTEXT>} pNewCrlContext 
@@ -31,9 +30,11 @@ export default struct PFN_CERT_SERVER_OCSP_RESPONSE_UPDATE_CALLBACK {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(pChainContext, pServerOcspResponseContext, pNewCrlContext, pPrevCrlContext, pvArg, dwWriteOcspFileError) {
-        pvArgMarshal := pvArg is VarRef ? "ptr" : "ptr"
+        pPrevCrlContextMarshal := pPrevCrlContext == 0 ? IntPtr : CRL_CONTEXT.Ptr
+        pvArgMarshal := pvArg is VarRef ? "ptr" : IntPtr
+        pvArgMarshal := pvArg == 0 ? IntPtr : "ptr"
 
-        DllCall(this.value, CERT_CHAIN_CONTEXT.Ptr, pChainContext, CERT_SERVER_OCSP_RESPONSE_CONTEXT.Ptr, pServerOcspResponseContext, CRL_CONTEXT.Ptr, pNewCrlContext, CRL_CONTEXT.Ptr, pPrevCrlContext, pvArgMarshal, pvArg, UInt32, dwWriteOcspFileError)
+        DllCall(this.value, CERT_CHAIN_CONTEXT.Ptr, pChainContext, CERT_SERVER_OCSP_RESPONSE_CONTEXT.Ptr, pServerOcspResponseContext, CRL_CONTEXT.Ptr, pNewCrlContext, pPrevCrlContextMarshal, pPrevCrlContext, pvArgMarshal, pvArg, UInt32, dwWriteOcspFileError)
     }
 
     /**

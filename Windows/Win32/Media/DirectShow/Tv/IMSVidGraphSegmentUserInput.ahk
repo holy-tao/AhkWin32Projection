@@ -53,7 +53,6 @@ export default struct IMSVidGraphSegmentUserInput extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DblClick() {
@@ -133,7 +132,7 @@ export default struct IMSVidGraphSegmentUserInput extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/WMP/axwmplib-axwindowsmediaplayer-keydown
      */
     KeyDown(KeyCode, ShiftState) {
-        KeyCodeMarshal := KeyCode is VarRef ? "short*" : "ptr"
+        KeyCodeMarshal := KeyCode is VarRef ? "short*" : IntPtr
 
         result := ComCall(5, this, KeyCodeMarshal, KeyCode, Int16, ShiftState, "HRESULT")
         return result
@@ -148,7 +147,7 @@ export default struct IMSVidGraphSegmentUserInput extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/WMP/axwmplib-axwindowsmediaplayer-keypress
      */
     KeyPress(KeyAscii) {
-        KeyAsciiMarshal := KeyAscii is VarRef ? "short*" : "ptr"
+        KeyAsciiMarshal := KeyAscii is VarRef ? "short*" : IntPtr
 
         result := ComCall(6, this, KeyAsciiMarshal, KeyAscii, "HRESULT")
         return result
@@ -162,7 +161,7 @@ export default struct IMSVidGraphSegmentUserInput extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/WMP/axwmplib-axwindowsmediaplayer-keyup
      */
     KeyUp(KeyCode, ShiftState) {
-        KeyCodeMarshal := KeyCode is VarRef ? "short*" : "ptr"
+        KeyCodeMarshal := KeyCode is VarRef ? "short*" : IntPtr
 
         result := ComCall(7, this, KeyCodeMarshal, KeyCode, Int16, ShiftState, "HRESULT")
         return result
@@ -219,14 +218,14 @@ export default struct IMSVidGraphSegmentUserInput extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Click := CallbackCreate(GetMethod(implObj, "Click"), flags, 1)
-        this.vtbl.DblClick := CallbackCreate(GetMethod(implObj, "DblClick"), flags, 1)
-        this.vtbl.KeyDown := CallbackCreate(GetMethod(implObj, "KeyDown"), flags, 3)
-        this.vtbl.KeyPress := CallbackCreate(GetMethod(implObj, "KeyPress"), flags, 2)
-        this.vtbl.KeyUp := CallbackCreate(GetMethod(implObj, "KeyUp"), flags, 3)
-        this.vtbl.MouseDown := CallbackCreate(GetMethod(implObj, "MouseDown"), flags, 5)
-        this.vtbl.MouseMove := CallbackCreate(GetMethod(implObj, "MouseMove"), flags, 5)
-        this.vtbl.MouseUp := CallbackCreate(GetMethod(implObj, "MouseUp"), flags, 5)
+        this.vtbl.Click := CallbackCreate(ObjBindMethod(implObj, "Click"), flags, 1)
+        this.vtbl.DblClick := CallbackCreate(ObjBindMethod(implObj, "DblClick"), flags, 1)
+        this.vtbl.KeyDown := CallbackCreate(ObjBindMethod(implObj, "KeyDown"), flags, 3)
+        this.vtbl.KeyPress := CallbackCreate(ObjBindMethod(implObj, "KeyPress"), flags, 2)
+        this.vtbl.KeyUp := CallbackCreate(ObjBindMethod(implObj, "KeyUp"), flags, 3)
+        this.vtbl.MouseDown := CallbackCreate(ObjBindMethod(implObj, "MouseDown"), flags, 5)
+        this.vtbl.MouseMove := CallbackCreate(ObjBindMethod(implObj, "MouseMove"), flags, 5)
+        this.vtbl.MouseUp := CallbackCreate(ObjBindMethod(implObj, "MouseUp"), flags, 5)
     }
 
     Dispose() {

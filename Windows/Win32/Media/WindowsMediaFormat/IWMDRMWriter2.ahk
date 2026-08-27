@@ -71,7 +71,7 @@ export default struct IWMDRMWriter2 extends IWMDRMWriter {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdrmwriter2-setwmdrmnetencryption
      */
     SetWMDRMNetEncryption(fSamplesEncrypted, pbKeyID, cbKeyID) {
-        pbKeyIDMarshal := pbKeyID is VarRef ? "char*" : "ptr"
+        pbKeyIDMarshal := pbKeyID is VarRef ? "char*" : IntPtr
 
         result := ComCall(7, this, BOOL, fSamplesEncrypted, pbKeyIDMarshal, pbKeyID, UInt32, cbKeyID, "HRESULT")
         return result
@@ -86,7 +86,7 @@ export default struct IWMDRMWriter2 extends IWMDRMWriter {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetWMDRMNetEncryption := CallbackCreate(GetMethod(implObj, "SetWMDRMNetEncryption"), flags, 4)
+        this.vtbl.SetWMDRMNetEncryption := CallbackCreate(ObjBindMethod(implObj, "SetWMDRMNetEncryption"), flags, 4)
     }
 
     Dispose() {

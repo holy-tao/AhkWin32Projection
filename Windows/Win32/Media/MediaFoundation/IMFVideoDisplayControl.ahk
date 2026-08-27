@@ -516,9 +516,9 @@ export default struct IMFVideoDisplayControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideodisplaycontrol-getcurrentimage
      */
     GetCurrentImage(pBih, pDib, pcbDib, pTimeStamp) {
-        pDibMarshal := pDib is VarRef ? "ptr*" : "ptr"
-        pcbDibMarshal := pcbDib is VarRef ? "uint*" : "ptr"
-        pTimeStampMarshal := pTimeStamp is VarRef ? "int64*" : "ptr"
+        pDibMarshal := pDib is VarRef ? "ptr*" : IntPtr
+        pcbDibMarshal := pcbDib is VarRef ? "uint*" : IntPtr
+        pTimeStampMarshal := pTimeStamp is VarRef ? "int64*" : IntPtr
 
         result := ComCall(12, this, BITMAPINFOHEADER.Ptr, pBih, pDibMarshal, pDib, pcbDibMarshal, pcbDib, pTimeStampMarshal, pTimeStamp, "HRESULT")
         return result
@@ -715,22 +715,22 @@ export default struct IMFVideoDisplayControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNativeVideoSize := CallbackCreate(GetMethod(implObj, "GetNativeVideoSize"), flags, 3)
-        this.vtbl.GetIdealVideoSize := CallbackCreate(GetMethod(implObj, "GetIdealVideoSize"), flags, 3)
-        this.vtbl.SetVideoPosition := CallbackCreate(GetMethod(implObj, "SetVideoPosition"), flags, 3)
-        this.vtbl.GetVideoPosition := CallbackCreate(GetMethod(implObj, "GetVideoPosition"), flags, 3)
-        this.vtbl.SetAspectRatioMode := CallbackCreate(GetMethod(implObj, "SetAspectRatioMode"), flags, 2)
-        this.vtbl.GetAspectRatioMode := CallbackCreate(GetMethod(implObj, "GetAspectRatioMode"), flags, 2)
-        this.vtbl.SetVideoWindow := CallbackCreate(GetMethod(implObj, "SetVideoWindow"), flags, 2)
-        this.vtbl.GetVideoWindow := CallbackCreate(GetMethod(implObj, "GetVideoWindow"), flags, 2)
-        this.vtbl.RepaintVideo := CallbackCreate(GetMethod(implObj, "RepaintVideo"), flags, 1)
-        this.vtbl.GetCurrentImage := CallbackCreate(GetMethod(implObj, "GetCurrentImage"), flags, 5)
-        this.vtbl.SetBorderColor := CallbackCreate(GetMethod(implObj, "SetBorderColor"), flags, 2)
-        this.vtbl.GetBorderColor := CallbackCreate(GetMethod(implObj, "GetBorderColor"), flags, 2)
-        this.vtbl.SetRenderingPrefs := CallbackCreate(GetMethod(implObj, "SetRenderingPrefs"), flags, 2)
-        this.vtbl.GetRenderingPrefs := CallbackCreate(GetMethod(implObj, "GetRenderingPrefs"), flags, 2)
-        this.vtbl.SetFullscreen := CallbackCreate(GetMethod(implObj, "SetFullscreen"), flags, 2)
-        this.vtbl.GetFullscreen := CallbackCreate(GetMethod(implObj, "GetFullscreen"), flags, 2)
+        this.vtbl.GetNativeVideoSize := CallbackCreate(ObjBindMethod(implObj, "GetNativeVideoSize"), flags, 3)
+        this.vtbl.GetIdealVideoSize := CallbackCreate(ObjBindMethod(implObj, "GetIdealVideoSize"), flags, 3)
+        this.vtbl.SetVideoPosition := CallbackCreate(ObjBindMethod(implObj, "SetVideoPosition"), flags, 3)
+        this.vtbl.GetVideoPosition := CallbackCreate(ObjBindMethod(implObj, "GetVideoPosition"), flags, 3)
+        this.vtbl.SetAspectRatioMode := CallbackCreate(ObjBindMethod(implObj, "SetAspectRatioMode"), flags, 2)
+        this.vtbl.GetAspectRatioMode := CallbackCreate(ObjBindMethod(implObj, "GetAspectRatioMode"), flags, 2)
+        this.vtbl.SetVideoWindow := CallbackCreate(ObjBindMethod(implObj, "SetVideoWindow"), flags, 2)
+        this.vtbl.GetVideoWindow := CallbackCreate(ObjBindMethod(implObj, "GetVideoWindow"), flags, 2)
+        this.vtbl.RepaintVideo := CallbackCreate(ObjBindMethod(implObj, "RepaintVideo"), flags, 1)
+        this.vtbl.GetCurrentImage := CallbackCreate(ObjBindMethod(implObj, "GetCurrentImage"), flags, 5)
+        this.vtbl.SetBorderColor := CallbackCreate(ObjBindMethod(implObj, "SetBorderColor"), flags, 2)
+        this.vtbl.GetBorderColor := CallbackCreate(ObjBindMethod(implObj, "GetBorderColor"), flags, 2)
+        this.vtbl.SetRenderingPrefs := CallbackCreate(ObjBindMethod(implObj, "SetRenderingPrefs"), flags, 2)
+        this.vtbl.GetRenderingPrefs := CallbackCreate(ObjBindMethod(implObj, "GetRenderingPrefs"), flags, 2)
+        this.vtbl.SetFullscreen := CallbackCreate(ObjBindMethod(implObj, "SetFullscreen"), flags, 2)
+        this.vtbl.GetFullscreen := CallbackCreate(ObjBindMethod(implObj, "GetFullscreen"), flags, 2)
     }
 
     Dispose() {

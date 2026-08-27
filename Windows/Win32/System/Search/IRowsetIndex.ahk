@@ -41,7 +41,6 @@ export default struct IRowsetIndex extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} pcKeyColumns 
      * @param {Pointer<Pointer<DBINDEXCOLUMNDESC>>} prgIndexColumnDesc 
      * @param {Pointer<Integer>} pcIndexPropertySets 
@@ -49,17 +48,16 @@ export default struct IRowsetIndex extends IUnknown {
      * @returns {HRESULT} 
      */
     GetIndexInfo(pcKeyColumns, prgIndexColumnDesc, pcIndexPropertySets, prgIndexPropertySets) {
-        pcKeyColumnsMarshal := pcKeyColumns is VarRef ? "ptr*" : "ptr"
-        prgIndexColumnDescMarshal := prgIndexColumnDesc is VarRef ? "ptr*" : "ptr"
-        pcIndexPropertySetsMarshal := pcIndexPropertySets is VarRef ? "uint*" : "ptr"
-        prgIndexPropertySetsMarshal := prgIndexPropertySets is VarRef ? "ptr*" : "ptr"
+        pcKeyColumnsMarshal := pcKeyColumns is VarRef ? "ptr*" : IntPtr
+        prgIndexColumnDescMarshal := prgIndexColumnDesc is VarRef ? "ptr*" : IntPtr
+        pcIndexPropertySetsMarshal := pcIndexPropertySets is VarRef ? "uint*" : IntPtr
+        prgIndexPropertySetsMarshal := prgIndexPropertySets is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, pcKeyColumnsMarshal, pcKeyColumns, prgIndexColumnDescMarshal, prgIndexColumnDesc, pcIndexPropertySetsMarshal, pcIndexPropertySets, prgIndexPropertySetsMarshal, prgIndexPropertySets, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HACCESSOR} _hAccessor 
      * @param {Pointer} cKeyValues 
      * @param {Pointer<Void>} pData 
@@ -67,14 +65,13 @@ export default struct IRowsetIndex extends IUnknown {
      * @returns {HRESULT} 
      */
     Seek(_hAccessor, cKeyValues, pData, dwSeekOptions) {
-        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+        pDataMarshal := pData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(4, this, HACCESSOR, _hAccessor, IntPtr, cKeyValues, pDataMarshal, pData, UInt32, dwSeekOptions, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HACCESSOR} _hAccessor 
      * @param {Pointer} cStartKeyColumns 
      * @param {Pointer<Void>} pStartData 
@@ -84,8 +81,8 @@ export default struct IRowsetIndex extends IUnknown {
      * @returns {HRESULT} 
      */
     SetRange(_hAccessor, cStartKeyColumns, pStartData, cEndKeyColumns, pEndData, dwRangeOptions) {
-        pStartDataMarshal := pStartData is VarRef ? "ptr" : "ptr"
-        pEndDataMarshal := pEndData is VarRef ? "ptr" : "ptr"
+        pStartDataMarshal := pStartData is VarRef ? "ptr" : IntPtr
+        pEndDataMarshal := pEndData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(5, this, HACCESSOR, _hAccessor, IntPtr, cStartKeyColumns, pStartDataMarshal, pStartData, IntPtr, cEndKeyColumns, pEndDataMarshal, pEndData, UInt32, dwRangeOptions, "HRESULT")
         return result
@@ -100,9 +97,9 @@ export default struct IRowsetIndex extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetIndexInfo := CallbackCreate(GetMethod(implObj, "GetIndexInfo"), flags, 5)
-        this.vtbl.Seek := CallbackCreate(GetMethod(implObj, "Seek"), flags, 5)
-        this.vtbl.SetRange := CallbackCreate(GetMethod(implObj, "SetRange"), flags, 7)
+        this.vtbl.GetIndexInfo := CallbackCreate(ObjBindMethod(implObj, "GetIndexInfo"), flags, 5)
+        this.vtbl.Seek := CallbackCreate(ObjBindMethod(implObj, "Seek"), flags, 5)
+        this.vtbl.SetRange := CallbackCreate(ObjBindMethod(implObj, "SetRange"), flags, 7)
     }
 
     Dispose() {

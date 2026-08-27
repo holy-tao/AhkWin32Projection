@@ -201,11 +201,11 @@ export default struct IVdsVdProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryVDisks := CallbackCreate(GetMethod(implObj, "QueryVDisks"), flags, 2)
-        this.vtbl.CreateVDisk := CallbackCreate(GetMethod(implObj, "CreateVDisk"), flags, 9)
-        this.vtbl.AddVDisk := CallbackCreate(GetMethod(implObj, "AddVDisk"), flags, 4)
-        this.vtbl.GetDiskFromVDisk := CallbackCreate(GetMethod(implObj, "GetDiskFromVDisk"), flags, 3)
-        this.vtbl.GetVDiskFromDisk := CallbackCreate(GetMethod(implObj, "GetVDiskFromDisk"), flags, 3)
+        this.vtbl.QueryVDisks := CallbackCreate(ObjBindMethod(implObj, "QueryVDisks"), flags, 2)
+        this.vtbl.CreateVDisk := CallbackCreate(ObjBindMethod(implObj, "CreateVDisk"), flags, 9)
+        this.vtbl.AddVDisk := CallbackCreate(ObjBindMethod(implObj, "AddVDisk"), flags, 4)
+        this.vtbl.GetDiskFromVDisk := CallbackCreate(ObjBindMethod(implObj, "GetDiskFromVDisk"), flags, 3)
+        this.vtbl.GetVDiskFromDisk := CallbackCreate(ObjBindMethod(implObj, "GetVDiskFromDisk"), flags, 3)
     }
 
     Dispose() {

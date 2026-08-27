@@ -21,7 +21,6 @@ export default struct PFN_DrvQueryPerBandInfo {
     }
 
     /**
-     * 
      * @param {Pointer<SURFOBJ>} param0 
      * @param {Pointer<PERBANDINFO>} param1 
      * @returns {BOOL} 

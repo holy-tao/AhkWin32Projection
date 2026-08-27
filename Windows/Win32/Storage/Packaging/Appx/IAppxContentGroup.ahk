@@ -69,8 +69,8 @@ export default struct IAppxContentGroup extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
-        this.vtbl.GetFiles := CallbackCreate(GetMethod(implObj, "GetFiles"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetFiles := CallbackCreate(ObjBindMethod(implObj, "GetFiles"), flags, 2)
     }
 
     Dispose() {

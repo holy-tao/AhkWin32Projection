@@ -47,7 +47,6 @@ export default struct ITravelLogStg extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszUrl 
      * @param {PWSTR} pszTitle 
      * @param {ITravelLogEntry} ptleRelativeTo 
@@ -63,7 +62,6 @@ export default struct ITravelLogStg extends IUnknown {
     }
 
     /**
-     * 
      * @param {ITravelLogEntry} ptle 
      * @returns {HRESULT} 
      */
@@ -73,7 +71,6 @@ export default struct ITravelLogStg extends IUnknown {
     }
 
     /**
-     * 
      * @param {TLENUMF} flags 
      * @returns {IEnumTravelLogEntry} 
      */
@@ -83,7 +80,6 @@ export default struct ITravelLogStg extends IUnknown {
     }
 
     /**
-     * 
      * @param {TLENUMF} flags 
      * @param {PWSTR} pszUrl 
      * @returns {IEnumTravelLogEntry} 
@@ -96,7 +92,6 @@ export default struct ITravelLogStg extends IUnknown {
     }
 
     /**
-     * 
      * @param {TLENUMF} flags 
      * @returns {Integer} 
      */
@@ -106,7 +101,6 @@ export default struct ITravelLogStg extends IUnknown {
     }
 
     /**
-     * 
      * @param {ITravelLogEntry} ptle 
      * @returns {HRESULT} 
      */
@@ -116,7 +110,6 @@ export default struct ITravelLogStg extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iOffset 
      * @returns {ITravelLogEntry} 
      */
@@ -134,13 +127,13 @@ export default struct ITravelLogStg extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateEntry := CallbackCreate(GetMethod(implObj, "CreateEntry"), flags, 6)
-        this.vtbl.TravelTo := CallbackCreate(GetMethod(implObj, "TravelTo"), flags, 2)
-        this.vtbl.EnumEntries := CallbackCreate(GetMethod(implObj, "EnumEntries"), flags, 3)
-        this.vtbl.FindEntries := CallbackCreate(GetMethod(implObj, "FindEntries"), flags, 4)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 3)
-        this.vtbl.RemoveEntry := CallbackCreate(GetMethod(implObj, "RemoveEntry"), flags, 2)
-        this.vtbl.GetRelativeEntry := CallbackCreate(GetMethod(implObj, "GetRelativeEntry"), flags, 3)
+        this.vtbl.CreateEntry := CallbackCreate(ObjBindMethod(implObj, "CreateEntry"), flags, 6)
+        this.vtbl.TravelTo := CallbackCreate(ObjBindMethod(implObj, "TravelTo"), flags, 2)
+        this.vtbl.EnumEntries := CallbackCreate(ObjBindMethod(implObj, "EnumEntries"), flags, 3)
+        this.vtbl.FindEntries := CallbackCreate(ObjBindMethod(implObj, "FindEntries"), flags, 4)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 3)
+        this.vtbl.RemoveEntry := CallbackCreate(ObjBindMethod(implObj, "RemoveEntry"), flags, 2)
+        this.vtbl.GetRelativeEntry := CallbackCreate(ObjBindMethod(implObj, "GetRelativeEntry"), flags, 3)
     }
 
     Dispose() {

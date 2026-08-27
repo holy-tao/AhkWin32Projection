@@ -37,7 +37,6 @@ export default struct IApoAcousticEchoCancellation2 extends IApoAcousticEchoCanc
     }
 
     /**
-     * 
      * @returns {APO_REFERENCE_STREAM_PROPERTIES} 
      */
     GetDesiredReferenceStreamProperties() {
@@ -54,7 +53,7 @@ export default struct IApoAcousticEchoCancellation2 extends IApoAcousticEchoCanc
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDesiredReferenceStreamProperties := CallbackCreate(GetMethod(implObj, "GetDesiredReferenceStreamProperties"), flags, 2)
+        this.vtbl.GetDesiredReferenceStreamProperties := CallbackCreate(ObjBindMethod(implObj, "GetDesiredReferenceStreamProperties"), flags, 2)
     }
 
     Dispose() {

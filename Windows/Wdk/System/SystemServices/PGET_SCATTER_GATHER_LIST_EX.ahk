@@ -26,7 +26,6 @@ export default struct PGET_SCATTER_GATHER_LIST_EX {
     }
 
     /**
-     * 
      * @param {Pointer<DMA_ADAPTER>} DmaAdapter 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<Void>} DmaTransferContext 
@@ -43,12 +42,17 @@ export default struct PGET_SCATTER_GATHER_LIST_EX {
      * @returns {NTSTATUS} 
      */
     Call(DmaAdapter, DeviceObject, DmaTransferContext, _Mdl, Offset, Length, Flags, ExecutionRoutine, _Context, WriteToDevice, DmaCompletionRoutine, CompletionContext, ScatterGatherList) {
-        DmaTransferContextMarshal := DmaTransferContext is VarRef ? "ptr" : "ptr"
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        CompletionContextMarshal := CompletionContext is VarRef ? "ptr" : "ptr"
-        ScatterGatherListMarshal := ScatterGatherList is VarRef ? "ptr*" : "ptr"
+        DmaTransferContextMarshal := DmaTransferContext is VarRef ? "ptr" : IntPtr
+        ExecutionRoutineMarshal := ExecutionRoutine == 0 ? IntPtr : DRIVER_LIST_CONTROL
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
+        DmaCompletionRoutineMarshal := DmaCompletionRoutine == 0 ? IntPtr : PDMA_COMPLETION_ROUTINE
+        CompletionContextMarshal := CompletionContext is VarRef ? "ptr" : IntPtr
+        CompletionContextMarshal := CompletionContext == 0 ? IntPtr : "ptr"
+        ScatterGatherListMarshal := ScatterGatherList is VarRef ? "ptr*" : IntPtr
+        ScatterGatherListMarshal := ScatterGatherList == 0 ? IntPtr : "ptr*"
 
-        result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, DEVICE_OBJECT.Ptr, DeviceObject, DmaTransferContextMarshal, DmaTransferContext, MDL.Ptr, _Mdl, Int64, Offset, UInt32, Length, UInt32, Flags, DRIVER_LIST_CONTROL, ExecutionRoutine, _ContextMarshal, _Context, BOOLEAN, WriteToDevice, PDMA_COMPLETION_ROUTINE, DmaCompletionRoutine, CompletionContextMarshal, CompletionContext, ScatterGatherListMarshal, ScatterGatherList, NTSTATUS)
+        result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, DEVICE_OBJECT.Ptr, DeviceObject, DmaTransferContextMarshal, DmaTransferContext, MDL.Ptr, _Mdl, Int64, Offset, UInt32, Length, UInt32, Flags, ExecutionRoutineMarshal, ExecutionRoutine, _ContextMarshal, _Context, BOOLEAN, WriteToDevice, DmaCompletionRoutineMarshal, DmaCompletionRoutine, CompletionContextMarshal, CompletionContext, ScatterGatherListMarshal, ScatterGatherList, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

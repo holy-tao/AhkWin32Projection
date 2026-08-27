@@ -138,12 +138,12 @@ export default struct IUIAutomationSpreadsheetItemPattern extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_CurrentFormula := CallbackCreate(GetMethod(implObj, "get_CurrentFormula"), flags, 2)
-        this.vtbl.GetCurrentAnnotationObjects := CallbackCreate(GetMethod(implObj, "GetCurrentAnnotationObjects"), flags, 2)
-        this.vtbl.GetCurrentAnnotationTypes := CallbackCreate(GetMethod(implObj, "GetCurrentAnnotationTypes"), flags, 2)
-        this.vtbl.get_CachedFormula := CallbackCreate(GetMethod(implObj, "get_CachedFormula"), flags, 2)
-        this.vtbl.GetCachedAnnotationObjects := CallbackCreate(GetMethod(implObj, "GetCachedAnnotationObjects"), flags, 2)
-        this.vtbl.GetCachedAnnotationTypes := CallbackCreate(GetMethod(implObj, "GetCachedAnnotationTypes"), flags, 2)
+        this.vtbl.get_CurrentFormula := CallbackCreate(ObjBindMethod(implObj, "get_CurrentFormula"), flags, 2)
+        this.vtbl.GetCurrentAnnotationObjects := CallbackCreate(ObjBindMethod(implObj, "GetCurrentAnnotationObjects"), flags, 2)
+        this.vtbl.GetCurrentAnnotationTypes := CallbackCreate(ObjBindMethod(implObj, "GetCurrentAnnotationTypes"), flags, 2)
+        this.vtbl.get_CachedFormula := CallbackCreate(ObjBindMethod(implObj, "get_CachedFormula"), flags, 2)
+        this.vtbl.GetCachedAnnotationObjects := CallbackCreate(ObjBindMethod(implObj, "GetCachedAnnotationObjects"), flags, 2)
+        this.vtbl.GetCachedAnnotationTypes := CallbackCreate(ObjBindMethod(implObj, "GetCachedAnnotationTypes"), flags, 2)
     }
 
     Dispose() {

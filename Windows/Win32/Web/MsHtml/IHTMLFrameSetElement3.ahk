@@ -86,7 +86,6 @@ export default struct IHTMLFrameSetElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -96,7 +95,6 @@ export default struct IHTMLFrameSetElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onhashchange() {
@@ -106,7 +104,6 @@ export default struct IHTMLFrameSetElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -116,7 +113,6 @@ export default struct IHTMLFrameSetElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmessage() {
@@ -126,7 +122,6 @@ export default struct IHTMLFrameSetElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -136,7 +131,6 @@ export default struct IHTMLFrameSetElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onoffline() {
@@ -146,7 +140,6 @@ export default struct IHTMLFrameSetElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -156,7 +149,6 @@ export default struct IHTMLFrameSetElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ononline() {
@@ -166,7 +158,6 @@ export default struct IHTMLFrameSetElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -176,7 +167,6 @@ export default struct IHTMLFrameSetElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onstorage() {
@@ -194,16 +184,16 @@ export default struct IHTMLFrameSetElement3 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_onhashchange := CallbackCreate(GetMethod(implObj, "put_onhashchange"), flags, 2)
-        this.vtbl.get_onhashchange := CallbackCreate(GetMethod(implObj, "get_onhashchange"), flags, 2)
-        this.vtbl.put_onmessage := CallbackCreate(GetMethod(implObj, "put_onmessage"), flags, 2)
-        this.vtbl.get_onmessage := CallbackCreate(GetMethod(implObj, "get_onmessage"), flags, 2)
-        this.vtbl.put_onoffline := CallbackCreate(GetMethod(implObj, "put_onoffline"), flags, 2)
-        this.vtbl.get_onoffline := CallbackCreate(GetMethod(implObj, "get_onoffline"), flags, 2)
-        this.vtbl.put_ononline := CallbackCreate(GetMethod(implObj, "put_ononline"), flags, 2)
-        this.vtbl.get_ononline := CallbackCreate(GetMethod(implObj, "get_ononline"), flags, 2)
-        this.vtbl.put_onstorage := CallbackCreate(GetMethod(implObj, "put_onstorage"), flags, 2)
-        this.vtbl.get_onstorage := CallbackCreate(GetMethod(implObj, "get_onstorage"), flags, 2)
+        this.vtbl.put_onhashchange := CallbackCreate(ObjBindMethod(implObj, "put_onhashchange"), flags, 2)
+        this.vtbl.get_onhashchange := CallbackCreate(ObjBindMethod(implObj, "get_onhashchange"), flags, 2)
+        this.vtbl.put_onmessage := CallbackCreate(ObjBindMethod(implObj, "put_onmessage"), flags, 2)
+        this.vtbl.get_onmessage := CallbackCreate(ObjBindMethod(implObj, "get_onmessage"), flags, 2)
+        this.vtbl.put_onoffline := CallbackCreate(ObjBindMethod(implObj, "put_onoffline"), flags, 2)
+        this.vtbl.get_onoffline := CallbackCreate(ObjBindMethod(implObj, "get_onoffline"), flags, 2)
+        this.vtbl.put_ononline := CallbackCreate(ObjBindMethod(implObj, "put_ononline"), flags, 2)
+        this.vtbl.get_ononline := CallbackCreate(ObjBindMethod(implObj, "get_ononline"), flags, 2)
+        this.vtbl.put_onstorage := CallbackCreate(ObjBindMethod(implObj, "put_onstorage"), flags, 2)
+        this.vtbl.get_onstorage := CallbackCreate(ObjBindMethod(implObj, "get_onstorage"), flags, 2)
     }
 
     Dispose() {

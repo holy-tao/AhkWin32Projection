@@ -111,7 +111,7 @@ export default struct IRecordInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-recordclear
      */
     RecordClear(pvExisting) {
-        pvExistingMarshal := pvExisting is VarRef ? "ptr" : "ptr"
+        pvExistingMarshal := pvExisting is VarRef ? "ptr" : IntPtr
 
         result := ComCall(4, this, pvExistingMarshal, pvExisting, "HRESULT")
         return result
@@ -126,7 +126,7 @@ export default struct IRecordInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-recordcopy
      */
     RecordCopy(pvExisting) {
-        pvExistingMarshal := pvExisting is VarRef ? "ptr" : "ptr"
+        pvExistingMarshal := pvExisting is VarRef ? "ptr" : IntPtr
 
         result := ComCall(5, this, pvExistingMarshal, pvExisting, "ptr", &pvNew := 0, "HRESULT")
         return pvNew
@@ -194,7 +194,7 @@ export default struct IRecordInfo extends IUnknown {
     GetField(pvData, szFieldName) {
         szFieldName := szFieldName is String ? StrPtr(szFieldName) : szFieldName
 
-        pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
+        pvDataMarshal := pvData is VarRef ? "ptr" : IntPtr
 
         pvarField := VARIANT()
         result := ComCall(10, this, pvDataMarshal, pvData, "ptr", szFieldName, VARIANT.Ptr, pvarField, "HRESULT")
@@ -248,8 +248,8 @@ export default struct IRecordInfo extends IUnknown {
     GetFieldNoCopy(pvData, szFieldName, pvarField, ppvDataCArray) {
         szFieldName := szFieldName is String ? StrPtr(szFieldName) : szFieldName
 
-        pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
-        ppvDataCArrayMarshal := ppvDataCArray is VarRef ? "ptr*" : "ptr"
+        pvDataMarshal := pvData is VarRef ? "ptr" : IntPtr
+        ppvDataCArrayMarshal := ppvDataCArray is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(11, this, pvDataMarshal, pvData, "ptr", szFieldName, VARIANT.Ptr, pvarField, ppvDataCArrayMarshal, ppvDataCArray, "HRESULT")
         return result
@@ -302,7 +302,7 @@ export default struct IRecordInfo extends IUnknown {
     PutField(wFlags, pvData, szFieldName, pvarField) {
         szFieldName := szFieldName is String ? StrPtr(szFieldName) : szFieldName
 
-        pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
+        pvDataMarshal := pvData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(12, this, UInt32, wFlags, pvDataMarshal, pvData, "ptr", szFieldName, VARIANT.Ptr, pvarField, "HRESULT")
         return result
@@ -351,7 +351,7 @@ export default struct IRecordInfo extends IUnknown {
     PutFieldNoCopy(wFlags, pvData, szFieldName, pvarField) {
         szFieldName := szFieldName is String ? StrPtr(szFieldName) : szFieldName
 
-        pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
+        pvDataMarshal := pvData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(13, this, UInt32, wFlags, pvDataMarshal, pvData, "ptr", szFieldName, VARIANT.Ptr, pvarField, "HRESULT")
         return result
@@ -374,7 +374,7 @@ export default struct IRecordInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-getfieldnames
      */
     GetFieldNames(pcNames) {
-        pcNamesMarshal := pcNames is VarRef ? "uint*" : "ptr"
+        pcNamesMarshal := pcNames is VarRef ? "uint*" : IntPtr
 
         rgBstrNames := BSTR.Owned()
         result := ComCall(14, this, pcNamesMarshal, pcNames, BSTR.Ptr, rgBstrNames, "HRESULT")
@@ -444,7 +444,7 @@ export default struct IRecordInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-recordcreatecopy
      */
     RecordCreateCopy(pvSource) {
-        pvSourceMarshal := pvSource is VarRef ? "ptr" : "ptr"
+        pvSourceMarshal := pvSource is VarRef ? "ptr" : IntPtr
 
         result := ComCall(17, this, pvSourceMarshal, pvSource, "ptr*", &ppvDest := 0, "HRESULT")
         return ppvDest
@@ -493,7 +493,7 @@ export default struct IRecordInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-irecordinfo-recorddestroy
      */
     RecordDestroy(pvRecord) {
-        pvRecordMarshal := pvRecord is VarRef ? "ptr" : "ptr"
+        pvRecordMarshal := pvRecord is VarRef ? "ptr" : IntPtr
 
         result := ComCall(18, this, pvRecordMarshal, pvRecord, "HRESULT")
         return result
@@ -508,22 +508,22 @@ export default struct IRecordInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RecordInit := CallbackCreate(GetMethod(implObj, "RecordInit"), flags, 2)
-        this.vtbl.RecordClear := CallbackCreate(GetMethod(implObj, "RecordClear"), flags, 2)
-        this.vtbl.RecordCopy := CallbackCreate(GetMethod(implObj, "RecordCopy"), flags, 3)
-        this.vtbl.GetGuid := CallbackCreate(GetMethod(implObj, "GetGuid"), flags, 2)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
-        this.vtbl.GetSize := CallbackCreate(GetMethod(implObj, "GetSize"), flags, 2)
-        this.vtbl.GetTypeInfo := CallbackCreate(GetMethod(implObj, "GetTypeInfo"), flags, 2)
-        this.vtbl.GetField := CallbackCreate(GetMethod(implObj, "GetField"), flags, 4)
-        this.vtbl.GetFieldNoCopy := CallbackCreate(GetMethod(implObj, "GetFieldNoCopy"), flags, 5)
-        this.vtbl.PutField := CallbackCreate(GetMethod(implObj, "PutField"), flags, 5)
-        this.vtbl.PutFieldNoCopy := CallbackCreate(GetMethod(implObj, "PutFieldNoCopy"), flags, 5)
-        this.vtbl.GetFieldNames := CallbackCreate(GetMethod(implObj, "GetFieldNames"), flags, 3)
-        this.vtbl.IsMatchingType := CallbackCreate(GetMethod(implObj, "IsMatchingType"), flags, 2)
-        this.vtbl.RecordCreate := CallbackCreate(GetMethod(implObj, "RecordCreate"), flags, 1)
-        this.vtbl.RecordCreateCopy := CallbackCreate(GetMethod(implObj, "RecordCreateCopy"), flags, 3)
-        this.vtbl.RecordDestroy := CallbackCreate(GetMethod(implObj, "RecordDestroy"), flags, 2)
+        this.vtbl.RecordInit := CallbackCreate(ObjBindMethod(implObj, "RecordInit"), flags, 2)
+        this.vtbl.RecordClear := CallbackCreate(ObjBindMethod(implObj, "RecordClear"), flags, 2)
+        this.vtbl.RecordCopy := CallbackCreate(ObjBindMethod(implObj, "RecordCopy"), flags, 3)
+        this.vtbl.GetGuid := CallbackCreate(ObjBindMethod(implObj, "GetGuid"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetSize := CallbackCreate(ObjBindMethod(implObj, "GetSize"), flags, 2)
+        this.vtbl.GetTypeInfo := CallbackCreate(ObjBindMethod(implObj, "GetTypeInfo"), flags, 2)
+        this.vtbl.GetField := CallbackCreate(ObjBindMethod(implObj, "GetField"), flags, 4)
+        this.vtbl.GetFieldNoCopy := CallbackCreate(ObjBindMethod(implObj, "GetFieldNoCopy"), flags, 5)
+        this.vtbl.PutField := CallbackCreate(ObjBindMethod(implObj, "PutField"), flags, 5)
+        this.vtbl.PutFieldNoCopy := CallbackCreate(ObjBindMethod(implObj, "PutFieldNoCopy"), flags, 5)
+        this.vtbl.GetFieldNames := CallbackCreate(ObjBindMethod(implObj, "GetFieldNames"), flags, 3)
+        this.vtbl.IsMatchingType := CallbackCreate(ObjBindMethod(implObj, "IsMatchingType"), flags, 2)
+        this.vtbl.RecordCreate := CallbackCreate(ObjBindMethod(implObj, "RecordCreate"), flags, 1)
+        this.vtbl.RecordCreateCopy := CallbackCreate(ObjBindMethod(implObj, "RecordCreateCopy"), flags, 3)
+        this.vtbl.RecordDestroy := CallbackCreate(ObjBindMethod(implObj, "RecordDestroy"), flags, 2)
     }
 
     Dispose() {

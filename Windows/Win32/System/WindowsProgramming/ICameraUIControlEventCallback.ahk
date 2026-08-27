@@ -101,11 +101,11 @@ export default struct ICameraUIControlEventCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnStartupComplete := CallbackCreate(GetMethod(implObj, "OnStartupComplete"), flags, 1)
-        this.vtbl.OnSuspendComplete := CallbackCreate(GetMethod(implObj, "OnSuspendComplete"), flags, 1)
-        this.vtbl.OnItemCaptured := CallbackCreate(GetMethod(implObj, "OnItemCaptured"), flags, 2)
-        this.vtbl.OnItemDeleted := CallbackCreate(GetMethod(implObj, "OnItemDeleted"), flags, 2)
-        this.vtbl.OnClosed := CallbackCreate(GetMethod(implObj, "OnClosed"), flags, 1)
+        this.vtbl.OnStartupComplete := CallbackCreate(ObjBindMethod(implObj, "OnStartupComplete"), flags, 1)
+        this.vtbl.OnSuspendComplete := CallbackCreate(ObjBindMethod(implObj, "OnSuspendComplete"), flags, 1)
+        this.vtbl.OnItemCaptured := CallbackCreate(ObjBindMethod(implObj, "OnItemCaptured"), flags, 2)
+        this.vtbl.OnItemDeleted := CallbackCreate(ObjBindMethod(implObj, "OnItemDeleted"), flags, 2)
+        this.vtbl.OnClosed := CallbackCreate(ObjBindMethod(implObj, "OnClosed"), flags, 1)
     }
 
     Dispose() {

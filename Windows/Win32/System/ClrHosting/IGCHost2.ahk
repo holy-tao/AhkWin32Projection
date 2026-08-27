@@ -36,7 +36,6 @@ export default struct IGCHost2 extends IGCHost {
     }
 
     /**
-     * 
      * @param {Pointer} SegmentSize 
      * @param {Pointer} MaxGen0Size 
      * @returns {HRESULT} 
@@ -55,7 +54,7 @@ export default struct IGCHost2 extends IGCHost {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetGCStartupLimitsEx := CallbackCreate(GetMethod(implObj, "SetGCStartupLimitsEx"), flags, 3)
+        this.vtbl.SetGCStartupLimitsEx := CallbackCreate(ObjBindMethod(implObj, "SetGCStartupLimitsEx"), flags, 3)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct PF_NPAddConnection {
     }
 
     /**
-     * 
      * @param {Pointer<NETRESOURCEW>} lpNetResource 
      * @param {PWSTR} lpPassword 
      * @param {PWSTR} lpUserName 
@@ -30,7 +29,10 @@ export default struct PF_NPAddConnection {
         lpPassword := lpPassword is String ? StrPtr(lpPassword) : lpPassword
         lpUserName := lpUserName is String ? StrPtr(lpUserName) : lpUserName
 
-        result := DllCall(this.value, NETRESOURCEW.Ptr, lpNetResource, "ptr", lpPassword, "ptr", lpUserName, UInt32)
+        lpPasswordMarshal := lpPassword == 0 ? IntPtr : PWSTR
+        lpUserNameMarshal := lpUserName == 0 ? IntPtr : PWSTR
+
+        result := DllCall(this.value, NETRESOURCEW.Ptr, lpNetResource, lpPasswordMarshal, lpPassword, lpUserNameMarshal, lpUserName, UInt32)
         return result
     }
 

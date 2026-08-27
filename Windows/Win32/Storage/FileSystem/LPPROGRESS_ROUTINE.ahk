@@ -26,7 +26,6 @@ export default struct LPPROGRESS_ROUTINE {
     }
 
     /**
-     * 
      * @param {Integer} TotalFileSize The total size of the file, in bytes.
      * @param {Integer} TotalBytesTransferred The total number of bytes transferred from the source file to the destination file since the copy operation 
      *       began.
@@ -103,7 +102,8 @@ export default struct LPPROGRESS_ROUTINE {
      * </table>
      */
     Call(TotalFileSize, TotalBytesTransferred, StreamSize, StreamBytesTransferred, dwStreamNumber, dwCallbackReason, hSourceFile, hDestinationFile, lpData) {
-        lpDataMarshal := lpData is VarRef ? "ptr" : "ptr"
+        lpDataMarshal := lpData is VarRef ? "ptr" : IntPtr
+        lpDataMarshal := lpData == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, Int64, TotalFileSize, Int64, TotalBytesTransferred, Int64, StreamSize, Int64, StreamBytesTransferred, UInt32, dwStreamNumber, LPPROGRESS_ROUTINE_CALLBACK_REASON, dwCallbackReason, HANDLE, hSourceFile, HANDLE, hDestinationFile, lpDataMarshal, lpData, COPYPROGRESSROUTINE_PROGRESS)
         return result

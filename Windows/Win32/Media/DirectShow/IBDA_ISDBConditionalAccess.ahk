@@ -48,7 +48,7 @@ export default struct IBDA_ISDBConditionalAccess extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_isdbconditionalaccess-setisdbcasrequest
      */
     SetIsdbCasRequest(ulRequestId, ulcbRequestBufferLen, pbRequestBuffer) {
-        pbRequestBufferMarshal := pbRequestBuffer is VarRef ? "char*" : "ptr"
+        pbRequestBufferMarshal := pbRequestBuffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, UInt32, ulRequestId, UInt32, ulcbRequestBufferLen, pbRequestBufferMarshal, pbRequestBuffer, "HRESULT")
         return result
@@ -63,7 +63,7 @@ export default struct IBDA_ISDBConditionalAccess extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetIsdbCasRequest := CallbackCreate(GetMethod(implObj, "SetIsdbCasRequest"), flags, 4)
+        this.vtbl.SetIsdbCasRequest := CallbackCreate(ObjBindMethod(implObj, "SetIsdbCasRequest"), flags, 4)
     }
 
     Dispose() {

@@ -21,7 +21,6 @@ export default struct DOT11EXT_QUERY_VIRTUAL_STATION_PROPERTIES {
     }
 
     /**
-     * 
      * @param {HANDLE} hDot11SvcHandle 
      * @param {Pointer<BOOL>} pbIsVirtualStation 
      * @param {Pointer<Guid>} pgPrimary 
@@ -30,9 +29,10 @@ export default struct DOT11EXT_QUERY_VIRTUAL_STATION_PROPERTIES {
     Call(hDot11SvcHandle, pbIsVirtualStation, pgPrimary) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
-        pbIsVirtualStationMarshal := pbIsVirtualStation is VarRef ? "int*" : "ptr"
+        hDot11SvcHandleMarshal := hDot11SvcHandle == 0 ? IntPtr : HANDLE
+        pbIsVirtualStationMarshal := pbIsVirtualStation is VarRef ? "int*" : IntPtr
 
-        result := DllCall(this.value, HANDLE, hDot11SvcHandle, pbIsVirtualStationMarshal, pbIsVirtualStation, Guid.Ptr, pgPrimary, "ptr", pvReserved, UInt32)
+        result := DllCall(this.value, hDot11SvcHandleMarshal, hDot11SvcHandle, pbIsVirtualStationMarshal, pbIsVirtualStation, Guid.Ptr, pgPrimary, "ptr", pvReserved, UInt32)
         return result
     }
 

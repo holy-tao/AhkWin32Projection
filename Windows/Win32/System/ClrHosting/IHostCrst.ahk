@@ -40,7 +40,6 @@ export default struct IHostCrst extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} option 
      * @returns {HRESULT} 
      */
@@ -50,7 +49,6 @@ export default struct IHostCrst extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Leave() {
@@ -59,7 +57,6 @@ export default struct IHostCrst extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} option 
      * @returns {BOOL} 
      */
@@ -69,7 +66,6 @@ export default struct IHostCrst extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSpinCount 
      * @returns {HRESULT} 
      */
@@ -87,10 +83,10 @@ export default struct IHostCrst extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Enter := CallbackCreate(GetMethod(implObj, "Enter"), flags, 2)
-        this.vtbl.Leave := CallbackCreate(GetMethod(implObj, "Leave"), flags, 1)
-        this.vtbl.TryEnter := CallbackCreate(GetMethod(implObj, "TryEnter"), flags, 3)
-        this.vtbl.SetSpinCount := CallbackCreate(GetMethod(implObj, "SetSpinCount"), flags, 2)
+        this.vtbl.Enter := CallbackCreate(ObjBindMethod(implObj, "Enter"), flags, 2)
+        this.vtbl.Leave := CallbackCreate(ObjBindMethod(implObj, "Leave"), flags, 1)
+        this.vtbl.TryEnter := CallbackCreate(ObjBindMethod(implObj, "TryEnter"), flags, 3)
+        this.vtbl.SetSpinCount := CallbackCreate(ObjBindMethod(implObj, "SetSpinCount"), flags, 2)
     }
 
     Dispose() {

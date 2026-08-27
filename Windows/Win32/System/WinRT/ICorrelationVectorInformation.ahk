@@ -54,7 +54,6 @@ export default struct ICorrelationVectorInformation extends IInspectable {
     }
 
     /**
-     * 
      * @returns {HSTRING} 
      */
     get_LastCorrelationVectorForThread() {
@@ -64,7 +63,6 @@ export default struct ICorrelationVectorInformation extends IInspectable {
     }
 
     /**
-     * 
      * @returns {HSTRING} 
      */
     get_NextCorrelationVectorForThread() {
@@ -74,7 +72,6 @@ export default struct ICorrelationVectorInformation extends IInspectable {
     }
 
     /**
-     * 
      * @param {HSTRING} cv 
      * @returns {HRESULT} 
      */
@@ -92,9 +89,9 @@ export default struct ICorrelationVectorInformation extends IInspectable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_LastCorrelationVectorForThread := CallbackCreate(GetMethod(implObj, "get_LastCorrelationVectorForThread"), flags, 2)
-        this.vtbl.get_NextCorrelationVectorForThread := CallbackCreate(GetMethod(implObj, "get_NextCorrelationVectorForThread"), flags, 2)
-        this.vtbl.put_NextCorrelationVectorForThread := CallbackCreate(GetMethod(implObj, "put_NextCorrelationVectorForThread"), flags, 2)
+        this.vtbl.get_LastCorrelationVectorForThread := CallbackCreate(ObjBindMethod(implObj, "get_LastCorrelationVectorForThread"), flags, 2)
+        this.vtbl.get_NextCorrelationVectorForThread := CallbackCreate(ObjBindMethod(implObj, "get_NextCorrelationVectorForThread"), flags, 2)
+        this.vtbl.put_NextCorrelationVectorForThread := CallbackCreate(ObjBindMethod(implObj, "put_NextCorrelationVectorForThread"), flags, 2)
     }
 
     Dispose() {

@@ -190,9 +190,12 @@
 export RasDialA(param0, param1, param2, param3, param4, param5) {
     param1 := param1 is String ? StrPtr(param1) : param1
 
-    param4Marshal := param4 is VarRef ? "ptr" : "ptr"
+    param0Marshal := param0 == 0 ? IntPtr : RASDIALEXTENSIONS.Ptr
+    param1Marshal := param1 == 0 ? IntPtr : PSTR
+    param4Marshal := param4 is VarRef ? "ptr" : IntPtr
+    param4Marshal := param4 == 0 ? IntPtr : "ptr"
 
-    result := DllCall("RASAPI32.dll\RasDialA", RASDIALEXTENSIONS.Ptr, param0, "ptr", param1, RASDIALPARAMSA.Ptr, param2, UInt32, param3, param4Marshal, param4, HRASCONN.Ptr, param5, UInt32)
+    result := DllCall("RASAPI32.dll\RasDialA", param0Marshal, param0, param1Marshal, param1, RASDIALPARAMSA.Ptr, param2, UInt32, param3, param4Marshal, param4, HRASCONN.Ptr, param5, UInt32)
     return result
 }
 
@@ -324,9 +327,12 @@ export RasDialA(param0, param1, param2, param3, param4, param5) {
 export RasDialW(param0, param1, param2, param3, param4, param5) {
     param1 := param1 is String ? StrPtr(param1) : param1
 
-    param4Marshal := param4 is VarRef ? "ptr" : "ptr"
+    param0Marshal := param0 == 0 ? IntPtr : RASDIALEXTENSIONS.Ptr
+    param1Marshal := param1 == 0 ? IntPtr : PWSTR
+    param4Marshal := param4 is VarRef ? "ptr" : IntPtr
+    param4Marshal := param4 == 0 ? IntPtr : "ptr"
 
-    result := DllCall("RASAPI32.dll\RasDialW", RASDIALEXTENSIONS.Ptr, param0, "ptr", param1, RASDIALPARAMSW.Ptr, param2, UInt32, param3, param4Marshal, param4, HRASCONN.Ptr, param5, UInt32)
+    result := DllCall("RASAPI32.dll\RasDialW", param0Marshal, param0, param1Marshal, param1, RASDIALPARAMSW.Ptr, param2, UInt32, param3, param4Marshal, param4, HRASCONN.Ptr, param5, UInt32)
     return result
 }
 
@@ -386,10 +392,11 @@ export RasDialW(param0, param1, param2, param3, param4, param5) {
  * @since windows5.0
  */
 export RasEnumConnectionsA(param0, param1, param2) {
-    param1Marshal := param1 is VarRef ? "uint*" : "ptr"
-    param2Marshal := param2 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 == 0 ? IntPtr : IntPtr
+    param1Marshal := param1 is VarRef ? "uint*" : IntPtr
+    param2Marshal := param2 is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("RASAPI32.dll\RasEnumConnectionsA", IntPtr, param0, param1Marshal, param1, param2Marshal, param2, UInt32)
+    result := DllCall("RASAPI32.dll\RasEnumConnectionsA", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, UInt32)
     return result
 }
 
@@ -449,10 +456,11 @@ export RasEnumConnectionsA(param0, param1, param2) {
  * @since windows5.0
  */
 export RasEnumConnectionsW(param0, param1, param2) {
-    param1Marshal := param1 is VarRef ? "uint*" : "ptr"
-    param2Marshal := param2 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 == 0 ? IntPtr : IntPtr
+    param1Marshal := param1 is VarRef ? "uint*" : IntPtr
+    param2Marshal := param2 is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("RASAPI32.dll\RasEnumConnectionsW", IntPtr, param0, param1Marshal, param1, param2Marshal, param2, UInt32)
+    result := DllCall("RASAPI32.dll\RasEnumConnectionsW", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, UInt32)
     return result
 }
 
@@ -544,10 +552,13 @@ export RasEnumEntriesA(param0, param1, param2, param3, param4) {
     param0 := param0 is String ? StrPtr(param0) : param0
     param1 := param1 is String ? StrPtr(param1) : param1
 
-    param3Marshal := param3 is VarRef ? "uint*" : "ptr"
-    param4Marshal := param4 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 == 0 ? IntPtr : PSTR
+    param1Marshal := param1 == 0 ? IntPtr : PSTR
+    param2Marshal := param2 == 0 ? IntPtr : RASENTRYNAMEA.Ptr
+    param3Marshal := param3 is VarRef ? "uint*" : IntPtr
+    param4Marshal := param4 is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("RASAPI32.dll\RasEnumEntriesA", "ptr", param0, "ptr", param1, RASENTRYNAMEA.Ptr, param2, param3Marshal, param3, param4Marshal, param4, UInt32)
+    result := DllCall("RASAPI32.dll\RasEnumEntriesA", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, param3Marshal, param3, param4Marshal, param4, UInt32)
     return result
 }
 
@@ -639,10 +650,13 @@ export RasEnumEntriesW(param0, param1, param2, param3, param4) {
     param0 := param0 is String ? StrPtr(param0) : param0
     param1 := param1 is String ? StrPtr(param1) : param1
 
-    param3Marshal := param3 is VarRef ? "uint*" : "ptr"
-    param4Marshal := param4 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 == 0 ? IntPtr : PWSTR
+    param1Marshal := param1 == 0 ? IntPtr : PWSTR
+    param2Marshal := param2 == 0 ? IntPtr : RASENTRYNAMEW.Ptr
+    param3Marshal := param3 is VarRef ? "uint*" : IntPtr
+    param4Marshal := param4 is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("RASAPI32.dll\RasEnumEntriesW", "ptr", param0, "ptr", param1, RASENTRYNAMEW.Ptr, param2, param3Marshal, param3, param4Marshal, param4, UInt32)
+    result := DllCall("RASAPI32.dll\RasEnumEntriesW", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, param3Marshal, param3, param4Marshal, param4, UInt32)
     return result
 }
 
@@ -1176,8 +1190,8 @@ export RasHangUpW(param0) {
  * @since windows5.0
  */
 export RasGetProjectionInfoA(param0, param1, param2, param3) {
-    param2Marshal := param2 is VarRef ? "ptr" : "ptr"
-    param3Marshal := param3 is VarRef ? "uint*" : "ptr"
+    param2Marshal := param2 is VarRef ? "ptr" : IntPtr
+    param3Marshal := param3 is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RASAPI32.dll\RasGetProjectionInfoA", HRASCONN, param0, RASPROJECTION, param1, param2Marshal, param2, param3Marshal, param3, UInt32)
     return result
@@ -1401,8 +1415,8 @@ export RasGetProjectionInfoA(param0, param1, param2, param3) {
  * @since windows5.0
  */
 export RasGetProjectionInfoW(param0, param1, param2, param3) {
-    param2Marshal := param2 is VarRef ? "ptr" : "ptr"
-    param3Marshal := param3 is VarRef ? "uint*" : "ptr"
+    param2Marshal := param2 is VarRef ? "ptr" : IntPtr
+    param3Marshal := param3 is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RASAPI32.dll\RasGetProjectionInfoW", HRASCONN, param0, RASPROJECTION, param1, param2Marshal, param2, param3Marshal, param3, UInt32)
     return result
@@ -1453,7 +1467,9 @@ export RasGetProjectionInfoW(param0, param1, param2, param3) {
 export RasCreatePhonebookEntryA(param0, param1) {
     param1 := param1 is String ? StrPtr(param1) : param1
 
-    result := DllCall("RASAPI32.dll\RasCreatePhonebookEntryA", HWND, param0, "ptr", param1, UInt32)
+    param1Marshal := param1 == 0 ? IntPtr : PSTR
+
+    result := DllCall("RASAPI32.dll\RasCreatePhonebookEntryA", HWND, param0, param1Marshal, param1, UInt32)
     return result
 }
 
@@ -1502,7 +1518,9 @@ export RasCreatePhonebookEntryA(param0, param1) {
 export RasCreatePhonebookEntryW(param0, param1) {
     param1 := param1 is String ? StrPtr(param1) : param1
 
-    result := DllCall("RASAPI32.dll\RasCreatePhonebookEntryW", HWND, param0, "ptr", param1, UInt32)
+    param1Marshal := param1 == 0 ? IntPtr : PWSTR
+
+    result := DllCall("RASAPI32.dll\RasCreatePhonebookEntryW", HWND, param0, param1Marshal, param1, UInt32)
     return result
 }
 
@@ -1574,7 +1592,9 @@ export RasEditPhonebookEntryA(param0, param1, param2) {
     param1 := param1 is String ? StrPtr(param1) : param1
     param2 := param2 is String ? StrPtr(param2) : param2
 
-    result := DllCall("RASAPI32.dll\RasEditPhonebookEntryA", HWND, param0, "ptr", param1, "ptr", param2, UInt32)
+    param1Marshal := param1 == 0 ? IntPtr : PSTR
+
+    result := DllCall("RASAPI32.dll\RasEditPhonebookEntryA", HWND, param0, param1Marshal, param1, "ptr", param2, UInt32)
     return result
 }
 
@@ -1646,7 +1666,9 @@ export RasEditPhonebookEntryW(param0, param1, param2) {
     param1 := param1 is String ? StrPtr(param1) : param1
     param2 := param2 is String ? StrPtr(param2) : param2
 
-    result := DllCall("RASAPI32.dll\RasEditPhonebookEntryW", HWND, param0, "ptr", param1, "ptr", param2, UInt32)
+    param1Marshal := param1 == 0 ? IntPtr : PWSTR
+
+    result := DllCall("RASAPI32.dll\RasEditPhonebookEntryW", HWND, param0, param1Marshal, param1, "ptr", param2, UInt32)
     return result
 }
 
@@ -1839,7 +1861,9 @@ export RasEditPhonebookEntryW(param0, param1, param2) {
 export RasSetEntryDialParamsA(param0, param1, param2) {
     param0 := param0 is String ? StrPtr(param0) : param0
 
-    result := DllCall("RASAPI32.dll\RasSetEntryDialParamsA", "ptr", param0, RASDIALPARAMSA.Ptr, param1, BOOL, param2, UInt32)
+    param0Marshal := param0 == 0 ? IntPtr : PSTR
+
+    result := DllCall("RASAPI32.dll\RasSetEntryDialParamsA", param0Marshal, param0, RASDIALPARAMSA.Ptr, param1, BOOL, param2, UInt32)
     return result
 }
 
@@ -2032,7 +2056,9 @@ export RasSetEntryDialParamsA(param0, param1, param2) {
 export RasSetEntryDialParamsW(param0, param1, param2) {
     param0 := param0 is String ? StrPtr(param0) : param0
 
-    result := DllCall("RASAPI32.dll\RasSetEntryDialParamsW", "ptr", param0, RASDIALPARAMSW.Ptr, param1, BOOL, param2, UInt32)
+    param0Marshal := param0 == 0 ? IntPtr : PWSTR
+
+    result := DllCall("RASAPI32.dll\RasSetEntryDialParamsW", param0Marshal, param0, RASDIALPARAMSW.Ptr, param1, BOOL, param2, UInt32)
     return result
 }
 
@@ -2126,9 +2152,10 @@ export RasSetEntryDialParamsW(param0, param1, param2) {
 export RasGetEntryDialParamsA(param0, param1, param2) {
     param0 := param0 is String ? StrPtr(param0) : param0
 
-    param2Marshal := param2 is VarRef ? "int*" : "ptr"
+    param0Marshal := param0 == 0 ? IntPtr : PSTR
+    param2Marshal := param2 is VarRef ? "int*" : IntPtr
 
-    result := DllCall("RASAPI32.dll\RasGetEntryDialParamsA", "ptr", param0, RASDIALPARAMSA.Ptr, param1, param2Marshal, param2, UInt32)
+    result := DllCall("RASAPI32.dll\RasGetEntryDialParamsA", param0Marshal, param0, RASDIALPARAMSA.Ptr, param1, param2Marshal, param2, UInt32)
     return result
 }
 
@@ -2222,9 +2249,10 @@ export RasGetEntryDialParamsA(param0, param1, param2) {
 export RasGetEntryDialParamsW(param0, param1, param2) {
     param0 := param0 is String ? StrPtr(param0) : param0
 
-    param2Marshal := param2 is VarRef ? "int*" : "ptr"
+    param0Marshal := param0 == 0 ? IntPtr : PWSTR
+    param2Marshal := param2 is VarRef ? "int*" : IntPtr
 
-    result := DllCall("RASAPI32.dll\RasGetEntryDialParamsW", "ptr", param0, RASDIALPARAMSW.Ptr, param1, param2Marshal, param2, UInt32)
+    result := DllCall("RASAPI32.dll\RasGetEntryDialParamsW", param0Marshal, param0, RASDIALPARAMSW.Ptr, param1, param2Marshal, param2, UInt32)
     return result
 }
 
@@ -2313,10 +2341,11 @@ export RasGetEntryDialParamsW(param0, param1, param2) {
  * @since windows5.0
  */
 export RasEnumDevicesA(param0, param1, param2) {
-    param1Marshal := param1 is VarRef ? "uint*" : "ptr"
-    param2Marshal := param2 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 == 0 ? IntPtr : RASDEVINFOA.Ptr
+    param1Marshal := param1 is VarRef ? "uint*" : IntPtr
+    param2Marshal := param2 is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("RASAPI32.dll\RasEnumDevicesA", RASDEVINFOA.Ptr, param0, param1Marshal, param1, param2Marshal, param2, UInt32)
+    result := DllCall("RASAPI32.dll\RasEnumDevicesA", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, UInt32)
     return result
 }
 
@@ -2405,10 +2434,11 @@ export RasEnumDevicesA(param0, param1, param2) {
  * @since windows5.0
  */
 export RasEnumDevicesW(param0, param1, param2) {
-    param1Marshal := param1 is VarRef ? "uint*" : "ptr"
-    param2Marshal := param2 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 == 0 ? IntPtr : RASDEVINFOW.Ptr
+    param1Marshal := param1 is VarRef ? "uint*" : IntPtr
+    param2Marshal := param2 is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("RASAPI32.dll\RasEnumDevicesW", RASDEVINFOW.Ptr, param0, param1Marshal, param1, param2Marshal, param2, UInt32)
+    result := DllCall("RASAPI32.dll\RasEnumDevicesW", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, UInt32)
     return result
 }
 
@@ -2499,9 +2529,10 @@ export RasEnumDevicesW(param0, param1, param2) {
  * @since windows5.0
  */
 export RasGetCountryInfoA(param0, param1) {
-    param1Marshal := param1 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 == 0 ? IntPtr : RASCTRYINFO.Ptr
+    param1Marshal := param1 is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("RASAPI32.dll\RasGetCountryInfoA", RASCTRYINFO.Ptr, param0, param1Marshal, param1, UInt32)
+    result := DllCall("RASAPI32.dll\RasGetCountryInfoA", param0Marshal, param0, param1Marshal, param1, UInt32)
     return result
 }
 
@@ -2592,9 +2623,10 @@ export RasGetCountryInfoA(param0, param1) {
  * @since windows5.0
  */
 export RasGetCountryInfoW(param0, param1) {
-    param1Marshal := param1 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 == 0 ? IntPtr : RASCTRYINFO.Ptr
+    param1Marshal := param1 is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("RASAPI32.dll\RasGetCountryInfoW", RASCTRYINFO.Ptr, param0, param1Marshal, param1, UInt32)
+    result := DllCall("RASAPI32.dll\RasGetCountryInfoW", param0Marshal, param0, param1Marshal, param1, UInt32)
     return result
 }
 
@@ -2727,11 +2759,15 @@ export RasGetEntryPropertiesA(param0, param1, param2, param3, param4, param5) {
     param0 := param0 is String ? StrPtr(param0) : param0
     param1 := param1 is String ? StrPtr(param1) : param1
 
-    param3Marshal := param3 is VarRef ? "uint*" : "ptr"
-    param4Marshal := param4 is VarRef ? "char*" : "ptr"
-    param5Marshal := param5 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 == 0 ? IntPtr : PSTR
+    param2Marshal := param2 == 0 ? IntPtr : RASENTRYA.Ptr
+    param3Marshal := param3 is VarRef ? "uint*" : IntPtr
+    param4Marshal := param4 is VarRef ? "char*" : IntPtr
+    param4Marshal := param4 == 0 ? IntPtr : "char*"
+    param5Marshal := param5 is VarRef ? "uint*" : IntPtr
+    param5Marshal := param5 == 0 ? IntPtr : "uint*"
 
-    result := DllCall("RASAPI32.dll\RasGetEntryPropertiesA", "ptr", param0, "ptr", param1, RASENTRYA.Ptr, param2, param3Marshal, param3, param4Marshal, param4, param5Marshal, param5, UInt32)
+    result := DllCall("RASAPI32.dll\RasGetEntryPropertiesA", param0Marshal, param0, "ptr", param1, param2Marshal, param2, param3Marshal, param3, param4Marshal, param4, param5Marshal, param5, UInt32)
     return result
 }
 
@@ -2864,11 +2900,15 @@ export RasGetEntryPropertiesW(param0, param1, param2, param3, param4, param5) {
     param0 := param0 is String ? StrPtr(param0) : param0
     param1 := param1 is String ? StrPtr(param1) : param1
 
-    param3Marshal := param3 is VarRef ? "uint*" : "ptr"
-    param4Marshal := param4 is VarRef ? "char*" : "ptr"
-    param5Marshal := param5 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 == 0 ? IntPtr : PWSTR
+    param2Marshal := param2 == 0 ? IntPtr : RASENTRYW.Ptr
+    param3Marshal := param3 is VarRef ? "uint*" : IntPtr
+    param4Marshal := param4 is VarRef ? "char*" : IntPtr
+    param4Marshal := param4 == 0 ? IntPtr : "char*"
+    param5Marshal := param5 is VarRef ? "uint*" : IntPtr
+    param5Marshal := param5 == 0 ? IntPtr : "uint*"
 
-    result := DllCall("RASAPI32.dll\RasGetEntryPropertiesW", "ptr", param0, "ptr", param1, RASENTRYW.Ptr, param2, param3Marshal, param3, param4Marshal, param4, param5Marshal, param5, UInt32)
+    result := DllCall("RASAPI32.dll\RasGetEntryPropertiesW", param0Marshal, param0, "ptr", param1, param2Marshal, param2, param3Marshal, param3, param4Marshal, param4, param5Marshal, param5, UInt32)
     return result
 }
 
@@ -3020,9 +3060,11 @@ export RasSetEntryPropertiesA(param0, param1, param2, param3, param4, param5) {
     param0 := param0 is String ? StrPtr(param0) : param0
     param1 := param1 is String ? StrPtr(param1) : param1
 
-    param4Marshal := param4 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 == 0 ? IntPtr : PSTR
+    param4Marshal := param4 is VarRef ? "char*" : IntPtr
+    param4Marshal := param4 == 0 ? IntPtr : "char*"
 
-    result := DllCall("RASAPI32.dll\RasSetEntryPropertiesA", "ptr", param0, "ptr", param1, RASENTRYA.Ptr, param2, UInt32, param3, param4Marshal, param4, UInt32, param5, UInt32)
+    result := DllCall("RASAPI32.dll\RasSetEntryPropertiesA", param0Marshal, param0, "ptr", param1, RASENTRYA.Ptr, param2, UInt32, param3, param4Marshal, param4, UInt32, param5, UInt32)
     return result
 }
 
@@ -3174,9 +3216,11 @@ export RasSetEntryPropertiesW(param0, param1, param2, param3, param4, param5) {
     param0 := param0 is String ? StrPtr(param0) : param0
     param1 := param1 is String ? StrPtr(param1) : param1
 
-    param4Marshal := param4 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 == 0 ? IntPtr : PWSTR
+    param4Marshal := param4 is VarRef ? "char*" : IntPtr
+    param4Marshal := param4 == 0 ? IntPtr : "char*"
 
-    result := DllCall("RASAPI32.dll\RasSetEntryPropertiesW", "ptr", param0, "ptr", param1, RASENTRYW.Ptr, param2, UInt32, param3, param4Marshal, param4, UInt32, param5, UInt32)
+    result := DllCall("RASAPI32.dll\RasSetEntryPropertiesW", param0Marshal, param0, "ptr", param1, RASENTRYW.Ptr, param2, UInt32, param3, param4Marshal, param4, UInt32, param5, UInt32)
     return result
 }
 
@@ -3266,7 +3310,9 @@ export RasRenameEntryA(param0, param1, param2) {
     param1 := param1 is String ? StrPtr(param1) : param1
     param2 := param2 is String ? StrPtr(param2) : param2
 
-    result := DllCall("RASAPI32.dll\RasRenameEntryA", "ptr", param0, "ptr", param1, "ptr", param2, UInt32)
+    param0Marshal := param0 == 0 ? IntPtr : PSTR
+
+    result := DllCall("RASAPI32.dll\RasRenameEntryA", param0Marshal, param0, "ptr", param1, "ptr", param2, UInt32)
     return result
 }
 
@@ -3356,7 +3402,9 @@ export RasRenameEntryW(param0, param1, param2) {
     param1 := param1 is String ? StrPtr(param1) : param1
     param2 := param2 is String ? StrPtr(param2) : param2
 
-    result := DllCall("RASAPI32.dll\RasRenameEntryW", "ptr", param0, "ptr", param1, "ptr", param2, UInt32)
+    param0Marshal := param0 == 0 ? IntPtr : PWSTR
+
+    result := DllCall("RASAPI32.dll\RasRenameEntryW", param0Marshal, param0, "ptr", param1, "ptr", param2, UInt32)
     return result
 }
 
@@ -3414,7 +3462,9 @@ export RasDeleteEntryA(param0, param1) {
     param0 := param0 is String ? StrPtr(param0) : param0
     param1 := param1 is String ? StrPtr(param1) : param1
 
-    result := DllCall("RASAPI32.dll\RasDeleteEntryA", "ptr", param0, "ptr", param1, UInt32)
+    param0Marshal := param0 == 0 ? IntPtr : PSTR
+
+    result := DllCall("RASAPI32.dll\RasDeleteEntryA", param0Marshal, param0, "ptr", param1, UInt32)
     return result
 }
 
@@ -3472,7 +3522,9 @@ export RasDeleteEntryW(param0, param1) {
     param0 := param0 is String ? StrPtr(param0) : param0
     param1 := param1 is String ? StrPtr(param1) : param1
 
-    result := DllCall("RASAPI32.dll\RasDeleteEntryW", "ptr", param0, "ptr", param1, UInt32)
+    param0Marshal := param0 == 0 ? IntPtr : PWSTR
+
+    result := DllCall("RASAPI32.dll\RasDeleteEntryW", param0Marshal, param0, "ptr", param1, UInt32)
     return result
 }
 
@@ -3635,7 +3687,9 @@ export RasValidateEntryNameA(param0, param1) {
     param0 := param0 is String ? StrPtr(param0) : param0
     param1 := param1 is String ? StrPtr(param1) : param1
 
-    result := DllCall("RASAPI32.dll\RasValidateEntryNameA", "ptr", param0, "ptr", param1, UInt32)
+    param0Marshal := param0 == 0 ? IntPtr : PSTR
+
+    result := DllCall("RASAPI32.dll\RasValidateEntryNameA", param0Marshal, param0, "ptr", param1, UInt32)
     return result
 }
 
@@ -3798,7 +3852,9 @@ export RasValidateEntryNameW(param0, param1) {
     param0 := param0 is String ? StrPtr(param0) : param0
     param1 := param1 is String ? StrPtr(param1) : param1
 
-    result := DllCall("RASAPI32.dll\RasValidateEntryNameW", "ptr", param0, "ptr", param1, UInt32)
+    param0Marshal := param0 == 0 ? IntPtr : PWSTR
+
+    result := DllCall("RASAPI32.dll\RasValidateEntryNameW", param0Marshal, param0, "ptr", param1, UInt32)
     return result
 }
 
@@ -4122,7 +4178,9 @@ export RasGetCredentialsA(param0, param1, param2) {
     param0 := param0 is String ? StrPtr(param0) : param0
     param1 := param1 is String ? StrPtr(param1) : param1
 
-    result := DllCall("RASAPI32.dll\RasGetCredentialsA", "ptr", param0, "ptr", param1, RASCREDENTIALSA.Ptr, param2, UInt32)
+    param0Marshal := param0 == 0 ? IntPtr : PSTR
+
+    result := DllCall("RASAPI32.dll\RasGetCredentialsA", param0Marshal, param0, "ptr", param1, RASCREDENTIALSA.Ptr, param2, UInt32)
     return result
 }
 
@@ -4230,7 +4288,9 @@ export RasGetCredentialsW(param0, param1, param2) {
     param0 := param0 is String ? StrPtr(param0) : param0
     param1 := param1 is String ? StrPtr(param1) : param1
 
-    result := DllCall("RASAPI32.dll\RasGetCredentialsW", "ptr", param0, "ptr", param1, RASCREDENTIALSW.Ptr, param2, UInt32)
+    param0Marshal := param0 == 0 ? IntPtr : PWSTR
+
+    result := DllCall("RASAPI32.dll\RasGetCredentialsW", param0Marshal, param0, "ptr", param1, RASCREDENTIALSW.Ptr, param2, UInt32)
     return result
 }
 
@@ -4374,7 +4434,9 @@ export RasSetCredentialsA(param0, param1, param2, param3) {
     param0 := param0 is String ? StrPtr(param0) : param0
     param1 := param1 is String ? StrPtr(param1) : param1
 
-    result := DllCall("RASAPI32.dll\RasSetCredentialsA", "ptr", param0, "ptr", param1, RASCREDENTIALSA.Ptr, param2, BOOL, param3, UInt32)
+    param0Marshal := param0 == 0 ? IntPtr : PSTR
+
+    result := DllCall("RASAPI32.dll\RasSetCredentialsA", param0Marshal, param0, "ptr", param1, RASCREDENTIALSA.Ptr, param2, BOOL, param3, UInt32)
     return result
 }
 
@@ -4518,7 +4580,9 @@ export RasSetCredentialsW(param0, param1, param2, param3) {
     param0 := param0 is String ? StrPtr(param0) : param0
     param1 := param1 is String ? StrPtr(param1) : param1
 
-    result := DllCall("RASAPI32.dll\RasSetCredentialsW", "ptr", param0, "ptr", param1, RASCREDENTIALSW.Ptr, param2, BOOL, param3, UInt32)
+    param0Marshal := param0 == 0 ? IntPtr : PWSTR
+
+    result := DllCall("RASAPI32.dll\RasSetCredentialsW", param0Marshal, param0, "ptr", param1, RASCREDENTIALSW.Ptr, param2, BOOL, param3, UInt32)
     return result
 }
 
@@ -4639,11 +4703,16 @@ export RasGetSubEntryPropertiesA(param0, param1, param2, param3, param4, param5,
     param0 := param0 is String ? StrPtr(param0) : param0
     param1 := param1 is String ? StrPtr(param1) : param1
 
-    param4Marshal := param4 is VarRef ? "uint*" : "ptr"
-    param5Marshal := param5 is VarRef ? "char*" : "ptr"
-    param6Marshal := param6 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 == 0 ? IntPtr : PSTR
+    param3Marshal := param3 == 0 ? IntPtr : RASSUBENTRYA.Ptr
+    param4Marshal := param4 is VarRef ? "uint*" : IntPtr
+    param4Marshal := param4 == 0 ? IntPtr : "uint*"
+    param5Marshal := param5 is VarRef ? "char*" : IntPtr
+    param5Marshal := param5 == 0 ? IntPtr : "char*"
+    param6Marshal := param6 is VarRef ? "uint*" : IntPtr
+    param6Marshal := param6 == 0 ? IntPtr : "uint*"
 
-    result := DllCall("RASAPI32.dll\RasGetSubEntryPropertiesA", "ptr", param0, "ptr", param1, UInt32, param2, RASSUBENTRYA.Ptr, param3, param4Marshal, param4, param5Marshal, param5, param6Marshal, param6, UInt32)
+    result := DllCall("RASAPI32.dll\RasGetSubEntryPropertiesA", param0Marshal, param0, "ptr", param1, UInt32, param2, param3Marshal, param3, param4Marshal, param4, param5Marshal, param5, param6Marshal, param6, UInt32)
     return result
 }
 
@@ -4764,11 +4833,16 @@ export RasGetSubEntryPropertiesW(param0, param1, param2, param3, param4, param5,
     param0 := param0 is String ? StrPtr(param0) : param0
     param1 := param1 is String ? StrPtr(param1) : param1
 
-    param4Marshal := param4 is VarRef ? "uint*" : "ptr"
-    param5Marshal := param5 is VarRef ? "char*" : "ptr"
-    param6Marshal := param6 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 == 0 ? IntPtr : PWSTR
+    param3Marshal := param3 == 0 ? IntPtr : RASSUBENTRYW.Ptr
+    param4Marshal := param4 is VarRef ? "uint*" : IntPtr
+    param4Marshal := param4 == 0 ? IntPtr : "uint*"
+    param5Marshal := param5 is VarRef ? "char*" : IntPtr
+    param5Marshal := param5 == 0 ? IntPtr : "char*"
+    param6Marshal := param6 is VarRef ? "uint*" : IntPtr
+    param6Marshal := param6 == 0 ? IntPtr : "uint*"
 
-    result := DllCall("RASAPI32.dll\RasGetSubEntryPropertiesW", "ptr", param0, "ptr", param1, UInt32, param2, RASSUBENTRYW.Ptr, param3, param4Marshal, param4, param5Marshal, param5, param6Marshal, param6, UInt32)
+    result := DllCall("RASAPI32.dll\RasGetSubEntryPropertiesW", param0Marshal, param0, "ptr", param1, UInt32, param2, param3Marshal, param3, param4Marshal, param4, param5Marshal, param5, param6Marshal, param6, UInt32)
     return result
 }
 
@@ -4868,9 +4942,11 @@ export RasSetSubEntryPropertiesA(param0, param1, param2, param3, param4, param5,
     param0 := param0 is String ? StrPtr(param0) : param0
     param1 := param1 is String ? StrPtr(param1) : param1
 
-    param5Marshal := param5 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 == 0 ? IntPtr : PSTR
+    param5Marshal := param5 is VarRef ? "char*" : IntPtr
+    param5Marshal := param5 == 0 ? IntPtr : "char*"
 
-    result := DllCall("RASAPI32.dll\RasSetSubEntryPropertiesA", "ptr", param0, "ptr", param1, UInt32, param2, RASSUBENTRYA.Ptr, param3, UInt32, param4, param5Marshal, param5, UInt32, param6, UInt32)
+    result := DllCall("RASAPI32.dll\RasSetSubEntryPropertiesA", param0Marshal, param0, "ptr", param1, UInt32, param2, RASSUBENTRYA.Ptr, param3, UInt32, param4, param5Marshal, param5, UInt32, param6, UInt32)
     return result
 }
 
@@ -4970,9 +5046,11 @@ export RasSetSubEntryPropertiesW(param0, param1, param2, param3, param4, param5,
     param0 := param0 is String ? StrPtr(param0) : param0
     param1 := param1 is String ? StrPtr(param1) : param1
 
-    param5Marshal := param5 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 == 0 ? IntPtr : PWSTR
+    param5Marshal := param5 is VarRef ? "char*" : IntPtr
+    param5Marshal := param5 == 0 ? IntPtr : "char*"
 
-    result := DllCall("RASAPI32.dll\RasSetSubEntryPropertiesW", "ptr", param0, "ptr", param1, UInt32, param2, RASSUBENTRYW.Ptr, param3, UInt32, param4, param5Marshal, param5, UInt32, param6, UInt32)
+    result := DllCall("RASAPI32.dll\RasSetSubEntryPropertiesW", param0Marshal, param0, "ptr", param1, UInt32, param2, RASSUBENTRYW.Ptr, param3, UInt32, param4, param5Marshal, param5, UInt32, param6, UInt32)
     return result
 }
 
@@ -5082,11 +5160,14 @@ export RasSetSubEntryPropertiesW(param0, param1, param2, param3, param4, param5,
 export RasGetAutodialAddressA(param0, param1, param2, param3, param4) {
     param0 := param0 is String ? StrPtr(param0) : param0
 
-    param1Marshal := param1 is VarRef ? "uint*" : "ptr"
-    param3Marshal := param3 is VarRef ? "uint*" : "ptr"
-    param4Marshal := param4 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 == 0 ? IntPtr : PSTR
+    param1Marshal := param1 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 == 0 ? IntPtr : "uint*"
+    param2Marshal := param2 == 0 ? IntPtr : RASAUTODIALENTRYA.Ptr
+    param3Marshal := param3 is VarRef ? "uint*" : IntPtr
+    param4Marshal := param4 is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("RASAPI32.dll\RasGetAutodialAddressA", "ptr", param0, param1Marshal, param1, RASAUTODIALENTRYA.Ptr, param2, param3Marshal, param3, param4Marshal, param4, UInt32)
+    result := DllCall("RASAPI32.dll\RasGetAutodialAddressA", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, param3Marshal, param3, param4Marshal, param4, UInt32)
     return result
 }
 
@@ -5196,11 +5277,14 @@ export RasGetAutodialAddressA(param0, param1, param2, param3, param4) {
 export RasGetAutodialAddressW(param0, param1, param2, param3, param4) {
     param0 := param0 is String ? StrPtr(param0) : param0
 
-    param1Marshal := param1 is VarRef ? "uint*" : "ptr"
-    param3Marshal := param3 is VarRef ? "uint*" : "ptr"
-    param4Marshal := param4 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 == 0 ? IntPtr : PWSTR
+    param1Marshal := param1 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 == 0 ? IntPtr : "uint*"
+    param2Marshal := param2 == 0 ? IntPtr : RASAUTODIALENTRYW.Ptr
+    param3Marshal := param3 is VarRef ? "uint*" : IntPtr
+    param4Marshal := param4 is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("RASAPI32.dll\RasGetAutodialAddressW", "ptr", param0, param1Marshal, param1, RASAUTODIALENTRYW.Ptr, param2, param3Marshal, param3, param4Marshal, param4, UInt32)
+    result := DllCall("RASAPI32.dll\RasGetAutodialAddressW", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, param3Marshal, param3, param4Marshal, param4, UInt32)
     return result
 }
 
@@ -5298,7 +5382,10 @@ export RasGetAutodialAddressW(param0, param1, param2, param3, param4) {
 export RasSetAutodialAddressA(param0, param1, param2, param3, param4) {
     param0 := param0 is String ? StrPtr(param0) : param0
 
-    result := DllCall("RASAPI32.dll\RasSetAutodialAddressA", "ptr", param0, UInt32, param1, RASAUTODIALENTRYA.Ptr, param2, UInt32, param3, UInt32, param4, UInt32)
+    param0Marshal := param0 == 0 ? IntPtr : PSTR
+    param2Marshal := param2 == 0 ? IntPtr : RASAUTODIALENTRYA.Ptr
+
+    result := DllCall("RASAPI32.dll\RasSetAutodialAddressA", param0Marshal, param0, UInt32, param1, param2Marshal, param2, UInt32, param3, UInt32, param4, UInt32)
     return result
 }
 
@@ -5396,7 +5483,10 @@ export RasSetAutodialAddressA(param0, param1, param2, param3, param4) {
 export RasSetAutodialAddressW(param0, param1, param2, param3, param4) {
     param0 := param0 is String ? StrPtr(param0) : param0
 
-    result := DllCall("RASAPI32.dll\RasSetAutodialAddressW", "ptr", param0, UInt32, param1, RASAUTODIALENTRYW.Ptr, param2, UInt32, param3, UInt32, param4, UInt32)
+    param0Marshal := param0 == 0 ? IntPtr : PWSTR
+    param2Marshal := param2 == 0 ? IntPtr : RASAUTODIALENTRYW.Ptr
+
+    result := DllCall("RASAPI32.dll\RasSetAutodialAddressW", param0Marshal, param0, UInt32, param1, param2Marshal, param2, UInt32, param3, UInt32, param4, UInt32)
     return result
 }
 
@@ -5463,10 +5553,11 @@ export RasSetAutodialAddressW(param0, param1, param2, param3, param4) {
  * @since windows5.0
  */
 export RasEnumAutodialAddressesA(lppRasAutodialAddresses, lpdwcbRasAutodialAddresses, lpdwcRasAutodialAddresses) {
-    lpdwcbRasAutodialAddressesMarshal := lpdwcbRasAutodialAddresses is VarRef ? "uint*" : "ptr"
-    lpdwcRasAutodialAddressesMarshal := lpdwcRasAutodialAddresses is VarRef ? "uint*" : "ptr"
+    lppRasAutodialAddressesMarshal := lppRasAutodialAddresses == 0 ? IntPtr : IntPtr
+    lpdwcbRasAutodialAddressesMarshal := lpdwcbRasAutodialAddresses is VarRef ? "uint*" : IntPtr
+    lpdwcRasAutodialAddressesMarshal := lpdwcRasAutodialAddresses is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("RASAPI32.dll\RasEnumAutodialAddressesA", IntPtr, lppRasAutodialAddresses, lpdwcbRasAutodialAddressesMarshal, lpdwcbRasAutodialAddresses, lpdwcRasAutodialAddressesMarshal, lpdwcRasAutodialAddresses, UInt32)
+    result := DllCall("RASAPI32.dll\RasEnumAutodialAddressesA", lppRasAutodialAddressesMarshal, lppRasAutodialAddresses, lpdwcbRasAutodialAddressesMarshal, lpdwcbRasAutodialAddresses, lpdwcRasAutodialAddressesMarshal, lpdwcRasAutodialAddresses, UInt32)
     return result
 }
 
@@ -5533,10 +5624,11 @@ export RasEnumAutodialAddressesA(lppRasAutodialAddresses, lpdwcbRasAutodialAddre
  * @since windows5.0
  */
 export RasEnumAutodialAddressesW(lppRasAutodialAddresses, lpdwcbRasAutodialAddresses, lpdwcRasAutodialAddresses) {
-    lpdwcbRasAutodialAddressesMarshal := lpdwcbRasAutodialAddresses is VarRef ? "uint*" : "ptr"
-    lpdwcRasAutodialAddressesMarshal := lpdwcRasAutodialAddresses is VarRef ? "uint*" : "ptr"
+    lppRasAutodialAddressesMarshal := lppRasAutodialAddresses == 0 ? IntPtr : IntPtr
+    lpdwcbRasAutodialAddressesMarshal := lpdwcbRasAutodialAddresses is VarRef ? "uint*" : IntPtr
+    lpdwcRasAutodialAddressesMarshal := lpdwcRasAutodialAddresses is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("RASAPI32.dll\RasEnumAutodialAddressesW", IntPtr, lppRasAutodialAddresses, lpdwcbRasAutodialAddressesMarshal, lpdwcbRasAutodialAddresses, lpdwcRasAutodialAddressesMarshal, lpdwcRasAutodialAddresses, UInt32)
+    result := DllCall("RASAPI32.dll\RasEnumAutodialAddressesW", lppRasAutodialAddressesMarshal, lppRasAutodialAddresses, lpdwcbRasAutodialAddressesMarshal, lpdwcbRasAutodialAddresses, lpdwcRasAutodialAddressesMarshal, lpdwcRasAutodialAddresses, UInt32)
     return result
 }
 
@@ -5554,7 +5646,7 @@ export RasEnumAutodialAddressesW(lppRasAutodialAddresses, lpdwcbRasAutodialAddre
  * @since windows5.0
  */
 export RasGetAutodialEnableA(param0, param1) {
-    param1Marshal := param1 is VarRef ? "int*" : "ptr"
+    param1Marshal := param1 is VarRef ? "int*" : IntPtr
 
     result := DllCall("RASAPI32.dll\RasGetAutodialEnableA", UInt32, param0, param1Marshal, param1, UInt32)
     return result
@@ -5574,7 +5666,7 @@ export RasGetAutodialEnableA(param0, param1) {
  * @since windows5.0
  */
 export RasGetAutodialEnableW(param0, param1) {
-    param1Marshal := param1 is VarRef ? "int*" : "ptr"
+    param1Marshal := param1 is VarRef ? "int*" : IntPtr
 
     result := DllCall("RASAPI32.dll\RasGetAutodialEnableW", UInt32, param0, param1Marshal, param1, UInt32)
     return result
@@ -5667,8 +5759,8 @@ export RasSetAutodialEnableW(param0, param1) {
  * @since windows5.0
  */
 export RasGetAutodialParamA(param0, param1, param2) {
-    param1Marshal := param1 is VarRef ? "ptr" : "ptr"
-    param2Marshal := param2 is VarRef ? "uint*" : "ptr"
+    param1Marshal := param1 is VarRef ? "ptr" : IntPtr
+    param2Marshal := param2 is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RASAPI32.dll\RasGetAutodialParamA", UInt32, param0, param1Marshal, param1, param2Marshal, param2, UInt32)
     return result
@@ -5725,8 +5817,8 @@ export RasGetAutodialParamA(param0, param1, param2) {
  * @since windows5.0
  */
 export RasGetAutodialParamW(param0, param1, param2) {
-    param1Marshal := param1 is VarRef ? "ptr" : "ptr"
-    param2Marshal := param2 is VarRef ? "uint*" : "ptr"
+    param1Marshal := param1 is VarRef ? "ptr" : IntPtr
+    param2Marshal := param2 is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RASAPI32.dll\RasGetAutodialParamW", UInt32, param0, param1Marshal, param1, param2Marshal, param2, UInt32)
     return result
@@ -5776,7 +5868,7 @@ export RasGetAutodialParamW(param0, param1, param2) {
  * @since windows5.0
  */
 export RasSetAutodialParamA(param0, param1, param2) {
-    param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+    param1Marshal := param1 is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RASAPI32.dll\RasSetAutodialParamA", UInt32, param0, param1Marshal, param1, UInt32, param2, UInt32)
     return result
@@ -5826,14 +5918,13 @@ export RasSetAutodialParamA(param0, param1, param2) {
  * @since windows5.0
  */
 export RasSetAutodialParamW(param0, param1, param2) {
-    param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+    param1Marshal := param1 is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RASAPI32.dll\RasSetAutodialParamW", UInt32, param0, param1Marshal, param1, UInt32, param2, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} lpszPCscf 
  * @returns {Integer} 
  */
@@ -6269,10 +6360,13 @@ export RasGetEapUserDataA(hToken, pszPhonebook, pszEntry, pbEapData, pdwSizeofEa
     pszPhonebook := pszPhonebook is String ? StrPtr(pszPhonebook) : pszPhonebook
     pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
 
-    pbEapDataMarshal := pbEapData is VarRef ? "char*" : "ptr"
-    pdwSizeofEapDataMarshal := pdwSizeofEapData is VarRef ? "uint*" : "ptr"
+    hTokenMarshal := hToken == 0 ? IntPtr : HANDLE
+    pszPhonebookMarshal := pszPhonebook == 0 ? IntPtr : PSTR
+    pbEapDataMarshal := pbEapData is VarRef ? "char*" : IntPtr
+    pbEapDataMarshal := pbEapData == 0 ? IntPtr : "char*"
+    pdwSizeofEapDataMarshal := pdwSizeofEapData is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("RASAPI32.dll\RasGetEapUserDataA", HANDLE, hToken, "ptr", pszPhonebook, "ptr", pszEntry, pbEapDataMarshal, pbEapData, pdwSizeofEapDataMarshal, pdwSizeofEapData, UInt32)
+    result := DllCall("RASAPI32.dll\RasGetEapUserDataA", hTokenMarshal, hToken, pszPhonebookMarshal, pszPhonebook, "ptr", pszEntry, pbEapDataMarshal, pbEapData, pdwSizeofEapDataMarshal, pdwSizeofEapData, UInt32)
     return result
 }
 
@@ -6367,10 +6461,13 @@ export RasGetEapUserDataW(hToken, pszPhonebook, pszEntry, pbEapData, pdwSizeofEa
     pszPhonebook := pszPhonebook is String ? StrPtr(pszPhonebook) : pszPhonebook
     pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
 
-    pbEapDataMarshal := pbEapData is VarRef ? "char*" : "ptr"
-    pdwSizeofEapDataMarshal := pdwSizeofEapData is VarRef ? "uint*" : "ptr"
+    hTokenMarshal := hToken == 0 ? IntPtr : HANDLE
+    pszPhonebookMarshal := pszPhonebook == 0 ? IntPtr : PWSTR
+    pbEapDataMarshal := pbEapData is VarRef ? "char*" : IntPtr
+    pbEapDataMarshal := pbEapData == 0 ? IntPtr : "char*"
+    pdwSizeofEapDataMarshal := pdwSizeofEapData is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("RASAPI32.dll\RasGetEapUserDataW", HANDLE, hToken, "ptr", pszPhonebook, "ptr", pszEntry, pbEapDataMarshal, pbEapData, pdwSizeofEapDataMarshal, pdwSizeofEapData, UInt32)
+    result := DllCall("RASAPI32.dll\RasGetEapUserDataW", hTokenMarshal, hToken, pszPhonebookMarshal, pszPhonebook, "ptr", pszEntry, pbEapDataMarshal, pbEapData, pdwSizeofEapDataMarshal, pdwSizeofEapData, UInt32)
     return result
 }
 
@@ -6446,9 +6543,11 @@ export RasSetEapUserDataA(hToken, pszPhonebook, pszEntry, pbEapData, dwSizeofEap
     pszPhonebook := pszPhonebook is String ? StrPtr(pszPhonebook) : pszPhonebook
     pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
 
-    pbEapDataMarshal := pbEapData is VarRef ? "char*" : "ptr"
+    hTokenMarshal := hToken == 0 ? IntPtr : HANDLE
+    pszPhonebookMarshal := pszPhonebook == 0 ? IntPtr : PSTR
+    pbEapDataMarshal := pbEapData is VarRef ? "char*" : IntPtr
 
-    result := DllCall("RASAPI32.dll\RasSetEapUserDataA", HANDLE, hToken, "ptr", pszPhonebook, "ptr", pszEntry, pbEapDataMarshal, pbEapData, UInt32, dwSizeofEapData, UInt32)
+    result := DllCall("RASAPI32.dll\RasSetEapUserDataA", hTokenMarshal, hToken, pszPhonebookMarshal, pszPhonebook, "ptr", pszEntry, pbEapDataMarshal, pbEapData, UInt32, dwSizeofEapData, UInt32)
     return result
 }
 
@@ -6524,9 +6623,11 @@ export RasSetEapUserDataW(hToken, pszPhonebook, pszEntry, pbEapData, dwSizeofEap
     pszPhonebook := pszPhonebook is String ? StrPtr(pszPhonebook) : pszPhonebook
     pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
 
-    pbEapDataMarshal := pbEapData is VarRef ? "char*" : "ptr"
+    hTokenMarshal := hToken == 0 ? IntPtr : HANDLE
+    pszPhonebookMarshal := pszPhonebook == 0 ? IntPtr : PWSTR
+    pbEapDataMarshal := pbEapData is VarRef ? "char*" : IntPtr
 
-    result := DllCall("RASAPI32.dll\RasSetEapUserDataW", HANDLE, hToken, "ptr", pszPhonebook, "ptr", pszEntry, pbEapDataMarshal, pbEapData, UInt32, dwSizeofEapData, UInt32)
+    result := DllCall("RASAPI32.dll\RasSetEapUserDataW", hTokenMarshal, hToken, pszPhonebookMarshal, pszPhonebook, "ptr", pszEntry, pbEapDataMarshal, pbEapData, UInt32, dwSizeofEapData, UInt32)
     return result
 }
 
@@ -6620,9 +6721,11 @@ export RasGetCustomAuthDataA(pszPhonebook, pszEntry, pbCustomAuthData, pdwSizeof
     pszPhonebook := pszPhonebook is String ? StrPtr(pszPhonebook) : pszPhonebook
     pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
 
-    pdwSizeofCustomAuthDataMarshal := pdwSizeofCustomAuthData is VarRef ? "uint*" : "ptr"
+    pszPhonebookMarshal := pszPhonebook == 0 ? IntPtr : PSTR
+    pbCustomAuthDataMarshal := pbCustomAuthData == 0 ? IntPtr : IntPtr
+    pdwSizeofCustomAuthDataMarshal := pdwSizeofCustomAuthData is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("RASAPI32.dll\RasGetCustomAuthDataA", "ptr", pszPhonebook, "ptr", pszEntry, IntPtr, pbCustomAuthData, pdwSizeofCustomAuthDataMarshal, pdwSizeofCustomAuthData, UInt32)
+    result := DllCall("RASAPI32.dll\RasGetCustomAuthDataA", pszPhonebookMarshal, pszPhonebook, "ptr", pszEntry, pbCustomAuthDataMarshal, pbCustomAuthData, pdwSizeofCustomAuthDataMarshal, pdwSizeofCustomAuthData, UInt32)
     return result
 }
 
@@ -6716,9 +6819,11 @@ export RasGetCustomAuthDataW(pszPhonebook, pszEntry, pbCustomAuthData, pdwSizeof
     pszPhonebook := pszPhonebook is String ? StrPtr(pszPhonebook) : pszPhonebook
     pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
 
-    pdwSizeofCustomAuthDataMarshal := pdwSizeofCustomAuthData is VarRef ? "uint*" : "ptr"
+    pszPhonebookMarshal := pszPhonebook == 0 ? IntPtr : PWSTR
+    pbCustomAuthDataMarshal := pbCustomAuthData == 0 ? IntPtr : IntPtr
+    pdwSizeofCustomAuthDataMarshal := pdwSizeofCustomAuthData is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("RASAPI32.dll\RasGetCustomAuthDataW", "ptr", pszPhonebook, "ptr", pszEntry, IntPtr, pbCustomAuthData, pdwSizeofCustomAuthDataMarshal, pdwSizeofCustomAuthData, UInt32)
+    result := DllCall("RASAPI32.dll\RasGetCustomAuthDataW", pszPhonebookMarshal, pszPhonebook, "ptr", pszEntry, pbCustomAuthDataMarshal, pbCustomAuthData, pdwSizeofCustomAuthDataMarshal, pdwSizeofCustomAuthData, UInt32)
     return result
 }
 
@@ -6795,7 +6900,9 @@ export RasSetCustomAuthDataA(pszPhonebook, pszEntry, pbCustomAuthData, dwSizeofC
     pszPhonebook := pszPhonebook is String ? StrPtr(pszPhonebook) : pszPhonebook
     pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
 
-    result := DllCall("RASAPI32.dll\RasSetCustomAuthDataA", "ptr", pszPhonebook, "ptr", pszEntry, IntPtr, pbCustomAuthData, UInt32, dwSizeofCustomAuthData, UInt32)
+    pszPhonebookMarshal := pszPhonebook == 0 ? IntPtr : PSTR
+
+    result := DllCall("RASAPI32.dll\RasSetCustomAuthDataA", pszPhonebookMarshal, pszPhonebook, "ptr", pszEntry, IntPtr, pbCustomAuthData, UInt32, dwSizeofCustomAuthData, UInt32)
     return result
 }
 
@@ -6872,7 +6979,9 @@ export RasSetCustomAuthDataW(pszPhonebook, pszEntry, pbCustomAuthData, dwSizeofC
     pszPhonebook := pszPhonebook is String ? StrPtr(pszPhonebook) : pszPhonebook
     pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
 
-    result := DllCall("RASAPI32.dll\RasSetCustomAuthDataW", "ptr", pszPhonebook, "ptr", pszEntry, IntPtr, pbCustomAuthData, UInt32, dwSizeofCustomAuthData, UInt32)
+    pszPhonebookMarshal := pszPhonebook == 0 ? IntPtr : PWSTR
+
+    result := DllCall("RASAPI32.dll\RasSetCustomAuthDataW", pszPhonebookMarshal, pszPhonebook, "ptr", pszEntry, IntPtr, pbCustomAuthData, UInt32, dwSizeofCustomAuthData, UInt32)
     return result
 }
 
@@ -7018,9 +7127,10 @@ export RasGetEapUserIdentityW(pszPhonebook, pszEntry, dwFlags, _hwnd, ppRasEapUs
     pszPhonebook := pszPhonebook is String ? StrPtr(pszPhonebook) : pszPhonebook
     pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
 
-    ppRasEapUserIdentityMarshal := ppRasEapUserIdentity is VarRef ? "ptr*" : "ptr"
+    pszPhonebookMarshal := pszPhonebook == 0 ? IntPtr : PWSTR
+    ppRasEapUserIdentityMarshal := ppRasEapUserIdentity is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("RASAPI32.dll\RasGetEapUserIdentityW", "ptr", pszPhonebook, "ptr", pszEntry, UInt32, dwFlags, HWND, _hwnd, ppRasEapUserIdentityMarshal, ppRasEapUserIdentity, UInt32)
+    result := DllCall("RASAPI32.dll\RasGetEapUserIdentityW", pszPhonebookMarshal, pszPhonebook, "ptr", pszEntry, UInt32, dwFlags, HWND, _hwnd, ppRasEapUserIdentityMarshal, ppRasEapUserIdentity, UInt32)
     return result
 }
 
@@ -7166,9 +7276,10 @@ export RasGetEapUserIdentityA(pszPhonebook, pszEntry, dwFlags, _hwnd, ppRasEapUs
     pszPhonebook := pszPhonebook is String ? StrPtr(pszPhonebook) : pszPhonebook
     pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
 
-    ppRasEapUserIdentityMarshal := ppRasEapUserIdentity is VarRef ? "ptr*" : "ptr"
+    pszPhonebookMarshal := pszPhonebook == 0 ? IntPtr : PSTR
+    ppRasEapUserIdentityMarshal := ppRasEapUserIdentity is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("RASAPI32.dll\RasGetEapUserIdentityA", "ptr", pszPhonebook, "ptr", pszEntry, UInt32, dwFlags, HWND, _hwnd, ppRasEapUserIdentityMarshal, ppRasEapUserIdentity, UInt32)
+    result := DllCall("RASAPI32.dll\RasGetEapUserIdentityA", pszPhonebookMarshal, pszPhonebook, "ptr", pszEntry, UInt32, dwFlags, HWND, _hwnd, ppRasEapUserIdentityMarshal, ppRasEapUserIdentity, UInt32)
     return result
 }
 
@@ -7236,7 +7347,9 @@ export RasDeleteSubEntryA(pszPhonebook, pszEntry, dwSubentryId) {
     pszPhonebook := pszPhonebook is String ? StrPtr(pszPhonebook) : pszPhonebook
     pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
 
-    result := DllCall("RASAPI32.dll\RasDeleteSubEntryA", "ptr", pszPhonebook, "ptr", pszEntry, UInt32, dwSubentryId, UInt32)
+    pszPhonebookMarshal := pszPhonebook == 0 ? IntPtr : PSTR
+
+    result := DllCall("RASAPI32.dll\RasDeleteSubEntryA", pszPhonebookMarshal, pszPhonebook, "ptr", pszEntry, UInt32, dwSubentryId, UInt32)
     return result
 }
 
@@ -7258,7 +7371,9 @@ export RasDeleteSubEntryW(pszPhonebook, pszEntry, dwSubEntryId) {
     pszPhonebook := pszPhonebook is String ? StrPtr(pszPhonebook) : pszPhonebook
     pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
 
-    result := DllCall("RASAPI32.dll\RasDeleteSubEntryW", "ptr", pszPhonebook, "ptr", pszEntry, UInt32, dwSubEntryId, UInt32)
+    pszPhonebookMarshal := pszPhonebook == 0 ? IntPtr : PWSTR
+
+    result := DllCall("RASAPI32.dll\RasDeleteSubEntryW", pszPhonebookMarshal, pszPhonebook, "ptr", pszEntry, UInt32, dwSubEntryId, UInt32)
     return result
 }
 
@@ -7363,9 +7478,10 @@ export RasUpdateConnection(_hrasconn, lprasupdateconn) {
  * @since windows6.1
  */
 export RasGetProjectionInfoEx(_hrasconn, pRasProjection, lpdwSize) {
-    lpdwSizeMarshal := lpdwSize is VarRef ? "uint*" : "ptr"
+    pRasProjectionMarshal := pRasProjection == 0 ? IntPtr : RAS_PROJECTION_INFO.Ptr
+    lpdwSizeMarshal := lpdwSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("RASAPI32.dll\RasGetProjectionInfoEx", HRASCONN, _hrasconn, RAS_PROJECTION_INFO.Ptr, pRasProjection, lpdwSizeMarshal, lpdwSize, UInt32)
+    result := DllCall("RASAPI32.dll\RasGetProjectionInfoEx", HRASCONN, _hrasconn, pRasProjectionMarshal, pRasProjection, lpdwSizeMarshal, lpdwSize, UInt32)
     return result
 }
 
@@ -7402,7 +7518,10 @@ export RasPhonebookDlgA(lpszPhonebook, lpszEntry, lpInfo) {
     lpszPhonebook := lpszPhonebook is String ? StrPtr(lpszPhonebook) : lpszPhonebook
     lpszEntry := lpszEntry is String ? StrPtr(lpszEntry) : lpszEntry
 
-    result := DllCall("RASDLG.dll\RasPhonebookDlgA", "ptr", lpszPhonebook, "ptr", lpszEntry, RASPBDLGA.Ptr, lpInfo, BOOL)
+    lpszPhonebookMarshal := lpszPhonebook == 0 ? IntPtr : PSTR
+    lpszEntryMarshal := lpszEntry == 0 ? IntPtr : PSTR
+
+    result := DllCall("RASDLG.dll\RasPhonebookDlgA", lpszPhonebookMarshal, lpszPhonebook, lpszEntryMarshal, lpszEntry, RASPBDLGA.Ptr, lpInfo, BOOL)
     return result
 }
 
@@ -7439,7 +7558,10 @@ export RasPhonebookDlgW(lpszPhonebook, lpszEntry, lpInfo) {
     lpszPhonebook := lpszPhonebook is String ? StrPtr(lpszPhonebook) : lpszPhonebook
     lpszEntry := lpszEntry is String ? StrPtr(lpszEntry) : lpszEntry
 
-    result := DllCall("RASDLG.dll\RasPhonebookDlgW", "ptr", lpszPhonebook, "ptr", lpszEntry, RASPBDLGW.Ptr, lpInfo, BOOL)
+    lpszPhonebookMarshal := lpszPhonebook == 0 ? IntPtr : PWSTR
+    lpszEntryMarshal := lpszEntry == 0 ? IntPtr : PWSTR
+
+    result := DllCall("RASDLG.dll\RasPhonebookDlgW", lpszPhonebookMarshal, lpszPhonebook, lpszEntryMarshal, lpszEntry, RASPBDLGW.Ptr, lpInfo, BOOL)
     return result
 }
 
@@ -7482,7 +7604,10 @@ export RasEntryDlgA(lpszPhonebook, lpszEntry, lpInfo) {
     lpszPhonebook := lpszPhonebook is String ? StrPtr(lpszPhonebook) : lpszPhonebook
     lpszEntry := lpszEntry is String ? StrPtr(lpszEntry) : lpszEntry
 
-    result := DllCall("RASDLG.dll\RasEntryDlgA", "ptr", lpszPhonebook, "ptr", lpszEntry, RASENTRYDLGA_type.Ptr, lpInfo, BOOL)
+    lpszPhonebookMarshal := lpszPhonebook == 0 ? IntPtr : PSTR
+    lpszEntryMarshal := lpszEntry == 0 ? IntPtr : PSTR
+
+    result := DllCall("RASDLG.dll\RasEntryDlgA", lpszPhonebookMarshal, lpszPhonebook, lpszEntryMarshal, lpszEntry, RASENTRYDLGA_type.Ptr, lpInfo, BOOL)
     return result
 }
 
@@ -7525,7 +7650,10 @@ export RasEntryDlgW(lpszPhonebook, lpszEntry, lpInfo) {
     lpszPhonebook := lpszPhonebook is String ? StrPtr(lpszPhonebook) : lpszPhonebook
     lpszEntry := lpszEntry is String ? StrPtr(lpszEntry) : lpszEntry
 
-    result := DllCall("RASDLG.dll\RasEntryDlgW", "ptr", lpszPhonebook, "ptr", lpszEntry, RASENTRYDLGW_type.Ptr, lpInfo, BOOL)
+    lpszPhonebookMarshal := lpszPhonebook == 0 ? IntPtr : PWSTR
+    lpszEntryMarshal := lpszEntry == 0 ? IntPtr : PWSTR
+
+    result := DllCall("RASDLG.dll\RasEntryDlgW", lpszPhonebookMarshal, lpszPhonebook, lpszEntryMarshal, lpszEntry, RASENTRYDLGW_type.Ptr, lpInfo, BOOL)
     return result
 }
 
@@ -7565,7 +7693,11 @@ export RasDialDlgA(lpszPhonebook, lpszEntry, lpszPhoneNumber, lpInfo) {
     lpszEntry := lpszEntry is String ? StrPtr(lpszEntry) : lpszEntry
     lpszPhoneNumber := lpszPhoneNumber is String ? StrPtr(lpszPhoneNumber) : lpszPhoneNumber
 
-    result := DllCall("RASDLG.dll\RasDialDlgA", "ptr", lpszPhonebook, "ptr", lpszEntry, "ptr", lpszPhoneNumber, RASDIALDLG.Ptr, lpInfo, BOOL)
+    lpszPhonebookMarshal := lpszPhonebook == 0 ? IntPtr : PSTR
+    lpszEntryMarshal := lpszEntry == 0 ? IntPtr : PSTR
+    lpszPhoneNumberMarshal := lpszPhoneNumber == 0 ? IntPtr : PSTR
+
+    result := DllCall("RASDLG.dll\RasDialDlgA", lpszPhonebookMarshal, lpszPhonebook, lpszEntryMarshal, lpszEntry, lpszPhoneNumberMarshal, lpszPhoneNumber, RASDIALDLG.Ptr, lpInfo, BOOL)
     return result
 }
 
@@ -7605,7 +7737,11 @@ export RasDialDlgW(lpszPhonebook, lpszEntry, lpszPhoneNumber, lpInfo) {
     lpszEntry := lpszEntry is String ? StrPtr(lpszEntry) : lpszEntry
     lpszPhoneNumber := lpszPhoneNumber is String ? StrPtr(lpszPhoneNumber) : lpszPhoneNumber
 
-    result := DllCall("RASDLG.dll\RasDialDlgW", "ptr", lpszPhonebook, "ptr", lpszEntry, "ptr", lpszPhoneNumber, RASDIALDLG.Ptr, lpInfo, BOOL)
+    lpszPhonebookMarshal := lpszPhonebook == 0 ? IntPtr : PWSTR
+    lpszEntryMarshal := lpszEntry == 0 ? IntPtr : PWSTR
+    lpszPhoneNumberMarshal := lpszPhoneNumber == 0 ? IntPtr : PWSTR
+
+    result := DllCall("RASDLG.dll\RasDialDlgW", lpszPhonebookMarshal, lpszPhonebook, lpszEntryMarshal, lpszEntry, lpszPhoneNumberMarshal, lpszPhoneNumber, RASDIALDLG.Ptr, lpInfo, BOOL)
     return result
 }
 
@@ -7690,10 +7826,10 @@ export RasDialDlgW(lpszPhonebook, lpszEntry, lpszPhoneNumber, lpInfo) {
  * @since windows6.1
  */
 export MprAdminConnectionEnumEx(hRasServer, pObjectHeader, dwPreferedMaxLen, lpdwEntriesRead, lpdwTotalEntries, ppRasConn, lpdwResumeHandle) {
-    lpdwEntriesReadMarshal := lpdwEntriesRead is VarRef ? "uint*" : "ptr"
-    lpdwTotalEntriesMarshal := lpdwTotalEntries is VarRef ? "uint*" : "ptr"
-    ppRasConnMarshal := ppRasConn is VarRef ? "ptr*" : "ptr"
-    lpdwResumeHandleMarshal := lpdwResumeHandle is VarRef ? "uint*" : "ptr"
+    lpdwEntriesReadMarshal := lpdwEntriesRead is VarRef ? "uint*" : IntPtr
+    lpdwTotalEntriesMarshal := lpdwTotalEntries is VarRef ? "uint*" : IntPtr
+    ppRasConnMarshal := ppRasConn is VarRef ? "ptr*" : IntPtr
+    lpdwResumeHandleMarshal := lpdwResumeHandle is VarRef ? "uint*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprAdminConnectionEnumEx", IntPtr, hRasServer, MPRAPI_OBJECT_HEADER.Ptr, pObjectHeader, UInt32, dwPreferedMaxLen, lpdwEntriesReadMarshal, lpdwEntriesRead, lpdwTotalEntriesMarshal, lpdwTotalEntries, ppRasConnMarshal, ppRasConn, lpdwResumeHandleMarshal, lpdwResumeHandle, UInt32)
     return result
@@ -8024,7 +8160,6 @@ export MprConfigServerSetInfoEx(hMprConfig, pSetServerConfig) {
 }
 
 /**
- * 
  * @param {Pointer} hRasServer 
  * @param {HANDLE} hRasConnection 
  * @param {Pointer<RAS_UPDATE_CONNECTION>} pRasUpdateConnection 
@@ -8115,7 +8250,7 @@ export MprAdminUpdateConnection(hRasServer, hRasConnection, pRasUpdateConnection
 export MprAdminIsServiceInitialized(lpwsServerName, fIsServiceInitialized) {
     lpwsServerName := lpwsServerName is String ? StrPtr(lpwsServerName) : lpwsServerName
 
-    fIsServiceInitializedMarshal := fIsServiceInitialized is VarRef ? "int*" : "ptr"
+    fIsServiceInitializedMarshal := fIsServiceInitialized is VarRef ? "int*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprAdminIsServiceInitialized", "ptr", lpwsServerName, fIsServiceInitializedMarshal, fIsServiceInitialized, UInt32)
     return result
@@ -8492,10 +8627,11 @@ export MprConfigInterfaceSetCustomInfoEx(hMprConfig, hRouterInterface, pCustomIn
  * @since windows5.0
  */
 export MprAdminConnectionEnum(hRasServer, dwLevel, lplpbBuffer, dwPrefMaxLen, lpdwEntriesRead, lpdwTotalEntries, lpdwResumeHandle) {
-    lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : "ptr"
-    lpdwEntriesReadMarshal := lpdwEntriesRead is VarRef ? "uint*" : "ptr"
-    lpdwTotalEntriesMarshal := lpdwTotalEntries is VarRef ? "uint*" : "ptr"
-    lpdwResumeHandleMarshal := lpdwResumeHandle is VarRef ? "uint*" : "ptr"
+    lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : IntPtr
+    lpdwEntriesReadMarshal := lpdwEntriesRead is VarRef ? "uint*" : IntPtr
+    lpdwTotalEntriesMarshal := lpdwTotalEntries is VarRef ? "uint*" : IntPtr
+    lpdwResumeHandleMarshal := lpdwResumeHandle is VarRef ? "uint*" : IntPtr
+    lpdwResumeHandleMarshal := lpdwResumeHandle == 0 ? IntPtr : "uint*"
 
     result := DllCall("MPRAPI.dll\MprAdminConnectionEnum", IntPtr, hRasServer, UInt32, dwLevel, lplpbBufferMarshal, lplpbBuffer, UInt32, dwPrefMaxLen, lpdwEntriesReadMarshal, lpdwEntriesRead, lpdwTotalEntriesMarshal, lpdwTotalEntries, lpdwResumeHandleMarshal, lpdwResumeHandle, UInt32)
     return result
@@ -8610,10 +8746,11 @@ export MprAdminConnectionEnum(hRasServer, dwLevel, lplpbBuffer, dwPrefMaxLen, lp
  * @since windows5.0
  */
 export MprAdminPortEnum(hRasServer, dwLevel, hRasConnection, lplpbBuffer, dwPrefMaxLen, lpdwEntriesRead, lpdwTotalEntries, lpdwResumeHandle) {
-    lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : "ptr"
-    lpdwEntriesReadMarshal := lpdwEntriesRead is VarRef ? "uint*" : "ptr"
-    lpdwTotalEntriesMarshal := lpdwTotalEntries is VarRef ? "uint*" : "ptr"
-    lpdwResumeHandleMarshal := lpdwResumeHandle is VarRef ? "uint*" : "ptr"
+    lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : IntPtr
+    lpdwEntriesReadMarshal := lpdwEntriesRead is VarRef ? "uint*" : IntPtr
+    lpdwTotalEntriesMarshal := lpdwTotalEntries is VarRef ? "uint*" : IntPtr
+    lpdwResumeHandleMarshal := lpdwResumeHandle is VarRef ? "uint*" : IntPtr
+    lpdwResumeHandleMarshal := lpdwResumeHandle == 0 ? IntPtr : "uint*"
 
     result := DllCall("MPRAPI.dll\MprAdminPortEnum", IntPtr, hRasServer, UInt32, dwLevel, HANDLE, hRasConnection, lplpbBufferMarshal, lplpbBuffer, UInt32, dwPrefMaxLen, lpdwEntriesReadMarshal, lpdwEntriesRead, lpdwTotalEntriesMarshal, lpdwTotalEntries, lpdwResumeHandleMarshal, lpdwResumeHandle, UInt32)
     return result
@@ -8731,7 +8868,7 @@ export MprAdminPortEnum(hRasServer, dwLevel, hRasConnection, lplpbBuffer, dwPref
  * @since windows5.0
  */
 export MprAdminConnectionGetInfo(hRasServer, dwLevel, hRasConnection, lplpbBuffer) {
-    lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : "ptr"
+    lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprAdminConnectionGetInfo", IntPtr, hRasServer, UInt32, dwLevel, HANDLE, hRasConnection, lplpbBufferMarshal, lplpbBuffer, UInt32)
     return result
@@ -8855,7 +8992,7 @@ export MprAdminConnectionGetInfo(hRasServer, dwLevel, hRasConnection, lplpbBuffe
  * @since windows5.0
  */
 export MprAdminPortGetInfo(hRasServer, dwLevel, hPort, lplpbBuffer) {
-    lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : "ptr"
+    lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprAdminPortGetInfo", IntPtr, hRasServer, UInt32, dwLevel, HANDLE, hPort, lplpbBufferMarshal, lplpbBuffer, UInt32)
     return result
@@ -9337,7 +9474,7 @@ export MprAdminUserGetInfo(lpszServer, lpszUser, dwLevel, lpbBuffer) {
     lpszServer := lpszServer is String ? StrPtr(lpszServer) : lpszServer
     lpszUser := lpszUser is String ? StrPtr(lpszUser) : lpszUser
 
-    lpbBufferMarshal := lpbBuffer is VarRef ? "char*" : "ptr"
+    lpbBufferMarshal := lpbBuffer is VarRef ? "char*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprAdminUserGetInfo", "ptr", lpszServer, "ptr", lpszUser, UInt32, dwLevel, lpbBufferMarshal, lpbBuffer, UInt32)
     return result
@@ -9431,7 +9568,7 @@ export MprAdminUserSetInfo(lpszServer, lpszUser, dwLevel, lpbBuffer) {
     lpszServer := lpszServer is String ? StrPtr(lpszServer) : lpszServer
     lpszUser := lpszUser is String ? StrPtr(lpszUser) : lpszUser
 
-    lpbBufferMarshal := lpbBuffer is VarRef ? "char*" : "ptr"
+    lpbBufferMarshal := lpbBuffer is VarRef ? "char*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprAdminUserSetInfo", "ptr", lpszServer, "ptr", lpszUser, UInt32, dwLevel, lpbBufferMarshal, lpbBuffer, UInt32)
     return result
@@ -9675,9 +9812,10 @@ export MprAdminIsServiceRunning(lpwsServerName) {
 export MprAdminServerConnect(lpwsServerName, phMprServer) {
     lpwsServerName := lpwsServerName is String ? StrPtr(lpwsServerName) : lpwsServerName
 
-    phMprServerMarshal := phMprServer is VarRef ? "ptr*" : "ptr"
+    lpwsServerNameMarshal := lpwsServerName == 0 ? IntPtr : PWSTR
+    phMprServerMarshal := phMprServer is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("MPRAPI.dll\MprAdminServerConnect", "ptr", lpwsServerName, phMprServerMarshal, phMprServer, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminServerConnect", lpwsServerNameMarshal, lpwsServerName, phMprServerMarshal, phMprServer, UInt32)
     return result
 }
 
@@ -9761,7 +9899,7 @@ export MprAdminServerDisconnect(hMprServer) {
  * @since windowsserver2003
  */
 export MprAdminServerGetCredentials(hMprServer, dwLevel, lplpbBuffer) {
-    lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : "ptr"
+    lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprAdminServerGetCredentials", IntPtr, hMprServer, UInt32, dwLevel, lplpbBufferMarshal, lplpbBuffer, UInt32)
     return result
@@ -9837,7 +9975,7 @@ export MprAdminServerGetCredentials(hMprServer, dwLevel, lplpbBuffer) {
  * @since windowsserver2003
  */
 export MprAdminServerSetCredentials(hMprServer, dwLevel, lpbBuffer) {
-    lpbBufferMarshal := lpbBuffer is VarRef ? "char*" : "ptr"
+    lpbBufferMarshal := lpbBuffer is VarRef ? "char*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprAdminServerSetCredentials", IntPtr, hMprServer, UInt32, dwLevel, lpbBufferMarshal, lpbBuffer, UInt32)
     return result
@@ -9871,7 +10009,7 @@ export MprAdminServerSetCredentials(hMprServer, dwLevel, lpbBuffer) {
  * @since windowsserver2000
  */
 export MprAdminBufferFree(pBuffer) {
-    pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
+    pBufferMarshal := pBuffer is VarRef ? "ptr" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprAdminBufferFree", pBufferMarshal, pBuffer, UInt32)
     return result
@@ -9922,7 +10060,7 @@ export MprAdminBufferFree(pBuffer) {
  * @since windowsserver2000
  */
 export MprAdminGetErrorString(dwError, lplpwsErrorString) {
-    lplpwsErrorStringMarshal := lplpwsErrorString is VarRef ? "ptr*" : "ptr"
+    lplpwsErrorStringMarshal := lplpwsErrorString is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprAdminGetErrorString", UInt32, dwError, lplpwsErrorStringMarshal, lplpwsErrorString, UInt32)
     return result
@@ -10007,7 +10145,7 @@ export MprAdminGetErrorString(dwError, lplpwsErrorString) {
  * @since windowsserver2000
  */
 export MprAdminServerGetInfo(hMprServer, dwLevel, lplpbBuffer) {
-    lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : "ptr"
+    lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprAdminServerGetInfo", IntPtr, hMprServer, UInt32, dwLevel, lplpbBufferMarshal, lplpbBuffer, UInt32)
     return result
@@ -10136,7 +10274,7 @@ export MprAdminServerGetInfo(hMprServer, dwLevel, lplpbBuffer) {
  * @since windowsserver2003
  */
 export MprAdminServerSetInfo(hMprServer, dwLevel, lpbBuffer) {
-    lpbBufferMarshal := lpbBuffer is VarRef ? "char*" : "ptr"
+    lpbBufferMarshal := lpbBuffer is VarRef ? "char*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprAdminServerSetInfo", IntPtr, hMprServer, UInt32, dwLevel, lpbBufferMarshal, lpbBuffer, UInt32)
     return result
@@ -10280,7 +10418,7 @@ export MprAdminIsDomainRasServer(pszDomain, pszMachine, pbIsRasServer) {
     pszDomain := pszDomain is String ? StrPtr(pszDomain) : pszDomain
     pszMachine := pszMachine is String ? StrPtr(pszMachine) : pszMachine
 
-    pbIsRasServerMarshal := pbIsRasServer is VarRef ? "int*" : "ptr"
+    pbIsRasServerMarshal := pbIsRasServer is VarRef ? "int*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprAdminIsDomainRasServer", "ptr", pszDomain, "ptr", pszMachine, pbIsRasServerMarshal, pbIsRasServer, UInt32)
     return result
@@ -10402,10 +10540,13 @@ export MprAdminTransportCreate(hMprServer, dwTransportId, lpwsTransportName, pGl
     lpwsTransportName := lpwsTransportName is String ? StrPtr(lpwsTransportName) : lpwsTransportName
     lpwsDLLPath := lpwsDLLPath is String ? StrPtr(lpwsDLLPath) : lpwsDLLPath
 
-    pGlobalInfoMarshal := pGlobalInfo is VarRef ? "char*" : "ptr"
-    pClientInterfaceInfoMarshal := pClientInterfaceInfo is VarRef ? "char*" : "ptr"
+    lpwsTransportNameMarshal := lpwsTransportName == 0 ? IntPtr : PWSTR
+    pGlobalInfoMarshal := pGlobalInfo is VarRef ? "char*" : IntPtr
+    pClientInterfaceInfoMarshal := pClientInterfaceInfo is VarRef ? "char*" : IntPtr
+    pClientInterfaceInfoMarshal := pClientInterfaceInfo == 0 ? IntPtr : "char*"
+    dwClientInterfaceInfoSizeMarshal := dwClientInterfaceInfoSize == 0 ? IntPtr : UInt32
 
-    result := DllCall("MPRAPI.dll\MprAdminTransportCreate", IntPtr, hMprServer, UInt32, dwTransportId, "ptr", lpwsTransportName, pGlobalInfoMarshal, pGlobalInfo, UInt32, dwGlobalInfoSize, pClientInterfaceInfoMarshal, pClientInterfaceInfo, UInt32, dwClientInterfaceInfoSize, "ptr", lpwsDLLPath, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminTransportCreate", IntPtr, hMprServer, UInt32, dwTransportId, lpwsTransportNameMarshal, lpwsTransportName, pGlobalInfoMarshal, pGlobalInfo, UInt32, dwGlobalInfoSize, pClientInterfaceInfoMarshal, pClientInterfaceInfo, dwClientInterfaceInfoSizeMarshal, dwClientInterfaceInfoSize, "ptr", lpwsDLLPath, UInt32)
     return result
 }
 
@@ -10514,8 +10655,10 @@ export MprAdminTransportCreate(hMprServer, dwTransportId, lpwsTransportName, pGl
  * @since windowsserver2000
  */
 export MprAdminTransportSetInfo(hMprServer, dwTransportId, pGlobalInfo, dwGlobalInfoSize, pClientInterfaceInfo, dwClientInterfaceInfoSize) {
-    pGlobalInfoMarshal := pGlobalInfo is VarRef ? "char*" : "ptr"
-    pClientInterfaceInfoMarshal := pClientInterfaceInfo is VarRef ? "char*" : "ptr"
+    pGlobalInfoMarshal := pGlobalInfo is VarRef ? "char*" : IntPtr
+    pGlobalInfoMarshal := pGlobalInfo == 0 ? IntPtr : "char*"
+    pClientInterfaceInfoMarshal := pClientInterfaceInfo is VarRef ? "char*" : IntPtr
+    pClientInterfaceInfoMarshal := pClientInterfaceInfo == 0 ? IntPtr : "char*"
 
     result := DllCall("MPRAPI.dll\MprAdminTransportSetInfo", IntPtr, hMprServer, UInt32, dwTransportId, pGlobalInfoMarshal, pGlobalInfo, UInt32, dwGlobalInfoSize, pClientInterfaceInfoMarshal, pClientInterfaceInfo, UInt32, dwClientInterfaceInfoSize, UInt32)
     return result
@@ -10640,10 +10783,14 @@ export MprAdminTransportSetInfo(hMprServer, dwTransportId, pGlobalInfo, dwGlobal
  * @since windowsserver2000
  */
 export MprAdminTransportGetInfo(hMprServer, dwTransportId, ppGlobalInfo, lpdwGlobalInfoSize, ppClientInterfaceInfo, lpdwClientInterfaceInfoSize) {
-    ppGlobalInfoMarshal := ppGlobalInfo is VarRef ? "ptr*" : "ptr"
-    lpdwGlobalInfoSizeMarshal := lpdwGlobalInfoSize is VarRef ? "uint*" : "ptr"
-    ppClientInterfaceInfoMarshal := ppClientInterfaceInfo is VarRef ? "ptr*" : "ptr"
-    lpdwClientInterfaceInfoSizeMarshal := lpdwClientInterfaceInfoSize is VarRef ? "uint*" : "ptr"
+    ppGlobalInfoMarshal := ppGlobalInfo is VarRef ? "ptr*" : IntPtr
+    ppGlobalInfoMarshal := ppGlobalInfo == 0 ? IntPtr : "ptr*"
+    lpdwGlobalInfoSizeMarshal := lpdwGlobalInfoSize is VarRef ? "uint*" : IntPtr
+    lpdwGlobalInfoSizeMarshal := lpdwGlobalInfoSize == 0 ? IntPtr : "uint*"
+    ppClientInterfaceInfoMarshal := ppClientInterfaceInfo is VarRef ? "ptr*" : IntPtr
+    ppClientInterfaceInfoMarshal := ppClientInterfaceInfo == 0 ? IntPtr : "ptr*"
+    lpdwClientInterfaceInfoSizeMarshal := lpdwClientInterfaceInfoSize is VarRef ? "uint*" : IntPtr
+    lpdwClientInterfaceInfoSizeMarshal := lpdwClientInterfaceInfoSize == 0 ? IntPtr : "uint*"
 
     result := DllCall("MPRAPI.dll\MprAdminTransportGetInfo", IntPtr, hMprServer, UInt32, dwTransportId, ppGlobalInfoMarshal, ppGlobalInfo, lpdwGlobalInfoSizeMarshal, lpdwGlobalInfoSize, ppClientInterfaceInfoMarshal, ppClientInterfaceInfo, lpdwClientInterfaceInfoSizeMarshal, lpdwClientInterfaceInfoSize, UInt32)
     return result
@@ -10693,8 +10840,8 @@ export MprAdminTransportGetInfo(hMprServer, dwTransportId, ppGlobalInfo, lpdwGlo
  * @since windowsserver2000
  */
 export MprAdminDeviceEnum(hMprServer, dwLevel, lplpbBuffer, lpdwTotalEntries) {
-    lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : "ptr"
-    lpdwTotalEntriesMarshal := lpdwTotalEntries is VarRef ? "uint*" : "ptr"
+    lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : IntPtr
+    lpdwTotalEntriesMarshal := lpdwTotalEntries is VarRef ? "uint*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprAdminDeviceEnum", IntPtr, hMprServer, UInt32, dwLevel, lplpbBufferMarshal, lplpbBuffer, lpdwTotalEntriesMarshal, lpdwTotalEntries, UInt32)
     return result
@@ -10895,7 +11042,7 @@ export MprAdminInterfaceGetHandle(hMprServer, lpwsInterfaceName, phInterface, fI
  * @since windowsserver2000
  */
 export MprAdminInterfaceCreate(hMprServer, dwLevel, lpbBuffer, phInterface) {
-    lpbBufferMarshal := lpbBuffer is VarRef ? "char*" : "ptr"
+    lpbBufferMarshal := lpbBuffer is VarRef ? "char*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprAdminInterfaceCreate", IntPtr, hMprServer, UInt32, dwLevel, lpbBufferMarshal, lpbBuffer, HANDLE.Ptr, phInterface, UInt32)
     return result
@@ -11027,7 +11174,7 @@ export MprAdminInterfaceCreate(hMprServer, dwLevel, lpbBuffer, phInterface) {
  * @since windowsserver2000
  */
 export MprAdminInterfaceGetInfo(hMprServer, hInterface, dwLevel, lplpbBuffer) {
-    lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : "ptr"
+    lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprAdminInterfaceGetInfo", IntPtr, hMprServer, HANDLE, hInterface, UInt32, dwLevel, lplpbBufferMarshal, lplpbBuffer, UInt32)
     return result
@@ -11153,7 +11300,7 @@ export MprAdminInterfaceGetInfo(hMprServer, hInterface, dwLevel, lplpbBuffer) {
  * @since windowsserver2000
  */
 export MprAdminInterfaceSetInfo(hMprServer, hInterface, dwLevel, lpbBuffer) {
-    lpbBufferMarshal := lpbBuffer is VarRef ? "char*" : "ptr"
+    lpbBufferMarshal := lpbBuffer is VarRef ? "char*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprAdminInterfaceSetInfo", IntPtr, hMprServer, HANDLE, hInterface, UInt32, dwLevel, lpbBufferMarshal, lpbBuffer, UInt32)
     return result
@@ -11324,7 +11471,7 @@ export MprAdminInterfaceDelete(hMprServer, hInterface) {
  * @since windowsserver2000
  */
 export MprAdminInterfaceDeviceGetInfo(hMprServer, hInterface, dwIndex, dwLevel, lplpBuffer) {
-    lplpBufferMarshal := lplpBuffer is VarRef ? "ptr*" : "ptr"
+    lplpBufferMarshal := lplpBuffer is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprAdminInterfaceDeviceGetInfo", IntPtr, hMprServer, HANDLE, hInterface, UInt32, dwIndex, UInt32, dwLevel, lplpBufferMarshal, lplpBuffer, UInt32)
     return result
@@ -11428,7 +11575,7 @@ export MprAdminInterfaceDeviceGetInfo(hMprServer, hInterface, dwIndex, dwLevel, 
  * @since windowsserver2000
  */
 export MprAdminInterfaceDeviceSetInfo(hMprServer, hInterface, dwIndex, dwLevel, lpbBuffer) {
-    lpbBufferMarshal := lpbBuffer is VarRef ? "char*" : "ptr"
+    lpbBufferMarshal := lpbBuffer is VarRef ? "char*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprAdminInterfaceDeviceSetInfo", IntPtr, hMprServer, HANDLE, hInterface, UInt32, dwIndex, UInt32, dwLevel, lpbBufferMarshal, lpbBuffer, UInt32)
     return result
@@ -11638,7 +11785,7 @@ export MprAdminInterfaceTransportRemove(hMprServer, hInterface, dwTransportId) {
  * @since windowsserver2000
  */
 export MprAdminInterfaceTransportAdd(hMprServer, hInterface, dwTransportId, pInterfaceInfo, dwInterfaceInfoSize) {
-    pInterfaceInfoMarshal := pInterfaceInfo is VarRef ? "char*" : "ptr"
+    pInterfaceInfoMarshal := pInterfaceInfo is VarRef ? "char*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprAdminInterfaceTransportAdd", IntPtr, hMprServer, HANDLE, hInterface, UInt32, dwTransportId, pInterfaceInfoMarshal, pInterfaceInfo, UInt32, dwInterfaceInfoSize, UInt32)
     return result
@@ -11756,8 +11903,9 @@ export MprAdminInterfaceTransportAdd(hMprServer, hInterface, dwTransportId, pInt
  * @since windowsserver2000
  */
 export MprAdminInterfaceTransportGetInfo(hMprServer, hInterface, dwTransportId, ppInterfaceInfo, lpdwInterfaceInfoSize) {
-    ppInterfaceInfoMarshal := ppInterfaceInfo is VarRef ? "ptr*" : "ptr"
-    lpdwInterfaceInfoSizeMarshal := lpdwInterfaceInfoSize is VarRef ? "uint*" : "ptr"
+    ppInterfaceInfoMarshal := ppInterfaceInfo is VarRef ? "ptr*" : IntPtr
+    lpdwInterfaceInfoSizeMarshal := lpdwInterfaceInfoSize is VarRef ? "uint*" : IntPtr
+    lpdwInterfaceInfoSizeMarshal := lpdwInterfaceInfoSize == 0 ? IntPtr : "uint*"
 
     result := DllCall("MPRAPI.dll\MprAdminInterfaceTransportGetInfo", IntPtr, hMprServer, HANDLE, hInterface, UInt32, dwTransportId, ppInterfaceInfoMarshal, ppInterfaceInfo, lpdwInterfaceInfoSizeMarshal, lpdwInterfaceInfoSize, UInt32)
     return result
@@ -11869,7 +12017,7 @@ export MprAdminInterfaceTransportGetInfo(hMprServer, hInterface, dwTransportId, 
  * @since windowsserver2000
  */
 export MprAdminInterfaceTransportSetInfo(hMprServer, hInterface, dwTransportId, pInterfaceInfo, dwInterfaceInfoSize) {
-    pInterfaceInfoMarshal := pInterfaceInfo is VarRef ? "char*" : "ptr"
+    pInterfaceInfoMarshal := pInterfaceInfo is VarRef ? "char*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprAdminInterfaceTransportSetInfo", IntPtr, hMprServer, HANDLE, hInterface, UInt32, dwTransportId, pInterfaceInfoMarshal, pInterfaceInfo, UInt32, dwInterfaceInfoSize, UInt32)
     return result
@@ -11949,10 +12097,11 @@ export MprAdminInterfaceTransportSetInfo(hMprServer, hInterface, dwTransportId, 
  * @since windowsserver2000
  */
 export MprAdminInterfaceEnum(hMprServer, dwLevel, lplpbBuffer, dwPrefMaxLen, lpdwEntriesRead, lpdwTotalEntries, lpdwResumeHandle) {
-    lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : "ptr"
-    lpdwEntriesReadMarshal := lpdwEntriesRead is VarRef ? "uint*" : "ptr"
-    lpdwTotalEntriesMarshal := lpdwTotalEntries is VarRef ? "uint*" : "ptr"
-    lpdwResumeHandleMarshal := lpdwResumeHandle is VarRef ? "uint*" : "ptr"
+    lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : IntPtr
+    lpdwEntriesReadMarshal := lpdwEntriesRead is VarRef ? "uint*" : IntPtr
+    lpdwTotalEntriesMarshal := lpdwTotalEntries is VarRef ? "uint*" : IntPtr
+    lpdwResumeHandleMarshal := lpdwResumeHandle is VarRef ? "uint*" : IntPtr
+    lpdwResumeHandleMarshal := lpdwResumeHandle == 0 ? IntPtr : "uint*"
 
     result := DllCall("MPRAPI.dll\MprAdminInterfaceEnum", IntPtr, hMprServer, UInt32, dwLevel, lplpbBufferMarshal, lplpbBuffer, UInt32, dwPrefMaxLen, lpdwEntriesReadMarshal, lpdwEntriesRead, lpdwTotalEntriesMarshal, lpdwTotalEntries, lpdwResumeHandleMarshal, lpdwResumeHandle, UInt32)
     return result
@@ -12060,7 +12209,12 @@ export MprAdminInterfaceSetCredentials(lpwsServer, lpwsInterfaceName, lpwsUserNa
     lpwsDomainName := lpwsDomainName is String ? StrPtr(lpwsDomainName) : lpwsDomainName
     lpwsPassword := lpwsPassword is String ? StrPtr(lpwsPassword) : lpwsPassword
 
-    result := DllCall("MPRAPI.dll\MprAdminInterfaceSetCredentials", "ptr", lpwsServer, "ptr", lpwsInterfaceName, "ptr", lpwsUserName, "ptr", lpwsDomainName, "ptr", lpwsPassword, UInt32)
+    lpwsServerMarshal := lpwsServer == 0 ? IntPtr : PWSTR
+    lpwsUserNameMarshal := lpwsUserName == 0 ? IntPtr : PWSTR
+    lpwsDomainNameMarshal := lpwsDomainName == 0 ? IntPtr : PWSTR
+    lpwsPasswordMarshal := lpwsPassword == 0 ? IntPtr : PWSTR
+
+    result := DllCall("MPRAPI.dll\MprAdminInterfaceSetCredentials", lpwsServerMarshal, lpwsServer, "ptr", lpwsInterfaceName, lpwsUserNameMarshal, lpwsUserName, lpwsDomainNameMarshal, lpwsDomainName, lpwsPasswordMarshal, lpwsPassword, UInt32)
     return result
 }
 
@@ -12167,7 +12321,12 @@ export MprAdminInterfaceGetCredentials(lpwsServer, lpwsInterfaceName, lpwsUserNa
     lpwsPassword := lpwsPassword is String ? StrPtr(lpwsPassword) : lpwsPassword
     lpwsDomainName := lpwsDomainName is String ? StrPtr(lpwsDomainName) : lpwsDomainName
 
-    result := DllCall("MPRAPI.dll\MprAdminInterfaceGetCredentials", "ptr", lpwsServer, "ptr", lpwsInterfaceName, "ptr", lpwsUserName, "ptr", lpwsPassword, "ptr", lpwsDomainName, UInt32)
+    lpwsServerMarshal := lpwsServer == 0 ? IntPtr : PWSTR
+    lpwsUserNameMarshal := lpwsUserName == 0 ? IntPtr : PWSTR
+    lpwsPasswordMarshal := lpwsPassword == 0 ? IntPtr : PWSTR
+    lpwsDomainNameMarshal := lpwsDomainName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("MPRAPI.dll\MprAdminInterfaceGetCredentials", lpwsServerMarshal, lpwsServer, "ptr", lpwsInterfaceName, lpwsUserNameMarshal, lpwsUserName, lpwsPasswordMarshal, lpwsPassword, lpwsDomainNameMarshal, lpwsDomainName, UInt32)
     return result
 }
 
@@ -12269,7 +12428,7 @@ export MprAdminInterfaceGetCredentials(lpwsServer, lpwsInterfaceName, lpwsUserNa
  * @since windowsserver2000
  */
 export MprAdminInterfaceSetCredentialsEx(hMprServer, hInterface, dwLevel, lpbBuffer) {
-    lpbBufferMarshal := lpbBuffer is VarRef ? "char*" : "ptr"
+    lpbBufferMarshal := lpbBuffer is VarRef ? "char*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprAdminInterfaceSetCredentialsEx", IntPtr, hMprServer, HANDLE, hInterface, UInt32, dwLevel, lpbBufferMarshal, lpbBuffer, UInt32)
     return result
@@ -12375,7 +12534,7 @@ export MprAdminInterfaceSetCredentialsEx(hMprServer, hInterface, dwLevel, lpbBuf
  * @since windowsserver2000
  */
 export MprAdminInterfaceGetCredentialsEx(hMprServer, hInterface, dwLevel, lplpbBuffer) {
-    lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : "ptr"
+    lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprAdminInterfaceGetCredentialsEx", IntPtr, hMprServer, HANDLE, hInterface, UInt32, dwLevel, lplpbBufferMarshal, lplpbBuffer, UInt32)
     return result
@@ -12876,7 +13035,7 @@ export MprAdminInterfaceUpdateRoutes(hMprServer, hInterface, dwProtocolId, hEven
  * @since windowsserver2000
  */
 export MprAdminInterfaceQueryUpdateResult(hMprServer, hInterface, dwProtocolId, lpdwUpdateResult) {
-    lpdwUpdateResultMarshal := lpdwUpdateResult is VarRef ? "uint*" : "ptr"
+    lpdwUpdateResultMarshal := lpdwUpdateResult is VarRef ? "uint*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprAdminInterfaceQueryUpdateResult", IntPtr, hMprServer, HANDLE, hInterface, UInt32, dwProtocolId, lpdwUpdateResultMarshal, lpdwUpdateResult, UInt32)
     return result
@@ -13158,9 +13317,10 @@ export MprAdminDeregisterConnectionNotification(hMprServer, hEventNotification) 
 export MprAdminMIBServerConnect(lpwsServerName, phMibServer) {
     lpwsServerName := lpwsServerName is String ? StrPtr(lpwsServerName) : lpwsServerName
 
-    phMibServerMarshal := phMibServer is VarRef ? "ptr*" : "ptr"
+    lpwsServerNameMarshal := lpwsServerName == 0 ? IntPtr : PWSTR
+    phMibServerMarshal := phMibServer is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("MPRAPI.dll\MprAdminMIBServerConnect", "ptr", lpwsServerName, phMibServerMarshal, phMibServer, UInt32)
+    result := DllCall("MPRAPI.dll\MprAdminMIBServerConnect", lpwsServerNameMarshal, lpwsServerName, phMibServerMarshal, phMibServer, UInt32)
     return result
 }
 
@@ -13245,7 +13405,7 @@ export MprAdminMIBServerDisconnect(hMibServer) {
  * @since windowsserver2000
  */
 export MprAdminMIBEntryCreate(hMibServer, dwPid, dwRoutingPid, lpEntry, dwEntrySize) {
-    lpEntryMarshal := lpEntry is VarRef ? "ptr" : "ptr"
+    lpEntryMarshal := lpEntry is VarRef ? "ptr" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprAdminMIBEntryCreate", IntPtr, hMibServer, UInt32, dwPid, UInt32, dwRoutingPid, lpEntryMarshal, lpEntry, UInt32, dwEntrySize, UInt32)
     return result
@@ -13309,7 +13469,7 @@ export MprAdminMIBEntryCreate(hMibServer, dwPid, dwRoutingPid, lpEntry, dwEntryS
  * @since windowsserver2000
  */
 export MprAdminMIBEntryDelete(hMibServer, dwProtocolId, dwRoutingPid, lpEntry, dwEntrySize) {
-    lpEntryMarshal := lpEntry is VarRef ? "ptr" : "ptr"
+    lpEntryMarshal := lpEntry is VarRef ? "ptr" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprAdminMIBEntryDelete", IntPtr, hMibServer, UInt32, dwProtocolId, UInt32, dwRoutingPid, lpEntryMarshal, lpEntry, UInt32, dwEntrySize, UInt32)
     return result
@@ -13375,7 +13535,7 @@ export MprAdminMIBEntryDelete(hMibServer, dwProtocolId, dwRoutingPid, lpEntry, d
  * @since windowsserver2000
  */
 export MprAdminMIBEntrySet(hMibServer, dwProtocolId, dwRoutingPid, lpEntry, dwEntrySize) {
-    lpEntryMarshal := lpEntry is VarRef ? "ptr" : "ptr"
+    lpEntryMarshal := lpEntry is VarRef ? "ptr" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprAdminMIBEntrySet", IntPtr, hMibServer, UInt32, dwProtocolId, UInt32, dwRoutingPid, lpEntryMarshal, lpEntry, UInt32, dwEntrySize, UInt32)
     return result
@@ -13456,9 +13616,9 @@ export MprAdminMIBEntrySet(hMibServer, dwProtocolId, dwRoutingPid, lpEntry, dwEn
  * @since windowsserver2000
  */
 export MprAdminMIBEntryGet(hMibServer, dwProtocolId, dwRoutingPid, lpInEntry, dwInEntrySize, lplpOutEntry, lpOutEntrySize) {
-    lpInEntryMarshal := lpInEntry is VarRef ? "ptr" : "ptr"
-    lplpOutEntryMarshal := lplpOutEntry is VarRef ? "ptr*" : "ptr"
-    lpOutEntrySizeMarshal := lpOutEntrySize is VarRef ? "uint*" : "ptr"
+    lpInEntryMarshal := lpInEntry is VarRef ? "ptr" : IntPtr
+    lplpOutEntryMarshal := lplpOutEntry is VarRef ? "ptr*" : IntPtr
+    lpOutEntrySizeMarshal := lpOutEntrySize is VarRef ? "uint*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprAdminMIBEntryGet", IntPtr, hMibServer, UInt32, dwProtocolId, UInt32, dwRoutingPid, lpInEntryMarshal, lpInEntry, UInt32, dwInEntrySize, lplpOutEntryMarshal, lplpOutEntry, lpOutEntrySizeMarshal, lpOutEntrySize, UInt32)
     return result
@@ -13539,9 +13699,9 @@ export MprAdminMIBEntryGet(hMibServer, dwProtocolId, dwRoutingPid, lpInEntry, dw
  * @since windowsserver2000
  */
 export MprAdminMIBEntryGetFirst(hMibServer, dwProtocolId, dwRoutingPid, lpInEntry, dwInEntrySize, lplpOutEntry, lpOutEntrySize) {
-    lpInEntryMarshal := lpInEntry is VarRef ? "ptr" : "ptr"
-    lplpOutEntryMarshal := lplpOutEntry is VarRef ? "ptr*" : "ptr"
-    lpOutEntrySizeMarshal := lpOutEntrySize is VarRef ? "uint*" : "ptr"
+    lpInEntryMarshal := lpInEntry is VarRef ? "ptr" : IntPtr
+    lplpOutEntryMarshal := lplpOutEntry is VarRef ? "ptr*" : IntPtr
+    lpOutEntrySizeMarshal := lpOutEntrySize is VarRef ? "uint*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprAdminMIBEntryGetFirst", IntPtr, hMibServer, UInt32, dwProtocolId, UInt32, dwRoutingPid, lpInEntryMarshal, lpInEntry, UInt32, dwInEntrySize, lplpOutEntryMarshal, lplpOutEntry, lpOutEntrySizeMarshal, lpOutEntrySize, UInt32)
     return result
@@ -13622,9 +13782,9 @@ export MprAdminMIBEntryGetFirst(hMibServer, dwProtocolId, dwRoutingPid, lpInEntr
  * @since windowsserver2000
  */
 export MprAdminMIBEntryGetNext(hMibServer, dwProtocolId, dwRoutingPid, lpInEntry, dwInEntrySize, lplpOutEntry, lpOutEntrySize) {
-    lpInEntryMarshal := lpInEntry is VarRef ? "ptr" : "ptr"
-    lplpOutEntryMarshal := lplpOutEntry is VarRef ? "ptr*" : "ptr"
-    lpOutEntrySizeMarshal := lpOutEntrySize is VarRef ? "uint*" : "ptr"
+    lpInEntryMarshal := lpInEntry is VarRef ? "ptr" : IntPtr
+    lplpOutEntryMarshal := lplpOutEntry is VarRef ? "ptr*" : IntPtr
+    lpOutEntrySizeMarshal := lpOutEntrySize is VarRef ? "uint*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprAdminMIBEntryGetNext", IntPtr, hMibServer, UInt32, dwProtocolId, UInt32, dwRoutingPid, lpInEntryMarshal, lpInEntry, UInt32, dwInEntrySize, lplpOutEntryMarshal, lplpOutEntry, lpOutEntrySizeMarshal, lpOutEntrySize, UInt32)
     return result
@@ -13662,7 +13822,7 @@ export MprAdminMIBEntryGetNext(hMibServer, dwProtocolId, dwRoutingPid, lpInEntry
  * @since windowsserver2000
  */
 export MprAdminMIBBufferFree(pBuffer) {
-    pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
+    pBufferMarshal := pBuffer is VarRef ? "ptr" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprAdminMIBBufferFree", pBufferMarshal, pBuffer, UInt32)
     return result
@@ -13730,7 +13890,7 @@ export MprAdminMIBBufferFree(pBuffer) {
  * @since windowsserver2000
  */
 export MprConfigServerInstall(dwLevel, pBuffer) {
-    pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
+    pBufferMarshal := pBuffer is VarRef ? "ptr" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprConfigServerInstall", UInt32, dwLevel, pBufferMarshal, pBuffer, UInt32)
     return result
@@ -13794,7 +13954,9 @@ export MprConfigServerInstall(dwLevel, pBuffer) {
 export MprConfigServerConnect(lpwsServerName, phMprConfig) {
     lpwsServerName := lpwsServerName is String ? StrPtr(lpwsServerName) : lpwsServerName
 
-    result := DllCall("MPRAPI.dll\MprConfigServerConnect", "ptr", lpwsServerName, HANDLE.Ptr, phMprConfig, UInt32)
+    lpwsServerNameMarshal := lpwsServerName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("MPRAPI.dll\MprConfigServerConnect", lpwsServerNameMarshal, lpwsServerName, HANDLE.Ptr, phMprConfig, UInt32)
     return result
 }
 
@@ -13811,7 +13973,6 @@ export MprConfigServerDisconnect(hMprConfig) {
 }
 
 /**
- * 
  * @param {HANDLE} hMprConfig 
  * @returns {Integer} 
  */
@@ -13840,7 +14001,7 @@ export MprConfigServerRefresh(hMprConfig) {
  * @since windowsserver2000
  */
 export MprConfigBufferFree(pBuffer) {
-    pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
+    pBufferMarshal := pBuffer is VarRef ? "ptr" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprConfigBufferFree", pBufferMarshal, pBuffer, UInt32)
     return result
@@ -13935,7 +14096,7 @@ export MprConfigBufferFree(pBuffer) {
  * @since windowsserver2000
  */
 export MprConfigServerGetInfo(hMprConfig, dwLevel, lplpbBuffer) {
-    lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : "ptr"
+    lplpbBufferMarshal := lplpbBuffer is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprConfigServerGetInfo", HANDLE, hMprConfig, UInt32, dwLevel, lplpbBufferMarshal, lplpbBuffer, UInt32)
     return result
@@ -14053,7 +14214,7 @@ export MprConfigServerGetInfo(hMprConfig, dwLevel, lplpbBuffer) {
  * @since windowsserver2003
  */
 export MprConfigServerSetInfo(hMprServer, dwLevel, lpbBuffer) {
-    lpbBufferMarshal := lpbBuffer is VarRef ? "char*" : "ptr"
+    lpbBufferMarshal := lpbBuffer is VarRef ? "char*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprConfigServerSetInfo", IntPtr, hMprServer, UInt32, dwLevel, lpbBufferMarshal, lpbBuffer, UInt32)
     return result
@@ -14292,7 +14453,12 @@ export MprConfigTransportCreate(hMprConfig, dwTransportId, lpwsTransportName, pG
     lpwsTransportName := lpwsTransportName is String ? StrPtr(lpwsTransportName) : lpwsTransportName
     lpwsDLLPath := lpwsDLLPath is String ? StrPtr(lpwsDLLPath) : lpwsDLLPath
 
-    result := DllCall("MPRAPI.dll\MprConfigTransportCreate", HANDLE, hMprConfig, UInt32, dwTransportId, "ptr", lpwsTransportName, IntPtr, pGlobalInfo, UInt32, dwGlobalInfoSize, IntPtr, pClientInterfaceInfo, UInt32, dwClientInterfaceInfoSize, "ptr", lpwsDLLPath, HANDLE.Ptr, phRouterTransport, UInt32)
+    lpwsTransportNameMarshal := lpwsTransportName == 0 ? IntPtr : PWSTR
+    pClientInterfaceInfoMarshal := pClientInterfaceInfo == 0 ? IntPtr : IntPtr
+    dwClientInterfaceInfoSizeMarshal := dwClientInterfaceInfoSize == 0 ? IntPtr : UInt32
+    lpwsDLLPathMarshal := lpwsDLLPath == 0 ? IntPtr : PWSTR
+
+    result := DllCall("MPRAPI.dll\MprConfigTransportCreate", HANDLE, hMprConfig, UInt32, dwTransportId, lpwsTransportNameMarshal, lpwsTransportName, IntPtr, pGlobalInfo, UInt32, dwGlobalInfoSize, pClientInterfaceInfoMarshal, pClientInterfaceInfo, dwClientInterfaceInfoSizeMarshal, dwClientInterfaceInfoSize, lpwsDLLPathMarshal, lpwsDLLPath, HANDLE.Ptr, phRouterTransport, UInt32)
     return result
 }
 
@@ -14555,7 +14721,13 @@ export MprConfigTransportGetHandle(hMprConfig, dwTransportId, phRouterTransport)
 export MprConfigTransportSetInfo(hMprConfig, hRouterTransport, pGlobalInfo, dwGlobalInfoSize, pClientInterfaceInfo, dwClientInterfaceInfoSize, lpwsDLLPath) {
     lpwsDLLPath := lpwsDLLPath is String ? StrPtr(lpwsDLLPath) : lpwsDLLPath
 
-    result := DllCall("MPRAPI.dll\MprConfigTransportSetInfo", HANDLE, hMprConfig, HANDLE, hRouterTransport, IntPtr, pGlobalInfo, UInt32, dwGlobalInfoSize, IntPtr, pClientInterfaceInfo, UInt32, dwClientInterfaceInfoSize, "ptr", lpwsDLLPath, UInt32)
+    pGlobalInfoMarshal := pGlobalInfo == 0 ? IntPtr : IntPtr
+    dwGlobalInfoSizeMarshal := dwGlobalInfoSize == 0 ? IntPtr : UInt32
+    pClientInterfaceInfoMarshal := pClientInterfaceInfo == 0 ? IntPtr : IntPtr
+    dwClientInterfaceInfoSizeMarshal := dwClientInterfaceInfoSize == 0 ? IntPtr : UInt32
+    lpwsDLLPathMarshal := lpwsDLLPath == 0 ? IntPtr : PWSTR
+
+    result := DllCall("MPRAPI.dll\MprConfigTransportSetInfo", HANDLE, hMprConfig, HANDLE, hRouterTransport, pGlobalInfoMarshal, pGlobalInfo, dwGlobalInfoSizeMarshal, dwGlobalInfoSize, pClientInterfaceInfoMarshal, pClientInterfaceInfo, dwClientInterfaceInfoSizeMarshal, dwClientInterfaceInfoSize, lpwsDLLPathMarshal, lpwsDLLPath, UInt32)
     return result
 }
 
@@ -14677,11 +14849,16 @@ export MprConfigTransportSetInfo(hMprConfig, hRouterTransport, pGlobalInfo, dwGl
  * @since windowsserver2000
  */
 export MprConfigTransportGetInfo(hMprConfig, hRouterTransport, ppGlobalInfo, lpdwGlobalInfoSize, ppClientInterfaceInfo, lpdwClientInterfaceInfoSize, lplpwsDLLPath) {
-    ppGlobalInfoMarshal := ppGlobalInfo is VarRef ? "ptr*" : "ptr"
-    lpdwGlobalInfoSizeMarshal := lpdwGlobalInfoSize is VarRef ? "uint*" : "ptr"
-    ppClientInterfaceInfoMarshal := ppClientInterfaceInfo is VarRef ? "ptr*" : "ptr"
-    lpdwClientInterfaceInfoSizeMarshal := lpdwClientInterfaceInfoSize is VarRef ? "uint*" : "ptr"
-    lplpwsDLLPathMarshal := lplpwsDLLPath is VarRef ? "ptr*" : "ptr"
+    ppGlobalInfoMarshal := ppGlobalInfo is VarRef ? "ptr*" : IntPtr
+    ppGlobalInfoMarshal := ppGlobalInfo == 0 ? IntPtr : "ptr*"
+    lpdwGlobalInfoSizeMarshal := lpdwGlobalInfoSize is VarRef ? "uint*" : IntPtr
+    lpdwGlobalInfoSizeMarshal := lpdwGlobalInfoSize == 0 ? IntPtr : "uint*"
+    ppClientInterfaceInfoMarshal := ppClientInterfaceInfo is VarRef ? "ptr*" : IntPtr
+    ppClientInterfaceInfoMarshal := ppClientInterfaceInfo == 0 ? IntPtr : "ptr*"
+    lpdwClientInterfaceInfoSizeMarshal := lpdwClientInterfaceInfoSize is VarRef ? "uint*" : IntPtr
+    lpdwClientInterfaceInfoSizeMarshal := lpdwClientInterfaceInfoSize == 0 ? IntPtr : "uint*"
+    lplpwsDLLPathMarshal := lplpwsDLLPath is VarRef ? "ptr*" : IntPtr
+    lplpwsDLLPathMarshal := lplpwsDLLPath == 0 ? IntPtr : PWSTR.Ptr
 
     result := DllCall("MPRAPI.dll\MprConfigTransportGetInfo", HANDLE, hMprConfig, HANDLE, hRouterTransport, ppGlobalInfoMarshal, ppGlobalInfo, lpdwGlobalInfoSizeMarshal, lpdwGlobalInfoSize, ppClientInterfaceInfoMarshal, ppClientInterfaceInfo, lpdwClientInterfaceInfoSizeMarshal, lpdwClientInterfaceInfoSize, lplpwsDLLPathMarshal, lplpwsDLLPath, UInt32)
     return result
@@ -14786,10 +14963,11 @@ export MprConfigTransportGetInfo(hMprConfig, hRouterTransport, ppGlobalInfo, lpd
  * @since windowsserver2000
  */
 export MprConfigTransportEnum(hMprConfig, dwLevel, lplpBuffer, dwPrefMaxLen, lpdwEntriesRead, lpdwTotalEntries, lpdwResumeHandle) {
-    lplpBufferMarshal := lplpBuffer is VarRef ? "ptr*" : "ptr"
-    lpdwEntriesReadMarshal := lpdwEntriesRead is VarRef ? "uint*" : "ptr"
-    lpdwTotalEntriesMarshal := lpdwTotalEntries is VarRef ? "uint*" : "ptr"
-    lpdwResumeHandleMarshal := lpdwResumeHandle is VarRef ? "uint*" : "ptr"
+    lplpBufferMarshal := lplpBuffer is VarRef ? "ptr*" : IntPtr
+    lpdwEntriesReadMarshal := lpdwEntriesRead is VarRef ? "uint*" : IntPtr
+    lpdwTotalEntriesMarshal := lpdwTotalEntries is VarRef ? "uint*" : IntPtr
+    lpdwResumeHandleMarshal := lpdwResumeHandle is VarRef ? "uint*" : IntPtr
+    lpdwResumeHandleMarshal := lpdwResumeHandle == 0 ? IntPtr : "uint*"
 
     result := DllCall("MPRAPI.dll\MprConfigTransportEnum", HANDLE, hMprConfig, UInt32, dwLevel, lplpBufferMarshal, lplpBuffer, UInt32, dwPrefMaxLen, lpdwEntriesReadMarshal, lpdwEntriesRead, lpdwTotalEntriesMarshal, lpdwTotalEntries, lpdwResumeHandleMarshal, lpdwResumeHandle, UInt32)
     return result
@@ -14902,7 +15080,7 @@ export MprConfigTransportEnum(hMprConfig, dwLevel, lplpBuffer, dwPrefMaxLen, lpd
  * @since windowsserver2000
  */
 export MprConfigInterfaceCreate(hMprConfig, dwLevel, lpbBuffer, phRouterInterface) {
-    lpbBufferMarshal := lpbBuffer is VarRef ? "char*" : "ptr"
+    lpbBufferMarshal := lpbBuffer is VarRef ? "char*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprConfigInterfaceCreate", HANDLE, hMprConfig, UInt32, dwLevel, lpbBufferMarshal, lpbBuffer, HANDLE.Ptr, phRouterInterface, UInt32)
     return result
@@ -15152,8 +15330,8 @@ export MprConfigInterfaceGetHandle(hMprConfig, lpwsInterfaceName, phRouterInterf
  * @since windowsserver2000
  */
 export MprConfigInterfaceGetInfo(hMprConfig, hRouterInterface, dwLevel, lplpBuffer, lpdwBufferSize) {
-    lplpBufferMarshal := lplpBuffer is VarRef ? "ptr*" : "ptr"
-    lpdwBufferSizeMarshal := lpdwBufferSize is VarRef ? "uint*" : "ptr"
+    lplpBufferMarshal := lplpBuffer is VarRef ? "ptr*" : IntPtr
+    lpdwBufferSizeMarshal := lpdwBufferSize is VarRef ? "uint*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprConfigInterfaceGetInfo", HANDLE, hMprConfig, HANDLE, hRouterInterface, UInt32, dwLevel, lplpBufferMarshal, lplpBuffer, lpdwBufferSizeMarshal, lpdwBufferSize, UInt32)
     return result
@@ -15269,7 +15447,7 @@ export MprConfigInterfaceGetInfo(hMprConfig, hRouterInterface, dwLevel, lplpBuff
  * @since windowsserver2000
  */
 export MprConfigInterfaceSetInfo(hMprConfig, hRouterInterface, dwLevel, lpbBuffer) {
-    lpbBufferMarshal := lpbBuffer is VarRef ? "char*" : "ptr"
+    lpbBufferMarshal := lpbBuffer is VarRef ? "char*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprConfigInterfaceSetInfo", HANDLE, hMprConfig, HANDLE, hRouterInterface, UInt32, dwLevel, lpbBufferMarshal, lpbBuffer, UInt32)
     return result
@@ -15373,10 +15551,11 @@ export MprConfigInterfaceSetInfo(hMprConfig, hRouterInterface, dwLevel, lpbBuffe
  * @since windowsserver2000
  */
 export MprConfigInterfaceEnum(hMprConfig, dwLevel, lplpBuffer, dwPrefMaxLen, lpdwEntriesRead, lpdwTotalEntries, lpdwResumeHandle) {
-    lplpBufferMarshal := lplpBuffer is VarRef ? "ptr*" : "ptr"
-    lpdwEntriesReadMarshal := lpdwEntriesRead is VarRef ? "uint*" : "ptr"
-    lpdwTotalEntriesMarshal := lpdwTotalEntries is VarRef ? "uint*" : "ptr"
-    lpdwResumeHandleMarshal := lpdwResumeHandle is VarRef ? "uint*" : "ptr"
+    lplpBufferMarshal := lplpBuffer is VarRef ? "ptr*" : IntPtr
+    lpdwEntriesReadMarshal := lpdwEntriesRead is VarRef ? "uint*" : IntPtr
+    lpdwTotalEntriesMarshal := lpdwTotalEntries is VarRef ? "uint*" : IntPtr
+    lpdwResumeHandleMarshal := lpdwResumeHandle is VarRef ? "uint*" : IntPtr
+    lpdwResumeHandleMarshal := lpdwResumeHandle == 0 ? IntPtr : "uint*"
 
     result := DllCall("MPRAPI.dll\MprConfigInterfaceEnum", HANDLE, hMprConfig, UInt32, dwLevel, lplpBufferMarshal, lplpBuffer, UInt32, dwPrefMaxLen, lpdwEntriesReadMarshal, lpdwEntriesRead, lpdwTotalEntriesMarshal, lpdwTotalEntries, lpdwResumeHandleMarshal, lpdwResumeHandle, UInt32)
     return result
@@ -15490,7 +15669,9 @@ export MprConfigInterfaceEnum(hMprConfig, dwLevel, lplpBuffer, dwPrefMaxLen, lpd
 export MprConfigInterfaceTransportAdd(hMprConfig, hRouterInterface, dwTransportId, lpwsTransportName, pInterfaceInfo, dwInterfaceInfoSize, phRouterIfTransport) {
     lpwsTransportName := lpwsTransportName is String ? StrPtr(lpwsTransportName) : lpwsTransportName
 
-    result := DllCall("MPRAPI.dll\MprConfigInterfaceTransportAdd", HANDLE, hMprConfig, HANDLE, hRouterInterface, UInt32, dwTransportId, "ptr", lpwsTransportName, IntPtr, pInterfaceInfo, UInt32, dwInterfaceInfoSize, HANDLE.Ptr, phRouterIfTransport, UInt32)
+    lpwsTransportNameMarshal := lpwsTransportName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("MPRAPI.dll\MprConfigInterfaceTransportAdd", HANDLE, hMprConfig, HANDLE, hRouterInterface, UInt32, dwTransportId, lpwsTransportNameMarshal, lpwsTransportName, IntPtr, pInterfaceInfo, UInt32, dwInterfaceInfoSize, HANDLE.Ptr, phRouterIfTransport, UInt32)
     return result
 }
 
@@ -15771,8 +15952,10 @@ export MprConfigInterfaceTransportGetHandle(hMprConfig, hRouterInterface, dwTran
  * @since windowsserver2000
  */
 export MprConfigInterfaceTransportGetInfo(hMprConfig, hRouterInterface, hRouterIfTransport, ppInterfaceInfo, lpdwInterfaceInfoSize) {
-    ppInterfaceInfoMarshal := ppInterfaceInfo is VarRef ? "ptr*" : "ptr"
-    lpdwInterfaceInfoSizeMarshal := lpdwInterfaceInfoSize is VarRef ? "uint*" : "ptr"
+    ppInterfaceInfoMarshal := ppInterfaceInfo is VarRef ? "ptr*" : IntPtr
+    ppInterfaceInfoMarshal := ppInterfaceInfo == 0 ? IntPtr : "ptr*"
+    lpdwInterfaceInfoSizeMarshal := lpdwInterfaceInfoSize is VarRef ? "uint*" : IntPtr
+    lpdwInterfaceInfoSizeMarshal := lpdwInterfaceInfoSize == 0 ? IntPtr : "uint*"
 
     result := DllCall("MPRAPI.dll\MprConfigInterfaceTransportGetInfo", HANDLE, hMprConfig, HANDLE, hRouterInterface, HANDLE, hRouterIfTransport, ppInterfaceInfoMarshal, ppInterfaceInfo, lpdwInterfaceInfoSizeMarshal, lpdwInterfaceInfoSize, UInt32)
     return result
@@ -15861,7 +16044,9 @@ export MprConfigInterfaceTransportGetInfo(hMprConfig, hRouterInterface, hRouterI
  * @since windowsserver2000
  */
 export MprConfigInterfaceTransportSetInfo(hMprConfig, hRouterInterface, hRouterIfTransport, pInterfaceInfo, dwInterfaceInfoSize) {
-    result := DllCall("MPRAPI.dll\MprConfigInterfaceTransportSetInfo", HANDLE, hMprConfig, HANDLE, hRouterInterface, HANDLE, hRouterIfTransport, IntPtr, pInterfaceInfo, UInt32, dwInterfaceInfoSize, UInt32)
+    pInterfaceInfoMarshal := pInterfaceInfo == 0 ? IntPtr : IntPtr
+
+    result := DllCall("MPRAPI.dll\MprConfigInterfaceTransportSetInfo", HANDLE, hMprConfig, HANDLE, hRouterInterface, HANDLE, hRouterIfTransport, pInterfaceInfoMarshal, pInterfaceInfo, UInt32, dwInterfaceInfoSize, UInt32)
     return result
 }
 
@@ -15967,10 +16152,11 @@ export MprConfigInterfaceTransportSetInfo(hMprConfig, hRouterInterface, hRouterI
  * @since windowsserver2000
  */
 export MprConfigInterfaceTransportEnum(hMprConfig, hRouterInterface, dwLevel, lplpBuffer, dwPrefMaxLen, lpdwEntriesRead, lpdwTotalEntries, lpdwResumeHandle) {
-    lplpBufferMarshal := lplpBuffer is VarRef ? "ptr*" : "ptr"
-    lpdwEntriesReadMarshal := lpdwEntriesRead is VarRef ? "uint*" : "ptr"
-    lpdwTotalEntriesMarshal := lpdwTotalEntries is VarRef ? "uint*" : "ptr"
-    lpdwResumeHandleMarshal := lpdwResumeHandle is VarRef ? "uint*" : "ptr"
+    lplpBufferMarshal := lplpBuffer is VarRef ? "ptr*" : IntPtr
+    lpdwEntriesReadMarshal := lpdwEntriesRead is VarRef ? "uint*" : IntPtr
+    lpdwTotalEntriesMarshal := lpdwTotalEntries is VarRef ? "uint*" : IntPtr
+    lpdwResumeHandleMarshal := lpdwResumeHandle is VarRef ? "uint*" : IntPtr
+    lpdwResumeHandleMarshal := lpdwResumeHandle == 0 ? IntPtr : "uint*"
 
     result := DllCall("MPRAPI.dll\MprConfigInterfaceTransportEnum", HANDLE, hMprConfig, HANDLE, hRouterInterface, UInt32, dwLevel, lplpBufferMarshal, lplpBuffer, UInt32, dwPrefMaxLen, lpdwEntriesReadMarshal, lpdwEntriesRead, lpdwTotalEntriesMarshal, lpdwTotalEntries, lpdwResumeHandleMarshal, lpdwResumeHandle, UInt32)
     return result
@@ -16167,7 +16353,7 @@ export MprConfigGetGuidName(hMprConfig, pszFriendlyName, pszBuffer, dwBufferSize
  * @since windowsserver2008
  */
 export MprConfigFilterGetInfo(hMprConfig, dwLevel, dwTransportId, lpBuffer) {
-    lpBufferMarshal := lpBuffer is VarRef ? "char*" : "ptr"
+    lpBufferMarshal := lpBuffer is VarRef ? "char*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprConfigFilterGetInfo", HANDLE, hMprConfig, UInt32, dwLevel, UInt32, dwTransportId, lpBufferMarshal, lpBuffer, UInt32)
     return result
@@ -16232,7 +16418,7 @@ export MprConfigFilterGetInfo(hMprConfig, dwLevel, dwTransportId, lpBuffer) {
  * @since windowsserver2008
  */
 export MprConfigFilterSetInfo(hMprConfig, dwLevel, dwTransportId, lpBuffer) {
-    lpBufferMarshal := lpBuffer is VarRef ? "char*" : "ptr"
+    lpBufferMarshal := lpBuffer is VarRef ? "char*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprConfigFilterSetInfo", HANDLE, hMprConfig, UInt32, dwLevel, UInt32, dwTransportId, lpBufferMarshal, lpBuffer, UInt32)
     return result
@@ -16294,7 +16480,7 @@ export MprConfigFilterSetInfo(hMprConfig, dwLevel, dwTransportId, lpBuffer) {
  * @since windowsserver2000
  */
 export MprInfoCreate(dwVersion, lplpNewHeader) {
-    lplpNewHeaderMarshal := lplpNewHeader is VarRef ? "ptr*" : "ptr"
+    lplpNewHeaderMarshal := lplpNewHeader is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprInfoCreate", UInt32, dwVersion, lplpNewHeaderMarshal, lplpNewHeader, UInt32)
     return result
@@ -16344,7 +16530,7 @@ export MprInfoCreate(dwVersion, lplpNewHeader) {
  * @since windowsserver2000
  */
 export MprInfoDelete(lpHeader) {
-    lpHeaderMarshal := lpHeader is VarRef ? "ptr" : "ptr"
+    lpHeaderMarshal := lpHeader is VarRef ? "ptr" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprInfoDelete", lpHeaderMarshal, lpHeader, UInt32)
     return result
@@ -16395,8 +16581,8 @@ export MprInfoDelete(lpHeader) {
  * @since windowsserver2000
  */
 export MprInfoRemoveAll(lpHeader, lplpNewHeader) {
-    lpHeaderMarshal := lpHeader is VarRef ? "ptr" : "ptr"
-    lplpNewHeaderMarshal := lplpNewHeader is VarRef ? "ptr*" : "ptr"
+    lpHeaderMarshal := lpHeader is VarRef ? "ptr" : IntPtr
+    lplpNewHeaderMarshal := lplpNewHeader is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprInfoRemoveAll", lpHeaderMarshal, lpHeader, lplpNewHeaderMarshal, lplpNewHeader, UInt32)
     return result
@@ -16458,8 +16644,8 @@ export MprInfoRemoveAll(lpHeader, lplpNewHeader) {
  * @since windowsserver2000
  */
 export MprInfoDuplicate(lpHeader, lplpNewHeader) {
-    lpHeaderMarshal := lpHeader is VarRef ? "ptr" : "ptr"
-    lplpNewHeaderMarshal := lplpNewHeader is VarRef ? "ptr*" : "ptr"
+    lpHeaderMarshal := lpHeader is VarRef ? "ptr" : IntPtr
+    lplpNewHeaderMarshal := lplpNewHeader is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprInfoDuplicate", lpHeaderMarshal, lpHeader, lplpNewHeaderMarshal, lplpNewHeader, UInt32)
     return result
@@ -16516,9 +16702,9 @@ export MprInfoDuplicate(lpHeader, lplpNewHeader) {
  * @since windowsserver2000
  */
 export MprInfoBlockAdd(lpHeader, dwInfoType, dwItemSize, dwItemCount, lpItemData, lplpNewHeader) {
-    lpHeaderMarshal := lpHeader is VarRef ? "ptr" : "ptr"
-    lpItemDataMarshal := lpItemData is VarRef ? "char*" : "ptr"
-    lplpNewHeaderMarshal := lplpNewHeader is VarRef ? "ptr*" : "ptr"
+    lpHeaderMarshal := lpHeader is VarRef ? "ptr" : IntPtr
+    lpItemDataMarshal := lpItemData is VarRef ? "char*" : IntPtr
+    lplpNewHeaderMarshal := lplpNewHeader is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprInfoBlockAdd", lpHeaderMarshal, lpHeader, UInt32, dwInfoType, UInt32, dwItemSize, UInt32, dwItemCount, lpItemDataMarshal, lpItemData, lplpNewHeaderMarshal, lplpNewHeader, UInt32)
     return result
@@ -16583,8 +16769,8 @@ export MprInfoBlockAdd(lpHeader, dwInfoType, dwItemSize, dwItemCount, lpItemData
  * @since windowsserver2000
  */
 export MprInfoBlockRemove(lpHeader, dwInfoType, lplpNewHeader) {
-    lpHeaderMarshal := lpHeader is VarRef ? "ptr" : "ptr"
-    lplpNewHeaderMarshal := lplpNewHeader is VarRef ? "ptr*" : "ptr"
+    lpHeaderMarshal := lpHeader is VarRef ? "ptr" : IntPtr
+    lplpNewHeaderMarshal := lplpNewHeader is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprInfoBlockRemove", lpHeaderMarshal, lpHeader, UInt32, dwInfoType, lplpNewHeaderMarshal, lplpNewHeader, UInt32)
     return result
@@ -16637,9 +16823,9 @@ export MprInfoBlockRemove(lpHeader, dwInfoType, lplpNewHeader) {
  * @since windowsserver2000
  */
 export MprInfoBlockSet(lpHeader, dwInfoType, dwItemSize, dwItemCount, lpItemData, lplpNewHeader) {
-    lpHeaderMarshal := lpHeader is VarRef ? "ptr" : "ptr"
-    lpItemDataMarshal := lpItemData is VarRef ? "char*" : "ptr"
-    lplpNewHeaderMarshal := lplpNewHeader is VarRef ? "ptr*" : "ptr"
+    lpHeaderMarshal := lpHeader is VarRef ? "ptr" : IntPtr
+    lpItemDataMarshal := lpItemData is VarRef ? "char*" : IntPtr
+    lplpNewHeaderMarshal := lplpNewHeader is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprInfoBlockSet", lpHeaderMarshal, lpHeader, UInt32, dwInfoType, UInt32, dwItemSize, UInt32, dwItemCount, lpItemDataMarshal, lpItemData, lplpNewHeaderMarshal, lplpNewHeader, UInt32)
     return result
@@ -16702,10 +16888,10 @@ export MprInfoBlockSet(lpHeader, dwInfoType, dwItemSize, dwItemCount, lpItemData
  * @since windowsserver2000
  */
 export MprInfoBlockFind(lpHeader, dwInfoType, lpdwItemSize, lpdwItemCount, lplpItemData) {
-    lpHeaderMarshal := lpHeader is VarRef ? "ptr" : "ptr"
-    lpdwItemSizeMarshal := lpdwItemSize is VarRef ? "uint*" : "ptr"
-    lpdwItemCountMarshal := lpdwItemCount is VarRef ? "uint*" : "ptr"
-    lplpItemDataMarshal := lplpItemData is VarRef ? "ptr*" : "ptr"
+    lpHeaderMarshal := lpHeader is VarRef ? "ptr" : IntPtr
+    lpdwItemSizeMarshal := lpdwItemSize is VarRef ? "uint*" : IntPtr
+    lpdwItemCountMarshal := lpdwItemCount is VarRef ? "uint*" : IntPtr
+    lplpItemDataMarshal := lplpItemData is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprInfoBlockFind", lpHeaderMarshal, lpHeader, UInt32, dwInfoType, lpdwItemSizeMarshal, lpdwItemSize, lpdwItemCountMarshal, lpdwItemCount, lplpItemDataMarshal, lplpItemData, UInt32)
     return result
@@ -16719,7 +16905,7 @@ export MprInfoBlockFind(lpHeader, dwInfoType, lpdwItemSize, lpdwItemCount, lplpI
  * @since windowsserver2000
  */
 export MprInfoBlockQuerySize(lpHeader) {
-    lpHeaderMarshal := lpHeader is VarRef ? "ptr" : "ptr"
+    lpHeaderMarshal := lpHeader is VarRef ? "ptr" : IntPtr
 
     result := DllCall("MPRAPI.dll\MprInfoBlockQuerySize", lpHeaderMarshal, lpHeader, UInt32)
     return result
@@ -17045,8 +17231,8 @@ export MgmReleaseInterfaceOwnership(hProtocol, dwIfIndex, dwIfNextHopAddr) {
  * @since windowsserver2000
  */
 export MgmGetProtocolOnInterface(dwIfIndex, dwIfNextHopAddr, pdwIfProtocolId, pdwIfComponentId) {
-    pdwIfProtocolIdMarshal := pdwIfProtocolId is VarRef ? "uint*" : "ptr"
-    pdwIfComponentIdMarshal := pdwIfComponentId is VarRef ? "uint*" : "ptr"
+    pdwIfProtocolIdMarshal := pdwIfProtocolId is VarRef ? "uint*" : IntPtr
+    pdwIfComponentIdMarshal := pdwIfComponentId is VarRef ? "uint*" : IntPtr
 
     result := DllCall("rtm.dll\MgmGetProtocolOnInterface", UInt32, dwIfIndex, UInt32, dwIfNextHopAddr, pdwIfProtocolIdMarshal, pdwIfProtocolId, pdwIfComponentIdMarshal, pdwIfComponentId, UInt32)
     return result
@@ -17367,8 +17553,8 @@ export MgmDeleteGroupMembershipEntry(hProtocol, dwSourceAddr, dwSourceMask, dwGr
  * @since windowsserver2000
  */
 export MgmGetMfe(pimm, pdwBufferSize, pbBuffer) {
-    pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : "ptr"
-    pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+    pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : IntPtr
+    pbBufferMarshal := pbBuffer is VarRef ? "char*" : IntPtr
 
     result := DllCall("rtm.dll\MgmGetMfe", MIB_IPMCAST_MFE.Ptr, pimm, pdwBufferSizeMarshal, pdwBufferSize, pbBufferMarshal, pbBuffer, UInt32)
     return result
@@ -17471,9 +17657,9 @@ export MgmGetMfe(pimm, pdwBufferSize, pbBuffer) {
  * @since windowsserver2000
  */
 export MgmGetFirstMfe(pdwBufferSize, pbBuffer, pdwNumEntries) {
-    pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : "ptr"
-    pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
-    pdwNumEntriesMarshal := pdwNumEntries is VarRef ? "uint*" : "ptr"
+    pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : IntPtr
+    pbBufferMarshal := pbBuffer is VarRef ? "char*" : IntPtr
+    pdwNumEntriesMarshal := pdwNumEntries is VarRef ? "uint*" : IntPtr
 
     result := DllCall("rtm.dll\MgmGetFirstMfe", pdwBufferSizeMarshal, pdwBufferSize, pbBufferMarshal, pbBuffer, pdwNumEntriesMarshal, pdwNumEntries, UInt32)
     return result
@@ -17577,9 +17763,9 @@ export MgmGetFirstMfe(pdwBufferSize, pbBuffer, pdwNumEntries) {
  * @since windowsserver2000
  */
 export MgmGetNextMfe(pimmStart, pdwBufferSize, pbBuffer, pdwNumEntries) {
-    pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : "ptr"
-    pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
-    pdwNumEntriesMarshal := pdwNumEntries is VarRef ? "uint*" : "ptr"
+    pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : IntPtr
+    pbBufferMarshal := pbBuffer is VarRef ? "char*" : IntPtr
+    pdwNumEntriesMarshal := pdwNumEntries is VarRef ? "uint*" : IntPtr
 
     result := DllCall("rtm.dll\MgmGetNextMfe", MIB_IPMCAST_MFE.Ptr, pimmStart, pdwBufferSizeMarshal, pdwBufferSize, pbBufferMarshal, pbBuffer, pdwNumEntriesMarshal, pdwNumEntries, UInt32)
     return result
@@ -17679,8 +17865,8 @@ export MgmGetNextMfe(pimmStart, pdwBufferSize, pbBuffer, pdwNumEntries) {
  * @since windowsserver2000
  */
 export MgmGetMfeStats(pimm, pdwBufferSize, pbBuffer, dwFlags) {
-    pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : "ptr"
-    pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+    pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : IntPtr
+    pbBufferMarshal := pbBuffer is VarRef ? "char*" : IntPtr
 
     result := DllCall("rtm.dll\MgmGetMfeStats", MIB_IPMCAST_MFE.Ptr, pimm, pdwBufferSizeMarshal, pdwBufferSize, pbBufferMarshal, pbBuffer, UInt32, dwFlags, UInt32)
     return result
@@ -17809,9 +17995,9 @@ export MgmGetMfeStats(pimm, pdwBufferSize, pbBuffer, dwFlags) {
  * @since windowsserver2000
  */
 export MgmGetFirstMfeStats(pdwBufferSize, pbBuffer, pdwNumEntries, dwFlags) {
-    pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : "ptr"
-    pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
-    pdwNumEntriesMarshal := pdwNumEntries is VarRef ? "uint*" : "ptr"
+    pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : IntPtr
+    pbBufferMarshal := pbBuffer is VarRef ? "char*" : IntPtr
+    pdwNumEntriesMarshal := pdwNumEntries is VarRef ? "uint*" : IntPtr
 
     result := DllCall("rtm.dll\MgmGetFirstMfeStats", pdwBufferSizeMarshal, pdwBufferSize, pbBufferMarshal, pbBuffer, pdwNumEntriesMarshal, pdwNumEntries, UInt32, dwFlags, UInt32)
     return result
@@ -17945,9 +18131,9 @@ export MgmGetFirstMfeStats(pdwBufferSize, pbBuffer, pdwNumEntries, dwFlags) {
  * @since windowsserver2000
  */
 export MgmGetNextMfeStats(pimmStart, pdwBufferSize, pbBuffer, pdwNumEntries, dwFlags) {
-    pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : "ptr"
-    pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
-    pdwNumEntriesMarshal := pdwNumEntries is VarRef ? "uint*" : "ptr"
+    pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : IntPtr
+    pbBufferMarshal := pbBuffer is VarRef ? "char*" : IntPtr
+    pdwNumEntriesMarshal := pdwNumEntries is VarRef ? "uint*" : IntPtr
 
     result := DllCall("rtm.dll\MgmGetNextMfeStats", MIB_IPMCAST_MFE.Ptr, pimmStart, pdwBufferSizeMarshal, pdwBufferSize, pbBufferMarshal, pbBuffer, pdwNumEntriesMarshal, pdwNumEntries, UInt32, dwFlags, UInt32)
     return result
@@ -18152,9 +18338,9 @@ export MgmGroupEnumerationStart(hProtocol, metEnumType, phEnumHandle) {
  * @since windowsserver2000
  */
 export MgmGroupEnumerationGetNext(hEnum, pdwBufferSize, pbBuffer, pdwNumEntries) {
-    pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : "ptr"
-    pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
-    pdwNumEntriesMarshal := pdwNumEntries is VarRef ? "uint*" : "ptr"
+    pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : IntPtr
+    pbBufferMarshal := pbBuffer is VarRef ? "char*" : IntPtr
+    pdwNumEntriesMarshal := pdwNumEntries is VarRef ? "uint*" : IntPtr
 
     result := DllCall("rtm.dll\MgmGroupEnumerationGetNext", HANDLE, hEnum, pdwBufferSizeMarshal, pdwBufferSize, pbBufferMarshal, pbBuffer, pdwNumEntriesMarshal, pdwNumEntries, UInt32)
     return result
@@ -18208,7 +18394,6 @@ export MgmGroupEnumerationEnd(hEnum) {
 }
 
 /**
- * 
  * @param {Pointer<RTM_NET_ADDRESS>} pNetAddress 
  * @param {Pointer<IN6_ADDR>} pAddress 
  * @param {Pointer<Integer>} pLength 
@@ -18216,14 +18401,13 @@ export MgmGroupEnumerationEnd(hEnum) {
  * @returns {Integer} 
  */
 export RtmConvertNetAddressToIpv6AddressAndLength(pNetAddress, pAddress, pLength, dwAddressSize) {
-    pLengthMarshal := pLength is VarRef ? "uint*" : "ptr"
+    pLengthMarshal := pLength is VarRef ? "uint*" : IntPtr
 
     result := DllCall("rtm.dll\RtmConvertNetAddressToIpv6AddressAndLength", RTM_NET_ADDRESS.Ptr, pNetAddress, IN6_ADDR.Ptr, pAddress, pLengthMarshal, pLength, UInt32, dwAddressSize, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<RTM_NET_ADDRESS>} pNetAddress 
  * @param {IN6_ADDR} _Address 
  * @param {Integer} dwLength 
@@ -18345,7 +18529,7 @@ export RtmConvertIpv6AddressAndLengthToNetAddress(pNetAddress, _Address, dwLengt
  * @since windowsserver2000
  */
 export RtmRegisterEntity(RtmEntityInfo, ExportMethods, EventCallback, ReserveOpaquePointer, RtmRegProfile, RtmRegHandle) {
-    RtmRegHandleMarshal := RtmRegHandle is VarRef ? "ptr*" : "ptr"
+    RtmRegHandleMarshal := RtmRegHandle is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("rtm.dll\RtmRegisterEntity", RTM_ENTITY_INFO.Ptr, RtmEntityInfo, RTM_ENTITY_EXPORT_METHODS.Ptr, ExportMethods, RTM_EVENT_CALLBACK, EventCallback, BOOL, ReserveOpaquePointer, RTM_REGN_PROFILE.Ptr, RtmRegProfile, RtmRegHandleMarshal, RtmRegHandle, UInt32)
     return result
@@ -18452,8 +18636,8 @@ export RtmDeregisterEntity(RtmRegHandle) {
  * @since windowsserver2000
  */
 export RtmGetRegisteredEntities(RtmRegHandle, NumEntities, EntityHandles, EntityInfos) {
-    NumEntitiesMarshal := NumEntities is VarRef ? "uint*" : "ptr"
-    EntityHandlesMarshal := EntityHandles is VarRef ? "ptr*" : "ptr"
+    NumEntitiesMarshal := NumEntities is VarRef ? "uint*" : IntPtr
+    EntityHandlesMarshal := EntityHandles is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("rtm.dll\RtmGetRegisteredEntities", IntPtr, RtmRegHandle, NumEntitiesMarshal, NumEntities, EntityHandlesMarshal, EntityHandles, RTM_ENTITY_INFO.Ptr, EntityInfos, UInt32)
     return result
@@ -18495,7 +18679,7 @@ export RtmGetRegisteredEntities(RtmRegHandle, NumEntities, EntityHandles, Entity
  * @since windowsserver2000
  */
 export RtmReleaseEntities(RtmRegHandle, NumEntities, EntityHandles) {
-    EntityHandlesMarshal := EntityHandles is VarRef ? "ptr*" : "ptr"
+    EntityHandlesMarshal := EntityHandles is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("rtm.dll\RtmReleaseEntities", IntPtr, RtmRegHandle, UInt32, NumEntities, EntityHandlesMarshal, EntityHandles, UInt32)
     return result
@@ -18614,7 +18798,7 @@ export RtmLockDestination(RtmRegHandle, DestHandle, Exclusive, LockDest) {
  * @since windowsserver2000
  */
 export RtmGetOpaqueInformationPointer(RtmRegHandle, DestHandle, OpaqueInfoPointer) {
-    OpaqueInfoPointerMarshal := OpaqueInfoPointer is VarRef ? "ptr*" : "ptr"
+    OpaqueInfoPointerMarshal := OpaqueInfoPointer is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("rtm.dll\RtmGetOpaqueInformationPointer", IntPtr, RtmRegHandle, IntPtr, DestHandle, OpaqueInfoPointerMarshal, OpaqueInfoPointer, UInt32)
     return result
@@ -18670,8 +18854,8 @@ export RtmGetOpaqueInformationPointer(RtmRegHandle, DestHandle, OpaqueInfoPointe
  * @since windowsserver2000
  */
 export RtmGetEntityMethods(RtmRegHandle, EntityHandle, NumMethods, ExptMethods) {
-    NumMethodsMarshal := NumMethods is VarRef ? "uint*" : "ptr"
-    ExptMethodsMarshal := ExptMethods is VarRef ? "ptr*" : "ptr"
+    NumMethodsMarshal := NumMethods is VarRef ? "uint*" : IntPtr
+    ExptMethodsMarshal := ExptMethods is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("rtm.dll\RtmGetEntityMethods", IntPtr, RtmRegHandle, IntPtr, EntityHandle, NumMethodsMarshal, NumMethods, ExptMethodsMarshal, ExptMethods, UInt32)
     return result
@@ -18724,7 +18908,7 @@ export RtmGetEntityMethods(RtmRegHandle, EntityHandle, NumMethods, ExptMethods) 
  * @since windowsserver2000
  */
 export RtmInvokeMethod(RtmRegHandle, EntityHandle, _Input, OutputSize, Output) {
-    OutputSizeMarshal := OutputSize is VarRef ? "uint*" : "ptr"
+    OutputSizeMarshal := OutputSize is VarRef ? "uint*" : IntPtr
 
     result := DllCall("rtm.dll\RtmInvokeMethod", IntPtr, RtmRegHandle, IntPtr, EntityHandle, RTM_ENTITY_METHOD_INPUT.Ptr, _Input, OutputSizeMarshal, OutputSize, RTM_ENTITY_METHOD_OUTPUT.Ptr, Output, UInt32)
     return result
@@ -19348,8 +19532,8 @@ export RtmReleaseNextHopInfo(RtmRegHandle, NextHopInfo) {
  * @since windowsserver2000
  */
 export RtmAddRouteToDest(RtmRegHandle, RouteHandle, DestAddress, RouteInfo, TimeToLive, RouteListHandle, NotifyType, NotifyHandle, ChangeFlags) {
-    RouteHandleMarshal := RouteHandle is VarRef ? "ptr*" : "ptr"
-    ChangeFlagsMarshal := ChangeFlags is VarRef ? "uint*" : "ptr"
+    RouteHandleMarshal := RouteHandle is VarRef ? "ptr*" : IntPtr
+    ChangeFlagsMarshal := ChangeFlags is VarRef ? "uint*" : IntPtr
 
     result := DllCall("rtm.dll\RtmAddRouteToDest", IntPtr, RtmRegHandle, RouteHandleMarshal, RouteHandle, RTM_NET_ADDRESS.Ptr, DestAddress, RTM_ROUTE_INFO.Ptr, RouteInfo, UInt32, TimeToLive, IntPtr, RouteListHandle, UInt32, NotifyType, IntPtr, NotifyHandle, ChangeFlagsMarshal, ChangeFlags, UInt32)
     return result
@@ -19421,7 +19605,7 @@ export RtmAddRouteToDest(RtmRegHandle, RouteHandle, DestAddress, RouteInfo, Time
  * @since windowsserver2000
  */
 export RtmDeleteRouteToDest(RtmRegHandle, RouteHandle, ChangeFlags) {
-    ChangeFlagsMarshal := ChangeFlags is VarRef ? "uint*" : "ptr"
+    ChangeFlagsMarshal := ChangeFlags is VarRef ? "uint*" : IntPtr
 
     result := DllCall("rtm.dll\RtmDeleteRouteToDest", IntPtr, RtmRegHandle, IntPtr, RouteHandle, ChangeFlagsMarshal, ChangeFlags, UInt32)
     return result
@@ -19536,7 +19720,7 @@ export RtmHoldDestination(RtmRegHandle, DestHandle, TargetViews, HoldTime) {
  * @since windowsserver2000
  */
 export RtmGetRoutePointer(RtmRegHandle, RouteHandle, RoutePointer) {
-    RoutePointerMarshal := RoutePointer is VarRef ? "ptr*" : "ptr"
+    RoutePointerMarshal := RoutePointer is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("rtm.dll\RtmGetRoutePointer", IntPtr, RtmRegHandle, IntPtr, RouteHandle, RoutePointerMarshal, RoutePointer, UInt32)
     return result
@@ -19607,7 +19791,7 @@ export RtmGetRoutePointer(RtmRegHandle, RouteHandle, RoutePointer) {
  * @since windowsserver2000
  */
 export RtmLockRoute(RtmRegHandle, RouteHandle, Exclusive, LockRoute, RoutePointer) {
-    RoutePointerMarshal := RoutePointer is VarRef ? "ptr*" : "ptr"
+    RoutePointerMarshal := RoutePointer is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("rtm.dll\RtmLockRoute", IntPtr, RtmRegHandle, IntPtr, RouteHandle, BOOL, Exclusive, BOOL, LockRoute, RoutePointerMarshal, RoutePointer, UInt32)
     return result
@@ -19656,7 +19840,7 @@ export RtmLockRoute(RtmRegHandle, RouteHandle, Exclusive, LockRoute, RoutePointe
  * @since windowsserver2000
  */
 export RtmUpdateAndUnlockRoute(RtmRegHandle, RouteHandle, TimeToLive, RouteListHandle, NotifyType, NotifyHandle, ChangeFlags) {
-    ChangeFlagsMarshal := ChangeFlags is VarRef ? "uint*" : "ptr"
+    ChangeFlagsMarshal := ChangeFlags is VarRef ? "uint*" : IntPtr
 
     result := DllCall("rtm.dll\RtmUpdateAndUnlockRoute", IntPtr, RtmRegHandle, IntPtr, RouteHandle, UInt32, TimeToLive, IntPtr, RouteListHandle, UInt32, NotifyType, IntPtr, NotifyHandle, ChangeFlagsMarshal, ChangeFlags, UInt32)
     return result
@@ -20021,7 +20205,7 @@ export RtmGetLessSpecificDestination(RtmRegHandle, DestHandle, ProtocolId, Targe
  * @since windowsserver2000
  */
 export RtmGetExactMatchRoute(RtmRegHandle, DestAddress, MatchingFlags, RouteInfo, InterfaceIndex, TargetViews, RouteHandle) {
-    RouteHandleMarshal := RouteHandle is VarRef ? "ptr*" : "ptr"
+    RouteHandleMarshal := RouteHandle is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("rtm.dll\RtmGetExactMatchRoute", IntPtr, RtmRegHandle, RTM_NET_ADDRESS.Ptr, DestAddress, UInt32, MatchingFlags, RTM_ROUTE_INFO.Ptr, RouteInfo, UInt32, InterfaceIndex, UInt32, TargetViews, RouteHandleMarshal, RouteHandle, UInt32)
     return result
@@ -20062,7 +20246,7 @@ export RtmGetExactMatchRoute(RtmRegHandle, DestAddress, MatchingFlags, RouteInfo
  * @since windowsserver2000
  */
 export RtmIsBestRoute(RtmRegHandle, RouteHandle, BestInViews) {
-    BestInViewsMarshal := BestInViews is VarRef ? "uint*" : "ptr"
+    BestInViewsMarshal := BestInViews is VarRef ? "uint*" : IntPtr
 
     result := DllCall("rtm.dll\RtmIsBestRoute", IntPtr, RtmRegHandle, IntPtr, RouteHandle, BestInViewsMarshal, BestInViews, UInt32)
     return result
@@ -20132,8 +20316,8 @@ export RtmIsBestRoute(RtmRegHandle, RouteHandle, BestInViews) {
  * @since windowsserver2000
  */
 export RtmAddNextHop(RtmRegHandle, NextHopInfo, NextHopHandle, ChangeFlags) {
-    NextHopHandleMarshal := NextHopHandle is VarRef ? "ptr*" : "ptr"
-    ChangeFlagsMarshal := ChangeFlags is VarRef ? "uint*" : "ptr"
+    NextHopHandleMarshal := NextHopHandle is VarRef ? "ptr*" : IntPtr
+    ChangeFlagsMarshal := ChangeFlags is VarRef ? "uint*" : IntPtr
 
     result := DllCall("rtm.dll\RtmAddNextHop", IntPtr, RtmRegHandle, RTM_NEXTHOP_INFO.Ptr, NextHopInfo, NextHopHandleMarshal, NextHopHandle, ChangeFlagsMarshal, ChangeFlags, UInt32)
     return result
@@ -20199,8 +20383,8 @@ export RtmAddNextHop(RtmRegHandle, NextHopInfo, NextHopHandle, ChangeFlags) {
  * @since windowsserver2000
  */
 export RtmFindNextHop(RtmRegHandle, NextHopInfo, NextHopHandle, NextHopPointer) {
-    NextHopHandleMarshal := NextHopHandle is VarRef ? "ptr*" : "ptr"
-    NextHopPointerMarshal := NextHopPointer is VarRef ? "ptr*" : "ptr"
+    NextHopHandleMarshal := NextHopHandle is VarRef ? "ptr*" : IntPtr
+    NextHopPointerMarshal := NextHopPointer is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("rtm.dll\RtmFindNextHop", IntPtr, RtmRegHandle, RTM_NEXTHOP_INFO.Ptr, NextHopInfo, NextHopHandleMarshal, NextHopHandle, NextHopPointerMarshal, NextHopPointer, UInt32)
     return result
@@ -20321,7 +20505,7 @@ export RtmDeleteNextHop(RtmRegHandle, NextHopHandle, NextHopInfo) {
  * @since windowsserver2000
  */
 export RtmGetNextHopPointer(RtmRegHandle, NextHopHandle, NextHopPointer) {
-    NextHopPointerMarshal := NextHopPointer is VarRef ? "ptr*" : "ptr"
+    NextHopPointerMarshal := NextHopPointer is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("rtm.dll\RtmGetNextHopPointer", IntPtr, RtmRegHandle, IntPtr, NextHopHandle, NextHopPointerMarshal, NextHopPointer, UInt32)
     return result
@@ -20382,7 +20566,7 @@ export RtmGetNextHopPointer(RtmRegHandle, NextHopHandle, NextHopPointer) {
  * @since windowsserver2000
  */
 export RtmLockNextHop(RtmRegHandle, NextHopHandle, Exclusive, LockNextHop, NextHopPointer) {
-    NextHopPointerMarshal := NextHopPointer is VarRef ? "ptr*" : "ptr"
+    NextHopPointerMarshal := NextHopPointer is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("rtm.dll\RtmLockNextHop", IntPtr, RtmRegHandle, IntPtr, NextHopHandle, BOOL, Exclusive, BOOL, LockNextHop, NextHopPointerMarshal, NextHopPointer, UInt32)
     return result
@@ -20573,7 +20757,7 @@ export RtmLockNextHop(RtmRegHandle, NextHopHandle, Exclusive, LockNextHop, NextH
  * @since windowsserver2000
  */
 export RtmCreateDestEnum(RtmRegHandle, TargetViews, EnumFlags, _NetAddress, ProtocolId, RtmEnumHandle) {
-    RtmEnumHandleMarshal := RtmEnumHandle is VarRef ? "ptr*" : "ptr"
+    RtmEnumHandleMarshal := RtmEnumHandle is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("rtm.dll\RtmCreateDestEnum", IntPtr, RtmRegHandle, UInt32, TargetViews, UInt32, EnumFlags, RTM_NET_ADDRESS.Ptr, _NetAddress, UInt32, ProtocolId, RtmEnumHandleMarshal, RtmEnumHandle, UInt32)
     return result
@@ -20643,7 +20827,7 @@ export RtmCreateDestEnum(RtmRegHandle, TargetViews, EnumFlags, _NetAddress, Prot
  * @since windowsserver2000
  */
 export RtmGetEnumDests(RtmRegHandle, EnumHandle, NumDests, DestInfos) {
-    NumDestsMarshal := NumDests is VarRef ? "uint*" : "ptr"
+    NumDestsMarshal := NumDests is VarRef ? "uint*" : IntPtr
 
     result := DllCall("rtm.dll\RtmGetEnumDests", IntPtr, RtmRegHandle, IntPtr, EnumHandle, NumDestsMarshal, NumDests, RTM_DEST_INFO.Ptr, DestInfos, UInt32)
     return result
@@ -20963,7 +21147,7 @@ export RtmReleaseDests(RtmRegHandle, NumDests, DestInfos) {
  * @since windowsserver2000
  */
 export RtmCreateRouteEnum(RtmRegHandle, DestHandle, TargetViews, EnumFlags, StartDest, MatchingFlags, CriteriaRoute, CriteriaInterface, RtmEnumHandle) {
-    RtmEnumHandleMarshal := RtmEnumHandle is VarRef ? "ptr*" : "ptr"
+    RtmEnumHandleMarshal := RtmEnumHandle is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("rtm.dll\RtmCreateRouteEnum", IntPtr, RtmRegHandle, IntPtr, DestHandle, UInt32, TargetViews, UInt32, EnumFlags, RTM_NET_ADDRESS.Ptr, StartDest, UInt32, MatchingFlags, RTM_ROUTE_INFO.Ptr, CriteriaRoute, UInt32, CriteriaInterface, RtmEnumHandleMarshal, RtmEnumHandle, UInt32)
     return result
@@ -21045,8 +21229,8 @@ export RtmCreateRouteEnum(RtmRegHandle, DestHandle, TargetViews, EnumFlags, Star
  * @since windowsserver2000
  */
 export RtmGetEnumRoutes(RtmRegHandle, EnumHandle, NumRoutes, RouteHandles) {
-    NumRoutesMarshal := NumRoutes is VarRef ? "uint*" : "ptr"
-    RouteHandlesMarshal := RouteHandles is VarRef ? "ptr*" : "ptr"
+    NumRoutesMarshal := NumRoutes is VarRef ? "uint*" : IntPtr
+    RouteHandlesMarshal := RouteHandles is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("rtm.dll\RtmGetEnumRoutes", IntPtr, RtmRegHandle, IntPtr, EnumHandle, NumRoutesMarshal, NumRoutes, RouteHandlesMarshal, RouteHandles, UInt32)
     return result
@@ -21088,7 +21272,7 @@ export RtmGetEnumRoutes(RtmRegHandle, EnumHandle, NumRoutes, RouteHandles) {
  * @since windowsserver2000
  */
 export RtmReleaseRoutes(RtmRegHandle, NumRoutes, RouteHandles) {
-    RouteHandlesMarshal := RouteHandles is VarRef ? "ptr*" : "ptr"
+    RouteHandlesMarshal := RouteHandles is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("rtm.dll\RtmReleaseRoutes", IntPtr, RtmRegHandle, UInt32, NumRoutes, RouteHandlesMarshal, RouteHandles, UInt32)
     return result
@@ -21194,7 +21378,7 @@ export RtmReleaseRoutes(RtmRegHandle, NumRoutes, RouteHandles) {
  * @since windowsserver2000
  */
 export RtmCreateNextHopEnum(RtmRegHandle, EnumFlags, _NetAddress, RtmEnumHandle) {
-    RtmEnumHandleMarshal := RtmEnumHandle is VarRef ? "ptr*" : "ptr"
+    RtmEnumHandleMarshal := RtmEnumHandle is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("rtm.dll\RtmCreateNextHopEnum", IntPtr, RtmRegHandle, UInt32, EnumFlags, RTM_NET_ADDRESS.Ptr, _NetAddress, RtmEnumHandleMarshal, RtmEnumHandle, UInt32)
     return result
@@ -21262,8 +21446,8 @@ export RtmCreateNextHopEnum(RtmRegHandle, EnumFlags, _NetAddress, RtmEnumHandle)
  * @since windowsserver2000
  */
 export RtmGetEnumNextHops(RtmRegHandle, EnumHandle, NumNextHops, NextHopHandles) {
-    NumNextHopsMarshal := NumNextHops is VarRef ? "uint*" : "ptr"
-    NextHopHandlesMarshal := NextHopHandles is VarRef ? "ptr*" : "ptr"
+    NumNextHopsMarshal := NumNextHops is VarRef ? "uint*" : IntPtr
+    NextHopHandlesMarshal := NextHopHandles is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("rtm.dll\RtmGetEnumNextHops", IntPtr, RtmRegHandle, IntPtr, EnumHandle, NumNextHopsMarshal, NumNextHops, NextHopHandlesMarshal, NextHopHandles, UInt32)
     return result
@@ -21305,7 +21489,7 @@ export RtmGetEnumNextHops(RtmRegHandle, EnumHandle, NumNextHops, NextHopHandles)
  * @since windowsserver2000
  */
 export RtmReleaseNextHops(RtmRegHandle, NumNextHops, NextHopHandles) {
-    NextHopHandlesMarshal := NextHopHandles is VarRef ? "ptr*" : "ptr"
+    NextHopHandlesMarshal := NextHopHandles is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("rtm.dll\RtmReleaseNextHops", IntPtr, RtmRegHandle, UInt32, NumNextHops, NextHopHandlesMarshal, NextHopHandles, UInt32)
     return result
@@ -21482,8 +21666,8 @@ export RtmDeleteEnumHandle(RtmRegHandle, EnumHandle) {
  * @since windowsserver2000
  */
 export RtmRegisterForChangeNotification(RtmRegHandle, TargetViews, NotifyFlags, NotifyContext, NotifyHandle) {
-    NotifyContextMarshal := NotifyContext is VarRef ? "ptr" : "ptr"
-    NotifyHandleMarshal := NotifyHandle is VarRef ? "ptr*" : "ptr"
+    NotifyContextMarshal := NotifyContext is VarRef ? "ptr" : IntPtr
+    NotifyHandleMarshal := NotifyHandle is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("rtm.dll\RtmRegisterForChangeNotification", IntPtr, RtmRegHandle, UInt32, TargetViews, UInt32, NotifyFlags, NotifyContextMarshal, NotifyContext, NotifyHandleMarshal, NotifyHandle, UInt32)
     return result
@@ -21561,7 +21745,7 @@ export RtmRegisterForChangeNotification(RtmRegHandle, TargetViews, NotifyFlags, 
  * @since windowsserver2000
  */
 export RtmGetChangedDests(RtmRegHandle, NotifyHandle, NumDests, ChangedDests) {
-    NumDestsMarshal := NumDests is VarRef ? "uint*" : "ptr"
+    NumDestsMarshal := NumDests is VarRef ? "uint*" : IntPtr
 
     result := DllCall("rtm.dll\RtmGetChangedDests", IntPtr, RtmRegHandle, IntPtr, NotifyHandle, NumDestsMarshal, NumDests, RTM_DEST_INFO.Ptr, ChangedDests, UInt32)
     return result
@@ -21654,7 +21838,7 @@ export RtmReleaseChangedDests(RtmRegHandle, NotifyHandle, NumDests, ChangedDests
  * @since windowsserver2000
  */
 export RtmIgnoreChangedDests(RtmRegHandle, NotifyHandle, NumDests, ChangedDests) {
-    ChangedDestsMarshal := ChangedDests is VarRef ? "ptr*" : "ptr"
+    ChangedDestsMarshal := ChangedDests is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("rtm.dll\RtmIgnoreChangedDests", IntPtr, RtmRegHandle, IntPtr, NotifyHandle, UInt32, NumDests, ChangedDestsMarshal, ChangedDests, UInt32)
     return result
@@ -21705,7 +21889,7 @@ export RtmIgnoreChangedDests(RtmRegHandle, NotifyHandle, NumDests, ChangedDests)
  * @since windowsserver2000
  */
 export RtmGetChangeStatus(RtmRegHandle, NotifyHandle, DestHandle, ChangeStatus) {
-    ChangeStatusMarshal := ChangeStatus is VarRef ? "int*" : "ptr"
+    ChangeStatusMarshal := ChangeStatus is VarRef ? "int*" : IntPtr
 
     result := DllCall("rtm.dll\RtmGetChangeStatus", IntPtr, RtmRegHandle, IntPtr, NotifyHandle, IntPtr, DestHandle, ChangeStatusMarshal, ChangeStatus, UInt32)
     return result
@@ -21785,7 +21969,7 @@ export RtmMarkDestForChangeNotification(RtmRegHandle, NotifyHandle, DestHandle, 
  * @since windowsserver2000
  */
 export RtmIsMarkedForChangeNotification(RtmRegHandle, NotifyHandle, DestHandle, DestMarked) {
-    DestMarkedMarshal := DestMarked is VarRef ? "int*" : "ptr"
+    DestMarkedMarshal := DestMarked is VarRef ? "int*" : IntPtr
 
     result := DllCall("rtm.dll\RtmIsMarkedForChangeNotification", IntPtr, RtmRegHandle, IntPtr, NotifyHandle, IntPtr, DestHandle, DestMarkedMarshal, DestMarked, UInt32)
     return result
@@ -21872,7 +22056,7 @@ export RtmDeregisterFromChangeNotification(RtmRegHandle, NotifyHandle) {
  * @since windowsserver2000
  */
 export RtmCreateRouteList(RtmRegHandle, RouteListHandle) {
-    RouteListHandleMarshal := RouteListHandle is VarRef ? "ptr*" : "ptr"
+    RouteListHandleMarshal := RouteListHandle is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("rtm.dll\RtmCreateRouteList", IntPtr, RtmRegHandle, RouteListHandleMarshal, RouteListHandle, UInt32)
     return result
@@ -21916,7 +22100,7 @@ export RtmCreateRouteList(RtmRegHandle, RouteListHandle) {
  * @since windowsserver2000
  */
 export RtmInsertInRouteList(RtmRegHandle, RouteListHandle, NumRoutes, RouteHandles) {
-    RouteHandlesMarshal := RouteHandles is VarRef ? "ptr*" : "ptr"
+    RouteHandlesMarshal := RouteHandles is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("rtm.dll\RtmInsertInRouteList", IntPtr, RtmRegHandle, IntPtr, RouteListHandle, UInt32, NumRoutes, RouteHandlesMarshal, RouteHandles, UInt32)
     return result
@@ -21969,7 +22153,7 @@ export RtmInsertInRouteList(RtmRegHandle, RouteListHandle, NumRoutes, RouteHandl
  * @since windowsserver2000
  */
 export RtmCreateRouteListEnum(RtmRegHandle, RouteListHandle, RtmEnumHandle) {
-    RtmEnumHandleMarshal := RtmEnumHandle is VarRef ? "ptr*" : "ptr"
+    RtmEnumHandleMarshal := RtmEnumHandle is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("rtm.dll\RtmCreateRouteListEnum", IntPtr, RtmRegHandle, IntPtr, RouteListHandle, RtmEnumHandleMarshal, RtmEnumHandle, UInt32)
     return result
@@ -22030,8 +22214,8 @@ export RtmCreateRouteListEnum(RtmRegHandle, RouteListHandle, RtmEnumHandle) {
  * @since windowsserver2000
  */
 export RtmGetListEnumRoutes(RtmRegHandle, EnumHandle, NumRoutes, RouteHandles) {
-    NumRoutesMarshal := NumRoutes is VarRef ? "uint*" : "ptr"
-    RouteHandlesMarshal := RouteHandles is VarRef ? "ptr*" : "ptr"
+    NumRoutesMarshal := NumRoutes is VarRef ? "uint*" : IntPtr
+    RouteHandlesMarshal := RouteHandles is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("rtm.dll\RtmGetListEnumRoutes", IntPtr, RtmRegHandle, IntPtr, EnumHandle, NumRoutesMarshal, NumRoutes, RouteHandlesMarshal, RouteHandles, UInt32)
     return result

@@ -48,7 +48,6 @@ export default struct IPrintCoreUI2 extends IPrintOemDriverUI {
     }
 
     /**
-     * 
      * @param {Pointer<OEMUIOBJ>} poemuiobj 
      * @param {Integer} pmszFeaturesRequested 
      * @param {Integer} cbIn 
@@ -59,12 +58,14 @@ export default struct IPrintCoreUI2 extends IPrintOemDriverUI {
     GetOptions(poemuiobj, pmszFeaturesRequested, cbIn, pmszFeatureOptionBuf, cbSize) {
         static dwFlags := 0 ;Reserved parameters must always be NULL
 
-        result := ComCall(6, this, OEMUIOBJ.Ptr, poemuiobj, UInt32, dwFlags, IntPtr, pmszFeaturesRequested, UInt32, cbIn, IntPtr, pmszFeatureOptionBuf, UInt32, cbSize, "uint*", &pcbNeeded := 0, "HRESULT")
+        pmszFeaturesRequestedMarshal := pmszFeaturesRequested == 0 ? IntPtr : IntPtr
+        pmszFeatureOptionBufMarshal := pmszFeatureOptionBuf == 0 ? IntPtr : IntPtr
+
+        result := ComCall(6, this, OEMUIOBJ.Ptr, poemuiobj, UInt32, dwFlags, pmszFeaturesRequestedMarshal, pmszFeaturesRequested, UInt32, cbIn, pmszFeatureOptionBufMarshal, pmszFeatureOptionBuf, UInt32, cbSize, "uint*", &pcbNeeded := 0, "HRESULT")
         return pcbNeeded
     }
 
     /**
-     * 
      * @param {Pointer<OEMUIOBJ>} poemuiobj 
      * @param {Integer} dwFlags 
      * @param {Integer} pmszFeatureOptionBuf 
@@ -77,7 +78,6 @@ export default struct IPrintCoreUI2 extends IPrintOemDriverUI {
     }
 
     /**
-     * 
      * @param {Pointer<OEMUIOBJ>} poemuiobj 
      * @param {PSTR} pszFeatureKeyword 
      * @param {Integer} pmszConstrainedOptionList 
@@ -89,12 +89,13 @@ export default struct IPrintCoreUI2 extends IPrintOemDriverUI {
 
         pszFeatureKeyword := pszFeatureKeyword is String ? StrPtr(pszFeatureKeyword) : pszFeatureKeyword
 
-        result := ComCall(8, this, OEMUIOBJ.Ptr, poemuiobj, UInt32, dwFlags, "ptr", pszFeatureKeyword, IntPtr, pmszConstrainedOptionList, UInt32, cbSize, "uint*", &pcbNeeded := 0, "HRESULT")
+        pmszConstrainedOptionListMarshal := pmszConstrainedOptionList == 0 ? IntPtr : IntPtr
+
+        result := ComCall(8, this, OEMUIOBJ.Ptr, poemuiobj, UInt32, dwFlags, "ptr", pszFeatureKeyword, pmszConstrainedOptionListMarshal, pmszConstrainedOptionList, UInt32, cbSize, "uint*", &pcbNeeded := 0, "HRESULT")
         return pcbNeeded
     }
 
     /**
-     * 
      * @param {Pointer<OEMUIOBJ>} poemuiobj 
      * @param {PSTR} pszFeatureKeyword 
      * @param {PSTR} pszOptionKeyword 
@@ -108,12 +109,13 @@ export default struct IPrintCoreUI2 extends IPrintOemDriverUI {
         pszFeatureKeyword := pszFeatureKeyword is String ? StrPtr(pszFeatureKeyword) : pszFeatureKeyword
         pszOptionKeyword := pszOptionKeyword is String ? StrPtr(pszOptionKeyword) : pszOptionKeyword
 
-        result := ComCall(9, this, OEMUIOBJ.Ptr, poemuiobj, UInt32, dwFlags, "ptr", pszFeatureKeyword, "ptr", pszOptionKeyword, IntPtr, pmszReasonList, UInt32, cbSize, "uint*", &pcbNeeded := 0, "HRESULT")
+        pmszReasonListMarshal := pmszReasonList == 0 ? IntPtr : IntPtr
+
+        result := ComCall(9, this, OEMUIOBJ.Ptr, poemuiobj, UInt32, dwFlags, "ptr", pszFeatureKeyword, "ptr", pszOptionKeyword, pmszReasonListMarshal, pmszReasonList, UInt32, cbSize, "uint*", &pcbNeeded := 0, "HRESULT")
         return pcbNeeded
     }
 
     /**
-     * 
      * @param {Pointer<OEMUIOBJ>} poemuiobj 
      * @param {PSTR} pszAttribute 
      * @param {Pointer<Integer>} pdwDataType 
@@ -127,15 +129,16 @@ export default struct IPrintCoreUI2 extends IPrintOemDriverUI {
 
         pszAttribute := pszAttribute is String ? StrPtr(pszAttribute) : pszAttribute
 
-        pdwDataTypeMarshal := pdwDataType is VarRef ? "uint*" : "ptr"
-        pcbNeededMarshal := pcbNeeded is VarRef ? "uint*" : "ptr"
+        pszAttributeMarshal := pszAttribute == 0 ? IntPtr : PSTR
+        pdwDataTypeMarshal := pdwDataType is VarRef ? "uint*" : IntPtr
+        pbDataMarshal := pbData == 0 ? IntPtr : IntPtr
+        pcbNeededMarshal := pcbNeeded is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(10, this, OEMUIOBJ.Ptr, poemuiobj, UInt32, dwFlags, "ptr", pszAttribute, pdwDataTypeMarshal, pdwDataType, IntPtr, pbData, UInt32, cbSize, pcbNeededMarshal, pcbNeeded, "HRESULT")
+        result := ComCall(10, this, OEMUIOBJ.Ptr, poemuiobj, UInt32, dwFlags, pszAttributeMarshal, pszAttribute, pdwDataTypeMarshal, pdwDataType, pbDataMarshal, pbData, UInt32, cbSize, pcbNeededMarshal, pcbNeeded, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<OEMUIOBJ>} poemuiobj 
      * @param {PSTR} pszFeatureKeyword 
      * @param {PSTR} pszAttribute 
@@ -151,15 +154,16 @@ export default struct IPrintCoreUI2 extends IPrintOemDriverUI {
         pszFeatureKeyword := pszFeatureKeyword is String ? StrPtr(pszFeatureKeyword) : pszFeatureKeyword
         pszAttribute := pszAttribute is String ? StrPtr(pszAttribute) : pszAttribute
 
-        pdwDataTypeMarshal := pdwDataType is VarRef ? "uint*" : "ptr"
-        pcbNeededMarshal := pcbNeeded is VarRef ? "uint*" : "ptr"
+        pszAttributeMarshal := pszAttribute == 0 ? IntPtr : PSTR
+        pdwDataTypeMarshal := pdwDataType is VarRef ? "uint*" : IntPtr
+        pbDataMarshal := pbData == 0 ? IntPtr : IntPtr
+        pcbNeededMarshal := pcbNeeded is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(11, this, OEMUIOBJ.Ptr, poemuiobj, UInt32, dwFlags, "ptr", pszFeatureKeyword, "ptr", pszAttribute, pdwDataTypeMarshal, pdwDataType, IntPtr, pbData, UInt32, cbSize, pcbNeededMarshal, pcbNeeded, "HRESULT")
+        result := ComCall(11, this, OEMUIOBJ.Ptr, poemuiobj, UInt32, dwFlags, "ptr", pszFeatureKeyword, pszAttributeMarshal, pszAttribute, pdwDataTypeMarshal, pdwDataType, pbDataMarshal, pbData, UInt32, cbSize, pcbNeededMarshal, pcbNeeded, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<OEMUIOBJ>} poemuiobj 
      * @param {PSTR} pszFeatureKeyword 
      * @param {PSTR} pszOptionKeyword 
@@ -177,15 +181,16 @@ export default struct IPrintCoreUI2 extends IPrintOemDriverUI {
         pszOptionKeyword := pszOptionKeyword is String ? StrPtr(pszOptionKeyword) : pszOptionKeyword
         pszAttribute := pszAttribute is String ? StrPtr(pszAttribute) : pszAttribute
 
-        pdwDataTypeMarshal := pdwDataType is VarRef ? "uint*" : "ptr"
-        pcbNeededMarshal := pcbNeeded is VarRef ? "uint*" : "ptr"
+        pszAttributeMarshal := pszAttribute == 0 ? IntPtr : PSTR
+        pdwDataTypeMarshal := pdwDataType is VarRef ? "uint*" : IntPtr
+        pbDataMarshal := pbData == 0 ? IntPtr : IntPtr
+        pcbNeededMarshal := pcbNeeded is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(12, this, OEMUIOBJ.Ptr, poemuiobj, UInt32, dwFlags, "ptr", pszFeatureKeyword, "ptr", pszOptionKeyword, "ptr", pszAttribute, pdwDataTypeMarshal, pdwDataType, IntPtr, pbData, UInt32, cbSize, pcbNeededMarshal, pcbNeeded, "HRESULT")
+        result := ComCall(12, this, OEMUIOBJ.Ptr, poemuiobj, UInt32, dwFlags, "ptr", pszFeatureKeyword, "ptr", pszOptionKeyword, pszAttributeMarshal, pszAttribute, pdwDataTypeMarshal, pdwDataType, pbDataMarshal, pbData, UInt32, cbSize, pcbNeededMarshal, pcbNeeded, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<OEMUIOBJ>} poemuiobj 
      * @param {Integer} pmszFeatureList 
      * @param {Integer} cbSize 
@@ -194,12 +199,13 @@ export default struct IPrintCoreUI2 extends IPrintOemDriverUI {
     EnumFeatures(poemuiobj, pmszFeatureList, cbSize) {
         static dwFlags := 0 ;Reserved parameters must always be NULL
 
-        result := ComCall(13, this, OEMUIOBJ.Ptr, poemuiobj, UInt32, dwFlags, IntPtr, pmszFeatureList, UInt32, cbSize, "uint*", &pcbNeeded := 0, "HRESULT")
+        pmszFeatureListMarshal := pmszFeatureList == 0 ? IntPtr : IntPtr
+
+        result := ComCall(13, this, OEMUIOBJ.Ptr, poemuiobj, UInt32, dwFlags, pmszFeatureListMarshal, pmszFeatureList, UInt32, cbSize, "uint*", &pcbNeeded := 0, "HRESULT")
         return pcbNeeded
     }
 
     /**
-     * 
      * @param {Pointer<OEMUIOBJ>} poemuiobj 
      * @param {PSTR} pszFeatureKeyword 
      * @param {Integer} pmszOptionList 
@@ -211,12 +217,13 @@ export default struct IPrintCoreUI2 extends IPrintOemDriverUI {
 
         pszFeatureKeyword := pszFeatureKeyword is String ? StrPtr(pszFeatureKeyword) : pszFeatureKeyword
 
-        result := ComCall(14, this, OEMUIOBJ.Ptr, poemuiobj, UInt32, dwFlags, "ptr", pszFeatureKeyword, IntPtr, pmszOptionList, UInt32, cbSize, "uint*", &pcbNeeded := 0, "HRESULT")
+        pmszOptionListMarshal := pmszOptionList == 0 ? IntPtr : IntPtr
+
+        result := ComCall(14, this, OEMUIOBJ.Ptr, poemuiobj, UInt32, dwFlags, "ptr", pszFeatureKeyword, pmszOptionListMarshal, pmszOptionList, UInt32, cbSize, "uint*", &pcbNeeded := 0, "HRESULT")
         return pcbNeeded
     }
 
     /**
-     * 
      * @param {HANDLE} hPrinter 
      * @param {Integer} dwLevel 
      * @param {Integer} pCaps 
@@ -224,7 +231,9 @@ export default struct IPrintCoreUI2 extends IPrintOemDriverUI {
      * @returns {Integer} 
      */
     QuerySimulationSupport(hPrinter, dwLevel, pCaps, cbSize) {
-        result := ComCall(15, this, HANDLE, hPrinter, UInt32, dwLevel, IntPtr, pCaps, UInt32, cbSize, "uint*", &pcbNeeded := 0, "HRESULT")
+        pCapsMarshal := pCaps == 0 ? IntPtr : IntPtr
+
+        result := ComCall(15, this, HANDLE, hPrinter, UInt32, dwLevel, pCapsMarshal, pCaps, UInt32, cbSize, "uint*", &pcbNeeded := 0, "HRESULT")
         return pcbNeeded
     }
 
@@ -237,16 +246,16 @@ export default struct IPrintCoreUI2 extends IPrintOemDriverUI {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOptions := CallbackCreate(GetMethod(implObj, "GetOptions"), flags, 8)
-        this.vtbl.SetOptions := CallbackCreate(GetMethod(implObj, "SetOptions"), flags, 6)
-        this.vtbl.EnumConstrainedOptions := CallbackCreate(GetMethod(implObj, "EnumConstrainedOptions"), flags, 7)
-        this.vtbl.WhyConstrained := CallbackCreate(GetMethod(implObj, "WhyConstrained"), flags, 8)
-        this.vtbl.GetGlobalAttribute := CallbackCreate(GetMethod(implObj, "GetGlobalAttribute"), flags, 8)
-        this.vtbl.GetFeatureAttribute := CallbackCreate(GetMethod(implObj, "GetFeatureAttribute"), flags, 9)
-        this.vtbl.GetOptionAttribute := CallbackCreate(GetMethod(implObj, "GetOptionAttribute"), flags, 10)
-        this.vtbl.EnumFeatures := CallbackCreate(GetMethod(implObj, "EnumFeatures"), flags, 6)
-        this.vtbl.EnumOptions := CallbackCreate(GetMethod(implObj, "EnumOptions"), flags, 7)
-        this.vtbl.QuerySimulationSupport := CallbackCreate(GetMethod(implObj, "QuerySimulationSupport"), flags, 6)
+        this.vtbl.GetOptions := CallbackCreate(ObjBindMethod(implObj, "GetOptions"), flags, 8)
+        this.vtbl.SetOptions := CallbackCreate(ObjBindMethod(implObj, "SetOptions"), flags, 6)
+        this.vtbl.EnumConstrainedOptions := CallbackCreate(ObjBindMethod(implObj, "EnumConstrainedOptions"), flags, 7)
+        this.vtbl.WhyConstrained := CallbackCreate(ObjBindMethod(implObj, "WhyConstrained"), flags, 8)
+        this.vtbl.GetGlobalAttribute := CallbackCreate(ObjBindMethod(implObj, "GetGlobalAttribute"), flags, 8)
+        this.vtbl.GetFeatureAttribute := CallbackCreate(ObjBindMethod(implObj, "GetFeatureAttribute"), flags, 9)
+        this.vtbl.GetOptionAttribute := CallbackCreate(ObjBindMethod(implObj, "GetOptionAttribute"), flags, 10)
+        this.vtbl.EnumFeatures := CallbackCreate(ObjBindMethod(implObj, "EnumFeatures"), flags, 6)
+        this.vtbl.EnumOptions := CallbackCreate(ObjBindMethod(implObj, "EnumOptions"), flags, 7)
+        this.vtbl.QuerySimulationSupport := CallbackCreate(ObjBindMethod(implObj, "QuerySimulationSupport"), flags, 6)
     }
 
     Dispose() {

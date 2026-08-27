@@ -81,8 +81,8 @@ export default struct IMbnInterfaceManagerEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnInterfaceArrival := CallbackCreate(GetMethod(implObj, "OnInterfaceArrival"), flags, 2)
-        this.vtbl.OnInterfaceRemoval := CallbackCreate(GetMethod(implObj, "OnInterfaceRemoval"), flags, 2)
+        this.vtbl.OnInterfaceArrival := CallbackCreate(ObjBindMethod(implObj, "OnInterfaceArrival"), flags, 2)
+        this.vtbl.OnInterfaceRemoval := CallbackCreate(ObjBindMethod(implObj, "OnInterfaceRemoval"), flags, 2)
     }
 
     Dispose() {

@@ -105,8 +105,8 @@ export default struct IAppxManifestProperties extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetBoolValue := CallbackCreate(GetMethod(implObj, "GetBoolValue"), flags, 3)
-        this.vtbl.GetStringValue := CallbackCreate(GetMethod(implObj, "GetStringValue"), flags, 3)
+        this.vtbl.GetBoolValue := CallbackCreate(ObjBindMethod(implObj, "GetBoolValue"), flags, 3)
+        this.vtbl.GetStringValue := CallbackCreate(ObjBindMethod(implObj, "GetStringValue"), flags, 3)
     }
 
     Dispose() {

@@ -93,10 +93,10 @@ export default struct ID3D12VideoProcessor extends ID3D12Pageable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNodeMask := CallbackCreate(GetMethod(implObj, "GetNodeMask"), flags, 1)
-        this.vtbl.GetNumInputStreamDescs := CallbackCreate(GetMethod(implObj, "GetNumInputStreamDescs"), flags, 1)
-        this.vtbl.GetInputStreamDescs := CallbackCreate(GetMethod(implObj, "GetInputStreamDescs"), flags, 3)
-        this.vtbl.GetOutputStreamDesc := CallbackCreate(GetMethod(implObj, "GetOutputStreamDesc"), flags, 1)
+        this.vtbl.GetNodeMask := CallbackCreate(ObjBindMethod(implObj, "GetNodeMask"), flags, 1)
+        this.vtbl.GetNumInputStreamDescs := CallbackCreate(ObjBindMethod(implObj, "GetNumInputStreamDescs"), flags, 1)
+        this.vtbl.GetInputStreamDescs := CallbackCreate(ObjBindMethod(implObj, "GetInputStreamDescs"), flags, 3)
+        this.vtbl.GetOutputStreamDesc := CallbackCreate(ObjBindMethod(implObj, "GetOutputStreamDesc"), flags, 1)
     }
 
     Dispose() {

@@ -44,7 +44,6 @@ export default struct _EventConnector extends IDispatch {
     }
 
     /**
-     * 
      * @param {_Application} _Application 
      * @returns {HRESULT} 
      */
@@ -74,8 +73,8 @@ export default struct _EventConnector extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ConnectTo := CallbackCreate(GetMethod(implObj, "ConnectTo"), flags, 2)
-        this.vtbl.Disconnect := CallbackCreate(GetMethod(implObj, "Disconnect"), flags, 1)
+        this.vtbl.ConnectTo := CallbackCreate(ObjBindMethod(implObj, "ConnectTo"), flags, 2)
+        this.vtbl.Disconnect := CallbackCreate(ObjBindMethod(implObj, "Disconnect"), flags, 1)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct PCLUSAPIClusWorkerCheckTerminate {
     }
 
     /**
-     * 
      * @param {Pointer<CLUS_WORKER>} lpWorker 
      * @returns {BOOL} 
      */

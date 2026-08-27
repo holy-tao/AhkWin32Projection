@@ -41,20 +41,18 @@ export default struct IPartFont extends IPartBase {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pContentType 
      * @param {Pointer<EXpsFontOptions>} pFontOptions 
      * @returns {HRESULT} 
      */
     GetFontProperties(pContentType, pFontOptions) {
-        pFontOptionsMarshal := pFontOptions is VarRef ? "int*" : "ptr"
+        pFontOptionsMarshal := pFontOptions is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, BSTR.Ptr, pContentType, pFontOptionsMarshal, pFontOptions, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pContentType 
      * @returns {HRESULT} 
      */
@@ -66,7 +64,6 @@ export default struct IPartFont extends IPartBase {
     }
 
     /**
-     * 
      * @param {EXpsFontOptions} options 
      * @returns {HRESULT} 
      */
@@ -84,9 +81,9 @@ export default struct IPartFont extends IPartBase {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFontProperties := CallbackCreate(GetMethod(implObj, "GetFontProperties"), flags, 3)
-        this.vtbl.SetFontContent := CallbackCreate(GetMethod(implObj, "SetFontContent"), flags, 2)
-        this.vtbl.SetFontOptions := CallbackCreate(GetMethod(implObj, "SetFontOptions"), flags, 2)
+        this.vtbl.GetFontProperties := CallbackCreate(ObjBindMethod(implObj, "GetFontProperties"), flags, 3)
+        this.vtbl.SetFontContent := CallbackCreate(ObjBindMethod(implObj, "SetFontContent"), flags, 2)
+        this.vtbl.SetFontOptions := CallbackCreate(ObjBindMethod(implObj, "SetFontOptions"), flags, 2)
     }
 
     Dispose() {

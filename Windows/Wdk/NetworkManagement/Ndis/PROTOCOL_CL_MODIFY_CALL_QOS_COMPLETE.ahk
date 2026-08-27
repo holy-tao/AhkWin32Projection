@@ -19,15 +19,14 @@ export default struct PROTOCOL_CL_MODIFY_CALL_QOS_COMPLETE {
     }
 
     /**
-     * 
      * @param {Integer} _Status 
      * @param {Pointer<Void>} ProtocolVcContext 
      * @param {Pointer<CO_CALL_PARAMETERS>} CallParameters 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Status, ProtocolVcContext, CallParameters) {
-        ProtocolVcContextMarshal := ProtocolVcContext is VarRef ? "ptr" : "ptr"
-        CallParametersMarshal := CallParameters is VarRef ? "ptr*" : "ptr"
+        ProtocolVcContextMarshal := ProtocolVcContext is VarRef ? "ptr" : IntPtr
+        CallParametersMarshal := CallParameters is VarRef ? "ptr*" : IntPtr
 
         DllCall(this.value, Int32, _Status, ProtocolVcContextMarshal, ProtocolVcContext, CallParametersMarshal, CallParameters)
     }

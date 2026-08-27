@@ -37,7 +37,6 @@ export default struct IClassFactoryEx extends IClassFactory {
     }
 
     /**
-     * 
      * @param {IUnknown} punkContext 
      * @param {IUnknown} punkOuter 
      * @param {Pointer<Guid>} riid 
@@ -57,7 +56,7 @@ export default struct IClassFactoryEx extends IClassFactory {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateInstanceWithContext := CallbackCreate(GetMethod(implObj, "CreateInstanceWithContext"), flags, 5)
+        this.vtbl.CreateInstanceWithContext := CallbackCreate(ObjBindMethod(implObj, "CreateInstanceWithContext"), flags, 5)
     }
 
     Dispose() {

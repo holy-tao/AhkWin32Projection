@@ -18,14 +18,13 @@ export default struct PSET_RESOURCE_INMEMORY_NODELOCAL_PROPERTIES_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer} ResourceHandle 
      * @param {Pointer<Integer>} propertyListBuffer 
      * @param {Integer} propertyListBufferSize 
      * @returns {Integer} 
      */
     Call(ResourceHandle, propertyListBuffer, propertyListBufferSize) {
-        propertyListBufferMarshal := propertyListBuffer is VarRef ? "char*" : "ptr"
+        propertyListBufferMarshal := propertyListBuffer is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, IntPtr, ResourceHandle, propertyListBufferMarshal, propertyListBuffer, UInt32, propertyListBufferSize, UInt32)
         return result

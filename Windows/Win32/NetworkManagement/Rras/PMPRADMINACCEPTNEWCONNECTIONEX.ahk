@@ -20,7 +20,6 @@ export default struct PMPRADMINACCEPTNEWCONNECTIONEX {
     }
 
     /**
-     * 
      * @param {Pointer<RAS_CONNECTION_EX>} param0 
      * @returns {BOOL} 
      */

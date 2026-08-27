@@ -68,7 +68,6 @@ export default struct ISClusResGroupPreferredOwnerNodes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -77,7 +76,6 @@ export default struct ISClusResGroupPreferredOwnerNodes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -86,7 +84,6 @@ export default struct ISClusResGroupPreferredOwnerNodes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Refresh() {
@@ -95,7 +92,6 @@ export default struct ISClusResGroupPreferredOwnerNodes extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varIndex 
      * @returns {ISClusNode} 
      */
@@ -105,7 +101,6 @@ export default struct ISClusResGroupPreferredOwnerNodes extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISClusNode} pNode 
      * @param {Integer} nPosition 
      * @returns {HRESULT} 
@@ -116,7 +111,6 @@ export default struct ISClusResGroupPreferredOwnerNodes extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varIndex 
      * @returns {HRESULT} 
      */
@@ -126,7 +120,6 @@ export default struct ISClusResGroupPreferredOwnerNodes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Modified() {
@@ -136,7 +129,6 @@ export default struct ISClusResGroupPreferredOwnerNodes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SaveChanges() {
@@ -145,7 +137,6 @@ export default struct ISClusResGroupPreferredOwnerNodes extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISClusNode} pNode 
      * @returns {HRESULT} 
      */
@@ -163,15 +154,15 @@ export default struct ISClusResGroupPreferredOwnerNodes extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
-        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
-        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
-        this.vtbl.InsertItem := CallbackCreate(GetMethod(implObj, "InsertItem"), flags, 3)
-        this.vtbl.RemoveItem := CallbackCreate(GetMethod(implObj, "RemoveItem"), flags, 2)
-        this.vtbl.get_Modified := CallbackCreate(GetMethod(implObj, "get_Modified"), flags, 2)
-        this.vtbl.SaveChanges := CallbackCreate(GetMethod(implObj, "SaveChanges"), flags, 1)
-        this.vtbl.AddItem := CallbackCreate(GetMethod(implObj, "AddItem"), flags, 2)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get__NewEnum := CallbackCreate(ObjBindMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(ObjBindMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.get_Item := CallbackCreate(ObjBindMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.InsertItem := CallbackCreate(ObjBindMethod(implObj, "InsertItem"), flags, 3)
+        this.vtbl.RemoveItem := CallbackCreate(ObjBindMethod(implObj, "RemoveItem"), flags, 2)
+        this.vtbl.get_Modified := CallbackCreate(ObjBindMethod(implObj, "get_Modified"), flags, 2)
+        this.vtbl.SaveChanges := CallbackCreate(ObjBindMethod(implObj, "SaveChanges"), flags, 1)
+        this.vtbl.AddItem := CallbackCreate(ObjBindMethod(implObj, "AddItem"), flags, 2)
     }
 
     Dispose() {

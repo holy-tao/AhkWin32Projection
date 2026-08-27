@@ -108,10 +108,10 @@ export default struct IRemoteDesktopClientSettings extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ApplySettings := CallbackCreate(GetMethod(implObj, "ApplySettings"), flags, 2)
-        this.vtbl.RetrieveSettings := CallbackCreate(GetMethod(implObj, "RetrieveSettings"), flags, 2)
-        this.vtbl.GetRdpProperty := CallbackCreate(GetMethod(implObj, "GetRdpProperty"), flags, 3)
-        this.vtbl.SetRdpProperty := CallbackCreate(GetMethod(implObj, "SetRdpProperty"), flags, 3)
+        this.vtbl.ApplySettings := CallbackCreate(ObjBindMethod(implObj, "ApplySettings"), flags, 2)
+        this.vtbl.RetrieveSettings := CallbackCreate(ObjBindMethod(implObj, "RetrieveSettings"), flags, 2)
+        this.vtbl.GetRdpProperty := CallbackCreate(ObjBindMethod(implObj, "GetRdpProperty"), flags, 3)
+        this.vtbl.SetRdpProperty := CallbackCreate(ObjBindMethod(implObj, "SetRdpProperty"), flags, 3)
     }
 
     Dispose() {

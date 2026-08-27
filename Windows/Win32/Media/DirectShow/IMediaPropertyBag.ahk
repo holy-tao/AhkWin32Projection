@@ -126,7 +126,7 @@ export default struct IMediaPropertyBag extends IPropertyBag {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumProperty := CallbackCreate(GetMethod(implObj, "EnumProperty"), flags, 4)
+        this.vtbl.EnumProperty := CallbackCreate(ObjBindMethod(implObj, "EnumProperty"), flags, 4)
     }
 
     Dispose() {

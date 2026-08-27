@@ -20,7 +20,6 @@ export default struct PFND3DKMT_ADJUSTFULLSCREENGAMMA {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_ADJUSTFULLSCREENGAMMA>} param0 
      * @returns {NTSTATUS} 
      */

@@ -142,9 +142,9 @@ export default struct IUIAutomationElement3 extends IUIAutomationElement2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ShowContextMenu := CallbackCreate(GetMethod(implObj, "ShowContextMenu"), flags, 1)
-        this.vtbl.get_CurrentIsPeripheral := CallbackCreate(GetMethod(implObj, "get_CurrentIsPeripheral"), flags, 2)
-        this.vtbl.get_CachedIsPeripheral := CallbackCreate(GetMethod(implObj, "get_CachedIsPeripheral"), flags, 2)
+        this.vtbl.ShowContextMenu := CallbackCreate(ObjBindMethod(implObj, "ShowContextMenu"), flags, 1)
+        this.vtbl.get_CurrentIsPeripheral := CallbackCreate(ObjBindMethod(implObj, "get_CurrentIsPeripheral"), flags, 2)
+        this.vtbl.get_CachedIsPeripheral := CallbackCreate(ObjBindMethod(implObj, "get_CachedIsPeripheral"), flags, 2)
     }
 
     Dispose() {

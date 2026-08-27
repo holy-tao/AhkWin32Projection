@@ -20,7 +20,6 @@ export default struct PRESUTIL_GET_SZ_VALUE {
     }
 
     /**
-     * 
      * @param {HKEY} hkeyClusterKey 
      * @param {PWSTR} pszValueName 
      * @returns {PWSTR} 

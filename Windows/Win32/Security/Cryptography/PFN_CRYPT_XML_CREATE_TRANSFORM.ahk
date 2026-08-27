@@ -27,7 +27,6 @@ export default struct PFN_CRYPT_XML_CREATE_TRANSFORM {
     }
 
     /**
-     * 
      * @param {Pointer<CRYPT_XML_ALGORITHM>} pTransform A <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_algorithm">CRYPT_XML_ALGORITHM</a> structure that specifies the transform to apply.
      * @param {Pointer<CRYPT_XML_DATA_PROVIDER>} pProviderIn A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_data_provider">CRYPT_XML_DATA_PROVIDER</a> structure that specifies the data provider to use as input for the transform.
      * @param {Pointer<CRYPT_XML_DATA_PROVIDER>} pProviderOut A pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_data_provider">CRYPT_XML_DATA_PROVIDER</a> structure to receive the data provider of the transform.

@@ -139,9 +139,9 @@ export default struct IOpenControlPanel extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 4)
-        this.vtbl.GetPath := CallbackCreate(GetMethod(implObj, "GetPath"), flags, 4)
-        this.vtbl.GetCurrentView := CallbackCreate(GetMethod(implObj, "GetCurrentView"), flags, 2)
+        this.vtbl.Open := CallbackCreate(ObjBindMethod(implObj, "Open"), flags, 4)
+        this.vtbl.GetPath := CallbackCreate(ObjBindMethod(implObj, "GetPath"), flags, 4)
+        this.vtbl.GetCurrentView := CallbackCreate(ObjBindMethod(implObj, "GetCurrentView"), flags, 2)
     }
 
     Dispose() {

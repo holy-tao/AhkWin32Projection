@@ -155,8 +155,8 @@ export default struct IVdsLun2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryHints2 := CallbackCreate(GetMethod(implObj, "QueryHints2"), flags, 2)
-        this.vtbl.ApplyHints2 := CallbackCreate(GetMethod(implObj, "ApplyHints2"), flags, 2)
+        this.vtbl.QueryHints2 := CallbackCreate(ObjBindMethod(implObj, "QueryHints2"), flags, 2)
+        this.vtbl.ApplyHints2 := CallbackCreate(ObjBindMethod(implObj, "ApplyHints2"), flags, 2)
     }
 
     Dispose() {

@@ -54,7 +54,6 @@ export default struct ISubscriptionMgr extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszURL 
      * @param {HWND} _hwnd 
      * @returns {HRESULT} 
@@ -67,7 +66,6 @@ export default struct ISubscriptionMgr extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszURL 
      * @returns {HRESULT} 
      */
@@ -79,7 +77,6 @@ export default struct ISubscriptionMgr extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     UpdateAll() {
@@ -88,7 +85,6 @@ export default struct ISubscriptionMgr extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszURL 
      * @returns {BOOL} 
      */
@@ -100,7 +96,6 @@ export default struct ISubscriptionMgr extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszURL 
      * @returns {SUBSCRIPTIONINFO} 
      */
@@ -113,7 +108,6 @@ export default struct ISubscriptionMgr extends IUnknown {
     }
 
     /**
-     * 
      * @param {SUBSCRIPTIONTYPE} subType 
      * @returns {SUBSCRIPTIONINFO} 
      */
@@ -124,7 +118,6 @@ export default struct ISubscriptionMgr extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszURL 
      * @param {HWND} _hwnd 
      * @returns {HRESULT} 
@@ -137,7 +130,6 @@ export default struct ISubscriptionMgr extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {PWSTR} pwszURL 
      * @param {PWSTR} pwszFriendlyName 
@@ -163,14 +155,14 @@ export default struct ISubscriptionMgr extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DeleteSubscription := CallbackCreate(GetMethod(implObj, "DeleteSubscription"), flags, 3)
-        this.vtbl.UpdateSubscription := CallbackCreate(GetMethod(implObj, "UpdateSubscription"), flags, 2)
-        this.vtbl.UpdateAll := CallbackCreate(GetMethod(implObj, "UpdateAll"), flags, 1)
-        this.vtbl.IsSubscribed := CallbackCreate(GetMethod(implObj, "IsSubscribed"), flags, 3)
-        this.vtbl.GetSubscriptionInfo := CallbackCreate(GetMethod(implObj, "GetSubscriptionInfo"), flags, 3)
-        this.vtbl.GetDefaultInfo := CallbackCreate(GetMethod(implObj, "GetDefaultInfo"), flags, 3)
-        this.vtbl.ShowSubscriptionProperties := CallbackCreate(GetMethod(implObj, "ShowSubscriptionProperties"), flags, 3)
-        this.vtbl.CreateSubscription := CallbackCreate(GetMethod(implObj, "CreateSubscription"), flags, 7)
+        this.vtbl.DeleteSubscription := CallbackCreate(ObjBindMethod(implObj, "DeleteSubscription"), flags, 3)
+        this.vtbl.UpdateSubscription := CallbackCreate(ObjBindMethod(implObj, "UpdateSubscription"), flags, 2)
+        this.vtbl.UpdateAll := CallbackCreate(ObjBindMethod(implObj, "UpdateAll"), flags, 1)
+        this.vtbl.IsSubscribed := CallbackCreate(ObjBindMethod(implObj, "IsSubscribed"), flags, 3)
+        this.vtbl.GetSubscriptionInfo := CallbackCreate(ObjBindMethod(implObj, "GetSubscriptionInfo"), flags, 3)
+        this.vtbl.GetDefaultInfo := CallbackCreate(ObjBindMethod(implObj, "GetDefaultInfo"), flags, 3)
+        this.vtbl.ShowSubscriptionProperties := CallbackCreate(ObjBindMethod(implObj, "ShowSubscriptionProperties"), flags, 3)
+        this.vtbl.CreateSubscription := CallbackCreate(ObjBindMethod(implObj, "CreateSubscription"), flags, 7)
     }
 
     Dispose() {

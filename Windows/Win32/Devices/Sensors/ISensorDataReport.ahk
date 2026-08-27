@@ -88,7 +88,9 @@ export default struct ISensorDataReport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensordatareport-getsensorvalues
      */
     GetSensorValues(pKeys) {
-        result := ComCall(5, this, "ptr", pKeys, "ptr*", &ppValues := 0, "HRESULT")
+        pKeysMarshal := pKeys == 0 ? IntPtr : "ptr"
+
+        result := ComCall(5, this, pKeysMarshal, pKeys, "ptr*", &ppValues := 0, "HRESULT")
         return IPortableDeviceValues(ppValues)
     }
 
@@ -101,9 +103,9 @@ export default struct ISensorDataReport extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTimestamp := CallbackCreate(GetMethod(implObj, "GetTimestamp"), flags, 2)
-        this.vtbl.GetSensorValue := CallbackCreate(GetMethod(implObj, "GetSensorValue"), flags, 3)
-        this.vtbl.GetSensorValues := CallbackCreate(GetMethod(implObj, "GetSensorValues"), flags, 3)
+        this.vtbl.GetTimestamp := CallbackCreate(ObjBindMethod(implObj, "GetTimestamp"), flags, 2)
+        this.vtbl.GetSensorValue := CallbackCreate(ObjBindMethod(implObj, "GetSensorValue"), flags, 3)
+        this.vtbl.GetSensorValues := CallbackCreate(ObjBindMethod(implObj, "GetSensorValues"), flags, 3)
     }
 
     Dispose() {

@@ -40,7 +40,6 @@ export default struct IDebugHostMemory5 extends IDebugHostMemory4 {
     }
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @param {Location} _location 
      * @param {Integer} vt 
@@ -50,14 +49,13 @@ export default struct IDebugHostMemory5 extends IDebugHostMemory4 {
      * @returns {HRESULT} 
      */
     ReadIntrinsics(_context, _location, vt, count, vals, intrinsicsRead) {
-        intrinsicsReadMarshal := intrinsicsRead is VarRef ? "uint*" : "ptr"
+        intrinsicsReadMarshal := intrinsicsRead is VarRef ? "uint*" : IntPtr
 
         result := ComCall(12, this, "ptr", _context, Location, _location, UInt16, vt, Int64, count, VARIANT.Ptr, vals, intrinsicsReadMarshal, intrinsicsRead, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @param {Location} _location 
      * @param {Integer} ordinalSize 
@@ -68,7 +66,7 @@ export default struct IDebugHostMemory5 extends IDebugHostMemory4 {
      * @returns {HRESULT} 
      */
     ReadOrdinalIntrinsics(_context, _location, ordinalSize, ordinalIsSigned, count, vals, intrinsicsRead) {
-        intrinsicsReadMarshal := intrinsicsRead is VarRef ? "uint*" : "ptr"
+        intrinsicsReadMarshal := intrinsicsRead is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, "ptr", _context, Location, _location, Int64, ordinalSize, Int8, ordinalIsSigned, Int64, count, VARIANT.Ptr, vals, intrinsicsReadMarshal, intrinsicsRead, "HRESULT")
         return result
@@ -83,8 +81,8 @@ export default struct IDebugHostMemory5 extends IDebugHostMemory4 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ReadIntrinsics := CallbackCreate(GetMethod(implObj, "ReadIntrinsics"), flags, 7)
-        this.vtbl.ReadOrdinalIntrinsics := CallbackCreate(GetMethod(implObj, "ReadOrdinalIntrinsics"), flags, 8)
+        this.vtbl.ReadIntrinsics := CallbackCreate(ObjBindMethod(implObj, "ReadIntrinsics"), flags, 7)
+        this.vtbl.ReadOrdinalIntrinsics := CallbackCreate(ObjBindMethod(implObj, "ReadOrdinalIntrinsics"), flags, 8)
     }
 
     Dispose() {

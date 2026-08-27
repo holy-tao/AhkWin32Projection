@@ -47,7 +47,6 @@ export default struct IDebugFailureAnalysis extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetFailureClass() {
@@ -56,7 +55,6 @@ export default struct IDebugFailureAnalysis extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DEBUG_FAILURE_TYPE} 
      */
     GetFailureType() {
@@ -65,7 +63,6 @@ export default struct IDebugFailureAnalysis extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetFailureCode() {
@@ -85,7 +82,6 @@ export default struct IDebugFailureAnalysis extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<FA_ENTRY>} Entry 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {DEBUG_FLR_PARAM_TYPE} TagMask 
@@ -97,7 +93,6 @@ export default struct IDebugFailureAnalysis extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {Integer} Str 
      * @param {Integer} MaxSize 
@@ -109,7 +104,6 @@ export default struct IDebugFailureAnalysis extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {Integer} Buf 
      * @param {Integer} _Size 
@@ -121,38 +115,37 @@ export default struct IDebugFailureAnalysis extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {Pointer<Integer>} Value 
      * @returns {Pointer<FA_ENTRY>} 
      */
     GetUlong(Tag, Value) {
-        ValueMarshal := Value is VarRef ? "uint*" : "ptr"
+        ValueMarshal := Value is VarRef ? "uint*" : IntPtr
 
         result := ComCall(10, this, DEBUG_FLR_PARAM_TYPE, Tag, ValueMarshal, Value, FA_ENTRY.Ptr)
         return result
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {Pointer<Integer>} Value 
      * @returns {Pointer<FA_ENTRY>} 
      */
     GetUlong64(Tag, Value) {
-        ValueMarshal := Value is VarRef ? "uint*" : "ptr"
+        ValueMarshal := Value is VarRef ? "uint*" : IntPtr
 
         result := ComCall(11, this, DEBUG_FLR_PARAM_TYPE, Tag, ValueMarshal, Value, FA_ENTRY.Ptr)
         return result
     }
 
     /**
-     * 
      * @param {Pointer<FA_ENTRY>} Entry 
      * @returns {Pointer<FA_ENTRY>} 
      */
     NextEntry(Entry) {
-        result := ComCall(12, this, FA_ENTRY.Ptr, Entry, FA_ENTRY.Ptr)
+        EntryMarshal := Entry == 0 ? IntPtr : FA_ENTRY.Ptr
+
+        result := ComCall(12, this, EntryMarshal, Entry, FA_ENTRY.Ptr)
         return result
     }
 
@@ -165,16 +158,16 @@ export default struct IDebugFailureAnalysis extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFailureClass := CallbackCreate(GetMethod(implObj, "GetFailureClass"), flags, 1)
-        this.vtbl.GetFailureType := CallbackCreate(GetMethod(implObj, "GetFailureType"), flags, 1)
-        this.vtbl.GetFailureCode := CallbackCreate(GetMethod(implObj, "GetFailureCode"), flags, 1)
-        this.vtbl.Get := CallbackCreate(GetMethod(implObj, "Get"), flags, 2)
-        this.vtbl.GetNext := CallbackCreate(GetMethod(implObj, "GetNext"), flags, 4)
-        this.vtbl.GetString := CallbackCreate(GetMethod(implObj, "GetString"), flags, 4)
-        this.vtbl.GetBuffer := CallbackCreate(GetMethod(implObj, "GetBuffer"), flags, 4)
-        this.vtbl.GetUlong := CallbackCreate(GetMethod(implObj, "GetUlong"), flags, 3)
-        this.vtbl.GetUlong64 := CallbackCreate(GetMethod(implObj, "GetUlong64"), flags, 3)
-        this.vtbl.NextEntry := CallbackCreate(GetMethod(implObj, "NextEntry"), flags, 2)
+        this.vtbl.GetFailureClass := CallbackCreate(ObjBindMethod(implObj, "GetFailureClass"), flags, 1)
+        this.vtbl.GetFailureType := CallbackCreate(ObjBindMethod(implObj, "GetFailureType"), flags, 1)
+        this.vtbl.GetFailureCode := CallbackCreate(ObjBindMethod(implObj, "GetFailureCode"), flags, 1)
+        this.vtbl.Get := CallbackCreate(ObjBindMethod(implObj, "Get"), flags, 2)
+        this.vtbl.GetNext := CallbackCreate(ObjBindMethod(implObj, "GetNext"), flags, 4)
+        this.vtbl.GetString := CallbackCreate(ObjBindMethod(implObj, "GetString"), flags, 4)
+        this.vtbl.GetBuffer := CallbackCreate(ObjBindMethod(implObj, "GetBuffer"), flags, 4)
+        this.vtbl.GetUlong := CallbackCreate(ObjBindMethod(implObj, "GetUlong"), flags, 3)
+        this.vtbl.GetUlong64 := CallbackCreate(ObjBindMethod(implObj, "GetUlong64"), flags, 3)
+        this.vtbl.NextEntry := CallbackCreate(ObjBindMethod(implObj, "NextEntry"), flags, 2)
     }
 
     Dispose() {

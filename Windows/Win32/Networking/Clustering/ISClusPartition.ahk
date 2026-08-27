@@ -92,7 +92,6 @@ export default struct ISClusPartition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Flags() {
@@ -101,7 +100,6 @@ export default struct ISClusPartition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DeviceName() {
@@ -111,7 +109,6 @@ export default struct ISClusPartition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_VolumeLabel() {
@@ -121,7 +118,6 @@ export default struct ISClusPartition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_SerialNumber() {
@@ -130,7 +126,6 @@ export default struct ISClusPartition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MaximumComponentLength() {
@@ -139,7 +134,6 @@ export default struct ISClusPartition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_FileSystemFlags() {
@@ -148,7 +142,6 @@ export default struct ISClusPartition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_FileSystem() {
@@ -166,13 +159,13 @@ export default struct ISClusPartition extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Flags := CallbackCreate(GetMethod(implObj, "get_Flags"), flags, 2)
-        this.vtbl.get_DeviceName := CallbackCreate(GetMethod(implObj, "get_DeviceName"), flags, 2)
-        this.vtbl.get_VolumeLabel := CallbackCreate(GetMethod(implObj, "get_VolumeLabel"), flags, 2)
-        this.vtbl.get_SerialNumber := CallbackCreate(GetMethod(implObj, "get_SerialNumber"), flags, 2)
-        this.vtbl.get_MaximumComponentLength := CallbackCreate(GetMethod(implObj, "get_MaximumComponentLength"), flags, 2)
-        this.vtbl.get_FileSystemFlags := CallbackCreate(GetMethod(implObj, "get_FileSystemFlags"), flags, 2)
-        this.vtbl.get_FileSystem := CallbackCreate(GetMethod(implObj, "get_FileSystem"), flags, 2)
+        this.vtbl.get_Flags := CallbackCreate(ObjBindMethod(implObj, "get_Flags"), flags, 2)
+        this.vtbl.get_DeviceName := CallbackCreate(ObjBindMethod(implObj, "get_DeviceName"), flags, 2)
+        this.vtbl.get_VolumeLabel := CallbackCreate(ObjBindMethod(implObj, "get_VolumeLabel"), flags, 2)
+        this.vtbl.get_SerialNumber := CallbackCreate(ObjBindMethod(implObj, "get_SerialNumber"), flags, 2)
+        this.vtbl.get_MaximumComponentLength := CallbackCreate(ObjBindMethod(implObj, "get_MaximumComponentLength"), flags, 2)
+        this.vtbl.get_FileSystemFlags := CallbackCreate(ObjBindMethod(implObj, "get_FileSystemFlags"), flags, 2)
+        this.vtbl.get_FileSystem := CallbackCreate(ObjBindMethod(implObj, "get_FileSystem"), flags, 2)
     }
 
     Dispose() {

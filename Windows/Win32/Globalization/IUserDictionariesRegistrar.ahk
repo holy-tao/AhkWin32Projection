@@ -173,8 +173,8 @@ export default struct IUserDictionariesRegistrar extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterUserDictionary := CallbackCreate(GetMethod(implObj, "RegisterUserDictionary"), flags, 3)
-        this.vtbl.UnregisterUserDictionary := CallbackCreate(GetMethod(implObj, "UnregisterUserDictionary"), flags, 3)
+        this.vtbl.RegisterUserDictionary := CallbackCreate(ObjBindMethod(implObj, "RegisterUserDictionary"), flags, 3)
+        this.vtbl.UnregisterUserDictionary := CallbackCreate(ObjBindMethod(implObj, "UnregisterUserDictionary"), flags, 3)
     }
 
     Dispose() {

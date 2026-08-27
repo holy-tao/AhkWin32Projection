@@ -23,7 +23,6 @@ export default struct CounterPathCallBack {
     }
 
     /**
-     * 
      * @param {Pointer} param0 User-defined value passed to the callback function by the <b>Browse</b> dialog box. You set this value in the <b>dwCallBackArg</b> member of the 
      * <a href="https://docs.microsoft.com/windows/win32/api/pdh/ns-pdh-pdh_browse_dlg_config_a">PDH_BROWSE_DLG_CONFIG</a> structure.
      * @returns {Integer} Return ERROR_SUCCESS if the function succeeds. 

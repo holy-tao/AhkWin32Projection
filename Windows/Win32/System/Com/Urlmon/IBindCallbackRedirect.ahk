@@ -38,7 +38,6 @@ export default struct IBindCallbackRedirect extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} lpcUrl 
      * @returns {VARIANT_BOOL} 
      */
@@ -58,7 +57,7 @@ export default struct IBindCallbackRedirect extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Redirect := CallbackCreate(GetMethod(implObj, "Redirect"), flags, 3)
+        this.vtbl.Redirect := CallbackCreate(ObjBindMethod(implObj, "Redirect"), flags, 3)
     }
 
     Dispose() {

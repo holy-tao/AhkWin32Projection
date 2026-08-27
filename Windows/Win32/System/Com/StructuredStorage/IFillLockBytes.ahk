@@ -122,10 +122,10 @@ export default struct IFillLockBytes extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FillAppend := CallbackCreate(GetMethod(implObj, "FillAppend"), flags, 4)
-        this.vtbl.FillAt := CallbackCreate(GetMethod(implObj, "FillAt"), flags, 5)
-        this.vtbl.SetFillSize := CallbackCreate(GetMethod(implObj, "SetFillSize"), flags, 2)
-        this.vtbl.Terminate := CallbackCreate(GetMethod(implObj, "Terminate"), flags, 2)
+        this.vtbl.FillAppend := CallbackCreate(ObjBindMethod(implObj, "FillAppend"), flags, 4)
+        this.vtbl.FillAt := CallbackCreate(ObjBindMethod(implObj, "FillAt"), flags, 5)
+        this.vtbl.SetFillSize := CallbackCreate(ObjBindMethod(implObj, "SetFillSize"), flags, 2)
+        this.vtbl.Terminate := CallbackCreate(ObjBindMethod(implObj, "Terminate"), flags, 2)
     }
 
     Dispose() {

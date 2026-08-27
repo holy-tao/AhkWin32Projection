@@ -72,7 +72,6 @@ export default struct ISVGAnimatedPathData extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGPathSegList} v 
      * @returns {HRESULT} 
      */
@@ -82,7 +81,6 @@ export default struct ISVGAnimatedPathData extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGPathSegList} 
      */
     get_pathSegList() {
@@ -91,7 +89,6 @@ export default struct ISVGAnimatedPathData extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGPathSegList} v 
      * @returns {HRESULT} 
      */
@@ -101,7 +98,6 @@ export default struct ISVGAnimatedPathData extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGPathSegList} 
      */
     get_normalizedPathSegList() {
@@ -110,7 +106,6 @@ export default struct ISVGAnimatedPathData extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGPathSegList} v 
      * @returns {HRESULT} 
      */
@@ -120,7 +115,6 @@ export default struct ISVGAnimatedPathData extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGPathSegList} 
      */
     get_animatedPathSegList() {
@@ -129,7 +123,6 @@ export default struct ISVGAnimatedPathData extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGPathSegList} v 
      * @returns {HRESULT} 
      */
@@ -139,7 +132,6 @@ export default struct ISVGAnimatedPathData extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGPathSegList} 
      */
     get_animatedNormalizedPathSegList() {
@@ -156,14 +148,14 @@ export default struct ISVGAnimatedPathData extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.putref_pathSegList := CallbackCreate(GetMethod(implObj, "putref_pathSegList"), flags, 2)
-        this.vtbl.get_pathSegList := CallbackCreate(GetMethod(implObj, "get_pathSegList"), flags, 2)
-        this.vtbl.putref_normalizedPathSegList := CallbackCreate(GetMethod(implObj, "putref_normalizedPathSegList"), flags, 2)
-        this.vtbl.get_normalizedPathSegList := CallbackCreate(GetMethod(implObj, "get_normalizedPathSegList"), flags, 2)
-        this.vtbl.putref_animatedPathSegList := CallbackCreate(GetMethod(implObj, "putref_animatedPathSegList"), flags, 2)
-        this.vtbl.get_animatedPathSegList := CallbackCreate(GetMethod(implObj, "get_animatedPathSegList"), flags, 2)
-        this.vtbl.putref_animatedNormalizedPathSegList := CallbackCreate(GetMethod(implObj, "putref_animatedNormalizedPathSegList"), flags, 2)
-        this.vtbl.get_animatedNormalizedPathSegList := CallbackCreate(GetMethod(implObj, "get_animatedNormalizedPathSegList"), flags, 2)
+        this.vtbl.putref_pathSegList := CallbackCreate(ObjBindMethod(implObj, "putref_pathSegList"), flags, 2)
+        this.vtbl.get_pathSegList := CallbackCreate(ObjBindMethod(implObj, "get_pathSegList"), flags, 2)
+        this.vtbl.putref_normalizedPathSegList := CallbackCreate(ObjBindMethod(implObj, "putref_normalizedPathSegList"), flags, 2)
+        this.vtbl.get_normalizedPathSegList := CallbackCreate(ObjBindMethod(implObj, "get_normalizedPathSegList"), flags, 2)
+        this.vtbl.putref_animatedPathSegList := CallbackCreate(ObjBindMethod(implObj, "putref_animatedPathSegList"), flags, 2)
+        this.vtbl.get_animatedPathSegList := CallbackCreate(ObjBindMethod(implObj, "get_animatedPathSegList"), flags, 2)
+        this.vtbl.putref_animatedNormalizedPathSegList := CallbackCreate(ObjBindMethod(implObj, "putref_animatedNormalizedPathSegList"), flags, 2)
+        this.vtbl.get_animatedNormalizedPathSegList := CallbackCreate(ObjBindMethod(implObj, "get_animatedNormalizedPathSegList"), flags, 2)
     }
 
     Dispose() {

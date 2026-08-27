@@ -36,14 +36,13 @@ export default struct ID3D12Device13 extends ID3D12Device12 {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pAddress 
      * @param {Pointer} _size 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
     OpenExistingHeapFromAddress1(pAddress, _size, riid) {
-        pAddressMarshal := pAddress is VarRef ? "ptr" : "ptr"
+        pAddressMarshal := pAddress is VarRef ? "ptr" : IntPtr
 
         result := ComCall(81, this, pAddressMarshal, pAddress, IntPtr, _size, Guid.Ptr, riid, "ptr*", &ppvHeap := 0, "HRESULT")
         return ppvHeap
@@ -58,7 +57,7 @@ export default struct ID3D12Device13 extends ID3D12Device12 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OpenExistingHeapFromAddress1 := CallbackCreate(GetMethod(implObj, "OpenExistingHeapFromAddress1"), flags, 5)
+        this.vtbl.OpenExistingHeapFromAddress1 := CallbackCreate(ObjBindMethod(implObj, "OpenExistingHeapFromAddress1"), flags, 5)
     }
 
     Dispose() {

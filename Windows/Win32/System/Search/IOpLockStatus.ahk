@@ -93,9 +93,9 @@ export default struct IOpLockStatus extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsOplockValid := CallbackCreate(GetMethod(implObj, "IsOplockValid"), flags, 2)
-        this.vtbl.IsOplockBroken := CallbackCreate(GetMethod(implObj, "IsOplockBroken"), flags, 2)
-        this.vtbl.GetOplockEventHandle := CallbackCreate(GetMethod(implObj, "GetOplockEventHandle"), flags, 2)
+        this.vtbl.IsOplockValid := CallbackCreate(ObjBindMethod(implObj, "IsOplockValid"), flags, 2)
+        this.vtbl.IsOplockBroken := CallbackCreate(ObjBindMethod(implObj, "IsOplockBroken"), flags, 2)
+        this.vtbl.GetOplockEventHandle := CallbackCreate(ObjBindMethod(implObj, "GetOplockEventHandle"), flags, 2)
     }
 
     Dispose() {

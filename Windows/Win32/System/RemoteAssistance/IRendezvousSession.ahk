@@ -177,11 +177,11 @@ export default struct IRendezvousSession extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
-        this.vtbl.get_RemoteUser := CallbackCreate(GetMethod(implObj, "get_RemoteUser"), flags, 2)
-        this.vtbl.get_Flags := CallbackCreate(GetMethod(implObj, "get_Flags"), flags, 2)
-        this.vtbl.SendContextData := CallbackCreate(GetMethod(implObj, "SendContextData"), flags, 2)
-        this.vtbl.Terminate := CallbackCreate(GetMethod(implObj, "Terminate"), flags, 3)
+        this.vtbl.get_State := CallbackCreate(ObjBindMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.get_RemoteUser := CallbackCreate(ObjBindMethod(implObj, "get_RemoteUser"), flags, 2)
+        this.vtbl.get_Flags := CallbackCreate(ObjBindMethod(implObj, "get_Flags"), flags, 2)
+        this.vtbl.SendContextData := CallbackCreate(ObjBindMethod(implObj, "SendContextData"), flags, 2)
+        this.vtbl.Terminate := CallbackCreate(ObjBindMethod(implObj, "Terminate"), flags, 3)
     }
 
     Dispose() {

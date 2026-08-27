@@ -37,7 +37,6 @@ export default struct IOfflineFilesEvents4 extends IOfflineFilesEvents3 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     PrefetchCloseHandleBegin() {
@@ -46,7 +45,6 @@ export default struct IOfflineFilesEvents4 extends IOfflineFilesEvents3 {
     }
 
     /**
-     * 
      * @param {Integer} dwClosedHandleCount 
      * @param {Integer} dwOpenHandleCount 
      * @param {HRESULT} hrResult 
@@ -66,8 +64,8 @@ export default struct IOfflineFilesEvents4 extends IOfflineFilesEvents3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PrefetchCloseHandleBegin := CallbackCreate(GetMethod(implObj, "PrefetchCloseHandleBegin"), flags, 1)
-        this.vtbl.PrefetchCloseHandleEnd := CallbackCreate(GetMethod(implObj, "PrefetchCloseHandleEnd"), flags, 4)
+        this.vtbl.PrefetchCloseHandleBegin := CallbackCreate(ObjBindMethod(implObj, "PrefetchCloseHandleBegin"), flags, 1)
+        this.vtbl.PrefetchCloseHandleEnd := CallbackCreate(ObjBindMethod(implObj, "PrefetchCloseHandleEnd"), flags, 4)
     }
 
     Dispose() {

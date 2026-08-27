@@ -20,13 +20,14 @@ export default struct DOT11EXT_SET_EXCLUDE_UNENCRYPTED {
     }
 
     /**
-     * 
      * @param {HANDLE} hDot11SvcHandle 
      * @param {BOOL} bExcludeUnencrypted 
      * @returns {Integer} 
      */
     Call(hDot11SvcHandle, bExcludeUnencrypted) {
-        result := DllCall(this.value, HANDLE, hDot11SvcHandle, BOOL, bExcludeUnencrypted, UInt32)
+        hDot11SvcHandleMarshal := hDot11SvcHandle == 0 ? IntPtr : HANDLE
+
+        result := DllCall(this.value, hDot11SvcHandleMarshal, hDot11SvcHandle, BOOL, bExcludeUnencrypted, UInt32)
         return result
     }
 

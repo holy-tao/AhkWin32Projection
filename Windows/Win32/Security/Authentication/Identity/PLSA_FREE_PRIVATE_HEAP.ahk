@@ -18,12 +18,11 @@ export default struct PLSA_FREE_PRIVATE_HEAP {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Base 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(Base) {
-        BaseMarshal := Base is VarRef ? "ptr" : "ptr"
+        BaseMarshal := Base is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, BaseMarshal, Base)
     }

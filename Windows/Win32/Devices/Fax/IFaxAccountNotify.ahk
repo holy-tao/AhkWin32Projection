@@ -85,7 +85,9 @@ export default struct IFaxAccountNotify extends IDispatch {
     OnIncomingJobAdded(pFaxAccount, bstrJobId) {
         bstrJobId := bstrJobId is String ? BSTR.Alloc(bstrJobId).Value : bstrJobId
 
-        result := ComCall(7, this, "ptr", pFaxAccount, BSTR, bstrJobId, "HRESULT")
+        pFaxAccountMarshal := pFaxAccount == 0 ? IntPtr : "ptr"
+
+        result := ComCall(7, this, pFaxAccountMarshal, pFaxAccount, BSTR, bstrJobId, "HRESULT")
         return result
     }
 
@@ -107,7 +109,9 @@ export default struct IFaxAccountNotify extends IDispatch {
     OnIncomingJobRemoved(pFaxAccount, bstrJobId) {
         bstrJobId := bstrJobId is String ? BSTR.Alloc(bstrJobId).Value : bstrJobId
 
-        result := ComCall(8, this, "ptr", pFaxAccount, BSTR, bstrJobId, "HRESULT")
+        pFaxAccountMarshal := pFaxAccount == 0 ? IntPtr : "ptr"
+
+        result := ComCall(8, this, pFaxAccountMarshal, pFaxAccount, BSTR, bstrJobId, "HRESULT")
         return result
     }
 
@@ -132,7 +136,10 @@ export default struct IFaxAccountNotify extends IDispatch {
     OnIncomingJobChanged(pFaxAccount, bstrJobId, pJobStatus) {
         bstrJobId := bstrJobId is String ? BSTR.Alloc(bstrJobId).Value : bstrJobId
 
-        result := ComCall(9, this, "ptr", pFaxAccount, BSTR, bstrJobId, "ptr", pJobStatus, "HRESULT")
+        pFaxAccountMarshal := pFaxAccount == 0 ? IntPtr : "ptr"
+        pJobStatusMarshal := pJobStatus == 0 ? IntPtr : "ptr"
+
+        result := ComCall(9, this, pFaxAccountMarshal, pFaxAccount, BSTR, bstrJobId, pJobStatusMarshal, pJobStatus, "HRESULT")
         return result
     }
 
@@ -154,7 +161,9 @@ export default struct IFaxAccountNotify extends IDispatch {
     OnOutgoingJobAdded(pFaxAccount, bstrJobId) {
         bstrJobId := bstrJobId is String ? BSTR.Alloc(bstrJobId).Value : bstrJobId
 
-        result := ComCall(10, this, "ptr", pFaxAccount, BSTR, bstrJobId, "HRESULT")
+        pFaxAccountMarshal := pFaxAccount == 0 ? IntPtr : "ptr"
+
+        result := ComCall(10, this, pFaxAccountMarshal, pFaxAccount, BSTR, bstrJobId, "HRESULT")
         return result
     }
 
@@ -176,7 +185,9 @@ export default struct IFaxAccountNotify extends IDispatch {
     OnOutgoingJobRemoved(pFaxAccount, bstrJobId) {
         bstrJobId := bstrJobId is String ? BSTR.Alloc(bstrJobId).Value : bstrJobId
 
-        result := ComCall(11, this, "ptr", pFaxAccount, BSTR, bstrJobId, "HRESULT")
+        pFaxAccountMarshal := pFaxAccount == 0 ? IntPtr : "ptr"
+
+        result := ComCall(11, this, pFaxAccountMarshal, pFaxAccount, BSTR, bstrJobId, "HRESULT")
         return result
     }
 
@@ -201,7 +212,10 @@ export default struct IFaxAccountNotify extends IDispatch {
     OnOutgoingJobChanged(pFaxAccount, bstrJobId, pJobStatus) {
         bstrJobId := bstrJobId is String ? BSTR.Alloc(bstrJobId).Value : bstrJobId
 
-        result := ComCall(12, this, "ptr", pFaxAccount, BSTR, bstrJobId, "ptr", pJobStatus, "HRESULT")
+        pFaxAccountMarshal := pFaxAccount == 0 ? IntPtr : "ptr"
+        pJobStatusMarshal := pJobStatus == 0 ? IntPtr : "ptr"
+
+        result := ComCall(12, this, pFaxAccountMarshal, pFaxAccount, BSTR, bstrJobId, pJobStatusMarshal, pJobStatus, "HRESULT")
         return result
     }
 
@@ -226,7 +240,9 @@ export default struct IFaxAccountNotify extends IDispatch {
     OnIncomingMessageAdded(pFaxAccount, bstrMessageId, fAddedToReceiveFolder) {
         bstrMessageId := bstrMessageId is String ? BSTR.Alloc(bstrMessageId).Value : bstrMessageId
 
-        result := ComCall(13, this, "ptr", pFaxAccount, BSTR, bstrMessageId, VARIANT_BOOL, fAddedToReceiveFolder, "HRESULT")
+        pFaxAccountMarshal := pFaxAccount == 0 ? IntPtr : "ptr"
+
+        result := ComCall(13, this, pFaxAccountMarshal, pFaxAccount, BSTR, bstrMessageId, VARIANT_BOOL, fAddedToReceiveFolder, "HRESULT")
         return result
     }
 
@@ -251,7 +267,9 @@ export default struct IFaxAccountNotify extends IDispatch {
     OnIncomingMessageRemoved(pFaxAccount, bstrMessageId, fRemovedFromReceiveFolder) {
         bstrMessageId := bstrMessageId is String ? BSTR.Alloc(bstrMessageId).Value : bstrMessageId
 
-        result := ComCall(14, this, "ptr", pFaxAccount, BSTR, bstrMessageId, VARIANT_BOOL, fRemovedFromReceiveFolder, "HRESULT")
+        pFaxAccountMarshal := pFaxAccount == 0 ? IntPtr : "ptr"
+
+        result := ComCall(14, this, pFaxAccountMarshal, pFaxAccount, BSTR, bstrMessageId, VARIANT_BOOL, fRemovedFromReceiveFolder, "HRESULT")
         return result
     }
 
@@ -273,7 +291,9 @@ export default struct IFaxAccountNotify extends IDispatch {
     OnOutgoingMessageAdded(pFaxAccount, bstrMessageId) {
         bstrMessageId := bstrMessageId is String ? BSTR.Alloc(bstrMessageId).Value : bstrMessageId
 
-        result := ComCall(15, this, "ptr", pFaxAccount, BSTR, bstrMessageId, "HRESULT")
+        pFaxAccountMarshal := pFaxAccount == 0 ? IntPtr : "ptr"
+
+        result := ComCall(15, this, pFaxAccountMarshal, pFaxAccount, BSTR, bstrMessageId, "HRESULT")
         return result
     }
 
@@ -295,7 +315,9 @@ export default struct IFaxAccountNotify extends IDispatch {
     OnOutgoingMessageRemoved(pFaxAccount, bstrMessageId) {
         bstrMessageId := bstrMessageId is String ? BSTR.Alloc(bstrMessageId).Value : bstrMessageId
 
-        result := ComCall(16, this, "ptr", pFaxAccount, BSTR, bstrMessageId, "HRESULT")
+        pFaxAccountMarshal := pFaxAccount == 0 ? IntPtr : "ptr"
+
+        result := ComCall(16, this, pFaxAccountMarshal, pFaxAccount, BSTR, bstrMessageId, "HRESULT")
         return result
     }
 
@@ -312,7 +334,9 @@ export default struct IFaxAccountNotify extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-_ifaxaccountnotify-onservershutdown
      */
     OnServerShutDown(pFaxServer) {
-        result := ComCall(17, this, "ptr", pFaxServer, "HRESULT")
+        pFaxServerMarshal := pFaxServer == 0 ? IntPtr : "ptr"
+
+        result := ComCall(17, this, pFaxServerMarshal, pFaxServer, "HRESULT")
         return result
     }
 
@@ -325,17 +349,17 @@ export default struct IFaxAccountNotify extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnIncomingJobAdded := CallbackCreate(GetMethod(implObj, "OnIncomingJobAdded"), flags, 3)
-        this.vtbl.OnIncomingJobRemoved := CallbackCreate(GetMethod(implObj, "OnIncomingJobRemoved"), flags, 3)
-        this.vtbl.OnIncomingJobChanged := CallbackCreate(GetMethod(implObj, "OnIncomingJobChanged"), flags, 4)
-        this.vtbl.OnOutgoingJobAdded := CallbackCreate(GetMethod(implObj, "OnOutgoingJobAdded"), flags, 3)
-        this.vtbl.OnOutgoingJobRemoved := CallbackCreate(GetMethod(implObj, "OnOutgoingJobRemoved"), flags, 3)
-        this.vtbl.OnOutgoingJobChanged := CallbackCreate(GetMethod(implObj, "OnOutgoingJobChanged"), flags, 4)
-        this.vtbl.OnIncomingMessageAdded := CallbackCreate(GetMethod(implObj, "OnIncomingMessageAdded"), flags, 4)
-        this.vtbl.OnIncomingMessageRemoved := CallbackCreate(GetMethod(implObj, "OnIncomingMessageRemoved"), flags, 4)
-        this.vtbl.OnOutgoingMessageAdded := CallbackCreate(GetMethod(implObj, "OnOutgoingMessageAdded"), flags, 3)
-        this.vtbl.OnOutgoingMessageRemoved := CallbackCreate(GetMethod(implObj, "OnOutgoingMessageRemoved"), flags, 3)
-        this.vtbl.OnServerShutDown := CallbackCreate(GetMethod(implObj, "OnServerShutDown"), flags, 2)
+        this.vtbl.OnIncomingJobAdded := CallbackCreate(ObjBindMethod(implObj, "OnIncomingJobAdded"), flags, 3)
+        this.vtbl.OnIncomingJobRemoved := CallbackCreate(ObjBindMethod(implObj, "OnIncomingJobRemoved"), flags, 3)
+        this.vtbl.OnIncomingJobChanged := CallbackCreate(ObjBindMethod(implObj, "OnIncomingJobChanged"), flags, 4)
+        this.vtbl.OnOutgoingJobAdded := CallbackCreate(ObjBindMethod(implObj, "OnOutgoingJobAdded"), flags, 3)
+        this.vtbl.OnOutgoingJobRemoved := CallbackCreate(ObjBindMethod(implObj, "OnOutgoingJobRemoved"), flags, 3)
+        this.vtbl.OnOutgoingJobChanged := CallbackCreate(ObjBindMethod(implObj, "OnOutgoingJobChanged"), flags, 4)
+        this.vtbl.OnIncomingMessageAdded := CallbackCreate(ObjBindMethod(implObj, "OnIncomingMessageAdded"), flags, 4)
+        this.vtbl.OnIncomingMessageRemoved := CallbackCreate(ObjBindMethod(implObj, "OnIncomingMessageRemoved"), flags, 4)
+        this.vtbl.OnOutgoingMessageAdded := CallbackCreate(ObjBindMethod(implObj, "OnOutgoingMessageAdded"), flags, 3)
+        this.vtbl.OnOutgoingMessageRemoved := CallbackCreate(ObjBindMethod(implObj, "OnOutgoingMessageRemoved"), flags, 3)
+        this.vtbl.OnServerShutDown := CallbackCreate(ObjBindMethod(implObj, "OnServerShutDown"), flags, 2)
     }
 
     Dispose() {

@@ -38,7 +38,6 @@ export default struct ISecureUrlHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pchUrlInQuestion 
      * @param {Integer} dwFlags 
      * @returns {BOOL} 
@@ -59,7 +58,7 @@ export default struct ISecureUrlHost extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ValidateSecureUrl := CallbackCreate(GetMethod(implObj, "ValidateSecureUrl"), flags, 4)
+        this.vtbl.ValidateSecureUrl := CallbackCreate(ObjBindMethod(implObj, "ValidateSecureUrl"), flags, 4)
     }
 
     Dispose() {

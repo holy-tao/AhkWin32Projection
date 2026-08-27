@@ -29,7 +29,6 @@ export default struct WS_DECODER_END_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} encoderContext The decoder instance returned by the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_create_decoder_callback">WS_CREATE_DECODER_CALLBACK</a>.
      * @param {Pointer<WS_ASYNC_CONTEXT>} asyncContext Information on how to invoke the function asynchronously, or <b>NULL</b> if invoking synchronously.
      * @param {Pointer<WS_ERROR>} _error Specifies where additional error information should be stored if the function fails.
@@ -74,10 +73,12 @@ export default struct WS_DECODER_END_CALLBACK {
      * </table>
      */
     Call(encoderContext, asyncContext, _error) {
-        encoderContextMarshal := encoderContext is VarRef ? "ptr" : "ptr"
-        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
+        encoderContextMarshal := encoderContext is VarRef ? "ptr" : IntPtr
+        asyncContextMarshal := asyncContext == 0 ? IntPtr : WS_ASYNC_CONTEXT.Ptr
+        _errorMarshal := _error is VarRef ? "ptr*" : IntPtr
+        _errorMarshal := _error == 0 ? IntPtr : WS_ERROR.Ptr
 
-        result := DllCall(this.value, encoderContextMarshal, encoderContext, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
+        result := DllCall(this.value, encoderContextMarshal, encoderContext, asyncContextMarshal, asyncContext, _errorMarshal, _error, "HRESULT")
         return result
     }
 

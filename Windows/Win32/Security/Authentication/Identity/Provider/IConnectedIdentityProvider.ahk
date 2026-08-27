@@ -110,7 +110,7 @@ export default struct IConnectedIdentityProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/identityprovider/nf-identityprovider-iconnectedidentityprovider-connectidentity
      */
     ConnectIdentity(AuthBuffer, AuthBufferSize) {
-        AuthBufferMarshal := AuthBuffer is VarRef ? "char*" : "ptr"
+        AuthBufferMarshal := AuthBuffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, AuthBufferMarshal, AuthBuffer, UInt32, AuthBufferSize, "HRESULT")
         return result
@@ -158,7 +158,6 @@ export default struct IConnectedIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsConnected() {
@@ -178,14 +177,14 @@ export default struct IConnectedIdentityProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/identityprovider/nf-identityprovider-iconnectedidentityprovider-geturl
      */
     GetUrl(Identifier, _Context, PostData, Url) {
-        UrlMarshal := Url is VarRef ? "ptr*" : "ptr"
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
+        UrlMarshal := Url is VarRef ? "ptr*" : IntPtr
 
-        result := ComCall(6, this, IDENTITY_URL, Identifier, "ptr", _Context, VARIANT.Ptr, PostData, UrlMarshal, Url, "HRESULT")
+        result := ComCall(6, this, IDENTITY_URL, Identifier, _ContextMarshal, _Context, VARIANT.Ptr, PostData, UrlMarshal, Url, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {ACCOUNT_STATE} 
      */
     GetAccountState() {
@@ -202,11 +201,11 @@ export default struct IConnectedIdentityProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ConnectIdentity := CallbackCreate(GetMethod(implObj, "ConnectIdentity"), flags, 3)
-        this.vtbl.DisconnectIdentity := CallbackCreate(GetMethod(implObj, "DisconnectIdentity"), flags, 1)
-        this.vtbl.IsConnected := CallbackCreate(GetMethod(implObj, "IsConnected"), flags, 2)
-        this.vtbl.GetUrl := CallbackCreate(GetMethod(implObj, "GetUrl"), flags, 5)
-        this.vtbl.GetAccountState := CallbackCreate(GetMethod(implObj, "GetAccountState"), flags, 2)
+        this.vtbl.ConnectIdentity := CallbackCreate(ObjBindMethod(implObj, "ConnectIdentity"), flags, 3)
+        this.vtbl.DisconnectIdentity := CallbackCreate(ObjBindMethod(implObj, "DisconnectIdentity"), flags, 1)
+        this.vtbl.IsConnected := CallbackCreate(ObjBindMethod(implObj, "IsConnected"), flags, 2)
+        this.vtbl.GetUrl := CallbackCreate(ObjBindMethod(implObj, "GetUrl"), flags, 5)
+        this.vtbl.GetAccountState := CallbackCreate(ObjBindMethod(implObj, "GetAccountState"), flags, 2)
     }
 
     Dispose() {

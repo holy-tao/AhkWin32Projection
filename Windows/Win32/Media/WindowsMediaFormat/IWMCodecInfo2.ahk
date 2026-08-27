@@ -100,7 +100,7 @@ export default struct IWMCodecInfo2 extends IWMCodecInfo {
     GetCodecName(guidType, dwCodecIndex, wszName, pcchName) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
 
-        pcchNameMarshal := pcchName is VarRef ? "uint*" : "ptr"
+        pcchNameMarshal := pcchName is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, Guid.Ptr, guidType, UInt32, dwCodecIndex, "ptr", wszName, pcchNameMarshal, pcchName, "HRESULT")
         return result
@@ -140,7 +140,7 @@ export default struct IWMCodecInfo2 extends IWMCodecInfo {
     GetCodecFormatDesc(guidType, dwCodecIndex, dwFormatIndex, wszDesc, pcchDesc) {
         wszDesc := wszDesc is String ? StrPtr(wszDesc) : wszDesc
 
-        pcchDescMarshal := pcchDesc is VarRef ? "uint*" : "ptr"
+        pcchDescMarshal := pcchDesc is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, Guid.Ptr, guidType, UInt32, dwCodecIndex, UInt32, dwFormatIndex, "ptr*", &ppIStreamConfig := 0, "ptr", wszDesc, pcchDescMarshal, pcchDesc, "HRESULT")
         return IWMStreamConfig(ppIStreamConfig)
@@ -155,8 +155,8 @@ export default struct IWMCodecInfo2 extends IWMCodecInfo {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCodecName := CallbackCreate(GetMethod(implObj, "GetCodecName"), flags, 5)
-        this.vtbl.GetCodecFormatDesc := CallbackCreate(GetMethod(implObj, "GetCodecFormatDesc"), flags, 7)
+        this.vtbl.GetCodecName := CallbackCreate(ObjBindMethod(implObj, "GetCodecName"), flags, 5)
+        this.vtbl.GetCodecFormatDesc := CallbackCreate(ObjBindMethod(implObj, "GetCodecFormatDesc"), flags, 7)
     }
 
     Dispose() {

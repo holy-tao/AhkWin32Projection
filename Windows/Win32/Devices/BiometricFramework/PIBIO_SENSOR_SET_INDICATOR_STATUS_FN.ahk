@@ -22,7 +22,6 @@ export default struct PIBIO_SENSOR_SET_INDICATOR_STATUS_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/ns-winbio_adapter-winbio_pipeline">WINBIO_PIPELINE</a> structure associated with the biometric unit performing the operation.
      * @param {Integer} IndicatorStatus A <b>WINBIO_INDICATOR_STATUS</b> value. This can be one of the following:
      * 

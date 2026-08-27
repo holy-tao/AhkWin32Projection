@@ -72,8 +72,8 @@ export default struct ITsSbPluginNotifySink extends ITsSbBaseNotifySink {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnInitialized := CallbackCreate(GetMethod(implObj, "OnInitialized"), flags, 2)
-        this.vtbl.OnTerminated := CallbackCreate(GetMethod(implObj, "OnTerminated"), flags, 1)
+        this.vtbl.OnInitialized := CallbackCreate(ObjBindMethod(implObj, "OnInitialized"), flags, 2)
+        this.vtbl.OnTerminated := CallbackCreate(ObjBindMethod(implObj, "OnTerminated"), flags, 1)
     }
 
     Dispose() {

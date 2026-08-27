@@ -43,7 +43,6 @@ export default struct IXFeed2 extends IXFeed {
     }
 
     /**
-     * 
      * @param {Integer} uiEffectiveId 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -54,7 +53,6 @@ export default struct IXFeed2 extends IXFeed {
     }
 
     /**
-     * 
      * @returns {SYSTEMTIME} 
      */
     LastItemDownloadTime() {
@@ -86,7 +84,6 @@ export default struct IXFeed2 extends IXFeed {
     }
 
     /**
-     * 
      * @param {PWSTR} pszUsername 
      * @param {PWSTR} pszPassword 
      * @returns {HRESULT} 
@@ -100,7 +97,6 @@ export default struct IXFeed2 extends IXFeed {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ClearCredentials() {
@@ -117,12 +113,12 @@ export default struct IXFeed2 extends IXFeed {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetItemByEffectiveId := CallbackCreate(GetMethod(implObj, "GetItemByEffectiveId"), flags, 4)
-        this.vtbl.LastItemDownloadTime := CallbackCreate(GetMethod(implObj, "LastItemDownloadTime"), flags, 2)
-        this.vtbl.Username := CallbackCreate(GetMethod(implObj, "Username"), flags, 2)
-        this.vtbl.Password := CallbackCreate(GetMethod(implObj, "Password"), flags, 2)
-        this.vtbl.SetCredentials := CallbackCreate(GetMethod(implObj, "SetCredentials"), flags, 3)
-        this.vtbl.ClearCredentials := CallbackCreate(GetMethod(implObj, "ClearCredentials"), flags, 1)
+        this.vtbl.GetItemByEffectiveId := CallbackCreate(ObjBindMethod(implObj, "GetItemByEffectiveId"), flags, 4)
+        this.vtbl.LastItemDownloadTime := CallbackCreate(ObjBindMethod(implObj, "LastItemDownloadTime"), flags, 2)
+        this.vtbl.Username := CallbackCreate(ObjBindMethod(implObj, "Username"), flags, 2)
+        this.vtbl.Password := CallbackCreate(ObjBindMethod(implObj, "Password"), flags, 2)
+        this.vtbl.SetCredentials := CallbackCreate(ObjBindMethod(implObj, "SetCredentials"), flags, 3)
+        this.vtbl.ClearCredentials := CallbackCreate(ObjBindMethod(implObj, "ClearCredentials"), flags, 1)
     }
 
     Dispose() {

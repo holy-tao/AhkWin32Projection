@@ -27,7 +27,6 @@ export default struct PFAXROUTEENUMFILE {
     }
 
     /**
-     * 
      * @param {Integer} JobId Type: <b>DWORD</b>
      * 
      * Specifies a unique number that identifies the fax job that received the fax document.
@@ -50,7 +49,7 @@ export default struct PFAXROUTEENUMFILE {
     Call(JobId, GuidOwner, GuidCaller, FileName, _Context) {
         FileName := FileName is String ? StrPtr(FileName) : FileName
 
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, UInt32, JobId, Guid.Ptr, GuidOwner, Guid.Ptr, GuidCaller, "ptr", FileName, _ContextMarshal, _Context, BOOL)
         return result

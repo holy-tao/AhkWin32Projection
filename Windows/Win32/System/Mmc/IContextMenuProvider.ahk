@@ -112,10 +112,10 @@ export default struct IContextMenuProvider extends IContextMenuCallback {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EmptyMenuList := CallbackCreate(GetMethod(implObj, "EmptyMenuList"), flags, 1)
-        this.vtbl.AddPrimaryExtensionItems := CallbackCreate(GetMethod(implObj, "AddPrimaryExtensionItems"), flags, 3)
-        this.vtbl.AddThirdPartyExtensionItems := CallbackCreate(GetMethod(implObj, "AddThirdPartyExtensionItems"), flags, 2)
-        this.vtbl.ShowContextMenu := CallbackCreate(GetMethod(implObj, "ShowContextMenu"), flags, 5)
+        this.vtbl.EmptyMenuList := CallbackCreate(ObjBindMethod(implObj, "EmptyMenuList"), flags, 1)
+        this.vtbl.AddPrimaryExtensionItems := CallbackCreate(ObjBindMethod(implObj, "AddPrimaryExtensionItems"), flags, 3)
+        this.vtbl.AddThirdPartyExtensionItems := CallbackCreate(ObjBindMethod(implObj, "AddThirdPartyExtensionItems"), flags, 2)
+        this.vtbl.ShowContextMenu := CallbackCreate(ObjBindMethod(implObj, "ShowContextMenu"), flags, 5)
     }
 
     Dispose() {

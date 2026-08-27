@@ -22,7 +22,6 @@ export default struct PCLUSAPI_CREATE_CLUSTER_GROUPEX {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszGroupName 
      * @param {Pointer<CLUSTER_CREATE_GROUP_INFO>} pGroupInfo 
@@ -31,7 +30,9 @@ export default struct PCLUSAPI_CREATE_CLUSTER_GROUPEX {
     Call(_hCluster, lpszGroupName, pGroupInfo) {
         lpszGroupName := lpszGroupName is String ? StrPtr(lpszGroupName) : lpszGroupName
 
-        result := DllCall(this.value, HCLUSTER, _hCluster, "ptr", lpszGroupName, CLUSTER_CREATE_GROUP_INFO.Ptr, pGroupInfo, HGROUP)
+        pGroupInfoMarshal := pGroupInfo == 0 ? IntPtr : CLUSTER_CREATE_GROUP_INFO.Ptr
+
+        result := DllCall(this.value, HCLUSTER, _hCluster, "ptr", lpszGroupName, pGroupInfoMarshal, pGroupInfo, HGROUP)
         return result
     }
 

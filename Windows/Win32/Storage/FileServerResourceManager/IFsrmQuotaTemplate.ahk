@@ -121,10 +121,10 @@ export default struct IFsrmQuotaTemplate extends IFsrmQuotaBase {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
-        this.vtbl.CopyTemplate := CallbackCreate(GetMethod(implObj, "CopyTemplate"), flags, 2)
-        this.vtbl.CommitAndUpdateDerived := CallbackCreate(GetMethod(implObj, "CommitAndUpdateDerived"), flags, 4)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(ObjBindMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.CopyTemplate := CallbackCreate(ObjBindMethod(implObj, "CopyTemplate"), flags, 2)
+        this.vtbl.CommitAndUpdateDerived := CallbackCreate(ObjBindMethod(implObj, "CommitAndUpdateDerived"), flags, 4)
     }
 
     Dispose() {

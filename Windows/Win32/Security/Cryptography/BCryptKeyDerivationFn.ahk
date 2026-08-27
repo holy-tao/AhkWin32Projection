@@ -21,7 +21,6 @@ export default struct BCryptKeyDerivationFn {
     }
 
     /**
-     * 
      * @param {BCRYPT_KEY_HANDLE} _hKey 
      * @param {Pointer<BCryptBufferDesc>} pParameterList 
      * @param {Integer} pbDerivedKey 
@@ -31,9 +30,10 @@ export default struct BCryptKeyDerivationFn {
      * @returns {NTSTATUS} 
      */
     Call(_hKey, pParameterList, pbDerivedKey, cbDerivedKey, pcbResult, dwFlags) {
-        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+        pParameterListMarshal := pParameterList == 0 ? IntPtr : BCryptBufferDesc.Ptr
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, BCRYPT_KEY_HANDLE, _hKey, BCryptBufferDesc.Ptr, pParameterList, IntPtr, pbDerivedKey, UInt32, cbDerivedKey, pcbResultMarshal, pcbResult, UInt32, dwFlags, NTSTATUS)
+        result := DllCall(this.value, BCRYPT_KEY_HANDLE, _hKey, pParameterListMarshal, pParameterList, IntPtr, pbDerivedKey, UInt32, cbDerivedKey, pcbResultMarshal, pcbResult, UInt32, dwFlags, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

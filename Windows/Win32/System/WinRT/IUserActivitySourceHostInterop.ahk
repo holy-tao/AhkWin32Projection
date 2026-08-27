@@ -59,7 +59,7 @@ export default struct IUserActivitySourceHostInterop extends IInspectable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetActivitySourceHost := CallbackCreate(GetMethod(implObj, "SetActivitySourceHost"), flags, 2)
+        this.vtbl.SetActivitySourceHost := CallbackCreate(ObjBindMethod(implObj, "SetActivitySourceHost"), flags, 2)
     }
 
     Dispose() {

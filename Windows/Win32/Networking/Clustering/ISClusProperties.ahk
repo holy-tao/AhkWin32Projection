@@ -92,7 +92,6 @@ export default struct ISClusProperties extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -101,7 +100,6 @@ export default struct ISClusProperties extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -110,7 +108,6 @@ export default struct ISClusProperties extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Refresh() {
@@ -119,7 +116,6 @@ export default struct ISClusProperties extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varIndex 
      * @returns {ISClusProperty} 
      */
@@ -129,7 +125,6 @@ export default struct ISClusProperties extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {VARIANT} varValue 
      * @returns {ISClusProperty} 
@@ -142,7 +137,6 @@ export default struct ISClusProperties extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varIndex 
      * @returns {HRESULT} 
      */
@@ -152,7 +146,6 @@ export default struct ISClusProperties extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     SaveChanges() {
@@ -162,7 +155,6 @@ export default struct ISClusProperties extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ReadOnly() {
@@ -172,7 +164,6 @@ export default struct ISClusProperties extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Private() {
@@ -182,7 +173,6 @@ export default struct ISClusProperties extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Common() {
@@ -192,7 +182,6 @@ export default struct ISClusProperties extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Modified() {
@@ -210,17 +199,17 @@ export default struct ISClusProperties extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
-        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
-        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
-        this.vtbl.CreateItem := CallbackCreate(GetMethod(implObj, "CreateItem"), flags, 4)
-        this.vtbl.UseDefaultValue := CallbackCreate(GetMethod(implObj, "UseDefaultValue"), flags, 2)
-        this.vtbl.SaveChanges := CallbackCreate(GetMethod(implObj, "SaveChanges"), flags, 2)
-        this.vtbl.get_ReadOnly := CallbackCreate(GetMethod(implObj, "get_ReadOnly"), flags, 2)
-        this.vtbl.get_Private := CallbackCreate(GetMethod(implObj, "get_Private"), flags, 2)
-        this.vtbl.get_Common := CallbackCreate(GetMethod(implObj, "get_Common"), flags, 2)
-        this.vtbl.get_Modified := CallbackCreate(GetMethod(implObj, "get_Modified"), flags, 2)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get__NewEnum := CallbackCreate(ObjBindMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(ObjBindMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.get_Item := CallbackCreate(ObjBindMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.CreateItem := CallbackCreate(ObjBindMethod(implObj, "CreateItem"), flags, 4)
+        this.vtbl.UseDefaultValue := CallbackCreate(ObjBindMethod(implObj, "UseDefaultValue"), flags, 2)
+        this.vtbl.SaveChanges := CallbackCreate(ObjBindMethod(implObj, "SaveChanges"), flags, 2)
+        this.vtbl.get_ReadOnly := CallbackCreate(ObjBindMethod(implObj, "get_ReadOnly"), flags, 2)
+        this.vtbl.get_Private := CallbackCreate(ObjBindMethod(implObj, "get_Private"), flags, 2)
+        this.vtbl.get_Common := CallbackCreate(ObjBindMethod(implObj, "get_Common"), flags, 2)
+        this.vtbl.get_Modified := CallbackCreate(ObjBindMethod(implObj, "get_Modified"), flags, 2)
     }
 
     Dispose() {

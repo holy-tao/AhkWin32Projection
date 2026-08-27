@@ -20,7 +20,6 @@ export default struct PSAM_CREDENTIAL_UPDATE_REGISTER_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<LSA_UNICODE_STRING>} CredentialName 
      * @returns {BOOLEAN} 
      */

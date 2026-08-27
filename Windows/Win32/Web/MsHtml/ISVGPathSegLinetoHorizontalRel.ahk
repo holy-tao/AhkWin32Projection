@@ -51,7 +51,6 @@ export default struct ISVGPathSegLinetoHorizontalRel extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -61,7 +60,6 @@ export default struct ISVGPathSegLinetoHorizontalRel extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_x() {
@@ -78,8 +76,8 @@ export default struct ISVGPathSegLinetoHorizontalRel extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_x := CallbackCreate(GetMethod(implObj, "put_x"), flags, 2)
-        this.vtbl.get_x := CallbackCreate(GetMethod(implObj, "get_x"), flags, 2)
+        this.vtbl.put_x := CallbackCreate(ObjBindMethod(implObj, "put_x"), flags, 2)
+        this.vtbl.get_x := CallbackCreate(ObjBindMethod(implObj, "get_x"), flags, 2)
     }
 
     Dispose() {

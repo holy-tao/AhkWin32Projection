@@ -20,7 +20,6 @@ export default struct PFND3DKMT_CREATEOVERLAY {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CREATEOVERLAY>} param0 
      * @returns {NTSTATUS} 
      */

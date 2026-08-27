@@ -23,16 +23,17 @@ export default struct WS_VALIDATE_SAML_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} samlValidatorCallbackState The state to be passed back when invoking this callback.
      * @param {Pointer<WS_XML_BUFFER>} samlAssertion The received SAML assertion that has undergone a successful signature check.
      * @param {Pointer<WS_ERROR>} _error Specifies where additional error information should be stored if the function fails.
      * @returns {HRESULT} This callback function does not return a value.
      */
     Call(samlValidatorCallbackState, samlAssertion, _error) {
-        samlValidatorCallbackStateMarshal := samlValidatorCallbackState is VarRef ? "ptr" : "ptr"
-        samlAssertionMarshal := samlAssertion is VarRef ? "ptr*" : "ptr"
-        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
+        samlValidatorCallbackStateMarshal := samlValidatorCallbackState is VarRef ? "ptr" : IntPtr
+        samlValidatorCallbackStateMarshal := samlValidatorCallbackState == 0 ? IntPtr : "ptr"
+        samlAssertionMarshal := samlAssertion is VarRef ? "ptr*" : IntPtr
+        _errorMarshal := _error is VarRef ? "ptr*" : IntPtr
+        _errorMarshal := _error == 0 ? IntPtr : WS_ERROR.Ptr
 
         result := DllCall(this.value, samlValidatorCallbackStateMarshal, samlValidatorCallbackState, samlAssertionMarshal, samlAssertion, _errorMarshal, _error, "HRESULT")
         return result

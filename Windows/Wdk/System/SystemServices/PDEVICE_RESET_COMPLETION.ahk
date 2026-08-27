@@ -18,7 +18,6 @@ export default struct PDEVICE_RESET_COMPLETION {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

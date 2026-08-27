@@ -212,10 +212,10 @@ export default struct IMbnRegistrationEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnRegisterModeAvailable := CallbackCreate(GetMethod(implObj, "OnRegisterModeAvailable"), flags, 2)
-        this.vtbl.OnRegisterStateChange := CallbackCreate(GetMethod(implObj, "OnRegisterStateChange"), flags, 2)
-        this.vtbl.OnPacketServiceStateChange := CallbackCreate(GetMethod(implObj, "OnPacketServiceStateChange"), flags, 2)
-        this.vtbl.OnSetRegisterModeComplete := CallbackCreate(GetMethod(implObj, "OnSetRegisterModeComplete"), flags, 4)
+        this.vtbl.OnRegisterModeAvailable := CallbackCreate(ObjBindMethod(implObj, "OnRegisterModeAvailable"), flags, 2)
+        this.vtbl.OnRegisterStateChange := CallbackCreate(ObjBindMethod(implObj, "OnRegisterStateChange"), flags, 2)
+        this.vtbl.OnPacketServiceStateChange := CallbackCreate(ObjBindMethod(implObj, "OnPacketServiceStateChange"), flags, 2)
+        this.vtbl.OnSetRegisterModeComplete := CallbackCreate(ObjBindMethod(implObj, "OnSetRegisterModeComplete"), flags, 4)
     }
 
     Dispose() {

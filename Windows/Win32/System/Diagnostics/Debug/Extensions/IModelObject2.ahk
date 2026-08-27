@@ -39,7 +39,6 @@ export default struct IModelObject2 extends IModelObject {
     }
 
     /**
-     * 
      * @returns {IKeyEnumerator} 
      */
     EnumerateOwnKeyValues() {
@@ -48,7 +47,6 @@ export default struct IModelObject2 extends IModelObject {
     }
 
     /**
-     * 
      * @returns {IKeyEnumerator} 
      */
     EnumerateOwnKeys() {
@@ -57,7 +55,6 @@ export default struct IModelObject2 extends IModelObject {
     }
 
     /**
-     * 
      * @returns {IKeyEnumerator} 
      */
     EnumerateOwnKeyReferences() {
@@ -74,9 +71,9 @@ export default struct IModelObject2 extends IModelObject {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumerateOwnKeyValues := CallbackCreate(GetMethod(implObj, "EnumerateOwnKeyValues"), flags, 2)
-        this.vtbl.EnumerateOwnKeys := CallbackCreate(GetMethod(implObj, "EnumerateOwnKeys"), flags, 2)
-        this.vtbl.EnumerateOwnKeyReferences := CallbackCreate(GetMethod(implObj, "EnumerateOwnKeyReferences"), flags, 2)
+        this.vtbl.EnumerateOwnKeyValues := CallbackCreate(ObjBindMethod(implObj, "EnumerateOwnKeyValues"), flags, 2)
+        this.vtbl.EnumerateOwnKeys := CallbackCreate(ObjBindMethod(implObj, "EnumerateOwnKeys"), flags, 2)
+        this.vtbl.EnumerateOwnKeyReferences := CallbackCreate(ObjBindMethod(implObj, "EnumerateOwnKeyReferences"), flags, 2)
     }
 
     Dispose() {

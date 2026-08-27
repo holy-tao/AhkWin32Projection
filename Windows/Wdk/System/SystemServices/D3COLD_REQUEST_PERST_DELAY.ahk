@@ -19,13 +19,13 @@ export default struct D3COLD_REQUEST_PERST_DELAY {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Integer} DelayInMicroSeconds 
      * @returns {NTSTATUS} 
      */
     Call(_Context, DelayInMicroSeconds) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, UInt32, DelayInMicroSeconds, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

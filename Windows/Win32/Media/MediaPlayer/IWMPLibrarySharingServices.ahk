@@ -67,7 +67,7 @@ export default struct IWMPLibrarySharingServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmplibrarysharingservices-islibraryshared
      */
     isLibraryShared(pvbShared) {
-        pvbSharedMarshal := pvbShared is VarRef ? "short*" : "ptr"
+        pvbSharedMarshal := pvbShared is VarRef ? "short*" : IntPtr
 
         result := ComCall(3, this, pvbSharedMarshal, pvbShared, "HRESULT")
         return result
@@ -100,7 +100,7 @@ export default struct IWMPLibrarySharingServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmplibrarysharingservices-islibrarysharingenabled
      */
     isLibrarySharingEnabled(pvbEnabled) {
-        pvbEnabledMarshal := pvbEnabled is VarRef ? "short*" : "ptr"
+        pvbEnabledMarshal := pvbEnabled is VarRef ? "short*" : IntPtr
 
         result := ComCall(4, this, pvbEnabledMarshal, pvbEnabled, "HRESULT")
         return result
@@ -147,9 +147,9 @@ export default struct IWMPLibrarySharingServices extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.isLibraryShared := CallbackCreate(GetMethod(implObj, "isLibraryShared"), flags, 2)
-        this.vtbl.isLibrarySharingEnabled := CallbackCreate(GetMethod(implObj, "isLibrarySharingEnabled"), flags, 2)
-        this.vtbl.showLibrarySharing := CallbackCreate(GetMethod(implObj, "showLibrarySharing"), flags, 1)
+        this.vtbl.isLibraryShared := CallbackCreate(ObjBindMethod(implObj, "isLibraryShared"), flags, 2)
+        this.vtbl.isLibrarySharingEnabled := CallbackCreate(ObjBindMethod(implObj, "isLibrarySharingEnabled"), flags, 2)
+        this.vtbl.showLibrarySharing := CallbackCreate(ObjBindMethod(implObj, "showLibrarySharing"), flags, 1)
     }
 
     Dispose() {

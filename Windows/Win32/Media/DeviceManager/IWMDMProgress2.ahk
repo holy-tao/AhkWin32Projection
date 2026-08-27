@@ -62,7 +62,7 @@ export default struct IWMDMProgress2 extends IWMDMProgress {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.End2 := CallbackCreate(GetMethod(implObj, "End2"), flags, 2)
+        this.vtbl.End2 := CallbackCreate(ObjBindMethod(implObj, "End2"), flags, 2)
     }
 
     Dispose() {

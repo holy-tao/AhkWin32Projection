@@ -19,7 +19,6 @@ export default struct FunctionLeave3 {
     }
 
     /**
-     * 
      * @param {FunctionIDOrClientID} _functionIDOrClientID 
      * @returns {String} Nothing - always returns an empty string
      */

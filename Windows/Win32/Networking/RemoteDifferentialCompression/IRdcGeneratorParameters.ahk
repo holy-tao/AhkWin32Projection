@@ -68,8 +68,8 @@ export default struct IRdcGeneratorParameters extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcgeneratorparameters-getparametersversion
      */
     GetParametersVersion(currentVersion, minimumCompatibleAppVersion) {
-        currentVersionMarshal := currentVersion is VarRef ? "uint*" : "ptr"
-        minimumCompatibleAppVersionMarshal := minimumCompatibleAppVersion is VarRef ? "uint*" : "ptr"
+        currentVersionMarshal := currentVersion is VarRef ? "uint*" : IntPtr
+        minimumCompatibleAppVersionMarshal := minimumCompatibleAppVersion is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, currentVersionMarshal, currentVersion, minimumCompatibleAppVersionMarshal, minimumCompatibleAppVersion, "HRESULT")
         return result
@@ -97,8 +97,8 @@ export default struct IRdcGeneratorParameters extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcgeneratorparameters-serialize
      */
     Serialize(_size, parametersBlob, bytesWritten) {
-        parametersBlobMarshal := parametersBlob is VarRef ? "char*" : "ptr"
-        bytesWrittenMarshal := bytesWritten is VarRef ? "uint*" : "ptr"
+        parametersBlobMarshal := parametersBlob is VarRef ? "char*" : IntPtr
+        bytesWrittenMarshal := bytesWritten is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, UInt32, _size, parametersBlobMarshal, parametersBlob, bytesWrittenMarshal, bytesWritten, "HRESULT")
         return result
@@ -113,10 +113,10 @@ export default struct IRdcGeneratorParameters extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetGeneratorParametersType := CallbackCreate(GetMethod(implObj, "GetGeneratorParametersType"), flags, 2)
-        this.vtbl.GetParametersVersion := CallbackCreate(GetMethod(implObj, "GetParametersVersion"), flags, 3)
-        this.vtbl.GetSerializeSize := CallbackCreate(GetMethod(implObj, "GetSerializeSize"), flags, 2)
-        this.vtbl.Serialize := CallbackCreate(GetMethod(implObj, "Serialize"), flags, 4)
+        this.vtbl.GetGeneratorParametersType := CallbackCreate(ObjBindMethod(implObj, "GetGeneratorParametersType"), flags, 2)
+        this.vtbl.GetParametersVersion := CallbackCreate(ObjBindMethod(implObj, "GetParametersVersion"), flags, 3)
+        this.vtbl.GetSerializeSize := CallbackCreate(ObjBindMethod(implObj, "GetSerializeSize"), flags, 2)
+        this.vtbl.Serialize := CallbackCreate(ObjBindMethod(implObj, "Serialize"), flags, 4)
     }
 
     Dispose() {

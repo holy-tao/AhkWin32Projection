@@ -375,7 +375,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} lEvent 
      * @param {Pointer} lParam1 
      * @param {Pointer} lParam2 
@@ -597,7 +596,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} lStream 
      * @param {VARIANT_BOOL} fFormat 
      * @returns {BSTR} 
@@ -663,7 +661,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ButtonsAvailable() {
@@ -672,7 +669,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_CurrentButton() {
@@ -808,7 +804,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} xPos 
      * @param {Integer} yPos 
      * @returns {Integer} 
@@ -819,7 +814,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} lTitle 
      * @returns {Integer} 
      */
@@ -829,7 +823,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_TotalTitleTime() {
@@ -839,7 +832,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_TitlesAvailable() {
@@ -848,7 +840,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_VolumesAvailable() {
@@ -857,7 +848,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_CurrentVolume() {
@@ -866,7 +856,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_CurrentDiscSide() {
@@ -875,7 +864,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_CurrentDomain() {
@@ -884,7 +872,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_CurrentChapter() {
@@ -893,7 +880,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_CurrentTitle() {
@@ -902,7 +888,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_CurrentTime() {
@@ -926,7 +911,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DVDDirectory() {
@@ -936,7 +920,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {BSTR} newVal 
      * @returns {HRESULT} 
      */
@@ -974,7 +957,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_CurrentSubpictureStream() {
@@ -983,7 +965,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} newVal 
      * @returns {HRESULT} 
      */
@@ -993,7 +974,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} lStream 
      * @returns {BSTR} 
      */
@@ -1004,7 +984,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_CurrentAudioStream() {
@@ -1013,7 +992,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} newVal 
      * @returns {HRESULT} 
      */
@@ -1023,7 +1001,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AudioStreamsAvailable() {
@@ -1032,7 +1009,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AnglesAvailable() {
@@ -1041,7 +1017,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_CurrentAngle() {
@@ -1050,7 +1025,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} newVal 
      * @returns {HRESULT} 
      */
@@ -1060,7 +1034,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_SubpictureStreamsAvailable() {
@@ -1069,7 +1042,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_SubpictureOn() {
@@ -1078,7 +1050,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} newVal 
      * @returns {HRESULT} 
      */
@@ -1088,7 +1059,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DVDUniqueID() {
@@ -1220,7 +1190,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} lTitle 
      * @returns {Integer} 
      */
@@ -1230,7 +1199,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PlayerParentalCountry() {
@@ -1239,7 +1207,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PlayerParentalLevel() {
@@ -1271,7 +1238,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} lIndex 
      * @returns {Integer} 
      */
@@ -1281,7 +1247,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} lIndex 
      * @returns {Integer} 
      */
@@ -1291,7 +1256,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} lIndex 
      * @param {Integer} sValue 
      * @returns {HRESULT} 
@@ -1302,7 +1266,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} lLangIndex 
      * @param {Integer} lStringIndex 
      * @returns {DVDTextStringType} 
@@ -1313,7 +1276,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} lLangIndex 
      * @param {Integer} lStringIndex 
      * @returns {BSTR} 
@@ -1325,7 +1287,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} lLangIndex 
      * @returns {Integer} 
      */
@@ -1335,7 +1296,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DVDTextNumberOfLanguages() {
@@ -1344,7 +1304,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} lLangIndex 
      * @returns {Integer} 
      */
@@ -1366,7 +1325,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_DVDAdm() {
@@ -1491,7 +1449,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PreferredSubpictureStream() {
@@ -1500,7 +1457,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DefaultMenuLanguage() {
@@ -1509,7 +1465,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} lang 
      * @returns {HRESULT} 
      */
@@ -1519,7 +1474,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DefaultSubpictureLanguage() {
@@ -1528,7 +1482,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DefaultAudioLanguage() {
@@ -1537,7 +1490,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {DVDSPExt} 
      */
     get_DefaultSubpictureLanguageExt() {
@@ -1546,7 +1498,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DefaultAudioLanguageExt() {
@@ -1555,7 +1506,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} lcid 
      * @returns {BSTR} 
      */
@@ -1566,7 +1516,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_KaraokeAudioPresentationMode() {
@@ -1575,7 +1524,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} newVal 
      * @returns {HRESULT} 
      */
@@ -1585,7 +1533,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} lStream 
      * @param {Integer} lChan 
      * @returns {Integer} 
@@ -1596,7 +1543,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} lStream 
      * @returns {Integer} 
      */
@@ -1606,7 +1552,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RestorePreferredSettings() {
@@ -1615,7 +1560,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {Integer} lButton 
      * @returns {IMSVidRect} 
      */
@@ -1625,7 +1569,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @returns {IMSVidRect} 
      */
     get_DVDScreenInMouseCoordinates() {
@@ -1634,7 +1577,6 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
     }
 
     /**
-     * 
      * @param {IMSVidRect} pRect 
      * @returns {HRESULT} 
      */
@@ -1652,101 +1594,101 @@ export default struct IMSVidWebDVD extends IMSVidPlayback {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnDVDEvent := CallbackCreate(GetMethod(implObj, "OnDVDEvent"), flags, 4)
-        this.vtbl.PlayTitle := CallbackCreate(GetMethod(implObj, "PlayTitle"), flags, 2)
-        this.vtbl.PlayChapterInTitle := CallbackCreate(GetMethod(implObj, "PlayChapterInTitle"), flags, 3)
-        this.vtbl.PlayChapter := CallbackCreate(GetMethod(implObj, "PlayChapter"), flags, 2)
-        this.vtbl.PlayChaptersAutoStop := CallbackCreate(GetMethod(implObj, "PlayChaptersAutoStop"), flags, 4)
-        this.vtbl.PlayAtTime := CallbackCreate(GetMethod(implObj, "PlayAtTime"), flags, 2)
-        this.vtbl.PlayAtTimeInTitle := CallbackCreate(GetMethod(implObj, "PlayAtTimeInTitle"), flags, 3)
-        this.vtbl.PlayPeriodInTitleAutoStop := CallbackCreate(GetMethod(implObj, "PlayPeriodInTitleAutoStop"), flags, 4)
-        this.vtbl.ReplayChapter := CallbackCreate(GetMethod(implObj, "ReplayChapter"), flags, 1)
-        this.vtbl.PlayPrevChapter := CallbackCreate(GetMethod(implObj, "PlayPrevChapter"), flags, 1)
-        this.vtbl.PlayNextChapter := CallbackCreate(GetMethod(implObj, "PlayNextChapter"), flags, 1)
-        this.vtbl.StillOff := CallbackCreate(GetMethod(implObj, "StillOff"), flags, 1)
-        this.vtbl.get_AudioLanguage := CallbackCreate(GetMethod(implObj, "get_AudioLanguage"), flags, 4)
-        this.vtbl.ShowMenu := CallbackCreate(GetMethod(implObj, "ShowMenu"), flags, 2)
-        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 1)
-        this.vtbl.ReturnFromSubmenu := CallbackCreate(GetMethod(implObj, "ReturnFromSubmenu"), flags, 1)
-        this.vtbl.get_ButtonsAvailable := CallbackCreate(GetMethod(implObj, "get_ButtonsAvailable"), flags, 2)
-        this.vtbl.get_CurrentButton := CallbackCreate(GetMethod(implObj, "get_CurrentButton"), flags, 2)
-        this.vtbl.SelectAndActivateButton := CallbackCreate(GetMethod(implObj, "SelectAndActivateButton"), flags, 2)
-        this.vtbl.ActivateButton := CallbackCreate(GetMethod(implObj, "ActivateButton"), flags, 1)
-        this.vtbl.SelectRightButton := CallbackCreate(GetMethod(implObj, "SelectRightButton"), flags, 1)
-        this.vtbl.SelectLeftButton := CallbackCreate(GetMethod(implObj, "SelectLeftButton"), flags, 1)
-        this.vtbl.SelectLowerButton := CallbackCreate(GetMethod(implObj, "SelectLowerButton"), flags, 1)
-        this.vtbl.SelectUpperButton := CallbackCreate(GetMethod(implObj, "SelectUpperButton"), flags, 1)
-        this.vtbl.ActivateAtPosition := CallbackCreate(GetMethod(implObj, "ActivateAtPosition"), flags, 3)
-        this.vtbl.SelectAtPosition := CallbackCreate(GetMethod(implObj, "SelectAtPosition"), flags, 3)
-        this.vtbl.get_ButtonAtPosition := CallbackCreate(GetMethod(implObj, "get_ButtonAtPosition"), flags, 4)
-        this.vtbl.get_NumberOfChapters := CallbackCreate(GetMethod(implObj, "get_NumberOfChapters"), flags, 3)
-        this.vtbl.get_TotalTitleTime := CallbackCreate(GetMethod(implObj, "get_TotalTitleTime"), flags, 2)
-        this.vtbl.get_TitlesAvailable := CallbackCreate(GetMethod(implObj, "get_TitlesAvailable"), flags, 2)
-        this.vtbl.get_VolumesAvailable := CallbackCreate(GetMethod(implObj, "get_VolumesAvailable"), flags, 2)
-        this.vtbl.get_CurrentVolume := CallbackCreate(GetMethod(implObj, "get_CurrentVolume"), flags, 2)
-        this.vtbl.get_CurrentDiscSide := CallbackCreate(GetMethod(implObj, "get_CurrentDiscSide"), flags, 2)
-        this.vtbl.get_CurrentDomain := CallbackCreate(GetMethod(implObj, "get_CurrentDomain"), flags, 2)
-        this.vtbl.get_CurrentChapter := CallbackCreate(GetMethod(implObj, "get_CurrentChapter"), flags, 2)
-        this.vtbl.get_CurrentTitle := CallbackCreate(GetMethod(implObj, "get_CurrentTitle"), flags, 2)
-        this.vtbl.get_CurrentTime := CallbackCreate(GetMethod(implObj, "get_CurrentTime"), flags, 2)
-        this.vtbl.DVDTimeCode2bstr := CallbackCreate(GetMethod(implObj, "DVDTimeCode2bstr"), flags, 3)
-        this.vtbl.get_DVDDirectory := CallbackCreate(GetMethod(implObj, "get_DVDDirectory"), flags, 2)
-        this.vtbl.put_DVDDirectory := CallbackCreate(GetMethod(implObj, "put_DVDDirectory"), flags, 2)
-        this.vtbl.IsSubpictureStreamEnabled := CallbackCreate(GetMethod(implObj, "IsSubpictureStreamEnabled"), flags, 3)
-        this.vtbl.IsAudioStreamEnabled := CallbackCreate(GetMethod(implObj, "IsAudioStreamEnabled"), flags, 3)
-        this.vtbl.get_CurrentSubpictureStream := CallbackCreate(GetMethod(implObj, "get_CurrentSubpictureStream"), flags, 2)
-        this.vtbl.put_CurrentSubpictureStream := CallbackCreate(GetMethod(implObj, "put_CurrentSubpictureStream"), flags, 2)
-        this.vtbl.get_SubpictureLanguage := CallbackCreate(GetMethod(implObj, "get_SubpictureLanguage"), flags, 3)
-        this.vtbl.get_CurrentAudioStream := CallbackCreate(GetMethod(implObj, "get_CurrentAudioStream"), flags, 2)
-        this.vtbl.put_CurrentAudioStream := CallbackCreate(GetMethod(implObj, "put_CurrentAudioStream"), flags, 2)
-        this.vtbl.get_AudioStreamsAvailable := CallbackCreate(GetMethod(implObj, "get_AudioStreamsAvailable"), flags, 2)
-        this.vtbl.get_AnglesAvailable := CallbackCreate(GetMethod(implObj, "get_AnglesAvailable"), flags, 2)
-        this.vtbl.get_CurrentAngle := CallbackCreate(GetMethod(implObj, "get_CurrentAngle"), flags, 2)
-        this.vtbl.put_CurrentAngle := CallbackCreate(GetMethod(implObj, "put_CurrentAngle"), flags, 2)
-        this.vtbl.get_SubpictureStreamsAvailable := CallbackCreate(GetMethod(implObj, "get_SubpictureStreamsAvailable"), flags, 2)
-        this.vtbl.get_SubpictureOn := CallbackCreate(GetMethod(implObj, "get_SubpictureOn"), flags, 2)
-        this.vtbl.put_SubpictureOn := CallbackCreate(GetMethod(implObj, "put_SubpictureOn"), flags, 2)
-        this.vtbl.get_DVDUniqueID := CallbackCreate(GetMethod(implObj, "get_DVDUniqueID"), flags, 2)
-        this.vtbl.AcceptParentalLevelChange := CallbackCreate(GetMethod(implObj, "AcceptParentalLevelChange"), flags, 4)
-        this.vtbl.NotifyParentalLevelChange := CallbackCreate(GetMethod(implObj, "NotifyParentalLevelChange"), flags, 2)
-        this.vtbl.SelectParentalCountry := CallbackCreate(GetMethod(implObj, "SelectParentalCountry"), flags, 4)
-        this.vtbl.SelectParentalLevel := CallbackCreate(GetMethod(implObj, "SelectParentalLevel"), flags, 4)
-        this.vtbl.get_TitleParentalLevels := CallbackCreate(GetMethod(implObj, "get_TitleParentalLevels"), flags, 3)
-        this.vtbl.get_PlayerParentalCountry := CallbackCreate(GetMethod(implObj, "get_PlayerParentalCountry"), flags, 2)
-        this.vtbl.get_PlayerParentalLevel := CallbackCreate(GetMethod(implObj, "get_PlayerParentalLevel"), flags, 2)
-        this.vtbl.Eject := CallbackCreate(GetMethod(implObj, "Eject"), flags, 1)
-        this.vtbl.UOPValid := CallbackCreate(GetMethod(implObj, "UOPValid"), flags, 3)
-        this.vtbl.get_SPRM := CallbackCreate(GetMethod(implObj, "get_SPRM"), flags, 3)
-        this.vtbl.get_GPRM := CallbackCreate(GetMethod(implObj, "get_GPRM"), flags, 3)
-        this.vtbl.put_GPRM := CallbackCreate(GetMethod(implObj, "put_GPRM"), flags, 3)
-        this.vtbl.get_DVDTextStringType := CallbackCreate(GetMethod(implObj, "get_DVDTextStringType"), flags, 4)
-        this.vtbl.get_DVDTextString := CallbackCreate(GetMethod(implObj, "get_DVDTextString"), flags, 4)
-        this.vtbl.get_DVDTextNumberOfStrings := CallbackCreate(GetMethod(implObj, "get_DVDTextNumberOfStrings"), flags, 3)
-        this.vtbl.get_DVDTextNumberOfLanguages := CallbackCreate(GetMethod(implObj, "get_DVDTextNumberOfLanguages"), flags, 2)
-        this.vtbl.get_DVDTextLanguageLCID := CallbackCreate(GetMethod(implObj, "get_DVDTextLanguageLCID"), flags, 3)
-        this.vtbl.RegionChange := CallbackCreate(GetMethod(implObj, "RegionChange"), flags, 1)
-        this.vtbl.get_DVDAdm := CallbackCreate(GetMethod(implObj, "get_DVDAdm"), flags, 2)
-        this.vtbl.DeleteBookmark := CallbackCreate(GetMethod(implObj, "DeleteBookmark"), flags, 1)
-        this.vtbl.RestoreBookmark := CallbackCreate(GetMethod(implObj, "RestoreBookmark"), flags, 1)
-        this.vtbl.SaveBookmark := CallbackCreate(GetMethod(implObj, "SaveBookmark"), flags, 1)
-        this.vtbl.SelectDefaultAudioLanguage := CallbackCreate(GetMethod(implObj, "SelectDefaultAudioLanguage"), flags, 3)
-        this.vtbl.SelectDefaultSubpictureLanguage := CallbackCreate(GetMethod(implObj, "SelectDefaultSubpictureLanguage"), flags, 3)
-        this.vtbl.get_PreferredSubpictureStream := CallbackCreate(GetMethod(implObj, "get_PreferredSubpictureStream"), flags, 2)
-        this.vtbl.get_DefaultMenuLanguage := CallbackCreate(GetMethod(implObj, "get_DefaultMenuLanguage"), flags, 2)
-        this.vtbl.put_DefaultMenuLanguage := CallbackCreate(GetMethod(implObj, "put_DefaultMenuLanguage"), flags, 2)
-        this.vtbl.get_DefaultSubpictureLanguage := CallbackCreate(GetMethod(implObj, "get_DefaultSubpictureLanguage"), flags, 2)
-        this.vtbl.get_DefaultAudioLanguage := CallbackCreate(GetMethod(implObj, "get_DefaultAudioLanguage"), flags, 2)
-        this.vtbl.get_DefaultSubpictureLanguageExt := CallbackCreate(GetMethod(implObj, "get_DefaultSubpictureLanguageExt"), flags, 2)
-        this.vtbl.get_DefaultAudioLanguageExt := CallbackCreate(GetMethod(implObj, "get_DefaultAudioLanguageExt"), flags, 2)
-        this.vtbl.get_LanguageFromLCID := CallbackCreate(GetMethod(implObj, "get_LanguageFromLCID"), flags, 3)
-        this.vtbl.get_KaraokeAudioPresentationMode := CallbackCreate(GetMethod(implObj, "get_KaraokeAudioPresentationMode"), flags, 2)
-        this.vtbl.put_KaraokeAudioPresentationMode := CallbackCreate(GetMethod(implObj, "put_KaraokeAudioPresentationMode"), flags, 2)
-        this.vtbl.get_KaraokeChannelContent := CallbackCreate(GetMethod(implObj, "get_KaraokeChannelContent"), flags, 4)
-        this.vtbl.get_KaraokeChannelAssignment := CallbackCreate(GetMethod(implObj, "get_KaraokeChannelAssignment"), flags, 3)
-        this.vtbl.RestorePreferredSettings := CallbackCreate(GetMethod(implObj, "RestorePreferredSettings"), flags, 1)
-        this.vtbl.get_ButtonRect := CallbackCreate(GetMethod(implObj, "get_ButtonRect"), flags, 3)
-        this.vtbl.get_DVDScreenInMouseCoordinates := CallbackCreate(GetMethod(implObj, "get_DVDScreenInMouseCoordinates"), flags, 2)
-        this.vtbl.put_DVDScreenInMouseCoordinates := CallbackCreate(GetMethod(implObj, "put_DVDScreenInMouseCoordinates"), flags, 2)
+        this.vtbl.OnDVDEvent := CallbackCreate(ObjBindMethod(implObj, "OnDVDEvent"), flags, 4)
+        this.vtbl.PlayTitle := CallbackCreate(ObjBindMethod(implObj, "PlayTitle"), flags, 2)
+        this.vtbl.PlayChapterInTitle := CallbackCreate(ObjBindMethod(implObj, "PlayChapterInTitle"), flags, 3)
+        this.vtbl.PlayChapter := CallbackCreate(ObjBindMethod(implObj, "PlayChapter"), flags, 2)
+        this.vtbl.PlayChaptersAutoStop := CallbackCreate(ObjBindMethod(implObj, "PlayChaptersAutoStop"), flags, 4)
+        this.vtbl.PlayAtTime := CallbackCreate(ObjBindMethod(implObj, "PlayAtTime"), flags, 2)
+        this.vtbl.PlayAtTimeInTitle := CallbackCreate(ObjBindMethod(implObj, "PlayAtTimeInTitle"), flags, 3)
+        this.vtbl.PlayPeriodInTitleAutoStop := CallbackCreate(ObjBindMethod(implObj, "PlayPeriodInTitleAutoStop"), flags, 4)
+        this.vtbl.ReplayChapter := CallbackCreate(ObjBindMethod(implObj, "ReplayChapter"), flags, 1)
+        this.vtbl.PlayPrevChapter := CallbackCreate(ObjBindMethod(implObj, "PlayPrevChapter"), flags, 1)
+        this.vtbl.PlayNextChapter := CallbackCreate(ObjBindMethod(implObj, "PlayNextChapter"), flags, 1)
+        this.vtbl.StillOff := CallbackCreate(ObjBindMethod(implObj, "StillOff"), flags, 1)
+        this.vtbl.get_AudioLanguage := CallbackCreate(ObjBindMethod(implObj, "get_AudioLanguage"), flags, 4)
+        this.vtbl.ShowMenu := CallbackCreate(ObjBindMethod(implObj, "ShowMenu"), flags, 2)
+        this.vtbl.Resume := CallbackCreate(ObjBindMethod(implObj, "Resume"), flags, 1)
+        this.vtbl.ReturnFromSubmenu := CallbackCreate(ObjBindMethod(implObj, "ReturnFromSubmenu"), flags, 1)
+        this.vtbl.get_ButtonsAvailable := CallbackCreate(ObjBindMethod(implObj, "get_ButtonsAvailable"), flags, 2)
+        this.vtbl.get_CurrentButton := CallbackCreate(ObjBindMethod(implObj, "get_CurrentButton"), flags, 2)
+        this.vtbl.SelectAndActivateButton := CallbackCreate(ObjBindMethod(implObj, "SelectAndActivateButton"), flags, 2)
+        this.vtbl.ActivateButton := CallbackCreate(ObjBindMethod(implObj, "ActivateButton"), flags, 1)
+        this.vtbl.SelectRightButton := CallbackCreate(ObjBindMethod(implObj, "SelectRightButton"), flags, 1)
+        this.vtbl.SelectLeftButton := CallbackCreate(ObjBindMethod(implObj, "SelectLeftButton"), flags, 1)
+        this.vtbl.SelectLowerButton := CallbackCreate(ObjBindMethod(implObj, "SelectLowerButton"), flags, 1)
+        this.vtbl.SelectUpperButton := CallbackCreate(ObjBindMethod(implObj, "SelectUpperButton"), flags, 1)
+        this.vtbl.ActivateAtPosition := CallbackCreate(ObjBindMethod(implObj, "ActivateAtPosition"), flags, 3)
+        this.vtbl.SelectAtPosition := CallbackCreate(ObjBindMethod(implObj, "SelectAtPosition"), flags, 3)
+        this.vtbl.get_ButtonAtPosition := CallbackCreate(ObjBindMethod(implObj, "get_ButtonAtPosition"), flags, 4)
+        this.vtbl.get_NumberOfChapters := CallbackCreate(ObjBindMethod(implObj, "get_NumberOfChapters"), flags, 3)
+        this.vtbl.get_TotalTitleTime := CallbackCreate(ObjBindMethod(implObj, "get_TotalTitleTime"), flags, 2)
+        this.vtbl.get_TitlesAvailable := CallbackCreate(ObjBindMethod(implObj, "get_TitlesAvailable"), flags, 2)
+        this.vtbl.get_VolumesAvailable := CallbackCreate(ObjBindMethod(implObj, "get_VolumesAvailable"), flags, 2)
+        this.vtbl.get_CurrentVolume := CallbackCreate(ObjBindMethod(implObj, "get_CurrentVolume"), flags, 2)
+        this.vtbl.get_CurrentDiscSide := CallbackCreate(ObjBindMethod(implObj, "get_CurrentDiscSide"), flags, 2)
+        this.vtbl.get_CurrentDomain := CallbackCreate(ObjBindMethod(implObj, "get_CurrentDomain"), flags, 2)
+        this.vtbl.get_CurrentChapter := CallbackCreate(ObjBindMethod(implObj, "get_CurrentChapter"), flags, 2)
+        this.vtbl.get_CurrentTitle := CallbackCreate(ObjBindMethod(implObj, "get_CurrentTitle"), flags, 2)
+        this.vtbl.get_CurrentTime := CallbackCreate(ObjBindMethod(implObj, "get_CurrentTime"), flags, 2)
+        this.vtbl.DVDTimeCode2bstr := CallbackCreate(ObjBindMethod(implObj, "DVDTimeCode2bstr"), flags, 3)
+        this.vtbl.get_DVDDirectory := CallbackCreate(ObjBindMethod(implObj, "get_DVDDirectory"), flags, 2)
+        this.vtbl.put_DVDDirectory := CallbackCreate(ObjBindMethod(implObj, "put_DVDDirectory"), flags, 2)
+        this.vtbl.IsSubpictureStreamEnabled := CallbackCreate(ObjBindMethod(implObj, "IsSubpictureStreamEnabled"), flags, 3)
+        this.vtbl.IsAudioStreamEnabled := CallbackCreate(ObjBindMethod(implObj, "IsAudioStreamEnabled"), flags, 3)
+        this.vtbl.get_CurrentSubpictureStream := CallbackCreate(ObjBindMethod(implObj, "get_CurrentSubpictureStream"), flags, 2)
+        this.vtbl.put_CurrentSubpictureStream := CallbackCreate(ObjBindMethod(implObj, "put_CurrentSubpictureStream"), flags, 2)
+        this.vtbl.get_SubpictureLanguage := CallbackCreate(ObjBindMethod(implObj, "get_SubpictureLanguage"), flags, 3)
+        this.vtbl.get_CurrentAudioStream := CallbackCreate(ObjBindMethod(implObj, "get_CurrentAudioStream"), flags, 2)
+        this.vtbl.put_CurrentAudioStream := CallbackCreate(ObjBindMethod(implObj, "put_CurrentAudioStream"), flags, 2)
+        this.vtbl.get_AudioStreamsAvailable := CallbackCreate(ObjBindMethod(implObj, "get_AudioStreamsAvailable"), flags, 2)
+        this.vtbl.get_AnglesAvailable := CallbackCreate(ObjBindMethod(implObj, "get_AnglesAvailable"), flags, 2)
+        this.vtbl.get_CurrentAngle := CallbackCreate(ObjBindMethod(implObj, "get_CurrentAngle"), flags, 2)
+        this.vtbl.put_CurrentAngle := CallbackCreate(ObjBindMethod(implObj, "put_CurrentAngle"), flags, 2)
+        this.vtbl.get_SubpictureStreamsAvailable := CallbackCreate(ObjBindMethod(implObj, "get_SubpictureStreamsAvailable"), flags, 2)
+        this.vtbl.get_SubpictureOn := CallbackCreate(ObjBindMethod(implObj, "get_SubpictureOn"), flags, 2)
+        this.vtbl.put_SubpictureOn := CallbackCreate(ObjBindMethod(implObj, "put_SubpictureOn"), flags, 2)
+        this.vtbl.get_DVDUniqueID := CallbackCreate(ObjBindMethod(implObj, "get_DVDUniqueID"), flags, 2)
+        this.vtbl.AcceptParentalLevelChange := CallbackCreate(ObjBindMethod(implObj, "AcceptParentalLevelChange"), flags, 4)
+        this.vtbl.NotifyParentalLevelChange := CallbackCreate(ObjBindMethod(implObj, "NotifyParentalLevelChange"), flags, 2)
+        this.vtbl.SelectParentalCountry := CallbackCreate(ObjBindMethod(implObj, "SelectParentalCountry"), flags, 4)
+        this.vtbl.SelectParentalLevel := CallbackCreate(ObjBindMethod(implObj, "SelectParentalLevel"), flags, 4)
+        this.vtbl.get_TitleParentalLevels := CallbackCreate(ObjBindMethod(implObj, "get_TitleParentalLevels"), flags, 3)
+        this.vtbl.get_PlayerParentalCountry := CallbackCreate(ObjBindMethod(implObj, "get_PlayerParentalCountry"), flags, 2)
+        this.vtbl.get_PlayerParentalLevel := CallbackCreate(ObjBindMethod(implObj, "get_PlayerParentalLevel"), flags, 2)
+        this.vtbl.Eject := CallbackCreate(ObjBindMethod(implObj, "Eject"), flags, 1)
+        this.vtbl.UOPValid := CallbackCreate(ObjBindMethod(implObj, "UOPValid"), flags, 3)
+        this.vtbl.get_SPRM := CallbackCreate(ObjBindMethod(implObj, "get_SPRM"), flags, 3)
+        this.vtbl.get_GPRM := CallbackCreate(ObjBindMethod(implObj, "get_GPRM"), flags, 3)
+        this.vtbl.put_GPRM := CallbackCreate(ObjBindMethod(implObj, "put_GPRM"), flags, 3)
+        this.vtbl.get_DVDTextStringType := CallbackCreate(ObjBindMethod(implObj, "get_DVDTextStringType"), flags, 4)
+        this.vtbl.get_DVDTextString := CallbackCreate(ObjBindMethod(implObj, "get_DVDTextString"), flags, 4)
+        this.vtbl.get_DVDTextNumberOfStrings := CallbackCreate(ObjBindMethod(implObj, "get_DVDTextNumberOfStrings"), flags, 3)
+        this.vtbl.get_DVDTextNumberOfLanguages := CallbackCreate(ObjBindMethod(implObj, "get_DVDTextNumberOfLanguages"), flags, 2)
+        this.vtbl.get_DVDTextLanguageLCID := CallbackCreate(ObjBindMethod(implObj, "get_DVDTextLanguageLCID"), flags, 3)
+        this.vtbl.RegionChange := CallbackCreate(ObjBindMethod(implObj, "RegionChange"), flags, 1)
+        this.vtbl.get_DVDAdm := CallbackCreate(ObjBindMethod(implObj, "get_DVDAdm"), flags, 2)
+        this.vtbl.DeleteBookmark := CallbackCreate(ObjBindMethod(implObj, "DeleteBookmark"), flags, 1)
+        this.vtbl.RestoreBookmark := CallbackCreate(ObjBindMethod(implObj, "RestoreBookmark"), flags, 1)
+        this.vtbl.SaveBookmark := CallbackCreate(ObjBindMethod(implObj, "SaveBookmark"), flags, 1)
+        this.vtbl.SelectDefaultAudioLanguage := CallbackCreate(ObjBindMethod(implObj, "SelectDefaultAudioLanguage"), flags, 3)
+        this.vtbl.SelectDefaultSubpictureLanguage := CallbackCreate(ObjBindMethod(implObj, "SelectDefaultSubpictureLanguage"), flags, 3)
+        this.vtbl.get_PreferredSubpictureStream := CallbackCreate(ObjBindMethod(implObj, "get_PreferredSubpictureStream"), flags, 2)
+        this.vtbl.get_DefaultMenuLanguage := CallbackCreate(ObjBindMethod(implObj, "get_DefaultMenuLanguage"), flags, 2)
+        this.vtbl.put_DefaultMenuLanguage := CallbackCreate(ObjBindMethod(implObj, "put_DefaultMenuLanguage"), flags, 2)
+        this.vtbl.get_DefaultSubpictureLanguage := CallbackCreate(ObjBindMethod(implObj, "get_DefaultSubpictureLanguage"), flags, 2)
+        this.vtbl.get_DefaultAudioLanguage := CallbackCreate(ObjBindMethod(implObj, "get_DefaultAudioLanguage"), flags, 2)
+        this.vtbl.get_DefaultSubpictureLanguageExt := CallbackCreate(ObjBindMethod(implObj, "get_DefaultSubpictureLanguageExt"), flags, 2)
+        this.vtbl.get_DefaultAudioLanguageExt := CallbackCreate(ObjBindMethod(implObj, "get_DefaultAudioLanguageExt"), flags, 2)
+        this.vtbl.get_LanguageFromLCID := CallbackCreate(ObjBindMethod(implObj, "get_LanguageFromLCID"), flags, 3)
+        this.vtbl.get_KaraokeAudioPresentationMode := CallbackCreate(ObjBindMethod(implObj, "get_KaraokeAudioPresentationMode"), flags, 2)
+        this.vtbl.put_KaraokeAudioPresentationMode := CallbackCreate(ObjBindMethod(implObj, "put_KaraokeAudioPresentationMode"), flags, 2)
+        this.vtbl.get_KaraokeChannelContent := CallbackCreate(ObjBindMethod(implObj, "get_KaraokeChannelContent"), flags, 4)
+        this.vtbl.get_KaraokeChannelAssignment := CallbackCreate(ObjBindMethod(implObj, "get_KaraokeChannelAssignment"), flags, 3)
+        this.vtbl.RestorePreferredSettings := CallbackCreate(ObjBindMethod(implObj, "RestorePreferredSettings"), flags, 1)
+        this.vtbl.get_ButtonRect := CallbackCreate(ObjBindMethod(implObj, "get_ButtonRect"), flags, 3)
+        this.vtbl.get_DVDScreenInMouseCoordinates := CallbackCreate(ObjBindMethod(implObj, "get_DVDScreenInMouseCoordinates"), flags, 2)
+        this.vtbl.put_DVDScreenInMouseCoordinates := CallbackCreate(ObjBindMethod(implObj, "put_DVDScreenInMouseCoordinates"), flags, 2)
     }
 
     Dispose() {

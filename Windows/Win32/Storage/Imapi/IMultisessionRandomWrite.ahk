@@ -108,9 +108,9 @@ export default struct IMultisessionRandomWrite extends IMultisession {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_WriteUnitSize := CallbackCreate(GetMethod(implObj, "get_WriteUnitSize"), flags, 2)
-        this.vtbl.get_LastWrittenAddress := CallbackCreate(GetMethod(implObj, "get_LastWrittenAddress"), flags, 2)
-        this.vtbl.get_TotalSectorsOnMedia := CallbackCreate(GetMethod(implObj, "get_TotalSectorsOnMedia"), flags, 2)
+        this.vtbl.get_WriteUnitSize := CallbackCreate(ObjBindMethod(implObj, "get_WriteUnitSize"), flags, 2)
+        this.vtbl.get_LastWrittenAddress := CallbackCreate(ObjBindMethod(implObj, "get_LastWrittenAddress"), flags, 2)
+        this.vtbl.get_TotalSectorsOnMedia := CallbackCreate(ObjBindMethod(implObj, "get_TotalSectorsOnMedia"), flags, 2)
     }
 
     Dispose() {

@@ -83,8 +83,8 @@ export default struct IMFContentDecryptionModuleSession extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nf-mfcontentdecryptionmodule-imfcontentdecryptionmodulesession-getkeystatuses
      */
     GetKeyStatuses(keyStatuses, numKeyStatuses) {
-        keyStatusesMarshal := keyStatuses is VarRef ? "ptr*" : "ptr"
-        numKeyStatusesMarshal := numKeyStatuses is VarRef ? "uint*" : "ptr"
+        keyStatusesMarshal := keyStatuses is VarRef ? "ptr*" : IntPtr
+        numKeyStatusesMarshal := numKeyStatuses is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, keyStatusesMarshal, keyStatuses, numKeyStatusesMarshal, numKeyStatuses, "HRESULT")
         return result
@@ -118,7 +118,7 @@ export default struct IMFContentDecryptionModuleSession extends IUnknown {
     GenerateRequest(initDataType, initData, initDataSize) {
         initDataType := initDataType is String ? StrPtr(initDataType) : initDataType
 
-        initDataMarshal := initData is VarRef ? "char*" : "ptr"
+        initDataMarshal := initData is VarRef ? "char*" : IntPtr
 
         result := ComCall(7, this, "ptr", initDataType, initDataMarshal, initData, UInt32, initDataSize, "HRESULT")
         return result
@@ -134,7 +134,7 @@ export default struct IMFContentDecryptionModuleSession extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nf-mfcontentdecryptionmodule-imfcontentdecryptionmodulesession-update
      */
     Update(response, responseSize) {
-        responseMarshal := response is VarRef ? "char*" : "ptr"
+        responseMarshal := response is VarRef ? "char*" : IntPtr
 
         result := ComCall(8, this, responseMarshal, response, UInt32, responseSize, "HRESULT")
         return result
@@ -176,14 +176,14 @@ export default struct IMFContentDecryptionModuleSession extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSessionId := CallbackCreate(GetMethod(implObj, "GetSessionId"), flags, 2)
-        this.vtbl.GetExpiration := CallbackCreate(GetMethod(implObj, "GetExpiration"), flags, 2)
-        this.vtbl.GetKeyStatuses := CallbackCreate(GetMethod(implObj, "GetKeyStatuses"), flags, 3)
-        this.vtbl.Load := CallbackCreate(GetMethod(implObj, "Load"), flags, 3)
-        this.vtbl.GenerateRequest := CallbackCreate(GetMethod(implObj, "GenerateRequest"), flags, 4)
-        this.vtbl.Update := CallbackCreate(GetMethod(implObj, "Update"), flags, 3)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 1)
+        this.vtbl.GetSessionId := CallbackCreate(ObjBindMethod(implObj, "GetSessionId"), flags, 2)
+        this.vtbl.GetExpiration := CallbackCreate(ObjBindMethod(implObj, "GetExpiration"), flags, 2)
+        this.vtbl.GetKeyStatuses := CallbackCreate(ObjBindMethod(implObj, "GetKeyStatuses"), flags, 3)
+        this.vtbl.Load := CallbackCreate(ObjBindMethod(implObj, "Load"), flags, 3)
+        this.vtbl.GenerateRequest := CallbackCreate(ObjBindMethod(implObj, "GenerateRequest"), flags, 4)
+        this.vtbl.Update := CallbackCreate(ObjBindMethod(implObj, "Update"), flags, 3)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 1)
     }
 
     Dispose() {

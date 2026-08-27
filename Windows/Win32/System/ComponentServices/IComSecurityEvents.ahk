@@ -56,8 +56,8 @@ export default struct IComSecurityEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomsecurityevents-onauthenticate
      */
     OnAuthenticate(pInfo, guidActivity, _ObjectID, guidIID, iMeth, cbByteOrig, pSidOriginalUser, cbByteCur, pSidCurrentUser, bCurrentUserInpersonatingInProc) {
-        pSidOriginalUserMarshal := pSidOriginalUser is VarRef ? "char*" : "ptr"
-        pSidCurrentUserMarshal := pSidCurrentUser is VarRef ? "char*" : "ptr"
+        pSidOriginalUserMarshal := pSidOriginalUser is VarRef ? "char*" : IntPtr
+        pSidCurrentUserMarshal := pSidCurrentUser is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidActivity, Int64, _ObjectID, Guid.Ptr, guidIID, UInt32, iMeth, UInt32, cbByteOrig, pSidOriginalUserMarshal, pSidOriginalUser, UInt32, cbByteCur, pSidCurrentUserMarshal, pSidCurrentUser, BOOL, bCurrentUserInpersonatingInProc, "HRESULT")
         return result
@@ -79,8 +79,8 @@ export default struct IComSecurityEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomsecurityevents-onauthenticatefail
      */
     OnAuthenticateFail(pInfo, guidActivity, _ObjectID, guidIID, iMeth, cbByteOrig, pSidOriginalUser, cbByteCur, pSidCurrentUser, bCurrentUserInpersonatingInProc) {
-        pSidOriginalUserMarshal := pSidOriginalUser is VarRef ? "char*" : "ptr"
-        pSidCurrentUserMarshal := pSidCurrentUser is VarRef ? "char*" : "ptr"
+        pSidOriginalUserMarshal := pSidOriginalUser is VarRef ? "char*" : IntPtr
+        pSidCurrentUserMarshal := pSidCurrentUser is VarRef ? "char*" : IntPtr
 
         result := ComCall(4, this, COMSVCSEVENTINFO.Ptr, pInfo, Guid.Ptr, guidActivity, Int64, _ObjectID, Guid.Ptr, guidIID, UInt32, iMeth, UInt32, cbByteOrig, pSidOriginalUserMarshal, pSidOriginalUser, UInt32, cbByteCur, pSidCurrentUserMarshal, pSidCurrentUser, BOOL, bCurrentUserInpersonatingInProc, "HRESULT")
         return result
@@ -95,8 +95,8 @@ export default struct IComSecurityEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnAuthenticate := CallbackCreate(GetMethod(implObj, "OnAuthenticate"), flags, 11)
-        this.vtbl.OnAuthenticateFail := CallbackCreate(GetMethod(implObj, "OnAuthenticateFail"), flags, 11)
+        this.vtbl.OnAuthenticate := CallbackCreate(ObjBindMethod(implObj, "OnAuthenticate"), flags, 11)
+        this.vtbl.OnAuthenticateFail := CallbackCreate(ObjBindMethod(implObj, "OnAuthenticateFail"), flags, 11)
     }
 
     Dispose() {

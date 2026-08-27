@@ -86,7 +86,7 @@ export default struct ISyncProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetIdParameters := CallbackCreate(GetMethod(implObj, "GetIdParameters"), flags, 2)
+        this.vtbl.GetIdParameters := CallbackCreate(ObjBindMethod(implObj, "GetIdParameters"), flags, 2)
     }
 
     Dispose() {

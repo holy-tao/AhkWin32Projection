@@ -57,7 +57,7 @@ export default struct ID3D12VideoEncodeCommandList3 extends ID3D12VideoEncodeCom
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Barrier := CallbackCreate(GetMethod(implObj, "Barrier"), flags, 3)
+        this.vtbl.Barrier := CallbackCreate(ObjBindMethod(implObj, "Barrier"), flags, 3)
     }
 
     Dispose() {

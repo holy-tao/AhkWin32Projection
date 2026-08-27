@@ -1459,9 +1459,9 @@ export default struct IBackgroundCopyJob extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyjob-getproxysettings
      */
     GetProxySettings(pProxyUsage, pProxyList, pProxyBypassList) {
-        pProxyUsageMarshal := pProxyUsage is VarRef ? "int*" : "ptr"
-        pProxyListMarshal := pProxyList is VarRef ? "ptr*" : "ptr"
-        pProxyBypassListMarshal := pProxyBypassList is VarRef ? "ptr*" : "ptr"
+        pProxyUsageMarshal := pProxyUsage is VarRef ? "int*" : IntPtr
+        pProxyListMarshal := pProxyList is VarRef ? "ptr*" : IntPtr
+        pProxyBypassListMarshal := pProxyBypassList is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(33, this, pProxyUsageMarshal, pProxyUsage, pProxyListMarshal, pProxyList, pProxyBypassListMarshal, pProxyBypassList, Int32)
         if(result != 0) {
@@ -1572,38 +1572,38 @@ export default struct IBackgroundCopyJob extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddFileSet := CallbackCreate(GetMethod(implObj, "AddFileSet"), flags, 3)
-        this.vtbl.AddFile := CallbackCreate(GetMethod(implObj, "AddFile"), flags, 3)
-        this.vtbl.EnumFiles := CallbackCreate(GetMethod(implObj, "EnumFiles"), flags, 2)
-        this.vtbl.Suspend := CallbackCreate(GetMethod(implObj, "Suspend"), flags, 1)
-        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 1)
-        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
-        this.vtbl.Complete := CallbackCreate(GetMethod(implObj, "Complete"), flags, 1)
-        this.vtbl.GetId := CallbackCreate(GetMethod(implObj, "GetId"), flags, 2)
-        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
-        this.vtbl.GetProgress := CallbackCreate(GetMethod(implObj, "GetProgress"), flags, 2)
-        this.vtbl.GetTimes := CallbackCreate(GetMethod(implObj, "GetTimes"), flags, 2)
-        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 2)
-        this.vtbl.GetError := CallbackCreate(GetMethod(implObj, "GetError"), flags, 2)
-        this.vtbl.GetOwner := CallbackCreate(GetMethod(implObj, "GetOwner"), flags, 2)
-        this.vtbl.SetDisplayName := CallbackCreate(GetMethod(implObj, "SetDisplayName"), flags, 2)
-        this.vtbl.GetDisplayName := CallbackCreate(GetMethod(implObj, "GetDisplayName"), flags, 2)
-        this.vtbl.SetDescription := CallbackCreate(GetMethod(implObj, "SetDescription"), flags, 2)
-        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 2)
-        this.vtbl.SetPriority := CallbackCreate(GetMethod(implObj, "SetPriority"), flags, 2)
-        this.vtbl.GetPriority := CallbackCreate(GetMethod(implObj, "GetPriority"), flags, 2)
-        this.vtbl.SetNotifyFlags := CallbackCreate(GetMethod(implObj, "SetNotifyFlags"), flags, 2)
-        this.vtbl.GetNotifyFlags := CallbackCreate(GetMethod(implObj, "GetNotifyFlags"), flags, 2)
-        this.vtbl.SetNotifyInterface := CallbackCreate(GetMethod(implObj, "SetNotifyInterface"), flags, 2)
-        this.vtbl.GetNotifyInterface := CallbackCreate(GetMethod(implObj, "GetNotifyInterface"), flags, 2)
-        this.vtbl.SetMinimumRetryDelay := CallbackCreate(GetMethod(implObj, "SetMinimumRetryDelay"), flags, 2)
-        this.vtbl.GetMinimumRetryDelay := CallbackCreate(GetMethod(implObj, "GetMinimumRetryDelay"), flags, 2)
-        this.vtbl.SetNoProgressTimeout := CallbackCreate(GetMethod(implObj, "SetNoProgressTimeout"), flags, 2)
-        this.vtbl.GetNoProgressTimeout := CallbackCreate(GetMethod(implObj, "GetNoProgressTimeout"), flags, 2)
-        this.vtbl.GetErrorCount := CallbackCreate(GetMethod(implObj, "GetErrorCount"), flags, 2)
-        this.vtbl.SetProxySettings := CallbackCreate(GetMethod(implObj, "SetProxySettings"), flags, 4)
-        this.vtbl.GetProxySettings := CallbackCreate(GetMethod(implObj, "GetProxySettings"), flags, 4)
-        this.vtbl.TakeOwnership := CallbackCreate(GetMethod(implObj, "TakeOwnership"), flags, 1)
+        this.vtbl.AddFileSet := CallbackCreate(ObjBindMethod(implObj, "AddFileSet"), flags, 3)
+        this.vtbl.AddFile := CallbackCreate(ObjBindMethod(implObj, "AddFile"), flags, 3)
+        this.vtbl.EnumFiles := CallbackCreate(ObjBindMethod(implObj, "EnumFiles"), flags, 2)
+        this.vtbl.Suspend := CallbackCreate(ObjBindMethod(implObj, "Suspend"), flags, 1)
+        this.vtbl.Resume := CallbackCreate(ObjBindMethod(implObj, "Resume"), flags, 1)
+        this.vtbl.Cancel := CallbackCreate(ObjBindMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.Complete := CallbackCreate(ObjBindMethod(implObj, "Complete"), flags, 1)
+        this.vtbl.GetId := CallbackCreate(ObjBindMethod(implObj, "GetId"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(ObjBindMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.GetProgress := CallbackCreate(ObjBindMethod(implObj, "GetProgress"), flags, 2)
+        this.vtbl.GetTimes := CallbackCreate(ObjBindMethod(implObj, "GetTimes"), flags, 2)
+        this.vtbl.GetState := CallbackCreate(ObjBindMethod(implObj, "GetState"), flags, 2)
+        this.vtbl.GetError := CallbackCreate(ObjBindMethod(implObj, "GetError"), flags, 2)
+        this.vtbl.GetOwner := CallbackCreate(ObjBindMethod(implObj, "GetOwner"), flags, 2)
+        this.vtbl.SetDisplayName := CallbackCreate(ObjBindMethod(implObj, "SetDisplayName"), flags, 2)
+        this.vtbl.GetDisplayName := CallbackCreate(ObjBindMethod(implObj, "GetDisplayName"), flags, 2)
+        this.vtbl.SetDescription := CallbackCreate(ObjBindMethod(implObj, "SetDescription"), flags, 2)
+        this.vtbl.GetDescription := CallbackCreate(ObjBindMethod(implObj, "GetDescription"), flags, 2)
+        this.vtbl.SetPriority := CallbackCreate(ObjBindMethod(implObj, "SetPriority"), flags, 2)
+        this.vtbl.GetPriority := CallbackCreate(ObjBindMethod(implObj, "GetPriority"), flags, 2)
+        this.vtbl.SetNotifyFlags := CallbackCreate(ObjBindMethod(implObj, "SetNotifyFlags"), flags, 2)
+        this.vtbl.GetNotifyFlags := CallbackCreate(ObjBindMethod(implObj, "GetNotifyFlags"), flags, 2)
+        this.vtbl.SetNotifyInterface := CallbackCreate(ObjBindMethod(implObj, "SetNotifyInterface"), flags, 2)
+        this.vtbl.GetNotifyInterface := CallbackCreate(ObjBindMethod(implObj, "GetNotifyInterface"), flags, 2)
+        this.vtbl.SetMinimumRetryDelay := CallbackCreate(ObjBindMethod(implObj, "SetMinimumRetryDelay"), flags, 2)
+        this.vtbl.GetMinimumRetryDelay := CallbackCreate(ObjBindMethod(implObj, "GetMinimumRetryDelay"), flags, 2)
+        this.vtbl.SetNoProgressTimeout := CallbackCreate(ObjBindMethod(implObj, "SetNoProgressTimeout"), flags, 2)
+        this.vtbl.GetNoProgressTimeout := CallbackCreate(ObjBindMethod(implObj, "GetNoProgressTimeout"), flags, 2)
+        this.vtbl.GetErrorCount := CallbackCreate(ObjBindMethod(implObj, "GetErrorCount"), flags, 2)
+        this.vtbl.SetProxySettings := CallbackCreate(ObjBindMethod(implObj, "SetProxySettings"), flags, 4)
+        this.vtbl.GetProxySettings := CallbackCreate(ObjBindMethod(implObj, "GetProxySettings"), flags, 4)
+        this.vtbl.TakeOwnership := CallbackCreate(ObjBindMethod(implObj, "TakeOwnership"), flags, 1)
     }
 
     Dispose() {

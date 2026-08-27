@@ -201,12 +201,12 @@ export default struct ICEnroll2 extends ICEnroll {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.addCertTypeToRequest := CallbackCreate(GetMethod(implObj, "addCertTypeToRequest"), flags, 2)
-        this.vtbl.addNameValuePairToSignature := CallbackCreate(GetMethod(implObj, "addNameValuePairToSignature"), flags, 3)
-        this.vtbl.get_WriteCertToUserDS := CallbackCreate(GetMethod(implObj, "get_WriteCertToUserDS"), flags, 2)
-        this.vtbl.put_WriteCertToUserDS := CallbackCreate(GetMethod(implObj, "put_WriteCertToUserDS"), flags, 2)
-        this.vtbl.get_EnableT61DNEncoding := CallbackCreate(GetMethod(implObj, "get_EnableT61DNEncoding"), flags, 2)
-        this.vtbl.put_EnableT61DNEncoding := CallbackCreate(GetMethod(implObj, "put_EnableT61DNEncoding"), flags, 2)
+        this.vtbl.addCertTypeToRequest := CallbackCreate(ObjBindMethod(implObj, "addCertTypeToRequest"), flags, 2)
+        this.vtbl.addNameValuePairToSignature := CallbackCreate(ObjBindMethod(implObj, "addNameValuePairToSignature"), flags, 3)
+        this.vtbl.get_WriteCertToUserDS := CallbackCreate(ObjBindMethod(implObj, "get_WriteCertToUserDS"), flags, 2)
+        this.vtbl.put_WriteCertToUserDS := CallbackCreate(ObjBindMethod(implObj, "put_WriteCertToUserDS"), flags, 2)
+        this.vtbl.get_EnableT61DNEncoding := CallbackCreate(ObjBindMethod(implObj, "get_EnableT61DNEncoding"), flags, 2)
+        this.vtbl.put_EnableT61DNEncoding := CallbackCreate(ObjBindMethod(implObj, "put_EnableT61DNEncoding"), flags, 2)
     }
 
     Dispose() {

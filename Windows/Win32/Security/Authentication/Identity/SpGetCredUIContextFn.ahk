@@ -26,7 +26,6 @@ export default struct SpGetCredUIContextFn {
     }
 
     /**
-     * 
      * @param {Pointer} ContextHandle A handle to the context for which to get information.
      * @param {Pointer<Guid>} CredType 
      * @param {Pointer<Integer>} FlatCredUIContextLength The size, in characters, of the buffer received by the <i>FlatCredUIContext</i> parameter.
@@ -36,8 +35,8 @@ export default struct SpGetCredUIContextFn {
      * If the function fails, return an <b>NTSTATUS</b> error code that indicates the reason it failed. For more information, see Remarks.
      */
     Call(ContextHandle, CredType, FlatCredUIContextLength, FlatCredUIContext) {
-        FlatCredUIContextLengthMarshal := FlatCredUIContextLength is VarRef ? "uint*" : "ptr"
-        FlatCredUIContextMarshal := FlatCredUIContext is VarRef ? "ptr*" : "ptr"
+        FlatCredUIContextLengthMarshal := FlatCredUIContextLength is VarRef ? "uint*" : IntPtr
+        FlatCredUIContextMarshal := FlatCredUIContext is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, IntPtr, ContextHandle, Guid.Ptr, CredType, FlatCredUIContextLengthMarshal, FlatCredUIContextLength, FlatCredUIContextMarshal, FlatCredUIContext, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

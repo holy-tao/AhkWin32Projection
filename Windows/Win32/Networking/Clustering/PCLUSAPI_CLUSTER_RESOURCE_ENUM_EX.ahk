@@ -20,7 +20,6 @@ export default struct PCLUSAPI_CLUSTER_RESOURCE_ENUM_EX {
     }
 
     /**
-     * 
      * @param {HRESENUMEX} hResourceEnumEx 
      * @param {Integer} dwIndex 
      * @param {Pointer<CLUSTER_RESOURCE_ENUM_ITEM>} pItem 
@@ -28,7 +27,7 @@ export default struct PCLUSAPI_CLUSTER_RESOURCE_ENUM_EX {
      * @returns {Integer} 
      */
     Call(hResourceEnumEx, dwIndex, pItem, cbItem) {
-        cbItemMarshal := cbItem is VarRef ? "uint*" : "ptr"
+        cbItemMarshal := cbItem is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HRESENUMEX, hResourceEnumEx, UInt32, dwIndex, CLUSTER_RESOURCE_ENUM_ITEM.Ptr, pItem, cbItemMarshal, cbItem, UInt32)
         return result

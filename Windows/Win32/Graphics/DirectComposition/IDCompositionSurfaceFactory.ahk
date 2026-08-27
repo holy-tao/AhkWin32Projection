@@ -120,8 +120,8 @@ export default struct IDCompositionSurfaceFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateSurface := CallbackCreate(GetMethod(implObj, "CreateSurface"), flags, 6)
-        this.vtbl.CreateVirtualSurface := CallbackCreate(GetMethod(implObj, "CreateVirtualSurface"), flags, 6)
+        this.vtbl.CreateSurface := CallbackCreate(ObjBindMethod(implObj, "CreateSurface"), flags, 6)
+        this.vtbl.CreateVirtualSurface := CallbackCreate(ObjBindMethod(implObj, "CreateVirtualSurface"), flags, 6)
     }
 
     Dispose() {

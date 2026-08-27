@@ -19,7 +19,6 @@ export default struct PCLUSAPI_DELETE_CLUSTER_GROUP {
     }
 
     /**
-     * 
      * @param {HGROUP} _hGroup 
      * @returns {Integer} 
      */

@@ -99,8 +99,8 @@ export default struct IPortableDeviceServiceManager extends IUnknown {
     GetDeviceServices(pszPnPDeviceID, guidServiceCategory, pServices, pcServices) {
         pszPnPDeviceID := pszPnPDeviceID is String ? StrPtr(pszPnPDeviceID) : pszPnPDeviceID
 
-        pServicesMarshal := pServices is VarRef ? "ptr*" : "ptr"
-        pcServicesMarshal := pcServices is VarRef ? "uint*" : "ptr"
+        pServicesMarshal := pServices is VarRef ? "ptr*" : IntPtr
+        pcServicesMarshal := pcServices is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, "ptr", pszPnPDeviceID, Guid.Ptr, guidServiceCategory, pServicesMarshal, pServices, pcServicesMarshal, pcServices, "HRESULT")
         return result
@@ -132,8 +132,8 @@ export default struct IPortableDeviceServiceManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDeviceServices := CallbackCreate(GetMethod(implObj, "GetDeviceServices"), flags, 5)
-        this.vtbl.GetDeviceForService := CallbackCreate(GetMethod(implObj, "GetDeviceForService"), flags, 3)
+        this.vtbl.GetDeviceServices := CallbackCreate(ObjBindMethod(implObj, "GetDeviceServices"), flags, 5)
+        this.vtbl.GetDeviceForService := CallbackCreate(ObjBindMethod(implObj, "GetDeviceForService"), flags, 3)
     }
 
     Dispose() {

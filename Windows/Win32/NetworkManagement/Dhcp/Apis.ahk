@@ -109,7 +109,7 @@
  * @since windows6.0.6000
  */
 export Dhcpv6CApiInitialize(_Version) {
-    _VersionMarshal := _Version is VarRef ? "uint*" : "ptr"
+    _VersionMarshal := _Version is VarRef ? "uint*" : IntPtr
 
     DllCall("dhcpcsvc6.dll\Dhcpv6CApiInitialize", _VersionMarshal, _Version)
 }
@@ -188,9 +188,9 @@ export Dhcpv6CApiCleanup() {
 export Dhcpv6RequestParams(forceNewInform, reserved, adapterName, classId, recdParams, _buffer, pSize) {
     adapterName := adapterName is String ? StrPtr(adapterName) : adapterName
 
-    reservedMarshal := reserved is VarRef ? "ptr" : "ptr"
-    _bufferMarshal := _buffer is VarRef ? "char*" : "ptr"
-    pSizeMarshal := pSize is VarRef ? "uint*" : "ptr"
+    reservedMarshal := reserved is VarRef ? "ptr" : IntPtr
+    _bufferMarshal := _buffer is VarRef ? "char*" : IntPtr
+    pSizeMarshal := pSize is VarRef ? "uint*" : IntPtr
 
     result := DllCall("dhcpcsvc6.dll\Dhcpv6RequestParams", BOOL, forceNewInform, reservedMarshal, reserved, "ptr", adapterName, DHCPV6CAPI_CLASSID.Ptr, classId, DHCPV6CAPI_PARAMS_ARRAY, recdParams, _bufferMarshal, _buffer, pSizeMarshal, pSize, UInt32)
     return result
@@ -291,7 +291,7 @@ export Dhcpv6RequestParams(forceNewInform, reserved, adapterName, classId, recdP
 export Dhcpv6RequestPrefix(adapterName, pclassId, prefixleaseInfo, pdwTimeToWait) {
     adapterName := adapterName is String ? StrPtr(adapterName) : adapterName
 
-    pdwTimeToWaitMarshal := pdwTimeToWait is VarRef ? "uint*" : "ptr"
+    pdwTimeToWaitMarshal := pdwTimeToWait is VarRef ? "uint*" : IntPtr
 
     result := DllCall("dhcpcsvc6.dll\Dhcpv6RequestPrefix", "ptr", adapterName, DHCPV6CAPI_CLASSID.Ptr, pclassId, DHCPV6PrefixLeaseInformation.Ptr, prefixleaseInfo, pdwTimeToWaitMarshal, pdwTimeToWait, UInt32)
     return result
@@ -361,7 +361,7 @@ export Dhcpv6RequestPrefix(adapterName, pclassId, prefixleaseInfo, pdwTimeToWait
 export Dhcpv6RenewPrefix(adapterName, pclassId, prefixleaseInfo, pdwTimeToWait, bValidatePrefix) {
     adapterName := adapterName is String ? StrPtr(adapterName) : adapterName
 
-    pdwTimeToWaitMarshal := pdwTimeToWait is VarRef ? "uint*" : "ptr"
+    pdwTimeToWaitMarshal := pdwTimeToWait is VarRef ? "uint*" : IntPtr
 
     result := DllCall("dhcpcsvc6.dll\Dhcpv6RenewPrefix", "ptr", adapterName, DHCPV6CAPI_CLASSID.Ptr, pclassId, DHCPV6PrefixLeaseInformation.Ptr, prefixleaseInfo, pdwTimeToWaitMarshal, pdwTimeToWait, UInt32, bValidatePrefix, UInt32)
     return result
@@ -437,7 +437,7 @@ export Dhcpv6ReleasePrefix(adapterName, classId, leaseInfo) {
  * @since windows5.0
  */
 export DhcpCApiInitialize(_Version) {
-    _VersionMarshal := _Version is VarRef ? "uint*" : "ptr"
+    _VersionMarshal := _Version is VarRef ? "uint*" : IntPtr
 
     result := DllCall("dhcpcsvc.dll\DhcpCApiInitialize", _VersionMarshal, _Version, UInt32)
     return result
@@ -558,8 +558,8 @@ export DhcpRequestParams(Flags, Reserved, AdapterName, ClassId, SendParams, Recd
     AdapterName := AdapterName is String ? StrPtr(AdapterName) : AdapterName
     RequestIdStr := RequestIdStr is String ? StrPtr(RequestIdStr) : RequestIdStr
 
-    ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
-    pSizeMarshal := pSize is VarRef ? "uint*" : "ptr"
+    ReservedMarshal := Reserved is VarRef ? "ptr" : IntPtr
+    pSizeMarshal := pSize is VarRef ? "uint*" : IntPtr
 
     result := DllCall("dhcpcsvc.dll\DhcpRequestParams", UInt32, Flags, ReservedMarshal, Reserved, "ptr", AdapterName, DHCPCAPI_CLASSID.Ptr, ClassId, DHCPCAPI_PARAMS_ARRAY, SendParams, DHCPCAPI_PARAMS_ARRAY, RecdParams, IntPtr, _Buffer, pSizeMarshal, pSize, "ptr", RequestIdStr, UInt32)
     return result
@@ -628,7 +628,7 @@ export DhcpRegisterParamChange(Flags, AdapterName, ClassId, Params, _Handle) {
 
     AdapterName := AdapterName is String ? StrPtr(AdapterName) : AdapterName
 
-    _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
+    _HandleMarshal := _Handle is VarRef ? "ptr" : IntPtr
 
     result := DllCall("dhcpcsvc.dll\DhcpRegisterParamChange", UInt32, Flags, "ptr", Reserved, "ptr", AdapterName, DHCPCAPI_CLASSID.Ptr, ClassId, DHCPCAPI_PARAMS_ARRAY, Params, _HandleMarshal, _Handle, UInt32)
     return result
@@ -651,8 +651,8 @@ export DhcpRegisterParamChange(Flags, AdapterName, ClassId, Params, _Handle) {
  * @since windows5.0
  */
 export DhcpDeRegisterParamChange(Flags, Reserved, Event) {
-    ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
-    EventMarshal := Event is VarRef ? "ptr" : "ptr"
+    ReservedMarshal := Reserved is VarRef ? "ptr" : IntPtr
+    EventMarshal := Event is VarRef ? "ptr" : IntPtr
 
     result := DllCall("dhcpcsvc.dll\DhcpDeRegisterParamChange", UInt32, Flags, ReservedMarshal, Reserved, EventMarshal, Event, UInt32)
     return result
@@ -670,7 +670,6 @@ export DhcpRemoveDNSRegistrations() {
 }
 
 /**
- * 
  * @param {PWSTR} sAdapterName 
  * @param {Pointer<Integer>} dwSubnetMask 
  * @returns {Integer} 
@@ -678,7 +677,7 @@ export DhcpRemoveDNSRegistrations() {
 export DhcpGetOriginalSubnetMask(sAdapterName, dwSubnetMask) {
     sAdapterName := sAdapterName is String ? StrPtr(sAdapterName) : sAdapterName
 
-    dwSubnetMaskMarshal := dwSubnetMask is VarRef ? "uint*" : "ptr"
+    dwSubnetMaskMarshal := dwSubnetMask is VarRef ? "uint*" : IntPtr
 
     result := DllCall("dhcpcsvc.dll\DhcpGetOriginalSubnetMask", "ptr", sAdapterName, dwSubnetMaskMarshal, dwSubnetMask, UInt32)
     return result
@@ -738,7 +737,9 @@ export DhcpGetOriginalSubnetMask(sAdapterName, dwSubnetMask) {
 export DhcpAddFilterV4(ServerIpAddress, AddFilterInfo, ForceFlag) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpAddFilterV4", "ptr", ServerIpAddress, DHCP_FILTER_ADD_INFO.Ptr, AddFilterInfo, BOOL, ForceFlag, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpAddFilterV4", ServerIpAddressMarshal, ServerIpAddress, DHCP_FILTER_ADD_INFO.Ptr, AddFilterInfo, BOOL, ForceFlag, UInt32)
     return result
 }
 
@@ -804,7 +805,9 @@ export DhcpAddFilterV4(ServerIpAddress, AddFilterInfo, ForceFlag) {
 export DhcpDeleteFilterV4(ServerIpAddress, DeleteFilterInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpDeleteFilterV4", "ptr", ServerIpAddress, DHCP_ADDR_PATTERN.Ptr, DeleteFilterInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpDeleteFilterV4", ServerIpAddressMarshal, ServerIpAddress, DHCP_ADDR_PATTERN.Ptr, DeleteFilterInfo, UInt32)
     return result
 }
 
@@ -861,7 +864,9 @@ export DhcpDeleteFilterV4(ServerIpAddress, DeleteFilterInfo) {
 export DhcpSetFilterV4(ServerIpAddress, GlobalFilterInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpSetFilterV4", "ptr", ServerIpAddress, DHCP_FILTER_GLOBAL_INFO.Ptr, GlobalFilterInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpSetFilterV4", ServerIpAddressMarshal, ServerIpAddress, DHCP_FILTER_GLOBAL_INFO.Ptr, GlobalFilterInfo, UInt32)
     return result
 }
 
@@ -905,7 +910,9 @@ export DhcpSetFilterV4(ServerIpAddress, GlobalFilterInfo) {
 export DhcpGetFilterV4(ServerIpAddress, GlobalFilterInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpGetFilterV4", "ptr", ServerIpAddress, DHCP_FILTER_GLOBAL_INFO.Ptr, GlobalFilterInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpGetFilterV4", ServerIpAddressMarshal, ServerIpAddress, DHCP_FILTER_GLOBAL_INFO.Ptr, GlobalFilterInfo, UInt32)
     return result
 }
 
@@ -976,11 +983,12 @@ export DhcpGetFilterV4(ServerIpAddress, GlobalFilterInfo) {
 export DhcpEnumFilterV4(ServerIpAddress, ResumeHandle, PreferredMaximum, ListType, EnumFilterInfo, ElementsRead, ElementsTotal) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    EnumFilterInfoMarshal := EnumFilterInfo is VarRef ? "ptr*" : "ptr"
-    ElementsReadMarshal := ElementsRead is VarRef ? "uint*" : "ptr"
-    ElementsTotalMarshal := ElementsTotal is VarRef ? "uint*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    EnumFilterInfoMarshal := EnumFilterInfo is VarRef ? "ptr*" : IntPtr
+    ElementsReadMarshal := ElementsRead is VarRef ? "uint*" : IntPtr
+    ElementsTotalMarshal := ElementsTotal is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpEnumFilterV4", "ptr", ServerIpAddress, DHCP_ADDR_PATTERN.Ptr, ResumeHandle, UInt32, PreferredMaximum, DHCP_FILTER_LIST_TYPE, ListType, EnumFilterInfoMarshal, EnumFilterInfo, ElementsReadMarshal, ElementsRead, ElementsTotalMarshal, ElementsTotal, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpEnumFilterV4", ServerIpAddressMarshal, ServerIpAddress, DHCP_ADDR_PATTERN.Ptr, ResumeHandle, UInt32, PreferredMaximum, DHCP_FILTER_LIST_TYPE, ListType, EnumFilterInfoMarshal, EnumFilterInfo, ElementsReadMarshal, ElementsRead, ElementsTotalMarshal, ElementsTotal, UInt32)
     return result
 }
 
@@ -996,7 +1004,9 @@ export DhcpEnumFilterV4(ServerIpAddress, ResumeHandle, PreferredMaximum, ListTyp
 export DhcpCreateSubnet(ServerIpAddress, SubnetAddress, SubnetInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpCreateSubnet", "ptr", ServerIpAddress, UInt32, SubnetAddress, DHCP_SUBNET_INFO.Ptr, SubnetInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpCreateSubnet", ServerIpAddressMarshal, ServerIpAddress, UInt32, SubnetAddress, DHCP_SUBNET_INFO.Ptr, SubnetInfo, UInt32)
     return result
 }
 
@@ -1012,7 +1022,9 @@ export DhcpCreateSubnet(ServerIpAddress, SubnetAddress, SubnetInfo) {
 export DhcpSetSubnetInfo(ServerIpAddress, SubnetAddress, SubnetInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpSetSubnetInfo", "ptr", ServerIpAddress, UInt32, SubnetAddress, DHCP_SUBNET_INFO.Ptr, SubnetInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpSetSubnetInfo", ServerIpAddressMarshal, ServerIpAddress, UInt32, SubnetAddress, DHCP_SUBNET_INFO.Ptr, SubnetInfo, UInt32)
     return result
 }
 
@@ -1035,9 +1047,10 @@ export DhcpSetSubnetInfo(ServerIpAddress, SubnetAddress, SubnetInfo) {
 export DhcpGetSubnetInfo(ServerIpAddress, SubnetAddress, SubnetInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    SubnetInfoMarshal := SubnetInfo is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    SubnetInfoMarshal := SubnetInfo is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpGetSubnetInfo", "ptr", ServerIpAddress, UInt32, SubnetAddress, SubnetInfoMarshal, SubnetInfo, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpGetSubnetInfo", ServerIpAddressMarshal, ServerIpAddress, UInt32, SubnetAddress, SubnetInfoMarshal, SubnetInfo, UInt32)
     return result
 }
 
@@ -1060,12 +1073,13 @@ export DhcpGetSubnetInfo(ServerIpAddress, SubnetAddress, SubnetInfo) {
 export DhcpEnumSubnets(ServerIpAddress, ResumeHandle, PreferredMaximum, EnumInfo, ElementsRead, ElementsTotal) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : "ptr"
-    EnumInfoMarshal := EnumInfo is VarRef ? "ptr*" : "ptr"
-    ElementsReadMarshal := ElementsRead is VarRef ? "uint*" : "ptr"
-    ElementsTotalMarshal := ElementsTotal is VarRef ? "uint*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : IntPtr
+    EnumInfoMarshal := EnumInfo is VarRef ? "ptr*" : IntPtr
+    ElementsReadMarshal := ElementsRead is VarRef ? "uint*" : IntPtr
+    ElementsTotalMarshal := ElementsTotal is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpEnumSubnets", "ptr", ServerIpAddress, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, EnumInfoMarshal, EnumInfo, ElementsReadMarshal, ElementsRead, ElementsTotalMarshal, ElementsTotal, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpEnumSubnets", ServerIpAddressMarshal, ServerIpAddress, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, EnumInfoMarshal, EnumInfo, ElementsReadMarshal, ElementsRead, ElementsTotalMarshal, ElementsTotal, UInt32)
     return result
 }
 
@@ -1187,7 +1201,9 @@ export DhcpEnumSubnets(ServerIpAddress, ResumeHandle, PreferredMaximum, EnumInfo
 export DhcpAddSubnetElement(ServerIpAddress, SubnetAddress, AddElementInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpAddSubnetElement", "ptr", ServerIpAddress, UInt32, SubnetAddress, DHCP_SUBNET_ELEMENT_DATA.Ptr, AddElementInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpAddSubnetElement", ServerIpAddressMarshal, ServerIpAddress, UInt32, SubnetAddress, DHCP_SUBNET_ELEMENT_DATA.Ptr, AddElementInfo, UInt32)
     return result
 }
 
@@ -1263,12 +1279,13 @@ export DhcpAddSubnetElement(ServerIpAddress, SubnetAddress, AddElementInfo) {
 export DhcpEnumSubnetElements(ServerIpAddress, SubnetAddress, EnumElementType, ResumeHandle, PreferredMaximum, EnumElementInfo, ElementsRead, ElementsTotal) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : "ptr"
-    EnumElementInfoMarshal := EnumElementInfo is VarRef ? "ptr*" : "ptr"
-    ElementsReadMarshal := ElementsRead is VarRef ? "uint*" : "ptr"
-    ElementsTotalMarshal := ElementsTotal is VarRef ? "uint*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : IntPtr
+    EnumElementInfoMarshal := EnumElementInfo is VarRef ? "ptr*" : IntPtr
+    ElementsReadMarshal := ElementsRead is VarRef ? "uint*" : IntPtr
+    ElementsTotalMarshal := ElementsTotal is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetElements", "ptr", ServerIpAddress, UInt32, SubnetAddress, DHCP_SUBNET_ELEMENT_TYPE, EnumElementType, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, EnumElementInfoMarshal, EnumElementInfo, ElementsReadMarshal, ElementsRead, ElementsTotalMarshal, ElementsTotal, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetElements", ServerIpAddressMarshal, ServerIpAddress, UInt32, SubnetAddress, DHCP_SUBNET_ELEMENT_TYPE, EnumElementType, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, EnumElementInfoMarshal, EnumElementInfo, ElementsReadMarshal, ElementsRead, ElementsTotalMarshal, ElementsTotal, UInt32)
     return result
 }
 
@@ -1350,7 +1367,9 @@ export DhcpEnumSubnetElements(ServerIpAddress, SubnetAddress, EnumElementType, R
 export DhcpRemoveSubnetElement(ServerIpAddress, SubnetAddress, RemoveElementInfo, ForceFlag) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpRemoveSubnetElement", "ptr", ServerIpAddress, UInt32, SubnetAddress, DHCP_SUBNET_ELEMENT_DATA.Ptr, RemoveElementInfo, DHCP_FORCE_FLAG, ForceFlag, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpRemoveSubnetElement", ServerIpAddressMarshal, ServerIpAddress, UInt32, SubnetAddress, DHCP_SUBNET_ELEMENT_DATA.Ptr, RemoveElementInfo, DHCP_FORCE_FLAG, ForceFlag, UInt32)
     return result
 }
 
@@ -1368,7 +1387,9 @@ export DhcpRemoveSubnetElement(ServerIpAddress, SubnetAddress, RemoveElementInfo
 export DhcpDeleteSubnet(ServerIpAddress, SubnetAddress, ForceFlag) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpDeleteSubnet", "ptr", ServerIpAddress, UInt32, SubnetAddress, DHCP_FORCE_FLAG, ForceFlag, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpDeleteSubnet", ServerIpAddressMarshal, ServerIpAddress, UInt32, SubnetAddress, DHCP_FORCE_FLAG, ForceFlag, UInt32)
     return result
 }
 
@@ -1415,7 +1436,9 @@ export DhcpDeleteSubnet(ServerIpAddress, SubnetAddress, ForceFlag) {
 export DhcpCreateOption(ServerIpAddress, OptionID, OptionInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpCreateOption", "ptr", ServerIpAddress, UInt32, OptionID, DHCP_OPTION.Ptr, OptionInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpCreateOption", ServerIpAddressMarshal, ServerIpAddress, UInt32, OptionID, DHCP_OPTION.Ptr, OptionInfo, UInt32)
     return result
 }
 
@@ -1460,7 +1483,9 @@ export DhcpCreateOption(ServerIpAddress, OptionID, OptionInfo) {
 export DhcpSetOptionInfo(ServerIpAddress, OptionID, OptionInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpSetOptionInfo", "ptr", ServerIpAddress, UInt32, OptionID, DHCP_OPTION.Ptr, OptionInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpSetOptionInfo", ServerIpAddressMarshal, ServerIpAddress, UInt32, OptionID, DHCP_OPTION.Ptr, OptionInfo, UInt32)
     return result
 }
 
@@ -1510,9 +1535,10 @@ export DhcpSetOptionInfo(ServerIpAddress, OptionID, OptionInfo) {
 export DhcpGetOptionInfo(ServerIpAddress, OptionID, OptionInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    OptionInfoMarshal := OptionInfo is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    OptionInfoMarshal := OptionInfo is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpGetOptionInfo", "ptr", ServerIpAddress, UInt32, OptionID, OptionInfoMarshal, OptionInfo, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpGetOptionInfo", ServerIpAddressMarshal, ServerIpAddress, UInt32, OptionID, OptionInfoMarshal, OptionInfo, UInt32)
     return result
 }
 
@@ -1577,12 +1603,13 @@ export DhcpGetOptionInfo(ServerIpAddress, OptionID, OptionInfo) {
 export DhcpEnumOptions(ServerIpAddress, ResumeHandle, PreferredMaximum, Options, OptionsRead, OptionsTotal) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : "ptr"
-    OptionsMarshal := Options is VarRef ? "ptr*" : "ptr"
-    OptionsReadMarshal := OptionsRead is VarRef ? "uint*" : "ptr"
-    OptionsTotalMarshal := OptionsTotal is VarRef ? "uint*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : IntPtr
+    OptionsMarshal := Options is VarRef ? "ptr*" : IntPtr
+    OptionsReadMarshal := OptionsRead is VarRef ? "uint*" : IntPtr
+    OptionsTotalMarshal := OptionsTotal is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpEnumOptions", "ptr", ServerIpAddress, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, OptionsMarshal, Options, OptionsReadMarshal, OptionsRead, OptionsTotalMarshal, OptionsTotal, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpEnumOptions", ServerIpAddressMarshal, ServerIpAddress, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, OptionsMarshal, Options, OptionsReadMarshal, OptionsRead, OptionsTotalMarshal, OptionsTotal, UInt32)
     return result
 }
 
@@ -1626,7 +1653,9 @@ export DhcpEnumOptions(ServerIpAddress, ResumeHandle, PreferredMaximum, Options,
 export DhcpRemoveOption(ServerIpAddress, OptionID) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpRemoveOption", "ptr", ServerIpAddress, UInt32, OptionID, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpRemoveOption", ServerIpAddressMarshal, ServerIpAddress, UInt32, OptionID, UInt32)
     return result
 }
 
@@ -1707,7 +1736,9 @@ export DhcpRemoveOption(ServerIpAddress, OptionID) {
 export DhcpSetOptionValue(ServerIpAddress, OptionID, ScopeInfo, OptionValue) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpSetOptionValue", "ptr", ServerIpAddress, UInt32, OptionID, DHCP_OPTION_SCOPE_INFO.Ptr, ScopeInfo, DHCP_OPTION_DATA.Ptr, OptionValue, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpSetOptionValue", ServerIpAddressMarshal, ServerIpAddress, UInt32, OptionID, DHCP_OPTION_SCOPE_INFO.Ptr, ScopeInfo, DHCP_OPTION_DATA.Ptr, OptionValue, UInt32)
     return result
 }
 
@@ -1787,7 +1818,9 @@ export DhcpSetOptionValue(ServerIpAddress, OptionID, ScopeInfo, OptionValue) {
 export DhcpSetOptionValues(ServerIpAddress, ScopeInfo, OptionValues) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpSetOptionValues", "ptr", ServerIpAddress, DHCP_OPTION_SCOPE_INFO.Ptr, ScopeInfo, DHCP_OPTION_VALUE_ARRAY.Ptr, OptionValues, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpSetOptionValues", ServerIpAddressMarshal, ServerIpAddress, DHCP_OPTION_SCOPE_INFO.Ptr, ScopeInfo, DHCP_OPTION_VALUE_ARRAY.Ptr, OptionValues, UInt32)
     return result
 }
 
@@ -1811,9 +1844,10 @@ export DhcpSetOptionValues(ServerIpAddress, ScopeInfo, OptionValues) {
 export DhcpGetOptionValue(ServerIpAddress, OptionID, ScopeInfo, OptionValue) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    OptionValueMarshal := OptionValue is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    OptionValueMarshal := OptionValue is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpGetOptionValue", "ptr", ServerIpAddress, UInt32, OptionID, DHCP_OPTION_SCOPE_INFO.Ptr, ScopeInfo, OptionValueMarshal, OptionValue, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpGetOptionValue", ServerIpAddressMarshal, ServerIpAddress, UInt32, OptionID, DHCP_OPTION_SCOPE_INFO.Ptr, ScopeInfo, OptionValueMarshal, OptionValue, UInt32)
     return result
 }
 
@@ -1899,12 +1933,13 @@ export DhcpGetOptionValue(ServerIpAddress, OptionID, ScopeInfo, OptionValue) {
 export DhcpEnumOptionValues(ServerIpAddress, ScopeInfo, ResumeHandle, PreferredMaximum, OptionValues, OptionsRead, OptionsTotal) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : "ptr"
-    OptionValuesMarshal := OptionValues is VarRef ? "ptr*" : "ptr"
-    OptionsReadMarshal := OptionsRead is VarRef ? "uint*" : "ptr"
-    OptionsTotalMarshal := OptionsTotal is VarRef ? "uint*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : IntPtr
+    OptionValuesMarshal := OptionValues is VarRef ? "ptr*" : IntPtr
+    OptionsReadMarshal := OptionsRead is VarRef ? "uint*" : IntPtr
+    OptionsTotalMarshal := OptionsTotal is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpEnumOptionValues", "ptr", ServerIpAddress, DHCP_OPTION_SCOPE_INFO.Ptr, ScopeInfo, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, OptionValuesMarshal, OptionValues, OptionsReadMarshal, OptionsRead, OptionsTotalMarshal, OptionsTotal, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpEnumOptionValues", ServerIpAddressMarshal, ServerIpAddress, DHCP_OPTION_SCOPE_INFO.Ptr, ScopeInfo, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, OptionValuesMarshal, OptionValues, OptionsReadMarshal, OptionsRead, OptionsTotalMarshal, OptionsTotal, UInt32)
     return result
 }
 
@@ -1971,7 +2006,9 @@ export DhcpEnumOptionValues(ServerIpAddress, ScopeInfo, ResumeHandle, PreferredM
 export DhcpRemoveOptionValue(ServerIpAddress, OptionID, ScopeInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpRemoveOptionValue", "ptr", ServerIpAddress, UInt32, OptionID, DHCP_OPTION_SCOPE_INFO.Ptr, ScopeInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpRemoveOptionValue", ServerIpAddressMarshal, ServerIpAddress, UInt32, OptionID, DHCP_OPTION_SCOPE_INFO.Ptr, ScopeInfo, UInt32)
     return result
 }
 
@@ -2028,7 +2065,9 @@ export DhcpRemoveOptionValue(ServerIpAddress, OptionID, ScopeInfo) {
 export DhcpCreateClientInfoVQ(ServerIpAddress, ClientInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpCreateClientInfoVQ", "ptr", ServerIpAddress, DHCP_CLIENT_INFO_VQ.Ptr, ClientInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpCreateClientInfoVQ", ServerIpAddressMarshal, ServerIpAddress, DHCP_CLIENT_INFO_VQ.Ptr, ClientInfo, UInt32)
     return result
 }
 
@@ -2083,7 +2122,9 @@ export DhcpCreateClientInfoVQ(ServerIpAddress, ClientInfo) {
 export DhcpSetClientInfoVQ(ServerIpAddress, ClientInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpSetClientInfoVQ", "ptr", ServerIpAddress, DHCP_CLIENT_INFO_VQ.Ptr, ClientInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpSetClientInfoVQ", ServerIpAddressMarshal, ServerIpAddress, DHCP_CLIENT_INFO_VQ.Ptr, ClientInfo, UInt32)
     return result
 }
 
@@ -2130,9 +2171,10 @@ export DhcpSetClientInfoVQ(ServerIpAddress, ClientInfo) {
 export DhcpGetClientInfoVQ(ServerIpAddress, SearchInfo, ClientInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ClientInfoMarshal := ClientInfo is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ClientInfoMarshal := ClientInfo is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpGetClientInfoVQ", "ptr", ServerIpAddress, DHCP_SEARCH_INFO.Ptr, SearchInfo, ClientInfoMarshal, ClientInfo, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpGetClientInfoVQ", ServerIpAddressMarshal, ServerIpAddress, DHCP_SEARCH_INFO.Ptr, SearchInfo, ClientInfoMarshal, ClientInfo, UInt32)
     return result
 }
 
@@ -2196,12 +2238,13 @@ export DhcpGetClientInfoVQ(ServerIpAddress, SearchInfo, ClientInfo) {
 export DhcpEnumSubnetClientsVQ(ServerIpAddress, SubnetAddress, ResumeHandle, PreferredMaximum, ClientInfo, ClientsRead, ClientsTotal) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : "ptr"
-    ClientInfoMarshal := ClientInfo is VarRef ? "ptr*" : "ptr"
-    ClientsReadMarshal := ClientsRead is VarRef ? "uint*" : "ptr"
-    ClientsTotalMarshal := ClientsTotal is VarRef ? "uint*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : IntPtr
+    ClientInfoMarshal := ClientInfo is VarRef ? "ptr*" : IntPtr
+    ClientsReadMarshal := ClientsRead is VarRef ? "uint*" : IntPtr
+    ClientsTotalMarshal := ClientsTotal is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetClientsVQ", "ptr", ServerIpAddress, UInt32, SubnetAddress, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, ClientInfoMarshal, ClientInfo, ClientsReadMarshal, ClientsRead, ClientsTotalMarshal, ClientsTotal, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetClientsVQ", ServerIpAddressMarshal, ServerIpAddress, UInt32, SubnetAddress, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, ClientInfoMarshal, ClientInfo, ClientsReadMarshal, ClientsRead, ClientsTotalMarshal, ClientsTotal, UInt32)
     return result
 }
 
@@ -2261,12 +2304,13 @@ export DhcpEnumSubnetClientsVQ(ServerIpAddress, SubnetAddress, ResumeHandle, Pre
 export DhcpEnumSubnetClientsFilterStatusInfo(ServerIpAddress, SubnetAddress, ResumeHandle, PreferredMaximum, ClientInfo, ClientsRead, ClientsTotal) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : "ptr"
-    ClientInfoMarshal := ClientInfo is VarRef ? "ptr*" : "ptr"
-    ClientsReadMarshal := ClientsRead is VarRef ? "uint*" : "ptr"
-    ClientsTotalMarshal := ClientsTotal is VarRef ? "uint*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : IntPtr
+    ClientInfoMarshal := ClientInfo is VarRef ? "ptr*" : IntPtr
+    ClientsReadMarshal := ClientsRead is VarRef ? "uint*" : IntPtr
+    ClientsTotalMarshal := ClientsTotal is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetClientsFilterStatusInfo", "ptr", ServerIpAddress, UInt32, SubnetAddress, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, ClientInfoMarshal, ClientInfo, ClientsReadMarshal, ClientsRead, ClientsTotalMarshal, ClientsTotal, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetClientsFilterStatusInfo", ServerIpAddressMarshal, ServerIpAddress, UInt32, SubnetAddress, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, ClientInfoMarshal, ClientInfo, ClientsReadMarshal, ClientsRead, ClientsTotalMarshal, ClientsTotal, UInt32)
     return result
 }
 
@@ -2283,7 +2327,9 @@ export DhcpEnumSubnetClientsFilterStatusInfo(ServerIpAddress, SubnetAddress, Res
 export DhcpCreateClientInfo(ServerIpAddress, ClientInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpCreateClientInfo", "ptr", ServerIpAddress, DHCP_CLIENT_INFO.Ptr, ClientInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpCreateClientInfo", ServerIpAddressMarshal, ServerIpAddress, DHCP_CLIENT_INFO.Ptr, ClientInfo, UInt32)
     return result
 }
 
@@ -2300,7 +2346,9 @@ export DhcpCreateClientInfo(ServerIpAddress, ClientInfo) {
 export DhcpSetClientInfo(ServerIpAddress, ClientInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpSetClientInfo", "ptr", ServerIpAddress, DHCP_CLIENT_INFO.Ptr, ClientInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpSetClientInfo", ServerIpAddressMarshal, ServerIpAddress, DHCP_CLIENT_INFO.Ptr, ClientInfo, UInt32)
     return result
 }
 
@@ -2323,9 +2371,10 @@ export DhcpSetClientInfo(ServerIpAddress, ClientInfo) {
 export DhcpGetClientInfo(ServerIpAddress, SearchInfo, ClientInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ClientInfoMarshal := ClientInfo is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ClientInfoMarshal := ClientInfo is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpGetClientInfo", "ptr", ServerIpAddress, DHCP_SEARCH_INFO.Ptr, SearchInfo, ClientInfoMarshal, ClientInfo, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpGetClientInfo", ServerIpAddressMarshal, ServerIpAddress, DHCP_SEARCH_INFO.Ptr, SearchInfo, ClientInfoMarshal, ClientInfo, UInt32)
     return result
 }
 
@@ -2342,7 +2391,9 @@ export DhcpGetClientInfo(ServerIpAddress, SearchInfo, ClientInfo) {
 export DhcpDeleteClientInfo(ServerIpAddress, ClientInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpDeleteClientInfo", "ptr", ServerIpAddress, DHCP_SEARCH_INFO.Ptr, ClientInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpDeleteClientInfo", ServerIpAddressMarshal, ServerIpAddress, DHCP_SEARCH_INFO.Ptr, ClientInfo, UInt32)
     return result
 }
 
@@ -2369,12 +2420,13 @@ export DhcpDeleteClientInfo(ServerIpAddress, ClientInfo) {
 export DhcpEnumSubnetClients(ServerIpAddress, SubnetAddress, ResumeHandle, PreferredMaximum, ClientInfo, ClientsRead, ClientsTotal) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : "ptr"
-    ClientInfoMarshal := ClientInfo is VarRef ? "ptr*" : "ptr"
-    ClientsReadMarshal := ClientsRead is VarRef ? "uint*" : "ptr"
-    ClientsTotalMarshal := ClientsTotal is VarRef ? "uint*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : IntPtr
+    ClientInfoMarshal := ClientInfo is VarRef ? "ptr*" : IntPtr
+    ClientsReadMarshal := ClientsRead is VarRef ? "uint*" : IntPtr
+    ClientsTotalMarshal := ClientsTotal is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetClients", "ptr", ServerIpAddress, UInt32, SubnetAddress, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, ClientInfoMarshal, ClientInfo, ClientsReadMarshal, ClientsRead, ClientsTotalMarshal, ClientsTotal, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetClients", ServerIpAddressMarshal, ServerIpAddress, UInt32, SubnetAddress, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, ClientInfoMarshal, ClientInfo, ClientsReadMarshal, ClientsRead, ClientsTotalMarshal, ClientsTotal, UInt32)
     return result
 }
 
@@ -2414,14 +2466,14 @@ export DhcpEnumSubnetClients(ServerIpAddress, SubnetAddress, ResumeHandle, Prefe
 export DhcpGetClientOptions(ServerIpAddress, ClientIpAddress, ClientSubnetMask, ClientOptions) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ClientOptionsMarshal := ClientOptions is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ClientOptionsMarshal := ClientOptions is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpGetClientOptions", "ptr", ServerIpAddress, UInt32, ClientIpAddress, UInt32, ClientSubnetMask, ClientOptionsMarshal, ClientOptions, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpGetClientOptions", ServerIpAddressMarshal, ServerIpAddress, UInt32, ClientIpAddress, UInt32, ClientSubnetMask, ClientOptionsMarshal, ClientOptions, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} ServerIpAddress 
  * @param {Pointer<Pointer<DHCP_MIB_INFO>>} MibInfo 
  * @returns {Integer} 
@@ -2429,9 +2481,10 @@ export DhcpGetClientOptions(ServerIpAddress, ClientIpAddress, ClientSubnetMask, 
 export DhcpGetMibInfo(ServerIpAddress, MibInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    MibInfoMarshal := MibInfo is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    MibInfoMarshal := MibInfo is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpGetMibInfo", "ptr", ServerIpAddress, MibInfoMarshal, MibInfo, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpGetMibInfo", ServerIpAddressMarshal, ServerIpAddress, MibInfoMarshal, MibInfo, UInt32)
     return result
 }
 
@@ -2561,7 +2614,9 @@ export DhcpGetMibInfo(ServerIpAddress, MibInfo) {
 export DhcpServerSetConfig(ServerIpAddress, FieldsToSet, ConfigInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpServerSetConfig", "ptr", ServerIpAddress, UInt32, FieldsToSet, DHCP_SERVER_CONFIG_INFO.Ptr, ConfigInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpServerSetConfig", ServerIpAddressMarshal, ServerIpAddress, UInt32, FieldsToSet, DHCP_SERVER_CONFIG_INFO.Ptr, ConfigInfo, UInt32)
     return result
 }
 
@@ -2581,9 +2636,10 @@ export DhcpServerSetConfig(ServerIpAddress, FieldsToSet, ConfigInfo) {
 export DhcpServerGetConfig(ServerIpAddress, ConfigInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ConfigInfoMarshal := ConfigInfo is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ConfigInfoMarshal := ConfigInfo is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpServerGetConfig", "ptr", ServerIpAddress, ConfigInfoMarshal, ConfigInfo, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpServerGetConfig", ServerIpAddressMarshal, ServerIpAddress, ConfigInfoMarshal, ConfigInfo, UInt32)
     return result
 }
 
@@ -2644,9 +2700,10 @@ export DhcpServerGetConfig(ServerIpAddress, ConfigInfo) {
 export DhcpScanDatabase(ServerIpAddress, SubnetAddress, FixFlag, ScanList) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ScanListMarshal := ScanList is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ScanListMarshal := ScanList is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpScanDatabase", "ptr", ServerIpAddress, UInt32, SubnetAddress, UInt32, FixFlag, ScanListMarshal, ScanList, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpScanDatabase", ServerIpAddressMarshal, ServerIpAddress, UInt32, SubnetAddress, UInt32, FixFlag, ScanListMarshal, ScanList, UInt32)
     return result
 }
 
@@ -2660,7 +2717,7 @@ export DhcpScanDatabase(ServerIpAddress, SubnetAddress, FixFlag, ScanList) {
  * @since windowsserver2000
  */
 export DhcpRpcFreeMemory(BufferPointer) {
-    BufferPointerMarshal := BufferPointer is VarRef ? "ptr" : "ptr"
+    BufferPointerMarshal := BufferPointer is VarRef ? "ptr" : IntPtr
 
     DllCall("DHCPSAPI.dll\DhcpRpcFreeMemory", BufferPointerMarshal, BufferPointer)
 }
@@ -2677,10 +2734,11 @@ export DhcpRpcFreeMemory(BufferPointer) {
 export DhcpGetVersion(ServerIpAddress, MajorVersion, MinorVersion) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    MajorVersionMarshal := MajorVersion is VarRef ? "uint*" : "ptr"
-    MinorVersionMarshal := MinorVersion is VarRef ? "uint*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    MajorVersionMarshal := MajorVersion is VarRef ? "uint*" : IntPtr
+    MinorVersionMarshal := MinorVersion is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpGetVersion", "ptr", ServerIpAddress, MajorVersionMarshal, MajorVersion, MinorVersionMarshal, MinorVersion, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpGetVersion", ServerIpAddressMarshal, ServerIpAddress, MajorVersionMarshal, MajorVersion, MinorVersionMarshal, MinorVersion, UInt32)
     return result
 }
 
@@ -2813,7 +2871,9 @@ export DhcpGetVersion(ServerIpAddress, MajorVersion, MinorVersion) {
 export DhcpAddSubnetElementV4(ServerIpAddress, SubnetAddress, AddElementInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpAddSubnetElementV4", "ptr", ServerIpAddress, UInt32, SubnetAddress, DHCP_SUBNET_ELEMENT_DATA_V4.Ptr, AddElementInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpAddSubnetElementV4", ServerIpAddressMarshal, ServerIpAddress, UInt32, SubnetAddress, DHCP_SUBNET_ELEMENT_DATA_V4.Ptr, AddElementInfo, UInt32)
     return result
 }
 
@@ -2889,12 +2949,13 @@ export DhcpAddSubnetElementV4(ServerIpAddress, SubnetAddress, AddElementInfo) {
 export DhcpEnumSubnetElementsV4(ServerIpAddress, SubnetAddress, EnumElementType, ResumeHandle, PreferredMaximum, EnumElementInfo, ElementsRead, ElementsTotal) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : "ptr"
-    EnumElementInfoMarshal := EnumElementInfo is VarRef ? "ptr*" : "ptr"
-    ElementsReadMarshal := ElementsRead is VarRef ? "uint*" : "ptr"
-    ElementsTotalMarshal := ElementsTotal is VarRef ? "uint*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : IntPtr
+    EnumElementInfoMarshal := EnumElementInfo is VarRef ? "ptr*" : IntPtr
+    ElementsReadMarshal := ElementsRead is VarRef ? "uint*" : IntPtr
+    ElementsTotalMarshal := ElementsTotal is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetElementsV4", "ptr", ServerIpAddress, UInt32, SubnetAddress, DHCP_SUBNET_ELEMENT_TYPE, EnumElementType, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, EnumElementInfoMarshal, EnumElementInfo, ElementsReadMarshal, ElementsRead, ElementsTotalMarshal, ElementsTotal, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetElementsV4", ServerIpAddressMarshal, ServerIpAddress, UInt32, SubnetAddress, DHCP_SUBNET_ELEMENT_TYPE, EnumElementType, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, EnumElementInfoMarshal, EnumElementInfo, ElementsReadMarshal, ElementsRead, ElementsTotalMarshal, ElementsTotal, UInt32)
     return result
 }
 
@@ -2976,7 +3037,9 @@ export DhcpEnumSubnetElementsV4(ServerIpAddress, SubnetAddress, EnumElementType,
 export DhcpRemoveSubnetElementV4(ServerIpAddress, SubnetAddress, RemoveElementInfo, ForceFlag) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpRemoveSubnetElementV4", "ptr", ServerIpAddress, UInt32, SubnetAddress, DHCP_SUBNET_ELEMENT_DATA_V4.Ptr, RemoveElementInfo, DHCP_FORCE_FLAG, ForceFlag, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpRemoveSubnetElementV4", ServerIpAddressMarshal, ServerIpAddress, UInt32, SubnetAddress, DHCP_SUBNET_ELEMENT_DATA_V4.Ptr, RemoveElementInfo, DHCP_FORCE_FLAG, ForceFlag, UInt32)
     return result
 }
 
@@ -3011,7 +3074,9 @@ export DhcpRemoveSubnetElementV4(ServerIpAddress, SubnetAddress, RemoveElementIn
 export DhcpCreateClientInfoV4(ServerIpAddress, ClientInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpCreateClientInfoV4", "ptr", ServerIpAddress, DHCP_CLIENT_INFO_V4.Ptr, ClientInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpCreateClientInfoV4", ServerIpAddressMarshal, ServerIpAddress, DHCP_CLIENT_INFO_V4.Ptr, ClientInfo, UInt32)
     return result
 }
 
@@ -3055,7 +3120,9 @@ export DhcpCreateClientInfoV4(ServerIpAddress, ClientInfo) {
 export DhcpSetClientInfoV4(ServerIpAddress, ClientInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpSetClientInfoV4", "ptr", ServerIpAddress, DHCP_CLIENT_INFO_V4.Ptr, ClientInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpSetClientInfoV4", ServerIpAddressMarshal, ServerIpAddress, DHCP_CLIENT_INFO_V4.Ptr, ClientInfo, UInt32)
     return result
 }
 
@@ -3105,9 +3172,10 @@ export DhcpSetClientInfoV4(ServerIpAddress, ClientInfo) {
 export DhcpGetClientInfoV4(ServerIpAddress, SearchInfo, ClientInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ClientInfoMarshal := ClientInfo is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ClientInfoMarshal := ClientInfo is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpGetClientInfoV4", "ptr", ServerIpAddress, DHCP_SEARCH_INFO.Ptr, SearchInfo, ClientInfoMarshal, ClientInfo, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpGetClientInfoV4", ServerIpAddressMarshal, ServerIpAddress, DHCP_SEARCH_INFO.Ptr, SearchInfo, ClientInfoMarshal, ClientInfo, UInt32)
     return result
 }
 
@@ -3184,12 +3252,13 @@ export DhcpGetClientInfoV4(ServerIpAddress, SearchInfo, ClientInfo) {
 export DhcpEnumSubnetClientsV4(ServerIpAddress, SubnetAddress, ResumeHandle, PreferredMaximum, ClientInfo, ClientsRead, ClientsTotal) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : "ptr"
-    ClientInfoMarshal := ClientInfo is VarRef ? "ptr*" : "ptr"
-    ClientsReadMarshal := ClientsRead is VarRef ? "uint*" : "ptr"
-    ClientsTotalMarshal := ClientsTotal is VarRef ? "uint*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : IntPtr
+    ClientInfoMarshal := ClientInfo is VarRef ? "ptr*" : IntPtr
+    ClientsReadMarshal := ClientsRead is VarRef ? "uint*" : IntPtr
+    ClientsTotalMarshal := ClientsTotal is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetClientsV4", "ptr", ServerIpAddress, UInt32, SubnetAddress, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, ClientInfoMarshal, ClientInfo, ClientsReadMarshal, ClientsRead, ClientsTotalMarshal, ClientsTotal, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetClientsV4", ServerIpAddressMarshal, ServerIpAddress, UInt32, SubnetAddress, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, ClientInfoMarshal, ClientInfo, ClientsReadMarshal, ClientsRead, ClientsTotalMarshal, ClientsTotal, UInt32)
     return result
 }
 
@@ -3384,7 +3453,9 @@ export DhcpEnumSubnetClientsV4(ServerIpAddress, SubnetAddress, ResumeHandle, Pre
 export DhcpServerSetConfigV4(ServerIpAddress, FieldsToSet, ConfigInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpServerSetConfigV4", "ptr", ServerIpAddress, UInt32, FieldsToSet, DHCP_SERVER_CONFIG_INFO_V4.Ptr, ConfigInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpServerSetConfigV4", ServerIpAddressMarshal, ServerIpAddress, UInt32, FieldsToSet, DHCP_SERVER_CONFIG_INFO_V4.Ptr, ConfigInfo, UInt32)
     return result
 }
 
@@ -3444,9 +3515,10 @@ export DhcpServerSetConfigV4(ServerIpAddress, FieldsToSet, ConfigInfo) {
 export DhcpServerGetConfigV4(ServerIpAddress, ConfigInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ConfigInfoMarshal := ConfigInfo is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ConfigInfoMarshal := ConfigInfo is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpServerGetConfigV4", "ptr", ServerIpAddress, ConfigInfoMarshal, ConfigInfo, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpServerGetConfigV4", ServerIpAddressMarshal, ServerIpAddress, ConfigInfoMarshal, ConfigInfo, UInt32)
     return result
 }
 
@@ -3506,7 +3578,10 @@ export DhcpSetSuperScopeV4(ServerIpAddress, SubnetAddress, SuperScopeName, Chang
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
     SuperScopeName := SuperScopeName is String ? StrPtr(SuperScopeName) : SuperScopeName
 
-    result := DllCall("DHCPSAPI.dll\DhcpSetSuperScopeV4", "ptr", ServerIpAddress, UInt32, SubnetAddress, "ptr", SuperScopeName, BOOL, ChangeExisting, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    SuperScopeNameMarshal := SuperScopeName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpSetSuperScopeV4", ServerIpAddressMarshal, ServerIpAddress, UInt32, SubnetAddress, SuperScopeNameMarshal, SuperScopeName, BOOL, ChangeExisting, UInt32)
     return result
 }
 
@@ -3564,7 +3639,9 @@ export DhcpDeleteSuperScopeV4(ServerIpAddress, SuperScopeName) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
     SuperScopeName := SuperScopeName is String ? StrPtr(SuperScopeName) : SuperScopeName
 
-    result := DllCall("DHCPSAPI.dll\DhcpDeleteSuperScopeV4", "ptr", ServerIpAddress, "ptr", SuperScopeName, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpDeleteSuperScopeV4", ServerIpAddressMarshal, ServerIpAddress, "ptr", SuperScopeName, UInt32)
     return result
 }
 
@@ -3604,9 +3681,10 @@ export DhcpDeleteSuperScopeV4(ServerIpAddress, SuperScopeName) {
 export DhcpGetSuperScopeInfoV4(ServerIpAddress, SuperScopeTable) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    SuperScopeTableMarshal := SuperScopeTable is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    SuperScopeTableMarshal := SuperScopeTable is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpGetSuperScopeInfoV4", "ptr", ServerIpAddress, SuperScopeTableMarshal, SuperScopeTable, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpGetSuperScopeInfoV4", ServerIpAddressMarshal, ServerIpAddress, SuperScopeTableMarshal, SuperScopeTable, UInt32)
     return result
 }
 
@@ -3670,12 +3748,13 @@ export DhcpGetSuperScopeInfoV4(ServerIpAddress, SuperScopeTable) {
 export DhcpEnumSubnetClientsV5(ServerIpAddress, SubnetAddress, ResumeHandle, PreferredMaximum, ClientInfo, ClientsRead, ClientsTotal) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : "ptr"
-    ClientInfoMarshal := ClientInfo is VarRef ? "ptr*" : "ptr"
-    ClientsReadMarshal := ClientsRead is VarRef ? "uint*" : "ptr"
-    ClientsTotalMarshal := ClientsTotal is VarRef ? "uint*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : IntPtr
+    ClientInfoMarshal := ClientInfo is VarRef ? "ptr*" : IntPtr
+    ClientsReadMarshal := ClientsRead is VarRef ? "uint*" : IntPtr
+    ClientsTotalMarshal := ClientsTotal is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetClientsV5", "ptr", ServerIpAddress, UInt32, SubnetAddress, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, ClientInfoMarshal, ClientInfo, ClientsReadMarshal, ClientsRead, ClientsTotalMarshal, ClientsTotal, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetClientsV5", ServerIpAddressMarshal, ServerIpAddress, UInt32, SubnetAddress, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, ClientInfoMarshal, ClientInfo, ClientsReadMarshal, ClientsRead, ClientsTotalMarshal, ClientsTotal, UInt32)
     return result
 }
 
@@ -3776,7 +3855,11 @@ export DhcpCreateOptionV5(ServerIpAddress, Flags, OptionId, ClassName, VendorNam
     ClassName := ClassName is String ? StrPtr(ClassName) : ClassName
     VendorName := VendorName is String ? StrPtr(VendorName) : VendorName
 
-    result := DllCall("DHCPSAPI.dll\DhcpCreateOptionV5", "ptr", ServerIpAddress, UInt32, Flags, UInt32, OptionId, "ptr", ClassName, "ptr", VendorName, DHCP_OPTION.Ptr, OptionInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ClassNameMarshal := ClassName == 0 ? IntPtr : PWSTR
+    VendorNameMarshal := VendorName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpCreateOptionV5", ServerIpAddressMarshal, ServerIpAddress, UInt32, Flags, UInt32, OptionId, ClassNameMarshal, ClassName, VendorNameMarshal, VendorName, DHCP_OPTION.Ptr, OptionInfo, UInt32)
     return result
 }
 
@@ -3854,7 +3937,11 @@ export DhcpSetOptionInfoV5(ServerIpAddress, Flags, OptionID, ClassName, VendorNa
     ClassName := ClassName is String ? StrPtr(ClassName) : ClassName
     VendorName := VendorName is String ? StrPtr(VendorName) : VendorName
 
-    result := DllCall("DHCPSAPI.dll\DhcpSetOptionInfoV5", "ptr", ServerIpAddress, UInt32, Flags, UInt32, OptionID, "ptr", ClassName, "ptr", VendorName, DHCP_OPTION.Ptr, OptionInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ClassNameMarshal := ClassName == 0 ? IntPtr : PWSTR
+    VendorNameMarshal := VendorName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpSetOptionInfoV5", ServerIpAddressMarshal, ServerIpAddress, UInt32, Flags, UInt32, OptionID, ClassNameMarshal, ClassName, VendorNameMarshal, VendorName, DHCP_OPTION.Ptr, OptionInfo, UInt32)
     return result
 }
 
@@ -3971,9 +4058,12 @@ export DhcpGetOptionInfoV5(ServerIpAddress, Flags, OptionID, ClassName, VendorNa
     ClassName := ClassName is String ? StrPtr(ClassName) : ClassName
     VendorName := VendorName is String ? StrPtr(VendorName) : VendorName
 
-    OptionInfoMarshal := OptionInfo is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ClassNameMarshal := ClassName == 0 ? IntPtr : PWSTR
+    VendorNameMarshal := VendorName == 0 ? IntPtr : PWSTR
+    OptionInfoMarshal := OptionInfo is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpGetOptionInfoV5", "ptr", ServerIpAddress, UInt32, Flags, UInt32, OptionID, "ptr", ClassName, "ptr", VendorName, OptionInfoMarshal, OptionInfo, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpGetOptionInfoV5", ServerIpAddressMarshal, ServerIpAddress, UInt32, Flags, UInt32, OptionID, ClassNameMarshal, ClassName, VendorNameMarshal, VendorName, OptionInfoMarshal, OptionInfo, UInt32)
     return result
 }
 
@@ -4055,12 +4145,15 @@ export DhcpEnumOptionsV5(ServerIpAddress, Flags, ClassName, VendorName, ResumeHa
     ClassName := ClassName is String ? StrPtr(ClassName) : ClassName
     VendorName := VendorName is String ? StrPtr(VendorName) : VendorName
 
-    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : "ptr"
-    OptionsMarshal := Options is VarRef ? "ptr*" : "ptr"
-    OptionsReadMarshal := OptionsRead is VarRef ? "uint*" : "ptr"
-    OptionsTotalMarshal := OptionsTotal is VarRef ? "uint*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ClassNameMarshal := ClassName == 0 ? IntPtr : PWSTR
+    VendorNameMarshal := VendorName == 0 ? IntPtr : PWSTR
+    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : IntPtr
+    OptionsMarshal := Options is VarRef ? "ptr*" : IntPtr
+    OptionsReadMarshal := OptionsRead is VarRef ? "uint*" : IntPtr
+    OptionsTotalMarshal := OptionsTotal is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpEnumOptionsV5", "ptr", ServerIpAddress, UInt32, Flags, "ptr", ClassName, "ptr", VendorName, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, OptionsMarshal, Options, OptionsReadMarshal, OptionsRead, OptionsTotalMarshal, OptionsTotal, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpEnumOptionsV5", ServerIpAddressMarshal, ServerIpAddress, UInt32, Flags, ClassNameMarshal, ClassName, VendorNameMarshal, VendorName, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, OptionsMarshal, Options, OptionsReadMarshal, OptionsRead, OptionsTotalMarshal, OptionsTotal, UInt32)
     return result
 }
 
@@ -4160,7 +4253,11 @@ export DhcpRemoveOptionV5(ServerIpAddress, Flags, OptionID, ClassName, VendorNam
     ClassName := ClassName is String ? StrPtr(ClassName) : ClassName
     VendorName := VendorName is String ? StrPtr(VendorName) : VendorName
 
-    result := DllCall("DHCPSAPI.dll\DhcpRemoveOptionV5", "ptr", ServerIpAddress, UInt32, Flags, UInt32, OptionID, "ptr", ClassName, "ptr", VendorName, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ClassNameMarshal := ClassName == 0 ? IntPtr : PWSTR
+    VendorNameMarshal := VendorName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpRemoveOptionV5", ServerIpAddressMarshal, ServerIpAddress, UInt32, Flags, UInt32, OptionID, ClassNameMarshal, ClassName, VendorNameMarshal, VendorName, UInt32)
     return result
 }
 
@@ -4209,7 +4306,11 @@ export DhcpSetOptionValueV5(ServerIpAddress, Flags, OptionId, ClassName, VendorN
     ClassName := ClassName is String ? StrPtr(ClassName) : ClassName
     VendorName := VendorName is String ? StrPtr(VendorName) : VendorName
 
-    result := DllCall("DHCPSAPI.dll\DhcpSetOptionValueV5", "ptr", ServerIpAddress, UInt32, Flags, UInt32, OptionId, "ptr", ClassName, "ptr", VendorName, DHCP_OPTION_SCOPE_INFO.Ptr, ScopeInfo, DHCP_OPTION_DATA.Ptr, OptionValue, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ClassNameMarshal := ClassName == 0 ? IntPtr : PWSTR
+    VendorNameMarshal := VendorName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpSetOptionValueV5", ServerIpAddressMarshal, ServerIpAddress, UInt32, Flags, UInt32, OptionId, ClassNameMarshal, ClassName, VendorNameMarshal, VendorName, DHCP_OPTION_SCOPE_INFO.Ptr, ScopeInfo, DHCP_OPTION_DATA.Ptr, OptionValue, UInt32)
     return result
 }
 
@@ -4294,7 +4395,11 @@ export DhcpSetOptionValuesV5(ServerIpAddress, Flags, ClassName, VendorName, Scop
     ClassName := ClassName is String ? StrPtr(ClassName) : ClassName
     VendorName := VendorName is String ? StrPtr(VendorName) : VendorName
 
-    result := DllCall("DHCPSAPI.dll\DhcpSetOptionValuesV5", "ptr", ServerIpAddress, UInt32, Flags, "ptr", ClassName, "ptr", VendorName, DHCP_OPTION_SCOPE_INFO.Ptr, ScopeInfo, DHCP_OPTION_VALUE_ARRAY.Ptr, OptionValues, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ClassNameMarshal := ClassName == 0 ? IntPtr : PWSTR
+    VendorNameMarshal := VendorName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpSetOptionValuesV5", ServerIpAddressMarshal, ServerIpAddress, UInt32, Flags, ClassNameMarshal, ClassName, VendorNameMarshal, VendorName, DHCP_OPTION_SCOPE_INFO.Ptr, ScopeInfo, DHCP_OPTION_VALUE_ARRAY.Ptr, OptionValues, UInt32)
     return result
 }
 
@@ -4412,9 +4517,12 @@ export DhcpGetOptionValueV5(ServerIpAddress, Flags, OptionID, ClassName, VendorN
     ClassName := ClassName is String ? StrPtr(ClassName) : ClassName
     VendorName := VendorName is String ? StrPtr(VendorName) : VendorName
 
-    OptionValueMarshal := OptionValue is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ClassNameMarshal := ClassName == 0 ? IntPtr : PWSTR
+    VendorNameMarshal := VendorName == 0 ? IntPtr : PWSTR
+    OptionValueMarshal := OptionValue is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpGetOptionValueV5", "ptr", ServerIpAddress, UInt32, Flags, UInt32, OptionID, "ptr", ClassName, "ptr", VendorName, DHCP_OPTION_SCOPE_INFO.Ptr, ScopeInfo, OptionValueMarshal, OptionValue, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpGetOptionValueV5", ServerIpAddressMarshal, ServerIpAddress, UInt32, Flags, UInt32, OptionID, ClassNameMarshal, ClassName, VendorNameMarshal, VendorName, DHCP_OPTION_SCOPE_INFO.Ptr, ScopeInfo, OptionValueMarshal, OptionValue, UInt32)
     return result
 }
 
@@ -4529,9 +4637,12 @@ export DhcpGetOptionValueV6(ServerIpAddress, Flags, OptionID, ClassName, VendorN
     ClassName := ClassName is String ? StrPtr(ClassName) : ClassName
     VendorName := VendorName is String ? StrPtr(VendorName) : VendorName
 
-    OptionValueMarshal := OptionValue is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ClassNameMarshal := ClassName == 0 ? IntPtr : PWSTR
+    VendorNameMarshal := VendorName == 0 ? IntPtr : PWSTR
+    OptionValueMarshal := OptionValue is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpGetOptionValueV6", "ptr", ServerIpAddress, UInt32, Flags, UInt32, OptionID, "ptr", ClassName, "ptr", VendorName, DHCP_OPTION_SCOPE_INFO6.Ptr, ScopeInfo, OptionValueMarshal, OptionValue, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpGetOptionValueV6", ServerIpAddressMarshal, ServerIpAddress, UInt32, Flags, UInt32, OptionID, ClassNameMarshal, ClassName, VendorNameMarshal, VendorName, DHCP_OPTION_SCOPE_INFO6.Ptr, ScopeInfo, OptionValueMarshal, OptionValue, UInt32)
     return result
 }
 
@@ -4636,12 +4747,15 @@ export DhcpEnumOptionValuesV5(ServerIpAddress, Flags, ClassName, VendorName, Sco
     ClassName := ClassName is String ? StrPtr(ClassName) : ClassName
     VendorName := VendorName is String ? StrPtr(VendorName) : VendorName
 
-    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : "ptr"
-    OptionValuesMarshal := OptionValues is VarRef ? "ptr*" : "ptr"
-    OptionsReadMarshal := OptionsRead is VarRef ? "uint*" : "ptr"
-    OptionsTotalMarshal := OptionsTotal is VarRef ? "uint*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ClassNameMarshal := ClassName == 0 ? IntPtr : PWSTR
+    VendorNameMarshal := VendorName == 0 ? IntPtr : PWSTR
+    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : IntPtr
+    OptionValuesMarshal := OptionValues is VarRef ? "ptr*" : IntPtr
+    OptionsReadMarshal := OptionsRead is VarRef ? "uint*" : IntPtr
+    OptionsTotalMarshal := OptionsTotal is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpEnumOptionValuesV5", "ptr", ServerIpAddress, UInt32, Flags, "ptr", ClassName, "ptr", VendorName, DHCP_OPTION_SCOPE_INFO.Ptr, ScopeInfo, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, OptionValuesMarshal, OptionValues, OptionsReadMarshal, OptionsRead, OptionsTotalMarshal, OptionsTotal, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpEnumOptionValuesV5", ServerIpAddressMarshal, ServerIpAddress, UInt32, Flags, ClassNameMarshal, ClassName, VendorNameMarshal, VendorName, DHCP_OPTION_SCOPE_INFO.Ptr, ScopeInfo, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, OptionValuesMarshal, OptionValues, OptionsReadMarshal, OptionsRead, OptionsTotalMarshal, OptionsTotal, UInt32)
     return result
 }
 
@@ -4679,7 +4793,11 @@ export DhcpRemoveOptionValueV5(ServerIpAddress, Flags, OptionID, ClassName, Vend
     ClassName := ClassName is String ? StrPtr(ClassName) : ClassName
     VendorName := VendorName is String ? StrPtr(VendorName) : VendorName
 
-    result := DllCall("DHCPSAPI.dll\DhcpRemoveOptionValueV5", "ptr", ServerIpAddress, UInt32, Flags, UInt32, OptionID, "ptr", ClassName, "ptr", VendorName, DHCP_OPTION_SCOPE_INFO.Ptr, ScopeInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ClassNameMarshal := ClassName == 0 ? IntPtr : PWSTR
+    VendorNameMarshal := VendorName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpRemoveOptionValueV5", ServerIpAddressMarshal, ServerIpAddress, UInt32, Flags, UInt32, OptionID, ClassNameMarshal, ClassName, VendorNameMarshal, VendorName, DHCP_OPTION_SCOPE_INFO.Ptr, ScopeInfo, UInt32)
     return result
 }
 
@@ -4735,7 +4853,9 @@ export DhcpRemoveOptionValueV5(ServerIpAddress, Flags, OptionID, ClassName, Vend
 export DhcpCreateClass(ServerIpAddress, ReservedMustBeZero, ClassInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpCreateClass", "ptr", ServerIpAddress, UInt32, ReservedMustBeZero, DHCP_CLASS_INFO.Ptr, ClassInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpCreateClass", ServerIpAddressMarshal, ServerIpAddress, UInt32, ReservedMustBeZero, DHCP_CLASS_INFO.Ptr, ClassInfo, UInt32)
     return result
 }
 
@@ -4813,7 +4933,9 @@ export DhcpCreateClass(ServerIpAddress, ReservedMustBeZero, ClassInfo) {
 export DhcpModifyClass(ServerIpAddress, ReservedMustBeZero, ClassInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpModifyClass", "ptr", ServerIpAddress, UInt32, ReservedMustBeZero, DHCP_CLASS_INFO.Ptr, ClassInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpModifyClass", ServerIpAddressMarshal, ServerIpAddress, UInt32, ReservedMustBeZero, DHCP_CLASS_INFO.Ptr, ClassInfo, UInt32)
     return result
 }
 
@@ -4881,7 +5003,9 @@ export DhcpDeleteClass(ServerIpAddress, ReservedMustBeZero, ClassName) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
     ClassName := ClassName is String ? StrPtr(ClassName) : ClassName
 
-    result := DllCall("DHCPSAPI.dll\DhcpDeleteClass", "ptr", ServerIpAddress, UInt32, ReservedMustBeZero, "ptr", ClassName, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpDeleteClass", ServerIpAddressMarshal, ServerIpAddress, UInt32, ReservedMustBeZero, "ptr", ClassName, UInt32)
     return result
 }
 
@@ -4952,9 +5076,10 @@ export DhcpDeleteClass(ServerIpAddress, ReservedMustBeZero, ClassName) {
 export DhcpGetClassInfo(ServerIpAddress, ReservedMustBeZero, PartialClassInfo, FilledClassInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    FilledClassInfoMarshal := FilledClassInfo is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    FilledClassInfoMarshal := FilledClassInfo is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpGetClassInfo", "ptr", ServerIpAddress, UInt32, ReservedMustBeZero, DHCP_CLASS_INFO.Ptr, PartialClassInfo, FilledClassInfoMarshal, FilledClassInfo, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpGetClassInfo", ServerIpAddressMarshal, ServerIpAddress, UInt32, ReservedMustBeZero, DHCP_CLASS_INFO.Ptr, PartialClassInfo, FilledClassInfoMarshal, FilledClassInfo, UInt32)
     return result
 }
 
@@ -5003,12 +5128,13 @@ export DhcpGetClassInfo(ServerIpAddress, ReservedMustBeZero, PartialClassInfo, F
 export DhcpEnumClasses(ServerIpAddress, ReservedMustBeZero, ResumeHandle, PreferredMaximum, ClassInfoArray, nRead, nTotal) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : "ptr"
-    ClassInfoArrayMarshal := ClassInfoArray is VarRef ? "ptr*" : "ptr"
-    nReadMarshal := nRead is VarRef ? "uint*" : "ptr"
-    nTotalMarshal := nTotal is VarRef ? "uint*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : IntPtr
+    ClassInfoArrayMarshal := ClassInfoArray is VarRef ? "ptr*" : IntPtr
+    nReadMarshal := nRead is VarRef ? "uint*" : IntPtr
+    nTotalMarshal := nTotal is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpEnumClasses", "ptr", ServerIpAddress, UInt32, ReservedMustBeZero, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, ClassInfoArrayMarshal, ClassInfoArray, nReadMarshal, nRead, nTotalMarshal, nTotal, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpEnumClasses", ServerIpAddressMarshal, ServerIpAddress, UInt32, ReservedMustBeZero, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, ClassInfoArrayMarshal, ClassInfoArray, nReadMarshal, nRead, nTotalMarshal, nTotal, UInt32)
     return result
 }
 
@@ -5066,9 +5192,10 @@ export DhcpEnumClasses(ServerIpAddress, ReservedMustBeZero, ResumeHandle, Prefer
 export DhcpGetAllOptions(ServerIpAddress, Flags, OptionStruct) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    OptionStructMarshal := OptionStruct is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    OptionStructMarshal := OptionStruct is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpGetAllOptions", "ptr", ServerIpAddress, UInt32, Flags, OptionStructMarshal, OptionStruct, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpGetAllOptions", ServerIpAddressMarshal, ServerIpAddress, UInt32, Flags, OptionStructMarshal, OptionStruct, UInt32)
     return result
 }
 
@@ -5157,9 +5284,10 @@ export DhcpGetAllOptions(ServerIpAddress, Flags, OptionStruct) {
 export DhcpGetAllOptionsV6(ServerIpAddress, Flags, OptionStruct) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    OptionStructMarshal := OptionStruct is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    OptionStructMarshal := OptionStruct is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpGetAllOptionsV6", "ptr", ServerIpAddress, UInt32, Flags, OptionStructMarshal, OptionStruct, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpGetAllOptionsV6", ServerIpAddressMarshal, ServerIpAddress, UInt32, Flags, OptionStructMarshal, OptionStruct, UInt32)
     return result
 }
 
@@ -5240,9 +5368,10 @@ export DhcpGetAllOptionsV6(ServerIpAddress, Flags, OptionStruct) {
 export DhcpGetAllOptionValues(ServerIpAddress, Flags, ScopeInfo, Values) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ValuesMarshal := Values is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ValuesMarshal := Values is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpGetAllOptionValues", "ptr", ServerIpAddress, UInt32, Flags, DHCP_OPTION_SCOPE_INFO.Ptr, ScopeInfo, ValuesMarshal, Values, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpGetAllOptionValues", ServerIpAddressMarshal, ServerIpAddress, UInt32, Flags, DHCP_OPTION_SCOPE_INFO.Ptr, ScopeInfo, ValuesMarshal, Values, UInt32)
     return result
 }
 
@@ -5332,9 +5461,10 @@ export DhcpGetAllOptionValues(ServerIpAddress, Flags, ScopeInfo, Values) {
 export DhcpGetAllOptionValuesV6(ServerIpAddress, Flags, ScopeInfo, Values) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ValuesMarshal := Values is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ValuesMarshal := Values is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpGetAllOptionValuesV6", "ptr", ServerIpAddress, UInt32, Flags, DHCP_OPTION_SCOPE_INFO6.Ptr, ScopeInfo, ValuesMarshal, Values, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpGetAllOptionValuesV6", ServerIpAddressMarshal, ServerIpAddress, UInt32, Flags, DHCP_OPTION_SCOPE_INFO6.Ptr, ScopeInfo, ValuesMarshal, Values, UInt32)
     return result
 }
 
@@ -5350,10 +5480,10 @@ export DhcpGetAllOptionValuesV6(ServerIpAddress, Flags, ScopeInfo, Values) {
  * @since windowsserver2000
  */
 export DhcpEnumServers(Flags, IdInfo, Servers, CallbackFn, CallbackData) {
-    IdInfoMarshal := IdInfo is VarRef ? "ptr" : "ptr"
-    ServersMarshal := Servers is VarRef ? "ptr*" : "ptr"
-    CallbackFnMarshal := CallbackFn is VarRef ? "ptr" : "ptr"
-    CallbackDataMarshal := CallbackData is VarRef ? "ptr" : "ptr"
+    IdInfoMarshal := IdInfo is VarRef ? "ptr" : IntPtr
+    ServersMarshal := Servers is VarRef ? "ptr*" : IntPtr
+    CallbackFnMarshal := CallbackFn is VarRef ? "ptr" : IntPtr
+    CallbackDataMarshal := CallbackData is VarRef ? "ptr" : IntPtr
 
     result := DllCall("DHCPSAPI.dll\DhcpEnumServers", UInt32, Flags, IdInfoMarshal, IdInfo, ServersMarshal, Servers, CallbackFnMarshal, CallbackFn, CallbackDataMarshal, CallbackData, UInt32)
     return result
@@ -5371,9 +5501,9 @@ export DhcpEnumServers(Flags, IdInfo, Servers, CallbackFn, CallbackData) {
  * @since windowsserver2000
  */
 export DhcpAddServer(Flags, IdInfo, NewServer, CallbackFn, CallbackData) {
-    IdInfoMarshal := IdInfo is VarRef ? "ptr" : "ptr"
-    CallbackFnMarshal := CallbackFn is VarRef ? "ptr" : "ptr"
-    CallbackDataMarshal := CallbackData is VarRef ? "ptr" : "ptr"
+    IdInfoMarshal := IdInfo is VarRef ? "ptr" : IntPtr
+    CallbackFnMarshal := CallbackFn is VarRef ? "ptr" : IntPtr
+    CallbackDataMarshal := CallbackData is VarRef ? "ptr" : IntPtr
 
     result := DllCall("DHCPSAPI.dll\DhcpAddServer", UInt32, Flags, IdInfoMarshal, IdInfo, DHCPDS_SERVER.Ptr, NewServer, CallbackFnMarshal, CallbackFn, CallbackDataMarshal, CallbackData, UInt32)
     return result
@@ -5391,9 +5521,9 @@ export DhcpAddServer(Flags, IdInfo, NewServer, CallbackFn, CallbackData) {
  * @since windowsserver2000
  */
 export DhcpDeleteServer(Flags, IdInfo, NewServer, CallbackFn, CallbackData) {
-    IdInfoMarshal := IdInfo is VarRef ? "ptr" : "ptr"
-    CallbackFnMarshal := CallbackFn is VarRef ? "ptr" : "ptr"
-    CallbackDataMarshal := CallbackData is VarRef ? "ptr" : "ptr"
+    IdInfoMarshal := IdInfo is VarRef ? "ptr" : IntPtr
+    CallbackFnMarshal := CallbackFn is VarRef ? "ptr" : IntPtr
+    CallbackDataMarshal := CallbackData is VarRef ? "ptr" : IntPtr
 
     result := DllCall("DHCPSAPI.dll\DhcpDeleteServer", UInt32, Flags, IdInfoMarshal, IdInfo, DHCPDS_SERVER.Ptr, NewServer, CallbackFnMarshal, CallbackFn, CallbackDataMarshal, CallbackData, UInt32)
     return result
@@ -5436,9 +5566,10 @@ export DhcpDeleteServer(Flags, IdInfo, NewServer, CallbackFn, CallbackData) {
 export DhcpGetServerBindingInfo(ServerIpAddress, Flags, BindElementsInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    BindElementsInfoMarshal := BindElementsInfo is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    BindElementsInfoMarshal := BindElementsInfo is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpGetServerBindingInfo", "ptr", ServerIpAddress, UInt32, Flags, BindElementsInfoMarshal, BindElementsInfo, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpGetServerBindingInfo", ServerIpAddressMarshal, ServerIpAddress, UInt32, Flags, BindElementsInfoMarshal, BindElementsInfo, UInt32)
     return result
 }
 
@@ -5474,7 +5605,9 @@ export DhcpGetServerBindingInfo(ServerIpAddress, Flags, BindElementsInfo) {
 export DhcpSetServerBindingInfo(ServerIpAddress, Flags, BindElementInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpSetServerBindingInfo", "ptr", ServerIpAddress, UInt32, Flags, DHCP_BIND_ELEMENT_ARRAY.Ptr, BindElementInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpSetServerBindingInfo", ServerIpAddressMarshal, ServerIpAddress, UInt32, Flags, DHCP_BIND_ELEMENT_ARRAY.Ptr, BindElementInfo, UInt32)
     return result
 }
 
@@ -5492,7 +5625,9 @@ export DhcpSetServerBindingInfo(ServerIpAddress, Flags, BindElementInfo) {
 export DhcpAddSubnetElementV5(ServerIpAddress, SubnetAddress, AddElementInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpAddSubnetElementV5", "ptr", ServerIpAddress, UInt32, SubnetAddress, DHCP_SUBNET_ELEMENT_DATA_V5.Ptr, AddElementInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpAddSubnetElementV5", ServerIpAddressMarshal, ServerIpAddress, UInt32, SubnetAddress, DHCP_SUBNET_ELEMENT_DATA_V5.Ptr, AddElementInfo, UInt32)
     return result
 }
 
@@ -5559,12 +5694,13 @@ export DhcpAddSubnetElementV5(ServerIpAddress, SubnetAddress, AddElementInfo) {
 export DhcpEnumSubnetElementsV5(ServerIpAddress, SubnetAddress, EnumElementType, ResumeHandle, PreferredMaximum, EnumElementInfo, ElementsRead, ElementsTotal) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : "ptr"
-    EnumElementInfoMarshal := EnumElementInfo is VarRef ? "ptr*" : "ptr"
-    ElementsReadMarshal := ElementsRead is VarRef ? "uint*" : "ptr"
-    ElementsTotalMarshal := ElementsTotal is VarRef ? "uint*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : IntPtr
+    EnumElementInfoMarshal := EnumElementInfo is VarRef ? "ptr*" : IntPtr
+    ElementsReadMarshal := ElementsRead is VarRef ? "uint*" : IntPtr
+    ElementsTotalMarshal := ElementsTotal is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetElementsV5", "ptr", ServerIpAddress, UInt32, SubnetAddress, DHCP_SUBNET_ELEMENT_TYPE, EnumElementType, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, EnumElementInfoMarshal, EnumElementInfo, ElementsReadMarshal, ElementsRead, ElementsTotalMarshal, ElementsTotal, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetElementsV5", ServerIpAddressMarshal, ServerIpAddress, UInt32, SubnetAddress, DHCP_SUBNET_ELEMENT_TYPE, EnumElementType, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, EnumElementInfoMarshal, EnumElementInfo, ElementsReadMarshal, ElementsRead, ElementsTotalMarshal, ElementsTotal, UInt32)
     return result
 }
 
@@ -5583,7 +5719,9 @@ export DhcpEnumSubnetElementsV5(ServerIpAddress, SubnetAddress, EnumElementType,
 export DhcpRemoveSubnetElementV5(ServerIpAddress, SubnetAddress, RemoveElementInfo, ForceFlag) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpRemoveSubnetElementV5", "ptr", ServerIpAddress, UInt32, SubnetAddress, DHCP_SUBNET_ELEMENT_DATA_V5.Ptr, RemoveElementInfo, DHCP_FORCE_FLAG, ForceFlag, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpRemoveSubnetElementV5", ServerIpAddressMarshal, ServerIpAddress, UInt32, SubnetAddress, DHCP_SUBNET_ELEMENT_DATA_V5.Ptr, RemoveElementInfo, DHCP_FORCE_FLAG, ForceFlag, UInt32)
     return result
 }
 
@@ -5660,12 +5798,13 @@ export DhcpRemoveSubnetElementV5(ServerIpAddress, SubnetAddress, RemoveElementIn
 export DhcpV4EnumSubnetReservations(ServerIpAddress, SubnetAddress, ResumeHandle, PreferredMaximum, EnumElementInfo, ElementsRead, ElementsTotal) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : "ptr"
-    EnumElementInfoMarshal := EnumElementInfo is VarRef ? "ptr*" : "ptr"
-    ElementsReadMarshal := ElementsRead is VarRef ? "uint*" : "ptr"
-    ElementsTotalMarshal := ElementsTotal is VarRef ? "uint*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : IntPtr
+    EnumElementInfoMarshal := EnumElementInfo is VarRef ? "ptr*" : IntPtr
+    ElementsReadMarshal := ElementsRead is VarRef ? "uint*" : IntPtr
+    ElementsTotalMarshal := ElementsTotal is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4EnumSubnetReservations", "ptr", ServerIpAddress, UInt32, SubnetAddress, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, EnumElementInfoMarshal, EnumElementInfo, ElementsReadMarshal, ElementsRead, ElementsTotalMarshal, ElementsTotal, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpV4EnumSubnetReservations", ServerIpAddressMarshal, ServerIpAddress, UInt32, SubnetAddress, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, EnumElementInfoMarshal, EnumElementInfo, ElementsReadMarshal, ElementsRead, ElementsTotalMarshal, ElementsTotal, UInt32)
     return result
 }
 
@@ -5743,7 +5882,11 @@ export DhcpCreateOptionV6(ServerIpAddress, Flags, OptionId, ClassName, VendorNam
     ClassName := ClassName is String ? StrPtr(ClassName) : ClassName
     VendorName := VendorName is String ? StrPtr(VendorName) : VendorName
 
-    result := DllCall("DHCPSAPI.dll\DhcpCreateOptionV6", "ptr", ServerIpAddress, UInt32, Flags, UInt32, OptionId, "ptr", ClassName, "ptr", VendorName, DHCP_OPTION.Ptr, OptionInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ClassNameMarshal := ClassName == 0 ? IntPtr : PWSTR
+    VendorNameMarshal := VendorName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpCreateOptionV6", ServerIpAddressMarshal, ServerIpAddress, UInt32, Flags, UInt32, OptionId, ClassNameMarshal, ClassName, VendorNameMarshal, VendorName, DHCP_OPTION.Ptr, OptionInfo, UInt32)
     return result
 }
 
@@ -5809,7 +5952,11 @@ export DhcpRemoveOptionV6(ServerIpAddress, Flags, OptionID, ClassName, VendorNam
     ClassName := ClassName is String ? StrPtr(ClassName) : ClassName
     VendorName := VendorName is String ? StrPtr(VendorName) : VendorName
 
-    result := DllCall("DHCPSAPI.dll\DhcpRemoveOptionV6", "ptr", ServerIpAddress, UInt32, Flags, UInt32, OptionID, "ptr", ClassName, "ptr", VendorName, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ClassNameMarshal := ClassName == 0 ? IntPtr : PWSTR
+    VendorNameMarshal := VendorName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpRemoveOptionV6", ServerIpAddressMarshal, ServerIpAddress, UInt32, Flags, UInt32, OptionID, ClassNameMarshal, ClassName, VendorNameMarshal, VendorName, UInt32)
     return result
 }
 
@@ -5901,12 +6048,15 @@ export DhcpEnumOptionsV6(ServerIpAddress, Flags, ClassName, VendorName, ResumeHa
     ClassName := ClassName is String ? StrPtr(ClassName) : ClassName
     VendorName := VendorName is String ? StrPtr(VendorName) : VendorName
 
-    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : "ptr"
-    OptionsMarshal := Options is VarRef ? "ptr*" : "ptr"
-    OptionsReadMarshal := OptionsRead is VarRef ? "uint*" : "ptr"
-    OptionsTotalMarshal := OptionsTotal is VarRef ? "uint*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ClassNameMarshal := ClassName == 0 ? IntPtr : PWSTR
+    VendorNameMarshal := VendorName == 0 ? IntPtr : PWSTR
+    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : IntPtr
+    OptionsMarshal := Options is VarRef ? "ptr*" : IntPtr
+    OptionsReadMarshal := OptionsRead is VarRef ? "uint*" : IntPtr
+    OptionsTotalMarshal := OptionsTotal is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpEnumOptionsV6", "ptr", ServerIpAddress, UInt32, Flags, "ptr", ClassName, "ptr", VendorName, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, OptionsMarshal, Options, OptionsReadMarshal, OptionsRead, OptionsTotalMarshal, OptionsTotal, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpEnumOptionsV6", ServerIpAddressMarshal, ServerIpAddress, UInt32, Flags, ClassNameMarshal, ClassName, VendorNameMarshal, VendorName, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, OptionsMarshal, Options, OptionsReadMarshal, OptionsRead, OptionsTotalMarshal, OptionsTotal, UInt32)
     return result
 }
 
@@ -5973,7 +6123,11 @@ export DhcpRemoveOptionValueV6(ServerIpAddress, Flags, OptionID, ClassName, Vend
     ClassName := ClassName is String ? StrPtr(ClassName) : ClassName
     VendorName := VendorName is String ? StrPtr(VendorName) : VendorName
 
-    result := DllCall("DHCPSAPI.dll\DhcpRemoveOptionValueV6", "ptr", ServerIpAddress, UInt32, Flags, UInt32, OptionID, "ptr", ClassName, "ptr", VendorName, DHCP_OPTION_SCOPE_INFO6.Ptr, ScopeInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ClassNameMarshal := ClassName == 0 ? IntPtr : PWSTR
+    VendorNameMarshal := VendorName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpRemoveOptionValueV6", ServerIpAddressMarshal, ServerIpAddress, UInt32, Flags, UInt32, OptionID, ClassNameMarshal, ClassName, VendorNameMarshal, VendorName, DHCP_OPTION_SCOPE_INFO6.Ptr, ScopeInfo, UInt32)
     return result
 }
 
@@ -6067,9 +6221,12 @@ export DhcpGetOptionInfoV6(ServerIpAddress, Flags, OptionID, ClassName, VendorNa
     ClassName := ClassName is String ? StrPtr(ClassName) : ClassName
     VendorName := VendorName is String ? StrPtr(VendorName) : VendorName
 
-    OptionInfoMarshal := OptionInfo is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ClassNameMarshal := ClassName == 0 ? IntPtr : PWSTR
+    VendorNameMarshal := VendorName == 0 ? IntPtr : PWSTR
+    OptionInfoMarshal := OptionInfo is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpGetOptionInfoV6", "ptr", ServerIpAddress, UInt32, Flags, UInt32, OptionID, "ptr", ClassName, "ptr", VendorName, OptionInfoMarshal, OptionInfo, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpGetOptionInfoV6", ServerIpAddressMarshal, ServerIpAddress, UInt32, Flags, UInt32, OptionID, ClassNameMarshal, ClassName, VendorNameMarshal, VendorName, OptionInfoMarshal, OptionInfo, UInt32)
     return result
 }
 
@@ -6136,7 +6293,11 @@ export DhcpSetOptionInfoV6(ServerIpAddress, Flags, OptionID, ClassName, VendorNa
     ClassName := ClassName is String ? StrPtr(ClassName) : ClassName
     VendorName := VendorName is String ? StrPtr(VendorName) : VendorName
 
-    result := DllCall("DHCPSAPI.dll\DhcpSetOptionInfoV6", "ptr", ServerIpAddress, UInt32, Flags, UInt32, OptionID, "ptr", ClassName, "ptr", VendorName, DHCP_OPTION.Ptr, OptionInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ClassNameMarshal := ClassName == 0 ? IntPtr : PWSTR
+    VendorNameMarshal := VendorName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpSetOptionInfoV6", ServerIpAddressMarshal, ServerIpAddress, UInt32, Flags, UInt32, OptionID, ClassNameMarshal, ClassName, VendorNameMarshal, VendorName, DHCP_OPTION.Ptr, OptionInfo, UInt32)
     return result
 }
 
@@ -6204,7 +6365,11 @@ export DhcpSetOptionValueV6(ServerIpAddress, Flags, OptionId, ClassName, VendorN
     ClassName := ClassName is String ? StrPtr(ClassName) : ClassName
     VendorName := VendorName is String ? StrPtr(VendorName) : VendorName
 
-    result := DllCall("DHCPSAPI.dll\DhcpSetOptionValueV6", "ptr", ServerIpAddress, UInt32, Flags, UInt32, OptionId, "ptr", ClassName, "ptr", VendorName, DHCP_OPTION_SCOPE_INFO6.Ptr, ScopeInfo, DHCP_OPTION_DATA.Ptr, OptionValue, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ClassNameMarshal := ClassName == 0 ? IntPtr : PWSTR
+    VendorNameMarshal := VendorName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpSetOptionValueV6", ServerIpAddressMarshal, ServerIpAddress, UInt32, Flags, UInt32, OptionId, ClassNameMarshal, ClassName, VendorNameMarshal, VendorName, DHCP_OPTION_SCOPE_INFO6.Ptr, ScopeInfo, DHCP_OPTION_DATA.Ptr, OptionValue, UInt32)
     return result
 }
 
@@ -6276,9 +6441,10 @@ export DhcpSetOptionValueV6(ServerIpAddress, Flags, OptionId, ClassName, VendorN
 export DhcpGetSubnetInfoVQ(ServerIpAddress, SubnetAddress, SubnetInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    SubnetInfoMarshal := SubnetInfo is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    SubnetInfoMarshal := SubnetInfo is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpGetSubnetInfoVQ", "ptr", ServerIpAddress, UInt32, SubnetAddress, SubnetInfoMarshal, SubnetInfo, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpGetSubnetInfoVQ", ServerIpAddressMarshal, ServerIpAddress, UInt32, SubnetAddress, SubnetInfoMarshal, SubnetInfo, UInt32)
     return result
 }
 
@@ -6334,7 +6500,9 @@ export DhcpGetSubnetInfoVQ(ServerIpAddress, SubnetAddress, SubnetInfo) {
 export DhcpCreateSubnetVQ(ServerIpAddress, SubnetAddress, SubnetInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpCreateSubnetVQ", "ptr", ServerIpAddress, UInt32, SubnetAddress, DHCP_SUBNET_INFO_VQ.Ptr, SubnetInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpCreateSubnetVQ", ServerIpAddressMarshal, ServerIpAddress, UInt32, SubnetAddress, DHCP_SUBNET_INFO_VQ.Ptr, SubnetInfo, UInt32)
     return result
 }
 
@@ -6390,7 +6558,9 @@ export DhcpCreateSubnetVQ(ServerIpAddress, SubnetAddress, SubnetInfo) {
 export DhcpSetSubnetInfoVQ(ServerIpAddress, SubnetAddress, SubnetInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpSetSubnetInfoVQ", "ptr", ServerIpAddress, UInt32, SubnetAddress, DHCP_SUBNET_INFO_VQ.Ptr, SubnetInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpSetSubnetInfoVQ", ServerIpAddressMarshal, ServerIpAddress, UInt32, SubnetAddress, DHCP_SUBNET_INFO_VQ.Ptr, SubnetInfo, UInt32)
     return result
 }
 
@@ -6483,12 +6653,15 @@ export DhcpEnumOptionValuesV6(ServerIpAddress, Flags, ClassName, VendorName, Sco
     ClassName := ClassName is String ? StrPtr(ClassName) : ClassName
     VendorName := VendorName is String ? StrPtr(VendorName) : VendorName
 
-    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : "ptr"
-    OptionValuesMarshal := OptionValues is VarRef ? "ptr*" : "ptr"
-    OptionsReadMarshal := OptionsRead is VarRef ? "uint*" : "ptr"
-    OptionsTotalMarshal := OptionsTotal is VarRef ? "uint*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ClassNameMarshal := ClassName == 0 ? IntPtr : PWSTR
+    VendorNameMarshal := VendorName == 0 ? IntPtr : PWSTR
+    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : IntPtr
+    OptionValuesMarshal := OptionValues is VarRef ? "ptr*" : IntPtr
+    OptionsReadMarshal := OptionsRead is VarRef ? "uint*" : IntPtr
+    OptionsTotalMarshal := OptionsTotal is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpEnumOptionValuesV6", "ptr", ServerIpAddress, UInt32, Flags, "ptr", ClassName, "ptr", VendorName, DHCP_OPTION_SCOPE_INFO6.Ptr, ScopeInfo, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, OptionValuesMarshal, OptionValues, OptionsReadMarshal, OptionsRead, OptionsTotalMarshal, OptionsTotal, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpEnumOptionValuesV6", ServerIpAddressMarshal, ServerIpAddress, UInt32, Flags, ClassNameMarshal, ClassName, VendorNameMarshal, VendorName, DHCP_OPTION_SCOPE_INFO6.Ptr, ScopeInfo, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, OptionValuesMarshal, OptionValues, OptionsReadMarshal, OptionsRead, OptionsTotalMarshal, OptionsTotal, UInt32)
     return result
 }
 
@@ -6554,7 +6727,7 @@ export DhcpDsCleanup() {
  * @since windowsserver2008
  */
 export DhcpSetThreadOptions(Flags, Reserved) {
-    ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
+    ReservedMarshal := Reserved is VarRef ? "ptr" : IntPtr
 
     result := DllCall("DHCPSAPI.dll\DhcpSetThreadOptions", UInt32, Flags, ReservedMarshal, Reserved, UInt32)
     return result
@@ -6597,8 +6770,8 @@ export DhcpSetThreadOptions(Flags, Reserved) {
  * @since windowsserver2008
  */
 export DhcpGetThreadOptions(pFlags, Reserved) {
-    pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
-    ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
+    pFlagsMarshal := pFlags is VarRef ? "uint*" : IntPtr
+    ReservedMarshal := Reserved is VarRef ? "ptr" : IntPtr
 
     result := DllCall("DHCPSAPI.dll\DhcpGetThreadOptions", pFlagsMarshal, pFlags, ReservedMarshal, Reserved, UInt32)
     return result
@@ -6621,9 +6794,10 @@ export DhcpGetThreadOptions(pFlags, Reserved) {
 export DhcpServerQueryAttribute(ServerIpAddr, dwReserved, DhcpAttribId, pDhcpAttrib) {
     ServerIpAddr := ServerIpAddr is String ? StrPtr(ServerIpAddr) : ServerIpAddr
 
-    pDhcpAttribMarshal := pDhcpAttrib is VarRef ? "ptr*" : "ptr"
+    ServerIpAddrMarshal := ServerIpAddr == 0 ? IntPtr : PWSTR
+    pDhcpAttribMarshal := pDhcpAttrib is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpServerQueryAttribute", "ptr", ServerIpAddr, UInt32, dwReserved, UInt32, DhcpAttribId, pDhcpAttribMarshal, pDhcpAttrib, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpServerQueryAttribute", ServerIpAddrMarshal, ServerIpAddr, UInt32, dwReserved, UInt32, DhcpAttribId, pDhcpAttribMarshal, pDhcpAttrib, UInt32)
     return result
 }
 
@@ -6645,10 +6819,11 @@ export DhcpServerQueryAttribute(ServerIpAddr, dwReserved, DhcpAttribId, pDhcpAtt
 export DhcpServerQueryAttributes(ServerIpAddr, dwReserved, dwAttribCount, pDhcpAttribs, pDhcpAttribArr) {
     ServerIpAddr := ServerIpAddr is String ? StrPtr(ServerIpAddr) : ServerIpAddr
 
-    pDhcpAttribsMarshal := pDhcpAttribs is VarRef ? "uint*" : "ptr"
-    pDhcpAttribArrMarshal := pDhcpAttribArr is VarRef ? "ptr*" : "ptr"
+    ServerIpAddrMarshal := ServerIpAddr == 0 ? IntPtr : PWSTR
+    pDhcpAttribsMarshal := pDhcpAttribs is VarRef ? "uint*" : IntPtr
+    pDhcpAttribArrMarshal := pDhcpAttribArr is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpServerQueryAttributes", "ptr", ServerIpAddr, UInt32, dwReserved, UInt32, dwAttribCount, pDhcpAttribsMarshal, pDhcpAttribs, pDhcpAttribArrMarshal, pDhcpAttribArr, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpServerQueryAttributes", ServerIpAddrMarshal, ServerIpAddr, UInt32, dwReserved, UInt32, dwAttribCount, pDhcpAttribsMarshal, pDhcpAttribs, pDhcpAttribArrMarshal, pDhcpAttribArr, UInt32)
     return result
 }
 
@@ -6665,7 +6840,9 @@ export DhcpServerQueryAttributes(ServerIpAddr, dwReserved, dwAttribCount, pDhcpA
 export DhcpServerRedoAuthorization(ServerIpAddr, dwReserved) {
     ServerIpAddr := ServerIpAddr is String ? StrPtr(ServerIpAddr) : ServerIpAddr
 
-    result := DllCall("DHCPSAPI.dll\DhcpServerRedoAuthorization", "ptr", ServerIpAddr, UInt32, dwReserved, UInt32)
+    ServerIpAddrMarshal := ServerIpAddr == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpServerRedoAuthorization", ServerIpAddrMarshal, ServerIpAddr, UInt32, dwReserved, UInt32)
     return result
 }
 
@@ -6703,7 +6880,10 @@ export DhcpAuditLogSetParams(ServerIpAddress, Flags, AuditLogDir, DiskCheckInter
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
     AuditLogDir := AuditLogDir is String ? StrPtr(AuditLogDir) : AuditLogDir
 
-    result := DllCall("DHCPSAPI.dll\DhcpAuditLogSetParams", "ptr", ServerIpAddress, UInt32, Flags, "ptr", AuditLogDir, UInt32, DiskCheckInterval, UInt32, MaxLogFilesSize, UInt32, MinSpaceOnDisk, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    AuditLogDirMarshal := AuditLogDir == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpAuditLogSetParams", ServerIpAddressMarshal, ServerIpAddress, UInt32, Flags, AuditLogDirMarshal, AuditLogDir, UInt32, DiskCheckInterval, UInt32, MaxLogFilesSize, UInt32, MinSpaceOnDisk, UInt32)
     return result
 }
 
@@ -6751,12 +6931,13 @@ export DhcpAuditLogSetParams(ServerIpAddress, Flags, AuditLogDir, DiskCheckInter
 export DhcpAuditLogGetParams(ServerIpAddress, Flags, AuditLogDir, DiskCheckInterval, MaxLogFilesSize, MinSpaceOnDisk) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    AuditLogDirMarshal := AuditLogDir is VarRef ? "ptr*" : "ptr"
-    DiskCheckIntervalMarshal := DiskCheckInterval is VarRef ? "uint*" : "ptr"
-    MaxLogFilesSizeMarshal := MaxLogFilesSize is VarRef ? "uint*" : "ptr"
-    MinSpaceOnDiskMarshal := MinSpaceOnDisk is VarRef ? "uint*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    AuditLogDirMarshal := AuditLogDir is VarRef ? "ptr*" : IntPtr
+    DiskCheckIntervalMarshal := DiskCheckInterval is VarRef ? "uint*" : IntPtr
+    MaxLogFilesSizeMarshal := MaxLogFilesSize is VarRef ? "uint*" : IntPtr
+    MinSpaceOnDiskMarshal := MinSpaceOnDisk is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpAuditLogGetParams", "ptr", ServerIpAddress, UInt32, Flags, AuditLogDirMarshal, AuditLogDir, DiskCheckIntervalMarshal, DiskCheckInterval, MaxLogFilesSizeMarshal, MaxLogFilesSize, MinSpaceOnDiskMarshal, MinSpaceOnDisk, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpAuditLogGetParams", ServerIpAddressMarshal, ServerIpAddress, UInt32, Flags, AuditLogDirMarshal, AuditLogDir, DiskCheckIntervalMarshal, DiskCheckInterval, MaxLogFilesSizeMarshal, MaxLogFilesSize, MinSpaceOnDiskMarshal, MinSpaceOnDisk, UInt32)
     return result
 }
 
@@ -6778,12 +6959,13 @@ export DhcpServerQueryDnsRegCredentials(ServerIpAddress, UnameSize, Uname, Domai
     Uname := Uname is String ? StrPtr(Uname) : Uname
     Domain := Domain is String ? StrPtr(Domain) : Domain
 
-    result := DllCall("DHCPSAPI.dll\DhcpServerQueryDnsRegCredentials", "ptr", ServerIpAddress, UInt32, UnameSize, "ptr", Uname, UInt32, DomainSize, "ptr", Domain, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpServerQueryDnsRegCredentials", ServerIpAddressMarshal, ServerIpAddress, UInt32, UnameSize, "ptr", Uname, UInt32, DomainSize, "ptr", Domain, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} ServerIpAddress 
  * @param {PWSTR} Uname 
  * @param {PWSTR} Domain 
@@ -6796,7 +6978,12 @@ export DhcpServerSetDnsRegCredentials(ServerIpAddress, Uname, Domain, Passwd) {
     Domain := Domain is String ? StrPtr(Domain) : Domain
     Passwd := Passwd is String ? StrPtr(Passwd) : Passwd
 
-    result := DllCall("DHCPSAPI.dll\DhcpServerSetDnsRegCredentials", "ptr", ServerIpAddress, "ptr", Uname, "ptr", Domain, "ptr", Passwd, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    UnameMarshal := Uname == 0 ? IntPtr : PWSTR
+    DomainMarshal := Domain == 0 ? IntPtr : PWSTR
+    PasswdMarshal := Passwd == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpServerSetDnsRegCredentials", ServerIpAddressMarshal, ServerIpAddress, UnameMarshal, Uname, DomainMarshal, Domain, PasswdMarshal, Passwd, UInt32)
     return result
 }
 
@@ -6816,7 +7003,12 @@ export DhcpServerSetDnsRegCredentialsV5(ServerIpAddress, Uname, Domain, Passwd) 
     Domain := Domain is String ? StrPtr(Domain) : Domain
     Passwd := Passwd is String ? StrPtr(Passwd) : Passwd
 
-    result := DllCall("DHCPSAPI.dll\DhcpServerSetDnsRegCredentialsV5", "ptr", ServerIpAddress, "ptr", Uname, "ptr", Domain, "ptr", Passwd, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    UnameMarshal := Uname == 0 ? IntPtr : PWSTR
+    DomainMarshal := Domain == 0 ? IntPtr : PWSTR
+    PasswdMarshal := Passwd == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpServerSetDnsRegCredentialsV5", ServerIpAddressMarshal, ServerIpAddress, UnameMarshal, Uname, DomainMarshal, Domain, PasswdMarshal, Passwd, UInt32)
     return result
 }
 
@@ -6861,7 +7053,9 @@ export DhcpServerBackupDatabase(ServerIpAddress, _Path) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
     _Path := _Path is String ? StrPtr(_Path) : _Path
 
-    result := DllCall("DHCPSAPI.dll\DhcpServerBackupDatabase", "ptr", ServerIpAddress, "ptr", _Path, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpServerBackupDatabase", ServerIpAddressMarshal, ServerIpAddress, "ptr", _Path, UInt32)
     return result
 }
 
@@ -6906,7 +7100,9 @@ export DhcpServerRestoreDatabase(ServerIpAddress, _Path) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
     _Path := _Path is String ? StrPtr(_Path) : _Path
 
-    result := DllCall("DHCPSAPI.dll\DhcpServerRestoreDatabase", "ptr", ServerIpAddress, "ptr", _Path, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpServerRestoreDatabase", ServerIpAddressMarshal, ServerIpAddress, "ptr", _Path, UInt32)
     return result
 }
 
@@ -6950,7 +7146,9 @@ export DhcpServerRestoreDatabase(ServerIpAddress, _Path) {
 export DhcpServerSetConfigVQ(ServerIpAddress, FieldsToSet, ConfigInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpServerSetConfigVQ", "ptr", ServerIpAddress, UInt32, FieldsToSet, DHCP_SERVER_CONFIG_INFO_VQ.Ptr, ConfigInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpServerSetConfigVQ", ServerIpAddressMarshal, ServerIpAddress, UInt32, FieldsToSet, DHCP_SERVER_CONFIG_INFO_VQ.Ptr, ConfigInfo, UInt32)
     return result
 }
 
@@ -6985,9 +7183,10 @@ export DhcpServerSetConfigVQ(ServerIpAddress, FieldsToSet, ConfigInfo) {
 export DhcpServerGetConfigVQ(ServerIpAddress, ConfigInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ConfigInfoMarshal := ConfigInfo is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ConfigInfoMarshal := ConfigInfo is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpServerGetConfigVQ", "ptr", ServerIpAddress, ConfigInfoMarshal, ConfigInfo, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpServerGetConfigVQ", ServerIpAddressMarshal, ServerIpAddress, ConfigInfoMarshal, ConfigInfo, UInt32)
     return result
 }
 
@@ -7025,14 +7224,14 @@ export DhcpServerGetConfigVQ(ServerIpAddress, ConfigInfo) {
 export DhcpGetServerSpecificStrings(ServerIpAddress, ServerSpecificStrings) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ServerSpecificStringsMarshal := ServerSpecificStrings is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ServerSpecificStringsMarshal := ServerSpecificStrings is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpGetServerSpecificStrings", "ptr", ServerIpAddress, ServerSpecificStringsMarshal, ServerSpecificStrings, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpGetServerSpecificStrings", ServerIpAddressMarshal, ServerIpAddress, ServerSpecificStringsMarshal, ServerSpecificStrings, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<DHCP_SERVER_CONFIG_INFO_VQ>} ConfigInfo 
  * @returns {String} Nothing - always returns an empty string
  */
@@ -7081,7 +7280,9 @@ export DhcpServerAuditlogParamsFree(ConfigInfo) {
 export DhcpCreateSubnetV6(ServerIpAddress, SubnetAddress, SubnetInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpCreateSubnetV6", "ptr", ServerIpAddress, DHCP_IPV6_ADDRESS, SubnetAddress, DHCP_SUBNET_INFO_V6.Ptr, SubnetInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpCreateSubnetV6", ServerIpAddressMarshal, ServerIpAddress, DHCP_IPV6_ADDRESS, SubnetAddress, DHCP_SUBNET_INFO_V6.Ptr, SubnetInfo, UInt32)
     return result
 }
 
@@ -7126,7 +7327,9 @@ export DhcpCreateSubnetV6(ServerIpAddress, SubnetAddress, SubnetInfo) {
 export DhcpDeleteSubnetV6(ServerIpAddress, SubnetAddress, ForceFlag) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpDeleteSubnetV6", "ptr", ServerIpAddress, DHCP_IPV6_ADDRESS, SubnetAddress, DHCP_FORCE_FLAG, ForceFlag, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpDeleteSubnetV6", ServerIpAddressMarshal, ServerIpAddress, DHCP_IPV6_ADDRESS, SubnetAddress, DHCP_FORCE_FLAG, ForceFlag, UInt32)
     return result
 }
 
@@ -7196,12 +7399,13 @@ export DhcpDeleteSubnetV6(ServerIpAddress, SubnetAddress, ForceFlag) {
 export DhcpEnumSubnetsV6(ServerIpAddress, ResumeHandle, PreferredMaximum, EnumInfo, ElementsRead, ElementsTotal) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : "ptr"
-    EnumInfoMarshal := EnumInfo is VarRef ? "ptr*" : "ptr"
-    ElementsReadMarshal := ElementsRead is VarRef ? "uint*" : "ptr"
-    ElementsTotalMarshal := ElementsTotal is VarRef ? "uint*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : IntPtr
+    EnumInfoMarshal := EnumInfo is VarRef ? "ptr*" : IntPtr
+    ElementsReadMarshal := ElementsRead is VarRef ? "uint*" : IntPtr
+    ElementsTotalMarshal := ElementsTotal is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetsV6", "ptr", ServerIpAddress, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, EnumInfoMarshal, EnumInfo, ElementsReadMarshal, ElementsRead, ElementsTotalMarshal, ElementsTotal, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetsV6", ServerIpAddressMarshal, ServerIpAddress, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, EnumInfoMarshal, EnumInfo, ElementsReadMarshal, ElementsRead, ElementsTotalMarshal, ElementsTotal, UInt32)
     return result
 }
 
@@ -7246,7 +7450,9 @@ export DhcpEnumSubnetsV6(ServerIpAddress, ResumeHandle, PreferredMaximum, EnumIn
 export DhcpAddSubnetElementV6(ServerIpAddress, SubnetAddress, AddElementInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpAddSubnetElementV6", "ptr", ServerIpAddress, DHCP_IPV6_ADDRESS, SubnetAddress, DHCP_SUBNET_ELEMENT_DATA_V6.Ptr, AddElementInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpAddSubnetElementV6", ServerIpAddressMarshal, ServerIpAddress, DHCP_IPV6_ADDRESS, SubnetAddress, DHCP_SUBNET_ELEMENT_DATA_V6.Ptr, AddElementInfo, UInt32)
     return result
 }
 
@@ -7292,7 +7498,9 @@ export DhcpAddSubnetElementV6(ServerIpAddress, SubnetAddress, AddElementInfo) {
 export DhcpRemoveSubnetElementV6(ServerIpAddress, SubnetAddress, RemoveElementInfo, ForceFlag) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpRemoveSubnetElementV6", "ptr", ServerIpAddress, DHCP_IPV6_ADDRESS, SubnetAddress, DHCP_SUBNET_ELEMENT_DATA_V6.Ptr, RemoveElementInfo, DHCP_FORCE_FLAG, ForceFlag, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpRemoveSubnetElementV6", ServerIpAddressMarshal, ServerIpAddress, DHCP_IPV6_ADDRESS, SubnetAddress, DHCP_SUBNET_ELEMENT_DATA_V6.Ptr, RemoveElementInfo, DHCP_FORCE_FLAG, ForceFlag, UInt32)
     return result
 }
 
@@ -7364,12 +7572,13 @@ export DhcpRemoveSubnetElementV6(ServerIpAddress, SubnetAddress, RemoveElementIn
 export DhcpEnumSubnetElementsV6(ServerIpAddress, SubnetAddress, EnumElementType, ResumeHandle, PreferredMaximum, EnumElementInfo, ElementsRead, ElementsTotal) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : "ptr"
-    EnumElementInfoMarshal := EnumElementInfo is VarRef ? "ptr*" : "ptr"
-    ElementsReadMarshal := ElementsRead is VarRef ? "uint*" : "ptr"
-    ElementsTotalMarshal := ElementsTotal is VarRef ? "uint*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : IntPtr
+    EnumElementInfoMarshal := EnumElementInfo is VarRef ? "ptr*" : IntPtr
+    ElementsReadMarshal := ElementsRead is VarRef ? "uint*" : IntPtr
+    ElementsTotalMarshal := ElementsTotal is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetElementsV6", "ptr", ServerIpAddress, DHCP_IPV6_ADDRESS, SubnetAddress, DHCP_SUBNET_ELEMENT_TYPE_V6, EnumElementType, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, EnumElementInfoMarshal, EnumElementInfo, ElementsReadMarshal, ElementsRead, ElementsTotalMarshal, ElementsTotal, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetElementsV6", ServerIpAddressMarshal, ServerIpAddress, DHCP_IPV6_ADDRESS, SubnetAddress, DHCP_SUBNET_ELEMENT_TYPE_V6, EnumElementType, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, EnumElementInfoMarshal, EnumElementInfo, ElementsReadMarshal, ElementsRead, ElementsTotalMarshal, ElementsTotal, UInt32)
     return result
 }
 
@@ -7390,9 +7599,10 @@ export DhcpEnumSubnetElementsV6(ServerIpAddress, SubnetAddress, EnumElementType,
 export DhcpGetSubnetInfoV6(ServerIpAddress, SubnetAddress, SubnetInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    SubnetInfoMarshal := SubnetInfo is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    SubnetInfoMarshal := SubnetInfo is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpGetSubnetInfoV6", "ptr", ServerIpAddress, DHCP_IPV6_ADDRESS, SubnetAddress, SubnetInfoMarshal, SubnetInfo, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpGetSubnetInfoV6", ServerIpAddressMarshal, ServerIpAddress, DHCP_IPV6_ADDRESS, SubnetAddress, SubnetInfoMarshal, SubnetInfo, UInt32)
     return result
 }
 
@@ -7463,11 +7673,12 @@ export DhcpGetSubnetInfoV6(ServerIpAddress, SubnetAddress, SubnetInfo) {
 export DhcpEnumSubnetClientsV6(ServerIpAddress, SubnetAddress, ResumeHandle, PreferredMaximum, ClientInfo, ClientsRead, ClientsTotal) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ClientInfoMarshal := ClientInfo is VarRef ? "ptr*" : "ptr"
-    ClientsReadMarshal := ClientsRead is VarRef ? "uint*" : "ptr"
-    ClientsTotalMarshal := ClientsTotal is VarRef ? "uint*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ClientInfoMarshal := ClientInfo is VarRef ? "ptr*" : IntPtr
+    ClientsReadMarshal := ClientsRead is VarRef ? "uint*" : IntPtr
+    ClientsTotalMarshal := ClientsTotal is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetClientsV6", "ptr", ServerIpAddress, DHCP_IPV6_ADDRESS, SubnetAddress, DHCP_IPV6_ADDRESS.Ptr, ResumeHandle, UInt32, PreferredMaximum, ClientInfoMarshal, ClientInfo, ClientsReadMarshal, ClientsRead, ClientsTotalMarshal, ClientsTotal, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpEnumSubnetClientsV6", ServerIpAddressMarshal, ServerIpAddress, DHCP_IPV6_ADDRESS, SubnetAddress, DHCP_IPV6_ADDRESS.Ptr, ResumeHandle, UInt32, PreferredMaximum, ClientInfoMarshal, ClientInfo, ClientsReadMarshal, ClientsRead, ClientsTotalMarshal, ClientsTotal, UInt32)
     return result
 }
 
@@ -7517,9 +7728,10 @@ export DhcpEnumSubnetClientsV6(ServerIpAddress, SubnetAddress, ResumeHandle, Pre
 export DhcpServerGetConfigV6(ServerIpAddress, ScopeInfo, ConfigInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ConfigInfoMarshal := ConfigInfo is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ConfigInfoMarshal := ConfigInfo is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpServerGetConfigV6", "ptr", ServerIpAddress, DHCP_OPTION_SCOPE_INFO6.Ptr, ScopeInfo, ConfigInfoMarshal, ConfigInfo, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpServerGetConfigV6", ServerIpAddressMarshal, ServerIpAddress, DHCP_OPTION_SCOPE_INFO6.Ptr, ScopeInfo, ConfigInfoMarshal, ConfigInfo, UInt32)
     return result
 }
 
@@ -7671,7 +7883,9 @@ export DhcpServerGetConfigV6(ServerIpAddress, ScopeInfo, ConfigInfo) {
 export DhcpServerSetConfigV6(ServerIpAddress, ScopeInfo, FieldsToSet, ConfigInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpServerSetConfigV6", "ptr", ServerIpAddress, DHCP_OPTION_SCOPE_INFO6.Ptr, ScopeInfo, UInt32, FieldsToSet, DHCP_SERVER_CONFIG_INFO_V6.Ptr, ConfigInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpServerSetConfigV6", ServerIpAddressMarshal, ServerIpAddress, DHCP_OPTION_SCOPE_INFO6.Ptr, ScopeInfo, UInt32, FieldsToSet, DHCP_SERVER_CONFIG_INFO_V6.Ptr, ConfigInfo, UInt32)
     return result
 }
 
@@ -7727,7 +7941,9 @@ export DhcpServerSetConfigV6(ServerIpAddress, ScopeInfo, FieldsToSet, ConfigInfo
 export DhcpSetSubnetInfoV6(ServerIpAddress, SubnetAddress, SubnetInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpSetSubnetInfoV6", "ptr", ServerIpAddress, DHCP_IPV6_ADDRESS, SubnetAddress, DHCP_SUBNET_INFO_V6.Ptr, SubnetInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpSetSubnetInfoV6", ServerIpAddressMarshal, ServerIpAddress, DHCP_IPV6_ADDRESS, SubnetAddress, DHCP_SUBNET_INFO_V6.Ptr, SubnetInfo, UInt32)
     return result
 }
 
@@ -7787,9 +8003,10 @@ export DhcpSetSubnetInfoV6(ServerIpAddress, SubnetAddress, SubnetInfo) {
 export DhcpGetMibInfoV6(ServerIpAddress, MibInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    MibInfoMarshal := MibInfo is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    MibInfoMarshal := MibInfo is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpGetMibInfoV6", "ptr", ServerIpAddress, MibInfoMarshal, MibInfo, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpGetMibInfoV6", ServerIpAddressMarshal, ServerIpAddress, MibInfoMarshal, MibInfo, UInt32)
     return result
 }
 
@@ -7836,9 +8053,10 @@ export DhcpGetMibInfoV6(ServerIpAddress, MibInfo) {
 export DhcpGetServerBindingInfoV6(ServerIpAddress, Flags, BindElementsInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    BindElementsInfoMarshal := BindElementsInfo is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    BindElementsInfoMarshal := BindElementsInfo is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpGetServerBindingInfoV6", "ptr", ServerIpAddress, UInt32, Flags, BindElementsInfoMarshal, BindElementsInfo, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpGetServerBindingInfoV6", ServerIpAddressMarshal, ServerIpAddress, UInt32, Flags, BindElementsInfoMarshal, BindElementsInfo, UInt32)
     return result
 }
 
@@ -7905,7 +8123,9 @@ export DhcpGetServerBindingInfoV6(ServerIpAddress, Flags, BindElementsInfo) {
 export DhcpSetServerBindingInfoV6(ServerIpAddress, Flags, BindElementInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpSetServerBindingInfoV6", "ptr", ServerIpAddress, UInt32, Flags, DHCPV6_BIND_ELEMENT_ARRAY.Ptr, BindElementInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpSetServerBindingInfoV6", ServerIpAddressMarshal, ServerIpAddress, UInt32, Flags, DHCPV6_BIND_ELEMENT_ARRAY.Ptr, BindElementInfo, UInt32)
     return result
 }
 
@@ -7952,7 +8172,9 @@ export DhcpSetServerBindingInfoV6(ServerIpAddress, Flags, BindElementInfo) {
 export DhcpSetClientInfoV6(ServerIpAddress, ClientInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpSetClientInfoV6", "ptr", ServerIpAddress, DHCP_CLIENT_INFO_V6.Ptr, ClientInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpSetClientInfoV6", ServerIpAddressMarshal, ServerIpAddress, DHCP_CLIENT_INFO_V6.Ptr, ClientInfo, UInt32)
     return result
 }
 
@@ -8013,9 +8235,10 @@ export DhcpSetClientInfoV6(ServerIpAddress, ClientInfo) {
 export DhcpGetClientInfoV6(ServerIpAddress, SearchInfo, ClientInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ClientInfoMarshal := ClientInfo is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ClientInfoMarshal := ClientInfo is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpGetClientInfoV6", "ptr", ServerIpAddress, DHCP_SEARCH_INFO_V6.Ptr, SearchInfo, ClientInfoMarshal, ClientInfo, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpGetClientInfoV6", ServerIpAddressMarshal, ServerIpAddress, DHCP_SEARCH_INFO_V6.Ptr, SearchInfo, ClientInfoMarshal, ClientInfo, UInt32)
     return result
 }
 
@@ -8081,7 +8304,9 @@ export DhcpGetClientInfoV6(ServerIpAddress, SearchInfo, ClientInfo) {
 export DhcpDeleteClientInfoV6(ServerIpAddress, ClientInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpDeleteClientInfoV6", "ptr", ServerIpAddress, DHCP_SEARCH_INFO_V6.Ptr, ClientInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpDeleteClientInfoV6", ServerIpAddressMarshal, ServerIpAddress, DHCP_SEARCH_INFO_V6.Ptr, ClientInfo, UInt32)
     return result
 }
 
@@ -8137,7 +8362,9 @@ export DhcpDeleteClientInfoV6(ServerIpAddress, ClientInfo) {
 export DhcpCreateClassV6(ServerIpAddress, ReservedMustBeZero, ClassInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpCreateClassV6", "ptr", ServerIpAddress, UInt32, ReservedMustBeZero, DHCP_CLASS_INFO_V6.Ptr, ClassInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpCreateClassV6", ServerIpAddressMarshal, ServerIpAddress, UInt32, ReservedMustBeZero, DHCP_CLASS_INFO_V6.Ptr, ClassInfo, UInt32)
     return result
 }
 
@@ -8215,7 +8442,9 @@ export DhcpCreateClassV6(ServerIpAddress, ReservedMustBeZero, ClassInfo) {
 export DhcpModifyClassV6(ServerIpAddress, ReservedMustBeZero, ClassInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpModifyClassV6", "ptr", ServerIpAddress, UInt32, ReservedMustBeZero, DHCP_CLASS_INFO_V6.Ptr, ClassInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpModifyClassV6", ServerIpAddressMarshal, ServerIpAddress, UInt32, ReservedMustBeZero, DHCP_CLASS_INFO_V6.Ptr, ClassInfo, UInt32)
     return result
 }
 
@@ -8283,7 +8512,9 @@ export DhcpDeleteClassV6(ServerIpAddress, ReservedMustBeZero, ClassName) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
     ClassName := ClassName is String ? StrPtr(ClassName) : ClassName
 
-    result := DllCall("DHCPSAPI.dll\DhcpDeleteClassV6", "ptr", ServerIpAddress, UInt32, ReservedMustBeZero, "ptr", ClassName, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpDeleteClassV6", ServerIpAddressMarshal, ServerIpAddress, UInt32, ReservedMustBeZero, "ptr", ClassName, UInt32)
     return result
 }
 
@@ -8334,12 +8565,13 @@ export DhcpDeleteClassV6(ServerIpAddress, ReservedMustBeZero, ClassName) {
 export DhcpEnumClassesV6(ServerIpAddress, ReservedMustBeZero, ResumeHandle, PreferredMaximum, ClassInfoArray, nRead, nTotal) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : "ptr"
-    ClassInfoArrayMarshal := ClassInfoArray is VarRef ? "ptr*" : "ptr"
-    nReadMarshal := nRead is VarRef ? "uint*" : "ptr"
-    nTotalMarshal := nTotal is VarRef ? "uint*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : IntPtr
+    ClassInfoArrayMarshal := ClassInfoArray is VarRef ? "ptr*" : IntPtr
+    nReadMarshal := nRead is VarRef ? "uint*" : IntPtr
+    nTotalMarshal := nTotal is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpEnumClassesV6", "ptr", ServerIpAddress, UInt32, ReservedMustBeZero, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, ClassInfoArrayMarshal, ClassInfoArray, nReadMarshal, nRead, nTotalMarshal, nTotal, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpEnumClassesV6", ServerIpAddressMarshal, ServerIpAddress, UInt32, ReservedMustBeZero, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, ClassInfoArrayMarshal, ClassInfoArray, nReadMarshal, nRead, nTotalMarshal, nTotal, UInt32)
     return result
 }
 
@@ -8406,7 +8638,9 @@ export DhcpEnumClassesV6(ServerIpAddress, ReservedMustBeZero, ResumeHandle, Pref
 export DhcpSetSubnetDelayOffer(ServerIpAddress, SubnetAddress, TimeDelayInMilliseconds) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpSetSubnetDelayOffer", "ptr", ServerIpAddress, UInt32, SubnetAddress, UInt16, TimeDelayInMilliseconds, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpSetSubnetDelayOffer", ServerIpAddressMarshal, ServerIpAddress, UInt32, SubnetAddress, UInt16, TimeDelayInMilliseconds, UInt32)
     return result
 }
 
@@ -8467,9 +8701,10 @@ export DhcpSetSubnetDelayOffer(ServerIpAddress, SubnetAddress, TimeDelayInMillis
 export DhcpGetSubnetDelayOffer(ServerIpAddress, SubnetAddress, TimeDelayInMilliseconds) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    TimeDelayInMillisecondsMarshal := TimeDelayInMilliseconds is VarRef ? "ushort*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    TimeDelayInMillisecondsMarshal := TimeDelayInMilliseconds is VarRef ? "ushort*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpGetSubnetDelayOffer", "ptr", ServerIpAddress, UInt32, SubnetAddress, TimeDelayInMillisecondsMarshal, TimeDelayInMilliseconds, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpGetSubnetDelayOffer", ServerIpAddressMarshal, ServerIpAddress, UInt32, SubnetAddress, TimeDelayInMillisecondsMarshal, TimeDelayInMilliseconds, UInt32)
     return result
 }
 
@@ -8531,21 +8766,23 @@ export DhcpGetSubnetDelayOffer(ServerIpAddress, SubnetAddress, TimeDelayInMillis
 export DhcpGetMibInfoV5(ServerIpAddress, MibInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    MibInfoMarshal := MibInfo is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    MibInfoMarshal := MibInfo is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpGetMibInfoV5", "ptr", ServerIpAddress, MibInfoMarshal, MibInfo, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpGetMibInfoV5", ServerIpAddressMarshal, ServerIpAddress, MibInfoMarshal, MibInfo, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} pServer 
  * @returns {Integer} 
  */
 export DhcpAddSecurityGroup(pServer) {
     pServer := pServer is String ? StrPtr(pServer) : pServer
 
-    result := DllCall("DHCPSAPI.dll\DhcpAddSecurityGroup", "ptr", pServer, UInt32)
+    pServerMarshal := pServer == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpAddSecurityGroup", pServerMarshal, pServer, UInt32)
     return result
 }
 
@@ -8662,9 +8899,12 @@ export DhcpV4GetOptionValue(ServerIpAddress, Flags, OptionID, PolicyName, Vendor
     PolicyName := PolicyName is String ? StrPtr(PolicyName) : PolicyName
     VendorName := VendorName is String ? StrPtr(VendorName) : VendorName
 
-    OptionValueMarshal := OptionValue is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    PolicyNameMarshal := PolicyName == 0 ? IntPtr : PWSTR
+    VendorNameMarshal := VendorName == 0 ? IntPtr : PWSTR
+    OptionValueMarshal := OptionValue is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4GetOptionValue", "ptr", ServerIpAddress, UInt32, Flags, UInt32, OptionID, "ptr", PolicyName, "ptr", VendorName, DHCP_OPTION_SCOPE_INFO.Ptr, ScopeInfo, OptionValueMarshal, OptionValue, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpV4GetOptionValue", ServerIpAddressMarshal, ServerIpAddress, UInt32, Flags, UInt32, OptionID, PolicyNameMarshal, PolicyName, VendorNameMarshal, VendorName, DHCP_OPTION_SCOPE_INFO.Ptr, ScopeInfo, OptionValueMarshal, OptionValue, UInt32)
     return result
 }
 
@@ -8779,7 +9019,11 @@ export DhcpV4SetOptionValue(ServerIpAddress, Flags, OptionId, PolicyName, Vendor
     PolicyName := PolicyName is String ? StrPtr(PolicyName) : PolicyName
     VendorName := VendorName is String ? StrPtr(VendorName) : VendorName
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4SetOptionValue", "ptr", ServerIpAddress, UInt32, Flags, UInt32, OptionId, "ptr", PolicyName, "ptr", VendorName, DHCP_OPTION_SCOPE_INFO.Ptr, ScopeInfo, DHCP_OPTION_DATA.Ptr, OptionValue, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    PolicyNameMarshal := PolicyName == 0 ? IntPtr : PWSTR
+    VendorNameMarshal := VendorName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpV4SetOptionValue", ServerIpAddressMarshal, ServerIpAddress, UInt32, Flags, UInt32, OptionId, PolicyNameMarshal, PolicyName, VendorNameMarshal, VendorName, DHCP_OPTION_SCOPE_INFO.Ptr, ScopeInfo, DHCP_OPTION_DATA.Ptr, OptionValue, UInt32)
     return result
 }
 
@@ -8877,7 +9121,11 @@ export DhcpV4SetOptionValues(ServerIpAddress, Flags, PolicyName, VendorName, Sco
     PolicyName := PolicyName is String ? StrPtr(PolicyName) : PolicyName
     VendorName := VendorName is String ? StrPtr(VendorName) : VendorName
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4SetOptionValues", "ptr", ServerIpAddress, UInt32, Flags, "ptr", PolicyName, "ptr", VendorName, DHCP_OPTION_SCOPE_INFO.Ptr, ScopeInfo, DHCP_OPTION_VALUE_ARRAY.Ptr, OptionValues, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    PolicyNameMarshal := PolicyName == 0 ? IntPtr : PWSTR
+    VendorNameMarshal := VendorName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpV4SetOptionValues", ServerIpAddressMarshal, ServerIpAddress, UInt32, Flags, PolicyNameMarshal, PolicyName, VendorNameMarshal, VendorName, DHCP_OPTION_SCOPE_INFO.Ptr, ScopeInfo, DHCP_OPTION_VALUE_ARRAY.Ptr, OptionValues, UInt32)
     return result
 }
 
@@ -8991,7 +9239,11 @@ export DhcpV4RemoveOptionValue(ServerIpAddress, Flags, OptionID, PolicyName, Ven
     PolicyName := PolicyName is String ? StrPtr(PolicyName) : PolicyName
     VendorName := VendorName is String ? StrPtr(VendorName) : VendorName
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4RemoveOptionValue", "ptr", ServerIpAddress, UInt32, Flags, UInt32, OptionID, "ptr", PolicyName, "ptr", VendorName, DHCP_OPTION_SCOPE_INFO.Ptr, ScopeInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    PolicyNameMarshal := PolicyName == 0 ? IntPtr : PWSTR
+    VendorNameMarshal := VendorName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpV4RemoveOptionValue", ServerIpAddressMarshal, ServerIpAddress, UInt32, Flags, UInt32, OptionID, PolicyNameMarshal, PolicyName, VendorNameMarshal, VendorName, DHCP_OPTION_SCOPE_INFO.Ptr, ScopeInfo, UInt32)
     return result
 }
 
@@ -9061,9 +9313,10 @@ export DhcpV4RemoveOptionValue(ServerIpAddress, Flags, OptionID, PolicyName, Ven
 export DhcpV4GetAllOptionValues(ServerIpAddress, Flags, ScopeInfo, Values) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ValuesMarshal := Values is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ValuesMarshal := Values is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4GetAllOptionValues", "ptr", ServerIpAddress, UInt32, Flags, DHCP_OPTION_SCOPE_INFO.Ptr, ScopeInfo, ValuesMarshal, Values, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpV4GetAllOptionValues", ServerIpAddressMarshal, ServerIpAddress, UInt32, Flags, DHCP_OPTION_SCOPE_INFO.Ptr, ScopeInfo, ValuesMarshal, Values, UInt32)
     return result
 }
 
@@ -9153,7 +9406,9 @@ export DhcpV4GetAllOptionValues(ServerIpAddress, Flags, ScopeInfo, Values) {
 export DhcpV4FailoverCreateRelationship(ServerIpAddress, pRelationship) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4FailoverCreateRelationship", "ptr", ServerIpAddress, DHCP_FAILOVER_RELATIONSHIP.Ptr, pRelationship, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpV4FailoverCreateRelationship", ServerIpAddressMarshal, ServerIpAddress, DHCP_FAILOVER_RELATIONSHIP.Ptr, pRelationship, UInt32)
     return result
 }
 
@@ -9273,7 +9528,9 @@ export DhcpV4FailoverCreateRelationship(ServerIpAddress, pRelationship) {
 export DhcpV4FailoverSetRelationship(ServerIpAddress, Flags, pRelationship) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4FailoverSetRelationship", "ptr", ServerIpAddress, UInt32, Flags, DHCP_FAILOVER_RELATIONSHIP.Ptr, pRelationship, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpV4FailoverSetRelationship", ServerIpAddressMarshal, ServerIpAddress, UInt32, Flags, DHCP_FAILOVER_RELATIONSHIP.Ptr, pRelationship, UInt32)
     return result
 }
 
@@ -9320,7 +9577,9 @@ export DhcpV4FailoverDeleteRelationship(ServerIpAddress, pRelationshipName) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
     pRelationshipName := pRelationshipName is String ? StrPtr(pRelationshipName) : pRelationshipName
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4FailoverDeleteRelationship", "ptr", ServerIpAddress, "ptr", pRelationshipName, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpV4FailoverDeleteRelationship", ServerIpAddressMarshal, ServerIpAddress, "ptr", pRelationshipName, UInt32)
     return result
 }
 
@@ -9373,9 +9632,10 @@ export DhcpV4FailoverGetRelationship(ServerIpAddress, pRelationshipName, pRelati
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
     pRelationshipName := pRelationshipName is String ? StrPtr(pRelationshipName) : pRelationshipName
 
-    pRelationshipMarshal := pRelationship is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    pRelationshipMarshal := pRelationship is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4FailoverGetRelationship", "ptr", ServerIpAddress, "ptr", pRelationshipName, pRelationshipMarshal, pRelationship, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpV4FailoverGetRelationship", ServerIpAddressMarshal, ServerIpAddress, "ptr", pRelationshipName, pRelationshipMarshal, pRelationship, UInt32)
     return result
 }
 
@@ -9439,12 +9699,13 @@ export DhcpV4FailoverGetRelationship(ServerIpAddress, pRelationshipName, pRelati
 export DhcpV4FailoverEnumRelationship(ServerIpAddress, ResumeHandle, PreferredMaximum, pRelationship, RelationshipRead, RelationshipTotal) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : "ptr"
-    pRelationshipMarshal := pRelationship is VarRef ? "ptr*" : "ptr"
-    RelationshipReadMarshal := RelationshipRead is VarRef ? "uint*" : "ptr"
-    RelationshipTotalMarshal := RelationshipTotal is VarRef ? "uint*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : IntPtr
+    pRelationshipMarshal := pRelationship is VarRef ? "ptr*" : IntPtr
+    RelationshipReadMarshal := RelationshipRead is VarRef ? "uint*" : IntPtr
+    RelationshipTotalMarshal := RelationshipTotal is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4FailoverEnumRelationship", "ptr", ServerIpAddress, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, pRelationshipMarshal, pRelationship, RelationshipReadMarshal, RelationshipRead, RelationshipTotalMarshal, RelationshipTotal, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpV4FailoverEnumRelationship", ServerIpAddressMarshal, ServerIpAddress, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, pRelationshipMarshal, pRelationship, RelationshipReadMarshal, RelationshipRead, RelationshipTotalMarshal, RelationshipTotal, UInt32)
     return result
 }
 
@@ -9523,7 +9784,9 @@ export DhcpV4FailoverEnumRelationship(ServerIpAddress, ResumeHandle, PreferredMa
 export DhcpV4FailoverAddScopeToRelationship(ServerIpAddress, pRelationship) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4FailoverAddScopeToRelationship", "ptr", ServerIpAddress, DHCP_FAILOVER_RELATIONSHIP.Ptr, pRelationship, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpV4FailoverAddScopeToRelationship", ServerIpAddressMarshal, ServerIpAddress, DHCP_FAILOVER_RELATIONSHIP.Ptr, pRelationship, UInt32)
     return result
 }
 
@@ -9591,7 +9854,9 @@ export DhcpV4FailoverAddScopeToRelationship(ServerIpAddress, pRelationship) {
 export DhcpV4FailoverDeleteScopeFromRelationship(ServerIpAddress, pRelationship) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4FailoverDeleteScopeFromRelationship", "ptr", ServerIpAddress, DHCP_FAILOVER_RELATIONSHIP.Ptr, pRelationship, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpV4FailoverDeleteScopeFromRelationship", ServerIpAddressMarshal, ServerIpAddress, DHCP_FAILOVER_RELATIONSHIP.Ptr, pRelationship, UInt32)
     return result
 }
 
@@ -9643,9 +9908,10 @@ export DhcpV4FailoverDeleteScopeFromRelationship(ServerIpAddress, pRelationship)
 export DhcpV4FailoverGetScopeRelationship(ServerIpAddress, ScopeId, pRelationship) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    pRelationshipMarshal := pRelationship is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    pRelationshipMarshal := pRelationship is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4FailoverGetScopeRelationship", "ptr", ServerIpAddress, UInt32, ScopeId, pRelationshipMarshal, pRelationship, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpV4FailoverGetScopeRelationship", ServerIpAddressMarshal, ServerIpAddress, UInt32, ScopeId, pRelationshipMarshal, pRelationship, UInt32)
     return result
 }
 
@@ -9686,9 +9952,10 @@ export DhcpV4FailoverGetScopeRelationship(ServerIpAddress, ScopeId, pRelationshi
 export DhcpV4FailoverGetScopeStatistics(ServerIpAddress, ScopeId, pStats) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    pStatsMarshal := pStats is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    pStatsMarshal := pStats is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4FailoverGetScopeStatistics", "ptr", ServerIpAddress, UInt32, ScopeId, pStatsMarshal, pStats, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpV4FailoverGetScopeStatistics", ServerIpAddressMarshal, ServerIpAddress, UInt32, ScopeId, pStatsMarshal, pStats, UInt32)
     return result
 }
 
@@ -9741,9 +10008,10 @@ export DhcpV4FailoverGetScopeStatistics(ServerIpAddress, ScopeId, pStats) {
 export DhcpV4FailoverGetClientInfo(ServerIpAddress, SearchInfo, ClientInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ClientInfoMarshal := ClientInfo is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ClientInfoMarshal := ClientInfo is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4FailoverGetClientInfo", "ptr", ServerIpAddress, DHCP_SEARCH_INFO.Ptr, SearchInfo, ClientInfoMarshal, ClientInfo, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpV4FailoverGetClientInfo", ServerIpAddressMarshal, ServerIpAddress, DHCP_SEARCH_INFO.Ptr, SearchInfo, ClientInfoMarshal, ClientInfo, UInt32)
     return result
 }
 
@@ -9779,10 +10047,11 @@ export DhcpV4FailoverGetClientInfo(ServerIpAddress, SearchInfo, ClientInfo) {
 export DhcpV4FailoverGetSystemTime(ServerIpAddress, pTime, pMaxAllowedDeltaTime) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    pTimeMarshal := pTime is VarRef ? "uint*" : "ptr"
-    pMaxAllowedDeltaTimeMarshal := pMaxAllowedDeltaTime is VarRef ? "uint*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    pTimeMarshal := pTime is VarRef ? "uint*" : IntPtr
+    pMaxAllowedDeltaTimeMarshal := pMaxAllowedDeltaTime is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4FailoverGetSystemTime", "ptr", ServerIpAddress, pTimeMarshal, pTime, pMaxAllowedDeltaTimeMarshal, pMaxAllowedDeltaTime, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpV4FailoverGetSystemTime", ServerIpAddressMarshal, ServerIpAddress, pTimeMarshal, pTime, pMaxAllowedDeltaTimeMarshal, pMaxAllowedDeltaTime, UInt32)
     return result
 }
 
@@ -9851,9 +10120,10 @@ export DhcpV4FailoverGetSystemTime(ServerIpAddress, pTime, pMaxAllowedDeltaTime)
 export DhcpV4FailoverGetAddressStatus(ServerIpAddress, SubnetAddress, pStatus) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    pStatusMarshal := pStatus is VarRef ? "uint*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    pStatusMarshal := pStatus is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4FailoverGetAddressStatus", "ptr", ServerIpAddress, UInt32, SubnetAddress, pStatusMarshal, pStatus, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpV4FailoverGetAddressStatus", ServerIpAddressMarshal, ServerIpAddress, UInt32, SubnetAddress, pStatusMarshal, pStatus, UInt32)
     return result
 }
 
@@ -9911,7 +10181,9 @@ export DhcpV4FailoverTriggerAddrAllocation(ServerIpAddress, pFailRelName) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
     pFailRelName := pFailRelName is String ? StrPtr(pFailRelName) : pFailRelName
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4FailoverTriggerAddrAllocation", "ptr", ServerIpAddress, "ptr", pFailRelName, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpV4FailoverTriggerAddrAllocation", ServerIpAddressMarshal, ServerIpAddress, "ptr", pFailRelName, UInt32)
     return result
 }
 
@@ -9964,14 +10236,13 @@ export DhcpHlprCreateV4Policy(PolicyName, fGlobalPolicy, Subnet, ProcessingOrder
     PolicyName := PolicyName is String ? StrPtr(PolicyName) : PolicyName
     Description := Description is String ? StrPtr(Description) : Description
 
-    PolicyMarshal := Policy is VarRef ? "ptr*" : "ptr"
+    PolicyMarshal := Policy is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("DHCPSAPI.dll\DhcpHlprCreateV4Policy", "ptr", PolicyName, BOOL, fGlobalPolicy, UInt32, Subnet, UInt32, ProcessingOrder, DHCP_POL_LOGIC_OPER, RootOperator, "ptr", Description, BOOL, Enabled, PolicyMarshal, Policy, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} PolicyName 
  * @param {BOOL} fGlobalPolicy 
  * @param {Integer} Subnet 
@@ -9986,7 +10257,7 @@ export DhcpHlprCreateV4PolicyEx(PolicyName, fGlobalPolicy, Subnet, ProcessingOrd
     PolicyName := PolicyName is String ? StrPtr(PolicyName) : PolicyName
     Description := Description is String ? StrPtr(Description) : Description
 
-    PolicyMarshal := Policy is VarRef ? "ptr*" : "ptr"
+    PolicyMarshal := Policy is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("DHCPSAPI.dll\DhcpHlprCreateV4PolicyEx", "ptr", PolicyName, BOOL, fGlobalPolicy, UInt32, Subnet, UInt32, ProcessingOrder, DHCP_POL_LOGIC_OPER, RootOperator, "ptr", Description, BOOL, Enabled, PolicyMarshal, Policy, UInt32)
     return result
@@ -10045,7 +10316,7 @@ export DhcpHlprCreateV4PolicyEx(PolicyName, fGlobalPolicy, Subnet, ProcessingOrd
  * @since windowsserver2012
  */
 export DhcpHlprAddV4PolicyExpr(Policy, ParentExpr, Operator, ExprIndex) {
-    ExprIndexMarshal := ExprIndex is VarRef ? "uint*" : "ptr"
+    ExprIndexMarshal := ExprIndex is VarRef ? "uint*" : IntPtr
 
     result := DllCall("DHCPSAPI.dll\DhcpHlprAddV4PolicyExpr", DHCP_POLICY.Ptr, Policy, UInt32, ParentExpr, DHCP_POL_LOGIC_OPER, Operator, ExprIndexMarshal, ExprIndex, UInt32)
     return result
@@ -10112,9 +10383,10 @@ export DhcpHlprAddV4PolicyExpr(Policy, ParentExpr, Operator, ExprIndex) {
 export DhcpHlprAddV4PolicyCondition(Policy, ParentExpr, Type, OptionID, SubOptionID, VendorName, Operator, Value, ValueLength, ConditionIndex) {
     VendorName := VendorName is String ? StrPtr(VendorName) : VendorName
 
-    ConditionIndexMarshal := ConditionIndex is VarRef ? "uint*" : "ptr"
+    VendorNameMarshal := VendorName == 0 ? IntPtr : PWSTR
+    ConditionIndexMarshal := ConditionIndex is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpHlprAddV4PolicyCondition", DHCP_POLICY.Ptr, Policy, UInt32, ParentExpr, DHCP_POL_ATTR_TYPE, Type, UInt32, OptionID, UInt32, SubOptionID, "ptr", VendorName, DHCP_POL_COMPARATOR, Operator, IntPtr, Value, UInt32, ValueLength, ConditionIndexMarshal, ConditionIndex, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpHlprAddV4PolicyCondition", DHCP_POLICY.Ptr, Policy, UInt32, ParentExpr, DHCP_POL_ATTR_TYPE, Type, UInt32, OptionID, UInt32, SubOptionID, VendorNameMarshal, VendorName, DHCP_POL_COMPARATOR, Operator, IntPtr, Value, UInt32, ValueLength, ConditionIndexMarshal, ConditionIndex, UInt32)
     return result
 }
 
@@ -10239,7 +10511,6 @@ export DhcpHlprFreeV4Policy(Policy) {
 }
 
 /**
- * 
  * @param {Pointer<DHCP_POLICY_ARRAY>} PolicyArray 
  * @returns {String} Nothing - always returns an empty string
  */
@@ -10248,7 +10519,6 @@ export DhcpHlprFreeV4PolicyArray(PolicyArray) {
 }
 
 /**
- * 
  * @param {Pointer<DHCP_POLICY_EX>} PolicyEx 
  * @returns {String} Nothing - always returns an empty string
  */
@@ -10257,7 +10527,6 @@ export DhcpHlprFreeV4PolicyEx(PolicyEx) {
 }
 
 /**
- * 
  * @param {Pointer<DHCP_POLICY_EX_ARRAY>} PolicyExArray 
  * @returns {String} Nothing - always returns an empty string
  */
@@ -10266,7 +10535,6 @@ export DhcpHlprFreeV4PolicyExArray(PolicyExArray) {
 }
 
 /**
- * 
  * @param {Pointer<DHCP_PROPERTY>} _Property 
  * @returns {String} Nothing - always returns an empty string
  */
@@ -10275,7 +10543,6 @@ export DhcpHlprFreeV4DhcpProperty(_Property) {
 }
 
 /**
- * 
  * @param {Pointer<DHCP_PROPERTY_ARRAY>} PropertyArray 
  * @returns {String} Nothing - always returns an empty string
  */
@@ -10284,7 +10551,6 @@ export DhcpHlprFreeV4DhcpPropertyArray(PropertyArray) {
 }
 
 /**
- * 
  * @param {Pointer<DHCP_PROPERTY_ARRAY>} PropertyArray 
  * @param {DHCP_PROPERTY_ID} ID 
  * @param {DHCP_PROPERTY_TYPE} Type 
@@ -10356,9 +10622,10 @@ export DhcpHlprIsV4PolicySingleUC(Policy) {
 export DhcpV4QueryPolicyEnforcement(ServerIpAddress, fGlobalPolicy, SubnetAddress, Enabled) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    EnabledMarshal := Enabled is VarRef ? "int*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    EnabledMarshal := Enabled is VarRef ? "int*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4QueryPolicyEnforcement", "ptr", ServerIpAddress, BOOL, fGlobalPolicy, UInt32, SubnetAddress, EnabledMarshal, Enabled, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpV4QueryPolicyEnforcement", ServerIpAddressMarshal, ServerIpAddress, BOOL, fGlobalPolicy, UInt32, SubnetAddress, EnabledMarshal, Enabled, UInt32)
     return result
 }
 
@@ -10406,7 +10673,9 @@ export DhcpV4QueryPolicyEnforcement(ServerIpAddress, fGlobalPolicy, SubnetAddres
 export DhcpV4SetPolicyEnforcement(ServerIpAddress, fGlobalPolicy, SubnetAddress, Enable) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4SetPolicyEnforcement", "ptr", ServerIpAddress, BOOL, fGlobalPolicy, UInt32, SubnetAddress, BOOL, Enable, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpV4SetPolicyEnforcement", ServerIpAddressMarshal, ServerIpAddress, BOOL, fGlobalPolicy, UInt32, SubnetAddress, BOOL, Enable, UInt32)
     return result
 }
 
@@ -10640,7 +10909,9 @@ export DhcpHlprIsV4PolicyValid(pPolicy) {
 export DhcpV4CreatePolicy(ServerIpAddress, pPolicy) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4CreatePolicy", "ptr", ServerIpAddress, DHCP_POLICY.Ptr, pPolicy, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpV4CreatePolicy", ServerIpAddressMarshal, ServerIpAddress, DHCP_POLICY.Ptr, pPolicy, UInt32)
     return result
 }
 
@@ -10703,9 +10974,10 @@ export DhcpV4GetPolicy(ServerIpAddress, fGlobalPolicy, SubnetAddress, PolicyName
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
     PolicyName := PolicyName is String ? StrPtr(PolicyName) : PolicyName
 
-    PolicyMarshal := Policy is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    PolicyMarshal := Policy is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4GetPolicy", "ptr", ServerIpAddress, BOOL, fGlobalPolicy, UInt32, SubnetAddress, "ptr", PolicyName, PolicyMarshal, Policy, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpV4GetPolicy", ServerIpAddressMarshal, ServerIpAddress, BOOL, fGlobalPolicy, UInt32, SubnetAddress, "ptr", PolicyName, PolicyMarshal, Policy, UInt32)
     return result
 }
 
@@ -10822,7 +11094,9 @@ export DhcpV4SetPolicy(ServerIpAddress, FieldsModified, fGlobalPolicy, SubnetAdd
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
     PolicyName := PolicyName is String ? StrPtr(PolicyName) : PolicyName
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4SetPolicy", "ptr", ServerIpAddress, UInt32, FieldsModified, BOOL, fGlobalPolicy, UInt32, SubnetAddress, "ptr", PolicyName, DHCP_POLICY.Ptr, Policy, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpV4SetPolicy", ServerIpAddressMarshal, ServerIpAddress, UInt32, FieldsModified, BOOL, fGlobalPolicy, UInt32, SubnetAddress, "ptr", PolicyName, DHCP_POLICY.Ptr, Policy, UInt32)
     return result
 }
 
@@ -10882,7 +11156,9 @@ export DhcpV4DeletePolicy(ServerIpAddress, fGlobalPolicy, SubnetAddress, PolicyN
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
     PolicyName := PolicyName is String ? StrPtr(PolicyName) : PolicyName
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4DeletePolicy", "ptr", ServerIpAddress, BOOL, fGlobalPolicy, UInt32, SubnetAddress, "ptr", PolicyName, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpV4DeletePolicy", ServerIpAddressMarshal, ServerIpAddress, BOOL, fGlobalPolicy, UInt32, SubnetAddress, "ptr", PolicyName, UInt32)
     return result
 }
 
@@ -10940,12 +11216,13 @@ export DhcpV4DeletePolicy(ServerIpAddress, fGlobalPolicy, SubnetAddress, PolicyN
 export DhcpV4EnumPolicies(ServerIpAddress, ResumeHandle, PreferredMaximum, fGlobalPolicy, SubnetAddress, EnumInfo, ElementsRead, ElementsTotal) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : "ptr"
-    EnumInfoMarshal := EnumInfo is VarRef ? "ptr*" : "ptr"
-    ElementsReadMarshal := ElementsRead is VarRef ? "uint*" : "ptr"
-    ElementsTotalMarshal := ElementsTotal is VarRef ? "uint*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : IntPtr
+    EnumInfoMarshal := EnumInfo is VarRef ? "ptr*" : IntPtr
+    ElementsReadMarshal := ElementsRead is VarRef ? "uint*" : IntPtr
+    ElementsTotalMarshal := ElementsTotal is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4EnumPolicies", "ptr", ServerIpAddress, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, BOOL, fGlobalPolicy, UInt32, SubnetAddress, EnumInfoMarshal, EnumInfo, ElementsReadMarshal, ElementsRead, ElementsTotalMarshal, ElementsTotal, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpV4EnumPolicies", ServerIpAddressMarshal, ServerIpAddress, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, BOOL, fGlobalPolicy, UInt32, SubnetAddress, EnumInfoMarshal, EnumInfo, ElementsReadMarshal, ElementsRead, ElementsTotalMarshal, ElementsTotal, UInt32)
     return result
 }
 
@@ -11016,7 +11293,9 @@ export DhcpV4AddPolicyRange(ServerIpAddress, SubnetAddress, PolicyName, Range) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
     PolicyName := PolicyName is String ? StrPtr(PolicyName) : PolicyName
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4AddPolicyRange", "ptr", ServerIpAddress, UInt32, SubnetAddress, "ptr", PolicyName, DHCP_IP_RANGE.Ptr, Range, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpV4AddPolicyRange", ServerIpAddressMarshal, ServerIpAddress, UInt32, SubnetAddress, "ptr", PolicyName, DHCP_IP_RANGE.Ptr, Range, UInt32)
     return result
 }
 
@@ -11087,7 +11366,9 @@ export DhcpV4RemovePolicyRange(ServerIpAddress, SubnetAddress, PolicyName, Range
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
     PolicyName := PolicyName is String ? StrPtr(PolicyName) : PolicyName
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4RemovePolicyRange", "ptr", ServerIpAddress, UInt32, SubnetAddress, "ptr", PolicyName, DHCP_IP_RANGE.Ptr, Range, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpV4RemovePolicyRange", ServerIpAddressMarshal, ServerIpAddress, UInt32, SubnetAddress, "ptr", PolicyName, DHCP_IP_RANGE.Ptr, Range, UInt32)
     return result
 }
 
@@ -11137,7 +11418,9 @@ export DhcpV4RemovePolicyRange(ServerIpAddress, SubnetAddress, PolicyName, Range
 export DhcpV6SetStatelessStoreParams(ServerIpAddress, fServerLevel, SubnetAddress, FieldModified, Params) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpV6SetStatelessStoreParams", "ptr", ServerIpAddress, BOOL, fServerLevel, DHCP_IPV6_ADDRESS, SubnetAddress, UInt32, FieldModified, DHCPV6_STATELESS_PARAMS.Ptr, Params, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpV6SetStatelessStoreParams", ServerIpAddressMarshal, ServerIpAddress, BOOL, fServerLevel, DHCP_IPV6_ADDRESS, SubnetAddress, UInt32, FieldModified, DHCPV6_STATELESS_PARAMS.Ptr, Params, UInt32)
     return result
 }
 
@@ -11188,9 +11471,10 @@ export DhcpV6SetStatelessStoreParams(ServerIpAddress, fServerLevel, SubnetAddres
 export DhcpV6GetStatelessStoreParams(ServerIpAddress, fServerLevel, SubnetAddress, Params) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ParamsMarshal := Params is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ParamsMarshal := Params is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpV6GetStatelessStoreParams", "ptr", ServerIpAddress, BOOL, fServerLevel, DHCP_IPV6_ADDRESS, SubnetAddress, ParamsMarshal, Params, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpV6GetStatelessStoreParams", ServerIpAddressMarshal, ServerIpAddress, BOOL, fServerLevel, DHCP_IPV6_ADDRESS, SubnetAddress, ParamsMarshal, Params, UInt32)
     return result
 }
 
@@ -11207,9 +11491,10 @@ export DhcpV6GetStatelessStoreParams(ServerIpAddress, fServerLevel, SubnetAddres
 export DhcpV6GetStatelessStatistics(ServerIpAddress, StatelessStats) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    StatelessStatsMarshal := StatelessStats is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    StatelessStatsMarshal := StatelessStats is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpV6GetStatelessStatistics", "ptr", ServerIpAddress, StatelessStatsMarshal, StatelessStats, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpV6GetStatelessStatistics", ServerIpAddressMarshal, ServerIpAddress, StatelessStatsMarshal, StatelessStats, UInt32)
     return result
 }
 
@@ -11281,7 +11566,9 @@ export DhcpV6GetStatelessStatistics(ServerIpAddress, StatelessStats) {
 export DhcpV4CreateClientInfo(ServerIpAddress, ClientInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4CreateClientInfo", "ptr", ServerIpAddress, DHCP_CLIENT_INFO_PB.Ptr, ClientInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpV4CreateClientInfo", ServerIpAddressMarshal, ServerIpAddress, DHCP_CLIENT_INFO_PB.Ptr, ClientInfo, UInt32)
     return result
 }
 
@@ -11356,12 +11643,13 @@ export DhcpV4CreateClientInfo(ServerIpAddress, ClientInfo) {
 export DhcpV4EnumSubnetClients(ServerIpAddress, SubnetAddress, ResumeHandle, PreferredMaximum, ClientInfo, ClientsRead, ClientsTotal) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : "ptr"
-    ClientInfoMarshal := ClientInfo is VarRef ? "ptr*" : "ptr"
-    ClientsReadMarshal := ClientsRead is VarRef ? "uint*" : "ptr"
-    ClientsTotalMarshal := ClientsTotal is VarRef ? "uint*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : IntPtr
+    ClientInfoMarshal := ClientInfo is VarRef ? "ptr*" : IntPtr
+    ClientsReadMarshal := ClientsRead is VarRef ? "uint*" : IntPtr
+    ClientsTotalMarshal := ClientsTotal is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4EnumSubnetClients", "ptr", ServerIpAddress, UInt32, SubnetAddress, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, ClientInfoMarshal, ClientInfo, ClientsReadMarshal, ClientsRead, ClientsTotalMarshal, ClientsTotal, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpV4EnumSubnetClients", ServerIpAddressMarshal, ServerIpAddress, UInt32, SubnetAddress, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, ClientInfoMarshal, ClientInfo, ClientsReadMarshal, ClientsRead, ClientsTotalMarshal, ClientsTotal, UInt32)
     return result
 }
 
@@ -11423,9 +11711,10 @@ export DhcpV4EnumSubnetClients(ServerIpAddress, SubnetAddress, ResumeHandle, Pre
 export DhcpV4GetClientInfo(ServerIpAddress, SearchInfo, ClientInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ClientInfoMarshal := ClientInfo is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ClientInfoMarshal := ClientInfo is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4GetClientInfo", "ptr", ServerIpAddress, DHCP_SEARCH_INFO.Ptr, SearchInfo, ClientInfoMarshal, ClientInfo, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpV4GetClientInfo", ServerIpAddressMarshal, ServerIpAddress, DHCP_SEARCH_INFO.Ptr, SearchInfo, ClientInfoMarshal, ClientInfo, UInt32)
     return result
 }
 
@@ -11493,7 +11782,9 @@ export DhcpV4GetClientInfo(ServerIpAddress, SearchInfo, ClientInfo) {
 export DhcpV6CreateClientInfo(ServerIpAddress, ClientInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpV6CreateClientInfo", "ptr", ServerIpAddress, DHCP_CLIENT_INFO_V6.Ptr, ClientInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpV6CreateClientInfo", ServerIpAddressMarshal, ServerIpAddress, DHCP_CLIENT_INFO_V6.Ptr, ClientInfo, UInt32)
     return result
 }
 
@@ -11560,9 +11851,10 @@ export DhcpV6CreateClientInfo(ServerIpAddress, ClientInfo) {
 export DhcpV4GetFreeIPAddress(ServerIpAddress, ScopeId, StartIP, EndIP, NumFreeAddrReq, IPAddrList) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    IPAddrListMarshal := IPAddrList is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    IPAddrListMarshal := IPAddrList is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4GetFreeIPAddress", "ptr", ServerIpAddress, UInt32, ScopeId, UInt32, StartIP, UInt32, EndIP, UInt32, NumFreeAddrReq, IPAddrListMarshal, IPAddrList, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpV4GetFreeIPAddress", ServerIpAddressMarshal, ServerIpAddress, UInt32, ScopeId, UInt32, StartIP, UInt32, EndIP, UInt32, NumFreeAddrReq, IPAddrListMarshal, IPAddrList, UInt32)
     return result
 }
 
@@ -11629,14 +11921,14 @@ export DhcpV4GetFreeIPAddress(ServerIpAddress, ScopeId, StartIP, EndIP, NumFreeA
 export DhcpV6GetFreeIPAddress(ServerIpAddress, ScopeId, StartIP, EndIP, NumFreeAddrReq, IPAddrList) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    IPAddrListMarshal := IPAddrList is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    IPAddrListMarshal := IPAddrList is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpV6GetFreeIPAddress", "ptr", ServerIpAddress, DHCP_IPV6_ADDRESS, ScopeId, DHCP_IPV6_ADDRESS, StartIP, DHCP_IPV6_ADDRESS, EndIP, UInt32, NumFreeAddrReq, IPAddrListMarshal, IPAddrList, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpV6GetFreeIPAddress", ServerIpAddressMarshal, ServerIpAddress, DHCP_IPV6_ADDRESS, ScopeId, DHCP_IPV6_ADDRESS, StartIP, DHCP_IPV6_ADDRESS, EndIP, UInt32, NumFreeAddrReq, IPAddrListMarshal, IPAddrList, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} ServerIpAddress 
  * @param {Pointer<DHCP_CLIENT_INFO_EX>} ClientInfo 
  * @returns {Integer} 
@@ -11644,12 +11936,13 @@ export DhcpV6GetFreeIPAddress(ServerIpAddress, ScopeId, StartIP, EndIP, NumFreeA
 export DhcpV4CreateClientInfoEx(ServerIpAddress, ClientInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4CreateClientInfoEx", "ptr", ServerIpAddress, DHCP_CLIENT_INFO_EX.Ptr, ClientInfo, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpV4CreateClientInfoEx", ServerIpAddressMarshal, ServerIpAddress, DHCP_CLIENT_INFO_EX.Ptr, ClientInfo, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} ServerIpAddress 
  * @param {Integer} SubnetAddress 
  * @param {Pointer<Integer>} ResumeHandle 
@@ -11662,17 +11955,17 @@ export DhcpV4CreateClientInfoEx(ServerIpAddress, ClientInfo) {
 export DhcpV4EnumSubnetClientsEx(ServerIpAddress, SubnetAddress, ResumeHandle, PreferredMaximum, ClientInfo, ClientsRead, ClientsTotal) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : "ptr"
-    ClientInfoMarshal := ClientInfo is VarRef ? "ptr*" : "ptr"
-    ClientsReadMarshal := ClientsRead is VarRef ? "uint*" : "ptr"
-    ClientsTotalMarshal := ClientsTotal is VarRef ? "uint*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : IntPtr
+    ClientInfoMarshal := ClientInfo is VarRef ? "ptr*" : IntPtr
+    ClientsReadMarshal := ClientsRead is VarRef ? "uint*" : IntPtr
+    ClientsTotalMarshal := ClientsTotal is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4EnumSubnetClientsEx", "ptr", ServerIpAddress, UInt32, SubnetAddress, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, ClientInfoMarshal, ClientInfo, ClientsReadMarshal, ClientsRead, ClientsTotalMarshal, ClientsTotal, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpV4EnumSubnetClientsEx", ServerIpAddressMarshal, ServerIpAddress, UInt32, SubnetAddress, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, ClientInfoMarshal, ClientInfo, ClientsReadMarshal, ClientsRead, ClientsTotalMarshal, ClientsTotal, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} ServerIpAddress 
  * @param {Pointer<DHCP_SEARCH_INFO>} SearchInfo 
  * @param {Pointer<Pointer<DHCP_CLIENT_INFO_EX>>} ClientInfo 
@@ -11681,14 +11974,14 @@ export DhcpV4EnumSubnetClientsEx(ServerIpAddress, SubnetAddress, ResumeHandle, P
 export DhcpV4GetClientInfoEx(ServerIpAddress, SearchInfo, ClientInfo) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ClientInfoMarshal := ClientInfo is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ClientInfoMarshal := ClientInfo is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4GetClientInfoEx", "ptr", ServerIpAddress, DHCP_SEARCH_INFO.Ptr, SearchInfo, ClientInfoMarshal, ClientInfo, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpV4GetClientInfoEx", ServerIpAddressMarshal, ServerIpAddress, DHCP_SEARCH_INFO.Ptr, SearchInfo, ClientInfoMarshal, ClientInfo, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} ServerIpAddress 
  * @param {Pointer<DHCP_POLICY_EX>} PolicyEx 
  * @returns {Integer} 
@@ -11696,12 +11989,13 @@ export DhcpV4GetClientInfoEx(ServerIpAddress, SearchInfo, ClientInfo) {
 export DhcpV4CreatePolicyEx(ServerIpAddress, PolicyEx) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4CreatePolicyEx", "ptr", ServerIpAddress, DHCP_POLICY_EX.Ptr, PolicyEx, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpV4CreatePolicyEx", ServerIpAddressMarshal, ServerIpAddress, DHCP_POLICY_EX.Ptr, PolicyEx, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} ServerIpAddress 
  * @param {BOOL} GlobalPolicy 
  * @param {Integer} SubnetAddress 
@@ -11713,14 +12007,14 @@ export DhcpV4GetPolicyEx(ServerIpAddress, GlobalPolicy, SubnetAddress, PolicyNam
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
     PolicyName := PolicyName is String ? StrPtr(PolicyName) : PolicyName
 
-    PolicyMarshal := Policy is VarRef ? "ptr*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    PolicyMarshal := Policy is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4GetPolicyEx", "ptr", ServerIpAddress, BOOL, GlobalPolicy, UInt32, SubnetAddress, "ptr", PolicyName, PolicyMarshal, Policy, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpV4GetPolicyEx", ServerIpAddressMarshal, ServerIpAddress, BOOL, GlobalPolicy, UInt32, SubnetAddress, "ptr", PolicyName, PolicyMarshal, Policy, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} ServerIpAddress 
  * @param {Integer} FieldsModified 
  * @param {BOOL} GlobalPolicy 
@@ -11733,12 +12027,13 @@ export DhcpV4SetPolicyEx(ServerIpAddress, FieldsModified, GlobalPolicy, SubnetAd
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
     PolicyName := PolicyName is String ? StrPtr(PolicyName) : PolicyName
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4SetPolicyEx", "ptr", ServerIpAddress, UInt32, FieldsModified, BOOL, GlobalPolicy, UInt32, SubnetAddress, "ptr", PolicyName, DHCP_POLICY_EX.Ptr, Policy, UInt32)
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+
+    result := DllCall("DHCPSAPI.dll\DhcpV4SetPolicyEx", ServerIpAddressMarshal, ServerIpAddress, UInt32, FieldsModified, BOOL, GlobalPolicy, UInt32, SubnetAddress, "ptr", PolicyName, DHCP_POLICY_EX.Ptr, Policy, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} ServerIpAddress 
  * @param {Pointer<Integer>} ResumeHandle 
  * @param {Integer} PreferredMaximum 
@@ -11752,12 +12047,13 @@ export DhcpV4SetPolicyEx(ServerIpAddress, FieldsModified, GlobalPolicy, SubnetAd
 export DhcpV4EnumPoliciesEx(ServerIpAddress, ResumeHandle, PreferredMaximum, GlobalPolicy, SubnetAddress, EnumInfo, ElementsRead, ElementsTotal) {
     ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : "ptr"
-    EnumInfoMarshal := EnumInfo is VarRef ? "ptr*" : "ptr"
-    ElementsReadMarshal := ElementsRead is VarRef ? "uint*" : "ptr"
-    ElementsTotalMarshal := ElementsTotal is VarRef ? "uint*" : "ptr"
+    ServerIpAddressMarshal := ServerIpAddress == 0 ? IntPtr : PWSTR
+    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : IntPtr
+    EnumInfoMarshal := EnumInfo is VarRef ? "ptr*" : IntPtr
+    ElementsReadMarshal := ElementsRead is VarRef ? "uint*" : IntPtr
+    ElementsTotalMarshal := ElementsTotal is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("DHCPSAPI.dll\DhcpV4EnumPoliciesEx", "ptr", ServerIpAddress, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, BOOL, GlobalPolicy, UInt32, SubnetAddress, EnumInfoMarshal, EnumInfo, ElementsReadMarshal, ElementsRead, ElementsTotalMarshal, ElementsTotal, UInt32)
+    result := DllCall("DHCPSAPI.dll\DhcpV4EnumPoliciesEx", ServerIpAddressMarshal, ServerIpAddress, ResumeHandleMarshal, ResumeHandle, UInt32, PreferredMaximum, BOOL, GlobalPolicy, UInt32, SubnetAddress, EnumInfoMarshal, EnumInfo, ElementsReadMarshal, ElementsRead, ElementsTotalMarshal, ElementsTotal, UInt32)
     return result
 }
 

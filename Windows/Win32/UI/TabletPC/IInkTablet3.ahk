@@ -82,8 +82,8 @@ export default struct IInkTablet3 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_IsMultiTouch := CallbackCreate(GetMethod(implObj, "get_IsMultiTouch"), flags, 2)
-        this.vtbl.get_MaximumCursors := CallbackCreate(GetMethod(implObj, "get_MaximumCursors"), flags, 2)
+        this.vtbl.get_IsMultiTouch := CallbackCreate(ObjBindMethod(implObj, "get_IsMultiTouch"), flags, 2)
+        this.vtbl.get_MaximumCursors := CallbackCreate(ObjBindMethod(implObj, "get_MaximumCursors"), flags, 2)
     }
 
     Dispose() {

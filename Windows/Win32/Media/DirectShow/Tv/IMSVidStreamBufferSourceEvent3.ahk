@@ -137,11 +137,11 @@ export default struct IMSVidStreamBufferSourceEvent3 extends IMSVidStreamBufferS
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BroadcastEvent := CallbackCreate(GetMethod(implObj, "BroadcastEvent"), flags, 2)
-        this.vtbl.BroadcastEventEx := CallbackCreate(GetMethod(implObj, "BroadcastEventEx"), flags, 6)
-        this.vtbl.COPPBlocked := CallbackCreate(GetMethod(implObj, "COPPBlocked"), flags, 1)
-        this.vtbl.COPPUnblocked := CallbackCreate(GetMethod(implObj, "COPPUnblocked"), flags, 1)
-        this.vtbl.ContentPrimarilyAudio := CallbackCreate(GetMethod(implObj, "ContentPrimarilyAudio"), flags, 1)
+        this.vtbl.BroadcastEvent := CallbackCreate(ObjBindMethod(implObj, "BroadcastEvent"), flags, 2)
+        this.vtbl.BroadcastEventEx := CallbackCreate(ObjBindMethod(implObj, "BroadcastEventEx"), flags, 6)
+        this.vtbl.COPPBlocked := CallbackCreate(ObjBindMethod(implObj, "COPPBlocked"), flags, 1)
+        this.vtbl.COPPUnblocked := CallbackCreate(ObjBindMethod(implObj, "COPPUnblocked"), flags, 1)
+        this.vtbl.ContentPrimarilyAudio := CallbackCreate(ObjBindMethod(implObj, "ContentPrimarilyAudio"), flags, 1)
     }
 
     Dispose() {

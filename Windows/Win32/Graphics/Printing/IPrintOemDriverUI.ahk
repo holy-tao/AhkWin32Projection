@@ -40,7 +40,6 @@ export default struct IPrintOemDriverUI extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pci 
      * @param {PSTR} Feature 
      * @param {Pointer<Void>} pOutput 
@@ -52,17 +51,16 @@ export default struct IPrintOemDriverUI extends IUnknown {
     DrvGetDriverSetting(pci, Feature, pOutput, cbSize, pcbNeeded, pdwOptionsReturned) {
         Feature := Feature is String ? StrPtr(Feature) : Feature
 
-        pciMarshal := pci is VarRef ? "ptr" : "ptr"
-        pOutputMarshal := pOutput is VarRef ? "ptr" : "ptr"
-        pcbNeededMarshal := pcbNeeded is VarRef ? "uint*" : "ptr"
-        pdwOptionsReturnedMarshal := pdwOptionsReturned is VarRef ? "uint*" : "ptr"
+        pciMarshal := pci is VarRef ? "ptr" : IntPtr
+        pOutputMarshal := pOutput is VarRef ? "ptr" : IntPtr
+        pcbNeededMarshal := pcbNeeded is VarRef ? "uint*" : IntPtr
+        pdwOptionsReturnedMarshal := pdwOptionsReturned is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pciMarshal, pci, "ptr", Feature, pOutputMarshal, pOutput, UInt32, cbSize, pcbNeededMarshal, pcbNeeded, pdwOptionsReturnedMarshal, pdwOptionsReturned, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HANDLE} hPrinter 
      * @param {PSTR} pFeature 
      * @param {PSTR} pOption 
@@ -77,7 +75,6 @@ export default struct IPrintOemDriverUI extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pci 
      * @param {Pointer<Void>} pOptItem 
      * @param {Integer} dwPreviousSelection 
@@ -85,8 +82,8 @@ export default struct IPrintOemDriverUI extends IUnknown {
      * @returns {HRESULT} 
      */
     DrvUpdateUISetting(pci, pOptItem, dwPreviousSelection, dwMode) {
-        pciMarshal := pci is VarRef ? "ptr" : "ptr"
-        pOptItemMarshal := pOptItem is VarRef ? "ptr" : "ptr"
+        pciMarshal := pci is VarRef ? "ptr" : IntPtr
+        pOptItemMarshal := pOptItem is VarRef ? "ptr" : IntPtr
 
         result := ComCall(5, this, pciMarshal, pci, pOptItemMarshal, pOptItem, UInt32, dwPreviousSelection, UInt32, dwMode, "HRESULT")
         return result
@@ -101,9 +98,9 @@ export default struct IPrintOemDriverUI extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DrvGetDriverSetting := CallbackCreate(GetMethod(implObj, "DrvGetDriverSetting"), flags, 7)
-        this.vtbl.DrvUpgradeRegistrySetting := CallbackCreate(GetMethod(implObj, "DrvUpgradeRegistrySetting"), flags, 4)
-        this.vtbl.DrvUpdateUISetting := CallbackCreate(GetMethod(implObj, "DrvUpdateUISetting"), flags, 5)
+        this.vtbl.DrvGetDriverSetting := CallbackCreate(ObjBindMethod(implObj, "DrvGetDriverSetting"), flags, 7)
+        this.vtbl.DrvUpgradeRegistrySetting := CallbackCreate(ObjBindMethod(implObj, "DrvUpgradeRegistrySetting"), flags, 4)
+        this.vtbl.DrvUpdateUISetting := CallbackCreate(ObjBindMethod(implObj, "DrvUpdateUISetting"), flags, 5)
     }
 
     Dispose() {

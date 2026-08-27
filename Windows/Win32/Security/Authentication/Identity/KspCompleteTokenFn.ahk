@@ -20,7 +20,6 @@ export default struct KspCompleteTokenFn {
     }
 
     /**
-     * 
      * @param {Pointer} ContextId 
      * @param {Pointer<SecBufferDesc>} Token 
      * @returns {NTSTATUS} 

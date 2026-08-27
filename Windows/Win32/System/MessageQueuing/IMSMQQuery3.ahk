@@ -47,7 +47,6 @@ export default struct IMSMQQuery3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} QueueGuid 
      * @param {Pointer<VARIANT>} ServiceTypeGuid 
      * @param {Pointer<VARIANT>} Label 
@@ -65,7 +64,6 @@ export default struct IMSMQQuery3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Properties() {
@@ -74,7 +72,6 @@ export default struct IMSMQQuery3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} QueueGuid 
      * @param {Pointer<VARIANT>} ServiceTypeGuid 
      * @param {Pointer<VARIANT>} Label 
@@ -102,9 +99,9 @@ export default struct IMSMQQuery3 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LookupQueue_v2 := CallbackCreate(GetMethod(implObj, "LookupQueue_v2"), flags, 11)
-        this.vtbl.get_Properties := CallbackCreate(GetMethod(implObj, "get_Properties"), flags, 2)
-        this.vtbl.LookupQueue := CallbackCreate(GetMethod(implObj, "LookupQueue"), flags, 13)
+        this.vtbl.LookupQueue_v2 := CallbackCreate(ObjBindMethod(implObj, "LookupQueue_v2"), flags, 11)
+        this.vtbl.get_Properties := CallbackCreate(ObjBindMethod(implObj, "get_Properties"), flags, 2)
+        this.vtbl.LookupQueue := CallbackCreate(ObjBindMethod(implObj, "LookupQueue"), flags, 13)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct LPDDHALCOLORCB_COLORCONTROL {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_COLORCONTROLDATA>} param0 
      * @returns {Integer} 
      */

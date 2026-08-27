@@ -37,7 +37,6 @@ export default struct ICLRTask2 extends ICLRTask {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     BeginPreventAsyncAbort() {
@@ -46,7 +45,6 @@ export default struct ICLRTask2 extends ICLRTask {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     EndPreventAsyncAbort() {
@@ -63,8 +61,8 @@ export default struct ICLRTask2 extends ICLRTask {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BeginPreventAsyncAbort := CallbackCreate(GetMethod(implObj, "BeginPreventAsyncAbort"), flags, 1)
-        this.vtbl.EndPreventAsyncAbort := CallbackCreate(GetMethod(implObj, "EndPreventAsyncAbort"), flags, 1)
+        this.vtbl.BeginPreventAsyncAbort := CallbackCreate(ObjBindMethod(implObj, "BeginPreventAsyncAbort"), flags, 1)
+        this.vtbl.EndPreventAsyncAbort := CallbackCreate(ObjBindMethod(implObj, "EndPreventAsyncAbort"), flags, 1)
     }
 
     Dispose() {

@@ -23,7 +23,6 @@ export default struct FCACHE_RICHCREATE_CALLBACK {
     }
 
     /**
-     * 
      * @param {PSTR} lpstrName The name of the file.
      * @param {Pointer<Void>} lpvData User-provided data to <a href="https://docs.microsoft.com/windows/desktop/api/filehc/nf-filehc-cacherichcreatefile">CacheRichCreateFile</a>.
      * @param {Pointer<Integer>} cbFileSize The size of the low <b>DWORD</b>.
@@ -37,13 +36,13 @@ export default struct FCACHE_RICHCREATE_CALLBACK {
     Call(lpstrName, lpvData, cbFileSize, cbFileSizeHigh, pfDidWeScanIt, pfIsStuffed, pfStoredWithDots, pfStoredWithTerminatingDot) {
         lpstrName := lpstrName is String ? StrPtr(lpstrName) : lpstrName
 
-        lpvDataMarshal := lpvData is VarRef ? "ptr" : "ptr"
-        cbFileSizeMarshal := cbFileSize is VarRef ? "uint*" : "ptr"
-        cbFileSizeHighMarshal := cbFileSizeHigh is VarRef ? "uint*" : "ptr"
-        pfDidWeScanItMarshal := pfDidWeScanIt is VarRef ? "int*" : "ptr"
-        pfIsStuffedMarshal := pfIsStuffed is VarRef ? "int*" : "ptr"
-        pfStoredWithDotsMarshal := pfStoredWithDots is VarRef ? "int*" : "ptr"
-        pfStoredWithTerminatingDotMarshal := pfStoredWithTerminatingDot is VarRef ? "int*" : "ptr"
+        lpvDataMarshal := lpvData is VarRef ? "ptr" : IntPtr
+        cbFileSizeMarshal := cbFileSize is VarRef ? "uint*" : IntPtr
+        cbFileSizeHighMarshal := cbFileSizeHigh is VarRef ? "uint*" : IntPtr
+        pfDidWeScanItMarshal := pfDidWeScanIt is VarRef ? "int*" : IntPtr
+        pfIsStuffedMarshal := pfIsStuffed is VarRef ? "int*" : IntPtr
+        pfStoredWithDotsMarshal := pfStoredWithDots is VarRef ? "int*" : IntPtr
+        pfStoredWithTerminatingDotMarshal := pfStoredWithTerminatingDot is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, "ptr", lpstrName, lpvDataMarshal, lpvData, cbFileSizeMarshal, cbFileSize, cbFileSizeHighMarshal, cbFileSizeHigh, pfDidWeScanItMarshal, pfDidWeScanIt, pfIsStuffedMarshal, pfIsStuffed, pfStoredWithDotsMarshal, pfStoredWithDots, pfStoredWithTerminatingDotMarshal, pfStoredWithTerminatingDot, HANDLE.Owned)
         return result

@@ -19,7 +19,6 @@ export default struct PLSA_UNLOAD_PACKAGE {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

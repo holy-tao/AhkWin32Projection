@@ -245,9 +245,9 @@ export default struct IMFMediaEngineClassFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateInstance := CallbackCreate(GetMethod(implObj, "CreateInstance"), flags, 4)
-        this.vtbl.CreateTimeRange := CallbackCreate(GetMethod(implObj, "CreateTimeRange"), flags, 2)
-        this.vtbl.CreateError := CallbackCreate(GetMethod(implObj, "CreateError"), flags, 2)
+        this.vtbl.CreateInstance := CallbackCreate(ObjBindMethod(implObj, "CreateInstance"), flags, 4)
+        this.vtbl.CreateTimeRange := CallbackCreate(ObjBindMethod(implObj, "CreateTimeRange"), flags, 2)
+        this.vtbl.CreateError := CallbackCreate(ObjBindMethod(implObj, "CreateError"), flags, 2)
     }
 
     Dispose() {

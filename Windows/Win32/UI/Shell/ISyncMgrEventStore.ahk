@@ -117,10 +117,10 @@ export default struct ISyncMgrEventStore extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetEventEnumerator := CallbackCreate(GetMethod(implObj, "GetEventEnumerator"), flags, 2)
-        this.vtbl.GetEventCount := CallbackCreate(GetMethod(implObj, "GetEventCount"), flags, 2)
-        this.vtbl.GetEvent := CallbackCreate(GetMethod(implObj, "GetEvent"), flags, 3)
-        this.vtbl.RemoveEvent := CallbackCreate(GetMethod(implObj, "RemoveEvent"), flags, 3)
+        this.vtbl.GetEventEnumerator := CallbackCreate(ObjBindMethod(implObj, "GetEventEnumerator"), flags, 2)
+        this.vtbl.GetEventCount := CallbackCreate(ObjBindMethod(implObj, "GetEventCount"), flags, 2)
+        this.vtbl.GetEvent := CallbackCreate(ObjBindMethod(implObj, "GetEvent"), flags, 3)
+        this.vtbl.RemoveEvent := CallbackCreate(ObjBindMethod(implObj, "RemoveEvent"), flags, 3)
     }
 
     Dispose() {

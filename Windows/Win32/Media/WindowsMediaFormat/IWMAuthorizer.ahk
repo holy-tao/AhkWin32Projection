@@ -69,8 +69,8 @@ export default struct IWMAuthorizer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsecure/nf-wmsecure-iwmauthorizer-getshareddata
      */
     GetSharedData(dwCertIndex, pbSharedData, pbCert) {
-        pbSharedDataMarshal := pbSharedData is VarRef ? "char*" : "ptr"
-        pbCertMarshal := pbCert is VarRef ? "char*" : "ptr"
+        pbSharedDataMarshal := pbSharedData is VarRef ? "char*" : IntPtr
+        pbCertMarshal := pbCert is VarRef ? "char*" : IntPtr
 
         result := ComCall(5, this, UInt32, dwCertIndex, pbSharedDataMarshal, pbSharedData, pbCertMarshal, pbCert, "ptr*", &ppbSharedData := 0, "HRESULT")
         return ppbSharedData
@@ -85,9 +85,9 @@ export default struct IWMAuthorizer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCertCount := CallbackCreate(GetMethod(implObj, "GetCertCount"), flags, 2)
-        this.vtbl.GetCert := CallbackCreate(GetMethod(implObj, "GetCert"), flags, 3)
-        this.vtbl.GetSharedData := CallbackCreate(GetMethod(implObj, "GetSharedData"), flags, 5)
+        this.vtbl.GetCertCount := CallbackCreate(ObjBindMethod(implObj, "GetCertCount"), flags, 2)
+        this.vtbl.GetCert := CallbackCreate(ObjBindMethod(implObj, "GetCert"), flags, 3)
+        this.vtbl.GetSharedData := CallbackCreate(ObjBindMethod(implObj, "GetSharedData"), flags, 5)
     }
 
     Dispose() {

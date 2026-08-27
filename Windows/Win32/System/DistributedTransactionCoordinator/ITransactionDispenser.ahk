@@ -39,7 +39,6 @@ export default struct ITransactionDispenser extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ITransactionOptions} 
      */
     GetOptionsObject() {
@@ -48,7 +47,6 @@ export default struct ITransactionDispenser extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} punkOuter 
      * @param {Integer} isoLevel 
      * @param {Integer} isoFlags 
@@ -69,8 +67,8 @@ export default struct ITransactionDispenser extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOptionsObject := CallbackCreate(GetMethod(implObj, "GetOptionsObject"), flags, 2)
-        this.vtbl.BeginTransaction := CallbackCreate(GetMethod(implObj, "BeginTransaction"), flags, 6)
+        this.vtbl.GetOptionsObject := CallbackCreate(ObjBindMethod(implObj, "GetOptionsObject"), flags, 2)
+        this.vtbl.BeginTransaction := CallbackCreate(ObjBindMethod(implObj, "BeginTransaction"), flags, 6)
     }
 
     Dispose() {

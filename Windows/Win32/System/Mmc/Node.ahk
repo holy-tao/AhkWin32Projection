@@ -69,7 +69,6 @@ export default struct Node extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -79,7 +78,6 @@ export default struct Node extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} PropertyName 
      * @returns {BSTR} 
      */
@@ -92,7 +90,6 @@ export default struct Node extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Bookmark() {
@@ -102,7 +99,6 @@ export default struct Node extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsScopeNode() {
@@ -111,7 +107,6 @@ export default struct Node extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Nodetype() {
@@ -129,11 +124,11 @@ export default struct Node extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_Property := CallbackCreate(GetMethod(implObj, "get_Property"), flags, 3)
-        this.vtbl.get_Bookmark := CallbackCreate(GetMethod(implObj, "get_Bookmark"), flags, 2)
-        this.vtbl.IsScopeNode := CallbackCreate(GetMethod(implObj, "IsScopeNode"), flags, 2)
-        this.vtbl.get_Nodetype := CallbackCreate(GetMethod(implObj, "get_Nodetype"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Property := CallbackCreate(ObjBindMethod(implObj, "get_Property"), flags, 3)
+        this.vtbl.get_Bookmark := CallbackCreate(ObjBindMethod(implObj, "get_Bookmark"), flags, 2)
+        this.vtbl.IsScopeNode := CallbackCreate(ObjBindMethod(implObj, "IsScopeNode"), flags, 2)
+        this.vtbl.get_Nodetype := CallbackCreate(ObjBindMethod(implObj, "get_Nodetype"), flags, 2)
     }
 
     Dispose() {

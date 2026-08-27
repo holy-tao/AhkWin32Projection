@@ -44,7 +44,6 @@ export default struct IPrivateDispatch extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwExtensionId 
      * @returns {HRESULT} 
      */
@@ -54,7 +53,6 @@ export default struct IPrivateDispatch extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     ADSIGetTypeInfoCount() {
@@ -63,7 +61,6 @@ export default struct IPrivateDispatch extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} itinfo 
      * @param {Integer} lcid 
      * @returns {ITypeInfo} 
@@ -74,7 +71,6 @@ export default struct IPrivateDispatch extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Pointer<Integer>>} rgszNames 
      * @param {Integer} cNames 
@@ -82,14 +78,13 @@ export default struct IPrivateDispatch extends IUnknown {
      * @returns {Integer} 
      */
     ADSIGetIDsOfNames(riid, rgszNames, cNames, lcid) {
-        rgszNamesMarshal := rgszNames is VarRef ? "ptr*" : "ptr"
+        rgszNamesMarshal := rgszNames is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(6, this, Guid.Ptr, riid, rgszNamesMarshal, rgszNames, UInt32, cNames, UInt32, lcid, "int*", &rgdispid := 0, "HRESULT")
         return rgdispid
     }
 
     /**
-     * 
      * @param {Integer} dispidMember 
      * @param {Pointer<Guid>} riid 
      * @param {Integer} lcid 
@@ -101,7 +96,7 @@ export default struct IPrivateDispatch extends IUnknown {
      * @returns {HRESULT} 
      */
     ADSIInvoke(dispidMember, riid, lcid, wFlags, pdispparams, pvarResult, pexcepinfo, puArgErr) {
-        puArgErrMarshal := puArgErr is VarRef ? "uint*" : "ptr"
+        puArgErrMarshal := puArgErr is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, Int32, dispidMember, Guid.Ptr, riid, UInt32, lcid, UInt16, wFlags, DISPPARAMS.Ptr, pdispparams, VARIANT.Ptr, pvarResult, EXCEPINFO.Ptr, pexcepinfo, puArgErrMarshal, puArgErr, "HRESULT")
         return result
@@ -116,11 +111,11 @@ export default struct IPrivateDispatch extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ADSIInitializeDispatchManager := CallbackCreate(GetMethod(implObj, "ADSIInitializeDispatchManager"), flags, 2)
-        this.vtbl.ADSIGetTypeInfoCount := CallbackCreate(GetMethod(implObj, "ADSIGetTypeInfoCount"), flags, 2)
-        this.vtbl.ADSIGetTypeInfo := CallbackCreate(GetMethod(implObj, "ADSIGetTypeInfo"), flags, 4)
-        this.vtbl.ADSIGetIDsOfNames := CallbackCreate(GetMethod(implObj, "ADSIGetIDsOfNames"), flags, 6)
-        this.vtbl.ADSIInvoke := CallbackCreate(GetMethod(implObj, "ADSIInvoke"), flags, 9)
+        this.vtbl.ADSIInitializeDispatchManager := CallbackCreate(ObjBindMethod(implObj, "ADSIInitializeDispatchManager"), flags, 2)
+        this.vtbl.ADSIGetTypeInfoCount := CallbackCreate(ObjBindMethod(implObj, "ADSIGetTypeInfoCount"), flags, 2)
+        this.vtbl.ADSIGetTypeInfo := CallbackCreate(ObjBindMethod(implObj, "ADSIGetTypeInfo"), flags, 4)
+        this.vtbl.ADSIGetIDsOfNames := CallbackCreate(ObjBindMethod(implObj, "ADSIGetIDsOfNames"), flags, 6)
+        this.vtbl.ADSIInvoke := CallbackCreate(ObjBindMethod(implObj, "ADSIInvoke"), flags, 9)
     }
 
     Dispose() {

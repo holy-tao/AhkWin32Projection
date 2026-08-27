@@ -64,7 +64,7 @@ export default struct IWMCodecOutputTimestamp extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmcodecoutputtimestamp-getnextoutputtime
      */
     GetNextOutputTime(prtTime) {
-        prtTimeMarshal := prtTime is VarRef ? "int64*" : "ptr"
+        prtTimeMarshal := prtTime is VarRef ? "int64*" : IntPtr
 
         result := ComCall(3, this, prtTimeMarshal, prtTime, "HRESULT")
         return result
@@ -79,7 +79,7 @@ export default struct IWMCodecOutputTimestamp extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNextOutputTime := CallbackCreate(GetMethod(implObj, "GetNextOutputTime"), flags, 2)
+        this.vtbl.GetNextOutputTime := CallbackCreate(ObjBindMethod(implObj, "GetNextOutputTime"), flags, 2)
     }
 
     Dispose() {

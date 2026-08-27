@@ -94,7 +94,9 @@ export default struct IRendezvousApplication extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rendezvoussession/nf-rendezvoussession-irendezvousapplication-setrendezvoussession
      */
     SetRendezvousSession(pRendezvousSession) {
-        result := ComCall(3, this, "ptr", pRendezvousSession, "HRESULT")
+        pRendezvousSessionMarshal := pRendezvousSession == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pRendezvousSessionMarshal, pRendezvousSession, "HRESULT")
         return result
     }
 
@@ -107,7 +109,7 @@ export default struct IRendezvousApplication extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetRendezvousSession := CallbackCreate(GetMethod(implObj, "SetRendezvousSession"), flags, 2)
+        this.vtbl.SetRendezvousSession := CallbackCreate(ObjBindMethod(implObj, "SetRendezvousSession"), flags, 2)
     }
 
     Dispose() {

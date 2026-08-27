@@ -20,7 +20,6 @@ export default struct LPMAPIADDRESS {
     }
 
     /**
-     * 
      * @param {Pointer} lhSession 
      * @param {Pointer} ulUIParam 
      * @param {PSTR} lpszCaption 
@@ -38,8 +37,8 @@ export default struct LPMAPIADDRESS {
         lpszCaption := lpszCaption is String ? StrPtr(lpszCaption) : lpszCaption
         lpszLabels := lpszLabels is String ? StrPtr(lpszLabels) : lpszLabels
 
-        lpnNewRecipsMarshal := lpnNewRecips is VarRef ? "uint*" : "ptr"
-        lppNewRecipsMarshal := lppNewRecips is VarRef ? "ptr*" : "ptr"
+        lpnNewRecipsMarshal := lpnNewRecips is VarRef ? "uint*" : IntPtr
+        lppNewRecipsMarshal := lppNewRecips is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, IntPtr, lhSession, IntPtr, ulUIParam, "ptr", lpszCaption, UInt32, nEditFields, "ptr", lpszLabels, UInt32, nRecips, MapiRecipDesc.Ptr, lpRecips, UInt32, flFlags, UInt32, ulReserved, lpnNewRecipsMarshal, lpnNewRecips, lppNewRecipsMarshal, lppNewRecips, UInt32)
         return result

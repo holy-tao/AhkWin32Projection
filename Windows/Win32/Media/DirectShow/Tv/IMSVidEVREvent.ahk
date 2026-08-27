@@ -69,7 +69,7 @@ export default struct IMSVidEVREvent extends IMSVidOutputDeviceEvent {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnUserEvent := CallbackCreate(GetMethod(implObj, "OnUserEvent"), flags, 2)
+        this.vtbl.OnUserEvent := CallbackCreate(ObjBindMethod(implObj, "OnUserEvent"), flags, 2)
     }
 
     Dispose() {

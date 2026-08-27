@@ -37,7 +37,6 @@ export default struct IComparableConcept extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @param {IModelObject} otherObject 
      * @returns {Integer} 
@@ -56,7 +55,7 @@ export default struct IComparableConcept extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CompareObjects := CallbackCreate(GetMethod(implObj, "CompareObjects"), flags, 4)
+        this.vtbl.CompareObjects := CallbackCreate(ObjBindMethod(implObj, "CompareObjects"), flags, 4)
     }
 
     Dispose() {

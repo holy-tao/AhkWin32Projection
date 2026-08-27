@@ -46,7 +46,6 @@ export default struct Iwfolders extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrUrl 
      * @returns {BSTR} 
      */
@@ -59,7 +58,6 @@ export default struct Iwfolders extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrUrl 
      * @param {BSTR} bstrTargetFrame 
      * @returns {BSTR} 
@@ -74,7 +72,6 @@ export default struct Iwfolders extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrUrl 
      * @param {BSTR} bstrTargetFrame 
      * @param {Integer} dwhwnd 
@@ -98,9 +95,9 @@ export default struct Iwfolders extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.navigate := CallbackCreate(GetMethod(implObj, "navigate"), flags, 3)
-        this.vtbl.navigateFrame := CallbackCreate(GetMethod(implObj, "navigateFrame"), flags, 4)
-        this.vtbl.navigateNoSite := CallbackCreate(GetMethod(implObj, "navigateNoSite"), flags, 5)
+        this.vtbl.navigate := CallbackCreate(ObjBindMethod(implObj, "navigate"), flags, 3)
+        this.vtbl.navigateFrame := CallbackCreate(ObjBindMethod(implObj, "navigateFrame"), flags, 4)
+        this.vtbl.navigateNoSite := CallbackCreate(ObjBindMethod(implObj, "navigateNoSite"), flags, 5)
     }
 
     Dispose() {

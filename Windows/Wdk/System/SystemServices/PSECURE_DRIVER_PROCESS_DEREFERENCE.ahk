@@ -18,7 +18,6 @@ export default struct PSECURE_DRIVER_PROCESS_DEREFERENCE {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

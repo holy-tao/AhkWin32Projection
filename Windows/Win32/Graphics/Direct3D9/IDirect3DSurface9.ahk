@@ -93,7 +93,7 @@ export default struct IDirect3DSurface9 extends IDirect3DResource9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dsurface9-getcontainer
      */
     GetContainer(riid, ppContainer) {
-        ppContainerMarshal := ppContainer is VarRef ? "ptr*" : "ptr"
+        ppContainerMarshal := ppContainer is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(11, this, Guid.Ptr, riid, ppContainerMarshal, ppContainer, "HRESULT")
         return result
@@ -286,12 +286,12 @@ export default struct IDirect3DSurface9 extends IDirect3DResource9 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetContainer := CallbackCreate(GetMethod(implObj, "GetContainer"), flags, 3)
-        this.vtbl.GetDesc := CallbackCreate(GetMethod(implObj, "GetDesc"), flags, 2)
-        this.vtbl.LockRect := CallbackCreate(GetMethod(implObj, "LockRect"), flags, 4)
-        this.vtbl.UnlockRect := CallbackCreate(GetMethod(implObj, "UnlockRect"), flags, 1)
-        this.vtbl.GetDC := CallbackCreate(GetMethod(implObj, "GetDC"), flags, 2)
-        this.vtbl.ReleaseDC := CallbackCreate(GetMethod(implObj, "ReleaseDC"), flags, 2)
+        this.vtbl.GetContainer := CallbackCreate(ObjBindMethod(implObj, "GetContainer"), flags, 3)
+        this.vtbl.GetDesc := CallbackCreate(ObjBindMethod(implObj, "GetDesc"), flags, 2)
+        this.vtbl.LockRect := CallbackCreate(ObjBindMethod(implObj, "LockRect"), flags, 4)
+        this.vtbl.UnlockRect := CallbackCreate(ObjBindMethod(implObj, "UnlockRect"), flags, 1)
+        this.vtbl.GetDC := CallbackCreate(ObjBindMethod(implObj, "GetDC"), flags, 2)
+        this.vtbl.ReleaseDC := CallbackCreate(ObjBindMethod(implObj, "ReleaseDC"), flags, 2)
     }
 
     Dispose() {

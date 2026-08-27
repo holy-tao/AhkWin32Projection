@@ -154,9 +154,9 @@ export default struct IWMCodecInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCodecInfoCount := CallbackCreate(GetMethod(implObj, "GetCodecInfoCount"), flags, 3)
-        this.vtbl.GetCodecFormatCount := CallbackCreate(GetMethod(implObj, "GetCodecFormatCount"), flags, 4)
-        this.vtbl.GetCodecFormat := CallbackCreate(GetMethod(implObj, "GetCodecFormat"), flags, 5)
+        this.vtbl.GetCodecInfoCount := CallbackCreate(ObjBindMethod(implObj, "GetCodecInfoCount"), flags, 3)
+        this.vtbl.GetCodecFormatCount := CallbackCreate(ObjBindMethod(implObj, "GetCodecFormatCount"), flags, 4)
+        this.vtbl.GetCodecFormat := CallbackCreate(ObjBindMethod(implObj, "GetCodecFormat"), flags, 5)
     }
 
     Dispose() {

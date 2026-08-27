@@ -48,19 +48,17 @@ export default struct ISyncChangeWithFilterKeyMap extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwFilterCount 
      * @returns {HRESULT} 
      */
     GetFilterCount(pdwFilterCount) {
-        pdwFilterCountMarshal := pdwFilterCount is VarRef ? "uint*" : "ptr"
+        pdwFilterCountMarshal := pdwFilterCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pdwFilterCountMarshal, pdwFilterCount, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwFilterKey 
      * @param {Pointer<SYNC_FILTER_CHANGE>} pFilterChange 
      * @returns {HRESULT} 
@@ -71,19 +69,17 @@ export default struct ISyncChangeWithFilterKeyMap extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BOOL>} pfAllChangeUnitsPresent 
      * @returns {HRESULT} 
      */
     GetAllChangeUnitsPresentFlag(pfAllChangeUnitsPresent) {
-        pfAllChangeUnitsPresentMarshal := pfAllChangeUnitsPresent is VarRef ? "int*" : "ptr"
+        pfAllChangeUnitsPresentMarshal := pfAllChangeUnitsPresent is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, pfAllChangeUnitsPresentMarshal, pfAllChangeUnitsPresent, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwFilterKey 
      * @returns {ISyncKnowledge} 
      */
@@ -93,7 +89,6 @@ export default struct ISyncChangeWithFilterKeyMap extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISyncKnowledge} pDestinationKnowledge 
      * @param {IEnumItemIds} pNewMoveins 
      * @returns {ISyncKnowledge} 
@@ -104,7 +99,6 @@ export default struct ISyncChangeWithFilterKeyMap extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISyncKnowledge} pDestinationKnowledge 
      * @param {IEnumItemIds} pNewMoveins 
      * @param {Integer} dwFilterKey 
@@ -116,7 +110,6 @@ export default struct ISyncChangeWithFilterKeyMap extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISyncKnowledge} pDestinationKnowledge 
      * @param {IEnumItemIds} pNewMoveins 
      * @returns {ISyncKnowledge} 
@@ -127,7 +120,6 @@ export default struct ISyncChangeWithFilterKeyMap extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISyncKnowledge} pDestinationKnowledge 
      * @param {IEnumItemIds} pNewMoveins 
      * @returns {ISyncKnowledge} 
@@ -138,7 +130,6 @@ export default struct ISyncChangeWithFilterKeyMap extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISyncKnowledge} pDestinationKnowledge 
      * @param {IEnumItemIds} pNewMoveins 
      * @param {Integer} dwFilterKey 
@@ -158,15 +149,15 @@ export default struct ISyncChangeWithFilterKeyMap extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFilterCount := CallbackCreate(GetMethod(implObj, "GetFilterCount"), flags, 2)
-        this.vtbl.GetFilterChange := CallbackCreate(GetMethod(implObj, "GetFilterChange"), flags, 3)
-        this.vtbl.GetAllChangeUnitsPresentFlag := CallbackCreate(GetMethod(implObj, "GetAllChangeUnitsPresentFlag"), flags, 2)
-        this.vtbl.GetFilterForgottenKnowledge := CallbackCreate(GetMethod(implObj, "GetFilterForgottenKnowledge"), flags, 3)
-        this.vtbl.GetFilteredReplicaLearnedKnowledge := CallbackCreate(GetMethod(implObj, "GetFilteredReplicaLearnedKnowledge"), flags, 4)
-        this.vtbl.GetLearnedFilterForgottenKnowledge := CallbackCreate(GetMethod(implObj, "GetLearnedFilterForgottenKnowledge"), flags, 5)
-        this.vtbl.GetFilteredReplicaLearnedForgottenKnowledge := CallbackCreate(GetMethod(implObj, "GetFilteredReplicaLearnedForgottenKnowledge"), flags, 4)
-        this.vtbl.GetFilteredReplicaLearnedForgottenKnowledgeAfterRecoveryComplete := CallbackCreate(GetMethod(implObj, "GetFilteredReplicaLearnedForgottenKnowledgeAfterRecoveryComplete"), flags, 4)
-        this.vtbl.GetLearnedFilterForgottenKnowledgeAfterRecoveryComplete := CallbackCreate(GetMethod(implObj, "GetLearnedFilterForgottenKnowledgeAfterRecoveryComplete"), flags, 5)
+        this.vtbl.GetFilterCount := CallbackCreate(ObjBindMethod(implObj, "GetFilterCount"), flags, 2)
+        this.vtbl.GetFilterChange := CallbackCreate(ObjBindMethod(implObj, "GetFilterChange"), flags, 3)
+        this.vtbl.GetAllChangeUnitsPresentFlag := CallbackCreate(ObjBindMethod(implObj, "GetAllChangeUnitsPresentFlag"), flags, 2)
+        this.vtbl.GetFilterForgottenKnowledge := CallbackCreate(ObjBindMethod(implObj, "GetFilterForgottenKnowledge"), flags, 3)
+        this.vtbl.GetFilteredReplicaLearnedKnowledge := CallbackCreate(ObjBindMethod(implObj, "GetFilteredReplicaLearnedKnowledge"), flags, 4)
+        this.vtbl.GetLearnedFilterForgottenKnowledge := CallbackCreate(ObjBindMethod(implObj, "GetLearnedFilterForgottenKnowledge"), flags, 5)
+        this.vtbl.GetFilteredReplicaLearnedForgottenKnowledge := CallbackCreate(ObjBindMethod(implObj, "GetFilteredReplicaLearnedForgottenKnowledge"), flags, 4)
+        this.vtbl.GetFilteredReplicaLearnedForgottenKnowledgeAfterRecoveryComplete := CallbackCreate(ObjBindMethod(implObj, "GetFilteredReplicaLearnedForgottenKnowledgeAfterRecoveryComplete"), flags, 4)
+        this.vtbl.GetLearnedFilterForgottenKnowledgeAfterRecoveryComplete := CallbackCreate(ObjBindMethod(implObj, "GetLearnedFilterForgottenKnowledgeAfterRecoveryComplete"), flags, 5)
     }
 
     Dispose() {

@@ -78,8 +78,8 @@ export default struct IXFeedsEnum extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Count := CallbackCreate(GetMethod(implObj, "Count"), flags, 2)
-        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 4)
+        this.vtbl.Count := CallbackCreate(ObjBindMethod(implObj, "Count"), flags, 2)
+        this.vtbl.Item := CallbackCreate(ObjBindMethod(implObj, "Item"), flags, 4)
     }
 
     Dispose() {

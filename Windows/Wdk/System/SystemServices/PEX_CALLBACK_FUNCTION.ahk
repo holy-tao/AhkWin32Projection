@@ -19,7 +19,6 @@ export default struct PEX_CALLBACK_FUNCTION {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

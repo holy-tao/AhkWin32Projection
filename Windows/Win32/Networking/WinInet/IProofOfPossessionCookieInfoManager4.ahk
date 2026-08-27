@@ -54,8 +54,8 @@ export default struct IProofOfPossessionCookieInfoManager4 extends IUnknown {
         uri := uri is String ? StrPtr(uri) : uri
         uaClientId := uaClientId is String ? StrPtr(uaClientId) : uaClientId
 
-        cookieInfoCountMarshal := cookieInfoCount is VarRef ? "uint*" : "ptr"
-        cookieInfoMarshal := cookieInfo is VarRef ? "ptr*" : "ptr"
+        cookieInfoCountMarshal := cookieInfoCount is VarRef ? "uint*" : IntPtr
+        cookieInfoMarshal := cookieInfo is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, "ptr", uri, "ptr", uaClientId, cookieInfoCountMarshal, cookieInfoCount, cookieInfoMarshal, cookieInfo, "HRESULT")
         return result
@@ -75,8 +75,8 @@ export default struct IProofOfPossessionCookieInfoManager4 extends IUnknown {
         uri := uri is String ? StrPtr(uri) : uri
         uaClientId := uaClientId is String ? StrPtr(uaClientId) : uaClientId
 
-        cookieInfoCountMarshal := cookieInfoCount is VarRef ? "uint*" : "ptr"
-        cookieInfoMarshal := cookieInfo is VarRef ? "ptr*" : "ptr"
+        cookieInfoCountMarshal := cookieInfoCount is VarRef ? "uint*" : IntPtr
+        cookieInfoMarshal := cookieInfo is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, "ptr", webAccount, "ptr", uri, "ptr", uaClientId, cookieInfoCountMarshal, cookieInfoCount, cookieInfoMarshal, cookieInfo, "HRESULT")
         return result
@@ -91,8 +91,8 @@ export default struct IProofOfPossessionCookieInfoManager4 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCookieInfoForUriWithUserAgentId := CallbackCreate(GetMethod(implObj, "GetCookieInfoForUriWithUserAgentId"), flags, 5)
-        this.vtbl.GetCookieInfoWithUriAndUserAgentIdForAccount := CallbackCreate(GetMethod(implObj, "GetCookieInfoWithUriAndUserAgentIdForAccount"), flags, 6)
+        this.vtbl.GetCookieInfoForUriWithUserAgentId := CallbackCreate(ObjBindMethod(implObj, "GetCookieInfoForUriWithUserAgentId"), flags, 5)
+        this.vtbl.GetCookieInfoWithUriAndUserAgentIdForAccount := CallbackCreate(ObjBindMethod(implObj, "GetCookieInfoWithUriAndUserAgentIdForAccount"), flags, 6)
     }
 
     Dispose() {

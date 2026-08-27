@@ -19,7 +19,6 @@ export default struct UTraceData {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {Integer} fnNumber 
      * @param {Integer} level 
@@ -30,8 +29,8 @@ export default struct UTraceData {
     Call(_context, fnNumber, level, fmt, args) {
         fmt := fmt is String ? StrPtr(fmt) : fmt
 
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
-        argsMarshal := args is VarRef ? "char*" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+        argsMarshal := args is VarRef ? "char*" : IntPtr
 
         DllCall(this.value, _contextMarshal, _context, Int32, fnNumber, Int32, level, "ptr", fmt, argsMarshal, args)
     }

@@ -19,12 +19,11 @@ export default struct I_RpcProxyGetConnectionTimeoutFn {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} ConnectionTimeout 
      * @returns {RPC_STATUS} 
      */
     Call(ConnectionTimeout) {
-        ConnectionTimeoutMarshal := ConnectionTimeout is VarRef ? "uint*" : "ptr"
+        ConnectionTimeoutMarshal := ConnectionTimeout is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, ConnectionTimeoutMarshal, ConnectionTimeout, RPC_STATUS)
         return result

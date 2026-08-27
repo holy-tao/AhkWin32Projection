@@ -196,7 +196,6 @@ export default struct IMFTimedTextTrack extends IUnknown {
     }
 
     /**
-     * 
      * @returns {MF_TIMED_TEXT_TRACK_READY_STATE} 
      */
     GetReadyState() {
@@ -205,7 +204,6 @@ export default struct IMFTimedTextTrack extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IMFTimedTextCueList} 
      */
     GetCueList() {
@@ -222,19 +220,19 @@ export default struct IMFTimedTextTrack extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetId := CallbackCreate(GetMethod(implObj, "GetId"), flags, 1)
-        this.vtbl.GetLabel := CallbackCreate(GetMethod(implObj, "GetLabel"), flags, 2)
-        this.vtbl.SetLabel := CallbackCreate(GetMethod(implObj, "SetLabel"), flags, 2)
-        this.vtbl.GetLanguage := CallbackCreate(GetMethod(implObj, "GetLanguage"), flags, 2)
-        this.vtbl.GetTrackKind := CallbackCreate(GetMethod(implObj, "GetTrackKind"), flags, 1)
-        this.vtbl.IsInBand := CallbackCreate(GetMethod(implObj, "IsInBand"), flags, 1)
-        this.vtbl.GetInBandMetadataTrackDispatchType := CallbackCreate(GetMethod(implObj, "GetInBandMetadataTrackDispatchType"), flags, 2)
-        this.vtbl.IsActive := CallbackCreate(GetMethod(implObj, "IsActive"), flags, 1)
-        this.vtbl.GetErrorCode := CallbackCreate(GetMethod(implObj, "GetErrorCode"), flags, 1)
-        this.vtbl.GetExtendedErrorCode := CallbackCreate(GetMethod(implObj, "GetExtendedErrorCode"), flags, 1)
-        this.vtbl.GetDataFormat := CallbackCreate(GetMethod(implObj, "GetDataFormat"), flags, 2)
-        this.vtbl.GetReadyState := CallbackCreate(GetMethod(implObj, "GetReadyState"), flags, 1)
-        this.vtbl.GetCueList := CallbackCreate(GetMethod(implObj, "GetCueList"), flags, 2)
+        this.vtbl.GetId := CallbackCreate(ObjBindMethod(implObj, "GetId"), flags, 1)
+        this.vtbl.GetLabel := CallbackCreate(ObjBindMethod(implObj, "GetLabel"), flags, 2)
+        this.vtbl.SetLabel := CallbackCreate(ObjBindMethod(implObj, "SetLabel"), flags, 2)
+        this.vtbl.GetLanguage := CallbackCreate(ObjBindMethod(implObj, "GetLanguage"), flags, 2)
+        this.vtbl.GetTrackKind := CallbackCreate(ObjBindMethod(implObj, "GetTrackKind"), flags, 1)
+        this.vtbl.IsInBand := CallbackCreate(ObjBindMethod(implObj, "IsInBand"), flags, 1)
+        this.vtbl.GetInBandMetadataTrackDispatchType := CallbackCreate(ObjBindMethod(implObj, "GetInBandMetadataTrackDispatchType"), flags, 2)
+        this.vtbl.IsActive := CallbackCreate(ObjBindMethod(implObj, "IsActive"), flags, 1)
+        this.vtbl.GetErrorCode := CallbackCreate(ObjBindMethod(implObj, "GetErrorCode"), flags, 1)
+        this.vtbl.GetExtendedErrorCode := CallbackCreate(ObjBindMethod(implObj, "GetExtendedErrorCode"), flags, 1)
+        this.vtbl.GetDataFormat := CallbackCreate(ObjBindMethod(implObj, "GetDataFormat"), flags, 2)
+        this.vtbl.GetReadyState := CallbackCreate(ObjBindMethod(implObj, "GetReadyState"), flags, 1)
+        this.vtbl.GetCueList := CallbackCreate(ObjBindMethod(implObj, "GetCueList"), flags, 2)
     }
 
     Dispose() {

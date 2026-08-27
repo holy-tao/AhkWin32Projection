@@ -21,7 +21,6 @@ export default struct PCLUSAPI_SHARED_VOLUME_SET_SNAPSHOT_STATE {
     }
 
     /**
-     * 
      * @param {Guid} guidSnapshotSet 
      * @param {PWSTR} lpszVolumeName 
      * @param {CLUSTER_SHARED_VOLUME_SNAPSHOT_STATE} state 

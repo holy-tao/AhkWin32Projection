@@ -21,7 +21,6 @@ export default struct PDXVA2SW_VIDEOPROCESSBLT {
     }
 
     /**
-     * 
      * @param {HANDLE} hDevice 
      * @param {Pointer<DXVA2_VIDEOPROCESSBLT>} pBlt 
      * @returns {HRESULT} 

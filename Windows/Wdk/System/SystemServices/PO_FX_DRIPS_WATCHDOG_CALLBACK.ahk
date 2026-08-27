@@ -19,14 +19,13 @@ export default struct PO_FX_DRIPS_WATCHDOG_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<DEVICE_OBJECT>} PhysicalDeviceObject 
      * @param {Integer} UniqueId 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Context, PhysicalDeviceObject, UniqueId) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _ContextMarshal, _Context, DEVICE_OBJECT.Ptr, PhysicalDeviceObject, UInt32, UniqueId)
     }

@@ -19,7 +19,6 @@ export default struct VBS_BASIC_ENCLAVE_BASIC_CALL_GET_ENCLAVE_INFORMATION {
     }
 
     /**
-     * 
      * @param {Pointer<ENCLAVE_INFORMATION>} EnclaveInfo 
      * @returns {Integer} 
      */

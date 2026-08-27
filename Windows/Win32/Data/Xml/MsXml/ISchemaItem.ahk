@@ -90,7 +90,6 @@ export default struct ISchemaItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -100,7 +99,6 @@ export default struct ISchemaItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_namespaceURI() {
@@ -110,7 +108,6 @@ export default struct ISchemaItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISchema} 
      */
     get_schema() {
@@ -119,7 +116,6 @@ export default struct ISchemaItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_id() {
@@ -129,7 +125,6 @@ export default struct ISchemaItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SOMITEMTYPE} 
      */
     get_itemType() {
@@ -138,7 +133,6 @@ export default struct ISchemaItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IVBSAXAttributes} 
      */
     get_unhandledAttributes() {
@@ -147,7 +141,6 @@ export default struct ISchemaItem extends IDispatch {
     }
 
     /**
-     * 
      * @param {IUnknown} annotationSink 
      * @returns {VARIANT_BOOL} 
      */
@@ -165,13 +158,13 @@ export default struct ISchemaItem extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
-        this.vtbl.get_namespaceURI := CallbackCreate(GetMethod(implObj, "get_namespaceURI"), flags, 2)
-        this.vtbl.get_schema := CallbackCreate(GetMethod(implObj, "get_schema"), flags, 2)
-        this.vtbl.get_id := CallbackCreate(GetMethod(implObj, "get_id"), flags, 2)
-        this.vtbl.get_itemType := CallbackCreate(GetMethod(implObj, "get_itemType"), flags, 2)
-        this.vtbl.get_unhandledAttributes := CallbackCreate(GetMethod(implObj, "get_unhandledAttributes"), flags, 2)
-        this.vtbl.writeAnnotation := CallbackCreate(GetMethod(implObj, "writeAnnotation"), flags, 3)
+        this.vtbl.get_name := CallbackCreate(ObjBindMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.get_namespaceURI := CallbackCreate(ObjBindMethod(implObj, "get_namespaceURI"), flags, 2)
+        this.vtbl.get_schema := CallbackCreate(ObjBindMethod(implObj, "get_schema"), flags, 2)
+        this.vtbl.get_id := CallbackCreate(ObjBindMethod(implObj, "get_id"), flags, 2)
+        this.vtbl.get_itemType := CallbackCreate(ObjBindMethod(implObj, "get_itemType"), flags, 2)
+        this.vtbl.get_unhandledAttributes := CallbackCreate(ObjBindMethod(implObj, "get_unhandledAttributes"), flags, 2)
+        this.vtbl.writeAnnotation := CallbackCreate(ObjBindMethod(implObj, "writeAnnotation"), flags, 3)
     }
 
     Dispose() {

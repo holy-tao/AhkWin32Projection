@@ -39,14 +39,15 @@ export default struct IDxcValidator2 extends IDxcValidator {
     }
 
     /**
-     * 
      * @param {IDxcBlob} pShader 
      * @param {Integer} Flags 
      * @param {Pointer<DxcBuffer>} pOptDebugBitcode 
      * @returns {IDxcOperationResult} 
      */
     ValidateWithDebug(pShader, Flags, pOptDebugBitcode) {
-        result := ComCall(4, this, "ptr", pShader, UInt32, Flags, DxcBuffer.Ptr, pOptDebugBitcode, "ptr*", &ppResult := 0, "HRESULT")
+        pOptDebugBitcodeMarshal := pOptDebugBitcode == 0 ? IntPtr : DxcBuffer.Ptr
+
+        result := ComCall(4, this, "ptr", pShader, UInt32, Flags, pOptDebugBitcodeMarshal, pOptDebugBitcode, "ptr*", &ppResult := 0, "HRESULT")
         return IDxcOperationResult(ppResult)
     }
 
@@ -59,7 +60,7 @@ export default struct IDxcValidator2 extends IDxcValidator {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ValidateWithDebug := CallbackCreate(GetMethod(implObj, "ValidateWithDebug"), flags, 5)
+        this.vtbl.ValidateWithDebug := CallbackCreate(ObjBindMethod(implObj, "ValidateWithDebug"), flags, 5)
     }
 
     Dispose() {

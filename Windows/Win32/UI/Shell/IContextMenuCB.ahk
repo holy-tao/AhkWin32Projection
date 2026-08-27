@@ -143,7 +143,11 @@ export default struct IContextMenuCB extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icontextmenucb-callback
      */
     CallBack(psf, hwndOwner, pdtobj, uMsg, _wParam, _lParam) {
-        result := ComCall(3, this, "ptr", psf, HWND, hwndOwner, "ptr", pdtobj, UInt32, uMsg, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
+        psfMarshal := psf == 0 ? IntPtr : "ptr"
+        hwndOwnerMarshal := hwndOwner == 0 ? IntPtr : HWND
+        pdtobjMarshal := pdtobj == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, psfMarshal, psf, hwndOwnerMarshal, hwndOwner, pdtobjMarshal, pdtobj, UInt32, uMsg, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
         return result
     }
 
@@ -156,7 +160,7 @@ export default struct IContextMenuCB extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CallBack := CallbackCreate(GetMethod(implObj, "CallBack"), flags, 7)
+        this.vtbl.CallBack := CallbackCreate(ObjBindMethod(implObj, "CallBack"), flags, 7)
     }
 
     Dispose() {

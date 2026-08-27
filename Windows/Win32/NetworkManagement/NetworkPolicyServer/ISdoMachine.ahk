@@ -213,7 +213,6 @@ export default struct ISdoMachine extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     GetSDOSchema() {
@@ -230,15 +229,15 @@ export default struct ISdoMachine extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Attach := CallbackCreate(GetMethod(implObj, "Attach"), flags, 2)
-        this.vtbl.GetDictionarySDO := CallbackCreate(GetMethod(implObj, "GetDictionarySDO"), flags, 2)
-        this.vtbl.GetServiceSDO := CallbackCreate(GetMethod(implObj, "GetServiceSDO"), flags, 4)
-        this.vtbl.GetUserSDO := CallbackCreate(GetMethod(implObj, "GetUserSDO"), flags, 4)
-        this.vtbl.GetOSType := CallbackCreate(GetMethod(implObj, "GetOSType"), flags, 2)
-        this.vtbl.GetDomainType := CallbackCreate(GetMethod(implObj, "GetDomainType"), flags, 2)
-        this.vtbl.IsDirectoryAvailable := CallbackCreate(GetMethod(implObj, "IsDirectoryAvailable"), flags, 2)
-        this.vtbl.GetAttachedComputer := CallbackCreate(GetMethod(implObj, "GetAttachedComputer"), flags, 2)
-        this.vtbl.GetSDOSchema := CallbackCreate(GetMethod(implObj, "GetSDOSchema"), flags, 2)
+        this.vtbl.Attach := CallbackCreate(ObjBindMethod(implObj, "Attach"), flags, 2)
+        this.vtbl.GetDictionarySDO := CallbackCreate(ObjBindMethod(implObj, "GetDictionarySDO"), flags, 2)
+        this.vtbl.GetServiceSDO := CallbackCreate(ObjBindMethod(implObj, "GetServiceSDO"), flags, 4)
+        this.vtbl.GetUserSDO := CallbackCreate(ObjBindMethod(implObj, "GetUserSDO"), flags, 4)
+        this.vtbl.GetOSType := CallbackCreate(ObjBindMethod(implObj, "GetOSType"), flags, 2)
+        this.vtbl.GetDomainType := CallbackCreate(ObjBindMethod(implObj, "GetDomainType"), flags, 2)
+        this.vtbl.IsDirectoryAvailable := CallbackCreate(ObjBindMethod(implObj, "IsDirectoryAvailable"), flags, 2)
+        this.vtbl.GetAttachedComputer := CallbackCreate(ObjBindMethod(implObj, "GetAttachedComputer"), flags, 2)
+        this.vtbl.GetSDOSchema := CallbackCreate(ObjBindMethod(implObj, "GetSDOSchema"), flags, 2)
     }
 
     Dispose() {

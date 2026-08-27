@@ -65,7 +65,7 @@ export default struct IProvideWinSATVisuals extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Bitmap := CallbackCreate(GetMethod(implObj, "get_Bitmap"), flags, 5)
+        this.vtbl.get_Bitmap := CallbackCreate(ObjBindMethod(implObj, "get_Bitmap"), flags, 5)
     }
 
     Dispose() {

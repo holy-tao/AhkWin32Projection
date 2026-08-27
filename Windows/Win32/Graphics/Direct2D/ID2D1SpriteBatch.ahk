@@ -117,7 +117,11 @@ export default struct ID2D1SpriteBatch extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1spritebatch-addsprites
      */
     AddSprites(spriteCount, destinationRectangles, sourceRectangles, colors, transforms, destinationRectanglesStride, sourceRectanglesStride, colorsStride, transformsStride) {
-        result := ComCall(4, this, UInt32, spriteCount, D2D_RECT_F.Ptr, destinationRectangles, D2D_RECT_U.Ptr, sourceRectangles, D2D1_COLOR_F.Ptr, colors, D2D_MATRIX_3X2_F.Ptr, transforms, UInt32, destinationRectanglesStride, UInt32, sourceRectanglesStride, UInt32, colorsStride, UInt32, transformsStride, "HRESULT")
+        sourceRectanglesMarshal := sourceRectangles == 0 ? IntPtr : D2D_RECT_U.Ptr
+        colorsMarshal := colors == 0 ? IntPtr : D2D1_COLOR_F.Ptr
+        transformsMarshal := transforms == 0 ? IntPtr : D2D_MATRIX_3X2_F.Ptr
+
+        result := ComCall(4, this, UInt32, spriteCount, D2D_RECT_F.Ptr, destinationRectangles, sourceRectanglesMarshal, sourceRectangles, colorsMarshal, colors, transformsMarshal, transforms, UInt32, destinationRectanglesStride, UInt32, sourceRectanglesStride, UInt32, colorsStride, UInt32, transformsStride, "HRESULT")
         return result
     }
 
@@ -179,7 +183,12 @@ export default struct ID2D1SpriteBatch extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1spritebatch-setsprites
      */
     SetSprites(startIndex, spriteCount, destinationRectangles, sourceRectangles, colors, transforms, destinationRectanglesStride, sourceRectanglesStride, colorsStride, transformsStride) {
-        result := ComCall(5, this, UInt32, startIndex, UInt32, spriteCount, D2D_RECT_F.Ptr, destinationRectangles, D2D_RECT_U.Ptr, sourceRectangles, D2D1_COLOR_F.Ptr, colors, D2D_MATRIX_3X2_F.Ptr, transforms, UInt32, destinationRectanglesStride, UInt32, sourceRectanglesStride, UInt32, colorsStride, UInt32, transformsStride, "HRESULT")
+        destinationRectanglesMarshal := destinationRectangles == 0 ? IntPtr : D2D_RECT_F.Ptr
+        sourceRectanglesMarshal := sourceRectangles == 0 ? IntPtr : D2D_RECT_U.Ptr
+        colorsMarshal := colors == 0 ? IntPtr : D2D1_COLOR_F.Ptr
+        transformsMarshal := transforms == 0 ? IntPtr : D2D_MATRIX_3X2_F.Ptr
+
+        result := ComCall(5, this, UInt32, startIndex, UInt32, spriteCount, destinationRectanglesMarshal, destinationRectangles, sourceRectanglesMarshal, sourceRectangles, colorsMarshal, colors, transformsMarshal, transforms, UInt32, destinationRectanglesStride, UInt32, sourceRectanglesStride, UInt32, colorsStride, UInt32, transformsStride, "HRESULT")
         return result
     }
 
@@ -221,7 +230,12 @@ export default struct ID2D1SpriteBatch extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1spritebatch-getsprites
      */
     GetSprites(startIndex, spriteCount, destinationRectangles, sourceRectangles, colors, transforms) {
-        result := ComCall(6, this, UInt32, startIndex, UInt32, spriteCount, D2D_RECT_F.Ptr, destinationRectangles, D2D_RECT_U.Ptr, sourceRectangles, D2D1_COLOR_F.Ptr, colors, D2D_MATRIX_3X2_F.Ptr, transforms, "HRESULT")
+        destinationRectanglesMarshal := destinationRectangles == 0 ? IntPtr : D2D_RECT_F.Ptr
+        sourceRectanglesMarshal := sourceRectangles == 0 ? IntPtr : D2D_RECT_U.Ptr
+        colorsMarshal := colors == 0 ? IntPtr : D2D1_COLOR_F.Ptr
+        transformsMarshal := transforms == 0 ? IntPtr : D2D_MATRIX_3X2_F.Ptr
+
+        result := ComCall(6, this, UInt32, startIndex, UInt32, spriteCount, destinationRectanglesMarshal, destinationRectangles, sourceRectanglesMarshal, sourceRectangles, colorsMarshal, colors, transformsMarshal, transforms, "HRESULT")
         return result
     }
 
@@ -255,11 +269,11 @@ export default struct ID2D1SpriteBatch extends ID2D1Resource {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddSprites := CallbackCreate(GetMethod(implObj, "AddSprites"), flags, 10)
-        this.vtbl.SetSprites := CallbackCreate(GetMethod(implObj, "SetSprites"), flags, 11)
-        this.vtbl.GetSprites := CallbackCreate(GetMethod(implObj, "GetSprites"), flags, 7)
-        this.vtbl.GetSpriteCount := CallbackCreate(GetMethod(implObj, "GetSpriteCount"), flags, 1)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.AddSprites := CallbackCreate(ObjBindMethod(implObj, "AddSprites"), flags, 10)
+        this.vtbl.SetSprites := CallbackCreate(ObjBindMethod(implObj, "SetSprites"), flags, 11)
+        this.vtbl.GetSprites := CallbackCreate(ObjBindMethod(implObj, "GetSprites"), flags, 7)
+        this.vtbl.GetSpriteCount := CallbackCreate(ObjBindMethod(implObj, "GetSpriteCount"), flags, 1)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
     }
 
     Dispose() {

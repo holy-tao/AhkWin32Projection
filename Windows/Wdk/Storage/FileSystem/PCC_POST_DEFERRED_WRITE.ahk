@@ -18,14 +18,13 @@ export default struct PCC_POST_DEFERRED_WRITE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Context1 
      * @param {Pointer<Void>} Context2 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(Context1, Context2) {
-        Context1Marshal := Context1 is VarRef ? "ptr" : "ptr"
-        Context2Marshal := Context2 is VarRef ? "ptr" : "ptr"
+        Context1Marshal := Context1 is VarRef ? "ptr" : IntPtr
+        Context2Marshal := Context2 is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, Context1Marshal, Context1, Context2Marshal, Context2)
     }

@@ -21,13 +21,12 @@ export default struct IOMMU_UNMAP_IDENTITY_RANGE_EX {
     }
 
     /**
-     * 
      * @param {Pointer<IOMMU_DMA_DOMAIN>} Domain 
      * @param {Pointer<IOMMU_MAP_PHYSICAL_ADDRESS>} MappedPhysicalAddress 
      * @returns {NTSTATUS} 
      */
     Call(Domain, MappedPhysicalAddress) {
-        DomainMarshal := Domain is VarRef ? "ptr*" : "ptr"
+        DomainMarshal := Domain is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, DomainMarshal, Domain, IOMMU_MAP_PHYSICAL_ADDRESS.Ptr, MappedPhysicalAddress, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

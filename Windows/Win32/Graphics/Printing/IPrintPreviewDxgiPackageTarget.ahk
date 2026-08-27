@@ -40,7 +40,6 @@ export default struct IPrintPreviewDxgiPackageTarget extends IUnknown {
     }
 
     /**
-     * 
      * @param {PageCountType} countType 
      * @param {Integer} count 
      * @returns {HRESULT} 
@@ -51,7 +50,6 @@ export default struct IPrintPreviewDxgiPackageTarget extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} jobPageNumber 
      * @param {IDXGISurface} pageImage 
      * @param {Float} dpiX 
@@ -64,7 +62,6 @@ export default struct IPrintPreviewDxgiPackageTarget extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     InvalidatePreview() {
@@ -81,9 +78,9 @@ export default struct IPrintPreviewDxgiPackageTarget extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetJobPageCount := CallbackCreate(GetMethod(implObj, "SetJobPageCount"), flags, 3)
-        this.vtbl.DrawPage := CallbackCreate(GetMethod(implObj, "DrawPage"), flags, 5)
-        this.vtbl.InvalidatePreview := CallbackCreate(GetMethod(implObj, "InvalidatePreview"), flags, 1)
+        this.vtbl.SetJobPageCount := CallbackCreate(ObjBindMethod(implObj, "SetJobPageCount"), flags, 3)
+        this.vtbl.DrawPage := CallbackCreate(ObjBindMethod(implObj, "DrawPage"), flags, 5)
+        this.vtbl.InvalidatePreview := CallbackCreate(ObjBindMethod(implObj, "InvalidatePreview"), flags, 1)
     }
 
     Dispose() {

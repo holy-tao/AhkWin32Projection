@@ -74,7 +74,7 @@ export default struct ID3D12Device1 extends ID3D12Device {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device1-createpipelinelibrary
      */
     CreatePipelineLibrary(pLibraryBlob, BlobLength, riid) {
-        pLibraryBlobMarshal := pLibraryBlob is VarRef ? "ptr" : "ptr"
+        pLibraryBlobMarshal := pLibraryBlob is VarRef ? "ptr" : IntPtr
 
         result := ComCall(44, this, pLibraryBlobMarshal, pLibraryBlob, IntPtr, BlobLength, Guid.Ptr, riid, "ptr*", &ppPipelineLibrary := 0, "HRESULT")
         return ppPipelineLibrary
@@ -107,7 +107,7 @@ export default struct ID3D12Device1 extends ID3D12Device {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device1-seteventonmultiplefencecompletion
      */
     SetEventOnMultipleFenceCompletion(ppFences, pFenceValues, NumFences, Flags, hEvent) {
-        pFenceValuesMarshal := pFenceValues is VarRef ? "uint*" : "ptr"
+        pFenceValuesMarshal := pFenceValues is VarRef ? "uint*" : IntPtr
 
         result := ComCall(45, this, ID3D12Fence.Ptr, ppFences, pFenceValuesMarshal, pFenceValues, UInt32, NumFences, D3D12_MULTIPLE_FENCE_WAIT_FLAGS, Flags, HANDLE, hEvent, "HRESULT")
         return result
@@ -132,7 +132,7 @@ export default struct ID3D12Device1 extends ID3D12Device {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device1-setresidencypriority
      */
     SetResidencyPriority(NumObjects, ppObjects, pPriorities) {
-        pPrioritiesMarshal := pPriorities is VarRef ? "int*" : "ptr"
+        pPrioritiesMarshal := pPriorities is VarRef ? "int*" : IntPtr
 
         result := ComCall(46, this, UInt32, NumObjects, ID3D12Pageable.Ptr, ppObjects, pPrioritiesMarshal, pPriorities, "HRESULT")
         return result
@@ -147,9 +147,9 @@ export default struct ID3D12Device1 extends ID3D12Device {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreatePipelineLibrary := CallbackCreate(GetMethod(implObj, "CreatePipelineLibrary"), flags, 5)
-        this.vtbl.SetEventOnMultipleFenceCompletion := CallbackCreate(GetMethod(implObj, "SetEventOnMultipleFenceCompletion"), flags, 6)
-        this.vtbl.SetResidencyPriority := CallbackCreate(GetMethod(implObj, "SetResidencyPriority"), flags, 4)
+        this.vtbl.CreatePipelineLibrary := CallbackCreate(ObjBindMethod(implObj, "CreatePipelineLibrary"), flags, 5)
+        this.vtbl.SetEventOnMultipleFenceCompletion := CallbackCreate(ObjBindMethod(implObj, "SetEventOnMultipleFenceCompletion"), flags, 6)
+        this.vtbl.SetResidencyPriority := CallbackCreate(ObjBindMethod(implObj, "SetResidencyPriority"), flags, 4)
     }
 
     Dispose() {

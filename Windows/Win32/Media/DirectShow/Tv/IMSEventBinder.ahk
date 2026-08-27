@@ -87,7 +87,6 @@ export default struct IMSEventBinder extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} CancelCookie 
      * @returns {HRESULT} 
      */
@@ -105,8 +104,8 @@ export default struct IMSEventBinder extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Bind := CallbackCreate(GetMethod(implObj, "Bind"), flags, 5)
-        this.vtbl.Unbind := CallbackCreate(GetMethod(implObj, "Unbind"), flags, 2)
+        this.vtbl.Bind := CallbackCreate(ObjBindMethod(implObj, "Bind"), flags, 5)
+        this.vtbl.Unbind := CallbackCreate(ObjBindMethod(implObj, "Unbind"), flags, 2)
     }
 
     Dispose() {

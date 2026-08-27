@@ -258,7 +258,9 @@ export default struct IDWriteTextFormat extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-settrimming
      */
     SetTrimming(trimmingOptions, trimmingSign) {
-        result := ComCall(9, this, DWRITE_TRIMMING.Ptr, trimmingOptions, "ptr", trimmingSign, "HRESULT")
+        trimmingSignMarshal := trimmingSign == 0 ? IntPtr : "ptr"
+
+        result := ComCall(9, this, DWRITE_TRIMMING.Ptr, trimmingOptions, trimmingSignMarshal, trimmingSign, "HRESULT")
         return result
     }
 
@@ -393,9 +395,9 @@ export default struct IDWriteTextFormat extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getlinespacing
      */
     GetLineSpacing(lineSpacingMethod, lineSpacing, baseline) {
-        lineSpacingMethodMarshal := lineSpacingMethod is VarRef ? "int*" : "ptr"
-        lineSpacingMarshal := lineSpacing is VarRef ? "float*" : "ptr"
-        baselineMarshal := baseline is VarRef ? "float*" : "ptr"
+        lineSpacingMethodMarshal := lineSpacingMethod is VarRef ? "int*" : IntPtr
+        lineSpacingMarshal := lineSpacing is VarRef ? "float*" : IntPtr
+        baselineMarshal := baseline is VarRef ? "float*" : IntPtr
 
         result := ComCall(18, this, lineSpacingMethodMarshal, lineSpacingMethod, lineSpacingMarshal, lineSpacing, baselineMarshal, baseline, "HRESULT")
         return result
@@ -534,31 +536,31 @@ export default struct IDWriteTextFormat extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetTextAlignment := CallbackCreate(GetMethod(implObj, "SetTextAlignment"), flags, 2)
-        this.vtbl.SetParagraphAlignment := CallbackCreate(GetMethod(implObj, "SetParagraphAlignment"), flags, 2)
-        this.vtbl.SetWordWrapping := CallbackCreate(GetMethod(implObj, "SetWordWrapping"), flags, 2)
-        this.vtbl.SetReadingDirection := CallbackCreate(GetMethod(implObj, "SetReadingDirection"), flags, 2)
-        this.vtbl.SetFlowDirection := CallbackCreate(GetMethod(implObj, "SetFlowDirection"), flags, 2)
-        this.vtbl.SetIncrementalTabStop := CallbackCreate(GetMethod(implObj, "SetIncrementalTabStop"), flags, 2)
-        this.vtbl.SetTrimming := CallbackCreate(GetMethod(implObj, "SetTrimming"), flags, 3)
-        this.vtbl.SetLineSpacing := CallbackCreate(GetMethod(implObj, "SetLineSpacing"), flags, 4)
-        this.vtbl.GetTextAlignment := CallbackCreate(GetMethod(implObj, "GetTextAlignment"), flags, 1)
-        this.vtbl.GetParagraphAlignment := CallbackCreate(GetMethod(implObj, "GetParagraphAlignment"), flags, 1)
-        this.vtbl.GetWordWrapping := CallbackCreate(GetMethod(implObj, "GetWordWrapping"), flags, 1)
-        this.vtbl.GetReadingDirection := CallbackCreate(GetMethod(implObj, "GetReadingDirection"), flags, 1)
-        this.vtbl.GetFlowDirection := CallbackCreate(GetMethod(implObj, "GetFlowDirection"), flags, 1)
-        this.vtbl.GetIncrementalTabStop := CallbackCreate(GetMethod(implObj, "GetIncrementalTabStop"), flags, 1)
-        this.vtbl.GetTrimming := CallbackCreate(GetMethod(implObj, "GetTrimming"), flags, 3)
-        this.vtbl.GetLineSpacing := CallbackCreate(GetMethod(implObj, "GetLineSpacing"), flags, 4)
-        this.vtbl.GetFontCollection := CallbackCreate(GetMethod(implObj, "GetFontCollection"), flags, 2)
-        this.vtbl.GetFontFamilyNameLength := CallbackCreate(GetMethod(implObj, "GetFontFamilyNameLength"), flags, 1)
-        this.vtbl.GetFontFamilyName := CallbackCreate(GetMethod(implObj, "GetFontFamilyName"), flags, 3)
-        this.vtbl.GetFontWeight := CallbackCreate(GetMethod(implObj, "GetFontWeight"), flags, 1)
-        this.vtbl.GetFontStyle := CallbackCreate(GetMethod(implObj, "GetFontStyle"), flags, 1)
-        this.vtbl.GetFontStretch := CallbackCreate(GetMethod(implObj, "GetFontStretch"), flags, 1)
-        this.vtbl.GetFontSize := CallbackCreate(GetMethod(implObj, "GetFontSize"), flags, 1)
-        this.vtbl.GetLocaleNameLength := CallbackCreate(GetMethod(implObj, "GetLocaleNameLength"), flags, 1)
-        this.vtbl.GetLocaleName := CallbackCreate(GetMethod(implObj, "GetLocaleName"), flags, 3)
+        this.vtbl.SetTextAlignment := CallbackCreate(ObjBindMethod(implObj, "SetTextAlignment"), flags, 2)
+        this.vtbl.SetParagraphAlignment := CallbackCreate(ObjBindMethod(implObj, "SetParagraphAlignment"), flags, 2)
+        this.vtbl.SetWordWrapping := CallbackCreate(ObjBindMethod(implObj, "SetWordWrapping"), flags, 2)
+        this.vtbl.SetReadingDirection := CallbackCreate(ObjBindMethod(implObj, "SetReadingDirection"), flags, 2)
+        this.vtbl.SetFlowDirection := CallbackCreate(ObjBindMethod(implObj, "SetFlowDirection"), flags, 2)
+        this.vtbl.SetIncrementalTabStop := CallbackCreate(ObjBindMethod(implObj, "SetIncrementalTabStop"), flags, 2)
+        this.vtbl.SetTrimming := CallbackCreate(ObjBindMethod(implObj, "SetTrimming"), flags, 3)
+        this.vtbl.SetLineSpacing := CallbackCreate(ObjBindMethod(implObj, "SetLineSpacing"), flags, 4)
+        this.vtbl.GetTextAlignment := CallbackCreate(ObjBindMethod(implObj, "GetTextAlignment"), flags, 1)
+        this.vtbl.GetParagraphAlignment := CallbackCreate(ObjBindMethod(implObj, "GetParagraphAlignment"), flags, 1)
+        this.vtbl.GetWordWrapping := CallbackCreate(ObjBindMethod(implObj, "GetWordWrapping"), flags, 1)
+        this.vtbl.GetReadingDirection := CallbackCreate(ObjBindMethod(implObj, "GetReadingDirection"), flags, 1)
+        this.vtbl.GetFlowDirection := CallbackCreate(ObjBindMethod(implObj, "GetFlowDirection"), flags, 1)
+        this.vtbl.GetIncrementalTabStop := CallbackCreate(ObjBindMethod(implObj, "GetIncrementalTabStop"), flags, 1)
+        this.vtbl.GetTrimming := CallbackCreate(ObjBindMethod(implObj, "GetTrimming"), flags, 3)
+        this.vtbl.GetLineSpacing := CallbackCreate(ObjBindMethod(implObj, "GetLineSpacing"), flags, 4)
+        this.vtbl.GetFontCollection := CallbackCreate(ObjBindMethod(implObj, "GetFontCollection"), flags, 2)
+        this.vtbl.GetFontFamilyNameLength := CallbackCreate(ObjBindMethod(implObj, "GetFontFamilyNameLength"), flags, 1)
+        this.vtbl.GetFontFamilyName := CallbackCreate(ObjBindMethod(implObj, "GetFontFamilyName"), flags, 3)
+        this.vtbl.GetFontWeight := CallbackCreate(ObjBindMethod(implObj, "GetFontWeight"), flags, 1)
+        this.vtbl.GetFontStyle := CallbackCreate(ObjBindMethod(implObj, "GetFontStyle"), flags, 1)
+        this.vtbl.GetFontStretch := CallbackCreate(ObjBindMethod(implObj, "GetFontStretch"), flags, 1)
+        this.vtbl.GetFontSize := CallbackCreate(ObjBindMethod(implObj, "GetFontSize"), flags, 1)
+        this.vtbl.GetLocaleNameLength := CallbackCreate(ObjBindMethod(implObj, "GetLocaleNameLength"), flags, 1)
+        this.vtbl.GetLocaleName := CallbackCreate(ObjBindMethod(implObj, "GetLocaleName"), flags, 3)
     }
 
     Dispose() {

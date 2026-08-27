@@ -57,7 +57,7 @@ export default struct IDebugHostScriptHost extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateContext := CallbackCreate(GetMethod(implObj, "CreateContext"), flags, 3)
+        this.vtbl.CreateContext := CallbackCreate(ObjBindMethod(implObj, "CreateContext"), flags, 3)
     }
 
     Dispose() {

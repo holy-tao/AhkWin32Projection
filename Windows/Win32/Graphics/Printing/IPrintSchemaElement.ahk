@@ -61,7 +61,6 @@ export default struct IPrintSchemaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_XmlNode() {
@@ -70,7 +69,6 @@ export default struct IPrintSchemaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -80,7 +78,6 @@ export default struct IPrintSchemaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_NamespaceUri() {
@@ -98,9 +95,9 @@ export default struct IPrintSchemaElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_XmlNode := CallbackCreate(GetMethod(implObj, "get_XmlNode"), flags, 2)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_NamespaceUri := CallbackCreate(GetMethod(implObj, "get_NamespaceUri"), flags, 2)
+        this.vtbl.get_XmlNode := CallbackCreate(ObjBindMethod(implObj, "get_XmlNode"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_NamespaceUri := CallbackCreate(ObjBindMethod(implObj, "get_NamespaceUri"), flags, 2)
     }
 
     Dispose() {

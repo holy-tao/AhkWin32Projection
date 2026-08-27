@@ -99,7 +99,6 @@ export default struct LPDHCP_DROP_SEND {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Integer>>} Packet Pointer to a buffer, 4Kb in size,  that contains the packet.
      * 
      * <div class="alert"><b>Note</b>  Writing to this buffer directly is not recommended.</div>
@@ -113,10 +112,10 @@ export default struct LPDHCP_DROP_SEND {
      * @returns {Integer} Return values are defined by the application providing the callback.
      */
     Call(Packet, PacketSize, ControlCode, IpAddress, Reserved, PktContext) {
-        PacketMarshal := Packet is VarRef ? "ptr*" : "ptr"
-        PacketSizeMarshal := PacketSize is VarRef ? "uint*" : "ptr"
-        ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
-        PktContextMarshal := PktContext is VarRef ? "ptr" : "ptr"
+        PacketMarshal := Packet is VarRef ? "ptr*" : IntPtr
+        PacketSizeMarshal := PacketSize is VarRef ? "uint*" : IntPtr
+        ReservedMarshal := Reserved is VarRef ? "ptr" : IntPtr
+        PktContextMarshal := PktContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, PacketMarshal, Packet, PacketSizeMarshal, PacketSize, UInt32, ControlCode, UInt32, IpAddress, ReservedMarshal, Reserved, PktContextMarshal, PktContext, UInt32)
         return result

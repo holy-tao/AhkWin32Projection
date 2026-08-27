@@ -64,7 +64,7 @@ export default struct ISyncMgrConflictPresenter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PresentConflict := CallbackCreate(GetMethod(implObj, "PresentConflict"), flags, 3)
+        this.vtbl.PresentConflict := CallbackCreate(ObjBindMethod(implObj, "PresentConflict"), flags, 3)
     }
 
     Dispose() {

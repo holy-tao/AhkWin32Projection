@@ -43,7 +43,6 @@ export default struct IMSMQTransactionDispenser extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IMSMQTransaction} 
      */
     BeginTransaction() {
@@ -60,7 +59,7 @@ export default struct IMSMQTransactionDispenser extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BeginTransaction := CallbackCreate(GetMethod(implObj, "BeginTransaction"), flags, 2)
+        this.vtbl.BeginTransaction := CallbackCreate(ObjBindMethod(implObj, "BeginTransaction"), flags, 2)
     }
 
     Dispose() {

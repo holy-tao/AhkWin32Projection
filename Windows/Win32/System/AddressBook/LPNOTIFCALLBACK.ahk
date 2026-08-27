@@ -19,14 +19,13 @@ export default struct LPNOTIFCALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} lpvContext 
      * @param {Integer} cNotification 
      * @param {Pointer<NOTIFICATION>} lpNotifications 
      * @returns {Integer} 
      */
     Call(lpvContext, cNotification, lpNotifications) {
-        lpvContextMarshal := lpvContext is VarRef ? "ptr" : "ptr"
+        lpvContextMarshal := lpvContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, lpvContextMarshal, lpvContext, UInt32, cNotification, NOTIFICATION.Ptr, lpNotifications, Int32)
         return result

@@ -62,7 +62,7 @@ export default struct IShellImageDataAbort extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryAbort := CallbackCreate(GetMethod(implObj, "QueryAbort"), flags, 1)
+        this.vtbl.QueryAbort := CallbackCreate(ObjBindMethod(implObj, "QueryAbort"), flags, 1)
     }
 
     Dispose() {

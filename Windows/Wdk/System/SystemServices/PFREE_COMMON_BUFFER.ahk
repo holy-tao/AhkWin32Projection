@@ -20,7 +20,6 @@ export default struct PFREE_COMMON_BUFFER {
     }
 
     /**
-     * 
      * @param {Pointer<DMA_ADAPTER>} DmaAdapter 
      * @param {Integer} Length 
      * @param {Integer} LogicalAddress 
@@ -29,7 +28,7 @@ export default struct PFREE_COMMON_BUFFER {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(DmaAdapter, Length, LogicalAddress, VirtualAddress, CacheEnabled) {
-        VirtualAddressMarshal := VirtualAddress is VarRef ? "ptr" : "ptr"
+        VirtualAddressMarshal := VirtualAddress is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, UInt32, Length, Int64, LogicalAddress, VirtualAddressMarshal, VirtualAddress, BOOLEAN, CacheEnabled)
     }

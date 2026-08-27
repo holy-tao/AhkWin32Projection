@@ -22,7 +22,6 @@ export default struct SslExpandPreSharedKeyFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_KEY_HANDLE} hResumptionMasterKey 
      * @param {Integer} pbTicketNonce 
@@ -32,8 +31,11 @@ export default struct SslExpandPreSharedKeyFn {
      * @returns {NCRYPT_KEY_HANDLE} 
      */
     Call(hSslProvider, hResumptionMasterKey, pbTicketNonce, cbTicketNonce, pParameterList, dwFlags) {
+        pbTicketNonceMarshal := pbTicketNonce == 0 ? IntPtr : IntPtr
+        pParameterListMarshal := pParameterList == 0 ? IntPtr : BCryptBufferDesc.Ptr
+
         phPreSharedKey := NCRYPT_KEY_HANDLE.Owned()
-        result := DllCall(this.value, NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hResumptionMasterKey, IntPtr, pbTicketNonce, UInt32, cbTicketNonce, NCRYPT_KEY_HANDLE.Ptr, phPreSharedKey, BCryptBufferDesc.Ptr, pParameterList, UInt32, dwFlags, "HRESULT")
+        result := DllCall(this.value, NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hResumptionMasterKey, pbTicketNonceMarshal, pbTicketNonce, UInt32, cbTicketNonce, NCRYPT_KEY_HANDLE.Ptr, phPreSharedKey, pParameterListMarshal, pParameterList, UInt32, dwFlags, "HRESULT")
         return phPreSharedKey
     }
 

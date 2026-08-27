@@ -43,7 +43,6 @@ export default struct IMLOperatorTensor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetDimensionCount() {
@@ -52,7 +51,6 @@ export default struct IMLOperatorTensor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dimensionCount 
      * @returns {Integer} 
      */
@@ -62,7 +60,6 @@ export default struct IMLOperatorTensor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {MLOperatorTensorDataType} 
      */
     GetTensorDataType() {
@@ -71,7 +68,6 @@ export default struct IMLOperatorTensor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Boolean} 
      */
     IsCpuData() {
@@ -80,7 +76,6 @@ export default struct IMLOperatorTensor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Boolean} 
      */
     IsDataInterface() {
@@ -89,7 +84,6 @@ export default struct IMLOperatorTensor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<Void>} 
      */
     GetData() {
@@ -98,7 +92,6 @@ export default struct IMLOperatorTensor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<IUnknown>} dataInterface 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -115,13 +108,13 @@ export default struct IMLOperatorTensor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDimensionCount := CallbackCreate(GetMethod(implObj, "GetDimensionCount"), flags, 1)
-        this.vtbl.GetShape := CallbackCreate(GetMethod(implObj, "GetShape"), flags, 3)
-        this.vtbl.GetTensorDataType := CallbackCreate(GetMethod(implObj, "GetTensorDataType"), flags, 1)
-        this.vtbl.IsCpuData := CallbackCreate(GetMethod(implObj, "IsCpuData"), flags, 1)
-        this.vtbl.IsDataInterface := CallbackCreate(GetMethod(implObj, "IsDataInterface"), flags, 1)
-        this.vtbl.GetData := CallbackCreate(GetMethod(implObj, "GetData"), flags, 1)
-        this.vtbl.GetDataInterface := CallbackCreate(GetMethod(implObj, "GetDataInterface"), flags, 2)
+        this.vtbl.GetDimensionCount := CallbackCreate(ObjBindMethod(implObj, "GetDimensionCount"), flags, 1)
+        this.vtbl.GetShape := CallbackCreate(ObjBindMethod(implObj, "GetShape"), flags, 3)
+        this.vtbl.GetTensorDataType := CallbackCreate(ObjBindMethod(implObj, "GetTensorDataType"), flags, 1)
+        this.vtbl.IsCpuData := CallbackCreate(ObjBindMethod(implObj, "IsCpuData"), flags, 1)
+        this.vtbl.IsDataInterface := CallbackCreate(ObjBindMethod(implObj, "IsDataInterface"), flags, 1)
+        this.vtbl.GetData := CallbackCreate(ObjBindMethod(implObj, "GetData"), flags, 1)
+        this.vtbl.GetDataInterface := CallbackCreate(ObjBindMethod(implObj, "GetDataInterface"), flags, 2)
     }
 
     Dispose() {

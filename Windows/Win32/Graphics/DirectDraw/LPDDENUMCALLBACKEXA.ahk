@@ -34,7 +34,6 @@ export default struct LPDDENUMCALLBACKEXA {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} param0 A pointer to the unique identifier of the DirectDraw object.
      * @param {PSTR} param1 Address of a string that contains the driver name.
      * @param {PSTR} param2 Address of a string that contains the driver description.
@@ -48,7 +47,7 @@ export default struct LPDDENUMCALLBACKEXA {
         param1 := param1 is String ? StrPtr(param1) : param1
         param2 := param2 is String ? StrPtr(param2) : param2
 
-        param3Marshal := param3 is VarRef ? "ptr" : "ptr"
+        param3Marshal := param3 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, Guid.Ptr, param0, "ptr", param1, "ptr", param2, param3Marshal, param3, HMONITOR, param4, BOOL)
         return result

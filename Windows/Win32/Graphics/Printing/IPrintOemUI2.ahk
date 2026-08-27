@@ -41,7 +41,6 @@ export default struct IPrintOemUI2 extends IPrintOemUI {
     }
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Pointer<DEVMODEA>} pDevmode 
      * @param {Integer} dwLevel 
@@ -49,14 +48,13 @@ export default struct IPrintOemUI2 extends IPrintOemUI {
      * @returns {HRESULT} 
      */
     QueryJobAttributes(hPrinter, pDevmode, dwLevel, lpAttributeInfo) {
-        lpAttributeInfoMarshal := lpAttributeInfo is VarRef ? "char*" : "ptr"
+        lpAttributeInfoMarshal := lpAttributeInfo is VarRef ? "char*" : IntPtr
 
         result := ComCall(17, this, PRINTER_HANDLE, hPrinter, DEVMODEA.Ptr, pDevmode, UInt32, dwLevel, lpAttributeInfoMarshal, lpAttributeInfo, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwMode 
      * @returns {HRESULT} 
      */
@@ -193,9 +191,9 @@ export default struct IPrintOemUI2 extends IPrintOemUI {
      * @see https://learn.microsoft.com/windows/win32/printdocs/documentevent
      */
     DocumentEvent(hPrinter, _hdc, iEsc, cbIn, pvIn, cbOut, pvOut, piResult) {
-        pvInMarshal := pvIn is VarRef ? "ptr" : "ptr"
-        pvOutMarshal := pvOut is VarRef ? "ptr" : "ptr"
-        piResultMarshal := piResult is VarRef ? "int*" : "ptr"
+        pvInMarshal := pvIn is VarRef ? "ptr" : IntPtr
+        pvOutMarshal := pvOut is VarRef ? "ptr" : IntPtr
+        piResultMarshal := piResult is VarRef ? "int*" : IntPtr
 
         result := ComCall(19, this, PRINTER_HANDLE, hPrinter, HDC, _hdc, Int32, iEsc, UInt32, cbIn, pvInMarshal, pvIn, UInt32, cbOut, pvOutMarshal, pvOut, piResultMarshal, piResult, "HRESULT")
         return result
@@ -210,9 +208,9 @@ export default struct IPrintOemUI2 extends IPrintOemUI {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryJobAttributes := CallbackCreate(GetMethod(implObj, "QueryJobAttributes"), flags, 5)
-        this.vtbl.HideStandardUI := CallbackCreate(GetMethod(implObj, "HideStandardUI"), flags, 2)
-        this.vtbl.DocumentEvent := CallbackCreate(GetMethod(implObj, "DocumentEvent"), flags, 9)
+        this.vtbl.QueryJobAttributes := CallbackCreate(ObjBindMethod(implObj, "QueryJobAttributes"), flags, 5)
+        this.vtbl.HideStandardUI := CallbackCreate(ObjBindMethod(implObj, "HideStandardUI"), flags, 2)
+        this.vtbl.DocumentEvent := CallbackCreate(ObjBindMethod(implObj, "DocumentEvent"), flags, 9)
     }
 
     Dispose() {

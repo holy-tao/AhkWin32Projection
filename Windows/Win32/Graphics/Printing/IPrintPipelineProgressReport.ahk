@@ -37,7 +37,6 @@ export default struct IPrintPipelineProgressReport extends IUnknown {
     }
 
     /**
-     * 
      * @param {EXpsJobConsumption} update 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,7 @@ export default struct IPrintPipelineProgressReport extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ReportProgress := CallbackCreate(GetMethod(implObj, "ReportProgress"), flags, 2)
+        this.vtbl.ReportProgress := CallbackCreate(ObjBindMethod(implObj, "ReportProgress"), flags, 2)
     }
 
     Dispose() {

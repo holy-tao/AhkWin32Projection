@@ -52,7 +52,6 @@ export default struct IHTMLBlockElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -64,7 +63,6 @@ export default struct IHTMLBlockElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_clear() {
@@ -82,8 +80,8 @@ export default struct IHTMLBlockElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_clear := CallbackCreate(GetMethod(implObj, "put_clear"), flags, 2)
-        this.vtbl.get_clear := CallbackCreate(GetMethod(implObj, "get_clear"), flags, 2)
+        this.vtbl.put_clear := CallbackCreate(ObjBindMethod(implObj, "put_clear"), flags, 2)
+        this.vtbl.get_clear := CallbackCreate(ObjBindMethod(implObj, "get_clear"), flags, 2)
     }
 
     Dispose() {

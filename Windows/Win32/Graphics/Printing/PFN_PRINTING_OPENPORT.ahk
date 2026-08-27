@@ -21,7 +21,6 @@ export default struct PFN_PRINTING_OPENPORT {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @param {Pointer<HANDLE>} param1 
      * @returns {BOOL} 

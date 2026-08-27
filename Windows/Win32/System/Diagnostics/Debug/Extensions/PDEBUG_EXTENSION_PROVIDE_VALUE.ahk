@@ -21,7 +21,6 @@ export default struct PDEBUG_EXTENSION_PROVIDE_VALUE {
     }
 
     /**
-     * 
      * @param {IDebugClient} Client 
      * @param {Integer} Flags 
      * @param {PWSTR} Name 
@@ -34,10 +33,10 @@ export default struct PDEBUG_EXTENSION_PROVIDE_VALUE {
     Call(Client, Flags, Name, Value, TypeModBase, TypeId, _TypeFlags) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        ValueMarshal := Value is VarRef ? "uint*" : "ptr"
-        TypeModBaseMarshal := TypeModBase is VarRef ? "uint*" : "ptr"
-        TypeIdMarshal := TypeId is VarRef ? "uint*" : "ptr"
-        _TypeFlagsMarshal := _TypeFlags is VarRef ? "uint*" : "ptr"
+        ValueMarshal := Value is VarRef ? "uint*" : IntPtr
+        TypeModBaseMarshal := TypeModBase is VarRef ? "uint*" : IntPtr
+        TypeIdMarshal := TypeId is VarRef ? "uint*" : IntPtr
+        _TypeFlagsMarshal := _TypeFlags is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, "ptr", Client, UInt32, Flags, "ptr", Name, ValueMarshal, Value, TypeModBaseMarshal, TypeModBase, TypeIdMarshal, TypeId, _TypeFlagsMarshal, _TypeFlags, "HRESULT")
         return result

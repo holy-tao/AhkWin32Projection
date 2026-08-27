@@ -63,7 +63,7 @@ export default struct IWbemProviderInitSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetStatus := CallbackCreate(GetMethod(implObj, "SetStatus"), flags, 3)
+        this.vtbl.SetStatus := CallbackCreate(ObjBindMethod(implObj, "SetStatus"), flags, 3)
     }
 
     Dispose() {

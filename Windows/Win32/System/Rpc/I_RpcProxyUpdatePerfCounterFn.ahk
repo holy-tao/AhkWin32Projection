@@ -19,7 +19,6 @@ export default struct I_RpcProxyUpdatePerfCounterFn {
     }
 
     /**
-     * 
      * @param {RpcPerfCounters} Counter 
      * @param {Integer} ModifyTrend 
      * @param {Integer} _Size 

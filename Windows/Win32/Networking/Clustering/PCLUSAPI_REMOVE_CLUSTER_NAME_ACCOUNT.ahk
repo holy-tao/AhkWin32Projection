@@ -19,7 +19,6 @@ export default struct PCLUSAPI_REMOVE_CLUSTER_NAME_ACCOUNT {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @returns {Integer} 
      */

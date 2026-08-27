@@ -73,7 +73,6 @@ export default struct LPWSPJOINLEAF {
     }
 
     /**
-     * 
      * @param {SOCKET} s Descriptor identifying a multipoint socket.
      * @param {Integer} name Name of the peer to which the socket in the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure is to be joined.
@@ -294,9 +293,13 @@ export default struct LPWSPJOINLEAF {
      * <div> </div>
      */
     Call(s, name, namelen, lpCallerData, lpCalleeData, lpSQOS, lpGQOS, dwFlags, lpErrno) {
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        lpCallerDataMarshal := lpCallerData == 0 ? IntPtr : WSABUF.Ptr
+        lpCalleeDataMarshal := lpCalleeData == 0 ? IntPtr : WSABUF.Ptr
+        lpSQOSMarshal := lpSQOS == 0 ? IntPtr : QOS.Ptr
+        lpGQOSMarshal := lpGQOS == 0 ? IntPtr : QOS.Ptr
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
-        result := DllCall(this.value, SOCKET, s, IntPtr, name, Int32, namelen, WSABUF.Ptr, lpCallerData, WSABUF.Ptr, lpCalleeData, QOS.Ptr, lpSQOS, QOS.Ptr, lpGQOS, UInt32, dwFlags, lpErrnoMarshal, lpErrno, SOCKET.Owned)
+        result := DllCall(this.value, SOCKET, s, IntPtr, name, Int32, namelen, lpCallerDataMarshal, lpCallerData, lpCalleeDataMarshal, lpCalleeData, lpSQOSMarshal, lpSQOS, lpGQOSMarshal, lpGQOS, UInt32, dwFlags, lpErrnoMarshal, lpErrno, SOCKET.Owned)
         return result
     }
 

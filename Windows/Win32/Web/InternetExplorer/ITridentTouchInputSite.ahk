@@ -38,7 +38,6 @@ export default struct ITridentTouchInputSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {styleMsTouchAction} msTouchAction 
      * @returns {HRESULT} 
      */
@@ -48,7 +47,6 @@ export default struct ITridentTouchInputSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {HRESULT} 
@@ -67,8 +65,8 @@ export default struct ITridentTouchInputSite extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetManipulationMode := CallbackCreate(GetMethod(implObj, "SetManipulationMode"), flags, 2)
-        this.vtbl.ZoomToPoint := CallbackCreate(GetMethod(implObj, "ZoomToPoint"), flags, 3)
+        this.vtbl.SetManipulationMode := CallbackCreate(ObjBindMethod(implObj, "SetManipulationMode"), flags, 2)
+        this.vtbl.ZoomToPoint := CallbackCreate(ObjBindMethod(implObj, "ZoomToPoint"), flags, 3)
     }
 
     Dispose() {

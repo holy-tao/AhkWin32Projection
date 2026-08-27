@@ -136,12 +136,12 @@ export default struct ID3D11VideoProcessorEnumerator extends ID3D11DeviceChild {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetVideoProcessorContentDesc := CallbackCreate(GetMethod(implObj, "GetVideoProcessorContentDesc"), flags, 2)
-        this.vtbl.CheckVideoProcessorFormat := CallbackCreate(GetMethod(implObj, "CheckVideoProcessorFormat"), flags, 3)
-        this.vtbl.GetVideoProcessorCaps := CallbackCreate(GetMethod(implObj, "GetVideoProcessorCaps"), flags, 2)
-        this.vtbl.GetVideoProcessorRateConversionCaps := CallbackCreate(GetMethod(implObj, "GetVideoProcessorRateConversionCaps"), flags, 3)
-        this.vtbl.GetVideoProcessorCustomRate := CallbackCreate(GetMethod(implObj, "GetVideoProcessorCustomRate"), flags, 4)
-        this.vtbl.GetVideoProcessorFilterRange := CallbackCreate(GetMethod(implObj, "GetVideoProcessorFilterRange"), flags, 3)
+        this.vtbl.GetVideoProcessorContentDesc := CallbackCreate(ObjBindMethod(implObj, "GetVideoProcessorContentDesc"), flags, 2)
+        this.vtbl.CheckVideoProcessorFormat := CallbackCreate(ObjBindMethod(implObj, "CheckVideoProcessorFormat"), flags, 3)
+        this.vtbl.GetVideoProcessorCaps := CallbackCreate(ObjBindMethod(implObj, "GetVideoProcessorCaps"), flags, 2)
+        this.vtbl.GetVideoProcessorRateConversionCaps := CallbackCreate(ObjBindMethod(implObj, "GetVideoProcessorRateConversionCaps"), flags, 3)
+        this.vtbl.GetVideoProcessorCustomRate := CallbackCreate(ObjBindMethod(implObj, "GetVideoProcessorCustomRate"), flags, 4)
+        this.vtbl.GetVideoProcessorFilterRange := CallbackCreate(ObjBindMethod(implObj, "GetVideoProcessorFilterRange"), flags, 3)
     }
 
     Dispose() {

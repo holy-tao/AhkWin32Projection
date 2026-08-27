@@ -155,7 +155,7 @@ export default struct ISBE2SpanningEvent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2spanningevent-getevent
      */
     GetEvent(idEvt, streamId, pcb) {
-        pcbMarshal := pcb is VarRef ? "uint*" : "ptr"
+        pcbMarshal := pcb is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, Guid.Ptr, idEvt, UInt32, streamId, pcbMarshal, pcb, "char*", &pb := 0, "HRESULT")
         return pb
@@ -170,7 +170,7 @@ export default struct ISBE2SpanningEvent extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetEvent := CallbackCreate(GetMethod(implObj, "GetEvent"), flags, 5)
+        this.vtbl.GetEvent := CallbackCreate(ObjBindMethod(implObj, "GetEvent"), flags, 5)
     }
 
     Dispose() {

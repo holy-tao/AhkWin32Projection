@@ -129,10 +129,10 @@ export default struct IFaxFolders extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_OutgoingQueue := CallbackCreate(GetMethod(implObj, "get_OutgoingQueue"), flags, 2)
-        this.vtbl.get_IncomingQueue := CallbackCreate(GetMethod(implObj, "get_IncomingQueue"), flags, 2)
-        this.vtbl.get_IncomingArchive := CallbackCreate(GetMethod(implObj, "get_IncomingArchive"), flags, 2)
-        this.vtbl.get_OutgoingArchive := CallbackCreate(GetMethod(implObj, "get_OutgoingArchive"), flags, 2)
+        this.vtbl.get_OutgoingQueue := CallbackCreate(ObjBindMethod(implObj, "get_OutgoingQueue"), flags, 2)
+        this.vtbl.get_IncomingQueue := CallbackCreate(ObjBindMethod(implObj, "get_IncomingQueue"), flags, 2)
+        this.vtbl.get_IncomingArchive := CallbackCreate(ObjBindMethod(implObj, "get_IncomingArchive"), flags, 2)
+        this.vtbl.get_OutgoingArchive := CallbackCreate(ObjBindMethod(implObj, "get_OutgoingArchive"), flags, 2)
     }
 
     Dispose() {

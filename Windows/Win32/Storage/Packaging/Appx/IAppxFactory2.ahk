@@ -85,9 +85,9 @@ export default struct IAppxFactory2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateContentGroupMapReader := CallbackCreate(GetMethod(implObj, "CreateContentGroupMapReader"), flags, 3)
-        this.vtbl.CreateSourceContentGroupMapReader := CallbackCreate(GetMethod(implObj, "CreateSourceContentGroupMapReader"), flags, 3)
-        this.vtbl.CreateContentGroupMapWriter := CallbackCreate(GetMethod(implObj, "CreateContentGroupMapWriter"), flags, 3)
+        this.vtbl.CreateContentGroupMapReader := CallbackCreate(ObjBindMethod(implObj, "CreateContentGroupMapReader"), flags, 3)
+        this.vtbl.CreateSourceContentGroupMapReader := CallbackCreate(ObjBindMethod(implObj, "CreateSourceContentGroupMapReader"), flags, 3)
+        this.vtbl.CreateContentGroupMapWriter := CallbackCreate(ObjBindMethod(implObj, "CreateContentGroupMapWriter"), flags, 3)
     }
 
     Dispose() {

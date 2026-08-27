@@ -18,7 +18,6 @@ export default struct SERVER_ROUTINE {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Call() {

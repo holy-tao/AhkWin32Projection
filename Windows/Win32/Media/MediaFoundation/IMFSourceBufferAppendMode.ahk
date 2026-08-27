@@ -38,7 +38,6 @@ export default struct IMFSourceBufferAppendMode extends IUnknown {
     }
 
     /**
-     * 
      * @returns {MF_MSE_APPEND_MODE} 
      */
     GetAppendMode() {
@@ -47,7 +46,6 @@ export default struct IMFSourceBufferAppendMode extends IUnknown {
     }
 
     /**
-     * 
      * @param {MF_MSE_APPEND_MODE} _mode 
      * @returns {HRESULT} 
      */
@@ -65,8 +63,8 @@ export default struct IMFSourceBufferAppendMode extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAppendMode := CallbackCreate(GetMethod(implObj, "GetAppendMode"), flags, 1)
-        this.vtbl.SetAppendMode := CallbackCreate(GetMethod(implObj, "SetAppendMode"), flags, 2)
+        this.vtbl.GetAppendMode := CallbackCreate(ObjBindMethod(implObj, "GetAppendMode"), flags, 1)
+        this.vtbl.SetAppendMode := CallbackCreate(ObjBindMethod(implObj, "SetAppendMode"), flags, 2)
     }
 
     Dispose() {

@@ -99,7 +99,9 @@ export default struct IPNPXAssociation extends IUnknown {
     Associate(pszSubcategory) {
         pszSubcategory := pszSubcategory is String ? StrPtr(pszSubcategory) : pszSubcategory
 
-        result := ComCall(3, this, "ptr", pszSubcategory, "HRESULT")
+        pszSubcategoryMarshal := pszSubcategory == 0 ? IntPtr : PWSTR
+
+        result := ComCall(3, this, pszSubcategoryMarshal, pszSubcategory, "HRESULT")
         return result
     }
 
@@ -145,7 +147,9 @@ export default struct IPNPXAssociation extends IUnknown {
     Unassociate(pszSubcategory) {
         pszSubcategory := pszSubcategory is String ? StrPtr(pszSubcategory) : pszSubcategory
 
-        result := ComCall(4, this, "ptr", pszSubcategory, "HRESULT")
+        pszSubcategoryMarshal := pszSubcategory == 0 ? IntPtr : PWSTR
+
+        result := ComCall(4, this, pszSubcategoryMarshal, pszSubcategory, "HRESULT")
         return result
     }
 
@@ -191,7 +195,9 @@ export default struct IPNPXAssociation extends IUnknown {
     Delete(pszSubcategory) {
         pszSubcategory := pszSubcategory is String ? StrPtr(pszSubcategory) : pszSubcategory
 
-        result := ComCall(5, this, "ptr", pszSubcategory, "HRESULT")
+        pszSubcategoryMarshal := pszSubcategory == 0 ? IntPtr : PWSTR
+
+        result := ComCall(5, this, pszSubcategoryMarshal, pszSubcategory, "HRESULT")
         return result
     }
 
@@ -204,9 +210,9 @@ export default struct IPNPXAssociation extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Associate := CallbackCreate(GetMethod(implObj, "Associate"), flags, 2)
-        this.vtbl.Unassociate := CallbackCreate(GetMethod(implObj, "Unassociate"), flags, 2)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 2)
+        this.vtbl.Associate := CallbackCreate(ObjBindMethod(implObj, "Associate"), flags, 2)
+        this.vtbl.Unassociate := CallbackCreate(ObjBindMethod(implObj, "Unassociate"), flags, 2)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 2)
     }
 
     Dispose() {

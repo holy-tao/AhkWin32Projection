@@ -126,7 +126,9 @@ export default struct ID3D12Resource extends ID3D12Pageable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12resource-map
      */
     Map(Subresource, pReadRange) {
-        result := ComCall(8, this, UInt32, Subresource, D3D12_RANGE.Ptr, pReadRange, "ptr*", &ppData := 0, "HRESULT")
+        pReadRangeMarshal := pReadRange == 0 ? IntPtr : D3D12_RANGE.Ptr
+
+        result := ComCall(8, this, UInt32, Subresource, pReadRangeMarshal, pReadRange, "ptr*", &ppData := 0, "HRESULT")
         return ppData
     }
 
@@ -148,7 +150,9 @@ export default struct ID3D12Resource extends ID3D12Pageable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12resource-unmap
      */
     Unmap(Subresource, pWrittenRange) {
-        ComCall(9, this, UInt32, Subresource, D3D12_RANGE.Ptr, pWrittenRange)
+        pWrittenRangeMarshal := pWrittenRange == 0 ? IntPtr : D3D12_RANGE.Ptr
+
+        ComCall(9, this, UInt32, Subresource, pWrittenRangeMarshal, pWrittenRange)
     }
 
     /**
@@ -232,9 +236,10 @@ export default struct ID3D12Resource extends ID3D12Pageable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12resource-writetosubresource
      */
     WriteToSubresource(DstSubresource, pDstBox, pSrcData, SrcRowPitch, SrcDepthPitch) {
-        pSrcDataMarshal := pSrcData is VarRef ? "ptr" : "ptr"
+        pDstBoxMarshal := pDstBox == 0 ? IntPtr : D3D12_BOX.Ptr
+        pSrcDataMarshal := pSrcData is VarRef ? "ptr" : IntPtr
 
-        result := ComCall(12, this, UInt32, DstSubresource, D3D12_BOX.Ptr, pDstBox, pSrcDataMarshal, pSrcData, UInt32, SrcRowPitch, UInt32, SrcDepthPitch, "HRESULT")
+        result := ComCall(12, this, UInt32, DstSubresource, pDstBoxMarshal, pDstBox, pSrcDataMarshal, pSrcData, UInt32, SrcRowPitch, UInt32, SrcDepthPitch, "HRESULT")
         return result
     }
 
@@ -268,7 +273,9 @@ export default struct ID3D12Resource extends ID3D12Pageable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12resource-readfromsubresource
      */
     ReadFromSubresource(DstRowPitch, DstDepthPitch, SrcSubresource, pSrcBox) {
-        result := ComCall(13, this, "ptr", &pDstData := 0, UInt32, DstRowPitch, UInt32, DstDepthPitch, UInt32, SrcSubresource, D3D12_BOX.Ptr, pSrcBox, "HRESULT")
+        pSrcBoxMarshal := pSrcBox == 0 ? IntPtr : D3D12_BOX.Ptr
+
+        result := ComCall(13, this, "ptr", &pDstData := 0, UInt32, DstRowPitch, UInt32, DstDepthPitch, UInt32, SrcSubresource, pSrcBoxMarshal, pSrcBox, "HRESULT")
         return pDstData
     }
 
@@ -294,9 +301,11 @@ export default struct ID3D12Resource extends ID3D12Pageable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12resource-getheapproperties
      */
     GetHeapProperties(pHeapProperties, pHeapFlags) {
-        pHeapFlagsMarshal := pHeapFlags is VarRef ? "int*" : "ptr"
+        pHeapPropertiesMarshal := pHeapProperties == 0 ? IntPtr : D3D12_HEAP_PROPERTIES.Ptr
+        pHeapFlagsMarshal := pHeapFlags is VarRef ? "int*" : IntPtr
+        pHeapFlagsMarshal := pHeapFlags == 0 ? IntPtr : "int*"
 
-        result := ComCall(14, this, D3D12_HEAP_PROPERTIES.Ptr, pHeapProperties, pHeapFlagsMarshal, pHeapFlags, "HRESULT")
+        result := ComCall(14, this, pHeapPropertiesMarshal, pHeapProperties, pHeapFlagsMarshal, pHeapFlags, "HRESULT")
         return result
     }
 
@@ -309,13 +318,13 @@ export default struct ID3D12Resource extends ID3D12Pageable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Map := CallbackCreate(GetMethod(implObj, "Map"), flags, 4)
-        this.vtbl.Unmap := CallbackCreate(GetMethod(implObj, "Unmap"), flags, 3)
-        this.vtbl.GetDesc := CallbackCreate(GetMethod(implObj, "GetDesc"), flags, 1)
-        this.vtbl.GetGPUVirtualAddress := CallbackCreate(GetMethod(implObj, "GetGPUVirtualAddress"), flags, 1)
-        this.vtbl.WriteToSubresource := CallbackCreate(GetMethod(implObj, "WriteToSubresource"), flags, 6)
-        this.vtbl.ReadFromSubresource := CallbackCreate(GetMethod(implObj, "ReadFromSubresource"), flags, 6)
-        this.vtbl.GetHeapProperties := CallbackCreate(GetMethod(implObj, "GetHeapProperties"), flags, 3)
+        this.vtbl.Map := CallbackCreate(ObjBindMethod(implObj, "Map"), flags, 4)
+        this.vtbl.Unmap := CallbackCreate(ObjBindMethod(implObj, "Unmap"), flags, 3)
+        this.vtbl.GetDesc := CallbackCreate(ObjBindMethod(implObj, "GetDesc"), flags, 1)
+        this.vtbl.GetGPUVirtualAddress := CallbackCreate(ObjBindMethod(implObj, "GetGPUVirtualAddress"), flags, 1)
+        this.vtbl.WriteToSubresource := CallbackCreate(ObjBindMethod(implObj, "WriteToSubresource"), flags, 6)
+        this.vtbl.ReadFromSubresource := CallbackCreate(ObjBindMethod(implObj, "ReadFromSubresource"), flags, 6)
+        this.vtbl.GetHeapProperties := CallbackCreate(ObjBindMethod(implObj, "GetHeapProperties"), flags, 3)
     }
 
     Dispose() {

@@ -111,7 +111,6 @@ export default struct IHTMLDialog extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -121,7 +120,6 @@ export default struct IHTMLDialog extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_dialogTop() {
@@ -131,7 +129,6 @@ export default struct IHTMLDialog extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -141,7 +138,6 @@ export default struct IHTMLDialog extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_dialogLeft() {
@@ -151,7 +147,6 @@ export default struct IHTMLDialog extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -161,7 +156,6 @@ export default struct IHTMLDialog extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_dialogWidth() {
@@ -171,7 +165,6 @@ export default struct IHTMLDialog extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -181,7 +174,6 @@ export default struct IHTMLDialog extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_dialogHeight() {
@@ -191,7 +183,6 @@ export default struct IHTMLDialog extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_dialogArguments() {
@@ -201,7 +192,6 @@ export default struct IHTMLDialog extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_menuArguments() {
@@ -211,7 +201,6 @@ export default struct IHTMLDialog extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -221,7 +210,6 @@ export default struct IHTMLDialog extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_returnValue() {
@@ -258,7 +246,6 @@ export default struct IHTMLDialog extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     toString() {
@@ -276,20 +263,20 @@ export default struct IHTMLDialog extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_dialogTop := CallbackCreate(GetMethod(implObj, "put_dialogTop"), flags, 2)
-        this.vtbl.get_dialogTop := CallbackCreate(GetMethod(implObj, "get_dialogTop"), flags, 2)
-        this.vtbl.put_dialogLeft := CallbackCreate(GetMethod(implObj, "put_dialogLeft"), flags, 2)
-        this.vtbl.get_dialogLeft := CallbackCreate(GetMethod(implObj, "get_dialogLeft"), flags, 2)
-        this.vtbl.put_dialogWidth := CallbackCreate(GetMethod(implObj, "put_dialogWidth"), flags, 2)
-        this.vtbl.get_dialogWidth := CallbackCreate(GetMethod(implObj, "get_dialogWidth"), flags, 2)
-        this.vtbl.put_dialogHeight := CallbackCreate(GetMethod(implObj, "put_dialogHeight"), flags, 2)
-        this.vtbl.get_dialogHeight := CallbackCreate(GetMethod(implObj, "get_dialogHeight"), flags, 2)
-        this.vtbl.get_dialogArguments := CallbackCreate(GetMethod(implObj, "get_dialogArguments"), flags, 2)
-        this.vtbl.get_menuArguments := CallbackCreate(GetMethod(implObj, "get_menuArguments"), flags, 2)
-        this.vtbl.put_returnValue := CallbackCreate(GetMethod(implObj, "put_returnValue"), flags, 2)
-        this.vtbl.get_returnValue := CallbackCreate(GetMethod(implObj, "get_returnValue"), flags, 2)
-        this.vtbl.close := CallbackCreate(GetMethod(implObj, "close"), flags, 1)
-        this.vtbl.toString := CallbackCreate(GetMethod(implObj, "toString"), flags, 2)
+        this.vtbl.put_dialogTop := CallbackCreate(ObjBindMethod(implObj, "put_dialogTop"), flags, 2)
+        this.vtbl.get_dialogTop := CallbackCreate(ObjBindMethod(implObj, "get_dialogTop"), flags, 2)
+        this.vtbl.put_dialogLeft := CallbackCreate(ObjBindMethod(implObj, "put_dialogLeft"), flags, 2)
+        this.vtbl.get_dialogLeft := CallbackCreate(ObjBindMethod(implObj, "get_dialogLeft"), flags, 2)
+        this.vtbl.put_dialogWidth := CallbackCreate(ObjBindMethod(implObj, "put_dialogWidth"), flags, 2)
+        this.vtbl.get_dialogWidth := CallbackCreate(ObjBindMethod(implObj, "get_dialogWidth"), flags, 2)
+        this.vtbl.put_dialogHeight := CallbackCreate(ObjBindMethod(implObj, "put_dialogHeight"), flags, 2)
+        this.vtbl.get_dialogHeight := CallbackCreate(ObjBindMethod(implObj, "get_dialogHeight"), flags, 2)
+        this.vtbl.get_dialogArguments := CallbackCreate(ObjBindMethod(implObj, "get_dialogArguments"), flags, 2)
+        this.vtbl.get_menuArguments := CallbackCreate(ObjBindMethod(implObj, "get_menuArguments"), flags, 2)
+        this.vtbl.put_returnValue := CallbackCreate(ObjBindMethod(implObj, "put_returnValue"), flags, 2)
+        this.vtbl.get_returnValue := CallbackCreate(ObjBindMethod(implObj, "get_returnValue"), flags, 2)
+        this.vtbl.close := CallbackCreate(ObjBindMethod(implObj, "close"), flags, 1)
+        this.vtbl.toString := CallbackCreate(ObjBindMethod(implObj, "toString"), flags, 2)
     }
 
     Dispose() {

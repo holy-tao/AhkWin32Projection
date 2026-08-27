@@ -20,7 +20,6 @@ export default struct PFND3DKMT_ENUMADAPTERS2 {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_ENUMADAPTERS2>} param0 
      * @returns {NTSTATUS} 
      */

@@ -37,7 +37,6 @@ export default struct IPrintSchemaAsyncOperationEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {IPrintSchemaTicket} pTicket 
      * @param {HRESULT} hrOperation 
      * @returns {HRESULT} 
@@ -56,7 +55,7 @@ export default struct IPrintSchemaAsyncOperationEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Completed := CallbackCreate(GetMethod(implObj, "Completed"), flags, 3)
+        this.vtbl.Completed := CallbackCreate(ObjBindMethod(implObj, "Completed"), flags, 3)
     }
 
     Dispose() {

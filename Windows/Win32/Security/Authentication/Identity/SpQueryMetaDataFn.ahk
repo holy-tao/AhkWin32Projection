@@ -26,7 +26,6 @@ export default struct SpQueryMetaDataFn {
     }
 
     /**
-     * 
      * @param {Pointer} CredentialHandle A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">credentials</a> to use for the security context. If the <i>ContextHandle</i> parameter points to <b>NULL</b> on input, this function uses the value of this parameter to create a security context.
      * 
      * The value of this parameter  cannot be <b>NULL</b> if the <i>ContextHandle</i> parameter points to <b>NULL</b> on input.
@@ -199,11 +198,13 @@ export default struct SpQueryMetaDataFn {
      * If the function fails, return an <b>NTSTATUS</b> error code that indicates the reason it failed. For more information, see Remarks.
      */
     Call(CredentialHandle, TargetName, ContextRequirements, MetaDataLength, MetaData, ContextHandle) {
-        MetaDataLengthMarshal := MetaDataLength is VarRef ? "uint*" : "ptr"
-        MetaDataMarshal := MetaData is VarRef ? "ptr*" : "ptr"
-        ContextHandleMarshal := ContextHandle is VarRef ? "ptr*" : "ptr"
+        CredentialHandleMarshal := CredentialHandle == 0 ? IntPtr : IntPtr
+        TargetNameMarshal := TargetName == 0 ? IntPtr : LSA_UNICODE_STRING.Ptr
+        MetaDataLengthMarshal := MetaDataLength is VarRef ? "uint*" : IntPtr
+        MetaDataMarshal := MetaData is VarRef ? "ptr*" : IntPtr
+        ContextHandleMarshal := ContextHandle is VarRef ? "ptr*" : IntPtr
 
-        result := DllCall(this.value, IntPtr, CredentialHandle, LSA_UNICODE_STRING.Ptr, TargetName, UInt32, ContextRequirements, MetaDataLengthMarshal, MetaDataLength, MetaDataMarshal, MetaData, ContextHandleMarshal, ContextHandle, NTSTATUS)
+        result := DllCall(this.value, CredentialHandleMarshal, CredentialHandle, TargetNameMarshal, TargetName, UInt32, ContextRequirements, MetaDataLengthMarshal, MetaDataLength, MetaDataMarshal, MetaData, ContextHandleMarshal, ContextHandle, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

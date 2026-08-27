@@ -225,8 +225,8 @@ export default struct IAMStreamConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamstreamconfig-getnumberofcapabilities
      */
     GetNumberOfCapabilities(piCount, piSize) {
-        piCountMarshal := piCount is VarRef ? "int*" : "ptr"
-        piSizeMarshal := piSize is VarRef ? "int*" : "ptr"
+        piCountMarshal := piCount is VarRef ? "int*" : IntPtr
+        piSizeMarshal := piSize is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, piCountMarshal, piCount, piSizeMarshal, piSize, "HRESULT")
         return result
@@ -332,8 +332,8 @@ export default struct IAMStreamConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamstreamconfig-getstreamcaps
      */
     GetStreamCaps(iIndex, ppmt, pSCC) {
-        ppmtMarshal := ppmt is VarRef ? "ptr*" : "ptr"
-        pSCCMarshal := pSCC is VarRef ? "char*" : "ptr"
+        ppmtMarshal := ppmt is VarRef ? "ptr*" : IntPtr
+        pSCCMarshal := pSCC is VarRef ? "char*" : IntPtr
 
         result := ComCall(6, this, Int32, iIndex, ppmtMarshal, ppmt, pSCCMarshal, pSCC, "HRESULT")
         return result
@@ -348,10 +348,10 @@ export default struct IAMStreamConfig extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetFormat := CallbackCreate(GetMethod(implObj, "SetFormat"), flags, 2)
-        this.vtbl.GetFormat := CallbackCreate(GetMethod(implObj, "GetFormat"), flags, 2)
-        this.vtbl.GetNumberOfCapabilities := CallbackCreate(GetMethod(implObj, "GetNumberOfCapabilities"), flags, 3)
-        this.vtbl.GetStreamCaps := CallbackCreate(GetMethod(implObj, "GetStreamCaps"), flags, 4)
+        this.vtbl.SetFormat := CallbackCreate(ObjBindMethod(implObj, "SetFormat"), flags, 2)
+        this.vtbl.GetFormat := CallbackCreate(ObjBindMethod(implObj, "GetFormat"), flags, 2)
+        this.vtbl.GetNumberOfCapabilities := CallbackCreate(ObjBindMethod(implObj, "GetNumberOfCapabilities"), flags, 3)
+        this.vtbl.GetStreamCaps := CallbackCreate(ObjBindMethod(implObj, "GetStreamCaps"), flags, 4)
     }
 
     Dispose() {

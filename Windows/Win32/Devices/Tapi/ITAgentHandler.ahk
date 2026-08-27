@@ -195,13 +195,13 @@ export default struct ITAgentHandler extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.CreateAgent := CallbackCreate(GetMethod(implObj, "CreateAgent"), flags, 2)
-        this.vtbl.CreateAgentWithID := CallbackCreate(GetMethod(implObj, "CreateAgentWithID"), flags, 4)
-        this.vtbl.EnumerateACDGroups := CallbackCreate(GetMethod(implObj, "EnumerateACDGroups"), flags, 2)
-        this.vtbl.EnumerateUsableAddresses := CallbackCreate(GetMethod(implObj, "EnumerateUsableAddresses"), flags, 2)
-        this.vtbl.get_ACDGroups := CallbackCreate(GetMethod(implObj, "get_ACDGroups"), flags, 2)
-        this.vtbl.get_UsableAddresses := CallbackCreate(GetMethod(implObj, "get_UsableAddresses"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.CreateAgent := CallbackCreate(ObjBindMethod(implObj, "CreateAgent"), flags, 2)
+        this.vtbl.CreateAgentWithID := CallbackCreate(ObjBindMethod(implObj, "CreateAgentWithID"), flags, 4)
+        this.vtbl.EnumerateACDGroups := CallbackCreate(ObjBindMethod(implObj, "EnumerateACDGroups"), flags, 2)
+        this.vtbl.EnumerateUsableAddresses := CallbackCreate(ObjBindMethod(implObj, "EnumerateUsableAddresses"), flags, 2)
+        this.vtbl.get_ACDGroups := CallbackCreate(ObjBindMethod(implObj, "get_ACDGroups"), flags, 2)
+        this.vtbl.get_UsableAddresses := CallbackCreate(ObjBindMethod(implObj, "get_UsableAddresses"), flags, 2)
     }
 
     Dispose() {

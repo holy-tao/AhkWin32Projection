@@ -492,7 +492,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-enumproviderswstr
      */
     enumProvidersWStr(dwIndex, dwFlags, pbstrProvName) {
-        pbstrProvNameMarshal := pbstrProvName is VarRef ? "ptr*" : "ptr"
+        pbstrProvNameMarshal := pbstrProvName is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(11, this, Int32, dwIndex, Int32, dwFlags, pbstrProvNameMarshal, pbstrProvName, "HRESULT")
         return result
@@ -509,7 +509,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-enumcontainerswstr
      */
     enumContainersWStr(dwIndex, pbstr) {
-        pbstrMarshal := pbstr is VarRef ? "ptr*" : "ptr"
+        pbstrMarshal := pbstr is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(12, this, Int32, dwIndex, pbstrMarshal, pbstr, "HRESULT")
         return result
@@ -544,7 +544,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_mystorenamewstr
      */
     get_MyStoreNameWStr(szwName) {
-        szwNameMarshal := szwName is VarRef ? "ptr*" : "ptr"
+        szwNameMarshal := szwName is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(14, this, szwNameMarshal, szwName, "HRESULT")
         return result
@@ -592,7 +592,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_mystoretypewstr
      */
     get_MyStoreTypeWStr(szwType) {
-        szwTypeMarshal := szwType is VarRef ? "ptr*" : "ptr"
+        szwTypeMarshal := szwType is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(16, this, szwTypeMarshal, szwType, "HRESULT")
         return result
@@ -644,7 +644,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_mystoreflags
      */
     get_MyStoreFlags(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
+        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(18, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
@@ -694,7 +694,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_castorenamewstr
      */
     get_CAStoreNameWStr(szwName) {
-        szwNameMarshal := szwName is VarRef ? "ptr*" : "ptr"
+        szwNameMarshal := szwName is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(20, this, szwNameMarshal, szwName, "HRESULT")
         return result
@@ -742,7 +742,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_castoretypewstr
      */
     get_CAStoreTypeWStr(szwType) {
-        szwTypeMarshal := szwType is VarRef ? "ptr*" : "ptr"
+        szwTypeMarshal := szwType is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(22, this, szwTypeMarshal, szwType, "HRESULT")
         return result
@@ -790,7 +790,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_castoreflags
      */
     get_CAStoreFlags(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
+        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(24, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
@@ -836,7 +836,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_rootstorenamewstr
      */
     get_RootStoreNameWStr(szwName) {
-        szwNameMarshal := szwName is VarRef ? "ptr*" : "ptr"
+        szwNameMarshal := szwName is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(26, this, szwNameMarshal, szwName, "HRESULT")
         return result
@@ -884,7 +884,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_rootstoretypewstr
      */
     get_RootStoreTypeWStr(szwType) {
-        szwTypeMarshal := szwType is VarRef ? "ptr*" : "ptr"
+        szwTypeMarshal := szwType is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(28, this, szwTypeMarshal, szwType, "HRESULT")
         return result
@@ -936,7 +936,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_rootstoreflags
      */
     get_RootStoreFlags(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
+        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(30, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
@@ -995,7 +995,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_requeststorenamewstr
      */
     get_RequestStoreNameWStr(szwName) {
-        szwNameMarshal := szwName is VarRef ? "ptr*" : "ptr"
+        szwNameMarshal := szwName is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(32, this, szwNameMarshal, szwName, "HRESULT")
         return result
@@ -1061,7 +1061,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_requeststoretypewstr
      */
     get_RequestStoreTypeWStr(szwType) {
-        szwTypeMarshal := szwType is VarRef ? "ptr*" : "ptr"
+        szwTypeMarshal := szwType is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(34, this, szwTypeMarshal, szwType, "HRESULT")
         return result
@@ -1130,7 +1130,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_requeststoreflags
      */
     get_RequestStoreFlags(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
+        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(36, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
@@ -1194,7 +1194,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_containernamewstr
      */
     get_ContainerNameWStr(szwContainer) {
-        szwContainerMarshal := szwContainer is VarRef ? "ptr*" : "ptr"
+        szwContainerMarshal := szwContainer is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(38, this, szwContainerMarshal, szwContainer, "HRESULT")
         return result
@@ -1251,7 +1251,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_providernamewstr
      */
     get_ProviderNameWStr(szwProvider) {
-        szwProviderMarshal := szwProvider is VarRef ? "ptr*" : "ptr"
+        szwProviderMarshal := szwProvider is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(40, this, szwProviderMarshal, szwProvider, "HRESULT")
         return result
@@ -1316,7 +1316,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_providertype
      */
     get_ProviderType(pdwType) {
-        pdwTypeMarshal := pdwType is VarRef ? "int*" : "ptr"
+        pdwTypeMarshal := pdwType is VarRef ? "int*" : IntPtr
 
         result := ComCall(42, this, pdwTypeMarshal, pdwType, "HRESULT")
         return result
@@ -1384,7 +1384,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_keyspec
      */
     get_KeySpec(pdw) {
-        pdwMarshal := pdw is VarRef ? "int*" : "ptr"
+        pdwMarshal := pdw is VarRef ? "int*" : IntPtr
 
         result := ComCall(44, this, pdwMarshal, pdw, "HRESULT")
         return result
@@ -1446,7 +1446,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_providerflags
      */
     get_ProviderFlags(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
+        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(46, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
@@ -1503,7 +1503,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_useexistingkeyset
      */
     get_UseExistingKeySet(fUseExistingKeys) {
-        fUseExistingKeysMarshal := fUseExistingKeys is VarRef ? "int*" : "ptr"
+        fUseExistingKeysMarshal := fUseExistingKeys is VarRef ? "int*" : IntPtr
 
         result := ComCall(48, this, fUseExistingKeysMarshal, fUseExistingKeys, "HRESULT")
         return result
@@ -1570,7 +1570,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_genkeyflags
      */
     get_GenKeyFlags(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
+        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(50, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
@@ -1634,7 +1634,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_deleterequestcert
      */
     get_DeleteRequestCert(fDelete) {
-        fDeleteMarshal := fDelete is VarRef ? "int*" : "ptr"
+        fDeleteMarshal := fDelete is VarRef ? "int*" : IntPtr
 
         result := ComCall(52, this, fDeleteMarshal, fDelete, "HRESULT")
         return result
@@ -1680,7 +1680,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_writecerttouserds
      */
     get_WriteCertToUserDS(fBool) {
-        fBoolMarshal := fBool is VarRef ? "int*" : "ptr"
+        fBoolMarshal := fBool is VarRef ? "int*" : IntPtr
 
         result := ComCall(54, this, fBoolMarshal, fBool, "HRESULT")
         return result
@@ -1726,7 +1726,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_enablet61dnencoding
      */
     get_EnableT61DNEncoding(fBool) {
-        fBoolMarshal := fBool is VarRef ? "int*" : "ptr"
+        fBoolMarshal := fBool is VarRef ? "int*" : IntPtr
 
         result := ComCall(56, this, fBoolMarshal, fBool, "HRESULT")
         return result
@@ -1779,7 +1779,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_writecerttocsp
      */
     get_WriteCertToCSP(fBool) {
-        fBoolMarshal := fBool is VarRef ? "int*" : "ptr"
+        fBoolMarshal := fBool is VarRef ? "int*" : IntPtr
 
         result := ComCall(58, this, fBoolMarshal, fBool, "HRESULT")
         return result
@@ -1837,7 +1837,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_spcfilenamewstr
      */
     get_SPCFileNameWStr(szw) {
-        szwMarshal := szw is VarRef ? "ptr*" : "ptr"
+        szwMarshal := szw is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(60, this, szwMarshal, szw, "HRESULT")
         return result
@@ -1911,7 +1911,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_pvkfilenamewstr
      */
     get_PVKFileNameWStr(szw) {
-        szwMarshal := szw is VarRef ? "ptr*" : "ptr"
+        szwMarshal := szw is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(62, this, szwMarshal, szw, "HRESULT")
         return result
@@ -1989,7 +1989,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_hashalgorithmwstr
      */
     get_HashAlgorithmWStr(szw) {
-        szwMarshal := szw is VarRef ? "ptr*" : "ptr"
+        szwMarshal := szw is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(64, this, szwMarshal, szw, "HRESULT")
         return result
@@ -2037,7 +2037,7 @@ export default struct IEnroll extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_renewalcertificate
      */
     get_RenewalCertificate(ppCertContext) {
-        ppCertContextMarshal := ppCertContext is VarRef ? "ptr*" : "ptr"
+        ppCertContextMarshal := ppCertContext is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(66, this, ppCertContextMarshal, ppCertContext, "HRESULT")
         return result
@@ -2136,76 +2136,76 @@ export default struct IEnroll extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.createFilePKCS10WStr := CallbackCreate(GetMethod(implObj, "createFilePKCS10WStr"), flags, 4)
-        this.vtbl.acceptFilePKCS7WStr := CallbackCreate(GetMethod(implObj, "acceptFilePKCS7WStr"), flags, 2)
-        this.vtbl.createPKCS10WStr := CallbackCreate(GetMethod(implObj, "createPKCS10WStr"), flags, 4)
-        this.vtbl.acceptPKCS7Blob := CallbackCreate(GetMethod(implObj, "acceptPKCS7Blob"), flags, 2)
-        this.vtbl.getCertContextFromPKCS7 := CallbackCreate(GetMethod(implObj, "getCertContextFromPKCS7"), flags, 2)
-        this.vtbl.getMyStore := CallbackCreate(GetMethod(implObj, "getMyStore"), flags, 1)
-        this.vtbl.getCAStore := CallbackCreate(GetMethod(implObj, "getCAStore"), flags, 1)
-        this.vtbl.getROOTHStore := CallbackCreate(GetMethod(implObj, "getROOTHStore"), flags, 1)
-        this.vtbl.enumProvidersWStr := CallbackCreate(GetMethod(implObj, "enumProvidersWStr"), flags, 4)
-        this.vtbl.enumContainersWStr := CallbackCreate(GetMethod(implObj, "enumContainersWStr"), flags, 3)
-        this.vtbl.freeRequestInfoBlob := CallbackCreate(GetMethod(implObj, "freeRequestInfoBlob"), flags, 2)
-        this.vtbl.get_MyStoreNameWStr := CallbackCreate(GetMethod(implObj, "get_MyStoreNameWStr"), flags, 2)
-        this.vtbl.put_MyStoreNameWStr := CallbackCreate(GetMethod(implObj, "put_MyStoreNameWStr"), flags, 2)
-        this.vtbl.get_MyStoreTypeWStr := CallbackCreate(GetMethod(implObj, "get_MyStoreTypeWStr"), flags, 2)
-        this.vtbl.put_MyStoreTypeWStr := CallbackCreate(GetMethod(implObj, "put_MyStoreTypeWStr"), flags, 2)
-        this.vtbl.get_MyStoreFlags := CallbackCreate(GetMethod(implObj, "get_MyStoreFlags"), flags, 2)
-        this.vtbl.put_MyStoreFlags := CallbackCreate(GetMethod(implObj, "put_MyStoreFlags"), flags, 2)
-        this.vtbl.get_CAStoreNameWStr := CallbackCreate(GetMethod(implObj, "get_CAStoreNameWStr"), flags, 2)
-        this.vtbl.put_CAStoreNameWStr := CallbackCreate(GetMethod(implObj, "put_CAStoreNameWStr"), flags, 2)
-        this.vtbl.get_CAStoreTypeWStr := CallbackCreate(GetMethod(implObj, "get_CAStoreTypeWStr"), flags, 2)
-        this.vtbl.put_CAStoreTypeWStr := CallbackCreate(GetMethod(implObj, "put_CAStoreTypeWStr"), flags, 2)
-        this.vtbl.get_CAStoreFlags := CallbackCreate(GetMethod(implObj, "get_CAStoreFlags"), flags, 2)
-        this.vtbl.put_CAStoreFlags := CallbackCreate(GetMethod(implObj, "put_CAStoreFlags"), flags, 2)
-        this.vtbl.get_RootStoreNameWStr := CallbackCreate(GetMethod(implObj, "get_RootStoreNameWStr"), flags, 2)
-        this.vtbl.put_RootStoreNameWStr := CallbackCreate(GetMethod(implObj, "put_RootStoreNameWStr"), flags, 2)
-        this.vtbl.get_RootStoreTypeWStr := CallbackCreate(GetMethod(implObj, "get_RootStoreTypeWStr"), flags, 2)
-        this.vtbl.put_RootStoreTypeWStr := CallbackCreate(GetMethod(implObj, "put_RootStoreTypeWStr"), flags, 2)
-        this.vtbl.get_RootStoreFlags := CallbackCreate(GetMethod(implObj, "get_RootStoreFlags"), flags, 2)
-        this.vtbl.put_RootStoreFlags := CallbackCreate(GetMethod(implObj, "put_RootStoreFlags"), flags, 2)
-        this.vtbl.get_RequestStoreNameWStr := CallbackCreate(GetMethod(implObj, "get_RequestStoreNameWStr"), flags, 2)
-        this.vtbl.put_RequestStoreNameWStr := CallbackCreate(GetMethod(implObj, "put_RequestStoreNameWStr"), flags, 2)
-        this.vtbl.get_RequestStoreTypeWStr := CallbackCreate(GetMethod(implObj, "get_RequestStoreTypeWStr"), flags, 2)
-        this.vtbl.put_RequestStoreTypeWStr := CallbackCreate(GetMethod(implObj, "put_RequestStoreTypeWStr"), flags, 2)
-        this.vtbl.get_RequestStoreFlags := CallbackCreate(GetMethod(implObj, "get_RequestStoreFlags"), flags, 2)
-        this.vtbl.put_RequestStoreFlags := CallbackCreate(GetMethod(implObj, "put_RequestStoreFlags"), flags, 2)
-        this.vtbl.get_ContainerNameWStr := CallbackCreate(GetMethod(implObj, "get_ContainerNameWStr"), flags, 2)
-        this.vtbl.put_ContainerNameWStr := CallbackCreate(GetMethod(implObj, "put_ContainerNameWStr"), flags, 2)
-        this.vtbl.get_ProviderNameWStr := CallbackCreate(GetMethod(implObj, "get_ProviderNameWStr"), flags, 2)
-        this.vtbl.put_ProviderNameWStr := CallbackCreate(GetMethod(implObj, "put_ProviderNameWStr"), flags, 2)
-        this.vtbl.get_ProviderType := CallbackCreate(GetMethod(implObj, "get_ProviderType"), flags, 2)
-        this.vtbl.put_ProviderType := CallbackCreate(GetMethod(implObj, "put_ProviderType"), flags, 2)
-        this.vtbl.get_KeySpec := CallbackCreate(GetMethod(implObj, "get_KeySpec"), flags, 2)
-        this.vtbl.put_KeySpec := CallbackCreate(GetMethod(implObj, "put_KeySpec"), flags, 2)
-        this.vtbl.get_ProviderFlags := CallbackCreate(GetMethod(implObj, "get_ProviderFlags"), flags, 2)
-        this.vtbl.put_ProviderFlags := CallbackCreate(GetMethod(implObj, "put_ProviderFlags"), flags, 2)
-        this.vtbl.get_UseExistingKeySet := CallbackCreate(GetMethod(implObj, "get_UseExistingKeySet"), flags, 2)
-        this.vtbl.put_UseExistingKeySet := CallbackCreate(GetMethod(implObj, "put_UseExistingKeySet"), flags, 2)
-        this.vtbl.get_GenKeyFlags := CallbackCreate(GetMethod(implObj, "get_GenKeyFlags"), flags, 2)
-        this.vtbl.put_GenKeyFlags := CallbackCreate(GetMethod(implObj, "put_GenKeyFlags"), flags, 2)
-        this.vtbl.get_DeleteRequestCert := CallbackCreate(GetMethod(implObj, "get_DeleteRequestCert"), flags, 2)
-        this.vtbl.put_DeleteRequestCert := CallbackCreate(GetMethod(implObj, "put_DeleteRequestCert"), flags, 2)
-        this.vtbl.get_WriteCertToUserDS := CallbackCreate(GetMethod(implObj, "get_WriteCertToUserDS"), flags, 2)
-        this.vtbl.put_WriteCertToUserDS := CallbackCreate(GetMethod(implObj, "put_WriteCertToUserDS"), flags, 2)
-        this.vtbl.get_EnableT61DNEncoding := CallbackCreate(GetMethod(implObj, "get_EnableT61DNEncoding"), flags, 2)
-        this.vtbl.put_EnableT61DNEncoding := CallbackCreate(GetMethod(implObj, "put_EnableT61DNEncoding"), flags, 2)
-        this.vtbl.get_WriteCertToCSP := CallbackCreate(GetMethod(implObj, "get_WriteCertToCSP"), flags, 2)
-        this.vtbl.put_WriteCertToCSP := CallbackCreate(GetMethod(implObj, "put_WriteCertToCSP"), flags, 2)
-        this.vtbl.get_SPCFileNameWStr := CallbackCreate(GetMethod(implObj, "get_SPCFileNameWStr"), flags, 2)
-        this.vtbl.put_SPCFileNameWStr := CallbackCreate(GetMethod(implObj, "put_SPCFileNameWStr"), flags, 2)
-        this.vtbl.get_PVKFileNameWStr := CallbackCreate(GetMethod(implObj, "get_PVKFileNameWStr"), flags, 2)
-        this.vtbl.put_PVKFileNameWStr := CallbackCreate(GetMethod(implObj, "put_PVKFileNameWStr"), flags, 2)
-        this.vtbl.get_HashAlgorithmWStr := CallbackCreate(GetMethod(implObj, "get_HashAlgorithmWStr"), flags, 2)
-        this.vtbl.put_HashAlgorithmWStr := CallbackCreate(GetMethod(implObj, "put_HashAlgorithmWStr"), flags, 2)
-        this.vtbl.get_RenewalCertificate := CallbackCreate(GetMethod(implObj, "get_RenewalCertificate"), flags, 2)
-        this.vtbl.put_RenewalCertificate := CallbackCreate(GetMethod(implObj, "put_RenewalCertificate"), flags, 2)
-        this.vtbl.AddCertTypeToRequestWStr := CallbackCreate(GetMethod(implObj, "AddCertTypeToRequestWStr"), flags, 2)
-        this.vtbl.AddNameValuePairToSignatureWStr := CallbackCreate(GetMethod(implObj, "AddNameValuePairToSignatureWStr"), flags, 3)
-        this.vtbl.AddExtensionsToRequest := CallbackCreate(GetMethod(implObj, "AddExtensionsToRequest"), flags, 2)
-        this.vtbl.AddAuthenticatedAttributesToPKCS7Request := CallbackCreate(GetMethod(implObj, "AddAuthenticatedAttributesToPKCS7Request"), flags, 2)
-        this.vtbl.CreatePKCS7RequestFromRequest := CallbackCreate(GetMethod(implObj, "CreatePKCS7RequestFromRequest"), flags, 4)
+        this.vtbl.createFilePKCS10WStr := CallbackCreate(ObjBindMethod(implObj, "createFilePKCS10WStr"), flags, 4)
+        this.vtbl.acceptFilePKCS7WStr := CallbackCreate(ObjBindMethod(implObj, "acceptFilePKCS7WStr"), flags, 2)
+        this.vtbl.createPKCS10WStr := CallbackCreate(ObjBindMethod(implObj, "createPKCS10WStr"), flags, 4)
+        this.vtbl.acceptPKCS7Blob := CallbackCreate(ObjBindMethod(implObj, "acceptPKCS7Blob"), flags, 2)
+        this.vtbl.getCertContextFromPKCS7 := CallbackCreate(ObjBindMethod(implObj, "getCertContextFromPKCS7"), flags, 2)
+        this.vtbl.getMyStore := CallbackCreate(ObjBindMethod(implObj, "getMyStore"), flags, 1)
+        this.vtbl.getCAStore := CallbackCreate(ObjBindMethod(implObj, "getCAStore"), flags, 1)
+        this.vtbl.getROOTHStore := CallbackCreate(ObjBindMethod(implObj, "getROOTHStore"), flags, 1)
+        this.vtbl.enumProvidersWStr := CallbackCreate(ObjBindMethod(implObj, "enumProvidersWStr"), flags, 4)
+        this.vtbl.enumContainersWStr := CallbackCreate(ObjBindMethod(implObj, "enumContainersWStr"), flags, 3)
+        this.vtbl.freeRequestInfoBlob := CallbackCreate(ObjBindMethod(implObj, "freeRequestInfoBlob"), flags, 2)
+        this.vtbl.get_MyStoreNameWStr := CallbackCreate(ObjBindMethod(implObj, "get_MyStoreNameWStr"), flags, 2)
+        this.vtbl.put_MyStoreNameWStr := CallbackCreate(ObjBindMethod(implObj, "put_MyStoreNameWStr"), flags, 2)
+        this.vtbl.get_MyStoreTypeWStr := CallbackCreate(ObjBindMethod(implObj, "get_MyStoreTypeWStr"), flags, 2)
+        this.vtbl.put_MyStoreTypeWStr := CallbackCreate(ObjBindMethod(implObj, "put_MyStoreTypeWStr"), flags, 2)
+        this.vtbl.get_MyStoreFlags := CallbackCreate(ObjBindMethod(implObj, "get_MyStoreFlags"), flags, 2)
+        this.vtbl.put_MyStoreFlags := CallbackCreate(ObjBindMethod(implObj, "put_MyStoreFlags"), flags, 2)
+        this.vtbl.get_CAStoreNameWStr := CallbackCreate(ObjBindMethod(implObj, "get_CAStoreNameWStr"), flags, 2)
+        this.vtbl.put_CAStoreNameWStr := CallbackCreate(ObjBindMethod(implObj, "put_CAStoreNameWStr"), flags, 2)
+        this.vtbl.get_CAStoreTypeWStr := CallbackCreate(ObjBindMethod(implObj, "get_CAStoreTypeWStr"), flags, 2)
+        this.vtbl.put_CAStoreTypeWStr := CallbackCreate(ObjBindMethod(implObj, "put_CAStoreTypeWStr"), flags, 2)
+        this.vtbl.get_CAStoreFlags := CallbackCreate(ObjBindMethod(implObj, "get_CAStoreFlags"), flags, 2)
+        this.vtbl.put_CAStoreFlags := CallbackCreate(ObjBindMethod(implObj, "put_CAStoreFlags"), flags, 2)
+        this.vtbl.get_RootStoreNameWStr := CallbackCreate(ObjBindMethod(implObj, "get_RootStoreNameWStr"), flags, 2)
+        this.vtbl.put_RootStoreNameWStr := CallbackCreate(ObjBindMethod(implObj, "put_RootStoreNameWStr"), flags, 2)
+        this.vtbl.get_RootStoreTypeWStr := CallbackCreate(ObjBindMethod(implObj, "get_RootStoreTypeWStr"), flags, 2)
+        this.vtbl.put_RootStoreTypeWStr := CallbackCreate(ObjBindMethod(implObj, "put_RootStoreTypeWStr"), flags, 2)
+        this.vtbl.get_RootStoreFlags := CallbackCreate(ObjBindMethod(implObj, "get_RootStoreFlags"), flags, 2)
+        this.vtbl.put_RootStoreFlags := CallbackCreate(ObjBindMethod(implObj, "put_RootStoreFlags"), flags, 2)
+        this.vtbl.get_RequestStoreNameWStr := CallbackCreate(ObjBindMethod(implObj, "get_RequestStoreNameWStr"), flags, 2)
+        this.vtbl.put_RequestStoreNameWStr := CallbackCreate(ObjBindMethod(implObj, "put_RequestStoreNameWStr"), flags, 2)
+        this.vtbl.get_RequestStoreTypeWStr := CallbackCreate(ObjBindMethod(implObj, "get_RequestStoreTypeWStr"), flags, 2)
+        this.vtbl.put_RequestStoreTypeWStr := CallbackCreate(ObjBindMethod(implObj, "put_RequestStoreTypeWStr"), flags, 2)
+        this.vtbl.get_RequestStoreFlags := CallbackCreate(ObjBindMethod(implObj, "get_RequestStoreFlags"), flags, 2)
+        this.vtbl.put_RequestStoreFlags := CallbackCreate(ObjBindMethod(implObj, "put_RequestStoreFlags"), flags, 2)
+        this.vtbl.get_ContainerNameWStr := CallbackCreate(ObjBindMethod(implObj, "get_ContainerNameWStr"), flags, 2)
+        this.vtbl.put_ContainerNameWStr := CallbackCreate(ObjBindMethod(implObj, "put_ContainerNameWStr"), flags, 2)
+        this.vtbl.get_ProviderNameWStr := CallbackCreate(ObjBindMethod(implObj, "get_ProviderNameWStr"), flags, 2)
+        this.vtbl.put_ProviderNameWStr := CallbackCreate(ObjBindMethod(implObj, "put_ProviderNameWStr"), flags, 2)
+        this.vtbl.get_ProviderType := CallbackCreate(ObjBindMethod(implObj, "get_ProviderType"), flags, 2)
+        this.vtbl.put_ProviderType := CallbackCreate(ObjBindMethod(implObj, "put_ProviderType"), flags, 2)
+        this.vtbl.get_KeySpec := CallbackCreate(ObjBindMethod(implObj, "get_KeySpec"), flags, 2)
+        this.vtbl.put_KeySpec := CallbackCreate(ObjBindMethod(implObj, "put_KeySpec"), flags, 2)
+        this.vtbl.get_ProviderFlags := CallbackCreate(ObjBindMethod(implObj, "get_ProviderFlags"), flags, 2)
+        this.vtbl.put_ProviderFlags := CallbackCreate(ObjBindMethod(implObj, "put_ProviderFlags"), flags, 2)
+        this.vtbl.get_UseExistingKeySet := CallbackCreate(ObjBindMethod(implObj, "get_UseExistingKeySet"), flags, 2)
+        this.vtbl.put_UseExistingKeySet := CallbackCreate(ObjBindMethod(implObj, "put_UseExistingKeySet"), flags, 2)
+        this.vtbl.get_GenKeyFlags := CallbackCreate(ObjBindMethod(implObj, "get_GenKeyFlags"), flags, 2)
+        this.vtbl.put_GenKeyFlags := CallbackCreate(ObjBindMethod(implObj, "put_GenKeyFlags"), flags, 2)
+        this.vtbl.get_DeleteRequestCert := CallbackCreate(ObjBindMethod(implObj, "get_DeleteRequestCert"), flags, 2)
+        this.vtbl.put_DeleteRequestCert := CallbackCreate(ObjBindMethod(implObj, "put_DeleteRequestCert"), flags, 2)
+        this.vtbl.get_WriteCertToUserDS := CallbackCreate(ObjBindMethod(implObj, "get_WriteCertToUserDS"), flags, 2)
+        this.vtbl.put_WriteCertToUserDS := CallbackCreate(ObjBindMethod(implObj, "put_WriteCertToUserDS"), flags, 2)
+        this.vtbl.get_EnableT61DNEncoding := CallbackCreate(ObjBindMethod(implObj, "get_EnableT61DNEncoding"), flags, 2)
+        this.vtbl.put_EnableT61DNEncoding := CallbackCreate(ObjBindMethod(implObj, "put_EnableT61DNEncoding"), flags, 2)
+        this.vtbl.get_WriteCertToCSP := CallbackCreate(ObjBindMethod(implObj, "get_WriteCertToCSP"), flags, 2)
+        this.vtbl.put_WriteCertToCSP := CallbackCreate(ObjBindMethod(implObj, "put_WriteCertToCSP"), flags, 2)
+        this.vtbl.get_SPCFileNameWStr := CallbackCreate(ObjBindMethod(implObj, "get_SPCFileNameWStr"), flags, 2)
+        this.vtbl.put_SPCFileNameWStr := CallbackCreate(ObjBindMethod(implObj, "put_SPCFileNameWStr"), flags, 2)
+        this.vtbl.get_PVKFileNameWStr := CallbackCreate(ObjBindMethod(implObj, "get_PVKFileNameWStr"), flags, 2)
+        this.vtbl.put_PVKFileNameWStr := CallbackCreate(ObjBindMethod(implObj, "put_PVKFileNameWStr"), flags, 2)
+        this.vtbl.get_HashAlgorithmWStr := CallbackCreate(ObjBindMethod(implObj, "get_HashAlgorithmWStr"), flags, 2)
+        this.vtbl.put_HashAlgorithmWStr := CallbackCreate(ObjBindMethod(implObj, "put_HashAlgorithmWStr"), flags, 2)
+        this.vtbl.get_RenewalCertificate := CallbackCreate(ObjBindMethod(implObj, "get_RenewalCertificate"), flags, 2)
+        this.vtbl.put_RenewalCertificate := CallbackCreate(ObjBindMethod(implObj, "put_RenewalCertificate"), flags, 2)
+        this.vtbl.AddCertTypeToRequestWStr := CallbackCreate(ObjBindMethod(implObj, "AddCertTypeToRequestWStr"), flags, 2)
+        this.vtbl.AddNameValuePairToSignatureWStr := CallbackCreate(ObjBindMethod(implObj, "AddNameValuePairToSignatureWStr"), flags, 3)
+        this.vtbl.AddExtensionsToRequest := CallbackCreate(ObjBindMethod(implObj, "AddExtensionsToRequest"), flags, 2)
+        this.vtbl.AddAuthenticatedAttributesToPKCS7Request := CallbackCreate(ObjBindMethod(implObj, "AddAuthenticatedAttributesToPKCS7Request"), flags, 2)
+        this.vtbl.CreatePKCS7RequestFromRequest := CallbackCreate(ObjBindMethod(implObj, "CreatePKCS7RequestFromRequest"), flags, 4)
     }
 
     Dispose() {

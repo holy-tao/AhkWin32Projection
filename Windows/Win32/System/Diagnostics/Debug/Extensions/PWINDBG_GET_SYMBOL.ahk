@@ -19,7 +19,6 @@ export default struct PWINDBG_GET_SYMBOL {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} offset 
      * @param {PSTR} pchBuffer 
      * @param {Pointer<Pointer>} pDisplacement 
@@ -28,8 +27,8 @@ export default struct PWINDBG_GET_SYMBOL {
     Call(offset, pchBuffer, pDisplacement) {
         pchBuffer := pchBuffer is String ? StrPtr(pchBuffer) : pchBuffer
 
-        offsetMarshal := offset is VarRef ? "ptr" : "ptr"
-        pDisplacementMarshal := pDisplacement is VarRef ? "ptr*" : "ptr"
+        offsetMarshal := offset is VarRef ? "ptr" : IntPtr
+        pDisplacementMarshal := pDisplacement is VarRef ? "ptr*" : IntPtr
 
         DllCall(this.value, offsetMarshal, offset, "ptr", pchBuffer, pDisplacementMarshal, pDisplacement)
     }

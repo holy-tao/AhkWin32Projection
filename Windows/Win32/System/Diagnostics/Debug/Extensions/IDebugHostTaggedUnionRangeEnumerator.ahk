@@ -39,7 +39,6 @@ export default struct IDebugHostTaggedUnionRangeEnumerator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -48,7 +47,6 @@ export default struct IDebugHostTaggedUnionRangeEnumerator extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pLow 
      * @param {Pointer<VARIANT>} pHigh 
      * @returns {HRESULT} 
@@ -59,7 +57,6 @@ export default struct IDebugHostTaggedUnionRangeEnumerator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCount() {
@@ -76,9 +73,9 @@ export default struct IDebugHostTaggedUnionRangeEnumerator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.GetNext := CallbackCreate(GetMethod(implObj, "GetNext"), flags, 3)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.GetNext := CallbackCreate(ObjBindMethod(implObj, "GetNext"), flags, 3)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
     }
 
     Dispose() {

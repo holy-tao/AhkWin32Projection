@@ -23,7 +23,6 @@ export default struct LPDHCP_DELETE_CLIENT {
     }
 
     /**
-     * 
      * @param {Integer} IpAddress Internet Protocol (IP) address of the client lease being deleted. The IP address is in host order.
      * @param {Pointer<Integer>} HwAddress Buffer holding the Hardware address of the client, often referred to as the MAC address.
      * @param {Integer} HwAddressLength Length of the <i>HwAddress</i> buffer, in bytes.
@@ -32,7 +31,7 @@ export default struct LPDHCP_DELETE_CLIENT {
      * @returns {Integer} Return values are defined by the application providing the callback.
      */
     Call(IpAddress, HwAddress, HwAddressLength, Reserved, ClientType) {
-        HwAddressMarshal := HwAddress is VarRef ? "char*" : "ptr"
+        HwAddressMarshal := HwAddress is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, UInt32, IpAddress, HwAddressMarshal, HwAddress, UInt32, HwAddressLength, UInt32, Reserved, UInt32, ClientType, UInt32)
         return result

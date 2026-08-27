@@ -113,11 +113,11 @@ export default struct IIndependentFlipFramePresentStatistics extends IPresentSta
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOutputAdapterLUID := CallbackCreate(GetMethod(implObj, "GetOutputAdapterLUID"), flags, 1)
-        this.vtbl.GetOutputVidPnSourceId := CallbackCreate(GetMethod(implObj, "GetOutputVidPnSourceId"), flags, 1)
-        this.vtbl.GetContentTag := CallbackCreate(GetMethod(implObj, "GetContentTag"), flags, 1)
-        this.vtbl.GetDisplayedTime := CallbackCreate(GetMethod(implObj, "GetDisplayedTime"), flags, 1)
-        this.vtbl.GetPresentDuration := CallbackCreate(GetMethod(implObj, "GetPresentDuration"), flags, 1)
+        this.vtbl.GetOutputAdapterLUID := CallbackCreate(ObjBindMethod(implObj, "GetOutputAdapterLUID"), flags, 1)
+        this.vtbl.GetOutputVidPnSourceId := CallbackCreate(ObjBindMethod(implObj, "GetOutputVidPnSourceId"), flags, 1)
+        this.vtbl.GetContentTag := CallbackCreate(ObjBindMethod(implObj, "GetContentTag"), flags, 1)
+        this.vtbl.GetDisplayedTime := CallbackCreate(ObjBindMethod(implObj, "GetDisplayedTime"), flags, 1)
+        this.vtbl.GetPresentDuration := CallbackCreate(ObjBindMethod(implObj, "GetPresentDuration"), flags, 1)
     }
 
     Dispose() {

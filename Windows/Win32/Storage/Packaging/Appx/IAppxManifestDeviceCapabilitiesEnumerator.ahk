@@ -96,9 +96,9 @@ export default struct IAppxManifestDeviceCapabilitiesEnumerator extends IUnknown
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCurrent := CallbackCreate(GetMethod(implObj, "GetCurrent"), flags, 2)
-        this.vtbl.GetHasCurrent := CallbackCreate(GetMethod(implObj, "GetHasCurrent"), flags, 2)
-        this.vtbl.MoveNext := CallbackCreate(GetMethod(implObj, "MoveNext"), flags, 2)
+        this.vtbl.GetCurrent := CallbackCreate(ObjBindMethod(implObj, "GetCurrent"), flags, 2)
+        this.vtbl.GetHasCurrent := CallbackCreate(ObjBindMethod(implObj, "GetHasCurrent"), flags, 2)
+        this.vtbl.MoveNext := CallbackCreate(ObjBindMethod(implObj, "MoveNext"), flags, 2)
     }
 
     Dispose() {

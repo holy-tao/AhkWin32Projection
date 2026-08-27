@@ -36,7 +36,6 @@ export default struct ICorProfilerCallback7 extends ICorProfilerCallback6 {
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @returns {HRESULT} 
      */
@@ -54,7 +53,7 @@ export default struct ICorProfilerCallback7 extends ICorProfilerCallback6 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ModuleInMemorySymbolsUpdated := CallbackCreate(GetMethod(implObj, "ModuleInMemorySymbolsUpdated"), flags, 2)
+        this.vtbl.ModuleInMemorySymbolsUpdated := CallbackCreate(ObjBindMethod(implObj, "ModuleInMemorySymbolsUpdated"), flags, 2)
     }
 
     Dispose() {

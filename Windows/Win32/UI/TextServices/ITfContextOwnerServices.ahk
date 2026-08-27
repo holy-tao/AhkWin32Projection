@@ -311,13 +311,13 @@ export default struct ITfContextOwnerServices extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnLayoutChange := CallbackCreate(GetMethod(implObj, "OnLayoutChange"), flags, 1)
-        this.vtbl.OnStatusChange := CallbackCreate(GetMethod(implObj, "OnStatusChange"), flags, 2)
-        this.vtbl.OnAttributeChange := CallbackCreate(GetMethod(implObj, "OnAttributeChange"), flags, 2)
-        this.vtbl.Serialize := CallbackCreate(GetMethod(implObj, "Serialize"), flags, 5)
-        this.vtbl.Unserialize := CallbackCreate(GetMethod(implObj, "Unserialize"), flags, 5)
-        this.vtbl.ForceLoadProperty := CallbackCreate(GetMethod(implObj, "ForceLoadProperty"), flags, 2)
-        this.vtbl.CreateRange := CallbackCreate(GetMethod(implObj, "CreateRange"), flags, 4)
+        this.vtbl.OnLayoutChange := CallbackCreate(ObjBindMethod(implObj, "OnLayoutChange"), flags, 1)
+        this.vtbl.OnStatusChange := CallbackCreate(ObjBindMethod(implObj, "OnStatusChange"), flags, 2)
+        this.vtbl.OnAttributeChange := CallbackCreate(ObjBindMethod(implObj, "OnAttributeChange"), flags, 2)
+        this.vtbl.Serialize := CallbackCreate(ObjBindMethod(implObj, "Serialize"), flags, 5)
+        this.vtbl.Unserialize := CallbackCreate(ObjBindMethod(implObj, "Unserialize"), flags, 5)
+        this.vtbl.ForceLoadProperty := CallbackCreate(ObjBindMethod(implObj, "ForceLoadProperty"), flags, 2)
+        this.vtbl.CreateRange := CallbackCreate(ObjBindMethod(implObj, "CreateRange"), flags, 4)
     }
 
     Dispose() {

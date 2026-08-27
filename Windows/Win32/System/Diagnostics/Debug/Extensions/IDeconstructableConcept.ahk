@@ -40,7 +40,6 @@ export default struct IDeconstructableConcept extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @returns {BSTR} 
      */
@@ -51,7 +50,6 @@ export default struct IDeconstructableConcept extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @returns {Integer} 
      */
@@ -61,7 +59,6 @@ export default struct IDeconstructableConcept extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @param {Integer} argCount 
      * @returns {IModelObject} 
@@ -80,9 +77,9 @@ export default struct IDeconstructableConcept extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetConstructableModelName := CallbackCreate(GetMethod(implObj, "GetConstructableModelName"), flags, 3)
-        this.vtbl.GetConstructorArgumentCount := CallbackCreate(GetMethod(implObj, "GetConstructorArgumentCount"), flags, 3)
-        this.vtbl.GetConstructorArguments := CallbackCreate(GetMethod(implObj, "GetConstructorArguments"), flags, 4)
+        this.vtbl.GetConstructableModelName := CallbackCreate(ObjBindMethod(implObj, "GetConstructableModelName"), flags, 3)
+        this.vtbl.GetConstructorArgumentCount := CallbackCreate(ObjBindMethod(implObj, "GetConstructorArgumentCount"), flags, 3)
+        this.vtbl.GetConstructorArguments := CallbackCreate(ObjBindMethod(implObj, "GetConstructorArguments"), flags, 4)
     }
 
     Dispose() {

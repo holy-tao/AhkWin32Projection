@@ -48,20 +48,18 @@ export default struct ICLRAssemblyIdentityManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PWSTR>} ppwzAssemblyReferences 
      * @param {Integer} dwNumOfReferences 
      * @returns {ICLRAssemblyReferenceList} 
      */
     GetCLRAssemblyReferenceList(ppwzAssemblyReferences, dwNumOfReferences) {
-        ppwzAssemblyReferencesMarshal := ppwzAssemblyReferences is VarRef ? "ptr*" : "ptr"
+        ppwzAssemblyReferencesMarshal := ppwzAssemblyReferences is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, ppwzAssemblyReferencesMarshal, ppwzAssemblyReferences, UInt32, dwNumOfReferences, "ptr*", &ppReferenceList := 0, "HRESULT")
         return ICLRAssemblyReferenceList(ppReferenceList)
     }
 
     /**
-     * 
      * @param {PWSTR} pwzFilePath 
      * @param {Integer} dwFlags 
      * @param {PWSTR} pwzBuffer 
@@ -72,14 +70,13 @@ export default struct ICLRAssemblyIdentityManager extends IUnknown {
         pwzFilePath := pwzFilePath is String ? StrPtr(pwzFilePath) : pwzFilePath
         pwzBuffer := pwzBuffer is String ? StrPtr(pwzBuffer) : pwzBuffer
 
-        pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : "ptr"
+        pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, "ptr", pwzFilePath, UInt32, dwFlags, "ptr", pwzBuffer, pcchBufferSizeMarshal, pcchBufferSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IStream} pStream 
      * @param {Integer} dwFlags 
      * @param {PWSTR} pwzBuffer 
@@ -89,14 +86,13 @@ export default struct ICLRAssemblyIdentityManager extends IUnknown {
     GetBindingIdentityFromStream(pStream, dwFlags, pwzBuffer, pcchBufferSize) {
         pwzBuffer := pwzBuffer is String ? StrPtr(pwzBuffer) : pwzBuffer
 
-        pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : "ptr"
+        pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, "ptr", pStream, UInt32, dwFlags, "ptr", pwzBuffer, pcchBufferSizeMarshal, pcchBufferSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwzFilePath 
      * @param {Integer} dwFlags 
      * @param {ICLRAssemblyReferenceList} pExcludeAssembliesList 
@@ -110,7 +106,6 @@ export default struct ICLRAssemblyIdentityManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {IStream} pStream 
      * @param {Integer} dwFlags 
      * @param {ICLRAssemblyReferenceList} pExcludeAssembliesList 
@@ -122,7 +117,6 @@ export default struct ICLRAssemblyIdentityManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwMachineType 
      * @param {Integer} dwFlags 
      * @param {PWSTR} pwzReferenceIdentity 
@@ -136,7 +130,6 @@ export default struct ICLRAssemblyIdentityManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzAssemblyIdentity 
      * @returns {BOOL} 
      */
@@ -156,13 +149,13 @@ export default struct ICLRAssemblyIdentityManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCLRAssemblyReferenceList := CallbackCreate(GetMethod(implObj, "GetCLRAssemblyReferenceList"), flags, 4)
-        this.vtbl.GetBindingIdentityFromFile := CallbackCreate(GetMethod(implObj, "GetBindingIdentityFromFile"), flags, 5)
-        this.vtbl.GetBindingIdentityFromStream := CallbackCreate(GetMethod(implObj, "GetBindingIdentityFromStream"), flags, 5)
-        this.vtbl.GetReferencedAssembliesFromFile := CallbackCreate(GetMethod(implObj, "GetReferencedAssembliesFromFile"), flags, 5)
-        this.vtbl.GetReferencedAssembliesFromStream := CallbackCreate(GetMethod(implObj, "GetReferencedAssembliesFromStream"), flags, 5)
-        this.vtbl.GetProbingAssembliesFromReference := CallbackCreate(GetMethod(implObj, "GetProbingAssembliesFromReference"), flags, 5)
-        this.vtbl.IsStronglyNamed := CallbackCreate(GetMethod(implObj, "IsStronglyNamed"), flags, 3)
+        this.vtbl.GetCLRAssemblyReferenceList := CallbackCreate(ObjBindMethod(implObj, "GetCLRAssemblyReferenceList"), flags, 4)
+        this.vtbl.GetBindingIdentityFromFile := CallbackCreate(ObjBindMethod(implObj, "GetBindingIdentityFromFile"), flags, 5)
+        this.vtbl.GetBindingIdentityFromStream := CallbackCreate(ObjBindMethod(implObj, "GetBindingIdentityFromStream"), flags, 5)
+        this.vtbl.GetReferencedAssembliesFromFile := CallbackCreate(ObjBindMethod(implObj, "GetReferencedAssembliesFromFile"), flags, 5)
+        this.vtbl.GetReferencedAssembliesFromStream := CallbackCreate(ObjBindMethod(implObj, "GetReferencedAssembliesFromStream"), flags, 5)
+        this.vtbl.GetProbingAssembliesFromReference := CallbackCreate(ObjBindMethod(implObj, "GetProbingAssembliesFromReference"), flags, 5)
+        this.vtbl.IsStronglyNamed := CallbackCreate(ObjBindMethod(implObj, "IsStronglyNamed"), flags, 3)
     }
 
     Dispose() {

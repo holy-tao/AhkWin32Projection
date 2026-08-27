@@ -90,7 +90,7 @@ export default struct IXMLError extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetErrorInfo := CallbackCreate(GetMethod(implObj, "GetErrorInfo"), flags, 2)
+        this.vtbl.GetErrorInfo := CallbackCreate(ObjBindMethod(implObj, "GetErrorInfo"), flags, 2)
     }
 
     Dispose() {

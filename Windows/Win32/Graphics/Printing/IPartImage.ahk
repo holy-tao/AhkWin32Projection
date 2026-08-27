@@ -39,7 +39,6 @@ export default struct IPartImage extends IPartBase {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetImageProperties() {
@@ -49,7 +48,6 @@ export default struct IPartImage extends IPartBase {
     }
 
     /**
-     * 
      * @param {PWSTR} pContentType 
      * @returns {HRESULT} 
      */
@@ -69,8 +67,8 @@ export default struct IPartImage extends IPartBase {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetImageProperties := CallbackCreate(GetMethod(implObj, "GetImageProperties"), flags, 2)
-        this.vtbl.SetImageContent := CallbackCreate(GetMethod(implObj, "SetImageContent"), flags, 2)
+        this.vtbl.GetImageProperties := CallbackCreate(ObjBindMethod(implObj, "GetImageProperties"), flags, 2)
+        this.vtbl.SetImageContent := CallbackCreate(ObjBindMethod(implObj, "SetImageContent"), flags, 2)
     }
 
     Dispose() {

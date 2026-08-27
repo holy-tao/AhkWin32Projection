@@ -20,7 +20,6 @@ export default struct VDMISMODULELOADEDPROC {
     }
 
     /**
-     * 
      * @param {PSTR} param0 
      * @returns {BOOL} 
      */

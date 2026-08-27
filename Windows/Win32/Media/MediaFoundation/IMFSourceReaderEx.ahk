@@ -86,7 +86,9 @@ export default struct IMFSourceReaderEx extends IMFSourceReader {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereaderex-setnativemediatype
      */
     SetNativeMediaType(dwStreamIndex, pMediaType) {
-        result := ComCall(13, this, UInt32, dwStreamIndex, "ptr", pMediaType, "uint*", &pdwStreamFlags := 0, "HRESULT")
+        pMediaTypeMarshal := pMediaType == 0 ? IntPtr : "ptr"
+
+        result := ComCall(13, this, UInt32, dwStreamIndex, pMediaTypeMarshal, pMediaType, "uint*", &pdwStreamFlags := 0, "HRESULT")
         return pdwStreamFlags
     }
 
@@ -433,7 +435,9 @@ export default struct IMFSourceReaderEx extends IMFSourceReader {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereaderex-gettransformforstream
      */
     GetTransformForStream(dwStreamIndex, dwTransformIndex, pGuidCategory, ppTransform) {
-        result := ComCall(16, this, UInt32, dwStreamIndex, UInt32, dwTransformIndex, Guid.Ptr, pGuidCategory, IMFTransform.Ptr, ppTransform, "HRESULT")
+        pGuidCategoryMarshal := pGuidCategory == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(16, this, UInt32, dwStreamIndex, UInt32, dwTransformIndex, pGuidCategoryMarshal, pGuidCategory, IMFTransform.Ptr, ppTransform, "HRESULT")
         return result
     }
 
@@ -446,10 +450,10 @@ export default struct IMFSourceReaderEx extends IMFSourceReader {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetNativeMediaType := CallbackCreate(GetMethod(implObj, "SetNativeMediaType"), flags, 4)
-        this.vtbl.AddTransformForStream := CallbackCreate(GetMethod(implObj, "AddTransformForStream"), flags, 3)
-        this.vtbl.RemoveAllTransformsForStream := CallbackCreate(GetMethod(implObj, "RemoveAllTransformsForStream"), flags, 2)
-        this.vtbl.GetTransformForStream := CallbackCreate(GetMethod(implObj, "GetTransformForStream"), flags, 5)
+        this.vtbl.SetNativeMediaType := CallbackCreate(ObjBindMethod(implObj, "SetNativeMediaType"), flags, 4)
+        this.vtbl.AddTransformForStream := CallbackCreate(ObjBindMethod(implObj, "AddTransformForStream"), flags, 3)
+        this.vtbl.RemoveAllTransformsForStream := CallbackCreate(ObjBindMethod(implObj, "RemoveAllTransformsForStream"), flags, 2)
+        this.vtbl.GetTransformForStream := CallbackCreate(ObjBindMethod(implObj, "GetTransformForStream"), flags, 5)
     }
 
     Dispose() {

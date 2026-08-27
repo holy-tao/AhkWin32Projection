@@ -435,17 +435,17 @@ export default struct IAnchor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetGravity := CallbackCreate(GetMethod(implObj, "SetGravity"), flags, 2)
-        this.vtbl.GetGravity := CallbackCreate(GetMethod(implObj, "GetGravity"), flags, 2)
-        this.vtbl.IsEqual := CallbackCreate(GetMethod(implObj, "IsEqual"), flags, 3)
-        this.vtbl.Compare := CallbackCreate(GetMethod(implObj, "Compare"), flags, 3)
-        this.vtbl.Shift := CallbackCreate(GetMethod(implObj, "Shift"), flags, 5)
-        this.vtbl.ShiftTo := CallbackCreate(GetMethod(implObj, "ShiftTo"), flags, 2)
-        this.vtbl.ShiftRegion := CallbackCreate(GetMethod(implObj, "ShiftRegion"), flags, 4)
-        this.vtbl.SetChangeHistoryMask := CallbackCreate(GetMethod(implObj, "SetChangeHistoryMask"), flags, 2)
-        this.vtbl.GetChangeHistory := CallbackCreate(GetMethod(implObj, "GetChangeHistory"), flags, 2)
-        this.vtbl.ClearChangeHistory := CallbackCreate(GetMethod(implObj, "ClearChangeHistory"), flags, 1)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.SetGravity := CallbackCreate(ObjBindMethod(implObj, "SetGravity"), flags, 2)
+        this.vtbl.GetGravity := CallbackCreate(ObjBindMethod(implObj, "GetGravity"), flags, 2)
+        this.vtbl.IsEqual := CallbackCreate(ObjBindMethod(implObj, "IsEqual"), flags, 3)
+        this.vtbl.Compare := CallbackCreate(ObjBindMethod(implObj, "Compare"), flags, 3)
+        this.vtbl.Shift := CallbackCreate(ObjBindMethod(implObj, "Shift"), flags, 5)
+        this.vtbl.ShiftTo := CallbackCreate(ObjBindMethod(implObj, "ShiftTo"), flags, 2)
+        this.vtbl.ShiftRegion := CallbackCreate(ObjBindMethod(implObj, "ShiftRegion"), flags, 4)
+        this.vtbl.SetChangeHistoryMask := CallbackCreate(ObjBindMethod(implObj, "SetChangeHistoryMask"), flags, 2)
+        this.vtbl.GetChangeHistory := CallbackCreate(ObjBindMethod(implObj, "GetChangeHistory"), flags, 2)
+        this.vtbl.ClearChangeHistory := CallbackCreate(ObjBindMethod(implObj, "ClearChangeHistory"), flags, 1)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
     }
 
     Dispose() {

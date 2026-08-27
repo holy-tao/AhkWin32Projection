@@ -38,7 +38,6 @@ export default struct IMFMediaStream2 extends IMFMediaStream {
     }
 
     /**
-     * 
      * @param {MF_STREAM_STATE} value 
      * @returns {HRESULT} 
      */
@@ -48,7 +47,6 @@ export default struct IMFMediaStream2 extends IMFMediaStream {
     }
 
     /**
-     * 
      * @returns {MF_STREAM_STATE} 
      */
     GetStreamState() {
@@ -65,8 +63,8 @@ export default struct IMFMediaStream2 extends IMFMediaStream {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetStreamState := CallbackCreate(GetMethod(implObj, "SetStreamState"), flags, 2)
-        this.vtbl.GetStreamState := CallbackCreate(GetMethod(implObj, "GetStreamState"), flags, 2)
+        this.vtbl.SetStreamState := CallbackCreate(ObjBindMethod(implObj, "SetStreamState"), flags, 2)
+        this.vtbl.GetStreamState := CallbackCreate(ObjBindMethod(implObj, "GetStreamState"), flags, 2)
     }
 
     Dispose() {

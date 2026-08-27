@@ -20,7 +20,6 @@ export default struct PO_FX_POWER_CONTROL_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} DeviceContext 
      * @param {Pointer<Guid>} PowerControlCode 
      * @param {Integer} InBuffer 
@@ -31,10 +30,13 @@ export default struct PO_FX_POWER_CONTROL_CALLBACK {
      * @returns {NTSTATUS} 
      */
     Call(DeviceContext, PowerControlCode, InBuffer, InBufferSize, OutBuffer, OutBufferSize, BytesReturned) {
-        DeviceContextMarshal := DeviceContext is VarRef ? "ptr" : "ptr"
-        BytesReturnedMarshal := BytesReturned is VarRef ? "ptr*" : "ptr"
+        DeviceContextMarshal := DeviceContext is VarRef ? "ptr" : IntPtr
+        InBufferMarshal := InBuffer == 0 ? IntPtr : IntPtr
+        OutBufferMarshal := OutBuffer == 0 ? IntPtr : IntPtr
+        BytesReturnedMarshal := BytesReturned is VarRef ? "ptr*" : IntPtr
+        BytesReturnedMarshal := BytesReturned == 0 ? IntPtr : "ptr*"
 
-        result := DllCall(this.value, DeviceContextMarshal, DeviceContext, Guid.Ptr, PowerControlCode, IntPtr, InBuffer, IntPtr, InBufferSize, IntPtr, OutBuffer, IntPtr, OutBufferSize, BytesReturnedMarshal, BytesReturned, NTSTATUS)
+        result := DllCall(this.value, DeviceContextMarshal, DeviceContext, Guid.Ptr, PowerControlCode, InBufferMarshal, InBuffer, IntPtr, InBufferSize, OutBufferMarshal, OutBuffer, IntPtr, OutBufferSize, BytesReturnedMarshal, BytesReturned, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

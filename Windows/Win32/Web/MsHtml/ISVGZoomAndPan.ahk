@@ -43,7 +43,6 @@ export default struct ISVGZoomAndPan extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_zoomAndPan() {
@@ -60,7 +59,7 @@ export default struct ISVGZoomAndPan extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_zoomAndPan := CallbackCreate(GetMethod(implObj, "get_zoomAndPan"), flags, 2)
+        this.vtbl.get_zoomAndPan := CallbackCreate(ObjBindMethod(implObj, "get_zoomAndPan"), flags, 2)
     }
 
     Dispose() {

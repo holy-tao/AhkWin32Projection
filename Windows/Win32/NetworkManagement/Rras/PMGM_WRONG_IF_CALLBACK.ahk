@@ -22,7 +22,6 @@ export default struct PMGM_WRONG_IF_CALLBACK {
     }
 
     /**
-     * 
      * @param {Integer} dwSourceAddr Specifies the source address from which the multicast data was received. Zero indicates that data is received from all sources (a wildcard receiver for a group); otherwise, the value of <i>dwSourceAddr</i> is the IP address of the source or source network.
      * @param {Integer} dwGroupAddr Specifies the multicast group for which the data is destined. Zero indicates that all groups are received (a wildcard receiver); otherwise, the value of <i>dwGroupAddr</i> is the IP address of the group.
      * @param {Integer} dwIfIndex Specifies the interface on which the packet arrived.
@@ -37,7 +36,7 @@ export default struct PMGM_WRONG_IF_CALLBACK {
      * @returns {Integer} RRAS does not expect the application to return any specific value; any value returned is ignored by RRAS.
      */
     Call(dwSourceAddr, dwGroupAddr, dwIfIndex, dwIfNextHopAddr, dwHdrSize, pbPacketHdr) {
-        pbPacketHdrMarshal := pbPacketHdr is VarRef ? "char*" : "ptr"
+        pbPacketHdrMarshal := pbPacketHdr is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, UInt32, dwSourceAddr, UInt32, dwGroupAddr, UInt32, dwIfIndex, UInt32, dwIfNextHopAddr, UInt32, dwHdrSize, pbPacketHdrMarshal, pbPacketHdr, UInt32)
         return result

@@ -21,7 +21,6 @@ export default struct PFN_DrvQueryAdvanceWidths {
     }
 
     /**
-     * 
      * @param {DHPDEV} param0 
      * @param {Pointer<FONTOBJ>} param1 
      * @param {Integer} param2 
@@ -31,8 +30,8 @@ export default struct PFN_DrvQueryAdvanceWidths {
      * @returns {BOOL} 
      */
     Call(param0, param1, param2, param3, param4, param5) {
-        param3Marshal := param3 is VarRef ? "uint*" : "ptr"
-        param4Marshal := param4 is VarRef ? "ptr" : "ptr"
+        param3Marshal := param3 is VarRef ? "uint*" : IntPtr
+        param4Marshal := param4 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, DHPDEV, param0, FONTOBJ.Ptr, param1, UInt32, param2, param3Marshal, param3, param4Marshal, param4, UInt32, param5, BOOL)
         return result

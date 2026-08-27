@@ -23,7 +23,6 @@ export default struct NCryptExportKeyFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} _hProvider 
      * @param {NCRYPT_KEY_HANDLE} _hKey 
      * @param {NCRYPT_KEY_HANDLE} hExportKey 
@@ -37,7 +36,11 @@ export default struct NCryptExportKeyFn {
     Call(_hProvider, _hKey, hExportKey, pszBlobType, pParameterList, pbOutput, cbOutput, dwFlags) {
         pszBlobType := pszBlobType is String ? StrPtr(pszBlobType) : pszBlobType
 
-        result := DllCall(this.value, NCRYPT_PROV_HANDLE, _hProvider, NCRYPT_KEY_HANDLE, _hKey, NCRYPT_KEY_HANDLE, hExportKey, "ptr", pszBlobType, BCryptBufferDesc.Ptr, pParameterList, IntPtr, pbOutput, UInt32, cbOutput, "uint*", &pcbResult := 0, UInt32, dwFlags, "HRESULT")
+        hExportKeyMarshal := hExportKey == 0 ? IntPtr : NCRYPT_KEY_HANDLE
+        pParameterListMarshal := pParameterList == 0 ? IntPtr : BCryptBufferDesc.Ptr
+        pbOutputMarshal := pbOutput == 0 ? IntPtr : IntPtr
+
+        result := DllCall(this.value, NCRYPT_PROV_HANDLE, _hProvider, NCRYPT_KEY_HANDLE, _hKey, hExportKeyMarshal, hExportKey, "ptr", pszBlobType, pParameterListMarshal, pParameterList, pbOutputMarshal, pbOutput, UInt32, cbOutput, "uint*", &pcbResult := 0, UInt32, dwFlags, "HRESULT")
         return pcbResult
     }
 

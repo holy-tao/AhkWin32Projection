@@ -286,11 +286,11 @@ export default struct ICreateErrorInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetGUID := CallbackCreate(GetMethod(implObj, "SetGUID"), flags, 2)
-        this.vtbl.SetSource := CallbackCreate(GetMethod(implObj, "SetSource"), flags, 2)
-        this.vtbl.SetDescription := CallbackCreate(GetMethod(implObj, "SetDescription"), flags, 2)
-        this.vtbl.SetHelpFile := CallbackCreate(GetMethod(implObj, "SetHelpFile"), flags, 2)
-        this.vtbl.SetHelpContext := CallbackCreate(GetMethod(implObj, "SetHelpContext"), flags, 2)
+        this.vtbl.SetGUID := CallbackCreate(ObjBindMethod(implObj, "SetGUID"), flags, 2)
+        this.vtbl.SetSource := CallbackCreate(ObjBindMethod(implObj, "SetSource"), flags, 2)
+        this.vtbl.SetDescription := CallbackCreate(ObjBindMethod(implObj, "SetDescription"), flags, 2)
+        this.vtbl.SetHelpFile := CallbackCreate(ObjBindMethod(implObj, "SetHelpFile"), flags, 2)
+        this.vtbl.SetHelpContext := CallbackCreate(ObjBindMethod(implObj, "SetHelpContext"), flags, 2)
     }
 
     Dispose() {

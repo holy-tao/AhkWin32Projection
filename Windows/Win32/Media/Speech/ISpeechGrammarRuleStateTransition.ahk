@@ -104,7 +104,6 @@ export default struct ISpeechGrammarRuleStateTransition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechGrammarRuleStateTransitionType} 
      */
     get_Type() {
@@ -113,7 +112,6 @@ export default struct ISpeechGrammarRuleStateTransition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Text() {
@@ -123,7 +121,6 @@ export default struct ISpeechGrammarRuleStateTransition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechGrammarRule} 
      */
     get_Rule() {
@@ -132,7 +129,6 @@ export default struct ISpeechGrammarRuleStateTransition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Weight() {
@@ -142,7 +138,6 @@ export default struct ISpeechGrammarRuleStateTransition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PropertyName() {
@@ -152,7 +147,6 @@ export default struct ISpeechGrammarRuleStateTransition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PropertyId() {
@@ -161,7 +155,6 @@ export default struct ISpeechGrammarRuleStateTransition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_PropertyValue() {
@@ -171,7 +164,6 @@ export default struct ISpeechGrammarRuleStateTransition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechGrammarRuleState} 
      */
     get_NextState() {
@@ -188,14 +180,14 @@ export default struct ISpeechGrammarRuleStateTransition extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
-        this.vtbl.get_Text := CallbackCreate(GetMethod(implObj, "get_Text"), flags, 2)
-        this.vtbl.get_Rule := CallbackCreate(GetMethod(implObj, "get_Rule"), flags, 2)
-        this.vtbl.get_Weight := CallbackCreate(GetMethod(implObj, "get_Weight"), flags, 2)
-        this.vtbl.get_PropertyName := CallbackCreate(GetMethod(implObj, "get_PropertyName"), flags, 2)
-        this.vtbl.get_PropertyId := CallbackCreate(GetMethod(implObj, "get_PropertyId"), flags, 2)
-        this.vtbl.get_PropertyValue := CallbackCreate(GetMethod(implObj, "get_PropertyValue"), flags, 2)
-        this.vtbl.get_NextState := CallbackCreate(GetMethod(implObj, "get_NextState"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(ObjBindMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_Text := CallbackCreate(ObjBindMethod(implObj, "get_Text"), flags, 2)
+        this.vtbl.get_Rule := CallbackCreate(ObjBindMethod(implObj, "get_Rule"), flags, 2)
+        this.vtbl.get_Weight := CallbackCreate(ObjBindMethod(implObj, "get_Weight"), flags, 2)
+        this.vtbl.get_PropertyName := CallbackCreate(ObjBindMethod(implObj, "get_PropertyName"), flags, 2)
+        this.vtbl.get_PropertyId := CallbackCreate(ObjBindMethod(implObj, "get_PropertyId"), flags, 2)
+        this.vtbl.get_PropertyValue := CallbackCreate(ObjBindMethod(implObj, "get_PropertyValue"), flags, 2)
+        this.vtbl.get_NextState := CallbackCreate(ObjBindMethod(implObj, "get_NextState"), flags, 2)
     }
 
     Dispose() {

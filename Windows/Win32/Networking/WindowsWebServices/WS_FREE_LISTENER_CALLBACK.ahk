@@ -23,7 +23,6 @@ export default struct WS_FREE_LISTENER_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} listenerInstance The pointer to the state specific to this listener instance,
      *                     as created by the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_create_listener_callback">WS_CREATE_LISTENER_CALLBACK</a>.
      *                 
@@ -32,7 +31,7 @@ export default struct WS_FREE_LISTENER_CALLBACK {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(listenerInstance) {
-        listenerInstanceMarshal := listenerInstance is VarRef ? "ptr" : "ptr"
+        listenerInstanceMarshal := listenerInstance is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, listenerInstanceMarshal, listenerInstance)
     }

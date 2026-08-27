@@ -68,7 +68,6 @@ export default struct IDOMProgressEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_lengthComputable() {
@@ -77,7 +76,6 @@ export default struct IDOMProgressEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_loaded() {
@@ -86,7 +84,6 @@ export default struct IDOMProgressEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_total() {
@@ -95,7 +92,6 @@ export default struct IDOMProgressEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 
@@ -120,10 +116,10 @@ export default struct IDOMProgressEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_lengthComputable := CallbackCreate(GetMethod(implObj, "get_lengthComputable"), flags, 2)
-        this.vtbl.get_loaded := CallbackCreate(GetMethod(implObj, "get_loaded"), flags, 2)
-        this.vtbl.get_total := CallbackCreate(GetMethod(implObj, "get_total"), flags, 2)
-        this.vtbl.initProgressEvent := CallbackCreate(GetMethod(implObj, "initProgressEvent"), flags, 7)
+        this.vtbl.get_lengthComputable := CallbackCreate(ObjBindMethod(implObj, "get_lengthComputable"), flags, 2)
+        this.vtbl.get_loaded := CallbackCreate(ObjBindMethod(implObj, "get_loaded"), flags, 2)
+        this.vtbl.get_total := CallbackCreate(ObjBindMethod(implObj, "get_total"), flags, 2)
+        this.vtbl.initProgressEvent := CallbackCreate(ObjBindMethod(implObj, "initProgressEvent"), flags, 7)
     }
 
     Dispose() {

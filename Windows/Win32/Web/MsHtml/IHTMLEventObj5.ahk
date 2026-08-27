@@ -85,7 +85,6 @@ export default struct IHTMLEventObj5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -97,7 +96,6 @@ export default struct IHTMLEventObj5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_url() {
@@ -107,7 +105,6 @@ export default struct IHTMLEventObj5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -119,7 +116,6 @@ export default struct IHTMLEventObj5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_data() {
@@ -129,7 +125,6 @@ export default struct IHTMLEventObj5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_source() {
@@ -138,7 +133,6 @@ export default struct IHTMLEventObj5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -150,7 +144,6 @@ export default struct IHTMLEventObj5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_origin() {
@@ -160,7 +153,6 @@ export default struct IHTMLEventObj5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -170,7 +162,6 @@ export default struct IHTMLEventObj5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_issession() {
@@ -187,15 +178,15 @@ export default struct IHTMLEventObj5 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_url := CallbackCreate(GetMethod(implObj, "put_url"), flags, 2)
-        this.vtbl.get_url := CallbackCreate(GetMethod(implObj, "get_url"), flags, 2)
-        this.vtbl.put_data := CallbackCreate(GetMethod(implObj, "put_data"), flags, 2)
-        this.vtbl.get_data := CallbackCreate(GetMethod(implObj, "get_data"), flags, 2)
-        this.vtbl.get_source := CallbackCreate(GetMethod(implObj, "get_source"), flags, 2)
-        this.vtbl.put_origin := CallbackCreate(GetMethod(implObj, "put_origin"), flags, 2)
-        this.vtbl.get_origin := CallbackCreate(GetMethod(implObj, "get_origin"), flags, 2)
-        this.vtbl.put_issession := CallbackCreate(GetMethod(implObj, "put_issession"), flags, 2)
-        this.vtbl.get_issession := CallbackCreate(GetMethod(implObj, "get_issession"), flags, 2)
+        this.vtbl.put_url := CallbackCreate(ObjBindMethod(implObj, "put_url"), flags, 2)
+        this.vtbl.get_url := CallbackCreate(ObjBindMethod(implObj, "get_url"), flags, 2)
+        this.vtbl.put_data := CallbackCreate(ObjBindMethod(implObj, "put_data"), flags, 2)
+        this.vtbl.get_data := CallbackCreate(ObjBindMethod(implObj, "get_data"), flags, 2)
+        this.vtbl.get_source := CallbackCreate(ObjBindMethod(implObj, "get_source"), flags, 2)
+        this.vtbl.put_origin := CallbackCreate(ObjBindMethod(implObj, "put_origin"), flags, 2)
+        this.vtbl.get_origin := CallbackCreate(ObjBindMethod(implObj, "get_origin"), flags, 2)
+        this.vtbl.put_issession := CallbackCreate(ObjBindMethod(implObj, "put_issession"), flags, 2)
+        this.vtbl.get_issession := CallbackCreate(ObjBindMethod(implObj, "get_issession"), flags, 2)
     }
 
     Dispose() {

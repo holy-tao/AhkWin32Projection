@@ -22,13 +22,12 @@ export default struct PFAXGETCONFIGURATIONW {
     }
 
     /**
-     * 
      * @param {HANDLE} FaxHandle 
      * @param {Pointer<Pointer<FAX_CONFIGURATIONW>>} FaxConfig 
      * @returns {BOOL} 
      */
     Call(FaxHandle, FaxConfig) {
-        FaxConfigMarshal := FaxConfig is VarRef ? "ptr*" : "ptr"
+        FaxConfigMarshal := FaxConfig is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, HANDLE, FaxHandle, FaxConfigMarshal, FaxConfig, BOOL)
         return result

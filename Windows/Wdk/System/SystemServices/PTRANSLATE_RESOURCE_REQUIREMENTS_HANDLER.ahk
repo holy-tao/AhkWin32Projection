@@ -21,7 +21,6 @@ export default struct PTRANSLATE_RESOURCE_REQUIREMENTS_HANDLER {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<IO_RESOURCE_DESCRIPTOR>} Source 
      * @param {Pointer<DEVICE_OBJECT>} PhysicalDeviceObject 
@@ -30,9 +29,10 @@ export default struct PTRANSLATE_RESOURCE_REQUIREMENTS_HANDLER {
      * @returns {NTSTATUS} 
      */
     Call(_Context, Source, PhysicalDeviceObject, TargetCount, Target) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        TargetCountMarshal := TargetCount is VarRef ? "uint*" : "ptr"
-        TargetMarshal := Target is VarRef ? "ptr*" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
+        TargetCountMarshal := TargetCount is VarRef ? "uint*" : IntPtr
+        TargetMarshal := Target is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, IO_RESOURCE_DESCRIPTOR.Ptr, Source, DEVICE_OBJECT.Ptr, PhysicalDeviceObject, TargetCountMarshal, TargetCount, TargetMarshal, Target, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

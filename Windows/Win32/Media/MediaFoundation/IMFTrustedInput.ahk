@@ -58,7 +58,7 @@ export default struct IMFTrustedInput extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetInputTrustAuthority := CallbackCreate(GetMethod(implObj, "GetInputTrustAuthority"), flags, 4)
+        this.vtbl.GetInputTrustAuthority := CallbackCreate(ObjBindMethod(implObj, "GetInputTrustAuthority"), flags, 4)
     }
 
     Dispose() {

@@ -21,7 +21,6 @@ export default struct PRESUTIL_SET_RESOURCE_SERVICE_ENVIRONMENT {
     }
 
     /**
-     * 
      * @param {PWSTR} pszServiceName 
      * @param {HRESOURCE} _hResource 
      * @param {Pointer<PLOG_EVENT_ROUTINE>} pfnLogEvent 

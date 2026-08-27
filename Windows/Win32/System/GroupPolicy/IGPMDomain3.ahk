@@ -58,7 +58,6 @@ export default struct IGPMDomain3 extends IGPMDomain2 {
     }
 
     /**
-     * 
      * @param {GPMReportType} _gpmReportType 
      * @param {Pointer<VARIANT>} pvarGPMProgress 
      * @param {Pointer<VARIANT>} pvarGPMCancel 
@@ -70,7 +69,6 @@ export default struct IGPMDomain3 extends IGPMDomain2 {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_InfrastructureDC() {
@@ -80,7 +78,6 @@ export default struct IGPMDomain3 extends IGPMDomain2 {
     }
 
     /**
-     * 
      * @param {BSTR} newVal 
      * @returns {HRESULT} 
      */
@@ -92,7 +89,6 @@ export default struct IGPMDomain3 extends IGPMDomain2 {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
@@ -110,10 +106,10 @@ export default struct IGPMDomain3 extends IGPMDomain2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GenerateReport := CallbackCreate(GetMethod(implObj, "GenerateReport"), flags, 5)
-        this.vtbl.get_InfrastructureDC := CallbackCreate(GetMethod(implObj, "get_InfrastructureDC"), flags, 2)
-        this.vtbl.put_InfrastructureDC := CallbackCreate(GetMethod(implObj, "put_InfrastructureDC"), flags, 2)
-        this.vtbl.put_InfrastructureFlags := CallbackCreate(GetMethod(implObj, "put_InfrastructureFlags"), flags, 2)
+        this.vtbl.GenerateReport := CallbackCreate(ObjBindMethod(implObj, "GenerateReport"), flags, 5)
+        this.vtbl.get_InfrastructureDC := CallbackCreate(ObjBindMethod(implObj, "get_InfrastructureDC"), flags, 2)
+        this.vtbl.put_InfrastructureDC := CallbackCreate(ObjBindMethod(implObj, "put_InfrastructureDC"), flags, 2)
+        this.vtbl.put_InfrastructureFlags := CallbackCreate(ObjBindMethod(implObj, "put_InfrastructureFlags"), flags, 2)
     }
 
     Dispose() {

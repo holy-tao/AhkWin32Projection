@@ -29,7 +29,6 @@ export default struct CryptXmlDllGetInterface {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags This parameter is reserved and must be set to zero.
      * @param {Pointer<CRYPT_XML_ALGORITHM_INFO>} pMethod A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_algorithm_info">CRYPT_XML_ALGORITHM_INFO</a> structure to retrieve the interface of.
      * @param {Pointer<CRYPT_XML_CRYPTOGRAPHIC_INTERFACE>} pInterface A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_algorithm_info">CRYPT_XML_ALGORITHM_INFO</a> structure to receive the interface information.

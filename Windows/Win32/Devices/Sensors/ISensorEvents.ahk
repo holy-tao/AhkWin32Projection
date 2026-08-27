@@ -70,7 +70,9 @@ export default struct ISensorEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensorevents-onstatechanged
      */
     OnStateChanged(pSensor, state) {
-        result := ComCall(3, this, "ptr", pSensor, SensorState, state, "HRESULT")
+        pSensorMarshal := pSensor == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pSensorMarshal, pSensor, SensorState, state, "HRESULT")
         return result
     }
 
@@ -100,7 +102,10 @@ export default struct ISensorEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensorevents-ondataupdated
      */
     OnDataUpdated(pSensor, pNewData) {
-        result := ComCall(4, this, "ptr", pSensor, "ptr", pNewData, "HRESULT")
+        pSensorMarshal := pSensor == 0 ? IntPtr : "ptr"
+        pNewDataMarshal := pNewData == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, pSensorMarshal, pSensor, pNewDataMarshal, pNewData, "HRESULT")
         return result
     }
 
@@ -117,7 +122,10 @@ export default struct ISensorEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensorevents-onevent
      */
     OnEvent(pSensor, eventID, pEventData) {
-        result := ComCall(5, this, "ptr", pSensor, Guid.Ptr, eventID, "ptr", pEventData, "HRESULT")
+        pSensorMarshal := pSensor == 0 ? IntPtr : "ptr"
+        pEventDataMarshal := pEventData == 0 ? IntPtr : "ptr"
+
+        result := ComCall(5, this, pSensorMarshal, pSensor, Guid.Ptr, eventID, pEventDataMarshal, pEventData, "HRESULT")
         return result
     }
 
@@ -161,10 +169,10 @@ export default struct ISensorEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnStateChanged := CallbackCreate(GetMethod(implObj, "OnStateChanged"), flags, 3)
-        this.vtbl.OnDataUpdated := CallbackCreate(GetMethod(implObj, "OnDataUpdated"), flags, 3)
-        this.vtbl.OnEvent := CallbackCreate(GetMethod(implObj, "OnEvent"), flags, 4)
-        this.vtbl.OnLeave := CallbackCreate(GetMethod(implObj, "OnLeave"), flags, 2)
+        this.vtbl.OnStateChanged := CallbackCreate(ObjBindMethod(implObj, "OnStateChanged"), flags, 3)
+        this.vtbl.OnDataUpdated := CallbackCreate(ObjBindMethod(implObj, "OnDataUpdated"), flags, 3)
+        this.vtbl.OnEvent := CallbackCreate(ObjBindMethod(implObj, "OnEvent"), flags, 4)
+        this.vtbl.OnLeave := CallbackCreate(ObjBindMethod(implObj, "OnLeave"), flags, 2)
     }
 
     Dispose() {

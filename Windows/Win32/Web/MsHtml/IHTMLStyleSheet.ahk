@@ -156,7 +156,6 @@ export default struct IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -168,7 +167,6 @@ export default struct IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_title() {
@@ -178,7 +176,6 @@ export default struct IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStyleSheet} 
      */
     get_parentStyleSheet() {
@@ -187,7 +184,6 @@ export default struct IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_owningElement() {
@@ -196,7 +192,6 @@ export default struct IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -206,7 +201,6 @@ export default struct IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_disabled() {
@@ -215,7 +209,6 @@ export default struct IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_readOnly() {
@@ -224,7 +217,6 @@ export default struct IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStyleSheetsCollection} 
      */
     get_imports() {
@@ -233,7 +225,6 @@ export default struct IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -245,7 +236,6 @@ export default struct IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_href() {
@@ -255,7 +245,6 @@ export default struct IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -265,7 +254,6 @@ export default struct IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_id() {
@@ -275,7 +263,6 @@ export default struct IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrURL 
      * @param {Integer} lIndex 
      * @returns {Integer} 
@@ -288,7 +275,6 @@ export default struct IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrSelector 
      * @param {BSTR} bstrStyle 
      * @param {Integer} lIndex 
@@ -303,7 +289,6 @@ export default struct IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lIndex 
      * @returns {HRESULT} 
      */
@@ -313,7 +298,6 @@ export default struct IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lIndex 
      * @returns {HRESULT} 
      */
@@ -323,7 +307,6 @@ export default struct IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -335,7 +318,6 @@ export default struct IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_media() {
@@ -345,7 +327,6 @@ export default struct IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -357,7 +338,6 @@ export default struct IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_cssText() {
@@ -367,7 +347,6 @@ export default struct IHTMLStyleSheet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStyleSheetRulesCollection} 
      */
     get_rules() {
@@ -384,27 +363,27 @@ export default struct IHTMLStyleSheet extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_title := CallbackCreate(GetMethod(implObj, "put_title"), flags, 2)
-        this.vtbl.get_title := CallbackCreate(GetMethod(implObj, "get_title"), flags, 2)
-        this.vtbl.get_parentStyleSheet := CallbackCreate(GetMethod(implObj, "get_parentStyleSheet"), flags, 2)
-        this.vtbl.get_owningElement := CallbackCreate(GetMethod(implObj, "get_owningElement"), flags, 2)
-        this.vtbl.put_disabled := CallbackCreate(GetMethod(implObj, "put_disabled"), flags, 2)
-        this.vtbl.get_disabled := CallbackCreate(GetMethod(implObj, "get_disabled"), flags, 2)
-        this.vtbl.get_readOnly := CallbackCreate(GetMethod(implObj, "get_readOnly"), flags, 2)
-        this.vtbl.get_imports := CallbackCreate(GetMethod(implObj, "get_imports"), flags, 2)
-        this.vtbl.put_href := CallbackCreate(GetMethod(implObj, "put_href"), flags, 2)
-        this.vtbl.get_href := CallbackCreate(GetMethod(implObj, "get_href"), flags, 2)
-        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
-        this.vtbl.get_id := CallbackCreate(GetMethod(implObj, "get_id"), flags, 2)
-        this.vtbl.addImport := CallbackCreate(GetMethod(implObj, "addImport"), flags, 4)
-        this.vtbl.addRule := CallbackCreate(GetMethod(implObj, "addRule"), flags, 5)
-        this.vtbl.removeImport := CallbackCreate(GetMethod(implObj, "removeImport"), flags, 2)
-        this.vtbl.removeRule := CallbackCreate(GetMethod(implObj, "removeRule"), flags, 2)
-        this.vtbl.put_media := CallbackCreate(GetMethod(implObj, "put_media"), flags, 2)
-        this.vtbl.get_media := CallbackCreate(GetMethod(implObj, "get_media"), flags, 2)
-        this.vtbl.put_cssText := CallbackCreate(GetMethod(implObj, "put_cssText"), flags, 2)
-        this.vtbl.get_cssText := CallbackCreate(GetMethod(implObj, "get_cssText"), flags, 2)
-        this.vtbl.get_rules := CallbackCreate(GetMethod(implObj, "get_rules"), flags, 2)
+        this.vtbl.put_title := CallbackCreate(ObjBindMethod(implObj, "put_title"), flags, 2)
+        this.vtbl.get_title := CallbackCreate(ObjBindMethod(implObj, "get_title"), flags, 2)
+        this.vtbl.get_parentStyleSheet := CallbackCreate(ObjBindMethod(implObj, "get_parentStyleSheet"), flags, 2)
+        this.vtbl.get_owningElement := CallbackCreate(ObjBindMethod(implObj, "get_owningElement"), flags, 2)
+        this.vtbl.put_disabled := CallbackCreate(ObjBindMethod(implObj, "put_disabled"), flags, 2)
+        this.vtbl.get_disabled := CallbackCreate(ObjBindMethod(implObj, "get_disabled"), flags, 2)
+        this.vtbl.get_readOnly := CallbackCreate(ObjBindMethod(implObj, "get_readOnly"), flags, 2)
+        this.vtbl.get_imports := CallbackCreate(ObjBindMethod(implObj, "get_imports"), flags, 2)
+        this.vtbl.put_href := CallbackCreate(ObjBindMethod(implObj, "put_href"), flags, 2)
+        this.vtbl.get_href := CallbackCreate(ObjBindMethod(implObj, "get_href"), flags, 2)
+        this.vtbl.get_type := CallbackCreate(ObjBindMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.get_id := CallbackCreate(ObjBindMethod(implObj, "get_id"), flags, 2)
+        this.vtbl.addImport := CallbackCreate(ObjBindMethod(implObj, "addImport"), flags, 4)
+        this.vtbl.addRule := CallbackCreate(ObjBindMethod(implObj, "addRule"), flags, 5)
+        this.vtbl.removeImport := CallbackCreate(ObjBindMethod(implObj, "removeImport"), flags, 2)
+        this.vtbl.removeRule := CallbackCreate(ObjBindMethod(implObj, "removeRule"), flags, 2)
+        this.vtbl.put_media := CallbackCreate(ObjBindMethod(implObj, "put_media"), flags, 2)
+        this.vtbl.get_media := CallbackCreate(ObjBindMethod(implObj, "get_media"), flags, 2)
+        this.vtbl.put_cssText := CallbackCreate(ObjBindMethod(implObj, "put_cssText"), flags, 2)
+        this.vtbl.get_cssText := CallbackCreate(ObjBindMethod(implObj, "get_cssText"), flags, 2)
+        this.vtbl.get_rules := CallbackCreate(ObjBindMethod(implObj, "get_rules"), flags, 2)
     }
 
     Dispose() {

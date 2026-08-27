@@ -20,7 +20,6 @@ export default struct PFND3DKMT_GETRESOURCEPRESENTPRIVATEDRIVERDATA {
     }
 
     /**
-     * 
      * @param {Pointer<D3DDDI_GETRESOURCEPRESENTPRIVATEDRIVERDATA>} param0 
      * @returns {NTSTATUS} 
      */

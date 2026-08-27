@@ -77,7 +77,7 @@ export default struct IVdsIscsiPortalLocal extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetIpsecSecurityLocal := CallbackCreate(GetMethod(implObj, "SetIpsecSecurityLocal"), flags, 3)
+        this.vtbl.SetIpsecSecurityLocal := CallbackCreate(ObjBindMethod(implObj, "SetIpsecSecurityLocal"), flags, 3)
     }
 
     Dispose() {

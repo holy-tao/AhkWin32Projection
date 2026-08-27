@@ -150,8 +150,8 @@ export default struct IOpcSignaturePartReference extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturepartreference-getdigestvalue
      */
     GetDigestValue(digestValue, count) {
-        digestValueMarshal := digestValue is VarRef ? "ptr*" : "ptr"
-        countMarshal := count is VarRef ? "uint*" : "ptr"
+        digestValueMarshal := digestValue is VarRef ? "ptr*" : IntPtr
+        countMarshal := count is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, digestValueMarshal, digestValue, countMarshal, count, "HRESULT")
         return result
@@ -176,11 +176,11 @@ export default struct IOpcSignaturePartReference extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPartName := CallbackCreate(GetMethod(implObj, "GetPartName"), flags, 2)
-        this.vtbl.GetContentType := CallbackCreate(GetMethod(implObj, "GetContentType"), flags, 2)
-        this.vtbl.GetDigestMethod := CallbackCreate(GetMethod(implObj, "GetDigestMethod"), flags, 2)
-        this.vtbl.GetDigestValue := CallbackCreate(GetMethod(implObj, "GetDigestValue"), flags, 3)
-        this.vtbl.GetTransformMethod := CallbackCreate(GetMethod(implObj, "GetTransformMethod"), flags, 2)
+        this.vtbl.GetPartName := CallbackCreate(ObjBindMethod(implObj, "GetPartName"), flags, 2)
+        this.vtbl.GetContentType := CallbackCreate(ObjBindMethod(implObj, "GetContentType"), flags, 2)
+        this.vtbl.GetDigestMethod := CallbackCreate(ObjBindMethod(implObj, "GetDigestMethod"), flags, 2)
+        this.vtbl.GetDigestValue := CallbackCreate(ObjBindMethod(implObj, "GetDigestValue"), flags, 3)
+        this.vtbl.GetTransformMethod := CallbackCreate(ObjBindMethod(implObj, "GetTransformMethod"), flags, 2)
     }
 
     Dispose() {

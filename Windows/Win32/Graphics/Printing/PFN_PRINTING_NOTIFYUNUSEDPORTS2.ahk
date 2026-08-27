@@ -20,7 +20,6 @@ export default struct PFN_PRINTING_NOTIFYUNUSEDPORTS2 {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @param {Integer} param1 
      * @param {PWSTR} param2 

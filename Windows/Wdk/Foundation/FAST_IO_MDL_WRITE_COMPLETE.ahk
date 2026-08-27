@@ -22,7 +22,6 @@ export default struct FAST_IO_MDL_WRITE_COMPLETE {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} FileOffset 
      * @param {Pointer<MDL>} MdlChain 
@@ -30,7 +29,7 @@ export default struct FAST_IO_MDL_WRITE_COMPLETE {
      * @returns {BOOLEAN} 
      */
     Call(FileObject, FileOffset, MdlChain, DeviceObject) {
-        FileOffsetMarshal := FileOffset is VarRef ? "int64*" : "ptr"
+        FileOffsetMarshal := FileOffset is VarRef ? "int64*" : IntPtr
 
         result := DllCall(this.value, FILE_OBJECT.Ptr, FileObject, FileOffsetMarshal, FileOffset, MDL.Ptr, MdlChain, DEVICE_OBJECT.Ptr, DeviceObject, BOOLEAN)
         return result

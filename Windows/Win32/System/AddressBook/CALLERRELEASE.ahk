@@ -26,7 +26,6 @@ export default struct CALLERRELEASE {
     }
 
     /**
-     * 
      * @param {Integer} ulCallerData > [in] Caller data saved by MAPI with the table view and passed to the **CALLERRELEASE** based callback function. The data provides context about the table view being released.
      * @param {ITableData} lpTblData > [in] Pointer to the [ITableData : IUnknown](itabledataiunknown.md) interface for the table data object underlying the table view being released.
      * @param {IMAPITable} lpVue > [in] Pointer to the [IMAPITable : IUnknown](imapitableiunknown.md) interface for the table view being released. This is an interface for the table object returned in the _lppMAPITable_ parameter of the [ITableData::HrGetView](itabledata-hrgetview.md) method that created the object to release.

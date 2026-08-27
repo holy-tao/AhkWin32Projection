@@ -145,7 +145,9 @@ export default struct IX509SCEPEnrollment extends IDispatch {
         strThumbprint := strThumbprint is String ? BSTR.Alloc(strThumbprint).Value : strThumbprint
         strServerCertificates := strServerCertificates is String ? BSTR.Alloc(strServerCertificates).Value : strServerCertificates
 
-        result := ComCall(7, this, "ptr", pRequest, BSTR, strThumbprint, EncodingType, ThumprintEncoding, BSTR, strServerCertificates, EncodingType, Encoding, "HRESULT")
+        pRequestMarshal := pRequest == 0 ? IntPtr : "ptr"
+
+        result := ComCall(7, this, pRequestMarshal, pRequest, BSTR, strThumbprint, EncodingType, ThumprintEncoding, BSTR, strServerCertificates, EncodingType, Encoding, "HRESULT")
         return result
     }
 
@@ -274,7 +276,9 @@ export default struct IX509SCEPEnrollment extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509scepenrollment-put_signercertificate
      */
     put_SignerCertificate(pValue) {
-        result := ComCall(16, this, "ptr", pValue, "HRESULT")
+        pValueMarshal := pValue == 0 ? IntPtr : "ptr"
+
+        result := ComCall(16, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -299,7 +303,9 @@ export default struct IX509SCEPEnrollment extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509scepenrollment-put_oldcertificate
      */
     put_OldCertificate(pValue) {
-        result := ComCall(18, this, "ptr", pValue, "HRESULT")
+        pValueMarshal := pValue == 0 ? IntPtr : "ptr"
+
+        result := ComCall(18, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -404,7 +410,6 @@ export default struct IX509SCEPEnrollment extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Silent() {
@@ -444,28 +449,28 @@ export default struct IX509SCEPEnrollment extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 6)
-        this.vtbl.InitializeForPending := CallbackCreate(GetMethod(implObj, "InitializeForPending"), flags, 2)
-        this.vtbl.CreateRequestMessage := CallbackCreate(GetMethod(implObj, "CreateRequestMessage"), flags, 3)
-        this.vtbl.CreateRetrievePendingMessage := CallbackCreate(GetMethod(implObj, "CreateRetrievePendingMessage"), flags, 3)
-        this.vtbl.CreateRetrieveCertificateMessage := CallbackCreate(GetMethod(implObj, "CreateRetrieveCertificateMessage"), flags, 8)
-        this.vtbl.ProcessResponseMessage := CallbackCreate(GetMethod(implObj, "ProcessResponseMessage"), flags, 4)
-        this.vtbl.put_ServerCapabilities := CallbackCreate(GetMethod(implObj, "put_ServerCapabilities"), flags, 2)
-        this.vtbl.get_FailInfo := CallbackCreate(GetMethod(implObj, "get_FailInfo"), flags, 2)
-        this.vtbl.get_SignerCertificate := CallbackCreate(GetMethod(implObj, "get_SignerCertificate"), flags, 2)
-        this.vtbl.put_SignerCertificate := CallbackCreate(GetMethod(implObj, "put_SignerCertificate"), flags, 2)
-        this.vtbl.get_OldCertificate := CallbackCreate(GetMethod(implObj, "get_OldCertificate"), flags, 2)
-        this.vtbl.put_OldCertificate := CallbackCreate(GetMethod(implObj, "put_OldCertificate"), flags, 2)
-        this.vtbl.get_TransactionId := CallbackCreate(GetMethod(implObj, "get_TransactionId"), flags, 3)
-        this.vtbl.put_TransactionId := CallbackCreate(GetMethod(implObj, "put_TransactionId"), flags, 3)
-        this.vtbl.get_Request := CallbackCreate(GetMethod(implObj, "get_Request"), flags, 2)
-        this.vtbl.get_CertificateFriendlyName := CallbackCreate(GetMethod(implObj, "get_CertificateFriendlyName"), flags, 2)
-        this.vtbl.put_CertificateFriendlyName := CallbackCreate(GetMethod(implObj, "put_CertificateFriendlyName"), flags, 2)
-        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
-        this.vtbl.get_Certificate := CallbackCreate(GetMethod(implObj, "get_Certificate"), flags, 3)
-        this.vtbl.get_Silent := CallbackCreate(GetMethod(implObj, "get_Silent"), flags, 2)
-        this.vtbl.put_Silent := CallbackCreate(GetMethod(implObj, "put_Silent"), flags, 2)
-        this.vtbl.DeleteRequest := CallbackCreate(GetMethod(implObj, "DeleteRequest"), flags, 1)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 6)
+        this.vtbl.InitializeForPending := CallbackCreate(ObjBindMethod(implObj, "InitializeForPending"), flags, 2)
+        this.vtbl.CreateRequestMessage := CallbackCreate(ObjBindMethod(implObj, "CreateRequestMessage"), flags, 3)
+        this.vtbl.CreateRetrievePendingMessage := CallbackCreate(ObjBindMethod(implObj, "CreateRetrievePendingMessage"), flags, 3)
+        this.vtbl.CreateRetrieveCertificateMessage := CallbackCreate(ObjBindMethod(implObj, "CreateRetrieveCertificateMessage"), flags, 8)
+        this.vtbl.ProcessResponseMessage := CallbackCreate(ObjBindMethod(implObj, "ProcessResponseMessage"), flags, 4)
+        this.vtbl.put_ServerCapabilities := CallbackCreate(ObjBindMethod(implObj, "put_ServerCapabilities"), flags, 2)
+        this.vtbl.get_FailInfo := CallbackCreate(ObjBindMethod(implObj, "get_FailInfo"), flags, 2)
+        this.vtbl.get_SignerCertificate := CallbackCreate(ObjBindMethod(implObj, "get_SignerCertificate"), flags, 2)
+        this.vtbl.put_SignerCertificate := CallbackCreate(ObjBindMethod(implObj, "put_SignerCertificate"), flags, 2)
+        this.vtbl.get_OldCertificate := CallbackCreate(ObjBindMethod(implObj, "get_OldCertificate"), flags, 2)
+        this.vtbl.put_OldCertificate := CallbackCreate(ObjBindMethod(implObj, "put_OldCertificate"), flags, 2)
+        this.vtbl.get_TransactionId := CallbackCreate(ObjBindMethod(implObj, "get_TransactionId"), flags, 3)
+        this.vtbl.put_TransactionId := CallbackCreate(ObjBindMethod(implObj, "put_TransactionId"), flags, 3)
+        this.vtbl.get_Request := CallbackCreate(ObjBindMethod(implObj, "get_Request"), flags, 2)
+        this.vtbl.get_CertificateFriendlyName := CallbackCreate(ObjBindMethod(implObj, "get_CertificateFriendlyName"), flags, 2)
+        this.vtbl.put_CertificateFriendlyName := CallbackCreate(ObjBindMethod(implObj, "put_CertificateFriendlyName"), flags, 2)
+        this.vtbl.get_Status := CallbackCreate(ObjBindMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.get_Certificate := CallbackCreate(ObjBindMethod(implObj, "get_Certificate"), flags, 3)
+        this.vtbl.get_Silent := CallbackCreate(ObjBindMethod(implObj, "get_Silent"), flags, 2)
+        this.vtbl.put_Silent := CallbackCreate(ObjBindMethod(implObj, "put_Silent"), flags, 2)
+        this.vtbl.DeleteRequest := CallbackCreate(ObjBindMethod(implObj, "DeleteRequest"), flags, 1)
     }
 
     Dispose() {

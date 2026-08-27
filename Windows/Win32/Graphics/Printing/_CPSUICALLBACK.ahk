@@ -19,7 +19,6 @@ export default struct _CPSUICALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<CPSUICBPARAM>} pCPSUICBParam 
      * @returns {Integer} 
      */

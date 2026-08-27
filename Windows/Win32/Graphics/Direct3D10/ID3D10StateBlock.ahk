@@ -106,10 +106,10 @@ export default struct ID3D10StateBlock extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Capture := CallbackCreate(GetMethod(implObj, "Capture"), flags, 1)
-        this.vtbl.Apply := CallbackCreate(GetMethod(implObj, "Apply"), flags, 1)
-        this.vtbl.ReleaseAllDeviceObjects := CallbackCreate(GetMethod(implObj, "ReleaseAllDeviceObjects"), flags, 1)
-        this.vtbl.GetDevice := CallbackCreate(GetMethod(implObj, "GetDevice"), flags, 2)
+        this.vtbl.Capture := CallbackCreate(ObjBindMethod(implObj, "Capture"), flags, 1)
+        this.vtbl.Apply := CallbackCreate(ObjBindMethod(implObj, "Apply"), flags, 1)
+        this.vtbl.ReleaseAllDeviceObjects := CallbackCreate(ObjBindMethod(implObj, "ReleaseAllDeviceObjects"), flags, 1)
+        this.vtbl.GetDevice := CallbackCreate(ObjBindMethod(implObj, "GetDevice"), flags, 2)
     }
 
     Dispose() {

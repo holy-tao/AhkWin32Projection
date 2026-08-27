@@ -19,12 +19,13 @@ export default struct DOT11EXT_ONEX_STOP {
     }
 
     /**
-     * 
      * @param {HANDLE} hDot11SvcHandle 
      * @returns {Integer} 
      */
     Call(hDot11SvcHandle) {
-        result := DllCall(this.value, HANDLE, hDot11SvcHandle, UInt32)
+        hDot11SvcHandleMarshal := hDot11SvcHandle == 0 ? IntPtr : HANDLE
+
+        result := DllCall(this.value, hDot11SvcHandleMarshal, hDot11SvcHandle, UInt32)
         return result
     }
 

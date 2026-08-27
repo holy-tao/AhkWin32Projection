@@ -19,7 +19,6 @@ export default struct PNPEM_CONTROL_QUERY_STANDARD_CAPABILITIES {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

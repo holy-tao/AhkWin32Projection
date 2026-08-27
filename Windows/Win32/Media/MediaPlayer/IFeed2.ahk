@@ -64,7 +64,6 @@ export default struct IFeed2 extends IFeed {
     }
 
     /**
-     * 
      * @param {Integer} itemEffectiveId 
      * @returns {IDispatch} 
      */
@@ -74,7 +73,6 @@ export default struct IFeed2 extends IFeed {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_LastItemDownloadTime() {
@@ -83,7 +81,6 @@ export default struct IFeed2 extends IFeed {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Username() {
@@ -93,7 +90,6 @@ export default struct IFeed2 extends IFeed {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Password() {
@@ -103,7 +99,6 @@ export default struct IFeed2 extends IFeed {
     }
 
     /**
-     * 
      * @param {BSTR} username 
      * @param {BSTR} password 
      * @returns {HRESULT} 
@@ -117,7 +112,6 @@ export default struct IFeed2 extends IFeed {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ClearCredentials() {
@@ -134,12 +128,12 @@ export default struct IFeed2 extends IFeed {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetItemByEffectiveId := CallbackCreate(GetMethod(implObj, "GetItemByEffectiveId"), flags, 3)
-        this.vtbl.get_LastItemDownloadTime := CallbackCreate(GetMethod(implObj, "get_LastItemDownloadTime"), flags, 2)
-        this.vtbl.get_Username := CallbackCreate(GetMethod(implObj, "get_Username"), flags, 2)
-        this.vtbl.get_Password := CallbackCreate(GetMethod(implObj, "get_Password"), flags, 2)
-        this.vtbl.SetCredentials := CallbackCreate(GetMethod(implObj, "SetCredentials"), flags, 3)
-        this.vtbl.ClearCredentials := CallbackCreate(GetMethod(implObj, "ClearCredentials"), flags, 1)
+        this.vtbl.GetItemByEffectiveId := CallbackCreate(ObjBindMethod(implObj, "GetItemByEffectiveId"), flags, 3)
+        this.vtbl.get_LastItemDownloadTime := CallbackCreate(ObjBindMethod(implObj, "get_LastItemDownloadTime"), flags, 2)
+        this.vtbl.get_Username := CallbackCreate(ObjBindMethod(implObj, "get_Username"), flags, 2)
+        this.vtbl.get_Password := CallbackCreate(ObjBindMethod(implObj, "get_Password"), flags, 2)
+        this.vtbl.SetCredentials := CallbackCreate(ObjBindMethod(implObj, "SetCredentials"), flags, 3)
+        this.vtbl.ClearCredentials := CallbackCreate(ObjBindMethod(implObj, "ClearCredentials"), flags, 1)
     }
 
     Dispose() {

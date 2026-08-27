@@ -67,7 +67,7 @@ export default struct ISynchronizeMutex extends ISynchronize {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ReleaseMutex := CallbackCreate(GetMethod(implObj, "ReleaseMutex"), flags, 1)
+        this.vtbl.ReleaseMutex := CallbackCreate(ObjBindMethod(implObj, "ReleaseMutex"), flags, 1)
     }
 
     Dispose() {

@@ -337,13 +337,13 @@ export default struct IMFMediaEventQueue extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetEvent := CallbackCreate(GetMethod(implObj, "GetEvent"), flags, 3)
-        this.vtbl.BeginGetEvent := CallbackCreate(GetMethod(implObj, "BeginGetEvent"), flags, 3)
-        this.vtbl.EndGetEvent := CallbackCreate(GetMethod(implObj, "EndGetEvent"), flags, 3)
-        this.vtbl.QueueEvent := CallbackCreate(GetMethod(implObj, "QueueEvent"), flags, 2)
-        this.vtbl.QueueEventParamVar := CallbackCreate(GetMethod(implObj, "QueueEventParamVar"), flags, 5)
-        this.vtbl.QueueEventParamUnk := CallbackCreate(GetMethod(implObj, "QueueEventParamUnk"), flags, 5)
-        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 1)
+        this.vtbl.GetEvent := CallbackCreate(ObjBindMethod(implObj, "GetEvent"), flags, 3)
+        this.vtbl.BeginGetEvent := CallbackCreate(ObjBindMethod(implObj, "BeginGetEvent"), flags, 3)
+        this.vtbl.EndGetEvent := CallbackCreate(ObjBindMethod(implObj, "EndGetEvent"), flags, 3)
+        this.vtbl.QueueEvent := CallbackCreate(ObjBindMethod(implObj, "QueueEvent"), flags, 2)
+        this.vtbl.QueueEventParamVar := CallbackCreate(ObjBindMethod(implObj, "QueueEventParamVar"), flags, 5)
+        this.vtbl.QueueEventParamUnk := CallbackCreate(ObjBindMethod(implObj, "QueueEventParamUnk"), flags, 5)
+        this.vtbl.Shutdown := CallbackCreate(ObjBindMethod(implObj, "Shutdown"), flags, 1)
     }
 
     Dispose() {

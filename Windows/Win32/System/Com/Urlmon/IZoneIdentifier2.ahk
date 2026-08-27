@@ -42,7 +42,6 @@ export default struct IZoneIdentifier2 extends IZoneIdentifier {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetLastWriterPackageFamilyName() {
@@ -51,7 +50,6 @@ export default struct IZoneIdentifier2 extends IZoneIdentifier {
     }
 
     /**
-     * 
      * @param {PWSTR} packageFamilyName 
      * @returns {HRESULT} 
      */
@@ -63,7 +61,6 @@ export default struct IZoneIdentifier2 extends IZoneIdentifier {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RemoveLastWriterPackageFamilyName() {
@@ -72,7 +69,6 @@ export default struct IZoneIdentifier2 extends IZoneIdentifier {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetAppZoneId() {
@@ -81,7 +77,6 @@ export default struct IZoneIdentifier2 extends IZoneIdentifier {
     }
 
     /**
-     * 
      * @param {Integer} zone 
      * @returns {HRESULT} 
      */
@@ -91,7 +86,6 @@ export default struct IZoneIdentifier2 extends IZoneIdentifier {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RemoveAppZoneId() {
@@ -108,12 +102,12 @@ export default struct IZoneIdentifier2 extends IZoneIdentifier {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLastWriterPackageFamilyName := CallbackCreate(GetMethod(implObj, "GetLastWriterPackageFamilyName"), flags, 2)
-        this.vtbl.SetLastWriterPackageFamilyName := CallbackCreate(GetMethod(implObj, "SetLastWriterPackageFamilyName"), flags, 2)
-        this.vtbl.RemoveLastWriterPackageFamilyName := CallbackCreate(GetMethod(implObj, "RemoveLastWriterPackageFamilyName"), flags, 1)
-        this.vtbl.GetAppZoneId := CallbackCreate(GetMethod(implObj, "GetAppZoneId"), flags, 2)
-        this.vtbl.SetAppZoneId := CallbackCreate(GetMethod(implObj, "SetAppZoneId"), flags, 2)
-        this.vtbl.RemoveAppZoneId := CallbackCreate(GetMethod(implObj, "RemoveAppZoneId"), flags, 1)
+        this.vtbl.GetLastWriterPackageFamilyName := CallbackCreate(ObjBindMethod(implObj, "GetLastWriterPackageFamilyName"), flags, 2)
+        this.vtbl.SetLastWriterPackageFamilyName := CallbackCreate(ObjBindMethod(implObj, "SetLastWriterPackageFamilyName"), flags, 2)
+        this.vtbl.RemoveLastWriterPackageFamilyName := CallbackCreate(ObjBindMethod(implObj, "RemoveLastWriterPackageFamilyName"), flags, 1)
+        this.vtbl.GetAppZoneId := CallbackCreate(ObjBindMethod(implObj, "GetAppZoneId"), flags, 2)
+        this.vtbl.SetAppZoneId := CallbackCreate(ObjBindMethod(implObj, "SetAppZoneId"), flags, 2)
+        this.vtbl.RemoveAppZoneId := CallbackCreate(ObjBindMethod(implObj, "RemoveAppZoneId"), flags, 1)
     }
 
     Dispose() {

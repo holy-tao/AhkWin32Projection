@@ -93,7 +93,6 @@ export default struct IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uiItemCount 
      * @param {FEEDS_XML_SORT_PROPERTY} sortProperty 
      * @param {FEEDS_XML_SORT_ORDER} sortOrder 
@@ -117,7 +116,6 @@ export default struct IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszName 
      * @returns {HRESULT} 
      */
@@ -129,7 +127,6 @@ export default struct IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     Url() {
@@ -138,7 +135,6 @@ export default struct IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszUrl 
      * @returns {HRESULT} 
      */
@@ -150,7 +146,6 @@ export default struct IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     LocalId() {
@@ -170,7 +165,6 @@ export default struct IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszPath 
      * @returns {HRESULT} 
      */
@@ -182,7 +176,6 @@ export default struct IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
@@ -192,7 +185,6 @@ export default struct IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {SYSTEMTIME} 
      */
     LastWriteTime() {
@@ -202,7 +194,6 @@ export default struct IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Delete() {
@@ -211,7 +202,6 @@ export default struct IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Download() {
@@ -220,7 +210,6 @@ export default struct IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     AsyncDownload() {
@@ -229,7 +218,6 @@ export default struct IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CancelAsyncDownload() {
@@ -238,7 +226,6 @@ export default struct IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {FEEDS_SYNC_SETTING} 
      */
     SyncSetting() {
@@ -247,7 +234,6 @@ export default struct IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @param {FEEDS_SYNC_SETTING} fss 
      * @returns {HRESULT} 
      */
@@ -273,7 +259,6 @@ export default struct IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uiInterval 
      * @returns {HRESULT} 
      */
@@ -283,7 +268,6 @@ export default struct IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {SYSTEMTIME} 
      */
     LastDownloadTime() {
@@ -293,7 +277,6 @@ export default struct IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     LocalEnclosurePath() {
@@ -302,7 +285,6 @@ export default struct IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IXFeedsEnum} 
      */
     Items() {
@@ -311,7 +293,6 @@ export default struct IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uiId 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -322,7 +303,6 @@ export default struct IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     MarkAllItemsRead() {
@@ -331,7 +311,6 @@ export default struct IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     MaxItemCount() {
@@ -340,7 +319,6 @@ export default struct IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uiMaxItemCount 
      * @returns {HRESULT} 
      */
@@ -350,7 +328,6 @@ export default struct IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     DownloadEnclosuresAutomatically() {
@@ -359,7 +336,6 @@ export default struct IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} bDownloadEnclosuresAutomatically 
      * @returns {HRESULT} 
      */
@@ -381,7 +357,6 @@ export default struct IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {FEEDS_DOWNLOAD_ERROR} 
      */
     LastDownloadError() {
@@ -390,7 +365,6 @@ export default struct IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @param {IStream} pStream 
      * @param {PWSTR} pszUrl 
      * @returns {HRESULT} 
@@ -403,7 +377,6 @@ export default struct IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     DownloadUrl() {
@@ -432,7 +405,6 @@ export default struct IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     Link() {
@@ -459,7 +431,6 @@ export default struct IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {SYSTEMTIME} 
      */
     LastBuildDate() {
@@ -469,7 +440,6 @@ export default struct IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {SYSTEMTIME} 
      */
     PubDate() {
@@ -479,7 +449,6 @@ export default struct IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Ttl() {
@@ -488,7 +457,6 @@ export default struct IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     Language() {
@@ -511,7 +479,6 @@ export default struct IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsList() {
@@ -520,7 +487,6 @@ export default struct IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @param {FEEDS_EVENTS_SCOPE} scope 
      * @param {FEEDS_EVENTS_MASK} mask 
      * @param {Pointer<Guid>} riid 
@@ -532,7 +498,6 @@ export default struct IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     UnreadItemCount() {
@@ -541,7 +506,6 @@ export default struct IXFeed extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     ItemCount() {
@@ -558,50 +522,50 @@ export default struct IXFeed extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Xml := CallbackCreate(GetMethod(implObj, "Xml"), flags, 7)
-        this.vtbl.Name := CallbackCreate(GetMethod(implObj, "Name"), flags, 2)
-        this.vtbl.Rename := CallbackCreate(GetMethod(implObj, "Rename"), flags, 2)
-        this.vtbl.Url := CallbackCreate(GetMethod(implObj, "Url"), flags, 2)
-        this.vtbl.SetUrl := CallbackCreate(GetMethod(implObj, "SetUrl"), flags, 2)
-        this.vtbl.LocalId := CallbackCreate(GetMethod(implObj, "LocalId"), flags, 2)
-        this.vtbl.Path := CallbackCreate(GetMethod(implObj, "Path"), flags, 2)
-        this.vtbl.Move := CallbackCreate(GetMethod(implObj, "Move"), flags, 2)
-        this.vtbl.Parent := CallbackCreate(GetMethod(implObj, "Parent"), flags, 3)
-        this.vtbl.LastWriteTime := CallbackCreate(GetMethod(implObj, "LastWriteTime"), flags, 2)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
-        this.vtbl.Download := CallbackCreate(GetMethod(implObj, "Download"), flags, 1)
-        this.vtbl.AsyncDownload := CallbackCreate(GetMethod(implObj, "AsyncDownload"), flags, 1)
-        this.vtbl.CancelAsyncDownload := CallbackCreate(GetMethod(implObj, "CancelAsyncDownload"), flags, 1)
-        this.vtbl.SyncSetting := CallbackCreate(GetMethod(implObj, "SyncSetting"), flags, 2)
-        this.vtbl.SetSyncSetting := CallbackCreate(GetMethod(implObj, "SetSyncSetting"), flags, 2)
-        this.vtbl.Interval := CallbackCreate(GetMethod(implObj, "Interval"), flags, 2)
-        this.vtbl.SetInterval := CallbackCreate(GetMethod(implObj, "SetInterval"), flags, 2)
-        this.vtbl.LastDownloadTime := CallbackCreate(GetMethod(implObj, "LastDownloadTime"), flags, 2)
-        this.vtbl.LocalEnclosurePath := CallbackCreate(GetMethod(implObj, "LocalEnclosurePath"), flags, 2)
-        this.vtbl.Items := CallbackCreate(GetMethod(implObj, "Items"), flags, 2)
-        this.vtbl.GetItem := CallbackCreate(GetMethod(implObj, "GetItem"), flags, 4)
-        this.vtbl.MarkAllItemsRead := CallbackCreate(GetMethod(implObj, "MarkAllItemsRead"), flags, 1)
-        this.vtbl.MaxItemCount := CallbackCreate(GetMethod(implObj, "MaxItemCount"), flags, 2)
-        this.vtbl.SetMaxItemCount := CallbackCreate(GetMethod(implObj, "SetMaxItemCount"), flags, 2)
-        this.vtbl.DownloadEnclosuresAutomatically := CallbackCreate(GetMethod(implObj, "DownloadEnclosuresAutomatically"), flags, 2)
-        this.vtbl.SetDownloadEnclosuresAutomatically := CallbackCreate(GetMethod(implObj, "SetDownloadEnclosuresAutomatically"), flags, 2)
-        this.vtbl.DownloadStatus := CallbackCreate(GetMethod(implObj, "DownloadStatus"), flags, 2)
-        this.vtbl.LastDownloadError := CallbackCreate(GetMethod(implObj, "LastDownloadError"), flags, 2)
-        this.vtbl.Merge := CallbackCreate(GetMethod(implObj, "Merge"), flags, 3)
-        this.vtbl.DownloadUrl := CallbackCreate(GetMethod(implObj, "DownloadUrl"), flags, 2)
-        this.vtbl.Title := CallbackCreate(GetMethod(implObj, "Title"), flags, 2)
-        this.vtbl.Description := CallbackCreate(GetMethod(implObj, "Description"), flags, 2)
-        this.vtbl.Link := CallbackCreate(GetMethod(implObj, "Link"), flags, 2)
-        this.vtbl.Image := CallbackCreate(GetMethod(implObj, "Image"), flags, 2)
-        this.vtbl.LastBuildDate := CallbackCreate(GetMethod(implObj, "LastBuildDate"), flags, 2)
-        this.vtbl.PubDate := CallbackCreate(GetMethod(implObj, "PubDate"), flags, 2)
-        this.vtbl.Ttl := CallbackCreate(GetMethod(implObj, "Ttl"), flags, 2)
-        this.vtbl.Language := CallbackCreate(GetMethod(implObj, "Language"), flags, 2)
-        this.vtbl.Copyright := CallbackCreate(GetMethod(implObj, "Copyright"), flags, 2)
-        this.vtbl.IsList := CallbackCreate(GetMethod(implObj, "IsList"), flags, 2)
-        this.vtbl.GetWatcher := CallbackCreate(GetMethod(implObj, "GetWatcher"), flags, 5)
-        this.vtbl.UnreadItemCount := CallbackCreate(GetMethod(implObj, "UnreadItemCount"), flags, 2)
-        this.vtbl.ItemCount := CallbackCreate(GetMethod(implObj, "ItemCount"), flags, 2)
+        this.vtbl.Xml := CallbackCreate(ObjBindMethod(implObj, "Xml"), flags, 7)
+        this.vtbl.Name := CallbackCreate(ObjBindMethod(implObj, "Name"), flags, 2)
+        this.vtbl.Rename := CallbackCreate(ObjBindMethod(implObj, "Rename"), flags, 2)
+        this.vtbl.Url := CallbackCreate(ObjBindMethod(implObj, "Url"), flags, 2)
+        this.vtbl.SetUrl := CallbackCreate(ObjBindMethod(implObj, "SetUrl"), flags, 2)
+        this.vtbl.LocalId := CallbackCreate(ObjBindMethod(implObj, "LocalId"), flags, 2)
+        this.vtbl.Path := CallbackCreate(ObjBindMethod(implObj, "Path"), flags, 2)
+        this.vtbl.Move := CallbackCreate(ObjBindMethod(implObj, "Move"), flags, 2)
+        this.vtbl.Parent := CallbackCreate(ObjBindMethod(implObj, "Parent"), flags, 3)
+        this.vtbl.LastWriteTime := CallbackCreate(ObjBindMethod(implObj, "LastWriteTime"), flags, 2)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.Download := CallbackCreate(ObjBindMethod(implObj, "Download"), flags, 1)
+        this.vtbl.AsyncDownload := CallbackCreate(ObjBindMethod(implObj, "AsyncDownload"), flags, 1)
+        this.vtbl.CancelAsyncDownload := CallbackCreate(ObjBindMethod(implObj, "CancelAsyncDownload"), flags, 1)
+        this.vtbl.SyncSetting := CallbackCreate(ObjBindMethod(implObj, "SyncSetting"), flags, 2)
+        this.vtbl.SetSyncSetting := CallbackCreate(ObjBindMethod(implObj, "SetSyncSetting"), flags, 2)
+        this.vtbl.Interval := CallbackCreate(ObjBindMethod(implObj, "Interval"), flags, 2)
+        this.vtbl.SetInterval := CallbackCreate(ObjBindMethod(implObj, "SetInterval"), flags, 2)
+        this.vtbl.LastDownloadTime := CallbackCreate(ObjBindMethod(implObj, "LastDownloadTime"), flags, 2)
+        this.vtbl.LocalEnclosurePath := CallbackCreate(ObjBindMethod(implObj, "LocalEnclosurePath"), flags, 2)
+        this.vtbl.Items := CallbackCreate(ObjBindMethod(implObj, "Items"), flags, 2)
+        this.vtbl.GetItem := CallbackCreate(ObjBindMethod(implObj, "GetItem"), flags, 4)
+        this.vtbl.MarkAllItemsRead := CallbackCreate(ObjBindMethod(implObj, "MarkAllItemsRead"), flags, 1)
+        this.vtbl.MaxItemCount := CallbackCreate(ObjBindMethod(implObj, "MaxItemCount"), flags, 2)
+        this.vtbl.SetMaxItemCount := CallbackCreate(ObjBindMethod(implObj, "SetMaxItemCount"), flags, 2)
+        this.vtbl.DownloadEnclosuresAutomatically := CallbackCreate(ObjBindMethod(implObj, "DownloadEnclosuresAutomatically"), flags, 2)
+        this.vtbl.SetDownloadEnclosuresAutomatically := CallbackCreate(ObjBindMethod(implObj, "SetDownloadEnclosuresAutomatically"), flags, 2)
+        this.vtbl.DownloadStatus := CallbackCreate(ObjBindMethod(implObj, "DownloadStatus"), flags, 2)
+        this.vtbl.LastDownloadError := CallbackCreate(ObjBindMethod(implObj, "LastDownloadError"), flags, 2)
+        this.vtbl.Merge := CallbackCreate(ObjBindMethod(implObj, "Merge"), flags, 3)
+        this.vtbl.DownloadUrl := CallbackCreate(ObjBindMethod(implObj, "DownloadUrl"), flags, 2)
+        this.vtbl.Title := CallbackCreate(ObjBindMethod(implObj, "Title"), flags, 2)
+        this.vtbl.Description := CallbackCreate(ObjBindMethod(implObj, "Description"), flags, 2)
+        this.vtbl.Link := CallbackCreate(ObjBindMethod(implObj, "Link"), flags, 2)
+        this.vtbl.Image := CallbackCreate(ObjBindMethod(implObj, "Image"), flags, 2)
+        this.vtbl.LastBuildDate := CallbackCreate(ObjBindMethod(implObj, "LastBuildDate"), flags, 2)
+        this.vtbl.PubDate := CallbackCreate(ObjBindMethod(implObj, "PubDate"), flags, 2)
+        this.vtbl.Ttl := CallbackCreate(ObjBindMethod(implObj, "Ttl"), flags, 2)
+        this.vtbl.Language := CallbackCreate(ObjBindMethod(implObj, "Language"), flags, 2)
+        this.vtbl.Copyright := CallbackCreate(ObjBindMethod(implObj, "Copyright"), flags, 2)
+        this.vtbl.IsList := CallbackCreate(ObjBindMethod(implObj, "IsList"), flags, 2)
+        this.vtbl.GetWatcher := CallbackCreate(ObjBindMethod(implObj, "GetWatcher"), flags, 5)
+        this.vtbl.UnreadItemCount := CallbackCreate(ObjBindMethod(implObj, "UnreadItemCount"), flags, 2)
+        this.vtbl.ItemCount := CallbackCreate(ObjBindMethod(implObj, "ItemCount"), flags, 2)
     }
 
     Dispose() {

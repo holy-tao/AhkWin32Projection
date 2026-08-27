@@ -116,7 +116,7 @@ export default struct ISimilarityTraitsMapping extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilaritytraitsmapping-getpagesize
      */
     GetPageSize(pageSize) {
-        pageSizeMarshal := pageSize is VarRef ? "uint*" : "ptr"
+        pageSizeMarshal := pageSize is VarRef ? "uint*" : IntPtr
 
         ComCall(8, this, pageSizeMarshal, pageSize)
     }
@@ -144,13 +144,13 @@ export default struct ISimilarityTraitsMapping extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CloseMapping := CallbackCreate(GetMethod(implObj, "CloseMapping"), flags, 1)
-        this.vtbl.SetFileSize := CallbackCreate(GetMethod(implObj, "SetFileSize"), flags, 2)
-        this.vtbl.GetFileSize := CallbackCreate(GetMethod(implObj, "GetFileSize"), flags, 2)
-        this.vtbl.OpenMapping := CallbackCreate(GetMethod(implObj, "OpenMapping"), flags, 5)
-        this.vtbl.ResizeMapping := CallbackCreate(GetMethod(implObj, "ResizeMapping"), flags, 5)
-        this.vtbl.GetPageSize := CallbackCreate(GetMethod(implObj, "GetPageSize"), flags, 2)
-        this.vtbl.CreateView := CallbackCreate(GetMethod(implObj, "CreateView"), flags, 4)
+        this.vtbl.CloseMapping := CallbackCreate(ObjBindMethod(implObj, "CloseMapping"), flags, 1)
+        this.vtbl.SetFileSize := CallbackCreate(ObjBindMethod(implObj, "SetFileSize"), flags, 2)
+        this.vtbl.GetFileSize := CallbackCreate(ObjBindMethod(implObj, "GetFileSize"), flags, 2)
+        this.vtbl.OpenMapping := CallbackCreate(ObjBindMethod(implObj, "OpenMapping"), flags, 5)
+        this.vtbl.ResizeMapping := CallbackCreate(ObjBindMethod(implObj, "ResizeMapping"), flags, 5)
+        this.vtbl.GetPageSize := CallbackCreate(ObjBindMethod(implObj, "GetPageSize"), flags, 2)
+        this.vtbl.CreateView := CallbackCreate(ObjBindMethod(implObj, "CreateView"), flags, 4)
     }
 
     Dispose() {

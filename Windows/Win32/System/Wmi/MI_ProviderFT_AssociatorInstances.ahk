@@ -22,7 +22,6 @@ export default struct MI_ProviderFT_AssociatorInstances {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} self 
      * @param {Pointer<MI_Context>} _context 
      * @param {Pointer<Integer>} nameSpace 
@@ -37,14 +36,20 @@ export default struct MI_ProviderFT_AssociatorInstances {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(self, _context, nameSpace, className, instanceName, resultClass, role, resultRole, propertySet, keysOnly, filter) {
-        selfMarshal := self is VarRef ? "ptr" : "ptr"
-        nameSpaceMarshal := nameSpace is VarRef ? "ushort*" : "ptr"
-        classNameMarshal := className is VarRef ? "ushort*" : "ptr"
-        resultClassMarshal := resultClass is VarRef ? "ushort*" : "ptr"
-        roleMarshal := role is VarRef ? "ushort*" : "ptr"
-        resultRoleMarshal := resultRole is VarRef ? "ushort*" : "ptr"
+        selfMarshal := self is VarRef ? "ptr" : IntPtr
+        selfMarshal := self == 0 ? IntPtr : "ptr"
+        nameSpaceMarshal := nameSpace is VarRef ? "ushort*" : IntPtr
+        classNameMarshal := className is VarRef ? "ushort*" : IntPtr
+        resultClassMarshal := resultClass is VarRef ? "ushort*" : IntPtr
+        resultClassMarshal := resultClass == 0 ? IntPtr : "ushort*"
+        roleMarshal := role is VarRef ? "ushort*" : IntPtr
+        roleMarshal := role == 0 ? IntPtr : "ushort*"
+        resultRoleMarshal := resultRole is VarRef ? "ushort*" : IntPtr
+        resultRoleMarshal := resultRole == 0 ? IntPtr : "ushort*"
+        propertySetMarshal := propertySet == 0 ? IntPtr : MI_PropertySet.Ptr
+        filterMarshal := filter == 0 ? IntPtr : MI_Filter.Ptr
 
-        DllCall(this.value, selfMarshal, self, MI_Context.Ptr, _context, nameSpaceMarshal, nameSpace, classNameMarshal, className, MI_Instance.Ptr, instanceName, resultClassMarshal, resultClass, roleMarshal, role, resultRoleMarshal, resultRole, MI_PropertySet.Ptr, propertySet, Int8, keysOnly, MI_Filter.Ptr, filter)
+        DllCall(this.value, selfMarshal, self, MI_Context.Ptr, _context, nameSpaceMarshal, nameSpace, classNameMarshal, className, MI_Instance.Ptr, instanceName, resultClassMarshal, resultClass, roleMarshal, role, resultRoleMarshal, resultRole, propertySetMarshal, propertySet, Int8, keysOnly, filterMarshal, filter)
     }
 
     /**

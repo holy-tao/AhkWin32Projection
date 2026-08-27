@@ -20,7 +20,6 @@ export default struct PCLUSAPI_CLUSTER_REG_ENUM_VALUE {
     }
 
     /**
-     * 
      * @param {HKEY} _hKey 
      * @param {Integer} dwIndex 
      * @param {PWSTR} lpszValueName 
@@ -33,11 +32,13 @@ export default struct PCLUSAPI_CLUSTER_REG_ENUM_VALUE {
     Call(_hKey, dwIndex, lpszValueName, lpcchValueName, lpdwType, lpData, lpcbData) {
         lpszValueName := lpszValueName is String ? StrPtr(lpszValueName) : lpszValueName
 
-        lpcchValueNameMarshal := lpcchValueName is VarRef ? "uint*" : "ptr"
-        lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : "ptr"
-        lpcbDataMarshal := lpcbData is VarRef ? "uint*" : "ptr"
+        lpcchValueNameMarshal := lpcchValueName is VarRef ? "uint*" : IntPtr
+        lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : IntPtr
+        lpDataMarshal := lpData == 0 ? IntPtr : IntPtr
+        lpcbDataMarshal := lpcbData is VarRef ? "uint*" : IntPtr
+        lpcbDataMarshal := lpcbData == 0 ? IntPtr : "uint*"
 
-        result := DllCall(this.value, HKEY, _hKey, UInt32, dwIndex, "ptr", lpszValueName, lpcchValueNameMarshal, lpcchValueName, lpdwTypeMarshal, lpdwType, IntPtr, lpData, lpcbDataMarshal, lpcbData, UInt32)
+        result := DllCall(this.value, HKEY, _hKey, UInt32, dwIndex, "ptr", lpszValueName, lpcchValueNameMarshal, lpcchValueName, lpdwTypeMarshal, lpdwType, lpDataMarshal, lpData, lpcbDataMarshal, lpcbData, UInt32)
         return result
     }
 

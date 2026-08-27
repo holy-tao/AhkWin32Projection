@@ -19,7 +19,6 @@ export default struct LPDDHALSURFCB_GETFLIPSTATUS {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_GETFLIPSTATUSDATA>} param0 
      * @returns {Integer} 
      */

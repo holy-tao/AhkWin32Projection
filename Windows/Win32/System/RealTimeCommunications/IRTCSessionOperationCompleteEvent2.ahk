@@ -46,7 +46,6 @@ export default struct IRTCSessionOperationCompleteEvent2 extends IRTCSessionOper
     }
 
     /**
-     * 
      * @returns {IRTCParticipant} 
      */
     get_Participant() {
@@ -55,7 +54,6 @@ export default struct IRTCSessionOperationCompleteEvent2 extends IRTCSessionOper
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrContentType 
      * @param {Pointer<BSTR>} pbstrSessionDescription 
      * @returns {HRESULT} 
@@ -74,8 +72,8 @@ export default struct IRTCSessionOperationCompleteEvent2 extends IRTCSessionOper
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Participant := CallbackCreate(GetMethod(implObj, "get_Participant"), flags, 2)
-        this.vtbl.GetRemoteSessionDescription := CallbackCreate(GetMethod(implObj, "GetRemoteSessionDescription"), flags, 3)
+        this.vtbl.get_Participant := CallbackCreate(ObjBindMethod(implObj, "get_Participant"), flags, 2)
+        this.vtbl.GetRemoteSessionDescription := CallbackCreate(ObjBindMethod(implObj, "GetRemoteSessionDescription"), flags, 3)
     }
 
     Dispose() {

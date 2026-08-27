@@ -124,11 +124,11 @@ export default struct INDESPolicy extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 1)
-        this.vtbl.Uninitialize := CallbackCreate(GetMethod(implObj, "Uninitialize"), flags, 1)
-        this.vtbl.GenerateChallenge := CallbackCreate(GetMethod(implObj, "GenerateChallenge"), flags, 4)
-        this.vtbl.VerifyRequest := CallbackCreate(GetMethod(implObj, "VerifyRequest"), flags, 6)
-        this.vtbl.Notify := CallbackCreate(GetMethod(implObj, "Notify"), flags, 6)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 1)
+        this.vtbl.Uninitialize := CallbackCreate(ObjBindMethod(implObj, "Uninitialize"), flags, 1)
+        this.vtbl.GenerateChallenge := CallbackCreate(ObjBindMethod(implObj, "GenerateChallenge"), flags, 4)
+        this.vtbl.VerifyRequest := CallbackCreate(ObjBindMethod(implObj, "VerifyRequest"), flags, 6)
+        this.vtbl.Notify := CallbackCreate(ObjBindMethod(implObj, "Notify"), flags, 6)
     }
 
     Dispose() {

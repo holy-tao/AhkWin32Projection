@@ -20,13 +20,12 @@ export default struct KDEXTS_LOCK_CALLBACKROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<KDEXTS_LOCK_INFO>} pLock 
      * @param {Pointer<Void>} _Context 
      * @returns {HRESULT} 
      */
     Call(pLock, _Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, KDEXTS_LOCK_INFO.Ptr, pLock, _ContextMarshal, _Context, "HRESULT")
         return result

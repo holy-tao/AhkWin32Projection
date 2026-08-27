@@ -144,10 +144,10 @@ export default struct IColumnData extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetColumnConfigData := CallbackCreate(GetMethod(implObj, "SetColumnConfigData"), flags, 3)
-        this.vtbl.GetColumnConfigData := CallbackCreate(GetMethod(implObj, "GetColumnConfigData"), flags, 3)
-        this.vtbl.SetColumnSortData := CallbackCreate(GetMethod(implObj, "SetColumnSortData"), flags, 3)
-        this.vtbl.GetColumnSortData := CallbackCreate(GetMethod(implObj, "GetColumnSortData"), flags, 3)
+        this.vtbl.SetColumnConfigData := CallbackCreate(ObjBindMethod(implObj, "SetColumnConfigData"), flags, 3)
+        this.vtbl.GetColumnConfigData := CallbackCreate(ObjBindMethod(implObj, "GetColumnConfigData"), flags, 3)
+        this.vtbl.SetColumnSortData := CallbackCreate(ObjBindMethod(implObj, "SetColumnSortData"), flags, 3)
+        this.vtbl.GetColumnSortData := CallbackCreate(ObjBindMethod(implObj, "GetColumnSortData"), flags, 3)
     }
 
     Dispose() {

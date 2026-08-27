@@ -79,7 +79,6 @@ export default struct IMLangConvertCharset extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetSourceCodePage() {
@@ -88,7 +87,6 @@ export default struct IMLangConvertCharset extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetDestinationCodePage() {
@@ -111,7 +109,6 @@ export default struct IMLangConvertCharset extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pSrcStr 
      * @param {Pointer<Integer>} pcSrcSize 
      * @param {Integer} pDstStr 
@@ -119,15 +116,16 @@ export default struct IMLangConvertCharset extends IUnknown {
      * @returns {HRESULT} 
      */
     DoConversion(pSrcStr, pcSrcSize, pDstStr, pcDstSize) {
-        pcSrcSizeMarshal := pcSrcSize is VarRef ? "uint*" : "ptr"
-        pcDstSizeMarshal := pcDstSize is VarRef ? "uint*" : "ptr"
+        pcSrcSizeMarshal := pcSrcSize is VarRef ? "uint*" : IntPtr
+        pcSrcSizeMarshal := pcSrcSize == 0 ? IntPtr : "uint*"
+        pcDstSizeMarshal := pcDstSize is VarRef ? "uint*" : IntPtr
+        pcDstSizeMarshal := pcDstSize == 0 ? IntPtr : "uint*"
 
         result := ComCall(7, this, IntPtr, pSrcStr, pcSrcSizeMarshal, pcSrcSize, IntPtr, pDstStr, pcDstSizeMarshal, pcDstSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} pSrcStr 
      * @param {Pointer<Integer>} pcSrcSize 
      * @param {PWSTR} pDstStr 
@@ -137,15 +135,16 @@ export default struct IMLangConvertCharset extends IUnknown {
     DoConversionToUnicode(pSrcStr, pcSrcSize, pDstStr, pcDstSize) {
         pDstStr := pDstStr is String ? StrPtr(pDstStr) : pDstStr
 
-        pcSrcSizeMarshal := pcSrcSize is VarRef ? "uint*" : "ptr"
-        pcDstSizeMarshal := pcDstSize is VarRef ? "uint*" : "ptr"
+        pcSrcSizeMarshal := pcSrcSize is VarRef ? "uint*" : IntPtr
+        pcSrcSizeMarshal := pcSrcSize == 0 ? IntPtr : "uint*"
+        pcDstSizeMarshal := pcDstSize is VarRef ? "uint*" : IntPtr
+        pcDstSizeMarshal := pcDstSize == 0 ? IntPtr : "uint*"
 
         result := ComCall(8, this, IntPtr, pSrcStr, pcSrcSizeMarshal, pcSrcSize, "ptr", pDstStr, pcDstSizeMarshal, pcDstSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pSrcStr 
      * @param {Pointer<Integer>} pcSrcSize 
      * @param {Integer} pDstStr 
@@ -155,8 +154,10 @@ export default struct IMLangConvertCharset extends IUnknown {
     DoConversionFromUnicode(pSrcStr, pcSrcSize, pDstStr, pcDstSize) {
         pSrcStr := pSrcStr is String ? StrPtr(pSrcStr) : pSrcStr
 
-        pcSrcSizeMarshal := pcSrcSize is VarRef ? "uint*" : "ptr"
-        pcDstSizeMarshal := pcDstSize is VarRef ? "uint*" : "ptr"
+        pcSrcSizeMarshal := pcSrcSize is VarRef ? "uint*" : IntPtr
+        pcSrcSizeMarshal := pcSrcSize == 0 ? IntPtr : "uint*"
+        pcDstSizeMarshal := pcDstSize is VarRef ? "uint*" : IntPtr
+        pcDstSizeMarshal := pcDstSize == 0 ? IntPtr : "uint*"
 
         result := ComCall(9, this, "ptr", pSrcStr, pcSrcSizeMarshal, pcSrcSize, IntPtr, pDstStr, pcDstSizeMarshal, pcDstSize, "HRESULT")
         return result
@@ -171,13 +172,13 @@ export default struct IMLangConvertCharset extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
-        this.vtbl.GetSourceCodePage := CallbackCreate(GetMethod(implObj, "GetSourceCodePage"), flags, 2)
-        this.vtbl.GetDestinationCodePage := CallbackCreate(GetMethod(implObj, "GetDestinationCodePage"), flags, 2)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 2)
-        this.vtbl.DoConversion := CallbackCreate(GetMethod(implObj, "DoConversion"), flags, 5)
-        this.vtbl.DoConversionToUnicode := CallbackCreate(GetMethod(implObj, "DoConversionToUnicode"), flags, 5)
-        this.vtbl.DoConversionFromUnicode := CallbackCreate(GetMethod(implObj, "DoConversionFromUnicode"), flags, 5)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 4)
+        this.vtbl.GetSourceCodePage := CallbackCreate(ObjBindMethod(implObj, "GetSourceCodePage"), flags, 2)
+        this.vtbl.GetDestinationCodePage := CallbackCreate(ObjBindMethod(implObj, "GetDestinationCodePage"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 2)
+        this.vtbl.DoConversion := CallbackCreate(ObjBindMethod(implObj, "DoConversion"), flags, 5)
+        this.vtbl.DoConversionToUnicode := CallbackCreate(ObjBindMethod(implObj, "DoConversionToUnicode"), flags, 5)
+        this.vtbl.DoConversionFromUnicode := CallbackCreate(ObjBindMethod(implObj, "DoConversionFromUnicode"), flags, 5)
     }
 
     Dispose() {

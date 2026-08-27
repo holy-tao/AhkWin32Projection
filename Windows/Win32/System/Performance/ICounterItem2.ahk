@@ -65,7 +65,6 @@ export default struct ICounterItem2 extends ICounterItem {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -75,7 +74,6 @@ export default struct ICounterItem2 extends ICounterItem {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Selected() {
@@ -84,7 +82,6 @@ export default struct ICounterItem2 extends ICounterItem {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -94,7 +91,6 @@ export default struct ICounterItem2 extends ICounterItem {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Visible() {
@@ -103,7 +99,6 @@ export default struct ICounterItem2 extends ICounterItem {
     }
 
     /**
-     * 
      * @param {Integer} iIndex 
      * @param {SysmonDataType} iWhich 
      * @returns {VARIANT} 
@@ -123,11 +118,11 @@ export default struct ICounterItem2 extends ICounterItem {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_Selected := CallbackCreate(GetMethod(implObj, "put_Selected"), flags, 2)
-        this.vtbl.get_Selected := CallbackCreate(GetMethod(implObj, "get_Selected"), flags, 2)
-        this.vtbl.put_Visible := CallbackCreate(GetMethod(implObj, "put_Visible"), flags, 2)
-        this.vtbl.get_Visible := CallbackCreate(GetMethod(implObj, "get_Visible"), flags, 2)
-        this.vtbl.GetDataAt := CallbackCreate(GetMethod(implObj, "GetDataAt"), flags, 4)
+        this.vtbl.put_Selected := CallbackCreate(ObjBindMethod(implObj, "put_Selected"), flags, 2)
+        this.vtbl.get_Selected := CallbackCreate(ObjBindMethod(implObj, "get_Selected"), flags, 2)
+        this.vtbl.put_Visible := CallbackCreate(ObjBindMethod(implObj, "put_Visible"), flags, 2)
+        this.vtbl.get_Visible := CallbackCreate(ObjBindMethod(implObj, "get_Visible"), flags, 2)
+        this.vtbl.GetDataAt := CallbackCreate(ObjBindMethod(implObj, "GetDataAt"), flags, 4)
     }
 
     Dispose() {

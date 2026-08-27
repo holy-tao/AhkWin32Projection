@@ -101,7 +101,7 @@ export default struct IOpenSearchSource extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetResults := CallbackCreate(GetMethod(implObj, "GetResults"), flags, 7)
+        this.vtbl.GetResults := CallbackCreate(ObjBindMethod(implObj, "GetResults"), flags, 7)
     }
 
     Dispose() {

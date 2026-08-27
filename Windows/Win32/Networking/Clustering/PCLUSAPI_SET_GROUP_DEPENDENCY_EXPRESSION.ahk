@@ -20,7 +20,6 @@ export default struct PCLUSAPI_SET_GROUP_DEPENDENCY_EXPRESSION {
     }
 
     /**
-     * 
      * @param {HGROUP} _hGroupSet 
      * @param {PWSTR} lpszDependencyExpression 
      * @returns {Integer} 

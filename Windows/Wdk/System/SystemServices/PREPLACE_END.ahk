@@ -19,12 +19,11 @@ export default struct PREPLACE_END {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @returns {NTSTATUS} 
      */
     Call(_Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

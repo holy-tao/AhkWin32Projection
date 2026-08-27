@@ -40,7 +40,6 @@ export default struct ISAXDeclHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchName 
      * @param {Integer} cchName 
      * @param {PWSTR} pwchModel 
@@ -56,7 +55,6 @@ export default struct ISAXDeclHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchElementName 
      * @param {Integer} cchElementName 
      * @param {PWSTR} pwchAttributeName 
@@ -81,7 +79,6 @@ export default struct ISAXDeclHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchName 
      * @param {Integer} cchName 
      * @param {PWSTR} pwchValue 
@@ -97,7 +94,6 @@ export default struct ISAXDeclHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchName 
      * @param {Integer} cchName 
      * @param {PWSTR} pwchPublicId 
@@ -124,10 +120,10 @@ export default struct ISAXDeclHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.elementDecl := CallbackCreate(GetMethod(implObj, "elementDecl"), flags, 5)
-        this.vtbl.attributeDecl := CallbackCreate(GetMethod(implObj, "attributeDecl"), flags, 11)
-        this.vtbl.internalEntityDecl := CallbackCreate(GetMethod(implObj, "internalEntityDecl"), flags, 5)
-        this.vtbl.externalEntityDecl := CallbackCreate(GetMethod(implObj, "externalEntityDecl"), flags, 7)
+        this.vtbl.elementDecl := CallbackCreate(ObjBindMethod(implObj, "elementDecl"), flags, 5)
+        this.vtbl.attributeDecl := CallbackCreate(ObjBindMethod(implObj, "attributeDecl"), flags, 11)
+        this.vtbl.internalEntityDecl := CallbackCreate(ObjBindMethod(implObj, "internalEntityDecl"), flags, 5)
+        this.vtbl.externalEntityDecl := CallbackCreate(ObjBindMethod(implObj, "externalEntityDecl"), flags, 7)
     }
 
     Dispose() {

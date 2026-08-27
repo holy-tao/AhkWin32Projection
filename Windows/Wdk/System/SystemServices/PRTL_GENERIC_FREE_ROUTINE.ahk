@@ -18,7 +18,6 @@ export default struct PRTL_GENERIC_FREE_ROUTINE {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

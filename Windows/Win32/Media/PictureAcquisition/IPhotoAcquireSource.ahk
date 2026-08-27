@@ -99,7 +99,10 @@ export default struct IPhotoAcquireSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresource-getdeviceicons
      */
     GetDeviceIcons(nSize, phLargeIcon, phSmallIcon) {
-        result := ComCall(4, this, UInt32, nSize, HICON.Ptr, phLargeIcon, HICON.Ptr, phSmallIcon, "HRESULT")
+        phLargeIconMarshal := phLargeIcon == 0 ? IntPtr : HICON.Ptr
+        phSmallIconMarshal := phSmallIcon == 0 ? IntPtr : HICON.Ptr
+
+        result := ComCall(4, this, UInt32, nSize, phLargeIconMarshal, phLargeIcon, phSmallIconMarshal, phSmallIcon, "HRESULT")
         return result
     }
 
@@ -145,9 +148,11 @@ export default struct IPhotoAcquireSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresource-initializeitemlist
      */
     InitializeItemList(fForceEnumeration, pPhotoAcquireProgressCB, pnItemCount) {
-        pnItemCountMarshal := pnItemCount is VarRef ? "uint*" : "ptr"
+        pPhotoAcquireProgressCBMarshal := pPhotoAcquireProgressCB == 0 ? IntPtr : "ptr"
+        pnItemCountMarshal := pnItemCount is VarRef ? "uint*" : IntPtr
+        pnItemCountMarshal := pnItemCount == 0 ? IntPtr : "uint*"
 
-        result := ComCall(5, this, BOOL, fForceEnumeration, "ptr", pPhotoAcquireProgressCB, pnItemCountMarshal, pnItemCount, "HRESULT")
+        result := ComCall(5, this, BOOL, fForceEnumeration, pPhotoAcquireProgressCBMarshal, pPhotoAcquireProgressCB, pnItemCountMarshal, pnItemCount, "HRESULT")
         return result
     }
 
@@ -198,7 +203,6 @@ export default struct IPhotoAcquireSource extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
@@ -216,14 +220,14 @@ export default struct IPhotoAcquireSource extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFriendlyName := CallbackCreate(GetMethod(implObj, "GetFriendlyName"), flags, 2)
-        this.vtbl.GetDeviceIcons := CallbackCreate(GetMethod(implObj, "GetDeviceIcons"), flags, 4)
-        this.vtbl.InitializeItemList := CallbackCreate(GetMethod(implObj, "InitializeItemList"), flags, 4)
-        this.vtbl.GetItemCount := CallbackCreate(GetMethod(implObj, "GetItemCount"), flags, 2)
-        this.vtbl.GetItemAt := CallbackCreate(GetMethod(implObj, "GetItemAt"), flags, 3)
-        this.vtbl.GetPhotoAcquireSettings := CallbackCreate(GetMethod(implObj, "GetPhotoAcquireSettings"), flags, 2)
-        this.vtbl.GetDeviceId := CallbackCreate(GetMethod(implObj, "GetDeviceId"), flags, 2)
-        this.vtbl.BindToObject := CallbackCreate(GetMethod(implObj, "BindToObject"), flags, 3)
+        this.vtbl.GetFriendlyName := CallbackCreate(ObjBindMethod(implObj, "GetFriendlyName"), flags, 2)
+        this.vtbl.GetDeviceIcons := CallbackCreate(ObjBindMethod(implObj, "GetDeviceIcons"), flags, 4)
+        this.vtbl.InitializeItemList := CallbackCreate(ObjBindMethod(implObj, "InitializeItemList"), flags, 4)
+        this.vtbl.GetItemCount := CallbackCreate(ObjBindMethod(implObj, "GetItemCount"), flags, 2)
+        this.vtbl.GetItemAt := CallbackCreate(ObjBindMethod(implObj, "GetItemAt"), flags, 3)
+        this.vtbl.GetPhotoAcquireSettings := CallbackCreate(ObjBindMethod(implObj, "GetPhotoAcquireSettings"), flags, 2)
+        this.vtbl.GetDeviceId := CallbackCreate(ObjBindMethod(implObj, "GetDeviceId"), flags, 2)
+        this.vtbl.BindToObject := CallbackCreate(ObjBindMethod(implObj, "BindToObject"), flags, 3)
     }
 
     Dispose() {

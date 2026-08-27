@@ -47,7 +47,9 @@ export default struct ICreateWithTransactionEx extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icreatewithtransactionex-createinstance
      */
     CreateInstance(pTransaction, rclsid, riid) {
-        result := ComCall(3, this, "ptr", pTransaction, Guid.Ptr, rclsid, Guid.Ptr, riid, "ptr*", &pObject := 0, "HRESULT")
+        pTransactionMarshal := pTransaction == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pTransactionMarshal, pTransaction, Guid.Ptr, rclsid, Guid.Ptr, riid, "ptr*", &pObject := 0, "HRESULT")
         return pObject
     }
 
@@ -60,7 +62,7 @@ export default struct ICreateWithTransactionEx extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateInstance := CallbackCreate(GetMethod(implObj, "CreateInstance"), flags, 5)
+        this.vtbl.CreateInstance := CallbackCreate(ObjBindMethod(implObj, "CreateInstance"), flags, 5)
     }
 
     Dispose() {

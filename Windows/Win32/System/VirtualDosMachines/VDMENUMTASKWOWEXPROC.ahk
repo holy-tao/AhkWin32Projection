@@ -20,7 +20,6 @@ export default struct VDMENUMTASKWOWEXPROC {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<TASKENUMPROCEX>} param1 
      * @param {LPARAM} param2 

@@ -85,7 +85,7 @@ export default struct IWMPSubscriptionServiceCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.onComplete := CallbackCreate(GetMethod(implObj, "onComplete"), flags, 2)
+        this.vtbl.onComplete := CallbackCreate(ObjBindMethod(implObj, "onComplete"), flags, 2)
     }
 
     Dispose() {

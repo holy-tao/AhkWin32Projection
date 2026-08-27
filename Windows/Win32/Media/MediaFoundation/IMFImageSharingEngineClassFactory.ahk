@@ -61,7 +61,7 @@ export default struct IMFImageSharingEngineClassFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateInstanceFromUDN := CallbackCreate(GetMethod(implObj, "CreateInstanceFromUDN"), flags, 3)
+        this.vtbl.CreateInstanceFromUDN := CallbackCreate(ObjBindMethod(implObj, "CreateInstanceFromUDN"), flags, 3)
     }
 
     Dispose() {

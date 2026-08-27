@@ -36,11 +36,12 @@
  * @since windows5.1.2600
  */
 export IsProcessInJob(ProcessHandle, JobHandle, Result) {
-    ResultMarshal := Result is VarRef ? "int*" : "ptr"
+    JobHandleMarshal := JobHandle == 0 ? IntPtr : HANDLE
+    ResultMarshal := Result is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\IsProcessInJob", HANDLE, ProcessHandle, HANDLE, JobHandle, ResultMarshal, Result, BOOL)
+    result := DllCall("KERNEL32.dll\IsProcessInJob", HANDLE, ProcessHandle, JobHandleMarshal, JobHandle, ResultMarshal, Result, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -91,9 +92,12 @@ export IsProcessInJob(ProcessHandle, JobHandle, Result) {
 export CreateJobObjectW(lpJobAttributes, lpName) {
     lpName := lpName is String ? StrPtr(lpName) : lpName
 
+    lpJobAttributesMarshal := lpJobAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpNameMarshal := lpName == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateJobObjectW", SECURITY_ATTRIBUTES.Ptr, lpJobAttributes, "ptr", lpName, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateJobObjectW", lpJobAttributesMarshal, lpJobAttributes, lpNameMarshal, lpName, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -109,7 +113,7 @@ export CreateJobObjectW(lpJobAttributes, lpName) {
  * @since windows10.0.10240
  */
 export FreeMemoryJobObject(_Buffer) {
-    _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
+    _BufferMarshal := _Buffer is VarRef ? "ptr" : IntPtr
 
     DllCall("KERNEL32.dll\FreeMemoryJobObject", _BufferMarshal, _Buffer)
 }
@@ -350,11 +354,13 @@ export SetIoRateControlInformationJobObject(hJob, IoRateControlInfo) {
  * @since windows5.1.2600
  */
 export QueryInformationJobObject(hJob, JobObjectInformationClass, lpJobObjectInformation, cbJobObjectInformationLength, lpReturnLength) {
-    lpReturnLengthMarshal := lpReturnLength is VarRef ? "uint*" : "ptr"
+    hJobMarshal := hJob == 0 ? IntPtr : HANDLE
+    lpReturnLengthMarshal := lpReturnLength is VarRef ? "uint*" : IntPtr
+    lpReturnLengthMarshal := lpReturnLength == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\QueryInformationJobObject", HANDLE, hJob, JOBOBJECTINFOCLASS, JobObjectInformationClass, IntPtr, lpJobObjectInformation, UInt32, cbJobObjectInformationLength, lpReturnLengthMarshal, lpReturnLength, BOOL)
+    result := DllCall("KERNEL32.dll\QueryInformationJobObject", hJobMarshal, hJob, JOBOBJECTINFOCLASS, JobObjectInformationClass, IntPtr, lpJobObjectInformation, UInt32, cbJobObjectInformationLength, lpReturnLengthMarshal, lpReturnLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -383,12 +389,14 @@ export QueryInformationJobObject(hJob, JobObjectInformationClass, lpJobObjectInf
 export QueryIoRateControlInformationJobObject(hJob, VolumeName, InfoBlocks, InfoBlockCount) {
     VolumeName := VolumeName is String ? StrPtr(VolumeName) : VolumeName
 
-    InfoBlocksMarshal := InfoBlocks is VarRef ? "ptr*" : "ptr"
-    InfoBlockCountMarshal := InfoBlockCount is VarRef ? "uint*" : "ptr"
+    hJobMarshal := hJob == 0 ? IntPtr : HANDLE
+    VolumeNameMarshal := VolumeName == 0 ? IntPtr : PWSTR
+    InfoBlocksMarshal := InfoBlocks is VarRef ? "ptr*" : IntPtr
+    InfoBlockCountMarshal := InfoBlockCount is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\QueryIoRateControlInformationJobObject", HANDLE, hJob, "ptr", VolumeName, InfoBlocksMarshal, InfoBlocks, InfoBlockCountMarshal, InfoBlockCount, UInt32)
+    result := DllCall("KERNEL32.dll\QueryIoRateControlInformationJobObject", hJobMarshal, hJob, VolumeNameMarshal, VolumeName, InfoBlocksMarshal, InfoBlocks, InfoBlockCountMarshal, InfoBlockCount, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -470,9 +478,12 @@ export UserHandleGrantAccess(hUserHandle, hJob, bGrant) {
 export CreateJobObjectA(lpJobAttributes, lpName) {
     lpName := lpName is String ? StrPtr(lpName) : lpName
 
+    lpJobAttributesMarshal := lpJobAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpNameMarshal := lpName == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateJobObjectA", SECURITY_ATTRIBUTES.Ptr, lpJobAttributes, "ptr", lpName, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateJobObjectA", lpJobAttributesMarshal, lpJobAttributes, lpNameMarshal, lpName, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -518,7 +529,6 @@ export OpenJobObjectA(dwDesiredAccess, bInheritHandle, lpName) {
 }
 
 /**
- * 
  * @param {Integer} NumJob 
  * @param {Pointer<JOB_SET_ARRAY>} UserJobSet 
  * @param {Integer} Flags 

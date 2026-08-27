@@ -55,7 +55,7 @@ export default struct IObjectIdentity extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsEqualObject := CallbackCreate(GetMethod(implObj, "IsEqualObject"), flags, 2)
+        this.vtbl.IsEqualObject := CallbackCreate(ObjBindMethod(implObj, "IsEqualObject"), flags, 2)
     }
 
     Dispose() {

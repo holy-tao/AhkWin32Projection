@@ -26,7 +26,6 @@ export default struct LPFNDFMCALLBACK {
     }
 
     /**
-     * 
      * @param {IShellFolder} psf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> object the message applies to. This value can be <b>NULL</b>.
@@ -96,7 +95,11 @@ export default struct LPFNDFMCALLBACK {
      * </table>
      */
     Call(psf, _hwnd, pdtobj, uMsg, _wParam, _lParam) {
-        result := DllCall(this.value, "ptr", psf, HWND, _hwnd, "ptr", pdtobj, UInt32, uMsg, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
+        psfMarshal := psf == 0 ? IntPtr : "ptr"
+        _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+        pdtobjMarshal := pdtobj == 0 ? IntPtr : "ptr"
+
+        result := DllCall(this.value, psfMarshal, psf, _hwndMarshal, _hwnd, pdtobjMarshal, pdtobj, UInt32, uMsg, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
         return result
     }
 

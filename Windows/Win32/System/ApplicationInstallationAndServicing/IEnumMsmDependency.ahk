@@ -40,20 +40,18 @@ export default struct IEnumMsmDependency extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cFetch 
      * @param {Pointer<Integer>} pcFetched 
      * @returns {IMsmDependency} 
      */
     Next(cFetch, pcFetched) {
-        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, UInt32, cFetch, "ptr*", &rgmsmDependencies := 0, pcFetchedMarshal, pcFetched, "HRESULT")
         return IMsmDependency(rgmsmDependencies)
     }
 
     /**
-     * 
      * @param {Integer} cSkip 
      * @returns {HRESULT} 
      */
@@ -63,7 +61,6 @@ export default struct IEnumMsmDependency extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -72,7 +69,6 @@ export default struct IEnumMsmDependency extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumMsmDependency} 
      */
     Clone() {
@@ -89,10 +85,10 @@ export default struct IEnumMsmDependency extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 4)
-        this.vtbl.Skip := CallbackCreate(GetMethod(implObj, "Skip"), flags, 2)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.Next := CallbackCreate(ObjBindMethod(implObj, "Next"), flags, 4)
+        this.vtbl.Skip := CallbackCreate(ObjBindMethod(implObj, "Skip"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
     }
 
     Dispose() {

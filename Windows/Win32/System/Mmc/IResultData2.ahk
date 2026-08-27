@@ -59,7 +59,7 @@ export default struct IResultData2 extends IResultData {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RenameResultItem := CallbackCreate(GetMethod(implObj, "RenameResultItem"), flags, 2)
+        this.vtbl.RenameResultItem := CallbackCreate(ObjBindMethod(implObj, "RenameResultItem"), flags, 2)
     }
 
     Dispose() {

@@ -61,7 +61,7 @@ export default struct IThumbnailCachePrimer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PageInThumbnail := CallbackCreate(GetMethod(implObj, "PageInThumbnail"), flags, 4)
+        this.vtbl.PageInThumbnail := CallbackCreate(ObjBindMethod(implObj, "PageInThumbnail"), flags, 4)
     }
 
     Dispose() {

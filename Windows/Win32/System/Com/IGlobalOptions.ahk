@@ -218,8 +218,8 @@ export default struct IGlobalOptions extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Set := CallbackCreate(GetMethod(implObj, "Set"), flags, 3)
-        this.vtbl.Query := CallbackCreate(GetMethod(implObj, "Query"), flags, 3)
+        this.vtbl.Set := CallbackCreate(ObjBindMethod(implObj, "Set"), flags, 3)
+        this.vtbl.Query := CallbackCreate(ObjBindMethod(implObj, "Query"), flags, 3)
     }
 
     Dispose() {

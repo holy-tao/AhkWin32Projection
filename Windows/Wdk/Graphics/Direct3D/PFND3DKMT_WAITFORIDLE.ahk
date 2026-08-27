@@ -20,7 +20,6 @@ export default struct PFND3DKMT_WAITFORIDLE {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_WAITFORIDLE>} param0 
      * @returns {NTSTATUS} 
      */

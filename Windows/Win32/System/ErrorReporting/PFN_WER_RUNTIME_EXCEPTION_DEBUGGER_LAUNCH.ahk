@@ -30,7 +30,6 @@ export default struct PFN_WER_RUNTIME_EXCEPTION_DEBUGGER_LAUNCH {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pContext A pointer to arbitrary context information that you specified when you called the <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werregisterruntimeexceptionmodule">WerRegisterRuntimeExceptionModule</a> function to register the exception handler.
      * @param {Pointer<WER_RUNTIME_EXCEPTION_INFORMATION>} pExceptionInformation A <a href="https://docs.microsoft.com/windows/desktop/api/werapi/ns-werapi-wer_runtime_exception_information">WER_RUNTIME_EXCEPTION_INFORMATION</a> structure that contains the exception information.
      * @param {Pointer<BOOL>} pbIsCustomDebugger Set to <b>TRUE</b> if the custom debugger specified in the <i>pwszDebuggerLaunch</i> parameter is used to debug the crash; otherwise, set to <b>FALSE</b> to use the default debugger. If you set this parameter to  <b>FALSE</b>, do not set the <i>pwszDebuggerLaunch</i> parameter.
@@ -42,10 +41,10 @@ export default struct PFN_WER_RUNTIME_EXCEPTION_DEBUGGER_LAUNCH {
     Call(pContext, pExceptionInformation, pbIsCustomDebugger, pwszDebuggerLaunch, pchDebuggerLaunch, pbIsDebuggerAutolaunch) {
         pwszDebuggerLaunch := pwszDebuggerLaunch is String ? StrPtr(pwszDebuggerLaunch) : pwszDebuggerLaunch
 
-        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
-        pbIsCustomDebuggerMarshal := pbIsCustomDebugger is VarRef ? "int*" : "ptr"
-        pchDebuggerLaunchMarshal := pchDebuggerLaunch is VarRef ? "uint*" : "ptr"
-        pbIsDebuggerAutolaunchMarshal := pbIsDebuggerAutolaunch is VarRef ? "int*" : "ptr"
+        pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
+        pbIsCustomDebuggerMarshal := pbIsCustomDebugger is VarRef ? "int*" : IntPtr
+        pchDebuggerLaunchMarshal := pchDebuggerLaunch is VarRef ? "uint*" : IntPtr
+        pbIsDebuggerAutolaunchMarshal := pbIsDebuggerAutolaunch is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, pContextMarshal, pContext, WER_RUNTIME_EXCEPTION_INFORMATION.Ptr, pExceptionInformation, pbIsCustomDebuggerMarshal, pbIsCustomDebugger, "ptr", pwszDebuggerLaunch, pchDebuggerLaunchMarshal, pchDebuggerLaunch, pbIsDebuggerAutolaunchMarshal, pbIsDebuggerAutolaunch, "HRESULT")
         return result

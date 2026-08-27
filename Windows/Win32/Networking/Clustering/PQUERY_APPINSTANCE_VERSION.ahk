@@ -20,7 +20,6 @@ export default struct PQUERY_APPINSTANCE_VERSION {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} AppInstanceId 
      * @param {Pointer<Integer>} InstanceVersionHigh 
      * @param {Pointer<Integer>} InstanceVersionLow 
@@ -28,8 +27,8 @@ export default struct PQUERY_APPINSTANCE_VERSION {
      * @returns {Integer} 
      */
     Call(AppInstanceId, InstanceVersionHigh, InstanceVersionLow, VersionStatus) {
-        InstanceVersionHighMarshal := InstanceVersionHigh is VarRef ? "uint*" : "ptr"
-        InstanceVersionLowMarshal := InstanceVersionLow is VarRef ? "uint*" : "ptr"
+        InstanceVersionHighMarshal := InstanceVersionHigh is VarRef ? "uint*" : IntPtr
+        InstanceVersionLowMarshal := InstanceVersionLow is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, Guid.Ptr, AppInstanceId, InstanceVersionHighMarshal, InstanceVersionHigh, InstanceVersionLowMarshal, InstanceVersionLow, "ptr", VersionStatus, UInt32)
         return result

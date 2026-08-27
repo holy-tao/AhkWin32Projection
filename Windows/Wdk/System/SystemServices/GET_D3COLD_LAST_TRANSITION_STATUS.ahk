@@ -19,14 +19,14 @@ export default struct GET_D3COLD_LAST_TRANSITION_STATUS {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<D3COLD_LAST_TRANSITION_STATUS>} LastTransitionStatus 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Context, LastTransitionStatus) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        LastTransitionStatusMarshal := LastTransitionStatus is VarRef ? "int*" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
+        LastTransitionStatusMarshal := LastTransitionStatus is VarRef ? "int*" : IntPtr
 
         DllCall(this.value, _ContextMarshal, _Context, LastTransitionStatusMarshal, LastTransitionStatus)
     }

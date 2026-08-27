@@ -39,7 +39,6 @@ export default struct ICommand extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Cancel() {
@@ -48,7 +47,6 @@ export default struct ICommand extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<DBPARAMS>} pParams 
@@ -57,14 +55,17 @@ export default struct ICommand extends IUnknown {
      * @returns {HRESULT} 
      */
     Execute(pUnkOuter, riid, pParams, pcRowsAffected, ppRowset) {
-        pcRowsAffectedMarshal := pcRowsAffected is VarRef ? "ptr*" : "ptr"
+        pUnkOuterMarshal := pUnkOuter == 0 ? IntPtr : "ptr"
+        pParamsMarshal := pParams == 0 ? IntPtr : DBPARAMS.Ptr
+        pcRowsAffectedMarshal := pcRowsAffected is VarRef ? "ptr*" : IntPtr
+        pcRowsAffectedMarshal := pcRowsAffected == 0 ? IntPtr : "ptr*"
+        ppRowsetMarshal := ppRowset == 0 ? IntPtr : IUnknown.Ptr
 
-        result := ComCall(4, this, "ptr", pUnkOuter, Guid.Ptr, riid, DBPARAMS.Ptr, pParams, pcRowsAffectedMarshal, pcRowsAffected, IUnknown.Ptr, ppRowset, "HRESULT")
+        result := ComCall(4, this, pUnkOuterMarshal, pUnkOuter, Guid.Ptr, riid, pParamsMarshal, pParams, pcRowsAffectedMarshal, pcRowsAffected, ppRowsetMarshal, ppRowset, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
      */
@@ -82,9 +83,9 @@ export default struct ICommand extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
-        this.vtbl.Execute := CallbackCreate(GetMethod(implObj, "Execute"), flags, 6)
-        this.vtbl.GetDBSession := CallbackCreate(GetMethod(implObj, "GetDBSession"), flags, 3)
+        this.vtbl.Cancel := CallbackCreate(ObjBindMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.Execute := CallbackCreate(ObjBindMethod(implObj, "Execute"), flags, 6)
+        this.vtbl.GetDBSession := CallbackCreate(ObjBindMethod(implObj, "GetDBSession"), flags, 3)
     }
 
     Dispose() {

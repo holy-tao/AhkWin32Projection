@@ -154,7 +154,6 @@ export default struct IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     get_ProductID() {
@@ -164,7 +163,6 @@ export default struct IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pTileID 
      * @returns {HRESULT} 
      */
@@ -174,7 +172,6 @@ export default struct IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {TILE_TEMPLATE_TYPE} 
      */
     get_TemplateType() {
@@ -183,7 +180,6 @@ export default struct IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {PM_TILE_HUBTYPE} HubType 
      * @returns {BOOL} 
      */
@@ -193,7 +189,6 @@ export default struct IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {PM_TILE_HUBTYPE} HubType 
      * @returns {Integer} 
      */
@@ -203,7 +198,6 @@ export default struct IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsNotified() {
@@ -212,7 +206,6 @@ export default struct IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsDefault() {
@@ -221,7 +214,6 @@ export default struct IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pTaskID 
      * @returns {HRESULT} 
      */
@@ -231,7 +223,6 @@ export default struct IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PM_STARTTILE_TYPE} 
      */
     get_TileType() {
@@ -240,7 +231,6 @@ export default struct IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsThemable() {
@@ -249,7 +239,6 @@ export default struct IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} PropID 
      * @returns {IPMTilePropertyInfo} 
      */
@@ -259,7 +248,6 @@ export default struct IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pImageUrn 
      * @param {Pointer<BSTR>} pParameters 
      * @returns {HRESULT} 
@@ -270,7 +258,6 @@ export default struct IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IPMTilePropertyEnumerator} 
      */
     get_PropertyEnum() {
@@ -279,7 +266,6 @@ export default struct IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {PM_TILE_HUBTYPE} HubType 
      * @returns {PM_TILE_SIZE} 
      */
@@ -289,7 +275,6 @@ export default struct IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {PM_TILE_HUBTYPE} HubType 
      * @param {Integer} Position 
      * @returns {HRESULT} 
@@ -300,7 +285,6 @@ export default struct IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} Notified 
      * @returns {HRESULT} 
      */
@@ -310,7 +294,6 @@ export default struct IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {PM_TILE_HUBTYPE} HubType 
      * @param {BOOL} Pinned 
      * @returns {HRESULT} 
@@ -321,7 +304,6 @@ export default struct IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {PM_TILE_HUBTYPE} HubType 
      * @param {PM_TILE_SIZE} _Size 
      * @returns {HRESULT} 
@@ -332,7 +314,6 @@ export default struct IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} TaskName 
      * @param {BSTR} TaskParameters 
      * @returns {HRESULT} 
@@ -346,7 +327,6 @@ export default struct IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PM_STARTTILEBLOB>} pBlob 
      * @returns {HRESULT} 
      */
@@ -356,7 +336,6 @@ export default struct IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsRestoring() {
@@ -365,7 +344,6 @@ export default struct IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsAutoRestoreDisabled() {
@@ -374,7 +352,6 @@ export default struct IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} Restoring 
      * @returns {HRESULT} 
      */
@@ -384,7 +361,6 @@ export default struct IPMTileInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} AutoRestoreDisabled 
      * @returns {HRESULT} 
      */
@@ -402,30 +378,30 @@ export default struct IPMTileInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ProductID := CallbackCreate(GetMethod(implObj, "get_ProductID"), flags, 2)
-        this.vtbl.get_TileID := CallbackCreate(GetMethod(implObj, "get_TileID"), flags, 2)
-        this.vtbl.get_TemplateType := CallbackCreate(GetMethod(implObj, "get_TemplateType"), flags, 2)
-        this.vtbl.get_HubPinnedState := CallbackCreate(GetMethod(implObj, "get_HubPinnedState"), flags, 3)
-        this.vtbl.get_HubPosition := CallbackCreate(GetMethod(implObj, "get_HubPosition"), flags, 3)
-        this.vtbl.get_IsNotified := CallbackCreate(GetMethod(implObj, "get_IsNotified"), flags, 2)
-        this.vtbl.get_IsDefault := CallbackCreate(GetMethod(implObj, "get_IsDefault"), flags, 2)
-        this.vtbl.get_TaskID := CallbackCreate(GetMethod(implObj, "get_TaskID"), flags, 2)
-        this.vtbl.get_TileType := CallbackCreate(GetMethod(implObj, "get_TileType"), flags, 2)
-        this.vtbl.get_IsThemable := CallbackCreate(GetMethod(implObj, "get_IsThemable"), flags, 2)
-        this.vtbl.get_PropertyById := CallbackCreate(GetMethod(implObj, "get_PropertyById"), flags, 3)
-        this.vtbl.get_InvocationInfo := CallbackCreate(GetMethod(implObj, "get_InvocationInfo"), flags, 3)
-        this.vtbl.get_PropertyEnum := CallbackCreate(GetMethod(implObj, "get_PropertyEnum"), flags, 2)
-        this.vtbl.get_HubTileSize := CallbackCreate(GetMethod(implObj, "get_HubTileSize"), flags, 3)
-        this.vtbl.set_HubPosition := CallbackCreate(GetMethod(implObj, "set_HubPosition"), flags, 3)
-        this.vtbl.set_NotifiedState := CallbackCreate(GetMethod(implObj, "set_NotifiedState"), flags, 2)
-        this.vtbl.set_HubPinnedState := CallbackCreate(GetMethod(implObj, "set_HubPinnedState"), flags, 3)
-        this.vtbl.set_HubTileSize := CallbackCreate(GetMethod(implObj, "set_HubTileSize"), flags, 3)
-        this.vtbl.set_InvocationInfo := CallbackCreate(GetMethod(implObj, "set_InvocationInfo"), flags, 3)
-        this.vtbl.get_StartTileBlob := CallbackCreate(GetMethod(implObj, "get_StartTileBlob"), flags, 2)
-        this.vtbl.get_IsRestoring := CallbackCreate(GetMethod(implObj, "get_IsRestoring"), flags, 2)
-        this.vtbl.get_IsAutoRestoreDisabled := CallbackCreate(GetMethod(implObj, "get_IsAutoRestoreDisabled"), flags, 2)
-        this.vtbl.set_IsRestoring := CallbackCreate(GetMethod(implObj, "set_IsRestoring"), flags, 2)
-        this.vtbl.set_IsAutoRestoreDisabled := CallbackCreate(GetMethod(implObj, "set_IsAutoRestoreDisabled"), flags, 2)
+        this.vtbl.get_ProductID := CallbackCreate(ObjBindMethod(implObj, "get_ProductID"), flags, 2)
+        this.vtbl.get_TileID := CallbackCreate(ObjBindMethod(implObj, "get_TileID"), flags, 2)
+        this.vtbl.get_TemplateType := CallbackCreate(ObjBindMethod(implObj, "get_TemplateType"), flags, 2)
+        this.vtbl.get_HubPinnedState := CallbackCreate(ObjBindMethod(implObj, "get_HubPinnedState"), flags, 3)
+        this.vtbl.get_HubPosition := CallbackCreate(ObjBindMethod(implObj, "get_HubPosition"), flags, 3)
+        this.vtbl.get_IsNotified := CallbackCreate(ObjBindMethod(implObj, "get_IsNotified"), flags, 2)
+        this.vtbl.get_IsDefault := CallbackCreate(ObjBindMethod(implObj, "get_IsDefault"), flags, 2)
+        this.vtbl.get_TaskID := CallbackCreate(ObjBindMethod(implObj, "get_TaskID"), flags, 2)
+        this.vtbl.get_TileType := CallbackCreate(ObjBindMethod(implObj, "get_TileType"), flags, 2)
+        this.vtbl.get_IsThemable := CallbackCreate(ObjBindMethod(implObj, "get_IsThemable"), flags, 2)
+        this.vtbl.get_PropertyById := CallbackCreate(ObjBindMethod(implObj, "get_PropertyById"), flags, 3)
+        this.vtbl.get_InvocationInfo := CallbackCreate(ObjBindMethod(implObj, "get_InvocationInfo"), flags, 3)
+        this.vtbl.get_PropertyEnum := CallbackCreate(ObjBindMethod(implObj, "get_PropertyEnum"), flags, 2)
+        this.vtbl.get_HubTileSize := CallbackCreate(ObjBindMethod(implObj, "get_HubTileSize"), flags, 3)
+        this.vtbl.set_HubPosition := CallbackCreate(ObjBindMethod(implObj, "set_HubPosition"), flags, 3)
+        this.vtbl.set_NotifiedState := CallbackCreate(ObjBindMethod(implObj, "set_NotifiedState"), flags, 2)
+        this.vtbl.set_HubPinnedState := CallbackCreate(ObjBindMethod(implObj, "set_HubPinnedState"), flags, 3)
+        this.vtbl.set_HubTileSize := CallbackCreate(ObjBindMethod(implObj, "set_HubTileSize"), flags, 3)
+        this.vtbl.set_InvocationInfo := CallbackCreate(ObjBindMethod(implObj, "set_InvocationInfo"), flags, 3)
+        this.vtbl.get_StartTileBlob := CallbackCreate(ObjBindMethod(implObj, "get_StartTileBlob"), flags, 2)
+        this.vtbl.get_IsRestoring := CallbackCreate(ObjBindMethod(implObj, "get_IsRestoring"), flags, 2)
+        this.vtbl.get_IsAutoRestoreDisabled := CallbackCreate(ObjBindMethod(implObj, "get_IsAutoRestoreDisabled"), flags, 2)
+        this.vtbl.set_IsRestoring := CallbackCreate(ObjBindMethod(implObj, "set_IsRestoring"), flags, 2)
+        this.vtbl.set_IsAutoRestoreDisabled := CallbackCreate(ObjBindMethod(implObj, "set_IsAutoRestoreDisabled"), flags, 2)
     }
 
     Dispose() {

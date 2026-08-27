@@ -154,11 +154,11 @@ export default struct IFsrmQuotaTemplateManager extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateTemplate := CallbackCreate(GetMethod(implObj, "CreateTemplate"), flags, 2)
-        this.vtbl.GetTemplate := CallbackCreate(GetMethod(implObj, "GetTemplate"), flags, 3)
-        this.vtbl.EnumTemplates := CallbackCreate(GetMethod(implObj, "EnumTemplates"), flags, 3)
-        this.vtbl.ExportTemplates := CallbackCreate(GetMethod(implObj, "ExportTemplates"), flags, 3)
-        this.vtbl.ImportTemplates := CallbackCreate(GetMethod(implObj, "ImportTemplates"), flags, 4)
+        this.vtbl.CreateTemplate := CallbackCreate(ObjBindMethod(implObj, "CreateTemplate"), flags, 2)
+        this.vtbl.GetTemplate := CallbackCreate(ObjBindMethod(implObj, "GetTemplate"), flags, 3)
+        this.vtbl.EnumTemplates := CallbackCreate(ObjBindMethod(implObj, "EnumTemplates"), flags, 3)
+        this.vtbl.ExportTemplates := CallbackCreate(ObjBindMethod(implObj, "ExportTemplates"), flags, 3)
+        this.vtbl.ImportTemplates := CallbackCreate(ObjBindMethod(implObj, "ImportTemplates"), flags, 4)
     }
 
     Dispose() {

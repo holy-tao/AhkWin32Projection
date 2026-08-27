@@ -21,7 +21,6 @@ export default struct PFN_DrvCreateDeviceBitmap {
     }
 
     /**
-     * 
      * @param {DHPDEV} param0 
      * @param {SIZE} param1 
      * @param {Integer} param2 

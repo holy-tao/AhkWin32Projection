@@ -20,7 +20,6 @@ export default struct PFND3DKMT_UPDATEALLOCATIONPROPERTY {
     }
 
     /**
-     * 
      * @param {Pointer<D3DDDI_UPDATEALLOCPROPERTY>} param0 
      * @returns {NTSTATUS} 
      */

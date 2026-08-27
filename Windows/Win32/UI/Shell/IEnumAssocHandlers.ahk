@@ -57,7 +57,8 @@ export default struct IEnumAssocHandlers extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ienumassochandlers-next
      */
     Next(celt, rgelt, pceltFetched) {
-        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
+        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : IntPtr
+        pceltFetchedMarshal := pceltFetched == 0 ? IntPtr : "uint*"
 
         result := ComCall(3, this, UInt32, celt, IAssocHandler.Ptr, rgelt, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
@@ -72,7 +73,7 @@ export default struct IEnumAssocHandlers extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 4)
+        this.vtbl.Next := CallbackCreate(ObjBindMethod(implObj, "Next"), flags, 4)
     }
 
     Dispose() {

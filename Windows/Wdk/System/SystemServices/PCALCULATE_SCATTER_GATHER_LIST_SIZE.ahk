@@ -21,7 +21,6 @@ export default struct PCALCULATE_SCATTER_GATHER_LIST_SIZE {
     }
 
     /**
-     * 
      * @param {Pointer<DMA_ADAPTER>} DmaAdapter 
      * @param {Pointer<MDL>} _Mdl 
      * @param {Pointer<Void>} CurrentVa 
@@ -31,9 +30,9 @@ export default struct PCALCULATE_SCATTER_GATHER_LIST_SIZE {
      * @returns {NTSTATUS} 
      */
     Call(DmaAdapter, _Mdl, CurrentVa, Length, ScatterGatherListSize, pNumberOfMapRegisters) {
-        CurrentVaMarshal := CurrentVa is VarRef ? "ptr" : "ptr"
-        ScatterGatherListSizeMarshal := ScatterGatherListSize is VarRef ? "uint*" : "ptr"
-        pNumberOfMapRegistersMarshal := pNumberOfMapRegisters is VarRef ? "uint*" : "ptr"
+        CurrentVaMarshal := CurrentVa is VarRef ? "ptr" : IntPtr
+        ScatterGatherListSizeMarshal := ScatterGatherListSize is VarRef ? "uint*" : IntPtr
+        pNumberOfMapRegistersMarshal := pNumberOfMapRegisters is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, MDL.Ptr, _Mdl, CurrentVaMarshal, CurrentVa, UInt32, Length, ScatterGatherListSizeMarshal, ScatterGatherListSize, pNumberOfMapRegistersMarshal, pNumberOfMapRegisters, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

@@ -71,8 +71,8 @@ export default struct ITfCompositionView extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOwnerClsid := CallbackCreate(GetMethod(implObj, "GetOwnerClsid"), flags, 2)
-        this.vtbl.GetRange := CallbackCreate(GetMethod(implObj, "GetRange"), flags, 2)
+        this.vtbl.GetOwnerClsid := CallbackCreate(ObjBindMethod(implObj, "GetOwnerClsid"), flags, 2)
+        this.vtbl.GetRange := CallbackCreate(ObjBindMethod(implObj, "GetRange"), flags, 2)
     }
 
     Dispose() {

@@ -22,7 +22,6 @@ export default struct LPFNLRESULTFROMOBJECT {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @param {WPARAM} _wParam 
      * @param {IUnknown} punk 

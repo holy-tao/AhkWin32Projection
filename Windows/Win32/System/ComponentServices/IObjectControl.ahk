@@ -114,9 +114,9 @@ export default struct IObjectControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Activate := CallbackCreate(GetMethod(implObj, "Activate"), flags, 1)
-        this.vtbl.Deactivate := CallbackCreate(GetMethod(implObj, "Deactivate"), flags, 1)
-        this.vtbl.CanBePooled := CallbackCreate(GetMethod(implObj, "CanBePooled"), flags, 1)
+        this.vtbl.Activate := CallbackCreate(ObjBindMethod(implObj, "Activate"), flags, 1)
+        this.vtbl.Deactivate := CallbackCreate(ObjBindMethod(implObj, "Deactivate"), flags, 1)
+        this.vtbl.CanBePooled := CallbackCreate(ObjBindMethod(implObj, "CanBePooled"), flags, 1)
     }
 
     Dispose() {

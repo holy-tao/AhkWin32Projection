@@ -77,7 +77,6 @@ export default struct ISVGTransform extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -87,7 +86,6 @@ export default struct ISVGTransform extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_type() {
@@ -96,7 +94,6 @@ export default struct ISVGTransform extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGMatrix} v 
      * @returns {HRESULT} 
      */
@@ -106,7 +103,6 @@ export default struct ISVGTransform extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGMatrix} 
      */
     get_matrix() {
@@ -115,7 +111,6 @@ export default struct ISVGTransform extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -125,7 +120,6 @@ export default struct ISVGTransform extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_angle() {
@@ -134,7 +128,6 @@ export default struct ISVGTransform extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGMatrix} _matrix 
      * @returns {HRESULT} 
      */
@@ -144,7 +137,6 @@ export default struct ISVGTransform extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} tx 
      * @param {Float} ty 
      * @returns {HRESULT} 
@@ -155,7 +147,6 @@ export default struct ISVGTransform extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} sx 
      * @param {Float} sy 
      * @returns {HRESULT} 
@@ -166,7 +157,6 @@ export default struct ISVGTransform extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} angle 
      * @param {Float} cx 
      * @param {Float} _cy 
@@ -178,7 +168,6 @@ export default struct ISVGTransform extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} angle 
      * @returns {HRESULT} 
      */
@@ -188,7 +177,6 @@ export default struct ISVGTransform extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} angle 
      * @returns {HRESULT} 
      */
@@ -206,18 +194,18 @@ export default struct ISVGTransform extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_type := CallbackCreate(GetMethod(implObj, "put_type"), flags, 2)
-        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
-        this.vtbl.putref_matrix := CallbackCreate(GetMethod(implObj, "putref_matrix"), flags, 2)
-        this.vtbl.get_matrix := CallbackCreate(GetMethod(implObj, "get_matrix"), flags, 2)
-        this.vtbl.put_angle := CallbackCreate(GetMethod(implObj, "put_angle"), flags, 2)
-        this.vtbl.get_angle := CallbackCreate(GetMethod(implObj, "get_angle"), flags, 2)
-        this.vtbl.setMatrix := CallbackCreate(GetMethod(implObj, "setMatrix"), flags, 2)
-        this.vtbl.setTranslate := CallbackCreate(GetMethod(implObj, "setTranslate"), flags, 3)
-        this.vtbl.setScale := CallbackCreate(GetMethod(implObj, "setScale"), flags, 3)
-        this.vtbl.setRotate := CallbackCreate(GetMethod(implObj, "setRotate"), flags, 4)
-        this.vtbl.setSkewX := CallbackCreate(GetMethod(implObj, "setSkewX"), flags, 2)
-        this.vtbl.setSkewY := CallbackCreate(GetMethod(implObj, "setSkewY"), flags, 2)
+        this.vtbl.put_type := CallbackCreate(ObjBindMethod(implObj, "put_type"), flags, 2)
+        this.vtbl.get_type := CallbackCreate(ObjBindMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.putref_matrix := CallbackCreate(ObjBindMethod(implObj, "putref_matrix"), flags, 2)
+        this.vtbl.get_matrix := CallbackCreate(ObjBindMethod(implObj, "get_matrix"), flags, 2)
+        this.vtbl.put_angle := CallbackCreate(ObjBindMethod(implObj, "put_angle"), flags, 2)
+        this.vtbl.get_angle := CallbackCreate(ObjBindMethod(implObj, "get_angle"), flags, 2)
+        this.vtbl.setMatrix := CallbackCreate(ObjBindMethod(implObj, "setMatrix"), flags, 2)
+        this.vtbl.setTranslate := CallbackCreate(ObjBindMethod(implObj, "setTranslate"), flags, 3)
+        this.vtbl.setScale := CallbackCreate(ObjBindMethod(implObj, "setScale"), flags, 3)
+        this.vtbl.setRotate := CallbackCreate(ObjBindMethod(implObj, "setRotate"), flags, 4)
+        this.vtbl.setSkewX := CallbackCreate(ObjBindMethod(implObj, "setSkewX"), flags, 2)
+        this.vtbl.setSkewY := CallbackCreate(ObjBindMethod(implObj, "setSkewY"), flags, 2)
     }
 
     Dispose() {

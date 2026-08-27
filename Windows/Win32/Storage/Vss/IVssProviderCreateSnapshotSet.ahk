@@ -672,13 +672,13 @@ export default struct IVssProviderCreateSnapshotSet extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EndPrepareSnapshots := CallbackCreate(GetMethod(implObj, "EndPrepareSnapshots"), flags, 2)
-        this.vtbl.PreCommitSnapshots := CallbackCreate(GetMethod(implObj, "PreCommitSnapshots"), flags, 2)
-        this.vtbl.CommitSnapshots := CallbackCreate(GetMethod(implObj, "CommitSnapshots"), flags, 2)
-        this.vtbl.PostCommitSnapshots := CallbackCreate(GetMethod(implObj, "PostCommitSnapshots"), flags, 3)
-        this.vtbl.PreFinalCommitSnapshots := CallbackCreate(GetMethod(implObj, "PreFinalCommitSnapshots"), flags, 2)
-        this.vtbl.PostFinalCommitSnapshots := CallbackCreate(GetMethod(implObj, "PostFinalCommitSnapshots"), flags, 2)
-        this.vtbl.AbortSnapshots := CallbackCreate(GetMethod(implObj, "AbortSnapshots"), flags, 2)
+        this.vtbl.EndPrepareSnapshots := CallbackCreate(ObjBindMethod(implObj, "EndPrepareSnapshots"), flags, 2)
+        this.vtbl.PreCommitSnapshots := CallbackCreate(ObjBindMethod(implObj, "PreCommitSnapshots"), flags, 2)
+        this.vtbl.CommitSnapshots := CallbackCreate(ObjBindMethod(implObj, "CommitSnapshots"), flags, 2)
+        this.vtbl.PostCommitSnapshots := CallbackCreate(ObjBindMethod(implObj, "PostCommitSnapshots"), flags, 3)
+        this.vtbl.PreFinalCommitSnapshots := CallbackCreate(ObjBindMethod(implObj, "PreFinalCommitSnapshots"), flags, 2)
+        this.vtbl.PostFinalCommitSnapshots := CallbackCreate(ObjBindMethod(implObj, "PostFinalCommitSnapshots"), flags, 2)
+        this.vtbl.AbortSnapshots := CallbackCreate(ObjBindMethod(implObj, "AbortSnapshots"), flags, 2)
     }
 
     Dispose() {

@@ -37,7 +37,6 @@ export default struct IQueryOEMWinSATCustomization extends IUnknown {
     }
 
     /**
-     * 
      * @returns {WINSAT_OEM_CUSTOMIZATION_STATE} 
      */
     GetOEMPrePopulationInfo() {
@@ -54,7 +53,7 @@ export default struct IQueryOEMWinSATCustomization extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOEMPrePopulationInfo := CallbackCreate(GetMethod(implObj, "GetOEMPrePopulationInfo"), flags, 2)
+        this.vtbl.GetOEMPrePopulationInfo := CallbackCreate(ObjBindMethod(implObj, "GetOEMPrePopulationInfo"), flags, 2)
     }
 
     Dispose() {

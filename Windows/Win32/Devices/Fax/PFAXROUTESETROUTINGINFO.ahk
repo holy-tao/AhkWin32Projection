@@ -20,7 +20,6 @@ export default struct PFAXROUTESETROUTINGINFO {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @param {Integer} param1 
      * @param {Pointer<Integer>} param2 
@@ -30,7 +29,7 @@ export default struct PFAXROUTESETROUTINGINFO {
     Call(param0, param1, param2, param3) {
         param0 := param0 is String ? StrPtr(param0) : param0
 
-        param2Marshal := param2 is VarRef ? "char*" : "ptr"
+        param2Marshal := param2 is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, "ptr", param0, UInt32, param1, param2Marshal, param2, UInt32, param3, BOOL)
         return result

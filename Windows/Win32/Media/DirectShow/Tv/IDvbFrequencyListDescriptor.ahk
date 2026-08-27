@@ -109,11 +109,11 @@ export default struct IDvbFrequencyListDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetCodingType := CallbackCreate(GetMethod(implObj, "GetCodingType"), flags, 2)
-        this.vtbl.GetCountOfRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRecords"), flags, 2)
-        this.vtbl.GetRecordCentreFrequency := CallbackCreate(GetMethod(implObj, "GetRecordCentreFrequency"), flags, 3)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetCodingType := CallbackCreate(ObjBindMethod(implObj, "GetCodingType"), flags, 2)
+        this.vtbl.GetCountOfRecords := CallbackCreate(ObjBindMethod(implObj, "GetCountOfRecords"), flags, 2)
+        this.vtbl.GetRecordCentreFrequency := CallbackCreate(ObjBindMethod(implObj, "GetRecordCentreFrequency"), flags, 3)
     }
 
     Dispose() {

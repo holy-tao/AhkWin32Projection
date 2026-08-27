@@ -52,7 +52,7 @@ export default struct IBDA_IPV6Filter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ipv6filter-getmulticastlistsize
      */
     GetMulticastListSize(pulcbAddresses) {
-        pulcbAddressesMarshal := pulcbAddresses is VarRef ? "uint*" : "ptr"
+        pulcbAddressesMarshal := pulcbAddresses is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pulcbAddressesMarshal, pulcbAddresses, "HRESULT")
         return result
@@ -66,7 +66,7 @@ export default struct IBDA_IPV6Filter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ipv6filter-putmulticastlist
      */
     PutMulticastList(ulcbAddresses, pAddressList) {
-        pAddressListMarshal := pAddressList is VarRef ? "char*" : "ptr"
+        pAddressListMarshal := pAddressList is VarRef ? "char*" : IntPtr
 
         result := ComCall(4, this, UInt32, ulcbAddresses, pAddressListMarshal, pAddressList, "HRESULT")
         return result
@@ -81,7 +81,7 @@ export default struct IBDA_IPV6Filter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ipv6filter-getmulticastlist
      */
     GetMulticastList(pulcbAddresses) {
-        pulcbAddressesMarshal := pulcbAddresses is VarRef ? "uint*" : "ptr"
+        pulcbAddressesMarshal := pulcbAddresses is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, pulcbAddressesMarshal, pulcbAddresses, "char*", &pAddressList := 0, "HRESULT")
         return pAddressList
@@ -117,11 +117,11 @@ export default struct IBDA_IPV6Filter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMulticastListSize := CallbackCreate(GetMethod(implObj, "GetMulticastListSize"), flags, 2)
-        this.vtbl.PutMulticastList := CallbackCreate(GetMethod(implObj, "PutMulticastList"), flags, 3)
-        this.vtbl.GetMulticastList := CallbackCreate(GetMethod(implObj, "GetMulticastList"), flags, 3)
-        this.vtbl.PutMulticastMode := CallbackCreate(GetMethod(implObj, "PutMulticastMode"), flags, 2)
-        this.vtbl.GetMulticastMode := CallbackCreate(GetMethod(implObj, "GetMulticastMode"), flags, 2)
+        this.vtbl.GetMulticastListSize := CallbackCreate(ObjBindMethod(implObj, "GetMulticastListSize"), flags, 2)
+        this.vtbl.PutMulticastList := CallbackCreate(ObjBindMethod(implObj, "PutMulticastList"), flags, 3)
+        this.vtbl.GetMulticastList := CallbackCreate(ObjBindMethod(implObj, "GetMulticastList"), flags, 3)
+        this.vtbl.PutMulticastMode := CallbackCreate(ObjBindMethod(implObj, "PutMulticastMode"), flags, 2)
+        this.vtbl.GetMulticastMode := CallbackCreate(ObjBindMethod(implObj, "GetMulticastMode"), flags, 2)
     }
 
     Dispose() {

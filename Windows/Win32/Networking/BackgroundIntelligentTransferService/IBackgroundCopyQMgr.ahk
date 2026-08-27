@@ -89,9 +89,9 @@ export default struct IBackgroundCopyQMgr extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateGroup := CallbackCreate(GetMethod(implObj, "CreateGroup"), flags, 3)
-        this.vtbl.GetGroup := CallbackCreate(GetMethod(implObj, "GetGroup"), flags, 3)
-        this.vtbl.EnumGroups := CallbackCreate(GetMethod(implObj, "EnumGroups"), flags, 3)
+        this.vtbl.CreateGroup := CallbackCreate(ObjBindMethod(implObj, "CreateGroup"), flags, 3)
+        this.vtbl.GetGroup := CallbackCreate(ObjBindMethod(implObj, "GetGroup"), flags, 3)
+        this.vtbl.EnumGroups := CallbackCreate(ObjBindMethod(implObj, "EnumGroups"), flags, 3)
     }
 
     Dispose() {

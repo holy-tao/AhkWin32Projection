@@ -59,7 +59,7 @@ export default struct IUIAutomationCustomNavigationPattern extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Navigate := CallbackCreate(GetMethod(implObj, "Navigate"), flags, 3)
+        this.vtbl.Navigate := CallbackCreate(ObjBindMethod(implObj, "Navigate"), flags, 3)
     }
 
     Dispose() {

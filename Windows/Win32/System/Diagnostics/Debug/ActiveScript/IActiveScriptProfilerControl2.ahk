@@ -37,7 +37,6 @@ export default struct IActiveScriptProfilerControl2 extends IActiveScriptProfile
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CompleteProfilerStart() {
@@ -46,7 +45,6 @@ export default struct IActiveScriptProfilerControl2 extends IActiveScriptProfile
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     PrepareProfilerStop() {
@@ -63,8 +61,8 @@ export default struct IActiveScriptProfilerControl2 extends IActiveScriptProfile
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CompleteProfilerStart := CallbackCreate(GetMethod(implObj, "CompleteProfilerStart"), flags, 1)
-        this.vtbl.PrepareProfilerStop := CallbackCreate(GetMethod(implObj, "PrepareProfilerStop"), flags, 1)
+        this.vtbl.CompleteProfilerStart := CallbackCreate(ObjBindMethod(implObj, "CompleteProfilerStart"), flags, 1)
+        this.vtbl.PrepareProfilerStop := CallbackCreate(ObjBindMethod(implObj, "PrepareProfilerStop"), flags, 1)
     }
 
     Dispose() {

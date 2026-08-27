@@ -81,7 +81,7 @@ export default struct IWMPLibrary2 extends IWMPLibrary {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.getItemInfo := CallbackCreate(GetMethod(implObj, "getItemInfo"), flags, 3)
+        this.vtbl.getItemInfo := CallbackCreate(ObjBindMethod(implObj, "getItemInfo"), flags, 3)
     }
 
     Dispose() {

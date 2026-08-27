@@ -50,7 +50,6 @@ export default struct AsyncIAssociatedIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} hwndParent 
      * @returns {HRESULT} 
      */
@@ -60,7 +59,6 @@ export default struct AsyncIAssociatedIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IPropertyStore} 
      */
     Finish_AssociateIdentity() {
@@ -69,7 +67,6 @@ export default struct AsyncIAssociatedIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} hwndParent 
      * @param {PWSTR} lpszUniqueID 
      * @returns {HRESULT} 
@@ -82,7 +79,6 @@ export default struct AsyncIAssociatedIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_DisassociateIdentity() {
@@ -91,7 +87,6 @@ export default struct AsyncIAssociatedIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} hwndParent 
      * @param {PWSTR} lpszUniqueID 
      * @returns {HRESULT} 
@@ -104,7 +99,6 @@ export default struct AsyncIAssociatedIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_ChangeCredential() {
@@ -121,12 +115,12 @@ export default struct AsyncIAssociatedIdentityProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Begin_AssociateIdentity := CallbackCreate(GetMethod(implObj, "Begin_AssociateIdentity"), flags, 2)
-        this.vtbl.Finish_AssociateIdentity := CallbackCreate(GetMethod(implObj, "Finish_AssociateIdentity"), flags, 2)
-        this.vtbl.Begin_DisassociateIdentity := CallbackCreate(GetMethod(implObj, "Begin_DisassociateIdentity"), flags, 3)
-        this.vtbl.Finish_DisassociateIdentity := CallbackCreate(GetMethod(implObj, "Finish_DisassociateIdentity"), flags, 1)
-        this.vtbl.Begin_ChangeCredential := CallbackCreate(GetMethod(implObj, "Begin_ChangeCredential"), flags, 3)
-        this.vtbl.Finish_ChangeCredential := CallbackCreate(GetMethod(implObj, "Finish_ChangeCredential"), flags, 1)
+        this.vtbl.Begin_AssociateIdentity := CallbackCreate(ObjBindMethod(implObj, "Begin_AssociateIdentity"), flags, 2)
+        this.vtbl.Finish_AssociateIdentity := CallbackCreate(ObjBindMethod(implObj, "Finish_AssociateIdentity"), flags, 2)
+        this.vtbl.Begin_DisassociateIdentity := CallbackCreate(ObjBindMethod(implObj, "Begin_DisassociateIdentity"), flags, 3)
+        this.vtbl.Finish_DisassociateIdentity := CallbackCreate(ObjBindMethod(implObj, "Finish_DisassociateIdentity"), flags, 1)
+        this.vtbl.Begin_ChangeCredential := CallbackCreate(ObjBindMethod(implObj, "Begin_ChangeCredential"), flags, 3)
+        this.vtbl.Finish_ChangeCredential := CallbackCreate(ObjBindMethod(implObj, "Finish_ChangeCredential"), flags, 1)
     }
 
     Dispose() {

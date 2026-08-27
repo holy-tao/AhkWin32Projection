@@ -22,7 +22,6 @@ export default struct PFLUSH_ADAPTER_BUFFERS_EX {
     }
 
     /**
-     * 
      * @param {Pointer<DMA_ADAPTER>} DmaAdapter 
      * @param {Pointer<MDL>} _Mdl 
      * @param {Pointer<Void>} MapRegisterBase 
@@ -32,7 +31,7 @@ export default struct PFLUSH_ADAPTER_BUFFERS_EX {
      * @returns {NTSTATUS} 
      */
     Call(DmaAdapter, _Mdl, MapRegisterBase, Offset, Length, WriteToDevice) {
-        MapRegisterBaseMarshal := MapRegisterBase is VarRef ? "ptr" : "ptr"
+        MapRegisterBaseMarshal := MapRegisterBase is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, MDL.Ptr, _Mdl, MapRegisterBaseMarshal, MapRegisterBase, Int64, Offset, UInt32, Length, BOOLEAN, WriteToDevice, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

@@ -38,13 +38,15 @@ export default struct IDebugHostSymbolSubstitutionEnumerator extends IDebugHostS
     }
 
     /**
-     * 
      * @param {Pointer<IDebugHostSymbol>} symbol 
      * @param {Pointer<BSTR>} symbolText 
      * @returns {HRESULT} 
      */
     GetNextWithSubstitutionText(symbol, symbolText) {
-        result := ComCall(5, this, IDebugHostSymbol.Ptr, symbol, BSTR.Ptr, symbolText, "HRESULT")
+        symbolMarshal := symbol == 0 ? IntPtr : IDebugHostSymbol.Ptr
+        symbolTextMarshal := symbolText == 0 ? IntPtr : BSTR.Ptr
+
+        result := ComCall(5, this, symbolMarshal, symbol, symbolTextMarshal, symbolText, "HRESULT")
         return result
     }
 
@@ -57,7 +59,7 @@ export default struct IDebugHostSymbolSubstitutionEnumerator extends IDebugHostS
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNextWithSubstitutionText := CallbackCreate(GetMethod(implObj, "GetNextWithSubstitutionText"), flags, 3)
+        this.vtbl.GetNextWithSubstitutionText := CallbackCreate(ObjBindMethod(implObj, "GetNextWithSubstitutionText"), flags, 3)
     }
 
     Dispose() {

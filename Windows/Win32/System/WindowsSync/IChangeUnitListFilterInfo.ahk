@@ -101,7 +101,7 @@ export default struct IChangeUnitListFilterInfo extends ISyncFilterInfo {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ichangeunitlistfilterinfo-initialize
      */
     Initialize(ppbChangeUnitIds, dwChangeUnitCount) {
-        ppbChangeUnitIdsMarshal := ppbChangeUnitIds is VarRef ? "ptr*" : "ptr"
+        ppbChangeUnitIdsMarshal := ppbChangeUnitIds is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, ppbChangeUnitIdsMarshal, ppbChangeUnitIds, UInt32, dwChangeUnitCount, "HRESULT")
         return result
@@ -143,7 +143,7 @@ export default struct IChangeUnitListFilterInfo extends ISyncFilterInfo {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ichangeunitlistfilterinfo-getchangeunitidcount
      */
     GetChangeUnitIdCount(pdwChangeUnitIdCount) {
-        pdwChangeUnitIdCountMarshal := pdwChangeUnitIdCount is VarRef ? "uint*" : "ptr"
+        pdwChangeUnitIdCountMarshal := pdwChangeUnitIdCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, pdwChangeUnitIdCountMarshal, pdwChangeUnitIdCount, "HRESULT")
         return result
@@ -221,8 +221,8 @@ export default struct IChangeUnitListFilterInfo extends ISyncFilterInfo {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ichangeunitlistfilterinfo-getchangeunitid
      */
     GetChangeUnitId(dwChangeUnitIdIndex, pbChangeUnitId, pcbIdSize) {
-        pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : "ptr"
-        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
+        pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : IntPtr
+        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, UInt32, dwChangeUnitIdIndex, pbChangeUnitIdMarshal, pbChangeUnitId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
         return result
@@ -237,9 +237,9 @@ export default struct IChangeUnitListFilterInfo extends ISyncFilterInfo {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.GetChangeUnitIdCount := CallbackCreate(GetMethod(implObj, "GetChangeUnitIdCount"), flags, 2)
-        this.vtbl.GetChangeUnitId := CallbackCreate(GetMethod(implObj, "GetChangeUnitId"), flags, 4)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetChangeUnitIdCount := CallbackCreate(ObjBindMethod(implObj, "GetChangeUnitIdCount"), flags, 2)
+        this.vtbl.GetChangeUnitId := CallbackCreate(ObjBindMethod(implObj, "GetChangeUnitId"), flags, 4)
     }
 
     Dispose() {

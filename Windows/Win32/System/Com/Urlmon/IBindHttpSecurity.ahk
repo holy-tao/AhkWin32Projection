@@ -36,7 +36,6 @@ export default struct IBindHttpSecurity extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetIgnoreCertMask() {
@@ -53,7 +52,7 @@ export default struct IBindHttpSecurity extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetIgnoreCertMask := CallbackCreate(GetMethod(implObj, "GetIgnoreCertMask"), flags, 2)
+        this.vtbl.GetIgnoreCertMask := CallbackCreate(ObjBindMethod(implObj, "GetIgnoreCertMask"), flags, 2)
     }
 
     Dispose() {

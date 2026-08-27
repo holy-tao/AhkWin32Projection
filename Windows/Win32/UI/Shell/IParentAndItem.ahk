@@ -84,10 +84,13 @@ export default struct IParentAndItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iparentanditem-getparentanditem
      */
     GetParentAndItem(ppidlParent, ppsf, ppidlChild) {
-        ppidlParentMarshal := ppidlParent is VarRef ? "ptr*" : "ptr"
-        ppidlChildMarshal := ppidlChild is VarRef ? "ptr*" : "ptr"
+        ppidlParentMarshal := ppidlParent is VarRef ? "ptr*" : IntPtr
+        ppidlParentMarshal := ppidlParent == 0 ? IntPtr : "ptr*"
+        ppsfMarshal := ppsf == 0 ? IntPtr : IShellFolder.Ptr
+        ppidlChildMarshal := ppidlChild is VarRef ? "ptr*" : IntPtr
+        ppidlChildMarshal := ppidlChild == 0 ? IntPtr : "ptr*"
 
-        result := ComCall(4, this, ppidlParentMarshal, ppidlParent, IShellFolder.Ptr, ppsf, ppidlChildMarshal, ppidlChild, "HRESULT")
+        result := ComCall(4, this, ppidlParentMarshal, ppidlParent, ppsfMarshal, ppsf, ppidlChildMarshal, ppidlChild, "HRESULT")
         return result
     }
 
@@ -100,8 +103,8 @@ export default struct IParentAndItem extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetParentAndItem := CallbackCreate(GetMethod(implObj, "SetParentAndItem"), flags, 4)
-        this.vtbl.GetParentAndItem := CallbackCreate(GetMethod(implObj, "GetParentAndItem"), flags, 4)
+        this.vtbl.SetParentAndItem := CallbackCreate(ObjBindMethod(implObj, "SetParentAndItem"), flags, 4)
+        this.vtbl.GetParentAndItem := CallbackCreate(ObjBindMethod(implObj, "GetParentAndItem"), flags, 4)
     }
 
     Dispose() {

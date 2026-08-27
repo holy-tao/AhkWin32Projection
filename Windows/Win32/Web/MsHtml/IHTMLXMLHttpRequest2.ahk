@@ -56,7 +56,6 @@ export default struct IHTMLXMLHttpRequest2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -66,7 +65,6 @@ export default struct IHTMLXMLHttpRequest2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_timeout() {
@@ -75,7 +73,6 @@ export default struct IHTMLXMLHttpRequest2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -85,7 +82,6 @@ export default struct IHTMLXMLHttpRequest2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ontimeout() {
@@ -103,10 +99,10 @@ export default struct IHTMLXMLHttpRequest2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_timeout := CallbackCreate(GetMethod(implObj, "put_timeout"), flags, 2)
-        this.vtbl.get_timeout := CallbackCreate(GetMethod(implObj, "get_timeout"), flags, 2)
-        this.vtbl.put_ontimeout := CallbackCreate(GetMethod(implObj, "put_ontimeout"), flags, 2)
-        this.vtbl.get_ontimeout := CallbackCreate(GetMethod(implObj, "get_ontimeout"), flags, 2)
+        this.vtbl.put_timeout := CallbackCreate(ObjBindMethod(implObj, "put_timeout"), flags, 2)
+        this.vtbl.get_timeout := CallbackCreate(ObjBindMethod(implObj, "get_timeout"), flags, 2)
+        this.vtbl.put_ontimeout := CallbackCreate(ObjBindMethod(implObj, "put_ontimeout"), flags, 2)
+        this.vtbl.get_ontimeout := CallbackCreate(ObjBindMethod(implObj, "get_ontimeout"), flags, 2)
     }
 
     Dispose() {

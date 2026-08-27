@@ -137,9 +137,9 @@ export default struct IKsPropertySet extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Set := CallbackCreate(GetMethod(implObj, "Set"), flags, 7)
-        this.vtbl.Get := CallbackCreate(GetMethod(implObj, "Get"), flags, 8)
-        this.vtbl.QuerySupported := CallbackCreate(GetMethod(implObj, "QuerySupported"), flags, 4)
+        this.vtbl.Set := CallbackCreate(ObjBindMethod(implObj, "Set"), flags, 7)
+        this.vtbl.Get := CallbackCreate(ObjBindMethod(implObj, "Get"), flags, 8)
+        this.vtbl.QuerySupported := CallbackCreate(ObjBindMethod(implObj, "QuerySupported"), flags, 4)
     }
 
     Dispose() {

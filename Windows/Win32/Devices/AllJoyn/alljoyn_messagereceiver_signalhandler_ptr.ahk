@@ -21,7 +21,6 @@ export default struct alljoyn_messagereceiver_signalhandler_ptr {
     }
 
     /**
-     * 
      * @param {Pointer<alljoyn_interfacedescription_member>} member 
      * @param {PSTR} srcPath 
      * @param {alljoyn_message} message 

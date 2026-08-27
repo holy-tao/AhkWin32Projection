@@ -138,10 +138,10 @@ export default struct IFileDialogControlEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnItemSelected := CallbackCreate(GetMethod(implObj, "OnItemSelected"), flags, 4)
-        this.vtbl.OnButtonClicked := CallbackCreate(GetMethod(implObj, "OnButtonClicked"), flags, 3)
-        this.vtbl.OnCheckButtonToggled := CallbackCreate(GetMethod(implObj, "OnCheckButtonToggled"), flags, 4)
-        this.vtbl.OnControlActivating := CallbackCreate(GetMethod(implObj, "OnControlActivating"), flags, 3)
+        this.vtbl.OnItemSelected := CallbackCreate(ObjBindMethod(implObj, "OnItemSelected"), flags, 4)
+        this.vtbl.OnButtonClicked := CallbackCreate(ObjBindMethod(implObj, "OnButtonClicked"), flags, 3)
+        this.vtbl.OnCheckButtonToggled := CallbackCreate(ObjBindMethod(implObj, "OnCheckButtonToggled"), flags, 4)
+        this.vtbl.OnControlActivating := CallbackCreate(ObjBindMethod(implObj, "OnControlActivating"), flags, 3)
     }
 
     Dispose() {

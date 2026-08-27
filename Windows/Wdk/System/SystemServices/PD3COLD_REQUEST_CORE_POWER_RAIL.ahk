@@ -18,7 +18,6 @@ export default struct PD3COLD_REQUEST_CORE_POWER_RAIL {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

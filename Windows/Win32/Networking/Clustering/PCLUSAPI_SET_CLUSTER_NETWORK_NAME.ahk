@@ -20,7 +20,6 @@ export default struct PCLUSAPI_SET_CLUSTER_NETWORK_NAME {
     }
 
     /**
-     * 
      * @param {HNETWORK} _hNetwork 
      * @param {PWSTR} lpszName 
      * @returns {Integer} 

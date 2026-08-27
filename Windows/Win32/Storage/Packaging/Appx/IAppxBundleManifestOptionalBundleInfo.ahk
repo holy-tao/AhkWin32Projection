@@ -85,9 +85,9 @@ export default struct IAppxBundleManifestOptionalBundleInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPackageId := CallbackCreate(GetMethod(implObj, "GetPackageId"), flags, 2)
-        this.vtbl.GetFileName := CallbackCreate(GetMethod(implObj, "GetFileName"), flags, 2)
-        this.vtbl.GetPackageInfoItems := CallbackCreate(GetMethod(implObj, "GetPackageInfoItems"), flags, 2)
+        this.vtbl.GetPackageId := CallbackCreate(ObjBindMethod(implObj, "GetPackageId"), flags, 2)
+        this.vtbl.GetFileName := CallbackCreate(ObjBindMethod(implObj, "GetFileName"), flags, 2)
+        this.vtbl.GetPackageInfoItems := CallbackCreate(ObjBindMethod(implObj, "GetPackageInfoItems"), flags, 2)
     }
 
     Dispose() {

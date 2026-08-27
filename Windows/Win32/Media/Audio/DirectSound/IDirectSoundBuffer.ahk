@@ -57,7 +57,6 @@ export default struct IDirectSoundBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DSBCAPS} 
      */
     GetCaps() {
@@ -67,32 +66,33 @@ export default struct IDirectSoundBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwCurrentPlayCursor 
      * @param {Pointer<Integer>} pdwCurrentWriteCursor 
      * @returns {HRESULT} 
      */
     GetCurrentPosition(pdwCurrentPlayCursor, pdwCurrentWriteCursor) {
-        pdwCurrentPlayCursorMarshal := pdwCurrentPlayCursor is VarRef ? "uint*" : "ptr"
-        pdwCurrentWriteCursorMarshal := pdwCurrentWriteCursor is VarRef ? "uint*" : "ptr"
+        pdwCurrentPlayCursorMarshal := pdwCurrentPlayCursor is VarRef ? "uint*" : IntPtr
+        pdwCurrentPlayCursorMarshal := pdwCurrentPlayCursor == 0 ? IntPtr : "uint*"
+        pdwCurrentWriteCursorMarshal := pdwCurrentWriteCursor is VarRef ? "uint*" : IntPtr
+        pdwCurrentWriteCursorMarshal := pdwCurrentWriteCursor == 0 ? IntPtr : "uint*"
 
         result := ComCall(4, this, pdwCurrentPlayCursorMarshal, pdwCurrentPlayCursor, pdwCurrentWriteCursorMarshal, pdwCurrentWriteCursor, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} pwfxFormat 
      * @param {Integer} dwSizeAllocated 
      * @returns {Integer} 
      */
     GetFormat(pwfxFormat, dwSizeAllocated) {
-        result := ComCall(5, this, IntPtr, pwfxFormat, UInt32, dwSizeAllocated, "uint*", &pdwSizeWritten := 0, "HRESULT")
+        pwfxFormatMarshal := pwfxFormat == 0 ? IntPtr : IntPtr
+
+        result := ComCall(5, this, pwfxFormatMarshal, pwfxFormat, UInt32, dwSizeAllocated, "uint*", &pdwSizeWritten := 0, "HRESULT")
         return pdwSizeWritten
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetVolume() {
@@ -101,7 +101,6 @@ export default struct IDirectSoundBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetPan() {
@@ -110,7 +109,6 @@ export default struct IDirectSoundBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetFrequency() {
@@ -119,7 +117,6 @@ export default struct IDirectSoundBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetStatus() {
@@ -189,10 +186,12 @@ export default struct IDirectSoundBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/SecProv/lock-win32-encryptablevolume
      */
     Lock(dwOffset, dwBytes, ppvAudioPtr1, pdwAudioBytes1, ppvAudioPtr2, pdwAudioBytes2, dwFlags) {
-        ppvAudioPtr1Marshal := ppvAudioPtr1 is VarRef ? "ptr*" : "ptr"
-        pdwAudioBytes1Marshal := pdwAudioBytes1 is VarRef ? "uint*" : "ptr"
-        ppvAudioPtr2Marshal := ppvAudioPtr2 is VarRef ? "ptr*" : "ptr"
-        pdwAudioBytes2Marshal := pdwAudioBytes2 is VarRef ? "uint*" : "ptr"
+        ppvAudioPtr1Marshal := ppvAudioPtr1 is VarRef ? "ptr*" : IntPtr
+        pdwAudioBytes1Marshal := pdwAudioBytes1 is VarRef ? "uint*" : IntPtr
+        ppvAudioPtr2Marshal := ppvAudioPtr2 is VarRef ? "ptr*" : IntPtr
+        ppvAudioPtr2Marshal := ppvAudioPtr2 == 0 ? IntPtr : "ptr*"
+        pdwAudioBytes2Marshal := pdwAudioBytes2 is VarRef ? "uint*" : IntPtr
+        pdwAudioBytes2Marshal := pdwAudioBytes2 == 0 ? IntPtr : "uint*"
 
         result := ComCall(11, this, UInt32, dwOffset, UInt32, dwBytes, ppvAudioPtr1Marshal, ppvAudioPtr1, pdwAudioBytes1Marshal, pdwAudioBytes1, ppvAudioPtr2Marshal, ppvAudioPtr2, pdwAudioBytes2Marshal, pdwAudioBytes2, UInt32, dwFlags, "HRESULT")
         return result
@@ -214,7 +213,6 @@ export default struct IDirectSoundBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwNewPosition 
      * @returns {HRESULT} 
      */
@@ -224,7 +222,6 @@ export default struct IDirectSoundBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<WAVEFORMATEX>} pcfxFormat 
      * @returns {HRESULT} 
      */
@@ -234,7 +231,6 @@ export default struct IDirectSoundBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lVolume 
      * @returns {HRESULT} 
      */
@@ -244,7 +240,6 @@ export default struct IDirectSoundBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lPan 
      * @returns {HRESULT} 
      */
@@ -254,7 +249,6 @@ export default struct IDirectSoundBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwFrequency 
      * @returns {HRESULT} 
      */
@@ -264,7 +258,6 @@ export default struct IDirectSoundBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Stop() {
@@ -273,7 +266,6 @@ export default struct IDirectSoundBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pvAudioPtr1 
      * @param {Integer} dwAudioBytes1 
      * @param {Integer} pvAudioPtr2 
@@ -281,7 +273,9 @@ export default struct IDirectSoundBuffer extends IUnknown {
      * @returns {HRESULT} 
      */
     Unlock(pvAudioPtr1, dwAudioBytes1, pvAudioPtr2, dwAudioBytes2) {
-        result := ComCall(19, this, IntPtr, pvAudioPtr1, UInt32, dwAudioBytes1, IntPtr, pvAudioPtr2, UInt32, dwAudioBytes2, "HRESULT")
+        pvAudioPtr2Marshal := pvAudioPtr2 == 0 ? IntPtr : IntPtr
+
+        result := ComCall(19, this, IntPtr, pvAudioPtr1, UInt32, dwAudioBytes1, pvAudioPtr2Marshal, pvAudioPtr2, UInt32, dwAudioBytes2, "HRESULT")
         return result
     }
 
@@ -304,24 +298,24 @@ export default struct IDirectSoundBuffer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCaps := CallbackCreate(GetMethod(implObj, "GetCaps"), flags, 2)
-        this.vtbl.GetCurrentPosition := CallbackCreate(GetMethod(implObj, "GetCurrentPosition"), flags, 3)
-        this.vtbl.GetFormat := CallbackCreate(GetMethod(implObj, "GetFormat"), flags, 4)
-        this.vtbl.GetVolume := CallbackCreate(GetMethod(implObj, "GetVolume"), flags, 2)
-        this.vtbl.GetPan := CallbackCreate(GetMethod(implObj, "GetPan"), flags, 2)
-        this.vtbl.GetFrequency := CallbackCreate(GetMethod(implObj, "GetFrequency"), flags, 2)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.Lock := CallbackCreate(GetMethod(implObj, "Lock"), flags, 8)
-        this.vtbl.Play := CallbackCreate(GetMethod(implObj, "Play"), flags, 4)
-        this.vtbl.SetCurrentPosition := CallbackCreate(GetMethod(implObj, "SetCurrentPosition"), flags, 2)
-        this.vtbl.SetFormat := CallbackCreate(GetMethod(implObj, "SetFormat"), flags, 2)
-        this.vtbl.SetVolume := CallbackCreate(GetMethod(implObj, "SetVolume"), flags, 2)
-        this.vtbl.SetPan := CallbackCreate(GetMethod(implObj, "SetPan"), flags, 2)
-        this.vtbl.SetFrequency := CallbackCreate(GetMethod(implObj, "SetFrequency"), flags, 2)
-        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
-        this.vtbl.Unlock := CallbackCreate(GetMethod(implObj, "Unlock"), flags, 5)
-        this.vtbl.Restore := CallbackCreate(GetMethod(implObj, "Restore"), flags, 1)
+        this.vtbl.GetCaps := CallbackCreate(ObjBindMethod(implObj, "GetCaps"), flags, 2)
+        this.vtbl.GetCurrentPosition := CallbackCreate(ObjBindMethod(implObj, "GetCurrentPosition"), flags, 3)
+        this.vtbl.GetFormat := CallbackCreate(ObjBindMethod(implObj, "GetFormat"), flags, 4)
+        this.vtbl.GetVolume := CallbackCreate(ObjBindMethod(implObj, "GetVolume"), flags, 2)
+        this.vtbl.GetPan := CallbackCreate(ObjBindMethod(implObj, "GetPan"), flags, 2)
+        this.vtbl.GetFrequency := CallbackCreate(ObjBindMethod(implObj, "GetFrequency"), flags, 2)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.Lock := CallbackCreate(ObjBindMethod(implObj, "Lock"), flags, 8)
+        this.vtbl.Play := CallbackCreate(ObjBindMethod(implObj, "Play"), flags, 4)
+        this.vtbl.SetCurrentPosition := CallbackCreate(ObjBindMethod(implObj, "SetCurrentPosition"), flags, 2)
+        this.vtbl.SetFormat := CallbackCreate(ObjBindMethod(implObj, "SetFormat"), flags, 2)
+        this.vtbl.SetVolume := CallbackCreate(ObjBindMethod(implObj, "SetVolume"), flags, 2)
+        this.vtbl.SetPan := CallbackCreate(ObjBindMethod(implObj, "SetPan"), flags, 2)
+        this.vtbl.SetFrequency := CallbackCreate(ObjBindMethod(implObj, "SetFrequency"), flags, 2)
+        this.vtbl.Stop := CallbackCreate(ObjBindMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.Unlock := CallbackCreate(ObjBindMethod(implObj, "Unlock"), flags, 5)
+        this.vtbl.Restore := CallbackCreate(ObjBindMethod(implObj, "Restore"), flags, 1)
     }
 
     Dispose() {

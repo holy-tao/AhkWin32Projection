@@ -148,7 +148,10 @@ export default struct IMFMediaEngineExtension extends IUnknown {
     BeginCreateObject(bstrURL, pByteStream, type, pCallback, punkState) {
         bstrURL := bstrURL is String ? BSTR.Alloc(bstrURL).Value : bstrURL
 
-        result := ComCall(4, this, BSTR, bstrURL, "ptr", pByteStream, MF_OBJECT_TYPE, type, "ptr*", &ppIUnknownCancelCookie := 0, "ptr", pCallback, "ptr", punkState, "HRESULT")
+        pByteStreamMarshal := pByteStream == 0 ? IntPtr : "ptr"
+        punkStateMarshal := punkState == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, BSTR, bstrURL, pByteStreamMarshal, pByteStream, MF_OBJECT_TYPE, type, "ptr*", &ppIUnknownCancelCookie := 0, "ptr", pCallback, punkStateMarshal, punkState, "HRESULT")
         return IUnknown(ppIUnknownCancelCookie)
     }
 
@@ -187,10 +190,10 @@ export default struct IMFMediaEngineExtension extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CanPlayType := CallbackCreate(GetMethod(implObj, "CanPlayType"), flags, 4)
-        this.vtbl.BeginCreateObject := CallbackCreate(GetMethod(implObj, "BeginCreateObject"), flags, 7)
-        this.vtbl.CancelObjectCreation := CallbackCreate(GetMethod(implObj, "CancelObjectCreation"), flags, 2)
-        this.vtbl.EndCreateObject := CallbackCreate(GetMethod(implObj, "EndCreateObject"), flags, 3)
+        this.vtbl.CanPlayType := CallbackCreate(ObjBindMethod(implObj, "CanPlayType"), flags, 4)
+        this.vtbl.BeginCreateObject := CallbackCreate(ObjBindMethod(implObj, "BeginCreateObject"), flags, 7)
+        this.vtbl.CancelObjectCreation := CallbackCreate(ObjBindMethod(implObj, "CancelObjectCreation"), flags, 2)
+        this.vtbl.EndCreateObject := CallbackCreate(ObjBindMethod(implObj, "EndCreateObject"), flags, 3)
     }
 
     Dispose() {

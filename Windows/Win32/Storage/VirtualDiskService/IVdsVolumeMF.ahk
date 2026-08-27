@@ -225,8 +225,8 @@ export default struct IVdsVolumeMF extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolumemf-queryaccesspaths
      */
     QueryAccessPaths(pwszPathArray, plNumberOfAccessPaths) {
-        pwszPathArrayMarshal := pwszPathArray is VarRef ? "ptr*" : "ptr"
-        plNumberOfAccessPathsMarshal := plNumberOfAccessPaths is VarRef ? "int*" : "ptr"
+        pwszPathArrayMarshal := pwszPathArray is VarRef ? "ptr*" : IntPtr
+        plNumberOfAccessPathsMarshal := plNumberOfAccessPaths is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, pwszPathArrayMarshal, pwszPathArray, plNumberOfAccessPathsMarshal, plNumberOfAccessPaths, "HRESULT")
         return result
@@ -284,8 +284,8 @@ export default struct IVdsVolumeMF extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolumemf-queryreparsepoints
      */
     QueryReparsePoints(ppReparsePointProps, plNumberOfReparsePointProps) {
-        ppReparsePointPropsMarshal := ppReparsePointProps is VarRef ? "ptr*" : "ptr"
-        plNumberOfReparsePointPropsMarshal := plNumberOfReparsePointProps is VarRef ? "int*" : "ptr"
+        ppReparsePointPropsMarshal := ppReparsePointProps is VarRef ? "ptr*" : IntPtr
+        plNumberOfReparsePointPropsMarshal := plNumberOfReparsePointProps is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, ppReparsePointPropsMarshal, ppReparsePointProps, plNumberOfReparsePointPropsMarshal, plNumberOfReparsePointProps, "HRESULT")
         return result
@@ -672,16 +672,16 @@ export default struct IVdsVolumeMF extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFileSystemProperties := CallbackCreate(GetMethod(implObj, "GetFileSystemProperties"), flags, 2)
-        this.vtbl.Format := CallbackCreate(GetMethod(implObj, "Format"), flags, 8)
-        this.vtbl.AddAccessPath := CallbackCreate(GetMethod(implObj, "AddAccessPath"), flags, 2)
-        this.vtbl.QueryAccessPaths := CallbackCreate(GetMethod(implObj, "QueryAccessPaths"), flags, 3)
-        this.vtbl.QueryReparsePoints := CallbackCreate(GetMethod(implObj, "QueryReparsePoints"), flags, 3)
-        this.vtbl.DeleteAccessPath := CallbackCreate(GetMethod(implObj, "DeleteAccessPath"), flags, 3)
-        this.vtbl.Mount := CallbackCreate(GetMethod(implObj, "Mount"), flags, 1)
-        this.vtbl.Dismount := CallbackCreate(GetMethod(implObj, "Dismount"), flags, 3)
-        this.vtbl.SetFileSystemFlags := CallbackCreate(GetMethod(implObj, "SetFileSystemFlags"), flags, 2)
-        this.vtbl.ClearFileSystemFlags := CallbackCreate(GetMethod(implObj, "ClearFileSystemFlags"), flags, 2)
+        this.vtbl.GetFileSystemProperties := CallbackCreate(ObjBindMethod(implObj, "GetFileSystemProperties"), flags, 2)
+        this.vtbl.Format := CallbackCreate(ObjBindMethod(implObj, "Format"), flags, 8)
+        this.vtbl.AddAccessPath := CallbackCreate(ObjBindMethod(implObj, "AddAccessPath"), flags, 2)
+        this.vtbl.QueryAccessPaths := CallbackCreate(ObjBindMethod(implObj, "QueryAccessPaths"), flags, 3)
+        this.vtbl.QueryReparsePoints := CallbackCreate(ObjBindMethod(implObj, "QueryReparsePoints"), flags, 3)
+        this.vtbl.DeleteAccessPath := CallbackCreate(ObjBindMethod(implObj, "DeleteAccessPath"), flags, 3)
+        this.vtbl.Mount := CallbackCreate(ObjBindMethod(implObj, "Mount"), flags, 1)
+        this.vtbl.Dismount := CallbackCreate(ObjBindMethod(implObj, "Dismount"), flags, 3)
+        this.vtbl.SetFileSystemFlags := CallbackCreate(ObjBindMethod(implObj, "SetFileSystemFlags"), flags, 2)
+        this.vtbl.ClearFileSystemFlags := CallbackCreate(ObjBindMethod(implObj, "ClearFileSystemFlags"), flags, 2)
     }
 
     Dispose() {

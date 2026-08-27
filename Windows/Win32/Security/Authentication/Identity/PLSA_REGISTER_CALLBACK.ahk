@@ -20,7 +20,6 @@ export default struct PLSA_REGISTER_CALLBACK {
     }
 
     /**
-     * 
      * @param {Integer} CallbackId 
      * @param {Pointer<PLSA_CALLBACK_FUNCTION>} Callback 
      * @returns {NTSTATUS} 

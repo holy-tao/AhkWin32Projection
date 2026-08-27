@@ -65,7 +65,7 @@ export default struct IWebApplicationAuthoringMode extends IServiceProvider {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_AuthoringClientBinary := CallbackCreate(GetMethod(implObj, "get_AuthoringClientBinary"), flags, 2)
+        this.vtbl.get_AuthoringClientBinary := CallbackCreate(ObjBindMethod(implObj, "get_AuthoringClientBinary"), flags, 2)
     }
 
     Dispose() {

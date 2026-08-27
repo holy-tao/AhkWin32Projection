@@ -105,9 +105,9 @@ export default struct IWMSInternalAdminNetSource3 extends IWMSInternalAdminNetSo
         bstrHost := bstrHost is String ? BSTR.Alloc(bstrHost).Value : bstrHost
         bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
 
-        pfProxyEnabledMarshal := pfProxyEnabled is VarRef ? "int*" : "ptr"
-        pdwProxyPortMarshal := pdwProxyPort is VarRef ? "uint*" : "ptr"
-        pqwProxyContextMarshal := pqwProxyContext is VarRef ? "uint*" : "ptr"
+        pfProxyEnabledMarshal := pfProxyEnabled is VarRef ? "int*" : IntPtr
+        pdwProxyPortMarshal := pdwProxyPort is VarRef ? "uint*" : IntPtr
+        pqwProxyContextMarshal := pqwProxyContext is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, BSTR, bstrProtocol, BSTR, bstrHost, BSTR, bstrUrl, pfProxyEnabledMarshal, pfProxyEnabled, BSTR.Ptr, pbstrProxyServer, pdwProxyPortMarshal, pdwProxyPort, pqwProxyContextMarshal, pqwProxyContext, "HRESULT")
         return result
@@ -191,8 +191,8 @@ export default struct IWMSInternalAdminNetSource3 extends IWMSInternalAdminNetSo
         bstrRealm := bstrRealm is String ? BSTR.Alloc(bstrRealm).Value : bstrRealm
         bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
 
-        pdwUrlPolicyMarshal := pdwUrlPolicy is VarRef ? "int*" : "ptr"
-        pfConfirmedGoodMarshal := pfConfirmedGood is VarRef ? "int*" : "ptr"
+        pdwUrlPolicyMarshal := pdwUrlPolicy is VarRef ? "int*" : IntPtr
+        pfConfirmedGoodMarshal := pfConfirmedGood is VarRef ? "int*" : IntPtr
 
         result := ComCall(13, this, BSTR, bstrRealm, BSTR, bstrUrl, BOOL, fProxy, BOOL, fClearTextAuthentication, pdwUrlPolicyMarshal, pdwUrlPolicy, BSTR.Ptr, pbstrName, BSTR.Ptr, pbstrPassword, pfConfirmedGoodMarshal, pfConfirmedGood, "HRESULT")
         return result
@@ -207,13 +207,13 @@ export default struct IWMSInternalAdminNetSource3 extends IWMSInternalAdminNetSo
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNetSourceCreator2 := CallbackCreate(GetMethod(implObj, "GetNetSourceCreator2"), flags, 2)
-        this.vtbl.FindProxyForURLEx2 := CallbackCreate(GetMethod(implObj, "FindProxyForURLEx2"), flags, 8)
-        this.vtbl.RegisterProxyFailure2 := CallbackCreate(GetMethod(implObj, "RegisterProxyFailure2"), flags, 3)
-        this.vtbl.ShutdownProxyContext2 := CallbackCreate(GetMethod(implObj, "ShutdownProxyContext2"), flags, 2)
-        this.vtbl.IsUsingIE2 := CallbackCreate(GetMethod(implObj, "IsUsingIE2"), flags, 3)
-        this.vtbl.SetCredentialsEx2 := CallbackCreate(GetMethod(implObj, "SetCredentialsEx2"), flags, 9)
-        this.vtbl.GetCredentialsEx2 := CallbackCreate(GetMethod(implObj, "GetCredentialsEx2"), flags, 9)
+        this.vtbl.GetNetSourceCreator2 := CallbackCreate(ObjBindMethod(implObj, "GetNetSourceCreator2"), flags, 2)
+        this.vtbl.FindProxyForURLEx2 := CallbackCreate(ObjBindMethod(implObj, "FindProxyForURLEx2"), flags, 8)
+        this.vtbl.RegisterProxyFailure2 := CallbackCreate(ObjBindMethod(implObj, "RegisterProxyFailure2"), flags, 3)
+        this.vtbl.ShutdownProxyContext2 := CallbackCreate(ObjBindMethod(implObj, "ShutdownProxyContext2"), flags, 2)
+        this.vtbl.IsUsingIE2 := CallbackCreate(ObjBindMethod(implObj, "IsUsingIE2"), flags, 3)
+        this.vtbl.SetCredentialsEx2 := CallbackCreate(ObjBindMethod(implObj, "SetCredentialsEx2"), flags, 9)
+        this.vtbl.GetCredentialsEx2 := CallbackCreate(ObjBindMethod(implObj, "GetCredentialsEx2"), flags, 9)
     }
 
     Dispose() {

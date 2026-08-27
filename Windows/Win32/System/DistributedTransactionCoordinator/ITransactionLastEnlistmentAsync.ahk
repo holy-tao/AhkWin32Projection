@@ -38,7 +38,6 @@ export default struct ITransactionLastEnlistmentAsync extends IUnknown {
     }
 
     /**
-     * 
      * @param {XACTSTAT} _XactStat 
      * @param {Pointer<BOID>} pboidReason 
      * @returns {HRESULT} 
@@ -57,7 +56,7 @@ export default struct ITransactionLastEnlistmentAsync extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.TransactionOutcome := CallbackCreate(GetMethod(implObj, "TransactionOutcome"), flags, 3)
+        this.vtbl.TransactionOutcome := CallbackCreate(ObjBindMethod(implObj, "TransactionOutcome"), flags, 3)
     }
 
     Dispose() {

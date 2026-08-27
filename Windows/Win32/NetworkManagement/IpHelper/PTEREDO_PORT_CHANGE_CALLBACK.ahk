@@ -19,14 +19,13 @@ export default struct PTEREDO_PORT_CHANGE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} CallerContext 
      * @param {Integer} Port 
      * @param {MIB_NOTIFICATION_TYPE} NotificationType 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(CallerContext, Port, NotificationType) {
-        CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
+        CallerContextMarshal := CallerContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, CallerContextMarshal, CallerContext, UInt16, Port, MIB_NOTIFICATION_TYPE, NotificationType)
     }

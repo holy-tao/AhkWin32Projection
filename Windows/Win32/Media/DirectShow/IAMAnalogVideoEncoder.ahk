@@ -192,13 +192,13 @@ export default struct IAMAnalogVideoEncoder extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_AvailableTVFormats := CallbackCreate(GetMethod(implObj, "get_AvailableTVFormats"), flags, 2)
-        this.vtbl.put_TVFormat := CallbackCreate(GetMethod(implObj, "put_TVFormat"), flags, 2)
-        this.vtbl.get_TVFormat := CallbackCreate(GetMethod(implObj, "get_TVFormat"), flags, 2)
-        this.vtbl.put_CopyProtection := CallbackCreate(GetMethod(implObj, "put_CopyProtection"), flags, 2)
-        this.vtbl.get_CopyProtection := CallbackCreate(GetMethod(implObj, "get_CopyProtection"), flags, 2)
-        this.vtbl.put_CCEnable := CallbackCreate(GetMethod(implObj, "put_CCEnable"), flags, 2)
-        this.vtbl.get_CCEnable := CallbackCreate(GetMethod(implObj, "get_CCEnable"), flags, 2)
+        this.vtbl.get_AvailableTVFormats := CallbackCreate(ObjBindMethod(implObj, "get_AvailableTVFormats"), flags, 2)
+        this.vtbl.put_TVFormat := CallbackCreate(ObjBindMethod(implObj, "put_TVFormat"), flags, 2)
+        this.vtbl.get_TVFormat := CallbackCreate(ObjBindMethod(implObj, "get_TVFormat"), flags, 2)
+        this.vtbl.put_CopyProtection := CallbackCreate(ObjBindMethod(implObj, "put_CopyProtection"), flags, 2)
+        this.vtbl.get_CopyProtection := CallbackCreate(ObjBindMethod(implObj, "get_CopyProtection"), flags, 2)
+        this.vtbl.put_CCEnable := CallbackCreate(ObjBindMethod(implObj, "put_CCEnable"), flags, 2)
+        this.vtbl.get_CCEnable := CallbackCreate(ObjBindMethod(implObj, "get_CCEnable"), flags, 2)
     }
 
     Dispose() {

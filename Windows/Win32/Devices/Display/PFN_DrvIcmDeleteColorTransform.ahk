@@ -21,7 +21,6 @@ export default struct PFN_DrvIcmDeleteColorTransform {
     }
 
     /**
-     * 
      * @param {DHPDEV} param0 
      * @param {HANDLE} param1 
      * @returns {BOOL} 

@@ -19,7 +19,6 @@ export default struct PFN_DrvQueryFontTree {
     }
 
     /**
-     * 
      * @param {DHPDEV} param0 
      * @param {Pointer} param1 
      * @param {Integer} param2 
@@ -28,7 +27,7 @@ export default struct PFN_DrvQueryFontTree {
      * @returns {Pointer<Void>} 
      */
     Call(param0, param1, param2, param3, param4) {
-        param4Marshal := param4 is VarRef ? "ptr*" : "ptr"
+        param4Marshal := param4 is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, DHPDEV, param0, IntPtr, param1, UInt32, param2, UInt32, param3, param4Marshal, param4, IntPtr)
         return result

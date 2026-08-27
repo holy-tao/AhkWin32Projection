@@ -89,8 +89,8 @@ export default struct IWMLicenseRestore extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RestoreLicenses := CallbackCreate(GetMethod(implObj, "RestoreLicenses"), flags, 3)
-        this.vtbl.CancelLicenseRestore := CallbackCreate(GetMethod(implObj, "CancelLicenseRestore"), flags, 1)
+        this.vtbl.RestoreLicenses := CallbackCreate(ObjBindMethod(implObj, "RestoreLicenses"), flags, 3)
+        this.vtbl.CancelLicenseRestore := CallbackCreate(ObjBindMethod(implObj, "CancelLicenseRestore"), flags, 1)
     }
 
     Dispose() {

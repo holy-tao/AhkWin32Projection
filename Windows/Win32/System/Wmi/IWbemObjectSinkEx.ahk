@@ -125,11 +125,11 @@ export default struct IWbemObjectSinkEx extends IWbemObjectSink {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.WriteMessage := CallbackCreate(GetMethod(implObj, "WriteMessage"), flags, 3)
-        this.vtbl.WriteError := CallbackCreate(GetMethod(implObj, "WriteError"), flags, 3)
-        this.vtbl.PromptUser := CallbackCreate(GetMethod(implObj, "PromptUser"), flags, 4)
-        this.vtbl.WriteProgress := CallbackCreate(GetMethod(implObj, "WriteProgress"), flags, 6)
-        this.vtbl.WriteStreamParameter := CallbackCreate(GetMethod(implObj, "WriteStreamParameter"), flags, 5)
+        this.vtbl.WriteMessage := CallbackCreate(ObjBindMethod(implObj, "WriteMessage"), flags, 3)
+        this.vtbl.WriteError := CallbackCreate(ObjBindMethod(implObj, "WriteError"), flags, 3)
+        this.vtbl.PromptUser := CallbackCreate(ObjBindMethod(implObj, "PromptUser"), flags, 4)
+        this.vtbl.WriteProgress := CallbackCreate(ObjBindMethod(implObj, "WriteProgress"), flags, 6)
+        this.vtbl.WriteStreamParameter := CallbackCreate(ObjBindMethod(implObj, "WriteStreamParameter"), flags, 5)
     }
 
     Dispose() {

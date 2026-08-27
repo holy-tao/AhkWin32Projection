@@ -25,7 +25,6 @@ export default struct PRESOURCE_CONTROL_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Resource Resource identifier of the affected resource.
      * @param {Integer} ControlCode <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/about-control-codes">Control code</a> that represents the operation to be 
      *        performed. For a list of valid values for the <i>ControlCode</i> parameter, see 
@@ -110,10 +109,10 @@ export default struct PRESOURCE_CONTROL_ROUTINE {
      * </table>
      */
     Call(Resource, ControlCode, InBuffer, InBufferSize, OutBuffer, OutBufferSize, BytesReturned) {
-        ResourceMarshal := Resource is VarRef ? "ptr" : "ptr"
-        InBufferMarshal := InBuffer is VarRef ? "ptr" : "ptr"
-        OutBufferMarshal := OutBuffer is VarRef ? "ptr" : "ptr"
-        BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
+        ResourceMarshal := Resource is VarRef ? "ptr" : IntPtr
+        InBufferMarshal := InBuffer is VarRef ? "ptr" : IntPtr
+        OutBufferMarshal := OutBuffer is VarRef ? "ptr" : IntPtr
+        BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, ResourceMarshal, Resource, UInt32, ControlCode, InBufferMarshal, InBuffer, UInt32, InBufferSize, OutBufferMarshal, OutBuffer, UInt32, OutBufferSize, BytesReturnedMarshal, BytesReturned, UInt32)
         return result

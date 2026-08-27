@@ -71,8 +71,8 @@ export default struct ID3D12ProtectedSession extends ID3D12DeviceChild {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStatusFence := CallbackCreate(GetMethod(implObj, "GetStatusFence"), flags, 3)
-        this.vtbl.GetSessionStatus := CallbackCreate(GetMethod(implObj, "GetSessionStatus"), flags, 1)
+        this.vtbl.GetStatusFence := CallbackCreate(ObjBindMethod(implObj, "GetStatusFence"), flags, 3)
+        this.vtbl.GetSessionStatus := CallbackCreate(ObjBindMethod(implObj, "GetSessionStatus"), flags, 1)
     }
 
     Dispose() {

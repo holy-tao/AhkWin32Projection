@@ -23,7 +23,6 @@ export default struct pD3DCompile {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pSrcData 
      * @param {Pointer} SrcDataSize 
      * @param {PSTR} pFileName 
@@ -42,7 +41,7 @@ export default struct pD3DCompile {
         pEntrypoint := pEntrypoint is String ? StrPtr(pEntrypoint) : pEntrypoint
         pTarget := pTarget is String ? StrPtr(pTarget) : pTarget
 
-        pSrcDataMarshal := pSrcData is VarRef ? "ptr" : "ptr"
+        pSrcDataMarshal := pSrcData is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, pSrcDataMarshal, pSrcData, IntPtr, SrcDataSize, "ptr", pFileName, D3D_SHADER_MACRO.Ptr, pDefines, "ptr", pInclude, "ptr", pEntrypoint, "ptr", pTarget, UInt32, Flags1, UInt32, Flags2, ID3DBlob.Ptr, ppCode, ID3DBlob.Ptr, ppErrorMsgs, "HRESULT")
         return result

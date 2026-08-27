@@ -70,7 +70,6 @@ export default struct FolderItems3 extends FolderItems2 {
     }
 
     /**
-     * 
      * @returns {FolderItemVerbs} 
      */
     get_Verbs() {
@@ -87,8 +86,8 @@ export default struct FolderItems3 extends FolderItems2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Filter := CallbackCreate(GetMethod(implObj, "Filter"), flags, 3)
-        this.vtbl.get_Verbs := CallbackCreate(GetMethod(implObj, "get_Verbs"), flags, 2)
+        this.vtbl.Filter := CallbackCreate(ObjBindMethod(implObj, "Filter"), flags, 3)
+        this.vtbl.get_Verbs := CallbackCreate(ObjBindMethod(implObj, "get_Verbs"), flags, 2)
     }
 
     Dispose() {

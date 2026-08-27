@@ -26,7 +26,6 @@ export default struct PFNRASGETBUFFER {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Integer>>} ppBuffer Pointer to a pointer that receives the address of the returned buffer.
      * @param {Pointer<Integer>} pdwSize Pointer to a <b>DWORD</b> variable that, on input, contains the requested size of the buffer. On output, this variable contains the actual size of the buffer allocated.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
@@ -52,8 +51,8 @@ export default struct PFNRASGETBUFFER {
      * </table>
      */
     Call(ppBuffer, pdwSize) {
-        ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
-        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+        ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : IntPtr
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, ppBufferMarshal, ppBuffer, pdwSizeMarshal, pdwSize, UInt32)
         return result

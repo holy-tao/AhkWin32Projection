@@ -498,17 +498,17 @@ export default struct IESLicenseRenewalResultEvent extends IESEvent {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCallersId := CallbackCreate(GetMethod(implObj, "GetCallersId"), flags, 2)
-        this.vtbl.GetFileName := CallbackCreate(GetMethod(implObj, "GetFileName"), flags, 2)
-        this.vtbl.IsRenewalSuccessful := CallbackCreate(GetMethod(implObj, "IsRenewalSuccessful"), flags, 2)
-        this.vtbl.IsCheckEntitlementCallRequired := CallbackCreate(GetMethod(implObj, "IsCheckEntitlementCallRequired"), flags, 2)
-        this.vtbl.GetDescrambledStatus := CallbackCreate(GetMethod(implObj, "GetDescrambledStatus"), flags, 2)
-        this.vtbl.GetRenewalResultCode := CallbackCreate(GetMethod(implObj, "GetRenewalResultCode"), flags, 2)
-        this.vtbl.GetCASFailureCode := CallbackCreate(GetMethod(implObj, "GetCASFailureCode"), flags, 2)
-        this.vtbl.GetRenewalHResult := CallbackCreate(GetMethod(implObj, "GetRenewalHResult"), flags, 2)
-        this.vtbl.GetEntitlementTokenLength := CallbackCreate(GetMethod(implObj, "GetEntitlementTokenLength"), flags, 2)
-        this.vtbl.GetEntitlementToken := CallbackCreate(GetMethod(implObj, "GetEntitlementToken"), flags, 2)
-        this.vtbl.GetExpiryDate := CallbackCreate(GetMethod(implObj, "GetExpiryDate"), flags, 2)
+        this.vtbl.GetCallersId := CallbackCreate(ObjBindMethod(implObj, "GetCallersId"), flags, 2)
+        this.vtbl.GetFileName := CallbackCreate(ObjBindMethod(implObj, "GetFileName"), flags, 2)
+        this.vtbl.IsRenewalSuccessful := CallbackCreate(ObjBindMethod(implObj, "IsRenewalSuccessful"), flags, 2)
+        this.vtbl.IsCheckEntitlementCallRequired := CallbackCreate(ObjBindMethod(implObj, "IsCheckEntitlementCallRequired"), flags, 2)
+        this.vtbl.GetDescrambledStatus := CallbackCreate(ObjBindMethod(implObj, "GetDescrambledStatus"), flags, 2)
+        this.vtbl.GetRenewalResultCode := CallbackCreate(ObjBindMethod(implObj, "GetRenewalResultCode"), flags, 2)
+        this.vtbl.GetCASFailureCode := CallbackCreate(ObjBindMethod(implObj, "GetCASFailureCode"), flags, 2)
+        this.vtbl.GetRenewalHResult := CallbackCreate(ObjBindMethod(implObj, "GetRenewalHResult"), flags, 2)
+        this.vtbl.GetEntitlementTokenLength := CallbackCreate(ObjBindMethod(implObj, "GetEntitlementTokenLength"), flags, 2)
+        this.vtbl.GetEntitlementToken := CallbackCreate(ObjBindMethod(implObj, "GetEntitlementToken"), flags, 2)
+        this.vtbl.GetExpiryDate := CallbackCreate(ObjBindMethod(implObj, "GetExpiryDate"), flags, 2)
     }
 
     Dispose() {

@@ -200,8 +200,8 @@ export default struct IVssDifferentialSoftwareSnapshotMgmt2 extends IVssDifferen
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt2-changediffareamaximumsizeex
      */
     ChangeDiffAreaMaximumSizeEx(pwszVolumeName, pwszDiffAreaVolumeName, llMaximumDiffSpace, bVolatile) {
-        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
-        pwszDiffAreaVolumeNameMarshal := pwszDiffAreaVolumeName is VarRef ? "ushort*" : "ptr"
+        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : IntPtr
+        pwszDiffAreaVolumeNameMarshal := pwszDiffAreaVolumeName is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(9, this, pwszVolumeNameMarshal, pwszVolumeName, pwszDiffAreaVolumeNameMarshal, pwszDiffAreaVolumeName, Int64, llMaximumDiffSpace, BOOL, bVolatile, "HRESULT")
         return result
@@ -216,9 +216,9 @@ export default struct IVssDifferentialSoftwareSnapshotMgmt2 extends IVssDifferen
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt2-migratediffareas
      */
     MigrateDiffAreas(pwszVolumeName, pwszDiffAreaVolumeName, pwszNewDiffAreaVolumeName) {
-        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
-        pwszDiffAreaVolumeNameMarshal := pwszDiffAreaVolumeName is VarRef ? "ushort*" : "ptr"
-        pwszNewDiffAreaVolumeNameMarshal := pwszNewDiffAreaVolumeName is VarRef ? "ushort*" : "ptr"
+        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : IntPtr
+        pwszDiffAreaVolumeNameMarshal := pwszDiffAreaVolumeName is VarRef ? "ushort*" : IntPtr
+        pwszNewDiffAreaVolumeNameMarshal := pwszNewDiffAreaVolumeName is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(10, this, pwszVolumeNameMarshal, pwszVolumeName, pwszDiffAreaVolumeNameMarshal, pwszDiffAreaVolumeName, pwszNewDiffAreaVolumeNameMarshal, pwszNewDiffAreaVolumeName, "HRESULT")
         return result
@@ -232,8 +232,8 @@ export default struct IVssDifferentialSoftwareSnapshotMgmt2 extends IVssDifferen
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt2-querymigrationstatus
      */
     QueryMigrationStatus(pwszVolumeName, pwszDiffAreaVolumeName) {
-        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
-        pwszDiffAreaVolumeNameMarshal := pwszDiffAreaVolumeName is VarRef ? "ushort*" : "ptr"
+        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : IntPtr
+        pwszDiffAreaVolumeNameMarshal := pwszDiffAreaVolumeName is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(11, this, pwszVolumeNameMarshal, pwszVolumeName, pwszDiffAreaVolumeNameMarshal, pwszDiffAreaVolumeName, "ptr*", &ppAsync := 0, "HRESULT")
         return IVssAsync(ppAsync)
@@ -260,10 +260,10 @@ export default struct IVssDifferentialSoftwareSnapshotMgmt2 extends IVssDifferen
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ChangeDiffAreaMaximumSizeEx := CallbackCreate(GetMethod(implObj, "ChangeDiffAreaMaximumSizeEx"), flags, 5)
-        this.vtbl.MigrateDiffAreas := CallbackCreate(GetMethod(implObj, "MigrateDiffAreas"), flags, 4)
-        this.vtbl.QueryMigrationStatus := CallbackCreate(GetMethod(implObj, "QueryMigrationStatus"), flags, 4)
-        this.vtbl.SetSnapshotPriority := CallbackCreate(GetMethod(implObj, "SetSnapshotPriority"), flags, 3)
+        this.vtbl.ChangeDiffAreaMaximumSizeEx := CallbackCreate(ObjBindMethod(implObj, "ChangeDiffAreaMaximumSizeEx"), flags, 5)
+        this.vtbl.MigrateDiffAreas := CallbackCreate(ObjBindMethod(implObj, "MigrateDiffAreas"), flags, 4)
+        this.vtbl.QueryMigrationStatus := CallbackCreate(ObjBindMethod(implObj, "QueryMigrationStatus"), flags, 4)
+        this.vtbl.SetSnapshotPriority := CallbackCreate(ObjBindMethod(implObj, "SetSnapshotPriority"), flags, 3)
     }
 
     Dispose() {

@@ -107,9 +107,9 @@ export default struct IWSManConnectionOptions extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_UserName := CallbackCreate(GetMethod(implObj, "get_UserName"), flags, 2)
-        this.vtbl.put_UserName := CallbackCreate(GetMethod(implObj, "put_UserName"), flags, 2)
-        this.vtbl.put_Password := CallbackCreate(GetMethod(implObj, "put_Password"), flags, 2)
+        this.vtbl.get_UserName := CallbackCreate(ObjBindMethod(implObj, "get_UserName"), flags, 2)
+        this.vtbl.put_UserName := CallbackCreate(ObjBindMethod(implObj, "put_UserName"), flags, 2)
+        this.vtbl.put_Password := CallbackCreate(ObjBindMethod(implObj, "put_Password"), flags, 2)
     }
 
     Dispose() {

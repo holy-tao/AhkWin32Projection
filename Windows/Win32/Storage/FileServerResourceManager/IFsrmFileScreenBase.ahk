@@ -148,12 +148,12 @@ export default struct IFsrmFileScreenBase extends IFsrmObject {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_BlockedFileGroups := CallbackCreate(GetMethod(implObj, "get_BlockedFileGroups"), flags, 2)
-        this.vtbl.put_BlockedFileGroups := CallbackCreate(GetMethod(implObj, "put_BlockedFileGroups"), flags, 2)
-        this.vtbl.get_FileScreenFlags := CallbackCreate(GetMethod(implObj, "get_FileScreenFlags"), flags, 2)
-        this.vtbl.put_FileScreenFlags := CallbackCreate(GetMethod(implObj, "put_FileScreenFlags"), flags, 2)
-        this.vtbl.CreateAction := CallbackCreate(GetMethod(implObj, "CreateAction"), flags, 3)
-        this.vtbl.EnumActions := CallbackCreate(GetMethod(implObj, "EnumActions"), flags, 2)
+        this.vtbl.get_BlockedFileGroups := CallbackCreate(ObjBindMethod(implObj, "get_BlockedFileGroups"), flags, 2)
+        this.vtbl.put_BlockedFileGroups := CallbackCreate(ObjBindMethod(implObj, "put_BlockedFileGroups"), flags, 2)
+        this.vtbl.get_FileScreenFlags := CallbackCreate(ObjBindMethod(implObj, "get_FileScreenFlags"), flags, 2)
+        this.vtbl.put_FileScreenFlags := CallbackCreate(ObjBindMethod(implObj, "put_FileScreenFlags"), flags, 2)
+        this.vtbl.CreateAction := CallbackCreate(ObjBindMethod(implObj, "CreateAction"), flags, 3)
+        this.vtbl.EnumActions := CallbackCreate(ObjBindMethod(implObj, "EnumActions"), flags, 2)
     }
 
     Dispose() {

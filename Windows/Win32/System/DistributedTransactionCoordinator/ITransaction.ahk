@@ -41,7 +41,6 @@ export default struct ITransaction extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fRetaining 
      * @param {Integer} grfTC 
      * @param {Integer} grfRM 
@@ -53,7 +52,6 @@ export default struct ITransaction extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BOID>} pboidReason 
      * @param {BOOL} fRetaining 
      * @param {BOOL} fAsync 
@@ -65,7 +63,6 @@ export default struct ITransaction extends IUnknown {
     }
 
     /**
-     * 
      * @returns {XACTTRANSINFO} 
      */
     GetTransactionInfo() {
@@ -83,9 +80,9 @@ export default struct ITransaction extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 4)
-        this.vtbl.Abort := CallbackCreate(GetMethod(implObj, "Abort"), flags, 4)
-        this.vtbl.GetTransactionInfo := CallbackCreate(GetMethod(implObj, "GetTransactionInfo"), flags, 2)
+        this.vtbl.Commit := CallbackCreate(ObjBindMethod(implObj, "Commit"), flags, 4)
+        this.vtbl.Abort := CallbackCreate(ObjBindMethod(implObj, "Abort"), flags, 4)
+        this.vtbl.GetTransactionInfo := CallbackCreate(ObjBindMethod(implObj, "GetTransactionInfo"), flags, 2)
     }
 
     Dispose() {

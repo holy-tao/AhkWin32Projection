@@ -25,15 +25,14 @@ export default struct PDX_ENABLEIRQ {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} param0 Points to the miniport driver's device extension.
      * @param {Pointer<DDENABLEIRQINFO>} param1 Points to the <a href="https://docs.microsoft.com/windows/desktop/api/dxmini/ns-dxmini-ddenableirqinfo">DDENABLEIRQINFO</a> structure that contains the information required to enable interrupts.
      * @param {Pointer<Void>} param2 Reserved for system use.
      * @returns {Integer} <i>DxEnableIRQ</i> returns DX_OK if it succeeds; otherwise, it returns one of the following error values:
      */
     Call(param0, param1, param2) {
-        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
-        param2Marshal := param2 is VarRef ? "ptr" : "ptr"
+        param0Marshal := param0 is VarRef ? "ptr" : IntPtr
+        param2Marshal := param2 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, param0Marshal, param0, DDENABLEIRQINFO.Ptr, param1, param2Marshal, param2, UInt32)
         return result

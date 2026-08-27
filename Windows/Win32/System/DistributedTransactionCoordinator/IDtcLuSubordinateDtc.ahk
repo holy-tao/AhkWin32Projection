@@ -43,7 +43,6 @@ export default struct IDtcLuSubordinateDtc extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fConversationLost 
      * @returns {HRESULT} 
      */
@@ -53,7 +52,6 @@ export default struct IDtcLuSubordinateDtc extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     BackedOut() {
@@ -62,7 +60,6 @@ export default struct IDtcLuSubordinateDtc extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     BackOut() {
@@ -71,7 +68,6 @@ export default struct IDtcLuSubordinateDtc extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Committed() {
@@ -80,7 +76,6 @@ export default struct IDtcLuSubordinateDtc extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Forget() {
@@ -89,7 +84,6 @@ export default struct IDtcLuSubordinateDtc extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Prepare() {
@@ -98,7 +92,6 @@ export default struct IDtcLuSubordinateDtc extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RequestCommit() {
@@ -115,13 +108,13 @@ export default struct IDtcLuSubordinateDtc extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Unplug := CallbackCreate(GetMethod(implObj, "Unplug"), flags, 2)
-        this.vtbl.BackedOut := CallbackCreate(GetMethod(implObj, "BackedOut"), flags, 1)
-        this.vtbl.BackOut := CallbackCreate(GetMethod(implObj, "BackOut"), flags, 1)
-        this.vtbl.Committed := CallbackCreate(GetMethod(implObj, "Committed"), flags, 1)
-        this.vtbl.Forget := CallbackCreate(GetMethod(implObj, "Forget"), flags, 1)
-        this.vtbl.Prepare := CallbackCreate(GetMethod(implObj, "Prepare"), flags, 1)
-        this.vtbl.RequestCommit := CallbackCreate(GetMethod(implObj, "RequestCommit"), flags, 1)
+        this.vtbl.Unplug := CallbackCreate(ObjBindMethod(implObj, "Unplug"), flags, 2)
+        this.vtbl.BackedOut := CallbackCreate(ObjBindMethod(implObj, "BackedOut"), flags, 1)
+        this.vtbl.BackOut := CallbackCreate(ObjBindMethod(implObj, "BackOut"), flags, 1)
+        this.vtbl.Committed := CallbackCreate(ObjBindMethod(implObj, "Committed"), flags, 1)
+        this.vtbl.Forget := CallbackCreate(ObjBindMethod(implObj, "Forget"), flags, 1)
+        this.vtbl.Prepare := CallbackCreate(ObjBindMethod(implObj, "Prepare"), flags, 1)
+        this.vtbl.RequestCommit := CallbackCreate(ObjBindMethod(implObj, "RequestCommit"), flags, 1)
     }
 
     Dispose() {

@@ -129,9 +129,9 @@ export default struct IDockingWindowSite extends IOleWindow {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetBorderDW := CallbackCreate(GetMethod(implObj, "GetBorderDW"), flags, 3)
-        this.vtbl.RequestBorderSpaceDW := CallbackCreate(GetMethod(implObj, "RequestBorderSpaceDW"), flags, 3)
-        this.vtbl.SetBorderSpaceDW := CallbackCreate(GetMethod(implObj, "SetBorderSpaceDW"), flags, 3)
+        this.vtbl.GetBorderDW := CallbackCreate(ObjBindMethod(implObj, "GetBorderDW"), flags, 3)
+        this.vtbl.RequestBorderSpaceDW := CallbackCreate(ObjBindMethod(implObj, "RequestBorderSpaceDW"), flags, 3)
+        this.vtbl.SetBorderSpaceDW := CallbackCreate(ObjBindMethod(implObj, "SetBorderSpaceDW"), flags, 3)
     }
 
     Dispose() {

@@ -397,8 +397,8 @@ export default struct IFELanguage extends IUnknown {
     GetJMorphResult(dwRequest, dwCMode, cwchInput, pwchInput, pfCInfo, ppResult) {
         pwchInput := pwchInput is String ? StrPtr(pwchInput) : pwchInput
 
-        pfCInfoMarshal := pfCInfo is VarRef ? "uint*" : "ptr"
-        ppResultMarshal := ppResult is VarRef ? "ptr*" : "ptr"
+        pfCInfoMarshal := pfCInfo is VarRef ? "uint*" : IntPtr
+        ppResultMarshal := ppResult is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, UInt32, dwRequest, UInt32, dwCMode, Int32, cwchInput, "ptr", pwchInput, pfCInfoMarshal, pfCInfo, ppResultMarshal, ppResult, "HRESULT")
         return result
@@ -657,14 +657,13 @@ export default struct IFELanguage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifelanguage-getconversionmodecaps
      */
     GetConversionModeCaps(pdwCaps) {
-        pdwCapsMarshal := pdwCaps is VarRef ? "uint*" : "ptr"
+        pdwCapsMarshal := pdwCaps is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, pdwCapsMarshal, pdwCaps, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {BSTR} _string 
      * @param {Integer} start 
      * @param {Integer} length 
@@ -703,12 +702,12 @@ export default struct IFELanguage extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 1)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
-        this.vtbl.GetJMorphResult := CallbackCreate(GetMethod(implObj, "GetJMorphResult"), flags, 7)
-        this.vtbl.GetConversionModeCaps := CallbackCreate(GetMethod(implObj, "GetConversionModeCaps"), flags, 2)
-        this.vtbl.GetPhonetic := CallbackCreate(GetMethod(implObj, "GetPhonetic"), flags, 5)
-        this.vtbl.GetConversion := CallbackCreate(GetMethod(implObj, "GetConversion"), flags, 5)
+        this.vtbl.Open := CallbackCreate(ObjBindMethod(implObj, "Open"), flags, 1)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
+        this.vtbl.GetJMorphResult := CallbackCreate(ObjBindMethod(implObj, "GetJMorphResult"), flags, 7)
+        this.vtbl.GetConversionModeCaps := CallbackCreate(ObjBindMethod(implObj, "GetConversionModeCaps"), flags, 2)
+        this.vtbl.GetPhonetic := CallbackCreate(ObjBindMethod(implObj, "GetPhonetic"), flags, 5)
+        this.vtbl.GetConversion := CallbackCreate(ObjBindMethod(implObj, "GetConversion"), flags, 5)
     }
 
     Dispose() {

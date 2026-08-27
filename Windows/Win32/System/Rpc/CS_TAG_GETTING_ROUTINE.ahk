@@ -18,7 +18,6 @@ export default struct CS_TAG_GETTING_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hBinding 
      * @param {Integer} fServerSide 
      * @param {Pointer<Integer>} pulSendingTag 
@@ -28,11 +27,11 @@ export default struct CS_TAG_GETTING_ROUTINE {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(hBinding, fServerSide, pulSendingTag, pulDesiredReceivingTag, pulReceivingTag, pStatus) {
-        hBindingMarshal := hBinding is VarRef ? "ptr" : "ptr"
-        pulSendingTagMarshal := pulSendingTag is VarRef ? "uint*" : "ptr"
-        pulDesiredReceivingTagMarshal := pulDesiredReceivingTag is VarRef ? "uint*" : "ptr"
-        pulReceivingTagMarshal := pulReceivingTag is VarRef ? "uint*" : "ptr"
-        pStatusMarshal := pStatus is VarRef ? "uint*" : "ptr"
+        hBindingMarshal := hBinding is VarRef ? "ptr" : IntPtr
+        pulSendingTagMarshal := pulSendingTag is VarRef ? "uint*" : IntPtr
+        pulDesiredReceivingTagMarshal := pulDesiredReceivingTag is VarRef ? "uint*" : IntPtr
+        pulReceivingTagMarshal := pulReceivingTag is VarRef ? "uint*" : IntPtr
+        pStatusMarshal := pStatus is VarRef ? "uint*" : IntPtr
 
         DllCall(this.value, hBindingMarshal, hBinding, Int32, fServerSide, pulSendingTagMarshal, pulSendingTag, pulDesiredReceivingTagMarshal, pulDesiredReceivingTag, pulReceivingTagMarshal, pulReceivingTag, pStatusMarshal, pStatus)
     }

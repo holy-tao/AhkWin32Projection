@@ -37,7 +37,6 @@ export default struct IRowsetScroll extends IRowsetLocate {
     }
 
     /**
-     * 
      * @param {Pointer} hReserved 
      * @param {Pointer} cbBookmark 
      * @param {Pointer<Integer>} pBookmark 
@@ -46,16 +45,15 @@ export default struct IRowsetScroll extends IRowsetLocate {
      * @returns {HRESULT} 
      */
     GetApproximatePosition(hReserved, cbBookmark, pBookmark, pulPosition, pcRows) {
-        pBookmarkMarshal := pBookmark is VarRef ? "char*" : "ptr"
-        pulPositionMarshal := pulPosition is VarRef ? "ptr*" : "ptr"
-        pcRowsMarshal := pcRows is VarRef ? "ptr*" : "ptr"
+        pBookmarkMarshal := pBookmark is VarRef ? "char*" : IntPtr
+        pulPositionMarshal := pulPosition is VarRef ? "ptr*" : IntPtr
+        pcRowsMarshal := pcRows is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(12, this, IntPtr, hReserved, IntPtr, cbBookmark, pBookmarkMarshal, pBookmark, pulPositionMarshal, pulPosition, pcRowsMarshal, pcRows, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} hReserved1 
      * @param {Pointer} hReserved2 
      * @param {Pointer} ulNumerator 
@@ -66,8 +64,8 @@ export default struct IRowsetScroll extends IRowsetLocate {
      * @returns {HRESULT} 
      */
     GetRowsAtRatio(hReserved1, hReserved2, ulNumerator, ulDenominator, cRows, pcRowsObtained, prghRows) {
-        pcRowsObtainedMarshal := pcRowsObtained is VarRef ? "ptr*" : "ptr"
-        prghRowsMarshal := prghRows is VarRef ? "ptr*" : "ptr"
+        pcRowsObtainedMarshal := pcRowsObtained is VarRef ? "ptr*" : IntPtr
+        prghRowsMarshal := prghRows is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(13, this, IntPtr, hReserved1, IntPtr, hReserved2, IntPtr, ulNumerator, IntPtr, ulDenominator, IntPtr, cRows, pcRowsObtainedMarshal, pcRowsObtained, prghRowsMarshal, prghRows, "HRESULT")
         return result
@@ -82,8 +80,8 @@ export default struct IRowsetScroll extends IRowsetLocate {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetApproximatePosition := CallbackCreate(GetMethod(implObj, "GetApproximatePosition"), flags, 6)
-        this.vtbl.GetRowsAtRatio := CallbackCreate(GetMethod(implObj, "GetRowsAtRatio"), flags, 8)
+        this.vtbl.GetApproximatePosition := CallbackCreate(ObjBindMethod(implObj, "GetApproximatePosition"), flags, 6)
+        this.vtbl.GetRowsAtRatio := CallbackCreate(ObjBindMethod(implObj, "GetRowsAtRatio"), flags, 8)
     }
 
     Dispose() {

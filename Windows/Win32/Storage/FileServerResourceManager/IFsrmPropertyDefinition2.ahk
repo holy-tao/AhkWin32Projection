@@ -135,11 +135,11 @@ export default struct IFsrmPropertyDefinition2 extends IFsrmPropertyDefinition {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_PropertyDefinitionFlags := CallbackCreate(GetMethod(implObj, "get_PropertyDefinitionFlags"), flags, 2)
-        this.vtbl.get_DisplayName := CallbackCreate(GetMethod(implObj, "get_DisplayName"), flags, 2)
-        this.vtbl.put_DisplayName := CallbackCreate(GetMethod(implObj, "put_DisplayName"), flags, 2)
-        this.vtbl.get_AppliesTo := CallbackCreate(GetMethod(implObj, "get_AppliesTo"), flags, 2)
-        this.vtbl.get_ValueDefinitions := CallbackCreate(GetMethod(implObj, "get_ValueDefinitions"), flags, 2)
+        this.vtbl.get_PropertyDefinitionFlags := CallbackCreate(ObjBindMethod(implObj, "get_PropertyDefinitionFlags"), flags, 2)
+        this.vtbl.get_DisplayName := CallbackCreate(ObjBindMethod(implObj, "get_DisplayName"), flags, 2)
+        this.vtbl.put_DisplayName := CallbackCreate(ObjBindMethod(implObj, "put_DisplayName"), flags, 2)
+        this.vtbl.get_AppliesTo := CallbackCreate(ObjBindMethod(implObj, "get_AppliesTo"), flags, 2)
+        this.vtbl.get_ValueDefinitions := CallbackCreate(ObjBindMethod(implObj, "get_ValueDefinitions"), flags, 2)
     }
 
     Dispose() {

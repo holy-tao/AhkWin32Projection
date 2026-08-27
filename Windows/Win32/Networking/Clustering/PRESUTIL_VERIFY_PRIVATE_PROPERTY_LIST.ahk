@@ -18,7 +18,6 @@ export default struct PRESUTIL_VERIFY_PRIVATE_PROPERTY_LIST {
     }
 
     /**
-     * 
      * @param {Integer} pInPropertyList 
      * @param {Integer} cbInPropertyListSize 
      * @returns {Integer} 

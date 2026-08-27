@@ -115,7 +115,7 @@ export default struct IWMPRenderConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmprealestate/nf-wmprealestate-iwmprenderconfig-get_inproconly
      */
     get_inProcOnly(pfInProc) {
-        pfInProcMarshal := pfInProc is VarRef ? "int*" : "ptr"
+        pfInProcMarshal := pfInProc is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, pfInProcMarshal, pfInProc, "HRESULT")
         return result
@@ -130,8 +130,8 @@ export default struct IWMPRenderConfig extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_inProcOnly := CallbackCreate(GetMethod(implObj, "put_inProcOnly"), flags, 2)
-        this.vtbl.get_inProcOnly := CallbackCreate(GetMethod(implObj, "get_inProcOnly"), flags, 2)
+        this.vtbl.put_inProcOnly := CallbackCreate(ObjBindMethod(implObj, "put_inProcOnly"), flags, 2)
+        this.vtbl.get_inProcOnly := CallbackCreate(ObjBindMethod(implObj, "get_inProcOnly"), flags, 2)
     }
 
     Dispose() {

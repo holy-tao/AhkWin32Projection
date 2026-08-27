@@ -130,7 +130,7 @@ export default struct IAction extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iaction-get_type
      */
     get_Type(pType) {
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        pTypeMarshal := pType is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, pTypeMarshal, pType, "HRESULT")
         return result
@@ -145,9 +145,9 @@ export default struct IAction extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
-        this.vtbl.put_Id := CallbackCreate(GetMethod(implObj, "put_Id"), flags, 2)
-        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(ObjBindMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.put_Id := CallbackCreate(ObjBindMethod(implObj, "put_Id"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(ObjBindMethod(implObj, "get_Type"), flags, 2)
     }
 
     Dispose() {

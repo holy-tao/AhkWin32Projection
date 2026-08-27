@@ -44,7 +44,6 @@ export default struct IWSManEx3 extends IWSManEx2 {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     SessionFlagUTF16() {
@@ -63,7 +62,6 @@ export default struct IWSManEx3 extends IWSManEx2 {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     EnumerationFlagAssociationInstance() {
@@ -72,7 +70,6 @@ export default struct IWSManEx3 extends IWSManEx2 {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     EnumerationFlagAssociatedInstance() {
@@ -81,7 +78,6 @@ export default struct IWSManEx3 extends IWSManEx2 {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     SessionFlagSkipRevocationCheck() {
@@ -90,7 +86,6 @@ export default struct IWSManEx3 extends IWSManEx2 {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     SessionFlagAllowNegotiateImplicitCredentials() {
@@ -99,7 +94,6 @@ export default struct IWSManEx3 extends IWSManEx2 {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     SessionFlagUseSsl() {
@@ -116,13 +110,13 @@ export default struct IWSManEx3 extends IWSManEx2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SessionFlagUTF16 := CallbackCreate(GetMethod(implObj, "SessionFlagUTF16"), flags, 2)
-        this.vtbl.SessionFlagUseCredSsp := CallbackCreate(GetMethod(implObj, "SessionFlagUseCredSsp"), flags, 2)
-        this.vtbl.EnumerationFlagAssociationInstance := CallbackCreate(GetMethod(implObj, "EnumerationFlagAssociationInstance"), flags, 2)
-        this.vtbl.EnumerationFlagAssociatedInstance := CallbackCreate(GetMethod(implObj, "EnumerationFlagAssociatedInstance"), flags, 2)
-        this.vtbl.SessionFlagSkipRevocationCheck := CallbackCreate(GetMethod(implObj, "SessionFlagSkipRevocationCheck"), flags, 2)
-        this.vtbl.SessionFlagAllowNegotiateImplicitCredentials := CallbackCreate(GetMethod(implObj, "SessionFlagAllowNegotiateImplicitCredentials"), flags, 2)
-        this.vtbl.SessionFlagUseSsl := CallbackCreate(GetMethod(implObj, "SessionFlagUseSsl"), flags, 2)
+        this.vtbl.SessionFlagUTF16 := CallbackCreate(ObjBindMethod(implObj, "SessionFlagUTF16"), flags, 2)
+        this.vtbl.SessionFlagUseCredSsp := CallbackCreate(ObjBindMethod(implObj, "SessionFlagUseCredSsp"), flags, 2)
+        this.vtbl.EnumerationFlagAssociationInstance := CallbackCreate(ObjBindMethod(implObj, "EnumerationFlagAssociationInstance"), flags, 2)
+        this.vtbl.EnumerationFlagAssociatedInstance := CallbackCreate(ObjBindMethod(implObj, "EnumerationFlagAssociatedInstance"), flags, 2)
+        this.vtbl.SessionFlagSkipRevocationCheck := CallbackCreate(ObjBindMethod(implObj, "SessionFlagSkipRevocationCheck"), flags, 2)
+        this.vtbl.SessionFlagAllowNegotiateImplicitCredentials := CallbackCreate(ObjBindMethod(implObj, "SessionFlagAllowNegotiateImplicitCredentials"), flags, 2)
+        this.vtbl.SessionFlagUseSsl := CallbackCreate(ObjBindMethod(implObj, "SessionFlagUseSsl"), flags, 2)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct PCLUSAPI_CLOSE_CLUSTER_RESOURCE {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @returns {BOOL} 
      */

@@ -19,13 +19,12 @@ export default struct IO_CSQ_ACQUIRE_LOCK {
     }
 
     /**
-     * 
      * @param {Pointer<IO_CSQ>} Csq 
      * @param {Pointer<Integer>} Irql 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(Csq, Irql) {
-        IrqlMarshal := Irql is VarRef ? "char*" : "ptr"
+        IrqlMarshal := Irql is VarRef ? "char*" : IntPtr
 
         DllCall(this.value, IO_CSQ.Ptr, Csq, IrqlMarshal, Irql)
     }

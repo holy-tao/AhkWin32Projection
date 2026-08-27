@@ -20,7 +20,6 @@ export default struct PRESUTIL_GET_ALL_PROPERTIES {
     }
 
     /**
-     * 
      * @param {HKEY} hkeyClusterKey 
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable 
      * @param {Integer} pOutPropertyList 
@@ -30,8 +29,8 @@ export default struct PRESUTIL_GET_ALL_PROPERTIES {
      * @returns {Integer} 
      */
     Call(hkeyClusterKey, pPropertyTable, pOutPropertyList, cbOutPropertyListSize, pcbBytesReturned, pcbRequired) {
-        pcbBytesReturnedMarshal := pcbBytesReturned is VarRef ? "uint*" : "ptr"
-        pcbRequiredMarshal := pcbRequired is VarRef ? "uint*" : "ptr"
+        pcbBytesReturnedMarshal := pcbBytesReturned is VarRef ? "uint*" : IntPtr
+        pcbRequiredMarshal := pcbRequired is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HKEY, hkeyClusterKey, RESUTIL_PROPERTY_ITEM.Ptr, pPropertyTable, IntPtr, pOutPropertyList, UInt32, cbOutPropertyListSize, pcbBytesReturnedMarshal, pcbBytesReturned, pcbRequiredMarshal, pcbRequired, UInt32)
         return result

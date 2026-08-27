@@ -37,7 +37,6 @@ export default struct IFtpHomeDirectoryProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszSessionId 
      * @param {PWSTR} pszSiteName 
      * @param {PWSTR} pszUserName 
@@ -61,7 +60,7 @@ export default struct IFtpHomeDirectoryProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetUserHomeDirectoryData := CallbackCreate(GetMethod(implObj, "GetUserHomeDirectoryData"), flags, 5)
+        this.vtbl.GetUserHomeDirectoryData := CallbackCreate(ObjBindMethod(implObj, "GetUserHomeDirectoryData"), flags, 5)
     }
 
     Dispose() {

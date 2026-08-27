@@ -85,8 +85,8 @@ export default struct IMSVidClosedCaptioning extends IMSVidFeature {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Enable := CallbackCreate(GetMethod(implObj, "get_Enable"), flags, 2)
-        this.vtbl.put_Enable := CallbackCreate(GetMethod(implObj, "put_Enable"), flags, 2)
+        this.vtbl.get_Enable := CallbackCreate(ObjBindMethod(implObj, "get_Enable"), flags, 2)
+        this.vtbl.put_Enable := CallbackCreate(ObjBindMethod(implObj, "put_Enable"), flags, 2)
     }
 
     Dispose() {

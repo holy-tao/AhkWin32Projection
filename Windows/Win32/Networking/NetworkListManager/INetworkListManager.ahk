@@ -181,15 +181,15 @@ export default struct INetworkListManager extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNetworks := CallbackCreate(GetMethod(implObj, "GetNetworks"), flags, 3)
-        this.vtbl.GetNetwork := CallbackCreate(GetMethod(implObj, "GetNetwork"), flags, 3)
-        this.vtbl.GetNetworkConnections := CallbackCreate(GetMethod(implObj, "GetNetworkConnections"), flags, 2)
-        this.vtbl.GetNetworkConnection := CallbackCreate(GetMethod(implObj, "GetNetworkConnection"), flags, 3)
-        this.vtbl.get_IsConnectedToInternet := CallbackCreate(GetMethod(implObj, "get_IsConnectedToInternet"), flags, 2)
-        this.vtbl.get_IsConnected := CallbackCreate(GetMethod(implObj, "get_IsConnected"), flags, 2)
-        this.vtbl.GetConnectivity := CallbackCreate(GetMethod(implObj, "GetConnectivity"), flags, 2)
-        this.vtbl.SetSimulatedProfileInfo := CallbackCreate(GetMethod(implObj, "SetSimulatedProfileInfo"), flags, 2)
-        this.vtbl.ClearSimulatedProfileInfo := CallbackCreate(GetMethod(implObj, "ClearSimulatedProfileInfo"), flags, 1)
+        this.vtbl.GetNetworks := CallbackCreate(ObjBindMethod(implObj, "GetNetworks"), flags, 3)
+        this.vtbl.GetNetwork := CallbackCreate(ObjBindMethod(implObj, "GetNetwork"), flags, 3)
+        this.vtbl.GetNetworkConnections := CallbackCreate(ObjBindMethod(implObj, "GetNetworkConnections"), flags, 2)
+        this.vtbl.GetNetworkConnection := CallbackCreate(ObjBindMethod(implObj, "GetNetworkConnection"), flags, 3)
+        this.vtbl.get_IsConnectedToInternet := CallbackCreate(ObjBindMethod(implObj, "get_IsConnectedToInternet"), flags, 2)
+        this.vtbl.get_IsConnected := CallbackCreate(ObjBindMethod(implObj, "get_IsConnected"), flags, 2)
+        this.vtbl.GetConnectivity := CallbackCreate(ObjBindMethod(implObj, "GetConnectivity"), flags, 2)
+        this.vtbl.SetSimulatedProfileInfo := CallbackCreate(ObjBindMethod(implObj, "SetSimulatedProfileInfo"), flags, 2)
+        this.vtbl.ClearSimulatedProfileInfo := CallbackCreate(ObjBindMethod(implObj, "ClearSimulatedProfileInfo"), flags, 1)
     }
 
     Dispose() {

@@ -90,7 +90,6 @@ export default struct IInkCustomStrokes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -209,7 +208,9 @@ export default struct IInkCustomStrokes extends IDispatch {
     Add(Name, Strokes) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name
 
-        result := ComCall(10, this, BSTR, Name, "ptr", Strokes, "HRESULT")
+        StrokesMarshal := Strokes == 0 ? IntPtr : "ptr"
+
+        result := ComCall(10, this, BSTR, Name, StrokesMarshal, Strokes, "HRESULT")
         return result
     }
 
@@ -386,12 +387,12 @@ export default struct IInkCustomStrokes extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
-        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 3)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 3)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get__NewEnum := CallbackCreate(ObjBindMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.Item := CallbackCreate(ObjBindMethod(implObj, "Item"), flags, 3)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 3)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
     }
 
     Dispose() {

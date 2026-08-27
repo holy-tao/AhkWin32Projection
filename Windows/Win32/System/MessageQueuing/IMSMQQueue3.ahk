@@ -129,7 +129,6 @@ export default struct IMSMQQueue3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Access() {
@@ -138,7 +137,6 @@ export default struct IMSMQQueue3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ShareMode() {
@@ -147,7 +145,6 @@ export default struct IMSMQQueue3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IMSMQQueueInfo3} 
      */
     get_QueueInfo() {
@@ -156,7 +153,6 @@ export default struct IMSMQQueue3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Handle() {
@@ -165,7 +161,6 @@ export default struct IMSMQQueue3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_IsOpen() {
@@ -174,7 +169,6 @@ export default struct IMSMQQueue3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Close() {
@@ -183,7 +177,6 @@ export default struct IMSMQQueue3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} Transaction 
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
@@ -196,7 +189,6 @@ export default struct IMSMQQueue3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
      * @param {Pointer<VARIANT>} ReceiveTimeout 
@@ -208,19 +200,19 @@ export default struct IMSMQQueue3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IMSMQEvent3} Event 
      * @param {Pointer<VARIANT>} Cursor 
      * @param {Pointer<VARIANT>} ReceiveTimeout 
      * @returns {HRESULT} 
      */
     EnableNotification(Event, Cursor, ReceiveTimeout) {
-        result := ComCall(15, this, "ptr", Event, VARIANT.Ptr, Cursor, VARIANT.Ptr, ReceiveTimeout, "HRESULT")
+        EventMarshal := Event == 0 ? IntPtr : "ptr"
+
+        result := ComCall(15, this, EventMarshal, Event, VARIANT.Ptr, Cursor, VARIANT.Ptr, ReceiveTimeout, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -229,7 +221,6 @@ export default struct IMSMQQueue3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} Transaction 
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
@@ -242,7 +233,6 @@ export default struct IMSMQQueue3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
      * @param {Pointer<VARIANT>} ReceiveTimeout 
@@ -254,7 +244,6 @@ export default struct IMSMQQueue3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
      * @param {Pointer<VARIANT>} ReceiveTimeout 
@@ -266,7 +255,6 @@ export default struct IMSMQQueue3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} Transaction 
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
@@ -280,7 +268,6 @@ export default struct IMSMQQueue3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
      * @param {Pointer<VARIANT>} ReceiveTimeout 
@@ -293,7 +280,6 @@ export default struct IMSMQQueue3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} Transaction 
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
@@ -307,7 +293,6 @@ export default struct IMSMQQueue3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
      * @param {Pointer<VARIANT>} ReceiveTimeout 
@@ -320,7 +305,6 @@ export default struct IMSMQQueue3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
      * @param {Pointer<VARIANT>} ReceiveTimeout 
@@ -333,7 +317,6 @@ export default struct IMSMQQueue3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Properties() {
@@ -342,7 +325,6 @@ export default struct IMSMQQueue3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Handle2() {
@@ -352,7 +334,6 @@ export default struct IMSMQQueue3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} LookupId 
      * @param {Pointer<VARIANT>} Transaction 
      * @param {Pointer<VARIANT>} WantDestinationQueue 
@@ -366,7 +347,6 @@ export default struct IMSMQQueue3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} LookupId 
      * @param {Pointer<VARIANT>} Transaction 
      * @param {Pointer<VARIANT>} WantDestinationQueue 
@@ -380,7 +360,6 @@ export default struct IMSMQQueue3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} LookupId 
      * @param {Pointer<VARIANT>} Transaction 
      * @param {Pointer<VARIANT>} WantDestinationQueue 
@@ -394,7 +373,6 @@ export default struct IMSMQQueue3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} Transaction 
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
@@ -407,7 +385,6 @@ export default struct IMSMQQueue3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} Transaction 
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
@@ -420,7 +397,6 @@ export default struct IMSMQQueue3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} LookupId 
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
@@ -433,7 +409,6 @@ export default struct IMSMQQueue3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} LookupId 
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
@@ -446,7 +421,6 @@ export default struct IMSMQQueue3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} LookupId 
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
@@ -459,7 +433,6 @@ export default struct IMSMQQueue3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
      * @param {Pointer<VARIANT>} WantConnectorType 
@@ -471,7 +444,6 @@ export default struct IMSMQQueue3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} WantDestinationQueue 
      * @param {Pointer<VARIANT>} WantBody 
      * @param {Pointer<VARIANT>} WantConnectorType 
@@ -483,7 +455,6 @@ export default struct IMSMQQueue3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Purge() {
@@ -492,7 +463,6 @@ export default struct IMSMQQueue3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsOpen2() {
@@ -509,38 +479,38 @@ export default struct IMSMQQueue3 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Access := CallbackCreate(GetMethod(implObj, "get_Access"), flags, 2)
-        this.vtbl.get_ShareMode := CallbackCreate(GetMethod(implObj, "get_ShareMode"), flags, 2)
-        this.vtbl.get_QueueInfo := CallbackCreate(GetMethod(implObj, "get_QueueInfo"), flags, 2)
-        this.vtbl.get_Handle := CallbackCreate(GetMethod(implObj, "get_Handle"), flags, 2)
-        this.vtbl.get_IsOpen := CallbackCreate(GetMethod(implObj, "get_IsOpen"), flags, 2)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
-        this.vtbl.Receive_v1 := CallbackCreate(GetMethod(implObj, "Receive_v1"), flags, 6)
-        this.vtbl.Peek_v1 := CallbackCreate(GetMethod(implObj, "Peek_v1"), flags, 5)
-        this.vtbl.EnableNotification := CallbackCreate(GetMethod(implObj, "EnableNotification"), flags, 4)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.ReceiveCurrent_v1 := CallbackCreate(GetMethod(implObj, "ReceiveCurrent_v1"), flags, 6)
-        this.vtbl.PeekNext_v1 := CallbackCreate(GetMethod(implObj, "PeekNext_v1"), flags, 5)
-        this.vtbl.PeekCurrent_v1 := CallbackCreate(GetMethod(implObj, "PeekCurrent_v1"), flags, 5)
-        this.vtbl.Receive := CallbackCreate(GetMethod(implObj, "Receive"), flags, 7)
-        this.vtbl.Peek := CallbackCreate(GetMethod(implObj, "Peek"), flags, 6)
-        this.vtbl.ReceiveCurrent := CallbackCreate(GetMethod(implObj, "ReceiveCurrent"), flags, 7)
-        this.vtbl.PeekNext := CallbackCreate(GetMethod(implObj, "PeekNext"), flags, 6)
-        this.vtbl.PeekCurrent := CallbackCreate(GetMethod(implObj, "PeekCurrent"), flags, 6)
-        this.vtbl.get_Properties := CallbackCreate(GetMethod(implObj, "get_Properties"), flags, 2)
-        this.vtbl.get_Handle2 := CallbackCreate(GetMethod(implObj, "get_Handle2"), flags, 2)
-        this.vtbl.ReceiveByLookupId := CallbackCreate(GetMethod(implObj, "ReceiveByLookupId"), flags, 7)
-        this.vtbl.ReceiveNextByLookupId := CallbackCreate(GetMethod(implObj, "ReceiveNextByLookupId"), flags, 7)
-        this.vtbl.ReceivePreviousByLookupId := CallbackCreate(GetMethod(implObj, "ReceivePreviousByLookupId"), flags, 7)
-        this.vtbl.ReceiveFirstByLookupId := CallbackCreate(GetMethod(implObj, "ReceiveFirstByLookupId"), flags, 6)
-        this.vtbl.ReceiveLastByLookupId := CallbackCreate(GetMethod(implObj, "ReceiveLastByLookupId"), flags, 6)
-        this.vtbl.PeekByLookupId := CallbackCreate(GetMethod(implObj, "PeekByLookupId"), flags, 6)
-        this.vtbl.PeekNextByLookupId := CallbackCreate(GetMethod(implObj, "PeekNextByLookupId"), flags, 6)
-        this.vtbl.PeekPreviousByLookupId := CallbackCreate(GetMethod(implObj, "PeekPreviousByLookupId"), flags, 6)
-        this.vtbl.PeekFirstByLookupId := CallbackCreate(GetMethod(implObj, "PeekFirstByLookupId"), flags, 5)
-        this.vtbl.PeekLastByLookupId := CallbackCreate(GetMethod(implObj, "PeekLastByLookupId"), flags, 5)
-        this.vtbl.Purge := CallbackCreate(GetMethod(implObj, "Purge"), flags, 1)
-        this.vtbl.get_IsOpen2 := CallbackCreate(GetMethod(implObj, "get_IsOpen2"), flags, 2)
+        this.vtbl.get_Access := CallbackCreate(ObjBindMethod(implObj, "get_Access"), flags, 2)
+        this.vtbl.get_ShareMode := CallbackCreate(ObjBindMethod(implObj, "get_ShareMode"), flags, 2)
+        this.vtbl.get_QueueInfo := CallbackCreate(ObjBindMethod(implObj, "get_QueueInfo"), flags, 2)
+        this.vtbl.get_Handle := CallbackCreate(ObjBindMethod(implObj, "get_Handle"), flags, 2)
+        this.vtbl.get_IsOpen := CallbackCreate(ObjBindMethod(implObj, "get_IsOpen"), flags, 2)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
+        this.vtbl.Receive_v1 := CallbackCreate(ObjBindMethod(implObj, "Receive_v1"), flags, 6)
+        this.vtbl.Peek_v1 := CallbackCreate(ObjBindMethod(implObj, "Peek_v1"), flags, 5)
+        this.vtbl.EnableNotification := CallbackCreate(ObjBindMethod(implObj, "EnableNotification"), flags, 4)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.ReceiveCurrent_v1 := CallbackCreate(ObjBindMethod(implObj, "ReceiveCurrent_v1"), flags, 6)
+        this.vtbl.PeekNext_v1 := CallbackCreate(ObjBindMethod(implObj, "PeekNext_v1"), flags, 5)
+        this.vtbl.PeekCurrent_v1 := CallbackCreate(ObjBindMethod(implObj, "PeekCurrent_v1"), flags, 5)
+        this.vtbl.Receive := CallbackCreate(ObjBindMethod(implObj, "Receive"), flags, 7)
+        this.vtbl.Peek := CallbackCreate(ObjBindMethod(implObj, "Peek"), flags, 6)
+        this.vtbl.ReceiveCurrent := CallbackCreate(ObjBindMethod(implObj, "ReceiveCurrent"), flags, 7)
+        this.vtbl.PeekNext := CallbackCreate(ObjBindMethod(implObj, "PeekNext"), flags, 6)
+        this.vtbl.PeekCurrent := CallbackCreate(ObjBindMethod(implObj, "PeekCurrent"), flags, 6)
+        this.vtbl.get_Properties := CallbackCreate(ObjBindMethod(implObj, "get_Properties"), flags, 2)
+        this.vtbl.get_Handle2 := CallbackCreate(ObjBindMethod(implObj, "get_Handle2"), flags, 2)
+        this.vtbl.ReceiveByLookupId := CallbackCreate(ObjBindMethod(implObj, "ReceiveByLookupId"), flags, 7)
+        this.vtbl.ReceiveNextByLookupId := CallbackCreate(ObjBindMethod(implObj, "ReceiveNextByLookupId"), flags, 7)
+        this.vtbl.ReceivePreviousByLookupId := CallbackCreate(ObjBindMethod(implObj, "ReceivePreviousByLookupId"), flags, 7)
+        this.vtbl.ReceiveFirstByLookupId := CallbackCreate(ObjBindMethod(implObj, "ReceiveFirstByLookupId"), flags, 6)
+        this.vtbl.ReceiveLastByLookupId := CallbackCreate(ObjBindMethod(implObj, "ReceiveLastByLookupId"), flags, 6)
+        this.vtbl.PeekByLookupId := CallbackCreate(ObjBindMethod(implObj, "PeekByLookupId"), flags, 6)
+        this.vtbl.PeekNextByLookupId := CallbackCreate(ObjBindMethod(implObj, "PeekNextByLookupId"), flags, 6)
+        this.vtbl.PeekPreviousByLookupId := CallbackCreate(ObjBindMethod(implObj, "PeekPreviousByLookupId"), flags, 6)
+        this.vtbl.PeekFirstByLookupId := CallbackCreate(ObjBindMethod(implObj, "PeekFirstByLookupId"), flags, 5)
+        this.vtbl.PeekLastByLookupId := CallbackCreate(ObjBindMethod(implObj, "PeekLastByLookupId"), flags, 5)
+        this.vtbl.Purge := CallbackCreate(ObjBindMethod(implObj, "Purge"), flags, 1)
+        this.vtbl.get_IsOpen2 := CallbackCreate(ObjBindMethod(implObj, "get_IsOpen2"), flags, 2)
     }
 
     Dispose() {

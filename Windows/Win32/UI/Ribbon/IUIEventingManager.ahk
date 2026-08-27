@@ -62,7 +62,7 @@ export default struct IUIEventingManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetEventLogger := CallbackCreate(GetMethod(implObj, "SetEventLogger"), flags, 2)
+        this.vtbl.SetEventLogger := CallbackCreate(ObjBindMethod(implObj, "SetEventLogger"), flags, 2)
     }
 
     Dispose() {

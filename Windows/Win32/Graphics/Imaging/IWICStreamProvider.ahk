@@ -99,10 +99,10 @@ export default struct IWICStreamProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStream := CallbackCreate(GetMethod(implObj, "GetStream"), flags, 2)
-        this.vtbl.GetPersistOptions := CallbackCreate(GetMethod(implObj, "GetPersistOptions"), flags, 2)
-        this.vtbl.GetPreferredVendorGUID := CallbackCreate(GetMethod(implObj, "GetPreferredVendorGUID"), flags, 2)
-        this.vtbl.RefreshStream := CallbackCreate(GetMethod(implObj, "RefreshStream"), flags, 1)
+        this.vtbl.GetStream := CallbackCreate(ObjBindMethod(implObj, "GetStream"), flags, 2)
+        this.vtbl.GetPersistOptions := CallbackCreate(ObjBindMethod(implObj, "GetPersistOptions"), flags, 2)
+        this.vtbl.GetPreferredVendorGUID := CallbackCreate(ObjBindMethod(implObj, "GetPreferredVendorGUID"), flags, 2)
+        this.vtbl.RefreshStream := CallbackCreate(ObjBindMethod(implObj, "RefreshStream"), flags, 1)
     }
 
     Dispose() {

@@ -129,17 +129,20 @@ export default struct ISCPSecureQuery2 extends ISCPSecureQuery {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsecurequery2-makedecision2
      */
     MakeDecision2(fuFlags, pData, dwSize, dwAppSec, pbSPSessionKey, dwSessionKeyLen, pStorageGlobals, pAppCertApp, dwAppCertAppLen, pAppCertSP, dwAppCertSPLen, pszRevocationURL, pdwRevocationURLLen, pdwRevocationBitFlag, pqwFileSize, pUnknown, ppExchange, abMac) {
-        pDataMarshal := pData is VarRef ? "char*" : "ptr"
-        pbSPSessionKeyMarshal := pbSPSessionKey is VarRef ? "char*" : "ptr"
-        pAppCertAppMarshal := pAppCertApp is VarRef ? "char*" : "ptr"
-        pAppCertSPMarshal := pAppCertSP is VarRef ? "char*" : "ptr"
-        pszRevocationURLMarshal := pszRevocationURL is VarRef ? "ptr*" : "ptr"
-        pdwRevocationURLLenMarshal := pdwRevocationURLLen is VarRef ? "uint*" : "ptr"
-        pdwRevocationBitFlagMarshal := pdwRevocationBitFlag is VarRef ? "uint*" : "ptr"
-        pqwFileSizeMarshal := pqwFileSize is VarRef ? "uint*" : "ptr"
-        abMacMarshal := abMac is VarRef ? "char*" : "ptr"
+        pDataMarshal := pData is VarRef ? "char*" : IntPtr
+        pbSPSessionKeyMarshal := pbSPSessionKey is VarRef ? "char*" : IntPtr
+        pStorageGlobalsMarshal := pStorageGlobals == 0 ? IntPtr : "ptr"
+        pAppCertAppMarshal := pAppCertApp is VarRef ? "char*" : IntPtr
+        pAppCertSPMarshal := pAppCertSP is VarRef ? "char*" : IntPtr
+        pszRevocationURLMarshal := pszRevocationURL is VarRef ? "ptr*" : IntPtr
+        pdwRevocationURLLenMarshal := pdwRevocationURLLen is VarRef ? "uint*" : IntPtr
+        pdwRevocationBitFlagMarshal := pdwRevocationBitFlag is VarRef ? "uint*" : IntPtr
+        pqwFileSizeMarshal := pqwFileSize is VarRef ? "uint*" : IntPtr
+        pqwFileSizeMarshal := pqwFileSize == 0 ? IntPtr : "uint*"
+        pUnknownMarshal := pUnknown == 0 ? IntPtr : "ptr"
+        abMacMarshal := abMac is VarRef ? "char*" : IntPtr
 
-        result := ComCall(7, this, UInt32, fuFlags, pDataMarshal, pData, UInt32, dwSize, UInt32, dwAppSec, pbSPSessionKeyMarshal, pbSPSessionKey, UInt32, dwSessionKeyLen, "ptr", pStorageGlobals, pAppCertAppMarshal, pAppCertApp, UInt32, dwAppCertAppLen, pAppCertSPMarshal, pAppCertSP, UInt32, dwAppCertSPLen, pszRevocationURLMarshal, pszRevocationURL, pdwRevocationURLLenMarshal, pdwRevocationURLLen, pdwRevocationBitFlagMarshal, pdwRevocationBitFlag, pqwFileSizeMarshal, pqwFileSize, "ptr", pUnknown, ISCPSecureExchange.Ptr, ppExchange, abMacMarshal, abMac, "HRESULT")
+        result := ComCall(7, this, UInt32, fuFlags, pDataMarshal, pData, UInt32, dwSize, UInt32, dwAppSec, pbSPSessionKeyMarshal, pbSPSessionKey, UInt32, dwSessionKeyLen, pStorageGlobalsMarshal, pStorageGlobals, pAppCertAppMarshal, pAppCertApp, UInt32, dwAppCertAppLen, pAppCertSPMarshal, pAppCertSP, UInt32, dwAppCertSPLen, pszRevocationURLMarshal, pszRevocationURL, pdwRevocationURLLenMarshal, pdwRevocationURLLen, pdwRevocationBitFlagMarshal, pdwRevocationBitFlag, pqwFileSizeMarshal, pqwFileSize, pUnknownMarshal, pUnknown, ISCPSecureExchange.Ptr, ppExchange, abMacMarshal, abMac, "HRESULT")
         return result
     }
 
@@ -152,7 +155,7 @@ export default struct ISCPSecureQuery2 extends ISCPSecureQuery {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.MakeDecision2 := CallbackCreate(GetMethod(implObj, "MakeDecision2"), flags, 19)
+        this.vtbl.MakeDecision2 := CallbackCreate(ObjBindMethod(implObj, "MakeDecision2"), flags, 19)
     }
 
     Dispose() {

@@ -30,12 +30,11 @@ export default struct PTERMINATE_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Resource Resource identifier for the resource to be made unavailable.
      * @returns {String} Nothing - always returns an empty string
      */
     Call(Resource) {
-        ResourceMarshal := Resource is VarRef ? "ptr" : "ptr"
+        ResourceMarshal := Resource is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, ResourceMarshal, Resource)
     }

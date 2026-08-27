@@ -47,7 +47,6 @@ export default struct IAMPlayListItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetFlags() {
@@ -56,7 +55,6 @@ export default struct IAMPlayListItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetSourceCount() {
@@ -65,7 +63,6 @@ export default struct IAMPlayListItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSourceIndex 
      * @returns {BSTR} 
      */
@@ -76,7 +73,6 @@ export default struct IAMPlayListItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSourceIndex 
      * @returns {Integer} 
      */
@@ -86,7 +82,6 @@ export default struct IAMPlayListItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSourceIndex 
      * @returns {Integer} 
      */
@@ -96,7 +91,6 @@ export default struct IAMPlayListItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSourceIndex 
      * @returns {Integer} 
      */
@@ -106,7 +100,6 @@ export default struct IAMPlayListItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSourceIndex 
      * @returns {Integer} 
      */
@@ -116,7 +109,6 @@ export default struct IAMPlayListItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSourceIndex 
      * @returns {BSTR} 
      */
@@ -127,7 +119,6 @@ export default struct IAMPlayListItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSourceIndex 
      * @returns {BSTR} 
      */
@@ -138,7 +129,6 @@ export default struct IAMPlayListItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetLinkURL() {
@@ -148,7 +138,6 @@ export default struct IAMPlayListItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSourceIndex 
      * @returns {Integer} 
      */
@@ -166,17 +155,17 @@ export default struct IAMPlayListItem extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
-        this.vtbl.GetSourceCount := CallbackCreate(GetMethod(implObj, "GetSourceCount"), flags, 2)
-        this.vtbl.GetSourceURL := CallbackCreate(GetMethod(implObj, "GetSourceURL"), flags, 3)
-        this.vtbl.GetSourceStart := CallbackCreate(GetMethod(implObj, "GetSourceStart"), flags, 3)
-        this.vtbl.GetSourceDuration := CallbackCreate(GetMethod(implObj, "GetSourceDuration"), flags, 3)
-        this.vtbl.GetSourceStartMarker := CallbackCreate(GetMethod(implObj, "GetSourceStartMarker"), flags, 3)
-        this.vtbl.GetSourceEndMarker := CallbackCreate(GetMethod(implObj, "GetSourceEndMarker"), flags, 3)
-        this.vtbl.GetSourceStartMarkerName := CallbackCreate(GetMethod(implObj, "GetSourceStartMarkerName"), flags, 3)
-        this.vtbl.GetSourceEndMarkerName := CallbackCreate(GetMethod(implObj, "GetSourceEndMarkerName"), flags, 3)
-        this.vtbl.GetLinkURL := CallbackCreate(GetMethod(implObj, "GetLinkURL"), flags, 2)
-        this.vtbl.GetScanDuration := CallbackCreate(GetMethod(implObj, "GetScanDuration"), flags, 3)
+        this.vtbl.GetFlags := CallbackCreate(ObjBindMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.GetSourceCount := CallbackCreate(ObjBindMethod(implObj, "GetSourceCount"), flags, 2)
+        this.vtbl.GetSourceURL := CallbackCreate(ObjBindMethod(implObj, "GetSourceURL"), flags, 3)
+        this.vtbl.GetSourceStart := CallbackCreate(ObjBindMethod(implObj, "GetSourceStart"), flags, 3)
+        this.vtbl.GetSourceDuration := CallbackCreate(ObjBindMethod(implObj, "GetSourceDuration"), flags, 3)
+        this.vtbl.GetSourceStartMarker := CallbackCreate(ObjBindMethod(implObj, "GetSourceStartMarker"), flags, 3)
+        this.vtbl.GetSourceEndMarker := CallbackCreate(ObjBindMethod(implObj, "GetSourceEndMarker"), flags, 3)
+        this.vtbl.GetSourceStartMarkerName := CallbackCreate(ObjBindMethod(implObj, "GetSourceStartMarkerName"), flags, 3)
+        this.vtbl.GetSourceEndMarkerName := CallbackCreate(ObjBindMethod(implObj, "GetSourceEndMarkerName"), flags, 3)
+        this.vtbl.GetLinkURL := CallbackCreate(ObjBindMethod(implObj, "GetLinkURL"), flags, 2)
+        this.vtbl.GetScanDuration := CallbackCreate(ObjBindMethod(implObj, "GetScanDuration"), flags, 3)
     }
 
     Dispose() {

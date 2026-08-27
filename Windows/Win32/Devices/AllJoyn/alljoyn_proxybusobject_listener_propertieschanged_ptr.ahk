@@ -21,7 +21,6 @@ export default struct alljoyn_proxybusobject_listener_propertieschanged_ptr {
     }
 
     /**
-     * 
      * @param {alljoyn_proxybusobject} obj 
      * @param {PSTR} ifaceName 
      * @param {alljoyn_msgarg} changed 
@@ -32,7 +31,7 @@ export default struct alljoyn_proxybusobject_listener_propertieschanged_ptr {
     Call(obj, ifaceName, changed, invalidated, _context) {
         ifaceName := ifaceName is String ? StrPtr(ifaceName) : ifaceName
 
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, alljoyn_proxybusobject, obj, "ptr", ifaceName, alljoyn_msgarg, changed, alljoyn_msgarg, invalidated, _contextMarshal, _context)
     }

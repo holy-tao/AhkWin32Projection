@@ -76,8 +76,8 @@ export default struct IWMWriterAdvanced3 extends IWMWriterAdvanced2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStatisticsEx := CallbackCreate(GetMethod(implObj, "GetStatisticsEx"), flags, 3)
-        this.vtbl.SetNonBlocking := CallbackCreate(GetMethod(implObj, "SetNonBlocking"), flags, 1)
+        this.vtbl.GetStatisticsEx := CallbackCreate(ObjBindMethod(implObj, "GetStatisticsEx"), flags, 3)
+        this.vtbl.SetNonBlocking := CallbackCreate(ObjBindMethod(implObj, "SetNonBlocking"), flags, 1)
     }
 
     Dispose() {

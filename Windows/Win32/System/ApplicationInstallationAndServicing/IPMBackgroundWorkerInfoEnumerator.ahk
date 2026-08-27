@@ -44,7 +44,6 @@ export default struct IPMBackgroundWorkerInfoEnumerator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IPMBackgroundWorkerInfo} 
      */
     get_Next() {
@@ -61,7 +60,7 @@ export default struct IPMBackgroundWorkerInfoEnumerator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Next := CallbackCreate(GetMethod(implObj, "get_Next"), flags, 2)
+        this.vtbl.get_Next := CallbackCreate(ObjBindMethod(implObj, "get_Next"), flags, 2)
     }
 
     Dispose() {

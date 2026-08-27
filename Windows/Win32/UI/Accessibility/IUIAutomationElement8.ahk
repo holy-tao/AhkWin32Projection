@@ -82,8 +82,8 @@ export default struct IUIAutomationElement8 extends IUIAutomationElement7 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_CurrentHeadingLevel := CallbackCreate(GetMethod(implObj, "get_CurrentHeadingLevel"), flags, 2)
-        this.vtbl.get_CachedHeadingLevel := CallbackCreate(GetMethod(implObj, "get_CachedHeadingLevel"), flags, 2)
+        this.vtbl.get_CurrentHeadingLevel := CallbackCreate(ObjBindMethod(implObj, "get_CurrentHeadingLevel"), flags, 2)
+        this.vtbl.get_CachedHeadingLevel := CallbackCreate(ObjBindMethod(implObj, "get_CachedHeadingLevel"), flags, 2)
     }
 
     Dispose() {

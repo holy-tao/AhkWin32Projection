@@ -19,7 +19,6 @@ export default struct LPD3DHAL_DRAWONEPRIMITIVECB {
     }
 
     /**
-     * 
      * @param {Pointer<D3DHAL_DRAWONEPRIMITIVEDATA>} param0 
      * @returns {Integer} 
      */

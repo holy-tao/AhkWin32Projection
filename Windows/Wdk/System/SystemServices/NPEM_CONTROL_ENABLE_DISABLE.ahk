@@ -20,13 +20,13 @@ export default struct NPEM_CONTROL_ENABLE_DISABLE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {BOOLEAN} EnableNpem 
      * @returns {NTSTATUS} 
      */
     Call(_Context, EnableNpem) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, BOOLEAN, EnableNpem, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

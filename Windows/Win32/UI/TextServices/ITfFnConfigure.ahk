@@ -62,7 +62,7 @@ export default struct ITfFnConfigure extends ITfFunction {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Show := CallbackCreate(GetMethod(implObj, "Show"), flags, 4)
+        this.vtbl.Show := CallbackCreate(ObjBindMethod(implObj, "Show"), flags, 4)
     }
 
     Dispose() {

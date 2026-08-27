@@ -75,7 +75,6 @@ export default struct ILineInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_x() {
@@ -84,7 +83,6 @@ export default struct ILineInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_baseLine() {
@@ -93,7 +91,6 @@ export default struct ILineInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_textDescent() {
@@ -102,7 +99,6 @@ export default struct ILineInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_textHeight() {
@@ -111,7 +107,6 @@ export default struct ILineInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_lineDirection() {
@@ -128,11 +123,11 @@ export default struct ILineInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_x := CallbackCreate(GetMethod(implObj, "get_x"), flags, 2)
-        this.vtbl.get_baseLine := CallbackCreate(GetMethod(implObj, "get_baseLine"), flags, 2)
-        this.vtbl.get_textDescent := CallbackCreate(GetMethod(implObj, "get_textDescent"), flags, 2)
-        this.vtbl.get_textHeight := CallbackCreate(GetMethod(implObj, "get_textHeight"), flags, 2)
-        this.vtbl.get_lineDirection := CallbackCreate(GetMethod(implObj, "get_lineDirection"), flags, 2)
+        this.vtbl.get_x := CallbackCreate(ObjBindMethod(implObj, "get_x"), flags, 2)
+        this.vtbl.get_baseLine := CallbackCreate(ObjBindMethod(implObj, "get_baseLine"), flags, 2)
+        this.vtbl.get_textDescent := CallbackCreate(ObjBindMethod(implObj, "get_textDescent"), flags, 2)
+        this.vtbl.get_textHeight := CallbackCreate(ObjBindMethod(implObj, "get_textHeight"), flags, 2)
+        this.vtbl.get_lineDirection := CallbackCreate(ObjBindMethod(implObj, "get_lineDirection"), flags, 2)
     }
 
     Dispose() {

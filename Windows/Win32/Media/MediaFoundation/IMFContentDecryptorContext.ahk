@@ -47,7 +47,8 @@ export default struct IMFContentDecryptorContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcontentdecryptorcontext-initializehardwarekey
      */
     InitializeHardwareKey(InputPrivateDataByteCount, InputPrivateData) {
-        InputPrivateDataMarshal := InputPrivateData is VarRef ? "ptr" : "ptr"
+        InputPrivateDataMarshal := InputPrivateData is VarRef ? "ptr" : IntPtr
+        InputPrivateDataMarshal := InputPrivateData == 0 ? IntPtr : "ptr"
 
         result := ComCall(3, this, UInt32, InputPrivateDataByteCount, InputPrivateDataMarshal, InputPrivateData, "uint*", &OutputPrivateData := 0, "HRESULT")
         return OutputPrivateData
@@ -62,7 +63,7 @@ export default struct IMFContentDecryptorContext extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeHardwareKey := CallbackCreate(GetMethod(implObj, "InitializeHardwareKey"), flags, 4)
+        this.vtbl.InitializeHardwareKey := CallbackCreate(ObjBindMethod(implObj, "InitializeHardwareKey"), flags, 4)
     }
 
     Dispose() {

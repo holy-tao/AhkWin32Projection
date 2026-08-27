@@ -22,14 +22,13 @@ export default struct PFAXGETJOBA {
     }
 
     /**
-     * 
      * @param {HANDLE} FaxHandle 
      * @param {Integer} JobId 
      * @param {Pointer<Pointer<FAX_JOB_ENTRYA>>} JobEntry 
      * @returns {BOOL} 
      */
     Call(FaxHandle, JobId, JobEntry) {
-        JobEntryMarshal := JobEntry is VarRef ? "ptr*" : "ptr"
+        JobEntryMarshal := JobEntry is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, HANDLE, FaxHandle, UInt32, JobId, JobEntryMarshal, JobEntry, BOOL)
         return result

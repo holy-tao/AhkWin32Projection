@@ -72,7 +72,7 @@ export default struct IMSVidXDS extends IMSVidFeature {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ChannelChangeInterface := CallbackCreate(GetMethod(implObj, "get_ChannelChangeInterface"), flags, 2)
+        this.vtbl.get_ChannelChangeInterface := CallbackCreate(ObjBindMethod(implObj, "get_ChannelChangeInterface"), flags, 2)
     }
 
     Dispose() {

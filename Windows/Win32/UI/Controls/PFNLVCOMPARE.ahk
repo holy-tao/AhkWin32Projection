@@ -19,7 +19,6 @@ export default struct PFNLVCOMPARE {
     }
 
     /**
-     * 
      * @param {LPARAM} param0 
      * @param {LPARAM} param1 
      * @param {LPARAM} param2 

@@ -90,7 +90,7 @@ export default struct IMFRemoteDesktopPlugin extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.UpdateTopology := CallbackCreate(GetMethod(implObj, "UpdateTopology"), flags, 2)
+        this.vtbl.UpdateTopology := CallbackCreate(ObjBindMethod(implObj, "UpdateTopology"), flags, 2)
     }
 
     Dispose() {

@@ -40,7 +40,6 @@ export default struct IIndexDefinition extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DBID>} pTableID 
      * @param {Pointer<DBID>} pIndexID 
      * @param {Pointer} cIndexColumnDescs 
@@ -50,18 +49,21 @@ export default struct IIndexDefinition extends IUnknown {
      * @returns {Pointer<DBID>} 
      */
     CreateIndex(pTableID, pIndexID, cIndexColumnDescs, rgIndexColumnDescs, cPropertySets, rgPropertySets) {
-        result := ComCall(3, this, DBID.Ptr, pTableID, DBID.Ptr, pIndexID, IntPtr, cIndexColumnDescs, DBINDEXCOLUMNDESC.Ptr, rgIndexColumnDescs, UInt32, cPropertySets, DBPROPSET.Ptr, rgPropertySets, "ptr*", &ppIndexID := 0, "HRESULT")
+        pIndexIDMarshal := pIndexID == 0 ? IntPtr : DBID.Ptr
+
+        result := ComCall(3, this, DBID.Ptr, pTableID, pIndexIDMarshal, pIndexID, IntPtr, cIndexColumnDescs, DBINDEXCOLUMNDESC.Ptr, rgIndexColumnDescs, UInt32, cPropertySets, DBPROPSET.Ptr, rgPropertySets, "ptr*", &ppIndexID := 0, "HRESULT")
         return ppIndexID
     }
 
     /**
-     * 
      * @param {Pointer<DBID>} pTableID 
      * @param {Pointer<DBID>} pIndexID 
      * @returns {HRESULT} 
      */
     DropIndex(pTableID, pIndexID) {
-        result := ComCall(4, this, DBID.Ptr, pTableID, DBID.Ptr, pIndexID, "HRESULT")
+        pIndexIDMarshal := pIndexID == 0 ? IntPtr : DBID.Ptr
+
+        result := ComCall(4, this, DBID.Ptr, pTableID, pIndexIDMarshal, pIndexID, "HRESULT")
         return result
     }
 
@@ -74,8 +76,8 @@ export default struct IIndexDefinition extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateIndex := CallbackCreate(GetMethod(implObj, "CreateIndex"), flags, 8)
-        this.vtbl.DropIndex := CallbackCreate(GetMethod(implObj, "DropIndex"), flags, 3)
+        this.vtbl.CreateIndex := CallbackCreate(ObjBindMethod(implObj, "CreateIndex"), flags, 8)
+        this.vtbl.DropIndex := CallbackCreate(ObjBindMethod(implObj, "DropIndex"), flags, 3)
     }
 
     Dispose() {

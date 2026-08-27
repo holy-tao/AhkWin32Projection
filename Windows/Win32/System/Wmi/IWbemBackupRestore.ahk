@@ -93,8 +93,8 @@ export default struct IWbemBackupRestore extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Backup := CallbackCreate(GetMethod(implObj, "Backup"), flags, 3)
-        this.vtbl.Restore := CallbackCreate(GetMethod(implObj, "Restore"), flags, 3)
+        this.vtbl.Backup := CallbackCreate(ObjBindMethod(implObj, "Backup"), flags, 3)
+        this.vtbl.Restore := CallbackCreate(ObjBindMethod(implObj, "Restore"), flags, 3)
     }
 
     Dispose() {

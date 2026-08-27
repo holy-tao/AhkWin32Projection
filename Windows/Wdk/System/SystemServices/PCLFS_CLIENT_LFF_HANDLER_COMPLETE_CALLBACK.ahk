@@ -21,7 +21,6 @@ export default struct PCLFS_CLIENT_LFF_HANDLER_COMPLETE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} LogFile 
      * @param {NTSTATUS} OperationStatus 
      * @param {BOOLEAN} LogIsPinned 
@@ -29,7 +28,7 @@ export default struct PCLFS_CLIENT_LFF_HANDLER_COMPLETE_CALLBACK {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(LogFile, OperationStatus, LogIsPinned, ClientData) {
-        ClientDataMarshal := ClientData is VarRef ? "ptr" : "ptr"
+        ClientDataMarshal := ClientData is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, FILE_OBJECT.Ptr, LogFile, NTSTATUS, OperationStatus, BOOLEAN, LogIsPinned, ClientDataMarshal, ClientData)
     }

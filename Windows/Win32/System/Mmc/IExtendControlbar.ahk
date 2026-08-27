@@ -82,8 +82,8 @@ export default struct IExtendControlbar extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetControlbar := CallbackCreate(GetMethod(implObj, "SetControlbar"), flags, 2)
-        this.vtbl.ControlbarNotify := CallbackCreate(GetMethod(implObj, "ControlbarNotify"), flags, 4)
+        this.vtbl.SetControlbar := CallbackCreate(ObjBindMethod(implObj, "SetControlbar"), flags, 2)
+        this.vtbl.ControlbarNotify := CallbackCreate(ObjBindMethod(implObj, "ControlbarNotify"), flags, 4)
     }
 
     Dispose() {

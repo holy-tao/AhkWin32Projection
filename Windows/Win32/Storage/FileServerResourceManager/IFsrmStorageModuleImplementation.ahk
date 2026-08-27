@@ -97,9 +97,9 @@ export default struct IFsrmStorageModuleImplementation extends IFsrmPipelineModu
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.UseDefinitions := CallbackCreate(GetMethod(implObj, "UseDefinitions"), flags, 2)
-        this.vtbl.LoadProperties := CallbackCreate(GetMethod(implObj, "LoadProperties"), flags, 2)
-        this.vtbl.SaveProperties := CallbackCreate(GetMethod(implObj, "SaveProperties"), flags, 2)
+        this.vtbl.UseDefinitions := CallbackCreate(ObjBindMethod(implObj, "UseDefinitions"), flags, 2)
+        this.vtbl.LoadProperties := CallbackCreate(ObjBindMethod(implObj, "LoadProperties"), flags, 2)
+        this.vtbl.SaveProperties := CallbackCreate(ObjBindMethod(implObj, "SaveProperties"), flags, 2)
     }
 
     Dispose() {

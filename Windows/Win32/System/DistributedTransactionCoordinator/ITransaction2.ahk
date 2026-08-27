@@ -37,7 +37,6 @@ export default struct ITransaction2 extends ITransactionCloner {
     }
 
     /**
-     * 
      * @returns {XACTTRANSINFO} 
      */
     GetTransactionInfo2() {
@@ -55,7 +54,7 @@ export default struct ITransaction2 extends ITransactionCloner {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTransactionInfo2 := CallbackCreate(GetMethod(implObj, "GetTransactionInfo2"), flags, 2)
+        this.vtbl.GetTransactionInfo2 := CallbackCreate(ObjBindMethod(implObj, "GetTransactionInfo2"), flags, 2)
     }
 
     Dispose() {

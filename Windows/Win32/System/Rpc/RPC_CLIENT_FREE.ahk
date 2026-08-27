@@ -18,12 +18,11 @@ export default struct RPC_CLIENT_FREE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Ptr 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(Ptr) {
-        PtrMarshal := Ptr is VarRef ? "ptr" : "ptr"
+        PtrMarshal := Ptr is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, PtrMarshal, Ptr)
     }

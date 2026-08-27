@@ -67,7 +67,7 @@ export default struct IObjectContextActivity extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetActivityId := CallbackCreate(GetMethod(implObj, "GetActivityId"), flags, 2)
+        this.vtbl.GetActivityId := CallbackCreate(ObjBindMethod(implObj, "GetActivityId"), flags, 2)
     }
 
     Dispose() {

@@ -36,14 +36,13 @@ export default struct IEnumItemIds extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbItemId 
      * @param {Pointer<Integer>} pcbItemIdSize 
      * @returns {HRESULT} 
      */
     Next(pbItemId, pcbItemIdSize) {
-        pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
-        pcbItemIdSizeMarshal := pcbItemIdSize is VarRef ? "uint*" : "ptr"
+        pbItemIdMarshal := pbItemId is VarRef ? "char*" : IntPtr
+        pcbItemIdSizeMarshal := pcbItemIdSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pbItemIdMarshal, pbItemId, pcbItemIdSizeMarshal, pcbItemIdSize, "HRESULT")
         return result
@@ -58,7 +57,7 @@ export default struct IEnumItemIds extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 3)
+        this.vtbl.Next := CallbackCreate(ObjBindMethod(implObj, "Next"), flags, 3)
     }
 
     Dispose() {

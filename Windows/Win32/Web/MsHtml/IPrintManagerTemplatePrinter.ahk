@@ -43,7 +43,6 @@ export default struct IPrintManagerTemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     startPrint() {
@@ -52,7 +51,6 @@ export default struct IPrintManagerTemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} pElemDisp 
      * @param {Integer} nPage 
      * @returns {HRESULT} 
@@ -63,7 +61,6 @@ export default struct IPrintManagerTemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} nPage 
      * @returns {HRESULT} 
      */
@@ -73,7 +70,6 @@ export default struct IPrintManagerTemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     invalidatePreview() {
@@ -82,7 +78,6 @@ export default struct IPrintManagerTemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrKey 
      * @returns {VARIANT} 
      */
@@ -95,7 +90,6 @@ export default struct IPrintManagerTemplatePrinter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     endPrint() {
@@ -112,12 +106,12 @@ export default struct IPrintManagerTemplatePrinter extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.startPrint := CallbackCreate(GetMethod(implObj, "startPrint"), flags, 1)
-        this.vtbl.drawPreviewPage := CallbackCreate(GetMethod(implObj, "drawPreviewPage"), flags, 3)
-        this.vtbl.setPageCount := CallbackCreate(GetMethod(implObj, "setPageCount"), flags, 2)
-        this.vtbl.invalidatePreview := CallbackCreate(GetMethod(implObj, "invalidatePreview"), flags, 1)
-        this.vtbl.getPrintTaskOptionValue := CallbackCreate(GetMethod(implObj, "getPrintTaskOptionValue"), flags, 3)
-        this.vtbl.endPrint := CallbackCreate(GetMethod(implObj, "endPrint"), flags, 1)
+        this.vtbl.startPrint := CallbackCreate(ObjBindMethod(implObj, "startPrint"), flags, 1)
+        this.vtbl.drawPreviewPage := CallbackCreate(ObjBindMethod(implObj, "drawPreviewPage"), flags, 3)
+        this.vtbl.setPageCount := CallbackCreate(ObjBindMethod(implObj, "setPageCount"), flags, 2)
+        this.vtbl.invalidatePreview := CallbackCreate(ObjBindMethod(implObj, "invalidatePreview"), flags, 1)
+        this.vtbl.getPrintTaskOptionValue := CallbackCreate(ObjBindMethod(implObj, "getPrintTaskOptionValue"), flags, 3)
+        this.vtbl.endPrint := CallbackCreate(ObjBindMethod(implObj, "endPrint"), flags, 1)
     }
 
     Dispose() {

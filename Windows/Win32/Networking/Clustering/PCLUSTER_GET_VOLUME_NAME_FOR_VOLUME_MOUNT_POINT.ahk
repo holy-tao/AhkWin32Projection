@@ -20,7 +20,6 @@ export default struct PCLUSTER_GET_VOLUME_NAME_FOR_VOLUME_MOUNT_POINT {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszVolumeMountPoint 
      * @param {PWSTR} lpszVolumeName 
      * @param {Integer} cchBufferLength 

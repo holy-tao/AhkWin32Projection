@@ -26,7 +26,6 @@ export default struct PRESOURCE_TYPE_CONTROL_ROUTINE {
     }
 
     /**
-     * 
      * @param {PWSTR} ResourceTypeName Type of resource to be affected by the operation.
      * @param {Integer} ControlCode <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/about-control-codes">Control code</a> that represents the operation to be 
      *        performed. For a list of valid values for the <i>ControlCode</i> parameter, see 
@@ -68,9 +67,9 @@ export default struct PRESOURCE_TYPE_CONTROL_ROUTINE {
     Call(ResourceTypeName, ControlCode, InBuffer, InBufferSize, OutBuffer, OutBufferSize, BytesReturned) {
         ResourceTypeName := ResourceTypeName is String ? StrPtr(ResourceTypeName) : ResourceTypeName
 
-        InBufferMarshal := InBuffer is VarRef ? "ptr" : "ptr"
-        OutBufferMarshal := OutBuffer is VarRef ? "ptr" : "ptr"
-        BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
+        InBufferMarshal := InBuffer is VarRef ? "ptr" : IntPtr
+        OutBufferMarshal := OutBuffer is VarRef ? "ptr" : IntPtr
+        BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, "ptr", ResourceTypeName, UInt32, ControlCode, InBufferMarshal, InBuffer, UInt32, InBufferSize, OutBufferMarshal, OutBuffer, UInt32, OutBufferSize, BytesReturnedMarshal, BytesReturned, UInt32)
         return result

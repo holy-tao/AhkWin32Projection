@@ -60,7 +60,6 @@ export default struct IDOMProcessingInstruction extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_target() {
@@ -70,7 +69,6 @@ export default struct IDOMProcessingInstruction extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -82,7 +80,6 @@ export default struct IDOMProcessingInstruction extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_data() {
@@ -100,9 +97,9 @@ export default struct IDOMProcessingInstruction extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_target := CallbackCreate(GetMethod(implObj, "get_target"), flags, 2)
-        this.vtbl.put_data := CallbackCreate(GetMethod(implObj, "put_data"), flags, 2)
-        this.vtbl.get_data := CallbackCreate(GetMethod(implObj, "get_data"), flags, 2)
+        this.vtbl.get_target := CallbackCreate(ObjBindMethod(implObj, "get_target"), flags, 2)
+        this.vtbl.put_data := CallbackCreate(ObjBindMethod(implObj, "put_data"), flags, 2)
+        this.vtbl.get_data := CallbackCreate(ObjBindMethod(implObj, "get_data"), flags, 2)
     }
 
     Dispose() {

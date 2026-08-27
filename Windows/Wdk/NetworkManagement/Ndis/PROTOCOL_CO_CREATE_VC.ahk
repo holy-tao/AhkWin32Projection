@@ -18,16 +18,15 @@ export default struct PROTOCOL_CO_CREATE_VC {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} ProtocolAfContext 
      * @param {Pointer<Void>} NdisVcHandle 
      * @param {Pointer<Pointer<Void>>} ProtocolVcContext 
      * @returns {Integer} 
      */
     Call(ProtocolAfContext, NdisVcHandle, ProtocolVcContext) {
-        ProtocolAfContextMarshal := ProtocolAfContext is VarRef ? "ptr" : "ptr"
-        NdisVcHandleMarshal := NdisVcHandle is VarRef ? "ptr" : "ptr"
-        ProtocolVcContextMarshal := ProtocolVcContext is VarRef ? "ptr*" : "ptr"
+        ProtocolAfContextMarshal := ProtocolAfContext is VarRef ? "ptr" : IntPtr
+        NdisVcHandleMarshal := NdisVcHandle is VarRef ? "ptr" : IntPtr
+        ProtocolVcContextMarshal := ProtocolVcContext is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, ProtocolAfContextMarshal, ProtocolAfContext, NdisVcHandleMarshal, NdisVcHandle, ProtocolVcContextMarshal, ProtocolVcContext, Int32)
         return result

@@ -20,7 +20,6 @@ export default struct PFN_CARD_SIGN_DATA {
     }
 
     /**
-     * 
      * @param {Pointer<CARD_DATA>} pCardData 
      * @param {Pointer<CARD_SIGNING_INFO>} pInfo 
      * @returns {Integer} 

@@ -186,13 +186,13 @@ export default struct ITPluggableTerminalClassInfo extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_Company := CallbackCreate(GetMethod(implObj, "get_Company"), flags, 2)
-        this.vtbl.get_Version := CallbackCreate(GetMethod(implObj, "get_Version"), flags, 2)
-        this.vtbl.get_TerminalClass := CallbackCreate(GetMethod(implObj, "get_TerminalClass"), flags, 2)
-        this.vtbl.get_CLSID := CallbackCreate(GetMethod(implObj, "get_CLSID"), flags, 2)
-        this.vtbl.get_Direction := CallbackCreate(GetMethod(implObj, "get_Direction"), flags, 2)
-        this.vtbl.get_MediaTypes := CallbackCreate(GetMethod(implObj, "get_MediaTypes"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Company := CallbackCreate(ObjBindMethod(implObj, "get_Company"), flags, 2)
+        this.vtbl.get_Version := CallbackCreate(ObjBindMethod(implObj, "get_Version"), flags, 2)
+        this.vtbl.get_TerminalClass := CallbackCreate(ObjBindMethod(implObj, "get_TerminalClass"), flags, 2)
+        this.vtbl.get_CLSID := CallbackCreate(ObjBindMethod(implObj, "get_CLSID"), flags, 2)
+        this.vtbl.get_Direction := CallbackCreate(ObjBindMethod(implObj, "get_Direction"), flags, 2)
+        this.vtbl.get_MediaTypes := CallbackCreate(ObjBindMethod(implObj, "get_MediaTypes"), flags, 2)
     }
 
     Dispose() {

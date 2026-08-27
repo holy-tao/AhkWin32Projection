@@ -225,17 +225,17 @@ export default struct IAMTVTuner extends IAMTuner {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_AvailableTVFormats := CallbackCreate(GetMethod(implObj, "get_AvailableTVFormats"), flags, 2)
-        this.vtbl.get_TVFormat := CallbackCreate(GetMethod(implObj, "get_TVFormat"), flags, 2)
-        this.vtbl.AutoTune := CallbackCreate(GetMethod(implObj, "AutoTune"), flags, 3)
-        this.vtbl.StoreAutoTune := CallbackCreate(GetMethod(implObj, "StoreAutoTune"), flags, 1)
-        this.vtbl.get_NumInputConnections := CallbackCreate(GetMethod(implObj, "get_NumInputConnections"), flags, 2)
-        this.vtbl.put_InputType := CallbackCreate(GetMethod(implObj, "put_InputType"), flags, 3)
-        this.vtbl.get_InputType := CallbackCreate(GetMethod(implObj, "get_InputType"), flags, 3)
-        this.vtbl.put_ConnectInput := CallbackCreate(GetMethod(implObj, "put_ConnectInput"), flags, 2)
-        this.vtbl.get_ConnectInput := CallbackCreate(GetMethod(implObj, "get_ConnectInput"), flags, 2)
-        this.vtbl.get_VideoFrequency := CallbackCreate(GetMethod(implObj, "get_VideoFrequency"), flags, 2)
-        this.vtbl.get_AudioFrequency := CallbackCreate(GetMethod(implObj, "get_AudioFrequency"), flags, 2)
+        this.vtbl.get_AvailableTVFormats := CallbackCreate(ObjBindMethod(implObj, "get_AvailableTVFormats"), flags, 2)
+        this.vtbl.get_TVFormat := CallbackCreate(ObjBindMethod(implObj, "get_TVFormat"), flags, 2)
+        this.vtbl.AutoTune := CallbackCreate(ObjBindMethod(implObj, "AutoTune"), flags, 3)
+        this.vtbl.StoreAutoTune := CallbackCreate(ObjBindMethod(implObj, "StoreAutoTune"), flags, 1)
+        this.vtbl.get_NumInputConnections := CallbackCreate(ObjBindMethod(implObj, "get_NumInputConnections"), flags, 2)
+        this.vtbl.put_InputType := CallbackCreate(ObjBindMethod(implObj, "put_InputType"), flags, 3)
+        this.vtbl.get_InputType := CallbackCreate(ObjBindMethod(implObj, "get_InputType"), flags, 3)
+        this.vtbl.put_ConnectInput := CallbackCreate(ObjBindMethod(implObj, "put_ConnectInput"), flags, 2)
+        this.vtbl.get_ConnectInput := CallbackCreate(ObjBindMethod(implObj, "get_ConnectInput"), flags, 2)
+        this.vtbl.get_VideoFrequency := CallbackCreate(ObjBindMethod(implObj, "get_VideoFrequency"), flags, 2)
+        this.vtbl.get_AudioFrequency := CallbackCreate(ObjBindMethod(implObj, "get_AudioFrequency"), flags, 2)
     }
 
     Dispose() {

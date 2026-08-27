@@ -19,7 +19,6 @@ export default struct WHEA_ERROR_SOURCE_INITIALIZE {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

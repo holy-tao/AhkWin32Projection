@@ -263,10 +263,10 @@ export default struct ICertRequest3 extends ICertRequest2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetCredential := CallbackCreate(GetMethod(implObj, "SetCredential"), flags, 5)
-        this.vtbl.GetRequestIdString := CallbackCreate(GetMethod(implObj, "GetRequestIdString"), flags, 2)
-        this.vtbl.GetIssuedCertificate2 := CallbackCreate(GetMethod(implObj, "GetIssuedCertificate2"), flags, 5)
-        this.vtbl.GetRefreshPolicy := CallbackCreate(GetMethod(implObj, "GetRefreshPolicy"), flags, 2)
+        this.vtbl.SetCredential := CallbackCreate(ObjBindMethod(implObj, "SetCredential"), flags, 5)
+        this.vtbl.GetRequestIdString := CallbackCreate(ObjBindMethod(implObj, "GetRequestIdString"), flags, 2)
+        this.vtbl.GetIssuedCertificate2 := CallbackCreate(ObjBindMethod(implObj, "GetIssuedCertificate2"), flags, 5)
+        this.vtbl.GetRefreshPolicy := CallbackCreate(ObjBindMethod(implObj, "GetRefreshPolicy"), flags, 2)
     }
 
     Dispose() {

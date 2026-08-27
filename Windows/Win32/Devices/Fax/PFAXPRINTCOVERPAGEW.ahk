@@ -22,7 +22,6 @@ export default struct PFAXPRINTCOVERPAGEW {
     }
 
     /**
-     * 
      * @param {Pointer<FAX_CONTEXT_INFOW>} FaxContextInfo 
      * @param {Pointer<FAX_COVERPAGE_INFOW>} CoverPageInfo 
      * @returns {BOOL} 

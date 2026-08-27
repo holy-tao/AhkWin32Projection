@@ -25,7 +25,6 @@ export default struct LPDHCP_NEWPKT {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Integer>>} Packet Pointer to a 4Kb character buffer that contains the packet.
      * 
      * <div class="alert"><b>Note</b>  Writing to this buffer directly is not recommended.</div>
@@ -38,11 +37,11 @@ export default struct LPDHCP_NEWPKT {
      * @returns {Integer} Return values are defined by the application providing the callback.
      */
     Call(Packet, PacketSize, IpAddress, Reserved, PktContext, ProcessIt) {
-        PacketMarshal := Packet is VarRef ? "ptr*" : "ptr"
-        PacketSizeMarshal := PacketSize is VarRef ? "uint*" : "ptr"
-        ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
-        PktContextMarshal := PktContext is VarRef ? "ptr*" : "ptr"
-        ProcessItMarshal := ProcessIt is VarRef ? "int*" : "ptr"
+        PacketMarshal := Packet is VarRef ? "ptr*" : IntPtr
+        PacketSizeMarshal := PacketSize is VarRef ? "uint*" : IntPtr
+        ReservedMarshal := Reserved is VarRef ? "ptr" : IntPtr
+        PktContextMarshal := PktContext is VarRef ? "ptr*" : IntPtr
+        ProcessItMarshal := ProcessIt is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, PacketMarshal, Packet, PacketSizeMarshal, PacketSize, UInt32, IpAddress, ReservedMarshal, Reserved, PktContextMarshal, PktContext, ProcessItMarshal, ProcessIt, UInt32)
         return result

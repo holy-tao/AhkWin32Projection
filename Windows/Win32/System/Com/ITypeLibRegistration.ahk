@@ -44,7 +44,6 @@ export default struct ITypeLibRegistration extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     GetGuid() {
@@ -71,7 +70,6 @@ export default struct ITypeLibRegistration extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetLcid() {
@@ -80,7 +78,6 @@ export default struct ITypeLibRegistration extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetWin32Path() {
@@ -90,7 +87,6 @@ export default struct ITypeLibRegistration extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetWin64Path() {
@@ -100,7 +96,6 @@ export default struct ITypeLibRegistration extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetDisplayName() {
@@ -110,7 +105,6 @@ export default struct ITypeLibRegistration extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetFlags() {
@@ -119,7 +113,6 @@ export default struct ITypeLibRegistration extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetHelpDir() {
@@ -137,14 +130,14 @@ export default struct ITypeLibRegistration extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetGuid := CallbackCreate(GetMethod(implObj, "GetGuid"), flags, 2)
-        this.vtbl.GetVersion := CallbackCreate(GetMethod(implObj, "GetVersion"), flags, 2)
-        this.vtbl.GetLcid := CallbackCreate(GetMethod(implObj, "GetLcid"), flags, 2)
-        this.vtbl.GetWin32Path := CallbackCreate(GetMethod(implObj, "GetWin32Path"), flags, 2)
-        this.vtbl.GetWin64Path := CallbackCreate(GetMethod(implObj, "GetWin64Path"), flags, 2)
-        this.vtbl.GetDisplayName := CallbackCreate(GetMethod(implObj, "GetDisplayName"), flags, 2)
-        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
-        this.vtbl.GetHelpDir := CallbackCreate(GetMethod(implObj, "GetHelpDir"), flags, 2)
+        this.vtbl.GetGuid := CallbackCreate(ObjBindMethod(implObj, "GetGuid"), flags, 2)
+        this.vtbl.GetVersion := CallbackCreate(ObjBindMethod(implObj, "GetVersion"), flags, 2)
+        this.vtbl.GetLcid := CallbackCreate(ObjBindMethod(implObj, "GetLcid"), flags, 2)
+        this.vtbl.GetWin32Path := CallbackCreate(ObjBindMethod(implObj, "GetWin32Path"), flags, 2)
+        this.vtbl.GetWin64Path := CallbackCreate(ObjBindMethod(implObj, "GetWin64Path"), flags, 2)
+        this.vtbl.GetDisplayName := CallbackCreate(ObjBindMethod(implObj, "GetDisplayName"), flags, 2)
+        this.vtbl.GetFlags := CallbackCreate(ObjBindMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.GetHelpDir := CallbackCreate(ObjBindMethod(implObj, "GetHelpDir"), flags, 2)
     }
 
     Dispose() {

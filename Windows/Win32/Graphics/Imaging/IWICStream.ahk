@@ -131,7 +131,7 @@ export default struct IWICStream extends IStream {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicstream-initializefrommemory
      */
     InitializeFromMemory(pbBuffer, cbBufferSize) {
-        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(16, this, pbBufferMarshal, pbBuffer, UInt32, cbBufferSize, "HRESULT")
         return result
@@ -169,10 +169,10 @@ export default struct IWICStream extends IStream {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeFromIStream := CallbackCreate(GetMethod(implObj, "InitializeFromIStream"), flags, 2)
-        this.vtbl.InitializeFromFilename := CallbackCreate(GetMethod(implObj, "InitializeFromFilename"), flags, 3)
-        this.vtbl.InitializeFromMemory := CallbackCreate(GetMethod(implObj, "InitializeFromMemory"), flags, 3)
-        this.vtbl.InitializeFromIStreamRegion := CallbackCreate(GetMethod(implObj, "InitializeFromIStreamRegion"), flags, 4)
+        this.vtbl.InitializeFromIStream := CallbackCreate(ObjBindMethod(implObj, "InitializeFromIStream"), flags, 2)
+        this.vtbl.InitializeFromFilename := CallbackCreate(ObjBindMethod(implObj, "InitializeFromFilename"), flags, 3)
+        this.vtbl.InitializeFromMemory := CallbackCreate(ObjBindMethod(implObj, "InitializeFromMemory"), flags, 3)
+        this.vtbl.InitializeFromIStreamRegion := CallbackCreate(ObjBindMethod(implObj, "InitializeFromIStreamRegion"), flags, 4)
     }
 
     Dispose() {

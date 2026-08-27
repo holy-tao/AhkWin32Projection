@@ -37,7 +37,6 @@ export default struct IMLOperatorTypeInferrer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMLOperatorTypeInferenceContext} _context 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,7 @@ export default struct IMLOperatorTypeInferrer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InferOutputTypes := CallbackCreate(GetMethod(implObj, "InferOutputTypes"), flags, 2)
+        this.vtbl.InferOutputTypes := CallbackCreate(ObjBindMethod(implObj, "InferOutputTypes"), flags, 2)
     }
 
     Dispose() {

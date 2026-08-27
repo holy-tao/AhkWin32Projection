@@ -51,7 +51,6 @@ export default struct ISwapChainBackgroundPanelNative extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDXGISwapChain} swapChain 
      * @returns {HRESULT} 
      */
@@ -69,7 +68,7 @@ export default struct ISwapChainBackgroundPanelNative extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetSwapChain := CallbackCreate(GetMethod(implObj, "SetSwapChain"), flags, 2)
+        this.vtbl.SetSwapChain := CallbackCreate(ObjBindMethod(implObj, "SetSwapChain"), flags, 2)
     }
 
     Dispose() {

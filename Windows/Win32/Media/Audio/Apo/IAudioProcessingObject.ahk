@@ -160,7 +160,7 @@ export default struct IAudioProcessingObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobject-initialize
      */
     Initialize(cbDataSize, pbyData) {
-        pbyDataMarshal := pbyData is VarRef ? "char*" : "ptr"
+        pbyDataMarshal := pbyData is VarRef ? "char*" : IntPtr
 
         result := ComCall(6, this, UInt32, cbDataSize, pbyDataMarshal, pbyData, "HRESULT")
         return result
@@ -217,13 +217,13 @@ export default struct IAudioProcessingObject extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.GetLatency := CallbackCreate(GetMethod(implObj, "GetLatency"), flags, 2)
-        this.vtbl.GetRegistrationProperties := CallbackCreate(GetMethod(implObj, "GetRegistrationProperties"), flags, 2)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.IsInputFormatSupported := CallbackCreate(GetMethod(implObj, "IsInputFormatSupported"), flags, 4)
-        this.vtbl.IsOutputFormatSupported := CallbackCreate(GetMethod(implObj, "IsOutputFormatSupported"), flags, 4)
-        this.vtbl.GetInputChannelCount := CallbackCreate(GetMethod(implObj, "GetInputChannelCount"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.GetLatency := CallbackCreate(ObjBindMethod(implObj, "GetLatency"), flags, 2)
+        this.vtbl.GetRegistrationProperties := CallbackCreate(ObjBindMethod(implObj, "GetRegistrationProperties"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.IsInputFormatSupported := CallbackCreate(ObjBindMethod(implObj, "IsInputFormatSupported"), flags, 4)
+        this.vtbl.IsOutputFormatSupported := CallbackCreate(ObjBindMethod(implObj, "IsOutputFormatSupported"), flags, 4)
+        this.vtbl.GetInputChannelCount := CallbackCreate(ObjBindMethod(implObj, "GetInputChannelCount"), flags, 2)
     }
 
     Dispose() {

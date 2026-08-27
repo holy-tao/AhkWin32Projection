@@ -74,7 +74,7 @@ export default struct IApplicationAssociationRegistrationUI extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LaunchAdvancedAssociationUI := CallbackCreate(GetMethod(implObj, "LaunchAdvancedAssociationUI"), flags, 2)
+        this.vtbl.LaunchAdvancedAssociationUI := CallbackCreate(ObjBindMethod(implObj, "LaunchAdvancedAssociationUI"), flags, 2)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct PFN_CSP_GET_DH_AGREEMENT {
     }
 
     /**
-     * 
      * @param {Pointer<CARD_DATA>} pCardData 
      * @param {Pointer<Void>} hSecretAgreement 
      * @param {Pointer<Integer>} pbSecretAgreementIndex 
@@ -27,8 +26,8 @@ export default struct PFN_CSP_GET_DH_AGREEMENT {
      * @returns {Integer} 
      */
     Call(pCardData, hSecretAgreement, pbSecretAgreementIndex, dwFlags) {
-        hSecretAgreementMarshal := hSecretAgreement is VarRef ? "ptr" : "ptr"
-        pbSecretAgreementIndexMarshal := pbSecretAgreementIndex is VarRef ? "char*" : "ptr"
+        hSecretAgreementMarshal := hSecretAgreement is VarRef ? "ptr" : IntPtr
+        pbSecretAgreementIndexMarshal := pbSecretAgreementIndex is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, CARD_DATA.Ptr, pCardData, hSecretAgreementMarshal, hSecretAgreement, pbSecretAgreementIndexMarshal, pbSecretAgreementIndex, UInt32, dwFlags, UInt32)
         return result

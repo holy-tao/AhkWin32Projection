@@ -21,7 +21,6 @@ export default struct PCLUSAPI_REMOVE_CLUSTER_RESOURCE_NODE_EX {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {HNODE} _hNode 
      * @param {PWSTR} lpszReason 
@@ -30,7 +29,9 @@ export default struct PCLUSAPI_REMOVE_CLUSTER_RESOURCE_NODE_EX {
     Call(_hResource, _hNode, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall(this.value, HRESOURCE, _hResource, HNODE, _hNode, "ptr", lpszReason, UInt32)
+        lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+        result := DllCall(this.value, HRESOURCE, _hResource, HNODE, _hNode, lpszReasonMarshal, lpszReason, UInt32)
         return result
     }
 

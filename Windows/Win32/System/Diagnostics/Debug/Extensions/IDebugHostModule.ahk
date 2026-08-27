@@ -45,7 +45,6 @@ export default struct IDebugHostModule extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @param {Integer} allowPath 
      * @returns {BSTR} 
      */
@@ -56,7 +55,6 @@ export default struct IDebugHostModule extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @returns {Location} 
      */
     GetBaseLocation() {
@@ -81,15 +79,16 @@ export default struct IDebugHostModule extends IDebugHostSymbol {
      * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getversion
      */
     GetVersion(fileVersion, productVersion) {
-        fileVersionMarshal := fileVersion is VarRef ? "uint*" : "ptr"
-        productVersionMarshal := productVersion is VarRef ? "uint*" : "ptr"
+        fileVersionMarshal := fileVersion is VarRef ? "uint*" : IntPtr
+        fileVersionMarshal := fileVersion == 0 ? IntPtr : "uint*"
+        productVersionMarshal := productVersion is VarRef ? "uint*" : IntPtr
+        productVersionMarshal := productVersion == 0 ? IntPtr : "uint*"
 
         result := ComCall(12, this, fileVersionMarshal, fileVersion, productVersionMarshal, productVersion, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} typeName 
      * @returns {IDebugHostType} 
      */
@@ -101,7 +100,6 @@ export default struct IDebugHostModule extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @param {Integer} rva 
      * @returns {IDebugHostSymbol} 
      */
@@ -111,7 +109,6 @@ export default struct IDebugHostModule extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @param {PWSTR} symbolName 
      * @returns {IDebugHostSymbol} 
      */
@@ -131,12 +128,12 @@ export default struct IDebugHostModule extends IDebugHostSymbol {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetImageName := CallbackCreate(GetMethod(implObj, "GetImageName"), flags, 3)
-        this.vtbl.GetBaseLocation := CallbackCreate(GetMethod(implObj, "GetBaseLocation"), flags, 2)
-        this.vtbl.GetVersion := CallbackCreate(GetMethod(implObj, "GetVersion"), flags, 3)
-        this.vtbl.FindTypeByName := CallbackCreate(GetMethod(implObj, "FindTypeByName"), flags, 3)
-        this.vtbl.FindSymbolByRVA := CallbackCreate(GetMethod(implObj, "FindSymbolByRVA"), flags, 3)
-        this.vtbl.FindSymbolByName := CallbackCreate(GetMethod(implObj, "FindSymbolByName"), flags, 3)
+        this.vtbl.GetImageName := CallbackCreate(ObjBindMethod(implObj, "GetImageName"), flags, 3)
+        this.vtbl.GetBaseLocation := CallbackCreate(ObjBindMethod(implObj, "GetBaseLocation"), flags, 2)
+        this.vtbl.GetVersion := CallbackCreate(ObjBindMethod(implObj, "GetVersion"), flags, 3)
+        this.vtbl.FindTypeByName := CallbackCreate(ObjBindMethod(implObj, "FindTypeByName"), flags, 3)
+        this.vtbl.FindSymbolByRVA := CallbackCreate(ObjBindMethod(implObj, "FindSymbolByRVA"), flags, 3)
+        this.vtbl.FindSymbolByName := CallbackCreate(ObjBindMethod(implObj, "FindSymbolByName"), flags, 3)
     }
 
     Dispose() {

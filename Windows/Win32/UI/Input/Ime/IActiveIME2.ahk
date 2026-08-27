@@ -69,7 +69,6 @@ export default struct IActiveIME2 extends IActiveIME {
     }
 
     /**
-     * 
      * @param {BOOL} fDead 
      * @returns {HRESULT} 
      */
@@ -87,8 +86,8 @@ export default struct IActiveIME2 extends IActiveIME {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Sleep := CallbackCreate(GetMethod(implObj, "Sleep"), flags, 1)
-        this.vtbl.Unsleep := CallbackCreate(GetMethod(implObj, "Unsleep"), flags, 2)
+        this.vtbl.Sleep := CallbackCreate(ObjBindMethod(implObj, "Sleep"), flags, 1)
+        this.vtbl.Unsleep := CallbackCreate(ObjBindMethod(implObj, "Unsleep"), flags, 2)
     }
 
     Dispose() {

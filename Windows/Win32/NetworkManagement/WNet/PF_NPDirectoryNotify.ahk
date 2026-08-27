@@ -20,7 +20,6 @@ export default struct PF_NPDirectoryNotify {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {PWSTR} lpDir 
      * @param {Integer} dwOper 

@@ -86,7 +86,7 @@ export default struct IHWEventHandler2 extends IHWEventHandler {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.HandleEventWithHWND := CallbackCreate(GetMethod(implObj, "HandleEventWithHWND"), flags, 5)
+        this.vtbl.HandleEventWithHWND := CallbackCreate(ObjBindMethod(implObj, "HandleEventWithHWND"), flags, 5)
     }
 
     Dispose() {

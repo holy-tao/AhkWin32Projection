@@ -19,13 +19,13 @@ export default struct MI_CancelCallback {
     }
 
     /**
-     * 
      * @param {MI_CancellationReason} reason 
      * @param {Pointer<Void>} callbackData 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(reason, callbackData) {
-        callbackDataMarshal := callbackData is VarRef ? "ptr" : "ptr"
+        callbackDataMarshal := callbackData is VarRef ? "ptr" : IntPtr
+        callbackDataMarshal := callbackData == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, MI_CancellationReason, reason, callbackDataMarshal, callbackData)
     }

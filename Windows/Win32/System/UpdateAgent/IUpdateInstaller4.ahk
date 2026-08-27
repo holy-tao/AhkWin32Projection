@@ -67,7 +67,7 @@ export default struct IUpdateInstaller4 extends IUpdateInstaller3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 2)
+        this.vtbl.Commit := CallbackCreate(ObjBindMethod(implObj, "Commit"), flags, 2)
     }
 
     Dispose() {

@@ -36,7 +36,6 @@ export default struct IApartmentCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} pFunc 
      * @param {Pointer} pData 
      * @returns {HRESULT} 
@@ -55,7 +54,7 @@ export default struct IApartmentCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DoCallback := CallbackCreate(GetMethod(implObj, "DoCallback"), flags, 3)
+        this.vtbl.DoCallback := CallbackCreate(ObjBindMethod(implObj, "DoCallback"), flags, 3)
     }
 
     Dispose() {

@@ -38,7 +38,6 @@ export default struct ITransactionJoin extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ITransactionOptions} 
      */
     GetOptionsObject() {
@@ -47,7 +46,6 @@ export default struct ITransactionJoin extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} punkTransactionCoord 
      * @param {Integer} isoLevel 
      * @param {Integer} isoFlags 
@@ -55,7 +53,10 @@ export default struct ITransactionJoin extends IUnknown {
      * @returns {HRESULT} 
      */
     JoinTransaction(punkTransactionCoord, isoLevel, isoFlags, pOtherOptions) {
-        result := ComCall(4, this, "ptr", punkTransactionCoord, Int32, isoLevel, UInt32, isoFlags, "ptr", pOtherOptions, "HRESULT")
+        punkTransactionCoordMarshal := punkTransactionCoord == 0 ? IntPtr : "ptr"
+        pOtherOptionsMarshal := pOtherOptions == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, punkTransactionCoordMarshal, punkTransactionCoord, Int32, isoLevel, UInt32, isoFlags, pOtherOptionsMarshal, pOtherOptions, "HRESULT")
         return result
     }
 
@@ -68,8 +69,8 @@ export default struct ITransactionJoin extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOptionsObject := CallbackCreate(GetMethod(implObj, "GetOptionsObject"), flags, 2)
-        this.vtbl.JoinTransaction := CallbackCreate(GetMethod(implObj, "JoinTransaction"), flags, 5)
+        this.vtbl.GetOptionsObject := CallbackCreate(ObjBindMethod(implObj, "GetOptionsObject"), flags, 2)
+        this.vtbl.JoinTransaction := CallbackCreate(ObjBindMethod(implObj, "JoinTransaction"), flags, 5)
     }
 
     Dispose() {

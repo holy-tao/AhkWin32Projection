@@ -139,7 +139,7 @@ export default struct ICertGetConfig extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetConfig := CallbackCreate(GetMethod(implObj, "GetConfig"), flags, 3)
+        this.vtbl.GetConfig := CallbackCreate(ObjBindMethod(implObj, "GetConfig"), flags, 3)
     }
 
     Dispose() {

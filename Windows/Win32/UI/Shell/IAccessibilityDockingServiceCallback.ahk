@@ -58,7 +58,7 @@ export default struct IAccessibilityDockingServiceCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Undocked := CallbackCreate(GetMethod(implObj, "Undocked"), flags, 2)
+        this.vtbl.Undocked := CallbackCreate(ObjBindMethod(implObj, "Undocked"), flags, 2)
     }
 
     Dispose() {

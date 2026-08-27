@@ -114,7 +114,7 @@ export default struct IMFNetCredential extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetcredential-getuser
      */
     GetUser(pcbData, fEncryptData) {
-        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, "char*", &pbData := 0, pcbDataMarshal, pcbData, BOOL, fEncryptData, "HRESULT")
         return pbData
@@ -130,7 +130,7 @@ export default struct IMFNetCredential extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetcredential-getpassword
      */
     GetPassword(pcbData, fEncryptData) {
-        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, "char*", &pbData := 0, pcbDataMarshal, pcbData, BOOL, fEncryptData, "HRESULT")
         return pbData
@@ -155,11 +155,11 @@ export default struct IMFNetCredential extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetUser := CallbackCreate(GetMethod(implObj, "SetUser"), flags, 4)
-        this.vtbl.SetPassword := CallbackCreate(GetMethod(implObj, "SetPassword"), flags, 4)
-        this.vtbl.GetUser := CallbackCreate(GetMethod(implObj, "GetUser"), flags, 4)
-        this.vtbl.GetPassword := CallbackCreate(GetMethod(implObj, "GetPassword"), flags, 4)
-        this.vtbl.LoggedOnUser := CallbackCreate(GetMethod(implObj, "LoggedOnUser"), flags, 2)
+        this.vtbl.SetUser := CallbackCreate(ObjBindMethod(implObj, "SetUser"), flags, 4)
+        this.vtbl.SetPassword := CallbackCreate(ObjBindMethod(implObj, "SetPassword"), flags, 4)
+        this.vtbl.GetUser := CallbackCreate(ObjBindMethod(implObj, "GetUser"), flags, 4)
+        this.vtbl.GetPassword := CallbackCreate(ObjBindMethod(implObj, "GetPassword"), flags, 4)
+        this.vtbl.LoggedOnUser := CallbackCreate(ObjBindMethod(implObj, "LoggedOnUser"), flags, 2)
     }
 
     Dispose() {

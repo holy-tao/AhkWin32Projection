@@ -20,15 +20,14 @@ export default struct SpGetTbalSupplementalCredsFn {
     }
 
     /**
-     * 
      * @param {LUID} LogonId 
      * @param {Pointer<Integer>} SupplementalCredsSize 
      * @param {Pointer<Pointer<Void>>} SupplementalCreds 
      * @returns {NTSTATUS} 
      */
     Call(LogonId, SupplementalCredsSize, SupplementalCreds) {
-        SupplementalCredsSizeMarshal := SupplementalCredsSize is VarRef ? "uint*" : "ptr"
-        SupplementalCredsMarshal := SupplementalCreds is VarRef ? "ptr*" : "ptr"
+        SupplementalCredsSizeMarshal := SupplementalCredsSize is VarRef ? "uint*" : IntPtr
+        SupplementalCredsMarshal := SupplementalCreds is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, LUID, LogonId, SupplementalCredsSizeMarshal, SupplementalCredsSize, SupplementalCredsMarshal, SupplementalCreds, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

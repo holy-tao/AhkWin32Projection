@@ -92,7 +92,7 @@ export default struct IDeviceModelPlugIn extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/nf-wcsplugin-idevicemodelplugin-devicetocolorimetriccolors
      */
     DeviceToColorimetricColors(cColors, cChannels, pDeviceValues) {
-        pDeviceValuesMarshal := pDeviceValues is VarRef ? "float*" : "ptr"
+        pDeviceValuesMarshal := pDeviceValues is VarRef ? "float*" : IntPtr
 
         pXYZColors := XYZColorF()
         result := ComCall(5, this, UInt32, cColors, UInt32, cChannels, pDeviceValuesMarshal, pDeviceValues, XYZColorF.Ptr, pXYZColors, "HRESULT")
@@ -173,8 +173,8 @@ export default struct IDeviceModelPlugIn extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/nf-wcsplugin-idevicemodelplugin-getgamutboundarymeshsize
      */
     GetGamutBoundaryMeshSize(pNumVertices, pNumTriangles) {
-        pNumVerticesMarshal := pNumVertices is VarRef ? "uint*" : "ptr"
-        pNumTrianglesMarshal := pNumTriangles is VarRef ? "uint*" : "ptr"
+        pNumVerticesMarshal := pNumVertices is VarRef ? "uint*" : IntPtr
+        pNumTrianglesMarshal := pNumTriangles is VarRef ? "uint*" : IntPtr
 
         result := ComCall(10, this, pNumVerticesMarshal, pNumVertices, pNumTrianglesMarshal, pNumTriangles, "HRESULT")
         return result
@@ -195,7 +195,7 @@ export default struct IDeviceModelPlugIn extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/nf-wcsplugin-idevicemodelplugin-getgamutboundarymesh
      */
     GetGamutBoundaryMesh(cChannels, cVertices, cTriangles, pVertices, pTriangles) {
-        pVerticesMarshal := pVertices is VarRef ? "float*" : "ptr"
+        pVerticesMarshal := pVertices is VarRef ? "float*" : IntPtr
 
         result := ComCall(11, this, UInt32, cChannels, UInt32, cVertices, UInt32, cTriangles, pVerticesMarshal, pVertices, GamutShellTriangle.Ptr, pTriangles, "HRESULT")
         return result
@@ -236,17 +236,17 @@ export default struct IDeviceModelPlugIn extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
-        this.vtbl.GetNumChannels := CallbackCreate(GetMethod(implObj, "GetNumChannels"), flags, 2)
-        this.vtbl.DeviceToColorimetricColors := CallbackCreate(GetMethod(implObj, "DeviceToColorimetricColors"), flags, 5)
-        this.vtbl.ColorimetricToDeviceColors := CallbackCreate(GetMethod(implObj, "ColorimetricToDeviceColors"), flags, 5)
-        this.vtbl.ColorimetricToDeviceColorsWithBlack := CallbackCreate(GetMethod(implObj, "ColorimetricToDeviceColorsWithBlack"), flags, 6)
-        this.vtbl.SetTransformDeviceModelInfo := CallbackCreate(GetMethod(implObj, "SetTransformDeviceModelInfo"), flags, 3)
-        this.vtbl.GetPrimarySamples := CallbackCreate(GetMethod(implObj, "GetPrimarySamples"), flags, 2)
-        this.vtbl.GetGamutBoundaryMeshSize := CallbackCreate(GetMethod(implObj, "GetGamutBoundaryMeshSize"), flags, 3)
-        this.vtbl.GetGamutBoundaryMesh := CallbackCreate(GetMethod(implObj, "GetGamutBoundaryMesh"), flags, 6)
-        this.vtbl.GetNeutralAxisSize := CallbackCreate(GetMethod(implObj, "GetNeutralAxisSize"), flags, 2)
-        this.vtbl.GetNeutralAxis := CallbackCreate(GetMethod(implObj, "GetNeutralAxis"), flags, 3)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 4)
+        this.vtbl.GetNumChannels := CallbackCreate(ObjBindMethod(implObj, "GetNumChannels"), flags, 2)
+        this.vtbl.DeviceToColorimetricColors := CallbackCreate(ObjBindMethod(implObj, "DeviceToColorimetricColors"), flags, 5)
+        this.vtbl.ColorimetricToDeviceColors := CallbackCreate(ObjBindMethod(implObj, "ColorimetricToDeviceColors"), flags, 5)
+        this.vtbl.ColorimetricToDeviceColorsWithBlack := CallbackCreate(ObjBindMethod(implObj, "ColorimetricToDeviceColorsWithBlack"), flags, 6)
+        this.vtbl.SetTransformDeviceModelInfo := CallbackCreate(ObjBindMethod(implObj, "SetTransformDeviceModelInfo"), flags, 3)
+        this.vtbl.GetPrimarySamples := CallbackCreate(ObjBindMethod(implObj, "GetPrimarySamples"), flags, 2)
+        this.vtbl.GetGamutBoundaryMeshSize := CallbackCreate(ObjBindMethod(implObj, "GetGamutBoundaryMeshSize"), flags, 3)
+        this.vtbl.GetGamutBoundaryMesh := CallbackCreate(ObjBindMethod(implObj, "GetGamutBoundaryMesh"), flags, 6)
+        this.vtbl.GetNeutralAxisSize := CallbackCreate(ObjBindMethod(implObj, "GetNeutralAxisSize"), flags, 2)
+        this.vtbl.GetNeutralAxis := CallbackCreate(ObjBindMethod(implObj, "GetNeutralAxis"), flags, 3)
     }
 
     Dispose() {

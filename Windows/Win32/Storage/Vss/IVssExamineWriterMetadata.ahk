@@ -145,8 +145,8 @@ export default struct IVssExamineWriterMetadata extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsbackup/nf-vsbackup-ivssexaminewritermetadata-getidentity
      */
     GetIdentity(pidInstance, pidWriter, pbstrWriterName, pUsage, pSource) {
-        pUsageMarshal := pUsage is VarRef ? "int*" : "ptr"
-        pSourceMarshal := pSource is VarRef ? "int*" : "ptr"
+        pUsageMarshal := pUsage is VarRef ? "int*" : IntPtr
+        pSourceMarshal := pSource is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, Guid.Ptr, pidInstance, Guid.Ptr, pidWriter, BSTR.Ptr, pbstrWriterName, pUsageMarshal, pUsage, pSourceMarshal, pSource, "HRESULT")
         return result
@@ -227,9 +227,9 @@ export default struct IVssExamineWriterMetadata extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsbackup/nf-vsbackup-ivssexaminewritermetadata-getfilecounts
      */
     GetFileCounts(pcIncludeFiles, pcExcludeFiles, pcComponents) {
-        pcIncludeFilesMarshal := pcIncludeFiles is VarRef ? "uint*" : "ptr"
-        pcExcludeFilesMarshal := pcExcludeFiles is VarRef ? "uint*" : "ptr"
-        pcComponentsMarshal := pcComponents is VarRef ? "uint*" : "ptr"
+        pcIncludeFilesMarshal := pcIncludeFiles is VarRef ? "uint*" : IntPtr
+        pcExcludeFilesMarshal := pcExcludeFiles is VarRef ? "uint*" : IntPtr
+        pcComponentsMarshal := pcComponents is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pcIncludeFilesMarshal, pcIncludeFiles, pcExcludeFilesMarshal, pcExcludeFiles, pcComponentsMarshal, pcComponents, "HRESULT")
         return result
@@ -399,10 +399,10 @@ export default struct IVssExamineWriterMetadata extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsbackup/nf-vsbackup-ivssexaminewritermetadata-getrestoremethod
      */
     GetRestoreMethod(pMethod, pbstrService, pbstrUserProcedure, pwriterRestore, pbRebootRequired, pcMappings) {
-        pMethodMarshal := pMethod is VarRef ? "int*" : "ptr"
-        pwriterRestoreMarshal := pwriterRestore is VarRef ? "int*" : "ptr"
-        pbRebootRequiredMarshal := pbRebootRequired is VarRef ? "int*" : "ptr"
-        pcMappingsMarshal := pcMappings is VarRef ? "uint*" : "ptr"
+        pMethodMarshal := pMethod is VarRef ? "int*" : IntPtr
+        pwriterRestoreMarshal := pwriterRestore is VarRef ? "int*" : IntPtr
+        pbRebootRequiredMarshal := pbRebootRequired is VarRef ? "int*" : IntPtr
+        pcMappingsMarshal := pcMappings is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, pMethodMarshal, pMethod, BSTR.Ptr, pbstrService, BSTR.Ptr, pbstrUserProcedure, pwriterRestoreMarshal, pwriterRestore, pbRebootRequiredMarshal, pbRebootRequired, pcMappingsMarshal, pcMappings, "HRESULT")
         return result
@@ -646,17 +646,17 @@ export default struct IVssExamineWriterMetadata extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetIdentity := CallbackCreate(GetMethod(implObj, "GetIdentity"), flags, 6)
-        this.vtbl.GetFileCounts := CallbackCreate(GetMethod(implObj, "GetFileCounts"), flags, 4)
-        this.vtbl.GetIncludeFile := CallbackCreate(GetMethod(implObj, "GetIncludeFile"), flags, 3)
-        this.vtbl.GetExcludeFile := CallbackCreate(GetMethod(implObj, "GetExcludeFile"), flags, 3)
-        this.vtbl.GetComponent := CallbackCreate(GetMethod(implObj, "GetComponent"), flags, 3)
-        this.vtbl.GetRestoreMethod := CallbackCreate(GetMethod(implObj, "GetRestoreMethod"), flags, 7)
-        this.vtbl.GetAlternateLocationMapping := CallbackCreate(GetMethod(implObj, "GetAlternateLocationMapping"), flags, 3)
-        this.vtbl.GetBackupSchema := CallbackCreate(GetMethod(implObj, "GetBackupSchema"), flags, 2)
-        this.vtbl.GetDocument := CallbackCreate(GetMethod(implObj, "GetDocument"), flags, 2)
-        this.vtbl.SaveAsXML := CallbackCreate(GetMethod(implObj, "SaveAsXML"), flags, 2)
-        this.vtbl.LoadFromXML := CallbackCreate(GetMethod(implObj, "LoadFromXML"), flags, 2)
+        this.vtbl.GetIdentity := CallbackCreate(ObjBindMethod(implObj, "GetIdentity"), flags, 6)
+        this.vtbl.GetFileCounts := CallbackCreate(ObjBindMethod(implObj, "GetFileCounts"), flags, 4)
+        this.vtbl.GetIncludeFile := CallbackCreate(ObjBindMethod(implObj, "GetIncludeFile"), flags, 3)
+        this.vtbl.GetExcludeFile := CallbackCreate(ObjBindMethod(implObj, "GetExcludeFile"), flags, 3)
+        this.vtbl.GetComponent := CallbackCreate(ObjBindMethod(implObj, "GetComponent"), flags, 3)
+        this.vtbl.GetRestoreMethod := CallbackCreate(ObjBindMethod(implObj, "GetRestoreMethod"), flags, 7)
+        this.vtbl.GetAlternateLocationMapping := CallbackCreate(ObjBindMethod(implObj, "GetAlternateLocationMapping"), flags, 3)
+        this.vtbl.GetBackupSchema := CallbackCreate(ObjBindMethod(implObj, "GetBackupSchema"), flags, 2)
+        this.vtbl.GetDocument := CallbackCreate(ObjBindMethod(implObj, "GetDocument"), flags, 2)
+        this.vtbl.SaveAsXML := CallbackCreate(ObjBindMethod(implObj, "SaveAsXML"), flags, 2)
+        this.vtbl.LoadFromXML := CallbackCreate(ObjBindMethod(implObj, "LoadFromXML"), flags, 2)
     }
 
     Dispose() {

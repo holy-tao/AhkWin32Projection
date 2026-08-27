@@ -281,16 +281,16 @@ export default struct ISpellCheckProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_LanguageTag := CallbackCreate(GetMethod(implObj, "get_LanguageTag"), flags, 2)
-        this.vtbl.Check := CallbackCreate(GetMethod(implObj, "Check"), flags, 3)
-        this.vtbl.Suggest := CallbackCreate(GetMethod(implObj, "Suggest"), flags, 3)
-        this.vtbl.GetOptionValue := CallbackCreate(GetMethod(implObj, "GetOptionValue"), flags, 3)
-        this.vtbl.SetOptionValue := CallbackCreate(GetMethod(implObj, "SetOptionValue"), flags, 3)
-        this.vtbl.get_OptionIds := CallbackCreate(GetMethod(implObj, "get_OptionIds"), flags, 2)
-        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
-        this.vtbl.get_LocalizedName := CallbackCreate(GetMethod(implObj, "get_LocalizedName"), flags, 2)
-        this.vtbl.GetOptionDescription := CallbackCreate(GetMethod(implObj, "GetOptionDescription"), flags, 3)
-        this.vtbl.InitializeWordlist := CallbackCreate(GetMethod(implObj, "InitializeWordlist"), flags, 3)
+        this.vtbl.get_LanguageTag := CallbackCreate(ObjBindMethod(implObj, "get_LanguageTag"), flags, 2)
+        this.vtbl.Check := CallbackCreate(ObjBindMethod(implObj, "Check"), flags, 3)
+        this.vtbl.Suggest := CallbackCreate(ObjBindMethod(implObj, "Suggest"), flags, 3)
+        this.vtbl.GetOptionValue := CallbackCreate(ObjBindMethod(implObj, "GetOptionValue"), flags, 3)
+        this.vtbl.SetOptionValue := CallbackCreate(ObjBindMethod(implObj, "SetOptionValue"), flags, 3)
+        this.vtbl.get_OptionIds := CallbackCreate(ObjBindMethod(implObj, "get_OptionIds"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(ObjBindMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.get_LocalizedName := CallbackCreate(ObjBindMethod(implObj, "get_LocalizedName"), flags, 2)
+        this.vtbl.GetOptionDescription := CallbackCreate(ObjBindMethod(implObj, "GetOptionDescription"), flags, 3)
+        this.vtbl.InitializeWordlist := CallbackCreate(ObjBindMethod(implObj, "InitializeWordlist"), flags, 3)
     }
 
     Dispose() {

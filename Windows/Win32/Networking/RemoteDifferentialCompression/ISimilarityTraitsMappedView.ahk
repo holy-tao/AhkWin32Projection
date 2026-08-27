@@ -94,8 +94,8 @@ export default struct ISimilarityTraitsMappedView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilaritytraitsmappedview-getview
      */
     GetView(mappedPageBegin, mappedPageEnd) {
-        mappedPageBeginMarshal := mappedPageBegin is VarRef ? "ptr*" : "ptr"
-        mappedPageEndMarshal := mappedPageEnd is VarRef ? "ptr*" : "ptr"
+        mappedPageBeginMarshal := mappedPageBegin is VarRef ? "ptr*" : IntPtr
+        mappedPageEndMarshal := mappedPageEnd is VarRef ? "ptr*" : IntPtr
 
         ComCall(6, this, mappedPageBeginMarshal, mappedPageBegin, mappedPageEndMarshal, mappedPageEnd)
     }
@@ -109,10 +109,10 @@ export default struct ISimilarityTraitsMappedView extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Flush := CallbackCreate(GetMethod(implObj, "Flush"), flags, 1)
-        this.vtbl.Unmap := CallbackCreate(GetMethod(implObj, "Unmap"), flags, 1)
-        this.vtbl.Get := CallbackCreate(GetMethod(implObj, "Get"), flags, 5)
-        this.vtbl.GetView := CallbackCreate(GetMethod(implObj, "GetView"), flags, 3)
+        this.vtbl.Flush := CallbackCreate(ObjBindMethod(implObj, "Flush"), flags, 1)
+        this.vtbl.Unmap := CallbackCreate(ObjBindMethod(implObj, "Unmap"), flags, 1)
+        this.vtbl.Get := CallbackCreate(ObjBindMethod(implObj, "Get"), flags, 5)
+        this.vtbl.GetView := CallbackCreate(ObjBindMethod(implObj, "GetView"), flags, 3)
     }
 
     Dispose() {

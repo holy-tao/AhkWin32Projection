@@ -115,10 +115,10 @@ export default struct IVisualTreeService2 extends IVisualTreeService {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPropertyIndex := CallbackCreate(GetMethod(implObj, "GetPropertyIndex"), flags, 4)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 4)
-        this.vtbl.ReplaceResource := CallbackCreate(GetMethod(implObj, "ReplaceResource"), flags, 4)
-        this.vtbl.RenderTargetBitmap := CallbackCreate(GetMethod(implObj, "RenderTargetBitmap"), flags, 6)
+        this.vtbl.GetPropertyIndex := CallbackCreate(ObjBindMethod(implObj, "GetPropertyIndex"), flags, 4)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 4)
+        this.vtbl.ReplaceResource := CallbackCreate(ObjBindMethod(implObj, "ReplaceResource"), flags, 4)
+        this.vtbl.RenderTargetBitmap := CallbackCreate(ObjBindMethod(implObj, "RenderTargetBitmap"), flags, 6)
     }
 
     Dispose() {

@@ -21,7 +21,6 @@ export default struct PFN_AUTHZ_DYNAMIC_ACCESS_CHECK {
     }
 
     /**
-     * 
      * @param {AUTHZ_CLIENT_CONTEXT_HANDLE} hAuthzClientContext 
      * @param {Pointer<ACE_HEADER>} pAce 
      * @param {Pointer<Void>} pArgs 
@@ -29,8 +28,9 @@ export default struct PFN_AUTHZ_DYNAMIC_ACCESS_CHECK {
      * @returns {BOOL} 
      */
     Call(hAuthzClientContext, pAce, pArgs, pbAceApplicable) {
-        pArgsMarshal := pArgs is VarRef ? "ptr" : "ptr"
-        pbAceApplicableMarshal := pbAceApplicable is VarRef ? "int*" : "ptr"
+        pArgsMarshal := pArgs is VarRef ? "ptr" : IntPtr
+        pArgsMarshal := pArgs == 0 ? IntPtr : "ptr"
+        pbAceApplicableMarshal := pbAceApplicable is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, AUTHZ_CLIENT_CONTEXT_HANDLE, hAuthzClientContext, ACE_HEADER.Ptr, pAce, pArgsMarshal, pArgs, pbAceApplicableMarshal, pbAceApplicable, BOOL)
         return result

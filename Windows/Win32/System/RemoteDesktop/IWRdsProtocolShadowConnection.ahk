@@ -91,10 +91,10 @@ export default struct IWRdsProtocolShadowConnection extends IUnknown {
     DoTarget(pParam1, Param1Size, pParam2, Param2Size, pParam3, Param3Size, pParam4, Param4Size, pClientName) {
         pClientName := pClientName is String ? StrPtr(pClientName) : pClientName
 
-        pParam1Marshal := pParam1 is VarRef ? "char*" : "ptr"
-        pParam2Marshal := pParam2 is VarRef ? "char*" : "ptr"
-        pParam3Marshal := pParam3 is VarRef ? "char*" : "ptr"
-        pParam4Marshal := pParam4 is VarRef ? "char*" : "ptr"
+        pParam1Marshal := pParam1 is VarRef ? "char*" : IntPtr
+        pParam2Marshal := pParam2 is VarRef ? "char*" : IntPtr
+        pParam3Marshal := pParam3 is VarRef ? "char*" : IntPtr
+        pParam4Marshal := pParam4 is VarRef ? "char*" : IntPtr
 
         result := ComCall(5, this, pParam1Marshal, pParam1, UInt32, Param1Size, pParam2Marshal, pParam2, UInt32, Param2Size, pParam3Marshal, pParam3, UInt32, Param3Size, pParam4Marshal, pParam4, UInt32, Param4Size, "ptr", pClientName, "HRESULT")
         return result
@@ -109,9 +109,9 @@ export default struct IWRdsProtocolShadowConnection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 6)
-        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
-        this.vtbl.DoTarget := CallbackCreate(GetMethod(implObj, "DoTarget"), flags, 10)
+        this.vtbl.Start := CallbackCreate(ObjBindMethod(implObj, "Start"), flags, 6)
+        this.vtbl.Stop := CallbackCreate(ObjBindMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.DoTarget := CallbackCreate(ObjBindMethod(implObj, "DoTarget"), flags, 10)
     }
 
     Dispose() {

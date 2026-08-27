@@ -36,7 +36,6 @@ export default struct IDBBinderProperties extends IDBProperties {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -53,7 +52,7 @@ export default struct IDBBinderProperties extends IDBProperties {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
     }
 
     Dispose() {

@@ -93,8 +93,8 @@ export default struct IUIAutomation5 extends IUIAutomation4 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddNotificationEventHandler := CallbackCreate(GetMethod(implObj, "AddNotificationEventHandler"), flags, 5)
-        this.vtbl.RemoveNotificationEventHandler := CallbackCreate(GetMethod(implObj, "RemoveNotificationEventHandler"), flags, 3)
+        this.vtbl.AddNotificationEventHandler := CallbackCreate(ObjBindMethod(implObj, "AddNotificationEventHandler"), flags, 5)
+        this.vtbl.RemoveNotificationEventHandler := CallbackCreate(ObjBindMethod(implObj, "RemoveNotificationEventHandler"), flags, 3)
     }
 
     Dispose() {

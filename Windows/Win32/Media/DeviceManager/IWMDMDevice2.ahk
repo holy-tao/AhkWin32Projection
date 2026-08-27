@@ -105,12 +105,12 @@ export default struct IWMDMDevice2 extends IWMDMDevice {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmdevice2-getformatsupport2
      */
     GetFormatSupport2(dwFlags, ppAudioFormatEx, pnAudioFormatCount, ppVideoFormatEx, pnVideoFormatCount, ppFileType, pnFileTypeCount) {
-        ppAudioFormatExMarshal := ppAudioFormatEx is VarRef ? "ptr*" : "ptr"
-        pnAudioFormatCountMarshal := pnAudioFormatCount is VarRef ? "uint*" : "ptr"
-        ppVideoFormatExMarshal := ppVideoFormatEx is VarRef ? "ptr*" : "ptr"
-        pnVideoFormatCountMarshal := pnVideoFormatCount is VarRef ? "uint*" : "ptr"
-        ppFileTypeMarshal := ppFileType is VarRef ? "ptr*" : "ptr"
-        pnFileTypeCountMarshal := pnFileTypeCount is VarRef ? "uint*" : "ptr"
+        ppAudioFormatExMarshal := ppAudioFormatEx is VarRef ? "ptr*" : IntPtr
+        pnAudioFormatCountMarshal := pnAudioFormatCount is VarRef ? "uint*" : IntPtr
+        ppVideoFormatExMarshal := ppVideoFormatEx is VarRef ? "ptr*" : IntPtr
+        pnVideoFormatCountMarshal := pnVideoFormatCount is VarRef ? "uint*" : IntPtr
+        ppFileTypeMarshal := ppFileType is VarRef ? "ptr*" : IntPtr
+        pnFileTypeCountMarshal := pnFileTypeCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(15, this, UInt32, dwFlags, ppAudioFormatExMarshal, ppAudioFormatEx, pnAudioFormatCountMarshal, pnAudioFormatCount, ppVideoFormatExMarshal, ppVideoFormatEx, pnVideoFormatCountMarshal, pnVideoFormatCount, ppFileTypeMarshal, ppFileType, pnFileTypeCountMarshal, pnFileTypeCount, "HRESULT")
         return result
@@ -132,8 +132,8 @@ export default struct IWMDMDevice2 extends IWMDMDevice {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmdevice2-getspecifypropertypages
      */
     GetSpecifyPropertyPages(ppSpecifyPropPages, pppUnknowns, pcUnks) {
-        pppUnknownsMarshal := pppUnknowns is VarRef ? "ptr*" : "ptr"
-        pcUnksMarshal := pcUnks is VarRef ? "uint*" : "ptr"
+        pppUnknownsMarshal := pppUnknowns is VarRef ? "ptr*" : IntPtr
+        pcUnksMarshal := pcUnks is VarRef ? "uint*" : IntPtr
 
         result := ComCall(16, this, ISpecifyPropertyPages.Ptr, ppSpecifyPropPages, pppUnknownsMarshal, pppUnknowns, pcUnksMarshal, pcUnks, "HRESULT")
         return result
@@ -219,10 +219,10 @@ export default struct IWMDMDevice2 extends IWMDMDevice {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStorage := CallbackCreate(GetMethod(implObj, "GetStorage"), flags, 3)
-        this.vtbl.GetFormatSupport2 := CallbackCreate(GetMethod(implObj, "GetFormatSupport2"), flags, 8)
-        this.vtbl.GetSpecifyPropertyPages := CallbackCreate(GetMethod(implObj, "GetSpecifyPropertyPages"), flags, 4)
-        this.vtbl.GetCanonicalName := CallbackCreate(GetMethod(implObj, "GetCanonicalName"), flags, 3)
+        this.vtbl.GetStorage := CallbackCreate(ObjBindMethod(implObj, "GetStorage"), flags, 3)
+        this.vtbl.GetFormatSupport2 := CallbackCreate(ObjBindMethod(implObj, "GetFormatSupport2"), flags, 8)
+        this.vtbl.GetSpecifyPropertyPages := CallbackCreate(ObjBindMethod(implObj, "GetSpecifyPropertyPages"), flags, 4)
+        this.vtbl.GetCanonicalName := CallbackCreate(ObjBindMethod(implObj, "GetCanonicalName"), flags, 3)
     }
 
     Dispose() {

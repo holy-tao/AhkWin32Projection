@@ -19,7 +19,6 @@ export default struct PIOMMU_QUERY_INPUT_MAPPINGS {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

@@ -127,10 +127,10 @@ export default struct IDragProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_IsGrabbed := CallbackCreate(GetMethod(implObj, "get_IsGrabbed"), flags, 2)
-        this.vtbl.get_DropEffect := CallbackCreate(GetMethod(implObj, "get_DropEffect"), flags, 2)
-        this.vtbl.get_DropEffects := CallbackCreate(GetMethod(implObj, "get_DropEffects"), flags, 2)
-        this.vtbl.GetGrabbedItems := CallbackCreate(GetMethod(implObj, "GetGrabbedItems"), flags, 2)
+        this.vtbl.get_IsGrabbed := CallbackCreate(ObjBindMethod(implObj, "get_IsGrabbed"), flags, 2)
+        this.vtbl.get_DropEffect := CallbackCreate(ObjBindMethod(implObj, "get_DropEffect"), flags, 2)
+        this.vtbl.get_DropEffects := CallbackCreate(ObjBindMethod(implObj, "get_DropEffects"), flags, 2)
+        this.vtbl.GetGrabbedItems := CallbackCreate(ObjBindMethod(implObj, "GetGrabbedItems"), flags, 2)
     }
 
     Dispose() {

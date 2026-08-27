@@ -57,7 +57,6 @@ export default struct IADsTimestamp extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_WholeSeconds() {
@@ -66,7 +65,6 @@ export default struct IADsTimestamp extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnWholeSeconds 
      * @returns {HRESULT} 
      */
@@ -76,7 +74,6 @@ export default struct IADsTimestamp extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_EventID() {
@@ -85,7 +82,6 @@ export default struct IADsTimestamp extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnEventID 
      * @returns {HRESULT} 
      */
@@ -103,10 +99,10 @@ export default struct IADsTimestamp extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_WholeSeconds := CallbackCreate(GetMethod(implObj, "get_WholeSeconds"), flags, 2)
-        this.vtbl.put_WholeSeconds := CallbackCreate(GetMethod(implObj, "put_WholeSeconds"), flags, 2)
-        this.vtbl.get_EventID := CallbackCreate(GetMethod(implObj, "get_EventID"), flags, 2)
-        this.vtbl.put_EventID := CallbackCreate(GetMethod(implObj, "put_EventID"), flags, 2)
+        this.vtbl.get_WholeSeconds := CallbackCreate(ObjBindMethod(implObj, "get_WholeSeconds"), flags, 2)
+        this.vtbl.put_WholeSeconds := CallbackCreate(ObjBindMethod(implObj, "put_WholeSeconds"), flags, 2)
+        this.vtbl.get_EventID := CallbackCreate(ObjBindMethod(implObj, "get_EventID"), flags, 2)
+        this.vtbl.put_EventID := CallbackCreate(ObjBindMethod(implObj, "put_EventID"), flags, 2)
     }
 
     Dispose() {

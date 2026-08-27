@@ -81,7 +81,7 @@ export default struct IWMReaderAdvanced5 extends IWMReaderAdvanced4 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetPlayerHook := CallbackCreate(GetMethod(implObj, "SetPlayerHook"), flags, 3)
+        this.vtbl.SetPlayerHook := CallbackCreate(ObjBindMethod(implObj, "SetPlayerHook"), flags, 3)
     }
 
     Dispose() {

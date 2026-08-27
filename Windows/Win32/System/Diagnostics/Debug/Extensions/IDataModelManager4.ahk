@@ -39,13 +39,14 @@ export default struct IDataModelManager4 extends IDataModelManager3 {
     }
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @param {IKeyStore} parentStore 
      * @returns {IModelObject} 
      */
     CreateSyntheticObjectFromKeyStore(_context, parentStore) {
-        result := ComCall(27, this, "ptr", _context, "ptr", parentStore, "ptr*", &_object := 0, "HRESULT")
+        _contextMarshal := _context == 0 ? IntPtr : "ptr"
+
+        result := ComCall(27, this, _contextMarshal, _context, "ptr", parentStore, "ptr*", &_object := 0, "HRESULT")
         return IModelObject(_object)
     }
 
@@ -58,7 +59,7 @@ export default struct IDataModelManager4 extends IDataModelManager3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateSyntheticObjectFromKeyStore := CallbackCreate(GetMethod(implObj, "CreateSyntheticObjectFromKeyStore"), flags, 4)
+        this.vtbl.CreateSyntheticObjectFromKeyStore := CallbackCreate(ObjBindMethod(implObj, "CreateSyntheticObjectFromKeyStore"), flags, 4)
     }
 
     Dispose() {

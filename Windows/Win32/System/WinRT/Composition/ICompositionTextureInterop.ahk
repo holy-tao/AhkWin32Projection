@@ -36,15 +36,14 @@ export default struct ICompositionTextureInterop extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} fenceValue 
      * @param {Pointer<Guid>} iid 
      * @param {Pointer<Pointer<Void>>} availableFence 
      * @returns {HRESULT} 
      */
     GetAvailableFence(fenceValue, iid, availableFence) {
-        fenceValueMarshal := fenceValue is VarRef ? "uint*" : "ptr"
-        availableFenceMarshal := availableFence is VarRef ? "ptr*" : "ptr"
+        fenceValueMarshal := fenceValue is VarRef ? "uint*" : IntPtr
+        availableFenceMarshal := availableFence is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, fenceValueMarshal, fenceValue, Guid.Ptr, iid, availableFenceMarshal, availableFence, "HRESULT")
         return result
@@ -59,7 +58,7 @@ export default struct ICompositionTextureInterop extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAvailableFence := CallbackCreate(GetMethod(implObj, "GetAvailableFence"), flags, 4)
+        this.vtbl.GetAvailableFence := CallbackCreate(ObjBindMethod(implObj, "GetAvailableFence"), flags, 4)
     }
 
     Dispose() {

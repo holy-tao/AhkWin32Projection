@@ -21,14 +21,14 @@ export default struct PINSPECT_MEMORY_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context Custom context data provided to the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-roinspectcapturedstackbacktrace">RoInspectCapturedStackBackTrace</a> function.
      * @param {Pointer} readAddress The address to read data from.
      * @param {Integer} length The number of bytes to read, starting at <i>readAddress</i>.
      * @returns {Integer} The buffer that receives a copy of the bytes that are read.
      */
     Call(_context, readAddress, length) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+        _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, _contextMarshal, _context, IntPtr, readAddress, UInt32, length, "char*", &_buffer := 0, "HRESULT")
         return _buffer

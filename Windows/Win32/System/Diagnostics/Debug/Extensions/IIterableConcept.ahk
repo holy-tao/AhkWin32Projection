@@ -39,7 +39,6 @@ export default struct IIterableConcept extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @returns {Integer} 
      */
@@ -49,7 +48,6 @@ export default struct IIterableConcept extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @returns {IModelIterator} 
      */
@@ -67,8 +65,8 @@ export default struct IIterableConcept extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDefaultIndexDimensionality := CallbackCreate(GetMethod(implObj, "GetDefaultIndexDimensionality"), flags, 3)
-        this.vtbl.GetIterator := CallbackCreate(GetMethod(implObj, "GetIterator"), flags, 3)
+        this.vtbl.GetDefaultIndexDimensionality := CallbackCreate(ObjBindMethod(implObj, "GetDefaultIndexDimensionality"), flags, 3)
+        this.vtbl.GetIterator := CallbackCreate(ObjBindMethod(implObj, "GetIterator"), flags, 3)
     }
 
     Dispose() {

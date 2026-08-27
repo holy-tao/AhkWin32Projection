@@ -24,7 +24,6 @@ export default struct PFNRASFREEBUFFER {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pBufer 
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
@@ -60,7 +59,7 @@ export default struct PFNRASFREEBUFFER {
      * </table>
      */
     Call(pBufer) {
-        pBuferMarshal := pBufer is VarRef ? "char*" : "ptr"
+        pBuferMarshal := pBufer is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, pBuferMarshal, pBufer, UInt32)
         return result

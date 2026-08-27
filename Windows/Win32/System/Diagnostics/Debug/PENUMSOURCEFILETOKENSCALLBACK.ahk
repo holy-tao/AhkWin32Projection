@@ -25,7 +25,6 @@ export default struct PENUMSOURCEFILETOKENSCALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} token A pointer to an opaque data structure that contains the version control information corresponding to a particular individual source file.     The usage of this token is detailed below.
      * @param {Pointer} _size The size of the data in the <i>token</i> parameter.
      * @returns {BOOL} If the function returns <b>TRUE</b>, the enumeration will continue.
@@ -34,7 +33,7 @@ export default struct PENUMSOURCEFILETOKENSCALLBACK {
      * If the function returns <b>FALSE</b>, the enumeration will stop.
      */
     Call(token, _size) {
-        tokenMarshal := token is VarRef ? "ptr" : "ptr"
+        tokenMarshal := token is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, tokenMarshal, token, IntPtr, _size, BOOL)
         return result

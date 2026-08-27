@@ -19,14 +19,13 @@ export default struct PINSPECT_HSTRING_CALLBACK2 {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {Integer} readAddress 
      * @param {Integer} length 
      * @returns {Integer} 
      */
     Call(_context, readAddress, length) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _contextMarshal, _context, Int64, readAddress, UInt32, length, "char*", &_buffer := 0, "HRESULT")
         return _buffer

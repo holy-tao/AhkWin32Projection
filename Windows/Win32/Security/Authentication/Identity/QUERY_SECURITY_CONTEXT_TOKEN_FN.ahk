@@ -20,13 +20,12 @@ export default struct QUERY_SECURITY_CONTEXT_TOKEN_FN {
     }
 
     /**
-     * 
      * @param {Pointer<SecHandle>} param0 
      * @param {Pointer<Pointer<Void>>} param1 
      * @returns {HRESULT} 
      */
     Call(param0, param1) {
-        param1Marshal := param1 is VarRef ? "ptr*" : "ptr"
+        param1Marshal := param1 is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, SecHandle.Ptr, param0, param1Marshal, param1, "HRESULT")
         return result

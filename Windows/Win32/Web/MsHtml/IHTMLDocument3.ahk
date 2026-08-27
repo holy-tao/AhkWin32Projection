@@ -223,7 +223,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     releaseCapture() {
@@ -232,7 +231,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fForce 
      * @returns {HRESULT} 
      */
@@ -242,7 +240,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} text 
      * @returns {IHTMLDOMNode} 
      */
@@ -254,7 +251,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_documentElement() {
@@ -263,7 +259,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_uniqueID() {
@@ -273,7 +268,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} event 
      * @param {IDispatch} pDisp 
      * @returns {VARIANT_BOOL} 
@@ -286,7 +280,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} event 
      * @param {IDispatch} pDisp 
      * @returns {HRESULT} 
@@ -299,7 +292,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -309,7 +301,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onrowsdelete() {
@@ -319,7 +310,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -329,7 +319,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onrowsinserted() {
@@ -339,7 +328,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -349,7 +337,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_oncellchange() {
@@ -359,7 +346,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -369,7 +355,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondatasetchanged() {
@@ -379,7 +364,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -389,7 +373,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondataavailable() {
@@ -399,7 +382,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -409,7 +391,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondatasetcomplete() {
@@ -419,7 +400,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -429,7 +409,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onpropertychange() {
@@ -439,7 +418,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -451,7 +429,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_dir() {
@@ -461,7 +438,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -471,7 +447,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_oncontextmenu() {
@@ -481,7 +456,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -491,7 +465,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onstop() {
@@ -501,7 +474,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDocument2} 
      */
     createDocumentFragment() {
@@ -510,7 +482,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDocument2} 
      */
     get_parentDocument() {
@@ -519,7 +490,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -529,7 +499,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_enableDownload() {
@@ -538,7 +507,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -550,7 +518,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_baseUrl() {
@@ -560,7 +527,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_childNodes() {
@@ -569,7 +535,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -579,7 +544,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_inheritStyleSheets() {
@@ -588,7 +552,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -598,7 +561,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onbeforeeditfocus() {
@@ -608,7 +570,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {IHTMLElementCollection} 
      */
@@ -620,7 +581,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {IHTMLElement} 
      */
@@ -632,7 +592,6 @@ export default struct IHTMLDocument3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {IHTMLElementCollection} 
      */
@@ -652,47 +611,47 @@ export default struct IHTMLDocument3 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.releaseCapture := CallbackCreate(GetMethod(implObj, "releaseCapture"), flags, 1)
-        this.vtbl.recalc := CallbackCreate(GetMethod(implObj, "recalc"), flags, 2)
-        this.vtbl.createTextNode := CallbackCreate(GetMethod(implObj, "createTextNode"), flags, 3)
-        this.vtbl.get_documentElement := CallbackCreate(GetMethod(implObj, "get_documentElement"), flags, 2)
-        this.vtbl.get_uniqueID := CallbackCreate(GetMethod(implObj, "get_uniqueID"), flags, 2)
-        this.vtbl.attachEvent := CallbackCreate(GetMethod(implObj, "attachEvent"), flags, 4)
-        this.vtbl.detachEvent := CallbackCreate(GetMethod(implObj, "detachEvent"), flags, 3)
-        this.vtbl.put_onrowsdelete := CallbackCreate(GetMethod(implObj, "put_onrowsdelete"), flags, 2)
-        this.vtbl.get_onrowsdelete := CallbackCreate(GetMethod(implObj, "get_onrowsdelete"), flags, 2)
-        this.vtbl.put_onrowsinserted := CallbackCreate(GetMethod(implObj, "put_onrowsinserted"), flags, 2)
-        this.vtbl.get_onrowsinserted := CallbackCreate(GetMethod(implObj, "get_onrowsinserted"), flags, 2)
-        this.vtbl.put_oncellchange := CallbackCreate(GetMethod(implObj, "put_oncellchange"), flags, 2)
-        this.vtbl.get_oncellchange := CallbackCreate(GetMethod(implObj, "get_oncellchange"), flags, 2)
-        this.vtbl.put_ondatasetchanged := CallbackCreate(GetMethod(implObj, "put_ondatasetchanged"), flags, 2)
-        this.vtbl.get_ondatasetchanged := CallbackCreate(GetMethod(implObj, "get_ondatasetchanged"), flags, 2)
-        this.vtbl.put_ondataavailable := CallbackCreate(GetMethod(implObj, "put_ondataavailable"), flags, 2)
-        this.vtbl.get_ondataavailable := CallbackCreate(GetMethod(implObj, "get_ondataavailable"), flags, 2)
-        this.vtbl.put_ondatasetcomplete := CallbackCreate(GetMethod(implObj, "put_ondatasetcomplete"), flags, 2)
-        this.vtbl.get_ondatasetcomplete := CallbackCreate(GetMethod(implObj, "get_ondatasetcomplete"), flags, 2)
-        this.vtbl.put_onpropertychange := CallbackCreate(GetMethod(implObj, "put_onpropertychange"), flags, 2)
-        this.vtbl.get_onpropertychange := CallbackCreate(GetMethod(implObj, "get_onpropertychange"), flags, 2)
-        this.vtbl.put_dir := CallbackCreate(GetMethod(implObj, "put_dir"), flags, 2)
-        this.vtbl.get_dir := CallbackCreate(GetMethod(implObj, "get_dir"), flags, 2)
-        this.vtbl.put_oncontextmenu := CallbackCreate(GetMethod(implObj, "put_oncontextmenu"), flags, 2)
-        this.vtbl.get_oncontextmenu := CallbackCreate(GetMethod(implObj, "get_oncontextmenu"), flags, 2)
-        this.vtbl.put_onstop := CallbackCreate(GetMethod(implObj, "put_onstop"), flags, 2)
-        this.vtbl.get_onstop := CallbackCreate(GetMethod(implObj, "get_onstop"), flags, 2)
-        this.vtbl.createDocumentFragment := CallbackCreate(GetMethod(implObj, "createDocumentFragment"), flags, 2)
-        this.vtbl.get_parentDocument := CallbackCreate(GetMethod(implObj, "get_parentDocument"), flags, 2)
-        this.vtbl.put_enableDownload := CallbackCreate(GetMethod(implObj, "put_enableDownload"), flags, 2)
-        this.vtbl.get_enableDownload := CallbackCreate(GetMethod(implObj, "get_enableDownload"), flags, 2)
-        this.vtbl.put_baseUrl := CallbackCreate(GetMethod(implObj, "put_baseUrl"), flags, 2)
-        this.vtbl.get_baseUrl := CallbackCreate(GetMethod(implObj, "get_baseUrl"), flags, 2)
-        this.vtbl.get_childNodes := CallbackCreate(GetMethod(implObj, "get_childNodes"), flags, 2)
-        this.vtbl.put_inheritStyleSheets := CallbackCreate(GetMethod(implObj, "put_inheritStyleSheets"), flags, 2)
-        this.vtbl.get_inheritStyleSheets := CallbackCreate(GetMethod(implObj, "get_inheritStyleSheets"), flags, 2)
-        this.vtbl.put_onbeforeeditfocus := CallbackCreate(GetMethod(implObj, "put_onbeforeeditfocus"), flags, 2)
-        this.vtbl.get_onbeforeeditfocus := CallbackCreate(GetMethod(implObj, "get_onbeforeeditfocus"), flags, 2)
-        this.vtbl.getElementsByName := CallbackCreate(GetMethod(implObj, "getElementsByName"), flags, 3)
-        this.vtbl.getElementById := CallbackCreate(GetMethod(implObj, "getElementById"), flags, 3)
-        this.vtbl.getElementsByTagName := CallbackCreate(GetMethod(implObj, "getElementsByTagName"), flags, 3)
+        this.vtbl.releaseCapture := CallbackCreate(ObjBindMethod(implObj, "releaseCapture"), flags, 1)
+        this.vtbl.recalc := CallbackCreate(ObjBindMethod(implObj, "recalc"), flags, 2)
+        this.vtbl.createTextNode := CallbackCreate(ObjBindMethod(implObj, "createTextNode"), flags, 3)
+        this.vtbl.get_documentElement := CallbackCreate(ObjBindMethod(implObj, "get_documentElement"), flags, 2)
+        this.vtbl.get_uniqueID := CallbackCreate(ObjBindMethod(implObj, "get_uniqueID"), flags, 2)
+        this.vtbl.attachEvent := CallbackCreate(ObjBindMethod(implObj, "attachEvent"), flags, 4)
+        this.vtbl.detachEvent := CallbackCreate(ObjBindMethod(implObj, "detachEvent"), flags, 3)
+        this.vtbl.put_onrowsdelete := CallbackCreate(ObjBindMethod(implObj, "put_onrowsdelete"), flags, 2)
+        this.vtbl.get_onrowsdelete := CallbackCreate(ObjBindMethod(implObj, "get_onrowsdelete"), flags, 2)
+        this.vtbl.put_onrowsinserted := CallbackCreate(ObjBindMethod(implObj, "put_onrowsinserted"), flags, 2)
+        this.vtbl.get_onrowsinserted := CallbackCreate(ObjBindMethod(implObj, "get_onrowsinserted"), flags, 2)
+        this.vtbl.put_oncellchange := CallbackCreate(ObjBindMethod(implObj, "put_oncellchange"), flags, 2)
+        this.vtbl.get_oncellchange := CallbackCreate(ObjBindMethod(implObj, "get_oncellchange"), flags, 2)
+        this.vtbl.put_ondatasetchanged := CallbackCreate(ObjBindMethod(implObj, "put_ondatasetchanged"), flags, 2)
+        this.vtbl.get_ondatasetchanged := CallbackCreate(ObjBindMethod(implObj, "get_ondatasetchanged"), flags, 2)
+        this.vtbl.put_ondataavailable := CallbackCreate(ObjBindMethod(implObj, "put_ondataavailable"), flags, 2)
+        this.vtbl.get_ondataavailable := CallbackCreate(ObjBindMethod(implObj, "get_ondataavailable"), flags, 2)
+        this.vtbl.put_ondatasetcomplete := CallbackCreate(ObjBindMethod(implObj, "put_ondatasetcomplete"), flags, 2)
+        this.vtbl.get_ondatasetcomplete := CallbackCreate(ObjBindMethod(implObj, "get_ondatasetcomplete"), flags, 2)
+        this.vtbl.put_onpropertychange := CallbackCreate(ObjBindMethod(implObj, "put_onpropertychange"), flags, 2)
+        this.vtbl.get_onpropertychange := CallbackCreate(ObjBindMethod(implObj, "get_onpropertychange"), flags, 2)
+        this.vtbl.put_dir := CallbackCreate(ObjBindMethod(implObj, "put_dir"), flags, 2)
+        this.vtbl.get_dir := CallbackCreate(ObjBindMethod(implObj, "get_dir"), flags, 2)
+        this.vtbl.put_oncontextmenu := CallbackCreate(ObjBindMethod(implObj, "put_oncontextmenu"), flags, 2)
+        this.vtbl.get_oncontextmenu := CallbackCreate(ObjBindMethod(implObj, "get_oncontextmenu"), flags, 2)
+        this.vtbl.put_onstop := CallbackCreate(ObjBindMethod(implObj, "put_onstop"), flags, 2)
+        this.vtbl.get_onstop := CallbackCreate(ObjBindMethod(implObj, "get_onstop"), flags, 2)
+        this.vtbl.createDocumentFragment := CallbackCreate(ObjBindMethod(implObj, "createDocumentFragment"), flags, 2)
+        this.vtbl.get_parentDocument := CallbackCreate(ObjBindMethod(implObj, "get_parentDocument"), flags, 2)
+        this.vtbl.put_enableDownload := CallbackCreate(ObjBindMethod(implObj, "put_enableDownload"), flags, 2)
+        this.vtbl.get_enableDownload := CallbackCreate(ObjBindMethod(implObj, "get_enableDownload"), flags, 2)
+        this.vtbl.put_baseUrl := CallbackCreate(ObjBindMethod(implObj, "put_baseUrl"), flags, 2)
+        this.vtbl.get_baseUrl := CallbackCreate(ObjBindMethod(implObj, "get_baseUrl"), flags, 2)
+        this.vtbl.get_childNodes := CallbackCreate(ObjBindMethod(implObj, "get_childNodes"), flags, 2)
+        this.vtbl.put_inheritStyleSheets := CallbackCreate(ObjBindMethod(implObj, "put_inheritStyleSheets"), flags, 2)
+        this.vtbl.get_inheritStyleSheets := CallbackCreate(ObjBindMethod(implObj, "get_inheritStyleSheets"), flags, 2)
+        this.vtbl.put_onbeforeeditfocus := CallbackCreate(ObjBindMethod(implObj, "put_onbeforeeditfocus"), flags, 2)
+        this.vtbl.get_onbeforeeditfocus := CallbackCreate(ObjBindMethod(implObj, "get_onbeforeeditfocus"), flags, 2)
+        this.vtbl.getElementsByName := CallbackCreate(ObjBindMethod(implObj, "getElementsByName"), flags, 3)
+        this.vtbl.getElementById := CallbackCreate(ObjBindMethod(implObj, "getElementById"), flags, 3)
+        this.vtbl.getElementsByTagName := CallbackCreate(ObjBindMethod(implObj, "getElementsByTagName"), flags, 3)
     }
 
     Dispose() {

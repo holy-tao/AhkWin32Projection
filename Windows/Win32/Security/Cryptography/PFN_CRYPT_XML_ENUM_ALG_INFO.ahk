@@ -27,7 +27,6 @@ export default struct PFN_CRYPT_XML_ENUM_ALG_INFO {
     }
 
     /**
-     * 
      * @param {Pointer<CRYPT_XML_ALGORITHM_INFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_algorithm_info">CRYPT_XML_ALGORITHM_INFO</a> structure.
      * @param {Pointer<Void>} pvArg A pointer to an argument that is passed to the callback function from the calling function.
      * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>.
@@ -35,7 +34,8 @@ export default struct PFN_CRYPT_XML_ENUM_ALG_INFO {
      * If the function fails, it returns <b>FALSE</b>.
      */
     Call(pInfo, pvArg) {
-        pvArgMarshal := pvArg is VarRef ? "ptr" : "ptr"
+        pvArgMarshal := pvArg is VarRef ? "ptr" : IntPtr
+        pvArgMarshal := pvArg == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, CRYPT_XML_ALGORITHM_INFO.Ptr, pInfo, pvArgMarshal, pvArg, BOOL)
         return result

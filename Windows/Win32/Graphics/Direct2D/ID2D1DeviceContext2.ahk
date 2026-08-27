@@ -94,7 +94,9 @@ export default struct ID2D1DeviceContext2 extends ID2D1DeviceContext1 {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext2-createinkstyle(constd2d1_ink_style_properties_id2d1inkstyle)
      */
     CreateInkStyle(inkStyleProperties) {
-        result := ComCall(96, this, D2D1_INK_STYLE_PROPERTIES.Ptr, inkStyleProperties, "ptr*", &inkStyle := 0, "HRESULT")
+        inkStylePropertiesMarshal := inkStyleProperties == 0 ? IntPtr : D2D1_INK_STYLE_PROPERTIES.Ptr
+
+        result := ComCall(96, this, inkStylePropertiesMarshal, inkStyleProperties, "ptr*", &inkStyle := 0, "HRESULT")
         return ID2D1InkStyle(inkStyle)
     }
 
@@ -174,9 +176,9 @@ export default struct ID2D1DeviceContext2 extends ID2D1DeviceContext1 {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext2-createlookuptable3d
      */
     CreateLookupTable3D(precision, extents, data, dataCount, strides) {
-        extentsMarshal := extents is VarRef ? "uint*" : "ptr"
-        dataMarshal := data is VarRef ? "char*" : "ptr"
-        stridesMarshal := strides is VarRef ? "uint*" : "ptr"
+        extentsMarshal := extents is VarRef ? "uint*" : IntPtr
+        dataMarshal := data is VarRef ? "char*" : IntPtr
+        stridesMarshal := strides is VarRef ? "uint*" : IntPtr
 
         result := ComCall(99, this, D2D1_BUFFER_PRECISION, precision, extentsMarshal, extents, dataMarshal, data, UInt32, dataCount, stridesMarshal, strides, "ptr*", &lookupTable := 0, "HRESULT")
         return ID2D1LookupTable3D(lookupTable)
@@ -346,7 +348,9 @@ export default struct ID2D1DeviceContext2 extends ID2D1DeviceContext1 {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext2-drawink
      */
     DrawInk(_ink, brush, inkStyle) {
-        ComCall(102, this, "ptr", _ink, "ptr", brush, "ptr", inkStyle)
+        inkStyleMarshal := inkStyle == 0 ? IntPtr : "ptr"
+
+        ComCall(102, this, "ptr", _ink, "ptr", brush, inkStyleMarshal, inkStyle)
     }
 
     /**
@@ -379,7 +383,10 @@ export default struct ID2D1DeviceContext2 extends ID2D1DeviceContext1 {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext2-drawgdimetafile(id2d1gdimetafile_constd2d1_rect_f__constd2d1_rect_f_)
      */
     DrawGdiMetafile(gdiMetafile, destinationRectangle, sourceRectangle) {
-        ComCall(104, this, "ptr", gdiMetafile, D2D_RECT_F.Ptr, destinationRectangle, D2D_RECT_F.Ptr, sourceRectangle)
+        destinationRectangleMarshal := destinationRectangle == 0 ? IntPtr : D2D_RECT_F.Ptr
+        sourceRectangleMarshal := sourceRectangle == 0 ? IntPtr : D2D_RECT_F.Ptr
+
+        ComCall(104, this, "ptr", gdiMetafile, destinationRectangleMarshal, destinationRectangle, sourceRectangleMarshal, sourceRectangle)
     }
 
     /**
@@ -409,17 +416,17 @@ export default struct ID2D1DeviceContext2 extends ID2D1DeviceContext1 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateInk := CallbackCreate(GetMethod(implObj, "CreateInk"), flags, 3)
-        this.vtbl.CreateInkStyle := CallbackCreate(GetMethod(implObj, "CreateInkStyle"), flags, 3)
-        this.vtbl.CreateGradientMesh := CallbackCreate(GetMethod(implObj, "CreateGradientMesh"), flags, 4)
-        this.vtbl.CreateImageSourceFromWic := CallbackCreate(GetMethod(implObj, "CreateImageSourceFromWic"), flags, 5)
-        this.vtbl.CreateLookupTable3D := CallbackCreate(GetMethod(implObj, "CreateLookupTable3D"), flags, 7)
-        this.vtbl.CreateImageSourceFromDxgi := CallbackCreate(GetMethod(implObj, "CreateImageSourceFromDxgi"), flags, 6)
-        this.vtbl.GetGradientMeshWorldBounds := CallbackCreate(GetMethod(implObj, "GetGradientMeshWorldBounds"), flags, 3)
-        this.vtbl.DrawInk := CallbackCreate(GetMethod(implObj, "DrawInk"), flags, 4)
-        this.vtbl.DrawGradientMesh := CallbackCreate(GetMethod(implObj, "DrawGradientMesh"), flags, 2)
-        this.vtbl.DrawGdiMetafile := CallbackCreate(GetMethod(implObj, "DrawGdiMetafile"), flags, 4)
-        this.vtbl.CreateTransformedImageSource := CallbackCreate(GetMethod(implObj, "CreateTransformedImageSource"), flags, 4)
+        this.vtbl.CreateInk := CallbackCreate(ObjBindMethod(implObj, "CreateInk"), flags, 3)
+        this.vtbl.CreateInkStyle := CallbackCreate(ObjBindMethod(implObj, "CreateInkStyle"), flags, 3)
+        this.vtbl.CreateGradientMesh := CallbackCreate(ObjBindMethod(implObj, "CreateGradientMesh"), flags, 4)
+        this.vtbl.CreateImageSourceFromWic := CallbackCreate(ObjBindMethod(implObj, "CreateImageSourceFromWic"), flags, 5)
+        this.vtbl.CreateLookupTable3D := CallbackCreate(ObjBindMethod(implObj, "CreateLookupTable3D"), flags, 7)
+        this.vtbl.CreateImageSourceFromDxgi := CallbackCreate(ObjBindMethod(implObj, "CreateImageSourceFromDxgi"), flags, 6)
+        this.vtbl.GetGradientMeshWorldBounds := CallbackCreate(ObjBindMethod(implObj, "GetGradientMeshWorldBounds"), flags, 3)
+        this.vtbl.DrawInk := CallbackCreate(ObjBindMethod(implObj, "DrawInk"), flags, 4)
+        this.vtbl.DrawGradientMesh := CallbackCreate(ObjBindMethod(implObj, "DrawGradientMesh"), flags, 2)
+        this.vtbl.DrawGdiMetafile := CallbackCreate(ObjBindMethod(implObj, "DrawGdiMetafile"), flags, 4)
+        this.vtbl.CreateTransformedImageSource := CallbackCreate(ObjBindMethod(implObj, "CreateTransformedImageSource"), flags, 4)
     }
 
     Dispose() {

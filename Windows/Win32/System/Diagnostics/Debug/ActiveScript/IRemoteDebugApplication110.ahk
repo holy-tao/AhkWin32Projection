@@ -40,7 +40,6 @@ export default struct IRemoteDebugApplication110 extends IUnknown {
     }
 
     /**
-     * 
      * @param {SCRIPT_DEBUGGER_OPTIONS} mask 
      * @param {SCRIPT_DEBUGGER_OPTIONS} value 
      * @returns {HRESULT} 
@@ -51,7 +50,6 @@ export default struct IRemoteDebugApplication110 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {SCRIPT_DEBUGGER_OPTIONS} 
      */
     GetCurrentDebuggerOptions() {
@@ -60,7 +58,6 @@ export default struct IRemoteDebugApplication110 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRemoteDebugApplicationThread} 
      */
     GetMainThread() {
@@ -77,9 +74,9 @@ export default struct IRemoteDebugApplication110 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetDebuggerOptions := CallbackCreate(GetMethod(implObj, "SetDebuggerOptions"), flags, 3)
-        this.vtbl.GetCurrentDebuggerOptions := CallbackCreate(GetMethod(implObj, "GetCurrentDebuggerOptions"), flags, 2)
-        this.vtbl.GetMainThread := CallbackCreate(GetMethod(implObj, "GetMainThread"), flags, 2)
+        this.vtbl.SetDebuggerOptions := CallbackCreate(ObjBindMethod(implObj, "SetDebuggerOptions"), flags, 3)
+        this.vtbl.GetCurrentDebuggerOptions := CallbackCreate(ObjBindMethod(implObj, "GetCurrentDebuggerOptions"), flags, 2)
+        this.vtbl.GetMainThread := CallbackCreate(ObjBindMethod(implObj, "GetMainThread"), flags, 2)
     }
 
     Dispose() {

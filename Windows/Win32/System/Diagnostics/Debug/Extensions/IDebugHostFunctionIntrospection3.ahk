@@ -36,7 +36,6 @@ export default struct IDebugHostFunctionIntrospection3 extends IDebugHostFunctio
     }
 
     /**
-     * 
      * @returns {Boolean} 
      */
     IsNoReturnFunction() {
@@ -53,7 +52,7 @@ export default struct IDebugHostFunctionIntrospection3 extends IDebugHostFunctio
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsNoReturnFunction := CallbackCreate(GetMethod(implObj, "IsNoReturnFunction"), flags, 2)
+        this.vtbl.IsNoReturnFunction := CallbackCreate(ObjBindMethod(implObj, "IsNoReturnFunction"), flags, 2)
     }
 
     Dispose() {

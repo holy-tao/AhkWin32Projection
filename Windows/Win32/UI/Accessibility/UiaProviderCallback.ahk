@@ -23,7 +23,6 @@ export default struct UiaProviderCallback {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * The handle of the window served by the provider.

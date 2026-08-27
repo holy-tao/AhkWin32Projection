@@ -22,7 +22,6 @@ export default struct SslExtractEarlyKeyFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_KEY_HANDLE} hPreSharedKey 
      * @param {Integer} dwProtocol 
@@ -32,8 +31,11 @@ export default struct SslExtractEarlyKeyFn {
      * @returns {NCRYPT_KEY_HANDLE} 
      */
     Call(hSslProvider, hPreSharedKey, dwProtocol, dwCipherSuite, pParameterList, dwFlags) {
+        hPreSharedKeyMarshal := hPreSharedKey == 0 ? IntPtr : NCRYPT_KEY_HANDLE
+        pParameterListMarshal := pParameterList == 0 ? IntPtr : BCryptBufferDesc.Ptr
+
         phEarlyKey := NCRYPT_KEY_HANDLE.Owned()
-        result := DllCall(this.value, NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hPreSharedKey, NCRYPT_KEY_HANDLE.Ptr, phEarlyKey, UInt32, dwProtocol, UInt32, dwCipherSuite, BCryptBufferDesc.Ptr, pParameterList, UInt32, dwFlags, "HRESULT")
+        result := DllCall(this.value, NCRYPT_PROV_HANDLE, hSslProvider, hPreSharedKeyMarshal, hPreSharedKey, NCRYPT_KEY_HANDLE.Ptr, phEarlyKey, UInt32, dwProtocol, UInt32, dwCipherSuite, pParameterListMarshal, pParameterList, UInt32, dwFlags, "HRESULT")
         return phEarlyKey
     }
 

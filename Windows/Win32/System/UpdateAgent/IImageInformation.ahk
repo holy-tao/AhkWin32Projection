@@ -120,10 +120,10 @@ export default struct IImageInformation extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_AltText := CallbackCreate(GetMethod(implObj, "get_AltText"), flags, 2)
-        this.vtbl.get_Height := CallbackCreate(GetMethod(implObj, "get_Height"), flags, 2)
-        this.vtbl.get_Source := CallbackCreate(GetMethod(implObj, "get_Source"), flags, 2)
-        this.vtbl.get_Width := CallbackCreate(GetMethod(implObj, "get_Width"), flags, 2)
+        this.vtbl.get_AltText := CallbackCreate(ObjBindMethod(implObj, "get_AltText"), flags, 2)
+        this.vtbl.get_Height := CallbackCreate(ObjBindMethod(implObj, "get_Height"), flags, 2)
+        this.vtbl.get_Source := CallbackCreate(ObjBindMethod(implObj, "get_Source"), flags, 2)
+        this.vtbl.get_Width := CallbackCreate(ObjBindMethod(implObj, "get_Width"), flags, 2)
     }
 
     Dispose() {

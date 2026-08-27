@@ -396,9 +396,9 @@ export default struct ILocationReport extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSensorID := CallbackCreate(GetMethod(implObj, "GetSensorID"), flags, 2)
-        this.vtbl.GetTimestamp := CallbackCreate(GetMethod(implObj, "GetTimestamp"), flags, 2)
-        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 3)
+        this.vtbl.GetSensorID := CallbackCreate(ObjBindMethod(implObj, "GetSensorID"), flags, 2)
+        this.vtbl.GetTimestamp := CallbackCreate(ObjBindMethod(implObj, "GetTimestamp"), flags, 2)
+        this.vtbl.GetValue := CallbackCreate(ObjBindMethod(implObj, "GetValue"), flags, 3)
     }
 
     Dispose() {

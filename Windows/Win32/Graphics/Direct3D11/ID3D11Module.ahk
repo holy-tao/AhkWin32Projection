@@ -59,7 +59,9 @@ export default struct ID3D11Module extends IUnknown {
     CreateInstance(pNamespace) {
         pNamespace := pNamespace is String ? StrPtr(pNamespace) : pNamespace
 
-        result := ComCall(3, this, "ptr", pNamespace, "ptr*", &ppModuleInstance := 0, "HRESULT")
+        pNamespaceMarshal := pNamespace == 0 ? IntPtr : PSTR
+
+        result := ComCall(3, this, pNamespaceMarshal, pNamespace, "ptr*", &ppModuleInstance := 0, "HRESULT")
         return ID3D11ModuleInstance(ppModuleInstance)
     }
 
@@ -72,7 +74,7 @@ export default struct ID3D11Module extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateInstance := CallbackCreate(GetMethod(implObj, "CreateInstance"), flags, 3)
+        this.vtbl.CreateInstance := CallbackCreate(ObjBindMethod(implObj, "CreateInstance"), flags, 3)
     }
 
     Dispose() {

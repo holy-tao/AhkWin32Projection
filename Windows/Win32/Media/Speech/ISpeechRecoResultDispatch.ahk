@@ -88,7 +88,6 @@ export default struct ISpeechRecoResultDispatch extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechRecoContext} 
      */
     get_RecoContext() {
@@ -97,7 +96,6 @@ export default struct ISpeechRecoResultDispatch extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechRecoResultTimes} 
      */
     get_Times() {
@@ -106,17 +104,17 @@ export default struct ISpeechRecoResultDispatch extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISpeechAudioFormat} Format 
      * @returns {HRESULT} 
      */
     putref_AudioFormat(Format) {
-        result := ComCall(9, this, "ptr", Format, "HRESULT")
+        FormatMarshal := Format == 0 ? IntPtr : "ptr"
+
+        result := ComCall(9, this, FormatMarshal, Format, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {ISpeechAudioFormat} 
      */
     get_AudioFormat() {
@@ -125,7 +123,6 @@ export default struct ISpeechRecoResultDispatch extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechPhraseInfo} 
      */
     get_PhraseInfo() {
@@ -134,7 +131,6 @@ export default struct ISpeechRecoResultDispatch extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} RequestCount 
      * @param {Integer} StartElement 
      * @param {Integer} Elements 
@@ -158,7 +154,6 @@ export default struct ISpeechRecoResultDispatch extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} StartElement 
      * @param {Integer} Elements 
      * @param {SpeechVoiceSpeakFlags} Flags 
@@ -170,7 +165,6 @@ export default struct ISpeechRecoResultDispatch extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     SaveToMemory() {
@@ -180,7 +174,6 @@ export default struct ISpeechRecoResultDispatch extends IDispatch {
     }
 
     /**
-     * 
      * @param {SpeechDiscardType} ValueTypes 
      * @returns {HRESULT} 
      */
@@ -190,7 +183,6 @@ export default struct ISpeechRecoResultDispatch extends IDispatch {
     }
 
     /**
-     * 
      * @param {SPXMLRESULTOPTIONS} Options 
      * @returns {BSTR} 
      */
@@ -201,7 +193,6 @@ export default struct ISpeechRecoResultDispatch extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} LineNumber 
      * @param {Pointer<BSTR>} ScriptLine 
      * @param {Pointer<BSTR>} Source 
@@ -211,16 +202,15 @@ export default struct ISpeechRecoResultDispatch extends IDispatch {
      * @returns {HRESULT} 
      */
     GetXMLErrorInfo(LineNumber, ScriptLine, Source, Description, ResultCode, IsError) {
-        LineNumberMarshal := LineNumber is VarRef ? "int*" : "ptr"
-        ResultCodeMarshal := ResultCode is VarRef ? "int*" : "ptr"
-        IsErrorMarshal := IsError is VarRef ? "short*" : "ptr"
+        LineNumberMarshal := LineNumber is VarRef ? "int*" : IntPtr
+        ResultCodeMarshal := ResultCode is VarRef ? "int*" : IntPtr
+        IsErrorMarshal := IsError is VarRef ? "short*" : IntPtr
 
         result := ComCall(18, this, LineNumberMarshal, LineNumber, BSTR.Ptr, ScriptLine, BSTR.Ptr, Source, BSTR.Ptr, Description, ResultCodeMarshal, ResultCode, IsErrorMarshal, IsError, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {BSTR} Feedback 
      * @param {VARIANT_BOOL} WasSuccessful 
      * @returns {HRESULT} 
@@ -241,19 +231,19 @@ export default struct ISpeechRecoResultDispatch extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_RecoContext := CallbackCreate(GetMethod(implObj, "get_RecoContext"), flags, 2)
-        this.vtbl.get_Times := CallbackCreate(GetMethod(implObj, "get_Times"), flags, 2)
-        this.vtbl.putref_AudioFormat := CallbackCreate(GetMethod(implObj, "putref_AudioFormat"), flags, 2)
-        this.vtbl.get_AudioFormat := CallbackCreate(GetMethod(implObj, "get_AudioFormat"), flags, 2)
-        this.vtbl.get_PhraseInfo := CallbackCreate(GetMethod(implObj, "get_PhraseInfo"), flags, 2)
-        this.vtbl.Alternates := CallbackCreate(GetMethod(implObj, "Alternates"), flags, 5)
-        this.vtbl.Audio := CallbackCreate(GetMethod(implObj, "Audio"), flags, 4)
-        this.vtbl.SpeakAudio := CallbackCreate(GetMethod(implObj, "SpeakAudio"), flags, 5)
-        this.vtbl.SaveToMemory := CallbackCreate(GetMethod(implObj, "SaveToMemory"), flags, 2)
-        this.vtbl.DiscardResultInfo := CallbackCreate(GetMethod(implObj, "DiscardResultInfo"), flags, 2)
-        this.vtbl.GetXMLResult := CallbackCreate(GetMethod(implObj, "GetXMLResult"), flags, 3)
-        this.vtbl.GetXMLErrorInfo := CallbackCreate(GetMethod(implObj, "GetXMLErrorInfo"), flags, 7)
-        this.vtbl.SetTextFeedback := CallbackCreate(GetMethod(implObj, "SetTextFeedback"), flags, 3)
+        this.vtbl.get_RecoContext := CallbackCreate(ObjBindMethod(implObj, "get_RecoContext"), flags, 2)
+        this.vtbl.get_Times := CallbackCreate(ObjBindMethod(implObj, "get_Times"), flags, 2)
+        this.vtbl.putref_AudioFormat := CallbackCreate(ObjBindMethod(implObj, "putref_AudioFormat"), flags, 2)
+        this.vtbl.get_AudioFormat := CallbackCreate(ObjBindMethod(implObj, "get_AudioFormat"), flags, 2)
+        this.vtbl.get_PhraseInfo := CallbackCreate(ObjBindMethod(implObj, "get_PhraseInfo"), flags, 2)
+        this.vtbl.Alternates := CallbackCreate(ObjBindMethod(implObj, "Alternates"), flags, 5)
+        this.vtbl.Audio := CallbackCreate(ObjBindMethod(implObj, "Audio"), flags, 4)
+        this.vtbl.SpeakAudio := CallbackCreate(ObjBindMethod(implObj, "SpeakAudio"), flags, 5)
+        this.vtbl.SaveToMemory := CallbackCreate(ObjBindMethod(implObj, "SaveToMemory"), flags, 2)
+        this.vtbl.DiscardResultInfo := CallbackCreate(ObjBindMethod(implObj, "DiscardResultInfo"), flags, 2)
+        this.vtbl.GetXMLResult := CallbackCreate(ObjBindMethod(implObj, "GetXMLResult"), flags, 3)
+        this.vtbl.GetXMLErrorInfo := CallbackCreate(ObjBindMethod(implObj, "GetXMLErrorInfo"), flags, 7)
+        this.vtbl.SetTextFeedback := CallbackCreate(ObjBindMethod(implObj, "SetTextFeedback"), flags, 3)
     }
 
     Dispose() {

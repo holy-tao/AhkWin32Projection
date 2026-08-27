@@ -19,7 +19,6 @@ export default struct PIOMMU_MAP_RESERVED_LOGICAL_RANGE {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

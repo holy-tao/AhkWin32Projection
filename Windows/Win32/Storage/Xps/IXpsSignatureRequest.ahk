@@ -378,9 +378,9 @@ export default struct IXpsSignatureRequest extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-getspotlocation
      */
     GetSpotLocation(pageIndex, pagePartName, x, y) {
-        pageIndexMarshal := pageIndex is VarRef ? "int*" : "ptr"
-        xMarshal := x is VarRef ? "float*" : "ptr"
-        yMarshal := y is VarRef ? "float*" : "ptr"
+        pageIndexMarshal := pageIndex is VarRef ? "int*" : IntPtr
+        xMarshal := x is VarRef ? "float*" : IntPtr
+        yMarshal := y is VarRef ? "float*" : IntPtr
 
         result := ComCall(11, this, pageIndexMarshal, pageIndex, IOpcPartUri.Ptr, pagePartName, xMarshal, x, yMarshal, y, "HRESULT")
         return result
@@ -468,18 +468,18 @@ export default struct IXpsSignatureRequest extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetIntent := CallbackCreate(GetMethod(implObj, "GetIntent"), flags, 2)
-        this.vtbl.SetIntent := CallbackCreate(GetMethod(implObj, "SetIntent"), flags, 2)
-        this.vtbl.GetRequestedSigner := CallbackCreate(GetMethod(implObj, "GetRequestedSigner"), flags, 2)
-        this.vtbl.SetRequestedSigner := CallbackCreate(GetMethod(implObj, "SetRequestedSigner"), flags, 2)
-        this.vtbl.GetRequestSignByDate := CallbackCreate(GetMethod(implObj, "GetRequestSignByDate"), flags, 2)
-        this.vtbl.SetRequestSignByDate := CallbackCreate(GetMethod(implObj, "SetRequestSignByDate"), flags, 2)
-        this.vtbl.GetSigningLocale := CallbackCreate(GetMethod(implObj, "GetSigningLocale"), flags, 2)
-        this.vtbl.SetSigningLocale := CallbackCreate(GetMethod(implObj, "SetSigningLocale"), flags, 2)
-        this.vtbl.GetSpotLocation := CallbackCreate(GetMethod(implObj, "GetSpotLocation"), flags, 5)
-        this.vtbl.SetSpotLocation := CallbackCreate(GetMethod(implObj, "SetSpotLocation"), flags, 4)
-        this.vtbl.GetRequestId := CallbackCreate(GetMethod(implObj, "GetRequestId"), flags, 2)
-        this.vtbl.GetSignature := CallbackCreate(GetMethod(implObj, "GetSignature"), flags, 2)
+        this.vtbl.GetIntent := CallbackCreate(ObjBindMethod(implObj, "GetIntent"), flags, 2)
+        this.vtbl.SetIntent := CallbackCreate(ObjBindMethod(implObj, "SetIntent"), flags, 2)
+        this.vtbl.GetRequestedSigner := CallbackCreate(ObjBindMethod(implObj, "GetRequestedSigner"), flags, 2)
+        this.vtbl.SetRequestedSigner := CallbackCreate(ObjBindMethod(implObj, "SetRequestedSigner"), flags, 2)
+        this.vtbl.GetRequestSignByDate := CallbackCreate(ObjBindMethod(implObj, "GetRequestSignByDate"), flags, 2)
+        this.vtbl.SetRequestSignByDate := CallbackCreate(ObjBindMethod(implObj, "SetRequestSignByDate"), flags, 2)
+        this.vtbl.GetSigningLocale := CallbackCreate(ObjBindMethod(implObj, "GetSigningLocale"), flags, 2)
+        this.vtbl.SetSigningLocale := CallbackCreate(ObjBindMethod(implObj, "SetSigningLocale"), flags, 2)
+        this.vtbl.GetSpotLocation := CallbackCreate(ObjBindMethod(implObj, "GetSpotLocation"), flags, 5)
+        this.vtbl.SetSpotLocation := CallbackCreate(ObjBindMethod(implObj, "SetSpotLocation"), flags, 4)
+        this.vtbl.GetRequestId := CallbackCreate(ObjBindMethod(implObj, "GetRequestId"), flags, 2)
+        this.vtbl.GetSignature := CallbackCreate(ObjBindMethod(implObj, "GetSignature"), flags, 2)
     }
 
     Dispose() {

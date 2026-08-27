@@ -369,16 +369,16 @@ export default struct ID3D11ModuleInstance extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BindConstantBuffer := CallbackCreate(GetMethod(implObj, "BindConstantBuffer"), flags, 4)
-        this.vtbl.BindConstantBufferByName := CallbackCreate(GetMethod(implObj, "BindConstantBufferByName"), flags, 4)
-        this.vtbl.BindResource := CallbackCreate(GetMethod(implObj, "BindResource"), flags, 4)
-        this.vtbl.BindResourceByName := CallbackCreate(GetMethod(implObj, "BindResourceByName"), flags, 4)
-        this.vtbl.BindSampler := CallbackCreate(GetMethod(implObj, "BindSampler"), flags, 4)
-        this.vtbl.BindSamplerByName := CallbackCreate(GetMethod(implObj, "BindSamplerByName"), flags, 4)
-        this.vtbl.BindUnorderedAccessView := CallbackCreate(GetMethod(implObj, "BindUnorderedAccessView"), flags, 4)
-        this.vtbl.BindUnorderedAccessViewByName := CallbackCreate(GetMethod(implObj, "BindUnorderedAccessViewByName"), flags, 4)
-        this.vtbl.BindResourceAsUnorderedAccessView := CallbackCreate(GetMethod(implObj, "BindResourceAsUnorderedAccessView"), flags, 4)
-        this.vtbl.BindResourceAsUnorderedAccessViewByName := CallbackCreate(GetMethod(implObj, "BindResourceAsUnorderedAccessViewByName"), flags, 4)
+        this.vtbl.BindConstantBuffer := CallbackCreate(ObjBindMethod(implObj, "BindConstantBuffer"), flags, 4)
+        this.vtbl.BindConstantBufferByName := CallbackCreate(ObjBindMethod(implObj, "BindConstantBufferByName"), flags, 4)
+        this.vtbl.BindResource := CallbackCreate(ObjBindMethod(implObj, "BindResource"), flags, 4)
+        this.vtbl.BindResourceByName := CallbackCreate(ObjBindMethod(implObj, "BindResourceByName"), flags, 4)
+        this.vtbl.BindSampler := CallbackCreate(ObjBindMethod(implObj, "BindSampler"), flags, 4)
+        this.vtbl.BindSamplerByName := CallbackCreate(ObjBindMethod(implObj, "BindSamplerByName"), flags, 4)
+        this.vtbl.BindUnorderedAccessView := CallbackCreate(ObjBindMethod(implObj, "BindUnorderedAccessView"), flags, 4)
+        this.vtbl.BindUnorderedAccessViewByName := CallbackCreate(ObjBindMethod(implObj, "BindUnorderedAccessViewByName"), flags, 4)
+        this.vtbl.BindResourceAsUnorderedAccessView := CallbackCreate(ObjBindMethod(implObj, "BindResourceAsUnorderedAccessView"), flags, 4)
+        this.vtbl.BindResourceAsUnorderedAccessViewByName := CallbackCreate(ObjBindMethod(implObj, "BindResourceAsUnorderedAccessViewByName"), flags, 4)
     }
 
     Dispose() {

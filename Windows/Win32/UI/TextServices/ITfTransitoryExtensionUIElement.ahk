@@ -57,7 +57,7 @@ export default struct ITfTransitoryExtensionUIElement extends ITfUIElement {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDocumentMgr := CallbackCreate(GetMethod(implObj, "GetDocumentMgr"), flags, 2)
+        this.vtbl.GetDocumentMgr := CallbackCreate(ObjBindMethod(implObj, "GetDocumentMgr"), flags, 2)
     }
 
     Dispose() {

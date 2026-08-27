@@ -114,10 +114,10 @@ export default struct IDWriteFontSetBuilder extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddFontFaceReference := CallbackCreate(GetMethod(implObj, "AddFontFaceReference"), flags, 4)
-        this.vtbl.AddFontFaceReference1 := CallbackCreate(GetMethod(implObj, "AddFontFaceReference1"), flags, 2)
-        this.vtbl.AddFontSet := CallbackCreate(GetMethod(implObj, "AddFontSet"), flags, 2)
-        this.vtbl.CreateFontSet := CallbackCreate(GetMethod(implObj, "CreateFontSet"), flags, 2)
+        this.vtbl.AddFontFaceReference := CallbackCreate(ObjBindMethod(implObj, "AddFontFaceReference"), flags, 4)
+        this.vtbl.AddFontFaceReference1 := CallbackCreate(ObjBindMethod(implObj, "AddFontFaceReference1"), flags, 2)
+        this.vtbl.AddFontSet := CallbackCreate(ObjBindMethod(implObj, "AddFontSet"), flags, 2)
+        this.vtbl.CreateFontSet := CallbackCreate(ObjBindMethod(implObj, "CreateFontSet"), flags, 2)
     }
 
     Dispose() {

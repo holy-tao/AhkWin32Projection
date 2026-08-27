@@ -20,7 +20,6 @@ export default struct PFN_PRINTING_ENUMPORTS {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @param {Integer} param1 
      * @param {Pointer<Integer>} param2 
@@ -32,9 +31,10 @@ export default struct PFN_PRINTING_ENUMPORTS {
     Call(param0, param1, param2, param3, param4, param5) {
         param0 := param0 is String ? StrPtr(param0) : param0
 
-        param2Marshal := param2 is VarRef ? "char*" : "ptr"
-        param4Marshal := param4 is VarRef ? "uint*" : "ptr"
-        param5Marshal := param5 is VarRef ? "uint*" : "ptr"
+        param2Marshal := param2 is VarRef ? "char*" : IntPtr
+        param2Marshal := param2 == 0 ? IntPtr : "char*"
+        param4Marshal := param4 is VarRef ? "uint*" : IntPtr
+        param5Marshal := param5 is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, "ptr", param0, UInt32, param1, param2Marshal, param2, UInt32, param3, param4Marshal, param4, param5Marshal, param5, BOOL)
         return result

@@ -120,8 +120,8 @@ export default struct IVdsDiskOnline extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Online := CallbackCreate(GetMethod(implObj, "Online"), flags, 1)
-        this.vtbl.Offline := CallbackCreate(GetMethod(implObj, "Offline"), flags, 1)
+        this.vtbl.Online := CallbackCreate(ObjBindMethod(implObj, "Online"), flags, 1)
+        this.vtbl.Offline := CallbackCreate(ObjBindMethod(implObj, "Offline"), flags, 1)
     }
 
     Dispose() {

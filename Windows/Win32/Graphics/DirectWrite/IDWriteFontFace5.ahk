@@ -123,11 +123,11 @@ export default struct IDWriteFontFace5 extends IDWriteFontFace4 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFontAxisValueCount := CallbackCreate(GetMethod(implObj, "GetFontAxisValueCount"), flags, 1)
-        this.vtbl.GetFontAxisValues := CallbackCreate(GetMethod(implObj, "GetFontAxisValues"), flags, 3)
-        this.vtbl.HasVariations := CallbackCreate(GetMethod(implObj, "HasVariations"), flags, 1)
-        this.vtbl.GetFontResource := CallbackCreate(GetMethod(implObj, "GetFontResource"), flags, 2)
-        this.vtbl.Equals := CallbackCreate(GetMethod(implObj, "Equals"), flags, 2)
+        this.vtbl.GetFontAxisValueCount := CallbackCreate(ObjBindMethod(implObj, "GetFontAxisValueCount"), flags, 1)
+        this.vtbl.GetFontAxisValues := CallbackCreate(ObjBindMethod(implObj, "GetFontAxisValues"), flags, 3)
+        this.vtbl.HasVariations := CallbackCreate(ObjBindMethod(implObj, "HasVariations"), flags, 1)
+        this.vtbl.GetFontResource := CallbackCreate(ObjBindMethod(implObj, "GetFontResource"), flags, 2)
+        this.vtbl.Equals := CallbackCreate(ObjBindMethod(implObj, "Equals"), flags, 2)
     }
 
     Dispose() {

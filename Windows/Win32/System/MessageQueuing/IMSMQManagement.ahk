@@ -109,7 +109,6 @@ export default struct IMSMQManagement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} Machine 
      * @param {Pointer<VARIANT>} _Pathname 
      * @param {Pointer<VARIANT>} FormatName 
@@ -121,7 +120,6 @@ export default struct IMSMQManagement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_FormatName() {
@@ -131,7 +129,6 @@ export default struct IMSMQManagement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Machine() {
@@ -141,7 +138,6 @@ export default struct IMSMQManagement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MessageCount() {
@@ -150,7 +146,6 @@ export default struct IMSMQManagement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ForeignStatus() {
@@ -159,7 +154,6 @@ export default struct IMSMQManagement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_QueueType() {
@@ -168,7 +162,6 @@ export default struct IMSMQManagement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsLocal() {
@@ -177,7 +170,6 @@ export default struct IMSMQManagement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_TransactionalStatus() {
@@ -186,7 +178,6 @@ export default struct IMSMQManagement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_BytesInQueue() {
@@ -204,15 +195,15 @@ export default struct IMSMQManagement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 4)
-        this.vtbl.get_FormatName := CallbackCreate(GetMethod(implObj, "get_FormatName"), flags, 2)
-        this.vtbl.get_Machine := CallbackCreate(GetMethod(implObj, "get_Machine"), flags, 2)
-        this.vtbl.get_MessageCount := CallbackCreate(GetMethod(implObj, "get_MessageCount"), flags, 2)
-        this.vtbl.get_ForeignStatus := CallbackCreate(GetMethod(implObj, "get_ForeignStatus"), flags, 2)
-        this.vtbl.get_QueueType := CallbackCreate(GetMethod(implObj, "get_QueueType"), flags, 2)
-        this.vtbl.get_IsLocal := CallbackCreate(GetMethod(implObj, "get_IsLocal"), flags, 2)
-        this.vtbl.get_TransactionalStatus := CallbackCreate(GetMethod(implObj, "get_TransactionalStatus"), flags, 2)
-        this.vtbl.get_BytesInQueue := CallbackCreate(GetMethod(implObj, "get_BytesInQueue"), flags, 2)
+        this.vtbl.Init := CallbackCreate(ObjBindMethod(implObj, "Init"), flags, 4)
+        this.vtbl.get_FormatName := CallbackCreate(ObjBindMethod(implObj, "get_FormatName"), flags, 2)
+        this.vtbl.get_Machine := CallbackCreate(ObjBindMethod(implObj, "get_Machine"), flags, 2)
+        this.vtbl.get_MessageCount := CallbackCreate(ObjBindMethod(implObj, "get_MessageCount"), flags, 2)
+        this.vtbl.get_ForeignStatus := CallbackCreate(ObjBindMethod(implObj, "get_ForeignStatus"), flags, 2)
+        this.vtbl.get_QueueType := CallbackCreate(ObjBindMethod(implObj, "get_QueueType"), flags, 2)
+        this.vtbl.get_IsLocal := CallbackCreate(ObjBindMethod(implObj, "get_IsLocal"), flags, 2)
+        this.vtbl.get_TransactionalStatus := CallbackCreate(ObjBindMethod(implObj, "get_TransactionalStatus"), flags, 2)
+        this.vtbl.get_BytesInQueue := CallbackCreate(ObjBindMethod(implObj, "get_BytesInQueue"), flags, 2)
     }
 
     Dispose() {

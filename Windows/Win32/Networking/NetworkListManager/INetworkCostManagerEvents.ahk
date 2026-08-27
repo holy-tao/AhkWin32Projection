@@ -71,8 +71,8 @@ export default struct INetworkCostManagerEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CostChanged := CallbackCreate(GetMethod(implObj, "CostChanged"), flags, 3)
-        this.vtbl.DataPlanStatusChanged := CallbackCreate(GetMethod(implObj, "DataPlanStatusChanged"), flags, 2)
+        this.vtbl.CostChanged := CallbackCreate(ObjBindMethod(implObj, "CostChanged"), flags, 3)
+        this.vtbl.DataPlanStatusChanged := CallbackCreate(ObjBindMethod(implObj, "DataPlanStatusChanged"), flags, 2)
     }
 
     Dispose() {

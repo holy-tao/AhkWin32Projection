@@ -91,7 +91,9 @@ export default struct IVdsAdmin extends IUnknown {
         pwszMachineName := pwszMachineName is String ? StrPtr(pwszMachineName) : pwszMachineName
         pwszVersion := pwszVersion is String ? StrPtr(pwszVersion) : pwszVersion
 
-        result := ComCall(3, this, Guid, providerId, Guid, providerClsid, "ptr", pwszName, VDS_PROVIDER_TYPE, type, "ptr", pwszMachineName, "ptr", pwszVersion, Guid, guidVersionId, "HRESULT")
+        pwszMachineNameMarshal := pwszMachineName == 0 ? IntPtr : PWSTR
+
+        result := ComCall(3, this, Guid, providerId, Guid, providerClsid, "ptr", pwszName, VDS_PROVIDER_TYPE, type, pwszMachineNameMarshal, pwszMachineName, "ptr", pwszVersion, Guid, guidVersionId, "HRESULT")
         return result
     }
 
@@ -121,8 +123,8 @@ export default struct IVdsAdmin extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterProvider := CallbackCreate(GetMethod(implObj, "RegisterProvider"), flags, 8)
-        this.vtbl.UnregisterProvider := CallbackCreate(GetMethod(implObj, "UnregisterProvider"), flags, 2)
+        this.vtbl.RegisterProvider := CallbackCreate(ObjBindMethod(implObj, "RegisterProvider"), flags, 8)
+        this.vtbl.UnregisterProvider := CallbackCreate(ObjBindMethod(implObj, "UnregisterProvider"), flags, 2)
     }
 
     Dispose() {

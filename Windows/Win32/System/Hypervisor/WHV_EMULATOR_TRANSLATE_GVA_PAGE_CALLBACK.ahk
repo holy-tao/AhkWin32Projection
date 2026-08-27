@@ -21,7 +21,6 @@ export default struct WHV_EMULATOR_TRANSLATE_GVA_PAGE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Integer} Gva 
      * @param {WHV_TRANSLATE_GVA_FLAGS} TranslateFlags 
@@ -30,9 +29,9 @@ export default struct WHV_EMULATOR_TRANSLATE_GVA_PAGE_CALLBACK {
      * @returns {HRESULT} 
      */
     Call(_Context, Gva, TranslateFlags, TranslationResult, Gpa) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        TranslationResultMarshal := TranslationResult is VarRef ? "int*" : "ptr"
-        GpaMarshal := Gpa is VarRef ? "uint*" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        TranslationResultMarshal := TranslationResult is VarRef ? "int*" : IntPtr
+        GpaMarshal := Gpa is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, Int64, Gva, WHV_TRANSLATE_GVA_FLAGS, TranslateFlags, TranslationResultMarshal, TranslationResult, GpaMarshal, Gpa, "HRESULT")
         return result

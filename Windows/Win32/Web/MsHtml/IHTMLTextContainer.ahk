@@ -83,7 +83,6 @@ export default struct IHTMLTextContainer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     createControlRange() {
@@ -92,7 +91,6 @@ export default struct IHTMLTextContainer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_scrollHeight() {
@@ -101,7 +99,6 @@ export default struct IHTMLTextContainer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_scrollWidth() {
@@ -110,7 +107,6 @@ export default struct IHTMLTextContainer extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -120,7 +116,6 @@ export default struct IHTMLTextContainer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_scrollTop() {
@@ -129,7 +124,6 @@ export default struct IHTMLTextContainer extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -139,7 +133,6 @@ export default struct IHTMLTextContainer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_scrollLeft() {
@@ -148,7 +141,6 @@ export default struct IHTMLTextContainer extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -158,7 +150,6 @@ export default struct IHTMLTextContainer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onscroll() {
@@ -176,15 +167,15 @@ export default struct IHTMLTextContainer extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.createControlRange := CallbackCreate(GetMethod(implObj, "createControlRange"), flags, 2)
-        this.vtbl.get_scrollHeight := CallbackCreate(GetMethod(implObj, "get_scrollHeight"), flags, 2)
-        this.vtbl.get_scrollWidth := CallbackCreate(GetMethod(implObj, "get_scrollWidth"), flags, 2)
-        this.vtbl.put_scrollTop := CallbackCreate(GetMethod(implObj, "put_scrollTop"), flags, 2)
-        this.vtbl.get_scrollTop := CallbackCreate(GetMethod(implObj, "get_scrollTop"), flags, 2)
-        this.vtbl.put_scrollLeft := CallbackCreate(GetMethod(implObj, "put_scrollLeft"), flags, 2)
-        this.vtbl.get_scrollLeft := CallbackCreate(GetMethod(implObj, "get_scrollLeft"), flags, 2)
-        this.vtbl.put_onscroll := CallbackCreate(GetMethod(implObj, "put_onscroll"), flags, 2)
-        this.vtbl.get_onscroll := CallbackCreate(GetMethod(implObj, "get_onscroll"), flags, 2)
+        this.vtbl.createControlRange := CallbackCreate(ObjBindMethod(implObj, "createControlRange"), flags, 2)
+        this.vtbl.get_scrollHeight := CallbackCreate(ObjBindMethod(implObj, "get_scrollHeight"), flags, 2)
+        this.vtbl.get_scrollWidth := CallbackCreate(ObjBindMethod(implObj, "get_scrollWidth"), flags, 2)
+        this.vtbl.put_scrollTop := CallbackCreate(ObjBindMethod(implObj, "put_scrollTop"), flags, 2)
+        this.vtbl.get_scrollTop := CallbackCreate(ObjBindMethod(implObj, "get_scrollTop"), flags, 2)
+        this.vtbl.put_scrollLeft := CallbackCreate(ObjBindMethod(implObj, "put_scrollLeft"), flags, 2)
+        this.vtbl.get_scrollLeft := CallbackCreate(ObjBindMethod(implObj, "get_scrollLeft"), flags, 2)
+        this.vtbl.put_onscroll := CallbackCreate(ObjBindMethod(implObj, "put_onscroll"), flags, 2)
+        this.vtbl.get_onscroll := CallbackCreate(ObjBindMethod(implObj, "get_onscroll"), flags, 2)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct LPD3DHAL_RENDERSTATECB {
     }
 
     /**
-     * 
      * @param {Pointer<D3DHAL_RENDERSTATEDATA>} param0 
      * @returns {Integer} 
      */

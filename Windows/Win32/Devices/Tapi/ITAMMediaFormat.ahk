@@ -113,8 +113,8 @@ export default struct ITAMMediaFormat extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_MediaFormat := CallbackCreate(GetMethod(implObj, "get_MediaFormat"), flags, 2)
-        this.vtbl.put_MediaFormat := CallbackCreate(GetMethod(implObj, "put_MediaFormat"), flags, 2)
+        this.vtbl.get_MediaFormat := CallbackCreate(ObjBindMethod(implObj, "get_MediaFormat"), flags, 2)
+        this.vtbl.put_MediaFormat := CallbackCreate(ObjBindMethod(implObj, "put_MediaFormat"), flags, 2)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct PRESUTIL_ENUM_PROPERTIES {
     }
 
     /**
-     * 
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable 
      * @param {Integer} pszOutProperties 
      * @param {Integer} cbOutPropertiesSize 
@@ -28,8 +27,8 @@ export default struct PRESUTIL_ENUM_PROPERTIES {
      * @returns {Integer} 
      */
     Call(pPropertyTable, pszOutProperties, cbOutPropertiesSize, pcbBytesReturned, pcbRequired) {
-        pcbBytesReturnedMarshal := pcbBytesReturned is VarRef ? "uint*" : "ptr"
-        pcbRequiredMarshal := pcbRequired is VarRef ? "uint*" : "ptr"
+        pcbBytesReturnedMarshal := pcbBytesReturned is VarRef ? "uint*" : IntPtr
+        pcbRequiredMarshal := pcbRequired is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, RESUTIL_PROPERTY_ITEM.Ptr, pPropertyTable, IntPtr, pszOutProperties, UInt32, cbOutPropertiesSize, pcbBytesReturnedMarshal, pcbBytesReturned, pcbRequiredMarshal, pcbRequired, UInt32)
         return result

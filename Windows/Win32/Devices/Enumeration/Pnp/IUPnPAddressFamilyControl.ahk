@@ -187,8 +187,8 @@ export default struct IUPnPAddressFamilyControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAddressFamily := CallbackCreate(GetMethod(implObj, "SetAddressFamily"), flags, 2)
-        this.vtbl.GetAddressFamily := CallbackCreate(GetMethod(implObj, "GetAddressFamily"), flags, 2)
+        this.vtbl.SetAddressFamily := CallbackCreate(ObjBindMethod(implObj, "SetAddressFamily"), flags, 2)
+        this.vtbl.GetAddressFamily := CallbackCreate(ObjBindMethod(implObj, "GetAddressFamily"), flags, 2)
     }
 
     Dispose() {

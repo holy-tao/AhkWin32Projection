@@ -19,13 +19,13 @@ export default struct PFLT_CALLBACK_DATA_QUEUE_ACQUIRE {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA_QUEUE>} Cbdq 
      * @param {Pointer<Integer>} Irql 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(Cbdq, Irql) {
-        IrqlMarshal := Irql is VarRef ? "char*" : "ptr"
+        IrqlMarshal := Irql is VarRef ? "char*" : IntPtr
+        IrqlMarshal := Irql == 0 ? IntPtr : "char*"
 
         DllCall(this.value, FLT_CALLBACK_DATA_QUEUE.Ptr, Cbdq, IrqlMarshal, Irql)
     }

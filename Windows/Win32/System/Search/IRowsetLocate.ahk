@@ -39,7 +39,6 @@ export default struct IRowsetLocate extends IRowset {
     }
 
     /**
-     * 
      * @param {Pointer} hReserved 
      * @param {Pointer} cbBookmark1 
      * @param {Pointer<Integer>} pBookmark1 
@@ -48,15 +47,14 @@ export default struct IRowsetLocate extends IRowset {
      * @returns {Integer} 
      */
     Compare(hReserved, cbBookmark1, pBookmark1, cbBookmark2, pBookmark2) {
-        pBookmark1Marshal := pBookmark1 is VarRef ? "char*" : "ptr"
-        pBookmark2Marshal := pBookmark2 is VarRef ? "char*" : "ptr"
+        pBookmark1Marshal := pBookmark1 is VarRef ? "char*" : IntPtr
+        pBookmark2Marshal := pBookmark2 is VarRef ? "char*" : IntPtr
 
         result := ComCall(8, this, IntPtr, hReserved, IntPtr, cbBookmark1, pBookmark1Marshal, pBookmark1, IntPtr, cbBookmark2, pBookmark2Marshal, pBookmark2, "uint*", &pComparison := 0, "HRESULT")
         return pComparison
     }
 
     /**
-     * 
      * @param {Pointer} hReserved1 
      * @param {Pointer} hReserved2 
      * @param {Pointer} cbBookmark 
@@ -68,16 +66,15 @@ export default struct IRowsetLocate extends IRowset {
      * @returns {HRESULT} 
      */
     GetRowsAt(hReserved1, hReserved2, cbBookmark, pBookmark, lRowsOffset, cRows, pcRowsObtained, prghRows) {
-        pBookmarkMarshal := pBookmark is VarRef ? "char*" : "ptr"
-        pcRowsObtainedMarshal := pcRowsObtained is VarRef ? "ptr*" : "ptr"
-        prghRowsMarshal := prghRows is VarRef ? "ptr*" : "ptr"
+        pBookmarkMarshal := pBookmark is VarRef ? "char*" : IntPtr
+        pcRowsObtainedMarshal := pcRowsObtained is VarRef ? "ptr*" : IntPtr
+        prghRowsMarshal := prghRows is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(9, this, IntPtr, hReserved1, IntPtr, hReserved2, IntPtr, cbBookmark, pBookmarkMarshal, pBookmark, IntPtr, lRowsOffset, IntPtr, cRows, pcRowsObtainedMarshal, pcRowsObtained, prghRowsMarshal, prghRows, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} hReserved 
      * @param {Pointer} cRows 
      * @param {Pointer<Pointer>} rgcbBookmarks 
@@ -87,17 +84,16 @@ export default struct IRowsetLocate extends IRowset {
      * @returns {HRESULT} 
      */
     GetRowsByBookmark(hReserved, cRows, rgcbBookmarks, rgpBookmarks, rghRows, rgRowStatus) {
-        rgcbBookmarksMarshal := rgcbBookmarks is VarRef ? "ptr*" : "ptr"
-        rgpBookmarksMarshal := rgpBookmarks is VarRef ? "ptr*" : "ptr"
-        rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
-        rgRowStatusMarshal := rgRowStatus is VarRef ? "uint*" : "ptr"
+        rgcbBookmarksMarshal := rgcbBookmarks is VarRef ? "ptr*" : IntPtr
+        rgpBookmarksMarshal := rgpBookmarks is VarRef ? "ptr*" : IntPtr
+        rghRowsMarshal := rghRows is VarRef ? "ptr*" : IntPtr
+        rgRowStatusMarshal := rgRowStatus is VarRef ? "uint*" : IntPtr
 
         result := ComCall(10, this, IntPtr, hReserved, IntPtr, cRows, rgcbBookmarksMarshal, rgcbBookmarks, rgpBookmarksMarshal, rgpBookmarks, rghRowsMarshal, rghRows, rgRowStatusMarshal, rgRowStatus, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} hReserved 
      * @param {Pointer} cBookmarks 
      * @param {Pointer<Pointer>} rgcbBookmarks 
@@ -107,10 +103,10 @@ export default struct IRowsetLocate extends IRowset {
      * @returns {HRESULT} 
      */
     Hash(hReserved, cBookmarks, rgcbBookmarks, rgpBookmarks, rgHashedValues, rgBookmarkStatus) {
-        rgcbBookmarksMarshal := rgcbBookmarks is VarRef ? "ptr*" : "ptr"
-        rgpBookmarksMarshal := rgpBookmarks is VarRef ? "ptr*" : "ptr"
-        rgHashedValuesMarshal := rgHashedValues is VarRef ? "ptr*" : "ptr"
-        rgBookmarkStatusMarshal := rgBookmarkStatus is VarRef ? "uint*" : "ptr"
+        rgcbBookmarksMarshal := rgcbBookmarks is VarRef ? "ptr*" : IntPtr
+        rgpBookmarksMarshal := rgpBookmarks is VarRef ? "ptr*" : IntPtr
+        rgHashedValuesMarshal := rgHashedValues is VarRef ? "ptr*" : IntPtr
+        rgBookmarkStatusMarshal := rgBookmarkStatus is VarRef ? "uint*" : IntPtr
 
         result := ComCall(11, this, IntPtr, hReserved, IntPtr, cBookmarks, rgcbBookmarksMarshal, rgcbBookmarks, rgpBookmarksMarshal, rgpBookmarks, rgHashedValuesMarshal, rgHashedValues, rgBookmarkStatusMarshal, rgBookmarkStatus, "HRESULT")
         return result
@@ -125,10 +121,10 @@ export default struct IRowsetLocate extends IRowset {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Compare := CallbackCreate(GetMethod(implObj, "Compare"), flags, 7)
-        this.vtbl.GetRowsAt := CallbackCreate(GetMethod(implObj, "GetRowsAt"), flags, 9)
-        this.vtbl.GetRowsByBookmark := CallbackCreate(GetMethod(implObj, "GetRowsByBookmark"), flags, 7)
-        this.vtbl.Hash := CallbackCreate(GetMethod(implObj, "Hash"), flags, 7)
+        this.vtbl.Compare := CallbackCreate(ObjBindMethod(implObj, "Compare"), flags, 7)
+        this.vtbl.GetRowsAt := CallbackCreate(ObjBindMethod(implObj, "GetRowsAt"), flags, 9)
+        this.vtbl.GetRowsByBookmark := CallbackCreate(ObjBindMethod(implObj, "GetRowsByBookmark"), flags, 7)
+        this.vtbl.Hash := CallbackCreate(ObjBindMethod(implObj, "Hash"), flags, 7)
     }
 
     Dispose() {

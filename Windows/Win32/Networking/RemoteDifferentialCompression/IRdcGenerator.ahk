@@ -85,9 +85,9 @@ export default struct IRdcGenerator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcgenerator-process
      */
     Process(endOfInput, endOfOutput, inputBuffer, depth, outputBuffers, _rdc_ErrorCode) {
-        endOfOutputMarshal := endOfOutput is VarRef ? "int*" : "ptr"
-        outputBuffersMarshal := outputBuffers is VarRef ? "ptr*" : "ptr"
-        _rdc_ErrorCodeMarshal := _rdc_ErrorCode is VarRef ? "int*" : "ptr"
+        endOfOutputMarshal := endOfOutput is VarRef ? "int*" : IntPtr
+        outputBuffersMarshal := outputBuffers is VarRef ? "ptr*" : IntPtr
+        _rdc_ErrorCodeMarshal := _rdc_ErrorCode is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, BOOL, endOfInput, endOfOutputMarshal, endOfOutput, RdcBufferPointer.Ptr, inputBuffer, UInt32, depth, outputBuffersMarshal, outputBuffers, _rdc_ErrorCodeMarshal, _rdc_ErrorCode, "HRESULT")
         return result
@@ -102,8 +102,8 @@ export default struct IRdcGenerator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetGeneratorParameters := CallbackCreate(GetMethod(implObj, "GetGeneratorParameters"), flags, 3)
-        this.vtbl.Process := CallbackCreate(GetMethod(implObj, "Process"), flags, 7)
+        this.vtbl.GetGeneratorParameters := CallbackCreate(ObjBindMethod(implObj, "GetGeneratorParameters"), flags, 3)
+        this.vtbl.Process := CallbackCreate(ObjBindMethod(implObj, "Process"), flags, 7)
     }
 
     Dispose() {

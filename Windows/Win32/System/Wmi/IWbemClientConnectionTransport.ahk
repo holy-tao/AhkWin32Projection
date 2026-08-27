@@ -42,7 +42,6 @@ export default struct IWbemClientConnectionTransport extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} strAddressType 
      * @param {Integer} dwBinaryAddressLength 
      * @param {Pointer<Integer>} abBinaryAddress 
@@ -64,15 +63,14 @@ export default struct IWbemClientConnectionTransport extends IUnknown {
         strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
         strLocale := strLocale is String ? BSTR.Alloc(strLocale).Value : strLocale
 
-        abBinaryAddressMarshal := abBinaryAddress is VarRef ? "char*" : "ptr"
-        pInterfaceMarshal := pInterface is VarRef ? "ptr*" : "ptr"
+        abBinaryAddressMarshal := abBinaryAddress is VarRef ? "char*" : IntPtr
+        pInterfaceMarshal := pInterface is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, BSTR, strAddressType, UInt32, dwBinaryAddressLength, abBinaryAddressMarshal, abBinaryAddress, BSTR, strObject, BSTR, strUser, BSTR, strPassword, BSTR, strLocale, Int32, lFlags, "ptr", pCtx, Guid.Ptr, riid, pInterfaceMarshal, pInterface, IWbemCallResult.Ptr, pCallRes, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {BSTR} strAddressType 
      * @param {Integer} dwBinaryAddressLength 
      * @param {Pointer<Integer>} abBinaryAddress 
@@ -93,14 +91,13 @@ export default struct IWbemClientConnectionTransport extends IUnknown {
         strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
         strLocale := strLocale is String ? BSTR.Alloc(strLocale).Value : strLocale
 
-        abBinaryAddressMarshal := abBinaryAddress is VarRef ? "char*" : "ptr"
+        abBinaryAddressMarshal := abBinaryAddress is VarRef ? "char*" : IntPtr
 
         result := ComCall(4, this, BSTR, strAddressType, UInt32, dwBinaryAddressLength, abBinaryAddressMarshal, abBinaryAddress, BSTR, strObject, BSTR, strUser, BSTR, strPassword, BSTR, strLocale, Int32, lFlags, "ptr", pCtx, Guid.Ptr, riid, "ptr", pResponseHandler, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} lFlags 
      * @param {IWbemObjectSink} pHandler 
      * @returns {HRESULT} 
@@ -119,9 +116,9 @@ export default struct IWbemClientConnectionTransport extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 13)
-        this.vtbl.OpenAsync := CallbackCreate(GetMethod(implObj, "OpenAsync"), flags, 12)
-        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 3)
+        this.vtbl.Open := CallbackCreate(ObjBindMethod(implObj, "Open"), flags, 13)
+        this.vtbl.OpenAsync := CallbackCreate(ObjBindMethod(implObj, "OpenAsync"), flags, 12)
+        this.vtbl.Cancel := CallbackCreate(ObjBindMethod(implObj, "Cancel"), flags, 3)
     }
 
     Dispose() {

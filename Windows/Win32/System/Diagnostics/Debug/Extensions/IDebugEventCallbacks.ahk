@@ -52,7 +52,6 @@ export default struct IDebugEventCallbacks extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetInterestMask() {
@@ -61,7 +60,6 @@ export default struct IDebugEventCallbacks extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugBreakpoint} Bp 
      * @returns {HRESULT} 
      */
@@ -71,7 +69,6 @@ export default struct IDebugEventCallbacks extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<EXCEPTION_RECORD64>} Exception 
      * @param {Integer} FirstChance 
      * @returns {HRESULT} 
@@ -277,7 +274,10 @@ export default struct IDebugEventCallbacks extends IUnknown {
         ModuleName := ModuleName is String ? StrPtr(ModuleName) : ModuleName
         ImageName := ImageName is String ? StrPtr(ImageName) : ImageName
 
-        result := ComCall(8, this, Int64, ImageFileHandle, Int64, _Handle, Int64, BaseOffset, UInt32, ModuleSize, "ptr", ModuleName, "ptr", ImageName, UInt32, CheckSum, UInt32, TimeDateStamp, Int64, InitialThreadHandle, Int64, ThreadDataOffset, Int64, StartOffset, "HRESULT")
+        ModuleNameMarshal := ModuleName == 0 ? IntPtr : PSTR
+        ImageNameMarshal := ImageName == 0 ? IntPtr : PSTR
+
+        result := ComCall(8, this, Int64, ImageFileHandle, Int64, _Handle, Int64, BaseOffset, UInt32, ModuleSize, ModuleNameMarshal, ModuleName, ImageNameMarshal, ImageName, UInt32, CheckSum, UInt32, TimeDateStamp, Int64, InitialThreadHandle, Int64, ThreadDataOffset, Int64, StartOffset, "HRESULT")
         return result
     }
 
@@ -490,12 +490,14 @@ export default struct IDebugEventCallbacks extends IUnknown {
         ModuleName := ModuleName is String ? StrPtr(ModuleName) : ModuleName
         ImageName := ImageName is String ? StrPtr(ImageName) : ImageName
 
-        result := ComCall(10, this, Int64, ImageFileHandle, Int64, BaseOffset, UInt32, ModuleSize, "ptr", ModuleName, "ptr", ImageName, UInt32, CheckSum, UInt32, TimeDateStamp, "HRESULT")
+        ModuleNameMarshal := ModuleName == 0 ? IntPtr : PSTR
+        ImageNameMarshal := ImageName == 0 ? IntPtr : PSTR
+
+        result := ComCall(10, this, Int64, ImageFileHandle, Int64, BaseOffset, UInt32, ModuleSize, ModuleNameMarshal, ModuleName, ImageNameMarshal, ImageName, UInt32, CheckSum, UInt32, TimeDateStamp, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PSTR} ImageBaseName 
      * @param {Integer} BaseOffset 
      * @returns {HRESULT} 
@@ -503,12 +505,13 @@ export default struct IDebugEventCallbacks extends IUnknown {
     UnloadModule(ImageBaseName, BaseOffset) {
         ImageBaseName := ImageBaseName is String ? StrPtr(ImageBaseName) : ImageBaseName
 
-        result := ComCall(11, this, "ptr", ImageBaseName, Int64, BaseOffset, "HRESULT")
+        ImageBaseNameMarshal := ImageBaseName == 0 ? IntPtr : PSTR
+
+        result := ComCall(11, this, ImageBaseNameMarshal, ImageBaseName, Int64, BaseOffset, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} _Error 
      * @param {Integer} Level 
      * @returns {HRESULT} 
@@ -519,7 +522,6 @@ export default struct IDebugEventCallbacks extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Status 
      * @returns {HRESULT} 
      */
@@ -529,7 +531,6 @@ export default struct IDebugEventCallbacks extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @param {Integer} Argument 
      * @returns {HRESULT} 
@@ -540,7 +541,6 @@ export default struct IDebugEventCallbacks extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @param {Integer} Argument 
      * @returns {HRESULT} 
@@ -551,7 +551,6 @@ export default struct IDebugEventCallbacks extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @param {Integer} Argument 
      * @returns {HRESULT} 
@@ -570,20 +569,20 @@ export default struct IDebugEventCallbacks extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetInterestMask := CallbackCreate(GetMethod(implObj, "GetInterestMask"), flags, 2)
-        this.vtbl.Breakpoint := CallbackCreate(GetMethod(implObj, "Breakpoint"), flags, 2)
-        this.vtbl.Exception := CallbackCreate(GetMethod(implObj, "Exception"), flags, 3)
-        this.vtbl.CreateThread := CallbackCreate(GetMethod(implObj, "CreateThread"), flags, 4)
-        this.vtbl.ExitThread := CallbackCreate(GetMethod(implObj, "ExitThread"), flags, 2)
-        this.vtbl.CreateProcessA := CallbackCreate(GetMethod(implObj, "CreateProcessA"), flags, 12)
-        this.vtbl.ExitProcess := CallbackCreate(GetMethod(implObj, "ExitProcess"), flags, 2)
-        this.vtbl.LoadModule := CallbackCreate(GetMethod(implObj, "LoadModule"), flags, 8)
-        this.vtbl.UnloadModule := CallbackCreate(GetMethod(implObj, "UnloadModule"), flags, 3)
-        this.vtbl.SystemError := CallbackCreate(GetMethod(implObj, "SystemError"), flags, 3)
-        this.vtbl.SessionStatus := CallbackCreate(GetMethod(implObj, "SessionStatus"), flags, 2)
-        this.vtbl.ChangeDebuggeeState := CallbackCreate(GetMethod(implObj, "ChangeDebuggeeState"), flags, 3)
-        this.vtbl.ChangeEngineState := CallbackCreate(GetMethod(implObj, "ChangeEngineState"), flags, 3)
-        this.vtbl.ChangeSymbolState := CallbackCreate(GetMethod(implObj, "ChangeSymbolState"), flags, 3)
+        this.vtbl.GetInterestMask := CallbackCreate(ObjBindMethod(implObj, "GetInterestMask"), flags, 2)
+        this.vtbl.Breakpoint := CallbackCreate(ObjBindMethod(implObj, "Breakpoint"), flags, 2)
+        this.vtbl.Exception := CallbackCreate(ObjBindMethod(implObj, "Exception"), flags, 3)
+        this.vtbl.CreateThread := CallbackCreate(ObjBindMethod(implObj, "CreateThread"), flags, 4)
+        this.vtbl.ExitThread := CallbackCreate(ObjBindMethod(implObj, "ExitThread"), flags, 2)
+        this.vtbl.CreateProcessA := CallbackCreate(ObjBindMethod(implObj, "CreateProcessA"), flags, 12)
+        this.vtbl.ExitProcess := CallbackCreate(ObjBindMethod(implObj, "ExitProcess"), flags, 2)
+        this.vtbl.LoadModule := CallbackCreate(ObjBindMethod(implObj, "LoadModule"), flags, 8)
+        this.vtbl.UnloadModule := CallbackCreate(ObjBindMethod(implObj, "UnloadModule"), flags, 3)
+        this.vtbl.SystemError := CallbackCreate(ObjBindMethod(implObj, "SystemError"), flags, 3)
+        this.vtbl.SessionStatus := CallbackCreate(ObjBindMethod(implObj, "SessionStatus"), flags, 2)
+        this.vtbl.ChangeDebuggeeState := CallbackCreate(ObjBindMethod(implObj, "ChangeDebuggeeState"), flags, 3)
+        this.vtbl.ChangeEngineState := CallbackCreate(ObjBindMethod(implObj, "ChangeEngineState"), flags, 3)
+        this.vtbl.ChangeSymbolState := CallbackCreate(ObjBindMethod(implObj, "ChangeSymbolState"), flags, 3)
     }
 
     Dispose() {

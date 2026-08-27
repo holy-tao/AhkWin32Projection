@@ -96,9 +96,9 @@ export default struct IMFWorkQueueServicesEx extends IMFWorkQueueServices {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTopologyWorkQueueMMCSSPriority := CallbackCreate(GetMethod(implObj, "GetTopologyWorkQueueMMCSSPriority"), flags, 3)
-        this.vtbl.BeginRegisterPlatformWorkQueueWithMMCSSEx := CallbackCreate(GetMethod(implObj, "BeginRegisterPlatformWorkQueueWithMMCSSEx"), flags, 7)
-        this.vtbl.GetPlatformWorkQueueMMCSSPriority := CallbackCreate(GetMethod(implObj, "GetPlatformWorkQueueMMCSSPriority"), flags, 3)
+        this.vtbl.GetTopologyWorkQueueMMCSSPriority := CallbackCreate(ObjBindMethod(implObj, "GetTopologyWorkQueueMMCSSPriority"), flags, 3)
+        this.vtbl.BeginRegisterPlatformWorkQueueWithMMCSSEx := CallbackCreate(ObjBindMethod(implObj, "BeginRegisterPlatformWorkQueueWithMMCSSEx"), flags, 7)
+        this.vtbl.GetPlatformWorkQueueMMCSSPriority := CallbackCreate(ObjBindMethod(implObj, "GetPlatformWorkQueueMMCSSPriority"), flags, 3)
     }
 
     Dispose() {

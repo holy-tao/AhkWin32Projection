@@ -20,7 +20,6 @@ export default struct PCLUSAPI_GET_CLUSTER_NOTIFY {
     }
 
     /**
-     * 
      * @param {HCHANGE} _hChange 
      * @param {Pointer<Pointer>} lpdwNotifyKey 
      * @param {Pointer<Integer>} lpdwFilterType 
@@ -32,11 +31,12 @@ export default struct PCLUSAPI_GET_CLUSTER_NOTIFY {
     Call(_hChange, lpdwNotifyKey, lpdwFilterType, lpszName, lpcchName, dwMilliseconds) {
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
-        lpdwNotifyKeyMarshal := lpdwNotifyKey is VarRef ? "ptr*" : "ptr"
-        lpdwFilterTypeMarshal := lpdwFilterType is VarRef ? "uint*" : "ptr"
-        lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
+        lpdwNotifyKeyMarshal := lpdwNotifyKey is VarRef ? "ptr*" : IntPtr
+        lpdwFilterTypeMarshal := lpdwFilterType is VarRef ? "uint*" : IntPtr
+        lpszNameMarshal := lpszName == 0 ? IntPtr : PWSTR
+        lpcchNameMarshal := lpcchName is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, HCHANGE, _hChange, lpdwNotifyKeyMarshal, lpdwNotifyKey, lpdwFilterTypeMarshal, lpdwFilterType, "ptr", lpszName, lpcchNameMarshal, lpcchName, UInt32, dwMilliseconds, UInt32)
+        result := DllCall(this.value, HCHANGE, _hChange, lpdwNotifyKeyMarshal, lpdwNotifyKey, lpdwFilterTypeMarshal, lpdwFilterType, lpszNameMarshal, lpszName, lpcchNameMarshal, lpcchName, UInt32, dwMilliseconds, UInt32)
         return result
     }
 

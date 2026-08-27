@@ -43,7 +43,6 @@ export default struct IMSMQApplication extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} MachineName 
      * @returns {BSTR} 
      */
@@ -64,7 +63,7 @@ export default struct IMSMQApplication extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.MachineIdOfMachineName := CallbackCreate(GetMethod(implObj, "MachineIdOfMachineName"), flags, 3)
+        this.vtbl.MachineIdOfMachineName := CallbackCreate(ObjBindMethod(implObj, "MachineIdOfMachineName"), flags, 3)
     }
 
     Dispose() {

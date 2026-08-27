@@ -19,7 +19,6 @@ export default struct UTextClose {
     }
 
     /**
-     * 
      * @param {Pointer<UText>} ut 
      * @returns {String} Nothing - always returns an empty string
      */

@@ -37,7 +37,6 @@ export default struct IChapteredRowset extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hChapter 
      * @returns {Integer} 
      */
@@ -47,7 +46,6 @@ export default struct IChapteredRowset extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hChapter 
      * @returns {Integer} 
      */
@@ -65,8 +63,8 @@ export default struct IChapteredRowset extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddRefChapter := CallbackCreate(GetMethod(implObj, "AddRefChapter"), flags, 3)
-        this.vtbl.ReleaseChapter := CallbackCreate(GetMethod(implObj, "ReleaseChapter"), flags, 3)
+        this.vtbl.AddRefChapter := CallbackCreate(ObjBindMethod(implObj, "AddRefChapter"), flags, 3)
+        this.vtbl.ReleaseChapter := CallbackCreate(ObjBindMethod(implObj, "ReleaseChapter"), flags, 3)
     }
 
     Dispose() {

@@ -65,7 +65,7 @@ export default struct ID3D12PipelineState extends ID3D12Pageable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCachedBlob := CallbackCreate(GetMethod(implObj, "GetCachedBlob"), flags, 2)
+        this.vtbl.GetCachedBlob := CallbackCreate(ObjBindMethod(implObj, "GetCachedBlob"), flags, 2)
     }
 
     Dispose() {

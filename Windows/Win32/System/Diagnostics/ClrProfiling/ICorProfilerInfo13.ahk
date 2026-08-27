@@ -39,7 +39,6 @@ export default struct ICorProfilerInfo13 extends ICorProfilerInfo12 {
     }
 
     /**
-     * 
      * @param {Pointer} _object 
      * @param {COR_PRF_HANDLE_TYPE} type 
      * @returns {Pointer<Pointer<Void>>} 
@@ -50,24 +49,22 @@ export default struct ICorProfilerInfo13 extends ICorProfilerInfo12 {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _handle 
      * @returns {HRESULT} 
      */
     DestroyHandle(_handle) {
-        _handleMarshal := _handle is VarRef ? "ptr*" : "ptr"
+        _handleMarshal := _handle is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(109, this, _handleMarshal, _handle, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _handle 
      * @returns {Pointer} 
      */
     GetObjectIDFromHandle(_handle) {
-        _handleMarshal := _handle is VarRef ? "ptr*" : "ptr"
+        _handleMarshal := _handle is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(110, this, _handleMarshal, _handle, "ptr*", &pObject := 0, "HRESULT")
         return pObject
@@ -82,9 +79,9 @@ export default struct ICorProfilerInfo13 extends ICorProfilerInfo12 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateHandle := CallbackCreate(GetMethod(implObj, "CreateHandle"), flags, 4)
-        this.vtbl.DestroyHandle := CallbackCreate(GetMethod(implObj, "DestroyHandle"), flags, 2)
-        this.vtbl.GetObjectIDFromHandle := CallbackCreate(GetMethod(implObj, "GetObjectIDFromHandle"), flags, 3)
+        this.vtbl.CreateHandle := CallbackCreate(ObjBindMethod(implObj, "CreateHandle"), flags, 4)
+        this.vtbl.DestroyHandle := CallbackCreate(ObjBindMethod(implObj, "DestroyHandle"), flags, 2)
+        this.vtbl.GetObjectIDFromHandle := CallbackCreate(ObjBindMethod(implObj, "GetObjectIDFromHandle"), flags, 3)
     }
 
     Dispose() {

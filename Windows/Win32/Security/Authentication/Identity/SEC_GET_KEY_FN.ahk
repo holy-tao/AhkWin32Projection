@@ -19,7 +19,6 @@ export default struct SEC_GET_KEY_FN {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Arg 
      * @param {Pointer<Void>} Principal 
      * @param {Integer} KeyVer 
@@ -28,10 +27,10 @@ export default struct SEC_GET_KEY_FN {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(Arg, Principal, KeyVer, Key, _Status) {
-        ArgMarshal := Arg is VarRef ? "ptr" : "ptr"
-        PrincipalMarshal := Principal is VarRef ? "ptr" : "ptr"
-        KeyMarshal := Key is VarRef ? "ptr*" : "ptr"
-        _StatusMarshal := _Status is VarRef ? "int*" : "ptr"
+        ArgMarshal := Arg is VarRef ? "ptr" : IntPtr
+        PrincipalMarshal := Principal is VarRef ? "ptr" : IntPtr
+        KeyMarshal := Key is VarRef ? "ptr*" : IntPtr
+        _StatusMarshal := _Status is VarRef ? "int*" : IntPtr
 
         DllCall(this.value, ArgMarshal, Arg, PrincipalMarshal, Principal, UInt32, KeyVer, KeyMarshal, Key, _StatusMarshal, _Status)
     }

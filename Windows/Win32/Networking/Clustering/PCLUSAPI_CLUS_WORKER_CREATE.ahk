@@ -20,14 +20,13 @@ export default struct PCLUSAPI_CLUS_WORKER_CREATE {
     }
 
     /**
-     * 
      * @param {Pointer<CLUS_WORKER>} lpWorker 
      * @param {Pointer<PWORKER_START_ROUTINE>} lpStartAddress 
      * @param {Pointer<Void>} lpParameter 
      * @returns {Integer} 
      */
     Call(lpWorker, lpStartAddress, lpParameter) {
-        lpParameterMarshal := lpParameter is VarRef ? "ptr" : "ptr"
+        lpParameterMarshal := lpParameter is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, CLUS_WORKER.Ptr, lpWorker, PWORKER_START_ROUTINE, lpStartAddress, lpParameterMarshal, lpParameter, UInt32)
         return result

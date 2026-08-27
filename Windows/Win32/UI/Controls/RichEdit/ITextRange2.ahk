@@ -213,7 +213,9 @@ export default struct ITextRange2 extends ITextSelection {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-setfont2
      */
     SetFont2(pFont) {
-        result := ComCall(74, this, "ptr", pFont, "HRESULT")
+        pFontMarshal := pFont == 0 ? IntPtr : "ptr"
+
+        result := ComCall(74, this, pFontMarshal, pFont, "HRESULT")
         return result
     }
 
@@ -280,7 +282,9 @@ export default struct ITextRange2 extends ITextSelection {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-setformattedtext2
      */
     SetFormattedText2(pRange) {
-        result := ComCall(76, this, "ptr", pRange, "HRESULT")
+        pRangeMarshal := pRange == 0 ? IntPtr : "ptr"
+
+        result := ComCall(76, this, pRangeMarshal, pRange, "HRESULT")
         return result
     }
 
@@ -382,7 +386,9 @@ export default struct ITextRange2 extends ITextSelection {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-setpara2
      */
     SetPara2(pPara) {
-        result := ComCall(80, this, "ptr", pPara, "HRESULT")
+        pParaMarshal := pPara == 0 ? IntPtr : "ptr"
+
+        result := ComCall(80, this, pParaMarshal, pPara, "HRESULT")
         return result
     }
 
@@ -613,7 +619,9 @@ export default struct ITextRange2 extends ITextSelection {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-find
      */
     Find(pRange, Count, Flags) {
-        result := ComCall(89, this, "ptr", pRange, Int32, Count, Int32, Flags, "int*", &pDelta := 0, "HRESULT")
+        pRangeMarshal := pRange == 0 ? IntPtr : "ptr"
+
+        result := ComCall(89, this, pRangeMarshal, pRange, Int32, Count, Int32, Flags, "int*", &pDelta := 0, "HRESULT")
         return pDelta
     }
 
@@ -682,8 +690,8 @@ export default struct ITextRange2 extends ITextSelection {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-getdropcap
      */
     GetDropCap(pcLine, pPosition) {
-        pcLineMarshal := pcLine is VarRef ? "int*" : "ptr"
-        pPositionMarshal := pPosition is VarRef ? "int*" : "ptr"
+        pcLineMarshal := pcLine is VarRef ? "int*" : IntPtr
+        pPositionMarshal := pPosition is VarRef ? "int*" : IntPtr
 
         result := ComCall(91, this, pcLineMarshal, pcLine, pPositionMarshal, pPosition, "HRESULT")
         return result
@@ -1018,15 +1026,15 @@ export default struct ITextRange2 extends ITextSelection {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-getinlineobject
      */
     GetInlineObject(pType, pAlign, pChar, pChar1, pChar2, pCount, pTeXStyle, pcCol, pLevel) {
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-        pAlignMarshal := pAlign is VarRef ? "int*" : "ptr"
-        pCharMarshal := pChar is VarRef ? "int*" : "ptr"
-        pChar1Marshal := pChar1 is VarRef ? "int*" : "ptr"
-        pChar2Marshal := pChar2 is VarRef ? "int*" : "ptr"
-        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
-        pTeXStyleMarshal := pTeXStyle is VarRef ? "int*" : "ptr"
-        pcColMarshal := pcCol is VarRef ? "int*" : "ptr"
-        pLevelMarshal := pLevel is VarRef ? "int*" : "ptr"
+        pTypeMarshal := pType is VarRef ? "int*" : IntPtr
+        pAlignMarshal := pAlign is VarRef ? "int*" : IntPtr
+        pCharMarshal := pChar is VarRef ? "int*" : IntPtr
+        pChar1Marshal := pChar1 is VarRef ? "int*" : IntPtr
+        pChar2Marshal := pChar2 is VarRef ? "int*" : IntPtr
+        pCountMarshal := pCount is VarRef ? "int*" : IntPtr
+        pTeXStyleMarshal := pTeXStyle is VarRef ? "int*" : IntPtr
+        pcColMarshal := pcCol is VarRef ? "int*" : IntPtr
+        pLevelMarshal := pLevel is VarRef ? "int*" : IntPtr
 
         result := ComCall(92, this, pTypeMarshal, pType, pAlignMarshal, pAlign, pCharMarshal, pChar, pChar1Marshal, pChar1, pChar2Marshal, pChar2, pCountMarshal, pCount, pTeXStyleMarshal, pTeXStyle, pcColMarshal, pcCol, pLevelMarshal, pLevel, "HRESULT")
         return result
@@ -1077,11 +1085,11 @@ export default struct ITextRange2 extends ITextSelection {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-getrect
      */
     GetRect(Type, pLeft, pTop, pRight, pBottom, pHit) {
-        pLeftMarshal := pLeft is VarRef ? "int*" : "ptr"
-        pTopMarshal := pTop is VarRef ? "int*" : "ptr"
-        pRightMarshal := pRight is VarRef ? "int*" : "ptr"
-        pBottomMarshal := pBottom is VarRef ? "int*" : "ptr"
-        pHitMarshal := pHit is VarRef ? "int*" : "ptr"
+        pLeftMarshal := pLeft is VarRef ? "int*" : IntPtr
+        pTopMarshal := pTop is VarRef ? "int*" : IntPtr
+        pRightMarshal := pRight is VarRef ? "int*" : IntPtr
+        pBottomMarshal := pBottom is VarRef ? "int*" : IntPtr
+        pHitMarshal := pHit is VarRef ? "int*" : IntPtr
 
         result := ComCall(94, this, Int32, Type, pLeftMarshal, pLeft, pTopMarshal, pTop, pRightMarshal, pRight, pBottomMarshal, pBottom, pHitMarshal, pHit, "HRESULT")
         return result
@@ -1128,8 +1136,8 @@ export default struct ITextRange2 extends ITextSelection {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-getsubrange
      */
     GetSubrange(iSubrange, pcpFirst, pcpLim) {
-        pcpFirstMarshal := pcpFirst is VarRef ? "int*" : "ptr"
-        pcpLimMarshal := pcpLim is VarRef ? "int*" : "ptr"
+        pcpFirstMarshal := pcpFirst is VarRef ? "int*" : IntPtr
+        pcpLimMarshal := pcpLim is VarRef ? "int*" : IntPtr
 
         result := ComCall(95, this, Int32, iSubrange, pcpFirstMarshal, pcpFirst, pcpLimMarshal, pcpLim, "HRESULT")
         return result
@@ -1536,7 +1544,9 @@ export default struct ITextRange2 extends ITextSelection {
     InsertImage(width, height, ascent, Type, bstrAltText, pStream) {
         bstrAltText := bstrAltText is String ? BSTR.Alloc(bstrAltText).Value : bstrAltText
 
-        result := ComCall(107, this, Int32, width, Int32, height, Int32, ascent, Int32, Type, BSTR, bstrAltText, "ptr", pStream, "HRESULT")
+        pStreamMarshal := pStream == 0 ? IntPtr : "ptr"
+
+        result := ComCall(107, this, Int32, width, Int32, height, Int32, ascent, Int32, Type, BSTR, bstrAltText, pStreamMarshal, pStream, "HRESULT")
         return result
     }
 
@@ -1549,46 +1559,46 @@ export default struct ITextRange2 extends ITextSelection {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCch := CallbackCreate(GetMethod(implObj, "GetCch"), flags, 2)
-        this.vtbl.GetCells := CallbackCreate(GetMethod(implObj, "GetCells"), flags, 2)
-        this.vtbl.GetColumn := CallbackCreate(GetMethod(implObj, "GetColumn"), flags, 2)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
-        this.vtbl.GetDuplicate2 := CallbackCreate(GetMethod(implObj, "GetDuplicate2"), flags, 2)
-        this.vtbl.GetFont2 := CallbackCreate(GetMethod(implObj, "GetFont2"), flags, 2)
-        this.vtbl.SetFont2 := CallbackCreate(GetMethod(implObj, "SetFont2"), flags, 2)
-        this.vtbl.GetFormattedText2 := CallbackCreate(GetMethod(implObj, "GetFormattedText2"), flags, 2)
-        this.vtbl.SetFormattedText2 := CallbackCreate(GetMethod(implObj, "SetFormattedText2"), flags, 2)
-        this.vtbl.GetGravity := CallbackCreate(GetMethod(implObj, "GetGravity"), flags, 2)
-        this.vtbl.SetGravity := CallbackCreate(GetMethod(implObj, "SetGravity"), flags, 2)
-        this.vtbl.GetPara2 := CallbackCreate(GetMethod(implObj, "GetPara2"), flags, 2)
-        this.vtbl.SetPara2 := CallbackCreate(GetMethod(implObj, "SetPara2"), flags, 2)
-        this.vtbl.GetRow := CallbackCreate(GetMethod(implObj, "GetRow"), flags, 2)
-        this.vtbl.GetStartPara := CallbackCreate(GetMethod(implObj, "GetStartPara"), flags, 2)
-        this.vtbl.GetTable := CallbackCreate(GetMethod(implObj, "GetTable"), flags, 2)
-        this.vtbl.GetURL := CallbackCreate(GetMethod(implObj, "GetURL"), flags, 2)
-        this.vtbl.SetURL := CallbackCreate(GetMethod(implObj, "SetURL"), flags, 2)
-        this.vtbl.AddSubrange := CallbackCreate(GetMethod(implObj, "AddSubrange"), flags, 4)
-        this.vtbl.BuildUpMath := CallbackCreate(GetMethod(implObj, "BuildUpMath"), flags, 2)
-        this.vtbl.DeleteSubrange := CallbackCreate(GetMethod(implObj, "DeleteSubrange"), flags, 3)
-        this.vtbl.Find := CallbackCreate(GetMethod(implObj, "Find"), flags, 5)
-        this.vtbl.GetChar2 := CallbackCreate(GetMethod(implObj, "GetChar2"), flags, 3)
-        this.vtbl.GetDropCap := CallbackCreate(GetMethod(implObj, "GetDropCap"), flags, 3)
-        this.vtbl.GetInlineObject := CallbackCreate(GetMethod(implObj, "GetInlineObject"), flags, 10)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
-        this.vtbl.GetRect := CallbackCreate(GetMethod(implObj, "GetRect"), flags, 7)
-        this.vtbl.GetSubrange := CallbackCreate(GetMethod(implObj, "GetSubrange"), flags, 4)
-        this.vtbl.GetText2 := CallbackCreate(GetMethod(implObj, "GetText2"), flags, 3)
-        this.vtbl.HexToUnicode := CallbackCreate(GetMethod(implObj, "HexToUnicode"), flags, 1)
-        this.vtbl.InsertTable := CallbackCreate(GetMethod(implObj, "InsertTable"), flags, 4)
-        this.vtbl.Linearize := CallbackCreate(GetMethod(implObj, "Linearize"), flags, 2)
-        this.vtbl.SetActiveSubrange := CallbackCreate(GetMethod(implObj, "SetActiveSubrange"), flags, 3)
-        this.vtbl.SetDropCap := CallbackCreate(GetMethod(implObj, "SetDropCap"), flags, 3)
-        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 3)
-        this.vtbl.SetText2 := CallbackCreate(GetMethod(implObj, "SetText2"), flags, 3)
-        this.vtbl.UnicodeToHex := CallbackCreate(GetMethod(implObj, "UnicodeToHex"), flags, 1)
-        this.vtbl.SetInlineObject := CallbackCreate(GetMethod(implObj, "SetInlineObject"), flags, 9)
-        this.vtbl.GetMathFunctionType := CallbackCreate(GetMethod(implObj, "GetMathFunctionType"), flags, 3)
-        this.vtbl.InsertImage := CallbackCreate(GetMethod(implObj, "InsertImage"), flags, 7)
+        this.vtbl.GetCch := CallbackCreate(ObjBindMethod(implObj, "GetCch"), flags, 2)
+        this.vtbl.GetCells := CallbackCreate(ObjBindMethod(implObj, "GetCells"), flags, 2)
+        this.vtbl.GetColumn := CallbackCreate(ObjBindMethod(implObj, "GetColumn"), flags, 2)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetDuplicate2 := CallbackCreate(ObjBindMethod(implObj, "GetDuplicate2"), flags, 2)
+        this.vtbl.GetFont2 := CallbackCreate(ObjBindMethod(implObj, "GetFont2"), flags, 2)
+        this.vtbl.SetFont2 := CallbackCreate(ObjBindMethod(implObj, "SetFont2"), flags, 2)
+        this.vtbl.GetFormattedText2 := CallbackCreate(ObjBindMethod(implObj, "GetFormattedText2"), flags, 2)
+        this.vtbl.SetFormattedText2 := CallbackCreate(ObjBindMethod(implObj, "SetFormattedText2"), flags, 2)
+        this.vtbl.GetGravity := CallbackCreate(ObjBindMethod(implObj, "GetGravity"), flags, 2)
+        this.vtbl.SetGravity := CallbackCreate(ObjBindMethod(implObj, "SetGravity"), flags, 2)
+        this.vtbl.GetPara2 := CallbackCreate(ObjBindMethod(implObj, "GetPara2"), flags, 2)
+        this.vtbl.SetPara2 := CallbackCreate(ObjBindMethod(implObj, "SetPara2"), flags, 2)
+        this.vtbl.GetRow := CallbackCreate(ObjBindMethod(implObj, "GetRow"), flags, 2)
+        this.vtbl.GetStartPara := CallbackCreate(ObjBindMethod(implObj, "GetStartPara"), flags, 2)
+        this.vtbl.GetTable := CallbackCreate(ObjBindMethod(implObj, "GetTable"), flags, 2)
+        this.vtbl.GetURL := CallbackCreate(ObjBindMethod(implObj, "GetURL"), flags, 2)
+        this.vtbl.SetURL := CallbackCreate(ObjBindMethod(implObj, "SetURL"), flags, 2)
+        this.vtbl.AddSubrange := CallbackCreate(ObjBindMethod(implObj, "AddSubrange"), flags, 4)
+        this.vtbl.BuildUpMath := CallbackCreate(ObjBindMethod(implObj, "BuildUpMath"), flags, 2)
+        this.vtbl.DeleteSubrange := CallbackCreate(ObjBindMethod(implObj, "DeleteSubrange"), flags, 3)
+        this.vtbl.Find := CallbackCreate(ObjBindMethod(implObj, "Find"), flags, 5)
+        this.vtbl.GetChar2 := CallbackCreate(ObjBindMethod(implObj, "GetChar2"), flags, 3)
+        this.vtbl.GetDropCap := CallbackCreate(ObjBindMethod(implObj, "GetDropCap"), flags, 3)
+        this.vtbl.GetInlineObject := CallbackCreate(ObjBindMethod(implObj, "GetInlineObject"), flags, 10)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.GetRect := CallbackCreate(ObjBindMethod(implObj, "GetRect"), flags, 7)
+        this.vtbl.GetSubrange := CallbackCreate(ObjBindMethod(implObj, "GetSubrange"), flags, 4)
+        this.vtbl.GetText2 := CallbackCreate(ObjBindMethod(implObj, "GetText2"), flags, 3)
+        this.vtbl.HexToUnicode := CallbackCreate(ObjBindMethod(implObj, "HexToUnicode"), flags, 1)
+        this.vtbl.InsertTable := CallbackCreate(ObjBindMethod(implObj, "InsertTable"), flags, 4)
+        this.vtbl.Linearize := CallbackCreate(ObjBindMethod(implObj, "Linearize"), flags, 2)
+        this.vtbl.SetActiveSubrange := CallbackCreate(ObjBindMethod(implObj, "SetActiveSubrange"), flags, 3)
+        this.vtbl.SetDropCap := CallbackCreate(ObjBindMethod(implObj, "SetDropCap"), flags, 3)
+        this.vtbl.SetProperty := CallbackCreate(ObjBindMethod(implObj, "SetProperty"), flags, 3)
+        this.vtbl.SetText2 := CallbackCreate(ObjBindMethod(implObj, "SetText2"), flags, 3)
+        this.vtbl.UnicodeToHex := CallbackCreate(ObjBindMethod(implObj, "UnicodeToHex"), flags, 1)
+        this.vtbl.SetInlineObject := CallbackCreate(ObjBindMethod(implObj, "SetInlineObject"), flags, 9)
+        this.vtbl.GetMathFunctionType := CallbackCreate(ObjBindMethod(implObj, "GetMathFunctionType"), flags, 3)
+        this.vtbl.InsertImage := CallbackCreate(ObjBindMethod(implObj, "InsertImage"), flags, 7)
     }
 
     Dispose() {

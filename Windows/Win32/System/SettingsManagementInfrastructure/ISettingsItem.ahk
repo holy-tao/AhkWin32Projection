@@ -166,7 +166,7 @@ export default struct ISettingsItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getvalueraw
      */
     GetValueRaw(Data) {
-        DataMarshal := Data is VarRef ? "ptr*" : "ptr"
+        DataMarshal := Data is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(8, this, DataMarshal, Data, "uint*", &DataSize := 0, "HRESULT")
         return DataSize
@@ -221,7 +221,7 @@ export default struct ISettingsItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-setvalueraw
      */
     SetValueRaw(DataType, Data, DataSize) {
-        DataMarshal := Data is VarRef ? "char*" : "ptr"
+        DataMarshal := Data is VarRef ? "char*" : IntPtr
 
         result := ComCall(9, this, Int32, DataType, DataMarshal, Data, UInt32, DataSize, "HRESULT")
         return result
@@ -585,28 +585,28 @@ export default struct ISettingsItem extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
-        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 2)
-        this.vtbl.SetValue := CallbackCreate(GetMethod(implObj, "SetValue"), flags, 2)
-        this.vtbl.GetSettingType := CallbackCreate(GetMethod(implObj, "GetSettingType"), flags, 2)
-        this.vtbl.GetDataType := CallbackCreate(GetMethod(implObj, "GetDataType"), flags, 2)
-        this.vtbl.GetValueRaw := CallbackCreate(GetMethod(implObj, "GetValueRaw"), flags, 3)
-        this.vtbl.SetValueRaw := CallbackCreate(GetMethod(implObj, "SetValueRaw"), flags, 4)
-        this.vtbl.HasChild := CallbackCreate(GetMethod(implObj, "HasChild"), flags, 2)
-        this.vtbl.Children := CallbackCreate(GetMethod(implObj, "Children"), flags, 2)
-        this.vtbl.GetChild := CallbackCreate(GetMethod(implObj, "GetChild"), flags, 3)
-        this.vtbl.GetSettingByPath := CallbackCreate(GetMethod(implObj, "GetSettingByPath"), flags, 3)
-        this.vtbl.CreateSettingByPath := CallbackCreate(GetMethod(implObj, "CreateSettingByPath"), flags, 3)
-        this.vtbl.RemoveSettingByPath := CallbackCreate(GetMethod(implObj, "RemoveSettingByPath"), flags, 2)
-        this.vtbl.GetListKeyInformation := CallbackCreate(GetMethod(implObj, "GetListKeyInformation"), flags, 3)
-        this.vtbl.CreateListElement := CallbackCreate(GetMethod(implObj, "CreateListElement"), flags, 3)
-        this.vtbl.RemoveListElement := CallbackCreate(GetMethod(implObj, "RemoveListElement"), flags, 2)
-        this.vtbl.Attributes := CallbackCreate(GetMethod(implObj, "Attributes"), flags, 2)
-        this.vtbl.GetAttribute := CallbackCreate(GetMethod(implObj, "GetAttribute"), flags, 3)
-        this.vtbl.GetPath := CallbackCreate(GetMethod(implObj, "GetPath"), flags, 2)
-        this.vtbl.GetRestrictionFacets := CallbackCreate(GetMethod(implObj, "GetRestrictionFacets"), flags, 2)
-        this.vtbl.GetRestriction := CallbackCreate(GetMethod(implObj, "GetRestriction"), flags, 3)
-        this.vtbl.GetKeyValue := CallbackCreate(GetMethod(implObj, "GetKeyValue"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetValue := CallbackCreate(ObjBindMethod(implObj, "GetValue"), flags, 2)
+        this.vtbl.SetValue := CallbackCreate(ObjBindMethod(implObj, "SetValue"), flags, 2)
+        this.vtbl.GetSettingType := CallbackCreate(ObjBindMethod(implObj, "GetSettingType"), flags, 2)
+        this.vtbl.GetDataType := CallbackCreate(ObjBindMethod(implObj, "GetDataType"), flags, 2)
+        this.vtbl.GetValueRaw := CallbackCreate(ObjBindMethod(implObj, "GetValueRaw"), flags, 3)
+        this.vtbl.SetValueRaw := CallbackCreate(ObjBindMethod(implObj, "SetValueRaw"), flags, 4)
+        this.vtbl.HasChild := CallbackCreate(ObjBindMethod(implObj, "HasChild"), flags, 2)
+        this.vtbl.Children := CallbackCreate(ObjBindMethod(implObj, "Children"), flags, 2)
+        this.vtbl.GetChild := CallbackCreate(ObjBindMethod(implObj, "GetChild"), flags, 3)
+        this.vtbl.GetSettingByPath := CallbackCreate(ObjBindMethod(implObj, "GetSettingByPath"), flags, 3)
+        this.vtbl.CreateSettingByPath := CallbackCreate(ObjBindMethod(implObj, "CreateSettingByPath"), flags, 3)
+        this.vtbl.RemoveSettingByPath := CallbackCreate(ObjBindMethod(implObj, "RemoveSettingByPath"), flags, 2)
+        this.vtbl.GetListKeyInformation := CallbackCreate(ObjBindMethod(implObj, "GetListKeyInformation"), flags, 3)
+        this.vtbl.CreateListElement := CallbackCreate(ObjBindMethod(implObj, "CreateListElement"), flags, 3)
+        this.vtbl.RemoveListElement := CallbackCreate(ObjBindMethod(implObj, "RemoveListElement"), flags, 2)
+        this.vtbl.Attributes := CallbackCreate(ObjBindMethod(implObj, "Attributes"), flags, 2)
+        this.vtbl.GetAttribute := CallbackCreate(ObjBindMethod(implObj, "GetAttribute"), flags, 3)
+        this.vtbl.GetPath := CallbackCreate(ObjBindMethod(implObj, "GetPath"), flags, 2)
+        this.vtbl.GetRestrictionFacets := CallbackCreate(ObjBindMethod(implObj, "GetRestrictionFacets"), flags, 2)
+        this.vtbl.GetRestriction := CallbackCreate(ObjBindMethod(implObj, "GetRestriction"), flags, 3)
+        this.vtbl.GetKeyValue := CallbackCreate(ObjBindMethod(implObj, "GetKeyValue"), flags, 2)
     }
 
     Dispose() {

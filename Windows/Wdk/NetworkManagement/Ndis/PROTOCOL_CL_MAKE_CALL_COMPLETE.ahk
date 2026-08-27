@@ -19,7 +19,6 @@ export default struct PROTOCOL_CL_MAKE_CALL_COMPLETE {
     }
 
     /**
-     * 
      * @param {Integer} _Status 
      * @param {Pointer<Void>} ProtocolVcContext 
      * @param {Pointer<Void>} NdisPartyHandle 
@@ -27,9 +26,10 @@ export default struct PROTOCOL_CL_MAKE_CALL_COMPLETE {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Status, ProtocolVcContext, NdisPartyHandle, CallParameters) {
-        ProtocolVcContextMarshal := ProtocolVcContext is VarRef ? "ptr" : "ptr"
-        NdisPartyHandleMarshal := NdisPartyHandle is VarRef ? "ptr" : "ptr"
-        CallParametersMarshal := CallParameters is VarRef ? "ptr*" : "ptr"
+        ProtocolVcContextMarshal := ProtocolVcContext is VarRef ? "ptr" : IntPtr
+        NdisPartyHandleMarshal := NdisPartyHandle is VarRef ? "ptr" : IntPtr
+        NdisPartyHandleMarshal := NdisPartyHandle == 0 ? IntPtr : "ptr"
+        CallParametersMarshal := CallParameters is VarRef ? "ptr*" : IntPtr
 
         DllCall(this.value, Int32, _Status, ProtocolVcContextMarshal, ProtocolVcContext, NdisPartyHandleMarshal, NdisPartyHandle, CallParametersMarshal, CallParameters)
     }

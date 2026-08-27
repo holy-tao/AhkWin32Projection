@@ -21,7 +21,6 @@ export default struct SslEnumEccCurvesFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {Pointer<Integer>} pEccCurveCount 
      * @param {Pointer<Pointer<NCRYPT_SSL_ECC_CURVE>>} ppEccCurve 
@@ -29,8 +28,8 @@ export default struct SslEnumEccCurvesFn {
      * @returns {HRESULT} 
      */
     Call(hSslProvider, pEccCurveCount, ppEccCurve, dwFlags) {
-        pEccCurveCountMarshal := pEccCurveCount is VarRef ? "uint*" : "ptr"
-        ppEccCurveMarshal := ppEccCurve is VarRef ? "ptr*" : "ptr"
+        pEccCurveCountMarshal := pEccCurveCount is VarRef ? "uint*" : IntPtr
+        ppEccCurveMarshal := ppEccCurve is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, NCRYPT_PROV_HANDLE, hSslProvider, pEccCurveCountMarshal, pEccCurveCount, ppEccCurveMarshal, ppEccCurve, UInt32, dwFlags, "HRESULT")
         return result

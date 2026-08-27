@@ -62,7 +62,7 @@ export default struct IVisualTreeServiceCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnVisualTreeChange := CallbackCreate(GetMethod(implObj, "OnVisualTreeChange"), flags, 4)
+        this.vtbl.OnVisualTreeChange := CallbackCreate(ObjBindMethod(implObj, "OnVisualTreeChange"), flags, 4)
     }
 
     Dispose() {

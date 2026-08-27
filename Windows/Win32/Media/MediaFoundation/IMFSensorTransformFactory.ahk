@@ -45,7 +45,6 @@ export default struct IMFSensorTransformFactory extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IMFAttributes} 
      */
     GetFactoryAttributes() {
@@ -62,7 +61,9 @@ export default struct IMFSensorTransformFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensortransformfactory-initializefactory
      */
     InitializeFactory(dwMaxTransformCount, pSensorDevices, pAttributes) {
-        result := ComCall(4, this, UInt32, dwMaxTransformCount, "ptr", pSensorDevices, "ptr", pAttributes, "HRESULT")
+        pAttributesMarshal := pAttributes == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, UInt32, dwMaxTransformCount, "ptr", pSensorDevices, pAttributesMarshal, pAttributes, "HRESULT")
         return result
     }
 
@@ -100,7 +101,9 @@ export default struct IMFSensorTransformFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensortransformfactory-createtransform
      */
     CreateTransform(guidSensorTransformID, pAttributes) {
-        result := ComCall(7, this, Guid.Ptr, guidSensorTransformID, "ptr", pAttributes, "ptr*", &ppDeviceMFT := 0, "HRESULT")
+        pAttributesMarshal := pAttributes == 0 ? IntPtr : "ptr"
+
+        result := ComCall(7, this, Guid.Ptr, guidSensorTransformID, pAttributesMarshal, pAttributes, "ptr*", &ppDeviceMFT := 0, "HRESULT")
         return IMFDeviceTransform(ppDeviceMFT)
     }
 
@@ -113,11 +116,11 @@ export default struct IMFSensorTransformFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFactoryAttributes := CallbackCreate(GetMethod(implObj, "GetFactoryAttributes"), flags, 2)
-        this.vtbl.InitializeFactory := CallbackCreate(GetMethod(implObj, "InitializeFactory"), flags, 4)
-        this.vtbl.GetTransformCount := CallbackCreate(GetMethod(implObj, "GetTransformCount"), flags, 2)
-        this.vtbl.GetTransformInformation := CallbackCreate(GetMethod(implObj, "GetTransformInformation"), flags, 5)
-        this.vtbl.CreateTransform := CallbackCreate(GetMethod(implObj, "CreateTransform"), flags, 4)
+        this.vtbl.GetFactoryAttributes := CallbackCreate(ObjBindMethod(implObj, "GetFactoryAttributes"), flags, 2)
+        this.vtbl.InitializeFactory := CallbackCreate(ObjBindMethod(implObj, "InitializeFactory"), flags, 4)
+        this.vtbl.GetTransformCount := CallbackCreate(ObjBindMethod(implObj, "GetTransformCount"), flags, 2)
+        this.vtbl.GetTransformInformation := CallbackCreate(ObjBindMethod(implObj, "GetTransformInformation"), flags, 5)
+        this.vtbl.CreateTransform := CallbackCreate(ObjBindMethod(implObj, "CreateTransform"), flags, 4)
     }
 
     Dispose() {

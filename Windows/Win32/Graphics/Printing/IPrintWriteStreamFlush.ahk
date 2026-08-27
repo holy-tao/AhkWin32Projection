@@ -36,7 +36,6 @@ export default struct IPrintWriteStreamFlush extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     FlushData() {
@@ -53,7 +52,7 @@ export default struct IPrintWriteStreamFlush extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FlushData := CallbackCreate(GetMethod(implObj, "FlushData"), flags, 1)
+        this.vtbl.FlushData := CallbackCreate(ObjBindMethod(implObj, "FlushData"), flags, 1)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct PF_NPFMXEditPerm {
     }
 
     /**
-     * 
      * @param {PWSTR} lpDriveName 
      * @param {HWND} hwndFMX 
      * @param {Integer} nDialogType 

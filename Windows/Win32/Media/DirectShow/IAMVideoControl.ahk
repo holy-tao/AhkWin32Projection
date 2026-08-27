@@ -123,8 +123,8 @@ export default struct IAMVideoControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocontrol-getframeratelist
      */
     GetFrameRateList(pPin, iIndex, Dimensions, ListSize, FrameRates) {
-        ListSizeMarshal := ListSize is VarRef ? "int*" : "ptr"
-        FrameRatesMarshal := FrameRates is VarRef ? "ptr*" : "ptr"
+        ListSizeMarshal := ListSize is VarRef ? "int*" : IntPtr
+        FrameRatesMarshal := FrameRates is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(8, this, "ptr", pPin, Int32, iIndex, SIZE, Dimensions, ListSizeMarshal, ListSize, FrameRatesMarshal, FrameRates, "HRESULT")
         return result
@@ -139,12 +139,12 @@ export default struct IAMVideoControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCaps := CallbackCreate(GetMethod(implObj, "GetCaps"), flags, 3)
-        this.vtbl.SetMode := CallbackCreate(GetMethod(implObj, "SetMode"), flags, 3)
-        this.vtbl.GetMode := CallbackCreate(GetMethod(implObj, "GetMode"), flags, 3)
-        this.vtbl.GetCurrentActualFrameRate := CallbackCreate(GetMethod(implObj, "GetCurrentActualFrameRate"), flags, 3)
-        this.vtbl.GetMaxAvailableFrameRate := CallbackCreate(GetMethod(implObj, "GetMaxAvailableFrameRate"), flags, 5)
-        this.vtbl.GetFrameRateList := CallbackCreate(GetMethod(implObj, "GetFrameRateList"), flags, 6)
+        this.vtbl.GetCaps := CallbackCreate(ObjBindMethod(implObj, "GetCaps"), flags, 3)
+        this.vtbl.SetMode := CallbackCreate(ObjBindMethod(implObj, "SetMode"), flags, 3)
+        this.vtbl.GetMode := CallbackCreate(ObjBindMethod(implObj, "GetMode"), flags, 3)
+        this.vtbl.GetCurrentActualFrameRate := CallbackCreate(ObjBindMethod(implObj, "GetCurrentActualFrameRate"), flags, 3)
+        this.vtbl.GetMaxAvailableFrameRate := CallbackCreate(ObjBindMethod(implObj, "GetMaxAvailableFrameRate"), flags, 5)
+        this.vtbl.GetFrameRateList := CallbackCreate(ObjBindMethod(implObj, "GetFrameRateList"), flags, 6)
     }
 
     Dispose() {

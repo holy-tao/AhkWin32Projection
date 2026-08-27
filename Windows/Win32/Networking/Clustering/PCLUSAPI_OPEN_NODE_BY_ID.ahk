@@ -20,7 +20,6 @@ export default struct PCLUSAPI_OPEN_NODE_BY_ID {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {Integer} nodeId 
      * @returns {HNODE} 

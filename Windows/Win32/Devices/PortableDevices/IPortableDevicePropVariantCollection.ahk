@@ -64,7 +64,7 @@ export default struct IPortableDevicePropVariantCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicepropvariantcollection-getcount
      */
     GetCount(pcElems) {
-        pcElemsMarshal := pcElems is VarRef ? "uint*" : "ptr"
+        pcElemsMarshal := pcElems is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pcElemsMarshal, pcElems, "HRESULT")
         return result
@@ -192,13 +192,13 @@ export default struct IPortableDevicePropVariantCollection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
-        this.vtbl.GetAt := CallbackCreate(GetMethod(implObj, "GetAt"), flags, 3)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
-        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
-        this.vtbl.ChangeType := CallbackCreate(GetMethod(implObj, "ChangeType"), flags, 2)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
-        this.vtbl.RemoveAt := CallbackCreate(GetMethod(implObj, "RemoveAt"), flags, 2)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetAt := CallbackCreate(ObjBindMethod(implObj, "GetAt"), flags, 3)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(ObjBindMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.ChangeType := CallbackCreate(ObjBindMethod(implObj, "ChangeType"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.RemoveAt := CallbackCreate(ObjBindMethod(implObj, "RemoveAt"), flags, 2)
     }
 
     Dispose() {

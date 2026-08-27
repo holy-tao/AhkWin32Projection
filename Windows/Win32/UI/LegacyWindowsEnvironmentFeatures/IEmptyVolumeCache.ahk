@@ -128,9 +128,9 @@ export default struct IEmptyVolumeCache extends IUnknown {
     Initialize(hkRegKey, pcwszVolume, ppwszDisplayName, ppwszDescription, pdwFlags) {
         pcwszVolume := pcwszVolume is String ? StrPtr(pcwszVolume) : pcwszVolume
 
-        ppwszDisplayNameMarshal := ppwszDisplayName is VarRef ? "ptr*" : "ptr"
-        ppwszDescriptionMarshal := ppwszDescription is VarRef ? "ptr*" : "ptr"
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+        ppwszDisplayNameMarshal := ppwszDisplayName is VarRef ? "ptr*" : IntPtr
+        ppwszDescriptionMarshal := ppwszDescription is VarRef ? "ptr*" : IntPtr
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, HKEY, hkRegKey, "ptr", pcwszVolume, ppwszDisplayNameMarshal, ppwszDisplayName, ppwszDescriptionMarshal, ppwszDescription, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
@@ -276,11 +276,11 @@ export default struct IEmptyVolumeCache extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 6)
-        this.vtbl.GetSpaceUsed := CallbackCreate(GetMethod(implObj, "GetSpaceUsed"), flags, 3)
-        this.vtbl.Purge := CallbackCreate(GetMethod(implObj, "Purge"), flags, 3)
-        this.vtbl.ShowProperties := CallbackCreate(GetMethod(implObj, "ShowProperties"), flags, 2)
-        this.vtbl.Deactivate := CallbackCreate(GetMethod(implObj, "Deactivate"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 6)
+        this.vtbl.GetSpaceUsed := CallbackCreate(ObjBindMethod(implObj, "GetSpaceUsed"), flags, 3)
+        this.vtbl.Purge := CallbackCreate(ObjBindMethod(implObj, "Purge"), flags, 3)
+        this.vtbl.ShowProperties := CallbackCreate(ObjBindMethod(implObj, "ShowProperties"), flags, 2)
+        this.vtbl.Deactivate := CallbackCreate(ObjBindMethod(implObj, "Deactivate"), flags, 2)
     }
 
     Dispose() {

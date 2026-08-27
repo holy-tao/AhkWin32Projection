@@ -67,7 +67,7 @@ export default struct IAppxEncryptionFactory2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateEncryptedPackageWriter := CallbackCreate(GetMethod(implObj, "CreateEncryptedPackageWriter"), flags, 8)
+        this.vtbl.CreateEncryptedPackageWriter := CallbackCreate(ObjBindMethod(implObj, "CreateEncryptedPackageWriter"), flags, 8)
     }
 
     Dispose() {

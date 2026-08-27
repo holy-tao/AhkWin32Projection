@@ -19,7 +19,6 @@ export default struct PFN_CRYPT_ASYNC_RETRIEVAL_COMPLETION_FUNC {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvCompletion 
      * @param {Integer} dwCompletionCode 
      * @param {PSTR} pszUrl 
@@ -31,10 +30,12 @@ export default struct PFN_CRYPT_ASYNC_RETRIEVAL_COMPLETION_FUNC {
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
         pszObjectOid := pszObjectOid is String ? StrPtr(pszObjectOid) : pszObjectOid
 
-        pvCompletionMarshal := pvCompletion is VarRef ? "ptr" : "ptr"
-        pvObjectMarshal := pvObject is VarRef ? "ptr" : "ptr"
+        pvCompletionMarshal := pvCompletion is VarRef ? "ptr" : IntPtr
+        pvCompletionMarshal := pvCompletion == 0 ? IntPtr : "ptr"
+        pszObjectOidMarshal := pszObjectOid == 0 ? IntPtr : PSTR
+        pvObjectMarshal := pvObject is VarRef ? "ptr" : IntPtr
 
-        DllCall(this.value, pvCompletionMarshal, pvCompletion, UInt32, dwCompletionCode, "ptr", pszUrl, "ptr", pszObjectOid, pvObjectMarshal, pvObject)
+        DllCall(this.value, pvCompletionMarshal, pvCompletion, UInt32, dwCompletionCode, "ptr", pszUrl, pszObjectOidMarshal, pszObjectOid, pvObjectMarshal, pvObject)
     }
 
     /**

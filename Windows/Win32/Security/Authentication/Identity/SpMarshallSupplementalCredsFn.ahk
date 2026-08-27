@@ -27,7 +27,6 @@ export default struct SpMarshallSupplementalCredsFn {
     }
 
     /**
-     * 
      * @param {Integer} CredentialSize Specifies the size of the supplemental credentials.
      * @param {Integer} Credentials Pointer to the supplemental credentials.
      * @param {Pointer<Integer>} MarshalledCredSize Pointer to the size of the <i>MarshalledCreds</i> buffer.
@@ -38,8 +37,8 @@ export default struct SpMarshallSupplementalCredsFn {
      * If the function fails, return an <b>NTSTATUS</b> code that indicates the reason it failed.
      */
     Call(CredentialSize, Credentials, MarshalledCredSize, MarshalledCreds) {
-        MarshalledCredSizeMarshal := MarshalledCredSize is VarRef ? "uint*" : "ptr"
-        MarshalledCredsMarshal := MarshalledCreds is VarRef ? "ptr*" : "ptr"
+        MarshalledCredSizeMarshal := MarshalledCredSize is VarRef ? "uint*" : IntPtr
+        MarshalledCredsMarshal := MarshalledCreds is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, UInt32, CredentialSize, IntPtr, Credentials, MarshalledCredSizeMarshal, MarshalledCredSize, MarshalledCredsMarshal, MarshalledCreds, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

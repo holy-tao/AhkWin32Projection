@@ -64,7 +64,7 @@ export default struct IWdsTransportServer2 extends IWdsTransportServer {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_TftpManager := CallbackCreate(GetMethod(implObj, "get_TftpManager"), flags, 2)
+        this.vtbl.get_TftpManager := CallbackCreate(ObjBindMethod(implObj, "get_TftpManager"), flags, 2)
     }
 
     Dispose() {

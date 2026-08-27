@@ -19,7 +19,6 @@ export default struct HTTP_POLICY_EXTENSION_SHUTDOWN {
     }
 
     /**
-     * 
      * @param {HTTP_POLICY_EXTENSION_TYPE} Type 
      * @returns {Integer} 
      */

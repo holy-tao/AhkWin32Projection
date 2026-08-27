@@ -24,14 +24,13 @@ export default struct PLOG_TAIL_ADVANCE_CALLBACK {
     }
 
     /**
-     * 
      * @param {HANDLE} hLogFile The handle to the log.
      * @param {CLS_LSN} lsnTarget Specifies the log sequence number (LSN) to which the client is advised to advance to or beyond. The <i>lsnTarget</i> may not refer to an actual record in the log.
      * @param {Pointer<Void>} pvClientContext A pointer to the client context.
      * @returns {String} Nothing - always returns an empty string
      */
     Call(hLogFile, lsnTarget, pvClientContext) {
-        pvClientContextMarshal := pvClientContext is VarRef ? "ptr" : "ptr"
+        pvClientContextMarshal := pvClientContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, HANDLE, hLogFile, CLS_LSN, lsnTarget, pvClientContextMarshal, pvClientContext)
     }

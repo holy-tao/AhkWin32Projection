@@ -52,7 +52,6 @@ export default struct IMSMQTransaction extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Transaction() {
@@ -61,7 +60,6 @@ export default struct IMSMQTransaction extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} fRetaining 
      * @param {Pointer<VARIANT>} grfTC 
      * @param {Pointer<VARIANT>} grfRM 
@@ -73,7 +71,6 @@ export default struct IMSMQTransaction extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} fRetaining 
      * @param {Pointer<VARIANT>} fAsync 
      * @returns {HRESULT} 
@@ -92,9 +89,9 @@ export default struct IMSMQTransaction extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Transaction := CallbackCreate(GetMethod(implObj, "get_Transaction"), flags, 2)
-        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 4)
-        this.vtbl.Abort := CallbackCreate(GetMethod(implObj, "Abort"), flags, 3)
+        this.vtbl.get_Transaction := CallbackCreate(ObjBindMethod(implObj, "get_Transaction"), flags, 2)
+        this.vtbl.Commit := CallbackCreate(ObjBindMethod(implObj, "Commit"), flags, 4)
+        this.vtbl.Abort := CallbackCreate(ObjBindMethod(implObj, "Abort"), flags, 3)
     }
 
     Dispose() {

@@ -341,7 +341,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -353,7 +352,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_tableLayout() {
@@ -363,7 +361,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -375,7 +372,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderCollapse() {
@@ -385,7 +381,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -397,7 +392,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_direction() {
@@ -407,7 +401,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -419,7 +412,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_behavior() {
@@ -429,7 +421,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} propname 
      * @param {BSTR} expression 
      * @param {BSTR} language 
@@ -445,7 +436,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} propname 
      * @returns {VARIANT} 
      */
@@ -458,7 +448,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} propname 
      * @returns {VARIANT_BOOL} 
      */
@@ -470,7 +459,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -482,7 +470,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_position() {
@@ -492,7 +479,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -504,7 +490,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_unicodeBidi() {
@@ -514,7 +499,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -524,7 +508,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_bottom() {
@@ -534,7 +517,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -544,7 +526,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_right() {
@@ -554,7 +535,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -564,7 +544,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_pixelBottom() {
@@ -573,7 +552,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -583,7 +561,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_pixelRight() {
@@ -592,7 +569,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -602,7 +578,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_posBottom() {
@@ -611,7 +586,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -621,7 +595,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_posRight() {
@@ -630,7 +603,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -642,7 +614,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_imeMode() {
@@ -652,7 +623,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -664,7 +634,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_rubyAlign() {
@@ -674,7 +643,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -686,7 +654,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_rubyPosition() {
@@ -696,7 +663,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -708,7 +674,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_rubyOverhang() {
@@ -718,7 +683,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -728,7 +692,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_layoutGridChar() {
@@ -738,7 +701,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -748,7 +710,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_layoutGridLine() {
@@ -758,7 +719,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -770,7 +730,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_layoutGridMode() {
@@ -780,7 +739,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -792,7 +750,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_layoutGridType() {
@@ -802,7 +759,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -814,7 +770,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_layoutGrid() {
@@ -824,7 +779,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -836,7 +790,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_wordBreak() {
@@ -846,7 +799,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -858,7 +810,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_lineBreak() {
@@ -868,7 +819,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -880,7 +830,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textJustify() {
@@ -890,7 +839,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -902,7 +850,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textJustifyTrim() {
@@ -912,7 +859,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -922,7 +868,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_textKashida() {
@@ -932,7 +877,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -944,7 +888,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textAutospace() {
@@ -954,7 +897,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -966,7 +908,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_overflowX() {
@@ -976,7 +917,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -988,7 +928,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_overflowY() {
@@ -998,7 +937,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1010,7 +948,6 @@ export default struct IHTMLStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_accelerator() {
@@ -1028,69 +965,69 @@ export default struct IHTMLStyle2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_tableLayout := CallbackCreate(GetMethod(implObj, "put_tableLayout"), flags, 2)
-        this.vtbl.get_tableLayout := CallbackCreate(GetMethod(implObj, "get_tableLayout"), flags, 2)
-        this.vtbl.put_borderCollapse := CallbackCreate(GetMethod(implObj, "put_borderCollapse"), flags, 2)
-        this.vtbl.get_borderCollapse := CallbackCreate(GetMethod(implObj, "get_borderCollapse"), flags, 2)
-        this.vtbl.put_direction := CallbackCreate(GetMethod(implObj, "put_direction"), flags, 2)
-        this.vtbl.get_direction := CallbackCreate(GetMethod(implObj, "get_direction"), flags, 2)
-        this.vtbl.put_behavior := CallbackCreate(GetMethod(implObj, "put_behavior"), flags, 2)
-        this.vtbl.get_behavior := CallbackCreate(GetMethod(implObj, "get_behavior"), flags, 2)
-        this.vtbl.setExpression := CallbackCreate(GetMethod(implObj, "setExpression"), flags, 4)
-        this.vtbl.getExpression := CallbackCreate(GetMethod(implObj, "getExpression"), flags, 3)
-        this.vtbl.removeExpression := CallbackCreate(GetMethod(implObj, "removeExpression"), flags, 3)
-        this.vtbl.put_position := CallbackCreate(GetMethod(implObj, "put_position"), flags, 2)
-        this.vtbl.get_position := CallbackCreate(GetMethod(implObj, "get_position"), flags, 2)
-        this.vtbl.put_unicodeBidi := CallbackCreate(GetMethod(implObj, "put_unicodeBidi"), flags, 2)
-        this.vtbl.get_unicodeBidi := CallbackCreate(GetMethod(implObj, "get_unicodeBidi"), flags, 2)
-        this.vtbl.put_bottom := CallbackCreate(GetMethod(implObj, "put_bottom"), flags, 2)
-        this.vtbl.get_bottom := CallbackCreate(GetMethod(implObj, "get_bottom"), flags, 2)
-        this.vtbl.put_right := CallbackCreate(GetMethod(implObj, "put_right"), flags, 2)
-        this.vtbl.get_right := CallbackCreate(GetMethod(implObj, "get_right"), flags, 2)
-        this.vtbl.put_pixelBottom := CallbackCreate(GetMethod(implObj, "put_pixelBottom"), flags, 2)
-        this.vtbl.get_pixelBottom := CallbackCreate(GetMethod(implObj, "get_pixelBottom"), flags, 2)
-        this.vtbl.put_pixelRight := CallbackCreate(GetMethod(implObj, "put_pixelRight"), flags, 2)
-        this.vtbl.get_pixelRight := CallbackCreate(GetMethod(implObj, "get_pixelRight"), flags, 2)
-        this.vtbl.put_posBottom := CallbackCreate(GetMethod(implObj, "put_posBottom"), flags, 2)
-        this.vtbl.get_posBottom := CallbackCreate(GetMethod(implObj, "get_posBottom"), flags, 2)
-        this.vtbl.put_posRight := CallbackCreate(GetMethod(implObj, "put_posRight"), flags, 2)
-        this.vtbl.get_posRight := CallbackCreate(GetMethod(implObj, "get_posRight"), flags, 2)
-        this.vtbl.put_imeMode := CallbackCreate(GetMethod(implObj, "put_imeMode"), flags, 2)
-        this.vtbl.get_imeMode := CallbackCreate(GetMethod(implObj, "get_imeMode"), flags, 2)
-        this.vtbl.put_rubyAlign := CallbackCreate(GetMethod(implObj, "put_rubyAlign"), flags, 2)
-        this.vtbl.get_rubyAlign := CallbackCreate(GetMethod(implObj, "get_rubyAlign"), flags, 2)
-        this.vtbl.put_rubyPosition := CallbackCreate(GetMethod(implObj, "put_rubyPosition"), flags, 2)
-        this.vtbl.get_rubyPosition := CallbackCreate(GetMethod(implObj, "get_rubyPosition"), flags, 2)
-        this.vtbl.put_rubyOverhang := CallbackCreate(GetMethod(implObj, "put_rubyOverhang"), flags, 2)
-        this.vtbl.get_rubyOverhang := CallbackCreate(GetMethod(implObj, "get_rubyOverhang"), flags, 2)
-        this.vtbl.put_layoutGridChar := CallbackCreate(GetMethod(implObj, "put_layoutGridChar"), flags, 2)
-        this.vtbl.get_layoutGridChar := CallbackCreate(GetMethod(implObj, "get_layoutGridChar"), flags, 2)
-        this.vtbl.put_layoutGridLine := CallbackCreate(GetMethod(implObj, "put_layoutGridLine"), flags, 2)
-        this.vtbl.get_layoutGridLine := CallbackCreate(GetMethod(implObj, "get_layoutGridLine"), flags, 2)
-        this.vtbl.put_layoutGridMode := CallbackCreate(GetMethod(implObj, "put_layoutGridMode"), flags, 2)
-        this.vtbl.get_layoutGridMode := CallbackCreate(GetMethod(implObj, "get_layoutGridMode"), flags, 2)
-        this.vtbl.put_layoutGridType := CallbackCreate(GetMethod(implObj, "put_layoutGridType"), flags, 2)
-        this.vtbl.get_layoutGridType := CallbackCreate(GetMethod(implObj, "get_layoutGridType"), flags, 2)
-        this.vtbl.put_layoutGrid := CallbackCreate(GetMethod(implObj, "put_layoutGrid"), flags, 2)
-        this.vtbl.get_layoutGrid := CallbackCreate(GetMethod(implObj, "get_layoutGrid"), flags, 2)
-        this.vtbl.put_wordBreak := CallbackCreate(GetMethod(implObj, "put_wordBreak"), flags, 2)
-        this.vtbl.get_wordBreak := CallbackCreate(GetMethod(implObj, "get_wordBreak"), flags, 2)
-        this.vtbl.put_lineBreak := CallbackCreate(GetMethod(implObj, "put_lineBreak"), flags, 2)
-        this.vtbl.get_lineBreak := CallbackCreate(GetMethod(implObj, "get_lineBreak"), flags, 2)
-        this.vtbl.put_textJustify := CallbackCreate(GetMethod(implObj, "put_textJustify"), flags, 2)
-        this.vtbl.get_textJustify := CallbackCreate(GetMethod(implObj, "get_textJustify"), flags, 2)
-        this.vtbl.put_textJustifyTrim := CallbackCreate(GetMethod(implObj, "put_textJustifyTrim"), flags, 2)
-        this.vtbl.get_textJustifyTrim := CallbackCreate(GetMethod(implObj, "get_textJustifyTrim"), flags, 2)
-        this.vtbl.put_textKashida := CallbackCreate(GetMethod(implObj, "put_textKashida"), flags, 2)
-        this.vtbl.get_textKashida := CallbackCreate(GetMethod(implObj, "get_textKashida"), flags, 2)
-        this.vtbl.put_textAutospace := CallbackCreate(GetMethod(implObj, "put_textAutospace"), flags, 2)
-        this.vtbl.get_textAutospace := CallbackCreate(GetMethod(implObj, "get_textAutospace"), flags, 2)
-        this.vtbl.put_overflowX := CallbackCreate(GetMethod(implObj, "put_overflowX"), flags, 2)
-        this.vtbl.get_overflowX := CallbackCreate(GetMethod(implObj, "get_overflowX"), flags, 2)
-        this.vtbl.put_overflowY := CallbackCreate(GetMethod(implObj, "put_overflowY"), flags, 2)
-        this.vtbl.get_overflowY := CallbackCreate(GetMethod(implObj, "get_overflowY"), flags, 2)
-        this.vtbl.put_accelerator := CallbackCreate(GetMethod(implObj, "put_accelerator"), flags, 2)
-        this.vtbl.get_accelerator := CallbackCreate(GetMethod(implObj, "get_accelerator"), flags, 2)
+        this.vtbl.put_tableLayout := CallbackCreate(ObjBindMethod(implObj, "put_tableLayout"), flags, 2)
+        this.vtbl.get_tableLayout := CallbackCreate(ObjBindMethod(implObj, "get_tableLayout"), flags, 2)
+        this.vtbl.put_borderCollapse := CallbackCreate(ObjBindMethod(implObj, "put_borderCollapse"), flags, 2)
+        this.vtbl.get_borderCollapse := CallbackCreate(ObjBindMethod(implObj, "get_borderCollapse"), flags, 2)
+        this.vtbl.put_direction := CallbackCreate(ObjBindMethod(implObj, "put_direction"), flags, 2)
+        this.vtbl.get_direction := CallbackCreate(ObjBindMethod(implObj, "get_direction"), flags, 2)
+        this.vtbl.put_behavior := CallbackCreate(ObjBindMethod(implObj, "put_behavior"), flags, 2)
+        this.vtbl.get_behavior := CallbackCreate(ObjBindMethod(implObj, "get_behavior"), flags, 2)
+        this.vtbl.setExpression := CallbackCreate(ObjBindMethod(implObj, "setExpression"), flags, 4)
+        this.vtbl.getExpression := CallbackCreate(ObjBindMethod(implObj, "getExpression"), flags, 3)
+        this.vtbl.removeExpression := CallbackCreate(ObjBindMethod(implObj, "removeExpression"), flags, 3)
+        this.vtbl.put_position := CallbackCreate(ObjBindMethod(implObj, "put_position"), flags, 2)
+        this.vtbl.get_position := CallbackCreate(ObjBindMethod(implObj, "get_position"), flags, 2)
+        this.vtbl.put_unicodeBidi := CallbackCreate(ObjBindMethod(implObj, "put_unicodeBidi"), flags, 2)
+        this.vtbl.get_unicodeBidi := CallbackCreate(ObjBindMethod(implObj, "get_unicodeBidi"), flags, 2)
+        this.vtbl.put_bottom := CallbackCreate(ObjBindMethod(implObj, "put_bottom"), flags, 2)
+        this.vtbl.get_bottom := CallbackCreate(ObjBindMethod(implObj, "get_bottom"), flags, 2)
+        this.vtbl.put_right := CallbackCreate(ObjBindMethod(implObj, "put_right"), flags, 2)
+        this.vtbl.get_right := CallbackCreate(ObjBindMethod(implObj, "get_right"), flags, 2)
+        this.vtbl.put_pixelBottom := CallbackCreate(ObjBindMethod(implObj, "put_pixelBottom"), flags, 2)
+        this.vtbl.get_pixelBottom := CallbackCreate(ObjBindMethod(implObj, "get_pixelBottom"), flags, 2)
+        this.vtbl.put_pixelRight := CallbackCreate(ObjBindMethod(implObj, "put_pixelRight"), flags, 2)
+        this.vtbl.get_pixelRight := CallbackCreate(ObjBindMethod(implObj, "get_pixelRight"), flags, 2)
+        this.vtbl.put_posBottom := CallbackCreate(ObjBindMethod(implObj, "put_posBottom"), flags, 2)
+        this.vtbl.get_posBottom := CallbackCreate(ObjBindMethod(implObj, "get_posBottom"), flags, 2)
+        this.vtbl.put_posRight := CallbackCreate(ObjBindMethod(implObj, "put_posRight"), flags, 2)
+        this.vtbl.get_posRight := CallbackCreate(ObjBindMethod(implObj, "get_posRight"), flags, 2)
+        this.vtbl.put_imeMode := CallbackCreate(ObjBindMethod(implObj, "put_imeMode"), flags, 2)
+        this.vtbl.get_imeMode := CallbackCreate(ObjBindMethod(implObj, "get_imeMode"), flags, 2)
+        this.vtbl.put_rubyAlign := CallbackCreate(ObjBindMethod(implObj, "put_rubyAlign"), flags, 2)
+        this.vtbl.get_rubyAlign := CallbackCreate(ObjBindMethod(implObj, "get_rubyAlign"), flags, 2)
+        this.vtbl.put_rubyPosition := CallbackCreate(ObjBindMethod(implObj, "put_rubyPosition"), flags, 2)
+        this.vtbl.get_rubyPosition := CallbackCreate(ObjBindMethod(implObj, "get_rubyPosition"), flags, 2)
+        this.vtbl.put_rubyOverhang := CallbackCreate(ObjBindMethod(implObj, "put_rubyOverhang"), flags, 2)
+        this.vtbl.get_rubyOverhang := CallbackCreate(ObjBindMethod(implObj, "get_rubyOverhang"), flags, 2)
+        this.vtbl.put_layoutGridChar := CallbackCreate(ObjBindMethod(implObj, "put_layoutGridChar"), flags, 2)
+        this.vtbl.get_layoutGridChar := CallbackCreate(ObjBindMethod(implObj, "get_layoutGridChar"), flags, 2)
+        this.vtbl.put_layoutGridLine := CallbackCreate(ObjBindMethod(implObj, "put_layoutGridLine"), flags, 2)
+        this.vtbl.get_layoutGridLine := CallbackCreate(ObjBindMethod(implObj, "get_layoutGridLine"), flags, 2)
+        this.vtbl.put_layoutGridMode := CallbackCreate(ObjBindMethod(implObj, "put_layoutGridMode"), flags, 2)
+        this.vtbl.get_layoutGridMode := CallbackCreate(ObjBindMethod(implObj, "get_layoutGridMode"), flags, 2)
+        this.vtbl.put_layoutGridType := CallbackCreate(ObjBindMethod(implObj, "put_layoutGridType"), flags, 2)
+        this.vtbl.get_layoutGridType := CallbackCreate(ObjBindMethod(implObj, "get_layoutGridType"), flags, 2)
+        this.vtbl.put_layoutGrid := CallbackCreate(ObjBindMethod(implObj, "put_layoutGrid"), flags, 2)
+        this.vtbl.get_layoutGrid := CallbackCreate(ObjBindMethod(implObj, "get_layoutGrid"), flags, 2)
+        this.vtbl.put_wordBreak := CallbackCreate(ObjBindMethod(implObj, "put_wordBreak"), flags, 2)
+        this.vtbl.get_wordBreak := CallbackCreate(ObjBindMethod(implObj, "get_wordBreak"), flags, 2)
+        this.vtbl.put_lineBreak := CallbackCreate(ObjBindMethod(implObj, "put_lineBreak"), flags, 2)
+        this.vtbl.get_lineBreak := CallbackCreate(ObjBindMethod(implObj, "get_lineBreak"), flags, 2)
+        this.vtbl.put_textJustify := CallbackCreate(ObjBindMethod(implObj, "put_textJustify"), flags, 2)
+        this.vtbl.get_textJustify := CallbackCreate(ObjBindMethod(implObj, "get_textJustify"), flags, 2)
+        this.vtbl.put_textJustifyTrim := CallbackCreate(ObjBindMethod(implObj, "put_textJustifyTrim"), flags, 2)
+        this.vtbl.get_textJustifyTrim := CallbackCreate(ObjBindMethod(implObj, "get_textJustifyTrim"), flags, 2)
+        this.vtbl.put_textKashida := CallbackCreate(ObjBindMethod(implObj, "put_textKashida"), flags, 2)
+        this.vtbl.get_textKashida := CallbackCreate(ObjBindMethod(implObj, "get_textKashida"), flags, 2)
+        this.vtbl.put_textAutospace := CallbackCreate(ObjBindMethod(implObj, "put_textAutospace"), flags, 2)
+        this.vtbl.get_textAutospace := CallbackCreate(ObjBindMethod(implObj, "get_textAutospace"), flags, 2)
+        this.vtbl.put_overflowX := CallbackCreate(ObjBindMethod(implObj, "put_overflowX"), flags, 2)
+        this.vtbl.get_overflowX := CallbackCreate(ObjBindMethod(implObj, "get_overflowX"), flags, 2)
+        this.vtbl.put_overflowY := CallbackCreate(ObjBindMethod(implObj, "put_overflowY"), flags, 2)
+        this.vtbl.get_overflowY := CallbackCreate(ObjBindMethod(implObj, "get_overflowY"), flags, 2)
+        this.vtbl.put_accelerator := CallbackCreate(ObjBindMethod(implObj, "put_accelerator"), flags, 2)
+        this.vtbl.get_accelerator := CallbackCreate(ObjBindMethod(implObj, "get_accelerator"), flags, 2)
     }
 
     Dispose() {

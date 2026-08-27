@@ -36,14 +36,13 @@ export default struct ICanvasPixelArrayData extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Integer>>} ppBuffer 
      * @param {Pointer<Integer>} pBufferLength 
      * @returns {HRESULT} 
      */
     GetBufferPointer(ppBuffer, pBufferLength) {
-        ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
-        pBufferLengthMarshal := pBufferLength is VarRef ? "uint*" : "ptr"
+        ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : IntPtr
+        pBufferLengthMarshal := pBufferLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, ppBufferMarshal, ppBuffer, pBufferLengthMarshal, pBufferLength, "HRESULT")
         return result
@@ -58,7 +57,7 @@ export default struct ICanvasPixelArrayData extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetBufferPointer := CallbackCreate(GetMethod(implObj, "GetBufferPointer"), flags, 3)
+        this.vtbl.GetBufferPointer := CallbackCreate(ObjBindMethod(implObj, "GetBufferPointer"), flags, 3)
     }
 
     Dispose() {

@@ -36,7 +36,6 @@ export default struct IMFVideoRendererEffectControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pAppServiceConnection 
      * @returns {HRESULT} 
      */
@@ -54,7 +53,7 @@ export default struct IMFVideoRendererEffectControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnAppServiceConnectionEstablished := CallbackCreate(GetMethod(implObj, "OnAppServiceConnectionEstablished"), flags, 2)
+        this.vtbl.OnAppServiceConnectionEstablished := CallbackCreate(ObjBindMethod(implObj, "OnAppServiceConnectionEstablished"), flags, 2)
     }
 
     Dispose() {

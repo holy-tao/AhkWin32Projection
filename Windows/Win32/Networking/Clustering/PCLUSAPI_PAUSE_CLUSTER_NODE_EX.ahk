@@ -20,7 +20,6 @@ export default struct PCLUSAPI_PAUSE_CLUSTER_NODE_EX {
     }
 
     /**
-     * 
      * @param {HNODE} _hNode 
      * @param {BOOL} bDrainNode 
      * @param {Integer} dwPauseFlags 
@@ -28,7 +27,9 @@ export default struct PCLUSAPI_PAUSE_CLUSTER_NODE_EX {
      * @returns {Integer} 
      */
     Call(_hNode, bDrainNode, dwPauseFlags, hNodeDrainTarget) {
-        result := DllCall(this.value, HNODE, _hNode, BOOL, bDrainNode, UInt32, dwPauseFlags, HNODE, hNodeDrainTarget, UInt32)
+        hNodeDrainTargetMarshal := hNodeDrainTarget == 0 ? IntPtr : HNODE
+
+        result := DllCall(this.value, HNODE, _hNode, BOOL, bDrainNode, UInt32, dwPauseFlags, hNodeDrainTargetMarshal, hNodeDrainTarget, UInt32)
         return result
     }
 

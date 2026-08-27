@@ -137,11 +137,11 @@ export default struct IObjectContextInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsInTransaction := CallbackCreate(GetMethod(implObj, "IsInTransaction"), flags, 1)
-        this.vtbl.GetTransaction := CallbackCreate(GetMethod(implObj, "GetTransaction"), flags, 2)
-        this.vtbl.GetTransactionId := CallbackCreate(GetMethod(implObj, "GetTransactionId"), flags, 2)
-        this.vtbl.GetActivityId := CallbackCreate(GetMethod(implObj, "GetActivityId"), flags, 2)
-        this.vtbl.GetContextId := CallbackCreate(GetMethod(implObj, "GetContextId"), flags, 2)
+        this.vtbl.IsInTransaction := CallbackCreate(ObjBindMethod(implObj, "IsInTransaction"), flags, 1)
+        this.vtbl.GetTransaction := CallbackCreate(ObjBindMethod(implObj, "GetTransaction"), flags, 2)
+        this.vtbl.GetTransactionId := CallbackCreate(ObjBindMethod(implObj, "GetTransactionId"), flags, 2)
+        this.vtbl.GetActivityId := CallbackCreate(ObjBindMethod(implObj, "GetActivityId"), flags, 2)
+        this.vtbl.GetContextId := CallbackCreate(ObjBindMethod(implObj, "GetContextId"), flags, 2)
     }
 
     Dispose() {

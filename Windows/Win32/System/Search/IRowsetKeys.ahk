@@ -36,14 +36,13 @@ export default struct IRowsetKeys extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} pcColumns 
      * @param {Pointer<Pointer<Pointer>>} prgColumns 
      * @returns {HRESULT} 
      */
     ListKeys(pcColumns, prgColumns) {
-        pcColumnsMarshal := pcColumns is VarRef ? "ptr*" : "ptr"
-        prgColumnsMarshal := prgColumns is VarRef ? "ptr*" : "ptr"
+        pcColumnsMarshal := pcColumns is VarRef ? "ptr*" : IntPtr
+        prgColumnsMarshal := prgColumns is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, pcColumnsMarshal, pcColumns, prgColumnsMarshal, prgColumns, "HRESULT")
         return result
@@ -58,7 +57,7 @@ export default struct IRowsetKeys extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ListKeys := CallbackCreate(GetMethod(implObj, "ListKeys"), flags, 3)
+        this.vtbl.ListKeys := CallbackCreate(ObjBindMethod(implObj, "ListKeys"), flags, 3)
     }
 
     Dispose() {

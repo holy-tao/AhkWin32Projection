@@ -18,12 +18,11 @@ export default struct PFN_SC_NOTIFY_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pParameter 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(pParameter) {
-        pParameterMarshal := pParameter is VarRef ? "ptr" : "ptr"
+        pParameterMarshal := pParameter is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, pParameterMarshal, pParameter)
     }

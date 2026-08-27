@@ -39,7 +39,6 @@ export default struct IUpdateEx extends IUpdate5 {
     }
 
     /**
-     * 
      * @param {BSTR} propertyName 
      * @returns {VARIANT} 
      */
@@ -52,7 +51,6 @@ export default struct IUpdateEx extends IUpdate5 {
     }
 
     /**
-     * 
      * @param {BSTR} propertyName 
      * @returns {VARIANT} 
      */
@@ -73,8 +71,8 @@ export default struct IUpdateEx extends IUpdate5 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ExtendedStaticProperty := CallbackCreate(GetMethod(implObj, "get_ExtendedStaticProperty"), flags, 3)
-        this.vtbl.EvaluateExtendedDynamicProperty := CallbackCreate(GetMethod(implObj, "EvaluateExtendedDynamicProperty"), flags, 3)
+        this.vtbl.get_ExtendedStaticProperty := CallbackCreate(ObjBindMethod(implObj, "get_ExtendedStaticProperty"), flags, 3)
+        this.vtbl.EvaluateExtendedDynamicProperty := CallbackCreate(ObjBindMethod(implObj, "EvaluateExtendedDynamicProperty"), flags, 3)
     }
 
     Dispose() {

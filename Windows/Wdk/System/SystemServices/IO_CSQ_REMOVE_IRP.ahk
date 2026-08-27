@@ -20,7 +20,6 @@ export default struct IO_CSQ_REMOVE_IRP {
     }
 
     /**
-     * 
      * @param {Pointer<IO_CSQ>} Csq 
      * @param {Pointer<IRP>} _Irp 
      * @returns {String} Nothing - always returns an empty string

@@ -93,7 +93,7 @@ export default struct IGetClusterNodeInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNodeHandle := CallbackCreate(GetMethod(implObj, "GetNodeHandle"), flags, 2)
+        this.vtbl.GetNodeHandle := CallbackCreate(ObjBindMethod(implObj, "GetNodeHandle"), flags, 2)
     }
 
     Dispose() {

@@ -37,7 +37,6 @@ export default struct IDebugHostContext2 extends IDebugHostContext {
     }
 
     /**
-     * 
      * @param {IDebugHostContext2} pContext 
      * @returns {AddressSpaceRelation} 
      */
@@ -55,7 +54,7 @@ export default struct IDebugHostContext2 extends IDebugHostContext {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAddressSpaceRelation := CallbackCreate(GetMethod(implObj, "GetAddressSpaceRelation"), flags, 3)
+        this.vtbl.GetAddressSpaceRelation := CallbackCreate(ObjBindMethod(implObj, "GetAddressSpaceRelation"), flags, 3)
     }
 
     Dispose() {

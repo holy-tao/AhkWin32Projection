@@ -39,7 +39,6 @@ export default struct IActiveScriptWinRTErrorDebug extends IActiveScriptError {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetRestrictedErrorString() {
@@ -49,7 +48,6 @@ export default struct IActiveScriptWinRTErrorDebug extends IActiveScriptError {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetRestrictedErrorReference() {
@@ -59,7 +57,6 @@ export default struct IActiveScriptWinRTErrorDebug extends IActiveScriptError {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetCapabilitySid() {
@@ -77,9 +74,9 @@ export default struct IActiveScriptWinRTErrorDebug extends IActiveScriptError {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRestrictedErrorString := CallbackCreate(GetMethod(implObj, "GetRestrictedErrorString"), flags, 2)
-        this.vtbl.GetRestrictedErrorReference := CallbackCreate(GetMethod(implObj, "GetRestrictedErrorReference"), flags, 2)
-        this.vtbl.GetCapabilitySid := CallbackCreate(GetMethod(implObj, "GetCapabilitySid"), flags, 2)
+        this.vtbl.GetRestrictedErrorString := CallbackCreate(ObjBindMethod(implObj, "GetRestrictedErrorString"), flags, 2)
+        this.vtbl.GetRestrictedErrorReference := CallbackCreate(ObjBindMethod(implObj, "GetRestrictedErrorReference"), flags, 2)
+        this.vtbl.GetCapabilitySid := CallbackCreate(ObjBindMethod(implObj, "GetCapabilitySid"), flags, 2)
     }
 
     Dispose() {

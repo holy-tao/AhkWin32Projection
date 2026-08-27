@@ -20,7 +20,6 @@ export default struct PFND3DKMT_GETMULTISAMPLEMETHODLIST {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_GETMULTISAMPLEMETHODLIST>} param0 
      * @returns {NTSTATUS} 
      */

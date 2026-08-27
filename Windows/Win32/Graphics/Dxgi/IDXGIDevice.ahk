@@ -105,7 +105,9 @@ export default struct IDXGIDevice extends IDXGIObject {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgidevice-createsurface
      */
     CreateSurface(pDesc, NumSurfaces, Usage, pSharedResource) {
-        result := ComCall(8, this, DXGI_SURFACE_DESC.Ptr, pDesc, UInt32, NumSurfaces, DXGI_USAGE, Usage, DXGI_SHARED_RESOURCE.Ptr, pSharedResource, "ptr*", &ppSurface := 0, "HRESULT")
+        pSharedResourceMarshal := pSharedResource == 0 ? IntPtr : DXGI_SHARED_RESOURCE.Ptr
+
+        result := ComCall(8, this, DXGI_SURFACE_DESC.Ptr, pDesc, UInt32, NumSurfaces, DXGI_USAGE, Usage, pSharedResourceMarshal, pSharedResource, "ptr*", &ppSurface := 0, "HRESULT")
         return IDXGISurface(ppSurface)
     }
 
@@ -183,11 +185,11 @@ export default struct IDXGIDevice extends IDXGIObject {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAdapter := CallbackCreate(GetMethod(implObj, "GetAdapter"), flags, 2)
-        this.vtbl.CreateSurface := CallbackCreate(GetMethod(implObj, "CreateSurface"), flags, 6)
-        this.vtbl.QueryResourceResidency := CallbackCreate(GetMethod(implObj, "QueryResourceResidency"), flags, 4)
-        this.vtbl.SetGPUThreadPriority := CallbackCreate(GetMethod(implObj, "SetGPUThreadPriority"), flags, 2)
-        this.vtbl.GetGPUThreadPriority := CallbackCreate(GetMethod(implObj, "GetGPUThreadPriority"), flags, 2)
+        this.vtbl.GetAdapter := CallbackCreate(ObjBindMethod(implObj, "GetAdapter"), flags, 2)
+        this.vtbl.CreateSurface := CallbackCreate(ObjBindMethod(implObj, "CreateSurface"), flags, 6)
+        this.vtbl.QueryResourceResidency := CallbackCreate(ObjBindMethod(implObj, "QueryResourceResidency"), flags, 4)
+        this.vtbl.SetGPUThreadPriority := CallbackCreate(ObjBindMethod(implObj, "SetGPUThreadPriority"), flags, 2)
+        this.vtbl.GetGPUThreadPriority := CallbackCreate(ObjBindMethod(implObj, "GetGPUThreadPriority"), flags, 2)
     }
 
     Dispose() {

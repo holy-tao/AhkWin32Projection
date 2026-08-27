@@ -22,7 +22,6 @@ export default struct LPFNACCESSIBLEOBJECTFROMPOINT {
     }
 
     /**
-     * 
      * @param {POINT} ptScreen 
      * @param {Pointer<VARIANT>} pvarChild 
      * @returns {IAccessible} 

@@ -143,15 +143,14 @@ export default struct IStemmerConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getlocaleinfoa
      */
     GetLocaleInfo(pdwCodePageID, plcid) {
-        pdwCodePageIDMarshal := pdwCodePageID is VarRef ? "uint*" : "ptr"
-        plcidMarshal := plcid is VarRef ? "uint*" : "ptr"
+        pdwCodePageIDMarshal := pdwCodePageID is VarRef ? "uint*" : IntPtr
+        plcidMarshal := plcid is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pdwCodePageIDMarshal, pdwCodePageID, plcidMarshal, plcid, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} grfStemFlags 
      * @param {Integer} dwReserved 
      * @returns {HRESULT} 
@@ -162,21 +161,19 @@ export default struct IStemmerConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pgrfStemFlags 
      * @param {Pointer<Integer>} pdwReserved 
      * @returns {HRESULT} 
      */
     GetControlInfo(pgrfStemFlags, pdwReserved) {
-        pgrfStemFlagsMarshal := pgrfStemFlags is VarRef ? "uint*" : "ptr"
-        pdwReservedMarshal := pdwReserved is VarRef ? "uint*" : "ptr"
+        pgrfStemFlagsMarshal := pgrfStemFlags is VarRef ? "uint*" : IntPtr
+        pdwReservedMarshal := pdwReserved is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, pgrfStemFlagsMarshal, pgrfStemFlags, pdwReservedMarshal, pdwReserved, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IStream} pStream 
      * @param {Integer} dwExtDataType 
      * @returns {HRESULT} 
@@ -195,11 +192,11 @@ export default struct IStemmerConfig extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetLocaleInfo := CallbackCreate(GetMethod(implObj, "SetLocaleInfo"), flags, 3)
-        this.vtbl.GetLocaleInfo := CallbackCreate(GetMethod(implObj, "GetLocaleInfo"), flags, 3)
-        this.vtbl.SetControlInfo := CallbackCreate(GetMethod(implObj, "SetControlInfo"), flags, 3)
-        this.vtbl.GetControlInfo := CallbackCreate(GetMethod(implObj, "GetControlInfo"), flags, 3)
-        this.vtbl.LoadExternalStemmerData := CallbackCreate(GetMethod(implObj, "LoadExternalStemmerData"), flags, 3)
+        this.vtbl.SetLocaleInfo := CallbackCreate(ObjBindMethod(implObj, "SetLocaleInfo"), flags, 3)
+        this.vtbl.GetLocaleInfo := CallbackCreate(ObjBindMethod(implObj, "GetLocaleInfo"), flags, 3)
+        this.vtbl.SetControlInfo := CallbackCreate(ObjBindMethod(implObj, "SetControlInfo"), flags, 3)
+        this.vtbl.GetControlInfo := CallbackCreate(ObjBindMethod(implObj, "GetControlInfo"), flags, 3)
+        this.vtbl.LoadExternalStemmerData := CallbackCreate(ObjBindMethod(implObj, "LoadExternalStemmerData"), flags, 3)
     }
 
     Dispose() {

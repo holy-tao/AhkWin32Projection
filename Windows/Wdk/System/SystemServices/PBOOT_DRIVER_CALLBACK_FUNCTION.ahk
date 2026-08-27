@@ -18,7 +18,6 @@ export default struct PBOOT_DRIVER_CALLBACK_FUNCTION {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

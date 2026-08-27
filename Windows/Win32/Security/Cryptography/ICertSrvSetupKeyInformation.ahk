@@ -256,18 +256,18 @@ export default struct ICertSrvSetupKeyInformation extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ProviderName := CallbackCreate(GetMethod(implObj, "get_ProviderName"), flags, 2)
-        this.vtbl.put_ProviderName := CallbackCreate(GetMethod(implObj, "put_ProviderName"), flags, 2)
-        this.vtbl.get_Length := CallbackCreate(GetMethod(implObj, "get_Length"), flags, 2)
-        this.vtbl.put_Length := CallbackCreate(GetMethod(implObj, "put_Length"), flags, 2)
-        this.vtbl.get_Existing := CallbackCreate(GetMethod(implObj, "get_Existing"), flags, 2)
-        this.vtbl.put_Existing := CallbackCreate(GetMethod(implObj, "put_Existing"), flags, 2)
-        this.vtbl.get_ContainerName := CallbackCreate(GetMethod(implObj, "get_ContainerName"), flags, 2)
-        this.vtbl.put_ContainerName := CallbackCreate(GetMethod(implObj, "put_ContainerName"), flags, 2)
-        this.vtbl.get_HashAlgorithm := CallbackCreate(GetMethod(implObj, "get_HashAlgorithm"), flags, 2)
-        this.vtbl.put_HashAlgorithm := CallbackCreate(GetMethod(implObj, "put_HashAlgorithm"), flags, 2)
-        this.vtbl.get_ExistingCACertificate := CallbackCreate(GetMethod(implObj, "get_ExistingCACertificate"), flags, 2)
-        this.vtbl.put_ExistingCACertificate := CallbackCreate(GetMethod(implObj, "put_ExistingCACertificate"), flags, 2)
+        this.vtbl.get_ProviderName := CallbackCreate(ObjBindMethod(implObj, "get_ProviderName"), flags, 2)
+        this.vtbl.put_ProviderName := CallbackCreate(ObjBindMethod(implObj, "put_ProviderName"), flags, 2)
+        this.vtbl.get_Length := CallbackCreate(ObjBindMethod(implObj, "get_Length"), flags, 2)
+        this.vtbl.put_Length := CallbackCreate(ObjBindMethod(implObj, "put_Length"), flags, 2)
+        this.vtbl.get_Existing := CallbackCreate(ObjBindMethod(implObj, "get_Existing"), flags, 2)
+        this.vtbl.put_Existing := CallbackCreate(ObjBindMethod(implObj, "put_Existing"), flags, 2)
+        this.vtbl.get_ContainerName := CallbackCreate(ObjBindMethod(implObj, "get_ContainerName"), flags, 2)
+        this.vtbl.put_ContainerName := CallbackCreate(ObjBindMethod(implObj, "put_ContainerName"), flags, 2)
+        this.vtbl.get_HashAlgorithm := CallbackCreate(ObjBindMethod(implObj, "get_HashAlgorithm"), flags, 2)
+        this.vtbl.put_HashAlgorithm := CallbackCreate(ObjBindMethod(implObj, "put_HashAlgorithm"), flags, 2)
+        this.vtbl.get_ExistingCACertificate := CallbackCreate(ObjBindMethod(implObj, "get_ExistingCACertificate"), flags, 2)
+        this.vtbl.put_ExistingCACertificate := CallbackCreate(ObjBindMethod(implObj, "put_ExistingCACertificate"), flags, 2)
     }
 
     Dispose() {

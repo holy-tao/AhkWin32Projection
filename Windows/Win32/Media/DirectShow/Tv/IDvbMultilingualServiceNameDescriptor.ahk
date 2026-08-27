@@ -123,12 +123,12 @@ export default struct IDvbMultilingualServiceNameDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetCountOfRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRecords"), flags, 2)
-        this.vtbl.GetRecordLangId := CallbackCreate(GetMethod(implObj, "GetRecordLangId"), flags, 3)
-        this.vtbl.GetRecordServiceProviderNameW := CallbackCreate(GetMethod(implObj, "GetRecordServiceProviderNameW"), flags, 4)
-        this.vtbl.GetRecordServiceNameW := CallbackCreate(GetMethod(implObj, "GetRecordServiceNameW"), flags, 4)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetCountOfRecords := CallbackCreate(ObjBindMethod(implObj, "GetCountOfRecords"), flags, 2)
+        this.vtbl.GetRecordLangId := CallbackCreate(ObjBindMethod(implObj, "GetRecordLangId"), flags, 3)
+        this.vtbl.GetRecordServiceProviderNameW := CallbackCreate(ObjBindMethod(implObj, "GetRecordServiceProviderNameW"), flags, 4)
+        this.vtbl.GetRecordServiceNameW := CallbackCreate(ObjBindMethod(implObj, "GetRecordServiceNameW"), flags, 4)
     }
 
     Dispose() {

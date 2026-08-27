@@ -136,9 +136,9 @@ export default struct IQueryForm extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.AddForms := CallbackCreate(GetMethod(implObj, "AddForms"), flags, 3)
-        this.vtbl.AddPages := CallbackCreate(GetMethod(implObj, "AddPages"), flags, 3)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.AddForms := CallbackCreate(ObjBindMethod(implObj, "AddForms"), flags, 3)
+        this.vtbl.AddPages := CallbackCreate(ObjBindMethod(implObj, "AddPages"), flags, 3)
     }
 
     Dispose() {

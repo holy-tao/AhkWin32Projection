@@ -89,8 +89,8 @@ export default struct IWICDdsDecoder extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetParameters := CallbackCreate(GetMethod(implObj, "GetParameters"), flags, 2)
-        this.vtbl.GetFrame := CallbackCreate(GetMethod(implObj, "GetFrame"), flags, 5)
+        this.vtbl.GetParameters := CallbackCreate(ObjBindMethod(implObj, "GetParameters"), flags, 2)
+        this.vtbl.GetFrame := CallbackCreate(ObjBindMethod(implObj, "GetFrame"), flags, 5)
     }
 
     Dispose() {

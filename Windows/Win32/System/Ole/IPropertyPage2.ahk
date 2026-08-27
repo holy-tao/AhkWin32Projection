@@ -89,7 +89,7 @@ export default struct IPropertyPage2 extends IPropertyPage {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EditProperty := CallbackCreate(GetMethod(implObj, "EditProperty"), flags, 2)
+        this.vtbl.EditProperty := CallbackCreate(ObjBindMethod(implObj, "EditProperty"), flags, 2)
     }
 
     Dispose() {

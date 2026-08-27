@@ -20,7 +20,6 @@ export default struct PFND3DKMT_SETDISPLAYPRIVATEDRIVERFORMAT {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SETDISPLAYPRIVATEDRIVERFORMAT>} param0 
      * @returns {NTSTATUS} 
      */

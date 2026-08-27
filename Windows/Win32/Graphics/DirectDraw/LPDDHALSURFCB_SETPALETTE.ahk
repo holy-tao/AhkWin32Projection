@@ -19,7 +19,6 @@ export default struct LPDDHALSURFCB_SETPALETTE {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_SETPALETTEDATA>} param0 
      * @returns {Integer} 
      */

@@ -22,7 +22,6 @@ export default struct PMQRECEIVECALLBACK {
     }
 
     /**
-     * 
      * @param {HRESULT} hrStatus 
      * @param {Pointer} hSource 
      * @param {Integer} dwTimeout 

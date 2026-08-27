@@ -124,7 +124,9 @@ export default struct IMFAttributes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getitem
      */
     GetItem(guidKey, pValue) {
-        result := ComCall(3, this, Guid.Ptr, guidKey, PROPVARIANT.Ptr, pValue, "HRESULT")
+        pValueMarshal := pValue == 0 ? IntPtr : PROPVARIANT.Ptr
+
+        result := ComCall(3, this, Guid.Ptr, guidKey, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -234,7 +236,9 @@ export default struct IMFAttributes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-compare
      */
     Compare(pTheirs, MatchType) {
-        result := ComCall(6, this, "ptr", pTheirs, MF_ATTRIBUTES_MATCH_TYPE, MatchType, BOOL.Ptr, &pbResult := 0, "HRESULT")
+        pTheirsMarshal := pTheirs == 0 ? IntPtr : "ptr"
+
+        result := ComCall(6, this, pTheirsMarshal, pTheirs, MF_ATTRIBUTES_MATCH_TYPE, MatchType, BOOL.Ptr, &pbResult := 0, "HRESULT")
         return pbResult
     }
 
@@ -412,7 +416,8 @@ export default struct IMFAttributes extends IUnknown {
     GetString(guidKey, pwszValue, cchBufSize, pcchLength) {
         pwszValue := pwszValue is String ? StrPtr(pwszValue) : pwszValue
 
-        pcchLengthMarshal := pcchLength is VarRef ? "uint*" : "ptr"
+        pcchLengthMarshal := pcchLength is VarRef ? "uint*" : IntPtr
+        pcchLengthMarshal := pcchLength == 0 ? IntPtr : "uint*"
 
         result := ComCall(12, this, Guid.Ptr, guidKey, "ptr", pwszValue, UInt32, cchBufSize, pcchLengthMarshal, pcchLength, "HRESULT")
         return result
@@ -482,8 +487,8 @@ export default struct IMFAttributes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getallocatedstring
      */
     GetAllocatedString(guidKey, ppwszValue, pcchLength) {
-        ppwszValueMarshal := ppwszValue is VarRef ? "ptr*" : "ptr"
-        pcchLengthMarshal := pcchLength is VarRef ? "uint*" : "ptr"
+        ppwszValueMarshal := ppwszValue is VarRef ? "ptr*" : IntPtr
+        pcchLengthMarshal := pcchLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, Guid.Ptr, guidKey, ppwszValueMarshal, ppwszValue, pcchLengthMarshal, pcchLength, "HRESULT")
         return result
@@ -527,7 +532,8 @@ export default struct IMFAttributes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getblob
      */
     GetBlob(guidKey, cbBufSize, pcbBlobSize) {
-        pcbBlobSizeMarshal := pcbBlobSize is VarRef ? "uint*" : "ptr"
+        pcbBlobSizeMarshal := pcbBlobSize is VarRef ? "uint*" : IntPtr
+        pcbBlobSizeMarshal := pcbBlobSize == 0 ? IntPtr : "uint*"
 
         result := ComCall(15, this, Guid.Ptr, guidKey, "char*", &pBuf := 0, UInt32, cbBufSize, pcbBlobSizeMarshal, pcbBlobSize, "HRESULT")
         return pBuf
@@ -591,8 +597,8 @@ export default struct IMFAttributes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getallocatedblob
      */
     GetAllocatedBlob(guidKey, ppBuf, pcbSize) {
-        ppBufMarshal := ppBuf is VarRef ? "ptr*" : "ptr"
-        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+        ppBufMarshal := ppBuf is VarRef ? "ptr*" : IntPtr
+        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(16, this, Guid.Ptr, guidKey, ppBufMarshal, ppBuf, pcbSizeMarshal, pcbSize, "HRESULT")
         return result
@@ -1000,7 +1006,7 @@ export default struct IMFAttributes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-setblob
      */
     SetBlob(guidKey, pBuf, cbBufSize) {
-        pBufMarshal := pBuf is VarRef ? "char*" : "ptr"
+        pBufMarshal := pBuf is VarRef ? "char*" : IntPtr
 
         result := ComCall(26, this, Guid.Ptr, guidKey, pBufMarshal, pBuf, UInt32, cbBufSize, "HRESULT")
         return result
@@ -1173,8 +1179,10 @@ export default struct IMFAttributes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getitembyindex
      */
     GetItemByIndex(unIndex, pValue) {
+        pValueMarshal := pValue == 0 ? IntPtr : PROPVARIANT.Ptr
+
         pguidKey := Guid()
-        result := ComCall(31, this, UInt32, unIndex, Guid.Ptr, pguidKey, PROPVARIANT.Ptr, pValue, "HRESULT")
+        result := ComCall(31, this, UInt32, unIndex, Guid.Ptr, pguidKey, pValueMarshal, pValue, "HRESULT")
         return pguidKey
     }
 
@@ -1212,36 +1220,36 @@ export default struct IMFAttributes extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetItem := CallbackCreate(GetMethod(implObj, "GetItem"), flags, 3)
-        this.vtbl.GetItemType := CallbackCreate(GetMethod(implObj, "GetItemType"), flags, 3)
-        this.vtbl.CompareItem := CallbackCreate(GetMethod(implObj, "CompareItem"), flags, 4)
-        this.vtbl.Compare := CallbackCreate(GetMethod(implObj, "Compare"), flags, 4)
-        this.vtbl.GetUINT32 := CallbackCreate(GetMethod(implObj, "GetUINT32"), flags, 3)
-        this.vtbl.GetUINT64 := CallbackCreate(GetMethod(implObj, "GetUINT64"), flags, 3)
-        this.vtbl.GetDouble := CallbackCreate(GetMethod(implObj, "GetDouble"), flags, 3)
-        this.vtbl.GetGUID := CallbackCreate(GetMethod(implObj, "GetGUID"), flags, 3)
-        this.vtbl.GetStringLength := CallbackCreate(GetMethod(implObj, "GetStringLength"), flags, 3)
-        this.vtbl.GetString := CallbackCreate(GetMethod(implObj, "GetString"), flags, 5)
-        this.vtbl.GetAllocatedString := CallbackCreate(GetMethod(implObj, "GetAllocatedString"), flags, 4)
-        this.vtbl.GetBlobSize := CallbackCreate(GetMethod(implObj, "GetBlobSize"), flags, 3)
-        this.vtbl.GetBlob := CallbackCreate(GetMethod(implObj, "GetBlob"), flags, 5)
-        this.vtbl.GetAllocatedBlob := CallbackCreate(GetMethod(implObj, "GetAllocatedBlob"), flags, 4)
-        this.vtbl.GetUnknown := CallbackCreate(GetMethod(implObj, "GetUnknown"), flags, 4)
-        this.vtbl.SetItem := CallbackCreate(GetMethod(implObj, "SetItem"), flags, 3)
-        this.vtbl.DeleteItem := CallbackCreate(GetMethod(implObj, "DeleteItem"), flags, 2)
-        this.vtbl.DeleteAllItems := CallbackCreate(GetMethod(implObj, "DeleteAllItems"), flags, 1)
-        this.vtbl.SetUINT32 := CallbackCreate(GetMethod(implObj, "SetUINT32"), flags, 3)
-        this.vtbl.SetUINT64 := CallbackCreate(GetMethod(implObj, "SetUINT64"), flags, 3)
-        this.vtbl.SetDouble := CallbackCreate(GetMethod(implObj, "SetDouble"), flags, 3)
-        this.vtbl.SetGUID := CallbackCreate(GetMethod(implObj, "SetGUID"), flags, 3)
-        this.vtbl.SetString := CallbackCreate(GetMethod(implObj, "SetString"), flags, 3)
-        this.vtbl.SetBlob := CallbackCreate(GetMethod(implObj, "SetBlob"), flags, 4)
-        this.vtbl.SetUnknown := CallbackCreate(GetMethod(implObj, "SetUnknown"), flags, 3)
-        this.vtbl.LockStore := CallbackCreate(GetMethod(implObj, "LockStore"), flags, 1)
-        this.vtbl.UnlockStore := CallbackCreate(GetMethod(implObj, "UnlockStore"), flags, 1)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
-        this.vtbl.GetItemByIndex := CallbackCreate(GetMethod(implObj, "GetItemByIndex"), flags, 4)
-        this.vtbl.CopyAllItems := CallbackCreate(GetMethod(implObj, "CopyAllItems"), flags, 2)
+        this.vtbl.GetItem := CallbackCreate(ObjBindMethod(implObj, "GetItem"), flags, 3)
+        this.vtbl.GetItemType := CallbackCreate(ObjBindMethod(implObj, "GetItemType"), flags, 3)
+        this.vtbl.CompareItem := CallbackCreate(ObjBindMethod(implObj, "CompareItem"), flags, 4)
+        this.vtbl.Compare := CallbackCreate(ObjBindMethod(implObj, "Compare"), flags, 4)
+        this.vtbl.GetUINT32 := CallbackCreate(ObjBindMethod(implObj, "GetUINT32"), flags, 3)
+        this.vtbl.GetUINT64 := CallbackCreate(ObjBindMethod(implObj, "GetUINT64"), flags, 3)
+        this.vtbl.GetDouble := CallbackCreate(ObjBindMethod(implObj, "GetDouble"), flags, 3)
+        this.vtbl.GetGUID := CallbackCreate(ObjBindMethod(implObj, "GetGUID"), flags, 3)
+        this.vtbl.GetStringLength := CallbackCreate(ObjBindMethod(implObj, "GetStringLength"), flags, 3)
+        this.vtbl.GetString := CallbackCreate(ObjBindMethod(implObj, "GetString"), flags, 5)
+        this.vtbl.GetAllocatedString := CallbackCreate(ObjBindMethod(implObj, "GetAllocatedString"), flags, 4)
+        this.vtbl.GetBlobSize := CallbackCreate(ObjBindMethod(implObj, "GetBlobSize"), flags, 3)
+        this.vtbl.GetBlob := CallbackCreate(ObjBindMethod(implObj, "GetBlob"), flags, 5)
+        this.vtbl.GetAllocatedBlob := CallbackCreate(ObjBindMethod(implObj, "GetAllocatedBlob"), flags, 4)
+        this.vtbl.GetUnknown := CallbackCreate(ObjBindMethod(implObj, "GetUnknown"), flags, 4)
+        this.vtbl.SetItem := CallbackCreate(ObjBindMethod(implObj, "SetItem"), flags, 3)
+        this.vtbl.DeleteItem := CallbackCreate(ObjBindMethod(implObj, "DeleteItem"), flags, 2)
+        this.vtbl.DeleteAllItems := CallbackCreate(ObjBindMethod(implObj, "DeleteAllItems"), flags, 1)
+        this.vtbl.SetUINT32 := CallbackCreate(ObjBindMethod(implObj, "SetUINT32"), flags, 3)
+        this.vtbl.SetUINT64 := CallbackCreate(ObjBindMethod(implObj, "SetUINT64"), flags, 3)
+        this.vtbl.SetDouble := CallbackCreate(ObjBindMethod(implObj, "SetDouble"), flags, 3)
+        this.vtbl.SetGUID := CallbackCreate(ObjBindMethod(implObj, "SetGUID"), flags, 3)
+        this.vtbl.SetString := CallbackCreate(ObjBindMethod(implObj, "SetString"), flags, 3)
+        this.vtbl.SetBlob := CallbackCreate(ObjBindMethod(implObj, "SetBlob"), flags, 4)
+        this.vtbl.SetUnknown := CallbackCreate(ObjBindMethod(implObj, "SetUnknown"), flags, 3)
+        this.vtbl.LockStore := CallbackCreate(ObjBindMethod(implObj, "LockStore"), flags, 1)
+        this.vtbl.UnlockStore := CallbackCreate(ObjBindMethod(implObj, "UnlockStore"), flags, 1)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetItemByIndex := CallbackCreate(ObjBindMethod(implObj, "GetItemByIndex"), flags, 4)
+        this.vtbl.CopyAllItems := CallbackCreate(ObjBindMethod(implObj, "CopyAllItems"), flags, 2)
     }
 
     Dispose() {

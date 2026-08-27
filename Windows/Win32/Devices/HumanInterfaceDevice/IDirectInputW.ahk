@@ -45,7 +45,6 @@ export default struct IDirectInputW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} param0 
      * @param {IUnknown} param2 
      * @returns {IDirectInputDeviceW} 
@@ -56,7 +55,6 @@ export default struct IDirectInputW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<LPDIENUMDEVICESCALLBACKW>} param1 
      * @param {Pointer<Void>} param2 
@@ -64,14 +62,13 @@ export default struct IDirectInputW extends IUnknown {
      * @returns {HRESULT} 
      */
     EnumDevices(param0, param1, param2, param3) {
-        param2Marshal := param2 is VarRef ? "ptr" : "ptr"
+        param2Marshal := param2 is VarRef ? "ptr" : IntPtr
 
         result := ComCall(4, this, UInt32, param0, LPDIENUMDEVICESCALLBACKW, param1, param2Marshal, param2, UInt32, param3, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} param0 
      * @returns {HRESULT} 
      */
@@ -81,7 +78,6 @@ export default struct IDirectInputW extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 
@@ -135,11 +131,11 @@ export default struct IDirectInputW extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateDevice := CallbackCreate(GetMethod(implObj, "CreateDevice"), flags, 4)
-        this.vtbl.EnumDevices := CallbackCreate(GetMethod(implObj, "EnumDevices"), flags, 5)
-        this.vtbl.GetDeviceStatus := CallbackCreate(GetMethod(implObj, "GetDeviceStatus"), flags, 2)
-        this.vtbl.RunControlPanel := CallbackCreate(GetMethod(implObj, "RunControlPanel"), flags, 3)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.CreateDevice := CallbackCreate(ObjBindMethod(implObj, "CreateDevice"), flags, 4)
+        this.vtbl.EnumDevices := CallbackCreate(ObjBindMethod(implObj, "EnumDevices"), flags, 5)
+        this.vtbl.GetDeviceStatus := CallbackCreate(ObjBindMethod(implObj, "GetDeviceStatus"), flags, 2)
+        this.vtbl.RunControlPanel := CallbackCreate(ObjBindMethod(implObj, "RunControlPanel"), flags, 3)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
     }
 
     Dispose() {

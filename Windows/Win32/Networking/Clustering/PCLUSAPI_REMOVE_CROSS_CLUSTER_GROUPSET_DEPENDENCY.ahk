@@ -20,7 +20,6 @@ export default struct PCLUSAPI_REMOVE_CROSS_CLUSTER_GROUPSET_DEPENDENCY {
     }
 
     /**
-     * 
      * @param {HGROUPSET} hDependentGroupSet 
      * @param {PWSTR} lpRemoteClusterName 
      * @param {PWSTR} lpRemoteGroupSetName 

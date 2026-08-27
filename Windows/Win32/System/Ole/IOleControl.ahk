@@ -182,10 +182,10 @@ export default struct IOleControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetControlInfo := CallbackCreate(GetMethod(implObj, "GetControlInfo"), flags, 2)
-        this.vtbl.OnMnemonic := CallbackCreate(GetMethod(implObj, "OnMnemonic"), flags, 2)
-        this.vtbl.OnAmbientPropertyChange := CallbackCreate(GetMethod(implObj, "OnAmbientPropertyChange"), flags, 2)
-        this.vtbl.FreezeEvents := CallbackCreate(GetMethod(implObj, "FreezeEvents"), flags, 2)
+        this.vtbl.GetControlInfo := CallbackCreate(ObjBindMethod(implObj, "GetControlInfo"), flags, 2)
+        this.vtbl.OnMnemonic := CallbackCreate(ObjBindMethod(implObj, "OnMnemonic"), flags, 2)
+        this.vtbl.OnAmbientPropertyChange := CallbackCreate(ObjBindMethod(implObj, "OnAmbientPropertyChange"), flags, 2)
+        this.vtbl.FreezeEvents := CallbackCreate(ObjBindMethod(implObj, "FreezeEvents"), flags, 2)
     }
 
     Dispose() {

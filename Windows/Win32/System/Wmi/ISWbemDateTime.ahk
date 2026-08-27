@@ -227,7 +227,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Value() {
@@ -237,7 +236,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strValue 
      * @returns {HRESULT} 
      */
@@ -249,7 +247,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Year() {
@@ -258,7 +255,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iYear 
      * @returns {HRESULT} 
      */
@@ -268,7 +264,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_YearSpecified() {
@@ -277,7 +272,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bYearSpecified 
      * @returns {HRESULT} 
      */
@@ -287,7 +281,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Month() {
@@ -296,7 +289,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iMonth 
      * @returns {HRESULT} 
      */
@@ -306,7 +298,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_MonthSpecified() {
@@ -315,7 +306,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bMonthSpecified 
      * @returns {HRESULT} 
      */
@@ -325,7 +315,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Day() {
@@ -334,7 +323,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iDay 
      * @returns {HRESULT} 
      */
@@ -344,7 +332,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_DaySpecified() {
@@ -353,7 +340,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bDaySpecified 
      * @returns {HRESULT} 
      */
@@ -363,7 +349,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Hours() {
@@ -372,7 +357,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iHours 
      * @returns {HRESULT} 
      */
@@ -382,7 +366,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_HoursSpecified() {
@@ -391,7 +374,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bHoursSpecified 
      * @returns {HRESULT} 
      */
@@ -401,7 +383,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Minutes() {
@@ -410,7 +391,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iMinutes 
      * @returns {HRESULT} 
      */
@@ -420,7 +400,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_MinutesSpecified() {
@@ -429,7 +408,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bMinutesSpecified 
      * @returns {HRESULT} 
      */
@@ -439,7 +417,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Seconds() {
@@ -448,7 +425,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iSeconds 
      * @returns {HRESULT} 
      */
@@ -458,7 +434,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_SecondsSpecified() {
@@ -467,7 +442,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bSecondsSpecified 
      * @returns {HRESULT} 
      */
@@ -477,7 +451,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Microseconds() {
@@ -486,7 +459,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iMicroseconds 
      * @returns {HRESULT} 
      */
@@ -496,7 +468,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_MicrosecondsSpecified() {
@@ -505,7 +476,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bMicrosecondsSpecified 
      * @returns {HRESULT} 
      */
@@ -515,7 +485,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_UTC() {
@@ -524,7 +493,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iUTC 
      * @returns {HRESULT} 
      */
@@ -534,7 +502,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_UTCSpecified() {
@@ -543,7 +510,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bUTCSpecified 
      * @returns {HRESULT} 
      */
@@ -553,7 +519,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsInterval() {
@@ -562,7 +527,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bIsInterval 
      * @returns {HRESULT} 
      */
@@ -572,7 +536,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bIsLocal 
      * @returns {Float} 
      */
@@ -582,7 +545,6 @@ export default struct ISWbemDateTime extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} dVarDate 
      * @param {VARIANT_BOOL} bIsLocal 
      * @returns {HRESULT} 
@@ -647,46 +609,46 @@ export default struct ISWbemDateTime extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Value := CallbackCreate(GetMethod(implObj, "get_Value"), flags, 2)
-        this.vtbl.put_Value := CallbackCreate(GetMethod(implObj, "put_Value"), flags, 2)
-        this.vtbl.get_Year := CallbackCreate(GetMethod(implObj, "get_Year"), flags, 2)
-        this.vtbl.put_Year := CallbackCreate(GetMethod(implObj, "put_Year"), flags, 2)
-        this.vtbl.get_YearSpecified := CallbackCreate(GetMethod(implObj, "get_YearSpecified"), flags, 2)
-        this.vtbl.put_YearSpecified := CallbackCreate(GetMethod(implObj, "put_YearSpecified"), flags, 2)
-        this.vtbl.get_Month := CallbackCreate(GetMethod(implObj, "get_Month"), flags, 2)
-        this.vtbl.put_Month := CallbackCreate(GetMethod(implObj, "put_Month"), flags, 2)
-        this.vtbl.get_MonthSpecified := CallbackCreate(GetMethod(implObj, "get_MonthSpecified"), flags, 2)
-        this.vtbl.put_MonthSpecified := CallbackCreate(GetMethod(implObj, "put_MonthSpecified"), flags, 2)
-        this.vtbl.get_Day := CallbackCreate(GetMethod(implObj, "get_Day"), flags, 2)
-        this.vtbl.put_Day := CallbackCreate(GetMethod(implObj, "put_Day"), flags, 2)
-        this.vtbl.get_DaySpecified := CallbackCreate(GetMethod(implObj, "get_DaySpecified"), flags, 2)
-        this.vtbl.put_DaySpecified := CallbackCreate(GetMethod(implObj, "put_DaySpecified"), flags, 2)
-        this.vtbl.get_Hours := CallbackCreate(GetMethod(implObj, "get_Hours"), flags, 2)
-        this.vtbl.put_Hours := CallbackCreate(GetMethod(implObj, "put_Hours"), flags, 2)
-        this.vtbl.get_HoursSpecified := CallbackCreate(GetMethod(implObj, "get_HoursSpecified"), flags, 2)
-        this.vtbl.put_HoursSpecified := CallbackCreate(GetMethod(implObj, "put_HoursSpecified"), flags, 2)
-        this.vtbl.get_Minutes := CallbackCreate(GetMethod(implObj, "get_Minutes"), flags, 2)
-        this.vtbl.put_Minutes := CallbackCreate(GetMethod(implObj, "put_Minutes"), flags, 2)
-        this.vtbl.get_MinutesSpecified := CallbackCreate(GetMethod(implObj, "get_MinutesSpecified"), flags, 2)
-        this.vtbl.put_MinutesSpecified := CallbackCreate(GetMethod(implObj, "put_MinutesSpecified"), flags, 2)
-        this.vtbl.get_Seconds := CallbackCreate(GetMethod(implObj, "get_Seconds"), flags, 2)
-        this.vtbl.put_Seconds := CallbackCreate(GetMethod(implObj, "put_Seconds"), flags, 2)
-        this.vtbl.get_SecondsSpecified := CallbackCreate(GetMethod(implObj, "get_SecondsSpecified"), flags, 2)
-        this.vtbl.put_SecondsSpecified := CallbackCreate(GetMethod(implObj, "put_SecondsSpecified"), flags, 2)
-        this.vtbl.get_Microseconds := CallbackCreate(GetMethod(implObj, "get_Microseconds"), flags, 2)
-        this.vtbl.put_Microseconds := CallbackCreate(GetMethod(implObj, "put_Microseconds"), flags, 2)
-        this.vtbl.get_MicrosecondsSpecified := CallbackCreate(GetMethod(implObj, "get_MicrosecondsSpecified"), flags, 2)
-        this.vtbl.put_MicrosecondsSpecified := CallbackCreate(GetMethod(implObj, "put_MicrosecondsSpecified"), flags, 2)
-        this.vtbl.get_UTC := CallbackCreate(GetMethod(implObj, "get_UTC"), flags, 2)
-        this.vtbl.put_UTC := CallbackCreate(GetMethod(implObj, "put_UTC"), flags, 2)
-        this.vtbl.get_UTCSpecified := CallbackCreate(GetMethod(implObj, "get_UTCSpecified"), flags, 2)
-        this.vtbl.put_UTCSpecified := CallbackCreate(GetMethod(implObj, "put_UTCSpecified"), flags, 2)
-        this.vtbl.get_IsInterval := CallbackCreate(GetMethod(implObj, "get_IsInterval"), flags, 2)
-        this.vtbl.put_IsInterval := CallbackCreate(GetMethod(implObj, "put_IsInterval"), flags, 2)
-        this.vtbl.GetVarDate := CallbackCreate(GetMethod(implObj, "GetVarDate"), flags, 3)
-        this.vtbl.SetVarDate := CallbackCreate(GetMethod(implObj, "SetVarDate"), flags, 3)
-        this.vtbl.GetFileTime := CallbackCreate(GetMethod(implObj, "GetFileTime"), flags, 3)
-        this.vtbl.SetFileTime := CallbackCreate(GetMethod(implObj, "SetFileTime"), flags, 3)
+        this.vtbl.get_Value := CallbackCreate(ObjBindMethod(implObj, "get_Value"), flags, 2)
+        this.vtbl.put_Value := CallbackCreate(ObjBindMethod(implObj, "put_Value"), flags, 2)
+        this.vtbl.get_Year := CallbackCreate(ObjBindMethod(implObj, "get_Year"), flags, 2)
+        this.vtbl.put_Year := CallbackCreate(ObjBindMethod(implObj, "put_Year"), flags, 2)
+        this.vtbl.get_YearSpecified := CallbackCreate(ObjBindMethod(implObj, "get_YearSpecified"), flags, 2)
+        this.vtbl.put_YearSpecified := CallbackCreate(ObjBindMethod(implObj, "put_YearSpecified"), flags, 2)
+        this.vtbl.get_Month := CallbackCreate(ObjBindMethod(implObj, "get_Month"), flags, 2)
+        this.vtbl.put_Month := CallbackCreate(ObjBindMethod(implObj, "put_Month"), flags, 2)
+        this.vtbl.get_MonthSpecified := CallbackCreate(ObjBindMethod(implObj, "get_MonthSpecified"), flags, 2)
+        this.vtbl.put_MonthSpecified := CallbackCreate(ObjBindMethod(implObj, "put_MonthSpecified"), flags, 2)
+        this.vtbl.get_Day := CallbackCreate(ObjBindMethod(implObj, "get_Day"), flags, 2)
+        this.vtbl.put_Day := CallbackCreate(ObjBindMethod(implObj, "put_Day"), flags, 2)
+        this.vtbl.get_DaySpecified := CallbackCreate(ObjBindMethod(implObj, "get_DaySpecified"), flags, 2)
+        this.vtbl.put_DaySpecified := CallbackCreate(ObjBindMethod(implObj, "put_DaySpecified"), flags, 2)
+        this.vtbl.get_Hours := CallbackCreate(ObjBindMethod(implObj, "get_Hours"), flags, 2)
+        this.vtbl.put_Hours := CallbackCreate(ObjBindMethod(implObj, "put_Hours"), flags, 2)
+        this.vtbl.get_HoursSpecified := CallbackCreate(ObjBindMethod(implObj, "get_HoursSpecified"), flags, 2)
+        this.vtbl.put_HoursSpecified := CallbackCreate(ObjBindMethod(implObj, "put_HoursSpecified"), flags, 2)
+        this.vtbl.get_Minutes := CallbackCreate(ObjBindMethod(implObj, "get_Minutes"), flags, 2)
+        this.vtbl.put_Minutes := CallbackCreate(ObjBindMethod(implObj, "put_Minutes"), flags, 2)
+        this.vtbl.get_MinutesSpecified := CallbackCreate(ObjBindMethod(implObj, "get_MinutesSpecified"), flags, 2)
+        this.vtbl.put_MinutesSpecified := CallbackCreate(ObjBindMethod(implObj, "put_MinutesSpecified"), flags, 2)
+        this.vtbl.get_Seconds := CallbackCreate(ObjBindMethod(implObj, "get_Seconds"), flags, 2)
+        this.vtbl.put_Seconds := CallbackCreate(ObjBindMethod(implObj, "put_Seconds"), flags, 2)
+        this.vtbl.get_SecondsSpecified := CallbackCreate(ObjBindMethod(implObj, "get_SecondsSpecified"), flags, 2)
+        this.vtbl.put_SecondsSpecified := CallbackCreate(ObjBindMethod(implObj, "put_SecondsSpecified"), flags, 2)
+        this.vtbl.get_Microseconds := CallbackCreate(ObjBindMethod(implObj, "get_Microseconds"), flags, 2)
+        this.vtbl.put_Microseconds := CallbackCreate(ObjBindMethod(implObj, "put_Microseconds"), flags, 2)
+        this.vtbl.get_MicrosecondsSpecified := CallbackCreate(ObjBindMethod(implObj, "get_MicrosecondsSpecified"), flags, 2)
+        this.vtbl.put_MicrosecondsSpecified := CallbackCreate(ObjBindMethod(implObj, "put_MicrosecondsSpecified"), flags, 2)
+        this.vtbl.get_UTC := CallbackCreate(ObjBindMethod(implObj, "get_UTC"), flags, 2)
+        this.vtbl.put_UTC := CallbackCreate(ObjBindMethod(implObj, "put_UTC"), flags, 2)
+        this.vtbl.get_UTCSpecified := CallbackCreate(ObjBindMethod(implObj, "get_UTCSpecified"), flags, 2)
+        this.vtbl.put_UTCSpecified := CallbackCreate(ObjBindMethod(implObj, "put_UTCSpecified"), flags, 2)
+        this.vtbl.get_IsInterval := CallbackCreate(ObjBindMethod(implObj, "get_IsInterval"), flags, 2)
+        this.vtbl.put_IsInterval := CallbackCreate(ObjBindMethod(implObj, "put_IsInterval"), flags, 2)
+        this.vtbl.GetVarDate := CallbackCreate(ObjBindMethod(implObj, "GetVarDate"), flags, 3)
+        this.vtbl.SetVarDate := CallbackCreate(ObjBindMethod(implObj, "SetVarDate"), flags, 3)
+        this.vtbl.GetFileTime := CallbackCreate(ObjBindMethod(implObj, "GetFileTime"), flags, 3)
+        this.vtbl.SetFileTime := CallbackCreate(ObjBindMethod(implObj, "SetFileTime"), flags, 3)
     }
 
     Dispose() {

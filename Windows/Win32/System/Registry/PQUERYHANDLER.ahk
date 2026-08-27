@@ -19,7 +19,6 @@ export default struct PQUERYHANDLER {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} keycontext 
      * @param {Pointer<val_context>} val_list 
      * @param {Integer} num_vals 
@@ -29,9 +28,9 @@ export default struct PQUERYHANDLER {
      * @returns {Integer} 
      */
     Call(keycontext, val_list, num_vals, outputbuffer, total_outlen, input_blen) {
-        keycontextMarshal := keycontext is VarRef ? "ptr" : "ptr"
-        outputbufferMarshal := outputbuffer is VarRef ? "ptr" : "ptr"
-        total_outlenMarshal := total_outlen is VarRef ? "uint*" : "ptr"
+        keycontextMarshal := keycontext is VarRef ? "ptr" : IntPtr
+        outputbufferMarshal := outputbuffer is VarRef ? "ptr" : IntPtr
+        total_outlenMarshal := total_outlen is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, keycontextMarshal, keycontext, val_context.Ptr, val_list, UInt32, num_vals, outputbufferMarshal, outputbuffer, total_outlenMarshal, total_outlen, UInt32, input_blen, UInt32)
         return result

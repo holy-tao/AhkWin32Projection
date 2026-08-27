@@ -40,7 +40,6 @@ export default struct IErrorLookup extends IUnknown {
     }
 
     /**
-     * 
      * @param {HRESULT} hrError 
      * @param {Integer} dwLookupID 
      * @param {Pointer<DISPPARAMS>} pdispparams 
@@ -50,12 +49,14 @@ export default struct IErrorLookup extends IUnknown {
      * @returns {HRESULT} 
      */
     GetErrorDescription(hrError, dwLookupID, pdispparams, lcid, pbstrSource, pbstrDescription) {
-        result := ComCall(3, this, "int", hrError, UInt32, dwLookupID, DISPPARAMS.Ptr, pdispparams, UInt32, lcid, BSTR.Ptr, pbstrSource, BSTR.Ptr, pbstrDescription, "HRESULT")
+        pbstrSourceMarshal := pbstrSource == 0 ? IntPtr : BSTR.Ptr
+        pbstrDescriptionMarshal := pbstrDescription == 0 ? IntPtr : BSTR.Ptr
+
+        result := ComCall(3, this, "int", hrError, UInt32, dwLookupID, DISPPARAMS.Ptr, pdispparams, UInt32, lcid, pbstrSourceMarshal, pbstrSource, pbstrDescriptionMarshal, pbstrDescription, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HRESULT} hrError 
      * @param {Integer} dwLookupID 
      * @param {Integer} lcid 
@@ -64,14 +65,13 @@ export default struct IErrorLookup extends IUnknown {
      * @returns {HRESULT} 
      */
     GetHelpInfo(hrError, dwLookupID, lcid, pbstrHelpFile, pdwHelpContext) {
-        pdwHelpContextMarshal := pdwHelpContext is VarRef ? "uint*" : "ptr"
+        pdwHelpContextMarshal := pdwHelpContext is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, "int", hrError, UInt32, dwLookupID, UInt32, lcid, BSTR.Ptr, pbstrHelpFile, pdwHelpContextMarshal, pdwHelpContext, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwDynamicErrorID 
      * @returns {HRESULT} 
      */
@@ -89,9 +89,9 @@ export default struct IErrorLookup extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetErrorDescription := CallbackCreate(GetMethod(implObj, "GetErrorDescription"), flags, 7)
-        this.vtbl.GetHelpInfo := CallbackCreate(GetMethod(implObj, "GetHelpInfo"), flags, 6)
-        this.vtbl.ReleaseErrors := CallbackCreate(GetMethod(implObj, "ReleaseErrors"), flags, 2)
+        this.vtbl.GetErrorDescription := CallbackCreate(ObjBindMethod(implObj, "GetErrorDescription"), flags, 7)
+        this.vtbl.GetHelpInfo := CallbackCreate(ObjBindMethod(implObj, "GetHelpInfo"), flags, 6)
+        this.vtbl.ReleaseErrors := CallbackCreate(ObjBindMethod(implObj, "ReleaseErrors"), flags, 2)
     }
 
     Dispose() {

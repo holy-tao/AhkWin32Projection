@@ -44,7 +44,6 @@ export default struct ISVGURIReference extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedString} 
      */
     get_href() {
@@ -61,7 +60,7 @@ export default struct ISVGURIReference extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_href := CallbackCreate(GetMethod(implObj, "get_href"), flags, 2)
+        this.vtbl.get_href := CallbackCreate(ObjBindMethod(implObj, "get_href"), flags, 2)
     }
 
     Dispose() {

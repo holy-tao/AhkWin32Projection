@@ -84,8 +84,8 @@ export default struct IChangeUnitException extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ichangeunitexception-getitemid
      */
     GetItemId(pbItemId, pcbIdSize) {
-        pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
-        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
+        pbItemIdMarshal := pbItemId is VarRef ? "char*" : IntPtr
+        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pbItemIdMarshal, pbItemId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
         return result
@@ -139,8 +139,8 @@ export default struct IChangeUnitException extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ichangeunitexception-getchangeunitid
      */
     GetChangeUnitId(pbChangeUnitId, pcbIdSize) {
-        pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : "ptr"
-        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
+        pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : IntPtr
+        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pbChangeUnitIdMarshal, pbChangeUnitId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
         return result
@@ -180,7 +180,7 @@ export default struct IChangeUnitException extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ichangeunitexception-getclockvector
      */
     GetClockVector(riid, ppUnk) {
-        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
+        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, Guid.Ptr, riid, ppUnkMarshal, ppUnk, "HRESULT")
         return result
@@ -195,9 +195,9 @@ export default struct IChangeUnitException extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetItemId := CallbackCreate(GetMethod(implObj, "GetItemId"), flags, 3)
-        this.vtbl.GetChangeUnitId := CallbackCreate(GetMethod(implObj, "GetChangeUnitId"), flags, 3)
-        this.vtbl.GetClockVector := CallbackCreate(GetMethod(implObj, "GetClockVector"), flags, 3)
+        this.vtbl.GetItemId := CallbackCreate(ObjBindMethod(implObj, "GetItemId"), flags, 3)
+        this.vtbl.GetChangeUnitId := CallbackCreate(ObjBindMethod(implObj, "GetChangeUnitId"), flags, 3)
+        this.vtbl.GetClockVector := CallbackCreate(ObjBindMethod(implObj, "GetClockVector"), flags, 3)
     }
 
     Dispose() {

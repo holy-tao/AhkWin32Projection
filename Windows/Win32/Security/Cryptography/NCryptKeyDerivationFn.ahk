@@ -22,7 +22,6 @@ export default struct NCryptKeyDerivationFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} _hProvider 
      * @param {NCRYPT_KEY_HANDLE} _hKey 
      * @param {Pointer<BCryptBufferDesc>} pParameterList 
@@ -32,7 +31,9 @@ export default struct NCryptKeyDerivationFn {
      * @returns {Integer} 
      */
     Call(_hProvider, _hKey, pParameterList, pbDerivedKey, cbDerivedKey, dwFlags) {
-        result := DllCall(this.value, NCRYPT_PROV_HANDLE, _hProvider, NCRYPT_KEY_HANDLE, _hKey, BCryptBufferDesc.Ptr, pParameterList, IntPtr, pbDerivedKey, UInt32, cbDerivedKey, "uint*", &pcbResult := 0, UInt32, dwFlags, "HRESULT")
+        pParameterListMarshal := pParameterList == 0 ? IntPtr : BCryptBufferDesc.Ptr
+
+        result := DllCall(this.value, NCRYPT_PROV_HANDLE, _hProvider, NCRYPT_KEY_HANDLE, _hKey, pParameterListMarshal, pParameterList, IntPtr, pbDerivedKey, UInt32, cbDerivedKey, "uint*", &pcbResult := 0, UInt32, dwFlags, "HRESULT")
         return pcbResult
     }
 

@@ -153,11 +153,11 @@ export default struct IMSVidStreamBufferSource2 extends IMSVidStreamBufferSource
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_RateEx := CallbackCreate(GetMethod(implObj, "put_RateEx"), flags, 3)
-        this.vtbl.get_AudioCounter := CallbackCreate(GetMethod(implObj, "get_AudioCounter"), flags, 2)
-        this.vtbl.get_VideoCounter := CallbackCreate(GetMethod(implObj, "get_VideoCounter"), flags, 2)
-        this.vtbl.get_CCCounter := CallbackCreate(GetMethod(implObj, "get_CCCounter"), flags, 2)
-        this.vtbl.get_WSTCounter := CallbackCreate(GetMethod(implObj, "get_WSTCounter"), flags, 2)
+        this.vtbl.put_RateEx := CallbackCreate(ObjBindMethod(implObj, "put_RateEx"), flags, 3)
+        this.vtbl.get_AudioCounter := CallbackCreate(ObjBindMethod(implObj, "get_AudioCounter"), flags, 2)
+        this.vtbl.get_VideoCounter := CallbackCreate(ObjBindMethod(implObj, "get_VideoCounter"), flags, 2)
+        this.vtbl.get_CCCounter := CallbackCreate(ObjBindMethod(implObj, "get_CCCounter"), flags, 2)
+        this.vtbl.get_WSTCounter := CallbackCreate(ObjBindMethod(implObj, "get_WSTCounter"), flags, 2)
     }
 
     Dispose() {

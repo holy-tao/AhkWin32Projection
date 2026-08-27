@@ -33,7 +33,6 @@ export default struct CAPSTATUSCALLBACKW {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd Handle to the capture window associated with the callback function.
      * @param {Integer} nID Message identification number.
      * @param {PWSTR} lpsz Pointer to a textual description of the returned status.

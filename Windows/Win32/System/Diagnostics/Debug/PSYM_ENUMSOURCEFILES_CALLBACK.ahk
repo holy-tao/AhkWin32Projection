@@ -23,7 +23,6 @@ export default struct PSYM_ENUMSOURCEFILES_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<SOURCEFILE>} pSourceFile A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ns-dbghelp-sourcefile">SOURCEFILE</a> structure that provides information about the source file.
      * @param {Pointer<Void>} UserContext The user-defined value passed from the 
@@ -34,7 +33,8 @@ export default struct PSYM_ENUMSOURCEFILES_CALLBACK {
      * If the function returns <b>FALSE</b>, the enumeration will stop.
      */
     Call(pSourceFile, UserContext) {
-        UserContextMarshal := UserContext is VarRef ? "ptr" : "ptr"
+        UserContextMarshal := UserContext is VarRef ? "ptr" : IntPtr
+        UserContextMarshal := UserContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, SOURCEFILE.Ptr, pSourceFile, UserContextMarshal, UserContext, BOOL)
         return result

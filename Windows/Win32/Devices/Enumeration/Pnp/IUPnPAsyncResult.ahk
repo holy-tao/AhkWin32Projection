@@ -57,7 +57,7 @@ export default struct IUPnPAsyncResult extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AsyncOperationComplete := CallbackCreate(GetMethod(implObj, "AsyncOperationComplete"), flags, 2)
+        this.vtbl.AsyncOperationComplete := CallbackCreate(ObjBindMethod(implObj, "AsyncOperationComplete"), flags, 2)
     }
 
     Dispose() {

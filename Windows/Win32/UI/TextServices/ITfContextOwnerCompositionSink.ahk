@@ -87,9 +87,9 @@ export default struct ITfContextOwnerCompositionSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnStartComposition := CallbackCreate(GetMethod(implObj, "OnStartComposition"), flags, 3)
-        this.vtbl.OnUpdateComposition := CallbackCreate(GetMethod(implObj, "OnUpdateComposition"), flags, 3)
-        this.vtbl.OnEndComposition := CallbackCreate(GetMethod(implObj, "OnEndComposition"), flags, 2)
+        this.vtbl.OnStartComposition := CallbackCreate(ObjBindMethod(implObj, "OnStartComposition"), flags, 3)
+        this.vtbl.OnUpdateComposition := CallbackCreate(ObjBindMethod(implObj, "OnUpdateComposition"), flags, 3)
+        this.vtbl.OnEndComposition := CallbackCreate(ObjBindMethod(implObj, "OnEndComposition"), flags, 2)
     }
 
     Dispose() {

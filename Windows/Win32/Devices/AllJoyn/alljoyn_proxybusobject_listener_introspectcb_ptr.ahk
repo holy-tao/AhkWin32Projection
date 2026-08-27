@@ -20,14 +20,13 @@ export default struct alljoyn_proxybusobject_listener_introspectcb_ptr {
     }
 
     /**
-     * 
      * @param {QStatus} _status 
      * @param {alljoyn_proxybusobject} obj 
      * @param {Pointer<Void>} _context 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_status, obj, _context) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, QStatus, _status, alljoyn_proxybusobject, obj, _contextMarshal, _context)
     }

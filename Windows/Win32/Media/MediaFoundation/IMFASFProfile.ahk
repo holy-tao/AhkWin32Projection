@@ -97,7 +97,7 @@ export default struct IMFASFProfile extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfprofile-getstream
      */
     GetStream(dwStreamIndex, pwStreamNumber, ppIStream) {
-        pwStreamNumberMarshal := pwStreamNumber is VarRef ? "ushort*" : "ptr"
+        pwStreamNumberMarshal := pwStreamNumber is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(34, this, UInt32, dwStreamIndex, pwStreamNumberMarshal, pwStreamNumber, IMFASFStreamConfig.Ptr, ppIStream, "HRESULT")
         return result
@@ -356,22 +356,22 @@ export default struct IMFASFProfile extends IMFAttributes {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStreamCount := CallbackCreate(GetMethod(implObj, "GetStreamCount"), flags, 2)
-        this.vtbl.GetStream := CallbackCreate(GetMethod(implObj, "GetStream"), flags, 4)
-        this.vtbl.GetStreamByNumber := CallbackCreate(GetMethod(implObj, "GetStreamByNumber"), flags, 3)
-        this.vtbl.SetStream := CallbackCreate(GetMethod(implObj, "SetStream"), flags, 2)
-        this.vtbl.RemoveStream := CallbackCreate(GetMethod(implObj, "RemoveStream"), flags, 2)
-        this.vtbl.CreateStream := CallbackCreate(GetMethod(implObj, "CreateStream"), flags, 3)
-        this.vtbl.GetMutualExclusionCount := CallbackCreate(GetMethod(implObj, "GetMutualExclusionCount"), flags, 2)
-        this.vtbl.GetMutualExclusion := CallbackCreate(GetMethod(implObj, "GetMutualExclusion"), flags, 3)
-        this.vtbl.AddMutualExclusion := CallbackCreate(GetMethod(implObj, "AddMutualExclusion"), flags, 2)
-        this.vtbl.RemoveMutualExclusion := CallbackCreate(GetMethod(implObj, "RemoveMutualExclusion"), flags, 2)
-        this.vtbl.CreateMutualExclusion := CallbackCreate(GetMethod(implObj, "CreateMutualExclusion"), flags, 2)
-        this.vtbl.GetStreamPrioritization := CallbackCreate(GetMethod(implObj, "GetStreamPrioritization"), flags, 2)
-        this.vtbl.AddStreamPrioritization := CallbackCreate(GetMethod(implObj, "AddStreamPrioritization"), flags, 2)
-        this.vtbl.RemoveStreamPrioritization := CallbackCreate(GetMethod(implObj, "RemoveStreamPrioritization"), flags, 1)
-        this.vtbl.CreateStreamPrioritization := CallbackCreate(GetMethod(implObj, "CreateStreamPrioritization"), flags, 2)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.GetStreamCount := CallbackCreate(ObjBindMethod(implObj, "GetStreamCount"), flags, 2)
+        this.vtbl.GetStream := CallbackCreate(ObjBindMethod(implObj, "GetStream"), flags, 4)
+        this.vtbl.GetStreamByNumber := CallbackCreate(ObjBindMethod(implObj, "GetStreamByNumber"), flags, 3)
+        this.vtbl.SetStream := CallbackCreate(ObjBindMethod(implObj, "SetStream"), flags, 2)
+        this.vtbl.RemoveStream := CallbackCreate(ObjBindMethod(implObj, "RemoveStream"), flags, 2)
+        this.vtbl.CreateStream := CallbackCreate(ObjBindMethod(implObj, "CreateStream"), flags, 3)
+        this.vtbl.GetMutualExclusionCount := CallbackCreate(ObjBindMethod(implObj, "GetMutualExclusionCount"), flags, 2)
+        this.vtbl.GetMutualExclusion := CallbackCreate(ObjBindMethod(implObj, "GetMutualExclusion"), flags, 3)
+        this.vtbl.AddMutualExclusion := CallbackCreate(ObjBindMethod(implObj, "AddMutualExclusion"), flags, 2)
+        this.vtbl.RemoveMutualExclusion := CallbackCreate(ObjBindMethod(implObj, "RemoveMutualExclusion"), flags, 2)
+        this.vtbl.CreateMutualExclusion := CallbackCreate(ObjBindMethod(implObj, "CreateMutualExclusion"), flags, 2)
+        this.vtbl.GetStreamPrioritization := CallbackCreate(ObjBindMethod(implObj, "GetStreamPrioritization"), flags, 2)
+        this.vtbl.AddStreamPrioritization := CallbackCreate(ObjBindMethod(implObj, "AddStreamPrioritization"), flags, 2)
+        this.vtbl.RemoveStreamPrioritization := CallbackCreate(ObjBindMethod(implObj, "RemoveStreamPrioritization"), flags, 1)
+        this.vtbl.CreateStreamPrioritization := CallbackCreate(ObjBindMethod(implObj, "CreateStreamPrioritization"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
     }
 
     Dispose() {

@@ -81,7 +81,7 @@ export default struct IDWriteGdiInterop extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritegdiinterop-convertfonttologfont
      */
     ConvertFontToLOGFONT(_font, logFont, isSystemFont) {
-        isSystemFontMarshal := isSystemFont is VarRef ? "int*" : "ptr"
+        isSystemFontMarshal := isSystemFont is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, "ptr", _font, LOGFONTW.Ptr, logFont, isSystemFontMarshal, isSystemFont, "HRESULT")
         return result
@@ -141,7 +141,9 @@ export default struct IDWriteGdiInterop extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritegdiinterop-createbitmaprendertarget
      */
     CreateBitmapRenderTarget(_hdc, width, height) {
-        result := ComCall(7, this, HDC, _hdc, UInt32, width, UInt32, height, "ptr*", &renderTarget := 0, "HRESULT")
+        _hdcMarshal := _hdc == 0 ? IntPtr : HDC
+
+        result := ComCall(7, this, _hdcMarshal, _hdc, UInt32, width, UInt32, height, "ptr*", &renderTarget := 0, "HRESULT")
         return IDWriteBitmapRenderTarget(renderTarget)
     }
 
@@ -154,11 +156,11 @@ export default struct IDWriteGdiInterop extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateFontFromLOGFONT := CallbackCreate(GetMethod(implObj, "CreateFontFromLOGFONT"), flags, 3)
-        this.vtbl.ConvertFontToLOGFONT := CallbackCreate(GetMethod(implObj, "ConvertFontToLOGFONT"), flags, 4)
-        this.vtbl.ConvertFontFaceToLOGFONT := CallbackCreate(GetMethod(implObj, "ConvertFontFaceToLOGFONT"), flags, 3)
-        this.vtbl.CreateFontFaceFromHdc := CallbackCreate(GetMethod(implObj, "CreateFontFaceFromHdc"), flags, 3)
-        this.vtbl.CreateBitmapRenderTarget := CallbackCreate(GetMethod(implObj, "CreateBitmapRenderTarget"), flags, 5)
+        this.vtbl.CreateFontFromLOGFONT := CallbackCreate(ObjBindMethod(implObj, "CreateFontFromLOGFONT"), flags, 3)
+        this.vtbl.ConvertFontToLOGFONT := CallbackCreate(ObjBindMethod(implObj, "ConvertFontToLOGFONT"), flags, 4)
+        this.vtbl.ConvertFontFaceToLOGFONT := CallbackCreate(ObjBindMethod(implObj, "ConvertFontFaceToLOGFONT"), flags, 3)
+        this.vtbl.CreateFontFaceFromHdc := CallbackCreate(ObjBindMethod(implObj, "CreateFontFaceFromHdc"), flags, 3)
+        this.vtbl.CreateBitmapRenderTarget := CallbackCreate(ObjBindMethod(implObj, "CreateBitmapRenderTarget"), flags, 5)
     }
 
     Dispose() {

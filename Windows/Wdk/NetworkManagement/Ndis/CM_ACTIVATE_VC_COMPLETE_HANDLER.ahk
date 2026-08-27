@@ -18,7 +18,6 @@ export default struct CM_ACTIVATE_VC_COMPLETE_HANDLER {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

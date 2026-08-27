@@ -135,8 +135,8 @@ export default struct IFileSystemImage2 extends IFileSystemImage {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_BootImageOptionsArray := CallbackCreate(GetMethod(implObj, "get_BootImageOptionsArray"), flags, 2)
-        this.vtbl.put_BootImageOptionsArray := CallbackCreate(GetMethod(implObj, "put_BootImageOptionsArray"), flags, 2)
+        this.vtbl.get_BootImageOptionsArray := CallbackCreate(ObjBindMethod(implObj, "get_BootImageOptionsArray"), flags, 2)
+        this.vtbl.put_BootImageOptionsArray := CallbackCreate(ObjBindMethod(implObj, "put_BootImageOptionsArray"), flags, 2)
     }
 
     Dispose() {

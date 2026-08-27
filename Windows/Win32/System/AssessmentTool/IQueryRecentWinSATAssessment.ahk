@@ -92,8 +92,8 @@ export default struct IQueryRecentWinSATAssessment extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_XML := CallbackCreate(GetMethod(implObj, "get_XML"), flags, 4)
-        this.vtbl.get_Info := CallbackCreate(GetMethod(implObj, "get_Info"), flags, 2)
+        this.vtbl.get_XML := CallbackCreate(ObjBindMethod(implObj, "get_XML"), flags, 4)
+        this.vtbl.get_Info := CallbackCreate(ObjBindMethod(implObj, "get_Info"), flags, 2)
     }
 
     Dispose() {

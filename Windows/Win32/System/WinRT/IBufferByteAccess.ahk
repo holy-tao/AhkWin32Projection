@@ -60,7 +60,7 @@ export default struct IBufferByteAccess extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Buffer := CallbackCreate(GetMethod(implObj, "Buffer"), flags, 2)
+        this.vtbl.Buffer := CallbackCreate(ObjBindMethod(implObj, "Buffer"), flags, 2)
     }
 
     Dispose() {

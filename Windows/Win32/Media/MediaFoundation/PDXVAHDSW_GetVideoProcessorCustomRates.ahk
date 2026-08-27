@@ -24,7 +24,6 @@ export default struct PDXVAHDSW_GetVideoProcessorCustomRates {
     }
 
     /**
-     * 
      * @param {HANDLE} hDevice A handle to the plug-in DXVA-HD device.
      * @param {Pointer<Guid>} pVPGuid A GUID that identifies the video processor to query.
      * @param {Integer} Count The number of rates to retrieve.

@@ -107,9 +107,9 @@ export default struct ICommDlgBrowser3 extends ICommDlgBrowser2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnColumnClicked := CallbackCreate(GetMethod(implObj, "OnColumnClicked"), flags, 3)
-        this.vtbl.GetCurrentFilter := CallbackCreate(GetMethod(implObj, "GetCurrentFilter"), flags, 3)
-        this.vtbl.OnPreViewCreated := CallbackCreate(GetMethod(implObj, "OnPreViewCreated"), flags, 2)
+        this.vtbl.OnColumnClicked := CallbackCreate(ObjBindMethod(implObj, "OnColumnClicked"), flags, 3)
+        this.vtbl.GetCurrentFilter := CallbackCreate(ObjBindMethod(implObj, "GetCurrentFilter"), flags, 3)
+        this.vtbl.OnPreViewCreated := CallbackCreate(ObjBindMethod(implObj, "OnPreViewCreated"), flags, 2)
     }
 
     Dispose() {

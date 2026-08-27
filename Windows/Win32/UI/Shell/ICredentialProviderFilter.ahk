@@ -78,7 +78,7 @@ export default struct ICredentialProviderFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialproviderfilter-filter
      */
     Filter(cpus, dwFlags, rgclsidProviders, rgbAllow, cProviders) {
-        rgbAllowMarshal := rgbAllow is VarRef ? "int*" : "ptr"
+        rgbAllowMarshal := rgbAllow is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, CREDENTIAL_PROVIDER_USAGE_SCENARIO, cpus, UInt32, dwFlags, Guid.Ptr, rgclsidProviders, rgbAllowMarshal, rgbAllow, UInt32, cProviders, "HRESULT")
         return result
@@ -109,8 +109,8 @@ export default struct ICredentialProviderFilter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Filter := CallbackCreate(GetMethod(implObj, "Filter"), flags, 6)
-        this.vtbl.UpdateRemoteCredential := CallbackCreate(GetMethod(implObj, "UpdateRemoteCredential"), flags, 3)
+        this.vtbl.Filter := CallbackCreate(ObjBindMethod(implObj, "Filter"), flags, 6)
+        this.vtbl.UpdateRemoteCredential := CallbackCreate(ObjBindMethod(implObj, "UpdateRemoteCredential"), flags, 3)
     }
 
     Dispose() {

@@ -75,8 +75,8 @@ export default struct IVMRVideoStreamControl9 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetStreamActiveState := CallbackCreate(GetMethod(implObj, "SetStreamActiveState"), flags, 2)
-        this.vtbl.GetStreamActiveState := CallbackCreate(GetMethod(implObj, "GetStreamActiveState"), flags, 2)
+        this.vtbl.SetStreamActiveState := CallbackCreate(ObjBindMethod(implObj, "SetStreamActiveState"), flags, 2)
+        this.vtbl.GetStreamActiveState := CallbackCreate(ObjBindMethod(implObj, "GetStreamActiveState"), flags, 2)
     }
 
     Dispose() {

@@ -100,10 +100,10 @@ export default struct IXAPOHrtfParameters extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetSourcePosition := CallbackCreate(GetMethod(implObj, "SetSourcePosition"), flags, 2)
-        this.vtbl.SetSourceOrientation := CallbackCreate(GetMethod(implObj, "SetSourceOrientation"), flags, 2)
-        this.vtbl.SetSourceGain := CallbackCreate(GetMethod(implObj, "SetSourceGain"), flags, 2)
-        this.vtbl.SetEnvironment := CallbackCreate(GetMethod(implObj, "SetEnvironment"), flags, 2)
+        this.vtbl.SetSourcePosition := CallbackCreate(ObjBindMethod(implObj, "SetSourcePosition"), flags, 2)
+        this.vtbl.SetSourceOrientation := CallbackCreate(ObjBindMethod(implObj, "SetSourceOrientation"), flags, 2)
+        this.vtbl.SetSourceGain := CallbackCreate(ObjBindMethod(implObj, "SetSourceGain"), flags, 2)
+        this.vtbl.SetEnvironment := CallbackCreate(ObjBindMethod(implObj, "SetEnvironment"), flags, 2)
     }
 
     Dispose() {

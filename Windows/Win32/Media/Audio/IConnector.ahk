@@ -269,14 +269,14 @@ export default struct IConnector extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
-        this.vtbl.GetDataFlow := CallbackCreate(GetMethod(implObj, "GetDataFlow"), flags, 2)
-        this.vtbl.ConnectTo := CallbackCreate(GetMethod(implObj, "ConnectTo"), flags, 2)
-        this.vtbl.Disconnect := CallbackCreate(GetMethod(implObj, "Disconnect"), flags, 1)
-        this.vtbl.IsConnected := CallbackCreate(GetMethod(implObj, "IsConnected"), flags, 2)
-        this.vtbl.GetConnectedTo := CallbackCreate(GetMethod(implObj, "GetConnectedTo"), flags, 2)
-        this.vtbl.GetConnectorIdConnectedTo := CallbackCreate(GetMethod(implObj, "GetConnectorIdConnectedTo"), flags, 2)
-        this.vtbl.GetDeviceIdConnectedTo := CallbackCreate(GetMethod(implObj, "GetDeviceIdConnectedTo"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(ObjBindMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.GetDataFlow := CallbackCreate(ObjBindMethod(implObj, "GetDataFlow"), flags, 2)
+        this.vtbl.ConnectTo := CallbackCreate(ObjBindMethod(implObj, "ConnectTo"), flags, 2)
+        this.vtbl.Disconnect := CallbackCreate(ObjBindMethod(implObj, "Disconnect"), flags, 1)
+        this.vtbl.IsConnected := CallbackCreate(ObjBindMethod(implObj, "IsConnected"), flags, 2)
+        this.vtbl.GetConnectedTo := CallbackCreate(ObjBindMethod(implObj, "GetConnectedTo"), flags, 2)
+        this.vtbl.GetConnectorIdConnectedTo := CallbackCreate(ObjBindMethod(implObj, "GetConnectorIdConnectedTo"), flags, 2)
+        this.vtbl.GetDeviceIdConnectedTo := CallbackCreate(ObjBindMethod(implObj, "GetDeviceIdConnectedTo"), flags, 2)
     }
 
     Dispose() {

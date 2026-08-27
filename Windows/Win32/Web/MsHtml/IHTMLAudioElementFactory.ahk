@@ -44,7 +44,6 @@ export default struct IHTMLAudioElementFactory extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} src 
      * @returns {IHTMLAudioElement} 
      */
@@ -62,7 +61,7 @@ export default struct IHTMLAudioElementFactory extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.create := CallbackCreate(GetMethod(implObj, "create"), flags, 3)
+        this.vtbl.create := CallbackCreate(ObjBindMethod(implObj, "create"), flags, 3)
     }
 
     Dispose() {

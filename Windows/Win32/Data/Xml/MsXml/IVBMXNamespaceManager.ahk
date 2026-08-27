@@ -59,7 +59,6 @@ export default struct IVBMXNamespaceManager extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fOverride 
      * @returns {HRESULT} 
      */
@@ -69,7 +68,6 @@ export default struct IVBMXNamespaceManager extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_allowOverride() {
@@ -78,7 +76,6 @@ export default struct IVBMXNamespaceManager extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     reset() {
@@ -87,7 +84,6 @@ export default struct IVBMXNamespaceManager extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     pushContext() {
@@ -96,7 +92,6 @@ export default struct IVBMXNamespaceManager extends IDispatch {
     }
 
     /**
-     * 
      * @param {IXMLDOMNode} contextNode 
      * @param {VARIANT_BOOL} fDeep 
      * @returns {HRESULT} 
@@ -107,7 +102,6 @@ export default struct IVBMXNamespaceManager extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     popContext() {
@@ -116,7 +110,6 @@ export default struct IVBMXNamespaceManager extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} prefix 
      * @param {BSTR} namespaceURI 
      * @returns {HRESULT} 
@@ -130,7 +123,6 @@ export default struct IVBMXNamespaceManager extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IMXNamespacePrefixes} 
      */
     getDeclaredPrefixes() {
@@ -139,7 +131,6 @@ export default struct IVBMXNamespaceManager extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} namespaceURI 
      * @returns {IMXNamespacePrefixes} 
      */
@@ -151,7 +142,6 @@ export default struct IVBMXNamespaceManager extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} prefix 
      * @returns {VARIANT} 
      */
@@ -164,7 +154,6 @@ export default struct IVBMXNamespaceManager extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strPrefix 
      * @param {IXMLDOMNode} contextNode 
      * @returns {VARIANT} 
@@ -186,17 +175,17 @@ export default struct IVBMXNamespaceManager extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_allowOverride := CallbackCreate(GetMethod(implObj, "put_allowOverride"), flags, 2)
-        this.vtbl.get_allowOverride := CallbackCreate(GetMethod(implObj, "get_allowOverride"), flags, 2)
-        this.vtbl.reset := CallbackCreate(GetMethod(implObj, "reset"), flags, 1)
-        this.vtbl.pushContext := CallbackCreate(GetMethod(implObj, "pushContext"), flags, 1)
-        this.vtbl.pushNodeContext := CallbackCreate(GetMethod(implObj, "pushNodeContext"), flags, 3)
-        this.vtbl.popContext := CallbackCreate(GetMethod(implObj, "popContext"), flags, 1)
-        this.vtbl.declarePrefix := CallbackCreate(GetMethod(implObj, "declarePrefix"), flags, 3)
-        this.vtbl.getDeclaredPrefixes := CallbackCreate(GetMethod(implObj, "getDeclaredPrefixes"), flags, 2)
-        this.vtbl.getPrefixes := CallbackCreate(GetMethod(implObj, "getPrefixes"), flags, 3)
-        this.vtbl.getURI := CallbackCreate(GetMethod(implObj, "getURI"), flags, 3)
-        this.vtbl.getURIFromNode := CallbackCreate(GetMethod(implObj, "getURIFromNode"), flags, 4)
+        this.vtbl.put_allowOverride := CallbackCreate(ObjBindMethod(implObj, "put_allowOverride"), flags, 2)
+        this.vtbl.get_allowOverride := CallbackCreate(ObjBindMethod(implObj, "get_allowOverride"), flags, 2)
+        this.vtbl.reset := CallbackCreate(ObjBindMethod(implObj, "reset"), flags, 1)
+        this.vtbl.pushContext := CallbackCreate(ObjBindMethod(implObj, "pushContext"), flags, 1)
+        this.vtbl.pushNodeContext := CallbackCreate(ObjBindMethod(implObj, "pushNodeContext"), flags, 3)
+        this.vtbl.popContext := CallbackCreate(ObjBindMethod(implObj, "popContext"), flags, 1)
+        this.vtbl.declarePrefix := CallbackCreate(ObjBindMethod(implObj, "declarePrefix"), flags, 3)
+        this.vtbl.getDeclaredPrefixes := CallbackCreate(ObjBindMethod(implObj, "getDeclaredPrefixes"), flags, 2)
+        this.vtbl.getPrefixes := CallbackCreate(ObjBindMethod(implObj, "getPrefixes"), flags, 3)
+        this.vtbl.getURI := CallbackCreate(ObjBindMethod(implObj, "getURI"), flags, 3)
+        this.vtbl.getURIFromNode := CallbackCreate(ObjBindMethod(implObj, "getURIFromNode"), flags, 4)
     }
 
     Dispose() {

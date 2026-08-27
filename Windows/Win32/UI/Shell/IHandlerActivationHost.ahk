@@ -83,8 +83,8 @@ export default struct IHandlerActivationHost extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BeforeCoCreateInstance := CallbackCreate(GetMethod(implObj, "BeforeCoCreateInstance"), flags, 4)
-        this.vtbl.BeforeCreateProcess := CallbackCreate(GetMethod(implObj, "BeforeCreateProcess"), flags, 4)
+        this.vtbl.BeforeCoCreateInstance := CallbackCreate(ObjBindMethod(implObj, "BeforeCoCreateInstance"), flags, 4)
+        this.vtbl.BeforeCreateProcess := CallbackCreate(ObjBindMethod(implObj, "BeforeCreateProcess"), flags, 4)
     }
 
     Dispose() {

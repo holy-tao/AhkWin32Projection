@@ -66,7 +66,7 @@ export default struct IMSVidClosedCaptioning3 extends IMSVidClosedCaptioning2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_TeleTextFilter := CallbackCreate(GetMethod(implObj, "get_TeleTextFilter"), flags, 2)
+        this.vtbl.get_TeleTextFilter := CallbackCreate(ObjBindMethod(implObj, "get_TeleTextFilter"), flags, 2)
     }
 
     Dispose() {

@@ -21,7 +21,6 @@ export default struct PCLUSAPI_SET_CLUSTER_GROUP_NODE_LIST_EX {
     }
 
     /**
-     * 
      * @param {HGROUP} _hGroup 
      * @param {Integer} NodeCount 
      * @param {Pointer<HNODE>} NodeList 
@@ -31,9 +30,11 @@ export default struct PCLUSAPI_SET_CLUSTER_GROUP_NODE_LIST_EX {
     Call(_hGroup, NodeCount, NodeList, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        NodeListMarshal := NodeList is VarRef ? "ptr*" : "ptr"
+        NodeListMarshal := NodeList is VarRef ? "ptr*" : IntPtr
+        NodeListMarshal := NodeList == 0 ? IntPtr : HNODE.Ptr
+        lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
 
-        result := DllCall(this.value, HGROUP, _hGroup, UInt32, NodeCount, NodeListMarshal, NodeList, "ptr", lpszReason, UInt32)
+        result := DllCall(this.value, HGROUP, _hGroup, UInt32, NodeCount, NodeListMarshal, NodeList, lpszReasonMarshal, lpszReason, UInt32)
         return result
     }
 

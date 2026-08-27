@@ -123,7 +123,7 @@ export default struct IWMPEffects extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects-getcapabilities
      */
     GetCapabilities(pdwCapabilities) {
-        pdwCapabilitiesMarshal := pdwCapabilities is VarRef ? "uint*" : "ptr"
+        pdwCapabilitiesMarshal := pdwCapabilities is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, pdwCapabilitiesMarshal, pdwCapabilities, "HRESULT")
         return result
@@ -165,7 +165,7 @@ export default struct IWMPEffects extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects-getpresetcount
      */
     GetPresetCount(pnPresetCount) {
-        pnPresetCountMarshal := pnPresetCount is VarRef ? "int*" : "ptr"
+        pnPresetCountMarshal := pnPresetCount is VarRef ? "int*" : IntPtr
 
         result := ComCall(8, this, pnPresetCountMarshal, pnPresetCount, "HRESULT")
         return result
@@ -191,7 +191,7 @@ export default struct IWMPEffects extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects-getcurrentpreset
      */
     GetCurrentPreset(pnPreset) {
-        pnPresetMarshal := pnPreset is VarRef ? "int*" : "ptr"
+        pnPresetMarshal := pnPreset is VarRef ? "int*" : IntPtr
 
         result := ComCall(10, this, pnPresetMarshal, pnPreset, "HRESULT")
         return result
@@ -253,17 +253,17 @@ export default struct IWMPEffects extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Render := CallbackCreate(GetMethod(implObj, "Render"), flags, 4)
-        this.vtbl.MediaInfo := CallbackCreate(GetMethod(implObj, "MediaInfo"), flags, 4)
-        this.vtbl.GetCapabilities := CallbackCreate(GetMethod(implObj, "GetCapabilities"), flags, 2)
-        this.vtbl.GetTitle := CallbackCreate(GetMethod(implObj, "GetTitle"), flags, 2)
-        this.vtbl.GetPresetTitle := CallbackCreate(GetMethod(implObj, "GetPresetTitle"), flags, 3)
-        this.vtbl.GetPresetCount := CallbackCreate(GetMethod(implObj, "GetPresetCount"), flags, 2)
-        this.vtbl.SetCurrentPreset := CallbackCreate(GetMethod(implObj, "SetCurrentPreset"), flags, 2)
-        this.vtbl.GetCurrentPreset := CallbackCreate(GetMethod(implObj, "GetCurrentPreset"), flags, 2)
-        this.vtbl.DisplayPropertyPage := CallbackCreate(GetMethod(implObj, "DisplayPropertyPage"), flags, 2)
-        this.vtbl.GoFullscreen := CallbackCreate(GetMethod(implObj, "GoFullscreen"), flags, 2)
-        this.vtbl.RenderFullScreen := CallbackCreate(GetMethod(implObj, "RenderFullScreen"), flags, 2)
+        this.vtbl.Render := CallbackCreate(ObjBindMethod(implObj, "Render"), flags, 4)
+        this.vtbl.MediaInfo := CallbackCreate(ObjBindMethod(implObj, "MediaInfo"), flags, 4)
+        this.vtbl.GetCapabilities := CallbackCreate(ObjBindMethod(implObj, "GetCapabilities"), flags, 2)
+        this.vtbl.GetTitle := CallbackCreate(ObjBindMethod(implObj, "GetTitle"), flags, 2)
+        this.vtbl.GetPresetTitle := CallbackCreate(ObjBindMethod(implObj, "GetPresetTitle"), flags, 3)
+        this.vtbl.GetPresetCount := CallbackCreate(ObjBindMethod(implObj, "GetPresetCount"), flags, 2)
+        this.vtbl.SetCurrentPreset := CallbackCreate(ObjBindMethod(implObj, "SetCurrentPreset"), flags, 2)
+        this.vtbl.GetCurrentPreset := CallbackCreate(ObjBindMethod(implObj, "GetCurrentPreset"), flags, 2)
+        this.vtbl.DisplayPropertyPage := CallbackCreate(ObjBindMethod(implObj, "DisplayPropertyPage"), flags, 2)
+        this.vtbl.GoFullscreen := CallbackCreate(ObjBindMethod(implObj, "GoFullscreen"), flags, 2)
+        this.vtbl.RenderFullScreen := CallbackCreate(ObjBindMethod(implObj, "RenderFullScreen"), flags, 2)
     }
 
     Dispose() {

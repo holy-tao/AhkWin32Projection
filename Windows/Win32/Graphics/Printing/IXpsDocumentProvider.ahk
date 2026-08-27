@@ -36,7 +36,6 @@ export default struct IXpsDocumentProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     GetXpsPart() {
@@ -53,7 +52,7 @@ export default struct IXpsDocumentProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetXpsPart := CallbackCreate(GetMethod(implObj, "GetXpsPart"), flags, 2)
+        this.vtbl.GetXpsPart := CallbackCreate(ObjBindMethod(implObj, "GetXpsPart"), flags, 2)
     }
 
     Dispose() {

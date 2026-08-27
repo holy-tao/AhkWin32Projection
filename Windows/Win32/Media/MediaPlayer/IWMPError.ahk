@@ -106,7 +106,7 @@ export default struct IWMPError extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmperror-get_errorcount
      */
     get_errorCount(plNumErrors) {
-        plNumErrorsMarshal := plNumErrors is VarRef ? "int*" : "ptr"
+        plNumErrorsMarshal := plNumErrors is VarRef ? "int*" : IntPtr
 
         result := ComCall(8, this, plNumErrorsMarshal, plNumErrors, "HRESULT")
         return result
@@ -174,10 +174,10 @@ export default struct IWMPError extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.clearErrorQueue := CallbackCreate(GetMethod(implObj, "clearErrorQueue"), flags, 1)
-        this.vtbl.get_errorCount := CallbackCreate(GetMethod(implObj, "get_errorCount"), flags, 2)
-        this.vtbl.get_item := CallbackCreate(GetMethod(implObj, "get_item"), flags, 3)
-        this.vtbl.webHelp := CallbackCreate(GetMethod(implObj, "webHelp"), flags, 1)
+        this.vtbl.clearErrorQueue := CallbackCreate(ObjBindMethod(implObj, "clearErrorQueue"), flags, 1)
+        this.vtbl.get_errorCount := CallbackCreate(ObjBindMethod(implObj, "get_errorCount"), flags, 2)
+        this.vtbl.get_item := CallbackCreate(ObjBindMethod(implObj, "get_item"), flags, 3)
+        this.vtbl.webHelp := CallbackCreate(ObjBindMethod(implObj, "webHelp"), flags, 1)
     }
 
     Dispose() {

@@ -55,7 +55,6 @@ export default struct IXMLDOMElement extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_tagName() {
@@ -65,7 +64,6 @@ export default struct IXMLDOMElement extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {VARIANT} 
      */
@@ -78,7 +76,6 @@ export default struct IXMLDOMElement extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @param {VARIANT} value 
      * @returns {HRESULT} 
@@ -91,7 +88,6 @@ export default struct IXMLDOMElement extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {HRESULT} 
      */
@@ -103,7 +99,6 @@ export default struct IXMLDOMElement extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {IXMLDOMAttribute} 
      */
@@ -115,7 +110,6 @@ export default struct IXMLDOMElement extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {IXMLDOMAttribute} DOMAttribute 
      * @returns {IXMLDOMAttribute} 
      */
@@ -125,7 +119,6 @@ export default struct IXMLDOMElement extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {IXMLDOMAttribute} DOMAttribute 
      * @returns {IXMLDOMAttribute} 
      */
@@ -135,7 +128,6 @@ export default struct IXMLDOMElement extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {BSTR} tagName 
      * @returns {IXMLDOMNodeList} 
      */
@@ -176,15 +168,15 @@ export default struct IXMLDOMElement extends IXMLDOMNode {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_tagName := CallbackCreate(GetMethod(implObj, "get_tagName"), flags, 2)
-        this.vtbl.getAttribute := CallbackCreate(GetMethod(implObj, "getAttribute"), flags, 3)
-        this.vtbl.setAttribute := CallbackCreate(GetMethod(implObj, "setAttribute"), flags, 3)
-        this.vtbl.removeAttribute := CallbackCreate(GetMethod(implObj, "removeAttribute"), flags, 2)
-        this.vtbl.getAttributeNode := CallbackCreate(GetMethod(implObj, "getAttributeNode"), flags, 3)
-        this.vtbl.setAttributeNode := CallbackCreate(GetMethod(implObj, "setAttributeNode"), flags, 3)
-        this.vtbl.removeAttributeNode := CallbackCreate(GetMethod(implObj, "removeAttributeNode"), flags, 3)
-        this.vtbl.getElementsByTagName := CallbackCreate(GetMethod(implObj, "getElementsByTagName"), flags, 3)
-        this.vtbl.normalize := CallbackCreate(GetMethod(implObj, "normalize"), flags, 1)
+        this.vtbl.get_tagName := CallbackCreate(ObjBindMethod(implObj, "get_tagName"), flags, 2)
+        this.vtbl.getAttribute := CallbackCreate(ObjBindMethod(implObj, "getAttribute"), flags, 3)
+        this.vtbl.setAttribute := CallbackCreate(ObjBindMethod(implObj, "setAttribute"), flags, 3)
+        this.vtbl.removeAttribute := CallbackCreate(ObjBindMethod(implObj, "removeAttribute"), flags, 2)
+        this.vtbl.getAttributeNode := CallbackCreate(ObjBindMethod(implObj, "getAttributeNode"), flags, 3)
+        this.vtbl.setAttributeNode := CallbackCreate(ObjBindMethod(implObj, "setAttributeNode"), flags, 3)
+        this.vtbl.removeAttributeNode := CallbackCreate(ObjBindMethod(implObj, "removeAttributeNode"), flags, 3)
+        this.vtbl.getElementsByTagName := CallbackCreate(ObjBindMethod(implObj, "getElementsByTagName"), flags, 3)
+        this.vtbl.normalize := CallbackCreate(ObjBindMethod(implObj, "normalize"), flags, 1)
     }
 
     Dispose() {

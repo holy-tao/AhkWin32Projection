@@ -190,7 +190,6 @@ export default struct IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     get_ProductID() {
@@ -200,7 +199,6 @@ export default struct IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pTaskID 
      * @returns {HRESULT} 
      */
@@ -210,7 +208,6 @@ export default struct IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pNavigationPage 
      * @returns {HRESULT} 
      */
@@ -220,7 +217,6 @@ export default struct IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PM_TASK_TRANSITION} 
      */
     get_TaskTransition() {
@@ -229,7 +225,6 @@ export default struct IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PACKMAN_RUNTIME} 
      */
     get_RuntimeType() {
@@ -238,7 +233,6 @@ export default struct IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PM_ACTIVATION_POLICY} 
      */
     get_ActivationPolicy() {
@@ -247,7 +241,6 @@ export default struct IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PM_TASK_TYPE} 
      */
     get_TaskType() {
@@ -256,7 +249,6 @@ export default struct IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pImageUrn 
      * @param {Pointer<BSTR>} pParameters 
      * @returns {HRESULT} 
@@ -267,7 +259,6 @@ export default struct IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pImagePath 
      * @returns {HRESULT} 
      */
@@ -277,7 +268,6 @@ export default struct IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pImageParams 
      * @returns {HRESULT} 
      */
@@ -287,7 +277,6 @@ export default struct IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pInstallRootFolder 
      * @returns {HRESULT} 
      */
@@ -297,7 +286,6 @@ export default struct IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pDataRootFolder 
      * @returns {HRESULT} 
      */
@@ -307,7 +295,6 @@ export default struct IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsSingleInstanceHost() {
@@ -316,7 +303,6 @@ export default struct IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsInteropEnabled() {
@@ -325,7 +311,6 @@ export default struct IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PM_APPLICATION_STATE} 
      */
     get_ApplicationState() {
@@ -334,7 +319,6 @@ export default struct IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PM_APPLICATION_INSTALL_TYPE} 
      */
     get_InstallType() {
@@ -343,21 +327,19 @@ export default struct IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pTargetMajorVersion 
      * @param {Pointer<Integer>} pTargetMinorVersion 
      * @returns {HRESULT} 
      */
     get_Version(pTargetMajorVersion, pTargetMinorVersion) {
-        pTargetMajorVersionMarshal := pTargetMajorVersion is VarRef ? "char*" : "ptr"
-        pTargetMinorVersionMarshal := pTargetMinorVersion is VarRef ? "char*" : "ptr"
+        pTargetMajorVersionMarshal := pTargetMajorVersion is VarRef ? "char*" : IntPtr
+        pTargetMinorVersionMarshal := pTargetMinorVersion is VarRef ? "char*" : IntPtr
 
         result := ComCall(19, this, pTargetMajorVersionMarshal, pTargetMajorVersion, pTargetMinorVersionMarshal, pTargetMinorVersion, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_BitsPerPixel() {
@@ -366,7 +348,6 @@ export default struct IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_SuppressesDehydration() {
@@ -375,7 +356,6 @@ export default struct IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pBackgroundExecutionAbilities 
      * @returns {HRESULT} 
      */
@@ -385,7 +365,6 @@ export default struct IPMTaskInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsOptedForExtendedMem() {
@@ -402,27 +381,27 @@ export default struct IPMTaskInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ProductID := CallbackCreate(GetMethod(implObj, "get_ProductID"), flags, 2)
-        this.vtbl.get_TaskID := CallbackCreate(GetMethod(implObj, "get_TaskID"), flags, 2)
-        this.vtbl.get_NavigationPage := CallbackCreate(GetMethod(implObj, "get_NavigationPage"), flags, 2)
-        this.vtbl.get_TaskTransition := CallbackCreate(GetMethod(implObj, "get_TaskTransition"), flags, 2)
-        this.vtbl.get_RuntimeType := CallbackCreate(GetMethod(implObj, "get_RuntimeType"), flags, 2)
-        this.vtbl.get_ActivationPolicy := CallbackCreate(GetMethod(implObj, "get_ActivationPolicy"), flags, 2)
-        this.vtbl.get_TaskType := CallbackCreate(GetMethod(implObj, "get_TaskType"), flags, 2)
-        this.vtbl.get_InvocationInfo := CallbackCreate(GetMethod(implObj, "get_InvocationInfo"), flags, 3)
-        this.vtbl.get_ImagePath := CallbackCreate(GetMethod(implObj, "get_ImagePath"), flags, 2)
-        this.vtbl.get_ImageParams := CallbackCreate(GetMethod(implObj, "get_ImageParams"), flags, 2)
-        this.vtbl.get_InstallRootFolder := CallbackCreate(GetMethod(implObj, "get_InstallRootFolder"), flags, 2)
-        this.vtbl.get_DataRootFolder := CallbackCreate(GetMethod(implObj, "get_DataRootFolder"), flags, 2)
-        this.vtbl.get_IsSingleInstanceHost := CallbackCreate(GetMethod(implObj, "get_IsSingleInstanceHost"), flags, 2)
-        this.vtbl.get_IsInteropEnabled := CallbackCreate(GetMethod(implObj, "get_IsInteropEnabled"), flags, 2)
-        this.vtbl.get_ApplicationState := CallbackCreate(GetMethod(implObj, "get_ApplicationState"), flags, 2)
-        this.vtbl.get_InstallType := CallbackCreate(GetMethod(implObj, "get_InstallType"), flags, 2)
-        this.vtbl.get_Version := CallbackCreate(GetMethod(implObj, "get_Version"), flags, 3)
-        this.vtbl.get_BitsPerPixel := CallbackCreate(GetMethod(implObj, "get_BitsPerPixel"), flags, 2)
-        this.vtbl.get_SuppressesDehydration := CallbackCreate(GetMethod(implObj, "get_SuppressesDehydration"), flags, 2)
-        this.vtbl.get_BackgroundExecutionAbilities := CallbackCreate(GetMethod(implObj, "get_BackgroundExecutionAbilities"), flags, 2)
-        this.vtbl.get_IsOptedForExtendedMem := CallbackCreate(GetMethod(implObj, "get_IsOptedForExtendedMem"), flags, 2)
+        this.vtbl.get_ProductID := CallbackCreate(ObjBindMethod(implObj, "get_ProductID"), flags, 2)
+        this.vtbl.get_TaskID := CallbackCreate(ObjBindMethod(implObj, "get_TaskID"), flags, 2)
+        this.vtbl.get_NavigationPage := CallbackCreate(ObjBindMethod(implObj, "get_NavigationPage"), flags, 2)
+        this.vtbl.get_TaskTransition := CallbackCreate(ObjBindMethod(implObj, "get_TaskTransition"), flags, 2)
+        this.vtbl.get_RuntimeType := CallbackCreate(ObjBindMethod(implObj, "get_RuntimeType"), flags, 2)
+        this.vtbl.get_ActivationPolicy := CallbackCreate(ObjBindMethod(implObj, "get_ActivationPolicy"), flags, 2)
+        this.vtbl.get_TaskType := CallbackCreate(ObjBindMethod(implObj, "get_TaskType"), flags, 2)
+        this.vtbl.get_InvocationInfo := CallbackCreate(ObjBindMethod(implObj, "get_InvocationInfo"), flags, 3)
+        this.vtbl.get_ImagePath := CallbackCreate(ObjBindMethod(implObj, "get_ImagePath"), flags, 2)
+        this.vtbl.get_ImageParams := CallbackCreate(ObjBindMethod(implObj, "get_ImageParams"), flags, 2)
+        this.vtbl.get_InstallRootFolder := CallbackCreate(ObjBindMethod(implObj, "get_InstallRootFolder"), flags, 2)
+        this.vtbl.get_DataRootFolder := CallbackCreate(ObjBindMethod(implObj, "get_DataRootFolder"), flags, 2)
+        this.vtbl.get_IsSingleInstanceHost := CallbackCreate(ObjBindMethod(implObj, "get_IsSingleInstanceHost"), flags, 2)
+        this.vtbl.get_IsInteropEnabled := CallbackCreate(ObjBindMethod(implObj, "get_IsInteropEnabled"), flags, 2)
+        this.vtbl.get_ApplicationState := CallbackCreate(ObjBindMethod(implObj, "get_ApplicationState"), flags, 2)
+        this.vtbl.get_InstallType := CallbackCreate(ObjBindMethod(implObj, "get_InstallType"), flags, 2)
+        this.vtbl.get_Version := CallbackCreate(ObjBindMethod(implObj, "get_Version"), flags, 3)
+        this.vtbl.get_BitsPerPixel := CallbackCreate(ObjBindMethod(implObj, "get_BitsPerPixel"), flags, 2)
+        this.vtbl.get_SuppressesDehydration := CallbackCreate(ObjBindMethod(implObj, "get_SuppressesDehydration"), flags, 2)
+        this.vtbl.get_BackgroundExecutionAbilities := CallbackCreate(ObjBindMethod(implObj, "get_BackgroundExecutionAbilities"), flags, 2)
+        this.vtbl.get_IsOptedForExtendedMem := CallbackCreate(ObjBindMethod(implObj, "get_IsOptedForExtendedMem"), flags, 2)
     }
 
     Dispose() {

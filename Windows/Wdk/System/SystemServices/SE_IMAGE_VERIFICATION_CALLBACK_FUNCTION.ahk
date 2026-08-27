@@ -20,14 +20,14 @@ export default struct SE_IMAGE_VERIFICATION_CALLBACK_FUNCTION {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} CallbackContext 
      * @param {SE_IMAGE_TYPE} _ImageType 
      * @param {Pointer<BDCB_IMAGE_INFORMATION>} ImageInformation 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(CallbackContext, _ImageType, ImageInformation) {
-        CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
+        CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : IntPtr
+        CallbackContextMarshal := CallbackContext == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, CallbackContextMarshal, CallbackContext, SE_IMAGE_TYPE, _ImageType, BDCB_IMAGE_INFORMATION.Ptr, ImageInformation)
     }

@@ -37,7 +37,6 @@ export default struct IIsolatedEnvironmentInterop extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} containerHwnd 
      * @returns {HWND} 
      */
@@ -56,7 +55,7 @@ export default struct IIsolatedEnvironmentInterop extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetHostHwndInterop := CallbackCreate(GetMethod(implObj, "GetHostHwndInterop"), flags, 3)
+        this.vtbl.GetHostHwndInterop := CallbackCreate(ObjBindMethod(implObj, "GetHostHwndInterop"), flags, 3)
     }
 
     Dispose() {

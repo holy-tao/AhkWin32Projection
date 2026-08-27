@@ -84,7 +84,6 @@ export default struct IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_htmlText() {
@@ -94,7 +93,6 @@ export default struct IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -106,7 +104,6 @@ export default struct IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_text() {
@@ -116,7 +113,6 @@ export default struct IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     parentElement() {
@@ -125,7 +121,6 @@ export default struct IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLTxtRange} 
      */
     duplicate() {
@@ -134,7 +129,6 @@ export default struct IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLTxtRange} Range 
      * @returns {VARIANT_BOOL} 
      */
@@ -144,7 +138,6 @@ export default struct IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLTxtRange} Range 
      * @returns {VARIANT_BOOL} 
      */
@@ -154,7 +147,6 @@ export default struct IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fStart 
      * @returns {HRESULT} 
      */
@@ -164,7 +156,6 @@ export default struct IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} Start 
      * @returns {HRESULT} 
      */
@@ -174,7 +165,6 @@ export default struct IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _Unit 
      * @returns {VARIANT_BOOL} 
      */
@@ -186,7 +176,6 @@ export default struct IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _Unit 
      * @param {Integer} Count 
      * @returns {Integer} 
@@ -199,7 +188,6 @@ export default struct IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _Unit 
      * @param {Integer} Count 
      * @returns {Integer} 
@@ -212,7 +200,6 @@ export default struct IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _Unit 
      * @param {Integer} Count 
      * @returns {Integer} 
@@ -419,7 +406,6 @@ export default struct IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} html 
      * @returns {HRESULT} 
      */
@@ -431,7 +417,6 @@ export default struct IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLElement} element 
      * @returns {HRESULT} 
      */
@@ -441,7 +426,6 @@ export default struct IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} how 
      * @param {IHTMLTxtRange} SourceRange 
      * @returns {HRESULT} 
@@ -454,7 +438,6 @@ export default struct IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} how 
      * @param {IHTMLTxtRange} SourceRange 
      * @returns {Integer} 
@@ -467,7 +450,6 @@ export default struct IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _String 
      * @param {Integer} count 
      * @param {Integer} Flags 
@@ -481,7 +463,6 @@ export default struct IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {HRESULT} 
@@ -492,7 +473,6 @@ export default struct IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     getBookmark() {
@@ -502,7 +482,6 @@ export default struct IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Bookmark 
      * @returns {VARIANT_BOOL} 
      */
@@ -514,7 +493,6 @@ export default struct IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {VARIANT_BOOL} 
      */
@@ -526,7 +504,6 @@ export default struct IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {VARIANT_BOOL} 
      */
@@ -538,7 +515,6 @@ export default struct IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {VARIANT_BOOL} 
      */
@@ -550,7 +526,6 @@ export default struct IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {VARIANT_BOOL} 
      */
@@ -562,7 +537,6 @@ export default struct IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {BSTR} 
      */
@@ -575,7 +549,6 @@ export default struct IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {VARIANT} 
      */
@@ -588,7 +561,6 @@ export default struct IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @param {VARIANT_BOOL} showUI 
      * @param {VARIANT} value 
@@ -602,7 +574,6 @@ export default struct IHTMLTxtRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {VARIANT_BOOL} 
      */
@@ -622,36 +593,36 @@ export default struct IHTMLTxtRange extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_htmlText := CallbackCreate(GetMethod(implObj, "get_htmlText"), flags, 2)
-        this.vtbl.put_text := CallbackCreate(GetMethod(implObj, "put_text"), flags, 2)
-        this.vtbl.get_text := CallbackCreate(GetMethod(implObj, "get_text"), flags, 2)
-        this.vtbl.parentElement := CallbackCreate(GetMethod(implObj, "parentElement"), flags, 2)
-        this.vtbl.duplicate := CallbackCreate(GetMethod(implObj, "duplicate"), flags, 2)
-        this.vtbl.inRange := CallbackCreate(GetMethod(implObj, "inRange"), flags, 3)
-        this.vtbl.isEqual := CallbackCreate(GetMethod(implObj, "isEqual"), flags, 3)
-        this.vtbl.scrollIntoView := CallbackCreate(GetMethod(implObj, "scrollIntoView"), flags, 2)
-        this.vtbl.collapse := CallbackCreate(GetMethod(implObj, "collapse"), flags, 2)
-        this.vtbl.expand := CallbackCreate(GetMethod(implObj, "expand"), flags, 3)
-        this.vtbl.move := CallbackCreate(GetMethod(implObj, "move"), flags, 4)
-        this.vtbl.moveStart := CallbackCreate(GetMethod(implObj, "moveStart"), flags, 4)
-        this.vtbl.moveEnd := CallbackCreate(GetMethod(implObj, "moveEnd"), flags, 4)
-        this.vtbl.select := CallbackCreate(GetMethod(implObj, "select"), flags, 1)
-        this.vtbl.pasteHTML := CallbackCreate(GetMethod(implObj, "pasteHTML"), flags, 2)
-        this.vtbl.moveToElementText := CallbackCreate(GetMethod(implObj, "moveToElementText"), flags, 2)
-        this.vtbl.setEndPoint := CallbackCreate(GetMethod(implObj, "setEndPoint"), flags, 3)
-        this.vtbl.compareEndPoints := CallbackCreate(GetMethod(implObj, "compareEndPoints"), flags, 4)
-        this.vtbl.findText := CallbackCreate(GetMethod(implObj, "findText"), flags, 5)
-        this.vtbl.moveToPoint := CallbackCreate(GetMethod(implObj, "moveToPoint"), flags, 3)
-        this.vtbl.getBookmark := CallbackCreate(GetMethod(implObj, "getBookmark"), flags, 2)
-        this.vtbl.moveToBookmark := CallbackCreate(GetMethod(implObj, "moveToBookmark"), flags, 3)
-        this.vtbl.queryCommandSupported := CallbackCreate(GetMethod(implObj, "queryCommandSupported"), flags, 3)
-        this.vtbl.queryCommandEnabled := CallbackCreate(GetMethod(implObj, "queryCommandEnabled"), flags, 3)
-        this.vtbl.queryCommandState := CallbackCreate(GetMethod(implObj, "queryCommandState"), flags, 3)
-        this.vtbl.queryCommandIndeterm := CallbackCreate(GetMethod(implObj, "queryCommandIndeterm"), flags, 3)
-        this.vtbl.queryCommandText := CallbackCreate(GetMethod(implObj, "queryCommandText"), flags, 3)
-        this.vtbl.queryCommandValue := CallbackCreate(GetMethod(implObj, "queryCommandValue"), flags, 3)
-        this.vtbl.execCommand := CallbackCreate(GetMethod(implObj, "execCommand"), flags, 5)
-        this.vtbl.execCommandShowHelp := CallbackCreate(GetMethod(implObj, "execCommandShowHelp"), flags, 3)
+        this.vtbl.get_htmlText := CallbackCreate(ObjBindMethod(implObj, "get_htmlText"), flags, 2)
+        this.vtbl.put_text := CallbackCreate(ObjBindMethod(implObj, "put_text"), flags, 2)
+        this.vtbl.get_text := CallbackCreate(ObjBindMethod(implObj, "get_text"), flags, 2)
+        this.vtbl.parentElement := CallbackCreate(ObjBindMethod(implObj, "parentElement"), flags, 2)
+        this.vtbl.duplicate := CallbackCreate(ObjBindMethod(implObj, "duplicate"), flags, 2)
+        this.vtbl.inRange := CallbackCreate(ObjBindMethod(implObj, "inRange"), flags, 3)
+        this.vtbl.isEqual := CallbackCreate(ObjBindMethod(implObj, "isEqual"), flags, 3)
+        this.vtbl.scrollIntoView := CallbackCreate(ObjBindMethod(implObj, "scrollIntoView"), flags, 2)
+        this.vtbl.collapse := CallbackCreate(ObjBindMethod(implObj, "collapse"), flags, 2)
+        this.vtbl.expand := CallbackCreate(ObjBindMethod(implObj, "expand"), flags, 3)
+        this.vtbl.move := CallbackCreate(ObjBindMethod(implObj, "move"), flags, 4)
+        this.vtbl.moveStart := CallbackCreate(ObjBindMethod(implObj, "moveStart"), flags, 4)
+        this.vtbl.moveEnd := CallbackCreate(ObjBindMethod(implObj, "moveEnd"), flags, 4)
+        this.vtbl.select := CallbackCreate(ObjBindMethod(implObj, "select"), flags, 1)
+        this.vtbl.pasteHTML := CallbackCreate(ObjBindMethod(implObj, "pasteHTML"), flags, 2)
+        this.vtbl.moveToElementText := CallbackCreate(ObjBindMethod(implObj, "moveToElementText"), flags, 2)
+        this.vtbl.setEndPoint := CallbackCreate(ObjBindMethod(implObj, "setEndPoint"), flags, 3)
+        this.vtbl.compareEndPoints := CallbackCreate(ObjBindMethod(implObj, "compareEndPoints"), flags, 4)
+        this.vtbl.findText := CallbackCreate(ObjBindMethod(implObj, "findText"), flags, 5)
+        this.vtbl.moveToPoint := CallbackCreate(ObjBindMethod(implObj, "moveToPoint"), flags, 3)
+        this.vtbl.getBookmark := CallbackCreate(ObjBindMethod(implObj, "getBookmark"), flags, 2)
+        this.vtbl.moveToBookmark := CallbackCreate(ObjBindMethod(implObj, "moveToBookmark"), flags, 3)
+        this.vtbl.queryCommandSupported := CallbackCreate(ObjBindMethod(implObj, "queryCommandSupported"), flags, 3)
+        this.vtbl.queryCommandEnabled := CallbackCreate(ObjBindMethod(implObj, "queryCommandEnabled"), flags, 3)
+        this.vtbl.queryCommandState := CallbackCreate(ObjBindMethod(implObj, "queryCommandState"), flags, 3)
+        this.vtbl.queryCommandIndeterm := CallbackCreate(ObjBindMethod(implObj, "queryCommandIndeterm"), flags, 3)
+        this.vtbl.queryCommandText := CallbackCreate(ObjBindMethod(implObj, "queryCommandText"), flags, 3)
+        this.vtbl.queryCommandValue := CallbackCreate(ObjBindMethod(implObj, "queryCommandValue"), flags, 3)
+        this.vtbl.execCommand := CallbackCreate(ObjBindMethod(implObj, "execCommand"), flags, 5)
+        this.vtbl.execCommandShowHelp := CallbackCreate(ObjBindMethod(implObj, "execCommandShowHelp"), flags, 3)
     }
 
     Dispose() {

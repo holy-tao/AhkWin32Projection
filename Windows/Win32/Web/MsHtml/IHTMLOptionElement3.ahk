@@ -46,7 +46,6 @@ export default struct IHTMLOptionElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -58,7 +57,6 @@ export default struct IHTMLOptionElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_label() {
@@ -76,8 +74,8 @@ export default struct IHTMLOptionElement3 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_label := CallbackCreate(GetMethod(implObj, "put_label"), flags, 2)
-        this.vtbl.get_label := CallbackCreate(GetMethod(implObj, "get_label"), flags, 2)
+        this.vtbl.put_label := CallbackCreate(ObjBindMethod(implObj, "put_label"), flags, 2)
+        this.vtbl.get_label := CallbackCreate(ObjBindMethod(implObj, "get_label"), flags, 2)
     }
 
     Dispose() {

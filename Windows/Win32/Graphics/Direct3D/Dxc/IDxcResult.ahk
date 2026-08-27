@@ -43,7 +43,6 @@ export default struct IDxcResult extends IDxcOperationResult {
     }
 
     /**
-     * 
      * @param {DXC_OUT_KIND} dxcOutKind 
      * @returns {BOOL} 
      */
@@ -53,7 +52,6 @@ export default struct IDxcResult extends IDxcOperationResult {
     }
 
     /**
-     * 
      * @param {DXC_OUT_KIND} dxcOutKind 
      * @param {Pointer<Guid>} iid 
      * @param {Pointer<Pointer<Void>>} ppvObject 
@@ -61,14 +59,15 @@ export default struct IDxcResult extends IDxcOperationResult {
      * @returns {HRESULT} 
      */
     GetOutput(dxcOutKind, iid, ppvObject, ppOutputName) {
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : IntPtr
+        ppvObjectMarshal := ppvObject == 0 ? IntPtr : "ptr*"
+        ppOutputNameMarshal := ppOutputName == 0 ? IntPtr : IDxcBlobUtf16.Ptr
 
-        result := ComCall(7, this, DXC_OUT_KIND, dxcOutKind, Guid.Ptr, iid, ppvObjectMarshal, ppvObject, IDxcBlobUtf16.Ptr, ppOutputName, "HRESULT")
+        result := ComCall(7, this, DXC_OUT_KIND, dxcOutKind, Guid.Ptr, iid, ppvObjectMarshal, ppvObject, ppOutputNameMarshal, ppOutputName, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumOutputs() {
@@ -77,7 +76,6 @@ export default struct IDxcResult extends IDxcOperationResult {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {DXC_OUT_KIND} 
      */
@@ -87,7 +85,6 @@ export default struct IDxcResult extends IDxcOperationResult {
     }
 
     /**
-     * 
      * @returns {DXC_OUT_KIND} 
      */
     PrimaryOutput() {
@@ -104,11 +101,11 @@ export default struct IDxcResult extends IDxcOperationResult {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.HasOutput := CallbackCreate(GetMethod(implObj, "HasOutput"), flags, 2)
-        this.vtbl.GetOutput := CallbackCreate(GetMethod(implObj, "GetOutput"), flags, 5)
-        this.vtbl.GetNumOutputs := CallbackCreate(GetMethod(implObj, "GetNumOutputs"), flags, 1)
-        this.vtbl.GetOutputByIndex := CallbackCreate(GetMethod(implObj, "GetOutputByIndex"), flags, 2)
-        this.vtbl.PrimaryOutput := CallbackCreate(GetMethod(implObj, "PrimaryOutput"), flags, 1)
+        this.vtbl.HasOutput := CallbackCreate(ObjBindMethod(implObj, "HasOutput"), flags, 2)
+        this.vtbl.GetOutput := CallbackCreate(ObjBindMethod(implObj, "GetOutput"), flags, 5)
+        this.vtbl.GetNumOutputs := CallbackCreate(ObjBindMethod(implObj, "GetNumOutputs"), flags, 1)
+        this.vtbl.GetOutputByIndex := CallbackCreate(ObjBindMethod(implObj, "GetOutputByIndex"), flags, 2)
+        this.vtbl.PrimaryOutput := CallbackCreate(ObjBindMethod(implObj, "PrimaryOutput"), flags, 1)
     }
 
     Dispose() {

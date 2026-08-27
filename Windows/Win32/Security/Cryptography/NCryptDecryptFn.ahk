@@ -21,7 +21,6 @@ export default struct NCryptDecryptFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} _hProvider 
      * @param {NCRYPT_KEY_HANDLE} _hKey 
      * @param {Integer} pbInput 
@@ -33,9 +32,12 @@ export default struct NCryptDecryptFn {
      * @returns {Integer} 
      */
     Call(_hProvider, _hKey, pbInput, cbInput, pPaddingInfo, pbOutput, cbOutput, dwFlags) {
-        pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
+        pbInputMarshal := pbInput == 0 ? IntPtr : IntPtr
+        pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : IntPtr
+        pPaddingInfoMarshal := pPaddingInfo == 0 ? IntPtr : "ptr"
+        pbOutputMarshal := pbOutput == 0 ? IntPtr : IntPtr
 
-        result := DllCall(this.value, NCRYPT_PROV_HANDLE, _hProvider, NCRYPT_KEY_HANDLE, _hKey, IntPtr, pbInput, UInt32, cbInput, pPaddingInfoMarshal, pPaddingInfo, IntPtr, pbOutput, UInt32, cbOutput, "uint*", &pcbResult := 0, UInt32, dwFlags, "HRESULT")
+        result := DllCall(this.value, NCRYPT_PROV_HANDLE, _hProvider, NCRYPT_KEY_HANDLE, _hKey, pbInputMarshal, pbInput, UInt32, cbInput, pPaddingInfoMarshal, pPaddingInfo, pbOutputMarshal, pbOutput, UInt32, cbOutput, "uint*", &pcbResult := 0, UInt32, dwFlags, "HRESULT")
         return pcbResult
     }
 

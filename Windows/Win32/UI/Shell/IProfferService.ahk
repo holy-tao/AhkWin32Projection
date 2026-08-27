@@ -75,8 +75,8 @@ export default struct IProfferService extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ProfferService := CallbackCreate(GetMethod(implObj, "ProfferService"), flags, 4)
-        this.vtbl.RevokeService := CallbackCreate(GetMethod(implObj, "RevokeService"), flags, 2)
+        this.vtbl.ProfferService := CallbackCreate(ObjBindMethod(implObj, "ProfferService"), flags, 4)
+        this.vtbl.RevokeService := CallbackCreate(ObjBindMethod(implObj, "RevokeService"), flags, 2)
     }
 
     Dispose() {

@@ -310,17 +310,17 @@ export default struct IShellView extends IOleWindow {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.TranslateAccelerator := CallbackCreate(GetMethod(implObj, "TranslateAccelerator"), flags, 2)
-        this.vtbl.EnableModeless := CallbackCreate(GetMethod(implObj, "EnableModeless"), flags, 2)
-        this.vtbl.UIActivate := CallbackCreate(GetMethod(implObj, "UIActivate"), flags, 2)
-        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
-        this.vtbl.CreateViewWindow := CallbackCreate(GetMethod(implObj, "CreateViewWindow"), flags, 6)
-        this.vtbl.DestroyViewWindow := CallbackCreate(GetMethod(implObj, "DestroyViewWindow"), flags, 1)
-        this.vtbl.GetCurrentInfo := CallbackCreate(GetMethod(implObj, "GetCurrentInfo"), flags, 2)
-        this.vtbl.AddPropertySheetPages := CallbackCreate(GetMethod(implObj, "AddPropertySheetPages"), flags, 4)
-        this.vtbl.SaveViewState := CallbackCreate(GetMethod(implObj, "SaveViewState"), flags, 1)
-        this.vtbl.SelectItem := CallbackCreate(GetMethod(implObj, "SelectItem"), flags, 3)
-        this.vtbl.GetItemObject := CallbackCreate(GetMethod(implObj, "GetItemObject"), flags, 4)
+        this.vtbl.TranslateAccelerator := CallbackCreate(ObjBindMethod(implObj, "TranslateAccelerator"), flags, 2)
+        this.vtbl.EnableModeless := CallbackCreate(ObjBindMethod(implObj, "EnableModeless"), flags, 2)
+        this.vtbl.UIActivate := CallbackCreate(ObjBindMethod(implObj, "UIActivate"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(ObjBindMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.CreateViewWindow := CallbackCreate(ObjBindMethod(implObj, "CreateViewWindow"), flags, 6)
+        this.vtbl.DestroyViewWindow := CallbackCreate(ObjBindMethod(implObj, "DestroyViewWindow"), flags, 1)
+        this.vtbl.GetCurrentInfo := CallbackCreate(ObjBindMethod(implObj, "GetCurrentInfo"), flags, 2)
+        this.vtbl.AddPropertySheetPages := CallbackCreate(ObjBindMethod(implObj, "AddPropertySheetPages"), flags, 4)
+        this.vtbl.SaveViewState := CallbackCreate(ObjBindMethod(implObj, "SaveViewState"), flags, 1)
+        this.vtbl.SelectItem := CallbackCreate(ObjBindMethod(implObj, "SelectItem"), flags, 3)
+        this.vtbl.GetItemObject := CallbackCreate(ObjBindMethod(implObj, "GetItemObject"), flags, 4)
     }
 
     Dispose() {

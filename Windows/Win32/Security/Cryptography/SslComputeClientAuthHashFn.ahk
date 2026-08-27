@@ -23,7 +23,6 @@ export default struct SslComputeClientAuthHashFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_KEY_HANDLE} hMasterKey 
      * @param {NCRYPT_HASH_HANDLE} hHandshakeHash 
@@ -36,7 +35,9 @@ export default struct SslComputeClientAuthHashFn {
     Call(hSslProvider, hMasterKey, hHandshakeHash, pszAlgId, pbOutput, cbOutput, dwFlags) {
         pszAlgId := pszAlgId is String ? StrPtr(pszAlgId) : pszAlgId
 
-        result := DllCall(this.value, NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hMasterKey, NCRYPT_HASH_HANDLE, hHandshakeHash, "ptr", pszAlgId, IntPtr, pbOutput, UInt32, cbOutput, "uint*", &pcbResult := 0, UInt32, dwFlags, "HRESULT")
+        pbOutputMarshal := pbOutput == 0 ? IntPtr : IntPtr
+
+        result := DllCall(this.value, NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hMasterKey, NCRYPT_HASH_HANDLE, hHandshakeHash, "ptr", pszAlgId, pbOutputMarshal, pbOutput, UInt32, cbOutput, "uint*", &pcbResult := 0, UInt32, dwFlags, "HRESULT")
         return pcbResult
     }
 

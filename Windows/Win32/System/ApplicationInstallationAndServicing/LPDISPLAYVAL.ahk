@@ -23,7 +23,6 @@ export default struct LPDISPLAYVAL {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pContext A pointer to an application context passed to the <a href="https://docs.microsoft.com/windows/desktop/api/evalcom2/nf-evalcom2-ivalidate-setdisplay">SetDisplay</a> method. 
      * 
      * This parameter can be used for error checking.
@@ -69,7 +68,7 @@ export default struct LPDISPLAYVAL {
         szwDescription := szwDescription is String ? StrPtr(szwDescription) : szwDescription
         szwLocation := szwLocation is String ? StrPtr(szwLocation) : szwLocation
 
-        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+        pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, pContextMarshal, pContext, RESULTTYPES, uiType, "ptr", szwVal, "ptr", szwDescription, "ptr", szwLocation, BOOL)
         return result

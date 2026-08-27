@@ -86,8 +86,8 @@ export default struct IDvbContentDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbcontentdescriptor-getrecordcontentnibbles
      */
     GetRecordContentNibbles(bRecordIndex, pbValLevel1, pbValLevel2) {
-        pbValLevel1Marshal := pbValLevel1 is VarRef ? "char*" : "ptr"
-        pbValLevel2Marshal := pbValLevel2 is VarRef ? "char*" : "ptr"
+        pbValLevel1Marshal := pbValLevel1 is VarRef ? "char*" : IntPtr
+        pbValLevel2Marshal := pbValLevel2 is VarRef ? "char*" : IntPtr
 
         result := ComCall(6, this, Int8, bRecordIndex, pbValLevel1Marshal, pbValLevel1, pbValLevel2Marshal, pbValLevel2, "HRESULT")
         return result
@@ -102,8 +102,8 @@ export default struct IDvbContentDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbcontentdescriptor-getrecordusernibbles
      */
     GetRecordUserNibbles(bRecordIndex, pbVal1, pbVal2) {
-        pbVal1Marshal := pbVal1 is VarRef ? "char*" : "ptr"
-        pbVal2Marshal := pbVal2 is VarRef ? "char*" : "ptr"
+        pbVal1Marshal := pbVal1 is VarRef ? "char*" : IntPtr
+        pbVal2Marshal := pbVal2 is VarRef ? "char*" : IntPtr
 
         result := ComCall(7, this, Int8, bRecordIndex, pbVal1Marshal, pbVal1, pbVal2Marshal, pbVal2, "HRESULT")
         return result
@@ -118,11 +118,11 @@ export default struct IDvbContentDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetCountOfRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRecords"), flags, 2)
-        this.vtbl.GetRecordContentNibbles := CallbackCreate(GetMethod(implObj, "GetRecordContentNibbles"), flags, 4)
-        this.vtbl.GetRecordUserNibbles := CallbackCreate(GetMethod(implObj, "GetRecordUserNibbles"), flags, 4)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetCountOfRecords := CallbackCreate(ObjBindMethod(implObj, "GetCountOfRecords"), flags, 2)
+        this.vtbl.GetRecordContentNibbles := CallbackCreate(ObjBindMethod(implObj, "GetRecordContentNibbles"), flags, 4)
+        this.vtbl.GetRecordUserNibbles := CallbackCreate(ObjBindMethod(implObj, "GetRecordUserNibbles"), flags, 4)
     }
 
     Dispose() {

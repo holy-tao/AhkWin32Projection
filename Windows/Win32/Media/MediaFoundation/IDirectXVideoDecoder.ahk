@@ -105,10 +105,14 @@ export default struct IDirectXVideoDecoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideodecoder-getcreationparameters
      */
     GetCreationParameters(pDeviceGuid, pVideoDesc, pConfig, pDecoderRenderTargets, pNumSurfaces) {
-        pDecoderRenderTargetsMarshal := pDecoderRenderTargets is VarRef ? "ptr*" : "ptr"
-        pNumSurfacesMarshal := pNumSurfaces is VarRef ? "uint*" : "ptr"
+        pDeviceGuidMarshal := pDeviceGuid == 0 ? IntPtr : Guid.Ptr
+        pVideoDescMarshal := pVideoDesc == 0 ? IntPtr : DXVA2_VideoDesc.Ptr
+        pConfigMarshal := pConfig == 0 ? IntPtr : DXVA2_ConfigPictureDecode.Ptr
+        pDecoderRenderTargetsMarshal := pDecoderRenderTargets is VarRef ? "ptr*" : IntPtr
+        pNumSurfacesMarshal := pNumSurfaces is VarRef ? "uint*" : IntPtr
+        pNumSurfacesMarshal := pNumSurfaces == 0 ? IntPtr : "uint*"
 
-        result := ComCall(4, this, Guid.Ptr, pDeviceGuid, DXVA2_VideoDesc.Ptr, pVideoDesc, DXVA2_ConfigPictureDecode.Ptr, pConfig, pDecoderRenderTargetsMarshal, pDecoderRenderTargets, pNumSurfacesMarshal, pNumSurfaces, "HRESULT")
+        result := ComCall(4, this, pDeviceGuidMarshal, pDeviceGuid, pVideoDescMarshal, pVideoDesc, pConfigMarshal, pConfig, pDecoderRenderTargetsMarshal, pDecoderRenderTargets, pNumSurfacesMarshal, pNumSurfaces, "HRESULT")
         return result
     }
 
@@ -143,8 +147,8 @@ export default struct IDirectXVideoDecoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideodecoder-getbuffer
      */
     GetBuffer(BufferType, ppBuffer, pBufferSize) {
-        ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
-        pBufferSizeMarshal := pBufferSize is VarRef ? "uint*" : "ptr"
+        ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : IntPtr
+        pBufferSizeMarshal := pBufferSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, UInt32, BufferType, ppBufferMarshal, ppBuffer, pBufferSizeMarshal, pBufferSize, "HRESULT")
         return result
@@ -224,7 +228,8 @@ export default struct IDirectXVideoDecoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideodecoder-beginframe
      */
     BeginFrame(pRenderTarget, pvPVPData) {
-        pvPVPDataMarshal := pvPVPData is VarRef ? "ptr" : "ptr"
+        pvPVPDataMarshal := pvPVPData is VarRef ? "ptr" : IntPtr
+        pvPVPDataMarshal := pvPVPData == 0 ? IntPtr : "ptr"
 
         result := ComCall(7, this, "ptr", pRenderTarget, pvPVPDataMarshal, pvPVPData, "HRESULT")
         return result
@@ -255,7 +260,9 @@ export default struct IDirectXVideoDecoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideodecoder-endframe
      */
     EndFrame(pHandleComplete) {
-        result := ComCall(8, this, HANDLE.Ptr, pHandleComplete, "HRESULT")
+        pHandleCompleteMarshal := pHandleComplete == 0 ? IntPtr : HANDLE.Ptr
+
+        result := ComCall(8, this, pHandleCompleteMarshal, pHandleComplete, "HRESULT")
         return result
     }
 
@@ -299,13 +306,13 @@ export default struct IDirectXVideoDecoder extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetVideoDecoderService := CallbackCreate(GetMethod(implObj, "GetVideoDecoderService"), flags, 2)
-        this.vtbl.GetCreationParameters := CallbackCreate(GetMethod(implObj, "GetCreationParameters"), flags, 6)
-        this.vtbl.GetBuffer := CallbackCreate(GetMethod(implObj, "GetBuffer"), flags, 4)
-        this.vtbl.ReleaseBuffer := CallbackCreate(GetMethod(implObj, "ReleaseBuffer"), flags, 2)
-        this.vtbl.BeginFrame := CallbackCreate(GetMethod(implObj, "BeginFrame"), flags, 3)
-        this.vtbl.EndFrame := CallbackCreate(GetMethod(implObj, "EndFrame"), flags, 2)
-        this.vtbl.Execute := CallbackCreate(GetMethod(implObj, "Execute"), flags, 2)
+        this.vtbl.GetVideoDecoderService := CallbackCreate(ObjBindMethod(implObj, "GetVideoDecoderService"), flags, 2)
+        this.vtbl.GetCreationParameters := CallbackCreate(ObjBindMethod(implObj, "GetCreationParameters"), flags, 6)
+        this.vtbl.GetBuffer := CallbackCreate(ObjBindMethod(implObj, "GetBuffer"), flags, 4)
+        this.vtbl.ReleaseBuffer := CallbackCreate(ObjBindMethod(implObj, "ReleaseBuffer"), flags, 2)
+        this.vtbl.BeginFrame := CallbackCreate(ObjBindMethod(implObj, "BeginFrame"), flags, 3)
+        this.vtbl.EndFrame := CallbackCreate(ObjBindMethod(implObj, "EndFrame"), flags, 2)
+        this.vtbl.Execute := CallbackCreate(ObjBindMethod(implObj, "Execute"), flags, 2)
     }
 
     Dispose() {

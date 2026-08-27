@@ -21,7 +21,6 @@ export default struct CODEPAGE_ENUMPROCA {
     }
 
     /**
-     * 
      * @param {PSTR} param0 
      * @returns {BOOL} 
      */

@@ -69,7 +69,9 @@ export default struct ID3D10Device1 extends ID3D10Device {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10_1/nf-d3d10_1-id3d10device1-createshaderresourceview1
      */
     CreateShaderResourceView1(pResource, pDesc) {
-        result := ComCall(98, this, "ptr", pResource, D3D10_SHADER_RESOURCE_VIEW_DESC1.Ptr, pDesc, "ptr*", &ppSRView := 0, "HRESULT")
+        pDescMarshal := pDesc == 0 ? IntPtr : D3D10_SHADER_RESOURCE_VIEW_DESC1.Ptr
+
+        result := ComCall(98, this, "ptr", pResource, pDescMarshal, pDesc, "ptr*", &ppSRView := 0, "HRESULT")
         return ID3D10ShaderResourceView1(ppSRView)
     }
 
@@ -115,9 +117,9 @@ export default struct ID3D10Device1 extends ID3D10Device {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateShaderResourceView1 := CallbackCreate(GetMethod(implObj, "CreateShaderResourceView1"), flags, 4)
-        this.vtbl.CreateBlendState1 := CallbackCreate(GetMethod(implObj, "CreateBlendState1"), flags, 3)
-        this.vtbl.GetFeatureLevel := CallbackCreate(GetMethod(implObj, "GetFeatureLevel"), flags, 1)
+        this.vtbl.CreateShaderResourceView1 := CallbackCreate(ObjBindMethod(implObj, "CreateShaderResourceView1"), flags, 4)
+        this.vtbl.CreateBlendState1 := CallbackCreate(ObjBindMethod(implObj, "CreateBlendState1"), flags, 3)
+        this.vtbl.GetFeatureLevel := CallbackCreate(ObjBindMethod(implObj, "GetFeatureLevel"), flags, 1)
     }
 
     Dispose() {

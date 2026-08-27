@@ -19,7 +19,6 @@ export default struct PFN_CSP_CACHE_LOOKUP_FILE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvCacheContext 
      * @param {PWSTR} wszTag 
      * @param {Integer} dwFlags 
@@ -30,9 +29,9 @@ export default struct PFN_CSP_CACHE_LOOKUP_FILE {
     Call(pvCacheContext, wszTag, dwFlags, ppbData, pcbData) {
         wszTag := wszTag is String ? StrPtr(wszTag) : wszTag
 
-        pvCacheContextMarshal := pvCacheContext is VarRef ? "ptr" : "ptr"
-        ppbDataMarshal := ppbData is VarRef ? "ptr*" : "ptr"
-        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+        pvCacheContextMarshal := pvCacheContext is VarRef ? "ptr" : IntPtr
+        ppbDataMarshal := ppbData is VarRef ? "ptr*" : IntPtr
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, pvCacheContextMarshal, pvCacheContext, "ptr", wszTag, UInt32, dwFlags, ppbDataMarshal, ppbData, pcbDataMarshal, pcbData, UInt32)
         return result

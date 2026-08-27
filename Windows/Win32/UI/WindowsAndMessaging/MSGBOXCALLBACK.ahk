@@ -21,7 +21,6 @@ export default struct MSGBOXCALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<HELPINFO>} lpHelpInfo Type: **[LPHELPINFO](/windows/win32/api/winuser/ns-winuser-helpinfo)**
      * 
      * Information about the item for which context-sensitive help has been requested.

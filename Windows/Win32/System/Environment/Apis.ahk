@@ -231,9 +231,12 @@ export GetEnvironmentVariableA(lpName, lpBuffer, nSize) {
     lpName := lpName is String ? StrPtr(lpName) : lpName
     lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
+    lpNameMarshal := lpName == 0 ? IntPtr : PSTR
+    lpBufferMarshal := lpBuffer == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetEnvironmentVariableA", "ptr", lpName, "ptr", lpBuffer, UInt32, nSize, UInt32)
+    result := DllCall("KERNEL32.dll\GetEnvironmentVariableA", lpNameMarshal, lpName, lpBufferMarshal, lpBuffer, UInt32, nSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -263,9 +266,12 @@ export GetEnvironmentVariableW(lpName, lpBuffer, nSize) {
     lpName := lpName is String ? StrPtr(lpName) : lpName
     lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
+    lpNameMarshal := lpName == 0 ? IntPtr : PWSTR
+    lpBufferMarshal := lpBuffer == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetEnvironmentVariableW", "ptr", lpName, "ptr", lpBuffer, UInt32, nSize, UInt32)
+    result := DllCall("KERNEL32.dll\GetEnvironmentVariableW", lpNameMarshal, lpName, lpBufferMarshal, lpBuffer, UInt32, nSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -295,9 +301,11 @@ export SetEnvironmentVariableA(lpName, lpValue) {
     lpName := lpName is String ? StrPtr(lpName) : lpName
     lpValue := lpValue is String ? StrPtr(lpValue) : lpValue
 
+    lpValueMarshal := lpValue == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetEnvironmentVariableA", "ptr", lpName, "ptr", lpValue, BOOL)
+    result := DllCall("KERNEL32.dll\SetEnvironmentVariableA", "ptr", lpName, lpValueMarshal, lpValue, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -328,9 +336,11 @@ export SetEnvironmentVariableW(lpName, lpValue) {
     lpName := lpName is String ? StrPtr(lpName) : lpName
     lpValue := lpValue is String ? StrPtr(lpValue) : lpValue
 
+    lpValueMarshal := lpValue == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetEnvironmentVariableW", "ptr", lpName, "ptr", lpValue, BOOL)
+    result := DllCall("KERNEL32.dll\SetEnvironmentVariableW", "ptr", lpName, lpValueMarshal, lpValue, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -367,9 +377,11 @@ export ExpandEnvironmentStringsA(lpSrc, lpDst, nSize) {
     lpSrc := lpSrc is String ? StrPtr(lpSrc) : lpSrc
     lpDst := lpDst is String ? StrPtr(lpDst) : lpDst
 
+    lpDstMarshal := lpDst == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\ExpandEnvironmentStringsA", "ptr", lpSrc, "ptr", lpDst, UInt32, nSize, UInt32)
+    result := DllCall("KERNEL32.dll\ExpandEnvironmentStringsA", "ptr", lpSrc, lpDstMarshal, lpDst, UInt32, nSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -406,9 +418,11 @@ export ExpandEnvironmentStringsW(lpSrc, lpDst, nSize) {
     lpSrc := lpSrc is String ? StrPtr(lpSrc) : lpSrc
     lpDst := lpDst is String ? StrPtr(lpDst) : lpDst
 
+    lpDstMarshal := lpDst == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\ExpandEnvironmentStringsW", "ptr", lpSrc, "ptr", lpDst, UInt32, nSize, UInt32)
+    result := DllCall("KERNEL32.dll\ExpandEnvironmentStringsW", "ptr", lpSrc, lpDstMarshal, lpDst, UInt32, nSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -716,7 +730,9 @@ export SetCurrentDirectoryW(lpPathName) {
 export GetCurrentDirectoryA(nBufferLength, lpBuffer) {
     lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
-    result := DllCall("KERNEL32.dll\GetCurrentDirectoryA", UInt32, nBufferLength, "ptr", lpBuffer, UInt32)
+    lpBufferMarshal := lpBuffer == 0 ? IntPtr : PSTR
+
+    result := DllCall("KERNEL32.dll\GetCurrentDirectoryA", UInt32, nBufferLength, lpBufferMarshal, lpBuffer, UInt32)
     return result
 }
 
@@ -814,7 +830,9 @@ export GetCurrentDirectoryA(nBufferLength, lpBuffer) {
 export GetCurrentDirectoryW(nBufferLength, lpBuffer) {
     lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
-    result := DllCall("KERNEL32.dll\GetCurrentDirectoryW", UInt32, nBufferLength, "ptr", lpBuffer, UInt32)
+    lpBufferMarshal := lpBuffer == 0 ? IntPtr : PWSTR
+
+    result := DllCall("KERNEL32.dll\GetCurrentDirectoryW", UInt32, nBufferLength, lpBufferMarshal, lpBuffer, UInt32)
     return result
 }
 
@@ -913,11 +931,12 @@ export NeedCurrentDirectoryForExePathW(ExeName) {
  * @since windows5.0
  */
 export CreateEnvironmentBlock(lpEnvironment, hToken, bInherit) {
-    lpEnvironmentMarshal := lpEnvironment is VarRef ? "ptr*" : "ptr"
+    lpEnvironmentMarshal := lpEnvironment is VarRef ? "ptr*" : IntPtr
+    hTokenMarshal := hToken == 0 ? IntPtr : HANDLE
 
     A_LastError := 0
 
-    result := DllCall("USERENV.dll\CreateEnvironmentBlock", lpEnvironmentMarshal, lpEnvironment, HANDLE, hToken, BOOL, bInherit, BOOL)
+    result := DllCall("USERENV.dll\CreateEnvironmentBlock", lpEnvironmentMarshal, lpEnvironment, hTokenMarshal, hToken, BOOL, bInherit, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -938,7 +957,7 @@ export CreateEnvironmentBlock(lpEnvironment, hToken, bInherit) {
  * @since windows5.0
  */
 export DestroyEnvironmentBlock(lpEnvironment) {
-    lpEnvironmentMarshal := lpEnvironment is VarRef ? "ptr" : "ptr"
+    lpEnvironmentMarshal := lpEnvironment is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -1001,9 +1020,11 @@ export ExpandEnvironmentStringsForUserA(hToken, lpSrc, lpDest, dwSize) {
     lpSrc := lpSrc is String ? StrPtr(lpSrc) : lpSrc
     lpDest := lpDest is String ? StrPtr(lpDest) : lpDest
 
+    hTokenMarshal := hToken == 0 ? IntPtr : HANDLE
+
     A_LastError := 0
 
-    result := DllCall("USERENV.dll\ExpandEnvironmentStringsForUserA", HANDLE, hToken, "ptr", lpSrc, "ptr", lpDest, UInt32, dwSize, BOOL)
+    result := DllCall("USERENV.dll\ExpandEnvironmentStringsForUserA", hTokenMarshal, hToken, "ptr", lpSrc, "ptr", lpDest, UInt32, dwSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1062,9 +1083,11 @@ export ExpandEnvironmentStringsForUserW(hToken, lpSrc, lpDest, dwSize) {
     lpSrc := lpSrc is String ? StrPtr(lpSrc) : lpSrc
     lpDest := lpDest is String ? StrPtr(lpDest) : lpDest
 
+    hTokenMarshal := hToken == 0 ? IntPtr : HANDLE
+
     A_LastError := 0
 
-    result := DllCall("USERENV.dll\ExpandEnvironmentStringsForUserW", HANDLE, hToken, "ptr", lpSrc, "ptr", lpDest, UInt32, dwSize, BOOL)
+    result := DllCall("USERENV.dll\ExpandEnvironmentStringsForUserW", hTokenMarshal, hToken, "ptr", lpSrc, "ptr", lpDest, UInt32, dwSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1271,8 +1294,10 @@ export IsEnclaveTypeSupported(flEnclaveType) {
  * @since windows10.0.10240
  */
 export CreateEnclave(hProcess, lpAddress, dwSize, dwInitialCommitment, flEnclaveType, lpEnclaveInformation, dwInfoLength, lpEnclaveError) {
-    lpAddressMarshal := lpAddress is VarRef ? "ptr" : "ptr"
-    lpEnclaveErrorMarshal := lpEnclaveError is VarRef ? "uint*" : "ptr"
+    lpAddressMarshal := lpAddress is VarRef ? "ptr" : IntPtr
+    lpAddressMarshal := lpAddress == 0 ? IntPtr : "ptr"
+    lpEnclaveErrorMarshal := lpEnclaveError is VarRef ? "uint*" : IntPtr
+    lpEnclaveErrorMarshal := lpEnclaveError == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
@@ -1347,9 +1372,10 @@ export CreateEnclave(hProcess, lpAddress, dwSize, dwInitialCommitment, flEnclave
  * @since windows10.0.10240
  */
 export LoadEnclaveData(hProcess, lpAddress, lpBuffer, nSize, flProtect, lpPageInformation, dwInfoLength, lpNumberOfBytesWritten, lpEnclaveError) {
-    lpAddressMarshal := lpAddress is VarRef ? "ptr" : "ptr"
-    lpNumberOfBytesWrittenMarshal := lpNumberOfBytesWritten is VarRef ? "ptr*" : "ptr"
-    lpEnclaveErrorMarshal := lpEnclaveError is VarRef ? "uint*" : "ptr"
+    lpAddressMarshal := lpAddress is VarRef ? "ptr" : IntPtr
+    lpNumberOfBytesWrittenMarshal := lpNumberOfBytesWritten is VarRef ? "ptr*" : IntPtr
+    lpEnclaveErrorMarshal := lpEnclaveError is VarRef ? "uint*" : IntPtr
+    lpEnclaveErrorMarshal := lpEnclaveError == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
@@ -1435,8 +1461,9 @@ export LoadEnclaveData(hProcess, lpAddress, lpBuffer, nSize, flProtect, lpPageIn
  * @since windows10.0.10240
  */
 export InitializeEnclave(hProcess, lpAddress, lpEnclaveInformation, dwInfoLength, lpEnclaveError) {
-    lpAddressMarshal := lpAddress is VarRef ? "ptr" : "ptr"
-    lpEnclaveErrorMarshal := lpEnclaveError is VarRef ? "uint*" : "ptr"
+    lpAddressMarshal := lpAddress is VarRef ? "ptr" : IntPtr
+    lpEnclaveErrorMarshal := lpEnclaveError is VarRef ? "uint*" : IntPtr
+    lpEnclaveErrorMarshal := lpEnclaveError == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
@@ -1462,7 +1489,7 @@ export InitializeEnclave(hProcess, lpAddress, lpEnclaveInformation, dwInfoLength
 export LoadEnclaveImageA(lpEnclaveAddress, lpImageName) {
     lpImageName := lpImageName is String ? StrPtr(lpImageName) : lpImageName
 
-    lpEnclaveAddressMarshal := lpEnclaveAddress is VarRef ? "ptr" : "ptr"
+    lpEnclaveAddressMarshal := lpEnclaveAddress is VarRef ? "ptr" : IntPtr
 
     result := DllCall("api-ms-win-core-enclave-l1-1-1.dll\LoadEnclaveImageA", lpEnclaveAddressMarshal, lpEnclaveAddress, "ptr", lpImageName, BOOL)
     return result
@@ -1482,7 +1509,7 @@ export LoadEnclaveImageA(lpEnclaveAddress, lpImageName) {
 export LoadEnclaveImageW(lpEnclaveAddress, lpImageName) {
     lpImageName := lpImageName is String ? StrPtr(lpImageName) : lpImageName
 
-    lpEnclaveAddressMarshal := lpEnclaveAddress is VarRef ? "ptr" : "ptr"
+    lpEnclaveAddressMarshal := lpEnclaveAddress is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -1510,8 +1537,8 @@ export LoadEnclaveImageW(lpEnclaveAddress, lpImageName) {
  * @since windows10.0.16299
  */
 export CallEnclave(lpRoutine, lpParameter, fWaitForThread, lpReturnValue) {
-    lpParameterMarshal := lpParameter is VarRef ? "ptr" : "ptr"
-    lpReturnValueMarshal := lpReturnValue is VarRef ? "ptr*" : "ptr"
+    lpParameterMarshal := lpParameter is VarRef ? "ptr" : IntPtr
+    lpReturnValueMarshal := lpReturnValue is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -1533,7 +1560,7 @@ export CallEnclave(lpRoutine, lpParameter, fWaitForThread, lpReturnValue) {
  * @since windows10.0.16299
  */
 export TerminateEnclave(lpAddress, fWait) {
-    lpAddressMarshal := lpAddress is VarRef ? "ptr" : "ptr"
+    lpAddressMarshal := lpAddress is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -1574,7 +1601,7 @@ export TerminateEnclave(lpAddress, fWait) {
  * @since windows10.0.16299
  */
 export DeleteEnclave(lpAddress) {
-    lpAddressMarshal := lpAddress is VarRef ? "ptr" : "ptr"
+    lpAddressMarshal := lpAddress is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -1631,9 +1658,11 @@ export DeleteEnclave(lpAddress) {
  * @since windows10.0.16299
  */
 export EnclaveGetAttestationReport(EnclaveData, Report, BufferSize) {
-    EnclaveDataMarshal := EnclaveData is VarRef ? "char*" : "ptr"
+    EnclaveDataMarshal := EnclaveData is VarRef ? "char*" : IntPtr
+    EnclaveDataMarshal := EnclaveData == 0 ? IntPtr : "char*"
+    ReportMarshal := Report == 0 ? IntPtr : IntPtr
 
-    result := DllCall("vertdll.dll\EnclaveGetAttestationReport", EnclaveDataMarshal, EnclaveData, IntPtr, Report, UInt32, BufferSize, "uint*", &OutputSize := 0, "HRESULT")
+    result := DllCall("vertdll.dll\EnclaveGetAttestationReport", EnclaveDataMarshal, EnclaveData, ReportMarshal, Report, UInt32, BufferSize, "uint*", &OutputSize := 0, "HRESULT")
     return OutputSize
 }
 
@@ -1701,7 +1730,9 @@ export EnclaveVerifyAttestationReport(EnclaveType, Report, ReportSize) {
  * @since windows10.0.16299
  */
 export EnclaveSealData(DataToEncrypt, DataToEncryptSize, IdentityPolicy, RuntimePolicy, ProtectedBlob, BufferSize) {
-    result := DllCall("vertdll.dll\EnclaveSealData", IntPtr, DataToEncrypt, UInt32, DataToEncryptSize, ENCLAVE_SEALING_IDENTITY_POLICY, IdentityPolicy, UInt32, RuntimePolicy, IntPtr, ProtectedBlob, UInt32, BufferSize, "uint*", &ProtectedBlobSize := 0, "HRESULT")
+    ProtectedBlobMarshal := ProtectedBlob == 0 ? IntPtr : IntPtr
+
+    result := DllCall("vertdll.dll\EnclaveSealData", IntPtr, DataToEncrypt, UInt32, DataToEncryptSize, ENCLAVE_SEALING_IDENTITY_POLICY, IdentityPolicy, UInt32, RuntimePolicy, ProtectedBlobMarshal, ProtectedBlob, UInt32, BufferSize, "uint*", &ProtectedBlobSize := 0, "HRESULT")
     return ProtectedBlobSize
 }
 
@@ -1741,15 +1772,17 @@ export EnclaveSealData(DataToEncrypt, DataToEncryptSize, IdentityPolicy, Runtime
  * @since windows10.0.16299
  */
 export EnclaveUnsealData(ProtectedBlob, ProtectedBlobSize, DecryptedData, BufferSize, DecryptedDataSize, SealingIdentity, UnsealingFlags) {
-    DecryptedDataSizeMarshal := DecryptedDataSize is VarRef ? "uint*" : "ptr"
-    UnsealingFlagsMarshal := UnsealingFlags is VarRef ? "uint*" : "ptr"
+    DecryptedDataMarshal := DecryptedData == 0 ? IntPtr : IntPtr
+    DecryptedDataSizeMarshal := DecryptedDataSize is VarRef ? "uint*" : IntPtr
+    SealingIdentityMarshal := SealingIdentity == 0 ? IntPtr : ENCLAVE_IDENTITY.Ptr
+    UnsealingFlagsMarshal := UnsealingFlags is VarRef ? "uint*" : IntPtr
+    UnsealingFlagsMarshal := UnsealingFlags == 0 ? IntPtr : "uint*"
 
-    result := DllCall("vertdll.dll\EnclaveUnsealData", IntPtr, ProtectedBlob, UInt32, ProtectedBlobSize, IntPtr, DecryptedData, UInt32, BufferSize, DecryptedDataSizeMarshal, DecryptedDataSize, ENCLAVE_IDENTITY.Ptr, SealingIdentity, UnsealingFlagsMarshal, UnsealingFlags, "HRESULT")
+    result := DllCall("vertdll.dll\EnclaveUnsealData", IntPtr, ProtectedBlob, UInt32, ProtectedBlobSize, DecryptedDataMarshal, DecryptedData, UInt32, BufferSize, DecryptedDataSizeMarshal, DecryptedDataSize, SealingIdentityMarshal, SealingIdentity, UnsealingFlagsMarshal, UnsealingFlags, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {Integer} DataToEncrypt 
  * @param {Integer} DataToEncryptSize 
  * @param {Pointer<TRUSTLET_BINDING_DATA>} TrustletBindingData 
@@ -1758,7 +1791,9 @@ export EnclaveUnsealData(ProtectedBlob, ProtectedBlobSize, DecryptedData, Buffer
  * @returns {Integer} 
  */
 export EnclaveEncryptDataForTrustlet(DataToEncrypt, DataToEncryptSize, TrustletBindingData, EncryptedData, BufferSize) {
-    result := DllCall("vertdll.dll\EnclaveEncryptDataForTrustlet", IntPtr, DataToEncrypt, UInt32, DataToEncryptSize, TRUSTLET_BINDING_DATA.Ptr, TrustletBindingData, IntPtr, EncryptedData, UInt32, BufferSize, "uint*", &EncryptedDataSize := 0, "HRESULT")
+    EncryptedDataMarshal := EncryptedData == 0 ? IntPtr : IntPtr
+
+    result := DllCall("vertdll.dll\EnclaveEncryptDataForTrustlet", IntPtr, DataToEncrypt, UInt32, DataToEncryptSize, TRUSTLET_BINDING_DATA.Ptr, TrustletBindingData, EncryptedDataMarshal, EncryptedData, UInt32, BufferSize, "uint*", &EncryptedDataSize := 0, "HRESULT")
     return EncryptedDataSize
 }
 
@@ -1778,7 +1813,6 @@ export EnclaveGetEnclaveInformation(InformationSize, EnclaveInformation) {
 }
 
 /**
- * 
  * @returns {BOOLEAN} 
  */
 export EnclaveUsesAttestedKeys() {
@@ -1787,7 +1821,6 @@ export EnclaveUsesAttestedKeys() {
 }
 
 /**
- * 
  * @param {BOOL} RestrictAccess 
  * @returns {BOOL} 
  */
@@ -1797,7 +1830,6 @@ export EnclaveRestrictContainingProcessAccess(RestrictAccess) {
 }
 
 /**
- * 
  * @param {Integer} EnclaveAddress 
  * @param {Integer} UnsecureAddress 
  * @param {Pointer} NumberOfBytes 
@@ -1809,7 +1841,6 @@ export EnclaveCopyIntoEnclave(EnclaveAddress, UnsecureAddress, NumberOfBytes) {
 }
 
 /**
- * 
  * @param {Integer} UnsecureAddress 
  * @param {Integer} EnclaveAddress 
  * @param {Pointer} NumberOfBytes 

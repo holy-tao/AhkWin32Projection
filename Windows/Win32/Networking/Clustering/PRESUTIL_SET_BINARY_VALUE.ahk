@@ -20,7 +20,6 @@ export default struct PRESUTIL_SET_BINARY_VALUE {
     }
 
     /**
-     * 
      * @param {HKEY} hkeyClusterKey 
      * @param {PWSTR} pszValueName 
      * @param {Integer} pbNewValue 
@@ -32,9 +31,10 @@ export default struct PRESUTIL_SET_BINARY_VALUE {
     Call(hkeyClusterKey, pszValueName, pbNewValue, cbNewValueSize, ppbOutValue, pcbOutValueSize) {
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
-        pcbOutValueSizeMarshal := pcbOutValueSize is VarRef ? "uint*" : "ptr"
+        ppbOutValueMarshal := ppbOutValue == 0 ? IntPtr : IntPtr
+        pcbOutValueSizeMarshal := pcbOutValueSize is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, HKEY, hkeyClusterKey, "ptr", pszValueName, IntPtr, pbNewValue, UInt32, cbNewValueSize, IntPtr, ppbOutValue, pcbOutValueSizeMarshal, pcbOutValueSize, UInt32)
+        result := DllCall(this.value, HKEY, hkeyClusterKey, "ptr", pszValueName, IntPtr, pbNewValue, UInt32, cbNewValueSize, ppbOutValueMarshal, ppbOutValue, pcbOutValueSizeMarshal, pcbOutValueSize, UInt32)
         return result
     }
 

@@ -128,10 +128,10 @@ export default struct IWdsTransportContentProvider extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
-        this.vtbl.get_FilePath := CallbackCreate(GetMethod(implObj, "get_FilePath"), flags, 2)
-        this.vtbl.get_InitializationRoutine := CallbackCreate(GetMethod(implObj, "get_InitializationRoutine"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(ObjBindMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.get_FilePath := CallbackCreate(ObjBindMethod(implObj, "get_FilePath"), flags, 2)
+        this.vtbl.get_InitializationRoutine := CallbackCreate(ObjBindMethod(implObj, "get_InitializationRoutine"), flags, 2)
     }
 
     Dispose() {

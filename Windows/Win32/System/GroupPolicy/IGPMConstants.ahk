@@ -523,7 +523,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_PermGPOApply() {
@@ -532,7 +531,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_PermGPORead() {
@@ -541,7 +539,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_PermGPOEdit() {
@@ -550,7 +547,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_PermGPOEditSecurityAndDelete() {
@@ -559,7 +555,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_PermGPOCustom() {
@@ -568,7 +563,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_PermWMIFilterEdit() {
@@ -577,7 +571,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_PermWMIFilterFullControl() {
@@ -586,7 +579,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_PermWMIFilterCustom() {
@@ -595,7 +587,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_PermSOMLink() {
@@ -604,7 +595,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_PermSOMLogging() {
@@ -613,7 +603,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_PermSOMPlanning() {
@@ -622,7 +611,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_PermSOMGPOCreate() {
@@ -631,7 +619,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_PermSOMWMICreate() {
@@ -640,7 +627,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_PermSOMWMIFullControl() {
@@ -649,7 +635,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyGPOPermissions() {
@@ -658,7 +643,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyGPOEffectivePermissions() {
@@ -667,7 +651,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyGPODisplayName() {
@@ -676,7 +659,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyGPOWMIFilter() {
@@ -685,7 +667,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyGPOID() {
@@ -694,7 +675,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyGPOComputerExtensions() {
@@ -703,7 +683,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyGPOUserExtensions() {
@@ -712,7 +691,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMSearchProperty} 
      */
     get_SearchPropertySOMLinks() {
@@ -721,7 +699,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyGPODomain() {
@@ -730,7 +707,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyBackupMostRecent() {
@@ -739,7 +715,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMSearchOperation} 
      */
     get_SearchOpEquals() {
@@ -748,7 +723,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMSearchOperation} 
      */
     get_SearchOpContains() {
@@ -757,7 +731,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMSearchOperation} 
      */
     get_SearchOpNotContains() {
@@ -766,7 +739,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMSearchOperation} 
      */
     get_SearchOpNotEquals() {
@@ -775,7 +747,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_UsePDC() {
@@ -784,7 +755,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_UseAnyDC() {
@@ -793,7 +763,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DoNotUseW2KDC() {
@@ -802,7 +771,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMSOMType} 
      */
     get_SOMSite() {
@@ -811,7 +779,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMSOMType} 
      */
     get_SOMDomain() {
@@ -820,7 +787,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMSOMType} 
      */
     get_SOMOU() {
@@ -845,7 +811,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DoNotValidateDC() {
@@ -854,7 +819,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMReportType} 
      */
     get_ReportHTML() {
@@ -863,7 +827,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMReportType} 
      */
     get_ReportXML() {
@@ -872,7 +835,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMRSOPMode} 
      */
     get_RSOPModeUnknown() {
@@ -881,7 +843,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMRSOPMode} 
      */
     get_RSOPModePlanning() {
@@ -890,7 +851,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMRSOPMode} 
      */
     get_RSOPModeLogging() {
@@ -899,7 +859,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMEntryType} 
      */
     get_EntryTypeUser() {
@@ -908,7 +867,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMEntryType} 
      */
     get_EntryTypeComputer() {
@@ -917,7 +875,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMEntryType} 
      */
     get_EntryTypeLocalGroup() {
@@ -926,7 +883,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMEntryType} 
      */
     get_EntryTypeGlobalGroup() {
@@ -935,7 +891,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMEntryType} 
      */
     get_EntryTypeUniversalGroup() {
@@ -944,7 +899,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMEntryType} 
      */
     get_EntryTypeUNCPath() {
@@ -953,7 +907,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMEntryType} 
      */
     get_EntryTypeUnknown() {
@@ -962,7 +915,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMDestinationOption} 
      */
     get_DestinationOptionSameAsSource() {
@@ -971,7 +923,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMDestinationOption} 
      */
     get_DestinationOptionNone() {
@@ -980,7 +931,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMDestinationOption} 
      */
     get_DestinationOptionByRelativeName() {
@@ -989,7 +939,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMDestinationOption} 
      */
     get_DestinationOptionSet() {
@@ -998,7 +947,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MigrationTableOnly() {
@@ -1007,7 +955,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ProcessSecurity() {
@@ -1016,7 +963,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_RsopLoggingNoComputer() {
@@ -1025,7 +971,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_RsopLoggingNoUser() {
@@ -1034,7 +979,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_RsopPlanningAssumeSlowLink() {
@@ -1043,7 +987,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} vbMerge 
      * @returns {Integer} 
      */
@@ -1053,7 +996,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_RsopPlanningAssumeUserWQLFilterTrue() {
@@ -1062,7 +1004,6 @@ export default struct IGPMConstants extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_RsopPlanningAssumeCompWQLFilterTrue() {
@@ -1079,66 +1020,66 @@ export default struct IGPMConstants extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_PermGPOApply := CallbackCreate(GetMethod(implObj, "get_PermGPOApply"), flags, 2)
-        this.vtbl.get_PermGPORead := CallbackCreate(GetMethod(implObj, "get_PermGPORead"), flags, 2)
-        this.vtbl.get_PermGPOEdit := CallbackCreate(GetMethod(implObj, "get_PermGPOEdit"), flags, 2)
-        this.vtbl.get_PermGPOEditSecurityAndDelete := CallbackCreate(GetMethod(implObj, "get_PermGPOEditSecurityAndDelete"), flags, 2)
-        this.vtbl.get_PermGPOCustom := CallbackCreate(GetMethod(implObj, "get_PermGPOCustom"), flags, 2)
-        this.vtbl.get_PermWMIFilterEdit := CallbackCreate(GetMethod(implObj, "get_PermWMIFilterEdit"), flags, 2)
-        this.vtbl.get_PermWMIFilterFullControl := CallbackCreate(GetMethod(implObj, "get_PermWMIFilterFullControl"), flags, 2)
-        this.vtbl.get_PermWMIFilterCustom := CallbackCreate(GetMethod(implObj, "get_PermWMIFilterCustom"), flags, 2)
-        this.vtbl.get_PermSOMLink := CallbackCreate(GetMethod(implObj, "get_PermSOMLink"), flags, 2)
-        this.vtbl.get_PermSOMLogging := CallbackCreate(GetMethod(implObj, "get_PermSOMLogging"), flags, 2)
-        this.vtbl.get_PermSOMPlanning := CallbackCreate(GetMethod(implObj, "get_PermSOMPlanning"), flags, 2)
-        this.vtbl.get_PermSOMGPOCreate := CallbackCreate(GetMethod(implObj, "get_PermSOMGPOCreate"), flags, 2)
-        this.vtbl.get_PermSOMWMICreate := CallbackCreate(GetMethod(implObj, "get_PermSOMWMICreate"), flags, 2)
-        this.vtbl.get_PermSOMWMIFullControl := CallbackCreate(GetMethod(implObj, "get_PermSOMWMIFullControl"), flags, 2)
-        this.vtbl.get_SearchPropertyGPOPermissions := CallbackCreate(GetMethod(implObj, "get_SearchPropertyGPOPermissions"), flags, 2)
-        this.vtbl.get_SearchPropertyGPOEffectivePermissions := CallbackCreate(GetMethod(implObj, "get_SearchPropertyGPOEffectivePermissions"), flags, 2)
-        this.vtbl.get_SearchPropertyGPODisplayName := CallbackCreate(GetMethod(implObj, "get_SearchPropertyGPODisplayName"), flags, 2)
-        this.vtbl.get_SearchPropertyGPOWMIFilter := CallbackCreate(GetMethod(implObj, "get_SearchPropertyGPOWMIFilter"), flags, 2)
-        this.vtbl.get_SearchPropertyGPOID := CallbackCreate(GetMethod(implObj, "get_SearchPropertyGPOID"), flags, 2)
-        this.vtbl.get_SearchPropertyGPOComputerExtensions := CallbackCreate(GetMethod(implObj, "get_SearchPropertyGPOComputerExtensions"), flags, 2)
-        this.vtbl.get_SearchPropertyGPOUserExtensions := CallbackCreate(GetMethod(implObj, "get_SearchPropertyGPOUserExtensions"), flags, 2)
-        this.vtbl.get_SearchPropertySOMLinks := CallbackCreate(GetMethod(implObj, "get_SearchPropertySOMLinks"), flags, 2)
-        this.vtbl.get_SearchPropertyGPODomain := CallbackCreate(GetMethod(implObj, "get_SearchPropertyGPODomain"), flags, 2)
-        this.vtbl.get_SearchPropertyBackupMostRecent := CallbackCreate(GetMethod(implObj, "get_SearchPropertyBackupMostRecent"), flags, 2)
-        this.vtbl.get_SearchOpEquals := CallbackCreate(GetMethod(implObj, "get_SearchOpEquals"), flags, 2)
-        this.vtbl.get_SearchOpContains := CallbackCreate(GetMethod(implObj, "get_SearchOpContains"), flags, 2)
-        this.vtbl.get_SearchOpNotContains := CallbackCreate(GetMethod(implObj, "get_SearchOpNotContains"), flags, 2)
-        this.vtbl.get_SearchOpNotEquals := CallbackCreate(GetMethod(implObj, "get_SearchOpNotEquals"), flags, 2)
-        this.vtbl.get_UsePDC := CallbackCreate(GetMethod(implObj, "get_UsePDC"), flags, 2)
-        this.vtbl.get_UseAnyDC := CallbackCreate(GetMethod(implObj, "get_UseAnyDC"), flags, 2)
-        this.vtbl.get_DoNotUseW2KDC := CallbackCreate(GetMethod(implObj, "get_DoNotUseW2KDC"), flags, 2)
-        this.vtbl.get_SOMSite := CallbackCreate(GetMethod(implObj, "get_SOMSite"), flags, 2)
-        this.vtbl.get_SOMDomain := CallbackCreate(GetMethod(implObj, "get_SOMDomain"), flags, 2)
-        this.vtbl.get_SOMOU := CallbackCreate(GetMethod(implObj, "get_SOMOU"), flags, 2)
-        this.vtbl.get_SecurityFlags := CallbackCreate(GetMethod(implObj, "get_SecurityFlags"), flags, 6)
-        this.vtbl.get_DoNotValidateDC := CallbackCreate(GetMethod(implObj, "get_DoNotValidateDC"), flags, 2)
-        this.vtbl.get_ReportHTML := CallbackCreate(GetMethod(implObj, "get_ReportHTML"), flags, 2)
-        this.vtbl.get_ReportXML := CallbackCreate(GetMethod(implObj, "get_ReportXML"), flags, 2)
-        this.vtbl.get_RSOPModeUnknown := CallbackCreate(GetMethod(implObj, "get_RSOPModeUnknown"), flags, 2)
-        this.vtbl.get_RSOPModePlanning := CallbackCreate(GetMethod(implObj, "get_RSOPModePlanning"), flags, 2)
-        this.vtbl.get_RSOPModeLogging := CallbackCreate(GetMethod(implObj, "get_RSOPModeLogging"), flags, 2)
-        this.vtbl.get_EntryTypeUser := CallbackCreate(GetMethod(implObj, "get_EntryTypeUser"), flags, 2)
-        this.vtbl.get_EntryTypeComputer := CallbackCreate(GetMethod(implObj, "get_EntryTypeComputer"), flags, 2)
-        this.vtbl.get_EntryTypeLocalGroup := CallbackCreate(GetMethod(implObj, "get_EntryTypeLocalGroup"), flags, 2)
-        this.vtbl.get_EntryTypeGlobalGroup := CallbackCreate(GetMethod(implObj, "get_EntryTypeGlobalGroup"), flags, 2)
-        this.vtbl.get_EntryTypeUniversalGroup := CallbackCreate(GetMethod(implObj, "get_EntryTypeUniversalGroup"), flags, 2)
-        this.vtbl.get_EntryTypeUNCPath := CallbackCreate(GetMethod(implObj, "get_EntryTypeUNCPath"), flags, 2)
-        this.vtbl.get_EntryTypeUnknown := CallbackCreate(GetMethod(implObj, "get_EntryTypeUnknown"), flags, 2)
-        this.vtbl.get_DestinationOptionSameAsSource := CallbackCreate(GetMethod(implObj, "get_DestinationOptionSameAsSource"), flags, 2)
-        this.vtbl.get_DestinationOptionNone := CallbackCreate(GetMethod(implObj, "get_DestinationOptionNone"), flags, 2)
-        this.vtbl.get_DestinationOptionByRelativeName := CallbackCreate(GetMethod(implObj, "get_DestinationOptionByRelativeName"), flags, 2)
-        this.vtbl.get_DestinationOptionSet := CallbackCreate(GetMethod(implObj, "get_DestinationOptionSet"), flags, 2)
-        this.vtbl.get_MigrationTableOnly := CallbackCreate(GetMethod(implObj, "get_MigrationTableOnly"), flags, 2)
-        this.vtbl.get_ProcessSecurity := CallbackCreate(GetMethod(implObj, "get_ProcessSecurity"), flags, 2)
-        this.vtbl.get_RsopLoggingNoComputer := CallbackCreate(GetMethod(implObj, "get_RsopLoggingNoComputer"), flags, 2)
-        this.vtbl.get_RsopLoggingNoUser := CallbackCreate(GetMethod(implObj, "get_RsopLoggingNoUser"), flags, 2)
-        this.vtbl.get_RsopPlanningAssumeSlowLink := CallbackCreate(GetMethod(implObj, "get_RsopPlanningAssumeSlowLink"), flags, 2)
-        this.vtbl.get_RsopPlanningLoopbackOption := CallbackCreate(GetMethod(implObj, "get_RsopPlanningLoopbackOption"), flags, 3)
-        this.vtbl.get_RsopPlanningAssumeUserWQLFilterTrue := CallbackCreate(GetMethod(implObj, "get_RsopPlanningAssumeUserWQLFilterTrue"), flags, 2)
-        this.vtbl.get_RsopPlanningAssumeCompWQLFilterTrue := CallbackCreate(GetMethod(implObj, "get_RsopPlanningAssumeCompWQLFilterTrue"), flags, 2)
+        this.vtbl.get_PermGPOApply := CallbackCreate(ObjBindMethod(implObj, "get_PermGPOApply"), flags, 2)
+        this.vtbl.get_PermGPORead := CallbackCreate(ObjBindMethod(implObj, "get_PermGPORead"), flags, 2)
+        this.vtbl.get_PermGPOEdit := CallbackCreate(ObjBindMethod(implObj, "get_PermGPOEdit"), flags, 2)
+        this.vtbl.get_PermGPOEditSecurityAndDelete := CallbackCreate(ObjBindMethod(implObj, "get_PermGPOEditSecurityAndDelete"), flags, 2)
+        this.vtbl.get_PermGPOCustom := CallbackCreate(ObjBindMethod(implObj, "get_PermGPOCustom"), flags, 2)
+        this.vtbl.get_PermWMIFilterEdit := CallbackCreate(ObjBindMethod(implObj, "get_PermWMIFilterEdit"), flags, 2)
+        this.vtbl.get_PermWMIFilterFullControl := CallbackCreate(ObjBindMethod(implObj, "get_PermWMIFilterFullControl"), flags, 2)
+        this.vtbl.get_PermWMIFilterCustom := CallbackCreate(ObjBindMethod(implObj, "get_PermWMIFilterCustom"), flags, 2)
+        this.vtbl.get_PermSOMLink := CallbackCreate(ObjBindMethod(implObj, "get_PermSOMLink"), flags, 2)
+        this.vtbl.get_PermSOMLogging := CallbackCreate(ObjBindMethod(implObj, "get_PermSOMLogging"), flags, 2)
+        this.vtbl.get_PermSOMPlanning := CallbackCreate(ObjBindMethod(implObj, "get_PermSOMPlanning"), flags, 2)
+        this.vtbl.get_PermSOMGPOCreate := CallbackCreate(ObjBindMethod(implObj, "get_PermSOMGPOCreate"), flags, 2)
+        this.vtbl.get_PermSOMWMICreate := CallbackCreate(ObjBindMethod(implObj, "get_PermSOMWMICreate"), flags, 2)
+        this.vtbl.get_PermSOMWMIFullControl := CallbackCreate(ObjBindMethod(implObj, "get_PermSOMWMIFullControl"), flags, 2)
+        this.vtbl.get_SearchPropertyGPOPermissions := CallbackCreate(ObjBindMethod(implObj, "get_SearchPropertyGPOPermissions"), flags, 2)
+        this.vtbl.get_SearchPropertyGPOEffectivePermissions := CallbackCreate(ObjBindMethod(implObj, "get_SearchPropertyGPOEffectivePermissions"), flags, 2)
+        this.vtbl.get_SearchPropertyGPODisplayName := CallbackCreate(ObjBindMethod(implObj, "get_SearchPropertyGPODisplayName"), flags, 2)
+        this.vtbl.get_SearchPropertyGPOWMIFilter := CallbackCreate(ObjBindMethod(implObj, "get_SearchPropertyGPOWMIFilter"), flags, 2)
+        this.vtbl.get_SearchPropertyGPOID := CallbackCreate(ObjBindMethod(implObj, "get_SearchPropertyGPOID"), flags, 2)
+        this.vtbl.get_SearchPropertyGPOComputerExtensions := CallbackCreate(ObjBindMethod(implObj, "get_SearchPropertyGPOComputerExtensions"), flags, 2)
+        this.vtbl.get_SearchPropertyGPOUserExtensions := CallbackCreate(ObjBindMethod(implObj, "get_SearchPropertyGPOUserExtensions"), flags, 2)
+        this.vtbl.get_SearchPropertySOMLinks := CallbackCreate(ObjBindMethod(implObj, "get_SearchPropertySOMLinks"), flags, 2)
+        this.vtbl.get_SearchPropertyGPODomain := CallbackCreate(ObjBindMethod(implObj, "get_SearchPropertyGPODomain"), flags, 2)
+        this.vtbl.get_SearchPropertyBackupMostRecent := CallbackCreate(ObjBindMethod(implObj, "get_SearchPropertyBackupMostRecent"), flags, 2)
+        this.vtbl.get_SearchOpEquals := CallbackCreate(ObjBindMethod(implObj, "get_SearchOpEquals"), flags, 2)
+        this.vtbl.get_SearchOpContains := CallbackCreate(ObjBindMethod(implObj, "get_SearchOpContains"), flags, 2)
+        this.vtbl.get_SearchOpNotContains := CallbackCreate(ObjBindMethod(implObj, "get_SearchOpNotContains"), flags, 2)
+        this.vtbl.get_SearchOpNotEquals := CallbackCreate(ObjBindMethod(implObj, "get_SearchOpNotEquals"), flags, 2)
+        this.vtbl.get_UsePDC := CallbackCreate(ObjBindMethod(implObj, "get_UsePDC"), flags, 2)
+        this.vtbl.get_UseAnyDC := CallbackCreate(ObjBindMethod(implObj, "get_UseAnyDC"), flags, 2)
+        this.vtbl.get_DoNotUseW2KDC := CallbackCreate(ObjBindMethod(implObj, "get_DoNotUseW2KDC"), flags, 2)
+        this.vtbl.get_SOMSite := CallbackCreate(ObjBindMethod(implObj, "get_SOMSite"), flags, 2)
+        this.vtbl.get_SOMDomain := CallbackCreate(ObjBindMethod(implObj, "get_SOMDomain"), flags, 2)
+        this.vtbl.get_SOMOU := CallbackCreate(ObjBindMethod(implObj, "get_SOMOU"), flags, 2)
+        this.vtbl.get_SecurityFlags := CallbackCreate(ObjBindMethod(implObj, "get_SecurityFlags"), flags, 6)
+        this.vtbl.get_DoNotValidateDC := CallbackCreate(ObjBindMethod(implObj, "get_DoNotValidateDC"), flags, 2)
+        this.vtbl.get_ReportHTML := CallbackCreate(ObjBindMethod(implObj, "get_ReportHTML"), flags, 2)
+        this.vtbl.get_ReportXML := CallbackCreate(ObjBindMethod(implObj, "get_ReportXML"), flags, 2)
+        this.vtbl.get_RSOPModeUnknown := CallbackCreate(ObjBindMethod(implObj, "get_RSOPModeUnknown"), flags, 2)
+        this.vtbl.get_RSOPModePlanning := CallbackCreate(ObjBindMethod(implObj, "get_RSOPModePlanning"), flags, 2)
+        this.vtbl.get_RSOPModeLogging := CallbackCreate(ObjBindMethod(implObj, "get_RSOPModeLogging"), flags, 2)
+        this.vtbl.get_EntryTypeUser := CallbackCreate(ObjBindMethod(implObj, "get_EntryTypeUser"), flags, 2)
+        this.vtbl.get_EntryTypeComputer := CallbackCreate(ObjBindMethod(implObj, "get_EntryTypeComputer"), flags, 2)
+        this.vtbl.get_EntryTypeLocalGroup := CallbackCreate(ObjBindMethod(implObj, "get_EntryTypeLocalGroup"), flags, 2)
+        this.vtbl.get_EntryTypeGlobalGroup := CallbackCreate(ObjBindMethod(implObj, "get_EntryTypeGlobalGroup"), flags, 2)
+        this.vtbl.get_EntryTypeUniversalGroup := CallbackCreate(ObjBindMethod(implObj, "get_EntryTypeUniversalGroup"), flags, 2)
+        this.vtbl.get_EntryTypeUNCPath := CallbackCreate(ObjBindMethod(implObj, "get_EntryTypeUNCPath"), flags, 2)
+        this.vtbl.get_EntryTypeUnknown := CallbackCreate(ObjBindMethod(implObj, "get_EntryTypeUnknown"), flags, 2)
+        this.vtbl.get_DestinationOptionSameAsSource := CallbackCreate(ObjBindMethod(implObj, "get_DestinationOptionSameAsSource"), flags, 2)
+        this.vtbl.get_DestinationOptionNone := CallbackCreate(ObjBindMethod(implObj, "get_DestinationOptionNone"), flags, 2)
+        this.vtbl.get_DestinationOptionByRelativeName := CallbackCreate(ObjBindMethod(implObj, "get_DestinationOptionByRelativeName"), flags, 2)
+        this.vtbl.get_DestinationOptionSet := CallbackCreate(ObjBindMethod(implObj, "get_DestinationOptionSet"), flags, 2)
+        this.vtbl.get_MigrationTableOnly := CallbackCreate(ObjBindMethod(implObj, "get_MigrationTableOnly"), flags, 2)
+        this.vtbl.get_ProcessSecurity := CallbackCreate(ObjBindMethod(implObj, "get_ProcessSecurity"), flags, 2)
+        this.vtbl.get_RsopLoggingNoComputer := CallbackCreate(ObjBindMethod(implObj, "get_RsopLoggingNoComputer"), flags, 2)
+        this.vtbl.get_RsopLoggingNoUser := CallbackCreate(ObjBindMethod(implObj, "get_RsopLoggingNoUser"), flags, 2)
+        this.vtbl.get_RsopPlanningAssumeSlowLink := CallbackCreate(ObjBindMethod(implObj, "get_RsopPlanningAssumeSlowLink"), flags, 2)
+        this.vtbl.get_RsopPlanningLoopbackOption := CallbackCreate(ObjBindMethod(implObj, "get_RsopPlanningLoopbackOption"), flags, 3)
+        this.vtbl.get_RsopPlanningAssumeUserWQLFilterTrue := CallbackCreate(ObjBindMethod(implObj, "get_RsopPlanningAssumeUserWQLFilterTrue"), flags, 2)
+        this.vtbl.get_RsopPlanningAssumeCompWQLFilterTrue := CallbackCreate(ObjBindMethod(implObj, "get_RsopPlanningAssumeCompWQLFilterTrue"), flags, 2)
     }
 
     Dispose() {

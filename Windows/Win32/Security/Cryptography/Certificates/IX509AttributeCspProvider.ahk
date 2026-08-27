@@ -198,11 +198,11 @@ export default struct IX509AttributeCspProvider extends IX509Attribute {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeEncode := CallbackCreate(GetMethod(implObj, "InitializeEncode"), flags, 5)
-        this.vtbl.InitializeDecode := CallbackCreate(GetMethod(implObj, "InitializeDecode"), flags, 3)
-        this.vtbl.get_KeySpec := CallbackCreate(GetMethod(implObj, "get_KeySpec"), flags, 2)
-        this.vtbl.get_ProviderName := CallbackCreate(GetMethod(implObj, "get_ProviderName"), flags, 2)
-        this.vtbl.get_Signature := CallbackCreate(GetMethod(implObj, "get_Signature"), flags, 3)
+        this.vtbl.InitializeEncode := CallbackCreate(ObjBindMethod(implObj, "InitializeEncode"), flags, 5)
+        this.vtbl.InitializeDecode := CallbackCreate(ObjBindMethod(implObj, "InitializeDecode"), flags, 3)
+        this.vtbl.get_KeySpec := CallbackCreate(ObjBindMethod(implObj, "get_KeySpec"), flags, 2)
+        this.vtbl.get_ProviderName := CallbackCreate(ObjBindMethod(implObj, "get_ProviderName"), flags, 2)
+        this.vtbl.get_Signature := CallbackCreate(ObjBindMethod(implObj, "get_Signature"), flags, 3)
     }
 
     Dispose() {

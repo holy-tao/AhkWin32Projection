@@ -75,7 +75,7 @@ export default struct IDWriteRemoteFontFileStream extends IDWriteFontFileStream 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwriteremotefontfilestream-getfilefragmentlocality
      */
     GetFileFragmentLocality(fileOffset, fragmentSize, partialSize) {
-        partialSizeMarshal := partialSize is VarRef ? "uint*" : "ptr"
+        partialSizeMarshal := partialSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, Int64, fileOffset, Int64, fragmentSize, BOOL.Ptr, &isLocal := 0, partialSizeMarshal, partialSize, "HRESULT")
         return isLocal
@@ -123,10 +123,10 @@ export default struct IDWriteRemoteFontFileStream extends IDWriteFontFileStream 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLocalFileSize := CallbackCreate(GetMethod(implObj, "GetLocalFileSize"), flags, 2)
-        this.vtbl.GetFileFragmentLocality := CallbackCreate(GetMethod(implObj, "GetFileFragmentLocality"), flags, 5)
-        this.vtbl.GetLocality := CallbackCreate(GetMethod(implObj, "GetLocality"), flags, 1)
-        this.vtbl.BeginDownload := CallbackCreate(GetMethod(implObj, "BeginDownload"), flags, 5)
+        this.vtbl.GetLocalFileSize := CallbackCreate(ObjBindMethod(implObj, "GetLocalFileSize"), flags, 2)
+        this.vtbl.GetFileFragmentLocality := CallbackCreate(ObjBindMethod(implObj, "GetFileFragmentLocality"), flags, 5)
+        this.vtbl.GetLocality := CallbackCreate(ObjBindMethod(implObj, "GetLocality"), flags, 1)
+        this.vtbl.BeginDownload := CallbackCreate(ObjBindMethod(implObj, "BeginDownload"), flags, 5)
     }
 
     Dispose() {

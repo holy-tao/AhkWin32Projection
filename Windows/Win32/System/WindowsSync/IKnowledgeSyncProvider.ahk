@@ -103,7 +103,7 @@ export default struct IKnowledgeSyncProvider extends ISyncProvider {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-iknowledgesyncprovider-getsyncbatchparameters
      */
     GetSyncBatchParameters(pdwRequestedBatchSize) {
-        pdwRequestedBatchSizeMarshal := pdwRequestedBatchSize is VarRef ? "uint*" : "ptr"
+        pdwRequestedBatchSizeMarshal := pdwRequestedBatchSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, "ptr*", &ppSyncKnowledge := 0, pdwRequestedBatchSizeMarshal, pdwRequestedBatchSize, "HRESULT")
         return ISyncKnowledge(ppSyncKnowledge)
@@ -199,7 +199,7 @@ export default struct IKnowledgeSyncProvider extends ISyncProvider {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-iknowledgesyncprovider-getfullenumerationchangebatch
      */
     GetFullEnumerationChangeBatch(dwBatchSize, pbLowerEnumerationBound, pSyncKnowledge, ppSyncChangeBatch, ppUnkDataRetriever) {
-        pbLowerEnumerationBoundMarshal := pbLowerEnumerationBound is VarRef ? "char*" : "ptr"
+        pbLowerEnumerationBoundMarshal := pbLowerEnumerationBound is VarRef ? "char*" : IntPtr
 
         result := ComCall(7, this, UInt32, dwBatchSize, pbLowerEnumerationBoundMarshal, pbLowerEnumerationBound, "ptr", pSyncKnowledge, ISyncFullEnumerationChangeBatch.Ptr, ppSyncChangeBatch, IUnknown.Ptr, ppUnkDataRetriever, "HRESULT")
         return result
@@ -346,13 +346,13 @@ export default struct IKnowledgeSyncProvider extends ISyncProvider {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BeginSession := CallbackCreate(GetMethod(implObj, "BeginSession"), flags, 3)
-        this.vtbl.GetSyncBatchParameters := CallbackCreate(GetMethod(implObj, "GetSyncBatchParameters"), flags, 3)
-        this.vtbl.GetChangeBatch := CallbackCreate(GetMethod(implObj, "GetChangeBatch"), flags, 5)
-        this.vtbl.GetFullEnumerationChangeBatch := CallbackCreate(GetMethod(implObj, "GetFullEnumerationChangeBatch"), flags, 6)
-        this.vtbl.ProcessChangeBatch := CallbackCreate(GetMethod(implObj, "ProcessChangeBatch"), flags, 6)
-        this.vtbl.ProcessFullEnumerationChangeBatch := CallbackCreate(GetMethod(implObj, "ProcessFullEnumerationChangeBatch"), flags, 6)
-        this.vtbl.EndSession := CallbackCreate(GetMethod(implObj, "EndSession"), flags, 2)
+        this.vtbl.BeginSession := CallbackCreate(ObjBindMethod(implObj, "BeginSession"), flags, 3)
+        this.vtbl.GetSyncBatchParameters := CallbackCreate(ObjBindMethod(implObj, "GetSyncBatchParameters"), flags, 3)
+        this.vtbl.GetChangeBatch := CallbackCreate(ObjBindMethod(implObj, "GetChangeBatch"), flags, 5)
+        this.vtbl.GetFullEnumerationChangeBatch := CallbackCreate(ObjBindMethod(implObj, "GetFullEnumerationChangeBatch"), flags, 6)
+        this.vtbl.ProcessChangeBatch := CallbackCreate(ObjBindMethod(implObj, "ProcessChangeBatch"), flags, 6)
+        this.vtbl.ProcessFullEnumerationChangeBatch := CallbackCreate(ObjBindMethod(implObj, "ProcessFullEnumerationChangeBatch"), flags, 6)
+        this.vtbl.EndSession := CallbackCreate(ObjBindMethod(implObj, "EndSession"), flags, 2)
     }
 
     Dispose() {

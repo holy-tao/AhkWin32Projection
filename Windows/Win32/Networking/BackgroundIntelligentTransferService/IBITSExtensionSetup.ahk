@@ -117,10 +117,10 @@ export default struct IBITSExtensionSetup extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnableBITSUploads := CallbackCreate(GetMethod(implObj, "EnableBITSUploads"), flags, 1)
-        this.vtbl.DisableBITSUploads := CallbackCreate(GetMethod(implObj, "DisableBITSUploads"), flags, 1)
-        this.vtbl.GetCleanupTaskName := CallbackCreate(GetMethod(implObj, "GetCleanupTaskName"), flags, 2)
-        this.vtbl.GetCleanupTask := CallbackCreate(GetMethod(implObj, "GetCleanupTask"), flags, 3)
+        this.vtbl.EnableBITSUploads := CallbackCreate(ObjBindMethod(implObj, "EnableBITSUploads"), flags, 1)
+        this.vtbl.DisableBITSUploads := CallbackCreate(ObjBindMethod(implObj, "DisableBITSUploads"), flags, 1)
+        this.vtbl.GetCleanupTaskName := CallbackCreate(ObjBindMethod(implObj, "GetCleanupTaskName"), flags, 2)
+        this.vtbl.GetCleanupTask := CallbackCreate(ObjBindMethod(implObj, "GetCleanupTask"), flags, 3)
     }
 
     Dispose() {

@@ -44,7 +44,6 @@ export default struct IWSManInternal extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} session 
      * @param {VARIANT} resourceUri 
      * @param {Integer} flags 
@@ -65,7 +64,7 @@ export default struct IWSManInternal extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ConfigSDDL := CallbackCreate(GetMethod(implObj, "ConfigSDDL"), flags, 5)
+        this.vtbl.ConfigSDDL := CallbackCreate(ObjBindMethod(implObj, "ConfigSDDL"), flags, 5)
     }
 
     Dispose() {

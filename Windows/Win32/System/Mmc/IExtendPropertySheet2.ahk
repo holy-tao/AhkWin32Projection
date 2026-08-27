@@ -82,7 +82,7 @@ export default struct IExtendPropertySheet2 extends IExtendPropertySheet {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iextendpropertysheet2-getwatermarks
      */
     GetWatermarks(lpIDataObject, lphWatermark, lphHeader, lphPalette, bStretch) {
-        bStretchMarshal := bStretch is VarRef ? "int*" : "ptr"
+        bStretchMarshal := bStretch is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, "ptr", lpIDataObject, HBITMAP.Ptr, lphWatermark, HBITMAP.Ptr, lphHeader, HPALETTE.Ptr, lphPalette, bStretchMarshal, bStretch, "HRESULT")
         return result
@@ -97,7 +97,7 @@ export default struct IExtendPropertySheet2 extends IExtendPropertySheet {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetWatermarks := CallbackCreate(GetMethod(implObj, "GetWatermarks"), flags, 6)
+        this.vtbl.GetWatermarks := CallbackCreate(ObjBindMethod(implObj, "GetWatermarks"), flags, 6)
     }
 
     Dispose() {

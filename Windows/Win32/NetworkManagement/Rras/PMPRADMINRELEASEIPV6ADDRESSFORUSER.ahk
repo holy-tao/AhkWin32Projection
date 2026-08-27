@@ -20,7 +20,6 @@ export default struct PMPRADMINRELEASEIPV6ADDRESSFORUSER {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @param {PWSTR} param1 
      * @param {Pointer<IN6_ADDR>} param2 

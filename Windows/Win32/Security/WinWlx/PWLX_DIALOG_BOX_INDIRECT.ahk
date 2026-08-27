@@ -27,7 +27,6 @@ export default struct PWLX_DIALOG_BOX_INDIRECT {
     }
 
     /**
-     * 
      * @param {HANDLE} hWlx Winlogon handle provided to GINA in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nf-winwlx-wlxinitialize">WlxInitialize</a> call.
      * @param {HANDLE} hInst Identifies the instance of the module that creates the dialog box.

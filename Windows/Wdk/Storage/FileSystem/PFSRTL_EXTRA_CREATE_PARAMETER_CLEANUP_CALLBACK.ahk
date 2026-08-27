@@ -19,13 +19,12 @@ export default struct PFSRTL_EXTRA_CREATE_PARAMETER_CLEANUP_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} EcpContext 
      * @param {Pointer<Guid>} EcpType 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(EcpContext, EcpType) {
-        EcpContextMarshal := EcpContext is VarRef ? "ptr" : "ptr"
+        EcpContextMarshal := EcpContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, EcpContextMarshal, EcpContext, Guid.Ptr, EcpType)
     }

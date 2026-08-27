@@ -19,7 +19,6 @@ export default struct LPDDHALSURFCB_DESTROYSURFACE {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_DESTROYSURFACEDATA>} param0 
      * @returns {Integer} 
      */

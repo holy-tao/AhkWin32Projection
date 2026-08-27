@@ -41,7 +41,6 @@ export default struct IMLOperatorAttributes extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} name 
      * @param {MLOperatorAttributeType} type 
      * @returns {Integer} 
@@ -54,7 +53,6 @@ export default struct IMLOperatorAttributes extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} name 
      * @param {MLOperatorAttributeType} type 
      * @param {Integer} elementCount 
@@ -69,7 +67,6 @@ export default struct IMLOperatorAttributes extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} name 
      * @param {Integer} elementIndex 
      * @returns {Integer} 
@@ -82,7 +79,6 @@ export default struct IMLOperatorAttributes extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} name 
      * @param {Integer} elementIndex 
      * @param {Integer} attributeElementByteSize 
@@ -106,10 +102,10 @@ export default struct IMLOperatorAttributes extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAttributeElementCount := CallbackCreate(GetMethod(implObj, "GetAttributeElementCount"), flags, 4)
-        this.vtbl.GetAttribute := CallbackCreate(GetMethod(implObj, "GetAttribute"), flags, 6)
-        this.vtbl.GetStringAttributeElementLength := CallbackCreate(GetMethod(implObj, "GetStringAttributeElementLength"), flags, 4)
-        this.vtbl.GetStringAttributeElement := CallbackCreate(GetMethod(implObj, "GetStringAttributeElement"), flags, 5)
+        this.vtbl.GetAttributeElementCount := CallbackCreate(ObjBindMethod(implObj, "GetAttributeElementCount"), flags, 4)
+        this.vtbl.GetAttribute := CallbackCreate(ObjBindMethod(implObj, "GetAttribute"), flags, 6)
+        this.vtbl.GetStringAttributeElementLength := CallbackCreate(ObjBindMethod(implObj, "GetStringAttributeElementLength"), flags, 4)
+        this.vtbl.GetStringAttributeElement := CallbackCreate(ObjBindMethod(implObj, "GetStringAttributeElement"), flags, 5)
     }
 
     Dispose() {

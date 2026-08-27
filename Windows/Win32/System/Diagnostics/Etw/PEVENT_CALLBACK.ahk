@@ -68,7 +68,6 @@ export default struct PEVENT_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<EVENT_TRACE>} pEvent Pointer to an [EVENT_TRACE](/windows/win32/api/evntrace/ns-evntrace-event_trace)
      * structure that contains the event information.
      * @returns {String} Nothing - always returns an empty string

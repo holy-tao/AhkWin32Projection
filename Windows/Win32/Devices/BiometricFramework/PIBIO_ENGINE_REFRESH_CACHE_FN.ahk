@@ -45,7 +45,6 @@ export default struct PIBIO_ENGINE_REFRESH_CACHE_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/ns-winbio_adapter-winbio_pipeline">WINBIO_PIPELINE</a> structure associated with the biometric unit performing the operation.
      * @returns {HRESULT} The function will return one of the following <b>HRESULT</b> values. 
      * 

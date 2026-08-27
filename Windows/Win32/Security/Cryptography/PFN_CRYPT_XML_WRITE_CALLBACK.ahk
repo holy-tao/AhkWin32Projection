@@ -21,7 +21,6 @@ export default struct PFN_CRYPT_XML_WRITE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvCallbackState A pointer to an argument that is passed to the callback function pointed to by the <i>pfnWrite</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nc-cryptxml-cryptxmldllencodealgorithm">CryptXmlDllEncodeAlgorithm</a> function.
      * @param {Integer} pbData A pointer to a block of data to be written.
      * @param {Integer} cbData The size, in bytes, of the data pointed to by the <i>pbData</i> parameter.
@@ -30,7 +29,7 @@ export default struct PFN_CRYPT_XML_WRITE_CALLBACK {
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error.
      */
     Call(pvCallbackState, pbData, cbData) {
-        pvCallbackStateMarshal := pvCallbackState is VarRef ? "ptr" : "ptr"
+        pvCallbackStateMarshal := pvCallbackState is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, pvCallbackStateMarshal, pvCallbackState, IntPtr, pbData, UInt32, cbData, "HRESULT")
         return result

@@ -84,8 +84,8 @@ export default struct ID3D12VersionedRootSignatureDeserializer extends IUnknown 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRootSignatureDescAtVersion := CallbackCreate(GetMethod(implObj, "GetRootSignatureDescAtVersion"), flags, 3)
-        this.vtbl.GetUnconvertedRootSignatureDesc := CallbackCreate(GetMethod(implObj, "GetUnconvertedRootSignatureDesc"), flags, 1)
+        this.vtbl.GetRootSignatureDescAtVersion := CallbackCreate(ObjBindMethod(implObj, "GetRootSignatureDescAtVersion"), flags, 3)
+        this.vtbl.GetUnconvertedRootSignatureDesc := CallbackCreate(ObjBindMethod(implObj, "GetUnconvertedRootSignatureDesc"), flags, 1)
     }
 
     Dispose() {

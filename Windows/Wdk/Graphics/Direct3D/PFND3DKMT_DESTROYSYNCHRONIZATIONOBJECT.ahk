@@ -20,7 +20,6 @@ export default struct PFND3DKMT_DESTROYSYNCHRONIZATIONOBJECT {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_DESTROYSYNCHRONIZATIONOBJECT>} param0 
      * @returns {NTSTATUS} 
      */

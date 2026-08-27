@@ -66,7 +66,7 @@ export default struct IWizardExtension extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iwizardextension-addpages
      */
     AddPages(aPages, cPages, pnPagesAdded) {
-        pnPagesAddedMarshal := pnPagesAdded is VarRef ? "uint*" : "ptr"
+        pnPagesAddedMarshal := pnPagesAdded is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, HPROPSHEETPAGE.Ptr, aPages, UInt32, cPages, pnPagesAddedMarshal, pnPagesAdded, "HRESULT")
         return result
@@ -114,9 +114,9 @@ export default struct IWizardExtension extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddPages := CallbackCreate(GetMethod(implObj, "AddPages"), flags, 4)
-        this.vtbl.GetFirstPage := CallbackCreate(GetMethod(implObj, "GetFirstPage"), flags, 2)
-        this.vtbl.GetLastPage := CallbackCreate(GetMethod(implObj, "GetLastPage"), flags, 2)
+        this.vtbl.AddPages := CallbackCreate(ObjBindMethod(implObj, "AddPages"), flags, 4)
+        this.vtbl.GetFirstPage := CallbackCreate(ObjBindMethod(implObj, "GetFirstPage"), flags, 2)
+        this.vtbl.GetLastPage := CallbackCreate(ObjBindMethod(implObj, "GetLastPage"), flags, 2)
     }
 
     Dispose() {

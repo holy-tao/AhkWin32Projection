@@ -59,7 +59,7 @@ export default struct IAMClockAdjust extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetClockDelta := CallbackCreate(GetMethod(implObj, "SetClockDelta"), flags, 2)
+        this.vtbl.SetClockDelta := CallbackCreate(ObjBindMethod(implObj, "SetClockDelta"), flags, 2)
     }
 
     Dispose() {

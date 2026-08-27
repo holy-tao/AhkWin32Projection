@@ -54,7 +54,6 @@ export default struct ISVGAnimatedPoints extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGPointList} v 
      * @returns {HRESULT} 
      */
@@ -64,7 +63,6 @@ export default struct ISVGAnimatedPoints extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGPointList} 
      */
     get_points() {
@@ -73,7 +71,6 @@ export default struct ISVGAnimatedPoints extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGPointList} v 
      * @returns {HRESULT} 
      */
@@ -83,7 +80,6 @@ export default struct ISVGAnimatedPoints extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGPointList} 
      */
     get_animatedPoints() {
@@ -100,10 +96,10 @@ export default struct ISVGAnimatedPoints extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.putref_points := CallbackCreate(GetMethod(implObj, "putref_points"), flags, 2)
-        this.vtbl.get_points := CallbackCreate(GetMethod(implObj, "get_points"), flags, 2)
-        this.vtbl.putref_animatedPoints := CallbackCreate(GetMethod(implObj, "putref_animatedPoints"), flags, 2)
-        this.vtbl.get_animatedPoints := CallbackCreate(GetMethod(implObj, "get_animatedPoints"), flags, 2)
+        this.vtbl.putref_points := CallbackCreate(ObjBindMethod(implObj, "putref_points"), flags, 2)
+        this.vtbl.get_points := CallbackCreate(ObjBindMethod(implObj, "get_points"), flags, 2)
+        this.vtbl.putref_animatedPoints := CallbackCreate(ObjBindMethod(implObj, "putref_animatedPoints"), flags, 2)
+        this.vtbl.get_animatedPoints := CallbackCreate(ObjBindMethod(implObj, "get_animatedPoints"), flags, 2)
     }
 
     Dispose() {

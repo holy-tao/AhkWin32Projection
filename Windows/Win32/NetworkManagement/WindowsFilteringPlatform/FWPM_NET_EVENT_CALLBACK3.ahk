@@ -19,13 +19,12 @@ export default struct FWPM_NET_EVENT_CALLBACK3 {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {Pointer<FWPM_NET_EVENT4>} event 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_context, event) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _contextMarshal, _context, FWPM_NET_EVENT4.Ptr, event)
     }

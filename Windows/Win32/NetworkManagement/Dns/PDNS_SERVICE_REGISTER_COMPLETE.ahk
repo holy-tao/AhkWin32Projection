@@ -19,14 +19,13 @@ export default struct PDNS_SERVICE_REGISTER_COMPLETE {
     }
 
     /**
-     * 
      * @param {Integer} _Status 
      * @param {Pointer<Void>} pQueryContext 
      * @param {Pointer<DNS_SERVICE_INSTANCE>} pInstance 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Status, pQueryContext, pInstance) {
-        pQueryContextMarshal := pQueryContext is VarRef ? "ptr" : "ptr"
+        pQueryContextMarshal := pQueryContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, UInt32, _Status, pQueryContextMarshal, pQueryContext, DNS_SERVICE_INSTANCE.Ptr, pInstance)
     }

@@ -273,7 +273,9 @@ export default struct IWMDMOperation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmoperation-getobjectattributes
      */
     GetObjectAttributes(pFormat) {
-        result := ComCall(7, this, "uint*", &pdwAttributes := 0, WAVEFORMATEX.Ptr, pFormat, "HRESULT")
+        pFormatMarshal := pFormat == 0 ? IntPtr : WAVEFORMATEX.Ptr
+
+        result := ComCall(7, this, "uint*", &pdwAttributes := 0, pFormatMarshal, pFormat, "HRESULT")
         return pdwAttributes
     }
 
@@ -327,7 +329,9 @@ export default struct IWMDMOperation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmoperation-setobjectattributes
      */
     SetObjectAttributes(dwAttributes, pFormat) {
-        result := ComCall(8, this, UInt32, dwAttributes, WAVEFORMATEX.Ptr, pFormat, "HRESULT")
+        pFormatMarshal := pFormat == 0 ? IntPtr : WAVEFORMATEX.Ptr
+
+        result := ComCall(8, this, UInt32, dwAttributes, pFormatMarshal, pFormat, "HRESULT")
         return result
     }
 
@@ -381,8 +385,8 @@ export default struct IWMDMOperation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmoperation-getobjecttotalsize
      */
     GetObjectTotalSize(pdwSize, pdwSizeHigh) {
-        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
-        pdwSizeHighMarshal := pdwSizeHigh is VarRef ? "uint*" : "ptr"
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : IntPtr
+        pdwSizeHighMarshal := pdwSizeHigh is VarRef ? "uint*" : IntPtr
 
         result := ComCall(9, this, pdwSizeMarshal, pdwSize, pdwSizeHighMarshal, pdwSizeHigh, "HRESULT")
         return result
@@ -505,9 +509,9 @@ export default struct IWMDMOperation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmoperation-transferobjectdata
      */
     TransferObjectData(pData, pdwSize, abMac) {
-        pDataMarshal := pData is VarRef ? "char*" : "ptr"
-        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
-        abMacMarshal := abMac is VarRef ? "char*" : "ptr"
+        pDataMarshal := pData is VarRef ? "char*" : IntPtr
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : IntPtr
+        abMacMarshal := abMac is VarRef ? "char*" : IntPtr
 
         result := ComCall(11, this, pDataMarshal, pData, pdwSizeMarshal, pdwSize, abMacMarshal, abMac, "HRESULT")
         return result
@@ -530,9 +534,10 @@ export default struct IWMDMOperation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmoperation-end
      */
     End(phCompletionCode, pNewObject) {
-        phCompletionCodeMarshal := phCompletionCode is VarRef ? "int*" : "ptr"
+        phCompletionCodeMarshal := phCompletionCode is VarRef ? "int*" : IntPtr
+        pNewObjectMarshal := pNewObject == 0 ? IntPtr : "ptr"
 
-        result := ComCall(12, this, phCompletionCodeMarshal, phCompletionCode, "ptr", pNewObject, "HRESULT")
+        result := ComCall(12, this, phCompletionCodeMarshal, phCompletionCode, pNewObjectMarshal, pNewObject, "HRESULT")
         return result
     }
 
@@ -545,16 +550,16 @@ export default struct IWMDMOperation extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BeginRead := CallbackCreate(GetMethod(implObj, "BeginRead"), flags, 1)
-        this.vtbl.BeginWrite := CallbackCreate(GetMethod(implObj, "BeginWrite"), flags, 1)
-        this.vtbl.GetObjectName := CallbackCreate(GetMethod(implObj, "GetObjectName"), flags, 3)
-        this.vtbl.SetObjectName := CallbackCreate(GetMethod(implObj, "SetObjectName"), flags, 3)
-        this.vtbl.GetObjectAttributes := CallbackCreate(GetMethod(implObj, "GetObjectAttributes"), flags, 3)
-        this.vtbl.SetObjectAttributes := CallbackCreate(GetMethod(implObj, "SetObjectAttributes"), flags, 3)
-        this.vtbl.GetObjectTotalSize := CallbackCreate(GetMethod(implObj, "GetObjectTotalSize"), flags, 3)
-        this.vtbl.SetObjectTotalSize := CallbackCreate(GetMethod(implObj, "SetObjectTotalSize"), flags, 3)
-        this.vtbl.TransferObjectData := CallbackCreate(GetMethod(implObj, "TransferObjectData"), flags, 4)
-        this.vtbl.End := CallbackCreate(GetMethod(implObj, "End"), flags, 3)
+        this.vtbl.BeginRead := CallbackCreate(ObjBindMethod(implObj, "BeginRead"), flags, 1)
+        this.vtbl.BeginWrite := CallbackCreate(ObjBindMethod(implObj, "BeginWrite"), flags, 1)
+        this.vtbl.GetObjectName := CallbackCreate(ObjBindMethod(implObj, "GetObjectName"), flags, 3)
+        this.vtbl.SetObjectName := CallbackCreate(ObjBindMethod(implObj, "SetObjectName"), flags, 3)
+        this.vtbl.GetObjectAttributes := CallbackCreate(ObjBindMethod(implObj, "GetObjectAttributes"), flags, 3)
+        this.vtbl.SetObjectAttributes := CallbackCreate(ObjBindMethod(implObj, "SetObjectAttributes"), flags, 3)
+        this.vtbl.GetObjectTotalSize := CallbackCreate(ObjBindMethod(implObj, "GetObjectTotalSize"), flags, 3)
+        this.vtbl.SetObjectTotalSize := CallbackCreate(ObjBindMethod(implObj, "SetObjectTotalSize"), flags, 3)
+        this.vtbl.TransferObjectData := CallbackCreate(ObjBindMethod(implObj, "TransferObjectData"), flags, 4)
+        this.vtbl.End := CallbackCreate(ObjBindMethod(implObj, "End"), flags, 3)
     }
 
     Dispose() {

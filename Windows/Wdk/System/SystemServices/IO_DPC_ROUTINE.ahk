@@ -21,7 +21,6 @@ export default struct IO_DPC_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<KDPC>} Dpc 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<IRP>} _Irp 
@@ -29,7 +28,8 @@ export default struct IO_DPC_ROUTINE {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(Dpc, DeviceObject, _Irp, _Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, KDPC.Ptr, Dpc, DEVICE_OBJECT.Ptr, DeviceObject, IRP.Ptr, _Irp, _ContextMarshal, _Context)
     }

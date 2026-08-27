@@ -104,10 +104,10 @@ export default struct IFilterChain extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StartChain := CallbackCreate(GetMethod(implObj, "StartChain"), flags, 3)
-        this.vtbl.PauseChain := CallbackCreate(GetMethod(implObj, "PauseChain"), flags, 3)
-        this.vtbl.StopChain := CallbackCreate(GetMethod(implObj, "StopChain"), flags, 3)
-        this.vtbl.RemoveChain := CallbackCreate(GetMethod(implObj, "RemoveChain"), flags, 3)
+        this.vtbl.StartChain := CallbackCreate(ObjBindMethod(implObj, "StartChain"), flags, 3)
+        this.vtbl.PauseChain := CallbackCreate(ObjBindMethod(implObj, "PauseChain"), flags, 3)
+        this.vtbl.StopChain := CallbackCreate(ObjBindMethod(implObj, "StopChain"), flags, 3)
+        this.vtbl.RemoveChain := CallbackCreate(ObjBindMethod(implObj, "RemoveChain"), flags, 3)
     }
 
     Dispose() {

@@ -47,7 +47,6 @@ export default struct ISpThreadControl extends ISpNotifySink {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @returns {HWND} 
      */
@@ -58,7 +57,6 @@ export default struct ISpThreadControl extends ISpNotifySink {
     }
 
     /**
-     * 
      * @param {BOOL} fForceStop 
      * @param {Integer} msTimeOut 
      * @returns {HRESULT} 
@@ -107,7 +105,6 @@ export default struct ISpThreadControl extends ISpNotifySink {
     }
 
     /**
-     * 
      * @returns {HANDLE} 
      */
     ThreadHandle() {
@@ -116,7 +113,6 @@ export default struct ISpThreadControl extends ISpNotifySink {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     ThreadId() {
@@ -125,7 +121,6 @@ export default struct ISpThreadControl extends ISpNotifySink {
     }
 
     /**
-     * 
      * @returns {HANDLE} 
      */
     NotifyEvent() {
@@ -134,7 +129,6 @@ export default struct ISpThreadControl extends ISpNotifySink {
     }
 
     /**
-     * 
      * @returns {HWND} 
      */
     WindowHandle() {
@@ -143,7 +137,6 @@ export default struct ISpThreadControl extends ISpNotifySink {
     }
 
     /**
-     * 
      * @returns {HANDLE} 
      */
     ThreadCompleteEvent() {
@@ -152,7 +145,6 @@ export default struct ISpThreadControl extends ISpNotifySink {
     }
 
     /**
-     * 
      * @returns {HANDLE} 
      */
     ExitThreadEvent() {
@@ -169,15 +161,15 @@ export default struct ISpThreadControl extends ISpNotifySink {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StartThread := CallbackCreate(GetMethod(implObj, "StartThread"), flags, 3)
-        this.vtbl.WaitForThreadDone := CallbackCreate(GetMethod(implObj, "WaitForThreadDone"), flags, 4)
-        this.vtbl.TerminateThread := CallbackCreate(GetMethod(implObj, "TerminateThread"), flags, 1)
-        this.vtbl.ThreadHandle := CallbackCreate(GetMethod(implObj, "ThreadHandle"), flags, 1)
-        this.vtbl.ThreadId := CallbackCreate(GetMethod(implObj, "ThreadId"), flags, 1)
-        this.vtbl.NotifyEvent := CallbackCreate(GetMethod(implObj, "NotifyEvent"), flags, 1)
-        this.vtbl.WindowHandle := CallbackCreate(GetMethod(implObj, "WindowHandle"), flags, 1)
-        this.vtbl.ThreadCompleteEvent := CallbackCreate(GetMethod(implObj, "ThreadCompleteEvent"), flags, 1)
-        this.vtbl.ExitThreadEvent := CallbackCreate(GetMethod(implObj, "ExitThreadEvent"), flags, 1)
+        this.vtbl.StartThread := CallbackCreate(ObjBindMethod(implObj, "StartThread"), flags, 3)
+        this.vtbl.WaitForThreadDone := CallbackCreate(ObjBindMethod(implObj, "WaitForThreadDone"), flags, 4)
+        this.vtbl.TerminateThread := CallbackCreate(ObjBindMethod(implObj, "TerminateThread"), flags, 1)
+        this.vtbl.ThreadHandle := CallbackCreate(ObjBindMethod(implObj, "ThreadHandle"), flags, 1)
+        this.vtbl.ThreadId := CallbackCreate(ObjBindMethod(implObj, "ThreadId"), flags, 1)
+        this.vtbl.NotifyEvent := CallbackCreate(ObjBindMethod(implObj, "NotifyEvent"), flags, 1)
+        this.vtbl.WindowHandle := CallbackCreate(ObjBindMethod(implObj, "WindowHandle"), flags, 1)
+        this.vtbl.ThreadCompleteEvent := CallbackCreate(ObjBindMethod(implObj, "ThreadCompleteEvent"), flags, 1)
+        this.vtbl.ExitThreadEvent := CallbackCreate(ObjBindMethod(implObj, "ExitThreadEvent"), flags, 1)
     }
 
     Dispose() {

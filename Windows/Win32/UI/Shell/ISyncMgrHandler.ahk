@@ -246,7 +246,7 @@ export default struct ISyncMgrHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrhandler-synchronize
      */
     Synchronize(ppszItemIDs, cItems, hwndOwner, pSessionCreator, punk) {
-        ppszItemIDsMarshal := ppszItemIDs is VarRef ? "ptr*" : "ptr"
+        ppszItemIDsMarshal := ppszItemIDs is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(10, this, ppszItemIDsMarshal, ppszItemIDs, UInt32, cItems, HWND, hwndOwner, "ptr", pSessionCreator, "ptr", punk, "HRESULT")
         return result
@@ -261,14 +261,14 @@ export default struct ISyncMgrHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
-        this.vtbl.GetHandlerInfo := CallbackCreate(GetMethod(implObj, "GetHandlerInfo"), flags, 2)
-        this.vtbl.GetObject := CallbackCreate(GetMethod(implObj, "GetObject"), flags, 4)
-        this.vtbl.GetCapabilities := CallbackCreate(GetMethod(implObj, "GetCapabilities"), flags, 2)
-        this.vtbl.GetPolicies := CallbackCreate(GetMethod(implObj, "GetPolicies"), flags, 2)
-        this.vtbl.Activate := CallbackCreate(GetMethod(implObj, "Activate"), flags, 2)
-        this.vtbl.Enable := CallbackCreate(GetMethod(implObj, "Enable"), flags, 2)
-        this.vtbl.Synchronize := CallbackCreate(GetMethod(implObj, "Synchronize"), flags, 6)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetHandlerInfo := CallbackCreate(ObjBindMethod(implObj, "GetHandlerInfo"), flags, 2)
+        this.vtbl.GetObject := CallbackCreate(ObjBindMethod(implObj, "GetObject"), flags, 4)
+        this.vtbl.GetCapabilities := CallbackCreate(ObjBindMethod(implObj, "GetCapabilities"), flags, 2)
+        this.vtbl.GetPolicies := CallbackCreate(ObjBindMethod(implObj, "GetPolicies"), flags, 2)
+        this.vtbl.Activate := CallbackCreate(ObjBindMethod(implObj, "Activate"), flags, 2)
+        this.vtbl.Enable := CallbackCreate(ObjBindMethod(implObj, "Enable"), flags, 2)
+        this.vtbl.Synchronize := CallbackCreate(ObjBindMethod(implObj, "Synchronize"), flags, 6)
     }
 
     Dispose() {

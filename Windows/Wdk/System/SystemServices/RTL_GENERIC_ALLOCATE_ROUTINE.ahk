@@ -19,7 +19,6 @@ export default struct RTL_GENERIC_ALLOCATE_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_GENERIC_TABLE>} Table 
      * @param {Integer} ByteSize 
      * @returns {Pointer<Void>} 

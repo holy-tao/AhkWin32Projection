@@ -27,7 +27,6 @@ export default struct SpQueryCredentialsAttributesFn {
     }
 
     /**
-     * 
      * @param {Pointer} CredentialHandle A handle to the credential to query.
      * @param {Integer} CredentialAttribute <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Attribute</a> to query. The following table lists the valid values. 
      * 
@@ -119,7 +118,7 @@ export default struct SpQueryCredentialsAttributesFn {
      * </table>
      */
     Call(CredentialHandle, CredentialAttribute, _Buffer) {
-        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, IntPtr, CredentialHandle, UInt32, CredentialAttribute, _BufferMarshal, _Buffer, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

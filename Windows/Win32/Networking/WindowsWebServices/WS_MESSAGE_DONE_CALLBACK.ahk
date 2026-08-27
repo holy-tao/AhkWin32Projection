@@ -32,7 +32,6 @@ export default struct WS_MESSAGE_DONE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} doneCallbackState A pointer to <b>state</b> information passed to the  <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsreadenvelopestart">WsReadEnvelopeStart</a> or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wswriteenvelopestart">WsWriteEnvelopeStart</a> function.
      *                 
      * 
@@ -41,7 +40,8 @@ export default struct WS_MESSAGE_DONE_CALLBACK {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(doneCallbackState) {
-        doneCallbackStateMarshal := doneCallbackState is VarRef ? "ptr" : "ptr"
+        doneCallbackStateMarshal := doneCallbackState is VarRef ? "ptr" : IntPtr
+        doneCallbackStateMarshal := doneCallbackState == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, doneCallbackStateMarshal, doneCallbackState)
     }

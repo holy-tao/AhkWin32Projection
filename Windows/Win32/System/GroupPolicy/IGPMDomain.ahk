@@ -78,7 +78,6 @@ export default struct IGPMDomain extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DomainController() {
@@ -88,7 +87,6 @@ export default struct IGPMDomain extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Domain() {
@@ -236,16 +234,16 @@ export default struct IGPMDomain extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_DomainController := CallbackCreate(GetMethod(implObj, "get_DomainController"), flags, 2)
-        this.vtbl.get_Domain := CallbackCreate(GetMethod(implObj, "get_Domain"), flags, 2)
-        this.vtbl.CreateGPO := CallbackCreate(GetMethod(implObj, "CreateGPO"), flags, 2)
-        this.vtbl.GetGPO := CallbackCreate(GetMethod(implObj, "GetGPO"), flags, 3)
-        this.vtbl.SearchGPOs := CallbackCreate(GetMethod(implObj, "SearchGPOs"), flags, 3)
-        this.vtbl.RestoreGPO := CallbackCreate(GetMethod(implObj, "RestoreGPO"), flags, 6)
-        this.vtbl.GetSOM := CallbackCreate(GetMethod(implObj, "GetSOM"), flags, 3)
-        this.vtbl.SearchSOMs := CallbackCreate(GetMethod(implObj, "SearchSOMs"), flags, 3)
-        this.vtbl.GetWMIFilter := CallbackCreate(GetMethod(implObj, "GetWMIFilter"), flags, 3)
-        this.vtbl.SearchWMIFilters := CallbackCreate(GetMethod(implObj, "SearchWMIFilters"), flags, 3)
+        this.vtbl.get_DomainController := CallbackCreate(ObjBindMethod(implObj, "get_DomainController"), flags, 2)
+        this.vtbl.get_Domain := CallbackCreate(ObjBindMethod(implObj, "get_Domain"), flags, 2)
+        this.vtbl.CreateGPO := CallbackCreate(ObjBindMethod(implObj, "CreateGPO"), flags, 2)
+        this.vtbl.GetGPO := CallbackCreate(ObjBindMethod(implObj, "GetGPO"), flags, 3)
+        this.vtbl.SearchGPOs := CallbackCreate(ObjBindMethod(implObj, "SearchGPOs"), flags, 3)
+        this.vtbl.RestoreGPO := CallbackCreate(ObjBindMethod(implObj, "RestoreGPO"), flags, 6)
+        this.vtbl.GetSOM := CallbackCreate(ObjBindMethod(implObj, "GetSOM"), flags, 3)
+        this.vtbl.SearchSOMs := CallbackCreate(ObjBindMethod(implObj, "SearchSOMs"), flags, 3)
+        this.vtbl.GetWMIFilter := CallbackCreate(ObjBindMethod(implObj, "GetWMIFilter"), flags, 3)
+        this.vtbl.SearchWMIFilters := CallbackCreate(ObjBindMethod(implObj, "SearchWMIFilters"), flags, 3)
     }
 
     Dispose() {

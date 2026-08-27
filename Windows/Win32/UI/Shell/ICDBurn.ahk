@@ -113,9 +113,9 @@ export default struct ICDBurn extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRecorderDriveLetter := CallbackCreate(GetMethod(implObj, "GetRecorderDriveLetter"), flags, 3)
-        this.vtbl.Burn := CallbackCreate(GetMethod(implObj, "Burn"), flags, 2)
-        this.vtbl.HasRecordableDrive := CallbackCreate(GetMethod(implObj, "HasRecordableDrive"), flags, 2)
+        this.vtbl.GetRecorderDriveLetter := CallbackCreate(ObjBindMethod(implObj, "GetRecorderDriveLetter"), flags, 3)
+        this.vtbl.Burn := CallbackCreate(ObjBindMethod(implObj, "Burn"), flags, 2)
+        this.vtbl.HasRecordableDrive := CallbackCreate(ObjBindMethod(implObj, "HasRecordableDrive"), flags, 2)
     }
 
     Dispose() {

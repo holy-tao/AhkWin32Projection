@@ -19,7 +19,6 @@ export default struct PFNSETSHELLNEXT {
     }
 
     /**
-     * 
      * @param {PSTR} param0 
      * @returns {Integer} 
      */

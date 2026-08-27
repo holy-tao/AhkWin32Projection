@@ -18,12 +18,11 @@ export default struct PRPC_RUNDOWN {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} AssociationContext 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(AssociationContext) {
-        AssociationContextMarshal := AssociationContext is VarRef ? "ptr" : "ptr"
+        AssociationContextMarshal := AssociationContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, AssociationContextMarshal, AssociationContext)
     }

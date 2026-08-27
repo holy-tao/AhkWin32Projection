@@ -43,7 +43,6 @@ export default struct IDebugExpression extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugExpressionCallBack} pdecb 
      * @returns {HRESULT} 
      */
@@ -53,7 +52,6 @@ export default struct IDebugExpression extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Abort() {
@@ -62,7 +60,6 @@ export default struct IDebugExpression extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     QueryIsComplete() {
@@ -71,26 +68,24 @@ export default struct IDebugExpression extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<HRESULT>} phrResult 
      * @param {Pointer<BSTR>} pbstrResult 
      * @returns {HRESULT} 
      */
     GetResultAsString(phrResult, pbstrResult) {
-        phrResultMarshal := phrResult is VarRef ? "int*" : "ptr"
+        phrResultMarshal := phrResult is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, phrResultMarshal, phrResult, BSTR.Ptr, pbstrResult, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<HRESULT>} phrResult 
      * @param {Pointer<IDebugProperty>} ppdp 
      * @returns {HRESULT} 
      */
     GetResultAsDebugProperty(phrResult, ppdp) {
-        phrResultMarshal := phrResult is VarRef ? "int*" : "ptr"
+        phrResultMarshal := phrResult is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, phrResultMarshal, phrResult, IDebugProperty.Ptr, ppdp, "HRESULT")
         return result
@@ -105,11 +100,11 @@ export default struct IDebugExpression extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 2)
-        this.vtbl.Abort := CallbackCreate(GetMethod(implObj, "Abort"), flags, 1)
-        this.vtbl.QueryIsComplete := CallbackCreate(GetMethod(implObj, "QueryIsComplete"), flags, 1)
-        this.vtbl.GetResultAsString := CallbackCreate(GetMethod(implObj, "GetResultAsString"), flags, 3)
-        this.vtbl.GetResultAsDebugProperty := CallbackCreate(GetMethod(implObj, "GetResultAsDebugProperty"), flags, 3)
+        this.vtbl.Start := CallbackCreate(ObjBindMethod(implObj, "Start"), flags, 2)
+        this.vtbl.Abort := CallbackCreate(ObjBindMethod(implObj, "Abort"), flags, 1)
+        this.vtbl.QueryIsComplete := CallbackCreate(ObjBindMethod(implObj, "QueryIsComplete"), flags, 1)
+        this.vtbl.GetResultAsString := CallbackCreate(ObjBindMethod(implObj, "GetResultAsString"), flags, 3)
+        this.vtbl.GetResultAsDebugProperty := CallbackCreate(ObjBindMethod(implObj, "GetResultAsDebugProperty"), flags, 3)
     }
 
     Dispose() {

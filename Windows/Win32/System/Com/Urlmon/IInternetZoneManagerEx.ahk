@@ -38,7 +38,6 @@ export default struct IInternetZoneManagerEx extends IInternetZoneManager {
     }
 
     /**
-     * 
      * @param {Integer} dwZone 
      * @param {Integer} dwAction 
      * @param {Integer} cbPolicy 
@@ -52,7 +51,6 @@ export default struct IInternetZoneManagerEx extends IInternetZoneManager {
     }
 
     /**
-     * 
      * @param {Integer} dwZone 
      * @param {Integer} dwAction 
      * @param {Pointer<Integer>} pPolicy 
@@ -62,7 +60,7 @@ export default struct IInternetZoneManagerEx extends IInternetZoneManager {
      * @returns {HRESULT} 
      */
     SetZoneActionPolicyEx(dwZone, dwAction, pPolicy, cbPolicy, _urlZoneReg, dwFlags) {
-        pPolicyMarshal := pPolicy is VarRef ? "char*" : "ptr"
+        pPolicyMarshal := pPolicy is VarRef ? "char*" : IntPtr
 
         result := ComCall(16, this, UInt32, dwZone, UInt32, dwAction, pPolicyMarshal, pPolicy, UInt32, cbPolicy, URLZONEREG, _urlZoneReg, UInt32, dwFlags, "HRESULT")
         return result
@@ -77,8 +75,8 @@ export default struct IInternetZoneManagerEx extends IInternetZoneManager {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetZoneActionPolicyEx := CallbackCreate(GetMethod(implObj, "GetZoneActionPolicyEx"), flags, 7)
-        this.vtbl.SetZoneActionPolicyEx := CallbackCreate(GetMethod(implObj, "SetZoneActionPolicyEx"), flags, 7)
+        this.vtbl.GetZoneActionPolicyEx := CallbackCreate(ObjBindMethod(implObj, "GetZoneActionPolicyEx"), flags, 7)
+        this.vtbl.SetZoneActionPolicyEx := CallbackCreate(ObjBindMethod(implObj, "SetZoneActionPolicyEx"), flags, 7)
     }
 
     Dispose() {

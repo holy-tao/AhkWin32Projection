@@ -22,7 +22,6 @@ export default struct FAST_IO_DEVICE_CONTROL {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {BOOLEAN} Wait 
      * @param {Pointer<Void>} InputBuffer 
@@ -35,8 +34,10 @@ export default struct FAST_IO_DEVICE_CONTROL {
      * @returns {BOOLEAN} 
      */
     Call(FileObject, Wait, InputBuffer, InputBufferLength, OutputBuffer, OutputBufferLength, IoControlCode, IoStatus, DeviceObject) {
-        InputBufferMarshal := InputBuffer is VarRef ? "ptr" : "ptr"
-        OutputBufferMarshal := OutputBuffer is VarRef ? "ptr" : "ptr"
+        InputBufferMarshal := InputBuffer is VarRef ? "ptr" : IntPtr
+        InputBufferMarshal := InputBuffer == 0 ? IntPtr : "ptr"
+        OutputBufferMarshal := OutputBuffer is VarRef ? "ptr" : IntPtr
+        OutputBufferMarshal := OutputBuffer == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, FILE_OBJECT.Ptr, FileObject, BOOLEAN, Wait, InputBufferMarshal, InputBuffer, UInt32, InputBufferLength, OutputBufferMarshal, OutputBuffer, UInt32, OutputBufferLength, UInt32, IoControlCode, IO_STATUS_BLOCK.Ptr, IoStatus, DEVICE_OBJECT.Ptr, DeviceObject, BOOLEAN)
         return result

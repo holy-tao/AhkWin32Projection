@@ -55,7 +55,6 @@ export default struct IDirectDrawVideoPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDirectDrawSurface} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 
@@ -66,7 +65,6 @@ export default struct IDirectDrawVideoPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DDPIXELFORMAT>} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
@@ -80,7 +78,6 @@ export default struct IDirectDrawVideoPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DDCOLORCONTROL>} param0 
      * @returns {HRESULT} 
      */
@@ -90,13 +87,12 @@ export default struct IDirectDrawVideoPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} lpNumFormats 
      * @param {Integer} param2 
      * @returns {DDPIXELFORMAT} 
      */
     GetInputFormats(lpNumFormats, param2) {
-        lpNumFormatsMarshal := lpNumFormats is VarRef ? "uint*" : "ptr"
+        lpNumFormatsMarshal := lpNumFormats is VarRef ? "uint*" : IntPtr
 
         param1 := DDPIXELFORMAT()
         result := ComCall(6, this, lpNumFormatsMarshal, lpNumFormats, DDPIXELFORMAT.Ptr, param1, UInt32, param2, "HRESULT")
@@ -104,14 +100,13 @@ export default struct IDirectDrawVideoPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DDPIXELFORMAT>} param0 
      * @param {Pointer<Integer>} lpNumFormats 
      * @param {Integer} param3 
      * @returns {DDPIXELFORMAT} 
      */
     GetOutputFormats(param0, lpNumFormats, param3) {
-        lpNumFormatsMarshal := lpNumFormats is VarRef ? "uint*" : "ptr"
+        lpNumFormatsMarshal := lpNumFormats is VarRef ? "uint*" : IntPtr
 
         param2 := DDPIXELFORMAT()
         result := ComCall(7, this, DDPIXELFORMAT.Ptr, param0, lpNumFormatsMarshal, lpNumFormats, DDPIXELFORMAT.Ptr, param2, UInt32, param3, "HRESULT")
@@ -119,43 +114,39 @@ export default struct IDirectDrawVideoPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BOOL>} param0 
      * @returns {HRESULT} 
      */
     GetFieldPolarity(param0) {
-        param0Marshal := param0 is VarRef ? "int*" : "ptr"
+        param0Marshal := param0 is VarRef ? "int*" : IntPtr
 
         result := ComCall(8, this, param0Marshal, param0, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @returns {HRESULT} 
      */
     GetVideoLine(param0) {
-        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+        param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
         result := ComCall(9, this, param0Marshal, param0, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @returns {HRESULT} 
      */
     GetVideoSignalStatus(param0) {
-        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+        param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
         result := ComCall(10, this, param0Marshal, param0, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<DDCOLORCONTROL>} param0 
      * @returns {HRESULT} 
      */
@@ -165,7 +156,6 @@ export default struct IDirectDrawVideoPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDirectDrawSurface} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 
@@ -176,7 +166,6 @@ export default struct IDirectDrawVideoPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DDVIDEOPORTINFO>} param0 
      * @returns {HRESULT} 
      */
@@ -186,7 +175,6 @@ export default struct IDirectDrawVideoPort extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     StopVideo() {
@@ -195,7 +183,6 @@ export default struct IDirectDrawVideoPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DDVIDEOPORTINFO>} param0 
      * @returns {HRESULT} 
      */
@@ -205,7 +192,6 @@ export default struct IDirectDrawVideoPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
@@ -225,20 +211,20 @@ export default struct IDirectDrawVideoPort extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Flip := CallbackCreate(GetMethod(implObj, "Flip"), flags, 3)
-        this.vtbl.GetBandwidthInfo := CallbackCreate(GetMethod(implObj, "GetBandwidthInfo"), flags, 6)
-        this.vtbl.GetColorControls := CallbackCreate(GetMethod(implObj, "GetColorControls"), flags, 2)
-        this.vtbl.GetInputFormats := CallbackCreate(GetMethod(implObj, "GetInputFormats"), flags, 4)
-        this.vtbl.GetOutputFormats := CallbackCreate(GetMethod(implObj, "GetOutputFormats"), flags, 5)
-        this.vtbl.GetFieldPolarity := CallbackCreate(GetMethod(implObj, "GetFieldPolarity"), flags, 2)
-        this.vtbl.GetVideoLine := CallbackCreate(GetMethod(implObj, "GetVideoLine"), flags, 2)
-        this.vtbl.GetVideoSignalStatus := CallbackCreate(GetMethod(implObj, "GetVideoSignalStatus"), flags, 2)
-        this.vtbl.SetColorControls := CallbackCreate(GetMethod(implObj, "SetColorControls"), flags, 2)
-        this.vtbl.SetTargetSurface := CallbackCreate(GetMethod(implObj, "SetTargetSurface"), flags, 3)
-        this.vtbl.StartVideo := CallbackCreate(GetMethod(implObj, "StartVideo"), flags, 2)
-        this.vtbl.StopVideo := CallbackCreate(GetMethod(implObj, "StopVideo"), flags, 1)
-        this.vtbl.UpdateVideo := CallbackCreate(GetMethod(implObj, "UpdateVideo"), flags, 2)
-        this.vtbl.WaitForSync := CallbackCreate(GetMethod(implObj, "WaitForSync"), flags, 4)
+        this.vtbl.Flip := CallbackCreate(ObjBindMethod(implObj, "Flip"), flags, 3)
+        this.vtbl.GetBandwidthInfo := CallbackCreate(ObjBindMethod(implObj, "GetBandwidthInfo"), flags, 6)
+        this.vtbl.GetColorControls := CallbackCreate(ObjBindMethod(implObj, "GetColorControls"), flags, 2)
+        this.vtbl.GetInputFormats := CallbackCreate(ObjBindMethod(implObj, "GetInputFormats"), flags, 4)
+        this.vtbl.GetOutputFormats := CallbackCreate(ObjBindMethod(implObj, "GetOutputFormats"), flags, 5)
+        this.vtbl.GetFieldPolarity := CallbackCreate(ObjBindMethod(implObj, "GetFieldPolarity"), flags, 2)
+        this.vtbl.GetVideoLine := CallbackCreate(ObjBindMethod(implObj, "GetVideoLine"), flags, 2)
+        this.vtbl.GetVideoSignalStatus := CallbackCreate(ObjBindMethod(implObj, "GetVideoSignalStatus"), flags, 2)
+        this.vtbl.SetColorControls := CallbackCreate(ObjBindMethod(implObj, "SetColorControls"), flags, 2)
+        this.vtbl.SetTargetSurface := CallbackCreate(ObjBindMethod(implObj, "SetTargetSurface"), flags, 3)
+        this.vtbl.StartVideo := CallbackCreate(ObjBindMethod(implObj, "StartVideo"), flags, 2)
+        this.vtbl.StopVideo := CallbackCreate(ObjBindMethod(implObj, "StopVideo"), flags, 1)
+        this.vtbl.UpdateVideo := CallbackCreate(ObjBindMethod(implObj, "UpdateVideo"), flags, 2)
+        this.vtbl.WaitForSync := CallbackCreate(ObjBindMethod(implObj, "WaitForSync"), flags, 4)
     }
 
     Dispose() {

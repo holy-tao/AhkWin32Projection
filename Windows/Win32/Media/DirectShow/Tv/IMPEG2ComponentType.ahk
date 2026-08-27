@@ -85,8 +85,8 @@ export default struct IMPEG2ComponentType extends ILanguageComponentType {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_StreamType := CallbackCreate(GetMethod(implObj, "get_StreamType"), flags, 2)
-        this.vtbl.put_StreamType := CallbackCreate(GetMethod(implObj, "put_StreamType"), flags, 2)
+        this.vtbl.get_StreamType := CallbackCreate(ObjBindMethod(implObj, "get_StreamType"), flags, 2)
+        this.vtbl.put_StreamType := CallbackCreate(ObjBindMethod(implObj, "put_StreamType"), flags, 2)
     }
 
     Dispose() {

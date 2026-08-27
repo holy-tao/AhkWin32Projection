@@ -41,7 +41,6 @@ export default struct IWorkspaceRegistration2 extends IWorkspaceRegistration {
     }
 
     /**
-     * 
      * @param {IWorkspaceClientExt} pUnk 
      * @param {BSTR} bstrEventLogUploadAddress 
      * @param {Guid} _correlationId 
@@ -55,7 +54,6 @@ export default struct IWorkspaceRegistration2 extends IWorkspaceRegistration {
     }
 
     /**
-     * 
      * @param {Integer} dwCookieConnection 
      * @param {Guid} _correlationId 
      * @returns {HRESULT} 
@@ -74,8 +72,8 @@ export default struct IWorkspaceRegistration2 extends IWorkspaceRegistration {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddResourceEx := CallbackCreate(GetMethod(implObj, "AddResourceEx"), flags, 5)
-        this.vtbl.RemoveResourceEx := CallbackCreate(GetMethod(implObj, "RemoveResourceEx"), flags, 3)
+        this.vtbl.AddResourceEx := CallbackCreate(ObjBindMethod(implObj, "AddResourceEx"), flags, 5)
+        this.vtbl.RemoveResourceEx := CallbackCreate(ObjBindMethod(implObj, "RemoveResourceEx"), flags, 3)
     }
 
     Dispose() {

@@ -114,11 +114,11 @@ export default struct ID2D1GeometrySink extends ID2D1SimplifiedGeometrySink {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddLine := CallbackCreate(GetMethod(implObj, "AddLine"), flags, 2)
-        this.vtbl.AddBezier := CallbackCreate(GetMethod(implObj, "AddBezier"), flags, 2)
-        this.vtbl.AddQuadraticBezier := CallbackCreate(GetMethod(implObj, "AddQuadraticBezier"), flags, 2)
-        this.vtbl.AddQuadraticBeziers := CallbackCreate(GetMethod(implObj, "AddQuadraticBeziers"), flags, 3)
-        this.vtbl.AddArc := CallbackCreate(GetMethod(implObj, "AddArc"), flags, 2)
+        this.vtbl.AddLine := CallbackCreate(ObjBindMethod(implObj, "AddLine"), flags, 2)
+        this.vtbl.AddBezier := CallbackCreate(ObjBindMethod(implObj, "AddBezier"), flags, 2)
+        this.vtbl.AddQuadraticBezier := CallbackCreate(ObjBindMethod(implObj, "AddQuadraticBezier"), flags, 2)
+        this.vtbl.AddQuadraticBeziers := CallbackCreate(ObjBindMethod(implObj, "AddQuadraticBeziers"), flags, 3)
+        this.vtbl.AddArc := CallbackCreate(ObjBindMethod(implObj, "AddArc"), flags, 2)
     }
 
     Dispose() {

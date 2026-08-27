@@ -42,7 +42,6 @@ export default struct IMLOperatorTypeInferenceContext extends IMLOperatorAttribu
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetInputCount() {
@@ -51,7 +50,6 @@ export default struct IMLOperatorTypeInferenceContext extends IMLOperatorAttribu
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetOutputCount() {
@@ -60,7 +58,6 @@ export default struct IMLOperatorTypeInferenceContext extends IMLOperatorAttribu
     }
 
     /**
-     * 
      * @param {Integer} inputIndex 
      * @returns {Boolean} 
      */
@@ -70,7 +67,6 @@ export default struct IMLOperatorTypeInferenceContext extends IMLOperatorAttribu
     }
 
     /**
-     * 
      * @param {Integer} outputIndex 
      * @returns {Boolean} 
      */
@@ -80,7 +76,6 @@ export default struct IMLOperatorTypeInferenceContext extends IMLOperatorAttribu
     }
 
     /**
-     * 
      * @param {Integer} inputIndex 
      * @returns {MLOperatorEdgeDescription} 
      */
@@ -91,7 +86,6 @@ export default struct IMLOperatorTypeInferenceContext extends IMLOperatorAttribu
     }
 
     /**
-     * 
      * @param {Integer} outputIndex 
      * @param {Pointer<MLOperatorEdgeDescription>} edgeDescription 
      * @returns {HRESULT} 
@@ -110,12 +104,12 @@ export default struct IMLOperatorTypeInferenceContext extends IMLOperatorAttribu
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetInputCount := CallbackCreate(GetMethod(implObj, "GetInputCount"), flags, 1)
-        this.vtbl.GetOutputCount := CallbackCreate(GetMethod(implObj, "GetOutputCount"), flags, 1)
-        this.vtbl.IsInputValid := CallbackCreate(GetMethod(implObj, "IsInputValid"), flags, 2)
-        this.vtbl.IsOutputValid := CallbackCreate(GetMethod(implObj, "IsOutputValid"), flags, 2)
-        this.vtbl.GetInputEdgeDescription := CallbackCreate(GetMethod(implObj, "GetInputEdgeDescription"), flags, 3)
-        this.vtbl.SetOutputEdgeDescription := CallbackCreate(GetMethod(implObj, "SetOutputEdgeDescription"), flags, 3)
+        this.vtbl.GetInputCount := CallbackCreate(ObjBindMethod(implObj, "GetInputCount"), flags, 1)
+        this.vtbl.GetOutputCount := CallbackCreate(ObjBindMethod(implObj, "GetOutputCount"), flags, 1)
+        this.vtbl.IsInputValid := CallbackCreate(ObjBindMethod(implObj, "IsInputValid"), flags, 2)
+        this.vtbl.IsOutputValid := CallbackCreate(ObjBindMethod(implObj, "IsOutputValid"), flags, 2)
+        this.vtbl.GetInputEdgeDescription := CallbackCreate(ObjBindMethod(implObj, "GetInputEdgeDescription"), flags, 3)
+        this.vtbl.SetOutputEdgeDescription := CallbackCreate(ObjBindMethod(implObj, "SetOutputEdgeDescription"), flags, 3)
     }
 
     Dispose() {

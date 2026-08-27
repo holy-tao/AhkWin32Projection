@@ -23,7 +23,6 @@ export default struct PDD_GETDRIVERSTATE {
     }
 
     /**
-     * 
      * @param {Pointer<DD_GETDRIVERSTATEDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_getdriverstatedata">DD_GETDRIVERSTATEDATA</a> structure that describes the state of the driver.
      * @returns {Integer} <i>D3dGetDriverState</i> returns one of the following callback codes:
      */

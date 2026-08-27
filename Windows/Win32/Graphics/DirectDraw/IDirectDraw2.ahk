@@ -68,7 +68,6 @@ export default struct IDirectDraw2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Compact() {
@@ -77,7 +76,6 @@ export default struct IDirectDraw2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {IUnknown} param2 
      * @returns {IDirectDrawClipper} 
@@ -107,7 +105,6 @@ export default struct IDirectDraw2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DDSURFACEDESC>} param0 
      * @param {IUnknown} param2 
      * @returns {IDirectDrawSurface} 
@@ -118,7 +115,6 @@ export default struct IDirectDraw2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDirectDrawSurface} param0 
      * @returns {IDirectDrawSurface} 
      */
@@ -128,7 +124,6 @@ export default struct IDirectDraw2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<DDSURFACEDESC>} param1 
      * @param {Pointer<Void>} param2 
@@ -136,14 +131,13 @@ export default struct IDirectDraw2 extends IUnknown {
      * @returns {HRESULT} 
      */
     EnumDisplayModes(param0, param1, param2, param3) {
-        param2Marshal := param2 is VarRef ? "ptr" : "ptr"
+        param2Marshal := param2 is VarRef ? "ptr" : IntPtr
 
         result := ComCall(8, this, UInt32, param0, DDSURFACEDESC.Ptr, param1, param2Marshal, param2, LPDDENUMMODESCALLBACK, param3, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<DDSURFACEDESC>} param1 
      * @param {Pointer<Void>} param2 
@@ -151,14 +145,13 @@ export default struct IDirectDraw2 extends IUnknown {
      * @returns {HRESULT} 
      */
     EnumSurfaces(param0, param1, param2, param3) {
-        param2Marshal := param2 is VarRef ? "ptr" : "ptr"
+        param2Marshal := param2 is VarRef ? "ptr" : IntPtr
 
         result := ComCall(9, this, UInt32, param0, DDSURFACEDESC.Ptr, param1, param2Marshal, param2, LPDDENUMSURFACESCALLBACK, param3, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     FlipToGDISurface() {
@@ -167,7 +160,6 @@ export default struct IDirectDraw2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DDCAPS_DX7>} param0 
      * @param {Pointer<DDCAPS_DX7>} param1 
      * @returns {HRESULT} 
@@ -178,7 +170,6 @@ export default struct IDirectDraw2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DDSURFACEDESC>} param0 
      * @returns {HRESULT} 
      */
@@ -188,21 +179,19 @@ export default struct IDirectDraw2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Integer>} param1 
      * @returns {HRESULT} 
      */
     GetFourCCCodes(param0, param1) {
-        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-        param1Marshal := param1 is VarRef ? "uint*" : "ptr"
+        param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+        param1Marshal := param1 is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, param0Marshal, param0, param1Marshal, param1, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {IDirectDrawSurface} 
      */
     GetGDISurface() {
@@ -211,36 +200,33 @@ export default struct IDirectDraw2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @returns {HRESULT} 
      */
     GetMonitorFrequency(param0) {
-        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+        param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
         result := ComCall(15, this, param0Marshal, param0, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @returns {HRESULT} 
      */
     GetScanLine(param0) {
-        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+        param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
         result := ComCall(16, this, param0Marshal, param0, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<BOOL>} param0 
      * @returns {HRESULT} 
      */
     GetVerticalBlankStatus(param0) {
-        param0Marshal := param0 is VarRef ? "int*" : "ptr"
+        param0Marshal := param0 is VarRef ? "int*" : IntPtr
 
         result := ComCall(17, this, param0Marshal, param0, "HRESULT")
         return result
@@ -281,7 +267,6 @@ export default struct IDirectDraw2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RestoreDisplayMode() {
@@ -290,7 +275,6 @@ export default struct IDirectDraw2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 
@@ -301,7 +285,6 @@ export default struct IDirectDraw2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
@@ -315,7 +298,6 @@ export default struct IDirectDraw2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {HANDLE} param1 
      * @returns {HRESULT} 
@@ -326,15 +308,14 @@ export default struct IDirectDraw2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DDSCAPS>} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<Integer>} param2 
      * @returns {HRESULT} 
      */
     GetAvailableVidMem(param0, param1, param2) {
-        param1Marshal := param1 is VarRef ? "uint*" : "ptr"
-        param2Marshal := param2 is VarRef ? "uint*" : "ptr"
+        param1Marshal := param1 is VarRef ? "uint*" : IntPtr
+        param2Marshal := param2 is VarRef ? "uint*" : IntPtr
 
         result := ComCall(23, this, DDSCAPS.Ptr, param0, param1Marshal, param1, param2Marshal, param2, "HRESULT")
         return result
@@ -349,27 +330,27 @@ export default struct IDirectDraw2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Compact := CallbackCreate(GetMethod(implObj, "Compact"), flags, 1)
-        this.vtbl.CreateClipper := CallbackCreate(GetMethod(implObj, "CreateClipper"), flags, 4)
-        this.vtbl.CreatePalette := CallbackCreate(GetMethod(implObj, "CreatePalette"), flags, 5)
-        this.vtbl.CreateSurface := CallbackCreate(GetMethod(implObj, "CreateSurface"), flags, 4)
-        this.vtbl.DuplicateSurface := CallbackCreate(GetMethod(implObj, "DuplicateSurface"), flags, 3)
-        this.vtbl.EnumDisplayModes := CallbackCreate(GetMethod(implObj, "EnumDisplayModes"), flags, 5)
-        this.vtbl.EnumSurfaces := CallbackCreate(GetMethod(implObj, "EnumSurfaces"), flags, 5)
-        this.vtbl.FlipToGDISurface := CallbackCreate(GetMethod(implObj, "FlipToGDISurface"), flags, 1)
-        this.vtbl.GetCaps := CallbackCreate(GetMethod(implObj, "GetCaps"), flags, 3)
-        this.vtbl.GetDisplayMode := CallbackCreate(GetMethod(implObj, "GetDisplayMode"), flags, 2)
-        this.vtbl.GetFourCCCodes := CallbackCreate(GetMethod(implObj, "GetFourCCCodes"), flags, 3)
-        this.vtbl.GetGDISurface := CallbackCreate(GetMethod(implObj, "GetGDISurface"), flags, 2)
-        this.vtbl.GetMonitorFrequency := CallbackCreate(GetMethod(implObj, "GetMonitorFrequency"), flags, 2)
-        this.vtbl.GetScanLine := CallbackCreate(GetMethod(implObj, "GetScanLine"), flags, 2)
-        this.vtbl.GetVerticalBlankStatus := CallbackCreate(GetMethod(implObj, "GetVerticalBlankStatus"), flags, 2)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.RestoreDisplayMode := CallbackCreate(GetMethod(implObj, "RestoreDisplayMode"), flags, 1)
-        this.vtbl.SetCooperativeLevel := CallbackCreate(GetMethod(implObj, "SetCooperativeLevel"), flags, 3)
-        this.vtbl.SetDisplayMode := CallbackCreate(GetMethod(implObj, "SetDisplayMode"), flags, 6)
-        this.vtbl.WaitForVerticalBlank := CallbackCreate(GetMethod(implObj, "WaitForVerticalBlank"), flags, 3)
-        this.vtbl.GetAvailableVidMem := CallbackCreate(GetMethod(implObj, "GetAvailableVidMem"), flags, 4)
+        this.vtbl.Compact := CallbackCreate(ObjBindMethod(implObj, "Compact"), flags, 1)
+        this.vtbl.CreateClipper := CallbackCreate(ObjBindMethod(implObj, "CreateClipper"), flags, 4)
+        this.vtbl.CreatePalette := CallbackCreate(ObjBindMethod(implObj, "CreatePalette"), flags, 5)
+        this.vtbl.CreateSurface := CallbackCreate(ObjBindMethod(implObj, "CreateSurface"), flags, 4)
+        this.vtbl.DuplicateSurface := CallbackCreate(ObjBindMethod(implObj, "DuplicateSurface"), flags, 3)
+        this.vtbl.EnumDisplayModes := CallbackCreate(ObjBindMethod(implObj, "EnumDisplayModes"), flags, 5)
+        this.vtbl.EnumSurfaces := CallbackCreate(ObjBindMethod(implObj, "EnumSurfaces"), flags, 5)
+        this.vtbl.FlipToGDISurface := CallbackCreate(ObjBindMethod(implObj, "FlipToGDISurface"), flags, 1)
+        this.vtbl.GetCaps := CallbackCreate(ObjBindMethod(implObj, "GetCaps"), flags, 3)
+        this.vtbl.GetDisplayMode := CallbackCreate(ObjBindMethod(implObj, "GetDisplayMode"), flags, 2)
+        this.vtbl.GetFourCCCodes := CallbackCreate(ObjBindMethod(implObj, "GetFourCCCodes"), flags, 3)
+        this.vtbl.GetGDISurface := CallbackCreate(ObjBindMethod(implObj, "GetGDISurface"), flags, 2)
+        this.vtbl.GetMonitorFrequency := CallbackCreate(ObjBindMethod(implObj, "GetMonitorFrequency"), flags, 2)
+        this.vtbl.GetScanLine := CallbackCreate(ObjBindMethod(implObj, "GetScanLine"), flags, 2)
+        this.vtbl.GetVerticalBlankStatus := CallbackCreate(ObjBindMethod(implObj, "GetVerticalBlankStatus"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.RestoreDisplayMode := CallbackCreate(ObjBindMethod(implObj, "RestoreDisplayMode"), flags, 1)
+        this.vtbl.SetCooperativeLevel := CallbackCreate(ObjBindMethod(implObj, "SetCooperativeLevel"), flags, 3)
+        this.vtbl.SetDisplayMode := CallbackCreate(ObjBindMethod(implObj, "SetDisplayMode"), flags, 6)
+        this.vtbl.WaitForVerticalBlank := CallbackCreate(ObjBindMethod(implObj, "WaitForVerticalBlank"), flags, 3)
+        this.vtbl.GetAvailableVidMem := CallbackCreate(ObjBindMethod(implObj, "GetAvailableVidMem"), flags, 4)
     }
 
     Dispose() {

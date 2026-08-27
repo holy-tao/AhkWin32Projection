@@ -92,7 +92,7 @@ export default struct IBDA_MUX extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_mux-getpidlist
      */
     GetPidList(pulPidListCount, pbPidListBuffer) {
-        pulPidListCountMarshal := pulPidListCount is VarRef ? "uint*" : "ptr"
+        pulPidListCountMarshal := pulPidListCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pulPidListCountMarshal, pulPidListCount, BDA_MUX_PIDLISTITEM.Ptr, pbPidListBuffer, "HRESULT")
         return result
@@ -107,8 +107,8 @@ export default struct IBDA_MUX extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetPidList := CallbackCreate(GetMethod(implObj, "SetPidList"), flags, 3)
-        this.vtbl.GetPidList := CallbackCreate(GetMethod(implObj, "GetPidList"), flags, 3)
+        this.vtbl.SetPidList := CallbackCreate(ObjBindMethod(implObj, "SetPidList"), flags, 3)
+        this.vtbl.GetPidList := CallbackCreate(ObjBindMethod(implObj, "GetPidList"), flags, 3)
     }
 
     Dispose() {

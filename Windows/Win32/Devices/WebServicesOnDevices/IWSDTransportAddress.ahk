@@ -163,7 +163,9 @@ export default struct IWSDTransportAddress extends IWSDAddress {
     SetTransportAddress(pszAddress) {
         pszAddress := pszAddress is String ? StrPtr(pszAddress) : pszAddress
 
-        result := ComCall(9, this, "ptr", pszAddress, "HRESULT")
+        pszAddressMarshal := pszAddress == 0 ? IntPtr : PWSTR
+
+        result := ComCall(9, this, pszAddressMarshal, pszAddress, "HRESULT")
         return result
     }
 
@@ -176,11 +178,11 @@ export default struct IWSDTransportAddress extends IWSDAddress {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPort := CallbackCreate(GetMethod(implObj, "GetPort"), flags, 2)
-        this.vtbl.SetPort := CallbackCreate(GetMethod(implObj, "SetPort"), flags, 2)
-        this.vtbl.GetTransportAddress := CallbackCreate(GetMethod(implObj, "GetTransportAddress"), flags, 2)
-        this.vtbl.GetTransportAddressEx := CallbackCreate(GetMethod(implObj, "GetTransportAddressEx"), flags, 3)
-        this.vtbl.SetTransportAddress := CallbackCreate(GetMethod(implObj, "SetTransportAddress"), flags, 2)
+        this.vtbl.GetPort := CallbackCreate(ObjBindMethod(implObj, "GetPort"), flags, 2)
+        this.vtbl.SetPort := CallbackCreate(ObjBindMethod(implObj, "SetPort"), flags, 2)
+        this.vtbl.GetTransportAddress := CallbackCreate(ObjBindMethod(implObj, "GetTransportAddress"), flags, 2)
+        this.vtbl.GetTransportAddressEx := CallbackCreate(ObjBindMethod(implObj, "GetTransportAddressEx"), flags, 3)
+        this.vtbl.SetTransportAddress := CallbackCreate(ObjBindMethod(implObj, "SetTransportAddress"), flags, 2)
     }
 
     Dispose() {

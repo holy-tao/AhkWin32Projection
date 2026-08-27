@@ -38,7 +38,6 @@ export default struct IDebugHostMemory2 extends IDebugHostMemory {
     }
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @param {Location} _location 
      * @returns {Location} 
@@ -58,7 +57,7 @@ export default struct IDebugHostMemory2 extends IDebugHostMemory {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LinearizeLocation := CallbackCreate(GetMethod(implObj, "LinearizeLocation"), flags, 4)
+        this.vtbl.LinearizeLocation := CallbackCreate(ObjBindMethod(implObj, "LinearizeLocation"), flags, 4)
     }
 
     Dispose() {

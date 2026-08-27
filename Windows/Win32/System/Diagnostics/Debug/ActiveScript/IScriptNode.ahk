@@ -49,7 +49,6 @@ export default struct IScriptNode extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Alive() {
@@ -58,7 +57,6 @@ export default struct IScriptNode extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Delete() {
@@ -79,7 +77,6 @@ export default struct IScriptNode extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetIndexInParent() {
@@ -88,7 +85,6 @@ export default struct IScriptNode extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCookie() {
@@ -97,7 +93,6 @@ export default struct IScriptNode extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberOfChildren() {
@@ -106,7 +101,6 @@ export default struct IScriptNode extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} isn 
      * @returns {IScriptNode} 
      */
@@ -116,7 +110,6 @@ export default struct IScriptNode extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetLanguage() {
@@ -126,7 +119,6 @@ export default struct IScriptNode extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} isn 
      * @param {Integer} dwCookie 
      * @param {PWSTR} pszDelimiter 
@@ -140,7 +132,6 @@ export default struct IScriptNode extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszDefaultName 
      * @param {Pointer<PWSTR>} prgpszNames 
      * @param {Integer} cpszNames 
@@ -157,7 +148,7 @@ export default struct IScriptNode extends IUnknown {
         pszEvent := pszEvent is String ? StrPtr(pszEvent) : pszEvent
         pszDelimiter := pszDelimiter is String ? StrPtr(pszDelimiter) : pszDelimiter
 
-        prgpszNamesMarshal := prgpszNames is VarRef ? "ptr*" : "ptr"
+        prgpszNamesMarshal := prgpszNames is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(12, this, "ptr", pszDefaultName, prgpszNamesMarshal, prgpszNames, UInt32, cpszNames, "ptr", pszEvent, "ptr", pszDelimiter, "ptr", ptiSignature, UInt32, iMethodSignature, UInt32, isn, UInt32, dwCookie, "ptr*", &ppse := 0, "HRESULT")
         return IScriptEntry(ppse)
@@ -172,16 +163,16 @@ export default struct IScriptNode extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Alive := CallbackCreate(GetMethod(implObj, "Alive"), flags, 1)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
-        this.vtbl.GetParent := CallbackCreate(GetMethod(implObj, "GetParent"), flags, 2)
-        this.vtbl.GetIndexInParent := CallbackCreate(GetMethod(implObj, "GetIndexInParent"), flags, 2)
-        this.vtbl.GetCookie := CallbackCreate(GetMethod(implObj, "GetCookie"), flags, 2)
-        this.vtbl.GetNumberOfChildren := CallbackCreate(GetMethod(implObj, "GetNumberOfChildren"), flags, 2)
-        this.vtbl.GetChild := CallbackCreate(GetMethod(implObj, "GetChild"), flags, 3)
-        this.vtbl.GetLanguage := CallbackCreate(GetMethod(implObj, "GetLanguage"), flags, 2)
-        this.vtbl.CreateChildEntry := CallbackCreate(GetMethod(implObj, "CreateChildEntry"), flags, 5)
-        this.vtbl.CreateChildHandler := CallbackCreate(GetMethod(implObj, "CreateChildHandler"), flags, 11)
+        this.vtbl.Alive := CallbackCreate(ObjBindMethod(implObj, "Alive"), flags, 1)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.GetParent := CallbackCreate(ObjBindMethod(implObj, "GetParent"), flags, 2)
+        this.vtbl.GetIndexInParent := CallbackCreate(ObjBindMethod(implObj, "GetIndexInParent"), flags, 2)
+        this.vtbl.GetCookie := CallbackCreate(ObjBindMethod(implObj, "GetCookie"), flags, 2)
+        this.vtbl.GetNumberOfChildren := CallbackCreate(ObjBindMethod(implObj, "GetNumberOfChildren"), flags, 2)
+        this.vtbl.GetChild := CallbackCreate(ObjBindMethod(implObj, "GetChild"), flags, 3)
+        this.vtbl.GetLanguage := CallbackCreate(ObjBindMethod(implObj, "GetLanguage"), flags, 2)
+        this.vtbl.CreateChildEntry := CallbackCreate(ObjBindMethod(implObj, "CreateChildEntry"), flags, 5)
+        this.vtbl.CreateChildHandler := CallbackCreate(ObjBindMethod(implObj, "CreateChildHandler"), flags, 11)
     }
 
     Dispose() {

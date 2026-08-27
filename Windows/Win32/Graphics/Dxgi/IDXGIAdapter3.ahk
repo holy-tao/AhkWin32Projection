@@ -171,12 +171,12 @@ export default struct IDXGIAdapter3 extends IDXGIAdapter2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterHardwareContentProtectionTeardownStatusEvent := CallbackCreate(GetMethod(implObj, "RegisterHardwareContentProtectionTeardownStatusEvent"), flags, 3)
-        this.vtbl.UnregisterHardwareContentProtectionTeardownStatus := CallbackCreate(GetMethod(implObj, "UnregisterHardwareContentProtectionTeardownStatus"), flags, 2)
-        this.vtbl.QueryVideoMemoryInfo := CallbackCreate(GetMethod(implObj, "QueryVideoMemoryInfo"), flags, 4)
-        this.vtbl.SetVideoMemoryReservation := CallbackCreate(GetMethod(implObj, "SetVideoMemoryReservation"), flags, 4)
-        this.vtbl.RegisterVideoMemoryBudgetChangeNotificationEvent := CallbackCreate(GetMethod(implObj, "RegisterVideoMemoryBudgetChangeNotificationEvent"), flags, 3)
-        this.vtbl.UnregisterVideoMemoryBudgetChangeNotification := CallbackCreate(GetMethod(implObj, "UnregisterVideoMemoryBudgetChangeNotification"), flags, 2)
+        this.vtbl.RegisterHardwareContentProtectionTeardownStatusEvent := CallbackCreate(ObjBindMethod(implObj, "RegisterHardwareContentProtectionTeardownStatusEvent"), flags, 3)
+        this.vtbl.UnregisterHardwareContentProtectionTeardownStatus := CallbackCreate(ObjBindMethod(implObj, "UnregisterHardwareContentProtectionTeardownStatus"), flags, 2)
+        this.vtbl.QueryVideoMemoryInfo := CallbackCreate(ObjBindMethod(implObj, "QueryVideoMemoryInfo"), flags, 4)
+        this.vtbl.SetVideoMemoryReservation := CallbackCreate(ObjBindMethod(implObj, "SetVideoMemoryReservation"), flags, 4)
+        this.vtbl.RegisterVideoMemoryBudgetChangeNotificationEvent := CallbackCreate(ObjBindMethod(implObj, "RegisterVideoMemoryBudgetChangeNotificationEvent"), flags, 3)
+        this.vtbl.UnregisterVideoMemoryBudgetChangeNotification := CallbackCreate(ObjBindMethod(implObj, "UnregisterVideoMemoryBudgetChangeNotification"), flags, 2)
     }
 
     Dispose() {

@@ -85,9 +85,9 @@ export default struct IMFTrustedOutput extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOutputTrustAuthorityCount := CallbackCreate(GetMethod(implObj, "GetOutputTrustAuthorityCount"), flags, 2)
-        this.vtbl.GetOutputTrustAuthorityByIndex := CallbackCreate(GetMethod(implObj, "GetOutputTrustAuthorityByIndex"), flags, 3)
-        this.vtbl.IsFinal := CallbackCreate(GetMethod(implObj, "IsFinal"), flags, 2)
+        this.vtbl.GetOutputTrustAuthorityCount := CallbackCreate(ObjBindMethod(implObj, "GetOutputTrustAuthorityCount"), flags, 2)
+        this.vtbl.GetOutputTrustAuthorityByIndex := CallbackCreate(ObjBindMethod(implObj, "GetOutputTrustAuthorityByIndex"), flags, 3)
+        this.vtbl.IsFinal := CallbackCreate(ObjBindMethod(implObj, "IsFinal"), flags, 2)
     }
 
     Dispose() {

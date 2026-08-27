@@ -44,7 +44,6 @@ export default struct IPMExtensionCachedFileUpdaterInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_SupportsUpdates() {
@@ -61,7 +60,7 @@ export default struct IPMExtensionCachedFileUpdaterInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_SupportsUpdates := CallbackCreate(GetMethod(implObj, "get_SupportsUpdates"), flags, 2)
+        this.vtbl.get_SupportsUpdates := CallbackCreate(ObjBindMethod(implObj, "get_SupportsUpdates"), flags, 2)
     }
 
     Dispose() {

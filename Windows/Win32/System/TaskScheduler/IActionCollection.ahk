@@ -89,7 +89,7 @@ export default struct IActionCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iactioncollection-get_count
      */
     get_Count(pCount) {
-        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
+        pCountMarshal := pCount is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, pCountMarshal, pCount, "HRESULT")
         return result
@@ -266,16 +266,16 @@ export default struct IActionCollection extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
-        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
-        this.vtbl.get_XmlText := CallbackCreate(GetMethod(implObj, "get_XmlText"), flags, 2)
-        this.vtbl.put_XmlText := CallbackCreate(GetMethod(implObj, "put_XmlText"), flags, 2)
-        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 3)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
-        this.vtbl.get_Context := CallbackCreate(GetMethod(implObj, "get_Context"), flags, 2)
-        this.vtbl.put_Context := CallbackCreate(GetMethod(implObj, "put_Context"), flags, 2)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(ObjBindMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.get__NewEnum := CallbackCreate(ObjBindMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_XmlText := CallbackCreate(ObjBindMethod(implObj, "get_XmlText"), flags, 2)
+        this.vtbl.put_XmlText := CallbackCreate(ObjBindMethod(implObj, "put_XmlText"), flags, 2)
+        this.vtbl.Create := CallbackCreate(ObjBindMethod(implObj, "Create"), flags, 3)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.get_Context := CallbackCreate(ObjBindMethod(implObj, "get_Context"), flags, 2)
+        this.vtbl.put_Context := CallbackCreate(ObjBindMethod(implObj, "put_Context"), flags, 2)
     }
 
     Dispose() {

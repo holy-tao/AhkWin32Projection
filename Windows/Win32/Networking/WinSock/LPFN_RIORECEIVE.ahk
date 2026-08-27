@@ -40,7 +40,6 @@ export default struct LPFN_RIORECEIVE {
     }
 
     /**
-     * 
      * @param {RIO_RQ} SocketQueue A descriptor that identifies a connected registered I/O TCP socket or a bound registered I/O UDP socket.
      * @param {Pointer<RIO_BUF>} pData A description of the portion of the registered buffer in which to receive data.
      * 
@@ -71,7 +70,8 @@ export default struct LPFN_RIORECEIVE {
      * | <dl> <dt>**[WSA\_OPERATION\_ABORTED](/windows/win32/winsock/windows-sockets-error-codes-2#wsa-operation-aborted)**</dt> </dl> | The operation has been canceled while the receive operation was pending. This error is returned if the socket is closed locally or remotely, or the **SIO\_FLUSH** command in [**WSAIoctl**](../winsock2/nf-winsock2-wsaioctl.md) is executed on this socket.<br/>                                                                                                     |
      */
     Call(SocketQueue, pData, DataBufferCount, Flags, RequestContext) {
-        RequestContextMarshal := RequestContext is VarRef ? "ptr" : "ptr"
+        RequestContextMarshal := RequestContext is VarRef ? "ptr" : IntPtr
+        RequestContextMarshal := RequestContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, RIO_RQ, SocketQueue, RIO_BUF.Ptr, pData, UInt32, DataBufferCount, UInt32, Flags, RequestContextMarshal, RequestContext, BOOL)
         return result

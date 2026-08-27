@@ -19,7 +19,6 @@ export default struct PFLT_CONTEXT_CLEANUP_CALLBACK {
     }
 
     /**
-     * 
      * @param {PFLT_CONTEXT} _Context 
      * @param {Integer} ContextType 
      * @returns {String} Nothing - always returns an empty string

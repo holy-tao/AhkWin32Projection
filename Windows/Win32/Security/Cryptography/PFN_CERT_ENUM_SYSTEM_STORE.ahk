@@ -23,7 +23,6 @@ export default struct PFN_CERT_ENUM_SYSTEM_STORE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvSystemStore A pointer to information on the system store found by a call to 
      * 	<a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certenumsystemstore">CertEnumSystemStore</a>. Where appropriate, this argument will contain a leading computer name or service name prefix.
      * @param {CERT_SYSTEM_STORE_FLAGS} dwFlags 
@@ -39,8 +38,9 @@ export default struct PFN_CERT_ENUM_SYSTEM_STORE {
     Call(pvSystemStore, dwFlags, pStoreInfo, pvArg) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
-        pvSystemStoreMarshal := pvSystemStore is VarRef ? "ptr" : "ptr"
-        pvArgMarshal := pvArg is VarRef ? "ptr" : "ptr"
+        pvSystemStoreMarshal := pvSystemStore is VarRef ? "ptr" : IntPtr
+        pvArgMarshal := pvArg is VarRef ? "ptr" : IntPtr
+        pvArgMarshal := pvArg == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, pvSystemStoreMarshal, pvSystemStore, CERT_SYSTEM_STORE_FLAGS, dwFlags, CERT_SYSTEM_STORE_INFO.Ptr, pStoreInfo, "ptr", pvReserved, pvArgMarshal, pvArg, BOOL)
         return result

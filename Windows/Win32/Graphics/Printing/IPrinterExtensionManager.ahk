@@ -43,7 +43,6 @@ export default struct IPrinterExtensionManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} printerDriverId 
      * @returns {HRESULT} 
      */
@@ -53,7 +52,6 @@ export default struct IPrinterExtensionManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DisableEvents() {
@@ -70,8 +68,8 @@ export default struct IPrinterExtensionManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnableEvents := CallbackCreate(GetMethod(implObj, "EnableEvents"), flags, 2)
-        this.vtbl.DisableEvents := CallbackCreate(GetMethod(implObj, "DisableEvents"), flags, 1)
+        this.vtbl.EnableEvents := CallbackCreate(ObjBindMethod(implObj, "EnableEvents"), flags, 2)
+        this.vtbl.DisableEvents := CallbackCreate(ObjBindMethod(implObj, "DisableEvents"), flags, 1)
     }
 
     Dispose() {

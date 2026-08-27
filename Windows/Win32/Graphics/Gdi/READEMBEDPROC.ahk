@@ -18,15 +18,14 @@ export default struct READEMBEDPROC {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} param0 
      * @param {Pointer<Void>} param1 
      * @param {Integer} param2 
      * @returns {Integer} 
      */
     Call(param0, param1, param2) {
-        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
-        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+        param0Marshal := param0 is VarRef ? "ptr" : IntPtr
+        param1Marshal := param1 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, param0Marshal, param0, param1Marshal, param1, UInt32, param2, UInt32)
         return result

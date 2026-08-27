@@ -22,7 +22,6 @@ export default struct PFN_PRINTING_SENDRECVBIDIDATAFROMPORT2 {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @param {Integer} param1 
      * @param {PWSTR} param2 
@@ -33,7 +32,7 @@ export default struct PFN_PRINTING_SENDRECVBIDIDATAFROMPORT2 {
     Call(param0, param1, param2, param3, param4) {
         param2 := param2 is String ? StrPtr(param2) : param2
 
-        param4Marshal := param4 is VarRef ? "ptr*" : "ptr"
+        param4Marshal := param4 is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, HANDLE, param0, UInt32, param1, "ptr", param2, BIDI_REQUEST_CONTAINER.Ptr, param3, param4Marshal, param4, UInt32)
         return result

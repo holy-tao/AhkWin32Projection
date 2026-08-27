@@ -88,8 +88,8 @@ export default struct IAssocHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iassochandler-geticonlocation
      */
     GetIconLocation(ppszPath, pIndex) {
-        ppszPathMarshal := ppszPath is VarRef ? "ptr*" : "ptr"
-        pIndexMarshal := pIndex is VarRef ? "int*" : "ptr"
+        ppszPathMarshal := ppszPath is VarRef ? "ptr*" : IntPtr
+        pIndexMarshal := pIndex is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, ppszPathMarshal, ppszPath, pIndexMarshal, pIndex, "HRESULT")
         return result
@@ -198,13 +198,13 @@ export default struct IAssocHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
-        this.vtbl.GetUIName := CallbackCreate(GetMethod(implObj, "GetUIName"), flags, 2)
-        this.vtbl.GetIconLocation := CallbackCreate(GetMethod(implObj, "GetIconLocation"), flags, 3)
-        this.vtbl.IsRecommended := CallbackCreate(GetMethod(implObj, "IsRecommended"), flags, 1)
-        this.vtbl.MakeDefault := CallbackCreate(GetMethod(implObj, "MakeDefault"), flags, 2)
-        this.vtbl.Invoke := CallbackCreate(GetMethod(implObj, "Invoke"), flags, 2)
-        this.vtbl.CreateInvoker := CallbackCreate(GetMethod(implObj, "CreateInvoker"), flags, 3)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetUIName := CallbackCreate(ObjBindMethod(implObj, "GetUIName"), flags, 2)
+        this.vtbl.GetIconLocation := CallbackCreate(ObjBindMethod(implObj, "GetIconLocation"), flags, 3)
+        this.vtbl.IsRecommended := CallbackCreate(ObjBindMethod(implObj, "IsRecommended"), flags, 1)
+        this.vtbl.MakeDefault := CallbackCreate(ObjBindMethod(implObj, "MakeDefault"), flags, 2)
+        this.vtbl.Invoke := CallbackCreate(ObjBindMethod(implObj, "Invoke"), flags, 2)
+        this.vtbl.CreateInvoker := CallbackCreate(ObjBindMethod(implObj, "CreateInvoker"), flags, 3)
     }
 
     Dispose() {

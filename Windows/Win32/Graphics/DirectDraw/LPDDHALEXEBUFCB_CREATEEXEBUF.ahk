@@ -19,7 +19,6 @@ export default struct LPDDHALEXEBUFCB_CREATEEXEBUF {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_CREATESURFACEDATA>} param0 
      * @returns {Integer} 
      */

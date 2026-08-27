@@ -62,7 +62,7 @@ export default struct ITfPreservedKeyNotifySink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnUpdated := CallbackCreate(GetMethod(implObj, "OnUpdated"), flags, 2)
+        this.vtbl.OnUpdated := CallbackCreate(ObjBindMethod(implObj, "OnUpdated"), flags, 2)
     }
 
     Dispose() {

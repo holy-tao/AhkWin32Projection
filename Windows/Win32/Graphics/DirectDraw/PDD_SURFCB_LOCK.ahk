@@ -76,7 +76,6 @@ export default struct PDD_SURFCB_LOCK {
     }
 
     /**
-     * 
      * @param {Pointer<DD_LOCKDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_lockdata">DD_LOCKDATA</a> structure that contains the information required to perform the lockdown.
      * @returns {Integer} <i>DdLock</i> returns one of the following callback codes:
      */

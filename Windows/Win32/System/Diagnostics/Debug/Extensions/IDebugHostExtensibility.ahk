@@ -39,7 +39,6 @@ export default struct IDebugHostExtensibility extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} aliasName 
      * @param {IModelObject} functionObject 
      * @returns {HRESULT} 
@@ -52,7 +51,6 @@ export default struct IDebugHostExtensibility extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} aliasName 
      * @returns {HRESULT} 
      */
@@ -72,8 +70,8 @@ export default struct IDebugHostExtensibility extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateFunctionAlias := CallbackCreate(GetMethod(implObj, "CreateFunctionAlias"), flags, 3)
-        this.vtbl.DestroyFunctionAlias := CallbackCreate(GetMethod(implObj, "DestroyFunctionAlias"), flags, 2)
+        this.vtbl.CreateFunctionAlias := CallbackCreate(ObjBindMethod(implObj, "CreateFunctionAlias"), flags, 3)
+        this.vtbl.DestroyFunctionAlias := CallbackCreate(ObjBindMethod(implObj, "DestroyFunctionAlias"), flags, 2)
     }
 
     Dispose() {

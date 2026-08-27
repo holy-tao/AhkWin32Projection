@@ -56,7 +56,7 @@ export default struct IDirectManipulationUpdateHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Update := CallbackCreate(GetMethod(implObj, "Update"), flags, 1)
+        this.vtbl.Update := CallbackCreate(ObjBindMethod(implObj, "Update"), flags, 1)
     }
 
     Dispose() {

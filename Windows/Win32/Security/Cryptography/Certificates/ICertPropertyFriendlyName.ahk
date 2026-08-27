@@ -118,8 +118,8 @@ export default struct ICertPropertyFriendlyName extends ICertProperty {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.get_FriendlyName := CallbackCreate(GetMethod(implObj, "get_FriendlyName"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.get_FriendlyName := CallbackCreate(ObjBindMethod(implObj, "get_FriendlyName"), flags, 2)
     }
 
     Dispose() {

@@ -51,14 +51,13 @@ export default struct IMFMediaKeySession2 extends IMFMediaKeySession {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<MFMediaKeyStatus>>} pKeyStatusesArray 
      * @param {Pointer<Integer>} puSize 
      * @returns {HRESULT} 
      */
     get_KeyStatuses(pKeyStatusesArray, puSize) {
-        pKeyStatusesArrayMarshal := pKeyStatusesArray is VarRef ? "ptr*" : "ptr"
-        puSizeMarshal := puSize is VarRef ? "uint*" : "ptr"
+        pKeyStatusesArrayMarshal := pKeyStatusesArray is VarRef ? "ptr*" : IntPtr
+        puSizeMarshal := puSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, pKeyStatusesArrayMarshal, pKeyStatusesArray, puSizeMarshal, puSize, "HRESULT")
         return result
@@ -78,7 +77,6 @@ export default struct IMFMediaKeySession2 extends IMFMediaKeySession {
     }
 
     /**
-     * 
      * @param {BSTR} initDataType 
      * @param {Integer} pbInitData 
      * @param {Integer} cb 
@@ -92,7 +90,6 @@ export default struct IMFMediaKeySession2 extends IMFMediaKeySession {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_Expiration() {
@@ -101,7 +98,6 @@ export default struct IMFMediaKeySession2 extends IMFMediaKeySession {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Remove() {
@@ -131,12 +127,12 @@ export default struct IMFMediaKeySession2 extends IMFMediaKeySession {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_KeyStatuses := CallbackCreate(GetMethod(implObj, "get_KeyStatuses"), flags, 3)
-        this.vtbl.Load := CallbackCreate(GetMethod(implObj, "Load"), flags, 3)
-        this.vtbl.GenerateRequest := CallbackCreate(GetMethod(implObj, "GenerateRequest"), flags, 4)
-        this.vtbl.get_Expiration := CallbackCreate(GetMethod(implObj, "get_Expiration"), flags, 2)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 1)
-        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 1)
+        this.vtbl.get_KeyStatuses := CallbackCreate(ObjBindMethod(implObj, "get_KeyStatuses"), flags, 3)
+        this.vtbl.Load := CallbackCreate(ObjBindMethod(implObj, "Load"), flags, 3)
+        this.vtbl.GenerateRequest := CallbackCreate(ObjBindMethod(implObj, "GenerateRequest"), flags, 4)
+        this.vtbl.get_Expiration := CallbackCreate(ObjBindMethod(implObj, "get_Expiration"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 1)
+        this.vtbl.Shutdown := CallbackCreate(ObjBindMethod(implObj, "Shutdown"), flags, 1)
     }
 
     Dispose() {

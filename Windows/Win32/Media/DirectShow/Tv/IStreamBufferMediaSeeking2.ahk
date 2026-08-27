@@ -86,7 +86,7 @@ export default struct IStreamBufferMediaSeeking2 extends IStreamBufferMediaSeeki
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetRateEx := CallbackCreate(GetMethod(implObj, "SetRateEx"), flags, 3)
+        this.vtbl.SetRateEx := CallbackCreate(ObjBindMethod(implObj, "SetRateEx"), flags, 3)
     }
 
     Dispose() {

@@ -49,17 +49,17 @@ export default struct ISpNotifySource extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISpNotifySink} pNotifySink 
      * @returns {HRESULT} 
      */
     SetNotifySink(pNotifySink) {
-        result := ComCall(3, this, "ptr", pNotifySink, "HRESULT")
+        pNotifySinkMarshal := pNotifySink == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pNotifySinkMarshal, pNotifySink, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {Integer} _Msg 
      * @param {WPARAM} _wParam 
@@ -72,21 +72,19 @@ export default struct ISpNotifySource extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<SPNOTIFYCALLBACK>>} _pfnCallback 
      * @param {WPARAM} _wParam 
      * @param {LPARAM} _lParam 
      * @returns {HRESULT} 
      */
     SetNotifyCallbackFunction(_pfnCallback, _wParam, _lParam) {
-        _pfnCallbackMarshal := _pfnCallback is VarRef ? "ptr*" : "ptr"
+        _pfnCallbackMarshal := _pfnCallback is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, _pfnCallbackMarshal, _pfnCallback, WPARAM, _wParam, LPARAM, _lParam, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {ISpNotifyCallback} pSpCallback 
      * @param {WPARAM} _wParam 
      * @param {LPARAM} _lParam 
@@ -98,7 +96,6 @@ export default struct ISpNotifySource extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SetNotifyWin32Event() {
@@ -107,7 +104,6 @@ export default struct ISpNotifySource extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwMilliseconds 
      * @returns {HRESULT} 
      */
@@ -137,13 +133,13 @@ export default struct ISpNotifySource extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetNotifySink := CallbackCreate(GetMethod(implObj, "SetNotifySink"), flags, 2)
-        this.vtbl.SetNotifyWindowMessage := CallbackCreate(GetMethod(implObj, "SetNotifyWindowMessage"), flags, 5)
-        this.vtbl.SetNotifyCallbackFunction := CallbackCreate(GetMethod(implObj, "SetNotifyCallbackFunction"), flags, 4)
-        this.vtbl.SetNotifyCallbackInterface := CallbackCreate(GetMethod(implObj, "SetNotifyCallbackInterface"), flags, 4)
-        this.vtbl.SetNotifyWin32Event := CallbackCreate(GetMethod(implObj, "SetNotifyWin32Event"), flags, 1)
-        this.vtbl.WaitForNotifyEvent := CallbackCreate(GetMethod(implObj, "WaitForNotifyEvent"), flags, 2)
-        this.vtbl.GetNotifyEventHandle := CallbackCreate(GetMethod(implObj, "GetNotifyEventHandle"), flags, 1)
+        this.vtbl.SetNotifySink := CallbackCreate(ObjBindMethod(implObj, "SetNotifySink"), flags, 2)
+        this.vtbl.SetNotifyWindowMessage := CallbackCreate(ObjBindMethod(implObj, "SetNotifyWindowMessage"), flags, 5)
+        this.vtbl.SetNotifyCallbackFunction := CallbackCreate(ObjBindMethod(implObj, "SetNotifyCallbackFunction"), flags, 4)
+        this.vtbl.SetNotifyCallbackInterface := CallbackCreate(ObjBindMethod(implObj, "SetNotifyCallbackInterface"), flags, 4)
+        this.vtbl.SetNotifyWin32Event := CallbackCreate(ObjBindMethod(implObj, "SetNotifyWin32Event"), flags, 1)
+        this.vtbl.WaitForNotifyEvent := CallbackCreate(ObjBindMethod(implObj, "WaitForNotifyEvent"), flags, 2)
+        this.vtbl.GetNotifyEventHandle := CallbackCreate(ObjBindMethod(implObj, "GetNotifyEventHandle"), flags, 1)
     }
 
     Dispose() {

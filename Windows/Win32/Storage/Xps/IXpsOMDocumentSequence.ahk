@@ -144,10 +144,10 @@ export default struct IXpsOMDocumentSequence extends IXpsOMPart {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOwner := CallbackCreate(GetMethod(implObj, "GetOwner"), flags, 2)
-        this.vtbl.GetDocuments := CallbackCreate(GetMethod(implObj, "GetDocuments"), flags, 2)
-        this.vtbl.GetPrintTicketResource := CallbackCreate(GetMethod(implObj, "GetPrintTicketResource"), flags, 2)
-        this.vtbl.SetPrintTicketResource := CallbackCreate(GetMethod(implObj, "SetPrintTicketResource"), flags, 2)
+        this.vtbl.GetOwner := CallbackCreate(ObjBindMethod(implObj, "GetOwner"), flags, 2)
+        this.vtbl.GetDocuments := CallbackCreate(ObjBindMethod(implObj, "GetDocuments"), flags, 2)
+        this.vtbl.GetPrintTicketResource := CallbackCreate(ObjBindMethod(implObj, "GetPrintTicketResource"), flags, 2)
+        this.vtbl.SetPrintTicketResource := CallbackCreate(ObjBindMethod(implObj, "SetPrintTicketResource"), flags, 2)
     }
 
     Dispose() {

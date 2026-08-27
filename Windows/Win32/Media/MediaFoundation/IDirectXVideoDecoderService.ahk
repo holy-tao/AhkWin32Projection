@@ -182,8 +182,8 @@ export default struct IDirectXVideoDecoderService extends IDirectXVideoAccelerat
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideodecoderservice-getdecoderdeviceguids
      */
     GetDecoderDeviceGuids(pCount, pGuids) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-        pGuidsMarshal := pGuids is VarRef ? "ptr*" : "ptr"
+        pCountMarshal := pCount is VarRef ? "uint*" : IntPtr
+        pGuidsMarshal := pGuids is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, pCountMarshal, pCount, pGuidsMarshal, pGuids, "HRESULT")
         return result
@@ -216,8 +216,8 @@ export default struct IDirectXVideoDecoderService extends IDirectXVideoAccelerat
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideodecoderservice-getdecoderrendertargets
      */
     GetDecoderRenderTargets(Guid, pCount, pFormats) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-        pFormatsMarshal := pFormats is VarRef ? "ptr*" : "ptr"
+        pCountMarshal := pCount is VarRef ? "uint*" : IntPtr
+        pFormatsMarshal := pFormats is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, Guid.Ptr, Guid, pCountMarshal, pCount, pFormatsMarshal, pFormats, "HRESULT")
         return result
@@ -235,8 +235,8 @@ export default struct IDirectXVideoDecoderService extends IDirectXVideoAccelerat
     GetDecoderConfigurations(Guid, pVideoDesc, pCount, ppConfigs) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-        ppConfigsMarshal := ppConfigs is VarRef ? "ptr*" : "ptr"
+        pCountMarshal := pCount is VarRef ? "uint*" : IntPtr
+        ppConfigsMarshal := ppConfigs is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(6, this, Guid.Ptr, Guid, DXVA2_VideoDesc.Ptr, pVideoDesc, "ptr", pReserved, pCountMarshal, pCount, ppConfigsMarshal, ppConfigs, "HRESULT")
         return result
@@ -266,10 +266,10 @@ export default struct IDirectXVideoDecoderService extends IDirectXVideoAccelerat
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDecoderDeviceGuids := CallbackCreate(GetMethod(implObj, "GetDecoderDeviceGuids"), flags, 3)
-        this.vtbl.GetDecoderRenderTargets := CallbackCreate(GetMethod(implObj, "GetDecoderRenderTargets"), flags, 4)
-        this.vtbl.GetDecoderConfigurations := CallbackCreate(GetMethod(implObj, "GetDecoderConfigurations"), flags, 6)
-        this.vtbl.CreateVideoDecoder := CallbackCreate(GetMethod(implObj, "CreateVideoDecoder"), flags, 7)
+        this.vtbl.GetDecoderDeviceGuids := CallbackCreate(ObjBindMethod(implObj, "GetDecoderDeviceGuids"), flags, 3)
+        this.vtbl.GetDecoderRenderTargets := CallbackCreate(ObjBindMethod(implObj, "GetDecoderRenderTargets"), flags, 4)
+        this.vtbl.GetDecoderConfigurations := CallbackCreate(ObjBindMethod(implObj, "GetDecoderConfigurations"), flags, 6)
+        this.vtbl.CreateVideoDecoder := CallbackCreate(ObjBindMethod(implObj, "CreateVideoDecoder"), flags, 7)
     }
 
     Dispose() {

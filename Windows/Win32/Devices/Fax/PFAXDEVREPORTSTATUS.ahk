@@ -21,7 +21,6 @@ export default struct PFAXDEVREPORTSTATUS {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @param {Pointer<FAX_DEV_STATUS>} param1 
      * @param {Integer} param2 
@@ -29,7 +28,7 @@ export default struct PFAXDEVREPORTSTATUS {
      * @returns {BOOL} 
      */
     Call(param0, param1, param2, param3) {
-        param3Marshal := param3 is VarRef ? "uint*" : "ptr"
+        param3Marshal := param3 is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HANDLE, param0, FAX_DEV_STATUS.Ptr, param1, UInt32, param2, param3Marshal, param3, BOOL)
         return result

@@ -19,7 +19,6 @@ export default struct pHalResetDisplay {
     }
 
     /**
-     * 
      * @returns {BOOLEAN} 
      */
     Call() {

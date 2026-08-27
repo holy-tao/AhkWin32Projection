@@ -80,8 +80,8 @@ export default struct IDCompositionDeviceDebug extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnableDebugCounters := CallbackCreate(GetMethod(implObj, "EnableDebugCounters"), flags, 1)
-        this.vtbl.DisableDebugCounters := CallbackCreate(GetMethod(implObj, "DisableDebugCounters"), flags, 1)
+        this.vtbl.EnableDebugCounters := CallbackCreate(ObjBindMethod(implObj, "EnableDebugCounters"), flags, 1)
+        this.vtbl.DisableDebugCounters := CallbackCreate(ObjBindMethod(implObj, "DisableDebugCounters"), flags, 1)
     }
 
     Dispose() {

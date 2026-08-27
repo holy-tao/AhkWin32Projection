@@ -56,7 +56,7 @@ export default struct IEnumOleDocumentViews extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/docobj/nf-docobj-ienumoledocumentviews-next
      */
     Next(cViews, rgpView, pcFetched) {
-        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, UInt32, cViews, IOleDocumentView.Ptr, rgpView, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
@@ -104,10 +104,10 @@ export default struct IEnumOleDocumentViews extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 4)
-        this.vtbl.Skip := CallbackCreate(GetMethod(implObj, "Skip"), flags, 2)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.Next := CallbackCreate(ObjBindMethod(implObj, "Next"), flags, 4)
+        this.vtbl.Skip := CallbackCreate(ObjBindMethod(implObj, "Skip"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
     }
 
     Dispose() {

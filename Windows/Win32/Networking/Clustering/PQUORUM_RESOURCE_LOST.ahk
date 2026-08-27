@@ -27,7 +27,6 @@ export default struct PQUORUM_RESOURCE_LOST {
     }
 
     /**
-     * 
      * @param {Pointer} Resource 
      * @returns {String} Nothing - always returns an empty string
      */

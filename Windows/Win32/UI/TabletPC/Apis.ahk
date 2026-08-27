@@ -438,7 +438,7 @@ export DestroyContext(hrc) {
  * @since windows5.1.2600
  */
 export GetResultPropertyList(hrec, pPropertyCount, pPropertyGuid) {
-    pPropertyCountMarshal := pPropertyCount is VarRef ? "uint*" : "ptr"
+    pPropertyCountMarshal := pPropertyCount is VarRef ? "uint*" : IntPtr
 
     result := DllCall("inkobjcore.dll\GetResultPropertyList", HRECOGNIZER, hrec, pPropertyCountMarshal, pPropertyCount, Guid.Ptr, pPropertyGuid, "HRESULT")
     return result
@@ -616,7 +616,7 @@ export GetPreferredPacketDescription(hrec, pPacketDescription) {
  * @since windows5.1.2600
  */
 export GetUnicodeRanges(hrec, pcRanges, pcr) {
-    pcRangesMarshal := pcRanges is VarRef ? "uint*" : "ptr"
+    pcRangesMarshal := pcRanges is VarRef ? "uint*" : IntPtr
 
     result := DllCall("inkobjcore.dll\GetUnicodeRanges", HRECOGNIZER, hrec, pcRangesMarshal, pcRanges, CHARACTER_RANGE.Ptr, pcr, "HRESULT")
     return result
@@ -724,7 +724,7 @@ export GetUnicodeRanges(hrec, pcRanges, pcr) {
  * @since windows5.1.2600
  */
 export AddStroke(hrc, pPacketDesc, cbPacket, pPacket, pXForm) {
-    pPacketMarshal := pPacket is VarRef ? "char*" : "ptr"
+    pPacketMarshal := pPacket is VarRef ? "char*" : IntPtr
 
     result := DllCall("inkobjcore.dll\AddStroke", HRECOCONTEXT, hrc, PACKET_DESCRIPTION.Ptr, pPacketDesc, UInt32, cbPacket, pPacketMarshal, pPacket, XFORM.Ptr, pXForm, "HRESULT")
     return result
@@ -828,9 +828,10 @@ export AddStroke(hrc, pPacketDesc, cbPacket, pPacket, pXForm) {
 export GetBestResultString(hrc, pcSize, pwcBestResult) {
     pwcBestResult := pwcBestResult is String ? StrPtr(pwcBestResult) : pwcBestResult
 
-    pcSizeMarshal := pcSize is VarRef ? "uint*" : "ptr"
+    pcSizeMarshal := pcSize is VarRef ? "uint*" : IntPtr
+    pwcBestResultMarshal := pwcBestResult == 0 ? IntPtr : PWSTR
 
-    result := DllCall("inkobjcore.dll\GetBestResultString", HRECOCONTEXT, hrc, pcSizeMarshal, pcSize, "ptr", pwcBestResult, "HRESULT")
+    result := DllCall("inkobjcore.dll\GetBestResultString", HRECOCONTEXT, hrc, pcSizeMarshal, pcSize, pwcBestResultMarshal, pwcBestResult, "HRESULT")
     return result
 }
 
@@ -1025,7 +1026,7 @@ export SetGuide(hrc, pGuide, iIndex) {
  * @since windows5.1.2600
  */
 export GetGuide(hrc, pGuide, piIndex) {
-    piIndexMarshal := piIndex is VarRef ? "uint*" : "ptr"
+    piIndexMarshal := piIndex is VarRef ? "uint*" : IntPtr
 
     result := DllCall("inkobjcore.dll\GetGuide", HRECOCONTEXT, hrc, RECO_GUIDE.Ptr, pGuide, piIndexMarshal, piIndex, "HRESULT")
     return result
@@ -1510,7 +1511,7 @@ export ResetContext(hrc) {
  * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-process
  */
 export Process(hrc, pbPartialProcessing) {
-    pbPartialProcessingMarshal := pbPartialProcessing is VarRef ? "int*" : "ptr"
+    pbPartialProcessingMarshal := pbPartialProcessing is VarRef ? "int*" : IntPtr
 
     result := DllCall("inkobjcore.dll\Process", HRECOCONTEXT, hrc, pbPartialProcessingMarshal, pbPartialProcessing, "HRESULT")
     return result
@@ -1898,7 +1899,7 @@ export SetFlags(hrc, dwFlags) {
  * @since windows5.1.2600
  */
 export GetLatticePtr(hrc, ppLattice) {
-    ppLatticeMarshal := ppLattice is VarRef ? "ptr*" : "ptr"
+    ppLatticeMarshal := ppLattice is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("inkobjcore.dll\GetLatticePtr", HRECOCONTEXT, hrc, ppLatticeMarshal, ppLattice, "HRESULT")
     return result
@@ -2091,7 +2092,7 @@ export SetTextContext(hrc, cwcBefore, pwcBefore, cwcAfter, pwcAfter) {
  * @since windows5.1.2600
  */
 export GetEnabledUnicodeRanges(hrc, pcRanges, pcr) {
-    pcRangesMarshal := pcRanges is VarRef ? "uint*" : "ptr"
+    pcRangesMarshal := pcRanges is VarRef ? "uint*" : IntPtr
 
     result := DllCall("inkobjcore.dll\GetEnabledUnicodeRanges", HRECOCONTEXT, hrc, pcRangesMarshal, pcRanges, CHARACTER_RANGE.Ptr, pcr, "HRESULT")
     return result
@@ -2257,7 +2258,7 @@ export SetEnabledUnicodeRanges(hrc, cRanges, pcr) {
  * @since windows5.1.2600
  */
 export GetContextPropertyList(hrc, pcProperties, pPropertyGUIDS) {
-    pcPropertiesMarshal := pcProperties is VarRef ? "uint*" : "ptr"
+    pcPropertiesMarshal := pcProperties is VarRef ? "uint*" : IntPtr
 
     result := DllCall("inkobjcore.dll\GetContextPropertyList", HRECOCONTEXT, hrc, pcPropertiesMarshal, pcProperties, Guid.Ptr, pPropertyGUIDS, "HRESULT")
     return result
@@ -2364,8 +2365,8 @@ export GetContextPropertyList(hrc, pcProperties, pPropertyGUIDS) {
  * @since windows5.1.2600
  */
 export GetContextPropertyValue(hrc, pGuid, pcbSize, pProperty) {
-    pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
-    pPropertyMarshal := pProperty is VarRef ? "char*" : "ptr"
+    pcbSizeMarshal := pcbSize is VarRef ? "uint*" : IntPtr
+    pPropertyMarshal := pProperty is VarRef ? "char*" : IntPtr
 
     result := DllCall("inkobjcore.dll\GetContextPropertyValue", HRECOCONTEXT, hrc, Guid.Ptr, pGuid, pcbSizeMarshal, pcbSize, pPropertyMarshal, pProperty, "HRESULT")
     return result
@@ -2457,7 +2458,7 @@ export GetContextPropertyValue(hrc, pGuid, pcbSize, pProperty) {
  * @since windows5.1.2600
  */
 export SetContextPropertyValue(hrc, pGuid, cbSize, pProperty) {
-    pPropertyMarshal := pProperty is VarRef ? "char*" : "ptr"
+    pPropertyMarshal := pProperty is VarRef ? "char*" : IntPtr
 
     result := DllCall("inkobjcore.dll\SetContextPropertyValue", HRECOCONTEXT, hrc, Guid.Ptr, pGuid, UInt32, cbSize, pPropertyMarshal, pProperty, "HRESULT")
     return result
@@ -2663,7 +2664,7 @@ export SetWordList(hrc, hwl) {
  * @since windows5.1.2600
  */
 export GetContextPreferenceFlags(hrc, pdwContextPreferenceFlags) {
-    pdwContextPreferenceFlagsMarshal := pdwContextPreferenceFlags is VarRef ? "uint*" : "ptr"
+    pdwContextPreferenceFlagsMarshal := pdwContextPreferenceFlags is VarRef ? "uint*" : IntPtr
 
     result := DllCall("inkobjcore.dll\GetContextPreferenceFlags", HRECOCONTEXT, hrc, pdwContextPreferenceFlagsMarshal, pdwContextPreferenceFlags, "HRESULT")
     return result
@@ -2681,7 +2682,7 @@ export GetContextPreferenceFlags(hrc, pdwContextPreferenceFlags) {
 export GetRightSeparator(hrc, pcSize, pwcRightSeparator) {
     pwcRightSeparator := pwcRightSeparator is String ? StrPtr(pwcRightSeparator) : pwcRightSeparator
 
-    pcSizeMarshal := pcSize is VarRef ? "uint*" : "ptr"
+    pcSizeMarshal := pcSize is VarRef ? "uint*" : IntPtr
 
     result := DllCall("inkobjcore.dll\GetRightSeparator", HRECOCONTEXT, hrc, pcSizeMarshal, pcSize, "ptr", pwcRightSeparator, "HRESULT")
     return result
@@ -2699,7 +2700,7 @@ export GetRightSeparator(hrc, pcSize, pwcRightSeparator) {
 export GetLeftSeparator(hrc, pcSize, pwcLeftSeparator) {
     pwcLeftSeparator := pwcLeftSeparator is String ? StrPtr(pwcLeftSeparator) : pwcLeftSeparator
 
-    pcSizeMarshal := pcSize is VarRef ? "uint*" : "ptr"
+    pcSizeMarshal := pcSize is VarRef ? "uint*" : IntPtr
 
     result := DllCall("inkobjcore.dll\GetLeftSeparator", HRECOCONTEXT, hrc, pcSizeMarshal, pcSize, "ptr", pwcLeftSeparator, "HRESULT")
     return result
@@ -2983,8 +2984,8 @@ export MakeWordList(hrec, pBuffer, phwl) {
  * @since windows5.1.2600
  */
 export GetAllRecognizers(recognizerClsids, count) {
-    recognizerClsidsMarshal := recognizerClsids is VarRef ? "ptr*" : "ptr"
-    countMarshal := count is VarRef ? "uint*" : "ptr"
+    recognizerClsidsMarshal := recognizerClsids is VarRef ? "ptr*" : IntPtr
+    countMarshal := count is VarRef ? "uint*" : IntPtr
 
     result := DllCall("inkobjcore.dll\GetAllRecognizers", recognizerClsidsMarshal, recognizerClsids, countMarshal, count, "HRESULT")
     return result

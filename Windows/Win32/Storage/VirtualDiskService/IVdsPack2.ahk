@@ -76,7 +76,7 @@ export default struct IVdsPack2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateVolume2 := CallbackCreate(GetMethod(implObj, "CreateVolume2"), flags, 7)
+        this.vtbl.CreateVolume2 := CallbackCreate(ObjBindMethod(implObj, "CreateVolume2"), flags, 7)
     }
 
     Dispose() {

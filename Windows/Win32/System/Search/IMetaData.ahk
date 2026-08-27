@@ -52,8 +52,10 @@ export default struct IMetaData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-imetadata-getdata
      */
     GetData(ppszKey, ppszValue) {
-        ppszKeyMarshal := ppszKey is VarRef ? "ptr*" : "ptr"
-        ppszValueMarshal := ppszValue is VarRef ? "ptr*" : "ptr"
+        ppszKeyMarshal := ppszKey is VarRef ? "ptr*" : IntPtr
+        ppszKeyMarshal := ppszKey == 0 ? IntPtr : PWSTR.Ptr
+        ppszValueMarshal := ppszValue is VarRef ? "ptr*" : IntPtr
+        ppszValueMarshal := ppszValue == 0 ? IntPtr : PWSTR.Ptr
 
         result := ComCall(3, this, ppszKeyMarshal, ppszKey, ppszValueMarshal, ppszValue, "HRESULT")
         return result
@@ -68,7 +70,7 @@ export default struct IMetaData extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetData := CallbackCreate(GetMethod(implObj, "GetData"), flags, 3)
+        this.vtbl.GetData := CallbackCreate(ObjBindMethod(implObj, "GetData"), flags, 3)
     }
 
     Dispose() {

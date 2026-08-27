@@ -20,7 +20,6 @@ export default struct alljoyn_buslistener_bus_prop_changed_ptr {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {PSTR} prop_name 
      * @param {alljoyn_msgarg} prop_value 
@@ -29,7 +28,7 @@ export default struct alljoyn_buslistener_bus_prop_changed_ptr {
     Call(_context, prop_name, prop_value) {
         prop_name := prop_name is String ? StrPtr(prop_name) : prop_name
 
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _contextMarshal, _context, "ptr", prop_name, alljoyn_msgarg, prop_value)
     }

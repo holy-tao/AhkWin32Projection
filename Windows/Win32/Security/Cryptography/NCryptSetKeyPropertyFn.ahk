@@ -22,7 +22,6 @@ export default struct NCryptSetKeyPropertyFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} _hProvider 
      * @param {NCRYPT_KEY_HANDLE} _hKey 
      * @param {PWSTR} pszProperty 

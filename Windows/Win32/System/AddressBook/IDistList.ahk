@@ -42,7 +42,6 @@ export default struct IDistList extends IMAPIContainer {
     }
 
     /**
-     * 
      * @param {Integer} cbEntryID 
      * @param {Integer} lpEntryID 
      * @param {Integer} ulCreateFlags 
@@ -54,7 +53,6 @@ export default struct IDistList extends IMAPIContainer {
     }
 
     /**
-     * 
      * @param {Pointer<SBinaryArray>} lpEntries 
      * @param {Pointer} ulUIParam 
      * @param {IMAPIProgress} lpProgress 
@@ -62,12 +60,14 @@ export default struct IDistList extends IMAPIContainer {
      * @returns {HRESULT} 
      */
     CopyEntries(lpEntries, ulUIParam, lpProgress, ulFlags) {
-        result := ComCall(20, this, SBinaryArray.Ptr, lpEntries, IntPtr, ulUIParam, "ptr", lpProgress, UInt32, ulFlags, "HRESULT")
+        ulUIParamMarshal := ulUIParam == 0 ? IntPtr : IntPtr
+        lpProgressMarshal := lpProgress == 0 ? IntPtr : "ptr"
+
+        result := ComCall(20, this, SBinaryArray.Ptr, lpEntries, ulUIParamMarshal, ulUIParam, lpProgressMarshal, lpProgress, UInt32, ulFlags, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<SBinaryArray>} lpEntries 
      * @param {Integer} ulFlags 
      * @returns {HRESULT} 
@@ -78,15 +78,16 @@ export default struct IDistList extends IMAPIContainer {
     }
 
     /**
-     * 
      * @param {Pointer<SPropTagArray>} lpPropTagArray 
      * @param {Integer} ulFlags 
      * @param {Pointer<ADRLIST>} lpAdrList 
      * @returns {FlagList} 
      */
     ResolveNames(lpPropTagArray, ulFlags, lpAdrList) {
+        lpPropTagArrayMarshal := lpPropTagArray == 0 ? IntPtr : SPropTagArray.Ptr
+
         lpFlagList := FlagList()
-        result := ComCall(22, this, SPropTagArray.Ptr, lpPropTagArray, UInt32, ulFlags, ADRLIST.Ptr, lpAdrList, FlagList.Ptr, lpFlagList, "HRESULT")
+        result := ComCall(22, this, lpPropTagArrayMarshal, lpPropTagArray, UInt32, ulFlags, ADRLIST.Ptr, lpAdrList, FlagList.Ptr, lpFlagList, "HRESULT")
         return lpFlagList
     }
 
@@ -99,10 +100,10 @@ export default struct IDistList extends IMAPIContainer {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateEntry := CallbackCreate(GetMethod(implObj, "CreateEntry"), flags, 5)
-        this.vtbl.CopyEntries := CallbackCreate(GetMethod(implObj, "CopyEntries"), flags, 5)
-        this.vtbl.DeleteEntries := CallbackCreate(GetMethod(implObj, "DeleteEntries"), flags, 3)
-        this.vtbl.ResolveNames := CallbackCreate(GetMethod(implObj, "ResolveNames"), flags, 5)
+        this.vtbl.CreateEntry := CallbackCreate(ObjBindMethod(implObj, "CreateEntry"), flags, 5)
+        this.vtbl.CopyEntries := CallbackCreate(ObjBindMethod(implObj, "CopyEntries"), flags, 5)
+        this.vtbl.DeleteEntries := CallbackCreate(ObjBindMethod(implObj, "DeleteEntries"), flags, 3)
+        this.vtbl.ResolveNames := CallbackCreate(ObjBindMethod(implObj, "ResolveNames"), flags, 5)
     }
 
     Dispose() {

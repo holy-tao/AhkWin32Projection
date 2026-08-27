@@ -21,7 +21,6 @@ export default struct PCLUSAPI_CLUSTER_CREATE_AFFINITY_RULE {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} ruleName 
      * @param {CLUS_AFFINITY_RULE_TYPE} ruleType 

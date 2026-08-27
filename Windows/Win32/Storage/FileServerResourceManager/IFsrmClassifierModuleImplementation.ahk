@@ -179,12 +179,12 @@ export default struct IFsrmClassifierModuleImplementation extends IFsrmPipelineM
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_LastModified := CallbackCreate(GetMethod(implObj, "get_LastModified"), flags, 2)
-        this.vtbl.UseRulesAndDefinitions := CallbackCreate(GetMethod(implObj, "UseRulesAndDefinitions"), flags, 3)
-        this.vtbl.OnBeginFile := CallbackCreate(GetMethod(implObj, "OnBeginFile"), flags, 3)
-        this.vtbl.DoesPropertyValueApply := CallbackCreate(GetMethod(implObj, "DoesPropertyValueApply"), flags, 6)
-        this.vtbl.GetPropertyValueToApply := CallbackCreate(GetMethod(implObj, "GetPropertyValueToApply"), flags, 5)
-        this.vtbl.OnEndFile := CallbackCreate(GetMethod(implObj, "OnEndFile"), flags, 1)
+        this.vtbl.get_LastModified := CallbackCreate(ObjBindMethod(implObj, "get_LastModified"), flags, 2)
+        this.vtbl.UseRulesAndDefinitions := CallbackCreate(ObjBindMethod(implObj, "UseRulesAndDefinitions"), flags, 3)
+        this.vtbl.OnBeginFile := CallbackCreate(ObjBindMethod(implObj, "OnBeginFile"), flags, 3)
+        this.vtbl.DoesPropertyValueApply := CallbackCreate(ObjBindMethod(implObj, "DoesPropertyValueApply"), flags, 6)
+        this.vtbl.GetPropertyValueToApply := CallbackCreate(ObjBindMethod(implObj, "GetPropertyValueToApply"), flags, 5)
+        this.vtbl.OnEndFile := CallbackCreate(ObjBindMethod(implObj, "OnEndFile"), flags, 1)
     }
 
     Dispose() {

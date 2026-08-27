@@ -54,7 +54,6 @@ export default struct ID3D12CompilerCacheSession extends ID3D12CompilerFactoryCh
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_COMPILER_CACHE_GROUP_KEY>} pGroupKey 
      * @returns {Integer} 
      */
@@ -64,7 +63,6 @@ export default struct ID3D12CompilerCacheSession extends ID3D12CompilerFactoryCh
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_COMPILER_CACHE_GROUP_KEY>} pGroupKey 
      * @param {Pointer<Integer>} pExpectedGroupVersion 
      * @param {Pointer<D3D12CompilerCacheSessionGroupValueKeysFunc>} CallbackFunc 
@@ -72,15 +70,16 @@ export default struct ID3D12CompilerCacheSession extends ID3D12CompilerFactoryCh
      * @returns {HRESULT} 
      */
     FindGroupValueKeys(pGroupKey, pExpectedGroupVersion, CallbackFunc, pContext) {
-        pExpectedGroupVersionMarshal := pExpectedGroupVersion is VarRef ? "uint*" : "ptr"
-        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+        pExpectedGroupVersionMarshal := pExpectedGroupVersion is VarRef ? "uint*" : IntPtr
+        pExpectedGroupVersionMarshal := pExpectedGroupVersion == 0 ? IntPtr : "uint*"
+        pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
+        pContextMarshal := pContext == 0 ? IntPtr : "ptr"
 
         result := ComCall(5, this, D3D12_COMPILER_CACHE_GROUP_KEY.Ptr, pGroupKey, pExpectedGroupVersionMarshal, pExpectedGroupVersion, D3D12CompilerCacheSessionGroupValueKeysFunc, CallbackFunc, pContextMarshal, pContext, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_COMPILER_CACHE_GROUP_KEY>} pGroupKey 
      * @param {Pointer<Integer>} pExpectedGroupVersion 
      * @param {D3D12_COMPILER_VALUE_TYPE_FLAGS} ValueTypeFlags 
@@ -89,15 +88,17 @@ export default struct ID3D12CompilerCacheSession extends ID3D12CompilerFactoryCh
      * @returns {HRESULT} 
      */
     FindGroupValues(pGroupKey, pExpectedGroupVersion, ValueTypeFlags, CallbackFunc, pContext) {
-        pExpectedGroupVersionMarshal := pExpectedGroupVersion is VarRef ? "uint*" : "ptr"
-        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+        pExpectedGroupVersionMarshal := pExpectedGroupVersion is VarRef ? "uint*" : IntPtr
+        pExpectedGroupVersionMarshal := pExpectedGroupVersion == 0 ? IntPtr : "uint*"
+        CallbackFuncMarshal := CallbackFunc == 0 ? IntPtr : D3D12CompilerCacheSessionGroupValuesFunc
+        pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
+        pContextMarshal := pContext == 0 ? IntPtr : "ptr"
 
-        result := ComCall(6, this, D3D12_COMPILER_CACHE_GROUP_KEY.Ptr, pGroupKey, pExpectedGroupVersionMarshal, pExpectedGroupVersion, D3D12_COMPILER_VALUE_TYPE_FLAGS, ValueTypeFlags, D3D12CompilerCacheSessionGroupValuesFunc, CallbackFunc, pContextMarshal, pContext, "HRESULT")
+        result := ComCall(6, this, D3D12_COMPILER_CACHE_GROUP_KEY.Ptr, pGroupKey, pExpectedGroupVersionMarshal, pExpectedGroupVersion, D3D12_COMPILER_VALUE_TYPE_FLAGS, ValueTypeFlags, CallbackFuncMarshal, CallbackFunc, pContextMarshal, pContext, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_COMPILER_CACHE_VALUE_KEY>} pValueKey 
      * @param {Pointer<D3D12_COMPILER_CACHE_TYPED_VALUE>} pTypedValues 
      * @param {Integer} NumTypedValues 
@@ -106,14 +107,15 @@ export default struct ID3D12CompilerCacheSession extends ID3D12CompilerFactoryCh
      * @returns {HRESULT} 
      */
     FindValue(pValueKey, pTypedValues, NumTypedValues, pCallbackFunc, pContext) {
-        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+        pCallbackFuncMarshal := pCallbackFunc == 0 ? IntPtr : D3D12CompilerCacheSessionAllocationFunc
+        pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
+        pContextMarshal := pContext == 0 ? IntPtr : "ptr"
 
-        result := ComCall(7, this, D3D12_COMPILER_CACHE_VALUE_KEY.Ptr, pValueKey, D3D12_COMPILER_CACHE_TYPED_VALUE.Ptr, pTypedValues, UInt32, NumTypedValues, D3D12CompilerCacheSessionAllocationFunc, pCallbackFunc, pContextMarshal, pContext, "HRESULT")
+        result := ComCall(7, this, D3D12_COMPILER_CACHE_VALUE_KEY.Ptr, pValueKey, D3D12_COMPILER_CACHE_TYPED_VALUE.Ptr, pTypedValues, UInt32, NumTypedValues, pCallbackFuncMarshal, pCallbackFunc, pContextMarshal, pContext, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Pointer<D3D12_APPLICATION_DESC>} 
      */
     GetApplicationDesc() {
@@ -122,7 +124,6 @@ export default struct ID3D12CompilerCacheSession extends ID3D12CompilerFactoryCh
     }
 
     /**
-     * 
      * @returns {D3D12_COMPILER_TARGET} 
      */
     GetCompilerTarget() {
@@ -131,7 +132,6 @@ export default struct ID3D12CompilerCacheSession extends ID3D12CompilerFactoryCh
     }
 
     /**
-     * 
      * @returns {D3D12_COMPILER_VALUE_TYPE_FLAGS} 
      */
     GetValueTypes() {
@@ -140,7 +140,6 @@ export default struct ID3D12CompilerCacheSession extends ID3D12CompilerFactoryCh
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_COMPILER_CACHE_GROUP_KEY>} pGroupKey 
      * @param {Integer} GroupVersion 
      * @param {Pointer<D3D12_COMPILER_CACHE_VALUE_KEY>} pValueKeys 
@@ -153,7 +152,6 @@ export default struct ID3D12CompilerCacheSession extends ID3D12CompilerFactoryCh
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_COMPILER_CACHE_VALUE_KEY>} pValueKey 
      * @param {Pointer<D3D12_COMPILER_CACHE_TYPED_CONST_VALUE>} pTypedValues 
      * @param {Integer} NumTypedValues 
@@ -173,15 +171,15 @@ export default struct ID3D12CompilerCacheSession extends ID3D12CompilerFactoryCh
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FindGroup := CallbackCreate(GetMethod(implObj, "FindGroup"), flags, 3)
-        this.vtbl.FindGroupValueKeys := CallbackCreate(GetMethod(implObj, "FindGroupValueKeys"), flags, 5)
-        this.vtbl.FindGroupValues := CallbackCreate(GetMethod(implObj, "FindGroupValues"), flags, 6)
-        this.vtbl.FindValue := CallbackCreate(GetMethod(implObj, "FindValue"), flags, 6)
-        this.vtbl.GetApplicationDesc := CallbackCreate(GetMethod(implObj, "GetApplicationDesc"), flags, 1)
-        this.vtbl.GetCompilerTarget := CallbackCreate(GetMethod(implObj, "GetCompilerTarget"), flags, 1)
-        this.vtbl.GetValueTypes := CallbackCreate(GetMethod(implObj, "GetValueTypes"), flags, 1)
-        this.vtbl.StoreGroupValueKeys := CallbackCreate(GetMethod(implObj, "StoreGroupValueKeys"), flags, 5)
-        this.vtbl.StoreValue := CallbackCreate(GetMethod(implObj, "StoreValue"), flags, 4)
+        this.vtbl.FindGroup := CallbackCreate(ObjBindMethod(implObj, "FindGroup"), flags, 3)
+        this.vtbl.FindGroupValueKeys := CallbackCreate(ObjBindMethod(implObj, "FindGroupValueKeys"), flags, 5)
+        this.vtbl.FindGroupValues := CallbackCreate(ObjBindMethod(implObj, "FindGroupValues"), flags, 6)
+        this.vtbl.FindValue := CallbackCreate(ObjBindMethod(implObj, "FindValue"), flags, 6)
+        this.vtbl.GetApplicationDesc := CallbackCreate(ObjBindMethod(implObj, "GetApplicationDesc"), flags, 1)
+        this.vtbl.GetCompilerTarget := CallbackCreate(ObjBindMethod(implObj, "GetCompilerTarget"), flags, 1)
+        this.vtbl.GetValueTypes := CallbackCreate(ObjBindMethod(implObj, "GetValueTypes"), flags, 1)
+        this.vtbl.StoreGroupValueKeys := CallbackCreate(ObjBindMethod(implObj, "StoreGroupValueKeys"), flags, 5)
+        this.vtbl.StoreValue := CallbackCreate(ObjBindMethod(implObj, "StoreValue"), flags, 4)
     }
 
     Dispose() {

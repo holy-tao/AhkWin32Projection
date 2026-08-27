@@ -125,7 +125,7 @@ export default struct IEnroll2 extends IEnroll {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll2-getsupportedkeyspec
      */
     GetSupportedKeySpec(pdwKeySpec) {
-        pdwKeySpecMarshal := pdwKeySpec is VarRef ? "int*" : "ptr"
+        pdwKeySpecMarshal := pdwKeySpec is VarRef ? "int*" : IntPtr
 
         result := ComCall(75, this, pdwKeySpecMarshal, pdwKeySpec, "HRESULT")
         return result
@@ -142,7 +142,7 @@ export default struct IEnroll2 extends IEnroll {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll2-getkeylen
      */
     GetKeyLen(fMin, fExchange, pdwKeySize) {
-        pdwKeySizeMarshal := pdwKeySize is VarRef ? "int*" : "ptr"
+        pdwKeySizeMarshal := pdwKeySize is VarRef ? "int*" : IntPtr
 
         result := ComCall(76, this, BOOL, fMin, BOOL, fExchange, pdwKeySizeMarshal, pdwKeySize, "HRESULT")
         return result
@@ -167,7 +167,7 @@ export default struct IEnroll2 extends IEnroll {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll2-enumalgs
      */
     EnumAlgs(dwIndex, algClass, pdwAlgID) {
-        pdwAlgIDMarshal := pdwAlgID is VarRef ? "int*" : "ptr"
+        pdwAlgIDMarshal := pdwAlgID is VarRef ? "int*" : IntPtr
 
         result := ComCall(77, this, Int32, dwIndex, Int32, algClass, pdwAlgIDMarshal, pdwAlgID, "HRESULT")
         return result
@@ -186,7 +186,7 @@ export default struct IEnroll2 extends IEnroll {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll2-getalgnamewstr
      */
     GetAlgNameWStr(algID, ppwsz) {
-        ppwszMarshal := ppwsz is VarRef ? "ptr*" : "ptr"
+        ppwszMarshal := ppwsz is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(78, this, Int32, algID, ppwszMarshal, ppwsz, "HRESULT")
         return result
@@ -214,7 +214,7 @@ export default struct IEnroll2 extends IEnroll {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll2-get_reusehardwarekeyifunabletogennew
      */
     get_ReuseHardwareKeyIfUnableToGenNew(fReuseHardwareKeyIfUnableToGenNew) {
-        fReuseHardwareKeyIfUnableToGenNewMarshal := fReuseHardwareKeyIfUnableToGenNew is VarRef ? "int*" : "ptr"
+        fReuseHardwareKeyIfUnableToGenNewMarshal := fReuseHardwareKeyIfUnableToGenNew is VarRef ? "int*" : IntPtr
 
         result := ComCall(80, this, fReuseHardwareKeyIfUnableToGenNewMarshal, fReuseHardwareKeyIfUnableToGenNew, "HRESULT")
         return result
@@ -246,7 +246,7 @@ export default struct IEnroll2 extends IEnroll {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll2-get_hashalgid
      */
     get_HashAlgID(hashAlgID) {
-        hashAlgIDMarshal := hashAlgID is VarRef ? "int*" : "ptr"
+        hashAlgIDMarshal := hashAlgID is VarRef ? "int*" : IntPtr
 
         result := ComCall(82, this, hashAlgIDMarshal, hashAlgID, "HRESULT")
         return result
@@ -356,7 +356,7 @@ export default struct IEnroll2 extends IEnroll {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll2-get_limitexchangekeytoencipherment
      */
     get_LimitExchangeKeyToEncipherment(fLimitExchangeKeyToEncipherment) {
-        fLimitExchangeKeyToEnciphermentMarshal := fLimitExchangeKeyToEncipherment is VarRef ? "int*" : "ptr"
+        fLimitExchangeKeyToEnciphermentMarshal := fLimitExchangeKeyToEncipherment is VarRef ? "int*" : IntPtr
 
         result := ComCall(88, this, fLimitExchangeKeyToEnciphermentMarshal, fLimitExchangeKeyToEncipherment, "HRESULT")
         return result
@@ -380,7 +380,7 @@ export default struct IEnroll2 extends IEnroll {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll2-get_enablesmimecapabilities
      */
     get_EnableSMIMECapabilities(fEnableSMIMECapabilities) {
-        fEnableSMIMECapabilitiesMarshal := fEnableSMIMECapabilities is VarRef ? "int*" : "ptr"
+        fEnableSMIMECapabilitiesMarshal := fEnableSMIMECapabilities is VarRef ? "int*" : IntPtr
 
         result := ComCall(90, this, fEnableSMIMECapabilitiesMarshal, fEnableSMIMECapabilities, "HRESULT")
         return result
@@ -395,24 +395,24 @@ export default struct IEnroll2 extends IEnroll {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InstallPKCS7Blob := CallbackCreate(GetMethod(implObj, "InstallPKCS7Blob"), flags, 2)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.GetSupportedKeySpec := CallbackCreate(GetMethod(implObj, "GetSupportedKeySpec"), flags, 2)
-        this.vtbl.GetKeyLen := CallbackCreate(GetMethod(implObj, "GetKeyLen"), flags, 4)
-        this.vtbl.EnumAlgs := CallbackCreate(GetMethod(implObj, "EnumAlgs"), flags, 4)
-        this.vtbl.GetAlgNameWStr := CallbackCreate(GetMethod(implObj, "GetAlgNameWStr"), flags, 3)
-        this.vtbl.put_ReuseHardwareKeyIfUnableToGenNew := CallbackCreate(GetMethod(implObj, "put_ReuseHardwareKeyIfUnableToGenNew"), flags, 2)
-        this.vtbl.get_ReuseHardwareKeyIfUnableToGenNew := CallbackCreate(GetMethod(implObj, "get_ReuseHardwareKeyIfUnableToGenNew"), flags, 2)
-        this.vtbl.put_HashAlgID := CallbackCreate(GetMethod(implObj, "put_HashAlgID"), flags, 2)
-        this.vtbl.get_HashAlgID := CallbackCreate(GetMethod(implObj, "get_HashAlgID"), flags, 2)
-        this.vtbl.SetHStoreMy := CallbackCreate(GetMethod(implObj, "SetHStoreMy"), flags, 2)
-        this.vtbl.SetHStoreCA := CallbackCreate(GetMethod(implObj, "SetHStoreCA"), flags, 2)
-        this.vtbl.SetHStoreROOT := CallbackCreate(GetMethod(implObj, "SetHStoreROOT"), flags, 2)
-        this.vtbl.SetHStoreRequest := CallbackCreate(GetMethod(implObj, "SetHStoreRequest"), flags, 2)
-        this.vtbl.put_LimitExchangeKeyToEncipherment := CallbackCreate(GetMethod(implObj, "put_LimitExchangeKeyToEncipherment"), flags, 2)
-        this.vtbl.get_LimitExchangeKeyToEncipherment := CallbackCreate(GetMethod(implObj, "get_LimitExchangeKeyToEncipherment"), flags, 2)
-        this.vtbl.put_EnableSMIMECapabilities := CallbackCreate(GetMethod(implObj, "put_EnableSMIMECapabilities"), flags, 2)
-        this.vtbl.get_EnableSMIMECapabilities := CallbackCreate(GetMethod(implObj, "get_EnableSMIMECapabilities"), flags, 2)
+        this.vtbl.InstallPKCS7Blob := CallbackCreate(ObjBindMethod(implObj, "InstallPKCS7Blob"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.GetSupportedKeySpec := CallbackCreate(ObjBindMethod(implObj, "GetSupportedKeySpec"), flags, 2)
+        this.vtbl.GetKeyLen := CallbackCreate(ObjBindMethod(implObj, "GetKeyLen"), flags, 4)
+        this.vtbl.EnumAlgs := CallbackCreate(ObjBindMethod(implObj, "EnumAlgs"), flags, 4)
+        this.vtbl.GetAlgNameWStr := CallbackCreate(ObjBindMethod(implObj, "GetAlgNameWStr"), flags, 3)
+        this.vtbl.put_ReuseHardwareKeyIfUnableToGenNew := CallbackCreate(ObjBindMethod(implObj, "put_ReuseHardwareKeyIfUnableToGenNew"), flags, 2)
+        this.vtbl.get_ReuseHardwareKeyIfUnableToGenNew := CallbackCreate(ObjBindMethod(implObj, "get_ReuseHardwareKeyIfUnableToGenNew"), flags, 2)
+        this.vtbl.put_HashAlgID := CallbackCreate(ObjBindMethod(implObj, "put_HashAlgID"), flags, 2)
+        this.vtbl.get_HashAlgID := CallbackCreate(ObjBindMethod(implObj, "get_HashAlgID"), flags, 2)
+        this.vtbl.SetHStoreMy := CallbackCreate(ObjBindMethod(implObj, "SetHStoreMy"), flags, 2)
+        this.vtbl.SetHStoreCA := CallbackCreate(ObjBindMethod(implObj, "SetHStoreCA"), flags, 2)
+        this.vtbl.SetHStoreROOT := CallbackCreate(ObjBindMethod(implObj, "SetHStoreROOT"), flags, 2)
+        this.vtbl.SetHStoreRequest := CallbackCreate(ObjBindMethod(implObj, "SetHStoreRequest"), flags, 2)
+        this.vtbl.put_LimitExchangeKeyToEncipherment := CallbackCreate(ObjBindMethod(implObj, "put_LimitExchangeKeyToEncipherment"), flags, 2)
+        this.vtbl.get_LimitExchangeKeyToEncipherment := CallbackCreate(ObjBindMethod(implObj, "get_LimitExchangeKeyToEncipherment"), flags, 2)
+        this.vtbl.put_EnableSMIMECapabilities := CallbackCreate(ObjBindMethod(implObj, "put_EnableSMIMECapabilities"), flags, 2)
+        this.vtbl.get_EnableSMIMECapabilities := CallbackCreate(ObjBindMethod(implObj, "get_EnableSMIMECapabilities"), flags, 2)
     }
 
     Dispose() {

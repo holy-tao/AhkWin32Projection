@@ -18,13 +18,12 @@ export default struct PSERENUM_WRITEPORT {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} SerPortAddress 
      * @param {Integer} Value 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(SerPortAddress, Value) {
-        SerPortAddressMarshal := SerPortAddress is VarRef ? "ptr" : "ptr"
+        SerPortAddressMarshal := SerPortAddress is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, SerPortAddressMarshal, SerPortAddress, Int8, Value)
     }

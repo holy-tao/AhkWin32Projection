@@ -122,11 +122,11 @@ export default struct IServiceTransactionConfigBase extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ConfigureTransaction := CallbackCreate(GetMethod(implObj, "ConfigureTransaction"), flags, 2)
-        this.vtbl.IsolationLevel := CallbackCreate(GetMethod(implObj, "IsolationLevel"), flags, 2)
-        this.vtbl.TransactionTimeout := CallbackCreate(GetMethod(implObj, "TransactionTimeout"), flags, 2)
-        this.vtbl.BringYourOwnTransaction := CallbackCreate(GetMethod(implObj, "BringYourOwnTransaction"), flags, 2)
-        this.vtbl.NewTransactionDescription := CallbackCreate(GetMethod(implObj, "NewTransactionDescription"), flags, 2)
+        this.vtbl.ConfigureTransaction := CallbackCreate(ObjBindMethod(implObj, "ConfigureTransaction"), flags, 2)
+        this.vtbl.IsolationLevel := CallbackCreate(ObjBindMethod(implObj, "IsolationLevel"), flags, 2)
+        this.vtbl.TransactionTimeout := CallbackCreate(ObjBindMethod(implObj, "TransactionTimeout"), flags, 2)
+        this.vtbl.BringYourOwnTransaction := CallbackCreate(ObjBindMethod(implObj, "BringYourOwnTransaction"), flags, 2)
+        this.vtbl.NewTransactionDescription := CallbackCreate(ObjBindMethod(implObj, "NewTransactionDescription"), flags, 2)
     }
 
     Dispose() {

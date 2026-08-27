@@ -20,7 +20,6 @@ export default struct KspInitPackageFn {
     }
 
     /**
-     * 
      * @param {Pointer<SECPKG_KERNEL_FUNCTIONS>} FunctionTable 
      * @returns {NTSTATUS} 
      */

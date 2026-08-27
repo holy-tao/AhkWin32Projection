@@ -19,7 +19,6 @@ export default struct FNCERTSRVBACKUPREAD {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hbc 
      * @param {Pointer<Void>} pvBuffer 
      * @param {Integer} cbBuffer 
@@ -27,9 +26,9 @@ export default struct FNCERTSRVBACKUPREAD {
      * @returns {HRESULT} 
      */
     Call(hbc, pvBuffer, cbBuffer, pcbRead) {
-        hbcMarshal := hbc is VarRef ? "ptr" : "ptr"
-        pvBufferMarshal := pvBuffer is VarRef ? "ptr" : "ptr"
-        pcbReadMarshal := pcbRead is VarRef ? "uint*" : "ptr"
+        hbcMarshal := hbc is VarRef ? "ptr" : IntPtr
+        pvBufferMarshal := pvBuffer is VarRef ? "ptr" : IntPtr
+        pcbReadMarshal := pcbRead is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, hbcMarshal, hbc, pvBufferMarshal, pvBuffer, UInt32, cbBuffer, pcbReadMarshal, pcbRead, "HRESULT")
         return result

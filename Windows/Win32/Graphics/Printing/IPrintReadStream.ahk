@@ -38,7 +38,6 @@ export default struct IPrintReadStream extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dlibMove 
      * @param {Integer} dwOrigin 
      * @returns {Integer} 
@@ -49,7 +48,6 @@ export default struct IPrintReadStream extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pvBuffer 
      * @param {Integer} cbRequested 
      * @param {Pointer<Integer>} pcbRead 
@@ -57,8 +55,8 @@ export default struct IPrintReadStream extends IUnknown {
      * @returns {HRESULT} 
      */
     ReadBytes(pvBuffer, cbRequested, pcbRead, pbEndOfFile) {
-        pcbReadMarshal := pcbRead is VarRef ? "uint*" : "ptr"
-        pbEndOfFileMarshal := pbEndOfFile is VarRef ? "int*" : "ptr"
+        pcbReadMarshal := pcbRead is VarRef ? "uint*" : IntPtr
+        pbEndOfFileMarshal := pbEndOfFile is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, IntPtr, pvBuffer, UInt32, cbRequested, pcbReadMarshal, pcbRead, pbEndOfFileMarshal, pbEndOfFile, "HRESULT")
         return result
@@ -73,8 +71,8 @@ export default struct IPrintReadStream extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Seek := CallbackCreate(GetMethod(implObj, "Seek"), flags, 4)
-        this.vtbl.ReadBytes := CallbackCreate(GetMethod(implObj, "ReadBytes"), flags, 5)
+        this.vtbl.Seek := CallbackCreate(ObjBindMethod(implObj, "Seek"), flags, 4)
+        this.vtbl.ReadBytes := CallbackCreate(ObjBindMethod(implObj, "ReadBytes"), flags, 5)
     }
 
     Dispose() {

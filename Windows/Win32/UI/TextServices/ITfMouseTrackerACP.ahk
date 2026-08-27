@@ -107,8 +107,8 @@ export default struct ITfMouseTrackerACP extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AdviseMouseSink := CallbackCreate(GetMethod(implObj, "AdviseMouseSink"), flags, 4)
-        this.vtbl.UnadviseMouseSink := CallbackCreate(GetMethod(implObj, "UnadviseMouseSink"), flags, 2)
+        this.vtbl.AdviseMouseSink := CallbackCreate(ObjBindMethod(implObj, "AdviseMouseSink"), flags, 4)
+        this.vtbl.UnadviseMouseSink := CallbackCreate(ObjBindMethod(implObj, "UnadviseMouseSink"), flags, 2)
     }
 
     Dispose() {

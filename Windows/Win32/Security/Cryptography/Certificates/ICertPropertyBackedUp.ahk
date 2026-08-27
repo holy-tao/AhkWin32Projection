@@ -193,10 +193,10 @@ export default struct ICertPropertyBackedUp extends ICertProperty {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeFromCurrentTime := CallbackCreate(GetMethod(implObj, "InitializeFromCurrentTime"), flags, 2)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.get_BackedUpValue := CallbackCreate(GetMethod(implObj, "get_BackedUpValue"), flags, 2)
-        this.vtbl.get_BackedUpTime := CallbackCreate(GetMethod(implObj, "get_BackedUpTime"), flags, 2)
+        this.vtbl.InitializeFromCurrentTime := CallbackCreate(ObjBindMethod(implObj, "InitializeFromCurrentTime"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.get_BackedUpValue := CallbackCreate(ObjBindMethod(implObj, "get_BackedUpValue"), flags, 2)
+        this.vtbl.get_BackedUpTime := CallbackCreate(ObjBindMethod(implObj, "get_BackedUpTime"), flags, 2)
     }
 
     Dispose() {

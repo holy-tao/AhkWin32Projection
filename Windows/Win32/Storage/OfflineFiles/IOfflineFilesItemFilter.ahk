@@ -76,8 +76,8 @@ export default struct IOfflineFilesItemFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesitemfilter-getfilterflags
      */
     GetFilterFlags(pullFlags, pullMask) {
-        pullFlagsMarshal := pullFlags is VarRef ? "uint*" : "ptr"
-        pullMaskMarshal := pullMask is VarRef ? "uint*" : "ptr"
+        pullFlagsMarshal := pullFlags is VarRef ? "uint*" : IntPtr
+        pullMaskMarshal := pullMask is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pullFlagsMarshal, pullFlags, pullMaskMarshal, pullMask, "HRESULT")
         return result
@@ -107,9 +107,9 @@ export default struct IOfflineFilesItemFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesitemfilter-gettimefilter
      */
     GetTimeFilter(pftTime, pbEvalTimeOfDay, pTimeType, pCompare) {
-        pbEvalTimeOfDayMarshal := pbEvalTimeOfDay is VarRef ? "int*" : "ptr"
-        pTimeTypeMarshal := pTimeType is VarRef ? "int*" : "ptr"
-        pCompareMarshal := pCompare is VarRef ? "int*" : "ptr"
+        pbEvalTimeOfDayMarshal := pbEvalTimeOfDay is VarRef ? "int*" : IntPtr
+        pTimeTypeMarshal := pTimeType is VarRef ? "int*" : IntPtr
+        pCompareMarshal := pCompare is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, FILETIME.Ptr, pftTime, pbEvalTimeOfDayMarshal, pbEvalTimeOfDay, pTimeTypeMarshal, pTimeType, pCompareMarshal, pCompare, "HRESULT")
         return result
@@ -152,9 +152,9 @@ export default struct IOfflineFilesItemFilter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFilterFlags := CallbackCreate(GetMethod(implObj, "GetFilterFlags"), flags, 3)
-        this.vtbl.GetTimeFilter := CallbackCreate(GetMethod(implObj, "GetTimeFilter"), flags, 5)
-        this.vtbl.GetPatternFilter := CallbackCreate(GetMethod(implObj, "GetPatternFilter"), flags, 3)
+        this.vtbl.GetFilterFlags := CallbackCreate(ObjBindMethod(implObj, "GetFilterFlags"), flags, 3)
+        this.vtbl.GetTimeFilter := CallbackCreate(ObjBindMethod(implObj, "GetTimeFilter"), flags, 5)
+        this.vtbl.GetPatternFilter := CallbackCreate(ObjBindMethod(implObj, "GetPatternFilter"), flags, 3)
     }
 
     Dispose() {

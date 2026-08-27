@@ -231,7 +231,10 @@
  * @since windows5.1.2600
  */
 export CallNtPowerInformation(InformationLevel, InputBuffer, InputBufferLength, OutputBuffer, OutputBufferLength) {
-    result := DllCall("POWRPROF.dll\CallNtPowerInformation", POWER_INFORMATION_LEVEL, InformationLevel, IntPtr, InputBuffer, UInt32, InputBufferLength, IntPtr, OutputBuffer, UInt32, OutputBufferLength, NTSTATUS)
+    InputBufferMarshal := InputBuffer == 0 ? IntPtr : IntPtr
+    OutputBufferMarshal := OutputBuffer == 0 ? IntPtr : IntPtr
+
+    result := DllCall("POWRPROF.dll\CallNtPowerInformation", POWER_INFORMATION_LEVEL, InformationLevel, InputBufferMarshal, InputBuffer, UInt32, InputBufferLength, OutputBufferMarshal, OutputBuffer, UInt32, OutputBufferLength, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -294,7 +297,7 @@ export PowerDeterminePlatformRoleEx(_Version) {
  * @since windows8.0
  */
 export PowerRegisterSuspendResumeNotification(Flags, Recipient, RegistrationHandle) {
-    RegistrationHandleMarshal := RegistrationHandle is VarRef ? "ptr*" : "ptr"
+    RegistrationHandleMarshal := RegistrationHandle is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("POWRPROF.dll\PowerRegisterSuspendResumeNotification", REGISTER_NOTIFICATION_FLAGS, Flags, HANDLE, Recipient, RegistrationHandleMarshal, RegistrationHandle, WIN32_ERROR)
     return result
@@ -339,10 +342,17 @@ export PowerUnregisterSuspendResumeNotification(RegistrationHandle) {
  * @since windows6.0.6000
  */
 export PowerReadACValue(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Type, _Buffer, BufferSize) {
-    TypeMarshal := Type is VarRef ? "uint*" : "ptr"
-    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
+    RootPowerKeyMarshal := RootPowerKey == 0 ? IntPtr : HKEY
+    SchemeGuidMarshal := SchemeGuid == 0 ? IntPtr : Guid.Ptr
+    SubGroupOfPowerSettingsGuidMarshal := SubGroupOfPowerSettingsGuid == 0 ? IntPtr : Guid.Ptr
+    PowerSettingGuidMarshal := PowerSettingGuid == 0 ? IntPtr : Guid.Ptr
+    TypeMarshal := Type is VarRef ? "uint*" : IntPtr
+    TypeMarshal := Type == 0 ? IntPtr : "uint*"
+    _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : IntPtr
+    BufferSizeMarshal := BufferSize == 0 ? IntPtr : "uint*"
 
-    result := DllCall("POWRPROF.dll\PowerReadACValue", HKEY, RootPowerKey, Guid.Ptr, SchemeGuid, Guid.Ptr, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, TypeMarshal, Type, IntPtr, _Buffer, BufferSizeMarshal, BufferSize, WIN32_ERROR)
+    result := DllCall("POWRPROF.dll\PowerReadACValue", RootPowerKeyMarshal, RootPowerKey, SchemeGuidMarshal, SchemeGuid, SubGroupOfPowerSettingsGuidMarshal, SubGroupOfPowerSettingsGuid, PowerSettingGuidMarshal, PowerSettingGuid, TypeMarshal, Type, _BufferMarshal, _Buffer, BufferSizeMarshal, BufferSize, WIN32_ERROR)
     return result
 }
 
@@ -373,10 +383,16 @@ export PowerReadACValue(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, P
  * @since windows6.0.6000
  */
 export PowerReadDCValue(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Type, _Buffer, BufferSize) {
-    TypeMarshal := Type is VarRef ? "uint*" : "ptr"
-    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
+    RootPowerKeyMarshal := RootPowerKey == 0 ? IntPtr : HKEY
+    SchemeGuidMarshal := SchemeGuid == 0 ? IntPtr : Guid.Ptr
+    SubGroupOfPowerSettingsGuidMarshal := SubGroupOfPowerSettingsGuid == 0 ? IntPtr : Guid.Ptr
+    PowerSettingGuidMarshal := PowerSettingGuid == 0 ? IntPtr : Guid.Ptr
+    TypeMarshal := Type is VarRef ? "uint*" : IntPtr
+    TypeMarshal := Type == 0 ? IntPtr : "uint*"
+    _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("POWRPROF.dll\PowerReadDCValue", HKEY, RootPowerKey, Guid.Ptr, SchemeGuid, Guid.Ptr, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, TypeMarshal, Type, IntPtr, _Buffer, BufferSizeMarshal, BufferSize, WIN32_ERROR)
+    result := DllCall("POWRPROF.dll\PowerReadDCValue", RootPowerKeyMarshal, RootPowerKey, SchemeGuidMarshal, SchemeGuid, SubGroupOfPowerSettingsGuidMarshal, SubGroupOfPowerSettingsGuid, PowerSettingGuidMarshal, PowerSettingGuid, TypeMarshal, Type, _BufferMarshal, _Buffer, BufferSizeMarshal, BufferSize, WIN32_ERROR)
     return result
 }
 
@@ -396,7 +412,11 @@ export PowerReadDCValue(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, P
  * @since windows6.0.6000
  */
 export PowerWriteACValueIndex(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, AcValueIndex) {
-    result := DllCall("POWRPROF.dll\PowerWriteACValueIndex", HKEY, RootPowerKey, Guid.Ptr, SchemeGuid, Guid.Ptr, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, UInt32, AcValueIndex, WIN32_ERROR)
+    RootPowerKeyMarshal := RootPowerKey == 0 ? IntPtr : HKEY
+    SubGroupOfPowerSettingsGuidMarshal := SubGroupOfPowerSettingsGuid == 0 ? IntPtr : Guid.Ptr
+    PowerSettingGuidMarshal := PowerSettingGuid == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("POWRPROF.dll\PowerWriteACValueIndex", RootPowerKeyMarshal, RootPowerKey, Guid.Ptr, SchemeGuid, SubGroupOfPowerSettingsGuidMarshal, SubGroupOfPowerSettingsGuid, PowerSettingGuidMarshal, PowerSettingGuid, UInt32, AcValueIndex, WIN32_ERROR)
     return result
 }
 
@@ -416,7 +436,11 @@ export PowerWriteACValueIndex(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsG
  * @since windows6.0.6000
  */
 export PowerWriteDCValueIndex(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, DcValueIndex) {
-    result := DllCall("POWRPROF.dll\PowerWriteDCValueIndex", HKEY, RootPowerKey, Guid.Ptr, SchemeGuid, Guid.Ptr, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, UInt32, DcValueIndex, UInt32)
+    RootPowerKeyMarshal := RootPowerKey == 0 ? IntPtr : HKEY
+    SubGroupOfPowerSettingsGuidMarshal := SubGroupOfPowerSettingsGuid == 0 ? IntPtr : Guid.Ptr
+    PowerSettingGuidMarshal := PowerSettingGuid == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("POWRPROF.dll\PowerWriteDCValueIndex", RootPowerKeyMarshal, RootPowerKey, Guid.Ptr, SchemeGuid, SubGroupOfPowerSettingsGuidMarshal, SubGroupOfPowerSettingsGuid, PowerSettingGuidMarshal, PowerSettingGuid, UInt32, DcValueIndex, UInt32)
     return result
 }
 
@@ -431,9 +455,10 @@ export PowerWriteDCValueIndex(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsG
  * @since windows6.0.6000
  */
 export PowerGetActiveScheme(UserRootPowerKey, ActivePolicyGuid) {
-    ActivePolicyGuidMarshal := ActivePolicyGuid is VarRef ? "ptr*" : "ptr"
+    UserRootPowerKeyMarshal := UserRootPowerKey == 0 ? IntPtr : HKEY
+    ActivePolicyGuidMarshal := ActivePolicyGuid is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("POWRPROF.dll\PowerGetActiveScheme", HKEY, UserRootPowerKey, ActivePolicyGuidMarshal, ActivePolicyGuid, WIN32_ERROR)
+    result := DllCall("POWRPROF.dll\PowerGetActiveScheme", UserRootPowerKeyMarshal, UserRootPowerKey, ActivePolicyGuidMarshal, ActivePolicyGuid, WIN32_ERROR)
     return result
 }
 
@@ -447,7 +472,10 @@ export PowerGetActiveScheme(UserRootPowerKey, ActivePolicyGuid) {
  * @since windows6.0.6000
  */
 export PowerSetActiveScheme(UserRootPowerKey, SchemeGuid) {
-    result := DllCall("POWRPROF.dll\PowerSetActiveScheme", HKEY, UserRootPowerKey, Guid.Ptr, SchemeGuid, WIN32_ERROR)
+    UserRootPowerKeyMarshal := UserRootPowerKey == 0 ? IntPtr : HKEY
+    SchemeGuidMarshal := SchemeGuid == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("POWRPROF.dll\PowerSetActiveScheme", UserRootPowerKeyMarshal, UserRootPowerKey, SchemeGuidMarshal, SchemeGuid, WIN32_ERROR)
     return result
 }
 
@@ -464,7 +492,7 @@ export PowerSetActiveScheme(UserRootPowerKey, SchemeGuid) {
  * @since windows6.1
  */
 export PowerSettingRegisterNotification(SettingGuid, Flags, Recipient, RegistrationHandle) {
-    RegistrationHandleMarshal := RegistrationHandle is VarRef ? "ptr*" : "ptr"
+    RegistrationHandleMarshal := RegistrationHandle is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("POWRPROF.dll\PowerSettingRegisterNotification", Guid.Ptr, SettingGuid, REGISTER_NOTIFICATION_FLAGS, Flags, HANDLE, Recipient, RegistrationHandleMarshal, RegistrationHandle, WIN32_ERROR)
     return result
@@ -498,7 +526,8 @@ export PowerSettingUnregisterNotification(RegistrationHandle) {
  * @since windows10.0.17763
  */
 export PowerRegisterForEffectivePowerModeNotifications(_Version, Callback, _Context) {
-    _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+    _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+    _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
     result := DllCall("POWRPROF.dll\PowerRegisterForEffectivePowerModeNotifications", UInt32, _Version, EFFECTIVE_POWER_MODE_CALLBACK, Callback, _ContextMarshal, _Context, "ptr*", &RegistrationHandle := 0, "HRESULT")
     return RegistrationHandle
@@ -514,7 +543,7 @@ export PowerRegisterForEffectivePowerModeNotifications(_Version, Callback, _Cont
  * @since windows10.0.17763
  */
 export PowerUnregisterFromEffectivePowerModeNotifications(RegistrationHandle) {
-    RegistrationHandleMarshal := RegistrationHandle is VarRef ? "ptr" : "ptr"
+    RegistrationHandleMarshal := RegistrationHandle is VarRef ? "ptr" : IntPtr
 
     result := DllCall("POWRPROF.dll\PowerUnregisterFromEffectivePowerModeNotifications", RegistrationHandleMarshal, RegistrationHandle, "HRESULT")
     return result
@@ -536,8 +565,8 @@ export PowerUnregisterFromEffectivePowerModeNotifications(RegistrationHandle) {
  * @since windows5.1.2600
  */
 export GetPwrDiskSpindownRange(puiMax, puiMin) {
-    puiMaxMarshal := puiMax is VarRef ? "uint*" : "ptr"
-    puiMinMarshal := puiMin is VarRef ? "uint*" : "ptr"
+    puiMaxMarshal := puiMax is VarRef ? "uint*" : IntPtr
+    puiMinMarshal := puiMin is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -681,11 +710,12 @@ export WritePwrScheme(puiID, lpszSchemeName, lpszDescription, lpScheme) {
     lpszSchemeName := lpszSchemeName is String ? StrPtr(lpszSchemeName) : lpszSchemeName
     lpszDescription := lpszDescription is String ? StrPtr(lpszDescription) : lpszDescription
 
-    puiIDMarshal := puiID is VarRef ? "uint*" : "ptr"
+    puiIDMarshal := puiID is VarRef ? "uint*" : IntPtr
+    lpszDescriptionMarshal := lpszDescription == 0 ? IntPtr : PWSTR
 
     A_LastError := 0
 
-    result := DllCall("POWRPROF.dll\WritePwrScheme", puiIDMarshal, puiID, "ptr", lpszSchemeName, "ptr", lpszDescription, POWER_POLICY.Ptr, lpScheme, BOOLEAN)
+    result := DllCall("POWRPROF.dll\WritePwrScheme", puiIDMarshal, puiID, "ptr", lpszSchemeName, lpszDescriptionMarshal, lpszDescription, POWER_POLICY.Ptr, lpScheme, BOOLEAN)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -763,7 +793,7 @@ export DeletePwrScheme(uiID) {
  * @since windows5.1.2600
  */
 export GetActivePwrScheme(puiID) {
-    puiIDMarshal := puiID is VarRef ? "uint*" : "ptr"
+    puiIDMarshal := puiID is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -801,9 +831,12 @@ export GetActivePwrScheme(puiID) {
  * @since windows5.1.2600
  */
 export SetActivePwrScheme(uiID, pGlobalPowerPolicy, pPowerPolicy) {
+    pGlobalPowerPolicyMarshal := pGlobalPowerPolicy == 0 ? IntPtr : GLOBAL_POWER_POLICY.Ptr
+    pPowerPolicyMarshal := pPowerPolicy == 0 ? IntPtr : POWER_POLICY.Ptr
+
     A_LastError := 0
 
-    result := DllCall("POWRPROF.dll\SetActivePwrScheme", UInt32, uiID, GLOBAL_POWER_POLICY.Ptr, pGlobalPowerPolicy, POWER_POLICY.Ptr, pPowerPolicy, BOOLEAN)
+    result := DllCall("POWRPROF.dll\SetActivePwrScheme", UInt32, uiID, pGlobalPowerPolicyMarshal, pGlobalPowerPolicy, pPowerPolicyMarshal, pPowerPolicy, BOOLEAN)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -865,7 +898,6 @@ export IsPwrShutdownAllowed() {
 }
 
 /**
- * 
  * @param {Pointer<ADMINISTRATOR_POWER_POLICY>} papp 
  * @returns {BOOLEAN} 
  */
@@ -1046,13 +1078,15 @@ export WriteProcessorPwrScheme(uiID, pMachineProcessorPowerPolicy) {
 }
 
 /**
- * 
  * @param {Pointer<GLOBAL_POWER_POLICY>} pGlobalPowerPolicy 
  * @param {Pointer<POWER_POLICY>} pPowerPolicy 
  * @returns {BOOLEAN} 
  */
 export ValidatePowerPolicies(pGlobalPowerPolicy, pPowerPolicy) {
-    result := DllCall("POWRPROF.dll\ValidatePowerPolicies", GLOBAL_POWER_POLICY.Ptr, pGlobalPowerPolicy, POWER_POLICY.Ptr, pPowerPolicy, BOOLEAN)
+    pGlobalPowerPolicyMarshal := pGlobalPowerPolicy == 0 ? IntPtr : GLOBAL_POWER_POLICY.Ptr
+    pPowerPolicyMarshal := pPowerPolicy == 0 ? IntPtr : POWER_POLICY.Ptr
+
+    result := DllCall("POWRPROF.dll\ValidatePowerPolicies", pGlobalPowerPolicyMarshal, pGlobalPowerPolicy, pPowerPolicyMarshal, pPowerPolicy, BOOLEAN)
     return result
 }
 
@@ -1067,7 +1101,10 @@ export ValidatePowerPolicies(pGlobalPowerPolicy, pPowerPolicy) {
  * @since windows6.1
  */
 export PowerIsSettingRangeDefined(SubKeyGuid, SettingGuid) {
-    result := DllCall("POWRPROF.dll\PowerIsSettingRangeDefined", Guid.Ptr, SubKeyGuid, Guid.Ptr, SettingGuid, BOOLEAN)
+    SubKeyGuidMarshal := SubKeyGuid == 0 ? IntPtr : Guid.Ptr
+    SettingGuidMarshal := SettingGuid == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("POWRPROF.dll\PowerIsSettingRangeDefined", SubKeyGuidMarshal, SubKeyGuid, SettingGuidMarshal, SettingGuid, BOOLEAN)
     return result
 }
 
@@ -1187,7 +1224,9 @@ export PowerIsSettingRangeDefined(SubKeyGuid, SettingGuid) {
  * @since windows6.1
  */
 export PowerSettingAccessCheckEx(AccessFlags, PowerGuid, AccessType) {
-    result := DllCall("POWRPROF.dll\PowerSettingAccessCheckEx", POWER_DATA_ACCESSOR, AccessFlags, Guid.Ptr, PowerGuid, REG_SAM_FLAGS, AccessType, WIN32_ERROR)
+    PowerGuidMarshal := PowerGuid == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("POWRPROF.dll\PowerSettingAccessCheckEx", POWER_DATA_ACCESSOR, AccessFlags, PowerGuidMarshal, PowerGuid, REG_SAM_FLAGS, AccessType, WIN32_ERROR)
     return result
 }
 
@@ -1306,12 +1345,13 @@ export PowerSettingAccessCheckEx(AccessFlags, PowerGuid, AccessType) {
  * @since windows6.0.6000
  */
 export PowerSettingAccessCheck(AccessFlags, PowerGuid) {
-    result := DllCall("POWRPROF.dll\PowerSettingAccessCheck", POWER_DATA_ACCESSOR, AccessFlags, Guid.Ptr, PowerGuid, WIN32_ERROR)
+    PowerGuidMarshal := PowerGuid == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("POWRPROF.dll\PowerSettingAccessCheck", POWER_DATA_ACCESSOR, AccessFlags, PowerGuidMarshal, PowerGuid, WIN32_ERROR)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Guid>} PowerModeGuid 
  * @returns {Integer} 
  */
@@ -1321,7 +1361,6 @@ export PowerGetUserConfiguredACPowerMode(PowerModeGuid) {
 }
 
 /**
- * 
  * @param {Pointer<Guid>} PowerModeGuid 
  * @returns {Integer} 
  */
@@ -1331,7 +1370,6 @@ export PowerGetUserConfiguredDCPowerMode(PowerModeGuid) {
 }
 
 /**
- * 
  * @param {Pointer<Guid>} PowerModeGuid 
  * @returns {Integer} 
  */
@@ -1341,7 +1379,6 @@ export PowerSetUserConfiguredACPowerMode(PowerModeGuid) {
 }
 
 /**
- * 
  * @param {Pointer<Guid>} PowerModeGuid 
  * @returns {Integer} 
  */
@@ -1363,9 +1400,13 @@ export PowerSetUserConfiguredDCPowerMode(PowerModeGuid) {
  * @since windows6.0.6000
  */
 export PowerReadACValueIndex(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, AcValueIndex) {
-    AcValueIndexMarshal := AcValueIndex is VarRef ? "uint*" : "ptr"
+    RootPowerKeyMarshal := RootPowerKey == 0 ? IntPtr : HKEY
+    SchemeGuidMarshal := SchemeGuid == 0 ? IntPtr : Guid.Ptr
+    SubGroupOfPowerSettingsGuidMarshal := SubGroupOfPowerSettingsGuid == 0 ? IntPtr : Guid.Ptr
+    PowerSettingGuidMarshal := PowerSettingGuid == 0 ? IntPtr : Guid.Ptr
+    AcValueIndexMarshal := AcValueIndex is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("POWRPROF.dll\PowerReadACValueIndex", HKEY, RootPowerKey, Guid.Ptr, SchemeGuid, Guid.Ptr, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, AcValueIndexMarshal, AcValueIndex, WIN32_ERROR)
+    result := DllCall("POWRPROF.dll\PowerReadACValueIndex", RootPowerKeyMarshal, RootPowerKey, SchemeGuidMarshal, SchemeGuid, SubGroupOfPowerSettingsGuidMarshal, SubGroupOfPowerSettingsGuid, PowerSettingGuidMarshal, PowerSettingGuid, AcValueIndexMarshal, AcValueIndex, WIN32_ERROR)
     return result
 }
 
@@ -1483,9 +1524,13 @@ export PowerReadACValueIndex(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGu
  * @since windows6.0.6000
  */
 export PowerReadDCValueIndex(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, DcValueIndex) {
-    DcValueIndexMarshal := DcValueIndex is VarRef ? "uint*" : "ptr"
+    RootPowerKeyMarshal := RootPowerKey == 0 ? IntPtr : HKEY
+    SchemeGuidMarshal := SchemeGuid == 0 ? IntPtr : Guid.Ptr
+    SubGroupOfPowerSettingsGuidMarshal := SubGroupOfPowerSettingsGuid == 0 ? IntPtr : Guid.Ptr
+    PowerSettingGuidMarshal := PowerSettingGuid == 0 ? IntPtr : Guid.Ptr
+    DcValueIndexMarshal := DcValueIndex is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("POWRPROF.dll\PowerReadDCValueIndex", HKEY, RootPowerKey, Guid.Ptr, SchemeGuid, Guid.Ptr, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, DcValueIndexMarshal, DcValueIndex, UInt32)
+    result := DllCall("POWRPROF.dll\PowerReadDCValueIndex", RootPowerKeyMarshal, RootPowerKey, SchemeGuidMarshal, SchemeGuid, SubGroupOfPowerSettingsGuidMarshal, SubGroupOfPowerSettingsGuid, PowerSettingGuidMarshal, PowerSettingGuid, DcValueIndexMarshal, DcValueIndex, UInt32)
     return result
 }
 
@@ -1609,9 +1654,14 @@ export PowerReadDCValueIndex(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGu
  * @since windows6.0.6000
  */
 export PowerReadFriendlyName(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, _Buffer, BufferSize) {
-    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
+    RootPowerKeyMarshal := RootPowerKey == 0 ? IntPtr : HKEY
+    SchemeGuidMarshal := SchemeGuid == 0 ? IntPtr : Guid.Ptr
+    SubGroupOfPowerSettingsGuidMarshal := SubGroupOfPowerSettingsGuid == 0 ? IntPtr : Guid.Ptr
+    PowerSettingGuidMarshal := PowerSettingGuid == 0 ? IntPtr : Guid.Ptr
+    _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("POWRPROF.dll\PowerReadFriendlyName", HKEY, RootPowerKey, Guid.Ptr, SchemeGuid, Guid.Ptr, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, IntPtr, _Buffer, BufferSizeMarshal, BufferSize, WIN32_ERROR)
+    result := DllCall("POWRPROF.dll\PowerReadFriendlyName", RootPowerKeyMarshal, RootPowerKey, SchemeGuidMarshal, SchemeGuid, SubGroupOfPowerSettingsGuidMarshal, SubGroupOfPowerSettingsGuid, PowerSettingGuidMarshal, PowerSettingGuid, _BufferMarshal, _Buffer, BufferSizeMarshal, BufferSize, WIN32_ERROR)
     return result
 }
 
@@ -1640,9 +1690,14 @@ export PowerReadFriendlyName(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGu
  * @since windows6.0.6000
  */
 export PowerReadDescription(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, _Buffer, BufferSize) {
-    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
+    RootPowerKeyMarshal := RootPowerKey == 0 ? IntPtr : HKEY
+    SchemeGuidMarshal := SchemeGuid == 0 ? IntPtr : Guid.Ptr
+    SubGroupOfPowerSettingsGuidMarshal := SubGroupOfPowerSettingsGuid == 0 ? IntPtr : Guid.Ptr
+    PowerSettingGuidMarshal := PowerSettingGuid == 0 ? IntPtr : Guid.Ptr
+    _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("POWRPROF.dll\PowerReadDescription", HKEY, RootPowerKey, Guid.Ptr, SchemeGuid, Guid.Ptr, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, IntPtr, _Buffer, BufferSizeMarshal, BufferSize, WIN32_ERROR)
+    result := DllCall("POWRPROF.dll\PowerReadDescription", RootPowerKeyMarshal, RootPowerKey, SchemeGuidMarshal, SchemeGuid, SubGroupOfPowerSettingsGuidMarshal, SubGroupOfPowerSettingsGuid, PowerSettingGuidMarshal, PowerSettingGuid, _BufferMarshal, _Buffer, BufferSizeMarshal, BufferSize, WIN32_ERROR)
     return result
 }
 
@@ -1669,10 +1724,15 @@ export PowerReadDescription(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGui
  * @since windows6.0.6000
  */
 export PowerReadPossibleValue(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Type, PossibleSettingIndex, _Buffer, BufferSize) {
-    TypeMarshal := Type is VarRef ? "uint*" : "ptr"
-    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
+    RootPowerKeyMarshal := RootPowerKey == 0 ? IntPtr : HKEY
+    SubGroupOfPowerSettingsGuidMarshal := SubGroupOfPowerSettingsGuid == 0 ? IntPtr : Guid.Ptr
+    PowerSettingGuidMarshal := PowerSettingGuid == 0 ? IntPtr : Guid.Ptr
+    TypeMarshal := Type is VarRef ? "uint*" : IntPtr
+    TypeMarshal := Type == 0 ? IntPtr : "uint*"
+    _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("POWRPROF.dll\PowerReadPossibleValue", HKEY, RootPowerKey, Guid.Ptr, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, TypeMarshal, Type, UInt32, PossibleSettingIndex, IntPtr, _Buffer, BufferSizeMarshal, BufferSize, WIN32_ERROR)
+    result := DllCall("POWRPROF.dll\PowerReadPossibleValue", RootPowerKeyMarshal, RootPowerKey, SubGroupOfPowerSettingsGuidMarshal, SubGroupOfPowerSettingsGuid, PowerSettingGuidMarshal, PowerSettingGuid, TypeMarshal, Type, UInt32, PossibleSettingIndex, _BufferMarshal, _Buffer, BufferSizeMarshal, BufferSize, WIN32_ERROR)
     return result
 }
 
@@ -1697,9 +1757,13 @@ export PowerReadPossibleValue(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSe
  * @since windows6.0.6000
  */
 export PowerReadPossibleFriendlyName(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, PossibleSettingIndex, _Buffer, BufferSize) {
-    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
+    RootPowerKeyMarshal := RootPowerKey == 0 ? IntPtr : HKEY
+    SubGroupOfPowerSettingsGuidMarshal := SubGroupOfPowerSettingsGuid == 0 ? IntPtr : Guid.Ptr
+    PowerSettingGuidMarshal := PowerSettingGuid == 0 ? IntPtr : Guid.Ptr
+    _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("POWRPROF.dll\PowerReadPossibleFriendlyName", HKEY, RootPowerKey, Guid.Ptr, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, UInt32, PossibleSettingIndex, IntPtr, _Buffer, BufferSizeMarshal, BufferSize, WIN32_ERROR)
+    result := DllCall("POWRPROF.dll\PowerReadPossibleFriendlyName", RootPowerKeyMarshal, RootPowerKey, SubGroupOfPowerSettingsGuidMarshal, SubGroupOfPowerSettingsGuid, PowerSettingGuidMarshal, PowerSettingGuid, UInt32, PossibleSettingIndex, _BufferMarshal, _Buffer, BufferSizeMarshal, BufferSize, WIN32_ERROR)
     return result
 }
 
@@ -1722,9 +1786,13 @@ export PowerReadPossibleFriendlyName(RootPowerKey, SubGroupOfPowerSettingsGuid, 
  * @since windows6.0.6000
  */
 export PowerReadPossibleDescription(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, PossibleSettingIndex, _Buffer, BufferSize) {
-    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
+    RootPowerKeyMarshal := RootPowerKey == 0 ? IntPtr : HKEY
+    SubGroupOfPowerSettingsGuidMarshal := SubGroupOfPowerSettingsGuid == 0 ? IntPtr : Guid.Ptr
+    PowerSettingGuidMarshal := PowerSettingGuid == 0 ? IntPtr : Guid.Ptr
+    _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("POWRPROF.dll\PowerReadPossibleDescription", HKEY, RootPowerKey, Guid.Ptr, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, UInt32, PossibleSettingIndex, IntPtr, _Buffer, BufferSizeMarshal, BufferSize, WIN32_ERROR)
+    result := DllCall("POWRPROF.dll\PowerReadPossibleDescription", RootPowerKeyMarshal, RootPowerKey, SubGroupOfPowerSettingsGuidMarshal, SubGroupOfPowerSettingsGuid, PowerSettingGuidMarshal, PowerSettingGuid, UInt32, PossibleSettingIndex, _BufferMarshal, _Buffer, BufferSizeMarshal, BufferSize, WIN32_ERROR)
     return result
 }
 
@@ -1741,9 +1809,12 @@ export PowerReadPossibleDescription(RootPowerKey, SubGroupOfPowerSettingsGuid, P
  * @since windows6.0.6000
  */
 export PowerReadValueMin(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, ValueMinimum) {
-    ValueMinimumMarshal := ValueMinimum is VarRef ? "uint*" : "ptr"
+    RootPowerKeyMarshal := RootPowerKey == 0 ? IntPtr : HKEY
+    SubGroupOfPowerSettingsGuidMarshal := SubGroupOfPowerSettingsGuid == 0 ? IntPtr : Guid.Ptr
+    PowerSettingGuidMarshal := PowerSettingGuid == 0 ? IntPtr : Guid.Ptr
+    ValueMinimumMarshal := ValueMinimum is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("POWRPROF.dll\PowerReadValueMin", HKEY, RootPowerKey, Guid.Ptr, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, ValueMinimumMarshal, ValueMinimum, WIN32_ERROR)
+    result := DllCall("POWRPROF.dll\PowerReadValueMin", RootPowerKeyMarshal, RootPowerKey, SubGroupOfPowerSettingsGuidMarshal, SubGroupOfPowerSettingsGuid, PowerSettingGuidMarshal, PowerSettingGuid, ValueMinimumMarshal, ValueMinimum, WIN32_ERROR)
     return result
 }
 
@@ -1760,9 +1831,12 @@ export PowerReadValueMin(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSetting
  * @since windows6.0.6000
  */
 export PowerReadValueMax(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, ValueMaximum) {
-    ValueMaximumMarshal := ValueMaximum is VarRef ? "uint*" : "ptr"
+    RootPowerKeyMarshal := RootPowerKey == 0 ? IntPtr : HKEY
+    SubGroupOfPowerSettingsGuidMarshal := SubGroupOfPowerSettingsGuid == 0 ? IntPtr : Guid.Ptr
+    PowerSettingGuidMarshal := PowerSettingGuid == 0 ? IntPtr : Guid.Ptr
+    ValueMaximumMarshal := ValueMaximum is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("POWRPROF.dll\PowerReadValueMax", HKEY, RootPowerKey, Guid.Ptr, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, ValueMaximumMarshal, ValueMaximum, WIN32_ERROR)
+    result := DllCall("POWRPROF.dll\PowerReadValueMax", RootPowerKeyMarshal, RootPowerKey, SubGroupOfPowerSettingsGuidMarshal, SubGroupOfPowerSettingsGuid, PowerSettingGuidMarshal, PowerSettingGuid, ValueMaximumMarshal, ValueMaximum, WIN32_ERROR)
     return result
 }
 
@@ -1778,9 +1852,12 @@ export PowerReadValueMax(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSetting
  * @since windows6.0.6000
  */
 export PowerReadValueIncrement(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, ValueIncrement) {
-    ValueIncrementMarshal := ValueIncrement is VarRef ? "uint*" : "ptr"
+    RootPowerKeyMarshal := RootPowerKey == 0 ? IntPtr : HKEY
+    SubGroupOfPowerSettingsGuidMarshal := SubGroupOfPowerSettingsGuid == 0 ? IntPtr : Guid.Ptr
+    PowerSettingGuidMarshal := PowerSettingGuid == 0 ? IntPtr : Guid.Ptr
+    ValueIncrementMarshal := ValueIncrement is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("POWRPROF.dll\PowerReadValueIncrement", HKEY, RootPowerKey, Guid.Ptr, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, ValueIncrementMarshal, ValueIncrement, WIN32_ERROR)
+    result := DllCall("POWRPROF.dll\PowerReadValueIncrement", RootPowerKeyMarshal, RootPowerKey, SubGroupOfPowerSettingsGuidMarshal, SubGroupOfPowerSettingsGuid, PowerSettingGuidMarshal, PowerSettingGuid, ValueIncrementMarshal, ValueIncrement, WIN32_ERROR)
     return result
 }
 
@@ -1802,9 +1879,13 @@ export PowerReadValueIncrement(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerS
  * @since windows6.0.6000
  */
 export PowerReadValueUnitsSpecifier(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, _Buffer, BufferSize) {
-    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
+    RootPowerKeyMarshal := RootPowerKey == 0 ? IntPtr : HKEY
+    SubGroupOfPowerSettingsGuidMarshal := SubGroupOfPowerSettingsGuid == 0 ? IntPtr : Guid.Ptr
+    PowerSettingGuidMarshal := PowerSettingGuid == 0 ? IntPtr : Guid.Ptr
+    _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("POWRPROF.dll\PowerReadValueUnitsSpecifier", HKEY, RootPowerKey, Guid.Ptr, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, IntPtr, _Buffer, BufferSizeMarshal, BufferSize, WIN32_ERROR)
+    result := DllCall("POWRPROF.dll\PowerReadValueUnitsSpecifier", RootPowerKeyMarshal, RootPowerKey, SubGroupOfPowerSettingsGuidMarshal, SubGroupOfPowerSettingsGuid, PowerSettingGuidMarshal, PowerSettingGuid, _BufferMarshal, _Buffer, BufferSizeMarshal, BufferSize, WIN32_ERROR)
     return result
 }
 
@@ -1822,9 +1903,11 @@ export PowerReadValueUnitsSpecifier(RootPowerKey, SubGroupOfPowerSettingsGuid, P
  * @since windows6.0.6000
  */
 export PowerReadACDefaultIndex(RootPowerKey, SchemePersonalityGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, AcDefaultIndex) {
-    AcDefaultIndexMarshal := AcDefaultIndex is VarRef ? "uint*" : "ptr"
+    RootPowerKeyMarshal := RootPowerKey == 0 ? IntPtr : HKEY
+    SubGroupOfPowerSettingsGuidMarshal := SubGroupOfPowerSettingsGuid == 0 ? IntPtr : Guid.Ptr
+    AcDefaultIndexMarshal := AcDefaultIndex is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("POWRPROF.dll\PowerReadACDefaultIndex", HKEY, RootPowerKey, Guid.Ptr, SchemePersonalityGuid, Guid.Ptr, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, AcDefaultIndexMarshal, AcDefaultIndex, UInt32)
+    result := DllCall("POWRPROF.dll\PowerReadACDefaultIndex", RootPowerKeyMarshal, RootPowerKey, Guid.Ptr, SchemePersonalityGuid, SubGroupOfPowerSettingsGuidMarshal, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, AcDefaultIndexMarshal, AcDefaultIndex, UInt32)
     return result
 }
 
@@ -1842,9 +1925,11 @@ export PowerReadACDefaultIndex(RootPowerKey, SchemePersonalityGuid, SubGroupOfPo
  * @since windows6.0.6000
  */
 export PowerReadDCDefaultIndex(RootPowerKey, SchemePersonalityGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, DcDefaultIndex) {
-    DcDefaultIndexMarshal := DcDefaultIndex is VarRef ? "uint*" : "ptr"
+    RootPowerKeyMarshal := RootPowerKey == 0 ? IntPtr : HKEY
+    SubGroupOfPowerSettingsGuidMarshal := SubGroupOfPowerSettingsGuid == 0 ? IntPtr : Guid.Ptr
+    DcDefaultIndexMarshal := DcDefaultIndex is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("POWRPROF.dll\PowerReadDCDefaultIndex", HKEY, RootPowerKey, Guid.Ptr, SchemePersonalityGuid, Guid.Ptr, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, DcDefaultIndexMarshal, DcDefaultIndex, UInt32)
+    result := DllCall("POWRPROF.dll\PowerReadDCDefaultIndex", RootPowerKeyMarshal, RootPowerKey, Guid.Ptr, SchemePersonalityGuid, SubGroupOfPowerSettingsGuidMarshal, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, DcDefaultIndexMarshal, DcDefaultIndex, UInt32)
     return result
 }
 
@@ -1872,9 +1957,14 @@ export PowerReadDCDefaultIndex(RootPowerKey, SchemePersonalityGuid, SubGroupOfPo
  * @since windows6.0.6000
  */
 export PowerReadIconResourceSpecifier(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, _Buffer, BufferSize) {
-    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
+    RootPowerKeyMarshal := RootPowerKey == 0 ? IntPtr : HKEY
+    SchemeGuidMarshal := SchemeGuid == 0 ? IntPtr : Guid.Ptr
+    SubGroupOfPowerSettingsGuidMarshal := SubGroupOfPowerSettingsGuid == 0 ? IntPtr : Guid.Ptr
+    PowerSettingGuidMarshal := PowerSettingGuid == 0 ? IntPtr : Guid.Ptr
+    _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("POWRPROF.dll\PowerReadIconResourceSpecifier", HKEY, RootPowerKey, Guid.Ptr, SchemeGuid, Guid.Ptr, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, IntPtr, _Buffer, BufferSizeMarshal, BufferSize, WIN32_ERROR)
+    result := DllCall("POWRPROF.dll\PowerReadIconResourceSpecifier", RootPowerKeyMarshal, RootPowerKey, SchemeGuidMarshal, SchemeGuid, SubGroupOfPowerSettingsGuidMarshal, SubGroupOfPowerSettingsGuid, PowerSettingGuidMarshal, PowerSettingGuid, _BufferMarshal, _Buffer, BufferSizeMarshal, BufferSize, WIN32_ERROR)
     return result
 }
 
@@ -1907,7 +1997,10 @@ export PowerReadIconResourceSpecifier(RootPowerKey, SchemeGuid, SubGroupOfPowerS
  * @since windows6.0.6000
  */
 export PowerReadSettingAttributes(SubGroupGuid, PowerSettingGuid) {
-    result := DllCall("POWRPROF.dll\PowerReadSettingAttributes", Guid.Ptr, SubGroupGuid, Guid.Ptr, PowerSettingGuid, UInt32)
+    SubGroupGuidMarshal := SubGroupGuid == 0 ? IntPtr : Guid.Ptr
+    PowerSettingGuidMarshal := PowerSettingGuid == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("POWRPROF.dll\PowerReadSettingAttributes", SubGroupGuidMarshal, SubGroupGuid, PowerSettingGuidMarshal, PowerSettingGuid, UInt32)
     return result
 }
 
@@ -1928,7 +2021,11 @@ export PowerReadSettingAttributes(SubGroupGuid, PowerSettingGuid) {
  * @since windows6.0.6000
  */
 export PowerWriteFriendlyName(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, _Buffer, BufferSize) {
-    result := DllCall("POWRPROF.dll\PowerWriteFriendlyName", HKEY, RootPowerKey, Guid.Ptr, SchemeGuid, Guid.Ptr, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, IntPtr, _Buffer, UInt32, BufferSize, WIN32_ERROR)
+    RootPowerKeyMarshal := RootPowerKey == 0 ? IntPtr : HKEY
+    SubGroupOfPowerSettingsGuidMarshal := SubGroupOfPowerSettingsGuid == 0 ? IntPtr : Guid.Ptr
+    PowerSettingGuidMarshal := PowerSettingGuid == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("POWRPROF.dll\PowerWriteFriendlyName", RootPowerKeyMarshal, RootPowerKey, Guid.Ptr, SchemeGuid, SubGroupOfPowerSettingsGuidMarshal, SubGroupOfPowerSettingsGuid, PowerSettingGuidMarshal, PowerSettingGuid, IntPtr, _Buffer, UInt32, BufferSize, WIN32_ERROR)
     return result
 }
 
@@ -1960,7 +2057,11 @@ export PowerWriteFriendlyName(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsG
  * @since windows6.0.6000
  */
 export PowerWriteDescription(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, _Buffer, BufferSize) {
-    result := DllCall("POWRPROF.dll\PowerWriteDescription", HKEY, RootPowerKey, Guid.Ptr, SchemeGuid, Guid.Ptr, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, IntPtr, _Buffer, UInt32, BufferSize, WIN32_ERROR)
+    RootPowerKeyMarshal := RootPowerKey == 0 ? IntPtr : HKEY
+    SubGroupOfPowerSettingsGuidMarshal := SubGroupOfPowerSettingsGuid == 0 ? IntPtr : Guid.Ptr
+    PowerSettingGuidMarshal := PowerSettingGuid == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("POWRPROF.dll\PowerWriteDescription", RootPowerKeyMarshal, RootPowerKey, Guid.Ptr, SchemeGuid, SubGroupOfPowerSettingsGuidMarshal, SubGroupOfPowerSettingsGuid, PowerSettingGuidMarshal, PowerSettingGuid, IntPtr, _Buffer, UInt32, BufferSize, WIN32_ERROR)
     return result
 }
 
@@ -1983,7 +2084,11 @@ export PowerWriteDescription(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGu
  * @since windows6.0.6000
  */
 export PowerWritePossibleValue(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, Type, PossibleSettingIndex, _Buffer, BufferSize) {
-    result := DllCall("POWRPROF.dll\PowerWritePossibleValue", HKEY, RootPowerKey, Guid.Ptr, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, UInt32, Type, UInt32, PossibleSettingIndex, IntPtr, _Buffer, UInt32, BufferSize, WIN32_ERROR)
+    RootPowerKeyMarshal := RootPowerKey == 0 ? IntPtr : HKEY
+    SubGroupOfPowerSettingsGuidMarshal := SubGroupOfPowerSettingsGuid == 0 ? IntPtr : Guid.Ptr
+    PowerSettingGuidMarshal := PowerSettingGuid == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("POWRPROF.dll\PowerWritePossibleValue", RootPowerKeyMarshal, RootPowerKey, SubGroupOfPowerSettingsGuidMarshal, SubGroupOfPowerSettingsGuid, PowerSettingGuidMarshal, PowerSettingGuid, UInt32, Type, UInt32, PossibleSettingIndex, IntPtr, _Buffer, UInt32, BufferSize, WIN32_ERROR)
     return result
 }
 
@@ -2004,7 +2109,11 @@ export PowerWritePossibleValue(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerS
  * @since windows6.0.6000
  */
 export PowerWritePossibleFriendlyName(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, PossibleSettingIndex, _Buffer, BufferSize) {
-    result := DllCall("POWRPROF.dll\PowerWritePossibleFriendlyName", HKEY, RootPowerKey, Guid.Ptr, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, UInt32, PossibleSettingIndex, IntPtr, _Buffer, UInt32, BufferSize, WIN32_ERROR)
+    RootPowerKeyMarshal := RootPowerKey == 0 ? IntPtr : HKEY
+    SubGroupOfPowerSettingsGuidMarshal := SubGroupOfPowerSettingsGuid == 0 ? IntPtr : Guid.Ptr
+    PowerSettingGuidMarshal := PowerSettingGuid == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("POWRPROF.dll\PowerWritePossibleFriendlyName", RootPowerKeyMarshal, RootPowerKey, SubGroupOfPowerSettingsGuidMarshal, SubGroupOfPowerSettingsGuid, PowerSettingGuidMarshal, PowerSettingGuid, UInt32, PossibleSettingIndex, IntPtr, _Buffer, UInt32, BufferSize, WIN32_ERROR)
     return result
 }
 
@@ -2025,7 +2134,11 @@ export PowerWritePossibleFriendlyName(RootPowerKey, SubGroupOfPowerSettingsGuid,
  * @since windows6.0.6000
  */
 export PowerWritePossibleDescription(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, PossibleSettingIndex, _Buffer, BufferSize) {
-    result := DllCall("POWRPROF.dll\PowerWritePossibleDescription", HKEY, RootPowerKey, Guid.Ptr, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, UInt32, PossibleSettingIndex, IntPtr, _Buffer, UInt32, BufferSize, WIN32_ERROR)
+    RootPowerKeyMarshal := RootPowerKey == 0 ? IntPtr : HKEY
+    SubGroupOfPowerSettingsGuidMarshal := SubGroupOfPowerSettingsGuid == 0 ? IntPtr : Guid.Ptr
+    PowerSettingGuidMarshal := PowerSettingGuid == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("POWRPROF.dll\PowerWritePossibleDescription", RootPowerKeyMarshal, RootPowerKey, SubGroupOfPowerSettingsGuidMarshal, SubGroupOfPowerSettingsGuid, PowerSettingGuidMarshal, PowerSettingGuid, UInt32, PossibleSettingIndex, IntPtr, _Buffer, UInt32, BufferSize, WIN32_ERROR)
     return result
 }
 
@@ -2044,7 +2157,11 @@ export PowerWritePossibleDescription(RootPowerKey, SubGroupOfPowerSettingsGuid, 
  * @since windows6.0.6000
  */
 export PowerWriteValueMin(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, ValueMinimum) {
-    result := DllCall("POWRPROF.dll\PowerWriteValueMin", HKEY, RootPowerKey, Guid.Ptr, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, UInt32, ValueMinimum, WIN32_ERROR)
+    RootPowerKeyMarshal := RootPowerKey == 0 ? IntPtr : HKEY
+    SubGroupOfPowerSettingsGuidMarshal := SubGroupOfPowerSettingsGuid == 0 ? IntPtr : Guid.Ptr
+    PowerSettingGuidMarshal := PowerSettingGuid == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("POWRPROF.dll\PowerWriteValueMin", RootPowerKeyMarshal, RootPowerKey, SubGroupOfPowerSettingsGuidMarshal, SubGroupOfPowerSettingsGuid, PowerSettingGuidMarshal, PowerSettingGuid, UInt32, ValueMinimum, WIN32_ERROR)
     return result
 }
 
@@ -2063,7 +2180,11 @@ export PowerWriteValueMin(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettin
  * @since windows6.0.6000
  */
 export PowerWriteValueMax(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, ValueMaximum) {
-    result := DllCall("POWRPROF.dll\PowerWriteValueMax", HKEY, RootPowerKey, Guid.Ptr, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, UInt32, ValueMaximum, WIN32_ERROR)
+    RootPowerKeyMarshal := RootPowerKey == 0 ? IntPtr : HKEY
+    SubGroupOfPowerSettingsGuidMarshal := SubGroupOfPowerSettingsGuid == 0 ? IntPtr : Guid.Ptr
+    PowerSettingGuidMarshal := PowerSettingGuid == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("POWRPROF.dll\PowerWriteValueMax", RootPowerKeyMarshal, RootPowerKey, SubGroupOfPowerSettingsGuidMarshal, SubGroupOfPowerSettingsGuid, PowerSettingGuidMarshal, PowerSettingGuid, UInt32, ValueMaximum, WIN32_ERROR)
     return result
 }
 
@@ -2082,7 +2203,11 @@ export PowerWriteValueMax(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettin
  * @since windows6.0.6000
  */
 export PowerWriteValueIncrement(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, ValueIncrement) {
-    result := DllCall("POWRPROF.dll\PowerWriteValueIncrement", HKEY, RootPowerKey, Guid.Ptr, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, UInt32, ValueIncrement, WIN32_ERROR)
+    RootPowerKeyMarshal := RootPowerKey == 0 ? IntPtr : HKEY
+    SubGroupOfPowerSettingsGuidMarshal := SubGroupOfPowerSettingsGuid == 0 ? IntPtr : Guid.Ptr
+    PowerSettingGuidMarshal := PowerSettingGuid == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("POWRPROF.dll\PowerWriteValueIncrement", RootPowerKeyMarshal, RootPowerKey, SubGroupOfPowerSettingsGuidMarshal, SubGroupOfPowerSettingsGuid, PowerSettingGuidMarshal, PowerSettingGuid, UInt32, ValueIncrement, WIN32_ERROR)
     return result
 }
 
@@ -2102,7 +2227,11 @@ export PowerWriteValueIncrement(RootPowerKey, SubGroupOfPowerSettingsGuid, Power
  * @since windows6.0.6000
  */
 export PowerWriteValueUnitsSpecifier(RootPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, _Buffer, BufferSize) {
-    result := DllCall("POWRPROF.dll\PowerWriteValueUnitsSpecifier", HKEY, RootPowerKey, Guid.Ptr, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, IntPtr, _Buffer, UInt32, BufferSize, WIN32_ERROR)
+    RootPowerKeyMarshal := RootPowerKey == 0 ? IntPtr : HKEY
+    SubGroupOfPowerSettingsGuidMarshal := SubGroupOfPowerSettingsGuid == 0 ? IntPtr : Guid.Ptr
+    PowerSettingGuidMarshal := PowerSettingGuid == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("POWRPROF.dll\PowerWriteValueUnitsSpecifier", RootPowerKeyMarshal, RootPowerKey, SubGroupOfPowerSettingsGuidMarshal, SubGroupOfPowerSettingsGuid, PowerSettingGuidMarshal, PowerSettingGuid, IntPtr, _Buffer, UInt32, BufferSize, WIN32_ERROR)
     return result
 }
 
@@ -2123,7 +2252,10 @@ export PowerWriteValueUnitsSpecifier(RootPowerKey, SubGroupOfPowerSettingsGuid, 
  * @since windows6.0.6000
  */
 export PowerWriteACDefaultIndex(RootSystemPowerKey, SchemePersonalityGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, DefaultAcIndex) {
-    result := DllCall("POWRPROF.dll\PowerWriteACDefaultIndex", HKEY, RootSystemPowerKey, Guid.Ptr, SchemePersonalityGuid, Guid.Ptr, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, UInt32, DefaultAcIndex, UInt32)
+    RootSystemPowerKeyMarshal := RootSystemPowerKey == 0 ? IntPtr : HKEY
+    SubGroupOfPowerSettingsGuidMarshal := SubGroupOfPowerSettingsGuid == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("POWRPROF.dll\PowerWriteACDefaultIndex", RootSystemPowerKeyMarshal, RootSystemPowerKey, Guid.Ptr, SchemePersonalityGuid, SubGroupOfPowerSettingsGuidMarshal, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, UInt32, DefaultAcIndex, UInt32)
     return result
 }
 
@@ -2144,7 +2276,10 @@ export PowerWriteACDefaultIndex(RootSystemPowerKey, SchemePersonalityGuid, SubGr
  * @since windows6.0.6000
  */
 export PowerWriteDCDefaultIndex(RootSystemPowerKey, SchemePersonalityGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, DefaultDcIndex) {
-    result := DllCall("POWRPROF.dll\PowerWriteDCDefaultIndex", HKEY, RootSystemPowerKey, Guid.Ptr, SchemePersonalityGuid, Guid.Ptr, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, UInt32, DefaultDcIndex, UInt32)
+    RootSystemPowerKeyMarshal := RootSystemPowerKey == 0 ? IntPtr : HKEY
+    SubGroupOfPowerSettingsGuidMarshal := SubGroupOfPowerSettingsGuid == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("POWRPROF.dll\PowerWriteDCDefaultIndex", RootSystemPowerKeyMarshal, RootSystemPowerKey, Guid.Ptr, SchemePersonalityGuid, SubGroupOfPowerSettingsGuidMarshal, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, UInt32, DefaultDcIndex, UInt32)
     return result
 }
 
@@ -2176,7 +2311,11 @@ export PowerWriteDCDefaultIndex(RootSystemPowerKey, SchemePersonalityGuid, SubGr
  * @since windows6.0.6000
  */
 export PowerWriteIconResourceSpecifier(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, PowerSettingGuid, _Buffer, BufferSize) {
-    result := DllCall("POWRPROF.dll\PowerWriteIconResourceSpecifier", HKEY, RootPowerKey, Guid.Ptr, SchemeGuid, Guid.Ptr, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, IntPtr, _Buffer, UInt32, BufferSize, WIN32_ERROR)
+    RootPowerKeyMarshal := RootPowerKey == 0 ? IntPtr : HKEY
+    SubGroupOfPowerSettingsGuidMarshal := SubGroupOfPowerSettingsGuid == 0 ? IntPtr : Guid.Ptr
+    PowerSettingGuidMarshal := PowerSettingGuid == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("POWRPROF.dll\PowerWriteIconResourceSpecifier", RootPowerKeyMarshal, RootPowerKey, Guid.Ptr, SchemeGuid, SubGroupOfPowerSettingsGuidMarshal, SubGroupOfPowerSettingsGuid, PowerSettingGuidMarshal, PowerSettingGuid, IntPtr, _Buffer, UInt32, BufferSize, WIN32_ERROR)
     return result
 }
 
@@ -2212,7 +2351,10 @@ export PowerWriteIconResourceSpecifier(RootPowerKey, SchemeGuid, SubGroupOfPower
  * @since windows6.0.6000
  */
 export PowerWriteSettingAttributes(SubGroupGuid, PowerSettingGuid, Attributes) {
-    result := DllCall("POWRPROF.dll\PowerWriteSettingAttributes", Guid.Ptr, SubGroupGuid, Guid.Ptr, PowerSettingGuid, UInt32, Attributes, WIN32_ERROR)
+    SubGroupGuidMarshal := SubGroupGuid == 0 ? IntPtr : Guid.Ptr
+    PowerSettingGuidMarshal := PowerSettingGuid == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("POWRPROF.dll\PowerWriteSettingAttributes", SubGroupGuidMarshal, SubGroupGuid, PowerSettingGuidMarshal, PowerSettingGuid, UInt32, Attributes, WIN32_ERROR)
     return result
 }
 
@@ -2275,9 +2417,10 @@ export PowerWriteSettingAttributes(SubGroupGuid, PowerSettingGuid, Attributes) {
  * @since windows6.0.6000
  */
 export PowerDuplicateScheme(RootPowerKey, SourceSchemeGuid, DestinationSchemeGuid) {
-    DestinationSchemeGuidMarshal := DestinationSchemeGuid is VarRef ? "ptr*" : "ptr"
+    RootPowerKeyMarshal := RootPowerKey == 0 ? IntPtr : HKEY
+    DestinationSchemeGuidMarshal := DestinationSchemeGuid is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("POWRPROF.dll\PowerDuplicateScheme", HKEY, RootPowerKey, Guid.Ptr, SourceSchemeGuid, DestinationSchemeGuidMarshal, DestinationSchemeGuid, WIN32_ERROR)
+    result := DllCall("POWRPROF.dll\PowerDuplicateScheme", RootPowerKeyMarshal, RootPowerKey, Guid.Ptr, SourceSchemeGuid, DestinationSchemeGuidMarshal, DestinationSchemeGuid, WIN32_ERROR)
     return result
 }
 
@@ -2297,9 +2440,10 @@ export PowerDuplicateScheme(RootPowerKey, SourceSchemeGuid, DestinationSchemeGui
 export PowerImportPowerScheme(RootPowerKey, ImportFileNamePath, DestinationSchemeGuid) {
     ImportFileNamePath := ImportFileNamePath is String ? StrPtr(ImportFileNamePath) : ImportFileNamePath
 
-    DestinationSchemeGuidMarshal := DestinationSchemeGuid is VarRef ? "ptr*" : "ptr"
+    RootPowerKeyMarshal := RootPowerKey == 0 ? IntPtr : HKEY
+    DestinationSchemeGuidMarshal := DestinationSchemeGuid is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("POWRPROF.dll\PowerImportPowerScheme", HKEY, RootPowerKey, "ptr", ImportFileNamePath, DestinationSchemeGuidMarshal, DestinationSchemeGuid, WIN32_ERROR)
+    result := DllCall("POWRPROF.dll\PowerImportPowerScheme", RootPowerKeyMarshal, RootPowerKey, "ptr", ImportFileNamePath, DestinationSchemeGuidMarshal, DestinationSchemeGuid, WIN32_ERROR)
     return result
 }
 
@@ -2313,7 +2457,9 @@ export PowerImportPowerScheme(RootPowerKey, ImportFileNamePath, DestinationSchem
  * @since windows6.0.6000
  */
 export PowerDeleteScheme(RootPowerKey, SchemeGuid) {
-    result := DllCall("POWRPROF.dll\PowerDeleteScheme", HKEY, RootPowerKey, Guid.Ptr, SchemeGuid, WIN32_ERROR)
+    RootPowerKeyMarshal := RootPowerKey == 0 ? IntPtr : HKEY
+
+    result := DllCall("POWRPROF.dll\PowerDeleteScheme", RootPowerKeyMarshal, RootPowerKey, Guid.Ptr, SchemeGuid, WIN32_ERROR)
     return result
 }
 
@@ -2342,7 +2488,9 @@ export PowerRemovePowerSetting(PowerSettingSubKeyGuid, PowerSettingGuid) {
  * @since windows6.0.6000
  */
 export PowerCreateSetting(RootSystemPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid) {
-    result := DllCall("POWRPROF.dll\PowerCreateSetting", HKEY, RootSystemPowerKey, Guid.Ptr, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, WIN32_ERROR)
+    RootSystemPowerKeyMarshal := RootSystemPowerKey == 0 ? IntPtr : HKEY
+
+    result := DllCall("POWRPROF.dll\PowerCreateSetting", RootSystemPowerKeyMarshal, RootSystemPowerKey, Guid.Ptr, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, WIN32_ERROR)
     return result
 }
 
@@ -2358,7 +2506,9 @@ export PowerCreateSetting(RootSystemPowerKey, SubGroupOfPowerSettingsGuid, Power
  * @since windows6.0.6000
  */
 export PowerCreatePossibleSetting(RootSystemPowerKey, SubGroupOfPowerSettingsGuid, PowerSettingGuid, PossibleSettingIndex) {
-    result := DllCall("POWRPROF.dll\PowerCreatePossibleSetting", HKEY, RootSystemPowerKey, Guid.Ptr, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, UInt32, PossibleSettingIndex, WIN32_ERROR)
+    RootSystemPowerKeyMarshal := RootSystemPowerKey == 0 ? IntPtr : HKEY
+
+    result := DllCall("POWRPROF.dll\PowerCreatePossibleSetting", RootSystemPowerKeyMarshal, RootSystemPowerKey, Guid.Ptr, SubGroupOfPowerSettingsGuid, Guid.Ptr, PowerSettingGuid, UInt32, PossibleSettingIndex, WIN32_ERROR)
     return result
 }
 
@@ -2526,14 +2676,17 @@ export PowerCreatePossibleSetting(RootSystemPowerKey, SubGroupOfPowerSettingsGui
  * @since windows6.0.6000
  */
 export PowerEnumerate(RootPowerKey, SchemeGuid, SubGroupOfPowerSettingsGuid, AccessFlags, Index, _Buffer, BufferSize) {
-    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
+    RootPowerKeyMarshal := RootPowerKey == 0 ? IntPtr : HKEY
+    SchemeGuidMarshal := SchemeGuid == 0 ? IntPtr : Guid.Ptr
+    SubGroupOfPowerSettingsGuidMarshal := SubGroupOfPowerSettingsGuid == 0 ? IntPtr : Guid.Ptr
+    _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("POWRPROF.dll\PowerEnumerate", HKEY, RootPowerKey, Guid.Ptr, SchemeGuid, Guid.Ptr, SubGroupOfPowerSettingsGuid, POWER_DATA_ACCESSOR, AccessFlags, UInt32, Index, IntPtr, _Buffer, BufferSizeMarshal, BufferSize, WIN32_ERROR)
+    result := DllCall("POWRPROF.dll\PowerEnumerate", RootPowerKeyMarshal, RootPowerKey, SchemeGuidMarshal, SchemeGuid, SubGroupOfPowerSettingsGuidMarshal, SubGroupOfPowerSettingsGuid, POWER_DATA_ACCESSOR, AccessFlags, UInt32, Index, _BufferMarshal, _Buffer, BufferSizeMarshal, BufferSize, WIN32_ERROR)
     return result
 }
 
 /**
- * 
  * @param {Pointer<HKEY>} phUserPowerKey 
  * @param {Integer} Access 
  * @param {BOOL} OpenExisting 
@@ -2545,7 +2698,6 @@ export PowerOpenUserPowerKey(phUserPowerKey, Access, OpenExisting) {
 }
 
 /**
- * 
  * @param {Pointer<HKEY>} phSystemPowerKey 
  * @param {Integer} Access 
  * @param {BOOL} OpenExisting 
@@ -2940,9 +3092,10 @@ export PowerDeterminePlatformRole() {
  * @since windows6.0.6000
  */
 export DevicePowerEnumDevices(QueryIndex, QueryInterpretationFlags, QueryFlags, pReturnBuffer, pBufferSize) {
-    pBufferSizeMarshal := pBufferSize is VarRef ? "uint*" : "ptr"
+    pReturnBufferMarshal := pReturnBuffer == 0 ? IntPtr : IntPtr
+    pBufferSizeMarshal := pBufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("POWRPROF.dll\DevicePowerEnumDevices", UInt32, QueryIndex, UInt32, QueryInterpretationFlags, UInt32, QueryFlags, IntPtr, pReturnBuffer, pBufferSizeMarshal, pBufferSize, BOOLEAN)
+    result := DllCall("POWRPROF.dll\DevicePowerEnumDevices", UInt32, QueryIndex, UInt32, QueryInterpretationFlags, UInt32, QueryFlags, pReturnBufferMarshal, pReturnBuffer, pBufferSizeMarshal, pBufferSize, BOOLEAN)
     return result
 }
 
@@ -2990,7 +3143,8 @@ export DevicePowerEnumDevices(QueryIndex, QueryInterpretationFlags, QueryFlags, 
 export DevicePowerSetDeviceState(DeviceDescription, SetFlags, SetData) {
     DeviceDescription := DeviceDescription is String ? StrPtr(DeviceDescription) : DeviceDescription
 
-    SetDataMarshal := SetData is VarRef ? "ptr" : "ptr"
+    SetDataMarshal := SetData is VarRef ? "ptr" : IntPtr
+    SetDataMarshal := SetData == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -3012,7 +3166,9 @@ export DevicePowerSetDeviceState(DeviceDescription, SetFlags, SetData) {
  * @since windows6.0.6000
  */
 export DevicePowerOpen(DebugMask) {
-    result := DllCall("POWRPROF.dll\DevicePowerOpen", UInt32, DebugMask, BOOLEAN)
+    DebugMaskMarshal := DebugMask == 0 ? IntPtr : UInt32
+
+    result := DllCall("POWRPROF.dll\DevicePowerOpen", DebugMaskMarshal, DebugMask, BOOLEAN)
     return result
 }
 
@@ -3369,7 +3525,7 @@ export PowerClearRequest(PowerRequest, RequestType) {
  * @since windows5.1.2600
  */
 export GetDevicePowerState(hDevice, pfOn) {
-    pfOnMarshal := pfOn is VarRef ? "int*" : "ptr"
+    pfOnMarshal := pfOn is VarRef ? "int*" : IntPtr
 
     result := DllCall("KERNEL32.dll\GetDevicePowerState", HANDLE, hDevice, pfOnMarshal, pfOn, BOOL)
     return result

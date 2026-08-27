@@ -38,7 +38,6 @@ export default struct IBinaryConverter2 extends IBinaryConverter {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvarStringArray 
      * @returns {VARIANT} 
      */
@@ -49,7 +48,6 @@ export default struct IBinaryConverter2 extends IBinaryConverter {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvarVariantArray 
      * @returns {VARIANT} 
      */
@@ -68,8 +66,8 @@ export default struct IBinaryConverter2 extends IBinaryConverter {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StringArrayToVariantArray := CallbackCreate(GetMethod(implObj, "StringArrayToVariantArray"), flags, 3)
-        this.vtbl.VariantArrayToStringArray := CallbackCreate(GetMethod(implObj, "VariantArrayToStringArray"), flags, 3)
+        this.vtbl.StringArrayToVariantArray := CallbackCreate(ObjBindMethod(implObj, "StringArrayToVariantArray"), flags, 3)
+        this.vtbl.VariantArrayToStringArray := CallbackCreate(ObjBindMethod(implObj, "VariantArrayToStringArray"), flags, 3)
     }
 
     Dispose() {

@@ -24,12 +24,11 @@ export default struct PCLOSE_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Resource 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(Resource) {
-        ResourceMarshal := Resource is VarRef ? "ptr" : "ptr"
+        ResourceMarshal := Resource is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, ResourceMarshal, Resource)
     }

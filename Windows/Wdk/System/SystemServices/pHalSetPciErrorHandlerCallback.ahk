@@ -19,7 +19,6 @@ export default struct pHalSetPciErrorHandlerCallback {
     }
 
     /**
-     * 
      * @param {Pointer<PCI_ERROR_HANDLER_CALLBACK>} Callback 
      * @returns {String} Nothing - always returns an empty string
      */

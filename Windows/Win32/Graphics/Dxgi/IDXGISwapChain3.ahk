@@ -141,7 +141,7 @@ export default struct IDXGISwapChain3 extends IDXGISwapChain2 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgiswapchain3-resizebuffers1
      */
     ResizeBuffers1(BufferCount, Width, Height, Format, SwapChainFlags, pCreationNodeMask, ppPresentQueue) {
-        pCreationNodeMaskMarshal := pCreationNodeMask is VarRef ? "uint*" : "ptr"
+        pCreationNodeMaskMarshal := pCreationNodeMask is VarRef ? "uint*" : IntPtr
 
         result := ComCall(39, this, UInt32, BufferCount, UInt32, Width, UInt32, Height, DXGI_FORMAT, Format, UInt32, SwapChainFlags, pCreationNodeMaskMarshal, pCreationNodeMask, IUnknown.Ptr, ppPresentQueue, "HRESULT")
         return result
@@ -156,10 +156,10 @@ export default struct IDXGISwapChain3 extends IDXGISwapChain2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCurrentBackBufferIndex := CallbackCreate(GetMethod(implObj, "GetCurrentBackBufferIndex"), flags, 1)
-        this.vtbl.CheckColorSpaceSupport := CallbackCreate(GetMethod(implObj, "CheckColorSpaceSupport"), flags, 3)
-        this.vtbl.SetColorSpace1 := CallbackCreate(GetMethod(implObj, "SetColorSpace1"), flags, 2)
-        this.vtbl.ResizeBuffers1 := CallbackCreate(GetMethod(implObj, "ResizeBuffers1"), flags, 8)
+        this.vtbl.GetCurrentBackBufferIndex := CallbackCreate(ObjBindMethod(implObj, "GetCurrentBackBufferIndex"), flags, 1)
+        this.vtbl.CheckColorSpaceSupport := CallbackCreate(ObjBindMethod(implObj, "CheckColorSpaceSupport"), flags, 3)
+        this.vtbl.SetColorSpace1 := CallbackCreate(ObjBindMethod(implObj, "SetColorSpace1"), flags, 2)
+        this.vtbl.ResizeBuffers1 := CallbackCreate(ObjBindMethod(implObj, "ResizeBuffers1"), flags, 8)
     }
 
     Dispose() {

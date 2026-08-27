@@ -38,7 +38,6 @@ export default struct INetCfgComponentNotifyBinding extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwChangeFlag 
      * @param {INetCfgBindingPath} pIPath 
      * @returns {HRESULT} 
@@ -49,7 +48,6 @@ export default struct INetCfgComponentNotifyBinding extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwChangeFlag 
      * @param {INetCfgBindingPath} pIPath 
      * @returns {HRESULT} 
@@ -68,8 +66,8 @@ export default struct INetCfgComponentNotifyBinding extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryBindingPath := CallbackCreate(GetMethod(implObj, "QueryBindingPath"), flags, 3)
-        this.vtbl.NotifyBindingPath := CallbackCreate(GetMethod(implObj, "NotifyBindingPath"), flags, 3)
+        this.vtbl.QueryBindingPath := CallbackCreate(ObjBindMethod(implObj, "QueryBindingPath"), flags, 3)
+        this.vtbl.NotifyBindingPath := CallbackCreate(ObjBindMethod(implObj, "NotifyBindingPath"), flags, 3)
     }
 
     Dispose() {

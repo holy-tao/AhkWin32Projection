@@ -271,10 +271,10 @@ export default struct IRDPSRAPISharingSession extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession-getdesktopsharedrect
      */
     GetDesktopSharedRect(pleft, ptop, pright, pbottom) {
-        pleftMarshal := pleft is VarRef ? "int*" : "ptr"
-        ptopMarshal := ptop is VarRef ? "int*" : "ptr"
-        prightMarshal := pright is VarRef ? "int*" : "ptr"
-        pbottomMarshal := pbottom is VarRef ? "int*" : "ptr"
+        pleftMarshal := pleft is VarRef ? "int*" : IntPtr
+        ptopMarshal := ptop is VarRef ? "int*" : IntPtr
+        prightMarshal := pright is VarRef ? "int*" : IntPtr
+        pbottomMarshal := pbottom is VarRef ? "int*" : IntPtr
 
         result := ComCall(20, this, pleftMarshal, pleft, ptopMarshal, ptop, prightMarshal, pright, pbottomMarshal, pbottom, "HRESULT")
         return result
@@ -289,20 +289,20 @@ export default struct IRDPSRAPISharingSession extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 1)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
-        this.vtbl.put_ColorDepth := CallbackCreate(GetMethod(implObj, "put_ColorDepth"), flags, 2)
-        this.vtbl.get_ColorDepth := CallbackCreate(GetMethod(implObj, "get_ColorDepth"), flags, 2)
-        this.vtbl.get_Properties := CallbackCreate(GetMethod(implObj, "get_Properties"), flags, 2)
-        this.vtbl.get_Attendees := CallbackCreate(GetMethod(implObj, "get_Attendees"), flags, 2)
-        this.vtbl.get_Invitations := CallbackCreate(GetMethod(implObj, "get_Invitations"), flags, 2)
-        this.vtbl.get_ApplicationFilter := CallbackCreate(GetMethod(implObj, "get_ApplicationFilter"), flags, 2)
-        this.vtbl.get_VirtualChannelManager := CallbackCreate(GetMethod(implObj, "get_VirtualChannelManager"), flags, 2)
-        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
-        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 1)
-        this.vtbl.ConnectToClient := CallbackCreate(GetMethod(implObj, "ConnectToClient"), flags, 2)
-        this.vtbl.SetDesktopSharedRect := CallbackCreate(GetMethod(implObj, "SetDesktopSharedRect"), flags, 5)
-        this.vtbl.GetDesktopSharedRect := CallbackCreate(GetMethod(implObj, "GetDesktopSharedRect"), flags, 5)
+        this.vtbl.Open := CallbackCreate(ObjBindMethod(implObj, "Open"), flags, 1)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
+        this.vtbl.put_ColorDepth := CallbackCreate(ObjBindMethod(implObj, "put_ColorDepth"), flags, 2)
+        this.vtbl.get_ColorDepth := CallbackCreate(ObjBindMethod(implObj, "get_ColorDepth"), flags, 2)
+        this.vtbl.get_Properties := CallbackCreate(ObjBindMethod(implObj, "get_Properties"), flags, 2)
+        this.vtbl.get_Attendees := CallbackCreate(ObjBindMethod(implObj, "get_Attendees"), flags, 2)
+        this.vtbl.get_Invitations := CallbackCreate(ObjBindMethod(implObj, "get_Invitations"), flags, 2)
+        this.vtbl.get_ApplicationFilter := CallbackCreate(ObjBindMethod(implObj, "get_ApplicationFilter"), flags, 2)
+        this.vtbl.get_VirtualChannelManager := CallbackCreate(ObjBindMethod(implObj, "get_VirtualChannelManager"), flags, 2)
+        this.vtbl.Pause := CallbackCreate(ObjBindMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Resume := CallbackCreate(ObjBindMethod(implObj, "Resume"), flags, 1)
+        this.vtbl.ConnectToClient := CallbackCreate(ObjBindMethod(implObj, "ConnectToClient"), flags, 2)
+        this.vtbl.SetDesktopSharedRect := CallbackCreate(ObjBindMethod(implObj, "SetDesktopSharedRect"), flags, 5)
+        this.vtbl.GetDesktopSharedRect := CallbackCreate(ObjBindMethod(implObj, "GetDesktopSharedRect"), flags, 5)
     }
 
     Dispose() {

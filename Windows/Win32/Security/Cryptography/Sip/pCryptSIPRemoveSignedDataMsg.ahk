@@ -20,7 +20,6 @@ export default struct pCryptSIPRemoveSignedDataMsg {
     }
 
     /**
-     * 
      * @param {Pointer<SIP_SUBJECTINFO>} pSubjectInfo 
      * @param {Integer} dwIndex 
      * @returns {BOOL} 

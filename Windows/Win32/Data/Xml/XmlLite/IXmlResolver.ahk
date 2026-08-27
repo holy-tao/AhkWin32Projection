@@ -37,7 +37,6 @@ export default struct IXmlResolver extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszBaseUri 
      * @param {PWSTR} pwszPublicIdentifier 
      * @param {PWSTR} pwszSystemIdentifier 
@@ -48,7 +47,11 @@ export default struct IXmlResolver extends IUnknown {
         pwszPublicIdentifier := pwszPublicIdentifier is String ? StrPtr(pwszPublicIdentifier) : pwszPublicIdentifier
         pwszSystemIdentifier := pwszSystemIdentifier is String ? StrPtr(pwszSystemIdentifier) : pwszSystemIdentifier
 
-        result := ComCall(3, this, "ptr", pwszBaseUri, "ptr", pwszPublicIdentifier, "ptr", pwszSystemIdentifier, "ptr*", &ppResolvedInput := 0, "HRESULT")
+        pwszBaseUriMarshal := pwszBaseUri == 0 ? IntPtr : PWSTR
+        pwszPublicIdentifierMarshal := pwszPublicIdentifier == 0 ? IntPtr : PWSTR
+        pwszSystemIdentifierMarshal := pwszSystemIdentifier == 0 ? IntPtr : PWSTR
+
+        result := ComCall(3, this, pwszBaseUriMarshal, pwszBaseUri, pwszPublicIdentifierMarshal, pwszPublicIdentifier, pwszSystemIdentifierMarshal, pwszSystemIdentifier, "ptr*", &ppResolvedInput := 0, "HRESULT")
         return IUnknown(ppResolvedInput)
     }
 
@@ -61,7 +64,7 @@ export default struct IXmlResolver extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ResolveUri := CallbackCreate(GetMethod(implObj, "ResolveUri"), flags, 5)
+        this.vtbl.ResolveUri := CallbackCreate(ObjBindMethod(implObj, "ResolveUri"), flags, 5)
     }
 
     Dispose() {

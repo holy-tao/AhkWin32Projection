@@ -125,9 +125,9 @@ export default struct ISelector extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_NumSources := CallbackCreate(GetMethod(implObj, "get_NumSources"), flags, 2)
-        this.vtbl.get_SourceNodeId := CallbackCreate(GetMethod(implObj, "get_SourceNodeId"), flags, 2)
-        this.vtbl.put_SourceNodeId := CallbackCreate(GetMethod(implObj, "put_SourceNodeId"), flags, 2)
+        this.vtbl.get_NumSources := CallbackCreate(ObjBindMethod(implObj, "get_NumSources"), flags, 2)
+        this.vtbl.get_SourceNodeId := CallbackCreate(ObjBindMethod(implObj, "get_SourceNodeId"), flags, 2)
+        this.vtbl.put_SourceNodeId := CallbackCreate(ObjBindMethod(implObj, "put_SourceNodeId"), flags, 2)
     }
 
     Dispose() {

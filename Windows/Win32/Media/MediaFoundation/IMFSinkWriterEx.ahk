@@ -48,7 +48,9 @@ export default struct IMFSinkWriterEx extends IMFSinkWriter {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsinkwriterex-gettransformforstream
      */
     GetTransformForStream(dwStreamIndex, dwTransformIndex, pGuidCategory, ppTransform) {
-        result := ComCall(14, this, UInt32, dwStreamIndex, UInt32, dwTransformIndex, Guid.Ptr, pGuidCategory, IMFTransform.Ptr, ppTransform, "HRESULT")
+        pGuidCategoryMarshal := pGuidCategory == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(14, this, UInt32, dwStreamIndex, UInt32, dwTransformIndex, pGuidCategoryMarshal, pGuidCategory, IMFTransform.Ptr, ppTransform, "HRESULT")
         return result
     }
 
@@ -61,7 +63,7 @@ export default struct IMFSinkWriterEx extends IMFSinkWriter {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTransformForStream := CallbackCreate(GetMethod(implObj, "GetTransformForStream"), flags, 5)
+        this.vtbl.GetTransformForStream := CallbackCreate(ObjBindMethod(implObj, "GetTransformForStream"), flags, 5)
     }
 
     Dispose() {

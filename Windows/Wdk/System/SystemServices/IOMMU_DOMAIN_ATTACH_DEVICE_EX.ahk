@@ -21,14 +21,13 @@ export default struct IOMMU_DOMAIN_ATTACH_DEVICE_EX {
     }
 
     /**
-     * 
      * @param {Pointer<IOMMU_DMA_DOMAIN>} Domain 
      * @param {Pointer<IOMMU_DMA_DEVICE>} DmaDevice 
      * @returns {NTSTATUS} 
      */
     Call(Domain, DmaDevice) {
-        DomainMarshal := Domain is VarRef ? "ptr*" : "ptr"
-        DmaDeviceMarshal := DmaDevice is VarRef ? "ptr*" : "ptr"
+        DomainMarshal := Domain is VarRef ? "ptr*" : IntPtr
+        DmaDeviceMarshal := DmaDevice is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, DomainMarshal, Domain, DmaDeviceMarshal, DmaDevice, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

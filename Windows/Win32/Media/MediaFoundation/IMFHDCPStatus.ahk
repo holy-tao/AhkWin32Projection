@@ -46,15 +46,14 @@ export default struct IMFHDCPStatus extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/WMP/query-object
      */
     Query(pStatus, pfStatus) {
-        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
-        pfStatusMarshal := pfStatus is VarRef ? "int*" : "ptr"
+        pStatusMarshal := pStatus is VarRef ? "int*" : IntPtr
+        pfStatusMarshal := pfStatus is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, pStatusMarshal, pStatus, pfStatusMarshal, pfStatus, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {MF_HDCP_STATUS} _status 
      * @returns {HRESULT} 
      */
@@ -72,8 +71,8 @@ export default struct IMFHDCPStatus extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Query := CallbackCreate(GetMethod(implObj, "Query"), flags, 3)
-        this.vtbl.Set := CallbackCreate(GetMethod(implObj, "Set"), flags, 2)
+        this.vtbl.Query := CallbackCreate(ObjBindMethod(implObj, "Query"), flags, 3)
+        this.vtbl.Set := CallbackCreate(ObjBindMethod(implObj, "Set"), flags, 2)
     }
 
     Dispose() {

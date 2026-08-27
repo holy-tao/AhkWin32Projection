@@ -20,7 +20,6 @@ export default struct MI_OperationCallback_PromptUser {
     }
 
     /**
-     * 
      * @param {Pointer<MI_Operation>} operation 
      * @param {Pointer<Void>} callbackContext 
      * @param {Pointer<Integer>} message 
@@ -29,10 +28,12 @@ export default struct MI_OperationCallback_PromptUser {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(operation, callbackContext, message, promptType, promptUserResult) {
-        callbackContextMarshal := callbackContext is VarRef ? "ptr" : "ptr"
-        messageMarshal := message is VarRef ? "ushort*" : "ptr"
+        callbackContextMarshal := callbackContext is VarRef ? "ptr" : IntPtr
+        callbackContextMarshal := callbackContext == 0 ? IntPtr : "ptr"
+        messageMarshal := message is VarRef ? "ushort*" : IntPtr
+        promptUserResultMarshal := promptUserResult == 0 ? IntPtr : IntPtr
 
-        DllCall(this.value, MI_Operation.Ptr, operation, callbackContextMarshal, callbackContext, messageMarshal, message, MI_PromptType, promptType, IntPtr, promptUserResult)
+        DllCall(this.value, MI_Operation.Ptr, operation, callbackContextMarshal, callbackContext, messageMarshal, message, MI_PromptType, promptType, promptUserResultMarshal, promptUserResult)
     }
 
     /**

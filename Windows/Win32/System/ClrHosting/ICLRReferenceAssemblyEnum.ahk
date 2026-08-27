@@ -47,7 +47,7 @@ export default struct ICLRReferenceAssemblyEnum extends IUnknown {
     Get(dwIndex, pwzBuffer, pcchBufferSize) {
         pwzBuffer := pwzBuffer is String ? StrPtr(pwzBuffer) : pwzBuffer
 
-        pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : "ptr"
+        pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, UInt32, dwIndex, "ptr", pwzBuffer, pcchBufferSizeMarshal, pcchBufferSize, "HRESULT")
         return result
@@ -62,7 +62,7 @@ export default struct ICLRReferenceAssemblyEnum extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Get := CallbackCreate(GetMethod(implObj, "Get"), flags, 4)
+        this.vtbl.Get := CallbackCreate(ObjBindMethod(implObj, "Get"), flags, 4)
     }
 
     Dispose() {

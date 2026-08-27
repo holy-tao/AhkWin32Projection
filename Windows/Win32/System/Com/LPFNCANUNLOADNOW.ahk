@@ -19,7 +19,6 @@ export default struct LPFNCANUNLOADNOW {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Call() {

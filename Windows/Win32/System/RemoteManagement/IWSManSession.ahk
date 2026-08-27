@@ -308,18 +308,18 @@ export default struct IWSManSession extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Get := CallbackCreate(GetMethod(implObj, "Get"), flags, 4)
-        this.vtbl.Put := CallbackCreate(GetMethod(implObj, "Put"), flags, 5)
-        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 5)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 3)
-        this.vtbl.Invoke := CallbackCreate(GetMethod(implObj, "Invoke"), flags, 6)
-        this.vtbl.Enumerate := CallbackCreate(GetMethod(implObj, "Enumerate"), flags, 6)
-        this.vtbl.Identify := CallbackCreate(GetMethod(implObj, "Identify"), flags, 3)
-        this.vtbl.get_Error := CallbackCreate(GetMethod(implObj, "get_Error"), flags, 2)
-        this.vtbl.get_BatchItems := CallbackCreate(GetMethod(implObj, "get_BatchItems"), flags, 2)
-        this.vtbl.put_BatchItems := CallbackCreate(GetMethod(implObj, "put_BatchItems"), flags, 2)
-        this.vtbl.get_Timeout := CallbackCreate(GetMethod(implObj, "get_Timeout"), flags, 2)
-        this.vtbl.put_Timeout := CallbackCreate(GetMethod(implObj, "put_Timeout"), flags, 2)
+        this.vtbl.Get := CallbackCreate(ObjBindMethod(implObj, "Get"), flags, 4)
+        this.vtbl.Put := CallbackCreate(ObjBindMethod(implObj, "Put"), flags, 5)
+        this.vtbl.Create := CallbackCreate(ObjBindMethod(implObj, "Create"), flags, 5)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 3)
+        this.vtbl.Invoke := CallbackCreate(ObjBindMethod(implObj, "Invoke"), flags, 6)
+        this.vtbl.Enumerate := CallbackCreate(ObjBindMethod(implObj, "Enumerate"), flags, 6)
+        this.vtbl.Identify := CallbackCreate(ObjBindMethod(implObj, "Identify"), flags, 3)
+        this.vtbl.get_Error := CallbackCreate(ObjBindMethod(implObj, "get_Error"), flags, 2)
+        this.vtbl.get_BatchItems := CallbackCreate(ObjBindMethod(implObj, "get_BatchItems"), flags, 2)
+        this.vtbl.put_BatchItems := CallbackCreate(ObjBindMethod(implObj, "put_BatchItems"), flags, 2)
+        this.vtbl.get_Timeout := CallbackCreate(ObjBindMethod(implObj, "get_Timeout"), flags, 2)
+        this.vtbl.put_Timeout := CallbackCreate(ObjBindMethod(implObj, "put_Timeout"), flags, 2)
     }
 
     Dispose() {

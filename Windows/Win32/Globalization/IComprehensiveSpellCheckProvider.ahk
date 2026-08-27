@@ -63,7 +63,7 @@ export default struct IComprehensiveSpellCheckProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ComprehensiveCheck := CallbackCreate(GetMethod(implObj, "ComprehensiveCheck"), flags, 3)
+        this.vtbl.ComprehensiveCheck := CallbackCreate(ObjBindMethod(implObj, "ComprehensiveCheck"), flags, 3)
     }
 
     Dispose() {

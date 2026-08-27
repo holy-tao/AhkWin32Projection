@@ -20,7 +20,6 @@ export default struct PFND3DKMT_TRIMPROCESSCOMMITMENT {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_TRIMPROCESSCOMMITMENT>} param0 
      * @returns {NTSTATUS} 
      */

@@ -69,7 +69,6 @@ export default struct ID2D1Device1 extends ID2D1Device {
     }
 
     /**
-     * 
      * @param {D2D1_DEVICE_CONTEXT_OPTIONS} options 
      * @returns {ID2D1DeviceContext1} 
      */
@@ -87,9 +86,9 @@ export default struct ID2D1Device1 extends ID2D1Device {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRenderingPriority := CallbackCreate(GetMethod(implObj, "GetRenderingPriority"), flags, 1)
-        this.vtbl.SetRenderingPriority := CallbackCreate(GetMethod(implObj, "SetRenderingPriority"), flags, 2)
-        this.vtbl.CreateDeviceContext := CallbackCreate(GetMethod(implObj, "CreateDeviceContext"), flags, 3)
+        this.vtbl.GetRenderingPriority := CallbackCreate(ObjBindMethod(implObj, "GetRenderingPriority"), flags, 1)
+        this.vtbl.SetRenderingPriority := CallbackCreate(ObjBindMethod(implObj, "SetRenderingPriority"), flags, 2)
+        this.vtbl.CreateDeviceContext := CallbackCreate(ObjBindMethod(implObj, "CreateDeviceContext"), flags, 3)
     }
 
     Dispose() {

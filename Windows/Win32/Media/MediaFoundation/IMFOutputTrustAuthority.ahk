@@ -108,10 +108,13 @@ export default struct IMFOutputTrustAuthority extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfoutputtrustauthority-setpolicy
      */
     SetPolicy(ppPolicy, nPolicy, ppbTicket, pcbTicket) {
-        ppbTicketMarshal := ppbTicket is VarRef ? "ptr*" : "ptr"
-        pcbTicketMarshal := pcbTicket is VarRef ? "uint*" : "ptr"
+        ppPolicyMarshal := ppPolicy == 0 ? IntPtr : IMFOutputPolicy.Ptr
+        ppbTicketMarshal := ppbTicket is VarRef ? "ptr*" : IntPtr
+        ppbTicketMarshal := ppbTicket == 0 ? IntPtr : "ptr*"
+        pcbTicketMarshal := pcbTicket is VarRef ? "uint*" : IntPtr
+        pcbTicketMarshal := pcbTicket == 0 ? IntPtr : "uint*"
 
-        result := ComCall(4, this, IMFOutputPolicy.Ptr, ppPolicy, UInt32, nPolicy, ppbTicketMarshal, ppbTicket, pcbTicketMarshal, pcbTicket, "HRESULT")
+        result := ComCall(4, this, ppPolicyMarshal, ppPolicy, UInt32, nPolicy, ppbTicketMarshal, ppbTicket, pcbTicketMarshal, pcbTicket, "HRESULT")
         return result
     }
 
@@ -124,8 +127,8 @@ export default struct IMFOutputTrustAuthority extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAction := CallbackCreate(GetMethod(implObj, "GetAction"), flags, 2)
-        this.vtbl.SetPolicy := CallbackCreate(GetMethod(implObj, "SetPolicy"), flags, 5)
+        this.vtbl.GetAction := CallbackCreate(ObjBindMethod(implObj, "GetAction"), flags, 2)
+        this.vtbl.SetPolicy := CallbackCreate(ObjBindMethod(implObj, "SetPolicy"), flags, 5)
     }
 
     Dispose() {

@@ -106,8 +106,8 @@ export default struct IWMCodecPrivateData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmcodecprivatedata-getprivatedata
      */
     GetPrivateData(pbData, pcbData) {
-        pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
-        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+        pbDataMarshal := pbData is VarRef ? "char*" : IntPtr
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pbDataMarshal, pbData, pcbDataMarshal, pcbData, "HRESULT")
         return result
@@ -122,8 +122,8 @@ export default struct IWMCodecPrivateData extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetPartialOutputType := CallbackCreate(GetMethod(implObj, "SetPartialOutputType"), flags, 2)
-        this.vtbl.GetPrivateData := CallbackCreate(GetMethod(implObj, "GetPrivateData"), flags, 3)
+        this.vtbl.SetPartialOutputType := CallbackCreate(ObjBindMethod(implObj, "SetPartialOutputType"), flags, 2)
+        this.vtbl.GetPrivateData := CallbackCreate(ObjBindMethod(implObj, "GetPrivateData"), flags, 3)
     }
 
     Dispose() {

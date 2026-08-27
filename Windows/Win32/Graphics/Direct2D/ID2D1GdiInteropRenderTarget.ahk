@@ -87,7 +87,9 @@ export default struct ID2D1GdiInteropRenderTarget extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1gdiinteroprendertarget-releasedc
      */
     ReleaseDC(update) {
-        result := ComCall(4, this, RECT.Ptr, update, "HRESULT")
+        updateMarshal := update == 0 ? IntPtr : RECT.Ptr
+
+        result := ComCall(4, this, updateMarshal, update, "HRESULT")
         return result
     }
 
@@ -100,8 +102,8 @@ export default struct ID2D1GdiInteropRenderTarget extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDC := CallbackCreate(GetMethod(implObj, "GetDC"), flags, 3)
-        this.vtbl.ReleaseDC := CallbackCreate(GetMethod(implObj, "ReleaseDC"), flags, 2)
+        this.vtbl.GetDC := CallbackCreate(ObjBindMethod(implObj, "GetDC"), flags, 3)
+        this.vtbl.ReleaseDC := CallbackCreate(ObjBindMethod(implObj, "ReleaseDC"), flags, 2)
     }
 
     Dispose() {

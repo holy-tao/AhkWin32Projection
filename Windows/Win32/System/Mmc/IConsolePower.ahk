@@ -94,8 +94,8 @@ export default struct IConsolePower extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetExecutionState := CallbackCreate(GetMethod(implObj, "SetExecutionState"), flags, 3)
-        this.vtbl.ResetIdleTimer := CallbackCreate(GetMethod(implObj, "ResetIdleTimer"), flags, 2)
+        this.vtbl.SetExecutionState := CallbackCreate(ObjBindMethod(implObj, "SetExecutionState"), flags, 3)
+        this.vtbl.ResetIdleTimer := CallbackCreate(ObjBindMethod(implObj, "ResetIdleTimer"), flags, 2)
     }
 
     Dispose() {

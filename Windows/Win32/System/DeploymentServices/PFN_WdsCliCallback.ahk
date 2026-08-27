@@ -29,7 +29,6 @@ export default struct PFN_WdsCliCallback {
     }
 
     /**
-     * 
      * @param {PFN_WDS_CLI_CALLBACK_MESSAGE_ID} dwMessageId The type of message and the meaning of the <i>lParam</i> parameter.
      * @param {WPARAM} _wParam This message parameter should always be set to the value of the transfer handle returned by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclitransferimage">WdsCliTransferImage</a> or 
@@ -42,9 +41,12 @@ export default struct PFN_WdsCliCallback {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(dwMessageId, _wParam, _lParam, pvUserData) {
-        pvUserDataMarshal := pvUserData is VarRef ? "ptr" : "ptr"
+        _wParamMarshal := _wParam == 0 ? IntPtr : WPARAM
+        _lParamMarshal := _lParam == 0 ? IntPtr : LPARAM
+        pvUserDataMarshal := pvUserData is VarRef ? "ptr" : IntPtr
+        pvUserDataMarshal := pvUserData == 0 ? IntPtr : "ptr"
 
-        DllCall(this.value, PFN_WDS_CLI_CALLBACK_MESSAGE_ID, dwMessageId, WPARAM, _wParam, LPARAM, _lParam, pvUserDataMarshal, pvUserData)
+        DllCall(this.value, PFN_WDS_CLI_CALLBACK_MESSAGE_ID, dwMessageId, _wParamMarshal, _wParam, _lParamMarshal, _lParam, pvUserDataMarshal, pvUserData)
     }
 
     /**

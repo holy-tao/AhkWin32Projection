@@ -130,7 +130,9 @@ export default struct IMFExtendedDRMTypeSupport extends IUnknown {
         type := type is String ? BSTR.Alloc(type).Value : type
         keySystem := keySystem is String ? BSTR.Alloc(keySystem).Value : keySystem
 
-        result := ComCall(3, this, BSTR, type, BSTR, keySystem, "int*", &pAnswer := 0, "HRESULT")
+        typeMarshal := type == 0 ? IntPtr : BSTR
+
+        result := ComCall(3, this, typeMarshal, type, BSTR, keySystem, "int*", &pAnswer := 0, "HRESULT")
         return pAnswer
     }
 
@@ -143,7 +145,7 @@ export default struct IMFExtendedDRMTypeSupport extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsTypeSupportedEx := CallbackCreate(GetMethod(implObj, "IsTypeSupportedEx"), flags, 4)
+        this.vtbl.IsTypeSupportedEx := CallbackCreate(ObjBindMethod(implObj, "IsTypeSupportedEx"), flags, 4)
     }
 
     Dispose() {

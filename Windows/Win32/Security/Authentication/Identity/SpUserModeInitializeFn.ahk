@@ -28,7 +28,6 @@ export default struct SpUserModeInitializeFn {
     }
 
     /**
-     * 
      * @param {Integer} LsaVersion The version of the security provider DLL (either Secur32.dll or Security.dll).
      * @param {Pointer<Integer>} PackageVersion Pointer that returns the version of the SSP/AP DLL.
      * @param {Pointer<Pointer<SECPKG_USER_FUNCTION_TABLE>>} ppTables Pointer that returns an array of 
@@ -39,9 +38,9 @@ export default struct SpUserModeInitializeFn {
      * If the function fails, return an <b>NTSTATUS</b> code that indicates the reason it failed.
      */
     Call(LsaVersion, PackageVersion, ppTables, pcTables) {
-        PackageVersionMarshal := PackageVersion is VarRef ? "uint*" : "ptr"
-        ppTablesMarshal := ppTables is VarRef ? "ptr*" : "ptr"
-        pcTablesMarshal := pcTables is VarRef ? "uint*" : "ptr"
+        PackageVersionMarshal := PackageVersion is VarRef ? "uint*" : IntPtr
+        ppTablesMarshal := ppTables is VarRef ? "ptr*" : IntPtr
+        pcTablesMarshal := pcTables is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, UInt32, LsaVersion, PackageVersionMarshal, PackageVersion, ppTablesMarshal, ppTables, pcTablesMarshal, pcTables, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

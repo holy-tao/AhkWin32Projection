@@ -38,7 +38,6 @@ export default struct INetworkTransportSettings extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<TRANSPORT_SETTING_ID>} SettingId 
      * @param {Integer} LengthIn 
      * @param {Pointer<Integer>} ValueIn 
@@ -47,16 +46,15 @@ export default struct INetworkTransportSettings extends IUnknown {
      * @returns {HRESULT} 
      */
     ApplySetting(SettingId, LengthIn, ValueIn, LengthOut, ValueOut) {
-        ValueInMarshal := ValueIn is VarRef ? "char*" : "ptr"
-        LengthOutMarshal := LengthOut is VarRef ? "uint*" : "ptr"
-        ValueOutMarshal := ValueOut is VarRef ? "ptr*" : "ptr"
+        ValueInMarshal := ValueIn is VarRef ? "char*" : IntPtr
+        LengthOutMarshal := LengthOut is VarRef ? "uint*" : IntPtr
+        ValueOutMarshal := ValueOut is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, TRANSPORT_SETTING_ID.Ptr, SettingId, UInt32, LengthIn, ValueInMarshal, ValueIn, LengthOutMarshal, LengthOut, ValueOutMarshal, ValueOut, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<TRANSPORT_SETTING_ID>} SettingId 
      * @param {Integer} LengthIn 
      * @param {Pointer<Integer>} ValueIn 
@@ -65,9 +63,9 @@ export default struct INetworkTransportSettings extends IUnknown {
      * @returns {HRESULT} 
      */
     QuerySetting(SettingId, LengthIn, ValueIn, LengthOut, ValueOut) {
-        ValueInMarshal := ValueIn is VarRef ? "char*" : "ptr"
-        LengthOutMarshal := LengthOut is VarRef ? "uint*" : "ptr"
-        ValueOutMarshal := ValueOut is VarRef ? "ptr*" : "ptr"
+        ValueInMarshal := ValueIn is VarRef ? "char*" : IntPtr
+        LengthOutMarshal := LengthOut is VarRef ? "uint*" : IntPtr
+        ValueOutMarshal := ValueOut is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, TRANSPORT_SETTING_ID.Ptr, SettingId, UInt32, LengthIn, ValueInMarshal, ValueIn, LengthOutMarshal, LengthOut, ValueOutMarshal, ValueOut, "HRESULT")
         return result
@@ -82,8 +80,8 @@ export default struct INetworkTransportSettings extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ApplySetting := CallbackCreate(GetMethod(implObj, "ApplySetting"), flags, 6)
-        this.vtbl.QuerySetting := CallbackCreate(GetMethod(implObj, "QuerySetting"), flags, 6)
+        this.vtbl.ApplySetting := CallbackCreate(ObjBindMethod(implObj, "ApplySetting"), flags, 6)
+        this.vtbl.QuerySetting := CallbackCreate(ObjBindMethod(implObj, "QuerySetting"), flags, 6)
     }
 
     Dispose() {

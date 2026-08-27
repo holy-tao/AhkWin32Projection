@@ -73,7 +73,7 @@ export default struct DDiscFormat2EraseEvents extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Update := CallbackCreate(GetMethod(implObj, "Update"), flags, 4)
+        this.vtbl.Update := CallbackCreate(ObjBindMethod(implObj, "Update"), flags, 4)
     }
 
     Dispose() {

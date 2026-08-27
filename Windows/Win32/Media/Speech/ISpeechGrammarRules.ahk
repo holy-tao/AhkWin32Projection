@@ -70,7 +70,6 @@ export default struct ISpeechGrammarRules extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -79,7 +78,6 @@ export default struct ISpeechGrammarRules extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} RuleNameOrId 
      * @returns {ISpeechGrammarRule} 
      */
@@ -105,7 +103,6 @@ export default struct ISpeechGrammarRules extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -114,7 +111,6 @@ export default struct ISpeechGrammarRules extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Dynamic() {
@@ -123,7 +119,6 @@ export default struct ISpeechGrammarRules extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} RuleName 
      * @param {SpeechRuleAttributes} Attributes 
      * @param {Integer} RuleId 
@@ -137,7 +132,6 @@ export default struct ISpeechGrammarRules extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Commit() {
@@ -146,7 +140,6 @@ export default struct ISpeechGrammarRules extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} ErrorText 
      * @param {Pointer<VARIANT>} SaveStream 
      * @returns {HRESULT} 
@@ -165,14 +158,14 @@ export default struct ISpeechGrammarRules extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.FindRule := CallbackCreate(GetMethod(implObj, "FindRule"), flags, 3)
-        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 3)
-        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
-        this.vtbl.get_Dynamic := CallbackCreate(GetMethod(implObj, "get_Dynamic"), flags, 2)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 5)
-        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 1)
-        this.vtbl.CommitAndSave := CallbackCreate(GetMethod(implObj, "CommitAndSave"), flags, 3)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.FindRule := CallbackCreate(ObjBindMethod(implObj, "FindRule"), flags, 3)
+        this.vtbl.Item := CallbackCreate(ObjBindMethod(implObj, "Item"), flags, 3)
+        this.vtbl.get__NewEnum := CallbackCreate(ObjBindMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Dynamic := CallbackCreate(ObjBindMethod(implObj, "get_Dynamic"), flags, 2)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 5)
+        this.vtbl.Commit := CallbackCreate(ObjBindMethod(implObj, "Commit"), flags, 1)
+        this.vtbl.CommitAndSave := CallbackCreate(ObjBindMethod(implObj, "CommitAndSave"), flags, 3)
     }
 
     Dispose() {

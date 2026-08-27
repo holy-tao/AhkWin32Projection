@@ -63,19 +63,17 @@ export default struct ISpRecoGrammar extends ISpGrammarBuilder {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pullGrammarId 
      * @returns {HRESULT} 
      */
     GetGrammarId(pullGrammarId) {
-        pullGrammarIdMarshal := pullGrammarId is VarRef ? "uint*" : "ptr"
+        pullGrammarIdMarshal := pullGrammarId is VarRef ? "uint*" : IntPtr
 
         result := ComCall(11, this, pullGrammarIdMarshal, pullGrammarId, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {ISpRecoContext} 
      */
     GetRecoContext() {
@@ -84,7 +82,6 @@ export default struct ISpRecoGrammar extends ISpGrammarBuilder {
     }
 
     /**
-     * 
      * @param {PWSTR} pszFileName 
      * @param {SPLOADOPTIONS} Options 
      * @returns {HRESULT} 
@@ -97,7 +94,6 @@ export default struct ISpRecoGrammar extends ISpGrammarBuilder {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rcid 
      * @param {PWSTR} pszGrammarName 
      * @param {SPLOADOPTIONS} Options 
@@ -111,7 +107,6 @@ export default struct ISpRecoGrammar extends ISpGrammarBuilder {
     }
 
     /**
-     * 
      * @param {HMODULE} _hModule 
      * @param {PWSTR} pszResourceName 
      * @param {PWSTR} pszResourceType 
@@ -128,7 +123,6 @@ export default struct ISpRecoGrammar extends ISpGrammarBuilder {
     }
 
     /**
-     * 
      * @param {Pointer<SPBINARYGRAMMAR>} pGrammar 
      * @param {SPLOADOPTIONS} Options 
      * @returns {HRESULT} 
@@ -139,7 +133,6 @@ export default struct ISpRecoGrammar extends ISpGrammarBuilder {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rguidParam 
      * @param {PWSTR} pszStringParam 
      * @param {Pointer<Void>} pvDataPrarm 
@@ -150,14 +143,13 @@ export default struct ISpRecoGrammar extends ISpGrammarBuilder {
     LoadCmdFromProprietaryGrammar(rguidParam, pszStringParam, pvDataPrarm, cbDataSize, Options) {
         pszStringParam := pszStringParam is String ? StrPtr(pszStringParam) : pszStringParam
 
-        pvDataPrarmMarshal := pvDataPrarm is VarRef ? "ptr" : "ptr"
+        pvDataPrarmMarshal := pvDataPrarm is VarRef ? "ptr" : IntPtr
 
         result := ComCall(17, this, Guid.Ptr, rguidParam, "ptr", pszStringParam, pvDataPrarmMarshal, pvDataPrarm, UInt32, cbDataSize, SPLOADOPTIONS, Options, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pszName 
      * @param {Pointer<Void>} pReserved 
      * @param {SPRULESTATE} NewState 
@@ -166,14 +158,14 @@ export default struct ISpRecoGrammar extends ISpGrammarBuilder {
     SetRuleState(pszName, pReserved, NewState) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
+        pszNameMarshal := pszName == 0 ? IntPtr : PWSTR
+        pReservedMarshal := pReserved is VarRef ? "ptr" : IntPtr
 
-        result := ComCall(18, this, "ptr", pszName, pReservedMarshal, pReserved, SPRULESTATE, NewState, "HRESULT")
+        result := ComCall(18, this, pszNameMarshal, pszName, pReservedMarshal, pReserved, SPRULESTATE, NewState, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} ulRuleId 
      * @param {SPRULESTATE} NewState 
      * @returns {HRESULT} 
@@ -184,7 +176,6 @@ export default struct ISpRecoGrammar extends ISpGrammarBuilder {
     }
 
     /**
-     * 
      * @param {PWSTR} pszTopicName 
      * @param {SPLOADOPTIONS} Options 
      * @returns {HRESULT} 
@@ -192,12 +183,13 @@ export default struct ISpRecoGrammar extends ISpGrammarBuilder {
     LoadDictation(pszTopicName, Options) {
         pszTopicName := pszTopicName is String ? StrPtr(pszTopicName) : pszTopicName
 
-        result := ComCall(20, this, "ptr", pszTopicName, SPLOADOPTIONS, Options, "HRESULT")
+        pszTopicNameMarshal := pszTopicName == 0 ? IntPtr : PWSTR
+
+        result := ComCall(20, this, pszTopicNameMarshal, pszTopicName, SPLOADOPTIONS, Options, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     UnloadDictation() {
@@ -206,7 +198,6 @@ export default struct ISpRecoGrammar extends ISpGrammarBuilder {
     }
 
     /**
-     * 
      * @param {SPRULESTATE} NewState 
      * @returns {HRESULT} 
      */
@@ -216,7 +207,6 @@ export default struct ISpRecoGrammar extends ISpGrammarBuilder {
     }
 
     /**
-     * 
      * @param {PWSTR} pText 
      * @param {Integer} cchText 
      * @param {Pointer<SPTEXTSELECTIONINFO>} pInfo 
@@ -225,12 +215,13 @@ export default struct ISpRecoGrammar extends ISpGrammarBuilder {
     SetWordSequenceData(pText, cchText, pInfo) {
         pText := pText is String ? StrPtr(pText) : pText
 
-        result := ComCall(23, this, "ptr", pText, UInt32, cchText, SPTEXTSELECTIONINFO.Ptr, pInfo, "HRESULT")
+        pTextMarshal := pText == 0 ? IntPtr : PWSTR
+
+        result := ComCall(23, this, pTextMarshal, pText, UInt32, cchText, SPTEXTSELECTIONINFO.Ptr, pInfo, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<SPTEXTSELECTIONINFO>} pInfo 
      * @returns {HRESULT} 
      */
@@ -240,7 +231,6 @@ export default struct ISpRecoGrammar extends ISpGrammarBuilder {
     }
 
     /**
-     * 
      * @param {PWSTR} pszWord 
      * @param {Pointer<SPWORDPRONOUNCEABLE>} pWordPronounceable 
      * @returns {HRESULT} 
@@ -248,14 +238,13 @@ export default struct ISpRecoGrammar extends ISpGrammarBuilder {
     IsPronounceable(pszWord, pWordPronounceable) {
         pszWord := pszWord is String ? StrPtr(pszWord) : pszWord
 
-        pWordPronounceableMarshal := pWordPronounceable is VarRef ? "int*" : "ptr"
+        pWordPronounceableMarshal := pWordPronounceable is VarRef ? "int*" : IntPtr
 
         result := ComCall(25, this, "ptr", pszWord, pWordPronounceableMarshal, pWordPronounceable, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {SPGRAMMARSTATE} eGrammarState 
      * @returns {HRESULT} 
      */
@@ -265,7 +254,6 @@ export default struct ISpRecoGrammar extends ISpGrammarBuilder {
     }
 
     /**
-     * 
      * @param {IStream} pStream 
      * @returns {PWSTR} 
      */
@@ -275,12 +263,11 @@ export default struct ISpRecoGrammar extends ISpGrammarBuilder {
     }
 
     /**
-     * 
      * @param {Pointer<SPGRAMMARSTATE>} peGrammarState 
      * @returns {HRESULT} 
      */
     GetGrammarState(peGrammarState) {
-        peGrammarStateMarshal := peGrammarState is VarRef ? "int*" : "ptr"
+        peGrammarStateMarshal := peGrammarState is VarRef ? "int*" : IntPtr
 
         result := ComCall(28, this, peGrammarStateMarshal, peGrammarState, "HRESULT")
         return result
@@ -295,24 +282,24 @@ export default struct ISpRecoGrammar extends ISpGrammarBuilder {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetGrammarId := CallbackCreate(GetMethod(implObj, "GetGrammarId"), flags, 2)
-        this.vtbl.GetRecoContext := CallbackCreate(GetMethod(implObj, "GetRecoContext"), flags, 2)
-        this.vtbl.LoadCmdFromFile := CallbackCreate(GetMethod(implObj, "LoadCmdFromFile"), flags, 3)
-        this.vtbl.LoadCmdFromObject := CallbackCreate(GetMethod(implObj, "LoadCmdFromObject"), flags, 4)
-        this.vtbl.LoadCmdFromResource := CallbackCreate(GetMethod(implObj, "LoadCmdFromResource"), flags, 6)
-        this.vtbl.LoadCmdFromMemory := CallbackCreate(GetMethod(implObj, "LoadCmdFromMemory"), flags, 3)
-        this.vtbl.LoadCmdFromProprietaryGrammar := CallbackCreate(GetMethod(implObj, "LoadCmdFromProprietaryGrammar"), flags, 6)
-        this.vtbl.SetRuleState := CallbackCreate(GetMethod(implObj, "SetRuleState"), flags, 4)
-        this.vtbl.SetRuleIdState := CallbackCreate(GetMethod(implObj, "SetRuleIdState"), flags, 3)
-        this.vtbl.LoadDictation := CallbackCreate(GetMethod(implObj, "LoadDictation"), flags, 3)
-        this.vtbl.UnloadDictation := CallbackCreate(GetMethod(implObj, "UnloadDictation"), flags, 1)
-        this.vtbl.SetDictationState := CallbackCreate(GetMethod(implObj, "SetDictationState"), flags, 2)
-        this.vtbl.SetWordSequenceData := CallbackCreate(GetMethod(implObj, "SetWordSequenceData"), flags, 4)
-        this.vtbl.SetTextSelection := CallbackCreate(GetMethod(implObj, "SetTextSelection"), flags, 2)
-        this.vtbl.IsPronounceable := CallbackCreate(GetMethod(implObj, "IsPronounceable"), flags, 3)
-        this.vtbl.SetGrammarState := CallbackCreate(GetMethod(implObj, "SetGrammarState"), flags, 2)
-        this.vtbl.SaveCmd := CallbackCreate(GetMethod(implObj, "SaveCmd"), flags, 3)
-        this.vtbl.GetGrammarState := CallbackCreate(GetMethod(implObj, "GetGrammarState"), flags, 2)
+        this.vtbl.GetGrammarId := CallbackCreate(ObjBindMethod(implObj, "GetGrammarId"), flags, 2)
+        this.vtbl.GetRecoContext := CallbackCreate(ObjBindMethod(implObj, "GetRecoContext"), flags, 2)
+        this.vtbl.LoadCmdFromFile := CallbackCreate(ObjBindMethod(implObj, "LoadCmdFromFile"), flags, 3)
+        this.vtbl.LoadCmdFromObject := CallbackCreate(ObjBindMethod(implObj, "LoadCmdFromObject"), flags, 4)
+        this.vtbl.LoadCmdFromResource := CallbackCreate(ObjBindMethod(implObj, "LoadCmdFromResource"), flags, 6)
+        this.vtbl.LoadCmdFromMemory := CallbackCreate(ObjBindMethod(implObj, "LoadCmdFromMemory"), flags, 3)
+        this.vtbl.LoadCmdFromProprietaryGrammar := CallbackCreate(ObjBindMethod(implObj, "LoadCmdFromProprietaryGrammar"), flags, 6)
+        this.vtbl.SetRuleState := CallbackCreate(ObjBindMethod(implObj, "SetRuleState"), flags, 4)
+        this.vtbl.SetRuleIdState := CallbackCreate(ObjBindMethod(implObj, "SetRuleIdState"), flags, 3)
+        this.vtbl.LoadDictation := CallbackCreate(ObjBindMethod(implObj, "LoadDictation"), flags, 3)
+        this.vtbl.UnloadDictation := CallbackCreate(ObjBindMethod(implObj, "UnloadDictation"), flags, 1)
+        this.vtbl.SetDictationState := CallbackCreate(ObjBindMethod(implObj, "SetDictationState"), flags, 2)
+        this.vtbl.SetWordSequenceData := CallbackCreate(ObjBindMethod(implObj, "SetWordSequenceData"), flags, 4)
+        this.vtbl.SetTextSelection := CallbackCreate(ObjBindMethod(implObj, "SetTextSelection"), flags, 2)
+        this.vtbl.IsPronounceable := CallbackCreate(ObjBindMethod(implObj, "IsPronounceable"), flags, 3)
+        this.vtbl.SetGrammarState := CallbackCreate(ObjBindMethod(implObj, "SetGrammarState"), flags, 2)
+        this.vtbl.SaveCmd := CallbackCreate(ObjBindMethod(implObj, "SaveCmd"), flags, 3)
+        this.vtbl.GetGrammarState := CallbackCreate(ObjBindMethod(implObj, "GetGrammarState"), flags, 2)
     }
 
     Dispose() {

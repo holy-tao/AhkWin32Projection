@@ -291,13 +291,13 @@ export default struct IOleControlSite extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnControlInfoChanged := CallbackCreate(GetMethod(implObj, "OnControlInfoChanged"), flags, 1)
-        this.vtbl.LockInPlaceActive := CallbackCreate(GetMethod(implObj, "LockInPlaceActive"), flags, 2)
-        this.vtbl.GetExtendedControl := CallbackCreate(GetMethod(implObj, "GetExtendedControl"), flags, 2)
-        this.vtbl.TransformCoords := CallbackCreate(GetMethod(implObj, "TransformCoords"), flags, 4)
-        this.vtbl.TranslateAccelerator := CallbackCreate(GetMethod(implObj, "TranslateAccelerator"), flags, 3)
-        this.vtbl.OnFocus := CallbackCreate(GetMethod(implObj, "OnFocus"), flags, 2)
-        this.vtbl.ShowPropertyFrame := CallbackCreate(GetMethod(implObj, "ShowPropertyFrame"), flags, 1)
+        this.vtbl.OnControlInfoChanged := CallbackCreate(ObjBindMethod(implObj, "OnControlInfoChanged"), flags, 1)
+        this.vtbl.LockInPlaceActive := CallbackCreate(ObjBindMethod(implObj, "LockInPlaceActive"), flags, 2)
+        this.vtbl.GetExtendedControl := CallbackCreate(ObjBindMethod(implObj, "GetExtendedControl"), flags, 2)
+        this.vtbl.TransformCoords := CallbackCreate(ObjBindMethod(implObj, "TransformCoords"), flags, 4)
+        this.vtbl.TranslateAccelerator := CallbackCreate(ObjBindMethod(implObj, "TranslateAccelerator"), flags, 3)
+        this.vtbl.OnFocus := CallbackCreate(ObjBindMethod(implObj, "OnFocus"), flags, 2)
+        this.vtbl.ShowPropertyFrame := CallbackCreate(ObjBindMethod(implObj, "ShowPropertyFrame"), flags, 1)
     }
 
     Dispose() {

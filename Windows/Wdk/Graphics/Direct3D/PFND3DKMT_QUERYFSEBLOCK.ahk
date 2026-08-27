@@ -20,7 +20,6 @@ export default struct PFND3DKMT_QUERYFSEBLOCK {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_QUERYFSEBLOCK>} param0 
      * @returns {NTSTATUS} 
      */

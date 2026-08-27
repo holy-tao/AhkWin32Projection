@@ -23,7 +23,6 @@ export default struct PGET_DMA_TRANSFER_INFO {
     }
 
     /**
-     * 
      * @param {Pointer<DMA_ADAPTER>} DmaAdapter 
      * @param {Pointer<MDL>} _Mdl 
      * @param {Integer} Offset 

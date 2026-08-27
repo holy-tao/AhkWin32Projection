@@ -56,7 +56,10 @@ export default struct IShellFolderBand extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-ishellfolderband-initializesfb
      */
     InitializeSFB(psf, pidl) {
-        result := ComCall(3, this, "ptr", psf, ITEMIDLIST.Ptr, pidl, "HRESULT")
+        psfMarshal := psf == 0 ? IntPtr : "ptr"
+        pidlMarshal := pidl == 0 ? IntPtr : ITEMIDLIST.Ptr
+
+        result := ComCall(3, this, psfMarshal, psf, pidlMarshal, pidl, "HRESULT")
         return result
     }
 
@@ -99,9 +102,9 @@ export default struct IShellFolderBand extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeSFB := CallbackCreate(GetMethod(implObj, "InitializeSFB"), flags, 3)
-        this.vtbl.SetBandInfoSFB := CallbackCreate(GetMethod(implObj, "SetBandInfoSFB"), flags, 2)
-        this.vtbl.GetBandInfoSFB := CallbackCreate(GetMethod(implObj, "GetBandInfoSFB"), flags, 2)
+        this.vtbl.InitializeSFB := CallbackCreate(ObjBindMethod(implObj, "InitializeSFB"), flags, 3)
+        this.vtbl.SetBandInfoSFB := CallbackCreate(ObjBindMethod(implObj, "SetBandInfoSFB"), flags, 2)
+        this.vtbl.GetBandInfoSFB := CallbackCreate(ObjBindMethod(implObj, "GetBandInfoSFB"), flags, 2)
     }
 
     Dispose() {

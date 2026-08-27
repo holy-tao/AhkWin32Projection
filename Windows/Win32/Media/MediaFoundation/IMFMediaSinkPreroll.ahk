@@ -66,7 +66,7 @@ export default struct IMFMediaSinkPreroll extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.NotifyPreroll := CallbackCreate(GetMethod(implObj, "NotifyPreroll"), flags, 2)
+        this.vtbl.NotifyPreroll := CallbackCreate(ObjBindMethod(implObj, "NotifyPreroll"), flags, 2)
     }
 
     Dispose() {

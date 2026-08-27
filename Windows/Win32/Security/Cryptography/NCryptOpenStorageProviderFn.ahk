@@ -21,7 +21,6 @@ export default struct NCryptOpenStorageProviderFn {
     }
 
     /**
-     * 
      * @param {PWSTR} pszProviderName 
      * @param {Integer} dwFlags 
      * @returns {NCRYPT_PROV_HANDLE} 
@@ -29,8 +28,10 @@ export default struct NCryptOpenStorageProviderFn {
     Call(pszProviderName, dwFlags) {
         pszProviderName := pszProviderName is String ? StrPtr(pszProviderName) : pszProviderName
 
+        pszProviderNameMarshal := pszProviderName == 0 ? IntPtr : PWSTR
+
         phProvider := NCRYPT_PROV_HANDLE.Owned()
-        result := DllCall(this.value, NCRYPT_PROV_HANDLE.Ptr, phProvider, "ptr", pszProviderName, UInt32, dwFlags, "HRESULT")
+        result := DllCall(this.value, NCRYPT_PROV_HANDLE.Ptr, phProvider, pszProviderNameMarshal, pszProviderName, UInt32, dwFlags, "HRESULT")
         return phProvider
     }
 

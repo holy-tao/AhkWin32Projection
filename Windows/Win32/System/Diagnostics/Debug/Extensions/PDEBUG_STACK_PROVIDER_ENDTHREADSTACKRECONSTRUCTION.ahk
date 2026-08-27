@@ -19,7 +19,6 @@ export default struct PDEBUG_STACK_PROVIDER_ENDTHREADSTACKRECONSTRUCTION {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Call() {

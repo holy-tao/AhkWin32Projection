@@ -21,14 +21,13 @@ export default struct PFN_CRYPT_XML_DATA_PROVIDER_CLOSE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvCallbackState An application defined argument for the callback function.
      * @returns {HRESULT} If the function succeeds, the function returns zero.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error.
      */
     Call(pvCallbackState) {
-        pvCallbackStateMarshal := pvCallbackState is VarRef ? "ptr" : "ptr"
+        pvCallbackStateMarshal := pvCallbackState is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, pvCallbackStateMarshal, pvCallbackState, "HRESULT")
         return result

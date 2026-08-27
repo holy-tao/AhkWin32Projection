@@ -147,7 +147,8 @@ export default struct ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-createbitmap
      */
     CreateBitmap(_size, srcData, pitch, bitmapProperties) {
-        srcDataMarshal := srcData is VarRef ? "ptr" : "ptr"
+        srcDataMarshal := srcData is VarRef ? "ptr" : IntPtr
+        srcDataMarshal := srcData == 0 ? IntPtr : "ptr"
 
         result := ComCall(4, this, D2D_SIZE_U, _size, srcDataMarshal, srcData, UInt32, pitch, D2D1_BITMAP_PROPERTIES.Ptr, bitmapProperties, "ptr*", &_bitmap := 0, "HRESULT")
         return ID2D1Bitmap(_bitmap)
@@ -163,7 +164,9 @@ export default struct ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-createbitmapfromwicbitmap
      */
     CreateBitmapFromWicBitmap(wicBitmapSource, bitmapProperties) {
-        result := ComCall(5, this, "ptr", wicBitmapSource, D2D1_BITMAP_PROPERTIES.Ptr, bitmapProperties, "ptr*", &_bitmap := 0, "HRESULT")
+        bitmapPropertiesMarshal := bitmapProperties == 0 ? IntPtr : D2D1_BITMAP_PROPERTIES.Ptr
+
+        result := ComCall(5, this, "ptr", wicBitmapSource, bitmapPropertiesMarshal, bitmapProperties, "ptr*", &_bitmap := 0, "HRESULT")
         return ID2D1Bitmap(_bitmap)
     }
 
@@ -205,9 +208,10 @@ export default struct ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-createsharedbitmap
      */
     CreateSharedBitmap(riid, data, bitmapProperties) {
-        dataMarshal := data is VarRef ? "ptr" : "ptr"
+        dataMarshal := data is VarRef ? "ptr" : IntPtr
+        bitmapPropertiesMarshal := bitmapProperties == 0 ? IntPtr : D2D1_BITMAP_PROPERTIES.Ptr
 
-        result := ComCall(6, this, Guid.Ptr, riid, dataMarshal, data, D2D1_BITMAP_PROPERTIES.Ptr, bitmapProperties, "ptr*", &_bitmap := 0, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, riid, dataMarshal, data, bitmapPropertiesMarshal, bitmapProperties, "ptr*", &_bitmap := 0, "HRESULT")
         return ID2D1Bitmap(_bitmap)
     }
 
@@ -220,7 +224,11 @@ export default struct ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-createbitmapbrush
      */
     CreateBitmapBrush(_bitmap, bitmapBrushProperties, brushProperties) {
-        result := ComCall(7, this, "ptr", _bitmap, D2D1_BITMAP_BRUSH_PROPERTIES.Ptr, bitmapBrushProperties, D2D1_BRUSH_PROPERTIES.Ptr, brushProperties, "ptr*", &bitmapBrush := 0, "HRESULT")
+        _bitmapMarshal := _bitmap == 0 ? IntPtr : "ptr"
+        bitmapBrushPropertiesMarshal := bitmapBrushProperties == 0 ? IntPtr : D2D1_BITMAP_BRUSH_PROPERTIES.Ptr
+        brushPropertiesMarshal := brushProperties == 0 ? IntPtr : D2D1_BRUSH_PROPERTIES.Ptr
+
+        result := ComCall(7, this, _bitmapMarshal, _bitmap, bitmapBrushPropertiesMarshal, bitmapBrushProperties, brushPropertiesMarshal, brushProperties, "ptr*", &bitmapBrush := 0, "HRESULT")
         return ID2D1BitmapBrush(bitmapBrush)
     }
 
@@ -232,7 +240,9 @@ export default struct ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-createsolidcolorbrush
      */
     CreateSolidColorBrush(_color, brushProperties) {
-        result := ComCall(8, this, D2D1_COLOR_F.Ptr, _color, D2D1_BRUSH_PROPERTIES.Ptr, brushProperties, "ptr*", &solidColorBrush := 0, "HRESULT")
+        brushPropertiesMarshal := brushProperties == 0 ? IntPtr : D2D1_BRUSH_PROPERTIES.Ptr
+
+        result := ComCall(8, this, D2D1_COLOR_F.Ptr, _color, brushPropertiesMarshal, brushProperties, "ptr*", &solidColorBrush := 0, "HRESULT")
         return ID2D1SolidColorBrush(solidColorBrush)
     }
 
@@ -259,7 +269,9 @@ export default struct ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-createlineargradientbrush
      */
     CreateLinearGradientBrush(linearGradientBrushProperties, brushProperties, gradientStopCollection) {
-        result := ComCall(10, this, D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES.Ptr, linearGradientBrushProperties, D2D1_BRUSH_PROPERTIES.Ptr, brushProperties, "ptr", gradientStopCollection, "ptr*", &linearGradientBrush := 0, "HRESULT")
+        brushPropertiesMarshal := brushProperties == 0 ? IntPtr : D2D1_BRUSH_PROPERTIES.Ptr
+
+        result := ComCall(10, this, D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES.Ptr, linearGradientBrushProperties, brushPropertiesMarshal, brushProperties, "ptr", gradientStopCollection, "ptr*", &linearGradientBrush := 0, "HRESULT")
         return ID2D1LinearGradientBrush(linearGradientBrush)
     }
 
@@ -272,7 +284,9 @@ export default struct ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-createradialgradientbrush
      */
     CreateRadialGradientBrush(radialGradientBrushProperties, brushProperties, gradientStopCollection) {
-        result := ComCall(11, this, D2D1_RADIAL_GRADIENT_BRUSH_PROPERTIES.Ptr, radialGradientBrushProperties, D2D1_BRUSH_PROPERTIES.Ptr, brushProperties, "ptr", gradientStopCollection, "ptr*", &radialGradientBrush := 0, "HRESULT")
+        brushPropertiesMarshal := brushProperties == 0 ? IntPtr : D2D1_BRUSH_PROPERTIES.Ptr
+
+        result := ComCall(11, this, D2D1_RADIAL_GRADIENT_BRUSH_PROPERTIES.Ptr, radialGradientBrushProperties, brushPropertiesMarshal, brushProperties, "ptr", gradientStopCollection, "ptr*", &radialGradientBrush := 0, "HRESULT")
         return ID2D1RadialGradientBrush(radialGradientBrush)
     }
 
@@ -286,7 +300,11 @@ export default struct ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-createcompatiblerendertarget
      */
     CreateCompatibleRenderTarget(desiredSize, desiredPixelSize, desiredFormat, options) {
-        result := ComCall(12, this, D2D_SIZE_F.Ptr, desiredSize, D2D_SIZE_U.Ptr, desiredPixelSize, D2D1_PIXEL_FORMAT.Ptr, desiredFormat, D2D1_COMPATIBLE_RENDER_TARGET_OPTIONS, options, "ptr*", &bitmapRenderTarget := 0, "HRESULT")
+        desiredSizeMarshal := desiredSize == 0 ? IntPtr : D2D_SIZE_F.Ptr
+        desiredPixelSizeMarshal := desiredPixelSize == 0 ? IntPtr : D2D_SIZE_U.Ptr
+        desiredFormatMarshal := desiredFormat == 0 ? IntPtr : D2D1_PIXEL_FORMAT.Ptr
+
+        result := ComCall(12, this, desiredSizeMarshal, desiredSize, desiredPixelSizeMarshal, desiredPixelSize, desiredFormatMarshal, desiredFormat, D2D1_COMPATIBLE_RENDER_TARGET_OPTIONS, options, "ptr*", &bitmapRenderTarget := 0, "HRESULT")
         return ID2D1BitmapRenderTarget(bitmapRenderTarget)
     }
 
@@ -299,7 +317,9 @@ export default struct ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-createlayer
      */
     CreateLayer(_size) {
-        result := ComCall(13, this, D2D_SIZE_F.Ptr, _size, "ptr*", &layer := 0, "HRESULT")
+        _sizeMarshal := _size == 0 ? IntPtr : D2D_SIZE_F.Ptr
+
+        result := ComCall(13, this, _sizeMarshal, _size, "ptr*", &layer := 0, "HRESULT")
         return ID2D1Layer(layer)
     }
 
@@ -340,7 +360,9 @@ export default struct ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-drawline
      */
     DrawLine(point0, point1, brush, strokeWidth, strokeStyle) {
-        ComCall(15, this, D2D_POINT_2F, point0, D2D_POINT_2F, point1, "ptr", brush, Float32, strokeWidth, "ptr", strokeStyle)
+        strokeStyleMarshal := strokeStyle == 0 ? IntPtr : "ptr"
+
+        ComCall(15, this, D2D_POINT_2F, point0, D2D_POINT_2F, point1, "ptr", brush, Float32, strokeWidth, strokeStyleMarshal, strokeStyle)
     }
 
     /**
@@ -355,7 +377,9 @@ export default struct ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-drawrectangle
      */
     DrawRectangle(_rect, brush, strokeWidth, strokeStyle) {
-        ComCall(16, this, D2D_RECT_F.Ptr, _rect, "ptr", brush, Float32, strokeWidth, "ptr", strokeStyle)
+        strokeStyleMarshal := strokeStyle == 0 ? IntPtr : "ptr"
+
+        ComCall(16, this, D2D_RECT_F.Ptr, _rect, "ptr", brush, Float32, strokeWidth, strokeStyleMarshal, strokeStyle)
     }
 
     /**
@@ -383,7 +407,9 @@ export default struct ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-drawroundedrectangle
      */
     DrawRoundedRectangle(roundedRect, brush, strokeWidth, strokeStyle) {
-        ComCall(18, this, D2D1_ROUNDED_RECT.Ptr, roundedRect, "ptr", brush, Float32, strokeWidth, "ptr", strokeStyle)
+        strokeStyleMarshal := strokeStyle == 0 ? IntPtr : "ptr"
+
+        ComCall(18, this, D2D1_ROUNDED_RECT.Ptr, roundedRect, "ptr", brush, Float32, strokeWidth, strokeStyleMarshal, strokeStyle)
     }
 
     /**
@@ -411,7 +437,9 @@ export default struct ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-drawellipse
      */
     DrawEllipse(ellipse, brush, strokeWidth, strokeStyle) {
-        ComCall(20, this, D2D1_ELLIPSE.Ptr, ellipse, "ptr", brush, Float32, strokeWidth, "ptr", strokeStyle)
+        strokeStyleMarshal := strokeStyle == 0 ? IntPtr : "ptr"
+
+        ComCall(20, this, D2D1_ELLIPSE.Ptr, ellipse, "ptr", brush, Float32, strokeWidth, strokeStyleMarshal, strokeStyle)
     }
 
     /**
@@ -447,7 +475,9 @@ export default struct ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-drawgeometry
      */
     DrawGeometry(geometry, brush, strokeWidth, strokeStyle) {
-        ComCall(22, this, "ptr", geometry, "ptr", brush, Float32, strokeWidth, "ptr", strokeStyle)
+        strokeStyleMarshal := strokeStyle == 0 ? IntPtr : "ptr"
+
+        ComCall(22, this, "ptr", geometry, "ptr", brush, Float32, strokeWidth, strokeStyleMarshal, strokeStyle)
     }
 
     /**
@@ -472,7 +502,9 @@ export default struct ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-fillgeometry
      */
     FillGeometry(geometry, brush, opacityBrush) {
-        ComCall(23, this, "ptr", geometry, "ptr", brush, "ptr", opacityBrush)
+        opacityBrushMarshal := opacityBrush == 0 ? IntPtr : "ptr"
+
+        ComCall(23, this, "ptr", geometry, "ptr", brush, opacityBrushMarshal, opacityBrush)
     }
 
     /**
@@ -511,7 +543,10 @@ export default struct ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-fillopacitymask
      */
     FillOpacityMask(opacityMask, brush, content, destinationRectangle, sourceRectangle) {
-        ComCall(25, this, "ptr", opacityMask, "ptr", brush, D2D1_OPACITY_MASK_CONTENT, content, D2D_RECT_F.Ptr, destinationRectangle, D2D_RECT_F.Ptr, sourceRectangle)
+        destinationRectangleMarshal := destinationRectangle == 0 ? IntPtr : D2D_RECT_F.Ptr
+        sourceRectangleMarshal := sourceRectangle == 0 ? IntPtr : D2D_RECT_F.Ptr
+
+        ComCall(25, this, "ptr", opacityMask, "ptr", brush, D2D1_OPACITY_MASK_CONTENT, content, destinationRectangleMarshal, destinationRectangle, sourceRectangleMarshal, sourceRectangle)
     }
 
     /**
@@ -527,7 +562,10 @@ export default struct ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-drawbitmap
      */
     DrawBitmap(_bitmap, destinationRectangle, opacity, _interpolationMode, sourceRectangle) {
-        ComCall(26, this, "ptr", _bitmap, D2D_RECT_F.Ptr, destinationRectangle, Float32, opacity, D2D1_BITMAP_INTERPOLATION_MODE, _interpolationMode, D2D_RECT_F.Ptr, sourceRectangle)
+        destinationRectangleMarshal := destinationRectangle == 0 ? IntPtr : D2D_RECT_F.Ptr
+        sourceRectangleMarshal := sourceRectangle == 0 ? IntPtr : D2D_RECT_F.Ptr
+
+        ComCall(26, this, "ptr", _bitmap, destinationRectangleMarshal, destinationRectangle, Float32, opacity, D2D1_BITMAP_INTERPOLATION_MODE, _interpolationMode, sourceRectangleMarshal, sourceRectangle)
     }
 
     /**
@@ -683,7 +721,9 @@ export default struct ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-settextrenderingparams
      */
     SetTextRenderingParams(textRenderingParams) {
-        ComCall(36, this, "ptr", textRenderingParams)
+        textRenderingParamsMarshal := textRenderingParams == 0 ? IntPtr : "ptr"
+
+        ComCall(36, this, textRenderingParamsMarshal, textRenderingParams)
     }
 
     /**
@@ -731,8 +771,10 @@ export default struct ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-gettags
      */
     GetTags(tag1, tag2) {
-        tag1Marshal := tag1 is VarRef ? "uint*" : "ptr"
-        tag2Marshal := tag2 is VarRef ? "uint*" : "ptr"
+        tag1Marshal := tag1 is VarRef ? "uint*" : IntPtr
+        tag1Marshal := tag1 == 0 ? IntPtr : "uint*"
+        tag2Marshal := tag2 is VarRef ? "uint*" : IntPtr
+        tag2Marshal := tag2 == 0 ? IntPtr : "uint*"
 
         ComCall(39, this, tag1Marshal, tag1, tag2Marshal, tag2)
     }
@@ -761,7 +803,9 @@ export default struct ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-pushlayer(constd2d1_layer_parameters_id2d1layer)
      */
     PushLayer(layerParameters, layer) {
-        ComCall(40, this, D2D1_LAYER_PARAMETERS.Ptr, layerParameters, "ptr", layer)
+        layerMarshal := layer == 0 ? IntPtr : "ptr"
+
+        ComCall(40, this, D2D1_LAYER_PARAMETERS.Ptr, layerParameters, layerMarshal, layer)
     }
 
     /**
@@ -795,8 +839,10 @@ export default struct ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-flush
      */
     Flush(tag1, tag2) {
-        tag1Marshal := tag1 is VarRef ? "uint*" : "ptr"
-        tag2Marshal := tag2 is VarRef ? "uint*" : "ptr"
+        tag1Marshal := tag1 is VarRef ? "uint*" : IntPtr
+        tag1Marshal := tag1 == 0 ? IntPtr : "uint*"
+        tag2Marshal := tag2 is VarRef ? "uint*" : IntPtr
+        tag2Marshal := tag2 == 0 ? IntPtr : "uint*"
 
         result := ComCall(42, this, tag1Marshal, tag1, tag2Marshal, tag2, "HRESULT")
         return result
@@ -869,7 +915,9 @@ export default struct ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-clear
      */
     Clear(clearColor) {
-        ComCall(47, this, D2D1_COLOR_F.Ptr, clearColor)
+        clearColorMarshal := clearColor == 0 ? IntPtr : D2D1_COLOR_F.Ptr
+
+        ComCall(47, this, clearColorMarshal, clearColor)
     }
 
     /**
@@ -920,8 +968,10 @@ export default struct ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-enddraw
      */
     EndDraw(tag1, tag2) {
-        tag1Marshal := tag1 is VarRef ? "uint*" : "ptr"
-        tag2Marshal := tag2 is VarRef ? "uint*" : "ptr"
+        tag1Marshal := tag1 is VarRef ? "uint*" : IntPtr
+        tag1Marshal := tag1 == 0 ? IntPtr : "uint*"
+        tag2Marshal := tag2 is VarRef ? "uint*" : IntPtr
+        tag2Marshal := tag2 == 0 ? IntPtr : "uint*"
 
         result := ComCall(49, this, tag1Marshal, tag1, tag2Marshal, tag2, Int32)
         return result
@@ -974,8 +1024,8 @@ export default struct ID2D1RenderTarget extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-getdpi
      */
     GetDpi(dpiX, dpiY) {
-        dpiXMarshal := dpiX is VarRef ? "float*" : "ptr"
-        dpiYMarshal := dpiY is VarRef ? "float*" : "ptr"
+        dpiXMarshal := dpiX is VarRef ? "float*" : IntPtr
+        dpiYMarshal := dpiY is VarRef ? "float*" : IntPtr
 
         ComCall(52, this, dpiXMarshal, dpiX, dpiYMarshal, dpiY)
     }
@@ -1047,59 +1097,59 @@ export default struct ID2D1RenderTarget extends ID2D1Resource {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateBitmap := CallbackCreate(GetMethod(implObj, "CreateBitmap"), flags, 6)
-        this.vtbl.CreateBitmapFromWicBitmap := CallbackCreate(GetMethod(implObj, "CreateBitmapFromWicBitmap"), flags, 4)
-        this.vtbl.CreateSharedBitmap := CallbackCreate(GetMethod(implObj, "CreateSharedBitmap"), flags, 5)
-        this.vtbl.CreateBitmapBrush := CallbackCreate(GetMethod(implObj, "CreateBitmapBrush"), flags, 5)
-        this.vtbl.CreateSolidColorBrush := CallbackCreate(GetMethod(implObj, "CreateSolidColorBrush"), flags, 4)
-        this.vtbl.CreateGradientStopCollection := CallbackCreate(GetMethod(implObj, "CreateGradientStopCollection"), flags, 6)
-        this.vtbl.CreateLinearGradientBrush := CallbackCreate(GetMethod(implObj, "CreateLinearGradientBrush"), flags, 5)
-        this.vtbl.CreateRadialGradientBrush := CallbackCreate(GetMethod(implObj, "CreateRadialGradientBrush"), flags, 5)
-        this.vtbl.CreateCompatibleRenderTarget := CallbackCreate(GetMethod(implObj, "CreateCompatibleRenderTarget"), flags, 6)
-        this.vtbl.CreateLayer := CallbackCreate(GetMethod(implObj, "CreateLayer"), flags, 3)
-        this.vtbl.CreateMesh := CallbackCreate(GetMethod(implObj, "CreateMesh"), flags, 2)
-        this.vtbl.DrawLine := CallbackCreate(GetMethod(implObj, "DrawLine"), flags, 6)
-        this.vtbl.DrawRectangle := CallbackCreate(GetMethod(implObj, "DrawRectangle"), flags, 5)
-        this.vtbl.FillRectangle := CallbackCreate(GetMethod(implObj, "FillRectangle"), flags, 3)
-        this.vtbl.DrawRoundedRectangle := CallbackCreate(GetMethod(implObj, "DrawRoundedRectangle"), flags, 5)
-        this.vtbl.FillRoundedRectangle := CallbackCreate(GetMethod(implObj, "FillRoundedRectangle"), flags, 3)
-        this.vtbl.DrawEllipse := CallbackCreate(GetMethod(implObj, "DrawEllipse"), flags, 5)
-        this.vtbl.FillEllipse := CallbackCreate(GetMethod(implObj, "FillEllipse"), flags, 3)
-        this.vtbl.DrawGeometry := CallbackCreate(GetMethod(implObj, "DrawGeometry"), flags, 5)
-        this.vtbl.FillGeometry := CallbackCreate(GetMethod(implObj, "FillGeometry"), flags, 4)
-        this.vtbl.FillMesh := CallbackCreate(GetMethod(implObj, "FillMesh"), flags, 3)
-        this.vtbl.FillOpacityMask := CallbackCreate(GetMethod(implObj, "FillOpacityMask"), flags, 6)
-        this.vtbl.DrawBitmap := CallbackCreate(GetMethod(implObj, "DrawBitmap"), flags, 6)
-        this.vtbl.DrawText := CallbackCreate(GetMethod(implObj, "DrawText"), flags, 8)
-        this.vtbl.DrawTextLayout := CallbackCreate(GetMethod(implObj, "DrawTextLayout"), flags, 5)
-        this.vtbl.DrawGlyphRun := CallbackCreate(GetMethod(implObj, "DrawGlyphRun"), flags, 5)
-        this.vtbl.SetTransform := CallbackCreate(GetMethod(implObj, "SetTransform"), flags, 2)
-        this.vtbl.GetTransform := CallbackCreate(GetMethod(implObj, "GetTransform"), flags, 2)
-        this.vtbl.SetAntialiasMode := CallbackCreate(GetMethod(implObj, "SetAntialiasMode"), flags, 2)
-        this.vtbl.GetAntialiasMode := CallbackCreate(GetMethod(implObj, "GetAntialiasMode"), flags, 1)
-        this.vtbl.SetTextAntialiasMode := CallbackCreate(GetMethod(implObj, "SetTextAntialiasMode"), flags, 2)
-        this.vtbl.GetTextAntialiasMode := CallbackCreate(GetMethod(implObj, "GetTextAntialiasMode"), flags, 1)
-        this.vtbl.SetTextRenderingParams := CallbackCreate(GetMethod(implObj, "SetTextRenderingParams"), flags, 2)
-        this.vtbl.GetTextRenderingParams := CallbackCreate(GetMethod(implObj, "GetTextRenderingParams"), flags, 2)
-        this.vtbl.SetTags := CallbackCreate(GetMethod(implObj, "SetTags"), flags, 3)
-        this.vtbl.GetTags := CallbackCreate(GetMethod(implObj, "GetTags"), flags, 3)
-        this.vtbl.PushLayer := CallbackCreate(GetMethod(implObj, "PushLayer"), flags, 3)
-        this.vtbl.PopLayer := CallbackCreate(GetMethod(implObj, "PopLayer"), flags, 1)
-        this.vtbl.Flush := CallbackCreate(GetMethod(implObj, "Flush"), flags, 3)
-        this.vtbl.SaveDrawingState := CallbackCreate(GetMethod(implObj, "SaveDrawingState"), flags, 2)
-        this.vtbl.RestoreDrawingState := CallbackCreate(GetMethod(implObj, "RestoreDrawingState"), flags, 2)
-        this.vtbl.PushAxisAlignedClip := CallbackCreate(GetMethod(implObj, "PushAxisAlignedClip"), flags, 3)
-        this.vtbl.PopAxisAlignedClip := CallbackCreate(GetMethod(implObj, "PopAxisAlignedClip"), flags, 1)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 2)
-        this.vtbl.BeginDraw := CallbackCreate(GetMethod(implObj, "BeginDraw"), flags, 1)
-        this.vtbl.EndDraw := CallbackCreate(GetMethod(implObj, "EndDraw"), flags, 3)
-        this.vtbl.GetPixelFormat := CallbackCreate(GetMethod(implObj, "GetPixelFormat"), flags, 1)
-        this.vtbl.SetDpi := CallbackCreate(GetMethod(implObj, "SetDpi"), flags, 3)
-        this.vtbl.GetDpi := CallbackCreate(GetMethod(implObj, "GetDpi"), flags, 3)
-        this.vtbl.GetSize := CallbackCreate(GetMethod(implObj, "GetSize"), flags, 1)
-        this.vtbl.GetPixelSize := CallbackCreate(GetMethod(implObj, "GetPixelSize"), flags, 1)
-        this.vtbl.GetMaximumBitmapSize := CallbackCreate(GetMethod(implObj, "GetMaximumBitmapSize"), flags, 1)
-        this.vtbl.IsSupported := CallbackCreate(GetMethod(implObj, "IsSupported"), flags, 2)
+        this.vtbl.CreateBitmap := CallbackCreate(ObjBindMethod(implObj, "CreateBitmap"), flags, 6)
+        this.vtbl.CreateBitmapFromWicBitmap := CallbackCreate(ObjBindMethod(implObj, "CreateBitmapFromWicBitmap"), flags, 4)
+        this.vtbl.CreateSharedBitmap := CallbackCreate(ObjBindMethod(implObj, "CreateSharedBitmap"), flags, 5)
+        this.vtbl.CreateBitmapBrush := CallbackCreate(ObjBindMethod(implObj, "CreateBitmapBrush"), flags, 5)
+        this.vtbl.CreateSolidColorBrush := CallbackCreate(ObjBindMethod(implObj, "CreateSolidColorBrush"), flags, 4)
+        this.vtbl.CreateGradientStopCollection := CallbackCreate(ObjBindMethod(implObj, "CreateGradientStopCollection"), flags, 6)
+        this.vtbl.CreateLinearGradientBrush := CallbackCreate(ObjBindMethod(implObj, "CreateLinearGradientBrush"), flags, 5)
+        this.vtbl.CreateRadialGradientBrush := CallbackCreate(ObjBindMethod(implObj, "CreateRadialGradientBrush"), flags, 5)
+        this.vtbl.CreateCompatibleRenderTarget := CallbackCreate(ObjBindMethod(implObj, "CreateCompatibleRenderTarget"), flags, 6)
+        this.vtbl.CreateLayer := CallbackCreate(ObjBindMethod(implObj, "CreateLayer"), flags, 3)
+        this.vtbl.CreateMesh := CallbackCreate(ObjBindMethod(implObj, "CreateMesh"), flags, 2)
+        this.vtbl.DrawLine := CallbackCreate(ObjBindMethod(implObj, "DrawLine"), flags, 6)
+        this.vtbl.DrawRectangle := CallbackCreate(ObjBindMethod(implObj, "DrawRectangle"), flags, 5)
+        this.vtbl.FillRectangle := CallbackCreate(ObjBindMethod(implObj, "FillRectangle"), flags, 3)
+        this.vtbl.DrawRoundedRectangle := CallbackCreate(ObjBindMethod(implObj, "DrawRoundedRectangle"), flags, 5)
+        this.vtbl.FillRoundedRectangle := CallbackCreate(ObjBindMethod(implObj, "FillRoundedRectangle"), flags, 3)
+        this.vtbl.DrawEllipse := CallbackCreate(ObjBindMethod(implObj, "DrawEllipse"), flags, 5)
+        this.vtbl.FillEllipse := CallbackCreate(ObjBindMethod(implObj, "FillEllipse"), flags, 3)
+        this.vtbl.DrawGeometry := CallbackCreate(ObjBindMethod(implObj, "DrawGeometry"), flags, 5)
+        this.vtbl.FillGeometry := CallbackCreate(ObjBindMethod(implObj, "FillGeometry"), flags, 4)
+        this.vtbl.FillMesh := CallbackCreate(ObjBindMethod(implObj, "FillMesh"), flags, 3)
+        this.vtbl.FillOpacityMask := CallbackCreate(ObjBindMethod(implObj, "FillOpacityMask"), flags, 6)
+        this.vtbl.DrawBitmap := CallbackCreate(ObjBindMethod(implObj, "DrawBitmap"), flags, 6)
+        this.vtbl.DrawText := CallbackCreate(ObjBindMethod(implObj, "DrawText"), flags, 8)
+        this.vtbl.DrawTextLayout := CallbackCreate(ObjBindMethod(implObj, "DrawTextLayout"), flags, 5)
+        this.vtbl.DrawGlyphRun := CallbackCreate(ObjBindMethod(implObj, "DrawGlyphRun"), flags, 5)
+        this.vtbl.SetTransform := CallbackCreate(ObjBindMethod(implObj, "SetTransform"), flags, 2)
+        this.vtbl.GetTransform := CallbackCreate(ObjBindMethod(implObj, "GetTransform"), flags, 2)
+        this.vtbl.SetAntialiasMode := CallbackCreate(ObjBindMethod(implObj, "SetAntialiasMode"), flags, 2)
+        this.vtbl.GetAntialiasMode := CallbackCreate(ObjBindMethod(implObj, "GetAntialiasMode"), flags, 1)
+        this.vtbl.SetTextAntialiasMode := CallbackCreate(ObjBindMethod(implObj, "SetTextAntialiasMode"), flags, 2)
+        this.vtbl.GetTextAntialiasMode := CallbackCreate(ObjBindMethod(implObj, "GetTextAntialiasMode"), flags, 1)
+        this.vtbl.SetTextRenderingParams := CallbackCreate(ObjBindMethod(implObj, "SetTextRenderingParams"), flags, 2)
+        this.vtbl.GetTextRenderingParams := CallbackCreate(ObjBindMethod(implObj, "GetTextRenderingParams"), flags, 2)
+        this.vtbl.SetTags := CallbackCreate(ObjBindMethod(implObj, "SetTags"), flags, 3)
+        this.vtbl.GetTags := CallbackCreate(ObjBindMethod(implObj, "GetTags"), flags, 3)
+        this.vtbl.PushLayer := CallbackCreate(ObjBindMethod(implObj, "PushLayer"), flags, 3)
+        this.vtbl.PopLayer := CallbackCreate(ObjBindMethod(implObj, "PopLayer"), flags, 1)
+        this.vtbl.Flush := CallbackCreate(ObjBindMethod(implObj, "Flush"), flags, 3)
+        this.vtbl.SaveDrawingState := CallbackCreate(ObjBindMethod(implObj, "SaveDrawingState"), flags, 2)
+        this.vtbl.RestoreDrawingState := CallbackCreate(ObjBindMethod(implObj, "RestoreDrawingState"), flags, 2)
+        this.vtbl.PushAxisAlignedClip := CallbackCreate(ObjBindMethod(implObj, "PushAxisAlignedClip"), flags, 3)
+        this.vtbl.PopAxisAlignedClip := CallbackCreate(ObjBindMethod(implObj, "PopAxisAlignedClip"), flags, 1)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 2)
+        this.vtbl.BeginDraw := CallbackCreate(ObjBindMethod(implObj, "BeginDraw"), flags, 1)
+        this.vtbl.EndDraw := CallbackCreate(ObjBindMethod(implObj, "EndDraw"), flags, 3)
+        this.vtbl.GetPixelFormat := CallbackCreate(ObjBindMethod(implObj, "GetPixelFormat"), flags, 1)
+        this.vtbl.SetDpi := CallbackCreate(ObjBindMethod(implObj, "SetDpi"), flags, 3)
+        this.vtbl.GetDpi := CallbackCreate(ObjBindMethod(implObj, "GetDpi"), flags, 3)
+        this.vtbl.GetSize := CallbackCreate(ObjBindMethod(implObj, "GetSize"), flags, 1)
+        this.vtbl.GetPixelSize := CallbackCreate(ObjBindMethod(implObj, "GetPixelSize"), flags, 1)
+        this.vtbl.GetMaximumBitmapSize := CallbackCreate(ObjBindMethod(implObj, "GetMaximumBitmapSize"), flags, 1)
+        this.vtbl.IsSupported := CallbackCreate(ObjBindMethod(implObj, "IsSupported"), flags, 2)
     }
 
     Dispose() {

@@ -198,7 +198,9 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-reset
      */
     Reset(pAllocator, pInitialState) {
-        result := ComCall(10, this, "ptr", pAllocator, "ptr", pInitialState, "HRESULT")
+        pInitialStateMarshal := pInitialState == 0 ? IntPtr : "ptr"
+
+        result := ComCall(10, this, "ptr", pAllocator, pInitialStateMarshal, pInitialState, "HRESULT")
         return result
     }
 
@@ -219,7 +221,9 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-clearstate
      */
     ClearState(pPipelineState) {
-        ComCall(11, this, "ptr", pPipelineState)
+        pPipelineStateMarshal := pPipelineState == 0 ? IntPtr : "ptr"
+
+        ComCall(11, this, pPipelineStateMarshal, pPipelineState)
     }
 
     /**
@@ -402,7 +406,9 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-copytextureregion
      */
     CopyTextureRegion(pDst, DstX, DstY, DstZ, pSrc, pSrcBox) {
-        ComCall(16, this, D3D12_TEXTURE_COPY_LOCATION.Ptr, pDst, UInt32, DstX, UInt32, DstY, UInt32, DstZ, D3D12_TEXTURE_COPY_LOCATION.Ptr, pSrc, D3D12_BOX.Ptr, pSrcBox)
+        pSrcBoxMarshal := pSrcBox == 0 ? IntPtr : D3D12_BOX.Ptr
+
+        ComCall(16, this, D3D12_TEXTURE_COPY_LOCATION.Ptr, pDst, UInt32, DstX, UInt32, DstY, UInt32, DstZ, D3D12_TEXTURE_COPY_LOCATION.Ptr, pSrc, pSrcBoxMarshal, pSrcBox)
     }
 
     /**
@@ -599,7 +605,8 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-omsetblendfactor
      */
     OMSetBlendFactor(BlendFactor) {
-        BlendFactorMarshal := BlendFactor is VarRef ? "float*" : "ptr"
+        BlendFactorMarshal := BlendFactor is VarRef ? "float*" : IntPtr
+        BlendFactorMarshal := BlendFactor == 0 ? IntPtr : "float*"
 
         ComCall(23, this, BlendFactorMarshal, BlendFactor)
     }
@@ -820,7 +827,9 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setcomputerootsignature
      */
     SetComputeRootSignature(pRootSignature) {
-        ComCall(29, this, "ptr", pRootSignature)
+        pRootSignatureMarshal := pRootSignature == 0 ? IntPtr : "ptr"
+
+        ComCall(29, this, pRootSignatureMarshal, pRootSignature)
     }
 
     /**
@@ -832,7 +841,9 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsrootsignature
      */
     SetGraphicsRootSignature(pRootSignature) {
-        ComCall(30, this, "ptr", pRootSignature)
+        pRootSignatureMarshal := pRootSignature == 0 ? IntPtr : "ptr"
+
+        ComCall(30, this, pRootSignatureMarshal, pRootSignature)
     }
 
     /**
@@ -919,7 +930,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setcomputeroot32bitconstants
      */
     SetComputeRoot32BitConstants(RootParameterIndex, Num32BitValuesToSet, pSrcData, DestOffsetIn32BitValues) {
-        pSrcDataMarshal := pSrcData is VarRef ? "ptr" : "ptr"
+        pSrcDataMarshal := pSrcData is VarRef ? "ptr" : IntPtr
 
         ComCall(35, this, UInt32, RootParameterIndex, UInt32, Num32BitValuesToSet, pSrcDataMarshal, pSrcData, UInt32, DestOffsetIn32BitValues)
     }
@@ -942,7 +953,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsroot32bitconstants
      */
     SetGraphicsRoot32BitConstants(RootParameterIndex, Num32BitValuesToSet, pSrcData, DestOffsetIn32BitValues) {
-        pSrcDataMarshal := pSrcData is VarRef ? "ptr" : "ptr"
+        pSrcDataMarshal := pSrcData is VarRef ? "ptr" : IntPtr
 
         ComCall(36, this, UInt32, RootParameterIndex, UInt32, Num32BitValuesToSet, pSrcDataMarshal, pSrcData, UInt32, DestOffsetIn32BitValues)
     }
@@ -1053,7 +1064,9 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-iasetindexbuffer
      */
     IASetIndexBuffer(pView) {
-        ComCall(43, this, D3D12_INDEX_BUFFER_VIEW.Ptr, pView)
+        pViewMarshal := pView == 0 ? IntPtr : D3D12_INDEX_BUFFER_VIEW.Ptr
+
+        ComCall(43, this, pViewMarshal, pView)
     }
 
     /**
@@ -1071,7 +1084,9 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-iasetvertexbuffers
      */
     IASetVertexBuffers(StartSlot, NumViews, pViews) {
-        ComCall(44, this, UInt32, StartSlot, UInt32, NumViews, D3D12_VERTEX_BUFFER_VIEW.Ptr, pViews)
+        pViewsMarshal := pViews == 0 ? IntPtr : D3D12_VERTEX_BUFFER_VIEW.Ptr
+
+        ComCall(44, this, UInt32, StartSlot, UInt32, NumViews, pViewsMarshal, pViews)
     }
 
     /**
@@ -1089,7 +1104,9 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-sosettargets
      */
     SOSetTargets(StartSlot, NumViews, pViews) {
-        ComCall(45, this, UInt32, StartSlot, UInt32, NumViews, D3D12_STREAM_OUTPUT_BUFFER_VIEW.Ptr, pViews)
+        pViewsMarshal := pViews == 0 ? IntPtr : D3D12_STREAM_OUTPUT_BUFFER_VIEW.Ptr
+
+        ComCall(45, this, UInt32, StartSlot, UInt32, NumViews, pViewsMarshal, pViews)
     }
 
     /**
@@ -1118,7 +1135,10 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-omsetrendertargets
      */
     OMSetRenderTargets(NumRenderTargetDescriptors, pRenderTargetDescriptors, RTsSingleHandleToDescriptorRange, pDepthStencilDescriptor) {
-        ComCall(46, this, UInt32, NumRenderTargetDescriptors, D3D12_CPU_DESCRIPTOR_HANDLE.Ptr, pRenderTargetDescriptors, BOOL, RTsSingleHandleToDescriptorRange, D3D12_CPU_DESCRIPTOR_HANDLE.Ptr, pDepthStencilDescriptor)
+        pRenderTargetDescriptorsMarshal := pRenderTargetDescriptors == 0 ? IntPtr : D3D12_CPU_DESCRIPTOR_HANDLE.Ptr
+        pDepthStencilDescriptorMarshal := pDepthStencilDescriptor == 0 ? IntPtr : D3D12_CPU_DESCRIPTOR_HANDLE.Ptr
+
+        ComCall(46, this, UInt32, NumRenderTargetDescriptors, pRenderTargetDescriptorsMarshal, pRenderTargetDescriptors, BOOL, RTsSingleHandleToDescriptorRange, pDepthStencilDescriptorMarshal, pDepthStencilDescriptor)
     }
 
     /**
@@ -1160,7 +1180,9 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-cleardepthstencilview
      */
     ClearDepthStencilView(DepthStencilView, ClearFlags, Depth, Stencil, NumRects, pRects) {
-        ComCall(47, this, D3D12_CPU_DESCRIPTOR_HANDLE, DepthStencilView, D3D12_CLEAR_FLAGS, ClearFlags, Float32, Depth, Int8, Stencil, UInt32, NumRects, RECT.Ptr, pRects)
+        pRectsMarshal := pRects == 0 ? IntPtr : RECT.Ptr
+
+        ComCall(47, this, D3D12_CPU_DESCRIPTOR_HANDLE, DepthStencilView, D3D12_CLEAR_FLAGS, ClearFlags, Float32, Depth, Int8, Stencil, UInt32, NumRects, pRectsMarshal, pRects)
     }
 
     /**
@@ -1195,9 +1217,10 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-clearrendertargetview
      */
     ClearRenderTargetView(RenderTargetView, ColorRGBA, NumRects, pRects) {
-        ColorRGBAMarshal := ColorRGBA is VarRef ? "float*" : "ptr"
+        ColorRGBAMarshal := ColorRGBA is VarRef ? "float*" : IntPtr
+        pRectsMarshal := pRects == 0 ? IntPtr : RECT.Ptr
 
-        ComCall(48, this, D3D12_CPU_DESCRIPTOR_HANDLE, RenderTargetView, ColorRGBAMarshal, ColorRGBA, UInt32, NumRects, RECT.Ptr, pRects)
+        ComCall(48, this, D3D12_CPU_DESCRIPTOR_HANDLE, RenderTargetView, ColorRGBAMarshal, ColorRGBA, UInt32, NumRects, pRectsMarshal, pRects)
     }
 
     /**
@@ -1227,7 +1250,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-clearunorderedaccessviewuint
      */
     ClearUnorderedAccessViewUint(ViewGPUHandleInCurrentHeap, ViewCPUHandle, pResource, Values, NumRects, pRects) {
-        ValuesMarshal := Values is VarRef ? "uint*" : "ptr"
+        ValuesMarshal := Values is VarRef ? "uint*" : IntPtr
 
         ComCall(49, this, D3D12_GPU_DESCRIPTOR_HANDLE, ViewGPUHandleInCurrentHeap, D3D12_CPU_DESCRIPTOR_HANDLE, ViewCPUHandle, "ptr", pResource, ValuesMarshal, Values, UInt32, NumRects, RECT.Ptr, pRects)
     }
@@ -1259,7 +1282,7 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-clearunorderedaccessviewfloat
      */
     ClearUnorderedAccessViewFloat(ViewGPUHandleInCurrentHeap, ViewCPUHandle, pResource, Values, NumRects, pRects) {
-        ValuesMarshal := Values is VarRef ? "float*" : "ptr"
+        ValuesMarshal := Values is VarRef ? "float*" : IntPtr
 
         ComCall(50, this, D3D12_GPU_DESCRIPTOR_HANDLE, ViewGPUHandleInCurrentHeap, D3D12_CPU_DESCRIPTOR_HANDLE, ViewCPUHandle, "ptr", pResource, ValuesMarshal, Values, UInt32, NumRects, RECT.Ptr, pRects)
     }
@@ -1292,7 +1315,9 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-discardresource
      */
     DiscardResource(pResource, pRegion) {
-        ComCall(51, this, "ptr", pResource, D3D12_DISCARD_REGION.Ptr, pRegion)
+        pRegionMarshal := pRegion == 0 ? IntPtr : D3D12_DISCARD_REGION.Ptr
+
+        ComCall(51, this, "ptr", pResource, pRegionMarshal, pRegion)
     }
 
     /**
@@ -1428,7 +1453,9 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setpredication
      */
     SetPredication(pBuffer, AlignedBufferOffset, Operation) {
-        ComCall(55, this, "ptr", pBuffer, Int64, AlignedBufferOffset, D3D12_PREDICATION_OP, Operation)
+        pBufferMarshal := pBuffer == 0 ? IntPtr : "ptr"
+
+        ComCall(55, this, pBufferMarshal, pBuffer, Int64, AlignedBufferOffset, D3D12_PREDICATION_OP, Operation)
     }
 
     /**
@@ -1450,7 +1477,9 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setmarker
      */
     SetMarker(Metadata, pData, _Size) {
-        ComCall(56, this, UInt32, Metadata, IntPtr, pData, UInt32, _Size)
+        pDataMarshal := pData == 0 ? IntPtr : IntPtr
+
+        ComCall(56, this, UInt32, Metadata, pDataMarshal, pData, UInt32, _Size)
     }
 
     /**
@@ -1472,7 +1501,9 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-beginevent
      */
     BeginEvent(Metadata, pData, _Size) {
-        ComCall(57, this, UInt32, Metadata, IntPtr, pData, UInt32, _Size)
+        pDataMarshal := pData == 0 ? IntPtr : IntPtr
+
+        ComCall(57, this, UInt32, Metadata, pDataMarshal, pData, UInt32, _Size)
     }
 
     /**
@@ -1591,7 +1622,9 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-executeindirect
      */
     ExecuteIndirect(pCommandSignature, MaxCommandCount, pArgumentBuffer, ArgumentBufferOffset, pCountBuffer, CountBufferOffset) {
-        ComCall(59, this, "ptr", pCommandSignature, UInt32, MaxCommandCount, "ptr", pArgumentBuffer, Int64, ArgumentBufferOffset, "ptr", pCountBuffer, Int64, CountBufferOffset)
+        pCountBufferMarshal := pCountBuffer == 0 ? IntPtr : "ptr"
+
+        ComCall(59, this, "ptr", pCommandSignature, UInt32, MaxCommandCount, "ptr", pArgumentBuffer, Int64, ArgumentBufferOffset, pCountBufferMarshal, pCountBuffer, Int64, CountBufferOffset)
     }
 
     _Query(iid) {
@@ -1603,57 +1636,57 @@ export default struct ID3D12GraphicsCommandList extends ID3D12CommandList {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 3)
-        this.vtbl.ClearState := CallbackCreate(GetMethod(implObj, "ClearState"), flags, 2)
-        this.vtbl.DrawInstanced := CallbackCreate(GetMethod(implObj, "DrawInstanced"), flags, 5)
-        this.vtbl.DrawIndexedInstanced := CallbackCreate(GetMethod(implObj, "DrawIndexedInstanced"), flags, 6)
-        this.vtbl.Dispatch := CallbackCreate(GetMethod(implObj, "Dispatch"), flags, 4)
-        this.vtbl.CopyBufferRegion := CallbackCreate(GetMethod(implObj, "CopyBufferRegion"), flags, 6)
-        this.vtbl.CopyTextureRegion := CallbackCreate(GetMethod(implObj, "CopyTextureRegion"), flags, 7)
-        this.vtbl.CopyResource := CallbackCreate(GetMethod(implObj, "CopyResource"), flags, 3)
-        this.vtbl.CopyTiles := CallbackCreate(GetMethod(implObj, "CopyTiles"), flags, 7)
-        this.vtbl.ResolveSubresource := CallbackCreate(GetMethod(implObj, "ResolveSubresource"), flags, 6)
-        this.vtbl.IASetPrimitiveTopology := CallbackCreate(GetMethod(implObj, "IASetPrimitiveTopology"), flags, 2)
-        this.vtbl.RSSetViewports := CallbackCreate(GetMethod(implObj, "RSSetViewports"), flags, 3)
-        this.vtbl.RSSetScissorRects := CallbackCreate(GetMethod(implObj, "RSSetScissorRects"), flags, 3)
-        this.vtbl.OMSetBlendFactor := CallbackCreate(GetMethod(implObj, "OMSetBlendFactor"), flags, 2)
-        this.vtbl.OMSetStencilRef := CallbackCreate(GetMethod(implObj, "OMSetStencilRef"), flags, 2)
-        this.vtbl.SetPipelineState := CallbackCreate(GetMethod(implObj, "SetPipelineState"), flags, 2)
-        this.vtbl.ResourceBarrier := CallbackCreate(GetMethod(implObj, "ResourceBarrier"), flags, 3)
-        this.vtbl.ExecuteBundle := CallbackCreate(GetMethod(implObj, "ExecuteBundle"), flags, 2)
-        this.vtbl.SetDescriptorHeaps := CallbackCreate(GetMethod(implObj, "SetDescriptorHeaps"), flags, 3)
-        this.vtbl.SetComputeRootSignature := CallbackCreate(GetMethod(implObj, "SetComputeRootSignature"), flags, 2)
-        this.vtbl.SetGraphicsRootSignature := CallbackCreate(GetMethod(implObj, "SetGraphicsRootSignature"), flags, 2)
-        this.vtbl.SetComputeRootDescriptorTable := CallbackCreate(GetMethod(implObj, "SetComputeRootDescriptorTable"), flags, 3)
-        this.vtbl.SetGraphicsRootDescriptorTable := CallbackCreate(GetMethod(implObj, "SetGraphicsRootDescriptorTable"), flags, 3)
-        this.vtbl.SetComputeRoot32BitConstant := CallbackCreate(GetMethod(implObj, "SetComputeRoot32BitConstant"), flags, 4)
-        this.vtbl.SetGraphicsRoot32BitConstant := CallbackCreate(GetMethod(implObj, "SetGraphicsRoot32BitConstant"), flags, 4)
-        this.vtbl.SetComputeRoot32BitConstants := CallbackCreate(GetMethod(implObj, "SetComputeRoot32BitConstants"), flags, 5)
-        this.vtbl.SetGraphicsRoot32BitConstants := CallbackCreate(GetMethod(implObj, "SetGraphicsRoot32BitConstants"), flags, 5)
-        this.vtbl.SetComputeRootConstantBufferView := CallbackCreate(GetMethod(implObj, "SetComputeRootConstantBufferView"), flags, 3)
-        this.vtbl.SetGraphicsRootConstantBufferView := CallbackCreate(GetMethod(implObj, "SetGraphicsRootConstantBufferView"), flags, 3)
-        this.vtbl.SetComputeRootShaderResourceView := CallbackCreate(GetMethod(implObj, "SetComputeRootShaderResourceView"), flags, 3)
-        this.vtbl.SetGraphicsRootShaderResourceView := CallbackCreate(GetMethod(implObj, "SetGraphicsRootShaderResourceView"), flags, 3)
-        this.vtbl.SetComputeRootUnorderedAccessView := CallbackCreate(GetMethod(implObj, "SetComputeRootUnorderedAccessView"), flags, 3)
-        this.vtbl.SetGraphicsRootUnorderedAccessView := CallbackCreate(GetMethod(implObj, "SetGraphicsRootUnorderedAccessView"), flags, 3)
-        this.vtbl.IASetIndexBuffer := CallbackCreate(GetMethod(implObj, "IASetIndexBuffer"), flags, 2)
-        this.vtbl.IASetVertexBuffers := CallbackCreate(GetMethod(implObj, "IASetVertexBuffers"), flags, 4)
-        this.vtbl.SOSetTargets := CallbackCreate(GetMethod(implObj, "SOSetTargets"), flags, 4)
-        this.vtbl.OMSetRenderTargets := CallbackCreate(GetMethod(implObj, "OMSetRenderTargets"), flags, 5)
-        this.vtbl.ClearDepthStencilView := CallbackCreate(GetMethod(implObj, "ClearDepthStencilView"), flags, 7)
-        this.vtbl.ClearRenderTargetView := CallbackCreate(GetMethod(implObj, "ClearRenderTargetView"), flags, 5)
-        this.vtbl.ClearUnorderedAccessViewUint := CallbackCreate(GetMethod(implObj, "ClearUnorderedAccessViewUint"), flags, 7)
-        this.vtbl.ClearUnorderedAccessViewFloat := CallbackCreate(GetMethod(implObj, "ClearUnorderedAccessViewFloat"), flags, 7)
-        this.vtbl.DiscardResource := CallbackCreate(GetMethod(implObj, "DiscardResource"), flags, 3)
-        this.vtbl.BeginQuery := CallbackCreate(GetMethod(implObj, "BeginQuery"), flags, 4)
-        this.vtbl.EndQuery := CallbackCreate(GetMethod(implObj, "EndQuery"), flags, 4)
-        this.vtbl.ResolveQueryData := CallbackCreate(GetMethod(implObj, "ResolveQueryData"), flags, 7)
-        this.vtbl.SetPredication := CallbackCreate(GetMethod(implObj, "SetPredication"), flags, 4)
-        this.vtbl.SetMarker := CallbackCreate(GetMethod(implObj, "SetMarker"), flags, 4)
-        this.vtbl.BeginEvent := CallbackCreate(GetMethod(implObj, "BeginEvent"), flags, 4)
-        this.vtbl.EndEvent := CallbackCreate(GetMethod(implObj, "EndEvent"), flags, 1)
-        this.vtbl.ExecuteIndirect := CallbackCreate(GetMethod(implObj, "ExecuteIndirect"), flags, 7)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 3)
+        this.vtbl.ClearState := CallbackCreate(ObjBindMethod(implObj, "ClearState"), flags, 2)
+        this.vtbl.DrawInstanced := CallbackCreate(ObjBindMethod(implObj, "DrawInstanced"), flags, 5)
+        this.vtbl.DrawIndexedInstanced := CallbackCreate(ObjBindMethod(implObj, "DrawIndexedInstanced"), flags, 6)
+        this.vtbl.Dispatch := CallbackCreate(ObjBindMethod(implObj, "Dispatch"), flags, 4)
+        this.vtbl.CopyBufferRegion := CallbackCreate(ObjBindMethod(implObj, "CopyBufferRegion"), flags, 6)
+        this.vtbl.CopyTextureRegion := CallbackCreate(ObjBindMethod(implObj, "CopyTextureRegion"), flags, 7)
+        this.vtbl.CopyResource := CallbackCreate(ObjBindMethod(implObj, "CopyResource"), flags, 3)
+        this.vtbl.CopyTiles := CallbackCreate(ObjBindMethod(implObj, "CopyTiles"), flags, 7)
+        this.vtbl.ResolveSubresource := CallbackCreate(ObjBindMethod(implObj, "ResolveSubresource"), flags, 6)
+        this.vtbl.IASetPrimitiveTopology := CallbackCreate(ObjBindMethod(implObj, "IASetPrimitiveTopology"), flags, 2)
+        this.vtbl.RSSetViewports := CallbackCreate(ObjBindMethod(implObj, "RSSetViewports"), flags, 3)
+        this.vtbl.RSSetScissorRects := CallbackCreate(ObjBindMethod(implObj, "RSSetScissorRects"), flags, 3)
+        this.vtbl.OMSetBlendFactor := CallbackCreate(ObjBindMethod(implObj, "OMSetBlendFactor"), flags, 2)
+        this.vtbl.OMSetStencilRef := CallbackCreate(ObjBindMethod(implObj, "OMSetStencilRef"), flags, 2)
+        this.vtbl.SetPipelineState := CallbackCreate(ObjBindMethod(implObj, "SetPipelineState"), flags, 2)
+        this.vtbl.ResourceBarrier := CallbackCreate(ObjBindMethod(implObj, "ResourceBarrier"), flags, 3)
+        this.vtbl.ExecuteBundle := CallbackCreate(ObjBindMethod(implObj, "ExecuteBundle"), flags, 2)
+        this.vtbl.SetDescriptorHeaps := CallbackCreate(ObjBindMethod(implObj, "SetDescriptorHeaps"), flags, 3)
+        this.vtbl.SetComputeRootSignature := CallbackCreate(ObjBindMethod(implObj, "SetComputeRootSignature"), flags, 2)
+        this.vtbl.SetGraphicsRootSignature := CallbackCreate(ObjBindMethod(implObj, "SetGraphicsRootSignature"), flags, 2)
+        this.vtbl.SetComputeRootDescriptorTable := CallbackCreate(ObjBindMethod(implObj, "SetComputeRootDescriptorTable"), flags, 3)
+        this.vtbl.SetGraphicsRootDescriptorTable := CallbackCreate(ObjBindMethod(implObj, "SetGraphicsRootDescriptorTable"), flags, 3)
+        this.vtbl.SetComputeRoot32BitConstant := CallbackCreate(ObjBindMethod(implObj, "SetComputeRoot32BitConstant"), flags, 4)
+        this.vtbl.SetGraphicsRoot32BitConstant := CallbackCreate(ObjBindMethod(implObj, "SetGraphicsRoot32BitConstant"), flags, 4)
+        this.vtbl.SetComputeRoot32BitConstants := CallbackCreate(ObjBindMethod(implObj, "SetComputeRoot32BitConstants"), flags, 5)
+        this.vtbl.SetGraphicsRoot32BitConstants := CallbackCreate(ObjBindMethod(implObj, "SetGraphicsRoot32BitConstants"), flags, 5)
+        this.vtbl.SetComputeRootConstantBufferView := CallbackCreate(ObjBindMethod(implObj, "SetComputeRootConstantBufferView"), flags, 3)
+        this.vtbl.SetGraphicsRootConstantBufferView := CallbackCreate(ObjBindMethod(implObj, "SetGraphicsRootConstantBufferView"), flags, 3)
+        this.vtbl.SetComputeRootShaderResourceView := CallbackCreate(ObjBindMethod(implObj, "SetComputeRootShaderResourceView"), flags, 3)
+        this.vtbl.SetGraphicsRootShaderResourceView := CallbackCreate(ObjBindMethod(implObj, "SetGraphicsRootShaderResourceView"), flags, 3)
+        this.vtbl.SetComputeRootUnorderedAccessView := CallbackCreate(ObjBindMethod(implObj, "SetComputeRootUnorderedAccessView"), flags, 3)
+        this.vtbl.SetGraphicsRootUnorderedAccessView := CallbackCreate(ObjBindMethod(implObj, "SetGraphicsRootUnorderedAccessView"), flags, 3)
+        this.vtbl.IASetIndexBuffer := CallbackCreate(ObjBindMethod(implObj, "IASetIndexBuffer"), flags, 2)
+        this.vtbl.IASetVertexBuffers := CallbackCreate(ObjBindMethod(implObj, "IASetVertexBuffers"), flags, 4)
+        this.vtbl.SOSetTargets := CallbackCreate(ObjBindMethod(implObj, "SOSetTargets"), flags, 4)
+        this.vtbl.OMSetRenderTargets := CallbackCreate(ObjBindMethod(implObj, "OMSetRenderTargets"), flags, 5)
+        this.vtbl.ClearDepthStencilView := CallbackCreate(ObjBindMethod(implObj, "ClearDepthStencilView"), flags, 7)
+        this.vtbl.ClearRenderTargetView := CallbackCreate(ObjBindMethod(implObj, "ClearRenderTargetView"), flags, 5)
+        this.vtbl.ClearUnorderedAccessViewUint := CallbackCreate(ObjBindMethod(implObj, "ClearUnorderedAccessViewUint"), flags, 7)
+        this.vtbl.ClearUnorderedAccessViewFloat := CallbackCreate(ObjBindMethod(implObj, "ClearUnorderedAccessViewFloat"), flags, 7)
+        this.vtbl.DiscardResource := CallbackCreate(ObjBindMethod(implObj, "DiscardResource"), flags, 3)
+        this.vtbl.BeginQuery := CallbackCreate(ObjBindMethod(implObj, "BeginQuery"), flags, 4)
+        this.vtbl.EndQuery := CallbackCreate(ObjBindMethod(implObj, "EndQuery"), flags, 4)
+        this.vtbl.ResolveQueryData := CallbackCreate(ObjBindMethod(implObj, "ResolveQueryData"), flags, 7)
+        this.vtbl.SetPredication := CallbackCreate(ObjBindMethod(implObj, "SetPredication"), flags, 4)
+        this.vtbl.SetMarker := CallbackCreate(ObjBindMethod(implObj, "SetMarker"), flags, 4)
+        this.vtbl.BeginEvent := CallbackCreate(ObjBindMethod(implObj, "BeginEvent"), flags, 4)
+        this.vtbl.EndEvent := CallbackCreate(ObjBindMethod(implObj, "EndEvent"), flags, 1)
+        this.vtbl.ExecuteIndirect := CallbackCreate(ObjBindMethod(implObj, "ExecuteIndirect"), flags, 7)
     }
 
     Dispose() {

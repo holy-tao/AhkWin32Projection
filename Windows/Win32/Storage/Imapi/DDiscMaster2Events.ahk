@@ -86,8 +86,8 @@ export default struct DDiscMaster2Events extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.NotifyDeviceAdded := CallbackCreate(GetMethod(implObj, "NotifyDeviceAdded"), flags, 3)
-        this.vtbl.NotifyDeviceRemoved := CallbackCreate(GetMethod(implObj, "NotifyDeviceRemoved"), flags, 3)
+        this.vtbl.NotifyDeviceAdded := CallbackCreate(ObjBindMethod(implObj, "NotifyDeviceAdded"), flags, 3)
+        this.vtbl.NotifyDeviceRemoved := CallbackCreate(ObjBindMethod(implObj, "NotifyDeviceRemoved"), flags, 3)
     }
 
     Dispose() {

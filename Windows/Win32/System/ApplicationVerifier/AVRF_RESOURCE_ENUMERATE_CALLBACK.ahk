@@ -20,16 +20,15 @@ export default struct AVRF_RESOURCE_ENUMERATE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} ResourceDescription A pointer to either an <a href="https://docs.microsoft.com/windows/desktop/api/avrfsdk/ns-avrfsdk-avrf_handle_operation">AVRF_HANDLE_OPERATION</a> structure or an <a href="https://docs.microsoft.com/windows/desktop/api/avrfsdk/ns-avrfsdk-avrf_heap_allocation">AVRF_HEAP_ALLOCATION</a> structure. Be sure to  cast this parameter to the correct structure type.
      * @param {Pointer<Void>} EnumerationContext A pointer to be passed to the resource-specific callback function.
      * @param {Pointer<Integer>} EnumerationLevel Specifies whether the enumeration operation should continue. This must be one of the values in the <a href="https://docs.microsoft.com/windows/desktop/api/avrfsdk/ne-avrfsdk-eheapenumerationlevel">eHeapEnumerationLevel</a> enum.
      * @returns {Integer} This function returns error codes or other values defined by the application.
      */
     Call(ResourceDescription, EnumerationContext, EnumerationLevel) {
-        ResourceDescriptionMarshal := ResourceDescription is VarRef ? "ptr" : "ptr"
-        EnumerationContextMarshal := EnumerationContext is VarRef ? "ptr" : "ptr"
-        EnumerationLevelMarshal := EnumerationLevel is VarRef ? "uint*" : "ptr"
+        ResourceDescriptionMarshal := ResourceDescription is VarRef ? "ptr" : IntPtr
+        EnumerationContextMarshal := EnumerationContext is VarRef ? "ptr" : IntPtr
+        EnumerationLevelMarshal := EnumerationLevel is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, ResourceDescriptionMarshal, ResourceDescription, EnumerationContextMarshal, EnumerationContext, EnumerationLevelMarshal, EnumerationLevel, UInt32)
         return result

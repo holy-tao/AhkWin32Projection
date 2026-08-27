@@ -119,11 +119,11 @@ export default struct IErrorInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetGUID := CallbackCreate(GetMethod(implObj, "GetGUID"), flags, 2)
-        this.vtbl.GetSource := CallbackCreate(GetMethod(implObj, "GetSource"), flags, 2)
-        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 2)
-        this.vtbl.GetHelpFile := CallbackCreate(GetMethod(implObj, "GetHelpFile"), flags, 2)
-        this.vtbl.GetHelpContext := CallbackCreate(GetMethod(implObj, "GetHelpContext"), flags, 2)
+        this.vtbl.GetGUID := CallbackCreate(ObjBindMethod(implObj, "GetGUID"), flags, 2)
+        this.vtbl.GetSource := CallbackCreate(ObjBindMethod(implObj, "GetSource"), flags, 2)
+        this.vtbl.GetDescription := CallbackCreate(ObjBindMethod(implObj, "GetDescription"), flags, 2)
+        this.vtbl.GetHelpFile := CallbackCreate(ObjBindMethod(implObj, "GetHelpFile"), flags, 2)
+        this.vtbl.GetHelpContext := CallbackCreate(ObjBindMethod(implObj, "GetHelpContext"), flags, 2)
     }
 
     Dispose() {

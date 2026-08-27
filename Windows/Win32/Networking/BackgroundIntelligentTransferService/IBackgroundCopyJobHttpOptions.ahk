@@ -221,7 +221,7 @@ export default struct IBackgroundCopyJobHttpOptions extends IUnknown {
     SetClientCertificateByID(StoreLocation, StoreName, pCertHashBlob) {
         StoreName := StoreName is String ? StrPtr(StoreName) : StoreName
 
-        pCertHashBlobMarshal := pCertHashBlob is VarRef ? "char*" : "ptr"
+        pCertHashBlobMarshal := pCertHashBlob is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, BG_CERT_STORE_LOCATION, StoreLocation, "ptr", StoreName, pCertHashBlobMarshal, pCertHashBlob, "HRESULT")
         return result
@@ -504,10 +504,10 @@ export default struct IBackgroundCopyJobHttpOptions extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits2_5/nf-bits2_5-ibackgroundcopyjobhttpoptions-getclientcertificate
      */
     GetClientCertificate(pStoreLocation, pStoreName, ppCertHashBlob, pSubjectName) {
-        pStoreLocationMarshal := pStoreLocation is VarRef ? "int*" : "ptr"
-        pStoreNameMarshal := pStoreName is VarRef ? "ptr*" : "ptr"
-        ppCertHashBlobMarshal := ppCertHashBlob is VarRef ? "ptr*" : "ptr"
-        pSubjectNameMarshal := pSubjectName is VarRef ? "ptr*" : "ptr"
+        pStoreLocationMarshal := pStoreLocation is VarRef ? "int*" : IntPtr
+        pStoreNameMarshal := pStoreName is VarRef ? "ptr*" : IntPtr
+        ppCertHashBlobMarshal := ppCertHashBlob is VarRef ? "ptr*" : IntPtr
+        pSubjectNameMarshal := pSubjectName is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(6, this, pStoreLocationMarshal, pStoreLocation, pStoreNameMarshal, pStoreName, ppCertHashBlobMarshal, ppCertHashBlob, pSubjectNameMarshal, pSubjectName, Int32)
         if(result != 0) {
@@ -944,14 +944,14 @@ export default struct IBackgroundCopyJobHttpOptions extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetClientCertificateByID := CallbackCreate(GetMethod(implObj, "SetClientCertificateByID"), flags, 4)
-        this.vtbl.SetClientCertificateByName := CallbackCreate(GetMethod(implObj, "SetClientCertificateByName"), flags, 4)
-        this.vtbl.RemoveClientCertificate := CallbackCreate(GetMethod(implObj, "RemoveClientCertificate"), flags, 1)
-        this.vtbl.GetClientCertificate := CallbackCreate(GetMethod(implObj, "GetClientCertificate"), flags, 5)
-        this.vtbl.SetCustomHeaders := CallbackCreate(GetMethod(implObj, "SetCustomHeaders"), flags, 2)
-        this.vtbl.GetCustomHeaders := CallbackCreate(GetMethod(implObj, "GetCustomHeaders"), flags, 2)
-        this.vtbl.SetSecurityFlags := CallbackCreate(GetMethod(implObj, "SetSecurityFlags"), flags, 2)
-        this.vtbl.GetSecurityFlags := CallbackCreate(GetMethod(implObj, "GetSecurityFlags"), flags, 2)
+        this.vtbl.SetClientCertificateByID := CallbackCreate(ObjBindMethod(implObj, "SetClientCertificateByID"), flags, 4)
+        this.vtbl.SetClientCertificateByName := CallbackCreate(ObjBindMethod(implObj, "SetClientCertificateByName"), flags, 4)
+        this.vtbl.RemoveClientCertificate := CallbackCreate(ObjBindMethod(implObj, "RemoveClientCertificate"), flags, 1)
+        this.vtbl.GetClientCertificate := CallbackCreate(ObjBindMethod(implObj, "GetClientCertificate"), flags, 5)
+        this.vtbl.SetCustomHeaders := CallbackCreate(ObjBindMethod(implObj, "SetCustomHeaders"), flags, 2)
+        this.vtbl.GetCustomHeaders := CallbackCreate(ObjBindMethod(implObj, "GetCustomHeaders"), flags, 2)
+        this.vtbl.SetSecurityFlags := CallbackCreate(ObjBindMethod(implObj, "SetSecurityFlags"), flags, 2)
+        this.vtbl.GetSecurityFlags := CallbackCreate(ObjBindMethod(implObj, "GetSecurityFlags"), flags, 2)
     }
 
     Dispose() {

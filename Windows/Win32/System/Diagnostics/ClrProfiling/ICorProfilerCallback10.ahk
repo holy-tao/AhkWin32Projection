@@ -37,7 +37,6 @@ export default struct ICorProfilerCallback10 extends ICorProfilerCallback9 {
     }
 
     /**
-     * 
      * @param {Pointer} provider 
      * @param {Integer} eventId 
      * @param {Integer} eventVersion 
@@ -53,16 +52,15 @@ export default struct ICorProfilerCallback10 extends ICorProfilerCallback9 {
      * @returns {HRESULT} 
      */
     EventPipeEventDelivered(provider, eventId, eventVersion, cbMetadataBlob, metadataBlob, cbEventData, eventData, pActivityId, pRelatedActivityId, eventThread, numStackFrames, stackFrames) {
-        metadataBlobMarshal := metadataBlob is VarRef ? "char*" : "ptr"
-        eventDataMarshal := eventData is VarRef ? "char*" : "ptr"
-        stackFramesMarshal := stackFrames is VarRef ? "ptr*" : "ptr"
+        metadataBlobMarshal := metadataBlob is VarRef ? "char*" : IntPtr
+        eventDataMarshal := eventData is VarRef ? "char*" : IntPtr
+        stackFramesMarshal := stackFrames is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(95, this, IntPtr, provider, UInt32, eventId, UInt32, eventVersion, UInt32, cbMetadataBlob, metadataBlobMarshal, metadataBlob, UInt32, cbEventData, eventDataMarshal, eventData, Guid.Ptr, pActivityId, Guid.Ptr, pRelatedActivityId, IntPtr, eventThread, UInt32, numStackFrames, stackFramesMarshal, stackFrames, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} provider 
      * @returns {HRESULT} 
      */
@@ -80,8 +78,8 @@ export default struct ICorProfilerCallback10 extends ICorProfilerCallback9 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EventPipeEventDelivered := CallbackCreate(GetMethod(implObj, "EventPipeEventDelivered"), flags, 13)
-        this.vtbl.EventPipeProviderCreated := CallbackCreate(GetMethod(implObj, "EventPipeProviderCreated"), flags, 2)
+        this.vtbl.EventPipeEventDelivered := CallbackCreate(ObjBindMethod(implObj, "EventPipeEventDelivered"), flags, 13)
+        this.vtbl.EventPipeProviderCreated := CallbackCreate(ObjBindMethod(implObj, "EventPipeProviderCreated"), flags, 2)
     }
 
     Dispose() {

@@ -82,8 +82,8 @@ export default struct IAudioClient2 extends IAudioClient {
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclient2-getbuffersizelimits
      */
     GetBufferSizeLimits(pFormat, bEventDriven, phnsMinBufferDuration, phnsMaxBufferDuration) {
-        phnsMinBufferDurationMarshal := phnsMinBufferDuration is VarRef ? "int64*" : "ptr"
-        phnsMaxBufferDurationMarshal := phnsMaxBufferDuration is VarRef ? "int64*" : "ptr"
+        phnsMinBufferDurationMarshal := phnsMinBufferDuration is VarRef ? "int64*" : IntPtr
+        phnsMaxBufferDurationMarshal := phnsMaxBufferDuration is VarRef ? "int64*" : IntPtr
 
         result := ComCall(17, this, WAVEFORMATEX.Ptr, pFormat, BOOL, bEventDriven, phnsMinBufferDurationMarshal, phnsMinBufferDuration, phnsMaxBufferDurationMarshal, phnsMaxBufferDuration, "HRESULT")
         return result
@@ -98,9 +98,9 @@ export default struct IAudioClient2 extends IAudioClient {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsOffloadCapable := CallbackCreate(GetMethod(implObj, "IsOffloadCapable"), flags, 3)
-        this.vtbl.SetClientProperties := CallbackCreate(GetMethod(implObj, "SetClientProperties"), flags, 2)
-        this.vtbl.GetBufferSizeLimits := CallbackCreate(GetMethod(implObj, "GetBufferSizeLimits"), flags, 5)
+        this.vtbl.IsOffloadCapable := CallbackCreate(ObjBindMethod(implObj, "IsOffloadCapable"), flags, 3)
+        this.vtbl.SetClientProperties := CallbackCreate(ObjBindMethod(implObj, "SetClientProperties"), flags, 2)
+        this.vtbl.GetBufferSizeLimits := CallbackCreate(ObjBindMethod(implObj, "GetBufferSizeLimits"), flags, 5)
     }
 
     Dispose() {

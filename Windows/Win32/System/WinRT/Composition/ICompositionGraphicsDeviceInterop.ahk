@@ -76,8 +76,8 @@ export default struct ICompositionGraphicsDeviceInterop extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRenderingDevice := CallbackCreate(GetMethod(implObj, "GetRenderingDevice"), flags, 2)
-        this.vtbl.SetRenderingDevice := CallbackCreate(GetMethod(implObj, "SetRenderingDevice"), flags, 2)
+        this.vtbl.GetRenderingDevice := CallbackCreate(ObjBindMethod(implObj, "GetRenderingDevice"), flags, 2)
+        this.vtbl.SetRenderingDevice := CallbackCreate(ObjBindMethod(implObj, "SetRenderingDevice"), flags, 2)
     }
 
     Dispose() {

@@ -55,7 +55,6 @@ export default struct IHTMLStyleSheetPage2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -67,7 +66,6 @@ export default struct IHTMLStyleSheetPage2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_selectorText() {
@@ -77,7 +75,6 @@ export default struct IHTMLStyleSheetPage2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLRuleStyle} 
      */
     get_style() {
@@ -94,9 +91,9 @@ export default struct IHTMLStyleSheetPage2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_selectorText := CallbackCreate(GetMethod(implObj, "put_selectorText"), flags, 2)
-        this.vtbl.get_selectorText := CallbackCreate(GetMethod(implObj, "get_selectorText"), flags, 2)
-        this.vtbl.get_style := CallbackCreate(GetMethod(implObj, "get_style"), flags, 2)
+        this.vtbl.put_selectorText := CallbackCreate(ObjBindMethod(implObj, "put_selectorText"), flags, 2)
+        this.vtbl.get_selectorText := CallbackCreate(ObjBindMethod(implObj, "get_selectorText"), flags, 2)
+        this.vtbl.get_style := CallbackCreate(ObjBindMethod(implObj, "get_style"), flags, 2)
     }
 
     Dispose() {

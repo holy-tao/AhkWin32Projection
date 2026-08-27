@@ -23,7 +23,6 @@ export default struct PFNCMFILTERPROC {
     }
 
     /**
-     * 
      * @param {Pointer<CERT_CONTEXT>} pCertContext A pointer to a [CERT_CONTEXT](/windows/win32/api/wincrypt/ns-wincrypt-cert_context) structure that contains a certificate on which to make a filtering determination.
      * @param {LPARAM} param1 *dwDisplayWell*. Reserved for future use.
      * @param {Integer} param2 This `DWORD` parameter is *dwFlags*.

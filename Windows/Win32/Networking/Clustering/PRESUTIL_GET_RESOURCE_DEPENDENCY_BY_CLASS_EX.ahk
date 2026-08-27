@@ -23,7 +23,6 @@ export default struct PRESUTIL_GET_RESOURCE_DEPENDENCY_BY_CLASS_EX {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {HANDLE} hSelf 
      * @param {Pointer<CLUS_RESOURCE_CLASS_INFO>} prci 

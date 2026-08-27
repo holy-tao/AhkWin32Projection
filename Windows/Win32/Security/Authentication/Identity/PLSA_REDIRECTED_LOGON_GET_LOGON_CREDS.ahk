@@ -20,15 +20,14 @@ export default struct PLSA_REDIRECTED_LOGON_GET_LOGON_CREDS {
     }
 
     /**
-     * 
      * @param {HANDLE} RedirectedLogonHandle 
      * @param {Pointer<Pointer<Integer>>} LogonBuffer 
      * @param {Pointer<Integer>} LogonBufferLength 
      * @returns {NTSTATUS} 
      */
     Call(RedirectedLogonHandle, LogonBuffer, LogonBufferLength) {
-        LogonBufferMarshal := LogonBuffer is VarRef ? "ptr*" : "ptr"
-        LogonBufferLengthMarshal := LogonBufferLength is VarRef ? "uint*" : "ptr"
+        LogonBufferMarshal := LogonBuffer is VarRef ? "ptr*" : IntPtr
+        LogonBufferLengthMarshal := LogonBufferLength is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HANDLE, RedirectedLogonHandle, LogonBufferMarshal, LogonBuffer, LogonBufferLengthMarshal, LogonBufferLength, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

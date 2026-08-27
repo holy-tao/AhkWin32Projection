@@ -56,7 +56,7 @@ export default struct IWSDOutboundAttachment extends IWSDAttachment {
      * @see https://learn.microsoft.com/windows/win32/api/wsdattachment/nf-wsdattachment-iwsdoutboundattachment-write
      */
     Write(pBuffer, dwBytesToWrite) {
-        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, pBufferMarshal, pBuffer, UInt32, dwBytesToWrite, "uint*", &pdwNumberOfBytesWritten := 0, "HRESULT")
         return pdwNumberOfBytesWritten
@@ -175,9 +175,9 @@ export default struct IWSDOutboundAttachment extends IWSDAttachment {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Write := CallbackCreate(GetMethod(implObj, "Write"), flags, 4)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
-        this.vtbl.Abort := CallbackCreate(GetMethod(implObj, "Abort"), flags, 1)
+        this.vtbl.Write := CallbackCreate(ObjBindMethod(implObj, "Write"), flags, 4)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
+        this.vtbl.Abort := CallbackCreate(ObjBindMethod(implObj, "Abort"), flags, 1)
     }
 
     Dispose() {

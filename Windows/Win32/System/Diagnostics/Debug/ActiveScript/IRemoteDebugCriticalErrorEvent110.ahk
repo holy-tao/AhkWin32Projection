@@ -81,7 +81,7 @@ export default struct IRemoteDebugCriticalErrorEvent110 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-geterrorinfo
      */
     GetErrorInfo(pbstrSource, pMessageId, pbstrMessage, ppLocation) {
-        pMessageIdMarshal := pMessageId is VarRef ? "int*" : "ptr"
+        pMessageIdMarshal := pMessageId is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, BSTR.Ptr, pbstrSource, pMessageIdMarshal, pMessageId, BSTR.Ptr, pbstrMessage, IDebugDocumentContext.Ptr, ppLocation, "HRESULT")
         return result
@@ -96,7 +96,7 @@ export default struct IRemoteDebugCriticalErrorEvent110 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetErrorInfo := CallbackCreate(GetMethod(implObj, "GetErrorInfo"), flags, 5)
+        this.vtbl.GetErrorInfo := CallbackCreate(ObjBindMethod(implObj, "GetErrorInfo"), flags, 5)
     }
 
     Dispose() {

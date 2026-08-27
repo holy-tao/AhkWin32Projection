@@ -69,7 +69,7 @@ export default struct IUIAnimationTransitionFactory2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateTransition := CallbackCreate(GetMethod(implObj, "CreateTransition"), flags, 3)
+        this.vtbl.CreateTransition := CallbackCreate(ObjBindMethod(implObj, "CreateTransition"), flags, 3)
     }
 
     Dispose() {

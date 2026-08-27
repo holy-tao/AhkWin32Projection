@@ -73,7 +73,6 @@ export default struct IHTMLFontElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -83,7 +82,6 @@ export default struct IHTMLFontElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_color() {
@@ -93,7 +91,6 @@ export default struct IHTMLFontElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -105,7 +102,6 @@ export default struct IHTMLFontElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_face() {
@@ -115,7 +111,6 @@ export default struct IHTMLFontElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -125,7 +120,6 @@ export default struct IHTMLFontElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_size() {
@@ -143,12 +137,12 @@ export default struct IHTMLFontElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_color := CallbackCreate(GetMethod(implObj, "put_color"), flags, 2)
-        this.vtbl.get_color := CallbackCreate(GetMethod(implObj, "get_color"), flags, 2)
-        this.vtbl.put_face := CallbackCreate(GetMethod(implObj, "put_face"), flags, 2)
-        this.vtbl.get_face := CallbackCreate(GetMethod(implObj, "get_face"), flags, 2)
-        this.vtbl.put_size := CallbackCreate(GetMethod(implObj, "put_size"), flags, 2)
-        this.vtbl.get_size := CallbackCreate(GetMethod(implObj, "get_size"), flags, 2)
+        this.vtbl.put_color := CallbackCreate(ObjBindMethod(implObj, "put_color"), flags, 2)
+        this.vtbl.get_color := CallbackCreate(ObjBindMethod(implObj, "get_color"), flags, 2)
+        this.vtbl.put_face := CallbackCreate(ObjBindMethod(implObj, "put_face"), flags, 2)
+        this.vtbl.get_face := CallbackCreate(ObjBindMethod(implObj, "get_face"), flags, 2)
+        this.vtbl.put_size := CallbackCreate(ObjBindMethod(implObj, "put_size"), flags, 2)
+        this.vtbl.get_size := CallbackCreate(ObjBindMethod(implObj, "get_size"), flags, 2)
     }
 
     Dispose() {

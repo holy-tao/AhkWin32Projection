@@ -34,7 +34,6 @@ export default struct SpAcceptCredentialsFn {
     }
 
     /**
-     * 
      * @param {SECURITY_LOGON_TYPE} LogonType A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ne-ntsecapi-security_logon_type">SECURITY_LOGON_TYPE</a> value indicating the type of logon.
      * @param {Pointer<LSA_UNICODE_STRING>} AccountName Pointer to a 
@@ -48,7 +47,10 @@ export default struct SpAcceptCredentialsFn {
      * If the function fails, return an <b>NTSTATUS</b> code that indicates the reason it failed.
      */
     Call(LogonType, AccountName, PrimaryCredentials, SupplementalCredentials) {
-        result := DllCall(this.value, SECURITY_LOGON_TYPE, LogonType, LSA_UNICODE_STRING.Ptr, AccountName, SECPKG_PRIMARY_CRED.Ptr, PrimaryCredentials, SECPKG_SUPPLEMENTAL_CRED.Ptr, SupplementalCredentials, NTSTATUS)
+        PrimaryCredentialsMarshal := PrimaryCredentials == 0 ? IntPtr : SECPKG_PRIMARY_CRED.Ptr
+        SupplementalCredentialsMarshal := SupplementalCredentials == 0 ? IntPtr : SECPKG_SUPPLEMENTAL_CRED.Ptr
+
+        result := DllCall(this.value, SECURITY_LOGON_TYPE, LogonType, LSA_UNICODE_STRING.Ptr, AccountName, PrimaryCredentialsMarshal, PrimaryCredentials, SupplementalCredentialsMarshal, SupplementalCredentials, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

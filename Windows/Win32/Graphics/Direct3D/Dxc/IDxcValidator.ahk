@@ -38,7 +38,6 @@ export default struct IDxcValidator extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDxcBlob} pShader 
      * @param {Integer} Flags 
      * @returns {IDxcOperationResult} 
@@ -57,7 +56,7 @@ export default struct IDxcValidator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Validate := CallbackCreate(GetMethod(implObj, "Validate"), flags, 4)
+        this.vtbl.Validate := CallbackCreate(ObjBindMethod(implObj, "Validate"), flags, 4)
     }
 
     Dispose() {

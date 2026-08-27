@@ -22,7 +22,6 @@ export default struct DESKTOPENUMPROCW {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @param {LPARAM} param1 
      * @returns {BOOL} 

@@ -19,14 +19,13 @@ export default struct PDEBUG_EXTENSION_INITIALIZE {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} _Version 
      * @param {Pointer<Integer>} Flags 
      * @returns {HRESULT} 
      */
     Call(_Version, Flags) {
-        _VersionMarshal := _Version is VarRef ? "uint*" : "ptr"
-        FlagsMarshal := Flags is VarRef ? "uint*" : "ptr"
+        _VersionMarshal := _Version is VarRef ? "uint*" : IntPtr
+        FlagsMarshal := Flags is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, _VersionMarshal, _Version, FlagsMarshal, Flags, "HRESULT")
         return result

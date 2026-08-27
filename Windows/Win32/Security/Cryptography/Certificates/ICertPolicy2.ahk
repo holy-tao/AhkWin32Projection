@@ -99,7 +99,7 @@ export default struct ICertPolicy2 extends ICertPolicy {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetManageModule := CallbackCreate(GetMethod(implObj, "GetManageModule"), flags, 2)
+        this.vtbl.GetManageModule := CallbackCreate(ObjBindMethod(implObj, "GetManageModule"), flags, 2)
     }
 
     Dispose() {

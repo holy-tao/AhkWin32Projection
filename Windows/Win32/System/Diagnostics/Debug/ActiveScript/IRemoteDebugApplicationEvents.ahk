@@ -48,7 +48,6 @@ export default struct IRemoteDebugApplicationEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {IApplicationDebugger} pad 
      * @returns {HRESULT} 
      */
@@ -58,7 +57,6 @@ export default struct IRemoteDebugApplicationEvents extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     OnDisconnectDebugger() {
@@ -67,7 +65,6 @@ export default struct IRemoteDebugApplicationEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pstrName 
      * @returns {HRESULT} 
      */
@@ -79,7 +76,6 @@ export default struct IRemoteDebugApplicationEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} _pstr 
      * @returns {HRESULT} 
      */
@@ -91,7 +87,6 @@ export default struct IRemoteDebugApplicationEvents extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     OnClose() {
@@ -100,7 +95,6 @@ export default struct IRemoteDebugApplicationEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRemoteDebugApplicationThread} prdat 
      * @returns {HRESULT} 
      */
@@ -110,7 +104,6 @@ export default struct IRemoteDebugApplicationEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRemoteDebugApplicationThread} prdat 
      * @returns {HRESULT} 
      */
@@ -120,7 +113,6 @@ export default struct IRemoteDebugApplicationEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRemoteDebugApplicationThread} prdat 
      * @returns {HRESULT} 
      */
@@ -130,7 +122,6 @@ export default struct IRemoteDebugApplicationEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRemoteDebugApplicationThread} prdat 
      * @returns {HRESULT} 
      */
@@ -140,7 +131,6 @@ export default struct IRemoteDebugApplicationEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} abf 
      * @param {IRemoteDebugApplicationThread} prdatSteppingThread 
      * @returns {HRESULT} 
@@ -159,16 +149,16 @@ export default struct IRemoteDebugApplicationEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnConnectDebugger := CallbackCreate(GetMethod(implObj, "OnConnectDebugger"), flags, 2)
-        this.vtbl.OnDisconnectDebugger := CallbackCreate(GetMethod(implObj, "OnDisconnectDebugger"), flags, 1)
-        this.vtbl.OnSetName := CallbackCreate(GetMethod(implObj, "OnSetName"), flags, 2)
-        this.vtbl.OnDebugOutput := CallbackCreate(GetMethod(implObj, "OnDebugOutput"), flags, 2)
-        this.vtbl.OnClose := CallbackCreate(GetMethod(implObj, "OnClose"), flags, 1)
-        this.vtbl.OnEnterBreakPoint := CallbackCreate(GetMethod(implObj, "OnEnterBreakPoint"), flags, 2)
-        this.vtbl.OnLeaveBreakPoint := CallbackCreate(GetMethod(implObj, "OnLeaveBreakPoint"), flags, 2)
-        this.vtbl.OnCreateThread := CallbackCreate(GetMethod(implObj, "OnCreateThread"), flags, 2)
-        this.vtbl.OnDestroyThread := CallbackCreate(GetMethod(implObj, "OnDestroyThread"), flags, 2)
-        this.vtbl.OnBreakFlagChange := CallbackCreate(GetMethod(implObj, "OnBreakFlagChange"), flags, 3)
+        this.vtbl.OnConnectDebugger := CallbackCreate(ObjBindMethod(implObj, "OnConnectDebugger"), flags, 2)
+        this.vtbl.OnDisconnectDebugger := CallbackCreate(ObjBindMethod(implObj, "OnDisconnectDebugger"), flags, 1)
+        this.vtbl.OnSetName := CallbackCreate(ObjBindMethod(implObj, "OnSetName"), flags, 2)
+        this.vtbl.OnDebugOutput := CallbackCreate(ObjBindMethod(implObj, "OnDebugOutput"), flags, 2)
+        this.vtbl.OnClose := CallbackCreate(ObjBindMethod(implObj, "OnClose"), flags, 1)
+        this.vtbl.OnEnterBreakPoint := CallbackCreate(ObjBindMethod(implObj, "OnEnterBreakPoint"), flags, 2)
+        this.vtbl.OnLeaveBreakPoint := CallbackCreate(ObjBindMethod(implObj, "OnLeaveBreakPoint"), flags, 2)
+        this.vtbl.OnCreateThread := CallbackCreate(ObjBindMethod(implObj, "OnCreateThread"), flags, 2)
+        this.vtbl.OnDestroyThread := CallbackCreate(ObjBindMethod(implObj, "OnDestroyThread"), flags, 2)
+        this.vtbl.OnBreakFlagChange := CallbackCreate(ObjBindMethod(implObj, "OnBreakFlagChange"), flags, 3)
     }
 
     Dispose() {

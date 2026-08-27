@@ -20,7 +20,6 @@ export default struct PFND3DKMT_FLIPOVERLAY {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_FLIPOVERLAY>} param0 
      * @returns {NTSTATUS} 
      */

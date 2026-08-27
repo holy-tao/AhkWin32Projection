@@ -84,8 +84,8 @@ export default struct IMFProtectedEnvironmentAccess extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfprotectedenvironmentaccess-readgrl
      */
     ReadGRL(outputLength, output) {
-        outputLengthMarshal := outputLength is VarRef ? "uint*" : "ptr"
-        outputMarshal := output is VarRef ? "ptr*" : "ptr"
+        outputLengthMarshal := outputLength is VarRef ? "uint*" : IntPtr
+        outputMarshal := output is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, outputLengthMarshal, outputLength, outputMarshal, output, "HRESULT")
         return result
@@ -100,8 +100,8 @@ export default struct IMFProtectedEnvironmentAccess extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Call := CallbackCreate(GetMethod(implObj, "Call"), flags, 5)
-        this.vtbl.ReadGRL := CallbackCreate(GetMethod(implObj, "ReadGRL"), flags, 3)
+        this.vtbl.Call := CallbackCreate(ObjBindMethod(implObj, "Call"), flags, 5)
+        this.vtbl.ReadGRL := CallbackCreate(ObjBindMethod(implObj, "ReadGRL"), flags, 3)
     }
 
     Dispose() {

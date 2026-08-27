@@ -126,7 +126,7 @@ export default struct IWICJpegFrameEncode extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicjpegframeencode-writescan
      */
     WriteScan(cbScanData, pbScanData) {
-        pbScanDataMarshal := pbScanData is VarRef ? "char*" : "ptr"
+        pbScanDataMarshal := pbScanData is VarRef ? "char*" : IntPtr
 
         result := ComCall(6, this, UInt32, cbScanData, pbScanDataMarshal, pbScanData, "HRESULT")
         return result
@@ -141,10 +141,10 @@ export default struct IWICJpegFrameEncode extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAcHuffmanTable := CallbackCreate(GetMethod(implObj, "GetAcHuffmanTable"), flags, 4)
-        this.vtbl.GetDcHuffmanTable := CallbackCreate(GetMethod(implObj, "GetDcHuffmanTable"), flags, 4)
-        this.vtbl.GetQuantizationTable := CallbackCreate(GetMethod(implObj, "GetQuantizationTable"), flags, 4)
-        this.vtbl.WriteScan := CallbackCreate(GetMethod(implObj, "WriteScan"), flags, 3)
+        this.vtbl.GetAcHuffmanTable := CallbackCreate(ObjBindMethod(implObj, "GetAcHuffmanTable"), flags, 4)
+        this.vtbl.GetDcHuffmanTable := CallbackCreate(ObjBindMethod(implObj, "GetDcHuffmanTable"), flags, 4)
+        this.vtbl.GetQuantizationTable := CallbackCreate(ObjBindMethod(implObj, "GetQuantizationTable"), flags, 4)
+        this.vtbl.WriteScan := CallbackCreate(ObjBindMethod(implObj, "WriteScan"), flags, 3)
     }
 
     Dispose() {

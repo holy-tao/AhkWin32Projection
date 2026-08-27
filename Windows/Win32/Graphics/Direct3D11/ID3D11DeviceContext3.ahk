@@ -64,7 +64,9 @@ export default struct ID3D11DeviceContext3 extends ID3D11DeviceContext2 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nf-d3d11_3-id3d11devicecontext3-flush1
      */
     Flush1(ContextType, hEvent) {
-        ComCall(144, this, D3D11_CONTEXT_TYPE, ContextType, HANDLE, hEvent)
+        hEventMarshal := hEvent == 0 ? IntPtr : HANDLE
+
+        ComCall(144, this, D3D11_CONTEXT_TYPE, ContextType, hEventMarshal, hEvent)
     }
 
     /**
@@ -88,7 +90,7 @@ export default struct ID3D11DeviceContext3 extends ID3D11DeviceContext2 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nf-d3d11_3-id3d11devicecontext3-gethardwareprotectionstate
      */
     GetHardwareProtectionState(pHwProtectionEnable) {
-        pHwProtectionEnableMarshal := pHwProtectionEnable is VarRef ? "int*" : "ptr"
+        pHwProtectionEnableMarshal := pHwProtectionEnable is VarRef ? "int*" : IntPtr
 
         ComCall(146, this, pHwProtectionEnableMarshal, pHwProtectionEnable)
     }
@@ -102,9 +104,9 @@ export default struct ID3D11DeviceContext3 extends ID3D11DeviceContext2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Flush1 := CallbackCreate(GetMethod(implObj, "Flush1"), flags, 3)
-        this.vtbl.SetHardwareProtectionState := CallbackCreate(GetMethod(implObj, "SetHardwareProtectionState"), flags, 2)
-        this.vtbl.GetHardwareProtectionState := CallbackCreate(GetMethod(implObj, "GetHardwareProtectionState"), flags, 2)
+        this.vtbl.Flush1 := CallbackCreate(ObjBindMethod(implObj, "Flush1"), flags, 3)
+        this.vtbl.SetHardwareProtectionState := CallbackCreate(ObjBindMethod(implObj, "SetHardwareProtectionState"), flags, 2)
+        this.vtbl.GetHardwareProtectionState := CallbackCreate(ObjBindMethod(implObj, "GetHardwareProtectionState"), flags, 2)
     }
 
     Dispose() {

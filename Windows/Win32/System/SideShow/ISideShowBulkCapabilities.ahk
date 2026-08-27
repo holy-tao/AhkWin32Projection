@@ -38,13 +38,14 @@ export default struct ISideShowBulkCapabilities extends ISideShowCapabilities {
     }
 
     /**
-     * 
      * @param {ISideShowKeyCollection} in_keyCollection 
      * @param {Pointer<ISideShowPropVariantCollection>} inout_pValues 
      * @returns {HRESULT} 
      */
     GetCapabilities(in_keyCollection, inout_pValues) {
-        result := ComCall(4, this, "ptr", in_keyCollection, ISideShowPropVariantCollection.Ptr, inout_pValues, "HRESULT")
+        in_keyCollectionMarshal := in_keyCollection == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, in_keyCollectionMarshal, in_keyCollection, ISideShowPropVariantCollection.Ptr, inout_pValues, "HRESULT")
         return result
     }
 
@@ -57,7 +58,7 @@ export default struct ISideShowBulkCapabilities extends ISideShowCapabilities {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCapabilities := CallbackCreate(GetMethod(implObj, "GetCapabilities"), flags, 3)
+        this.vtbl.GetCapabilities := CallbackCreate(ObjBindMethod(implObj, "GetCapabilities"), flags, 3)
     }
 
     Dispose() {

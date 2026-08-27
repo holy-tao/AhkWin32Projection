@@ -40,7 +40,6 @@ export default struct ISpeechXMLRecoResult extends ISpeechRecoResult {
     }
 
     /**
-     * 
      * @param {SPXMLRESULTOPTIONS} Options 
      * @returns {BSTR} 
      */
@@ -51,7 +50,6 @@ export default struct ISpeechXMLRecoResult extends ISpeechRecoResult {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} LineNumber 
      * @param {Pointer<BSTR>} ScriptLine 
      * @param {Pointer<BSTR>} Source 
@@ -61,9 +59,9 @@ export default struct ISpeechXMLRecoResult extends ISpeechRecoResult {
      * @returns {HRESULT} 
      */
     GetXMLErrorInfo(LineNumber, ScriptLine, Source, Description, ResultCode, IsError) {
-        LineNumberMarshal := LineNumber is VarRef ? "int*" : "ptr"
-        ResultCodeMarshal := ResultCode is VarRef ? "int*" : "ptr"
-        IsErrorMarshal := IsError is VarRef ? "short*" : "ptr"
+        LineNumberMarshal := LineNumber is VarRef ? "int*" : IntPtr
+        ResultCodeMarshal := ResultCode is VarRef ? "int*" : IntPtr
+        IsErrorMarshal := IsError is VarRef ? "short*" : IntPtr
 
         result := ComCall(18, this, LineNumberMarshal, LineNumber, BSTR.Ptr, ScriptLine, BSTR.Ptr, Source, BSTR.Ptr, Description, ResultCodeMarshal, ResultCode, IsErrorMarshal, IsError, "HRESULT")
         return result
@@ -78,8 +76,8 @@ export default struct ISpeechXMLRecoResult extends ISpeechRecoResult {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetXMLResult := CallbackCreate(GetMethod(implObj, "GetXMLResult"), flags, 3)
-        this.vtbl.GetXMLErrorInfo := CallbackCreate(GetMethod(implObj, "GetXMLErrorInfo"), flags, 7)
+        this.vtbl.GetXMLResult := CallbackCreate(ObjBindMethod(implObj, "GetXMLResult"), flags, 3)
+        this.vtbl.GetXMLErrorInfo := CallbackCreate(ObjBindMethod(implObj, "GetXMLErrorInfo"), flags, 7)
     }
 
     Dispose() {

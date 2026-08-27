@@ -26,7 +26,6 @@ export default struct PFNProgressNotification {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvData Type: <b>LPVOID</b>
      * 
      * Component data passed to the callback function.
@@ -44,7 +43,7 @@ export default struct PFNProgressNotification {
      * If this callback function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      */
     Call(pvData, uFrameNum, operation, dblProgress) {
-        pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
+        pvDataMarshal := pvData is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, pvDataMarshal, pvData, UInt32, uFrameNum, WICProgressOperation, operation, Float64, dblProgress, "HRESULT")
         return result

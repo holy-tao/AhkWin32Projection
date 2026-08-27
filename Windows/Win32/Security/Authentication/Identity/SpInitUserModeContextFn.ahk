@@ -32,7 +32,6 @@ export default struct SpInitUserModeContextFn {
     }
 
     /**
-     * 
      * @param {Pointer} ContextHandle A handle to the LSA-mode context returned from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecpkg/nc-ntsecpkg-spinitlsamodecontextfn">SpInitLsaModeContext</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecpkg/nc-ntsecpkg-spacceptlsamodecontextfn">SpAcceptLsaModeContext</a> function.

@@ -66,7 +66,6 @@ export default struct IHTMLAreasCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -76,7 +75,6 @@ export default struct IHTMLAreasCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -85,7 +83,6 @@ export default struct IHTMLAreasCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__newEnum() {
@@ -94,7 +91,6 @@ export default struct IHTMLAreasCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} name 
      * @param {VARIANT} index 
      * @returns {IDispatch} 
@@ -105,7 +101,6 @@ export default struct IHTMLAreasCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} tagName 
      * @returns {IDispatch} 
      */
@@ -155,7 +150,6 @@ export default struct IHTMLAreasCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {HRESULT} 
      */
@@ -173,13 +167,13 @@ export default struct IHTMLAreasCollection extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_length := CallbackCreate(GetMethod(implObj, "put_length"), flags, 2)
-        this.vtbl.get_length := CallbackCreate(GetMethod(implObj, "get_length"), flags, 2)
-        this.vtbl.get__newEnum := CallbackCreate(GetMethod(implObj, "get__newEnum"), flags, 2)
-        this.vtbl.item := CallbackCreate(GetMethod(implObj, "item"), flags, 4)
-        this.vtbl.tags := CallbackCreate(GetMethod(implObj, "tags"), flags, 3)
-        this.vtbl.add := CallbackCreate(GetMethod(implObj, "add"), flags, 3)
-        this.vtbl.remove := CallbackCreate(GetMethod(implObj, "remove"), flags, 2)
+        this.vtbl.put_length := CallbackCreate(ObjBindMethod(implObj, "put_length"), flags, 2)
+        this.vtbl.get_length := CallbackCreate(ObjBindMethod(implObj, "get_length"), flags, 2)
+        this.vtbl.get__newEnum := CallbackCreate(ObjBindMethod(implObj, "get__newEnum"), flags, 2)
+        this.vtbl.item := CallbackCreate(ObjBindMethod(implObj, "item"), flags, 4)
+        this.vtbl.tags := CallbackCreate(ObjBindMethod(implObj, "tags"), flags, 3)
+        this.vtbl.add := CallbackCreate(ObjBindMethod(implObj, "add"), flags, 3)
+        this.vtbl.remove := CallbackCreate(ObjBindMethod(implObj, "remove"), flags, 2)
     }
 
     Dispose() {

@@ -94,7 +94,7 @@ export default struct IAMMediaTypeSample extends IStreamSample {
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediatypesample-setpointer
      */
     SetPointer(pBuffer, lSize) {
-        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(8, this, pBufferMarshal, pBuffer, Int32, lSize, "HRESULT")
         return result
@@ -168,8 +168,8 @@ export default struct IAMMediaTypeSample extends IStreamSample {
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediatypesample-gettime
      */
     GetTime(pTimeStart, pTimeEnd) {
-        pTimeStartMarshal := pTimeStart is VarRef ? "int64*" : "ptr"
-        pTimeEndMarshal := pTimeEnd is VarRef ? "int64*" : "ptr"
+        pTimeStartMarshal := pTimeStart is VarRef ? "int64*" : IntPtr
+        pTimeEndMarshal := pTimeEnd is VarRef ? "int64*" : IntPtr
 
         result := ComCall(11, this, pTimeStartMarshal, pTimeStart, pTimeEndMarshal, pTimeEnd, "HRESULT")
         return result
@@ -183,8 +183,8 @@ export default struct IAMMediaTypeSample extends IStreamSample {
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediatypesample-settime
      */
     SetTime(pTimeStart, pTimeEnd) {
-        pTimeStartMarshal := pTimeStart is VarRef ? "int64*" : "ptr"
-        pTimeEndMarshal := pTimeEnd is VarRef ? "int64*" : "ptr"
+        pTimeStartMarshal := pTimeStart is VarRef ? "int64*" : IntPtr
+        pTimeEndMarshal := pTimeEnd is VarRef ? "int64*" : IntPtr
 
         result := ComCall(12, this, pTimeStartMarshal, pTimeStart, pTimeEndMarshal, pTimeEnd, "HRESULT")
         return result
@@ -390,8 +390,8 @@ export default struct IAMMediaTypeSample extends IStreamSample {
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediatypesample-getmediatime
      */
     GetMediaTime(pTimeStart, pTimeEnd) {
-        pTimeStartMarshal := pTimeStart is VarRef ? "int64*" : "ptr"
-        pTimeEndMarshal := pTimeEnd is VarRef ? "int64*" : "ptr"
+        pTimeStartMarshal := pTimeStart is VarRef ? "int64*" : IntPtr
+        pTimeEndMarshal := pTimeEnd is VarRef ? "int64*" : IntPtr
 
         result := ComCall(23, this, pTimeStartMarshal, pTimeStart, pTimeEndMarshal, pTimeEnd, "HRESULT")
         return result
@@ -405,8 +405,8 @@ export default struct IAMMediaTypeSample extends IStreamSample {
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediatypesample-setmediatime
      */
     SetMediaTime(pTimeStart, pTimeEnd) {
-        pTimeStartMarshal := pTimeStart is VarRef ? "int64*" : "ptr"
-        pTimeEndMarshal := pTimeEnd is VarRef ? "int64*" : "ptr"
+        pTimeStartMarshal := pTimeStart is VarRef ? "int64*" : IntPtr
+        pTimeEndMarshal := pTimeEnd is VarRef ? "int64*" : IntPtr
 
         result := ComCall(24, this, pTimeStartMarshal, pTimeStart, pTimeEndMarshal, pTimeEnd, "HRESULT")
         return result
@@ -421,23 +421,23 @@ export default struct IAMMediaTypeSample extends IStreamSample {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetPointer := CallbackCreate(GetMethod(implObj, "SetPointer"), flags, 3)
-        this.vtbl.GetPointer := CallbackCreate(GetMethod(implObj, "GetPointer"), flags, 2)
-        this.vtbl.GetSize := CallbackCreate(GetMethod(implObj, "GetSize"), flags, 1)
-        this.vtbl.GetTime := CallbackCreate(GetMethod(implObj, "GetTime"), flags, 3)
-        this.vtbl.SetTime := CallbackCreate(GetMethod(implObj, "SetTime"), flags, 3)
-        this.vtbl.IsSyncPoint := CallbackCreate(GetMethod(implObj, "IsSyncPoint"), flags, 1)
-        this.vtbl.SetSyncPoint := CallbackCreate(GetMethod(implObj, "SetSyncPoint"), flags, 2)
-        this.vtbl.IsPreroll := CallbackCreate(GetMethod(implObj, "IsPreroll"), flags, 1)
-        this.vtbl.SetPreroll := CallbackCreate(GetMethod(implObj, "SetPreroll"), flags, 2)
-        this.vtbl.GetActualDataLength := CallbackCreate(GetMethod(implObj, "GetActualDataLength"), flags, 1)
-        this.vtbl.SetActualDataLength := CallbackCreate(GetMethod(implObj, "SetActualDataLength"), flags, 2)
-        this.vtbl.GetMediaType := CallbackCreate(GetMethod(implObj, "GetMediaType"), flags, 2)
-        this.vtbl.SetMediaType := CallbackCreate(GetMethod(implObj, "SetMediaType"), flags, 2)
-        this.vtbl.IsDiscontinuity := CallbackCreate(GetMethod(implObj, "IsDiscontinuity"), flags, 1)
-        this.vtbl.SetDiscontinuity := CallbackCreate(GetMethod(implObj, "SetDiscontinuity"), flags, 2)
-        this.vtbl.GetMediaTime := CallbackCreate(GetMethod(implObj, "GetMediaTime"), flags, 3)
-        this.vtbl.SetMediaTime := CallbackCreate(GetMethod(implObj, "SetMediaTime"), flags, 3)
+        this.vtbl.SetPointer := CallbackCreate(ObjBindMethod(implObj, "SetPointer"), flags, 3)
+        this.vtbl.GetPointer := CallbackCreate(ObjBindMethod(implObj, "GetPointer"), flags, 2)
+        this.vtbl.GetSize := CallbackCreate(ObjBindMethod(implObj, "GetSize"), flags, 1)
+        this.vtbl.GetTime := CallbackCreate(ObjBindMethod(implObj, "GetTime"), flags, 3)
+        this.vtbl.SetTime := CallbackCreate(ObjBindMethod(implObj, "SetTime"), flags, 3)
+        this.vtbl.IsSyncPoint := CallbackCreate(ObjBindMethod(implObj, "IsSyncPoint"), flags, 1)
+        this.vtbl.SetSyncPoint := CallbackCreate(ObjBindMethod(implObj, "SetSyncPoint"), flags, 2)
+        this.vtbl.IsPreroll := CallbackCreate(ObjBindMethod(implObj, "IsPreroll"), flags, 1)
+        this.vtbl.SetPreroll := CallbackCreate(ObjBindMethod(implObj, "SetPreroll"), flags, 2)
+        this.vtbl.GetActualDataLength := CallbackCreate(ObjBindMethod(implObj, "GetActualDataLength"), flags, 1)
+        this.vtbl.SetActualDataLength := CallbackCreate(ObjBindMethod(implObj, "SetActualDataLength"), flags, 2)
+        this.vtbl.GetMediaType := CallbackCreate(ObjBindMethod(implObj, "GetMediaType"), flags, 2)
+        this.vtbl.SetMediaType := CallbackCreate(ObjBindMethod(implObj, "SetMediaType"), flags, 2)
+        this.vtbl.IsDiscontinuity := CallbackCreate(ObjBindMethod(implObj, "IsDiscontinuity"), flags, 1)
+        this.vtbl.SetDiscontinuity := CallbackCreate(ObjBindMethod(implObj, "SetDiscontinuity"), flags, 2)
+        this.vtbl.GetMediaTime := CallbackCreate(ObjBindMethod(implObj, "GetMediaTime"), flags, 3)
+        this.vtbl.SetMediaTime := CallbackCreate(ObjBindMethod(implObj, "SetMediaTime"), flags, 3)
     }
 
     Dispose() {

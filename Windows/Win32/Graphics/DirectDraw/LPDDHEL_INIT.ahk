@@ -20,7 +20,6 @@ export default struct LPDDHEL_INIT {
     }
 
     /**
-     * 
      * @param {Pointer<DDRAWI_DIRECTDRAW_GBL>} param0 
      * @param {BOOL} param1 
      * @returns {BOOL} 

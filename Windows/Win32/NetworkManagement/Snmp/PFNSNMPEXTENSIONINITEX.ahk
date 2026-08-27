@@ -20,7 +20,6 @@ export default struct PFNSNMPEXTENSIONINITEX {
     }
 
     /**
-     * 
      * @param {Pointer<AsnObjectIdentifier>} pNextSupportedRegion 
      * @returns {BOOL} 
      */

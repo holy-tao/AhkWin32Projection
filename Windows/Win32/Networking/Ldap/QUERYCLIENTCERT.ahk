@@ -32,7 +32,6 @@ export default struct QUERYCLIENTCERT {
     }
 
     /**
-     * 
      * @param {Pointer<LDAP>} _Connection The session handle.
      * @param {Pointer<SecPkgContext_IssuerListInfoEx>} trusted_CAs A list of server-trusted Certificate Authorities.
      * @param {Pointer<Pointer<CERT_CONTEXT>>} ppCertificate Upon receiving the callback, the user supplies an appropriate client certificate in 
@@ -40,7 +39,7 @@ export default struct QUERYCLIENTCERT {
      * @returns {BOOLEAN} 
      */
     Call(_Connection, trusted_CAs, ppCertificate) {
-        ppCertificateMarshal := ppCertificate is VarRef ? "ptr*" : "ptr"
+        ppCertificateMarshal := ppCertificate is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, LDAP.Ptr, _Connection, SecPkgContext_IssuerListInfoEx.Ptr, trusted_CAs, ppCertificateMarshal, ppCertificate, BOOLEAN)
         return result

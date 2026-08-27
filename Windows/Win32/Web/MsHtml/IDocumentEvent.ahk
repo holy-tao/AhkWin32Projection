@@ -38,7 +38,6 @@ export default struct IDocumentEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @returns {IDOMEvent} 
      */
@@ -58,7 +57,7 @@ export default struct IDocumentEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.createEvent := CallbackCreate(GetMethod(implObj, "createEvent"), flags, 3)
+        this.vtbl.createEvent := CallbackCreate(ObjBindMethod(implObj, "createEvent"), flags, 3)
     }
 
     Dispose() {

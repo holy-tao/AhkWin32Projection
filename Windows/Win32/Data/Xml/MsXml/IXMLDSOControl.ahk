@@ -71,7 +71,6 @@ export default struct IXMLDSOControl extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLDOMDocument} 
      */
     get_XMLDocument() {
@@ -80,7 +79,6 @@ export default struct IXMLDSOControl extends IDispatch {
     }
 
     /**
-     * 
      * @param {IXMLDOMDocument} ppDoc 
      * @returns {HRESULT} 
      */
@@ -90,7 +88,6 @@ export default struct IXMLDSOControl extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_JavaDSOCompatible() {
@@ -99,7 +96,6 @@ export default struct IXMLDSOControl extends IDispatch {
     }
 
     /**
-     * 
      * @param {BOOL} fJavaDSOCompatible 
      * @returns {HRESULT} 
      */
@@ -109,7 +105,6 @@ export default struct IXMLDSOControl extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_readyState() {
@@ -126,11 +121,11 @@ export default struct IXMLDSOControl extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_XMLDocument := CallbackCreate(GetMethod(implObj, "get_XMLDocument"), flags, 2)
-        this.vtbl.put_XMLDocument := CallbackCreate(GetMethod(implObj, "put_XMLDocument"), flags, 2)
-        this.vtbl.get_JavaDSOCompatible := CallbackCreate(GetMethod(implObj, "get_JavaDSOCompatible"), flags, 2)
-        this.vtbl.put_JavaDSOCompatible := CallbackCreate(GetMethod(implObj, "put_JavaDSOCompatible"), flags, 2)
-        this.vtbl.get_readyState := CallbackCreate(GetMethod(implObj, "get_readyState"), flags, 2)
+        this.vtbl.get_XMLDocument := CallbackCreate(ObjBindMethod(implObj, "get_XMLDocument"), flags, 2)
+        this.vtbl.put_XMLDocument := CallbackCreate(ObjBindMethod(implObj, "put_XMLDocument"), flags, 2)
+        this.vtbl.get_JavaDSOCompatible := CallbackCreate(ObjBindMethod(implObj, "get_JavaDSOCompatible"), flags, 2)
+        this.vtbl.put_JavaDSOCompatible := CallbackCreate(ObjBindMethod(implObj, "put_JavaDSOCompatible"), flags, 2)
+        this.vtbl.get_readyState := CallbackCreate(ObjBindMethod(implObj, "get_readyState"), flags, 2)
     }
 
     Dispose() {

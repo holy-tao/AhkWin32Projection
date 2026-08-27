@@ -552,13 +552,13 @@ export default struct ICertificateEnrollmentServerSetup extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ErrorString := CallbackCreate(GetMethod(implObj, "get_ErrorString"), flags, 2)
-        this.vtbl.InitializeInstallDefaults := CallbackCreate(GetMethod(implObj, "InitializeInstallDefaults"), flags, 1)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
-        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 3)
-        this.vtbl.SetApplicationPoolCredentials := CallbackCreate(GetMethod(implObj, "SetApplicationPoolCredentials"), flags, 3)
-        this.vtbl.Install := CallbackCreate(GetMethod(implObj, "Install"), flags, 1)
-        this.vtbl.UnInstall := CallbackCreate(GetMethod(implObj, "UnInstall"), flags, 3)
+        this.vtbl.get_ErrorString := CallbackCreate(ObjBindMethod(implObj, "get_ErrorString"), flags, 2)
+        this.vtbl.InitializeInstallDefaults := CallbackCreate(ObjBindMethod(implObj, "InitializeInstallDefaults"), flags, 1)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.SetProperty := CallbackCreate(ObjBindMethod(implObj, "SetProperty"), flags, 3)
+        this.vtbl.SetApplicationPoolCredentials := CallbackCreate(ObjBindMethod(implObj, "SetApplicationPoolCredentials"), flags, 3)
+        this.vtbl.Install := CallbackCreate(ObjBindMethod(implObj, "Install"), flags, 1)
+        this.vtbl.UnInstall := CallbackCreate(ObjBindMethod(implObj, "UnInstall"), flags, 3)
     }
 
     Dispose() {

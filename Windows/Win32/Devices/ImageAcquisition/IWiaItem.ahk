@@ -341,8 +341,8 @@ export default struct IWiaItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiaitem-devicedlg
      */
     DeviceDlg(hwndParent, lFlags, lIntent, plItemCount, ppIWiaItem) {
-        plItemCountMarshal := plItemCount is VarRef ? "int*" : "ptr"
-        ppIWiaItemMarshal := ppIWiaItem is VarRef ? "ptr*" : "ptr"
+        plItemCountMarshal := plItemCount is VarRef ? "int*" : IntPtr
+        ppIWiaItemMarshal := ppIWiaItem is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(10, this, HWND, hwndParent, Int32, lFlags, Int32, lIntent, plItemCountMarshal, plItemCount, ppIWiaItemMarshal, ppIWiaItem, "HRESULT")
         return result
@@ -451,7 +451,7 @@ export default struct IWiaItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiaitem-diagnostic
      */
     Diagnostic(ulSize, pBuffer) {
-        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(17, this, UInt32, ulSize, pBufferMarshal, pBuffer, "HRESULT")
         return result
@@ -466,21 +466,21 @@ export default struct IWiaItem extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetItemType := CallbackCreate(GetMethod(implObj, "GetItemType"), flags, 2)
-        this.vtbl.AnalyzeItem := CallbackCreate(GetMethod(implObj, "AnalyzeItem"), flags, 2)
-        this.vtbl.EnumChildItems := CallbackCreate(GetMethod(implObj, "EnumChildItems"), flags, 2)
-        this.vtbl.DeleteItem := CallbackCreate(GetMethod(implObj, "DeleteItem"), flags, 2)
-        this.vtbl.CreateChildItem := CallbackCreate(GetMethod(implObj, "CreateChildItem"), flags, 5)
-        this.vtbl.EnumRegisterEventInfo := CallbackCreate(GetMethod(implObj, "EnumRegisterEventInfo"), flags, 4)
-        this.vtbl.FindItemByName := CallbackCreate(GetMethod(implObj, "FindItemByName"), flags, 4)
-        this.vtbl.DeviceDlg := CallbackCreate(GetMethod(implObj, "DeviceDlg"), flags, 6)
-        this.vtbl.DeviceCommand := CallbackCreate(GetMethod(implObj, "DeviceCommand"), flags, 4)
-        this.vtbl.GetRootItem := CallbackCreate(GetMethod(implObj, "GetRootItem"), flags, 2)
-        this.vtbl.EnumDeviceCapabilities := CallbackCreate(GetMethod(implObj, "EnumDeviceCapabilities"), flags, 3)
-        this.vtbl.DumpItemData := CallbackCreate(GetMethod(implObj, "DumpItemData"), flags, 2)
-        this.vtbl.DumpDrvItemData := CallbackCreate(GetMethod(implObj, "DumpDrvItemData"), flags, 2)
-        this.vtbl.DumpTreeItemData := CallbackCreate(GetMethod(implObj, "DumpTreeItemData"), flags, 2)
-        this.vtbl.Diagnostic := CallbackCreate(GetMethod(implObj, "Diagnostic"), flags, 3)
+        this.vtbl.GetItemType := CallbackCreate(ObjBindMethod(implObj, "GetItemType"), flags, 2)
+        this.vtbl.AnalyzeItem := CallbackCreate(ObjBindMethod(implObj, "AnalyzeItem"), flags, 2)
+        this.vtbl.EnumChildItems := CallbackCreate(ObjBindMethod(implObj, "EnumChildItems"), flags, 2)
+        this.vtbl.DeleteItem := CallbackCreate(ObjBindMethod(implObj, "DeleteItem"), flags, 2)
+        this.vtbl.CreateChildItem := CallbackCreate(ObjBindMethod(implObj, "CreateChildItem"), flags, 5)
+        this.vtbl.EnumRegisterEventInfo := CallbackCreate(ObjBindMethod(implObj, "EnumRegisterEventInfo"), flags, 4)
+        this.vtbl.FindItemByName := CallbackCreate(ObjBindMethod(implObj, "FindItemByName"), flags, 4)
+        this.vtbl.DeviceDlg := CallbackCreate(ObjBindMethod(implObj, "DeviceDlg"), flags, 6)
+        this.vtbl.DeviceCommand := CallbackCreate(ObjBindMethod(implObj, "DeviceCommand"), flags, 4)
+        this.vtbl.GetRootItem := CallbackCreate(ObjBindMethod(implObj, "GetRootItem"), flags, 2)
+        this.vtbl.EnumDeviceCapabilities := CallbackCreate(ObjBindMethod(implObj, "EnumDeviceCapabilities"), flags, 3)
+        this.vtbl.DumpItemData := CallbackCreate(ObjBindMethod(implObj, "DumpItemData"), flags, 2)
+        this.vtbl.DumpDrvItemData := CallbackCreate(ObjBindMethod(implObj, "DumpDrvItemData"), flags, 2)
+        this.vtbl.DumpTreeItemData := CallbackCreate(ObjBindMethod(implObj, "DumpTreeItemData"), flags, 2)
+        this.vtbl.Diagnostic := CallbackCreate(ObjBindMethod(implObj, "Diagnostic"), flags, 3)
     }
 
     Dispose() {

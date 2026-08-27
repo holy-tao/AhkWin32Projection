@@ -21,7 +21,6 @@ export default struct PFN_PRINTING_DELETEPORT {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @param {HWND} param1 
      * @param {PWSTR} param2 

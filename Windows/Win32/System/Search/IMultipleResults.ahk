@@ -36,7 +36,6 @@ export default struct IMultipleResults extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer} lResultFlag 
      * @param {Pointer<Guid>} riid 
@@ -45,9 +44,12 @@ export default struct IMultipleResults extends IUnknown {
      * @returns {HRESULT} 
      */
     GetResult(pUnkOuter, lResultFlag, riid, pcRowsAffected, ppRowset) {
-        pcRowsAffectedMarshal := pcRowsAffected is VarRef ? "ptr*" : "ptr"
+        pUnkOuterMarshal := pUnkOuter == 0 ? IntPtr : "ptr"
+        pcRowsAffectedMarshal := pcRowsAffected is VarRef ? "ptr*" : IntPtr
+        pcRowsAffectedMarshal := pcRowsAffected == 0 ? IntPtr : "ptr*"
+        ppRowsetMarshal := ppRowset == 0 ? IntPtr : IUnknown.Ptr
 
-        result := ComCall(3, this, "ptr", pUnkOuter, IntPtr, lResultFlag, Guid.Ptr, riid, pcRowsAffectedMarshal, pcRowsAffected, IUnknown.Ptr, ppRowset, "HRESULT")
+        result := ComCall(3, this, pUnkOuterMarshal, pUnkOuter, IntPtr, lResultFlag, Guid.Ptr, riid, pcRowsAffectedMarshal, pcRowsAffected, ppRowsetMarshal, ppRowset, "HRESULT")
         return result
     }
 
@@ -60,7 +62,7 @@ export default struct IMultipleResults extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetResult := CallbackCreate(GetMethod(implObj, "GetResult"), flags, 6)
+        this.vtbl.GetResult := CallbackCreate(ObjBindMethod(implObj, "GetResult"), flags, 6)
     }
 
     Dispose() {

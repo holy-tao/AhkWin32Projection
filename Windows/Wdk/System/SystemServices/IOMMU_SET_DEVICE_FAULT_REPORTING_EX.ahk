@@ -22,7 +22,6 @@ export default struct IOMMU_SET_DEVICE_FAULT_REPORTING_EX {
     }
 
     /**
-     * 
      * @param {Pointer<IOMMU_DMA_DEVICE>} DmaDevice 
      * @param {Integer} InputMappingIdBase 
      * @param {BOOLEAN} Enable 
@@ -30,9 +29,10 @@ export default struct IOMMU_SET_DEVICE_FAULT_REPORTING_EX {
      * @returns {NTSTATUS} 
      */
     Call(DmaDevice, InputMappingIdBase, Enable, FaultConfig) {
-        DmaDeviceMarshal := DmaDevice is VarRef ? "ptr*" : "ptr"
+        DmaDeviceMarshal := DmaDevice is VarRef ? "ptr*" : IntPtr
+        FaultConfigMarshal := FaultConfig == 0 ? IntPtr : DEVICE_FAULT_CONFIGURATION.Ptr
 
-        result := DllCall(this.value, DmaDeviceMarshal, DmaDevice, UInt32, InputMappingIdBase, BOOLEAN, Enable, DEVICE_FAULT_CONFIGURATION.Ptr, FaultConfig, NTSTATUS)
+        result := DllCall(this.value, DmaDeviceMarshal, DmaDevice, UInt32, InputMappingIdBase, BOOLEAN, Enable, FaultConfigMarshal, FaultConfig, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

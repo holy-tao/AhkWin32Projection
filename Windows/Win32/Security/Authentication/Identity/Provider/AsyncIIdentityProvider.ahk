@@ -64,19 +64,20 @@ export default struct AsyncIIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDENTITY_TYPE} eIdentityType 
      * @param {Pointer<PROPERTYKEY>} pFilterkey 
      * @param {Pointer<PROPVARIANT>} pFilterPropVarValue 
      * @returns {HRESULT} 
      */
     Begin_GetIdentityEnum(eIdentityType, pFilterkey, pFilterPropVarValue) {
-        result := ComCall(3, this, IDENTITY_TYPE, eIdentityType, PROPERTYKEY.Ptr, pFilterkey, PROPVARIANT.Ptr, pFilterPropVarValue, "HRESULT")
+        pFilterkeyMarshal := pFilterkey == 0 ? IntPtr : PROPERTYKEY.Ptr
+        pFilterPropVarValueMarshal := pFilterPropVarValue == 0 ? IntPtr : PROPVARIANT.Ptr
+
+        result := ComCall(3, this, IDENTITY_TYPE, eIdentityType, pFilterkeyMarshal, pFilterkey, pFilterPropVarValueMarshal, pFilterPropVarValue, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {IEnumUnknown} 
      */
     Finish_GetIdentityEnum() {
@@ -85,7 +86,6 @@ export default struct AsyncIIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszUserName 
      * @param {Pointer<PROPVARIANT>} pKeywordsToAdd 
      * @returns {HRESULT} 
@@ -98,7 +98,6 @@ export default struct AsyncIIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IPropertyStore} 
      */
     Finish_Create() {
@@ -107,17 +106,17 @@ export default struct AsyncIIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {IPropertyStore} pPropertyStore 
      * @returns {HRESULT} 
      */
     Begin_Import(pPropertyStore) {
-        result := ComCall(7, this, "ptr", pPropertyStore, "HRESULT")
+        pPropertyStoreMarshal := pPropertyStore == 0 ? IntPtr : "ptr"
+
+        result := ComCall(7, this, pPropertyStoreMarshal, pPropertyStore, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_Import() {
@@ -126,7 +125,6 @@ export default struct AsyncIIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszUniqueID 
      * @param {Pointer<PROPVARIANT>} pKeywordsToDelete 
      * @returns {HRESULT} 
@@ -139,7 +137,6 @@ export default struct AsyncIIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_Delete() {
@@ -148,7 +145,6 @@ export default struct AsyncIIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszUniqueID 
      * @returns {HRESULT} 
      */
@@ -160,7 +156,6 @@ export default struct AsyncIIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IPropertyStore} 
      */
     Finish_FindByUniqueID() {
@@ -169,7 +164,6 @@ export default struct AsyncIIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Begin_GetProviderPropertyStore() {
@@ -178,7 +172,6 @@ export default struct AsyncIIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IPropertyStore} 
      */
     Finish_GetProviderPropertyStore() {
@@ -187,18 +180,18 @@ export default struct AsyncIIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {IIdentityAdvise} pIdentityAdvise 
      * @param {Integer} dwIdentityUpdateEvents 
      * @returns {HRESULT} 
      */
     Begin_Advise(pIdentityAdvise, dwIdentityUpdateEvents) {
-        result := ComCall(15, this, "ptr", pIdentityAdvise, UInt32, dwIdentityUpdateEvents, "HRESULT")
+        pIdentityAdviseMarshal := pIdentityAdvise == 0 ? IntPtr : "ptr"
+
+        result := ComCall(15, this, pIdentityAdviseMarshal, pIdentityAdvise, UInt32, dwIdentityUpdateEvents, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Finish_Advise() {
@@ -207,7 +200,6 @@ export default struct AsyncIIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwCookie 
      * @returns {HRESULT} 
      */
@@ -217,7 +209,6 @@ export default struct AsyncIIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_UnAdvise() {
@@ -234,22 +225,22 @@ export default struct AsyncIIdentityProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Begin_GetIdentityEnum := CallbackCreate(GetMethod(implObj, "Begin_GetIdentityEnum"), flags, 4)
-        this.vtbl.Finish_GetIdentityEnum := CallbackCreate(GetMethod(implObj, "Finish_GetIdentityEnum"), flags, 2)
-        this.vtbl.Begin_Create := CallbackCreate(GetMethod(implObj, "Begin_Create"), flags, 3)
-        this.vtbl.Finish_Create := CallbackCreate(GetMethod(implObj, "Finish_Create"), flags, 2)
-        this.vtbl.Begin_Import := CallbackCreate(GetMethod(implObj, "Begin_Import"), flags, 2)
-        this.vtbl.Finish_Import := CallbackCreate(GetMethod(implObj, "Finish_Import"), flags, 1)
-        this.vtbl.Begin_Delete := CallbackCreate(GetMethod(implObj, "Begin_Delete"), flags, 3)
-        this.vtbl.Finish_Delete := CallbackCreate(GetMethod(implObj, "Finish_Delete"), flags, 1)
-        this.vtbl.Begin_FindByUniqueID := CallbackCreate(GetMethod(implObj, "Begin_FindByUniqueID"), flags, 2)
-        this.vtbl.Finish_FindByUniqueID := CallbackCreate(GetMethod(implObj, "Finish_FindByUniqueID"), flags, 2)
-        this.vtbl.Begin_GetProviderPropertyStore := CallbackCreate(GetMethod(implObj, "Begin_GetProviderPropertyStore"), flags, 1)
-        this.vtbl.Finish_GetProviderPropertyStore := CallbackCreate(GetMethod(implObj, "Finish_GetProviderPropertyStore"), flags, 2)
-        this.vtbl.Begin_Advise := CallbackCreate(GetMethod(implObj, "Begin_Advise"), flags, 3)
-        this.vtbl.Finish_Advise := CallbackCreate(GetMethod(implObj, "Finish_Advise"), flags, 2)
-        this.vtbl.Begin_UnAdvise := CallbackCreate(GetMethod(implObj, "Begin_UnAdvise"), flags, 2)
-        this.vtbl.Finish_UnAdvise := CallbackCreate(GetMethod(implObj, "Finish_UnAdvise"), flags, 1)
+        this.vtbl.Begin_GetIdentityEnum := CallbackCreate(ObjBindMethod(implObj, "Begin_GetIdentityEnum"), flags, 4)
+        this.vtbl.Finish_GetIdentityEnum := CallbackCreate(ObjBindMethod(implObj, "Finish_GetIdentityEnum"), flags, 2)
+        this.vtbl.Begin_Create := CallbackCreate(ObjBindMethod(implObj, "Begin_Create"), flags, 3)
+        this.vtbl.Finish_Create := CallbackCreate(ObjBindMethod(implObj, "Finish_Create"), flags, 2)
+        this.vtbl.Begin_Import := CallbackCreate(ObjBindMethod(implObj, "Begin_Import"), flags, 2)
+        this.vtbl.Finish_Import := CallbackCreate(ObjBindMethod(implObj, "Finish_Import"), flags, 1)
+        this.vtbl.Begin_Delete := CallbackCreate(ObjBindMethod(implObj, "Begin_Delete"), flags, 3)
+        this.vtbl.Finish_Delete := CallbackCreate(ObjBindMethod(implObj, "Finish_Delete"), flags, 1)
+        this.vtbl.Begin_FindByUniqueID := CallbackCreate(ObjBindMethod(implObj, "Begin_FindByUniqueID"), flags, 2)
+        this.vtbl.Finish_FindByUniqueID := CallbackCreate(ObjBindMethod(implObj, "Finish_FindByUniqueID"), flags, 2)
+        this.vtbl.Begin_GetProviderPropertyStore := CallbackCreate(ObjBindMethod(implObj, "Begin_GetProviderPropertyStore"), flags, 1)
+        this.vtbl.Finish_GetProviderPropertyStore := CallbackCreate(ObjBindMethod(implObj, "Finish_GetProviderPropertyStore"), flags, 2)
+        this.vtbl.Begin_Advise := CallbackCreate(ObjBindMethod(implObj, "Begin_Advise"), flags, 3)
+        this.vtbl.Finish_Advise := CallbackCreate(ObjBindMethod(implObj, "Finish_Advise"), flags, 2)
+        this.vtbl.Begin_UnAdvise := CallbackCreate(ObjBindMethod(implObj, "Begin_UnAdvise"), flags, 2)
+        this.vtbl.Finish_UnAdvise := CallbackCreate(ObjBindMethod(implObj, "Finish_UnAdvise"), flags, 1)
     }
 
     Dispose() {

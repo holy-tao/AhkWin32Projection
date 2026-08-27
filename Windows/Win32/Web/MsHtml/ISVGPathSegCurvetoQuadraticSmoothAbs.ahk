@@ -61,7 +61,6 @@ export default struct ISVGPathSegCurvetoQuadraticSmoothAbs extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -71,7 +70,6 @@ export default struct ISVGPathSegCurvetoQuadraticSmoothAbs extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_x() {
@@ -80,7 +78,6 @@ export default struct ISVGPathSegCurvetoQuadraticSmoothAbs extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -90,7 +87,6 @@ export default struct ISVGPathSegCurvetoQuadraticSmoothAbs extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_y() {
@@ -107,10 +103,10 @@ export default struct ISVGPathSegCurvetoQuadraticSmoothAbs extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_x := CallbackCreate(GetMethod(implObj, "put_x"), flags, 2)
-        this.vtbl.get_x := CallbackCreate(GetMethod(implObj, "get_x"), flags, 2)
-        this.vtbl.put_y := CallbackCreate(GetMethod(implObj, "put_y"), flags, 2)
-        this.vtbl.get_y := CallbackCreate(GetMethod(implObj, "get_y"), flags, 2)
+        this.vtbl.put_x := CallbackCreate(ObjBindMethod(implObj, "put_x"), flags, 2)
+        this.vtbl.get_x := CallbackCreate(ObjBindMethod(implObj, "get_x"), flags, 2)
+        this.vtbl.put_y := CallbackCreate(ObjBindMethod(implObj, "put_y"), flags, 2)
+        this.vtbl.get_y := CallbackCreate(ObjBindMethod(implObj, "get_y"), flags, 2)
     }
 
     Dispose() {

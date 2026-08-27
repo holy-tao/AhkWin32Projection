@@ -37,7 +37,6 @@ export default struct IBindStatusCallbackEx extends IBindStatusCallback {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} grfBINDF 
      * @param {Pointer<BINDINFO>} pbindinfo 
      * @param {Pointer<Integer>} grfBINDF2 
@@ -45,9 +44,9 @@ export default struct IBindStatusCallbackEx extends IBindStatusCallback {
      * @returns {HRESULT} 
      */
     GetBindInfoEx(grfBINDF, pbindinfo, grfBINDF2, pdwReserved) {
-        grfBINDFMarshal := grfBINDF is VarRef ? "uint*" : "ptr"
-        grfBINDF2Marshal := grfBINDF2 is VarRef ? "uint*" : "ptr"
-        pdwReservedMarshal := pdwReserved is VarRef ? "uint*" : "ptr"
+        grfBINDFMarshal := grfBINDF is VarRef ? "uint*" : IntPtr
+        grfBINDF2Marshal := grfBINDF2 is VarRef ? "uint*" : IntPtr
+        pdwReservedMarshal := pdwReserved is VarRef ? "uint*" : IntPtr
 
         result := ComCall(11, this, grfBINDFMarshal, grfBINDF, BINDINFO.Ptr, pbindinfo, grfBINDF2Marshal, grfBINDF2, pdwReservedMarshal, pdwReserved, "HRESULT")
         return result
@@ -62,7 +61,7 @@ export default struct IBindStatusCallbackEx extends IBindStatusCallback {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetBindInfoEx := CallbackCreate(GetMethod(implObj, "GetBindInfoEx"), flags, 5)
+        this.vtbl.GetBindInfoEx := CallbackCreate(ObjBindMethod(implObj, "GetBindInfoEx"), flags, 5)
     }
 
     Dispose() {

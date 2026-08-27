@@ -86,7 +86,6 @@ export default struct ISWbemRefreshableItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Index() {
@@ -95,7 +94,6 @@ export default struct ISWbemRefreshableItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemRefresher} 
      */
     get_Refresher() {
@@ -104,7 +102,6 @@ export default struct ISWbemRefreshableItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsSet() {
@@ -113,7 +110,6 @@ export default struct ISWbemRefreshableItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemObjectEx} 
      */
     get_Object() {
@@ -122,7 +118,6 @@ export default struct ISWbemRefreshableItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemObjectSet} 
      */
     get_ObjectSet() {
@@ -131,7 +126,6 @@ export default struct ISWbemRefreshableItem extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iFlags 
      * @returns {HRESULT} 
      */
@@ -149,12 +143,12 @@ export default struct ISWbemRefreshableItem extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Index := CallbackCreate(GetMethod(implObj, "get_Index"), flags, 2)
-        this.vtbl.get_Refresher := CallbackCreate(GetMethod(implObj, "get_Refresher"), flags, 2)
-        this.vtbl.get_IsSet := CallbackCreate(GetMethod(implObj, "get_IsSet"), flags, 2)
-        this.vtbl.get_Object := CallbackCreate(GetMethod(implObj, "get_Object"), flags, 2)
-        this.vtbl.get_ObjectSet := CallbackCreate(GetMethod(implObj, "get_ObjectSet"), flags, 2)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.get_Index := CallbackCreate(ObjBindMethod(implObj, "get_Index"), flags, 2)
+        this.vtbl.get_Refresher := CallbackCreate(ObjBindMethod(implObj, "get_Refresher"), flags, 2)
+        this.vtbl.get_IsSet := CallbackCreate(ObjBindMethod(implObj, "get_IsSet"), flags, 2)
+        this.vtbl.get_Object := CallbackCreate(ObjBindMethod(implObj, "get_Object"), flags, 2)
+        this.vtbl.get_ObjectSet := CallbackCreate(ObjBindMethod(implObj, "get_ObjectSet"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 2)
     }
 
     Dispose() {

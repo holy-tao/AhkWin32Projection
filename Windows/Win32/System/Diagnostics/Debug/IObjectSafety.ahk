@@ -37,22 +37,20 @@ export default struct IObjectSafety extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Integer>} pdwSupportedOptions 
      * @param {Pointer<Integer>} pdwEnabledOptions 
      * @returns {HRESULT} 
      */
     GetInterfaceSafetyOptions(riid, pdwSupportedOptions, pdwEnabledOptions) {
-        pdwSupportedOptionsMarshal := pdwSupportedOptions is VarRef ? "uint*" : "ptr"
-        pdwEnabledOptionsMarshal := pdwEnabledOptions is VarRef ? "uint*" : "ptr"
+        pdwSupportedOptionsMarshal := pdwSupportedOptions is VarRef ? "uint*" : IntPtr
+        pdwEnabledOptionsMarshal := pdwEnabledOptions is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, Guid.Ptr, riid, pdwSupportedOptionsMarshal, pdwSupportedOptions, pdwEnabledOptionsMarshal, pdwEnabledOptions, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @param {Integer} dwOptionSetMask 
      * @param {Integer} dwEnabledOptions 
@@ -72,8 +70,8 @@ export default struct IObjectSafety extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetInterfaceSafetyOptions := CallbackCreate(GetMethod(implObj, "GetInterfaceSafetyOptions"), flags, 4)
-        this.vtbl.SetInterfaceSafetyOptions := CallbackCreate(GetMethod(implObj, "SetInterfaceSafetyOptions"), flags, 4)
+        this.vtbl.GetInterfaceSafetyOptions := CallbackCreate(ObjBindMethod(implObj, "GetInterfaceSafetyOptions"), flags, 4)
+        this.vtbl.SetInterfaceSafetyOptions := CallbackCreate(ObjBindMethod(implObj, "SetInterfaceSafetyOptions"), flags, 4)
     }
 
     Dispose() {

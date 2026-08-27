@@ -92,7 +92,7 @@ export default struct IDirect3D9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-registersoftwaredevice
      */
     RegisterSoftwareDevice(pInitializeFunction) {
-        pInitializeFunctionMarshal := pInitializeFunction is VarRef ? "ptr" : "ptr"
+        pInitializeFunctionMarshal := pInitializeFunction is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, pInitializeFunctionMarshal, pInitializeFunction, "HRESULT")
         return result
@@ -418,7 +418,7 @@ export default struct IDirect3D9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-checkdevicemultisampletype
      */
     CheckDeviceMultiSampleType(_Adapter, DeviceType, SurfaceFormat, Windowed, MultiSampleType, pQualityLevels) {
-        pQualityLevelsMarshal := pQualityLevels is VarRef ? "uint*" : "ptr"
+        pQualityLevelsMarshal := pQualityLevels is VarRef ? "uint*" : IntPtr
 
         result := ComCall(11, this, UInt32, _Adapter, D3DDEVTYPE, DeviceType, D3DFORMAT, SurfaceFormat, BOOL, Windowed, D3DMULTISAMPLE_TYPE, MultiSampleType, pQualityLevelsMarshal, pQualityLevels, "HRESULT")
         return result
@@ -701,20 +701,20 @@ export default struct IDirect3D9 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterSoftwareDevice := CallbackCreate(GetMethod(implObj, "RegisterSoftwareDevice"), flags, 2)
-        this.vtbl.GetAdapterCount := CallbackCreate(GetMethod(implObj, "GetAdapterCount"), flags, 1)
-        this.vtbl.GetAdapterIdentifier := CallbackCreate(GetMethod(implObj, "GetAdapterIdentifier"), flags, 4)
-        this.vtbl.GetAdapterModeCount := CallbackCreate(GetMethod(implObj, "GetAdapterModeCount"), flags, 3)
-        this.vtbl.EnumAdapterModes := CallbackCreate(GetMethod(implObj, "EnumAdapterModes"), flags, 5)
-        this.vtbl.GetAdapterDisplayMode := CallbackCreate(GetMethod(implObj, "GetAdapterDisplayMode"), flags, 3)
-        this.vtbl.CheckDeviceType := CallbackCreate(GetMethod(implObj, "CheckDeviceType"), flags, 6)
-        this.vtbl.CheckDeviceFormat := CallbackCreate(GetMethod(implObj, "CheckDeviceFormat"), flags, 7)
-        this.vtbl.CheckDeviceMultiSampleType := CallbackCreate(GetMethod(implObj, "CheckDeviceMultiSampleType"), flags, 7)
-        this.vtbl.CheckDepthStencilMatch := CallbackCreate(GetMethod(implObj, "CheckDepthStencilMatch"), flags, 6)
-        this.vtbl.CheckDeviceFormatConversion := CallbackCreate(GetMethod(implObj, "CheckDeviceFormatConversion"), flags, 5)
-        this.vtbl.GetDeviceCaps := CallbackCreate(GetMethod(implObj, "GetDeviceCaps"), flags, 4)
-        this.vtbl.GetAdapterMonitor := CallbackCreate(GetMethod(implObj, "GetAdapterMonitor"), flags, 2)
-        this.vtbl.CreateDevice := CallbackCreate(GetMethod(implObj, "CreateDevice"), flags, 7)
+        this.vtbl.RegisterSoftwareDevice := CallbackCreate(ObjBindMethod(implObj, "RegisterSoftwareDevice"), flags, 2)
+        this.vtbl.GetAdapterCount := CallbackCreate(ObjBindMethod(implObj, "GetAdapterCount"), flags, 1)
+        this.vtbl.GetAdapterIdentifier := CallbackCreate(ObjBindMethod(implObj, "GetAdapterIdentifier"), flags, 4)
+        this.vtbl.GetAdapterModeCount := CallbackCreate(ObjBindMethod(implObj, "GetAdapterModeCount"), flags, 3)
+        this.vtbl.EnumAdapterModes := CallbackCreate(ObjBindMethod(implObj, "EnumAdapterModes"), flags, 5)
+        this.vtbl.GetAdapterDisplayMode := CallbackCreate(ObjBindMethod(implObj, "GetAdapterDisplayMode"), flags, 3)
+        this.vtbl.CheckDeviceType := CallbackCreate(ObjBindMethod(implObj, "CheckDeviceType"), flags, 6)
+        this.vtbl.CheckDeviceFormat := CallbackCreate(ObjBindMethod(implObj, "CheckDeviceFormat"), flags, 7)
+        this.vtbl.CheckDeviceMultiSampleType := CallbackCreate(ObjBindMethod(implObj, "CheckDeviceMultiSampleType"), flags, 7)
+        this.vtbl.CheckDepthStencilMatch := CallbackCreate(ObjBindMethod(implObj, "CheckDepthStencilMatch"), flags, 6)
+        this.vtbl.CheckDeviceFormatConversion := CallbackCreate(ObjBindMethod(implObj, "CheckDeviceFormatConversion"), flags, 5)
+        this.vtbl.GetDeviceCaps := CallbackCreate(ObjBindMethod(implObj, "GetDeviceCaps"), flags, 4)
+        this.vtbl.GetAdapterMonitor := CallbackCreate(ObjBindMethod(implObj, "GetAdapterMonitor"), flags, 2)
+        this.vtbl.CreateDevice := CallbackCreate(ObjBindMethod(implObj, "CreateDevice"), flags, 7)
     }
 
     Dispose() {

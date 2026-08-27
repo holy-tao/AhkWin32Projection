@@ -55,7 +55,6 @@ export default struct IActiveScriptAuthor extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszName 
      * @param {Integer} dwFlags 
      * @param {IDispatch} pdisp 
@@ -69,7 +68,6 @@ export default struct IActiveScriptAuthor extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszDefaultName 
      * @param {PWSTR} pszCode 
      * @param {PWSTR} pszItemName 
@@ -93,7 +91,6 @@ export default struct IActiveScriptAuthor extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszCode 
      * @param {PWSTR} pszItemName 
      * @param {PWSTR} pszDelimiter 
@@ -111,7 +108,6 @@ export default struct IActiveScriptAuthor extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszCode 
      * @param {Integer} cch 
      * @param {PWSTR} pszDelimiter 
@@ -123,14 +119,13 @@ export default struct IActiveScriptAuthor extends IUnknown {
         pszCode := pszCode is String ? StrPtr(pszCode) : pszCode
         pszDelimiter := pszDelimiter is String ? StrPtr(pszDelimiter) : pszDelimiter
 
-        pattrMarshal := pattr is VarRef ? "ushort*" : "ptr"
+        pattrMarshal := pattr is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(6, this, "ptr", pszCode, UInt32, cch, "ptr", pszDelimiter, UInt32, dwFlags, pattrMarshal, pattr, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pszCode 
      * @param {Integer} cch 
      * @param {PWSTR} pszDelimiter 
@@ -142,14 +137,13 @@ export default struct IActiveScriptAuthor extends IUnknown {
         pszCode := pszCode is String ? StrPtr(pszCode) : pszCode
         pszDelimiter := pszDelimiter is String ? StrPtr(pszDelimiter) : pszDelimiter
 
-        pattrMarshal := pattr is VarRef ? "ushort*" : "ptr"
+        pattrMarshal := pattr is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(7, this, "ptr", pszCode, UInt32, cch, "ptr", pszDelimiter, UInt32, dwFlags, pattrMarshal, pattr, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {IScriptNode} 
      */
     GetRoot() {
@@ -158,7 +152,6 @@ export default struct IActiveScriptAuthor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetLanguageFlags() {
@@ -167,7 +160,6 @@ export default struct IActiveScriptAuthor extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDispatch} pdisp 
      * @param {PWSTR} pszItem 
      * @param {PWSTR} pszSubItem 
@@ -184,7 +176,6 @@ export default struct IActiveScriptAuthor extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszName 
      * @returns {HRESULT} 
      */
@@ -196,7 +187,6 @@ export default struct IActiveScriptAuthor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rguidTypeLib 
      * @param {Integer} dwMajor 
      * @param {Integer} dwMinor 
@@ -209,7 +199,6 @@ export default struct IActiveScriptAuthor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rguidTypeLib 
      * @param {Integer} dwMajor 
      * @param {Integer} dwMinor 
@@ -221,7 +210,6 @@ export default struct IActiveScriptAuthor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} fRequestedList 
      * @returns {BSTR} 
      */
@@ -232,7 +220,6 @@ export default struct IActiveScriptAuthor extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszCode 
      * @param {Integer} cchCode 
      * @param {Integer} ichCurrentPosition 
@@ -248,18 +235,17 @@ export default struct IActiveScriptAuthor extends IUnknown {
     GetInfoFromContext(pszCode, cchCode, ichCurrentPosition, dwListTypesRequested, pdwListTypesProvided, pichListAnchorPosition, pichFuncAnchorPosition, pmemid, piCurrentParameter, ppunk) {
         pszCode := pszCode is String ? StrPtr(pszCode) : pszCode
 
-        pdwListTypesProvidedMarshal := pdwListTypesProvided is VarRef ? "uint*" : "ptr"
-        pichListAnchorPositionMarshal := pichListAnchorPosition is VarRef ? "uint*" : "ptr"
-        pichFuncAnchorPositionMarshal := pichFuncAnchorPosition is VarRef ? "uint*" : "ptr"
-        pmemidMarshal := pmemid is VarRef ? "int*" : "ptr"
-        piCurrentParameterMarshal := piCurrentParameter is VarRef ? "int*" : "ptr"
+        pdwListTypesProvidedMarshal := pdwListTypesProvided is VarRef ? "uint*" : IntPtr
+        pichListAnchorPositionMarshal := pichListAnchorPosition is VarRef ? "uint*" : IntPtr
+        pichFuncAnchorPositionMarshal := pichFuncAnchorPosition is VarRef ? "uint*" : IntPtr
+        pmemidMarshal := pmemid is VarRef ? "int*" : IntPtr
+        piCurrentParameterMarshal := piCurrentParameter is VarRef ? "int*" : IntPtr
 
         result := ComCall(15, this, "ptr", pszCode, UInt32, cchCode, UInt32, ichCurrentPosition, UInt32, dwListTypesRequested, pdwListTypesProvidedMarshal, pdwListTypesProvided, pichListAnchorPositionMarshal, pichListAnchorPosition, pichFuncAnchorPositionMarshal, pichFuncAnchorPosition, pmemidMarshal, pmemid, piCurrentParameterMarshal, piCurrentParameter, IUnknown.Ptr, ppunk, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} ch 
      * @returns {BOOL} 
      */
@@ -277,20 +263,20 @@ export default struct IActiveScriptAuthor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddNamedItem := CallbackCreate(GetMethod(implObj, "AddNamedItem"), flags, 4)
-        this.vtbl.AddScriptlet := CallbackCreate(GetMethod(implObj, "AddScriptlet"), flags, 9)
-        this.vtbl.ParseScriptText := CallbackCreate(GetMethod(implObj, "ParseScriptText"), flags, 6)
-        this.vtbl.GetScriptTextAttributes := CallbackCreate(GetMethod(implObj, "GetScriptTextAttributes"), flags, 6)
-        this.vtbl.GetScriptletTextAttributes := CallbackCreate(GetMethod(implObj, "GetScriptletTextAttributes"), flags, 6)
-        this.vtbl.GetRoot := CallbackCreate(GetMethod(implObj, "GetRoot"), flags, 2)
-        this.vtbl.GetLanguageFlags := CallbackCreate(GetMethod(implObj, "GetLanguageFlags"), flags, 2)
-        this.vtbl.GetEventHandler := CallbackCreate(GetMethod(implObj, "GetEventHandler"), flags, 6)
-        this.vtbl.RemoveNamedItem := CallbackCreate(GetMethod(implObj, "RemoveNamedItem"), flags, 2)
-        this.vtbl.AddTypeLib := CallbackCreate(GetMethod(implObj, "AddTypeLib"), flags, 5)
-        this.vtbl.RemoveTypeLib := CallbackCreate(GetMethod(implObj, "RemoveTypeLib"), flags, 4)
-        this.vtbl.GetChars := CallbackCreate(GetMethod(implObj, "GetChars"), flags, 3)
-        this.vtbl.GetInfoFromContext := CallbackCreate(GetMethod(implObj, "GetInfoFromContext"), flags, 11)
-        this.vtbl.IsCommitChar := CallbackCreate(GetMethod(implObj, "IsCommitChar"), flags, 3)
+        this.vtbl.AddNamedItem := CallbackCreate(ObjBindMethod(implObj, "AddNamedItem"), flags, 4)
+        this.vtbl.AddScriptlet := CallbackCreate(ObjBindMethod(implObj, "AddScriptlet"), flags, 9)
+        this.vtbl.ParseScriptText := CallbackCreate(ObjBindMethod(implObj, "ParseScriptText"), flags, 6)
+        this.vtbl.GetScriptTextAttributes := CallbackCreate(ObjBindMethod(implObj, "GetScriptTextAttributes"), flags, 6)
+        this.vtbl.GetScriptletTextAttributes := CallbackCreate(ObjBindMethod(implObj, "GetScriptletTextAttributes"), flags, 6)
+        this.vtbl.GetRoot := CallbackCreate(ObjBindMethod(implObj, "GetRoot"), flags, 2)
+        this.vtbl.GetLanguageFlags := CallbackCreate(ObjBindMethod(implObj, "GetLanguageFlags"), flags, 2)
+        this.vtbl.GetEventHandler := CallbackCreate(ObjBindMethod(implObj, "GetEventHandler"), flags, 6)
+        this.vtbl.RemoveNamedItem := CallbackCreate(ObjBindMethod(implObj, "RemoveNamedItem"), flags, 2)
+        this.vtbl.AddTypeLib := CallbackCreate(ObjBindMethod(implObj, "AddTypeLib"), flags, 5)
+        this.vtbl.RemoveTypeLib := CallbackCreate(ObjBindMethod(implObj, "RemoveTypeLib"), flags, 4)
+        this.vtbl.GetChars := CallbackCreate(ObjBindMethod(implObj, "GetChars"), flags, 3)
+        this.vtbl.GetInfoFromContext := CallbackCreate(ObjBindMethod(implObj, "GetInfoFromContext"), flags, 11)
+        this.vtbl.IsCommitChar := CallbackCreate(ObjBindMethod(implObj, "IsCommitChar"), flags, 3)
     }
 
     Dispose() {

@@ -63,7 +63,6 @@ export default struct IMSMQOutgoingQueueManagement extends IMSMQManagement {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_State() {
@@ -72,7 +71,6 @@ export default struct IMSMQOutgoingQueueManagement extends IMSMQManagement {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_NextHops() {
@@ -82,7 +80,6 @@ export default struct IMSMQOutgoingQueueManagement extends IMSMQManagement {
     }
 
     /**
-     * 
      * @returns {IMSMQCollection} 
      */
     EodGetSendInfo() {
@@ -113,7 +110,6 @@ export default struct IMSMQOutgoingQueueManagement extends IMSMQManagement {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     EodResend() {
@@ -130,12 +126,12 @@ export default struct IMSMQOutgoingQueueManagement extends IMSMQManagement {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
-        this.vtbl.get_NextHops := CallbackCreate(GetMethod(implObj, "get_NextHops"), flags, 2)
-        this.vtbl.EodGetSendInfo := CallbackCreate(GetMethod(implObj, "EodGetSendInfo"), flags, 2)
-        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 1)
-        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
-        this.vtbl.EodResend := CallbackCreate(GetMethod(implObj, "EodResend"), flags, 1)
+        this.vtbl.get_State := CallbackCreate(ObjBindMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.get_NextHops := CallbackCreate(ObjBindMethod(implObj, "get_NextHops"), flags, 2)
+        this.vtbl.EodGetSendInfo := CallbackCreate(ObjBindMethod(implObj, "EodGetSendInfo"), flags, 2)
+        this.vtbl.Resume := CallbackCreate(ObjBindMethod(implObj, "Resume"), flags, 1)
+        this.vtbl.Pause := CallbackCreate(ObjBindMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.EodResend := CallbackCreate(ObjBindMethod(implObj, "EodResend"), flags, 1)
     }
 
     Dispose() {

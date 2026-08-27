@@ -80,8 +80,8 @@ export default struct IWRdsProtocolSettings extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSettings := CallbackCreate(GetMethod(implObj, "GetSettings"), flags, 4)
-        this.vtbl.MergeSettings := CallbackCreate(GetMethod(implObj, "MergeSettings"), flags, 4)
+        this.vtbl.GetSettings := CallbackCreate(ObjBindMethod(implObj, "GetSettings"), flags, 4)
+        this.vtbl.MergeSettings := CallbackCreate(ObjBindMethod(implObj, "MergeSettings"), flags, 4)
     }
 
     Dispose() {

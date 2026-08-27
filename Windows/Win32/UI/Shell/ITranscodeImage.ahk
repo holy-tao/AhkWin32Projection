@@ -76,10 +76,12 @@ export default struct ITranscodeImage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imagetranscode/nf-imagetranscode-itranscodeimage-transcodeimage
      */
     TranscodeImage(pShellItem, uiMaxWidth, uiMaxHeight, flags, pvImage, puiWidth, puiHeight) {
-        puiWidthMarshal := puiWidth is VarRef ? "uint*" : "ptr"
-        puiHeightMarshal := puiHeight is VarRef ? "uint*" : "ptr"
+        pShellItemMarshal := pShellItem == 0 ? IntPtr : "ptr"
+        pvImageMarshal := pvImage == 0 ? IntPtr : "ptr"
+        puiWidthMarshal := puiWidth is VarRef ? "uint*" : IntPtr
+        puiHeightMarshal := puiHeight is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(3, this, "ptr", pShellItem, UInt32, uiMaxWidth, UInt32, uiMaxHeight, UInt32, flags, "ptr", pvImage, puiWidthMarshal, puiWidth, puiHeightMarshal, puiHeight, "HRESULT")
+        result := ComCall(3, this, pShellItemMarshal, pShellItem, UInt32, uiMaxWidth, UInt32, uiMaxHeight, UInt32, flags, pvImageMarshal, pvImage, puiWidthMarshal, puiWidth, puiHeightMarshal, puiHeight, "HRESULT")
         return result
     }
 
@@ -92,7 +94,7 @@ export default struct ITranscodeImage extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.TranscodeImage := CallbackCreate(GetMethod(implObj, "TranscodeImage"), flags, 8)
+        this.vtbl.TranscodeImage := CallbackCreate(ObjBindMethod(implObj, "TranscodeImage"), flags, 8)
     }
 
     Dispose() {

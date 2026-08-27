@@ -124,8 +124,11 @@ export default struct IDXGIResource1 extends IDXGIResource {
     CreateSharedHandle(pAttributes, dwAccess, lpName) {
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
+        pAttributesMarshal := pAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+        lpNameMarshal := lpName == 0 ? IntPtr : PWSTR
+
         pHandle := HANDLE.Owned()
-        result := ComCall(13, this, SECURITY_ATTRIBUTES.Ptr, pAttributes, UInt32, dwAccess, "ptr", lpName, HANDLE.Ptr, pHandle, "HRESULT")
+        result := ComCall(13, this, pAttributesMarshal, pAttributes, UInt32, dwAccess, lpNameMarshal, lpName, HANDLE.Ptr, pHandle, "HRESULT")
         return pHandle
     }
 
@@ -138,8 +141,8 @@ export default struct IDXGIResource1 extends IDXGIResource {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateSubresourceSurface := CallbackCreate(GetMethod(implObj, "CreateSubresourceSurface"), flags, 3)
-        this.vtbl.CreateSharedHandle := CallbackCreate(GetMethod(implObj, "CreateSharedHandle"), flags, 5)
+        this.vtbl.CreateSubresourceSurface := CallbackCreate(ObjBindMethod(implObj, "CreateSubresourceSurface"), flags, 3)
+        this.vtbl.CreateSharedHandle := CallbackCreate(ObjBindMethod(implObj, "CreateSharedHandle"), flags, 5)
     }
 
     Dispose() {

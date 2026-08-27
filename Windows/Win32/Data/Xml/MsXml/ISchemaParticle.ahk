@@ -52,7 +52,6 @@ export default struct ISchemaParticle extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_minOccurs() {
@@ -62,7 +61,6 @@ export default struct ISchemaParticle extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_maxOccurs() {
@@ -80,8 +78,8 @@ export default struct ISchemaParticle extends ISchemaItem {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_minOccurs := CallbackCreate(GetMethod(implObj, "get_minOccurs"), flags, 2)
-        this.vtbl.get_maxOccurs := CallbackCreate(GetMethod(implObj, "get_maxOccurs"), flags, 2)
+        this.vtbl.get_minOccurs := CallbackCreate(ObjBindMethod(implObj, "get_minOccurs"), flags, 2)
+        this.vtbl.get_maxOccurs := CallbackCreate(ObjBindMethod(implObj, "get_maxOccurs"), flags, 2)
     }
 
     Dispose() {

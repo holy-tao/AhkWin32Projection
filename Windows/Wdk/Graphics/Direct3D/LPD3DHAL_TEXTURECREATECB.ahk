@@ -19,7 +19,6 @@ export default struct LPD3DHAL_TEXTURECREATECB {
     }
 
     /**
-     * 
      * @param {Pointer<D3DHAL_TEXTURECREATEDATA>} param0 
      * @returns {Integer} 
      */

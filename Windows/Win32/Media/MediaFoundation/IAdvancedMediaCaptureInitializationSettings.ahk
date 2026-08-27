@@ -58,7 +58,7 @@ export default struct IAdvancedMediaCaptureInitializationSettings extends IUnkno
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetDirectxDeviceManager := CallbackCreate(GetMethod(implObj, "SetDirectxDeviceManager"), flags, 2)
+        this.vtbl.SetDirectxDeviceManager := CallbackCreate(ObjBindMethod(implObj, "SetDirectxDeviceManager"), flags, 2)
     }
 
     Dispose() {

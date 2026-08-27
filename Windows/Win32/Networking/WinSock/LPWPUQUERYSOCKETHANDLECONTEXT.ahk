@@ -19,15 +19,14 @@ export default struct LPWPUQUERYSOCKETHANDLECONTEXT {
     }
 
     /**
-     * 
      * @param {SOCKET} s 
      * @param {Pointer<Pointer>} lpContext 
      * @param {Pointer<Integer>} lpErrno 
      * @returns {Integer} 
      */
     Call(s, lpContext, lpErrno) {
-        lpContextMarshal := lpContext is VarRef ? "ptr*" : "ptr"
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        lpContextMarshal := lpContext is VarRef ? "ptr*" : IntPtr
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, SOCKET, s, lpContextMarshal, lpContext, lpErrnoMarshal, lpErrno, Int32)
         return result

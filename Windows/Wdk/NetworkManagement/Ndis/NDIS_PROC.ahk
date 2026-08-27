@@ -18,7 +18,6 @@ export default struct NDIS_PROC {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

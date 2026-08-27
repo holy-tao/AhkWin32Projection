@@ -89,7 +89,9 @@ export default struct ID2D1DeviceContext1 extends ID2D1DeviceContext {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_2/nf-d2d1_2-id2d1devicecontext1-createstrokedgeometryrealization
      */
     CreateStrokedGeometryRealization(geometry, flatteningTolerance, strokeWidth, strokeStyle) {
-        result := ComCall(93, this, "ptr", geometry, Float32, flatteningTolerance, Float32, strokeWidth, "ptr", strokeStyle, "ptr*", &geometryRealization := 0, "HRESULT")
+        strokeStyleMarshal := strokeStyle == 0 ? IntPtr : "ptr"
+
+        result := ComCall(93, this, "ptr", geometry, Float32, flatteningTolerance, Float32, strokeWidth, strokeStyleMarshal, strokeStyle, "ptr*", &geometryRealization := 0, "HRESULT")
         return ID2D1GeometryRealization(geometryRealization)
     }
 
@@ -127,9 +129,9 @@ export default struct ID2D1DeviceContext1 extends ID2D1DeviceContext {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateFilledGeometryRealization := CallbackCreate(GetMethod(implObj, "CreateFilledGeometryRealization"), flags, 4)
-        this.vtbl.CreateStrokedGeometryRealization := CallbackCreate(GetMethod(implObj, "CreateStrokedGeometryRealization"), flags, 6)
-        this.vtbl.DrawGeometryRealization := CallbackCreate(GetMethod(implObj, "DrawGeometryRealization"), flags, 3)
+        this.vtbl.CreateFilledGeometryRealization := CallbackCreate(ObjBindMethod(implObj, "CreateFilledGeometryRealization"), flags, 4)
+        this.vtbl.CreateStrokedGeometryRealization := CallbackCreate(ObjBindMethod(implObj, "CreateStrokedGeometryRealization"), flags, 6)
+        this.vtbl.DrawGeometryRealization := CallbackCreate(ObjBindMethod(implObj, "DrawGeometryRealization"), flags, 3)
     }
 
     Dispose() {

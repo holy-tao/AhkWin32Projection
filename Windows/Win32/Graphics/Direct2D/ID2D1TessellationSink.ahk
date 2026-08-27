@@ -75,8 +75,8 @@ export default struct ID2D1TessellationSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddTriangles := CallbackCreate(GetMethod(implObj, "AddTriangles"), flags, 3)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.AddTriangles := CallbackCreate(ObjBindMethod(implObj, "AddTriangles"), flags, 3)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
     }
 
     Dispose() {

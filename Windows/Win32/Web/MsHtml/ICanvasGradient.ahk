@@ -43,7 +43,6 @@ export default struct ICanvasGradient extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} offset 
      * @param {BSTR} _color 
      * @returns {HRESULT} 
@@ -64,7 +63,7 @@ export default struct ICanvasGradient extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.addColorStop := CallbackCreate(GetMethod(implObj, "addColorStop"), flags, 3)
+        this.vtbl.addColorStop := CallbackCreate(ObjBindMethod(implObj, "addColorStop"), flags, 3)
     }
 
     Dispose() {

@@ -53,7 +53,6 @@ export default struct IRTCPresenceDataEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_StatusCode() {
@@ -62,7 +61,6 @@ export default struct IRTCPresenceDataEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_StatusText() {
@@ -72,7 +70,6 @@ export default struct IRTCPresenceDataEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrNamespace 
      * @param {Pointer<BSTR>} pbstrData 
      * @returns {HRESULT} 
@@ -91,9 +88,9 @@ export default struct IRTCPresenceDataEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_StatusCode := CallbackCreate(GetMethod(implObj, "get_StatusCode"), flags, 2)
-        this.vtbl.get_StatusText := CallbackCreate(GetMethod(implObj, "get_StatusText"), flags, 2)
-        this.vtbl.GetPresenceData := CallbackCreate(GetMethod(implObj, "GetPresenceData"), flags, 3)
+        this.vtbl.get_StatusCode := CallbackCreate(ObjBindMethod(implObj, "get_StatusCode"), flags, 2)
+        this.vtbl.get_StatusText := CallbackCreate(ObjBindMethod(implObj, "get_StatusText"), flags, 2)
+        this.vtbl.GetPresenceData := CallbackCreate(ObjBindMethod(implObj, "GetPresenceData"), flags, 3)
     }
 
     Dispose() {

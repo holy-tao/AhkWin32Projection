@@ -126,11 +126,11 @@ export default struct IResultsFolder extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddItem := CallbackCreate(GetMethod(implObj, "AddItem"), flags, 2)
-        this.vtbl.AddIDList := CallbackCreate(GetMethod(implObj, "AddIDList"), flags, 3)
-        this.vtbl.RemoveItem := CallbackCreate(GetMethod(implObj, "RemoveItem"), flags, 2)
-        this.vtbl.RemoveIDList := CallbackCreate(GetMethod(implObj, "RemoveIDList"), flags, 2)
-        this.vtbl.RemoveAll := CallbackCreate(GetMethod(implObj, "RemoveAll"), flags, 1)
+        this.vtbl.AddItem := CallbackCreate(ObjBindMethod(implObj, "AddItem"), flags, 2)
+        this.vtbl.AddIDList := CallbackCreate(ObjBindMethod(implObj, "AddIDList"), flags, 3)
+        this.vtbl.RemoveItem := CallbackCreate(ObjBindMethod(implObj, "RemoveItem"), flags, 2)
+        this.vtbl.RemoveIDList := CallbackCreate(ObjBindMethod(implObj, "RemoveIDList"), flags, 2)
+        this.vtbl.RemoveAll := CallbackCreate(ObjBindMethod(implObj, "RemoveAll"), flags, 1)
     }
 
     Dispose() {

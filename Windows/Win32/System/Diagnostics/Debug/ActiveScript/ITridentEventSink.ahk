@@ -40,7 +40,6 @@ export default struct ITridentEventSink extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pstrEvent 
      * @param {Pointer<DISPPARAMS>} pdp 
      * @param {Pointer<VARIANT>} pvarRes 
@@ -63,7 +62,7 @@ export default struct ITridentEventSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FireEvent := CallbackCreate(GetMethod(implObj, "FireEvent"), flags, 5)
+        this.vtbl.FireEvent := CallbackCreate(ObjBindMethod(implObj, "FireEvent"), flags, 5)
     }
 
     Dispose() {

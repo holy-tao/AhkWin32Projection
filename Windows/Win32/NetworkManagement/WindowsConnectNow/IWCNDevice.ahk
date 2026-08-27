@@ -121,7 +121,7 @@ export default struct IWCNDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcndevice/nf-wcndevice-iwcndevice-setpassword
      */
     SetPassword(Type, dwPasswordLength, pbPassword) {
-        pbPasswordMarshal := pbPassword is VarRef ? "char*" : "ptr"
+        pbPasswordMarshal := pbPassword is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, WCN_PASSWORD_TYPE, Type, UInt32, dwPasswordLength, pbPasswordMarshal, pbPassword, "HRESULT")
         return result
@@ -178,7 +178,9 @@ export default struct IWCNDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcndevice/nf-wcndevice-iwcndevice-connect
      */
     Connect(pNotify) {
-        result := ComCall(4, this, "ptr", pNotify, "HRESULT")
+        pNotifyMarshal := pNotify == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, pNotifyMarshal, pNotify, "HRESULT")
         return result
     }
 
@@ -234,8 +236,8 @@ export default struct IWCNDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcndevice/nf-wcndevice-iwcndevice-getattribute
      */
     GetAttribute(AttributeType, dwMaxBufferSize, pbBuffer, pdwBufferUsed) {
-        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
-        pdwBufferUsedMarshal := pdwBufferUsed is VarRef ? "uint*" : "ptr"
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : IntPtr
+        pdwBufferUsedMarshal := pdwBufferUsed is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, WCN_ATTRIBUTE_TYPE, AttributeType, UInt32, dwMaxBufferSize, pbBufferMarshal, pbBuffer, pdwBufferUsedMarshal, pdwBufferUsed, "HRESULT")
         return result
@@ -464,8 +466,8 @@ export default struct IWCNDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcndevice/nf-wcndevice-iwcndevice-getvendorextension
      */
     GetVendorExtension(pVendorExtSpec, dwMaxBufferSize, pbBuffer, pdwBufferUsed) {
-        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
-        pdwBufferUsedMarshal := pdwBufferUsed is VarRef ? "uint*" : "ptr"
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : IntPtr
+        pdwBufferUsedMarshal := pdwBufferUsed is VarRef ? "uint*" : IntPtr
 
         result := ComCall(10, this, WCN_VENDOR_EXTENSION_SPEC.Ptr, pVendorExtSpec, UInt32, dwMaxBufferSize, pbBufferMarshal, pbBuffer, pdwBufferUsedMarshal, pdwBufferUsed, "HRESULT")
         return result
@@ -520,7 +522,7 @@ export default struct IWCNDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcndevice/nf-wcndevice-iwcndevice-setvendorextension
      */
     SetVendorExtension(pVendorExtSpec, cbBuffer, pbBuffer) {
-        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(11, this, WCN_VENDOR_EXTENSION_SPEC.Ptr, pVendorExtSpec, UInt32, cbBuffer, pbBufferMarshal, pbBuffer, "HRESULT")
         return result
@@ -541,7 +543,6 @@ export default struct IWCNDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {WCN_PASSWORD_TYPE} Type 
      * @param {Integer} dwOOBPasswordID 
      * @param {Integer} dwPasswordLength 
@@ -553,9 +554,12 @@ export default struct IWCNDevice extends IUnknown {
      * @returns {HRESULT} 
      */
     SetNFCPasswordParams(Type, dwOOBPasswordID, dwPasswordLength, pbPassword, dwRemotePublicKeyHashLength, pbRemotePublicKeyHash, dwDHKeyBlobLength, pbDHKeyBlob) {
-        pbPasswordMarshal := pbPassword is VarRef ? "char*" : "ptr"
-        pbRemotePublicKeyHashMarshal := pbRemotePublicKeyHash is VarRef ? "char*" : "ptr"
-        pbDHKeyBlobMarshal := pbDHKeyBlob is VarRef ? "char*" : "ptr"
+        pbPasswordMarshal := pbPassword is VarRef ? "char*" : IntPtr
+        pbPasswordMarshal := pbPassword == 0 ? IntPtr : "char*"
+        pbRemotePublicKeyHashMarshal := pbRemotePublicKeyHash is VarRef ? "char*" : IntPtr
+        pbRemotePublicKeyHashMarshal := pbRemotePublicKeyHash == 0 ? IntPtr : "char*"
+        pbDHKeyBlobMarshal := pbDHKeyBlob is VarRef ? "char*" : IntPtr
+        pbDHKeyBlobMarshal := pbDHKeyBlob == 0 ? IntPtr : "char*"
 
         result := ComCall(13, this, WCN_PASSWORD_TYPE, Type, UInt32, dwOOBPasswordID, UInt32, dwPasswordLength, pbPasswordMarshal, pbPassword, UInt32, dwRemotePublicKeyHashLength, pbRemotePublicKeyHashMarshal, pbRemotePublicKeyHash, UInt32, dwDHKeyBlobLength, pbDHKeyBlobMarshal, pbDHKeyBlob, "HRESULT")
         return result
@@ -570,17 +574,17 @@ export default struct IWCNDevice extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetPassword := CallbackCreate(GetMethod(implObj, "SetPassword"), flags, 4)
-        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 2)
-        this.vtbl.GetAttribute := CallbackCreate(GetMethod(implObj, "GetAttribute"), flags, 5)
-        this.vtbl.GetIntegerAttribute := CallbackCreate(GetMethod(implObj, "GetIntegerAttribute"), flags, 3)
-        this.vtbl.GetStringAttribute := CallbackCreate(GetMethod(implObj, "GetStringAttribute"), flags, 4)
-        this.vtbl.GetNetworkProfile := CallbackCreate(GetMethod(implObj, "GetNetworkProfile"), flags, 3)
-        this.vtbl.SetNetworkProfile := CallbackCreate(GetMethod(implObj, "SetNetworkProfile"), flags, 2)
-        this.vtbl.GetVendorExtension := CallbackCreate(GetMethod(implObj, "GetVendorExtension"), flags, 5)
-        this.vtbl.SetVendorExtension := CallbackCreate(GetMethod(implObj, "SetVendorExtension"), flags, 4)
-        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 1)
-        this.vtbl.SetNFCPasswordParams := CallbackCreate(GetMethod(implObj, "SetNFCPasswordParams"), flags, 9)
+        this.vtbl.SetPassword := CallbackCreate(ObjBindMethod(implObj, "SetPassword"), flags, 4)
+        this.vtbl.Connect := CallbackCreate(ObjBindMethod(implObj, "Connect"), flags, 2)
+        this.vtbl.GetAttribute := CallbackCreate(ObjBindMethod(implObj, "GetAttribute"), flags, 5)
+        this.vtbl.GetIntegerAttribute := CallbackCreate(ObjBindMethod(implObj, "GetIntegerAttribute"), flags, 3)
+        this.vtbl.GetStringAttribute := CallbackCreate(ObjBindMethod(implObj, "GetStringAttribute"), flags, 4)
+        this.vtbl.GetNetworkProfile := CallbackCreate(ObjBindMethod(implObj, "GetNetworkProfile"), flags, 3)
+        this.vtbl.SetNetworkProfile := CallbackCreate(ObjBindMethod(implObj, "SetNetworkProfile"), flags, 2)
+        this.vtbl.GetVendorExtension := CallbackCreate(ObjBindMethod(implObj, "GetVendorExtension"), flags, 5)
+        this.vtbl.SetVendorExtension := CallbackCreate(ObjBindMethod(implObj, "SetVendorExtension"), flags, 4)
+        this.vtbl.Unadvise := CallbackCreate(ObjBindMethod(implObj, "Unadvise"), flags, 1)
+        this.vtbl.SetNFCPasswordParams := CallbackCreate(ObjBindMethod(implObj, "SetNFCPasswordParams"), flags, 9)
     }
 
     Dispose() {

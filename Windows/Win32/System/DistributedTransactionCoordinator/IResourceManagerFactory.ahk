@@ -49,7 +49,9 @@ export default struct IResourceManagerFactory extends IUnknown {
     Create(pguidRM, pszRMName, pIResMgrSink) {
         pszRMName := pszRMName is String ? StrPtr(pszRMName) : pszRMName
 
-        result := ComCall(3, this, Guid.Ptr, pguidRM, "ptr", pszRMName, "ptr", pIResMgrSink, "ptr*", &ppResMgr := 0, "HRESULT")
+        pIResMgrSinkMarshal := pIResMgrSink == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, Guid.Ptr, pguidRM, "ptr", pszRMName, pIResMgrSinkMarshal, pIResMgrSink, "ptr*", &ppResMgr := 0, "HRESULT")
         return IResourceManager(ppResMgr)
     }
 
@@ -62,7 +64,7 @@ export default struct IResourceManagerFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 5)
+        this.vtbl.Create := CallbackCreate(ObjBindMethod(implObj, "Create"), flags, 5)
     }
 
     Dispose() {

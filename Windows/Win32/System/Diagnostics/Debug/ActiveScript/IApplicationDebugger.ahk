@@ -45,7 +45,6 @@ export default struct IApplicationDebugger extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     QueryAlive() {
@@ -54,7 +53,6 @@ export default struct IApplicationDebugger extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rclsid 
      * @param {IUnknown} pUnkOuter 
      * @param {Integer} dwClsContext 
@@ -67,7 +65,6 @@ export default struct IApplicationDebugger extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} _pstr 
      * @returns {HRESULT} 
      */
@@ -79,7 +76,6 @@ export default struct IApplicationDebugger extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRemoteDebugApplicationThread} prpt 
      * @param {BREAKREASON} br 
      * @param {IActiveScriptErrorDebug} pError 
@@ -91,7 +87,6 @@ export default struct IApplicationDebugger extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     onClose() {
@@ -100,7 +95,6 @@ export default struct IApplicationDebugger extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @param {IUnknown} punk 
      * @returns {HRESULT} 
@@ -119,12 +113,12 @@ export default struct IApplicationDebugger extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryAlive := CallbackCreate(GetMethod(implObj, "QueryAlive"), flags, 1)
-        this.vtbl.CreateInstanceAtDebugger := CallbackCreate(GetMethod(implObj, "CreateInstanceAtDebugger"), flags, 6)
-        this.vtbl.onDebugOutput := CallbackCreate(GetMethod(implObj, "onDebugOutput"), flags, 2)
-        this.vtbl.onHandleBreakPoint := CallbackCreate(GetMethod(implObj, "onHandleBreakPoint"), flags, 4)
-        this.vtbl.onClose := CallbackCreate(GetMethod(implObj, "onClose"), flags, 1)
-        this.vtbl.onDebuggerEvent := CallbackCreate(GetMethod(implObj, "onDebuggerEvent"), flags, 3)
+        this.vtbl.QueryAlive := CallbackCreate(ObjBindMethod(implObj, "QueryAlive"), flags, 1)
+        this.vtbl.CreateInstanceAtDebugger := CallbackCreate(ObjBindMethod(implObj, "CreateInstanceAtDebugger"), flags, 6)
+        this.vtbl.onDebugOutput := CallbackCreate(ObjBindMethod(implObj, "onDebugOutput"), flags, 2)
+        this.vtbl.onHandleBreakPoint := CallbackCreate(ObjBindMethod(implObj, "onHandleBreakPoint"), flags, 4)
+        this.vtbl.onClose := CallbackCreate(ObjBindMethod(implObj, "onClose"), flags, 1)
+        this.vtbl.onDebuggerEvent := CallbackCreate(ObjBindMethod(implObj, "onDebuggerEvent"), flags, 3)
     }
 
     Dispose() {

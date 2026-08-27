@@ -62,7 +62,7 @@ export default struct ITsSbOrchestrationNotifySink extends ITsSbBaseNotifySink {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnReadyToConnect := CallbackCreate(GetMethod(implObj, "OnReadyToConnect"), flags, 2)
+        this.vtbl.OnReadyToConnect := CallbackCreate(ObjBindMethod(implObj, "OnReadyToConnect"), flags, 2)
     }
 
     Dispose() {

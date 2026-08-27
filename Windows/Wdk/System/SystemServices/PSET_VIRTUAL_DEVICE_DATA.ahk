@@ -18,7 +18,6 @@ export default struct PSET_VIRTUAL_DEVICE_DATA {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Call() {

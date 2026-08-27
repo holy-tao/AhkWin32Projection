@@ -71,7 +71,7 @@
 export WMIsContentProtected(pwszFileName, pfIsProtected) {
     pwszFileName := pwszFileName is String ? StrPtr(pwszFileName) : pwszFileName
 
-    pfIsProtectedMarshal := pfIsProtected is VarRef ? "int*" : "ptr"
+    pfIsProtectedMarshal := pfIsProtected is VarRef ? "int*" : IntPtr
 
     result := DllCall("WMVCore.dll\WMIsContentProtected", "ptr", pwszFileName, pfIsProtectedMarshal, pfIsProtected, "HRESULT")
     return result

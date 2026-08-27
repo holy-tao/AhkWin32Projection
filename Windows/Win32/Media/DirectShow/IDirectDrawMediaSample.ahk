@@ -75,8 +75,8 @@ export default struct IDirectDrawMediaSample extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSurfaceAndReleaseLock := CallbackCreate(GetMethod(implObj, "GetSurfaceAndReleaseLock"), flags, 3)
-        this.vtbl.LockMediaSamplePointer := CallbackCreate(GetMethod(implObj, "LockMediaSamplePointer"), flags, 1)
+        this.vtbl.GetSurfaceAndReleaseLock := CallbackCreate(ObjBindMethod(implObj, "GetSurfaceAndReleaseLock"), flags, 3)
+        this.vtbl.LockMediaSamplePointer := CallbackCreate(ObjBindMethod(implObj, "LockMediaSamplePointer"), flags, 1)
     }
 
     Dispose() {

@@ -19,13 +19,13 @@ export default struct D3D12CompilerCacheSessionGroupValueKeysFunc {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_COMPILER_CACHE_VALUE_KEY>} pValueKey 
      * @param {Pointer<Void>} pContext 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(pValueKey, pContext) {
-        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+        pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
+        pContextMarshal := pContext == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, D3D12_COMPILER_CACHE_VALUE_KEY.Ptr, pValueKey, pContextMarshal, pContext)
     }

@@ -37,7 +37,6 @@ export default struct IActiveScriptErrorDebug110 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {SCRIPT_ERROR_DEBUG_EXCEPTION_THROWN_KIND} 
      */
     GetExceptionThrownKind() {
@@ -54,7 +53,7 @@ export default struct IActiveScriptErrorDebug110 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetExceptionThrownKind := CallbackCreate(GetMethod(implObj, "GetExceptionThrownKind"), flags, 2)
+        this.vtbl.GetExceptionThrownKind := CallbackCreate(ObjBindMethod(implObj, "GetExceptionThrownKind"), flags, 2)
     }
 
     Dispose() {

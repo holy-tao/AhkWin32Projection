@@ -23,7 +23,6 @@ export default struct PDD_COLORCB_COLORCONTROL {
     }
 
     /**
-     * 
      * @param {Pointer<DD_COLORCONTROLDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_colorcontroldata">DD_COLORCONTROLDATA</a> structure that contains the color control information for a specified overlay surface.
      * @returns {Integer} <b>DdControlColor</b> returns a callback code.
      */

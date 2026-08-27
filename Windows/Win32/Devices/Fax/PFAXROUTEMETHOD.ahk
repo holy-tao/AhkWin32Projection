@@ -33,7 +33,6 @@ export default struct PFAXROUTEMETHOD {
     }
 
     /**
-     * 
      * @param {Pointer<FAX_ROUTE>} param0 Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/faxroute/ns-faxroute-fax_route">FAX_ROUTE</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/faxroute/ns-faxroute-fax_route">FAX_ROUTE</a> structure that contains information about the received fax document.
@@ -50,8 +49,8 @@ export default struct PFAXROUTEMETHOD {
      * If the function fails, the return value is zero. To get extended error information, the fax service calls <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, described in MSDN.
      */
     Call(param0, param1, param2) {
-        param1Marshal := param1 is VarRef ? "ptr*" : "ptr"
-        param2Marshal := param2 is VarRef ? "uint*" : "ptr"
+        param1Marshal := param1 is VarRef ? "ptr*" : IntPtr
+        param2Marshal := param2 is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, FAX_ROUTE.Ptr, param0, param1Marshal, param1, param2Marshal, param2, BOOL)
         return result

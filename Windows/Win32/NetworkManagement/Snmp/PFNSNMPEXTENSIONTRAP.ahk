@@ -21,7 +21,6 @@ export default struct PFNSNMPEXTENSIONTRAP {
     }
 
     /**
-     * 
      * @param {Pointer<AsnObjectIdentifier>} pEnterpriseOid 
      * @param {Pointer<Integer>} pGenericTrapId 
      * @param {Pointer<Integer>} pSpecificTrapId 
@@ -30,9 +29,9 @@ export default struct PFNSNMPEXTENSIONTRAP {
      * @returns {BOOL} 
      */
     Call(pEnterpriseOid, pGenericTrapId, pSpecificTrapId, pTimeStamp, pVarBindList) {
-        pGenericTrapIdMarshal := pGenericTrapId is VarRef ? "int*" : "ptr"
-        pSpecificTrapIdMarshal := pSpecificTrapId is VarRef ? "int*" : "ptr"
-        pTimeStampMarshal := pTimeStamp is VarRef ? "uint*" : "ptr"
+        pGenericTrapIdMarshal := pGenericTrapId is VarRef ? "int*" : IntPtr
+        pSpecificTrapIdMarshal := pSpecificTrapId is VarRef ? "int*" : IntPtr
+        pTimeStampMarshal := pTimeStamp is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, AsnObjectIdentifier.Ptr, pEnterpriseOid, pGenericTrapIdMarshal, pGenericTrapId, pSpecificTrapIdMarshal, pSpecificTrapId, pTimeStampMarshal, pTimeStamp, SnmpVarBindList.Ptr, pVarBindList, BOOL)
         return result

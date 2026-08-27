@@ -21,7 +21,6 @@ export default struct AutoCorrectProc {
     }
 
     /**
-     * 
      * @param {Integer} langid Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LANGID</a></b>
      * 
      * Language ID that identifies the autocorrect file to use for automatic correcting.
@@ -101,7 +100,7 @@ export default struct AutoCorrectProc {
         pszBefore := pszBefore is String ? StrPtr(pszBefore) : pszBefore
         pszAfter := pszAfter is String ? StrPtr(pszAfter) : pszAfter
 
-        pcchReplacedMarshal := pcchReplaced is VarRef ? "int*" : "ptr"
+        pcchReplacedMarshal := pcchReplaced is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, UInt16, langid, "ptr", pszBefore, "ptr", pszAfter, Int32, cchAfter, pcchReplacedMarshal, pcchReplaced, Int32)
         return result

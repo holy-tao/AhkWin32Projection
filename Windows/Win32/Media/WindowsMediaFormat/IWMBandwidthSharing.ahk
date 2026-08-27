@@ -151,8 +151,8 @@ export default struct IWMBandwidthSharing extends IWMStreamList {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmbandwidthsharing-getbandwidth
      */
     GetBandwidth(pdwBitrate, pmsBufferWindow) {
-        pdwBitrateMarshal := pdwBitrate is VarRef ? "uint*" : "ptr"
-        pmsBufferWindowMarshal := pmsBufferWindow is VarRef ? "uint*" : "ptr"
+        pdwBitrateMarshal := pdwBitrate is VarRef ? "uint*" : IntPtr
+        pmsBufferWindowMarshal := pmsBufferWindow is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, pdwBitrateMarshal, pdwBitrate, pmsBufferWindowMarshal, pmsBufferWindow, "HRESULT")
         return result
@@ -181,10 +181,10 @@ export default struct IWMBandwidthSharing extends IWMStreamList {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
-        this.vtbl.SetType := CallbackCreate(GetMethod(implObj, "SetType"), flags, 2)
-        this.vtbl.GetBandwidth := CallbackCreate(GetMethod(implObj, "GetBandwidth"), flags, 3)
-        this.vtbl.SetBandwidth := CallbackCreate(GetMethod(implObj, "SetBandwidth"), flags, 3)
+        this.vtbl.GetType := CallbackCreate(ObjBindMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.SetType := CallbackCreate(ObjBindMethod(implObj, "SetType"), flags, 2)
+        this.vtbl.GetBandwidth := CallbackCreate(ObjBindMethod(implObj, "GetBandwidth"), flags, 3)
+        this.vtbl.SetBandwidth := CallbackCreate(ObjBindMethod(implObj, "SetBandwidth"), flags, 3)
     }
 
     Dispose() {

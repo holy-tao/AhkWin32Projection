@@ -20,7 +20,6 @@ export default struct PCLUSAPI_GET_CLUSTER_NODE_STATE {
     }
 
     /**
-     * 
      * @param {HNODE} _hNode 
      * @returns {CLUSTER_NODE_STATE} 
      */

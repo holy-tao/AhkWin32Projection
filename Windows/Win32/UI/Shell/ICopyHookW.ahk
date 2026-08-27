@@ -90,7 +90,10 @@ export default struct ICopyHookW extends IUnknown {
         pszSrcFile := pszSrcFile is String ? StrPtr(pszSrcFile) : pszSrcFile
         pszDestFile := pszDestFile is String ? StrPtr(pszDestFile) : pszDestFile
 
-        result := ComCall(3, this, HWND, _hwnd, UInt32, wFunc, UInt32, wFlags, "ptr", pszSrcFile, UInt32, dwSrcAttribs, "ptr", pszDestFile, UInt32, dwDestAttribs, UInt32)
+        _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+        pszDestFileMarshal := pszDestFile == 0 ? IntPtr : PWSTR
+
+        result := ComCall(3, this, _hwndMarshal, _hwnd, UInt32, wFunc, UInt32, wFlags, "ptr", pszSrcFile, UInt32, dwSrcAttribs, pszDestFileMarshal, pszDestFile, UInt32, dwDestAttribs, UInt32)
         return result
     }
 
@@ -103,7 +106,7 @@ export default struct ICopyHookW extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CopyCallback := CallbackCreate(GetMethod(implObj, "CopyCallback"), flags, 8)
+        this.vtbl.CopyCallback := CallbackCreate(ObjBindMethod(implObj, "CopyCallback"), flags, 8)
     }
 
     Dispose() {

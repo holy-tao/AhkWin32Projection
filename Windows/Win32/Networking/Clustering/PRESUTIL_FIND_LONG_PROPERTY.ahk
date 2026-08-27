@@ -19,7 +19,6 @@ export default struct PRESUTIL_FIND_LONG_PROPERTY {
     }
 
     /**
-     * 
      * @param {Integer} pPropertyList 
      * @param {Integer} cbPropertyListSize 
      * @param {PWSTR} pszPropertyName 
@@ -29,7 +28,7 @@ export default struct PRESUTIL_FIND_LONG_PROPERTY {
     Call(pPropertyList, cbPropertyListSize, pszPropertyName, plPropertyValue) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
 
-        plPropertyValueMarshal := plPropertyValue is VarRef ? "int*" : "ptr"
+        plPropertyValueMarshal := plPropertyValue is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, IntPtr, pPropertyList, UInt32, cbPropertyListSize, "ptr", pszPropertyName, plPropertyValueMarshal, plPropertyValue, UInt32)
         return result

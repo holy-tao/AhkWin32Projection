@@ -37,7 +37,6 @@ export default struct IHTMLSelectElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {IDispatch} 
      */
@@ -57,7 +56,7 @@ export default struct IHTMLSelectElement4 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.namedItem := CallbackCreate(GetMethod(implObj, "namedItem"), flags, 3)
+        this.vtbl.namedItem := CallbackCreate(ObjBindMethod(implObj, "namedItem"), flags, 3)
     }
 
     Dispose() {

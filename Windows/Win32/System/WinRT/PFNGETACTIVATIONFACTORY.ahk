@@ -21,7 +21,6 @@ export default struct PFNGETACTIVATIONFACTORY {
     }
 
     /**
-     * 
      * @param {HSTRING} param0 
      * @returns {IActivationFactory} 
      */

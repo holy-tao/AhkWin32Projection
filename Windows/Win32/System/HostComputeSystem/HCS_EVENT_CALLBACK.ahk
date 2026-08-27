@@ -21,13 +21,13 @@ export default struct HCS_EVENT_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<HCS_EVENT>} event Handle to the pointer of [`HCS_EVENT`](./HCS_EVENT.md).
      * @param {Pointer<Void>} _context Handle for context of callback.
      * @returns {String} Nothing - always returns an empty string
      */
     Call(event, _context) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+        _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, HCS_EVENT.Ptr, event, _contextMarshal, _context)
     }

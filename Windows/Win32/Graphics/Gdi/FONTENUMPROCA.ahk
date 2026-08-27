@@ -22,7 +22,6 @@ export default struct FONTENUMPROCA {
     }
 
     /**
-     * 
      * @param {Pointer<LOGFONTA>} param0 
      * @param {Pointer<TEXTMETRICA>} param1 
      * @param {Integer} param2 

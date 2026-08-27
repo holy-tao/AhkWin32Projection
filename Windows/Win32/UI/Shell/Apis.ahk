@@ -349,11 +349,12 @@ export UnloadUserProfile(hToken, hProfile) {
 export GetProfilesDirectoryA(lpProfileDir, lpcchSize) {
     lpProfileDir := lpProfileDir is String ? StrPtr(lpProfileDir) : lpProfileDir
 
-    lpcchSizeMarshal := lpcchSize is VarRef ? "uint*" : "ptr"
+    lpProfileDirMarshal := lpProfileDir == 0 ? IntPtr : PSTR
+    lpcchSizeMarshal := lpcchSize is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("USERENV.dll\GetProfilesDirectoryA", "ptr", lpProfileDir, lpcchSizeMarshal, lpcchSize, BOOL)
+    result := DllCall("USERENV.dll\GetProfilesDirectoryA", lpProfileDirMarshal, lpProfileDir, lpcchSizeMarshal, lpcchSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -405,11 +406,12 @@ export GetProfilesDirectoryA(lpProfileDir, lpcchSize) {
 export GetProfilesDirectoryW(lpProfileDir, lpcchSize) {
     lpProfileDir := lpProfileDir is String ? StrPtr(lpProfileDir) : lpProfileDir
 
-    lpcchSizeMarshal := lpcchSize is VarRef ? "uint*" : "ptr"
+    lpProfileDirMarshal := lpProfileDir == 0 ? IntPtr : PWSTR
+    lpcchSizeMarshal := lpcchSize is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("USERENV.dll\GetProfilesDirectoryW", "ptr", lpProfileDir, lpcchSizeMarshal, lpcchSize, BOOL)
+    result := DllCall("USERENV.dll\GetProfilesDirectoryW", lpProfileDirMarshal, lpProfileDir, lpcchSizeMarshal, lpcchSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -433,7 +435,7 @@ export GetProfilesDirectoryW(lpProfileDir, lpcchSize) {
  * @since windows5.0
  */
 export GetProfileType(dwFlags) {
-    dwFlagsMarshal := dwFlags is VarRef ? "uint*" : "ptr"
+    dwFlagsMarshal := dwFlags is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -481,9 +483,12 @@ export DeleteProfileA(lpSidString, lpProfilePath, lpComputerName) {
     lpProfilePath := lpProfilePath is String ? StrPtr(lpProfilePath) : lpProfilePath
     lpComputerName := lpComputerName is String ? StrPtr(lpComputerName) : lpComputerName
 
+    lpProfilePathMarshal := lpProfilePath == 0 ? IntPtr : PSTR
+    lpComputerNameMarshal := lpComputerName == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("USERENV.dll\DeleteProfileA", "ptr", lpSidString, "ptr", lpProfilePath, "ptr", lpComputerName, BOOL)
+    result := DllCall("USERENV.dll\DeleteProfileA", "ptr", lpSidString, lpProfilePathMarshal, lpProfilePath, lpComputerNameMarshal, lpComputerName, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -527,9 +532,12 @@ export DeleteProfileW(lpSidString, lpProfilePath, lpComputerName) {
     lpProfilePath := lpProfilePath is String ? StrPtr(lpProfilePath) : lpProfilePath
     lpComputerName := lpComputerName is String ? StrPtr(lpComputerName) : lpComputerName
 
+    lpProfilePathMarshal := lpProfilePath == 0 ? IntPtr : PWSTR
+    lpComputerNameMarshal := lpComputerName == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("USERENV.dll\DeleteProfileW", "ptr", lpSidString, "ptr", lpProfilePath, "ptr", lpComputerName, BOOL)
+    result := DllCall("USERENV.dll\DeleteProfileW", "ptr", lpSidString, lpProfilePathMarshal, lpProfilePath, lpComputerNameMarshal, lpComputerName, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -641,11 +649,12 @@ export CreateProfile(pszUserSid, pszUserName, pszProfilePath, cchProfilePath) {
 export GetDefaultUserProfileDirectoryA(lpProfileDir, lpcchSize) {
     lpProfileDir := lpProfileDir is String ? StrPtr(lpProfileDir) : lpProfileDir
 
-    lpcchSizeMarshal := lpcchSize is VarRef ? "uint*" : "ptr"
+    lpProfileDirMarshal := lpProfileDir == 0 ? IntPtr : PSTR
+    lpcchSizeMarshal := lpcchSize is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("USERENV.dll\GetDefaultUserProfileDirectoryA", "ptr", lpProfileDir, lpcchSizeMarshal, lpcchSize, BOOL)
+    result := DllCall("USERENV.dll\GetDefaultUserProfileDirectoryA", lpProfileDirMarshal, lpProfileDir, lpcchSizeMarshal, lpcchSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -697,11 +706,12 @@ export GetDefaultUserProfileDirectoryA(lpProfileDir, lpcchSize) {
 export GetDefaultUserProfileDirectoryW(lpProfileDir, lpcchSize) {
     lpProfileDir := lpProfileDir is String ? StrPtr(lpProfileDir) : lpProfileDir
 
-    lpcchSizeMarshal := lpcchSize is VarRef ? "uint*" : "ptr"
+    lpProfileDirMarshal := lpProfileDir == 0 ? IntPtr : PWSTR
+    lpcchSizeMarshal := lpcchSize is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("USERENV.dll\GetDefaultUserProfileDirectoryW", "ptr", lpProfileDir, lpcchSizeMarshal, lpcchSize, BOOL)
+    result := DllCall("USERENV.dll\GetDefaultUserProfileDirectoryW", lpProfileDirMarshal, lpProfileDir, lpcchSizeMarshal, lpcchSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -753,11 +763,12 @@ export GetDefaultUserProfileDirectoryW(lpProfileDir, lpcchSize) {
 export GetAllUsersProfileDirectoryA(lpProfileDir, lpcchSize) {
     lpProfileDir := lpProfileDir is String ? StrPtr(lpProfileDir) : lpProfileDir
 
-    lpcchSizeMarshal := lpcchSize is VarRef ? "uint*" : "ptr"
+    lpProfileDirMarshal := lpProfileDir == 0 ? IntPtr : PSTR
+    lpcchSizeMarshal := lpcchSize is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("USERENV.dll\GetAllUsersProfileDirectoryA", "ptr", lpProfileDir, lpcchSizeMarshal, lpcchSize, BOOL)
+    result := DllCall("USERENV.dll\GetAllUsersProfileDirectoryA", lpProfileDirMarshal, lpProfileDir, lpcchSizeMarshal, lpcchSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -809,11 +820,12 @@ export GetAllUsersProfileDirectoryA(lpProfileDir, lpcchSize) {
 export GetAllUsersProfileDirectoryW(lpProfileDir, lpcchSize) {
     lpProfileDir := lpProfileDir is String ? StrPtr(lpProfileDir) : lpProfileDir
 
-    lpcchSizeMarshal := lpcchSize is VarRef ? "uint*" : "ptr"
+    lpProfileDirMarshal := lpProfileDir == 0 ? IntPtr : PWSTR
+    lpcchSizeMarshal := lpcchSize is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("USERENV.dll\GetAllUsersProfileDirectoryW", "ptr", lpProfileDir, lpcchSizeMarshal, lpcchSize, BOOL)
+    result := DllCall("USERENV.dll\GetAllUsersProfileDirectoryW", lpProfileDirMarshal, lpProfileDir, lpcchSizeMarshal, lpcchSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -868,11 +880,12 @@ export GetAllUsersProfileDirectoryW(lpProfileDir, lpcchSize) {
 export GetUserProfileDirectoryA(hToken, lpProfileDir, lpcchSize) {
     lpProfileDir := lpProfileDir is String ? StrPtr(lpProfileDir) : lpProfileDir
 
-    lpcchSizeMarshal := lpcchSize is VarRef ? "uint*" : "ptr"
+    lpProfileDirMarshal := lpProfileDir == 0 ? IntPtr : PSTR
+    lpcchSizeMarshal := lpcchSize is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("USERENV.dll\GetUserProfileDirectoryA", HANDLE, hToken, "ptr", lpProfileDir, lpcchSizeMarshal, lpcchSize, BOOL)
+    result := DllCall("USERENV.dll\GetUserProfileDirectoryA", HANDLE, hToken, lpProfileDirMarshal, lpProfileDir, lpcchSizeMarshal, lpcchSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -927,11 +940,12 @@ export GetUserProfileDirectoryA(hToken, lpProfileDir, lpcchSize) {
 export GetUserProfileDirectoryW(hToken, lpProfileDir, lpcchSize) {
     lpProfileDir := lpProfileDir is String ? StrPtr(lpProfileDir) : lpProfileDir
 
-    lpcchSizeMarshal := lpcchSize is VarRef ? "uint*" : "ptr"
+    lpProfileDirMarshal := lpProfileDir == 0 ? IntPtr : PWSTR
+    lpcchSizeMarshal := lpcchSize is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("USERENV.dll\GetUserProfileDirectoryW", HANDLE, hToken, "ptr", lpProfileDir, lpcchSizeMarshal, lpcchSize, BOOL)
+    result := DllCall("USERENV.dll\GetUserProfileDirectoryW", HANDLE, hToken, lpProfileDirMarshal, lpProfileDir, lpcchSizeMarshal, lpcchSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -962,7 +976,9 @@ export GetUserProfileDirectoryW(hToken, lpProfileDir, lpcchSize) {
  * @since windows5.1.2600
  */
 export InitPropVariantFromStrRet(pstrret, pidl, ppropvar) {
-    result := DllCall("PROPSYS.dll\InitPropVariantFromStrRet", STRRET.Ptr, pstrret, ITEMIDLIST.Ptr, pidl, PROPVARIANT.Ptr, ppropvar, "HRESULT")
+    pidlMarshal := pidl == 0 ? IntPtr : ITEMIDLIST.Ptr
+
+    result := DllCall("PROPSYS.dll\InitPropVariantFromStrRet", STRRET.Ptr, pstrret, pidlMarshal, pidl, PROPVARIANT.Ptr, ppropvar, "HRESULT")
     return result
 }
 
@@ -1126,7 +1142,8 @@ export SetWindowSubclass(_hWnd, pfnSubclass, uIdSubclass, dwRefData) {
  * @since windows5.1.2600
  */
 export GetWindowSubclass(_hWnd, pfnSubclass, uIdSubclass, pdwRefData) {
-    pdwRefDataMarshal := pdwRefData is VarRef ? "ptr*" : "ptr"
+    pdwRefDataMarshal := pdwRefData is VarRef ? "ptr*" : IntPtr
+    pdwRefDataMarshal := pdwRefData == 0 ? IntPtr : "ptr*"
 
     result := DllCall("COMCTL32.dll\GetWindowSubclass", HWND, _hWnd, SUBCLASSPROC, pfnSubclass, IntPtr, uIdSubclass, pdwRefDataMarshal, pdwRefData, BOOL)
     return result
@@ -1426,9 +1443,12 @@ export GetMenuContextHelpId(param0) {
 export WinHelpA(hWndMain, lpszHelp, uCommand, dwData) {
     lpszHelp := lpszHelp is String ? StrPtr(lpszHelp) : lpszHelp
 
+    hWndMainMarshal := hWndMain == 0 ? IntPtr : HWND
+    lpszHelpMarshal := lpszHelp == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\WinHelpA", HWND, hWndMain, "ptr", lpszHelp, UInt32, uCommand, IntPtr, dwData, BOOL)
+    result := DllCall("USER32.dll\WinHelpA", hWndMainMarshal, hWndMain, lpszHelpMarshal, lpszHelp, UInt32, uCommand, IntPtr, dwData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1575,9 +1595,12 @@ export WinHelpA(hWndMain, lpszHelp, uCommand, dwData) {
 export WinHelpW(hWndMain, lpszHelp, uCommand, dwData) {
     lpszHelp := lpszHelp is String ? StrPtr(lpszHelp) : lpszHelp
 
+    hWndMainMarshal := hWndMain == 0 ? IntPtr : HWND
+    lpszHelpMarshal := lpszHelp == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\WinHelpW", HWND, hWndMain, "ptr", lpszHelp, UInt32, uCommand, IntPtr, dwData, BOOL)
+    result := DllCall("USER32.dll\WinHelpW", hWndMainMarshal, hWndMain, lpszHelpMarshal, lpszHelp, UInt32, uCommand, IntPtr, dwData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1666,7 +1689,9 @@ export SHCreateItemFromIDList(pidl, riid) {
 export SHCreateItemFromParsingName(pszPath, pbc, riid) {
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    result := DllCall("SHELL32.dll\SHCreateItemFromParsingName", "ptr", pszPath, "ptr", pbc, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+    pbcMarshal := pbc == 0 ? IntPtr : "ptr"
+
+    result := DllCall("SHELL32.dll\SHCreateItemFromParsingName", "ptr", pszPath, pbcMarshal, pbc, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
     return ppv
 }
 
@@ -1692,7 +1717,10 @@ export SHCreateItemFromParsingName(pszPath, pbc, riid) {
  * @since windows6.0.6000
  */
 export SHCreateItemWithParent(pidlParent, psfParent, pidl, riid) {
-    result := DllCall("SHELL32.dll\SHCreateItemWithParent", ITEMIDLIST.Ptr, pidlParent, "ptr", psfParent, ITEMIDLIST.Ptr, pidl, Guid.Ptr, riid, "ptr*", &ppvItem := 0, "HRESULT")
+    pidlParentMarshal := pidlParent == 0 ? IntPtr : ITEMIDLIST.Ptr
+    psfParentMarshal := psfParent == 0 ? IntPtr : "ptr"
+
+    result := DllCall("SHELL32.dll\SHCreateItemWithParent", pidlParentMarshal, pidlParent, psfParentMarshal, psfParent, ITEMIDLIST.Ptr, pidl, Guid.Ptr, riid, "ptr*", &ppvItem := 0, "HRESULT")
     return ppvItem
 }
 
@@ -1720,7 +1748,9 @@ export SHCreateItemWithParent(pidlParent, psfParent, pidl, riid) {
 export SHCreateItemFromRelativeName(psiParent, pszName, pbc, riid) {
     pszName := pszName is String ? StrPtr(pszName) : pszName
 
-    result := DllCall("SHELL32.dll\SHCreateItemFromRelativeName", "ptr", psiParent, "ptr", pszName, "ptr", pbc, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+    pbcMarshal := pbc == 0 ? IntPtr : "ptr"
+
+    result := DllCall("SHELL32.dll\SHCreateItemFromRelativeName", "ptr", psiParent, "ptr", pszName, pbcMarshal, pbc, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
     return ppv
 }
 
@@ -1747,7 +1777,9 @@ export SHCreateItemFromRelativeName(psiParent, pszName, pbc, riid) {
 export SHCreateItemInKnownFolder(kfid, dwKFFlags, pszItem, riid) {
     pszItem := pszItem is String ? StrPtr(pszItem) : pszItem
 
-    result := DllCall("SHELL32.dll\SHCreateItemInKnownFolder", Guid.Ptr, kfid, UInt32, dwKFFlags, "ptr", pszItem, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+    pszItemMarshal := pszItem == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHELL32.dll\SHCreateItemInKnownFolder", Guid.Ptr, kfid, UInt32, dwKFFlags, pszItemMarshal, pszItem, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
     return ppv
 }
 
@@ -1854,9 +1886,12 @@ export SHGetItemFromDataObject(pdtobj, dwFlags, riid) {
  * @since windows6.0.6000
  */
 export SHCreateShellItemArray(pidlParent, psf, cidl, ppidl) {
-    ppidlMarshal := ppidl is VarRef ? "ptr*" : "ptr"
+    pidlParentMarshal := pidlParent == 0 ? IntPtr : ITEMIDLIST.Ptr
+    psfMarshal := psf == 0 ? IntPtr : "ptr"
+    ppidlMarshal := ppidl is VarRef ? "ptr*" : IntPtr
+    ppidlMarshal := ppidl == 0 ? IntPtr : "ptr*"
 
-    result := DllCall("SHELL32.dll\SHCreateShellItemArray", ITEMIDLIST.Ptr, pidlParent, "ptr", psf, UInt32, cidl, ppidlMarshal, ppidl, "ptr*", &ppsiItemArray := 0, "HRESULT")
+    result := DllCall("SHELL32.dll\SHCreateShellItemArray", pidlParentMarshal, pidlParent, psfMarshal, psf, UInt32, cidl, ppidlMarshal, ppidl, "ptr*", &ppsiItemArray := 0, "HRESULT")
     return IShellItemArray(ppsiItemArray)
 }
 
@@ -1900,7 +1935,7 @@ export SHCreateShellItemArrayFromDataObject(pdo, riid) {
  * @since windows6.0.6000
  */
 export SHCreateShellItemArrayFromIDLists(cidl, rgpidl) {
-    rgpidlMarshal := rgpidl is VarRef ? "ptr*" : "ptr"
+    rgpidlMarshal := rgpidl is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("SHELL32.dll\SHCreateShellItemArrayFromIDLists", UInt32, cidl, rgpidlMarshal, rgpidl, "ptr*", &ppsiItemArray := 0, "HRESULT")
     return IShellItemArray(ppsiItemArray)
@@ -2110,7 +2145,10 @@ export SHShowManageLibraryUI(psiLibrary, hwndOwner, pszTitle, pszInstruction, lm
     pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
     pszInstruction := pszInstruction is String ? StrPtr(pszInstruction) : pszInstruction
 
-    result := DllCall("SHELL32.dll\SHShowManageLibraryUI", "ptr", psiLibrary, HWND, hwndOwner, "ptr", pszTitle, "ptr", pszInstruction, LIBRARYMANAGEDIALOGOPTIONS, lmdOptions, "HRESULT")
+    pszTitleMarshal := pszTitle == 0 ? IntPtr : PWSTR
+    pszInstructionMarshal := pszInstruction == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHELL32.dll\SHShowManageLibraryUI", "ptr", psiLibrary, HWND, hwndOwner, pszTitleMarshal, pszTitle, pszInstructionMarshal, pszInstruction, LIBRARYMANAGEDIALOGOPTIONS, lmdOptions, "HRESULT")
     return result
 }
 
@@ -2177,113 +2215,105 @@ export SHAssocEnumHandlersForProtocolByApplication(protocol, riid) {
 }
 
 /**
- * 
  * @param {Pointer<Integer>} param0 
  * @param {Integer} param1 
  * @param {Pointer<HMONITOR>} param2 
  * @returns {Integer} 
  */
 export HMONITOR_UserSize(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     result := DllCall("OLE32.dll\HMONITOR_UserSize", param0Marshal, param0, UInt32, param1, HMONITOR.Ptr, param2, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} param0 
  * @param {Pointer<Integer>} param1 
  * @param {Pointer<HMONITOR>} param2 
  * @returns {Pointer<Integer>} 
  */
 export HMONITOR_UserMarshal(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HMONITOR_UserMarshal", param0Marshal, param0, param1Marshal, param1, HMONITOR.Ptr, param2, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} param0 
  * @param {Pointer<Integer>} param1 
  * @param {Pointer<HMONITOR>} param2 
  * @returns {Pointer<Integer>} 
  */
 export HMONITOR_UserUnmarshal(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HMONITOR_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, HMONITOR.Ptr, param2, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} param0 
  * @param {Pointer<HMONITOR>} param1 
  * @returns {String} Nothing - always returns an empty string
  */
 export HMONITOR_UserFree(param0, param1) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     DllCall("OLE32.dll\HMONITOR_UserFree", param0Marshal, param0, HMONITOR.Ptr, param1)
 }
 
 /**
- * 
  * @param {Pointer<Integer>} param0 
  * @param {Integer} param1 
  * @param {Pointer<HMONITOR>} param2 
  * @returns {Integer} 
  */
 export HMONITOR_UserSize64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     result := DllCall("OLE32.dll\HMONITOR_UserSize64", param0Marshal, param0, UInt32, param1, HMONITOR.Ptr, param2, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} param0 
  * @param {Pointer<Integer>} param1 
  * @param {Pointer<HMONITOR>} param2 
  * @returns {Pointer<Integer>} 
  */
 export HMONITOR_UserMarshal64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HMONITOR_UserMarshal64", param0Marshal, param0, param1Marshal, param1, HMONITOR.Ptr, param2, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} param0 
  * @param {Pointer<Integer>} param1 
  * @param {Pointer<HMONITOR>} param2 
  * @returns {Pointer<Integer>} 
  */
 export HMONITOR_UserUnmarshal64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HMONITOR_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, HMONITOR.Ptr, param2, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} param0 
  * @param {Pointer<HMONITOR>} param1 
  * @returns {String} Nothing - always returns an empty string
  */
 export HMONITOR_UserFree64(param0, param1) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     DllCall("OLE32.dll\HMONITOR_UserFree64", param0Marshal, param0, HMONITOR.Ptr, param1)
 }
@@ -2329,7 +2359,10 @@ export SHCreateDefaultPropertiesOp(psi) {
  * @since windows6.0.6000
  */
 export SHSetDefaultProperties(_hwnd, psi, dwFileOpFlags, pfops) {
-    result := DllCall("SHELL32.dll\SHSetDefaultProperties", HWND, _hwnd, "ptr", psi, UInt32, dwFileOpFlags, "ptr", pfops, "HRESULT")
+    _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+    pfopsMarshal := pfops == 0 ? IntPtr : "ptr"
+
+    result := DllCall("SHELL32.dll\SHSetDefaultProperties", _hwndMarshal, _hwnd, "ptr", psi, UInt32, dwFileOpFlags, pfopsMarshal, pfops, "HRESULT")
     return result
 }
 
@@ -2376,7 +2409,8 @@ export SHAlloc(cb) {
  * @since windows5.0
  */
 export SHFree(pv) {
-    pvMarshal := pv is VarRef ? "ptr" : "ptr"
+    pvMarshal := pv is VarRef ? "ptr" : IntPtr
+    pvMarshal := pv == 0 ? IntPtr : "ptr"
 
     DllCall("SHELL32.dll\SHFree", pvMarshal, pv)
 }
@@ -2409,7 +2443,9 @@ export SHFree(pv) {
 export SHGetIconOverlayIndexA(pszIconPath, iIconIndex) {
     pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
 
-    result := DllCall("SHELL32.dll\SHGetIconOverlayIndexA", "ptr", pszIconPath, Int32, iIconIndex, Int32)
+    pszIconPathMarshal := pszIconPath == 0 ? IntPtr : PSTR
+
+    result := DllCall("SHELL32.dll\SHGetIconOverlayIndexA", pszIconPathMarshal, pszIconPath, Int32, iIconIndex, Int32)
     return result
 }
 
@@ -2441,7 +2477,9 @@ export SHGetIconOverlayIndexA(pszIconPath, iIconIndex) {
 export SHGetIconOverlayIndexW(pszIconPath, iIconIndex) {
     pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
 
-    result := DllCall("SHELL32.dll\SHGetIconOverlayIndexW", "ptr", pszIconPath, Int32, iIconIndex, Int32)
+    pszIconPathMarshal := pszIconPath == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHELL32.dll\SHGetIconOverlayIndexW", pszIconPathMarshal, pszIconPath, Int32, iIconIndex, Int32)
     return result
 }
 
@@ -2494,7 +2532,10 @@ export ILCloneFirst(pidl) {
  * @since windows5.1.2600
  */
 export ILCombine(pidl1, pidl2) {
-    result := DllCall("SHELL32.dll\ILCombine", ITEMIDLIST.Ptr, pidl1, ITEMIDLIST.Ptr, pidl2, ITEMIDLIST.Ptr)
+    pidl1Marshal := pidl1 == 0 ? IntPtr : ITEMIDLIST.Ptr
+    pidl2Marshal := pidl2 == 0 ? IntPtr : ITEMIDLIST.Ptr
+
+    result := DllCall("SHELL32.dll\ILCombine", pidl1Marshal, pidl1, pidl2Marshal, pidl2, ITEMIDLIST.Ptr)
     return result
 }
 
@@ -2513,7 +2554,9 @@ export ILCombine(pidl1, pidl2) {
  * @since windows5.1.2600
  */
 export ILFree(pidl) {
-    DllCall("SHELL32.dll\ILFree", ITEMIDLIST.Ptr, pidl)
+    pidlMarshal := pidl == 0 ? IntPtr : ITEMIDLIST.Ptr
+
+    DllCall("SHELL32.dll\ILFree", pidlMarshal, pidl)
 }
 
 /**
@@ -2528,7 +2571,9 @@ export ILFree(pidl) {
  * @since windows5.1.2600
  */
 export ILGetNext(pidl) {
-    result := DllCall("SHELL32.dll\ILGetNext", ITEMIDLIST.Ptr, pidl, ITEMIDLIST.Ptr)
+    pidlMarshal := pidl == 0 ? IntPtr : ITEMIDLIST.Ptr
+
+    result := DllCall("SHELL32.dll\ILGetNext", pidlMarshal, pidl, ITEMIDLIST.Ptr)
     return result
 }
 
@@ -2544,7 +2589,9 @@ export ILGetNext(pidl) {
  * @since windows5.1.2600
  */
 export ILGetSize(pidl) {
-    result := DllCall("SHELL32.dll\ILGetSize", ITEMIDLIST.Ptr, pidl, UInt32)
+    pidlMarshal := pidl == 0 ? IntPtr : ITEMIDLIST.Ptr
+
+    result := DllCall("SHELL32.dll\ILGetSize", pidlMarshal, pidl, UInt32)
     return result
 }
 
@@ -2600,7 +2647,9 @@ export ILFindLastID(pidl) {
  * @since windows5.1.2600
  */
 export ILRemoveLastID(pidl) {
-    result := DllCall("SHELL32.dll\ILRemoveLastID", ITEMIDLIST.Ptr, pidl, BOOL)
+    pidlMarshal := pidl == 0 ? IntPtr : ITEMIDLIST.Ptr
+
+    result := DllCall("SHELL32.dll\ILRemoveLastID", pidlMarshal, pidl, BOOL)
     return result
 }
 
@@ -2758,7 +2807,8 @@ export ILCreateFromPathW(pszPath) {
 export SHILCreateFromPath(pszPath, rgfInOut) {
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    rgfInOutMarshal := rgfInOut is VarRef ? "uint*" : "ptr"
+    rgfInOutMarshal := rgfInOut is VarRef ? "uint*" : IntPtr
+    rgfInOutMarshal := rgfInOut == 0 ? IntPtr : "uint*"
 
     result := DllCall("SHELL32.dll\SHILCreateFromPath", "ptr", pszPath, "ptr*", &ppidl := 0, rgfInOutMarshal, rgfInOut, "HRESULT")
     return ppidl
@@ -2782,7 +2832,9 @@ export SHILCreateFromPath(pszPath, rgfInOut) {
  * @since windows5.1.2600
  */
 export ILAppendID(pidl, pmkid, fAppend) {
-    result := DllCall("SHELL32.dll\ILAppendID", ITEMIDLIST.Ptr, pidl, SHITEMID.Ptr, pmkid, BOOL, fAppend, ITEMIDLIST.Ptr)
+    pidlMarshal := pidl == 0 ? IntPtr : ITEMIDLIST.Ptr
+
+    result := DllCall("SHELL32.dll\ILAppendID", pidlMarshal, pidl, SHITEMID.Ptr, pmkid, BOOL, fAppend, ITEMIDLIST.Ptr)
     return result
 }
 
@@ -2968,7 +3020,9 @@ export SHGetPathFromIDListW(pidl, pszPath) {
 export SHCreateDirectory(_hwnd, pszPath) {
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    result := DllCall("SHELL32.dll\SHCreateDirectory", HWND, _hwnd, "ptr", pszPath, Int32)
+    _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+
+    result := DllCall("SHELL32.dll\SHCreateDirectory", _hwndMarshal, _hwnd, "ptr", pszPath, Int32)
     return result
 }
 
@@ -3080,7 +3134,10 @@ export SHCreateDirectory(_hwnd, pszPath) {
 export SHCreateDirectoryExA(_hwnd, pszPath, psa) {
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    result := DllCall("SHELL32.dll\SHCreateDirectoryExA", HWND, _hwnd, "ptr", pszPath, SECURITY_ATTRIBUTES.Ptr, psa, Int32)
+    _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+    psaMarshal := psa == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+
+    result := DllCall("SHELL32.dll\SHCreateDirectoryExA", _hwndMarshal, _hwnd, "ptr", pszPath, psaMarshal, psa, Int32)
     return result
 }
 
@@ -3192,7 +3249,10 @@ export SHCreateDirectoryExA(_hwnd, pszPath, psa) {
 export SHCreateDirectoryExW(_hwnd, pszPath, psa) {
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    result := DllCall("SHELL32.dll\SHCreateDirectoryExW", HWND, _hwnd, "ptr", pszPath, SECURITY_ATTRIBUTES.Ptr, psa, Int32)
+    _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+    psaMarshal := psa == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+
+    result := DllCall("SHELL32.dll\SHCreateDirectoryExW", _hwndMarshal, _hwnd, "ptr", pszPath, psaMarshal, psa, Int32)
     return result
 }
 
@@ -3219,7 +3279,8 @@ export SHCreateDirectoryExW(_hwnd, pszPath, psa) {
  * @since windows5.1.2600
  */
 export SHOpenFolderAndSelectItems(pidlFolder, cidl, apidl, dwFlags) {
-    apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
+    apidlMarshal := apidl is VarRef ? "ptr*" : IntPtr
+    apidlMarshal := apidl == 0 ? IntPtr : "ptr*"
 
     result := DllCall("SHELL32.dll\SHOpenFolderAndSelectItems", ITEMIDLIST.Ptr, pidlFolder, UInt32, cidl, apidlMarshal, apidl, UInt32, dwFlags, "HRESULT")
     return result
@@ -3291,7 +3352,10 @@ export SHOpenFolderAndSelectItems(pidlFolder, cidl, apidl, dwFlags) {
  * @since windows5.1.2600
  */
 export SHCreateShellItem(pidlParent, psfParent, pidl) {
-    result := DllCall("SHELL32.dll\SHCreateShellItem", ITEMIDLIST.Ptr, pidlParent, "ptr", psfParent, ITEMIDLIST.Ptr, pidl, "ptr*", &ppsi := 0, "HRESULT")
+    pidlParentMarshal := pidlParent == 0 ? IntPtr : ITEMIDLIST.Ptr
+    psfParentMarshal := psfParent == 0 ? IntPtr : "ptr"
+
+    result := DllCall("SHELL32.dll\SHCreateShellItem", pidlParentMarshal, pidlParent, psfParentMarshal, psfParent, ITEMIDLIST.Ptr, pidl, "ptr*", &ppsi := 0, "HRESULT")
     return IShellItem(ppsi)
 }
 
@@ -3524,7 +3588,9 @@ export SHGetFolderPathA(csidl, hToken, dwFlags, pszPath) {
 
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    result := DllCall("SHELL32.dll\SHGetFolderPathA", HWND, _hwnd, Int32, csidl, HANDLE, hToken, UInt32, dwFlags, "ptr", pszPath, "HRESULT")
+    hTokenMarshal := hToken == 0 ? IntPtr : HANDLE
+
+    result := DllCall("SHELL32.dll\SHGetFolderPathA", HWND, _hwnd, Int32, csidl, hTokenMarshal, hToken, UInt32, dwFlags, "ptr", pszPath, "HRESULT")
     return result
 }
 
@@ -3631,7 +3697,9 @@ export SHGetFolderPathW(csidl, hToken, dwFlags, pszPath) {
 
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    result := DllCall("SHELL32.dll\SHGetFolderPathW", HWND, _hwnd, Int32, csidl, HANDLE, hToken, UInt32, dwFlags, "ptr", pszPath, "HRESULT")
+    hTokenMarshal := hToken == 0 ? IntPtr : HANDLE
+
+    result := DllCall("SHELL32.dll\SHGetFolderPathW", HWND, _hwnd, Int32, csidl, hTokenMarshal, hToken, UInt32, dwFlags, "ptr", pszPath, "HRESULT")
     return result
 }
 
@@ -3663,7 +3731,9 @@ export SHGetFolderPathW(csidl, hToken, dwFlags, pszPath) {
 export SHGetFolderLocation(csidl, hToken, dwFlags) {
     static _hwnd := 0 ;Reserved parameters must always be NULL
 
-    result := DllCall("SHELL32.dll\SHGetFolderLocation", HWND, _hwnd, Int32, csidl, HANDLE, hToken, UInt32, dwFlags, "ptr*", &ppidl := 0, "HRESULT")
+    hTokenMarshal := hToken == 0 ? IntPtr : HANDLE
+
+    result := DllCall("SHELL32.dll\SHGetFolderLocation", HWND, _hwnd, Int32, csidl, hTokenMarshal, hToken, UInt32, dwFlags, "ptr*", &ppidl := 0, "HRESULT")
     return ppidl
 }
 
@@ -3745,7 +3815,9 @@ export SHGetFolderLocation(csidl, hToken, dwFlags) {
 export SHSetFolderPathA(csidl, hToken, dwFlags, pszPath) {
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    result := DllCall("SHELL32.dll\SHSetFolderPathA", Int32, csidl, HANDLE, hToken, UInt32, dwFlags, "ptr", pszPath, "HRESULT")
+    hTokenMarshal := hToken == 0 ? IntPtr : HANDLE
+
+    result := DllCall("SHELL32.dll\SHSetFolderPathA", Int32, csidl, hTokenMarshal, hToken, UInt32, dwFlags, "ptr", pszPath, "HRESULT")
     return result
 }
 
@@ -3827,7 +3899,9 @@ export SHSetFolderPathA(csidl, hToken, dwFlags, pszPath) {
 export SHSetFolderPathW(csidl, hToken, dwFlags, pszPath) {
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    result := DllCall("SHELL32.dll\SHSetFolderPathW", Int32, csidl, HANDLE, hToken, UInt32, dwFlags, "ptr", pszPath, "HRESULT")
+    hTokenMarshal := hToken == 0 ? IntPtr : HANDLE
+
+    result := DllCall("SHELL32.dll\SHSetFolderPathW", Int32, csidl, hTokenMarshal, hToken, UInt32, dwFlags, "ptr", pszPath, "HRESULT")
     return result
 }
 
@@ -3863,7 +3937,10 @@ export SHGetFolderPathAndSubDirA(csidl, hToken, dwFlags, pszSubDir, pszPath) {
     pszSubDir := pszSubDir is String ? StrPtr(pszSubDir) : pszSubDir
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    result := DllCall("SHELL32.dll\SHGetFolderPathAndSubDirA", HWND, _hwnd, Int32, csidl, HANDLE, hToken, UInt32, dwFlags, "ptr", pszSubDir, "ptr", pszPath, "HRESULT")
+    hTokenMarshal := hToken == 0 ? IntPtr : HANDLE
+    pszSubDirMarshal := pszSubDir == 0 ? IntPtr : PSTR
+
+    result := DllCall("SHELL32.dll\SHGetFolderPathAndSubDirA", HWND, _hwnd, Int32, csidl, hTokenMarshal, hToken, UInt32, dwFlags, pszSubDirMarshal, pszSubDir, "ptr", pszPath, "HRESULT")
     return result
 }
 
@@ -3899,7 +3976,10 @@ export SHGetFolderPathAndSubDirW(csidl, hToken, dwFlags, pszSubDir, pszPath) {
     pszSubDir := pszSubDir is String ? StrPtr(pszSubDir) : pszSubDir
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    result := DllCall("SHELL32.dll\SHGetFolderPathAndSubDirW", HWND, _hwnd, Int32, csidl, HANDLE, hToken, UInt32, dwFlags, "ptr", pszSubDir, "ptr", pszPath, "HRESULT")
+    hTokenMarshal := hToken == 0 ? IntPtr : HANDLE
+    pszSubDirMarshal := pszSubDir == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHELL32.dll\SHGetFolderPathAndSubDirW", HWND, _hwnd, Int32, csidl, hTokenMarshal, hToken, UInt32, dwFlags, pszSubDirMarshal, pszSubDir, "ptr", pszPath, "HRESULT")
     return result
 }
 
@@ -3931,7 +4011,9 @@ export SHGetFolderPathAndSubDirW(csidl, hToken, dwFlags, pszSubDir, pszPath) {
  * @since windows6.0.6000
  */
 export SHGetKnownFolderIDList(rfid, dwFlags, hToken) {
-    result := DllCall("SHELL32.dll\SHGetKnownFolderIDList", Guid.Ptr, rfid, UInt32, dwFlags, HANDLE, hToken, "ptr*", &ppidl := 0, "HRESULT")
+    hTokenMarshal := hToken == 0 ? IntPtr : HANDLE
+
+    result := DllCall("SHELL32.dll\SHGetKnownFolderIDList", Guid.Ptr, rfid, UInt32, dwFlags, hTokenMarshal, hToken, "ptr*", &ppidl := 0, "HRESULT")
     return ppidl
 }
 
@@ -3992,7 +4074,9 @@ export SHGetKnownFolderIDList(rfid, dwFlags, hToken) {
 export SHSetKnownFolderPath(rfid, dwFlags, hToken, pszPath) {
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    result := DllCall("SHELL32.dll\SHSetKnownFolderPath", Guid.Ptr, rfid, UInt32, dwFlags, HANDLE, hToken, "ptr", pszPath, "HRESULT")
+    hTokenMarshal := hToken == 0 ? IntPtr : HANDLE
+
+    result := DllCall("SHELL32.dll\SHSetKnownFolderPath", Guid.Ptr, rfid, UInt32, dwFlags, hTokenMarshal, hToken, "ptr", pszPath, "HRESULT")
     return result
 }
 
@@ -4022,7 +4106,9 @@ export SHSetKnownFolderPath(rfid, dwFlags, hToken, pszPath) {
  * @since windows6.0.6000
  */
 export SHGetKnownFolderPath(rfid, dwFlags, hToken) {
-    result := DllCall("SHELL32.dll\SHGetKnownFolderPath", Guid.Ptr, rfid, UInt32, dwFlags, HANDLE, hToken, PWSTR.Ptr, &ppszPath := 0, Int32)
+    hTokenMarshal := hToken == 0 ? IntPtr : HANDLE
+
+    result := DllCall("SHELL32.dll\SHGetKnownFolderPath", Guid.Ptr, rfid, UInt32, dwFlags, hTokenMarshal, hToken, PWSTR.Ptr, &ppszPath := 0, Int32)
     if(result != 0) {
         CoTaskMemFree(ppszPath.value)
         throw OSError()
@@ -4066,7 +4152,9 @@ export SHGetKnownFolderPath(rfid, dwFlags, hToken) {
  * @since windows6.1
  */
 export SHGetKnownFolderItem(rfid, flags, hToken, riid) {
-    result := DllCall("SHELL32.dll\SHGetKnownFolderItem", Guid.Ptr, rfid, KNOWN_FOLDER_FLAG, flags, HANDLE, hToken, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+    hTokenMarshal := hToken == 0 ? IntPtr : HANDLE
+
+    result := DllCall("SHELL32.dll\SHGetKnownFolderItem", Guid.Ptr, rfid, KNOWN_FOLDER_FLAG, flags, hTokenMarshal, hToken, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
     return ppv
 }
 
@@ -4258,8 +4346,10 @@ export SHGetDesktopFolder() {
  * @since windows5.1.2600
  */
 export SHChangeNotify(wEventId, uFlags, dwItem1, dwItem2) {
-    dwItem1Marshal := dwItem1 is VarRef ? "ptr" : "ptr"
-    dwItem2Marshal := dwItem2 is VarRef ? "ptr" : "ptr"
+    dwItem1Marshal := dwItem1 is VarRef ? "ptr" : IntPtr
+    dwItem1Marshal := dwItem1 == 0 ? IntPtr : "ptr"
+    dwItem2Marshal := dwItem2 is VarRef ? "ptr" : IntPtr
+    dwItem2Marshal := dwItem2 == 0 ? IntPtr : "ptr"
 
     DllCall("SHELL32.dll\SHChangeNotify", Int32, wEventId, SHCNF_FLAGS, uFlags, dwItem1Marshal, dwItem1, dwItem2Marshal, dwItem2)
 }
@@ -4382,7 +4472,8 @@ export SHChangeNotify(wEventId, uFlags, dwItem1, dwItem2) {
  * @since windows5.1.2600
  */
 export SHAddToRecentDocs(uFlags, pv) {
-    pvMarshal := pv is VarRef ? "ptr" : "ptr"
+    pvMarshal := pv is VarRef ? "ptr" : IntPtr
+    pvMarshal := pv == 0 ? IntPtr : "ptr"
 
     DllCall("SHELL32.dll\SHAddToRecentDocs", UInt32, uFlags, pvMarshal, pv)
 }
@@ -4561,8 +4652,10 @@ export SHChangeNotifyDeregister(ulID) {
  * @since windows5.0
  */
 export SHChangeNotification_Lock(_hChange, dwProcId, pppidl, plEvent) {
-    pppidlMarshal := pppidl is VarRef ? "ptr*" : "ptr"
-    plEventMarshal := plEvent is VarRef ? "int*" : "ptr"
+    pppidlMarshal := pppidl is VarRef ? "ptr*" : IntPtr
+    pppidlMarshal := pppidl == 0 ? IntPtr : "ptr*"
+    plEventMarshal := plEvent is VarRef ? "int*" : IntPtr
+    plEventMarshal := plEvent == 0 ? IntPtr : "int*"
 
     result := DllCall("SHELL32.dll\SHChangeNotification_Lock", HANDLE, _hChange, UInt32, dwProcId, pppidlMarshal, pppidl, plEventMarshal, plEvent, HANDLE.OwnedWith(SHChangeNotification_Unlock))
     return result
@@ -4720,7 +4813,10 @@ export SHGetDataFromIDListW(psf, pidl, nFormat, pv, cb) {
 export RestartDialog(_hwnd, pszPrompt, dwReturn) {
     pszPrompt := pszPrompt is String ? StrPtr(pszPrompt) : pszPrompt
 
-    result := DllCall("SHELL32.dll\RestartDialog", HWND, _hwnd, "ptr", pszPrompt, UInt32, dwReturn, Int32)
+    _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+    pszPromptMarshal := pszPrompt == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHELL32.dll\RestartDialog", _hwndMarshal, _hwnd, pszPromptMarshal, pszPrompt, UInt32, dwReturn, Int32)
     return result
 }
 
@@ -4751,7 +4847,10 @@ export RestartDialog(_hwnd, pszPrompt, dwReturn) {
 export RestartDialogEx(_hwnd, pszPrompt, dwReturn, dwReasonCode) {
     pszPrompt := pszPrompt is String ? StrPtr(pszPrompt) : pszPrompt
 
-    result := DllCall("SHELL32.dll\RestartDialogEx", HWND, _hwnd, "ptr", pszPrompt, UInt32, dwReturn, UInt32, dwReasonCode, Int32)
+    _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+    pszPromptMarshal := pszPrompt == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHELL32.dll\RestartDialogEx", _hwndMarshal, _hwnd, pszPromptMarshal, pszPrompt, UInt32, dwReturn, UInt32, dwReasonCode, Int32)
     return result
 }
 
@@ -4780,7 +4879,11 @@ export RestartDialogEx(_hwnd, pszPrompt, dwReturn, dwReasonCode) {
 export SHCoCreateInstance(pszCLSID, pclsid, pUnkOuter, riid) {
     pszCLSID := pszCLSID is String ? StrPtr(pszCLSID) : pszCLSID
 
-    result := DllCall("SHELL32.dll\SHCoCreateInstance", "ptr", pszCLSID, Guid.Ptr, pclsid, "ptr", pUnkOuter, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+    pszCLSIDMarshal := pszCLSID == 0 ? IntPtr : PWSTR
+    pclsidMarshal := pclsid == 0 ? IntPtr : Guid.Ptr
+    pUnkOuterMarshal := pUnkOuter == 0 ? IntPtr : "ptr"
+
+    result := DllCall("SHELL32.dll\SHCoCreateInstance", pszCLSIDMarshal, pszCLSID, pclsidMarshal, pclsid, pUnkOuterMarshal, pUnkOuter, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
     return ppv
 }
 
@@ -4816,9 +4919,12 @@ export SHCoCreateInstance(pszCLSID, pclsid, pUnkOuter, riid) {
  * @since windows6.0.6000
  */
 export SHCreateDataObject(pidlFolder, cidl, apidl, pdtInner, riid) {
-    apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
+    pidlFolderMarshal := pidlFolder == 0 ? IntPtr : ITEMIDLIST.Ptr
+    apidlMarshal := apidl is VarRef ? "ptr*" : IntPtr
+    apidlMarshal := apidl == 0 ? IntPtr : "ptr*"
+    pdtInnerMarshal := pdtInner == 0 ? IntPtr : "ptr"
 
-    result := DllCall("SHELL32.dll\SHCreateDataObject", ITEMIDLIST.Ptr, pidlFolder, UInt32, cidl, apidlMarshal, apidl, "ptr", pdtInner, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+    result := DllCall("SHELL32.dll\SHCreateDataObject", pidlFolderMarshal, pidlFolder, UInt32, cidl, apidlMarshal, apidl, pdtInnerMarshal, pdtInner, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
     return ppv
 }
 
@@ -4842,7 +4948,8 @@ export SHCreateDataObject(pidlFolder, cidl, apidl, pdtInner, riid) {
  * @since windows5.0
  */
 export CIDLData_CreateFromIDArray(pidlFolder, cidl, apidl) {
-    apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
+    apidlMarshal := apidl is VarRef ? "ptr*" : IntPtr
+    apidlMarshal := apidl == 0 ? IntPtr : "ptr*"
 
     result := DllCall("SHELL32.dll\CIDLData_CreateFromIDArray", ITEMIDLIST.Ptr, pidlFolder, UInt32, cidl, apidlMarshal, apidl, "ptr*", &ppdtobj := 0, "HRESULT")
     return IDataObject(ppdtobj)
@@ -4894,7 +5001,10 @@ export SHCreateStdEnumFmtEtc(cfmt, afmt) {
  * @since windows5.1.2600
  */
 export SHDoDragDrop(_hwnd, pdata, pdsrc, dwEffect) {
-    result := DllCall("SHELL32.dll\SHDoDragDrop", HWND, _hwnd, "ptr", pdata, "ptr", pdsrc, DROPEFFECT, dwEffect, "uint*", &pdwEffect := 0, "HRESULT")
+    _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+    pdsrcMarshal := pdsrc == 0 ? IntPtr : "ptr"
+
+    result := DllCall("SHELL32.dll\SHDoDragDrop", _hwndMarshal, _hwnd, "ptr", pdata, pdsrcMarshal, pdsrc, DROPEFFECT, dwEffect, "uint*", &pdwEffect := 0, "HRESULT")
     return pdwEffect
 }
 
@@ -4956,7 +5066,9 @@ export DAD_DragEnterEx(hwndTarget, ptStart) {
  * @since windows5.0
  */
 export DAD_DragEnterEx2(hwndTarget, ptStart, pdtObject) {
-    result := DllCall("SHELL32.dll\DAD_DragEnterEx2", HWND, hwndTarget, POINT, ptStart, "ptr", pdtObject, BOOL)
+    pdtObjectMarshal := pdtObject == 0 ? IntPtr : "ptr"
+
+    result := DllCall("SHELL32.dll\DAD_DragEnterEx2", HWND, hwndTarget, POINT, ptStart, pdtObjectMarshal, pdtObject, BOOL)
     return result
 }
 
@@ -5097,7 +5209,10 @@ export PathMakeUniqueName(pszUniqueName, cchMax, pszTemplate, pszLongPlate, pszD
     pszLongPlate := pszLongPlate is String ? StrPtr(pszLongPlate) : pszLongPlate
     pszDir := pszDir is String ? StrPtr(pszDir) : pszDir
 
-    result := DllCall("SHELL32.dll\PathMakeUniqueName", "ptr", pszUniqueName, UInt32, cchMax, "ptr", pszTemplate, "ptr", pszLongPlate, "ptr", pszDir, BOOL)
+    pszLongPlateMarshal := pszLongPlate == 0 ? IntPtr : PWSTR
+    pszDirMarshal := pszDir == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHELL32.dll\PathMakeUniqueName", "ptr", pszUniqueName, UInt32, cchMax, "ptr", pszTemplate, pszLongPlateMarshal, pszLongPlate, pszDirMarshal, pszDir, BOOL)
     return result
 }
 
@@ -5225,7 +5340,9 @@ export PathCleanupSpec(pszDir, pszSpec) {
     pszDir := pszDir is String ? StrPtr(pszDir) : pszDir
     pszSpec := pszSpec is String ? StrPtr(pszSpec) : pszSpec
 
-    result := DllCall("SHELL32.dll\PathCleanupSpec", "ptr", pszDir, "ptr", pszSpec, Int32)
+    pszDirMarshal := pszDir == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHELL32.dll\PathCleanupSpec", pszDirMarshal, pszDir, "ptr", pszSpec, Int32)
     return result
 }
 
@@ -5253,7 +5370,8 @@ export PathCleanupSpec(pszDir, pszSpec) {
 export PathResolve(pszPath, dirs, fFlags) {
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    dirsMarshal := dirs is VarRef ? "ptr*" : "ptr"
+    dirsMarshal := dirs is VarRef ? "ptr*" : IntPtr
+    dirsMarshal := dirs == 0 ? IntPtr : "ptr*"
 
     A_LastError := 0
 
@@ -5301,7 +5419,12 @@ export GetFileNameFromBrowse(_hwnd, pszFilePath, cchFilePath, pszWorkingDir, psz
     pszFilters := pszFilters is String ? StrPtr(pszFilters) : pszFilters
     pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
 
-    result := DllCall("SHELL32.dll\GetFileNameFromBrowse", HWND, _hwnd, "ptr", pszFilePath, UInt32, cchFilePath, "ptr", pszWorkingDir, "ptr", pszDefExt, "ptr", pszFilters, "ptr", pszTitle, BOOL)
+    _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+    pszWorkingDirMarshal := pszWorkingDir == 0 ? IntPtr : PWSTR
+    pszFiltersMarshal := pszFilters == 0 ? IntPtr : PWSTR
+    pszTitleMarshal := pszTitle == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHELL32.dll\GetFileNameFromBrowse", _hwndMarshal, _hwnd, "ptr", pszFilePath, UInt32, cchFilePath, pszWorkingDirMarshal, pszWorkingDir, "ptr", pszDefExt, pszFiltersMarshal, pszFilters, pszTitleMarshal, pszTitle, BOOL)
     return result
 }
 
@@ -5621,7 +5744,10 @@ export SHObjectProperties(_hwnd, shopObjectType, pszObjectName, pszPropertyPage)
     pszObjectName := pszObjectName is String ? StrPtr(pszObjectName) : pszObjectName
     pszPropertyPage := pszPropertyPage is String ? StrPtr(pszPropertyPage) : pszPropertyPage
 
-    result := DllCall("SHELL32.dll\SHObjectProperties", HWND, _hwnd, UInt32, shopObjectType, "ptr", pszObjectName, "ptr", pszPropertyPage, BOOL)
+    _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+    pszPropertyPageMarshal := pszPropertyPage == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHELL32.dll\SHObjectProperties", _hwndMarshal, _hwnd, UInt32, shopObjectType, "ptr", pszObjectName, pszPropertyPageMarshal, pszPropertyPage, BOOL)
     return result
 }
 
@@ -5776,7 +5902,10 @@ export OpenRegStream(_hkey, pszSubkey, pszValue, grfMode) {
     pszSubkey := pszSubkey is String ? StrPtr(pszSubkey) : pszSubkey
     pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-    result := DllCall("SHELL32.dll\OpenRegStream", HKEY, _hkey, "ptr", pszSubkey, "ptr", pszValue, UInt32, grfMode, IStream)
+    pszSubkeyMarshal := pszSubkey == 0 ? IntPtr : PWSTR
+    pszValueMarshal := pszValue == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHELL32.dll\OpenRegStream", HKEY, _hkey, pszSubkeyMarshal, pszSubkey, pszValueMarshal, pszValue, UInt32, grfMode, IStream)
     return result
 }
 
@@ -5797,7 +5926,10 @@ export OpenRegStream(_hkey, pszSubkey, pszValue, grfMode) {
  * @since windows5.1.2600
  */
 export SHFindFiles(pidlFolder, pidlSaveFile) {
-    result := DllCall("SHELL32.dll\SHFindFiles", ITEMIDLIST.Ptr, pidlFolder, ITEMIDLIST.Ptr, pidlSaveFile, BOOL)
+    pidlFolderMarshal := pidlFolder == 0 ? IntPtr : ITEMIDLIST.Ptr
+    pidlSaveFileMarshal := pidlSaveFile == 0 ? IntPtr : ITEMIDLIST.Ptr
+
+    result := DllCall("SHELL32.dll\SHFindFiles", pidlFolderMarshal, pidlFolder, pidlSaveFileMarshal, pidlSaveFile, BOOL)
     return result
 }
 
@@ -5844,7 +5976,10 @@ export PathYetAnotherMakeUniqueName(pszUniqueName, pszPath, pszShort, pszFileSpe
     pszShort := pszShort is String ? StrPtr(pszShort) : pszShort
     pszFileSpec := pszFileSpec is String ? StrPtr(pszFileSpec) : pszFileSpec
 
-    result := DllCall("SHELL32.dll\PathYetAnotherMakeUniqueName", "ptr", pszUniqueName, "ptr", pszPath, "ptr", pszShort, "ptr", pszFileSpec, BOOL)
+    pszShortMarshal := pszShort == 0 ? IntPtr : PWSTR
+    pszFileSpecMarshal := pszFileSpec == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHELL32.dll\PathYetAnotherMakeUniqueName", "ptr", pszUniqueName, "ptr", pszPath, pszShortMarshal, pszShort, pszFileSpecMarshal, pszFileSpec, BOOL)
     return result
 }
 
@@ -5975,7 +6110,10 @@ export AssocGetDetailsOfPropKey(psf, pidl, pkey, pv) {
 export SHStartNetConnectionDialogW(_hwnd, pszRemoteName, dwType) {
     pszRemoteName := pszRemoteName is String ? StrPtr(pszRemoteName) : pszRemoteName
 
-    result := DllCall("SHELL32.dll\SHStartNetConnectionDialogW", HWND, _hwnd, "ptr", pszRemoteName, UInt32, dwType, "HRESULT")
+    _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+    pszRemoteNameMarshal := pszRemoteName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHELL32.dll\SHStartNetConnectionDialogW", _hwndMarshal, _hwnd, pszRemoteNameMarshal, pszRemoteName, UInt32, dwType, "HRESULT")
     return result
 }
 
@@ -6056,7 +6194,10 @@ export SHStartNetConnectionDialogW(_hwnd, pszRemoteName, dwType) {
 export SHDefExtractIconA(pszIconFile, iIndex, uFlags, phiconLarge, phiconSmall, nIconSize) {
     pszIconFile := pszIconFile is String ? StrPtr(pszIconFile) : pszIconFile
 
-    result := DllCall("SHELL32.dll\SHDefExtractIconA", "ptr", pszIconFile, Int32, iIndex, UInt32, uFlags, HICON.Ptr, phiconLarge, HICON.Ptr, phiconSmall, UInt32, nIconSize, Int32)
+    phiconLargeMarshal := phiconLarge == 0 ? IntPtr : HICON.Ptr
+    phiconSmallMarshal := phiconSmall == 0 ? IntPtr : HICON.Ptr
+
+    result := DllCall("SHELL32.dll\SHDefExtractIconA", "ptr", pszIconFile, Int32, iIndex, UInt32, uFlags, phiconLargeMarshal, phiconLarge, phiconSmallMarshal, phiconSmall, UInt32, nIconSize, Int32)
     return result
 }
 
@@ -6137,7 +6278,10 @@ export SHDefExtractIconA(pszIconFile, iIndex, uFlags, phiconLarge, phiconSmall, 
 export SHDefExtractIconW(pszIconFile, iIndex, uFlags, phiconLarge, phiconSmall, nIconSize) {
     pszIconFile := pszIconFile is String ? StrPtr(pszIconFile) : pszIconFile
 
-    result := DllCall("SHELL32.dll\SHDefExtractIconW", "ptr", pszIconFile, Int32, iIndex, UInt32, uFlags, HICON.Ptr, phiconLarge, HICON.Ptr, phiconSmall, UInt32, nIconSize, Int32)
+    phiconLargeMarshal := phiconLarge == 0 ? IntPtr : HICON.Ptr
+    phiconSmallMarshal := phiconSmall == 0 ? IntPtr : HICON.Ptr
+
+    result := DllCall("SHELL32.dll\SHDefExtractIconW", "ptr", pszIconFile, Int32, iIndex, UInt32, uFlags, phiconLargeMarshal, phiconLarge, phiconSmallMarshal, phiconSmall, UInt32, nIconSize, Int32)
     return result
 }
 
@@ -6160,7 +6304,9 @@ export SHDefExtractIconW(pszIconFile, iIndex, uFlags, phiconLarge, phiconSmall, 
  * @since windows6.0.6000
  */
 export SHOpenWithDialog(hwndParent, poainfo) {
-    result := DllCall("SHELL32.dll\SHOpenWithDialog", HWND, hwndParent, OPENASINFO.Ptr, poainfo, "HRESULT")
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+
+    result := DllCall("SHELL32.dll\SHOpenWithDialog", hwndParentMarshal, hwndParent, OPENASINFO.Ptr, poainfo, "HRESULT")
     return result
 }
 
@@ -6182,7 +6328,10 @@ export SHOpenWithDialog(hwndParent, poainfo) {
  * @since windows5.1.2600
  */
 export Shell_GetImageLists(phiml, phimlSmall) {
-    result := DllCall("SHELL32.dll\Shell_GetImageLists", HIMAGELIST.Ptr, phiml, HIMAGELIST.Ptr, phimlSmall, BOOL)
+    phimlMarshal := phiml == 0 ? IntPtr : HIMAGELIST.Ptr
+    phimlSmallMarshal := phimlSmall == 0 ? IntPtr : HIMAGELIST.Ptr
+
+    result := DllCall("SHELL32.dll\Shell_GetImageLists", phimlMarshal, phiml, phimlSmallMarshal, phimlSmall, BOOL)
     return result
 }
 
@@ -6298,7 +6447,9 @@ export Shell_GetCachedImageIndexW(pszIconPath, iIconIndex, uIconFlags) {
 export SHValidateUNC(hwndOwner, pszFile, fConnect) {
     pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-    result := DllCall("SHELL32.dll\SHValidateUNC", HWND, hwndOwner, "ptr", pszFile, UInt32, fConnect, BOOL)
+    hwndOwnerMarshal := hwndOwner == 0 ? IntPtr : HWND
+
+    result := DllCall("SHELL32.dll\SHValidateUNC", hwndOwnerMarshal, hwndOwner, "ptr", pszFile, UInt32, fConnect, BOOL)
     return result
 }
 
@@ -6322,7 +6473,9 @@ export SHValidateUNC(hwndOwner, pszFile, fConnect) {
  * @since windows5.1.2600
  */
 export SHSetInstanceExplorer(punk) {
-    DllCall("SHELL32.dll\SHSetInstanceExplorer", "ptr", punk)
+    punkMarshal := punk == 0 ? IntPtr : "ptr"
+
+    DllCall("SHELL32.dll\SHSetInstanceExplorer", punkMarshal, punk)
 }
 
 /**
@@ -6497,9 +6650,15 @@ export SHCreateShellFolderView(pcsfv) {
  * @since windows5.0
  */
 export CDefFolderMenu_Create2(pidlFolder, _hwnd, cidl, apidl, psf, _pfn, nKeys, ahkeys) {
-    apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
+    pidlFolderMarshal := pidlFolder == 0 ? IntPtr : ITEMIDLIST.Ptr
+    _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+    apidlMarshal := apidl is VarRef ? "ptr*" : IntPtr
+    apidlMarshal := apidl == 0 ? IntPtr : "ptr*"
+    psfMarshal := psf == 0 ? IntPtr : "ptr"
+    _pfnMarshal := _pfn == 0 ? IntPtr : LPFNDFMCALLBACK
+    ahkeysMarshal := ahkeys == 0 ? IntPtr : HKEY.Ptr
 
-    result := DllCall("SHELL32.dll\CDefFolderMenu_Create2", ITEMIDLIST.Ptr, pidlFolder, HWND, _hwnd, UInt32, cidl, apidlMarshal, apidl, "ptr", psf, LPFNDFMCALLBACK, _pfn, UInt32, nKeys, HKEY.Ptr, ahkeys, "ptr*", &ppcm := 0, "HRESULT")
+    result := DllCall("SHELL32.dll\CDefFolderMenu_Create2", pidlFolderMarshal, pidlFolder, _hwndMarshal, _hwnd, UInt32, cidl, apidlMarshal, apidl, psfMarshal, psf, _pfnMarshal, _pfn, UInt32, nKeys, ahkeysMarshal, ahkeys, "ptr*", &ppcm := 0, "HRESULT")
     return IContextMenu(ppcm)
 }
 
@@ -6547,7 +6706,9 @@ export SHCreateDefaultContextMenu(pdcm, riid) {
  * @since windows5.1.2600
  */
 export SHFind_InitMenuPopup(_hmenu, hwndOwner, idCmdFirst, idCmdLast) {
-    result := DllCall("SHELL32.dll\SHFind_InitMenuPopup", HMENU, _hmenu, HWND, hwndOwner, UInt32, idCmdFirst, UInt32, idCmdLast, IContextMenu)
+    hwndOwnerMarshal := hwndOwner == 0 ? IntPtr : HWND
+
+    result := DllCall("SHELL32.dll\SHFind_InitMenuPopup", HMENU, _hmenu, hwndOwnerMarshal, hwndOwner, UInt32, idCmdFirst, UInt32, idCmdLast, IContextMenu)
     return result
 }
 
@@ -6587,7 +6748,9 @@ export SHCreateShellFolderViewEx(pcsfv) {
  * @since windows5.1.2600
  */
 export SHGetSetSettings(lpss, dwMask, bSet) {
-    DllCall("SHELL32.dll\SHGetSetSettings", SHELLSTATEA.Ptr, lpss, SSF_MASK, dwMask, BOOL, bSet)
+    lpssMarshal := lpss == 0 ? IntPtr : SHELLSTATEA.Ptr
+
+    DllCall("SHELL32.dll\SHGetSetSettings", lpssMarshal, lpss, SSF_MASK, dwMask, BOOL, bSet)
 }
 
 /**
@@ -6630,8 +6793,9 @@ export SHGetSettings(psfs, dwMask) {
  * @since windows5.0
  */
 export SHBindToParent(pidl, riid, ppv, ppidlLast) {
-    ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-    ppidlLastMarshal := ppidlLast is VarRef ? "ptr*" : "ptr"
+    ppvMarshal := ppv is VarRef ? "ptr*" : IntPtr
+    ppidlLastMarshal := ppidlLast is VarRef ? "ptr*" : IntPtr
+    ppidlLastMarshal := ppidlLast == 0 ? IntPtr : "ptr*"
 
     result := DllCall("SHELL32.dll\SHBindToParent", ITEMIDLIST.Ptr, pidl, Guid.Ptr, riid, ppvMarshal, ppv, ppidlLastMarshal, ppidlLast, "HRESULT")
     return result
@@ -6664,10 +6828,12 @@ export SHBindToParent(pidl, riid, ppv, ppidlLast) {
  * @since windows6.0.6000
  */
 export SHBindToFolderIDListParent(psfRoot, pidl, riid, ppv, ppidlLast) {
-    ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-    ppidlLastMarshal := ppidlLast is VarRef ? "ptr*" : "ptr"
+    psfRootMarshal := psfRoot == 0 ? IntPtr : "ptr"
+    ppvMarshal := ppv is VarRef ? "ptr*" : IntPtr
+    ppidlLastMarshal := ppidlLast is VarRef ? "ptr*" : IntPtr
+    ppidlLastMarshal := ppidlLast == 0 ? IntPtr : "ptr*"
 
-    result := DllCall("SHELL32.dll\SHBindToFolderIDListParent", "ptr", psfRoot, ITEMIDLIST.Ptr, pidl, Guid.Ptr, riid, ppvMarshal, ppv, ppidlLastMarshal, ppidlLast, "HRESULT")
+    result := DllCall("SHELL32.dll\SHBindToFolderIDListParent", psfRootMarshal, psfRoot, ITEMIDLIST.Ptr, pidl, Guid.Ptr, riid, ppvMarshal, ppv, ppidlLastMarshal, ppidlLast, "HRESULT")
     return result
 }
 
@@ -6698,10 +6864,13 @@ export SHBindToFolderIDListParent(psfRoot, pidl, riid, ppv, ppidlLast) {
  * @since windows6.0.6000
  */
 export SHBindToFolderIDListParentEx(psfRoot, pidl, ppbc, riid, ppv, ppidlLast) {
-    ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-    ppidlLastMarshal := ppidlLast is VarRef ? "ptr*" : "ptr"
+    psfRootMarshal := psfRoot == 0 ? IntPtr : "ptr"
+    ppbcMarshal := ppbc == 0 ? IntPtr : "ptr"
+    ppvMarshal := ppv is VarRef ? "ptr*" : IntPtr
+    ppidlLastMarshal := ppidlLast is VarRef ? "ptr*" : IntPtr
+    ppidlLastMarshal := ppidlLast == 0 ? IntPtr : "ptr*"
 
-    result := DllCall("SHELL32.dll\SHBindToFolderIDListParentEx", "ptr", psfRoot, ITEMIDLIST.Ptr, pidl, "ptr", ppbc, Guid.Ptr, riid, ppvMarshal, ppv, ppidlLastMarshal, ppidlLast, "HRESULT")
+    result := DllCall("SHELL32.dll\SHBindToFolderIDListParentEx", psfRootMarshal, psfRoot, ITEMIDLIST.Ptr, pidl, ppbcMarshal, ppbc, Guid.Ptr, riid, ppvMarshal, ppv, ppidlLastMarshal, ppidlLast, "HRESULT")
     return result
 }
 
@@ -6730,7 +6899,10 @@ export SHBindToFolderIDListParentEx(psfRoot, pidl, ppbc, riid, ppv, ppidlLast) {
  * @since windows6.0.6000
  */
 export SHBindToObject(psf, pidl, pbc, riid) {
-    result := DllCall("SHELL32.dll\SHBindToObject", "ptr", psf, ITEMIDLIST.Ptr, pidl, "ptr", pbc, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+    psfMarshal := psf == 0 ? IntPtr : "ptr"
+    pbcMarshal := pbc == 0 ? IntPtr : "ptr"
+
+    result := DllCall("SHELL32.dll\SHBindToObject", psfMarshal, psf, ITEMIDLIST.Ptr, pidl, pbcMarshal, pbc, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
     return ppv
 }
 
@@ -6762,10 +6934,12 @@ export SHBindToObject(psf, pidl, pbc, riid) {
 export SHParseDisplayName(pszName, pbc, ppidl, sfgaoIn, psfgaoOut) {
     pszName := pszName is String ? StrPtr(pszName) : pszName
 
-    ppidlMarshal := ppidl is VarRef ? "ptr*" : "ptr"
-    psfgaoOutMarshal := psfgaoOut is VarRef ? "uint*" : "ptr"
+    pbcMarshal := pbc == 0 ? IntPtr : "ptr"
+    ppidlMarshal := ppidl is VarRef ? "ptr*" : IntPtr
+    psfgaoOutMarshal := psfgaoOut is VarRef ? "uint*" : IntPtr
+    psfgaoOutMarshal := psfgaoOut == 0 ? IntPtr : "uint*"
 
-    result := DllCall("SHELL32.dll\SHParseDisplayName", "ptr", pszName, "ptr", pbc, ppidlMarshal, ppidl, UInt32, sfgaoIn, psfgaoOutMarshal, psfgaoOut, "HRESULT")
+    result := DllCall("SHELL32.dll\SHParseDisplayName", "ptr", pszName, pbcMarshal, pbc, ppidlMarshal, ppidl, UInt32, sfgaoIn, psfgaoOutMarshal, psfgaoOut, "HRESULT")
     return result
 }
 
@@ -6798,7 +6972,10 @@ export SHParseDisplayName(pszName, pbc, ppidl, sfgaoIn, psfgaoOut) {
 export SHPathPrepareForWriteA(_hwnd, punkEnableModless, pszPath, dwFlags) {
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    result := DllCall("SHELL32.dll\SHPathPrepareForWriteA", HWND, _hwnd, "ptr", punkEnableModless, "ptr", pszPath, UInt32, dwFlags, "HRESULT")
+    _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+    punkEnableModlessMarshal := punkEnableModless == 0 ? IntPtr : "ptr"
+
+    result := DllCall("SHELL32.dll\SHPathPrepareForWriteA", _hwndMarshal, _hwnd, punkEnableModlessMarshal, punkEnableModless, "ptr", pszPath, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -6831,7 +7008,10 @@ export SHPathPrepareForWriteA(_hwnd, punkEnableModless, pszPath, dwFlags) {
 export SHPathPrepareForWriteW(_hwnd, punkEnableModless, pszPath, dwFlags) {
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    result := DllCall("SHELL32.dll\SHPathPrepareForWriteW", HWND, _hwnd, "ptr", punkEnableModless, "ptr", pszPath, UInt32, dwFlags, "HRESULT")
+    _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+    punkEnableModlessMarshal := punkEnableModless == 0 ? IntPtr : "ptr"
+
+    result := DllCall("SHELL32.dll\SHPathPrepareForWriteW", _hwndMarshal, _hwnd, punkEnableModlessMarshal, punkEnableModless, "ptr", pszPath, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -6928,10 +7108,13 @@ export SHLimitInputEdit(hwndEdit, psf) {
  * @since windows5.1.2600
  */
 export SHGetAttributesFromDataObject(pdo, dwAttributeMask, pdwAttributes, pcItems) {
-    pdwAttributesMarshal := pdwAttributes is VarRef ? "uint*" : "ptr"
-    pcItemsMarshal := pcItems is VarRef ? "uint*" : "ptr"
+    pdoMarshal := pdo == 0 ? IntPtr : "ptr"
+    pdwAttributesMarshal := pdwAttributes is VarRef ? "uint*" : IntPtr
+    pdwAttributesMarshal := pdwAttributes == 0 ? IntPtr : "uint*"
+    pcItemsMarshal := pcItems is VarRef ? "uint*" : IntPtr
+    pcItemsMarshal := pcItems == 0 ? IntPtr : "uint*"
 
-    result := DllCall("SHELL32.dll\SHGetAttributesFromDataObject", "ptr", pdo, UInt32, dwAttributeMask, pdwAttributesMarshal, pdwAttributes, pcItemsMarshal, pcItems, Int32)
+    result := DllCall("SHELL32.dll\SHGetAttributesFromDataObject", pdoMarshal, pdo, UInt32, dwAttributeMask, pdwAttributesMarshal, pdwAttributes, pcItemsMarshal, pcItems, Int32)
     return result
 }
 
@@ -6953,7 +7136,8 @@ export SHGetAttributesFromDataObject(pdo, dwAttributeMask, pdwAttributes, pcItem
  * @since windows5.1.2600
  */
 export SHMapPIDLToSystemImageListIndex(pshf, pidl, piIndexSel) {
-    piIndexSelMarshal := piIndexSel is VarRef ? "int*" : "ptr"
+    piIndexSelMarshal := piIndexSel is VarRef ? "int*" : IntPtr
+    piIndexSelMarshal := piIndexSel == 0 ? IntPtr : "int*"
 
     result := DllCall("SHELL32.dll\SHMapPIDLToSystemImageListIndex", "ptr", pshf, ITEMIDLIST.Ptr, pidl, piIndexSelMarshal, piIndexSel, Int32)
     return result
@@ -7003,9 +7187,11 @@ export SHCLSIDFromString(psz, pclsid) {
 export PickIconDlg(_hwnd, pszIconPath, cchIconPath, piIconIndex) {
     pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
 
-    piIconIndexMarshal := piIconIndex is VarRef ? "int*" : "ptr"
+    _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+    piIconIndexMarshal := piIconIndex is VarRef ? "int*" : IntPtr
+    piIconIndexMarshal := piIconIndex == 0 ? IntPtr : "int*"
 
-    result := DllCall("SHELL32.dll\PickIconDlg", HWND, _hwnd, "ptr", pszIconPath, UInt32, cchIconPath, piIconIndexMarshal, piIconIndex, Int32)
+    result := DllCall("SHELL32.dll\PickIconDlg", _hwndMarshal, _hwnd, "ptr", pszIconPath, UInt32, cchIconPath, piIconIndexMarshal, piIconIndex, Int32)
     return result
 }
 
@@ -7052,7 +7238,6 @@ export SHChangeNotifyRegisterThread(_status) {
 }
 
 /**
- * 
  * @param {PWSTR} psz 
  * @returns {String} Nothing - always returns an empty string
  */
@@ -7161,7 +7346,9 @@ export PathIsSlowW(pszFile, dwAttr) {
 export SHCreatePropSheetExtArray(_hKey, pszSubKey, max_iface) {
     pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
 
-    result := DllCall("SHELL32.dll\SHCreatePropSheetExtArray", HKEY, _hKey, "ptr", pszSubKey, UInt32, max_iface, HPSXA.Owned)
+    pszSubKeyMarshal := pszSubKey == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHELL32.dll\SHCreatePropSheetExtArray", HKEY, _hKey, pszSubKeyMarshal, pszSubKey, UInt32, max_iface, HPSXA.Owned)
     return result
 }
 
@@ -7201,7 +7388,13 @@ export SHOpenPropSheetW(pszCaption, ahkeys, ckeys, pclsidDefault, pdtobj, psb, p
     pszCaption := pszCaption is String ? StrPtr(pszCaption) : pszCaption
     pStartPage := pStartPage is String ? StrPtr(pStartPage) : pStartPage
 
-    result := DllCall("SHELL32.dll\SHOpenPropSheetW", "ptr", pszCaption, HKEY.Ptr, ahkeys, UInt32, ckeys, Guid.Ptr, pclsidDefault, "ptr", pdtobj, "ptr", psb, "ptr", pStartPage, BOOL)
+    pszCaptionMarshal := pszCaption == 0 ? IntPtr : PWSTR
+    ahkeysMarshal := ahkeys == 0 ? IntPtr : HKEY.Ptr
+    pclsidDefaultMarshal := pclsidDefault == 0 ? IntPtr : Guid.Ptr
+    psbMarshal := psb == 0 ? IntPtr : "ptr"
+    pStartPageMarshal := pStartPage == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHELL32.dll\SHOpenPropSheetW", pszCaptionMarshal, pszCaption, ahkeysMarshal, ahkeys, UInt32, ckeys, pclsidDefaultMarshal, pclsidDefault, "ptr", pdtobj, psbMarshal, psb, pStartPageMarshal, pStartPage, BOOL)
     return result
 }
 
@@ -7283,7 +7476,10 @@ export SHOpenPropSheetW(pszCaption, ahkeys, ckeys, pclsidDefault, pdtobj, psb, p
 export SoftwareUpdateMessageBox(_hWnd, pszDistUnit, dwFlags, psdi) {
     pszDistUnit := pszDistUnit is String ? StrPtr(pszDistUnit) : pszDistUnit
 
-    result := DllCall("SHDOCVW.dll\SoftwareUpdateMessageBox", HWND, _hWnd, "ptr", pszDistUnit, UInt32, dwFlags, SOFTDISTINFO.Ptr, psdi, UInt32)
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+    psdiMarshal := psdi == 0 ? IntPtr : SOFTDISTINFO.Ptr
+
+    result := DllCall("SHDOCVW.dll\SoftwareUpdateMessageBox", _hWndMarshal, _hWnd, "ptr", pszDistUnit, UInt32, dwFlags, psdiMarshal, psdi, UInt32)
     return result
 }
 
@@ -7322,7 +7518,6 @@ export SHCreateQueryCancelAutoPlayMoniker() {
 }
 
 /**
- * 
  * @param {PWSTR} pszFilename 
  * @param {Pointer<BOOL>} pfParsePrivacyPreferences 
  * @param {Pointer<BOOL>} pfParsePerSiteRules 
@@ -7331,8 +7526,8 @@ export SHCreateQueryCancelAutoPlayMoniker() {
 export ImportPrivacySettings(pszFilename, pfParsePrivacyPreferences, pfParsePerSiteRules) {
     pszFilename := pszFilename is String ? StrPtr(pszFilename) : pszFilename
 
-    pfParsePrivacyPreferencesMarshal := pfParsePrivacyPreferences is VarRef ? "int*" : "ptr"
-    pfParsePerSiteRulesMarshal := pfParsePerSiteRules is VarRef ? "int*" : "ptr"
+    pfParsePrivacyPreferencesMarshal := pfParsePrivacyPreferences is VarRef ? "int*" : IntPtr
+    pfParsePerSiteRulesMarshal := pfParsePerSiteRules is VarRef ? "int*" : IntPtr
 
     result := DllCall("SHDOCVW.dll\ImportPrivacySettings", "ptr", pszFilename, pfParsePrivacyPreferencesMarshal, pfParsePrivacyPreferences, pfParsePerSiteRulesMarshal, pfParsePerSiteRules, BOOL)
     return result
@@ -7546,7 +7741,7 @@ export GetDpiForShellUIComponent(param0) {
 export CommandLineToArgvW(lpCmdLine, pNumArgs) {
     lpCmdLine := lpCmdLine is String ? StrPtr(lpCmdLine) : lpCmdLine
 
-    pNumArgsMarshal := pNumArgs is VarRef ? "int*" : "ptr"
+    pNumArgsMarshal := pNumArgs is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
@@ -7590,7 +7785,9 @@ export CommandLineToArgvW(lpCmdLine, pNumArgs) {
 export DragQueryFileA(_hDrop, iFile, lpszFile, cch) {
     lpszFile := lpszFile is String ? StrPtr(lpszFile) : lpszFile
 
-    result := DllCall("SHELL32.dll\DragQueryFileA", HDROP, _hDrop, UInt32, iFile, "ptr", lpszFile, UInt32, cch, UInt32)
+    lpszFileMarshal := lpszFile == 0 ? IntPtr : PSTR
+
+    result := DllCall("SHELL32.dll\DragQueryFileA", HDROP, _hDrop, UInt32, iFile, lpszFileMarshal, lpszFile, UInt32, cch, UInt32)
     return result
 }
 
@@ -7626,7 +7823,9 @@ export DragQueryFileA(_hDrop, iFile, lpszFile, cch) {
 export DragQueryFileW(_hDrop, iFile, lpszFile, cch) {
     lpszFile := lpszFile is String ? StrPtr(lpszFile) : lpszFile
 
-    result := DllCall("SHELL32.dll\DragQueryFileW", HDROP, _hDrop, UInt32, iFile, "ptr", lpszFile, UInt32, cch, UInt32)
+    lpszFileMarshal := lpszFile == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHELL32.dll\DragQueryFileW", HDROP, _hDrop, UInt32, iFile, lpszFileMarshal, lpszFile, UInt32, cch, UInt32)
     return result
 }
 
@@ -7951,7 +8150,12 @@ export ShellExecuteA(_hwnd, lpOperation, lpFile, lpParameters, lpDirectory, nSho
     lpParameters := lpParameters is String ? StrPtr(lpParameters) : lpParameters
     lpDirectory := lpDirectory is String ? StrPtr(lpDirectory) : lpDirectory
 
-    result := DllCall("SHELL32.dll\ShellExecuteA", HWND, _hwnd, "ptr", lpOperation, "ptr", lpFile, "ptr", lpParameters, "ptr", lpDirectory, SHOW_WINDOW_CMD, nShowCmd, HINSTANCE)
+    _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+    lpOperationMarshal := lpOperation == 0 ? IntPtr : PSTR
+    lpParametersMarshal := lpParameters == 0 ? IntPtr : PSTR
+    lpDirectoryMarshal := lpDirectory == 0 ? IntPtr : PSTR
+
+    result := DllCall("SHELL32.dll\ShellExecuteA", _hwndMarshal, _hwnd, lpOperationMarshal, lpOperation, "ptr", lpFile, lpParametersMarshal, lpParameters, lpDirectoryMarshal, lpDirectory, SHOW_WINDOW_CMD, nShowCmd, HINSTANCE)
     return result
 }
 
@@ -8224,7 +8428,12 @@ export ShellExecuteW(_hwnd, lpOperation, lpFile, lpParameters, lpDirectory, nSho
     lpParameters := lpParameters is String ? StrPtr(lpParameters) : lpParameters
     lpDirectory := lpDirectory is String ? StrPtr(lpDirectory) : lpDirectory
 
-    result := DllCall("SHELL32.dll\ShellExecuteW", HWND, _hwnd, "ptr", lpOperation, "ptr", lpFile, "ptr", lpParameters, "ptr", lpDirectory, SHOW_WINDOW_CMD, nShowCmd, HINSTANCE)
+    _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+    lpOperationMarshal := lpOperation == 0 ? IntPtr : PWSTR
+    lpParametersMarshal := lpParameters == 0 ? IntPtr : PWSTR
+    lpDirectoryMarshal := lpDirectory == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHELL32.dll\ShellExecuteW", _hwndMarshal, _hwnd, lpOperationMarshal, lpOperation, "ptr", lpFile, lpParametersMarshal, lpParameters, lpDirectoryMarshal, lpDirectory, SHOW_WINDOW_CMD, nShowCmd, HINSTANCE)
     return result
 }
 
@@ -8347,7 +8556,9 @@ export FindExecutableA(lpFile, lpDirectory, lpResult) {
     lpDirectory := lpDirectory is String ? StrPtr(lpDirectory) : lpDirectory
     lpResult := lpResult is String ? StrPtr(lpResult) : lpResult
 
-    result := DllCall("SHELL32.dll\FindExecutableA", "ptr", lpFile, "ptr", lpDirectory, "ptr", lpResult, HINSTANCE.Owned)
+    lpDirectoryMarshal := lpDirectory == 0 ? IntPtr : PSTR
+
+    result := DllCall("SHELL32.dll\FindExecutableA", "ptr", lpFile, lpDirectoryMarshal, lpDirectory, "ptr", lpResult, HINSTANCE.Owned)
     return result
 }
 
@@ -8470,7 +8681,9 @@ export FindExecutableW(lpFile, lpDirectory, lpResult) {
     lpDirectory := lpDirectory is String ? StrPtr(lpDirectory) : lpDirectory
     lpResult := lpResult is String ? StrPtr(lpResult) : lpResult
 
-    result := DllCall("SHELL32.dll\FindExecutableW", "ptr", lpFile, "ptr", lpDirectory, "ptr", lpResult, HINSTANCE.Owned)
+    lpDirectoryMarshal := lpDirectory == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHELL32.dll\FindExecutableW", "ptr", lpFile, lpDirectoryMarshal, lpDirectory, "ptr", lpResult, HINSTANCE.Owned)
     return result
 }
 
@@ -8514,7 +8727,11 @@ export ShellAboutA(_hWnd, szApp, szOtherStuff, _hIcon) {
     szApp := szApp is String ? StrPtr(szApp) : szApp
     szOtherStuff := szOtherStuff is String ? StrPtr(szOtherStuff) : szOtherStuff
 
-    result := DllCall("SHELL32.dll\ShellAboutA", HWND, _hWnd, "ptr", szApp, "ptr", szOtherStuff, HICON, _hIcon, Int32)
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+    szOtherStuffMarshal := szOtherStuff == 0 ? IntPtr : PSTR
+    _hIconMarshal := _hIcon == 0 ? IntPtr : HICON
+
+    result := DllCall("SHELL32.dll\ShellAboutA", _hWndMarshal, _hWnd, "ptr", szApp, szOtherStuffMarshal, szOtherStuff, _hIconMarshal, _hIcon, Int32)
     return result
 }
 
@@ -8558,7 +8775,11 @@ export ShellAboutW(_hWnd, szApp, szOtherStuff, _hIcon) {
     szApp := szApp is String ? StrPtr(szApp) : szApp
     szOtherStuff := szOtherStuff is String ? StrPtr(szOtherStuff) : szOtherStuff
 
-    result := DllCall("SHELL32.dll\ShellAboutW", HWND, _hWnd, "ptr", szApp, "ptr", szOtherStuff, HICON, _hIcon, Int32)
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+    szOtherStuffMarshal := szOtherStuff == 0 ? IntPtr : PWSTR
+    _hIconMarshal := _hIcon == 0 ? IntPtr : HICON
+
+    result := DllCall("SHELL32.dll\ShellAboutW", _hWndMarshal, _hWnd, "ptr", szApp, szOtherStuffMarshal, szOtherStuff, _hIconMarshal, _hIcon, Int32)
     return result
 }
 
@@ -8624,7 +8845,7 @@ export ExtractAssociatedIconA(pszIconPath, piIcon) {
 
     pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
 
-    piIconMarshal := piIcon is VarRef ? "ushort*" : "ptr"
+    piIconMarshal := piIcon is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("SHELL32.dll\ExtractAssociatedIconA", HINSTANCE, hInst, "ptr", pszIconPath, piIconMarshal, piIcon, HICON.Owned)
     return result
@@ -8672,7 +8893,7 @@ export ExtractAssociatedIconW(pszIconPath, piIcon) {
 
     pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
 
-    piIconMarshal := piIcon is VarRef ? "ushort*" : "ptr"
+    piIconMarshal := piIcon is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("SHELL32.dll\ExtractAssociatedIconW", HINSTANCE, hInst, "ptr", pszIconPath, piIconMarshal, piIcon, HICON.Owned)
     return result
@@ -8721,8 +8942,8 @@ export ExtractAssociatedIconExA(pszIconPath, piIconIndex, piIconId) {
 
     pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
 
-    piIconIndexMarshal := piIconIndex is VarRef ? "ushort*" : "ptr"
-    piIconIdMarshal := piIconId is VarRef ? "ushort*" : "ptr"
+    piIconIndexMarshal := piIconIndex is VarRef ? "ushort*" : IntPtr
+    piIconIdMarshal := piIconId is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("SHELL32.dll\ExtractAssociatedIconExA", HINSTANCE, hInst, "ptr", pszIconPath, piIconIndexMarshal, piIconIndex, piIconIdMarshal, piIconId, HICON.Owned)
     return result
@@ -8771,8 +8992,8 @@ export ExtractAssociatedIconExW(pszIconPath, piIconIndex, piIconId) {
 
     pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
 
-    piIconIndexMarshal := piIconIndex is VarRef ? "ushort*" : "ptr"
-    piIconIdMarshal := piIconId is VarRef ? "ushort*" : "ptr"
+    piIconIndexMarshal := piIconIndex is VarRef ? "ushort*" : IntPtr
+    piIconIdMarshal := piIconId is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("SHELL32.dll\ExtractAssociatedIconExW", HINSTANCE, hInst, "ptr", pszIconPath, piIconIndexMarshal, piIconIndex, piIconIdMarshal, piIconId, HICON.Owned)
     return result
@@ -9071,9 +9292,12 @@ export DoEnvironmentSubstW(pszSrc, cchSrc) {
 export ExtractIconExA(lpszFile, nIconIndex, phiconLarge, phiconSmall, nIcons) {
     lpszFile := lpszFile is String ? StrPtr(lpszFile) : lpszFile
 
+    phiconLargeMarshal := phiconLarge == 0 ? IntPtr : HICON.Ptr
+    phiconSmallMarshal := phiconSmall == 0 ? IntPtr : HICON.Ptr
+
     A_LastError := 0
 
-    result := DllCall("SHELL32.dll\ExtractIconExA", "ptr", lpszFile, Int32, nIconIndex, HICON.Ptr, phiconLarge, HICON.Ptr, phiconSmall, UInt32, nIcons, UInt32)
+    result := DllCall("SHELL32.dll\ExtractIconExA", "ptr", lpszFile, Int32, nIconIndex, phiconLargeMarshal, phiconLarge, phiconSmallMarshal, phiconSmall, UInt32, nIcons, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9129,9 +9353,12 @@ export ExtractIconExA(lpszFile, nIconIndex, phiconLarge, phiconSmall, nIcons) {
 export ExtractIconExW(lpszFile, nIconIndex, phiconLarge, phiconSmall, nIcons) {
     lpszFile := lpszFile is String ? StrPtr(lpszFile) : lpszFile
 
+    phiconLargeMarshal := phiconLarge == 0 ? IntPtr : HICON.Ptr
+    phiconSmallMarshal := phiconSmall == 0 ? IntPtr : HICON.Ptr
+
     A_LastError := 0
 
-    result := DllCall("SHELL32.dll\ExtractIconExW", "ptr", lpszFile, Int32, nIconIndex, HICON.Ptr, phiconLarge, HICON.Ptr, phiconSmall, UInt32, nIcons, UInt32)
+    result := DllCall("SHELL32.dll\ExtractIconExW", "ptr", lpszFile, Int32, nIconIndex, phiconLargeMarshal, phiconLarge, phiconSmallMarshal, phiconSmall, UInt32, nIcons, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9585,7 +9812,9 @@ export SHFileOperationW(lpFileOp) {
  * @since windows5.1.2600
  */
 export SHFreeNameMappings(hNameMappings) {
-    DllCall("SHELL32.dll\SHFreeNameMappings", HANDLE, hNameMappings)
+    hNameMappingsMarshal := hNameMappings == 0 ? IntPtr : HANDLE
+
+    DllCall("SHELL32.dll\SHFreeNameMappings", hNameMappingsMarshal, hNameMappings)
 }
 
 /**
@@ -9855,9 +10084,11 @@ export SHCreateProcessAsUserW(pscpi) {
 export SHEvaluateSystemCommandTemplate(pszCmdTemplate, ppszApplication, ppszCommandLine, ppszParameters) {
     pszCmdTemplate := pszCmdTemplate is String ? StrPtr(pszCmdTemplate) : pszCmdTemplate
 
-    ppszApplicationMarshal := ppszApplication is VarRef ? "ptr*" : "ptr"
-    ppszCommandLineMarshal := ppszCommandLine is VarRef ? "ptr*" : "ptr"
-    ppszParametersMarshal := ppszParameters is VarRef ? "ptr*" : "ptr"
+    ppszApplicationMarshal := ppszApplication is VarRef ? "ptr*" : IntPtr
+    ppszCommandLineMarshal := ppszCommandLine is VarRef ? "ptr*" : IntPtr
+    ppszCommandLineMarshal := ppszCommandLine == 0 ? IntPtr : PWSTR.Ptr
+    ppszParametersMarshal := ppszParameters is VarRef ? "ptr*" : IntPtr
+    ppszParametersMarshal := ppszParameters == 0 ? IntPtr : PWSTR.Ptr
 
     result := DllCall("SHELL32.dll\SHEvaluateSystemCommandTemplate", "ptr", pszCmdTemplate, ppszApplicationMarshal, ppszApplication, ppszCommandLineMarshal, ppszCommandLine, ppszParametersMarshal, ppszParameters, "HRESULT")
     return result
@@ -9913,7 +10144,9 @@ export AssocCreateForClasses(rgClasses, cClasses, riid) {
 export SHQueryRecycleBinA(pszRootPath, pSHQueryRBInfo) {
     pszRootPath := pszRootPath is String ? StrPtr(pszRootPath) : pszRootPath
 
-    result := DllCall("SHELL32.dll\SHQueryRecycleBinA", "ptr", pszRootPath, SHQUERYRBINFO.Ptr, pSHQueryRBInfo, "HRESULT")
+    pszRootPathMarshal := pszRootPath == 0 ? IntPtr : PSTR
+
+    result := DllCall("SHELL32.dll\SHQueryRecycleBinA", pszRootPathMarshal, pszRootPath, SHQUERYRBINFO.Ptr, pSHQueryRBInfo, "HRESULT")
     return result
 }
 
@@ -9943,7 +10176,9 @@ export SHQueryRecycleBinA(pszRootPath, pSHQueryRBInfo) {
 export SHQueryRecycleBinW(pszRootPath, pSHQueryRBInfo) {
     pszRootPath := pszRootPath is String ? StrPtr(pszRootPath) : pszRootPath
 
-    result := DllCall("SHELL32.dll\SHQueryRecycleBinW", "ptr", pszRootPath, SHQUERYRBINFO.Ptr, pSHQueryRBInfo, "HRESULT")
+    pszRootPathMarshal := pszRootPath == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHELL32.dll\SHQueryRecycleBinW", pszRootPathMarshal, pszRootPath, SHQUERYRBINFO.Ptr, pSHQueryRBInfo, "HRESULT")
     return result
 }
 
@@ -9968,7 +10203,10 @@ export SHQueryRecycleBinW(pszRootPath, pSHQueryRBInfo) {
 export SHEmptyRecycleBinA(_hwnd, pszRootPath, dwFlags) {
     pszRootPath := pszRootPath is String ? StrPtr(pszRootPath) : pszRootPath
 
-    result := DllCall("SHELL32.dll\SHEmptyRecycleBinA", HWND, _hwnd, "ptr", pszRootPath, UInt32, dwFlags, "HRESULT")
+    _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+    pszRootPathMarshal := pszRootPath == 0 ? IntPtr : PSTR
+
+    result := DllCall("SHELL32.dll\SHEmptyRecycleBinA", _hwndMarshal, _hwnd, pszRootPathMarshal, pszRootPath, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -9993,7 +10231,10 @@ export SHEmptyRecycleBinA(_hwnd, pszRootPath, dwFlags) {
 export SHEmptyRecycleBinW(_hwnd, pszRootPath, dwFlags) {
     pszRootPath := pszRootPath is String ? StrPtr(pszRootPath) : pszRootPath
 
-    result := DllCall("SHELL32.dll\SHEmptyRecycleBinW", HWND, _hwnd, "ptr", pszRootPath, UInt32, dwFlags, "HRESULT")
+    _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+    pszRootPathMarshal := pszRootPath == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHELL32.dll\SHEmptyRecycleBinW", _hwndMarshal, _hwnd, pszRootPathMarshal, pszRootPath, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -10244,7 +10485,9 @@ export Shell_NotifyIconGetRect(identifier, iconLocation) {
 export SHGetFileInfoA(pszPath, dwFileAttributes, psfi, cbFileInfo, uFlags) {
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    result := DllCall("SHELL32.dll\SHGetFileInfoA", "ptr", pszPath, FILE_FLAGS_AND_ATTRIBUTES, dwFileAttributes, IntPtr, psfi, UInt32, cbFileInfo, SHGFI_FLAGS, uFlags, IntPtr)
+    psfiMarshal := psfi == 0 ? IntPtr : IntPtr
+
+    result := DllCall("SHELL32.dll\SHGetFileInfoA", "ptr", pszPath, FILE_FLAGS_AND_ATTRIBUTES, dwFileAttributes, psfiMarshal, psfi, UInt32, cbFileInfo, SHGFI_FLAGS, uFlags, IntPtr)
     return result
 }
 
@@ -10347,7 +10590,9 @@ export SHGetFileInfoA(pszPath, dwFileAttributes, psfi, cbFileInfo, uFlags) {
 export SHGetFileInfoW(pszPath, dwFileAttributes, psfi, cbFileInfo, uFlags) {
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    result := DllCall("SHELL32.dll\SHGetFileInfoW", "ptr", pszPath, FILE_FLAGS_AND_ATTRIBUTES, dwFileAttributes, IntPtr, psfi, UInt32, cbFileInfo, SHGFI_FLAGS, uFlags, IntPtr)
+    psfiMarshal := psfi == 0 ? IntPtr : IntPtr
+
+    result := DllCall("SHELL32.dll\SHGetFileInfoW", "ptr", pszPath, FILE_FLAGS_AND_ATTRIBUTES, dwFileAttributes, psfiMarshal, psfi, UInt32, cbFileInfo, SHGFI_FLAGS, uFlags, IntPtr)
     return result
 }
 
@@ -10409,9 +10654,12 @@ export SHGetStockIconInfo(siid, uFlags, psii) {
 export SHGetDiskFreeSpaceExA(pszDirectoryName, pulFreeBytesAvailableToCaller, pulTotalNumberOfBytes, pulTotalNumberOfFreeBytes) {
     pszDirectoryName := pszDirectoryName is String ? StrPtr(pszDirectoryName) : pszDirectoryName
 
-    pulFreeBytesAvailableToCallerMarshal := pulFreeBytesAvailableToCaller is VarRef ? "uint*" : "ptr"
-    pulTotalNumberOfBytesMarshal := pulTotalNumberOfBytes is VarRef ? "uint*" : "ptr"
-    pulTotalNumberOfFreeBytesMarshal := pulTotalNumberOfFreeBytes is VarRef ? "uint*" : "ptr"
+    pulFreeBytesAvailableToCallerMarshal := pulFreeBytesAvailableToCaller is VarRef ? "uint*" : IntPtr
+    pulFreeBytesAvailableToCallerMarshal := pulFreeBytesAvailableToCaller == 0 ? IntPtr : "uint*"
+    pulTotalNumberOfBytesMarshal := pulTotalNumberOfBytes is VarRef ? "uint*" : IntPtr
+    pulTotalNumberOfBytesMarshal := pulTotalNumberOfBytes == 0 ? IntPtr : "uint*"
+    pulTotalNumberOfFreeBytesMarshal := pulTotalNumberOfFreeBytes is VarRef ? "uint*" : IntPtr
+    pulTotalNumberOfFreeBytesMarshal := pulTotalNumberOfFreeBytes == 0 ? IntPtr : "uint*"
 
     result := DllCall("SHELL32.dll\SHGetDiskFreeSpaceExA", "ptr", pszDirectoryName, pulFreeBytesAvailableToCallerMarshal, pulFreeBytesAvailableToCaller, pulTotalNumberOfBytesMarshal, pulTotalNumberOfBytes, pulTotalNumberOfFreeBytesMarshal, pulTotalNumberOfFreeBytes, BOOL)
     return result
@@ -10451,9 +10699,12 @@ export SHGetDiskFreeSpaceExA(pszDirectoryName, pulFreeBytesAvailableToCaller, pu
 export SHGetDiskFreeSpaceExW(pszDirectoryName, pulFreeBytesAvailableToCaller, pulTotalNumberOfBytes, pulTotalNumberOfFreeBytes) {
     pszDirectoryName := pszDirectoryName is String ? StrPtr(pszDirectoryName) : pszDirectoryName
 
-    pulFreeBytesAvailableToCallerMarshal := pulFreeBytesAvailableToCaller is VarRef ? "uint*" : "ptr"
-    pulTotalNumberOfBytesMarshal := pulTotalNumberOfBytes is VarRef ? "uint*" : "ptr"
-    pulTotalNumberOfFreeBytesMarshal := pulTotalNumberOfFreeBytes is VarRef ? "uint*" : "ptr"
+    pulFreeBytesAvailableToCallerMarshal := pulFreeBytesAvailableToCaller is VarRef ? "uint*" : IntPtr
+    pulFreeBytesAvailableToCallerMarshal := pulFreeBytesAvailableToCaller == 0 ? IntPtr : "uint*"
+    pulTotalNumberOfBytesMarshal := pulTotalNumberOfBytes is VarRef ? "uint*" : IntPtr
+    pulTotalNumberOfBytesMarshal := pulTotalNumberOfBytes == 0 ? IntPtr : "uint*"
+    pulTotalNumberOfFreeBytesMarshal := pulTotalNumberOfFreeBytes is VarRef ? "uint*" : IntPtr
+    pulTotalNumberOfFreeBytesMarshal := pulTotalNumberOfFreeBytes == 0 ? IntPtr : "uint*"
 
     result := DllCall("SHELL32.dll\SHGetDiskFreeSpaceExW", "ptr", pszDirectoryName, pulFreeBytesAvailableToCallerMarshal, pulFreeBytesAvailableToCaller, pulTotalNumberOfBytesMarshal, pulTotalNumberOfBytes, pulTotalNumberOfFreeBytesMarshal, pulTotalNumberOfFreeBytes, BOOL)
     return result
@@ -10493,7 +10744,7 @@ export SHGetNewLinkInfoA(pszLinkTo, pszDir, pszName, pfMustCopy, uFlags) {
     pszDir := pszDir is String ? StrPtr(pszDir) : pszDir
     pszName := pszName is String ? StrPtr(pszName) : pszName
 
-    pfMustCopyMarshal := pfMustCopy is VarRef ? "int*" : "ptr"
+    pfMustCopyMarshal := pfMustCopy is VarRef ? "int*" : IntPtr
 
     result := DllCall("SHELL32.dll\SHGetNewLinkInfoA", "ptr", pszLinkTo, "ptr", pszDir, "ptr", pszName, pfMustCopyMarshal, pfMustCopy, UInt32, uFlags, BOOL)
     return result
@@ -10533,7 +10784,7 @@ export SHGetNewLinkInfoW(pszLinkTo, pszDir, pszName, pfMustCopy, uFlags) {
     pszDir := pszDir is String ? StrPtr(pszDir) : pszDir
     pszName := pszName is String ? StrPtr(pszName) : pszName
 
-    pfMustCopyMarshal := pfMustCopy is VarRef ? "int*" : "ptr"
+    pfMustCopyMarshal := pfMustCopy is VarRef ? "int*" : IntPtr
 
     result := DllCall("SHELL32.dll\SHGetNewLinkInfoW", "ptr", pszLinkTo, "ptr", pszDir, "ptr", pszName, pfMustCopyMarshal, pfMustCopy, UInt32, uFlags, BOOL)
     return result
@@ -10580,7 +10831,10 @@ export SHInvokePrinterCommandA(_hwnd, uAction, lpBuf1, lpBuf2, fModal) {
     lpBuf1 := lpBuf1 is String ? StrPtr(lpBuf1) : lpBuf1
     lpBuf2 := lpBuf2 is String ? StrPtr(lpBuf2) : lpBuf2
 
-    result := DllCall("SHELL32.dll\SHInvokePrinterCommandA", HWND, _hwnd, UInt32, uAction, "ptr", lpBuf1, "ptr", lpBuf2, BOOL, fModal, BOOL)
+    _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+    lpBuf2Marshal := lpBuf2 == 0 ? IntPtr : PSTR
+
+    result := DllCall("SHELL32.dll\SHInvokePrinterCommandA", _hwndMarshal, _hwnd, UInt32, uAction, "ptr", lpBuf1, lpBuf2Marshal, lpBuf2, BOOL, fModal, BOOL)
     return result
 }
 
@@ -10625,7 +10879,10 @@ export SHInvokePrinterCommandW(_hwnd, uAction, lpBuf1, lpBuf2, fModal) {
     lpBuf1 := lpBuf1 is String ? StrPtr(lpBuf1) : lpBuf1
     lpBuf2 := lpBuf2 is String ? StrPtr(lpBuf2) : lpBuf2
 
-    result := DllCall("SHELL32.dll\SHInvokePrinterCommandW", HWND, _hwnd, UInt32, uAction, "ptr", lpBuf1, "ptr", lpBuf2, BOOL, fModal, BOOL)
+    _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+    lpBuf2Marshal := lpBuf2 == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHELL32.dll\SHInvokePrinterCommandW", _hwndMarshal, _hwnd, UInt32, uAction, "ptr", lpBuf1, lpBuf2Marshal, lpBuf2, BOOL, fModal, BOOL)
     return result
 }
 
@@ -10785,12 +11042,16 @@ export ShellMessageBoxA(hAppInst, _hWnd, lpcText, lpcTitle, fuStyle, args*) {
     lpcText := lpcText is String ? StrPtr(lpcText) : lpcText
     lpcTitle := lpcTitle is String ? StrPtr(lpcTitle) : lpcTitle
 
+    hAppInstMarshal := hAppInst == 0 ? IntPtr : HINSTANCE
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+    lpcTitleMarshal := lpcTitle == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
     varArgs := [args*]
     varArgs.Push(Int32)
 
-    result := DllCall("SHLWAPI.dll\ShellMessageBoxA", HINSTANCE, hAppInst, HWND, _hWnd, "ptr", lpcText, "ptr", lpcTitle, MESSAGEBOX_STYLE, fuStyle, varArgs*)
+    result := DllCall("SHLWAPI.dll\ShellMessageBoxA", hAppInstMarshal, hAppInst, _hWndMarshal, _hWnd, "ptr", lpcText, lpcTitleMarshal, lpcTitle, MESSAGEBOX_STYLE, fuStyle, varArgs*)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10833,12 +11094,16 @@ export ShellMessageBoxW(hAppInst, _hWnd, lpcText, lpcTitle, fuStyle, args*) {
     lpcText := lpcText is String ? StrPtr(lpcText) : lpcText
     lpcTitle := lpcTitle is String ? StrPtr(lpcTitle) : lpcTitle
 
+    hAppInstMarshal := hAppInst == 0 ? IntPtr : HINSTANCE
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+    lpcTitleMarshal := lpcTitle == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
     varArgs := [args*]
     varArgs.Push(Int32)
 
-    result := DllCall("SHLWAPI.dll\ShellMessageBoxW", HINSTANCE, hAppInst, HWND, _hWnd, "ptr", lpcText, "ptr", lpcTitle, MESSAGEBOX_STYLE, fuStyle, varArgs*)
+    result := DllCall("SHLWAPI.dll\ShellMessageBoxW", hAppInstMarshal, hAppInst, _hWndMarshal, _hWnd, "ptr", lpcText, lpcTitleMarshal, lpcTitle, MESSAGEBOX_STYLE, fuStyle, varArgs*)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10847,26 +11112,28 @@ export ShellMessageBoxW(hAppInst, _hWnd, lpcText, lpcTitle, fuStyle, args*) {
 }
 
 /**
- * 
  * @param {PSTR} pszPath 
  * @returns {BOOL} 
  */
 export IsLFNDriveA(pszPath) {
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    result := DllCall("SHELL32.dll\IsLFNDriveA", "ptr", pszPath, BOOL)
+    pszPathMarshal := pszPath == 0 ? IntPtr : PSTR
+
+    result := DllCall("SHELL32.dll\IsLFNDriveA", pszPathMarshal, pszPath, BOOL)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} pszPath 
  * @returns {BOOL} 
  */
 export IsLFNDriveW(pszPath) {
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    result := DllCall("SHELL32.dll\IsLFNDriveW", "ptr", pszPath, BOOL)
+    pszPathMarshal := pszPath == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHELL32.dll\IsLFNDriveW", pszPathMarshal, pszPath, BOOL)
     return result
 }
 
@@ -10901,7 +11168,9 @@ export IsLFNDriveW(pszPath) {
 export SHEnumerateUnreadMailAccountsW(hKeyUser, dwIndex, pszMailAddress, cchMailAddress) {
     pszMailAddress := pszMailAddress is String ? StrPtr(pszMailAddress) : pszMailAddress
 
-    result := DllCall("SHELL32.dll\SHEnumerateUnreadMailAccountsW", HKEY, hKeyUser, UInt32, dwIndex, "ptr", pszMailAddress, Int32, cchMailAddress, "HRESULT")
+    hKeyUserMarshal := hKeyUser == 0 ? IntPtr : HKEY
+
+    result := DllCall("SHELL32.dll\SHEnumerateUnreadMailAccountsW", hKeyUserMarshal, hKeyUser, UInt32, dwIndex, "ptr", pszMailAddress, Int32, cchMailAddress, "HRESULT")
     return result
 }
 
@@ -10932,7 +11201,12 @@ export SHGetUnreadMailCountW(hKeyUser, pszMailAddress, pFileTime, pszShellExecut
     pszMailAddress := pszMailAddress is String ? StrPtr(pszMailAddress) : pszMailAddress
     pszShellExecuteCommand := pszShellExecuteCommand is String ? StrPtr(pszShellExecuteCommand) : pszShellExecuteCommand
 
-    result := DllCall("SHELL32.dll\SHGetUnreadMailCountW", HKEY, hKeyUser, "ptr", pszMailAddress, "uint*", &pdwCount := 0, FILETIME.Ptr, pFileTime, "ptr", pszShellExecuteCommand, Int32, cchShellExecuteCommand, "HRESULT")
+    hKeyUserMarshal := hKeyUser == 0 ? IntPtr : HKEY
+    pszMailAddressMarshal := pszMailAddress == 0 ? IntPtr : PWSTR
+    pFileTimeMarshal := pFileTime == 0 ? IntPtr : FILETIME.Ptr
+    pszShellExecuteCommandMarshal := pszShellExecuteCommand == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHELL32.dll\SHGetUnreadMailCountW", hKeyUserMarshal, hKeyUser, pszMailAddressMarshal, pszMailAddress, "uint*", &pdwCount := 0, pFileTimeMarshal, pFileTime, pszShellExecuteCommandMarshal, pszShellExecuteCommand, Int32, cchShellExecuteCommand, "HRESULT")
     return pdwCount
 }
 
@@ -11028,7 +11302,9 @@ export SHSetUnreadMailCountW(pszMailAddress, dwCount, pszShellExecuteCommand) {
  * @since windows5.1.2600
  */
 export SHTestTokenMembership(hToken, ulRID) {
-    result := DllCall("SHELL32.dll\SHTestTokenMembership", HANDLE, hToken, UInt32, ulRID, BOOL)
+    hTokenMarshal := hToken == 0 ? IntPtr : HANDLE
+
+    result := DllCall("SHELL32.dll\SHTestTokenMembership", hTokenMarshal, hToken, UInt32, ulRID, BOOL)
     return result
 }
 
@@ -12196,7 +12472,9 @@ export StrRChrA(pszStart, pszEnd, wMatch) {
     pszStart := pszStart is String ? StrPtr(pszStart) : pszStart
     pszEnd := pszEnd is String ? StrPtr(pszEnd) : pszEnd
 
-    result := DllCall("SHLWAPI.dll\StrRChrA", "ptr", pszStart, "ptr", pszEnd, UInt16, wMatch, PSTR)
+    pszEndMarshal := pszEnd == 0 ? IntPtr : PSTR
+
+    result := DllCall("SHLWAPI.dll\StrRChrA", "ptr", pszStart, pszEndMarshal, pszEnd, UInt16, wMatch, PSTR)
     return result
 }
 
@@ -12229,7 +12507,9 @@ export StrRChrW(pszStart, pszEnd, wMatch) {
     pszStart := pszStart is String ? StrPtr(pszStart) : pszStart
     pszEnd := pszEnd is String ? StrPtr(pszEnd) : pszEnd
 
-    result := DllCall("SHLWAPI.dll\StrRChrW", "ptr", pszStart, "ptr", pszEnd, Int8, wMatch, PWSTR)
+    pszEndMarshal := pszEnd == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHLWAPI.dll\StrRChrW", "ptr", pszStart, pszEndMarshal, pszEnd, Int8, wMatch, PWSTR)
     return result
 }
 
@@ -12262,7 +12542,9 @@ export StrRChrIA(pszStart, pszEnd, wMatch) {
     pszStart := pszStart is String ? StrPtr(pszStart) : pszStart
     pszEnd := pszEnd is String ? StrPtr(pszEnd) : pszEnd
 
-    result := DllCall("SHLWAPI.dll\StrRChrIA", "ptr", pszStart, "ptr", pszEnd, UInt16, wMatch, PSTR)
+    pszEndMarshal := pszEnd == 0 ? IntPtr : PSTR
+
+    result := DllCall("SHLWAPI.dll\StrRChrIA", "ptr", pszStart, pszEndMarshal, pszEnd, UInt16, wMatch, PSTR)
     return result
 }
 
@@ -12295,7 +12577,9 @@ export StrRChrIW(pszStart, pszEnd, wMatch) {
     pszStart := pszStart is String ? StrPtr(pszStart) : pszStart
     pszEnd := pszEnd is String ? StrPtr(pszEnd) : pszEnd
 
-    result := DllCall("SHLWAPI.dll\StrRChrIW", "ptr", pszStart, "ptr", pszEnd, Int8, wMatch, PWSTR)
+    pszEndMarshal := pszEnd == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHLWAPI.dll\StrRChrIW", "ptr", pszStart, pszEndMarshal, pszEnd, Int8, wMatch, PWSTR)
     return result
 }
 
@@ -12324,7 +12608,9 @@ export StrRStrIA(pszSource, pszLast, pszSrch) {
     pszLast := pszLast is String ? StrPtr(pszLast) : pszLast
     pszSrch := pszSrch is String ? StrPtr(pszSrch) : pszSrch
 
-    result := DllCall("SHLWAPI.dll\StrRStrIA", "ptr", pszSource, "ptr", pszLast, "ptr", pszSrch, PSTR)
+    pszLastMarshal := pszLast == 0 ? IntPtr : PSTR
+
+    result := DllCall("SHLWAPI.dll\StrRStrIA", "ptr", pszSource, pszLastMarshal, pszLast, "ptr", pszSrch, PSTR)
     return result
 }
 
@@ -12353,7 +12639,9 @@ export StrRStrIW(pszSource, pszLast, pszSrch) {
     pszLast := pszLast is String ? StrPtr(pszLast) : pszLast
     pszSrch := pszSrch is String ? StrPtr(pszSrch) : pszSrch
 
-    result := DllCall("SHLWAPI.dll\StrRStrIW", "ptr", pszSource, "ptr", pszLast, "ptr", pszSrch, PWSTR)
+    pszLastMarshal := pszLast == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHLWAPI.dll\StrRStrIW", "ptr", pszSource, pszLastMarshal, pszLast, "ptr", pszSrch, PWSTR)
     return result
 }
 
@@ -12689,7 +12977,7 @@ export StrToIntW(pszSrc) {
 export StrToIntExA(pszString, dwFlags, piRet) {
     pszString := pszString is String ? StrPtr(pszString) : pszString
 
-    piRetMarshal := piRet is VarRef ? "int*" : "ptr"
+    piRetMarshal := piRet is VarRef ? "int*" : IntPtr
 
     result := DllCall("SHLWAPI.dll\StrToIntExA", "ptr", pszString, Int32, dwFlags, piRetMarshal, piRet, BOOL)
     return result
@@ -12755,7 +13043,7 @@ export StrToIntExA(pszString, dwFlags, piRet) {
 export StrToIntExW(pszString, dwFlags, piRet) {
     pszString := pszString is String ? StrPtr(pszString) : pszString
 
-    piRetMarshal := piRet is VarRef ? "int*" : "ptr"
+    piRetMarshal := piRet is VarRef ? "int*" : IntPtr
 
     result := DllCall("SHLWAPI.dll\StrToIntExW", "ptr", pszString, Int32, dwFlags, piRetMarshal, piRet, BOOL)
     return result
@@ -12824,7 +13112,7 @@ export StrToIntExW(pszString, dwFlags, piRet) {
 export StrToInt64ExA(pszString, dwFlags, pllRet) {
     pszString := pszString is String ? StrPtr(pszString) : pszString
 
-    pllRetMarshal := pllRet is VarRef ? "int64*" : "ptr"
+    pllRetMarshal := pllRet is VarRef ? "int64*" : IntPtr
 
     result := DllCall("SHLWAPI.dll\StrToInt64ExA", "ptr", pszString, Int32, dwFlags, pllRetMarshal, pllRet, BOOL)
     return result
@@ -12893,7 +13181,7 @@ export StrToInt64ExA(pszString, dwFlags, pllRet) {
 export StrToInt64ExW(pszString, dwFlags, pllRet) {
     pszString := pszString is String ? StrPtr(pszString) : pszString
 
-    pllRetMarshal := pllRet is VarRef ? "int64*" : "ptr"
+    pllRetMarshal := pllRet is VarRef ? "int64*" : IntPtr
 
     result := DllCall("SHLWAPI.dll\StrToInt64ExW", "ptr", pszString, Int32, dwFlags, pllRetMarshal, pllRet, BOOL)
     return result
@@ -13210,7 +13498,7 @@ export wvnsprintfA(pszDest, cchDest, pszFmt, arglist) {
     pszDest := pszDest is String ? StrPtr(pszDest) : pszDest
     pszFmt := pszFmt is String ? StrPtr(pszFmt) : pszFmt
 
-    arglistMarshal := arglist is VarRef ? "char*" : "ptr"
+    arglistMarshal := arglist is VarRef ? "char*" : IntPtr
 
     result := DllCall("SHLWAPI.dll\wvnsprintfA", "ptr", pszDest, Int32, cchDest, "ptr", pszFmt, arglistMarshal, arglist, Int32)
     return result
@@ -13248,7 +13536,7 @@ export wvnsprintfW(pszDest, cchDest, pszFmt, arglist) {
     pszDest := pszDest is String ? StrPtr(pszDest) : pszDest
     pszFmt := pszFmt is String ? StrPtr(pszFmt) : pszFmt
 
-    arglistMarshal := arglist is VarRef ? "char*" : "ptr"
+    arglistMarshal := arglist is VarRef ? "char*" : IntPtr
 
     result := DllCall("SHLWAPI.dll\wvnsprintfW", "ptr", pszDest, Int32, cchDest, "ptr", pszFmt, arglistMarshal, arglist, Int32)
     return result
@@ -13350,7 +13638,9 @@ export wnsprintfW(pszDest, cchDest, pszFmt, args*) {
  * @since windows5.0
  */
 export StrRetToStrA(_pstr, pidl) {
-    result := DllCall("SHLWAPI.dll\StrRetToStrA", STRRET.Ptr, _pstr, ITEMIDLIST.Ptr, pidl, PSTR.Ptr, &ppsz := 0, "HRESULT")
+    pidlMarshal := pidl == 0 ? IntPtr : ITEMIDLIST.Ptr
+
+    result := DllCall("SHLWAPI.dll\StrRetToStrA", STRRET.Ptr, _pstr, pidlMarshal, pidl, PSTR.Ptr, &ppsz := 0, "HRESULT")
     return ppsz
 }
 
@@ -13372,7 +13662,9 @@ export StrRetToStrA(_pstr, pidl) {
  * @since windows5.0
  */
 export StrRetToStrW(_pstr, pidl) {
-    result := DllCall("SHLWAPI.dll\StrRetToStrW", STRRET.Ptr, _pstr, ITEMIDLIST.Ptr, pidl, PWSTR.Ptr, &ppsz := 0, "HRESULT")
+    pidlMarshal := pidl == 0 ? IntPtr : ITEMIDLIST.Ptr
+
+    result := DllCall("SHLWAPI.dll\StrRetToStrW", STRRET.Ptr, _pstr, pidlMarshal, pidl, PWSTR.Ptr, &ppsz := 0, "HRESULT")
     return ppsz
 }
 
@@ -13408,7 +13700,9 @@ export StrRetToStrW(_pstr, pidl) {
 export StrRetToBufA(_pstr, pidl, pszBuf, cchBuf) {
     pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
-    result := DllCall("SHLWAPI.dll\StrRetToBufA", STRRET.Ptr, _pstr, ITEMIDLIST.Ptr, pidl, "ptr", pszBuf, UInt32, cchBuf, "HRESULT")
+    pidlMarshal := pidl == 0 ? IntPtr : ITEMIDLIST.Ptr
+
+    result := DllCall("SHLWAPI.dll\StrRetToBufA", STRRET.Ptr, _pstr, pidlMarshal, pidl, "ptr", pszBuf, UInt32, cchBuf, "HRESULT")
     return result
 }
 
@@ -13444,7 +13738,9 @@ export StrRetToBufA(_pstr, pidl, pszBuf, cchBuf) {
 export StrRetToBufW(_pstr, pidl, pszBuf, cchBuf) {
     pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
-    result := DllCall("SHLWAPI.dll\StrRetToBufW", STRRET.Ptr, _pstr, ITEMIDLIST.Ptr, pidl, "ptr", pszBuf, UInt32, cchBuf, "HRESULT")
+    pidlMarshal := pidl == 0 ? IntPtr : ITEMIDLIST.Ptr
+
+    result := DllCall("SHLWAPI.dll\StrRetToBufW", STRRET.Ptr, _pstr, pidlMarshal, pidl, "ptr", pszBuf, UInt32, cchBuf, "HRESULT")
     return result
 }
 
@@ -13626,8 +13922,10 @@ export StrCatChainW(pszDst, cchDst, ichAt, pszSrc) {
  * @since windows5.1.2600
  */
 export StrRetToBSTR(_pstr, pidl) {
+    pidlMarshal := pidl == 0 ? IntPtr : ITEMIDLIST.Ptr
+
     pbstr := BSTR.Owned()
-    result := DllCall("SHLWAPI.dll\StrRetToBSTR", STRRET.Ptr, _pstr, ITEMIDLIST.Ptr, pidl, BSTR.Ptr, pbstr, "HRESULT")
+    result := DllCall("SHLWAPI.dll\StrRetToBSTR", STRRET.Ptr, _pstr, pidlMarshal, pidl, BSTR.Ptr, pbstr, "HRESULT")
     return pbstr
 }
 
@@ -14199,7 +14497,9 @@ export PathAddExtensionA(pszPath, pszExt) {
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
     pszExt := pszExt is String ? StrPtr(pszExt) : pszExt
 
-    result := DllCall("SHLWAPI.dll\PathAddExtensionA", "ptr", pszPath, "ptr", pszExt, BOOL)
+    pszExtMarshal := pszExt == 0 ? IntPtr : PSTR
+
+    result := DllCall("SHLWAPI.dll\PathAddExtensionA", "ptr", pszPath, pszExtMarshal, pszExt, BOOL)
     return result
 }
 
@@ -14223,7 +14523,9 @@ export PathAddExtensionW(pszPath, pszExt) {
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
     pszExt := pszExt is String ? StrPtr(pszExt) : pszExt
 
-    result := DllCall("SHLWAPI.dll\PathAddExtensionW", "ptr", pszPath, "ptr", pszExt, BOOL)
+    pszExtMarshal := pszExt == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHLWAPI.dll\PathAddExtensionW", "ptr", pszPath, pszExtMarshal, pszExt, BOOL)
     return result
 }
 
@@ -14415,7 +14717,10 @@ export PathCombineA(pszDest, pszDir, pszFile) {
     pszDir := pszDir is String ? StrPtr(pszDir) : pszDir
     pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-    result := DllCall("SHLWAPI.dll\PathCombineA", "ptr", pszDest, "ptr", pszDir, "ptr", pszFile, PSTR)
+    pszDirMarshal := pszDir == 0 ? IntPtr : PSTR
+    pszFileMarshal := pszFile == 0 ? IntPtr : PSTR
+
+    result := DllCall("SHLWAPI.dll\PathCombineA", "ptr", pszDest, pszDirMarshal, pszDir, pszFileMarshal, pszFile, PSTR)
     return result
 }
 
@@ -14443,7 +14748,10 @@ export PathCombineW(pszDest, pszDir, pszFile) {
     pszDir := pszDir is String ? StrPtr(pszDir) : pszDir
     pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-    result := DllCall("SHLWAPI.dll\PathCombineW", "ptr", pszDest, "ptr", pszDir, "ptr", pszFile, PWSTR)
+    pszDirMarshal := pszDir == 0 ? IntPtr : PWSTR
+    pszFileMarshal := pszFile == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHLWAPI.dll\PathCombineW", "ptr", pszDest, pszDirMarshal, pszDir, pszFileMarshal, pszFile, PWSTR)
     return result
 }
 
@@ -14469,7 +14777,9 @@ export PathCombineW(pszDest, pszDir, pszFile) {
 export PathCompactPathA(_hDC, pszPath, dx) {
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    result := DllCall("SHLWAPI.dll\PathCompactPathA", HDC, _hDC, "ptr", pszPath, UInt32, dx, BOOL)
+    _hDCMarshal := _hDC == 0 ? IntPtr : HDC
+
+    result := DllCall("SHLWAPI.dll\PathCompactPathA", _hDCMarshal, _hDC, "ptr", pszPath, UInt32, dx, BOOL)
     return result
 }
 
@@ -14495,7 +14805,9 @@ export PathCompactPathA(_hDC, pszPath, dx) {
 export PathCompactPathW(_hDC, pszPath, dx) {
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    result := DllCall("SHLWAPI.dll\PathCompactPathW", HDC, _hDC, "ptr", pszPath, UInt32, dx, BOOL)
+    _hDCMarshal := _hDC == 0 ? IntPtr : HDC
+
+    result := DllCall("SHLWAPI.dll\PathCompactPathW", _hDCMarshal, _hDC, "ptr", pszPath, UInt32, dx, BOOL)
     return result
 }
 
@@ -14592,7 +14904,9 @@ export PathCommonPrefixA(pszFile1, pszFile2, achPath) {
     pszFile2 := pszFile2 is String ? StrPtr(pszFile2) : pszFile2
     achPath := achPath is String ? StrPtr(achPath) : achPath
 
-    result := DllCall("SHLWAPI.dll\PathCommonPrefixA", "ptr", pszFile1, "ptr", pszFile2, "ptr", achPath, Int32)
+    achPathMarshal := achPath == 0 ? IntPtr : PSTR
+
+    result := DllCall("SHLWAPI.dll\PathCommonPrefixA", "ptr", pszFile1, "ptr", pszFile2, achPathMarshal, achPath, Int32)
     return result
 }
 
@@ -14621,7 +14935,9 @@ export PathCommonPrefixW(pszFile1, pszFile2, achPath) {
     pszFile2 := pszFile2 is String ? StrPtr(pszFile2) : pszFile2
     achPath := achPath is String ? StrPtr(achPath) : achPath
 
-    result := DllCall("SHLWAPI.dll\PathCommonPrefixW", "ptr", pszFile1, "ptr", pszFile2, "ptr", achPath, Int32)
+    achPathMarshal := achPath == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHLWAPI.dll\PathCommonPrefixW", "ptr", pszFile1, "ptr", pszFile2, achPathMarshal, achPath, Int32)
     return result
 }
 
@@ -14848,7 +15164,8 @@ export PathFindNextComponentW(pszPath) {
 export PathFindOnPathA(pszPath, ppszOtherDirs) {
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    ppszOtherDirsMarshal := ppszOtherDirs is VarRef ? "ptr*" : "ptr"
+    ppszOtherDirsMarshal := ppszOtherDirs is VarRef ? "ptr*" : IntPtr
+    ppszOtherDirsMarshal := ppszOtherDirs == 0 ? IntPtr : "ptr*"
 
     result := DllCall("SHLWAPI.dll\PathFindOnPathA", "ptr", pszPath, ppszOtherDirsMarshal, ppszOtherDirs, BOOL)
     return result
@@ -14879,7 +15196,8 @@ export PathFindOnPathA(pszPath, ppszOtherDirs) {
 export PathFindOnPathW(pszPath, ppszOtherDirs) {
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    ppszOtherDirsMarshal := ppszOtherDirs is VarRef ? "ptr*" : "ptr"
+    ppszOtherDirsMarshal := ppszOtherDirs is VarRef ? "ptr*" : IntPtr
+    ppszOtherDirsMarshal := ppszOtherDirs == 0 ? IntPtr : "ptr*"
 
     result := DllCall("SHLWAPI.dll\PathFindOnPathW", "ptr", pszPath, ppszOtherDirsMarshal, ppszOtherDirs, BOOL)
     return result
@@ -14913,7 +15231,7 @@ export PathFindOnPathW(pszPath, ppszOtherDirs) {
 export PathFindSuffixArrayA(pszPath, apszSuffix, iArraySize) {
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    apszSuffixMarshal := apszSuffix is VarRef ? "ptr*" : "ptr"
+    apszSuffixMarshal := apszSuffix is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("SHLWAPI.dll\PathFindSuffixArrayA", "ptr", pszPath, apszSuffixMarshal, apszSuffix, Int32, iArraySize, PSTR)
     return result
@@ -14947,7 +15265,7 @@ export PathFindSuffixArrayA(pszPath, apszSuffix, iArraySize) {
 export PathFindSuffixArrayW(pszPath, apszSuffix, iArraySize) {
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    apszSuffixMarshal := apszSuffix is VarRef ? "ptr*" : "ptr"
+    apszSuffixMarshal := apszSuffix is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("SHLWAPI.dll\PathFindSuffixArrayW", "ptr", pszPath, apszSuffixMarshal, apszSuffix, Int32, iArraySize, PWSTR)
     return result
@@ -16815,7 +17133,9 @@ export PathUnmakeSystemFolderW(pszPath) {
 export PathIsSystemFolderA(pszPath, dwAttrb) {
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    result := DllCall("SHLWAPI.dll\PathIsSystemFolderA", "ptr", pszPath, UInt32, dwAttrb, BOOL)
+    pszPathMarshal := pszPath == 0 ? IntPtr : PSTR
+
+    result := DllCall("SHLWAPI.dll\PathIsSystemFolderA", pszPathMarshal, pszPath, UInt32, dwAttrb, BOOL)
     return result
 }
 
@@ -16839,7 +17159,9 @@ export PathIsSystemFolderA(pszPath, dwAttrb) {
 export PathIsSystemFolderW(pszPath, dwAttrb) {
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    result := DllCall("SHLWAPI.dll\PathIsSystemFolderW", "ptr", pszPath, UInt32, dwAttrb, BOOL)
+    pszPathMarshal := pszPath == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHLWAPI.dll\PathIsSystemFolderW", pszPathMarshal, pszPath, UInt32, dwAttrb, BOOL)
     return result
 }
 
@@ -17187,9 +17509,10 @@ export UrlCombineA(pszBase, pszRelative, pszCombined, pcchCombined, dwFlags) {
     pszRelative := pszRelative is String ? StrPtr(pszRelative) : pszRelative
     pszCombined := pszCombined is String ? StrPtr(pszCombined) : pszCombined
 
-    pcchCombinedMarshal := pcchCombined is VarRef ? "uint*" : "ptr"
+    pszCombinedMarshal := pszCombined == 0 ? IntPtr : PSTR
+    pcchCombinedMarshal := pcchCombined is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("SHLWAPI.dll\UrlCombineA", "ptr", pszBase, "ptr", pszRelative, "ptr", pszCombined, pcchCombinedMarshal, pcchCombined, UInt32, dwFlags, "HRESULT")
+    result := DllCall("SHLWAPI.dll\UrlCombineA", "ptr", pszBase, "ptr", pszRelative, pszCombinedMarshal, pszCombined, pcchCombinedMarshal, pcchCombined, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -17287,9 +17610,10 @@ export UrlCombineW(pszBase, pszRelative, pszCombined, pcchCombined, dwFlags) {
     pszRelative := pszRelative is String ? StrPtr(pszRelative) : pszRelative
     pszCombined := pszCombined is String ? StrPtr(pszCombined) : pszCombined
 
-    pcchCombinedMarshal := pcchCombined is VarRef ? "uint*" : "ptr"
+    pszCombinedMarshal := pszCombined == 0 ? IntPtr : PWSTR
+    pcchCombinedMarshal := pcchCombined is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("SHLWAPI.dll\UrlCombineW", "ptr", pszBase, "ptr", pszRelative, "ptr", pszCombined, pcchCombinedMarshal, pcchCombined, UInt32, dwFlags, "HRESULT")
+    result := DllCall("SHLWAPI.dll\UrlCombineW", "ptr", pszBase, "ptr", pszRelative, pszCombinedMarshal, pszCombined, pcchCombinedMarshal, pcchCombined, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -17334,7 +17658,7 @@ export UrlCanonicalizeA(pszUrl, pszCanonicalized, pcchCanonicalized, dwFlags) {
     pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
     pszCanonicalized := pszCanonicalized is String ? StrPtr(pszCanonicalized) : pszCanonicalized
 
-    pcchCanonicalizedMarshal := pcchCanonicalized is VarRef ? "uint*" : "ptr"
+    pcchCanonicalizedMarshal := pcchCanonicalized is VarRef ? "uint*" : IntPtr
 
     result := DllCall("SHLWAPI.dll\UrlCanonicalizeA", "ptr", pszUrl, "ptr", pszCanonicalized, pcchCanonicalizedMarshal, pcchCanonicalized, UInt32, dwFlags, "HRESULT")
     return result
@@ -17381,7 +17705,7 @@ export UrlCanonicalizeW(pszUrl, pszCanonicalized, pcchCanonicalized, dwFlags) {
     pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
     pszCanonicalized := pszCanonicalized is String ? StrPtr(pszCanonicalized) : pszCanonicalized
 
-    pcchCanonicalizedMarshal := pcchCanonicalized is VarRef ? "uint*" : "ptr"
+    pcchCanonicalizedMarshal := pcchCanonicalized is VarRef ? "uint*" : IntPtr
 
     result := DllCall("SHLWAPI.dll\UrlCanonicalizeW", "ptr", pszUrl, "ptr", pszCanonicalized, pcchCanonicalizedMarshal, pcchCanonicalized, UInt32, dwFlags, "HRESULT")
     return result
@@ -17647,9 +17971,11 @@ export UrlUnescapeA(pszUrl, pszUnescaped, pcchUnescaped, dwFlags) {
     pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
     pszUnescaped := pszUnescaped is String ? StrPtr(pszUnescaped) : pszUnescaped
 
-    pcchUnescapedMarshal := pcchUnescaped is VarRef ? "uint*" : "ptr"
+    pszUnescapedMarshal := pszUnescaped == 0 ? IntPtr : PSTR
+    pcchUnescapedMarshal := pcchUnescaped is VarRef ? "uint*" : IntPtr
+    pcchUnescapedMarshal := pcchUnescaped == 0 ? IntPtr : "uint*"
 
-    result := DllCall("SHLWAPI.dll\UrlUnescapeA", "ptr", pszUrl, "ptr", pszUnescaped, pcchUnescapedMarshal, pcchUnescaped, UInt32, dwFlags, "HRESULT")
+    result := DllCall("SHLWAPI.dll\UrlUnescapeA", "ptr", pszUrl, pszUnescapedMarshal, pszUnescaped, pcchUnescapedMarshal, pcchUnescaped, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -17687,9 +18013,11 @@ export UrlUnescapeW(pszUrl, pszUnescaped, pcchUnescaped, dwFlags) {
     pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
     pszUnescaped := pszUnescaped is String ? StrPtr(pszUnescaped) : pszUnescaped
 
-    pcchUnescapedMarshal := pcchUnescaped is VarRef ? "uint*" : "ptr"
+    pszUnescapedMarshal := pszUnescaped == 0 ? IntPtr : PWSTR
+    pcchUnescapedMarshal := pcchUnescaped is VarRef ? "uint*" : IntPtr
+    pcchUnescapedMarshal := pcchUnescaped == 0 ? IntPtr : "uint*"
 
-    result := DllCall("SHLWAPI.dll\UrlUnescapeW", "ptr", pszUrl, "ptr", pszUnescaped, pcchUnescapedMarshal, pcchUnescaped, UInt32, dwFlags, "HRESULT")
+    result := DllCall("SHLWAPI.dll\UrlUnescapeW", "ptr", pszUrl, pszUnescapedMarshal, pszUnescaped, pcchUnescapedMarshal, pcchUnescaped, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -17800,7 +18128,7 @@ export UrlEscapeA(pszUrl, pszEscaped, pcchEscaped, dwFlags) {
     pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
     pszEscaped := pszEscaped is String ? StrPtr(pszEscaped) : pszEscaped
 
-    pcchEscapedMarshal := pcchEscaped is VarRef ? "uint*" : "ptr"
+    pcchEscapedMarshal := pcchEscaped is VarRef ? "uint*" : IntPtr
 
     result := DllCall("SHLWAPI.dll\UrlEscapeA", "ptr", pszUrl, "ptr", pszEscaped, pcchEscapedMarshal, pcchEscaped, UInt32, dwFlags, "HRESULT")
     return result
@@ -17913,7 +18241,7 @@ export UrlEscapeW(pszUrl, pszEscaped, pcchEscaped, dwFlags) {
     pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
     pszEscaped := pszEscaped is String ? StrPtr(pszEscaped) : pszEscaped
 
-    pcchEscapedMarshal := pcchEscaped is VarRef ? "uint*" : "ptr"
+    pcchEscapedMarshal := pcchEscaped is VarRef ? "uint*" : IntPtr
 
     result := DllCall("SHLWAPI.dll\UrlEscapeW", "ptr", pszUrl, "ptr", pszEscaped, pcchEscapedMarshal, pcchEscaped, UInt32, dwFlags, "HRESULT")
     return result
@@ -17951,7 +18279,7 @@ export UrlCreateFromPathA(pszPath, pszUrl, pcchUrl, dwFlags) {
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
     pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
-    pcchUrlMarshal := pcchUrl is VarRef ? "uint*" : "ptr"
+    pcchUrlMarshal := pcchUrl is VarRef ? "uint*" : IntPtr
 
     result := DllCall("SHLWAPI.dll\UrlCreateFromPathA", "ptr", pszPath, "ptr", pszUrl, pcchUrlMarshal, pcchUrl, UInt32, dwFlags, "HRESULT")
     return result
@@ -17989,7 +18317,7 @@ export UrlCreateFromPathW(pszPath, pszUrl, pcchUrl, dwFlags) {
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
     pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
-    pcchUrlMarshal := pcchUrl is VarRef ? "uint*" : "ptr"
+    pcchUrlMarshal := pcchUrl is VarRef ? "uint*" : IntPtr
 
     result := DllCall("SHLWAPI.dll\UrlCreateFromPathW", "ptr", pszPath, "ptr", pszUrl, pcchUrlMarshal, pcchUrl, UInt32, dwFlags, "HRESULT")
     return result
@@ -18022,7 +18350,7 @@ export PathCreateFromUrlA(pszUrl, pszPath, pcchPath, dwFlags) {
     pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    pcchPathMarshal := pcchPath is VarRef ? "uint*" : "ptr"
+    pcchPathMarshal := pcchPath is VarRef ? "uint*" : IntPtr
 
     result := DllCall("SHLWAPI.dll\PathCreateFromUrlA", "ptr", pszUrl, "ptr", pszPath, pcchPathMarshal, pcchPath, UInt32, dwFlags, "HRESULT")
     return result
@@ -18055,7 +18383,7 @@ export PathCreateFromUrlW(pszUrl, pszPath, pcchPath, dwFlags) {
     pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    pcchPathMarshal := pcchPath is VarRef ? "uint*" : "ptr"
+    pcchPathMarshal := pcchPath is VarRef ? "uint*" : IntPtr
 
     result := DllCall("SHLWAPI.dll\PathCreateFromUrlW", "ptr", pszUrl, "ptr", pszPath, pcchPathMarshal, pcchPath, UInt32, dwFlags, "HRESULT")
     return result
@@ -18176,7 +18504,7 @@ export UrlGetPartW(pszIn, pszOut, pcchOut, dwPart, dwFlags) {
     pszIn := pszIn is String ? StrPtr(pszIn) : pszIn
     pszOut := pszOut is String ? StrPtr(pszOut) : pszOut
 
-    pcchOutMarshal := pcchOut is VarRef ? "uint*" : "ptr"
+    pcchOutMarshal := pcchOut is VarRef ? "uint*" : IntPtr
 
     result := DllCall("SHLWAPI.dll\UrlGetPartW", "ptr", pszIn, "ptr", pszOut, pcchOutMarshal, pcchOut, UInt32, dwPart, UInt32, dwFlags, "HRESULT")
     return result
@@ -18210,7 +18538,7 @@ export UrlGetPartA(pszIn, pszOut, pcchOut, dwPart, dwFlags) {
     pszIn := pszIn is String ? StrPtr(pszIn) : pszIn
     pszOut := pszOut is String ? StrPtr(pszOut) : pszOut
 
-    pcchOutMarshal := pcchOut is VarRef ? "uint*" : "ptr"
+    pcchOutMarshal := pcchOut is VarRef ? "uint*" : IntPtr
 
     result := DllCall("SHLWAPI.dll\UrlGetPartA", "ptr", pszIn, "ptr", pszOut, pcchOutMarshal, pcchOut, UInt32, dwPart, UInt32, dwFlags, "HRESULT")
     return result
@@ -18288,7 +18616,7 @@ export UrlApplySchemeA(pszIn, pszOut, pcchOut, dwFlags) {
     pszIn := pszIn is String ? StrPtr(pszIn) : pszIn
     pszOut := pszOut is String ? StrPtr(pszOut) : pszOut
 
-    pcchOutMarshal := pcchOut is VarRef ? "uint*" : "ptr"
+    pcchOutMarshal := pcchOut is VarRef ? "uint*" : IntPtr
 
     result := DllCall("SHLWAPI.dll\UrlApplySchemeA", "ptr", pszIn, "ptr", pszOut, pcchOutMarshal, pcchOut, UInt32, dwFlags, "HRESULT")
     return result
@@ -18366,7 +18694,7 @@ export UrlApplySchemeW(pszIn, pszOut, pcchOut, dwFlags) {
     pszIn := pszIn is String ? StrPtr(pszIn) : pszIn
     pszOut := pszOut is String ? StrPtr(pszOut) : pszOut
 
-    pcchOutMarshal := pcchOut is VarRef ? "uint*" : "ptr"
+    pcchOutMarshal := pcchOut is VarRef ? "uint*" : IntPtr
 
     result := DllCall("SHLWAPI.dll\UrlApplySchemeW", "ptr", pszIn, "ptr", pszOut, pcchOutMarshal, pcchOut, UInt32, dwFlags, "HRESULT")
     return result
@@ -18506,7 +18834,9 @@ export ParseURLW(pcszURL, ppu) {
 export SHDeleteEmptyKeyA(_hkey, pszSubKey) {
     pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
 
-    result := DllCall("SHLWAPI.dll\SHDeleteEmptyKeyA", HKEY, _hkey, "ptr", pszSubKey, WIN32_ERROR)
+    pszSubKeyMarshal := pszSubKey == 0 ? IntPtr : PSTR
+
+    result := DllCall("SHLWAPI.dll\SHDeleteEmptyKeyA", HKEY, _hkey, pszSubKeyMarshal, pszSubKey, WIN32_ERROR)
     return result
 }
 
@@ -18540,7 +18870,9 @@ export SHDeleteEmptyKeyA(_hkey, pszSubKey) {
 export SHDeleteEmptyKeyW(_hkey, pszSubKey) {
     pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
 
-    result := DllCall("SHLWAPI.dll\SHDeleteEmptyKeyW", HKEY, _hkey, "ptr", pszSubKey, WIN32_ERROR)
+    pszSubKeyMarshal := pszSubKey == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHLWAPI.dll\SHDeleteEmptyKeyW", HKEY, _hkey, pszSubKeyMarshal, pszSubKey, WIN32_ERROR)
     return result
 }
 
@@ -18572,7 +18904,9 @@ export SHDeleteEmptyKeyW(_hkey, pszSubKey) {
 export SHDeleteKeyA(_hkey, pszSubKey) {
     pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
 
-    result := DllCall("SHLWAPI.dll\SHDeleteKeyA", HKEY, _hkey, "ptr", pszSubKey, WIN32_ERROR)
+    pszSubKeyMarshal := pszSubKey == 0 ? IntPtr : PSTR
+
+    result := DllCall("SHLWAPI.dll\SHDeleteKeyA", HKEY, _hkey, pszSubKeyMarshal, pszSubKey, WIN32_ERROR)
     return result
 }
 
@@ -18604,7 +18938,9 @@ export SHDeleteKeyA(_hkey, pszSubKey) {
 export SHDeleteKeyW(_hkey, pszSubKey) {
     pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
 
-    result := DllCall("SHLWAPI.dll\SHDeleteKeyW", HKEY, _hkey, "ptr", pszSubKey, WIN32_ERROR)
+    pszSubKeyMarshal := pszSubKey == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHLWAPI.dll\SHDeleteKeyW", HKEY, _hkey, pszSubKeyMarshal, pszSubKey, WIN32_ERROR)
     return result
 }
 
@@ -18648,7 +18984,9 @@ export SHDeleteValueA(_hkey, pszSubKey, pszValue) {
     pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
     pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-    result := DllCall("SHLWAPI.dll\SHDeleteValueA", HKEY, _hkey, "ptr", pszSubKey, "ptr", pszValue, WIN32_ERROR)
+    pszSubKeyMarshal := pszSubKey == 0 ? IntPtr : PSTR
+
+    result := DllCall("SHLWAPI.dll\SHDeleteValueA", HKEY, _hkey, pszSubKeyMarshal, pszSubKey, "ptr", pszValue, WIN32_ERROR)
     return result
 }
 
@@ -18676,7 +19014,9 @@ export SHDeleteValueW(_hkey, pszSubKey, pszValue) {
     pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
     pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-    result := DllCall("SHLWAPI.dll\SHDeleteValueW", HKEY, _hkey, "ptr", pszSubKey, "ptr", pszValue, WIN32_ERROR)
+    pszSubKeyMarshal := pszSubKey == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHLWAPI.dll\SHDeleteValueW", HKEY, _hkey, pszSubKeyMarshal, pszSubKey, "ptr", pszValue, WIN32_ERROR)
     return result
 }
 
@@ -18718,10 +19058,15 @@ export SHGetValueA(_hkey, pszSubKey, pszValue, pdwType, pvData, pcbData) {
     pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
     pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-    pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
-    pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+    pszSubKeyMarshal := pszSubKey == 0 ? IntPtr : PSTR
+    pszValueMarshal := pszValue == 0 ? IntPtr : PSTR
+    pdwTypeMarshal := pdwType is VarRef ? "uint*" : IntPtr
+    pdwTypeMarshal := pdwType == 0 ? IntPtr : "uint*"
+    pvDataMarshal := pvData == 0 ? IntPtr : IntPtr
+    pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
+    pcbDataMarshal := pcbData == 0 ? IntPtr : "uint*"
 
-    result := DllCall("SHLWAPI.dll\SHGetValueA", HKEY, _hkey, "ptr", pszSubKey, "ptr", pszValue, pdwTypeMarshal, pdwType, IntPtr, pvData, pcbDataMarshal, pcbData, WIN32_ERROR)
+    result := DllCall("SHLWAPI.dll\SHGetValueA", HKEY, _hkey, pszSubKeyMarshal, pszSubKey, pszValueMarshal, pszValue, pdwTypeMarshal, pdwType, pvDataMarshal, pvData, pcbDataMarshal, pcbData, WIN32_ERROR)
     return result
 }
 
@@ -18763,10 +19108,15 @@ export SHGetValueW(_hkey, pszSubKey, pszValue, pdwType, pvData, pcbData) {
     pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
     pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-    pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
-    pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+    pszSubKeyMarshal := pszSubKey == 0 ? IntPtr : PWSTR
+    pszValueMarshal := pszValue == 0 ? IntPtr : PWSTR
+    pdwTypeMarshal := pdwType is VarRef ? "uint*" : IntPtr
+    pdwTypeMarshal := pdwType == 0 ? IntPtr : "uint*"
+    pvDataMarshal := pvData == 0 ? IntPtr : IntPtr
+    pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
+    pcbDataMarshal := pcbData == 0 ? IntPtr : "uint*"
 
-    result := DllCall("SHLWAPI.dll\SHGetValueW", HKEY, _hkey, "ptr", pszSubKey, "ptr", pszValue, pdwTypeMarshal, pdwType, IntPtr, pvData, pcbDataMarshal, pcbData, WIN32_ERROR)
+    result := DllCall("SHLWAPI.dll\SHGetValueW", HKEY, _hkey, pszSubKeyMarshal, pszSubKey, pszValueMarshal, pszValue, pdwTypeMarshal, pdwType, pvDataMarshal, pvData, pcbDataMarshal, pcbData, WIN32_ERROR)
     return result
 }
 
@@ -18803,7 +19153,11 @@ export SHSetValueA(_hkey, pszSubKey, pszValue, dwType, pvData, cbData) {
     pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
     pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-    result := DllCall("SHLWAPI.dll\SHSetValueA", HKEY, _hkey, "ptr", pszSubKey, "ptr", pszValue, UInt32, dwType, IntPtr, pvData, UInt32, cbData, Int32)
+    pszSubKeyMarshal := pszSubKey == 0 ? IntPtr : PSTR
+    pszValueMarshal := pszValue == 0 ? IntPtr : PSTR
+    pvDataMarshal := pvData == 0 ? IntPtr : IntPtr
+
+    result := DllCall("SHLWAPI.dll\SHSetValueA", HKEY, _hkey, pszSubKeyMarshal, pszSubKey, pszValueMarshal, pszValue, UInt32, dwType, pvDataMarshal, pvData, UInt32, cbData, Int32)
     return result
 }
 
@@ -18840,7 +19194,11 @@ export SHSetValueW(_hkey, pszSubKey, pszValue, dwType, pvData, cbData) {
     pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
     pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-    result := DllCall("SHLWAPI.dll\SHSetValueW", HKEY, _hkey, "ptr", pszSubKey, "ptr", pszValue, UInt32, dwType, IntPtr, pvData, UInt32, cbData, Int32)
+    pszSubKeyMarshal := pszSubKey == 0 ? IntPtr : PWSTR
+    pszValueMarshal := pszValue == 0 ? IntPtr : PWSTR
+    pvDataMarshal := pvData == 0 ? IntPtr : IntPtr
+
+    result := DllCall("SHLWAPI.dll\SHSetValueW", HKEY, _hkey, pszSubKeyMarshal, pszSubKey, pszValueMarshal, pszValue, UInt32, dwType, pvDataMarshal, pvData, UInt32, cbData, Int32)
     return result
 }
 
@@ -18929,10 +19287,15 @@ export SHRegGetValueA(_hkey, pszSubKey, pszValue, srrfFlags, pdwType, pvData, pc
     pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
     pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-    pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
-    pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+    pszSubKeyMarshal := pszSubKey == 0 ? IntPtr : PSTR
+    pszValueMarshal := pszValue == 0 ? IntPtr : PSTR
+    pdwTypeMarshal := pdwType is VarRef ? "uint*" : IntPtr
+    pdwTypeMarshal := pdwType == 0 ? IntPtr : "uint*"
+    pvDataMarshal := pvData == 0 ? IntPtr : IntPtr
+    pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
+    pcbDataMarshal := pcbData == 0 ? IntPtr : "uint*"
 
-    result := DllCall("SHLWAPI.dll\SHRegGetValueA", HKEY, _hkey, "ptr", pszSubKey, "ptr", pszValue, Int32, srrfFlags, pdwTypeMarshal, pdwType, IntPtr, pvData, pcbDataMarshal, pcbData, WIN32_ERROR)
+    result := DllCall("SHLWAPI.dll\SHRegGetValueA", HKEY, _hkey, pszSubKeyMarshal, pszSubKey, pszValueMarshal, pszValue, Int32, srrfFlags, pdwTypeMarshal, pdwType, pvDataMarshal, pvData, pcbDataMarshal, pcbData, WIN32_ERROR)
     return result
 }
 
@@ -19021,10 +19384,15 @@ export SHRegGetValueW(_hkey, pszSubKey, pszValue, srrfFlags, pdwType, pvData, pc
     pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
     pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-    pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
-    pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+    pszSubKeyMarshal := pszSubKey == 0 ? IntPtr : PWSTR
+    pszValueMarshal := pszValue == 0 ? IntPtr : PWSTR
+    pdwTypeMarshal := pdwType is VarRef ? "uint*" : IntPtr
+    pdwTypeMarshal := pdwType == 0 ? IntPtr : "uint*"
+    pvDataMarshal := pvData == 0 ? IntPtr : IntPtr
+    pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
+    pcbDataMarshal := pcbData == 0 ? IntPtr : "uint*"
 
-    result := DllCall("SHLWAPI.dll\SHRegGetValueW", HKEY, _hkey, "ptr", pszSubKey, "ptr", pszValue, Int32, srrfFlags, pdwTypeMarshal, pdwType, IntPtr, pvData, pcbDataMarshal, pcbData, WIN32_ERROR)
+    result := DllCall("SHLWAPI.dll\SHRegGetValueW", HKEY, _hkey, pszSubKeyMarshal, pszSubKey, pszValueMarshal, pszValue, Int32, srrfFlags, pdwTypeMarshal, pdwType, pvDataMarshal, pvData, pcbDataMarshal, pcbData, WIN32_ERROR)
     return result
 }
 
@@ -19058,10 +19426,14 @@ export SHRegGetValueFromHKCUHKLM(pwszKey, pwszValue, srrfFlags, pdwType, pvData,
     pwszKey := pwszKey is String ? StrPtr(pwszKey) : pwszKey
     pwszValue := pwszValue is String ? StrPtr(pwszValue) : pwszValue
 
-    pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
-    pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+    pwszValueMarshal := pwszValue == 0 ? IntPtr : PWSTR
+    pdwTypeMarshal := pdwType is VarRef ? "uint*" : IntPtr
+    pdwTypeMarshal := pdwType == 0 ? IntPtr : "uint*"
+    pvDataMarshal := pvData == 0 ? IntPtr : IntPtr
+    pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
+    pcbDataMarshal := pcbData == 0 ? IntPtr : "uint*"
 
-    result := DllCall("SHLWAPI.dll\SHRegGetValueFromHKCUHKLM", "ptr", pwszKey, "ptr", pwszValue, Int32, srrfFlags, pdwTypeMarshal, pdwType, IntPtr, pvData, pcbDataMarshal, pcbData, WIN32_ERROR)
+    result := DllCall("SHLWAPI.dll\SHRegGetValueFromHKCUHKLM", "ptr", pwszKey, pwszValueMarshal, pwszValue, Int32, srrfFlags, pdwTypeMarshal, pdwType, pvDataMarshal, pvData, pcbDataMarshal, pcbData, WIN32_ERROR)
     return result
 }
 
@@ -19096,10 +19468,14 @@ export SHQueryValueExA(_hkey, pszValue, pdwType, pvData, pcbData) {
 
     pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-    pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
-    pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+    pszValueMarshal := pszValue == 0 ? IntPtr : PSTR
+    pdwTypeMarshal := pdwType is VarRef ? "uint*" : IntPtr
+    pdwTypeMarshal := pdwType == 0 ? IntPtr : "uint*"
+    pvDataMarshal := pvData == 0 ? IntPtr : IntPtr
+    pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
+    pcbDataMarshal := pcbData == 0 ? IntPtr : "uint*"
 
-    result := DllCall("SHLWAPI.dll\SHQueryValueExA", HKEY, _hkey, "ptr", pszValue, "uint*", pdwReserved, pdwTypeMarshal, pdwType, IntPtr, pvData, pcbDataMarshal, pcbData, WIN32_ERROR)
+    result := DllCall("SHLWAPI.dll\SHQueryValueExA", HKEY, _hkey, pszValueMarshal, pszValue, "uint*", pdwReserved, pdwTypeMarshal, pdwType, pvDataMarshal, pvData, pcbDataMarshal, pcbData, WIN32_ERROR)
     return result
 }
 
@@ -19134,10 +19510,14 @@ export SHQueryValueExW(_hkey, pszValue, pdwType, pvData, pcbData) {
 
     pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-    pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
-    pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+    pszValueMarshal := pszValue == 0 ? IntPtr : PWSTR
+    pdwTypeMarshal := pdwType is VarRef ? "uint*" : IntPtr
+    pdwTypeMarshal := pdwType == 0 ? IntPtr : "uint*"
+    pvDataMarshal := pvData == 0 ? IntPtr : IntPtr
+    pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
+    pcbDataMarshal := pcbData == 0 ? IntPtr : "uint*"
 
-    result := DllCall("SHLWAPI.dll\SHQueryValueExW", HKEY, _hkey, "ptr", pszValue, "uint*", pdwReserved, pdwTypeMarshal, pdwType, IntPtr, pvData, pcbDataMarshal, pcbData, WIN32_ERROR)
+    result := DllCall("SHLWAPI.dll\SHQueryValueExW", HKEY, _hkey, pszValueMarshal, pszValue, "uint*", pdwReserved, pdwTypeMarshal, pdwType, pvDataMarshal, pvData, pcbDataMarshal, pcbData, WIN32_ERROR)
     return result
 }
 
@@ -19167,7 +19547,7 @@ export SHQueryValueExW(_hkey, pszValue, pdwType, pvData, pcbData) {
 export SHEnumKeyExA(_hkey, dwIndex, pszName, pcchName) {
     pszName := pszName is String ? StrPtr(pszName) : pszName
 
-    pcchNameMarshal := pcchName is VarRef ? "uint*" : "ptr"
+    pcchNameMarshal := pcchName is VarRef ? "uint*" : IntPtr
 
     result := DllCall("SHLWAPI.dll\SHEnumKeyExA", HKEY, _hkey, UInt32, dwIndex, "ptr", pszName, pcchNameMarshal, pcchName, WIN32_ERROR)
     return result
@@ -19199,7 +19579,7 @@ export SHEnumKeyExA(_hkey, dwIndex, pszName, pcchName) {
 export SHEnumKeyExW(_hkey, dwIndex, pszName, pcchName) {
     pszName := pszName is String ? StrPtr(pszName) : pszName
 
-    pcchNameMarshal := pcchName is VarRef ? "uint*" : "ptr"
+    pcchNameMarshal := pcchName is VarRef ? "uint*" : IntPtr
 
     result := DllCall("SHLWAPI.dll\SHEnumKeyExW", HKEY, _hkey, UInt32, dwIndex, "ptr", pszName, pcchNameMarshal, pcchName, WIN32_ERROR)
     return result
@@ -19240,11 +19620,16 @@ export SHEnumKeyExW(_hkey, dwIndex, pszName, pcchName) {
 export SHEnumValueA(_hkey, dwIndex, pszValueName, pcchValueName, pdwType, pvData, pcbData) {
     pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
-    pcchValueNameMarshal := pcchValueName is VarRef ? "uint*" : "ptr"
-    pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
-    pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+    pszValueNameMarshal := pszValueName == 0 ? IntPtr : PSTR
+    pcchValueNameMarshal := pcchValueName is VarRef ? "uint*" : IntPtr
+    pcchValueNameMarshal := pcchValueName == 0 ? IntPtr : "uint*"
+    pdwTypeMarshal := pdwType is VarRef ? "uint*" : IntPtr
+    pdwTypeMarshal := pdwType == 0 ? IntPtr : "uint*"
+    pvDataMarshal := pvData == 0 ? IntPtr : IntPtr
+    pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
+    pcbDataMarshal := pcbData == 0 ? IntPtr : "uint*"
 
-    result := DllCall("SHLWAPI.dll\SHEnumValueA", HKEY, _hkey, UInt32, dwIndex, "ptr", pszValueName, pcchValueNameMarshal, pcchValueName, pdwTypeMarshal, pdwType, IntPtr, pvData, pcbDataMarshal, pcbData, WIN32_ERROR)
+    result := DllCall("SHLWAPI.dll\SHEnumValueA", HKEY, _hkey, UInt32, dwIndex, pszValueNameMarshal, pszValueName, pcchValueNameMarshal, pcchValueName, pdwTypeMarshal, pdwType, pvDataMarshal, pvData, pcbDataMarshal, pcbData, WIN32_ERROR)
     return result
 }
 
@@ -19283,11 +19668,16 @@ export SHEnumValueA(_hkey, dwIndex, pszValueName, pcchValueName, pdwType, pvData
 export SHEnumValueW(_hkey, dwIndex, pszValueName, pcchValueName, pdwType, pvData, pcbData) {
     pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
-    pcchValueNameMarshal := pcchValueName is VarRef ? "uint*" : "ptr"
-    pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
-    pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+    pszValueNameMarshal := pszValueName == 0 ? IntPtr : PWSTR
+    pcchValueNameMarshal := pcchValueName is VarRef ? "uint*" : IntPtr
+    pcchValueNameMarshal := pcchValueName == 0 ? IntPtr : "uint*"
+    pdwTypeMarshal := pdwType is VarRef ? "uint*" : IntPtr
+    pdwTypeMarshal := pdwType == 0 ? IntPtr : "uint*"
+    pvDataMarshal := pvData == 0 ? IntPtr : IntPtr
+    pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
+    pcbDataMarshal := pcbData == 0 ? IntPtr : "uint*"
 
-    result := DllCall("SHLWAPI.dll\SHEnumValueW", HKEY, _hkey, UInt32, dwIndex, "ptr", pszValueName, pcchValueNameMarshal, pcchValueName, pdwTypeMarshal, pdwType, IntPtr, pvData, pcbDataMarshal, pcbData, WIN32_ERROR)
+    result := DllCall("SHLWAPI.dll\SHEnumValueW", HKEY, _hkey, UInt32, dwIndex, pszValueNameMarshal, pszValueName, pcchValueNameMarshal, pcchValueName, pdwTypeMarshal, pdwType, pvDataMarshal, pvData, pcbDataMarshal, pcbData, WIN32_ERROR)
     return result
 }
 
@@ -19318,10 +19708,14 @@ export SHEnumValueW(_hkey, dwIndex, pszValueName, pcchValueName, pdwType, pvData
  * @since windows5.0
  */
 export SHQueryInfoKeyA(_hkey, pcSubKeys, pcchMaxSubKeyLen, pcValues, pcchMaxValueNameLen) {
-    pcSubKeysMarshal := pcSubKeys is VarRef ? "uint*" : "ptr"
-    pcchMaxSubKeyLenMarshal := pcchMaxSubKeyLen is VarRef ? "uint*" : "ptr"
-    pcValuesMarshal := pcValues is VarRef ? "uint*" : "ptr"
-    pcchMaxValueNameLenMarshal := pcchMaxValueNameLen is VarRef ? "uint*" : "ptr"
+    pcSubKeysMarshal := pcSubKeys is VarRef ? "uint*" : IntPtr
+    pcSubKeysMarshal := pcSubKeys == 0 ? IntPtr : "uint*"
+    pcchMaxSubKeyLenMarshal := pcchMaxSubKeyLen is VarRef ? "uint*" : IntPtr
+    pcchMaxSubKeyLenMarshal := pcchMaxSubKeyLen == 0 ? IntPtr : "uint*"
+    pcValuesMarshal := pcValues is VarRef ? "uint*" : IntPtr
+    pcValuesMarshal := pcValues == 0 ? IntPtr : "uint*"
+    pcchMaxValueNameLenMarshal := pcchMaxValueNameLen is VarRef ? "uint*" : IntPtr
+    pcchMaxValueNameLenMarshal := pcchMaxValueNameLen == 0 ? IntPtr : "uint*"
 
     result := DllCall("SHLWAPI.dll\SHQueryInfoKeyA", HKEY, _hkey, pcSubKeysMarshal, pcSubKeys, pcchMaxSubKeyLenMarshal, pcchMaxSubKeyLen, pcValuesMarshal, pcValues, pcchMaxValueNameLenMarshal, pcchMaxValueNameLen, WIN32_ERROR)
     return result
@@ -19354,10 +19748,14 @@ export SHQueryInfoKeyA(_hkey, pcSubKeys, pcchMaxSubKeyLen, pcValues, pcchMaxValu
  * @since windows5.0
  */
 export SHQueryInfoKeyW(_hkey, pcSubKeys, pcchMaxSubKeyLen, pcValues, pcchMaxValueNameLen) {
-    pcSubKeysMarshal := pcSubKeys is VarRef ? "uint*" : "ptr"
-    pcchMaxSubKeyLenMarshal := pcchMaxSubKeyLen is VarRef ? "uint*" : "ptr"
-    pcValuesMarshal := pcValues is VarRef ? "uint*" : "ptr"
-    pcchMaxValueNameLenMarshal := pcchMaxValueNameLen is VarRef ? "uint*" : "ptr"
+    pcSubKeysMarshal := pcSubKeys is VarRef ? "uint*" : IntPtr
+    pcSubKeysMarshal := pcSubKeys == 0 ? IntPtr : "uint*"
+    pcchMaxSubKeyLenMarshal := pcchMaxSubKeyLen is VarRef ? "uint*" : IntPtr
+    pcchMaxSubKeyLenMarshal := pcchMaxSubKeyLen == 0 ? IntPtr : "uint*"
+    pcValuesMarshal := pcValues is VarRef ? "uint*" : IntPtr
+    pcValuesMarshal := pcValues == 0 ? IntPtr : "uint*"
+    pcchMaxValueNameLenMarshal := pcchMaxValueNameLen is VarRef ? "uint*" : IntPtr
+    pcchMaxValueNameLenMarshal := pcchMaxValueNameLen == 0 ? IntPtr : "uint*"
 
     result := DllCall("SHLWAPI.dll\SHQueryInfoKeyW", HKEY, _hkey, pcSubKeysMarshal, pcSubKeys, pcchMaxSubKeyLenMarshal, pcchMaxSubKeyLen, pcValuesMarshal, pcValues, pcchMaxValueNameLenMarshal, pcchMaxValueNameLen, WIN32_ERROR)
     return result
@@ -19393,7 +19791,9 @@ export SHCopyKeyA(hkeySrc, pszSrcSubKey, hkeyDest) {
 
     pszSrcSubKey := pszSrcSubKey is String ? StrPtr(pszSrcSubKey) : pszSrcSubKey
 
-    result := DllCall("SHLWAPI.dll\SHCopyKeyA", HKEY, hkeySrc, "ptr", pszSrcSubKey, HKEY, hkeyDest, UInt32, fReserved, WIN32_ERROR)
+    pszSrcSubKeyMarshal := pszSrcSubKey == 0 ? IntPtr : PSTR
+
+    result := DllCall("SHLWAPI.dll\SHCopyKeyA", HKEY, hkeySrc, pszSrcSubKeyMarshal, pszSrcSubKey, HKEY, hkeyDest, UInt32, fReserved, WIN32_ERROR)
     return result
 }
 
@@ -19427,7 +19827,9 @@ export SHCopyKeyW(hkeySrc, pszSrcSubKey, hkeyDest) {
 
     pszSrcSubKey := pszSrcSubKey is String ? StrPtr(pszSrcSubKey) : pszSrcSubKey
 
-    result := DllCall("SHLWAPI.dll\SHCopyKeyW", HKEY, hkeySrc, "ptr", pszSrcSubKey, HKEY, hkeyDest, UInt32, fReserved, WIN32_ERROR)
+    pszSrcSubKeyMarshal := pszSrcSubKey == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHLWAPI.dll\SHCopyKeyW", HKEY, hkeySrc, pszSrcSubKeyMarshal, pszSrcSubKey, HKEY, hkeyDest, UInt32, fReserved, WIN32_ERROR)
     return result
 }
 
@@ -19504,7 +19906,10 @@ export SHRegGetPathA(_hKey, pcszSubKey, pcszValue, pszPath, dwFlags) {
     pcszValue := pcszValue is String ? StrPtr(pcszValue) : pcszValue
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    result := DllCall("SHLWAPI.dll\SHRegGetPathA", HKEY, _hKey, "ptr", pcszSubKey, "ptr", pcszValue, "ptr", pszPath, UInt32, dwFlags, WIN32_ERROR)
+    pcszSubKeyMarshal := pcszSubKey == 0 ? IntPtr : PSTR
+    pcszValueMarshal := pcszValue == 0 ? IntPtr : PSTR
+
+    result := DllCall("SHLWAPI.dll\SHRegGetPathA", HKEY, _hKey, pcszSubKeyMarshal, pcszSubKey, pcszValueMarshal, pcszValue, "ptr", pszPath, UInt32, dwFlags, WIN32_ERROR)
     return result
 }
 
@@ -19581,7 +19986,10 @@ export SHRegGetPathW(_hKey, pcszSubKey, pcszValue, pszPath, dwFlags) {
     pcszValue := pcszValue is String ? StrPtr(pcszValue) : pcszValue
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    result := DllCall("SHLWAPI.dll\SHRegGetPathW", HKEY, _hKey, "ptr", pcszSubKey, "ptr", pcszValue, "ptr", pszPath, UInt32, dwFlags, WIN32_ERROR)
+    pcszSubKeyMarshal := pcszSubKey == 0 ? IntPtr : PWSTR
+    pcszValueMarshal := pcszValue == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHLWAPI.dll\SHRegGetPathW", HKEY, _hKey, pcszSubKeyMarshal, pcszSubKey, pcszValueMarshal, pcszValue, "ptr", pszPath, UInt32, dwFlags, WIN32_ERROR)
     return result
 }
 
@@ -19660,7 +20068,10 @@ export SHRegSetPathA(_hKey, pcszSubKey, pcszValue, pcszPath, dwFlags) {
     pcszValue := pcszValue is String ? StrPtr(pcszValue) : pcszValue
     pcszPath := pcszPath is String ? StrPtr(pcszPath) : pcszPath
 
-    result := DllCall("SHLWAPI.dll\SHRegSetPathA", HKEY, _hKey, "ptr", pcszSubKey, "ptr", pcszValue, "ptr", pcszPath, UInt32, dwFlags, WIN32_ERROR)
+    pcszSubKeyMarshal := pcszSubKey == 0 ? IntPtr : PSTR
+    pcszValueMarshal := pcszValue == 0 ? IntPtr : PSTR
+
+    result := DllCall("SHLWAPI.dll\SHRegSetPathA", HKEY, _hKey, pcszSubKeyMarshal, pcszSubKey, pcszValueMarshal, pcszValue, "ptr", pcszPath, UInt32, dwFlags, WIN32_ERROR)
     return result
 }
 
@@ -19739,7 +20150,10 @@ export SHRegSetPathW(_hKey, pcszSubKey, pcszValue, pcszPath, dwFlags) {
     pcszValue := pcszValue is String ? StrPtr(pcszValue) : pcszValue
     pcszPath := pcszPath is String ? StrPtr(pcszPath) : pcszPath
 
-    result := DllCall("SHLWAPI.dll\SHRegSetPathW", HKEY, _hKey, "ptr", pcszSubKey, "ptr", pcszValue, "ptr", pcszPath, UInt32, dwFlags, WIN32_ERROR)
+    pcszSubKeyMarshal := pcszSubKey == 0 ? IntPtr : PWSTR
+    pcszValueMarshal := pcszValue == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHLWAPI.dll\SHRegSetPathW", HKEY, _hKey, pcszSubKeyMarshal, pcszSubKey, pcszValueMarshal, pcszValue, "ptr", pcszPath, UInt32, dwFlags, WIN32_ERROR)
     return result
 }
 
@@ -19775,9 +20189,10 @@ export SHRegSetPathW(_hKey, pcszSubKey, pcszValue, pcszPath, dwFlags) {
 export SHRegCreateUSKeyA(pszPath, samDesired, hRelativeUSKey, phNewUSKey, dwFlags) {
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    phNewUSKeyMarshal := phNewUSKey is VarRef ? "ptr*" : "ptr"
+    hRelativeUSKeyMarshal := hRelativeUSKey == 0 ? IntPtr : IntPtr
+    phNewUSKeyMarshal := phNewUSKey is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("SHLWAPI.dll\SHRegCreateUSKeyA", "ptr", pszPath, UInt32, samDesired, IntPtr, hRelativeUSKey, phNewUSKeyMarshal, phNewUSKey, UInt32, dwFlags, WIN32_ERROR)
+    result := DllCall("SHLWAPI.dll\SHRegCreateUSKeyA", "ptr", pszPath, UInt32, samDesired, hRelativeUSKeyMarshal, hRelativeUSKey, phNewUSKeyMarshal, phNewUSKey, UInt32, dwFlags, WIN32_ERROR)
     return result
 }
 
@@ -19811,9 +20226,10 @@ export SHRegCreateUSKeyA(pszPath, samDesired, hRelativeUSKey, phNewUSKey, dwFlag
 export SHRegCreateUSKeyW(pwzPath, samDesired, hRelativeUSKey, phNewUSKey, dwFlags) {
     pwzPath := pwzPath is String ? StrPtr(pwzPath) : pwzPath
 
-    phNewUSKeyMarshal := phNewUSKey is VarRef ? "ptr*" : "ptr"
+    hRelativeUSKeyMarshal := hRelativeUSKey == 0 ? IntPtr : IntPtr
+    phNewUSKeyMarshal := phNewUSKey is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("SHLWAPI.dll\SHRegCreateUSKeyW", "ptr", pwzPath, UInt32, samDesired, IntPtr, hRelativeUSKey, phNewUSKeyMarshal, phNewUSKey, UInt32, dwFlags, WIN32_ERROR)
+    result := DllCall("SHLWAPI.dll\SHRegCreateUSKeyW", "ptr", pwzPath, UInt32, samDesired, hRelativeUSKeyMarshal, hRelativeUSKey, phNewUSKeyMarshal, phNewUSKey, UInt32, dwFlags, WIN32_ERROR)
     return result
 }
 
@@ -19846,9 +20262,10 @@ export SHRegCreateUSKeyW(pwzPath, samDesired, hRelativeUSKey, phNewUSKey, dwFlag
 export SHRegOpenUSKeyA(pszPath, samDesired, hRelativeUSKey, phNewUSKey, fIgnoreHKCU) {
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    phNewUSKeyMarshal := phNewUSKey is VarRef ? "ptr*" : "ptr"
+    hRelativeUSKeyMarshal := hRelativeUSKey == 0 ? IntPtr : IntPtr
+    phNewUSKeyMarshal := phNewUSKey is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("SHLWAPI.dll\SHRegOpenUSKeyA", "ptr", pszPath, UInt32, samDesired, IntPtr, hRelativeUSKey, phNewUSKeyMarshal, phNewUSKey, BOOL, fIgnoreHKCU, WIN32_ERROR)
+    result := DllCall("SHLWAPI.dll\SHRegOpenUSKeyA", "ptr", pszPath, UInt32, samDesired, hRelativeUSKeyMarshal, hRelativeUSKey, phNewUSKeyMarshal, phNewUSKey, BOOL, fIgnoreHKCU, WIN32_ERROR)
     return result
 }
 
@@ -19879,9 +20296,10 @@ export SHRegOpenUSKeyA(pszPath, samDesired, hRelativeUSKey, phNewUSKey, fIgnoreH
 export SHRegOpenUSKeyW(pwzPath, samDesired, hRelativeUSKey, phNewUSKey, fIgnoreHKCU) {
     pwzPath := pwzPath is String ? StrPtr(pwzPath) : pwzPath
 
-    phNewUSKeyMarshal := phNewUSKey is VarRef ? "ptr*" : "ptr"
+    hRelativeUSKeyMarshal := hRelativeUSKey == 0 ? IntPtr : IntPtr
+    phNewUSKeyMarshal := phNewUSKey is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("SHLWAPI.dll\SHRegOpenUSKeyW", "ptr", pwzPath, UInt32, samDesired, IntPtr, hRelativeUSKey, phNewUSKeyMarshal, phNewUSKey, BOOL, fIgnoreHKCU, WIN32_ERROR)
+    result := DllCall("SHLWAPI.dll\SHRegOpenUSKeyW", "ptr", pwzPath, UInt32, samDesired, hRelativeUSKeyMarshal, hRelativeUSKey, phNewUSKeyMarshal, phNewUSKey, BOOL, fIgnoreHKCU, WIN32_ERROR)
     return result
 }
 
@@ -19934,10 +20352,16 @@ export SHRegOpenUSKeyW(pwzPath, samDesired, hRelativeUSKey, phNewUSKey, fIgnoreH
 export SHRegQueryUSValueA(hUSKey, pszValue, pdwType, pvData, pcbData, fIgnoreHKCU, pvDefaultData, dwDefaultDataSize) {
     pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-    pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
-    pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+    pszValueMarshal := pszValue == 0 ? IntPtr : PSTR
+    pdwTypeMarshal := pdwType is VarRef ? "uint*" : IntPtr
+    pdwTypeMarshal := pdwType == 0 ? IntPtr : "uint*"
+    pvDataMarshal := pvData == 0 ? IntPtr : IntPtr
+    pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
+    pcbDataMarshal := pcbData == 0 ? IntPtr : "uint*"
+    pvDefaultDataMarshal := pvDefaultData == 0 ? IntPtr : IntPtr
+    dwDefaultDataSizeMarshal := dwDefaultDataSize == 0 ? IntPtr : UInt32
 
-    result := DllCall("SHLWAPI.dll\SHRegQueryUSValueA", IntPtr, hUSKey, "ptr", pszValue, pdwTypeMarshal, pdwType, IntPtr, pvData, pcbDataMarshal, pcbData, BOOL, fIgnoreHKCU, IntPtr, pvDefaultData, UInt32, dwDefaultDataSize, WIN32_ERROR)
+    result := DllCall("SHLWAPI.dll\SHRegQueryUSValueA", IntPtr, hUSKey, pszValueMarshal, pszValue, pdwTypeMarshal, pdwType, pvDataMarshal, pvData, pcbDataMarshal, pcbData, BOOL, fIgnoreHKCU, pvDefaultDataMarshal, pvDefaultData, dwDefaultDataSizeMarshal, dwDefaultDataSize, WIN32_ERROR)
     return result
 }
 
@@ -19990,10 +20414,16 @@ export SHRegQueryUSValueA(hUSKey, pszValue, pdwType, pvData, pcbData, fIgnoreHKC
 export SHRegQueryUSValueW(hUSKey, pszValue, pdwType, pvData, pcbData, fIgnoreHKCU, pvDefaultData, dwDefaultDataSize) {
     pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-    pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
-    pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+    pszValueMarshal := pszValue == 0 ? IntPtr : PWSTR
+    pdwTypeMarshal := pdwType is VarRef ? "uint*" : IntPtr
+    pdwTypeMarshal := pdwType == 0 ? IntPtr : "uint*"
+    pvDataMarshal := pvData == 0 ? IntPtr : IntPtr
+    pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
+    pcbDataMarshal := pcbData == 0 ? IntPtr : "uint*"
+    pvDefaultDataMarshal := pvDefaultData == 0 ? IntPtr : IntPtr
+    dwDefaultDataSizeMarshal := dwDefaultDataSize == 0 ? IntPtr : UInt32
 
-    result := DllCall("SHLWAPI.dll\SHRegQueryUSValueW", IntPtr, hUSKey, "ptr", pszValue, pdwTypeMarshal, pdwType, IntPtr, pvData, pcbDataMarshal, pcbData, BOOL, fIgnoreHKCU, IntPtr, pvDefaultData, UInt32, dwDefaultDataSize, WIN32_ERROR)
+    result := DllCall("SHLWAPI.dll\SHRegQueryUSValueW", IntPtr, hUSKey, pszValueMarshal, pszValue, pdwTypeMarshal, pdwType, pvDataMarshal, pvData, pcbDataMarshal, pcbData, BOOL, fIgnoreHKCU, pvDefaultDataMarshal, pvDefaultData, dwDefaultDataSizeMarshal, dwDefaultDataSize, WIN32_ERROR)
     return result
 }
 
@@ -20248,7 +20678,7 @@ export SHRegDeleteEmptyUSKeyA(hUSKey, pszSubKey, delRegFlags) {
 export SHRegEnumUSKeyA(hUSKey, dwIndex, pszName, pcchName, enumRegFlags) {
     pszName := pszName is String ? StrPtr(pszName) : pszName
 
-    pcchNameMarshal := pcchName is VarRef ? "uint*" : "ptr"
+    pcchNameMarshal := pcchName is VarRef ? "uint*" : IntPtr
 
     result := DllCall("SHLWAPI.dll\SHRegEnumUSKeyA", IntPtr, hUSKey, UInt32, dwIndex, "ptr", pszName, pcchNameMarshal, pcchName, SHREGENUM_FLAGS, enumRegFlags, WIN32_ERROR)
     return result
@@ -20285,7 +20715,7 @@ export SHRegEnumUSKeyA(hUSKey, dwIndex, pszName, pcchName, enumRegFlags) {
 export SHRegEnumUSKeyW(hUSKey, dwIndex, pwzName, pcchName, enumRegFlags) {
     pwzName := pwzName is String ? StrPtr(pwzName) : pwzName
 
-    pcchNameMarshal := pcchName is VarRef ? "uint*" : "ptr"
+    pcchNameMarshal := pcchName is VarRef ? "uint*" : IntPtr
 
     result := DllCall("SHLWAPI.dll\SHRegEnumUSKeyW", IntPtr, hUSKey, UInt32, dwIndex, "ptr", pwzName, pcchNameMarshal, pcchName, SHREGENUM_FLAGS, enumRegFlags, WIN32_ERROR)
     return result
@@ -20333,11 +20763,14 @@ export SHRegEnumUSKeyW(hUSKey, dwIndex, pwzName, pcchName, enumRegFlags) {
 export SHRegEnumUSValueA(hUSkey, dwIndex, pszValueName, pcchValueName, pdwType, pvData, pcbData, enumRegFlags) {
     pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
-    pcchValueNameMarshal := pcchValueName is VarRef ? "uint*" : "ptr"
-    pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
-    pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+    pcchValueNameMarshal := pcchValueName is VarRef ? "uint*" : IntPtr
+    pdwTypeMarshal := pdwType is VarRef ? "uint*" : IntPtr
+    pdwTypeMarshal := pdwType == 0 ? IntPtr : "uint*"
+    pvDataMarshal := pvData == 0 ? IntPtr : IntPtr
+    pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
+    pcbDataMarshal := pcbData == 0 ? IntPtr : "uint*"
 
-    result := DllCall("SHLWAPI.dll\SHRegEnumUSValueA", IntPtr, hUSkey, UInt32, dwIndex, "ptr", pszValueName, pcchValueNameMarshal, pcchValueName, pdwTypeMarshal, pdwType, IntPtr, pvData, pcbDataMarshal, pcbData, SHREGENUM_FLAGS, enumRegFlags, WIN32_ERROR)
+    result := DllCall("SHLWAPI.dll\SHRegEnumUSValueA", IntPtr, hUSkey, UInt32, dwIndex, "ptr", pszValueName, pcchValueNameMarshal, pcchValueName, pdwTypeMarshal, pdwType, pvDataMarshal, pvData, pcbDataMarshal, pcbData, SHREGENUM_FLAGS, enumRegFlags, WIN32_ERROR)
     return result
 }
 
@@ -20383,11 +20816,14 @@ export SHRegEnumUSValueA(hUSkey, dwIndex, pszValueName, pcchValueName, pdwType, 
 export SHRegEnumUSValueW(hUSkey, dwIndex, pszValueName, pcchValueName, pdwType, pvData, pcbData, enumRegFlags) {
     pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
-    pcchValueNameMarshal := pcchValueName is VarRef ? "uint*" : "ptr"
-    pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
-    pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+    pcchValueNameMarshal := pcchValueName is VarRef ? "uint*" : IntPtr
+    pdwTypeMarshal := pdwType is VarRef ? "uint*" : IntPtr
+    pdwTypeMarshal := pdwType == 0 ? IntPtr : "uint*"
+    pvDataMarshal := pvData == 0 ? IntPtr : IntPtr
+    pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
+    pcbDataMarshal := pcbData == 0 ? IntPtr : "uint*"
 
-    result := DllCall("SHLWAPI.dll\SHRegEnumUSValueW", IntPtr, hUSkey, UInt32, dwIndex, "ptr", pszValueName, pcchValueNameMarshal, pcchValueName, pdwTypeMarshal, pdwType, IntPtr, pvData, pcbDataMarshal, pcbData, SHREGENUM_FLAGS, enumRegFlags, WIN32_ERROR)
+    result := DllCall("SHLWAPI.dll\SHRegEnumUSValueW", IntPtr, hUSkey, UInt32, dwIndex, "ptr", pszValueName, pcchValueNameMarshal, pcchValueName, pdwTypeMarshal, pdwType, pvDataMarshal, pvData, pcbDataMarshal, pcbData, SHREGENUM_FLAGS, enumRegFlags, WIN32_ERROR)
     return result
 }
 
@@ -20425,10 +20861,14 @@ export SHRegEnumUSValueW(hUSkey, dwIndex, pszValueName, pcchValueName, pdwType, 
  * @since windows5.0
  */
 export SHRegQueryInfoUSKeyA(hUSKey, pcSubKeys, pcchMaxSubKeyLen, pcValues, pcchMaxValueNameLen, enumRegFlags) {
-    pcSubKeysMarshal := pcSubKeys is VarRef ? "uint*" : "ptr"
-    pcchMaxSubKeyLenMarshal := pcchMaxSubKeyLen is VarRef ? "uint*" : "ptr"
-    pcValuesMarshal := pcValues is VarRef ? "uint*" : "ptr"
-    pcchMaxValueNameLenMarshal := pcchMaxValueNameLen is VarRef ? "uint*" : "ptr"
+    pcSubKeysMarshal := pcSubKeys is VarRef ? "uint*" : IntPtr
+    pcSubKeysMarshal := pcSubKeys == 0 ? IntPtr : "uint*"
+    pcchMaxSubKeyLenMarshal := pcchMaxSubKeyLen is VarRef ? "uint*" : IntPtr
+    pcchMaxSubKeyLenMarshal := pcchMaxSubKeyLen == 0 ? IntPtr : "uint*"
+    pcValuesMarshal := pcValues is VarRef ? "uint*" : IntPtr
+    pcValuesMarshal := pcValues == 0 ? IntPtr : "uint*"
+    pcchMaxValueNameLenMarshal := pcchMaxValueNameLen is VarRef ? "uint*" : IntPtr
+    pcchMaxValueNameLenMarshal := pcchMaxValueNameLen == 0 ? IntPtr : "uint*"
 
     result := DllCall("SHLWAPI.dll\SHRegQueryInfoUSKeyA", IntPtr, hUSKey, pcSubKeysMarshal, pcSubKeys, pcchMaxSubKeyLenMarshal, pcchMaxSubKeyLen, pcValuesMarshal, pcValues, pcchMaxValueNameLenMarshal, pcchMaxValueNameLen, SHREGENUM_FLAGS, enumRegFlags, WIN32_ERROR)
     return result
@@ -20468,10 +20908,14 @@ export SHRegQueryInfoUSKeyA(hUSKey, pcSubKeys, pcchMaxSubKeyLen, pcValues, pcchM
  * @since windows5.0
  */
 export SHRegQueryInfoUSKeyW(hUSKey, pcSubKeys, pcchMaxSubKeyLen, pcValues, pcchMaxValueNameLen, enumRegFlags) {
-    pcSubKeysMarshal := pcSubKeys is VarRef ? "uint*" : "ptr"
-    pcchMaxSubKeyLenMarshal := pcchMaxSubKeyLen is VarRef ? "uint*" : "ptr"
-    pcValuesMarshal := pcValues is VarRef ? "uint*" : "ptr"
-    pcchMaxValueNameLenMarshal := pcchMaxValueNameLen is VarRef ? "uint*" : "ptr"
+    pcSubKeysMarshal := pcSubKeys is VarRef ? "uint*" : IntPtr
+    pcSubKeysMarshal := pcSubKeys == 0 ? IntPtr : "uint*"
+    pcchMaxSubKeyLenMarshal := pcchMaxSubKeyLen is VarRef ? "uint*" : IntPtr
+    pcchMaxSubKeyLenMarshal := pcchMaxSubKeyLen == 0 ? IntPtr : "uint*"
+    pcValuesMarshal := pcValues is VarRef ? "uint*" : IntPtr
+    pcValuesMarshal := pcValues == 0 ? IntPtr : "uint*"
+    pcchMaxValueNameLenMarshal := pcchMaxValueNameLen is VarRef ? "uint*" : IntPtr
+    pcchMaxValueNameLenMarshal := pcchMaxValueNameLen == 0 ? IntPtr : "uint*"
 
     result := DllCall("SHLWAPI.dll\SHRegQueryInfoUSKeyW", IntPtr, hUSKey, pcSubKeysMarshal, pcSubKeys, pcchMaxSubKeyLenMarshal, pcchMaxSubKeyLen, pcValuesMarshal, pcValues, pcchMaxValueNameLenMarshal, pcchMaxValueNameLen, SHREGENUM_FLAGS, enumRegFlags, WIN32_ERROR)
     return result
@@ -20543,10 +20987,15 @@ export SHRegGetUSValueA(pszSubKey, pszValue, pdwType, pvData, pcbData, fIgnoreHK
     pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
     pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-    pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
-    pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+    pszValueMarshal := pszValue == 0 ? IntPtr : PSTR
+    pdwTypeMarshal := pdwType is VarRef ? "uint*" : IntPtr
+    pdwTypeMarshal := pdwType == 0 ? IntPtr : "uint*"
+    pvDataMarshal := pvData == 0 ? IntPtr : IntPtr
+    pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
+    pcbDataMarshal := pcbData == 0 ? IntPtr : "uint*"
+    pvDefaultDataMarshal := pvDefaultData == 0 ? IntPtr : IntPtr
 
-    result := DllCall("SHLWAPI.dll\SHRegGetUSValueA", "ptr", pszSubKey, "ptr", pszValue, pdwTypeMarshal, pdwType, IntPtr, pvData, pcbDataMarshal, pcbData, BOOL, fIgnoreHKCU, IntPtr, pvDefaultData, UInt32, dwDefaultDataSize, WIN32_ERROR)
+    result := DllCall("SHLWAPI.dll\SHRegGetUSValueA", "ptr", pszSubKey, pszValueMarshal, pszValue, pdwTypeMarshal, pdwType, pvDataMarshal, pvData, pcbDataMarshal, pcbData, BOOL, fIgnoreHKCU, pvDefaultDataMarshal, pvDefaultData, UInt32, dwDefaultDataSize, WIN32_ERROR)
     return result
 }
 
@@ -20596,10 +21045,15 @@ export SHRegGetUSValueW(pszSubKey, pszValue, pdwType, pvData, pcbData, fIgnoreHK
     pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
     pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-    pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
-    pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+    pszValueMarshal := pszValue == 0 ? IntPtr : PWSTR
+    pdwTypeMarshal := pdwType is VarRef ? "uint*" : IntPtr
+    pdwTypeMarshal := pdwType == 0 ? IntPtr : "uint*"
+    pvDataMarshal := pvData == 0 ? IntPtr : IntPtr
+    pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
+    pcbDataMarshal := pcbData == 0 ? IntPtr : "uint*"
+    pvDefaultDataMarshal := pvDefaultData == 0 ? IntPtr : IntPtr
 
-    result := DllCall("SHLWAPI.dll\SHRegGetUSValueW", "ptr", pszSubKey, "ptr", pszValue, pdwTypeMarshal, pdwType, IntPtr, pvData, pcbDataMarshal, pcbData, BOOL, fIgnoreHKCU, IntPtr, pvDefaultData, UInt32, dwDefaultDataSize, WIN32_ERROR)
+    result := DllCall("SHLWAPI.dll\SHRegGetUSValueW", "ptr", pszSubKey, pszValueMarshal, pszValue, pdwTypeMarshal, pdwType, pvDataMarshal, pvData, pcbDataMarshal, pcbData, BOOL, fIgnoreHKCU, pvDefaultDataMarshal, pvDefaultData, UInt32, dwDefaultDataSize, WIN32_ERROR)
     return result
 }
 
@@ -20641,7 +21095,11 @@ export SHRegSetUSValueA(pszSubKey, pszValue, dwType, pvData, cbData, dwFlags) {
     pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
     pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-    result := DllCall("SHLWAPI.dll\SHRegSetUSValueA", "ptr", pszSubKey, "ptr", pszValue, UInt32, dwType, IntPtr, pvData, UInt32, cbData, UInt32, dwFlags, WIN32_ERROR)
+    pvDataMarshal := pvData == 0 ? IntPtr : IntPtr
+    cbDataMarshal := cbData == 0 ? IntPtr : UInt32
+    dwFlagsMarshal := dwFlags == 0 ? IntPtr : UInt32
+
+    result := DllCall("SHLWAPI.dll\SHRegSetUSValueA", "ptr", pszSubKey, "ptr", pszValue, UInt32, dwType, pvDataMarshal, pvData, cbDataMarshal, cbData, dwFlagsMarshal, dwFlags, WIN32_ERROR)
     return result
 }
 
@@ -20679,7 +21137,11 @@ export SHRegSetUSValueW(pwzSubKey, pwzValue, dwType, pvData, cbData, dwFlags) {
     pwzSubKey := pwzSubKey is String ? StrPtr(pwzSubKey) : pwzSubKey
     pwzValue := pwzValue is String ? StrPtr(pwzValue) : pwzValue
 
-    result := DllCall("SHLWAPI.dll\SHRegSetUSValueW", "ptr", pwzSubKey, "ptr", pwzValue, UInt32, dwType, IntPtr, pvData, UInt32, cbData, UInt32, dwFlags, WIN32_ERROR)
+    pvDataMarshal := pvData == 0 ? IntPtr : IntPtr
+    cbDataMarshal := cbData == 0 ? IntPtr : UInt32
+    dwFlagsMarshal := dwFlags == 0 ? IntPtr : UInt32
+
+    result := DllCall("SHLWAPI.dll\SHRegSetUSValueW", "ptr", pwzSubKey, "ptr", pwzValue, UInt32, dwType, pvDataMarshal, pvData, cbDataMarshal, cbData, dwFlagsMarshal, dwFlags, WIN32_ERROR)
     return result
 }
 
@@ -20707,7 +21169,9 @@ export SHRegSetUSValueW(pwzSubKey, pwzValue, dwType, pvData, cbData, dwFlags) {
 export SHRegGetIntW(hk, pwzKey, iDefault) {
     pwzKey := pwzKey is String ? StrPtr(pwzKey) : pwzKey
 
-    result := DllCall("SHLWAPI.dll\SHRegGetIntW", HKEY, hk, "ptr", pwzKey, Int32, iDefault, Int32)
+    pwzKeyMarshal := pwzKey == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHLWAPI.dll\SHRegGetIntW", HKEY, hk, pwzKeyMarshal, pwzKey, Int32, iDefault, Int32)
     return result
 }
 
@@ -20738,7 +21202,9 @@ export SHRegGetBoolUSValueA(pszSubKey, pszValue, fIgnoreHKCU, fDefault) {
     pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
     pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-    result := DllCall("SHLWAPI.dll\SHRegGetBoolUSValueA", "ptr", pszSubKey, "ptr", pszValue, BOOL, fIgnoreHKCU, BOOL, fDefault, BOOL)
+    pszValueMarshal := pszValue == 0 ? IntPtr : PSTR
+
+    result := DllCall("SHLWAPI.dll\SHRegGetBoolUSValueA", "ptr", pszSubKey, pszValueMarshal, pszValue, BOOL, fIgnoreHKCU, BOOL, fDefault, BOOL)
     return result
 }
 
@@ -20769,7 +21235,9 @@ export SHRegGetBoolUSValueW(pszSubKey, pszValue, fIgnoreHKCU, fDefault) {
     pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
     pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-    result := DllCall("SHLWAPI.dll\SHRegGetBoolUSValueW", "ptr", pszSubKey, "ptr", pszValue, BOOL, fIgnoreHKCU, BOOL, fDefault, BOOL)
+    pszValueMarshal := pszValue == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHLWAPI.dll\SHRegGetBoolUSValueW", "ptr", pszSubKey, pszValueMarshal, pszValue, BOOL, fIgnoreHKCU, BOOL, fDefault, BOOL)
     return result
 }
 
@@ -20860,9 +21328,11 @@ export AssocQueryStringA(flags, str, pszAssoc, pszExtra, pszOut, pcchOut) {
     pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
     pszOut := pszOut is String ? StrPtr(pszOut) : pszOut
 
-    pcchOutMarshal := pcchOut is VarRef ? "uint*" : "ptr"
+    pszExtraMarshal := pszExtra == 0 ? IntPtr : PSTR
+    pszOutMarshal := pszOut == 0 ? IntPtr : PSTR
+    pcchOutMarshal := pcchOut is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("SHLWAPI.dll\AssocQueryStringA", ASSOCF, flags, ASSOCSTR, str, "ptr", pszAssoc, "ptr", pszExtra, "ptr", pszOut, pcchOutMarshal, pcchOut, Int32)
+    result := DllCall("SHLWAPI.dll\AssocQueryStringA", ASSOCF, flags, ASSOCSTR, str, "ptr", pszAssoc, pszExtraMarshal, pszExtra, pszOutMarshal, pszOut, pcchOutMarshal, pcchOut, Int32)
     return result
 }
 
@@ -20932,9 +21402,11 @@ export AssocQueryStringW(flags, str, pszAssoc, pszExtra, pszOut, pcchOut) {
     pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
     pszOut := pszOut is String ? StrPtr(pszOut) : pszOut
 
-    pcchOutMarshal := pcchOut is VarRef ? "uint*" : "ptr"
+    pszExtraMarshal := pszExtra == 0 ? IntPtr : PWSTR
+    pszOutMarshal := pszOut == 0 ? IntPtr : PWSTR
+    pcchOutMarshal := pcchOut is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("SHLWAPI.dll\AssocQueryStringW", ASSOCF, flags, ASSOCSTR, str, "ptr", pszAssoc, "ptr", pszExtra, "ptr", pszOut, pcchOutMarshal, pcchOut, Int32)
+    result := DllCall("SHLWAPI.dll\AssocQueryStringW", ASSOCF, flags, ASSOCSTR, str, "ptr", pszAssoc, pszExtraMarshal, pszExtra, pszOutMarshal, pszOut, pcchOutMarshal, pcchOut, Int32)
     return result
 }
 
@@ -21003,9 +21475,11 @@ export AssocQueryStringByKeyA(flags, str, hkAssoc, pszExtra, pszOut, pcchOut) {
     pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
     pszOut := pszOut is String ? StrPtr(pszOut) : pszOut
 
-    pcchOutMarshal := pcchOut is VarRef ? "uint*" : "ptr"
+    pszExtraMarshal := pszExtra == 0 ? IntPtr : PSTR
+    pszOutMarshal := pszOut == 0 ? IntPtr : PSTR
+    pcchOutMarshal := pcchOut is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("SHLWAPI.dll\AssocQueryStringByKeyA", ASSOCF, flags, ASSOCSTR, str, HKEY, hkAssoc, "ptr", pszExtra, "ptr", pszOut, pcchOutMarshal, pcchOut, Int32)
+    result := DllCall("SHLWAPI.dll\AssocQueryStringByKeyA", ASSOCF, flags, ASSOCSTR, str, HKEY, hkAssoc, pszExtraMarshal, pszExtra, pszOutMarshal, pszOut, pcchOutMarshal, pcchOut, Int32)
     return result
 }
 
@@ -21074,9 +21548,11 @@ export AssocQueryStringByKeyW(flags, str, hkAssoc, pszExtra, pszOut, pcchOut) {
     pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
     pszOut := pszOut is String ? StrPtr(pszOut) : pszOut
 
-    pcchOutMarshal := pcchOut is VarRef ? "uint*" : "ptr"
+    pszExtraMarshal := pszExtra == 0 ? IntPtr : PWSTR
+    pszOutMarshal := pszOut == 0 ? IntPtr : PWSTR
+    pcchOutMarshal := pcchOut is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("SHLWAPI.dll\AssocQueryStringByKeyW", ASSOCF, flags, ASSOCSTR, str, HKEY, hkAssoc, "ptr", pszExtra, "ptr", pszOut, pcchOutMarshal, pcchOut, Int32)
+    result := DllCall("SHLWAPI.dll\AssocQueryStringByKeyW", ASSOCF, flags, ASSOCSTR, str, HKEY, hkAssoc, pszExtraMarshal, pszExtra, pszOutMarshal, pszOut, pcchOutMarshal, pcchOut, Int32)
     return result
 }
 
@@ -21112,8 +21588,10 @@ export AssocQueryKeyA(flags, key, pszAssoc, pszExtra) {
     pszAssoc := pszAssoc is String ? StrPtr(pszAssoc) : pszAssoc
     pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
 
+    pszExtraMarshal := pszExtra == 0 ? IntPtr : PSTR
+
     phkeyOut := HKEY.Owned()
-    result := DllCall("SHLWAPI.dll\AssocQueryKeyA", ASSOCF, flags, ASSOCKEY, key, "ptr", pszAssoc, "ptr", pszExtra, HKEY.Ptr, phkeyOut, "HRESULT")
+    result := DllCall("SHLWAPI.dll\AssocQueryKeyA", ASSOCF, flags, ASSOCKEY, key, "ptr", pszAssoc, pszExtraMarshal, pszExtra, HKEY.Ptr, phkeyOut, "HRESULT")
     return phkeyOut
 }
 
@@ -21149,8 +21627,10 @@ export AssocQueryKeyW(flags, key, pszAssoc, pszExtra) {
     pszAssoc := pszAssoc is String ? StrPtr(pszAssoc) : pszAssoc
     pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
 
+    pszExtraMarshal := pszExtra == 0 ? IntPtr : PWSTR
+
     phkeyOut := HKEY.Owned()
-    result := DllCall("SHLWAPI.dll\AssocQueryKeyW", ASSOCF, flags, ASSOCKEY, key, "ptr", pszAssoc, "ptr", pszExtra, HKEY.Ptr, phkeyOut, "HRESULT")
+    result := DllCall("SHLWAPI.dll\AssocQueryKeyW", ASSOCF, flags, ASSOCKEY, key, "ptr", pszAssoc, pszExtraMarshal, pszExtra, HKEY.Ptr, phkeyOut, "HRESULT")
     return phkeyOut
 }
 
@@ -21201,9 +21681,10 @@ export AssocIsDangerous(pszAssoc) {
 export AssocGetPerceivedType(pszExt, ptype, pflag, ppszType) {
     pszExt := pszExt is String ? StrPtr(pszExt) : pszExt
 
-    ptypeMarshal := ptype is VarRef ? "int*" : "ptr"
-    pflagMarshal := pflag is VarRef ? "uint*" : "ptr"
-    ppszTypeMarshal := ppszType is VarRef ? "ptr*" : "ptr"
+    ptypeMarshal := ptype is VarRef ? "int*" : IntPtr
+    pflagMarshal := pflag is VarRef ? "uint*" : IntPtr
+    ppszTypeMarshal := ppszType is VarRef ? "ptr*" : IntPtr
+    ppszTypeMarshal := ppszType == 0 ? IntPtr : PWSTR.Ptr
 
     result := DllCall("SHLWAPI.dll\AssocGetPerceivedType", "ptr", pszExt, ptypeMarshal, ptype, pflagMarshal, pflag, ppszTypeMarshal, ppszType, "HRESULT")
     return result
@@ -21244,7 +21725,10 @@ export SHOpenRegStreamA(_hkey, pszSubkey, pszValue, grfMode) {
     pszSubkey := pszSubkey is String ? StrPtr(pszSubkey) : pszSubkey
     pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-    result := DllCall("SHLWAPI.dll\SHOpenRegStreamA", HKEY, _hkey, "ptr", pszSubkey, "ptr", pszValue, UInt32, grfMode, IStream)
+    pszSubkeyMarshal := pszSubkey == 0 ? IntPtr : PSTR
+    pszValueMarshal := pszValue == 0 ? IntPtr : PSTR
+
+    result := DllCall("SHLWAPI.dll\SHOpenRegStreamA", HKEY, _hkey, pszSubkeyMarshal, pszSubkey, pszValueMarshal, pszValue, UInt32, grfMode, IStream)
     return result
 }
 
@@ -21283,7 +21767,10 @@ export SHOpenRegStreamW(_hkey, pszSubkey, pszValue, grfMode) {
     pszSubkey := pszSubkey is String ? StrPtr(pszSubkey) : pszSubkey
     pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-    result := DllCall("SHLWAPI.dll\SHOpenRegStreamW", HKEY, _hkey, "ptr", pszSubkey, "ptr", pszValue, UInt32, grfMode, IStream)
+    pszSubkeyMarshal := pszSubkey == 0 ? IntPtr : PWSTR
+    pszValueMarshal := pszValue == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHLWAPI.dll\SHOpenRegStreamW", HKEY, _hkey, pszSubkeyMarshal, pszSubkey, pszValueMarshal, pszValue, UInt32, grfMode, IStream)
     return result
 }
 
@@ -21317,7 +21804,10 @@ export SHOpenRegStream2A(_hkey, pszSubkey, pszValue, grfMode) {
     pszSubkey := pszSubkey is String ? StrPtr(pszSubkey) : pszSubkey
     pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-    result := DllCall("SHLWAPI.dll\SHOpenRegStream2A", HKEY, _hkey, "ptr", pszSubkey, "ptr", pszValue, UInt32, grfMode, IStream)
+    pszSubkeyMarshal := pszSubkey == 0 ? IntPtr : PSTR
+    pszValueMarshal := pszValue == 0 ? IntPtr : PSTR
+
+    result := DllCall("SHLWAPI.dll\SHOpenRegStream2A", HKEY, _hkey, pszSubkeyMarshal, pszSubkey, pszValueMarshal, pszValue, UInt32, grfMode, IStream)
     return result
 }
 
@@ -21351,7 +21841,10 @@ export SHOpenRegStream2W(_hkey, pszSubkey, pszValue, grfMode) {
     pszSubkey := pszSubkey is String ? StrPtr(pszSubkey) : pszSubkey
     pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-    result := DllCall("SHLWAPI.dll\SHOpenRegStream2W", HKEY, _hkey, "ptr", pszSubkey, "ptr", pszValue, UInt32, grfMode, IStream)
+    pszSubkeyMarshal := pszSubkey == 0 ? IntPtr : PWSTR
+    pszValueMarshal := pszValue == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHLWAPI.dll\SHOpenRegStream2W", HKEY, _hkey, pszSubkeyMarshal, pszSubkey, pszValueMarshal, pszValue, UInt32, grfMode, IStream)
     return result
 }
 
@@ -21490,7 +21983,9 @@ export SHCreateStreamOnFileW(pszFile, grfMode) {
 export SHCreateStreamOnFileEx(pszFile, grfMode, dwAttributes, fCreate, pstmTemplate) {
     pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-    result := DllCall("SHLWAPI.dll\SHCreateStreamOnFileEx", "ptr", pszFile, UInt32, grfMode, UInt32, dwAttributes, BOOL, fCreate, "ptr", pstmTemplate, "ptr*", &ppstm := 0, "HRESULT")
+    pstmTemplateMarshal := pstmTemplate == 0 ? IntPtr : "ptr"
+
+    result := DllCall("SHLWAPI.dll\SHCreateStreamOnFileEx", "ptr", pszFile, UInt32, grfMode, UInt32, dwAttributes, BOOL, fCreate, pstmTemplateMarshal, pstmTemplate, "ptr*", &ppstm := 0, "HRESULT")
     return IStream(ppstm)
 }
 
@@ -21524,7 +22019,9 @@ export SHCreateStreamOnFileEx(pszFile, grfMode, dwAttributes, fCreate, pstmTempl
  * @since windows5.0
  */
 export SHCreateMemStream(pInit, cbInit) {
-    result := DllCall("SHLWAPI.dll\SHCreateMemStream", IntPtr, pInit, UInt32, cbInit, IStream)
+    pInitMarshal := pInit == 0 ? IntPtr : IntPtr
+
+    result := DllCall("SHLWAPI.dll\SHCreateMemStream", pInitMarshal, pInit, UInt32, cbInit, IStream)
     return result
 }
 
@@ -21563,7 +22060,7 @@ export SHCreateMemStream(pInit, cbInit) {
 export GetAcceptLanguagesA(pszLanguages, pcchLanguages) {
     pszLanguages := pszLanguages is String ? StrPtr(pszLanguages) : pszLanguages
 
-    pcchLanguagesMarshal := pcchLanguages is VarRef ? "uint*" : "ptr"
+    pcchLanguagesMarshal := pcchLanguages is VarRef ? "uint*" : IntPtr
 
     result := DllCall("SHLWAPI.dll\GetAcceptLanguagesA", "ptr", pszLanguages, pcchLanguagesMarshal, pcchLanguages, "HRESULT")
     return result
@@ -21604,7 +22101,7 @@ export GetAcceptLanguagesA(pszLanguages, pcchLanguages) {
 export GetAcceptLanguagesW(pszLanguages, pcchLanguages) {
     pszLanguages := pszLanguages is String ? StrPtr(pszLanguages) : pszLanguages
 
-    pcchLanguagesMarshal := pcchLanguages is VarRef ? "uint*" : "ptr"
+    pcchLanguagesMarshal := pcchLanguages is VarRef ? "uint*" : IntPtr
 
     result := DllCall("SHLWAPI.dll\GetAcceptLanguagesW", "ptr", pszLanguages, pcchLanguagesMarshal, pcchLanguages, "HRESULT")
     return result
@@ -21633,7 +22130,9 @@ export GetAcceptLanguagesW(pszLanguages, pcchLanguages) {
  * @since windows5.0
  */
 export IUnknown_Set(ppunk, punk) {
-    DllCall("SHLWAPI.dll\IUnknown_Set", IUnknown.Ptr, ppunk, "ptr", punk)
+    punkMarshal := punk == 0 ? IntPtr : "ptr"
+
+    DllCall("SHLWAPI.dll\IUnknown_Set", IUnknown.Ptr, ppunk, punkMarshal, punk)
 }
 
 /**
@@ -21648,7 +22147,8 @@ export IUnknown_Set(ppunk, punk) {
  * @since windows5.0
  */
 export IUnknown_AtomicRelease(ppunk) {
-    ppunkMarshal := ppunk is VarRef ? "ptr*" : "ptr"
+    ppunkMarshal := ppunk is VarRef ? "ptr*" : IntPtr
+    ppunkMarshal := ppunk == 0 ? IntPtr : "ptr*"
 
     DllCall("SHLWAPI.dll\IUnknown_AtomicRelease", ppunkMarshal, ppunk)
 }
@@ -21692,7 +22192,9 @@ export IUnknown_GetWindow(punk) {
  * @since windows5.0
  */
 export IUnknown_SetSite(punk, punkSite) {
-    result := DllCall("SHLWAPI.dll\IUnknown_SetSite", "ptr", punk, "ptr", punkSite, "HRESULT")
+    punkSiteMarshal := punkSite == 0 ? IntPtr : "ptr"
+
+    result := DllCall("SHLWAPI.dll\IUnknown_SetSite", "ptr", punk, punkSiteMarshal, punkSite, "HRESULT")
     return result
 }
 
@@ -21739,7 +22241,9 @@ export IUnknown_GetSite(punk, riid) {
  * @since windows5.0
  */
 export IUnknown_QueryService(punk, guidService, riid) {
-    result := DllCall("SHLWAPI.dll\IUnknown_QueryService", "ptr", punk, Guid.Ptr, guidService, Guid.Ptr, riid, "ptr*", &ppvOut := 0, "HRESULT")
+    punkMarshal := punk == 0 ? IntPtr : "ptr"
+
+    result := DllCall("SHLWAPI.dll\IUnknown_QueryService", punkMarshal, punk, Guid.Ptr, guidService, Guid.Ptr, riid, "ptr*", &ppvOut := 0, "HRESULT")
     return ppvOut
 }
 
@@ -21852,9 +22356,11 @@ export IStream_Size(pstm) {
  * @since windows5.0
  */
 export ConnectToConnectionPoint(punk, riidEvent, fConnect, punkTarget, pdwCookie, ppcpOut) {
-    pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+    punkMarshal := punk == 0 ? IntPtr : "ptr"
+    pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : IntPtr
+    ppcpOutMarshal := ppcpOut == 0 ? IntPtr : IConnectionPoint.Ptr
 
-    result := DllCall("SHLWAPI.dll\ConnectToConnectionPoint", "ptr", punk, Guid.Ptr, riidEvent, BOOL, fConnect, "ptr", punkTarget, pdwCookieMarshal, pdwCookie, IConnectionPoint.Ptr, ppcpOut, "HRESULT")
+    result := DllCall("SHLWAPI.dll\ConnectToConnectionPoint", punkMarshal, punk, Guid.Ptr, riidEvent, BOOL, fConnect, "ptr", punkTarget, pdwCookieMarshal, pdwCookie, ppcpOutMarshal, ppcpOut, "HRESULT")
     return result
 }
 
@@ -21982,7 +22488,10 @@ export IStream_Copy(pstmFrom, pstmTo, cb) {
 export SHGetViewStatePropertyBag(pidl, pszBagName, dwFlags, riid) {
     pszBagName := pszBagName is String ? StrPtr(pszBagName) : pszBagName
 
-    result := DllCall("SHLWAPI.dll\SHGetViewStatePropertyBag", ITEMIDLIST.Ptr, pidl, "ptr", pszBagName, UInt32, dwFlags, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+    pidlMarshal := pidl == 0 ? IntPtr : ITEMIDLIST.Ptr
+    pszBagNameMarshal := pszBagName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHLWAPI.dll\SHGetViewStatePropertyBag", pidlMarshal, pidl, pszBagNameMarshal, pszBagName, UInt32, dwFlags, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
     return ppv
 }
 
@@ -22017,7 +22526,8 @@ export SHGetViewStatePropertyBag(pidl, pszBagName, dwFlags, riid) {
 export SHFormatDateTimeA(pft, pdwFlags, pszBuf, cchBuf) {
     pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
-    pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+    pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : IntPtr
+    pdwFlagsMarshal := pdwFlags == 0 ? IntPtr : "uint*"
 
     result := DllCall("SHLWAPI.dll\SHFormatDateTimeA", FILETIME.Ptr, pft, pdwFlagsMarshal, pdwFlags, "ptr", pszBuf, UInt32, cchBuf, Int32)
     return result
@@ -22054,7 +22564,8 @@ export SHFormatDateTimeA(pft, pdwFlags, pszBuf, cchBuf) {
 export SHFormatDateTimeW(pft, pdwFlags, pszBuf, cchBuf) {
     pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
-    pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+    pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : IntPtr
+    pdwFlagsMarshal := pdwFlags == 0 ? IntPtr : "uint*"
 
     result := DllCall("SHLWAPI.dll\SHFormatDateTimeW", FILETIME.Ptr, pft, pdwFlagsMarshal, pdwFlags, "ptr", pszBuf, UInt32, cchBuf, Int32)
     return result
@@ -22280,7 +22791,9 @@ export SHMessageBoxCheckA(_hwnd, pszText, pszCaption, uType, iDefault, pszRegVal
     pszCaption := pszCaption is String ? StrPtr(pszCaption) : pszCaption
     pszRegVal := pszRegVal is String ? StrPtr(pszRegVal) : pszRegVal
 
-    result := DllCall("SHLWAPI.dll\SHMessageBoxCheckA", HWND, _hwnd, "ptr", pszText, "ptr", pszCaption, UInt32, uType, Int32, iDefault, "ptr", pszRegVal, Int32)
+    _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+
+    result := DllCall("SHLWAPI.dll\SHMessageBoxCheckA", _hwndMarshal, _hwnd, "ptr", pszText, "ptr", pszCaption, UInt32, uType, Int32, iDefault, "ptr", pszRegVal, Int32)
     return result
 }
 
@@ -22364,7 +22877,9 @@ export SHMessageBoxCheckW(_hwnd, pszText, pszCaption, uType, iDefault, pszRegVal
     pszCaption := pszCaption is String ? StrPtr(pszCaption) : pszCaption
     pszRegVal := pszRegVal is String ? StrPtr(pszRegVal) : pszRegVal
 
-    result := DllCall("SHLWAPI.dll\SHMessageBoxCheckW", HWND, _hwnd, "ptr", pszText, "ptr", pszCaption, UInt32, uType, Int32, iDefault, "ptr", pszRegVal, Int32)
+    _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+
+    result := DllCall("SHLWAPI.dll\SHMessageBoxCheckW", _hwndMarshal, _hwnd, "ptr", pszText, "ptr", pszCaption, UInt32, uType, Int32, iDefault, "ptr", pszRegVal, Int32)
     return result
 }
 
@@ -22626,7 +23141,9 @@ export SHGlobalCounterDecrement(id) {
  * @since windows5.1.2600
  */
 export SHAllocShared(pvData, dwSize, dwProcessId) {
-    result := DllCall("SHLWAPI.dll\SHAllocShared", IntPtr, pvData, UInt32, dwSize, UInt32, dwProcessId, HANDLE.Owned)
+    pvDataMarshal := pvData == 0 ? IntPtr : IntPtr
+
+    result := DllCall("SHLWAPI.dll\SHAllocShared", pvDataMarshal, pvData, UInt32, dwSize, UInt32, dwProcessId, HANDLE.Owned)
     return result
 }
 
@@ -22688,7 +23205,7 @@ export SHLockShared(hData, dwProcessId) {
  * @since windows5.1.2600
  */
 export SHUnlockShared(pvData) {
-    pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
+    pvDataMarshal := pvData is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -22795,7 +23312,7 @@ export WhichPlatform() {
  * @since windows5.0
  */
 export QISearch(that, pqit, riid) {
-    thatMarshal := that is VarRef ? "ptr" : "ptr"
+    thatMarshal := that is VarRef ? "ptr" : IntPtr
 
     result := DllCall("SHLWAPI.dll\QISearch", thatMarshal, that, QITAB.Ptr, pqit, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
     return ppv
@@ -22927,7 +23444,7 @@ export SHAutoComplete(hwndEdit, dwFlags) {
  * @since windows5.1.2600
  */
 export SHCreateThreadRef(pcRef) {
-    pcRefMarshal := pcRef is VarRef ? "int*" : "ptr"
+    pcRefMarshal := pcRef is VarRef ? "int*" : IntPtr
 
     result := DllCall("SHLWAPI.dll\SHCreateThreadRef", pcRefMarshal, pcRef, "ptr*", &ppunk := 0, "HRESULT")
     return IUnknown(ppunk)
@@ -22947,7 +23464,9 @@ export SHCreateThreadRef(pcRef) {
  * @since windows5.0
  */
 export SHSetThreadRef(punk) {
-    result := DllCall("SHLWAPI.dll\SHSetThreadRef", "ptr", punk, "HRESULT")
+    punkMarshal := punk == 0 ? IntPtr : "ptr"
+
+    result := DllCall("SHLWAPI.dll\SHSetThreadRef", punkMarshal, punk, "HRESULT")
     return result
 }
 
@@ -22981,7 +23500,9 @@ export SHGetThreadRef() {
  * @since windows5.0
  */
 export SHSkipJunction(pbc, pclsid) {
-    result := DllCall("SHLWAPI.dll\SHSkipJunction", "ptr", pbc, Guid.Ptr, pclsid, BOOL)
+    pbcMarshal := pbc == 0 ? IntPtr : "ptr"
+
+    result := DllCall("SHLWAPI.dll\SHSkipJunction", pbcMarshal, pbc, Guid.Ptr, pclsid, BOOL)
     return result
 }
 
@@ -23041,11 +23562,13 @@ export SHSkipJunction(pbc, pclsid) {
  * @since windows5.0
  */
 export SHCreateThread(pfnThreadProc, pData, flags, _pfnCallback) {
-    pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+    pDataMarshal := pData is VarRef ? "ptr" : IntPtr
+    pDataMarshal := pData == 0 ? IntPtr : "ptr"
+    _pfnCallbackMarshal := _pfnCallback == 0 ? IntPtr : LPTHREAD_START_ROUTINE
 
     A_LastError := 0
 
-    result := DllCall("SHLWAPI.dll\SHCreateThread", LPTHREAD_START_ROUTINE, pfnThreadProc, pDataMarshal, pData, UInt32, flags, LPTHREAD_START_ROUTINE, _pfnCallback, BOOL)
+    result := DllCall("SHLWAPI.dll\SHCreateThread", LPTHREAD_START_ROUTINE, pfnThreadProc, pDataMarshal, pData, UInt32, flags, _pfnCallbackMarshal, _pfnCallback, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -23094,11 +23617,14 @@ export SHCreateThread(pfnThreadProc, pData, flags, _pfnCallback) {
  * @since windows6.0.6000
  */
 export SHCreateThreadWithHandle(pfnThreadProc, pData, flags, _pfnCallback, pHandle) {
-    pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+    pDataMarshal := pData is VarRef ? "ptr" : IntPtr
+    pDataMarshal := pData == 0 ? IntPtr : "ptr"
+    _pfnCallbackMarshal := _pfnCallback == 0 ? IntPtr : LPTHREAD_START_ROUTINE
+    pHandleMarshal := pHandle == 0 ? IntPtr : HANDLE.Ptr
 
     A_LastError := 0
 
-    result := DllCall("SHLWAPI.dll\SHCreateThreadWithHandle", LPTHREAD_START_ROUTINE, pfnThreadProc, pDataMarshal, pData, UInt32, flags, LPTHREAD_START_ROUTINE, _pfnCallback, HANDLE.Ptr, pHandle, BOOL)
+    result := DllCall("SHLWAPI.dll\SHCreateThreadWithHandle", LPTHREAD_START_ROUTINE, pfnThreadProc, pDataMarshal, pData, UInt32, flags, _pfnCallbackMarshal, _pfnCallback, pHandleMarshal, pHandle, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -23141,7 +23667,9 @@ export SHReleaseThreadRef() {
  * @since windows5.0
  */
 export SHCreateShellPalette(_hdc) {
-    result := DllCall("SHLWAPI.dll\SHCreateShellPalette", HDC, _hdc, HPALETTE.Owned)
+    _hdcMarshal := _hdc == 0 ? IntPtr : HDC
+
+    result := DllCall("SHLWAPI.dll\SHCreateShellPalette", _hdcMarshal, _hdc, HPALETTE.Owned)
     return result
 }
 
@@ -23167,9 +23695,9 @@ export SHCreateShellPalette(_hdc) {
  * @since windows5.0
  */
 export ColorRGBToHLS(clrRGB, pwHue, pwLuminance, pwSaturation) {
-    pwHueMarshal := pwHue is VarRef ? "ushort*" : "ptr"
-    pwLuminanceMarshal := pwLuminance is VarRef ? "ushort*" : "ptr"
-    pwSaturationMarshal := pwSaturation is VarRef ? "ushort*" : "ptr"
+    pwHueMarshal := pwHue is VarRef ? "ushort*" : IntPtr
+    pwLuminanceMarshal := pwLuminance is VarRef ? "ushort*" : IntPtr
+    pwSaturationMarshal := pwSaturation is VarRef ? "ushort*" : IntPtr
 
     DllCall("SHLWAPI.dll\ColorRGBToHLS", COLORREF, clrRGB, pwHueMarshal, pwHue, pwLuminanceMarshal, pwLuminance, pwSaturationMarshal, pwSaturation)
 }
@@ -23239,7 +23767,6 @@ export IsInternetESCEnabled() {
 }
 
 /**
- * 
  * @param {IMoniker} pimkTrgt 
  * @param {PWSTR} pwzLocation 
  * @param {PWSTR} pwzFriendlyName 
@@ -23258,7 +23785,6 @@ export HlinkCreateFromMoniker(pimkTrgt, pwzLocation, pwzFriendlyName, pihlsite, 
 }
 
 /**
- * 
  * @param {PWSTR} pwzTarget 
  * @param {PWSTR} pwzLocation 
  * @param {PWSTR} pwzFriendlyName 
@@ -23278,7 +23804,6 @@ export HlinkCreateFromString(pwzTarget, pwzLocation, pwzFriendlyName, pihlsite, 
 }
 
 /**
- * 
  * @param {IDataObject} piDataObj 
  * @param {IHlinkSite} pihlsite 
  * @param {Integer} dwSiteData 
@@ -23292,7 +23817,6 @@ export HlinkCreateFromData(piDataObj, pihlsite, dwSiteData, piunkOuter, riid) {
 }
 
 /**
- * 
  * @param {IDataObject} piDataObj 
  * @returns {HRESULT} 
  */
@@ -23302,7 +23826,6 @@ export HlinkQueryCreateFromData(piDataObj) {
 }
 
 /**
- * 
  * @param {IHlink} pihl 
  * @param {Pointer<Guid>} riid 
  * @param {IHlinkSite} pihlsiteForClone 
@@ -23315,7 +23838,6 @@ export HlinkClone(pihl, riid, pihlsiteForClone, dwSiteData) {
 }
 
 /**
- * 
  * @param {IUnknown} piunkOuter 
  * @param {Pointer<Guid>} riid 
  * @returns {Pointer<Void>} 
@@ -23326,7 +23848,6 @@ export HlinkCreateBrowseContext(piunkOuter, riid) {
 }
 
 /**
- * 
  * @param {PWSTR} pwzTarget 
  * @param {PWSTR} pwzLocation 
  * @param {IHlinkSite} pihlsite 
@@ -23347,7 +23868,6 @@ export HlinkNavigateToStringReference(pwzTarget, pwzLocation, pihlsite, dwSiteDa
 }
 
 /**
- * 
  * @param {IHlink} pihl 
  * @param {IHlinkFrame} pihlframe 
  * @param {Integer} grfHLNF 
@@ -23362,7 +23882,6 @@ export HlinkNavigate(pihl, pihlframe, grfHLNF, pbc, pibsc, pihlbc) {
 }
 
 /**
- * 
  * @param {IHlinkFrame} pihlframe 
  * @param {IHlinkBrowseContext} pihlbc 
  * @param {Integer} grfHLNF 
@@ -23376,14 +23895,13 @@ export HlinkOnNavigate(pihlframe, pihlbc, grfHLNF, pimkTarget, pwzLocation, pwzF
     pwzLocation := pwzLocation is String ? StrPtr(pwzLocation) : pwzLocation
     pwzFriendlyName := pwzFriendlyName is String ? StrPtr(pwzFriendlyName) : pwzFriendlyName
 
-    puHLIDMarshal := puHLID is VarRef ? "uint*" : "ptr"
+    puHLIDMarshal := puHLID is VarRef ? "uint*" : IntPtr
 
     result := DllCall("hlink.dll\HlinkOnNavigate", "ptr", pihlframe, "ptr", pihlbc, UInt32, grfHLNF, "ptr", pimkTarget, "ptr", pwzLocation, "ptr", pwzFriendlyName, puHLIDMarshal, puHLID, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {IHlinkFrame} pihlframe 
  * @param {IHlinkBrowseContext} pihlbc 
  * @param {Integer} uHLID 
@@ -23401,7 +23919,6 @@ export HlinkUpdateStackItem(pihlframe, pihlbc, uHLID, pimkTrgt, pwzLocation, pwz
 }
 
 /**
- * 
  * @param {Integer} dwReserved 
  * @param {IHlinkBrowseContext} pihlbc 
  * @param {IMoniker} pimkOld 
@@ -23414,7 +23931,6 @@ export HlinkOnRenameDocument(dwReserved, pihlbc, pimkOld, pimkNew) {
 }
 
 /**
- * 
  * @param {IMoniker} pimkReference 
  * @param {Integer} reserved 
  * @param {IBindCtx} pibc 
@@ -23430,7 +23946,6 @@ export HlinkResolveMonikerForData(pimkReference, reserved, pibc, cFmtetc, rgFmte
 }
 
 /**
- * 
  * @param {PWSTR} pwzReference 
  * @param {Integer} reserved 
  * @param {IBindCtx} pibc 
@@ -23448,7 +23963,6 @@ export HlinkResolveStringForData(pwzReference, reserved, pibc, cFmtetc, rgFmtetc
 }
 
 /**
- * 
  * @param {IBindCtx} pibc 
  * @param {PWSTR} pwzDisplayName 
  * @param {BOOL} fNoForceAbs 
@@ -23458,14 +23972,13 @@ export HlinkResolveStringForData(pwzReference, reserved, pibc, cFmtetc, rgFmtetc
 export HlinkParseDisplayName(pibc, pwzDisplayName, fNoForceAbs, pcchEaten) {
     pwzDisplayName := pwzDisplayName is String ? StrPtr(pwzDisplayName) : pwzDisplayName
 
-    pcchEatenMarshal := pcchEaten is VarRef ? "uint*" : "ptr"
+    pcchEatenMarshal := pcchEaten is VarRef ? "uint*" : IntPtr
 
     result := DllCall("hlink.dll\HlinkParseDisplayName", "ptr", pibc, "ptr", pwzDisplayName, BOOL, fNoForceAbs, pcchEatenMarshal, pcchEaten, "ptr*", &ppimk := 0, "HRESULT")
     return IMoniker(ppimk)
 }
 
 /**
- * 
  * @param {PWSTR} pwzAdditionalHeaders 
  * @param {HWND} phwnd 
  * @param {PWSTR} pszUsername 
@@ -23484,7 +23997,6 @@ export HlinkCreateExtensionServices(pwzAdditionalHeaders, phwnd, pszUsername, ps
 }
 
 /**
- * 
  * @param {IBindCtx} pibc 
  * @param {IMoniker} pimkIn 
  * @returns {IMoniker} 
@@ -23495,7 +24007,6 @@ export HlinkPreprocessMoniker(pibc, pimkIn) {
 }
 
 /**
- * 
  * @param {IUnknown} piunk 
  * @param {IStream} pistm 
  * @param {BOOL} fClearDirty 
@@ -23507,7 +24018,6 @@ export OleSaveToStreamEx(piunk, pistm, fClearDirty) {
 }
 
 /**
- * 
  * @param {Integer} uReference 
  * @param {PWSTR} pwzReference 
  * @returns {HRESULT} 
@@ -23520,7 +24030,6 @@ export HlinkSetSpecialReference(uReference, pwzReference) {
 }
 
 /**
- * 
  * @param {Integer} uReference 
  * @returns {PWSTR} 
  */
@@ -23530,7 +24039,6 @@ export HlinkGetSpecialReference(uReference) {
 }
 
 /**
- * 
  * @param {Integer} grfHLSHORTCUTF 
  * @param {IHlink} pihl 
  * @param {PWSTR} pwzDir 
@@ -23547,7 +24055,6 @@ export HlinkCreateShortcut(grfHLSHORTCUTF, pihl, pwzDir, pwzFileName, dwReserved
 }
 
 /**
- * 
  * @param {Integer} grfHLSHORTCUTF 
  * @param {IMoniker} pimkTarget 
  * @param {PWSTR} pwzLocation 
@@ -23566,7 +24073,6 @@ export HlinkCreateShortcutFromMoniker(grfHLSHORTCUTF, pimkTarget, pwzLocation, p
 }
 
 /**
- * 
  * @param {Integer} grfHLSHORTCUTF 
  * @param {PWSTR} pwzTarget 
  * @param {PWSTR} pwzLocation 
@@ -23586,7 +24092,6 @@ export HlinkCreateShortcutFromString(grfHLSHORTCUTF, pwzTarget, pwzLocation, pwz
 }
 
 /**
- * 
  * @param {PWSTR} pwzShortcutFileName 
  * @param {IHlinkSite} pihlsite 
  * @param {Integer} dwSiteData 
@@ -23598,14 +24103,13 @@ export HlinkCreateShortcutFromString(grfHLSHORTCUTF, pwzTarget, pwzLocation, pwz
 export HlinkResolveShortcut(pwzShortcutFileName, pihlsite, dwSiteData, piunkOuter, riid, ppvObj) {
     pwzShortcutFileName := pwzShortcutFileName is String ? StrPtr(pwzShortcutFileName) : pwzShortcutFileName
 
-    ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+    ppvObjMarshal := ppvObj is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("hlink.dll\HlinkResolveShortcut", "ptr", pwzShortcutFileName, "ptr", pihlsite, UInt32, dwSiteData, "ptr", piunkOuter, Guid.Ptr, riid, ppvObjMarshal, ppvObj, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {PWSTR} pwzShortcutFileName 
  * @param {Pointer<IMoniker>} ppimkTarget 
  * @param {Pointer<PWSTR>} ppwzLocation 
@@ -23614,14 +24118,13 @@ export HlinkResolveShortcut(pwzShortcutFileName, pihlsite, dwSiteData, piunkOute
 export HlinkResolveShortcutToMoniker(pwzShortcutFileName, ppimkTarget, ppwzLocation) {
     pwzShortcutFileName := pwzShortcutFileName is String ? StrPtr(pwzShortcutFileName) : pwzShortcutFileName
 
-    ppwzLocationMarshal := ppwzLocation is VarRef ? "ptr*" : "ptr"
+    ppwzLocationMarshal := ppwzLocation is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("hlink.dll\HlinkResolveShortcutToMoniker", "ptr", pwzShortcutFileName, IMoniker.Ptr, ppimkTarget, ppwzLocationMarshal, ppwzLocation, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {PWSTR} pwzShortcutFileName 
  * @param {Pointer<PWSTR>} ppwzTarget 
  * @param {Pointer<PWSTR>} ppwzLocation 
@@ -23630,15 +24133,14 @@ export HlinkResolveShortcutToMoniker(pwzShortcutFileName, ppimkTarget, ppwzLocat
 export HlinkResolveShortcutToString(pwzShortcutFileName, ppwzTarget, ppwzLocation) {
     pwzShortcutFileName := pwzShortcutFileName is String ? StrPtr(pwzShortcutFileName) : pwzShortcutFileName
 
-    ppwzTargetMarshal := ppwzTarget is VarRef ? "ptr*" : "ptr"
-    ppwzLocationMarshal := ppwzLocation is VarRef ? "ptr*" : "ptr"
+    ppwzTargetMarshal := ppwzTarget is VarRef ? "ptr*" : IntPtr
+    ppwzLocationMarshal := ppwzLocation is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("hlink.dll\HlinkResolveShortcutToString", "ptr", pwzShortcutFileName, ppwzTargetMarshal, ppwzTarget, ppwzLocationMarshal, ppwzLocation, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {PWSTR} pwzFileName 
  * @returns {HRESULT} 
  */
@@ -23650,7 +24152,6 @@ export HlinkIsShortcut(pwzFileName) {
 }
 
 /**
- * 
  * @param {PWSTR} pwzParams 
  * @param {PWSTR} pwzName 
  * @returns {PWSTR} 
@@ -23664,7 +24165,6 @@ export HlinkGetValueFromParams(pwzParams, pwzName) {
 }
 
 /**
- * 
  * @param {PWSTR} pwzURL 
  * @param {Integer} grfFlags 
  * @returns {PWSTR} 
@@ -23687,7 +24187,8 @@ export HlinkTranslateURL(pwzURL, grfFlags) {
 export PathIsUNCEx(pszPath, ppszServer) {
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    ppszServerMarshal := ppszServer is VarRef ? "ptr*" : "ptr"
+    ppszServerMarshal := ppszServer is VarRef ? "ptr*" : IntPtr
+    ppszServerMarshal := ppszServer == 0 ? IntPtr : PWSTR.Ptr
 
     result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathIsUNCEx", "ptr", pszPath, ppszServerMarshal, ppszServer, BOOL)
     return result
@@ -23817,7 +24318,9 @@ export PathIsUNCEx(pszPath, ppszServer) {
 export PathCchIsRoot(pszPath) {
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchIsRoot", "ptr", pszPath, BOOL)
+    pszPathMarshal := pszPath == 0 ? IntPtr : PWSTR
+
+    result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchIsRoot", pszPathMarshal, pszPath, BOOL)
     return result
 }
 
@@ -23834,8 +24337,10 @@ export PathCchIsRoot(pszPath) {
 export PathCchAddBackslashEx(pszPath, cchPath, ppszEnd, pcchRemaining) {
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    ppszEndMarshal := ppszEnd is VarRef ? "ptr*" : "ptr"
-    pcchRemainingMarshal := pcchRemaining is VarRef ? "ptr*" : "ptr"
+    ppszEndMarshal := ppszEnd is VarRef ? "ptr*" : IntPtr
+    ppszEndMarshal := ppszEnd == 0 ? IntPtr : PWSTR.Ptr
+    pcchRemainingMarshal := pcchRemaining is VarRef ? "ptr*" : IntPtr
+    pcchRemainingMarshal := pcchRemaining == 0 ? IntPtr : "ptr*"
 
     result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchAddBackslashEx", "ptr", pszPath, IntPtr, cchPath, ppszEndMarshal, ppszEnd, pcchRemainingMarshal, pcchRemaining, Int32)
     return result
@@ -23871,8 +24376,10 @@ export PathCchAddBackslash(pszPath, cchPath) {
 export PathCchRemoveBackslashEx(pszPath, cchPath, ppszEnd, pcchRemaining) {
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    ppszEndMarshal := ppszEnd is VarRef ? "ptr*" : "ptr"
-    pcchRemainingMarshal := pcchRemaining is VarRef ? "ptr*" : "ptr"
+    ppszEndMarshal := ppszEnd is VarRef ? "ptr*" : IntPtr
+    ppszEndMarshal := ppszEnd == 0 ? IntPtr : PWSTR.Ptr
+    pcchRemainingMarshal := pcchRemaining is VarRef ? "ptr*" : IntPtr
+    pcchRemainingMarshal := pcchRemaining == 0 ? IntPtr : "ptr*"
 
     result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchRemoveBackslashEx", "ptr", pszPath, IntPtr, cchPath, ppszEndMarshal, ppszEnd, pcchRemainingMarshal, pcchRemaining, "HRESULT")
     return result
@@ -24514,7 +25021,10 @@ export PathCchCombineEx(pszPathOut, cchPathOut, pszPathIn, pszMore, dwFlags) {
     pszPathIn := pszPathIn is String ? StrPtr(pszPathIn) : pszPathIn
     pszMore := pszMore is String ? StrPtr(pszMore) : pszMore
 
-    result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchCombineEx", "ptr", pszPathOut, IntPtr, cchPathOut, "ptr", pszPathIn, "ptr", pszMore, PATHCCH_OPTIONS, dwFlags, "HRESULT")
+    pszPathInMarshal := pszPathIn == 0 ? IntPtr : PWSTR
+    pszMoreMarshal := pszMore == 0 ? IntPtr : PWSTR
+
+    result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchCombineEx", "ptr", pszPathOut, IntPtr, cchPathOut, pszPathInMarshal, pszPathIn, pszMoreMarshal, pszMore, PATHCCH_OPTIONS, dwFlags, "HRESULT")
     return result
 }
 
@@ -24582,7 +25092,10 @@ export PathCchCombine(pszPathOut, cchPathOut, pszPathIn, pszMore) {
     pszPathIn := pszPathIn is String ? StrPtr(pszPathIn) : pszPathIn
     pszMore := pszMore is String ? StrPtr(pszMore) : pszMore
 
-    result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchCombine", "ptr", pszPathOut, IntPtr, cchPathOut, "ptr", pszPathIn, "ptr", pszMore, "HRESULT")
+    pszPathInMarshal := pszPathIn == 0 ? IntPtr : PWSTR
+    pszMoreMarshal := pszMore == 0 ? IntPtr : PWSTR
+
+    result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchCombine", "ptr", pszPathOut, IntPtr, cchPathOut, pszPathInMarshal, pszPathIn, pszMoreMarshal, pszMore, "HRESULT")
     return result
 }
 
@@ -24708,7 +25221,9 @@ export PathCchAppendEx(pszPath, cchPath, pszMore, dwFlags) {
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
     pszMore := pszMore is String ? StrPtr(pszMore) : pszMore
 
-    result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchAppendEx", "ptr", pszPath, IntPtr, cchPath, "ptr", pszMore, PATHCCH_OPTIONS, dwFlags, "HRESULT")
+    pszMoreMarshal := pszMore == 0 ? IntPtr : PWSTR
+
+    result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchAppendEx", "ptr", pszPath, IntPtr, cchPath, pszMoreMarshal, pszMore, PATHCCH_OPTIONS, dwFlags, "HRESULT")
     return result
 }
 
@@ -24764,7 +25279,9 @@ export PathCchAppend(pszPath, cchPath, pszMore) {
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
     pszMore := pszMore is String ? StrPtr(pszMore) : pszMore
 
-    result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchAppend", "ptr", pszPath, IntPtr, cchPath, "ptr", pszMore, "HRESULT")
+    pszMoreMarshal := pszMore == 0 ? IntPtr : PWSTR
+
+    result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchAppend", "ptr", pszPath, IntPtr, cchPath, pszMoreMarshal, pszMore, "HRESULT")
     return result
 }
 
@@ -24886,7 +25403,10 @@ export PathAllocCombine(pszPathIn, pszMore, dwFlags) {
     pszPathIn := pszPathIn is String ? StrPtr(pszPathIn) : pszPathIn
     pszMore := pszMore is String ? StrPtr(pszMore) : pszMore
 
-    result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathAllocCombine", "ptr", pszPathIn, "ptr", pszMore, PATHCCH_OPTIONS, dwFlags, PWSTR.Ptr, &ppszPathOut := 0, "HRESULT")
+    pszPathInMarshal := pszPathIn == 0 ? IntPtr : PWSTR
+    pszMoreMarshal := pszMore == 0 ? IntPtr : PWSTR
+
+    result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathAllocCombine", pszPathInMarshal, pszPathIn, pszMoreMarshal, pszMore, PATHCCH_OPTIONS, dwFlags, PWSTR.Ptr, &ppszPathOut := 0, "HRESULT")
     return ppszPathOut
 }
 
@@ -25004,8 +25524,9 @@ export PathAllocCanonicalize(pszPathIn, dwFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/appnotify/nf-appnotify-registerappstatechangenotification
  */
 export RegisterAppStateChangeNotification(Routine, _Context, Registration) {
-    _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-    RegistrationMarshal := Registration is VarRef ? "ptr*" : "ptr"
+    _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+    _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
+    RegistrationMarshal := Registration is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("api-ms-win-core-psm-appnotify-l1-1-0.dll\RegisterAppStateChangeNotification", PAPPSTATE_CHANGE_ROUTINE, Routine, _ContextMarshal, _Context, RegistrationMarshal, Registration, UInt32)
     return result
@@ -25022,22 +25543,21 @@ export UnregisterAppStateChangeNotification(Registration) {
 }
 
 /**
- * 
  * @param {Pointer<PAPPCONSTRAIN_CHANGE_ROUTINE>} Routine 
  * @param {Pointer<Void>} _Context 
  * @param {Pointer<PAPPCONSTRAIN_REGISTRATION>} Registration 
  * @returns {Integer} 
  */
 export RegisterAppConstrainedChangeNotification(Routine, _Context, Registration) {
-    _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-    RegistrationMarshal := Registration is VarRef ? "ptr*" : "ptr"
+    _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+    _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
+    RegistrationMarshal := Registration is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("api-ms-win-core-psm-appnotify-l1-1-1.dll\RegisterAppConstrainedChangeNotification", PAPPCONSTRAIN_CHANGE_ROUTINE, Routine, _ContextMarshal, _Context, RegistrationMarshal, Registration, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PAPPCONSTRAIN_REGISTRATION} Registration 
  * @returns {String} Nothing - always returns an empty string
  */

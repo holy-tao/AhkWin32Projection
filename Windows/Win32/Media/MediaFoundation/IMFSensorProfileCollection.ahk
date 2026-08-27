@@ -45,7 +45,6 @@ export default struct IMFSensorProfileCollection extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetProfileCount() {
@@ -115,12 +114,12 @@ export default struct IMFSensorProfileCollection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProfileCount := CallbackCreate(GetMethod(implObj, "GetProfileCount"), flags, 1)
-        this.vtbl.GetProfile := CallbackCreate(GetMethod(implObj, "GetProfile"), flags, 3)
-        this.vtbl.AddProfile := CallbackCreate(GetMethod(implObj, "AddProfile"), flags, 2)
-        this.vtbl.FindProfile := CallbackCreate(GetMethod(implObj, "FindProfile"), flags, 3)
-        this.vtbl.RemoveProfileByIndex := CallbackCreate(GetMethod(implObj, "RemoveProfileByIndex"), flags, 2)
-        this.vtbl.RemoveProfile := CallbackCreate(GetMethod(implObj, "RemoveProfile"), flags, 2)
+        this.vtbl.GetProfileCount := CallbackCreate(ObjBindMethod(implObj, "GetProfileCount"), flags, 1)
+        this.vtbl.GetProfile := CallbackCreate(ObjBindMethod(implObj, "GetProfile"), flags, 3)
+        this.vtbl.AddProfile := CallbackCreate(ObjBindMethod(implObj, "AddProfile"), flags, 2)
+        this.vtbl.FindProfile := CallbackCreate(ObjBindMethod(implObj, "FindProfile"), flags, 3)
+        this.vtbl.RemoveProfileByIndex := CallbackCreate(ObjBindMethod(implObj, "RemoveProfileByIndex"), flags, 2)
+        this.vtbl.RemoveProfile := CallbackCreate(ObjBindMethod(implObj, "RemoveProfile"), flags, 2)
     }
 
     Dispose() {

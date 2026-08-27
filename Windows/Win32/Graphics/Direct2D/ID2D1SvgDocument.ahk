@@ -98,7 +98,9 @@ export default struct ID2D1SvgDocument extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgdocument-setroot
      */
     SetRoot(root) {
-        result := ComCall(6, this, "ptr", root, "HRESULT")
+        rootMarshal := root == 0 ? IntPtr : "ptr"
+
+        result := ComCall(6, this, rootMarshal, root, "HRESULT")
         return result
     }
 
@@ -145,7 +147,9 @@ export default struct ID2D1SvgDocument extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgdocument-serialize
      */
     Serialize(outputXmlStream, subtree) {
-        result := ComCall(9, this, "ptr", outputXmlStream, "ptr", subtree, "HRESULT")
+        subtreeMarshal := subtree == 0 ? IntPtr : "ptr"
+
+        result := ComCall(9, this, "ptr", outputXmlStream, subtreeMarshal, subtree, "HRESULT")
         return result
     }
 
@@ -175,7 +179,10 @@ export default struct ID2D1SvgDocument extends ID2D1Resource {
     CreatePaint(paintType, _color, id) {
         id := id is String ? StrPtr(id) : id
 
-        result := ComCall(11, this, D2D1_SVG_PAINT_TYPE, paintType, D2D1_COLOR_F.Ptr, _color, "ptr", id, "ptr*", &paint := 0, "HRESULT")
+        _colorMarshal := _color == 0 ? IntPtr : D2D1_COLOR_F.Ptr
+        idMarshal := id == 0 ? IntPtr : PWSTR
+
+        result := ComCall(11, this, D2D1_SVG_PAINT_TYPE, paintType, _colorMarshal, _color, idMarshal, id, "ptr*", &paint := 0, "HRESULT")
         return ID2D1SvgPaint(paint)
     }
 
@@ -193,7 +200,9 @@ export default struct ID2D1SvgDocument extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgdocument-createstrokedasharray
      */
     CreateStrokeDashArray(dashes, dashesCount) {
-        result := ComCall(12, this, D2D1_SVG_LENGTH.Ptr, dashes, UInt32, dashesCount, "ptr*", &strokeDashArray := 0, "HRESULT")
+        dashesMarshal := dashes == 0 ? IntPtr : D2D1_SVG_LENGTH.Ptr
+
+        result := ComCall(12, this, dashesMarshal, dashes, UInt32, dashesCount, "ptr*", &strokeDashArray := 0, "HRESULT")
         return ID2D1SvgStrokeDashArray(strokeDashArray)
     }
 
@@ -211,7 +220,9 @@ export default struct ID2D1SvgDocument extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgdocument-createpointcollection
      */
     CreatePointCollection(_points, pointsCount) {
-        result := ComCall(13, this, D2D_POINT_2F.Ptr, _points, UInt32, pointsCount, "ptr*", &pointCollection := 0, "HRESULT")
+        _pointsMarshal := _points == 0 ? IntPtr : D2D_POINT_2F.Ptr
+
+        result := ComCall(13, this, _pointsMarshal, _points, UInt32, pointsCount, "ptr*", &pointCollection := 0, "HRESULT")
         return ID2D1SvgPointCollection(pointCollection)
     }
 
@@ -235,8 +246,10 @@ export default struct ID2D1SvgDocument extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgdocument-createpathdata
      */
     CreatePathData(segmentData, segmentDataCount, commands, commandsCount) {
-        segmentDataMarshal := segmentData is VarRef ? "float*" : "ptr"
-        commandsMarshal := commands is VarRef ? "int*" : "ptr"
+        segmentDataMarshal := segmentData is VarRef ? "float*" : IntPtr
+        segmentDataMarshal := segmentData == 0 ? IntPtr : "float*"
+        commandsMarshal := commands is VarRef ? "int*" : IntPtr
+        commandsMarshal := commands == 0 ? IntPtr : "int*"
 
         result := ComCall(14, this, segmentDataMarshal, segmentData, UInt32, segmentDataCount, commandsMarshal, commands, UInt32, commandsCount, "ptr*", &_pathData := 0, "HRESULT")
         return ID2D1SvgPathData(_pathData)
@@ -251,17 +264,17 @@ export default struct ID2D1SvgDocument extends ID2D1Resource {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetViewportSize := CallbackCreate(GetMethod(implObj, "SetViewportSize"), flags, 2)
-        this.vtbl.GetViewportSize := CallbackCreate(GetMethod(implObj, "GetViewportSize"), flags, 1)
-        this.vtbl.SetRoot := CallbackCreate(GetMethod(implObj, "SetRoot"), flags, 2)
-        this.vtbl.GetRoot := CallbackCreate(GetMethod(implObj, "GetRoot"), flags, 2)
-        this.vtbl.FindElementById := CallbackCreate(GetMethod(implObj, "FindElementById"), flags, 3)
-        this.vtbl.Serialize := CallbackCreate(GetMethod(implObj, "Serialize"), flags, 3)
-        this.vtbl.Deserialize := CallbackCreate(GetMethod(implObj, "Deserialize"), flags, 3)
-        this.vtbl.CreatePaint := CallbackCreate(GetMethod(implObj, "CreatePaint"), flags, 5)
-        this.vtbl.CreateStrokeDashArray := CallbackCreate(GetMethod(implObj, "CreateStrokeDashArray"), flags, 4)
-        this.vtbl.CreatePointCollection := CallbackCreate(GetMethod(implObj, "CreatePointCollection"), flags, 4)
-        this.vtbl.CreatePathData := CallbackCreate(GetMethod(implObj, "CreatePathData"), flags, 6)
+        this.vtbl.SetViewportSize := CallbackCreate(ObjBindMethod(implObj, "SetViewportSize"), flags, 2)
+        this.vtbl.GetViewportSize := CallbackCreate(ObjBindMethod(implObj, "GetViewportSize"), flags, 1)
+        this.vtbl.SetRoot := CallbackCreate(ObjBindMethod(implObj, "SetRoot"), flags, 2)
+        this.vtbl.GetRoot := CallbackCreate(ObjBindMethod(implObj, "GetRoot"), flags, 2)
+        this.vtbl.FindElementById := CallbackCreate(ObjBindMethod(implObj, "FindElementById"), flags, 3)
+        this.vtbl.Serialize := CallbackCreate(ObjBindMethod(implObj, "Serialize"), flags, 3)
+        this.vtbl.Deserialize := CallbackCreate(ObjBindMethod(implObj, "Deserialize"), flags, 3)
+        this.vtbl.CreatePaint := CallbackCreate(ObjBindMethod(implObj, "CreatePaint"), flags, 5)
+        this.vtbl.CreateStrokeDashArray := CallbackCreate(ObjBindMethod(implObj, "CreateStrokeDashArray"), flags, 4)
+        this.vtbl.CreatePointCollection := CallbackCreate(ObjBindMethod(implObj, "CreatePointCollection"), flags, 4)
+        this.vtbl.CreatePathData := CallbackCreate(ObjBindMethod(implObj, "CreatePathData"), flags, 6)
     }
 
     Dispose() {

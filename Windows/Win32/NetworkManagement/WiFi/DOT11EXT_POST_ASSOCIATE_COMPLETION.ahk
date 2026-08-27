@@ -19,7 +19,6 @@ export default struct DOT11EXT_POST_ASSOCIATE_COMPLETION {
     }
 
     /**
-     * 
      * @param {HANDLE} hDot11SvcHandle 
      * @param {HANDLE} hSecuritySessionID 
      * @param {Pointer<Pointer<Integer>>} pPeer 
@@ -28,9 +27,12 @@ export default struct DOT11EXT_POST_ASSOCIATE_COMPLETION {
      * @returns {Integer} 
      */
     Call(hDot11SvcHandle, hSecuritySessionID, pPeer, dwReasonCode, dwWin32Error) {
-        pPeerMarshal := pPeer is VarRef ? "ptr*" : "ptr"
+        hDot11SvcHandleMarshal := hDot11SvcHandle == 0 ? IntPtr : HANDLE
+        hSecuritySessionIDMarshal := hSecuritySessionID == 0 ? IntPtr : HANDLE
+        pPeerMarshal := pPeer is VarRef ? "ptr*" : IntPtr
+        pPeerMarshal := pPeer == 0 ? IntPtr : "ptr*"
 
-        result := DllCall(this.value, HANDLE, hDot11SvcHandle, HANDLE, hSecuritySessionID, pPeerMarshal, pPeer, UInt32, dwReasonCode, UInt32, dwWin32Error, UInt32)
+        result := DllCall(this.value, hDot11SvcHandleMarshal, hDot11SvcHandle, hSecuritySessionIDMarshal, hSecuritySessionID, pPeerMarshal, pPeer, UInt32, dwReasonCode, UInt32, dwWin32Error, UInt32)
         return result
     }
 

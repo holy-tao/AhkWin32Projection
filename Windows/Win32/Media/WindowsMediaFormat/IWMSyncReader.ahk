@@ -344,11 +344,11 @@ export default struct IWMSyncReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getnextsample
      */
     GetNextSample(wStreamNum, ppSample, pcnsSampleTime, pcnsDuration, pdwFlags, pdwOutputNum, pwStreamNum) {
-        pcnsSampleTimeMarshal := pcnsSampleTime is VarRef ? "uint*" : "ptr"
-        pcnsDurationMarshal := pcnsDuration is VarRef ? "uint*" : "ptr"
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-        pdwOutputNumMarshal := pdwOutputNum is VarRef ? "uint*" : "ptr"
-        pwStreamNumMarshal := pwStreamNum is VarRef ? "ushort*" : "ptr"
+        pcnsSampleTimeMarshal := pcnsSampleTime is VarRef ? "uint*" : IntPtr
+        pcnsDurationMarshal := pcnsDuration is VarRef ? "uint*" : IntPtr
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : IntPtr
+        pdwOutputNumMarshal := pdwOutputNum is VarRef ? "uint*" : IntPtr
+        pwStreamNumMarshal := pwStreamNum is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(7, this, UInt16, wStreamNum, INSSBuffer.Ptr, ppSample, pcnsSampleTimeMarshal, pcnsSampleTime, pcnsDurationMarshal, pcnsDuration, pdwFlagsMarshal, pdwFlags, pdwOutputNumMarshal, pdwOutputNum, pwStreamNumMarshal, pwStreamNum, "HRESULT")
         return result
@@ -422,8 +422,8 @@ export default struct IWMSyncReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-setstreamsselected
      */
     SetStreamsSelected(cStreamCount, pwStreamNumbers, pSelections) {
-        pwStreamNumbersMarshal := pwStreamNumbers is VarRef ? "ushort*" : "ptr"
-        pSelectionsMarshal := pSelections is VarRef ? "int*" : "ptr"
+        pwStreamNumbersMarshal := pwStreamNumbers is VarRef ? "ushort*" : IntPtr
+        pSelectionsMarshal := pSelections is VarRef ? "int*" : IntPtr
 
         result := ComCall(8, this, UInt16, cStreamCount, pwStreamNumbersMarshal, pwStreamNumbers, pSelectionsMarshal, pSelections, "HRESULT")
         return result
@@ -607,9 +607,9 @@ export default struct IWMSyncReader extends IUnknown {
     GetOutputSetting(dwOutputNum, pszName, pType, pValue, pcbLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
-        pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : "ptr"
+        pTypeMarshal := pType is VarRef ? "int*" : IntPtr
+        pValueMarshal := pValue is VarRef ? "char*" : IntPtr
+        pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(12, this, UInt32, dwOutputNum, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
@@ -683,7 +683,7 @@ export default struct IWMSyncReader extends IUnknown {
     SetOutputSetting(dwOutputNum, pszName, Type, pValue, cbLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "char*" : IntPtr
 
         result := ComCall(13, this, UInt32, dwOutputNum, "ptr", pszName, WMT_ATTR_DATATYPE, Type, pValueMarshal, pValue, UInt16, cbLength, "HRESULT")
         return result
@@ -873,27 +873,27 @@ export default struct IWMSyncReader extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 2)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
-        this.vtbl.SetRange := CallbackCreate(GetMethod(implObj, "SetRange"), flags, 3)
-        this.vtbl.SetRangeByFrame := CallbackCreate(GetMethod(implObj, "SetRangeByFrame"), flags, 4)
-        this.vtbl.GetNextSample := CallbackCreate(GetMethod(implObj, "GetNextSample"), flags, 8)
-        this.vtbl.SetStreamsSelected := CallbackCreate(GetMethod(implObj, "SetStreamsSelected"), flags, 4)
-        this.vtbl.GetStreamSelected := CallbackCreate(GetMethod(implObj, "GetStreamSelected"), flags, 3)
-        this.vtbl.SetReadStreamSamples := CallbackCreate(GetMethod(implObj, "SetReadStreamSamples"), flags, 3)
-        this.vtbl.GetReadStreamSamples := CallbackCreate(GetMethod(implObj, "GetReadStreamSamples"), flags, 3)
-        this.vtbl.GetOutputSetting := CallbackCreate(GetMethod(implObj, "GetOutputSetting"), flags, 6)
-        this.vtbl.SetOutputSetting := CallbackCreate(GetMethod(implObj, "SetOutputSetting"), flags, 6)
-        this.vtbl.GetOutputCount := CallbackCreate(GetMethod(implObj, "GetOutputCount"), flags, 2)
-        this.vtbl.GetOutputProps := CallbackCreate(GetMethod(implObj, "GetOutputProps"), flags, 3)
-        this.vtbl.SetOutputProps := CallbackCreate(GetMethod(implObj, "SetOutputProps"), flags, 3)
-        this.vtbl.GetOutputFormatCount := CallbackCreate(GetMethod(implObj, "GetOutputFormatCount"), flags, 3)
-        this.vtbl.GetOutputFormat := CallbackCreate(GetMethod(implObj, "GetOutputFormat"), flags, 4)
-        this.vtbl.GetOutputNumberForStream := CallbackCreate(GetMethod(implObj, "GetOutputNumberForStream"), flags, 3)
-        this.vtbl.GetStreamNumberForOutput := CallbackCreate(GetMethod(implObj, "GetStreamNumberForOutput"), flags, 3)
-        this.vtbl.GetMaxOutputSampleSize := CallbackCreate(GetMethod(implObj, "GetMaxOutputSampleSize"), flags, 3)
-        this.vtbl.GetMaxStreamSampleSize := CallbackCreate(GetMethod(implObj, "GetMaxStreamSampleSize"), flags, 3)
-        this.vtbl.OpenStream := CallbackCreate(GetMethod(implObj, "OpenStream"), flags, 2)
+        this.vtbl.Open := CallbackCreate(ObjBindMethod(implObj, "Open"), flags, 2)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
+        this.vtbl.SetRange := CallbackCreate(ObjBindMethod(implObj, "SetRange"), flags, 3)
+        this.vtbl.SetRangeByFrame := CallbackCreate(ObjBindMethod(implObj, "SetRangeByFrame"), flags, 4)
+        this.vtbl.GetNextSample := CallbackCreate(ObjBindMethod(implObj, "GetNextSample"), flags, 8)
+        this.vtbl.SetStreamsSelected := CallbackCreate(ObjBindMethod(implObj, "SetStreamsSelected"), flags, 4)
+        this.vtbl.GetStreamSelected := CallbackCreate(ObjBindMethod(implObj, "GetStreamSelected"), flags, 3)
+        this.vtbl.SetReadStreamSamples := CallbackCreate(ObjBindMethod(implObj, "SetReadStreamSamples"), flags, 3)
+        this.vtbl.GetReadStreamSamples := CallbackCreate(ObjBindMethod(implObj, "GetReadStreamSamples"), flags, 3)
+        this.vtbl.GetOutputSetting := CallbackCreate(ObjBindMethod(implObj, "GetOutputSetting"), flags, 6)
+        this.vtbl.SetOutputSetting := CallbackCreate(ObjBindMethod(implObj, "SetOutputSetting"), flags, 6)
+        this.vtbl.GetOutputCount := CallbackCreate(ObjBindMethod(implObj, "GetOutputCount"), flags, 2)
+        this.vtbl.GetOutputProps := CallbackCreate(ObjBindMethod(implObj, "GetOutputProps"), flags, 3)
+        this.vtbl.SetOutputProps := CallbackCreate(ObjBindMethod(implObj, "SetOutputProps"), flags, 3)
+        this.vtbl.GetOutputFormatCount := CallbackCreate(ObjBindMethod(implObj, "GetOutputFormatCount"), flags, 3)
+        this.vtbl.GetOutputFormat := CallbackCreate(ObjBindMethod(implObj, "GetOutputFormat"), flags, 4)
+        this.vtbl.GetOutputNumberForStream := CallbackCreate(ObjBindMethod(implObj, "GetOutputNumberForStream"), flags, 3)
+        this.vtbl.GetStreamNumberForOutput := CallbackCreate(ObjBindMethod(implObj, "GetStreamNumberForOutput"), flags, 3)
+        this.vtbl.GetMaxOutputSampleSize := CallbackCreate(ObjBindMethod(implObj, "GetMaxOutputSampleSize"), flags, 3)
+        this.vtbl.GetMaxStreamSampleSize := CallbackCreate(ObjBindMethod(implObj, "GetMaxStreamSampleSize"), flags, 3)
+        this.vtbl.OpenStream := CallbackCreate(ObjBindMethod(implObj, "OpenStream"), flags, 2)
     }
 
     Dispose() {

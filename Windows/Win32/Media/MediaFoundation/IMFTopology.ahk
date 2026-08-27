@@ -258,16 +258,16 @@ export default struct IMFTopology extends IMFAttributes {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTopologyID := CallbackCreate(GetMethod(implObj, "GetTopologyID"), flags, 2)
-        this.vtbl.AddNode := CallbackCreate(GetMethod(implObj, "AddNode"), flags, 2)
-        this.vtbl.RemoveNode := CallbackCreate(GetMethod(implObj, "RemoveNode"), flags, 2)
-        this.vtbl.GetNodeCount := CallbackCreate(GetMethod(implObj, "GetNodeCount"), flags, 2)
-        this.vtbl.GetNode := CallbackCreate(GetMethod(implObj, "GetNode"), flags, 3)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
-        this.vtbl.CloneFrom := CallbackCreate(GetMethod(implObj, "CloneFrom"), flags, 2)
-        this.vtbl.GetNodeByID := CallbackCreate(GetMethod(implObj, "GetNodeByID"), flags, 3)
-        this.vtbl.GetSourceNodeCollection := CallbackCreate(GetMethod(implObj, "GetSourceNodeCollection"), flags, 2)
-        this.vtbl.GetOutputNodeCollection := CallbackCreate(GetMethod(implObj, "GetOutputNodeCollection"), flags, 2)
+        this.vtbl.GetTopologyID := CallbackCreate(ObjBindMethod(implObj, "GetTopologyID"), flags, 2)
+        this.vtbl.AddNode := CallbackCreate(ObjBindMethod(implObj, "AddNode"), flags, 2)
+        this.vtbl.RemoveNode := CallbackCreate(ObjBindMethod(implObj, "RemoveNode"), flags, 2)
+        this.vtbl.GetNodeCount := CallbackCreate(ObjBindMethod(implObj, "GetNodeCount"), flags, 2)
+        this.vtbl.GetNode := CallbackCreate(ObjBindMethod(implObj, "GetNode"), flags, 3)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.CloneFrom := CallbackCreate(ObjBindMethod(implObj, "CloneFrom"), flags, 2)
+        this.vtbl.GetNodeByID := CallbackCreate(ObjBindMethod(implObj, "GetNodeByID"), flags, 3)
+        this.vtbl.GetSourceNodeCollection := CallbackCreate(ObjBindMethod(implObj, "GetSourceNodeCollection"), flags, 2)
+        this.vtbl.GetOutputNodeCollection := CallbackCreate(ObjBindMethod(implObj, "GetOutputNodeCollection"), flags, 2)
     }
 
     Dispose() {

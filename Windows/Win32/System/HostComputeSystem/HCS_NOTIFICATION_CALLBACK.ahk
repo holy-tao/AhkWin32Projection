@@ -20,7 +20,6 @@ export default struct HCS_NOTIFICATION_CALLBACK {
     }
 
     /**
-     * 
      * @param {Integer} notificationType 
      * @param {Pointer<Void>} _context 
      * @param {HRESULT} notificationStatus 
@@ -30,9 +29,11 @@ export default struct HCS_NOTIFICATION_CALLBACK {
     Call(notificationType, _context, notificationStatus, notificationData) {
         notificationData := notificationData is String ? StrPtr(notificationData) : notificationData
 
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+        _contextMarshal := _context == 0 ? IntPtr : "ptr"
+        notificationDataMarshal := notificationData == 0 ? IntPtr : PWSTR
 
-        DllCall(this.value, UInt32, notificationType, _contextMarshal, _context, "int", notificationStatus, "ptr", notificationData)
+        DllCall(this.value, UInt32, notificationType, _contextMarshal, _context, "int", notificationStatus, notificationDataMarshal, notificationData)
     }
 
     /**

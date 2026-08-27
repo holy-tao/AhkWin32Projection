@@ -180,10 +180,10 @@ export default struct IX509ExtensionBasicConstraints extends IX509Extension {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeEncode := CallbackCreate(GetMethod(implObj, "InitializeEncode"), flags, 3)
-        this.vtbl.InitializeDecode := CallbackCreate(GetMethod(implObj, "InitializeDecode"), flags, 3)
-        this.vtbl.get_IsCA := CallbackCreate(GetMethod(implObj, "get_IsCA"), flags, 2)
-        this.vtbl.get_PathLenConstraint := CallbackCreate(GetMethod(implObj, "get_PathLenConstraint"), flags, 2)
+        this.vtbl.InitializeEncode := CallbackCreate(ObjBindMethod(implObj, "InitializeEncode"), flags, 3)
+        this.vtbl.InitializeDecode := CallbackCreate(ObjBindMethod(implObj, "InitializeDecode"), flags, 3)
+        this.vtbl.get_IsCA := CallbackCreate(ObjBindMethod(implObj, "get_IsCA"), flags, 2)
+        this.vtbl.get_PathLenConstraint := CallbackCreate(ObjBindMethod(implObj, "get_PathLenConstraint"), flags, 2)
     }
 
     Dispose() {

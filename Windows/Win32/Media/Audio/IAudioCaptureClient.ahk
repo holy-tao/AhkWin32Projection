@@ -188,11 +188,13 @@ export default struct IAudioCaptureClient extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudiocaptureclient-getbuffer
      */
     GetBuffer(ppData, pNumFramesToRead, pdwFlags, pu64DevicePosition, pu64QPCPosition) {
-        ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
-        pNumFramesToReadMarshal := pNumFramesToRead is VarRef ? "uint*" : "ptr"
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-        pu64DevicePositionMarshal := pu64DevicePosition is VarRef ? "uint*" : "ptr"
-        pu64QPCPositionMarshal := pu64QPCPosition is VarRef ? "uint*" : "ptr"
+        ppDataMarshal := ppData is VarRef ? "ptr*" : IntPtr
+        pNumFramesToReadMarshal := pNumFramesToRead is VarRef ? "uint*" : IntPtr
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : IntPtr
+        pu64DevicePositionMarshal := pu64DevicePosition is VarRef ? "uint*" : IntPtr
+        pu64DevicePositionMarshal := pu64DevicePosition == 0 ? IntPtr : "uint*"
+        pu64QPCPositionMarshal := pu64QPCPosition is VarRef ? "uint*" : IntPtr
+        pu64QPCPositionMarshal := pu64QPCPosition == 0 ? IntPtr : "uint*"
 
         result := ComCall(3, this, ppDataMarshal, ppData, pNumFramesToReadMarshal, pNumFramesToRead, pdwFlagsMarshal, pdwFlags, pu64DevicePositionMarshal, pu64DevicePosition, pu64QPCPositionMarshal, pu64QPCPosition, "HRESULT")
         return result
@@ -301,9 +303,9 @@ export default struct IAudioCaptureClient extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetBuffer := CallbackCreate(GetMethod(implObj, "GetBuffer"), flags, 6)
-        this.vtbl.ReleaseBuffer := CallbackCreate(GetMethod(implObj, "ReleaseBuffer"), flags, 2)
-        this.vtbl.GetNextPacketSize := CallbackCreate(GetMethod(implObj, "GetNextPacketSize"), flags, 2)
+        this.vtbl.GetBuffer := CallbackCreate(ObjBindMethod(implObj, "GetBuffer"), flags, 6)
+        this.vtbl.ReleaseBuffer := CallbackCreate(ObjBindMethod(implObj, "ReleaseBuffer"), flags, 2)
+        this.vtbl.GetNextPacketSize := CallbackCreate(ObjBindMethod(implObj, "GetNextPacketSize"), flags, 2)
     }
 
     Dispose() {

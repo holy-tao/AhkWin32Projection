@@ -62,7 +62,7 @@ export default struct ID3D11RefDefaultTrackingOptions extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetTrackingOptions := CallbackCreate(GetMethod(implObj, "SetTrackingOptions"), flags, 3)
+        this.vtbl.SetTrackingOptions := CallbackCreate(ObjBindMethod(implObj, "SetTrackingOptions"), flags, 3)
     }
 
     Dispose() {

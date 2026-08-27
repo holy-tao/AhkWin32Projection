@@ -285,7 +285,9 @@ export default struct ID3D12GraphicsCommandList1 extends ID3D12GraphicsCommandLi
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist1-resolvesubresourceregion
      */
     ResolveSubresourceRegion(pDstResource, DstSubresource, DstX, DstY, pSrcResource, SrcSubresource, pSrcRect, Format, ResolveMode) {
-        ComCall(64, this, "ptr", pDstResource, UInt32, DstSubresource, UInt32, DstX, UInt32, DstY, "ptr", pSrcResource, UInt32, SrcSubresource, RECT.Ptr, pSrcRect, DXGI_FORMAT, Format, D3D12_RESOLVE_MODE, ResolveMode)
+        pSrcRectMarshal := pSrcRect == 0 ? IntPtr : RECT.Ptr
+
+        ComCall(64, this, "ptr", pDstResource, UInt32, DstSubresource, UInt32, DstX, UInt32, DstY, "ptr", pSrcResource, UInt32, SrcSubresource, pSrcRectMarshal, pSrcRect, DXGI_FORMAT, Format, D3D12_RESOLVE_MODE, ResolveMode)
     }
 
     /**
@@ -317,12 +319,12 @@ export default struct ID3D12GraphicsCommandList1 extends ID3D12GraphicsCommandLi
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AtomicCopyBufferUINT := CallbackCreate(GetMethod(implObj, "AtomicCopyBufferUINT"), flags, 8)
-        this.vtbl.AtomicCopyBufferUINT64 := CallbackCreate(GetMethod(implObj, "AtomicCopyBufferUINT64"), flags, 8)
-        this.vtbl.OMSetDepthBounds := CallbackCreate(GetMethod(implObj, "OMSetDepthBounds"), flags, 3)
-        this.vtbl.SetSamplePositions := CallbackCreate(GetMethod(implObj, "SetSamplePositions"), flags, 4)
-        this.vtbl.ResolveSubresourceRegion := CallbackCreate(GetMethod(implObj, "ResolveSubresourceRegion"), flags, 10)
-        this.vtbl.SetViewInstanceMask := CallbackCreate(GetMethod(implObj, "SetViewInstanceMask"), flags, 2)
+        this.vtbl.AtomicCopyBufferUINT := CallbackCreate(ObjBindMethod(implObj, "AtomicCopyBufferUINT"), flags, 8)
+        this.vtbl.AtomicCopyBufferUINT64 := CallbackCreate(ObjBindMethod(implObj, "AtomicCopyBufferUINT64"), flags, 8)
+        this.vtbl.OMSetDepthBounds := CallbackCreate(ObjBindMethod(implObj, "OMSetDepthBounds"), flags, 3)
+        this.vtbl.SetSamplePositions := CallbackCreate(ObjBindMethod(implObj, "SetSamplePositions"), flags, 4)
+        this.vtbl.ResolveSubresourceRegion := CallbackCreate(ObjBindMethod(implObj, "ResolveSubresourceRegion"), flags, 10)
+        this.vtbl.SetViewInstanceMask := CallbackCreate(ObjBindMethod(implObj, "SetViewInstanceMask"), flags, 2)
     }
 
     Dispose() {

@@ -19,13 +19,13 @@ export default struct JsThreadServiceCallback {
     }
 
     /**
-     * 
      * @param {Pointer<JsBackgroundWorkItemCallback>} callback 
      * @param {Pointer<Void>} callbackState 
      * @returns {Boolean} 
      */
     Call(callback, callbackState) {
-        callbackStateMarshal := callbackState is VarRef ? "ptr" : "ptr"
+        callbackStateMarshal := callbackState is VarRef ? "ptr" : IntPtr
+        callbackStateMarshal := callbackState == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, JsBackgroundWorkItemCallback, callback, callbackStateMarshal, callbackState, Int32)
         return result

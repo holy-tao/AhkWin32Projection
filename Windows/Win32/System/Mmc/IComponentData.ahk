@@ -204,13 +204,13 @@ export default struct IComponentData extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.CreateComponent := CallbackCreate(GetMethod(implObj, "CreateComponent"), flags, 2)
-        this.vtbl.Notify := CallbackCreate(GetMethod(implObj, "Notify"), flags, 5)
-        this.vtbl.Destroy := CallbackCreate(GetMethod(implObj, "Destroy"), flags, 1)
-        this.vtbl.QueryDataObject := CallbackCreate(GetMethod(implObj, "QueryDataObject"), flags, 4)
-        this.vtbl.GetDisplayInfo := CallbackCreate(GetMethod(implObj, "GetDisplayInfo"), flags, 2)
-        this.vtbl.CompareObjects := CallbackCreate(GetMethod(implObj, "CompareObjects"), flags, 3)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.CreateComponent := CallbackCreate(ObjBindMethod(implObj, "CreateComponent"), flags, 2)
+        this.vtbl.Notify := CallbackCreate(ObjBindMethod(implObj, "Notify"), flags, 5)
+        this.vtbl.Destroy := CallbackCreate(ObjBindMethod(implObj, "Destroy"), flags, 1)
+        this.vtbl.QueryDataObject := CallbackCreate(ObjBindMethod(implObj, "QueryDataObject"), flags, 4)
+        this.vtbl.GetDisplayInfo := CallbackCreate(ObjBindMethod(implObj, "GetDisplayInfo"), flags, 2)
+        this.vtbl.CompareObjects := CallbackCreate(ObjBindMethod(implObj, "CompareObjects"), flags, 3)
     }
 
     Dispose() {

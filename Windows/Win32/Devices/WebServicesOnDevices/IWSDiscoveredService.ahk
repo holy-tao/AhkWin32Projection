@@ -147,8 +147,8 @@ export default struct IWSDiscoveredService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveredservice-getextendeddiscoxml
      */
     GetExtendedDiscoXML(ppHeaderAny, ppBodyAny) {
-        ppHeaderAnyMarshal := ppHeaderAny is VarRef ? "ptr*" : "ptr"
-        ppBodyAnyMarshal := ppBodyAny is VarRef ? "ptr*" : "ptr"
+        ppHeaderAnyMarshal := ppHeaderAny is VarRef ? "ptr*" : IntPtr
+        ppBodyAnyMarshal := ppBodyAny is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(8, this, ppHeaderAnyMarshal, ppHeaderAny, ppBodyAnyMarshal, ppBodyAny, "HRESULT")
         return result
@@ -224,17 +224,17 @@ export default struct IWSDiscoveredService extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetEndpointReference := CallbackCreate(GetMethod(implObj, "GetEndpointReference"), flags, 2)
-        this.vtbl.GetTypes := CallbackCreate(GetMethod(implObj, "GetTypes"), flags, 2)
-        this.vtbl.GetScopes := CallbackCreate(GetMethod(implObj, "GetScopes"), flags, 2)
-        this.vtbl.GetXAddrs := CallbackCreate(GetMethod(implObj, "GetXAddrs"), flags, 2)
-        this.vtbl.GetMetadataVersion := CallbackCreate(GetMethod(implObj, "GetMetadataVersion"), flags, 2)
-        this.vtbl.GetExtendedDiscoXML := CallbackCreate(GetMethod(implObj, "GetExtendedDiscoXML"), flags, 3)
-        this.vtbl.GetProbeResolveTag := CallbackCreate(GetMethod(implObj, "GetProbeResolveTag"), flags, 2)
-        this.vtbl.GetRemoteTransportAddress := CallbackCreate(GetMethod(implObj, "GetRemoteTransportAddress"), flags, 2)
-        this.vtbl.GetLocalTransportAddress := CallbackCreate(GetMethod(implObj, "GetLocalTransportAddress"), flags, 2)
-        this.vtbl.GetLocalInterfaceGUID := CallbackCreate(GetMethod(implObj, "GetLocalInterfaceGUID"), flags, 2)
-        this.vtbl.GetInstanceId := CallbackCreate(GetMethod(implObj, "GetInstanceId"), flags, 2)
+        this.vtbl.GetEndpointReference := CallbackCreate(ObjBindMethod(implObj, "GetEndpointReference"), flags, 2)
+        this.vtbl.GetTypes := CallbackCreate(ObjBindMethod(implObj, "GetTypes"), flags, 2)
+        this.vtbl.GetScopes := CallbackCreate(ObjBindMethod(implObj, "GetScopes"), flags, 2)
+        this.vtbl.GetXAddrs := CallbackCreate(ObjBindMethod(implObj, "GetXAddrs"), flags, 2)
+        this.vtbl.GetMetadataVersion := CallbackCreate(ObjBindMethod(implObj, "GetMetadataVersion"), flags, 2)
+        this.vtbl.GetExtendedDiscoXML := CallbackCreate(ObjBindMethod(implObj, "GetExtendedDiscoXML"), flags, 3)
+        this.vtbl.GetProbeResolveTag := CallbackCreate(ObjBindMethod(implObj, "GetProbeResolveTag"), flags, 2)
+        this.vtbl.GetRemoteTransportAddress := CallbackCreate(ObjBindMethod(implObj, "GetRemoteTransportAddress"), flags, 2)
+        this.vtbl.GetLocalTransportAddress := CallbackCreate(ObjBindMethod(implObj, "GetLocalTransportAddress"), flags, 2)
+        this.vtbl.GetLocalInterfaceGUID := CallbackCreate(ObjBindMethod(implObj, "GetLocalInterfaceGUID"), flags, 2)
+        this.vtbl.GetInstanceId := CallbackCreate(ObjBindMethod(implObj, "GetInstanceId"), flags, 2)
     }
 
     Dispose() {

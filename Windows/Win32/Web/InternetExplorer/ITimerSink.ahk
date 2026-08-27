@@ -37,7 +37,6 @@ export default struct ITimerSink extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT} vtimeAdvise 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,7 @@ export default struct ITimerSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnTimer := CallbackCreate(GetMethod(implObj, "OnTimer"), flags, 2)
+        this.vtbl.OnTimer := CallbackCreate(ObjBindMethod(implObj, "OnTimer"), flags, 2)
     }
 
     Dispose() {

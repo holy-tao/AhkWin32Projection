@@ -81,8 +81,8 @@ export default struct IMbnConnectionProfileManagerEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnConnectionProfileArrival := CallbackCreate(GetMethod(implObj, "OnConnectionProfileArrival"), flags, 2)
-        this.vtbl.OnConnectionProfileRemoval := CallbackCreate(GetMethod(implObj, "OnConnectionProfileRemoval"), flags, 2)
+        this.vtbl.OnConnectionProfileArrival := CallbackCreate(ObjBindMethod(implObj, "OnConnectionProfileArrival"), flags, 2)
+        this.vtbl.OnConnectionProfileRemoval := CallbackCreate(ObjBindMethod(implObj, "OnConnectionProfileRemoval"), flags, 2)
     }
 
     Dispose() {

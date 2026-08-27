@@ -20,7 +20,6 @@ export default struct PFNPROPSHEETUI {
     }
 
     /**
-     * 
      * @param {Pointer<PROPSHEETUI_INFO>} pPSUIInfo 
      * @param {LPARAM} _lParam 
      * @returns {Integer} 

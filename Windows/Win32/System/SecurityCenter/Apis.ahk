@@ -24,8 +24,8 @@
  * @since windows6.0.6000
  */
 export WscRegisterForChanges(Reserved, phCallbackRegistration, lpCallbackAddress, pContext) {
-    ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
-    pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+    ReservedMarshal := Reserved is VarRef ? "ptr" : IntPtr
+    pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
 
     result := DllCall("WSCAPI.dll\WscRegisterForChanges", ReservedMarshal, Reserved, HANDLE.Ptr, phCallbackRegistration, LPTHREAD_START_ROUTINE, lpCallbackAddress, pContextMarshal, pContext, "HRESULT")
     return result
@@ -44,7 +44,6 @@ export WscUnRegisterChanges(hRegistrationHandle) {
 }
 
 /**
- * 
  * @returns {HRESULT} 
  */
 export WscRegisterForUserNotifications() {
@@ -64,14 +63,13 @@ export WscRegisterForUserNotifications() {
  * @since windows6.0.6000
  */
 export WscGetSecurityProviderHealth(Providers, pHealth) {
-    pHealthMarshal := pHealth is VarRef ? "int*" : "ptr"
+    pHealthMarshal := pHealth is VarRef ? "int*" : IntPtr
 
     result := DllCall("WSCAPI.dll\WscGetSecurityProviderHealth", UInt32, Providers, pHealthMarshal, pHealth, "HRESULT")
     return result
 }
 
 /**
- * 
  * @returns {HRESULT} 
  */
 export WscQueryAntiMalwareUri() {
@@ -80,7 +78,6 @@ export WscQueryAntiMalwareUri() {
 }
 
 /**
- * 
  * @returns {PWSTR} 
  */
 export WscGetAntiMalwareUri() {

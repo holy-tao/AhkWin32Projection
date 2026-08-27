@@ -22,7 +22,6 @@ export default struct SslImportKeyFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {PWSTR} pszBlobType 
      * @param {Integer} pbKeyBlob 

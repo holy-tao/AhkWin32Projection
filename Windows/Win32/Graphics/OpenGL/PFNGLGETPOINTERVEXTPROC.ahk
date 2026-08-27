@@ -18,13 +18,12 @@ export default struct PFNGLGETPOINTERVEXTPROC {
     }
 
     /**
-     * 
      * @param {Integer} pname 
      * @param {Pointer<Pointer<Void>>} params 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(pname, params) {
-        paramsMarshal := params is VarRef ? "ptr*" : "ptr"
+        paramsMarshal := params is VarRef ? "ptr*" : IntPtr
 
         DllCall(this.value, UInt32, pname, paramsMarshal, params)
     }

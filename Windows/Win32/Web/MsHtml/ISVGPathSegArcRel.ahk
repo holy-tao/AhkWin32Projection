@@ -112,7 +112,6 @@ export default struct ISVGPathSegArcRel extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -122,7 +121,6 @@ export default struct ISVGPathSegArcRel extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_x() {
@@ -131,7 +129,6 @@ export default struct ISVGPathSegArcRel extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -141,7 +138,6 @@ export default struct ISVGPathSegArcRel extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_y() {
@@ -150,7 +146,6 @@ export default struct ISVGPathSegArcRel extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -160,7 +155,6 @@ export default struct ISVGPathSegArcRel extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_r1() {
@@ -169,7 +163,6 @@ export default struct ISVGPathSegArcRel extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -179,7 +172,6 @@ export default struct ISVGPathSegArcRel extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_r2() {
@@ -188,7 +180,6 @@ export default struct ISVGPathSegArcRel extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -198,7 +189,6 @@ export default struct ISVGPathSegArcRel extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_angle() {
@@ -207,7 +197,6 @@ export default struct ISVGPathSegArcRel extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -217,7 +206,6 @@ export default struct ISVGPathSegArcRel extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_largeArcFlag() {
@@ -226,7 +214,6 @@ export default struct ISVGPathSegArcRel extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -236,7 +223,6 @@ export default struct ISVGPathSegArcRel extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_sweepFlag() {
@@ -253,20 +239,20 @@ export default struct ISVGPathSegArcRel extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_x := CallbackCreate(GetMethod(implObj, "put_x"), flags, 2)
-        this.vtbl.get_x := CallbackCreate(GetMethod(implObj, "get_x"), flags, 2)
-        this.vtbl.put_y := CallbackCreate(GetMethod(implObj, "put_y"), flags, 2)
-        this.vtbl.get_y := CallbackCreate(GetMethod(implObj, "get_y"), flags, 2)
-        this.vtbl.put_r1 := CallbackCreate(GetMethod(implObj, "put_r1"), flags, 2)
-        this.vtbl.get_r1 := CallbackCreate(GetMethod(implObj, "get_r1"), flags, 2)
-        this.vtbl.put_r2 := CallbackCreate(GetMethod(implObj, "put_r2"), flags, 2)
-        this.vtbl.get_r2 := CallbackCreate(GetMethod(implObj, "get_r2"), flags, 2)
-        this.vtbl.put_angle := CallbackCreate(GetMethod(implObj, "put_angle"), flags, 2)
-        this.vtbl.get_angle := CallbackCreate(GetMethod(implObj, "get_angle"), flags, 2)
-        this.vtbl.put_largeArcFlag := CallbackCreate(GetMethod(implObj, "put_largeArcFlag"), flags, 2)
-        this.vtbl.get_largeArcFlag := CallbackCreate(GetMethod(implObj, "get_largeArcFlag"), flags, 2)
-        this.vtbl.put_sweepFlag := CallbackCreate(GetMethod(implObj, "put_sweepFlag"), flags, 2)
-        this.vtbl.get_sweepFlag := CallbackCreate(GetMethod(implObj, "get_sweepFlag"), flags, 2)
+        this.vtbl.put_x := CallbackCreate(ObjBindMethod(implObj, "put_x"), flags, 2)
+        this.vtbl.get_x := CallbackCreate(ObjBindMethod(implObj, "get_x"), flags, 2)
+        this.vtbl.put_y := CallbackCreate(ObjBindMethod(implObj, "put_y"), flags, 2)
+        this.vtbl.get_y := CallbackCreate(ObjBindMethod(implObj, "get_y"), flags, 2)
+        this.vtbl.put_r1 := CallbackCreate(ObjBindMethod(implObj, "put_r1"), flags, 2)
+        this.vtbl.get_r1 := CallbackCreate(ObjBindMethod(implObj, "get_r1"), flags, 2)
+        this.vtbl.put_r2 := CallbackCreate(ObjBindMethod(implObj, "put_r2"), flags, 2)
+        this.vtbl.get_r2 := CallbackCreate(ObjBindMethod(implObj, "get_r2"), flags, 2)
+        this.vtbl.put_angle := CallbackCreate(ObjBindMethod(implObj, "put_angle"), flags, 2)
+        this.vtbl.get_angle := CallbackCreate(ObjBindMethod(implObj, "get_angle"), flags, 2)
+        this.vtbl.put_largeArcFlag := CallbackCreate(ObjBindMethod(implObj, "put_largeArcFlag"), flags, 2)
+        this.vtbl.get_largeArcFlag := CallbackCreate(ObjBindMethod(implObj, "get_largeArcFlag"), flags, 2)
+        this.vtbl.put_sweepFlag := CallbackCreate(ObjBindMethod(implObj, "put_sweepFlag"), flags, 2)
+        this.vtbl.get_sweepFlag := CallbackCreate(ObjBindMethod(implObj, "get_sweepFlag"), flags, 2)
     }
 
     Dispose() {

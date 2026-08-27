@@ -40,7 +40,6 @@ export default struct IElementSelector extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {IHTMLElement} 
      */
@@ -52,7 +51,6 @@ export default struct IElementSelector extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {IHTMLDOMChildrenCollection} 
      */
@@ -72,8 +70,8 @@ export default struct IElementSelector extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.querySelector := CallbackCreate(GetMethod(implObj, "querySelector"), flags, 3)
-        this.vtbl.querySelectorAll := CallbackCreate(GetMethod(implObj, "querySelectorAll"), flags, 3)
+        this.vtbl.querySelector := CallbackCreate(ObjBindMethod(implObj, "querySelector"), flags, 3)
+        this.vtbl.querySelectorAll := CallbackCreate(ObjBindMethod(implObj, "querySelectorAll"), flags, 3)
     }
 
     Dispose() {

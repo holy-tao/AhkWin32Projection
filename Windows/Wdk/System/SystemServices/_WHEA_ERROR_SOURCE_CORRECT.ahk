@@ -20,13 +20,12 @@ export default struct _WHEA_ERROR_SOURCE_CORRECT {
     }
 
     /**
-     * 
      * @param {Pointer<WHEA_ERROR_SOURCE_DESCRIPTOR>} ErrorSource 
      * @param {Pointer<Integer>} MaximumSectionLength 
      * @returns {NTSTATUS} 
      */
     Call(ErrorSource, MaximumSectionLength) {
-        MaximumSectionLengthMarshal := MaximumSectionLength is VarRef ? "uint*" : "ptr"
+        MaximumSectionLengthMarshal := MaximumSectionLength is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, WHEA_ERROR_SOURCE_DESCRIPTOR.Ptr, ErrorSource, MaximumSectionLengthMarshal, MaximumSectionLength, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

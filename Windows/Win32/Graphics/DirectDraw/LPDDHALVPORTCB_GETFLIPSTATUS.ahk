@@ -19,7 +19,6 @@ export default struct LPDDHALVPORTCB_GETFLIPSTATUS {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_GETVPORTFLIPSTATUSDATA>} param0 
      * @returns {Integer} 
      */

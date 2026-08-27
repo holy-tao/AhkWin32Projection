@@ -127,10 +127,10 @@ export default struct ISpellingError extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_StartIndex := CallbackCreate(GetMethod(implObj, "get_StartIndex"), flags, 2)
-        this.vtbl.get_Length := CallbackCreate(GetMethod(implObj, "get_Length"), flags, 2)
-        this.vtbl.get_CorrectiveAction := CallbackCreate(GetMethod(implObj, "get_CorrectiveAction"), flags, 2)
-        this.vtbl.get_Replacement := CallbackCreate(GetMethod(implObj, "get_Replacement"), flags, 2)
+        this.vtbl.get_StartIndex := CallbackCreate(ObjBindMethod(implObj, "get_StartIndex"), flags, 2)
+        this.vtbl.get_Length := CallbackCreate(ObjBindMethod(implObj, "get_Length"), flags, 2)
+        this.vtbl.get_CorrectiveAction := CallbackCreate(ObjBindMethod(implObj, "get_CorrectiveAction"), flags, 2)
+        this.vtbl.get_Replacement := CallbackCreate(ObjBindMethod(implObj, "get_Replacement"), flags, 2)
     }
 
     Dispose() {

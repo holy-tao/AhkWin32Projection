@@ -296,7 +296,7 @@ export default struct IWMPMediaCollection extends IDispatch {
     getMediaAtom(bstrItemName, plAtom) {
         bstrItemName := bstrItemName is String ? BSTR.Alloc(bstrItemName).Value : bstrItemName
 
-        plAtomMarshal := plAtom is VarRef ? "int*" : "ptr"
+        plAtomMarshal := plAtom is VarRef ? "int*" : IntPtr
 
         result := ComCall(16, this, BSTR, bstrItemName, plAtomMarshal, plAtom, "HRESULT")
         return result
@@ -346,7 +346,7 @@ export default struct IWMPMediaCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpmediacollection
      */
     isDeleted(pItem, pvarfIsDeleted) {
-        pvarfIsDeletedMarshal := pvarfIsDeleted is VarRef ? "short*" : "ptr"
+        pvarfIsDeletedMarshal := pvarfIsDeleted is VarRef ? "short*" : IntPtr
 
         result := ComCall(18, this, "ptr", pItem, pvarfIsDeletedMarshal, pvarfIsDeleted, "HRESULT")
         return result
@@ -361,18 +361,18 @@ export default struct IWMPMediaCollection extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.add := CallbackCreate(GetMethod(implObj, "add"), flags, 3)
-        this.vtbl.getAll := CallbackCreate(GetMethod(implObj, "getAll"), flags, 2)
-        this.vtbl.getByName := CallbackCreate(GetMethod(implObj, "getByName"), flags, 3)
-        this.vtbl.getByGenre := CallbackCreate(GetMethod(implObj, "getByGenre"), flags, 3)
-        this.vtbl.getByAuthor := CallbackCreate(GetMethod(implObj, "getByAuthor"), flags, 3)
-        this.vtbl.getByAlbum := CallbackCreate(GetMethod(implObj, "getByAlbum"), flags, 3)
-        this.vtbl.getByAttribute := CallbackCreate(GetMethod(implObj, "getByAttribute"), flags, 4)
-        this.vtbl.remove := CallbackCreate(GetMethod(implObj, "remove"), flags, 3)
-        this.vtbl.getAttributeStringCollection := CallbackCreate(GetMethod(implObj, "getAttributeStringCollection"), flags, 4)
-        this.vtbl.getMediaAtom := CallbackCreate(GetMethod(implObj, "getMediaAtom"), flags, 3)
-        this.vtbl.setDeleted := CallbackCreate(GetMethod(implObj, "setDeleted"), flags, 3)
-        this.vtbl.isDeleted := CallbackCreate(GetMethod(implObj, "isDeleted"), flags, 3)
+        this.vtbl.add := CallbackCreate(ObjBindMethod(implObj, "add"), flags, 3)
+        this.vtbl.getAll := CallbackCreate(ObjBindMethod(implObj, "getAll"), flags, 2)
+        this.vtbl.getByName := CallbackCreate(ObjBindMethod(implObj, "getByName"), flags, 3)
+        this.vtbl.getByGenre := CallbackCreate(ObjBindMethod(implObj, "getByGenre"), flags, 3)
+        this.vtbl.getByAuthor := CallbackCreate(ObjBindMethod(implObj, "getByAuthor"), flags, 3)
+        this.vtbl.getByAlbum := CallbackCreate(ObjBindMethod(implObj, "getByAlbum"), flags, 3)
+        this.vtbl.getByAttribute := CallbackCreate(ObjBindMethod(implObj, "getByAttribute"), flags, 4)
+        this.vtbl.remove := CallbackCreate(ObjBindMethod(implObj, "remove"), flags, 3)
+        this.vtbl.getAttributeStringCollection := CallbackCreate(ObjBindMethod(implObj, "getAttributeStringCollection"), flags, 4)
+        this.vtbl.getMediaAtom := CallbackCreate(ObjBindMethod(implObj, "getMediaAtom"), flags, 3)
+        this.vtbl.setDeleted := CallbackCreate(ObjBindMethod(implObj, "setDeleted"), flags, 3)
+        this.vtbl.isDeleted := CallbackCreate(ObjBindMethod(implObj, "isDeleted"), flags, 3)
     }
 
     Dispose() {

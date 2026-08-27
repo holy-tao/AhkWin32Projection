@@ -57,7 +57,6 @@ export default struct IPMTilePropertyInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PropertyID() {
@@ -66,7 +65,6 @@ export default struct IPMTilePropertyInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pPropValue 
      * @returns {HRESULT} 
      */
@@ -76,7 +74,6 @@ export default struct IPMTilePropertyInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} PropValue 
      * @returns {HRESULT} 
      */
@@ -96,9 +93,9 @@ export default struct IPMTilePropertyInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_PropertyID := CallbackCreate(GetMethod(implObj, "get_PropertyID"), flags, 2)
-        this.vtbl.get_PropertyValue := CallbackCreate(GetMethod(implObj, "get_PropertyValue"), flags, 2)
-        this.vtbl.set_Property := CallbackCreate(GetMethod(implObj, "set_Property"), flags, 2)
+        this.vtbl.get_PropertyID := CallbackCreate(ObjBindMethod(implObj, "get_PropertyID"), flags, 2)
+        this.vtbl.get_PropertyValue := CallbackCreate(ObjBindMethod(implObj, "get_PropertyValue"), flags, 2)
+        this.vtbl.set_Property := CallbackCreate(ObjBindMethod(implObj, "set_Property"), flags, 2)
     }
 
     Dispose() {

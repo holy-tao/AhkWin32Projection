@@ -20,7 +20,6 @@ export default struct PCLUSAPI_CLUSTER_GROUP_ENUM_EX {
     }
 
     /**
-     * 
      * @param {HGROUPENUMEX} _hGroupEnumEx 
      * @param {Integer} dwIndex 
      * @param {Pointer<CLUSTER_GROUP_ENUM_ITEM>} pItem 
@@ -28,7 +27,7 @@ export default struct PCLUSAPI_CLUSTER_GROUP_ENUM_EX {
      * @returns {Integer} 
      */
     Call(_hGroupEnumEx, dwIndex, pItem, cbItem) {
-        cbItemMarshal := cbItem is VarRef ? "uint*" : "ptr"
+        cbItemMarshal := cbItem is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HGROUPENUMEX, _hGroupEnumEx, UInt32, dwIndex, CLUSTER_GROUP_ENUM_ITEM.Ptr, pItem, cbItemMarshal, cbItem, UInt32)
         return result

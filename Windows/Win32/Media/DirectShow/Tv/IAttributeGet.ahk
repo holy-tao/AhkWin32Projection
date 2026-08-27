@@ -60,8 +60,8 @@ export default struct IAttributeGet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dsattrib/nf-dsattrib-iattributeget-getattribindexed
      */
     GetAttribIndexed(lIndex, pbAttribute, pdwAttributeLength) {
-        pbAttributeMarshal := pbAttribute is VarRef ? "char*" : "ptr"
-        pdwAttributeLengthMarshal := pdwAttributeLength is VarRef ? "uint*" : "ptr"
+        pbAttributeMarshal := pbAttribute is VarRef ? "char*" : IntPtr
+        pdwAttributeLengthMarshal := pdwAttributeLength is VarRef ? "uint*" : IntPtr
 
         pguidAttribute := Guid()
         result := ComCall(4, this, Int32, lIndex, Guid.Ptr, pguidAttribute, pbAttributeMarshal, pbAttribute, pdwAttributeLengthMarshal, pdwAttributeLength, "HRESULT")
@@ -117,8 +117,8 @@ export default struct IAttributeGet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dsattrib/nf-dsattrib-iattributeget-getattrib
      */
     GetAttrib(_guidAttribute, pbAttribute, pdwAttributeLength) {
-        pbAttributeMarshal := pbAttribute is VarRef ? "char*" : "ptr"
-        pdwAttributeLengthMarshal := pdwAttributeLength is VarRef ? "uint*" : "ptr"
+        pbAttributeMarshal := pbAttribute is VarRef ? "char*" : IntPtr
+        pdwAttributeLengthMarshal := pdwAttributeLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, Guid, _guidAttribute, pbAttributeMarshal, pbAttribute, pdwAttributeLengthMarshal, pdwAttributeLength, "HRESULT")
         return result
@@ -133,9 +133,9 @@ export default struct IAttributeGet extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
-        this.vtbl.GetAttribIndexed := CallbackCreate(GetMethod(implObj, "GetAttribIndexed"), flags, 5)
-        this.vtbl.GetAttrib := CallbackCreate(GetMethod(implObj, "GetAttrib"), flags, 4)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetAttribIndexed := CallbackCreate(ObjBindMethod(implObj, "GetAttribIndexed"), flags, 5)
+        this.vtbl.GetAttrib := CallbackCreate(ObjBindMethod(implObj, "GetAttrib"), flags, 4)
     }
 
     Dispose() {

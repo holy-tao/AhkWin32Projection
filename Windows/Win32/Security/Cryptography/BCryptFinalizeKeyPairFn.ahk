@@ -20,7 +20,6 @@ export default struct BCryptFinalizeKeyPairFn {
     }
 
     /**
-     * 
      * @param {BCRYPT_KEY_HANDLE} _hKey 
      * @param {Integer} dwFlags 
      * @returns {NTSTATUS} 

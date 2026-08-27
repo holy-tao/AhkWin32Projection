@@ -40,7 +40,6 @@ export default struct IHTMLAttributeCollection2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @returns {IHTMLDOMAttribute} 
      */
@@ -52,7 +51,6 @@ export default struct IHTMLAttributeCollection2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMAttribute} ppNode 
      * @returns {IHTMLDOMAttribute} 
      */
@@ -62,7 +60,6 @@ export default struct IHTMLAttributeCollection2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @returns {IHTMLDOMAttribute} 
      */
@@ -82,9 +79,9 @@ export default struct IHTMLAttributeCollection2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.getNamedItem := CallbackCreate(GetMethod(implObj, "getNamedItem"), flags, 3)
-        this.vtbl.setNamedItem := CallbackCreate(GetMethod(implObj, "setNamedItem"), flags, 3)
-        this.vtbl.removeNamedItem := CallbackCreate(GetMethod(implObj, "removeNamedItem"), flags, 3)
+        this.vtbl.getNamedItem := CallbackCreate(ObjBindMethod(implObj, "getNamedItem"), flags, 3)
+        this.vtbl.setNamedItem := CallbackCreate(ObjBindMethod(implObj, "setNamedItem"), flags, 3)
+        this.vtbl.removeNamedItem := CallbackCreate(ObjBindMethod(implObj, "removeNamedItem"), flags, 3)
     }
 
     Dispose() {

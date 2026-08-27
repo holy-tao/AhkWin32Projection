@@ -55,7 +55,6 @@ export default struct IDirectSound3DBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DS3DBUFFER} 
      */
     GetAllParameters() {
@@ -65,21 +64,19 @@ export default struct IDirectSound3DBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwInsideConeAngle 
      * @param {Pointer<Integer>} pdwOutsideConeAngle 
      * @returns {HRESULT} 
      */
     GetConeAngles(pdwInsideConeAngle, pdwOutsideConeAngle) {
-        pdwInsideConeAngleMarshal := pdwInsideConeAngle is VarRef ? "uint*" : "ptr"
-        pdwOutsideConeAngleMarshal := pdwOutsideConeAngle is VarRef ? "uint*" : "ptr"
+        pdwInsideConeAngleMarshal := pdwInsideConeAngle is VarRef ? "uint*" : IntPtr
+        pdwOutsideConeAngleMarshal := pdwOutsideConeAngle is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pdwInsideConeAngleMarshal, pdwInsideConeAngle, pdwOutsideConeAngleMarshal, pdwOutsideConeAngle, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {D3DVECTOR} 
      */
     GetConeOrientation() {
@@ -89,7 +86,6 @@ export default struct IDirectSound3DBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetConeOutsideVolume() {
@@ -98,7 +94,6 @@ export default struct IDirectSound3DBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     GetMaxDistance() {
@@ -107,7 +102,6 @@ export default struct IDirectSound3DBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     GetMinDistance() {
@@ -116,7 +110,6 @@ export default struct IDirectSound3DBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMode() {
@@ -125,7 +118,6 @@ export default struct IDirectSound3DBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {D3DVECTOR} 
      */
     GetPosition() {
@@ -135,7 +127,6 @@ export default struct IDirectSound3DBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {D3DVECTOR} 
      */
     GetVelocity() {
@@ -145,7 +136,6 @@ export default struct IDirectSound3DBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DS3DBUFFER>} pcDs3dBuffer 
      * @param {Integer} dwApply 
      * @returns {HRESULT} 
@@ -156,7 +146,6 @@ export default struct IDirectSound3DBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwInsideConeAngle 
      * @param {Integer} dwOutsideConeAngle 
      * @param {Integer} dwApply 
@@ -168,7 +157,6 @@ export default struct IDirectSound3DBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} z 
@@ -181,7 +169,6 @@ export default struct IDirectSound3DBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lConeOutsideVolume 
      * @param {Integer} dwApply 
      * @returns {HRESULT} 
@@ -192,7 +179,6 @@ export default struct IDirectSound3DBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} flMaxDistance 
      * @param {Integer} dwApply 
      * @returns {HRESULT} 
@@ -203,7 +189,6 @@ export default struct IDirectSound3DBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} flMinDistance 
      * @param {Integer} dwApply 
      * @returns {HRESULT} 
@@ -214,7 +199,6 @@ export default struct IDirectSound3DBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwMode 
      * @param {Integer} dwApply 
      * @returns {HRESULT} 
@@ -225,7 +209,6 @@ export default struct IDirectSound3DBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} z 
@@ -238,7 +221,6 @@ export default struct IDirectSound3DBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} z 
@@ -259,24 +241,24 @@ export default struct IDirectSound3DBuffer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAllParameters := CallbackCreate(GetMethod(implObj, "GetAllParameters"), flags, 2)
-        this.vtbl.GetConeAngles := CallbackCreate(GetMethod(implObj, "GetConeAngles"), flags, 3)
-        this.vtbl.GetConeOrientation := CallbackCreate(GetMethod(implObj, "GetConeOrientation"), flags, 2)
-        this.vtbl.GetConeOutsideVolume := CallbackCreate(GetMethod(implObj, "GetConeOutsideVolume"), flags, 2)
-        this.vtbl.GetMaxDistance := CallbackCreate(GetMethod(implObj, "GetMaxDistance"), flags, 2)
-        this.vtbl.GetMinDistance := CallbackCreate(GetMethod(implObj, "GetMinDistance"), flags, 2)
-        this.vtbl.GetMode := CallbackCreate(GetMethod(implObj, "GetMode"), flags, 2)
-        this.vtbl.GetPosition := CallbackCreate(GetMethod(implObj, "GetPosition"), flags, 2)
-        this.vtbl.GetVelocity := CallbackCreate(GetMethod(implObj, "GetVelocity"), flags, 2)
-        this.vtbl.SetAllParameters := CallbackCreate(GetMethod(implObj, "SetAllParameters"), flags, 3)
-        this.vtbl.SetConeAngles := CallbackCreate(GetMethod(implObj, "SetConeAngles"), flags, 4)
-        this.vtbl.SetConeOrientation := CallbackCreate(GetMethod(implObj, "SetConeOrientation"), flags, 5)
-        this.vtbl.SetConeOutsideVolume := CallbackCreate(GetMethod(implObj, "SetConeOutsideVolume"), flags, 3)
-        this.vtbl.SetMaxDistance := CallbackCreate(GetMethod(implObj, "SetMaxDistance"), flags, 3)
-        this.vtbl.SetMinDistance := CallbackCreate(GetMethod(implObj, "SetMinDistance"), flags, 3)
-        this.vtbl.SetMode := CallbackCreate(GetMethod(implObj, "SetMode"), flags, 3)
-        this.vtbl.SetPosition := CallbackCreate(GetMethod(implObj, "SetPosition"), flags, 5)
-        this.vtbl.SetVelocity := CallbackCreate(GetMethod(implObj, "SetVelocity"), flags, 5)
+        this.vtbl.GetAllParameters := CallbackCreate(ObjBindMethod(implObj, "GetAllParameters"), flags, 2)
+        this.vtbl.GetConeAngles := CallbackCreate(ObjBindMethod(implObj, "GetConeAngles"), flags, 3)
+        this.vtbl.GetConeOrientation := CallbackCreate(ObjBindMethod(implObj, "GetConeOrientation"), flags, 2)
+        this.vtbl.GetConeOutsideVolume := CallbackCreate(ObjBindMethod(implObj, "GetConeOutsideVolume"), flags, 2)
+        this.vtbl.GetMaxDistance := CallbackCreate(ObjBindMethod(implObj, "GetMaxDistance"), flags, 2)
+        this.vtbl.GetMinDistance := CallbackCreate(ObjBindMethod(implObj, "GetMinDistance"), flags, 2)
+        this.vtbl.GetMode := CallbackCreate(ObjBindMethod(implObj, "GetMode"), flags, 2)
+        this.vtbl.GetPosition := CallbackCreate(ObjBindMethod(implObj, "GetPosition"), flags, 2)
+        this.vtbl.GetVelocity := CallbackCreate(ObjBindMethod(implObj, "GetVelocity"), flags, 2)
+        this.vtbl.SetAllParameters := CallbackCreate(ObjBindMethod(implObj, "SetAllParameters"), flags, 3)
+        this.vtbl.SetConeAngles := CallbackCreate(ObjBindMethod(implObj, "SetConeAngles"), flags, 4)
+        this.vtbl.SetConeOrientation := CallbackCreate(ObjBindMethod(implObj, "SetConeOrientation"), flags, 5)
+        this.vtbl.SetConeOutsideVolume := CallbackCreate(ObjBindMethod(implObj, "SetConeOutsideVolume"), flags, 3)
+        this.vtbl.SetMaxDistance := CallbackCreate(ObjBindMethod(implObj, "SetMaxDistance"), flags, 3)
+        this.vtbl.SetMinDistance := CallbackCreate(ObjBindMethod(implObj, "SetMinDistance"), flags, 3)
+        this.vtbl.SetMode := CallbackCreate(ObjBindMethod(implObj, "SetMode"), flags, 3)
+        this.vtbl.SetPosition := CallbackCreate(ObjBindMethod(implObj, "SetPosition"), flags, 5)
+        this.vtbl.SetVelocity := CallbackCreate(ObjBindMethod(implObj, "SetVelocity"), flags, 5)
     }
 
     Dispose() {

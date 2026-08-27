@@ -18,7 +18,6 @@ export default struct PWINDBG_OLDKD_WRITE_PHYSICAL_MEMORY {
     }
 
     /**
-     * 
      * @param {Integer} _address 
      * @param {Pointer<Void>} _buffer 
      * @param {Integer} length 
@@ -26,8 +25,8 @@ export default struct PWINDBG_OLDKD_WRITE_PHYSICAL_MEMORY {
      * @returns {Integer} 
      */
     Call(_address, _buffer, length, byteswritten) {
-        _bufferMarshal := _buffer is VarRef ? "ptr" : "ptr"
-        byteswrittenMarshal := byteswritten is VarRef ? "uint*" : "ptr"
+        _bufferMarshal := _buffer is VarRef ? "ptr" : IntPtr
+        byteswrittenMarshal := byteswritten is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, Int64, _address, _bufferMarshal, _buffer, UInt32, length, byteswrittenMarshal, byteswritten, UInt32)
         return result

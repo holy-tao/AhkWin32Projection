@@ -18,7 +18,6 @@ export default struct FunctionTailcall {
     }
 
     /**
-     * 
      * @param {Pointer} funcID 
      * @returns {String} Nothing - always returns an empty string
      */

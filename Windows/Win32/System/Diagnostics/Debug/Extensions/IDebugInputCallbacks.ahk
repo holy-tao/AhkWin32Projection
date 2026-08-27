@@ -37,7 +37,6 @@ export default struct IDebugInputCallbacks extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} BufferSize 
      * @returns {HRESULT} 
      */
@@ -47,7 +46,6 @@ export default struct IDebugInputCallbacks extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     EndInput() {
@@ -64,8 +62,8 @@ export default struct IDebugInputCallbacks extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StartInput := CallbackCreate(GetMethod(implObj, "StartInput"), flags, 2)
-        this.vtbl.EndInput := CallbackCreate(GetMethod(implObj, "EndInput"), flags, 1)
+        this.vtbl.StartInput := CallbackCreate(ObjBindMethod(implObj, "StartInput"), flags, 2)
+        this.vtbl.EndInput := CallbackCreate(ObjBindMethod(implObj, "EndInput"), flags, 1)
     }
 
     Dispose() {

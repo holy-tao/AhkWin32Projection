@@ -27,7 +27,6 @@ export default struct WS_OPEN_LISTENER_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} listenerInstance The pointer to the state specific to this listener instance,
      *                     as created by the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_create_listener_callback">WS_CREATE_LISTENER_CALLBACK</a>.
      * @param {Pointer<WS_STRING>} url The URL to listen on.  The format and interpretation of the URL
@@ -166,10 +165,12 @@ export default struct WS_OPEN_LISTENER_CALLBACK {
      * </table>
      */
     Call(listenerInstance, url, asyncContext, _error) {
-        listenerInstanceMarshal := listenerInstance is VarRef ? "ptr" : "ptr"
-        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
+        listenerInstanceMarshal := listenerInstance is VarRef ? "ptr" : IntPtr
+        asyncContextMarshal := asyncContext == 0 ? IntPtr : WS_ASYNC_CONTEXT.Ptr
+        _errorMarshal := _error is VarRef ? "ptr*" : IntPtr
+        _errorMarshal := _error == 0 ? IntPtr : WS_ERROR.Ptr
 
-        result := DllCall(this.value, listenerInstanceMarshal, listenerInstance, WS_STRING.Ptr, url, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
+        result := DllCall(this.value, listenerInstanceMarshal, listenerInstance, WS_STRING.Ptr, url, asyncContextMarshal, asyncContext, _errorMarshal, _error, "HRESULT")
         return result
     }
 

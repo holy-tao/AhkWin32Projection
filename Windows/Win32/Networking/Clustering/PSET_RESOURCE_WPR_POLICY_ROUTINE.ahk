@@ -18,7 +18,6 @@ export default struct PSET_RESOURCE_WPR_POLICY_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer} ResourceHandle 
      * @param {Integer} WprPolicyFlags 
      * @returns {Integer} 

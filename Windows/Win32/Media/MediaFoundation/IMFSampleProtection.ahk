@@ -101,8 +101,8 @@ export default struct IMFSampleProtection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsampleprotection-getprotectioncertificate
      */
     GetProtectionCertificate(dwVersion, ppCert, pcbCert) {
-        ppCertMarshal := ppCert is VarRef ? "ptr*" : "ptr"
-        pcbCertMarshal := pcbCert is VarRef ? "uint*" : "ptr"
+        ppCertMarshal := ppCert is VarRef ? "ptr*" : IntPtr
+        pcbCertMarshal := pcbCert is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, UInt32, dwVersion, ppCertMarshal, ppCert, pcbCertMarshal, pcbCert, "HRESULT")
         return result
@@ -151,9 +151,9 @@ export default struct IMFSampleProtection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsampleprotection-initoutputprotection
      */
     InitOutputProtection(dwVersion, dwOutputId, pbCert, cbCert, ppbSeed, pcbSeed) {
-        pbCertMarshal := pbCert is VarRef ? "char*" : "ptr"
-        ppbSeedMarshal := ppbSeed is VarRef ? "ptr*" : "ptr"
-        pcbSeedMarshal := pcbSeed is VarRef ? "uint*" : "ptr"
+        pbCertMarshal := pbCert is VarRef ? "char*" : IntPtr
+        ppbSeedMarshal := ppbSeed is VarRef ? "ptr*" : IntPtr
+        pcbSeedMarshal := pcbSeed is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, UInt32, dwVersion, UInt32, dwOutputId, pbCertMarshal, pbCert, UInt32, cbCert, ppbSeedMarshal, ppbSeed, pcbSeedMarshal, pcbSeed, "HRESULT")
         return result
@@ -187,7 +187,7 @@ export default struct IMFSampleProtection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsampleprotection-initinputprotection
      */
     InitInputProtection(dwVersion, dwInputId, pbSeed, cbSeed) {
-        pbSeedMarshal := pbSeed is VarRef ? "char*" : "ptr"
+        pbSeedMarshal := pbSeed is VarRef ? "char*" : IntPtr
 
         result := ComCall(7, this, UInt32, dwVersion, UInt32, dwInputId, pbSeedMarshal, pbSeed, UInt32, cbSeed, "HRESULT")
         return result
@@ -202,11 +202,11 @@ export default struct IMFSampleProtection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetInputProtectionVersion := CallbackCreate(GetMethod(implObj, "GetInputProtectionVersion"), flags, 2)
-        this.vtbl.GetOutputProtectionVersion := CallbackCreate(GetMethod(implObj, "GetOutputProtectionVersion"), flags, 2)
-        this.vtbl.GetProtectionCertificate := CallbackCreate(GetMethod(implObj, "GetProtectionCertificate"), flags, 4)
-        this.vtbl.InitOutputProtection := CallbackCreate(GetMethod(implObj, "InitOutputProtection"), flags, 7)
-        this.vtbl.InitInputProtection := CallbackCreate(GetMethod(implObj, "InitInputProtection"), flags, 5)
+        this.vtbl.GetInputProtectionVersion := CallbackCreate(ObjBindMethod(implObj, "GetInputProtectionVersion"), flags, 2)
+        this.vtbl.GetOutputProtectionVersion := CallbackCreate(ObjBindMethod(implObj, "GetOutputProtectionVersion"), flags, 2)
+        this.vtbl.GetProtectionCertificate := CallbackCreate(ObjBindMethod(implObj, "GetProtectionCertificate"), flags, 4)
+        this.vtbl.InitOutputProtection := CallbackCreate(ObjBindMethod(implObj, "InitOutputProtection"), flags, 7)
+        this.vtbl.InitInputProtection := CallbackCreate(ObjBindMethod(implObj, "InitInputProtection"), flags, 5)
     }
 
     Dispose() {

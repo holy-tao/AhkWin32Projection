@@ -41,7 +41,6 @@ export default struct IDebugHostTypeSignature extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetHashCode() {
@@ -50,21 +49,20 @@ export default struct IDebugHostTypeSignature extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugHostType} type 
      * @param {Pointer<Boolean>} isMatch 
      * @param {Pointer<IDebugHostSymbolEnumerator>} wildcardMatches 
      * @returns {HRESULT} 
      */
     IsMatch(type, isMatch, wildcardMatches) {
-        isMatchMarshal := isMatch is VarRef ? "int*" : "ptr"
+        isMatchMarshal := isMatch is VarRef ? "int*" : IntPtr
+        wildcardMatchesMarshal := wildcardMatches == 0 ? IntPtr : IDebugHostSymbolEnumerator.Ptr
 
-        result := ComCall(4, this, "ptr", type, isMatchMarshal, isMatch, IDebugHostSymbolEnumerator.Ptr, wildcardMatches, "HRESULT")
+        result := ComCall(4, this, "ptr", type, isMatchMarshal, isMatch, wildcardMatchesMarshal, wildcardMatches, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IDebugHostTypeSignature} typeSignature 
      * @returns {SignatureComparison} 
      */
@@ -82,9 +80,9 @@ export default struct IDebugHostTypeSignature extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetHashCode := CallbackCreate(GetMethod(implObj, "GetHashCode"), flags, 2)
-        this.vtbl.IsMatch := CallbackCreate(GetMethod(implObj, "IsMatch"), flags, 4)
-        this.vtbl.CompareAgainst := CallbackCreate(GetMethod(implObj, "CompareAgainst"), flags, 3)
+        this.vtbl.GetHashCode := CallbackCreate(ObjBindMethod(implObj, "GetHashCode"), flags, 2)
+        this.vtbl.IsMatch := CallbackCreate(ObjBindMethod(implObj, "IsMatch"), flags, 4)
+        this.vtbl.CompareAgainst := CallbackCreate(ObjBindMethod(implObj, "CompareAgainst"), flags, 3)
     }
 
     Dispose() {

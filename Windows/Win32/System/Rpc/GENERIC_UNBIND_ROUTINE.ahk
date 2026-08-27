@@ -18,14 +18,13 @@ export default struct GENERIC_UNBIND_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} param0 
      * @param {Pointer<Integer>} param1 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(param0, param1) {
-        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
-        param1Marshal := param1 is VarRef ? "char*" : "ptr"
+        param0Marshal := param0 is VarRef ? "ptr" : IntPtr
+        param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
         DllCall(this.value, param0Marshal, param0, param1Marshal, param1)
     }

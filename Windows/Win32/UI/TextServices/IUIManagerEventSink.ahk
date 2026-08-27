@@ -116,12 +116,12 @@ export default struct IUIManagerEventSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnWindowOpening := CallbackCreate(GetMethod(implObj, "OnWindowOpening"), flags, 2)
-        this.vtbl.OnWindowOpened := CallbackCreate(GetMethod(implObj, "OnWindowOpened"), flags, 2)
-        this.vtbl.OnWindowUpdating := CallbackCreate(GetMethod(implObj, "OnWindowUpdating"), flags, 2)
-        this.vtbl.OnWindowUpdated := CallbackCreate(GetMethod(implObj, "OnWindowUpdated"), flags, 2)
-        this.vtbl.OnWindowClosing := CallbackCreate(GetMethod(implObj, "OnWindowClosing"), flags, 1)
-        this.vtbl.OnWindowClosed := CallbackCreate(GetMethod(implObj, "OnWindowClosed"), flags, 1)
+        this.vtbl.OnWindowOpening := CallbackCreate(ObjBindMethod(implObj, "OnWindowOpening"), flags, 2)
+        this.vtbl.OnWindowOpened := CallbackCreate(ObjBindMethod(implObj, "OnWindowOpened"), flags, 2)
+        this.vtbl.OnWindowUpdating := CallbackCreate(ObjBindMethod(implObj, "OnWindowUpdating"), flags, 2)
+        this.vtbl.OnWindowUpdated := CallbackCreate(ObjBindMethod(implObj, "OnWindowUpdated"), flags, 2)
+        this.vtbl.OnWindowClosing := CallbackCreate(ObjBindMethod(implObj, "OnWindowClosing"), flags, 1)
+        this.vtbl.OnWindowClosed := CallbackCreate(ObjBindMethod(implObj, "OnWindowClosed"), flags, 1)
     }
 
     Dispose() {

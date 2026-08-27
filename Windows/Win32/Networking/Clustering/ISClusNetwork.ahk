@@ -122,7 +122,6 @@ export default struct ISClusNetwork extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_CommonProperties() {
@@ -131,7 +130,6 @@ export default struct ISClusNetwork extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_PrivateProperties() {
@@ -140,7 +138,6 @@ export default struct ISClusNetwork extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_CommonROProperties() {
@@ -149,7 +146,6 @@ export default struct ISClusNetwork extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_PrivateROProperties() {
@@ -158,7 +154,6 @@ export default struct ISClusNetwork extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     get_Handle() {
@@ -167,7 +162,6 @@ export default struct ISClusNetwork extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -177,7 +171,6 @@ export default struct ISClusNetwork extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrNetworkName 
      * @returns {HRESULT} 
      */
@@ -189,7 +182,6 @@ export default struct ISClusNetwork extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_NetworkID() {
@@ -199,7 +191,6 @@ export default struct ISClusNetwork extends IDispatch {
     }
 
     /**
-     * 
      * @returns {CLUSTER_NETWORK_STATE} 
      */
     get_State() {
@@ -208,7 +199,6 @@ export default struct ISClusNetwork extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusNetworkNetInterfaces} 
      */
     get_NetInterfaces() {
@@ -217,7 +207,6 @@ export default struct ISClusNetwork extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISCluster} 
      */
     get_Cluster() {
@@ -234,17 +223,17 @@ export default struct ISClusNetwork extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_CommonProperties := CallbackCreate(GetMethod(implObj, "get_CommonProperties"), flags, 2)
-        this.vtbl.get_PrivateProperties := CallbackCreate(GetMethod(implObj, "get_PrivateProperties"), flags, 2)
-        this.vtbl.get_CommonROProperties := CallbackCreate(GetMethod(implObj, "get_CommonROProperties"), flags, 2)
-        this.vtbl.get_PrivateROProperties := CallbackCreate(GetMethod(implObj, "get_PrivateROProperties"), flags, 2)
-        this.vtbl.get_Handle := CallbackCreate(GetMethod(implObj, "get_Handle"), flags, 2)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
-        this.vtbl.get_NetworkID := CallbackCreate(GetMethod(implObj, "get_NetworkID"), flags, 2)
-        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
-        this.vtbl.get_NetInterfaces := CallbackCreate(GetMethod(implObj, "get_NetInterfaces"), flags, 2)
-        this.vtbl.get_Cluster := CallbackCreate(GetMethod(implObj, "get_Cluster"), flags, 2)
+        this.vtbl.get_CommonProperties := CallbackCreate(ObjBindMethod(implObj, "get_CommonProperties"), flags, 2)
+        this.vtbl.get_PrivateProperties := CallbackCreate(ObjBindMethod(implObj, "get_PrivateProperties"), flags, 2)
+        this.vtbl.get_CommonROProperties := CallbackCreate(ObjBindMethod(implObj, "get_CommonROProperties"), flags, 2)
+        this.vtbl.get_PrivateROProperties := CallbackCreate(ObjBindMethod(implObj, "get_PrivateROProperties"), flags, 2)
+        this.vtbl.get_Handle := CallbackCreate(ObjBindMethod(implObj, "get_Handle"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(ObjBindMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.get_NetworkID := CallbackCreate(ObjBindMethod(implObj, "get_NetworkID"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(ObjBindMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.get_NetInterfaces := CallbackCreate(ObjBindMethod(implObj, "get_NetInterfaces"), flags, 2)
+        this.vtbl.get_Cluster := CallbackCreate(ObjBindMethod(implObj, "get_Cluster"), flags, 2)
     }
 
     Dispose() {

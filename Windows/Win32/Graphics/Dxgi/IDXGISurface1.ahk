@@ -130,7 +130,9 @@ export default struct IDXGISurface1 extends IDXGISurface {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgisurface1-releasedc
      */
     ReleaseDC(pDirtyRect) {
-        result := ComCall(12, this, RECT.Ptr, pDirtyRect, "HRESULT")
+        pDirtyRectMarshal := pDirtyRect == 0 ? IntPtr : RECT.Ptr
+
+        result := ComCall(12, this, pDirtyRectMarshal, pDirtyRect, "HRESULT")
         return result
     }
 
@@ -143,8 +145,8 @@ export default struct IDXGISurface1 extends IDXGISurface {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDC := CallbackCreate(GetMethod(implObj, "GetDC"), flags, 3)
-        this.vtbl.ReleaseDC := CallbackCreate(GetMethod(implObj, "ReleaseDC"), flags, 2)
+        this.vtbl.GetDC := CallbackCreate(ObjBindMethod(implObj, "GetDC"), flags, 3)
+        this.vtbl.ReleaseDC := CallbackCreate(ObjBindMethod(implObj, "ReleaseDC"), flags, 2)
     }
 
     Dispose() {

@@ -38,7 +38,6 @@ export default struct ICLRAssemblyReferenceList extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzAssemblyName 
      * @returns {HRESULT} 
      */
@@ -50,7 +49,6 @@ export default struct ICLRAssemblyReferenceList extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pName 
      * @returns {HRESULT} 
      */
@@ -68,8 +66,8 @@ export default struct ICLRAssemblyReferenceList extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsStringAssemblyReferenceInList := CallbackCreate(GetMethod(implObj, "IsStringAssemblyReferenceInList"), flags, 2)
-        this.vtbl.IsAssemblyReferenceInList := CallbackCreate(GetMethod(implObj, "IsAssemblyReferenceInList"), flags, 2)
+        this.vtbl.IsStringAssemblyReferenceInList := CallbackCreate(ObjBindMethod(implObj, "IsStringAssemblyReferenceInList"), flags, 2)
+        this.vtbl.IsAssemblyReferenceInList := CallbackCreate(ObjBindMethod(implObj, "IsAssemblyReferenceInList"), flags, 2)
     }
 
     Dispose() {

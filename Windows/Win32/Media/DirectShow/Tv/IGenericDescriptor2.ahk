@@ -67,14 +67,13 @@ export default struct IGenericDescriptor2 extends IGenericDescriptor {
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-initialize
      */
     Initialize(pbDesc, wCount) {
-        pbDescMarshal := pbDesc is VarRef ? "char*" : "ptr"
+        pbDescMarshal := pbDesc is VarRef ? "char*" : IntPtr
 
         result := ComCall(7, this, pbDescMarshal, pbDesc, UInt16, wCount, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetLength() {
@@ -91,8 +90,8 @@ export default struct IGenericDescriptor2 extends IGenericDescriptor {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
     }
 
     Dispose() {

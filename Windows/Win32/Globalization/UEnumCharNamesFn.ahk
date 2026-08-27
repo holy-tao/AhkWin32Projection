@@ -20,7 +20,6 @@ export default struct UEnumCharNamesFn {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {Integer} code 
      * @param {UCharNameChoice} nameChoice 
@@ -31,7 +30,7 @@ export default struct UEnumCharNamesFn {
     Call(_context, code, nameChoice, name, length) {
         name := name is String ? StrPtr(name) : name
 
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _contextMarshal, _context, Int32, code, UCharNameChoice, nameChoice, "ptr", name, Int32, length, Int8)
         return result

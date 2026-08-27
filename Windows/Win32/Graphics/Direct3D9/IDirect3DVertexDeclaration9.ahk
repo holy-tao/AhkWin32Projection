@@ -94,7 +94,7 @@ export default struct IDirect3DVertexDeclaration9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvertexdeclaration9-getdeclaration
      */
     GetDeclaration(pElement, pNumElements) {
-        pNumElementsMarshal := pNumElements is VarRef ? "uint*" : "ptr"
+        pNumElementsMarshal := pNumElements is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, D3DVERTEXELEMENT9.Ptr, pElement, pNumElementsMarshal, pNumElements, "HRESULT")
         return result
@@ -109,8 +109,8 @@ export default struct IDirect3DVertexDeclaration9 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDevice := CallbackCreate(GetMethod(implObj, "GetDevice"), flags, 2)
-        this.vtbl.GetDeclaration := CallbackCreate(GetMethod(implObj, "GetDeclaration"), flags, 3)
+        this.vtbl.GetDevice := CallbackCreate(ObjBindMethod(implObj, "GetDevice"), flags, 2)
+        this.vtbl.GetDeclaration := CallbackCreate(ObjBindMethod(implObj, "GetDeclaration"), flags, 3)
     }
 
     Dispose() {

@@ -24,7 +24,6 @@ export default struct PWLX_USE_CTRL_ALT_DEL {
     }
 
     /**
-     * 
      * @param {HANDLE} hWlx [in] Winlogon handle provided to GINA in the <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nf-winwlx-wlxinitialize">WlxInitialize</a> call.
      * @returns {String} Nothing - always returns an empty string
      */

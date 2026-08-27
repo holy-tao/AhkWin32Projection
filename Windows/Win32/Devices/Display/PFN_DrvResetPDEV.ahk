@@ -20,7 +20,6 @@ export default struct PFN_DrvResetPDEV {
     }
 
     /**
-     * 
      * @param {DHPDEV} dhpdevOld 
      * @param {DHPDEV} dhpdevNew 
      * @returns {BOOL} 

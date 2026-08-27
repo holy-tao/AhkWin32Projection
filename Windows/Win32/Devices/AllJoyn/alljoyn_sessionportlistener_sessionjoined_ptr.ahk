@@ -19,7 +19,6 @@ export default struct alljoyn_sessionportlistener_sessionjoined_ptr {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {Integer} sessionPort 
      * @param {Integer} id 
@@ -29,7 +28,7 @@ export default struct alljoyn_sessionportlistener_sessionjoined_ptr {
     Call(_context, sessionPort, id, joiner) {
         joiner := joiner is String ? StrPtr(joiner) : joiner
 
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _contextMarshal, _context, UInt16, sessionPort, UInt32, id, "ptr", joiner)
     }

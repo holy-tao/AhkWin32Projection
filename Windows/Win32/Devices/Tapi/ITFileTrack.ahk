@@ -164,12 +164,12 @@ export default struct ITFileTrack extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Format := CallbackCreate(GetMethod(implObj, "get_Format"), flags, 2)
-        this.vtbl.put_Format := CallbackCreate(GetMethod(implObj, "put_Format"), flags, 2)
-        this.vtbl.get_ControllingTerminal := CallbackCreate(GetMethod(implObj, "get_ControllingTerminal"), flags, 2)
-        this.vtbl.get_AudioFormatForScripting := CallbackCreate(GetMethod(implObj, "get_AudioFormatForScripting"), flags, 2)
-        this.vtbl.put_AudioFormatForScripting := CallbackCreate(GetMethod(implObj, "put_AudioFormatForScripting"), flags, 2)
-        this.vtbl.get_EmptyAudioFormatForScripting := CallbackCreate(GetMethod(implObj, "get_EmptyAudioFormatForScripting"), flags, 2)
+        this.vtbl.get_Format := CallbackCreate(ObjBindMethod(implObj, "get_Format"), flags, 2)
+        this.vtbl.put_Format := CallbackCreate(ObjBindMethod(implObj, "put_Format"), flags, 2)
+        this.vtbl.get_ControllingTerminal := CallbackCreate(ObjBindMethod(implObj, "get_ControllingTerminal"), flags, 2)
+        this.vtbl.get_AudioFormatForScripting := CallbackCreate(ObjBindMethod(implObj, "get_AudioFormatForScripting"), flags, 2)
+        this.vtbl.put_AudioFormatForScripting := CallbackCreate(ObjBindMethod(implObj, "put_AudioFormatForScripting"), flags, 2)
+        this.vtbl.get_EmptyAudioFormatForScripting := CallbackCreate(ObjBindMethod(implObj, "get_EmptyAudioFormatForScripting"), flags, 2)
     }
 
     Dispose() {

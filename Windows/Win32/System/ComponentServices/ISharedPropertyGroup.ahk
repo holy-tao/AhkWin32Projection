@@ -66,7 +66,7 @@ export default struct ISharedPropertyGroup extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isharedpropertygroup-createpropertybyposition
      */
     CreatePropertyByPosition(Index, fExists, ppProp) {
-        fExistsMarshal := fExists is VarRef ? "short*" : "ptr"
+        fExistsMarshal := fExists is VarRef ? "short*" : IntPtr
 
         result := ComCall(7, this, Int32, Index, fExistsMarshal, fExists, ISharedProperty.Ptr, ppProp, "HRESULT")
         return result
@@ -104,7 +104,7 @@ export default struct ISharedPropertyGroup extends IDispatch {
     CreateProperty(Name, fExists, ppProp) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name
 
-        fExistsMarshal := fExists is VarRef ? "short*" : "ptr"
+        fExistsMarshal := fExists is VarRef ? "short*" : IntPtr
 
         result := ComCall(9, this, BSTR, Name, fExistsMarshal, fExists, ISharedProperty.Ptr, ppProp, "HRESULT")
         return result
@@ -132,10 +132,10 @@ export default struct ISharedPropertyGroup extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreatePropertyByPosition := CallbackCreate(GetMethod(implObj, "CreatePropertyByPosition"), flags, 4)
-        this.vtbl.get_PropertyByPosition := CallbackCreate(GetMethod(implObj, "get_PropertyByPosition"), flags, 3)
-        this.vtbl.CreateProperty := CallbackCreate(GetMethod(implObj, "CreateProperty"), flags, 4)
-        this.vtbl.get_Property := CallbackCreate(GetMethod(implObj, "get_Property"), flags, 3)
+        this.vtbl.CreatePropertyByPosition := CallbackCreate(ObjBindMethod(implObj, "CreatePropertyByPosition"), flags, 4)
+        this.vtbl.get_PropertyByPosition := CallbackCreate(ObjBindMethod(implObj, "get_PropertyByPosition"), flags, 3)
+        this.vtbl.CreateProperty := CallbackCreate(ObjBindMethod(implObj, "CreateProperty"), flags, 4)
+        this.vtbl.get_Property := CallbackCreate(ObjBindMethod(implObj, "get_Property"), flags, 3)
     }
 
     Dispose() {

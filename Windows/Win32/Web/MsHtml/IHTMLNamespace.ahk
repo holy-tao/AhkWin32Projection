@@ -89,7 +89,6 @@ export default struct IHTMLNamespace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -99,7 +98,6 @@ export default struct IHTMLNamespace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_urn() {
@@ -109,7 +107,6 @@ export default struct IHTMLNamespace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_tagNames() {
@@ -118,7 +115,6 @@ export default struct IHTMLNamespace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_readyState() {
@@ -128,7 +124,6 @@ export default struct IHTMLNamespace extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -138,7 +133,6 @@ export default struct IHTMLNamespace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onreadystatechange() {
@@ -148,7 +142,6 @@ export default struct IHTMLNamespace extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrImplementationUrl 
      * @returns {HRESULT} 
      */
@@ -160,7 +153,6 @@ export default struct IHTMLNamespace extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} event 
      * @param {IDispatch} pDisp 
      * @returns {VARIANT_BOOL} 
@@ -173,7 +165,6 @@ export default struct IHTMLNamespace extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} event 
      * @param {IDispatch} pDisp 
      * @returns {HRESULT} 
@@ -194,15 +185,15 @@ export default struct IHTMLNamespace extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
-        this.vtbl.get_urn := CallbackCreate(GetMethod(implObj, "get_urn"), flags, 2)
-        this.vtbl.get_tagNames := CallbackCreate(GetMethod(implObj, "get_tagNames"), flags, 2)
-        this.vtbl.get_readyState := CallbackCreate(GetMethod(implObj, "get_readyState"), flags, 2)
-        this.vtbl.put_onreadystatechange := CallbackCreate(GetMethod(implObj, "put_onreadystatechange"), flags, 2)
-        this.vtbl.get_onreadystatechange := CallbackCreate(GetMethod(implObj, "get_onreadystatechange"), flags, 2)
-        this.vtbl.doImport := CallbackCreate(GetMethod(implObj, "doImport"), flags, 2)
-        this.vtbl.attachEvent := CallbackCreate(GetMethod(implObj, "attachEvent"), flags, 4)
-        this.vtbl.detachEvent := CallbackCreate(GetMethod(implObj, "detachEvent"), flags, 3)
+        this.vtbl.get_name := CallbackCreate(ObjBindMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.get_urn := CallbackCreate(ObjBindMethod(implObj, "get_urn"), flags, 2)
+        this.vtbl.get_tagNames := CallbackCreate(ObjBindMethod(implObj, "get_tagNames"), flags, 2)
+        this.vtbl.get_readyState := CallbackCreate(ObjBindMethod(implObj, "get_readyState"), flags, 2)
+        this.vtbl.put_onreadystatechange := CallbackCreate(ObjBindMethod(implObj, "put_onreadystatechange"), flags, 2)
+        this.vtbl.get_onreadystatechange := CallbackCreate(ObjBindMethod(implObj, "get_onreadystatechange"), flags, 2)
+        this.vtbl.doImport := CallbackCreate(ObjBindMethod(implObj, "doImport"), flags, 2)
+        this.vtbl.attachEvent := CallbackCreate(ObjBindMethod(implObj, "attachEvent"), flags, 4)
+        this.vtbl.detachEvent := CallbackCreate(ObjBindMethod(implObj, "detachEvent"), flags, 3)
     }
 
     Dispose() {

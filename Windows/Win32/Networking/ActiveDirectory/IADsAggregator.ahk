@@ -37,17 +37,17 @@ export default struct IADsAggregator extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pAggregatee 
      * @returns {HRESULT} 
      */
     ConnectAsAggregator(pAggregatee) {
-        result := ComCall(3, this, "ptr", pAggregatee, "HRESULT")
+        pAggregateeMarshal := pAggregatee == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pAggregateeMarshal, pAggregatee, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DisconnectAsAggregator() {
@@ -64,8 +64,8 @@ export default struct IADsAggregator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ConnectAsAggregator := CallbackCreate(GetMethod(implObj, "ConnectAsAggregator"), flags, 2)
-        this.vtbl.DisconnectAsAggregator := CallbackCreate(GetMethod(implObj, "DisconnectAsAggregator"), flags, 1)
+        this.vtbl.ConnectAsAggregator := CallbackCreate(ObjBindMethod(implObj, "ConnectAsAggregator"), flags, 2)
+        this.vtbl.DisconnectAsAggregator := CallbackCreate(ObjBindMethod(implObj, "DisconnectAsAggregator"), flags, 1)
     }
 
     Dispose() {

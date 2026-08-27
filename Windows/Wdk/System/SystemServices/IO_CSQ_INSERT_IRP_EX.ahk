@@ -21,14 +21,13 @@ export default struct IO_CSQ_INSERT_IRP_EX {
     }
 
     /**
-     * 
      * @param {Pointer<IO_CSQ>} Csq 
      * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<Void>} InsertContext 
      * @returns {NTSTATUS} 
      */
     Call(Csq, _Irp, InsertContext) {
-        InsertContextMarshal := InsertContext is VarRef ? "ptr" : "ptr"
+        InsertContextMarshal := InsertContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, IO_CSQ.Ptr, Csq, IRP.Ptr, _Irp, InsertContextMarshal, InsertContext, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

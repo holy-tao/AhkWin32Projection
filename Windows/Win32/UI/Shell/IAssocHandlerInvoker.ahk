@@ -75,8 +75,8 @@ export default struct IAssocHandlerInvoker extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SupportsSelection := CallbackCreate(GetMethod(implObj, "SupportsSelection"), flags, 1)
-        this.vtbl.Invoke := CallbackCreate(GetMethod(implObj, "Invoke"), flags, 1)
+        this.vtbl.SupportsSelection := CallbackCreate(ObjBindMethod(implObj, "SupportsSelection"), flags, 1)
+        this.vtbl.Invoke := CallbackCreate(ObjBindMethod(implObj, "Invoke"), flags, 1)
     }
 
     Dispose() {

@@ -63,7 +63,9 @@ export default struct IWinMLRuntime extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winml/nf-winml-iwinmlruntime-createevaluationcontext
      */
     CreateEvaluationContext(device) {
-        result := ComCall(4, this, "ptr", device, "ptr*", &ppContext := 0, "HRESULT")
+        deviceMarshal := device == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, deviceMarshal, device, "ptr*", &ppContext := 0, "HRESULT")
         return IWinMLEvaluationContext(ppContext)
     }
 
@@ -87,9 +89,9 @@ export default struct IWinMLRuntime extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LoadModel := CallbackCreate(GetMethod(implObj, "LoadModel"), flags, 3)
-        this.vtbl.CreateEvaluationContext := CallbackCreate(GetMethod(implObj, "CreateEvaluationContext"), flags, 3)
-        this.vtbl.EvaluateModel := CallbackCreate(GetMethod(implObj, "EvaluateModel"), flags, 2)
+        this.vtbl.LoadModel := CallbackCreate(ObjBindMethod(implObj, "LoadModel"), flags, 3)
+        this.vtbl.CreateEvaluationContext := CallbackCreate(ObjBindMethod(implObj, "CreateEvaluationContext"), flags, 3)
+        this.vtbl.EvaluateModel := CallbackCreate(ObjBindMethod(implObj, "EvaluateModel"), flags, 2)
     }
 
     Dispose() {

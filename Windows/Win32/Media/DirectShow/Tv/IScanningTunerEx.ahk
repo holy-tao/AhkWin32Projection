@@ -216,8 +216,8 @@ export default struct IScanningTunerEx extends IScanningTuner {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iscanningtunerex-gettunerscanningcapability
      */
     GetTunerScanningCapability(HardwareAssistedScanning, NumStandardsSupported, BroadcastStandards) {
-        HardwareAssistedScanningMarshal := HardwareAssistedScanning is VarRef ? "int*" : "ptr"
-        NumStandardsSupportedMarshal := NumStandardsSupported is VarRef ? "int*" : "ptr"
+        HardwareAssistedScanningMarshal := HardwareAssistedScanning is VarRef ? "int*" : IntPtr
+        NumStandardsSupportedMarshal := NumStandardsSupported is VarRef ? "int*" : IntPtr
 
         result := ComCall(22, this, HardwareAssistedScanningMarshal, HardwareAssistedScanning, NumStandardsSupportedMarshal, NumStandardsSupported, Guid.Ptr, BroadcastStandards, "HRESULT")
         return result
@@ -235,10 +235,10 @@ export default struct IScanningTunerEx extends IScanningTuner {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iscanningtunerex-gettunerstatus
      */
     GetTunerStatus(SecondsLeft, CurrentLockType, AutoDetect, CurrentFreq) {
-        SecondsLeftMarshal := SecondsLeft is VarRef ? "int*" : "ptr"
-        CurrentLockTypeMarshal := CurrentLockType is VarRef ? "int*" : "ptr"
-        AutoDetectMarshal := AutoDetect is VarRef ? "int*" : "ptr"
-        CurrentFreqMarshal := CurrentFreq is VarRef ? "int*" : "ptr"
+        SecondsLeftMarshal := SecondsLeft is VarRef ? "int*" : IntPtr
+        CurrentLockTypeMarshal := CurrentLockType is VarRef ? "int*" : IntPtr
+        AutoDetectMarshal := AutoDetect is VarRef ? "int*" : IntPtr
+        CurrentFreqMarshal := CurrentFreq is VarRef ? "int*" : IntPtr
 
         result := ComCall(23, this, SecondsLeftMarshal, SecondsLeft, CurrentLockTypeMarshal, CurrentLockType, AutoDetectMarshal, AutoDetect, CurrentFreqMarshal, CurrentFreq, "HRESULT")
         return result
@@ -253,8 +253,8 @@ export default struct IScanningTunerEx extends IScanningTuner {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iscanningtunerex-getcurrenttunerstandardcapability
      */
     GetCurrentTunerStandardCapability(CurrentBroadcastStandard, SettlingTime, TvStandardsSupported) {
-        SettlingTimeMarshal := SettlingTime is VarRef ? "int*" : "ptr"
-        TvStandardsSupportedMarshal := TvStandardsSupported is VarRef ? "int*" : "ptr"
+        SettlingTimeMarshal := SettlingTime is VarRef ? "int*" : IntPtr
+        TvStandardsSupportedMarshal := TvStandardsSupported is VarRef ? "int*" : IntPtr
 
         result := ComCall(24, this, Guid, CurrentBroadcastStandard, SettlingTimeMarshal, SettlingTime, TvStandardsSupportedMarshal, TvStandardsSupported, "HRESULT")
         return result
@@ -281,14 +281,14 @@ export default struct IScanningTunerEx extends IScanningTuner {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCurrentLocator := CallbackCreate(GetMethod(implObj, "GetCurrentLocator"), flags, 2)
-        this.vtbl.PerformExhaustiveScan := CallbackCreate(GetMethod(implObj, "PerformExhaustiveScan"), flags, 5)
-        this.vtbl.TerminateCurrentScan := CallbackCreate(GetMethod(implObj, "TerminateCurrentScan"), flags, 2)
-        this.vtbl.ResumeCurrentScan := CallbackCreate(GetMethod(implObj, "ResumeCurrentScan"), flags, 2)
-        this.vtbl.GetTunerScanningCapability := CallbackCreate(GetMethod(implObj, "GetTunerScanningCapability"), flags, 4)
-        this.vtbl.GetTunerStatus := CallbackCreate(GetMethod(implObj, "GetTunerStatus"), flags, 5)
-        this.vtbl.GetCurrentTunerStandardCapability := CallbackCreate(GetMethod(implObj, "GetCurrentTunerStandardCapability"), flags, 4)
-        this.vtbl.SetScanSignalTypeFilter := CallbackCreate(GetMethod(implObj, "SetScanSignalTypeFilter"), flags, 3)
+        this.vtbl.GetCurrentLocator := CallbackCreate(ObjBindMethod(implObj, "GetCurrentLocator"), flags, 2)
+        this.vtbl.PerformExhaustiveScan := CallbackCreate(ObjBindMethod(implObj, "PerformExhaustiveScan"), flags, 5)
+        this.vtbl.TerminateCurrentScan := CallbackCreate(ObjBindMethod(implObj, "TerminateCurrentScan"), flags, 2)
+        this.vtbl.ResumeCurrentScan := CallbackCreate(ObjBindMethod(implObj, "ResumeCurrentScan"), flags, 2)
+        this.vtbl.GetTunerScanningCapability := CallbackCreate(ObjBindMethod(implObj, "GetTunerScanningCapability"), flags, 4)
+        this.vtbl.GetTunerStatus := CallbackCreate(ObjBindMethod(implObj, "GetTunerStatus"), flags, 5)
+        this.vtbl.GetCurrentTunerStandardCapability := CallbackCreate(ObjBindMethod(implObj, "GetCurrentTunerStandardCapability"), flags, 4)
+        this.vtbl.SetScanSignalTypeFilter := CallbackCreate(ObjBindMethod(implObj, "SetScanSignalTypeFilter"), flags, 3)
     }
 
     Dispose() {

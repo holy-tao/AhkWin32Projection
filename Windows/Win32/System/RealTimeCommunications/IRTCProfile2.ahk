@@ -56,7 +56,6 @@ export default struct IRTCProfile2 extends IRTCProfile {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Realm() {
@@ -66,7 +65,6 @@ export default struct IRTCProfile2 extends IRTCProfile {
     }
 
     /**
-     * 
      * @param {BSTR} bstrRealm 
      * @returns {HRESULT} 
      */
@@ -78,7 +76,6 @@ export default struct IRTCProfile2 extends IRTCProfile {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AllowedAuth() {
@@ -87,7 +84,6 @@ export default struct IRTCProfile2 extends IRTCProfile {
     }
 
     /**
-     * 
      * @param {Integer} lAllowedAuth 
      * @returns {HRESULT} 
      */
@@ -105,10 +101,10 @@ export default struct IRTCProfile2 extends IRTCProfile {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Realm := CallbackCreate(GetMethod(implObj, "get_Realm"), flags, 2)
-        this.vtbl.put_Realm := CallbackCreate(GetMethod(implObj, "put_Realm"), flags, 2)
-        this.vtbl.get_AllowedAuth := CallbackCreate(GetMethod(implObj, "get_AllowedAuth"), flags, 2)
-        this.vtbl.put_AllowedAuth := CallbackCreate(GetMethod(implObj, "put_AllowedAuth"), flags, 2)
+        this.vtbl.get_Realm := CallbackCreate(ObjBindMethod(implObj, "get_Realm"), flags, 2)
+        this.vtbl.put_Realm := CallbackCreate(ObjBindMethod(implObj, "put_Realm"), flags, 2)
+        this.vtbl.get_AllowedAuth := CallbackCreate(ObjBindMethod(implObj, "get_AllowedAuth"), flags, 2)
+        this.vtbl.put_AllowedAuth := CallbackCreate(ObjBindMethod(implObj, "put_AllowedAuth"), flags, 2)
     }
 
     Dispose() {

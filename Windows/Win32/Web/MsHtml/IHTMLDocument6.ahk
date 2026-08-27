@@ -77,7 +77,6 @@ export default struct IHTMLDocument6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDocumentCompatibleInfoCollection} 
      */
     get_compatible() {
@@ -86,7 +85,6 @@ export default struct IHTMLDocument6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_documentMode() {
@@ -96,7 +94,6 @@ export default struct IHTMLDocument6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -106,7 +103,6 @@ export default struct IHTMLDocument6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onstorage() {
@@ -116,7 +112,6 @@ export default struct IHTMLDocument6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -126,7 +121,6 @@ export default struct IHTMLDocument6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onstoragecommit() {
@@ -136,7 +130,6 @@ export default struct IHTMLDocument6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrId 
      * @returns {IHTMLElement2} 
      */
@@ -148,7 +141,6 @@ export default struct IHTMLDocument6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     updateSettings() {
@@ -165,14 +157,14 @@ export default struct IHTMLDocument6 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_compatible := CallbackCreate(GetMethod(implObj, "get_compatible"), flags, 2)
-        this.vtbl.get_documentMode := CallbackCreate(GetMethod(implObj, "get_documentMode"), flags, 2)
-        this.vtbl.put_onstorage := CallbackCreate(GetMethod(implObj, "put_onstorage"), flags, 2)
-        this.vtbl.get_onstorage := CallbackCreate(GetMethod(implObj, "get_onstorage"), flags, 2)
-        this.vtbl.put_onstoragecommit := CallbackCreate(GetMethod(implObj, "put_onstoragecommit"), flags, 2)
-        this.vtbl.get_onstoragecommit := CallbackCreate(GetMethod(implObj, "get_onstoragecommit"), flags, 2)
-        this.vtbl.getElementById := CallbackCreate(GetMethod(implObj, "getElementById"), flags, 3)
-        this.vtbl.updateSettings := CallbackCreate(GetMethod(implObj, "updateSettings"), flags, 1)
+        this.vtbl.get_compatible := CallbackCreate(ObjBindMethod(implObj, "get_compatible"), flags, 2)
+        this.vtbl.get_documentMode := CallbackCreate(ObjBindMethod(implObj, "get_documentMode"), flags, 2)
+        this.vtbl.put_onstorage := CallbackCreate(ObjBindMethod(implObj, "put_onstorage"), flags, 2)
+        this.vtbl.get_onstorage := CallbackCreate(ObjBindMethod(implObj, "get_onstorage"), flags, 2)
+        this.vtbl.put_onstoragecommit := CallbackCreate(ObjBindMethod(implObj, "put_onstoragecommit"), flags, 2)
+        this.vtbl.get_onstoragecommit := CallbackCreate(ObjBindMethod(implObj, "get_onstoragecommit"), flags, 2)
+        this.vtbl.getElementById := CallbackCreate(ObjBindMethod(implObj, "getElementById"), flags, 3)
+        this.vtbl.updateSettings := CallbackCreate(ObjBindMethod(implObj, "updateSettings"), flags, 1)
     }
 
     Dispose() {

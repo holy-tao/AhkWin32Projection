@@ -79,8 +79,8 @@ export default struct IDCompositionHueRotationEffect extends IDCompositionFilter
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAngle := CallbackCreate(GetMethod(implObj, "SetAngle"), flags, 2)
-        this.vtbl.SetAngle1 := CallbackCreate(GetMethod(implObj, "SetAngle1"), flags, 2)
+        this.vtbl.SetAngle := CallbackCreate(ObjBindMethod(implObj, "SetAngle"), flags, 2)
+        this.vtbl.SetAngle1 := CallbackCreate(ObjBindMethod(implObj, "SetAngle1"), flags, 2)
     }
 
     Dispose() {

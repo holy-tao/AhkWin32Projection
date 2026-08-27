@@ -18,7 +18,6 @@ export default struct FunctionLeave {
     }
 
     /**
-     * 
      * @param {Pointer} funcID 
      * @returns {String} Nothing - always returns an empty string
      */

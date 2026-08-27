@@ -191,7 +191,6 @@ export default struct PDD_CREATESURFACEEX {
     }
 
     /**
-     * 
      * @param {Pointer<DD_CREATESURFACEEXDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_createsurfaceexdata">DD_CREATESURFACEEXDATA</a> structure that contains the information required for the driver to create the surface.
      * @returns {Integer} <b>D3dCreateSurfaceEx</b> returns one of the following callback codes:
      */

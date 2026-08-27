@@ -39,7 +39,6 @@ export default struct IPrintCoreHelperUni extends IPrintCoreHelper {
     }
 
     /**
-     * 
      * @param {Pointer<DEVMODEA>} pDevmode 
      * @param {Integer} cbSize 
      * @param {Integer} dwFlags 
@@ -51,7 +50,6 @@ export default struct IPrintCoreHelperUni extends IPrintCoreHelper {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @returns {IStream} 
      */
@@ -69,8 +67,8 @@ export default struct IPrintCoreHelperUni extends IPrintCoreHelper {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateGDLSnapshot := CallbackCreate(GetMethod(implObj, "CreateGDLSnapshot"), flags, 5)
-        this.vtbl.CreateDefaultGDLSnapshot := CallbackCreate(GetMethod(implObj, "CreateDefaultGDLSnapshot"), flags, 3)
+        this.vtbl.CreateGDLSnapshot := CallbackCreate(ObjBindMethod(implObj, "CreateGDLSnapshot"), flags, 5)
+        this.vtbl.CreateDefaultGDLSnapshot := CallbackCreate(ObjBindMethod(implObj, "CreateDefaultGDLSnapshot"), flags, 3)
     }
 
     Dispose() {

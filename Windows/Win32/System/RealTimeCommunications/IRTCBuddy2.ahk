@@ -78,7 +78,6 @@ export default struct IRTCBuddy2 extends IRTCBuddy {
     }
 
     /**
-     * 
      * @returns {IRTCProfile2} 
      */
     get_Profile() {
@@ -87,7 +86,6 @@ export default struct IRTCBuddy2 extends IRTCBuddy {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Refresh() {
@@ -96,7 +94,6 @@ export default struct IRTCBuddy2 extends IRTCBuddy {
     }
 
     /**
-     * 
      * @returns {IRTCEnumGroups} 
      */
     EnumerateGroups() {
@@ -105,7 +102,6 @@ export default struct IRTCBuddy2 extends IRTCBuddy {
     }
 
     /**
-     * 
      * @returns {IRTCCollection} 
      */
     get_Groups() {
@@ -114,7 +110,6 @@ export default struct IRTCBuddy2 extends IRTCBuddy {
     }
 
     /**
-     * 
      * @param {RTC_PRESENCE_PROPERTY} enProperty 
      * @returns {BSTR} 
      */
@@ -125,7 +120,6 @@ export default struct IRTCBuddy2 extends IRTCBuddy {
     }
 
     /**
-     * 
      * @returns {IRTCEnumPresenceDevices} 
      */
     EnumeratePresenceDevices() {
@@ -134,7 +128,6 @@ export default struct IRTCBuddy2 extends IRTCBuddy {
     }
 
     /**
-     * 
      * @returns {IRTCCollection} 
      */
     get_PresenceDevices() {
@@ -143,7 +136,6 @@ export default struct IRTCBuddy2 extends IRTCBuddy {
     }
 
     /**
-     * 
      * @returns {RTC_BUDDY_SUBSCRIPTION_TYPE} 
      */
     get_SubscriptionType() {
@@ -160,14 +152,14 @@ export default struct IRTCBuddy2 extends IRTCBuddy {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Profile := CallbackCreate(GetMethod(implObj, "get_Profile"), flags, 2)
-        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
-        this.vtbl.EnumerateGroups := CallbackCreate(GetMethod(implObj, "EnumerateGroups"), flags, 2)
-        this.vtbl.get_Groups := CallbackCreate(GetMethod(implObj, "get_Groups"), flags, 2)
-        this.vtbl.get_PresenceProperty := CallbackCreate(GetMethod(implObj, "get_PresenceProperty"), flags, 3)
-        this.vtbl.EnumeratePresenceDevices := CallbackCreate(GetMethod(implObj, "EnumeratePresenceDevices"), flags, 2)
-        this.vtbl.get_PresenceDevices := CallbackCreate(GetMethod(implObj, "get_PresenceDevices"), flags, 2)
-        this.vtbl.get_SubscriptionType := CallbackCreate(GetMethod(implObj, "get_SubscriptionType"), flags, 2)
+        this.vtbl.get_Profile := CallbackCreate(ObjBindMethod(implObj, "get_Profile"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(ObjBindMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.EnumerateGroups := CallbackCreate(ObjBindMethod(implObj, "EnumerateGroups"), flags, 2)
+        this.vtbl.get_Groups := CallbackCreate(ObjBindMethod(implObj, "get_Groups"), flags, 2)
+        this.vtbl.get_PresenceProperty := CallbackCreate(ObjBindMethod(implObj, "get_PresenceProperty"), flags, 3)
+        this.vtbl.EnumeratePresenceDevices := CallbackCreate(ObjBindMethod(implObj, "EnumeratePresenceDevices"), flags, 2)
+        this.vtbl.get_PresenceDevices := CallbackCreate(ObjBindMethod(implObj, "get_PresenceDevices"), flags, 2)
+        this.vtbl.get_SubscriptionType := CallbackCreate(ObjBindMethod(implObj, "get_SubscriptionType"), flags, 2)
     }
 
     Dispose() {

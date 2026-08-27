@@ -37,7 +37,6 @@ export default struct IMFDeviceTransform2 extends IMFDeviceTransform {
     }
 
     /**
-     * 
      * @returns {IMFAttributes} 
      */
     GetTransformAttributes() {
@@ -54,7 +53,7 @@ export default struct IMFDeviceTransform2 extends IMFDeviceTransform {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTransformAttributes := CallbackCreate(GetMethod(implObj, "GetTransformAttributes"), flags, 2)
+        this.vtbl.GetTransformAttributes := CallbackCreate(ObjBindMethod(implObj, "GetTransformAttributes"), flags, 2)
     }
 
     Dispose() {

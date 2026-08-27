@@ -129,7 +129,6 @@ export default struct IPMBackgroundServiceAgentInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     get_ProductID() {
@@ -139,7 +138,6 @@ export default struct IPMBackgroundServiceAgentInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pTaskID 
      * @returns {HRESULT} 
      */
@@ -149,7 +147,6 @@ export default struct IPMBackgroundServiceAgentInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_BSAID() {
@@ -158,7 +155,6 @@ export default struct IPMBackgroundServiceAgentInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pBGSpecifier 
      * @returns {HRESULT} 
      */
@@ -168,7 +164,6 @@ export default struct IPMBackgroundServiceAgentInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pBGName 
      * @returns {HRESULT} 
      */
@@ -178,7 +173,6 @@ export default struct IPMBackgroundServiceAgentInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pBGSource 
      * @returns {HRESULT} 
      */
@@ -188,7 +182,6 @@ export default struct IPMBackgroundServiceAgentInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pBGType 
      * @returns {HRESULT} 
      */
@@ -198,7 +191,6 @@ export default struct IPMBackgroundServiceAgentInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsPeriodic() {
@@ -207,7 +199,6 @@ export default struct IPMBackgroundServiceAgentInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsScheduled() {
@@ -216,7 +207,6 @@ export default struct IPMBackgroundServiceAgentInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsScheduleAllowed() {
@@ -225,7 +215,6 @@ export default struct IPMBackgroundServiceAgentInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pDescription 
      * @returns {HRESULT} 
      */
@@ -235,7 +224,6 @@ export default struct IPMBackgroundServiceAgentInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsLaunchOnBoot() {
@@ -244,7 +232,6 @@ export default struct IPMBackgroundServiceAgentInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} IsScheduled 
      * @returns {HRESULT} 
      */
@@ -254,7 +241,6 @@ export default struct IPMBackgroundServiceAgentInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} IsScheduleAllowed 
      * @returns {HRESULT} 
      */
@@ -272,20 +258,20 @@ export default struct IPMBackgroundServiceAgentInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ProductID := CallbackCreate(GetMethod(implObj, "get_ProductID"), flags, 2)
-        this.vtbl.get_TaskID := CallbackCreate(GetMethod(implObj, "get_TaskID"), flags, 2)
-        this.vtbl.get_BSAID := CallbackCreate(GetMethod(implObj, "get_BSAID"), flags, 2)
-        this.vtbl.get_BGSpecifier := CallbackCreate(GetMethod(implObj, "get_BGSpecifier"), flags, 2)
-        this.vtbl.get_BGName := CallbackCreate(GetMethod(implObj, "get_BGName"), flags, 2)
-        this.vtbl.get_BGSource := CallbackCreate(GetMethod(implObj, "get_BGSource"), flags, 2)
-        this.vtbl.get_BGType := CallbackCreate(GetMethod(implObj, "get_BGType"), flags, 2)
-        this.vtbl.get_IsPeriodic := CallbackCreate(GetMethod(implObj, "get_IsPeriodic"), flags, 2)
-        this.vtbl.get_IsScheduled := CallbackCreate(GetMethod(implObj, "get_IsScheduled"), flags, 2)
-        this.vtbl.get_IsScheduleAllowed := CallbackCreate(GetMethod(implObj, "get_IsScheduleAllowed"), flags, 2)
-        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
-        this.vtbl.get_IsLaunchOnBoot := CallbackCreate(GetMethod(implObj, "get_IsLaunchOnBoot"), flags, 2)
-        this.vtbl.set_IsScheduled := CallbackCreate(GetMethod(implObj, "set_IsScheduled"), flags, 2)
-        this.vtbl.set_IsScheduleAllowed := CallbackCreate(GetMethod(implObj, "set_IsScheduleAllowed"), flags, 2)
+        this.vtbl.get_ProductID := CallbackCreate(ObjBindMethod(implObj, "get_ProductID"), flags, 2)
+        this.vtbl.get_TaskID := CallbackCreate(ObjBindMethod(implObj, "get_TaskID"), flags, 2)
+        this.vtbl.get_BSAID := CallbackCreate(ObjBindMethod(implObj, "get_BSAID"), flags, 2)
+        this.vtbl.get_BGSpecifier := CallbackCreate(ObjBindMethod(implObj, "get_BGSpecifier"), flags, 2)
+        this.vtbl.get_BGName := CallbackCreate(ObjBindMethod(implObj, "get_BGName"), flags, 2)
+        this.vtbl.get_BGSource := CallbackCreate(ObjBindMethod(implObj, "get_BGSource"), flags, 2)
+        this.vtbl.get_BGType := CallbackCreate(ObjBindMethod(implObj, "get_BGType"), flags, 2)
+        this.vtbl.get_IsPeriodic := CallbackCreate(ObjBindMethod(implObj, "get_IsPeriodic"), flags, 2)
+        this.vtbl.get_IsScheduled := CallbackCreate(ObjBindMethod(implObj, "get_IsScheduled"), flags, 2)
+        this.vtbl.get_IsScheduleAllowed := CallbackCreate(ObjBindMethod(implObj, "get_IsScheduleAllowed"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(ObjBindMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.get_IsLaunchOnBoot := CallbackCreate(ObjBindMethod(implObj, "get_IsLaunchOnBoot"), flags, 2)
+        this.vtbl.set_IsScheduled := CallbackCreate(ObjBindMethod(implObj, "set_IsScheduled"), flags, 2)
+        this.vtbl.set_IsScheduleAllowed := CallbackCreate(ObjBindMethod(implObj, "set_IsScheduleAllowed"), flags, 2)
     }
 
     Dispose() {

@@ -163,9 +163,9 @@ export default struct IXpsOMMatrixTransform extends IXpsOMShareable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMatrix := CallbackCreate(GetMethod(implObj, "GetMatrix"), flags, 2)
-        this.vtbl.SetMatrix := CallbackCreate(GetMethod(implObj, "SetMatrix"), flags, 2)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.GetMatrix := CallbackCreate(ObjBindMethod(implObj, "GetMatrix"), flags, 2)
+        this.vtbl.SetMatrix := CallbackCreate(ObjBindMethod(implObj, "SetMatrix"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
     }
 
     Dispose() {

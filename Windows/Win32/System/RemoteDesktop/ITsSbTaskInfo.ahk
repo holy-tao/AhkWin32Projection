@@ -218,15 +218,15 @@ export default struct ITsSbTaskInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_TargetId := CallbackCreate(GetMethod(implObj, "get_TargetId"), flags, 2)
-        this.vtbl.get_StartTime := CallbackCreate(GetMethod(implObj, "get_StartTime"), flags, 2)
-        this.vtbl.get_EndTime := CallbackCreate(GetMethod(implObj, "get_EndTime"), flags, 2)
-        this.vtbl.get_Deadline := CallbackCreate(GetMethod(implObj, "get_Deadline"), flags, 2)
-        this.vtbl.get_Identifier := CallbackCreate(GetMethod(implObj, "get_Identifier"), flags, 2)
-        this.vtbl.get_Label := CallbackCreate(GetMethod(implObj, "get_Label"), flags, 2)
-        this.vtbl.get_Context := CallbackCreate(GetMethod(implObj, "get_Context"), flags, 2)
-        this.vtbl.get_Plugin := CallbackCreate(GetMethod(implObj, "get_Plugin"), flags, 2)
-        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.get_TargetId := CallbackCreate(ObjBindMethod(implObj, "get_TargetId"), flags, 2)
+        this.vtbl.get_StartTime := CallbackCreate(ObjBindMethod(implObj, "get_StartTime"), flags, 2)
+        this.vtbl.get_EndTime := CallbackCreate(ObjBindMethod(implObj, "get_EndTime"), flags, 2)
+        this.vtbl.get_Deadline := CallbackCreate(ObjBindMethod(implObj, "get_Deadline"), flags, 2)
+        this.vtbl.get_Identifier := CallbackCreate(ObjBindMethod(implObj, "get_Identifier"), flags, 2)
+        this.vtbl.get_Label := CallbackCreate(ObjBindMethod(implObj, "get_Label"), flags, 2)
+        this.vtbl.get_Context := CallbackCreate(ObjBindMethod(implObj, "get_Context"), flags, 2)
+        this.vtbl.get_Plugin := CallbackCreate(ObjBindMethod(implObj, "get_Plugin"), flags, 2)
+        this.vtbl.get_Status := CallbackCreate(ObjBindMethod(implObj, "get_Status"), flags, 2)
     }
 
     Dispose() {

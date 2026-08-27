@@ -488,17 +488,17 @@ export default struct IXpsSignatureManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LoadPackageFile := CallbackCreate(GetMethod(implObj, "LoadPackageFile"), flags, 2)
-        this.vtbl.LoadPackageStream := CallbackCreate(GetMethod(implObj, "LoadPackageStream"), flags, 2)
-        this.vtbl.Sign := CallbackCreate(GetMethod(implObj, "Sign"), flags, 4)
-        this.vtbl.GetSignatureOriginPartName := CallbackCreate(GetMethod(implObj, "GetSignatureOriginPartName"), flags, 2)
-        this.vtbl.SetSignatureOriginPartName := CallbackCreate(GetMethod(implObj, "SetSignatureOriginPartName"), flags, 2)
-        this.vtbl.GetSignatures := CallbackCreate(GetMethod(implObj, "GetSignatures"), flags, 2)
-        this.vtbl.AddSignatureBlock := CallbackCreate(GetMethod(implObj, "AddSignatureBlock"), flags, 4)
-        this.vtbl.GetSignatureBlocks := CallbackCreate(GetMethod(implObj, "GetSignatureBlocks"), flags, 2)
-        this.vtbl.CreateSigningOptions := CallbackCreate(GetMethod(implObj, "CreateSigningOptions"), flags, 2)
-        this.vtbl.SavePackageToFile := CallbackCreate(GetMethod(implObj, "SavePackageToFile"), flags, 4)
-        this.vtbl.SavePackageToStream := CallbackCreate(GetMethod(implObj, "SavePackageToStream"), flags, 2)
+        this.vtbl.LoadPackageFile := CallbackCreate(ObjBindMethod(implObj, "LoadPackageFile"), flags, 2)
+        this.vtbl.LoadPackageStream := CallbackCreate(ObjBindMethod(implObj, "LoadPackageStream"), flags, 2)
+        this.vtbl.Sign := CallbackCreate(ObjBindMethod(implObj, "Sign"), flags, 4)
+        this.vtbl.GetSignatureOriginPartName := CallbackCreate(ObjBindMethod(implObj, "GetSignatureOriginPartName"), flags, 2)
+        this.vtbl.SetSignatureOriginPartName := CallbackCreate(ObjBindMethod(implObj, "SetSignatureOriginPartName"), flags, 2)
+        this.vtbl.GetSignatures := CallbackCreate(ObjBindMethod(implObj, "GetSignatures"), flags, 2)
+        this.vtbl.AddSignatureBlock := CallbackCreate(ObjBindMethod(implObj, "AddSignatureBlock"), flags, 4)
+        this.vtbl.GetSignatureBlocks := CallbackCreate(ObjBindMethod(implObj, "GetSignatureBlocks"), flags, 2)
+        this.vtbl.CreateSigningOptions := CallbackCreate(ObjBindMethod(implObj, "CreateSigningOptions"), flags, 2)
+        this.vtbl.SavePackageToFile := CallbackCreate(ObjBindMethod(implObj, "SavePackageToFile"), flags, 4)
+        this.vtbl.SavePackageToStream := CallbackCreate(ObjBindMethod(implObj, "SavePackageToStream"), flags, 2)
     }
 
     Dispose() {

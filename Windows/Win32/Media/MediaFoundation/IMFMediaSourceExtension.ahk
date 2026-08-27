@@ -177,16 +177,16 @@ export default struct IMFMediaSourceExtension extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSourceBuffers := CallbackCreate(GetMethod(implObj, "GetSourceBuffers"), flags, 1)
-        this.vtbl.GetActiveSourceBuffers := CallbackCreate(GetMethod(implObj, "GetActiveSourceBuffers"), flags, 1)
-        this.vtbl.GetReadyState := CallbackCreate(GetMethod(implObj, "GetReadyState"), flags, 1)
-        this.vtbl.GetDuration := CallbackCreate(GetMethod(implObj, "GetDuration"), flags, 1)
-        this.vtbl.SetDuration := CallbackCreate(GetMethod(implObj, "SetDuration"), flags, 2)
-        this.vtbl.AddSourceBuffer := CallbackCreate(GetMethod(implObj, "AddSourceBuffer"), flags, 4)
-        this.vtbl.RemoveSourceBuffer := CallbackCreate(GetMethod(implObj, "RemoveSourceBuffer"), flags, 2)
-        this.vtbl.SetEndOfStream := CallbackCreate(GetMethod(implObj, "SetEndOfStream"), flags, 2)
-        this.vtbl.IsTypeSupported := CallbackCreate(GetMethod(implObj, "IsTypeSupported"), flags, 2)
-        this.vtbl.GetSourceBuffer := CallbackCreate(GetMethod(implObj, "GetSourceBuffer"), flags, 2)
+        this.vtbl.GetSourceBuffers := CallbackCreate(ObjBindMethod(implObj, "GetSourceBuffers"), flags, 1)
+        this.vtbl.GetActiveSourceBuffers := CallbackCreate(ObjBindMethod(implObj, "GetActiveSourceBuffers"), flags, 1)
+        this.vtbl.GetReadyState := CallbackCreate(ObjBindMethod(implObj, "GetReadyState"), flags, 1)
+        this.vtbl.GetDuration := CallbackCreate(ObjBindMethod(implObj, "GetDuration"), flags, 1)
+        this.vtbl.SetDuration := CallbackCreate(ObjBindMethod(implObj, "SetDuration"), flags, 2)
+        this.vtbl.AddSourceBuffer := CallbackCreate(ObjBindMethod(implObj, "AddSourceBuffer"), flags, 4)
+        this.vtbl.RemoveSourceBuffer := CallbackCreate(ObjBindMethod(implObj, "RemoveSourceBuffer"), flags, 2)
+        this.vtbl.SetEndOfStream := CallbackCreate(ObjBindMethod(implObj, "SetEndOfStream"), flags, 2)
+        this.vtbl.IsTypeSupported := CallbackCreate(ObjBindMethod(implObj, "IsTypeSupported"), flags, 2)
+        this.vtbl.GetSourceBuffer := CallbackCreate(ObjBindMethod(implObj, "GetSourceBuffer"), flags, 2)
     }
 
     Dispose() {

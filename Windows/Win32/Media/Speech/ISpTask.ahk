@@ -30,14 +30,13 @@ export default struct ISpTask extends Win32ComInterface {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvTaskData 
      * @param {Pointer<Integer>} pfContinueProcessing 
      * @returns {HRESULT} 
      */
     Execute(pvTaskData, pfContinueProcessing) {
-        pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : "ptr"
-        pfContinueProcessingMarshal := pfContinueProcessing is VarRef ? "int*" : "ptr"
+        pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : IntPtr
+        pfContinueProcessingMarshal := pfContinueProcessing is VarRef ? "int*" : IntPtr
 
         result := ComCall(0, this, pvTaskDataMarshal, pvTaskData, pfContinueProcessingMarshal, pfContinueProcessing, "HRESULT")
         return result

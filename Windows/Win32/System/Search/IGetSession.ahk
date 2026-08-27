@@ -36,7 +36,6 @@ export default struct IGetSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
      */
@@ -54,7 +53,7 @@ export default struct IGetSession extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSession := CallbackCreate(GetMethod(implObj, "GetSession"), flags, 3)
+        this.vtbl.GetSession := CallbackCreate(ObjBindMethod(implObj, "GetSession"), flags, 3)
     }
 
     Dispose() {

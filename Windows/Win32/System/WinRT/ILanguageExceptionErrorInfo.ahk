@@ -58,7 +58,7 @@ export default struct ILanguageExceptionErrorInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLanguageException := CallbackCreate(GetMethod(implObj, "GetLanguageException"), flags, 2)
+        this.vtbl.GetLanguageException := CallbackCreate(ObjBindMethod(implObj, "GetLanguageException"), flags, 2)
     }
 
     Dispose() {

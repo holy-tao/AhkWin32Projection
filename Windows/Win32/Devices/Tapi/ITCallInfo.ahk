@@ -454,8 +454,8 @@ export default struct ITCallInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfo-getcallinfobuffer
      */
     GetCallInfoBuffer(CallInfoBuffer, pdwSize, ppCallInfoBuffer) {
-        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
-        ppCallInfoBufferMarshal := ppCallInfoBuffer is VarRef ? "ptr*" : "ptr"
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : IntPtr
+        ppCallInfoBufferMarshal := ppCallInfoBuffer is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(17, this, CALLINFO_BUFFER, CallInfoBuffer, pdwSizeMarshal, pdwSize, ppCallInfoBufferMarshal, ppCallInfoBuffer, "HRESULT")
         return result
@@ -533,7 +533,7 @@ export default struct ITCallInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfo-setcallinfobuffer
      */
     SetCallInfoBuffer(CallInfoBuffer, dwSize, pCallInfoBuffer) {
-        pCallInfoBufferMarshal := pCallInfoBuffer is VarRef ? "char*" : "ptr"
+        pCallInfoBufferMarshal := pCallInfoBuffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(18, this, CALLINFO_BUFFER, CallInfoBuffer, UInt32, dwSize, pCallInfoBufferMarshal, pCallInfoBuffer, "HRESULT")
         return result
@@ -598,19 +598,19 @@ export default struct ITCallInfo extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Address := CallbackCreate(GetMethod(implObj, "get_Address"), flags, 2)
-        this.vtbl.get_CallState := CallbackCreate(GetMethod(implObj, "get_CallState"), flags, 2)
-        this.vtbl.get_Privilege := CallbackCreate(GetMethod(implObj, "get_Privilege"), flags, 2)
-        this.vtbl.get_CallHub := CallbackCreate(GetMethod(implObj, "get_CallHub"), flags, 2)
-        this.vtbl.get_CallInfoLong := CallbackCreate(GetMethod(implObj, "get_CallInfoLong"), flags, 3)
-        this.vtbl.put_CallInfoLong := CallbackCreate(GetMethod(implObj, "put_CallInfoLong"), flags, 3)
-        this.vtbl.get_CallInfoString := CallbackCreate(GetMethod(implObj, "get_CallInfoString"), flags, 3)
-        this.vtbl.put_CallInfoString := CallbackCreate(GetMethod(implObj, "put_CallInfoString"), flags, 3)
-        this.vtbl.get_CallInfoBuffer := CallbackCreate(GetMethod(implObj, "get_CallInfoBuffer"), flags, 3)
-        this.vtbl.put_CallInfoBuffer := CallbackCreate(GetMethod(implObj, "put_CallInfoBuffer"), flags, 3)
-        this.vtbl.GetCallInfoBuffer := CallbackCreate(GetMethod(implObj, "GetCallInfoBuffer"), flags, 4)
-        this.vtbl.SetCallInfoBuffer := CallbackCreate(GetMethod(implObj, "SetCallInfoBuffer"), flags, 4)
-        this.vtbl.ReleaseUserUserInfo := CallbackCreate(GetMethod(implObj, "ReleaseUserUserInfo"), flags, 1)
+        this.vtbl.get_Address := CallbackCreate(ObjBindMethod(implObj, "get_Address"), flags, 2)
+        this.vtbl.get_CallState := CallbackCreate(ObjBindMethod(implObj, "get_CallState"), flags, 2)
+        this.vtbl.get_Privilege := CallbackCreate(ObjBindMethod(implObj, "get_Privilege"), flags, 2)
+        this.vtbl.get_CallHub := CallbackCreate(ObjBindMethod(implObj, "get_CallHub"), flags, 2)
+        this.vtbl.get_CallInfoLong := CallbackCreate(ObjBindMethod(implObj, "get_CallInfoLong"), flags, 3)
+        this.vtbl.put_CallInfoLong := CallbackCreate(ObjBindMethod(implObj, "put_CallInfoLong"), flags, 3)
+        this.vtbl.get_CallInfoString := CallbackCreate(ObjBindMethod(implObj, "get_CallInfoString"), flags, 3)
+        this.vtbl.put_CallInfoString := CallbackCreate(ObjBindMethod(implObj, "put_CallInfoString"), flags, 3)
+        this.vtbl.get_CallInfoBuffer := CallbackCreate(ObjBindMethod(implObj, "get_CallInfoBuffer"), flags, 3)
+        this.vtbl.put_CallInfoBuffer := CallbackCreate(ObjBindMethod(implObj, "put_CallInfoBuffer"), flags, 3)
+        this.vtbl.GetCallInfoBuffer := CallbackCreate(ObjBindMethod(implObj, "GetCallInfoBuffer"), flags, 4)
+        this.vtbl.SetCallInfoBuffer := CallbackCreate(ObjBindMethod(implObj, "SetCallInfoBuffer"), flags, 4)
+        this.vtbl.ReleaseUserUserInfo := CallbackCreate(ObjBindMethod(implObj, "ReleaseUserUserInfo"), flags, 1)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct PD3COLD_REQUEST_PERST_DELAY {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

@@ -19,7 +19,6 @@ export default struct LPDDHALSURFCB_FLIP {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_FLIPDATA>} param0 
      * @returns {Integer} 
      */

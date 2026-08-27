@@ -36,16 +36,15 @@ export default struct IMetaDataInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} ppvData 
      * @param {Pointer<Integer>} pcbData 
      * @param {Pointer<Integer>} pdwMappingType 
      * @returns {HRESULT} 
      */
     GetFileMapping(ppvData, pcbData, pdwMappingType) {
-        ppvDataMarshal := ppvData is VarRef ? "ptr*" : "ptr"
-        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
-        pdwMappingTypeMarshal := pdwMappingType is VarRef ? "uint*" : "ptr"
+        ppvDataMarshal := ppvData is VarRef ? "ptr*" : IntPtr
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
+        pdwMappingTypeMarshal := pdwMappingType is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, ppvDataMarshal, ppvData, pcbDataMarshal, pcbData, pdwMappingTypeMarshal, pdwMappingType, "HRESULT")
         return result
@@ -60,7 +59,7 @@ export default struct IMetaDataInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFileMapping := CallbackCreate(GetMethod(implObj, "GetFileMapping"), flags, 4)
+        this.vtbl.GetFileMapping := CallbackCreate(ObjBindMethod(implObj, "GetFileMapping"), flags, 4)
     }
 
     Dispose() {

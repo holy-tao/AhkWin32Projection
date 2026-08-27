@@ -75,8 +75,8 @@ export default struct IDispenserManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-idispensermanager-getcontext
      */
     GetContext(__MIDL__IDispenserManager0002, __MIDL__IDispenserManager0003) {
-        __MIDL__IDispenserManager0002Marshal := __MIDL__IDispenserManager0002 is VarRef ? "ptr*" : "ptr"
-        __MIDL__IDispenserManager0003Marshal := __MIDL__IDispenserManager0003 is VarRef ? "ptr*" : "ptr"
+        __MIDL__IDispenserManager0002Marshal := __MIDL__IDispenserManager0002 is VarRef ? "ptr*" : IntPtr
+        __MIDL__IDispenserManager0003Marshal := __MIDL__IDispenserManager0003 is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, __MIDL__IDispenserManager0002Marshal, __MIDL__IDispenserManager0002, __MIDL__IDispenserManager0003Marshal, __MIDL__IDispenserManager0003, "HRESULT")
         return result
@@ -91,8 +91,8 @@ export default struct IDispenserManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterDispenser := CallbackCreate(GetMethod(implObj, "RegisterDispenser"), flags, 4)
-        this.vtbl.GetContext := CallbackCreate(GetMethod(implObj, "GetContext"), flags, 3)
+        this.vtbl.RegisterDispenser := CallbackCreate(ObjBindMethod(implObj, "RegisterDispenser"), flags, 4)
+        this.vtbl.GetContext := CallbackCreate(ObjBindMethod(implObj, "GetContext"), flags, 3)
     }
 
     Dispose() {

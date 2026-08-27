@@ -20,7 +20,6 @@ export default struct DELETE_SECURITY_CONTEXT_FN {
     }
 
     /**
-     * 
      * @param {Pointer<SecHandle>} param0 
      * @returns {HRESULT} 
      */

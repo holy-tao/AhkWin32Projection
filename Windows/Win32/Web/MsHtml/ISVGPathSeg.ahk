@@ -60,7 +60,6 @@ export default struct ISVGPathSeg extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -70,7 +69,6 @@ export default struct ISVGPathSeg extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_pathSegType() {
@@ -79,7 +77,6 @@ export default struct ISVGPathSeg extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_pathSegTypeAsLetter() {
@@ -97,9 +94,9 @@ export default struct ISVGPathSeg extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_pathSegType := CallbackCreate(GetMethod(implObj, "put_pathSegType"), flags, 2)
-        this.vtbl.get_pathSegType := CallbackCreate(GetMethod(implObj, "get_pathSegType"), flags, 2)
-        this.vtbl.get_pathSegTypeAsLetter := CallbackCreate(GetMethod(implObj, "get_pathSegTypeAsLetter"), flags, 2)
+        this.vtbl.put_pathSegType := CallbackCreate(ObjBindMethod(implObj, "put_pathSegType"), flags, 2)
+        this.vtbl.get_pathSegType := CallbackCreate(ObjBindMethod(implObj, "get_pathSegType"), flags, 2)
+        this.vtbl.get_pathSegTypeAsLetter := CallbackCreate(ObjBindMethod(implObj, "get_pathSegTypeAsLetter"), flags, 2)
     }
 
     Dispose() {

@@ -77,8 +77,8 @@ export default struct IAzApplication2 extends IAzApplication {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeClientContextFromToken2 := CallbackCreate(GetMethod(implObj, "InitializeClientContextFromToken2"), flags, 5)
-        this.vtbl.InitializeClientContext2 := CallbackCreate(GetMethod(implObj, "InitializeClientContext2"), flags, 4)
+        this.vtbl.InitializeClientContextFromToken2 := CallbackCreate(ObjBindMethod(implObj, "InitializeClientContextFromToken2"), flags, 5)
+        this.vtbl.InitializeClientContext2 := CallbackCreate(ObjBindMethod(implObj, "InitializeClientContext2"), flags, 4)
     }
 
     Dispose() {

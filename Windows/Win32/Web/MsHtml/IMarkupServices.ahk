@@ -64,7 +64,6 @@ export default struct IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IMarkupPointer} 
      */
     CreateMarkupPointer() {
@@ -73,7 +72,6 @@ export default struct IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IMarkupContainer} 
      */
     CreateMarkupContainer() {
@@ -82,7 +80,6 @@ export default struct IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {ELEMENT_TAG_ID} tagID 
      * @param {PWSTR} pchAttributes 
      * @returns {IHTMLElement} 
@@ -95,7 +92,6 @@ export default struct IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHTMLElement} pElemCloneThis 
      * @returns {IHTMLElement} 
      */
@@ -105,7 +101,6 @@ export default struct IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHTMLElement} pElementInsert 
      * @param {IMarkupPointer} pPointerStart 
      * @param {IMarkupPointer} pPointerFinish 
@@ -117,7 +112,6 @@ export default struct IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHTMLElement} pElementRemove 
      * @returns {HRESULT} 
      */
@@ -127,7 +121,6 @@ export default struct IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pPointerStart 
      * @param {IMarkupPointer} pPointerFinish 
      * @returns {HRESULT} 
@@ -138,7 +131,6 @@ export default struct IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pPointerSourceStart 
      * @param {IMarkupPointer} pPointerSourceFinish 
      * @param {IMarkupPointer} pPointerTarget 
@@ -150,7 +142,6 @@ export default struct IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pPointerSourceStart 
      * @param {IMarkupPointer} pPointerSourceFinish 
      * @param {IMarkupPointer} pPointerTarget 
@@ -162,7 +153,6 @@ export default struct IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pchText 
      * @param {Integer} cch 
      * @param {IMarkupPointer} pPointerTarget 
@@ -176,7 +166,6 @@ export default struct IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pchHTML 
      * @param {Integer} dwFlags 
      * @param {IMarkupPointer} ppPointerStart 
@@ -191,7 +180,6 @@ export default struct IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {HGLOBAL} hglobalHTML 
      * @param {Integer} dwFlags 
      * @param {IMarkupPointer} pPointerStart 
@@ -204,7 +192,6 @@ export default struct IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHTMLElement} pElement 
      * @returns {BOOL} 
      */
@@ -214,7 +201,6 @@ export default struct IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHTMLElement} pElement 
      * @returns {ELEMENT_TAG_ID} 
      */
@@ -224,7 +210,6 @@ export default struct IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @returns {ELEMENT_TAG_ID} 
      */
@@ -236,7 +221,6 @@ export default struct IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {ELEMENT_TAG_ID} tagId 
      * @returns {BSTR} 
      */
@@ -247,7 +231,6 @@ export default struct IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHTMLTxtRange} pIRange 
      * @param {IMarkupPointer} pPointerStart 
      * @param {IMarkupPointer} pPointerFinish 
@@ -259,7 +242,6 @@ export default struct IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pPointerStart 
      * @param {IMarkupPointer} pPointerFinish 
      * @param {IHTMLTxtRange} pIRange 
@@ -271,7 +253,6 @@ export default struct IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pchTitle 
      * @returns {HRESULT} 
      */
@@ -283,7 +264,6 @@ export default struct IMarkupServices extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     EndUndoUnit() {
@@ -300,26 +280,26 @@ export default struct IMarkupServices extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateMarkupPointer := CallbackCreate(GetMethod(implObj, "CreateMarkupPointer"), flags, 2)
-        this.vtbl.CreateMarkupContainer := CallbackCreate(GetMethod(implObj, "CreateMarkupContainer"), flags, 2)
-        this.vtbl.CreateElement := CallbackCreate(GetMethod(implObj, "CreateElement"), flags, 4)
-        this.vtbl.CloneElement := CallbackCreate(GetMethod(implObj, "CloneElement"), flags, 3)
-        this.vtbl.InsertElement := CallbackCreate(GetMethod(implObj, "InsertElement"), flags, 4)
-        this.vtbl.RemoveElement := CallbackCreate(GetMethod(implObj, "RemoveElement"), flags, 2)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 3)
-        this.vtbl.Copy := CallbackCreate(GetMethod(implObj, "Copy"), flags, 4)
-        this.vtbl.Move := CallbackCreate(GetMethod(implObj, "Move"), flags, 4)
-        this.vtbl.InsertText := CallbackCreate(GetMethod(implObj, "InsertText"), flags, 4)
-        this.vtbl.ParseString := CallbackCreate(GetMethod(implObj, "ParseString"), flags, 6)
-        this.vtbl.ParseGlobal := CallbackCreate(GetMethod(implObj, "ParseGlobal"), flags, 6)
-        this.vtbl.IsScopedElement := CallbackCreate(GetMethod(implObj, "IsScopedElement"), flags, 3)
-        this.vtbl.GetElementTagId := CallbackCreate(GetMethod(implObj, "GetElementTagId"), flags, 3)
-        this.vtbl.GetTagIDForName := CallbackCreate(GetMethod(implObj, "GetTagIDForName"), flags, 3)
-        this.vtbl.GetNameForTagID := CallbackCreate(GetMethod(implObj, "GetNameForTagID"), flags, 3)
-        this.vtbl.MovePointersToRange := CallbackCreate(GetMethod(implObj, "MovePointersToRange"), flags, 4)
-        this.vtbl.MoveRangeToPointers := CallbackCreate(GetMethod(implObj, "MoveRangeToPointers"), flags, 4)
-        this.vtbl.BeginUndoUnit := CallbackCreate(GetMethod(implObj, "BeginUndoUnit"), flags, 2)
-        this.vtbl.EndUndoUnit := CallbackCreate(GetMethod(implObj, "EndUndoUnit"), flags, 1)
+        this.vtbl.CreateMarkupPointer := CallbackCreate(ObjBindMethod(implObj, "CreateMarkupPointer"), flags, 2)
+        this.vtbl.CreateMarkupContainer := CallbackCreate(ObjBindMethod(implObj, "CreateMarkupContainer"), flags, 2)
+        this.vtbl.CreateElement := CallbackCreate(ObjBindMethod(implObj, "CreateElement"), flags, 4)
+        this.vtbl.CloneElement := CallbackCreate(ObjBindMethod(implObj, "CloneElement"), flags, 3)
+        this.vtbl.InsertElement := CallbackCreate(ObjBindMethod(implObj, "InsertElement"), flags, 4)
+        this.vtbl.RemoveElement := CallbackCreate(ObjBindMethod(implObj, "RemoveElement"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 3)
+        this.vtbl.Copy := CallbackCreate(ObjBindMethod(implObj, "Copy"), flags, 4)
+        this.vtbl.Move := CallbackCreate(ObjBindMethod(implObj, "Move"), flags, 4)
+        this.vtbl.InsertText := CallbackCreate(ObjBindMethod(implObj, "InsertText"), flags, 4)
+        this.vtbl.ParseString := CallbackCreate(ObjBindMethod(implObj, "ParseString"), flags, 6)
+        this.vtbl.ParseGlobal := CallbackCreate(ObjBindMethod(implObj, "ParseGlobal"), flags, 6)
+        this.vtbl.IsScopedElement := CallbackCreate(ObjBindMethod(implObj, "IsScopedElement"), flags, 3)
+        this.vtbl.GetElementTagId := CallbackCreate(ObjBindMethod(implObj, "GetElementTagId"), flags, 3)
+        this.vtbl.GetTagIDForName := CallbackCreate(ObjBindMethod(implObj, "GetTagIDForName"), flags, 3)
+        this.vtbl.GetNameForTagID := CallbackCreate(ObjBindMethod(implObj, "GetNameForTagID"), flags, 3)
+        this.vtbl.MovePointersToRange := CallbackCreate(ObjBindMethod(implObj, "MovePointersToRange"), flags, 4)
+        this.vtbl.MoveRangeToPointers := CallbackCreate(ObjBindMethod(implObj, "MoveRangeToPointers"), flags, 4)
+        this.vtbl.BeginUndoUnit := CallbackCreate(ObjBindMethod(implObj, "BeginUndoUnit"), flags, 2)
+        this.vtbl.EndUndoUnit := CallbackCreate(ObjBindMethod(implObj, "EndUndoUnit"), flags, 1)
     }
 
     Dispose() {

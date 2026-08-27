@@ -20,7 +20,6 @@ export default struct PFN_CARD_SET_KEY_PROPERTY {
     }
 
     /**
-     * 
      * @param {Pointer<CARD_DATA>} pCardData 
      * @param {Pointer} _hKey 
      * @param {PWSTR} pwszProperty 

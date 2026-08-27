@@ -19,7 +19,6 @@ export default struct PFN_CARD_CHANGE_AUTHENTICATOR_EX {
     }
 
     /**
-     * 
      * @param {Pointer<CARD_DATA>} pCardData 
      * @param {Integer} dwFlags 
      * @param {Integer} dwAuthenticatingPinId 
@@ -33,7 +32,8 @@ export default struct PFN_CARD_CHANGE_AUTHENTICATOR_EX {
      * @returns {Integer} 
      */
     Call(pCardData, dwFlags, dwAuthenticatingPinId, pbAuthenticatingPinData, cbAuthenticatingPinData, dwTargetPinId, pbTargetData, cbTargetData, cRetryCount, pcAttemptsRemaining) {
-        pcAttemptsRemainingMarshal := pcAttemptsRemaining is VarRef ? "uint*" : "ptr"
+        pcAttemptsRemainingMarshal := pcAttemptsRemaining is VarRef ? "uint*" : IntPtr
+        pcAttemptsRemainingMarshal := pcAttemptsRemaining == 0 ? IntPtr : "uint*"
 
         result := DllCall(this.value, CARD_DATA.Ptr, pCardData, UInt32, dwFlags, UInt32, dwAuthenticatingPinId, IntPtr, pbAuthenticatingPinData, UInt32, cbAuthenticatingPinData, UInt32, dwTargetPinId, IntPtr, pbTargetData, UInt32, cbTargetData, UInt32, cRetryCount, pcAttemptsRemainingMarshal, pcAttemptsRemaining, UInt32)
         return result

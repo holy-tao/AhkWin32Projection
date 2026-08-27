@@ -452,7 +452,7 @@ export default struct ID2D1Properties extends IUnknown {
     SetValueByName(name, type, data, dataSize) {
         name := name is String ? StrPtr(name) : name
 
-        dataMarshal := data is VarRef ? "char*" : "ptr"
+        dataMarshal := data is VarRef ? "char*" : IntPtr
 
         result := ComCall(8, this, "ptr", name, D2D1_PROPERTY_TYPE, type, dataMarshal, data, UInt32, dataSize, "HRESULT")
         return result
@@ -508,7 +508,7 @@ export default struct ID2D1Properties extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-setvalue(u_constbyte_uint32)
      */
     SetValue(index, type, data, dataSize) {
-        dataMarshal := data is VarRef ? "char*" : "ptr"
+        dataMarshal := data is VarRef ? "char*" : IntPtr
 
         result := ComCall(9, this, UInt32, index, D2D1_PROPERTY_TYPE, type, dataMarshal, data, UInt32, dataSize, "HRESULT")
         return result
@@ -603,17 +603,17 @@ export default struct ID2D1Properties extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPropertyCount := CallbackCreate(GetMethod(implObj, "GetPropertyCount"), flags, 1)
-        this.vtbl.GetPropertyName := CallbackCreate(GetMethod(implObj, "GetPropertyName"), flags, 4)
-        this.vtbl.GetPropertyNameLength := CallbackCreate(GetMethod(implObj, "GetPropertyNameLength"), flags, 2)
-        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
-        this.vtbl.GetPropertyIndex := CallbackCreate(GetMethod(implObj, "GetPropertyIndex"), flags, 2)
-        this.vtbl.SetValueByName := CallbackCreate(GetMethod(implObj, "SetValueByName"), flags, 5)
-        this.vtbl.SetValue := CallbackCreate(GetMethod(implObj, "SetValue"), flags, 5)
-        this.vtbl.GetValueByName := CallbackCreate(GetMethod(implObj, "GetValueByName"), flags, 5)
-        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 5)
-        this.vtbl.GetValueSize := CallbackCreate(GetMethod(implObj, "GetValueSize"), flags, 2)
-        this.vtbl.GetSubProperties := CallbackCreate(GetMethod(implObj, "GetSubProperties"), flags, 3)
+        this.vtbl.GetPropertyCount := CallbackCreate(ObjBindMethod(implObj, "GetPropertyCount"), flags, 1)
+        this.vtbl.GetPropertyName := CallbackCreate(ObjBindMethod(implObj, "GetPropertyName"), flags, 4)
+        this.vtbl.GetPropertyNameLength := CallbackCreate(ObjBindMethod(implObj, "GetPropertyNameLength"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(ObjBindMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.GetPropertyIndex := CallbackCreate(ObjBindMethod(implObj, "GetPropertyIndex"), flags, 2)
+        this.vtbl.SetValueByName := CallbackCreate(ObjBindMethod(implObj, "SetValueByName"), flags, 5)
+        this.vtbl.SetValue := CallbackCreate(ObjBindMethod(implObj, "SetValue"), flags, 5)
+        this.vtbl.GetValueByName := CallbackCreate(ObjBindMethod(implObj, "GetValueByName"), flags, 5)
+        this.vtbl.GetValue := CallbackCreate(ObjBindMethod(implObj, "GetValue"), flags, 5)
+        this.vtbl.GetValueSize := CallbackCreate(ObjBindMethod(implObj, "GetValueSize"), flags, 2)
+        this.vtbl.GetSubProperties := CallbackCreate(ObjBindMethod(implObj, "GetSubProperties"), flags, 3)
     }
 
     Dispose() {

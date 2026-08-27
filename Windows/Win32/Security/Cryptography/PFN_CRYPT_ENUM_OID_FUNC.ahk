@@ -23,7 +23,6 @@ export default struct PFN_CRYPT_ENUM_OID_FUNC {
     }
 
     /**
-     * 
      * @param {Integer} dwEncodingType Specifies the encoding type to match. Setting this parameter to CRYPT_MATCH_ANY_ENCODING_TYPE matches any encoding type.
      * 
      * <div class="alert"><b>Note</b>  If CRYPT_MATCH_ANY_ENCODING_TYPE is not specified, either a certificate or message encoding type is required.</div>
@@ -52,11 +51,12 @@ export default struct PFN_CRYPT_ENUM_OID_FUNC {
         pszFuncName := pszFuncName is String ? StrPtr(pszFuncName) : pszFuncName
         pszOID := pszOID is String ? StrPtr(pszOID) : pszOID
 
-        rgdwValueTypeMarshal := rgdwValueType is VarRef ? "uint*" : "ptr"
-        rgpwszValueNameMarshal := rgpwszValueName is VarRef ? "ptr*" : "ptr"
-        rgpbValueDataMarshal := rgpbValueData is VarRef ? "ptr*" : "ptr"
-        rgcbValueDataMarshal := rgcbValueData is VarRef ? "uint*" : "ptr"
-        pvArgMarshal := pvArg is VarRef ? "ptr" : "ptr"
+        rgdwValueTypeMarshal := rgdwValueType is VarRef ? "uint*" : IntPtr
+        rgpwszValueNameMarshal := rgpwszValueName is VarRef ? "ptr*" : IntPtr
+        rgpbValueDataMarshal := rgpbValueData is VarRef ? "ptr*" : IntPtr
+        rgcbValueDataMarshal := rgcbValueData is VarRef ? "uint*" : IntPtr
+        pvArgMarshal := pvArg is VarRef ? "ptr" : IntPtr
+        pvArgMarshal := pvArg == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, UInt32, dwEncodingType, "ptr", pszFuncName, "ptr", pszOID, UInt32, cValue, rgdwValueTypeMarshal, rgdwValueType, rgpwszValueNameMarshal, rgpwszValueName, rgpbValueDataMarshal, rgpbValueData, rgcbValueDataMarshal, rgcbValueData, pvArgMarshal, pvArg, BOOL)
         return result

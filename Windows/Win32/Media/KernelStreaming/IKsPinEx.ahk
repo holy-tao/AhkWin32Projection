@@ -37,7 +37,6 @@ export default struct IKsPinEx extends IKsPin {
     }
 
     /**
-     * 
      * @param {IMediaSample} Sample 
      * @param {HRESULT} hr 
      * @returns {String} Nothing - always returns an empty string
@@ -55,7 +54,7 @@ export default struct IKsPinEx extends IKsPin {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.KsNotifyError := CallbackCreate(GetMethod(implObj, "KsNotifyError"), flags, 3)
+        this.vtbl.KsNotifyError := CallbackCreate(ObjBindMethod(implObj, "KsNotifyError"), flags, 3)
     }
 
     Dispose() {

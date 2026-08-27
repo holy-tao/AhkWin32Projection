@@ -356,15 +356,15 @@ export default struct IPortableDevice extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 3)
-        this.vtbl.SendCommand := CallbackCreate(GetMethod(implObj, "SendCommand"), flags, 4)
-        this.vtbl.Content := CallbackCreate(GetMethod(implObj, "Content"), flags, 2)
-        this.vtbl.Capabilities := CallbackCreate(GetMethod(implObj, "Capabilities"), flags, 2)
-        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
-        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 5)
-        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 2)
-        this.vtbl.GetPnPDeviceID := CallbackCreate(GetMethod(implObj, "GetPnPDeviceID"), flags, 2)
+        this.vtbl.Open := CallbackCreate(ObjBindMethod(implObj, "Open"), flags, 3)
+        this.vtbl.SendCommand := CallbackCreate(ObjBindMethod(implObj, "SendCommand"), flags, 4)
+        this.vtbl.Content := CallbackCreate(ObjBindMethod(implObj, "Content"), flags, 2)
+        this.vtbl.Capabilities := CallbackCreate(ObjBindMethod(implObj, "Capabilities"), flags, 2)
+        this.vtbl.Cancel := CallbackCreate(ObjBindMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
+        this.vtbl.Advise := CallbackCreate(ObjBindMethod(implObj, "Advise"), flags, 5)
+        this.vtbl.Unadvise := CallbackCreate(ObjBindMethod(implObj, "Unadvise"), flags, 2)
+        this.vtbl.GetPnPDeviceID := CallbackCreate(ObjBindMethod(implObj, "GetPnPDeviceID"), flags, 2)
     }
 
     Dispose() {

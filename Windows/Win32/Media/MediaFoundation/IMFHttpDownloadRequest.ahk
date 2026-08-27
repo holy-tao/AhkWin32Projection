@@ -141,9 +141,11 @@ export default struct IMFHttpDownloadRequest extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-beginsendrequest
      */
     BeginSendRequest(pbPayload, cbPayload, pCallback, punkState) {
-        pbPayloadMarshal := pbPayload is VarRef ? "char*" : "ptr"
+        pbPayloadMarshal := pbPayload is VarRef ? "char*" : IntPtr
+        pbPayloadMarshal := pbPayload == 0 ? IntPtr : "char*"
+        punkStateMarshal := punkState == 0 ? IntPtr : "ptr"
 
-        result := ComCall(4, this, pbPayloadMarshal, pbPayload, UInt32, cbPayload, "ptr", pCallback, "ptr", punkState, "HRESULT")
+        result := ComCall(4, this, pbPayloadMarshal, pbPayload, UInt32, cbPayload, "ptr", pCallback, punkStateMarshal, punkState, "HRESULT")
         return result
     }
 
@@ -204,7 +206,9 @@ export default struct IMFHttpDownloadRequest extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-beginreceiveresponse
      */
     BeginReceiveResponse(pCallback, punkState) {
-        result := ComCall(6, this, "ptr", pCallback, "ptr", punkState, "HRESULT")
+        punkStateMarshal := punkState == 0 ? IntPtr : "ptr"
+
+        result := ComCall(6, this, "ptr", pCallback, punkStateMarshal, punkState, "HRESULT")
         return result
     }
 
@@ -251,7 +255,9 @@ export default struct IMFHttpDownloadRequest extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-beginreadpayload
      */
     BeginReadPayload(cb, pCallback, punkState) {
-        result := ComCall(8, this, "char*", &pb := 0, UInt32, cb, "ptr", pCallback, "ptr", punkState, "HRESULT")
+        punkStateMarshal := punkState == 0 ? IntPtr : "ptr"
+
+        result := ComCall(8, this, "char*", &pb := 0, UInt32, cb, "ptr", pCallback, punkStateMarshal, punkState, "HRESULT")
         return pb
     }
 
@@ -283,8 +289,8 @@ export default struct IMFHttpDownloadRequest extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-endreadpayload
      */
     EndReadPayload(pResult, pqwOffset, pcbRead) {
-        pqwOffsetMarshal := pqwOffset is VarRef ? "uint*" : "ptr"
-        pcbReadMarshal := pcbRead is VarRef ? "uint*" : "ptr"
+        pqwOffsetMarshal := pqwOffset is VarRef ? "uint*" : IntPtr
+        pcbReadMarshal := pcbRead is VarRef ? "uint*" : IntPtr
 
         result := ComCall(9, this, "ptr", pResult, pqwOffsetMarshal, pqwOffset, pcbReadMarshal, pcbRead, "HRESULT")
         return result
@@ -380,9 +386,9 @@ export default struct IMFHttpDownloadRequest extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-gettimeseekresult
      */
     GetTimeSeekResult(pqwStartTime, pqwStopTime, pqwDuration) {
-        pqwStartTimeMarshal := pqwStartTime is VarRef ? "uint*" : "ptr"
-        pqwStopTimeMarshal := pqwStopTime is VarRef ? "uint*" : "ptr"
-        pqwDurationMarshal := pqwDuration is VarRef ? "uint*" : "ptr"
+        pqwStartTimeMarshal := pqwStartTime is VarRef ? "uint*" : IntPtr
+        pqwStopTimeMarshal := pqwStopTime is VarRef ? "uint*" : IntPtr
+        pqwDurationMarshal := pqwDuration is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, pqwStartTimeMarshal, pqwStartTime, pqwStopTimeMarshal, pqwStopTime, pqwDurationMarshal, pqwDuration, "HRESULT")
         return result
@@ -474,22 +480,22 @@ export default struct IMFHttpDownloadRequest extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddHeader := CallbackCreate(GetMethod(implObj, "AddHeader"), flags, 2)
-        this.vtbl.BeginSendRequest := CallbackCreate(GetMethod(implObj, "BeginSendRequest"), flags, 5)
-        this.vtbl.EndSendRequest := CallbackCreate(GetMethod(implObj, "EndSendRequest"), flags, 2)
-        this.vtbl.BeginReceiveResponse := CallbackCreate(GetMethod(implObj, "BeginReceiveResponse"), flags, 3)
-        this.vtbl.EndReceiveResponse := CallbackCreate(GetMethod(implObj, "EndReceiveResponse"), flags, 2)
-        this.vtbl.BeginReadPayload := CallbackCreate(GetMethod(implObj, "BeginReadPayload"), flags, 5)
-        this.vtbl.EndReadPayload := CallbackCreate(GetMethod(implObj, "EndReadPayload"), flags, 4)
-        this.vtbl.QueryHeader := CallbackCreate(GetMethod(implObj, "QueryHeader"), flags, 4)
-        this.vtbl.GetURL := CallbackCreate(GetMethod(implObj, "GetURL"), flags, 2)
-        this.vtbl.HasNullSourceOrigin := CallbackCreate(GetMethod(implObj, "HasNullSourceOrigin"), flags, 2)
-        this.vtbl.GetTimeSeekResult := CallbackCreate(GetMethod(implObj, "GetTimeSeekResult"), flags, 4)
-        this.vtbl.GetHttpStatus := CallbackCreate(GetMethod(implObj, "GetHttpStatus"), flags, 2)
-        this.vtbl.GetAtEndOfPayload := CallbackCreate(GetMethod(implObj, "GetAtEndOfPayload"), flags, 2)
-        this.vtbl.GetTotalLength := CallbackCreate(GetMethod(implObj, "GetTotalLength"), flags, 2)
-        this.vtbl.GetRangeEndOffset := CallbackCreate(GetMethod(implObj, "GetRangeEndOffset"), flags, 2)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.AddHeader := CallbackCreate(ObjBindMethod(implObj, "AddHeader"), flags, 2)
+        this.vtbl.BeginSendRequest := CallbackCreate(ObjBindMethod(implObj, "BeginSendRequest"), flags, 5)
+        this.vtbl.EndSendRequest := CallbackCreate(ObjBindMethod(implObj, "EndSendRequest"), flags, 2)
+        this.vtbl.BeginReceiveResponse := CallbackCreate(ObjBindMethod(implObj, "BeginReceiveResponse"), flags, 3)
+        this.vtbl.EndReceiveResponse := CallbackCreate(ObjBindMethod(implObj, "EndReceiveResponse"), flags, 2)
+        this.vtbl.BeginReadPayload := CallbackCreate(ObjBindMethod(implObj, "BeginReadPayload"), flags, 5)
+        this.vtbl.EndReadPayload := CallbackCreate(ObjBindMethod(implObj, "EndReadPayload"), flags, 4)
+        this.vtbl.QueryHeader := CallbackCreate(ObjBindMethod(implObj, "QueryHeader"), flags, 4)
+        this.vtbl.GetURL := CallbackCreate(ObjBindMethod(implObj, "GetURL"), flags, 2)
+        this.vtbl.HasNullSourceOrigin := CallbackCreate(ObjBindMethod(implObj, "HasNullSourceOrigin"), flags, 2)
+        this.vtbl.GetTimeSeekResult := CallbackCreate(ObjBindMethod(implObj, "GetTimeSeekResult"), flags, 4)
+        this.vtbl.GetHttpStatus := CallbackCreate(ObjBindMethod(implObj, "GetHttpStatus"), flags, 2)
+        this.vtbl.GetAtEndOfPayload := CallbackCreate(ObjBindMethod(implObj, "GetAtEndOfPayload"), flags, 2)
+        this.vtbl.GetTotalLength := CallbackCreate(ObjBindMethod(implObj, "GetTotalLength"), flags, 2)
+        this.vtbl.GetRangeEndOffset := CallbackCreate(ObjBindMethod(implObj, "GetRangeEndOffset"), flags, 2)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
     }
 
     Dispose() {

@@ -583,10 +583,10 @@ export default struct IBasicVideo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ibasicvideo-getsourceposition
      */
     GetSourcePosition(pLeft, pTop, pWidth, pHeight) {
-        pLeftMarshal := pLeft is VarRef ? "int*" : "ptr"
-        pTopMarshal := pTop is VarRef ? "int*" : "ptr"
-        pWidthMarshal := pWidth is VarRef ? "int*" : "ptr"
-        pHeightMarshal := pHeight is VarRef ? "int*" : "ptr"
+        pLeftMarshal := pLeft is VarRef ? "int*" : IntPtr
+        pTopMarshal := pTop is VarRef ? "int*" : IntPtr
+        pWidthMarshal := pWidth is VarRef ? "int*" : IntPtr
+        pHeightMarshal := pHeight is VarRef ? "int*" : IntPtr
 
         result := ComCall(29, this, pLeftMarshal, pLeft, pTopMarshal, pTop, pWidthMarshal, pWidth, pHeightMarshal, pHeight, "HRESULT")
         return result
@@ -670,10 +670,10 @@ export default struct IBasicVideo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ibasicvideo-getdestinationposition
      */
     GetDestinationPosition(pLeft, pTop, pWidth, pHeight) {
-        pLeftMarshal := pLeft is VarRef ? "int*" : "ptr"
-        pTopMarshal := pTop is VarRef ? "int*" : "ptr"
-        pWidthMarshal := pWidth is VarRef ? "int*" : "ptr"
-        pHeightMarshal := pHeight is VarRef ? "int*" : "ptr"
+        pLeftMarshal := pLeft is VarRef ? "int*" : IntPtr
+        pTopMarshal := pTop is VarRef ? "int*" : IntPtr
+        pWidthMarshal := pWidth is VarRef ? "int*" : IntPtr
+        pHeightMarshal := pHeight is VarRef ? "int*" : IntPtr
 
         result := ComCall(32, this, pLeftMarshal, pLeft, pTopMarshal, pTop, pWidthMarshal, pWidth, pHeightMarshal, pHeight, "HRESULT")
         return result
@@ -697,8 +697,8 @@ export default struct IBasicVideo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ibasicvideo-getvideosize
      */
     GetVideoSize(pWidth, pHeight) {
-        pWidthMarshal := pWidth is VarRef ? "int*" : "ptr"
-        pHeightMarshal := pHeight is VarRef ? "int*" : "ptr"
+        pWidthMarshal := pWidth is VarRef ? "int*" : IntPtr
+        pHeightMarshal := pHeight is VarRef ? "int*" : IntPtr
 
         result := ComCall(34, this, pWidthMarshal, pWidth, pHeightMarshal, pHeight, "HRESULT")
         return result
@@ -765,8 +765,8 @@ export default struct IBasicVideo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ibasicvideo-getvideopaletteentries
      */
     GetVideoPaletteEntries(StartIndex, Entries, pRetrieved, pPalette) {
-        pRetrievedMarshal := pRetrieved is VarRef ? "int*" : "ptr"
-        pPaletteMarshal := pPalette is VarRef ? "int*" : "ptr"
+        pRetrievedMarshal := pRetrieved is VarRef ? "int*" : IntPtr
+        pPaletteMarshal := pPalette is VarRef ? "int*" : IntPtr
 
         result := ComCall(35, this, Int32, StartIndex, Int32, Entries, pRetrievedMarshal, pRetrieved, pPaletteMarshal, pPalette, "HRESULT")
         return result
@@ -796,7 +796,7 @@ export default struct IBasicVideo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ibasicvideo-getcurrentimage
      */
     GetCurrentImage(pBufferSize) {
-        pBufferSizeMarshal := pBufferSize is VarRef ? "int*" : "ptr"
+        pBufferSizeMarshal := pBufferSize is VarRef ? "int*" : IntPtr
 
         result := ComCall(36, this, pBufferSizeMarshal, pBufferSize, "int*", &pDIBImage := 0, "HRESULT")
         return pDIBImage
@@ -831,38 +831,38 @@ export default struct IBasicVideo extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_AvgTimePerFrame := CallbackCreate(GetMethod(implObj, "get_AvgTimePerFrame"), flags, 2)
-        this.vtbl.get_BitRate := CallbackCreate(GetMethod(implObj, "get_BitRate"), flags, 2)
-        this.vtbl.get_BitErrorRate := CallbackCreate(GetMethod(implObj, "get_BitErrorRate"), flags, 2)
-        this.vtbl.get_VideoWidth := CallbackCreate(GetMethod(implObj, "get_VideoWidth"), flags, 2)
-        this.vtbl.get_VideoHeight := CallbackCreate(GetMethod(implObj, "get_VideoHeight"), flags, 2)
-        this.vtbl.put_SourceLeft := CallbackCreate(GetMethod(implObj, "put_SourceLeft"), flags, 2)
-        this.vtbl.get_SourceLeft := CallbackCreate(GetMethod(implObj, "get_SourceLeft"), flags, 2)
-        this.vtbl.put_SourceWidth := CallbackCreate(GetMethod(implObj, "put_SourceWidth"), flags, 2)
-        this.vtbl.get_SourceWidth := CallbackCreate(GetMethod(implObj, "get_SourceWidth"), flags, 2)
-        this.vtbl.put_SourceTop := CallbackCreate(GetMethod(implObj, "put_SourceTop"), flags, 2)
-        this.vtbl.get_SourceTop := CallbackCreate(GetMethod(implObj, "get_SourceTop"), flags, 2)
-        this.vtbl.put_SourceHeight := CallbackCreate(GetMethod(implObj, "put_SourceHeight"), flags, 2)
-        this.vtbl.get_SourceHeight := CallbackCreate(GetMethod(implObj, "get_SourceHeight"), flags, 2)
-        this.vtbl.put_DestinationLeft := CallbackCreate(GetMethod(implObj, "put_DestinationLeft"), flags, 2)
-        this.vtbl.get_DestinationLeft := CallbackCreate(GetMethod(implObj, "get_DestinationLeft"), flags, 2)
-        this.vtbl.put_DestinationWidth := CallbackCreate(GetMethod(implObj, "put_DestinationWidth"), flags, 2)
-        this.vtbl.get_DestinationWidth := CallbackCreate(GetMethod(implObj, "get_DestinationWidth"), flags, 2)
-        this.vtbl.put_DestinationTop := CallbackCreate(GetMethod(implObj, "put_DestinationTop"), flags, 2)
-        this.vtbl.get_DestinationTop := CallbackCreate(GetMethod(implObj, "get_DestinationTop"), flags, 2)
-        this.vtbl.put_DestinationHeight := CallbackCreate(GetMethod(implObj, "put_DestinationHeight"), flags, 2)
-        this.vtbl.get_DestinationHeight := CallbackCreate(GetMethod(implObj, "get_DestinationHeight"), flags, 2)
-        this.vtbl.SetSourcePosition := CallbackCreate(GetMethod(implObj, "SetSourcePosition"), flags, 5)
-        this.vtbl.GetSourcePosition := CallbackCreate(GetMethod(implObj, "GetSourcePosition"), flags, 5)
-        this.vtbl.SetDefaultSourcePosition := CallbackCreate(GetMethod(implObj, "SetDefaultSourcePosition"), flags, 1)
-        this.vtbl.SetDestinationPosition := CallbackCreate(GetMethod(implObj, "SetDestinationPosition"), flags, 5)
-        this.vtbl.GetDestinationPosition := CallbackCreate(GetMethod(implObj, "GetDestinationPosition"), flags, 5)
-        this.vtbl.SetDefaultDestinationPosition := CallbackCreate(GetMethod(implObj, "SetDefaultDestinationPosition"), flags, 1)
-        this.vtbl.GetVideoSize := CallbackCreate(GetMethod(implObj, "GetVideoSize"), flags, 3)
-        this.vtbl.GetVideoPaletteEntries := CallbackCreate(GetMethod(implObj, "GetVideoPaletteEntries"), flags, 5)
-        this.vtbl.GetCurrentImage := CallbackCreate(GetMethod(implObj, "GetCurrentImage"), flags, 3)
-        this.vtbl.IsUsingDefaultSource := CallbackCreate(GetMethod(implObj, "IsUsingDefaultSource"), flags, 1)
-        this.vtbl.IsUsingDefaultDestination := CallbackCreate(GetMethod(implObj, "IsUsingDefaultDestination"), flags, 1)
+        this.vtbl.get_AvgTimePerFrame := CallbackCreate(ObjBindMethod(implObj, "get_AvgTimePerFrame"), flags, 2)
+        this.vtbl.get_BitRate := CallbackCreate(ObjBindMethod(implObj, "get_BitRate"), flags, 2)
+        this.vtbl.get_BitErrorRate := CallbackCreate(ObjBindMethod(implObj, "get_BitErrorRate"), flags, 2)
+        this.vtbl.get_VideoWidth := CallbackCreate(ObjBindMethod(implObj, "get_VideoWidth"), flags, 2)
+        this.vtbl.get_VideoHeight := CallbackCreate(ObjBindMethod(implObj, "get_VideoHeight"), flags, 2)
+        this.vtbl.put_SourceLeft := CallbackCreate(ObjBindMethod(implObj, "put_SourceLeft"), flags, 2)
+        this.vtbl.get_SourceLeft := CallbackCreate(ObjBindMethod(implObj, "get_SourceLeft"), flags, 2)
+        this.vtbl.put_SourceWidth := CallbackCreate(ObjBindMethod(implObj, "put_SourceWidth"), flags, 2)
+        this.vtbl.get_SourceWidth := CallbackCreate(ObjBindMethod(implObj, "get_SourceWidth"), flags, 2)
+        this.vtbl.put_SourceTop := CallbackCreate(ObjBindMethod(implObj, "put_SourceTop"), flags, 2)
+        this.vtbl.get_SourceTop := CallbackCreate(ObjBindMethod(implObj, "get_SourceTop"), flags, 2)
+        this.vtbl.put_SourceHeight := CallbackCreate(ObjBindMethod(implObj, "put_SourceHeight"), flags, 2)
+        this.vtbl.get_SourceHeight := CallbackCreate(ObjBindMethod(implObj, "get_SourceHeight"), flags, 2)
+        this.vtbl.put_DestinationLeft := CallbackCreate(ObjBindMethod(implObj, "put_DestinationLeft"), flags, 2)
+        this.vtbl.get_DestinationLeft := CallbackCreate(ObjBindMethod(implObj, "get_DestinationLeft"), flags, 2)
+        this.vtbl.put_DestinationWidth := CallbackCreate(ObjBindMethod(implObj, "put_DestinationWidth"), flags, 2)
+        this.vtbl.get_DestinationWidth := CallbackCreate(ObjBindMethod(implObj, "get_DestinationWidth"), flags, 2)
+        this.vtbl.put_DestinationTop := CallbackCreate(ObjBindMethod(implObj, "put_DestinationTop"), flags, 2)
+        this.vtbl.get_DestinationTop := CallbackCreate(ObjBindMethod(implObj, "get_DestinationTop"), flags, 2)
+        this.vtbl.put_DestinationHeight := CallbackCreate(ObjBindMethod(implObj, "put_DestinationHeight"), flags, 2)
+        this.vtbl.get_DestinationHeight := CallbackCreate(ObjBindMethod(implObj, "get_DestinationHeight"), flags, 2)
+        this.vtbl.SetSourcePosition := CallbackCreate(ObjBindMethod(implObj, "SetSourcePosition"), flags, 5)
+        this.vtbl.GetSourcePosition := CallbackCreate(ObjBindMethod(implObj, "GetSourcePosition"), flags, 5)
+        this.vtbl.SetDefaultSourcePosition := CallbackCreate(ObjBindMethod(implObj, "SetDefaultSourcePosition"), flags, 1)
+        this.vtbl.SetDestinationPosition := CallbackCreate(ObjBindMethod(implObj, "SetDestinationPosition"), flags, 5)
+        this.vtbl.GetDestinationPosition := CallbackCreate(ObjBindMethod(implObj, "GetDestinationPosition"), flags, 5)
+        this.vtbl.SetDefaultDestinationPosition := CallbackCreate(ObjBindMethod(implObj, "SetDefaultDestinationPosition"), flags, 1)
+        this.vtbl.GetVideoSize := CallbackCreate(ObjBindMethod(implObj, "GetVideoSize"), flags, 3)
+        this.vtbl.GetVideoPaletteEntries := CallbackCreate(ObjBindMethod(implObj, "GetVideoPaletteEntries"), flags, 5)
+        this.vtbl.GetCurrentImage := CallbackCreate(ObjBindMethod(implObj, "GetCurrentImage"), flags, 3)
+        this.vtbl.IsUsingDefaultSource := CallbackCreate(ObjBindMethod(implObj, "IsUsingDefaultSource"), flags, 1)
+        this.vtbl.IsUsingDefaultDestination := CallbackCreate(ObjBindMethod(implObj, "IsUsingDefaultDestination"), flags, 1)
     }
 
     Dispose() {

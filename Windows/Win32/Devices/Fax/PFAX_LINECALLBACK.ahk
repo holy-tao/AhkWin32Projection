@@ -23,7 +23,6 @@ export default struct PFAX_LINECALLBACK {
     }
 
     /**
-     * 
      * @param {HANDLE} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax handle returned by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxdev/nf-faxdev-faxdevstartjob">FaxDevStartJob</a> function.

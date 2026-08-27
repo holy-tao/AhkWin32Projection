@@ -19,12 +19,13 @@ export default struct DOT11EXTIHV_DEINIT_ADAPTER {
     }
 
     /**
-     * 
      * @param {HANDLE} hIhvExtAdapter 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(hIhvExtAdapter) {
-        DllCall(this.value, HANDLE, hIhvExtAdapter)
+        hIhvExtAdapterMarshal := hIhvExtAdapter == 0 ? IntPtr : HANDLE
+
+        DllCall(this.value, hIhvExtAdapterMarshal, hIhvExtAdapter)
     }
 
     /**

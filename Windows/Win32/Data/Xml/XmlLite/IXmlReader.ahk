@@ -61,12 +61,13 @@ export default struct IXmlReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pInput 
      * @returns {HRESULT} 
      */
     SetInput(pInput) {
-        result := ComCall(3, this, "ptr", pInput, "HRESULT")
+        pInputMarshal := pInput == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pInputMarshal, pInput, "HRESULT")
         return result
     }
 
@@ -86,18 +87,18 @@ export default struct IXmlReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nProperty 
      * @param {Pointer} pValue 
      * @returns {HRESULT} 
      */
     SetProperty(nProperty, pValue) {
-        result := ComCall(5, this, UInt32, nProperty, IntPtr, pValue, "HRESULT")
+        pValueMarshal := pValue == 0 ? IntPtr : IntPtr
+
+        result := ComCall(5, this, UInt32, nProperty, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {XmlNodeType} 
      */
     Read() {
@@ -106,7 +107,6 @@ export default struct IXmlReader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {XmlNodeType} 
      */
     GetNodeType() {
@@ -115,7 +115,6 @@ export default struct IXmlReader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     MoveToFirstAttribute() {
@@ -124,7 +123,6 @@ export default struct IXmlReader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     MoveToNextAttribute() {
@@ -133,7 +131,6 @@ export default struct IXmlReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszLocalName 
      * @param {PWSTR} pwszNamespaceUri 
      * @returns {HRESULT} 
@@ -142,12 +139,13 @@ export default struct IXmlReader extends IUnknown {
         pwszLocalName := pwszLocalName is String ? StrPtr(pwszLocalName) : pwszLocalName
         pwszNamespaceUri := pwszNamespaceUri is String ? StrPtr(pwszNamespaceUri) : pwszNamespaceUri
 
-        result := ComCall(10, this, "ptr", pwszLocalName, "ptr", pwszNamespaceUri, Int32)
+        pwszNamespaceUriMarshal := pwszNamespaceUri == 0 ? IntPtr : PWSTR
+
+        result := ComCall(10, this, "ptr", pwszLocalName, pwszNamespaceUriMarshal, pwszNamespaceUri, Int32)
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     MoveToElement() {
@@ -156,77 +154,76 @@ export default struct IXmlReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PWSTR>} ppwszQualifiedName 
      * @param {Pointer<Integer>} pcwchQualifiedName 
      * @returns {HRESULT} 
      */
     GetQualifiedName(ppwszQualifiedName, pcwchQualifiedName) {
-        ppwszQualifiedNameMarshal := ppwszQualifiedName is VarRef ? "ptr*" : "ptr"
-        pcwchQualifiedNameMarshal := pcwchQualifiedName is VarRef ? "uint*" : "ptr"
+        ppwszQualifiedNameMarshal := ppwszQualifiedName is VarRef ? "ptr*" : IntPtr
+        pcwchQualifiedNameMarshal := pcwchQualifiedName is VarRef ? "uint*" : IntPtr
+        pcwchQualifiedNameMarshal := pcwchQualifiedName == 0 ? IntPtr : "uint*"
 
         result := ComCall(12, this, ppwszQualifiedNameMarshal, ppwszQualifiedName, pcwchQualifiedNameMarshal, pcwchQualifiedName, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<PWSTR>} ppwszNamespaceUri 
      * @param {Pointer<Integer>} pcwchNamespaceUri 
      * @returns {HRESULT} 
      */
     GetNamespaceUri(ppwszNamespaceUri, pcwchNamespaceUri) {
-        ppwszNamespaceUriMarshal := ppwszNamespaceUri is VarRef ? "ptr*" : "ptr"
-        pcwchNamespaceUriMarshal := pcwchNamespaceUri is VarRef ? "uint*" : "ptr"
+        ppwszNamespaceUriMarshal := ppwszNamespaceUri is VarRef ? "ptr*" : IntPtr
+        pcwchNamespaceUriMarshal := pcwchNamespaceUri is VarRef ? "uint*" : IntPtr
+        pcwchNamespaceUriMarshal := pcwchNamespaceUri == 0 ? IntPtr : "uint*"
 
         result := ComCall(13, this, ppwszNamespaceUriMarshal, ppwszNamespaceUri, pcwchNamespaceUriMarshal, pcwchNamespaceUri, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<PWSTR>} ppwszLocalName 
      * @param {Pointer<Integer>} pcwchLocalName 
      * @returns {HRESULT} 
      */
     GetLocalName(ppwszLocalName, pcwchLocalName) {
-        ppwszLocalNameMarshal := ppwszLocalName is VarRef ? "ptr*" : "ptr"
-        pcwchLocalNameMarshal := pcwchLocalName is VarRef ? "uint*" : "ptr"
+        ppwszLocalNameMarshal := ppwszLocalName is VarRef ? "ptr*" : IntPtr
+        pcwchLocalNameMarshal := pcwchLocalName is VarRef ? "uint*" : IntPtr
+        pcwchLocalNameMarshal := pcwchLocalName == 0 ? IntPtr : "uint*"
 
         result := ComCall(14, this, ppwszLocalNameMarshal, ppwszLocalName, pcwchLocalNameMarshal, pcwchLocalName, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<PWSTR>} ppwszPrefix 
      * @param {Pointer<Integer>} pcwchPrefix 
      * @returns {HRESULT} 
      */
     GetPrefix(ppwszPrefix, pcwchPrefix) {
-        ppwszPrefixMarshal := ppwszPrefix is VarRef ? "ptr*" : "ptr"
-        pcwchPrefixMarshal := pcwchPrefix is VarRef ? "uint*" : "ptr"
+        ppwszPrefixMarshal := ppwszPrefix is VarRef ? "ptr*" : IntPtr
+        pcwchPrefixMarshal := pcwchPrefix is VarRef ? "uint*" : IntPtr
+        pcwchPrefixMarshal := pcwchPrefix == 0 ? IntPtr : "uint*"
 
         result := ComCall(15, this, ppwszPrefixMarshal, ppwszPrefix, pcwchPrefixMarshal, pcwchPrefix, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<PWSTR>} ppwszValue 
      * @param {Pointer<Integer>} pcwchValue 
      * @returns {HRESULT} 
      */
     GetValue(ppwszValue, pcwchValue) {
-        ppwszValueMarshal := ppwszValue is VarRef ? "ptr*" : "ptr"
-        pcwchValueMarshal := pcwchValue is VarRef ? "uint*" : "ptr"
+        ppwszValueMarshal := ppwszValue is VarRef ? "ptr*" : IntPtr
+        pcwchValueMarshal := pcwchValue is VarRef ? "uint*" : IntPtr
+        pcwchValueMarshal := pcwchValue == 0 ? IntPtr : "uint*"
 
         result := ComCall(16, this, ppwszValueMarshal, ppwszValue, pcwchValueMarshal, pcwchValue, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwchBuffer 
      * @param {Integer} cwchChunkSize 
      * @param {Pointer<Integer>} pcwchRead 
@@ -235,21 +232,21 @@ export default struct IXmlReader extends IUnknown {
     ReadValueChunk(pwchBuffer, cwchChunkSize, pcwchRead) {
         pwchBuffer := pwchBuffer is String ? StrPtr(pwchBuffer) : pwchBuffer
 
-        pcwchReadMarshal := pcwchRead is VarRef ? "uint*" : "ptr"
+        pcwchReadMarshal := pcwchRead is VarRef ? "uint*" : IntPtr
 
         result := ComCall(17, this, "ptr", pwchBuffer, UInt32, cwchChunkSize, pcwchReadMarshal, pcwchRead, Int32)
         return result
     }
 
     /**
-     * 
      * @param {Pointer<PWSTR>} ppwszBaseUri 
      * @param {Pointer<Integer>} pcwchBaseUri 
      * @returns {HRESULT} 
      */
     GetBaseUri(ppwszBaseUri, pcwchBaseUri) {
-        ppwszBaseUriMarshal := ppwszBaseUri is VarRef ? "ptr*" : "ptr"
-        pcwchBaseUriMarshal := pcwchBaseUri is VarRef ? "uint*" : "ptr"
+        ppwszBaseUriMarshal := ppwszBaseUri is VarRef ? "ptr*" : IntPtr
+        pcwchBaseUriMarshal := pcwchBaseUri is VarRef ? "uint*" : IntPtr
+        pcwchBaseUriMarshal := pcwchBaseUri == 0 ? IntPtr : "uint*"
 
         result := ComCall(18, this, ppwszBaseUriMarshal, ppwszBaseUri, pcwchBaseUriMarshal, pcwchBaseUri, "HRESULT")
         return result
@@ -266,7 +263,6 @@ export default struct IXmlReader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsEmptyElement() {
@@ -275,7 +271,6 @@ export default struct IXmlReader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetLineNumber() {
@@ -284,7 +279,6 @@ export default struct IXmlReader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetLinePosition() {
@@ -293,7 +287,6 @@ export default struct IXmlReader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetAttributeCount() {
@@ -302,7 +295,6 @@ export default struct IXmlReader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetDepth() {
@@ -311,7 +303,6 @@ export default struct IXmlReader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsEOF() {
@@ -328,29 +319,29 @@ export default struct IXmlReader extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetInput := CallbackCreate(GetMethod(implObj, "SetInput"), flags, 2)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
-        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 3)
-        this.vtbl.Read := CallbackCreate(GetMethod(implObj, "Read"), flags, 2)
-        this.vtbl.GetNodeType := CallbackCreate(GetMethod(implObj, "GetNodeType"), flags, 2)
-        this.vtbl.MoveToFirstAttribute := CallbackCreate(GetMethod(implObj, "MoveToFirstAttribute"), flags, 1)
-        this.vtbl.MoveToNextAttribute := CallbackCreate(GetMethod(implObj, "MoveToNextAttribute"), flags, 1)
-        this.vtbl.MoveToAttributeByName := CallbackCreate(GetMethod(implObj, "MoveToAttributeByName"), flags, 3)
-        this.vtbl.MoveToElement := CallbackCreate(GetMethod(implObj, "MoveToElement"), flags, 1)
-        this.vtbl.GetQualifiedName := CallbackCreate(GetMethod(implObj, "GetQualifiedName"), flags, 3)
-        this.vtbl.GetNamespaceUri := CallbackCreate(GetMethod(implObj, "GetNamespaceUri"), flags, 3)
-        this.vtbl.GetLocalName := CallbackCreate(GetMethod(implObj, "GetLocalName"), flags, 3)
-        this.vtbl.GetPrefix := CallbackCreate(GetMethod(implObj, "GetPrefix"), flags, 3)
-        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 3)
-        this.vtbl.ReadValueChunk := CallbackCreate(GetMethod(implObj, "ReadValueChunk"), flags, 4)
-        this.vtbl.GetBaseUri := CallbackCreate(GetMethod(implObj, "GetBaseUri"), flags, 3)
-        this.vtbl.IsDefault := CallbackCreate(GetMethod(implObj, "IsDefault"), flags, 1)
-        this.vtbl.IsEmptyElement := CallbackCreate(GetMethod(implObj, "IsEmptyElement"), flags, 1)
-        this.vtbl.GetLineNumber := CallbackCreate(GetMethod(implObj, "GetLineNumber"), flags, 2)
-        this.vtbl.GetLinePosition := CallbackCreate(GetMethod(implObj, "GetLinePosition"), flags, 2)
-        this.vtbl.GetAttributeCount := CallbackCreate(GetMethod(implObj, "GetAttributeCount"), flags, 2)
-        this.vtbl.GetDepth := CallbackCreate(GetMethod(implObj, "GetDepth"), flags, 2)
-        this.vtbl.IsEOF := CallbackCreate(GetMethod(implObj, "IsEOF"), flags, 1)
+        this.vtbl.SetInput := CallbackCreate(ObjBindMethod(implObj, "SetInput"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.SetProperty := CallbackCreate(ObjBindMethod(implObj, "SetProperty"), flags, 3)
+        this.vtbl.Read := CallbackCreate(ObjBindMethod(implObj, "Read"), flags, 2)
+        this.vtbl.GetNodeType := CallbackCreate(ObjBindMethod(implObj, "GetNodeType"), flags, 2)
+        this.vtbl.MoveToFirstAttribute := CallbackCreate(ObjBindMethod(implObj, "MoveToFirstAttribute"), flags, 1)
+        this.vtbl.MoveToNextAttribute := CallbackCreate(ObjBindMethod(implObj, "MoveToNextAttribute"), flags, 1)
+        this.vtbl.MoveToAttributeByName := CallbackCreate(ObjBindMethod(implObj, "MoveToAttributeByName"), flags, 3)
+        this.vtbl.MoveToElement := CallbackCreate(ObjBindMethod(implObj, "MoveToElement"), flags, 1)
+        this.vtbl.GetQualifiedName := CallbackCreate(ObjBindMethod(implObj, "GetQualifiedName"), flags, 3)
+        this.vtbl.GetNamespaceUri := CallbackCreate(ObjBindMethod(implObj, "GetNamespaceUri"), flags, 3)
+        this.vtbl.GetLocalName := CallbackCreate(ObjBindMethod(implObj, "GetLocalName"), flags, 3)
+        this.vtbl.GetPrefix := CallbackCreate(ObjBindMethod(implObj, "GetPrefix"), flags, 3)
+        this.vtbl.GetValue := CallbackCreate(ObjBindMethod(implObj, "GetValue"), flags, 3)
+        this.vtbl.ReadValueChunk := CallbackCreate(ObjBindMethod(implObj, "ReadValueChunk"), flags, 4)
+        this.vtbl.GetBaseUri := CallbackCreate(ObjBindMethod(implObj, "GetBaseUri"), flags, 3)
+        this.vtbl.IsDefault := CallbackCreate(ObjBindMethod(implObj, "IsDefault"), flags, 1)
+        this.vtbl.IsEmptyElement := CallbackCreate(ObjBindMethod(implObj, "IsEmptyElement"), flags, 1)
+        this.vtbl.GetLineNumber := CallbackCreate(ObjBindMethod(implObj, "GetLineNumber"), flags, 2)
+        this.vtbl.GetLinePosition := CallbackCreate(ObjBindMethod(implObj, "GetLinePosition"), flags, 2)
+        this.vtbl.GetAttributeCount := CallbackCreate(ObjBindMethod(implObj, "GetAttributeCount"), flags, 2)
+        this.vtbl.GetDepth := CallbackCreate(ObjBindMethod(implObj, "GetDepth"), flags, 2)
+        this.vtbl.IsEOF := CallbackCreate(ObjBindMethod(implObj, "IsEOF"), flags, 1)
     }
 
     Dispose() {

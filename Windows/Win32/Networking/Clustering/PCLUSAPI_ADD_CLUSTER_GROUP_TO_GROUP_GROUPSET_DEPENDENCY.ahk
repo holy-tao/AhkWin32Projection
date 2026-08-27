@@ -20,7 +20,6 @@ export default struct PCLUSAPI_ADD_CLUSTER_GROUP_TO_GROUP_GROUPSET_DEPENDENCY {
     }
 
     /**
-     * 
      * @param {HGROUP} hDependentGroup 
      * @param {HGROUPSET} hProviderGroupSet 
      * @returns {Integer} 

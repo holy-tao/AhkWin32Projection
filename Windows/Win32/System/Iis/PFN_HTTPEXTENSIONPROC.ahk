@@ -19,7 +19,6 @@ export default struct PFN_HTTPEXTENSIONPROC {
     }
 
     /**
-     * 
      * @param {Pointer<EXTENSION_CONTROL_BLOCK>} pECB 
      * @returns {Integer} 
      */

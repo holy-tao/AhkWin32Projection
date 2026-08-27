@@ -20,7 +20,6 @@ export default struct LSA_AP_POST_LOGON_USER {
     }
 
     /**
-     * 
      * @param {Pointer<SECPKG_POST_LOGON_USER_INFO>} PostLogonUserInfo 
      * @returns {NTSTATUS} 
      */

@@ -63,7 +63,7 @@ export default struct IPropertyChange extends IObjectWithPropertyKey {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ApplyToPropVariant := CallbackCreate(GetMethod(implObj, "ApplyToPropVariant"), flags, 3)
+        this.vtbl.ApplyToPropVariant := CallbackCreate(ObjBindMethod(implObj, "ApplyToPropVariant"), flags, 3)
     }
 
     Dispose() {

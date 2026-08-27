@@ -19,14 +19,13 @@ export default struct alljoyn_busattachment_setlinktimeoutcb_ptr {
     }
 
     /**
-     * 
      * @param {QStatus} _status 
      * @param {Integer} timeout 
      * @param {Pointer<Void>} _context 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_status, timeout, _context) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, QStatus, _status, UInt32, timeout, _contextMarshal, _context)
     }

@@ -85,8 +85,8 @@ export default struct IAnalogAudioComponentType extends IComponentType {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_AnalogAudioMode := CallbackCreate(GetMethod(implObj, "get_AnalogAudioMode"), flags, 2)
-        this.vtbl.put_AnalogAudioMode := CallbackCreate(GetMethod(implObj, "put_AnalogAudioMode"), flags, 2)
+        this.vtbl.get_AnalogAudioMode := CallbackCreate(ObjBindMethod(implObj, "get_AnalogAudioMode"), flags, 2)
+        this.vtbl.put_AnalogAudioMode := CallbackCreate(ObjBindMethod(implObj, "put_AnalogAudioMode"), flags, 2)
     }
 
     Dispose() {

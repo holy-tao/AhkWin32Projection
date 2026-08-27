@@ -118,7 +118,9 @@ export default struct ITraceDataProviderCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedataprovidercollection-add
      */
     Add(pProvider) {
-        result := ComCall(10, this, "ptr", pProvider, "HRESULT")
+        pProviderMarshal := pProvider == 0 ? IntPtr : "ptr"
+
+        result := ComCall(10, this, pProviderMarshal, pProvider, "HRESULT")
         return result
     }
 
@@ -156,7 +158,9 @@ export default struct ITraceDataProviderCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedataprovidercollection-addrange
      */
     AddRange(providers) {
-        result := ComCall(13, this, "ptr", providers, "HRESULT")
+        providersMarshal := providers == 0 ? IntPtr : "ptr"
+
+        result := ComCall(13, this, providersMarshal, providers, "HRESULT")
         return result
     }
 
@@ -179,7 +183,9 @@ export default struct ITraceDataProviderCollection extends IDispatch {
     GetTraceDataProviders(server) {
         server := server is String ? BSTR.Alloc(server).Value : server
 
-        result := ComCall(15, this, BSTR, server, "HRESULT")
+        serverMarshal := server == 0 ? IntPtr : BSTR
+
+        result := ComCall(15, this, serverMarshal, server, "HRESULT")
         return result
     }
 
@@ -193,7 +199,9 @@ export default struct ITraceDataProviderCollection extends IDispatch {
     GetTraceDataProvidersByProcess(Server, Pid) {
         Server := Server is String ? BSTR.Alloc(Server).Value : Server
 
-        result := ComCall(16, this, BSTR, Server, UInt32, Pid, "HRESULT")
+        ServerMarshal := Server == 0 ? IntPtr : BSTR
+
+        result := ComCall(16, this, ServerMarshal, Server, UInt32, Pid, "HRESULT")
         return result
     }
 
@@ -206,16 +214,16 @@ export default struct ITraceDataProviderCollection extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
-        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
-        this.vtbl.AddRange := CallbackCreate(GetMethod(implObj, "AddRange"), flags, 2)
-        this.vtbl.CreateTraceDataProvider := CallbackCreate(GetMethod(implObj, "CreateTraceDataProvider"), flags, 2)
-        this.vtbl.GetTraceDataProviders := CallbackCreate(GetMethod(implObj, "GetTraceDataProviders"), flags, 2)
-        this.vtbl.GetTraceDataProvidersByProcess := CallbackCreate(GetMethod(implObj, "GetTraceDataProvidersByProcess"), flags, 3)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(ObjBindMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.get__NewEnum := CallbackCreate(ObjBindMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.AddRange := CallbackCreate(ObjBindMethod(implObj, "AddRange"), flags, 2)
+        this.vtbl.CreateTraceDataProvider := CallbackCreate(ObjBindMethod(implObj, "CreateTraceDataProvider"), flags, 2)
+        this.vtbl.GetTraceDataProviders := CallbackCreate(ObjBindMethod(implObj, "GetTraceDataProviders"), flags, 2)
+        this.vtbl.GetTraceDataProvidersByProcess := CallbackCreate(ObjBindMethod(implObj, "GetTraceDataProvidersByProcess"), flags, 3)
     }
 
     Dispose() {

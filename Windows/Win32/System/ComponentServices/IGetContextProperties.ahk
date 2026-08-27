@@ -49,7 +49,7 @@ export default struct IGetContextProperties extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-igetcontextproperties-count
      */
     Count(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+        plCountMarshal := plCount is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, plCountMarshal, plCount, "HRESULT")
         return result
@@ -88,9 +88,9 @@ export default struct IGetContextProperties extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Count := CallbackCreate(GetMethod(implObj, "Count"), flags, 2)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
-        this.vtbl.EnumNames := CallbackCreate(GetMethod(implObj, "EnumNames"), flags, 2)
+        this.vtbl.Count := CallbackCreate(ObjBindMethod(implObj, "Count"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.EnumNames := CallbackCreate(ObjBindMethod(implObj, "EnumNames"), flags, 2)
     }
 
     Dispose() {

@@ -187,8 +187,8 @@ export default struct INamespaceWalk extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacewalk-getidarrayresult
      */
     GetIDArrayResult(pcItems, prgpidl) {
-        pcItemsMarshal := pcItems is VarRef ? "uint*" : "ptr"
-        prgpidlMarshal := prgpidl is VarRef ? "ptr*" : "ptr"
+        pcItemsMarshal := pcItems is VarRef ? "uint*" : IntPtr
+        prgpidlMarshal := prgpidl is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, pcItemsMarshal, pcItems, prgpidlMarshal, prgpidl, "HRESULT")
         return result
@@ -203,8 +203,8 @@ export default struct INamespaceWalk extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Walk := CallbackCreate(GetMethod(implObj, "Walk"), flags, 5)
-        this.vtbl.GetIDArrayResult := CallbackCreate(GetMethod(implObj, "GetIDArrayResult"), flags, 3)
+        this.vtbl.Walk := CallbackCreate(ObjBindMethod(implObj, "Walk"), flags, 5)
+        this.vtbl.GetIDArrayResult := CallbackCreate(ObjBindMethod(implObj, "GetIDArrayResult"), flags, 3)
     }
 
     Dispose() {

@@ -24,7 +24,6 @@ export default struct WSMAN_PLUGIN_AUTHORIZE_OPERATION {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pluginContext Specifies the context that was returned by a call to <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nc-wsman-wsman_plugin_startup">WSManPluginStartup</a>. This parameter represents a specific application initialization of a WinRM plug-in.
      * @param {Pointer<WSMAN_SENDER_DETAILS>} senderDetails A pointer  to the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_sender_details">WSMAN_SENDER_DETAILS</a> structure that specifies the identification information of the user.
      * @param {Integer} flags Reserved for future use. Must be set to zero.
@@ -37,7 +36,7 @@ export default struct WSMAN_PLUGIN_AUTHORIZE_OPERATION {
         action := action is String ? StrPtr(action) : action
         resourceUri := resourceUri is String ? StrPtr(resourceUri) : resourceUri
 
-        pluginContextMarshal := pluginContext is VarRef ? "ptr" : "ptr"
+        pluginContextMarshal := pluginContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, pluginContextMarshal, pluginContext, WSMAN_SENDER_DETAILS.Ptr, senderDetails, UInt32, flags, UInt32, operation, "ptr", action, "ptr", resourceUri)
     }

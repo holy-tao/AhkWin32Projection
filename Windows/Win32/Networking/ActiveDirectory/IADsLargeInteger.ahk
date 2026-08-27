@@ -59,7 +59,6 @@ export default struct IADsLargeInteger extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_HighPart() {
@@ -68,7 +67,6 @@ export default struct IADsLargeInteger extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnHighPart 
      * @returns {HRESULT} 
      */
@@ -78,7 +76,6 @@ export default struct IADsLargeInteger extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_LowPart() {
@@ -87,7 +84,6 @@ export default struct IADsLargeInteger extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnLowPart 
      * @returns {HRESULT} 
      */
@@ -105,10 +101,10 @@ export default struct IADsLargeInteger extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_HighPart := CallbackCreate(GetMethod(implObj, "get_HighPart"), flags, 2)
-        this.vtbl.put_HighPart := CallbackCreate(GetMethod(implObj, "put_HighPart"), flags, 2)
-        this.vtbl.get_LowPart := CallbackCreate(GetMethod(implObj, "get_LowPart"), flags, 2)
-        this.vtbl.put_LowPart := CallbackCreate(GetMethod(implObj, "put_LowPart"), flags, 2)
+        this.vtbl.get_HighPart := CallbackCreate(ObjBindMethod(implObj, "get_HighPart"), flags, 2)
+        this.vtbl.put_HighPart := CallbackCreate(ObjBindMethod(implObj, "put_HighPart"), flags, 2)
+        this.vtbl.get_LowPart := CallbackCreate(ObjBindMethod(implObj, "get_LowPart"), flags, 2)
+        this.vtbl.put_LowPart := CallbackCreate(ObjBindMethod(implObj, "put_LowPart"), flags, 2)
     }
 
     Dispose() {

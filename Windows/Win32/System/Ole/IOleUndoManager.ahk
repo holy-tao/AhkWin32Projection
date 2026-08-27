@@ -454,18 +454,18 @@ export default struct IOleUndoManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 2)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 3)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
-        this.vtbl.GetOpenParentState := CallbackCreate(GetMethod(implObj, "GetOpenParentState"), flags, 2)
-        this.vtbl.DiscardFrom := CallbackCreate(GetMethod(implObj, "DiscardFrom"), flags, 2)
-        this.vtbl.UndoTo := CallbackCreate(GetMethod(implObj, "UndoTo"), flags, 2)
-        this.vtbl.RedoTo := CallbackCreate(GetMethod(implObj, "RedoTo"), flags, 2)
-        this.vtbl.EnumUndoable := CallbackCreate(GetMethod(implObj, "EnumUndoable"), flags, 2)
-        this.vtbl.EnumRedoable := CallbackCreate(GetMethod(implObj, "EnumRedoable"), flags, 2)
-        this.vtbl.GetLastUndoDescription := CallbackCreate(GetMethod(implObj, "GetLastUndoDescription"), flags, 2)
-        this.vtbl.GetLastRedoDescription := CallbackCreate(GetMethod(implObj, "GetLastRedoDescription"), flags, 2)
-        this.vtbl.Enable := CallbackCreate(GetMethod(implObj, "Enable"), flags, 2)
+        this.vtbl.Open := CallbackCreate(ObjBindMethod(implObj, "Open"), flags, 2)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 3)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 2)
+        this.vtbl.GetOpenParentState := CallbackCreate(ObjBindMethod(implObj, "GetOpenParentState"), flags, 2)
+        this.vtbl.DiscardFrom := CallbackCreate(ObjBindMethod(implObj, "DiscardFrom"), flags, 2)
+        this.vtbl.UndoTo := CallbackCreate(ObjBindMethod(implObj, "UndoTo"), flags, 2)
+        this.vtbl.RedoTo := CallbackCreate(ObjBindMethod(implObj, "RedoTo"), flags, 2)
+        this.vtbl.EnumUndoable := CallbackCreate(ObjBindMethod(implObj, "EnumUndoable"), flags, 2)
+        this.vtbl.EnumRedoable := CallbackCreate(ObjBindMethod(implObj, "EnumRedoable"), flags, 2)
+        this.vtbl.GetLastUndoDescription := CallbackCreate(ObjBindMethod(implObj, "GetLastUndoDescription"), flags, 2)
+        this.vtbl.GetLastRedoDescription := CallbackCreate(ObjBindMethod(implObj, "GetLastRedoDescription"), flags, 2)
+        this.vtbl.Enable := CallbackCreate(ObjBindMethod(implObj, "Enable"), flags, 2)
     }
 
     Dispose() {

@@ -19,14 +19,14 @@ export default struct DRIVER_REINITIALIZE {
     }
 
     /**
-     * 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
      * @param {Pointer<Void>} _Context 
      * @param {Integer} Count 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(DriverObject, _Context, Count) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, DRIVER_OBJECT.Ptr, DriverObject, _ContextMarshal, _Context, UInt32, Count)
     }

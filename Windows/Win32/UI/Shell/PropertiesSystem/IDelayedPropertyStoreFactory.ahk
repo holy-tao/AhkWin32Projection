@@ -68,7 +68,7 @@ export default struct IDelayedPropertyStoreFactory extends IPropertyStoreFactory
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDelayedPropertyStore := CallbackCreate(GetMethod(implObj, "GetDelayedPropertyStore"), flags, 5)
+        this.vtbl.GetDelayedPropertyStore := CallbackCreate(ObjBindMethod(implObj, "GetDelayedPropertyStore"), flags, 5)
     }
 
     Dispose() {

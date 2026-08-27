@@ -60,7 +60,7 @@ export default struct IClassActivator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetClassObject := CallbackCreate(GetMethod(implObj, "GetClassObject"), flags, 6)
+        this.vtbl.GetClassObject := CallbackCreate(ObjBindMethod(implObj, "GetClassObject"), flags, 6)
     }
 
     Dispose() {

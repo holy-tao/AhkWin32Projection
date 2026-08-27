@@ -28,7 +28,6 @@ export default struct PFNRASSETCOMMSETTINGS {
     }
 
     /**
-     * 
      * @param {HANDLE} hPort Handle to the port on which to apply the settings. This handle is passed to the custom-scripting DLL in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nc-ras-rascustomscriptexecutefn">RasCustomScriptExecute</a> function.
      * @param {Pointer<RASCOMMSETTINGS>} pRasCommSettings Pointer to a 
@@ -37,7 +36,7 @@ export default struct PFNRASSETCOMMSETTINGS {
      * @returns {Integer} This callback function does not return a value.
      */
     Call(hPort, pRasCommSettings, pvReserved) {
-        pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
+        pvReservedMarshal := pvReserved is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, HANDLE, hPort, RASCOMMSETTINGS.Ptr, pRasCommSettings, pvReservedMarshal, pvReserved, UInt32)
         return result

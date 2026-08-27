@@ -106,7 +106,6 @@ export default struct IHTMLXDomainRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_responseText() {
@@ -116,7 +115,6 @@ export default struct IHTMLXDomainRequest extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -126,7 +124,6 @@ export default struct IHTMLXDomainRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_timeout() {
@@ -135,7 +132,6 @@ export default struct IHTMLXDomainRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_contentType() {
@@ -145,7 +141,6 @@ export default struct IHTMLXDomainRequest extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -155,7 +150,6 @@ export default struct IHTMLXDomainRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onprogress() {
@@ -165,7 +159,6 @@ export default struct IHTMLXDomainRequest extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -175,7 +168,6 @@ export default struct IHTMLXDomainRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onerror() {
@@ -185,7 +177,6 @@ export default struct IHTMLXDomainRequest extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -195,7 +186,6 @@ export default struct IHTMLXDomainRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ontimeout() {
@@ -205,7 +195,6 @@ export default struct IHTMLXDomainRequest extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -215,7 +204,6 @@ export default struct IHTMLXDomainRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onload() {
@@ -610,21 +598,21 @@ export default struct IHTMLXDomainRequest extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_responseText := CallbackCreate(GetMethod(implObj, "get_responseText"), flags, 2)
-        this.vtbl.put_timeout := CallbackCreate(GetMethod(implObj, "put_timeout"), flags, 2)
-        this.vtbl.get_timeout := CallbackCreate(GetMethod(implObj, "get_timeout"), flags, 2)
-        this.vtbl.get_contentType := CallbackCreate(GetMethod(implObj, "get_contentType"), flags, 2)
-        this.vtbl.put_onprogress := CallbackCreate(GetMethod(implObj, "put_onprogress"), flags, 2)
-        this.vtbl.get_onprogress := CallbackCreate(GetMethod(implObj, "get_onprogress"), flags, 2)
-        this.vtbl.put_onerror := CallbackCreate(GetMethod(implObj, "put_onerror"), flags, 2)
-        this.vtbl.get_onerror := CallbackCreate(GetMethod(implObj, "get_onerror"), flags, 2)
-        this.vtbl.put_ontimeout := CallbackCreate(GetMethod(implObj, "put_ontimeout"), flags, 2)
-        this.vtbl.get_ontimeout := CallbackCreate(GetMethod(implObj, "get_ontimeout"), flags, 2)
-        this.vtbl.put_onload := CallbackCreate(GetMethod(implObj, "put_onload"), flags, 2)
-        this.vtbl.get_onload := CallbackCreate(GetMethod(implObj, "get_onload"), flags, 2)
-        this.vtbl.abort := CallbackCreate(GetMethod(implObj, "abort"), flags, 1)
-        this.vtbl.open := CallbackCreate(GetMethod(implObj, "open"), flags, 3)
-        this.vtbl.send := CallbackCreate(GetMethod(implObj, "send"), flags, 2)
+        this.vtbl.get_responseText := CallbackCreate(ObjBindMethod(implObj, "get_responseText"), flags, 2)
+        this.vtbl.put_timeout := CallbackCreate(ObjBindMethod(implObj, "put_timeout"), flags, 2)
+        this.vtbl.get_timeout := CallbackCreate(ObjBindMethod(implObj, "get_timeout"), flags, 2)
+        this.vtbl.get_contentType := CallbackCreate(ObjBindMethod(implObj, "get_contentType"), flags, 2)
+        this.vtbl.put_onprogress := CallbackCreate(ObjBindMethod(implObj, "put_onprogress"), flags, 2)
+        this.vtbl.get_onprogress := CallbackCreate(ObjBindMethod(implObj, "get_onprogress"), flags, 2)
+        this.vtbl.put_onerror := CallbackCreate(ObjBindMethod(implObj, "put_onerror"), flags, 2)
+        this.vtbl.get_onerror := CallbackCreate(ObjBindMethod(implObj, "get_onerror"), flags, 2)
+        this.vtbl.put_ontimeout := CallbackCreate(ObjBindMethod(implObj, "put_ontimeout"), flags, 2)
+        this.vtbl.get_ontimeout := CallbackCreate(ObjBindMethod(implObj, "get_ontimeout"), flags, 2)
+        this.vtbl.put_onload := CallbackCreate(ObjBindMethod(implObj, "put_onload"), flags, 2)
+        this.vtbl.get_onload := CallbackCreate(ObjBindMethod(implObj, "get_onload"), flags, 2)
+        this.vtbl.abort := CallbackCreate(ObjBindMethod(implObj, "abort"), flags, 1)
+        this.vtbl.open := CallbackCreate(ObjBindMethod(implObj, "open"), flags, 3)
+        this.vtbl.send := CallbackCreate(ObjBindMethod(implObj, "send"), flags, 2)
     }
 
     Dispose() {

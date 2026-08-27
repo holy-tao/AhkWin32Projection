@@ -38,7 +38,6 @@ export default struct IKsJackDescription3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetJackCount() {
@@ -47,7 +46,6 @@ export default struct IKsJackDescription3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nJack 
      * @returns {KSJACK_DESCRIPTION3} 
      */
@@ -66,8 +64,8 @@ export default struct IKsJackDescription3 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetJackCount := CallbackCreate(GetMethod(implObj, "GetJackCount"), flags, 2)
-        this.vtbl.GetJackDescription3 := CallbackCreate(GetMethod(implObj, "GetJackDescription3"), flags, 3)
+        this.vtbl.GetJackCount := CallbackCreate(ObjBindMethod(implObj, "GetJackCount"), flags, 2)
+        this.vtbl.GetJackDescription3 := CallbackCreate(ObjBindMethod(implObj, "GetJackDescription3"), flags, 3)
     }
 
     Dispose() {

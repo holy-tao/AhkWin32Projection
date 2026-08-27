@@ -133,7 +133,9 @@ export default struct IVssComponentEx2 extends IVssComponentEx {
     SetFailure(hr, hrApplication, wszApplicationMessage, dwReserved) {
         wszApplicationMessage := wszApplicationMessage is String ? StrPtr(wszApplicationMessage) : wszApplicationMessage
 
-        result := ComCall(48, this, "int", hr, "int", hrApplication, "ptr", wszApplicationMessage, UInt32, dwReserved, "HRESULT")
+        wszApplicationMessageMarshal := wszApplicationMessage == 0 ? IntPtr : PWSTR
+
+        result := ComCall(48, this, "int", hr, "int", hrApplication, wszApplicationMessageMarshal, wszApplicationMessage, UInt32, dwReserved, "HRESULT")
         return result
     }
 
@@ -304,9 +306,9 @@ export default struct IVssComponentEx2 extends IVssComponentEx {
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponentex2-getfailure
      */
     GetFailure(phr, phrApplication, pbstrApplicationMessage, pdwReserved) {
-        phrMarshal := phr is VarRef ? "int*" : "ptr"
-        phrApplicationMarshal := phrApplication is VarRef ? "int*" : "ptr"
-        pdwReservedMarshal := pdwReserved is VarRef ? "uint*" : "ptr"
+        phrMarshal := phr is VarRef ? "int*" : IntPtr
+        phrApplicationMarshal := phrApplication is VarRef ? "int*" : IntPtr
+        pdwReservedMarshal := pdwReserved is VarRef ? "uint*" : IntPtr
 
         result := ComCall(49, this, phrMarshal, phr, phrApplicationMarshal, phrApplication, BSTR.Ptr, pbstrApplicationMessage, pdwReservedMarshal, pdwReserved, "HRESULT")
         return result
@@ -321,8 +323,8 @@ export default struct IVssComponentEx2 extends IVssComponentEx {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetFailure := CallbackCreate(GetMethod(implObj, "SetFailure"), flags, 5)
-        this.vtbl.GetFailure := CallbackCreate(GetMethod(implObj, "GetFailure"), flags, 5)
+        this.vtbl.SetFailure := CallbackCreate(ObjBindMethod(implObj, "SetFailure"), flags, 5)
+        this.vtbl.GetFailure := CallbackCreate(ObjBindMethod(implObj, "GetFailure"), flags, 5)
     }
 
     Dispose() {

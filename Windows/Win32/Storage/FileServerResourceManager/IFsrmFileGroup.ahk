@@ -192,12 +192,12 @@ export default struct IFsrmFileGroup extends IFsrmObject {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
-        this.vtbl.get_Members := CallbackCreate(GetMethod(implObj, "get_Members"), flags, 2)
-        this.vtbl.put_Members := CallbackCreate(GetMethod(implObj, "put_Members"), flags, 2)
-        this.vtbl.get_NonMembers := CallbackCreate(GetMethod(implObj, "get_NonMembers"), flags, 2)
-        this.vtbl.put_NonMembers := CallbackCreate(GetMethod(implObj, "put_NonMembers"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(ObjBindMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.get_Members := CallbackCreate(ObjBindMethod(implObj, "get_Members"), flags, 2)
+        this.vtbl.put_Members := CallbackCreate(ObjBindMethod(implObj, "put_Members"), flags, 2)
+        this.vtbl.get_NonMembers := CallbackCreate(ObjBindMethod(implObj, "get_NonMembers"), flags, 2)
+        this.vtbl.put_NonMembers := CallbackCreate(ObjBindMethod(implObj, "put_NonMembers"), flags, 2)
     }
 
     Dispose() {

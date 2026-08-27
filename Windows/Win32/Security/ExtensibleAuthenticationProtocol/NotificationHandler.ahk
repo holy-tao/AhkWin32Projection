@@ -23,13 +23,12 @@ export default struct NotificationHandler {
     }
 
     /**
-     * 
      * @param {Guid} connectionId A GUID provided by the supplicant to EAPHost. This value specifies the logical network connection to re-authenticate.
      * @param {Pointer<Void>} pContextData Context data provided to EAPHost by the supplicant. This context data can be used by the supplicant for re-authentication.
      * @returns {String} Nothing - always returns an empty string
      */
     Call(connectionId, pContextData) {
-        pContextDataMarshal := pContextData is VarRef ? "ptr" : "ptr"
+        pContextDataMarshal := pContextData is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, Guid, connectionId, pContextDataMarshal, pContextData)
     }

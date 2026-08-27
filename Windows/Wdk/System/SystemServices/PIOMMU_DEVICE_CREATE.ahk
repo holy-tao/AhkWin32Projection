@@ -19,7 +19,6 @@ export default struct PIOMMU_DEVICE_CREATE {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

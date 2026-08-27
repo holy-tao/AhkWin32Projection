@@ -20,7 +20,6 @@ export default struct PCLUSAPI_CHANGE_CLUSTER_RESOURCE_GROUP_EX {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {HGROUP} _hGroup 
      * @param {Integer} Flags 

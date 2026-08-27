@@ -19,7 +19,6 @@ export default struct IO_SESSION_NOTIFICATION_FUNCTION {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} SessionObject 
      * @param {Pointer<Void>} IoObject 
      * @param {Integer} Event 
@@ -29,11 +28,12 @@ export default struct IO_SESSION_NOTIFICATION_FUNCTION {
      * @returns {NTSTATUS} 
      */
     Call(SessionObject, IoObject, Event, _Context, NotificationPayload, PayloadLength) {
-        SessionObjectMarshal := SessionObject is VarRef ? "ptr" : "ptr"
-        IoObjectMarshal := IoObject is VarRef ? "ptr" : "ptr"
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        SessionObjectMarshal := SessionObject is VarRef ? "ptr" : IntPtr
+        IoObjectMarshal := IoObject is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        NotificationPayloadMarshal := NotificationPayload == 0 ? IntPtr : IntPtr
 
-        result := DllCall(this.value, SessionObjectMarshal, SessionObject, IoObjectMarshal, IoObject, UInt32, Event, _ContextMarshal, _Context, IntPtr, NotificationPayload, UInt32, PayloadLength, NTSTATUS)
+        result := DllCall(this.value, SessionObjectMarshal, SessionObject, IoObjectMarshal, IoObject, UInt32, Event, _ContextMarshal, _Context, NotificationPayloadMarshal, NotificationPayload, UInt32, PayloadLength, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

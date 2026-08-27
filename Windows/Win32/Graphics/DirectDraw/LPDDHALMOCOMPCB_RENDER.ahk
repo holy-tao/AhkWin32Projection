@@ -19,7 +19,6 @@ export default struct LPDDHALMOCOMPCB_RENDER {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_RENDERMOCOMPDATA>} param0 
      * @returns {Integer} 
      */

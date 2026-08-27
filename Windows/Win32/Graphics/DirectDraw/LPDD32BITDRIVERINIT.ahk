@@ -18,7 +18,6 @@ export default struct LPDD32BITDRIVERINIT {
     }
 
     /**
-     * 
      * @param {Integer} dwContext 
      * @returns {Integer} 
      */

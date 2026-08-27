@@ -19,7 +19,6 @@ export default struct PLSA_EXPAND_AUTH_DATA_FOR_DOMAIN {
     }
 
     /**
-     * 
      * @param {Integer} UserAuthData 
      * @param {Integer} UserAuthDataSize 
      * @param {Pointer<Void>} Reserved 
@@ -28,9 +27,9 @@ export default struct PLSA_EXPAND_AUTH_DATA_FOR_DOMAIN {
      * @returns {NTSTATUS} 
      */
     Call(UserAuthData, UserAuthDataSize, Reserved, ExpandedAuthData, ExpandedAuthDataSize) {
-        ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
-        ExpandedAuthDataMarshal := ExpandedAuthData is VarRef ? "ptr*" : "ptr"
-        ExpandedAuthDataSizeMarshal := ExpandedAuthDataSize is VarRef ? "uint*" : "ptr"
+        ReservedMarshal := Reserved is VarRef ? "ptr" : IntPtr
+        ExpandedAuthDataMarshal := ExpandedAuthData is VarRef ? "ptr*" : IntPtr
+        ExpandedAuthDataSizeMarshal := ExpandedAuthDataSize is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, IntPtr, UserAuthData, UInt32, UserAuthDataSize, ReservedMarshal, Reserved, ExpandedAuthDataMarshal, ExpandedAuthData, ExpandedAuthDataSizeMarshal, ExpandedAuthDataSize, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

@@ -49,7 +49,6 @@ export default struct IDtcNetworkAccessConfig extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetAnyNetworkAccess() {
@@ -58,7 +57,6 @@ export default struct IDtcNetworkAccessConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} bAnyNetworkAccess 
      * @returns {HRESULT} 
      */
@@ -68,7 +66,6 @@ export default struct IDtcNetworkAccessConfig extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetNetworkAdministrationAccess() {
@@ -77,7 +74,6 @@ export default struct IDtcNetworkAccessConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} bNetworkAdministrationAccess 
      * @returns {HRESULT} 
      */
@@ -87,7 +83,6 @@ export default struct IDtcNetworkAccessConfig extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetNetworkTransactionAccess() {
@@ -96,7 +91,6 @@ export default struct IDtcNetworkAccessConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} bNetworkTransactionAccess 
      * @returns {HRESULT} 
      */
@@ -106,7 +100,6 @@ export default struct IDtcNetworkAccessConfig extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetNetworkClientAccess() {
@@ -115,7 +108,6 @@ export default struct IDtcNetworkAccessConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} bNetworkClientAccess 
      * @returns {HRESULT} 
      */
@@ -125,7 +117,6 @@ export default struct IDtcNetworkAccessConfig extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetNetworkTIPAccess() {
@@ -134,7 +125,6 @@ export default struct IDtcNetworkAccessConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} bNetworkTIPAccess 
      * @returns {HRESULT} 
      */
@@ -144,7 +134,6 @@ export default struct IDtcNetworkAccessConfig extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetXAAccess() {
@@ -153,7 +142,6 @@ export default struct IDtcNetworkAccessConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} bXAAccess 
      * @returns {HRESULT} 
      */
@@ -163,7 +151,6 @@ export default struct IDtcNetworkAccessConfig extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RestartDtcService() {
@@ -180,19 +167,19 @@ export default struct IDtcNetworkAccessConfig extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAnyNetworkAccess := CallbackCreate(GetMethod(implObj, "GetAnyNetworkAccess"), flags, 2)
-        this.vtbl.SetAnyNetworkAccess := CallbackCreate(GetMethod(implObj, "SetAnyNetworkAccess"), flags, 2)
-        this.vtbl.GetNetworkAdministrationAccess := CallbackCreate(GetMethod(implObj, "GetNetworkAdministrationAccess"), flags, 2)
-        this.vtbl.SetNetworkAdministrationAccess := CallbackCreate(GetMethod(implObj, "SetNetworkAdministrationAccess"), flags, 2)
-        this.vtbl.GetNetworkTransactionAccess := CallbackCreate(GetMethod(implObj, "GetNetworkTransactionAccess"), flags, 2)
-        this.vtbl.SetNetworkTransactionAccess := CallbackCreate(GetMethod(implObj, "SetNetworkTransactionAccess"), flags, 2)
-        this.vtbl.GetNetworkClientAccess := CallbackCreate(GetMethod(implObj, "GetNetworkClientAccess"), flags, 2)
-        this.vtbl.SetNetworkClientAccess := CallbackCreate(GetMethod(implObj, "SetNetworkClientAccess"), flags, 2)
-        this.vtbl.GetNetworkTIPAccess := CallbackCreate(GetMethod(implObj, "GetNetworkTIPAccess"), flags, 2)
-        this.vtbl.SetNetworkTIPAccess := CallbackCreate(GetMethod(implObj, "SetNetworkTIPAccess"), flags, 2)
-        this.vtbl.GetXAAccess := CallbackCreate(GetMethod(implObj, "GetXAAccess"), flags, 2)
-        this.vtbl.SetXAAccess := CallbackCreate(GetMethod(implObj, "SetXAAccess"), flags, 2)
-        this.vtbl.RestartDtcService := CallbackCreate(GetMethod(implObj, "RestartDtcService"), flags, 1)
+        this.vtbl.GetAnyNetworkAccess := CallbackCreate(ObjBindMethod(implObj, "GetAnyNetworkAccess"), flags, 2)
+        this.vtbl.SetAnyNetworkAccess := CallbackCreate(ObjBindMethod(implObj, "SetAnyNetworkAccess"), flags, 2)
+        this.vtbl.GetNetworkAdministrationAccess := CallbackCreate(ObjBindMethod(implObj, "GetNetworkAdministrationAccess"), flags, 2)
+        this.vtbl.SetNetworkAdministrationAccess := CallbackCreate(ObjBindMethod(implObj, "SetNetworkAdministrationAccess"), flags, 2)
+        this.vtbl.GetNetworkTransactionAccess := CallbackCreate(ObjBindMethod(implObj, "GetNetworkTransactionAccess"), flags, 2)
+        this.vtbl.SetNetworkTransactionAccess := CallbackCreate(ObjBindMethod(implObj, "SetNetworkTransactionAccess"), flags, 2)
+        this.vtbl.GetNetworkClientAccess := CallbackCreate(ObjBindMethod(implObj, "GetNetworkClientAccess"), flags, 2)
+        this.vtbl.SetNetworkClientAccess := CallbackCreate(ObjBindMethod(implObj, "SetNetworkClientAccess"), flags, 2)
+        this.vtbl.GetNetworkTIPAccess := CallbackCreate(ObjBindMethod(implObj, "GetNetworkTIPAccess"), flags, 2)
+        this.vtbl.SetNetworkTIPAccess := CallbackCreate(ObjBindMethod(implObj, "SetNetworkTIPAccess"), flags, 2)
+        this.vtbl.GetXAAccess := CallbackCreate(ObjBindMethod(implObj, "GetXAAccess"), flags, 2)
+        this.vtbl.SetXAAccess := CallbackCreate(ObjBindMethod(implObj, "SetXAAccess"), flags, 2)
+        this.vtbl.RestartDtcService := CallbackCreate(ObjBindMethod(implObj, "RestartDtcService"), flags, 1)
     }
 
     Dispose() {

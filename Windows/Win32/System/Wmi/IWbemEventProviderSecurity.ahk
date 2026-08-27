@@ -50,9 +50,9 @@ export default struct IWbemEventProviderSecurity extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemeventprovidersecurity-accesscheck
      */
     AccessCheck(wszQueryLanguage, wszQuery, lSidLength, _pSid) {
-        wszQueryLanguageMarshal := wszQueryLanguage is VarRef ? "ushort*" : "ptr"
-        wszQueryMarshal := wszQuery is VarRef ? "ushort*" : "ptr"
-        _pSidMarshal := _pSid is VarRef ? "char*" : "ptr"
+        wszQueryLanguageMarshal := wszQueryLanguage is VarRef ? "ushort*" : IntPtr
+        wszQueryMarshal := wszQuery is VarRef ? "ushort*" : IntPtr
+        _pSidMarshal := _pSid is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, wszQueryLanguageMarshal, wszQueryLanguage, wszQueryMarshal, wszQuery, Int32, lSidLength, _pSidMarshal, _pSid, "HRESULT")
         return result
@@ -67,7 +67,7 @@ export default struct IWbemEventProviderSecurity extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AccessCheck := CallbackCreate(GetMethod(implObj, "AccessCheck"), flags, 5)
+        this.vtbl.AccessCheck := CallbackCreate(ObjBindMethod(implObj, "AccessCheck"), flags, 5)
     }
 
     Dispose() {

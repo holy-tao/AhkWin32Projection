@@ -70,7 +70,6 @@ export default struct IRTCSessionReferStatusEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCSession2} 
      */
     get_Session() {
@@ -79,7 +78,6 @@ export default struct IRTCSessionReferStatusEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {RTC_SESSION_REFER_STATUS} 
      */
     get_ReferStatus() {
@@ -88,7 +86,6 @@ export default struct IRTCSessionReferStatusEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_StatusCode() {
@@ -97,7 +94,6 @@ export default struct IRTCSessionReferStatusEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_StatusText() {
@@ -115,10 +111,10 @@ export default struct IRTCSessionReferStatusEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Session := CallbackCreate(GetMethod(implObj, "get_Session"), flags, 2)
-        this.vtbl.get_ReferStatus := CallbackCreate(GetMethod(implObj, "get_ReferStatus"), flags, 2)
-        this.vtbl.get_StatusCode := CallbackCreate(GetMethod(implObj, "get_StatusCode"), flags, 2)
-        this.vtbl.get_StatusText := CallbackCreate(GetMethod(implObj, "get_StatusText"), flags, 2)
+        this.vtbl.get_Session := CallbackCreate(ObjBindMethod(implObj, "get_Session"), flags, 2)
+        this.vtbl.get_ReferStatus := CallbackCreate(ObjBindMethod(implObj, "get_ReferStatus"), flags, 2)
+        this.vtbl.get_StatusCode := CallbackCreate(ObjBindMethod(implObj, "get_StatusCode"), flags, 2)
+        this.vtbl.get_StatusText := CallbackCreate(ObjBindMethod(implObj, "get_StatusText"), flags, 2)
     }
 
     Dispose() {

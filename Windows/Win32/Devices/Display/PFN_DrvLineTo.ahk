@@ -23,7 +23,6 @@ export default struct PFN_DrvLineTo {
     }
 
     /**
-     * 
      * @param {Pointer<SURFOBJ>} param0 
      * @param {Pointer<CLIPOBJ>} param1 
      * @param {Pointer<BRUSHOBJ>} param2 

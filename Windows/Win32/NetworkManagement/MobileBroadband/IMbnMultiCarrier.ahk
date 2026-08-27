@@ -108,7 +108,7 @@ export default struct IMbnMultiCarrier extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnmulticarrier-getvisibleproviders
      */
     GetVisibleProviders(age) {
-        ageMarshal := age is VarRef ? "uint*" : "ptr"
+        ageMarshal := age is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, ageMarshal, age, "ptr*", &visibleProviders := 0, "HRESULT")
         return visibleProviders
@@ -164,12 +164,12 @@ export default struct IMbnMultiCarrier extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetHomeProvider := CallbackCreate(GetMethod(implObj, "SetHomeProvider"), flags, 3)
-        this.vtbl.GetPreferredProviders := CallbackCreate(GetMethod(implObj, "GetPreferredProviders"), flags, 2)
-        this.vtbl.GetVisibleProviders := CallbackCreate(GetMethod(implObj, "GetVisibleProviders"), flags, 3)
-        this.vtbl.GetSupportedCellularClasses := CallbackCreate(GetMethod(implObj, "GetSupportedCellularClasses"), flags, 2)
-        this.vtbl.GetCurrentCellularClass := CallbackCreate(GetMethod(implObj, "GetCurrentCellularClass"), flags, 2)
-        this.vtbl.ScanNetwork := CallbackCreate(GetMethod(implObj, "ScanNetwork"), flags, 2)
+        this.vtbl.SetHomeProvider := CallbackCreate(ObjBindMethod(implObj, "SetHomeProvider"), flags, 3)
+        this.vtbl.GetPreferredProviders := CallbackCreate(ObjBindMethod(implObj, "GetPreferredProviders"), flags, 2)
+        this.vtbl.GetVisibleProviders := CallbackCreate(ObjBindMethod(implObj, "GetVisibleProviders"), flags, 3)
+        this.vtbl.GetSupportedCellularClasses := CallbackCreate(ObjBindMethod(implObj, "GetSupportedCellularClasses"), flags, 2)
+        this.vtbl.GetCurrentCellularClass := CallbackCreate(ObjBindMethod(implObj, "GetCurrentCellularClass"), flags, 2)
+        this.vtbl.ScanNetwork := CallbackCreate(ObjBindMethod(implObj, "ScanNetwork"), flags, 2)
     }
 
     Dispose() {

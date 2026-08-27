@@ -18,15 +18,15 @@ export default struct PDEVICE_NOTIFY_CALLBACK_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Integer} Type 
      * @param {Pointer<Void>} Setting 
      * @returns {Integer} 
      */
     Call(_Context, Type, Setting) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        SettingMarshal := Setting is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
+        SettingMarshal := Setting is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, UInt32, Type, SettingMarshal, Setting, UInt32)
         return result

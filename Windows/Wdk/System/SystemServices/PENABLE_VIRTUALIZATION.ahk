@@ -19,7 +19,6 @@ export default struct PENABLE_VIRTUALIZATION {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

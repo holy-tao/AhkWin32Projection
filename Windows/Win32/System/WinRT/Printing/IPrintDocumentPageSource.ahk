@@ -40,23 +40,26 @@ export default struct IPrintDocumentPageSource extends IUnknown {
     }
 
     /**
-     * 
      * @param {IPrintDocumentPackageTarget} docPackageTarget 
      * @returns {IPrintPreviewPageCollection} 
      */
     GetPreviewPageCollection(docPackageTarget) {
-        result := ComCall(3, this, "ptr", docPackageTarget, "ptr*", &docPageCollection := 0, "HRESULT")
+        docPackageTargetMarshal := docPackageTarget == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, docPackageTargetMarshal, docPackageTarget, "ptr*", &docPageCollection := 0, "HRESULT")
         return IPrintPreviewPageCollection(docPageCollection)
     }
 
     /**
-     * 
      * @param {IInspectable} printTaskOptions 
      * @param {IPrintDocumentPackageTarget} docPackageTarget 
      * @returns {HRESULT} 
      */
     MakeDocument(printTaskOptions, docPackageTarget) {
-        result := ComCall(4, this, "ptr", printTaskOptions, "ptr", docPackageTarget, "HRESULT")
+        printTaskOptionsMarshal := printTaskOptions == 0 ? IntPtr : "ptr"
+        docPackageTargetMarshal := docPackageTarget == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, printTaskOptionsMarshal, printTaskOptions, docPackageTargetMarshal, docPackageTarget, "HRESULT")
         return result
     }
 
@@ -69,8 +72,8 @@ export default struct IPrintDocumentPageSource extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPreviewPageCollection := CallbackCreate(GetMethod(implObj, "GetPreviewPageCollection"), flags, 3)
-        this.vtbl.MakeDocument := CallbackCreate(GetMethod(implObj, "MakeDocument"), flags, 3)
+        this.vtbl.GetPreviewPageCollection := CallbackCreate(ObjBindMethod(implObj, "GetPreviewPageCollection"), flags, 3)
+        this.vtbl.MakeDocument := CallbackCreate(ObjBindMethod(implObj, "MakeDocument"), flags, 3)
     }
 
     Dispose() {

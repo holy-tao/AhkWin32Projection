@@ -38,7 +38,6 @@ export default struct ICompositorInterop2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} renderingDevice 
      * @returns {BOOL} 
      */
@@ -48,7 +47,6 @@ export default struct ICompositorInterop2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} d3dTexture 
      * @returns {Pointer} 
      */
@@ -66,8 +64,8 @@ export default struct ICompositorInterop2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CheckCompositionTextureSupport := CallbackCreate(GetMethod(implObj, "CheckCompositionTextureSupport"), flags, 3)
-        this.vtbl.CreateCompositionTexture := CallbackCreate(GetMethod(implObj, "CreateCompositionTexture"), flags, 3)
+        this.vtbl.CheckCompositionTextureSupport := CallbackCreate(ObjBindMethod(implObj, "CheckCompositionTextureSupport"), flags, 3)
+        this.vtbl.CreateCompositionTexture := CallbackCreate(ObjBindMethod(implObj, "CreateCompositionTexture"), flags, 3)
     }
 
     Dispose() {

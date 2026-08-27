@@ -45,7 +45,6 @@ export default struct IGameInputForceFeedbackEffect extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<IGameInputDevice>} device 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -54,7 +53,6 @@ export default struct IGameInputForceFeedbackEffect extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMotorIndex() {
@@ -63,7 +61,6 @@ export default struct IGameInputForceFeedbackEffect extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     GetGain() {
@@ -72,7 +69,6 @@ export default struct IGameInputForceFeedbackEffect extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} gain 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -81,7 +77,6 @@ export default struct IGameInputForceFeedbackEffect extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<GameInputForceFeedbackParams>} params 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -90,7 +85,6 @@ export default struct IGameInputForceFeedbackEffect extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<GameInputForceFeedbackParams>} params 
      * @returns {Boolean} 
      */
@@ -100,7 +94,6 @@ export default struct IGameInputForceFeedbackEffect extends IUnknown {
     }
 
     /**
-     * 
      * @returns {GameInputFeedbackEffectState} 
      */
     GetState() {
@@ -109,7 +102,6 @@ export default struct IGameInputForceFeedbackEffect extends IUnknown {
     }
 
     /**
-     * 
      * @param {GameInputFeedbackEffectState} state 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -126,14 +118,14 @@ export default struct IGameInputForceFeedbackEffect extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDevice := CallbackCreate(GetMethod(implObj, "GetDevice"), flags, 2)
-        this.vtbl.GetMotorIndex := CallbackCreate(GetMethod(implObj, "GetMotorIndex"), flags, 1)
-        this.vtbl.GetGain := CallbackCreate(GetMethod(implObj, "GetGain"), flags, 1)
-        this.vtbl.SetGain := CallbackCreate(GetMethod(implObj, "SetGain"), flags, 2)
-        this.vtbl.GetParams := CallbackCreate(GetMethod(implObj, "GetParams"), flags, 2)
-        this.vtbl.SetParams := CallbackCreate(GetMethod(implObj, "SetParams"), flags, 2)
-        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 1)
-        this.vtbl.SetState := CallbackCreate(GetMethod(implObj, "SetState"), flags, 2)
+        this.vtbl.GetDevice := CallbackCreate(ObjBindMethod(implObj, "GetDevice"), flags, 2)
+        this.vtbl.GetMotorIndex := CallbackCreate(ObjBindMethod(implObj, "GetMotorIndex"), flags, 1)
+        this.vtbl.GetGain := CallbackCreate(ObjBindMethod(implObj, "GetGain"), flags, 1)
+        this.vtbl.SetGain := CallbackCreate(ObjBindMethod(implObj, "SetGain"), flags, 2)
+        this.vtbl.GetParams := CallbackCreate(ObjBindMethod(implObj, "GetParams"), flags, 2)
+        this.vtbl.SetParams := CallbackCreate(ObjBindMethod(implObj, "SetParams"), flags, 2)
+        this.vtbl.GetState := CallbackCreate(ObjBindMethod(implObj, "GetState"), flags, 1)
+        this.vtbl.SetState := CallbackCreate(ObjBindMethod(implObj, "SetState"), flags, 2)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct PFN_CARD_RSA_DECRYPT {
     }
 
     /**
-     * 
      * @param {Pointer<CARD_DATA>} pCardData 
      * @param {Pointer<CARD_RSA_DECRYPT_INFO>} pInfo 
      * @returns {Integer} 

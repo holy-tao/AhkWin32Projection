@@ -66,8 +66,8 @@ export default struct IProcessLock extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddRefOnProcess := CallbackCreate(GetMethod(implObj, "AddRefOnProcess"), flags, 1)
-        this.vtbl.ReleaseRefOnProcess := CallbackCreate(GetMethod(implObj, "ReleaseRefOnProcess"), flags, 1)
+        this.vtbl.AddRefOnProcess := CallbackCreate(ObjBindMethod(implObj, "AddRefOnProcess"), flags, 1)
+        this.vtbl.ReleaseRefOnProcess := CallbackCreate(ObjBindMethod(implObj, "ReleaseRefOnProcess"), flags, 1)
     }
 
     Dispose() {

@@ -19,14 +19,13 @@ export default struct VBS_BASIC_ENCLAVE_BASIC_CALL_GENERATE_KEY {
     }
 
     /**
-     * 
      * @param {Pointer<ENCLAVE_VBS_BASIC_KEY_REQUEST>} KeyRequest 
      * @param {Integer} RequestedKeySize 
      * @param {Pointer<Integer>} ReturnedKey 
      * @returns {Integer} 
      */
     Call(KeyRequest, RequestedKeySize, ReturnedKey) {
-        ReturnedKeyMarshal := ReturnedKey is VarRef ? "char*" : "ptr"
+        ReturnedKeyMarshal := ReturnedKey is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, ENCLAVE_VBS_BASIC_KEY_REQUEST.Ptr, KeyRequest, UInt32, RequestedKeySize, ReturnedKeyMarshal, ReturnedKey, Int32)
         return result

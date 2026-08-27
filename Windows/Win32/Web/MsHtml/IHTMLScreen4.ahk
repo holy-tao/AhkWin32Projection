@@ -43,7 +43,6 @@ export default struct IHTMLScreen4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_pixelDepth() {
@@ -60,7 +59,7 @@ export default struct IHTMLScreen4 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_pixelDepth := CallbackCreate(GetMethod(implObj, "get_pixelDepth"), flags, 2)
+        this.vtbl.get_pixelDepth := CallbackCreate(ObjBindMethod(implObj, "get_pixelDepth"), flags, 2)
     }
 
     Dispose() {

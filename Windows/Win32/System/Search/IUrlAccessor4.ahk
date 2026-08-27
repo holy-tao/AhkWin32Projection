@@ -72,8 +72,8 @@ export default struct IUrlAccessor4 extends IUrlAccessor3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ShouldIndexItemContent := CallbackCreate(GetMethod(implObj, "ShouldIndexItemContent"), flags, 2)
-        this.vtbl.ShouldIndexProperty := CallbackCreate(GetMethod(implObj, "ShouldIndexProperty"), flags, 3)
+        this.vtbl.ShouldIndexItemContent := CallbackCreate(ObjBindMethod(implObj, "ShouldIndexItemContent"), flags, 2)
+        this.vtbl.ShouldIndexProperty := CallbackCreate(ObjBindMethod(implObj, "ShouldIndexProperty"), flags, 3)
     }
 
     Dispose() {

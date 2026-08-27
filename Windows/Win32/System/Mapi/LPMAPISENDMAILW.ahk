@@ -20,7 +20,6 @@ export default struct LPMAPISENDMAILW {
     }
 
     /**
-     * 
      * @param {Pointer} lhSession 
      * @param {Pointer} ulUIParam 
      * @param {Pointer<MapiMessageW>} lpMessage 

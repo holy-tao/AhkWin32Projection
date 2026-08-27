@@ -43,7 +43,6 @@ export default struct ISpSREngineSite2 extends ISpSREngineSite {
     }
 
     /**
-     * 
      * @param {Pointer<SPEVENTEX>} pEvent 
      * @param {SPRECOCONTEXTHANDLE} hSAPIRecoContext 
      * @returns {HRESULT} 
@@ -54,7 +53,6 @@ export default struct ISpSREngineSite2 extends ISpSREngineSite {
     }
 
     /**
-     * 
      * @param {Integer} ullCurrentRecoPos 
      * @param {Integer} ullCurrentRecoTime 
      * @returns {HRESULT} 
@@ -65,7 +63,6 @@ export default struct ISpSREngineSite2 extends ISpSREngineSite {
     }
 
     /**
-     * 
      * @param {Integer} ulGrammarID 
      * @param {Integer} RuleIndex 
      * @returns {SPTRANSITIONENTRY} 
@@ -77,7 +74,6 @@ export default struct ISpSREngineSite2 extends ISpSREngineSite {
     }
 
     /**
-     * 
      * @param {Pointer<SPRECORESULTINFOEX>} pResultInfo 
      * @returns {HRESULT} 
      */
@@ -95,10 +91,10 @@ export default struct ISpSREngineSite2 extends ISpSREngineSite {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddEventEx := CallbackCreate(GetMethod(implObj, "AddEventEx"), flags, 3)
-        this.vtbl.UpdateRecoPosEx := CallbackCreate(GetMethod(implObj, "UpdateRecoPosEx"), flags, 3)
-        this.vtbl.GetRuleTransition := CallbackCreate(GetMethod(implObj, "GetRuleTransition"), flags, 4)
-        this.vtbl.RecognitionEx := CallbackCreate(GetMethod(implObj, "RecognitionEx"), flags, 2)
+        this.vtbl.AddEventEx := CallbackCreate(ObjBindMethod(implObj, "AddEventEx"), flags, 3)
+        this.vtbl.UpdateRecoPosEx := CallbackCreate(ObjBindMethod(implObj, "UpdateRecoPosEx"), flags, 3)
+        this.vtbl.GetRuleTransition := CallbackCreate(ObjBindMethod(implObj, "GetRuleTransition"), flags, 4)
+        this.vtbl.RecognitionEx := CallbackCreate(ObjBindMethod(implObj, "RecognitionEx"), flags, 2)
     }
 
     Dispose() {

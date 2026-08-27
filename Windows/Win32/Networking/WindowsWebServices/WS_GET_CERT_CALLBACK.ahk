@@ -25,7 +25,6 @@ export default struct WS_GET_CERT_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} getCertCallbackState State that was specified along with this callback in the certificate credential.
      * @param {Pointer<WS_ENDPOINT_ADDRESS>} targetAddress The target address to whom this certificate is to be presented, in
      * case this certificate credential is specified for a client.
@@ -34,10 +33,14 @@ export default struct WS_GET_CERT_CALLBACK {
      * @returns {Pointer<CERT_CONTEXT>} The location to return the certificate.
      */
     Call(getCertCallbackState, targetAddress, viaUri, _error) {
-        getCertCallbackStateMarshal := getCertCallbackState is VarRef ? "ptr" : "ptr"
-        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
+        getCertCallbackStateMarshal := getCertCallbackState is VarRef ? "ptr" : IntPtr
+        getCertCallbackStateMarshal := getCertCallbackState == 0 ? IntPtr : "ptr"
+        targetAddressMarshal := targetAddress == 0 ? IntPtr : WS_ENDPOINT_ADDRESS.Ptr
+        viaUriMarshal := viaUri == 0 ? IntPtr : WS_STRING.Ptr
+        _errorMarshal := _error is VarRef ? "ptr*" : IntPtr
+        _errorMarshal := _error == 0 ? IntPtr : WS_ERROR.Ptr
 
-        result := DllCall(this.value, getCertCallbackStateMarshal, getCertCallbackState, WS_ENDPOINT_ADDRESS.Ptr, targetAddress, WS_STRING.Ptr, viaUri, "ptr*", &cert := 0, _errorMarshal, _error, "HRESULT")
+        result := DllCall(this.value, getCertCallbackStateMarshal, getCertCallbackState, targetAddressMarshal, targetAddress, viaUriMarshal, viaUri, "ptr*", &cert := 0, _errorMarshal, _error, "HRESULT")
         return cert
     }
 

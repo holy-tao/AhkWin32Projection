@@ -18,13 +18,12 @@ export default struct PROTOCOL_CL_CLOSE_AF_COMPLETE {
     }
 
     /**
-     * 
      * @param {Integer} _Status 
      * @param {Pointer<Void>} ProtocolAfContext 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Status, ProtocolAfContext) {
-        ProtocolAfContextMarshal := ProtocolAfContext is VarRef ? "ptr" : "ptr"
+        ProtocolAfContextMarshal := ProtocolAfContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, Int32, _Status, ProtocolAfContextMarshal, ProtocolAfContext)
     }

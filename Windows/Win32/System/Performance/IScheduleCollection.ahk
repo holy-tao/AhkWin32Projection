@@ -107,7 +107,9 @@ export default struct IScheduleCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ischedulecollection-add
      */
     Add(pSchedule) {
-        result := ComCall(10, this, "ptr", pSchedule, "HRESULT")
+        pScheduleMarshal := pSchedule == 0 ? IntPtr : "ptr"
+
+        result := ComCall(10, this, pScheduleMarshal, pSchedule, "HRESULT")
         return result
     }
 
@@ -141,7 +143,9 @@ export default struct IScheduleCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ischedulecollection-addrange
      */
     AddRange(pSchedules) {
-        result := ComCall(13, this, "ptr", pSchedules, "HRESULT")
+        pSchedulesMarshal := pSchedules == 0 ? IntPtr : "ptr"
+
+        result := ComCall(13, this, pSchedulesMarshal, pSchedules, "HRESULT")
         return result
     }
 
@@ -164,14 +168,14 @@ export default struct IScheduleCollection extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
-        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
-        this.vtbl.AddRange := CallbackCreate(GetMethod(implObj, "AddRange"), flags, 2)
-        this.vtbl.CreateSchedule := CallbackCreate(GetMethod(implObj, "CreateSchedule"), flags, 2)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(ObjBindMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.get__NewEnum := CallbackCreate(ObjBindMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.AddRange := CallbackCreate(ObjBindMethod(implObj, "AddRange"), flags, 2)
+        this.vtbl.CreateSchedule := CallbackCreate(ObjBindMethod(implObj, "CreateSchedule"), flags, 2)
     }
 
     Dispose() {

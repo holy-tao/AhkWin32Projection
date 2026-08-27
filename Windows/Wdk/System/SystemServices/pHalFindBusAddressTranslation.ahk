@@ -19,7 +19,6 @@ export default struct pHalFindBusAddressTranslation {
     }
 
     /**
-     * 
      * @param {Integer} BusAddress 
      * @param {Pointer<Integer>} AddressSpace 
      * @param {Pointer<Integer>} TranslatedAddress 
@@ -28,9 +27,9 @@ export default struct pHalFindBusAddressTranslation {
      * @returns {BOOLEAN} 
      */
     Call(BusAddress, AddressSpace, TranslatedAddress, _Context, NextBus) {
-        AddressSpaceMarshal := AddressSpace is VarRef ? "uint*" : "ptr"
-        TranslatedAddressMarshal := TranslatedAddress is VarRef ? "int64*" : "ptr"
-        _ContextMarshal := _Context is VarRef ? "ptr*" : "ptr"
+        AddressSpaceMarshal := AddressSpace is VarRef ? "uint*" : IntPtr
+        TranslatedAddressMarshal := TranslatedAddress is VarRef ? "int64*" : IntPtr
+        _ContextMarshal := _Context is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, Int64, BusAddress, AddressSpaceMarshal, AddressSpace, TranslatedAddressMarshal, TranslatedAddress, _ContextMarshal, _Context, BOOLEAN, NextBus, BOOLEAN)
         return result

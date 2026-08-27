@@ -51,7 +51,7 @@ export default struct IWRdsGraphicsChannelManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wrdsgraphicschannels/nf-wrdsgraphicschannels-iwrdsgraphicschannelmanager-createchannel
      */
     CreateChannel(pszChannelName, _channelType) {
-        pszChannelNameMarshal := pszChannelName is VarRef ? "char*" : "ptr"
+        pszChannelNameMarshal := pszChannelName is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, pszChannelNameMarshal, pszChannelName, WRdsGraphicsChannelType, _channelType, "ptr*", &ppVirtualChannel := 0, "HRESULT")
         return IWRdsGraphicsChannel(ppVirtualChannel)
@@ -66,7 +66,7 @@ export default struct IWRdsGraphicsChannelManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateChannel := CallbackCreate(GetMethod(implObj, "CreateChannel"), flags, 4)
+        this.vtbl.CreateChannel := CallbackCreate(ObjBindMethod(implObj, "CreateChannel"), flags, 4)
     }
 
     Dispose() {

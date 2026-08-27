@@ -18,7 +18,6 @@ export default struct NDIS_TIMER_FUNCTION {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} SystemSpecific1 
      * @param {Pointer<Void>} FunctionContext 
      * @param {Pointer<Void>} SystemSpecific2 
@@ -26,10 +25,10 @@ export default struct NDIS_TIMER_FUNCTION {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(SystemSpecific1, FunctionContext, SystemSpecific2, SystemSpecific3) {
-        SystemSpecific1Marshal := SystemSpecific1 is VarRef ? "ptr" : "ptr"
-        FunctionContextMarshal := FunctionContext is VarRef ? "ptr" : "ptr"
-        SystemSpecific2Marshal := SystemSpecific2 is VarRef ? "ptr" : "ptr"
-        SystemSpecific3Marshal := SystemSpecific3 is VarRef ? "ptr" : "ptr"
+        SystemSpecific1Marshal := SystemSpecific1 is VarRef ? "ptr" : IntPtr
+        FunctionContextMarshal := FunctionContext is VarRef ? "ptr" : IntPtr
+        SystemSpecific2Marshal := SystemSpecific2 is VarRef ? "ptr" : IntPtr
+        SystemSpecific3Marshal := SystemSpecific3 is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, SystemSpecific1Marshal, SystemSpecific1, FunctionContextMarshal, FunctionContext, SystemSpecific2Marshal, SystemSpecific2, SystemSpecific3Marshal, SystemSpecific3)
     }

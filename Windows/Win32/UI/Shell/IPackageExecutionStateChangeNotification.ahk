@@ -66,7 +66,7 @@ export default struct IPackageExecutionStateChangeNotification extends IUnknown 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnStateChanged := CallbackCreate(GetMethod(implObj, "OnStateChanged"), flags, 3)
+        this.vtbl.OnStateChanged := CallbackCreate(ObjBindMethod(implObj, "OnStateChanged"), flags, 3)
     }
 
     Dispose() {

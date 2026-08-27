@@ -53,7 +53,6 @@ export default struct IShellUIHelper2 extends IShellUIHelper {
     }
 
     /**
-     * 
      * @param {BSTR} URL 
      * @returns {HRESULT} 
      */
@@ -65,7 +64,6 @@ export default struct IShellUIHelper2 extends IShellUIHelper {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RunOnceShown() {
@@ -74,7 +72,6 @@ export default struct IShellUIHelper2 extends IShellUIHelper {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SkipRunOnce() {
@@ -83,7 +80,6 @@ export default struct IShellUIHelper2 extends IShellUIHelper {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fSQM 
      * @param {VARIANT_BOOL} fPhishing 
      * @param {BSTR} bstrLocale 
@@ -97,7 +93,6 @@ export default struct IShellUIHelper2 extends IShellUIHelper {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     SqmEnabled() {
@@ -106,7 +101,6 @@ export default struct IShellUIHelper2 extends IShellUIHelper {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     PhishingEnabled() {
@@ -115,7 +109,6 @@ export default struct IShellUIHelper2 extends IShellUIHelper {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     BrandImageUri() {
@@ -125,7 +118,6 @@ export default struct IShellUIHelper2 extends IShellUIHelper {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SkipTabsWelcome() {
@@ -134,7 +126,6 @@ export default struct IShellUIHelper2 extends IShellUIHelper {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DiagnoseConnection() {
@@ -143,7 +134,6 @@ export default struct IShellUIHelper2 extends IShellUIHelper {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fSet 
      * @returns {HRESULT} 
      */
@@ -153,7 +143,6 @@ export default struct IShellUIHelper2 extends IShellUIHelper {
     }
 
     /**
-     * 
      * @param {BSTR} URL 
      * @returns {Integer} 
      */
@@ -165,7 +154,6 @@ export default struct IShellUIHelper2 extends IShellUIHelper {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     IsSearchMigrated() {
@@ -174,7 +162,6 @@ export default struct IShellUIHelper2 extends IShellUIHelper {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     DefaultSearchProvider() {
@@ -184,7 +171,6 @@ export default struct IShellUIHelper2 extends IShellUIHelper {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fComplete 
      * @returns {HRESULT} 
      */
@@ -194,7 +180,6 @@ export default struct IShellUIHelper2 extends IShellUIHelper {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     RunOnceHasShown() {
@@ -203,7 +188,6 @@ export default struct IShellUIHelper2 extends IShellUIHelper {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     SearchGuideUrl() {
@@ -221,22 +205,22 @@ export default struct IShellUIHelper2 extends IShellUIHelper {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddSearchProvider := CallbackCreate(GetMethod(implObj, "AddSearchProvider"), flags, 2)
-        this.vtbl.RunOnceShown := CallbackCreate(GetMethod(implObj, "RunOnceShown"), flags, 1)
-        this.vtbl.SkipRunOnce := CallbackCreate(GetMethod(implObj, "SkipRunOnce"), flags, 1)
-        this.vtbl.CustomizeSettings := CallbackCreate(GetMethod(implObj, "CustomizeSettings"), flags, 4)
-        this.vtbl.SqmEnabled := CallbackCreate(GetMethod(implObj, "SqmEnabled"), flags, 2)
-        this.vtbl.PhishingEnabled := CallbackCreate(GetMethod(implObj, "PhishingEnabled"), flags, 2)
-        this.vtbl.BrandImageUri := CallbackCreate(GetMethod(implObj, "BrandImageUri"), flags, 2)
-        this.vtbl.SkipTabsWelcome := CallbackCreate(GetMethod(implObj, "SkipTabsWelcome"), flags, 1)
-        this.vtbl.DiagnoseConnection := CallbackCreate(GetMethod(implObj, "DiagnoseConnection"), flags, 1)
-        this.vtbl.CustomizeClearType := CallbackCreate(GetMethod(implObj, "CustomizeClearType"), flags, 2)
-        this.vtbl.IsSearchProviderInstalled := CallbackCreate(GetMethod(implObj, "IsSearchProviderInstalled"), flags, 3)
-        this.vtbl.IsSearchMigrated := CallbackCreate(GetMethod(implObj, "IsSearchMigrated"), flags, 2)
-        this.vtbl.DefaultSearchProvider := CallbackCreate(GetMethod(implObj, "DefaultSearchProvider"), flags, 2)
-        this.vtbl.RunOnceRequiredSettingsComplete := CallbackCreate(GetMethod(implObj, "RunOnceRequiredSettingsComplete"), flags, 2)
-        this.vtbl.RunOnceHasShown := CallbackCreate(GetMethod(implObj, "RunOnceHasShown"), flags, 2)
-        this.vtbl.SearchGuideUrl := CallbackCreate(GetMethod(implObj, "SearchGuideUrl"), flags, 2)
+        this.vtbl.AddSearchProvider := CallbackCreate(ObjBindMethod(implObj, "AddSearchProvider"), flags, 2)
+        this.vtbl.RunOnceShown := CallbackCreate(ObjBindMethod(implObj, "RunOnceShown"), flags, 1)
+        this.vtbl.SkipRunOnce := CallbackCreate(ObjBindMethod(implObj, "SkipRunOnce"), flags, 1)
+        this.vtbl.CustomizeSettings := CallbackCreate(ObjBindMethod(implObj, "CustomizeSettings"), flags, 4)
+        this.vtbl.SqmEnabled := CallbackCreate(ObjBindMethod(implObj, "SqmEnabled"), flags, 2)
+        this.vtbl.PhishingEnabled := CallbackCreate(ObjBindMethod(implObj, "PhishingEnabled"), flags, 2)
+        this.vtbl.BrandImageUri := CallbackCreate(ObjBindMethod(implObj, "BrandImageUri"), flags, 2)
+        this.vtbl.SkipTabsWelcome := CallbackCreate(ObjBindMethod(implObj, "SkipTabsWelcome"), flags, 1)
+        this.vtbl.DiagnoseConnection := CallbackCreate(ObjBindMethod(implObj, "DiagnoseConnection"), flags, 1)
+        this.vtbl.CustomizeClearType := CallbackCreate(ObjBindMethod(implObj, "CustomizeClearType"), flags, 2)
+        this.vtbl.IsSearchProviderInstalled := CallbackCreate(ObjBindMethod(implObj, "IsSearchProviderInstalled"), flags, 3)
+        this.vtbl.IsSearchMigrated := CallbackCreate(ObjBindMethod(implObj, "IsSearchMigrated"), flags, 2)
+        this.vtbl.DefaultSearchProvider := CallbackCreate(ObjBindMethod(implObj, "DefaultSearchProvider"), flags, 2)
+        this.vtbl.RunOnceRequiredSettingsComplete := CallbackCreate(ObjBindMethod(implObj, "RunOnceRequiredSettingsComplete"), flags, 2)
+        this.vtbl.RunOnceHasShown := CallbackCreate(ObjBindMethod(implObj, "RunOnceHasShown"), flags, 2)
+        this.vtbl.SearchGuideUrl := CallbackCreate(ObjBindMethod(implObj, "SearchGuideUrl"), flags, 2)
     }
 
     Dispose() {

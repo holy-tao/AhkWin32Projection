@@ -46,7 +46,6 @@ export default struct IHomePage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     navigateHomePage() {
@@ -55,7 +54,6 @@ export default struct IHomePage extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrURL 
      * @returns {HRESULT} 
      */
@@ -67,7 +65,6 @@ export default struct IHomePage extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrURL 
      * @returns {VARIANT_BOOL} 
      */
@@ -87,9 +84,9 @@ export default struct IHomePage extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.navigateHomePage := CallbackCreate(GetMethod(implObj, "navigateHomePage"), flags, 1)
-        this.vtbl.setHomePage := CallbackCreate(GetMethod(implObj, "setHomePage"), flags, 2)
-        this.vtbl.isHomePage := CallbackCreate(GetMethod(implObj, "isHomePage"), flags, 3)
+        this.vtbl.navigateHomePage := CallbackCreate(ObjBindMethod(implObj, "navigateHomePage"), flags, 1)
+        this.vtbl.setHomePage := CallbackCreate(ObjBindMethod(implObj, "setHomePage"), flags, 2)
+        this.vtbl.isHomePage := CallbackCreate(ObjBindMethod(implObj, "isHomePage"), flags, 3)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct PF_NPGetPersistentUseOptionsForConnection {
     }
 
     /**
-     * 
      * @param {PWSTR} lpRemotePath 
      * @param {Integer} lpReadUseOptions 
      * @param {Integer} cbReadUseOptions 
@@ -30,7 +29,7 @@ export default struct PF_NPGetPersistentUseOptionsForConnection {
     Call(lpRemotePath, lpReadUseOptions, cbReadUseOptions, lpWriteUseOptions, lpSizeWriteUseOptions) {
         lpRemotePath := lpRemotePath is String ? StrPtr(lpRemotePath) : lpRemotePath
 
-        lpSizeWriteUseOptionsMarshal := lpSizeWriteUseOptions is VarRef ? "uint*" : "ptr"
+        lpSizeWriteUseOptionsMarshal := lpSizeWriteUseOptions is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, "ptr", lpRemotePath, IntPtr, lpReadUseOptions, UInt32, cbReadUseOptions, IntPtr, lpWriteUseOptions, lpSizeWriteUseOptionsMarshal, lpSizeWriteUseOptions, UInt32)
         return result

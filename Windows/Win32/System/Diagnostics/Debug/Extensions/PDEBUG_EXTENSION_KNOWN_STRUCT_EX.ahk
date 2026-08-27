@@ -21,7 +21,6 @@ export default struct PDEBUG_EXTENSION_KNOWN_STRUCT_EX {
     }
 
     /**
-     * 
      * @param {IDebugClient} Client 
      * @param {Integer} Flags 
      * @param {Integer} Offset 
@@ -34,9 +33,12 @@ export default struct PDEBUG_EXTENSION_KNOWN_STRUCT_EX {
         TypeName := TypeName is String ? StrPtr(TypeName) : TypeName
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        BufferCharsMarshal := BufferChars is VarRef ? "uint*" : "ptr"
+        TypeNameMarshal := TypeName == 0 ? IntPtr : PSTR
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PSTR
+        BufferCharsMarshal := BufferChars is VarRef ? "uint*" : IntPtr
+        BufferCharsMarshal := BufferChars == 0 ? IntPtr : "uint*"
 
-        result := DllCall(this.value, "ptr", Client, UInt32, Flags, Int64, Offset, "ptr", TypeName, "ptr", _Buffer, BufferCharsMarshal, BufferChars, "HRESULT")
+        result := DllCall(this.value, "ptr", Client, UInt32, Flags, Int64, Offset, TypeNameMarshal, TypeName, _BufferMarshal, _Buffer, BufferCharsMarshal, BufferChars, "HRESULT")
         return result
     }
 

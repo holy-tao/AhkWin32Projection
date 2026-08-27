@@ -36,7 +36,6 @@ export default struct IDtcLuRecoveryInitiatedByDtcStatusWork extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lRecoverySeqNum 
      * @returns {HRESULT} 
      */
@@ -54,7 +53,7 @@ export default struct IDtcLuRecoveryInitiatedByDtcStatusWork extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.HandleCheckLuStatus := CallbackCreate(GetMethod(implObj, "HandleCheckLuStatus"), flags, 2)
+        this.vtbl.HandleCheckLuStatus := CallbackCreate(ObjBindMethod(implObj, "HandleCheckLuStatus"), flags, 2)
     }
 
     Dispose() {

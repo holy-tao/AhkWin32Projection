@@ -171,12 +171,12 @@ export default struct INetSharingManager extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_SharingInstalled := CallbackCreate(GetMethod(implObj, "get_SharingInstalled"), flags, 2)
-        this.vtbl.get_EnumPublicConnections := CallbackCreate(GetMethod(implObj, "get_EnumPublicConnections"), flags, 3)
-        this.vtbl.get_EnumPrivateConnections := CallbackCreate(GetMethod(implObj, "get_EnumPrivateConnections"), flags, 3)
-        this.vtbl.get_INetSharingConfigurationForINetConnection := CallbackCreate(GetMethod(implObj, "get_INetSharingConfigurationForINetConnection"), flags, 3)
-        this.vtbl.get_EnumEveryConnection := CallbackCreate(GetMethod(implObj, "get_EnumEveryConnection"), flags, 2)
-        this.vtbl.get_NetConnectionProps := CallbackCreate(GetMethod(implObj, "get_NetConnectionProps"), flags, 3)
+        this.vtbl.get_SharingInstalled := CallbackCreate(ObjBindMethod(implObj, "get_SharingInstalled"), flags, 2)
+        this.vtbl.get_EnumPublicConnections := CallbackCreate(ObjBindMethod(implObj, "get_EnumPublicConnections"), flags, 3)
+        this.vtbl.get_EnumPrivateConnections := CallbackCreate(ObjBindMethod(implObj, "get_EnumPrivateConnections"), flags, 3)
+        this.vtbl.get_INetSharingConfigurationForINetConnection := CallbackCreate(ObjBindMethod(implObj, "get_INetSharingConfigurationForINetConnection"), flags, 3)
+        this.vtbl.get_EnumEveryConnection := CallbackCreate(ObjBindMethod(implObj, "get_EnumEveryConnection"), flags, 2)
+        this.vtbl.get_NetConnectionProps := CallbackCreate(ObjBindMethod(implObj, "get_NetConnectionProps"), flags, 3)
     }
 
     Dispose() {

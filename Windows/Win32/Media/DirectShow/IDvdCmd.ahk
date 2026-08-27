@@ -67,8 +67,8 @@ export default struct IDvdCmd extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.WaitForStart := CallbackCreate(GetMethod(implObj, "WaitForStart"), flags, 1)
-        this.vtbl.WaitForEnd := CallbackCreate(GetMethod(implObj, "WaitForEnd"), flags, 1)
+        this.vtbl.WaitForStart := CallbackCreate(ObjBindMethod(implObj, "WaitForStart"), flags, 1)
+        this.vtbl.WaitForEnd := CallbackCreate(ObjBindMethod(implObj, "WaitForEnd"), flags, 1)
     }
 
     Dispose() {

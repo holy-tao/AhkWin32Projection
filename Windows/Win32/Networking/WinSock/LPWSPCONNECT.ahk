@@ -46,7 +46,6 @@ export default struct LPWSPCONNECT {
     }
 
     /**
-     * 
      * @param {SOCKET} s Descriptor identifying an unconnected socket.
      * @param {Integer} name Name of the peer to which the socket in the <b><a href="https://docs.microsoft.com/windows/win32/winsock/sockaddr-2">sockaddr</a></b> is to be connected.
      * @param {Integer} namelen Length of the <i>name</i>, in bytes.
@@ -276,9 +275,13 @@ export default struct LPWSPCONNECT {
      * </table>
      */
     Call(s, name, namelen, lpCallerData, lpCalleeData, lpSQOS, lpGQOS, lpErrno) {
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        lpCallerDataMarshal := lpCallerData == 0 ? IntPtr : WSABUF.Ptr
+        lpCalleeDataMarshal := lpCalleeData == 0 ? IntPtr : WSABUF.Ptr
+        lpSQOSMarshal := lpSQOS == 0 ? IntPtr : QOS.Ptr
+        lpGQOSMarshal := lpGQOS == 0 ? IntPtr : QOS.Ptr
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
-        result := DllCall(this.value, SOCKET, s, IntPtr, name, Int32, namelen, WSABUF.Ptr, lpCallerData, WSABUF.Ptr, lpCalleeData, QOS.Ptr, lpSQOS, QOS.Ptr, lpGQOS, lpErrnoMarshal, lpErrno, Int32)
+        result := DllCall(this.value, SOCKET, s, IntPtr, name, Int32, namelen, lpCallerDataMarshal, lpCallerData, lpCalleeDataMarshal, lpCalleeData, lpSQOSMarshal, lpSQOS, lpGQOSMarshal, lpGQOS, lpErrnoMarshal, lpErrno, Int32)
         return result
     }
 

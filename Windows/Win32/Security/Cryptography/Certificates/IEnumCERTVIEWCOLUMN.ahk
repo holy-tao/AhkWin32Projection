@@ -77,7 +77,7 @@ export default struct IEnumCERTVIEWCOLUMN extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-ienumcertviewcolumn-next
      */
     Next(pIndex) {
-        pIndexMarshal := pIndex is VarRef ? "int*" : "ptr"
+        pIndexMarshal := pIndex is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, pIndexMarshal, pIndex, "HRESULT")
         return result
@@ -200,7 +200,7 @@ export default struct IEnumCERTVIEWCOLUMN extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-ienumcertviewcolumn-gettype
      */
     GetType(pType) {
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        pTypeMarshal := pType is VarRef ? "int*" : IntPtr
 
         result := ComCall(10, this, pTypeMarshal, pType, "HRESULT")
         return result
@@ -232,7 +232,7 @@ export default struct IEnumCERTVIEWCOLUMN extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-ienumcertviewcolumn-isindexed
      */
     IsIndexed(pIndexed) {
-        pIndexedMarshal := pIndexed is VarRef ? "int*" : "ptr"
+        pIndexedMarshal := pIndexed is VarRef ? "int*" : IntPtr
 
         result := ComCall(11, this, pIndexedMarshal, pIndexed, "HRESULT")
         return result
@@ -266,7 +266,7 @@ export default struct IEnumCERTVIEWCOLUMN extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-ienumcertviewcolumn-getmaxlength
      */
     GetMaxLength(pMaxLength) {
-        pMaxLengthMarshal := pMaxLength is VarRef ? "int*" : "ptr"
+        pMaxLengthMarshal := pMaxLength is VarRef ? "int*" : IntPtr
 
         result := ComCall(12, this, pMaxLengthMarshal, pMaxLength, "HRESULT")
         return result
@@ -391,16 +391,16 @@ export default struct IEnumCERTVIEWCOLUMN extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 2)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
-        this.vtbl.GetDisplayName := CallbackCreate(GetMethod(implObj, "GetDisplayName"), flags, 2)
-        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
-        this.vtbl.IsIndexed := CallbackCreate(GetMethod(implObj, "IsIndexed"), flags, 2)
-        this.vtbl.GetMaxLength := CallbackCreate(GetMethod(implObj, "GetMaxLength"), flags, 2)
-        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 3)
-        this.vtbl.Skip := CallbackCreate(GetMethod(implObj, "Skip"), flags, 2)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.Next := CallbackCreate(ObjBindMethod(implObj, "Next"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetDisplayName := CallbackCreate(ObjBindMethod(implObj, "GetDisplayName"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(ObjBindMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.IsIndexed := CallbackCreate(ObjBindMethod(implObj, "IsIndexed"), flags, 2)
+        this.vtbl.GetMaxLength := CallbackCreate(ObjBindMethod(implObj, "GetMaxLength"), flags, 2)
+        this.vtbl.GetValue := CallbackCreate(ObjBindMethod(implObj, "GetValue"), flags, 3)
+        this.vtbl.Skip := CallbackCreate(ObjBindMethod(implObj, "Skip"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
     }
 
     Dispose() {

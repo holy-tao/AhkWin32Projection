@@ -46,7 +46,6 @@ export default struct IHTMLMetaElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -58,7 +57,6 @@ export default struct IHTMLMetaElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_url() {
@@ -76,8 +74,8 @@ export default struct IHTMLMetaElement3 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_url := CallbackCreate(GetMethod(implObj, "put_url"), flags, 2)
-        this.vtbl.get_url := CallbackCreate(GetMethod(implObj, "get_url"), flags, 2)
+        this.vtbl.put_url := CallbackCreate(ObjBindMethod(implObj, "put_url"), flags, 2)
+        this.vtbl.get_url := CallbackCreate(ObjBindMethod(implObj, "get_url"), flags, 2)
     }
 
     Dispose() {

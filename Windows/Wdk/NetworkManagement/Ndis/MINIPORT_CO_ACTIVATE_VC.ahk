@@ -19,14 +19,13 @@ export default struct MINIPORT_CO_ACTIVATE_VC {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} MiniportVcContext 
      * @param {Pointer<CO_CALL_PARAMETERS>} CallParameters 
      * @returns {Integer} 
      */
     Call(MiniportVcContext, CallParameters) {
-        MiniportVcContextMarshal := MiniportVcContext is VarRef ? "ptr" : "ptr"
-        CallParametersMarshal := CallParameters is VarRef ? "ptr*" : "ptr"
+        MiniportVcContextMarshal := MiniportVcContext is VarRef ? "ptr" : IntPtr
+        CallParametersMarshal := CallParameters is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, MiniportVcContextMarshal, MiniportVcContext, CallParametersMarshal, CallParameters, Int32)
         return result

@@ -92,9 +92,9 @@ export default struct IDirectManipulationViewport2 extends IDirectManipulationVi
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddBehavior := CallbackCreate(GetMethod(implObj, "AddBehavior"), flags, 3)
-        this.vtbl.RemoveBehavior := CallbackCreate(GetMethod(implObj, "RemoveBehavior"), flags, 2)
-        this.vtbl.RemoveAllBehaviors := CallbackCreate(GetMethod(implObj, "RemoveAllBehaviors"), flags, 1)
+        this.vtbl.AddBehavior := CallbackCreate(ObjBindMethod(implObj, "AddBehavior"), flags, 3)
+        this.vtbl.RemoveBehavior := CallbackCreate(ObjBindMethod(implObj, "RemoveBehavior"), flags, 2)
+        this.vtbl.RemoveAllBehaviors := CallbackCreate(ObjBindMethod(implObj, "RemoveAllBehaviors"), flags, 1)
     }
 
     Dispose() {

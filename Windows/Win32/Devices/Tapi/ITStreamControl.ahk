@@ -171,10 +171,10 @@ export default struct ITStreamControl extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateStream := CallbackCreate(GetMethod(implObj, "CreateStream"), flags, 4)
-        this.vtbl.RemoveStream := CallbackCreate(GetMethod(implObj, "RemoveStream"), flags, 2)
-        this.vtbl.EnumerateStreams := CallbackCreate(GetMethod(implObj, "EnumerateStreams"), flags, 2)
-        this.vtbl.get_Streams := CallbackCreate(GetMethod(implObj, "get_Streams"), flags, 2)
+        this.vtbl.CreateStream := CallbackCreate(ObjBindMethod(implObj, "CreateStream"), flags, 4)
+        this.vtbl.RemoveStream := CallbackCreate(ObjBindMethod(implObj, "RemoveStream"), flags, 2)
+        this.vtbl.EnumerateStreams := CallbackCreate(ObjBindMethod(implObj, "EnumerateStreams"), flags, 2)
+        this.vtbl.get_Streams := CallbackCreate(ObjBindMethod(implObj, "get_Streams"), flags, 2)
     }
 
     Dispose() {

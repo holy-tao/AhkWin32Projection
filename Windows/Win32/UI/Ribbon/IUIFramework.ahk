@@ -322,7 +322,9 @@ export default struct IUIFramework extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiframework-invalidateuicommand
      */
     InvalidateUICommand(commandId, flags, key) {
-        result := ComCall(9, this, UInt32, commandId, UI_INVALIDATIONS, flags, PROPERTYKEY.Ptr, key, "HRESULT")
+        keyMarshal := key == 0 ? IntPtr : PROPERTYKEY.Ptr
+
+        result := ComCall(9, this, UInt32, commandId, UI_INVALIDATIONS, flags, keyMarshal, key, "HRESULT")
         return result
     }
 
@@ -379,15 +381,15 @@ export default struct IUIFramework extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.Destroy := CallbackCreate(GetMethod(implObj, "Destroy"), flags, 1)
-        this.vtbl.LoadUI := CallbackCreate(GetMethod(implObj, "LoadUI"), flags, 3)
-        this.vtbl.GetView := CallbackCreate(GetMethod(implObj, "GetView"), flags, 4)
-        this.vtbl.GetUICommandProperty := CallbackCreate(GetMethod(implObj, "GetUICommandProperty"), flags, 4)
-        this.vtbl.SetUICommandProperty := CallbackCreate(GetMethod(implObj, "SetUICommandProperty"), flags, 4)
-        this.vtbl.InvalidateUICommand := CallbackCreate(GetMethod(implObj, "InvalidateUICommand"), flags, 4)
-        this.vtbl.FlushPendingInvalidations := CallbackCreate(GetMethod(implObj, "FlushPendingInvalidations"), flags, 1)
-        this.vtbl.SetModes := CallbackCreate(GetMethod(implObj, "SetModes"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.Destroy := CallbackCreate(ObjBindMethod(implObj, "Destroy"), flags, 1)
+        this.vtbl.LoadUI := CallbackCreate(ObjBindMethod(implObj, "LoadUI"), flags, 3)
+        this.vtbl.GetView := CallbackCreate(ObjBindMethod(implObj, "GetView"), flags, 4)
+        this.vtbl.GetUICommandProperty := CallbackCreate(ObjBindMethod(implObj, "GetUICommandProperty"), flags, 4)
+        this.vtbl.SetUICommandProperty := CallbackCreate(ObjBindMethod(implObj, "SetUICommandProperty"), flags, 4)
+        this.vtbl.InvalidateUICommand := CallbackCreate(ObjBindMethod(implObj, "InvalidateUICommand"), flags, 4)
+        this.vtbl.FlushPendingInvalidations := CallbackCreate(ObjBindMethod(implObj, "FlushPendingInvalidations"), flags, 1)
+        this.vtbl.SetModes := CallbackCreate(ObjBindMethod(implObj, "SetModes"), flags, 2)
     }
 
     Dispose() {

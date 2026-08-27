@@ -26,7 +26,6 @@ export default struct LPFNVIEWCALLBACK {
     }
 
     /**
-     * 
      * @param {IShellView} psvOuter Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a>*</b>
      * 
      * A pointer to the owning instance of <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a>, if applicable. This parameter can be <b>NULL</b>.

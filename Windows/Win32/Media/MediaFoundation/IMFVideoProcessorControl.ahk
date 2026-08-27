@@ -56,7 +56,9 @@ export default struct IMFVideoProcessorControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfvideoprocessorcontrol-setbordercolor
      */
     SetBorderColor(pBorderColor) {
-        result := ComCall(3, this, MFARGB.Ptr, pBorderColor, "HRESULT")
+        pBorderColorMarshal := pBorderColor == 0 ? IntPtr : MFARGB.Ptr
+
+        result := ComCall(3, this, pBorderColorMarshal, pBorderColor, "HRESULT")
         return result
     }
 
@@ -69,7 +71,9 @@ export default struct IMFVideoProcessorControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfvideoprocessorcontrol-setsourcerectangle
      */
     SetSourceRectangle(pSrcRect) {
-        result := ComCall(4, this, RECT.Ptr, pSrcRect, "HRESULT")
+        pSrcRectMarshal := pSrcRect == 0 ? IntPtr : RECT.Ptr
+
+        result := ComCall(4, this, pSrcRectMarshal, pSrcRect, "HRESULT")
         return result
     }
 
@@ -82,7 +86,9 @@ export default struct IMFVideoProcessorControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfvideoprocessorcontrol-setdestinationrectangle
      */
     SetDestinationRectangle(pDstRect) {
-        result := ComCall(5, this, RECT.Ptr, pDstRect, "HRESULT")
+        pDstRectMarshal := pDstRect == 0 ? IntPtr : RECT.Ptr
+
+        result := ComCall(5, this, pDstRectMarshal, pDstRect, "HRESULT")
         return result
     }
 
@@ -121,7 +127,9 @@ export default struct IMFVideoProcessorControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfvideoprocessorcontrol-setconstrictionsize
      */
     SetConstrictionSize(pConstrictionSize) {
-        result := ComCall(8, this, SIZE.Ptr, pConstrictionSize, "HRESULT")
+        pConstrictionSizeMarshal := pConstrictionSize == 0 ? IntPtr : SIZE.Ptr
+
+        result := ComCall(8, this, pConstrictionSizeMarshal, pConstrictionSize, "HRESULT")
         return result
     }
 
@@ -134,12 +142,12 @@ export default struct IMFVideoProcessorControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetBorderColor := CallbackCreate(GetMethod(implObj, "SetBorderColor"), flags, 2)
-        this.vtbl.SetSourceRectangle := CallbackCreate(GetMethod(implObj, "SetSourceRectangle"), flags, 2)
-        this.vtbl.SetDestinationRectangle := CallbackCreate(GetMethod(implObj, "SetDestinationRectangle"), flags, 2)
-        this.vtbl.SetMirror := CallbackCreate(GetMethod(implObj, "SetMirror"), flags, 2)
-        this.vtbl.SetRotation := CallbackCreate(GetMethod(implObj, "SetRotation"), flags, 2)
-        this.vtbl.SetConstrictionSize := CallbackCreate(GetMethod(implObj, "SetConstrictionSize"), flags, 2)
+        this.vtbl.SetBorderColor := CallbackCreate(ObjBindMethod(implObj, "SetBorderColor"), flags, 2)
+        this.vtbl.SetSourceRectangle := CallbackCreate(ObjBindMethod(implObj, "SetSourceRectangle"), flags, 2)
+        this.vtbl.SetDestinationRectangle := CallbackCreate(ObjBindMethod(implObj, "SetDestinationRectangle"), flags, 2)
+        this.vtbl.SetMirror := CallbackCreate(ObjBindMethod(implObj, "SetMirror"), flags, 2)
+        this.vtbl.SetRotation := CallbackCreate(ObjBindMethod(implObj, "SetRotation"), flags, 2)
+        this.vtbl.SetConstrictionSize := CallbackCreate(ObjBindMethod(implObj, "SetConstrictionSize"), flags, 2)
     }
 
     Dispose() {

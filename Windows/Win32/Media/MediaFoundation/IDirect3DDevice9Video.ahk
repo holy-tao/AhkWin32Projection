@@ -116,9 +116,9 @@ export default struct IDirect3DDevice9Video extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetContentProtectionCaps := CallbackCreate(GetMethod(implObj, "GetContentProtectionCaps"), flags, 4)
-        this.vtbl.CreateAuthenticatedChannel := CallbackCreate(GetMethod(implObj, "CreateAuthenticatedChannel"), flags, 4)
-        this.vtbl.CreateCryptoSession := CallbackCreate(GetMethod(implObj, "CreateCryptoSession"), flags, 5)
+        this.vtbl.GetContentProtectionCaps := CallbackCreate(ObjBindMethod(implObj, "GetContentProtectionCaps"), flags, 4)
+        this.vtbl.CreateAuthenticatedChannel := CallbackCreate(ObjBindMethod(implObj, "CreateAuthenticatedChannel"), flags, 4)
+        this.vtbl.CreateCryptoSession := CallbackCreate(ObjBindMethod(implObj, "CreateCryptoSession"), flags, 5)
     }
 
     Dispose() {

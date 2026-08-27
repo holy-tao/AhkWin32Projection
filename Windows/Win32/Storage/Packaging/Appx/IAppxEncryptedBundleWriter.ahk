@@ -74,8 +74,8 @@ export default struct IAppxEncryptedBundleWriter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddPayloadPackageEncrypted := CallbackCreate(GetMethod(implObj, "AddPayloadPackageEncrypted"), flags, 3)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.AddPayloadPackageEncrypted := CallbackCreate(ObjBindMethod(implObj, "AddPayloadPackageEncrypted"), flags, 3)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
     }
 
     Dispose() {

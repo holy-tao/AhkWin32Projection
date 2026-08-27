@@ -41,7 +41,6 @@ export default struct IAccessor extends IUnknown {
     }
 
     /**
-     * 
      * @param {HACCESSOR} _hAccessor 
      * @returns {Integer} 
      */
@@ -51,7 +50,6 @@ export default struct IAccessor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwAccessorFlags 
      * @param {Pointer} cBindings 
      * @param {Pointer<DBBINDING>} rgBindings 
@@ -61,14 +59,14 @@ export default struct IAccessor extends IUnknown {
      * @returns {HRESULT} 
      */
     CreateAccessor(dwAccessorFlags, cBindings, rgBindings, cbRowSize, phAccessor, rgStatus) {
-        rgStatusMarshal := rgStatus is VarRef ? "uint*" : "ptr"
+        rgStatusMarshal := rgStatus is VarRef ? "uint*" : IntPtr
+        rgStatusMarshal := rgStatus == 0 ? IntPtr : "uint*"
 
         result := ComCall(4, this, UInt32, dwAccessorFlags, IntPtr, cBindings, DBBINDING.Ptr, rgBindings, IntPtr, cbRowSize, HACCESSOR.Ptr, phAccessor, rgStatusMarshal, rgStatus, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HACCESSOR} _hAccessor 
      * @param {Pointer<Integer>} pdwAccessorFlags 
      * @param {Pointer<Pointer>} pcBindings 
@@ -76,16 +74,16 @@ export default struct IAccessor extends IUnknown {
      * @returns {HRESULT} 
      */
     GetBindings(_hAccessor, pdwAccessorFlags, pcBindings, prgBindings) {
-        pdwAccessorFlagsMarshal := pdwAccessorFlags is VarRef ? "uint*" : "ptr"
-        pcBindingsMarshal := pcBindings is VarRef ? "ptr*" : "ptr"
-        prgBindingsMarshal := prgBindings is VarRef ? "ptr*" : "ptr"
+        pdwAccessorFlagsMarshal := pdwAccessorFlags is VarRef ? "uint*" : IntPtr
+        pcBindingsMarshal := pcBindings is VarRef ? "ptr*" : IntPtr
+        pcBindingsMarshal := pcBindings == 0 ? IntPtr : "ptr*"
+        prgBindingsMarshal := prgBindings is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, HACCESSOR, _hAccessor, pdwAccessorFlagsMarshal, pdwAccessorFlags, pcBindingsMarshal, pcBindings, prgBindingsMarshal, prgBindings, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HACCESSOR} _hAccessor 
      * @returns {Integer} 
      */
@@ -103,10 +101,10 @@ export default struct IAccessor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddRefAccessor := CallbackCreate(GetMethod(implObj, "AddRefAccessor"), flags, 3)
-        this.vtbl.CreateAccessor := CallbackCreate(GetMethod(implObj, "CreateAccessor"), flags, 7)
-        this.vtbl.GetBindings := CallbackCreate(GetMethod(implObj, "GetBindings"), flags, 5)
-        this.vtbl.ReleaseAccessor := CallbackCreate(GetMethod(implObj, "ReleaseAccessor"), flags, 3)
+        this.vtbl.AddRefAccessor := CallbackCreate(ObjBindMethod(implObj, "AddRefAccessor"), flags, 3)
+        this.vtbl.CreateAccessor := CallbackCreate(ObjBindMethod(implObj, "CreateAccessor"), flags, 7)
+        this.vtbl.GetBindings := CallbackCreate(ObjBindMethod(implObj, "GetBindings"), flags, 5)
+        this.vtbl.ReleaseAccessor := CallbackCreate(ObjBindMethod(implObj, "ReleaseAccessor"), flags, 3)
     }
 
     Dispose() {

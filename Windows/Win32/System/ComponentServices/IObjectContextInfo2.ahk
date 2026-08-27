@@ -110,9 +110,9 @@ export default struct IObjectContextInfo2 extends IObjectContextInfo {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPartitionId := CallbackCreate(GetMethod(implObj, "GetPartitionId"), flags, 2)
-        this.vtbl.GetApplicationId := CallbackCreate(GetMethod(implObj, "GetApplicationId"), flags, 2)
-        this.vtbl.GetApplicationInstanceId := CallbackCreate(GetMethod(implObj, "GetApplicationInstanceId"), flags, 2)
+        this.vtbl.GetPartitionId := CallbackCreate(ObjBindMethod(implObj, "GetPartitionId"), flags, 2)
+        this.vtbl.GetApplicationId := CallbackCreate(ObjBindMethod(implObj, "GetApplicationId"), flags, 2)
+        this.vtbl.GetApplicationInstanceId := CallbackCreate(ObjBindMethod(implObj, "GetApplicationInstanceId"), flags, 2)
     }
 
     Dispose() {

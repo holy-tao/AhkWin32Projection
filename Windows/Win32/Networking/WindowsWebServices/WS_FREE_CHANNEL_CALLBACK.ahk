@@ -23,7 +23,6 @@ export default struct WS_FREE_CHANNEL_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} channelInstance The pointer to the state specific to this channel instance,
      *                     as created by the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_create_channel_callback">WS_CREATE_CHANNEL_CALLBACK</a>.
      *                 
@@ -32,7 +31,7 @@ export default struct WS_FREE_CHANNEL_CALLBACK {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(channelInstance) {
-        channelInstanceMarshal := channelInstance is VarRef ? "ptr" : "ptr"
+        channelInstanceMarshal := channelInstance is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, channelInstanceMarshal, channelInstance)
     }

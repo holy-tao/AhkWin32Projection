@@ -38,7 +38,6 @@ export default struct ISyncFullEnumerationChangeBatch2 extends ISyncFullEnumerat
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbOwnerReplicaId 
      * @param {Pointer<Integer>} pbWinnerItemId 
      * @param {Pointer<Integer>} pbItemId 
@@ -48,9 +47,9 @@ export default struct ISyncFullEnumerationChangeBatch2 extends ISyncFullEnumerat
      * @returns {ISyncChangeBuilder} 
      */
     AddMergeTombstoneMetadataToGroup(pbOwnerReplicaId, pbWinnerItemId, pbItemId, pChangeVersion, pCreationVersion, dwWorkForChange) {
-        pbOwnerReplicaIdMarshal := pbOwnerReplicaId is VarRef ? "char*" : "ptr"
-        pbWinnerItemIdMarshal := pbWinnerItemId is VarRef ? "char*" : "ptr"
-        pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
+        pbOwnerReplicaIdMarshal := pbOwnerReplicaId is VarRef ? "char*" : IntPtr
+        pbWinnerItemIdMarshal := pbWinnerItemId is VarRef ? "char*" : IntPtr
+        pbItemIdMarshal := pbItemId is VarRef ? "char*" : IntPtr
 
         result := ComCall(20, this, pbOwnerReplicaIdMarshal, pbOwnerReplicaId, pbWinnerItemIdMarshal, pbWinnerItemId, pbItemIdMarshal, pbItemId, SYNC_VERSION.Ptr, pChangeVersion, SYNC_VERSION.Ptr, pCreationVersion, UInt32, dwWorkForChange, "ptr*", &ppChangeBuilder := 0, "HRESULT")
         return ISyncChangeBuilder(ppChangeBuilder)
@@ -65,7 +64,7 @@ export default struct ISyncFullEnumerationChangeBatch2 extends ISyncFullEnumerat
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddMergeTombstoneMetadataToGroup := CallbackCreate(GetMethod(implObj, "AddMergeTombstoneMetadataToGroup"), flags, 8)
+        this.vtbl.AddMergeTombstoneMetadataToGroup := CallbackCreate(ObjBindMethod(implObj, "AddMergeTombstoneMetadataToGroup"), flags, 8)
     }
 
     Dispose() {

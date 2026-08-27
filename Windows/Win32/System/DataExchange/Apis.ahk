@@ -171,8 +171,8 @@ export PackDDElParam(_msg, uiLo, uiHi) {
  * @since windows5.0
  */
 export UnpackDDElParam(_msg, _lParam, puiLo, puiHi) {
-    puiLoMarshal := puiLo is VarRef ? "ptr*" : "ptr"
-    puiHiMarshal := puiHi is VarRef ? "ptr*" : "ptr"
+    puiLoMarshal := puiLo is VarRef ? "ptr*" : IntPtr
+    puiHiMarshal := puiHi is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("USER32.dll\UnpackDDElParam", UInt32, _msg, LPARAM, _lParam, puiLoMarshal, puiLo, puiHiMarshal, puiHi, BOOL)
     return result
@@ -296,7 +296,7 @@ export ReuseDDElParam(_lParam, msgIn, msgOut, uiLo, uiHi) {
 export DdeInitializeA(pidInst, _pfnCallback, afCmd) {
     static ulRes := 0 ;Reserved parameters must always be NULL
 
-    pidInstMarshal := pidInst is VarRef ? "uint*" : "ptr"
+    pidInstMarshal := pidInst is VarRef ? "uint*" : IntPtr
 
     result := DllCall("USER32.dll\DdeInitializeA", pidInstMarshal, pidInst, PFNCALLBACK, _pfnCallback, DDE_INITIALIZE_COMMAND, afCmd, UInt32, ulRes, UInt32)
     return result
@@ -348,7 +348,7 @@ export DdeInitializeA(pidInst, _pfnCallback, afCmd) {
 export DdeInitializeW(pidInst, _pfnCallback, afCmd) {
     static ulRes := 0 ;Reserved parameters must always be NULL
 
-    pidInstMarshal := pidInst is VarRef ? "uint*" : "ptr"
+    pidInstMarshal := pidInst is VarRef ? "uint*" : IntPtr
 
     result := DllCall("USER32.dll\DdeInitializeW", pidInstMarshal, pidInst, PFNCALLBACK, _pfnCallback, DDE_INITIALIZE_COMMAND, afCmd, UInt32, ulRes, UInt32)
     return result
@@ -410,7 +410,9 @@ export DdeUninitialize(idInst) {
  * @since windows5.0
  */
 export DdeConnectList(idInst, hszService, hszTopic, _hConvList, pCC) {
-    result := DllCall("USER32.dll\DdeConnectList", UInt32, idInst, HSZ, hszService, HSZ, hszTopic, HCONVLIST, _hConvList, CONVCONTEXT.Ptr, pCC, HCONVLIST.Owned)
+    pCCMarshal := pCC == 0 ? IntPtr : CONVCONTEXT.Ptr
+
+    result := DllCall("USER32.dll\DdeConnectList", UInt32, idInst, HSZ, hszService, HSZ, hszTopic, HCONVLIST, _hConvList, pCCMarshal, pCC, HCONVLIST.Owned)
     return result
 }
 
@@ -489,7 +491,9 @@ export DdeDisconnectList(_hConvList) {
  * @since windows5.0
  */
 export DdeConnect(idInst, hszService, hszTopic, pCC) {
-    result := DllCall("USER32.dll\DdeConnect", UInt32, idInst, HSZ, hszService, HSZ, hszTopic, CONVCONTEXT.Ptr, pCC, HCONV.Owned)
+    pCCMarshal := pCC == 0 ? IntPtr : CONVCONTEXT.Ptr
+
+    result := DllCall("USER32.dll\DdeConnect", UInt32, idInst, HSZ, hszService, HSZ, hszTopic, pCCMarshal, pCC, HCONV.Owned)
     return result
 }
 
@@ -752,7 +756,10 @@ export DdeImpersonateClient(_hConv) {
  * @since windows5.0
  */
 export DdeNameService(idInst, hsz1, hsz2, afCmd) {
-    result := DllCall("USER32.dll\DdeNameService", UInt32, idInst, HSZ, hsz1, HSZ, hsz2, DDE_NAME_SERVICE_CMD, afCmd, HDDEDATA.Owned)
+    hsz1Marshal := hsz1 == 0 ? IntPtr : HSZ
+    hsz2Marshal := hsz2 == 0 ? IntPtr : HSZ
+
+    result := DllCall("USER32.dll\DdeNameService", UInt32, idInst, hsz1Marshal, hsz1, hsz2Marshal, hsz2, DDE_NAME_SERVICE_CMD, afCmd, HDDEDATA.Owned)
     return result
 }
 
@@ -817,10 +824,13 @@ export DdeNameService(idInst, hsz1, hsz2, afCmd) {
  * @since windows5.0
  */
 export DdeClientTransaction(pData, cbData, _hConv, hszItem, wFmt, wType, dwTimeout, pdwResult) {
-    pDataMarshal := pData is VarRef ? "char*" : "ptr"
-    pdwResultMarshal := pdwResult is VarRef ? "uint*" : "ptr"
+    pDataMarshal := pData is VarRef ? "char*" : IntPtr
+    pDataMarshal := pData == 0 ? IntPtr : "char*"
+    hszItemMarshal := hszItem == 0 ? IntPtr : HSZ
+    pdwResultMarshal := pdwResult is VarRef ? "uint*" : IntPtr
+    pdwResultMarshal := pdwResult == 0 ? IntPtr : "uint*"
 
-    result := DllCall("USER32.dll\DdeClientTransaction", pDataMarshal, pData, UInt32, cbData, HCONV, _hConv, HSZ, hszItem, UInt32, wFmt, DDE_CLIENT_TRANSACTION_TYPE, wType, UInt32, dwTimeout, pdwResultMarshal, pdwResult, HDDEDATA.Owned)
+    result := DllCall("USER32.dll\DdeClientTransaction", pDataMarshal, pData, UInt32, cbData, HCONV, _hConv, hszItemMarshal, hszItem, UInt32, wFmt, DDE_CLIENT_TRANSACTION_TYPE, wType, UInt32, dwTimeout, pdwResultMarshal, pdwResult, HDDEDATA.Owned)
     return result
 }
 
@@ -865,7 +875,10 @@ export DdeClientTransaction(pData, cbData, _hConv, hszItem, wFmt, wType, dwTimeo
  * @since windows5.0
  */
 export DdeCreateDataHandle(idInst, pSrc, cb, cbOff, hszItem, wFmt, afCmd) {
-    result := DllCall("USER32.dll\DdeCreateDataHandle", UInt32, idInst, IntPtr, pSrc, UInt32, cb, UInt32, cbOff, HSZ, hszItem, UInt32, wFmt, UInt32, afCmd, HDDEDATA.Owned)
+    pSrcMarshal := pSrc == 0 ? IntPtr : IntPtr
+    hszItemMarshal := hszItem == 0 ? IntPtr : HSZ
+
+    result := DllCall("USER32.dll\DdeCreateDataHandle", UInt32, idInst, pSrcMarshal, pSrc, UInt32, cb, UInt32, cbOff, hszItemMarshal, hszItem, UInt32, wFmt, UInt32, afCmd, HDDEDATA.Owned)
     return result
 }
 
@@ -932,7 +945,9 @@ export DdeAddData(hData, pSrc, cb, cbOff) {
  * @since windows5.0
  */
 export DdeGetData(hData, pDst, cbMax, cbOff) {
-    result := DllCall("USER32.dll\DdeGetData", HDDEDATA, hData, IntPtr, pDst, UInt32, cbMax, UInt32, cbOff, UInt32)
+    pDstMarshal := pDst == 0 ? IntPtr : IntPtr
+
+    result := DllCall("USER32.dll\DdeGetData", HDDEDATA, hData, pDstMarshal, pDst, UInt32, cbMax, UInt32, cbOff, UInt32)
     return result
 }
 
@@ -960,7 +975,8 @@ export DdeGetData(hData, pDst, cbMax, cbOff) {
  * @since windows5.0
  */
 export DdeAccessData(hData, pcbDataSize) {
-    pcbDataSizeMarshal := pcbDataSize is VarRef ? "uint*" : "ptr"
+    pcbDataSizeMarshal := pcbDataSize is VarRef ? "uint*" : IntPtr
+    pcbDataSizeMarshal := pcbDataSize == 0 ? IntPtr : "uint*"
 
     result := DllCall("USER32.dll\DdeAccessData", HDDEDATA, hData, pcbDataSizeMarshal, pcbDataSize, IntPtr)
     return result
@@ -1421,7 +1437,9 @@ export DdeCreateStringHandleW(idInst, psz, iCodePage) {
 export DdeQueryStringA(idInst, _hsz, psz, cchMax, iCodePage) {
     psz := psz is String ? StrPtr(psz) : psz
 
-    result := DllCall("USER32.dll\DdeQueryStringA", UInt32, idInst, HSZ, _hsz, "ptr", psz, UInt32, cchMax, Int32, iCodePage, UInt32)
+    pszMarshal := psz == 0 ? IntPtr : PSTR
+
+    result := DllCall("USER32.dll\DdeQueryStringA", UInt32, idInst, HSZ, _hsz, pszMarshal, psz, UInt32, cchMax, Int32, iCodePage, UInt32)
     return result
 }
 
@@ -1473,7 +1491,9 @@ export DdeQueryStringA(idInst, _hsz, psz, cchMax, iCodePage) {
 export DdeQueryStringW(idInst, _hsz, psz, cchMax, iCodePage) {
     psz := psz is String ? StrPtr(psz) : psz
 
-    result := DllCall("USER32.dll\DdeQueryStringW", UInt32, idInst, HSZ, _hsz, "ptr", psz, UInt32, cchMax, Int32, iCodePage, UInt32)
+    pszMarshal := psz == 0 ? IntPtr : PWSTR
+
+    result := DllCall("USER32.dll\DdeQueryStringW", UInt32, idInst, HSZ, _hsz, pszMarshal, psz, UInt32, cchMax, Int32, iCodePage, UInt32)
     return result
 }
 
@@ -1605,7 +1625,10 @@ export DdeCmpStringHandles(hsz1, hsz2) {
  * @since windows5.0
  */
 export SetWinMetaFileBits(nSize, lpMeta16Data, hdcRef, lpMFP) {
-    result := DllCall("GDI32.dll\SetWinMetaFileBits", UInt32, nSize, IntPtr, lpMeta16Data, HDC, hdcRef, METAFILEPICT.Ptr, lpMFP, HENHMETAFILE.Owned)
+    hdcRefMarshal := hdcRef == 0 ? IntPtr : HDC
+    lpMFPMarshal := lpMFP == 0 ? IntPtr : METAFILEPICT.Ptr
+
+    result := DllCall("GDI32.dll\SetWinMetaFileBits", UInt32, nSize, IntPtr, lpMeta16Data, hdcRefMarshal, hdcRef, lpMFPMarshal, lpMFP, HENHMETAFILE.Owned)
     return result
 }
 
@@ -1632,9 +1655,11 @@ export SetWinMetaFileBits(nSize, lpMeta16Data, hdcRef, lpMFP) {
  * @since windows5.0
  */
 export OpenClipboard(hWndNewOwner) {
+    hWndNewOwnerMarshal := hWndNewOwner == 0 ? IntPtr : HWND
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\OpenClipboard", HWND, hWndNewOwner, BOOL)
+    result := DllCall("USER32.dll\OpenClipboard", hWndNewOwnerMarshal, hWndNewOwner, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1809,9 +1834,11 @@ export ChangeClipboardChain(hWndRemove, hWndNewNext) {
  * @since windows5.0
  */
 export SetClipboardData(uFormat, hMem) {
+    hMemMarshal := hMem == 0 ? IntPtr : HANDLE
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\SetClipboardData", UInt32, uFormat, HANDLE, hMem, HANDLE.Owned)
+    result := DllCall("USER32.dll\SetClipboardData", UInt32, uFormat, hMemMarshal, hMem, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2117,7 +2144,7 @@ export IsClipboardFormatAvailable(format) {
  * @since windows5.0
  */
 export GetPriorityClipboardFormat(paFormatPriorityList, cFormats) {
-    paFormatPriorityListMarshal := paFormatPriorityList is VarRef ? "uint*" : "ptr"
+    paFormatPriorityListMarshal := paFormatPriorityList is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -2216,8 +2243,8 @@ export RemoveClipboardFormatListener(_hwnd) {
  * @since windows6.0.6000
  */
 export GetUpdatedClipboardFormats(lpuiFormats, cFormats, pcFormatsOut) {
-    lpuiFormatsMarshal := lpuiFormats is VarRef ? "uint*" : "ptr"
-    pcFormatsOutMarshal := pcFormatsOut is VarRef ? "uint*" : "ptr"
+    lpuiFormatsMarshal := lpuiFormats is VarRef ? "uint*" : IntPtr
+    pcFormatsOutMarshal := pcFormatsOut is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -2355,9 +2382,11 @@ export DeleteAtom(nAtom) {
 export GlobalAddAtomA(lpString) {
     lpString := lpString is String ? StrPtr(lpString) : lpString
 
+    lpStringMarshal := lpString == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GlobalAddAtomA", "ptr", lpString, UInt16)
+    result := DllCall("KERNEL32.dll\GlobalAddAtomA", lpStringMarshal, lpString, UInt16)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2403,9 +2432,11 @@ export GlobalAddAtomA(lpString) {
 export GlobalAddAtomW(lpString) {
     lpString := lpString is String ? StrPtr(lpString) : lpString
 
+    lpStringMarshal := lpString == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GlobalAddAtomW", "ptr", lpString, UInt16)
+    result := DllCall("KERNEL32.dll\GlobalAddAtomW", lpStringMarshal, lpString, UInt16)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2430,9 +2461,11 @@ export GlobalAddAtomW(lpString) {
 export GlobalAddAtomExA(lpString, Flags) {
     lpString := lpString is String ? StrPtr(lpString) : lpString
 
+    lpStringMarshal := lpString == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GlobalAddAtomExA", "ptr", lpString, UInt32, Flags, UInt16)
+    result := DllCall("KERNEL32.dll\GlobalAddAtomExA", lpStringMarshal, lpString, UInt32, Flags, UInt16)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2457,9 +2490,11 @@ export GlobalAddAtomExA(lpString, Flags) {
 export GlobalAddAtomExW(lpString, Flags) {
     lpString := lpString is String ? StrPtr(lpString) : lpString
 
+    lpStringMarshal := lpString == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GlobalAddAtomExW", "ptr", lpString, UInt32, Flags, UInt16)
+    result := DllCall("KERNEL32.dll\GlobalAddAtomExW", lpStringMarshal, lpString, UInt32, Flags, UInt16)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2497,9 +2532,11 @@ export GlobalAddAtomExW(lpString, Flags) {
 export GlobalFindAtomA(lpString) {
     lpString := lpString is String ? StrPtr(lpString) : lpString
 
+    lpStringMarshal := lpString == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GlobalFindAtomA", "ptr", lpString, UInt16)
+    result := DllCall("KERNEL32.dll\GlobalFindAtomA", lpStringMarshal, lpString, UInt16)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2537,9 +2574,11 @@ export GlobalFindAtomA(lpString) {
 export GlobalFindAtomW(lpString) {
     lpString := lpString is String ? StrPtr(lpString) : lpString
 
+    lpStringMarshal := lpString == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GlobalFindAtomW", "ptr", lpString, UInt16)
+    result := DllCall("KERNEL32.dll\GlobalFindAtomW", lpStringMarshal, lpString, UInt16)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2673,9 +2712,11 @@ export GlobalGetAtomNameW(nAtom, lpBuffer, nSize) {
 export AddAtomA(lpString) {
     lpString := lpString is String ? StrPtr(lpString) : lpString
 
+    lpStringMarshal := lpString == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\AddAtomA", "ptr", lpString, UInt16)
+    result := DllCall("KERNEL32.dll\AddAtomA", lpStringMarshal, lpString, UInt16)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2717,9 +2758,11 @@ export AddAtomA(lpString) {
 export AddAtomW(lpString) {
     lpString := lpString is String ? StrPtr(lpString) : lpString
 
+    lpStringMarshal := lpString == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\AddAtomW", "ptr", lpString, UInt16)
+    result := DllCall("KERNEL32.dll\AddAtomW", lpStringMarshal, lpString, UInt16)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2757,9 +2800,11 @@ export AddAtomW(lpString) {
 export FindAtomA(lpString) {
     lpString := lpString is String ? StrPtr(lpString) : lpString
 
+    lpStringMarshal := lpString == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\FindAtomA", "ptr", lpString, UInt16)
+    result := DllCall("KERNEL32.dll\FindAtomA", lpStringMarshal, lpString, UInt16)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2797,9 +2842,11 @@ export FindAtomA(lpString) {
 export FindAtomW(lpString) {
     lpString := lpString is String ? StrPtr(lpString) : lpString
 
+    lpStringMarshal := lpString == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\FindAtomW", "ptr", lpString, UInt16)
+    result := DllCall("KERNEL32.dll\FindAtomW", lpStringMarshal, lpString, UInt16)
     if(A_LastError) {
         throw OSError(A_LastError)
     }

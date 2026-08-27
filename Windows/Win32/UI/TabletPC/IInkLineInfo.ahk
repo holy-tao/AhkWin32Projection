@@ -189,7 +189,7 @@ export default struct IInkLineInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinklineinfo-getinkextent
      */
     GetInkExtent(pim, pnWidth) {
-        pnWidthMarshal := pnWidth is VarRef ? "uint*" : "ptr"
+        pnWidthMarshal := pnWidth is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, INKMETRIC.Ptr, pim, pnWidthMarshal, pnWidth, "HRESULT")
         return result
@@ -251,7 +251,7 @@ export default struct IInkLineInfo extends IUnknown {
     GetCandidate(nCandidateNum, pwcRecogWord, pcwcRecogWord, dwFlags) {
         pwcRecogWord := pwcRecogWord is String ? StrPtr(pwcRecogWord) : pwcRecogWord
 
-        pcwcRecogWordMarshal := pcwcRecogWord is VarRef ? "uint*" : "ptr"
+        pcwcRecogWordMarshal := pcwcRecogWord is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, UInt32, nCandidateNum, "ptr", pwcRecogWord, pcwcRecogWordMarshal, pcwcRecogWord, UInt32, dwFlags, "HRESULT")
         return result
@@ -350,12 +350,12 @@ export default struct IInkLineInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetFormat := CallbackCreate(GetMethod(implObj, "SetFormat"), flags, 2)
-        this.vtbl.GetFormat := CallbackCreate(GetMethod(implObj, "GetFormat"), flags, 2)
-        this.vtbl.GetInkExtent := CallbackCreate(GetMethod(implObj, "GetInkExtent"), flags, 3)
-        this.vtbl.GetCandidate := CallbackCreate(GetMethod(implObj, "GetCandidate"), flags, 5)
-        this.vtbl.SetCandidate := CallbackCreate(GetMethod(implObj, "SetCandidate"), flags, 3)
-        this.vtbl.Recognize := CallbackCreate(GetMethod(implObj, "Recognize"), flags, 1)
+        this.vtbl.SetFormat := CallbackCreate(ObjBindMethod(implObj, "SetFormat"), flags, 2)
+        this.vtbl.GetFormat := CallbackCreate(ObjBindMethod(implObj, "GetFormat"), flags, 2)
+        this.vtbl.GetInkExtent := CallbackCreate(ObjBindMethod(implObj, "GetInkExtent"), flags, 3)
+        this.vtbl.GetCandidate := CallbackCreate(ObjBindMethod(implObj, "GetCandidate"), flags, 5)
+        this.vtbl.SetCandidate := CallbackCreate(ObjBindMethod(implObj, "SetCandidate"), flags, 3)
+        this.vtbl.Recognize := CallbackCreate(ObjBindMethod(implObj, "Recognize"), flags, 1)
     }
 
     Dispose() {

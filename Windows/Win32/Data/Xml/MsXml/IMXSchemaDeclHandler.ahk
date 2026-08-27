@@ -37,7 +37,6 @@ export default struct IMXSchemaDeclHandler extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISchemaElement} oSchemaElement 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,7 @@ export default struct IMXSchemaDeclHandler extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.schemaElementDecl := CallbackCreate(GetMethod(implObj, "schemaElementDecl"), flags, 2)
+        this.vtbl.schemaElementDecl := CallbackCreate(ObjBindMethod(implObj, "schemaElementDecl"), flags, 2)
     }
 
     Dispose() {

@@ -62,7 +62,7 @@ export default struct IDsObjectPickerCredentials extends IDsObjectPicker {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetCredentials := CallbackCreate(GetMethod(implObj, "SetCredentials"), flags, 3)
+        this.vtbl.SetCredentials := CallbackCreate(ObjBindMethod(implObj, "SetCredentials"), flags, 3)
     }
 
     Dispose() {

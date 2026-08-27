@@ -51,7 +51,6 @@ export default struct IDebugHelper extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvar 
      * @param {PWSTR} bstrName 
      * @param {IDebugApplicationThread} pdat 
@@ -65,7 +64,6 @@ export default struct IDebugHelper extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvar 
      * @param {PWSTR} bstrName 
      * @param {IDebugApplicationThread} pdat 
@@ -80,7 +78,6 @@ export default struct IDebugHelper extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDispatch} pdisp 
      * @returns {ISimpleConnectionPoint} 
      */
@@ -98,9 +95,9 @@ export default struct IDebugHelper extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreatePropertyBrowser := CallbackCreate(GetMethod(implObj, "CreatePropertyBrowser"), flags, 5)
-        this.vtbl.CreatePropertyBrowserEx := CallbackCreate(GetMethod(implObj, "CreatePropertyBrowserEx"), flags, 6)
-        this.vtbl.CreateSimpleConnectionPoint := CallbackCreate(GetMethod(implObj, "CreateSimpleConnectionPoint"), flags, 3)
+        this.vtbl.CreatePropertyBrowser := CallbackCreate(ObjBindMethod(implObj, "CreatePropertyBrowser"), flags, 5)
+        this.vtbl.CreatePropertyBrowserEx := CallbackCreate(ObjBindMethod(implObj, "CreatePropertyBrowserEx"), flags, 6)
+        this.vtbl.CreateSimpleConnectionPoint := CallbackCreate(ObjBindMethod(implObj, "CreateSimpleConnectionPoint"), flags, 3)
     }
 
     Dispose() {

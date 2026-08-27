@@ -20,7 +20,6 @@ export default struct PFND3DKMT_DESTROYOVERLAY {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_DESTROYOVERLAY>} param0 
      * @returns {NTSTATUS} 
      */

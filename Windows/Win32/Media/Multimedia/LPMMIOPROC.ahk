@@ -21,7 +21,6 @@ export default struct LPMMIOPROC {
     }
 
     /**
-     * 
      * @param {PSTR} lpmmioinfo 
      * @param {Integer} uMsg 
      * @param {LPARAM} lParam1 

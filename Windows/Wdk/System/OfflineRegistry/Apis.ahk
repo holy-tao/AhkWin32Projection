@@ -20,8 +20,8 @@
  * @see https://learn.microsoft.com/windows/win32/DevNotes/orgetversion
  */
 export ORGetVersion(pdwMajorVersion, pdwMinorVersion) {
-    pdwMajorVersionMarshal := pdwMajorVersion is VarRef ? "uint*" : "ptr"
-    pdwMinorVersionMarshal := pdwMinorVersion is VarRef ? "uint*" : "ptr"
+    pdwMajorVersionMarshal := pdwMajorVersion is VarRef ? "uint*" : IntPtr
+    pdwMinorVersionMarshal := pdwMinorVersion is VarRef ? "uint*" : IntPtr
 
     result := DllCall("OFFREG.dll\ORGetVersion", pdwMajorVersionMarshal, pdwMajorVersion, pdwMinorVersionMarshal, pdwMinorVersion, WIN32_ERROR)
     return result
@@ -50,7 +50,6 @@ export OROpenHive(FilePath, HORKey) {
 }
 
 /**
- * 
  * @param {HANDLE} FileHandle 
  * @param {Pointer<ORHKEY>} HORKey 
  * @returns {WIN32_ERROR} 
@@ -161,7 +160,9 @@ export ORSaveHive(HORKey, HivePath, OsMajorVersion, OsMinorVersion) {
 export OROpenKey(_Handle, lpSubKey, phkResult) {
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-    result := DllCall("OFFREG.dll\OROpenKey", ORHKEY, _Handle, "ptr", lpSubKey, ORHKEY.Ptr, phkResult, WIN32_ERROR)
+    lpSubKeyMarshal := lpSubKey == 0 ? IntPtr : PWSTR
+
+    result := DllCall("OFFREG.dll\OROpenKey", ORHKEY, _Handle, lpSubKeyMarshal, lpSubKey, ORHKEY.Ptr, phkResult, WIN32_ERROR)
     return result
 }
 
@@ -234,9 +235,13 @@ export ORCreateKey(KeyHandle, lpSubKey, lpClass, dwOptions, pSecurityDescriptor,
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
     lpClass := lpClass is String ? StrPtr(lpClass) : lpClass
 
-    pdwDispositionMarshal := pdwDisposition is VarRef ? "uint*" : "ptr"
+    lpClassMarshal := lpClass == 0 ? IntPtr : PWSTR
+    dwOptionsMarshal := dwOptions == 0 ? IntPtr : UInt32
+    pSecurityDescriptorMarshal := pSecurityDescriptor == 0 ? IntPtr : PSECURITY_DESCRIPTOR
+    pdwDispositionMarshal := pdwDisposition is VarRef ? "uint*" : IntPtr
+    pdwDispositionMarshal := pdwDisposition == 0 ? IntPtr : "uint*"
 
-    result := DllCall("OFFREG.dll\ORCreateKey", ORHKEY, KeyHandle, "ptr", lpSubKey, "ptr", lpClass, UInt32, dwOptions, PSECURITY_DESCRIPTOR, pSecurityDescriptor, ORHKEY.Ptr, phkResult, pdwDispositionMarshal, pdwDisposition, WIN32_ERROR)
+    result := DllCall("OFFREG.dll\ORCreateKey", ORHKEY, KeyHandle, "ptr", lpSubKey, lpClassMarshal, lpClass, dwOptionsMarshal, dwOptions, pSecurityDescriptorMarshal, pSecurityDescriptor, ORHKEY.Ptr, phkResult, pdwDispositionMarshal, pdwDisposition, WIN32_ERROR)
     return result
 }
 
@@ -268,7 +273,9 @@ export ORCreateKey(KeyHandle, lpSubKey, lpClass, dwOptions, pSecurityDescriptor,
 export ORDeleteKey(_Handle, lpSubKey) {
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-    result := DllCall("OFFREG.dll\ORDeleteKey", ORHKEY, _Handle, "ptr", lpSubKey, WIN32_ERROR)
+    lpSubKeyMarshal := lpSubKey == 0 ? IntPtr : PWSTR
+
+    result := DllCall("OFFREG.dll\ORDeleteKey", ORHKEY, _Handle, lpSubKeyMarshal, lpSubKey, WIN32_ERROR)
     return result
 }
 
@@ -303,16 +310,26 @@ export ORDeleteKey(_Handle, lpSubKey) {
 export ORQueryInfoKey(_Handle, lpClass, lpcClass, lpcSubKeys, lpcMaxSubKeyLen, lpcMaxClassLen, lpcValues, lpcMaxValueNameLen, lpcMaxValueLen, lpcbSecurityDescriptor, lpftLastWriteTime) {
     lpClass := lpClass is String ? StrPtr(lpClass) : lpClass
 
-    lpcClassMarshal := lpcClass is VarRef ? "uint*" : "ptr"
-    lpcSubKeysMarshal := lpcSubKeys is VarRef ? "uint*" : "ptr"
-    lpcMaxSubKeyLenMarshal := lpcMaxSubKeyLen is VarRef ? "uint*" : "ptr"
-    lpcMaxClassLenMarshal := lpcMaxClassLen is VarRef ? "uint*" : "ptr"
-    lpcValuesMarshal := lpcValues is VarRef ? "uint*" : "ptr"
-    lpcMaxValueNameLenMarshal := lpcMaxValueNameLen is VarRef ? "uint*" : "ptr"
-    lpcMaxValueLenMarshal := lpcMaxValueLen is VarRef ? "uint*" : "ptr"
-    lpcbSecurityDescriptorMarshal := lpcbSecurityDescriptor is VarRef ? "uint*" : "ptr"
+    lpClassMarshal := lpClass == 0 ? IntPtr : PWSTR
+    lpcClassMarshal := lpcClass is VarRef ? "uint*" : IntPtr
+    lpcClassMarshal := lpcClass == 0 ? IntPtr : "uint*"
+    lpcSubKeysMarshal := lpcSubKeys is VarRef ? "uint*" : IntPtr
+    lpcSubKeysMarshal := lpcSubKeys == 0 ? IntPtr : "uint*"
+    lpcMaxSubKeyLenMarshal := lpcMaxSubKeyLen is VarRef ? "uint*" : IntPtr
+    lpcMaxSubKeyLenMarshal := lpcMaxSubKeyLen == 0 ? IntPtr : "uint*"
+    lpcMaxClassLenMarshal := lpcMaxClassLen is VarRef ? "uint*" : IntPtr
+    lpcMaxClassLenMarshal := lpcMaxClassLen == 0 ? IntPtr : "uint*"
+    lpcValuesMarshal := lpcValues is VarRef ? "uint*" : IntPtr
+    lpcValuesMarshal := lpcValues == 0 ? IntPtr : "uint*"
+    lpcMaxValueNameLenMarshal := lpcMaxValueNameLen is VarRef ? "uint*" : IntPtr
+    lpcMaxValueNameLenMarshal := lpcMaxValueNameLen == 0 ? IntPtr : "uint*"
+    lpcMaxValueLenMarshal := lpcMaxValueLen is VarRef ? "uint*" : IntPtr
+    lpcMaxValueLenMarshal := lpcMaxValueLen == 0 ? IntPtr : "uint*"
+    lpcbSecurityDescriptorMarshal := lpcbSecurityDescriptor is VarRef ? "uint*" : IntPtr
+    lpcbSecurityDescriptorMarshal := lpcbSecurityDescriptor == 0 ? IntPtr : "uint*"
+    lpftLastWriteTimeMarshal := lpftLastWriteTime == 0 ? IntPtr : FILETIME.Ptr
 
-    result := DllCall("OFFREG.dll\ORQueryInfoKey", ORHKEY, _Handle, "ptr", lpClass, lpcClassMarshal, lpcClass, lpcSubKeysMarshal, lpcSubKeys, lpcMaxSubKeyLenMarshal, lpcMaxSubKeyLen, lpcMaxClassLenMarshal, lpcMaxClassLen, lpcValuesMarshal, lpcValues, lpcMaxValueNameLenMarshal, lpcMaxValueNameLen, lpcMaxValueLenMarshal, lpcMaxValueLen, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, FILETIME.Ptr, lpftLastWriteTime, WIN32_ERROR)
+    result := DllCall("OFFREG.dll\ORQueryInfoKey", ORHKEY, _Handle, lpClassMarshal, lpClass, lpcClassMarshal, lpcClass, lpcSubKeysMarshal, lpcSubKeys, lpcMaxSubKeyLenMarshal, lpcMaxSubKeyLen, lpcMaxClassLenMarshal, lpcMaxClassLen, lpcValuesMarshal, lpcValues, lpcMaxValueNameLenMarshal, lpcMaxValueNameLen, lpcMaxValueLenMarshal, lpcMaxValueLen, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, lpftLastWriteTimeMarshal, lpftLastWriteTime, WIN32_ERROR)
     return result
 }
 
@@ -347,10 +364,13 @@ export OREnumKey(_Handle, dwIndex, lpName, lpcName, lpClass, lpcClass, lpftLastW
     lpName := lpName is String ? StrPtr(lpName) : lpName
     lpClass := lpClass is String ? StrPtr(lpClass) : lpClass
 
-    lpcNameMarshal := lpcName is VarRef ? "uint*" : "ptr"
-    lpcClassMarshal := lpcClass is VarRef ? "uint*" : "ptr"
+    lpcNameMarshal := lpcName is VarRef ? "uint*" : IntPtr
+    lpClassMarshal := lpClass == 0 ? IntPtr : PWSTR
+    lpcClassMarshal := lpcClass is VarRef ? "uint*" : IntPtr
+    lpcClassMarshal := lpcClass == 0 ? IntPtr : "uint*"
+    lpftLastWriteTimeMarshal := lpftLastWriteTime == 0 ? IntPtr : FILETIME.Ptr
 
-    result := DllCall("OFFREG.dll\OREnumKey", ORHKEY, _Handle, UInt32, dwIndex, "ptr", lpName, lpcNameMarshal, lpcName, "ptr", lpClass, lpcClassMarshal, lpcClass, FILETIME.Ptr, lpftLastWriteTime, WIN32_ERROR)
+    result := DllCall("OFFREG.dll\OREnumKey", ORHKEY, _Handle, UInt32, dwIndex, "ptr", lpName, lpcNameMarshal, lpcName, lpClassMarshal, lpClass, lpcClassMarshal, lpcClass, lpftLastWriteTimeMarshal, lpftLastWriteTime, WIN32_ERROR)
     return result
 }
 
@@ -368,9 +388,10 @@ export OREnumKey(_Handle, dwIndex, lpName, lpcName, lpClass, lpcClass, lpftLastW
  * @see https://learn.microsoft.com/windows/win32/DevNotes/orgetkeysecurity
  */
 export ORGetKeySecurity(_Handle, SecurityInformation, pSecurityDescriptor, lpcbSecurityDescriptor) {
-    lpcbSecurityDescriptorMarshal := lpcbSecurityDescriptor is VarRef ? "uint*" : "ptr"
+    pSecurityDescriptorMarshal := pSecurityDescriptor == 0 ? IntPtr : PSECURITY_DESCRIPTOR
+    lpcbSecurityDescriptorMarshal := lpcbSecurityDescriptor is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("OFFREG.dll\ORGetKeySecurity", ORHKEY, _Handle, UInt32, SecurityInformation, PSECURITY_DESCRIPTOR, pSecurityDescriptor, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, WIN32_ERROR)
+    result := DllCall("OFFREG.dll\ORGetKeySecurity", ORHKEY, _Handle, UInt32, SecurityInformation, pSecurityDescriptorMarshal, pSecurityDescriptor, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, WIN32_ERROR)
     return result
 }
 
@@ -419,7 +440,7 @@ export ORSetKeySecurity(_Handle, SecurityInformation, pSecurityDescriptor) {
  * @see https://learn.microsoft.com/windows/win32/DevNotes/orgetvirtualflags
  */
 export ORGetVirtualFlags(_Handle, pdwFlags) {
-    pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+    pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : IntPtr
 
     result := DllCall("OFFREG.dll\ORGetVirtualFlags", ORHKEY, _Handle, pdwFlagsMarshal, pdwFlags, WIN32_ERROR)
     return result
@@ -473,7 +494,9 @@ export ORSetVirtualFlags(_Handle, dwFlags) {
 export ORDeleteValue(_Handle, lpValueName) {
     lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
 
-    result := DllCall("OFFREG.dll\ORDeleteValue", ORHKEY, _Handle, "ptr", lpValueName, WIN32_ERROR)
+    lpValueNameMarshal := lpValueName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("OFFREG.dll\ORDeleteValue", ORHKEY, _Handle, lpValueNameMarshal, lpValueName, WIN32_ERROR)
     return result
 }
 
@@ -512,10 +535,15 @@ export ORGetValue(_Handle, lpSubKey, lpValue, pdwType, pvData, pcbData) {
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
     lpValue := lpValue is String ? StrPtr(lpValue) : lpValue
 
-    pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
-    pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+    lpSubKeyMarshal := lpSubKey == 0 ? IntPtr : PWSTR
+    lpValueMarshal := lpValue == 0 ? IntPtr : PWSTR
+    pdwTypeMarshal := pdwType is VarRef ? "uint*" : IntPtr
+    pdwTypeMarshal := pdwType == 0 ? IntPtr : "uint*"
+    pvDataMarshal := pvData == 0 ? IntPtr : IntPtr
+    pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
+    pcbDataMarshal := pcbData == 0 ? IntPtr : "uint*"
 
-    result := DllCall("OFFREG.dll\ORGetValue", ORHKEY, _Handle, "ptr", lpSubKey, "ptr", lpValue, pdwTypeMarshal, pdwType, IntPtr, pvData, pcbDataMarshal, pcbData, WIN32_ERROR)
+    result := DllCall("OFFREG.dll\ORGetValue", ORHKEY, _Handle, lpSubKeyMarshal, lpSubKey, lpValueMarshal, lpValue, pdwTypeMarshal, pdwType, pvDataMarshal, pvData, pcbDataMarshal, pcbData, WIN32_ERROR)
     return result
 }
 
@@ -544,7 +572,10 @@ export ORGetValue(_Handle, lpSubKey, lpValue, pdwType, pvData, pcbData) {
 export ORSetValue(_Handle, lpValueName, dwType, lpData, cbData) {
     lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
 
-    result := DllCall("OFFREG.dll\ORSetValue", ORHKEY, _Handle, "ptr", lpValueName, UInt32, dwType, IntPtr, lpData, UInt32, cbData, WIN32_ERROR)
+    lpValueNameMarshal := lpValueName == 0 ? IntPtr : PWSTR
+    lpDataMarshal := lpData == 0 ? IntPtr : IntPtr
+
+    result := DllCall("OFFREG.dll\ORSetValue", ORHKEY, _Handle, lpValueNameMarshal, lpValueName, UInt32, dwType, lpDataMarshal, lpData, UInt32, cbData, WIN32_ERROR)
     return result
 }
 
@@ -589,16 +620,18 @@ export ORSetValue(_Handle, lpValueName, dwType, lpData, cbData) {
 export OREnumValue(_Handle, dwIndex, lpValueName, lpcValueName, lpType, lpData, lpcbData) {
     lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
 
-    lpcValueNameMarshal := lpcValueName is VarRef ? "uint*" : "ptr"
-    lpTypeMarshal := lpType is VarRef ? "uint*" : "ptr"
-    lpcbDataMarshal := lpcbData is VarRef ? "uint*" : "ptr"
+    lpcValueNameMarshal := lpcValueName is VarRef ? "uint*" : IntPtr
+    lpTypeMarshal := lpType is VarRef ? "uint*" : IntPtr
+    lpTypeMarshal := lpType == 0 ? IntPtr : "uint*"
+    lpDataMarshal := lpData == 0 ? IntPtr : IntPtr
+    lpcbDataMarshal := lpcbData is VarRef ? "uint*" : IntPtr
+    lpcbDataMarshal := lpcbData == 0 ? IntPtr : "uint*"
 
-    result := DllCall("OFFREG.dll\OREnumValue", ORHKEY, _Handle, UInt32, dwIndex, "ptr", lpValueName, lpcValueNameMarshal, lpcValueName, lpTypeMarshal, lpType, IntPtr, lpData, lpcbDataMarshal, lpcbData, WIN32_ERROR)
+    result := DllCall("OFFREG.dll\OREnumValue", ORHKEY, _Handle, UInt32, dwIndex, "ptr", lpValueName, lpcValueNameMarshal, lpcValueName, lpTypeMarshal, lpType, lpDataMarshal, lpData, lpcbDataMarshal, lpcbData, WIN32_ERROR)
     return result
 }
 
 /**
- * 
  * @param {ORHKEY} _Handle 
  * @param {PWSTR} lpNewName 
  * @returns {WIN32_ERROR} 
@@ -611,7 +644,6 @@ export ORRenameKey(_Handle, lpNewName) {
 }
 
 /**
- * 
  * @returns {WIN32_ERROR} 
  */
 export ORStart() {
@@ -620,7 +652,6 @@ export ORStart() {
 }
 
 /**
- * 
  * @returns {WIN32_ERROR} 
  */
 export ORShutdown() {
@@ -629,7 +660,6 @@ export ORShutdown() {
 }
 
 /**
- * 
  * @param {Pointer<ORHKEY>} HiveHandles 
  * @param {Integer} HiveCount 
  * @param {Pointer<ORHKEY>} phkResult 

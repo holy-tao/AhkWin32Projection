@@ -41,7 +41,6 @@ export default struct IPrintOemUIMXDC extends IUnknown {
     }
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} cbDevMode 
      * @param {Pointer<DEVMODEA>} pDevMode 
@@ -51,14 +50,13 @@ export default struct IPrintOemUIMXDC extends IUnknown {
      * @returns {HRESULT} 
      */
     AdjustImageableArea(hPrinter, cbDevMode, pDevMode, cbOEMDM, pOEMDM, prclImageableArea) {
-        pOEMDMMarshal := pOEMDM is VarRef ? "ptr" : "ptr"
+        pOEMDMMarshal := pOEMDM is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, PRINTER_HANDLE, hPrinter, UInt32, cbDevMode, DEVMODEA.Ptr, pDevMode, UInt32, cbOEMDM, pOEMDMMarshal, pOEMDM, RECTL.Ptr, prclImageableArea, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} cbDevMode 
      * @param {Pointer<DEVMODEA>} pDevMode 
@@ -68,15 +66,14 @@ export default struct IPrintOemUIMXDC extends IUnknown {
      * @returns {HRESULT} 
      */
     AdjustImageCompression(hPrinter, cbDevMode, pDevMode, cbOEMDM, pOEMDM, pCompressionMode) {
-        pOEMDMMarshal := pOEMDM is VarRef ? "ptr" : "ptr"
-        pCompressionModeMarshal := pCompressionMode is VarRef ? "int*" : "ptr"
+        pOEMDMMarshal := pOEMDM is VarRef ? "ptr" : IntPtr
+        pCompressionModeMarshal := pCompressionMode is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, PRINTER_HANDLE, hPrinter, UInt32, cbDevMode, DEVMODEA.Ptr, pDevMode, UInt32, cbOEMDM, pOEMDMMarshal, pOEMDM, pCompressionModeMarshal, pCompressionMode, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} cbDevMode 
      * @param {Pointer<DEVMODEA>} pDevMode 
@@ -86,8 +83,8 @@ export default struct IPrintOemUIMXDC extends IUnknown {
      * @returns {HRESULT} 
      */
     AdjustDPI(hPrinter, cbDevMode, pDevMode, cbOEMDM, pOEMDM, pDPI) {
-        pOEMDMMarshal := pOEMDM is VarRef ? "ptr" : "ptr"
-        pDPIMarshal := pDPI is VarRef ? "int*" : "ptr"
+        pOEMDMMarshal := pOEMDM is VarRef ? "ptr" : IntPtr
+        pDPIMarshal := pDPI is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, PRINTER_HANDLE, hPrinter, UInt32, cbDevMode, DEVMODEA.Ptr, pDevMode, UInt32, cbOEMDM, pOEMDMMarshal, pOEMDM, pDPIMarshal, pDPI, "HRESULT")
         return result
@@ -102,9 +99,9 @@ export default struct IPrintOemUIMXDC extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AdjustImageableArea := CallbackCreate(GetMethod(implObj, "AdjustImageableArea"), flags, 7)
-        this.vtbl.AdjustImageCompression := CallbackCreate(GetMethod(implObj, "AdjustImageCompression"), flags, 7)
-        this.vtbl.AdjustDPI := CallbackCreate(GetMethod(implObj, "AdjustDPI"), flags, 7)
+        this.vtbl.AdjustImageableArea := CallbackCreate(ObjBindMethod(implObj, "AdjustImageableArea"), flags, 7)
+        this.vtbl.AdjustImageCompression := CallbackCreate(ObjBindMethod(implObj, "AdjustImageCompression"), flags, 7)
+        this.vtbl.AdjustDPI := CallbackCreate(ObjBindMethod(implObj, "AdjustDPI"), flags, 7)
     }
 
     Dispose() {

@@ -25,7 +25,6 @@ export default struct GRAYSTRINGPROC {
     }
 
     /**
-     * 
      * @param {HDC} param0 A handle to a device context with a bitmap of at least the width and height specified by the <i>nWidth</i> and <i>nHeight</i> parameters passed to <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-graystringa">GrayString</a>.
      * @param {LPARAM} param1 A pointer to the string to be drawn.
      * @param {Integer} param2 The length, in characters, of the string.

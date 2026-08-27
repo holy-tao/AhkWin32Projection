@@ -18,7 +18,6 @@ export default struct DRIVERMSGPROC {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @param {Pointer} param2 

@@ -20,7 +20,6 @@ export default struct PFND3DKMT_SETSTABLEPOWERSTATE {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SETSTABLEPOWERSTATE>} param0 
      * @returns {NTSTATUS} 
      */

@@ -617,7 +617,6 @@ export default struct LPWSPIOCTL {
     }
 
     /**
-     * 
      * @param {SOCKET} s A descriptor identifying a socket.
      * @param {Integer} dwIoControlCode The control code of the operation to perform.
      * @param {Integer} lpvInBuffer A pointer to the input buffer.
@@ -645,10 +644,15 @@ export default struct LPWSPIOCTL {
      * | <dl> <dt>[WSAEWOULDBLOCK](/windows/win32/winsock/windows-sockets-error-codes-2#wsaewouldblock)     | The socket is marked as nonblocking and the requested operation would block.<br/>
      */
     Call(s, dwIoControlCode, lpvInBuffer, cbInBuffer, lpvOutBuffer, cbOutBuffer, lpcbBytesReturned, lpOverlapped, lpCompletionRoutine, lpThreadId, lpErrno) {
-        lpcbBytesReturnedMarshal := lpcbBytesReturned is VarRef ? "uint*" : "ptr"
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        lpvInBufferMarshal := lpvInBuffer == 0 ? IntPtr : IntPtr
+        lpvOutBufferMarshal := lpvOutBuffer == 0 ? IntPtr : IntPtr
+        lpcbBytesReturnedMarshal := lpcbBytesReturned is VarRef ? "uint*" : IntPtr
+        lpOverlappedMarshal := lpOverlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+        lpCompletionRoutineMarshal := lpCompletionRoutine == 0 ? IntPtr : LPWSAOVERLAPPED_COMPLETION_ROUTINE
+        lpThreadIdMarshal := lpThreadId == 0 ? IntPtr : WSATHREADID.Ptr
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
-        result := DllCall(this.value, SOCKET, s, UInt32, dwIoControlCode, IntPtr, lpvInBuffer, UInt32, cbInBuffer, IntPtr, lpvOutBuffer, UInt32, cbOutBuffer, lpcbBytesReturnedMarshal, lpcbBytesReturned, OVERLAPPED.Ptr, lpOverlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE, lpCompletionRoutine, WSATHREADID.Ptr, lpThreadId, lpErrnoMarshal, lpErrno, Int32)
+        result := DllCall(this.value, SOCKET, s, UInt32, dwIoControlCode, lpvInBufferMarshal, lpvInBuffer, UInt32, cbInBuffer, lpvOutBufferMarshal, lpvOutBuffer, UInt32, cbOutBuffer, lpcbBytesReturnedMarshal, lpcbBytesReturned, lpOverlappedMarshal, lpOverlapped, lpCompletionRoutineMarshal, lpCompletionRoutine, lpThreadIdMarshal, lpThreadId, lpErrnoMarshal, lpErrno, Int32)
         return result
     }
 

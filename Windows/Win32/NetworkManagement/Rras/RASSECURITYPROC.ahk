@@ -18,7 +18,6 @@ export default struct RASSECURITYPROC {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Call() {

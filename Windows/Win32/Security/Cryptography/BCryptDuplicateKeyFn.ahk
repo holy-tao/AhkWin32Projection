@@ -20,7 +20,6 @@ export default struct BCryptDuplicateKeyFn {
     }
 
     /**
-     * 
      * @param {BCRYPT_KEY_HANDLE} _hKey 
      * @param {Pointer<BCRYPT_KEY_HANDLE>} phNewKey 
      * @param {Integer} pbKeyObject 

@@ -43,17 +43,17 @@ export default struct ISideShowContentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISideShowContent} in_pIContent 
      * @returns {HRESULT} 
      */
     Add(in_pIContent) {
-        result := ComCall(3, this, "ptr", in_pIContent, "HRESULT")
+        in_pIContentMarshal := in_pIContent == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, in_pIContentMarshal, in_pIContent, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} in_contentId 
      * @returns {HRESULT} 
      */
@@ -63,7 +63,6 @@ export default struct ISideShowContentManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RemoveAll() {
@@ -72,17 +71,17 @@ export default struct ISideShowContentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISideShowEvents} in_pIEvents 
      * @returns {HRESULT} 
      */
     SetEventSink(in_pIEvents) {
-        result := ComCall(6, this, "ptr", in_pIEvents, "HRESULT")
+        in_pIEventsMarshal := in_pIEvents == 0 ? IntPtr : "ptr"
+
+        result := ComCall(6, this, in_pIEventsMarshal, in_pIEvents, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {ISideShowCapabilitiesCollection} 
      */
     GetDeviceCapabilities() {
@@ -99,11 +98,11 @@ export default struct ISideShowContentManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
-        this.vtbl.RemoveAll := CallbackCreate(GetMethod(implObj, "RemoveAll"), flags, 1)
-        this.vtbl.SetEventSink := CallbackCreate(GetMethod(implObj, "SetEventSink"), flags, 2)
-        this.vtbl.GetDeviceCapabilities := CallbackCreate(GetMethod(implObj, "GetDeviceCapabilities"), flags, 2)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.RemoveAll := CallbackCreate(ObjBindMethod(implObj, "RemoveAll"), flags, 1)
+        this.vtbl.SetEventSink := CallbackCreate(ObjBindMethod(implObj, "SetEventSink"), flags, 2)
+        this.vtbl.GetDeviceCapabilities := CallbackCreate(ObjBindMethod(implObj, "GetDeviceCapabilities"), flags, 2)
     }
 
     Dispose() {

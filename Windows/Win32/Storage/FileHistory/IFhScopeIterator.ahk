@@ -73,8 +73,8 @@ export default struct IFhScopeIterator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.MoveToNextItem := CallbackCreate(GetMethod(implObj, "MoveToNextItem"), flags, 1)
-        this.vtbl.GetItem := CallbackCreate(GetMethod(implObj, "GetItem"), flags, 2)
+        this.vtbl.MoveToNextItem := CallbackCreate(ObjBindMethod(implObj, "MoveToNextItem"), flags, 1)
+        this.vtbl.GetItem := CallbackCreate(ObjBindMethod(implObj, "GetItem"), flags, 2)
     }
 
     Dispose() {

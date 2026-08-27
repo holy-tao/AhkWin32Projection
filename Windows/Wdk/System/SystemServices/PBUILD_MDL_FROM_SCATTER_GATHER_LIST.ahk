@@ -22,7 +22,6 @@ export default struct PBUILD_MDL_FROM_SCATTER_GATHER_LIST {
     }
 
     /**
-     * 
      * @param {Pointer<DMA_ADAPTER>} DmaAdapter 
      * @param {Pointer<SCATTER_GATHER_LIST>} ScatterGather 
      * @param {Pointer<MDL>} OriginalMdl 
@@ -30,7 +29,7 @@ export default struct PBUILD_MDL_FROM_SCATTER_GATHER_LIST {
      * @returns {NTSTATUS} 
      */
     Call(DmaAdapter, ScatterGather, OriginalMdl, TargetMdl) {
-        TargetMdlMarshal := TargetMdl is VarRef ? "ptr*" : "ptr"
+        TargetMdlMarshal := TargetMdl is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, SCATTER_GATHER_LIST.Ptr, ScatterGather, MDL.Ptr, OriginalMdl, TargetMdlMarshal, TargetMdl, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

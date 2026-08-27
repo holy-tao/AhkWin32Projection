@@ -111,8 +111,8 @@ export default struct IWMDRMReader2 extends IWMDRMReader {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdrmreader2-getplayoutputlevels
      */
     GetPlayOutputLevels(pPlayOPL, pcbLength, pdwMinAppComplianceLevel) {
-        pcbLengthMarshal := pcbLength is VarRef ? "uint*" : "ptr"
-        pdwMinAppComplianceLevelMarshal := pdwMinAppComplianceLevel is VarRef ? "uint*" : "ptr"
+        pcbLengthMarshal := pcbLength is VarRef ? "uint*" : IntPtr
+        pdwMinAppComplianceLevelMarshal := pdwMinAppComplianceLevel is VarRef ? "uint*" : IntPtr
 
         result := ComCall(12, this, DRM_PLAY_OPL.Ptr, pPlayOPL, pcbLengthMarshal, pcbLength, pdwMinAppComplianceLevelMarshal, pdwMinAppComplianceLevel, "HRESULT")
         return result
@@ -151,8 +151,8 @@ export default struct IWMDRMReader2 extends IWMDRMReader {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdrmreader2-getcopyoutputlevels
      */
     GetCopyOutputLevels(pCopyOPL, pcbLength, pdwMinAppComplianceLevel) {
-        pcbLengthMarshal := pcbLength is VarRef ? "uint*" : "ptr"
-        pdwMinAppComplianceLevelMarshal := pdwMinAppComplianceLevel is VarRef ? "uint*" : "ptr"
+        pcbLengthMarshal := pcbLength is VarRef ? "uint*" : IntPtr
+        pdwMinAppComplianceLevelMarshal := pdwMinAppComplianceLevel is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, DRM_COPY_OPL.Ptr, pCopyOPL, pcbLengthMarshal, pcbLength, pdwMinAppComplianceLevelMarshal, pdwMinAppComplianceLevel, "HRESULT")
         return result
@@ -239,10 +239,10 @@ export default struct IWMDRMReader2 extends IWMDRMReader {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetEvaluateOutputLevelLicenses := CallbackCreate(GetMethod(implObj, "SetEvaluateOutputLevelLicenses"), flags, 2)
-        this.vtbl.GetPlayOutputLevels := CallbackCreate(GetMethod(implObj, "GetPlayOutputLevels"), flags, 4)
-        this.vtbl.GetCopyOutputLevels := CallbackCreate(GetMethod(implObj, "GetCopyOutputLevels"), flags, 4)
-        this.vtbl.TryNextLicense := CallbackCreate(GetMethod(implObj, "TryNextLicense"), flags, 1)
+        this.vtbl.SetEvaluateOutputLevelLicenses := CallbackCreate(ObjBindMethod(implObj, "SetEvaluateOutputLevelLicenses"), flags, 2)
+        this.vtbl.GetPlayOutputLevels := CallbackCreate(ObjBindMethod(implObj, "GetPlayOutputLevels"), flags, 4)
+        this.vtbl.GetCopyOutputLevels := CallbackCreate(ObjBindMethod(implObj, "GetCopyOutputLevels"), flags, 4)
+        this.vtbl.TryNextLicense := CallbackCreate(ObjBindMethod(implObj, "TryNextLicense"), flags, 1)
     }
 
     Dispose() {

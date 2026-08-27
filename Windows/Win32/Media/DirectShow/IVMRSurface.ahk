@@ -108,10 +108,10 @@ export default struct IVMRSurface extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsSurfaceLocked := CallbackCreate(GetMethod(implObj, "IsSurfaceLocked"), flags, 1)
-        this.vtbl.LockSurface := CallbackCreate(GetMethod(implObj, "LockSurface"), flags, 2)
-        this.vtbl.UnlockSurface := CallbackCreate(GetMethod(implObj, "UnlockSurface"), flags, 1)
-        this.vtbl.GetSurface := CallbackCreate(GetMethod(implObj, "GetSurface"), flags, 2)
+        this.vtbl.IsSurfaceLocked := CallbackCreate(ObjBindMethod(implObj, "IsSurfaceLocked"), flags, 1)
+        this.vtbl.LockSurface := CallbackCreate(ObjBindMethod(implObj, "LockSurface"), flags, 2)
+        this.vtbl.UnlockSurface := CallbackCreate(ObjBindMethod(implObj, "UnlockSurface"), flags, 1)
+        this.vtbl.GetSurface := CallbackCreate(ObjBindMethod(implObj, "GetSurface"), flags, 2)
     }
 
     Dispose() {

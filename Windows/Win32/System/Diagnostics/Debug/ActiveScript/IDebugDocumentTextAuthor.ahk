@@ -39,7 +39,6 @@ export default struct IDebugDocumentTextAuthor extends IDebugDocumentText {
     }
 
     /**
-     * 
      * @param {Integer} cCharacterPosition 
      * @param {Integer} cNumToInsert 
      * @param {PWSTR} pcharText 
@@ -53,7 +52,6 @@ export default struct IDebugDocumentTextAuthor extends IDebugDocumentText {
     }
 
     /**
-     * 
      * @param {Integer} cCharacterPosition 
      * @param {Integer} cNumToRemove 
      * @returns {HRESULT} 
@@ -108,9 +106,9 @@ export default struct IDebugDocumentTextAuthor extends IDebugDocumentText {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InsertText := CallbackCreate(GetMethod(implObj, "InsertText"), flags, 4)
-        this.vtbl.RemoveText := CallbackCreate(GetMethod(implObj, "RemoveText"), flags, 3)
-        this.vtbl.ReplaceText := CallbackCreate(GetMethod(implObj, "ReplaceText"), flags, 4)
+        this.vtbl.InsertText := CallbackCreate(ObjBindMethod(implObj, "InsertText"), flags, 4)
+        this.vtbl.RemoveText := CallbackCreate(ObjBindMethod(implObj, "RemoveText"), flags, 3)
+        this.vtbl.ReplaceText := CallbackCreate(ObjBindMethod(implObj, "ReplaceText"), flags, 4)
     }
 
     Dispose() {

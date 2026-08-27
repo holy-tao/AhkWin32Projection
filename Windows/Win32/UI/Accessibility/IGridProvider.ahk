@@ -137,9 +137,9 @@ export default struct IGridProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetItem := CallbackCreate(GetMethod(implObj, "GetItem"), flags, 4)
-        this.vtbl.get_RowCount := CallbackCreate(GetMethod(implObj, "get_RowCount"), flags, 2)
-        this.vtbl.get_ColumnCount := CallbackCreate(GetMethod(implObj, "get_ColumnCount"), flags, 2)
+        this.vtbl.GetItem := CallbackCreate(ObjBindMethod(implObj, "GetItem"), flags, 4)
+        this.vtbl.get_RowCount := CallbackCreate(ObjBindMethod(implObj, "get_RowCount"), flags, 2)
+        this.vtbl.get_ColumnCount := CallbackCreate(ObjBindMethod(implObj, "get_ColumnCount"), flags, 2)
     }
 
     Dispose() {

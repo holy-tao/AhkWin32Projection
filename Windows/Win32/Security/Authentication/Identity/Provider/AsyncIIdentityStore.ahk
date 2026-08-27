@@ -58,7 +58,6 @@ export default struct AsyncIIdentityStore extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Begin_GetCount() {
@@ -67,7 +66,6 @@ export default struct AsyncIIdentityStore extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Finish_GetCount() {
@@ -76,28 +74,29 @@ export default struct AsyncIIdentityStore extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwProvider 
      * @param {Pointer<Guid>} pProvGuid 
      * @returns {HRESULT} 
      */
     Begin_GetAt(dwProvider, pProvGuid) {
-        result := ComCall(5, this, UInt32, dwProvider, Guid.Ptr, pProvGuid, "HRESULT")
+        pProvGuidMarshal := pProvGuid == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(5, this, UInt32, dwProvider, pProvGuidMarshal, pProvGuid, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pProvGuid 
      * @returns {IUnknown} 
      */
     Finish_GetAt(pProvGuid) {
-        result := ComCall(6, this, Guid.Ptr, pProvGuid, "ptr*", &ppIdentityProvider := 0, "HRESULT")
+        pProvGuidMarshal := pProvGuid == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(6, this, pProvGuidMarshal, pProvGuid, "ptr*", &ppIdentityProvider := 0, "HRESULT")
         return IUnknown(ppIdentityProvider)
     }
 
     /**
-     * 
      * @param {PWSTR} lpszUniqueID 
      * @param {Pointer<Guid>} ProviderGUID 
      * @returns {HRESULT} 
@@ -110,7 +109,6 @@ export default struct AsyncIIdentityStore extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_AddToCache() {
@@ -119,7 +117,6 @@ export default struct AsyncIIdentityStore extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszUniqueID 
      * @param {Pointer<Guid>} ProviderGUID 
      * @param {Integer} cbSid 
@@ -129,38 +126,40 @@ export default struct AsyncIIdentityStore extends IUnknown {
     Begin_ConvertToSid(lpszUniqueID, ProviderGUID, cbSid, _pSid) {
         lpszUniqueID := lpszUniqueID is String ? StrPtr(lpszUniqueID) : lpszUniqueID
 
-        _pSidMarshal := _pSid is VarRef ? "char*" : "ptr"
+        _pSidMarshal := _pSid is VarRef ? "char*" : IntPtr
+        _pSidMarshal := _pSid == 0 ? IntPtr : "char*"
 
         result := ComCall(9, this, "ptr", lpszUniqueID, Guid.Ptr, ProviderGUID, UInt16, cbSid, _pSidMarshal, _pSid, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} _pSid 
      * @returns {Integer} 
      */
     Finish_ConvertToSid(_pSid) {
-        _pSidMarshal := _pSid is VarRef ? "char*" : "ptr"
+        _pSidMarshal := _pSid is VarRef ? "char*" : IntPtr
+        _pSidMarshal := _pSid == 0 ? IntPtr : "char*"
 
         result := ComCall(10, this, _pSidMarshal, _pSid, "ushort*", &pcbRequiredSid := 0, "HRESULT")
         return pcbRequiredSid
     }
 
     /**
-     * 
      * @param {IDENTITY_TYPE} eIdentityType 
      * @param {Pointer<PROPERTYKEY>} pFilterkey 
      * @param {Pointer<PROPVARIANT>} pFilterPropVarValue 
      * @returns {HRESULT} 
      */
     Begin_EnumerateIdentities(eIdentityType, pFilterkey, pFilterPropVarValue) {
-        result := ComCall(11, this, IDENTITY_TYPE, eIdentityType, PROPERTYKEY.Ptr, pFilterkey, PROPVARIANT.Ptr, pFilterPropVarValue, "HRESULT")
+        pFilterkeyMarshal := pFilterkey == 0 ? IntPtr : PROPERTYKEY.Ptr
+        pFilterPropVarValueMarshal := pFilterPropVarValue == 0 ? IntPtr : PROPVARIANT.Ptr
+
+        result := ComCall(11, this, IDENTITY_TYPE, eIdentityType, pFilterkeyMarshal, pFilterkey, pFilterPropVarValueMarshal, pFilterPropVarValue, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {IEnumUnknown} 
      */
     Finish_EnumerateIdentities() {
@@ -169,7 +168,6 @@ export default struct AsyncIIdentityStore extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Begin_Reset() {
@@ -178,7 +176,6 @@ export default struct AsyncIIdentityStore extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_Reset() {
@@ -195,18 +192,18 @@ export default struct AsyncIIdentityStore extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Begin_GetCount := CallbackCreate(GetMethod(implObj, "Begin_GetCount"), flags, 1)
-        this.vtbl.Finish_GetCount := CallbackCreate(GetMethod(implObj, "Finish_GetCount"), flags, 2)
-        this.vtbl.Begin_GetAt := CallbackCreate(GetMethod(implObj, "Begin_GetAt"), flags, 3)
-        this.vtbl.Finish_GetAt := CallbackCreate(GetMethod(implObj, "Finish_GetAt"), flags, 3)
-        this.vtbl.Begin_AddToCache := CallbackCreate(GetMethod(implObj, "Begin_AddToCache"), flags, 3)
-        this.vtbl.Finish_AddToCache := CallbackCreate(GetMethod(implObj, "Finish_AddToCache"), flags, 1)
-        this.vtbl.Begin_ConvertToSid := CallbackCreate(GetMethod(implObj, "Begin_ConvertToSid"), flags, 5)
-        this.vtbl.Finish_ConvertToSid := CallbackCreate(GetMethod(implObj, "Finish_ConvertToSid"), flags, 3)
-        this.vtbl.Begin_EnumerateIdentities := CallbackCreate(GetMethod(implObj, "Begin_EnumerateIdentities"), flags, 4)
-        this.vtbl.Finish_EnumerateIdentities := CallbackCreate(GetMethod(implObj, "Finish_EnumerateIdentities"), flags, 2)
-        this.vtbl.Begin_Reset := CallbackCreate(GetMethod(implObj, "Begin_Reset"), flags, 1)
-        this.vtbl.Finish_Reset := CallbackCreate(GetMethod(implObj, "Finish_Reset"), flags, 1)
+        this.vtbl.Begin_GetCount := CallbackCreate(ObjBindMethod(implObj, "Begin_GetCount"), flags, 1)
+        this.vtbl.Finish_GetCount := CallbackCreate(ObjBindMethod(implObj, "Finish_GetCount"), flags, 2)
+        this.vtbl.Begin_GetAt := CallbackCreate(ObjBindMethod(implObj, "Begin_GetAt"), flags, 3)
+        this.vtbl.Finish_GetAt := CallbackCreate(ObjBindMethod(implObj, "Finish_GetAt"), flags, 3)
+        this.vtbl.Begin_AddToCache := CallbackCreate(ObjBindMethod(implObj, "Begin_AddToCache"), flags, 3)
+        this.vtbl.Finish_AddToCache := CallbackCreate(ObjBindMethod(implObj, "Finish_AddToCache"), flags, 1)
+        this.vtbl.Begin_ConvertToSid := CallbackCreate(ObjBindMethod(implObj, "Begin_ConvertToSid"), flags, 5)
+        this.vtbl.Finish_ConvertToSid := CallbackCreate(ObjBindMethod(implObj, "Finish_ConvertToSid"), flags, 3)
+        this.vtbl.Begin_EnumerateIdentities := CallbackCreate(ObjBindMethod(implObj, "Begin_EnumerateIdentities"), flags, 4)
+        this.vtbl.Finish_EnumerateIdentities := CallbackCreate(ObjBindMethod(implObj, "Finish_EnumerateIdentities"), flags, 2)
+        this.vtbl.Begin_Reset := CallbackCreate(ObjBindMethod(implObj, "Begin_Reset"), flags, 1)
+        this.vtbl.Finish_Reset := CallbackCreate(ObjBindMethod(implObj, "Finish_Reset"), flags, 1)
     }
 
     Dispose() {

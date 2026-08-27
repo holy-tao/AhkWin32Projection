@@ -58,7 +58,7 @@ export default struct IDXGIFactory3 extends IDXGIFactory2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCreationFlags := CallbackCreate(GetMethod(implObj, "GetCreationFlags"), flags, 1)
+        this.vtbl.GetCreationFlags := CallbackCreate(ObjBindMethod(implObj, "GetCreationFlags"), flags, 1)
     }
 
     Dispose() {

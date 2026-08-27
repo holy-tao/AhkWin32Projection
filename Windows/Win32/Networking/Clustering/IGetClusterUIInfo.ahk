@@ -142,7 +142,7 @@ export default struct IGetClusterUIInfo extends IUnknown {
     GetClusterName(lpszName, pcchName) {
         lpszName := lpszName is String ? BSTR.Alloc(lpszName).Value : lpszName
 
-        pcchNameMarshal := pcchName is VarRef ? "int*" : "ptr"
+        pcchNameMarshal := pcchName is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, BSTR, lpszName, pcchNameMarshal, pcchName, "HRESULT")
         return result
@@ -203,10 +203,10 @@ export default struct IGetClusterUIInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetClusterName := CallbackCreate(GetMethod(implObj, "GetClusterName"), flags, 3)
-        this.vtbl.GetLocale := CallbackCreate(GetMethod(implObj, "GetLocale"), flags, 1)
-        this.vtbl.GetFont := CallbackCreate(GetMethod(implObj, "GetFont"), flags, 1)
-        this.vtbl.GetIcon := CallbackCreate(GetMethod(implObj, "GetIcon"), flags, 1)
+        this.vtbl.GetClusterName := CallbackCreate(ObjBindMethod(implObj, "GetClusterName"), flags, 3)
+        this.vtbl.GetLocale := CallbackCreate(ObjBindMethod(implObj, "GetLocale"), flags, 1)
+        this.vtbl.GetFont := CallbackCreate(ObjBindMethod(implObj, "GetFont"), flags, 1)
+        this.vtbl.GetIcon := CallbackCreate(ObjBindMethod(implObj, "GetIcon"), flags, 1)
     }
 
     Dispose() {

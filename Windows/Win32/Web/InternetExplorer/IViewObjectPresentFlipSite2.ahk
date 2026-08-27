@@ -37,7 +37,6 @@ export default struct IViewObjectPresentFlipSite2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DXGI_MODE_ROTATION} 
      */
     GetRotationForCurrentOutput() {
@@ -54,7 +53,7 @@ export default struct IViewObjectPresentFlipSite2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRotationForCurrentOutput := CallbackCreate(GetMethod(implObj, "GetRotationForCurrentOutput"), flags, 2)
+        this.vtbl.GetRotationForCurrentOutput := CallbackCreate(ObjBindMethod(implObj, "GetRotationForCurrentOutput"), flags, 2)
     }
 
     Dispose() {

@@ -22,7 +22,6 @@ export default struct BCryptDeriveKeyFn {
     }
 
     /**
-     * 
      * @param {BCRYPT_SECRET_HANDLE} hSharedSecret 
      * @param {PWSTR} pwszKDF 
      * @param {Pointer<BCryptBufferDesc>} pParameterList 
@@ -35,9 +34,11 @@ export default struct BCryptDeriveKeyFn {
     Call(hSharedSecret, pwszKDF, pParameterList, pbDerivedKey, cbDerivedKey, pcbResult, dwFlags) {
         pwszKDF := pwszKDF is String ? StrPtr(pwszKDF) : pwszKDF
 
-        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+        pParameterListMarshal := pParameterList == 0 ? IntPtr : BCryptBufferDesc.Ptr
+        pbDerivedKeyMarshal := pbDerivedKey == 0 ? IntPtr : IntPtr
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, BCRYPT_SECRET_HANDLE, hSharedSecret, "ptr", pwszKDF, BCryptBufferDesc.Ptr, pParameterList, IntPtr, pbDerivedKey, UInt32, cbDerivedKey, pcbResultMarshal, pcbResult, UInt32, dwFlags, NTSTATUS)
+        result := DllCall(this.value, BCRYPT_SECRET_HANDLE, hSharedSecret, "ptr", pwszKDF, pParameterListMarshal, pParameterList, pbDerivedKeyMarshal, pbDerivedKey, UInt32, cbDerivedKey, pcbResultMarshal, pcbResult, UInt32, dwFlags, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

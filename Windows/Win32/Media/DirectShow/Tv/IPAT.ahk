@@ -377,17 +377,17 @@ export default struct IPAT extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.GetTransportStreamId := CallbackCreate(GetMethod(implObj, "GetTransportStreamId"), flags, 2)
-        this.vtbl.GetVersionNumber := CallbackCreate(GetMethod(implObj, "GetVersionNumber"), flags, 2)
-        this.vtbl.GetCountOfRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRecords"), flags, 2)
-        this.vtbl.GetRecordProgramNumber := CallbackCreate(GetMethod(implObj, "GetRecordProgramNumber"), flags, 3)
-        this.vtbl.GetRecordProgramMapPid := CallbackCreate(GetMethod(implObj, "GetRecordProgramMapPid"), flags, 3)
-        this.vtbl.FindRecordProgramMapPid := CallbackCreate(GetMethod(implObj, "FindRecordProgramMapPid"), flags, 3)
-        this.vtbl.RegisterForNextTable := CallbackCreate(GetMethod(implObj, "RegisterForNextTable"), flags, 2)
-        this.vtbl.GetNextTable := CallbackCreate(GetMethod(implObj, "GetNextTable"), flags, 2)
-        this.vtbl.RegisterForWhenCurrent := CallbackCreate(GetMethod(implObj, "RegisterForWhenCurrent"), flags, 2)
-        this.vtbl.ConvertNextToCurrent := CallbackCreate(GetMethod(implObj, "ConvertNextToCurrent"), flags, 1)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetTransportStreamId := CallbackCreate(ObjBindMethod(implObj, "GetTransportStreamId"), flags, 2)
+        this.vtbl.GetVersionNumber := CallbackCreate(ObjBindMethod(implObj, "GetVersionNumber"), flags, 2)
+        this.vtbl.GetCountOfRecords := CallbackCreate(ObjBindMethod(implObj, "GetCountOfRecords"), flags, 2)
+        this.vtbl.GetRecordProgramNumber := CallbackCreate(ObjBindMethod(implObj, "GetRecordProgramNumber"), flags, 3)
+        this.vtbl.GetRecordProgramMapPid := CallbackCreate(ObjBindMethod(implObj, "GetRecordProgramMapPid"), flags, 3)
+        this.vtbl.FindRecordProgramMapPid := CallbackCreate(ObjBindMethod(implObj, "FindRecordProgramMapPid"), flags, 3)
+        this.vtbl.RegisterForNextTable := CallbackCreate(ObjBindMethod(implObj, "RegisterForNextTable"), flags, 2)
+        this.vtbl.GetNextTable := CallbackCreate(ObjBindMethod(implObj, "GetNextTable"), flags, 2)
+        this.vtbl.RegisterForWhenCurrent := CallbackCreate(ObjBindMethod(implObj, "RegisterForWhenCurrent"), flags, 2)
+        this.vtbl.ConvertNextToCurrent := CallbackCreate(ObjBindMethod(implObj, "ConvertNextToCurrent"), flags, 1)
     }
 
     Dispose() {

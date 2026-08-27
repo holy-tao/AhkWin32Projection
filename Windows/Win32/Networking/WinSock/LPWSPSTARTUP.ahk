@@ -22,7 +22,6 @@ export default struct LPWSPSTARTUP {
     }
 
     /**
-     * 
      * @param {Integer} wVersionRequested 
      * @param {Pointer<WSPDATA>} lpWSPData 
      * @param {Pointer<WSAPROTOCOL_INFOW>} lpProtocolInfo 

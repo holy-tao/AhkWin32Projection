@@ -20,7 +20,6 @@ export default struct PFN_CARD_CONSTRUCT_DH_AGREEMENT {
     }
 
     /**
-     * 
      * @param {Pointer<CARD_DATA>} pCardData 
      * @param {Pointer<CARD_DH_AGREEMENT_INFO>} pAgreementInfo 
      * @returns {Integer} 

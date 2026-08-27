@@ -49,7 +49,9 @@ export default struct IServiceTransactionConfig extends IServiceTransactionConfi
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicetransactionconfig-configurebyot
      */
     ConfigureBYOT(pITxByot) {
-        result := ComCall(8, this, "ptr", pITxByot, "HRESULT")
+        pITxByotMarshal := pITxByot == 0 ? IntPtr : "ptr"
+
+        result := ComCall(8, this, pITxByotMarshal, pITxByot, "HRESULT")
         return result
     }
 
@@ -62,7 +64,7 @@ export default struct IServiceTransactionConfig extends IServiceTransactionConfi
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ConfigureBYOT := CallbackCreate(GetMethod(implObj, "ConfigureBYOT"), flags, 2)
+        this.vtbl.ConfigureBYOT := CallbackCreate(ObjBindMethod(implObj, "ConfigureBYOT"), flags, 2)
     }
 
     Dispose() {

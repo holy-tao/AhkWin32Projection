@@ -113,8 +113,8 @@ export default struct IMFTopologyServiceLookupClient extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitServicePointers := CallbackCreate(GetMethod(implObj, "InitServicePointers"), flags, 2)
-        this.vtbl.ReleaseServicePointers := CallbackCreate(GetMethod(implObj, "ReleaseServicePointers"), flags, 1)
+        this.vtbl.InitServicePointers := CallbackCreate(ObjBindMethod(implObj, "InitServicePointers"), flags, 2)
+        this.vtbl.ReleaseServicePointers := CallbackCreate(ObjBindMethod(implObj, "ReleaseServicePointers"), flags, 1)
     }
 
     Dispose() {

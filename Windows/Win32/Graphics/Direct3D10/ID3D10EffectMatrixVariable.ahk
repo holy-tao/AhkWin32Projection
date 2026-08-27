@@ -55,7 +55,7 @@ export default struct ID3D10EffectMatrixVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectmatrixvariable-setmatrix
      */
     SetMatrix(pData) {
-        pDataMarshal := pData is VarRef ? "float*" : "ptr"
+        pDataMarshal := pData is VarRef ? "float*" : IntPtr
 
         result := ComCall(25, this, pDataMarshal, pData, "HRESULT")
         return result
@@ -72,7 +72,7 @@ export default struct ID3D10EffectMatrixVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectmatrixvariable-getmatrix
      */
     GetMatrix(pData) {
-        pDataMarshal := pData is VarRef ? "float*" : "ptr"
+        pDataMarshal := pData is VarRef ? "float*" : IntPtr
 
         result := ComCall(26, this, pDataMarshal, pData, "HRESULT")
         return result
@@ -95,7 +95,7 @@ export default struct ID3D10EffectMatrixVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectmatrixvariable-setmatrixarray
      */
     SetMatrixArray(pData, Offset, Count) {
-        pDataMarshal := pData is VarRef ? "float*" : "ptr"
+        pDataMarshal := pData is VarRef ? "float*" : IntPtr
 
         result := ComCall(27, this, pDataMarshal, pData, UInt32, Offset, UInt32, Count, "HRESULT")
         return result
@@ -118,7 +118,7 @@ export default struct ID3D10EffectMatrixVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectmatrixvariable-getmatrixarray
      */
     GetMatrixArray(pData, Offset, Count) {
-        pDataMarshal := pData is VarRef ? "float*" : "ptr"
+        pDataMarshal := pData is VarRef ? "float*" : IntPtr
 
         result := ComCall(28, this, pDataMarshal, pData, UInt32, Offset, UInt32, Count, "HRESULT")
         return result
@@ -137,7 +137,7 @@ export default struct ID3D10EffectMatrixVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectmatrixvariable-setmatrixtranspose
      */
     SetMatrixTranspose(pData) {
-        pDataMarshal := pData is VarRef ? "float*" : "ptr"
+        pDataMarshal := pData is VarRef ? "float*" : IntPtr
 
         result := ComCall(29, this, pDataMarshal, pData, "HRESULT")
         return result
@@ -156,7 +156,7 @@ export default struct ID3D10EffectMatrixVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectmatrixvariable-getmatrixtranspose
      */
     GetMatrixTranspose(pData) {
-        pDataMarshal := pData is VarRef ? "float*" : "ptr"
+        pDataMarshal := pData is VarRef ? "float*" : IntPtr
 
         result := ComCall(30, this, pDataMarshal, pData, "HRESULT")
         return result
@@ -181,7 +181,7 @@ export default struct ID3D10EffectMatrixVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectmatrixvariable-setmatrixtransposearray
      */
     SetMatrixTransposeArray(pData, Offset, Count) {
-        pDataMarshal := pData is VarRef ? "float*" : "ptr"
+        pDataMarshal := pData is VarRef ? "float*" : IntPtr
 
         result := ComCall(31, this, pDataMarshal, pData, UInt32, Offset, UInt32, Count, "HRESULT")
         return result
@@ -206,7 +206,7 @@ export default struct ID3D10EffectMatrixVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectmatrixvariable-getmatrixtransposearray
      */
     GetMatrixTransposeArray(pData, Offset, Count) {
-        pDataMarshal := pData is VarRef ? "float*" : "ptr"
+        pDataMarshal := pData is VarRef ? "float*" : IntPtr
 
         result := ComCall(32, this, pDataMarshal, pData, UInt32, Offset, UInt32, Count, "HRESULT")
         return result
@@ -221,14 +221,14 @@ export default struct ID3D10EffectMatrixVariable extends ID3D10EffectVariable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetMatrix := CallbackCreate(GetMethod(implObj, "SetMatrix"), flags, 2)
-        this.vtbl.GetMatrix := CallbackCreate(GetMethod(implObj, "GetMatrix"), flags, 2)
-        this.vtbl.SetMatrixArray := CallbackCreate(GetMethod(implObj, "SetMatrixArray"), flags, 4)
-        this.vtbl.GetMatrixArray := CallbackCreate(GetMethod(implObj, "GetMatrixArray"), flags, 4)
-        this.vtbl.SetMatrixTranspose := CallbackCreate(GetMethod(implObj, "SetMatrixTranspose"), flags, 2)
-        this.vtbl.GetMatrixTranspose := CallbackCreate(GetMethod(implObj, "GetMatrixTranspose"), flags, 2)
-        this.vtbl.SetMatrixTransposeArray := CallbackCreate(GetMethod(implObj, "SetMatrixTransposeArray"), flags, 4)
-        this.vtbl.GetMatrixTransposeArray := CallbackCreate(GetMethod(implObj, "GetMatrixTransposeArray"), flags, 4)
+        this.vtbl.SetMatrix := CallbackCreate(ObjBindMethod(implObj, "SetMatrix"), flags, 2)
+        this.vtbl.GetMatrix := CallbackCreate(ObjBindMethod(implObj, "GetMatrix"), flags, 2)
+        this.vtbl.SetMatrixArray := CallbackCreate(ObjBindMethod(implObj, "SetMatrixArray"), flags, 4)
+        this.vtbl.GetMatrixArray := CallbackCreate(ObjBindMethod(implObj, "GetMatrixArray"), flags, 4)
+        this.vtbl.SetMatrixTranspose := CallbackCreate(ObjBindMethod(implObj, "SetMatrixTranspose"), flags, 2)
+        this.vtbl.GetMatrixTranspose := CallbackCreate(ObjBindMethod(implObj, "GetMatrixTranspose"), flags, 2)
+        this.vtbl.SetMatrixTransposeArray := CallbackCreate(ObjBindMethod(implObj, "SetMatrixTransposeArray"), flags, 4)
+        this.vtbl.GetMatrixTransposeArray := CallbackCreate(ObjBindMethod(implObj, "GetMatrixTransposeArray"), flags, 4)
     }
 
     Dispose() {

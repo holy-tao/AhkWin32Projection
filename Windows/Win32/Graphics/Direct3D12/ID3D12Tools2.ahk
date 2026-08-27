@@ -38,13 +38,14 @@ export default struct ID3D12Tools2 extends ID3D12Tools1 {
     }
 
     /**
-     * 
      * @param {IUnknown} pAdapter 
      * @param {ID3DBlob} pBlob 
      * @returns {HRESULT} 
      */
     SetApplicationSpecificDriverState(pAdapter, pBlob) {
-        result := ComCall(7, this, "ptr", pAdapter, "ptr", pBlob, "HRESULT")
+        pBlobMarshal := pBlob == 0 ? IntPtr : "ptr"
+
+        result := ComCall(7, this, "ptr", pAdapter, pBlobMarshal, pBlob, "HRESULT")
         return result
     }
 
@@ -57,7 +58,7 @@ export default struct ID3D12Tools2 extends ID3D12Tools1 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetApplicationSpecificDriverState := CallbackCreate(GetMethod(implObj, "SetApplicationSpecificDriverState"), flags, 3)
+        this.vtbl.SetApplicationSpecificDriverState := CallbackCreate(ObjBindMethod(implObj, "SetApplicationSpecificDriverState"), flags, 3)
     }
 
     Dispose() {

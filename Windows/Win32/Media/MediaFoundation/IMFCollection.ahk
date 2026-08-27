@@ -176,12 +176,12 @@ export default struct IMFCollection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetElementCount := CallbackCreate(GetMethod(implObj, "GetElementCount"), flags, 2)
-        this.vtbl.GetElement := CallbackCreate(GetMethod(implObj, "GetElement"), flags, 3)
-        this.vtbl.AddElement := CallbackCreate(GetMethod(implObj, "AddElement"), flags, 2)
-        this.vtbl.RemoveElement := CallbackCreate(GetMethod(implObj, "RemoveElement"), flags, 3)
-        this.vtbl.InsertElementAt := CallbackCreate(GetMethod(implObj, "InsertElementAt"), flags, 3)
-        this.vtbl.RemoveAllElements := CallbackCreate(GetMethod(implObj, "RemoveAllElements"), flags, 1)
+        this.vtbl.GetElementCount := CallbackCreate(ObjBindMethod(implObj, "GetElementCount"), flags, 2)
+        this.vtbl.GetElement := CallbackCreate(ObjBindMethod(implObj, "GetElement"), flags, 3)
+        this.vtbl.AddElement := CallbackCreate(ObjBindMethod(implObj, "AddElement"), flags, 2)
+        this.vtbl.RemoveElement := CallbackCreate(ObjBindMethod(implObj, "RemoveElement"), flags, 3)
+        this.vtbl.InsertElementAt := CallbackCreate(ObjBindMethod(implObj, "InsertElementAt"), flags, 3)
+        this.vtbl.RemoveAllElements := CallbackCreate(ObjBindMethod(implObj, "RemoveAllElements"), flags, 1)
     }
 
     Dispose() {

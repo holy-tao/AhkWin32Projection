@@ -238,16 +238,16 @@ export default struct IUIAutomationAnnotationPattern extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_CurrentAnnotationTypeId := CallbackCreate(GetMethod(implObj, "get_CurrentAnnotationTypeId"), flags, 2)
-        this.vtbl.get_CurrentAnnotationTypeName := CallbackCreate(GetMethod(implObj, "get_CurrentAnnotationTypeName"), flags, 2)
-        this.vtbl.get_CurrentAuthor := CallbackCreate(GetMethod(implObj, "get_CurrentAuthor"), flags, 2)
-        this.vtbl.get_CurrentDateTime := CallbackCreate(GetMethod(implObj, "get_CurrentDateTime"), flags, 2)
-        this.vtbl.get_CurrentTarget := CallbackCreate(GetMethod(implObj, "get_CurrentTarget"), flags, 2)
-        this.vtbl.get_CachedAnnotationTypeId := CallbackCreate(GetMethod(implObj, "get_CachedAnnotationTypeId"), flags, 2)
-        this.vtbl.get_CachedAnnotationTypeName := CallbackCreate(GetMethod(implObj, "get_CachedAnnotationTypeName"), flags, 2)
-        this.vtbl.get_CachedAuthor := CallbackCreate(GetMethod(implObj, "get_CachedAuthor"), flags, 2)
-        this.vtbl.get_CachedDateTime := CallbackCreate(GetMethod(implObj, "get_CachedDateTime"), flags, 2)
-        this.vtbl.get_CachedTarget := CallbackCreate(GetMethod(implObj, "get_CachedTarget"), flags, 2)
+        this.vtbl.get_CurrentAnnotationTypeId := CallbackCreate(ObjBindMethod(implObj, "get_CurrentAnnotationTypeId"), flags, 2)
+        this.vtbl.get_CurrentAnnotationTypeName := CallbackCreate(ObjBindMethod(implObj, "get_CurrentAnnotationTypeName"), flags, 2)
+        this.vtbl.get_CurrentAuthor := CallbackCreate(ObjBindMethod(implObj, "get_CurrentAuthor"), flags, 2)
+        this.vtbl.get_CurrentDateTime := CallbackCreate(ObjBindMethod(implObj, "get_CurrentDateTime"), flags, 2)
+        this.vtbl.get_CurrentTarget := CallbackCreate(ObjBindMethod(implObj, "get_CurrentTarget"), flags, 2)
+        this.vtbl.get_CachedAnnotationTypeId := CallbackCreate(ObjBindMethod(implObj, "get_CachedAnnotationTypeId"), flags, 2)
+        this.vtbl.get_CachedAnnotationTypeName := CallbackCreate(ObjBindMethod(implObj, "get_CachedAnnotationTypeName"), flags, 2)
+        this.vtbl.get_CachedAuthor := CallbackCreate(ObjBindMethod(implObj, "get_CachedAuthor"), flags, 2)
+        this.vtbl.get_CachedDateTime := CallbackCreate(ObjBindMethod(implObj, "get_CachedDateTime"), flags, 2)
+        this.vtbl.get_CachedTarget := CallbackCreate(ObjBindMethod(implObj, "get_CachedTarget"), flags, 2)
     }
 
     Dispose() {

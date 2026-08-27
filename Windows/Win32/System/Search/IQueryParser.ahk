@@ -227,8 +227,8 @@ export default struct IQueryParser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iqueryparser-restatepropertyvaluetostring
      */
     RestatePropertyValueToString(pCondition, fUseEnglish, ppszPropertyName, ppszQueryString) {
-        ppszPropertyNameMarshal := ppszPropertyName is VarRef ? "ptr*" : "ptr"
-        ppszQueryStringMarshal := ppszQueryString is VarRef ? "ptr*" : "ptr"
+        ppszPropertyNameMarshal := ppszPropertyName is VarRef ? "ptr*" : IntPtr
+        ppszQueryStringMarshal := ppszQueryString is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(10, this, "ptr", pCondition, BOOL, fUseEnglish, ppszPropertyNameMarshal, ppszPropertyName, ppszQueryStringMarshal, ppszQueryString, "HRESULT")
         return result
@@ -243,14 +243,14 @@ export default struct IQueryParser extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Parse := CallbackCreate(GetMethod(implObj, "Parse"), flags, 4)
-        this.vtbl.SetOption := CallbackCreate(GetMethod(implObj, "SetOption"), flags, 3)
-        this.vtbl.GetOption := CallbackCreate(GetMethod(implObj, "GetOption"), flags, 3)
-        this.vtbl.SetMultiOption := CallbackCreate(GetMethod(implObj, "SetMultiOption"), flags, 4)
-        this.vtbl.GetSchemaProvider := CallbackCreate(GetMethod(implObj, "GetSchemaProvider"), flags, 2)
-        this.vtbl.RestateToString := CallbackCreate(GetMethod(implObj, "RestateToString"), flags, 4)
-        this.vtbl.ParsePropertyValue := CallbackCreate(GetMethod(implObj, "ParsePropertyValue"), flags, 4)
-        this.vtbl.RestatePropertyValueToString := CallbackCreate(GetMethod(implObj, "RestatePropertyValueToString"), flags, 5)
+        this.vtbl.Parse := CallbackCreate(ObjBindMethod(implObj, "Parse"), flags, 4)
+        this.vtbl.SetOption := CallbackCreate(ObjBindMethod(implObj, "SetOption"), flags, 3)
+        this.vtbl.GetOption := CallbackCreate(ObjBindMethod(implObj, "GetOption"), flags, 3)
+        this.vtbl.SetMultiOption := CallbackCreate(ObjBindMethod(implObj, "SetMultiOption"), flags, 4)
+        this.vtbl.GetSchemaProvider := CallbackCreate(ObjBindMethod(implObj, "GetSchemaProvider"), flags, 2)
+        this.vtbl.RestateToString := CallbackCreate(ObjBindMethod(implObj, "RestateToString"), flags, 4)
+        this.vtbl.ParsePropertyValue := CallbackCreate(ObjBindMethod(implObj, "ParsePropertyValue"), flags, 4)
+        this.vtbl.RestatePropertyValueToString := CallbackCreate(ObjBindMethod(implObj, "RestatePropertyValueToString"), flags, 5)
     }
 
     Dispose() {

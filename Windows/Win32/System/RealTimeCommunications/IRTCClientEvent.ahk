@@ -53,7 +53,6 @@ export default struct IRTCClientEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {RTC_CLIENT_EVENT_TYPE} 
      */
     get_EventType() {
@@ -62,7 +61,6 @@ export default struct IRTCClientEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCClient} 
      */
     get_Client() {
@@ -79,8 +77,8 @@ export default struct IRTCClientEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_EventType := CallbackCreate(GetMethod(implObj, "get_EventType"), flags, 2)
-        this.vtbl.get_Client := CallbackCreate(GetMethod(implObj, "get_Client"), flags, 2)
+        this.vtbl.get_EventType := CallbackCreate(ObjBindMethod(implObj, "get_EventType"), flags, 2)
+        this.vtbl.get_Client := CallbackCreate(ObjBindMethod(implObj, "get_Client"), flags, 2)
     }
 
     Dispose() {

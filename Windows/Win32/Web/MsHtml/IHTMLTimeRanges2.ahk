@@ -37,7 +37,6 @@ export default struct IHTMLTimeRanges2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {Float} 
      */
@@ -47,7 +46,6 @@ export default struct IHTMLTimeRanges2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {Float} 
      */
@@ -65,8 +63,8 @@ export default struct IHTMLTimeRanges2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.startDouble := CallbackCreate(GetMethod(implObj, "startDouble"), flags, 3)
-        this.vtbl.endDouble := CallbackCreate(GetMethod(implObj, "endDouble"), flags, 3)
+        this.vtbl.startDouble := CallbackCreate(ObjBindMethod(implObj, "startDouble"), flags, 3)
+        this.vtbl.endDouble := CallbackCreate(ObjBindMethod(implObj, "endDouble"), flags, 3)
     }
 
     Dispose() {

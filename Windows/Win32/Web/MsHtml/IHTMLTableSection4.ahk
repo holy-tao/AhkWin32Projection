@@ -58,7 +58,6 @@ export default struct IHTMLTableSection4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -70,7 +69,6 @@ export default struct IHTMLTableSection4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ch() {
@@ -80,7 +78,6 @@ export default struct IHTMLTableSection4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -92,7 +89,6 @@ export default struct IHTMLTableSection4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_chOff() {
@@ -102,7 +98,6 @@ export default struct IHTMLTableSection4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {IDispatch} 
      */
@@ -112,7 +107,6 @@ export default struct IHTMLTableSection4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {HRESULT} 
      */
@@ -130,12 +124,12 @@ export default struct IHTMLTableSection4 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_ch := CallbackCreate(GetMethod(implObj, "put_ch"), flags, 2)
-        this.vtbl.get_ch := CallbackCreate(GetMethod(implObj, "get_ch"), flags, 2)
-        this.vtbl.put_chOff := CallbackCreate(GetMethod(implObj, "put_chOff"), flags, 2)
-        this.vtbl.get_chOff := CallbackCreate(GetMethod(implObj, "get_chOff"), flags, 2)
-        this.vtbl.insertRow := CallbackCreate(GetMethod(implObj, "insertRow"), flags, 3)
-        this.vtbl.deleteRow := CallbackCreate(GetMethod(implObj, "deleteRow"), flags, 2)
+        this.vtbl.put_ch := CallbackCreate(ObjBindMethod(implObj, "put_ch"), flags, 2)
+        this.vtbl.get_ch := CallbackCreate(ObjBindMethod(implObj, "get_ch"), flags, 2)
+        this.vtbl.put_chOff := CallbackCreate(ObjBindMethod(implObj, "put_chOff"), flags, 2)
+        this.vtbl.get_chOff := CallbackCreate(ObjBindMethod(implObj, "get_chOff"), flags, 2)
+        this.vtbl.insertRow := CallbackCreate(ObjBindMethod(implObj, "insertRow"), flags, 3)
+        this.vtbl.deleteRow := CallbackCreate(ObjBindMethod(implObj, "deleteRow"), flags, 2)
     }
 
     Dispose() {

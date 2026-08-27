@@ -18,14 +18,13 @@ export default struct SORTCOMP {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pv1 
      * @param {Pointer<Void>} pv2 
      * @returns {Integer} 
      */
     Call(pv1, pv2) {
-        pv1Marshal := pv1 is VarRef ? "ptr" : "ptr"
-        pv2Marshal := pv2 is VarRef ? "ptr" : "ptr"
+        pv1Marshal := pv1 is VarRef ? "ptr" : IntPtr
+        pv2Marshal := pv2 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, pv1Marshal, pv1, pv2Marshal, pv2, Int32)
         return result

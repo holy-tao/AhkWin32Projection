@@ -57,7 +57,6 @@ export default struct IShellUIHelper extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ResetFirstBootMode() {
@@ -66,7 +65,6 @@ export default struct IShellUIHelper extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ResetSafeMode() {
@@ -75,7 +73,6 @@ export default struct IShellUIHelper extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RefreshOfflineDesktop() {
@@ -84,7 +81,6 @@ export default struct IShellUIHelper extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} URL 
      * @param {Pointer<VARIANT>} Title 
      * @returns {HRESULT} 
@@ -92,12 +88,13 @@ export default struct IShellUIHelper extends IDispatch {
     AddFavorite(URL, Title) {
         URL := URL is String ? BSTR.Alloc(URL).Value : URL
 
-        result := ComCall(10, this, BSTR, URL, VARIANT.Ptr, Title, "HRESULT")
+        TitleMarshal := Title == 0 ? IntPtr : VARIANT.Ptr
+
+        result := ComCall(10, this, BSTR, URL, TitleMarshal, Title, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {BSTR} URL 
      * @returns {HRESULT} 
      */
@@ -109,7 +106,6 @@ export default struct IShellUIHelper extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} URL 
      * @param {BSTR} Type 
      * @param {Pointer<VARIANT>} Left 
@@ -122,12 +118,16 @@ export default struct IShellUIHelper extends IDispatch {
         URL := URL is String ? BSTR.Alloc(URL).Value : URL
         Type := Type is String ? BSTR.Alloc(Type).Value : Type
 
-        result := ComCall(12, this, BSTR, URL, BSTR, Type, VARIANT.Ptr, Left, VARIANT.Ptr, Top, VARIANT.Ptr, Width, VARIANT.Ptr, Height, "HRESULT")
+        LeftMarshal := Left == 0 ? IntPtr : VARIANT.Ptr
+        TopMarshal := Top == 0 ? IntPtr : VARIANT.Ptr
+        WidthMarshal := Width == 0 ? IntPtr : VARIANT.Ptr
+        HeightMarshal := Height == 0 ? IntPtr : VARIANT.Ptr
+
+        result := ComCall(12, this, BSTR, URL, BSTR, Type, LeftMarshal, Left, TopMarshal, Top, WidthMarshal, Width, HeightMarshal, Height, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {BSTR} URL 
      * @returns {VARIANT_BOOL} 
      */
@@ -139,7 +139,6 @@ export default struct IShellUIHelper extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} URL 
      * @param {BSTR} strQuery 
      * @param {Pointer<VARIANT>} varTargetFrame 
@@ -154,7 +153,6 @@ export default struct IShellUIHelper extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fImport 
      * @param {BSTR} strImpExpPath 
      * @returns {HRESULT} 
@@ -167,17 +165,17 @@ export default struct IShellUIHelper extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} Form 
      * @returns {HRESULT} 
      */
     AutoCompleteSaveForm(Form) {
-        result := ComCall(16, this, VARIANT.Ptr, Form, "HRESULT")
+        FormMarshal := Form == 0 ? IntPtr : VARIANT.Ptr
+
+        result := ComCall(16, this, FormMarshal, Form, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {BSTR} strSearch 
      * @param {BSTR} strFailureUrl 
      * @param {Pointer<VARIANT>} pvarTargetFrame 
@@ -187,22 +185,24 @@ export default struct IShellUIHelper extends IDispatch {
         strSearch := strSearch is String ? BSTR.Alloc(strSearch).Value : strSearch
         strFailureUrl := strFailureUrl is String ? BSTR.Alloc(strFailureUrl).Value : strFailureUrl
 
-        result := ComCall(17, this, BSTR, strSearch, BSTR, strFailureUrl, VARIANT.Ptr, pvarTargetFrame, "HRESULT")
+        pvarTargetFrameMarshal := pvarTargetFrame == 0 ? IntPtr : VARIANT.Ptr
+
+        result := ComCall(17, this, BSTR, strSearch, BSTR, strFailureUrl, pvarTargetFrameMarshal, pvarTargetFrame, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} Reserved 
      * @returns {HRESULT} 
      */
     AutoCompleteAttach(Reserved) {
-        result := ComCall(18, this, VARIANT.Ptr, Reserved, "HRESULT")
+        ReservedMarshal := Reserved == 0 ? IntPtr : VARIANT.Ptr
+
+        result := ComCall(18, this, ReservedMarshal, Reserved, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {Pointer<VARIANT>} pvarIn 
      * @returns {VARIANT} 
@@ -224,19 +224,19 @@ export default struct IShellUIHelper extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ResetFirstBootMode := CallbackCreate(GetMethod(implObj, "ResetFirstBootMode"), flags, 1)
-        this.vtbl.ResetSafeMode := CallbackCreate(GetMethod(implObj, "ResetSafeMode"), flags, 1)
-        this.vtbl.RefreshOfflineDesktop := CallbackCreate(GetMethod(implObj, "RefreshOfflineDesktop"), flags, 1)
-        this.vtbl.AddFavorite := CallbackCreate(GetMethod(implObj, "AddFavorite"), flags, 3)
-        this.vtbl.AddChannel := CallbackCreate(GetMethod(implObj, "AddChannel"), flags, 2)
-        this.vtbl.AddDesktopComponent := CallbackCreate(GetMethod(implObj, "AddDesktopComponent"), flags, 7)
-        this.vtbl.IsSubscribed := CallbackCreate(GetMethod(implObj, "IsSubscribed"), flags, 3)
-        this.vtbl.NavigateAndFind := CallbackCreate(GetMethod(implObj, "NavigateAndFind"), flags, 4)
-        this.vtbl.ImportExportFavorites := CallbackCreate(GetMethod(implObj, "ImportExportFavorites"), flags, 3)
-        this.vtbl.AutoCompleteSaveForm := CallbackCreate(GetMethod(implObj, "AutoCompleteSaveForm"), flags, 2)
-        this.vtbl.AutoScan := CallbackCreate(GetMethod(implObj, "AutoScan"), flags, 4)
-        this.vtbl.AutoCompleteAttach := CallbackCreate(GetMethod(implObj, "AutoCompleteAttach"), flags, 2)
-        this.vtbl.ShowBrowserUI := CallbackCreate(GetMethod(implObj, "ShowBrowserUI"), flags, 4)
+        this.vtbl.ResetFirstBootMode := CallbackCreate(ObjBindMethod(implObj, "ResetFirstBootMode"), flags, 1)
+        this.vtbl.ResetSafeMode := CallbackCreate(ObjBindMethod(implObj, "ResetSafeMode"), flags, 1)
+        this.vtbl.RefreshOfflineDesktop := CallbackCreate(ObjBindMethod(implObj, "RefreshOfflineDesktop"), flags, 1)
+        this.vtbl.AddFavorite := CallbackCreate(ObjBindMethod(implObj, "AddFavorite"), flags, 3)
+        this.vtbl.AddChannel := CallbackCreate(ObjBindMethod(implObj, "AddChannel"), flags, 2)
+        this.vtbl.AddDesktopComponent := CallbackCreate(ObjBindMethod(implObj, "AddDesktopComponent"), flags, 7)
+        this.vtbl.IsSubscribed := CallbackCreate(ObjBindMethod(implObj, "IsSubscribed"), flags, 3)
+        this.vtbl.NavigateAndFind := CallbackCreate(ObjBindMethod(implObj, "NavigateAndFind"), flags, 4)
+        this.vtbl.ImportExportFavorites := CallbackCreate(ObjBindMethod(implObj, "ImportExportFavorites"), flags, 3)
+        this.vtbl.AutoCompleteSaveForm := CallbackCreate(ObjBindMethod(implObj, "AutoCompleteSaveForm"), flags, 2)
+        this.vtbl.AutoScan := CallbackCreate(ObjBindMethod(implObj, "AutoScan"), flags, 4)
+        this.vtbl.AutoCompleteAttach := CallbackCreate(ObjBindMethod(implObj, "AutoCompleteAttach"), flags, 2)
+        this.vtbl.ShowBrowserUI := CallbackCreate(ObjBindMethod(implObj, "ShowBrowserUI"), flags, 4)
     }
 
     Dispose() {

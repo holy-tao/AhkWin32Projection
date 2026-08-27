@@ -37,7 +37,6 @@ export default struct IScriptEventHandlerSourceInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrFunctionName 
      * @param {Pointer<Integer>} line 
      * @param {Pointer<Integer>} _column 
@@ -45,9 +44,9 @@ export default struct IScriptEventHandlerSourceInfo extends IUnknown {
      * @returns {HRESULT} 
      */
     GetSourceInfo(pbstrFunctionName, line, _column, cchLength) {
-        lineMarshal := line is VarRef ? "uint*" : "ptr"
-        _columnMarshal := _column is VarRef ? "uint*" : "ptr"
-        cchLengthMarshal := cchLength is VarRef ? "uint*" : "ptr"
+        lineMarshal := line is VarRef ? "uint*" : IntPtr
+        _columnMarshal := _column is VarRef ? "uint*" : IntPtr
+        cchLengthMarshal := cchLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, BSTR.Ptr, pbstrFunctionName, lineMarshal, line, _columnMarshal, _column, cchLengthMarshal, cchLength, "HRESULT")
         return result
@@ -62,7 +61,7 @@ export default struct IScriptEventHandlerSourceInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSourceInfo := CallbackCreate(GetMethod(implObj, "GetSourceInfo"), flags, 5)
+        this.vtbl.GetSourceInfo := CallbackCreate(ObjBindMethod(implObj, "GetSourceInfo"), flags, 5)
     }
 
     Dispose() {

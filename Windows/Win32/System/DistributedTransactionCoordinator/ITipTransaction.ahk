@@ -38,19 +38,17 @@ export default struct ITipTransaction extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} i_pszRemoteTmUrl 
      * @returns {PSTR} 
      */
     Push(i_pszRemoteTmUrl) {
-        i_pszRemoteTmUrlMarshal := i_pszRemoteTmUrl is VarRef ? "char*" : "ptr"
+        i_pszRemoteTmUrlMarshal := i_pszRemoteTmUrl is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, i_pszRemoteTmUrlMarshal, i_pszRemoteTmUrl, PSTR.Ptr, &o_ppszRemoteTxUrl := 0, "HRESULT")
         return o_ppszRemoteTxUrl
     }
 
     /**
-     * 
      * @returns {PSTR} 
      */
     GetTransactionUrl() {
@@ -67,8 +65,8 @@ export default struct ITipTransaction extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Push := CallbackCreate(GetMethod(implObj, "Push"), flags, 3)
-        this.vtbl.GetTransactionUrl := CallbackCreate(GetMethod(implObj, "GetTransactionUrl"), flags, 2)
+        this.vtbl.Push := CallbackCreate(ObjBindMethod(implObj, "Push"), flags, 3)
+        this.vtbl.GetTransactionUrl := CallbackCreate(ObjBindMethod(implObj, "GetTransactionUrl"), flags, 2)
     }
 
     Dispose() {

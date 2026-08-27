@@ -28,7 +28,6 @@ export default struct WINEVENTPROC {
     }
 
     /**
-     * 
      * @param {HWINEVENTHOOK} _hWinEventHook Type: <b>HWINEVENTHOOK</b>
      * 
      * Handle to an event hook function. This value is returned by <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setwineventhook">SetWinEventHook</a> when the hook function is installed and is specific to each instance of the hook function.

@@ -27,7 +27,6 @@ export default struct PINIT_ONCE_FN {
     }
 
     /**
-     * 
      * @param {Pointer<INIT_ONCE>} InitOnce A pointer to the one-time initialization structure.
      * @param {Pointer<Void>} Parameter An optional parameter that was passed to the callback function.
      * @param {Pointer<Pointer<Void>>} _Context The data to be stored with the one-time initialization structure. If  <i>Context</i>  references a value, the low-order <b>INIT_ONCE_CTX_RESERVED_BITS</b> of the value must be zero. If  <i>Context</i>  points to a data structure, the data structure must be <b>DWORD</b>-aligned. <i>Context</i> must not be a code pointer on Arm32, because Arm32 code pointers always have the least significant bit set, see the <a href="https://docs.microsoft.com/cpp/build/overview-of-arm-abi-conventions?view=msvc-170#instruction-set">Arm32 ABI</a> for details.
@@ -36,8 +35,10 @@ export default struct PINIT_ONCE_FN {
      * If the function returns <b>FALSE</b>, the block is not marked as initialized and the call to <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-initonceexecuteonce">InitOnceExecuteOnce</a> fails. To communicate additional error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-setlasterror">SetLastError</a> before returning <b>FALSE</b>.
      */
     Call(InitOnce, Parameter, _Context) {
-        ParameterMarshal := Parameter is VarRef ? "ptr" : "ptr"
-        _ContextMarshal := _Context is VarRef ? "ptr*" : "ptr"
+        ParameterMarshal := Parameter is VarRef ? "ptr" : IntPtr
+        ParameterMarshal := Parameter == 0 ? IntPtr : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr*" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr*"
 
         result := DllCall(this.value, INIT_ONCE.Ptr, InitOnce, ParameterMarshal, Parameter, _ContextMarshal, _Context, BOOL)
         return result

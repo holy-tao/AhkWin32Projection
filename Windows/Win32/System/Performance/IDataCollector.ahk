@@ -227,12 +227,13 @@ export default struct IDataCollector extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDataCollectorSet} group 
      * @returns {HRESULT} 
      */
     put_DataCollectorSet(group) {
-        result := ComCall(8, this, "ptr", group, "HRESULT")
+        groupMarshal := group == 0 ? IntPtr : "ptr"
+
+        result := ComCall(8, this, groupMarshal, group, "HRESULT")
         return result
     }
 
@@ -768,7 +769,6 @@ export default struct IDataCollector extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {HRESULT} 
      */
@@ -829,7 +829,6 @@ export default struct IDataCollector extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} Latest 
      * @returns {BSTR} 
      */
@@ -848,31 +847,31 @@ export default struct IDataCollector extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_DataCollectorSet := CallbackCreate(GetMethod(implObj, "get_DataCollectorSet"), flags, 2)
-        this.vtbl.put_DataCollectorSet := CallbackCreate(GetMethod(implObj, "put_DataCollectorSet"), flags, 2)
-        this.vtbl.get_DataCollectorType := CallbackCreate(GetMethod(implObj, "get_DataCollectorType"), flags, 2)
-        this.vtbl.get_FileName := CallbackCreate(GetMethod(implObj, "get_FileName"), flags, 2)
-        this.vtbl.put_FileName := CallbackCreate(GetMethod(implObj, "put_FileName"), flags, 2)
-        this.vtbl.get_FileNameFormat := CallbackCreate(GetMethod(implObj, "get_FileNameFormat"), flags, 2)
-        this.vtbl.put_FileNameFormat := CallbackCreate(GetMethod(implObj, "put_FileNameFormat"), flags, 2)
-        this.vtbl.get_FileNameFormatPattern := CallbackCreate(GetMethod(implObj, "get_FileNameFormatPattern"), flags, 2)
-        this.vtbl.put_FileNameFormatPattern := CallbackCreate(GetMethod(implObj, "put_FileNameFormatPattern"), flags, 2)
-        this.vtbl.get_LatestOutputLocation := CallbackCreate(GetMethod(implObj, "get_LatestOutputLocation"), flags, 2)
-        this.vtbl.put_LatestOutputLocation := CallbackCreate(GetMethod(implObj, "put_LatestOutputLocation"), flags, 2)
-        this.vtbl.get_LogAppend := CallbackCreate(GetMethod(implObj, "get_LogAppend"), flags, 2)
-        this.vtbl.put_LogAppend := CallbackCreate(GetMethod(implObj, "put_LogAppend"), flags, 2)
-        this.vtbl.get_LogCircular := CallbackCreate(GetMethod(implObj, "get_LogCircular"), flags, 2)
-        this.vtbl.put_LogCircular := CallbackCreate(GetMethod(implObj, "put_LogCircular"), flags, 2)
-        this.vtbl.get_LogOverwrite := CallbackCreate(GetMethod(implObj, "get_LogOverwrite"), flags, 2)
-        this.vtbl.put_LogOverwrite := CallbackCreate(GetMethod(implObj, "put_LogOverwrite"), flags, 2)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
-        this.vtbl.get_OutputLocation := CallbackCreate(GetMethod(implObj, "get_OutputLocation"), flags, 2)
-        this.vtbl.get_Index := CallbackCreate(GetMethod(implObj, "get_Index"), flags, 2)
-        this.vtbl.put_Index := CallbackCreate(GetMethod(implObj, "put_Index"), flags, 2)
-        this.vtbl.get_Xml := CallbackCreate(GetMethod(implObj, "get_Xml"), flags, 2)
-        this.vtbl.SetXml := CallbackCreate(GetMethod(implObj, "SetXml"), flags, 3)
-        this.vtbl.CreateOutputLocation := CallbackCreate(GetMethod(implObj, "CreateOutputLocation"), flags, 3)
+        this.vtbl.get_DataCollectorSet := CallbackCreate(ObjBindMethod(implObj, "get_DataCollectorSet"), flags, 2)
+        this.vtbl.put_DataCollectorSet := CallbackCreate(ObjBindMethod(implObj, "put_DataCollectorSet"), flags, 2)
+        this.vtbl.get_DataCollectorType := CallbackCreate(ObjBindMethod(implObj, "get_DataCollectorType"), flags, 2)
+        this.vtbl.get_FileName := CallbackCreate(ObjBindMethod(implObj, "get_FileName"), flags, 2)
+        this.vtbl.put_FileName := CallbackCreate(ObjBindMethod(implObj, "put_FileName"), flags, 2)
+        this.vtbl.get_FileNameFormat := CallbackCreate(ObjBindMethod(implObj, "get_FileNameFormat"), flags, 2)
+        this.vtbl.put_FileNameFormat := CallbackCreate(ObjBindMethod(implObj, "put_FileNameFormat"), flags, 2)
+        this.vtbl.get_FileNameFormatPattern := CallbackCreate(ObjBindMethod(implObj, "get_FileNameFormatPattern"), flags, 2)
+        this.vtbl.put_FileNameFormatPattern := CallbackCreate(ObjBindMethod(implObj, "put_FileNameFormatPattern"), flags, 2)
+        this.vtbl.get_LatestOutputLocation := CallbackCreate(ObjBindMethod(implObj, "get_LatestOutputLocation"), flags, 2)
+        this.vtbl.put_LatestOutputLocation := CallbackCreate(ObjBindMethod(implObj, "put_LatestOutputLocation"), flags, 2)
+        this.vtbl.get_LogAppend := CallbackCreate(ObjBindMethod(implObj, "get_LogAppend"), flags, 2)
+        this.vtbl.put_LogAppend := CallbackCreate(ObjBindMethod(implObj, "put_LogAppend"), flags, 2)
+        this.vtbl.get_LogCircular := CallbackCreate(ObjBindMethod(implObj, "get_LogCircular"), flags, 2)
+        this.vtbl.put_LogCircular := CallbackCreate(ObjBindMethod(implObj, "put_LogCircular"), flags, 2)
+        this.vtbl.get_LogOverwrite := CallbackCreate(ObjBindMethod(implObj, "get_LogOverwrite"), flags, 2)
+        this.vtbl.put_LogOverwrite := CallbackCreate(ObjBindMethod(implObj, "put_LogOverwrite"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(ObjBindMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.get_OutputLocation := CallbackCreate(ObjBindMethod(implObj, "get_OutputLocation"), flags, 2)
+        this.vtbl.get_Index := CallbackCreate(ObjBindMethod(implObj, "get_Index"), flags, 2)
+        this.vtbl.put_Index := CallbackCreate(ObjBindMethod(implObj, "put_Index"), flags, 2)
+        this.vtbl.get_Xml := CallbackCreate(ObjBindMethod(implObj, "get_Xml"), flags, 2)
+        this.vtbl.SetXml := CallbackCreate(ObjBindMethod(implObj, "SetXml"), flags, 3)
+        this.vtbl.CreateOutputLocation := CallbackCreate(ObjBindMethod(implObj, "CreateOutputLocation"), flags, 3)
     }
 
     Dispose() {

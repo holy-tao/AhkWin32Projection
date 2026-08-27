@@ -59,7 +59,7 @@ export default struct IOfflineFilesTransparentCacheInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsTransparentlyCached := CallbackCreate(GetMethod(implObj, "IsTransparentlyCached"), flags, 2)
+        this.vtbl.IsTransparentlyCached := CallbackCreate(ObjBindMethod(implObj, "IsTransparentlyCached"), flags, 2)
     }
 
     Dispose() {

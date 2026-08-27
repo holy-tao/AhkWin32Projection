@@ -85,8 +85,8 @@ export default struct IRdcSignatureReader extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ReadHeader := CallbackCreate(GetMethod(implObj, "ReadHeader"), flags, 2)
-        this.vtbl.ReadSignatures := CallbackCreate(GetMethod(implObj, "ReadSignatures"), flags, 3)
+        this.vtbl.ReadHeader := CallbackCreate(ObjBindMethod(implObj, "ReadHeader"), flags, 2)
+        this.vtbl.ReadSignatures := CallbackCreate(ObjBindMethod(implObj, "ReadSignatures"), flags, 3)
     }
 
     Dispose() {

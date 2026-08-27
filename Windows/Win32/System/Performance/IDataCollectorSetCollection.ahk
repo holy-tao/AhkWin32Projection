@@ -116,7 +116,9 @@ export default struct IDataCollectorSetCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorsetcollection-add
      */
     Add(set) {
-        result := ComCall(10, this, "ptr", set, "HRESULT")
+        setMarshal := set == 0 ? IntPtr : "ptr"
+
+        result := ComCall(10, this, setMarshal, set, "HRESULT")
         return result
     }
 
@@ -152,7 +154,9 @@ export default struct IDataCollectorSetCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorsetcollection-addrange
      */
     AddRange(sets) {
-        result := ComCall(13, this, "ptr", sets, "HRESULT")
+        setsMarshal := sets == 0 ? IntPtr : "ptr"
+
+        result := ComCall(13, this, setsMarshal, sets, "HRESULT")
         return result
     }
 
@@ -200,7 +204,10 @@ export default struct IDataCollectorSetCollection extends IDispatch {
         server := server is String ? BSTR.Alloc(server).Value : server
         filter := filter is String ? BSTR.Alloc(filter).Value : filter
 
-        result := ComCall(14, this, BSTR, server, BSTR, filter, "HRESULT")
+        serverMarshal := server == 0 ? IntPtr : BSTR
+        filterMarshal := filter == 0 ? IntPtr : BSTR
+
+        result := ComCall(14, this, serverMarshal, server, filterMarshal, filter, "HRESULT")
         return result
     }
 
@@ -213,14 +220,14 @@ export default struct IDataCollectorSetCollection extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
-        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
-        this.vtbl.AddRange := CallbackCreate(GetMethod(implObj, "AddRange"), flags, 2)
-        this.vtbl.GetDataCollectorSets := CallbackCreate(GetMethod(implObj, "GetDataCollectorSets"), flags, 3)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(ObjBindMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.get__NewEnum := CallbackCreate(ObjBindMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.AddRange := CallbackCreate(ObjBindMethod(implObj, "AddRange"), flags, 2)
+        this.vtbl.GetDataCollectorSets := CallbackCreate(ObjBindMethod(implObj, "GetDataCollectorSets"), flags, 3)
     }
 
     Dispose() {

@@ -20,13 +20,13 @@ export default struct PSHED_PI_GET_INJECTION_CAPABILITIES {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} PluginContext 
      * @param {Pointer<WHEA_ERROR_INJECTION_CAPABILITIES>} Capabilities 
      * @returns {NTSTATUS} 
      */
     Call(PluginContext, Capabilities) {
-        PluginContextMarshal := PluginContext is VarRef ? "ptr" : "ptr"
+        PluginContextMarshal := PluginContext is VarRef ? "ptr" : IntPtr
+        PluginContextMarshal := PluginContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, PluginContextMarshal, PluginContext, WHEA_ERROR_INJECTION_CAPABILITIES.Ptr, Capabilities, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

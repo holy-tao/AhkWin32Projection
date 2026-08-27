@@ -46,7 +46,6 @@ export default struct IPrintSchemaParameterInitializer extends IPrintSchemaEleme
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Value() {
@@ -56,7 +55,6 @@ export default struct IPrintSchemaParameterInitializer extends IPrintSchemaEleme
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pVar 
      * @returns {HRESULT} 
      */
@@ -74,8 +72,8 @@ export default struct IPrintSchemaParameterInitializer extends IPrintSchemaEleme
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Value := CallbackCreate(GetMethod(implObj, "get_Value"), flags, 2)
-        this.vtbl.put_Value := CallbackCreate(GetMethod(implObj, "put_Value"), flags, 2)
+        this.vtbl.get_Value := CallbackCreate(ObjBindMethod(implObj, "get_Value"), flags, 2)
+        this.vtbl.put_Value := CallbackCreate(ObjBindMethod(implObj, "put_Value"), flags, 2)
     }
 
     Dispose() {

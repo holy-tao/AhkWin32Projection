@@ -80,7 +80,7 @@ export default struct ID2D1SvgPathData extends ID2D1SvgAttribute {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpathdata-updatesegmentdata
      */
     UpdateSegmentData(data, dataCount, startIndex) {
-        dataMarshal := data is VarRef ? "float*" : "ptr"
+        dataMarshal := data is VarRef ? "float*" : IntPtr
 
         result := ComCall(7, this, dataMarshal, data, UInt32, dataCount, UInt32, startIndex, "HRESULT")
         return result
@@ -148,7 +148,7 @@ export default struct ID2D1SvgPathData extends ID2D1SvgAttribute {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpathdata-updatecommands
      */
     UpdateCommands(commands, commandsCount, startIndex) {
-        commandsMarshal := commands is VarRef ? "int*" : "ptr"
+        commandsMarshal := commands is VarRef ? "int*" : IntPtr
 
         result := ComCall(11, this, commandsMarshal, commands, UInt32, commandsCount, UInt32, startIndex, "HRESULT")
         return result
@@ -208,15 +208,15 @@ export default struct ID2D1SvgPathData extends ID2D1SvgAttribute {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RemoveSegmentDataAtEnd := CallbackCreate(GetMethod(implObj, "RemoveSegmentDataAtEnd"), flags, 2)
-        this.vtbl.UpdateSegmentData := CallbackCreate(GetMethod(implObj, "UpdateSegmentData"), flags, 4)
-        this.vtbl.GetSegmentData := CallbackCreate(GetMethod(implObj, "GetSegmentData"), flags, 4)
-        this.vtbl.GetSegmentDataCount := CallbackCreate(GetMethod(implObj, "GetSegmentDataCount"), flags, 1)
-        this.vtbl.RemoveCommandsAtEnd := CallbackCreate(GetMethod(implObj, "RemoveCommandsAtEnd"), flags, 2)
-        this.vtbl.UpdateCommands := CallbackCreate(GetMethod(implObj, "UpdateCommands"), flags, 4)
-        this.vtbl.GetCommands := CallbackCreate(GetMethod(implObj, "GetCommands"), flags, 4)
-        this.vtbl.GetCommandsCount := CallbackCreate(GetMethod(implObj, "GetCommandsCount"), flags, 1)
-        this.vtbl.CreatePathGeometry := CallbackCreate(GetMethod(implObj, "CreatePathGeometry"), flags, 3)
+        this.vtbl.RemoveSegmentDataAtEnd := CallbackCreate(ObjBindMethod(implObj, "RemoveSegmentDataAtEnd"), flags, 2)
+        this.vtbl.UpdateSegmentData := CallbackCreate(ObjBindMethod(implObj, "UpdateSegmentData"), flags, 4)
+        this.vtbl.GetSegmentData := CallbackCreate(ObjBindMethod(implObj, "GetSegmentData"), flags, 4)
+        this.vtbl.GetSegmentDataCount := CallbackCreate(ObjBindMethod(implObj, "GetSegmentDataCount"), flags, 1)
+        this.vtbl.RemoveCommandsAtEnd := CallbackCreate(ObjBindMethod(implObj, "RemoveCommandsAtEnd"), flags, 2)
+        this.vtbl.UpdateCommands := CallbackCreate(ObjBindMethod(implObj, "UpdateCommands"), flags, 4)
+        this.vtbl.GetCommands := CallbackCreate(ObjBindMethod(implObj, "GetCommands"), flags, 4)
+        this.vtbl.GetCommandsCount := CallbackCreate(ObjBindMethod(implObj, "GetCommandsCount"), flags, 1)
+        this.vtbl.CreatePathGeometry := CallbackCreate(ObjBindMethod(implObj, "CreatePathGeometry"), flags, 3)
     }
 
     Dispose() {

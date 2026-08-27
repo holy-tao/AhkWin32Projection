@@ -128,9 +128,9 @@ export default struct IMixerOCXNotify extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnInvalidateRect := CallbackCreate(GetMethod(implObj, "OnInvalidateRect"), flags, 2)
-        this.vtbl.OnStatusChange := CallbackCreate(GetMethod(implObj, "OnStatusChange"), flags, 2)
-        this.vtbl.OnDataChange := CallbackCreate(GetMethod(implObj, "OnDataChange"), flags, 2)
+        this.vtbl.OnInvalidateRect := CallbackCreate(ObjBindMethod(implObj, "OnInvalidateRect"), flags, 2)
+        this.vtbl.OnStatusChange := CallbackCreate(ObjBindMethod(implObj, "OnStatusChange"), flags, 2)
+        this.vtbl.OnDataChange := CallbackCreate(ObjBindMethod(implObj, "OnDataChange"), flags, 2)
     }
 
     Dispose() {

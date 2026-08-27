@@ -455,18 +455,18 @@ export default struct IOleInPlaceSiteWindowless extends IOleInPlaceSiteEx {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CanWindowlessActivate := CallbackCreate(GetMethod(implObj, "CanWindowlessActivate"), flags, 1)
-        this.vtbl.GetCapture := CallbackCreate(GetMethod(implObj, "GetCapture"), flags, 1)
-        this.vtbl.SetCapture := CallbackCreate(GetMethod(implObj, "SetCapture"), flags, 2)
-        this.vtbl.GetFocus := CallbackCreate(GetMethod(implObj, "GetFocus"), flags, 1)
-        this.vtbl.SetFocus := CallbackCreate(GetMethod(implObj, "SetFocus"), flags, 2)
-        this.vtbl.GetDC := CallbackCreate(GetMethod(implObj, "GetDC"), flags, 4)
-        this.vtbl.ReleaseDC := CallbackCreate(GetMethod(implObj, "ReleaseDC"), flags, 2)
-        this.vtbl.InvalidateRect := CallbackCreate(GetMethod(implObj, "InvalidateRect"), flags, 3)
-        this.vtbl.InvalidateRgn := CallbackCreate(GetMethod(implObj, "InvalidateRgn"), flags, 3)
-        this.vtbl.ScrollRect := CallbackCreate(GetMethod(implObj, "ScrollRect"), flags, 5)
-        this.vtbl.AdjustRect := CallbackCreate(GetMethod(implObj, "AdjustRect"), flags, 2)
-        this.vtbl.OnDefWindowMessage := CallbackCreate(GetMethod(implObj, "OnDefWindowMessage"), flags, 5)
+        this.vtbl.CanWindowlessActivate := CallbackCreate(ObjBindMethod(implObj, "CanWindowlessActivate"), flags, 1)
+        this.vtbl.GetCapture := CallbackCreate(ObjBindMethod(implObj, "GetCapture"), flags, 1)
+        this.vtbl.SetCapture := CallbackCreate(ObjBindMethod(implObj, "SetCapture"), flags, 2)
+        this.vtbl.GetFocus := CallbackCreate(ObjBindMethod(implObj, "GetFocus"), flags, 1)
+        this.vtbl.SetFocus := CallbackCreate(ObjBindMethod(implObj, "SetFocus"), flags, 2)
+        this.vtbl.GetDC := CallbackCreate(ObjBindMethod(implObj, "GetDC"), flags, 4)
+        this.vtbl.ReleaseDC := CallbackCreate(ObjBindMethod(implObj, "ReleaseDC"), flags, 2)
+        this.vtbl.InvalidateRect := CallbackCreate(ObjBindMethod(implObj, "InvalidateRect"), flags, 3)
+        this.vtbl.InvalidateRgn := CallbackCreate(ObjBindMethod(implObj, "InvalidateRgn"), flags, 3)
+        this.vtbl.ScrollRect := CallbackCreate(ObjBindMethod(implObj, "ScrollRect"), flags, 5)
+        this.vtbl.AdjustRect := CallbackCreate(ObjBindMethod(implObj, "AdjustRect"), flags, 2)
+        this.vtbl.OnDefWindowMessage := CallbackCreate(ObjBindMethod(implObj, "OnDefWindowMessage"), flags, 5)
     }
 
     Dispose() {

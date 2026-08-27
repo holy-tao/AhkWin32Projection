@@ -19,7 +19,6 @@ export default struct PFN_DrvDestroyFont {
     }
 
     /**
-     * 
      * @param {Pointer<FONTOBJ>} param0 
      * @returns {String} Nothing - always returns an empty string
      */

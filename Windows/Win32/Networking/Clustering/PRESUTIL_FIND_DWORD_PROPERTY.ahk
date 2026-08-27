@@ -19,7 +19,6 @@ export default struct PRESUTIL_FIND_DWORD_PROPERTY {
     }
 
     /**
-     * 
      * @param {Integer} pPropertyList 
      * @param {Integer} cbPropertyListSize 
      * @param {PWSTR} pszPropertyName 
@@ -29,7 +28,7 @@ export default struct PRESUTIL_FIND_DWORD_PROPERTY {
     Call(pPropertyList, cbPropertyListSize, pszPropertyName, pdwPropertyValue) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
 
-        pdwPropertyValueMarshal := pdwPropertyValue is VarRef ? "uint*" : "ptr"
+        pdwPropertyValueMarshal := pdwPropertyValue is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, IntPtr, pPropertyList, UInt32, cbPropertyListSize, "ptr", pszPropertyName, pdwPropertyValueMarshal, pdwPropertyValue, UInt32)
         return result

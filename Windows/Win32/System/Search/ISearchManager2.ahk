@@ -127,8 +127,8 @@ export default struct ISearchManager2 extends ISearchManager {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateCatalog := CallbackCreate(GetMethod(implObj, "CreateCatalog"), flags, 3)
-        this.vtbl.DeleteCatalog := CallbackCreate(GetMethod(implObj, "DeleteCatalog"), flags, 2)
+        this.vtbl.CreateCatalog := CallbackCreate(ObjBindMethod(implObj, "CreateCatalog"), flags, 3)
+        this.vtbl.DeleteCatalog := CallbackCreate(ObjBindMethod(implObj, "DeleteCatalog"), flags, 2)
     }
 
     Dispose() {

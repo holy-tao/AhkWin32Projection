@@ -48,7 +48,6 @@ export default struct IADsPostalAddress extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_PostalAddress() {
@@ -58,7 +57,6 @@ export default struct IADsPostalAddress extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} vPostalAddress 
      * @returns {HRESULT} 
      */
@@ -76,8 +74,8 @@ export default struct IADsPostalAddress extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_PostalAddress := CallbackCreate(GetMethod(implObj, "get_PostalAddress"), flags, 2)
-        this.vtbl.put_PostalAddress := CallbackCreate(GetMethod(implObj, "put_PostalAddress"), flags, 2)
+        this.vtbl.get_PostalAddress := CallbackCreate(ObjBindMethod(implObj, "get_PostalAddress"), flags, 2)
+        this.vtbl.put_PostalAddress := CallbackCreate(ObjBindMethod(implObj, "put_PostalAddress"), flags, 2)
     }
 
     Dispose() {

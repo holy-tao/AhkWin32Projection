@@ -300,11 +300,11 @@ export default struct IMediaParams extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetParam := CallbackCreate(GetMethod(implObj, "GetParam"), flags, 3)
-        this.vtbl.SetParam := CallbackCreate(GetMethod(implObj, "SetParam"), flags, 3)
-        this.vtbl.AddEnvelope := CallbackCreate(GetMethod(implObj, "AddEnvelope"), flags, 4)
-        this.vtbl.FlushEnvelope := CallbackCreate(GetMethod(implObj, "FlushEnvelope"), flags, 4)
-        this.vtbl.SetTimeFormat := CallbackCreate(GetMethod(implObj, "SetTimeFormat"), flags, 3)
+        this.vtbl.GetParam := CallbackCreate(ObjBindMethod(implObj, "GetParam"), flags, 3)
+        this.vtbl.SetParam := CallbackCreate(ObjBindMethod(implObj, "SetParam"), flags, 3)
+        this.vtbl.AddEnvelope := CallbackCreate(ObjBindMethod(implObj, "AddEnvelope"), flags, 4)
+        this.vtbl.FlushEnvelope := CallbackCreate(ObjBindMethod(implObj, "FlushEnvelope"), flags, 4)
+        this.vtbl.SetTimeFormat := CallbackCreate(ObjBindMethod(implObj, "SetTimeFormat"), flags, 3)
     }
 
     Dispose() {

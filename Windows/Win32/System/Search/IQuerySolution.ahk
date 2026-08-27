@@ -60,7 +60,10 @@ export default struct IQuerySolution extends IConditionFactory {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iquerysolution-getquery
      */
     GetQuery(ppQueryNode, ppMainType) {
-        result := ComCall(7, this, ICondition.Ptr, ppQueryNode, IEntity.Ptr, ppMainType, "HRESULT")
+        ppQueryNodeMarshal := ppQueryNode == 0 ? IntPtr : ICondition.Ptr
+        ppMainTypeMarshal := ppMainType == 0 ? IntPtr : IEntity.Ptr
+
+        result := ComCall(7, this, ppQueryNodeMarshal, ppQueryNode, ppMainTypeMarshal, ppMainType, "HRESULT")
         return result
     }
 
@@ -104,10 +107,14 @@ export default struct IQuerySolution extends IConditionFactory {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iquerysolution-getlexicaldata
      */
     GetLexicalData(ppszInputString, ppTokens, plcid, ppWordBreaker) {
-        ppszInputStringMarshal := ppszInputString is VarRef ? "ptr*" : "ptr"
-        plcidMarshal := plcid is VarRef ? "uint*" : "ptr"
+        ppszInputStringMarshal := ppszInputString is VarRef ? "ptr*" : IntPtr
+        ppszInputStringMarshal := ppszInputString == 0 ? IntPtr : PWSTR.Ptr
+        ppTokensMarshal := ppTokens == 0 ? IntPtr : ITokenCollection.Ptr
+        plcidMarshal := plcid is VarRef ? "uint*" : IntPtr
+        plcidMarshal := plcid == 0 ? IntPtr : "uint*"
+        ppWordBreakerMarshal := ppWordBreaker == 0 ? IntPtr : IUnknown.Ptr
 
-        result := ComCall(9, this, ppszInputStringMarshal, ppszInputString, ITokenCollection.Ptr, ppTokens, plcidMarshal, plcid, IUnknown.Ptr, ppWordBreaker, "HRESULT")
+        result := ComCall(9, this, ppszInputStringMarshal, ppszInputString, ppTokensMarshal, ppTokens, plcidMarshal, plcid, ppWordBreakerMarshal, ppWordBreaker, "HRESULT")
         return result
     }
 
@@ -120,9 +127,9 @@ export default struct IQuerySolution extends IConditionFactory {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetQuery := CallbackCreate(GetMethod(implObj, "GetQuery"), flags, 3)
-        this.vtbl.GetErrors := CallbackCreate(GetMethod(implObj, "GetErrors"), flags, 3)
-        this.vtbl.GetLexicalData := CallbackCreate(GetMethod(implObj, "GetLexicalData"), flags, 5)
+        this.vtbl.GetQuery := CallbackCreate(ObjBindMethod(implObj, "GetQuery"), flags, 3)
+        this.vtbl.GetErrors := CallbackCreate(ObjBindMethod(implObj, "GetErrors"), flags, 3)
+        this.vtbl.GetLexicalData := CallbackCreate(ObjBindMethod(implObj, "GetLexicalData"), flags, 5)
     }
 
     Dispose() {

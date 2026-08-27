@@ -111,8 +111,8 @@ export default struct IApplicationDocumentLists extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAppID := CallbackCreate(GetMethod(implObj, "SetAppID"), flags, 2)
-        this.vtbl.GetList := CallbackCreate(GetMethod(implObj, "GetList"), flags, 5)
+        this.vtbl.SetAppID := CallbackCreate(ObjBindMethod(implObj, "SetAppID"), flags, 2)
+        this.vtbl.GetList := CallbackCreate(ObjBindMethod(implObj, "GetList"), flags, 5)
     }
 
     Dispose() {

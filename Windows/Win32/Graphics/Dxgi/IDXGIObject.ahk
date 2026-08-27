@@ -116,7 +116,9 @@ export default struct IDXGIObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiobject-setprivatedatainterface
      */
     SetPrivateDataInterface(Name, pUnknown) {
-        result := ComCall(4, this, Guid.Ptr, Name, "ptr", pUnknown, "HRESULT")
+        pUnknownMarshal := pUnknown == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, Guid.Ptr, Name, pUnknownMarshal, pUnknown, "HRESULT")
         return result
     }
 
@@ -150,7 +152,7 @@ export default struct IDXGIObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiobject-getprivatedata
      */
     GetPrivateData(Name, pDataSize, pData) {
-        pDataSizeMarshal := pDataSize is VarRef ? "uint*" : "ptr"
+        pDataSizeMarshal := pDataSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, Guid.Ptr, Name, pDataSizeMarshal, pDataSize, IntPtr, pData, "HRESULT")
         return result
@@ -180,10 +182,10 @@ export default struct IDXGIObject extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetPrivateData := CallbackCreate(GetMethod(implObj, "SetPrivateData"), flags, 4)
-        this.vtbl.SetPrivateDataInterface := CallbackCreate(GetMethod(implObj, "SetPrivateDataInterface"), flags, 3)
-        this.vtbl.GetPrivateData := CallbackCreate(GetMethod(implObj, "GetPrivateData"), flags, 4)
-        this.vtbl.GetParent := CallbackCreate(GetMethod(implObj, "GetParent"), flags, 3)
+        this.vtbl.SetPrivateData := CallbackCreate(ObjBindMethod(implObj, "SetPrivateData"), flags, 4)
+        this.vtbl.SetPrivateDataInterface := CallbackCreate(ObjBindMethod(implObj, "SetPrivateDataInterface"), flags, 3)
+        this.vtbl.GetPrivateData := CallbackCreate(ObjBindMethod(implObj, "GetPrivateData"), flags, 4)
+        this.vtbl.GetParent := CallbackCreate(ObjBindMethod(implObj, "GetParent"), flags, 3)
     }
 
     Dispose() {

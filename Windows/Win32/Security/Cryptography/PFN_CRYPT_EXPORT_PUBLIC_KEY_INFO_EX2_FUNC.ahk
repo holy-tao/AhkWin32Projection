@@ -37,7 +37,6 @@ export default struct PFN_CRYPT_EXPORT_PUBLIC_KEY_INFO_EX2_FUNC {
     }
 
     /**
-     * 
      * @param {NCRYPT_KEY_HANDLE} hNCryptKey A handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic service provider</a> (CSP) to use when exporting the public key information. This handle must be an <b>NCRYPT_KEY_HANDLE</b> handle that has been created by using the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenkey">NCryptOpenKey</a> function.
      * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType A value that specifies the encoding type used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
@@ -71,10 +70,12 @@ export default struct PFN_CRYPT_EXPORT_PUBLIC_KEY_INFO_EX2_FUNC {
     Call(hNCryptKey, dwCertEncodingType, pszPublicKeyObjId, dwFlags, pvAuxInfo, pInfo, pcbInfo) {
         pszPublicKeyObjId := pszPublicKeyObjId is String ? StrPtr(pszPublicKeyObjId) : pszPublicKeyObjId
 
-        pvAuxInfoMarshal := pvAuxInfo is VarRef ? "ptr" : "ptr"
-        pcbInfoMarshal := pcbInfo is VarRef ? "uint*" : "ptr"
+        pvAuxInfoMarshal := pvAuxInfo is VarRef ? "ptr" : IntPtr
+        pvAuxInfoMarshal := pvAuxInfo == 0 ? IntPtr : "ptr"
+        pInfoMarshal := pInfo == 0 ? IntPtr : IntPtr
+        pcbInfoMarshal := pcbInfo is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, NCRYPT_KEY_HANDLE, hNCryptKey, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, "ptr", pszPublicKeyObjId, UInt32, dwFlags, pvAuxInfoMarshal, pvAuxInfo, IntPtr, pInfo, pcbInfoMarshal, pcbInfo, BOOL)
+        result := DllCall(this.value, NCRYPT_KEY_HANDLE, hNCryptKey, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, "ptr", pszPublicKeyObjId, UInt32, dwFlags, pvAuxInfoMarshal, pvAuxInfo, pInfoMarshal, pInfo, pcbInfoMarshal, pcbInfo, BOOL)
         return result
     }
 

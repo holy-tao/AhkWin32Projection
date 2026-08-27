@@ -38,7 +38,6 @@ export default struct IFtpPostprocessProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<POST_PROCESS_PARAMETERS>} pPostProcessParameters 
      * @returns {FTP_PROCESS_STATUS} 
      */
@@ -56,7 +55,7 @@ export default struct IFtpPostprocessProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.HandlePostprocess := CallbackCreate(GetMethod(implObj, "HandlePostprocess"), flags, 3)
+        this.vtbl.HandlePostprocess := CallbackCreate(ObjBindMethod(implObj, "HandlePostprocess"), flags, 3)
     }
 
     Dispose() {

@@ -31,7 +31,6 @@ export default struct RasCustomEntryDlgFn {
     }
 
     /**
-     * 
      * @param {HINSTANCE} hInstDll Handle to the instance of the custom-dial DLL that was loaded.
      * @param {PWSTR} lpszPhonebook Pointer to a <b>null</b>-terminated string that specifies the full path and file name of a phone-book (PBK) file. If this parameter is <b>NULL</b>, the function uses the current default phone-book file. The default phone-book file is the one selected by the user in the <b>User Preferences</b> property sheet of the <b>Dial-Up Networking</b> dialog box.
      * @param {PWSTR} lpszEntry Pointer to a <b>null</b>-terminated string that contains the name of the phone-book entry to edit, copy, or create. 

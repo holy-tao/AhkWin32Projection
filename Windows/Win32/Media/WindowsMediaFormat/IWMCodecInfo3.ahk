@@ -131,9 +131,9 @@ export default struct IWMCodecInfo3 extends IWMCodecInfo2 {
     GetCodecFormatProp(guidType, dwCodecIndex, dwFormatIndex, pszName, pType, pValue, pdwSize) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
-        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+        pTypeMarshal := pType is VarRef ? "int*" : IntPtr
+        pValueMarshal := pValue is VarRef ? "char*" : IntPtr
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, Guid.Ptr, guidType, UInt32, dwCodecIndex, UInt32, dwFormatIndex, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "HRESULT")
         return result
@@ -242,9 +242,9 @@ export default struct IWMCodecInfo3 extends IWMCodecInfo2 {
     GetCodecProp(guidType, dwCodecIndex, pszName, pType, pValue, pdwSize) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
-        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+        pTypeMarshal := pType is VarRef ? "int*" : IntPtr
+        pValueMarshal := pValue is VarRef ? "char*" : IntPtr
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(9, this, Guid.Ptr, guidType, UInt32, dwCodecIndex, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "HRESULT")
         return result
@@ -368,7 +368,7 @@ export default struct IWMCodecInfo3 extends IWMCodecInfo2 {
     SetCodecEnumerationSetting(guidType, dwCodecIndex, pszName, Type, pValue, dwSize) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "char*" : IntPtr
 
         result := ComCall(10, this, Guid.Ptr, guidType, UInt32, dwCodecIndex, "ptr", pszName, WMT_ATTR_DATATYPE, Type, pValueMarshal, pValue, UInt32, dwSize, "HRESULT")
         return result
@@ -455,9 +455,9 @@ export default struct IWMCodecInfo3 extends IWMCodecInfo2 {
     GetCodecEnumerationSetting(guidType, dwCodecIndex, pszName, pType, pValue, pdwSize) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
-        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+        pTypeMarshal := pType is VarRef ? "int*" : IntPtr
+        pValueMarshal := pValue is VarRef ? "char*" : IntPtr
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(11, this, Guid.Ptr, guidType, UInt32, dwCodecIndex, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "HRESULT")
         return result
@@ -472,10 +472,10 @@ export default struct IWMCodecInfo3 extends IWMCodecInfo2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCodecFormatProp := CallbackCreate(GetMethod(implObj, "GetCodecFormatProp"), flags, 8)
-        this.vtbl.GetCodecProp := CallbackCreate(GetMethod(implObj, "GetCodecProp"), flags, 7)
-        this.vtbl.SetCodecEnumerationSetting := CallbackCreate(GetMethod(implObj, "SetCodecEnumerationSetting"), flags, 7)
-        this.vtbl.GetCodecEnumerationSetting := CallbackCreate(GetMethod(implObj, "GetCodecEnumerationSetting"), flags, 7)
+        this.vtbl.GetCodecFormatProp := CallbackCreate(ObjBindMethod(implObj, "GetCodecFormatProp"), flags, 8)
+        this.vtbl.GetCodecProp := CallbackCreate(ObjBindMethod(implObj, "GetCodecProp"), flags, 7)
+        this.vtbl.SetCodecEnumerationSetting := CallbackCreate(ObjBindMethod(implObj, "SetCodecEnumerationSetting"), flags, 7)
+        this.vtbl.GetCodecEnumerationSetting := CallbackCreate(ObjBindMethod(implObj, "GetCodecEnumerationSetting"), flags, 7)
     }
 
     Dispose() {

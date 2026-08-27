@@ -21,7 +21,6 @@ export default struct BCryptExportKeyFn {
     }
 
     /**
-     * 
      * @param {BCRYPT_KEY_HANDLE} _hKey 
      * @param {BCRYPT_KEY_HANDLE} hExportKey 
      * @param {PWSTR} pszBlobType 
@@ -34,9 +33,11 @@ export default struct BCryptExportKeyFn {
     Call(_hKey, hExportKey, pszBlobType, pbOutput, cbOutput, pcbResult, dwFlags) {
         pszBlobType := pszBlobType is String ? StrPtr(pszBlobType) : pszBlobType
 
-        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+        hExportKeyMarshal := hExportKey == 0 ? IntPtr : BCRYPT_KEY_HANDLE
+        pbOutputMarshal := pbOutput == 0 ? IntPtr : IntPtr
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, BCRYPT_KEY_HANDLE, _hKey, BCRYPT_KEY_HANDLE, hExportKey, "ptr", pszBlobType, IntPtr, pbOutput, UInt32, cbOutput, pcbResultMarshal, pcbResult, UInt32, dwFlags, NTSTATUS)
+        result := DllCall(this.value, BCRYPT_KEY_HANDLE, _hKey, hExportKeyMarshal, hExportKey, "ptr", pszBlobType, pbOutputMarshal, pbOutput, UInt32, cbOutput, pcbResultMarshal, pcbResult, UInt32, dwFlags, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

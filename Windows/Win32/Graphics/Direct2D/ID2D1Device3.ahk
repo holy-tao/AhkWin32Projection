@@ -63,7 +63,7 @@ export default struct ID2D1Device3 extends ID2D1Device2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateDeviceContext := CallbackCreate(GetMethod(implObj, "CreateDeviceContext"), flags, 3)
+        this.vtbl.CreateDeviceContext := CallbackCreate(ObjBindMethod(implObj, "CreateDeviceContext"), flags, 3)
     }
 
     Dispose() {

@@ -71,8 +71,8 @@ export default struct IPartsList extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
-        this.vtbl.GetPart := CallbackCreate(GetMethod(implObj, "GetPart"), flags, 3)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetPart := CallbackCreate(ObjBindMethod(implObj, "GetPart"), flags, 3)
     }
 
     Dispose() {

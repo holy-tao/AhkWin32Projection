@@ -113,9 +113,9 @@ export default struct IDCompositionDesktopDevice extends IDCompositionDevice2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateTargetForHwnd := CallbackCreate(GetMethod(implObj, "CreateTargetForHwnd"), flags, 4)
-        this.vtbl.CreateSurfaceFromHandle := CallbackCreate(GetMethod(implObj, "CreateSurfaceFromHandle"), flags, 3)
-        this.vtbl.CreateSurfaceFromHwnd := CallbackCreate(GetMethod(implObj, "CreateSurfaceFromHwnd"), flags, 3)
+        this.vtbl.CreateTargetForHwnd := CallbackCreate(ObjBindMethod(implObj, "CreateTargetForHwnd"), flags, 4)
+        this.vtbl.CreateSurfaceFromHandle := CallbackCreate(ObjBindMethod(implObj, "CreateSurfaceFromHandle"), flags, 3)
+        this.vtbl.CreateSurfaceFromHwnd := CallbackCreate(ObjBindMethod(implObj, "CreateSurfaceFromHwnd"), flags, 3)
     }
 
     Dispose() {

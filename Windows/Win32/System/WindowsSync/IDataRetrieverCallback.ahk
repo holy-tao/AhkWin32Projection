@@ -105,8 +105,8 @@ export default struct IDataRetrieverCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LoadChangeDataComplete := CallbackCreate(GetMethod(implObj, "LoadChangeDataComplete"), flags, 2)
-        this.vtbl.LoadChangeDataError := CallbackCreate(GetMethod(implObj, "LoadChangeDataError"), flags, 2)
+        this.vtbl.LoadChangeDataComplete := CallbackCreate(ObjBindMethod(implObj, "LoadChangeDataComplete"), flags, 2)
+        this.vtbl.LoadChangeDataError := CallbackCreate(ObjBindMethod(implObj, "LoadChangeDataError"), flags, 2)
     }
 
     Dispose() {

@@ -168,7 +168,7 @@ export default struct IDWriteFontFace3 extends IDWriteFontFace2 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface3-getinformationalstrings
      */
     GetInformationalStrings(informationalStringID, informationalStrings, exists) {
-        existsMarshal := exists is VarRef ? "int*" : "ptr"
+        existsMarshal := exists is VarRef ? "int*" : IntPtr
 
         result := ComCall(42, this, DWRITE_INFORMATIONAL_STRING_ID, informationalStringID, IDWriteLocalizedStrings.Ptr, informationalStrings, existsMarshal, exists, "HRESULT")
         return result
@@ -227,10 +227,12 @@ export default struct IDWriteFontFace3 extends IDWriteFontFace2 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface3-getrecommendedrenderingmode
      */
     GetRecommendedRenderingMode(fontEmSize, dpiX, dpiY, transform, isSideways, outlineThreshold, measuringMode, renderingParams, renderingMode, gridFitMode) {
-        renderingModeMarshal := renderingMode is VarRef ? "int*" : "ptr"
-        gridFitModeMarshal := gridFitMode is VarRef ? "int*" : "ptr"
+        transformMarshal := transform == 0 ? IntPtr : DWRITE_MATRIX.Ptr
+        renderingParamsMarshal := renderingParams == 0 ? IntPtr : "ptr"
+        renderingModeMarshal := renderingMode is VarRef ? "int*" : IntPtr
+        gridFitModeMarshal := gridFitMode is VarRef ? "int*" : IntPtr
 
-        result := ComCall(44, this, Float32, fontEmSize, Float32, dpiX, Float32, dpiY, DWRITE_MATRIX.Ptr, transform, BOOL, isSideways, DWRITE_OUTLINE_THRESHOLD, outlineThreshold, DWRITE_MEASURING_MODE, measuringMode, "ptr", renderingParams, renderingModeMarshal, renderingMode, gridFitModeMarshal, gridFitMode, "HRESULT")
+        result := ComCall(44, this, Float32, fontEmSize, Float32, dpiX, Float32, dpiY, transformMarshal, transform, BOOL, isSideways, DWRITE_OUTLINE_THRESHOLD, outlineThreshold, DWRITE_MEASURING_MODE, measuringMode, renderingParamsMarshal, renderingParams, renderingModeMarshal, renderingMode, gridFitModeMarshal, gridFitMode, "HRESULT")
         return result
     }
 
@@ -309,7 +311,7 @@ export default struct IDWriteFontFace3 extends IDWriteFontFace2 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface3-areglyphslocal
      */
     AreGlyphsLocal(glyphIndices, glyphCount, enqueueIfNotLocal) {
-        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
+        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(48, this, glyphIndicesMarshal, glyphIndices, UInt32, glyphCount, BOOL, enqueueIfNotLocal, BOOL.Ptr, &isLocal := 0, "HRESULT")
         return isLocal
@@ -324,20 +326,20 @@ export default struct IDWriteFontFace3 extends IDWriteFontFace2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFontFaceReference := CallbackCreate(GetMethod(implObj, "GetFontFaceReference"), flags, 2)
-        this.vtbl.GetPanose := CallbackCreate(GetMethod(implObj, "GetPanose"), flags, 2)
-        this.vtbl.GetWeight := CallbackCreate(GetMethod(implObj, "GetWeight"), flags, 1)
-        this.vtbl.GetStretch := CallbackCreate(GetMethod(implObj, "GetStretch"), flags, 1)
-        this.vtbl.GetStyle := CallbackCreate(GetMethod(implObj, "GetStyle"), flags, 1)
-        this.vtbl.GetFamilyNames := CallbackCreate(GetMethod(implObj, "GetFamilyNames"), flags, 2)
-        this.vtbl.GetFaceNames := CallbackCreate(GetMethod(implObj, "GetFaceNames"), flags, 2)
-        this.vtbl.GetInformationalStrings := CallbackCreate(GetMethod(implObj, "GetInformationalStrings"), flags, 4)
-        this.vtbl.HasCharacter := CallbackCreate(GetMethod(implObj, "HasCharacter"), flags, 2)
-        this.vtbl.GetRecommendedRenderingMode := CallbackCreate(GetMethod(implObj, "GetRecommendedRenderingMode"), flags, 11)
-        this.vtbl.IsCharacterLocal := CallbackCreate(GetMethod(implObj, "IsCharacterLocal"), flags, 2)
-        this.vtbl.IsGlyphLocal := CallbackCreate(GetMethod(implObj, "IsGlyphLocal"), flags, 2)
-        this.vtbl.AreCharactersLocal := CallbackCreate(GetMethod(implObj, "AreCharactersLocal"), flags, 5)
-        this.vtbl.AreGlyphsLocal := CallbackCreate(GetMethod(implObj, "AreGlyphsLocal"), flags, 5)
+        this.vtbl.GetFontFaceReference := CallbackCreate(ObjBindMethod(implObj, "GetFontFaceReference"), flags, 2)
+        this.vtbl.GetPanose := CallbackCreate(ObjBindMethod(implObj, "GetPanose"), flags, 2)
+        this.vtbl.GetWeight := CallbackCreate(ObjBindMethod(implObj, "GetWeight"), flags, 1)
+        this.vtbl.GetStretch := CallbackCreate(ObjBindMethod(implObj, "GetStretch"), flags, 1)
+        this.vtbl.GetStyle := CallbackCreate(ObjBindMethod(implObj, "GetStyle"), flags, 1)
+        this.vtbl.GetFamilyNames := CallbackCreate(ObjBindMethod(implObj, "GetFamilyNames"), flags, 2)
+        this.vtbl.GetFaceNames := CallbackCreate(ObjBindMethod(implObj, "GetFaceNames"), flags, 2)
+        this.vtbl.GetInformationalStrings := CallbackCreate(ObjBindMethod(implObj, "GetInformationalStrings"), flags, 4)
+        this.vtbl.HasCharacter := CallbackCreate(ObjBindMethod(implObj, "HasCharacter"), flags, 2)
+        this.vtbl.GetRecommendedRenderingMode := CallbackCreate(ObjBindMethod(implObj, "GetRecommendedRenderingMode"), flags, 11)
+        this.vtbl.IsCharacterLocal := CallbackCreate(ObjBindMethod(implObj, "IsCharacterLocal"), flags, 2)
+        this.vtbl.IsGlyphLocal := CallbackCreate(ObjBindMethod(implObj, "IsGlyphLocal"), flags, 2)
+        this.vtbl.AreCharactersLocal := CallbackCreate(ObjBindMethod(implObj, "AreCharactersLocal"), flags, 5)
+        this.vtbl.AreGlyphsLocal := CallbackCreate(ObjBindMethod(implObj, "AreGlyphsLocal"), flags, 5)
     }
 
     Dispose() {

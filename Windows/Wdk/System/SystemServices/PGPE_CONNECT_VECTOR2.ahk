@@ -22,7 +22,6 @@ export default struct PGPE_CONNECT_VECTOR2 {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Integer} GpeNumber 
      * @param {KINTERRUPT_MODE} _Mode 
@@ -33,9 +32,9 @@ export default struct PGPE_CONNECT_VECTOR2 {
      * @returns {NTSTATUS} 
      */
     Call(_Context, GpeNumber, _Mode, Shareable, ServiceRoutine, ServiceContext, _ObjectContext) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        ServiceContextMarshal := ServiceContext is VarRef ? "ptr" : "ptr"
-        _ObjectContextMarshal := _ObjectContext is VarRef ? "ptr*" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        ServiceContextMarshal := ServiceContext is VarRef ? "ptr" : IntPtr
+        _ObjectContextMarshal := _ObjectContext is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, UInt32, GpeNumber, KINTERRUPT_MODE, _Mode, BOOLEAN, Shareable, PGPE_SERVICE_ROUTINE, ServiceRoutine, ServiceContextMarshal, ServiceContext, _ObjectContextMarshal, _ObjectContext, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

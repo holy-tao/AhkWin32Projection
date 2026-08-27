@@ -20,7 +20,6 @@ export default struct PFN_WdsTransportClientSessionNegotiate {
     }
 
     /**
-     * 
      * @param {HANDLE} hSessionKey 
      * @param {Pointer<Void>} pCallerData 
      * @param {Pointer<TRANSPORTCLIENT_SESSION_INFO>} pInfo 
@@ -28,7 +27,7 @@ export default struct PFN_WdsTransportClientSessionNegotiate {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(hSessionKey, pCallerData, pInfo, hNegotiateKey) {
-        pCallerDataMarshal := pCallerData is VarRef ? "ptr" : "ptr"
+        pCallerDataMarshal := pCallerData is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, HANDLE, hSessionKey, pCallerDataMarshal, pCallerData, TRANSPORTCLIENT_SESSION_INFO.Ptr, pInfo, HANDLE, hNegotiateKey)
     }

@@ -21,7 +21,6 @@ export default struct PCLUSAPI_GET_CLUSTER_RESOURCE_STATE {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {PWSTR} lpszNodeName 
      * @param {Pointer<Integer>} lpcchNodeName 
@@ -33,10 +32,14 @@ export default struct PCLUSAPI_GET_CLUSTER_RESOURCE_STATE {
         lpszNodeName := lpszNodeName is String ? StrPtr(lpszNodeName) : lpszNodeName
         lpszGroupName := lpszGroupName is String ? StrPtr(lpszGroupName) : lpszGroupName
 
-        lpcchNodeNameMarshal := lpcchNodeName is VarRef ? "uint*" : "ptr"
-        lpcchGroupNameMarshal := lpcchGroupName is VarRef ? "uint*" : "ptr"
+        lpszNodeNameMarshal := lpszNodeName == 0 ? IntPtr : PWSTR
+        lpcchNodeNameMarshal := lpcchNodeName is VarRef ? "uint*" : IntPtr
+        lpcchNodeNameMarshal := lpcchNodeName == 0 ? IntPtr : "uint*"
+        lpszGroupNameMarshal := lpszGroupName == 0 ? IntPtr : PWSTR
+        lpcchGroupNameMarshal := lpcchGroupName is VarRef ? "uint*" : IntPtr
+        lpcchGroupNameMarshal := lpcchGroupName == 0 ? IntPtr : "uint*"
 
-        result := DllCall(this.value, HRESOURCE, _hResource, "ptr", lpszNodeName, lpcchNodeNameMarshal, lpcchNodeName, "ptr", lpszGroupName, lpcchGroupNameMarshal, lpcchGroupName, CLUSTER_RESOURCE_STATE)
+        result := DllCall(this.value, HRESOURCE, _hResource, lpszNodeNameMarshal, lpszNodeName, lpcchNodeNameMarshal, lpcchNodeName, lpszGroupNameMarshal, lpszGroupName, lpcchGroupNameMarshal, lpcchGroupName, CLUSTER_RESOURCE_STATE)
         return result
     }
 

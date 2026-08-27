@@ -42,7 +42,6 @@ export default struct IProcessDebugManager32 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugApplication32} 
      */
     CreateApplication() {
@@ -51,7 +50,6 @@ export default struct IProcessDebugManager32 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugApplication32} 
      */
     GetDefaultApplication() {
@@ -60,7 +58,6 @@ export default struct IProcessDebugManager32 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugApplication32} pda 
      * @returns {Integer} 
      */
@@ -70,7 +67,6 @@ export default struct IProcessDebugManager32 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwAppCookie 
      * @returns {HRESULT} 
      */
@@ -80,7 +76,6 @@ export default struct IProcessDebugManager32 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} punkOuter 
      * @returns {IDebugDocumentHelper32} 
      */
@@ -98,11 +93,11 @@ export default struct IProcessDebugManager32 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateApplication := CallbackCreate(GetMethod(implObj, "CreateApplication"), flags, 2)
-        this.vtbl.GetDefaultApplication := CallbackCreate(GetMethod(implObj, "GetDefaultApplication"), flags, 2)
-        this.vtbl.AddApplication := CallbackCreate(GetMethod(implObj, "AddApplication"), flags, 3)
-        this.vtbl.RemoveApplication := CallbackCreate(GetMethod(implObj, "RemoveApplication"), flags, 2)
-        this.vtbl.CreateDebugDocumentHelper := CallbackCreate(GetMethod(implObj, "CreateDebugDocumentHelper"), flags, 3)
+        this.vtbl.CreateApplication := CallbackCreate(ObjBindMethod(implObj, "CreateApplication"), flags, 2)
+        this.vtbl.GetDefaultApplication := CallbackCreate(ObjBindMethod(implObj, "GetDefaultApplication"), flags, 2)
+        this.vtbl.AddApplication := CallbackCreate(ObjBindMethod(implObj, "AddApplication"), flags, 3)
+        this.vtbl.RemoveApplication := CallbackCreate(ObjBindMethod(implObj, "RemoveApplication"), flags, 2)
+        this.vtbl.CreateDebugDocumentHelper := CallbackCreate(ObjBindMethod(implObj, "CreateDebugDocumentHelper"), flags, 3)
     }
 
     Dispose() {

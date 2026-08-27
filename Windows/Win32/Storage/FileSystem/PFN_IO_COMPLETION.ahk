@@ -20,7 +20,6 @@ export default struct PFN_IO_COMPLETION {
     }
 
     /**
-     * 
      * @param {Pointer<FIO_CONTEXT>} pContext 
      * @param {Pointer<FH_OVERLAPPED>} lpo 
      * @param {Integer} cb 

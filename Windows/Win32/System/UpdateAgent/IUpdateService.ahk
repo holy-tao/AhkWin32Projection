@@ -290,19 +290,19 @@ export default struct IUpdateService extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_ContentValidationCert := CallbackCreate(GetMethod(implObj, "get_ContentValidationCert"), flags, 2)
-        this.vtbl.get_ExpirationDate := CallbackCreate(GetMethod(implObj, "get_ExpirationDate"), flags, 2)
-        this.vtbl.get_IsManaged := CallbackCreate(GetMethod(implObj, "get_IsManaged"), flags, 2)
-        this.vtbl.get_IsRegisteredWithAU := CallbackCreate(GetMethod(implObj, "get_IsRegisteredWithAU"), flags, 2)
-        this.vtbl.get_IssueDate := CallbackCreate(GetMethod(implObj, "get_IssueDate"), flags, 2)
-        this.vtbl.get_OffersWindowsUpdates := CallbackCreate(GetMethod(implObj, "get_OffersWindowsUpdates"), flags, 2)
-        this.vtbl.get_RedirectUrls := CallbackCreate(GetMethod(implObj, "get_RedirectUrls"), flags, 2)
-        this.vtbl.get_ServiceID := CallbackCreate(GetMethod(implObj, "get_ServiceID"), flags, 2)
-        this.vtbl.get_IsScanPackageService := CallbackCreate(GetMethod(implObj, "get_IsScanPackageService"), flags, 2)
-        this.vtbl.get_CanRegisterWithAU := CallbackCreate(GetMethod(implObj, "get_CanRegisterWithAU"), flags, 2)
-        this.vtbl.get_ServiceUrl := CallbackCreate(GetMethod(implObj, "get_ServiceUrl"), flags, 2)
-        this.vtbl.get_SetupPrefix := CallbackCreate(GetMethod(implObj, "get_SetupPrefix"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_ContentValidationCert := CallbackCreate(ObjBindMethod(implObj, "get_ContentValidationCert"), flags, 2)
+        this.vtbl.get_ExpirationDate := CallbackCreate(ObjBindMethod(implObj, "get_ExpirationDate"), flags, 2)
+        this.vtbl.get_IsManaged := CallbackCreate(ObjBindMethod(implObj, "get_IsManaged"), flags, 2)
+        this.vtbl.get_IsRegisteredWithAU := CallbackCreate(ObjBindMethod(implObj, "get_IsRegisteredWithAU"), flags, 2)
+        this.vtbl.get_IssueDate := CallbackCreate(ObjBindMethod(implObj, "get_IssueDate"), flags, 2)
+        this.vtbl.get_OffersWindowsUpdates := CallbackCreate(ObjBindMethod(implObj, "get_OffersWindowsUpdates"), flags, 2)
+        this.vtbl.get_RedirectUrls := CallbackCreate(ObjBindMethod(implObj, "get_RedirectUrls"), flags, 2)
+        this.vtbl.get_ServiceID := CallbackCreate(ObjBindMethod(implObj, "get_ServiceID"), flags, 2)
+        this.vtbl.get_IsScanPackageService := CallbackCreate(ObjBindMethod(implObj, "get_IsScanPackageService"), flags, 2)
+        this.vtbl.get_CanRegisterWithAU := CallbackCreate(ObjBindMethod(implObj, "get_CanRegisterWithAU"), flags, 2)
+        this.vtbl.get_ServiceUrl := CallbackCreate(ObjBindMethod(implObj, "get_ServiceUrl"), flags, 2)
+        this.vtbl.get_SetupPrefix := CallbackCreate(ObjBindMethod(implObj, "get_SetupPrefix"), flags, 2)
     }
 
     Dispose() {

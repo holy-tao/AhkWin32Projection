@@ -97,7 +97,7 @@ export default struct IForgottenKnowledge extends ISyncKnowledge {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ForgetToVersion := CallbackCreate(GetMethod(implObj, "ForgetToVersion"), flags, 3)
+        this.vtbl.ForgetToVersion := CallbackCreate(ObjBindMethod(implObj, "ForgetToVersion"), flags, 3)
     }
 
     Dispose() {

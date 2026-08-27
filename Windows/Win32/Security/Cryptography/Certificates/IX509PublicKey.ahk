@@ -112,7 +112,9 @@ export default struct IX509PublicKey extends IDispatch {
         strEncodedKey := strEncodedKey is String ? BSTR.Alloc(strEncodedKey).Value : strEncodedKey
         strEncodedParameters := strEncodedParameters is String ? BSTR.Alloc(strEncodedParameters).Value : strEncodedParameters
 
-        result := ComCall(7, this, "ptr", pObjectId, BSTR, strEncodedKey, BSTR, strEncodedParameters, EncodingType, Encoding, "HRESULT")
+        pObjectIdMarshal := pObjectId == 0 ? IntPtr : "ptr"
+
+        result := ComCall(7, this, pObjectIdMarshal, pObjectId, BSTR, strEncodedKey, BSTR, strEncodedParameters, EncodingType, Encoding, "HRESULT")
         return result
     }
 
@@ -332,13 +334,13 @@ export default struct IX509PublicKey extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 5)
-        this.vtbl.InitializeFromEncodedPublicKeyInfo := CallbackCreate(GetMethod(implObj, "InitializeFromEncodedPublicKeyInfo"), flags, 3)
-        this.vtbl.get_Algorithm := CallbackCreate(GetMethod(implObj, "get_Algorithm"), flags, 2)
-        this.vtbl.get_Length := CallbackCreate(GetMethod(implObj, "get_Length"), flags, 2)
-        this.vtbl.get_EncodedKey := CallbackCreate(GetMethod(implObj, "get_EncodedKey"), flags, 3)
-        this.vtbl.get_EncodedParameters := CallbackCreate(GetMethod(implObj, "get_EncodedParameters"), flags, 3)
-        this.vtbl.ComputeKeyIdentifier := CallbackCreate(GetMethod(implObj, "ComputeKeyIdentifier"), flags, 4)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 5)
+        this.vtbl.InitializeFromEncodedPublicKeyInfo := CallbackCreate(ObjBindMethod(implObj, "InitializeFromEncodedPublicKeyInfo"), flags, 3)
+        this.vtbl.get_Algorithm := CallbackCreate(ObjBindMethod(implObj, "get_Algorithm"), flags, 2)
+        this.vtbl.get_Length := CallbackCreate(ObjBindMethod(implObj, "get_Length"), flags, 2)
+        this.vtbl.get_EncodedKey := CallbackCreate(ObjBindMethod(implObj, "get_EncodedKey"), flags, 3)
+        this.vtbl.get_EncodedParameters := CallbackCreate(ObjBindMethod(implObj, "get_EncodedParameters"), flags, 3)
+        this.vtbl.ComputeKeyIdentifier := CallbackCreate(ObjBindMethod(implObj, "ComputeKeyIdentifier"), flags, 4)
     }
 
     Dispose() {

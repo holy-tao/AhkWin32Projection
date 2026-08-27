@@ -188,15 +188,15 @@ export default struct ITfPropertyStore extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
-        this.vtbl.GetDataType := CallbackCreate(GetMethod(implObj, "GetDataType"), flags, 2)
-        this.vtbl.GetData := CallbackCreate(GetMethod(implObj, "GetData"), flags, 2)
-        this.vtbl.OnTextUpdated := CallbackCreate(GetMethod(implObj, "OnTextUpdated"), flags, 4)
-        this.vtbl.Shrink := CallbackCreate(GetMethod(implObj, "Shrink"), flags, 3)
-        this.vtbl.Divide := CallbackCreate(GetMethod(implObj, "Divide"), flags, 4)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
-        this.vtbl.GetPropertyRangeCreator := CallbackCreate(GetMethod(implObj, "GetPropertyRangeCreator"), flags, 2)
-        this.vtbl.Serialize := CallbackCreate(GetMethod(implObj, "Serialize"), flags, 3)
+        this.vtbl.GetType := CallbackCreate(ObjBindMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.GetDataType := CallbackCreate(ObjBindMethod(implObj, "GetDataType"), flags, 2)
+        this.vtbl.GetData := CallbackCreate(ObjBindMethod(implObj, "GetData"), flags, 2)
+        this.vtbl.OnTextUpdated := CallbackCreate(ObjBindMethod(implObj, "OnTextUpdated"), flags, 4)
+        this.vtbl.Shrink := CallbackCreate(ObjBindMethod(implObj, "Shrink"), flags, 3)
+        this.vtbl.Divide := CallbackCreate(ObjBindMethod(implObj, "Divide"), flags, 4)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.GetPropertyRangeCreator := CallbackCreate(ObjBindMethod(implObj, "GetPropertyRangeCreator"), flags, 2)
+        this.vtbl.Serialize := CallbackCreate(ObjBindMethod(implObj, "Serialize"), flags, 3)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct XMIT_HELPER_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} param0 
      * @returns {String} Nothing - always returns an empty string
      */

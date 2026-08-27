@@ -145,7 +145,7 @@ export default struct IMultiInterfaceEventControl extends IUnknown {
         bstrMethodName := bstrMethodName is String ? BSTR.Alloc(bstrMethodName).Value : bstrMethodName
         optionalCriteria := optionalCriteria is String ? BSTR.Alloc(optionalCriteria).Value : optionalCriteria
 
-        optionalErrorIndexMarshal := optionalErrorIndex is VarRef ? "int*" : "ptr"
+        optionalErrorIndexMarshal := optionalErrorIndex is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, Guid.Ptr, eventIID, BSTR, bstrMethodName, BSTR, optionalCriteria, optionalErrorIndexMarshal, optionalErrorIndex, "ptr*", &ppCollection := 0, "HRESULT")
         return IEventObjectCollection(ppCollection)
@@ -234,13 +234,13 @@ export default struct IMultiInterfaceEventControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetMultiInterfacePublisherFilter := CallbackCreate(GetMethod(implObj, "SetMultiInterfacePublisherFilter"), flags, 2)
-        this.vtbl.GetSubscriptions := CallbackCreate(GetMethod(implObj, "GetSubscriptions"), flags, 6)
-        this.vtbl.SetDefaultQuery := CallbackCreate(GetMethod(implObj, "SetDefaultQuery"), flags, 5)
-        this.vtbl.get_AllowInprocActivation := CallbackCreate(GetMethod(implObj, "get_AllowInprocActivation"), flags, 2)
-        this.vtbl.put_AllowInprocActivation := CallbackCreate(GetMethod(implObj, "put_AllowInprocActivation"), flags, 2)
-        this.vtbl.get_FireInParallel := CallbackCreate(GetMethod(implObj, "get_FireInParallel"), flags, 2)
-        this.vtbl.put_FireInParallel := CallbackCreate(GetMethod(implObj, "put_FireInParallel"), flags, 2)
+        this.vtbl.SetMultiInterfacePublisherFilter := CallbackCreate(ObjBindMethod(implObj, "SetMultiInterfacePublisherFilter"), flags, 2)
+        this.vtbl.GetSubscriptions := CallbackCreate(ObjBindMethod(implObj, "GetSubscriptions"), flags, 6)
+        this.vtbl.SetDefaultQuery := CallbackCreate(ObjBindMethod(implObj, "SetDefaultQuery"), flags, 5)
+        this.vtbl.get_AllowInprocActivation := CallbackCreate(ObjBindMethod(implObj, "get_AllowInprocActivation"), flags, 2)
+        this.vtbl.put_AllowInprocActivation := CallbackCreate(ObjBindMethod(implObj, "put_AllowInprocActivation"), flags, 2)
+        this.vtbl.get_FireInParallel := CallbackCreate(ObjBindMethod(implObj, "get_FireInParallel"), flags, 2)
+        this.vtbl.put_FireInParallel := CallbackCreate(ObjBindMethod(implObj, "put_FireInParallel"), flags, 2)
     }
 
     Dispose() {

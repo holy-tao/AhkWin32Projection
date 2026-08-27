@@ -53,7 +53,6 @@ export default struct IHTMLAttributeCollection4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvarNS 
      * @param {BSTR} bstrName 
      * @returns {IHTMLDOMAttribute2} 
@@ -66,7 +65,6 @@ export default struct IHTMLAttributeCollection4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMAttribute2} pNodeIn 
      * @returns {IHTMLDOMAttribute2} 
      */
@@ -76,7 +74,6 @@ export default struct IHTMLAttributeCollection4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvarNS 
      * @param {BSTR} bstrName 
      * @returns {IHTMLDOMAttribute2} 
@@ -89,7 +86,6 @@ export default struct IHTMLAttributeCollection4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @returns {IHTMLDOMAttribute2} 
      */
@@ -101,7 +97,6 @@ export default struct IHTMLAttributeCollection4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMAttribute2} pNodeIn 
      * @returns {IHTMLDOMAttribute2} 
      */
@@ -111,7 +106,6 @@ export default struct IHTMLAttributeCollection4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @returns {IHTMLDOMAttribute2} 
      */
@@ -123,7 +117,6 @@ export default struct IHTMLAttributeCollection4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {IHTMLDOMAttribute2} 
      */
@@ -133,7 +126,6 @@ export default struct IHTMLAttributeCollection4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -150,14 +142,14 @@ export default struct IHTMLAttributeCollection4 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.getNamedItemNS := CallbackCreate(GetMethod(implObj, "getNamedItemNS"), flags, 4)
-        this.vtbl.setNamedItemNS := CallbackCreate(GetMethod(implObj, "setNamedItemNS"), flags, 3)
-        this.vtbl.removeNamedItemNS := CallbackCreate(GetMethod(implObj, "removeNamedItemNS"), flags, 4)
-        this.vtbl.getNamedItem := CallbackCreate(GetMethod(implObj, "getNamedItem"), flags, 3)
-        this.vtbl.setNamedItem := CallbackCreate(GetMethod(implObj, "setNamedItem"), flags, 3)
-        this.vtbl.removeNamedItem := CallbackCreate(GetMethod(implObj, "removeNamedItem"), flags, 3)
-        this.vtbl.item := CallbackCreate(GetMethod(implObj, "item"), flags, 3)
-        this.vtbl.get_length := CallbackCreate(GetMethod(implObj, "get_length"), flags, 2)
+        this.vtbl.getNamedItemNS := CallbackCreate(ObjBindMethod(implObj, "getNamedItemNS"), flags, 4)
+        this.vtbl.setNamedItemNS := CallbackCreate(ObjBindMethod(implObj, "setNamedItemNS"), flags, 3)
+        this.vtbl.removeNamedItemNS := CallbackCreate(ObjBindMethod(implObj, "removeNamedItemNS"), flags, 4)
+        this.vtbl.getNamedItem := CallbackCreate(ObjBindMethod(implObj, "getNamedItem"), flags, 3)
+        this.vtbl.setNamedItem := CallbackCreate(ObjBindMethod(implObj, "setNamedItem"), flags, 3)
+        this.vtbl.removeNamedItem := CallbackCreate(ObjBindMethod(implObj, "removeNamedItem"), flags, 3)
+        this.vtbl.item := CallbackCreate(ObjBindMethod(implObj, "item"), flags, 3)
+        this.vtbl.get_length := CallbackCreate(ObjBindMethod(implObj, "get_length"), flags, 2)
     }
 
     Dispose() {

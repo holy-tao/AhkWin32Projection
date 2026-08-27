@@ -18,15 +18,14 @@ export default struct LPALLOCATEMORE {
     }
 
     /**
-     * 
      * @param {Integer} cbSize 
      * @param {Pointer<Void>} lpObject 
      * @param {Pointer<Pointer<Void>>} lppBuffer 
      * @returns {Integer} 
      */
     Call(cbSize, lpObject, lppBuffer) {
-        lpObjectMarshal := lpObject is VarRef ? "ptr" : "ptr"
-        lppBufferMarshal := lppBuffer is VarRef ? "ptr*" : "ptr"
+        lpObjectMarshal := lpObject is VarRef ? "ptr" : IntPtr
+        lppBufferMarshal := lppBuffer is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, UInt32, cbSize, lpObjectMarshal, lpObject, lppBufferMarshal, lppBuffer, Int32)
         return result

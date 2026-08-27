@@ -20,7 +20,6 @@ export default struct PSYMBOLSERVERPINGPROCWEX {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @returns {BOOL} 
      */

@@ -18,7 +18,6 @@ export default struct CM_MODIFY_CALL_QOS_HANDLER {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Call() {

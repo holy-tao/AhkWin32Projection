@@ -67,7 +67,9 @@ export default struct IWebApplicationNavigationEvents extends IUnknown {
         url := url is String ? StrPtr(url) : url
         targetFrameName := targetFrameName is String ? StrPtr(targetFrameName) : targetFrameName
 
-        result := ComCall(3, this, "ptr", htmlWindow, "ptr", url, UInt32, navigationFlags, "ptr", targetFrameName, "HRESULT")
+        targetFrameNameMarshal := targetFrameName == 0 ? IntPtr : PWSTR
+
+        result := ComCall(3, this, "ptr", htmlWindow, "ptr", url, UInt32, navigationFlags, targetFrameNameMarshal, targetFrameName, "HRESULT")
         return result
     }
 
@@ -114,7 +116,9 @@ export default struct IWebApplicationNavigationEvents extends IUnknown {
         url := url is String ? StrPtr(url) : url
         targetFrameName := targetFrameName is String ? StrPtr(targetFrameName) : targetFrameName
 
-        result := ComCall(5, this, "ptr", htmlWindow, "ptr", url, "ptr", targetFrameName, UInt32, _statusCode, "HRESULT")
+        targetFrameNameMarshal := targetFrameName == 0 ? IntPtr : PWSTR
+
+        result := ComCall(5, this, "ptr", htmlWindow, "ptr", url, targetFrameNameMarshal, targetFrameName, UInt32, _statusCode, "HRESULT")
         return result
     }
 
@@ -171,12 +175,12 @@ export default struct IWebApplicationNavigationEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BeforeNavigate := CallbackCreate(GetMethod(implObj, "BeforeNavigate"), flags, 5)
-        this.vtbl.NavigateComplete := CallbackCreate(GetMethod(implObj, "NavigateComplete"), flags, 3)
-        this.vtbl.NavigateError := CallbackCreate(GetMethod(implObj, "NavigateError"), flags, 5)
-        this.vtbl.DocumentComplete := CallbackCreate(GetMethod(implObj, "DocumentComplete"), flags, 3)
-        this.vtbl.DownloadBegin := CallbackCreate(GetMethod(implObj, "DownloadBegin"), flags, 1)
-        this.vtbl.DownloadComplete := CallbackCreate(GetMethod(implObj, "DownloadComplete"), flags, 1)
+        this.vtbl.BeforeNavigate := CallbackCreate(ObjBindMethod(implObj, "BeforeNavigate"), flags, 5)
+        this.vtbl.NavigateComplete := CallbackCreate(ObjBindMethod(implObj, "NavigateComplete"), flags, 3)
+        this.vtbl.NavigateError := CallbackCreate(ObjBindMethod(implObj, "NavigateError"), flags, 5)
+        this.vtbl.DocumentComplete := CallbackCreate(ObjBindMethod(implObj, "DocumentComplete"), flags, 3)
+        this.vtbl.DownloadBegin := CallbackCreate(ObjBindMethod(implObj, "DownloadBegin"), flags, 1)
+        this.vtbl.DownloadComplete := CallbackCreate(ObjBindMethod(implObj, "DownloadComplete"), flags, 1)
     }
 
     Dispose() {

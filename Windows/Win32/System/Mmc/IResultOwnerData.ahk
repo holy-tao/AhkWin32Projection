@@ -105,9 +105,9 @@ export default struct IResultOwnerData extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FindItem := CallbackCreate(GetMethod(implObj, "FindItem"), flags, 3)
-        this.vtbl.CacheHint := CallbackCreate(GetMethod(implObj, "CacheHint"), flags, 3)
-        this.vtbl.SortItems := CallbackCreate(GetMethod(implObj, "SortItems"), flags, 4)
+        this.vtbl.FindItem := CallbackCreate(ObjBindMethod(implObj, "FindItem"), flags, 3)
+        this.vtbl.CacheHint := CallbackCreate(ObjBindMethod(implObj, "CacheHint"), flags, 3)
+        this.vtbl.SortItems := CallbackCreate(ObjBindMethod(implObj, "SortItems"), flags, 4)
     }
 
     Dispose() {

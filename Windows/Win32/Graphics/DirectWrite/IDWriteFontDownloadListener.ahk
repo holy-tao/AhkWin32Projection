@@ -56,7 +56,9 @@ export default struct IDWriteFontDownloadListener extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontdownloadlistener-downloadcompleted
      */
     DownloadCompleted(downloadQueue, _context, downloadResult) {
-        ComCall(3, this, "ptr", downloadQueue, "ptr", _context, "int", downloadResult)
+        _contextMarshal := _context == 0 ? IntPtr : "ptr"
+
+        ComCall(3, this, "ptr", downloadQueue, _contextMarshal, _context, "int", downloadResult)
     }
 
     _Query(iid) {
@@ -68,7 +70,7 @@ export default struct IDWriteFontDownloadListener extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DownloadCompleted := CallbackCreate(GetMethod(implObj, "DownloadCompleted"), flags, 4)
+        this.vtbl.DownloadCompleted := CallbackCreate(ObjBindMethod(implObj, "DownloadCompleted"), flags, 4)
     }
 
     Dispose() {

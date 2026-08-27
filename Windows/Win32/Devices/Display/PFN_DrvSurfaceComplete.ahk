@@ -21,7 +21,6 @@ export default struct PFN_DrvSurfaceComplete {
     }
 
     /**
-     * 
      * @param {DHPDEV} param0 
      * @param {HANDLE} param1 
      * @returns {BOOL} 

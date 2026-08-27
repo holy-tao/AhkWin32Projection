@@ -38,40 +38,37 @@ export default struct IImageBytes extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcb 
      * @returns {HRESULT} 
      */
     CountBytes(pcb) {
-        pcbMarshal := pcb is VarRef ? "uint*" : "ptr"
+        pcbMarshal := pcb is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pcbMarshal, pcb, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} cb 
      * @param {Integer} ulOffset 
      * @param {Pointer<Pointer<Void>>} ppvBytes 
      * @returns {HRESULT} 
      */
     LockBytes(cb, ulOffset, ppvBytes) {
-        ppvBytesMarshal := ppvBytes is VarRef ? "ptr*" : "ptr"
+        ppvBytesMarshal := ppvBytes is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, UInt32, cb, UInt32, ulOffset, ppvBytesMarshal, ppvBytes, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvBytes 
      * @param {Integer} cb 
      * @param {Integer} ulOffset 
      * @returns {HRESULT} 
      */
     UnlockBytes(pvBytes, cb, ulOffset) {
-        pvBytesMarshal := pvBytes is VarRef ? "ptr" : "ptr"
+        pvBytesMarshal := pvBytes is VarRef ? "ptr" : IntPtr
 
         result := ComCall(5, this, pvBytesMarshal, pvBytes, UInt32, cb, UInt32, ulOffset, "HRESULT")
         return result
@@ -86,9 +83,9 @@ export default struct IImageBytes extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CountBytes := CallbackCreate(GetMethod(implObj, "CountBytes"), flags, 2)
-        this.vtbl.LockBytes := CallbackCreate(GetMethod(implObj, "LockBytes"), flags, 4)
-        this.vtbl.UnlockBytes := CallbackCreate(GetMethod(implObj, "UnlockBytes"), flags, 4)
+        this.vtbl.CountBytes := CallbackCreate(ObjBindMethod(implObj, "CountBytes"), flags, 2)
+        this.vtbl.LockBytes := CallbackCreate(ObjBindMethod(implObj, "LockBytes"), flags, 4)
+        this.vtbl.UnlockBytes := CallbackCreate(ObjBindMethod(implObj, "UnlockBytes"), flags, 4)
     }
 
     Dispose() {

@@ -18,12 +18,11 @@ export default struct LPFREEBUFFER {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} lpBuffer 
      * @returns {Integer} 
      */
     Call(lpBuffer) {
-        lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
+        lpBufferMarshal := lpBuffer is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, lpBufferMarshal, lpBuffer, UInt32)
         return result

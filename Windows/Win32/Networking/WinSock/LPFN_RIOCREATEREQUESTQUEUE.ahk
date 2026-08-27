@@ -45,7 +45,6 @@ export default struct LPFN_RIOCREATEREQUESTQUEUE {
     }
 
     /**
-     * 
      * @param {SOCKET} _Socket A descriptor that identifies the socket.
      * @param {Integer} MaxOutstandingReceive The maximum number of outstanding receives allowed on the socket.
      * 
@@ -76,7 +75,8 @@ export default struct LPFN_RIOCREATEREQUESTQUEUE {
      * | <dl> <dt>**[WSAEOPNOTSUPP](/windows/win32/winsock/windows-sockets-error-codes-2#wsaeopnotsupp)**</dt> </dl> | The attempted operation is not supported for the type of object referenced. This error is returned for a socket in the *Socket* parameter for an unsupported socket type (**SOCK\_RAW**, for example)<br/>                                                                                                                                                                                           |
      */
     Call(_Socket, MaxOutstandingReceive, MaxReceiveDataBuffers, MaxOutstandingSend, MaxSendDataBuffers, ReceiveCQ, SendCQ, SocketContext) {
-        SocketContextMarshal := SocketContext is VarRef ? "ptr" : "ptr"
+        SocketContextMarshal := SocketContext is VarRef ? "ptr" : IntPtr
+        SocketContextMarshal := SocketContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, SOCKET, _Socket, UInt32, MaxOutstandingReceive, UInt32, MaxReceiveDataBuffers, UInt32, MaxOutstandingSend, UInt32, MaxSendDataBuffers, RIO_CQ, ReceiveCQ, RIO_CQ, SendCQ, SocketContextMarshal, SocketContext, RIO_RQ)
         return result

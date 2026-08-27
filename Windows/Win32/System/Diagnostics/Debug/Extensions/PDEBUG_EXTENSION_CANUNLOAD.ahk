@@ -19,7 +19,6 @@ export default struct PDEBUG_EXTENSION_CANUNLOAD {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Call() {

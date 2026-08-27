@@ -57,7 +57,7 @@ export default struct IWTSPluginServiceProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetService := CallbackCreate(GetMethod(implObj, "GetService"), flags, 3)
+        this.vtbl.GetService := CallbackCreate(ObjBindMethod(implObj, "GetService"), flags, 3)
     }
 
     Dispose() {

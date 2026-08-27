@@ -19,7 +19,6 @@ export default struct PPCI_MSIX_GET_TABLE_SIZE {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

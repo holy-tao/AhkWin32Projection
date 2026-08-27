@@ -20,7 +20,6 @@ export default struct PF_NPGetConnectionPerformance {
     }
 
     /**
-     * 
      * @param {PWSTR} lpRemoteName 
      * @param {Pointer<NETCONNECTINFOSTRUCT>} lpNetConnectInfo 
      * @returns {Integer} 

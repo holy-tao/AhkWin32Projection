@@ -20,7 +20,6 @@ export default struct IOMMU_FREE_RESERVED_LOGICAL_ADDRESS_RANGE {
     }
 
     /**
-     * 
      * @param {Pointer<IOMMU_DMA_LOGICAL_ADDRESS_TOKEN>} LogicalAddressToken 
      * @returns {NTSTATUS} 
      */

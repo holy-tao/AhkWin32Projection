@@ -109,7 +109,9 @@ export default struct IDWriteFontDownloadQueue extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontdownloadqueue-begindownload
      */
     BeginDownload(_context) {
-        result := ComCall(6, this, "ptr", _context, "HRESULT")
+        _contextMarshal := _context == 0 ? IntPtr : "ptr"
+
+        result := ComCall(6, this, _contextMarshal, _context, "HRESULT")
         return result
     }
 
@@ -146,12 +148,12 @@ export default struct IDWriteFontDownloadQueue extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddListener := CallbackCreate(GetMethod(implObj, "AddListener"), flags, 3)
-        this.vtbl.RemoveListener := CallbackCreate(GetMethod(implObj, "RemoveListener"), flags, 2)
-        this.vtbl.IsEmpty := CallbackCreate(GetMethod(implObj, "IsEmpty"), flags, 1)
-        this.vtbl.BeginDownload := CallbackCreate(GetMethod(implObj, "BeginDownload"), flags, 2)
-        this.vtbl.CancelDownload := CallbackCreate(GetMethod(implObj, "CancelDownload"), flags, 1)
-        this.vtbl.GetGenerationCount := CallbackCreate(GetMethod(implObj, "GetGenerationCount"), flags, 1)
+        this.vtbl.AddListener := CallbackCreate(ObjBindMethod(implObj, "AddListener"), flags, 3)
+        this.vtbl.RemoveListener := CallbackCreate(ObjBindMethod(implObj, "RemoveListener"), flags, 2)
+        this.vtbl.IsEmpty := CallbackCreate(ObjBindMethod(implObj, "IsEmpty"), flags, 1)
+        this.vtbl.BeginDownload := CallbackCreate(ObjBindMethod(implObj, "BeginDownload"), flags, 2)
+        this.vtbl.CancelDownload := CallbackCreate(ObjBindMethod(implObj, "CancelDownload"), flags, 1)
+        this.vtbl.GetGenerationCount := CallbackCreate(ObjBindMethod(implObj, "GetGenerationCount"), flags, 1)
     }
 
     Dispose() {

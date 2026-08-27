@@ -18,7 +18,6 @@ export default struct PFNGLARRAYELEMENTEXTPROC {
     }
 
     /**
-     * 
      * @param {Integer} i 
      * @returns {String} Nothing - always returns an empty string
      */

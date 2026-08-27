@@ -260,15 +260,15 @@ export default struct IAMAnalogVideoDecoder extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_AvailableTVFormats := CallbackCreate(GetMethod(implObj, "get_AvailableTVFormats"), flags, 2)
-        this.vtbl.put_TVFormat := CallbackCreate(GetMethod(implObj, "put_TVFormat"), flags, 2)
-        this.vtbl.get_TVFormat := CallbackCreate(GetMethod(implObj, "get_TVFormat"), flags, 2)
-        this.vtbl.get_HorizontalLocked := CallbackCreate(GetMethod(implObj, "get_HorizontalLocked"), flags, 2)
-        this.vtbl.put_VCRHorizontalLocking := CallbackCreate(GetMethod(implObj, "put_VCRHorizontalLocking"), flags, 2)
-        this.vtbl.get_VCRHorizontalLocking := CallbackCreate(GetMethod(implObj, "get_VCRHorizontalLocking"), flags, 2)
-        this.vtbl.get_NumberOfLines := CallbackCreate(GetMethod(implObj, "get_NumberOfLines"), flags, 2)
-        this.vtbl.put_OutputEnable := CallbackCreate(GetMethod(implObj, "put_OutputEnable"), flags, 2)
-        this.vtbl.get_OutputEnable := CallbackCreate(GetMethod(implObj, "get_OutputEnable"), flags, 2)
+        this.vtbl.get_AvailableTVFormats := CallbackCreate(ObjBindMethod(implObj, "get_AvailableTVFormats"), flags, 2)
+        this.vtbl.put_TVFormat := CallbackCreate(ObjBindMethod(implObj, "put_TVFormat"), flags, 2)
+        this.vtbl.get_TVFormat := CallbackCreate(ObjBindMethod(implObj, "get_TVFormat"), flags, 2)
+        this.vtbl.get_HorizontalLocked := CallbackCreate(ObjBindMethod(implObj, "get_HorizontalLocked"), flags, 2)
+        this.vtbl.put_VCRHorizontalLocking := CallbackCreate(ObjBindMethod(implObj, "put_VCRHorizontalLocking"), flags, 2)
+        this.vtbl.get_VCRHorizontalLocking := CallbackCreate(ObjBindMethod(implObj, "get_VCRHorizontalLocking"), flags, 2)
+        this.vtbl.get_NumberOfLines := CallbackCreate(ObjBindMethod(implObj, "get_NumberOfLines"), flags, 2)
+        this.vtbl.put_OutputEnable := CallbackCreate(ObjBindMethod(implObj, "put_OutputEnable"), flags, 2)
+        this.vtbl.get_OutputEnable := CallbackCreate(ObjBindMethod(implObj, "get_OutputEnable"), flags, 2)
     }
 
     Dispose() {

@@ -73,7 +73,7 @@ export default struct ISearchCatalogManager2 extends ISearchCatalogManager {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PrioritizeMatchingURLs := CallbackCreate(GetMethod(implObj, "PrioritizeMatchingURLs"), flags, 3)
+        this.vtbl.PrioritizeMatchingURLs := CallbackCreate(ObjBindMethod(implObj, "PrioritizeMatchingURLs"), flags, 3)
     }
 
     Dispose() {

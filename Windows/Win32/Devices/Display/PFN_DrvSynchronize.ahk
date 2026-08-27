@@ -20,7 +20,6 @@ export default struct PFN_DrvSynchronize {
     }
 
     /**
-     * 
      * @param {DHPDEV} param0 
      * @param {Pointer<RECTL>} param1 
      * @returns {String} Nothing - always returns an empty string

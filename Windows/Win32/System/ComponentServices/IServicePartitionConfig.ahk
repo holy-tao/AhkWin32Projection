@@ -72,8 +72,8 @@ export default struct IServicePartitionConfig extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PartitionConfig := CallbackCreate(GetMethod(implObj, "PartitionConfig"), flags, 2)
-        this.vtbl.PartitionID := CallbackCreate(GetMethod(implObj, "PartitionID"), flags, 2)
+        this.vtbl.PartitionConfig := CallbackCreate(ObjBindMethod(implObj, "PartitionConfig"), flags, 2)
+        this.vtbl.PartitionID := CallbackCreate(ObjBindMethod(implObj, "PartitionID"), flags, 2)
     }
 
     Dispose() {

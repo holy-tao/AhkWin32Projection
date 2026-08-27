@@ -136,9 +136,9 @@ export default struct ISecurityInformation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-isecurityinformation-getaccessrights
      */
     GetAccessRights(pguidObjectType, dwFlags, ppAccess, pcAccesses, piDefaultAccess) {
-        ppAccessMarshal := ppAccess is VarRef ? "ptr*" : "ptr"
-        pcAccessesMarshal := pcAccesses is VarRef ? "uint*" : "ptr"
-        piDefaultAccessMarshal := piDefaultAccess is VarRef ? "uint*" : "ptr"
+        ppAccessMarshal := ppAccess is VarRef ? "ptr*" : IntPtr
+        pcAccessesMarshal := pcAccesses is VarRef ? "uint*" : IntPtr
+        piDefaultAccessMarshal := piDefaultAccess is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, Guid.Ptr, pguidObjectType, SECURITY_INFO_PAGE_FLAGS, dwFlags, ppAccessMarshal, ppAccess, pcAccessesMarshal, pcAccesses, piDefaultAccessMarshal, piDefaultAccess, "HRESULT")
         return result
@@ -160,8 +160,8 @@ export default struct ISecurityInformation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-isecurityinformation-mapgeneric
      */
     MapGeneric(pguidObjectType, pAceFlags, pMask) {
-        pAceFlagsMarshal := pAceFlags is VarRef ? "char*" : "ptr"
-        pMaskMarshal := pMask is VarRef ? "uint*" : "ptr"
+        pAceFlagsMarshal := pAceFlags is VarRef ? "char*" : IntPtr
+        pMaskMarshal := pMask is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, Guid.Ptr, pguidObjectType, pAceFlagsMarshal, pAceFlags, pMaskMarshal, pMask, "HRESULT")
         return result
@@ -180,8 +180,8 @@ export default struct ISecurityInformation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-isecurityinformation-getinherittypes
      */
     GetInheritTypes(ppInheritTypes, pcInheritTypes) {
-        ppInheritTypesMarshal := ppInheritTypes is VarRef ? "ptr*" : "ptr"
-        pcInheritTypesMarshal := pcInheritTypes is VarRef ? "uint*" : "ptr"
+        ppInheritTypesMarshal := ppInheritTypes is VarRef ? "ptr*" : IntPtr
+        pcInheritTypesMarshal := pcInheritTypes is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, ppInheritTypesMarshal, ppInheritTypes, pcInheritTypesMarshal, pcInheritTypes, "HRESULT")
         return result
@@ -212,13 +212,13 @@ export default struct ISecurityInformation extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetObjectInformation := CallbackCreate(GetMethod(implObj, "GetObjectInformation"), flags, 2)
-        this.vtbl.GetSecurity := CallbackCreate(GetMethod(implObj, "GetSecurity"), flags, 4)
-        this.vtbl.SetSecurity := CallbackCreate(GetMethod(implObj, "SetSecurity"), flags, 3)
-        this.vtbl.GetAccessRights := CallbackCreate(GetMethod(implObj, "GetAccessRights"), flags, 6)
-        this.vtbl.MapGeneric := CallbackCreate(GetMethod(implObj, "MapGeneric"), flags, 4)
-        this.vtbl.GetInheritTypes := CallbackCreate(GetMethod(implObj, "GetInheritTypes"), flags, 3)
-        this.vtbl.PropertySheetPageCallback := CallbackCreate(GetMethod(implObj, "PropertySheetPageCallback"), flags, 4)
+        this.vtbl.GetObjectInformation := CallbackCreate(ObjBindMethod(implObj, "GetObjectInformation"), flags, 2)
+        this.vtbl.GetSecurity := CallbackCreate(ObjBindMethod(implObj, "GetSecurity"), flags, 4)
+        this.vtbl.SetSecurity := CallbackCreate(ObjBindMethod(implObj, "SetSecurity"), flags, 3)
+        this.vtbl.GetAccessRights := CallbackCreate(ObjBindMethod(implObj, "GetAccessRights"), flags, 6)
+        this.vtbl.MapGeneric := CallbackCreate(ObjBindMethod(implObj, "MapGeneric"), flags, 4)
+        this.vtbl.GetInheritTypes := CallbackCreate(ObjBindMethod(implObj, "GetInheritTypes"), flags, 3)
+        this.vtbl.PropertySheetPageCallback := CallbackCreate(ObjBindMethod(implObj, "PropertySheetPageCallback"), flags, 4)
     }
 
     Dispose() {

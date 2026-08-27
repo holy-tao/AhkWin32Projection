@@ -190,15 +190,15 @@ export default struct IUIAutomationProxyFactoryMapping extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.GetTable := CallbackCreate(GetMethod(implObj, "GetTable"), flags, 2)
-        this.vtbl.GetEntry := CallbackCreate(GetMethod(implObj, "GetEntry"), flags, 3)
-        this.vtbl.SetTable := CallbackCreate(GetMethod(implObj, "SetTable"), flags, 2)
-        this.vtbl.InsertEntries := CallbackCreate(GetMethod(implObj, "InsertEntries"), flags, 3)
-        this.vtbl.InsertEntry := CallbackCreate(GetMethod(implObj, "InsertEntry"), flags, 3)
-        this.vtbl.RemoveEntry := CallbackCreate(GetMethod(implObj, "RemoveEntry"), flags, 2)
-        this.vtbl.ClearTable := CallbackCreate(GetMethod(implObj, "ClearTable"), flags, 1)
-        this.vtbl.RestoreDefaultTable := CallbackCreate(GetMethod(implObj, "RestoreDefaultTable"), flags, 1)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.GetTable := CallbackCreate(ObjBindMethod(implObj, "GetTable"), flags, 2)
+        this.vtbl.GetEntry := CallbackCreate(ObjBindMethod(implObj, "GetEntry"), flags, 3)
+        this.vtbl.SetTable := CallbackCreate(ObjBindMethod(implObj, "SetTable"), flags, 2)
+        this.vtbl.InsertEntries := CallbackCreate(ObjBindMethod(implObj, "InsertEntries"), flags, 3)
+        this.vtbl.InsertEntry := CallbackCreate(ObjBindMethod(implObj, "InsertEntry"), flags, 3)
+        this.vtbl.RemoveEntry := CallbackCreate(ObjBindMethod(implObj, "RemoveEntry"), flags, 2)
+        this.vtbl.ClearTable := CallbackCreate(ObjBindMethod(implObj, "ClearTable"), flags, 1)
+        this.vtbl.RestoreDefaultTable := CallbackCreate(ObjBindMethod(implObj, "RestoreDefaultTable"), flags, 1)
     }
 
     Dispose() {

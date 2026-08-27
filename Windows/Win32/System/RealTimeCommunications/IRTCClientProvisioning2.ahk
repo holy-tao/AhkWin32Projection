@@ -37,7 +37,6 @@ export default struct IRTCClientProvisioning2 extends IRTCClientProvisioning {
     }
 
     /**
-     * 
      * @param {IRTCProfile} pProfile 
      * @param {Integer} lRegisterFlags 
      * @param {Integer} lRoamingFlags 
@@ -57,7 +56,7 @@ export default struct IRTCClientProvisioning2 extends IRTCClientProvisioning {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnableProfileEx := CallbackCreate(GetMethod(implObj, "EnableProfileEx"), flags, 4)
+        this.vtbl.EnableProfileEx := CallbackCreate(ObjBindMethod(implObj, "EnableProfileEx"), flags, 4)
     }
 
     Dispose() {

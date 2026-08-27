@@ -81,7 +81,7 @@ export default struct ID3D12PipelineLibrary1 extends ID3D12PipelineLibrary {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LoadPipeline := CallbackCreate(GetMethod(implObj, "LoadPipeline"), flags, 5)
+        this.vtbl.LoadPipeline := CallbackCreate(ObjBindMethod(implObj, "LoadPipeline"), flags, 5)
     }
 
     Dispose() {

@@ -73,7 +73,7 @@ export default struct IWMCredentialCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AcquireCredentials := CallbackCreate(GetMethod(implObj, "AcquireCredentials"), flags, 9)
+        this.vtbl.AcquireCredentials := CallbackCreate(ObjBindMethod(implObj, "AcquireCredentials"), flags, 9)
     }
 
     Dispose() {

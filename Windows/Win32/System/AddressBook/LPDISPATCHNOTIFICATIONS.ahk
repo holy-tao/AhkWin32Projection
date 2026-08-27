@@ -19,7 +19,6 @@ export default struct LPDISPATCHNOTIFICATIONS {
     }
 
     /**
-     * 
      * @param {Integer} ulFlags 
      * @returns {HRESULT} 
      */

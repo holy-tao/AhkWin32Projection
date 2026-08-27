@@ -19,7 +19,6 @@ export default struct PRESUTIL_CREATE_DIRECTORY_TREE {
     }
 
     /**
-     * 
      * @param {PWSTR} pszPath 
      * @returns {Integer} 
      */

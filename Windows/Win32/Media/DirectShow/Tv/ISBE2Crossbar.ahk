@@ -141,7 +141,7 @@ export default struct ISBE2Crossbar extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2crossbar-setoutputprofile
      */
     SetOutputProfile(pProfile, pcOutputPins, ppOutputPins) {
-        pcOutputPinsMarshal := pcOutputPins is VarRef ? "uint*" : "ptr"
+        pcOutputPinsMarshal := pcOutputPins is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, "ptr", pProfile, pcOutputPinsMarshal, pcOutputPins, IPin.Ptr, ppOutputPins, "HRESULT")
         return result
@@ -167,10 +167,10 @@ export default struct ISBE2Crossbar extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnableDefaultMode := CallbackCreate(GetMethod(implObj, "EnableDefaultMode"), flags, 2)
-        this.vtbl.GetInitialProfile := CallbackCreate(GetMethod(implObj, "GetInitialProfile"), flags, 2)
-        this.vtbl.SetOutputProfile := CallbackCreate(GetMethod(implObj, "SetOutputProfile"), flags, 4)
-        this.vtbl.EnumStreams := CallbackCreate(GetMethod(implObj, "EnumStreams"), flags, 2)
+        this.vtbl.EnableDefaultMode := CallbackCreate(ObjBindMethod(implObj, "EnableDefaultMode"), flags, 2)
+        this.vtbl.GetInitialProfile := CallbackCreate(ObjBindMethod(implObj, "GetInitialProfile"), flags, 2)
+        this.vtbl.SetOutputProfile := CallbackCreate(ObjBindMethod(implObj, "SetOutputProfile"), flags, 4)
+        this.vtbl.EnumStreams := CallbackCreate(ObjBindMethod(implObj, "EnumStreams"), flags, 2)
     }
 
     Dispose() {

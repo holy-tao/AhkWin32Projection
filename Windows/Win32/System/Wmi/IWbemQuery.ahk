@@ -69,7 +69,7 @@ export default struct IWbemQuery extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nn-wmiutils-iwbemquery
      */
     SetLanguageFeatures(uFlags, uArraySize, puFeatures) {
-        puFeaturesMarshal := puFeatures is VarRef ? "uint*" : "ptr"
+        puFeaturesMarshal := puFeatures is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, UInt32, uFlags, UInt32, uArraySize, puFeaturesMarshal, puFeatures, "HRESULT")
         return result
@@ -83,7 +83,7 @@ export default struct IWbemQuery extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nn-wmiutils-iwbemquery
      */
     TestLanguageFeatures(uFlags, uArraySize) {
-        uArraySizeMarshal := uArraySize is VarRef ? "uint*" : "ptr"
+        uArraySizeMarshal := uArraySize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, UInt32, uFlags, uArraySizeMarshal, uArraySize, "uint*", &puFeatures := 0, "HRESULT")
         return puFeatures
@@ -126,7 +126,7 @@ export default struct IWbemQuery extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nf-wmiutils-iwbemquery-freememory
      */
     FreeMemory(pMem) {
-        pMemMarshal := pMem is VarRef ? "ptr" : "ptr"
+        pMemMarshal := pMem is VarRef ? "ptr" : IntPtr
 
         result := ComCall(8, this, pMemMarshal, pMem, "HRESULT")
         return result
@@ -154,13 +154,13 @@ export default struct IWbemQuery extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Empty := CallbackCreate(GetMethod(implObj, "Empty"), flags, 1)
-        this.vtbl.SetLanguageFeatures := CallbackCreate(GetMethod(implObj, "SetLanguageFeatures"), flags, 4)
-        this.vtbl.TestLanguageFeatures := CallbackCreate(GetMethod(implObj, "TestLanguageFeatures"), flags, 4)
-        this.vtbl.Parse := CallbackCreate(GetMethod(implObj, "Parse"), flags, 4)
-        this.vtbl.GetAnalysis := CallbackCreate(GetMethod(implObj, "GetAnalysis"), flags, 4)
-        this.vtbl.FreeMemory := CallbackCreate(GetMethod(implObj, "FreeMemory"), flags, 2)
-        this.vtbl.GetQueryInfo := CallbackCreate(GetMethod(implObj, "GetQueryInfo"), flags, 5)
+        this.vtbl.Empty := CallbackCreate(ObjBindMethod(implObj, "Empty"), flags, 1)
+        this.vtbl.SetLanguageFeatures := CallbackCreate(ObjBindMethod(implObj, "SetLanguageFeatures"), flags, 4)
+        this.vtbl.TestLanguageFeatures := CallbackCreate(ObjBindMethod(implObj, "TestLanguageFeatures"), flags, 4)
+        this.vtbl.Parse := CallbackCreate(ObjBindMethod(implObj, "Parse"), flags, 4)
+        this.vtbl.GetAnalysis := CallbackCreate(ObjBindMethod(implObj, "GetAnalysis"), flags, 4)
+        this.vtbl.FreeMemory := CallbackCreate(ObjBindMethod(implObj, "FreeMemory"), flags, 2)
+        this.vtbl.GetQueryInfo := CallbackCreate(ObjBindMethod(implObj, "GetQueryInfo"), flags, 5)
     }
 
     Dispose() {

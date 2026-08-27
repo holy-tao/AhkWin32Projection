@@ -521,7 +521,7 @@ export default struct ITfInputProcessorProfiles extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofiles-getactivelanguageprofile
      */
     GetActiveLanguageProfile(rclsid, plangid, pguidProfile) {
-        plangidMarshal := plangid is VarRef ? "ushort*" : "ptr"
+        plangidMarshal := plangid is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(11, this, Guid.Ptr, rclsid, plangidMarshal, plangid, Guid.Ptr, pguidProfile, "HRESULT")
         return result
@@ -683,8 +683,8 @@ export default struct ITfInputProcessorProfiles extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofiles-getlanguagelist
      */
     GetLanguageList(ppLangId, pulCount) {
-        ppLangIdMarshal := ppLangId is VarRef ? "ptr*" : "ptr"
-        pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"
+        ppLangIdMarshal := ppLangId is VarRef ? "ptr*" : IntPtr
+        pulCountMarshal := pulCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(15, this, ppLangIdMarshal, ppLangId, pulCountMarshal, pulCount, "HRESULT")
         return result
@@ -852,24 +852,24 @@ export default struct ITfInputProcessorProfiles extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Register := CallbackCreate(GetMethod(implObj, "Register"), flags, 2)
-        this.vtbl.Unregister := CallbackCreate(GetMethod(implObj, "Unregister"), flags, 2)
-        this.vtbl.AddLanguageProfile := CallbackCreate(GetMethod(implObj, "AddLanguageProfile"), flags, 9)
-        this.vtbl.RemoveLanguageProfile := CallbackCreate(GetMethod(implObj, "RemoveLanguageProfile"), flags, 4)
-        this.vtbl.EnumInputProcessorInfo := CallbackCreate(GetMethod(implObj, "EnumInputProcessorInfo"), flags, 2)
-        this.vtbl.GetDefaultLanguageProfile := CallbackCreate(GetMethod(implObj, "GetDefaultLanguageProfile"), flags, 5)
-        this.vtbl.SetDefaultLanguageProfile := CallbackCreate(GetMethod(implObj, "SetDefaultLanguageProfile"), flags, 4)
-        this.vtbl.ActivateLanguageProfile := CallbackCreate(GetMethod(implObj, "ActivateLanguageProfile"), flags, 4)
-        this.vtbl.GetActiveLanguageProfile := CallbackCreate(GetMethod(implObj, "GetActiveLanguageProfile"), flags, 4)
-        this.vtbl.GetLanguageProfileDescription := CallbackCreate(GetMethod(implObj, "GetLanguageProfileDescription"), flags, 5)
-        this.vtbl.GetCurrentLanguage := CallbackCreate(GetMethod(implObj, "GetCurrentLanguage"), flags, 2)
-        this.vtbl.ChangeCurrentLanguage := CallbackCreate(GetMethod(implObj, "ChangeCurrentLanguage"), flags, 2)
-        this.vtbl.GetLanguageList := CallbackCreate(GetMethod(implObj, "GetLanguageList"), flags, 3)
-        this.vtbl.EnumLanguageProfiles := CallbackCreate(GetMethod(implObj, "EnumLanguageProfiles"), flags, 3)
-        this.vtbl.EnableLanguageProfile := CallbackCreate(GetMethod(implObj, "EnableLanguageProfile"), flags, 5)
-        this.vtbl.IsEnabledLanguageProfile := CallbackCreate(GetMethod(implObj, "IsEnabledLanguageProfile"), flags, 5)
-        this.vtbl.EnableLanguageProfileByDefault := CallbackCreate(GetMethod(implObj, "EnableLanguageProfileByDefault"), flags, 5)
-        this.vtbl.SubstituteKeyboardLayout := CallbackCreate(GetMethod(implObj, "SubstituteKeyboardLayout"), flags, 5)
+        this.vtbl.Register := CallbackCreate(ObjBindMethod(implObj, "Register"), flags, 2)
+        this.vtbl.Unregister := CallbackCreate(ObjBindMethod(implObj, "Unregister"), flags, 2)
+        this.vtbl.AddLanguageProfile := CallbackCreate(ObjBindMethod(implObj, "AddLanguageProfile"), flags, 9)
+        this.vtbl.RemoveLanguageProfile := CallbackCreate(ObjBindMethod(implObj, "RemoveLanguageProfile"), flags, 4)
+        this.vtbl.EnumInputProcessorInfo := CallbackCreate(ObjBindMethod(implObj, "EnumInputProcessorInfo"), flags, 2)
+        this.vtbl.GetDefaultLanguageProfile := CallbackCreate(ObjBindMethod(implObj, "GetDefaultLanguageProfile"), flags, 5)
+        this.vtbl.SetDefaultLanguageProfile := CallbackCreate(ObjBindMethod(implObj, "SetDefaultLanguageProfile"), flags, 4)
+        this.vtbl.ActivateLanguageProfile := CallbackCreate(ObjBindMethod(implObj, "ActivateLanguageProfile"), flags, 4)
+        this.vtbl.GetActiveLanguageProfile := CallbackCreate(ObjBindMethod(implObj, "GetActiveLanguageProfile"), flags, 4)
+        this.vtbl.GetLanguageProfileDescription := CallbackCreate(ObjBindMethod(implObj, "GetLanguageProfileDescription"), flags, 5)
+        this.vtbl.GetCurrentLanguage := CallbackCreate(ObjBindMethod(implObj, "GetCurrentLanguage"), flags, 2)
+        this.vtbl.ChangeCurrentLanguage := CallbackCreate(ObjBindMethod(implObj, "ChangeCurrentLanguage"), flags, 2)
+        this.vtbl.GetLanguageList := CallbackCreate(ObjBindMethod(implObj, "GetLanguageList"), flags, 3)
+        this.vtbl.EnumLanguageProfiles := CallbackCreate(ObjBindMethod(implObj, "EnumLanguageProfiles"), flags, 3)
+        this.vtbl.EnableLanguageProfile := CallbackCreate(ObjBindMethod(implObj, "EnableLanguageProfile"), flags, 5)
+        this.vtbl.IsEnabledLanguageProfile := CallbackCreate(ObjBindMethod(implObj, "IsEnabledLanguageProfile"), flags, 5)
+        this.vtbl.EnableLanguageProfileByDefault := CallbackCreate(ObjBindMethod(implObj, "EnableLanguageProfileByDefault"), flags, 5)
+        this.vtbl.SubstituteKeyboardLayout := CallbackCreate(ObjBindMethod(implObj, "SubstituteKeyboardLayout"), flags, 5)
     }
 
     Dispose() {

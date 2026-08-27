@@ -116,8 +116,9 @@ export default struct IEnumMediaTypes extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ienummediatypes-next
      */
     Next(cMediaTypes, ppMediaTypes, pcFetched) {
-        ppMediaTypesMarshal := ppMediaTypes is VarRef ? "ptr*" : "ptr"
-        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+        ppMediaTypesMarshal := ppMediaTypes is VarRef ? "ptr*" : IntPtr
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : IntPtr
+        pcFetchedMarshal := pcFetched == 0 ? IntPtr : "uint*"
 
         result := ComCall(3, this, UInt32, cMediaTypes, ppMediaTypesMarshal, ppMediaTypes, pcFetchedMarshal, pcFetched, Int32)
         return result
@@ -207,10 +208,10 @@ export default struct IEnumMediaTypes extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 4)
-        this.vtbl.Skip := CallbackCreate(GetMethod(implObj, "Skip"), flags, 2)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.Next := CallbackCreate(ObjBindMethod(implObj, "Next"), flags, 4)
+        this.vtbl.Skip := CallbackCreate(ObjBindMethod(implObj, "Skip"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
     }
 
     Dispose() {

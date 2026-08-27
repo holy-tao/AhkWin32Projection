@@ -20,7 +20,6 @@ export default struct PLSA_CREATE_LOGON_SESSION {
     }
 
     /**
-     * 
      * @param {Pointer<LUID>} LogonId 
      * @returns {NTSTATUS} 
      */

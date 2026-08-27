@@ -115,7 +115,7 @@ export default struct ITfReverseConversionMgr extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetReverseConversion := CallbackCreate(GetMethod(implObj, "GetReverseConversion"), flags, 5)
+        this.vtbl.GetReverseConversion := CallbackCreate(ObjBindMethod(implObj, "GetReverseConversion"), flags, 5)
     }
 
     Dispose() {

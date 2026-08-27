@@ -61,7 +61,7 @@ export default struct ITfCompositionSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnCompositionTerminated := CallbackCreate(GetMethod(implObj, "OnCompositionTerminated"), flags, 3)
+        this.vtbl.OnCompositionTerminated := CallbackCreate(ObjBindMethod(implObj, "OnCompositionTerminated"), flags, 3)
     }
 
     Dispose() {

@@ -111,8 +111,8 @@ export default struct ISyncFullEnumerationChangeBatch extends ISyncChangeBatchBa
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncfullenumerationchangebatch-getclosedlowerbounditemid
      */
     GetClosedLowerBoundItemId(pbClosedLowerBoundItemId, pcbIdSize) {
-        pbClosedLowerBoundItemIdMarshal := pbClosedLowerBoundItemId is VarRef ? "char*" : "ptr"
-        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
+        pbClosedLowerBoundItemIdMarshal := pbClosedLowerBoundItemId is VarRef ? "char*" : IntPtr
+        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(18, this, pbClosedLowerBoundItemIdMarshal, pbClosedLowerBoundItemId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
         return result
@@ -179,8 +179,8 @@ export default struct ISyncFullEnumerationChangeBatch extends ISyncChangeBatchBa
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncfullenumerationchangebatch-getclosedupperbounditemid
      */
     GetClosedUpperBoundItemId(pbClosedUpperBoundItemId, pcbIdSize) {
-        pbClosedUpperBoundItemIdMarshal := pbClosedUpperBoundItemId is VarRef ? "char*" : "ptr"
-        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
+        pbClosedUpperBoundItemIdMarshal := pbClosedUpperBoundItemId is VarRef ? "char*" : IntPtr
+        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(19, this, pbClosedUpperBoundItemIdMarshal, pbClosedUpperBoundItemId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
         return result
@@ -195,9 +195,9 @@ export default struct ISyncFullEnumerationChangeBatch extends ISyncChangeBatchBa
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLearnedKnowledgeAfterRecoveryComplete := CallbackCreate(GetMethod(implObj, "GetLearnedKnowledgeAfterRecoveryComplete"), flags, 2)
-        this.vtbl.GetClosedLowerBoundItemId := CallbackCreate(GetMethod(implObj, "GetClosedLowerBoundItemId"), flags, 3)
-        this.vtbl.GetClosedUpperBoundItemId := CallbackCreate(GetMethod(implObj, "GetClosedUpperBoundItemId"), flags, 3)
+        this.vtbl.GetLearnedKnowledgeAfterRecoveryComplete := CallbackCreate(ObjBindMethod(implObj, "GetLearnedKnowledgeAfterRecoveryComplete"), flags, 2)
+        this.vtbl.GetClosedLowerBoundItemId := CallbackCreate(ObjBindMethod(implObj, "GetClosedLowerBoundItemId"), flags, 3)
+        this.vtbl.GetClosedUpperBoundItemId := CallbackCreate(ObjBindMethod(implObj, "GetClosedUpperBoundItemId"), flags, 3)
     }
 
     Dispose() {

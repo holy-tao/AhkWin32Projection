@@ -18,7 +18,6 @@ export default struct PFNGLDRAWARRAYSEXTPROC {
     }
 
     /**
-     * 
      * @param {Integer} _mode 
      * @param {Integer} first 
      * @param {Integer} count 

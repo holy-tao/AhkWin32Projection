@@ -19,7 +19,6 @@ export default struct PCLUSAPI_CLUSTER_GROUP_CLOSE_ENUM {
     }
 
     /**
-     * 
      * @param {HGROUPENUM} _hGroupEnum 
      * @returns {Integer} 
      */

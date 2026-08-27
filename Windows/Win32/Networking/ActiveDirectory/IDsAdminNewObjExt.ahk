@@ -161,12 +161,12 @@ export default struct IDsAdminNewObjExt extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 6)
-        this.vtbl.AddPages := CallbackCreate(GetMethod(implObj, "AddPages"), flags, 3)
-        this.vtbl.SetObject := CallbackCreate(GetMethod(implObj, "SetObject"), flags, 2)
-        this.vtbl.WriteData := CallbackCreate(GetMethod(implObj, "WriteData"), flags, 3)
-        this.vtbl.OnError := CallbackCreate(GetMethod(implObj, "OnError"), flags, 4)
-        this.vtbl.GetSummaryInfo := CallbackCreate(GetMethod(implObj, "GetSummaryInfo"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 6)
+        this.vtbl.AddPages := CallbackCreate(ObjBindMethod(implObj, "AddPages"), flags, 3)
+        this.vtbl.SetObject := CallbackCreate(ObjBindMethod(implObj, "SetObject"), flags, 2)
+        this.vtbl.WriteData := CallbackCreate(ObjBindMethod(implObj, "WriteData"), flags, 3)
+        this.vtbl.OnError := CallbackCreate(ObjBindMethod(implObj, "OnError"), flags, 4)
+        this.vtbl.GetSummaryInfo := CallbackCreate(ObjBindMethod(implObj, "GetSummaryInfo"), flags, 2)
     }
 
     Dispose() {

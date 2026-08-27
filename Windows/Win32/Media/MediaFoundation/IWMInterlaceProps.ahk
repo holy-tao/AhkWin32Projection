@@ -38,7 +38,6 @@ export default struct IWMInterlaceProps extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iProcessType 
      * @returns {HRESULT} 
      */
@@ -48,7 +47,6 @@ export default struct IWMInterlaceProps extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iInitPattern 
      * @returns {HRESULT} 
      */
@@ -58,7 +56,6 @@ export default struct IWMInterlaceProps extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SetLastFrame() {
@@ -75,9 +72,9 @@ export default struct IWMInterlaceProps extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetProcessType := CallbackCreate(GetMethod(implObj, "SetProcessType"), flags, 2)
-        this.vtbl.SetInitInverseTeleCinePattern := CallbackCreate(GetMethod(implObj, "SetInitInverseTeleCinePattern"), flags, 2)
-        this.vtbl.SetLastFrame := CallbackCreate(GetMethod(implObj, "SetLastFrame"), flags, 1)
+        this.vtbl.SetProcessType := CallbackCreate(ObjBindMethod(implObj, "SetProcessType"), flags, 2)
+        this.vtbl.SetInitInverseTeleCinePattern := CallbackCreate(ObjBindMethod(implObj, "SetInitInverseTeleCinePattern"), flags, 2)
+        this.vtbl.SetLastFrame := CallbackCreate(ObjBindMethod(implObj, "SetLastFrame"), flags, 1)
     }
 
     Dispose() {

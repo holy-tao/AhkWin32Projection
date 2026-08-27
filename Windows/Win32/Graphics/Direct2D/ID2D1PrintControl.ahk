@@ -87,10 +87,13 @@ export default struct ID2D1PrintControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1printcontrol-addpage
      */
     AddPage(commandList, pageSize, pagePrintTicketStream, tag1, tag2) {
-        tag1Marshal := tag1 is VarRef ? "uint*" : "ptr"
-        tag2Marshal := tag2 is VarRef ? "uint*" : "ptr"
+        pagePrintTicketStreamMarshal := pagePrintTicketStream == 0 ? IntPtr : "ptr"
+        tag1Marshal := tag1 is VarRef ? "uint*" : IntPtr
+        tag1Marshal := tag1 == 0 ? IntPtr : "uint*"
+        tag2Marshal := tag2 is VarRef ? "uint*" : IntPtr
+        tag2Marshal := tag2 == 0 ? IntPtr : "uint*"
 
-        result := ComCall(3, this, "ptr", commandList, D2D_SIZE_F, pageSize, "ptr", pagePrintTicketStream, tag1Marshal, tag1, tag2Marshal, tag2, "HRESULT")
+        result := ComCall(3, this, "ptr", commandList, D2D_SIZE_F, pageSize, pagePrintTicketStreamMarshal, pagePrintTicketStream, tag1Marshal, tag1, tag2Marshal, tag2, "HRESULT")
         return result
     }
 
@@ -138,8 +141,8 @@ export default struct ID2D1PrintControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddPage := CallbackCreate(GetMethod(implObj, "AddPage"), flags, 6)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.AddPage := CallbackCreate(ObjBindMethod(implObj, "AddPage"), flags, 6)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
     }
 
     Dispose() {

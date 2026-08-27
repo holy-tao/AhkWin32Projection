@@ -20,14 +20,13 @@ export default struct LPFNGETCLASSOBJECT {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} param0 
      * @param {Pointer<Guid>} param1 
      * @param {Pointer<Pointer<Void>>} param2 
      * @returns {HRESULT} 
      */
     Call(param0, param1, param2) {
-        param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
+        param2Marshal := param2 is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, Guid.Ptr, param0, Guid.Ptr, param1, param2Marshal, param2, "HRESULT")
         return result

@@ -34,7 +34,6 @@ export default struct PDD_SURFCB_GETBLTSTATUS {
     }
 
     /**
-     * 
      * @param {Pointer<DD_GETBLTSTATUSDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_getbltstatusdata">DD_GETBLTSTATUSDATA</a> structure that contains the information required to perform the blit status query.
      * @returns {Integer} <b>DdGetBltStatus</b> returns one of the following callback codes:
      */

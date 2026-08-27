@@ -50,7 +50,9 @@ export default struct IAudioSessionManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessionmanager-getaudiosessioncontrol
      */
     GetAudioSessionControl(AudioSessionGuid, StreamFlags) {
-        result := ComCall(3, this, Guid.Ptr, AudioSessionGuid, UInt32, StreamFlags, "ptr*", &SessionControl := 0, "HRESULT")
+        AudioSessionGuidMarshal := AudioSessionGuid == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(3, this, AudioSessionGuidMarshal, AudioSessionGuid, UInt32, StreamFlags, "ptr*", &SessionControl := 0, "HRESULT")
         return IAudioSessionControl(SessionControl)
     }
 
@@ -62,7 +64,9 @@ export default struct IAudioSessionManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessionmanager-getsimpleaudiovolume
      */
     GetSimpleAudioVolume(AudioSessionGuid, StreamFlags) {
-        result := ComCall(4, this, Guid.Ptr, AudioSessionGuid, UInt32, StreamFlags, "ptr*", &AudioVolume := 0, "HRESULT")
+        AudioSessionGuidMarshal := AudioSessionGuid == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(4, this, AudioSessionGuidMarshal, AudioSessionGuid, UInt32, StreamFlags, "ptr*", &AudioVolume := 0, "HRESULT")
         return ISimpleAudioVolume(AudioVolume)
     }
 
@@ -75,8 +79,8 @@ export default struct IAudioSessionManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAudioSessionControl := CallbackCreate(GetMethod(implObj, "GetAudioSessionControl"), flags, 4)
-        this.vtbl.GetSimpleAudioVolume := CallbackCreate(GetMethod(implObj, "GetSimpleAudioVolume"), flags, 4)
+        this.vtbl.GetAudioSessionControl := CallbackCreate(ObjBindMethod(implObj, "GetAudioSessionControl"), flags, 4)
+        this.vtbl.GetSimpleAudioVolume := CallbackCreate(ObjBindMethod(implObj, "GetSimpleAudioVolume"), flags, 4)
     }
 
     Dispose() {

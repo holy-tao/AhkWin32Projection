@@ -39,7 +39,6 @@ export default struct ISecurityInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<TRUSTEE_W>} 
      */
     GetCurrentTrustee() {
@@ -48,21 +47,19 @@ export default struct ISecurityInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} cObjectTypes 
      * @param {Pointer<Pointer<Guid>>} rgObjectTypes 
      * @returns {HRESULT} 
      */
     GetObjectTypes(cObjectTypes, rgObjectTypes) {
-        cObjectTypesMarshal := cObjectTypes is VarRef ? "uint*" : "ptr"
-        rgObjectTypesMarshal := rgObjectTypes is VarRef ? "ptr*" : "ptr"
+        cObjectTypesMarshal := cObjectTypes is VarRef ? "uint*" : IntPtr
+        rgObjectTypesMarshal := rgObjectTypes is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, cObjectTypesMarshal, cObjectTypes, rgObjectTypesMarshal, rgObjectTypes, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Guid} _ObjectType 
      * @returns {Integer} 
      */
@@ -80,9 +77,9 @@ export default struct ISecurityInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCurrentTrustee := CallbackCreate(GetMethod(implObj, "GetCurrentTrustee"), flags, 2)
-        this.vtbl.GetObjectTypes := CallbackCreate(GetMethod(implObj, "GetObjectTypes"), flags, 3)
-        this.vtbl.GetPermissions := CallbackCreate(GetMethod(implObj, "GetPermissions"), flags, 3)
+        this.vtbl.GetCurrentTrustee := CallbackCreate(ObjBindMethod(implObj, "GetCurrentTrustee"), flags, 2)
+        this.vtbl.GetObjectTypes := CallbackCreate(ObjBindMethod(implObj, "GetObjectTypes"), flags, 3)
+        this.vtbl.GetPermissions := CallbackCreate(ObjBindMethod(implObj, "GetPermissions"), flags, 3)
     }
 
     Dispose() {

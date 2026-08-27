@@ -19,7 +19,6 @@ export default struct PCLOSE_CLUSTER_CRYPT_PROVIDER {
     }
 
     /**
-     * 
      * @param {HCLUSCRYPTPROVIDER} _hClusCryptProvider 
      * @returns {Integer} 
      */

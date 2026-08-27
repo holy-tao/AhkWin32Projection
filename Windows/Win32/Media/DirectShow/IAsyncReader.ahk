@@ -235,9 +235,10 @@ export default struct IAsyncReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iasyncreader-waitfornext
      */
     WaitForNext(dwTimeout, ppSample, pdwUser) {
-        pdwUserMarshal := pdwUser is VarRef ? "ptr*" : "ptr"
+        ppSampleMarshal := ppSample == 0 ? IntPtr : IMediaSample.Ptr
+        pdwUserMarshal := pdwUser is VarRef ? "ptr*" : IntPtr
 
-        result := ComCall(5, this, UInt32, dwTimeout, IMediaSample.Ptr, ppSample, pdwUserMarshal, pdwUser, "HRESULT")
+        result := ComCall(5, this, UInt32, dwTimeout, ppSampleMarshal, ppSample, pdwUserMarshal, pdwUser, "HRESULT")
         return result
     }
 
@@ -392,8 +393,8 @@ export default struct IAsyncReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iasyncreader-length
      */
     Length(pTotal, pAvailable) {
-        pTotalMarshal := pTotal is VarRef ? "int64*" : "ptr"
-        pAvailableMarshal := pAvailable is VarRef ? "int64*" : "ptr"
+        pTotalMarshal := pTotal is VarRef ? "int64*" : IntPtr
+        pAvailableMarshal := pAvailable is VarRef ? "int64*" : IntPtr
 
         result := ComCall(8, this, pTotalMarshal, pTotal, pAvailableMarshal, pAvailable, "HRESULT")
         return result
@@ -436,14 +437,14 @@ export default struct IAsyncReader extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RequestAllocator := CallbackCreate(GetMethod(implObj, "RequestAllocator"), flags, 4)
-        this.vtbl.Request := CallbackCreate(GetMethod(implObj, "Request"), flags, 3)
-        this.vtbl.WaitForNext := CallbackCreate(GetMethod(implObj, "WaitForNext"), flags, 4)
-        this.vtbl.SyncReadAligned := CallbackCreate(GetMethod(implObj, "SyncReadAligned"), flags, 2)
-        this.vtbl.SyncRead := CallbackCreate(GetMethod(implObj, "SyncRead"), flags, 4)
-        this.vtbl.Length := CallbackCreate(GetMethod(implObj, "Length"), flags, 3)
-        this.vtbl.BeginFlush := CallbackCreate(GetMethod(implObj, "BeginFlush"), flags, 1)
-        this.vtbl.EndFlush := CallbackCreate(GetMethod(implObj, "EndFlush"), flags, 1)
+        this.vtbl.RequestAllocator := CallbackCreate(ObjBindMethod(implObj, "RequestAllocator"), flags, 4)
+        this.vtbl.Request := CallbackCreate(ObjBindMethod(implObj, "Request"), flags, 3)
+        this.vtbl.WaitForNext := CallbackCreate(ObjBindMethod(implObj, "WaitForNext"), flags, 4)
+        this.vtbl.SyncReadAligned := CallbackCreate(ObjBindMethod(implObj, "SyncReadAligned"), flags, 2)
+        this.vtbl.SyncRead := CallbackCreate(ObjBindMethod(implObj, "SyncRead"), flags, 4)
+        this.vtbl.Length := CallbackCreate(ObjBindMethod(implObj, "Length"), flags, 3)
+        this.vtbl.BeginFlush := CallbackCreate(ObjBindMethod(implObj, "BeginFlush"), flags, 1)
+        this.vtbl.EndFlush := CallbackCreate(ObjBindMethod(implObj, "EndFlush"), flags, 1)
     }
 
     Dispose() {

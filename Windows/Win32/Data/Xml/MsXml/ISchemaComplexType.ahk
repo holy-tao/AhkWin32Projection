@@ -89,7 +89,6 @@ export default struct ISchemaComplexType extends ISchemaType {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_isAbstract() {
@@ -98,7 +97,6 @@ export default struct ISchemaComplexType extends ISchemaType {
     }
 
     /**
-     * 
      * @returns {ISchemaAny} 
      */
     get_anyAttribute() {
@@ -107,7 +105,6 @@ export default struct ISchemaComplexType extends ISchemaType {
     }
 
     /**
-     * 
      * @returns {ISchemaItemCollection} 
      */
     get_attributes() {
@@ -116,7 +113,6 @@ export default struct ISchemaComplexType extends ISchemaType {
     }
 
     /**
-     * 
      * @returns {SCHEMACONTENTTYPE} 
      */
     get_contentType() {
@@ -125,7 +121,6 @@ export default struct ISchemaComplexType extends ISchemaType {
     }
 
     /**
-     * 
      * @returns {ISchemaModelGroup} 
      */
     get_contentModel() {
@@ -134,7 +129,6 @@ export default struct ISchemaComplexType extends ISchemaType {
     }
 
     /**
-     * 
      * @returns {SCHEMADERIVATIONMETHOD} 
      */
     get_prohibitedSubstitutions() {
@@ -151,12 +145,12 @@ export default struct ISchemaComplexType extends ISchemaType {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_isAbstract := CallbackCreate(GetMethod(implObj, "get_isAbstract"), flags, 2)
-        this.vtbl.get_anyAttribute := CallbackCreate(GetMethod(implObj, "get_anyAttribute"), flags, 2)
-        this.vtbl.get_attributes := CallbackCreate(GetMethod(implObj, "get_attributes"), flags, 2)
-        this.vtbl.get_contentType := CallbackCreate(GetMethod(implObj, "get_contentType"), flags, 2)
-        this.vtbl.get_contentModel := CallbackCreate(GetMethod(implObj, "get_contentModel"), flags, 2)
-        this.vtbl.get_prohibitedSubstitutions := CallbackCreate(GetMethod(implObj, "get_prohibitedSubstitutions"), flags, 2)
+        this.vtbl.get_isAbstract := CallbackCreate(ObjBindMethod(implObj, "get_isAbstract"), flags, 2)
+        this.vtbl.get_anyAttribute := CallbackCreate(ObjBindMethod(implObj, "get_anyAttribute"), flags, 2)
+        this.vtbl.get_attributes := CallbackCreate(ObjBindMethod(implObj, "get_attributes"), flags, 2)
+        this.vtbl.get_contentType := CallbackCreate(ObjBindMethod(implObj, "get_contentType"), flags, 2)
+        this.vtbl.get_contentModel := CallbackCreate(ObjBindMethod(implObj, "get_contentModel"), flags, 2)
+        this.vtbl.get_prohibitedSubstitutions := CallbackCreate(ObjBindMethod(implObj, "get_prohibitedSubstitutions"), flags, 2)
     }
 
     Dispose() {

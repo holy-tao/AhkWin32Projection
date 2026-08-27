@@ -39,7 +39,6 @@ export default struct IHTMLStyleEnabled extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {VARIANT_BOOL} 
      */
@@ -51,7 +50,6 @@ export default struct IHTMLStyleEnabled extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @param {VARIANT_BOOL} b 
      * @returns {HRESULT} 
@@ -72,8 +70,8 @@ export default struct IHTMLStyleEnabled extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.msGetPropertyEnabled := CallbackCreate(GetMethod(implObj, "msGetPropertyEnabled"), flags, 3)
-        this.vtbl.msPutPropertyEnabled := CallbackCreate(GetMethod(implObj, "msPutPropertyEnabled"), flags, 3)
+        this.vtbl.msGetPropertyEnabled := CallbackCreate(ObjBindMethod(implObj, "msGetPropertyEnabled"), flags, 3)
+        this.vtbl.msPutPropertyEnabled := CallbackCreate(ObjBindMethod(implObj, "msPutPropertyEnabled"), flags, 3)
     }
 
     Dispose() {

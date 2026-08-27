@@ -22,7 +22,6 @@ export default struct PFNDAENUMCALLBACKCONST {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} p Type: <b>const void*</b>
      * 
      * A pointer to the constant structure to be enumerated.
@@ -34,8 +33,10 @@ export default struct PFNDAENUMCALLBACKCONST {
      * The return value is used to determine whether to terminate or continue the iteration. A return value of zero indicates that the iteration should stop; nonzero indicates that the iteration should continue.
      */
     Call(p, pData) {
-        pMarshal := p is VarRef ? "ptr" : "ptr"
-        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+        pMarshal := p is VarRef ? "ptr" : IntPtr
+        pMarshal := p == 0 ? IntPtr : "ptr"
+        pDataMarshal := pData is VarRef ? "ptr" : IntPtr
+        pDataMarshal := pData == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, pMarshal, p, pDataMarshal, pData, Int32)
         return result

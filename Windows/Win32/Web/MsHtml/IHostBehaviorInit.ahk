@@ -36,7 +36,6 @@ export default struct IHostBehaviorInit extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     PopulateNamespaceTable() {
@@ -53,7 +52,7 @@ export default struct IHostBehaviorInit extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PopulateNamespaceTable := CallbackCreate(GetMethod(implObj, "PopulateNamespaceTable"), flags, 1)
+        this.vtbl.PopulateNamespaceTable := CallbackCreate(ObjBindMethod(implObj, "PopulateNamespaceTable"), flags, 1)
     }
 
     Dispose() {

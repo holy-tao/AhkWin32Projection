@@ -24,7 +24,6 @@ export default struct PFN_CRYPT_XML_DATA_PROVIDER_READ {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvCallbackState A pointer to an application defined argument that is passed to the calling function.
      * @param {Integer} pbData A pointer to the buffer that receives the data to be read.
      * @param {Integer} cbData The size, in bytes, of the data to be read.
@@ -44,8 +43,8 @@ export default struct PFN_CRYPT_XML_DATA_PROVIDER_READ {
      * If the value of <i>pcbRead</i> equals zero, then there is no more data available.
      */
     Call(pvCallbackState, pbData, cbData, pcbRead) {
-        pvCallbackStateMarshal := pvCallbackState is VarRef ? "ptr" : "ptr"
-        pcbReadMarshal := pcbRead is VarRef ? "uint*" : "ptr"
+        pvCallbackStateMarshal := pvCallbackState is VarRef ? "ptr" : IntPtr
+        pcbReadMarshal := pcbRead is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, pvCallbackStateMarshal, pvCallbackState, IntPtr, pbData, UInt32, cbData, pcbReadMarshal, pcbRead, "HRESULT")
         return result

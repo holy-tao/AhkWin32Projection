@@ -76,7 +76,7 @@ export default struct IWMPMedia3 extends IWMPMedia2 {
         bstrType := bstrType is String ? BSTR.Alloc(bstrType).Value : bstrType
         bstrLanguage := bstrLanguage is String ? BSTR.Alloc(bstrLanguage).Value : bstrLanguage
 
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+        plCountMarshal := plCount is VarRef ? "int*" : IntPtr
 
         result := ComCall(26, this, BSTR, bstrType, BSTR, bstrLanguage, plCountMarshal, plCount, "HRESULT")
         return result
@@ -140,8 +140,8 @@ export default struct IWMPMedia3 extends IWMPMedia2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.getAttributeCountByType := CallbackCreate(GetMethod(implObj, "getAttributeCountByType"), flags, 4)
-        this.vtbl.getItemInfoByType := CallbackCreate(GetMethod(implObj, "getItemInfoByType"), flags, 5)
+        this.vtbl.getAttributeCountByType := CallbackCreate(ObjBindMethod(implObj, "getAttributeCountByType"), flags, 4)
+        this.vtbl.getItemInfoByType := CallbackCreate(ObjBindMethod(implObj, "getItemInfoByType"), flags, 5)
     }
 
     Dispose() {

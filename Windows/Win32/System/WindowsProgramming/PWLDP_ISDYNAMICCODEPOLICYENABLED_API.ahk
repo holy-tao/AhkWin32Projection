@@ -20,7 +20,6 @@ export default struct PWLDP_ISDYNAMICCODEPOLICYENABLED_API {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     Call() {

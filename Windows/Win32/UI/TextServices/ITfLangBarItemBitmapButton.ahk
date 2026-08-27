@@ -264,12 +264,12 @@ export default struct ITfLangBarItemBitmapButton extends ITfLangBarItem {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnClick := CallbackCreate(GetMethod(implObj, "OnClick"), flags, 4)
-        this.vtbl.InitMenu := CallbackCreate(GetMethod(implObj, "InitMenu"), flags, 2)
-        this.vtbl.OnMenuSelect := CallbackCreate(GetMethod(implObj, "OnMenuSelect"), flags, 2)
-        this.vtbl.GetPreferredSize := CallbackCreate(GetMethod(implObj, "GetPreferredSize"), flags, 3)
-        this.vtbl.DrawBitmap := CallbackCreate(GetMethod(implObj, "DrawBitmap"), flags, 6)
-        this.vtbl.GetText := CallbackCreate(GetMethod(implObj, "GetText"), flags, 2)
+        this.vtbl.OnClick := CallbackCreate(ObjBindMethod(implObj, "OnClick"), flags, 4)
+        this.vtbl.InitMenu := CallbackCreate(ObjBindMethod(implObj, "InitMenu"), flags, 2)
+        this.vtbl.OnMenuSelect := CallbackCreate(ObjBindMethod(implObj, "OnMenuSelect"), flags, 2)
+        this.vtbl.GetPreferredSize := CallbackCreate(ObjBindMethod(implObj, "GetPreferredSize"), flags, 3)
+        this.vtbl.DrawBitmap := CallbackCreate(ObjBindMethod(implObj, "DrawBitmap"), flags, 6)
+        this.vtbl.GetText := CallbackCreate(ObjBindMethod(implObj, "GetText"), flags, 2)
     }
 
     Dispose() {

@@ -102,7 +102,7 @@ export default struct ITfFnLMProcessor extends ITfFunction {
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnlmprocessor-queryrange
      */
     QueryRange(pRange, ppNewRange, pfAccepted) {
-        pfAcceptedMarshal := pfAccepted is VarRef ? "int*" : "ptr"
+        pfAcceptedMarshal := pfAccepted is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, "ptr", pRange, ITfRange.Ptr, ppNewRange, pfAcceptedMarshal, pfAccepted, "HRESULT")
         return result
@@ -270,13 +270,13 @@ export default struct ITfFnLMProcessor extends ITfFunction {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryRange := CallbackCreate(GetMethod(implObj, "QueryRange"), flags, 4)
-        this.vtbl.QueryLangID := CallbackCreate(GetMethod(implObj, "QueryLangID"), flags, 3)
-        this.vtbl.GetReconversion := CallbackCreate(GetMethod(implObj, "GetReconversion"), flags, 3)
-        this.vtbl.Reconvert := CallbackCreate(GetMethod(implObj, "Reconvert"), flags, 2)
-        this.vtbl.QueryKey := CallbackCreate(GetMethod(implObj, "QueryKey"), flags, 5)
-        this.vtbl.InvokeKey := CallbackCreate(GetMethod(implObj, "InvokeKey"), flags, 4)
-        this.vtbl.InvokeFunc := CallbackCreate(GetMethod(implObj, "InvokeFunc"), flags, 3)
+        this.vtbl.QueryRange := CallbackCreate(ObjBindMethod(implObj, "QueryRange"), flags, 4)
+        this.vtbl.QueryLangID := CallbackCreate(ObjBindMethod(implObj, "QueryLangID"), flags, 3)
+        this.vtbl.GetReconversion := CallbackCreate(ObjBindMethod(implObj, "GetReconversion"), flags, 3)
+        this.vtbl.Reconvert := CallbackCreate(ObjBindMethod(implObj, "Reconvert"), flags, 2)
+        this.vtbl.QueryKey := CallbackCreate(ObjBindMethod(implObj, "QueryKey"), flags, 5)
+        this.vtbl.InvokeKey := CallbackCreate(ObjBindMethod(implObj, "InvokeKey"), flags, 4)
+        this.vtbl.InvokeFunc := CallbackCreate(ObjBindMethod(implObj, "InvokeFunc"), flags, 3)
     }
 
     Dispose() {

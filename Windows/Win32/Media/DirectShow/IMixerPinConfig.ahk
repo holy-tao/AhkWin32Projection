@@ -140,10 +140,10 @@ export default struct IMixerPinConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpconfig/nf-mpconfig-imixerpinconfig-getrelativeposition
      */
     GetRelativePosition(pdwLeft, pdwTop, pdwRight, pdwBottom) {
-        pdwLeftMarshal := pdwLeft is VarRef ? "uint*" : "ptr"
-        pdwTopMarshal := pdwTop is VarRef ? "uint*" : "ptr"
-        pdwRightMarshal := pdwRight is VarRef ? "uint*" : "ptr"
-        pdwBottomMarshal := pdwBottom is VarRef ? "uint*" : "ptr"
+        pdwLeftMarshal := pdwLeft is VarRef ? "uint*" : IntPtr
+        pdwTopMarshal := pdwTop is VarRef ? "uint*" : IntPtr
+        pdwRightMarshal := pdwRight is VarRef ? "uint*" : IntPtr
+        pdwBottomMarshal := pdwBottom is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pdwLeftMarshal, pdwLeft, pdwTopMarshal, pdwTop, pdwRightMarshal, pdwRight, pdwBottomMarshal, pdwBottom, "HRESULT")
         return result
@@ -175,7 +175,7 @@ export default struct IMixerPinConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpconfig/nf-mpconfig-imixerpinconfig-getzorder
      */
     GetZOrder(pdwZOrder) {
-        pdwZOrderMarshal := pdwZOrder is VarRef ? "uint*" : "ptr"
+        pdwZOrderMarshal := pdwZOrder is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, pdwZOrderMarshal, pdwZOrder, "HRESULT")
         return result
@@ -260,7 +260,7 @@ export default struct IMixerPinConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpconfig/nf-mpconfig-imixerpinconfig-getcolorkey
      */
     GetColorKey(pColorKey, pColor) {
-        pColorMarshal := pColor is VarRef ? "uint*" : "ptr"
+        pColorMarshal := pColor is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, COLORKEY.Ptr, pColorKey, pColorMarshal, pColor, "HRESULT")
         return result
@@ -373,7 +373,7 @@ export default struct IMixerPinConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpconfig/nf-mpconfig-imixerpinconfig-getblendingparameter
      */
     GetBlendingParameter(pdwBlendingParameter) {
-        pdwBlendingParameterMarshal := pdwBlendingParameter is VarRef ? "uint*" : "ptr"
+        pdwBlendingParameterMarshal := pdwBlendingParameter is VarRef ? "uint*" : IntPtr
 
         result := ComCall(10, this, pdwBlendingParameterMarshal, pdwBlendingParameter, "HRESULT")
         return result
@@ -479,7 +479,7 @@ export default struct IMixerPinConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpconfig/nf-mpconfig-imixerpinconfig-getaspectratiomode
      */
     GetAspectRatioMode(pamAspectRatioMode) {
-        pamAspectRatioModeMarshal := pamAspectRatioMode is VarRef ? "int*" : "ptr"
+        pamAspectRatioModeMarshal := pamAspectRatioMode is VarRef ? "int*" : IntPtr
 
         result := ComCall(12, this, pamAspectRatioModeMarshal, pamAspectRatioMode, "HRESULT")
         return result
@@ -554,7 +554,7 @@ export default struct IMixerPinConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpconfig/nf-mpconfig-imixerpinconfig-getstreamtransparent
      */
     GetStreamTransparent(pbStreamTransparent) {
-        pbStreamTransparentMarshal := pbStreamTransparent is VarRef ? "int*" : "ptr"
+        pbStreamTransparentMarshal := pbStreamTransparent is VarRef ? "int*" : IntPtr
 
         result := ComCall(14, this, pbStreamTransparentMarshal, pbStreamTransparent, "HRESULT")
         return result
@@ -569,18 +569,18 @@ export default struct IMixerPinConfig extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetRelativePosition := CallbackCreate(GetMethod(implObj, "SetRelativePosition"), flags, 5)
-        this.vtbl.GetRelativePosition := CallbackCreate(GetMethod(implObj, "GetRelativePosition"), flags, 5)
-        this.vtbl.SetZOrder := CallbackCreate(GetMethod(implObj, "SetZOrder"), flags, 2)
-        this.vtbl.GetZOrder := CallbackCreate(GetMethod(implObj, "GetZOrder"), flags, 2)
-        this.vtbl.SetColorKey := CallbackCreate(GetMethod(implObj, "SetColorKey"), flags, 2)
-        this.vtbl.GetColorKey := CallbackCreate(GetMethod(implObj, "GetColorKey"), flags, 3)
-        this.vtbl.SetBlendingParameter := CallbackCreate(GetMethod(implObj, "SetBlendingParameter"), flags, 2)
-        this.vtbl.GetBlendingParameter := CallbackCreate(GetMethod(implObj, "GetBlendingParameter"), flags, 2)
-        this.vtbl.SetAspectRatioMode := CallbackCreate(GetMethod(implObj, "SetAspectRatioMode"), flags, 2)
-        this.vtbl.GetAspectRatioMode := CallbackCreate(GetMethod(implObj, "GetAspectRatioMode"), flags, 2)
-        this.vtbl.SetStreamTransparent := CallbackCreate(GetMethod(implObj, "SetStreamTransparent"), flags, 2)
-        this.vtbl.GetStreamTransparent := CallbackCreate(GetMethod(implObj, "GetStreamTransparent"), flags, 2)
+        this.vtbl.SetRelativePosition := CallbackCreate(ObjBindMethod(implObj, "SetRelativePosition"), flags, 5)
+        this.vtbl.GetRelativePosition := CallbackCreate(ObjBindMethod(implObj, "GetRelativePosition"), flags, 5)
+        this.vtbl.SetZOrder := CallbackCreate(ObjBindMethod(implObj, "SetZOrder"), flags, 2)
+        this.vtbl.GetZOrder := CallbackCreate(ObjBindMethod(implObj, "GetZOrder"), flags, 2)
+        this.vtbl.SetColorKey := CallbackCreate(ObjBindMethod(implObj, "SetColorKey"), flags, 2)
+        this.vtbl.GetColorKey := CallbackCreate(ObjBindMethod(implObj, "GetColorKey"), flags, 3)
+        this.vtbl.SetBlendingParameter := CallbackCreate(ObjBindMethod(implObj, "SetBlendingParameter"), flags, 2)
+        this.vtbl.GetBlendingParameter := CallbackCreate(ObjBindMethod(implObj, "GetBlendingParameter"), flags, 2)
+        this.vtbl.SetAspectRatioMode := CallbackCreate(ObjBindMethod(implObj, "SetAspectRatioMode"), flags, 2)
+        this.vtbl.GetAspectRatioMode := CallbackCreate(ObjBindMethod(implObj, "GetAspectRatioMode"), flags, 2)
+        this.vtbl.SetStreamTransparent := CallbackCreate(ObjBindMethod(implObj, "SetStreamTransparent"), flags, 2)
+        this.vtbl.GetStreamTransparent := CallbackCreate(ObjBindMethod(implObj, "GetStreamTransparent"), flags, 2)
     }
 
     Dispose() {

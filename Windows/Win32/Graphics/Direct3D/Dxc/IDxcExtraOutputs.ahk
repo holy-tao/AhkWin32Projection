@@ -38,7 +38,6 @@ export default struct IDxcExtraOutputs extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetOutputCount() {
@@ -47,7 +46,6 @@ export default struct IDxcExtraOutputs extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uIndex 
      * @param {Pointer<Guid>} iid 
      * @param {Pointer<Pointer<Void>>} ppvObject 
@@ -56,9 +54,12 @@ export default struct IDxcExtraOutputs extends IUnknown {
      * @returns {HRESULT} 
      */
     GetOutput(uIndex, iid, ppvObject, ppOutputType, ppOutputName) {
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : IntPtr
+        ppvObjectMarshal := ppvObject == 0 ? IntPtr : "ptr*"
+        ppOutputTypeMarshal := ppOutputType == 0 ? IntPtr : IDxcBlobUtf16.Ptr
+        ppOutputNameMarshal := ppOutputName == 0 ? IntPtr : IDxcBlobUtf16.Ptr
 
-        result := ComCall(4, this, UInt32, uIndex, Guid.Ptr, iid, ppvObjectMarshal, ppvObject, IDxcBlobUtf16.Ptr, ppOutputType, IDxcBlobUtf16.Ptr, ppOutputName, "HRESULT")
+        result := ComCall(4, this, UInt32, uIndex, Guid.Ptr, iid, ppvObjectMarshal, ppvObject, ppOutputTypeMarshal, ppOutputType, ppOutputNameMarshal, ppOutputName, "HRESULT")
         return result
     }
 
@@ -71,8 +72,8 @@ export default struct IDxcExtraOutputs extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOutputCount := CallbackCreate(GetMethod(implObj, "GetOutputCount"), flags, 1)
-        this.vtbl.GetOutput := CallbackCreate(GetMethod(implObj, "GetOutput"), flags, 6)
+        this.vtbl.GetOutputCount := CallbackCreate(ObjBindMethod(implObj, "GetOutputCount"), flags, 1)
+        this.vtbl.GetOutput := CallbackCreate(ObjBindMethod(implObj, "GetOutput"), flags, 6)
     }
 
     Dispose() {

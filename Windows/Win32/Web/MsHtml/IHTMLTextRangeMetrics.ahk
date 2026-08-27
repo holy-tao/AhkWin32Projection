@@ -83,7 +83,6 @@ export default struct IHTMLTextRangeMetrics extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_offsetTop() {
@@ -92,7 +91,6 @@ export default struct IHTMLTextRangeMetrics extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_offsetLeft() {
@@ -101,7 +99,6 @@ export default struct IHTMLTextRangeMetrics extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_boundingTop() {
@@ -110,7 +107,6 @@ export default struct IHTMLTextRangeMetrics extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_boundingLeft() {
@@ -119,7 +115,6 @@ export default struct IHTMLTextRangeMetrics extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_boundingWidth() {
@@ -128,7 +123,6 @@ export default struct IHTMLTextRangeMetrics extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_boundingHeight() {
@@ -145,12 +139,12 @@ export default struct IHTMLTextRangeMetrics extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_offsetTop := CallbackCreate(GetMethod(implObj, "get_offsetTop"), flags, 2)
-        this.vtbl.get_offsetLeft := CallbackCreate(GetMethod(implObj, "get_offsetLeft"), flags, 2)
-        this.vtbl.get_boundingTop := CallbackCreate(GetMethod(implObj, "get_boundingTop"), flags, 2)
-        this.vtbl.get_boundingLeft := CallbackCreate(GetMethod(implObj, "get_boundingLeft"), flags, 2)
-        this.vtbl.get_boundingWidth := CallbackCreate(GetMethod(implObj, "get_boundingWidth"), flags, 2)
-        this.vtbl.get_boundingHeight := CallbackCreate(GetMethod(implObj, "get_boundingHeight"), flags, 2)
+        this.vtbl.get_offsetTop := CallbackCreate(ObjBindMethod(implObj, "get_offsetTop"), flags, 2)
+        this.vtbl.get_offsetLeft := CallbackCreate(ObjBindMethod(implObj, "get_offsetLeft"), flags, 2)
+        this.vtbl.get_boundingTop := CallbackCreate(ObjBindMethod(implObj, "get_boundingTop"), flags, 2)
+        this.vtbl.get_boundingLeft := CallbackCreate(ObjBindMethod(implObj, "get_boundingLeft"), flags, 2)
+        this.vtbl.get_boundingWidth := CallbackCreate(ObjBindMethod(implObj, "get_boundingWidth"), flags, 2)
+        this.vtbl.get_boundingHeight := CallbackCreate(ObjBindMethod(implObj, "get_boundingHeight"), flags, 2)
     }
 
     Dispose() {

@@ -157,7 +157,7 @@ export default struct IEnroll4 extends IEnroll2 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll4-binaryblobtostring
      */
     binaryBlobToString(Flags, pblobBinary, ppwszString) {
-        ppwszStringMarshal := ppwszString is VarRef ? "ptr*" : "ptr"
+        ppwszStringMarshal := ppwszString is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(95, this, Int32, Flags, CRYPT_INTEGER_BLOB.Ptr, pblobBinary, ppwszStringMarshal, ppwszString, "HRESULT")
         return result
@@ -177,8 +177,8 @@ export default struct IEnroll4 extends IEnroll2 {
     stringToBinaryBlob(Flags, pwszString, pblobBinary, pdwSkip, pdwFlags) {
         pwszString := pwszString is String ? StrPtr(pwszString) : pwszString
 
-        pdwSkipMarshal := pdwSkip is VarRef ? "int*" : "ptr"
-        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
+        pdwSkipMarshal := pdwSkip is VarRef ? "int*" : IntPtr
+        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(96, this, Int32, Flags, "ptr", pwszString, CRYPT_INTEGER_BLOB.Ptr, pblobBinary, pdwSkipMarshal, pdwSkip, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
@@ -337,7 +337,7 @@ export default struct IEnroll4 extends IEnroll2 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll4-getcertcontextfromresponseblob
      */
     getCertContextFromResponseBlob(pblobResponse, ppCertContext) {
-        ppCertContextMarshal := ppCertContext is VarRef ? "ptr*" : "ptr"
+        ppCertContextMarshal := ppCertContext is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(106, this, CRYPT_INTEGER_BLOB.Ptr, pblobResponse, ppCertContextMarshal, ppCertContext, "HRESULT")
         return result
@@ -357,7 +357,7 @@ export default struct IEnroll4 extends IEnroll2 {
     getCertContextFromFileResponseWStr(pwszResponseFileName, ppCertContext) {
         pwszResponseFileName := pwszResponseFileName is String ? StrPtr(pwszResponseFileName) : pwszResponseFileName
 
-        ppCertContextMarshal := ppCertContext is VarRef ? "ptr*" : "ptr"
+        ppCertContextMarshal := ppCertContext is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(107, this, "ptr", pwszResponseFileName, ppCertContextMarshal, ppCertContext, "HRESULT")
         return result
@@ -438,7 +438,7 @@ export default struct IEnroll4 extends IEnroll2 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll4-enumpendingrequestwstr
      */
     enumPendingRequestWStr(lIndex, lDesiredProperty, ppProperty) {
-        ppPropertyMarshal := ppProperty is VarRef ? "ptr" : "ptr"
+        ppPropertyMarshal := ppProperty is VarRef ? "ptr" : IntPtr
 
         result := ComCall(111, this, Int32, lIndex, PENDING_REQUEST_DESIRED_PROPERTY, lDesiredProperty, ppPropertyMarshal, ppProperty, "HRESULT")
         return result
@@ -469,7 +469,7 @@ export default struct IEnroll4 extends IEnroll2 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll4-getkeylenex
      */
     GetKeyLenEx(lSizeSpec, lKeySpec, pdwKeySize) {
-        pdwKeySizeMarshal := pdwKeySize is VarRef ? "int*" : "ptr"
+        pdwKeySizeMarshal := pdwKeySize is VarRef ? "int*" : IntPtr
 
         result := ComCall(113, this, XEKL_KEYSIZE, lSizeSpec, XEKL_KEYSPEC, lKeySpec, pdwKeySizeMarshal, pdwKeySize, "HRESULT")
         return result
@@ -483,7 +483,7 @@ export default struct IEnroll4 extends IEnroll2 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll4-installpkcs7blobex
      */
     InstallPKCS7BlobEx(pBlobPKCS7, plCertInstalled) {
-        plCertInstalledMarshal := plCertInstalled is VarRef ? "int*" : "ptr"
+        plCertInstalledMarshal := plCertInstalled is VarRef ? "int*" : IntPtr
 
         result := ComCall(114, this, CRYPT_INTEGER_BLOB.Ptr, pBlobPKCS7, plCertInstalledMarshal, plCertInstalled, "HRESULT")
         return result
@@ -522,7 +522,7 @@ export default struct IEnroll4 extends IEnroll2 {
     getProviderTypeWStr(pwszProvName, plProvType) {
         pwszProvName := pwszProvName is String ? StrPtr(pwszProvName) : pwszProvName
 
-        plProvTypeMarshal := plProvType is VarRef ? "int*" : "ptr"
+        plProvTypeMarshal := plProvType is VarRef ? "int*" : IntPtr
 
         result := ComCall(116, this, "ptr", pwszProvName, plProvTypeMarshal, plProvType, "HRESULT")
         return result
@@ -570,7 +570,7 @@ export default struct IEnroll4 extends IEnroll2 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll4-get_clientid
      */
     get_ClientId(plClientId) {
-        plClientIdMarshal := plClientId is VarRef ? "int*" : "ptr"
+        plClientIdMarshal := plClientId is VarRef ? "int*" : IntPtr
 
         result := ComCall(120, this, plClientIdMarshal, plClientId, "HRESULT")
         return result
@@ -594,7 +594,7 @@ export default struct IEnroll4 extends IEnroll2 {
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll4-get_includesubjectkeyid
      */
     get_IncludeSubjectKeyID(pfInclude) {
-        pfIncludeMarshal := pfInclude is VarRef ? "int*" : "ptr"
+        pfIncludeMarshal := pfInclude is VarRef ? "int*" : IntPtr
 
         result := ComCall(122, this, pfIncludeMarshal, pfInclude, "HRESULT")
         return result
@@ -609,38 +609,38 @@ export default struct IEnroll4 extends IEnroll2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_ThumbPrintWStr := CallbackCreate(GetMethod(implObj, "put_ThumbPrintWStr"), flags, 2)
-        this.vtbl.get_ThumbPrintWStr := CallbackCreate(GetMethod(implObj, "get_ThumbPrintWStr"), flags, 2)
-        this.vtbl.SetPrivateKeyArchiveCertificate := CallbackCreate(GetMethod(implObj, "SetPrivateKeyArchiveCertificate"), flags, 2)
-        this.vtbl.GetPrivateKeyArchiveCertificate := CallbackCreate(GetMethod(implObj, "GetPrivateKeyArchiveCertificate"), flags, 1)
-        this.vtbl.binaryBlobToString := CallbackCreate(GetMethod(implObj, "binaryBlobToString"), flags, 4)
-        this.vtbl.stringToBinaryBlob := CallbackCreate(GetMethod(implObj, "stringToBinaryBlob"), flags, 6)
-        this.vtbl.addExtensionToRequestWStr := CallbackCreate(GetMethod(implObj, "addExtensionToRequestWStr"), flags, 4)
-        this.vtbl.addAttributeToRequestWStr := CallbackCreate(GetMethod(implObj, "addAttributeToRequestWStr"), flags, 4)
-        this.vtbl.addNameValuePairToRequestWStr := CallbackCreate(GetMethod(implObj, "addNameValuePairToRequestWStr"), flags, 4)
-        this.vtbl.resetExtensions := CallbackCreate(GetMethod(implObj, "resetExtensions"), flags, 1)
-        this.vtbl.resetAttributes := CallbackCreate(GetMethod(implObj, "resetAttributes"), flags, 1)
-        this.vtbl.createRequestWStr := CallbackCreate(GetMethod(implObj, "createRequestWStr"), flags, 5)
-        this.vtbl.createFileRequestWStr := CallbackCreate(GetMethod(implObj, "createFileRequestWStr"), flags, 5)
-        this.vtbl.acceptResponseBlob := CallbackCreate(GetMethod(implObj, "acceptResponseBlob"), flags, 2)
-        this.vtbl.acceptFileResponseWStr := CallbackCreate(GetMethod(implObj, "acceptFileResponseWStr"), flags, 2)
-        this.vtbl.getCertContextFromResponseBlob := CallbackCreate(GetMethod(implObj, "getCertContextFromResponseBlob"), flags, 3)
-        this.vtbl.getCertContextFromFileResponseWStr := CallbackCreate(GetMethod(implObj, "getCertContextFromFileResponseWStr"), flags, 3)
-        this.vtbl.createPFXWStr := CallbackCreate(GetMethod(implObj, "createPFXWStr"), flags, 3)
-        this.vtbl.createFilePFXWStr := CallbackCreate(GetMethod(implObj, "createFilePFXWStr"), flags, 3)
-        this.vtbl.setPendingRequestInfoWStr := CallbackCreate(GetMethod(implObj, "setPendingRequestInfoWStr"), flags, 5)
-        this.vtbl.enumPendingRequestWStr := CallbackCreate(GetMethod(implObj, "enumPendingRequestWStr"), flags, 4)
-        this.vtbl.removePendingRequestWStr := CallbackCreate(GetMethod(implObj, "removePendingRequestWStr"), flags, 2)
-        this.vtbl.GetKeyLenEx := CallbackCreate(GetMethod(implObj, "GetKeyLenEx"), flags, 4)
-        this.vtbl.InstallPKCS7BlobEx := CallbackCreate(GetMethod(implObj, "InstallPKCS7BlobEx"), flags, 3)
-        this.vtbl.AddCertTypeToRequestWStrEx := CallbackCreate(GetMethod(implObj, "AddCertTypeToRequestWStrEx"), flags, 6)
-        this.vtbl.getProviderTypeWStr := CallbackCreate(GetMethod(implObj, "getProviderTypeWStr"), flags, 3)
-        this.vtbl.addBlobPropertyToCertificateWStr := CallbackCreate(GetMethod(implObj, "addBlobPropertyToCertificateWStr"), flags, 4)
-        this.vtbl.SetSignerCertificate := CallbackCreate(GetMethod(implObj, "SetSignerCertificate"), flags, 2)
-        this.vtbl.put_ClientId := CallbackCreate(GetMethod(implObj, "put_ClientId"), flags, 2)
-        this.vtbl.get_ClientId := CallbackCreate(GetMethod(implObj, "get_ClientId"), flags, 2)
-        this.vtbl.put_IncludeSubjectKeyID := CallbackCreate(GetMethod(implObj, "put_IncludeSubjectKeyID"), flags, 2)
-        this.vtbl.get_IncludeSubjectKeyID := CallbackCreate(GetMethod(implObj, "get_IncludeSubjectKeyID"), flags, 2)
+        this.vtbl.put_ThumbPrintWStr := CallbackCreate(ObjBindMethod(implObj, "put_ThumbPrintWStr"), flags, 2)
+        this.vtbl.get_ThumbPrintWStr := CallbackCreate(ObjBindMethod(implObj, "get_ThumbPrintWStr"), flags, 2)
+        this.vtbl.SetPrivateKeyArchiveCertificate := CallbackCreate(ObjBindMethod(implObj, "SetPrivateKeyArchiveCertificate"), flags, 2)
+        this.vtbl.GetPrivateKeyArchiveCertificate := CallbackCreate(ObjBindMethod(implObj, "GetPrivateKeyArchiveCertificate"), flags, 1)
+        this.vtbl.binaryBlobToString := CallbackCreate(ObjBindMethod(implObj, "binaryBlobToString"), flags, 4)
+        this.vtbl.stringToBinaryBlob := CallbackCreate(ObjBindMethod(implObj, "stringToBinaryBlob"), flags, 6)
+        this.vtbl.addExtensionToRequestWStr := CallbackCreate(ObjBindMethod(implObj, "addExtensionToRequestWStr"), flags, 4)
+        this.vtbl.addAttributeToRequestWStr := CallbackCreate(ObjBindMethod(implObj, "addAttributeToRequestWStr"), flags, 4)
+        this.vtbl.addNameValuePairToRequestWStr := CallbackCreate(ObjBindMethod(implObj, "addNameValuePairToRequestWStr"), flags, 4)
+        this.vtbl.resetExtensions := CallbackCreate(ObjBindMethod(implObj, "resetExtensions"), flags, 1)
+        this.vtbl.resetAttributes := CallbackCreate(ObjBindMethod(implObj, "resetAttributes"), flags, 1)
+        this.vtbl.createRequestWStr := CallbackCreate(ObjBindMethod(implObj, "createRequestWStr"), flags, 5)
+        this.vtbl.createFileRequestWStr := CallbackCreate(ObjBindMethod(implObj, "createFileRequestWStr"), flags, 5)
+        this.vtbl.acceptResponseBlob := CallbackCreate(ObjBindMethod(implObj, "acceptResponseBlob"), flags, 2)
+        this.vtbl.acceptFileResponseWStr := CallbackCreate(ObjBindMethod(implObj, "acceptFileResponseWStr"), flags, 2)
+        this.vtbl.getCertContextFromResponseBlob := CallbackCreate(ObjBindMethod(implObj, "getCertContextFromResponseBlob"), flags, 3)
+        this.vtbl.getCertContextFromFileResponseWStr := CallbackCreate(ObjBindMethod(implObj, "getCertContextFromFileResponseWStr"), flags, 3)
+        this.vtbl.createPFXWStr := CallbackCreate(ObjBindMethod(implObj, "createPFXWStr"), flags, 3)
+        this.vtbl.createFilePFXWStr := CallbackCreate(ObjBindMethod(implObj, "createFilePFXWStr"), flags, 3)
+        this.vtbl.setPendingRequestInfoWStr := CallbackCreate(ObjBindMethod(implObj, "setPendingRequestInfoWStr"), flags, 5)
+        this.vtbl.enumPendingRequestWStr := CallbackCreate(ObjBindMethod(implObj, "enumPendingRequestWStr"), flags, 4)
+        this.vtbl.removePendingRequestWStr := CallbackCreate(ObjBindMethod(implObj, "removePendingRequestWStr"), flags, 2)
+        this.vtbl.GetKeyLenEx := CallbackCreate(ObjBindMethod(implObj, "GetKeyLenEx"), flags, 4)
+        this.vtbl.InstallPKCS7BlobEx := CallbackCreate(ObjBindMethod(implObj, "InstallPKCS7BlobEx"), flags, 3)
+        this.vtbl.AddCertTypeToRequestWStrEx := CallbackCreate(ObjBindMethod(implObj, "AddCertTypeToRequestWStrEx"), flags, 6)
+        this.vtbl.getProviderTypeWStr := CallbackCreate(ObjBindMethod(implObj, "getProviderTypeWStr"), flags, 3)
+        this.vtbl.addBlobPropertyToCertificateWStr := CallbackCreate(ObjBindMethod(implObj, "addBlobPropertyToCertificateWStr"), flags, 4)
+        this.vtbl.SetSignerCertificate := CallbackCreate(ObjBindMethod(implObj, "SetSignerCertificate"), flags, 2)
+        this.vtbl.put_ClientId := CallbackCreate(ObjBindMethod(implObj, "put_ClientId"), flags, 2)
+        this.vtbl.get_ClientId := CallbackCreate(ObjBindMethod(implObj, "get_ClientId"), flags, 2)
+        this.vtbl.put_IncludeSubjectKeyID := CallbackCreate(ObjBindMethod(implObj, "put_IncludeSubjectKeyID"), flags, 2)
+        this.vtbl.get_IncludeSubjectKeyID := CallbackCreate(ObjBindMethod(implObj, "get_IncludeSubjectKeyID"), flags, 2)
     }
 
     Dispose() {

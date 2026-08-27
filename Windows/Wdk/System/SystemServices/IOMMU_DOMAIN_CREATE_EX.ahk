@@ -24,7 +24,6 @@ export default struct IOMMU_DOMAIN_CREATE_EX {
     }
 
     /**
-     * 
      * @param {IOMMU_DMA_DOMAIN_TYPE} DomainType 
      * @param {IOMMU_DMA_DOMAIN_CREATION_FLAGS} Flags 
      * @param {Pointer<IOMMU_DMA_LOGICAL_ALLOCATOR_CONFIG>} LogicalAllocatorConfig 
@@ -33,9 +32,11 @@ export default struct IOMMU_DOMAIN_CREATE_EX {
      * @returns {NTSTATUS} 
      */
     Call(DomainType, Flags, LogicalAllocatorConfig, ReservedRegions, DomainOut) {
-        DomainOutMarshal := DomainOut is VarRef ? "ptr*" : "ptr"
+        LogicalAllocatorConfigMarshal := LogicalAllocatorConfig == 0 ? IntPtr : IOMMU_DMA_LOGICAL_ALLOCATOR_CONFIG.Ptr
+        ReservedRegionsMarshal := ReservedRegions == 0 ? IntPtr : IOMMU_DMA_RESERVED_REGION.Ptr
+        DomainOutMarshal := DomainOut is VarRef ? "ptr*" : IntPtr
 
-        result := DllCall(this.value, IOMMU_DMA_DOMAIN_TYPE, DomainType, IOMMU_DMA_DOMAIN_CREATION_FLAGS, Flags, IOMMU_DMA_LOGICAL_ALLOCATOR_CONFIG.Ptr, LogicalAllocatorConfig, IOMMU_DMA_RESERVED_REGION.Ptr, ReservedRegions, DomainOutMarshal, DomainOut, NTSTATUS)
+        result := DllCall(this.value, IOMMU_DMA_DOMAIN_TYPE, DomainType, IOMMU_DMA_DOMAIN_CREATION_FLAGS, Flags, LogicalAllocatorConfigMarshal, LogicalAllocatorConfig, ReservedRegionsMarshal, ReservedRegions, DomainOutMarshal, DomainOut, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

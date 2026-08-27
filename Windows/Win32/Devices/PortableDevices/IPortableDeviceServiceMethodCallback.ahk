@@ -59,7 +59,7 @@ export default struct IPortableDeviceServiceMethodCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnComplete := CallbackCreate(GetMethod(implObj, "OnComplete"), flags, 3)
+        this.vtbl.OnComplete := CallbackCreate(ObjBindMethod(implObj, "OnComplete"), flags, 3)
     }
 
     Dispose() {

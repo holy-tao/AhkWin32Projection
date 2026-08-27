@@ -50,9 +50,10 @@ export default struct ISCPSession extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsession-beginsession
      */
     BeginSession(pIDevice, pCtx, dwSizeCtx) {
-        pCtxMarshal := pCtx is VarRef ? "char*" : "ptr"
+        pIDeviceMarshal := pIDevice == 0 ? IntPtr : "ptr"
+        pCtxMarshal := pCtx is VarRef ? "char*" : IntPtr
 
-        result := ComCall(3, this, "ptr", pIDevice, pCtxMarshal, pCtx, UInt32, dwSizeCtx, "HRESULT")
+        result := ComCall(3, this, pIDeviceMarshal, pIDevice, pCtxMarshal, pCtx, UInt32, dwSizeCtx, "HRESULT")
         return result
     }
 
@@ -64,7 +65,7 @@ export default struct ISCPSession extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsession-endsession
      */
     EndSession(pCtx, dwSizeCtx) {
-        pCtxMarshal := pCtx is VarRef ? "char*" : "ptr"
+        pCtxMarshal := pCtx is VarRef ? "char*" : IntPtr
 
         result := ComCall(4, this, pCtxMarshal, pCtx, UInt32, dwSizeCtx, "HRESULT")
         return result
@@ -91,9 +92,9 @@ export default struct ISCPSession extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BeginSession := CallbackCreate(GetMethod(implObj, "BeginSession"), flags, 4)
-        this.vtbl.EndSession := CallbackCreate(GetMethod(implObj, "EndSession"), flags, 3)
-        this.vtbl.GetSecureQuery := CallbackCreate(GetMethod(implObj, "GetSecureQuery"), flags, 2)
+        this.vtbl.BeginSession := CallbackCreate(ObjBindMethod(implObj, "BeginSession"), flags, 4)
+        this.vtbl.EndSession := CallbackCreate(ObjBindMethod(implObj, "EndSession"), flags, 3)
+        this.vtbl.GetSecureQuery := CallbackCreate(ObjBindMethod(implObj, "GetSecureQuery"), flags, 2)
     }
 
     Dispose() {

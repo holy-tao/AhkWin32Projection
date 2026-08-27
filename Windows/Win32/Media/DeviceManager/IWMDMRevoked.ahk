@@ -48,8 +48,8 @@ export default struct IWMDMRevoked extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmrevoked-getrevocationurl
      */
     GetRevocationURL(ppwszRevocationURL, pdwBufferLen) {
-        ppwszRevocationURLMarshal := ppwszRevocationURL is VarRef ? "ptr*" : "ptr"
-        pdwBufferLenMarshal := pdwBufferLen is VarRef ? "uint*" : "ptr"
+        ppwszRevocationURLMarshal := ppwszRevocationURL is VarRef ? "ptr*" : IntPtr
+        pdwBufferLenMarshal := pdwBufferLen is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, ppwszRevocationURLMarshal, ppwszRevocationURL, pdwBufferLenMarshal, pdwBufferLen, "uint*", &pdwRevokedBitFlag := 0, "HRESULT")
         return pdwRevokedBitFlag
@@ -64,7 +64,7 @@ export default struct IWMDMRevoked extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRevocationURL := CallbackCreate(GetMethod(implObj, "GetRevocationURL"), flags, 4)
+        this.vtbl.GetRevocationURL := CallbackCreate(ObjBindMethod(implObj, "GetRevocationURL"), flags, 4)
     }
 
     Dispose() {

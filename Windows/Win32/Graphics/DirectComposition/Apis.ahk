@@ -44,7 +44,9 @@
  * @since windows8.0
  */
 export DCompositionCreateDevice(dxgiDevice, iid) {
-    result := DllCall("dcomp.dll\DCompositionCreateDevice", "ptr", dxgiDevice, Guid.Ptr, iid, "ptr*", &dcompositionDevice := 0, "HRESULT")
+    dxgiDeviceMarshal := dxgiDevice == 0 ? IntPtr : "ptr"
+
+    result := DllCall("dcomp.dll\DCompositionCreateDevice", dxgiDeviceMarshal, dxgiDevice, Guid.Ptr, iid, "ptr*", &dcompositionDevice := 0, "HRESULT")
     return dcompositionDevice
 }
 
@@ -79,7 +81,9 @@ export DCompositionCreateDevice(dxgiDevice, iid) {
  * @since windows8.1
  */
 export DCompositionCreateDevice2(renderingDevice, iid) {
-    result := DllCall("dcomp.dll\DCompositionCreateDevice2", "ptr", renderingDevice, Guid.Ptr, iid, "ptr*", &dcompositionDevice := 0, "HRESULT")
+    renderingDeviceMarshal := renderingDevice == 0 ? IntPtr : "ptr"
+
+    result := DllCall("dcomp.dll\DCompositionCreateDevice2", renderingDeviceMarshal, renderingDevice, Guid.Ptr, iid, "ptr*", &dcompositionDevice := 0, "HRESULT")
     return dcompositionDevice
 }
 
@@ -97,7 +101,9 @@ export DCompositionCreateDevice2(renderingDevice, iid) {
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-dcompositioncreatedevice3
  */
 export DCompositionCreateDevice3(renderingDevice, iid) {
-    result := DllCall("dcomp.dll\DCompositionCreateDevice3", "ptr", renderingDevice, Guid.Ptr, iid, "ptr*", &dcompositionDevice := 0, "HRESULT")
+    renderingDeviceMarshal := renderingDevice == 0 ? IntPtr : "ptr"
+
+    result := DllCall("dcomp.dll\DCompositionCreateDevice3", renderingDeviceMarshal, renderingDevice, Guid.Ptr, iid, "ptr*", &dcompositionDevice := 0, "HRESULT")
     return dcompositionDevice
 }
 
@@ -114,8 +120,10 @@ export DCompositionCreateDevice3(renderingDevice, iid) {
  * @since windows8.0
  */
 export DCompositionCreateSurfaceHandle(desiredAccess, securityAttributes) {
+    securityAttributesMarshal := securityAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+
     surfaceHandle := HANDLE.Owned()
-    result := DllCall("dcomp.dll\DCompositionCreateSurfaceHandle", UInt32, desiredAccess, SECURITY_ATTRIBUTES.Ptr, securityAttributes, HANDLE.Ptr, surfaceHandle, "HRESULT")
+    result := DllCall("dcomp.dll\DCompositionCreateSurfaceHandle", UInt32, desiredAccess, securityAttributesMarshal, securityAttributes, HANDLE.Ptr, surfaceHandle, "HRESULT")
     return surfaceHandle
 }
 
@@ -196,12 +204,13 @@ export DCompositionGetFrameId(frameIdType) {
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-dcompositiongetstatistics
  */
 export DCompositionGetStatistics(frameId, frameStats, targetIdCount, targetIds) {
-    result := DllCall("dcomp.dll\DCompositionGetStatistics", Int64, frameId, COMPOSITION_FRAME_STATS.Ptr, frameStats, UInt32, targetIdCount, COMPOSITION_TARGET_ID.Ptr, targetIds, "uint*", &actualTargetIdCount := 0, "HRESULT")
+    targetIdsMarshal := targetIds == 0 ? IntPtr : COMPOSITION_TARGET_ID.Ptr
+
+    result := DllCall("dcomp.dll\DCompositionGetStatistics", Int64, frameId, COMPOSITION_FRAME_STATS.Ptr, frameStats, UInt32, targetIdCount, targetIdsMarshal, targetIds, "uint*", &actualTargetIdCount := 0, "HRESULT")
     return actualTargetIdCount
 }
 
 /**
- * 
  * @param {Integer} frameId 
  * @param {Pointer<COMPOSITION_TARGET_ID>} targetId 
  * @param {Pointer<COMPOSITION_TARGET_STATS>} targetStats 
@@ -242,7 +251,9 @@ export DCompositionBoostCompositorClock(enable) {
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-dcompositionwaitforcompositorclock
  */
 export DCompositionWaitForCompositorClock(count, handles, timeoutInMs) {
-    result := DllCall("dcomp.dll\DCompositionWaitForCompositorClock", UInt32, count, HANDLE.Ptr, handles, UInt32, timeoutInMs, UInt32)
+    handlesMarshal := handles == 0 ? IntPtr : HANDLE.Ptr
+
+    result := DllCall("dcomp.dll\DCompositionWaitForCompositorClock", UInt32, count, handlesMarshal, handles, UInt32, timeoutInMs, UInt32)
     return result
 }
 

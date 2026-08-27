@@ -173,13 +173,13 @@ export default struct IWMWriterFileSink2 extends IWMWriterFileSink {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 2)
-        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 2)
-        this.vtbl.IsStopped := CallbackCreate(GetMethod(implObj, "IsStopped"), flags, 2)
-        this.vtbl.GetFileDuration := CallbackCreate(GetMethod(implObj, "GetFileDuration"), flags, 2)
-        this.vtbl.GetFileSize := CallbackCreate(GetMethod(implObj, "GetFileSize"), flags, 2)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
-        this.vtbl.IsClosed := CallbackCreate(GetMethod(implObj, "IsClosed"), flags, 2)
+        this.vtbl.Start := CallbackCreate(ObjBindMethod(implObj, "Start"), flags, 2)
+        this.vtbl.Stop := CallbackCreate(ObjBindMethod(implObj, "Stop"), flags, 2)
+        this.vtbl.IsStopped := CallbackCreate(ObjBindMethod(implObj, "IsStopped"), flags, 2)
+        this.vtbl.GetFileDuration := CallbackCreate(ObjBindMethod(implObj, "GetFileDuration"), flags, 2)
+        this.vtbl.GetFileSize := CallbackCreate(ObjBindMethod(implObj, "GetFileSize"), flags, 2)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
+        this.vtbl.IsClosed := CallbackCreate(ObjBindMethod(implObj, "IsClosed"), flags, 2)
     }
 
     Dispose() {

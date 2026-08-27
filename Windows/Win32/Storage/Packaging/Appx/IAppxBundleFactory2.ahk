@@ -65,7 +65,7 @@ export default struct IAppxBundleFactory2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateBundleReader2 := CallbackCreate(GetMethod(implObj, "CreateBundleReader2"), flags, 4)
+        this.vtbl.CreateBundleReader2 := CallbackCreate(ObjBindMethod(implObj, "CreateBundleReader2"), flags, 4)
     }
 
     Dispose() {

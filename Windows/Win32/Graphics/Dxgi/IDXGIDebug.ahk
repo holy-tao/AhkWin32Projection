@@ -76,7 +76,7 @@ export default struct IDXGIDebug extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ReportLiveObjects := CallbackCreate(GetMethod(implObj, "ReportLiveObjects"), flags, 3)
+        this.vtbl.ReportLiveObjects := CallbackCreate(ObjBindMethod(implObj, "ReportLiveObjects"), flags, 3)
     }
 
     Dispose() {

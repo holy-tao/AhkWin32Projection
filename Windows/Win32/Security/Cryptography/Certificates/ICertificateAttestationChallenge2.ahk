@@ -46,7 +46,6 @@ export default struct ICertificateAttestationChallenge2 extends ICertificateAtte
     }
 
     /**
-     * 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
      */
@@ -58,7 +57,6 @@ export default struct ICertificateAttestationChallenge2 extends ICertificateAtte
     }
 
     /**
-     * 
      * @param {EncodingType} Encoding 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
@@ -79,8 +77,8 @@ export default struct ICertificateAttestationChallenge2 extends ICertificateAtte
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_KeyContainerName := CallbackCreate(GetMethod(implObj, "put_KeyContainerName"), flags, 2)
-        this.vtbl.put_KeyBlob := CallbackCreate(GetMethod(implObj, "put_KeyBlob"), flags, 3)
+        this.vtbl.put_KeyContainerName := CallbackCreate(ObjBindMethod(implObj, "put_KeyContainerName"), flags, 2)
+        this.vtbl.put_KeyBlob := CallbackCreate(ObjBindMethod(implObj, "put_KeyBlob"), flags, 3)
     }
 
     Dispose() {

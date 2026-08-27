@@ -38,7 +38,6 @@ export default struct IUrlMon extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rclsid 
      * @param {PWSTR} pszTYPE 
      * @param {PWSTR} pszExt 
@@ -69,7 +68,7 @@ export default struct IUrlMon extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AsyncGetClassBits := CallbackCreate(GetMethod(implObj, "AsyncGetClassBits"), flags, 11)
+        this.vtbl.AsyncGetClassBits := CallbackCreate(ObjBindMethod(implObj, "AsyncGetClassBits"), flags, 11)
     }
 
     Dispose() {

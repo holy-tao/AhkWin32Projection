@@ -254,18 +254,18 @@ export default struct IX509EnrollmentStatus extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AppendText := CallbackCreate(GetMethod(implObj, "AppendText"), flags, 2)
-        this.vtbl.get_Text := CallbackCreate(GetMethod(implObj, "get_Text"), flags, 2)
-        this.vtbl.put_Text := CallbackCreate(GetMethod(implObj, "put_Text"), flags, 2)
-        this.vtbl.get_Selected := CallbackCreate(GetMethod(implObj, "get_Selected"), flags, 2)
-        this.vtbl.put_Selected := CallbackCreate(GetMethod(implObj, "put_Selected"), flags, 2)
-        this.vtbl.get_Display := CallbackCreate(GetMethod(implObj, "get_Display"), flags, 2)
-        this.vtbl.put_Display := CallbackCreate(GetMethod(implObj, "put_Display"), flags, 2)
-        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
-        this.vtbl.put_Status := CallbackCreate(GetMethod(implObj, "put_Status"), flags, 2)
-        this.vtbl.get_Error := CallbackCreate(GetMethod(implObj, "get_Error"), flags, 2)
-        this.vtbl.put_Error := CallbackCreate(GetMethod(implObj, "put_Error"), flags, 2)
-        this.vtbl.get_ErrorText := CallbackCreate(GetMethod(implObj, "get_ErrorText"), flags, 2)
+        this.vtbl.AppendText := CallbackCreate(ObjBindMethod(implObj, "AppendText"), flags, 2)
+        this.vtbl.get_Text := CallbackCreate(ObjBindMethod(implObj, "get_Text"), flags, 2)
+        this.vtbl.put_Text := CallbackCreate(ObjBindMethod(implObj, "put_Text"), flags, 2)
+        this.vtbl.get_Selected := CallbackCreate(ObjBindMethod(implObj, "get_Selected"), flags, 2)
+        this.vtbl.put_Selected := CallbackCreate(ObjBindMethod(implObj, "put_Selected"), flags, 2)
+        this.vtbl.get_Display := CallbackCreate(ObjBindMethod(implObj, "get_Display"), flags, 2)
+        this.vtbl.put_Display := CallbackCreate(ObjBindMethod(implObj, "put_Display"), flags, 2)
+        this.vtbl.get_Status := CallbackCreate(ObjBindMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.put_Status := CallbackCreate(ObjBindMethod(implObj, "put_Status"), flags, 2)
+        this.vtbl.get_Error := CallbackCreate(ObjBindMethod(implObj, "get_Error"), flags, 2)
+        this.vtbl.put_Error := CallbackCreate(ObjBindMethod(implObj, "put_Error"), flags, 2)
+        this.vtbl.get_ErrorText := CallbackCreate(ObjBindMethod(implObj, "get_ErrorText"), flags, 2)
     }
 
     Dispose() {

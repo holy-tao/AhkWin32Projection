@@ -39,7 +39,6 @@ export default struct IMFMediaEngineClassFactory3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} keySystem 
      * @param {Pointer<IPropertyStore>} ppSupportedConfigurationsArray 
      * @param {Integer} uSize 
@@ -61,7 +60,7 @@ export default struct IMFMediaEngineClassFactory3 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateMediaKeySystemAccess := CallbackCreate(GetMethod(implObj, "CreateMediaKeySystemAccess"), flags, 5)
+        this.vtbl.CreateMediaKeySystemAccess := CallbackCreate(ObjBindMethod(implObj, "CreateMediaKeySystemAccess"), flags, 5)
     }
 
     Dispose() {

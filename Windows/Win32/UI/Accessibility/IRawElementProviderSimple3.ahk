@@ -81,7 +81,7 @@ export default struct IRawElementProviderSimple3 extends IRawElementProviderSimp
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMetadataValue := CallbackCreate(GetMethod(implObj, "GetMetadataValue"), flags, 4)
+        this.vtbl.GetMetadataValue := CallbackCreate(ObjBindMethod(implObj, "GetMetadataValue"), flags, 4)
     }
 
     Dispose() {

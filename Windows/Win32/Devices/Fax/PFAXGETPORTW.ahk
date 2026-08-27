@@ -22,13 +22,12 @@ export default struct PFAXGETPORTW {
     }
 
     /**
-     * 
      * @param {HANDLE} FaxPortHandle 
      * @param {Pointer<Pointer<FAX_PORT_INFOW>>} PortInfo 
      * @returns {BOOL} 
      */
     Call(FaxPortHandle, PortInfo) {
-        PortInfoMarshal := PortInfo is VarRef ? "ptr*" : "ptr"
+        PortInfoMarshal := PortInfo is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, HANDLE, FaxPortHandle, PortInfoMarshal, PortInfo, BOOL)
         return result

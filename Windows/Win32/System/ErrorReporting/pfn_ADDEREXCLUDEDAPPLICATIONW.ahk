@@ -21,7 +21,6 @@ export default struct pfn_ADDEREXCLUDEDAPPLICATIONW {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @returns {EFaultRepRetVal} 
      */

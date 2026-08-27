@@ -20,7 +20,6 @@ export default struct PFND3DKMT_GETSCANLINE {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_GETSCANLINE>} param0 
      * @returns {NTSTATUS} 
      */

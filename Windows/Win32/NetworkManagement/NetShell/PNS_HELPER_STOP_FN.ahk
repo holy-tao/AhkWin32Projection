@@ -18,7 +18,6 @@ export default struct PNS_HELPER_STOP_FN {
     }
 
     /**
-     * 
      * @param {Integer} dwReserved 
      * @returns {Integer} 
      */

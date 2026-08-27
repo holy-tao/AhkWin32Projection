@@ -21,7 +21,6 @@ export default struct PDD_CREATEPALETTE {
     }
 
     /**
-     * 
      * @param {Pointer<DD_CREATEPALETTEDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_createpalettedata">DD_CREATEPALETTEDATA</a> structure that contains the information necessary to create the DirectDrawPalette object.
      * @returns {Integer} <b>DdCreatePalette</b> returns one of the following callback codes:
      */

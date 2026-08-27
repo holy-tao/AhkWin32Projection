@@ -87,8 +87,8 @@ export default struct IInkRecognizer2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
-        this.vtbl.get_UnicodeRanges := CallbackCreate(GetMethod(implObj, "get_UnicodeRanges"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(ObjBindMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.get_UnicodeRanges := CallbackCreate(ObjBindMethod(implObj, "get_UnicodeRanges"), flags, 2)
     }
 
     Dispose() {

@@ -23,7 +23,6 @@ export default struct LPCQADDFORMSPROC {
     }
 
     /**
-     * 
      * @param {LPARAM} _lParam Contains a 32-bit value defined by the query handler. This value is passed to the query form extension as the <i>lParam</i> parameter in the <a href="https://docs.microsoft.com/windows/desktop/api/cmnquery/nf-cmnquery-iqueryform-addforms">IQueryForm::AddForms</a> call.
      * @param {Pointer<CQFORM>} pForm Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cmnquery/ns-cmnquery-cqform">CQFORM</a> structure that defines the form to add.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value that indicates the success, or failure, of the form add operation. The following list lists possible return values.

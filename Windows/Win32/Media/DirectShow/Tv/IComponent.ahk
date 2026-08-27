@@ -208,15 +208,15 @@ export default struct IComponent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
-        this.vtbl.put_Type := CallbackCreate(GetMethod(implObj, "put_Type"), flags, 2)
-        this.vtbl.get_DescLangID := CallbackCreate(GetMethod(implObj, "get_DescLangID"), flags, 2)
-        this.vtbl.put_DescLangID := CallbackCreate(GetMethod(implObj, "put_DescLangID"), flags, 2)
-        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
-        this.vtbl.put_Status := CallbackCreate(GetMethod(implObj, "put_Status"), flags, 2)
-        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
-        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(ObjBindMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.put_Type := CallbackCreate(ObjBindMethod(implObj, "put_Type"), flags, 2)
+        this.vtbl.get_DescLangID := CallbackCreate(ObjBindMethod(implObj, "get_DescLangID"), flags, 2)
+        this.vtbl.put_DescLangID := CallbackCreate(ObjBindMethod(implObj, "put_DescLangID"), flags, 2)
+        this.vtbl.get_Status := CallbackCreate(ObjBindMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.put_Status := CallbackCreate(ObjBindMethod(implObj, "put_Status"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(ObjBindMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(ObjBindMethod(implObj, "put_Description"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
     }
 
     Dispose() {

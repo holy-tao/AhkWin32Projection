@@ -20,7 +20,6 @@ export default struct PFND3DKMT_CHANGESURFACEPOINTER {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CHANGESURFACEPOINTER>} param0 
      * @returns {NTSTATUS} 
      */

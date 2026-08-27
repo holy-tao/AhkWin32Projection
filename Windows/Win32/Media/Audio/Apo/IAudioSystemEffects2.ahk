@@ -53,8 +53,8 @@ export default struct IAudioSystemEffects2 extends IAudioSystemEffects {
      * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudiosystemeffects2-geteffectslist
      */
     GetEffectsList(ppEffectsIds, pcEffects, Event) {
-        ppEffectsIdsMarshal := ppEffectsIds is VarRef ? "ptr*" : "ptr"
-        pcEffectsMarshal := pcEffects is VarRef ? "uint*" : "ptr"
+        ppEffectsIdsMarshal := ppEffectsIds is VarRef ? "ptr*" : IntPtr
+        pcEffectsMarshal := pcEffects is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, ppEffectsIdsMarshal, ppEffectsIds, pcEffectsMarshal, pcEffects, HANDLE, Event, "HRESULT")
         return result
@@ -69,7 +69,7 @@ export default struct IAudioSystemEffects2 extends IAudioSystemEffects {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetEffectsList := CallbackCreate(GetMethod(implObj, "GetEffectsList"), flags, 4)
+        this.vtbl.GetEffectsList := CallbackCreate(ObjBindMethod(implObj, "GetEffectsList"), flags, 4)
     }
 
     Dispose() {

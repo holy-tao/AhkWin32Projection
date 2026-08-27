@@ -24,14 +24,13 @@ export default struct PFNDAVAUTHCALLBACK_FREECRED {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pbuffer A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/davclnt/ns-davclnt-dav_callback_auth_unp">DAV_CALLBACK_AUTH_UNP</a> or <a href="https://docs.microsoft.com/windows/desktop/api/davclnt/ns-davclnt-dav_callback_auth_blob">DAV_CALLBACK_AUTH_BLOB</a>  structure that was used in the <a href="https://docs.microsoft.com/windows/desktop/api/davclnt/nc-davclnt-pfndavauthcallback">DavAuthCallback</a> callback function.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
      */
     Call(pbuffer) {
-        pbufferMarshal := pbuffer is VarRef ? "ptr" : "ptr"
+        pbufferMarshal := pbuffer is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, pbufferMarshal, pbuffer, UInt32)
         return result

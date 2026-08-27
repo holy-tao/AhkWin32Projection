@@ -20,7 +20,6 @@ export default struct PFSCE_FREE_INFO {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvServiceInfo Specifies a pointer to the buffer allocated by the Security Configuration tool set.
      * @returns {Integer} If the function succeeds, it returns SCESTATUS_SUCCESS. Otherwise, an error code is returned. This can be the following.
      * 
@@ -43,7 +42,7 @@ export default struct PFSCE_FREE_INFO {
      * </table>
      */
     Call(pvServiceInfo) {
-        pvServiceInfoMarshal := pvServiceInfo is VarRef ? "ptr" : "ptr"
+        pvServiceInfoMarshal := pvServiceInfo is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, pvServiceInfoMarshal, pvServiceInfo, UInt32)
         return result

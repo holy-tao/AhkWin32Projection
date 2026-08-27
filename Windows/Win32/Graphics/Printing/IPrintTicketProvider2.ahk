@@ -39,7 +39,6 @@ export default struct IPrintTicketProvider2 extends IPrintTicketProvider {
     }
 
     /**
-     * 
      * @param {IXMLDOMDocument2} pPrintTicket 
      * @returns {IXMLDOMDocument2} 
      */
@@ -49,7 +48,6 @@ export default struct IPrintTicketProvider2 extends IPrintTicketProvider {
     }
 
     /**
-     * 
      * @param {PWSTR} pszLocaleName 
      * @param {IXMLDOMDocument2} pPrintTicket 
      * @returns {IXMLDOMDocument2} 
@@ -70,8 +68,8 @@ export default struct IPrintTicketProvider2 extends IPrintTicketProvider {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPrintDeviceCapabilities := CallbackCreate(GetMethod(implObj, "GetPrintDeviceCapabilities"), flags, 3)
-        this.vtbl.GetPrintDeviceResources := CallbackCreate(GetMethod(implObj, "GetPrintDeviceResources"), flags, 4)
+        this.vtbl.GetPrintDeviceCapabilities := CallbackCreate(ObjBindMethod(implObj, "GetPrintDeviceCapabilities"), flags, 3)
+        this.vtbl.GetPrintDeviceResources := CallbackCreate(ObjBindMethod(implObj, "GetPrintDeviceResources"), flags, 4)
     }
 
     Dispose() {

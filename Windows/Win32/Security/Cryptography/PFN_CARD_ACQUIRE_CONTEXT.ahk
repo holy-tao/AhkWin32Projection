@@ -19,7 +19,6 @@ export default struct PFN_CARD_ACQUIRE_CONTEXT {
     }
 
     /**
-     * 
      * @param {Pointer<CARD_DATA>} pCardData 
      * @param {Integer} dwFlags 
      * @returns {Integer} 

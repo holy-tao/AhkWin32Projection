@@ -18,7 +18,6 @@ export default struct JsNativeFunction {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} callee 
      * @param {Boolean} isConstructCall 
      * @param {Pointer<Pointer<Void>>} arguments 
@@ -27,9 +26,10 @@ export default struct JsNativeFunction {
      * @returns {Pointer<Void>} 
      */
     Call(callee, isConstructCall, arguments, argumentCount, callbackState) {
-        calleeMarshal := callee is VarRef ? "ptr" : "ptr"
-        argumentsMarshal := arguments is VarRef ? "ptr*" : "ptr"
-        callbackStateMarshal := callbackState is VarRef ? "ptr" : "ptr"
+        calleeMarshal := callee is VarRef ? "ptr" : IntPtr
+        argumentsMarshal := arguments is VarRef ? "ptr*" : IntPtr
+        callbackStateMarshal := callbackState is VarRef ? "ptr" : IntPtr
+        callbackStateMarshal := callbackState == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, calleeMarshal, callee, Int32, isConstructCall, argumentsMarshal, arguments, UInt16, argumentCount, callbackStateMarshal, callbackState, IntPtr)
         return result

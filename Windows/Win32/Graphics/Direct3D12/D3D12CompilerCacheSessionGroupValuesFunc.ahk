@@ -19,14 +19,14 @@ export default struct D3D12CompilerCacheSessionGroupValuesFunc {
     }
 
     /**
-     * 
      * @param {Integer} ValueKeyIndex 
      * @param {Pointer<D3D12_COMPILER_CACHE_TYPED_CONST_VALUE>} pTypedValue 
      * @param {Pointer<Void>} pContext 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(ValueKeyIndex, pTypedValue, pContext) {
-        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+        pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
+        pContextMarshal := pContext == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, UInt32, ValueKeyIndex, D3D12_COMPILER_CACHE_TYPED_CONST_VALUE.Ptr, pTypedValue, pContextMarshal, pContext)
     }

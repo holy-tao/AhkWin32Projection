@@ -70,7 +70,6 @@ export default struct IRTCRoamingEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {RTC_ROAMING_EVENT_TYPE} 
      */
     get_EventType() {
@@ -79,7 +78,6 @@ export default struct IRTCRoamingEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCProfile2} 
      */
     get_Profile() {
@@ -88,7 +86,6 @@ export default struct IRTCRoamingEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_StatusCode() {
@@ -97,7 +94,6 @@ export default struct IRTCRoamingEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_StatusText() {
@@ -115,10 +111,10 @@ export default struct IRTCRoamingEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_EventType := CallbackCreate(GetMethod(implObj, "get_EventType"), flags, 2)
-        this.vtbl.get_Profile := CallbackCreate(GetMethod(implObj, "get_Profile"), flags, 2)
-        this.vtbl.get_StatusCode := CallbackCreate(GetMethod(implObj, "get_StatusCode"), flags, 2)
-        this.vtbl.get_StatusText := CallbackCreate(GetMethod(implObj, "get_StatusText"), flags, 2)
+        this.vtbl.get_EventType := CallbackCreate(ObjBindMethod(implObj, "get_EventType"), flags, 2)
+        this.vtbl.get_Profile := CallbackCreate(ObjBindMethod(implObj, "get_Profile"), flags, 2)
+        this.vtbl.get_StatusCode := CallbackCreate(ObjBindMethod(implObj, "get_StatusCode"), flags, 2)
+        this.vtbl.get_StatusText := CallbackCreate(ObjBindMethod(implObj, "get_StatusText"), flags, 2)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct PCANCEL_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Resource The resource ID of the resource.
      * @param {Integer} CancelFlags_RESERVED Reserved.
      * @returns {Integer} <table>
@@ -54,7 +53,7 @@ export default struct PCANCEL_ROUTINE {
      * </table>
      */
     Call(Resource, CancelFlags_RESERVED) {
-        ResourceMarshal := Resource is VarRef ? "ptr" : "ptr"
+        ResourceMarshal := Resource is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, ResourceMarshal, Resource, UInt32, CancelFlags_RESERVED, UInt32)
         return result

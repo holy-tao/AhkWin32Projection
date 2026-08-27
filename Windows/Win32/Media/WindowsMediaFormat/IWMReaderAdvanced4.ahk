@@ -92,7 +92,7 @@ export default struct IWMReaderAdvanced4 extends IWMReaderAdvanced3 {
     GetLanguage(dwOutputNum, wLanguage, pwszLanguageString, pcchLanguageStringLength) {
         pwszLanguageString := pwszLanguageString is String ? StrPtr(pwszLanguageString) : pwszLanguageString
 
-        pcchLanguageStringLengthMarshal := pcchLanguageStringLength is VarRef ? "ushort*" : "ptr"
+        pcchLanguageStringLengthMarshal := pcchLanguageStringLength is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(41, this, UInt32, dwOutputNum, UInt16, wLanguage, "ptr", pwszLanguageString, pcchLanguageStringLengthMarshal, pcchLanguageStringLength, "HRESULT")
         return result
@@ -299,7 +299,7 @@ export default struct IWMReaderAdvanced4 extends IWMReaderAdvanced3 {
     GetURL(pwszURL, pcchURL) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        pcchURLMarshal := pcchURL is VarRef ? "uint*" : "ptr"
+        pcchURLMarshal := pcchURL is VarRef ? "uint*" : IntPtr
 
         result := ComCall(48, this, "ptr", pwszURL, pcchURLMarshal, pcchURL, "HRESULT")
         return result
@@ -314,15 +314,15 @@ export default struct IWMReaderAdvanced4 extends IWMReaderAdvanced3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLanguageCount := CallbackCreate(GetMethod(implObj, "GetLanguageCount"), flags, 3)
-        this.vtbl.GetLanguage := CallbackCreate(GetMethod(implObj, "GetLanguage"), flags, 5)
-        this.vtbl.GetMaxSpeedFactor := CallbackCreate(GetMethod(implObj, "GetMaxSpeedFactor"), flags, 2)
-        this.vtbl.IsUsingFastCache := CallbackCreate(GetMethod(implObj, "IsUsingFastCache"), flags, 2)
-        this.vtbl.AddLogParam := CallbackCreate(GetMethod(implObj, "AddLogParam"), flags, 4)
-        this.vtbl.SendLogParams := CallbackCreate(GetMethod(implObj, "SendLogParams"), flags, 1)
-        this.vtbl.CanSaveFileAs := CallbackCreate(GetMethod(implObj, "CanSaveFileAs"), flags, 2)
-        this.vtbl.CancelSaveFileAs := CallbackCreate(GetMethod(implObj, "CancelSaveFileAs"), flags, 1)
-        this.vtbl.GetURL := CallbackCreate(GetMethod(implObj, "GetURL"), flags, 3)
+        this.vtbl.GetLanguageCount := CallbackCreate(ObjBindMethod(implObj, "GetLanguageCount"), flags, 3)
+        this.vtbl.GetLanguage := CallbackCreate(ObjBindMethod(implObj, "GetLanguage"), flags, 5)
+        this.vtbl.GetMaxSpeedFactor := CallbackCreate(ObjBindMethod(implObj, "GetMaxSpeedFactor"), flags, 2)
+        this.vtbl.IsUsingFastCache := CallbackCreate(ObjBindMethod(implObj, "IsUsingFastCache"), flags, 2)
+        this.vtbl.AddLogParam := CallbackCreate(ObjBindMethod(implObj, "AddLogParam"), flags, 4)
+        this.vtbl.SendLogParams := CallbackCreate(ObjBindMethod(implObj, "SendLogParams"), flags, 1)
+        this.vtbl.CanSaveFileAs := CallbackCreate(ObjBindMethod(implObj, "CanSaveFileAs"), flags, 2)
+        this.vtbl.CancelSaveFileAs := CallbackCreate(ObjBindMethod(implObj, "CancelSaveFileAs"), flags, 1)
+        this.vtbl.GetURL := CallbackCreate(ObjBindMethod(implObj, "GetURL"), flags, 3)
     }
 
     Dispose() {

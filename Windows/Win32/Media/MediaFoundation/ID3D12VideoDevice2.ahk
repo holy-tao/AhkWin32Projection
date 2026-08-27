@@ -59,7 +59,9 @@ export default struct ID3D12VideoDevice2 extends ID3D12VideoDevice1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice2-createvideodecoder1
      */
     CreateVideoDecoder1(pDesc, pProtectedResourceSession, riid) {
-        result := ComCall(9, this, D3D12_VIDEO_DECODER_DESC.Ptr, pDesc, "ptr", pProtectedResourceSession, Guid.Ptr, riid, "ptr*", &ppVideoDecoder := 0, "HRESULT")
+        pProtectedResourceSessionMarshal := pProtectedResourceSession == 0 ? IntPtr : "ptr"
+
+        result := ComCall(9, this, D3D12_VIDEO_DECODER_DESC.Ptr, pDesc, pProtectedResourceSessionMarshal, pProtectedResourceSession, Guid.Ptr, riid, "ptr*", &ppVideoDecoder := 0, "HRESULT")
         return ppVideoDecoder
     }
 
@@ -72,7 +74,9 @@ export default struct ID3D12VideoDevice2 extends ID3D12VideoDevice1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice2-createvideodecoderheap1
      */
     CreateVideoDecoderHeap1(pVideoDecoderHeapDesc, pProtectedResourceSession, riid) {
-        result := ComCall(10, this, D3D12_VIDEO_DECODER_HEAP_DESC.Ptr, pVideoDecoderHeapDesc, "ptr", pProtectedResourceSession, Guid.Ptr, riid, "ptr*", &ppVideoDecoderHeap := 0, "HRESULT")
+        pProtectedResourceSessionMarshal := pProtectedResourceSession == 0 ? IntPtr : "ptr"
+
+        result := ComCall(10, this, D3D12_VIDEO_DECODER_HEAP_DESC.Ptr, pVideoDecoderHeapDesc, pProtectedResourceSessionMarshal, pProtectedResourceSession, Guid.Ptr, riid, "ptr*", &ppVideoDecoderHeap := 0, "HRESULT")
         return ppVideoDecoderHeap
     }
 
@@ -90,7 +94,9 @@ export default struct ID3D12VideoDevice2 extends ID3D12VideoDevice1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice2-createvideoprocessor1
      */
     CreateVideoProcessor1(NodeMask, pOutputStreamDesc, NumInputStreamDescs, pInputStreamDescs, pProtectedResourceSession, riid) {
-        result := ComCall(11, this, UInt32, NodeMask, D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC.Ptr, pOutputStreamDesc, UInt32, NumInputStreamDescs, D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC.Ptr, pInputStreamDescs, "ptr", pProtectedResourceSession, Guid.Ptr, riid, "ptr*", &ppVideoProcessor := 0, "HRESULT")
+        pProtectedResourceSessionMarshal := pProtectedResourceSession == 0 ? IntPtr : "ptr"
+
+        result := ComCall(11, this, UInt32, NodeMask, D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC.Ptr, pOutputStreamDesc, UInt32, NumInputStreamDescs, D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC.Ptr, pInputStreamDescs, pProtectedResourceSessionMarshal, pProtectedResourceSession, Guid.Ptr, riid, "ptr*", &ppVideoProcessor := 0, "HRESULT")
         return ppVideoProcessor
     }
 
@@ -105,7 +111,9 @@ export default struct ID3D12VideoDevice2 extends ID3D12VideoDevice1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice2-createvideoextensioncommand
      */
     CreateVideoExtensionCommand(pDesc, pCreationParameters, CreationParametersDataSizeInBytes, pProtectedResourceSession, riid) {
-        result := ComCall(12, this, D3D12_VIDEO_EXTENSION_COMMAND_DESC.Ptr, pDesc, IntPtr, pCreationParameters, IntPtr, CreationParametersDataSizeInBytes, "ptr", pProtectedResourceSession, Guid.Ptr, riid, "ptr*", &ppVideoExtensionCommand := 0, "HRESULT")
+        pProtectedResourceSessionMarshal := pProtectedResourceSession == 0 ? IntPtr : "ptr"
+
+        result := ComCall(12, this, D3D12_VIDEO_EXTENSION_COMMAND_DESC.Ptr, pDesc, IntPtr, pCreationParameters, IntPtr, CreationParametersDataSizeInBytes, pProtectedResourceSessionMarshal, pProtectedResourceSession, Guid.Ptr, riid, "ptr*", &ppVideoExtensionCommand := 0, "HRESULT")
         return ppVideoExtensionCommand
     }
 
@@ -139,11 +147,11 @@ export default struct ID3D12VideoDevice2 extends ID3D12VideoDevice1 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateVideoDecoder1 := CallbackCreate(GetMethod(implObj, "CreateVideoDecoder1"), flags, 5)
-        this.vtbl.CreateVideoDecoderHeap1 := CallbackCreate(GetMethod(implObj, "CreateVideoDecoderHeap1"), flags, 5)
-        this.vtbl.CreateVideoProcessor1 := CallbackCreate(GetMethod(implObj, "CreateVideoProcessor1"), flags, 8)
-        this.vtbl.CreateVideoExtensionCommand := CallbackCreate(GetMethod(implObj, "CreateVideoExtensionCommand"), flags, 7)
-        this.vtbl.ExecuteExtensionCommand := CallbackCreate(GetMethod(implObj, "ExecuteExtensionCommand"), flags, 6)
+        this.vtbl.CreateVideoDecoder1 := CallbackCreate(ObjBindMethod(implObj, "CreateVideoDecoder1"), flags, 5)
+        this.vtbl.CreateVideoDecoderHeap1 := CallbackCreate(ObjBindMethod(implObj, "CreateVideoDecoderHeap1"), flags, 5)
+        this.vtbl.CreateVideoProcessor1 := CallbackCreate(ObjBindMethod(implObj, "CreateVideoProcessor1"), flags, 8)
+        this.vtbl.CreateVideoExtensionCommand := CallbackCreate(ObjBindMethod(implObj, "CreateVideoExtensionCommand"), flags, 7)
+        this.vtbl.ExecuteExtensionCommand := CallbackCreate(ObjBindMethod(implObj, "ExecuteExtensionCommand"), flags, 6)
     }
 
     Dispose() {

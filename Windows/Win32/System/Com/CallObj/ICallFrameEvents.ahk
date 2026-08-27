@@ -91,7 +91,7 @@ export default struct ICallFrameEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnCall := CallbackCreate(GetMethod(implObj, "OnCall"), flags, 2)
+        this.vtbl.OnCall := CallbackCreate(ObjBindMethod(implObj, "OnCall"), flags, 2)
     }
 
     Dispose() {

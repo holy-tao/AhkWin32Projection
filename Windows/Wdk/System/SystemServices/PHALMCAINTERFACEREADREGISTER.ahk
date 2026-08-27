@@ -19,13 +19,12 @@ export default struct PHALMCAINTERFACEREADREGISTER {
     }
 
     /**
-     * 
      * @param {Integer} BankNumber 
      * @param {Pointer<Void>} Exception 
      * @returns {NTSTATUS} 
      */
     Call(BankNumber, Exception) {
-        ExceptionMarshal := Exception is VarRef ? "ptr" : "ptr"
+        ExceptionMarshal := Exception is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, Int8, BankNumber, ExceptionMarshal, Exception, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

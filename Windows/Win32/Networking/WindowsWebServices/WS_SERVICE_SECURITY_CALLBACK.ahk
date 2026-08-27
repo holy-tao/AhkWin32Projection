@@ -24,14 +24,14 @@ export default struct WS_SERVICE_SECURITY_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<WS_OPERATION_CONTEXT>} _context The incoming message with headers only.
      * @param {Pointer<WS_ERROR>} _error Specifies where additional error information should be stored if the function fails.
      * @returns {BOOL} Set to <b>TRUE</b>, if authorization succeeded, <b>FALSE</b> if authorization failed.
      */
     Call(_context, _error) {
-        _contextMarshal := _context is VarRef ? "ptr*" : "ptr"
-        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr*" : IntPtr
+        _errorMarshal := _error is VarRef ? "ptr*" : IntPtr
+        _errorMarshal := _error == 0 ? IntPtr : WS_ERROR.Ptr
 
         result := DllCall(this.value, _contextMarshal, _context, BOOL.Ptr, &authorized := 0, _errorMarshal, _error, "HRESULT")
         return authorized

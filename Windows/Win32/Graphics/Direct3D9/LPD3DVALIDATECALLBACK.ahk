@@ -19,13 +19,12 @@ export default struct LPD3DVALIDATECALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} lpUserArg 
      * @param {Integer} dwOffset 
      * @returns {HRESULT} 
      */
     Call(lpUserArg, dwOffset) {
-        lpUserArgMarshal := lpUserArg is VarRef ? "ptr" : "ptr"
+        lpUserArgMarshal := lpUserArg is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, lpUserArgMarshal, lpUserArg, UInt32, dwOffset, "HRESULT")
         return result

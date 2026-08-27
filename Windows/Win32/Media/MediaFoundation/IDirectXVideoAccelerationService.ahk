@@ -66,7 +66,9 @@ export default struct IDirectXVideoAccelerationService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideoaccelerationservice-createsurface
      */
     CreateSurface(Width, Height, BackBuffers, Format, Pool, Usage, DxvaType, pSharedHandle) {
-        result := ComCall(3, this, UInt32, Width, UInt32, Height, UInt32, BackBuffers, D3DFORMAT, Format, D3DPOOL, Pool, UInt32, Usage, UInt32, DxvaType, "ptr*", &ppSurface := 0, HANDLE.Ptr, pSharedHandle, "HRESULT")
+        pSharedHandleMarshal := pSharedHandle == 0 ? IntPtr : HANDLE.Ptr
+
+        result := ComCall(3, this, UInt32, Width, UInt32, Height, UInt32, BackBuffers, D3DFORMAT, Format, D3DPOOL, Pool, UInt32, Usage, UInt32, DxvaType, "ptr*", &ppSurface := 0, pSharedHandleMarshal, pSharedHandle, "HRESULT")
         return IDirect3DSurface9(ppSurface)
     }
 
@@ -79,7 +81,7 @@ export default struct IDirectXVideoAccelerationService extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateSurface := CallbackCreate(GetMethod(implObj, "CreateSurface"), flags, 10)
+        this.vtbl.CreateSurface := CallbackCreate(ObjBindMethod(implObj, "CreateSurface"), flags, 10)
     }
 
     Dispose() {

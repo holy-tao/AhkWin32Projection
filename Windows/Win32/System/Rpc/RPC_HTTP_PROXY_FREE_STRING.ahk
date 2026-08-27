@@ -19,7 +19,6 @@ export default struct RPC_HTTP_PROXY_FREE_STRING {
     }
 
     /**
-     * 
      * @param {PWSTR} _String 
      * @returns {String} Nothing - always returns an empty string
      */

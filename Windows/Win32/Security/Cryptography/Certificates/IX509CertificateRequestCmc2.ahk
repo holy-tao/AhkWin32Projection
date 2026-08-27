@@ -125,7 +125,10 @@ export default struct IX509CertificateRequestCmc2 extends IX509CertificateReques
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc2-initializefromtemplate
      */
     InitializeFromTemplate(_context, pPolicyServer, pTemplate) {
-        result := ComCall(63, this, X509CertificateEnrollmentContext, _context, "ptr", pPolicyServer, "ptr", pTemplate, "HRESULT")
+        pPolicyServerMarshal := pPolicyServer == 0 ? IntPtr : "ptr"
+        pTemplateMarshal := pTemplate == 0 ? IntPtr : "ptr"
+
+        result := ComCall(63, this, X509CertificateEnrollmentContext, _context, pPolicyServerMarshal, pPolicyServer, pTemplateMarshal, pTemplate, "HRESULT")
         return result
     }
 
@@ -197,7 +200,11 @@ export default struct IX509CertificateRequestCmc2 extends IX509CertificateReques
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc2-initializefrominnerrequesttemplate
      */
     InitializeFromInnerRequestTemplate(pInnerRequest, pPolicyServer, pTemplate) {
-        result := ComCall(64, this, "ptr", pInnerRequest, "ptr", pPolicyServer, "ptr", pTemplate, "HRESULT")
+        pInnerRequestMarshal := pInnerRequest == 0 ? IntPtr : "ptr"
+        pPolicyServerMarshal := pPolicyServer == 0 ? IntPtr : "ptr"
+        pTemplateMarshal := pTemplate == 0 ? IntPtr : "ptr"
+
+        result := ComCall(64, this, pInnerRequestMarshal, pInnerRequest, pPolicyServerMarshal, pPolicyServer, pTemplateMarshal, pTemplate, "HRESULT")
         return result
     }
 
@@ -316,7 +323,9 @@ export default struct IX509CertificateRequestCmc2 extends IX509CertificateReques
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc2-checkcertificatesignature
      */
     CheckCertificateSignature(pSignerCertificate, ValidateCertificateChain) {
-        result := ComCall(68, this, "ptr", pSignerCertificate, VARIANT_BOOL, ValidateCertificateChain, "HRESULT")
+        pSignerCertificateMarshal := pSignerCertificate == 0 ? IntPtr : "ptr"
+
+        result := ComCall(68, this, pSignerCertificateMarshal, pSignerCertificate, VARIANT_BOOL, ValidateCertificateChain, "HRESULT")
         return result
     }
 
@@ -329,12 +338,12 @@ export default struct IX509CertificateRequestCmc2 extends IX509CertificateReques
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeFromTemplate := CallbackCreate(GetMethod(implObj, "InitializeFromTemplate"), flags, 4)
-        this.vtbl.InitializeFromInnerRequestTemplate := CallbackCreate(GetMethod(implObj, "InitializeFromInnerRequestTemplate"), flags, 4)
-        this.vtbl.get_PolicyServer := CallbackCreate(GetMethod(implObj, "get_PolicyServer"), flags, 2)
-        this.vtbl.get_Template := CallbackCreate(GetMethod(implObj, "get_Template"), flags, 2)
-        this.vtbl.CheckSignature := CallbackCreate(GetMethod(implObj, "CheckSignature"), flags, 2)
-        this.vtbl.CheckCertificateSignature := CallbackCreate(GetMethod(implObj, "CheckCertificateSignature"), flags, 3)
+        this.vtbl.InitializeFromTemplate := CallbackCreate(ObjBindMethod(implObj, "InitializeFromTemplate"), flags, 4)
+        this.vtbl.InitializeFromInnerRequestTemplate := CallbackCreate(ObjBindMethod(implObj, "InitializeFromInnerRequestTemplate"), flags, 4)
+        this.vtbl.get_PolicyServer := CallbackCreate(ObjBindMethod(implObj, "get_PolicyServer"), flags, 2)
+        this.vtbl.get_Template := CallbackCreate(ObjBindMethod(implObj, "get_Template"), flags, 2)
+        this.vtbl.CheckSignature := CallbackCreate(ObjBindMethod(implObj, "CheckSignature"), flags, 2)
+        this.vtbl.CheckCertificateSignature := CallbackCreate(ObjBindMethod(implObj, "CheckCertificateSignature"), flags, 3)
     }
 
     Dispose() {

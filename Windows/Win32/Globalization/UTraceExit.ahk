@@ -19,7 +19,6 @@ export default struct UTraceExit {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {Integer} fnNumber 
      * @param {PSTR} fmt 
@@ -29,8 +28,8 @@ export default struct UTraceExit {
     Call(_context, fnNumber, fmt, args) {
         fmt := fmt is String ? StrPtr(fmt) : fmt
 
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
-        argsMarshal := args is VarRef ? "char*" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+        argsMarshal := args is VarRef ? "char*" : IntPtr
 
         DllCall(this.value, _contextMarshal, _context, Int32, fnNumber, "ptr", fmt, argsMarshal, args)
     }

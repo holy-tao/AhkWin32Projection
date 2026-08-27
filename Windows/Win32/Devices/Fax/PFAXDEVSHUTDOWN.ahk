@@ -19,7 +19,6 @@ export default struct PFAXDEVSHUTDOWN {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Call() {

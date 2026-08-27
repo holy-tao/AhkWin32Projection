@@ -20,7 +20,6 @@ export default struct NCryptFreeProviderFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} _hProvider 
      * @returns {HRESULT} 
      */

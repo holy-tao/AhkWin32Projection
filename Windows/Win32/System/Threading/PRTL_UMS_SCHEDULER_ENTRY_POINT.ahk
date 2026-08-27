@@ -19,14 +19,13 @@ export default struct PRTL_UMS_SCHEDULER_ENTRY_POINT {
     }
 
     /**
-     * 
      * @param {RTL_UMS_SCHEDULER_REASON} Reason 
      * @param {Pointer} ActivationPayload 
      * @param {Pointer<Void>} SchedulerParam 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(Reason, ActivationPayload, SchedulerParam) {
-        SchedulerParamMarshal := SchedulerParam is VarRef ? "ptr" : "ptr"
+        SchedulerParamMarshal := SchedulerParam is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, RTL_UMS_SCHEDULER_REASON, Reason, IntPtr, ActivationPayload, SchedulerParamMarshal, SchedulerParam)
     }

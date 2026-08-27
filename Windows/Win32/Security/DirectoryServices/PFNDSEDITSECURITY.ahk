@@ -24,7 +24,6 @@ export default struct PFNDSEDITSECURITY {
     }
 
     /**
-     * 
      * @param {HWND} param0 
      * @param {PWSTR} param1 
      * @param {PWSTR} param2 

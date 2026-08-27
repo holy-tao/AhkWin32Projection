@@ -111,9 +111,9 @@ export default struct IBDA_GuideDataDeliveryService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_guidedatadeliveryservice-getguidedata
      */
     GetGuideData(pulcbBufferLen, pbBuffer, pulGuideDataPercentageProgress) {
-        pulcbBufferLenMarshal := pulcbBufferLen is VarRef ? "uint*" : "ptr"
-        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
-        pulGuideDataPercentageProgressMarshal := pulGuideDataPercentageProgress is VarRef ? "uint*" : "ptr"
+        pulcbBufferLenMarshal := pulcbBufferLen is VarRef ? "uint*" : IntPtr
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : IntPtr
+        pulGuideDataPercentageProgressMarshal := pulGuideDataPercentageProgress is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pulcbBufferLenMarshal, pulcbBufferLen, pbBufferMarshal, pbBuffer, pulGuideDataPercentageProgressMarshal, pulGuideDataPercentageProgress, "HRESULT")
         return result
@@ -148,7 +148,7 @@ export default struct IBDA_GuideDataDeliveryService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_guidedatadeliveryservice-getservices
      */
     GetServices(pulcbBufferLen) {
-        pulcbBufferLenMarshal := pulcbBufferLen is VarRef ? "uint*" : "ptr"
+        pulcbBufferLenMarshal := pulcbBufferLen is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, pulcbBufferLenMarshal, pulcbBufferLen, "char*", &pbBuffer := 0, "HRESULT")
         return pbBuffer
@@ -177,12 +177,12 @@ export default struct IBDA_GuideDataDeliveryService extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetGuideDataType := CallbackCreate(GetMethod(implObj, "GetGuideDataType"), flags, 2)
-        this.vtbl.GetGuideData := CallbackCreate(GetMethod(implObj, "GetGuideData"), flags, 4)
-        this.vtbl.RequestGuideDataUpdate := CallbackCreate(GetMethod(implObj, "RequestGuideDataUpdate"), flags, 1)
-        this.vtbl.GetTuneXmlFromServiceIdx := CallbackCreate(GetMethod(implObj, "GetTuneXmlFromServiceIdx"), flags, 3)
-        this.vtbl.GetServices := CallbackCreate(GetMethod(implObj, "GetServices"), flags, 3)
-        this.vtbl.GetServiceInfoFromTuneXml := CallbackCreate(GetMethod(implObj, "GetServiceInfoFromTuneXml"), flags, 3)
+        this.vtbl.GetGuideDataType := CallbackCreate(ObjBindMethod(implObj, "GetGuideDataType"), flags, 2)
+        this.vtbl.GetGuideData := CallbackCreate(ObjBindMethod(implObj, "GetGuideData"), flags, 4)
+        this.vtbl.RequestGuideDataUpdate := CallbackCreate(ObjBindMethod(implObj, "RequestGuideDataUpdate"), flags, 1)
+        this.vtbl.GetTuneXmlFromServiceIdx := CallbackCreate(ObjBindMethod(implObj, "GetTuneXmlFromServiceIdx"), flags, 3)
+        this.vtbl.GetServices := CallbackCreate(ObjBindMethod(implObj, "GetServices"), flags, 3)
+        this.vtbl.GetServiceInfoFromTuneXml := CallbackCreate(ObjBindMethod(implObj, "GetServiceInfoFromTuneXml"), flags, 3)
     }
 
     Dispose() {

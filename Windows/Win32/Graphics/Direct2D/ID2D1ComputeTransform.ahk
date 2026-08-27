@@ -81,9 +81,9 @@ export default struct ID2D1ComputeTransform extends ID2D1Transform {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1computetransform-calculatethreadgroups
      */
     CalculateThreadgroups(outputRect, dimensionX, dimensionY, dimensionZ) {
-        dimensionXMarshal := dimensionX is VarRef ? "uint*" : "ptr"
-        dimensionYMarshal := dimensionY is VarRef ? "uint*" : "ptr"
-        dimensionZMarshal := dimensionZ is VarRef ? "uint*" : "ptr"
+        dimensionXMarshal := dimensionX is VarRef ? "uint*" : IntPtr
+        dimensionYMarshal := dimensionY is VarRef ? "uint*" : IntPtr
+        dimensionZMarshal := dimensionZ is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, RECT.Ptr, outputRect, dimensionXMarshal, dimensionX, dimensionYMarshal, dimensionY, dimensionZMarshal, dimensionZ, "HRESULT")
         return result
@@ -98,8 +98,8 @@ export default struct ID2D1ComputeTransform extends ID2D1Transform {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetComputeInfo := CallbackCreate(GetMethod(implObj, "SetComputeInfo"), flags, 2)
-        this.vtbl.CalculateThreadgroups := CallbackCreate(GetMethod(implObj, "CalculateThreadgroups"), flags, 5)
+        this.vtbl.SetComputeInfo := CallbackCreate(ObjBindMethod(implObj, "SetComputeInfo"), flags, 2)
+        this.vtbl.CalculateThreadgroups := CallbackCreate(ObjBindMethod(implObj, "CalculateThreadgroups"), flags, 5)
     }
 
     Dispose() {

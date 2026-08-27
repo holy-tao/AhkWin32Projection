@@ -40,7 +40,6 @@ export default struct IDebugExpressionContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pstrCode 
      * @param {Integer} nRadix 
      * @param {PWSTR} pstrDelimiter 
@@ -56,7 +55,6 @@ export default struct IDebugExpressionContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrLanguageName 
      * @param {Pointer<Guid>} pLanguageID 
      * @returns {HRESULT} 
@@ -75,8 +73,8 @@ export default struct IDebugExpressionContext extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ParseLanguageText := CallbackCreate(GetMethod(implObj, "ParseLanguageText"), flags, 6)
-        this.vtbl.GetLanguageInfo := CallbackCreate(GetMethod(implObj, "GetLanguageInfo"), flags, 3)
+        this.vtbl.ParseLanguageText := CallbackCreate(ObjBindMethod(implObj, "ParseLanguageText"), flags, 6)
+        this.vtbl.GetLanguageInfo := CallbackCreate(ObjBindMethod(implObj, "GetLanguageInfo"), flags, 3)
     }
 
     Dispose() {

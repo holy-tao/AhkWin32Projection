@@ -65,7 +65,7 @@ export default struct IWICImagingFactory2 extends IWICImagingFactory {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateImageEncoder := CallbackCreate(GetMethod(implObj, "CreateImageEncoder"), flags, 3)
+        this.vtbl.CreateImageEncoder := CallbackCreate(ObjBindMethod(implObj, "CreateImageEncoder"), flags, 3)
     }
 
     Dispose() {

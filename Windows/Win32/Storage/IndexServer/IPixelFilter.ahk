@@ -39,7 +39,6 @@ export default struct IPixelFilter extends IFilter {
     }
 
     /**
-     * 
      * @returns {IMAGE_INFO} 
      */
     GetImageInfo() {
@@ -49,7 +48,6 @@ export default struct IPixelFilter extends IFilter {
     }
 
     /**
-     * 
      * @param {Float} scalingFactor 
      * @param {Pointer<RECT>} sourceRect 
      * @param {Integer} pixelBufferSize 
@@ -69,8 +67,8 @@ export default struct IPixelFilter extends IFilter {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetImageInfo := CallbackCreate(GetMethod(implObj, "GetImageInfo"), flags, 2)
-        this.vtbl.GetPixelsForImage := CallbackCreate(GetMethod(implObj, "GetPixelsForImage"), flags, 5)
+        this.vtbl.GetImageInfo := CallbackCreate(ObjBindMethod(implObj, "GetImageInfo"), flags, 2)
+        this.vtbl.GetPixelsForImage := CallbackCreate(ObjBindMethod(implObj, "GetPixelsForImage"), flags, 5)
     }
 
     Dispose() {

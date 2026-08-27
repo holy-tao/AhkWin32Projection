@@ -46,21 +46,19 @@ export default struct IPMExtensionFileSavePickerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcTypes 
      * @param {Pointer<Pointer<BSTR>>} ppTypes 
      * @returns {HRESULT} 
      */
     get_AllFileTypes(pcTypes, ppTypes) {
-        pcTypesMarshal := pcTypes is VarRef ? "uint*" : "ptr"
-        ppTypesMarshal := ppTypes is VarRef ? "ptr*" : "ptr"
+        pcTypesMarshal := pcTypes is VarRef ? "uint*" : IntPtr
+        ppTypesMarshal := ppTypes is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, pcTypesMarshal, pcTypes, ppTypesMarshal, ppTypes, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_SupportsAllFileTypes() {
@@ -77,8 +75,8 @@ export default struct IPMExtensionFileSavePickerInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_AllFileTypes := CallbackCreate(GetMethod(implObj, "get_AllFileTypes"), flags, 3)
-        this.vtbl.get_SupportsAllFileTypes := CallbackCreate(GetMethod(implObj, "get_SupportsAllFileTypes"), flags, 2)
+        this.vtbl.get_AllFileTypes := CallbackCreate(ObjBindMethod(implObj, "get_AllFileTypes"), flags, 3)
+        this.vtbl.get_SupportsAllFileTypes := CallbackCreate(ObjBindMethod(implObj, "get_SupportsAllFileTypes"), flags, 2)
     }
 
     Dispose() {

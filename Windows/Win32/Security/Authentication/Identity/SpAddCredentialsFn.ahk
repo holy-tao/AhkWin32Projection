@@ -28,7 +28,6 @@ export default struct SpAddCredentialsFn {
     }
 
     /**
-     * 
      * @param {Pointer} CredentialHandle A handle to the credential to add.
      * @param {Pointer<LSA_UNICODE_STRING>} PrincipalName Optional. Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> structure containing the name of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security principal</a> whose credentials are being added.
@@ -74,12 +73,13 @@ export default struct SpAddCredentialsFn {
      * If the function fails, return an <b>NTSTATUS</b> code that indicates the reason it failed.
      */
     Call(CredentialHandle, PrincipalName, Package, CredentialUseFlags, AuthorizationData, GetKeyFunciton, GetKeyArgument, ExpirationTime) {
-        AuthorizationDataMarshal := AuthorizationData is VarRef ? "ptr" : "ptr"
-        GetKeyFuncitonMarshal := GetKeyFunciton is VarRef ? "ptr" : "ptr"
-        GetKeyArgumentMarshal := GetKeyArgument is VarRef ? "ptr" : "ptr"
-        ExpirationTimeMarshal := ExpirationTime is VarRef ? "int64*" : "ptr"
+        PrincipalNameMarshal := PrincipalName == 0 ? IntPtr : LSA_UNICODE_STRING.Ptr
+        AuthorizationDataMarshal := AuthorizationData is VarRef ? "ptr" : IntPtr
+        GetKeyFuncitonMarshal := GetKeyFunciton is VarRef ? "ptr" : IntPtr
+        GetKeyArgumentMarshal := GetKeyArgument is VarRef ? "ptr" : IntPtr
+        ExpirationTimeMarshal := ExpirationTime is VarRef ? "int64*" : IntPtr
 
-        result := DllCall(this.value, IntPtr, CredentialHandle, LSA_UNICODE_STRING.Ptr, PrincipalName, LSA_UNICODE_STRING.Ptr, Package, UInt32, CredentialUseFlags, AuthorizationDataMarshal, AuthorizationData, GetKeyFuncitonMarshal, GetKeyFunciton, GetKeyArgumentMarshal, GetKeyArgument, ExpirationTimeMarshal, ExpirationTime, NTSTATUS)
+        result := DllCall(this.value, IntPtr, CredentialHandle, PrincipalNameMarshal, PrincipalName, LSA_UNICODE_STRING.Ptr, Package, UInt32, CredentialUseFlags, AuthorizationDataMarshal, AuthorizationData, GetKeyFuncitonMarshal, GetKeyFunciton, GetKeyArgumentMarshal, GetKeyArgument, ExpirationTimeMarshal, ExpirationTime, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

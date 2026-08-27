@@ -110,7 +110,7 @@ export default struct IAMMediaTypeStream extends IMediaStream {
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediatypestream-createsample
      */
     CreateSample(lSampleSize, pbBuffer, dwFlags, pUnkOuter) {
-        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(11, this, Int32, lSampleSize, pbBufferMarshal, pbBuffer, UInt32, dwFlags, "ptr", pUnkOuter, "ptr*", &ppAMMediaTypeSample := 0, "HRESULT")
         return IAMMediaTypeSample(ppAMMediaTypeSample)
@@ -147,11 +147,11 @@ export default struct IAMMediaTypeStream extends IMediaStream {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFormat := CallbackCreate(GetMethod(implObj, "GetFormat"), flags, 3)
-        this.vtbl.SetFormat := CallbackCreate(GetMethod(implObj, "SetFormat"), flags, 3)
-        this.vtbl.CreateSample := CallbackCreate(GetMethod(implObj, "CreateSample"), flags, 6)
-        this.vtbl.GetStreamAllocatorRequirements := CallbackCreate(GetMethod(implObj, "GetStreamAllocatorRequirements"), flags, 2)
-        this.vtbl.SetStreamAllocatorRequirements := CallbackCreate(GetMethod(implObj, "SetStreamAllocatorRequirements"), flags, 2)
+        this.vtbl.GetFormat := CallbackCreate(ObjBindMethod(implObj, "GetFormat"), flags, 3)
+        this.vtbl.SetFormat := CallbackCreate(ObjBindMethod(implObj, "SetFormat"), flags, 3)
+        this.vtbl.CreateSample := CallbackCreate(ObjBindMethod(implObj, "CreateSample"), flags, 6)
+        this.vtbl.GetStreamAllocatorRequirements := CallbackCreate(ObjBindMethod(implObj, "GetStreamAllocatorRequirements"), flags, 2)
+        this.vtbl.SetStreamAllocatorRequirements := CallbackCreate(ObjBindMethod(implObj, "SetStreamAllocatorRequirements"), flags, 2)
     }
 
     Dispose() {

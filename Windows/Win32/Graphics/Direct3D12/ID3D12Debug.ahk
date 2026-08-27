@@ -58,7 +58,7 @@ export default struct ID3D12Debug extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnableDebugLayer := CallbackCreate(GetMethod(implObj, "EnableDebugLayer"), flags, 1)
+        this.vtbl.EnableDebugLayer := CallbackCreate(ObjBindMethod(implObj, "EnableDebugLayer"), flags, 1)
     }
 
     Dispose() {

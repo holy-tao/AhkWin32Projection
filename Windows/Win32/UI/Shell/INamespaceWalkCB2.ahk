@@ -63,7 +63,7 @@ export default struct INamespaceWalkCB2 extends INamespaceWalkCB {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.WalkComplete := CallbackCreate(GetMethod(implObj, "WalkComplete"), flags, 2)
+        this.vtbl.WalkComplete := CallbackCreate(ObjBindMethod(implObj, "WalkComplete"), flags, 2)
     }
 
     Dispose() {

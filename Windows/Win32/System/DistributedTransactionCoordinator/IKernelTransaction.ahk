@@ -37,7 +37,6 @@ export default struct IKernelTransaction extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HANDLE} 
      */
     GetHandle() {
@@ -55,7 +54,7 @@ export default struct IKernelTransaction extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetHandle := CallbackCreate(GetMethod(implObj, "GetHandle"), flags, 2)
+        this.vtbl.GetHandle := CallbackCreate(ObjBindMethod(implObj, "GetHandle"), flags, 2)
     }
 
     Dispose() {

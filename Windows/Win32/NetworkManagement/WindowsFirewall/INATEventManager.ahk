@@ -296,8 +296,8 @@ export default struct INATEventManager extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_ExternalIPAddressCallback := CallbackCreate(GetMethod(implObj, "put_ExternalIPAddressCallback"), flags, 2)
-        this.vtbl.put_NumberOfEntriesCallback := CallbackCreate(GetMethod(implObj, "put_NumberOfEntriesCallback"), flags, 2)
+        this.vtbl.put_ExternalIPAddressCallback := CallbackCreate(ObjBindMethod(implObj, "put_ExternalIPAddressCallback"), flags, 2)
+        this.vtbl.put_NumberOfEntriesCallback := CallbackCreate(ObjBindMethod(implObj, "put_NumberOfEntriesCallback"), flags, 2)
     }
 
     Dispose() {

@@ -47,7 +47,6 @@ export default struct IEditionUpgradeBroker extends IUnknown {
     }
 
     /**
-     * 
      * @param {OLE_HANDLE} parentHandle 
      * @returns {HRESULT} 
      */
@@ -57,7 +56,6 @@ export default struct IEditionUpgradeBroker extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} parameter 
      * @returns {HRESULT} 
      */
@@ -69,7 +67,6 @@ export default struct IEditionUpgradeBroker extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ShowProductKeyUI() {
@@ -78,7 +75,6 @@ export default struct IEditionUpgradeBroker extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CanUpgrade() {
@@ -95,10 +91,10 @@ export default struct IEditionUpgradeBroker extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeParentWindow := CallbackCreate(GetMethod(implObj, "InitializeParentWindow"), flags, 2)
-        this.vtbl.UpdateOperatingSystem := CallbackCreate(GetMethod(implObj, "UpdateOperatingSystem"), flags, 2)
-        this.vtbl.ShowProductKeyUI := CallbackCreate(GetMethod(implObj, "ShowProductKeyUI"), flags, 1)
-        this.vtbl.CanUpgrade := CallbackCreate(GetMethod(implObj, "CanUpgrade"), flags, 1)
+        this.vtbl.InitializeParentWindow := CallbackCreate(ObjBindMethod(implObj, "InitializeParentWindow"), flags, 2)
+        this.vtbl.UpdateOperatingSystem := CallbackCreate(ObjBindMethod(implObj, "UpdateOperatingSystem"), flags, 2)
+        this.vtbl.ShowProductKeyUI := CallbackCreate(ObjBindMethod(implObj, "ShowProductKeyUI"), flags, 1)
+        this.vtbl.CanUpgrade := CallbackCreate(ObjBindMethod(implObj, "CanUpgrade"), flags, 1)
     }
 
     Dispose() {

@@ -29,7 +29,7 @@
 export MatchEnumTag(_hModule, pwcArg, dwNumArg, pEnumTable, pdwValue) {
     pwcArg := pwcArg is String ? StrPtr(pwcArg) : pwcArg
 
-    pdwValueMarshal := pdwValue is VarRef ? "uint*" : "ptr"
+    pdwValueMarshal := pdwValue is VarRef ? "uint*" : IntPtr
 
     result := DllCall("NETSH.dll\MatchEnumTag", HANDLE, _hModule, "ptr", pwcArg, UInt32, dwNumArg, TOKEN_VALUE.Ptr, pEnumTable, pdwValueMarshal, pdwValue, UInt32)
     return result
@@ -156,10 +156,13 @@ export MatchToken(pwszUserToken, pwszCmdToken) {
  * @since windows5.1.2600
  */
 export PreprocessCommand(_hModule, ppwcArguments, dwCurrentIndex, dwArgCount, pttTags, dwTagCount, dwMinArgs, dwMaxArgs, pdwTagType) {
-    ppwcArgumentsMarshal := ppwcArguments is VarRef ? "ptr*" : "ptr"
-    pdwTagTypeMarshal := pdwTagType is VarRef ? "uint*" : "ptr"
+    _hModuleMarshal := _hModule == 0 ? IntPtr : HANDLE
+    ppwcArgumentsMarshal := ppwcArguments is VarRef ? "ptr*" : IntPtr
+    pttTagsMarshal := pttTags == 0 ? IntPtr : TAG_TYPE.Ptr
+    pdwTagTypeMarshal := pdwTagType is VarRef ? "uint*" : IntPtr
+    pdwTagTypeMarshal := pdwTagType == 0 ? IntPtr : "uint*"
 
-    result := DllCall("NETSH.dll\PreprocessCommand", HANDLE, _hModule, ppwcArgumentsMarshal, ppwcArguments, UInt32, dwCurrentIndex, UInt32, dwArgCount, TAG_TYPE.Ptr, pttTags, UInt32, dwTagCount, UInt32, dwMinArgs, UInt32, dwMaxArgs, pdwTagTypeMarshal, pdwTagType, UInt32)
+    result := DllCall("NETSH.dll\PreprocessCommand", _hModuleMarshal, _hModule, ppwcArgumentsMarshal, ppwcArguments, UInt32, dwCurrentIndex, UInt32, dwArgCount, pttTagsMarshal, pttTags, UInt32, dwTagCount, UInt32, dwMinArgs, UInt32, dwMaxArgs, pdwTagTypeMarshal, pdwTagType, UInt32)
     return result
 }
 

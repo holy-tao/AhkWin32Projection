@@ -46,7 +46,6 @@ export default struct IStorageProviderBanners extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} providerIdentity 
      * @param {PWSTR} subscriptionId 
      * @param {PWSTR} contentId 
@@ -62,7 +61,6 @@ export default struct IStorageProviderBanners extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} providerIdentity 
      * @param {PWSTR} subscriptionId 
      * @returns {HRESULT} 
@@ -76,7 +74,6 @@ export default struct IStorageProviderBanners extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} providerIdentity 
      * @returns {HRESULT} 
      */
@@ -88,7 +85,6 @@ export default struct IStorageProviderBanners extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} providerIdentity 
      * @param {PWSTR} subscriptionId 
      * @returns {PWSTR} 
@@ -110,10 +106,10 @@ export default struct IStorageProviderBanners extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetBanner := CallbackCreate(GetMethod(implObj, "SetBanner"), flags, 4)
-        this.vtbl.ClearBanner := CallbackCreate(GetMethod(implObj, "ClearBanner"), flags, 3)
-        this.vtbl.ClearAllBanners := CallbackCreate(GetMethod(implObj, "ClearAllBanners"), flags, 2)
-        this.vtbl.GetBanner := CallbackCreate(GetMethod(implObj, "GetBanner"), flags, 4)
+        this.vtbl.SetBanner := CallbackCreate(ObjBindMethod(implObj, "SetBanner"), flags, 4)
+        this.vtbl.ClearBanner := CallbackCreate(ObjBindMethod(implObj, "ClearBanner"), flags, 3)
+        this.vtbl.ClearAllBanners := CallbackCreate(ObjBindMethod(implObj, "ClearAllBanners"), flags, 2)
+        this.vtbl.GetBanner := CallbackCreate(ObjBindMethod(implObj, "GetBanner"), flags, 4)
     }
 
     Dispose() {

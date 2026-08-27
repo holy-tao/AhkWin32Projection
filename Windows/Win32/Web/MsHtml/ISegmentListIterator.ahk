@@ -40,7 +40,6 @@ export default struct ISegmentListIterator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ISegment} 
      */
     Current() {
@@ -49,7 +48,6 @@ export default struct ISegmentListIterator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     First() {
@@ -58,7 +56,6 @@ export default struct ISegmentListIterator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     IsDone() {
@@ -67,7 +64,6 @@ export default struct ISegmentListIterator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Advance() {
@@ -84,10 +80,10 @@ export default struct ISegmentListIterator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Current := CallbackCreate(GetMethod(implObj, "Current"), flags, 2)
-        this.vtbl.First := CallbackCreate(GetMethod(implObj, "First"), flags, 1)
-        this.vtbl.IsDone := CallbackCreate(GetMethod(implObj, "IsDone"), flags, 1)
-        this.vtbl.Advance := CallbackCreate(GetMethod(implObj, "Advance"), flags, 1)
+        this.vtbl.Current := CallbackCreate(ObjBindMethod(implObj, "Current"), flags, 2)
+        this.vtbl.First := CallbackCreate(ObjBindMethod(implObj, "First"), flags, 1)
+        this.vtbl.IsDone := CallbackCreate(ObjBindMethod(implObj, "IsDone"), flags, 1)
+        this.vtbl.Advance := CallbackCreate(ObjBindMethod(implObj, "Advance"), flags, 1)
     }
 
     Dispose() {

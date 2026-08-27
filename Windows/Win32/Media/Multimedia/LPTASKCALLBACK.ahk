@@ -18,7 +18,6 @@ export default struct LPTASKCALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer} dwInst 
      * @returns {String} Nothing - always returns an empty string
      */

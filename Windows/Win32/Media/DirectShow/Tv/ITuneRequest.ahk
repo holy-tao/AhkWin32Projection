@@ -144,11 +144,11 @@ export default struct ITuneRequest extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_TuningSpace := CallbackCreate(GetMethod(implObj, "get_TuningSpace"), flags, 2)
-        this.vtbl.get_Components := CallbackCreate(GetMethod(implObj, "get_Components"), flags, 2)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
-        this.vtbl.get_Locator := CallbackCreate(GetMethod(implObj, "get_Locator"), flags, 2)
-        this.vtbl.put_Locator := CallbackCreate(GetMethod(implObj, "put_Locator"), flags, 2)
+        this.vtbl.get_TuningSpace := CallbackCreate(ObjBindMethod(implObj, "get_TuningSpace"), flags, 2)
+        this.vtbl.get_Components := CallbackCreate(ObjBindMethod(implObj, "get_Components"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.get_Locator := CallbackCreate(ObjBindMethod(implObj, "get_Locator"), flags, 2)
+        this.vtbl.put_Locator := CallbackCreate(ObjBindMethod(implObj, "put_Locator"), flags, 2)
     }
 
     Dispose() {

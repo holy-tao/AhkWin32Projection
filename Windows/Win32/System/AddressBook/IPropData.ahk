@@ -42,7 +42,6 @@ export default struct IPropData extends IMAPIProp {
     }
 
     /**
-     * 
      * @remarks
      * The **IPropData::HrSetObjAccess** method sets the access level for an entire object, rather than for individual properties. **HrSetObjAccess** can be used to change the access level established when the object was created.
      * @param {Integer} ulAccess > [in] A bitmask of flags that specifies the object's access level. One of the following flags can be set:
@@ -89,7 +88,7 @@ export default struct IPropData extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ipropdata-hrsetpropaccess
      */
     HrSetPropAccess(lpPropTagArray, rgulAccess) {
-        rgulAccessMarshal := rgulAccess is VarRef ? "uint*" : "ptr"
+        rgulAccessMarshal := rgulAccess is VarRef ? "uint*" : IntPtr
 
         result := ComCall(15, this, SPropTagArray.Ptr, lpPropTagArray, rgulAccessMarshal, rgulAccess, "HRESULT")
         return result
@@ -112,15 +111,14 @@ export default struct IPropData extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ipropdata-hrgetpropaccess
      */
     HrGetPropAccess(lppPropTagArray, lprgulAccess) {
-        lppPropTagArrayMarshal := lppPropTagArray is VarRef ? "ptr*" : "ptr"
-        lprgulAccessMarshal := lprgulAccess is VarRef ? "ptr*" : "ptr"
+        lppPropTagArrayMarshal := lppPropTagArray is VarRef ? "ptr*" : IntPtr
+        lprgulAccessMarshal := lprgulAccess is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(16, this, lppPropTagArrayMarshal, lppPropTagArray, lprgulAccessMarshal, lprgulAccess, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @remarks
      * The **IPropData::HrAddObjProps** method adds one or more properties of type PT_OBJECT to the object. **HrAddObjProps** provides an alternative to the [IMAPIProp::SetProps](imapiprop-setprops.md) method for object properties, because object properties cannot be created by calling **SetProps**. Adding an object property results in the property tag being included in the list of property tags that the [IMAPIProp::GetPropList](imapiprop-getproplist.md) method returns.
      * @param {Pointer<SPropTagArray>} lppPropTagArray 
@@ -143,7 +141,7 @@ export default struct IPropData extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ipropdata-hraddobjprops
      */
     HrAddObjProps(lppPropTagArray, lprgulAccess) {
-        lprgulAccessMarshal := lprgulAccess is VarRef ? "ptr*" : "ptr"
+        lprgulAccessMarshal := lprgulAccess is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(17, this, SPropTagArray.Ptr, lppPropTagArray, lprgulAccessMarshal, lprgulAccess, "HRESULT")
         return result
@@ -158,10 +156,10 @@ export default struct IPropData extends IMAPIProp {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.HrSetObjAccess := CallbackCreate(GetMethod(implObj, "HrSetObjAccess"), flags, 2)
-        this.vtbl.HrSetPropAccess := CallbackCreate(GetMethod(implObj, "HrSetPropAccess"), flags, 3)
-        this.vtbl.HrGetPropAccess := CallbackCreate(GetMethod(implObj, "HrGetPropAccess"), flags, 3)
-        this.vtbl.HrAddObjProps := CallbackCreate(GetMethod(implObj, "HrAddObjProps"), flags, 3)
+        this.vtbl.HrSetObjAccess := CallbackCreate(ObjBindMethod(implObj, "HrSetObjAccess"), flags, 2)
+        this.vtbl.HrSetPropAccess := CallbackCreate(ObjBindMethod(implObj, "HrSetPropAccess"), flags, 3)
+        this.vtbl.HrGetPropAccess := CallbackCreate(ObjBindMethod(implObj, "HrGetPropAccess"), flags, 3)
+        this.vtbl.HrAddObjProps := CallbackCreate(ObjBindMethod(implObj, "HrAddObjProps"), flags, 3)
     }
 
     Dispose() {

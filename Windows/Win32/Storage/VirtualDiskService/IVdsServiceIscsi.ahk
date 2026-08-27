@@ -277,13 +277,13 @@ export default struct IVdsServiceIscsi extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetInitiatorName := CallbackCreate(GetMethod(implObj, "GetInitiatorName"), flags, 2)
-        this.vtbl.QueryInitiatorAdapters := CallbackCreate(GetMethod(implObj, "QueryInitiatorAdapters"), flags, 2)
-        this.vtbl.SetIpsecGroupPresharedKey := CallbackCreate(GetMethod(implObj, "SetIpsecGroupPresharedKey"), flags, 2)
-        this.vtbl.SetAllIpsecTunnelAddresses := CallbackCreate(GetMethod(implObj, "SetAllIpsecTunnelAddresses"), flags, 3)
-        this.vtbl.SetAllIpsecSecurity := CallbackCreate(GetMethod(implObj, "SetAllIpsecSecurity"), flags, 4)
-        this.vtbl.SetInitiatorSharedSecret := CallbackCreate(GetMethod(implObj, "SetInitiatorSharedSecret"), flags, 3)
-        this.vtbl.RememberTargetSharedSecret := CallbackCreate(GetMethod(implObj, "RememberTargetSharedSecret"), flags, 3)
+        this.vtbl.GetInitiatorName := CallbackCreate(ObjBindMethod(implObj, "GetInitiatorName"), flags, 2)
+        this.vtbl.QueryInitiatorAdapters := CallbackCreate(ObjBindMethod(implObj, "QueryInitiatorAdapters"), flags, 2)
+        this.vtbl.SetIpsecGroupPresharedKey := CallbackCreate(ObjBindMethod(implObj, "SetIpsecGroupPresharedKey"), flags, 2)
+        this.vtbl.SetAllIpsecTunnelAddresses := CallbackCreate(ObjBindMethod(implObj, "SetAllIpsecTunnelAddresses"), flags, 3)
+        this.vtbl.SetAllIpsecSecurity := CallbackCreate(ObjBindMethod(implObj, "SetAllIpsecSecurity"), flags, 4)
+        this.vtbl.SetInitiatorSharedSecret := CallbackCreate(ObjBindMethod(implObj, "SetInitiatorSharedSecret"), flags, 3)
+        this.vtbl.RememberTargetSharedSecret := CallbackCreate(ObjBindMethod(implObj, "RememberTargetSharedSecret"), flags, 3)
     }
 
     Dispose() {

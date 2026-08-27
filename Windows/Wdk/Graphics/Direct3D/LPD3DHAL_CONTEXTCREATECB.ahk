@@ -19,7 +19,6 @@ export default struct LPD3DHAL_CONTEXTCREATECB {
     }
 
     /**
-     * 
      * @param {Pointer<D3DHAL_CONTEXTCREATEDATA>} param0 
      * @returns {Integer} 
      */

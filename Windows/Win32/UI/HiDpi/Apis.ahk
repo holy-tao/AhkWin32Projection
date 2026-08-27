@@ -43,7 +43,9 @@
 export OpenThemeDataForDpi(_hwnd, pszClassList, dpi) {
     pszClassList := pszClassList is String ? StrPtr(pszClassList) : pszClassList
 
-    result := DllCall("UxTheme.dll\OpenThemeDataForDpi", HWND, _hwnd, "ptr", pszClassList, UInt32, dpi, HTHEME.Owned)
+    _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+
+    result := DllCall("UxTheme.dll\OpenThemeDataForDpi", _hwndMarshal, _hwnd, "ptr", pszClassList, UInt32, dpi, HTHEME.Owned)
     return result
 }
 
@@ -209,7 +211,9 @@ export AdjustWindowRectExForDpi(lpRect, dwStyle, bMenu, dwExStyle, dpi) {
  * @since windows8.1
  */
 export LogicalToPhysicalPointForPerMonitorDPI(_hWnd, lpPoint) {
-    result := DllCall("USER32.dll\LogicalToPhysicalPointForPerMonitorDPI", HWND, _hWnd, POINT.Ptr, lpPoint, BOOL)
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+
+    result := DllCall("USER32.dll\LogicalToPhysicalPointForPerMonitorDPI", _hWndMarshal, _hWnd, POINT.Ptr, lpPoint, BOOL)
     return result
 }
 
@@ -229,7 +233,9 @@ export LogicalToPhysicalPointForPerMonitorDPI(_hWnd, lpPoint) {
  * @since windows8.1
  */
 export PhysicalToLogicalPointForPerMonitorDPI(_hWnd, lpPoint) {
-    result := DllCall("USER32.dll\PhysicalToLogicalPointForPerMonitorDPI", HWND, _hWnd, POINT.Ptr, lpPoint, BOOL)
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+
+    result := DllCall("USER32.dll\PhysicalToLogicalPointForPerMonitorDPI", _hWndMarshal, _hWnd, POINT.Ptr, lpPoint, BOOL)
     return result
 }
 
@@ -251,7 +257,8 @@ export PhysicalToLogicalPointForPerMonitorDPI(_hWnd, lpPoint) {
  * @since windows10.0.14393
  */
 export SystemParametersInfoForDpi(uiAction, uiParam, pvParam, fWinIni, dpi) {
-    pvParamMarshal := pvParam is VarRef ? "ptr" : "ptr"
+    pvParamMarshal := pvParam is VarRef ? "ptr" : IntPtr
+    pvParamMarshal := pvParam == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -498,7 +505,6 @@ export SetProcessDpiAwarenessContext(value) {
 }
 
 /**
- * 
  * @param {HANDLE} hProcess 
  * @returns {DPI_AWARENESS_CONTEXT} 
  */
@@ -632,7 +638,9 @@ export SetProcessDpiAwareness(value) {
  * @since windows8.1
  */
 export GetProcessDpiAwareness(hprocess) {
-    result := DllCall("api-ms-win-shcore-scaling-l1-1-1.dll\GetProcessDpiAwareness", HANDLE, hprocess, "int*", &value := 0, "HRESULT")
+    hprocessMarshal := hprocess == 0 ? IntPtr : HANDLE
+
+    result := DllCall("api-ms-win-shcore-scaling-l1-1-1.dll\GetProcessDpiAwareness", hprocessMarshal, hprocess, "int*", &value := 0, "HRESULT")
     return value
 }
 
@@ -702,8 +710,8 @@ export GetProcessDpiAwareness(hprocess) {
  * @since windows8.1
  */
 export GetDpiForMonitor(_hmonitor, dpiType, dpiX, dpiY) {
-    dpiXMarshal := dpiX is VarRef ? "uint*" : "ptr"
-    dpiYMarshal := dpiY is VarRef ? "uint*" : "ptr"
+    dpiXMarshal := dpiX is VarRef ? "uint*" : IntPtr
+    dpiYMarshal := dpiY is VarRef ? "uint*" : IntPtr
 
     result := DllCall("api-ms-win-shcore-scaling-l1-1-1.dll\GetDpiForMonitor", HMONITOR, _hmonitor, MONITOR_DPI_TYPE, dpiType, dpiXMarshal, dpiX, dpiYMarshal, dpiY, "HRESULT")
     return result

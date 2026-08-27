@@ -12,7 +12,6 @@
 
 ;@region Functions
 /**
- * 
  * @param {Pointer<HSE_VERSION_INFO>} pVer 
  * @returns {BOOL} 
  */
@@ -22,7 +21,6 @@ export GetExtensionVersion(pVer) {
 }
 
 /**
- * 
  * @param {Pointer<EXTENSION_CONTROL_BLOCK>} pECB 
  * @returns {Integer} 
  */
@@ -32,21 +30,19 @@ export HttpExtensionProc(pECB) {
 }
 
 /**
- * 
  * @param {Pointer<HTTP_FILTER_CONTEXT>} pfc 
  * @param {Integer} NotificationType 
  * @param {Pointer<Void>} pvNotification 
  * @returns {Integer} 
  */
 export HttpFilterProc(pfc, NotificationType, pvNotification) {
-    pvNotificationMarshal := pvNotification is VarRef ? "ptr" : "ptr"
+    pvNotificationMarshal := pvNotification is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RpcProxy.dll\HttpFilterProc", HTTP_FILTER_CONTEXT.Ptr, pfc, UInt32, NotificationType, pvNotificationMarshal, pvNotification, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<HTTP_FILTER_VERSION>} pVer 
  * @returns {BOOL} 
  */

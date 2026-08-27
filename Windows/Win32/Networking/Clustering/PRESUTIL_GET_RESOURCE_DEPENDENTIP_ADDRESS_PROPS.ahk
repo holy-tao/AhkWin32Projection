@@ -20,7 +20,6 @@ export default struct PRESUTIL_GET_RESOURCE_DEPENDENTIP_ADDRESS_PROPS {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {PWSTR} pszAddress 
      * @param {Pointer<Integer>} pcchAddress 
@@ -35,9 +34,9 @@ export default struct PRESUTIL_GET_RESOURCE_DEPENDENTIP_ADDRESS_PROPS {
         pszSubnetMask := pszSubnetMask is String ? StrPtr(pszSubnetMask) : pszSubnetMask
         pszNetwork := pszNetwork is String ? StrPtr(pszNetwork) : pszNetwork
 
-        pcchAddressMarshal := pcchAddress is VarRef ? "uint*" : "ptr"
-        pcchSubnetMaskMarshal := pcchSubnetMask is VarRef ? "uint*" : "ptr"
-        pcchNetworkMarshal := pcchNetwork is VarRef ? "uint*" : "ptr"
+        pcchAddressMarshal := pcchAddress is VarRef ? "uint*" : IntPtr
+        pcchSubnetMaskMarshal := pcchSubnetMask is VarRef ? "uint*" : IntPtr
+        pcchNetworkMarshal := pcchNetwork is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HRESOURCE, _hResource, "ptr", pszAddress, pcchAddressMarshal, pcchAddress, "ptr", pszSubnetMask, pcchSubnetMaskMarshal, pcchSubnetMask, "ptr", pszNetwork, pcchNetworkMarshal, pcchNetwork, UInt32)
         return result

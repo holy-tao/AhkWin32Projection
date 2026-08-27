@@ -62,7 +62,7 @@ export default struct IRSOPInformation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-irsopinformation-getflags
      */
     GetFlags(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
@@ -97,9 +97,9 @@ export default struct IRSOPInformation extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNamespace := CallbackCreate(GetMethod(implObj, "GetNamespace"), flags, 4)
-        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
-        this.vtbl.GetEventLogEntryText := CallbackCreate(GetMethod(implObj, "GetEventLogEntryText"), flags, 6)
+        this.vtbl.GetNamespace := CallbackCreate(ObjBindMethod(implObj, "GetNamespace"), flags, 4)
+        this.vtbl.GetFlags := CallbackCreate(ObjBindMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.GetEventLogEntryText := CallbackCreate(ObjBindMethod(implObj, "GetEventLogEntryText"), flags, 6)
     }
 
     Dispose() {

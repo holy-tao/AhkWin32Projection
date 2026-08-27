@@ -133,10 +133,10 @@ export default struct IShellTaskScheduler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddTask := CallbackCreate(GetMethod(implObj, "AddTask"), flags, 5)
-        this.vtbl.RemoveTasks := CallbackCreate(GetMethod(implObj, "RemoveTasks"), flags, 4)
-        this.vtbl.CountTasks := CallbackCreate(GetMethod(implObj, "CountTasks"), flags, 2)
-        this.vtbl.Status := CallbackCreate(GetMethod(implObj, "Status"), flags, 3)
+        this.vtbl.AddTask := CallbackCreate(ObjBindMethod(implObj, "AddTask"), flags, 5)
+        this.vtbl.RemoveTasks := CallbackCreate(ObjBindMethod(implObj, "RemoveTasks"), flags, 4)
+        this.vtbl.CountTasks := CallbackCreate(ObjBindMethod(implObj, "CountTasks"), flags, 2)
+        this.vtbl.Status := CallbackCreate(ObjBindMethod(implObj, "Status"), flags, 3)
     }
 
     Dispose() {

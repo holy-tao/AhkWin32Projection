@@ -59,7 +59,6 @@ export default struct IHTMLCommentElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -71,7 +70,6 @@ export default struct IHTMLCommentElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_data() {
@@ -81,7 +79,6 @@ export default struct IHTMLCommentElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -90,7 +87,6 @@ export default struct IHTMLCommentElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} offset 
      * @param {Integer} Count 
      * @returns {BSTR} 
@@ -102,7 +98,6 @@ export default struct IHTMLCommentElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrstring 
      * @returns {HRESULT} 
      */
@@ -114,7 +109,6 @@ export default struct IHTMLCommentElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} offset 
      * @param {BSTR} bstrstring 
      * @returns {HRESULT} 
@@ -127,7 +121,6 @@ export default struct IHTMLCommentElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} offset 
      * @param {Integer} Count 
      * @returns {HRESULT} 
@@ -138,7 +131,6 @@ export default struct IHTMLCommentElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} offset 
      * @param {Integer} Count 
      * @param {BSTR} bstrstring 
@@ -160,14 +152,14 @@ export default struct IHTMLCommentElement2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_data := CallbackCreate(GetMethod(implObj, "put_data"), flags, 2)
-        this.vtbl.get_data := CallbackCreate(GetMethod(implObj, "get_data"), flags, 2)
-        this.vtbl.get_length := CallbackCreate(GetMethod(implObj, "get_length"), flags, 2)
-        this.vtbl.substringData := CallbackCreate(GetMethod(implObj, "substringData"), flags, 4)
-        this.vtbl.appendData := CallbackCreate(GetMethod(implObj, "appendData"), flags, 2)
-        this.vtbl.insertData := CallbackCreate(GetMethod(implObj, "insertData"), flags, 3)
-        this.vtbl.deleteData := CallbackCreate(GetMethod(implObj, "deleteData"), flags, 3)
-        this.vtbl.replaceData := CallbackCreate(GetMethod(implObj, "replaceData"), flags, 4)
+        this.vtbl.put_data := CallbackCreate(ObjBindMethod(implObj, "put_data"), flags, 2)
+        this.vtbl.get_data := CallbackCreate(ObjBindMethod(implObj, "get_data"), flags, 2)
+        this.vtbl.get_length := CallbackCreate(ObjBindMethod(implObj, "get_length"), flags, 2)
+        this.vtbl.substringData := CallbackCreate(ObjBindMethod(implObj, "substringData"), flags, 4)
+        this.vtbl.appendData := CallbackCreate(ObjBindMethod(implObj, "appendData"), flags, 2)
+        this.vtbl.insertData := CallbackCreate(ObjBindMethod(implObj, "insertData"), flags, 3)
+        this.vtbl.deleteData := CallbackCreate(ObjBindMethod(implObj, "deleteData"), flags, 3)
+        this.vtbl.replaceData := CallbackCreate(ObjBindMethod(implObj, "replaceData"), flags, 4)
     }
 
     Dispose() {

@@ -57,7 +57,7 @@ export default struct IWMGetSecureChannel extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPeerSecureChannelInterface := CallbackCreate(GetMethod(implObj, "GetPeerSecureChannelInterface"), flags, 2)
+        this.vtbl.GetPeerSecureChannelInterface := CallbackCreate(ObjBindMethod(implObj, "GetPeerSecureChannelInterface"), flags, 2)
     }
 
     Dispose() {

@@ -143,9 +143,11 @@
  * @since windows5.1.2600
  */
 export CreateIoCompletionPort(FileHandle, ExistingCompletionPort, CompletionKey, NumberOfConcurrentThreads) {
+    ExistingCompletionPortMarshal := ExistingCompletionPort == 0 ? IntPtr : HANDLE
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateIoCompletionPort", HANDLE, FileHandle, HANDLE, ExistingCompletionPort, IntPtr, CompletionKey, UInt32, NumberOfConcurrentThreads, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateIoCompletionPort", HANDLE, FileHandle, ExistingCompletionPortMarshal, ExistingCompletionPort, IntPtr, CompletionKey, UInt32, NumberOfConcurrentThreads, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -258,9 +260,9 @@ export CreateIoCompletionPort(FileHandle, ExistingCompletionPort, CompletionKey,
  * @since windows5.1.2600
  */
 export GetQueuedCompletionStatus(CompletionPort, lpNumberOfBytesTransferred, lpCompletionKey, lpOverlapped, dwMilliseconds) {
-    lpNumberOfBytesTransferredMarshal := lpNumberOfBytesTransferred is VarRef ? "uint*" : "ptr"
-    lpCompletionKeyMarshal := lpCompletionKey is VarRef ? "ptr*" : "ptr"
-    lpOverlappedMarshal := lpOverlapped is VarRef ? "ptr*" : "ptr"
+    lpNumberOfBytesTransferredMarshal := lpNumberOfBytesTransferred is VarRef ? "uint*" : IntPtr
+    lpCompletionKeyMarshal := lpCompletionKey is VarRef ? "ptr*" : IntPtr
+    lpOverlappedMarshal := lpOverlapped is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -407,7 +409,7 @@ export GetQueuedCompletionStatus(CompletionPort, lpNumberOfBytesTransferred, lpC
  * @since windows6.0.6000
  */
 export GetQueuedCompletionStatusEx(CompletionPort, lpCompletionPortEntries, ulCount, ulNumEntriesRemoved, dwMilliseconds, fAlertable) {
-    ulNumEntriesRemovedMarshal := ulNumEntriesRemoved is VarRef ? "uint*" : "ptr"
+    ulNumEntriesRemovedMarshal := ulNumEntriesRemoved is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -502,9 +504,11 @@ export GetQueuedCompletionStatusEx(CompletionPort, lpCompletionPortEntries, ulCo
  * @since windows5.1.2600
  */
 export PostQueuedCompletionStatus(CompletionPort, dwNumberOfBytesTransferred, dwCompletionKey, lpOverlapped) {
+    lpOverlappedMarshal := lpOverlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\PostQueuedCompletionStatus", HANDLE, CompletionPort, UInt32, dwNumberOfBytesTransferred, IntPtr, dwCompletionKey, OVERLAPPED.Ptr, lpOverlapped, BOOL)
+    result := DllCall("KERNEL32.dll\PostQueuedCompletionStatus", HANDLE, CompletionPort, UInt32, dwNumberOfBytesTransferred, IntPtr, dwCompletionKey, lpOverlappedMarshal, lpOverlapped, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -643,11 +647,15 @@ export PostQueuedCompletionStatus(CompletionPort, dwNumberOfBytesTransferred, dw
  * @since windows5.1.2600
  */
 export DeviceIoControl(hDevice, dwIoControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpOverlapped) {
-    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+    lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+    lpOutBufferMarshal := lpOutBuffer == 0 ? IntPtr : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned == 0 ? IntPtr : "uint*"
+    lpOverlappedMarshal := lpOverlapped == 0 ? IntPtr : OVERLAPPED.Ptr
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\DeviceIoControl", HANDLE, hDevice, UInt32, dwIoControlCode, IntPtr, lpInBuffer, UInt32, nInBufferSize, IntPtr, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, OVERLAPPED.Ptr, lpOverlapped, BOOL)
+    result := DllCall("KERNEL32.dll\DeviceIoControl", HANDLE, hDevice, UInt32, dwIoControlCode, lpInBufferMarshal, lpInBuffer, UInt32, nInBufferSize, lpOutBufferMarshal, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, lpOverlappedMarshal, lpOverlapped, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -696,7 +704,7 @@ export DeviceIoControl(hDevice, dwIoControlCode, lpInBuffer, nInBufferSize, lpOu
  * @since windows5.1.2600
  */
 export GetOverlappedResult(hFile, lpOverlapped, lpNumberOfBytesTransferred, bWait) {
-    lpNumberOfBytesTransferredMarshal := lpNumberOfBytesTransferred is VarRef ? "uint*" : "ptr"
+    lpNumberOfBytesTransferredMarshal := lpNumberOfBytesTransferred is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -829,9 +837,11 @@ export GetOverlappedResult(hFile, lpOverlapped, lpNumberOfBytesTransferred, bWai
  * @since windows6.0.6000
  */
 export CancelIoEx(hFile, lpOverlapped) {
+    lpOverlappedMarshal := lpOverlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CancelIoEx", HANDLE, hFile, OVERLAPPED.Ptr, lpOverlapped, BOOL)
+    result := DllCall("KERNEL32.dll\CancelIoEx", HANDLE, hFile, lpOverlappedMarshal, lpOverlapped, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -990,7 +1000,7 @@ export CancelIo(hFile) {
  * @since windows8.0
  */
 export GetOverlappedResultEx(hFile, lpOverlapped, lpNumberOfBytesTransferred, dwMilliseconds, bAlertable) {
-    lpNumberOfBytesTransferredMarshal := lpNumberOfBytesTransferred is VarRef ? "uint*" : "ptr"
+    lpNumberOfBytesTransferredMarshal := lpNumberOfBytesTransferred is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 

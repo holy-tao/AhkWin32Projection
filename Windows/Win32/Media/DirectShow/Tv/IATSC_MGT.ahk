@@ -100,7 +100,10 @@ export default struct IATSC_MGT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_mgt-initialize
      */
     Initialize(pSectionList, pMPEGData) {
-        result := ComCall(3, this, "ptr", pSectionList, "ptr", pMPEGData, "HRESULT")
+        pSectionListMarshal := pSectionList == 0 ? IntPtr : "ptr"
+        pMPEGDataMarshal := pMPEGData == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pSectionListMarshal, pSectionList, pMPEGDataMarshal, pMPEGData, "HRESULT")
         return result
     }
 
@@ -201,7 +204,7 @@ export default struct IATSC_MGT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_mgt-getrecorddescriptorbytag
      */
     GetRecordDescriptorByTag(dwRecordIndex, bTag, pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : IntPtr
 
         result := ComCall(12, this, UInt32, dwRecordIndex, Int8, bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
@@ -232,7 +235,7 @@ export default struct IATSC_MGT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_mgt-getcountoftabledescriptors
      */
     GetCountOfTableDescriptors(pdwVal) {
-        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
+        pdwValMarshal := pdwVal is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, pdwValMarshal, pdwVal, "HRESULT")
         return result
@@ -259,7 +262,7 @@ export default struct IATSC_MGT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_mgt-gettabledescriptorbytag
      */
     GetTableDescriptorByTag(bTag, pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : IntPtr
 
         result := ComCall(15, this, Int8, bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
@@ -274,19 +277,19 @@ export default struct IATSC_MGT extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.GetVersionNumber := CallbackCreate(GetMethod(implObj, "GetVersionNumber"), flags, 2)
-        this.vtbl.GetProtocolVersion := CallbackCreate(GetMethod(implObj, "GetProtocolVersion"), flags, 2)
-        this.vtbl.GetCountOfRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRecords"), flags, 2)
-        this.vtbl.GetRecordType := CallbackCreate(GetMethod(implObj, "GetRecordType"), flags, 3)
-        this.vtbl.GetRecordTypePid := CallbackCreate(GetMethod(implObj, "GetRecordTypePid"), flags, 3)
-        this.vtbl.GetRecordVersionNumber := CallbackCreate(GetMethod(implObj, "GetRecordVersionNumber"), flags, 3)
-        this.vtbl.GetRecordCountOfDescriptors := CallbackCreate(GetMethod(implObj, "GetRecordCountOfDescriptors"), flags, 3)
-        this.vtbl.GetRecordDescriptorByIndex := CallbackCreate(GetMethod(implObj, "GetRecordDescriptorByIndex"), flags, 4)
-        this.vtbl.GetRecordDescriptorByTag := CallbackCreate(GetMethod(implObj, "GetRecordDescriptorByTag"), flags, 5)
-        this.vtbl.GetCountOfTableDescriptors := CallbackCreate(GetMethod(implObj, "GetCountOfTableDescriptors"), flags, 2)
-        this.vtbl.GetTableDescriptorByIndex := CallbackCreate(GetMethod(implObj, "GetTableDescriptorByIndex"), flags, 3)
-        this.vtbl.GetTableDescriptorByTag := CallbackCreate(GetMethod(implObj, "GetTableDescriptorByTag"), flags, 4)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetVersionNumber := CallbackCreate(ObjBindMethod(implObj, "GetVersionNumber"), flags, 2)
+        this.vtbl.GetProtocolVersion := CallbackCreate(ObjBindMethod(implObj, "GetProtocolVersion"), flags, 2)
+        this.vtbl.GetCountOfRecords := CallbackCreate(ObjBindMethod(implObj, "GetCountOfRecords"), flags, 2)
+        this.vtbl.GetRecordType := CallbackCreate(ObjBindMethod(implObj, "GetRecordType"), flags, 3)
+        this.vtbl.GetRecordTypePid := CallbackCreate(ObjBindMethod(implObj, "GetRecordTypePid"), flags, 3)
+        this.vtbl.GetRecordVersionNumber := CallbackCreate(ObjBindMethod(implObj, "GetRecordVersionNumber"), flags, 3)
+        this.vtbl.GetRecordCountOfDescriptors := CallbackCreate(ObjBindMethod(implObj, "GetRecordCountOfDescriptors"), flags, 3)
+        this.vtbl.GetRecordDescriptorByIndex := CallbackCreate(ObjBindMethod(implObj, "GetRecordDescriptorByIndex"), flags, 4)
+        this.vtbl.GetRecordDescriptorByTag := CallbackCreate(ObjBindMethod(implObj, "GetRecordDescriptorByTag"), flags, 5)
+        this.vtbl.GetCountOfTableDescriptors := CallbackCreate(ObjBindMethod(implObj, "GetCountOfTableDescriptors"), flags, 2)
+        this.vtbl.GetTableDescriptorByIndex := CallbackCreate(ObjBindMethod(implObj, "GetTableDescriptorByIndex"), flags, 3)
+        this.vtbl.GetTableDescriptorByTag := CallbackCreate(ObjBindMethod(implObj, "GetTableDescriptorByTag"), flags, 4)
     }
 
     Dispose() {

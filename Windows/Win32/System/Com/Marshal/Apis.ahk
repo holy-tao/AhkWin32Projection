@@ -31,7 +31,7 @@
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-bstr_usersize
  */
 export BSTR_UserSize(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     result := DllCall("OLEAUT32.dll\BSTR_UserSize", param0Marshal, param0, UInt32, param1, BSTR.Ptr, param2, UInt32)
     return result
@@ -46,8 +46,8 @@ export BSTR_UserSize(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-bstr_usermarshal
  */
 export BSTR_UserMarshal(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLEAUT32.dll\BSTR_UserMarshal", param0Marshal, param0, param1Marshal, param1, BSTR.Ptr, param2, IntPtr)
     return result
@@ -91,8 +91,8 @@ export BSTR_UserMarshal(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-bstr_userunmarshal
  */
 export BSTR_UserUnmarshal(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLEAUT32.dll\BSTR_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, BSTR.Ptr, param2, IntPtr)
     return result
@@ -106,7 +106,7 @@ export BSTR_UserUnmarshal(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-bstr_userfree
  */
 export BSTR_UserFree(param0, param1) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     DllCall("OLEAUT32.dll\BSTR_UserFree", param0Marshal, param0, BSTR.Ptr, param1)
 }
@@ -120,7 +120,7 @@ export BSTR_UserFree(param0, param1) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hwnd_usersize
  */
 export HWND_UserSize(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     result := DllCall("OLE32.dll\HWND_UserSize", param0Marshal, param0, UInt32, param1, HWND.Ptr, param2, UInt32)
     return result
@@ -135,8 +135,8 @@ export HWND_UserSize(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hwnd_usermarshal
  */
 export HWND_UserMarshal(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HWND_UserMarshal", param0Marshal, param0, param1Marshal, param1, HWND.Ptr, param2, IntPtr)
     return result
@@ -151,8 +151,8 @@ export HWND_UserMarshal(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hwnd_userunmarshal
  */
 export HWND_UserUnmarshal(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HWND_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, HWND.Ptr, param2, IntPtr)
     return result
@@ -166,7 +166,7 @@ export HWND_UserUnmarshal(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hwnd_userfree
  */
 export HWND_UserFree(param0, param1) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     DllCall("OLE32.dll\HWND_UserFree", param0Marshal, param0, HWND.Ptr, param1)
 }
@@ -181,7 +181,7 @@ export HWND_UserFree(param0, param1) {
  * @since windows5.1.2600
  */
 export BSTR_UserSize64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     result := DllCall("OLEAUT32.dll\BSTR_UserSize64", param0Marshal, param0, UInt32, param1, BSTR.Ptr, param2, UInt32)
     return result
@@ -197,8 +197,8 @@ export BSTR_UserSize64(param0, param1, param2) {
  * @since windows5.1.2600
  */
 export BSTR_UserMarshal64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLEAUT32.dll\BSTR_UserMarshal64", param0Marshal, param0, param1Marshal, param1, BSTR.Ptr, param2, IntPtr)
     return result
@@ -243,8 +243,8 @@ export BSTR_UserMarshal64(param0, param1, param2) {
  * @since windows5.1.2600
  */
 export BSTR_UserUnmarshal64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLEAUT32.dll\BSTR_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, BSTR.Ptr, param2, IntPtr)
     return result
@@ -259,7 +259,7 @@ export BSTR_UserUnmarshal64(param0, param1, param2) {
  * @since windows5.1.2600
  */
 export BSTR_UserFree64(param0, param1) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     DllCall("OLEAUT32.dll\BSTR_UserFree64", param0Marshal, param0, BSTR.Ptr, param1)
 }
@@ -273,7 +273,7 @@ export BSTR_UserFree64(param0, param1) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hwnd_usersize64
  */
 export HWND_UserSize64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     result := DllCall("OLE32.dll\HWND_UserSize64", param0Marshal, param0, UInt32, param1, HWND.Ptr, param2, UInt32)
     return result
@@ -288,8 +288,8 @@ export HWND_UserSize64(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hwnd_usermarshal64
  */
 export HWND_UserMarshal64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HWND_UserMarshal64", param0Marshal, param0, param1Marshal, param1, HWND.Ptr, param2, IntPtr)
     return result
@@ -304,8 +304,8 @@ export HWND_UserMarshal64(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hwnd_userunmarshal64
  */
 export HWND_UserUnmarshal64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HWND_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, HWND.Ptr, param2, IntPtr)
     return result
@@ -319,7 +319,7 @@ export HWND_UserUnmarshal64(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hwnd_userfree64
  */
 export HWND_UserFree64(param0, param1) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     DllCall("OLE32.dll\HWND_UserFree64", param0Marshal, param0, HWND.Ptr, param1)
 }
@@ -333,8 +333,8 @@ export HWND_UserFree64(param0, param1) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-clipformat_usersize
  */
 export CLIPFORMAT_UserSize(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param2Marshal := param2 is VarRef ? "ushort*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param2Marshal := param2 is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("OLE32.dll\CLIPFORMAT_UserSize", param0Marshal, param0, UInt32, param1, param2Marshal, param2, UInt32)
     return result
@@ -349,9 +349,9 @@ export CLIPFORMAT_UserSize(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-clipformat_usermarshal
  */
 export CLIPFORMAT_UserMarshal(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
-    param2Marshal := param2 is VarRef ? "ushort*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
+    param2Marshal := param2 is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("OLE32.dll\CLIPFORMAT_UserMarshal", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, IntPtr)
     return result
@@ -366,9 +366,9 @@ export CLIPFORMAT_UserMarshal(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-clipformat_userunmarshal
  */
 export CLIPFORMAT_UserUnmarshal(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
-    param2Marshal := param2 is VarRef ? "ushort*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
+    param2Marshal := param2 is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("OLE32.dll\CLIPFORMAT_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, IntPtr)
     return result
@@ -382,8 +382,8 @@ export CLIPFORMAT_UserUnmarshal(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-clipformat_userfree
  */
 export CLIPFORMAT_UserFree(param0, param1) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "ushort*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "ushort*" : IntPtr
 
     DllCall("OLE32.dll\CLIPFORMAT_UserFree", param0Marshal, param0, param1Marshal, param1)
 }
@@ -397,7 +397,7 @@ export CLIPFORMAT_UserFree(param0, param1) {
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-hbitmap_usersize
  */
 export HBITMAP_UserSize(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     result := DllCall("OLE32.dll\HBITMAP_UserSize", param0Marshal, param0, UInt32, param1, HBITMAP.Ptr, param2, UInt32)
     return result
@@ -412,8 +412,8 @@ export HBITMAP_UserSize(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-hbitmap_usermarshal
  */
 export HBITMAP_UserMarshal(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HBITMAP_UserMarshal", param0Marshal, param0, param1Marshal, param1, HBITMAP.Ptr, param2, IntPtr)
     return result
@@ -428,8 +428,8 @@ export HBITMAP_UserMarshal(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-hbitmap_userunmarshal
  */
 export HBITMAP_UserUnmarshal(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HBITMAP_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, HBITMAP.Ptr, param2, IntPtr)
     return result
@@ -443,7 +443,7 @@ export HBITMAP_UserUnmarshal(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-hbitmap_userfree
  */
 export HBITMAP_UserFree(param0, param1) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     DllCall("OLE32.dll\HBITMAP_UserFree", param0Marshal, param0, HBITMAP.Ptr, param1)
 }
@@ -457,7 +457,7 @@ export HBITMAP_UserFree(param0, param1) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hdc_usersize
  */
 export HDC_UserSize(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     result := DllCall("OLE32.dll\HDC_UserSize", param0Marshal, param0, UInt32, param1, HDC.Ptr, param2, UInt32)
     return result
@@ -472,8 +472,8 @@ export HDC_UserSize(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hdc_usermarshal
  */
 export HDC_UserMarshal(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HDC_UserMarshal", param0Marshal, param0, param1Marshal, param1, HDC.Ptr, param2, IntPtr)
     return result
@@ -488,8 +488,8 @@ export HDC_UserMarshal(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hdc_userunmarshal
  */
 export HDC_UserUnmarshal(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HDC_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, HDC.Ptr, param2, IntPtr)
     return result
@@ -503,123 +503,115 @@ export HDC_UserUnmarshal(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hdc_userfree
  */
 export HDC_UserFree(param0, param1) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     DllCall("OLE32.dll\HDC_UserFree", param0Marshal, param0, HDC.Ptr, param1)
 }
 
 /**
- * 
  * @param {Pointer<Integer>} param0 
  * @param {Integer} param1 
  * @param {Pointer<HICON>} param2 
  * @returns {Integer} 
  */
 export HICON_UserSize(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     result := DllCall("OLE32.dll\HICON_UserSize", param0Marshal, param0, UInt32, param1, HICON.Ptr, param2, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} param0 
  * @param {Pointer<Integer>} param1 
  * @param {Pointer<HICON>} param2 
  * @returns {Pointer<Integer>} 
  */
 export HICON_UserMarshal(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HICON_UserMarshal", param0Marshal, param0, param1Marshal, param1, HICON.Ptr, param2, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} param0 
  * @param {Pointer<Integer>} param1 
  * @param {Pointer<HICON>} param2 
  * @returns {Pointer<Integer>} 
  */
 export HICON_UserUnmarshal(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HICON_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, HICON.Ptr, param2, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} param0 
  * @param {Pointer<HICON>} param1 
  * @returns {String} Nothing - always returns an empty string
  */
 export HICON_UserFree(param0, param1) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     DllCall("OLE32.dll\HICON_UserFree", param0Marshal, param0, HICON.Ptr, param1)
 }
 
 /**
- * 
  * @param {Pointer<Integer>} param0 
  * @param {Integer} param1 
  * @param {Pointer<Pointer<Pointer<Integer>>>} param2 
  * @returns {Integer} 
  */
 export SNB_UserSize(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param2Marshal := param2 is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("ole32.dll\SNB_UserSize", param0Marshal, param0, UInt32, param1, param2Marshal, param2, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} param0 
  * @param {Pointer<Integer>} param1 
  * @param {Pointer<Pointer<Pointer<Integer>>>} param2 
  * @returns {Pointer<Integer>} 
  */
 export SNB_UserMarshal(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
-    param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
+    param2Marshal := param2 is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("ole32.dll\SNB_UserMarshal", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} param0 
  * @param {Pointer<Integer>} param1 
  * @param {Pointer<Pointer<Pointer<Integer>>>} param2 
  * @returns {Pointer<Integer>} 
  */
 export SNB_UserUnmarshal(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
-    param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
+    param2Marshal := param2 is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("ole32.dll\SNB_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} param0 
  * @param {Pointer<Pointer<Pointer<Integer>>>} param1 
  * @returns {String} Nothing - always returns an empty string
  */
 export SNB_UserFree(param0, param1) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "ptr*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "ptr*" : IntPtr
 
     DllCall("ole32.dll\SNB_UserFree", param0Marshal, param0, param1Marshal, param1)
 }
@@ -633,7 +625,7 @@ export SNB_UserFree(param0, param1) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-stgmedium_usersize
  */
 export STGMEDIUM_UserSize(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     result := DllCall("OLE32.dll\STGMEDIUM_UserSize", param0Marshal, param0, UInt32, param1, STGMEDIUM.Ptr, param2, UInt32)
     return result
@@ -648,8 +640,8 @@ export STGMEDIUM_UserSize(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-stgmedium_usermarshal
  */
 export STGMEDIUM_UserMarshal(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\STGMEDIUM_UserMarshal", param0Marshal, param0, param1Marshal, param1, STGMEDIUM.Ptr, param2, IntPtr)
     return result
@@ -664,8 +656,8 @@ export STGMEDIUM_UserMarshal(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-stgmedium_userunmarshal
  */
 export STGMEDIUM_UserUnmarshal(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\STGMEDIUM_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, STGMEDIUM.Ptr, param2, IntPtr)
     return result
@@ -679,7 +671,7 @@ export STGMEDIUM_UserUnmarshal(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-stgmedium_userfree
  */
 export STGMEDIUM_UserFree(param0, param1) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     DllCall("OLE32.dll\STGMEDIUM_UserFree", param0Marshal, param0, STGMEDIUM.Ptr, param1)
 }
@@ -693,8 +685,8 @@ export STGMEDIUM_UserFree(param0, param1) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-clipformat_usersize64
  */
 export CLIPFORMAT_UserSize64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param2Marshal := param2 is VarRef ? "ushort*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param2Marshal := param2 is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("OLE32.dll\CLIPFORMAT_UserSize64", param0Marshal, param0, UInt32, param1, param2Marshal, param2, UInt32)
     return result
@@ -709,9 +701,9 @@ export CLIPFORMAT_UserSize64(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-clipformat_usermarshal64
  */
 export CLIPFORMAT_UserMarshal64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
-    param2Marshal := param2 is VarRef ? "ushort*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
+    param2Marshal := param2 is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("OLE32.dll\CLIPFORMAT_UserMarshal64", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, IntPtr)
     return result
@@ -726,9 +718,9 @@ export CLIPFORMAT_UserMarshal64(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-clipformat_userunmarshal64
  */
 export CLIPFORMAT_UserUnmarshal64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
-    param2Marshal := param2 is VarRef ? "ushort*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
+    param2Marshal := param2 is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("OLE32.dll\CLIPFORMAT_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, IntPtr)
     return result
@@ -742,8 +734,8 @@ export CLIPFORMAT_UserUnmarshal64(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-clipformat_userfree64
  */
 export CLIPFORMAT_UserFree64(param0, param1) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "ushort*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "ushort*" : IntPtr
 
     DllCall("OLE32.dll\CLIPFORMAT_UserFree64", param0Marshal, param0, param1Marshal, param1)
 }
@@ -757,7 +749,7 @@ export CLIPFORMAT_UserFree64(param0, param1) {
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-hbitmap_usersize64
  */
 export HBITMAP_UserSize64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     result := DllCall("OLE32.dll\HBITMAP_UserSize64", param0Marshal, param0, UInt32, param1, HBITMAP.Ptr, param2, UInt32)
     return result
@@ -772,8 +764,8 @@ export HBITMAP_UserSize64(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-hbitmap_usermarshal64
  */
 export HBITMAP_UserMarshal64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HBITMAP_UserMarshal64", param0Marshal, param0, param1Marshal, param1, HBITMAP.Ptr, param2, IntPtr)
     return result
@@ -788,8 +780,8 @@ export HBITMAP_UserMarshal64(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-hbitmap_userunmarshal64
  */
 export HBITMAP_UserUnmarshal64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HBITMAP_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, HBITMAP.Ptr, param2, IntPtr)
     return result
@@ -803,7 +795,7 @@ export HBITMAP_UserUnmarshal64(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-hbitmap_userfree64
  */
 export HBITMAP_UserFree64(param0, param1) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     DllCall("OLE32.dll\HBITMAP_UserFree64", param0Marshal, param0, HBITMAP.Ptr, param1)
 }
@@ -817,7 +809,7 @@ export HBITMAP_UserFree64(param0, param1) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hdc_usersize64
  */
 export HDC_UserSize64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     result := DllCall("OLE32.dll\HDC_UserSize64", param0Marshal, param0, UInt32, param1, HDC.Ptr, param2, UInt32)
     return result
@@ -832,8 +824,8 @@ export HDC_UserSize64(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hdc_usermarshal64
  */
 export HDC_UserMarshal64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HDC_UserMarshal64", param0Marshal, param0, param1Marshal, param1, HDC.Ptr, param2, IntPtr)
     return result
@@ -848,8 +840,8 @@ export HDC_UserMarshal64(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hdc_userunmarshal64
  */
 export HDC_UserUnmarshal64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HDC_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, HDC.Ptr, param2, IntPtr)
     return result
@@ -863,123 +855,115 @@ export HDC_UserUnmarshal64(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hdc_userfree64
  */
 export HDC_UserFree64(param0, param1) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     DllCall("OLE32.dll\HDC_UserFree64", param0Marshal, param0, HDC.Ptr, param1)
 }
 
 /**
- * 
  * @param {Pointer<Integer>} param0 
  * @param {Integer} param1 
  * @param {Pointer<HICON>} param2 
  * @returns {Integer} 
  */
 export HICON_UserSize64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     result := DllCall("OLE32.dll\HICON_UserSize64", param0Marshal, param0, UInt32, param1, HICON.Ptr, param2, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} param0 
  * @param {Pointer<Integer>} param1 
  * @param {Pointer<HICON>} param2 
  * @returns {Pointer<Integer>} 
  */
 export HICON_UserMarshal64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HICON_UserMarshal64", param0Marshal, param0, param1Marshal, param1, HICON.Ptr, param2, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} param0 
  * @param {Pointer<Integer>} param1 
  * @param {Pointer<HICON>} param2 
  * @returns {Pointer<Integer>} 
  */
 export HICON_UserUnmarshal64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HICON_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, HICON.Ptr, param2, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} param0 
  * @param {Pointer<HICON>} param1 
  * @returns {String} Nothing - always returns an empty string
  */
 export HICON_UserFree64(param0, param1) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     DllCall("OLE32.dll\HICON_UserFree64", param0Marshal, param0, HICON.Ptr, param1)
 }
 
 /**
- * 
  * @param {Pointer<Integer>} param0 
  * @param {Integer} param1 
  * @param {Pointer<Pointer<Pointer<Integer>>>} param2 
  * @returns {Integer} 
  */
 export SNB_UserSize64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param2Marshal := param2 is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("ole32.dll\SNB_UserSize64", param0Marshal, param0, UInt32, param1, param2Marshal, param2, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} param0 
  * @param {Pointer<Integer>} param1 
  * @param {Pointer<Pointer<Pointer<Integer>>>} param2 
  * @returns {Pointer<Integer>} 
  */
 export SNB_UserMarshal64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
-    param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
+    param2Marshal := param2 is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("ole32.dll\SNB_UserMarshal64", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} param0 
  * @param {Pointer<Integer>} param1 
  * @param {Pointer<Pointer<Pointer<Integer>>>} param2 
  * @returns {Pointer<Integer>} 
  */
 export SNB_UserUnmarshal64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
-    param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
+    param2Marshal := param2 is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("ole32.dll\SNB_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} param0 
  * @param {Pointer<Pointer<Pointer<Integer>>>} param1 
  * @returns {String} Nothing - always returns an empty string
  */
 export SNB_UserFree64(param0, param1) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "ptr*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "ptr*" : IntPtr
 
     DllCall("ole32.dll\SNB_UserFree64", param0Marshal, param0, param1Marshal, param1)
 }
@@ -993,7 +977,7 @@ export SNB_UserFree64(param0, param1) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-stgmedium_usersize64
  */
 export STGMEDIUM_UserSize64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     result := DllCall("OLE32.dll\STGMEDIUM_UserSize64", param0Marshal, param0, UInt32, param1, STGMEDIUM.Ptr, param2, UInt32)
     return result
@@ -1008,8 +992,8 @@ export STGMEDIUM_UserSize64(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-stgmedium_usermarshal64
  */
 export STGMEDIUM_UserMarshal64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\STGMEDIUM_UserMarshal64", param0Marshal, param0, param1Marshal, param1, STGMEDIUM.Ptr, param2, IntPtr)
     return result
@@ -1024,8 +1008,8 @@ export STGMEDIUM_UserMarshal64(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-stgmedium_userunmarshal64
  */
 export STGMEDIUM_UserUnmarshal64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\STGMEDIUM_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, STGMEDIUM.Ptr, param2, IntPtr)
     return result
@@ -1039,7 +1023,7 @@ export STGMEDIUM_UserUnmarshal64(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-stgmedium_userfree64
  */
 export STGMEDIUM_UserFree64(param0, param1) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     DllCall("OLE32.dll\STGMEDIUM_UserFree64", param0Marshal, param0, STGMEDIUM.Ptr, param1)
 }
@@ -1071,7 +1055,8 @@ export STGMEDIUM_UserFree64(param0, param1) {
  * @since windows5.0
  */
 export CoGetMarshalSizeMax(riid, pUnk, dwDestContext, pvDestContext, _mshlflags) {
-    pvDestContextMarshal := pvDestContext is VarRef ? "ptr" : "ptr"
+    pvDestContextMarshal := pvDestContext is VarRef ? "ptr" : IntPtr
+    pvDestContextMarshal := pvDestContext == 0 ? IntPtr : "ptr"
 
     result := DllCall("OLE32.dll\CoGetMarshalSizeMax", "uint*", &pulSize := 0, Guid.Ptr, riid, "ptr", pUnk, UInt32, dwDestContext, pvDestContextMarshal, pvDestContext, UInt32, _mshlflags, "HRESULT")
     return pulSize
@@ -1145,7 +1130,8 @@ export CoGetMarshalSizeMax(riid, pUnk, dwDestContext, pvDestContext, _mshlflags)
  * @since windows5.0
  */
 export CoMarshalInterface(pStm, riid, pUnk, dwDestContext, pvDestContext, _mshlflags) {
-    pvDestContextMarshal := pvDestContext is VarRef ? "ptr" : "ptr"
+    pvDestContextMarshal := pvDestContext is VarRef ? "ptr" : IntPtr
+    pvDestContextMarshal := pvDestContext == 0 ? IntPtr : "ptr"
 
     result := DllCall("OLE32.dll\CoMarshalInterface", "ptr", pStm, Guid.Ptr, riid, "ptr", pUnk, UInt32, dwDestContext, pvDestContextMarshal, pvDestContext, UInt32, _mshlflags, "HRESULT")
     return result
@@ -1380,9 +1366,11 @@ export CoReleaseMarshalData(pStm) {
  * @since windows5.0
  */
 export CoGetStandardMarshal(riid, pUnk, dwDestContext, pvDestContext, _mshlflags) {
-    pvDestContextMarshal := pvDestContext is VarRef ? "ptr" : "ptr"
+    pUnkMarshal := pUnk == 0 ? IntPtr : "ptr"
+    pvDestContextMarshal := pvDestContext is VarRef ? "ptr" : IntPtr
+    pvDestContextMarshal := pvDestContext == 0 ? IntPtr : "ptr"
 
-    result := DllCall("OLE32.dll\CoGetStandardMarshal", Guid.Ptr, riid, "ptr", pUnk, UInt32, dwDestContext, pvDestContextMarshal, pvDestContext, UInt32, _mshlflags, "ptr*", &ppMarshal := 0, "HRESULT")
+    result := DllCall("OLE32.dll\CoGetStandardMarshal", Guid.Ptr, riid, pUnkMarshal, pUnk, UInt32, dwDestContext, pvDestContextMarshal, pvDestContext, UInt32, _mshlflags, "ptr*", &ppMarshal := 0, "HRESULT")
     return IMarshal(ppMarshal)
 }
 
@@ -1471,8 +1459,8 @@ export CoMarshalInterThreadInterfaceInStream(riid, pUnk) {
  * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-lpsafearray_usersize
  */
 export LPSAFEARRAY_UserSize(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param2Marshal := param2 is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserSize", param0Marshal, param0, UInt32, param1, param2Marshal, param2, UInt32)
     return result
@@ -1534,9 +1522,9 @@ export LPSAFEARRAY_UserSize(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-lpsafearray_usermarshal
  */
 export LPSAFEARRAY_UserMarshal(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
-    param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
+    param2Marshal := param2 is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserMarshal", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, IntPtr)
     return result
@@ -1619,9 +1607,9 @@ export LPSAFEARRAY_UserMarshal(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-lpsafearray_userunmarshal
  */
 export LPSAFEARRAY_UserUnmarshal(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
-    param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
+    param2Marshal := param2 is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, IntPtr)
     return result
@@ -1635,8 +1623,8 @@ export LPSAFEARRAY_UserUnmarshal(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-lpsafearray_userfree
  */
 export LPSAFEARRAY_UserFree(param0, param1) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "ptr*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "ptr*" : IntPtr
 
     DllCall("OLEAUT32.dll\LPSAFEARRAY_UserFree", param0Marshal, param0, param1Marshal, param1)
 }
@@ -1651,8 +1639,8 @@ export LPSAFEARRAY_UserFree(param0, param1) {
  * @since windows5.1.2600
  */
 export LPSAFEARRAY_UserSize64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param2Marshal := param2 is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserSize64", param0Marshal, param0, UInt32, param1, param2Marshal, param2, UInt32)
     return result
@@ -1715,9 +1703,9 @@ export LPSAFEARRAY_UserSize64(param0, param1, param2) {
  * @since windows5.1.2600
  */
 export LPSAFEARRAY_UserMarshal64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
-    param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
+    param2Marshal := param2 is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserMarshal64", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, IntPtr)
     return result
@@ -1801,9 +1789,9 @@ export LPSAFEARRAY_UserMarshal64(param0, param1, param2) {
  * @since windows5.1.2600
  */
 export LPSAFEARRAY_UserUnmarshal64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
-    param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
+    param2Marshal := param2 is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, IntPtr)
     return result
@@ -1818,8 +1806,8 @@ export LPSAFEARRAY_UserUnmarshal64(param0, param1, param2) {
  * @since windows5.1.2600
  */
 export LPSAFEARRAY_UserFree64(param0, param1) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "ptr*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "ptr*" : IntPtr
 
     DllCall("OLEAUT32.dll\LPSAFEARRAY_UserFree64", param0Marshal, param0, param1Marshal, param1)
 }
@@ -1833,7 +1821,7 @@ export LPSAFEARRAY_UserFree64(param0, param1) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-haccel_usersize
  */
 export HACCEL_UserSize(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     result := DllCall("OLE32.dll\HACCEL_UserSize", param0Marshal, param0, UInt32, param1, HACCEL.Ptr, param2, UInt32)
     return result
@@ -1848,8 +1836,8 @@ export HACCEL_UserSize(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-haccel_usermarshal
  */
 export HACCEL_UserMarshal(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HACCEL_UserMarshal", param0Marshal, param0, param1Marshal, param1, HACCEL.Ptr, param2, IntPtr)
     return result
@@ -1864,8 +1852,8 @@ export HACCEL_UserMarshal(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-haccel_userunmarshal
  */
 export HACCEL_UserUnmarshal(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HACCEL_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, HACCEL.Ptr, param2, IntPtr)
     return result
@@ -1879,7 +1867,7 @@ export HACCEL_UserUnmarshal(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-haccel_userfree
  */
 export HACCEL_UserFree(param0, param1) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     DllCall("OLE32.dll\HACCEL_UserFree", param0Marshal, param0, HACCEL.Ptr, param1)
 }
@@ -1893,7 +1881,7 @@ export HACCEL_UserFree(param0, param1) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hglobal_usersize
  */
 export HGLOBAL_UserSize(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     result := DllCall("OLE32.dll\HGLOBAL_UserSize", param0Marshal, param0, UInt32, param1, HGLOBAL.Ptr, param2, UInt32)
     return result
@@ -1908,8 +1896,8 @@ export HGLOBAL_UserSize(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hglobal_usermarshal
  */
 export HGLOBAL_UserMarshal(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HGLOBAL_UserMarshal", param0Marshal, param0, param1Marshal, param1, HGLOBAL.Ptr, param2, IntPtr)
     return result
@@ -1924,8 +1912,8 @@ export HGLOBAL_UserMarshal(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hglobal_userunmarshal
  */
 export HGLOBAL_UserUnmarshal(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HGLOBAL_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, HGLOBAL.Ptr, param2, IntPtr)
     return result
@@ -1939,20 +1927,19 @@ export HGLOBAL_UserUnmarshal(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hglobal_userfree
  */
 export HGLOBAL_UserFree(param0, param1) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     DllCall("OLE32.dll\HGLOBAL_UserFree", param0Marshal, param0, HGLOBAL.Ptr, param1)
 }
 
 /**
- * 
  * @param {Pointer<Integer>} param0 
  * @param {Integer} param1 
  * @param {Pointer<HMENU>} param2 
  * @returns {Integer} 
  */
 export HMENU_UserSize(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     result := DllCall("OLE32.dll\HMENU_UserSize", param0Marshal, param0, UInt32, param1, HMENU.Ptr, param2, UInt32)
     return result
@@ -1967,8 +1954,8 @@ export HMENU_UserSize(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hmenu_usermarshal
  */
 export HMENU_UserMarshal(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HMENU_UserMarshal", param0Marshal, param0, param1Marshal, param1, HMENU.Ptr, param2, IntPtr)
     return result
@@ -1983,8 +1970,8 @@ export HMENU_UserMarshal(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hmenu_userunmarshal
  */
 export HMENU_UserUnmarshal(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HMENU_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, HMENU.Ptr, param2, IntPtr)
     return result
@@ -1998,7 +1985,7 @@ export HMENU_UserUnmarshal(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hmenu_userfree
  */
 export HMENU_UserFree(param0, param1) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     DllCall("OLE32.dll\HMENU_UserFree", param0Marshal, param0, HMENU.Ptr, param1)
 }
@@ -2012,7 +1999,7 @@ export HMENU_UserFree(param0, param1) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-haccel_usersize64
  */
 export HACCEL_UserSize64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     result := DllCall("OLE32.dll\HACCEL_UserSize64", param0Marshal, param0, UInt32, param1, HACCEL.Ptr, param2, UInt32)
     return result
@@ -2027,8 +2014,8 @@ export HACCEL_UserSize64(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-haccel_usermarshal64
  */
 export HACCEL_UserMarshal64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HACCEL_UserMarshal64", param0Marshal, param0, param1Marshal, param1, HACCEL.Ptr, param2, IntPtr)
     return result
@@ -2043,8 +2030,8 @@ export HACCEL_UserMarshal64(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-haccel_userunmarshal64
  */
 export HACCEL_UserUnmarshal64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HACCEL_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, HACCEL.Ptr, param2, IntPtr)
     return result
@@ -2058,7 +2045,7 @@ export HACCEL_UserUnmarshal64(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-haccel_userfree64
  */
 export HACCEL_UserFree64(param0, param1) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     DllCall("OLE32.dll\HACCEL_UserFree64", param0Marshal, param0, HACCEL.Ptr, param1)
 }
@@ -2072,7 +2059,7 @@ export HACCEL_UserFree64(param0, param1) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hglobal_usersize64
  */
 export HGLOBAL_UserSize64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     result := DllCall("OLE32.dll\HGLOBAL_UserSize64", param0Marshal, param0, UInt32, param1, HGLOBAL.Ptr, param2, UInt32)
     return result
@@ -2087,8 +2074,8 @@ export HGLOBAL_UserSize64(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hglobal_usermarshal64
  */
 export HGLOBAL_UserMarshal64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HGLOBAL_UserMarshal64", param0Marshal, param0, param1Marshal, param1, HGLOBAL.Ptr, param2, IntPtr)
     return result
@@ -2103,8 +2090,8 @@ export HGLOBAL_UserMarshal64(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hglobal_userunmarshal64
  */
 export HGLOBAL_UserUnmarshal64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HGLOBAL_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, HGLOBAL.Ptr, param2, IntPtr)
     return result
@@ -2118,7 +2105,7 @@ export HGLOBAL_UserUnmarshal64(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hglobal_userfree64
  */
 export HGLOBAL_UserFree64(param0, param1) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     DllCall("OLE32.dll\HGLOBAL_UserFree64", param0Marshal, param0, HGLOBAL.Ptr, param1)
 }
@@ -2132,7 +2119,7 @@ export HGLOBAL_UserFree64(param0, param1) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hmenu_usersize64
  */
 export HMENU_UserSize64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     result := DllCall("OLE32.dll\HMENU_UserSize64", param0Marshal, param0, UInt32, param1, HMENU.Ptr, param2, UInt32)
     return result
@@ -2147,8 +2134,8 @@ export HMENU_UserSize64(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hmenu_usermarshal64
  */
 export HMENU_UserMarshal64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HMENU_UserMarshal64", param0Marshal, param0, param1Marshal, param1, HMENU.Ptr, param2, IntPtr)
     return result
@@ -2163,8 +2150,8 @@ export HMENU_UserMarshal64(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hmenu_userunmarshal64
  */
 export HMENU_UserUnmarshal64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HMENU_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, HMENU.Ptr, param2, IntPtr)
     return result
@@ -2178,7 +2165,7 @@ export HMENU_UserUnmarshal64(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hmenu_userfree64
  */
 export HMENU_UserFree64(param0, param1) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     DllCall("OLE32.dll\HMENU_UserFree64", param0Marshal, param0, HMENU.Ptr, param1)
 }
@@ -2192,7 +2179,7 @@ export HMENU_UserFree64(param0, param1) {
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-hpalette_usersize
  */
 export HPALETTE_UserSize(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     result := DllCall("OLE32.dll\HPALETTE_UserSize", param0Marshal, param0, UInt32, param1, HPALETTE.Ptr, param2, UInt32)
     return result
@@ -2207,8 +2194,8 @@ export HPALETTE_UserSize(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-hpalette_usermarshal
  */
 export HPALETTE_UserMarshal(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HPALETTE_UserMarshal", param0Marshal, param0, param1Marshal, param1, HPALETTE.Ptr, param2, IntPtr)
     return result
@@ -2223,8 +2210,8 @@ export HPALETTE_UserMarshal(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-hpalette_userunmarshal
  */
 export HPALETTE_UserUnmarshal(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HPALETTE_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, HPALETTE.Ptr, param2, IntPtr)
     return result
@@ -2238,7 +2225,7 @@ export HPALETTE_UserUnmarshal(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-hpalette_userfree
  */
 export HPALETTE_UserFree(param0, param1) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     DllCall("OLE32.dll\HPALETTE_UserFree", param0Marshal, param0, HPALETTE.Ptr, param1)
 }
@@ -2252,7 +2239,7 @@ export HPALETTE_UserFree(param0, param1) {
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-hpalette_usersize64
  */
 export HPALETTE_UserSize64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     result := DllCall("OLE32.dll\HPALETTE_UserSize64", param0Marshal, param0, UInt32, param1, HPALETTE.Ptr, param2, UInt32)
     return result
@@ -2267,8 +2254,8 @@ export HPALETTE_UserSize64(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-hpalette_usermarshal64
  */
 export HPALETTE_UserMarshal64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HPALETTE_UserMarshal64", param0Marshal, param0, param1Marshal, param1, HPALETTE.Ptr, param2, IntPtr)
     return result
@@ -2283,8 +2270,8 @@ export HPALETTE_UserMarshal64(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-hpalette_userunmarshal64
  */
 export HPALETTE_UserUnmarshal64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HPALETTE_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, HPALETTE.Ptr, param2, IntPtr)
     return result
@@ -2298,7 +2285,7 @@ export HPALETTE_UserUnmarshal64(param0, param1, param2) {
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-hpalette_userfree64
  */
 export HPALETTE_UserFree64(param0, param1) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     DllCall("OLE32.dll\HPALETTE_UserFree64", param0Marshal, param0, HPALETTE.Ptr, param1)
 }

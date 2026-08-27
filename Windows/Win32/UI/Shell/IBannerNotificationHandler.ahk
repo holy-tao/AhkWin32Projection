@@ -37,7 +37,6 @@ export default struct IBannerNotificationHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BANNER_NOTIFICATION>} _notification 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,7 @@ export default struct IBannerNotificationHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnBannerEvent := CallbackCreate(GetMethod(implObj, "OnBannerEvent"), flags, 2)
+        this.vtbl.OnBannerEvent := CallbackCreate(ObjBindMethod(implObj, "OnBannerEvent"), flags, 2)
     }
 
     Dispose() {

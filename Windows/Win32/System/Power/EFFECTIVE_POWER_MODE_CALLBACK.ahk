@@ -23,13 +23,13 @@ export default struct EFFECTIVE_POWER_MODE_CALLBACK {
     }
 
     /**
-     * 
      * @param {EFFECTIVE_POWER_MODE} _Mode Indicates the effective power mode the system is running in
      * @param {Pointer<Void>} _Context User-specified opaque context. This context would have been passed in at registration in PowerRegisterForEffectivePowerModeNotifications.
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Mode, _Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, EFFECTIVE_POWER_MODE, _Mode, _ContextMarshal, _Context)
     }

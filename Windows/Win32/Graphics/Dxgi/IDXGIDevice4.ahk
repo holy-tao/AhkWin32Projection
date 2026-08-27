@@ -120,8 +120,8 @@ export default struct IDXGIDevice4 extends IDXGIDevice3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OfferResources1 := CallbackCreate(GetMethod(implObj, "OfferResources1"), flags, 5)
-        this.vtbl.ReclaimResources1 := CallbackCreate(GetMethod(implObj, "ReclaimResources1"), flags, 4)
+        this.vtbl.OfferResources1 := CallbackCreate(ObjBindMethod(implObj, "OfferResources1"), flags, 5)
+        this.vtbl.ReclaimResources1 := CallbackCreate(ObjBindMethod(implObj, "ReclaimResources1"), flags, 4)
     }
 
     Dispose() {

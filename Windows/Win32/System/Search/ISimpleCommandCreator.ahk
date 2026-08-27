@@ -77,7 +77,7 @@ export default struct ISimpleCommandCreator extends IUnknown {
     GetDefaultCatalog(pwszCatalogName, cwcIn, pcwcOut) {
         pwszCatalogName := pwszCatalogName is String ? StrPtr(pwszCatalogName) : pwszCatalogName
 
-        pcwcOutMarshal := pcwcOut is VarRef ? "uint*" : "ptr"
+        pcwcOutMarshal := pcwcOut is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, "ptr", pwszCatalogName, UInt32, cwcIn, pcwcOutMarshal, pcwcOut, "HRESULT")
         return result
@@ -92,9 +92,9 @@ export default struct ISimpleCommandCreator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateICommand := CallbackCreate(GetMethod(implObj, "CreateICommand"), flags, 3)
-        this.vtbl.VerifyCatalog := CallbackCreate(GetMethod(implObj, "VerifyCatalog"), flags, 3)
-        this.vtbl.GetDefaultCatalog := CallbackCreate(GetMethod(implObj, "GetDefaultCatalog"), flags, 4)
+        this.vtbl.CreateICommand := CallbackCreate(ObjBindMethod(implObj, "CreateICommand"), flags, 3)
+        this.vtbl.VerifyCatalog := CallbackCreate(ObjBindMethod(implObj, "VerifyCatalog"), flags, 3)
+        this.vtbl.GetDefaultCatalog := CallbackCreate(ObjBindMethod(implObj, "GetDefaultCatalog"), flags, 4)
     }
 
     Dispose() {

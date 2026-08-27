@@ -169,7 +169,9 @@ export default struct ID3D11VideoDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-createcryptosession
      */
     CreateCryptoSession(pCryptoType, pDecoderProfile, pKeyExchangeType) {
-        result := ComCall(6, this, Guid.Ptr, pCryptoType, Guid.Ptr, pDecoderProfile, Guid.Ptr, pKeyExchangeType, "ptr*", &ppCryptoSession := 0, "HRESULT")
+        pDecoderProfileMarshal := pDecoderProfile == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(6, this, Guid.Ptr, pCryptoType, pDecoderProfileMarshal, pDecoderProfile, Guid.Ptr, pKeyExchangeType, "ptr*", &ppCryptoSession := 0, "HRESULT")
         return ID3D11CryptoSession(ppCryptoSession)
     }
 
@@ -361,8 +363,11 @@ export default struct ID3D11VideoDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-getcontentprotectioncaps
      */
     GetContentProtectionCaps(pCryptoType, pDecoderProfile) {
+        pCryptoTypeMarshal := pCryptoType == 0 ? IntPtr : Guid.Ptr
+        pDecoderProfileMarshal := pDecoderProfile == 0 ? IntPtr : Guid.Ptr
+
         pCaps := D3D11_VIDEO_CONTENT_PROTECTION_CAPS()
-        result := ComCall(16, this, Guid.Ptr, pCryptoType, Guid.Ptr, pDecoderProfile, D3D11_VIDEO_CONTENT_PROTECTION_CAPS.Ptr, pCaps, "HRESULT")
+        result := ComCall(16, this, pCryptoTypeMarshal, pCryptoType, pDecoderProfileMarshal, pDecoderProfile, D3D11_VIDEO_CONTENT_PROTECTION_CAPS.Ptr, pCaps, "HRESULT")
         return pCaps
     }
 
@@ -393,8 +398,10 @@ export default struct ID3D11VideoDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-checkcryptokeyexchange
      */
     CheckCryptoKeyExchange(pCryptoType, pDecoderProfile, Index) {
+        pDecoderProfileMarshal := pDecoderProfile == 0 ? IntPtr : Guid.Ptr
+
         pKeyExchangeType := Guid()
-        result := ComCall(17, this, Guid.Ptr, pCryptoType, Guid.Ptr, pDecoderProfile, UInt32, Index, Guid.Ptr, pKeyExchangeType, "HRESULT")
+        result := ComCall(17, this, Guid.Ptr, pCryptoType, pDecoderProfileMarshal, pDecoderProfile, UInt32, Index, Guid.Ptr, pKeyExchangeType, "HRESULT")
         return pKeyExchangeType
     }
 
@@ -407,7 +414,9 @@ export default struct ID3D11VideoDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-setprivatedata
      */
     SetPrivateData(guid, DataSize, pData) {
-        result := ComCall(18, this, Guid.Ptr, guid, UInt32, DataSize, IntPtr, pData, "HRESULT")
+        pDataMarshal := pData == 0 ? IntPtr : IntPtr
+
+        result := ComCall(18, this, Guid.Ptr, guid, UInt32, DataSize, pDataMarshal, pData, "HRESULT")
         return result
     }
 
@@ -419,7 +428,9 @@ export default struct ID3D11VideoDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-setprivatedatainterface
      */
     SetPrivateDataInterface(guid, pData) {
-        result := ComCall(19, this, Guid.Ptr, guid, "ptr", pData, "HRESULT")
+        pDataMarshal := pData == 0 ? IntPtr : "ptr"
+
+        result := ComCall(19, this, Guid.Ptr, guid, pDataMarshal, pData, "HRESULT")
         return result
     }
 
@@ -432,23 +443,23 @@ export default struct ID3D11VideoDevice extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateVideoDecoder := CallbackCreate(GetMethod(implObj, "CreateVideoDecoder"), flags, 4)
-        this.vtbl.CreateVideoProcessor := CallbackCreate(GetMethod(implObj, "CreateVideoProcessor"), flags, 4)
-        this.vtbl.CreateAuthenticatedChannel := CallbackCreate(GetMethod(implObj, "CreateAuthenticatedChannel"), flags, 3)
-        this.vtbl.CreateCryptoSession := CallbackCreate(GetMethod(implObj, "CreateCryptoSession"), flags, 5)
-        this.vtbl.CreateVideoDecoderOutputView := CallbackCreate(GetMethod(implObj, "CreateVideoDecoderOutputView"), flags, 4)
-        this.vtbl.CreateVideoProcessorInputView := CallbackCreate(GetMethod(implObj, "CreateVideoProcessorInputView"), flags, 5)
-        this.vtbl.CreateVideoProcessorOutputView := CallbackCreate(GetMethod(implObj, "CreateVideoProcessorOutputView"), flags, 5)
-        this.vtbl.CreateVideoProcessorEnumerator := CallbackCreate(GetMethod(implObj, "CreateVideoProcessorEnumerator"), flags, 3)
-        this.vtbl.GetVideoDecoderProfileCount := CallbackCreate(GetMethod(implObj, "GetVideoDecoderProfileCount"), flags, 1)
-        this.vtbl.GetVideoDecoderProfile := CallbackCreate(GetMethod(implObj, "GetVideoDecoderProfile"), flags, 3)
-        this.vtbl.CheckVideoDecoderFormat := CallbackCreate(GetMethod(implObj, "CheckVideoDecoderFormat"), flags, 4)
-        this.vtbl.GetVideoDecoderConfigCount := CallbackCreate(GetMethod(implObj, "GetVideoDecoderConfigCount"), flags, 3)
-        this.vtbl.GetVideoDecoderConfig := CallbackCreate(GetMethod(implObj, "GetVideoDecoderConfig"), flags, 4)
-        this.vtbl.GetContentProtectionCaps := CallbackCreate(GetMethod(implObj, "GetContentProtectionCaps"), flags, 4)
-        this.vtbl.CheckCryptoKeyExchange := CallbackCreate(GetMethod(implObj, "CheckCryptoKeyExchange"), flags, 5)
-        this.vtbl.SetPrivateData := CallbackCreate(GetMethod(implObj, "SetPrivateData"), flags, 4)
-        this.vtbl.SetPrivateDataInterface := CallbackCreate(GetMethod(implObj, "SetPrivateDataInterface"), flags, 3)
+        this.vtbl.CreateVideoDecoder := CallbackCreate(ObjBindMethod(implObj, "CreateVideoDecoder"), flags, 4)
+        this.vtbl.CreateVideoProcessor := CallbackCreate(ObjBindMethod(implObj, "CreateVideoProcessor"), flags, 4)
+        this.vtbl.CreateAuthenticatedChannel := CallbackCreate(ObjBindMethod(implObj, "CreateAuthenticatedChannel"), flags, 3)
+        this.vtbl.CreateCryptoSession := CallbackCreate(ObjBindMethod(implObj, "CreateCryptoSession"), flags, 5)
+        this.vtbl.CreateVideoDecoderOutputView := CallbackCreate(ObjBindMethod(implObj, "CreateVideoDecoderOutputView"), flags, 4)
+        this.vtbl.CreateVideoProcessorInputView := CallbackCreate(ObjBindMethod(implObj, "CreateVideoProcessorInputView"), flags, 5)
+        this.vtbl.CreateVideoProcessorOutputView := CallbackCreate(ObjBindMethod(implObj, "CreateVideoProcessorOutputView"), flags, 5)
+        this.vtbl.CreateVideoProcessorEnumerator := CallbackCreate(ObjBindMethod(implObj, "CreateVideoProcessorEnumerator"), flags, 3)
+        this.vtbl.GetVideoDecoderProfileCount := CallbackCreate(ObjBindMethod(implObj, "GetVideoDecoderProfileCount"), flags, 1)
+        this.vtbl.GetVideoDecoderProfile := CallbackCreate(ObjBindMethod(implObj, "GetVideoDecoderProfile"), flags, 3)
+        this.vtbl.CheckVideoDecoderFormat := CallbackCreate(ObjBindMethod(implObj, "CheckVideoDecoderFormat"), flags, 4)
+        this.vtbl.GetVideoDecoderConfigCount := CallbackCreate(ObjBindMethod(implObj, "GetVideoDecoderConfigCount"), flags, 3)
+        this.vtbl.GetVideoDecoderConfig := CallbackCreate(ObjBindMethod(implObj, "GetVideoDecoderConfig"), flags, 4)
+        this.vtbl.GetContentProtectionCaps := CallbackCreate(ObjBindMethod(implObj, "GetContentProtectionCaps"), flags, 4)
+        this.vtbl.CheckCryptoKeyExchange := CallbackCreate(ObjBindMethod(implObj, "CheckCryptoKeyExchange"), flags, 5)
+        this.vtbl.SetPrivateData := CallbackCreate(ObjBindMethod(implObj, "SetPrivateData"), flags, 4)
+        this.vtbl.SetPrivateDataInterface := CallbackCreate(ObjBindMethod(implObj, "SetPrivateDataInterface"), flags, 3)
     }
 
     Dispose() {

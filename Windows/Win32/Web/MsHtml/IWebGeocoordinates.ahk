@@ -98,7 +98,6 @@ export default struct IWebGeocoordinates extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_latitude() {
@@ -107,7 +106,6 @@ export default struct IWebGeocoordinates extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_longitude() {
@@ -116,7 +114,6 @@ export default struct IWebGeocoordinates extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_altitude() {
@@ -126,7 +123,6 @@ export default struct IWebGeocoordinates extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_accuracy() {
@@ -135,7 +131,6 @@ export default struct IWebGeocoordinates extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_altitudeAccuracy() {
@@ -145,7 +140,6 @@ export default struct IWebGeocoordinates extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_heading() {
@@ -155,7 +149,6 @@ export default struct IWebGeocoordinates extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_speed() {
@@ -173,13 +166,13 @@ export default struct IWebGeocoordinates extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_latitude := CallbackCreate(GetMethod(implObj, "get_latitude"), flags, 2)
-        this.vtbl.get_longitude := CallbackCreate(GetMethod(implObj, "get_longitude"), flags, 2)
-        this.vtbl.get_altitude := CallbackCreate(GetMethod(implObj, "get_altitude"), flags, 2)
-        this.vtbl.get_accuracy := CallbackCreate(GetMethod(implObj, "get_accuracy"), flags, 2)
-        this.vtbl.get_altitudeAccuracy := CallbackCreate(GetMethod(implObj, "get_altitudeAccuracy"), flags, 2)
-        this.vtbl.get_heading := CallbackCreate(GetMethod(implObj, "get_heading"), flags, 2)
-        this.vtbl.get_speed := CallbackCreate(GetMethod(implObj, "get_speed"), flags, 2)
+        this.vtbl.get_latitude := CallbackCreate(ObjBindMethod(implObj, "get_latitude"), flags, 2)
+        this.vtbl.get_longitude := CallbackCreate(ObjBindMethod(implObj, "get_longitude"), flags, 2)
+        this.vtbl.get_altitude := CallbackCreate(ObjBindMethod(implObj, "get_altitude"), flags, 2)
+        this.vtbl.get_accuracy := CallbackCreate(ObjBindMethod(implObj, "get_accuracy"), flags, 2)
+        this.vtbl.get_altitudeAccuracy := CallbackCreate(ObjBindMethod(implObj, "get_altitudeAccuracy"), flags, 2)
+        this.vtbl.get_heading := CallbackCreate(ObjBindMethod(implObj, "get_heading"), flags, 2)
+        this.vtbl.get_speed := CallbackCreate(ObjBindMethod(implObj, "get_speed"), flags, 2)
     }
 
     Dispose() {

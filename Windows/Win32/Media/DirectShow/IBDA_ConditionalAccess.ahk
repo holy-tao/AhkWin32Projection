@@ -68,9 +68,9 @@ export default struct IBDA_ConditionalAccess extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_conditionalaccess-get_smartcardstatus
      */
     get_SmartCardStatus(pCardStatus, pCardAssociation, pbstrCardError, pfOOBLocked) {
-        pCardStatusMarshal := pCardStatus is VarRef ? "int*" : "ptr"
-        pCardAssociationMarshal := pCardAssociation is VarRef ? "int*" : "ptr"
-        pfOOBLockedMarshal := pfOOBLocked is VarRef ? "short*" : "ptr"
+        pCardStatusMarshal := pCardStatus is VarRef ? "int*" : IntPtr
+        pCardAssociationMarshal := pCardAssociation is VarRef ? "int*" : IntPtr
+        pfOOBLockedMarshal := pfOOBLocked is VarRef ? "short*" : IntPtr
 
         result := ComCall(3, this, pCardStatusMarshal, pCardStatus, pCardAssociationMarshal, pCardAssociation, BSTR.Ptr, pbstrCardError, pfOOBLockedMarshal, pfOOBLocked, "HRESULT")
         return result
@@ -89,9 +89,9 @@ export default struct IBDA_ConditionalAccess extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_conditionalaccess-get_smartcardinfo
      */
     get_SmartCardInfo(pbstrCardName, pbstrCardManufacturer, pfDaylightSavings, pbyRatingRegion, plTimeZoneOffsetMinutes, pbstrLanguage, pEALocationCode) {
-        pfDaylightSavingsMarshal := pfDaylightSavings is VarRef ? "short*" : "ptr"
-        pbyRatingRegionMarshal := pbyRatingRegion is VarRef ? "char*" : "ptr"
-        plTimeZoneOffsetMinutesMarshal := plTimeZoneOffsetMinutes is VarRef ? "int*" : "ptr"
+        pfDaylightSavingsMarshal := pfDaylightSavings is VarRef ? "short*" : IntPtr
+        pbyRatingRegionMarshal := pbyRatingRegion is VarRef ? "char*" : IntPtr
+        plTimeZoneOffsetMinutesMarshal := plTimeZoneOffsetMinutes is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, BSTR.Ptr, pbstrCardName, BSTR.Ptr, pbstrCardManufacturer, pfDaylightSavingsMarshal, pfDaylightSavings, pbyRatingRegionMarshal, pbyRatingRegion, plTimeZoneOffsetMinutesMarshal, plTimeZoneOffsetMinutes, BSTR.Ptr, pbstrLanguage, EALocationCodeType.Ptr, pEALocationCode, "HRESULT")
         return result
@@ -109,7 +109,7 @@ export default struct IBDA_ConditionalAccess extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_conditionalaccess-get_smartcardapplications
      */
     get_SmartCardApplications(pulcApplications, ulcApplicationsMax, rgApplications) {
-        pulcApplicationsMarshal := pulcApplications is VarRef ? "uint*" : "ptr"
+        pulcApplicationsMarshal := pulcApplications is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, pulcApplicationsMarshal, pulcApplications, UInt32, ulcApplicationsMax, SmartCardApplication.Ptr, rgApplications, "HRESULT")
         return result
@@ -203,16 +203,16 @@ export default struct IBDA_ConditionalAccess extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_SmartCardStatus := CallbackCreate(GetMethod(implObj, "get_SmartCardStatus"), flags, 5)
-        this.vtbl.get_SmartCardInfo := CallbackCreate(GetMethod(implObj, "get_SmartCardInfo"), flags, 8)
-        this.vtbl.get_SmartCardApplications := CallbackCreate(GetMethod(implObj, "get_SmartCardApplications"), flags, 4)
-        this.vtbl.get_Entitlement := CallbackCreate(GetMethod(implObj, "get_Entitlement"), flags, 3)
-        this.vtbl.TuneByChannel := CallbackCreate(GetMethod(implObj, "TuneByChannel"), flags, 2)
-        this.vtbl.SetProgram := CallbackCreate(GetMethod(implObj, "SetProgram"), flags, 2)
-        this.vtbl.AddProgram := CallbackCreate(GetMethod(implObj, "AddProgram"), flags, 2)
-        this.vtbl.RemoveProgram := CallbackCreate(GetMethod(implObj, "RemoveProgram"), flags, 2)
-        this.vtbl.GetModuleUI := CallbackCreate(GetMethod(implObj, "GetModuleUI"), flags, 3)
-        this.vtbl.InformUIClosed := CallbackCreate(GetMethod(implObj, "InformUIClosed"), flags, 3)
+        this.vtbl.get_SmartCardStatus := CallbackCreate(ObjBindMethod(implObj, "get_SmartCardStatus"), flags, 5)
+        this.vtbl.get_SmartCardInfo := CallbackCreate(ObjBindMethod(implObj, "get_SmartCardInfo"), flags, 8)
+        this.vtbl.get_SmartCardApplications := CallbackCreate(ObjBindMethod(implObj, "get_SmartCardApplications"), flags, 4)
+        this.vtbl.get_Entitlement := CallbackCreate(ObjBindMethod(implObj, "get_Entitlement"), flags, 3)
+        this.vtbl.TuneByChannel := CallbackCreate(ObjBindMethod(implObj, "TuneByChannel"), flags, 2)
+        this.vtbl.SetProgram := CallbackCreate(ObjBindMethod(implObj, "SetProgram"), flags, 2)
+        this.vtbl.AddProgram := CallbackCreate(ObjBindMethod(implObj, "AddProgram"), flags, 2)
+        this.vtbl.RemoveProgram := CallbackCreate(ObjBindMethod(implObj, "RemoveProgram"), flags, 2)
+        this.vtbl.GetModuleUI := CallbackCreate(ObjBindMethod(implObj, "GetModuleUI"), flags, 3)
+        this.vtbl.InformUIClosed := CallbackCreate(ObjBindMethod(implObj, "InformUIClosed"), flags, 3)
     }
 
     Dispose() {

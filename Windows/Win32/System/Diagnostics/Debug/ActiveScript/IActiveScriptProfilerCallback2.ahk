@@ -39,7 +39,6 @@ export default struct IActiveScriptProfilerCallback2 extends IActiveScriptProfil
     }
 
     /**
-     * 
      * @param {PWSTR} pwszFunctionName 
      * @param {PROFILER_SCRIPT_TYPE} type 
      * @returns {HRESULT} 
@@ -52,7 +51,6 @@ export default struct IActiveScriptProfilerCallback2 extends IActiveScriptProfil
     }
 
     /**
-     * 
      * @param {PWSTR} pwszFunctionName 
      * @param {PROFILER_SCRIPT_TYPE} type 
      * @returns {HRESULT} 
@@ -73,8 +71,8 @@ export default struct IActiveScriptProfilerCallback2 extends IActiveScriptProfil
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnFunctionEnterByName := CallbackCreate(GetMethod(implObj, "OnFunctionEnterByName"), flags, 3)
-        this.vtbl.OnFunctionExitByName := CallbackCreate(GetMethod(implObj, "OnFunctionExitByName"), flags, 3)
+        this.vtbl.OnFunctionEnterByName := CallbackCreate(ObjBindMethod(implObj, "OnFunctionEnterByName"), flags, 3)
+        this.vtbl.OnFunctionExitByName := CallbackCreate(ObjBindMethod(implObj, "OnFunctionExitByName"), flags, 3)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct VBS_BASIC_ENCLAVE_BASIC_CALL_INTERRUPT_THREAD {
     }
 
     /**
-     * 
      * @param {Pointer<VBS_BASIC_ENCLAVE_THREAD_DESCRIPTOR64>} ThreadDescriptor 
      * @returns {Integer} 
      */

@@ -21,7 +21,6 @@ export default struct PFN_AUTHZ_COMPUTE_DYNAMIC_GROUPS {
     }
 
     /**
-     * 
      * @param {AUTHZ_CLIENT_CONTEXT_HANDLE} hAuthzClientContext 
      * @param {Pointer<Void>} Args 
      * @param {Pointer<Pointer<SID_AND_ATTRIBUTES>>} pSidAttrArray 
@@ -31,11 +30,11 @@ export default struct PFN_AUTHZ_COMPUTE_DYNAMIC_GROUPS {
      * @returns {BOOL} 
      */
     Call(hAuthzClientContext, Args, pSidAttrArray, pSidCount, pRestrictedSidAttrArray, pRestrictedSidCount) {
-        ArgsMarshal := Args is VarRef ? "ptr" : "ptr"
-        pSidAttrArrayMarshal := pSidAttrArray is VarRef ? "ptr*" : "ptr"
-        pSidCountMarshal := pSidCount is VarRef ? "uint*" : "ptr"
-        pRestrictedSidAttrArrayMarshal := pRestrictedSidAttrArray is VarRef ? "ptr*" : "ptr"
-        pRestrictedSidCountMarshal := pRestrictedSidCount is VarRef ? "uint*" : "ptr"
+        ArgsMarshal := Args is VarRef ? "ptr" : IntPtr
+        pSidAttrArrayMarshal := pSidAttrArray is VarRef ? "ptr*" : IntPtr
+        pSidCountMarshal := pSidCount is VarRef ? "uint*" : IntPtr
+        pRestrictedSidAttrArrayMarshal := pRestrictedSidAttrArray is VarRef ? "ptr*" : IntPtr
+        pRestrictedSidCountMarshal := pRestrictedSidCount is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, AUTHZ_CLIENT_CONTEXT_HANDLE, hAuthzClientContext, ArgsMarshal, Args, pSidAttrArrayMarshal, pSidAttrArray, pSidCountMarshal, pSidCount, pRestrictedSidAttrArrayMarshal, pRestrictedSidAttrArray, pRestrictedSidCountMarshal, pRestrictedSidCount, BOOL)
         return result

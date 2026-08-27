@@ -141,7 +141,6 @@ export default struct IHTMLOptionButtonElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -153,7 +152,6 @@ export default struct IHTMLOptionButtonElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_value() {
@@ -163,7 +161,6 @@ export default struct IHTMLOptionButtonElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -173,7 +170,6 @@ export default struct IHTMLOptionButtonElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -185,7 +181,6 @@ export default struct IHTMLOptionButtonElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -195,7 +190,6 @@ export default struct IHTMLOptionButtonElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -205,7 +199,6 @@ export default struct IHTMLOptionButtonElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_checked() {
@@ -214,7 +207,6 @@ export default struct IHTMLOptionButtonElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -224,7 +216,6 @@ export default struct IHTMLOptionButtonElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_defaultChecked() {
@@ -233,7 +224,6 @@ export default struct IHTMLOptionButtonElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -243,7 +233,6 @@ export default struct IHTMLOptionButtonElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onchange() {
@@ -253,7 +242,6 @@ export default struct IHTMLOptionButtonElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -263,7 +251,6 @@ export default struct IHTMLOptionButtonElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_disabled() {
@@ -272,7 +259,6 @@ export default struct IHTMLOptionButtonElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -282,7 +268,6 @@ export default struct IHTMLOptionButtonElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_status() {
@@ -291,7 +276,6 @@ export default struct IHTMLOptionButtonElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -301,7 +285,6 @@ export default struct IHTMLOptionButtonElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_indeterminate() {
@@ -310,7 +293,6 @@ export default struct IHTMLOptionButtonElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLFormElement} 
      */
     get_form() {
@@ -327,24 +309,24 @@ export default struct IHTMLOptionButtonElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_value := CallbackCreate(GetMethod(implObj, "put_value"), flags, 2)
-        this.vtbl.get_value := CallbackCreate(GetMethod(implObj, "get_value"), flags, 2)
-        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
-        this.vtbl.put_name := CallbackCreate(GetMethod(implObj, "put_name"), flags, 2)
-        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
-        this.vtbl.put_checked := CallbackCreate(GetMethod(implObj, "put_checked"), flags, 2)
-        this.vtbl.get_checked := CallbackCreate(GetMethod(implObj, "get_checked"), flags, 2)
-        this.vtbl.put_defaultChecked := CallbackCreate(GetMethod(implObj, "put_defaultChecked"), flags, 2)
-        this.vtbl.get_defaultChecked := CallbackCreate(GetMethod(implObj, "get_defaultChecked"), flags, 2)
-        this.vtbl.put_onchange := CallbackCreate(GetMethod(implObj, "put_onchange"), flags, 2)
-        this.vtbl.get_onchange := CallbackCreate(GetMethod(implObj, "get_onchange"), flags, 2)
-        this.vtbl.put_disabled := CallbackCreate(GetMethod(implObj, "put_disabled"), flags, 2)
-        this.vtbl.get_disabled := CallbackCreate(GetMethod(implObj, "get_disabled"), flags, 2)
-        this.vtbl.put_status := CallbackCreate(GetMethod(implObj, "put_status"), flags, 2)
-        this.vtbl.get_status := CallbackCreate(GetMethod(implObj, "get_status"), flags, 2)
-        this.vtbl.put_indeterminate := CallbackCreate(GetMethod(implObj, "put_indeterminate"), flags, 2)
-        this.vtbl.get_indeterminate := CallbackCreate(GetMethod(implObj, "get_indeterminate"), flags, 2)
-        this.vtbl.get_form := CallbackCreate(GetMethod(implObj, "get_form"), flags, 2)
+        this.vtbl.put_value := CallbackCreate(ObjBindMethod(implObj, "put_value"), flags, 2)
+        this.vtbl.get_value := CallbackCreate(ObjBindMethod(implObj, "get_value"), flags, 2)
+        this.vtbl.get_type := CallbackCreate(ObjBindMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.put_name := CallbackCreate(ObjBindMethod(implObj, "put_name"), flags, 2)
+        this.vtbl.get_name := CallbackCreate(ObjBindMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.put_checked := CallbackCreate(ObjBindMethod(implObj, "put_checked"), flags, 2)
+        this.vtbl.get_checked := CallbackCreate(ObjBindMethod(implObj, "get_checked"), flags, 2)
+        this.vtbl.put_defaultChecked := CallbackCreate(ObjBindMethod(implObj, "put_defaultChecked"), flags, 2)
+        this.vtbl.get_defaultChecked := CallbackCreate(ObjBindMethod(implObj, "get_defaultChecked"), flags, 2)
+        this.vtbl.put_onchange := CallbackCreate(ObjBindMethod(implObj, "put_onchange"), flags, 2)
+        this.vtbl.get_onchange := CallbackCreate(ObjBindMethod(implObj, "get_onchange"), flags, 2)
+        this.vtbl.put_disabled := CallbackCreate(ObjBindMethod(implObj, "put_disabled"), flags, 2)
+        this.vtbl.get_disabled := CallbackCreate(ObjBindMethod(implObj, "get_disabled"), flags, 2)
+        this.vtbl.put_status := CallbackCreate(ObjBindMethod(implObj, "put_status"), flags, 2)
+        this.vtbl.get_status := CallbackCreate(ObjBindMethod(implObj, "get_status"), flags, 2)
+        this.vtbl.put_indeterminate := CallbackCreate(ObjBindMethod(implObj, "put_indeterminate"), flags, 2)
+        this.vtbl.get_indeterminate := CallbackCreate(ObjBindMethod(implObj, "get_indeterminate"), flags, 2)
+        this.vtbl.get_form := CallbackCreate(ObjBindMethod(implObj, "get_form"), flags, 2)
     }
 
     Dispose() {

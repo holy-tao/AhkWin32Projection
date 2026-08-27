@@ -20,7 +20,6 @@ export default struct LPOCNCONNPROCW {
     }
 
     /**
-     * 
      * @param {Pointer} param0 
      * @param {PWSTR} param1 
      * @param {PWSTR} param2 
@@ -31,7 +30,7 @@ export default struct LPOCNCONNPROCW {
         param1 := param1 is String ? StrPtr(param1) : param1
         param2 := param2 is String ? StrPtr(param2) : param2
 
-        param3Marshal := param3 is VarRef ? "ptr" : "ptr"
+        param3Marshal := param3 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, IntPtr, param0, "ptr", param1, "ptr", param2, param3Marshal, param3, IntPtr)
         return result

@@ -21,7 +21,6 @@ export default struct PRESUTIL_SET_PROPERTY_TABLE_EX {
     }
 
     /**
-     * 
      * @param {HKEY} hkeyClusterKey 
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable 
      * @param {Pointer<Void>} Reserved 
@@ -33,9 +32,9 @@ export default struct PRESUTIL_SET_PROPERTY_TABLE_EX {
      * @returns {Integer} 
      */
     Call(hkeyClusterKey, pPropertyTable, Reserved, bAllowUnknownProperties, pInPropertyList, cbInPropertyListSize, bForceWrite, pOutParams) {
-        ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
-        pInPropertyListMarshal := pInPropertyList is VarRef ? "ptr" : "ptr"
-        pOutParamsMarshal := pOutParams is VarRef ? "char*" : "ptr"
+        ReservedMarshal := Reserved is VarRef ? "ptr" : IntPtr
+        pInPropertyListMarshal := pInPropertyList is VarRef ? "ptr" : IntPtr
+        pOutParamsMarshal := pOutParams is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, HKEY, hkeyClusterKey, RESUTIL_PROPERTY_ITEM.Ptr, pPropertyTable, ReservedMarshal, Reserved, BOOL, bAllowUnknownProperties, pInPropertyListMarshal, pInPropertyList, UInt32, cbInPropertyListSize, BOOL, bForceWrite, pOutParamsMarshal, pOutParams, UInt32)
         return result

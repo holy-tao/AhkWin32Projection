@@ -20,7 +20,6 @@ export default struct PCLUSAPI_GET_CLUSTER_NET_INTERFACE_KEY {
     }
 
     /**
-     * 
      * @param {HNETINTERFACE} _hNetInterface 
      * @param {Integer} samDesired 
      * @returns {HKEY} 

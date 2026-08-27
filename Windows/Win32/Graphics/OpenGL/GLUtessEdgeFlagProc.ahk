@@ -18,7 +18,6 @@ export default struct GLUtessEdgeFlagProc {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @returns {String} Nothing - always returns an empty string
      */

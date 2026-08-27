@@ -134,7 +134,8 @@ export default struct IFolderView2 extends IFolderView {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getgroupby
      */
     GetGroupBy(pkey, pfAscending) {
-        pfAscendingMarshal := pfAscending is VarRef ? "int*" : "ptr"
+        pfAscendingMarshal := pfAscending is VarRef ? "int*" : IntPtr
+        pfAscendingMarshal := pfAscending == 0 ? IntPtr : BOOL.Ptr
 
         result := ComCall(18, this, PROPERTYKEY.Ptr, pkey, pfAscendingMarshal, pfAscending, "HRESULT")
         return result
@@ -460,8 +461,8 @@ export default struct IFolderView2 extends IFolderView {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getviewmodeandiconsize
      */
     GetViewModeAndIconSize(puViewMode, piImageSize) {
-        puViewModeMarshal := puViewMode is VarRef ? "int*" : "ptr"
-        piImageSizeMarshal := piImageSize is VarRef ? "int*" : "ptr"
+        puViewModeMarshal := puViewMode is VarRef ? "int*" : IntPtr
+        piImageSizeMarshal := piImageSize is VarRef ? "int*" : IntPtr
 
         result := ComCall(36, this, puViewModeMarshal, puViewMode, piImageSizeMarshal, piImageSize, "HRESULT")
         return result
@@ -546,31 +547,31 @@ export default struct IFolderView2 extends IFolderView {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetGroupBy := CallbackCreate(GetMethod(implObj, "SetGroupBy"), flags, 3)
-        this.vtbl.GetGroupBy := CallbackCreate(GetMethod(implObj, "GetGroupBy"), flags, 3)
-        this.vtbl.SetViewProperty := CallbackCreate(GetMethod(implObj, "SetViewProperty"), flags, 4)
-        this.vtbl.GetViewProperty := CallbackCreate(GetMethod(implObj, "GetViewProperty"), flags, 4)
-        this.vtbl.SetTileViewProperties := CallbackCreate(GetMethod(implObj, "SetTileViewProperties"), flags, 3)
-        this.vtbl.SetExtendedTileViewProperties := CallbackCreate(GetMethod(implObj, "SetExtendedTileViewProperties"), flags, 3)
-        this.vtbl.SetText := CallbackCreate(GetMethod(implObj, "SetText"), flags, 3)
-        this.vtbl.SetCurrentFolderFlags := CallbackCreate(GetMethod(implObj, "SetCurrentFolderFlags"), flags, 3)
-        this.vtbl.GetCurrentFolderFlags := CallbackCreate(GetMethod(implObj, "GetCurrentFolderFlags"), flags, 2)
-        this.vtbl.GetSortColumnCount := CallbackCreate(GetMethod(implObj, "GetSortColumnCount"), flags, 2)
-        this.vtbl.SetSortColumns := CallbackCreate(GetMethod(implObj, "SetSortColumns"), flags, 3)
-        this.vtbl.GetSortColumns := CallbackCreate(GetMethod(implObj, "GetSortColumns"), flags, 3)
-        this.vtbl.GetItem := CallbackCreate(GetMethod(implObj, "GetItem"), flags, 4)
-        this.vtbl.GetVisibleItem := CallbackCreate(GetMethod(implObj, "GetVisibleItem"), flags, 4)
-        this.vtbl.GetSelectedItem := CallbackCreate(GetMethod(implObj, "GetSelectedItem"), flags, 3)
-        this.vtbl.GetSelection := CallbackCreate(GetMethod(implObj, "GetSelection"), flags, 3)
-        this.vtbl.GetSelectionState := CallbackCreate(GetMethod(implObj, "GetSelectionState"), flags, 3)
-        this.vtbl.InvokeVerbOnSelection := CallbackCreate(GetMethod(implObj, "InvokeVerbOnSelection"), flags, 2)
-        this.vtbl.SetViewModeAndIconSize := CallbackCreate(GetMethod(implObj, "SetViewModeAndIconSize"), flags, 3)
-        this.vtbl.GetViewModeAndIconSize := CallbackCreate(GetMethod(implObj, "GetViewModeAndIconSize"), flags, 3)
-        this.vtbl.SetGroupSubsetCount := CallbackCreate(GetMethod(implObj, "SetGroupSubsetCount"), flags, 2)
-        this.vtbl.GetGroupSubsetCount := CallbackCreate(GetMethod(implObj, "GetGroupSubsetCount"), flags, 2)
-        this.vtbl.SetRedraw := CallbackCreate(GetMethod(implObj, "SetRedraw"), flags, 2)
-        this.vtbl.IsMoveInSameFolder := CallbackCreate(GetMethod(implObj, "IsMoveInSameFolder"), flags, 1)
-        this.vtbl.DoRename := CallbackCreate(GetMethod(implObj, "DoRename"), flags, 1)
+        this.vtbl.SetGroupBy := CallbackCreate(ObjBindMethod(implObj, "SetGroupBy"), flags, 3)
+        this.vtbl.GetGroupBy := CallbackCreate(ObjBindMethod(implObj, "GetGroupBy"), flags, 3)
+        this.vtbl.SetViewProperty := CallbackCreate(ObjBindMethod(implObj, "SetViewProperty"), flags, 4)
+        this.vtbl.GetViewProperty := CallbackCreate(ObjBindMethod(implObj, "GetViewProperty"), flags, 4)
+        this.vtbl.SetTileViewProperties := CallbackCreate(ObjBindMethod(implObj, "SetTileViewProperties"), flags, 3)
+        this.vtbl.SetExtendedTileViewProperties := CallbackCreate(ObjBindMethod(implObj, "SetExtendedTileViewProperties"), flags, 3)
+        this.vtbl.SetText := CallbackCreate(ObjBindMethod(implObj, "SetText"), flags, 3)
+        this.vtbl.SetCurrentFolderFlags := CallbackCreate(ObjBindMethod(implObj, "SetCurrentFolderFlags"), flags, 3)
+        this.vtbl.GetCurrentFolderFlags := CallbackCreate(ObjBindMethod(implObj, "GetCurrentFolderFlags"), flags, 2)
+        this.vtbl.GetSortColumnCount := CallbackCreate(ObjBindMethod(implObj, "GetSortColumnCount"), flags, 2)
+        this.vtbl.SetSortColumns := CallbackCreate(ObjBindMethod(implObj, "SetSortColumns"), flags, 3)
+        this.vtbl.GetSortColumns := CallbackCreate(ObjBindMethod(implObj, "GetSortColumns"), flags, 3)
+        this.vtbl.GetItem := CallbackCreate(ObjBindMethod(implObj, "GetItem"), flags, 4)
+        this.vtbl.GetVisibleItem := CallbackCreate(ObjBindMethod(implObj, "GetVisibleItem"), flags, 4)
+        this.vtbl.GetSelectedItem := CallbackCreate(ObjBindMethod(implObj, "GetSelectedItem"), flags, 3)
+        this.vtbl.GetSelection := CallbackCreate(ObjBindMethod(implObj, "GetSelection"), flags, 3)
+        this.vtbl.GetSelectionState := CallbackCreate(ObjBindMethod(implObj, "GetSelectionState"), flags, 3)
+        this.vtbl.InvokeVerbOnSelection := CallbackCreate(ObjBindMethod(implObj, "InvokeVerbOnSelection"), flags, 2)
+        this.vtbl.SetViewModeAndIconSize := CallbackCreate(ObjBindMethod(implObj, "SetViewModeAndIconSize"), flags, 3)
+        this.vtbl.GetViewModeAndIconSize := CallbackCreate(ObjBindMethod(implObj, "GetViewModeAndIconSize"), flags, 3)
+        this.vtbl.SetGroupSubsetCount := CallbackCreate(ObjBindMethod(implObj, "SetGroupSubsetCount"), flags, 2)
+        this.vtbl.GetGroupSubsetCount := CallbackCreate(ObjBindMethod(implObj, "GetGroupSubsetCount"), flags, 2)
+        this.vtbl.SetRedraw := CallbackCreate(ObjBindMethod(implObj, "SetRedraw"), flags, 2)
+        this.vtbl.IsMoveInSameFolder := CallbackCreate(ObjBindMethod(implObj, "IsMoveInSameFolder"), flags, 1)
+        this.vtbl.DoRename := CallbackCreate(ObjBindMethod(implObj, "DoRename"), flags, 1)
     }
 
     Dispose() {

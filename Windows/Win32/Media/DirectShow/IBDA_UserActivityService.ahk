@@ -110,9 +110,9 @@ export default struct IBDA_UserActivityService extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetCurrentTunerUseReason := CallbackCreate(GetMethod(implObj, "SetCurrentTunerUseReason"), flags, 2)
-        this.vtbl.GetUserActivityInterval := CallbackCreate(GetMethod(implObj, "GetUserActivityInterval"), flags, 2)
-        this.vtbl.UserActivityDetected := CallbackCreate(GetMethod(implObj, "UserActivityDetected"), flags, 1)
+        this.vtbl.SetCurrentTunerUseReason := CallbackCreate(ObjBindMethod(implObj, "SetCurrentTunerUseReason"), flags, 2)
+        this.vtbl.GetUserActivityInterval := CallbackCreate(ObjBindMethod(implObj, "GetUserActivityInterval"), flags, 2)
+        this.vtbl.UserActivityDetected := CallbackCreate(ObjBindMethod(implObj, "UserActivityDetected"), flags, 1)
     }
 
     Dispose() {

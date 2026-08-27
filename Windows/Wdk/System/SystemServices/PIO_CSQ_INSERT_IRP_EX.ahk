@@ -19,7 +19,6 @@ export default struct PIO_CSQ_INSERT_IRP_EX {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

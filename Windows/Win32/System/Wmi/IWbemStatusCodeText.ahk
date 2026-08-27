@@ -91,8 +91,8 @@ export default struct IWbemStatusCodeText extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetErrorCodeText := CallbackCreate(GetMethod(implObj, "GetErrorCodeText"), flags, 5)
-        this.vtbl.GetFacilityCodeText := CallbackCreate(GetMethod(implObj, "GetFacilityCodeText"), flags, 5)
+        this.vtbl.GetErrorCodeText := CallbackCreate(ObjBindMethod(implObj, "GetErrorCodeText"), flags, 5)
+        this.vtbl.GetFacilityCodeText := CallbackCreate(ObjBindMethod(implObj, "GetFacilityCodeText"), flags, 5)
     }
 
     Dispose() {

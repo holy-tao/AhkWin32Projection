@@ -67,7 +67,7 @@ export default struct IVdsServiceLoader extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LoadService := CallbackCreate(GetMethod(implObj, "LoadService"), flags, 3)
+        this.vtbl.LoadService := CallbackCreate(ObjBindMethod(implObj, "LoadService"), flags, 3)
     }
 
     Dispose() {

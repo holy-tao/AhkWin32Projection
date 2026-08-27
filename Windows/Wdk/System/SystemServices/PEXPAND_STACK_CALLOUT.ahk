@@ -18,7 +18,6 @@ export default struct PEXPAND_STACK_CALLOUT {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

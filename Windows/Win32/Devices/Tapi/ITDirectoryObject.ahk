@@ -308,13 +308,13 @@ export default struct ITDirectoryObject extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ObjectType := CallbackCreate(GetMethod(implObj, "get_ObjectType"), flags, 2)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
-        this.vtbl.get_DialableAddrs := CallbackCreate(GetMethod(implObj, "get_DialableAddrs"), flags, 3)
-        this.vtbl.EnumerateDialableAddrs := CallbackCreate(GetMethod(implObj, "EnumerateDialableAddrs"), flags, 3)
-        this.vtbl.get_SecurityDescriptor := CallbackCreate(GetMethod(implObj, "get_SecurityDescriptor"), flags, 2)
-        this.vtbl.put_SecurityDescriptor := CallbackCreate(GetMethod(implObj, "put_SecurityDescriptor"), flags, 2)
+        this.vtbl.get_ObjectType := CallbackCreate(ObjBindMethod(implObj, "get_ObjectType"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(ObjBindMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.get_DialableAddrs := CallbackCreate(ObjBindMethod(implObj, "get_DialableAddrs"), flags, 3)
+        this.vtbl.EnumerateDialableAddrs := CallbackCreate(ObjBindMethod(implObj, "EnumerateDialableAddrs"), flags, 3)
+        this.vtbl.get_SecurityDescriptor := CallbackCreate(ObjBindMethod(implObj, "get_SecurityDescriptor"), flags, 2)
+        this.vtbl.put_SecurityDescriptor := CallbackCreate(ObjBindMethod(implObj, "put_SecurityDescriptor"), flags, 2)
     }
 
     Dispose() {

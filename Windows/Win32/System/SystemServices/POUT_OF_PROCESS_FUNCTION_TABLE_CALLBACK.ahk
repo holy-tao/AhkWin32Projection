@@ -21,7 +21,6 @@ export default struct POUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK {
     }
 
     /**
-     * 
      * @param {HANDLE} Process 
      * @param {Pointer<Void>} TableAddress 
      * @param {Pointer<Integer>} Entries 
@@ -29,9 +28,9 @@ export default struct POUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK {
      * @returns {Integer} 
      */
     Call(Process, TableAddress, Entries, Functions) {
-        TableAddressMarshal := TableAddress is VarRef ? "ptr" : "ptr"
-        EntriesMarshal := Entries is VarRef ? "uint*" : "ptr"
-        FunctionsMarshal := Functions is VarRef ? "ptr*" : "ptr"
+        TableAddressMarshal := TableAddress is VarRef ? "ptr" : IntPtr
+        EntriesMarshal := Entries is VarRef ? "uint*" : IntPtr
+        FunctionsMarshal := Functions is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, HANDLE, Process, TableAddressMarshal, TableAddress, EntriesMarshal, Entries, FunctionsMarshal, Functions, UInt32)
         return result

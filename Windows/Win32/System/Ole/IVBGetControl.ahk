@@ -130,7 +130,7 @@ export default struct IVBGetControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumControls := CallbackCreate(GetMethod(implObj, "EnumControls"), flags, 4)
+        this.vtbl.EnumControls := CallbackCreate(ObjBindMethod(implObj, "EnumControls"), flags, 4)
     }
 
     Dispose() {

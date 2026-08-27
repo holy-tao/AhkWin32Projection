@@ -149,7 +149,7 @@ export default struct IDWriteFont extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefont-getinformationalstrings
      */
     GetInformationalStrings(informationalStringID, informationalStrings, exists) {
-        existsMarshal := exists is VarRef ? "int*" : "ptr"
+        existsMarshal := exists is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, DWRITE_INFORMATIONAL_STRING_ID, informationalStringID, IDWriteLocalizedStrings.Ptr, informationalStrings, existsMarshal, exists, "HRESULT")
         return result
@@ -215,17 +215,17 @@ export default struct IDWriteFont extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFontFamily := CallbackCreate(GetMethod(implObj, "GetFontFamily"), flags, 2)
-        this.vtbl.GetWeight := CallbackCreate(GetMethod(implObj, "GetWeight"), flags, 1)
-        this.vtbl.GetStretch := CallbackCreate(GetMethod(implObj, "GetStretch"), flags, 1)
-        this.vtbl.GetStyle := CallbackCreate(GetMethod(implObj, "GetStyle"), flags, 1)
-        this.vtbl.IsSymbolFont := CallbackCreate(GetMethod(implObj, "IsSymbolFont"), flags, 1)
-        this.vtbl.GetFaceNames := CallbackCreate(GetMethod(implObj, "GetFaceNames"), flags, 2)
-        this.vtbl.GetInformationalStrings := CallbackCreate(GetMethod(implObj, "GetInformationalStrings"), flags, 4)
-        this.vtbl.GetSimulations := CallbackCreate(GetMethod(implObj, "GetSimulations"), flags, 1)
-        this.vtbl.GetMetrics := CallbackCreate(GetMethod(implObj, "GetMetrics"), flags, 2)
-        this.vtbl.HasCharacter := CallbackCreate(GetMethod(implObj, "HasCharacter"), flags, 3)
-        this.vtbl.CreateFontFace := CallbackCreate(GetMethod(implObj, "CreateFontFace"), flags, 2)
+        this.vtbl.GetFontFamily := CallbackCreate(ObjBindMethod(implObj, "GetFontFamily"), flags, 2)
+        this.vtbl.GetWeight := CallbackCreate(ObjBindMethod(implObj, "GetWeight"), flags, 1)
+        this.vtbl.GetStretch := CallbackCreate(ObjBindMethod(implObj, "GetStretch"), flags, 1)
+        this.vtbl.GetStyle := CallbackCreate(ObjBindMethod(implObj, "GetStyle"), flags, 1)
+        this.vtbl.IsSymbolFont := CallbackCreate(ObjBindMethod(implObj, "IsSymbolFont"), flags, 1)
+        this.vtbl.GetFaceNames := CallbackCreate(ObjBindMethod(implObj, "GetFaceNames"), flags, 2)
+        this.vtbl.GetInformationalStrings := CallbackCreate(ObjBindMethod(implObj, "GetInformationalStrings"), flags, 4)
+        this.vtbl.GetSimulations := CallbackCreate(ObjBindMethod(implObj, "GetSimulations"), flags, 1)
+        this.vtbl.GetMetrics := CallbackCreate(ObjBindMethod(implObj, "GetMetrics"), flags, 2)
+        this.vtbl.HasCharacter := CallbackCreate(ObjBindMethod(implObj, "HasCharacter"), flags, 3)
+        this.vtbl.CreateFontFace := CallbackCreate(ObjBindMethod(implObj, "CreateFontFace"), flags, 2)
     }
 
     Dispose() {

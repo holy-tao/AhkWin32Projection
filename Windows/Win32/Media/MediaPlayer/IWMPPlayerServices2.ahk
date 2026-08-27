@@ -77,7 +77,7 @@ export default struct IWMPPlayerServices2 extends IWMPPlayerServices {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.setBackgroundProcessingPriority := CallbackCreate(GetMethod(implObj, "setBackgroundProcessingPriority"), flags, 2)
+        this.vtbl.setBackgroundProcessingPriority := CallbackCreate(ObjBindMethod(implObj, "setBackgroundProcessingPriority"), flags, 2)
     }
 
     Dispose() {

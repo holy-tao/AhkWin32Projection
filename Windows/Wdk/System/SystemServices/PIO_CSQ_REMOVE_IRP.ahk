@@ -18,7 +18,6 @@ export default struct PIO_CSQ_REMOVE_IRP {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

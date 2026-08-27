@@ -74,8 +74,8 @@ export default struct IWMReaderPlaylistBurn extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderplaylistburn-initplaylistburn
      */
     InitPlaylistBurn(cFiles, ppwszFilenames, pCallback, pvContext) {
-        ppwszFilenamesMarshal := ppwszFilenames is VarRef ? "ptr*" : "ptr"
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        ppwszFilenamesMarshal := ppwszFilenames is VarRef ? "ptr*" : IntPtr
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, UInt32, cFiles, ppwszFilenamesMarshal, ppwszFilenames, "ptr", pCallback, pvContextMarshal, pvContext, "HRESULT")
         return result
@@ -166,10 +166,10 @@ export default struct IWMReaderPlaylistBurn extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitPlaylistBurn := CallbackCreate(GetMethod(implObj, "InitPlaylistBurn"), flags, 5)
-        this.vtbl.GetInitResults := CallbackCreate(GetMethod(implObj, "GetInitResults"), flags, 3)
-        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
-        this.vtbl.EndPlaylistBurn := CallbackCreate(GetMethod(implObj, "EndPlaylistBurn"), flags, 2)
+        this.vtbl.InitPlaylistBurn := CallbackCreate(ObjBindMethod(implObj, "InitPlaylistBurn"), flags, 5)
+        this.vtbl.GetInitResults := CallbackCreate(ObjBindMethod(implObj, "GetInitResults"), flags, 3)
+        this.vtbl.Cancel := CallbackCreate(ObjBindMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.EndPlaylistBurn := CallbackCreate(ObjBindMethod(implObj, "EndPlaylistBurn"), flags, 2)
     }
 
     Dispose() {

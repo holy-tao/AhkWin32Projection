@@ -19,7 +19,6 @@ export default struct DOT11EXTIHV_CONTROL {
     }
 
     /**
-     * 
      * @param {HANDLE} hIhvExtAdapter 
      * @param {Integer} dwInBufferSize 
      * @param {Integer} pInBuffer 
@@ -29,9 +28,12 @@ export default struct DOT11EXTIHV_CONTROL {
      * @returns {Integer} 
      */
     Call(hIhvExtAdapter, dwInBufferSize, pInBuffer, dwOutBufferSize, pOutBuffer, pdwBytesReturned) {
-        pdwBytesReturnedMarshal := pdwBytesReturned is VarRef ? "uint*" : "ptr"
+        hIhvExtAdapterMarshal := hIhvExtAdapter == 0 ? IntPtr : HANDLE
+        pInBufferMarshal := pInBuffer == 0 ? IntPtr : IntPtr
+        pOutBufferMarshal := pOutBuffer == 0 ? IntPtr : IntPtr
+        pdwBytesReturnedMarshal := pdwBytesReturned is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, HANDLE, hIhvExtAdapter, UInt32, dwInBufferSize, IntPtr, pInBuffer, UInt32, dwOutBufferSize, IntPtr, pOutBuffer, pdwBytesReturnedMarshal, pdwBytesReturned, UInt32)
+        result := DllCall(this.value, hIhvExtAdapterMarshal, hIhvExtAdapter, UInt32, dwInBufferSize, pInBufferMarshal, pInBuffer, UInt32, dwOutBufferSize, pOutBufferMarshal, pOutBuffer, pdwBytesReturnedMarshal, pdwBytesReturned, UInt32)
         return result
     }
 

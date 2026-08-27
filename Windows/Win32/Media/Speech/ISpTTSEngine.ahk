@@ -40,7 +40,6 @@ export default struct ISpTTSEngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSpeakFlags 
      * @param {Pointer<Guid>} rguidFormatId 
      * @param {Pointer<WAVEFORMATEX>} pWaveFormatEx 
@@ -54,7 +53,6 @@ export default struct ISpTTSEngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pTargetFmtId 
      * @param {Pointer<WAVEFORMATEX>} pTargetWaveFormatEx 
      * @param {Pointer<Guid>} pOutputFormatId 
@@ -62,7 +60,7 @@ export default struct ISpTTSEngine extends IUnknown {
      * @returns {HRESULT} 
      */
     GetOutputFormat(pTargetFmtId, pTargetWaveFormatEx, pOutputFormatId, ppCoMemOutputWaveFormatEx) {
-        ppCoMemOutputWaveFormatExMarshal := ppCoMemOutputWaveFormatEx is VarRef ? "ptr*" : "ptr"
+        ppCoMemOutputWaveFormatExMarshal := ppCoMemOutputWaveFormatEx is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, Guid.Ptr, pTargetFmtId, WAVEFORMATEX.Ptr, pTargetWaveFormatEx, Guid.Ptr, pOutputFormatId, ppCoMemOutputWaveFormatExMarshal, ppCoMemOutputWaveFormatEx, "HRESULT")
         return result
@@ -77,8 +75,8 @@ export default struct ISpTTSEngine extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Speak := CallbackCreate(GetMethod(implObj, "Speak"), flags, 6)
-        this.vtbl.GetOutputFormat := CallbackCreate(GetMethod(implObj, "GetOutputFormat"), flags, 5)
+        this.vtbl.Speak := CallbackCreate(ObjBindMethod(implObj, "Speak"), flags, 6)
+        this.vtbl.GetOutputFormat := CallbackCreate(ObjBindMethod(implObj, "GetOutputFormat"), flags, 5)
     }
 
     Dispose() {

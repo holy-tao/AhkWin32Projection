@@ -19,7 +19,6 @@ export default struct PFN_TERMINATEEXTENSION {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @returns {BOOL} 
      */

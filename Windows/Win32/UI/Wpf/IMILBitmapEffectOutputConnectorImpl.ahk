@@ -76,8 +76,8 @@ export default struct IMILBitmapEffectOutputConnectorImpl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddBackLink := CallbackCreate(GetMethod(implObj, "AddBackLink"), flags, 2)
-        this.vtbl.RemoveBackLink := CallbackCreate(GetMethod(implObj, "RemoveBackLink"), flags, 2)
+        this.vtbl.AddBackLink := CallbackCreate(ObjBindMethod(implObj, "AddBackLink"), flags, 2)
+        this.vtbl.RemoveBackLink := CallbackCreate(ObjBindMethod(implObj, "RemoveBackLink"), flags, 2)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct PCLUSTER_CLEAR_BACKUP_STATE_FOR_SHARED_VOLUME {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszVolumePathName 
      * @returns {Integer} 
      */

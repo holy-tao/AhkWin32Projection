@@ -21,7 +21,6 @@ export default struct PFN_CPD_ADD_STORE {
     }
 
     /**
-     * 
      * @param {Pointer<CRYPT_PROVIDER_DATA>} pProvData 
      * @param {HCERTSTORE} hStore2Add 
      * @returns {BOOL} 

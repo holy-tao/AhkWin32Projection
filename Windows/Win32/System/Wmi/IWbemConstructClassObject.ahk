@@ -40,7 +40,6 @@ export default struct IWbemConstructClassObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lNumAntecedents 
      * @param {Integer} awszAntecedents 
      * @returns {HRESULT} 
@@ -51,7 +50,6 @@ export default struct IWbemConstructClassObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} wszPropertyName 
      * @param {Integer} lOriginIndex 
      * @returns {HRESULT} 
@@ -64,7 +62,6 @@ export default struct IWbemConstructClassObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} wszMethodName 
      * @param {Integer} lOriginIndex 
      * @returns {HRESULT} 
@@ -77,7 +74,6 @@ export default struct IWbemConstructClassObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} wszServer 
      * @param {PWSTR} wszNamespace 
      * @returns {HRESULT} 
@@ -99,10 +95,10 @@ export default struct IWbemConstructClassObject extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetInheritanceChain := CallbackCreate(GetMethod(implObj, "SetInheritanceChain"), flags, 3)
-        this.vtbl.SetPropertyOrigin := CallbackCreate(GetMethod(implObj, "SetPropertyOrigin"), flags, 3)
-        this.vtbl.SetMethodOrigin := CallbackCreate(GetMethod(implObj, "SetMethodOrigin"), flags, 3)
-        this.vtbl.SetServerNamespace := CallbackCreate(GetMethod(implObj, "SetServerNamespace"), flags, 3)
+        this.vtbl.SetInheritanceChain := CallbackCreate(ObjBindMethod(implObj, "SetInheritanceChain"), flags, 3)
+        this.vtbl.SetPropertyOrigin := CallbackCreate(ObjBindMethod(implObj, "SetPropertyOrigin"), flags, 3)
+        this.vtbl.SetMethodOrigin := CallbackCreate(ObjBindMethod(implObj, "SetMethodOrigin"), flags, 3)
+        this.vtbl.SetServerNamespace := CallbackCreate(ObjBindMethod(implObj, "SetServerNamespace"), flags, 3)
     }
 
     Dispose() {

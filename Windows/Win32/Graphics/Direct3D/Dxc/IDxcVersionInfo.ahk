@@ -52,15 +52,14 @@ export default struct IDxcVersionInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getversion
      */
     GetVersion(pMajor, pMinor) {
-        pMajorMarshal := pMajor is VarRef ? "uint*" : "ptr"
-        pMinorMarshal := pMinor is VarRef ? "uint*" : "ptr"
+        pMajorMarshal := pMajor is VarRef ? "uint*" : IntPtr
+        pMinorMarshal := pMinor is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pMajorMarshal, pMajor, pMinorMarshal, pMinor, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetFlags() {
@@ -77,8 +76,8 @@ export default struct IDxcVersionInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetVersion := CallbackCreate(GetMethod(implObj, "GetVersion"), flags, 3)
-        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.GetVersion := CallbackCreate(ObjBindMethod(implObj, "GetVersion"), flags, 3)
+        this.vtbl.GetFlags := CallbackCreate(ObjBindMethod(implObj, "GetFlags"), flags, 2)
     }
 
     Dispose() {

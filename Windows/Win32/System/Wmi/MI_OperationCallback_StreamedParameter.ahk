@@ -21,7 +21,6 @@ export default struct MI_OperationCallback_StreamedParameter {
     }
 
     /**
-     * 
      * @param {Pointer<MI_Operation>} operation 
      * @param {Pointer<Void>} callbackContext 
      * @param {Pointer<Integer>} parameterName 
@@ -31,10 +30,11 @@ export default struct MI_OperationCallback_StreamedParameter {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(operation, callbackContext, parameterName, resultType, result, resultAcknowledgement) {
-        callbackContextMarshal := callbackContext is VarRef ? "ptr" : "ptr"
-        parameterNameMarshal := parameterName is VarRef ? "ushort*" : "ptr"
+        callbackContextMarshal := callbackContext is VarRef ? "ptr" : IntPtr
+        parameterNameMarshal := parameterName is VarRef ? "ushort*" : IntPtr
+        resultAcknowledgementMarshal := resultAcknowledgement == 0 ? IntPtr : IntPtr
 
-        DllCall(this.value, MI_Operation.Ptr, operation, callbackContextMarshal, callbackContext, parameterNameMarshal, parameterName, MI_Type, resultType, MI_Value.Ptr, result, IntPtr, resultAcknowledgement)
+        DllCall(this.value, MI_Operation.Ptr, operation, callbackContextMarshal, callbackContext, parameterNameMarshal, parameterName, MI_Type, resultType, MI_Value.Ptr, result, resultAcknowledgementMarshal, resultAcknowledgement)
     }
 
     /**

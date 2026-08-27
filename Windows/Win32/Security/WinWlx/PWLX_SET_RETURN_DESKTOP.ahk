@@ -29,7 +29,6 @@ export default struct PWLX_SET_RETURN_DESKTOP {
     }
 
     /**
-     * 
      * @param {HANDLE} hWlx Specifies the Winlogon handle passed to GINA in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nf-winwlx-wlxinitialize">WlxInitialize</a> call.
      * @param {Pointer<WLX_DESKTOP>} pDesktop Pointer to desktop information about the alternate desktop. This desktop is created by calling the 

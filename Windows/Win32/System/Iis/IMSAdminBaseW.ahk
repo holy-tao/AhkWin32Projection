@@ -71,7 +71,6 @@ export default struct IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
      * @returns {HRESULT} 
@@ -79,12 +78,13 @@ export default struct IMSAdminBaseW extends IUnknown {
     AddKey(hMDHandle, pszMDPath) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        result := ComCall(3, this, UInt32, hMDHandle, "ptr", pszMDPath, "HRESULT")
+        pszMDPathMarshal := pszMDPath == 0 ? IntPtr : PWSTR
+
+        result := ComCall(3, this, UInt32, hMDHandle, pszMDPathMarshal, pszMDPath, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
      * @returns {HRESULT} 
@@ -92,12 +92,13 @@ export default struct IMSAdminBaseW extends IUnknown {
     DeleteKey(hMDHandle, pszMDPath) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        result := ComCall(4, this, UInt32, hMDHandle, "ptr", pszMDPath, "HRESULT")
+        pszMDPathMarshal := pszMDPath == 0 ? IntPtr : PWSTR
+
+        result := ComCall(4, this, UInt32, hMDHandle, pszMDPathMarshal, pszMDPath, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
      * @returns {HRESULT} 
@@ -105,12 +106,13 @@ export default struct IMSAdminBaseW extends IUnknown {
     DeleteChildKeys(hMDHandle, pszMDPath) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        result := ComCall(5, this, UInt32, hMDHandle, "ptr", pszMDPath, "HRESULT")
+        pszMDPathMarshal := pszMDPath == 0 ? IntPtr : PWSTR
+
+        result := ComCall(5, this, UInt32, hMDHandle, pszMDPathMarshal, pszMDPath, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
      * @param {PWSTR} pszMDName 
@@ -121,12 +123,13 @@ export default struct IMSAdminBaseW extends IUnknown {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
         pszMDName := pszMDName is String ? StrPtr(pszMDName) : pszMDName
 
-        result := ComCall(6, this, UInt32, hMDHandle, "ptr", pszMDPath, "ptr", pszMDName, UInt32, dwMDEnumObjectIndex, "HRESULT")
+        pszMDPathMarshal := pszMDPath == 0 ? IntPtr : PWSTR
+
+        result := ComCall(6, this, UInt32, hMDHandle, pszMDPathMarshal, pszMDPath, "ptr", pszMDName, UInt32, dwMDEnumObjectIndex, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} hMDSourceHandle 
      * @param {PWSTR} pszMDSourcePath 
      * @param {Integer} hMDDestHandle 
@@ -139,12 +142,14 @@ export default struct IMSAdminBaseW extends IUnknown {
         pszMDSourcePath := pszMDSourcePath is String ? StrPtr(pszMDSourcePath) : pszMDSourcePath
         pszMDDestPath := pszMDDestPath is String ? StrPtr(pszMDDestPath) : pszMDDestPath
 
-        result := ComCall(7, this, UInt32, hMDSourceHandle, "ptr", pszMDSourcePath, UInt32, hMDDestHandle, "ptr", pszMDDestPath, BOOL, bMDOverwriteFlag, BOOL, bMDCopyFlag, "HRESULT")
+        pszMDSourcePathMarshal := pszMDSourcePath == 0 ? IntPtr : PWSTR
+        pszMDDestPathMarshal := pszMDDestPath == 0 ? IntPtr : PWSTR
+
+        result := ComCall(7, this, UInt32, hMDSourceHandle, pszMDSourcePathMarshal, pszMDSourcePath, UInt32, hMDDestHandle, pszMDDestPathMarshal, pszMDDestPath, BOOL, bMDOverwriteFlag, BOOL, bMDCopyFlag, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
      * @param {PWSTR} pszMDNewName 
@@ -154,12 +159,14 @@ export default struct IMSAdminBaseW extends IUnknown {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
         pszMDNewName := pszMDNewName is String ? StrPtr(pszMDNewName) : pszMDNewName
 
-        result := ComCall(8, this, UInt32, hMDHandle, "ptr", pszMDPath, "ptr", pszMDNewName, "HRESULT")
+        pszMDPathMarshal := pszMDPath == 0 ? IntPtr : PWSTR
+        pszMDNewNameMarshal := pszMDNewName == 0 ? IntPtr : PWSTR
+
+        result := ComCall(8, this, UInt32, hMDHandle, pszMDPathMarshal, pszMDPath, pszMDNewNameMarshal, pszMDNewName, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
      * @param {Pointer<METADATA_RECORD>} pmdrMDData 
@@ -173,7 +180,6 @@ export default struct IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
      * @param {Pointer<METADATA_RECORD>} pmdrMDData 
@@ -183,14 +189,13 @@ export default struct IMSAdminBaseW extends IUnknown {
     GetData(hMDHandle, pszMDPath, pmdrMDData, pdwMDRequiredDataLen) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        pdwMDRequiredDataLenMarshal := pdwMDRequiredDataLen is VarRef ? "uint*" : "ptr"
+        pdwMDRequiredDataLenMarshal := pdwMDRequiredDataLen is VarRef ? "uint*" : IntPtr
 
         result := ComCall(10, this, UInt32, hMDHandle, "ptr", pszMDPath, METADATA_RECORD.Ptr, pmdrMDData, pdwMDRequiredDataLenMarshal, pdwMDRequiredDataLen, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
      * @param {Integer} dwMDIdentifier 
@@ -200,12 +205,13 @@ export default struct IMSAdminBaseW extends IUnknown {
     DeleteData(hMDHandle, pszMDPath, dwMDIdentifier, dwMDDataType) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        result := ComCall(11, this, UInt32, hMDHandle, "ptr", pszMDPath, UInt32, dwMDIdentifier, UInt32, dwMDDataType, "HRESULT")
+        pszMDPathMarshal := pszMDPath == 0 ? IntPtr : PWSTR
+
+        result := ComCall(11, this, UInt32, hMDHandle, pszMDPathMarshal, pszMDPath, UInt32, dwMDIdentifier, UInt32, dwMDDataType, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
      * @param {Pointer<METADATA_RECORD>} pmdrMDData 
@@ -216,14 +222,13 @@ export default struct IMSAdminBaseW extends IUnknown {
     EnumData(hMDHandle, pszMDPath, pmdrMDData, dwMDEnumDataIndex, pdwMDRequiredDataLen) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        pdwMDRequiredDataLenMarshal := pdwMDRequiredDataLen is VarRef ? "uint*" : "ptr"
+        pdwMDRequiredDataLenMarshal := pdwMDRequiredDataLen is VarRef ? "uint*" : IntPtr
 
         result := ComCall(12, this, UInt32, hMDHandle, "ptr", pszMDPath, METADATA_RECORD.Ptr, pmdrMDData, UInt32, dwMDEnumDataIndex, pdwMDRequiredDataLenMarshal, pdwMDRequiredDataLen, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
      * @param {Integer} dwMDAttributes 
@@ -239,17 +244,16 @@ export default struct IMSAdminBaseW extends IUnknown {
     GetAllData(hMDHandle, pszMDPath, dwMDAttributes, dwMDUserType, dwMDDataType, pdwMDNumDataEntries, pdwMDDataSetNumber, dwMDBufferSize, pbMDBuffer, pdwMDRequiredBufferSize) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        pdwMDNumDataEntriesMarshal := pdwMDNumDataEntries is VarRef ? "uint*" : "ptr"
-        pdwMDDataSetNumberMarshal := pdwMDDataSetNumber is VarRef ? "uint*" : "ptr"
-        pbMDBufferMarshal := pbMDBuffer is VarRef ? "char*" : "ptr"
-        pdwMDRequiredBufferSizeMarshal := pdwMDRequiredBufferSize is VarRef ? "uint*" : "ptr"
+        pdwMDNumDataEntriesMarshal := pdwMDNumDataEntries is VarRef ? "uint*" : IntPtr
+        pdwMDDataSetNumberMarshal := pdwMDDataSetNumber is VarRef ? "uint*" : IntPtr
+        pbMDBufferMarshal := pbMDBuffer is VarRef ? "char*" : IntPtr
+        pdwMDRequiredBufferSizeMarshal := pdwMDRequiredBufferSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, UInt32, hMDHandle, "ptr", pszMDPath, UInt32, dwMDAttributes, UInt32, dwMDUserType, UInt32, dwMDDataType, pdwMDNumDataEntriesMarshal, pdwMDNumDataEntries, pdwMDDataSetNumberMarshal, pdwMDDataSetNumber, UInt32, dwMDBufferSize, pbMDBufferMarshal, pbMDBuffer, pdwMDRequiredBufferSizeMarshal, pdwMDRequiredBufferSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
      * @param {Integer} dwMDUserType 
@@ -259,12 +263,13 @@ export default struct IMSAdminBaseW extends IUnknown {
     DeleteAllData(hMDHandle, pszMDPath, dwMDUserType, dwMDDataType) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        result := ComCall(14, this, UInt32, hMDHandle, "ptr", pszMDPath, UInt32, dwMDUserType, UInt32, dwMDDataType, "HRESULT")
+        pszMDPathMarshal := pszMDPath == 0 ? IntPtr : PWSTR
+
+        result := ComCall(14, this, UInt32, hMDHandle, pszMDPathMarshal, pszMDPath, UInt32, dwMDUserType, UInt32, dwMDDataType, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} hMDSourceHandle 
      * @param {PWSTR} pszMDSourcePath 
      * @param {Integer} hMDDestHandle 
@@ -279,12 +284,14 @@ export default struct IMSAdminBaseW extends IUnknown {
         pszMDSourcePath := pszMDSourcePath is String ? StrPtr(pszMDSourcePath) : pszMDSourcePath
         pszMDDestPath := pszMDDestPath is String ? StrPtr(pszMDDestPath) : pszMDDestPath
 
-        result := ComCall(15, this, UInt32, hMDSourceHandle, "ptr", pszMDSourcePath, UInt32, hMDDestHandle, "ptr", pszMDDestPath, UInt32, dwMDAttributes, UInt32, dwMDUserType, UInt32, dwMDDataType, BOOL, bMDCopyFlag, "HRESULT")
+        pszMDSourcePathMarshal := pszMDSourcePath == 0 ? IntPtr : PWSTR
+        pszMDDestPathMarshal := pszMDDestPath == 0 ? IntPtr : PWSTR
+
+        result := ComCall(15, this, UInt32, hMDSourceHandle, pszMDSourcePathMarshal, pszMDSourcePath, UInt32, hMDDestHandle, pszMDDestPathMarshal, pszMDDestPath, UInt32, dwMDAttributes, UInt32, dwMDUserType, UInt32, dwMDDataType, BOOL, bMDCopyFlag, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
      * @param {Integer} dwMDIdentifier 
@@ -297,12 +304,13 @@ export default struct IMSAdminBaseW extends IUnknown {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
         pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
 
-        result := ComCall(16, this, UInt32, hMDHandle, "ptr", pszMDPath, UInt32, dwMDIdentifier, UInt32, dwMDDataType, UInt32, dwMDBufferSize, "ptr", pszBuffer, "uint*", &pdwMDRequiredBufferSize := 0, "HRESULT")
+        pszMDPathMarshal := pszMDPath == 0 ? IntPtr : PWSTR
+
+        result := ComCall(16, this, UInt32, hMDHandle, pszMDPathMarshal, pszMDPath, UInt32, dwMDIdentifier, UInt32, dwMDDataType, UInt32, dwMDBufferSize, "ptr", pszBuffer, "uint*", &pdwMDRequiredBufferSize := 0, "HRESULT")
         return pdwMDRequiredBufferSize
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
      * @param {Integer} dwMDAccessRequested 
@@ -312,12 +320,13 @@ export default struct IMSAdminBaseW extends IUnknown {
     OpenKey(hMDHandle, pszMDPath, dwMDAccessRequested, dwMDTimeOut) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        result := ComCall(17, this, UInt32, hMDHandle, "ptr", pszMDPath, UInt32, dwMDAccessRequested, UInt32, dwMDTimeOut, "uint*", &phMDNewHandle := 0, "HRESULT")
+        pszMDPathMarshal := pszMDPath == 0 ? IntPtr : PWSTR
+
+        result := ComCall(17, this, UInt32, hMDHandle, pszMDPathMarshal, pszMDPath, UInt32, dwMDAccessRequested, UInt32, dwMDTimeOut, "uint*", &phMDNewHandle := 0, "HRESULT")
         return phMDNewHandle
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @returns {HRESULT} 
      */
@@ -327,7 +336,6 @@ export default struct IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @param {Integer} dwMDTimeOut 
      * @param {Integer} dwMDAccessRequested 
@@ -339,7 +347,6 @@ export default struct IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SaveData() {
@@ -348,7 +355,6 @@ export default struct IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @returns {METADATA_HANDLE_INFO} 
      */
@@ -359,7 +365,6 @@ export default struct IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetSystemChangeNumber() {
@@ -368,7 +373,6 @@ export default struct IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
      * @returns {Integer} 
@@ -376,12 +380,13 @@ export default struct IMSAdminBaseW extends IUnknown {
     GetDataSetNumber(hMDHandle, pszMDPath) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        result := ComCall(23, this, UInt32, hMDHandle, "ptr", pszMDPath, "uint*", &pdwMDDataSetNumber := 0, "HRESULT")
+        pszMDPathMarshal := pszMDPath == 0 ? IntPtr : PWSTR
+
+        result := ComCall(23, this, UInt32, hMDHandle, pszMDPathMarshal, pszMDPath, "uint*", &pdwMDDataSetNumber := 0, "HRESULT")
         return pdwMDDataSetNumber
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
      * @param {Pointer<FILETIME>} pftMDLastChangeTime 
@@ -391,12 +396,13 @@ export default struct IMSAdminBaseW extends IUnknown {
     SetLastChangeTime(hMDHandle, pszMDPath, pftMDLastChangeTime, bLocalTime) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        result := ComCall(24, this, UInt32, hMDHandle, "ptr", pszMDPath, FILETIME.Ptr, pftMDLastChangeTime, BOOL, bLocalTime, "HRESULT")
+        pszMDPathMarshal := pszMDPath == 0 ? IntPtr : PWSTR
+
+        result := ComCall(24, this, UInt32, hMDHandle, pszMDPathMarshal, pszMDPath, FILETIME.Ptr, pftMDLastChangeTime, BOOL, bLocalTime, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
      * @param {BOOL} bLocalTime 
@@ -405,13 +411,14 @@ export default struct IMSAdminBaseW extends IUnknown {
     GetLastChangeTime(hMDHandle, pszMDPath, bLocalTime) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
+        pszMDPathMarshal := pszMDPath == 0 ? IntPtr : PWSTR
+
         pftMDLastChangeTime := FILETIME()
-        result := ComCall(25, this, UInt32, hMDHandle, "ptr", pszMDPath, FILETIME.Ptr, pftMDLastChangeTime, BOOL, bLocalTime, "HRESULT")
+        result := ComCall(25, this, UInt32, hMDHandle, pszMDPathMarshal, pszMDPath, FILETIME.Ptr, pftMDLastChangeTime, BOOL, bLocalTime, "HRESULT")
         return pftMDLastChangeTime
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     KeyExchangePhase1() {
@@ -420,7 +427,6 @@ export default struct IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     KeyExchangePhase2() {
@@ -439,7 +445,9 @@ export default struct IMSAdminBaseW extends IUnknown {
     Backup(pszMDBackupLocation, dwMDVersion, dwMDFlags) {
         pszMDBackupLocation := pszMDBackupLocation is String ? StrPtr(pszMDBackupLocation) : pszMDBackupLocation
 
-        result := ComCall(28, this, "ptr", pszMDBackupLocation, UInt32, dwMDVersion, UInt32, dwMDFlags, "HRESULT")
+        pszMDBackupLocationMarshal := pszMDBackupLocation == 0 ? IntPtr : PWSTR
+
+        result := ComCall(28, this, pszMDBackupLocationMarshal, pszMDBackupLocation, UInt32, dwMDVersion, UInt32, dwMDFlags, "HRESULT")
         return result
     }
 
@@ -454,12 +462,13 @@ export default struct IMSAdminBaseW extends IUnknown {
     Restore(pszMDBackupLocation, dwMDVersion, dwMDFlags) {
         pszMDBackupLocation := pszMDBackupLocation is String ? StrPtr(pszMDBackupLocation) : pszMDBackupLocation
 
-        result := ComCall(29, this, "ptr", pszMDBackupLocation, UInt32, dwMDVersion, UInt32, dwMDFlags, "HRESULT")
+        pszMDBackupLocationMarshal := pszMDBackupLocation == 0 ? IntPtr : PWSTR
+
+        result := ComCall(29, this, pszMDBackupLocationMarshal, pszMDBackupLocation, UInt32, dwMDVersion, UInt32, dwMDFlags, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pszMDBackupLocation 
      * @param {Pointer<Integer>} pdwMDVersion 
      * @param {Pointer<FILETIME>} pftMDBackupTime 
@@ -469,14 +478,13 @@ export default struct IMSAdminBaseW extends IUnknown {
     EnumBackups(pszMDBackupLocation, pdwMDVersion, pftMDBackupTime, dwMDEnumIndex) {
         pszMDBackupLocation := pszMDBackupLocation is String ? StrPtr(pszMDBackupLocation) : pszMDBackupLocation
 
-        pdwMDVersionMarshal := pdwMDVersion is VarRef ? "uint*" : "ptr"
+        pdwMDVersionMarshal := pdwMDVersion is VarRef ? "uint*" : IntPtr
 
         result := ComCall(30, this, "ptr", pszMDBackupLocation, pdwMDVersionMarshal, pdwMDVersion, FILETIME.Ptr, pftMDBackupTime, UInt32, dwMDEnumIndex, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pszMDBackupLocation 
      * @param {Integer} dwMDVersion 
      * @returns {HRESULT} 
@@ -484,12 +492,13 @@ export default struct IMSAdminBaseW extends IUnknown {
     DeleteBackup(pszMDBackupLocation, dwMDVersion) {
         pszMDBackupLocation := pszMDBackupLocation is String ? StrPtr(pszMDBackupLocation) : pszMDBackupLocation
 
-        result := ComCall(31, this, "ptr", pszMDBackupLocation, UInt32, dwMDVersion, "HRESULT")
+        pszMDBackupLocationMarshal := pszMDBackupLocation == 0 ? IntPtr : PWSTR
+
+        result := ComCall(31, this, pszMDBackupLocationMarshal, pszMDBackupLocation, UInt32, dwMDVersion, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {IMSAdminBaseW} 
      */
     UnmarshalInterface() {
@@ -498,7 +507,6 @@ export default struct IMSAdminBaseW extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     GetServerGuid() {
@@ -515,37 +523,37 @@ export default struct IMSAdminBaseW extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddKey := CallbackCreate(GetMethod(implObj, "AddKey"), flags, 3)
-        this.vtbl.DeleteKey := CallbackCreate(GetMethod(implObj, "DeleteKey"), flags, 3)
-        this.vtbl.DeleteChildKeys := CallbackCreate(GetMethod(implObj, "DeleteChildKeys"), flags, 3)
-        this.vtbl.EnumKeys := CallbackCreate(GetMethod(implObj, "EnumKeys"), flags, 5)
-        this.vtbl.CopyKey := CallbackCreate(GetMethod(implObj, "CopyKey"), flags, 7)
-        this.vtbl.RenameKey := CallbackCreate(GetMethod(implObj, "RenameKey"), flags, 4)
-        this.vtbl.SetData := CallbackCreate(GetMethod(implObj, "SetData"), flags, 4)
-        this.vtbl.GetData := CallbackCreate(GetMethod(implObj, "GetData"), flags, 5)
-        this.vtbl.DeleteData := CallbackCreate(GetMethod(implObj, "DeleteData"), flags, 5)
-        this.vtbl.EnumData := CallbackCreate(GetMethod(implObj, "EnumData"), flags, 6)
-        this.vtbl.GetAllData := CallbackCreate(GetMethod(implObj, "GetAllData"), flags, 11)
-        this.vtbl.DeleteAllData := CallbackCreate(GetMethod(implObj, "DeleteAllData"), flags, 5)
-        this.vtbl.CopyData := CallbackCreate(GetMethod(implObj, "CopyData"), flags, 9)
-        this.vtbl.GetDataPaths := CallbackCreate(GetMethod(implObj, "GetDataPaths"), flags, 8)
-        this.vtbl.OpenKey := CallbackCreate(GetMethod(implObj, "OpenKey"), flags, 6)
-        this.vtbl.CloseKey := CallbackCreate(GetMethod(implObj, "CloseKey"), flags, 2)
-        this.vtbl.ChangePermissions := CallbackCreate(GetMethod(implObj, "ChangePermissions"), flags, 4)
-        this.vtbl.SaveData := CallbackCreate(GetMethod(implObj, "SaveData"), flags, 1)
-        this.vtbl.GetHandleInfo := CallbackCreate(GetMethod(implObj, "GetHandleInfo"), flags, 3)
-        this.vtbl.GetSystemChangeNumber := CallbackCreate(GetMethod(implObj, "GetSystemChangeNumber"), flags, 2)
-        this.vtbl.GetDataSetNumber := CallbackCreate(GetMethod(implObj, "GetDataSetNumber"), flags, 4)
-        this.vtbl.SetLastChangeTime := CallbackCreate(GetMethod(implObj, "SetLastChangeTime"), flags, 5)
-        this.vtbl.GetLastChangeTime := CallbackCreate(GetMethod(implObj, "GetLastChangeTime"), flags, 5)
-        this.vtbl.KeyExchangePhase1 := CallbackCreate(GetMethod(implObj, "KeyExchangePhase1"), flags, 1)
-        this.vtbl.KeyExchangePhase2 := CallbackCreate(GetMethod(implObj, "KeyExchangePhase2"), flags, 1)
-        this.vtbl.Backup := CallbackCreate(GetMethod(implObj, "Backup"), flags, 4)
-        this.vtbl.Restore := CallbackCreate(GetMethod(implObj, "Restore"), flags, 4)
-        this.vtbl.EnumBackups := CallbackCreate(GetMethod(implObj, "EnumBackups"), flags, 5)
-        this.vtbl.DeleteBackup := CallbackCreate(GetMethod(implObj, "DeleteBackup"), flags, 3)
-        this.vtbl.UnmarshalInterface := CallbackCreate(GetMethod(implObj, "UnmarshalInterface"), flags, 2)
-        this.vtbl.GetServerGuid := CallbackCreate(GetMethod(implObj, "GetServerGuid"), flags, 1)
+        this.vtbl.AddKey := CallbackCreate(ObjBindMethod(implObj, "AddKey"), flags, 3)
+        this.vtbl.DeleteKey := CallbackCreate(ObjBindMethod(implObj, "DeleteKey"), flags, 3)
+        this.vtbl.DeleteChildKeys := CallbackCreate(ObjBindMethod(implObj, "DeleteChildKeys"), flags, 3)
+        this.vtbl.EnumKeys := CallbackCreate(ObjBindMethod(implObj, "EnumKeys"), flags, 5)
+        this.vtbl.CopyKey := CallbackCreate(ObjBindMethod(implObj, "CopyKey"), flags, 7)
+        this.vtbl.RenameKey := CallbackCreate(ObjBindMethod(implObj, "RenameKey"), flags, 4)
+        this.vtbl.SetData := CallbackCreate(ObjBindMethod(implObj, "SetData"), flags, 4)
+        this.vtbl.GetData := CallbackCreate(ObjBindMethod(implObj, "GetData"), flags, 5)
+        this.vtbl.DeleteData := CallbackCreate(ObjBindMethod(implObj, "DeleteData"), flags, 5)
+        this.vtbl.EnumData := CallbackCreate(ObjBindMethod(implObj, "EnumData"), flags, 6)
+        this.vtbl.GetAllData := CallbackCreate(ObjBindMethod(implObj, "GetAllData"), flags, 11)
+        this.vtbl.DeleteAllData := CallbackCreate(ObjBindMethod(implObj, "DeleteAllData"), flags, 5)
+        this.vtbl.CopyData := CallbackCreate(ObjBindMethod(implObj, "CopyData"), flags, 9)
+        this.vtbl.GetDataPaths := CallbackCreate(ObjBindMethod(implObj, "GetDataPaths"), flags, 8)
+        this.vtbl.OpenKey := CallbackCreate(ObjBindMethod(implObj, "OpenKey"), flags, 6)
+        this.vtbl.CloseKey := CallbackCreate(ObjBindMethod(implObj, "CloseKey"), flags, 2)
+        this.vtbl.ChangePermissions := CallbackCreate(ObjBindMethod(implObj, "ChangePermissions"), flags, 4)
+        this.vtbl.SaveData := CallbackCreate(ObjBindMethod(implObj, "SaveData"), flags, 1)
+        this.vtbl.GetHandleInfo := CallbackCreate(ObjBindMethod(implObj, "GetHandleInfo"), flags, 3)
+        this.vtbl.GetSystemChangeNumber := CallbackCreate(ObjBindMethod(implObj, "GetSystemChangeNumber"), flags, 2)
+        this.vtbl.GetDataSetNumber := CallbackCreate(ObjBindMethod(implObj, "GetDataSetNumber"), flags, 4)
+        this.vtbl.SetLastChangeTime := CallbackCreate(ObjBindMethod(implObj, "SetLastChangeTime"), flags, 5)
+        this.vtbl.GetLastChangeTime := CallbackCreate(ObjBindMethod(implObj, "GetLastChangeTime"), flags, 5)
+        this.vtbl.KeyExchangePhase1 := CallbackCreate(ObjBindMethod(implObj, "KeyExchangePhase1"), flags, 1)
+        this.vtbl.KeyExchangePhase2 := CallbackCreate(ObjBindMethod(implObj, "KeyExchangePhase2"), flags, 1)
+        this.vtbl.Backup := CallbackCreate(ObjBindMethod(implObj, "Backup"), flags, 4)
+        this.vtbl.Restore := CallbackCreate(ObjBindMethod(implObj, "Restore"), flags, 4)
+        this.vtbl.EnumBackups := CallbackCreate(ObjBindMethod(implObj, "EnumBackups"), flags, 5)
+        this.vtbl.DeleteBackup := CallbackCreate(ObjBindMethod(implObj, "DeleteBackup"), flags, 3)
+        this.vtbl.UnmarshalInterface := CallbackCreate(ObjBindMethod(implObj, "UnmarshalInterface"), flags, 2)
+        this.vtbl.GetServerGuid := CallbackCreate(ObjBindMethod(implObj, "GetServerGuid"), flags, 1)
     }
 
     Dispose() {

@@ -149,7 +149,7 @@ export default struct IGraphConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-igraphconfig-reconfigure
      */
     Reconfigure(pCallback, pvContext, dwFlags, hAbortEvent) {
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(4, this, "ptr", pCallback, pvContextMarshal, pvContext, UInt32, dwFlags, HANDLE, hAbortEvent, "HRESULT")
         return result
@@ -450,16 +450,16 @@ export default struct IGraphConfig extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Reconnect := CallbackCreate(GetMethod(implObj, "Reconnect"), flags, 7)
-        this.vtbl.Reconfigure := CallbackCreate(GetMethod(implObj, "Reconfigure"), flags, 5)
-        this.vtbl.AddFilterToCache := CallbackCreate(GetMethod(implObj, "AddFilterToCache"), flags, 2)
-        this.vtbl.EnumCacheFilter := CallbackCreate(GetMethod(implObj, "EnumCacheFilter"), flags, 2)
-        this.vtbl.RemoveFilterFromCache := CallbackCreate(GetMethod(implObj, "RemoveFilterFromCache"), flags, 2)
-        this.vtbl.GetStartTime := CallbackCreate(GetMethod(implObj, "GetStartTime"), flags, 2)
-        this.vtbl.PushThroughData := CallbackCreate(GetMethod(implObj, "PushThroughData"), flags, 4)
-        this.vtbl.SetFilterFlags := CallbackCreate(GetMethod(implObj, "SetFilterFlags"), flags, 3)
-        this.vtbl.GetFilterFlags := CallbackCreate(GetMethod(implObj, "GetFilterFlags"), flags, 3)
-        this.vtbl.RemoveFilterEx := CallbackCreate(GetMethod(implObj, "RemoveFilterEx"), flags, 3)
+        this.vtbl.Reconnect := CallbackCreate(ObjBindMethod(implObj, "Reconnect"), flags, 7)
+        this.vtbl.Reconfigure := CallbackCreate(ObjBindMethod(implObj, "Reconfigure"), flags, 5)
+        this.vtbl.AddFilterToCache := CallbackCreate(ObjBindMethod(implObj, "AddFilterToCache"), flags, 2)
+        this.vtbl.EnumCacheFilter := CallbackCreate(ObjBindMethod(implObj, "EnumCacheFilter"), flags, 2)
+        this.vtbl.RemoveFilterFromCache := CallbackCreate(ObjBindMethod(implObj, "RemoveFilterFromCache"), flags, 2)
+        this.vtbl.GetStartTime := CallbackCreate(ObjBindMethod(implObj, "GetStartTime"), flags, 2)
+        this.vtbl.PushThroughData := CallbackCreate(ObjBindMethod(implObj, "PushThroughData"), flags, 4)
+        this.vtbl.SetFilterFlags := CallbackCreate(ObjBindMethod(implObj, "SetFilterFlags"), flags, 3)
+        this.vtbl.GetFilterFlags := CallbackCreate(ObjBindMethod(implObj, "GetFilterFlags"), flags, 3)
+        this.vtbl.RemoveFilterEx := CallbackCreate(ObjBindMethod(implObj, "RemoveFilterEx"), flags, 3)
     }
 
     Dispose() {

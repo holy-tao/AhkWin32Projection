@@ -20,7 +20,6 @@ export default struct PWINDBG_OLD_EXTENSION_ROUTINE {
     }
 
     /**
-     * 
      * @param {Integer} dwCurrentPc 
      * @param {Pointer<WINDBG_EXTENSION_APIS>} lpExtensionApis 
      * @param {PSTR} lpArgumentString 

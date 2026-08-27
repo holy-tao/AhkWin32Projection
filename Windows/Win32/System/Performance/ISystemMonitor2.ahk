@@ -119,7 +119,6 @@ export default struct ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -129,7 +128,6 @@ export default struct ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_EnableDigitGrouping() {
@@ -138,7 +136,6 @@ export default struct ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -148,7 +145,6 @@ export default struct ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_EnableToolTips() {
@@ -157,7 +153,6 @@ export default struct ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -167,7 +162,6 @@ export default struct ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ShowTimeAxisLabels() {
@@ -176,7 +170,6 @@ export default struct ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bScroll 
      * @returns {HRESULT} 
      */
@@ -186,7 +179,6 @@ export default struct ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ChartScroll() {
@@ -195,7 +187,6 @@ export default struct ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @param {Integer} iNewCount 
      * @returns {HRESULT} 
      */
@@ -205,7 +196,6 @@ export default struct ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DataPointCount() {
@@ -214,7 +204,6 @@ export default struct ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bSelectedCountersOnly 
      * @returns {HRESULT} 
      */
@@ -224,7 +213,6 @@ export default struct ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @param {BSTR} bstrFileName 
      * @param {SysmonFileType} eSysmonFileType 
      * @returns {HRESULT} 
@@ -237,7 +225,6 @@ export default struct ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @param {BSTR} bstrFileName 
      * @param {SysmonFileType} eSysmonFileType 
      * @param {Integer} _iFilter 
@@ -251,7 +238,6 @@ export default struct ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ClearData() {
@@ -260,7 +246,6 @@ export default struct ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_LogSourceStartTime() {
@@ -269,7 +254,6 @@ export default struct ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_LogSourceStopTime() {
@@ -278,7 +262,6 @@ export default struct ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @param {Float} StartTime 
      * @param {Float} StopTime 
      * @returns {HRESULT} 
@@ -289,21 +272,19 @@ export default struct ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @param {Pointer<Float>} StartTime 
      * @param {Pointer<Float>} StopTime 
      * @returns {HRESULT} 
      */
     GetLogViewRange(StartTime, StopTime) {
-        StartTimeMarshal := StartTime is VarRef ? "double*" : "ptr"
-        StopTimeMarshal := StopTime is VarRef ? "double*" : "ptr"
+        StartTimeMarshal := StartTime is VarRef ? "double*" : IntPtr
+        StopTimeMarshal := StopTime is VarRef ? "double*" : IntPtr
 
         result := ComCall(96, this, StartTimeMarshal, StartTime, StopTimeMarshal, StopTime, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fLock 
      * @param {SysmonBatchReason} eBatchReason 
      * @returns {HRESULT} 
@@ -314,7 +295,6 @@ export default struct ISystemMonitor2 extends ISystemMonitor {
     }
 
     /**
-     * 
      * @param {BSTR} bstrSettingFileName 
      * @returns {HRESULT} 
      */
@@ -334,26 +314,26 @@ export default struct ISystemMonitor2 extends ISystemMonitor {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_EnableDigitGrouping := CallbackCreate(GetMethod(implObj, "put_EnableDigitGrouping"), flags, 2)
-        this.vtbl.get_EnableDigitGrouping := CallbackCreate(GetMethod(implObj, "get_EnableDigitGrouping"), flags, 2)
-        this.vtbl.put_EnableToolTips := CallbackCreate(GetMethod(implObj, "put_EnableToolTips"), flags, 2)
-        this.vtbl.get_EnableToolTips := CallbackCreate(GetMethod(implObj, "get_EnableToolTips"), flags, 2)
-        this.vtbl.put_ShowTimeAxisLabels := CallbackCreate(GetMethod(implObj, "put_ShowTimeAxisLabels"), flags, 2)
-        this.vtbl.get_ShowTimeAxisLabels := CallbackCreate(GetMethod(implObj, "get_ShowTimeAxisLabels"), flags, 2)
-        this.vtbl.put_ChartScroll := CallbackCreate(GetMethod(implObj, "put_ChartScroll"), flags, 2)
-        this.vtbl.get_ChartScroll := CallbackCreate(GetMethod(implObj, "get_ChartScroll"), flags, 2)
-        this.vtbl.put_DataPointCount := CallbackCreate(GetMethod(implObj, "put_DataPointCount"), flags, 2)
-        this.vtbl.get_DataPointCount := CallbackCreate(GetMethod(implObj, "get_DataPointCount"), flags, 2)
-        this.vtbl.ScaleToFit := CallbackCreate(GetMethod(implObj, "ScaleToFit"), flags, 2)
-        this.vtbl.SaveAs := CallbackCreate(GetMethod(implObj, "SaveAs"), flags, 3)
-        this.vtbl.Relog := CallbackCreate(GetMethod(implObj, "Relog"), flags, 4)
-        this.vtbl.ClearData := CallbackCreate(GetMethod(implObj, "ClearData"), flags, 1)
-        this.vtbl.get_LogSourceStartTime := CallbackCreate(GetMethod(implObj, "get_LogSourceStartTime"), flags, 2)
-        this.vtbl.get_LogSourceStopTime := CallbackCreate(GetMethod(implObj, "get_LogSourceStopTime"), flags, 2)
-        this.vtbl.SetLogViewRange := CallbackCreate(GetMethod(implObj, "SetLogViewRange"), flags, 3)
-        this.vtbl.GetLogViewRange := CallbackCreate(GetMethod(implObj, "GetLogViewRange"), flags, 3)
-        this.vtbl.BatchingLock := CallbackCreate(GetMethod(implObj, "BatchingLock"), flags, 3)
-        this.vtbl.LoadSettings := CallbackCreate(GetMethod(implObj, "LoadSettings"), flags, 2)
+        this.vtbl.put_EnableDigitGrouping := CallbackCreate(ObjBindMethod(implObj, "put_EnableDigitGrouping"), flags, 2)
+        this.vtbl.get_EnableDigitGrouping := CallbackCreate(ObjBindMethod(implObj, "get_EnableDigitGrouping"), flags, 2)
+        this.vtbl.put_EnableToolTips := CallbackCreate(ObjBindMethod(implObj, "put_EnableToolTips"), flags, 2)
+        this.vtbl.get_EnableToolTips := CallbackCreate(ObjBindMethod(implObj, "get_EnableToolTips"), flags, 2)
+        this.vtbl.put_ShowTimeAxisLabels := CallbackCreate(ObjBindMethod(implObj, "put_ShowTimeAxisLabels"), flags, 2)
+        this.vtbl.get_ShowTimeAxisLabels := CallbackCreate(ObjBindMethod(implObj, "get_ShowTimeAxisLabels"), flags, 2)
+        this.vtbl.put_ChartScroll := CallbackCreate(ObjBindMethod(implObj, "put_ChartScroll"), flags, 2)
+        this.vtbl.get_ChartScroll := CallbackCreate(ObjBindMethod(implObj, "get_ChartScroll"), flags, 2)
+        this.vtbl.put_DataPointCount := CallbackCreate(ObjBindMethod(implObj, "put_DataPointCount"), flags, 2)
+        this.vtbl.get_DataPointCount := CallbackCreate(ObjBindMethod(implObj, "get_DataPointCount"), flags, 2)
+        this.vtbl.ScaleToFit := CallbackCreate(ObjBindMethod(implObj, "ScaleToFit"), flags, 2)
+        this.vtbl.SaveAs := CallbackCreate(ObjBindMethod(implObj, "SaveAs"), flags, 3)
+        this.vtbl.Relog := CallbackCreate(ObjBindMethod(implObj, "Relog"), flags, 4)
+        this.vtbl.ClearData := CallbackCreate(ObjBindMethod(implObj, "ClearData"), flags, 1)
+        this.vtbl.get_LogSourceStartTime := CallbackCreate(ObjBindMethod(implObj, "get_LogSourceStartTime"), flags, 2)
+        this.vtbl.get_LogSourceStopTime := CallbackCreate(ObjBindMethod(implObj, "get_LogSourceStopTime"), flags, 2)
+        this.vtbl.SetLogViewRange := CallbackCreate(ObjBindMethod(implObj, "SetLogViewRange"), flags, 3)
+        this.vtbl.GetLogViewRange := CallbackCreate(ObjBindMethod(implObj, "GetLogViewRange"), flags, 3)
+        this.vtbl.BatchingLock := CallbackCreate(ObjBindMethod(implObj, "BatchingLock"), flags, 3)
+        this.vtbl.LoadSettings := CallbackCreate(ObjBindMethod(implObj, "LoadSettings"), flags, 2)
     }
 
     Dispose() {

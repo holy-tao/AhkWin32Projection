@@ -57,7 +57,7 @@ export default struct IAdvancedMediaCaptureSettings extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDirectxDeviceManager := CallbackCreate(GetMethod(implObj, "GetDirectxDeviceManager"), flags, 2)
+        this.vtbl.GetDirectxDeviceManager := CallbackCreate(ObjBindMethod(implObj, "GetDirectxDeviceManager"), flags, 2)
     }
 
     Dispose() {

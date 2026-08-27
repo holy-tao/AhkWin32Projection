@@ -21,7 +21,6 @@ export default struct TDI_REGISTER_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} DeviceName 
      * @param {Pointer<HANDLE>} TdiHandle 
      * @returns {NTSTATUS} 

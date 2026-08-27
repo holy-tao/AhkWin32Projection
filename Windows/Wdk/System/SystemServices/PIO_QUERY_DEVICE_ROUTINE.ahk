@@ -23,7 +23,6 @@ export default struct PIO_QUERY_DEVICE_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<UNICODE_STRING>} _PathName 
      * @param {INTERFACE_TYPE} BusType 
@@ -38,10 +37,10 @@ export default struct PIO_QUERY_DEVICE_ROUTINE {
      * @returns {NTSTATUS} 
      */
     Call(_Context, _PathName, BusType, BusNumber, BusInformation, ControllerType, ControllerNumber, ControllerInformation, PeripheralType, PeripheralNumber, PeripheralInformation) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        BusInformationMarshal := BusInformation is VarRef ? "ptr*" : "ptr"
-        ControllerInformationMarshal := ControllerInformation is VarRef ? "ptr*" : "ptr"
-        PeripheralInformationMarshal := PeripheralInformation is VarRef ? "ptr*" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        BusInformationMarshal := BusInformation is VarRef ? "ptr*" : IntPtr
+        ControllerInformationMarshal := ControllerInformation is VarRef ? "ptr*" : IntPtr
+        PeripheralInformationMarshal := PeripheralInformation is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, UNICODE_STRING.Ptr, _PathName, INTERFACE_TYPE, BusType, UInt32, BusNumber, BusInformationMarshal, BusInformation, CONFIGURATION_TYPE, ControllerType, UInt32, ControllerNumber, ControllerInformationMarshal, ControllerInformation, CONFIGURATION_TYPE, PeripheralType, UInt32, PeripheralNumber, PeripheralInformationMarshal, PeripheralInformation, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

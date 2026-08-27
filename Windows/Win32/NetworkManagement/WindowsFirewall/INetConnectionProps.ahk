@@ -164,12 +164,12 @@ export default struct INetConnectionProps extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Guid := CallbackCreate(GetMethod(implObj, "get_Guid"), flags, 2)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_DeviceName := CallbackCreate(GetMethod(implObj, "get_DeviceName"), flags, 2)
-        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
-        this.vtbl.get_MediaType := CallbackCreate(GetMethod(implObj, "get_MediaType"), flags, 2)
-        this.vtbl.get_Characteristics := CallbackCreate(GetMethod(implObj, "get_Characteristics"), flags, 2)
+        this.vtbl.get_Guid := CallbackCreate(ObjBindMethod(implObj, "get_Guid"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_DeviceName := CallbackCreate(ObjBindMethod(implObj, "get_DeviceName"), flags, 2)
+        this.vtbl.get_Status := CallbackCreate(ObjBindMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.get_MediaType := CallbackCreate(ObjBindMethod(implObj, "get_MediaType"), flags, 2)
+        this.vtbl.get_Characteristics := CallbackCreate(ObjBindMethod(implObj, "get_Characteristics"), flags, 2)
     }
 
     Dispose() {

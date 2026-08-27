@@ -156,7 +156,7 @@ export default struct IVdsSubSystemNaming extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetFriendlyName := CallbackCreate(GetMethod(implObj, "SetFriendlyName"), flags, 2)
+        this.vtbl.SetFriendlyName := CallbackCreate(ObjBindMethod(implObj, "SetFriendlyName"), flags, 2)
     }
 
     Dispose() {

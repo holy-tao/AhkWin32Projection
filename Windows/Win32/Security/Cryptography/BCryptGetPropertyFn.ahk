@@ -21,7 +21,6 @@ export default struct BCryptGetPropertyFn {
     }
 
     /**
-     * 
      * @param {BCRYPT_HANDLE} hObject 
      * @param {PWSTR} pszProperty 
      * @param {Integer} pbOutput 
@@ -33,9 +32,10 @@ export default struct BCryptGetPropertyFn {
     Call(hObject, pszProperty, pbOutput, cbOutput, pcbResult, dwFlags) {
         pszProperty := pszProperty is String ? StrPtr(pszProperty) : pszProperty
 
-        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+        pbOutputMarshal := pbOutput == 0 ? IntPtr : IntPtr
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, BCRYPT_HANDLE, hObject, "ptr", pszProperty, IntPtr, pbOutput, UInt32, cbOutput, pcbResultMarshal, pcbResult, UInt32, dwFlags, NTSTATUS)
+        result := DllCall(this.value, BCRYPT_HANDLE, hObject, "ptr", pszProperty, pbOutputMarshal, pbOutput, UInt32, cbOutput, pcbResultMarshal, pcbResult, UInt32, dwFlags, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

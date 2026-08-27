@@ -19,7 +19,6 @@ export default struct LPDDHALSURFCB_SETCLIPLIST {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_SETCLIPLISTDATA>} param0 
      * @returns {Integer} 
      */

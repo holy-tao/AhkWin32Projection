@@ -42,7 +42,6 @@ export default struct IInternetProtocolInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzUrl 
      * @param {PARSEACTION} _ParseAction 
      * @param {Integer} dwParseFlags 
@@ -60,7 +59,6 @@ export default struct IInternetProtocolInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzBaseUrl 
      * @param {PWSTR} pwzRelativeUrl 
      * @param {Integer} dwCombineFlags 
@@ -79,7 +77,6 @@ export default struct IInternetProtocolInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzUrl1 
      * @param {PWSTR} pwzUrl2 
      * @param {Integer} dwCompareFlags 
@@ -94,7 +91,6 @@ export default struct IInternetProtocolInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzUrl 
      * @param {QUERYOPTION} OueryOption 
      * @param {Integer} dwQueryFlags 
@@ -107,8 +103,8 @@ export default struct IInternetProtocolInfo extends IUnknown {
     QueryInfo(pwzUrl, OueryOption, dwQueryFlags, pBuffer, cbBuffer, pcbBuf, dwReserved) {
         pwzUrl := pwzUrl is String ? StrPtr(pwzUrl) : pwzUrl
 
-        pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
-        pcbBufMarshal := pcbBuf is VarRef ? "uint*" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "ptr" : IntPtr
+        pcbBufMarshal := pcbBuf is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, "ptr", pwzUrl, QUERYOPTION, OueryOption, UInt32, dwQueryFlags, pBufferMarshal, pBuffer, UInt32, cbBuffer, pcbBufMarshal, pcbBuf, UInt32, dwReserved, "HRESULT")
         return result
@@ -123,10 +119,10 @@ export default struct IInternetProtocolInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ParseUrl := CallbackCreate(GetMethod(implObj, "ParseUrl"), flags, 8)
-        this.vtbl.CombineUrl := CallbackCreate(GetMethod(implObj, "CombineUrl"), flags, 8)
-        this.vtbl.CompareUrl := CallbackCreate(GetMethod(implObj, "CompareUrl"), flags, 4)
-        this.vtbl.QueryInfo := CallbackCreate(GetMethod(implObj, "QueryInfo"), flags, 8)
+        this.vtbl.ParseUrl := CallbackCreate(ObjBindMethod(implObj, "ParseUrl"), flags, 8)
+        this.vtbl.CombineUrl := CallbackCreate(ObjBindMethod(implObj, "CombineUrl"), flags, 8)
+        this.vtbl.CompareUrl := CallbackCreate(ObjBindMethod(implObj, "CompareUrl"), flags, 4)
+        this.vtbl.QueryInfo := CallbackCreate(ObjBindMethod(implObj, "QueryInfo"), flags, 8)
     }
 
     Dispose() {

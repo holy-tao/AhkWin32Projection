@@ -85,7 +85,7 @@ export default struct IVMRSurfaceAllocatorEx9 extends IVMRSurfaceAllocator9 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSurfaceEx := CallbackCreate(GetMethod(implObj, "GetSurfaceEx"), flags, 6)
+        this.vtbl.GetSurfaceEx := CallbackCreate(ObjBindMethod(implObj, "GetSurfaceEx"), flags, 6)
     }
 
     Dispose() {

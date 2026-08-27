@@ -37,7 +37,6 @@ export default struct IActiveScriptProfilerControl4 extends IActiveScriptProfile
     }
 
     /**
-     * 
      * @param {Pointer<PROFILER_HEAP_SUMMARY>} heapSummary 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,7 @@ export default struct IActiveScriptProfilerControl4 extends IActiveScriptProfile
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SummarizeHeap := CallbackCreate(GetMethod(implObj, "SummarizeHeap"), flags, 2)
+        this.vtbl.SummarizeHeap := CallbackCreate(ObjBindMethod(implObj, "SummarizeHeap"), flags, 2)
     }
 
     Dispose() {

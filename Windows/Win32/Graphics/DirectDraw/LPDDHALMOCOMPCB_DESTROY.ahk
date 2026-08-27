@@ -19,7 +19,6 @@ export default struct LPDDHALMOCOMPCB_DESTROY {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_DESTROYMOCOMPDATA>} param0 
      * @returns {Integer} 
      */

@@ -38,7 +38,6 @@ export default struct IDOMXmlSerializer extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMNode} pNode 
      * @returns {BSTR} 
      */
@@ -57,7 +56,7 @@ export default struct IDOMXmlSerializer extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.serializeToString := CallbackCreate(GetMethod(implObj, "serializeToString"), flags, 3)
+        this.vtbl.serializeToString := CallbackCreate(ObjBindMethod(implObj, "serializeToString"), flags, 3)
     }
 
     Dispose() {

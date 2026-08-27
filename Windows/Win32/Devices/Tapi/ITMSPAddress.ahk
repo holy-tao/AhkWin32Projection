@@ -80,7 +80,7 @@ export default struct ITMSPAddress extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msp/nf-msp-itmspaddress-initialize
      */
     Initialize(hEvent) {
-        hEventMarshal := hEvent is VarRef ? "int*" : "ptr"
+        hEventMarshal := hEvent is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, hEventMarshal, hEvent, "HRESULT")
         return result
@@ -141,9 +141,10 @@ export default struct ITMSPAddress extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msp/nf-msp-itmspaddress-createmspcall
      */
     CreateMSPCall(hCall, dwReserved, dwMediaType, pOuterUnknown) {
-        hCallMarshal := hCall is VarRef ? "int*" : "ptr"
+        hCallMarshal := hCall is VarRef ? "int*" : IntPtr
+        pOuterUnknownMarshal := pOuterUnknown == 0 ? IntPtr : "ptr"
 
-        result := ComCall(5, this, hCallMarshal, hCall, UInt32, dwReserved, UInt32, dwMediaType, "ptr", pOuterUnknown, "ptr*", &ppStreamControl := 0, "HRESULT")
+        result := ComCall(5, this, hCallMarshal, hCall, UInt32, dwReserved, UInt32, dwMediaType, pOuterUnknownMarshal, pOuterUnknown, "ptr*", &ppStreamControl := 0, "HRESULT")
         return IUnknown(ppStreamControl)
     }
 
@@ -198,7 +199,9 @@ export default struct ITMSPAddress extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msp/nf-msp-itmspaddress-shutdownmspcall
      */
     ShutdownMSPCall(pStreamControl) {
-        result := ComCall(6, this, "ptr", pStreamControl, "HRESULT")
+        pStreamControlMarshal := pStreamControl == 0 ? IntPtr : "ptr"
+
+        result := ComCall(6, this, pStreamControlMarshal, pStreamControl, "HRESULT")
         return result
     }
 
@@ -277,9 +280,10 @@ export default struct ITMSPAddress extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msp/nf-msp-itmspaddress-receivetspdata
      */
     ReceiveTSPData(pMSPCall, pBuffer, dwSize) {
-        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+        pMSPCallMarshal := pMSPCall == 0 ? IntPtr : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "char*" : IntPtr
 
-        result := ComCall(7, this, "ptr", pMSPCall, pBufferMarshal, pBuffer, UInt32, dwSize, "HRESULT")
+        result := ComCall(7, this, pMSPCallMarshal, pMSPCall, pBufferMarshal, pBuffer, UInt32, dwSize, "HRESULT")
         return result
     }
 
@@ -370,8 +374,8 @@ export default struct ITMSPAddress extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msp/nf-msp-itmspaddress-getevent
      */
     GetEvent(pdwSize, pEventBuffer) {
-        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
-        pEventBufferMarshal := pEventBuffer is VarRef ? "char*" : "ptr"
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : IntPtr
+        pEventBufferMarshal := pEventBuffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(8, this, pdwSizeMarshal, pdwSize, pEventBufferMarshal, pEventBuffer, "HRESULT")
         return result
@@ -386,12 +390,12 @@ export default struct ITMSPAddress extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 1)
-        this.vtbl.CreateMSPCall := CallbackCreate(GetMethod(implObj, "CreateMSPCall"), flags, 6)
-        this.vtbl.ShutdownMSPCall := CallbackCreate(GetMethod(implObj, "ShutdownMSPCall"), flags, 2)
-        this.vtbl.ReceiveTSPData := CallbackCreate(GetMethod(implObj, "ReceiveTSPData"), flags, 4)
-        this.vtbl.GetEvent := CallbackCreate(GetMethod(implObj, "GetEvent"), flags, 3)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.Shutdown := CallbackCreate(ObjBindMethod(implObj, "Shutdown"), flags, 1)
+        this.vtbl.CreateMSPCall := CallbackCreate(ObjBindMethod(implObj, "CreateMSPCall"), flags, 6)
+        this.vtbl.ShutdownMSPCall := CallbackCreate(ObjBindMethod(implObj, "ShutdownMSPCall"), flags, 2)
+        this.vtbl.ReceiveTSPData := CallbackCreate(ObjBindMethod(implObj, "ReceiveTSPData"), flags, 4)
+        this.vtbl.GetEvent := CallbackCreate(ObjBindMethod(implObj, "GetEvent"), flags, 3)
     }
 
     Dispose() {

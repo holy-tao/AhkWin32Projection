@@ -121,10 +121,10 @@ export default struct ITsSbTaskPluginNotifySink extends ITsSbBaseNotifySink {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnSetTaskTime := CallbackCreate(GetMethod(implObj, "OnSetTaskTime"), flags, 10)
-        this.vtbl.OnDeleteTaskTime := CallbackCreate(GetMethod(implObj, "OnDeleteTaskTime"), flags, 3)
-        this.vtbl.OnUpdateTaskStatus := CallbackCreate(GetMethod(implObj, "OnUpdateTaskStatus"), flags, 4)
-        this.vtbl.OnReportTasks := CallbackCreate(GetMethod(implObj, "OnReportTasks"), flags, 2)
+        this.vtbl.OnSetTaskTime := CallbackCreate(ObjBindMethod(implObj, "OnSetTaskTime"), flags, 10)
+        this.vtbl.OnDeleteTaskTime := CallbackCreate(ObjBindMethod(implObj, "OnDeleteTaskTime"), flags, 3)
+        this.vtbl.OnUpdateTaskStatus := CallbackCreate(ObjBindMethod(implObj, "OnUpdateTaskStatus"), flags, 4)
+        this.vtbl.OnReportTasks := CallbackCreate(ObjBindMethod(implObj, "OnReportTasks"), flags, 2)
     }
 
     Dispose() {

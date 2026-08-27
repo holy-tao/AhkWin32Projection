@@ -54,9 +54,9 @@ export default struct IColumnMapper extends IUnknown {
     GetPropInfoFromName(wcsPropName, ppPropId, pPropType, puiWidth) {
         wcsPropName := wcsPropName is String ? StrPtr(wcsPropName) : wcsPropName
 
-        ppPropIdMarshal := ppPropId is VarRef ? "ptr*" : "ptr"
-        pPropTypeMarshal := pPropType is VarRef ? "ushort*" : "ptr"
-        puiWidthMarshal := puiWidth is VarRef ? "uint*" : "ptr"
+        ppPropIdMarshal := ppPropId is VarRef ? "ptr*" : IntPtr
+        pPropTypeMarshal := pPropType is VarRef ? "ushort*" : IntPtr
+        puiWidthMarshal := puiWidth is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, "ptr", wcsPropName, ppPropIdMarshal, ppPropId, pPropTypeMarshal, pPropType, puiWidthMarshal, puiWidth, "HRESULT")
         return result
@@ -72,9 +72,9 @@ export default struct IColumnMapper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nf-indexsrv-icolumnmapper-getpropinfofromid
      */
     GetPropInfoFromId(pPropId, pwcsName, pPropType, puiWidth) {
-        pwcsNameMarshal := pwcsName is VarRef ? "ptr*" : "ptr"
-        pPropTypeMarshal := pPropType is VarRef ? "ushort*" : "ptr"
-        puiWidthMarshal := puiWidth is VarRef ? "uint*" : "ptr"
+        pwcsNameMarshal := pwcsName is VarRef ? "ptr*" : IntPtr
+        pPropTypeMarshal := pPropType is VarRef ? "ushort*" : IntPtr
+        puiWidthMarshal := puiWidth is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, DBID.Ptr, pPropId, pwcsNameMarshal, pwcsName, pPropTypeMarshal, pPropType, puiWidthMarshal, puiWidth, "HRESULT")
         return result
@@ -91,10 +91,10 @@ export default struct IColumnMapper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nf-indexsrv-icolumnmapper-enumpropinfo
      */
     EnumPropInfo(iEntry, pwcsName, ppPropId, pPropType, puiWidth) {
-        pwcsNameMarshal := pwcsName is VarRef ? "ptr*" : "ptr"
-        ppPropIdMarshal := ppPropId is VarRef ? "ptr*" : "ptr"
-        pPropTypeMarshal := pPropType is VarRef ? "ushort*" : "ptr"
-        puiWidthMarshal := puiWidth is VarRef ? "uint*" : "ptr"
+        pwcsNameMarshal := pwcsName is VarRef ? "ptr*" : IntPtr
+        ppPropIdMarshal := ppPropId is VarRef ? "ptr*" : IntPtr
+        pPropTypeMarshal := pPropType is VarRef ? "ushort*" : IntPtr
+        puiWidthMarshal := puiWidth is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, UInt32, iEntry, pwcsNameMarshal, pwcsName, ppPropIdMarshal, ppPropId, pPropTypeMarshal, pPropType, puiWidthMarshal, puiWidth, "HRESULT")
         return result
@@ -119,10 +119,10 @@ export default struct IColumnMapper extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPropInfoFromName := CallbackCreate(GetMethod(implObj, "GetPropInfoFromName"), flags, 5)
-        this.vtbl.GetPropInfoFromId := CallbackCreate(GetMethod(implObj, "GetPropInfoFromId"), flags, 5)
-        this.vtbl.EnumPropInfo := CallbackCreate(GetMethod(implObj, "EnumPropInfo"), flags, 6)
-        this.vtbl.IsMapUpToDate := CallbackCreate(GetMethod(implObj, "IsMapUpToDate"), flags, 1)
+        this.vtbl.GetPropInfoFromName := CallbackCreate(ObjBindMethod(implObj, "GetPropInfoFromName"), flags, 5)
+        this.vtbl.GetPropInfoFromId := CallbackCreate(ObjBindMethod(implObj, "GetPropInfoFromId"), flags, 5)
+        this.vtbl.EnumPropInfo := CallbackCreate(ObjBindMethod(implObj, "EnumPropInfo"), flags, 6)
+        this.vtbl.IsMapUpToDate := CallbackCreate(ObjBindMethod(implObj, "IsMapUpToDate"), flags, 1)
     }
 
     Dispose() {

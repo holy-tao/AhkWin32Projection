@@ -20,13 +20,14 @@ export default struct DOT11EXT_SEND_UI_REQUEST {
     }
 
     /**
-     * 
      * @param {HANDLE} hDot11SvcHandle 
      * @param {Pointer<DOT11EXT_IHV_UI_REQUEST>} pIhvUIRequest 
      * @returns {Integer} 
      */
     Call(hDot11SvcHandle, pIhvUIRequest) {
-        result := DllCall(this.value, HANDLE, hDot11SvcHandle, DOT11EXT_IHV_UI_REQUEST.Ptr, pIhvUIRequest, UInt32)
+        hDot11SvcHandleMarshal := hDot11SvcHandle == 0 ? IntPtr : HANDLE
+
+        result := DllCall(this.value, hDot11SvcHandleMarshal, hDot11SvcHandle, DOT11EXT_IHV_UI_REQUEST.Ptr, pIhvUIRequest, UInt32)
         return result
     }
 

@@ -206,12 +206,12 @@ export default struct ITMultiTrackTerminal extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_TrackTerminals := CallbackCreate(GetMethod(implObj, "get_TrackTerminals"), flags, 2)
-        this.vtbl.EnumerateTrackTerminals := CallbackCreate(GetMethod(implObj, "EnumerateTrackTerminals"), flags, 2)
-        this.vtbl.CreateTrackTerminal := CallbackCreate(GetMethod(implObj, "CreateTrackTerminal"), flags, 4)
-        this.vtbl.get_MediaTypesInUse := CallbackCreate(GetMethod(implObj, "get_MediaTypesInUse"), flags, 2)
-        this.vtbl.get_DirectionsInUse := CallbackCreate(GetMethod(implObj, "get_DirectionsInUse"), flags, 2)
-        this.vtbl.RemoveTrackTerminal := CallbackCreate(GetMethod(implObj, "RemoveTrackTerminal"), flags, 2)
+        this.vtbl.get_TrackTerminals := CallbackCreate(ObjBindMethod(implObj, "get_TrackTerminals"), flags, 2)
+        this.vtbl.EnumerateTrackTerminals := CallbackCreate(ObjBindMethod(implObj, "EnumerateTrackTerminals"), flags, 2)
+        this.vtbl.CreateTrackTerminal := CallbackCreate(ObjBindMethod(implObj, "CreateTrackTerminal"), flags, 4)
+        this.vtbl.get_MediaTypesInUse := CallbackCreate(ObjBindMethod(implObj, "get_MediaTypesInUse"), flags, 2)
+        this.vtbl.get_DirectionsInUse := CallbackCreate(ObjBindMethod(implObj, "get_DirectionsInUse"), flags, 2)
+        this.vtbl.RemoveTrackTerminal := CallbackCreate(ObjBindMethod(implObj, "RemoveTrackTerminal"), flags, 2)
     }
 
     Dispose() {

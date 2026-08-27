@@ -23,7 +23,6 @@ export default struct PFN_FWENUMDYNAMICKEYWORDADDRESSESBYTYPE0 {
     }
 
     /**
-     * 
      * @param {Integer} flags Type: **[DWORD](/windows/win32/api/guiddef/ns-guiddef-guid)**
      * 
      * Using the value [FW_DYNAMIC_KEYWORD_ADDRESS_ENUM_FLAGS_AUTO_RESOLVE](ne-netfw-fw_dynamic_keyword_address_enum_flags.md) will enumerate all objects that have the [FW_DYNAMIC_KEYWORD_ADDRESS_FLAGS_AUTO_RESOLVE](ne-netfw-fw_dynamic_keyword_address_flags.md) flag set.
@@ -43,7 +42,7 @@ export default struct PFN_FWENUMDYNAMICKEYWORDADDRESSESBYTYPE0 {
      * |ERROR_INVALID_PARAMETER|A zero value was passed in for the *flags* parameter.|
      */
     Call(flags, dynamicKeywordAddressData) {
-        dynamicKeywordAddressDataMarshal := dynamicKeywordAddressData is VarRef ? "ptr*" : "ptr"
+        dynamicKeywordAddressDataMarshal := dynamicKeywordAddressData is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, UInt32, flags, dynamicKeywordAddressDataMarshal, dynamicKeywordAddressData, UInt32)
         return result

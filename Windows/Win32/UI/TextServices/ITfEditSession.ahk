@@ -90,7 +90,7 @@ export default struct ITfEditSession extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DoEditSession := CallbackCreate(GetMethod(implObj, "DoEditSession"), flags, 2)
+        this.vtbl.DoEditSession := CallbackCreate(ObjBindMethod(implObj, "DoEditSession"), flags, 2)
     }
 
     Dispose() {

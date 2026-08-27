@@ -27,7 +27,6 @@ export default struct LPWSPBIND {
     }
 
     /**
-     * 
      * @param {SOCKET} s A descriptor identifying an unbound socket.
      * @param {Integer} name The address to assign to the socket, in the form of a <a href="https://docs.microsoft.com/windows/win32/winsock/sockaddr-2">**sockaddr**</a> structure.
      * 
@@ -132,7 +131,7 @@ export default struct LPWSPBIND {
      * </table>
      */
     Call(s, name, namelen, lpErrno) {
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, SOCKET, s, IntPtr, name, Int32, namelen, lpErrnoMarshal, lpErrno, Int32)
         return result

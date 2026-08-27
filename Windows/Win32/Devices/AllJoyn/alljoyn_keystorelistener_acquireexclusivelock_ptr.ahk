@@ -20,13 +20,12 @@ export default struct alljoyn_keystorelistener_acquireexclusivelock_ptr {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {alljoyn_keystorelistener} listener 
      * @returns {QStatus} 
      */
     Call(_context, listener) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _contextMarshal, _context, alljoyn_keystorelistener, listener, QStatus)
         return result

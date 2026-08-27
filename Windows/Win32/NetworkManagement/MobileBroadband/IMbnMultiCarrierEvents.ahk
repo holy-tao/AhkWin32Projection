@@ -256,11 +256,11 @@ export default struct IMbnMultiCarrierEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnSetHomeProviderComplete := CallbackCreate(GetMethod(implObj, "OnSetHomeProviderComplete"), flags, 4)
-        this.vtbl.OnCurrentCellularClassChange := CallbackCreate(GetMethod(implObj, "OnCurrentCellularClassChange"), flags, 2)
-        this.vtbl.OnPreferredProvidersChange := CallbackCreate(GetMethod(implObj, "OnPreferredProvidersChange"), flags, 2)
-        this.vtbl.OnScanNetworkComplete := CallbackCreate(GetMethod(implObj, "OnScanNetworkComplete"), flags, 4)
-        this.vtbl.OnInterfaceCapabilityChange := CallbackCreate(GetMethod(implObj, "OnInterfaceCapabilityChange"), flags, 2)
+        this.vtbl.OnSetHomeProviderComplete := CallbackCreate(ObjBindMethod(implObj, "OnSetHomeProviderComplete"), flags, 4)
+        this.vtbl.OnCurrentCellularClassChange := CallbackCreate(ObjBindMethod(implObj, "OnCurrentCellularClassChange"), flags, 2)
+        this.vtbl.OnPreferredProvidersChange := CallbackCreate(ObjBindMethod(implObj, "OnPreferredProvidersChange"), flags, 2)
+        this.vtbl.OnScanNetworkComplete := CallbackCreate(ObjBindMethod(implObj, "OnScanNetworkComplete"), flags, 4)
+        this.vtbl.OnInterfaceCapabilityChange := CallbackCreate(ObjBindMethod(implObj, "OnInterfaceCapabilityChange"), flags, 2)
     }
 
     Dispose() {

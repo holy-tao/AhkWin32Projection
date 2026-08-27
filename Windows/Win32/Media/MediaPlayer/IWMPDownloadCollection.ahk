@@ -55,31 +55,28 @@ export default struct IWMPDownloadCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} plId 
      * @returns {HRESULT} 
      */
     get_id(plId) {
-        plIdMarshal := plId is VarRef ? "int*" : "ptr"
+        plIdMarshal := plId is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, plIdMarshal, plId, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} plCount 
      * @returns {HRESULT} 
      */
     get_count(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+        plCountMarshal := plCount is VarRef ? "int*" : IntPtr
 
         result := ComCall(8, this, plCountMarshal, plCount, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} _lItem 
      * @returns {IWMPDownloadItem2} 
      */
@@ -89,7 +86,6 @@ export default struct IWMPDownloadCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrSourceURL 
      * @param {BSTR} bstrType 
      * @returns {IWMPDownloadItem2} 
@@ -103,7 +99,6 @@ export default struct IWMPDownloadCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} _lItem 
      * @returns {HRESULT} 
      */
@@ -149,12 +144,12 @@ export default struct IWMPDownloadCollection extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_id := CallbackCreate(GetMethod(implObj, "get_id"), flags, 2)
-        this.vtbl.get_count := CallbackCreate(GetMethod(implObj, "get_count"), flags, 2)
-        this.vtbl.item := CallbackCreate(GetMethod(implObj, "item"), flags, 3)
-        this.vtbl.startDownload := CallbackCreate(GetMethod(implObj, "startDownload"), flags, 4)
-        this.vtbl.removeItem := CallbackCreate(GetMethod(implObj, "removeItem"), flags, 2)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.get_id := CallbackCreate(ObjBindMethod(implObj, "get_id"), flags, 2)
+        this.vtbl.get_count := CallbackCreate(ObjBindMethod(implObj, "get_count"), flags, 2)
+        this.vtbl.item := CallbackCreate(ObjBindMethod(implObj, "item"), flags, 3)
+        this.vtbl.startDownload := CallbackCreate(ObjBindMethod(implObj, "startDownload"), flags, 4)
+        this.vtbl.removeItem := CallbackCreate(ObjBindMethod(implObj, "removeItem"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
     }
 
     Dispose() {

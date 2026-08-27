@@ -20,7 +20,6 @@ export default struct PDXGK_INITIAL_COMPONENT_STATE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} GraphicsDeviceHandle 
      * @param {Pointer<Void>} PrivateHandle 
      * @param {Integer} ComponentIndex 
@@ -31,8 +30,8 @@ export default struct PDXGK_INITIAL_COMPONENT_STATE {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(GraphicsDeviceHandle, PrivateHandle, ComponentIndex, IsBlockingType, InitialFState, ComponentGuid, PowerComponentMappingFlag) {
-        GraphicsDeviceHandleMarshal := GraphicsDeviceHandle is VarRef ? "ptr" : "ptr"
-        PrivateHandleMarshal := PrivateHandle is VarRef ? "ptr" : "ptr"
+        GraphicsDeviceHandleMarshal := GraphicsDeviceHandle is VarRef ? "ptr" : IntPtr
+        PrivateHandleMarshal := PrivateHandle is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, GraphicsDeviceHandleMarshal, GraphicsDeviceHandle, PrivateHandleMarshal, PrivateHandle, UInt32, ComponentIndex, BOOLEAN, IsBlockingType, UInt32, InitialFState, Guid, ComponentGuid, UInt32, PowerComponentMappingFlag)
     }

@@ -20,7 +20,6 @@ export default struct PCLUSAPI_SET_CLUSTER_RESOURCE_NAME {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {PWSTR} lpszResourceName 
      * @returns {Integer} 

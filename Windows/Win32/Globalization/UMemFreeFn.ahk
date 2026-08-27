@@ -18,14 +18,13 @@ export default struct UMemFreeFn {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {Pointer<Void>} mem 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_context, mem) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
-        memMarshal := mem is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+        memMarshal := mem is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _contextMarshal, _context, memMarshal, mem)
     }

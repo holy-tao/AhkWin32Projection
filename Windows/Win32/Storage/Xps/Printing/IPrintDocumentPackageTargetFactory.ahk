@@ -75,7 +75,7 @@ export default struct IPrintDocumentPackageTargetFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateDocumentPackageTargetForPrintJob := CallbackCreate(GetMethod(implObj, "CreateDocumentPackageTargetForPrintJob"), flags, 6)
+        this.vtbl.CreateDocumentPackageTargetForPrintJob := CallbackCreate(ObjBindMethod(implObj, "CreateDocumentPackageTargetForPrintJob"), flags, 6)
     }
 
     Dispose() {

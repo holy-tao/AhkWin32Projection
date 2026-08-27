@@ -209,16 +209,16 @@ export default struct IFsrmFileConditionProperty extends IFsrmFileCondition {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_PropertyName := CallbackCreate(GetMethod(implObj, "get_PropertyName"), flags, 2)
-        this.vtbl.put_PropertyName := CallbackCreate(GetMethod(implObj, "put_PropertyName"), flags, 2)
-        this.vtbl.get_PropertyId := CallbackCreate(GetMethod(implObj, "get_PropertyId"), flags, 2)
-        this.vtbl.put_PropertyId := CallbackCreate(GetMethod(implObj, "put_PropertyId"), flags, 2)
-        this.vtbl.get_Operator := CallbackCreate(GetMethod(implObj, "get_Operator"), flags, 2)
-        this.vtbl.put_Operator := CallbackCreate(GetMethod(implObj, "put_Operator"), flags, 2)
-        this.vtbl.get_ValueType := CallbackCreate(GetMethod(implObj, "get_ValueType"), flags, 2)
-        this.vtbl.put_ValueType := CallbackCreate(GetMethod(implObj, "put_ValueType"), flags, 2)
-        this.vtbl.get_Value := CallbackCreate(GetMethod(implObj, "get_Value"), flags, 2)
-        this.vtbl.put_Value := CallbackCreate(GetMethod(implObj, "put_Value"), flags, 2)
+        this.vtbl.get_PropertyName := CallbackCreate(ObjBindMethod(implObj, "get_PropertyName"), flags, 2)
+        this.vtbl.put_PropertyName := CallbackCreate(ObjBindMethod(implObj, "put_PropertyName"), flags, 2)
+        this.vtbl.get_PropertyId := CallbackCreate(ObjBindMethod(implObj, "get_PropertyId"), flags, 2)
+        this.vtbl.put_PropertyId := CallbackCreate(ObjBindMethod(implObj, "put_PropertyId"), flags, 2)
+        this.vtbl.get_Operator := CallbackCreate(ObjBindMethod(implObj, "get_Operator"), flags, 2)
+        this.vtbl.put_Operator := CallbackCreate(ObjBindMethod(implObj, "put_Operator"), flags, 2)
+        this.vtbl.get_ValueType := CallbackCreate(ObjBindMethod(implObj, "get_ValueType"), flags, 2)
+        this.vtbl.put_ValueType := CallbackCreate(ObjBindMethod(implObj, "put_ValueType"), flags, 2)
+        this.vtbl.get_Value := CallbackCreate(ObjBindMethod(implObj, "get_Value"), flags, 2)
+        this.vtbl.put_Value := CallbackCreate(ObjBindMethod(implObj, "put_Value"), flags, 2)
     }
 
     Dispose() {

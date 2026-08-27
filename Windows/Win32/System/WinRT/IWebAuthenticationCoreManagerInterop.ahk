@@ -145,8 +145,8 @@ export default struct IWebAuthenticationCoreManagerInterop extends IInspectable 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RequestTokenForWindowAsync := CallbackCreate(GetMethod(implObj, "RequestTokenForWindowAsync"), flags, 5)
-        this.vtbl.RequestTokenWithWebAccountForWindowAsync := CallbackCreate(GetMethod(implObj, "RequestTokenWithWebAccountForWindowAsync"), flags, 6)
+        this.vtbl.RequestTokenForWindowAsync := CallbackCreate(ObjBindMethod(implObj, "RequestTokenForWindowAsync"), flags, 5)
+        this.vtbl.RequestTokenWithWebAccountForWindowAsync := CallbackCreate(ObjBindMethod(implObj, "RequestTokenWithWebAccountForWindowAsync"), flags, 6)
     }
 
     Dispose() {

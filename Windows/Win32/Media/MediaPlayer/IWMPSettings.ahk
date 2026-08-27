@@ -169,7 +169,7 @@ export default struct IWMPSettings extends IDispatch {
     get_isAvailable(bstrItem, pIsAvailable) {
         bstrItem := bstrItem is String ? BSTR.Alloc(bstrItem).Value : bstrItem
 
-        pIsAvailableMarshal := pIsAvailable is VarRef ? "short*" : "ptr"
+        pIsAvailableMarshal := pIsAvailable is VarRef ? "short*" : IntPtr
 
         result := ComCall(7, this, BSTR, bstrItem, pIsAvailableMarshal, pIsAvailable, "HRESULT")
         return result
@@ -204,7 +204,7 @@ export default struct IWMPSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsettings-get_autostart
      */
     get_autoStart(pfAutoStart) {
-        pfAutoStartMarshal := pfAutoStart is VarRef ? "short*" : "ptr"
+        pfAutoStartMarshal := pfAutoStart is VarRef ? "short*" : IntPtr
 
         result := ComCall(8, this, pfAutoStartMarshal, pfAutoStart, "HRESULT")
         return result
@@ -430,7 +430,7 @@ export default struct IWMPSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsettings-get_invokeurls
      */
     get_invokeURLs(pfInvokeURLs) {
-        pfInvokeURLsMarshal := pfInvokeURLs is VarRef ? "short*" : "ptr"
+        pfInvokeURLsMarshal := pfInvokeURLs is VarRef ? "short*" : IntPtr
 
         result := ComCall(14, this, pfInvokeURLsMarshal, pfInvokeURLs, "HRESULT")
         return result
@@ -494,7 +494,7 @@ export default struct IWMPSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsettings-get_mute
      */
     get_mute(pfMute) {
-        pfMuteMarshal := pfMute is VarRef ? "short*" : "ptr"
+        pfMuteMarshal := pfMute is VarRef ? "short*" : IntPtr
 
         result := ComCall(16, this, pfMuteMarshal, pfMute, "HRESULT")
         return result
@@ -556,7 +556,7 @@ export default struct IWMPSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsettings-get_playcount
      */
     get_playCount(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+        plCountMarshal := plCount is VarRef ? "int*" : IntPtr
 
         result := ComCall(18, this, plCountMarshal, plCount, "HRESULT")
         return result
@@ -644,7 +644,7 @@ export default struct IWMPSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsettings-get_rate
      */
     get_rate(pdRate) {
-        pdRateMarshal := pdRate is VarRef ? "double*" : "ptr"
+        pdRateMarshal := pdRate is VarRef ? "double*" : IntPtr
 
         result := ComCall(20, this, pdRateMarshal, pdRate, "HRESULT")
         return result
@@ -732,7 +732,7 @@ export default struct IWMPSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsettings-get_balance
      */
     get_balance(plBalance) {
-        plBalanceMarshal := plBalance is VarRef ? "int*" : "ptr"
+        plBalanceMarshal := plBalance is VarRef ? "int*" : IntPtr
 
         result := ComCall(22, this, plBalanceMarshal, plBalance, "HRESULT")
         return result
@@ -796,7 +796,7 @@ export default struct IWMPSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsettings-get_volume
      */
     get_volume(plVolume) {
-        plVolumeMarshal := plVolume is VarRef ? "int*" : "ptr"
+        plVolumeMarshal := plVolume is VarRef ? "int*" : IntPtr
 
         result := ComCall(24, this, plVolumeMarshal, plVolume, "HRESULT")
         return result
@@ -861,7 +861,7 @@ export default struct IWMPSettings extends IDispatch {
     getMode(bstrMode, pvarfMode) {
         bstrMode := bstrMode is String ? BSTR.Alloc(bstrMode).Value : bstrMode
 
-        pvarfModeMarshal := pvarfMode is VarRef ? "short*" : "ptr"
+        pvarfModeMarshal := pvarfMode is VarRef ? "short*" : IntPtr
 
         result := ComCall(26, this, BSTR, bstrMode, pvarfModeMarshal, pvarfMode, "HRESULT")
         return result
@@ -928,7 +928,7 @@ export default struct IWMPSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsettings-get_enableerrordialogs
      */
     get_enableErrorDialogs(pfEnableErrorDialogs) {
-        pfEnableErrorDialogsMarshal := pfEnableErrorDialogs is VarRef ? "short*" : "ptr"
+        pfEnableErrorDialogsMarshal := pfEnableErrorDialogs is VarRef ? "short*" : IntPtr
 
         result := ComCall(28, this, pfEnableErrorDialogsMarshal, pfEnableErrorDialogs, "HRESULT")
         return result
@@ -974,29 +974,29 @@ export default struct IWMPSettings extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_isAvailable := CallbackCreate(GetMethod(implObj, "get_isAvailable"), flags, 3)
-        this.vtbl.get_autoStart := CallbackCreate(GetMethod(implObj, "get_autoStart"), flags, 2)
-        this.vtbl.put_autoStart := CallbackCreate(GetMethod(implObj, "put_autoStart"), flags, 2)
-        this.vtbl.get_baseURL := CallbackCreate(GetMethod(implObj, "get_baseURL"), flags, 2)
-        this.vtbl.put_baseURL := CallbackCreate(GetMethod(implObj, "put_baseURL"), flags, 2)
-        this.vtbl.get_defaultFrame := CallbackCreate(GetMethod(implObj, "get_defaultFrame"), flags, 2)
-        this.vtbl.put_defaultFrame := CallbackCreate(GetMethod(implObj, "put_defaultFrame"), flags, 2)
-        this.vtbl.get_invokeURLs := CallbackCreate(GetMethod(implObj, "get_invokeURLs"), flags, 2)
-        this.vtbl.put_invokeURLs := CallbackCreate(GetMethod(implObj, "put_invokeURLs"), flags, 2)
-        this.vtbl.get_mute := CallbackCreate(GetMethod(implObj, "get_mute"), flags, 2)
-        this.vtbl.put_mute := CallbackCreate(GetMethod(implObj, "put_mute"), flags, 2)
-        this.vtbl.get_playCount := CallbackCreate(GetMethod(implObj, "get_playCount"), flags, 2)
-        this.vtbl.put_playCount := CallbackCreate(GetMethod(implObj, "put_playCount"), flags, 2)
-        this.vtbl.get_rate := CallbackCreate(GetMethod(implObj, "get_rate"), flags, 2)
-        this.vtbl.put_rate := CallbackCreate(GetMethod(implObj, "put_rate"), flags, 2)
-        this.vtbl.get_balance := CallbackCreate(GetMethod(implObj, "get_balance"), flags, 2)
-        this.vtbl.put_balance := CallbackCreate(GetMethod(implObj, "put_balance"), flags, 2)
-        this.vtbl.get_volume := CallbackCreate(GetMethod(implObj, "get_volume"), flags, 2)
-        this.vtbl.put_volume := CallbackCreate(GetMethod(implObj, "put_volume"), flags, 2)
-        this.vtbl.getMode := CallbackCreate(GetMethod(implObj, "getMode"), flags, 3)
-        this.vtbl.setMode := CallbackCreate(GetMethod(implObj, "setMode"), flags, 3)
-        this.vtbl.get_enableErrorDialogs := CallbackCreate(GetMethod(implObj, "get_enableErrorDialogs"), flags, 2)
-        this.vtbl.put_enableErrorDialogs := CallbackCreate(GetMethod(implObj, "put_enableErrorDialogs"), flags, 2)
+        this.vtbl.get_isAvailable := CallbackCreate(ObjBindMethod(implObj, "get_isAvailable"), flags, 3)
+        this.vtbl.get_autoStart := CallbackCreate(ObjBindMethod(implObj, "get_autoStart"), flags, 2)
+        this.vtbl.put_autoStart := CallbackCreate(ObjBindMethod(implObj, "put_autoStart"), flags, 2)
+        this.vtbl.get_baseURL := CallbackCreate(ObjBindMethod(implObj, "get_baseURL"), flags, 2)
+        this.vtbl.put_baseURL := CallbackCreate(ObjBindMethod(implObj, "put_baseURL"), flags, 2)
+        this.vtbl.get_defaultFrame := CallbackCreate(ObjBindMethod(implObj, "get_defaultFrame"), flags, 2)
+        this.vtbl.put_defaultFrame := CallbackCreate(ObjBindMethod(implObj, "put_defaultFrame"), flags, 2)
+        this.vtbl.get_invokeURLs := CallbackCreate(ObjBindMethod(implObj, "get_invokeURLs"), flags, 2)
+        this.vtbl.put_invokeURLs := CallbackCreate(ObjBindMethod(implObj, "put_invokeURLs"), flags, 2)
+        this.vtbl.get_mute := CallbackCreate(ObjBindMethod(implObj, "get_mute"), flags, 2)
+        this.vtbl.put_mute := CallbackCreate(ObjBindMethod(implObj, "put_mute"), flags, 2)
+        this.vtbl.get_playCount := CallbackCreate(ObjBindMethod(implObj, "get_playCount"), flags, 2)
+        this.vtbl.put_playCount := CallbackCreate(ObjBindMethod(implObj, "put_playCount"), flags, 2)
+        this.vtbl.get_rate := CallbackCreate(ObjBindMethod(implObj, "get_rate"), flags, 2)
+        this.vtbl.put_rate := CallbackCreate(ObjBindMethod(implObj, "put_rate"), flags, 2)
+        this.vtbl.get_balance := CallbackCreate(ObjBindMethod(implObj, "get_balance"), flags, 2)
+        this.vtbl.put_balance := CallbackCreate(ObjBindMethod(implObj, "put_balance"), flags, 2)
+        this.vtbl.get_volume := CallbackCreate(ObjBindMethod(implObj, "get_volume"), flags, 2)
+        this.vtbl.put_volume := CallbackCreate(ObjBindMethod(implObj, "put_volume"), flags, 2)
+        this.vtbl.getMode := CallbackCreate(ObjBindMethod(implObj, "getMode"), flags, 3)
+        this.vtbl.setMode := CallbackCreate(ObjBindMethod(implObj, "setMode"), flags, 3)
+        this.vtbl.get_enableErrorDialogs := CallbackCreate(ObjBindMethod(implObj, "get_enableErrorDialogs"), flags, 2)
+        this.vtbl.put_enableErrorDialogs := CallbackCreate(ObjBindMethod(implObj, "put_enableErrorDialogs"), flags, 2)
     }
 
     Dispose() {

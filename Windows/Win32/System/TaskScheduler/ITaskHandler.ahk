@@ -55,7 +55,9 @@ export default struct ITaskHandler extends IUnknown {
     Start(pHandlerServices, data) {
         data := data is String ? BSTR.Alloc(data).Value : data
 
-        result := ComCall(3, this, "ptr", pHandlerServices, BSTR, data, "HRESULT")
+        pHandlerServicesMarshal := pHandlerServices == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pHandlerServicesMarshal, pHandlerServices, BSTR, data, "HRESULT")
         return result
     }
 
@@ -98,10 +100,10 @@ export default struct ITaskHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 3)
-        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 2)
-        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
-        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 1)
+        this.vtbl.Start := CallbackCreate(ObjBindMethod(implObj, "Start"), flags, 3)
+        this.vtbl.Stop := CallbackCreate(ObjBindMethod(implObj, "Stop"), flags, 2)
+        this.vtbl.Pause := CallbackCreate(ObjBindMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Resume := CallbackCreate(ObjBindMethod(implObj, "Resume"), flags, 1)
     }
 
     Dispose() {

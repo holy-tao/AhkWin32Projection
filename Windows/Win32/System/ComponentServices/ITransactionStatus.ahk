@@ -95,7 +95,7 @@ export default struct ITransactionStatus extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-itransactionstatus-gettransactionstatus
      */
     GetTransactionStatus(pHrStatus) {
-        pHrStatusMarshal := pHrStatus is VarRef ? "int*" : "ptr"
+        pHrStatusMarshal := pHrStatus is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, pHrStatusMarshal, pHrStatus, "HRESULT")
         return result
@@ -110,8 +110,8 @@ export default struct ITransactionStatus extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetTransactionStatus := CallbackCreate(GetMethod(implObj, "SetTransactionStatus"), flags, 2)
-        this.vtbl.GetTransactionStatus := CallbackCreate(GetMethod(implObj, "GetTransactionStatus"), flags, 2)
+        this.vtbl.SetTransactionStatus := CallbackCreate(ObjBindMethod(implObj, "SetTransactionStatus"), flags, 2)
+        this.vtbl.GetTransactionStatus := CallbackCreate(ObjBindMethod(implObj, "GetTransactionStatus"), flags, 2)
     }
 
     Dispose() {

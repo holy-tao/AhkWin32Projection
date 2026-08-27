@@ -123,10 +123,10 @@ export default struct IRDPSRAPIApplicationFilter extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Applications := CallbackCreate(GetMethod(implObj, "get_Applications"), flags, 2)
-        this.vtbl.get_Windows := CallbackCreate(GetMethod(implObj, "get_Windows"), flags, 2)
-        this.vtbl.get_Enabled := CallbackCreate(GetMethod(implObj, "get_Enabled"), flags, 2)
-        this.vtbl.put_Enabled := CallbackCreate(GetMethod(implObj, "put_Enabled"), flags, 2)
+        this.vtbl.get_Applications := CallbackCreate(ObjBindMethod(implObj, "get_Applications"), flags, 2)
+        this.vtbl.get_Windows := CallbackCreate(ObjBindMethod(implObj, "get_Windows"), flags, 2)
+        this.vtbl.get_Enabled := CallbackCreate(ObjBindMethod(implObj, "get_Enabled"), flags, 2)
+        this.vtbl.put_Enabled := CallbackCreate(ObjBindMethod(implObj, "put_Enabled"), flags, 2)
     }
 
     Dispose() {

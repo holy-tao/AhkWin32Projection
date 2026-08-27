@@ -25,7 +25,6 @@ export default struct PIBIO_ENGINE_EXPORT_ENGINE_DATA_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/ns-winbio_adapter-winbio_pipeline">WINBIO_PIPELINE</a> structure associated with the biometric unit performing the operation.
      * @param {Integer} Flags A value that specifies the properties of the <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-bir">WINBIO_BIR</a> structure returned by the engine. This can be a bitwise <b>OR</b> of the following security and processing level flags:
      * 
@@ -120,8 +119,8 @@ export default struct PIBIO_ENGINE_EXPORT_ENGINE_DATA_FN {
      * </table>
      */
     Call(Pipeline, Flags, SampleBuffer, SampleSize) {
-        SampleBufferMarshal := SampleBuffer is VarRef ? "ptr*" : "ptr"
-        SampleSizeMarshal := SampleSize is VarRef ? "ptr*" : "ptr"
+        SampleBufferMarshal := SampleBuffer is VarRef ? "ptr*" : IntPtr
+        SampleSizeMarshal := SampleSize is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, WINBIO_PIPELINE.Ptr, Pipeline, Int8, Flags, SampleBufferMarshal, SampleBuffer, SampleSizeMarshal, SampleSize, "HRESULT")
         return result

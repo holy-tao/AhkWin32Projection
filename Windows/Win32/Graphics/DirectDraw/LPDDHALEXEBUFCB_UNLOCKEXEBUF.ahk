@@ -19,7 +19,6 @@ export default struct LPDDHALEXEBUFCB_UNLOCKEXEBUF {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_UNLOCKDATA>} param0 
      * @returns {Integer} 
      */

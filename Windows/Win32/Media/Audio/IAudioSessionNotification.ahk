@@ -81,7 +81,7 @@ export default struct IAudioSessionNotification extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnSessionCreated := CallbackCreate(GetMethod(implObj, "OnSessionCreated"), flags, 2)
+        this.vtbl.OnSessionCreated := CallbackCreate(ObjBindMethod(implObj, "OnSessionCreated"), flags, 2)
     }
 
     Dispose() {

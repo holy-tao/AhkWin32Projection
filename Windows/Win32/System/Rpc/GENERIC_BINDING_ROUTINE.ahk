@@ -18,12 +18,11 @@ export default struct GENERIC_BINDING_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} param0 
      * @returns {Pointer<Void>} 
      */
     Call(param0) {
-        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+        param0Marshal := param0 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, param0Marshal, param0, IntPtr)
         return result

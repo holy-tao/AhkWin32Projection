@@ -19,13 +19,14 @@ export default struct DOT11EXT_SET_UNICAST_CIPHER_ALGORITHM {
     }
 
     /**
-     * 
      * @param {HANDLE} hDot11SvcHandle 
      * @param {Integer} dwUnicastCipherAlgo 
      * @returns {Integer} 
      */
     Call(hDot11SvcHandle, dwUnicastCipherAlgo) {
-        result := DllCall(this.value, HANDLE, hDot11SvcHandle, UInt32, dwUnicastCipherAlgo, UInt32)
+        hDot11SvcHandleMarshal := hDot11SvcHandle == 0 ? IntPtr : HANDLE
+
+        result := DllCall(this.value, hDot11SvcHandleMarshal, hDot11SvcHandle, UInt32, dwUnicastCipherAlgo, UInt32)
         return result
     }
 

@@ -20,13 +20,12 @@ export default struct PEXCEPTION_FILTER {
     }
 
     /**
-     * 
      * @param {Pointer<EXCEPTION_POINTERS>} ExceptionPointers 
      * @param {Pointer<Void>} EstablisherFrame 
      * @returns {Integer} 
      */
     Call(ExceptionPointers, EstablisherFrame) {
-        EstablisherFrameMarshal := EstablisherFrame is VarRef ? "ptr" : "ptr"
+        EstablisherFrameMarshal := EstablisherFrame is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, EXCEPTION_POINTERS.Ptr, ExceptionPointers, EstablisherFrameMarshal, EstablisherFrame, Int32)
         return result

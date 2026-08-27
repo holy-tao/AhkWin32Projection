@@ -19,7 +19,6 @@ export default struct PCLUSAPI_CLUSTER_REG_SYNC_DATABASE {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {Integer} flags 
      * @returns {Integer} 

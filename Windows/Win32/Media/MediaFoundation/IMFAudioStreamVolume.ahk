@@ -136,7 +136,7 @@ export default struct IMFAudioStreamVolume extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfaudiostreamvolume-setallvolumes
      */
     SetAllVolumes(dwCount, pfVolumes) {
-        pfVolumesMarshal := pfVolumes is VarRef ? "float*" : "ptr"
+        pfVolumesMarshal := pfVolumes is VarRef ? "float*" : IntPtr
 
         result := ComCall(6, this, UInt32, dwCount, pfVolumesMarshal, pfVolumes, "HRESULT")
         return result
@@ -162,11 +162,11 @@ export default struct IMFAudioStreamVolume extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetChannelCount := CallbackCreate(GetMethod(implObj, "GetChannelCount"), flags, 2)
-        this.vtbl.SetChannelVolume := CallbackCreate(GetMethod(implObj, "SetChannelVolume"), flags, 3)
-        this.vtbl.GetChannelVolume := CallbackCreate(GetMethod(implObj, "GetChannelVolume"), flags, 3)
-        this.vtbl.SetAllVolumes := CallbackCreate(GetMethod(implObj, "SetAllVolumes"), flags, 3)
-        this.vtbl.GetAllVolumes := CallbackCreate(GetMethod(implObj, "GetAllVolumes"), flags, 3)
+        this.vtbl.GetChannelCount := CallbackCreate(ObjBindMethod(implObj, "GetChannelCount"), flags, 2)
+        this.vtbl.SetChannelVolume := CallbackCreate(ObjBindMethod(implObj, "SetChannelVolume"), flags, 3)
+        this.vtbl.GetChannelVolume := CallbackCreate(ObjBindMethod(implObj, "GetChannelVolume"), flags, 3)
+        this.vtbl.SetAllVolumes := CallbackCreate(ObjBindMethod(implObj, "SetAllVolumes"), flags, 3)
+        this.vtbl.GetAllVolumes := CallbackCreate(ObjBindMethod(implObj, "GetAllVolumes"), flags, 3)
     }
 
     Dispose() {

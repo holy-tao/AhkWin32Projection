@@ -21,7 +21,6 @@ export default struct LPNODE_CALLBACK {
     }
 
     /**
-     * 
      * @param {HCLUSTER} param0 
      * @param {HNODE} param1 
      * @param {CLUSTER_NODE_STATE} param2 
@@ -29,7 +28,7 @@ export default struct LPNODE_CALLBACK {
      * @returns {Integer} 
      */
     Call(param0, param1, param2, param3) {
-        param3Marshal := param3 is VarRef ? "ptr" : "ptr"
+        param3Marshal := param3 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, HCLUSTER, param0, HNODE, param1, CLUSTER_NODE_STATE, param2, param3Marshal, param3, UInt32)
         return result

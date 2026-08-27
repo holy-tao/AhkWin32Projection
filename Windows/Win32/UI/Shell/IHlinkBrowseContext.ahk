@@ -92,7 +92,6 @@ export default struct IHlinkBrowseContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwRegister 
      * @returns {HRESULT} 
      */
@@ -102,7 +101,6 @@ export default struct IHlinkBrowseContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<HLBWINFO>} phlbwi 
      * @returns {HRESULT} 
      */
@@ -112,7 +110,6 @@ export default struct IHlinkBrowseContext extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HLBWINFO} 
      */
     GetBrowseWindowInfo() {
@@ -122,7 +119,6 @@ export default struct IHlinkBrowseContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMoniker} pimkTarget 
      * @param {PWSTR} pwzLocation 
      * @param {PWSTR} pwzFriendlyName 
@@ -137,7 +133,6 @@ export default struct IHlinkBrowseContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} grfHLNF 
      * @param {IMoniker} pimkTarget 
      * @param {PWSTR} pwzLocation 
@@ -153,7 +148,6 @@ export default struct IHlinkBrowseContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uHLID 
      * @param {IMoniker} pimkTarget 
      * @param {PWSTR} pwzLocation 
@@ -169,7 +163,6 @@ export default struct IHlinkBrowseContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwReserved 
      * @param {Integer} grfHLFNAMEF 
      * @returns {IEnumHLITEM} 
@@ -180,7 +173,6 @@ export default struct IHlinkBrowseContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} grfHLQF 
      * @param {Integer} uHLID 
      * @returns {HRESULT} 
@@ -191,7 +183,6 @@ export default struct IHlinkBrowseContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uHLID 
      * @returns {IHlink} 
      */
@@ -201,7 +192,6 @@ export default struct IHlinkBrowseContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uHLID 
      * @returns {HRESULT} 
      */
@@ -211,7 +201,6 @@ export default struct IHlinkBrowseContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} piunkOuter 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
@@ -222,7 +211,6 @@ export default struct IHlinkBrowseContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} reserved 
      * @returns {HRESULT} 
      */
@@ -240,20 +228,20 @@ export default struct IHlinkBrowseContext extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Register := CallbackCreate(GetMethod(implObj, "Register"), flags, 5)
-        this.vtbl.GetObject := CallbackCreate(GetMethod(implObj, "GetObject"), flags, 4)
-        this.vtbl.Revoke := CallbackCreate(GetMethod(implObj, "Revoke"), flags, 2)
-        this.vtbl.SetBrowseWindowInfo := CallbackCreate(GetMethod(implObj, "SetBrowseWindowInfo"), flags, 2)
-        this.vtbl.GetBrowseWindowInfo := CallbackCreate(GetMethod(implObj, "GetBrowseWindowInfo"), flags, 2)
-        this.vtbl.SetInitialHlink := CallbackCreate(GetMethod(implObj, "SetInitialHlink"), flags, 4)
-        this.vtbl.OnNavigateHlink := CallbackCreate(GetMethod(implObj, "OnNavigateHlink"), flags, 6)
-        this.vtbl.UpdateHlink := CallbackCreate(GetMethod(implObj, "UpdateHlink"), flags, 5)
-        this.vtbl.EnumNavigationStack := CallbackCreate(GetMethod(implObj, "EnumNavigationStack"), flags, 4)
-        this.vtbl.QueryHlink := CallbackCreate(GetMethod(implObj, "QueryHlink"), flags, 3)
-        this.vtbl.GetHlink := CallbackCreate(GetMethod(implObj, "GetHlink"), flags, 3)
-        this.vtbl.SetCurrentHlink := CallbackCreate(GetMethod(implObj, "SetCurrentHlink"), flags, 2)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 4)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 2)
+        this.vtbl.Register := CallbackCreate(ObjBindMethod(implObj, "Register"), flags, 5)
+        this.vtbl.GetObject := CallbackCreate(ObjBindMethod(implObj, "GetObject"), flags, 4)
+        this.vtbl.Revoke := CallbackCreate(ObjBindMethod(implObj, "Revoke"), flags, 2)
+        this.vtbl.SetBrowseWindowInfo := CallbackCreate(ObjBindMethod(implObj, "SetBrowseWindowInfo"), flags, 2)
+        this.vtbl.GetBrowseWindowInfo := CallbackCreate(ObjBindMethod(implObj, "GetBrowseWindowInfo"), flags, 2)
+        this.vtbl.SetInitialHlink := CallbackCreate(ObjBindMethod(implObj, "SetInitialHlink"), flags, 4)
+        this.vtbl.OnNavigateHlink := CallbackCreate(ObjBindMethod(implObj, "OnNavigateHlink"), flags, 6)
+        this.vtbl.UpdateHlink := CallbackCreate(ObjBindMethod(implObj, "UpdateHlink"), flags, 5)
+        this.vtbl.EnumNavigationStack := CallbackCreate(ObjBindMethod(implObj, "EnumNavigationStack"), flags, 4)
+        this.vtbl.QueryHlink := CallbackCreate(ObjBindMethod(implObj, "QueryHlink"), flags, 3)
+        this.vtbl.GetHlink := CallbackCreate(ObjBindMethod(implObj, "GetHlink"), flags, 3)
+        this.vtbl.SetCurrentHlink := CallbackCreate(ObjBindMethod(implObj, "SetCurrentHlink"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 4)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 2)
     }
 
     Dispose() {

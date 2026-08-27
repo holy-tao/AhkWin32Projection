@@ -44,7 +44,6 @@ export default struct LPFN_RIONOTIFY {
     }
 
     /**
-     * 
      * @param {RIO_CQ} CQ A descriptor that identifies an I/O completion queue.
      * @returns {Integer} If no error occurs, the **RIONotify** function returns **ERROR\_SUCCESS**. Otherwise, the function failed and a specific error code is returned.
      * 

@@ -353,10 +353,10 @@ export default struct IShellDispatch4 extends IShellDispatch3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.WindowsSecurity := CallbackCreate(GetMethod(implObj, "WindowsSecurity"), flags, 1)
-        this.vtbl.ToggleDesktop := CallbackCreate(GetMethod(implObj, "ToggleDesktop"), flags, 1)
-        this.vtbl.ExplorerPolicy := CallbackCreate(GetMethod(implObj, "ExplorerPolicy"), flags, 3)
-        this.vtbl.GetSetting := CallbackCreate(GetMethod(implObj, "GetSetting"), flags, 3)
+        this.vtbl.WindowsSecurity := CallbackCreate(ObjBindMethod(implObj, "WindowsSecurity"), flags, 1)
+        this.vtbl.ToggleDesktop := CallbackCreate(ObjBindMethod(implObj, "ToggleDesktop"), flags, 1)
+        this.vtbl.ExplorerPolicy := CallbackCreate(ObjBindMethod(implObj, "ExplorerPolicy"), flags, 3)
+        this.vtbl.GetSetting := CallbackCreate(ObjBindMethod(implObj, "GetSetting"), flags, 3)
     }
 
     Dispose() {

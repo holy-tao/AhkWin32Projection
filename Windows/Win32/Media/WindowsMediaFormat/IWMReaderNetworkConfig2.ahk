@@ -357,19 +357,19 @@ export default struct IWMReaderNetworkConfig2 extends IWMReaderNetworkConfig {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetEnableContentCaching := CallbackCreate(GetMethod(implObj, "GetEnableContentCaching"), flags, 2)
-        this.vtbl.SetEnableContentCaching := CallbackCreate(GetMethod(implObj, "SetEnableContentCaching"), flags, 2)
-        this.vtbl.GetEnableFastCache := CallbackCreate(GetMethod(implObj, "GetEnableFastCache"), flags, 2)
-        this.vtbl.SetEnableFastCache := CallbackCreate(GetMethod(implObj, "SetEnableFastCache"), flags, 2)
-        this.vtbl.GetAcceleratedStreamingDuration := CallbackCreate(GetMethod(implObj, "GetAcceleratedStreamingDuration"), flags, 2)
-        this.vtbl.SetAcceleratedStreamingDuration := CallbackCreate(GetMethod(implObj, "SetAcceleratedStreamingDuration"), flags, 2)
-        this.vtbl.GetAutoReconnectLimit := CallbackCreate(GetMethod(implObj, "GetAutoReconnectLimit"), flags, 2)
-        this.vtbl.SetAutoReconnectLimit := CallbackCreate(GetMethod(implObj, "SetAutoReconnectLimit"), flags, 2)
-        this.vtbl.GetEnableResends := CallbackCreate(GetMethod(implObj, "GetEnableResends"), flags, 2)
-        this.vtbl.SetEnableResends := CallbackCreate(GetMethod(implObj, "SetEnableResends"), flags, 2)
-        this.vtbl.GetEnableThinning := CallbackCreate(GetMethod(implObj, "GetEnableThinning"), flags, 2)
-        this.vtbl.SetEnableThinning := CallbackCreate(GetMethod(implObj, "SetEnableThinning"), flags, 2)
-        this.vtbl.GetMaxNetPacketSize := CallbackCreate(GetMethod(implObj, "GetMaxNetPacketSize"), flags, 2)
+        this.vtbl.GetEnableContentCaching := CallbackCreate(ObjBindMethod(implObj, "GetEnableContentCaching"), flags, 2)
+        this.vtbl.SetEnableContentCaching := CallbackCreate(ObjBindMethod(implObj, "SetEnableContentCaching"), flags, 2)
+        this.vtbl.GetEnableFastCache := CallbackCreate(ObjBindMethod(implObj, "GetEnableFastCache"), flags, 2)
+        this.vtbl.SetEnableFastCache := CallbackCreate(ObjBindMethod(implObj, "SetEnableFastCache"), flags, 2)
+        this.vtbl.GetAcceleratedStreamingDuration := CallbackCreate(ObjBindMethod(implObj, "GetAcceleratedStreamingDuration"), flags, 2)
+        this.vtbl.SetAcceleratedStreamingDuration := CallbackCreate(ObjBindMethod(implObj, "SetAcceleratedStreamingDuration"), flags, 2)
+        this.vtbl.GetAutoReconnectLimit := CallbackCreate(ObjBindMethod(implObj, "GetAutoReconnectLimit"), flags, 2)
+        this.vtbl.SetAutoReconnectLimit := CallbackCreate(ObjBindMethod(implObj, "SetAutoReconnectLimit"), flags, 2)
+        this.vtbl.GetEnableResends := CallbackCreate(ObjBindMethod(implObj, "GetEnableResends"), flags, 2)
+        this.vtbl.SetEnableResends := CallbackCreate(ObjBindMethod(implObj, "SetEnableResends"), flags, 2)
+        this.vtbl.GetEnableThinning := CallbackCreate(ObjBindMethod(implObj, "GetEnableThinning"), flags, 2)
+        this.vtbl.SetEnableThinning := CallbackCreate(ObjBindMethod(implObj, "SetEnableThinning"), flags, 2)
+        this.vtbl.GetMaxNetPacketSize := CallbackCreate(ObjBindMethod(implObj, "GetMaxNetPacketSize"), flags, 2)
     }
 
     Dispose() {

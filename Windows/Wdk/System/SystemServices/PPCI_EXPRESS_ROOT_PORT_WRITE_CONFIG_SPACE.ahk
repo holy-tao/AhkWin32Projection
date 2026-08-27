@@ -18,7 +18,6 @@ export default struct PPCI_EXPRESS_ROOT_PORT_WRITE_CONFIG_SPACE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Integer} _Buffer 
      * @param {Integer} Offset 
@@ -26,7 +25,7 @@ export default struct PPCI_EXPRESS_ROOT_PORT_WRITE_CONFIG_SPACE {
      * @returns {Integer} 
      */
     Call(_Context, _Buffer, Offset, Length) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, IntPtr, _Buffer, UInt32, Offset, UInt32, Length, UInt32)
         return result

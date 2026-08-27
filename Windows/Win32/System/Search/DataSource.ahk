@@ -47,20 +47,18 @@ export default struct DataSource extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} bstrDM 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
      */
     getDataMember(bstrDM, riid) {
-        bstrDMMarshal := bstrDM is VarRef ? "ushort*" : "ptr"
+        bstrDMMarshal := bstrDM is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(3, this, bstrDMMarshal, bstrDM, Guid.Ptr, riid, "ptr*", &ppunk := 0, "HRESULT")
         return IUnknown(ppunk)
     }
 
     /**
-     * 
      * @param {Integer} lIndex 
      * @returns {Pointer<Integer>} 
      */
@@ -70,7 +68,6 @@ export default struct DataSource extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     getDataMemberCount() {
@@ -79,7 +76,6 @@ export default struct DataSource extends IUnknown {
     }
 
     /**
-     * 
      * @param {DataSourceListener} pDSL 
      * @returns {HRESULT} 
      */
@@ -89,7 +85,6 @@ export default struct DataSource extends IUnknown {
     }
 
     /**
-     * 
      * @param {DataSourceListener} pDSL 
      * @returns {HRESULT} 
      */
@@ -107,11 +102,11 @@ export default struct DataSource extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.getDataMember := CallbackCreate(GetMethod(implObj, "getDataMember"), flags, 4)
-        this.vtbl.getDataMemberName := CallbackCreate(GetMethod(implObj, "getDataMemberName"), flags, 3)
-        this.vtbl.getDataMemberCount := CallbackCreate(GetMethod(implObj, "getDataMemberCount"), flags, 2)
-        this.vtbl.addDataSourceListener := CallbackCreate(GetMethod(implObj, "addDataSourceListener"), flags, 2)
-        this.vtbl.removeDataSourceListener := CallbackCreate(GetMethod(implObj, "removeDataSourceListener"), flags, 2)
+        this.vtbl.getDataMember := CallbackCreate(ObjBindMethod(implObj, "getDataMember"), flags, 4)
+        this.vtbl.getDataMemberName := CallbackCreate(ObjBindMethod(implObj, "getDataMemberName"), flags, 3)
+        this.vtbl.getDataMemberCount := CallbackCreate(ObjBindMethod(implObj, "getDataMemberCount"), flags, 2)
+        this.vtbl.addDataSourceListener := CallbackCreate(ObjBindMethod(implObj, "addDataSourceListener"), flags, 2)
+        this.vtbl.removeDataSourceListener := CallbackCreate(ObjBindMethod(implObj, "removeDataSourceListener"), flags, 2)
     }
 
     Dispose() {

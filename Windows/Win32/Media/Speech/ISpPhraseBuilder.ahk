@@ -55,7 +55,6 @@ export default struct ISpPhraseBuilder extends ISpPhrase {
     }
 
     /**
-     * 
      * @param {Pointer<SPPHRASE>} pPhrase 
      * @returns {HRESULT} 
      */
@@ -65,7 +64,6 @@ export default struct ISpPhraseBuilder extends ISpPhrase {
     }
 
     /**
-     * 
      * @param {Pointer<SPSERIALIZEDPHRASE>} pPhrase 
      * @returns {HRESULT} 
      */
@@ -75,7 +73,6 @@ export default struct ISpPhraseBuilder extends ISpPhrase {
     }
 
     /**
-     * 
      * @param {Integer} cElements 
      * @param {Pointer<SPPHRASEELEMENT>} pElement 
      * @returns {HRESULT} 
@@ -86,7 +83,6 @@ export default struct ISpPhraseBuilder extends ISpPhrase {
     }
 
     /**
-     * 
      * @param {SPPHRASERULEHANDLE} hParent 
      * @param {Pointer<SPPHRASERULE>} pRule 
      * @returns {SPPHRASERULEHANDLE} 
@@ -98,7 +94,6 @@ export default struct ISpPhraseBuilder extends ISpPhrase {
     }
 
     /**
-     * 
      * @param {SPPHRASEPROPERTYHANDLE} hParent 
      * @param {Pointer<SPPHRASEPROPERTY>} pProperty 
      * @returns {SPPHRASEPROPERTYHANDLE} 
@@ -110,7 +105,6 @@ export default struct ISpPhraseBuilder extends ISpPhrase {
     }
 
     /**
-     * 
      * @param {Integer} cReplacements 
      * @param {Pointer<SPPHRASEREPLACEMENT>} pReplacements 
      * @returns {HRESULT} 
@@ -129,12 +123,12 @@ export default struct ISpPhraseBuilder extends ISpPhrase {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitFromPhrase := CallbackCreate(GetMethod(implObj, "InitFromPhrase"), flags, 2)
-        this.vtbl.InitFromSerializedPhrase := CallbackCreate(GetMethod(implObj, "InitFromSerializedPhrase"), flags, 2)
-        this.vtbl.AddElements := CallbackCreate(GetMethod(implObj, "AddElements"), flags, 3)
-        this.vtbl.AddRules := CallbackCreate(GetMethod(implObj, "AddRules"), flags, 4)
-        this.vtbl.AddProperties := CallbackCreate(GetMethod(implObj, "AddProperties"), flags, 4)
-        this.vtbl.AddReplacements := CallbackCreate(GetMethod(implObj, "AddReplacements"), flags, 3)
+        this.vtbl.InitFromPhrase := CallbackCreate(ObjBindMethod(implObj, "InitFromPhrase"), flags, 2)
+        this.vtbl.InitFromSerializedPhrase := CallbackCreate(ObjBindMethod(implObj, "InitFromSerializedPhrase"), flags, 2)
+        this.vtbl.AddElements := CallbackCreate(ObjBindMethod(implObj, "AddElements"), flags, 3)
+        this.vtbl.AddRules := CallbackCreate(ObjBindMethod(implObj, "AddRules"), flags, 4)
+        this.vtbl.AddProperties := CallbackCreate(ObjBindMethod(implObj, "AddProperties"), flags, 4)
+        this.vtbl.AddReplacements := CallbackCreate(ObjBindMethod(implObj, "AddReplacements"), flags, 3)
     }
 
     Dispose() {

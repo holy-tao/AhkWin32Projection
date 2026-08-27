@@ -41,7 +41,6 @@ export default struct IInternetSecurityManagerEx2 extends IInternetSecurityManag
     }
 
     /**
-     * 
      * @param {IUri} pUri 
      * @param {Pointer<Integer>} pdwZone 
      * @param {Integer} dwFlags 
@@ -50,16 +49,17 @@ export default struct IInternetSecurityManagerEx2 extends IInternetSecurityManag
      * @returns {HRESULT} 
      */
     MapUrlToZoneEx2(pUri, pdwZone, dwFlags, ppwszMappedUrl, pdwOutFlags) {
-        pdwZoneMarshal := pdwZone is VarRef ? "uint*" : "ptr"
-        ppwszMappedUrlMarshal := ppwszMappedUrl is VarRef ? "ptr*" : "ptr"
-        pdwOutFlagsMarshal := pdwOutFlags is VarRef ? "uint*" : "ptr"
+        pdwZoneMarshal := pdwZone is VarRef ? "uint*" : IntPtr
+        ppwszMappedUrlMarshal := ppwszMappedUrl is VarRef ? "ptr*" : IntPtr
+        ppwszMappedUrlMarshal := ppwszMappedUrl == 0 ? IntPtr : PWSTR.Ptr
+        pdwOutFlagsMarshal := pdwOutFlags is VarRef ? "uint*" : IntPtr
+        pdwOutFlagsMarshal := pdwOutFlags == 0 ? IntPtr : "uint*"
 
         result := ComCall(12, this, "ptr", pUri, pdwZoneMarshal, pdwZone, UInt32, dwFlags, ppwszMappedUrlMarshal, ppwszMappedUrl, pdwOutFlagsMarshal, pdwOutFlags, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IUri} pUri 
      * @param {Integer} dwAction 
      * @param {Pointer<Integer>} pPolicy 
@@ -72,30 +72,28 @@ export default struct IInternetSecurityManagerEx2 extends IInternetSecurityManag
      * @returns {HRESULT} 
      */
     ProcessUrlActionEx2(pUri, dwAction, pPolicy, cbPolicy, pContext, cbContext, dwFlags, dwReserved, pdwOutFlags) {
-        pPolicyMarshal := pPolicy is VarRef ? "char*" : "ptr"
-        pContextMarshal := pContext is VarRef ? "char*" : "ptr"
-        pdwOutFlagsMarshal := pdwOutFlags is VarRef ? "uint*" : "ptr"
+        pPolicyMarshal := pPolicy is VarRef ? "char*" : IntPtr
+        pContextMarshal := pContext is VarRef ? "char*" : IntPtr
+        pdwOutFlagsMarshal := pdwOutFlags is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, "ptr", pUri, UInt32, dwAction, pPolicyMarshal, pPolicy, UInt32, cbPolicy, pContextMarshal, pContext, UInt32, cbContext, UInt32, dwFlags, IntPtr, dwReserved, pdwOutFlagsMarshal, pdwOutFlags, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IUri} pUri 
      * @param {Pointer<Integer>} pcbSecurityId 
      * @param {Pointer} dwReserved 
      * @returns {Integer} 
      */
     GetSecurityIdEx2(pUri, pcbSecurityId, dwReserved) {
-        pcbSecurityIdMarshal := pcbSecurityId is VarRef ? "uint*" : "ptr"
+        pcbSecurityIdMarshal := pcbSecurityId is VarRef ? "uint*" : IntPtr
 
         result := ComCall(14, this, "ptr", pUri, "char*", &pbSecurityId := 0, pcbSecurityIdMarshal, pcbSecurityId, IntPtr, dwReserved, "HRESULT")
         return pbSecurityId
     }
 
     /**
-     * 
      * @param {IUri} pUri 
      * @param {Pointer<Guid>} guidKey 
      * @param {Pointer<Pointer<Integer>>} ppPolicy 
@@ -106,9 +104,9 @@ export default struct IInternetSecurityManagerEx2 extends IInternetSecurityManag
      * @returns {HRESULT} 
      */
     QueryCustomPolicyEx2(pUri, guidKey, ppPolicy, pcbPolicy, pContext, cbContext, dwReserved) {
-        ppPolicyMarshal := ppPolicy is VarRef ? "ptr*" : "ptr"
-        pcbPolicyMarshal := pcbPolicy is VarRef ? "uint*" : "ptr"
-        pContextMarshal := pContext is VarRef ? "char*" : "ptr"
+        ppPolicyMarshal := ppPolicy is VarRef ? "ptr*" : IntPtr
+        pcbPolicyMarshal := pcbPolicy is VarRef ? "uint*" : IntPtr
+        pContextMarshal := pContext is VarRef ? "char*" : IntPtr
 
         result := ComCall(15, this, "ptr", pUri, Guid.Ptr, guidKey, ppPolicyMarshal, ppPolicy, pcbPolicyMarshal, pcbPolicy, pContextMarshal, pContext, UInt32, cbContext, IntPtr, dwReserved, "HRESULT")
         return result
@@ -123,10 +121,10 @@ export default struct IInternetSecurityManagerEx2 extends IInternetSecurityManag
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.MapUrlToZoneEx2 := CallbackCreate(GetMethod(implObj, "MapUrlToZoneEx2"), flags, 6)
-        this.vtbl.ProcessUrlActionEx2 := CallbackCreate(GetMethod(implObj, "ProcessUrlActionEx2"), flags, 10)
-        this.vtbl.GetSecurityIdEx2 := CallbackCreate(GetMethod(implObj, "GetSecurityIdEx2"), flags, 5)
-        this.vtbl.QueryCustomPolicyEx2 := CallbackCreate(GetMethod(implObj, "QueryCustomPolicyEx2"), flags, 8)
+        this.vtbl.MapUrlToZoneEx2 := CallbackCreate(ObjBindMethod(implObj, "MapUrlToZoneEx2"), flags, 6)
+        this.vtbl.ProcessUrlActionEx2 := CallbackCreate(ObjBindMethod(implObj, "ProcessUrlActionEx2"), flags, 10)
+        this.vtbl.GetSecurityIdEx2 := CallbackCreate(ObjBindMethod(implObj, "GetSecurityIdEx2"), flags, 5)
+        this.vtbl.QueryCustomPolicyEx2 := CallbackCreate(ObjBindMethod(implObj, "QueryCustomPolicyEx2"), flags, 8)
     }
 
     Dispose() {

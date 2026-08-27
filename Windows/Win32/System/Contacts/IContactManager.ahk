@@ -218,12 +218,12 @@ export default struct IContactManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.Load := CallbackCreate(GetMethod(implObj, "Load"), flags, 3)
-        this.vtbl.MergeContactIDs := CallbackCreate(GetMethod(implObj, "MergeContactIDs"), flags, 3)
-        this.vtbl.GetMeContact := CallbackCreate(GetMethod(implObj, "GetMeContact"), flags, 2)
-        this.vtbl.SetMeContact := CallbackCreate(GetMethod(implObj, "SetMeContact"), flags, 2)
-        this.vtbl.GetContactCollection := CallbackCreate(GetMethod(implObj, "GetContactCollection"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.Load := CallbackCreate(ObjBindMethod(implObj, "Load"), flags, 3)
+        this.vtbl.MergeContactIDs := CallbackCreate(ObjBindMethod(implObj, "MergeContactIDs"), flags, 3)
+        this.vtbl.GetMeContact := CallbackCreate(ObjBindMethod(implObj, "GetMeContact"), flags, 2)
+        this.vtbl.SetMeContact := CallbackCreate(ObjBindMethod(implObj, "SetMeContact"), flags, 2)
+        this.vtbl.GetContactCollection := CallbackCreate(ObjBindMethod(implObj, "GetContactCollection"), flags, 2)
     }
 
     Dispose() {

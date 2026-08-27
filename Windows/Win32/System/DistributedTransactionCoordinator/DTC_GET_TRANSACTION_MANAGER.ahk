@@ -21,7 +21,6 @@ export default struct DTC_GET_TRANSACTION_MANAGER {
     }
 
     /**
-     * 
      * @param {PSTR} pszHost 
      * @param {PSTR} pszTmName 
      * @param {Pointer<Guid>} rid 
@@ -35,8 +34,8 @@ export default struct DTC_GET_TRANSACTION_MANAGER {
         pszHost := pszHost is String ? StrPtr(pszHost) : pszHost
         pszTmName := pszTmName is String ? StrPtr(pszTmName) : pszTmName
 
-        pvReserved2Marshal := pvReserved2 is VarRef ? "ptr" : "ptr"
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+        pvReserved2Marshal := pvReserved2 is VarRef ? "ptr" : IntPtr
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, "ptr", pszHost, "ptr", pszTmName, Guid.Ptr, rid, UInt32, dwReserved1, UInt16, wcbReserved2, pvReserved2Marshal, pvReserved2, ppvObjectMarshal, ppvObject, "HRESULT")
         return result

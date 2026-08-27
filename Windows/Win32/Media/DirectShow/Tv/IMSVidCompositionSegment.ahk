@@ -52,7 +52,6 @@ export default struct IMSVidCompositionSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @param {IMSVidGraphSegment} upstream 
      * @param {IMSVidGraphSegment} downstream 
      * @returns {HRESULT} 
@@ -63,7 +62,6 @@ export default struct IMSVidCompositionSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @returns {IMSVidGraphSegment} 
      */
     get_Up() {
@@ -72,7 +70,6 @@ export default struct IMSVidCompositionSegment extends IMSVidGraphSegment {
     }
 
     /**
-     * 
      * @returns {IMSVidGraphSegment} 
      */
     get_Down() {
@@ -89,9 +86,9 @@ export default struct IMSVidCompositionSegment extends IMSVidGraphSegment {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Compose := CallbackCreate(GetMethod(implObj, "Compose"), flags, 3)
-        this.vtbl.get_Up := CallbackCreate(GetMethod(implObj, "get_Up"), flags, 2)
-        this.vtbl.get_Down := CallbackCreate(GetMethod(implObj, "get_Down"), flags, 2)
+        this.vtbl.Compose := CallbackCreate(ObjBindMethod(implObj, "Compose"), flags, 3)
+        this.vtbl.get_Up := CallbackCreate(ObjBindMethod(implObj, "get_Up"), flags, 2)
+        this.vtbl.get_Down := CallbackCreate(ObjBindMethod(implObj, "get_Down"), flags, 2)
     }
 
     Dispose() {

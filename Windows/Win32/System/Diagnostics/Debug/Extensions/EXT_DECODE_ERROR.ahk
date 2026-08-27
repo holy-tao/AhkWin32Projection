@@ -19,7 +19,6 @@ export default struct EXT_DECODE_ERROR {
     }
 
     /**
-     * 
      * @param {Pointer<DEBUG_DECODE_ERROR>} pDecodeError 
      * @returns {String} Nothing - always returns an empty string
      */

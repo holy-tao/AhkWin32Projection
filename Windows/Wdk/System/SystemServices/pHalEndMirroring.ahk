@@ -19,7 +19,6 @@ export default struct pHalEndMirroring {
     }
 
     /**
-     * 
      * @param {Integer} PassNumber 
      * @returns {NTSTATUS} 
      */

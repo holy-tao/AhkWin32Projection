@@ -67,10 +67,15 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d11on12/nf-d3d11on12-d3d11on12createdevice
  */
 export D3D11On12CreateDevice(pDevice, Flags, pFeatureLevels, FeatureLevels, ppCommandQueues, NumQueues, NodeMask, ppDevice, ppImmediateContext, pChosenFeatureLevel) {
-    pFeatureLevelsMarshal := pFeatureLevels is VarRef ? "int*" : "ptr"
-    pChosenFeatureLevelMarshal := pChosenFeatureLevel is VarRef ? "int*" : "ptr"
+    pFeatureLevelsMarshal := pFeatureLevels is VarRef ? "int*" : IntPtr
+    pFeatureLevelsMarshal := pFeatureLevels == 0 ? IntPtr : "int*"
+    ppCommandQueuesMarshal := ppCommandQueues == 0 ? IntPtr : IUnknown.Ptr
+    ppDeviceMarshal := ppDevice == 0 ? IntPtr : ID3D11Device.Ptr
+    ppImmediateContextMarshal := ppImmediateContext == 0 ? IntPtr : ID3D11DeviceContext.Ptr
+    pChosenFeatureLevelMarshal := pChosenFeatureLevel is VarRef ? "int*" : IntPtr
+    pChosenFeatureLevelMarshal := pChosenFeatureLevel == 0 ? IntPtr : "int*"
 
-    result := DllCall("d3d11.dll\D3D11On12CreateDevice", "ptr", pDevice, UInt32, Flags, pFeatureLevelsMarshal, pFeatureLevels, UInt32, FeatureLevels, IUnknown.Ptr, ppCommandQueues, UInt32, NumQueues, UInt32, NodeMask, ID3D11Device.Ptr, ppDevice, ID3D11DeviceContext.Ptr, ppImmediateContext, pChosenFeatureLevelMarshal, pChosenFeatureLevel, "HRESULT")
+    result := DllCall("d3d11.dll\D3D11On12CreateDevice", "ptr", pDevice, UInt32, Flags, pFeatureLevelsMarshal, pFeatureLevels, UInt32, FeatureLevels, ppCommandQueuesMarshal, ppCommandQueues, UInt32, NumQueues, UInt32, NodeMask, ppDeviceMarshal, ppDevice, ppImmediateContextMarshal, ppImmediateContext, pChosenFeatureLevelMarshal, pChosenFeatureLevel, "HRESULT")
     return result
 }
 

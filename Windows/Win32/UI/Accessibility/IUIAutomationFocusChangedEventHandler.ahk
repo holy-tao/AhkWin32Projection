@@ -71,7 +71,7 @@ export default struct IUIAutomationFocusChangedEventHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.HandleFocusChangedEvent := CallbackCreate(GetMethod(implObj, "HandleFocusChangedEvent"), flags, 2)
+        this.vtbl.HandleFocusChangedEvent := CallbackCreate(ObjBindMethod(implObj, "HandleFocusChangedEvent"), flags, 2)
     }
 
     Dispose() {

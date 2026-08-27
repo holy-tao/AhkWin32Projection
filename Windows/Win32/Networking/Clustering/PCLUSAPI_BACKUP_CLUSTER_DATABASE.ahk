@@ -20,7 +20,6 @@ export default struct PCLUSAPI_BACKUP_CLUSTER_DATABASE {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszPathName 
      * @returns {Integer} 

@@ -40,7 +40,6 @@ export default struct IWMCodecVideoAccelerator extends IUnknown {
     }
 
     /**
-     * 
      * @param {IAMVideoAccelerator} pIAMVA 
      * @param {Pointer<AM_MEDIA_TYPE>} pMediaType 
      * @returns {HRESULT} 
@@ -51,7 +50,6 @@ export default struct IWMCodecVideoAccelerator extends IUnknown {
     }
 
     /**
-     * 
      * @param {IWMPlayerTimestampHook} pHook 
      * @returns {HRESULT} 
      */
@@ -69,8 +67,8 @@ export default struct IWMCodecVideoAccelerator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.NegotiateConnection := CallbackCreate(GetMethod(implObj, "NegotiateConnection"), flags, 3)
-        this.vtbl.SetPlayerNotify := CallbackCreate(GetMethod(implObj, "SetPlayerNotify"), flags, 2)
+        this.vtbl.NegotiateConnection := CallbackCreate(ObjBindMethod(implObj, "NegotiateConnection"), flags, 3)
+        this.vtbl.SetPlayerNotify := CallbackCreate(ObjBindMethod(implObj, "SetPlayerNotify"), flags, 2)
     }
 
     Dispose() {

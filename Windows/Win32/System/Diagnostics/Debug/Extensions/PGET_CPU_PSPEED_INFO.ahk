@@ -21,7 +21,6 @@ export default struct PGET_CPU_PSPEED_INFO {
     }
 
     /**
-     * 
      * @param {IDebugClient} Client 
      * @param {Pointer<DEBUG_CPU_SPEED_INFO>} pCpuSpeedInfo 
      * @returns {HRESULT} 

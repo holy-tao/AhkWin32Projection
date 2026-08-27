@@ -208,14 +208,14 @@ export default struct IAppxManifestPackageId extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
-        this.vtbl.GetArchitecture := CallbackCreate(GetMethod(implObj, "GetArchitecture"), flags, 2)
-        this.vtbl.GetPublisher := CallbackCreate(GetMethod(implObj, "GetPublisher"), flags, 2)
-        this.vtbl.GetVersion := CallbackCreate(GetMethod(implObj, "GetVersion"), flags, 2)
-        this.vtbl.GetResourceId := CallbackCreate(GetMethod(implObj, "GetResourceId"), flags, 2)
-        this.vtbl.ComparePublisher := CallbackCreate(GetMethod(implObj, "ComparePublisher"), flags, 3)
-        this.vtbl.GetPackageFullName := CallbackCreate(GetMethod(implObj, "GetPackageFullName"), flags, 2)
-        this.vtbl.GetPackageFamilyName := CallbackCreate(GetMethod(implObj, "GetPackageFamilyName"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetArchitecture := CallbackCreate(ObjBindMethod(implObj, "GetArchitecture"), flags, 2)
+        this.vtbl.GetPublisher := CallbackCreate(ObjBindMethod(implObj, "GetPublisher"), flags, 2)
+        this.vtbl.GetVersion := CallbackCreate(ObjBindMethod(implObj, "GetVersion"), flags, 2)
+        this.vtbl.GetResourceId := CallbackCreate(ObjBindMethod(implObj, "GetResourceId"), flags, 2)
+        this.vtbl.ComparePublisher := CallbackCreate(ObjBindMethod(implObj, "ComparePublisher"), flags, 3)
+        this.vtbl.GetPackageFullName := CallbackCreate(ObjBindMethod(implObj, "GetPackageFullName"), flags, 2)
+        this.vtbl.GetPackageFamilyName := CallbackCreate(ObjBindMethod(implObj, "GetPackageFamilyName"), flags, 2)
     }
 
     Dispose() {

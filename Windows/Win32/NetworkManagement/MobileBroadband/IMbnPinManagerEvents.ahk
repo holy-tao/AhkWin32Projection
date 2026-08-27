@@ -99,8 +99,8 @@ export default struct IMbnPinManagerEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnPinListAvailable := CallbackCreate(GetMethod(implObj, "OnPinListAvailable"), flags, 2)
-        this.vtbl.OnGetPinStateComplete := CallbackCreate(GetMethod(implObj, "OnGetPinStateComplete"), flags, 5)
+        this.vtbl.OnPinListAvailable := CallbackCreate(ObjBindMethod(implObj, "OnPinListAvailable"), flags, 2)
+        this.vtbl.OnGetPinStateComplete := CallbackCreate(ObjBindMethod(implObj, "OnGetPinStateComplete"), flags, 5)
     }
 
     Dispose() {

@@ -335,19 +335,19 @@ export default struct ID3D10Effect extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsValid := CallbackCreate(GetMethod(implObj, "IsValid"), flags, 1)
-        this.vtbl.IsPool := CallbackCreate(GetMethod(implObj, "IsPool"), flags, 1)
-        this.vtbl.GetDevice := CallbackCreate(GetMethod(implObj, "GetDevice"), flags, 2)
-        this.vtbl.GetDesc := CallbackCreate(GetMethod(implObj, "GetDesc"), flags, 2)
-        this.vtbl.GetConstantBufferByIndex := CallbackCreate(GetMethod(implObj, "GetConstantBufferByIndex"), flags, 2)
-        this.vtbl.GetConstantBufferByName := CallbackCreate(GetMethod(implObj, "GetConstantBufferByName"), flags, 2)
-        this.vtbl.GetVariableByIndex := CallbackCreate(GetMethod(implObj, "GetVariableByIndex"), flags, 2)
-        this.vtbl.GetVariableByName := CallbackCreate(GetMethod(implObj, "GetVariableByName"), flags, 2)
-        this.vtbl.GetVariableBySemantic := CallbackCreate(GetMethod(implObj, "GetVariableBySemantic"), flags, 2)
-        this.vtbl.GetTechniqueByIndex := CallbackCreate(GetMethod(implObj, "GetTechniqueByIndex"), flags, 2)
-        this.vtbl.GetTechniqueByName := CallbackCreate(GetMethod(implObj, "GetTechniqueByName"), flags, 2)
-        this.vtbl.Optimize := CallbackCreate(GetMethod(implObj, "Optimize"), flags, 1)
-        this.vtbl.IsOptimized := CallbackCreate(GetMethod(implObj, "IsOptimized"), flags, 1)
+        this.vtbl.IsValid := CallbackCreate(ObjBindMethod(implObj, "IsValid"), flags, 1)
+        this.vtbl.IsPool := CallbackCreate(ObjBindMethod(implObj, "IsPool"), flags, 1)
+        this.vtbl.GetDevice := CallbackCreate(ObjBindMethod(implObj, "GetDevice"), flags, 2)
+        this.vtbl.GetDesc := CallbackCreate(ObjBindMethod(implObj, "GetDesc"), flags, 2)
+        this.vtbl.GetConstantBufferByIndex := CallbackCreate(ObjBindMethod(implObj, "GetConstantBufferByIndex"), flags, 2)
+        this.vtbl.GetConstantBufferByName := CallbackCreate(ObjBindMethod(implObj, "GetConstantBufferByName"), flags, 2)
+        this.vtbl.GetVariableByIndex := CallbackCreate(ObjBindMethod(implObj, "GetVariableByIndex"), flags, 2)
+        this.vtbl.GetVariableByName := CallbackCreate(ObjBindMethod(implObj, "GetVariableByName"), flags, 2)
+        this.vtbl.GetVariableBySemantic := CallbackCreate(ObjBindMethod(implObj, "GetVariableBySemantic"), flags, 2)
+        this.vtbl.GetTechniqueByIndex := CallbackCreate(ObjBindMethod(implObj, "GetTechniqueByIndex"), flags, 2)
+        this.vtbl.GetTechniqueByName := CallbackCreate(ObjBindMethod(implObj, "GetTechniqueByName"), flags, 2)
+        this.vtbl.Optimize := CallbackCreate(ObjBindMethod(implObj, "Optimize"), flags, 1)
+        this.vtbl.IsOptimized := CallbackCreate(ObjBindMethod(implObj, "IsOptimized"), flags, 1)
     }
 
     Dispose() {

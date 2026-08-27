@@ -140,7 +140,7 @@ export default struct IUIAnimationPriorityComparison2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.HasPriority := CallbackCreate(GetMethod(implObj, "HasPriority"), flags, 4)
+        this.vtbl.HasPriority := CallbackCreate(ObjBindMethod(implObj, "HasPriority"), flags, 4)
     }
 
     Dispose() {

@@ -97,7 +97,6 @@ export default struct LPWSPSELECT {
     }
 
     /**
-     * 
      * @param {Integer} nfds Ignored and included only for the sake of compatibility.
      * @param {Pointer<FD_SET>} readfds Optional pointer to a set of sockets to be checked for readability.
      * @param {Pointer<FD_SET>} writefds Optional pointer to a set of sockets to be checked for writability.
@@ -180,9 +179,13 @@ export default struct LPWSPSELECT {
      * </table>
      */
     Call(nfds, readfds, writefds, exceptfds, timeout, lpErrno) {
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        readfdsMarshal := readfds == 0 ? IntPtr : FD_SET.Ptr
+        writefdsMarshal := writefds == 0 ? IntPtr : FD_SET.Ptr
+        exceptfdsMarshal := exceptfds == 0 ? IntPtr : FD_SET.Ptr
+        timeoutMarshal := timeout == 0 ? IntPtr : TIMEVAL.Ptr
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
-        result := DllCall(this.value, Int32, nfds, FD_SET.Ptr, readfds, FD_SET.Ptr, writefds, FD_SET.Ptr, exceptfds, TIMEVAL.Ptr, timeout, lpErrnoMarshal, lpErrno, Int32)
+        result := DllCall(this.value, Int32, nfds, readfdsMarshal, readfds, writefdsMarshal, writefds, exceptfdsMarshal, exceptfds, timeoutMarshal, timeout, lpErrnoMarshal, lpErrno, Int32)
         return result
     }
 

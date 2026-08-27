@@ -37,7 +37,6 @@ export default struct IDebugHostFunctionIntrospection2 extends IDebugHostFunctio
     }
 
     /**
-     * 
      * @param {Integer} enumerateInlinedLocals 
      * @returns {IDebugHostFunctionLocalDetailsEnumerator} 
      */
@@ -55,7 +54,7 @@ export default struct IDebugHostFunctionIntrospection2 extends IDebugHostFunctio
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumerateLocalsDetailsEx := CallbackCreate(GetMethod(implObj, "EnumerateLocalsDetailsEx"), flags, 3)
+        this.vtbl.EnumerateLocalsDetailsEx := CallbackCreate(ObjBindMethod(implObj, "EnumerateLocalsDetailsEx"), flags, 3)
     }
 
     Dispose() {

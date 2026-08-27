@@ -46,7 +46,6 @@ export default struct IInternetProtocolRoot extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} szUrl 
      * @param {IInternetProtocolSink} pOIProtSink 
      * @param {IInternetBindInfo} pOIBindInfo 
@@ -62,7 +61,6 @@ export default struct IInternetProtocolRoot extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PROTOCOLDATA>} pProtocolData 
      * @returns {HRESULT} 
      */
@@ -72,7 +70,6 @@ export default struct IInternetProtocolRoot extends IUnknown {
     }
 
     /**
-     * 
      * @param {HRESULT} hrReason 
      * @param {Integer} dwOptions 
      * @returns {HRESULT} 
@@ -83,7 +80,6 @@ export default struct IInternetProtocolRoot extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwOptions 
      * @returns {HRESULT} 
      */
@@ -93,7 +89,6 @@ export default struct IInternetProtocolRoot extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Suspend() {
@@ -120,12 +115,12 @@ export default struct IInternetProtocolRoot extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 6)
-        this.vtbl.Continue := CallbackCreate(GetMethod(implObj, "Continue"), flags, 2)
-        this.vtbl.Abort := CallbackCreate(GetMethod(implObj, "Abort"), flags, 3)
-        this.vtbl.Terminate := CallbackCreate(GetMethod(implObj, "Terminate"), flags, 2)
-        this.vtbl.Suspend := CallbackCreate(GetMethod(implObj, "Suspend"), flags, 1)
-        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 1)
+        this.vtbl.Start := CallbackCreate(ObjBindMethod(implObj, "Start"), flags, 6)
+        this.vtbl.Continue := CallbackCreate(ObjBindMethod(implObj, "Continue"), flags, 2)
+        this.vtbl.Abort := CallbackCreate(ObjBindMethod(implObj, "Abort"), flags, 3)
+        this.vtbl.Terminate := CallbackCreate(ObjBindMethod(implObj, "Terminate"), flags, 2)
+        this.vtbl.Suspend := CallbackCreate(ObjBindMethod(implObj, "Suspend"), flags, 1)
+        this.vtbl.Resume := CallbackCreate(ObjBindMethod(implObj, "Resume"), flags, 1)
     }
 
     Dispose() {

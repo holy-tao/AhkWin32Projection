@@ -97,7 +97,7 @@ export default struct DFileSystemImageImportEvents extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.UpdateImport := CallbackCreate(GetMethod(implObj, "UpdateImport"), flags, 8)
+        this.vtbl.UpdateImport := CallbackCreate(ObjBindMethod(implObj, "UpdateImport"), flags, 8)
     }
 
     Dispose() {

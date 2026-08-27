@@ -19,7 +19,6 @@ export default struct PCLUSAPI_SET_REASON_HANDLER {
     }
 
     /**
-     * 
      * @param {Pointer<CLUSAPI_REASON_HANDLER>} lpHandler 
      * @returns {Pointer<CLUSAPI_REASON_HANDLER>} 
      */

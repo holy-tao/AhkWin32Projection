@@ -143,7 +143,7 @@ export default struct IMFRateSupport extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfratesupport-isratesupported
      */
     IsRateSupported(fThin, flRate, pflNearestSupportedRate) {
-        pflNearestSupportedRateMarshal := pflNearestSupportedRate is VarRef ? "float*" : "ptr"
+        pflNearestSupportedRateMarshal := pflNearestSupportedRate is VarRef ? "float*" : IntPtr
 
         result := ComCall(5, this, BOOL, fThin, Float32, flRate, pflNearestSupportedRateMarshal, pflNearestSupportedRate, "HRESULT")
         return result
@@ -158,9 +158,9 @@ export default struct IMFRateSupport extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSlowestRate := CallbackCreate(GetMethod(implObj, "GetSlowestRate"), flags, 4)
-        this.vtbl.GetFastestRate := CallbackCreate(GetMethod(implObj, "GetFastestRate"), flags, 4)
-        this.vtbl.IsRateSupported := CallbackCreate(GetMethod(implObj, "IsRateSupported"), flags, 4)
+        this.vtbl.GetSlowestRate := CallbackCreate(ObjBindMethod(implObj, "GetSlowestRate"), flags, 4)
+        this.vtbl.GetFastestRate := CallbackCreate(ObjBindMethod(implObj, "GetFastestRate"), flags, 4)
+        this.vtbl.IsRateSupported := CallbackCreate(ObjBindMethod(implObj, "IsRateSupported"), flags, 4)
     }
 
     Dispose() {

@@ -45,8 +45,8 @@ export default struct IBackgroundCopyFile4 extends IBackgroundCopyFile3 {
      * @see https://learn.microsoft.com/windows/win32/api/bits4_0/nf-bits4_0-ibackgroundcopyfile4-getpeerdownloadstats
      */
     GetPeerDownloadStats(pFromOrigin, pFromPeers) {
-        pFromOriginMarshal := pFromOrigin is VarRef ? "uint*" : "ptr"
-        pFromPeersMarshal := pFromPeers is VarRef ? "uint*" : "ptr"
+        pFromOriginMarshal := pFromOrigin is VarRef ? "uint*" : IntPtr
+        pFromPeersMarshal := pFromPeers is VarRef ? "uint*" : IntPtr
 
         result := ComCall(12, this, pFromOriginMarshal, pFromOrigin, pFromPeersMarshal, pFromPeers, "HRESULT")
         return result
@@ -61,7 +61,7 @@ export default struct IBackgroundCopyFile4 extends IBackgroundCopyFile3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPeerDownloadStats := CallbackCreate(GetMethod(implObj, "GetPeerDownloadStats"), flags, 3)
+        this.vtbl.GetPeerDownloadStats := CallbackCreate(ObjBindMethod(implObj, "GetPeerDownloadStats"), flags, 3)
     }
 
     Dispose() {

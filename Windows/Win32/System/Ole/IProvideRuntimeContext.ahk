@@ -37,14 +37,13 @@ export default struct IProvideRuntimeContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} pdwContext 
      * @param {Pointer<VARIANT_BOOL>} pfExecutingGlobalCode 
      * @returns {HRESULT} 
      */
     GetCurrentSourceContext(pdwContext, pfExecutingGlobalCode) {
-        pdwContextMarshal := pdwContext is VarRef ? "ptr*" : "ptr"
-        pfExecutingGlobalCodeMarshal := pfExecutingGlobalCode is VarRef ? "short*" : "ptr"
+        pdwContextMarshal := pdwContext is VarRef ? "ptr*" : IntPtr
+        pfExecutingGlobalCodeMarshal := pfExecutingGlobalCode is VarRef ? "short*" : IntPtr
 
         result := ComCall(3, this, pdwContextMarshal, pdwContext, pfExecutingGlobalCodeMarshal, pfExecutingGlobalCode, "HRESULT")
         return result
@@ -59,7 +58,7 @@ export default struct IProvideRuntimeContext extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCurrentSourceContext := CallbackCreate(GetMethod(implObj, "GetCurrentSourceContext"), flags, 3)
+        this.vtbl.GetCurrentSourceContext := CallbackCreate(ObjBindMethod(implObj, "GetCurrentSourceContext"), flags, 3)
     }
 
     Dispose() {

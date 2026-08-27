@@ -28,7 +28,6 @@ export default struct SpDeleteCredentialsFn {
     }
 
     /**
-     * 
      * @param {Pointer} CredentialHandle A handle to the credentials to delete.
      * @param {Pointer<SecBuffer>} Key Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secbuffer">SecBuffer</a> structure whose contents indicate which credentials to delete. The information stored in the <i>Key</i> parameter is package specific.

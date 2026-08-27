@@ -52,7 +52,9 @@ export default struct IMFMediaEngineClassFactory2 extends IUnknown {
         defaultCdmStorePath := defaultCdmStorePath is String ? BSTR.Alloc(defaultCdmStorePath).Value : defaultCdmStorePath
         inprivateCdmStorePath := inprivateCdmStorePath is String ? BSTR.Alloc(inprivateCdmStorePath).Value : inprivateCdmStorePath
 
-        result := ComCall(3, this, BSTR, keySystem, BSTR, defaultCdmStorePath, BSTR, inprivateCdmStorePath, "ptr*", &ppKeys := 0, "HRESULT")
+        inprivateCdmStorePathMarshal := inprivateCdmStorePath == 0 ? IntPtr : BSTR
+
+        result := ComCall(3, this, BSTR, keySystem, BSTR, defaultCdmStorePath, inprivateCdmStorePathMarshal, inprivateCdmStorePath, "ptr*", &ppKeys := 0, "HRESULT")
         return IMFMediaKeys(ppKeys)
     }
 
@@ -65,7 +67,7 @@ export default struct IMFMediaEngineClassFactory2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateMediaKeys2 := CallbackCreate(GetMethod(implObj, "CreateMediaKeys2"), flags, 5)
+        this.vtbl.CreateMediaKeys2 := CallbackCreate(ObjBindMethod(implObj, "CreateMediaKeys2"), flags, 5)
     }
 
     Dispose() {

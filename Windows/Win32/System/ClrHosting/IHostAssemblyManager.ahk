@@ -39,7 +39,6 @@ export default struct IHostAssemblyManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ICLRAssemblyReferenceList} 
      */
     GetNonHostStoreAssemblies() {
@@ -48,7 +47,6 @@ export default struct IHostAssemblyManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IHostAssemblyStore} 
      */
     GetAssemblyStore() {
@@ -65,8 +63,8 @@ export default struct IHostAssemblyManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNonHostStoreAssemblies := CallbackCreate(GetMethod(implObj, "GetNonHostStoreAssemblies"), flags, 2)
-        this.vtbl.GetAssemblyStore := CallbackCreate(GetMethod(implObj, "GetAssemblyStore"), flags, 2)
+        this.vtbl.GetNonHostStoreAssemblies := CallbackCreate(ObjBindMethod(implObj, "GetNonHostStoreAssemblies"), flags, 2)
+        this.vtbl.GetAssemblyStore := CallbackCreate(ObjBindMethod(implObj, "GetAssemblyStore"), flags, 2)
     }
 
     Dispose() {

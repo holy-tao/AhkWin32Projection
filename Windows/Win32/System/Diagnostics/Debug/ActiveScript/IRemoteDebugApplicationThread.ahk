@@ -49,7 +49,6 @@ export default struct IRemoteDebugApplicationThread extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetSystemThreadId() {
@@ -58,7 +57,6 @@ export default struct IRemoteDebugApplicationThread extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRemoteDebugApplication} 
      */
     GetApplication() {
@@ -67,7 +65,6 @@ export default struct IRemoteDebugApplicationThread extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumDebugStackFrames} 
      */
     EnumStackFrames() {
@@ -88,7 +85,6 @@ export default struct IRemoteDebugApplicationThread extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugStackFrame} pStackFrame 
      * @param {IDebugCodeContext} pCodeContext 
      * @returns {HRESULT} 
@@ -99,7 +95,6 @@ export default struct IRemoteDebugApplicationThread extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetState() {
@@ -108,7 +103,6 @@ export default struct IRemoteDebugApplicationThread extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Suspend() {
@@ -147,15 +141,15 @@ export default struct IRemoteDebugApplicationThread extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSystemThreadId := CallbackCreate(GetMethod(implObj, "GetSystemThreadId"), flags, 2)
-        this.vtbl.GetApplication := CallbackCreate(GetMethod(implObj, "GetApplication"), flags, 2)
-        this.vtbl.EnumStackFrames := CallbackCreate(GetMethod(implObj, "EnumStackFrames"), flags, 2)
-        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 3)
-        this.vtbl.SetNextStatement := CallbackCreate(GetMethod(implObj, "SetNextStatement"), flags, 3)
-        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 2)
-        this.vtbl.Suspend := CallbackCreate(GetMethod(implObj, "Suspend"), flags, 2)
-        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 2)
-        this.vtbl.GetSuspendCount := CallbackCreate(GetMethod(implObj, "GetSuspendCount"), flags, 2)
+        this.vtbl.GetSystemThreadId := CallbackCreate(ObjBindMethod(implObj, "GetSystemThreadId"), flags, 2)
+        this.vtbl.GetApplication := CallbackCreate(ObjBindMethod(implObj, "GetApplication"), flags, 2)
+        this.vtbl.EnumStackFrames := CallbackCreate(ObjBindMethod(implObj, "EnumStackFrames"), flags, 2)
+        this.vtbl.GetDescription := CallbackCreate(ObjBindMethod(implObj, "GetDescription"), flags, 3)
+        this.vtbl.SetNextStatement := CallbackCreate(ObjBindMethod(implObj, "SetNextStatement"), flags, 3)
+        this.vtbl.GetState := CallbackCreate(ObjBindMethod(implObj, "GetState"), flags, 2)
+        this.vtbl.Suspend := CallbackCreate(ObjBindMethod(implObj, "Suspend"), flags, 2)
+        this.vtbl.Resume := CallbackCreate(ObjBindMethod(implObj, "Resume"), flags, 2)
+        this.vtbl.GetSuspendCount := CallbackCreate(ObjBindMethod(implObj, "GetSuspendCount"), flags, 2)
     }
 
     Dispose() {

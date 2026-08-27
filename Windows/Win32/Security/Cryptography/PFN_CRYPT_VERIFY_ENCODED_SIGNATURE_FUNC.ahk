@@ -38,7 +38,6 @@ export default struct PFN_CRYPT_VERIFY_ENCODED_SIGNATURE_FUNC {
     }
 
     /**
-     * 
      * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType Specifies the type of encoding used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING Currently defined encoding types are:
@@ -66,7 +65,8 @@ export default struct PFN_CRYPT_VERIFY_ENCODED_SIGNATURE_FUNC {
         pwszCNGPubKeyAlgid := pwszCNGPubKeyAlgid is String ? StrPtr(pwszCNGPubKeyAlgid) : pwszCNGPubKeyAlgid
         pwszCNGHashAlgid := pwszCNGHashAlgid is String ? StrPtr(pwszCNGHashAlgid) : pwszCNGHashAlgid
 
-        pvDecodedSignParaMarshal := pvDecodedSignPara is VarRef ? "ptr" : "ptr"
+        pvDecodedSignParaMarshal := pvDecodedSignPara is VarRef ? "ptr" : IntPtr
+        pvDecodedSignParaMarshal := pvDecodedSignPara == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, CERT_PUBLIC_KEY_INFO.Ptr, pPubKeyInfo, CRYPT_ALGORITHM_IDENTIFIER.Ptr, pSignatureAlgorithm, pvDecodedSignParaMarshal, pvDecodedSignPara, "ptr", pwszCNGPubKeyAlgid, "ptr", pwszCNGHashAlgid, IntPtr, pbComputedHash, UInt32, cbComputedHash, IntPtr, pbSignature, UInt32, cbSignature, BOOL)
         return result

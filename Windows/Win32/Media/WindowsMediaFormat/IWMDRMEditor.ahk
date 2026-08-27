@@ -120,9 +120,9 @@ export default struct IWMDRMEditor extends IUnknown {
     GetDRMProperty(pwstrName, pdwType, pValue, pcbLength) {
         pwstrName := pwstrName is String ? StrPtr(pwstrName) : pwstrName
 
-        pdwTypeMarshal := pdwType is VarRef ? "int*" : "ptr"
-        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
-        pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : "ptr"
+        pdwTypeMarshal := pdwType is VarRef ? "int*" : IntPtr
+        pValueMarshal := pValue is VarRef ? "char*" : IntPtr
+        pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(3, this, "ptr", pwstrName, pdwTypeMarshal, pdwType, pValueMarshal, pValue, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
@@ -137,7 +137,7 @@ export default struct IWMDRMEditor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDRMProperty := CallbackCreate(GetMethod(implObj, "GetDRMProperty"), flags, 5)
+        this.vtbl.GetDRMProperty := CallbackCreate(ObjBindMethod(implObj, "GetDRMProperty"), flags, 5)
     }
 
     Dispose() {

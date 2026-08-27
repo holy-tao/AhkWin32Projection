@@ -119,8 +119,8 @@ export default struct IEnumDMO extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-ienumdmo-next
      */
     Next(cItemsToFetch, pCLSID, Names, pcItemsFetched) {
-        NamesMarshal := Names is VarRef ? "ptr*" : "ptr"
-        pcItemsFetchedMarshal := pcItemsFetched is VarRef ? "uint*" : "ptr"
+        NamesMarshal := Names is VarRef ? "ptr*" : IntPtr
+        pcItemsFetchedMarshal := pcItemsFetched is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, UInt32, cItemsToFetch, Guid.Ptr, pCLSID, NamesMarshal, Names, pcItemsFetchedMarshal, pcItemsFetched, "HRESULT")
         return result
@@ -166,10 +166,10 @@ export default struct IEnumDMO extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 5)
-        this.vtbl.Skip := CallbackCreate(GetMethod(implObj, "Skip"), flags, 2)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.Next := CallbackCreate(ObjBindMethod(implObj, "Next"), flags, 5)
+        this.vtbl.Skip := CallbackCreate(ObjBindMethod(implObj, "Skip"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
     }
 
     Dispose() {

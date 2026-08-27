@@ -19,16 +19,15 @@ export default struct FNCERTSRVBACKUPGETBACKUPLOGSW {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hbc 
      * @param {Pointer<Pointer<Integer>>} ppwszzBackupLogFiles 
      * @param {Pointer<Integer>} pcbSize 
      * @returns {HRESULT} 
      */
     Call(hbc, ppwszzBackupLogFiles, pcbSize) {
-        hbcMarshal := hbc is VarRef ? "ptr" : "ptr"
-        ppwszzBackupLogFilesMarshal := ppwszzBackupLogFiles is VarRef ? "ptr*" : "ptr"
-        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+        hbcMarshal := hbc is VarRef ? "ptr" : IntPtr
+        ppwszzBackupLogFilesMarshal := ppwszzBackupLogFiles is VarRef ? "ptr*" : IntPtr
+        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, hbcMarshal, hbc, ppwszzBackupLogFilesMarshal, ppwszzBackupLogFiles, pcbSizeMarshal, pcbSize, "HRESULT")
         return result

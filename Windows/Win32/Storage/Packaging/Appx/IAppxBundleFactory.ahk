@@ -117,9 +117,9 @@ export default struct IAppxBundleFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateBundleWriter := CallbackCreate(GetMethod(implObj, "CreateBundleWriter"), flags, 4)
-        this.vtbl.CreateBundleReader := CallbackCreate(GetMethod(implObj, "CreateBundleReader"), flags, 3)
-        this.vtbl.CreateBundleManifestReader := CallbackCreate(GetMethod(implObj, "CreateBundleManifestReader"), flags, 3)
+        this.vtbl.CreateBundleWriter := CallbackCreate(ObjBindMethod(implObj, "CreateBundleWriter"), flags, 4)
+        this.vtbl.CreateBundleReader := CallbackCreate(ObjBindMethod(implObj, "CreateBundleReader"), flags, 3)
+        this.vtbl.CreateBundleManifestReader := CallbackCreate(ObjBindMethod(implObj, "CreateBundleManifestReader"), flags, 3)
     }
 
     Dispose() {

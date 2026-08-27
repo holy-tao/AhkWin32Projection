@@ -517,12 +517,12 @@ export default struct IFsiFileItem2 extends IFsiFileItem {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_FsiNamedStreams := CallbackCreate(GetMethod(implObj, "get_FsiNamedStreams"), flags, 2)
-        this.vtbl.get_IsNamedStream := CallbackCreate(GetMethod(implObj, "get_IsNamedStream"), flags, 2)
-        this.vtbl.AddStream := CallbackCreate(GetMethod(implObj, "AddStream"), flags, 3)
-        this.vtbl.RemoveStream := CallbackCreate(GetMethod(implObj, "RemoveStream"), flags, 2)
-        this.vtbl.get_IsRealTime := CallbackCreate(GetMethod(implObj, "get_IsRealTime"), flags, 2)
-        this.vtbl.put_IsRealTime := CallbackCreate(GetMethod(implObj, "put_IsRealTime"), flags, 2)
+        this.vtbl.get_FsiNamedStreams := CallbackCreate(ObjBindMethod(implObj, "get_FsiNamedStreams"), flags, 2)
+        this.vtbl.get_IsNamedStream := CallbackCreate(ObjBindMethod(implObj, "get_IsNamedStream"), flags, 2)
+        this.vtbl.AddStream := CallbackCreate(ObjBindMethod(implObj, "AddStream"), flags, 3)
+        this.vtbl.RemoveStream := CallbackCreate(ObjBindMethod(implObj, "RemoveStream"), flags, 2)
+        this.vtbl.get_IsRealTime := CallbackCreate(ObjBindMethod(implObj, "get_IsRealTime"), flags, 2)
+        this.vtbl.put_IsRealTime := CallbackCreate(ObjBindMethod(implObj, "put_IsRealTime"), flags, 2)
     }
 
     Dispose() {

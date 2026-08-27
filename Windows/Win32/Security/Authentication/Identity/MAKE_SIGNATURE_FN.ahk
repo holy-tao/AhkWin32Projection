@@ -21,7 +21,6 @@ export default struct MAKE_SIGNATURE_FN {
     }
 
     /**
-     * 
      * @param {Pointer<SecHandle>} param0 
      * @param {Integer} param1 
      * @param {Pointer<SecBufferDesc>} param2 

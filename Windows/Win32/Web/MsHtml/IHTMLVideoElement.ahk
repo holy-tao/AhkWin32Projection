@@ -88,7 +88,6 @@ export default struct IHTMLVideoElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -98,7 +97,6 @@ export default struct IHTMLVideoElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_width() {
@@ -107,7 +105,6 @@ export default struct IHTMLVideoElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -117,7 +114,6 @@ export default struct IHTMLVideoElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_height() {
@@ -126,7 +122,6 @@ export default struct IHTMLVideoElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_videoWidth() {
@@ -135,7 +130,6 @@ export default struct IHTMLVideoElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_videoHeight() {
@@ -144,7 +138,6 @@ export default struct IHTMLVideoElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -156,7 +149,6 @@ export default struct IHTMLVideoElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_poster() {
@@ -174,14 +166,14 @@ export default struct IHTMLVideoElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_width := CallbackCreate(GetMethod(implObj, "put_width"), flags, 2)
-        this.vtbl.get_width := CallbackCreate(GetMethod(implObj, "get_width"), flags, 2)
-        this.vtbl.put_height := CallbackCreate(GetMethod(implObj, "put_height"), flags, 2)
-        this.vtbl.get_height := CallbackCreate(GetMethod(implObj, "get_height"), flags, 2)
-        this.vtbl.get_videoWidth := CallbackCreate(GetMethod(implObj, "get_videoWidth"), flags, 2)
-        this.vtbl.get_videoHeight := CallbackCreate(GetMethod(implObj, "get_videoHeight"), flags, 2)
-        this.vtbl.put_poster := CallbackCreate(GetMethod(implObj, "put_poster"), flags, 2)
-        this.vtbl.get_poster := CallbackCreate(GetMethod(implObj, "get_poster"), flags, 2)
+        this.vtbl.put_width := CallbackCreate(ObjBindMethod(implObj, "put_width"), flags, 2)
+        this.vtbl.get_width := CallbackCreate(ObjBindMethod(implObj, "get_width"), flags, 2)
+        this.vtbl.put_height := CallbackCreate(ObjBindMethod(implObj, "put_height"), flags, 2)
+        this.vtbl.get_height := CallbackCreate(ObjBindMethod(implObj, "get_height"), flags, 2)
+        this.vtbl.get_videoWidth := CallbackCreate(ObjBindMethod(implObj, "get_videoWidth"), flags, 2)
+        this.vtbl.get_videoHeight := CallbackCreate(ObjBindMethod(implObj, "get_videoHeight"), flags, 2)
+        this.vtbl.put_poster := CallbackCreate(ObjBindMethod(implObj, "put_poster"), flags, 2)
+        this.vtbl.get_poster := CallbackCreate(ObjBindMethod(implObj, "get_poster"), flags, 2)
     }
 
     Dispose() {

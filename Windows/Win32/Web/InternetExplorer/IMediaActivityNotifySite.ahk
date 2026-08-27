@@ -38,7 +38,6 @@ export default struct IMediaActivityNotifySite extends IUnknown {
     }
 
     /**
-     * 
      * @param {MEDIA_ACTIVITY_NOTIFY_TYPE} mediaActivityType 
      * @returns {HRESULT} 
      */
@@ -48,7 +47,6 @@ export default struct IMediaActivityNotifySite extends IUnknown {
     }
 
     /**
-     * 
      * @param {MEDIA_ACTIVITY_NOTIFY_TYPE} mediaActivityType 
      * @returns {HRESULT} 
      */
@@ -66,8 +64,8 @@ export default struct IMediaActivityNotifySite extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnMediaActivityStarted := CallbackCreate(GetMethod(implObj, "OnMediaActivityStarted"), flags, 2)
-        this.vtbl.OnMediaActivityStopped := CallbackCreate(GetMethod(implObj, "OnMediaActivityStopped"), flags, 2)
+        this.vtbl.OnMediaActivityStarted := CallbackCreate(ObjBindMethod(implObj, "OnMediaActivityStarted"), flags, 2)
+        this.vtbl.OnMediaActivityStopped := CallbackCreate(ObjBindMethod(implObj, "OnMediaActivityStopped"), flags, 2)
     }
 
     Dispose() {

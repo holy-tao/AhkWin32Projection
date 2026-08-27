@@ -37,7 +37,6 @@ export default struct ITransactionObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulTransactionLevel 
      * @returns {ITransaction} 
      */
@@ -55,7 +54,7 @@ export default struct ITransactionObject extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTransactionObject := CallbackCreate(GetMethod(implObj, "GetTransactionObject"), flags, 3)
+        this.vtbl.GetTransactionObject := CallbackCreate(ObjBindMethod(implObj, "GetTransactionObject"), flags, 3)
     }
 
     Dispose() {

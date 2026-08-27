@@ -22,7 +22,6 @@ export default struct PFAXSETGLOBALROUTINGINFOA {
     }
 
     /**
-     * 
      * @param {HANDLE} FaxPortHandle 
      * @param {Pointer<FAX_GLOBAL_ROUTING_INFOA>} RoutingInfo 
      * @returns {BOOL} 

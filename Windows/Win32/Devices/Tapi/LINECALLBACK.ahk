@@ -25,7 +25,6 @@ export default struct LINECALLBACK {
     }
 
     /**
-     * 
      * @param {Integer} hDevice Handle to either a line device or a call associated with the callback. The nature of this handle (line handle or call handle) can be determined by the context provided by <i>dwMsg</i>. Applications must use the <b>DWORD</b> type for this parameter because using the <b>HANDLE</b> type may generate an error.
      * @param {Integer} dwMessage 
      * @param {Pointer} dwInstance 

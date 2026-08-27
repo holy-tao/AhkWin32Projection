@@ -114,7 +114,7 @@ export default struct IStemmer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nf-indexsrv-istemmer-init
      */
     Init(ulMaxTokenSize, pfLicense) {
-        pfLicenseMarshal := pfLicense is VarRef ? "int*" : "ptr"
+        pfLicenseMarshal := pfLicense is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, UInt32, ulMaxTokenSize, pfLicenseMarshal, pfLicense, "HRESULT")
         return result
@@ -185,7 +185,7 @@ export default struct IStemmer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nf-indexsrv-istemmer-getlicensetouse
      */
     GetLicenseToUse(ppwcsLicense) {
-        ppwcsLicenseMarshal := ppwcsLicense is VarRef ? "ptr*" : "ptr"
+        ppwcsLicenseMarshal := ppwcsLicense is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, ppwcsLicenseMarshal, ppwcsLicense, "HRESULT")
         return result
@@ -200,9 +200,9 @@ export default struct IStemmer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 3)
-        this.vtbl.GenerateWordForms := CallbackCreate(GetMethod(implObj, "GenerateWordForms"), flags, 4)
-        this.vtbl.GetLicenseToUse := CallbackCreate(GetMethod(implObj, "GetLicenseToUse"), flags, 2)
+        this.vtbl.Init := CallbackCreate(ObjBindMethod(implObj, "Init"), flags, 3)
+        this.vtbl.GenerateWordForms := CallbackCreate(ObjBindMethod(implObj, "GenerateWordForms"), flags, 4)
+        this.vtbl.GetLicenseToUse := CallbackCreate(ObjBindMethod(implObj, "GetLicenseToUse"), flags, 2)
     }
 
     Dispose() {

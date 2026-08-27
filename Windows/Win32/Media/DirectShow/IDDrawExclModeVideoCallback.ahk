@@ -157,9 +157,9 @@ export default struct IDDrawExclModeVideoCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnUpdateOverlay := CallbackCreate(GetMethod(implObj, "OnUpdateOverlay"), flags, 9)
-        this.vtbl.OnUpdateColorKey := CallbackCreate(GetMethod(implObj, "OnUpdateColorKey"), flags, 3)
-        this.vtbl.OnUpdateSize := CallbackCreate(GetMethod(implObj, "OnUpdateSize"), flags, 5)
+        this.vtbl.OnUpdateOverlay := CallbackCreate(ObjBindMethod(implObj, "OnUpdateOverlay"), flags, 9)
+        this.vtbl.OnUpdateColorKey := CallbackCreate(ObjBindMethod(implObj, "OnUpdateColorKey"), flags, 3)
+        this.vtbl.OnUpdateSize := CallbackCreate(ObjBindMethod(implObj, "OnUpdateSize"), flags, 5)
     }
 
     Dispose() {

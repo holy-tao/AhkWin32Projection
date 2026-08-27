@@ -20,14 +20,13 @@ export default struct PFN_RPCNOTIFICATION_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<RPC_ASYNC_STATE>} pAsync 
      * @param {Pointer<Void>} _Context 
      * @param {RPC_ASYNC_EVENT} Event 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(pAsync, _Context, Event) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, RPC_ASYNC_STATE.Ptr, pAsync, _ContextMarshal, _Context, RPC_ASYNC_EVENT, Event)
     }

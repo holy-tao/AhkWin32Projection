@@ -39,7 +39,6 @@ export default struct ID3D12DeviceRemovedExtendedData2 extends ID3D12DeviceRemov
     }
 
     /**
-     * 
      * @returns {D3D12_DRED_PAGE_FAULT_OUTPUT2} 
      */
     GetPageFaultAllocationOutput2() {
@@ -49,7 +48,6 @@ export default struct ID3D12DeviceRemovedExtendedData2 extends ID3D12DeviceRemov
     }
 
     /**
-     * 
      * @returns {D3D12_DRED_DEVICE_STATE} 
      */
     GetDeviceState() {
@@ -66,8 +64,8 @@ export default struct ID3D12DeviceRemovedExtendedData2 extends ID3D12DeviceRemov
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPageFaultAllocationOutput2 := CallbackCreate(GetMethod(implObj, "GetPageFaultAllocationOutput2"), flags, 2)
-        this.vtbl.GetDeviceState := CallbackCreate(GetMethod(implObj, "GetDeviceState"), flags, 1)
+        this.vtbl.GetPageFaultAllocationOutput2 := CallbackCreate(ObjBindMethod(implObj, "GetPageFaultAllocationOutput2"), flags, 2)
+        this.vtbl.GetDeviceState := CallbackCreate(ObjBindMethod(implObj, "GetDeviceState"), flags, 1)
     }
 
     Dispose() {

@@ -145,8 +145,8 @@ export default struct IAMDroppedFrames extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdroppedframes-getdroppedinfo
      */
     GetDroppedInfo(lSize, plArray, plNumCopied) {
-        plArrayMarshal := plArray is VarRef ? "int*" : "ptr"
-        plNumCopiedMarshal := plNumCopied is VarRef ? "int*" : "ptr"
+        plArrayMarshal := plArray is VarRef ? "int*" : IntPtr
+        plNumCopiedMarshal := plNumCopied is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, Int32, lSize, plArrayMarshal, plArray, plNumCopiedMarshal, plNumCopied, "HRESULT")
         return result
@@ -173,10 +173,10 @@ export default struct IAMDroppedFrames extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNumDropped := CallbackCreate(GetMethod(implObj, "GetNumDropped"), flags, 2)
-        this.vtbl.GetNumNotDropped := CallbackCreate(GetMethod(implObj, "GetNumNotDropped"), flags, 2)
-        this.vtbl.GetDroppedInfo := CallbackCreate(GetMethod(implObj, "GetDroppedInfo"), flags, 4)
-        this.vtbl.GetAverageFrameSize := CallbackCreate(GetMethod(implObj, "GetAverageFrameSize"), flags, 2)
+        this.vtbl.GetNumDropped := CallbackCreate(ObjBindMethod(implObj, "GetNumDropped"), flags, 2)
+        this.vtbl.GetNumNotDropped := CallbackCreate(ObjBindMethod(implObj, "GetNumNotDropped"), flags, 2)
+        this.vtbl.GetDroppedInfo := CallbackCreate(ObjBindMethod(implObj, "GetDroppedInfo"), flags, 4)
+        this.vtbl.GetAverageFrameSize := CallbackCreate(ObjBindMethod(implObj, "GetAverageFrameSize"), flags, 2)
     }
 
     Dispose() {

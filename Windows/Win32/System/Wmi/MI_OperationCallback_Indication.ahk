@@ -21,7 +21,6 @@ export default struct MI_OperationCallback_Indication {
     }
 
     /**
-     * 
      * @param {Pointer<MI_Operation>} operation 
      * @param {Pointer<Void>} callbackContext 
      * @param {Pointer<MI_Instance>} instance 
@@ -35,12 +34,19 @@ export default struct MI_OperationCallback_Indication {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(operation, callbackContext, instance, bookmark, machineID, moreResults, resultCode, errorString, errorDetails, resultAcknowledgement) {
-        callbackContextMarshal := callbackContext is VarRef ? "ptr" : "ptr"
-        bookmarkMarshal := bookmark is VarRef ? "ushort*" : "ptr"
-        machineIDMarshal := machineID is VarRef ? "ushort*" : "ptr"
-        errorStringMarshal := errorString is VarRef ? "ushort*" : "ptr"
+        operationMarshal := operation == 0 ? IntPtr : MI_Operation.Ptr
+        callbackContextMarshal := callbackContext is VarRef ? "ptr" : IntPtr
+        instanceMarshal := instance == 0 ? IntPtr : MI_Instance.Ptr
+        bookmarkMarshal := bookmark is VarRef ? "ushort*" : IntPtr
+        bookmarkMarshal := bookmark == 0 ? IntPtr : "ushort*"
+        machineIDMarshal := machineID is VarRef ? "ushort*" : IntPtr
+        machineIDMarshal := machineID == 0 ? IntPtr : "ushort*"
+        errorStringMarshal := errorString is VarRef ? "ushort*" : IntPtr
+        errorStringMarshal := errorString == 0 ? IntPtr : "ushort*"
+        errorDetailsMarshal := errorDetails == 0 ? IntPtr : MI_Instance.Ptr
+        resultAcknowledgementMarshal := resultAcknowledgement == 0 ? IntPtr : IntPtr
 
-        DllCall(this.value, MI_Operation.Ptr, operation, callbackContextMarshal, callbackContext, MI_Instance.Ptr, instance, bookmarkMarshal, bookmark, machineIDMarshal, machineID, Int8, moreResults, MI_Result, resultCode, errorStringMarshal, errorString, MI_Instance.Ptr, errorDetails, IntPtr, resultAcknowledgement)
+        DllCall(this.value, operationMarshal, operation, callbackContextMarshal, callbackContext, instanceMarshal, instance, bookmarkMarshal, bookmark, machineIDMarshal, machineID, Int8, moreResults, MI_Result, resultCode, errorStringMarshal, errorString, errorDetailsMarshal, errorDetails, resultAcknowledgementMarshal, resultAcknowledgement)
     }
 
     /**

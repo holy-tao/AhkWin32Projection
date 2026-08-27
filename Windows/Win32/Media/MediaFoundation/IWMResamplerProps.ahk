@@ -106,7 +106,7 @@ export default struct IWMResamplerProps extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmresamplerprops-setuserchannelmtx
      */
     SetUserChannelMtx(userChannelMtx) {
-        userChannelMtxMarshal := userChannelMtx is VarRef ? "float*" : "ptr"
+        userChannelMtxMarshal := userChannelMtx is VarRef ? "float*" : IntPtr
 
         result := ComCall(4, this, userChannelMtxMarshal, userChannelMtx, "HRESULT")
         return result
@@ -121,8 +121,8 @@ export default struct IWMResamplerProps extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetHalfFilterLength := CallbackCreate(GetMethod(implObj, "SetHalfFilterLength"), flags, 2)
-        this.vtbl.SetUserChannelMtx := CallbackCreate(GetMethod(implObj, "SetUserChannelMtx"), flags, 2)
+        this.vtbl.SetHalfFilterLength := CallbackCreate(ObjBindMethod(implObj, "SetHalfFilterLength"), flags, 2)
+        this.vtbl.SetUserChannelMtx := CallbackCreate(ObjBindMethod(implObj, "SetUserChannelMtx"), flags, 2)
     }
 
     Dispose() {

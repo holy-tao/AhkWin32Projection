@@ -19,13 +19,12 @@ export default struct SECURE_DRIVER_PROCESS_DEREFERENCE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} InterfaceContext 
      * @param {PEPROCESS} Process 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(InterfaceContext, Process) {
-        InterfaceContextMarshal := InterfaceContext is VarRef ? "ptr" : "ptr"
+        InterfaceContextMarshal := InterfaceContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, InterfaceContextMarshal, InterfaceContext, PEPROCESS, Process)
     }

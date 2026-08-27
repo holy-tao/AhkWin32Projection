@@ -148,7 +148,7 @@ export default struct IWMPPlayerApplication extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayerapplication-get_playerdocked
      */
     get_playerDocked(pbPlayerDocked) {
-        pbPlayerDockedMarshal := pbPlayerDocked is VarRef ? "short*" : "ptr"
+        pbPlayerDockedMarshal := pbPlayerDocked is VarRef ? "short*" : IntPtr
 
         result := ComCall(9, this, pbPlayerDockedMarshal, pbPlayerDocked, "HRESULT")
         return result
@@ -185,7 +185,7 @@ export default struct IWMPPlayerApplication extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayerapplication-get_hasdisplay
      */
     get_hasDisplay(pbHasDisplay) {
-        pbHasDisplayMarshal := pbHasDisplay is VarRef ? "short*" : "ptr"
+        pbHasDisplayMarshal := pbHasDisplay is VarRef ? "short*" : IntPtr
 
         result := ComCall(10, this, pbHasDisplayMarshal, pbHasDisplay, "HRESULT")
         return result
@@ -200,10 +200,10 @@ export default struct IWMPPlayerApplication extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.switchToPlayerApplication := CallbackCreate(GetMethod(implObj, "switchToPlayerApplication"), flags, 1)
-        this.vtbl.switchToControl := CallbackCreate(GetMethod(implObj, "switchToControl"), flags, 1)
-        this.vtbl.get_playerDocked := CallbackCreate(GetMethod(implObj, "get_playerDocked"), flags, 2)
-        this.vtbl.get_hasDisplay := CallbackCreate(GetMethod(implObj, "get_hasDisplay"), flags, 2)
+        this.vtbl.switchToPlayerApplication := CallbackCreate(ObjBindMethod(implObj, "switchToPlayerApplication"), flags, 1)
+        this.vtbl.switchToControl := CallbackCreate(ObjBindMethod(implObj, "switchToControl"), flags, 1)
+        this.vtbl.get_playerDocked := CallbackCreate(ObjBindMethod(implObj, "get_playerDocked"), flags, 2)
+        this.vtbl.get_hasDisplay := CallbackCreate(ObjBindMethod(implObj, "get_hasDisplay"), flags, 2)
     }
 
     Dispose() {

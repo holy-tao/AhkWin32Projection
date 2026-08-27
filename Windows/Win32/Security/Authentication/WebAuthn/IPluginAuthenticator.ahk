@@ -43,7 +43,6 @@ export default struct IPluginAuthenticator extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<WEBAUTHN_PLUGIN_OPERATION_REQUEST>} request 
      * @returns {WEBAUTHN_PLUGIN_OPERATION_RESPONSE} 
      */
@@ -54,7 +53,6 @@ export default struct IPluginAuthenticator extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<WEBAUTHN_PLUGIN_OPERATION_REQUEST>} request 
      * @returns {WEBAUTHN_PLUGIN_OPERATION_RESPONSE} 
      */
@@ -65,7 +63,6 @@ export default struct IPluginAuthenticator extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<WEBAUTHN_PLUGIN_CANCEL_OPERATION_REQUEST>} request 
      * @returns {HRESULT} 
      */
@@ -99,10 +96,10 @@ export default struct IPluginAuthenticator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.MakeCredential := CallbackCreate(GetMethod(implObj, "MakeCredential"), flags, 3)
-        this.vtbl.GetAssertion := CallbackCreate(GetMethod(implObj, "GetAssertion"), flags, 3)
-        this.vtbl.CancelOperation := CallbackCreate(GetMethod(implObj, "CancelOperation"), flags, 2)
-        this.vtbl.GetLockStatus := CallbackCreate(GetMethod(implObj, "GetLockStatus"), flags, 2)
+        this.vtbl.MakeCredential := CallbackCreate(ObjBindMethod(implObj, "MakeCredential"), flags, 3)
+        this.vtbl.GetAssertion := CallbackCreate(ObjBindMethod(implObj, "GetAssertion"), flags, 3)
+        this.vtbl.CancelOperation := CallbackCreate(ObjBindMethod(implObj, "CancelOperation"), flags, 2)
+        this.vtbl.GetLockStatus := CallbackCreate(ObjBindMethod(implObj, "GetLockStatus"), flags, 2)
     }
 
     Dispose() {

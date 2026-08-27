@@ -85,7 +85,7 @@ export default struct ICategorizer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icategorizer-getcategory
      */
     GetCategory(cidl, apidl) {
-        apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
+        apidlMarshal := apidl is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, UInt32, cidl, apidlMarshal, apidl, "uint*", &rgCategoryIds := 0, "HRESULT")
         return rgCategoryIds
@@ -157,10 +157,10 @@ export default struct ICategorizer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 3)
-        this.vtbl.GetCategory := CallbackCreate(GetMethod(implObj, "GetCategory"), flags, 4)
-        this.vtbl.GetCategoryInfo := CallbackCreate(GetMethod(implObj, "GetCategoryInfo"), flags, 3)
-        this.vtbl.CompareCategory := CallbackCreate(GetMethod(implObj, "CompareCategory"), flags, 4)
+        this.vtbl.GetDescription := CallbackCreate(ObjBindMethod(implObj, "GetDescription"), flags, 3)
+        this.vtbl.GetCategory := CallbackCreate(ObjBindMethod(implObj, "GetCategory"), flags, 4)
+        this.vtbl.GetCategoryInfo := CallbackCreate(ObjBindMethod(implObj, "GetCategoryInfo"), flags, 3)
+        this.vtbl.CompareCategory := CallbackCreate(ObjBindMethod(implObj, "CompareCategory"), flags, 4)
     }
 
     Dispose() {

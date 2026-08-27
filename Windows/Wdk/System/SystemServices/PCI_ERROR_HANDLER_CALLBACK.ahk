@@ -18,7 +18,6 @@ export default struct PCI_ERROR_HANDLER_CALLBACK {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

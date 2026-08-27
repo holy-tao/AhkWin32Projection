@@ -197,7 +197,10 @@ export default struct ID2D1Ink extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1ink-streamasgeometry(id2d1inkstyle_constd2d1_matrix_3x2_f__float_id2d1simplifiedgeometrysink)
      */
     StreamAsGeometry(inkStyle, worldTransform, flatteningTolerance, geometrySink) {
-        result := ComCall(12, this, "ptr", inkStyle, D2D_MATRIX_3X2_F.Ptr, worldTransform, Float32, flatteningTolerance, "ptr", geometrySink, "HRESULT")
+        inkStyleMarshal := inkStyle == 0 ? IntPtr : "ptr"
+        worldTransformMarshal := worldTransform == 0 ? IntPtr : D2D_MATRIX_3X2_F.Ptr
+
+        result := ComCall(12, this, inkStyleMarshal, inkStyle, worldTransformMarshal, worldTransform, Float32, flatteningTolerance, "ptr", geometrySink, "HRESULT")
         return result
     }
 
@@ -215,8 +218,11 @@ export default struct ID2D1Ink extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1ink-getbounds
      */
     GetBounds(inkStyle, worldTransform) {
+        inkStyleMarshal := inkStyle == 0 ? IntPtr : "ptr"
+        worldTransformMarshal := worldTransform == 0 ? IntPtr : D2D_MATRIX_3X2_F.Ptr
+
         bounds := D2D_RECT_F()
-        result := ComCall(13, this, "ptr", inkStyle, D2D_MATRIX_3X2_F.Ptr, worldTransform, D2D_RECT_F.Ptr, bounds, "HRESULT")
+        result := ComCall(13, this, inkStyleMarshal, inkStyle, worldTransformMarshal, worldTransform, D2D_RECT_F.Ptr, bounds, "HRESULT")
         return bounds
     }
 
@@ -229,16 +235,16 @@ export default struct ID2D1Ink extends ID2D1Resource {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetStartPoint := CallbackCreate(GetMethod(implObj, "SetStartPoint"), flags, 2)
-        this.vtbl.GetStartPoint := CallbackCreate(GetMethod(implObj, "GetStartPoint"), flags, 1)
-        this.vtbl.AddSegments := CallbackCreate(GetMethod(implObj, "AddSegments"), flags, 3)
-        this.vtbl.RemoveSegmentsAtEnd := CallbackCreate(GetMethod(implObj, "RemoveSegmentsAtEnd"), flags, 2)
-        this.vtbl.SetSegments := CallbackCreate(GetMethod(implObj, "SetSegments"), flags, 4)
-        this.vtbl.SetSegmentAtEnd := CallbackCreate(GetMethod(implObj, "SetSegmentAtEnd"), flags, 2)
-        this.vtbl.GetSegmentCount := CallbackCreate(GetMethod(implObj, "GetSegmentCount"), flags, 1)
-        this.vtbl.GetSegments := CallbackCreate(GetMethod(implObj, "GetSegments"), flags, 4)
-        this.vtbl.StreamAsGeometry := CallbackCreate(GetMethod(implObj, "StreamAsGeometry"), flags, 5)
-        this.vtbl.GetBounds := CallbackCreate(GetMethod(implObj, "GetBounds"), flags, 4)
+        this.vtbl.SetStartPoint := CallbackCreate(ObjBindMethod(implObj, "SetStartPoint"), flags, 2)
+        this.vtbl.GetStartPoint := CallbackCreate(ObjBindMethod(implObj, "GetStartPoint"), flags, 1)
+        this.vtbl.AddSegments := CallbackCreate(ObjBindMethod(implObj, "AddSegments"), flags, 3)
+        this.vtbl.RemoveSegmentsAtEnd := CallbackCreate(ObjBindMethod(implObj, "RemoveSegmentsAtEnd"), flags, 2)
+        this.vtbl.SetSegments := CallbackCreate(ObjBindMethod(implObj, "SetSegments"), flags, 4)
+        this.vtbl.SetSegmentAtEnd := CallbackCreate(ObjBindMethod(implObj, "SetSegmentAtEnd"), flags, 2)
+        this.vtbl.GetSegmentCount := CallbackCreate(ObjBindMethod(implObj, "GetSegmentCount"), flags, 1)
+        this.vtbl.GetSegments := CallbackCreate(ObjBindMethod(implObj, "GetSegments"), flags, 4)
+        this.vtbl.StreamAsGeometry := CallbackCreate(ObjBindMethod(implObj, "StreamAsGeometry"), flags, 5)
+        this.vtbl.GetBounds := CallbackCreate(ObjBindMethod(implObj, "GetBounds"), flags, 4)
     }
 
     Dispose() {

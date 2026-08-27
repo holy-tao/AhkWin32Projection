@@ -71,8 +71,8 @@ export default struct ID3D12DeviceRemovedExtendedData extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAutoBreadcrumbsOutput := CallbackCreate(GetMethod(implObj, "GetAutoBreadcrumbsOutput"), flags, 2)
-        this.vtbl.GetPageFaultAllocationOutput := CallbackCreate(GetMethod(implObj, "GetPageFaultAllocationOutput"), flags, 2)
+        this.vtbl.GetAutoBreadcrumbsOutput := CallbackCreate(ObjBindMethod(implObj, "GetAutoBreadcrumbsOutput"), flags, 2)
+        this.vtbl.GetPageFaultAllocationOutput := CallbackCreate(ObjBindMethod(implObj, "GetPageFaultAllocationOutput"), flags, 2)
     }
 
     Dispose() {

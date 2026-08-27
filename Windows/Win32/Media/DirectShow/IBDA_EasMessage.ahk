@@ -62,7 +62,7 @@ export default struct IBDA_EasMessage extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_EasMessage := CallbackCreate(GetMethod(implObj, "get_EasMessage"), flags, 3)
+        this.vtbl.get_EasMessage := CallbackCreate(ObjBindMethod(implObj, "get_EasMessage"), flags, 3)
     }
 
     Dispose() {

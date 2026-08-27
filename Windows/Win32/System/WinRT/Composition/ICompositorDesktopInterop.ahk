@@ -39,7 +39,6 @@ export default struct ICompositorDesktopInterop extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} hwndTarget 
      * @param {BOOL} isTopmost 
      * @returns {Pointer} 
@@ -50,7 +49,6 @@ export default struct ICompositorDesktopInterop extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} threadId 
      * @returns {HRESULT} 
      */
@@ -68,8 +66,8 @@ export default struct ICompositorDesktopInterop extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateDesktopWindowTarget := CallbackCreate(GetMethod(implObj, "CreateDesktopWindowTarget"), flags, 4)
-        this.vtbl.EnsureOnThread := CallbackCreate(GetMethod(implObj, "EnsureOnThread"), flags, 2)
+        this.vtbl.CreateDesktopWindowTarget := CallbackCreate(ObjBindMethod(implObj, "CreateDesktopWindowTarget"), flags, 4)
+        this.vtbl.EnsureOnThread := CallbackCreate(ObjBindMethod(implObj, "EnsureOnThread"), flags, 2)
     }
 
     Dispose() {

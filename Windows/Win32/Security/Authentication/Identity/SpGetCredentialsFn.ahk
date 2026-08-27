@@ -28,7 +28,6 @@ export default struct SpGetCredentialsFn {
     }
 
     /**
-     * 
      * @param {Pointer} CredentialHandle A handle to the credentials to be retrieved.
      * @param {Pointer<SecBuffer>} Credentials Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secbuffer">SecBuffer</a> structure that receives the credentials.

@@ -186,13 +186,13 @@ export default struct IRDPSRAPIInvitation extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ConnectionString := CallbackCreate(GetMethod(implObj, "get_ConnectionString"), flags, 2)
-        this.vtbl.get_GroupName := CallbackCreate(GetMethod(implObj, "get_GroupName"), flags, 2)
-        this.vtbl.get_Password := CallbackCreate(GetMethod(implObj, "get_Password"), flags, 2)
-        this.vtbl.get_AttendeeLimit := CallbackCreate(GetMethod(implObj, "get_AttendeeLimit"), flags, 2)
-        this.vtbl.put_AttendeeLimit := CallbackCreate(GetMethod(implObj, "put_AttendeeLimit"), flags, 2)
-        this.vtbl.get_Revoked := CallbackCreate(GetMethod(implObj, "get_Revoked"), flags, 2)
-        this.vtbl.put_Revoked := CallbackCreate(GetMethod(implObj, "put_Revoked"), flags, 2)
+        this.vtbl.get_ConnectionString := CallbackCreate(ObjBindMethod(implObj, "get_ConnectionString"), flags, 2)
+        this.vtbl.get_GroupName := CallbackCreate(ObjBindMethod(implObj, "get_GroupName"), flags, 2)
+        this.vtbl.get_Password := CallbackCreate(ObjBindMethod(implObj, "get_Password"), flags, 2)
+        this.vtbl.get_AttendeeLimit := CallbackCreate(ObjBindMethod(implObj, "get_AttendeeLimit"), flags, 2)
+        this.vtbl.put_AttendeeLimit := CallbackCreate(ObjBindMethod(implObj, "put_AttendeeLimit"), flags, 2)
+        this.vtbl.get_Revoked := CallbackCreate(ObjBindMethod(implObj, "get_Revoked"), flags, 2)
+        this.vtbl.put_Revoked := CallbackCreate(ObjBindMethod(implObj, "put_Revoked"), flags, 2)
     }
 
     Dispose() {

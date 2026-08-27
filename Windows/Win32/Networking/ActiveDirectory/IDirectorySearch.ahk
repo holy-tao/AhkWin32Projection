@@ -81,7 +81,7 @@ export default struct IDirectorySearch extends IUnknown {
     ExecuteSearch(pszSearchFilter, pAttributeNames, dwNumberAttributes) {
         pszSearchFilter := pszSearchFilter is String ? StrPtr(pszSearchFilter) : pszSearchFilter
 
-        pAttributeNamesMarshal := pAttributeNames is VarRef ? "ptr*" : "ptr"
+        pAttributeNamesMarshal := pAttributeNames is VarRef ? "ptr*" : IntPtr
 
         phSearchResult := ADS_SEARCH_HANDLE()
         result := ComCall(4, this, "ptr", pszSearchFilter, pAttributeNamesMarshal, pAttributeNames, UInt32, dwNumberAttributes, ADS_SEARCH_HANDLE.Ptr, phSearchResult, "HRESULT")
@@ -222,16 +222,16 @@ export default struct IDirectorySearch extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetSearchPreference := CallbackCreate(GetMethod(implObj, "SetSearchPreference"), flags, 3)
-        this.vtbl.ExecuteSearch := CallbackCreate(GetMethod(implObj, "ExecuteSearch"), flags, 5)
-        this.vtbl.AbandonSearch := CallbackCreate(GetMethod(implObj, "AbandonSearch"), flags, 2)
-        this.vtbl.GetFirstRow := CallbackCreate(GetMethod(implObj, "GetFirstRow"), flags, 2)
-        this.vtbl.GetNextRow := CallbackCreate(GetMethod(implObj, "GetNextRow"), flags, 2)
-        this.vtbl.GetPreviousRow := CallbackCreate(GetMethod(implObj, "GetPreviousRow"), flags, 2)
-        this.vtbl.GetNextColumnName := CallbackCreate(GetMethod(implObj, "GetNextColumnName"), flags, 3)
-        this.vtbl.GetColumn := CallbackCreate(GetMethod(implObj, "GetColumn"), flags, 4)
-        this.vtbl.FreeColumn := CallbackCreate(GetMethod(implObj, "FreeColumn"), flags, 2)
-        this.vtbl.CloseSearchHandle := CallbackCreate(GetMethod(implObj, "CloseSearchHandle"), flags, 2)
+        this.vtbl.SetSearchPreference := CallbackCreate(ObjBindMethod(implObj, "SetSearchPreference"), flags, 3)
+        this.vtbl.ExecuteSearch := CallbackCreate(ObjBindMethod(implObj, "ExecuteSearch"), flags, 5)
+        this.vtbl.AbandonSearch := CallbackCreate(ObjBindMethod(implObj, "AbandonSearch"), flags, 2)
+        this.vtbl.GetFirstRow := CallbackCreate(ObjBindMethod(implObj, "GetFirstRow"), flags, 2)
+        this.vtbl.GetNextRow := CallbackCreate(ObjBindMethod(implObj, "GetNextRow"), flags, 2)
+        this.vtbl.GetPreviousRow := CallbackCreate(ObjBindMethod(implObj, "GetPreviousRow"), flags, 2)
+        this.vtbl.GetNextColumnName := CallbackCreate(ObjBindMethod(implObj, "GetNextColumnName"), flags, 3)
+        this.vtbl.GetColumn := CallbackCreate(ObjBindMethod(implObj, "GetColumn"), flags, 4)
+        this.vtbl.FreeColumn := CallbackCreate(ObjBindMethod(implObj, "FreeColumn"), flags, 2)
+        this.vtbl.CloseSearchHandle := CallbackCreate(ObjBindMethod(implObj, "CloseSearchHandle"), flags, 2)
     }
 
     Dispose() {

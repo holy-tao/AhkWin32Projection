@@ -37,13 +37,12 @@ export default struct IActionOnCLREvent extends IUnknown {
     }
 
     /**
-     * 
      * @param {EClrEvent} event 
      * @param {Pointer<Void>} data 
      * @returns {HRESULT} 
      */
     OnEvent(event, data) {
-        dataMarshal := data is VarRef ? "ptr" : "ptr"
+        dataMarshal := data is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, EClrEvent, event, dataMarshal, data, "HRESULT")
         return result
@@ -58,7 +57,7 @@ export default struct IActionOnCLREvent extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnEvent := CallbackCreate(GetMethod(implObj, "OnEvent"), flags, 3)
+        this.vtbl.OnEvent := CallbackCreate(ObjBindMethod(implObj, "OnEvent"), flags, 3)
     }
 
     Dispose() {

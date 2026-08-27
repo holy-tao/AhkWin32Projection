@@ -115,7 +115,6 @@ export default struct LPNSPLOOKUPSERVICENEXT {
     }
 
     /**
-     * 
      * @param {HANDLE} hLookup A handle returned from the previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsalookupservicebegina">WSALookupServiceBegin</a>.
      * @param {Integer} dwControlFlags The flags used to control the next operation. Currently, only **LUP_FLUSHPREVIOUS** is defined as a means to handle a result set that is too large. If an application cannot supply a large enough buffer, setting **LUP_FLUSHPREVIOUS** instructs the provider to discard the last result set, which was too large, and move to the next set for this call.
@@ -243,7 +242,7 @@ export default struct LPNSPLOOKUPSERVICENEXT {
      * </table>
      */
     Call(hLookup, dwControlFlags, lpdwBufferLength, lpqsResults) {
-        lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
+        lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HANDLE, hLookup, UInt32, dwControlFlags, lpdwBufferLengthMarshal, lpdwBufferLength, IntPtr, lpqsResults, Int32)
         return result

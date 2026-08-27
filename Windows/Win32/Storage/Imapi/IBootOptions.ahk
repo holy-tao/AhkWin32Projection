@@ -300,15 +300,15 @@ export default struct IBootOptions extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_BootImage := CallbackCreate(GetMethod(implObj, "get_BootImage"), flags, 2)
-        this.vtbl.get_Manufacturer := CallbackCreate(GetMethod(implObj, "get_Manufacturer"), flags, 2)
-        this.vtbl.put_Manufacturer := CallbackCreate(GetMethod(implObj, "put_Manufacturer"), flags, 2)
-        this.vtbl.get_PlatformId := CallbackCreate(GetMethod(implObj, "get_PlatformId"), flags, 2)
-        this.vtbl.put_PlatformId := CallbackCreate(GetMethod(implObj, "put_PlatformId"), flags, 2)
-        this.vtbl.get_Emulation := CallbackCreate(GetMethod(implObj, "get_Emulation"), flags, 2)
-        this.vtbl.put_Emulation := CallbackCreate(GetMethod(implObj, "put_Emulation"), flags, 2)
-        this.vtbl.get_ImageSize := CallbackCreate(GetMethod(implObj, "get_ImageSize"), flags, 2)
-        this.vtbl.AssignBootImage := CallbackCreate(GetMethod(implObj, "AssignBootImage"), flags, 2)
+        this.vtbl.get_BootImage := CallbackCreate(ObjBindMethod(implObj, "get_BootImage"), flags, 2)
+        this.vtbl.get_Manufacturer := CallbackCreate(ObjBindMethod(implObj, "get_Manufacturer"), flags, 2)
+        this.vtbl.put_Manufacturer := CallbackCreate(ObjBindMethod(implObj, "put_Manufacturer"), flags, 2)
+        this.vtbl.get_PlatformId := CallbackCreate(ObjBindMethod(implObj, "get_PlatformId"), flags, 2)
+        this.vtbl.put_PlatformId := CallbackCreate(ObjBindMethod(implObj, "put_PlatformId"), flags, 2)
+        this.vtbl.get_Emulation := CallbackCreate(ObjBindMethod(implObj, "get_Emulation"), flags, 2)
+        this.vtbl.put_Emulation := CallbackCreate(ObjBindMethod(implObj, "put_Emulation"), flags, 2)
+        this.vtbl.get_ImageSize := CallbackCreate(ObjBindMethod(implObj, "get_ImageSize"), flags, 2)
+        this.vtbl.AssignBootImage := CallbackCreate(ObjBindMethod(implObj, "AssignBootImage"), flags, 2)
     }
 
     Dispose() {

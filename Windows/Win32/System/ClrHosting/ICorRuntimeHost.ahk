@@ -64,7 +64,6 @@ export default struct ICorRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CreateLogicalThreadState() {
@@ -73,7 +72,6 @@ export default struct ICorRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DeleteLogicalThreadState() {
@@ -82,19 +80,17 @@ export default struct ICorRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pFiberCookie 
      * @returns {HRESULT} 
      */
     SwitchInLogicalThreadState(pFiberCookie) {
-        pFiberCookieMarshal := pFiberCookie is VarRef ? "uint*" : "ptr"
+        pFiberCookieMarshal := pFiberCookie is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, pFiberCookieMarshal, pFiberCookie, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Pointer<Integer>} 
      */
     SwitchOutLogicalThreadState() {
@@ -103,7 +99,6 @@ export default struct ICorRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     LocksHeldByLogicalThread() {
@@ -112,7 +107,6 @@ export default struct ICorRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {HANDLE} hFile 
      * @returns {HMODULE} 
      */
@@ -133,7 +127,6 @@ export default struct ICorRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Start() {
@@ -142,7 +135,6 @@ export default struct ICorRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Stop() {
@@ -151,7 +143,6 @@ export default struct ICorRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzFriendlyName 
      * @param {IUnknown} pIdentityArray 
      * @returns {IUnknown} 
@@ -164,7 +155,6 @@ export default struct ICorRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     GetDefaultDomain() {
@@ -173,7 +163,6 @@ export default struct ICorRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<Void>} 
      */
     EnumDomains() {
@@ -182,31 +171,28 @@ export default struct ICorRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hEnum 
      * @returns {IUnknown} 
      */
     NextDomain(hEnum) {
-        hEnumMarshal := hEnum is VarRef ? "ptr" : "ptr"
+        hEnumMarshal := hEnum is VarRef ? "ptr" : IntPtr
 
         result := ComCall(15, this, hEnumMarshal, hEnum, "ptr*", &pAppDomain := 0, "HRESULT")
         return IUnknown(pAppDomain)
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hEnum 
      * @returns {HRESULT} 
      */
     CloseEnum(hEnum) {
-        hEnumMarshal := hEnum is VarRef ? "ptr" : "ptr"
+        hEnumMarshal := hEnum is VarRef ? "ptr" : IntPtr
 
         result := ComCall(16, this, hEnumMarshal, hEnum, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwzFriendlyName 
      * @param {IUnknown} pSetup 
      * @param {IUnknown} pEvidence 
@@ -220,7 +206,6 @@ export default struct ICorRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     CreateDomainSetup() {
@@ -229,7 +214,6 @@ export default struct ICorRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     CreateEvidence() {
@@ -238,7 +222,6 @@ export default struct ICorRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pAppDomain 
      * @returns {HRESULT} 
      */
@@ -284,25 +267,25 @@ export default struct ICorRuntimeHost extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateLogicalThreadState := CallbackCreate(GetMethod(implObj, "CreateLogicalThreadState"), flags, 1)
-        this.vtbl.DeleteLogicalThreadState := CallbackCreate(GetMethod(implObj, "DeleteLogicalThreadState"), flags, 1)
-        this.vtbl.SwitchInLogicalThreadState := CallbackCreate(GetMethod(implObj, "SwitchInLogicalThreadState"), flags, 2)
-        this.vtbl.SwitchOutLogicalThreadState := CallbackCreate(GetMethod(implObj, "SwitchOutLogicalThreadState"), flags, 2)
-        this.vtbl.LocksHeldByLogicalThread := CallbackCreate(GetMethod(implObj, "LocksHeldByLogicalThread"), flags, 2)
-        this.vtbl.MapFile := CallbackCreate(GetMethod(implObj, "MapFile"), flags, 3)
-        this.vtbl.GetConfiguration := CallbackCreate(GetMethod(implObj, "GetConfiguration"), flags, 2)
-        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 1)
-        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
-        this.vtbl.CreateDomain := CallbackCreate(GetMethod(implObj, "CreateDomain"), flags, 4)
-        this.vtbl.GetDefaultDomain := CallbackCreate(GetMethod(implObj, "GetDefaultDomain"), flags, 2)
-        this.vtbl.EnumDomains := CallbackCreate(GetMethod(implObj, "EnumDomains"), flags, 2)
-        this.vtbl.NextDomain := CallbackCreate(GetMethod(implObj, "NextDomain"), flags, 3)
-        this.vtbl.CloseEnum := CallbackCreate(GetMethod(implObj, "CloseEnum"), flags, 2)
-        this.vtbl.CreateDomainEx := CallbackCreate(GetMethod(implObj, "CreateDomainEx"), flags, 5)
-        this.vtbl.CreateDomainSetup := CallbackCreate(GetMethod(implObj, "CreateDomainSetup"), flags, 2)
-        this.vtbl.CreateEvidence := CallbackCreate(GetMethod(implObj, "CreateEvidence"), flags, 2)
-        this.vtbl.UnloadDomain := CallbackCreate(GetMethod(implObj, "UnloadDomain"), flags, 2)
-        this.vtbl.CurrentDomain := CallbackCreate(GetMethod(implObj, "CurrentDomain"), flags, 2)
+        this.vtbl.CreateLogicalThreadState := CallbackCreate(ObjBindMethod(implObj, "CreateLogicalThreadState"), flags, 1)
+        this.vtbl.DeleteLogicalThreadState := CallbackCreate(ObjBindMethod(implObj, "DeleteLogicalThreadState"), flags, 1)
+        this.vtbl.SwitchInLogicalThreadState := CallbackCreate(ObjBindMethod(implObj, "SwitchInLogicalThreadState"), flags, 2)
+        this.vtbl.SwitchOutLogicalThreadState := CallbackCreate(ObjBindMethod(implObj, "SwitchOutLogicalThreadState"), flags, 2)
+        this.vtbl.LocksHeldByLogicalThread := CallbackCreate(ObjBindMethod(implObj, "LocksHeldByLogicalThread"), flags, 2)
+        this.vtbl.MapFile := CallbackCreate(ObjBindMethod(implObj, "MapFile"), flags, 3)
+        this.vtbl.GetConfiguration := CallbackCreate(ObjBindMethod(implObj, "GetConfiguration"), flags, 2)
+        this.vtbl.Start := CallbackCreate(ObjBindMethod(implObj, "Start"), flags, 1)
+        this.vtbl.Stop := CallbackCreate(ObjBindMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.CreateDomain := CallbackCreate(ObjBindMethod(implObj, "CreateDomain"), flags, 4)
+        this.vtbl.GetDefaultDomain := CallbackCreate(ObjBindMethod(implObj, "GetDefaultDomain"), flags, 2)
+        this.vtbl.EnumDomains := CallbackCreate(ObjBindMethod(implObj, "EnumDomains"), flags, 2)
+        this.vtbl.NextDomain := CallbackCreate(ObjBindMethod(implObj, "NextDomain"), flags, 3)
+        this.vtbl.CloseEnum := CallbackCreate(ObjBindMethod(implObj, "CloseEnum"), flags, 2)
+        this.vtbl.CreateDomainEx := CallbackCreate(ObjBindMethod(implObj, "CreateDomainEx"), flags, 5)
+        this.vtbl.CreateDomainSetup := CallbackCreate(ObjBindMethod(implObj, "CreateDomainSetup"), flags, 2)
+        this.vtbl.CreateEvidence := CallbackCreate(ObjBindMethod(implObj, "CreateEvidence"), flags, 2)
+        this.vtbl.UnloadDomain := CallbackCreate(ObjBindMethod(implObj, "UnloadDomain"), flags, 2)
+        this.vtbl.CurrentDomain := CallbackCreate(ObjBindMethod(implObj, "CurrentDomain"), flags, 2)
     }
 
     Dispose() {

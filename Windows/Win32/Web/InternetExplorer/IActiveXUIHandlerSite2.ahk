@@ -37,7 +37,6 @@ export default struct IActiveXUIHandlerSite2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     AddSuspensionExemption() {
@@ -46,7 +45,6 @@ export default struct IActiveXUIHandlerSite2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ullCookie 
      * @returns {HRESULT} 
      */
@@ -64,8 +62,8 @@ export default struct IActiveXUIHandlerSite2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddSuspensionExemption := CallbackCreate(GetMethod(implObj, "AddSuspensionExemption"), flags, 2)
-        this.vtbl.RemoveSuspensionExemption := CallbackCreate(GetMethod(implObj, "RemoveSuspensionExemption"), flags, 2)
+        this.vtbl.AddSuspensionExemption := CallbackCreate(ObjBindMethod(implObj, "AddSuspensionExemption"), flags, 2)
+        this.vtbl.RemoveSuspensionExemption := CallbackCreate(ObjBindMethod(implObj, "RemoveSuspensionExemption"), flags, 2)
     }
 
     Dispose() {

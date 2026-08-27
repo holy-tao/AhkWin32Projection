@@ -22,7 +22,6 @@ export default struct PALLOCATE_DOMAIN_COMMON_BUFFER {
     }
 
     /**
-     * 
      * @param {Pointer<DMA_ADAPTER>} DmaAdapter 
      * @param {HANDLE} DomainHandle 
      * @param {Pointer<Integer>} MaximumAddress 
@@ -35,10 +34,12 @@ export default struct PALLOCATE_DOMAIN_COMMON_BUFFER {
      * @returns {NTSTATUS} 
      */
     Call(DmaAdapter, DomainHandle, MaximumAddress, Length, Flags, CacheType, PreferredNode, LogicalAddress, VirtualAddress) {
-        MaximumAddressMarshal := MaximumAddress is VarRef ? "int64*" : "ptr"
-        CacheTypeMarshal := CacheType is VarRef ? "int*" : "ptr"
-        LogicalAddressMarshal := LogicalAddress is VarRef ? "int64*" : "ptr"
-        VirtualAddressMarshal := VirtualAddress is VarRef ? "ptr*" : "ptr"
+        MaximumAddressMarshal := MaximumAddress is VarRef ? "int64*" : IntPtr
+        MaximumAddressMarshal := MaximumAddress == 0 ? IntPtr : "int64*"
+        CacheTypeMarshal := CacheType is VarRef ? "int*" : IntPtr
+        CacheTypeMarshal := CacheType == 0 ? IntPtr : "int*"
+        LogicalAddressMarshal := LogicalAddress is VarRef ? "int64*" : IntPtr
+        VirtualAddressMarshal := VirtualAddress is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, HANDLE, DomainHandle, MaximumAddressMarshal, MaximumAddress, UInt32, Length, UInt32, Flags, CacheTypeMarshal, CacheType, UInt32, PreferredNode, LogicalAddressMarshal, LogicalAddress, VirtualAddressMarshal, VirtualAddress, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

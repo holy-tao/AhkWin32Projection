@@ -19,12 +19,12 @@ export default struct KSYNCHRONIZE_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} SynchronizeContext 
      * @returns {BOOLEAN} 
      */
     Call(SynchronizeContext) {
-        SynchronizeContextMarshal := SynchronizeContext is VarRef ? "ptr" : "ptr"
+        SynchronizeContextMarshal := SynchronizeContext is VarRef ? "ptr" : IntPtr
+        SynchronizeContextMarshal := SynchronizeContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, SynchronizeContextMarshal, SynchronizeContext, BOOLEAN)
         return result

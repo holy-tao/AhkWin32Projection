@@ -147,7 +147,6 @@ export default struct IHTMLEventObj3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_contentOverflow() {
@@ -156,7 +155,6 @@ export default struct IHTMLEventObj3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -166,7 +164,6 @@ export default struct IHTMLEventObj3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_shiftLeft() {
@@ -175,7 +172,6 @@ export default struct IHTMLEventObj3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -185,7 +181,6 @@ export default struct IHTMLEventObj3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_altLeft() {
@@ -194,7 +189,6 @@ export default struct IHTMLEventObj3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -204,7 +198,6 @@ export default struct IHTMLEventObj3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ctrlLeft() {
@@ -213,7 +206,6 @@ export default struct IHTMLEventObj3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     get_imeCompositionChange() {
@@ -222,7 +214,6 @@ export default struct IHTMLEventObj3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     get_imeNotifyCommand() {
@@ -231,7 +222,6 @@ export default struct IHTMLEventObj3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     get_imeNotifyData() {
@@ -240,7 +230,6 @@ export default struct IHTMLEventObj3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     get_imeRequest() {
@@ -249,7 +238,6 @@ export default struct IHTMLEventObj3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     get_imeRequestData() {
@@ -258,7 +246,6 @@ export default struct IHTMLEventObj3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     get_keyboardLayout() {
@@ -267,7 +254,6 @@ export default struct IHTMLEventObj3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_behaviorCookie() {
@@ -276,7 +262,6 @@ export default struct IHTMLEventObj3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_behaviorPart() {
@@ -285,7 +270,6 @@ export default struct IHTMLEventObj3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_nextPage() {
@@ -303,22 +287,22 @@ export default struct IHTMLEventObj3 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_contentOverflow := CallbackCreate(GetMethod(implObj, "get_contentOverflow"), flags, 2)
-        this.vtbl.put_shiftLeft := CallbackCreate(GetMethod(implObj, "put_shiftLeft"), flags, 2)
-        this.vtbl.get_shiftLeft := CallbackCreate(GetMethod(implObj, "get_shiftLeft"), flags, 2)
-        this.vtbl.put_altLeft := CallbackCreate(GetMethod(implObj, "put_altLeft"), flags, 2)
-        this.vtbl.get_altLeft := CallbackCreate(GetMethod(implObj, "get_altLeft"), flags, 2)
-        this.vtbl.put_ctrlLeft := CallbackCreate(GetMethod(implObj, "put_ctrlLeft"), flags, 2)
-        this.vtbl.get_ctrlLeft := CallbackCreate(GetMethod(implObj, "get_ctrlLeft"), flags, 2)
-        this.vtbl.get_imeCompositionChange := CallbackCreate(GetMethod(implObj, "get_imeCompositionChange"), flags, 2)
-        this.vtbl.get_imeNotifyCommand := CallbackCreate(GetMethod(implObj, "get_imeNotifyCommand"), flags, 2)
-        this.vtbl.get_imeNotifyData := CallbackCreate(GetMethod(implObj, "get_imeNotifyData"), flags, 2)
-        this.vtbl.get_imeRequest := CallbackCreate(GetMethod(implObj, "get_imeRequest"), flags, 2)
-        this.vtbl.get_imeRequestData := CallbackCreate(GetMethod(implObj, "get_imeRequestData"), flags, 2)
-        this.vtbl.get_keyboardLayout := CallbackCreate(GetMethod(implObj, "get_keyboardLayout"), flags, 2)
-        this.vtbl.get_behaviorCookie := CallbackCreate(GetMethod(implObj, "get_behaviorCookie"), flags, 2)
-        this.vtbl.get_behaviorPart := CallbackCreate(GetMethod(implObj, "get_behaviorPart"), flags, 2)
-        this.vtbl.get_nextPage := CallbackCreate(GetMethod(implObj, "get_nextPage"), flags, 2)
+        this.vtbl.get_contentOverflow := CallbackCreate(ObjBindMethod(implObj, "get_contentOverflow"), flags, 2)
+        this.vtbl.put_shiftLeft := CallbackCreate(ObjBindMethod(implObj, "put_shiftLeft"), flags, 2)
+        this.vtbl.get_shiftLeft := CallbackCreate(ObjBindMethod(implObj, "get_shiftLeft"), flags, 2)
+        this.vtbl.put_altLeft := CallbackCreate(ObjBindMethod(implObj, "put_altLeft"), flags, 2)
+        this.vtbl.get_altLeft := CallbackCreate(ObjBindMethod(implObj, "get_altLeft"), flags, 2)
+        this.vtbl.put_ctrlLeft := CallbackCreate(ObjBindMethod(implObj, "put_ctrlLeft"), flags, 2)
+        this.vtbl.get_ctrlLeft := CallbackCreate(ObjBindMethod(implObj, "get_ctrlLeft"), flags, 2)
+        this.vtbl.get_imeCompositionChange := CallbackCreate(ObjBindMethod(implObj, "get_imeCompositionChange"), flags, 2)
+        this.vtbl.get_imeNotifyCommand := CallbackCreate(ObjBindMethod(implObj, "get_imeNotifyCommand"), flags, 2)
+        this.vtbl.get_imeNotifyData := CallbackCreate(ObjBindMethod(implObj, "get_imeNotifyData"), flags, 2)
+        this.vtbl.get_imeRequest := CallbackCreate(ObjBindMethod(implObj, "get_imeRequest"), flags, 2)
+        this.vtbl.get_imeRequestData := CallbackCreate(ObjBindMethod(implObj, "get_imeRequestData"), flags, 2)
+        this.vtbl.get_keyboardLayout := CallbackCreate(ObjBindMethod(implObj, "get_keyboardLayout"), flags, 2)
+        this.vtbl.get_behaviorCookie := CallbackCreate(ObjBindMethod(implObj, "get_behaviorCookie"), flags, 2)
+        this.vtbl.get_behaviorPart := CallbackCreate(ObjBindMethod(implObj, "get_behaviorPart"), flags, 2)
+        this.vtbl.get_nextPage := CallbackCreate(ObjBindMethod(implObj, "get_nextPage"), flags, 2)
     }
 
     Dispose() {

@@ -63,7 +63,7 @@ export default struct IWMPSubscriptionService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/subscriptionservices/nf-subscriptionservices-iwmpsubscriptionservice-allowplay
      */
     allowPlay(_hwnd, pMedia, pfAllowPlay) {
-        pfAllowPlayMarshal := pfAllowPlay is VarRef ? "int*" : "ptr"
+        pfAllowPlayMarshal := pfAllowPlay is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, HWND, _hwnd, "ptr", pMedia, pfAllowPlayMarshal, pfAllowPlay, "HRESULT")
         return result
@@ -88,7 +88,7 @@ export default struct IWMPSubscriptionService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/subscriptionservices/nf-subscriptionservices-iwmpsubscriptionservice-allowcdburn
      */
     allowCDBurn(_hwnd, pPlaylist, pfAllowBurn) {
-        pfAllowBurnMarshal := pfAllowBurn is VarRef ? "int*" : "ptr"
+        pfAllowBurnMarshal := pfAllowBurn is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, HWND, _hwnd, "ptr", pPlaylist, pfAllowBurnMarshal, pfAllowBurn, "HRESULT")
         return result
@@ -115,7 +115,7 @@ export default struct IWMPSubscriptionService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/subscriptionservices/nf-subscriptionservices-iwmpsubscriptionservice-allowpdatransfer
      */
     allowPDATransfer(_hwnd, pPlaylist, pfAllowTransfer) {
-        pfAllowTransferMarshal := pfAllowTransfer is VarRef ? "int*" : "ptr"
+        pfAllowTransferMarshal := pfAllowTransfer is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, HWND, _hwnd, "ptr", pPlaylist, pfAllowTransferMarshal, pfAllowTransfer, "HRESULT")
         return result
@@ -145,10 +145,10 @@ export default struct IWMPSubscriptionService extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.allowPlay := CallbackCreate(GetMethod(implObj, "allowPlay"), flags, 4)
-        this.vtbl.allowCDBurn := CallbackCreate(GetMethod(implObj, "allowCDBurn"), flags, 4)
-        this.vtbl.allowPDATransfer := CallbackCreate(GetMethod(implObj, "allowPDATransfer"), flags, 4)
-        this.vtbl.startBackgroundProcessing := CallbackCreate(GetMethod(implObj, "startBackgroundProcessing"), flags, 2)
+        this.vtbl.allowPlay := CallbackCreate(ObjBindMethod(implObj, "allowPlay"), flags, 4)
+        this.vtbl.allowCDBurn := CallbackCreate(ObjBindMethod(implObj, "allowCDBurn"), flags, 4)
+        this.vtbl.allowPDATransfer := CallbackCreate(ObjBindMethod(implObj, "allowPDATransfer"), flags, 4)
+        this.vtbl.startBackgroundProcessing := CallbackCreate(ObjBindMethod(implObj, "startBackgroundProcessing"), flags, 2)
     }
 
     Dispose() {

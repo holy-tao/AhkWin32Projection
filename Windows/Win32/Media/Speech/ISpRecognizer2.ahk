@@ -40,7 +40,6 @@ export default struct ISpRecognizer2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISpPhrase} pPhrase 
      * @param {Integer} dwCompareFlags 
      * @returns {HRESULT} 
@@ -51,7 +50,6 @@ export default struct ISpRecognizer2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fDoingTraining 
      * @param {BOOL} fAdaptFromTrainingData 
      * @returns {HRESULT} 
@@ -62,7 +60,6 @@ export default struct ISpRecognizer2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ResetAcousticModelAdaptation() {
@@ -79,9 +76,9 @@ export default struct ISpRecognizer2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EmulateRecognitionEx := CallbackCreate(GetMethod(implObj, "EmulateRecognitionEx"), flags, 3)
-        this.vtbl.SetTrainingState := CallbackCreate(GetMethod(implObj, "SetTrainingState"), flags, 3)
-        this.vtbl.ResetAcousticModelAdaptation := CallbackCreate(GetMethod(implObj, "ResetAcousticModelAdaptation"), flags, 1)
+        this.vtbl.EmulateRecognitionEx := CallbackCreate(ObjBindMethod(implObj, "EmulateRecognitionEx"), flags, 3)
+        this.vtbl.SetTrainingState := CallbackCreate(ObjBindMethod(implObj, "SetTrainingState"), flags, 3)
+        this.vtbl.ResetAcousticModelAdaptation := CallbackCreate(ObjBindMethod(implObj, "ResetAcousticModelAdaptation"), flags, 1)
     }
 
     Dispose() {

@@ -132,7 +132,7 @@ export default struct IWEInvokeCommand extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InvokeCommand := CallbackCreate(GetMethod(implObj, "InvokeCommand"), flags, 3)
+        this.vtbl.InvokeCommand := CallbackCreate(ObjBindMethod(implObj, "InvokeCommand"), flags, 3)
     }
 
     Dispose() {

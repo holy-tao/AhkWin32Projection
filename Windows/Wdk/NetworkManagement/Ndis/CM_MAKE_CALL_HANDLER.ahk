@@ -18,7 +18,6 @@ export default struct CM_MAKE_CALL_HANDLER {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Call() {

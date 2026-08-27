@@ -24,7 +24,6 @@ export default struct PRADIUS_EXTENSION_INIT {
     }
 
     /**
-     * 
      * @returns {Integer} If the function succeeds, the return value is `NO_ERROR`. If the function fails, the return value should be an appropriate error code from WinError.h.
      */
     Call() {

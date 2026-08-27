@@ -40,7 +40,6 @@ export default struct IScriptInvocationContext extends IUnknown {
     }
 
     /**
-     * 
      * @returns {SCRIPT_INVOCATION_CONTEXT_TYPE} 
      */
     GetContextType() {
@@ -49,7 +48,6 @@ export default struct IScriptInvocationContext extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetContextDescription() {
@@ -59,7 +57,6 @@ export default struct IScriptInvocationContext extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     GetContextObject() {
@@ -76,9 +73,9 @@ export default struct IScriptInvocationContext extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetContextType := CallbackCreate(GetMethod(implObj, "GetContextType"), flags, 2)
-        this.vtbl.GetContextDescription := CallbackCreate(GetMethod(implObj, "GetContextDescription"), flags, 2)
-        this.vtbl.GetContextObject := CallbackCreate(GetMethod(implObj, "GetContextObject"), flags, 2)
+        this.vtbl.GetContextType := CallbackCreate(ObjBindMethod(implObj, "GetContextType"), flags, 2)
+        this.vtbl.GetContextDescription := CallbackCreate(ObjBindMethod(implObj, "GetContextDescription"), flags, 2)
+        this.vtbl.GetContextObject := CallbackCreate(ObjBindMethod(implObj, "GetContextObject"), flags, 2)
     }
 
     Dispose() {

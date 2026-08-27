@@ -52,7 +52,6 @@ export default struct IRTCWatcherEvent2 extends IRTCWatcherEvent {
     }
 
     /**
-     * 
      * @returns {RTC_WATCHER_EVENT_TYPE} 
      */
     get_EventType() {
@@ -61,7 +60,6 @@ export default struct IRTCWatcherEvent2 extends IRTCWatcherEvent {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_StatusCode() {
@@ -78,8 +76,8 @@ export default struct IRTCWatcherEvent2 extends IRTCWatcherEvent {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_EventType := CallbackCreate(GetMethod(implObj, "get_EventType"), flags, 2)
-        this.vtbl.get_StatusCode := CallbackCreate(GetMethod(implObj, "get_StatusCode"), flags, 2)
+        this.vtbl.get_EventType := CallbackCreate(ObjBindMethod(implObj, "get_EventType"), flags, 2)
+        this.vtbl.get_StatusCode := CallbackCreate(ObjBindMethod(implObj, "get_StatusCode"), flags, 2)
     }
 
     Dispose() {

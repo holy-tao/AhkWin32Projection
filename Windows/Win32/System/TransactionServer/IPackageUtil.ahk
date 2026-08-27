@@ -45,7 +45,6 @@ export default struct IPackageUtil extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPackageFile 
      * @param {BSTR} bstrInstallPath 
      * @param {Integer} lOptions 
@@ -60,7 +59,6 @@ export default struct IPackageUtil extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPackageID 
      * @param {BSTR} bstrPackageFile 
      * @param {Integer} lOptions 
@@ -75,7 +73,6 @@ export default struct IPackageUtil extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPackageID 
      * @returns {HRESULT} 
      */
@@ -95,9 +92,9 @@ export default struct IPackageUtil extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InstallPackage := CallbackCreate(GetMethod(implObj, "InstallPackage"), flags, 4)
-        this.vtbl.ExportPackage := CallbackCreate(GetMethod(implObj, "ExportPackage"), flags, 4)
-        this.vtbl.ShutdownPackage := CallbackCreate(GetMethod(implObj, "ShutdownPackage"), flags, 2)
+        this.vtbl.InstallPackage := CallbackCreate(ObjBindMethod(implObj, "InstallPackage"), flags, 4)
+        this.vtbl.ExportPackage := CallbackCreate(ObjBindMethod(implObj, "ExportPackage"), flags, 4)
+        this.vtbl.ShutdownPackage := CallbackCreate(ObjBindMethod(implObj, "ShutdownPackage"), flags, 2)
     }
 
     Dispose() {

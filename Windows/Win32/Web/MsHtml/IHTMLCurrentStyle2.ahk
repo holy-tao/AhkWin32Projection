@@ -182,7 +182,6 @@ export default struct IHTMLCurrentStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_layoutFlow() {
@@ -192,7 +191,6 @@ export default struct IHTMLCurrentStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_wordWrap() {
@@ -202,7 +200,6 @@ export default struct IHTMLCurrentStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textUnderlinePosition() {
@@ -212,7 +209,6 @@ export default struct IHTMLCurrentStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_hasLayout() {
@@ -221,7 +217,6 @@ export default struct IHTMLCurrentStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_scrollbarBaseColor() {
@@ -231,7 +226,6 @@ export default struct IHTMLCurrentStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_scrollbarFaceColor() {
@@ -241,7 +235,6 @@ export default struct IHTMLCurrentStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_scrollbar3dLightColor() {
@@ -251,7 +244,6 @@ export default struct IHTMLCurrentStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_scrollbarShadowColor() {
@@ -261,7 +253,6 @@ export default struct IHTMLCurrentStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_scrollbarHighlightColor() {
@@ -271,7 +262,6 @@ export default struct IHTMLCurrentStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_scrollbarDarkShadowColor() {
@@ -281,7 +271,6 @@ export default struct IHTMLCurrentStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_scrollbarArrowColor() {
@@ -291,7 +280,6 @@ export default struct IHTMLCurrentStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_scrollbarTrackColor() {
@@ -301,7 +289,6 @@ export default struct IHTMLCurrentStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_writingMode() {
@@ -311,7 +298,6 @@ export default struct IHTMLCurrentStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_zoom() {
@@ -321,7 +307,6 @@ export default struct IHTMLCurrentStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_filter() {
@@ -331,7 +316,6 @@ export default struct IHTMLCurrentStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textAlignLast() {
@@ -341,7 +325,6 @@ export default struct IHTMLCurrentStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_textKashidaSpace() {
@@ -351,7 +334,6 @@ export default struct IHTMLCurrentStyle2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_isBlock() {
@@ -368,24 +350,24 @@ export default struct IHTMLCurrentStyle2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_layoutFlow := CallbackCreate(GetMethod(implObj, "get_layoutFlow"), flags, 2)
-        this.vtbl.get_wordWrap := CallbackCreate(GetMethod(implObj, "get_wordWrap"), flags, 2)
-        this.vtbl.get_textUnderlinePosition := CallbackCreate(GetMethod(implObj, "get_textUnderlinePosition"), flags, 2)
-        this.vtbl.get_hasLayout := CallbackCreate(GetMethod(implObj, "get_hasLayout"), flags, 2)
-        this.vtbl.get_scrollbarBaseColor := CallbackCreate(GetMethod(implObj, "get_scrollbarBaseColor"), flags, 2)
-        this.vtbl.get_scrollbarFaceColor := CallbackCreate(GetMethod(implObj, "get_scrollbarFaceColor"), flags, 2)
-        this.vtbl.get_scrollbar3dLightColor := CallbackCreate(GetMethod(implObj, "get_scrollbar3dLightColor"), flags, 2)
-        this.vtbl.get_scrollbarShadowColor := CallbackCreate(GetMethod(implObj, "get_scrollbarShadowColor"), flags, 2)
-        this.vtbl.get_scrollbarHighlightColor := CallbackCreate(GetMethod(implObj, "get_scrollbarHighlightColor"), flags, 2)
-        this.vtbl.get_scrollbarDarkShadowColor := CallbackCreate(GetMethod(implObj, "get_scrollbarDarkShadowColor"), flags, 2)
-        this.vtbl.get_scrollbarArrowColor := CallbackCreate(GetMethod(implObj, "get_scrollbarArrowColor"), flags, 2)
-        this.vtbl.get_scrollbarTrackColor := CallbackCreate(GetMethod(implObj, "get_scrollbarTrackColor"), flags, 2)
-        this.vtbl.get_writingMode := CallbackCreate(GetMethod(implObj, "get_writingMode"), flags, 2)
-        this.vtbl.get_zoom := CallbackCreate(GetMethod(implObj, "get_zoom"), flags, 2)
-        this.vtbl.get_filter := CallbackCreate(GetMethod(implObj, "get_filter"), flags, 2)
-        this.vtbl.get_textAlignLast := CallbackCreate(GetMethod(implObj, "get_textAlignLast"), flags, 2)
-        this.vtbl.get_textKashidaSpace := CallbackCreate(GetMethod(implObj, "get_textKashidaSpace"), flags, 2)
-        this.vtbl.get_isBlock := CallbackCreate(GetMethod(implObj, "get_isBlock"), flags, 2)
+        this.vtbl.get_layoutFlow := CallbackCreate(ObjBindMethod(implObj, "get_layoutFlow"), flags, 2)
+        this.vtbl.get_wordWrap := CallbackCreate(ObjBindMethod(implObj, "get_wordWrap"), flags, 2)
+        this.vtbl.get_textUnderlinePosition := CallbackCreate(ObjBindMethod(implObj, "get_textUnderlinePosition"), flags, 2)
+        this.vtbl.get_hasLayout := CallbackCreate(ObjBindMethod(implObj, "get_hasLayout"), flags, 2)
+        this.vtbl.get_scrollbarBaseColor := CallbackCreate(ObjBindMethod(implObj, "get_scrollbarBaseColor"), flags, 2)
+        this.vtbl.get_scrollbarFaceColor := CallbackCreate(ObjBindMethod(implObj, "get_scrollbarFaceColor"), flags, 2)
+        this.vtbl.get_scrollbar3dLightColor := CallbackCreate(ObjBindMethod(implObj, "get_scrollbar3dLightColor"), flags, 2)
+        this.vtbl.get_scrollbarShadowColor := CallbackCreate(ObjBindMethod(implObj, "get_scrollbarShadowColor"), flags, 2)
+        this.vtbl.get_scrollbarHighlightColor := CallbackCreate(ObjBindMethod(implObj, "get_scrollbarHighlightColor"), flags, 2)
+        this.vtbl.get_scrollbarDarkShadowColor := CallbackCreate(ObjBindMethod(implObj, "get_scrollbarDarkShadowColor"), flags, 2)
+        this.vtbl.get_scrollbarArrowColor := CallbackCreate(ObjBindMethod(implObj, "get_scrollbarArrowColor"), flags, 2)
+        this.vtbl.get_scrollbarTrackColor := CallbackCreate(ObjBindMethod(implObj, "get_scrollbarTrackColor"), flags, 2)
+        this.vtbl.get_writingMode := CallbackCreate(ObjBindMethod(implObj, "get_writingMode"), flags, 2)
+        this.vtbl.get_zoom := CallbackCreate(ObjBindMethod(implObj, "get_zoom"), flags, 2)
+        this.vtbl.get_filter := CallbackCreate(ObjBindMethod(implObj, "get_filter"), flags, 2)
+        this.vtbl.get_textAlignLast := CallbackCreate(ObjBindMethod(implObj, "get_textAlignLast"), flags, 2)
+        this.vtbl.get_textKashidaSpace := CallbackCreate(ObjBindMethod(implObj, "get_textKashidaSpace"), flags, 2)
+        this.vtbl.get_isBlock := CallbackCreate(ObjBindMethod(implObj, "get_isBlock"), flags, 2)
     }
 
     Dispose() {

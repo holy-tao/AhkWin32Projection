@@ -126,11 +126,11 @@ export default struct IAppxFile extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCompressionOption := CallbackCreate(GetMethod(implObj, "GetCompressionOption"), flags, 2)
-        this.vtbl.GetContentType := CallbackCreate(GetMethod(implObj, "GetContentType"), flags, 2)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
-        this.vtbl.GetSize := CallbackCreate(GetMethod(implObj, "GetSize"), flags, 2)
-        this.vtbl.GetStream := CallbackCreate(GetMethod(implObj, "GetStream"), flags, 2)
+        this.vtbl.GetCompressionOption := CallbackCreate(ObjBindMethod(implObj, "GetCompressionOption"), flags, 2)
+        this.vtbl.GetContentType := CallbackCreate(ObjBindMethod(implObj, "GetContentType"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetSize := CallbackCreate(ObjBindMethod(implObj, "GetSize"), flags, 2)
+        this.vtbl.GetStream := CallbackCreate(ObjBindMethod(implObj, "GetStream"), flags, 2)
     }
 
     Dispose() {

@@ -113,7 +113,6 @@ export default struct IMAPIContainer extends IMAPIProp {
     }
 
     /**
-     * 
      * @remarks
      * The **IMAPIContainer::OpenEntry** method opens an object throughout a container and returns a pointer to an interface implementation to use for further access.
      * @param {Integer} cbEntryID > [in] The byte count in the entry identifier pointed to by the  _lpEntryID_ parameter.
@@ -156,7 +155,7 @@ export default struct IMAPIContainer extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapicontainer-openentry
      */
     OpenEntry(cbEntryID, lpEntryID, lpInterface, ulFlags, lpulObjType, lppUnk) {
-        lpulObjTypeMarshal := lpulObjType is VarRef ? "uint*" : "ptr"
+        lpulObjTypeMarshal := lpulObjType is VarRef ? "uint*" : IntPtr
 
         result := ComCall(16, this, UInt32, cbEntryID, IntPtr, lpEntryID, Guid.Ptr, lpInterface, UInt32, ulFlags, lpulObjTypeMarshal, lpulObjType, IUnknown.Ptr, lppUnk, "HRESULT")
         return result
@@ -211,7 +210,10 @@ export default struct IMAPIContainer extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapicontainer-setsearchcriteria
      */
     SetSearchCriteria(lpRestriction, lpContainerList, ulSearchFlags) {
-        result := ComCall(17, this, SRestriction.Ptr, lpRestriction, SBinaryArray.Ptr, lpContainerList, UInt32, ulSearchFlags, "HRESULT")
+        lpRestrictionMarshal := lpRestriction == 0 ? IntPtr : SRestriction.Ptr
+        lpContainerListMarshal := lpContainerList == 0 ? IntPtr : SBinaryArray.Ptr
+
+        result := ComCall(17, this, lpRestrictionMarshal, lpRestriction, lpContainerListMarshal, lpContainerList, UInt32, ulSearchFlags, "HRESULT")
         return result
     }
 
@@ -257,9 +259,10 @@ export default struct IMAPIContainer extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapicontainer-getsearchcriteria
      */
     GetSearchCriteria(ulFlags, lppRestriction, lppContainerList, lpulSearchState) {
-        lppRestrictionMarshal := lppRestriction is VarRef ? "ptr*" : "ptr"
-        lppContainerListMarshal := lppContainerList is VarRef ? "ptr*" : "ptr"
-        lpulSearchStateMarshal := lpulSearchState is VarRef ? "uint*" : "ptr"
+        lppRestrictionMarshal := lppRestriction is VarRef ? "ptr*" : IntPtr
+        lppContainerListMarshal := lppContainerList is VarRef ? "ptr*" : IntPtr
+        lpulSearchStateMarshal := lpulSearchState is VarRef ? "uint*" : IntPtr
+        lpulSearchStateMarshal := lpulSearchState == 0 ? IntPtr : "uint*"
 
         result := ComCall(18, this, UInt32, ulFlags, lppRestrictionMarshal, lppRestriction, lppContainerListMarshal, lppContainerList, lpulSearchStateMarshal, lpulSearchState, "HRESULT")
         return result
@@ -274,11 +277,11 @@ export default struct IMAPIContainer extends IMAPIProp {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetContentsTable := CallbackCreate(GetMethod(implObj, "GetContentsTable"), flags, 3)
-        this.vtbl.GetHierarchyTable := CallbackCreate(GetMethod(implObj, "GetHierarchyTable"), flags, 3)
-        this.vtbl.OpenEntry := CallbackCreate(GetMethod(implObj, "OpenEntry"), flags, 7)
-        this.vtbl.SetSearchCriteria := CallbackCreate(GetMethod(implObj, "SetSearchCriteria"), flags, 4)
-        this.vtbl.GetSearchCriteria := CallbackCreate(GetMethod(implObj, "GetSearchCriteria"), flags, 5)
+        this.vtbl.GetContentsTable := CallbackCreate(ObjBindMethod(implObj, "GetContentsTable"), flags, 3)
+        this.vtbl.GetHierarchyTable := CallbackCreate(ObjBindMethod(implObj, "GetHierarchyTable"), flags, 3)
+        this.vtbl.OpenEntry := CallbackCreate(ObjBindMethod(implObj, "OpenEntry"), flags, 7)
+        this.vtbl.SetSearchCriteria := CallbackCreate(ObjBindMethod(implObj, "SetSearchCriteria"), flags, 4)
+        this.vtbl.GetSearchCriteria := CallbackCreate(ObjBindMethod(implObj, "GetSearchCriteria"), flags, 5)
     }
 
     Dispose() {

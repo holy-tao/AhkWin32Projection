@@ -66,7 +66,6 @@ export default struct ILocationReportFactory extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} requestedReportInterval 
      * @returns {HRESULT} 
      */
@@ -76,7 +75,6 @@ export default struct ILocationReportFactory extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     StopListeningForReports() {
@@ -85,7 +83,6 @@ export default struct ILocationReportFactory extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Status() {
@@ -94,7 +91,6 @@ export default struct ILocationReportFactory extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ReportInterval() {
@@ -103,7 +99,6 @@ export default struct ILocationReportFactory extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} millisecondsRequested 
      * @returns {HRESULT} 
      */
@@ -113,7 +108,6 @@ export default struct ILocationReportFactory extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DesiredAccuracy() {
@@ -122,7 +116,6 @@ export default struct ILocationReportFactory extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} desiredAccuracy 
      * @returns {HRESULT} 
      */
@@ -132,12 +125,11 @@ export default struct ILocationReportFactory extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} _hWnd 
      * @returns {HRESULT} 
      */
     RequestPermissions(_hWnd) {
-        _hWndMarshal := _hWnd is VarRef ? "uint*" : "ptr"
+        _hWndMarshal := _hWnd is VarRef ? "uint*" : IntPtr
 
         result := ComCall(14, this, _hWndMarshal, _hWnd, "HRESULT")
         return result
@@ -152,14 +144,14 @@ export default struct ILocationReportFactory extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ListenForReports := CallbackCreate(GetMethod(implObj, "ListenForReports"), flags, 2)
-        this.vtbl.StopListeningForReports := CallbackCreate(GetMethod(implObj, "StopListeningForReports"), flags, 1)
-        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
-        this.vtbl.get_ReportInterval := CallbackCreate(GetMethod(implObj, "get_ReportInterval"), flags, 2)
-        this.vtbl.put_ReportInterval := CallbackCreate(GetMethod(implObj, "put_ReportInterval"), flags, 2)
-        this.vtbl.get_DesiredAccuracy := CallbackCreate(GetMethod(implObj, "get_DesiredAccuracy"), flags, 2)
-        this.vtbl.put_DesiredAccuracy := CallbackCreate(GetMethod(implObj, "put_DesiredAccuracy"), flags, 2)
-        this.vtbl.RequestPermissions := CallbackCreate(GetMethod(implObj, "RequestPermissions"), flags, 2)
+        this.vtbl.ListenForReports := CallbackCreate(ObjBindMethod(implObj, "ListenForReports"), flags, 2)
+        this.vtbl.StopListeningForReports := CallbackCreate(ObjBindMethod(implObj, "StopListeningForReports"), flags, 1)
+        this.vtbl.get_Status := CallbackCreate(ObjBindMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.get_ReportInterval := CallbackCreate(ObjBindMethod(implObj, "get_ReportInterval"), flags, 2)
+        this.vtbl.put_ReportInterval := CallbackCreate(ObjBindMethod(implObj, "put_ReportInterval"), flags, 2)
+        this.vtbl.get_DesiredAccuracy := CallbackCreate(ObjBindMethod(implObj, "get_DesiredAccuracy"), flags, 2)
+        this.vtbl.put_DesiredAccuracy := CallbackCreate(ObjBindMethod(implObj, "put_DesiredAccuracy"), flags, 2)
+        this.vtbl.RequestPermissions := CallbackCreate(ObjBindMethod(implObj, "RequestPermissions"), flags, 2)
     }
 
     Dispose() {

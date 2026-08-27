@@ -42,7 +42,6 @@ export default struct DRMCALLBACK {
     }
 
     /**
-     * 
      * @param {DRM_STATUS_MSG} param0 Specifies the action being performed. This can be one of the <a href="https://docs.microsoft.com/windows/desktop/api/msdrmdefs/ne-msdrmdefs-drm_status_msg">DRM_STATUS_MSG</a> enumeration values.
      * @param {HRESULT} param1 The status of the current action.
      * @param {Pointer<Void>} param2 
@@ -52,8 +51,8 @@ export default struct DRMCALLBACK {
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      */
     Call(param0, param1, param2, param3) {
-        param2Marshal := param2 is VarRef ? "ptr" : "ptr"
-        param3Marshal := param3 is VarRef ? "ptr" : "ptr"
+        param2Marshal := param2 is VarRef ? "ptr" : IntPtr
+        param3Marshal := param3 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, DRM_STATUS_MSG, param0, "int", param1, param2Marshal, param2, param3Marshal, param3, "HRESULT")
         return result

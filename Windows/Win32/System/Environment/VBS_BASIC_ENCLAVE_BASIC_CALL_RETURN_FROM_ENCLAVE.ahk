@@ -18,7 +18,6 @@ export default struct VBS_BASIC_ENCLAVE_BASIC_CALL_RETURN_FROM_ENCLAVE {
     }
 
     /**
-     * 
      * @param {Pointer} ReturnValue 
      * @returns {String} Nothing - always returns an empty string
      */

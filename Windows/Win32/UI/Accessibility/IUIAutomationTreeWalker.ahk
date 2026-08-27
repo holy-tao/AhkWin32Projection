@@ -329,19 +329,19 @@ export default struct IUIAutomationTreeWalker extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetParentElement := CallbackCreate(GetMethod(implObj, "GetParentElement"), flags, 3)
-        this.vtbl.GetFirstChildElement := CallbackCreate(GetMethod(implObj, "GetFirstChildElement"), flags, 3)
-        this.vtbl.GetLastChildElement := CallbackCreate(GetMethod(implObj, "GetLastChildElement"), flags, 3)
-        this.vtbl.GetNextSiblingElement := CallbackCreate(GetMethod(implObj, "GetNextSiblingElement"), flags, 3)
-        this.vtbl.GetPreviousSiblingElement := CallbackCreate(GetMethod(implObj, "GetPreviousSiblingElement"), flags, 3)
-        this.vtbl.NormalizeElement := CallbackCreate(GetMethod(implObj, "NormalizeElement"), flags, 3)
-        this.vtbl.GetParentElementBuildCache := CallbackCreate(GetMethod(implObj, "GetParentElementBuildCache"), flags, 4)
-        this.vtbl.GetFirstChildElementBuildCache := CallbackCreate(GetMethod(implObj, "GetFirstChildElementBuildCache"), flags, 4)
-        this.vtbl.GetLastChildElementBuildCache := CallbackCreate(GetMethod(implObj, "GetLastChildElementBuildCache"), flags, 4)
-        this.vtbl.GetNextSiblingElementBuildCache := CallbackCreate(GetMethod(implObj, "GetNextSiblingElementBuildCache"), flags, 4)
-        this.vtbl.GetPreviousSiblingElementBuildCache := CallbackCreate(GetMethod(implObj, "GetPreviousSiblingElementBuildCache"), flags, 4)
-        this.vtbl.NormalizeElementBuildCache := CallbackCreate(GetMethod(implObj, "NormalizeElementBuildCache"), flags, 4)
-        this.vtbl.get_Condition := CallbackCreate(GetMethod(implObj, "get_Condition"), flags, 2)
+        this.vtbl.GetParentElement := CallbackCreate(ObjBindMethod(implObj, "GetParentElement"), flags, 3)
+        this.vtbl.GetFirstChildElement := CallbackCreate(ObjBindMethod(implObj, "GetFirstChildElement"), flags, 3)
+        this.vtbl.GetLastChildElement := CallbackCreate(ObjBindMethod(implObj, "GetLastChildElement"), flags, 3)
+        this.vtbl.GetNextSiblingElement := CallbackCreate(ObjBindMethod(implObj, "GetNextSiblingElement"), flags, 3)
+        this.vtbl.GetPreviousSiblingElement := CallbackCreate(ObjBindMethod(implObj, "GetPreviousSiblingElement"), flags, 3)
+        this.vtbl.NormalizeElement := CallbackCreate(ObjBindMethod(implObj, "NormalizeElement"), flags, 3)
+        this.vtbl.GetParentElementBuildCache := CallbackCreate(ObjBindMethod(implObj, "GetParentElementBuildCache"), flags, 4)
+        this.vtbl.GetFirstChildElementBuildCache := CallbackCreate(ObjBindMethod(implObj, "GetFirstChildElementBuildCache"), flags, 4)
+        this.vtbl.GetLastChildElementBuildCache := CallbackCreate(ObjBindMethod(implObj, "GetLastChildElementBuildCache"), flags, 4)
+        this.vtbl.GetNextSiblingElementBuildCache := CallbackCreate(ObjBindMethod(implObj, "GetNextSiblingElementBuildCache"), flags, 4)
+        this.vtbl.GetPreviousSiblingElementBuildCache := CallbackCreate(ObjBindMethod(implObj, "GetPreviousSiblingElementBuildCache"), flags, 4)
+        this.vtbl.NormalizeElementBuildCache := CallbackCreate(ObjBindMethod(implObj, "NormalizeElementBuildCache"), flags, 4)
+        this.vtbl.get_Condition := CallbackCreate(ObjBindMethod(implObj, "get_Condition"), flags, 2)
     }
 
     Dispose() {

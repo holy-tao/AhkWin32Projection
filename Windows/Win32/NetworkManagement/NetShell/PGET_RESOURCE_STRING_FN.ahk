@@ -19,7 +19,6 @@ export default struct PGET_RESOURCE_STRING_FN {
     }
 
     /**
-     * 
      * @param {Integer} dwMsgID 
      * @param {PWSTR} lpBuffer 
      * @param {Integer} nBufferMax 

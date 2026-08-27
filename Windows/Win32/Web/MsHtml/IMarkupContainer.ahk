@@ -37,7 +37,6 @@ export default struct IMarkupContainer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IHTMLDocument2} 
      */
     OwningDoc() {
@@ -54,7 +53,7 @@ export default struct IMarkupContainer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OwningDoc := CallbackCreate(GetMethod(implObj, "OwningDoc"), flags, 2)
+        this.vtbl.OwningDoc := CallbackCreate(ObjBindMethod(implObj, "OwningDoc"), flags, 2)
     }
 
     Dispose() {

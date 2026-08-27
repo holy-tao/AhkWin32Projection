@@ -118,7 +118,10 @@ export default struct IDWriteFactory2 extends IDWriteFactory1 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritefactory2-translatecolorglyphrun
      */
     TranslateColorGlyphRun(baselineOriginX, baselineOriginY, _glyphRun, glyphRunDescription, measuringMode, worldToDeviceTransform, colorPaletteIndex) {
-        result := ComCall(28, this, Float32, baselineOriginX, Float32, baselineOriginY, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_GLYPH_RUN_DESCRIPTION.Ptr, glyphRunDescription, DWRITE_MEASURING_MODE, measuringMode, DWRITE_MATRIX.Ptr, worldToDeviceTransform, UInt32, colorPaletteIndex, "ptr*", &colorLayers := 0, "HRESULT")
+        glyphRunDescriptionMarshal := glyphRunDescription == 0 ? IntPtr : DWRITE_GLYPH_RUN_DESCRIPTION.Ptr
+        worldToDeviceTransformMarshal := worldToDeviceTransform == 0 ? IntPtr : DWRITE_MATRIX.Ptr
+
+        result := ComCall(28, this, Float32, baselineOriginX, Float32, baselineOriginY, DWRITE_GLYPH_RUN.Ptr, _glyphRun, glyphRunDescriptionMarshal, glyphRunDescription, DWRITE_MEASURING_MODE, measuringMode, worldToDeviceTransformMarshal, worldToDeviceTransform, UInt32, colorPaletteIndex, "ptr*", &colorLayers := 0, "HRESULT")
         return IDWriteColorGlyphRunEnumerator(colorLayers)
     }
 
@@ -187,7 +190,9 @@ export default struct IDWriteFactory2 extends IDWriteFactory1 {
      * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritefactory2-createglyphrunanalysis
      */
     CreateGlyphRunAnalysis(_glyphRun, transform, renderingMode, measuringMode, gridFitMode, antialiasMode, baselineOriginX, baselineOriginY) {
-        result := ComCall(30, this, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_MATRIX.Ptr, transform, DWRITE_RENDERING_MODE, renderingMode, DWRITE_MEASURING_MODE, measuringMode, DWRITE_GRID_FIT_MODE, gridFitMode, DWRITE_TEXT_ANTIALIAS_MODE, antialiasMode, Float32, baselineOriginX, Float32, baselineOriginY, "ptr*", &glyphRunAnalysis := 0, "HRESULT")
+        transformMarshal := transform == 0 ? IntPtr : DWRITE_MATRIX.Ptr
+
+        result := ComCall(30, this, DWRITE_GLYPH_RUN.Ptr, _glyphRun, transformMarshal, transform, DWRITE_RENDERING_MODE, renderingMode, DWRITE_MEASURING_MODE, measuringMode, DWRITE_GRID_FIT_MODE, gridFitMode, DWRITE_TEXT_ANTIALIAS_MODE, antialiasMode, Float32, baselineOriginX, Float32, baselineOriginY, "ptr*", &glyphRunAnalysis := 0, "HRESULT")
         return IDWriteGlyphRunAnalysis(glyphRunAnalysis)
     }
 
@@ -200,11 +205,11 @@ export default struct IDWriteFactory2 extends IDWriteFactory1 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSystemFontFallback := CallbackCreate(GetMethod(implObj, "GetSystemFontFallback"), flags, 2)
-        this.vtbl.CreateFontFallbackBuilder := CallbackCreate(GetMethod(implObj, "CreateFontFallbackBuilder"), flags, 2)
-        this.vtbl.TranslateColorGlyphRun := CallbackCreate(GetMethod(implObj, "TranslateColorGlyphRun"), flags, 9)
-        this.vtbl.CreateCustomRenderingParams := CallbackCreate(GetMethod(implObj, "CreateCustomRenderingParams"), flags, 9)
-        this.vtbl.CreateGlyphRunAnalysis := CallbackCreate(GetMethod(implObj, "CreateGlyphRunAnalysis"), flags, 10)
+        this.vtbl.GetSystemFontFallback := CallbackCreate(ObjBindMethod(implObj, "GetSystemFontFallback"), flags, 2)
+        this.vtbl.CreateFontFallbackBuilder := CallbackCreate(ObjBindMethod(implObj, "CreateFontFallbackBuilder"), flags, 2)
+        this.vtbl.TranslateColorGlyphRun := CallbackCreate(ObjBindMethod(implObj, "TranslateColorGlyphRun"), flags, 9)
+        this.vtbl.CreateCustomRenderingParams := CallbackCreate(ObjBindMethod(implObj, "CreateCustomRenderingParams"), flags, 9)
+        this.vtbl.CreateGlyphRunAnalysis := CallbackCreate(ObjBindMethod(implObj, "CreateGlyphRunAnalysis"), flags, 10)
     }
 
     Dispose() {

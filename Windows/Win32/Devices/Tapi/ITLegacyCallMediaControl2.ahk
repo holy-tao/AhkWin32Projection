@@ -525,16 +525,16 @@ export default struct ITLegacyCallMediaControl2 extends ITLegacyCallMediaControl
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GenerateDigits2 := CallbackCreate(GetMethod(implObj, "GenerateDigits2"), flags, 4)
-        this.vtbl.GatherDigits := CallbackCreate(GetMethod(implObj, "GatherDigits"), flags, 6)
-        this.vtbl.DetectTones := CallbackCreate(GetMethod(implObj, "DetectTones"), flags, 3)
-        this.vtbl.DetectTonesByCollection := CallbackCreate(GetMethod(implObj, "DetectTonesByCollection"), flags, 2)
-        this.vtbl.GenerateTone := CallbackCreate(GetMethod(implObj, "GenerateTone"), flags, 3)
-        this.vtbl.GenerateCustomTones := CallbackCreate(GetMethod(implObj, "GenerateCustomTones"), flags, 4)
-        this.vtbl.GenerateCustomTonesByCollection := CallbackCreate(GetMethod(implObj, "GenerateCustomTonesByCollection"), flags, 3)
-        this.vtbl.CreateDetectToneObject := CallbackCreate(GetMethod(implObj, "CreateDetectToneObject"), flags, 2)
-        this.vtbl.CreateCustomToneObject := CallbackCreate(GetMethod(implObj, "CreateCustomToneObject"), flags, 2)
-        this.vtbl.GetIDAsVariant := CallbackCreate(GetMethod(implObj, "GetIDAsVariant"), flags, 3)
+        this.vtbl.GenerateDigits2 := CallbackCreate(ObjBindMethod(implObj, "GenerateDigits2"), flags, 4)
+        this.vtbl.GatherDigits := CallbackCreate(ObjBindMethod(implObj, "GatherDigits"), flags, 6)
+        this.vtbl.DetectTones := CallbackCreate(ObjBindMethod(implObj, "DetectTones"), flags, 3)
+        this.vtbl.DetectTonesByCollection := CallbackCreate(ObjBindMethod(implObj, "DetectTonesByCollection"), flags, 2)
+        this.vtbl.GenerateTone := CallbackCreate(ObjBindMethod(implObj, "GenerateTone"), flags, 3)
+        this.vtbl.GenerateCustomTones := CallbackCreate(ObjBindMethod(implObj, "GenerateCustomTones"), flags, 4)
+        this.vtbl.GenerateCustomTonesByCollection := CallbackCreate(ObjBindMethod(implObj, "GenerateCustomTonesByCollection"), flags, 3)
+        this.vtbl.CreateDetectToneObject := CallbackCreate(ObjBindMethod(implObj, "CreateDetectToneObject"), flags, 2)
+        this.vtbl.CreateCustomToneObject := CallbackCreate(ObjBindMethod(implObj, "CreateCustomToneObject"), flags, 2)
+        this.vtbl.GetIDAsVariant := CallbackCreate(ObjBindMethod(implObj, "GetIDAsVariant"), flags, 3)
     }
 
     Dispose() {

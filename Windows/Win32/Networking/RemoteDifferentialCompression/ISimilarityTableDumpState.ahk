@@ -55,8 +55,8 @@ export default struct ISimilarityTableDumpState extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilaritytabledumpstate-getnextdata
      */
     GetNextData(resultsSize, resultsUsed, eof, results) {
-        resultsUsedMarshal := resultsUsed is VarRef ? "uint*" : "ptr"
-        eofMarshal := eof is VarRef ? "int*" : "ptr"
+        resultsUsedMarshal := resultsUsed is VarRef ? "uint*" : IntPtr
+        eofMarshal := eof is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, UInt32, resultsSize, resultsUsedMarshal, resultsUsed, eofMarshal, eof, SimilarityDumpData.Ptr, results, "HRESULT")
         return result
@@ -71,7 +71,7 @@ export default struct ISimilarityTableDumpState extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNextData := CallbackCreate(GetMethod(implObj, "GetNextData"), flags, 5)
+        this.vtbl.GetNextData := CallbackCreate(ObjBindMethod(implObj, "GetNextData"), flags, 5)
     }
 
     Dispose() {

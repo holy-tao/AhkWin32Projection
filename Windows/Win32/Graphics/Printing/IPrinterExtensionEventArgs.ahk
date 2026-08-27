@@ -95,7 +95,6 @@ export default struct IPrinterExtensionEventArgs extends IPrinterExtensionContex
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_BidiNotification() {
@@ -105,7 +104,6 @@ export default struct IPrinterExtensionEventArgs extends IPrinterExtensionContex
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     get_ReasonId() {
@@ -115,7 +113,6 @@ export default struct IPrinterExtensionEventArgs extends IPrinterExtensionContex
     }
 
     /**
-     * 
      * @returns {IPrinterExtensionRequest} 
      */
     get_Request() {
@@ -124,7 +121,6 @@ export default struct IPrinterExtensionEventArgs extends IPrinterExtensionContex
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_SourceApplication() {
@@ -134,7 +130,6 @@ export default struct IPrinterExtensionEventArgs extends IPrinterExtensionContex
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     get_DetailedReasonId() {
@@ -144,7 +139,6 @@ export default struct IPrinterExtensionEventArgs extends IPrinterExtensionContex
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_WindowModal() {
@@ -153,7 +147,6 @@ export default struct IPrinterExtensionEventArgs extends IPrinterExtensionContex
     }
 
     /**
-     * 
      * @returns {HANDLE} 
      */
     get_WindowParent() {
@@ -171,13 +164,13 @@ export default struct IPrinterExtensionEventArgs extends IPrinterExtensionContex
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_BidiNotification := CallbackCreate(GetMethod(implObj, "get_BidiNotification"), flags, 2)
-        this.vtbl.get_ReasonId := CallbackCreate(GetMethod(implObj, "get_ReasonId"), flags, 2)
-        this.vtbl.get_Request := CallbackCreate(GetMethod(implObj, "get_Request"), flags, 2)
-        this.vtbl.get_SourceApplication := CallbackCreate(GetMethod(implObj, "get_SourceApplication"), flags, 2)
-        this.vtbl.get_DetailedReasonId := CallbackCreate(GetMethod(implObj, "get_DetailedReasonId"), flags, 2)
-        this.vtbl.get_WindowModal := CallbackCreate(GetMethod(implObj, "get_WindowModal"), flags, 2)
-        this.vtbl.get_WindowParent := CallbackCreate(GetMethod(implObj, "get_WindowParent"), flags, 2)
+        this.vtbl.get_BidiNotification := CallbackCreate(ObjBindMethod(implObj, "get_BidiNotification"), flags, 2)
+        this.vtbl.get_ReasonId := CallbackCreate(ObjBindMethod(implObj, "get_ReasonId"), flags, 2)
+        this.vtbl.get_Request := CallbackCreate(ObjBindMethod(implObj, "get_Request"), flags, 2)
+        this.vtbl.get_SourceApplication := CallbackCreate(ObjBindMethod(implObj, "get_SourceApplication"), flags, 2)
+        this.vtbl.get_DetailedReasonId := CallbackCreate(ObjBindMethod(implObj, "get_DetailedReasonId"), flags, 2)
+        this.vtbl.get_WindowModal := CallbackCreate(ObjBindMethod(implObj, "get_WindowModal"), flags, 2)
+        this.vtbl.get_WindowParent := CallbackCreate(ObjBindMethod(implObj, "get_WindowParent"), flags, 2)
     }
 
     Dispose() {

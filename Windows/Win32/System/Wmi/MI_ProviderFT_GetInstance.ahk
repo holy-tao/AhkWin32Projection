@@ -21,7 +21,6 @@ export default struct MI_ProviderFT_GetInstance {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} self 
      * @param {Pointer<MI_Context>} _context 
      * @param {Pointer<Integer>} nameSpace 
@@ -31,11 +30,13 @@ export default struct MI_ProviderFT_GetInstance {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(self, _context, nameSpace, className, instanceName, propertySet) {
-        selfMarshal := self is VarRef ? "ptr" : "ptr"
-        nameSpaceMarshal := nameSpace is VarRef ? "ushort*" : "ptr"
-        classNameMarshal := className is VarRef ? "ushort*" : "ptr"
+        selfMarshal := self is VarRef ? "ptr" : IntPtr
+        selfMarshal := self == 0 ? IntPtr : "ptr"
+        nameSpaceMarshal := nameSpace is VarRef ? "ushort*" : IntPtr
+        classNameMarshal := className is VarRef ? "ushort*" : IntPtr
+        propertySetMarshal := propertySet == 0 ? IntPtr : MI_PropertySet.Ptr
 
-        DllCall(this.value, selfMarshal, self, MI_Context.Ptr, _context, nameSpaceMarshal, nameSpace, classNameMarshal, className, MI_Instance.Ptr, instanceName, MI_PropertySet.Ptr, propertySet)
+        DllCall(this.value, selfMarshal, self, MI_Context.Ptr, _context, nameSpaceMarshal, nameSpace, classNameMarshal, className, MI_Instance.Ptr, instanceName, propertySetMarshal, propertySet)
     }
 
     /**

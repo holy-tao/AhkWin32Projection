@@ -38,7 +38,6 @@ export default struct IRowsetAsynch extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} pulDenominator 
      * @param {Pointer<Pointer>} pulNumerator 
      * @param {Pointer<Pointer>} pcRows 
@@ -46,17 +45,16 @@ export default struct IRowsetAsynch extends IUnknown {
      * @returns {HRESULT} 
      */
     RatioFinished(pulDenominator, pulNumerator, pcRows, pfNewRows) {
-        pulDenominatorMarshal := pulDenominator is VarRef ? "ptr*" : "ptr"
-        pulNumeratorMarshal := pulNumerator is VarRef ? "ptr*" : "ptr"
-        pcRowsMarshal := pcRows is VarRef ? "ptr*" : "ptr"
-        pfNewRowsMarshal := pfNewRows is VarRef ? "int*" : "ptr"
+        pulDenominatorMarshal := pulDenominator is VarRef ? "ptr*" : IntPtr
+        pulNumeratorMarshal := pulNumerator is VarRef ? "ptr*" : IntPtr
+        pcRowsMarshal := pcRows is VarRef ? "ptr*" : IntPtr
+        pfNewRowsMarshal := pfNewRows is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, pulDenominatorMarshal, pulDenominator, pulNumeratorMarshal, pulNumerator, pcRowsMarshal, pcRows, pfNewRowsMarshal, pfNewRows, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Stop() {
@@ -73,8 +71,8 @@ export default struct IRowsetAsynch extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RatioFinished := CallbackCreate(GetMethod(implObj, "RatioFinished"), flags, 5)
-        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.RatioFinished := CallbackCreate(ObjBindMethod(implObj, "RatioFinished"), flags, 5)
+        this.vtbl.Stop := CallbackCreate(ObjBindMethod(implObj, "Stop"), flags, 1)
     }
 
     Dispose() {

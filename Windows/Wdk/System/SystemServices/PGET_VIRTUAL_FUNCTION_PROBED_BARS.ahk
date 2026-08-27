@@ -19,7 +19,6 @@ export default struct PGET_VIRTUAL_FUNCTION_PROBED_BARS {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

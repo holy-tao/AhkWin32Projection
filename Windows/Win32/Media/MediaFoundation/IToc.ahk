@@ -180,9 +180,10 @@ export default struct IToc extends IUnknown {
     GetDescription(pwDescriptionSize, pwszDescription) {
         pwszDescription := pwszDescription is String ? StrPtr(pwszDescription) : pwszDescription
 
-        pwDescriptionSizeMarshal := pwDescriptionSize is VarRef ? "ushort*" : "ptr"
+        pwDescriptionSizeMarshal := pwDescriptionSize is VarRef ? "ushort*" : IntPtr
+        pwszDescriptionMarshal := pwszDescription == 0 ? IntPtr : PWSTR
 
-        result := ComCall(6, this, pwDescriptionSizeMarshal, pwDescriptionSize, "ptr", pwszDescription, "HRESULT")
+        result := ComCall(6, this, pwDescriptionSizeMarshal, pwDescriptionSize, pwszDescriptionMarshal, pwszDescription, "HRESULT")
         return result
     }
 
@@ -214,7 +215,7 @@ export default struct IToc extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itoc-setcontext
      */
     SetContext(dwContextSize, pbtContext) {
-        pbtContextMarshal := pbtContext is VarRef ? "char*" : "ptr"
+        pbtContextMarshal := pbtContext is VarRef ? "char*" : IntPtr
 
         result := ComCall(7, this, UInt32, dwContextSize, pbtContextMarshal, pbtContext, "HRESULT")
         return result
@@ -257,8 +258,8 @@ export default struct IToc extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itoc-getcontext
      */
     GetContext(pdwContextSize, pbtContext) {
-        pdwContextSizeMarshal := pdwContextSize is VarRef ? "uint*" : "ptr"
-        pbtContextMarshal := pbtContext is VarRef ? "char*" : "ptr"
+        pdwContextSizeMarshal := pdwContextSize is VarRef ? "uint*" : IntPtr
+        pbtContextMarshal := pbtContext is VarRef ? "char*" : IntPtr
 
         result := ComCall(8, this, pdwContextSizeMarshal, pdwContextSize, pbtContextMarshal, pbtContext, "HRESULT")
         return result
@@ -289,7 +290,7 @@ export default struct IToc extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itoc-getentrylistcount
      */
     GetEntryListCount(pwCount) {
-        pwCountMarshal := pwCount is VarRef ? "ushort*" : "ptr"
+        pwCountMarshal := pwCount is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(9, this, pwCountMarshal, pwCount, "HRESULT")
         return result
@@ -332,7 +333,7 @@ export default struct IToc extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itoc-addentrylist
      */
     AddEntryList(pEntryList, pwEntryListIndex) {
-        pwEntryListIndexMarshal := pwEntryListIndex is VarRef ? "ushort*" : "ptr"
+        pwEntryListIndexMarshal := pwEntryListIndex is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(11, this, "ptr", pEntryList, pwEntryListIndexMarshal, pwEntryListIndex, "HRESULT")
         return result
@@ -407,17 +408,17 @@ export default struct IToc extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetDescriptor := CallbackCreate(GetMethod(implObj, "SetDescriptor"), flags, 2)
-        this.vtbl.GetDescriptor := CallbackCreate(GetMethod(implObj, "GetDescriptor"), flags, 2)
-        this.vtbl.SetDescription := CallbackCreate(GetMethod(implObj, "SetDescription"), flags, 2)
-        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 3)
-        this.vtbl.SetContext := CallbackCreate(GetMethod(implObj, "SetContext"), flags, 3)
-        this.vtbl.GetContext := CallbackCreate(GetMethod(implObj, "GetContext"), flags, 3)
-        this.vtbl.GetEntryListCount := CallbackCreate(GetMethod(implObj, "GetEntryListCount"), flags, 2)
-        this.vtbl.GetEntryListByIndex := CallbackCreate(GetMethod(implObj, "GetEntryListByIndex"), flags, 3)
-        this.vtbl.AddEntryList := CallbackCreate(GetMethod(implObj, "AddEntryList"), flags, 3)
-        this.vtbl.AddEntryListByIndex := CallbackCreate(GetMethod(implObj, "AddEntryListByIndex"), flags, 3)
-        this.vtbl.RemoveEntryListByIndex := CallbackCreate(GetMethod(implObj, "RemoveEntryListByIndex"), flags, 2)
+        this.vtbl.SetDescriptor := CallbackCreate(ObjBindMethod(implObj, "SetDescriptor"), flags, 2)
+        this.vtbl.GetDescriptor := CallbackCreate(ObjBindMethod(implObj, "GetDescriptor"), flags, 2)
+        this.vtbl.SetDescription := CallbackCreate(ObjBindMethod(implObj, "SetDescription"), flags, 2)
+        this.vtbl.GetDescription := CallbackCreate(ObjBindMethod(implObj, "GetDescription"), flags, 3)
+        this.vtbl.SetContext := CallbackCreate(ObjBindMethod(implObj, "SetContext"), flags, 3)
+        this.vtbl.GetContext := CallbackCreate(ObjBindMethod(implObj, "GetContext"), flags, 3)
+        this.vtbl.GetEntryListCount := CallbackCreate(ObjBindMethod(implObj, "GetEntryListCount"), flags, 2)
+        this.vtbl.GetEntryListByIndex := CallbackCreate(ObjBindMethod(implObj, "GetEntryListByIndex"), flags, 3)
+        this.vtbl.AddEntryList := CallbackCreate(ObjBindMethod(implObj, "AddEntryList"), flags, 3)
+        this.vtbl.AddEntryListByIndex := CallbackCreate(ObjBindMethod(implObj, "AddEntryListByIndex"), flags, 3)
+        this.vtbl.RemoveEntryListByIndex := CallbackCreate(ObjBindMethod(implObj, "RemoveEntryListByIndex"), flags, 2)
     }
 
     Dispose() {

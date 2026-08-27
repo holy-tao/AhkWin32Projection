@@ -19,7 +19,6 @@ export default struct PFN_CMSG_STREAM_OUTPUT {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvArg 
      * @param {Integer} pbData 
      * @param {Integer} cbData 
@@ -27,9 +26,11 @@ export default struct PFN_CMSG_STREAM_OUTPUT {
      * @returns {BOOL} 
      */
     Call(pvArg, pbData, cbData, fFinal) {
-        pvArgMarshal := pvArg is VarRef ? "ptr" : "ptr"
+        pvArgMarshal := pvArg is VarRef ? "ptr" : IntPtr
+        pvArgMarshal := pvArg == 0 ? IntPtr : "ptr"
+        pbDataMarshal := pbData == 0 ? IntPtr : IntPtr
 
-        result := DllCall(this.value, pvArgMarshal, pvArg, IntPtr, pbData, UInt32, cbData, BOOL, fFinal, BOOL)
+        result := DllCall(this.value, pvArgMarshal, pvArg, pbDataMarshal, pbData, UInt32, cbData, BOOL, fFinal, BOOL)
         return result
     }
 

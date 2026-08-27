@@ -19,7 +19,6 @@ export default struct PRESUTIL_EXPAND_ENVIRONMENT_STRINGS {
     }
 
     /**
-     * 
      * @param {PWSTR} pszSrc 
      * @returns {PWSTR} 
      */

@@ -20,7 +20,6 @@ export default struct PFN_GETEXTENSIONVERSION {
     }
 
     /**
-     * 
      * @param {Pointer<HSE_VERSION_INFO>} pVer 
      * @returns {BOOL} 
      */

@@ -20,7 +20,6 @@ export default struct PFN_CMSG_EXPORT_ENCRYPT_KEY {
     }
 
     /**
-     * 
      * @param {Pointer} hCryptProv 
      * @param {Pointer} hEncryptKey 
      * @param {Pointer<CERT_PUBLIC_KEY_INFO>} pPublicKeyInfo 
@@ -29,9 +28,10 @@ export default struct PFN_CMSG_EXPORT_ENCRYPT_KEY {
      * @returns {BOOL} 
      */
     Call(hCryptProv, hEncryptKey, pPublicKeyInfo, pbData, pcbData) {
-        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+        pbDataMarshal := pbData == 0 ? IntPtr : IntPtr
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, IntPtr, hCryptProv, IntPtr, hEncryptKey, CERT_PUBLIC_KEY_INFO.Ptr, pPublicKeyInfo, IntPtr, pbData, pcbDataMarshal, pcbData, BOOL)
+        result := DllCall(this.value, IntPtr, hCryptProv, IntPtr, hEncryptKey, CERT_PUBLIC_KEY_INFO.Ptr, pPublicKeyInfo, pbDataMarshal, pbData, pcbDataMarshal, pcbData, BOOL)
         return result
     }
 

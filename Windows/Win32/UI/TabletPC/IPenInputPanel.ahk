@@ -365,7 +365,6 @@ export default struct IPenInputPanel extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} Visible 
      * @returns {HRESULT} 
      */
@@ -795,31 +794,31 @@ export default struct IPenInputPanel extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Busy := CallbackCreate(GetMethod(implObj, "get_Busy"), flags, 2)
-        this.vtbl.get_Factoid := CallbackCreate(GetMethod(implObj, "get_Factoid"), flags, 2)
-        this.vtbl.put_Factoid := CallbackCreate(GetMethod(implObj, "put_Factoid"), flags, 2)
-        this.vtbl.get_AttachedEditWindow := CallbackCreate(GetMethod(implObj, "get_AttachedEditWindow"), flags, 2)
-        this.vtbl.put_AttachedEditWindow := CallbackCreate(GetMethod(implObj, "put_AttachedEditWindow"), flags, 2)
-        this.vtbl.get_CurrentPanel := CallbackCreate(GetMethod(implObj, "get_CurrentPanel"), flags, 2)
-        this.vtbl.put_CurrentPanel := CallbackCreate(GetMethod(implObj, "put_CurrentPanel"), flags, 2)
-        this.vtbl.get_DefaultPanel := CallbackCreate(GetMethod(implObj, "get_DefaultPanel"), flags, 2)
-        this.vtbl.put_DefaultPanel := CallbackCreate(GetMethod(implObj, "put_DefaultPanel"), flags, 2)
-        this.vtbl.get_Visible := CallbackCreate(GetMethod(implObj, "get_Visible"), flags, 2)
-        this.vtbl.put_Visible := CallbackCreate(GetMethod(implObj, "put_Visible"), flags, 2)
-        this.vtbl.get_Top := CallbackCreate(GetMethod(implObj, "get_Top"), flags, 2)
-        this.vtbl.get_Left := CallbackCreate(GetMethod(implObj, "get_Left"), flags, 2)
-        this.vtbl.get_Width := CallbackCreate(GetMethod(implObj, "get_Width"), flags, 2)
-        this.vtbl.get_Height := CallbackCreate(GetMethod(implObj, "get_Height"), flags, 2)
-        this.vtbl.get_VerticalOffset := CallbackCreate(GetMethod(implObj, "get_VerticalOffset"), flags, 2)
-        this.vtbl.put_VerticalOffset := CallbackCreate(GetMethod(implObj, "put_VerticalOffset"), flags, 2)
-        this.vtbl.get_HorizontalOffset := CallbackCreate(GetMethod(implObj, "get_HorizontalOffset"), flags, 2)
-        this.vtbl.put_HorizontalOffset := CallbackCreate(GetMethod(implObj, "put_HorizontalOffset"), flags, 2)
-        this.vtbl.get_AutoShow := CallbackCreate(GetMethod(implObj, "get_AutoShow"), flags, 2)
-        this.vtbl.put_AutoShow := CallbackCreate(GetMethod(implObj, "put_AutoShow"), flags, 2)
-        this.vtbl.MoveTo := CallbackCreate(GetMethod(implObj, "MoveTo"), flags, 3)
-        this.vtbl.CommitPendingInput := CallbackCreate(GetMethod(implObj, "CommitPendingInput"), flags, 1)
-        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
-        this.vtbl.EnableTsf := CallbackCreate(GetMethod(implObj, "EnableTsf"), flags, 2)
+        this.vtbl.get_Busy := CallbackCreate(ObjBindMethod(implObj, "get_Busy"), flags, 2)
+        this.vtbl.get_Factoid := CallbackCreate(ObjBindMethod(implObj, "get_Factoid"), flags, 2)
+        this.vtbl.put_Factoid := CallbackCreate(ObjBindMethod(implObj, "put_Factoid"), flags, 2)
+        this.vtbl.get_AttachedEditWindow := CallbackCreate(ObjBindMethod(implObj, "get_AttachedEditWindow"), flags, 2)
+        this.vtbl.put_AttachedEditWindow := CallbackCreate(ObjBindMethod(implObj, "put_AttachedEditWindow"), flags, 2)
+        this.vtbl.get_CurrentPanel := CallbackCreate(ObjBindMethod(implObj, "get_CurrentPanel"), flags, 2)
+        this.vtbl.put_CurrentPanel := CallbackCreate(ObjBindMethod(implObj, "put_CurrentPanel"), flags, 2)
+        this.vtbl.get_DefaultPanel := CallbackCreate(ObjBindMethod(implObj, "get_DefaultPanel"), flags, 2)
+        this.vtbl.put_DefaultPanel := CallbackCreate(ObjBindMethod(implObj, "put_DefaultPanel"), flags, 2)
+        this.vtbl.get_Visible := CallbackCreate(ObjBindMethod(implObj, "get_Visible"), flags, 2)
+        this.vtbl.put_Visible := CallbackCreate(ObjBindMethod(implObj, "put_Visible"), flags, 2)
+        this.vtbl.get_Top := CallbackCreate(ObjBindMethod(implObj, "get_Top"), flags, 2)
+        this.vtbl.get_Left := CallbackCreate(ObjBindMethod(implObj, "get_Left"), flags, 2)
+        this.vtbl.get_Width := CallbackCreate(ObjBindMethod(implObj, "get_Width"), flags, 2)
+        this.vtbl.get_Height := CallbackCreate(ObjBindMethod(implObj, "get_Height"), flags, 2)
+        this.vtbl.get_VerticalOffset := CallbackCreate(ObjBindMethod(implObj, "get_VerticalOffset"), flags, 2)
+        this.vtbl.put_VerticalOffset := CallbackCreate(ObjBindMethod(implObj, "put_VerticalOffset"), flags, 2)
+        this.vtbl.get_HorizontalOffset := CallbackCreate(ObjBindMethod(implObj, "get_HorizontalOffset"), flags, 2)
+        this.vtbl.put_HorizontalOffset := CallbackCreate(ObjBindMethod(implObj, "put_HorizontalOffset"), flags, 2)
+        this.vtbl.get_AutoShow := CallbackCreate(ObjBindMethod(implObj, "get_AutoShow"), flags, 2)
+        this.vtbl.put_AutoShow := CallbackCreate(ObjBindMethod(implObj, "put_AutoShow"), flags, 2)
+        this.vtbl.MoveTo := CallbackCreate(ObjBindMethod(implObj, "MoveTo"), flags, 3)
+        this.vtbl.CommitPendingInput := CallbackCreate(ObjBindMethod(implObj, "CommitPendingInput"), flags, 1)
+        this.vtbl.Refresh := CallbackCreate(ObjBindMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.EnableTsf := CallbackCreate(ObjBindMethod(implObj, "EnableTsf"), flags, 2)
     }
 
     Dispose() {

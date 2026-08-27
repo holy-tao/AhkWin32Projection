@@ -69,8 +69,8 @@ export default struct IAppxManifestOptionalPackageInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetIsOptionalPackage := CallbackCreate(GetMethod(implObj, "GetIsOptionalPackage"), flags, 2)
-        this.vtbl.GetMainPackageName := CallbackCreate(GetMethod(implObj, "GetMainPackageName"), flags, 2)
+        this.vtbl.GetIsOptionalPackage := CallbackCreate(ObjBindMethod(implObj, "GetIsOptionalPackage"), flags, 2)
+        this.vtbl.GetMainPackageName := CallbackCreate(ObjBindMethod(implObj, "GetMainPackageName"), flags, 2)
     }
 
     Dispose() {

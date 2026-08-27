@@ -20,7 +20,6 @@ export default struct BCryptHashDataFn {
     }
 
     /**
-     * 
      * @param {BCRYPT_HASH_HANDLE} hHash 
      * @param {Integer} pbInput 
      * @param {Integer} cbInput 

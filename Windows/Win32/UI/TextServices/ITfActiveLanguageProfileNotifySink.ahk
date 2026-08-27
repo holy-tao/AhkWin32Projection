@@ -60,7 +60,7 @@ export default struct ITfActiveLanguageProfileNotifySink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnActivated := CallbackCreate(GetMethod(implObj, "OnActivated"), flags, 4)
+        this.vtbl.OnActivated := CallbackCreate(ObjBindMethod(implObj, "OnActivated"), flags, 4)
     }
 
     Dispose() {

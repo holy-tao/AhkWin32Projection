@@ -32,7 +32,6 @@ export default struct INSTALLUI_HANDLERW {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvContext Pointer to an application context passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msisetexternaluia">MsiSetExternalUI</a> function. This parameter can be used for error checking.
      * @param {Integer} iMessageType Specifies a combination of one message box style, one message box icon type, one default button, and one installation message type. This parameter must be one of the following. 
@@ -398,7 +397,7 @@ export default struct INSTALLUI_HANDLERW {
     Call(pvContext, iMessageType, szMessage) {
         szMessage := szMessage is String ? StrPtr(szMessage) : szMessage
 
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, pvContextMarshal, pvContext, UInt32, iMessageType, "ptr", szMessage, Int32)
         return result

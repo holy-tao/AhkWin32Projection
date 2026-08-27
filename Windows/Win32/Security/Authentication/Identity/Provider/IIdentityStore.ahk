@@ -65,7 +65,9 @@ export default struct IIdentityStore extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/identitystore/nf-identitystore-iidentitystore-getat
      */
     GetAt(dwProvider, pProvGuid) {
-        result := ComCall(4, this, UInt32, dwProvider, Guid.Ptr, pProvGuid, "ptr*", &ppIdentityProvider := 0, "HRESULT")
+        pProvGuidMarshal := pProvGuid == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(4, this, UInt32, dwProvider, pProvGuidMarshal, pProvGuid, "ptr*", &ppIdentityProvider := 0, "HRESULT")
         return IUnknown(ppIdentityProvider)
     }
 
@@ -97,7 +99,8 @@ export default struct IIdentityStore extends IUnknown {
     ConvertToSid(lpszUniqueID, ProviderGUID, cbSid, _pSid) {
         lpszUniqueID := lpszUniqueID is String ? StrPtr(lpszUniqueID) : lpszUniqueID
 
-        _pSidMarshal := _pSid is VarRef ? "char*" : "ptr"
+        _pSidMarshal := _pSid is VarRef ? "char*" : IntPtr
+        _pSidMarshal := _pSid == 0 ? IntPtr : "char*"
 
         result := ComCall(6, this, "ptr", lpszUniqueID, Guid.Ptr, ProviderGUID, UInt16, cbSid, _pSidMarshal, _pSid, "ushort*", &pcbRequiredSid := 0, "HRESULT")
         return pcbRequiredSid
@@ -112,7 +115,10 @@ export default struct IIdentityStore extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/identitystore/nf-identitystore-iidentitystore-enumerateidentities
      */
     EnumerateIdentities(eIdentityType, pFilterkey, pFilterPropVarValue) {
-        result := ComCall(7, this, IDENTITY_TYPE, eIdentityType, PROPERTYKEY.Ptr, pFilterkey, PROPVARIANT.Ptr, pFilterPropVarValue, "ptr*", &ppIdentityEnum := 0, "HRESULT")
+        pFilterkeyMarshal := pFilterkey == 0 ? IntPtr : PROPERTYKEY.Ptr
+        pFilterPropVarValueMarshal := pFilterPropVarValue == 0 ? IntPtr : PROPVARIANT.Ptr
+
+        result := ComCall(7, this, IDENTITY_TYPE, eIdentityType, pFilterkeyMarshal, pFilterkey, pFilterPropVarValueMarshal, pFilterPropVarValue, "ptr*", &ppIdentityEnum := 0, "HRESULT")
         return IEnumUnknown(ppIdentityEnum)
     }
 
@@ -137,12 +143,12 @@ export default struct IIdentityStore extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
-        this.vtbl.GetAt := CallbackCreate(GetMethod(implObj, "GetAt"), flags, 4)
-        this.vtbl.AddToCache := CallbackCreate(GetMethod(implObj, "AddToCache"), flags, 3)
-        this.vtbl.ConvertToSid := CallbackCreate(GetMethod(implObj, "ConvertToSid"), flags, 6)
-        this.vtbl.EnumerateIdentities := CallbackCreate(GetMethod(implObj, "EnumerateIdentities"), flags, 5)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetAt := CallbackCreate(ObjBindMethod(implObj, "GetAt"), flags, 4)
+        this.vtbl.AddToCache := CallbackCreate(ObjBindMethod(implObj, "AddToCache"), flags, 3)
+        this.vtbl.ConvertToSid := CallbackCreate(ObjBindMethod(implObj, "ConvertToSid"), flags, 6)
+        this.vtbl.EnumerateIdentities := CallbackCreate(ObjBindMethod(implObj, "EnumerateIdentities"), flags, 5)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
     }
 
     Dispose() {

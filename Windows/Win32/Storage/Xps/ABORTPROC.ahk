@@ -26,7 +26,6 @@ export default struct ABORTPROC {
     }
 
     /**
-     * 
      * @param {HDC} param0 
      * @param {Integer} param1 
      * @returns {BOOL} The callback function should return <b>TRUE</b> to continue the print job or <b>FALSE</b> to cancel the print job.

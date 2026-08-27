@@ -38,7 +38,6 @@ export default struct IHostGCManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ThreadIsBlockingForSuspension() {
@@ -47,7 +46,6 @@ export default struct IHostGCManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SuspensionStarting() {
@@ -56,7 +54,6 @@ export default struct IHostGCManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Generation 
      * @returns {HRESULT} 
      */
@@ -74,9 +71,9 @@ export default struct IHostGCManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ThreadIsBlockingForSuspension := CallbackCreate(GetMethod(implObj, "ThreadIsBlockingForSuspension"), flags, 1)
-        this.vtbl.SuspensionStarting := CallbackCreate(GetMethod(implObj, "SuspensionStarting"), flags, 1)
-        this.vtbl.SuspensionEnding := CallbackCreate(GetMethod(implObj, "SuspensionEnding"), flags, 2)
+        this.vtbl.ThreadIsBlockingForSuspension := CallbackCreate(ObjBindMethod(implObj, "ThreadIsBlockingForSuspension"), flags, 1)
+        this.vtbl.SuspensionStarting := CallbackCreate(ObjBindMethod(implObj, "SuspensionStarting"), flags, 1)
+        this.vtbl.SuspensionEnding := CallbackCreate(ObjBindMethod(implObj, "SuspensionEnding"), flags, 2)
     }
 
     Dispose() {

@@ -148,7 +148,7 @@ export default struct IADsOpenDSObject extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OpenDSObject := CallbackCreate(GetMethod(implObj, "OpenDSObject"), flags, 6)
+        this.vtbl.OpenDSObject := CallbackCreate(ObjBindMethod(implObj, "OpenDSObject"), flags, 6)
     }
 
     Dispose() {

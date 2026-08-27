@@ -86,8 +86,8 @@ export default struct IPreviewHandlerFrame extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetWindowContext := CallbackCreate(GetMethod(implObj, "GetWindowContext"), flags, 2)
-        this.vtbl.TranslateAccelerator := CallbackCreate(GetMethod(implObj, "TranslateAccelerator"), flags, 2)
+        this.vtbl.GetWindowContext := CallbackCreate(ObjBindMethod(implObj, "GetWindowContext"), flags, 2)
+        this.vtbl.TranslateAccelerator := CallbackCreate(ObjBindMethod(implObj, "TranslateAccelerator"), flags, 2)
     }
 
     Dispose() {

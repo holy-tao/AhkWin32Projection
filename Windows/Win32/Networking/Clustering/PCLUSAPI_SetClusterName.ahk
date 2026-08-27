@@ -20,7 +20,6 @@ export default struct PCLUSAPI_SetClusterName {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszNewClusterName 
      * @returns {Integer} 

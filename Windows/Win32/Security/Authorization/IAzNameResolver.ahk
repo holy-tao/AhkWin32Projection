@@ -53,7 +53,7 @@ export default struct IAzNameResolver extends IDispatch {
     NameFromSid(bstrSid, pSidType, pbstrName) {
         bstrSid := bstrSid is String ? BSTR.Alloc(bstrSid).Value : bstrSid
 
-        pSidTypeMarshal := pSidType is VarRef ? "int*" : "ptr"
+        pSidTypeMarshal := pSidType is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, BSTR, bstrSid, pSidTypeMarshal, pSidType, BSTR.Ptr, pbstrName, "HRESULT")
         return result
@@ -89,8 +89,8 @@ export default struct IAzNameResolver extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.NameFromSid := CallbackCreate(GetMethod(implObj, "NameFromSid"), flags, 4)
-        this.vtbl.NamesFromSids := CallbackCreate(GetMethod(implObj, "NamesFromSids"), flags, 4)
+        this.vtbl.NameFromSid := CallbackCreate(ObjBindMethod(implObj, "NameFromSid"), flags, 4)
+        this.vtbl.NamesFromSids := CallbackCreate(ObjBindMethod(implObj, "NamesFromSids"), flags, 4)
     }
 
     Dispose() {

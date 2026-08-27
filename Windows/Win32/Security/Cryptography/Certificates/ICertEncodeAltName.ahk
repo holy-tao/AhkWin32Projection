@@ -150,13 +150,13 @@ export default struct ICertEncodeAltName extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Decode := CallbackCreate(GetMethod(implObj, "Decode"), flags, 2)
-        this.vtbl.GetNameCount := CallbackCreate(GetMethod(implObj, "GetNameCount"), flags, 2)
-        this.vtbl.GetNameChoice := CallbackCreate(GetMethod(implObj, "GetNameChoice"), flags, 3)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 3)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 2)
-        this.vtbl.SetNameEntry := CallbackCreate(GetMethod(implObj, "SetNameEntry"), flags, 4)
-        this.vtbl.Encode := CallbackCreate(GetMethod(implObj, "Encode"), flags, 2)
+        this.vtbl.Decode := CallbackCreate(ObjBindMethod(implObj, "Decode"), flags, 2)
+        this.vtbl.GetNameCount := CallbackCreate(ObjBindMethod(implObj, "GetNameCount"), flags, 2)
+        this.vtbl.GetNameChoice := CallbackCreate(ObjBindMethod(implObj, "GetNameChoice"), flags, 3)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 3)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 2)
+        this.vtbl.SetNameEntry := CallbackCreate(ObjBindMethod(implObj, "SetNameEntry"), flags, 4)
+        this.vtbl.Encode := CallbackCreate(ObjBindMethod(implObj, "Encode"), flags, 2)
     }
 
     Dispose() {

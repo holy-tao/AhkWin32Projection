@@ -37,7 +37,6 @@ export default struct IEquatableConcept extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @param {IModelObject} otherObject 
      * @returns {Boolean} 
@@ -56,7 +55,7 @@ export default struct IEquatableConcept extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AreObjectsEqual := CallbackCreate(GetMethod(implObj, "AreObjectsEqual"), flags, 4)
+        this.vtbl.AreObjectsEqual := CallbackCreate(ObjBindMethod(implObj, "AreObjectsEqual"), flags, 4)
     }
 
     Dispose() {

@@ -43,7 +43,6 @@ export default struct AsyncIAdviseSink2 extends AsyncIAdviseSink {
     }
 
     /**
-     * 
      * @param {IMoniker} pmk 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -52,7 +51,6 @@ export default struct AsyncIAdviseSink2 extends AsyncIAdviseSink {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Finish_OnLinkSrcChange() {
@@ -68,8 +66,8 @@ export default struct AsyncIAdviseSink2 extends AsyncIAdviseSink {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Begin_OnLinkSrcChange := CallbackCreate(GetMethod(implObj, "Begin_OnLinkSrcChange"), flags, 2)
-        this.vtbl.Finish_OnLinkSrcChange := CallbackCreate(GetMethod(implObj, "Finish_OnLinkSrcChange"), flags, 1)
+        this.vtbl.Begin_OnLinkSrcChange := CallbackCreate(ObjBindMethod(implObj, "Begin_OnLinkSrcChange"), flags, 2)
+        this.vtbl.Finish_OnLinkSrcChange := CallbackCreate(ObjBindMethod(implObj, "Finish_OnLinkSrcChange"), flags, 1)
     }
 
     Dispose() {

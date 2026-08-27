@@ -18,14 +18,13 @@ export default struct PFNGLARRAYELEMENTARRAYEXTPROC {
     }
 
     /**
-     * 
      * @param {Integer} _mode 
      * @param {Integer} count 
      * @param {Pointer<Void>} pi 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_mode, count, pi) {
-        piMarshal := pi is VarRef ? "ptr" : "ptr"
+        piMarshal := pi is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, UInt32, _mode, Int32, count, piMarshal, pi)
     }

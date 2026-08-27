@@ -20,7 +20,6 @@ export default struct PFND3DKMT_QUERYALLOCATIONRESIDENCY {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_QUERYALLOCATIONRESIDENCY>} param0 
      * @returns {NTSTATUS} 
      */

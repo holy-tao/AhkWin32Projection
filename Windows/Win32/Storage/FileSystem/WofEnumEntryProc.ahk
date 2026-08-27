@@ -21,15 +21,15 @@ export default struct WofEnumEntryProc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} EntryInfo The structure that contains specific provider info. The Type of <i>EntryInfo</i> is provider-specific.  For WOF_PROVIDER_WIM,
      * it will be PWIM_ENTRY_INFO.
      * @param {Pointer<Void>} _UserData Optional user defined data specified in the call to <a href="https://docs.microsoft.com/windows/desktop/api/wofapi/nf-wofapi-wofenumentries">WofEnumEntries</a>.
      * @returns {BOOL} A boolean value that indicates whether the enumeration was successful. The enumeration will stop if this callback function returns FALSE.
      */
     Call(EntryInfo, _UserData) {
-        EntryInfoMarshal := EntryInfo is VarRef ? "ptr" : "ptr"
-        _UserDataMarshal := _UserData is VarRef ? "ptr" : "ptr"
+        EntryInfoMarshal := EntryInfo is VarRef ? "ptr" : IntPtr
+        _UserDataMarshal := _UserData is VarRef ? "ptr" : IntPtr
+        _UserDataMarshal := _UserData == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, EntryInfoMarshal, EntryInfo, _UserDataMarshal, _UserData, BOOL)
         return result

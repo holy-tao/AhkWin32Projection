@@ -65,7 +65,7 @@ export default struct IUIAutomationChangesEventHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.HandleChangesEvent := CallbackCreate(GetMethod(implObj, "HandleChangesEvent"), flags, 4)
+        this.vtbl.HandleChangesEvent := CallbackCreate(ObjBindMethod(implObj, "HandleChangesEvent"), flags, 4)
     }
 
     Dispose() {

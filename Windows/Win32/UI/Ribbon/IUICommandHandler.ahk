@@ -78,7 +78,11 @@ export default struct IUICommandHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuicommandhandler-execute
      */
     Execute(commandId, verb, key, currentValue, commandExecutionProperties) {
-        result := ComCall(3, this, UInt32, commandId, UI_EXECUTIONVERB, verb, PROPERTYKEY.Ptr, key, PROPVARIANT.Ptr, currentValue, "ptr", commandExecutionProperties, "HRESULT")
+        keyMarshal := key == 0 ? IntPtr : PROPERTYKEY.Ptr
+        currentValueMarshal := currentValue == 0 ? IntPtr : PROPVARIANT.Ptr
+        commandExecutionPropertiesMarshal := commandExecutionProperties == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, UInt32, commandId, UI_EXECUTIONVERB, verb, keyMarshal, key, currentValueMarshal, currentValue, commandExecutionPropertiesMarshal, commandExecutionProperties, "HRESULT")
         return result
     }
 
@@ -104,8 +108,10 @@ export default struct IUICommandHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuicommandhandler-updateproperty
      */
     UpdateProperty(commandId, key, currentValue) {
+        currentValueMarshal := currentValue == 0 ? IntPtr : PROPVARIANT.Ptr
+
         newValue := PROPVARIANT()
-        result := ComCall(4, this, UInt32, commandId, PROPERTYKEY.Ptr, key, PROPVARIANT.Ptr, currentValue, PROPVARIANT.Ptr, newValue, "HRESULT")
+        result := ComCall(4, this, UInt32, commandId, PROPERTYKEY.Ptr, key, currentValueMarshal, currentValue, PROPVARIANT.Ptr, newValue, "HRESULT")
         return newValue
     }
 
@@ -118,8 +124,8 @@ export default struct IUICommandHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Execute := CallbackCreate(GetMethod(implObj, "Execute"), flags, 6)
-        this.vtbl.UpdateProperty := CallbackCreate(GetMethod(implObj, "UpdateProperty"), flags, 5)
+        this.vtbl.Execute := CallbackCreate(ObjBindMethod(implObj, "Execute"), flags, 6)
+        this.vtbl.UpdateProperty := CallbackCreate(ObjBindMethod(implObj, "UpdateProperty"), flags, 5)
     }
 
     Dispose() {

@@ -203,10 +203,10 @@ export default struct IPropertySetStorage extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 6)
-        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 4)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 2)
-        this.vtbl.Enum := CallbackCreate(GetMethod(implObj, "Enum"), flags, 2)
+        this.vtbl.Create := CallbackCreate(ObjBindMethod(implObj, "Create"), flags, 6)
+        this.vtbl.Open := CallbackCreate(ObjBindMethod(implObj, "Open"), flags, 4)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 2)
+        this.vtbl.Enum := CallbackCreate(ObjBindMethod(implObj, "Enum"), flags, 2)
     }
 
     Dispose() {

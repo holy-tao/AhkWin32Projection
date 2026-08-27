@@ -86,7 +86,6 @@ export default struct IHTMLAppBehavior2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -98,7 +97,6 @@ export default struct IHTMLAppBehavior2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_contextMenu() {
@@ -108,7 +106,6 @@ export default struct IHTMLAppBehavior2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -120,7 +117,6 @@ export default struct IHTMLAppBehavior2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_innerBorder() {
@@ -130,7 +126,6 @@ export default struct IHTMLAppBehavior2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -142,7 +137,6 @@ export default struct IHTMLAppBehavior2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_scroll() {
@@ -152,7 +146,6 @@ export default struct IHTMLAppBehavior2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -164,7 +157,6 @@ export default struct IHTMLAppBehavior2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_scrollFlat() {
@@ -174,7 +166,6 @@ export default struct IHTMLAppBehavior2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -186,7 +177,6 @@ export default struct IHTMLAppBehavior2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_selection() {
@@ -204,16 +194,16 @@ export default struct IHTMLAppBehavior2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_contextMenu := CallbackCreate(GetMethod(implObj, "put_contextMenu"), flags, 2)
-        this.vtbl.get_contextMenu := CallbackCreate(GetMethod(implObj, "get_contextMenu"), flags, 2)
-        this.vtbl.put_innerBorder := CallbackCreate(GetMethod(implObj, "put_innerBorder"), flags, 2)
-        this.vtbl.get_innerBorder := CallbackCreate(GetMethod(implObj, "get_innerBorder"), flags, 2)
-        this.vtbl.put_scroll := CallbackCreate(GetMethod(implObj, "put_scroll"), flags, 2)
-        this.vtbl.get_scroll := CallbackCreate(GetMethod(implObj, "get_scroll"), flags, 2)
-        this.vtbl.put_scrollFlat := CallbackCreate(GetMethod(implObj, "put_scrollFlat"), flags, 2)
-        this.vtbl.get_scrollFlat := CallbackCreate(GetMethod(implObj, "get_scrollFlat"), flags, 2)
-        this.vtbl.put_selection := CallbackCreate(GetMethod(implObj, "put_selection"), flags, 2)
-        this.vtbl.get_selection := CallbackCreate(GetMethod(implObj, "get_selection"), flags, 2)
+        this.vtbl.put_contextMenu := CallbackCreate(ObjBindMethod(implObj, "put_contextMenu"), flags, 2)
+        this.vtbl.get_contextMenu := CallbackCreate(ObjBindMethod(implObj, "get_contextMenu"), flags, 2)
+        this.vtbl.put_innerBorder := CallbackCreate(ObjBindMethod(implObj, "put_innerBorder"), flags, 2)
+        this.vtbl.get_innerBorder := CallbackCreate(ObjBindMethod(implObj, "get_innerBorder"), flags, 2)
+        this.vtbl.put_scroll := CallbackCreate(ObjBindMethod(implObj, "put_scroll"), flags, 2)
+        this.vtbl.get_scroll := CallbackCreate(ObjBindMethod(implObj, "get_scroll"), flags, 2)
+        this.vtbl.put_scrollFlat := CallbackCreate(ObjBindMethod(implObj, "put_scrollFlat"), flags, 2)
+        this.vtbl.get_scrollFlat := CallbackCreate(ObjBindMethod(implObj, "get_scrollFlat"), flags, 2)
+        this.vtbl.put_selection := CallbackCreate(ObjBindMethod(implObj, "put_selection"), flags, 2)
+        this.vtbl.get_selection := CallbackCreate(ObjBindMethod(implObj, "get_selection"), flags, 2)
     }
 
     Dispose() {

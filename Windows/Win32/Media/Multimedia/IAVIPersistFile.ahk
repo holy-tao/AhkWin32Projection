@@ -36,7 +36,6 @@ export default struct IAVIPersistFile extends IPersistFile {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reserved1() {
@@ -53,7 +52,7 @@ export default struct IAVIPersistFile extends IPersistFile {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Reserved1 := CallbackCreate(GetMethod(implObj, "Reserved1"), flags, 1)
+        this.vtbl.Reserved1 := CallbackCreate(ObjBindMethod(implObj, "Reserved1"), flags, 1)
     }
 
     Dispose() {

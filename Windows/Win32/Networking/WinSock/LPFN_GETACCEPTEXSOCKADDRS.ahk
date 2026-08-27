@@ -19,7 +19,6 @@ export default struct LPFN_GETACCEPTEXSOCKADDRS {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} lpOutputBuffer 
      * @param {Integer} dwReceiveDataLength 
      * @param {Integer} dwLocalAddressLength 
@@ -31,11 +30,11 @@ export default struct LPFN_GETACCEPTEXSOCKADDRS {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(lpOutputBuffer, dwReceiveDataLength, dwLocalAddressLength, dwRemoteAddressLength, LocalSockaddr, LocalSockaddrLength, RemoteSockaddr, RemoteSockaddrLength) {
-        lpOutputBufferMarshal := lpOutputBuffer is VarRef ? "ptr" : "ptr"
-        LocalSockaddrMarshal := LocalSockaddr is VarRef ? "ptr*" : "ptr"
-        LocalSockaddrLengthMarshal := LocalSockaddrLength is VarRef ? "int*" : "ptr"
-        RemoteSockaddrMarshal := RemoteSockaddr is VarRef ? "ptr*" : "ptr"
-        RemoteSockaddrLengthMarshal := RemoteSockaddrLength is VarRef ? "int*" : "ptr"
+        lpOutputBufferMarshal := lpOutputBuffer is VarRef ? "ptr" : IntPtr
+        LocalSockaddrMarshal := LocalSockaddr is VarRef ? "ptr*" : IntPtr
+        LocalSockaddrLengthMarshal := LocalSockaddrLength is VarRef ? "int*" : IntPtr
+        RemoteSockaddrMarshal := RemoteSockaddr is VarRef ? "ptr*" : IntPtr
+        RemoteSockaddrLengthMarshal := RemoteSockaddrLength is VarRef ? "int*" : IntPtr
 
         DllCall(this.value, lpOutputBufferMarshal, lpOutputBuffer, UInt32, dwReceiveDataLength, UInt32, dwLocalAddressLength, UInt32, dwRemoteAddressLength, LocalSockaddrMarshal, LocalSockaddr, LocalSockaddrLengthMarshal, LocalSockaddrLength, RemoteSockaddrMarshal, RemoteSockaddr, RemoteSockaddrLengthMarshal, RemoteSockaddrLength)
     }

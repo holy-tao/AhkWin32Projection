@@ -99,9 +99,9 @@ export default struct ISpellCheckProviderFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_SupportedLanguages := CallbackCreate(GetMethod(implObj, "get_SupportedLanguages"), flags, 2)
-        this.vtbl.IsSupported := CallbackCreate(GetMethod(implObj, "IsSupported"), flags, 3)
-        this.vtbl.CreateSpellCheckProvider := CallbackCreate(GetMethod(implObj, "CreateSpellCheckProvider"), flags, 3)
+        this.vtbl.get_SupportedLanguages := CallbackCreate(ObjBindMethod(implObj, "get_SupportedLanguages"), flags, 2)
+        this.vtbl.IsSupported := CallbackCreate(ObjBindMethod(implObj, "IsSupported"), flags, 3)
+        this.vtbl.CreateSpellCheckProvider := CallbackCreate(ObjBindMethod(implObj, "CreateSpellCheckProvider"), flags, 3)
     }
 
     Dispose() {

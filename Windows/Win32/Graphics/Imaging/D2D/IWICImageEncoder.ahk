@@ -133,9 +133,9 @@ export default struct IWICImageEncoder extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.WriteFrame := CallbackCreate(GetMethod(implObj, "WriteFrame"), flags, 4)
-        this.vtbl.WriteFrameThumbnail := CallbackCreate(GetMethod(implObj, "WriteFrameThumbnail"), flags, 4)
-        this.vtbl.WriteThumbnail := CallbackCreate(GetMethod(implObj, "WriteThumbnail"), flags, 4)
+        this.vtbl.WriteFrame := CallbackCreate(ObjBindMethod(implObj, "WriteFrame"), flags, 4)
+        this.vtbl.WriteFrameThumbnail := CallbackCreate(ObjBindMethod(implObj, "WriteFrameThumbnail"), flags, 4)
+        this.vtbl.WriteThumbnail := CallbackCreate(ObjBindMethod(implObj, "WriteThumbnail"), flags, 4)
     }
 
     Dispose() {

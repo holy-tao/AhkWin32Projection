@@ -21,7 +21,6 @@ export default struct PDEBUG_EXTENSION_QUERY_VALUE_NAMES {
     }
 
     /**
-     * 
      * @param {IDebugClient} Client 
      * @param {Integer} Flags 
      * @param {PWSTR} _Buffer 

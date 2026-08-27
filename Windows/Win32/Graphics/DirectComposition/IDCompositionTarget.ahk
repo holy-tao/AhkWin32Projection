@@ -53,7 +53,9 @@ export default struct IDCompositionTarget extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiontarget-setroot
      */
     SetRoot(visual) {
-        result := ComCall(3, this, "ptr", visual, "HRESULT")
+        visualMarshal := visual == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, visualMarshal, visual, "HRESULT")
         return result
     }
 
@@ -66,7 +68,7 @@ export default struct IDCompositionTarget extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetRoot := CallbackCreate(GetMethod(implObj, "SetRoot"), flags, 2)
+        this.vtbl.SetRoot := CallbackCreate(ObjBindMethod(implObj, "SetRoot"), flags, 2)
     }
 
     Dispose() {

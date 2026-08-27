@@ -64,8 +64,8 @@ export default struct IMFSecureChannel extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsecurechannel-getcertificate
      */
     GetCertificate(ppCert, pcbCert) {
-        ppCertMarshal := ppCert is VarRef ? "ptr*" : "ptr"
-        pcbCertMarshal := pcbCert is VarRef ? "uint*" : "ptr"
+        ppCertMarshal := ppCert is VarRef ? "ptr*" : IntPtr
+        pcbCertMarshal := pcbCert is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, ppCertMarshal, ppCert, pcbCertMarshal, pcbCert, "HRESULT")
         return result
@@ -110,8 +110,8 @@ export default struct IMFSecureChannel extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCertificate := CallbackCreate(GetMethod(implObj, "GetCertificate"), flags, 3)
-        this.vtbl.SetupSession := CallbackCreate(GetMethod(implObj, "SetupSession"), flags, 3)
+        this.vtbl.GetCertificate := CallbackCreate(ObjBindMethod(implObj, "GetCertificate"), flags, 3)
+        this.vtbl.SetupSession := CallbackCreate(ObjBindMethod(implObj, "SetupSession"), flags, 3)
     }
 
     Dispose() {

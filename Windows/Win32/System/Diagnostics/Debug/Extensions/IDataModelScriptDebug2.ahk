@@ -38,7 +38,6 @@ export default struct IDataModelScriptDebug2 extends IDataModelScriptDebug {
     }
 
     /**
-     * 
      * @param {PWSTR} functionName 
      * @returns {IDataModelScriptDebugBreakpoint} 
      */
@@ -58,7 +57,7 @@ export default struct IDataModelScriptDebug2 extends IDataModelScriptDebug {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetBreakpointAtFunction := CallbackCreate(GetMethod(implObj, "SetBreakpointAtFunction"), flags, 3)
+        this.vtbl.SetBreakpointAtFunction := CallbackCreate(ObjBindMethod(implObj, "SetBreakpointAtFunction"), flags, 3)
     }
 
     Dispose() {

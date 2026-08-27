@@ -21,7 +21,6 @@ export default struct PFN_CERT_STORE_PROV_DELETE_CTL {
     }
 
     /**
-     * 
      * @param {HCERTSTOREPROV} hStoreProv 
      * @param {Pointer<CTL_CONTEXT>} pCtlContext 
      * @param {Integer} dwFlags 

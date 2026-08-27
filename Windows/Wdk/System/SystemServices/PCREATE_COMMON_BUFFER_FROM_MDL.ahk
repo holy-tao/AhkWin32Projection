@@ -22,7 +22,6 @@ export default struct PCREATE_COMMON_BUFFER_FROM_MDL {
     }
 
     /**
-     * 
      * @param {Pointer<DMA_ADAPTER>} DmaAdapter 
      * @param {Pointer<MDL>} _Mdl 
      * @param {Pointer<DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION>} ExtendedConfigs 
@@ -31,9 +30,10 @@ export default struct PCREATE_COMMON_BUFFER_FROM_MDL {
      * @returns {NTSTATUS} 
      */
     Call(DmaAdapter, _Mdl, ExtendedConfigs, ExtendedConfigsCount, LogicalAddress) {
-        LogicalAddressMarshal := LogicalAddress is VarRef ? "int64*" : "ptr"
+        ExtendedConfigsMarshal := ExtendedConfigs == 0 ? IntPtr : DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION.Ptr
+        LogicalAddressMarshal := LogicalAddress is VarRef ? "int64*" : IntPtr
 
-        result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, MDL.Ptr, _Mdl, DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION.Ptr, ExtendedConfigs, UInt32, ExtendedConfigsCount, LogicalAddressMarshal, LogicalAddress, NTSTATUS)
+        result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, MDL.Ptr, _Mdl, ExtendedConfigsMarshal, ExtendedConfigs, UInt32, ExtendedConfigsCount, LogicalAddressMarshal, LogicalAddress, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

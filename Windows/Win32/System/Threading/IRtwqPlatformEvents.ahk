@@ -78,9 +78,9 @@ export default struct IRtwqPlatformEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializationComplete := CallbackCreate(GetMethod(implObj, "InitializationComplete"), flags, 1)
-        this.vtbl.ShutdownStart := CallbackCreate(GetMethod(implObj, "ShutdownStart"), flags, 1)
-        this.vtbl.ShutdownComplete := CallbackCreate(GetMethod(implObj, "ShutdownComplete"), flags, 1)
+        this.vtbl.InitializationComplete := CallbackCreate(ObjBindMethod(implObj, "InitializationComplete"), flags, 1)
+        this.vtbl.ShutdownStart := CallbackCreate(ObjBindMethod(implObj, "ShutdownStart"), flags, 1)
+        this.vtbl.ShutdownComplete := CallbackCreate(ObjBindMethod(implObj, "ShutdownComplete"), flags, 1)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct PRESUTIL_REMOVE_RESOURCE_SERVICE_ENVIRONMENT {
     }
 
     /**
-     * 
      * @param {PWSTR} pszServiceName 
      * @param {Pointer<PLOG_EVENT_ROUTINE>} pfnLogEvent 
      * @param {Pointer} hResourceHandle 

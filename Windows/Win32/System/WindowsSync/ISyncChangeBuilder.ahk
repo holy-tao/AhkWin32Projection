@@ -105,7 +105,7 @@ export default struct ISyncChangeBuilder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebuilder-addchangeunitmetadata
      */
     AddChangeUnitMetadata(pbChangeUnitId, pChangeUnitVersion) {
-        pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : "ptr"
+        pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, pbChangeUnitIdMarshal, pbChangeUnitId, SYNC_VERSION.Ptr, pChangeUnitVersion, "HRESULT")
         return result
@@ -120,7 +120,7 @@ export default struct ISyncChangeBuilder extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddChangeUnitMetadata := CallbackCreate(GetMethod(implObj, "AddChangeUnitMetadata"), flags, 3)
+        this.vtbl.AddChangeUnitMetadata := CallbackCreate(ObjBindMethod(implObj, "AddChangeUnitMetadata"), flags, 3)
     }
 
     Dispose() {

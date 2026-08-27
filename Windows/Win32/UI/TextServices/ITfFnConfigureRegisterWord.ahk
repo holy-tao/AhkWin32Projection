@@ -93,7 +93,7 @@ export default struct ITfFnConfigureRegisterWord extends ITfFunction {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Show := CallbackCreate(GetMethod(implObj, "Show"), flags, 5)
+        this.vtbl.Show := CallbackCreate(ObjBindMethod(implObj, "Show"), flags, 5)
     }
 
     Dispose() {

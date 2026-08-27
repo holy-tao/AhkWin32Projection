@@ -19,13 +19,12 @@ export default struct POB_POST_OPERATION_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} RegistrationContext 
      * @param {Pointer<OB_POST_OPERATION_INFORMATION>} OperationInformation 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(RegistrationContext, OperationInformation) {
-        RegistrationContextMarshal := RegistrationContext is VarRef ? "ptr" : "ptr"
+        RegistrationContextMarshal := RegistrationContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, RegistrationContextMarshal, RegistrationContext, OB_POST_OPERATION_INFORMATION.Ptr, OperationInformation)
     }

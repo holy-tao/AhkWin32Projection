@@ -19,7 +19,6 @@ export default struct LPD3DHAL_VALIDATETEXTURESTAGESTATECB {
     }
 
     /**
-     * 
      * @param {Pointer<D3DHAL_VALIDATETEXTURESTAGESTATEDATA>} param0 
      * @returns {Integer} 
      */

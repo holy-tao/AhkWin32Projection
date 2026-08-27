@@ -337,11 +337,11 @@ export default struct IWMWriterPreprocess extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMaxPreprocessingPasses := CallbackCreate(GetMethod(implObj, "GetMaxPreprocessingPasses"), flags, 4)
-        this.vtbl.SetNumPreprocessingPasses := CallbackCreate(GetMethod(implObj, "SetNumPreprocessingPasses"), flags, 4)
-        this.vtbl.BeginPreprocessingPass := CallbackCreate(GetMethod(implObj, "BeginPreprocessingPass"), flags, 3)
-        this.vtbl.PreprocessSample := CallbackCreate(GetMethod(implObj, "PreprocessSample"), flags, 5)
-        this.vtbl.EndPreprocessingPass := CallbackCreate(GetMethod(implObj, "EndPreprocessingPass"), flags, 3)
+        this.vtbl.GetMaxPreprocessingPasses := CallbackCreate(ObjBindMethod(implObj, "GetMaxPreprocessingPasses"), flags, 4)
+        this.vtbl.SetNumPreprocessingPasses := CallbackCreate(ObjBindMethod(implObj, "SetNumPreprocessingPasses"), flags, 4)
+        this.vtbl.BeginPreprocessingPass := CallbackCreate(ObjBindMethod(implObj, "BeginPreprocessingPass"), flags, 3)
+        this.vtbl.PreprocessSample := CallbackCreate(ObjBindMethod(implObj, "PreprocessSample"), flags, 5)
+        this.vtbl.EndPreprocessingPass := CallbackCreate(ObjBindMethod(implObj, "EndPreprocessingPass"), flags, 3)
     }
 
     Dispose() {

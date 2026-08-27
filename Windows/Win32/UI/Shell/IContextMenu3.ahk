@@ -90,7 +90,7 @@ export default struct IContextMenu3 extends IContextMenu2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.HandleMenuMsg2 := CallbackCreate(GetMethod(implObj, "HandleMenuMsg2"), flags, 5)
+        this.vtbl.HandleMenuMsg2 := CallbackCreate(ObjBindMethod(implObj, "HandleMenuMsg2"), flags, 5)
     }
 
     Dispose() {

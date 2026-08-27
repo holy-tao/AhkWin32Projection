@@ -43,7 +43,6 @@ export default struct PIBIO_ENGINE_SET_HASH_ALGORITHM_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/ns-winbio_adapter-winbio_pipeline">WINBIO_PIPELINE</a> structure associated with the biometric unit performing the operation.
      * @param {Pointer} AlgorithmBufferSize The size, in bytes, of the buffer specified by the <i>AlgorithmBuffer</i> parameter.
      * @param {Pointer<Integer>} AlgorithmBuffer Pointer to a <b>NULL</b>-terminated ANSI string that contains the object identifier of the hash algorithm to select. Call the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/nc-winbio_adapter-pibio_engine_query_hash_algorithms_fn">EngineAdapterQueryHashAlgorithms</a> function to retrieve an array of the supported algorithm object identifiers (OIDs).
@@ -90,7 +89,7 @@ export default struct PIBIO_ENGINE_SET_HASH_ALGORITHM_FN {
      * </table>
      */
     Call(Pipeline, AlgorithmBufferSize, AlgorithmBuffer) {
-        AlgorithmBufferMarshal := AlgorithmBuffer is VarRef ? "char*" : "ptr"
+        AlgorithmBufferMarshal := AlgorithmBuffer is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, WINBIO_PIPELINE.Ptr, Pipeline, IntPtr, AlgorithmBufferSize, AlgorithmBufferMarshal, AlgorithmBuffer, "HRESULT")
         return result

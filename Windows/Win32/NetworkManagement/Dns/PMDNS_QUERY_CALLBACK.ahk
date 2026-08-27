@@ -20,14 +20,13 @@ export default struct PMDNS_QUERY_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pQueryContext 
      * @param {Pointer<MDNS_QUERY_HANDLE>} pQueryHandle 
      * @param {Pointer<DNS_QUERY_RESULT>} pQueryResults 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(pQueryContext, pQueryHandle, pQueryResults) {
-        pQueryContextMarshal := pQueryContext is VarRef ? "ptr" : "ptr"
+        pQueryContextMarshal := pQueryContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, pQueryContextMarshal, pQueryContext, MDNS_QUERY_HANDLE.Ptr, pQueryHandle, DNS_QUERY_RESULT.Ptr, pQueryResults)
     }

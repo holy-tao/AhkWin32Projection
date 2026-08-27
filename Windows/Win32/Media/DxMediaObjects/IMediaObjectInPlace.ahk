@@ -134,9 +134,9 @@ export default struct IMediaObjectInPlace extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Process := CallbackCreate(GetMethod(implObj, "Process"), flags, 5)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
-        this.vtbl.GetLatency := CallbackCreate(GetMethod(implObj, "GetLatency"), flags, 2)
+        this.vtbl.Process := CallbackCreate(ObjBindMethod(implObj, "Process"), flags, 5)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.GetLatency := CallbackCreate(ObjBindMethod(implObj, "GetLatency"), flags, 2)
     }
 
     Dispose() {

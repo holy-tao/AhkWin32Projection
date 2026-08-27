@@ -57,7 +57,6 @@ export default struct IRTCReInviteEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCSession2} 
      */
     get_Session() {
@@ -66,7 +65,6 @@ export default struct IRTCReInviteEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrContentType 
      * @param {BSTR} bstrSessionDescription 
      * @returns {HRESULT} 
@@ -80,7 +78,6 @@ export default struct IRTCReInviteEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reject() {
@@ -89,7 +86,6 @@ export default struct IRTCReInviteEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {RTC_REINVITE_STATE} 
      */
     get_State() {
@@ -98,7 +94,6 @@ export default struct IRTCReInviteEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrContentType 
      * @param {Pointer<BSTR>} pbstrSessionDescription 
      * @returns {HRESULT} 
@@ -117,11 +112,11 @@ export default struct IRTCReInviteEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Session := CallbackCreate(GetMethod(implObj, "get_Session"), flags, 2)
-        this.vtbl.Accept := CallbackCreate(GetMethod(implObj, "Accept"), flags, 3)
-        this.vtbl.Reject := CallbackCreate(GetMethod(implObj, "Reject"), flags, 1)
-        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
-        this.vtbl.GetRemoteSessionDescription := CallbackCreate(GetMethod(implObj, "GetRemoteSessionDescription"), flags, 3)
+        this.vtbl.get_Session := CallbackCreate(ObjBindMethod(implObj, "get_Session"), flags, 2)
+        this.vtbl.Accept := CallbackCreate(ObjBindMethod(implObj, "Accept"), flags, 3)
+        this.vtbl.Reject := CallbackCreate(ObjBindMethod(implObj, "Reject"), flags, 1)
+        this.vtbl.get_State := CallbackCreate(ObjBindMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.GetRemoteSessionDescription := CallbackCreate(ObjBindMethod(implObj, "GetRemoteSessionDescription"), flags, 3)
     }
 
     Dispose() {

@@ -368,7 +368,12 @@ export default struct IWSDiscoveryPublisher extends IUnknown {
         pszId := pszId is String ? StrPtr(pszId) : pszId
         pszSessionId := pszSessionId is String ? StrPtr(pszSessionId) : pszSessionId
 
-        result := ComCall(6, this, "ptr", pszId, Int64, ullMetadataVersion, Int64, ullInstanceId, Int64, ullMessageNumber, "ptr", pszSessionId, WSD_NAME_LIST.Ptr, pTypesList, WSD_URI_LIST.Ptr, pScopesList, WSD_URI_LIST.Ptr, pXAddrsList, "HRESULT")
+        pszSessionIdMarshal := pszSessionId == 0 ? IntPtr : PWSTR
+        pTypesListMarshal := pTypesList == 0 ? IntPtr : WSD_NAME_LIST.Ptr
+        pScopesListMarshal := pScopesList == 0 ? IntPtr : WSD_URI_LIST.Ptr
+        pXAddrsListMarshal := pXAddrsList == 0 ? IntPtr : WSD_URI_LIST.Ptr
+
+        result := ComCall(6, this, "ptr", pszId, Int64, ullMetadataVersion, Int64, ullInstanceId, Int64, ullMessageNumber, pszSessionIdMarshal, pszSessionId, pTypesListMarshal, pTypesList, pScopesListMarshal, pScopesList, pXAddrsListMarshal, pXAddrsList, "HRESULT")
         return result
     }
 
@@ -452,7 +457,10 @@ export default struct IWSDiscoveryPublisher extends IUnknown {
         pszId := pszId is String ? StrPtr(pszId) : pszId
         pszSessionId := pszSessionId is String ? StrPtr(pszSessionId) : pszSessionId
 
-        result := ComCall(7, this, "ptr", pszId, Int64, ullInstanceId, Int64, ullMessageNumber, "ptr", pszSessionId, WSDXML_ELEMENT.Ptr, pAny, "HRESULT")
+        pszSessionIdMarshal := pszSessionId == 0 ? IntPtr : PWSTR
+        pAnyMarshal := pAny == 0 ? IntPtr : WSDXML_ELEMENT.Ptr
+
+        result := ComCall(7, this, "ptr", pszId, Int64, ullInstanceId, Int64, ullMessageNumber, pszSessionIdMarshal, pszSessionId, pAnyMarshal, pAny, "HRESULT")
         return result
     }
 
@@ -551,7 +559,12 @@ export default struct IWSDiscoveryPublisher extends IUnknown {
         pszId := pszId is String ? StrPtr(pszId) : pszId
         pszSessionId := pszSessionId is String ? StrPtr(pszSessionId) : pszSessionId
 
-        result := ComCall(8, this, WSD_SOAP_MESSAGE.Ptr, pProbeMessage, "ptr", pMessageParameters, "ptr", pszId, Int64, ullMetadataVersion, Int64, ullInstanceId, Int64, ullMessageNumber, "ptr", pszSessionId, WSD_NAME_LIST.Ptr, pTypesList, WSD_URI_LIST.Ptr, pScopesList, WSD_URI_LIST.Ptr, pXAddrsList, "HRESULT")
+        pszSessionIdMarshal := pszSessionId == 0 ? IntPtr : PWSTR
+        pTypesListMarshal := pTypesList == 0 ? IntPtr : WSD_NAME_LIST.Ptr
+        pScopesListMarshal := pScopesList == 0 ? IntPtr : WSD_URI_LIST.Ptr
+        pXAddrsListMarshal := pXAddrsList == 0 ? IntPtr : WSD_URI_LIST.Ptr
+
+        result := ComCall(8, this, WSD_SOAP_MESSAGE.Ptr, pProbeMessage, "ptr", pMessageParameters, "ptr", pszId, Int64, ullMetadataVersion, Int64, ullInstanceId, Int64, ullMessageNumber, pszSessionIdMarshal, pszSessionId, pTypesListMarshal, pTypesList, pScopesListMarshal, pScopesList, pXAddrsListMarshal, pXAddrsList, "HRESULT")
         return result
     }
 
@@ -646,7 +659,12 @@ export default struct IWSDiscoveryPublisher extends IUnknown {
         pszId := pszId is String ? StrPtr(pszId) : pszId
         pszSessionId := pszSessionId is String ? StrPtr(pszSessionId) : pszSessionId
 
-        result := ComCall(9, this, WSD_SOAP_MESSAGE.Ptr, pResolveMessage, "ptr", pMessageParameters, "ptr", pszId, Int64, ullMetadataVersion, Int64, ullInstanceId, Int64, ullMessageNumber, "ptr", pszSessionId, WSD_NAME_LIST.Ptr, pTypesList, WSD_URI_LIST.Ptr, pScopesList, WSD_URI_LIST.Ptr, pXAddrsList, "HRESULT")
+        pszSessionIdMarshal := pszSessionId == 0 ? IntPtr : PWSTR
+        pTypesListMarshal := pTypesList == 0 ? IntPtr : WSD_NAME_LIST.Ptr
+        pScopesListMarshal := pScopesList == 0 ? IntPtr : WSD_URI_LIST.Ptr
+        pXAddrsListMarshal := pXAddrsList == 0 ? IntPtr : WSD_URI_LIST.Ptr
+
+        result := ComCall(9, this, WSD_SOAP_MESSAGE.Ptr, pResolveMessage, "ptr", pMessageParameters, "ptr", pszId, Int64, ullMetadataVersion, Int64, ullInstanceId, Int64, ullMessageNumber, pszSessionIdMarshal, pszSessionId, pTypesListMarshal, pTypesList, pScopesListMarshal, pScopesList, pXAddrsListMarshal, pXAddrsList, "HRESULT")
         return result
     }
 
@@ -754,7 +772,17 @@ export default struct IWSDiscoveryPublisher extends IUnknown {
         pszId := pszId is String ? StrPtr(pszId) : pszId
         pszSessionId := pszSessionId is String ? StrPtr(pszSessionId) : pszSessionId
 
-        result := ComCall(10, this, "ptr", pszId, Int64, ullMetadataVersion, Int64, ullInstanceId, Int64, ullMessageNumber, "ptr", pszSessionId, WSD_NAME_LIST.Ptr, pTypesList, WSD_URI_LIST.Ptr, pScopesList, WSD_URI_LIST.Ptr, pXAddrsList, WSDXML_ELEMENT.Ptr, pHeaderAny, WSDXML_ELEMENT.Ptr, pReferenceParameterAny, WSDXML_ELEMENT.Ptr, pPolicyAny, WSDXML_ELEMENT.Ptr, pEndpointReferenceAny, WSDXML_ELEMENT.Ptr, pAny, "HRESULT")
+        pszSessionIdMarshal := pszSessionId == 0 ? IntPtr : PWSTR
+        pTypesListMarshal := pTypesList == 0 ? IntPtr : WSD_NAME_LIST.Ptr
+        pScopesListMarshal := pScopesList == 0 ? IntPtr : WSD_URI_LIST.Ptr
+        pXAddrsListMarshal := pXAddrsList == 0 ? IntPtr : WSD_URI_LIST.Ptr
+        pHeaderAnyMarshal := pHeaderAny == 0 ? IntPtr : WSDXML_ELEMENT.Ptr
+        pReferenceParameterAnyMarshal := pReferenceParameterAny == 0 ? IntPtr : WSDXML_ELEMENT.Ptr
+        pPolicyAnyMarshal := pPolicyAny == 0 ? IntPtr : WSDXML_ELEMENT.Ptr
+        pEndpointReferenceAnyMarshal := pEndpointReferenceAny == 0 ? IntPtr : WSDXML_ELEMENT.Ptr
+        pAnyMarshal := pAny == 0 ? IntPtr : WSDXML_ELEMENT.Ptr
+
+        result := ComCall(10, this, "ptr", pszId, Int64, ullMetadataVersion, Int64, ullInstanceId, Int64, ullMessageNumber, pszSessionIdMarshal, pszSessionId, pTypesListMarshal, pTypesList, pScopesListMarshal, pScopesList, pXAddrsListMarshal, pXAddrsList, pHeaderAnyMarshal, pHeaderAny, pReferenceParameterAnyMarshal, pReferenceParameterAny, pPolicyAnyMarshal, pPolicyAny, pEndpointReferenceAnyMarshal, pEndpointReferenceAny, pAnyMarshal, pAny, "HRESULT")
         return result
     }
 
@@ -860,7 +888,17 @@ export default struct IWSDiscoveryPublisher extends IUnknown {
         pszId := pszId is String ? StrPtr(pszId) : pszId
         pszSessionId := pszSessionId is String ? StrPtr(pszSessionId) : pszSessionId
 
-        result := ComCall(11, this, WSD_SOAP_MESSAGE.Ptr, pProbeMessage, "ptr", pMessageParameters, "ptr", pszId, Int64, ullMetadataVersion, Int64, ullInstanceId, Int64, ullMessageNumber, "ptr", pszSessionId, WSD_NAME_LIST.Ptr, pTypesList, WSD_URI_LIST.Ptr, pScopesList, WSD_URI_LIST.Ptr, pXAddrsList, WSDXML_ELEMENT.Ptr, pHeaderAny, WSDXML_ELEMENT.Ptr, pReferenceParameterAny, WSDXML_ELEMENT.Ptr, pPolicyAny, WSDXML_ELEMENT.Ptr, pEndpointReferenceAny, WSDXML_ELEMENT.Ptr, pAny, "HRESULT")
+        pszSessionIdMarshal := pszSessionId == 0 ? IntPtr : PWSTR
+        pTypesListMarshal := pTypesList == 0 ? IntPtr : WSD_NAME_LIST.Ptr
+        pScopesListMarshal := pScopesList == 0 ? IntPtr : WSD_URI_LIST.Ptr
+        pXAddrsListMarshal := pXAddrsList == 0 ? IntPtr : WSD_URI_LIST.Ptr
+        pHeaderAnyMarshal := pHeaderAny == 0 ? IntPtr : WSDXML_ELEMENT.Ptr
+        pReferenceParameterAnyMarshal := pReferenceParameterAny == 0 ? IntPtr : WSDXML_ELEMENT.Ptr
+        pPolicyAnyMarshal := pPolicyAny == 0 ? IntPtr : WSDXML_ELEMENT.Ptr
+        pEndpointReferenceAnyMarshal := pEndpointReferenceAny == 0 ? IntPtr : WSDXML_ELEMENT.Ptr
+        pAnyMarshal := pAny == 0 ? IntPtr : WSDXML_ELEMENT.Ptr
+
+        result := ComCall(11, this, WSD_SOAP_MESSAGE.Ptr, pProbeMessage, "ptr", pMessageParameters, "ptr", pszId, Int64, ullMetadataVersion, Int64, ullInstanceId, Int64, ullMessageNumber, pszSessionIdMarshal, pszSessionId, pTypesListMarshal, pTypesList, pScopesListMarshal, pScopesList, pXAddrsListMarshal, pXAddrsList, pHeaderAnyMarshal, pHeaderAny, pReferenceParameterAnyMarshal, pReferenceParameterAny, pPolicyAnyMarshal, pPolicyAny, pEndpointReferenceAnyMarshal, pEndpointReferenceAny, pAnyMarshal, pAny, "HRESULT")
         return result
     }
 
@@ -962,7 +1000,17 @@ export default struct IWSDiscoveryPublisher extends IUnknown {
         pszId := pszId is String ? StrPtr(pszId) : pszId
         pszSessionId := pszSessionId is String ? StrPtr(pszSessionId) : pszSessionId
 
-        result := ComCall(12, this, WSD_SOAP_MESSAGE.Ptr, pResolveMessage, "ptr", pMessageParameters, "ptr", pszId, Int64, ullMetadataVersion, Int64, ullInstanceId, Int64, ullMessageNumber, "ptr", pszSessionId, WSD_NAME_LIST.Ptr, pTypesList, WSD_URI_LIST.Ptr, pScopesList, WSD_URI_LIST.Ptr, pXAddrsList, WSDXML_ELEMENT.Ptr, pHeaderAny, WSDXML_ELEMENT.Ptr, pReferenceParameterAny, WSDXML_ELEMENT.Ptr, pPolicyAny, WSDXML_ELEMENT.Ptr, pEndpointReferenceAny, WSDXML_ELEMENT.Ptr, pAny, "HRESULT")
+        pszSessionIdMarshal := pszSessionId == 0 ? IntPtr : PWSTR
+        pTypesListMarshal := pTypesList == 0 ? IntPtr : WSD_NAME_LIST.Ptr
+        pScopesListMarshal := pScopesList == 0 ? IntPtr : WSD_URI_LIST.Ptr
+        pXAddrsListMarshal := pXAddrsList == 0 ? IntPtr : WSD_URI_LIST.Ptr
+        pHeaderAnyMarshal := pHeaderAny == 0 ? IntPtr : WSDXML_ELEMENT.Ptr
+        pReferenceParameterAnyMarshal := pReferenceParameterAny == 0 ? IntPtr : WSDXML_ELEMENT.Ptr
+        pPolicyAnyMarshal := pPolicyAny == 0 ? IntPtr : WSDXML_ELEMENT.Ptr
+        pEndpointReferenceAnyMarshal := pEndpointReferenceAny == 0 ? IntPtr : WSDXML_ELEMENT.Ptr
+        pAnyMarshal := pAny == 0 ? IntPtr : WSDXML_ELEMENT.Ptr
+
+        result := ComCall(12, this, WSD_SOAP_MESSAGE.Ptr, pResolveMessage, "ptr", pMessageParameters, "ptr", pszId, Int64, ullMetadataVersion, Int64, ullInstanceId, Int64, ullMessageNumber, pszSessionIdMarshal, pszSessionId, pTypesListMarshal, pTypesList, pScopesListMarshal, pScopesList, pXAddrsListMarshal, pXAddrsList, pHeaderAnyMarshal, pHeaderAny, pReferenceParameterAnyMarshal, pReferenceParameterAny, pPolicyAnyMarshal, pPolicyAny, pEndpointReferenceAnyMarshal, pEndpointReferenceAny, pAnyMarshal, pAny, "HRESULT")
         return result
     }
 
@@ -1082,19 +1130,19 @@ export default struct IWSDiscoveryPublisher extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAddressFamily := CallbackCreate(GetMethod(implObj, "SetAddressFamily"), flags, 2)
-        this.vtbl.RegisterNotificationSink := CallbackCreate(GetMethod(implObj, "RegisterNotificationSink"), flags, 2)
-        this.vtbl.UnRegisterNotificationSink := CallbackCreate(GetMethod(implObj, "UnRegisterNotificationSink"), flags, 2)
-        this.vtbl.Publish := CallbackCreate(GetMethod(implObj, "Publish"), flags, 9)
-        this.vtbl.UnPublish := CallbackCreate(GetMethod(implObj, "UnPublish"), flags, 6)
-        this.vtbl.MatchProbe := CallbackCreate(GetMethod(implObj, "MatchProbe"), flags, 11)
-        this.vtbl.MatchResolve := CallbackCreate(GetMethod(implObj, "MatchResolve"), flags, 11)
-        this.vtbl.PublishEx := CallbackCreate(GetMethod(implObj, "PublishEx"), flags, 14)
-        this.vtbl.MatchProbeEx := CallbackCreate(GetMethod(implObj, "MatchProbeEx"), flags, 16)
-        this.vtbl.MatchResolveEx := CallbackCreate(GetMethod(implObj, "MatchResolveEx"), flags, 16)
-        this.vtbl.RegisterScopeMatchingRule := CallbackCreate(GetMethod(implObj, "RegisterScopeMatchingRule"), flags, 2)
-        this.vtbl.UnRegisterScopeMatchingRule := CallbackCreate(GetMethod(implObj, "UnRegisterScopeMatchingRule"), flags, 2)
-        this.vtbl.GetXMLContext := CallbackCreate(GetMethod(implObj, "GetXMLContext"), flags, 2)
+        this.vtbl.SetAddressFamily := CallbackCreate(ObjBindMethod(implObj, "SetAddressFamily"), flags, 2)
+        this.vtbl.RegisterNotificationSink := CallbackCreate(ObjBindMethod(implObj, "RegisterNotificationSink"), flags, 2)
+        this.vtbl.UnRegisterNotificationSink := CallbackCreate(ObjBindMethod(implObj, "UnRegisterNotificationSink"), flags, 2)
+        this.vtbl.Publish := CallbackCreate(ObjBindMethod(implObj, "Publish"), flags, 9)
+        this.vtbl.UnPublish := CallbackCreate(ObjBindMethod(implObj, "UnPublish"), flags, 6)
+        this.vtbl.MatchProbe := CallbackCreate(ObjBindMethod(implObj, "MatchProbe"), flags, 11)
+        this.vtbl.MatchResolve := CallbackCreate(ObjBindMethod(implObj, "MatchResolve"), flags, 11)
+        this.vtbl.PublishEx := CallbackCreate(ObjBindMethod(implObj, "PublishEx"), flags, 14)
+        this.vtbl.MatchProbeEx := CallbackCreate(ObjBindMethod(implObj, "MatchProbeEx"), flags, 16)
+        this.vtbl.MatchResolveEx := CallbackCreate(ObjBindMethod(implObj, "MatchResolveEx"), flags, 16)
+        this.vtbl.RegisterScopeMatchingRule := CallbackCreate(ObjBindMethod(implObj, "RegisterScopeMatchingRule"), flags, 2)
+        this.vtbl.UnRegisterScopeMatchingRule := CallbackCreate(ObjBindMethod(implObj, "UnRegisterScopeMatchingRule"), flags, 2)
+        this.vtbl.GetXMLContext := CallbackCreate(ObjBindMethod(implObj, "GetXMLContext"), flags, 2)
     }
 
     Dispose() {

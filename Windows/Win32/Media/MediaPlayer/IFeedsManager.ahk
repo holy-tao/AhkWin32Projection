@@ -90,7 +90,6 @@ export default struct IFeedsManager extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_RootFolder() {
@@ -99,7 +98,6 @@ export default struct IFeedsManager extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} feedUrl 
      * @returns {VARIANT_BOOL} 
      */
@@ -111,7 +109,6 @@ export default struct IFeedsManager extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} feedPath 
      * @returns {VARIANT_BOOL} 
      */
@@ -123,7 +120,6 @@ export default struct IFeedsManager extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} feedPath 
      * @returns {IDispatch} 
      */
@@ -135,7 +131,6 @@ export default struct IFeedsManager extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} feedUrl 
      * @returns {IDispatch} 
      */
@@ -147,7 +142,6 @@ export default struct IFeedsManager extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} folderPath 
      * @returns {VARIANT_BOOL} 
      */
@@ -159,7 +153,6 @@ export default struct IFeedsManager extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} folderPath 
      * @returns {IDispatch} 
      */
@@ -171,7 +164,6 @@ export default struct IFeedsManager extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} feedPath 
      * @returns {HRESULT} 
      */
@@ -183,7 +175,6 @@ export default struct IFeedsManager extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} folderPath 
      * @returns {HRESULT} 
      */
@@ -195,7 +186,6 @@ export default struct IFeedsManager extends IDispatch {
     }
 
     /**
-     * 
      * @param {FEEDS_BACKGROUNDSYNC_ACTION} action 
      * @returns {HRESULT} 
      */
@@ -205,7 +195,6 @@ export default struct IFeedsManager extends IDispatch {
     }
 
     /**
-     * 
      * @returns {FEEDS_BACKGROUNDSYNC_STATUS} 
      */
     get_BackgroundSyncStatus() {
@@ -214,7 +203,6 @@ export default struct IFeedsManager extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DefaultInterval() {
@@ -223,7 +211,6 @@ export default struct IFeedsManager extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} minutes 
      * @returns {HRESULT} 
      */
@@ -233,7 +220,6 @@ export default struct IFeedsManager extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     AsyncSyncAll() {
@@ -242,7 +228,6 @@ export default struct IFeedsManager extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} feedXmlIn 
      * @returns {BSTR} 
      */
@@ -255,7 +240,6 @@ export default struct IFeedsManager extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ItemCountLimit() {
@@ -272,22 +256,22 @@ export default struct IFeedsManager extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_RootFolder := CallbackCreate(GetMethod(implObj, "get_RootFolder"), flags, 2)
-        this.vtbl.IsSubscribed := CallbackCreate(GetMethod(implObj, "IsSubscribed"), flags, 3)
-        this.vtbl.ExistsFeed := CallbackCreate(GetMethod(implObj, "ExistsFeed"), flags, 3)
-        this.vtbl.GetFeed := CallbackCreate(GetMethod(implObj, "GetFeed"), flags, 3)
-        this.vtbl.GetFeedByUrl := CallbackCreate(GetMethod(implObj, "GetFeedByUrl"), flags, 3)
-        this.vtbl.ExistsFolder := CallbackCreate(GetMethod(implObj, "ExistsFolder"), flags, 3)
-        this.vtbl.GetFolder := CallbackCreate(GetMethod(implObj, "GetFolder"), flags, 3)
-        this.vtbl.DeleteFeed := CallbackCreate(GetMethod(implObj, "DeleteFeed"), flags, 2)
-        this.vtbl.DeleteFolder := CallbackCreate(GetMethod(implObj, "DeleteFolder"), flags, 2)
-        this.vtbl.BackgroundSync := CallbackCreate(GetMethod(implObj, "BackgroundSync"), flags, 2)
-        this.vtbl.get_BackgroundSyncStatus := CallbackCreate(GetMethod(implObj, "get_BackgroundSyncStatus"), flags, 2)
-        this.vtbl.get_DefaultInterval := CallbackCreate(GetMethod(implObj, "get_DefaultInterval"), flags, 2)
-        this.vtbl.put_DefaultInterval := CallbackCreate(GetMethod(implObj, "put_DefaultInterval"), flags, 2)
-        this.vtbl.AsyncSyncAll := CallbackCreate(GetMethod(implObj, "AsyncSyncAll"), flags, 1)
-        this.vtbl.Normalize := CallbackCreate(GetMethod(implObj, "Normalize"), flags, 3)
-        this.vtbl.get_ItemCountLimit := CallbackCreate(GetMethod(implObj, "get_ItemCountLimit"), flags, 2)
+        this.vtbl.get_RootFolder := CallbackCreate(ObjBindMethod(implObj, "get_RootFolder"), flags, 2)
+        this.vtbl.IsSubscribed := CallbackCreate(ObjBindMethod(implObj, "IsSubscribed"), flags, 3)
+        this.vtbl.ExistsFeed := CallbackCreate(ObjBindMethod(implObj, "ExistsFeed"), flags, 3)
+        this.vtbl.GetFeed := CallbackCreate(ObjBindMethod(implObj, "GetFeed"), flags, 3)
+        this.vtbl.GetFeedByUrl := CallbackCreate(ObjBindMethod(implObj, "GetFeedByUrl"), flags, 3)
+        this.vtbl.ExistsFolder := CallbackCreate(ObjBindMethod(implObj, "ExistsFolder"), flags, 3)
+        this.vtbl.GetFolder := CallbackCreate(ObjBindMethod(implObj, "GetFolder"), flags, 3)
+        this.vtbl.DeleteFeed := CallbackCreate(ObjBindMethod(implObj, "DeleteFeed"), flags, 2)
+        this.vtbl.DeleteFolder := CallbackCreate(ObjBindMethod(implObj, "DeleteFolder"), flags, 2)
+        this.vtbl.BackgroundSync := CallbackCreate(ObjBindMethod(implObj, "BackgroundSync"), flags, 2)
+        this.vtbl.get_BackgroundSyncStatus := CallbackCreate(ObjBindMethod(implObj, "get_BackgroundSyncStatus"), flags, 2)
+        this.vtbl.get_DefaultInterval := CallbackCreate(ObjBindMethod(implObj, "get_DefaultInterval"), flags, 2)
+        this.vtbl.put_DefaultInterval := CallbackCreate(ObjBindMethod(implObj, "put_DefaultInterval"), flags, 2)
+        this.vtbl.AsyncSyncAll := CallbackCreate(ObjBindMethod(implObj, "AsyncSyncAll"), flags, 1)
+        this.vtbl.Normalize := CallbackCreate(ObjBindMethod(implObj, "Normalize"), flags, 3)
+        this.vtbl.get_ItemCountLimit := CallbackCreate(ObjBindMethod(implObj, "get_ItemCountLimit"), flags, 2)
     }
 
     Dispose() {

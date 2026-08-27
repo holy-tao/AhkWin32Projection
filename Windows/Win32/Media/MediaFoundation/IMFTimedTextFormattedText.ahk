@@ -85,8 +85,8 @@ export default struct IMFTimedTextFormattedText extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextformattedtext-getsubformatting
      */
     GetSubformatting(index, firstChar, charLength, style) {
-        firstCharMarshal := firstChar is VarRef ? "uint*" : "ptr"
-        charLengthMarshal := charLength is VarRef ? "uint*" : "ptr"
+        firstCharMarshal := firstChar is VarRef ? "uint*" : IntPtr
+        charLengthMarshal := charLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, UInt32, index, firstCharMarshal, firstChar, charLengthMarshal, charLength, IMFTimedTextStyle.Ptr, style, "HRESULT")
         return result
@@ -101,9 +101,9 @@ export default struct IMFTimedTextFormattedText extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetText := CallbackCreate(GetMethod(implObj, "GetText"), flags, 2)
-        this.vtbl.GetSubformattingCount := CallbackCreate(GetMethod(implObj, "GetSubformattingCount"), flags, 1)
-        this.vtbl.GetSubformatting := CallbackCreate(GetMethod(implObj, "GetSubformatting"), flags, 5)
+        this.vtbl.GetText := CallbackCreate(ObjBindMethod(implObj, "GetText"), flags, 2)
+        this.vtbl.GetSubformattingCount := CallbackCreate(ObjBindMethod(implObj, "GetSubformattingCount"), flags, 1)
+        this.vtbl.GetSubformatting := CallbackCreate(ObjBindMethod(implObj, "GetSubformatting"), flags, 5)
     }
 
     Dispose() {

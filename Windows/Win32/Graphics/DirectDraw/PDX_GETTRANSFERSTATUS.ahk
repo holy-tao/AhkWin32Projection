@@ -23,15 +23,14 @@ export default struct PDX_GETTRANSFERSTATUS {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} param0 Points to the miniport driver's device extension.
      * @param {Pointer<Void>} param1 Reserved for system use.
      * @param {Pointer<DDGETTRANSFERSTATUSOUTINFO>} param2 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/dxmini/ns-dxmini-ddgettransferstatusoutinfo">DDGETTRANSFERSTATUSOUTINFO</a> structure that contains the transfer status information.
      * @returns {Integer} <i>DxGetTransferStatus</i> returns DX_OK if it succeeds; otherwise, it returns one of the following error values:
      */
     Call(param0, param1, param2) {
-        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
-        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+        param0Marshal := param0 is VarRef ? "ptr" : IntPtr
+        param1Marshal := param1 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, param0Marshal, param0, param1Marshal, param1, DDGETTRANSFERSTATUSOUTINFO.Ptr, param2, UInt32)
         return result

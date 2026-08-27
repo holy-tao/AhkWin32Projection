@@ -73,8 +73,8 @@ export default struct IMFQualityAdviseLimits extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMaximumDropMode := CallbackCreate(GetMethod(implObj, "GetMaximumDropMode"), flags, 2)
-        this.vtbl.GetMinimumQualityLevel := CallbackCreate(GetMethod(implObj, "GetMinimumQualityLevel"), flags, 2)
+        this.vtbl.GetMaximumDropMode := CallbackCreate(ObjBindMethod(implObj, "GetMaximumDropMode"), flags, 2)
+        this.vtbl.GetMinimumQualityLevel := CallbackCreate(ObjBindMethod(implObj, "GetMinimumQualityLevel"), flags, 2)
     }
 
     Dispose() {

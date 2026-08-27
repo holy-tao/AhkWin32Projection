@@ -38,7 +38,6 @@ export default struct IResourceManagerFactory2 extends IResourceManagerFactory {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pguidRM 
      * @param {PSTR} pszRMName 
      * @param {IResourceManagerSink} pIResMgrSink 
@@ -48,7 +47,9 @@ export default struct IResourceManagerFactory2 extends IResourceManagerFactory {
     CreateEx(pguidRM, pszRMName, pIResMgrSink, riidRequested) {
         pszRMName := pszRMName is String ? StrPtr(pszRMName) : pszRMName
 
-        result := ComCall(4, this, Guid.Ptr, pguidRM, "ptr", pszRMName, "ptr", pIResMgrSink, Guid.Ptr, riidRequested, "ptr*", &ppvResMgr := 0, "HRESULT")
+        pIResMgrSinkMarshal := pIResMgrSink == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, Guid.Ptr, pguidRM, "ptr", pszRMName, pIResMgrSinkMarshal, pIResMgrSink, Guid.Ptr, riidRequested, "ptr*", &ppvResMgr := 0, "HRESULT")
         return ppvResMgr
     }
 
@@ -61,7 +62,7 @@ export default struct IResourceManagerFactory2 extends IResourceManagerFactory {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateEx := CallbackCreate(GetMethod(implObj, "CreateEx"), flags, 6)
+        this.vtbl.CreateEx := CallbackCreate(ObjBindMethod(implObj, "CreateEx"), flags, 6)
     }
 
     Dispose() {

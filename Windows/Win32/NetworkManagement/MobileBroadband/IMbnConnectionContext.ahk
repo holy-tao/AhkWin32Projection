@@ -96,8 +96,8 @@ export default struct IMbnConnectionContext extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProvisionedContexts := CallbackCreate(GetMethod(implObj, "GetProvisionedContexts"), flags, 2)
-        this.vtbl.SetProvisionedContext := CallbackCreate(GetMethod(implObj, "SetProvisionedContext"), flags, 4)
+        this.vtbl.GetProvisionedContexts := CallbackCreate(ObjBindMethod(implObj, "GetProvisionedContexts"), flags, 2)
+        this.vtbl.SetProvisionedContext := CallbackCreate(ObjBindMethod(implObj, "SetProvisionedContext"), flags, 4)
     }
 
     Dispose() {

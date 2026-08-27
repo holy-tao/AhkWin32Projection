@@ -19,7 +19,6 @@ export default struct PWINDBG_EXTENSION_DLL_INIT {
     }
 
     /**
-     * 
      * @param {Pointer<WINDBG_EXTENSION_APIS>} lpExtensionApis 
      * @param {Integer} MajorVersion 
      * @param {Integer} MinorVersion 

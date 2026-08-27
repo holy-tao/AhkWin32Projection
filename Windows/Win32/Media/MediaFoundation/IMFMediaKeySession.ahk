@@ -64,8 +64,8 @@ export default struct IMFMediaKeySession extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediakeysession-geterror
      */
     GetError(code, systemCode) {
-        codeMarshal := code is VarRef ? "ushort*" : "ptr"
-        systemCodeMarshal := systemCode is VarRef ? "uint*" : "ptr"
+        codeMarshal := code is VarRef ? "ushort*" : IntPtr
+        systemCodeMarshal := systemCode is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, codeMarshal, code, systemCodeMarshal, systemCode, "HRESULT")
         return result
@@ -124,11 +124,11 @@ export default struct IMFMediaKeySession extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetError := CallbackCreate(GetMethod(implObj, "GetError"), flags, 3)
-        this.vtbl.get_KeySystem := CallbackCreate(GetMethod(implObj, "get_KeySystem"), flags, 2)
-        this.vtbl.get_SessionId := CallbackCreate(GetMethod(implObj, "get_SessionId"), flags, 2)
-        this.vtbl.Update := CallbackCreate(GetMethod(implObj, "Update"), flags, 3)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.GetError := CallbackCreate(ObjBindMethod(implObj, "GetError"), flags, 3)
+        this.vtbl.get_KeySystem := CallbackCreate(ObjBindMethod(implObj, "get_KeySystem"), flags, 2)
+        this.vtbl.get_SessionId := CallbackCreate(ObjBindMethod(implObj, "get_SessionId"), flags, 2)
+        this.vtbl.Update := CallbackCreate(ObjBindMethod(implObj, "Update"), flags, 3)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
     }
 
     Dispose() {

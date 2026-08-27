@@ -139,10 +139,10 @@ export default struct IWMAddressAccess extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAccessEntryCount := CallbackCreate(GetMethod(implObj, "GetAccessEntryCount"), flags, 3)
-        this.vtbl.GetAccessEntry := CallbackCreate(GetMethod(implObj, "GetAccessEntry"), flags, 4)
-        this.vtbl.AddAccessEntry := CallbackCreate(GetMethod(implObj, "AddAccessEntry"), flags, 3)
-        this.vtbl.RemoveAccessEntry := CallbackCreate(GetMethod(implObj, "RemoveAccessEntry"), flags, 3)
+        this.vtbl.GetAccessEntryCount := CallbackCreate(ObjBindMethod(implObj, "GetAccessEntryCount"), flags, 3)
+        this.vtbl.GetAccessEntry := CallbackCreate(ObjBindMethod(implObj, "GetAccessEntry"), flags, 4)
+        this.vtbl.AddAccessEntry := CallbackCreate(ObjBindMethod(implObj, "AddAccessEntry"), flags, 3)
+        this.vtbl.RemoveAccessEntry := CallbackCreate(ObjBindMethod(implObj, "RemoveAccessEntry"), flags, 3)
     }
 
     Dispose() {

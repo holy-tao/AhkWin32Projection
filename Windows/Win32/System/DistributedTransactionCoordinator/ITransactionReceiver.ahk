@@ -40,20 +40,18 @@ export default struct ITransactionReceiver extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cbToken 
      * @param {Pointer<Integer>} rgbToken 
      * @returns {ITransaction} 
      */
     UnmarshalPropagationToken(cbToken, rgbToken) {
-        rgbTokenMarshal := rgbToken is VarRef ? "char*" : "ptr"
+        rgbTokenMarshal := rgbToken is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, UInt32, cbToken, rgbTokenMarshal, rgbToken, "ptr*", &ppTransaction := 0, "HRESULT")
         return ITransaction(ppTransaction)
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetReturnTokenSize() {
@@ -62,22 +60,20 @@ export default struct ITransactionReceiver extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cbReturnToken 
      * @param {Pointer<Integer>} rgbReturnToken 
      * @param {Pointer<Integer>} pcbUsed 
      * @returns {HRESULT} 
      */
     MarshalReturnToken(cbReturnToken, rgbReturnToken, pcbUsed) {
-        rgbReturnTokenMarshal := rgbReturnToken is VarRef ? "char*" : "ptr"
-        pcbUsedMarshal := pcbUsed is VarRef ? "uint*" : "ptr"
+        rgbReturnTokenMarshal := rgbReturnToken is VarRef ? "char*" : IntPtr
+        pcbUsedMarshal := pcbUsed is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, UInt32, cbReturnToken, rgbReturnTokenMarshal, rgbReturnToken, pcbUsedMarshal, pcbUsed, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -94,10 +90,10 @@ export default struct ITransactionReceiver extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.UnmarshalPropagationToken := CallbackCreate(GetMethod(implObj, "UnmarshalPropagationToken"), flags, 4)
-        this.vtbl.GetReturnTokenSize := CallbackCreate(GetMethod(implObj, "GetReturnTokenSize"), flags, 2)
-        this.vtbl.MarshalReturnToken := CallbackCreate(GetMethod(implObj, "MarshalReturnToken"), flags, 4)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.UnmarshalPropagationToken := CallbackCreate(ObjBindMethod(implObj, "UnmarshalPropagationToken"), flags, 4)
+        this.vtbl.GetReturnTokenSize := CallbackCreate(ObjBindMethod(implObj, "GetReturnTokenSize"), flags, 2)
+        this.vtbl.MarshalReturnToken := CallbackCreate(ObjBindMethod(implObj, "MarshalReturnToken"), flags, 4)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
     }
 
     Dispose() {

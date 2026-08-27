@@ -59,7 +59,7 @@ export default struct IDirectDrawMediaSampleAllocator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDirectDraw := CallbackCreate(GetMethod(implObj, "GetDirectDraw"), flags, 2)
+        this.vtbl.GetDirectDraw := CallbackCreate(ObjBindMethod(implObj, "GetDirectDraw"), flags, 2)
     }
 
     Dispose() {

@@ -70,7 +70,7 @@ export default struct IMAPIProgress extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapiprogress-getflags
      */
     GetFlags(lpulFlags) {
-        lpulFlagsMarshal := lpulFlags is VarRef ? "uint*" : "ptr"
+        lpulFlagsMarshal := lpulFlags is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, lpulFlagsMarshal, lpulFlags, "HRESULT")
         return result
@@ -91,7 +91,7 @@ export default struct IMAPIProgress extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapiprogress-getmax
      */
     GetMax(lpulMax) {
-        lpulMaxMarshal := lpulMax is VarRef ? "uint*" : "ptr"
+        lpulMaxMarshal := lpulMax is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, lpulMaxMarshal, lpulMax, "HRESULT")
         return result
@@ -110,7 +110,7 @@ export default struct IMAPIProgress extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapiprogress-getmin
      */
     GetMin(lpulMin) {
-        lpulMinMarshal := lpulMin is VarRef ? "uint*" : "ptr"
+        lpulMinMarshal := lpulMin is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, lpulMinMarshal, lpulMin, "HRESULT")
         return result
@@ -139,9 +139,9 @@ export default struct IMAPIProgress extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapiprogress-setlimits
      */
     SetLimits(lpulMin, lpulMax, lpulFlags) {
-        lpulMinMarshal := lpulMin is VarRef ? "uint*" : "ptr"
-        lpulMaxMarshal := lpulMax is VarRef ? "uint*" : "ptr"
-        lpulFlagsMarshal := lpulFlags is VarRef ? "uint*" : "ptr"
+        lpulMinMarshal := lpulMin is VarRef ? "uint*" : IntPtr
+        lpulMaxMarshal := lpulMax is VarRef ? "uint*" : IntPtr
+        lpulFlagsMarshal := lpulFlags is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, lpulMinMarshal, lpulMin, lpulMaxMarshal, lpulMax, lpulFlagsMarshal, lpulFlags, "HRESULT")
         return result
@@ -156,11 +156,11 @@ export default struct IMAPIProgress extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Progress := CallbackCreate(GetMethod(implObj, "Progress"), flags, 4)
-        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
-        this.vtbl.GetMax := CallbackCreate(GetMethod(implObj, "GetMax"), flags, 2)
-        this.vtbl.GetMin := CallbackCreate(GetMethod(implObj, "GetMin"), flags, 2)
-        this.vtbl.SetLimits := CallbackCreate(GetMethod(implObj, "SetLimits"), flags, 4)
+        this.vtbl.Progress := CallbackCreate(ObjBindMethod(implObj, "Progress"), flags, 4)
+        this.vtbl.GetFlags := CallbackCreate(ObjBindMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.GetMax := CallbackCreate(ObjBindMethod(implObj, "GetMax"), flags, 2)
+        this.vtbl.GetMin := CallbackCreate(ObjBindMethod(implObj, "GetMin"), flags, 2)
+        this.vtbl.SetLimits := CallbackCreate(ObjBindMethod(implObj, "SetLimits"), flags, 4)
     }
 
     Dispose() {

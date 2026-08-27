@@ -37,7 +37,6 @@ export default struct IRpcSyntaxNegotiate extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<RPCOLEMESSAGE>} pMsg 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,7 @@ export default struct IRpcSyntaxNegotiate extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.NegotiateSyntax := CallbackCreate(GetMethod(implObj, "NegotiateSyntax"), flags, 2)
+        this.vtbl.NegotiateSyntax := CallbackCreate(ObjBindMethod(implObj, "NegotiateSyntax"), flags, 2)
     }
 
     Dispose() {

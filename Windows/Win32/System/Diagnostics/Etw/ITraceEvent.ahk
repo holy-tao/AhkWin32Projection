@@ -106,7 +106,7 @@ export default struct ITraceEvent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-setpayload
      */
     SetPayload(Payload, PayloadSize) {
-        PayloadMarshal := Payload is VarRef ? "char*" : "ptr"
+        PayloadMarshal := Payload is VarRef ? "char*" : IntPtr
 
         result := ComCall(6, this, PayloadMarshal, Payload, UInt32, PayloadSize, "HRESULT")
         return result
@@ -208,7 +208,7 @@ export default struct ITraceEvent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-settimestamp
      */
     SetTimeStamp(_TimeStamp) {
-        _TimeStampMarshal := _TimeStamp is VarRef ? "int64*" : "ptr"
+        _TimeStampMarshal := _TimeStamp is VarRef ? "int64*" : IntPtr
 
         result := ComCall(13, this, _TimeStampMarshal, _TimeStamp, "HRESULT")
         return result
@@ -238,18 +238,18 @@ export default struct ITraceEvent extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
-        this.vtbl.GetUserContext := CallbackCreate(GetMethod(implObj, "GetUserContext"), flags, 2)
-        this.vtbl.GetEventRecord := CallbackCreate(GetMethod(implObj, "GetEventRecord"), flags, 2)
-        this.vtbl.SetPayload := CallbackCreate(GetMethod(implObj, "SetPayload"), flags, 3)
-        this.vtbl.SetEventDescriptor := CallbackCreate(GetMethod(implObj, "SetEventDescriptor"), flags, 2)
-        this.vtbl.SetProcessId := CallbackCreate(GetMethod(implObj, "SetProcessId"), flags, 2)
-        this.vtbl.SetProcessorIndex := CallbackCreate(GetMethod(implObj, "SetProcessorIndex"), flags, 2)
-        this.vtbl.SetThreadId := CallbackCreate(GetMethod(implObj, "SetThreadId"), flags, 2)
-        this.vtbl.SetThreadTimes := CallbackCreate(GetMethod(implObj, "SetThreadTimes"), flags, 3)
-        this.vtbl.SetActivityId := CallbackCreate(GetMethod(implObj, "SetActivityId"), flags, 2)
-        this.vtbl.SetTimeStamp := CallbackCreate(GetMethod(implObj, "SetTimeStamp"), flags, 2)
-        this.vtbl.SetProviderId := CallbackCreate(GetMethod(implObj, "SetProviderId"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.GetUserContext := CallbackCreate(ObjBindMethod(implObj, "GetUserContext"), flags, 2)
+        this.vtbl.GetEventRecord := CallbackCreate(ObjBindMethod(implObj, "GetEventRecord"), flags, 2)
+        this.vtbl.SetPayload := CallbackCreate(ObjBindMethod(implObj, "SetPayload"), flags, 3)
+        this.vtbl.SetEventDescriptor := CallbackCreate(ObjBindMethod(implObj, "SetEventDescriptor"), flags, 2)
+        this.vtbl.SetProcessId := CallbackCreate(ObjBindMethod(implObj, "SetProcessId"), flags, 2)
+        this.vtbl.SetProcessorIndex := CallbackCreate(ObjBindMethod(implObj, "SetProcessorIndex"), flags, 2)
+        this.vtbl.SetThreadId := CallbackCreate(ObjBindMethod(implObj, "SetThreadId"), flags, 2)
+        this.vtbl.SetThreadTimes := CallbackCreate(ObjBindMethod(implObj, "SetThreadTimes"), flags, 3)
+        this.vtbl.SetActivityId := CallbackCreate(ObjBindMethod(implObj, "SetActivityId"), flags, 2)
+        this.vtbl.SetTimeStamp := CallbackCreate(ObjBindMethod(implObj, "SetTimeStamp"), flags, 2)
+        this.vtbl.SetProviderId := CallbackCreate(ObjBindMethod(implObj, "SetProviderId"), flags, 2)
     }
 
     Dispose() {

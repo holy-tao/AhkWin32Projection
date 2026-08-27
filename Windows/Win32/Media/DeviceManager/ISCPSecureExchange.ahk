@@ -71,8 +71,8 @@ export default struct ISCPSecureExchange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsecureexchange-transfercontainerdata
      */
     TransferContainerData(pData, dwSize, abMac) {
-        pDataMarshal := pData is VarRef ? "char*" : "ptr"
-        abMacMarshal := abMac is VarRef ? "char*" : "ptr"
+        pDataMarshal := pData is VarRef ? "char*" : IntPtr
+        abMacMarshal := abMac is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, pDataMarshal, pData, UInt32, dwSize, "uint*", &pfuReadyFlags := 0, abMacMarshal, abMac, "HRESULT")
         return pfuReadyFlags
@@ -88,8 +88,8 @@ export default struct ISCPSecureExchange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsecureexchange-objectdata
      */
     ObjectData(pdwSize, abMac) {
-        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
-        abMacMarshal := abMac is VarRef ? "char*" : "ptr"
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : IntPtr
+        abMacMarshal := abMac is VarRef ? "char*" : IntPtr
 
         result := ComCall(4, this, "char*", &pData := 0, pdwSizeMarshal, pdwSize, abMacMarshal, abMac, "HRESULT")
         return pData
@@ -165,9 +165,9 @@ export default struct ISCPSecureExchange extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.TransferContainerData := CallbackCreate(GetMethod(implObj, "TransferContainerData"), flags, 5)
-        this.vtbl.ObjectData := CallbackCreate(GetMethod(implObj, "ObjectData"), flags, 4)
-        this.vtbl.TransferComplete := CallbackCreate(GetMethod(implObj, "TransferComplete"), flags, 1)
+        this.vtbl.TransferContainerData := CallbackCreate(ObjBindMethod(implObj, "TransferContainerData"), flags, 5)
+        this.vtbl.ObjectData := CallbackCreate(ObjBindMethod(implObj, "ObjectData"), flags, 4)
+        this.vtbl.TransferComplete := CallbackCreate(ObjBindMethod(implObj, "TransferComplete"), flags, 1)
     }
 
     Dispose() {

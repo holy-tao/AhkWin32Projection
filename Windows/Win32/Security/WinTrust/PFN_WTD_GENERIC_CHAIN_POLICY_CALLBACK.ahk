@@ -21,7 +21,6 @@ export default struct PFN_WTD_GENERIC_CHAIN_POLICY_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<CRYPT_PROVIDER_DATA>} pProvData 
      * @param {Integer} dwStepError 
      * @param {Integer} dwRegPolicySettings 
@@ -31,8 +30,8 @@ export default struct PFN_WTD_GENERIC_CHAIN_POLICY_CALLBACK {
      * @returns {HRESULT} 
      */
     Call(pProvData, dwStepError, dwRegPolicySettings, cSigner, rgpSigner, pvPolicyArg) {
-        rgpSignerMarshal := rgpSigner is VarRef ? "ptr*" : "ptr"
-        pvPolicyArgMarshal := pvPolicyArg is VarRef ? "ptr" : "ptr"
+        rgpSignerMarshal := rgpSigner is VarRef ? "ptr*" : IntPtr
+        pvPolicyArgMarshal := pvPolicyArg is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, CRYPT_PROVIDER_DATA.Ptr, pProvData, UInt32, dwStepError, UInt32, dwRegPolicySettings, UInt32, cSigner, rgpSignerMarshal, rgpSigner, pvPolicyArgMarshal, pvPolicyArg, "HRESULT")
         return result

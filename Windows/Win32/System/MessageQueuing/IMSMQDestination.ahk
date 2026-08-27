@@ -109,7 +109,6 @@ export default struct IMSMQDestination extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Open() {
@@ -118,7 +117,6 @@ export default struct IMSMQDestination extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Close() {
@@ -127,7 +125,6 @@ export default struct IMSMQDestination extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsOpen() {
@@ -136,7 +133,6 @@ export default struct IMSMQDestination extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_IADs() {
@@ -145,17 +141,17 @@ export default struct IMSMQDestination extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} pIADs 
      * @returns {HRESULT} 
      */
     putref_IADs(pIADs) {
-        result := ComCall(11, this, "ptr", pIADs, "HRESULT")
+        pIADsMarshal := pIADs == 0 ? IntPtr : "ptr"
+
+        result := ComCall(11, this, pIADsMarshal, pIADs, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ADsPath() {
@@ -165,7 +161,6 @@ export default struct IMSMQDestination extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrADsPath 
      * @returns {HRESULT} 
      */
@@ -177,7 +172,6 @@ export default struct IMSMQDestination extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PathName() {
@@ -187,7 +181,6 @@ export default struct IMSMQDestination extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPathName 
      * @returns {HRESULT} 
      */
@@ -199,7 +192,6 @@ export default struct IMSMQDestination extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_FormatName() {
@@ -209,7 +201,6 @@ export default struct IMSMQDestination extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrFormatName 
      * @returns {HRESULT} 
      */
@@ -221,7 +212,6 @@ export default struct IMSMQDestination extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Destinations() {
@@ -230,17 +220,17 @@ export default struct IMSMQDestination extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} pDestinations 
      * @returns {HRESULT} 
      */
     putref_Destinations(pDestinations) {
-        result := ComCall(19, this, "ptr", pDestinations, "HRESULT")
+        pDestinationsMarshal := pDestinations == 0 ? IntPtr : "ptr"
+
+        result := ComCall(19, this, pDestinationsMarshal, pDestinations, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Properties() {
@@ -257,20 +247,20 @@ export default struct IMSMQDestination extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 1)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
-        this.vtbl.get_IsOpen := CallbackCreate(GetMethod(implObj, "get_IsOpen"), flags, 2)
-        this.vtbl.get_IADs := CallbackCreate(GetMethod(implObj, "get_IADs"), flags, 2)
-        this.vtbl.putref_IADs := CallbackCreate(GetMethod(implObj, "putref_IADs"), flags, 2)
-        this.vtbl.get_ADsPath := CallbackCreate(GetMethod(implObj, "get_ADsPath"), flags, 2)
-        this.vtbl.put_ADsPath := CallbackCreate(GetMethod(implObj, "put_ADsPath"), flags, 2)
-        this.vtbl.get_PathName := CallbackCreate(GetMethod(implObj, "get_PathName"), flags, 2)
-        this.vtbl.put_PathName := CallbackCreate(GetMethod(implObj, "put_PathName"), flags, 2)
-        this.vtbl.get_FormatName := CallbackCreate(GetMethod(implObj, "get_FormatName"), flags, 2)
-        this.vtbl.put_FormatName := CallbackCreate(GetMethod(implObj, "put_FormatName"), flags, 2)
-        this.vtbl.get_Destinations := CallbackCreate(GetMethod(implObj, "get_Destinations"), flags, 2)
-        this.vtbl.putref_Destinations := CallbackCreate(GetMethod(implObj, "putref_Destinations"), flags, 2)
-        this.vtbl.get_Properties := CallbackCreate(GetMethod(implObj, "get_Properties"), flags, 2)
+        this.vtbl.Open := CallbackCreate(ObjBindMethod(implObj, "Open"), flags, 1)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
+        this.vtbl.get_IsOpen := CallbackCreate(ObjBindMethod(implObj, "get_IsOpen"), flags, 2)
+        this.vtbl.get_IADs := CallbackCreate(ObjBindMethod(implObj, "get_IADs"), flags, 2)
+        this.vtbl.putref_IADs := CallbackCreate(ObjBindMethod(implObj, "putref_IADs"), flags, 2)
+        this.vtbl.get_ADsPath := CallbackCreate(ObjBindMethod(implObj, "get_ADsPath"), flags, 2)
+        this.vtbl.put_ADsPath := CallbackCreate(ObjBindMethod(implObj, "put_ADsPath"), flags, 2)
+        this.vtbl.get_PathName := CallbackCreate(ObjBindMethod(implObj, "get_PathName"), flags, 2)
+        this.vtbl.put_PathName := CallbackCreate(ObjBindMethod(implObj, "put_PathName"), flags, 2)
+        this.vtbl.get_FormatName := CallbackCreate(ObjBindMethod(implObj, "get_FormatName"), flags, 2)
+        this.vtbl.put_FormatName := CallbackCreate(ObjBindMethod(implObj, "put_FormatName"), flags, 2)
+        this.vtbl.get_Destinations := CallbackCreate(ObjBindMethod(implObj, "get_Destinations"), flags, 2)
+        this.vtbl.putref_Destinations := CallbackCreate(ObjBindMethod(implObj, "putref_Destinations"), flags, 2)
+        this.vtbl.get_Properties := CallbackCreate(ObjBindMethod(implObj, "get_Properties"), flags, 2)
     }
 
     Dispose() {

@@ -18,12 +18,12 @@ export default struct DOT11EXT_FREE_BUFFER {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvMemory 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(pvMemory) {
-        pvMemoryMarshal := pvMemory is VarRef ? "ptr" : "ptr"
+        pvMemoryMarshal := pvMemory is VarRef ? "ptr" : IntPtr
+        pvMemoryMarshal := pvMemory == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, pvMemoryMarshal, pvMemory)
     }

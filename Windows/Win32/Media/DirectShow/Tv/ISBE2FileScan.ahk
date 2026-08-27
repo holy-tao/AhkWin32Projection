@@ -102,7 +102,7 @@ export default struct ISBE2FileScan extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RepairFile := CallbackCreate(GetMethod(implObj, "RepairFile"), flags, 2)
+        this.vtbl.RepairFile := CallbackCreate(ObjBindMethod(implObj, "RepairFile"), flags, 2)
     }
 
     Dispose() {

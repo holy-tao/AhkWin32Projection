@@ -110,7 +110,6 @@ export default struct ISchema extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_targetNamespace() {
@@ -120,7 +119,6 @@ export default struct ISchema extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_version() {
@@ -130,7 +128,6 @@ export default struct ISchema extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {ISchemaItemCollection} 
      */
     get_types() {
@@ -139,7 +136,6 @@ export default struct ISchema extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {ISchemaItemCollection} 
      */
     get_elements() {
@@ -148,7 +144,6 @@ export default struct ISchema extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {ISchemaItemCollection} 
      */
     get_attributes() {
@@ -157,7 +152,6 @@ export default struct ISchema extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {ISchemaItemCollection} 
      */
     get_attributeGroups() {
@@ -166,7 +160,6 @@ export default struct ISchema extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {ISchemaItemCollection} 
      */
     get_modelGroups() {
@@ -175,7 +168,6 @@ export default struct ISchema extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {ISchemaItemCollection} 
      */
     get_notations() {
@@ -184,7 +176,6 @@ export default struct ISchema extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {ISchemaStringCollection} 
      */
     get_schemaLocations() {
@@ -201,15 +192,15 @@ export default struct ISchema extends ISchemaItem {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_targetNamespace := CallbackCreate(GetMethod(implObj, "get_targetNamespace"), flags, 2)
-        this.vtbl.get_version := CallbackCreate(GetMethod(implObj, "get_version"), flags, 2)
-        this.vtbl.get_types := CallbackCreate(GetMethod(implObj, "get_types"), flags, 2)
-        this.vtbl.get_elements := CallbackCreate(GetMethod(implObj, "get_elements"), flags, 2)
-        this.vtbl.get_attributes := CallbackCreate(GetMethod(implObj, "get_attributes"), flags, 2)
-        this.vtbl.get_attributeGroups := CallbackCreate(GetMethod(implObj, "get_attributeGroups"), flags, 2)
-        this.vtbl.get_modelGroups := CallbackCreate(GetMethod(implObj, "get_modelGroups"), flags, 2)
-        this.vtbl.get_notations := CallbackCreate(GetMethod(implObj, "get_notations"), flags, 2)
-        this.vtbl.get_schemaLocations := CallbackCreate(GetMethod(implObj, "get_schemaLocations"), flags, 2)
+        this.vtbl.get_targetNamespace := CallbackCreate(ObjBindMethod(implObj, "get_targetNamespace"), flags, 2)
+        this.vtbl.get_version := CallbackCreate(ObjBindMethod(implObj, "get_version"), flags, 2)
+        this.vtbl.get_types := CallbackCreate(ObjBindMethod(implObj, "get_types"), flags, 2)
+        this.vtbl.get_elements := CallbackCreate(ObjBindMethod(implObj, "get_elements"), flags, 2)
+        this.vtbl.get_attributes := CallbackCreate(ObjBindMethod(implObj, "get_attributes"), flags, 2)
+        this.vtbl.get_attributeGroups := CallbackCreate(ObjBindMethod(implObj, "get_attributeGroups"), flags, 2)
+        this.vtbl.get_modelGroups := CallbackCreate(ObjBindMethod(implObj, "get_modelGroups"), flags, 2)
+        this.vtbl.get_notations := CallbackCreate(ObjBindMethod(implObj, "get_notations"), flags, 2)
+        this.vtbl.get_schemaLocations := CallbackCreate(ObjBindMethod(implObj, "get_schemaLocations"), flags, 2)
     }
 
     Dispose() {

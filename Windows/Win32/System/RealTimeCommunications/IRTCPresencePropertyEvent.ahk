@@ -69,7 +69,6 @@ export default struct IRTCPresencePropertyEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_StatusCode() {
@@ -78,7 +77,6 @@ export default struct IRTCPresencePropertyEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_StatusText() {
@@ -88,7 +86,6 @@ export default struct IRTCPresencePropertyEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {RTC_PRESENCE_PROPERTY} 
      */
     get_PresenceProperty() {
@@ -97,7 +94,6 @@ export default struct IRTCPresencePropertyEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Value() {
@@ -115,10 +111,10 @@ export default struct IRTCPresencePropertyEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_StatusCode := CallbackCreate(GetMethod(implObj, "get_StatusCode"), flags, 2)
-        this.vtbl.get_StatusText := CallbackCreate(GetMethod(implObj, "get_StatusText"), flags, 2)
-        this.vtbl.get_PresenceProperty := CallbackCreate(GetMethod(implObj, "get_PresenceProperty"), flags, 2)
-        this.vtbl.get_Value := CallbackCreate(GetMethod(implObj, "get_Value"), flags, 2)
+        this.vtbl.get_StatusCode := CallbackCreate(ObjBindMethod(implObj, "get_StatusCode"), flags, 2)
+        this.vtbl.get_StatusText := CallbackCreate(ObjBindMethod(implObj, "get_StatusText"), flags, 2)
+        this.vtbl.get_PresenceProperty := CallbackCreate(ObjBindMethod(implObj, "get_PresenceProperty"), flags, 2)
+        this.vtbl.get_Value := CallbackCreate(ObjBindMethod(implObj, "get_Value"), flags, 2)
     }
 
     Dispose() {

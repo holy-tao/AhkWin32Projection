@@ -96,7 +96,6 @@ export default struct LPWSPRECVFROM {
     }
 
     /**
-     * 
      * @param {SOCKET} s Descriptor identifying a socket.
      * @param {Pointer<WSABUF>} lpBuffers Pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/ws2def/ns-ws2def-wsabuf">WSABUF</a> structures. Each **WSABUF** structure contains a pointer to a buffer and the length of the buffer, in bytes.
      * @param {Integer} dwBufferCount Number of <a href="https://docs.microsoft.com/windows/win32/api/ws2def/ns-ws2def-wsabuf">WSABUF</a> structures in the <i>lpBuffers</i> array.
@@ -296,12 +295,18 @@ export default struct LPWSPRECVFROM {
      * </table>
      */
     Call(s, lpBuffers, dwBufferCount, lpNumberOfBytesRecvd, lpFlags, lpFrom, lpFromlen, lpOverlapped, lpCompletionRoutine, lpThreadId, lpErrno) {
-        lpNumberOfBytesRecvdMarshal := lpNumberOfBytesRecvd is VarRef ? "uint*" : "ptr"
-        lpFlagsMarshal := lpFlags is VarRef ? "uint*" : "ptr"
-        lpFromlenMarshal := lpFromlen is VarRef ? "int*" : "ptr"
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        lpNumberOfBytesRecvdMarshal := lpNumberOfBytesRecvd is VarRef ? "uint*" : IntPtr
+        lpNumberOfBytesRecvdMarshal := lpNumberOfBytesRecvd == 0 ? IntPtr : "uint*"
+        lpFlagsMarshal := lpFlags is VarRef ? "uint*" : IntPtr
+        lpFromMarshal := lpFrom == 0 ? IntPtr : IntPtr
+        lpFromlenMarshal := lpFromlen is VarRef ? "int*" : IntPtr
+        lpFromlenMarshal := lpFromlen == 0 ? IntPtr : "int*"
+        lpOverlappedMarshal := lpOverlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+        lpCompletionRoutineMarshal := lpCompletionRoutine == 0 ? IntPtr : LPWSAOVERLAPPED_COMPLETION_ROUTINE
+        lpThreadIdMarshal := lpThreadId == 0 ? IntPtr : WSATHREADID.Ptr
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
-        result := DllCall(this.value, SOCKET, s, WSABUF.Ptr, lpBuffers, UInt32, dwBufferCount, lpNumberOfBytesRecvdMarshal, lpNumberOfBytesRecvd, lpFlagsMarshal, lpFlags, IntPtr, lpFrom, lpFromlenMarshal, lpFromlen, OVERLAPPED.Ptr, lpOverlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE, lpCompletionRoutine, WSATHREADID.Ptr, lpThreadId, lpErrnoMarshal, lpErrno, Int32)
+        result := DllCall(this.value, SOCKET, s, WSABUF.Ptr, lpBuffers, UInt32, dwBufferCount, lpNumberOfBytesRecvdMarshal, lpNumberOfBytesRecvd, lpFlagsMarshal, lpFlags, lpFromMarshal, lpFrom, lpFromlenMarshal, lpFromlen, lpOverlappedMarshal, lpOverlapped, lpCompletionRoutineMarshal, lpCompletionRoutine, lpThreadIdMarshal, lpThreadId, lpErrnoMarshal, lpErrno, Int32)
         return result
     }
 

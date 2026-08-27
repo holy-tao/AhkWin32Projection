@@ -38,7 +38,6 @@ export default struct IFtpRoleProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszSessionId 
      * @param {PWSTR} pszSiteName 
      * @param {PWSTR} pszUserName 
@@ -64,7 +63,7 @@ export default struct IFtpRoleProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsUserInRole := CallbackCreate(GetMethod(implObj, "IsUserInRole"), flags, 6)
+        this.vtbl.IsUserInRole := CallbackCreate(ObjBindMethod(implObj, "IsUserInRole"), flags, 6)
     }
 
     Dispose() {

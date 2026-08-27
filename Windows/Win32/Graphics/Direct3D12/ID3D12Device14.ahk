@@ -37,7 +37,6 @@ export default struct ID3D12Device14 extends ID3D12Device13 {
     }
 
     /**
-     * 
      * @param {Integer} nodeMask 
      * @param {Pointer<Void>} pLibraryBlob 
      * @param {Pointer} blobLengthInBytes 
@@ -48,9 +47,10 @@ export default struct ID3D12Device14 extends ID3D12Device13 {
     CreateRootSignatureFromSubobjectInLibrary(nodeMask, pLibraryBlob, blobLengthInBytes, subobjectName, riid) {
         subobjectName := subobjectName is String ? StrPtr(subobjectName) : subobjectName
 
-        pLibraryBlobMarshal := pLibraryBlob is VarRef ? "ptr" : "ptr"
+        pLibraryBlobMarshal := pLibraryBlob is VarRef ? "ptr" : IntPtr
+        subobjectNameMarshal := subobjectName == 0 ? IntPtr : PWSTR
 
-        result := ComCall(82, this, UInt32, nodeMask, pLibraryBlobMarshal, pLibraryBlob, IntPtr, blobLengthInBytes, "ptr", subobjectName, Guid.Ptr, riid, "ptr*", &ppvRootSignature := 0, "HRESULT")
+        result := ComCall(82, this, UInt32, nodeMask, pLibraryBlobMarshal, pLibraryBlob, IntPtr, blobLengthInBytes, subobjectNameMarshal, subobjectName, Guid.Ptr, riid, "ptr*", &ppvRootSignature := 0, "HRESULT")
         return ppvRootSignature
     }
 
@@ -63,7 +63,7 @@ export default struct ID3D12Device14 extends ID3D12Device13 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateRootSignatureFromSubobjectInLibrary := CallbackCreate(GetMethod(implObj, "CreateRootSignatureFromSubobjectInLibrary"), flags, 7)
+        this.vtbl.CreateRootSignatureFromSubobjectInLibrary := CallbackCreate(ObjBindMethod(implObj, "CreateRootSignatureFromSubobjectInLibrary"), flags, 7)
     }
 
     Dispose() {

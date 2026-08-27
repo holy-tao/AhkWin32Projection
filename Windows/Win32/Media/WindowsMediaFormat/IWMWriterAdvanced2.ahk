@@ -99,9 +99,9 @@ export default struct IWMWriterAdvanced2 extends IWMWriterAdvanced {
     GetInputSetting(dwInputNum, pszName, pType, pValue, pcbLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
-        pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : "ptr"
+        pTypeMarshal := pType is VarRef ? "int*" : IntPtr
+        pValueMarshal := pValue is VarRef ? "char*" : IntPtr
+        pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(14, this, UInt32, dwInputNum, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
@@ -190,7 +190,7 @@ export default struct IWMWriterAdvanced2 extends IWMWriterAdvanced {
     SetInputSetting(dwInputNum, pszName, Type, pValue, cbLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "char*" : IntPtr
 
         result := ComCall(15, this, UInt32, dwInputNum, "ptr", pszName, WMT_ATTR_DATATYPE, Type, pValueMarshal, pValue, UInt16, cbLength, "HRESULT")
         return result
@@ -205,8 +205,8 @@ export default struct IWMWriterAdvanced2 extends IWMWriterAdvanced {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetInputSetting := CallbackCreate(GetMethod(implObj, "GetInputSetting"), flags, 6)
-        this.vtbl.SetInputSetting := CallbackCreate(GetMethod(implObj, "SetInputSetting"), flags, 6)
+        this.vtbl.GetInputSetting := CallbackCreate(ObjBindMethod(implObj, "GetInputSetting"), flags, 6)
+        this.vtbl.SetInputSetting := CallbackCreate(ObjBindMethod(implObj, "SetInputSetting"), flags, 6)
     }
 
     Dispose() {

@@ -98,9 +98,9 @@ export default struct IOfflineFilesEvents3 extends IOfflineFilesEvents2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.TransparentCacheItemNotify := CallbackCreate(GetMethod(implObj, "TransparentCacheItemNotify"), flags, 7)
-        this.vtbl.PrefetchFileBegin := CallbackCreate(GetMethod(implObj, "PrefetchFileBegin"), flags, 2)
-        this.vtbl.PrefetchFileEnd := CallbackCreate(GetMethod(implObj, "PrefetchFileEnd"), flags, 3)
+        this.vtbl.TransparentCacheItemNotify := CallbackCreate(ObjBindMethod(implObj, "TransparentCacheItemNotify"), flags, 7)
+        this.vtbl.PrefetchFileBegin := CallbackCreate(ObjBindMethod(implObj, "PrefetchFileBegin"), flags, 2)
+        this.vtbl.PrefetchFileEnd := CallbackCreate(ObjBindMethod(implObj, "PrefetchFileEnd"), flags, 3)
     }
 
     Dispose() {

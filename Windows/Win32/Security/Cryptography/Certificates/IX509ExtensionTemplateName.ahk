@@ -160,9 +160,9 @@ export default struct IX509ExtensionTemplateName extends IX509Extension {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeEncode := CallbackCreate(GetMethod(implObj, "InitializeEncode"), flags, 2)
-        this.vtbl.InitializeDecode := CallbackCreate(GetMethod(implObj, "InitializeDecode"), flags, 3)
-        this.vtbl.get_TemplateName := CallbackCreate(GetMethod(implObj, "get_TemplateName"), flags, 2)
+        this.vtbl.InitializeEncode := CallbackCreate(ObjBindMethod(implObj, "InitializeEncode"), flags, 2)
+        this.vtbl.InitializeDecode := CallbackCreate(ObjBindMethod(implObj, "InitializeDecode"), flags, 3)
+        this.vtbl.get_TemplateName := CallbackCreate(ObjBindMethod(implObj, "get_TemplateName"), flags, 2)
     }
 
     Dispose() {

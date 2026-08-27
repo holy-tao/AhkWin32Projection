@@ -19,14 +19,13 @@ export default struct PDEBUG_STACK_PROVIDER_BEGINTHREADSTACKRECONSTRUCTION {
     }
 
     /**
-     * 
      * @param {Integer} StreamType 
      * @param {Pointer<Void>} MiniDumpStreamBuffer 
      * @param {Integer} BufferSize 
      * @returns {HRESULT} 
      */
     Call(StreamType, MiniDumpStreamBuffer, BufferSize) {
-        MiniDumpStreamBufferMarshal := MiniDumpStreamBuffer is VarRef ? "ptr" : "ptr"
+        MiniDumpStreamBufferMarshal := MiniDumpStreamBuffer is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, UInt32, StreamType, MiniDumpStreamBufferMarshal, MiniDumpStreamBuffer, UInt32, BufferSize, "HRESULT")
         return result

@@ -116,19 +116,17 @@ export default struct IWMPPlayer4 extends IWMPCore3 {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT_BOOL>} pbEnabled 
      * @returns {HRESULT} 
      */
     get_enabled(pbEnabled) {
-        pbEnabledMarshal := pbEnabled is VarRef ? "short*" : "ptr"
+        pbEnabledMarshal := pbEnabled is VarRef ? "short*" : IntPtr
 
         result := ComCall(31, this, pbEnabledMarshal, pbEnabled, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bEnabled 
      * @returns {HRESULT} 
      */
@@ -138,19 +136,17 @@ export default struct IWMPPlayer4 extends IWMPCore3 {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT_BOOL>} pbFullScreen 
      * @returns {HRESULT} 
      */
     get_fullScreen(pbFullScreen) {
-        pbFullScreenMarshal := pbFullScreen is VarRef ? "short*" : "ptr"
+        pbFullScreenMarshal := pbFullScreen is VarRef ? "short*" : IntPtr
 
         result := ComCall(33, this, pbFullScreenMarshal, pbFullScreen, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bFullScreen 
      * @returns {HRESULT} 
      */
@@ -160,19 +156,17 @@ export default struct IWMPPlayer4 extends IWMPCore3 {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT_BOOL>} pbEnableContextMenu 
      * @returns {HRESULT} 
      */
     get_enableContextMenu(pbEnableContextMenu) {
-        pbEnableContextMenuMarshal := pbEnableContextMenu is VarRef ? "short*" : "ptr"
+        pbEnableContextMenuMarshal := pbEnableContextMenu is VarRef ? "short*" : IntPtr
 
         result := ComCall(35, this, pbEnableContextMenuMarshal, pbEnableContextMenu, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bEnableContextMenu 
      * @returns {HRESULT} 
      */
@@ -182,7 +176,6 @@ export default struct IWMPPlayer4 extends IWMPCore3 {
     }
 
     /**
-     * 
      * @param {BSTR} bstrMode 
      * @returns {HRESULT} 
      */
@@ -194,7 +187,6 @@ export default struct IWMPPlayer4 extends IWMPCore3 {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrMode 
      * @returns {HRESULT} 
      */
@@ -204,19 +196,17 @@ export default struct IWMPPlayer4 extends IWMPCore3 {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT_BOOL>} pbEnabled 
      * @returns {HRESULT} 
      */
     get_stretchToFit(pbEnabled) {
-        pbEnabledMarshal := pbEnabled is VarRef ? "short*" : "ptr"
+        pbEnabledMarshal := pbEnabled is VarRef ? "short*" : IntPtr
 
         result := ComCall(39, this, pbEnabledMarshal, pbEnabled, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bEnabled 
      * @returns {HRESULT} 
      */
@@ -226,19 +216,17 @@ export default struct IWMPPlayer4 extends IWMPCore3 {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT_BOOL>} pbEnabled 
      * @returns {HRESULT} 
      */
     get_windowlessVideo(pbEnabled) {
-        pbEnabledMarshal := pbEnabled is VarRef ? "short*" : "ptr"
+        pbEnabledMarshal := pbEnabled is VarRef ? "short*" : IntPtr
 
         result := ComCall(41, this, pbEnabledMarshal, pbEnabled, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bEnabled 
      * @returns {HRESULT} 
      */
@@ -274,7 +262,7 @@ export default struct IWMPPlayer4 extends IWMPCore3 {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer4-get_isremote
      */
     get_isRemote(pvarfIsRemote) {
-        pvarfIsRemoteMarshal := pvarfIsRemote is VarRef ? "short*" : "ptr"
+        pvarfIsRemoteMarshal := pvarfIsRemote is VarRef ? "short*" : IntPtr
 
         result := ComCall(43, this, pvarfIsRemoteMarshal, pvarfIsRemote, "HRESULT")
         return result
@@ -340,21 +328,21 @@ export default struct IWMPPlayer4 extends IWMPCore3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_enabled := CallbackCreate(GetMethod(implObj, "get_enabled"), flags, 2)
-        this.vtbl.put_enabled := CallbackCreate(GetMethod(implObj, "put_enabled"), flags, 2)
-        this.vtbl.get_fullScreen := CallbackCreate(GetMethod(implObj, "get_fullScreen"), flags, 2)
-        this.vtbl.put_fullScreen := CallbackCreate(GetMethod(implObj, "put_fullScreen"), flags, 2)
-        this.vtbl.get_enableContextMenu := CallbackCreate(GetMethod(implObj, "get_enableContextMenu"), flags, 2)
-        this.vtbl.put_enableContextMenu := CallbackCreate(GetMethod(implObj, "put_enableContextMenu"), flags, 2)
-        this.vtbl.put_uiMode := CallbackCreate(GetMethod(implObj, "put_uiMode"), flags, 2)
-        this.vtbl.get_uiMode := CallbackCreate(GetMethod(implObj, "get_uiMode"), flags, 2)
-        this.vtbl.get_stretchToFit := CallbackCreate(GetMethod(implObj, "get_stretchToFit"), flags, 2)
-        this.vtbl.put_stretchToFit := CallbackCreate(GetMethod(implObj, "put_stretchToFit"), flags, 2)
-        this.vtbl.get_windowlessVideo := CallbackCreate(GetMethod(implObj, "get_windowlessVideo"), flags, 2)
-        this.vtbl.put_windowlessVideo := CallbackCreate(GetMethod(implObj, "put_windowlessVideo"), flags, 2)
-        this.vtbl.get_isRemote := CallbackCreate(GetMethod(implObj, "get_isRemote"), flags, 2)
-        this.vtbl.get_playerApplication := CallbackCreate(GetMethod(implObj, "get_playerApplication"), flags, 2)
-        this.vtbl.openPlayer := CallbackCreate(GetMethod(implObj, "openPlayer"), flags, 2)
+        this.vtbl.get_enabled := CallbackCreate(ObjBindMethod(implObj, "get_enabled"), flags, 2)
+        this.vtbl.put_enabled := CallbackCreate(ObjBindMethod(implObj, "put_enabled"), flags, 2)
+        this.vtbl.get_fullScreen := CallbackCreate(ObjBindMethod(implObj, "get_fullScreen"), flags, 2)
+        this.vtbl.put_fullScreen := CallbackCreate(ObjBindMethod(implObj, "put_fullScreen"), flags, 2)
+        this.vtbl.get_enableContextMenu := CallbackCreate(ObjBindMethod(implObj, "get_enableContextMenu"), flags, 2)
+        this.vtbl.put_enableContextMenu := CallbackCreate(ObjBindMethod(implObj, "put_enableContextMenu"), flags, 2)
+        this.vtbl.put_uiMode := CallbackCreate(ObjBindMethod(implObj, "put_uiMode"), flags, 2)
+        this.vtbl.get_uiMode := CallbackCreate(ObjBindMethod(implObj, "get_uiMode"), flags, 2)
+        this.vtbl.get_stretchToFit := CallbackCreate(ObjBindMethod(implObj, "get_stretchToFit"), flags, 2)
+        this.vtbl.put_stretchToFit := CallbackCreate(ObjBindMethod(implObj, "put_stretchToFit"), flags, 2)
+        this.vtbl.get_windowlessVideo := CallbackCreate(ObjBindMethod(implObj, "get_windowlessVideo"), flags, 2)
+        this.vtbl.put_windowlessVideo := CallbackCreate(ObjBindMethod(implObj, "put_windowlessVideo"), flags, 2)
+        this.vtbl.get_isRemote := CallbackCreate(ObjBindMethod(implObj, "get_isRemote"), flags, 2)
+        this.vtbl.get_playerApplication := CallbackCreate(ObjBindMethod(implObj, "get_playerApplication"), flags, 2)
+        this.vtbl.openPlayer := CallbackCreate(ObjBindMethod(implObj, "openPlayer"), flags, 2)
     }
 
     Dispose() {

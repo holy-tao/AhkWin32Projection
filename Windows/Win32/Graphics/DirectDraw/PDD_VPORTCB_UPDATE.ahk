@@ -47,7 +47,6 @@ export default struct PDD_VPORTCB_UPDATE {
     }
 
     /**
-     * 
      * @param {Pointer<DD_UPDATEVPORTDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_updatevportdata">DD_UPDATEVPORTDATA</a> structure that contains the information required for the driver to update the VPE object.
      * @returns {Integer} <b>DdVideoPortUpdate</b> returns one of the following callback codes:
      */

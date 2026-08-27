@@ -20,7 +20,6 @@ export default struct PFN_DrvGetDriverSetting {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pdriverobj 
      * @param {PSTR} Feature 
      * @param {Integer} pOutput 
@@ -32,11 +31,14 @@ export default struct PFN_DrvGetDriverSetting {
     Call(pdriverobj, Feature, pOutput, cbSize, pcbNeeded, pdwOptionsReturned) {
         Feature := Feature is String ? StrPtr(Feature) : Feature
 
-        pdriverobjMarshal := pdriverobj is VarRef ? "ptr" : "ptr"
-        pcbNeededMarshal := pcbNeeded is VarRef ? "uint*" : "ptr"
-        pdwOptionsReturnedMarshal := pdwOptionsReturned is VarRef ? "uint*" : "ptr"
+        pdriverobjMarshal := pdriverobj is VarRef ? "ptr" : IntPtr
+        pOutputMarshal := pOutput == 0 ? IntPtr : IntPtr
+        pcbNeededMarshal := pcbNeeded is VarRef ? "uint*" : IntPtr
+        pcbNeededMarshal := pcbNeeded == 0 ? IntPtr : "uint*"
+        pdwOptionsReturnedMarshal := pdwOptionsReturned is VarRef ? "uint*" : IntPtr
+        pdwOptionsReturnedMarshal := pdwOptionsReturned == 0 ? IntPtr : "uint*"
 
-        result := DllCall(this.value, pdriverobjMarshal, pdriverobj, "ptr", Feature, IntPtr, pOutput, UInt32, cbSize, pcbNeededMarshal, pcbNeeded, pdwOptionsReturnedMarshal, pdwOptionsReturned, BOOL)
+        result := DllCall(this.value, pdriverobjMarshal, pdriverobj, "ptr", Feature, pOutputMarshal, pOutput, UInt32, cbSize, pcbNeededMarshal, pcbNeeded, pdwOptionsReturnedMarshal, pdwOptionsReturned, BOOL)
         return result
     }
 

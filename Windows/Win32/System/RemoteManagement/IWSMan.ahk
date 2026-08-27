@@ -164,10 +164,10 @@ export default struct IWSMan extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateSession := CallbackCreate(GetMethod(implObj, "CreateSession"), flags, 5)
-        this.vtbl.CreateConnectionOptions := CallbackCreate(GetMethod(implObj, "CreateConnectionOptions"), flags, 2)
-        this.vtbl.get_CommandLine := CallbackCreate(GetMethod(implObj, "get_CommandLine"), flags, 2)
-        this.vtbl.get_Error := CallbackCreate(GetMethod(implObj, "get_Error"), flags, 2)
+        this.vtbl.CreateSession := CallbackCreate(ObjBindMethod(implObj, "CreateSession"), flags, 5)
+        this.vtbl.CreateConnectionOptions := CallbackCreate(ObjBindMethod(implObj, "CreateConnectionOptions"), flags, 2)
+        this.vtbl.get_CommandLine := CallbackCreate(ObjBindMethod(implObj, "get_CommandLine"), flags, 2)
+        this.vtbl.get_Error := CallbackCreate(ObjBindMethod(implObj, "get_Error"), flags, 2)
     }
 
     Dispose() {

@@ -26,7 +26,6 @@ export default struct PRJ_QUERY_FILE_NAME_CB {
     }
 
     /**
-     * 
      * @param {Pointer<PRJ_CALLBACK_DATA>} callbackData Information about the operation.
      * @returns {HRESULT} <table>
      * <tr>

@@ -39,7 +39,6 @@ export default struct ITipAutoCompleteProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPendingText 
      * @returns {HRESULT} 
      */
@@ -51,7 +50,6 @@ export default struct ITipAutoCompleteProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fShow 
      * @returns {HRESULT} 
      */
@@ -69,8 +67,8 @@ export default struct ITipAutoCompleteProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.UpdatePendingText := CallbackCreate(GetMethod(implObj, "UpdatePendingText"), flags, 2)
-        this.vtbl.Show := CallbackCreate(GetMethod(implObj, "Show"), flags, 2)
+        this.vtbl.UpdatePendingText := CallbackCreate(ObjBindMethod(implObj, "UpdatePendingText"), flags, 2)
+        this.vtbl.Show := CallbackCreate(ObjBindMethod(implObj, "Show"), flags, 2)
     }
 
     Dispose() {

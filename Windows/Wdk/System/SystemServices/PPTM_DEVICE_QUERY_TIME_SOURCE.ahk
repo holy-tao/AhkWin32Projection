@@ -19,7 +19,6 @@ export default struct PPTM_DEVICE_QUERY_TIME_SOURCE {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

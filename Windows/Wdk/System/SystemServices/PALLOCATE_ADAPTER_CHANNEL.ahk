@@ -22,7 +22,6 @@ export default struct PALLOCATE_ADAPTER_CHANNEL {
     }
 
     /**
-     * 
      * @param {Pointer<DMA_ADAPTER>} DmaAdapter 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Integer} NumberOfMapRegisters 
@@ -31,7 +30,7 @@ export default struct PALLOCATE_ADAPTER_CHANNEL {
      * @returns {NTSTATUS} 
      */
     Call(DmaAdapter, DeviceObject, NumberOfMapRegisters, ExecutionRoutine, _Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, DEVICE_OBJECT.Ptr, DeviceObject, UInt32, NumberOfMapRegisters, DRIVER_CONTROL, ExecutionRoutine, _ContextMarshal, _Context, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

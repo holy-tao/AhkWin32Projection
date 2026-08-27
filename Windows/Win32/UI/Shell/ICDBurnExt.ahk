@@ -56,7 +56,7 @@ export default struct ICDBurnExt extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSupportedActionTypes := CallbackCreate(GetMethod(implObj, "GetSupportedActionTypes"), flags, 2)
+        this.vtbl.GetSupportedActionTypes := CallbackCreate(ObjBindMethod(implObj, "GetSupportedActionTypes"), flags, 2)
     }
 
     Dispose() {

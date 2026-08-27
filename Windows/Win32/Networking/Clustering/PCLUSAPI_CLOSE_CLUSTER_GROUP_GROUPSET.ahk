@@ -20,7 +20,6 @@ export default struct PCLUSAPI_CLOSE_CLUSTER_GROUP_GROUPSET {
     }
 
     /**
-     * 
      * @param {HGROUPSET} _hGroupSet 
      * @returns {BOOL} 
      */

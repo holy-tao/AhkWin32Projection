@@ -46,7 +46,9 @@ export default struct ID3D12GraphicsCommandList3 extends ID3D12GraphicsCommandLi
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist3-setprotectedresourcesession
      */
     SetProtectedResourceSession(pProtectedResourceSession) {
-        ComCall(67, this, "ptr", pProtectedResourceSession)
+        pProtectedResourceSessionMarshal := pProtectedResourceSession == 0 ? IntPtr : "ptr"
+
+        ComCall(67, this, pProtectedResourceSessionMarshal, pProtectedResourceSession)
     }
 
     _Query(iid) {
@@ -58,7 +60,7 @@ export default struct ID3D12GraphicsCommandList3 extends ID3D12GraphicsCommandLi
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetProtectedResourceSession := CallbackCreate(GetMethod(implObj, "SetProtectedResourceSession"), flags, 2)
+        this.vtbl.SetProtectedResourceSession := CallbackCreate(ObjBindMethod(implObj, "SetProtectedResourceSession"), flags, 2)
     }
 
     Dispose() {

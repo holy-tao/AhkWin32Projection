@@ -66,7 +66,7 @@ export default struct ISyncMgrScheduleWizardUIOperation extends ISyncMgrUIOperat
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitWizard := CallbackCreate(GetMethod(implObj, "InitWizard"), flags, 2)
+        this.vtbl.InitWizard := CallbackCreate(ObjBindMethod(implObj, "InitWizard"), flags, 2)
     }
 
     Dispose() {

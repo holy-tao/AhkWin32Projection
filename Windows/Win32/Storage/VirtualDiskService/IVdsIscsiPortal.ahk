@@ -241,13 +241,13 @@ export default struct IVdsIscsiPortal extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
-        this.vtbl.GetSubSystem := CallbackCreate(GetMethod(implObj, "GetSubSystem"), flags, 2)
-        this.vtbl.QueryAssociatedPortalGroups := CallbackCreate(GetMethod(implObj, "QueryAssociatedPortalGroups"), flags, 2)
-        this.vtbl.SetStatus := CallbackCreate(GetMethod(implObj, "SetStatus"), flags, 2)
-        this.vtbl.SetIpsecTunnelAddress := CallbackCreate(GetMethod(implObj, "SetIpsecTunnelAddress"), flags, 3)
-        this.vtbl.GetIpsecSecurity := CallbackCreate(GetMethod(implObj, "GetIpsecSecurity"), flags, 3)
-        this.vtbl.SetIpsecSecurity := CallbackCreate(GetMethod(implObj, "SetIpsecSecurity"), flags, 4)
+        this.vtbl.GetProperties := CallbackCreate(ObjBindMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.GetSubSystem := CallbackCreate(ObjBindMethod(implObj, "GetSubSystem"), flags, 2)
+        this.vtbl.QueryAssociatedPortalGroups := CallbackCreate(ObjBindMethod(implObj, "QueryAssociatedPortalGroups"), flags, 2)
+        this.vtbl.SetStatus := CallbackCreate(ObjBindMethod(implObj, "SetStatus"), flags, 2)
+        this.vtbl.SetIpsecTunnelAddress := CallbackCreate(ObjBindMethod(implObj, "SetIpsecTunnelAddress"), flags, 3)
+        this.vtbl.GetIpsecSecurity := CallbackCreate(ObjBindMethod(implObj, "GetIpsecSecurity"), flags, 3)
+        this.vtbl.SetIpsecSecurity := CallbackCreate(ObjBindMethod(implObj, "SetIpsecSecurity"), flags, 4)
     }
 
     Dispose() {

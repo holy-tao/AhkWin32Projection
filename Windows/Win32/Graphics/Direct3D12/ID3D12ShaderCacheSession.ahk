@@ -66,7 +66,7 @@ export default struct ID3D12ShaderCacheSession extends ID3D12DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12shadercachesession-findvalue
      */
     FindValue(pKey, KeySize, pValue, pValueSize) {
-        pValueSizeMarshal := pValueSize is VarRef ? "uint*" : "ptr"
+        pValueSizeMarshal := pValueSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, IntPtr, pKey, UInt32, KeySize, IntPtr, pValue, pValueSizeMarshal, pValueSize, "HRESULT")
         return result
@@ -138,10 +138,10 @@ export default struct ID3D12ShaderCacheSession extends ID3D12DeviceChild {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FindValue := CallbackCreate(GetMethod(implObj, "FindValue"), flags, 5)
-        this.vtbl.StoreValue := CallbackCreate(GetMethod(implObj, "StoreValue"), flags, 5)
-        this.vtbl.SetDeleteOnDestroy := CallbackCreate(GetMethod(implObj, "SetDeleteOnDestroy"), flags, 1)
-        this.vtbl.GetDesc := CallbackCreate(GetMethod(implObj, "GetDesc"), flags, 1)
+        this.vtbl.FindValue := CallbackCreate(ObjBindMethod(implObj, "FindValue"), flags, 5)
+        this.vtbl.StoreValue := CallbackCreate(ObjBindMethod(implObj, "StoreValue"), flags, 5)
+        this.vtbl.SetDeleteOnDestroy := CallbackCreate(ObjBindMethod(implObj, "SetDeleteOnDestroy"), flags, 1)
+        this.vtbl.GetDesc := CallbackCreate(ObjBindMethod(implObj, "GetDesc"), flags, 1)
     }
 
     Dispose() {

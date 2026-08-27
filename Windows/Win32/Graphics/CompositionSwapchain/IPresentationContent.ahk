@@ -59,7 +59,7 @@ export default struct IPresentationContent extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetTag := CallbackCreate(GetMethod(implObj, "SetTag"), flags, 2)
+        this.vtbl.SetTag := CallbackCreate(ObjBindMethod(implObj, "SetTag"), flags, 2)
     }
 
     Dispose() {

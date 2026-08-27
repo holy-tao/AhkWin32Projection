@@ -60,7 +60,6 @@ export default struct ISpeechAudioFormat extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechAudioFormatType} 
      */
     get_Type() {
@@ -69,7 +68,6 @@ export default struct ISpeechAudioFormat extends IDispatch {
     }
 
     /**
-     * 
      * @param {SpeechAudioFormatType} AudioFormat 
      * @returns {HRESULT} 
      */
@@ -79,7 +77,6 @@ export default struct ISpeechAudioFormat extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Guid() {
@@ -89,7 +86,6 @@ export default struct ISpeechAudioFormat extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Guid 
      * @returns {HRESULT} 
      */
@@ -101,7 +97,6 @@ export default struct ISpeechAudioFormat extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechWaveFormatEx} 
      */
     GetWaveFormatEx() {
@@ -110,12 +105,13 @@ export default struct ISpeechAudioFormat extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISpeechWaveFormatEx} SpeechWaveFormatEx 
      * @returns {HRESULT} 
      */
     SetWaveFormatEx(SpeechWaveFormatEx) {
-        result := ComCall(12, this, "ptr", SpeechWaveFormatEx, "HRESULT")
+        SpeechWaveFormatExMarshal := SpeechWaveFormatEx == 0 ? IntPtr : "ptr"
+
+        result := ComCall(12, this, SpeechWaveFormatExMarshal, SpeechWaveFormatEx, "HRESULT")
         return result
     }
 
@@ -128,12 +124,12 @@ export default struct ISpeechAudioFormat extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
-        this.vtbl.put_Type := CallbackCreate(GetMethod(implObj, "put_Type"), flags, 2)
-        this.vtbl.get_Guid := CallbackCreate(GetMethod(implObj, "get_Guid"), flags, 2)
-        this.vtbl.put_Guid := CallbackCreate(GetMethod(implObj, "put_Guid"), flags, 2)
-        this.vtbl.GetWaveFormatEx := CallbackCreate(GetMethod(implObj, "GetWaveFormatEx"), flags, 2)
-        this.vtbl.SetWaveFormatEx := CallbackCreate(GetMethod(implObj, "SetWaveFormatEx"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(ObjBindMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.put_Type := CallbackCreate(ObjBindMethod(implObj, "put_Type"), flags, 2)
+        this.vtbl.get_Guid := CallbackCreate(ObjBindMethod(implObj, "get_Guid"), flags, 2)
+        this.vtbl.put_Guid := CallbackCreate(ObjBindMethod(implObj, "put_Guid"), flags, 2)
+        this.vtbl.GetWaveFormatEx := CallbackCreate(ObjBindMethod(implObj, "GetWaveFormatEx"), flags, 2)
+        this.vtbl.SetWaveFormatEx := CallbackCreate(ObjBindMethod(implObj, "SetWaveFormatEx"), flags, 2)
     }
 
     Dispose() {

@@ -19,14 +19,14 @@ export default struct EXTS_JOB_PROCESS_CALLBACK {
     }
 
     /**
-     * 
      * @param {Integer} Job 
      * @param {Integer} Process 
      * @param {Pointer<Void>} _Context 
      * @returns {BOOLEAN} 
      */
     Call(Job, Process, _Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, Int64, Job, Int64, Process, _ContextMarshal, _Context, BOOLEAN)
         return result

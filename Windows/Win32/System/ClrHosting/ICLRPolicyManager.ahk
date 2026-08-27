@@ -45,7 +45,6 @@ export default struct ICLRPolicyManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {EClrOperation} operation 
      * @param {EPolicyAction} action 
      * @returns {HRESULT} 
@@ -56,7 +55,6 @@ export default struct ICLRPolicyManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {EClrOperation} operation 
      * @param {Integer} dwMilliseconds 
      * @returns {HRESULT} 
@@ -67,7 +65,6 @@ export default struct ICLRPolicyManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {EClrOperation} operation 
      * @param {EPolicyAction} action 
      * @returns {HRESULT} 
@@ -78,7 +75,6 @@ export default struct ICLRPolicyManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {EClrOperation} operation 
      * @param {Integer} dwMilliseconds 
      * @param {EPolicyAction} action 
@@ -90,7 +86,6 @@ export default struct ICLRPolicyManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {EClrFailure} failure 
      * @param {EPolicyAction} action 
      * @returns {HRESULT} 
@@ -101,7 +96,6 @@ export default struct ICLRPolicyManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {EClrUnhandledException} policy 
      * @returns {HRESULT} 
      */
@@ -119,12 +113,12 @@ export default struct ICLRPolicyManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetDefaultAction := CallbackCreate(GetMethod(implObj, "SetDefaultAction"), flags, 3)
-        this.vtbl.SetTimeout := CallbackCreate(GetMethod(implObj, "SetTimeout"), flags, 3)
-        this.vtbl.SetActionOnTimeout := CallbackCreate(GetMethod(implObj, "SetActionOnTimeout"), flags, 3)
-        this.vtbl.SetTimeoutAndAction := CallbackCreate(GetMethod(implObj, "SetTimeoutAndAction"), flags, 4)
-        this.vtbl.SetActionOnFailure := CallbackCreate(GetMethod(implObj, "SetActionOnFailure"), flags, 3)
-        this.vtbl.SetUnhandledExceptionPolicy := CallbackCreate(GetMethod(implObj, "SetUnhandledExceptionPolicy"), flags, 2)
+        this.vtbl.SetDefaultAction := CallbackCreate(ObjBindMethod(implObj, "SetDefaultAction"), flags, 3)
+        this.vtbl.SetTimeout := CallbackCreate(ObjBindMethod(implObj, "SetTimeout"), flags, 3)
+        this.vtbl.SetActionOnTimeout := CallbackCreate(ObjBindMethod(implObj, "SetActionOnTimeout"), flags, 3)
+        this.vtbl.SetTimeoutAndAction := CallbackCreate(ObjBindMethod(implObj, "SetTimeoutAndAction"), flags, 4)
+        this.vtbl.SetActionOnFailure := CallbackCreate(ObjBindMethod(implObj, "SetActionOnFailure"), flags, 3)
+        this.vtbl.SetUnhandledExceptionPolicy := CallbackCreate(ObjBindMethod(implObj, "SetUnhandledExceptionPolicy"), flags, 2)
     }
 
     Dispose() {

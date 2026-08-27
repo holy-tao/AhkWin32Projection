@@ -104,8 +104,8 @@ export default struct IPersistSerializedPropStorage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipersistserializedpropstorage-getpropertystorage
      */
     GetPropertyStorage(ppsps, pcb) {
-        ppspsMarshal := ppsps is VarRef ? "ptr*" : "ptr"
-        pcbMarshal := pcb is VarRef ? "uint*" : "ptr"
+        ppspsMarshal := ppsps is VarRef ? "ptr*" : IntPtr
+        pcbMarshal := pcb is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, ppspsMarshal, ppsps, pcbMarshal, pcb, "HRESULT")
         return result
@@ -120,9 +120,9 @@ export default struct IPersistSerializedPropStorage extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetFlags := CallbackCreate(GetMethod(implObj, "SetFlags"), flags, 2)
-        this.vtbl.SetPropertyStorage := CallbackCreate(GetMethod(implObj, "SetPropertyStorage"), flags, 3)
-        this.vtbl.GetPropertyStorage := CallbackCreate(GetMethod(implObj, "GetPropertyStorage"), flags, 3)
+        this.vtbl.SetFlags := CallbackCreate(ObjBindMethod(implObj, "SetFlags"), flags, 2)
+        this.vtbl.SetPropertyStorage := CallbackCreate(ObjBindMethod(implObj, "SetPropertyStorage"), flags, 3)
+        this.vtbl.GetPropertyStorage := CallbackCreate(ObjBindMethod(implObj, "GetPropertyStorage"), flags, 3)
     }
 
     Dispose() {

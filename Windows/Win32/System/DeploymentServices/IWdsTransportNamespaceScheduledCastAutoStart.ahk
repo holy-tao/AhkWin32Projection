@@ -113,10 +113,10 @@ export default struct IWdsTransportNamespaceScheduledCastAutoStart extends IWdsT
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_MinimumClients := CallbackCreate(GetMethod(implObj, "get_MinimumClients"), flags, 2)
-        this.vtbl.put_MinimumClients := CallbackCreate(GetMethod(implObj, "put_MinimumClients"), flags, 2)
-        this.vtbl.get_StartTime := CallbackCreate(GetMethod(implObj, "get_StartTime"), flags, 2)
-        this.vtbl.put_StartTime := CallbackCreate(GetMethod(implObj, "put_StartTime"), flags, 2)
+        this.vtbl.get_MinimumClients := CallbackCreate(ObjBindMethod(implObj, "get_MinimumClients"), flags, 2)
+        this.vtbl.put_MinimumClients := CallbackCreate(ObjBindMethod(implObj, "put_MinimumClients"), flags, 2)
+        this.vtbl.get_StartTime := CallbackCreate(ObjBindMethod(implObj, "get_StartTime"), flags, 2)
+        this.vtbl.put_StartTime := CallbackCreate(ObjBindMethod(implObj, "put_StartTime"), flags, 2)
     }
 
     Dispose() {

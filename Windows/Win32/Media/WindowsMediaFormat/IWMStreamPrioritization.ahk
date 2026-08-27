@@ -52,7 +52,7 @@ export default struct IWMStreamPrioritization extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamprioritization-getpriorityrecords
      */
     GetPriorityRecords(pcRecords) {
-        pcRecordsMarshal := pcRecords is VarRef ? "ushort*" : "ptr"
+        pcRecordsMarshal := pcRecords is VarRef ? "ushort*" : IntPtr
 
         pRecordArray := WM_STREAM_PRIORITY_RECORD()
         result := ComCall(3, this, WM_STREAM_PRIORITY_RECORD.Ptr, pRecordArray, pcRecordsMarshal, pcRecords, "HRESULT")
@@ -130,8 +130,8 @@ export default struct IWMStreamPrioritization extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPriorityRecords := CallbackCreate(GetMethod(implObj, "GetPriorityRecords"), flags, 3)
-        this.vtbl.SetPriorityRecords := CallbackCreate(GetMethod(implObj, "SetPriorityRecords"), flags, 3)
+        this.vtbl.GetPriorityRecords := CallbackCreate(ObjBindMethod(implObj, "GetPriorityRecords"), flags, 3)
+        this.vtbl.SetPriorityRecords := CallbackCreate(ObjBindMethod(implObj, "SetPriorityRecords"), flags, 3)
     }
 
     Dispose() {

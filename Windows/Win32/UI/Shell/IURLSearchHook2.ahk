@@ -62,7 +62,9 @@ export default struct IURLSearchHook2 extends IURLSearchHook {
     TranslateWithSearchContext(pwszSearchURL, cchBufferSize, pSearchContext) {
         pwszSearchURL := pwszSearchURL is String ? StrPtr(pwszSearchURL) : pwszSearchURL
 
-        result := ComCall(4, this, "ptr", pwszSearchURL, UInt32, cchBufferSize, "ptr", pSearchContext, "HRESULT")
+        pSearchContextMarshal := pSearchContext == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, "ptr", pwszSearchURL, UInt32, cchBufferSize, pSearchContextMarshal, pSearchContext, "HRESULT")
         return result
     }
 
@@ -75,7 +77,7 @@ export default struct IURLSearchHook2 extends IURLSearchHook {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.TranslateWithSearchContext := CallbackCreate(GetMethod(implObj, "TranslateWithSearchContext"), flags, 4)
+        this.vtbl.TranslateWithSearchContext := CallbackCreate(ObjBindMethod(implObj, "TranslateWithSearchContext"), flags, 4)
     }
 
     Dispose() {

@@ -23,15 +23,14 @@ export default struct PDX_FLIPVIDEOPORT {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} param0 Points to the miniport driver's device extension.
      * @param {Pointer<DDFLIPVIDEOPORTINFO>} param1 Points to the <a href="https://docs.microsoft.com/windows/desktop/api/dxmini/ns-dxmini-ddflipvideoportinfo">DDFLIPVIDEOPORTINFO</a> structure that contains the flip information for the surface and VPE object.
      * @param {Pointer<Void>} param2 Reserved for system use.
      * @returns {Integer} <i>DxFlipVideoPort</i> returns DX_OK if it succeeds; otherwise, it returns one of the following error values:
      */
     Call(param0, param1, param2) {
-        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
-        param2Marshal := param2 is VarRef ? "ptr" : "ptr"
+        param0Marshal := param0 is VarRef ? "ptr" : IntPtr
+        param2Marshal := param2 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, param0Marshal, param0, DDFLIPVIDEOPORTINFO.Ptr, param1, param2Marshal, param2, UInt32)
         return result

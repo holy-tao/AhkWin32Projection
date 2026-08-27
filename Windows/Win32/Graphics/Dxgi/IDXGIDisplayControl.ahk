@@ -94,8 +94,8 @@ export default struct IDXGIDisplayControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsStereoEnabled := CallbackCreate(GetMethod(implObj, "IsStereoEnabled"), flags, 1)
-        this.vtbl.SetStereoEnabled := CallbackCreate(GetMethod(implObj, "SetStereoEnabled"), flags, 2)
+        this.vtbl.IsStereoEnabled := CallbackCreate(ObjBindMethod(implObj, "IsStereoEnabled"), flags, 1)
+        this.vtbl.SetStereoEnabled := CallbackCreate(ObjBindMethod(implObj, "SetStereoEnabled"), flags, 2)
     }
 
     Dispose() {

@@ -144,7 +144,7 @@ export default struct IDirect3DQuery9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dquery9-getdata
      */
     GetData(pData, dwSize, dwGetDataFlags) {
-        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+        pDataMarshal := pData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(7, this, pDataMarshal, pData, UInt32, dwSize, UInt32, dwGetDataFlags, "HRESULT")
         return result
@@ -159,11 +159,11 @@ export default struct IDirect3DQuery9 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDevice := CallbackCreate(GetMethod(implObj, "GetDevice"), flags, 2)
-        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 1)
-        this.vtbl.GetDataSize := CallbackCreate(GetMethod(implObj, "GetDataSize"), flags, 1)
-        this.vtbl.Issue := CallbackCreate(GetMethod(implObj, "Issue"), flags, 2)
-        this.vtbl.GetData := CallbackCreate(GetMethod(implObj, "GetData"), flags, 4)
+        this.vtbl.GetDevice := CallbackCreate(ObjBindMethod(implObj, "GetDevice"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(ObjBindMethod(implObj, "GetType"), flags, 1)
+        this.vtbl.GetDataSize := CallbackCreate(ObjBindMethod(implObj, "GetDataSize"), flags, 1)
+        this.vtbl.Issue := CallbackCreate(ObjBindMethod(implObj, "Issue"), flags, 2)
+        this.vtbl.GetData := CallbackCreate(ObjBindMethod(implObj, "GetData"), flags, 4)
     }
 
     Dispose() {

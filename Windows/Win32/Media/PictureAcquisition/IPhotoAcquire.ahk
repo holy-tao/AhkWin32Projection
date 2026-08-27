@@ -116,7 +116,12 @@ export default struct IPhotoAcquire extends IUnknown {
     Acquire(pPhotoAcquireSource, fShowProgress, hWndParent, pszApplicationName, pPhotoAcquireProgressCB) {
         pszApplicationName := pszApplicationName is String ? StrPtr(pszApplicationName) : pszApplicationName
 
-        result := ComCall(4, this, "ptr", pPhotoAcquireSource, BOOL, fShowProgress, HWND, hWndParent, "ptr", pszApplicationName, "ptr", pPhotoAcquireProgressCB, "HRESULT")
+        pPhotoAcquireSourceMarshal := pPhotoAcquireSource == 0 ? IntPtr : "ptr"
+        hWndParentMarshal := hWndParent == 0 ? IntPtr : HWND
+        pszApplicationNameMarshal := pszApplicationName == 0 ? IntPtr : PWSTR
+        pPhotoAcquireProgressCBMarshal := pPhotoAcquireProgressCB == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, pPhotoAcquireSourceMarshal, pPhotoAcquireSource, BOOL, fShowProgress, hWndParentMarshal, hWndParent, pszApplicationNameMarshal, pszApplicationName, pPhotoAcquireProgressCBMarshal, pPhotoAcquireProgressCB, "HRESULT")
         return result
     }
 
@@ -141,9 +146,9 @@ export default struct IPhotoAcquire extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreatePhotoSource := CallbackCreate(GetMethod(implObj, "CreatePhotoSource"), flags, 3)
-        this.vtbl.Acquire := CallbackCreate(GetMethod(implObj, "Acquire"), flags, 6)
-        this.vtbl.EnumResults := CallbackCreate(GetMethod(implObj, "EnumResults"), flags, 2)
+        this.vtbl.CreatePhotoSource := CallbackCreate(ObjBindMethod(implObj, "CreatePhotoSource"), flags, 3)
+        this.vtbl.Acquire := CallbackCreate(ObjBindMethod(implObj, "Acquire"), flags, 6)
+        this.vtbl.EnumResults := CallbackCreate(ObjBindMethod(implObj, "EnumResults"), flags, 2)
     }
 
     Dispose() {

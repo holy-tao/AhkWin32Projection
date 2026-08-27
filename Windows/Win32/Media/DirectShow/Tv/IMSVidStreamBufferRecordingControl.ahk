@@ -250,14 +250,14 @@ export default struct IMSVidStreamBufferRecordingControl extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_StartTime := CallbackCreate(GetMethod(implObj, "get_StartTime"), flags, 2)
-        this.vtbl.put_StartTime := CallbackCreate(GetMethod(implObj, "put_StartTime"), flags, 2)
-        this.vtbl.get_StopTime := CallbackCreate(GetMethod(implObj, "get_StopTime"), flags, 2)
-        this.vtbl.put_StopTime := CallbackCreate(GetMethod(implObj, "put_StopTime"), flags, 2)
-        this.vtbl.get_RecordingStopped := CallbackCreate(GetMethod(implObj, "get_RecordingStopped"), flags, 2)
-        this.vtbl.get_RecordingStarted := CallbackCreate(GetMethod(implObj, "get_RecordingStarted"), flags, 2)
-        this.vtbl.get_RecordingType := CallbackCreate(GetMethod(implObj, "get_RecordingType"), flags, 2)
-        this.vtbl.get_RecordingAttribute := CallbackCreate(GetMethod(implObj, "get_RecordingAttribute"), flags, 2)
+        this.vtbl.get_StartTime := CallbackCreate(ObjBindMethod(implObj, "get_StartTime"), flags, 2)
+        this.vtbl.put_StartTime := CallbackCreate(ObjBindMethod(implObj, "put_StartTime"), flags, 2)
+        this.vtbl.get_StopTime := CallbackCreate(ObjBindMethod(implObj, "get_StopTime"), flags, 2)
+        this.vtbl.put_StopTime := CallbackCreate(ObjBindMethod(implObj, "put_StopTime"), flags, 2)
+        this.vtbl.get_RecordingStopped := CallbackCreate(ObjBindMethod(implObj, "get_RecordingStopped"), flags, 2)
+        this.vtbl.get_RecordingStarted := CallbackCreate(ObjBindMethod(implObj, "get_RecordingStarted"), flags, 2)
+        this.vtbl.get_RecordingType := CallbackCreate(ObjBindMethod(implObj, "get_RecordingType"), flags, 2)
+        this.vtbl.get_RecordingAttribute := CallbackCreate(ObjBindMethod(implObj, "get_RecordingAttribute"), flags, 2)
     }
 
     Dispose() {

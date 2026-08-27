@@ -150,7 +150,9 @@ export default struct ID3D12VideoDecodeCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodecodecommandlist-discardresource
      */
     DiscardResource(pResource, pRegion) {
-        ComCall(13, this, "ptr", pResource, D3D12_DISCARD_REGION.Ptr, pRegion)
+        pRegionMarshal := pRegion == 0 ? IntPtr : D3D12_DISCARD_REGION.Ptr
+
+        ComCall(13, this, "ptr", pResource, pRegionMarshal, pRegion)
     }
 
     /**
@@ -203,7 +205,9 @@ export default struct ID3D12VideoDecodeCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodecodecommandlist-setpredication
      */
     SetPredication(pBuffer, AlignedBufferOffset, Operation) {
-        ComCall(17, this, "ptr", pBuffer, Int64, AlignedBufferOffset, D3D12_PREDICATION_OP, Operation)
+        pBufferMarshal := pBuffer == 0 ? IntPtr : "ptr"
+
+        ComCall(17, this, pBufferMarshal, pBuffer, Int64, AlignedBufferOffset, D3D12_PREDICATION_OP, Operation)
     }
 
     /**
@@ -215,7 +219,9 @@ export default struct ID3D12VideoDecodeCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodecodecommandlist-setmarker
      */
     SetMarker(Metadata, pData, _Size) {
-        ComCall(18, this, UInt32, Metadata, IntPtr, pData, UInt32, _Size)
+        pDataMarshal := pData == 0 ? IntPtr : IntPtr
+
+        ComCall(18, this, UInt32, Metadata, pDataMarshal, pData, UInt32, _Size)
     }
 
     /**
@@ -227,7 +233,9 @@ export default struct ID3D12VideoDecodeCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodecodecommandlist-beginevent
      */
     BeginEvent(Metadata, pData, _Size) {
-        ComCall(19, this, UInt32, Metadata, IntPtr, pData, UInt32, _Size)
+        pDataMarshal := pData == 0 ? IntPtr : IntPtr
+
+        ComCall(19, this, UInt32, Metadata, pDataMarshal, pData, UInt32, _Size)
     }
 
     /**
@@ -264,7 +272,8 @@ export default struct ID3D12VideoDecodeCommandList extends ID3D12CommandList {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodecodecommandlist-writebufferimmediate
      */
     WriteBufferImmediate(Count, pParams, pModes) {
-        pModesMarshal := pModes is VarRef ? "int*" : "ptr"
+        pModesMarshal := pModes is VarRef ? "int*" : IntPtr
+        pModesMarshal := pModes == 0 ? IntPtr : "int*"
 
         ComCall(22, this, UInt32, Count, D3D12_WRITEBUFFERIMMEDIATE_PARAMETER.Ptr, pParams, pModesMarshal, pModes)
     }
@@ -278,20 +287,20 @@ export default struct ID3D12VideoDecodeCommandList extends ID3D12CommandList {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 2)
-        this.vtbl.ClearState := CallbackCreate(GetMethod(implObj, "ClearState"), flags, 1)
-        this.vtbl.ResourceBarrier := CallbackCreate(GetMethod(implObj, "ResourceBarrier"), flags, 3)
-        this.vtbl.DiscardResource := CallbackCreate(GetMethod(implObj, "DiscardResource"), flags, 3)
-        this.vtbl.BeginQuery := CallbackCreate(GetMethod(implObj, "BeginQuery"), flags, 4)
-        this.vtbl.EndQuery := CallbackCreate(GetMethod(implObj, "EndQuery"), flags, 4)
-        this.vtbl.ResolveQueryData := CallbackCreate(GetMethod(implObj, "ResolveQueryData"), flags, 7)
-        this.vtbl.SetPredication := CallbackCreate(GetMethod(implObj, "SetPredication"), flags, 4)
-        this.vtbl.SetMarker := CallbackCreate(GetMethod(implObj, "SetMarker"), flags, 4)
-        this.vtbl.BeginEvent := CallbackCreate(GetMethod(implObj, "BeginEvent"), flags, 4)
-        this.vtbl.EndEvent := CallbackCreate(GetMethod(implObj, "EndEvent"), flags, 1)
-        this.vtbl.DecodeFrame := CallbackCreate(GetMethod(implObj, "DecodeFrame"), flags, 4)
-        this.vtbl.WriteBufferImmediate := CallbackCreate(GetMethod(implObj, "WriteBufferImmediate"), flags, 4)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 2)
+        this.vtbl.ClearState := CallbackCreate(ObjBindMethod(implObj, "ClearState"), flags, 1)
+        this.vtbl.ResourceBarrier := CallbackCreate(ObjBindMethod(implObj, "ResourceBarrier"), flags, 3)
+        this.vtbl.DiscardResource := CallbackCreate(ObjBindMethod(implObj, "DiscardResource"), flags, 3)
+        this.vtbl.BeginQuery := CallbackCreate(ObjBindMethod(implObj, "BeginQuery"), flags, 4)
+        this.vtbl.EndQuery := CallbackCreate(ObjBindMethod(implObj, "EndQuery"), flags, 4)
+        this.vtbl.ResolveQueryData := CallbackCreate(ObjBindMethod(implObj, "ResolveQueryData"), flags, 7)
+        this.vtbl.SetPredication := CallbackCreate(ObjBindMethod(implObj, "SetPredication"), flags, 4)
+        this.vtbl.SetMarker := CallbackCreate(ObjBindMethod(implObj, "SetMarker"), flags, 4)
+        this.vtbl.BeginEvent := CallbackCreate(ObjBindMethod(implObj, "BeginEvent"), flags, 4)
+        this.vtbl.EndEvent := CallbackCreate(ObjBindMethod(implObj, "EndEvent"), flags, 1)
+        this.vtbl.DecodeFrame := CallbackCreate(ObjBindMethod(implObj, "DecodeFrame"), flags, 4)
+        this.vtbl.WriteBufferImmediate := CallbackCreate(ObjBindMethod(implObj, "WriteBufferImmediate"), flags, 4)
     }
 
     Dispose() {

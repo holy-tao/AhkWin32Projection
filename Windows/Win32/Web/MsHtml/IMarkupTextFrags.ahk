@@ -43,7 +43,6 @@ export default struct IMarkupTextFrags extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetTextFragCount() {
@@ -52,7 +51,6 @@ export default struct IMarkupTextFrags extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iFrag 
      * @param {IMarkupPointer} pPointerFrag 
      * @returns {BSTR} 
@@ -64,7 +62,6 @@ export default struct IMarkupTextFrags extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iFrag 
      * @returns {HRESULT} 
      */
@@ -74,7 +71,6 @@ export default struct IMarkupTextFrags extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iFrag 
      * @param {BSTR} bstrInsert 
      * @param {IMarkupPointer} pPointerInsert 
@@ -88,15 +84,14 @@ export default struct IMarkupTextFrags extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pPointerFind 
      * @param {Pointer<Integer>} piFrag 
      * @param {Pointer<BOOL>} pfFragFound 
      * @returns {HRESULT} 
      */
     FindTextFragFromMarkupPointer(pPointerFind, piFrag, pfFragFound) {
-        piFragMarshal := piFrag is VarRef ? "int*" : "ptr"
-        pfFragFoundMarshal := pfFragFound is VarRef ? "int*" : "ptr"
+        piFragMarshal := piFrag is VarRef ? "int*" : IntPtr
+        pfFragFoundMarshal := pfFragFound is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, "ptr", pPointerFind, piFragMarshal, piFrag, pfFragFoundMarshal, pfFragFound, "HRESULT")
         return result
@@ -111,11 +106,11 @@ export default struct IMarkupTextFrags extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTextFragCount := CallbackCreate(GetMethod(implObj, "GetTextFragCount"), flags, 2)
-        this.vtbl.GetTextFrag := CallbackCreate(GetMethod(implObj, "GetTextFrag"), flags, 4)
-        this.vtbl.RemoveTextFrag := CallbackCreate(GetMethod(implObj, "RemoveTextFrag"), flags, 2)
-        this.vtbl.InsertTextFrag := CallbackCreate(GetMethod(implObj, "InsertTextFrag"), flags, 4)
-        this.vtbl.FindTextFragFromMarkupPointer := CallbackCreate(GetMethod(implObj, "FindTextFragFromMarkupPointer"), flags, 4)
+        this.vtbl.GetTextFragCount := CallbackCreate(ObjBindMethod(implObj, "GetTextFragCount"), flags, 2)
+        this.vtbl.GetTextFrag := CallbackCreate(ObjBindMethod(implObj, "GetTextFrag"), flags, 4)
+        this.vtbl.RemoveTextFrag := CallbackCreate(ObjBindMethod(implObj, "RemoveTextFrag"), flags, 2)
+        this.vtbl.InsertTextFrag := CallbackCreate(ObjBindMethod(implObj, "InsertTextFrag"), flags, 4)
+        this.vtbl.FindTextFragFromMarkupPointer := CallbackCreate(ObjBindMethod(implObj, "FindTextFragFromMarkupPointer"), flags, 4)
     }
 
     Dispose() {

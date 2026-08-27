@@ -87,8 +87,8 @@ export default struct IConnectableCredentialProviderCredential extends ICredenti
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 2)
-        this.vtbl.Disconnect := CallbackCreate(GetMethod(implObj, "Disconnect"), flags, 1)
+        this.vtbl.Connect := CallbackCreate(ObjBindMethod(implObj, "Connect"), flags, 2)
+        this.vtbl.Disconnect := CallbackCreate(ObjBindMethod(implObj, "Disconnect"), flags, 1)
     }
 
     Dispose() {

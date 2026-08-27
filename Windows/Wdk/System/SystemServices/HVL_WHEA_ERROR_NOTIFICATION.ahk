@@ -21,7 +21,6 @@ export default struct HVL_WHEA_ERROR_NOTIFICATION {
     }
 
     /**
-     * 
      * @param {Pointer<WHEA_RECOVERY_CONTEXT>} RecoveryContext 
      * @param {BOOLEAN} PlatformDirected 
      * @param {BOOLEAN} Poisoned 

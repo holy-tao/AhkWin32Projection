@@ -18,7 +18,6 @@ export default struct CL_ADD_PARTY_COMPLETE_HANDLER {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

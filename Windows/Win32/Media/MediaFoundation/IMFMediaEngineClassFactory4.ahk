@@ -61,7 +61,7 @@ export default struct IMFMediaEngineClassFactory4 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateContentDecryptionModuleFactory := CallbackCreate(GetMethod(implObj, "CreateContentDecryptionModuleFactory"), flags, 4)
+        this.vtbl.CreateContentDecryptionModuleFactory := CallbackCreate(ObjBindMethod(implObj, "CreateContentDecryptionModuleFactory"), flags, 4)
     }
 
     Dispose() {

@@ -21,7 +21,6 @@ export default struct LPFNACCESSIBLEOBJECTFROMWINDOW {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {Integer} dwId 
      * @param {Pointer<Guid>} riid 
@@ -29,7 +28,7 @@ export default struct LPFNACCESSIBLEOBJECTFROMWINDOW {
      * @returns {HRESULT} 
      */
     Call(_hwnd, dwId, riid, ppvObject) {
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, HWND, _hwnd, UInt32, dwId, Guid.Ptr, riid, ppvObjectMarshal, ppvObject, "HRESULT")
         return result

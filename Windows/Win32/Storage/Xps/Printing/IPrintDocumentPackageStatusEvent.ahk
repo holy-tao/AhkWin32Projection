@@ -58,7 +58,7 @@ export default struct IPrintDocumentPackageStatusEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PackageStatusUpdated := CallbackCreate(GetMethod(implObj, "PackageStatusUpdated"), flags, 2)
+        this.vtbl.PackageStatusUpdated := CallbackCreate(ObjBindMethod(implObj, "PackageStatusUpdated"), flags, 2)
     }
 
     Dispose() {

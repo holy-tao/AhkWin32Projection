@@ -116,9 +116,9 @@ export default struct ICommDlgBrowser2 extends ICommDlgBrowser {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Notify := CallbackCreate(GetMethod(implObj, "Notify"), flags, 3)
-        this.vtbl.GetDefaultMenuText := CallbackCreate(GetMethod(implObj, "GetDefaultMenuText"), flags, 4)
-        this.vtbl.GetViewFlags := CallbackCreate(GetMethod(implObj, "GetViewFlags"), flags, 2)
+        this.vtbl.Notify := CallbackCreate(ObjBindMethod(implObj, "Notify"), flags, 3)
+        this.vtbl.GetDefaultMenuText := CallbackCreate(ObjBindMethod(implObj, "GetDefaultMenuText"), flags, 4)
+        this.vtbl.GetViewFlags := CallbackCreate(ObjBindMethod(implObj, "GetViewFlags"), flags, 2)
     }
 
     Dispose() {

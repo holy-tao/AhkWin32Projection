@@ -21,7 +21,6 @@ export default struct SslGetKeyPropertyFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_KEY_HANDLE} _hKey 
      * @param {PWSTR} pszProperty 
      * @param {Pointer<Pointer<Integer>>} ppbOutput 
@@ -32,8 +31,8 @@ export default struct SslGetKeyPropertyFn {
     Call(_hKey, pszProperty, ppbOutput, pcbOutput, dwFlags) {
         pszProperty := pszProperty is String ? StrPtr(pszProperty) : pszProperty
 
-        ppbOutputMarshal := ppbOutput is VarRef ? "ptr*" : "ptr"
-        pcbOutputMarshal := pcbOutput is VarRef ? "uint*" : "ptr"
+        ppbOutputMarshal := ppbOutput is VarRef ? "ptr*" : IntPtr
+        pcbOutputMarshal := pcbOutput is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, NCRYPT_KEY_HANDLE, _hKey, "ptr", pszProperty, ppbOutputMarshal, ppbOutput, pcbOutputMarshal, pcbOutput, UInt32, dwFlags, "HRESULT")
         return result

@@ -23,7 +23,6 @@ export default struct SslExpandTrafficKeysFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_KEY_HANDLE} hBaseKey 
      * @param {NCRYPT_HASH_HANDLE} hHashValue 
@@ -34,7 +33,11 @@ export default struct SslExpandTrafficKeysFn {
      * @returns {HRESULT} 
      */
     Call(hSslProvider, hBaseKey, hHashValue, phClientTrafficKey, phServerTrafficKey, pParameterList, dwFlags) {
-        result := DllCall(this.value, NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hBaseKey, NCRYPT_HASH_HANDLE, hHashValue, NCRYPT_KEY_HANDLE.Ptr, phClientTrafficKey, NCRYPT_KEY_HANDLE.Ptr, phServerTrafficKey, BCryptBufferDesc.Ptr, pParameterList, UInt32, dwFlags, "HRESULT")
+        phClientTrafficKeyMarshal := phClientTrafficKey == 0 ? IntPtr : NCRYPT_KEY_HANDLE.Ptr
+        phServerTrafficKeyMarshal := phServerTrafficKey == 0 ? IntPtr : NCRYPT_KEY_HANDLE.Ptr
+        pParameterListMarshal := pParameterList == 0 ? IntPtr : BCryptBufferDesc.Ptr
+
+        result := DllCall(this.value, NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hBaseKey, NCRYPT_HASH_HANDLE, hHashValue, phClientTrafficKeyMarshal, phClientTrafficKey, phServerTrafficKeyMarshal, phServerTrafficKey, pParameterListMarshal, pParameterList, UInt32, dwFlags, "HRESULT")
         return result
     }
 

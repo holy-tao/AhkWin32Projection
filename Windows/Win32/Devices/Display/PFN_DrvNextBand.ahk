@@ -21,7 +21,6 @@ export default struct PFN_DrvNextBand {
     }
 
     /**
-     * 
      * @param {Pointer<SURFOBJ>} param0 
      * @param {Pointer<POINTL>} ppointl 
      * @returns {BOOL} 

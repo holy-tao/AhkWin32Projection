@@ -21,7 +21,6 @@ export default struct LPFNEXTDEVIO {
     }
 
     /**
-     * 
      * @param {LPARAM} _lParam 
      * @param {Integer} dwFlags 
      * @param {Integer} dwIoControlCode 
@@ -34,9 +33,9 @@ export default struct LPFNEXTDEVIO {
      * @returns {BOOL} 
      */
     Call(_lParam, dwFlags, dwIoControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpOverlapped) {
-        lpInBufferMarshal := lpInBuffer is VarRef ? "ptr" : "ptr"
-        lpOutBufferMarshal := lpOutBuffer is VarRef ? "ptr" : "ptr"
-        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+        lpInBufferMarshal := lpInBuffer is VarRef ? "ptr" : IntPtr
+        lpOutBufferMarshal := lpOutBuffer is VarRef ? "ptr" : IntPtr
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, LPARAM, _lParam, UInt32, dwFlags, UInt32, dwIoControlCode, lpInBufferMarshal, lpInBuffer, UInt32, nInBufferSize, lpOutBufferMarshal, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, OVERLAPPED.Ptr, lpOverlapped, BOOL)
         return result

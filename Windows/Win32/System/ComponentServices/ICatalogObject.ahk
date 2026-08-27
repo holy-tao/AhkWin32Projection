@@ -172,13 +172,13 @@ export default struct ICatalogObject extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Value := CallbackCreate(GetMethod(implObj, "get_Value"), flags, 3)
-        this.vtbl.put_Value := CallbackCreate(GetMethod(implObj, "put_Value"), flags, 3)
-        this.vtbl.get_Key := CallbackCreate(GetMethod(implObj, "get_Key"), flags, 2)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.IsPropertyReadOnly := CallbackCreate(GetMethod(implObj, "IsPropertyReadOnly"), flags, 3)
-        this.vtbl.get_Valid := CallbackCreate(GetMethod(implObj, "get_Valid"), flags, 2)
-        this.vtbl.IsPropertyWriteOnly := CallbackCreate(GetMethod(implObj, "IsPropertyWriteOnly"), flags, 3)
+        this.vtbl.get_Value := CallbackCreate(ObjBindMethod(implObj, "get_Value"), flags, 3)
+        this.vtbl.put_Value := CallbackCreate(ObjBindMethod(implObj, "put_Value"), flags, 3)
+        this.vtbl.get_Key := CallbackCreate(ObjBindMethod(implObj, "get_Key"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.IsPropertyReadOnly := CallbackCreate(ObjBindMethod(implObj, "IsPropertyReadOnly"), flags, 3)
+        this.vtbl.get_Valid := CallbackCreate(ObjBindMethod(implObj, "get_Valid"), flags, 2)
+        this.vtbl.IsPropertyWriteOnly := CallbackCreate(ObjBindMethod(implObj, "IsPropertyWriteOnly"), flags, 3)
     }
 
     Dispose() {

@@ -18,7 +18,6 @@ export default struct PEXT_DELETE_CALLBACK {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

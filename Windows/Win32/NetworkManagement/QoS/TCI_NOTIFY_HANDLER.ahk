@@ -71,7 +71,6 @@ export default struct TCI_NOTIFY_HANDLER {
     }
 
     /**
-     * 
      * @param {HANDLE} ClRegCtx Client registration context, provided to traffic control by the client with the client's call to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcregisterclient">TcRegisterClient</a> function.
      * @param {HANDLE} ClIfcCtx Client interface context, provided to traffic control by the client with the client's call to the 

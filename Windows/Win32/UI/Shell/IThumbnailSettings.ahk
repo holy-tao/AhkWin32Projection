@@ -65,7 +65,7 @@ export default struct IThumbnailSettings extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetContext := CallbackCreate(GetMethod(implObj, "SetContext"), flags, 2)
+        this.vtbl.SetContext := CallbackCreate(ObjBindMethod(implObj, "SetContext"), flags, 2)
     }
 
     Dispose() {

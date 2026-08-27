@@ -177,7 +177,7 @@ export default struct IVdsAdvancedDisk2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ChangePartitionType := CallbackCreate(GetMethod(implObj, "ChangePartitionType"), flags, 4)
+        this.vtbl.ChangePartitionType := CallbackCreate(ObjBindMethod(implObj, "ChangePartitionType"), flags, 4)
     }
 
     Dispose() {

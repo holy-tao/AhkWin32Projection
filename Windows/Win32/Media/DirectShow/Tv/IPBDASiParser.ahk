@@ -60,7 +60,7 @@ export default struct IPBDASiParser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbdasiparser-geteit
      */
     GetEIT(dwSize, pBuffer) {
-        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(4, this, UInt32, dwSize, pBufferMarshal, pBuffer, "ptr*", &ppEIT := 0, "HRESULT")
         return IPBDA_EIT(ppEIT)
@@ -74,7 +74,7 @@ export default struct IPBDASiParser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbdasiparser-getservices
      */
     GetServices(dwSize, pBuffer) {
-        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(5, this, UInt32, dwSize, pBufferMarshal, pBuffer, "ptr*", &ppServices := 0, "HRESULT")
         return IPBDA_Services(ppServices)
@@ -89,9 +89,9 @@ export default struct IPBDASiParser extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.GetEIT := CallbackCreate(GetMethod(implObj, "GetEIT"), flags, 4)
-        this.vtbl.GetServices := CallbackCreate(GetMethod(implObj, "GetServices"), flags, 4)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.GetEIT := CallbackCreate(ObjBindMethod(implObj, "GetEIT"), flags, 4)
+        this.vtbl.GetServices := CallbackCreate(ObjBindMethod(implObj, "GetServices"), flags, 4)
     }
 
     Dispose() {

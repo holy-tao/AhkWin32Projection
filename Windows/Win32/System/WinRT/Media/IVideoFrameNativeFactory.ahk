@@ -42,7 +42,6 @@ export default struct IVideoFrameNativeFactory extends IInspectable {
     }
 
     /**
-     * 
      * @param {IMFSample} data 
      * @param {Pointer<Guid>} subtype 
      * @param {Integer} width 
@@ -54,7 +53,10 @@ export default struct IVideoFrameNativeFactory extends IInspectable {
      * @returns {Pointer<Void>} 
      */
     CreateFromMFSample(data, subtype, width, height, forceReadOnly, minDisplayAperture, device, riid) {
-        result := ComCall(6, this, "ptr", data, Guid.Ptr, subtype, UInt32, width, UInt32, height, BOOL, forceReadOnly, MFVideoArea.Ptr, minDisplayAperture, "ptr", device, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        minDisplayApertureMarshal := minDisplayAperture == 0 ? IntPtr : MFVideoArea.Ptr
+        deviceMarshal := device == 0 ? IntPtr : "ptr"
+
+        result := ComCall(6, this, "ptr", data, Guid.Ptr, subtype, UInt32, width, UInt32, height, BOOL, forceReadOnly, minDisplayApertureMarshal, minDisplayAperture, deviceMarshal, device, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -67,7 +69,7 @@ export default struct IVideoFrameNativeFactory extends IInspectable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateFromMFSample := CallbackCreate(GetMethod(implObj, "CreateFromMFSample"), flags, 10)
+        this.vtbl.CreateFromMFSample := CallbackCreate(ObjBindMethod(implObj, "CreateFromMFSample"), flags, 10)
     }
 
     Dispose() {

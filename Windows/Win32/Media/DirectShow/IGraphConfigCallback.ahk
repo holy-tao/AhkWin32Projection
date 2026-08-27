@@ -51,7 +51,7 @@ export default struct IGraphConfigCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-igraphconfigcallback-reconfigure
      */
     Reconfigure(pvContext, dwFlags) {
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, pvContextMarshal, pvContext, UInt32, dwFlags, "HRESULT")
         return result
@@ -66,7 +66,7 @@ export default struct IGraphConfigCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Reconfigure := CallbackCreate(GetMethod(implObj, "Reconfigure"), flags, 3)
+        this.vtbl.Reconfigure := CallbackCreate(ObjBindMethod(implObj, "Reconfigure"), flags, 3)
     }
 
     Dispose() {

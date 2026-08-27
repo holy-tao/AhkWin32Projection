@@ -71,8 +71,8 @@ export default struct IServiceThreadPoolConfig extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SelectThreadPool := CallbackCreate(GetMethod(implObj, "SelectThreadPool"), flags, 2)
-        this.vtbl.SetBindingInfo := CallbackCreate(GetMethod(implObj, "SetBindingInfo"), flags, 2)
+        this.vtbl.SelectThreadPool := CallbackCreate(ObjBindMethod(implObj, "SelectThreadPool"), flags, 2)
+        this.vtbl.SetBindingInfo := CallbackCreate(ObjBindMethod(implObj, "SetBindingInfo"), flags, 2)
     }
 
     Dispose() {

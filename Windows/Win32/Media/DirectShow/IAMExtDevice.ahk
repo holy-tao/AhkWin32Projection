@@ -413,8 +413,8 @@ export default struct IAMExtDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamextdevice-getcapability
      */
     GetCapability(Capability, pValue, pdblValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-        pdblValueMarshal := pdblValue is VarRef ? "double*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "int*" : IntPtr
+        pdblValueMarshal := pdblValue is VarRef ? "double*" : IntPtr
 
         result := ComCall(3, this, Int32, Capability, pValueMarshal, pValue, pdblValueMarshal, pdblValue, "HRESULT")
         return result
@@ -553,14 +553,14 @@ export default struct IAMExtDevice extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCapability := CallbackCreate(GetMethod(implObj, "GetCapability"), flags, 4)
-        this.vtbl.get_ExternalDeviceID := CallbackCreate(GetMethod(implObj, "get_ExternalDeviceID"), flags, 2)
-        this.vtbl.get_ExternalDeviceVersion := CallbackCreate(GetMethod(implObj, "get_ExternalDeviceVersion"), flags, 2)
-        this.vtbl.put_DevicePower := CallbackCreate(GetMethod(implObj, "put_DevicePower"), flags, 2)
-        this.vtbl.get_DevicePower := CallbackCreate(GetMethod(implObj, "get_DevicePower"), flags, 2)
-        this.vtbl.Calibrate := CallbackCreate(GetMethod(implObj, "Calibrate"), flags, 4)
-        this.vtbl.put_DevicePort := CallbackCreate(GetMethod(implObj, "put_DevicePort"), flags, 2)
-        this.vtbl.get_DevicePort := CallbackCreate(GetMethod(implObj, "get_DevicePort"), flags, 2)
+        this.vtbl.GetCapability := CallbackCreate(ObjBindMethod(implObj, "GetCapability"), flags, 4)
+        this.vtbl.get_ExternalDeviceID := CallbackCreate(ObjBindMethod(implObj, "get_ExternalDeviceID"), flags, 2)
+        this.vtbl.get_ExternalDeviceVersion := CallbackCreate(ObjBindMethod(implObj, "get_ExternalDeviceVersion"), flags, 2)
+        this.vtbl.put_DevicePower := CallbackCreate(ObjBindMethod(implObj, "put_DevicePower"), flags, 2)
+        this.vtbl.get_DevicePower := CallbackCreate(ObjBindMethod(implObj, "get_DevicePower"), flags, 2)
+        this.vtbl.Calibrate := CallbackCreate(ObjBindMethod(implObj, "Calibrate"), flags, 4)
+        this.vtbl.put_DevicePort := CallbackCreate(ObjBindMethod(implObj, "put_DevicePort"), flags, 2)
+        this.vtbl.get_DevicePort := CallbackCreate(ObjBindMethod(implObj, "get_DevicePort"), flags, 2)
     }
 
     Dispose() {

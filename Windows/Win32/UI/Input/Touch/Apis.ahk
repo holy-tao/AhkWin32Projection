@@ -153,7 +153,8 @@ export UnregisterTouchWindow(_hwnd) {
  * @since windows6.1
  */
 export IsTouchWindow(_hwnd, pulFlags) {
-    pulFlagsMarshal := pulFlags is VarRef ? "uint*" : "ptr"
+    pulFlagsMarshal := pulFlags is VarRef ? "uint*" : IntPtr
+    pulFlagsMarshal := pulFlags == 0 ? IntPtr : "uint*"
 
     result := DllCall("USER32.dll\IsTouchWindow", HWND, _hwnd, pulFlagsMarshal, pulFlags, BOOL)
     return result
@@ -495,7 +496,7 @@ export SetGestureConfig(_hwnd, dwReserved, cIDs, pGestureConfig, cbSize) {
  * @since windows6.1
  */
 export GetGestureConfig(_hwnd, dwReserved, dwFlags, pcIDs, pGestureConfig, cbSize) {
-    pcIDsMarshal := pcIDs is VarRef ? "uint*" : "ptr"
+    pcIDsMarshal := pcIDs is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 

@@ -45,7 +45,6 @@ export default struct PLOG_EVENT_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer} ResourceHandle Handle identifying the resource recording the event. The value for <i>ResourceHandle</i> 
      *        should be the handle passed in during the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-popen_routine">Open</a> call for this 
      *        resource.

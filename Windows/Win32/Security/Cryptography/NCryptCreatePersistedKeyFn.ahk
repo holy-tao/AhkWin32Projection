@@ -22,7 +22,6 @@ export default struct NCryptCreatePersistedKeyFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} _hProvider 
      * @param {PWSTR} pszAlgId 
      * @param {PWSTR} pszKeyName 
@@ -34,8 +33,10 @@ export default struct NCryptCreatePersistedKeyFn {
         pszAlgId := pszAlgId is String ? StrPtr(pszAlgId) : pszAlgId
         pszKeyName := pszKeyName is String ? StrPtr(pszKeyName) : pszKeyName
 
+        pszKeyNameMarshal := pszKeyName == 0 ? IntPtr : PWSTR
+
         phKey := NCRYPT_KEY_HANDLE.Owned()
-        result := DllCall(this.value, NCRYPT_PROV_HANDLE, _hProvider, NCRYPT_KEY_HANDLE.Ptr, phKey, "ptr", pszAlgId, "ptr", pszKeyName, UInt32, dwLegacyKeySpec, UInt32, dwFlags, "HRESULT")
+        result := DllCall(this.value, NCRYPT_PROV_HANDLE, _hProvider, NCRYPT_KEY_HANDLE.Ptr, phKey, "ptr", pszAlgId, pszKeyNameMarshal, pszKeyName, UInt32, dwLegacyKeySpec, UInt32, dwFlags, "HRESULT")
         return phKey
     }
 

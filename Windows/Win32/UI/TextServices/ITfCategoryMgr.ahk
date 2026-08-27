@@ -171,7 +171,7 @@ export default struct ITfCategoryMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-findclosestcategory
      */
     FindClosestCategory(rguid, ppcatidList, ulCount) {
-        ppcatidListMarshal := ppcatidList is VarRef ? "ptr*" : "ptr"
+        ppcatidListMarshal := ppcatidList is VarRef ? "ptr*" : IntPtr
 
         pcatid := Guid()
         result := ComCall(7, this, Guid.Ptr, rguid, Guid.Ptr, pcatid, ppcatidListMarshal, ppcatidList, UInt32, ulCount, "HRESULT")
@@ -433,20 +433,20 @@ export default struct ITfCategoryMgr extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterCategory := CallbackCreate(GetMethod(implObj, "RegisterCategory"), flags, 4)
-        this.vtbl.UnregisterCategory := CallbackCreate(GetMethod(implObj, "UnregisterCategory"), flags, 4)
-        this.vtbl.EnumCategoriesInItem := CallbackCreate(GetMethod(implObj, "EnumCategoriesInItem"), flags, 3)
-        this.vtbl.EnumItemsInCategory := CallbackCreate(GetMethod(implObj, "EnumItemsInCategory"), flags, 3)
-        this.vtbl.FindClosestCategory := CallbackCreate(GetMethod(implObj, "FindClosestCategory"), flags, 5)
-        this.vtbl.RegisterGUIDDescription := CallbackCreate(GetMethod(implObj, "RegisterGUIDDescription"), flags, 5)
-        this.vtbl.UnregisterGUIDDescription := CallbackCreate(GetMethod(implObj, "UnregisterGUIDDescription"), flags, 3)
-        this.vtbl.GetGUIDDescription := CallbackCreate(GetMethod(implObj, "GetGUIDDescription"), flags, 3)
-        this.vtbl.RegisterGUIDDWORD := CallbackCreate(GetMethod(implObj, "RegisterGUIDDWORD"), flags, 4)
-        this.vtbl.UnregisterGUIDDWORD := CallbackCreate(GetMethod(implObj, "UnregisterGUIDDWORD"), flags, 3)
-        this.vtbl.GetGUIDDWORD := CallbackCreate(GetMethod(implObj, "GetGUIDDWORD"), flags, 3)
-        this.vtbl.RegisterGUID := CallbackCreate(GetMethod(implObj, "RegisterGUID"), flags, 3)
-        this.vtbl.GetGUID := CallbackCreate(GetMethod(implObj, "GetGUID"), flags, 3)
-        this.vtbl.IsEqualTfGuidAtom := CallbackCreate(GetMethod(implObj, "IsEqualTfGuidAtom"), flags, 4)
+        this.vtbl.RegisterCategory := CallbackCreate(ObjBindMethod(implObj, "RegisterCategory"), flags, 4)
+        this.vtbl.UnregisterCategory := CallbackCreate(ObjBindMethod(implObj, "UnregisterCategory"), flags, 4)
+        this.vtbl.EnumCategoriesInItem := CallbackCreate(ObjBindMethod(implObj, "EnumCategoriesInItem"), flags, 3)
+        this.vtbl.EnumItemsInCategory := CallbackCreate(ObjBindMethod(implObj, "EnumItemsInCategory"), flags, 3)
+        this.vtbl.FindClosestCategory := CallbackCreate(ObjBindMethod(implObj, "FindClosestCategory"), flags, 5)
+        this.vtbl.RegisterGUIDDescription := CallbackCreate(ObjBindMethod(implObj, "RegisterGUIDDescription"), flags, 5)
+        this.vtbl.UnregisterGUIDDescription := CallbackCreate(ObjBindMethod(implObj, "UnregisterGUIDDescription"), flags, 3)
+        this.vtbl.GetGUIDDescription := CallbackCreate(ObjBindMethod(implObj, "GetGUIDDescription"), flags, 3)
+        this.vtbl.RegisterGUIDDWORD := CallbackCreate(ObjBindMethod(implObj, "RegisterGUIDDWORD"), flags, 4)
+        this.vtbl.UnregisterGUIDDWORD := CallbackCreate(ObjBindMethod(implObj, "UnregisterGUIDDWORD"), flags, 3)
+        this.vtbl.GetGUIDDWORD := CallbackCreate(ObjBindMethod(implObj, "GetGUIDDWORD"), flags, 3)
+        this.vtbl.RegisterGUID := CallbackCreate(ObjBindMethod(implObj, "RegisterGUID"), flags, 3)
+        this.vtbl.GetGUID := CallbackCreate(ObjBindMethod(implObj, "GetGUID"), flags, 3)
+        this.vtbl.IsEqualTfGuidAtom := CallbackCreate(ObjBindMethod(implObj, "IsEqualTfGuidAtom"), flags, 4)
     }
 
     Dispose() {

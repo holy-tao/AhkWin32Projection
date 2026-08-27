@@ -104,9 +104,9 @@ export default struct IMpeg2Data extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSection := CallbackCreate(GetMethod(implObj, "GetSection"), flags, 6)
-        this.vtbl.GetTable := CallbackCreate(GetMethod(implObj, "GetTable"), flags, 6)
-        this.vtbl.GetStreamOfSections := CallbackCreate(GetMethod(implObj, "GetStreamOfSections"), flags, 6)
+        this.vtbl.GetSection := CallbackCreate(ObjBindMethod(implObj, "GetSection"), flags, 6)
+        this.vtbl.GetTable := CallbackCreate(ObjBindMethod(implObj, "GetTable"), flags, 6)
+        this.vtbl.GetStreamOfSections := CallbackCreate(ObjBindMethod(implObj, "GetStreamOfSections"), flags, 6)
     }
 
     Dispose() {

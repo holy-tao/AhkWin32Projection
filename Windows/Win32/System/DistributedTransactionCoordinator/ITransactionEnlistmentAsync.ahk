@@ -40,7 +40,6 @@ export default struct ITransactionEnlistmentAsync extends IUnknown {
     }
 
     /**
-     * 
      * @param {HRESULT} hr 
      * @param {IMoniker} pmk 
      * @param {Pointer<BOID>} pboidReason 
@@ -52,7 +51,6 @@ export default struct ITransactionEnlistmentAsync extends IUnknown {
     }
 
     /**
-     * 
      * @param {HRESULT} hr 
      * @returns {HRESULT} 
      */
@@ -62,7 +60,6 @@ export default struct ITransactionEnlistmentAsync extends IUnknown {
     }
 
     /**
-     * 
      * @param {HRESULT} hr 
      * @returns {HRESULT} 
      */
@@ -80,9 +77,9 @@ export default struct ITransactionEnlistmentAsync extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PrepareRequestDone := CallbackCreate(GetMethod(implObj, "PrepareRequestDone"), flags, 4)
-        this.vtbl.CommitRequestDone := CallbackCreate(GetMethod(implObj, "CommitRequestDone"), flags, 2)
-        this.vtbl.AbortRequestDone := CallbackCreate(GetMethod(implObj, "AbortRequestDone"), flags, 2)
+        this.vtbl.PrepareRequestDone := CallbackCreate(ObjBindMethod(implObj, "PrepareRequestDone"), flags, 4)
+        this.vtbl.CommitRequestDone := CallbackCreate(ObjBindMethod(implObj, "CommitRequestDone"), flags, 2)
+        this.vtbl.AbortRequestDone := CallbackCreate(ObjBindMethod(implObj, "AbortRequestDone"), flags, 2)
     }
 
     Dispose() {

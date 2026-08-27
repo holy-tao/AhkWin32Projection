@@ -22,7 +22,6 @@ export default struct ENUMRESLANGPROCW {
     }
 
     /**
-     * 
      * @param {HMODULE} _hModule 
      * @param {PWSTR} lpType 
      * @param {PWSTR} lpName 
@@ -34,7 +33,9 @@ export default struct ENUMRESLANGPROCW {
         lpType := lpType is String ? StrPtr(lpType) : lpType
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
-        result := DllCall(this.value, HMODULE, _hModule, "ptr", lpType, "ptr", lpName, UInt16, wLanguage, IntPtr, _lParam, BOOL)
+        _hModuleMarshal := _hModule == 0 ? IntPtr : HMODULE
+
+        result := DllCall(this.value, _hModuleMarshal, _hModule, "ptr", lpType, "ptr", lpName, UInt16, wLanguage, IntPtr, _lParam, BOOL)
         return result
     }
 

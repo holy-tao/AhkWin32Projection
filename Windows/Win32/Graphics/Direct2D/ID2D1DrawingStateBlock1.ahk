@@ -71,8 +71,8 @@ export default struct ID2D1DrawingStateBlock1 extends ID2D1DrawingStateBlock {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 2)
-        this.vtbl.SetDescription := CallbackCreate(GetMethod(implObj, "SetDescription"), flags, 2)
+        this.vtbl.GetDescription := CallbackCreate(ObjBindMethod(implObj, "GetDescription"), flags, 2)
+        this.vtbl.SetDescription := CallbackCreate(ObjBindMethod(implObj, "SetDescription"), flags, 2)
     }
 
     Dispose() {

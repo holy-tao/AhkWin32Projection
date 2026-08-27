@@ -63,7 +63,6 @@ export default struct IHTMLStyleSheet3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -75,7 +74,6 @@ export default struct IHTMLStyleSheet3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_href() {
@@ -85,7 +83,6 @@ export default struct IHTMLStyleSheet3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_isAlternate() {
@@ -94,7 +91,6 @@ export default struct IHTMLStyleSheet3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_isPrefAlternate() {
@@ -111,10 +107,10 @@ export default struct IHTMLStyleSheet3 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_href := CallbackCreate(GetMethod(implObj, "put_href"), flags, 2)
-        this.vtbl.get_href := CallbackCreate(GetMethod(implObj, "get_href"), flags, 2)
-        this.vtbl.get_isAlternate := CallbackCreate(GetMethod(implObj, "get_isAlternate"), flags, 2)
-        this.vtbl.get_isPrefAlternate := CallbackCreate(GetMethod(implObj, "get_isPrefAlternate"), flags, 2)
+        this.vtbl.put_href := CallbackCreate(ObjBindMethod(implObj, "put_href"), flags, 2)
+        this.vtbl.get_href := CallbackCreate(ObjBindMethod(implObj, "get_href"), flags, 2)
+        this.vtbl.get_isAlternate := CallbackCreate(ObjBindMethod(implObj, "get_isAlternate"), flags, 2)
+        this.vtbl.get_isPrefAlternate := CallbackCreate(ObjBindMethod(implObj, "get_isPrefAlternate"), flags, 2)
     }
 
     Dispose() {

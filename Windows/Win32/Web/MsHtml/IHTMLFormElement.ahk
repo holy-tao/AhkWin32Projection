@@ -154,7 +154,6 @@ export default struct IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -166,7 +165,6 @@ export default struct IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_action() {
@@ -176,7 +174,6 @@ export default struct IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -188,7 +185,6 @@ export default struct IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_dir() {
@@ -198,7 +194,6 @@ export default struct IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -210,7 +205,6 @@ export default struct IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_encoding() {
@@ -220,7 +214,6 @@ export default struct IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -232,7 +225,6 @@ export default struct IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_method() {
@@ -242,7 +234,6 @@ export default struct IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_elements() {
@@ -251,7 +242,6 @@ export default struct IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -263,7 +253,6 @@ export default struct IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_target() {
@@ -273,7 +262,6 @@ export default struct IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -285,7 +273,6 @@ export default struct IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -295,7 +282,6 @@ export default struct IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -305,7 +291,6 @@ export default struct IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onsubmit() {
@@ -315,7 +300,6 @@ export default struct IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -325,7 +309,6 @@ export default struct IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onreset() {
@@ -335,7 +318,6 @@ export default struct IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     submit() {
@@ -344,7 +326,6 @@ export default struct IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     reset() {
@@ -353,7 +334,6 @@ export default struct IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -363,7 +343,6 @@ export default struct IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -372,7 +351,6 @@ export default struct IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__newEnum() {
@@ -381,7 +359,6 @@ export default struct IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} name 
      * @param {VARIANT} index 
      * @returns {IDispatch} 
@@ -392,7 +369,6 @@ export default struct IHTMLFormElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} tagName 
      * @returns {IDispatch} 
      */
@@ -410,30 +386,30 @@ export default struct IHTMLFormElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_action := CallbackCreate(GetMethod(implObj, "put_action"), flags, 2)
-        this.vtbl.get_action := CallbackCreate(GetMethod(implObj, "get_action"), flags, 2)
-        this.vtbl.put_dir := CallbackCreate(GetMethod(implObj, "put_dir"), flags, 2)
-        this.vtbl.get_dir := CallbackCreate(GetMethod(implObj, "get_dir"), flags, 2)
-        this.vtbl.put_encoding := CallbackCreate(GetMethod(implObj, "put_encoding"), flags, 2)
-        this.vtbl.get_encoding := CallbackCreate(GetMethod(implObj, "get_encoding"), flags, 2)
-        this.vtbl.put_method := CallbackCreate(GetMethod(implObj, "put_method"), flags, 2)
-        this.vtbl.get_method := CallbackCreate(GetMethod(implObj, "get_method"), flags, 2)
-        this.vtbl.get_elements := CallbackCreate(GetMethod(implObj, "get_elements"), flags, 2)
-        this.vtbl.put_target := CallbackCreate(GetMethod(implObj, "put_target"), flags, 2)
-        this.vtbl.get_target := CallbackCreate(GetMethod(implObj, "get_target"), flags, 2)
-        this.vtbl.put_name := CallbackCreate(GetMethod(implObj, "put_name"), flags, 2)
-        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
-        this.vtbl.put_onsubmit := CallbackCreate(GetMethod(implObj, "put_onsubmit"), flags, 2)
-        this.vtbl.get_onsubmit := CallbackCreate(GetMethod(implObj, "get_onsubmit"), flags, 2)
-        this.vtbl.put_onreset := CallbackCreate(GetMethod(implObj, "put_onreset"), flags, 2)
-        this.vtbl.get_onreset := CallbackCreate(GetMethod(implObj, "get_onreset"), flags, 2)
-        this.vtbl.submit := CallbackCreate(GetMethod(implObj, "submit"), flags, 1)
-        this.vtbl.reset := CallbackCreate(GetMethod(implObj, "reset"), flags, 1)
-        this.vtbl.put_length := CallbackCreate(GetMethod(implObj, "put_length"), flags, 2)
-        this.vtbl.get_length := CallbackCreate(GetMethod(implObj, "get_length"), flags, 2)
-        this.vtbl.get__newEnum := CallbackCreate(GetMethod(implObj, "get__newEnum"), flags, 2)
-        this.vtbl.item := CallbackCreate(GetMethod(implObj, "item"), flags, 4)
-        this.vtbl.tags := CallbackCreate(GetMethod(implObj, "tags"), flags, 3)
+        this.vtbl.put_action := CallbackCreate(ObjBindMethod(implObj, "put_action"), flags, 2)
+        this.vtbl.get_action := CallbackCreate(ObjBindMethod(implObj, "get_action"), flags, 2)
+        this.vtbl.put_dir := CallbackCreate(ObjBindMethod(implObj, "put_dir"), flags, 2)
+        this.vtbl.get_dir := CallbackCreate(ObjBindMethod(implObj, "get_dir"), flags, 2)
+        this.vtbl.put_encoding := CallbackCreate(ObjBindMethod(implObj, "put_encoding"), flags, 2)
+        this.vtbl.get_encoding := CallbackCreate(ObjBindMethod(implObj, "get_encoding"), flags, 2)
+        this.vtbl.put_method := CallbackCreate(ObjBindMethod(implObj, "put_method"), flags, 2)
+        this.vtbl.get_method := CallbackCreate(ObjBindMethod(implObj, "get_method"), flags, 2)
+        this.vtbl.get_elements := CallbackCreate(ObjBindMethod(implObj, "get_elements"), flags, 2)
+        this.vtbl.put_target := CallbackCreate(ObjBindMethod(implObj, "put_target"), flags, 2)
+        this.vtbl.get_target := CallbackCreate(ObjBindMethod(implObj, "get_target"), flags, 2)
+        this.vtbl.put_name := CallbackCreate(ObjBindMethod(implObj, "put_name"), flags, 2)
+        this.vtbl.get_name := CallbackCreate(ObjBindMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.put_onsubmit := CallbackCreate(ObjBindMethod(implObj, "put_onsubmit"), flags, 2)
+        this.vtbl.get_onsubmit := CallbackCreate(ObjBindMethod(implObj, "get_onsubmit"), flags, 2)
+        this.vtbl.put_onreset := CallbackCreate(ObjBindMethod(implObj, "put_onreset"), flags, 2)
+        this.vtbl.get_onreset := CallbackCreate(ObjBindMethod(implObj, "get_onreset"), flags, 2)
+        this.vtbl.submit := CallbackCreate(ObjBindMethod(implObj, "submit"), flags, 1)
+        this.vtbl.reset := CallbackCreate(ObjBindMethod(implObj, "reset"), flags, 1)
+        this.vtbl.put_length := CallbackCreate(ObjBindMethod(implObj, "put_length"), flags, 2)
+        this.vtbl.get_length := CallbackCreate(ObjBindMethod(implObj, "get_length"), flags, 2)
+        this.vtbl.get__newEnum := CallbackCreate(ObjBindMethod(implObj, "get__newEnum"), flags, 2)
+        this.vtbl.item := CallbackCreate(ObjBindMethod(implObj, "item"), flags, 4)
+        this.vtbl.tags := CallbackCreate(ObjBindMethod(implObj, "tags"), flags, 3)
     }
 
     Dispose() {

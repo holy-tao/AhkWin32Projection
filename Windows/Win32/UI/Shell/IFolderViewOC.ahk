@@ -36,7 +36,6 @@ export default struct IFolderViewOC extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} pdisp 
      * @returns {HRESULT} 
      */
@@ -54,7 +53,7 @@ export default struct IFolderViewOC extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetFolderView := CallbackCreate(GetMethod(implObj, "SetFolderView"), flags, 2)
+        this.vtbl.SetFolderView := CallbackCreate(ObjBindMethod(implObj, "SetFolderView"), flags, 2)
     }
 
     Dispose() {

@@ -32,7 +32,6 @@ export default struct IPrintAsyncNewChannelCookie extends IPrintAsyncCookie {
     }
 
     /**
-     * 
      * @param {Pointer<IPrintAsyncNotifyChannel>} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 
@@ -51,7 +50,7 @@ export default struct IPrintAsyncNewChannelCookie extends IPrintAsyncCookie {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FinishAsyncCallWithData := CallbackCreate(GetMethod(implObj, "FinishAsyncCallWithData"), flags, 3)
+        this.vtbl.FinishAsyncCallWithData := CallbackCreate(ObjBindMethod(implObj, "FinishAsyncCallWithData"), flags, 3)
     }
 
     Dispose() {

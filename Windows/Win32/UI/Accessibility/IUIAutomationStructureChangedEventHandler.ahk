@@ -77,7 +77,7 @@ export default struct IUIAutomationStructureChangedEventHandler extends IUnknown
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.HandleStructureChangedEvent := CallbackCreate(GetMethod(implObj, "HandleStructureChangedEvent"), flags, 4)
+        this.vtbl.HandleStructureChangedEvent := CallbackCreate(ObjBindMethod(implObj, "HandleStructureChangedEvent"), flags, 4)
     }
 
     Dispose() {

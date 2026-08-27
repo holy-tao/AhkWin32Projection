@@ -47,7 +47,6 @@ export default struct IComponentUtil extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDLLFile 
      * @param {BSTR} bstrTypelibFile 
      * @param {BSTR} bstrProxyStubDLLFile 
@@ -63,7 +62,6 @@ export default struct IComponentUtil extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrCLSID 
      * @returns {HRESULT} 
      */
@@ -75,7 +73,6 @@ export default struct IComponentUtil extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrProgID 
      * @returns {HRESULT} 
      */
@@ -87,7 +84,6 @@ export default struct IComponentUtil extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDLLFile 
      * @param {BSTR} bstrTypelibFile 
      * @param {Pointer<Pointer<SAFEARRAY>>} aCLSIDs 
@@ -97,7 +93,7 @@ export default struct IComponentUtil extends IDispatch {
         bstrDLLFile := bstrDLLFile is String ? BSTR.Alloc(bstrDLLFile).Value : bstrDLLFile
         bstrTypelibFile := bstrTypelibFile is String ? BSTR.Alloc(bstrTypelibFile).Value : bstrTypelibFile
 
-        aCLSIDsMarshal := aCLSIDs is VarRef ? "ptr*" : "ptr"
+        aCLSIDsMarshal := aCLSIDs is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(10, this, BSTR, bstrDLLFile, BSTR, bstrTypelibFile, aCLSIDsMarshal, aCLSIDs, "HRESULT")
         return result
@@ -112,10 +108,10 @@ export default struct IComponentUtil extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InstallComponent := CallbackCreate(GetMethod(implObj, "InstallComponent"), flags, 4)
-        this.vtbl.ImportComponent := CallbackCreate(GetMethod(implObj, "ImportComponent"), flags, 2)
-        this.vtbl.ImportComponentByName := CallbackCreate(GetMethod(implObj, "ImportComponentByName"), flags, 2)
-        this.vtbl.GetCLSIDs := CallbackCreate(GetMethod(implObj, "GetCLSIDs"), flags, 4)
+        this.vtbl.InstallComponent := CallbackCreate(ObjBindMethod(implObj, "InstallComponent"), flags, 4)
+        this.vtbl.ImportComponent := CallbackCreate(ObjBindMethod(implObj, "ImportComponent"), flags, 2)
+        this.vtbl.ImportComponentByName := CallbackCreate(ObjBindMethod(implObj, "ImportComponentByName"), flags, 2)
+        this.vtbl.GetCLSIDs := CallbackCreate(ObjBindMethod(implObj, "GetCLSIDs"), flags, 4)
     }
 
     Dispose() {

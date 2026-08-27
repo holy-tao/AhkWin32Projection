@@ -37,7 +37,6 @@ export default struct IModelKeyReference2 extends IModelKeyReference {
     }
 
     /**
-     * 
      * @param {IModelObject} newContextObject 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,7 @@ export default struct IModelKeyReference2 extends IModelKeyReference {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OverrideContextObject := CallbackCreate(GetMethod(implObj, "OverrideContextObject"), flags, 2)
+        this.vtbl.OverrideContextObject := CallbackCreate(ObjBindMethod(implObj, "OverrideContextObject"), flags, 2)
     }
 
     Dispose() {

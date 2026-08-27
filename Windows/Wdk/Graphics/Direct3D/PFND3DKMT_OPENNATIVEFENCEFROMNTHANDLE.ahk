@@ -20,7 +20,6 @@ export default struct PFND3DKMT_OPENNATIVEFENCEFROMNTHANDLE {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_OPENNATIVEFENCEFROMNTHANDLE>} param0 
      * @returns {NTSTATUS} 
      */

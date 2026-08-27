@@ -179,15 +179,15 @@ export default struct ID2D1RadialGradientBrush extends ID2D1Brush {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetCenter := CallbackCreate(GetMethod(implObj, "SetCenter"), flags, 2)
-        this.vtbl.SetGradientOriginOffset := CallbackCreate(GetMethod(implObj, "SetGradientOriginOffset"), flags, 2)
-        this.vtbl.SetRadiusX := CallbackCreate(GetMethod(implObj, "SetRadiusX"), flags, 2)
-        this.vtbl.SetRadiusY := CallbackCreate(GetMethod(implObj, "SetRadiusY"), flags, 2)
-        this.vtbl.GetCenter := CallbackCreate(GetMethod(implObj, "GetCenter"), flags, 1)
-        this.vtbl.GetGradientOriginOffset := CallbackCreate(GetMethod(implObj, "GetGradientOriginOffset"), flags, 1)
-        this.vtbl.GetRadiusX := CallbackCreate(GetMethod(implObj, "GetRadiusX"), flags, 1)
-        this.vtbl.GetRadiusY := CallbackCreate(GetMethod(implObj, "GetRadiusY"), flags, 1)
-        this.vtbl.GetGradientStopCollection := CallbackCreate(GetMethod(implObj, "GetGradientStopCollection"), flags, 2)
+        this.vtbl.SetCenter := CallbackCreate(ObjBindMethod(implObj, "SetCenter"), flags, 2)
+        this.vtbl.SetGradientOriginOffset := CallbackCreate(ObjBindMethod(implObj, "SetGradientOriginOffset"), flags, 2)
+        this.vtbl.SetRadiusX := CallbackCreate(ObjBindMethod(implObj, "SetRadiusX"), flags, 2)
+        this.vtbl.SetRadiusY := CallbackCreate(ObjBindMethod(implObj, "SetRadiusY"), flags, 2)
+        this.vtbl.GetCenter := CallbackCreate(ObjBindMethod(implObj, "GetCenter"), flags, 1)
+        this.vtbl.GetGradientOriginOffset := CallbackCreate(ObjBindMethod(implObj, "GetGradientOriginOffset"), flags, 1)
+        this.vtbl.GetRadiusX := CallbackCreate(ObjBindMethod(implObj, "GetRadiusX"), flags, 1)
+        this.vtbl.GetRadiusY := CallbackCreate(ObjBindMethod(implObj, "GetRadiusY"), flags, 1)
+        this.vtbl.GetGradientStopCollection := CallbackCreate(ObjBindMethod(implObj, "GetGradientStopCollection"), flags, 2)
     }
 
     Dispose() {

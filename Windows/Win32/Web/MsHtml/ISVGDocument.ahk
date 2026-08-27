@@ -44,7 +44,6 @@ export default struct ISVGDocument extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGSVGElement} 
      */
     get_rootElement() {
@@ -61,7 +60,7 @@ export default struct ISVGDocument extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_rootElement := CallbackCreate(GetMethod(implObj, "get_rootElement"), flags, 2)
+        this.vtbl.get_rootElement := CallbackCreate(ObjBindMethod(implObj, "get_rootElement"), flags, 2)
     }
 
     Dispose() {

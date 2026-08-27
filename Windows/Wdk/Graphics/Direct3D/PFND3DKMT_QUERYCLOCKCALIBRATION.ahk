@@ -20,7 +20,6 @@ export default struct PFND3DKMT_QUERYCLOCKCALIBRATION {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_QUERYCLOCKCALIBRATION>} param0 
      * @returns {NTSTATUS} 
      */

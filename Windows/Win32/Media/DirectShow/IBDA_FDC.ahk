@@ -60,11 +60,11 @@ export default struct IBDA_FDC extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_fdc-getstatus
      */
     GetStatus(CurrentBitrate, CarrierLock, CurrentFrequency, CurrentSpectrumInversion, CurrentPIDList, CurrentTIDList, Overflow) {
-        CurrentBitrateMarshal := CurrentBitrate is VarRef ? "uint*" : "ptr"
-        CarrierLockMarshal := CarrierLock is VarRef ? "int*" : "ptr"
-        CurrentFrequencyMarshal := CurrentFrequency is VarRef ? "uint*" : "ptr"
-        CurrentSpectrumInversionMarshal := CurrentSpectrumInversion is VarRef ? "int*" : "ptr"
-        OverflowMarshal := Overflow is VarRef ? "int*" : "ptr"
+        CurrentBitrateMarshal := CurrentBitrate is VarRef ? "uint*" : IntPtr
+        CarrierLockMarshal := CarrierLock is VarRef ? "int*" : IntPtr
+        CurrentFrequencyMarshal := CurrentFrequency is VarRef ? "uint*" : IntPtr
+        CurrentSpectrumInversionMarshal := CurrentSpectrumInversion is VarRef ? "int*" : IntPtr
+        OverflowMarshal := Overflow is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, CurrentBitrateMarshal, CurrentBitrate, CarrierLockMarshal, CarrierLock, CurrentFrequencyMarshal, CurrentFrequency, CurrentSpectrumInversionMarshal, CurrentSpectrumInversion, BSTR.Ptr, CurrentPIDList, BSTR.Ptr, CurrentTIDList, OverflowMarshal, Overflow, "HRESULT")
         return result
@@ -150,9 +150,9 @@ export default struct IBDA_FDC extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_fdc-gettablesection
      */
     GetTableSection(Pid, MaxBufferSize, ActualSize, _SecBuffer) {
-        PidMarshal := Pid is VarRef ? "uint*" : "ptr"
-        ActualSizeMarshal := ActualSize is VarRef ? "uint*" : "ptr"
-        _SecBufferMarshal := _SecBuffer is VarRef ? "char*" : "ptr"
+        PidMarshal := Pid is VarRef ? "uint*" : IntPtr
+        ActualSizeMarshal := ActualSize is VarRef ? "uint*" : IntPtr
+        _SecBufferMarshal := _SecBuffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(9, this, PidMarshal, Pid, UInt32, MaxBufferSize, ActualSizeMarshal, ActualSize, _SecBufferMarshal, _SecBuffer, "HRESULT")
         return result
@@ -167,13 +167,13 @@ export default struct IBDA_FDC extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 8)
-        this.vtbl.RequestTables := CallbackCreate(GetMethod(implObj, "RequestTables"), flags, 2)
-        this.vtbl.AddPid := CallbackCreate(GetMethod(implObj, "AddPid"), flags, 3)
-        this.vtbl.RemovePid := CallbackCreate(GetMethod(implObj, "RemovePid"), flags, 2)
-        this.vtbl.AddTid := CallbackCreate(GetMethod(implObj, "AddTid"), flags, 3)
-        this.vtbl.RemoveTid := CallbackCreate(GetMethod(implObj, "RemoveTid"), flags, 2)
-        this.vtbl.GetTableSection := CallbackCreate(GetMethod(implObj, "GetTableSection"), flags, 5)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 8)
+        this.vtbl.RequestTables := CallbackCreate(ObjBindMethod(implObj, "RequestTables"), flags, 2)
+        this.vtbl.AddPid := CallbackCreate(ObjBindMethod(implObj, "AddPid"), flags, 3)
+        this.vtbl.RemovePid := CallbackCreate(ObjBindMethod(implObj, "RemovePid"), flags, 2)
+        this.vtbl.AddTid := CallbackCreate(ObjBindMethod(implObj, "AddTid"), flags, 3)
+        this.vtbl.RemoveTid := CallbackCreate(ObjBindMethod(implObj, "RemoveTid"), flags, 2)
+        this.vtbl.GetTableSection := CallbackCreate(ObjBindMethod(implObj, "GetTableSection"), flags, 5)
     }
 
     Dispose() {

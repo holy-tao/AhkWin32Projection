@@ -54,7 +54,12 @@ export default struct IMFMediaEngineSrcElementsEx extends IMFMediaEngineSrcEleme
         pMedia := pMedia is String ? BSTR.Alloc(pMedia).Value : pMedia
         keySystem := keySystem is String ? BSTR.Alloc(keySystem).Value : keySystem
 
-        result := ComCall(9, this, BSTR, pURL, BSTR, pType, BSTR, pMedia, BSTR, keySystem, "HRESULT")
+        pURLMarshal := pURL == 0 ? IntPtr : BSTR
+        pTypeMarshal := pType == 0 ? IntPtr : BSTR
+        pMediaMarshal := pMedia == 0 ? IntPtr : BSTR
+        keySystemMarshal := keySystem == 0 ? IntPtr : BSTR
+
+        result := ComCall(9, this, pURLMarshal, pURL, pTypeMarshal, pType, pMediaMarshal, pMedia, keySystemMarshal, keySystem, "HRESULT")
         return result
     }
 
@@ -79,8 +84,8 @@ export default struct IMFMediaEngineSrcElementsEx extends IMFMediaEngineSrcEleme
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddElementEx := CallbackCreate(GetMethod(implObj, "AddElementEx"), flags, 5)
-        this.vtbl.GetKeySystem := CallbackCreate(GetMethod(implObj, "GetKeySystem"), flags, 3)
+        this.vtbl.AddElementEx := CallbackCreate(ObjBindMethod(implObj, "AddElementEx"), flags, 5)
+        this.vtbl.GetKeySystem := CallbackCreate(ObjBindMethod(implObj, "GetKeySystem"), flags, 3)
     }
 
     Dispose() {

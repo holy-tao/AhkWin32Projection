@@ -37,7 +37,6 @@ export default struct IJsDebugStackWalker extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IJsDebugFrame} 
      */
     GetNext() {
@@ -54,7 +53,7 @@ export default struct IJsDebugStackWalker extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNext := CallbackCreate(GetMethod(implObj, "GetNext"), flags, 2)
+        this.vtbl.GetNext := CallbackCreate(ObjBindMethod(implObj, "GetNext"), flags, 2)
     }
 
     Dispose() {

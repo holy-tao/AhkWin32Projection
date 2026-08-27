@@ -312,8 +312,8 @@ export default struct ICodecAPI extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-getparametervalues
      */
     GetParameterValues(Api, Values, ValuesCount) {
-        ValuesMarshal := Values is VarRef ? "ptr*" : "ptr"
-        ValuesCountMarshal := ValuesCount is VarRef ? "uint*" : "ptr"
+        ValuesMarshal := Values is VarRef ? "ptr*" : IntPtr
+        ValuesCountMarshal := ValuesCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, Guid.Ptr, Api, ValuesMarshal, Values, ValuesCountMarshal, ValuesCount, "HRESULT")
         return result
@@ -566,8 +566,8 @@ export default struct ICodecAPI extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-setvaluewithnotify
      */
     SetValueWithNotify(Api, Value, ChangedParam, ChangedParamCount) {
-        ChangedParamMarshal := ChangedParam is VarRef ? "ptr*" : "ptr"
-        ChangedParamCountMarshal := ChangedParamCount is VarRef ? "uint*" : "ptr"
+        ChangedParamMarshal := ChangedParam is VarRef ? "ptr*" : IntPtr
+        ChangedParamCountMarshal := ChangedParamCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, Guid.Ptr, Api, VARIANT.Ptr, Value, ChangedParamMarshal, ChangedParam, ChangedParamCountMarshal, ChangedParamCount, "HRESULT")
         return result
@@ -612,8 +612,8 @@ export default struct ICodecAPI extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-setalldefaultswithnotify
      */
     SetAllDefaultsWithNotify(ChangedParam, ChangedParamCount) {
-        ChangedParamMarshal := ChangedParam is VarRef ? "ptr*" : "ptr"
-        ChangedParamCountMarshal := ChangedParamCount is VarRef ? "uint*" : "ptr"
+        ChangedParamMarshal := ChangedParam is VarRef ? "ptr*" : IntPtr
+        ChangedParamCountMarshal := ChangedParamCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(14, this, ChangedParamMarshal, ChangedParam, ChangedParamCountMarshal, ChangedParamCount, "HRESULT")
         return result
@@ -747,8 +747,8 @@ export default struct ICodecAPI extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-setallsettingswithnotify
      */
     SetAllSettingsWithNotify(__MIDL__ICodecAPI0002, ChangedParam, ChangedParamCount) {
-        ChangedParamMarshal := ChangedParam is VarRef ? "ptr*" : "ptr"
-        ChangedParamCountMarshal := ChangedParamCount is VarRef ? "uint*" : "ptr"
+        ChangedParamMarshal := ChangedParam is VarRef ? "ptr*" : IntPtr
+        ChangedParamCountMarshal := ChangedParamCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(17, this, "ptr", __MIDL__ICodecAPI0002, ChangedParamMarshal, ChangedParam, ChangedParamCountMarshal, ChangedParamCount, "HRESULT")
         return result
@@ -763,21 +763,21 @@ export default struct ICodecAPI extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsSupported := CallbackCreate(GetMethod(implObj, "IsSupported"), flags, 2)
-        this.vtbl.IsModifiable := CallbackCreate(GetMethod(implObj, "IsModifiable"), flags, 2)
-        this.vtbl.GetParameterRange := CallbackCreate(GetMethod(implObj, "GetParameterRange"), flags, 5)
-        this.vtbl.GetParameterValues := CallbackCreate(GetMethod(implObj, "GetParameterValues"), flags, 4)
-        this.vtbl.GetDefaultValue := CallbackCreate(GetMethod(implObj, "GetDefaultValue"), flags, 3)
-        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 3)
-        this.vtbl.SetValue := CallbackCreate(GetMethod(implObj, "SetValue"), flags, 3)
-        this.vtbl.RegisterForEvent := CallbackCreate(GetMethod(implObj, "RegisterForEvent"), flags, 3)
-        this.vtbl.UnregisterForEvent := CallbackCreate(GetMethod(implObj, "UnregisterForEvent"), flags, 2)
-        this.vtbl.SetAllDefaults := CallbackCreate(GetMethod(implObj, "SetAllDefaults"), flags, 1)
-        this.vtbl.SetValueWithNotify := CallbackCreate(GetMethod(implObj, "SetValueWithNotify"), flags, 5)
-        this.vtbl.SetAllDefaultsWithNotify := CallbackCreate(GetMethod(implObj, "SetAllDefaultsWithNotify"), flags, 3)
-        this.vtbl.GetAllSettings := CallbackCreate(GetMethod(implObj, "GetAllSettings"), flags, 2)
-        this.vtbl.SetAllSettings := CallbackCreate(GetMethod(implObj, "SetAllSettings"), flags, 2)
-        this.vtbl.SetAllSettingsWithNotify := CallbackCreate(GetMethod(implObj, "SetAllSettingsWithNotify"), flags, 4)
+        this.vtbl.IsSupported := CallbackCreate(ObjBindMethod(implObj, "IsSupported"), flags, 2)
+        this.vtbl.IsModifiable := CallbackCreate(ObjBindMethod(implObj, "IsModifiable"), flags, 2)
+        this.vtbl.GetParameterRange := CallbackCreate(ObjBindMethod(implObj, "GetParameterRange"), flags, 5)
+        this.vtbl.GetParameterValues := CallbackCreate(ObjBindMethod(implObj, "GetParameterValues"), flags, 4)
+        this.vtbl.GetDefaultValue := CallbackCreate(ObjBindMethod(implObj, "GetDefaultValue"), flags, 3)
+        this.vtbl.GetValue := CallbackCreate(ObjBindMethod(implObj, "GetValue"), flags, 3)
+        this.vtbl.SetValue := CallbackCreate(ObjBindMethod(implObj, "SetValue"), flags, 3)
+        this.vtbl.RegisterForEvent := CallbackCreate(ObjBindMethod(implObj, "RegisterForEvent"), flags, 3)
+        this.vtbl.UnregisterForEvent := CallbackCreate(ObjBindMethod(implObj, "UnregisterForEvent"), flags, 2)
+        this.vtbl.SetAllDefaults := CallbackCreate(ObjBindMethod(implObj, "SetAllDefaults"), flags, 1)
+        this.vtbl.SetValueWithNotify := CallbackCreate(ObjBindMethod(implObj, "SetValueWithNotify"), flags, 5)
+        this.vtbl.SetAllDefaultsWithNotify := CallbackCreate(ObjBindMethod(implObj, "SetAllDefaultsWithNotify"), flags, 3)
+        this.vtbl.GetAllSettings := CallbackCreate(ObjBindMethod(implObj, "GetAllSettings"), flags, 2)
+        this.vtbl.SetAllSettings := CallbackCreate(ObjBindMethod(implObj, "SetAllSettings"), flags, 2)
+        this.vtbl.SetAllSettingsWithNotify := CallbackCreate(ObjBindMethod(implObj, "SetAllSettingsWithNotify"), flags, 4)
     }
 
     Dispose() {

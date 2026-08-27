@@ -68,7 +68,7 @@ export default struct IServiceTrackerConfig extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.TrackerConfig := CallbackCreate(GetMethod(implObj, "TrackerConfig"), flags, 4)
+        this.vtbl.TrackerConfig := CallbackCreate(ObjBindMethod(implObj, "TrackerConfig"), flags, 4)
     }
 
     Dispose() {

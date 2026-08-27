@@ -126,11 +126,11 @@ export default struct ID2D1GradientStopCollection1 extends ID2D1GradientStopColl
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetGradientStops1 := CallbackCreate(GetMethod(implObj, "GetGradientStops1"), flags, 3)
-        this.vtbl.GetPreInterpolationSpace := CallbackCreate(GetMethod(implObj, "GetPreInterpolationSpace"), flags, 1)
-        this.vtbl.GetPostInterpolationSpace := CallbackCreate(GetMethod(implObj, "GetPostInterpolationSpace"), flags, 1)
-        this.vtbl.GetBufferPrecision := CallbackCreate(GetMethod(implObj, "GetBufferPrecision"), flags, 1)
-        this.vtbl.GetColorInterpolationMode := CallbackCreate(GetMethod(implObj, "GetColorInterpolationMode"), flags, 1)
+        this.vtbl.GetGradientStops1 := CallbackCreate(ObjBindMethod(implObj, "GetGradientStops1"), flags, 3)
+        this.vtbl.GetPreInterpolationSpace := CallbackCreate(ObjBindMethod(implObj, "GetPreInterpolationSpace"), flags, 1)
+        this.vtbl.GetPostInterpolationSpace := CallbackCreate(ObjBindMethod(implObj, "GetPostInterpolationSpace"), flags, 1)
+        this.vtbl.GetBufferPrecision := CallbackCreate(ObjBindMethod(implObj, "GetBufferPrecision"), flags, 1)
+        this.vtbl.GetColorInterpolationMode := CallbackCreate(ObjBindMethod(implObj, "GetColorInterpolationMode"), flags, 1)
     }
 
     Dispose() {

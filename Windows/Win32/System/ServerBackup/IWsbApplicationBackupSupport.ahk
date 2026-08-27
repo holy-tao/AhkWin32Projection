@@ -73,8 +73,8 @@ export default struct IWsbApplicationBackupSupport extends IUnknown {
         wszComponentName := wszComponentName is String ? StrPtr(wszComponentName) : wszComponentName
         wszComponentLogicalPath := wszComponentLogicalPath is String ? StrPtr(wszComponentLogicalPath) : wszComponentLogicalPath
 
-        rgwszSourceVolumePathMarshal := rgwszSourceVolumePath is VarRef ? "ptr*" : "ptr"
-        rgwszSnapshotVolumePathMarshal := rgwszSnapshotVolumePath is VarRef ? "ptr*" : "ptr"
+        rgwszSourceVolumePathMarshal := rgwszSourceVolumePath is VarRef ? "ptr*" : IntPtr
+        rgwszSnapshotVolumePathMarshal := rgwszSnapshotVolumePath is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, "ptr", wszWriterMetadata, "ptr", wszComponentName, "ptr", wszComponentLogicalPath, UInt32, cVolumes, rgwszSourceVolumePathMarshal, rgwszSourceVolumePath, rgwszSnapshotVolumePathMarshal, rgwszSnapshotVolumePath, "ptr*", &ppAsync := 0, "HRESULT")
         return IWsbApplicationAsync(ppAsync)
@@ -89,7 +89,7 @@ export default struct IWsbApplicationBackupSupport extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CheckConsistency := CallbackCreate(GetMethod(implObj, "CheckConsistency"), flags, 8)
+        this.vtbl.CheckConsistency := CallbackCreate(ObjBindMethod(implObj, "CheckConsistency"), flags, 8)
     }
 
     Dispose() {

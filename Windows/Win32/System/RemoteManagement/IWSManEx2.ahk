@@ -56,7 +56,7 @@ export default struct IWSManEx2 extends IWSManEx {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SessionFlagUseClientCertificate := CallbackCreate(GetMethod(implObj, "SessionFlagUseClientCertificate"), flags, 2)
+        this.vtbl.SessionFlagUseClientCertificate := CallbackCreate(ObjBindMethod(implObj, "SessionFlagUseClientCertificate"), flags, 2)
     }
 
     Dispose() {

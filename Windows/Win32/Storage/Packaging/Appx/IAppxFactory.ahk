@@ -160,11 +160,11 @@ export default struct IAppxFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreatePackageWriter := CallbackCreate(GetMethod(implObj, "CreatePackageWriter"), flags, 4)
-        this.vtbl.CreatePackageReader := CallbackCreate(GetMethod(implObj, "CreatePackageReader"), flags, 3)
-        this.vtbl.CreateManifestReader := CallbackCreate(GetMethod(implObj, "CreateManifestReader"), flags, 3)
-        this.vtbl.CreateBlockMapReader := CallbackCreate(GetMethod(implObj, "CreateBlockMapReader"), flags, 3)
-        this.vtbl.CreateValidatedBlockMapReader := CallbackCreate(GetMethod(implObj, "CreateValidatedBlockMapReader"), flags, 4)
+        this.vtbl.CreatePackageWriter := CallbackCreate(ObjBindMethod(implObj, "CreatePackageWriter"), flags, 4)
+        this.vtbl.CreatePackageReader := CallbackCreate(ObjBindMethod(implObj, "CreatePackageReader"), flags, 3)
+        this.vtbl.CreateManifestReader := CallbackCreate(ObjBindMethod(implObj, "CreateManifestReader"), flags, 3)
+        this.vtbl.CreateBlockMapReader := CallbackCreate(ObjBindMethod(implObj, "CreateBlockMapReader"), flags, 3)
+        this.vtbl.CreateValidatedBlockMapReader := CallbackCreate(ObjBindMethod(implObj, "CreateValidatedBlockMapReader"), flags, 4)
     }
 
     Dispose() {

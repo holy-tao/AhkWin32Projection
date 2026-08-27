@@ -73,7 +73,9 @@ export default struct ID2D1Device extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1device-createprintcontrol
      */
     CreatePrintControl(wicFactory, documentTarget, printControlProperties) {
-        result := ComCall(5, this, "ptr", wicFactory, "ptr", documentTarget, D2D1_PRINT_CONTROL_PROPERTIES.Ptr, printControlProperties, "ptr*", &printControl := 0, "HRESULT")
+        printControlPropertiesMarshal := printControlProperties == 0 ? IntPtr : D2D1_PRINT_CONTROL_PROPERTIES.Ptr
+
+        result := ComCall(5, this, "ptr", wicFactory, "ptr", documentTarget, printControlPropertiesMarshal, printControlProperties, "ptr*", &printControl := 0, "HRESULT")
         return ID2D1PrintControl(printControl)
     }
 
@@ -125,11 +127,11 @@ export default struct ID2D1Device extends ID2D1Resource {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateDeviceContext := CallbackCreate(GetMethod(implObj, "CreateDeviceContext"), flags, 3)
-        this.vtbl.CreatePrintControl := CallbackCreate(GetMethod(implObj, "CreatePrintControl"), flags, 5)
-        this.vtbl.SetMaximumTextureMemory := CallbackCreate(GetMethod(implObj, "SetMaximumTextureMemory"), flags, 2)
-        this.vtbl.GetMaximumTextureMemory := CallbackCreate(GetMethod(implObj, "GetMaximumTextureMemory"), flags, 1)
-        this.vtbl.ClearResources := CallbackCreate(GetMethod(implObj, "ClearResources"), flags, 2)
+        this.vtbl.CreateDeviceContext := CallbackCreate(ObjBindMethod(implObj, "CreateDeviceContext"), flags, 3)
+        this.vtbl.CreatePrintControl := CallbackCreate(ObjBindMethod(implObj, "CreatePrintControl"), flags, 5)
+        this.vtbl.SetMaximumTextureMemory := CallbackCreate(ObjBindMethod(implObj, "SetMaximumTextureMemory"), flags, 2)
+        this.vtbl.GetMaximumTextureMemory := CallbackCreate(ObjBindMethod(implObj, "GetMaximumTextureMemory"), flags, 1)
+        this.vtbl.ClearResources := CallbackCreate(ObjBindMethod(implObj, "ClearResources"), flags, 2)
     }
 
     Dispose() {

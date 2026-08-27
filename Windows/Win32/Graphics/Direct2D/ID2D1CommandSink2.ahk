@@ -60,7 +60,9 @@ export default struct ID2D1CommandSink2 extends ID2D1CommandSink1 {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1commandsink2-drawink
      */
     DrawInk(_ink, brush, inkStyle) {
-        result := ComCall(29, this, "ptr", _ink, "ptr", brush, "ptr", inkStyle, "HRESULT")
+        inkStyleMarshal := inkStyle == 0 ? IntPtr : "ptr"
+
+        result := ComCall(29, this, "ptr", _ink, "ptr", brush, inkStyleMarshal, inkStyle, "HRESULT")
         return result
     }
 
@@ -93,7 +95,10 @@ export default struct ID2D1CommandSink2 extends ID2D1CommandSink1 {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1commandsink2-drawgdimetafile
      */
     DrawGdiMetafile(gdiMetafile, destinationRectangle, sourceRectangle) {
-        result := ComCall(31, this, "ptr", gdiMetafile, D2D_RECT_F.Ptr, destinationRectangle, D2D_RECT_F.Ptr, sourceRectangle, "HRESULT")
+        destinationRectangleMarshal := destinationRectangle == 0 ? IntPtr : D2D_RECT_F.Ptr
+        sourceRectangleMarshal := sourceRectangle == 0 ? IntPtr : D2D_RECT_F.Ptr
+
+        result := ComCall(31, this, "ptr", gdiMetafile, destinationRectangleMarshal, destinationRectangle, sourceRectangleMarshal, sourceRectangle, "HRESULT")
         return result
     }
 
@@ -106,9 +111,9 @@ export default struct ID2D1CommandSink2 extends ID2D1CommandSink1 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DrawInk := CallbackCreate(GetMethod(implObj, "DrawInk"), flags, 4)
-        this.vtbl.DrawGradientMesh := CallbackCreate(GetMethod(implObj, "DrawGradientMesh"), flags, 2)
-        this.vtbl.DrawGdiMetafile := CallbackCreate(GetMethod(implObj, "DrawGdiMetafile"), flags, 4)
+        this.vtbl.DrawInk := CallbackCreate(ObjBindMethod(implObj, "DrawInk"), flags, 4)
+        this.vtbl.DrawGradientMesh := CallbackCreate(ObjBindMethod(implObj, "DrawGradientMesh"), flags, 2)
+        this.vtbl.DrawGdiMetafile := CallbackCreate(ObjBindMethod(implObj, "DrawGdiMetafile"), flags, 4)
     }
 
     Dispose() {

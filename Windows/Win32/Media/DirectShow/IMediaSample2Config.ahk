@@ -58,7 +58,7 @@ export default struct IMediaSample2Config extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSurface := CallbackCreate(GetMethod(implObj, "GetSurface"), flags, 2)
+        this.vtbl.GetSurface := CallbackCreate(ObjBindMethod(implObj, "GetSurface"), flags, 2)
     }
 
     Dispose() {

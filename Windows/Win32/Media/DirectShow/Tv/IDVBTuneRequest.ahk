@@ -146,12 +146,12 @@ export default struct IDVBTuneRequest extends ITuneRequest {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ONID := CallbackCreate(GetMethod(implObj, "get_ONID"), flags, 2)
-        this.vtbl.put_ONID := CallbackCreate(GetMethod(implObj, "put_ONID"), flags, 2)
-        this.vtbl.get_TSID := CallbackCreate(GetMethod(implObj, "get_TSID"), flags, 2)
-        this.vtbl.put_TSID := CallbackCreate(GetMethod(implObj, "put_TSID"), flags, 2)
-        this.vtbl.get_SID := CallbackCreate(GetMethod(implObj, "get_SID"), flags, 2)
-        this.vtbl.put_SID := CallbackCreate(GetMethod(implObj, "put_SID"), flags, 2)
+        this.vtbl.get_ONID := CallbackCreate(ObjBindMethod(implObj, "get_ONID"), flags, 2)
+        this.vtbl.put_ONID := CallbackCreate(ObjBindMethod(implObj, "put_ONID"), flags, 2)
+        this.vtbl.get_TSID := CallbackCreate(ObjBindMethod(implObj, "get_TSID"), flags, 2)
+        this.vtbl.put_TSID := CallbackCreate(ObjBindMethod(implObj, "put_TSID"), flags, 2)
+        this.vtbl.get_SID := CallbackCreate(ObjBindMethod(implObj, "get_SID"), flags, 2)
+        this.vtbl.put_SID := CallbackCreate(ObjBindMethod(implObj, "put_SID"), flags, 2)
     }
 
     Dispose() {

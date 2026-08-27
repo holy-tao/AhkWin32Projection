@@ -137,11 +137,11 @@ export default struct IMtsEventInfo extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Names := CallbackCreate(GetMethod(implObj, "get_Names"), flags, 2)
-        this.vtbl.get_DisplayName := CallbackCreate(GetMethod(implObj, "get_DisplayName"), flags, 2)
-        this.vtbl.get_EventID := CallbackCreate(GetMethod(implObj, "get_EventID"), flags, 2)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.get_Value := CallbackCreate(GetMethod(implObj, "get_Value"), flags, 3)
+        this.vtbl.get_Names := CallbackCreate(ObjBindMethod(implObj, "get_Names"), flags, 2)
+        this.vtbl.get_DisplayName := CallbackCreate(ObjBindMethod(implObj, "get_DisplayName"), flags, 2)
+        this.vtbl.get_EventID := CallbackCreate(ObjBindMethod(implObj, "get_EventID"), flags, 2)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get_Value := CallbackCreate(ObjBindMethod(implObj, "get_Value"), flags, 3)
     }
 
     Dispose() {

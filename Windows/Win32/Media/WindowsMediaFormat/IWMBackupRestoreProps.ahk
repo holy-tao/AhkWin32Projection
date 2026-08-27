@@ -70,10 +70,10 @@ export default struct IWMBackupRestoreProps extends IUnknown {
     GetPropByIndex(wIndex, pwszName, pcchNameLen, pType, pValue, pcbLength) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        pcchNameLenMarshal := pcchNameLen is VarRef ? "ushort*" : "ptr"
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
-        pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : "ptr"
+        pcchNameLenMarshal := pcchNameLen is VarRef ? "ushort*" : IntPtr
+        pTypeMarshal := pType is VarRef ? "int*" : IntPtr
+        pValueMarshal := pValue is VarRef ? "char*" : IntPtr
+        pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(4, this, UInt16, wIndex, "ptr", pwszName, pcchNameLenMarshal, pcchNameLen, pTypeMarshal, pType, pValueMarshal, pValue, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
@@ -93,9 +93,9 @@ export default struct IWMBackupRestoreProps extends IUnknown {
     GetPropByName(pszName, pType, pValue, pcbLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
-        pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : "ptr"
+        pTypeMarshal := pType is VarRef ? "int*" : IntPtr
+        pValueMarshal := pValue is VarRef ? "char*" : IntPtr
+        pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(5, this, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
@@ -138,7 +138,7 @@ export default struct IWMBackupRestoreProps extends IUnknown {
     SetProp(pszName, Type, pValue, cbLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "char*" : IntPtr
 
         result := ComCall(6, this, "ptr", pszName, WMT_ATTR_DATATYPE, Type, pValueMarshal, pValue, UInt16, cbLength, "HRESULT")
         return result
@@ -176,12 +176,12 @@ export default struct IWMBackupRestoreProps extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPropCount := CallbackCreate(GetMethod(implObj, "GetPropCount"), flags, 2)
-        this.vtbl.GetPropByIndex := CallbackCreate(GetMethod(implObj, "GetPropByIndex"), flags, 7)
-        this.vtbl.GetPropByName := CallbackCreate(GetMethod(implObj, "GetPropByName"), flags, 5)
-        this.vtbl.SetProp := CallbackCreate(GetMethod(implObj, "SetProp"), flags, 5)
-        this.vtbl.RemoveProp := CallbackCreate(GetMethod(implObj, "RemoveProp"), flags, 2)
-        this.vtbl.RemoveAllProps := CallbackCreate(GetMethod(implObj, "RemoveAllProps"), flags, 1)
+        this.vtbl.GetPropCount := CallbackCreate(ObjBindMethod(implObj, "GetPropCount"), flags, 2)
+        this.vtbl.GetPropByIndex := CallbackCreate(ObjBindMethod(implObj, "GetPropByIndex"), flags, 7)
+        this.vtbl.GetPropByName := CallbackCreate(ObjBindMethod(implObj, "GetPropByName"), flags, 5)
+        this.vtbl.SetProp := CallbackCreate(ObjBindMethod(implObj, "SetProp"), flags, 5)
+        this.vtbl.RemoveProp := CallbackCreate(ObjBindMethod(implObj, "RemoveProp"), flags, 2)
+        this.vtbl.RemoveAllProps := CallbackCreate(ObjBindMethod(implObj, "RemoveAllProps"), flags, 1)
     }
 
     Dispose() {

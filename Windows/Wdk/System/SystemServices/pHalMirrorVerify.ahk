@@ -19,7 +19,6 @@ export default struct pHalMirrorVerify {
     }
 
     /**
-     * 
      * @param {Integer} PhysicalAddress 
      * @param {Integer} NumberOfBytes 
      * @returns {NTSTATUS} 

@@ -25,7 +25,6 @@ export CoGetInterceptor(iidIntercepted, punkOuter, iid) {
 }
 
 /**
- * 
  * @param {Pointer<Guid>} iidIntercepted 
  * @param {IUnknown} punkOuter 
  * @param {ITypeInfo} typeInfo 

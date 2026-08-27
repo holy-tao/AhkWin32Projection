@@ -96,8 +96,8 @@ export default struct ICCSubStreamFiltering extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_SubstreamTypes := CallbackCreate(GetMethod(implObj, "get_SubstreamTypes"), flags, 2)
-        this.vtbl.put_SubstreamTypes := CallbackCreate(GetMethod(implObj, "put_SubstreamTypes"), flags, 2)
+        this.vtbl.get_SubstreamTypes := CallbackCreate(ObjBindMethod(implObj, "get_SubstreamTypes"), flags, 2)
+        this.vtbl.put_SubstreamTypes := CallbackCreate(ObjBindMethod(implObj, "put_SubstreamTypes"), flags, 2)
     }
 
     Dispose() {

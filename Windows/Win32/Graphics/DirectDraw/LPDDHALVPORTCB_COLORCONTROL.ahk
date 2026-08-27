@@ -19,7 +19,6 @@ export default struct LPDDHALVPORTCB_COLORCONTROL {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_VPORTCOLORDATA>} param0 
      * @returns {Integer} 
      */

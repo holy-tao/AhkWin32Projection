@@ -236,11 +236,11 @@ export default struct ICertPropertyEnrollment extends ICertProperty {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 5)
-        this.vtbl.get_RequestId := CallbackCreate(GetMethod(implObj, "get_RequestId"), flags, 2)
-        this.vtbl.get_CADnsName := CallbackCreate(GetMethod(implObj, "get_CADnsName"), flags, 2)
-        this.vtbl.get_CAName := CallbackCreate(GetMethod(implObj, "get_CAName"), flags, 2)
-        this.vtbl.get_FriendlyName := CallbackCreate(GetMethod(implObj, "get_FriendlyName"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 5)
+        this.vtbl.get_RequestId := CallbackCreate(ObjBindMethod(implObj, "get_RequestId"), flags, 2)
+        this.vtbl.get_CADnsName := CallbackCreate(ObjBindMethod(implObj, "get_CADnsName"), flags, 2)
+        this.vtbl.get_CAName := CallbackCreate(ObjBindMethod(implObj, "get_CAName"), flags, 2)
+        this.vtbl.get_FriendlyName := CallbackCreate(ObjBindMethod(implObj, "get_FriendlyName"), flags, 2)
     }
 
     Dispose() {

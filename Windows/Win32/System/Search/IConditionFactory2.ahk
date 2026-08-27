@@ -129,7 +129,9 @@ export default struct IConditionFactory2 extends IConditionFactory {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditionfactory2-createcompoundfromobjectarray
      */
     CreateCompoundFromObjectArray(ct, poaSubs, cco, riid) {
-        result := ComCall(9, this, CONDITION_TYPE, ct, "ptr", poaSubs, CONDITION_CREATION_OPTIONS, cco, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        poaSubsMarshal := poaSubs == 0 ? IntPtr : "ptr"
+
+        result := ComCall(9, this, CONDITION_TYPE, ct, poaSubsMarshal, poaSubs, CONDITION_CREATION_OPTIONS, cco, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -193,7 +195,9 @@ export default struct IConditionFactory2 extends IConditionFactory {
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
         pszLocaleName := pszLocaleName is String ? StrPtr(pszLocaleName) : pszLocaleName
 
-        result := ComCall(11, this, PROPERTYKEY.Ptr, propkey, CONDITION_OPERATION, cop, "ptr", pszValue, "ptr", pszLocaleName, CONDITION_CREATION_OPTIONS, cco, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        pszLocaleNameMarshal := pszLocaleName == 0 ? IntPtr : PWSTR
+
+        result := ComCall(11, this, PROPERTYKEY.Ptr, propkey, CONDITION_OPERATION, cop, "ptr", pszValue, pszLocaleNameMarshal, pszLocaleName, CONDITION_CREATION_OPTIONS, cco, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -305,7 +309,13 @@ export default struct IConditionFactory2 extends IConditionFactory {
         pszSemanticType := pszSemanticType is String ? StrPtr(pszSemanticType) : pszSemanticType
         pszLocaleName := pszLocaleName is String ? StrPtr(pszLocaleName) : pszLocaleName
 
-        result := ComCall(14, this, PROPERTYKEY.Ptr, propkey, CONDITION_OPERATION, cop, PROPVARIANT.Ptr, propvar, "ptr", pszSemanticType, "ptr", pszLocaleName, "ptr", pPropertyNameTerm, "ptr", pOperationTerm, "ptr", pValueTerm, CONDITION_CREATION_OPTIONS, cco, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        pszSemanticTypeMarshal := pszSemanticType == 0 ? IntPtr : PWSTR
+        pszLocaleNameMarshal := pszLocaleName == 0 ? IntPtr : PWSTR
+        pPropertyNameTermMarshal := pPropertyNameTerm == 0 ? IntPtr : "ptr"
+        pOperationTermMarshal := pOperationTerm == 0 ? IntPtr : "ptr"
+        pValueTermMarshal := pValueTerm == 0 ? IntPtr : "ptr"
+
+        result := ComCall(14, this, PROPERTYKEY.Ptr, propkey, CONDITION_OPERATION, cop, PROPVARIANT.Ptr, propvar, pszSemanticTypeMarshal, pszSemanticType, pszLocaleNameMarshal, pszLocaleName, pPropertyNameTermMarshal, pPropertyNameTerm, pOperationTermMarshal, pOperationTerm, pValueTermMarshal, pValueTerm, CONDITION_CREATION_OPTIONS, cco, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -333,7 +343,9 @@ export default struct IConditionFactory2 extends IConditionFactory {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iconditionfactory2-resolvecondition
      */
     ResolveCondition(pc, sqro, pstReferenceTime, riid) {
-        result := ComCall(15, this, "ptr", pc, STRUCTURED_QUERY_RESOLVE_OPTION, sqro, SYSTEMTIME.Ptr, pstReferenceTime, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        pstReferenceTimeMarshal := pstReferenceTime == 0 ? IntPtr : SYSTEMTIME.Ptr
+
+        result := ComCall(15, this, "ptr", pc, STRUCTURED_QUERY_RESOLVE_OPTION, sqro, pstReferenceTimeMarshal, pstReferenceTime, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -346,15 +358,15 @@ export default struct IConditionFactory2 extends IConditionFactory {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateTrueFalse := CallbackCreate(GetMethod(implObj, "CreateTrueFalse"), flags, 5)
-        this.vtbl.CreateNegation := CallbackCreate(GetMethod(implObj, "CreateNegation"), flags, 5)
-        this.vtbl.CreateCompoundFromObjectArray := CallbackCreate(GetMethod(implObj, "CreateCompoundFromObjectArray"), flags, 6)
-        this.vtbl.CreateCompoundFromArray := CallbackCreate(GetMethod(implObj, "CreateCompoundFromArray"), flags, 7)
-        this.vtbl.CreateStringLeaf := CallbackCreate(GetMethod(implObj, "CreateStringLeaf"), flags, 8)
-        this.vtbl.CreateIntegerLeaf := CallbackCreate(GetMethod(implObj, "CreateIntegerLeaf"), flags, 7)
-        this.vtbl.CreateBooleanLeaf := CallbackCreate(GetMethod(implObj, "CreateBooleanLeaf"), flags, 7)
-        this.vtbl.CreateLeaf := CallbackCreate(GetMethod(implObj, "CreateLeaf"), flags, 12)
-        this.vtbl.ResolveCondition := CallbackCreate(GetMethod(implObj, "ResolveCondition"), flags, 6)
+        this.vtbl.CreateTrueFalse := CallbackCreate(ObjBindMethod(implObj, "CreateTrueFalse"), flags, 5)
+        this.vtbl.CreateNegation := CallbackCreate(ObjBindMethod(implObj, "CreateNegation"), flags, 5)
+        this.vtbl.CreateCompoundFromObjectArray := CallbackCreate(ObjBindMethod(implObj, "CreateCompoundFromObjectArray"), flags, 6)
+        this.vtbl.CreateCompoundFromArray := CallbackCreate(ObjBindMethod(implObj, "CreateCompoundFromArray"), flags, 7)
+        this.vtbl.CreateStringLeaf := CallbackCreate(ObjBindMethod(implObj, "CreateStringLeaf"), flags, 8)
+        this.vtbl.CreateIntegerLeaf := CallbackCreate(ObjBindMethod(implObj, "CreateIntegerLeaf"), flags, 7)
+        this.vtbl.CreateBooleanLeaf := CallbackCreate(ObjBindMethod(implObj, "CreateBooleanLeaf"), flags, 7)
+        this.vtbl.CreateLeaf := CallbackCreate(ObjBindMethod(implObj, "CreateLeaf"), flags, 12)
+        this.vtbl.ResolveCondition := CallbackCreate(ObjBindMethod(implObj, "ResolveCondition"), flags, 6)
     }
 
     Dispose() {

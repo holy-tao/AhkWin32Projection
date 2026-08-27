@@ -21,7 +21,6 @@ export default struct NCryptSignHashFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} _hProvider 
      * @param {NCRYPT_KEY_HANDLE} _hKey 
      * @param {Pointer<Void>} pPaddingInfo 
@@ -33,9 +32,11 @@ export default struct NCryptSignHashFn {
      * @returns {Integer} 
      */
     Call(_hProvider, _hKey, pPaddingInfo, pbHashValue, cbHashValue, pbSignature, cbSignature, dwFlags) {
-        pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
+        pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : IntPtr
+        pPaddingInfoMarshal := pPaddingInfo == 0 ? IntPtr : "ptr"
+        pbSignatureMarshal := pbSignature == 0 ? IntPtr : IntPtr
 
-        result := DllCall(this.value, NCRYPT_PROV_HANDLE, _hProvider, NCRYPT_KEY_HANDLE, _hKey, pPaddingInfoMarshal, pPaddingInfo, IntPtr, pbHashValue, UInt32, cbHashValue, IntPtr, pbSignature, UInt32, cbSignature, "uint*", &pcbResult := 0, UInt32, dwFlags, "HRESULT")
+        result := DllCall(this.value, NCRYPT_PROV_HANDLE, _hProvider, NCRYPT_KEY_HANDLE, _hKey, pPaddingInfoMarshal, pPaddingInfo, IntPtr, pbHashValue, UInt32, cbHashValue, pbSignatureMarshal, pbSignature, UInt32, cbSignature, "uint*", &pcbResult := 0, UInt32, dwFlags, "HRESULT")
         return pcbResult
     }
 

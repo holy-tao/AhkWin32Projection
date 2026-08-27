@@ -221,11 +221,11 @@ export default struct ISensLogon2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Logon := CallbackCreate(GetMethod(implObj, "Logon"), flags, 3)
-        this.vtbl.Logoff := CallbackCreate(GetMethod(implObj, "Logoff"), flags, 3)
-        this.vtbl.SessionDisconnect := CallbackCreate(GetMethod(implObj, "SessionDisconnect"), flags, 3)
-        this.vtbl.SessionReconnect := CallbackCreate(GetMethod(implObj, "SessionReconnect"), flags, 3)
-        this.vtbl.PostShell := CallbackCreate(GetMethod(implObj, "PostShell"), flags, 3)
+        this.vtbl.Logon := CallbackCreate(ObjBindMethod(implObj, "Logon"), flags, 3)
+        this.vtbl.Logoff := CallbackCreate(ObjBindMethod(implObj, "Logoff"), flags, 3)
+        this.vtbl.SessionDisconnect := CallbackCreate(ObjBindMethod(implObj, "SessionDisconnect"), flags, 3)
+        this.vtbl.SessionReconnect := CallbackCreate(ObjBindMethod(implObj, "SessionReconnect"), flags, 3)
+        this.vtbl.PostShell := CallbackCreate(ObjBindMethod(implObj, "PostShell"), flags, 3)
     }
 
     Dispose() {

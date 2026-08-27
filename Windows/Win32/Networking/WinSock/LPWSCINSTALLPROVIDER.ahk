@@ -21,7 +21,6 @@ export default struct LPWSCINSTALLPROVIDER {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} lpProviderId 
      * @param {PWSTR} lpszProviderDllPath 
      * @param {Pointer<WSAPROTOCOL_INFOW>} lpProtocolInfoList 
@@ -32,7 +31,7 @@ export default struct LPWSCINSTALLPROVIDER {
     Call(lpProviderId, lpszProviderDllPath, lpProtocolInfoList, dwNumberOfEntries, lpErrno) {
         lpszProviderDllPath := lpszProviderDllPath is String ? StrPtr(lpszProviderDllPath) : lpszProviderDllPath
 
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, Guid.Ptr, lpProviderId, "ptr", lpszProviderDllPath, WSAPROTOCOL_INFOW.Ptr, lpProtocolInfoList, UInt32, dwNumberOfEntries, lpErrnoMarshal, lpErrno, Int32)
         return result

@@ -91,8 +91,8 @@ export default struct IWbemPropertyProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 7)
-        this.vtbl.PutProperty := CallbackCreate(GetMethod(implObj, "PutProperty"), flags, 7)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 7)
+        this.vtbl.PutProperty := CallbackCreate(ObjBindMethod(implObj, "PutProperty"), flags, 7)
     }
 
     Dispose() {

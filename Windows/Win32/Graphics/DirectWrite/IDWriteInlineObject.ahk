@@ -74,9 +74,11 @@ export default struct IDWriteInlineObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwriteinlineobject-draw
      */
     Draw(clientDrawingContext, renderer, originX, originY, isSideways, isRightToLeft, clientDrawingEffect) {
-        clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
+        clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : IntPtr
+        clientDrawingContextMarshal := clientDrawingContext == 0 ? IntPtr : "ptr"
+        clientDrawingEffectMarshal := clientDrawingEffect == 0 ? IntPtr : "ptr"
 
-        result := ComCall(3, this, clientDrawingContextMarshal, clientDrawingContext, "ptr", renderer, Float32, originX, Float32, originY, BOOL, isSideways, BOOL, isRightToLeft, "ptr", clientDrawingEffect, "HRESULT")
+        result := ComCall(3, this, clientDrawingContextMarshal, clientDrawingContext, "ptr", renderer, Float32, originX, Float32, originY, BOOL, isSideways, BOOL, isRightToLeft, clientDrawingEffectMarshal, clientDrawingEffect, "HRESULT")
         return result
     }
 
@@ -121,8 +123,8 @@ export default struct IDWriteInlineObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwriteinlineobject-getbreakconditions
      */
     GetBreakConditions(breakConditionBefore, breakConditionAfter) {
-        breakConditionBeforeMarshal := breakConditionBefore is VarRef ? "int*" : "ptr"
-        breakConditionAfterMarshal := breakConditionAfter is VarRef ? "int*" : "ptr"
+        breakConditionBeforeMarshal := breakConditionBefore is VarRef ? "int*" : IntPtr
+        breakConditionAfterMarshal := breakConditionAfter is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, breakConditionBeforeMarshal, breakConditionBefore, breakConditionAfterMarshal, breakConditionAfter, "HRESULT")
         return result
@@ -137,10 +139,10 @@ export default struct IDWriteInlineObject extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Draw := CallbackCreate(GetMethod(implObj, "Draw"), flags, 8)
-        this.vtbl.GetMetrics := CallbackCreate(GetMethod(implObj, "GetMetrics"), flags, 2)
-        this.vtbl.GetOverhangMetrics := CallbackCreate(GetMethod(implObj, "GetOverhangMetrics"), flags, 2)
-        this.vtbl.GetBreakConditions := CallbackCreate(GetMethod(implObj, "GetBreakConditions"), flags, 3)
+        this.vtbl.Draw := CallbackCreate(ObjBindMethod(implObj, "Draw"), flags, 8)
+        this.vtbl.GetMetrics := CallbackCreate(ObjBindMethod(implObj, "GetMetrics"), flags, 2)
+        this.vtbl.GetOverhangMetrics := CallbackCreate(ObjBindMethod(implObj, "GetOverhangMetrics"), flags, 2)
+        this.vtbl.GetBreakConditions := CallbackCreate(ObjBindMethod(implObj, "GetBreakConditions"), flags, 3)
     }
 
     Dispose() {

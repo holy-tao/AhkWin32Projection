@@ -63,7 +63,6 @@ export default struct IHTMLDivElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -75,7 +74,6 @@ export default struct IHTMLDivElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_align() {
@@ -85,7 +83,6 @@ export default struct IHTMLDivElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -95,7 +92,6 @@ export default struct IHTMLDivElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_noWrap() {
@@ -112,10 +108,10 @@ export default struct IHTMLDivElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_align := CallbackCreate(GetMethod(implObj, "put_align"), flags, 2)
-        this.vtbl.get_align := CallbackCreate(GetMethod(implObj, "get_align"), flags, 2)
-        this.vtbl.put_noWrap := CallbackCreate(GetMethod(implObj, "put_noWrap"), flags, 2)
-        this.vtbl.get_noWrap := CallbackCreate(GetMethod(implObj, "get_noWrap"), flags, 2)
+        this.vtbl.put_align := CallbackCreate(ObjBindMethod(implObj, "put_align"), flags, 2)
+        this.vtbl.get_align := CallbackCreate(ObjBindMethod(implObj, "get_align"), flags, 2)
+        this.vtbl.put_noWrap := CallbackCreate(ObjBindMethod(implObj, "put_noWrap"), flags, 2)
+        this.vtbl.get_noWrap := CallbackCreate(ObjBindMethod(implObj, "get_noWrap"), flags, 2)
     }
 
     Dispose() {

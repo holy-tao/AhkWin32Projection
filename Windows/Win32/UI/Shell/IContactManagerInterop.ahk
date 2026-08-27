@@ -145,7 +145,7 @@ export default struct IContactManagerInterop extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ShowContactCardForWindow := CallbackCreate(GetMethod(implObj, "ShowContactCardForWindow"), flags, 5)
+        this.vtbl.ShowContactCardForWindow := CallbackCreate(ObjBindMethod(implObj, "ShowContactCardForWindow"), flags, 5)
     }
 
     Dispose() {

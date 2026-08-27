@@ -225,12 +225,15 @@ export default struct IOleUILinkContainerA extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-ioleuilinkcontainera-getlinksource
      */
     GetLinkSource(dwLink, lplpszDisplayName, lplenFileName, lplpszFullLinkType, lplpszShortLinkType, lpfSourceAvailable, lpfIsSelected) {
-        lplpszDisplayNameMarshal := lplpszDisplayName is VarRef ? "ptr*" : "ptr"
-        lplenFileNameMarshal := lplenFileName is VarRef ? "uint*" : "ptr"
-        lplpszFullLinkTypeMarshal := lplpszFullLinkType is VarRef ? "ptr*" : "ptr"
-        lplpszShortLinkTypeMarshal := lplpszShortLinkType is VarRef ? "ptr*" : "ptr"
-        lpfSourceAvailableMarshal := lpfSourceAvailable is VarRef ? "int*" : "ptr"
-        lpfIsSelectedMarshal := lpfIsSelected is VarRef ? "int*" : "ptr"
+        lplpszDisplayNameMarshal := lplpszDisplayName is VarRef ? "ptr*" : IntPtr
+        lplpszDisplayNameMarshal := lplpszDisplayName == 0 ? IntPtr : PSTR.Ptr
+        lplenFileNameMarshal := lplenFileName is VarRef ? "uint*" : IntPtr
+        lplpszFullLinkTypeMarshal := lplpszFullLinkType is VarRef ? "ptr*" : IntPtr
+        lplpszFullLinkTypeMarshal := lplpszFullLinkType == 0 ? IntPtr : PSTR.Ptr
+        lplpszShortLinkTypeMarshal := lplpszShortLinkType is VarRef ? "ptr*" : IntPtr
+        lplpszShortLinkTypeMarshal := lplpszShortLinkType == 0 ? IntPtr : PSTR.Ptr
+        lpfSourceAvailableMarshal := lpfSourceAvailable is VarRef ? "int*" : IntPtr
+        lpfIsSelectedMarshal := lpfIsSelected is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, UInt32, dwLink, lplpszDisplayNameMarshal, lplpszDisplayName, lplenFileNameMarshal, lplenFileName, lplpszFullLinkTypeMarshal, lplpszFullLinkType, lplpszShortLinkTypeMarshal, lplpszShortLinkType, lpfSourceAvailableMarshal, lpfSourceAvailable, lpfIsSelectedMarshal, lpfIsSelected, "HRESULT")
         return result
@@ -448,14 +451,14 @@ export default struct IOleUILinkContainerA extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNextLink := CallbackCreate(GetMethod(implObj, "GetNextLink"), flags, 2)
-        this.vtbl.SetLinkUpdateOptions := CallbackCreate(GetMethod(implObj, "SetLinkUpdateOptions"), flags, 3)
-        this.vtbl.GetLinkUpdateOptions := CallbackCreate(GetMethod(implObj, "GetLinkUpdateOptions"), flags, 3)
-        this.vtbl.SetLinkSource := CallbackCreate(GetMethod(implObj, "SetLinkSource"), flags, 6)
-        this.vtbl.GetLinkSource := CallbackCreate(GetMethod(implObj, "GetLinkSource"), flags, 8)
-        this.vtbl.OpenLinkSource := CallbackCreate(GetMethod(implObj, "OpenLinkSource"), flags, 2)
-        this.vtbl.UpdateLink := CallbackCreate(GetMethod(implObj, "UpdateLink"), flags, 4)
-        this.vtbl.CancelLink := CallbackCreate(GetMethod(implObj, "CancelLink"), flags, 2)
+        this.vtbl.GetNextLink := CallbackCreate(ObjBindMethod(implObj, "GetNextLink"), flags, 2)
+        this.vtbl.SetLinkUpdateOptions := CallbackCreate(ObjBindMethod(implObj, "SetLinkUpdateOptions"), flags, 3)
+        this.vtbl.GetLinkUpdateOptions := CallbackCreate(ObjBindMethod(implObj, "GetLinkUpdateOptions"), flags, 3)
+        this.vtbl.SetLinkSource := CallbackCreate(ObjBindMethod(implObj, "SetLinkSource"), flags, 6)
+        this.vtbl.GetLinkSource := CallbackCreate(ObjBindMethod(implObj, "GetLinkSource"), flags, 8)
+        this.vtbl.OpenLinkSource := CallbackCreate(ObjBindMethod(implObj, "OpenLinkSource"), flags, 2)
+        this.vtbl.UpdateLink := CallbackCreate(ObjBindMethod(implObj, "UpdateLink"), flags, 4)
+        this.vtbl.CancelLink := CallbackCreate(ObjBindMethod(implObj, "CancelLink"), flags, 2)
     }
 
     Dispose() {

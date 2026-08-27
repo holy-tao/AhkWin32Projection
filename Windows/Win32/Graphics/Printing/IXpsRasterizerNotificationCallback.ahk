@@ -36,7 +36,6 @@ export default struct IXpsRasterizerNotificationCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Continue() {
@@ -53,7 +52,7 @@ export default struct IXpsRasterizerNotificationCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Continue := CallbackCreate(GetMethod(implObj, "Continue"), flags, 1)
+        this.vtbl.Continue := CallbackCreate(ObjBindMethod(implObj, "Continue"), flags, 1)
     }
 
     Dispose() {

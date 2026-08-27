@@ -58,7 +58,6 @@ export default struct IWebGeoposition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IWebGeocoordinates} 
      */
     get_coords() {
@@ -67,7 +66,6 @@ export default struct IWebGeoposition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_timestamp() {
@@ -84,8 +82,8 @@ export default struct IWebGeoposition extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_coords := CallbackCreate(GetMethod(implObj, "get_coords"), flags, 2)
-        this.vtbl.get_timestamp := CallbackCreate(GetMethod(implObj, "get_timestamp"), flags, 2)
+        this.vtbl.get_coords := CallbackCreate(ObjBindMethod(implObj, "get_coords"), flags, 2)
+        this.vtbl.get_timestamp := CallbackCreate(ObjBindMethod(implObj, "get_timestamp"), flags, 2)
     }
 
     Dispose() {

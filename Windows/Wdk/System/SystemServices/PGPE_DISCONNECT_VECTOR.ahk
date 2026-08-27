@@ -19,12 +19,11 @@ export default struct PGPE_DISCONNECT_VECTOR {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} param0 
      * @returns {NTSTATUS} 
      */
     Call(param0) {
-        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+        param0Marshal := param0 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, param0Marshal, param0, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

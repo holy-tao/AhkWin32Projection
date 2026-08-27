@@ -116,7 +116,7 @@ export default struct IContact extends IUnknown {
     GetContactID(pszContactID, cchContactID, pdwcchContactIDRequired) {
         pszContactID := pszContactID is String ? StrPtr(pszContactID) : pszContactID
 
-        pdwcchContactIDRequiredMarshal := pdwcchContactIDRequired is VarRef ? "uint*" : "ptr"
+        pdwcchContactIDRequiredMarshal := pdwcchContactIDRequired is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, "ptr", pszContactID, UInt32, cchContactID, pdwcchContactIDRequiredMarshal, pdwcchContactIDRequired, "HRESULT")
         return result
@@ -181,7 +181,7 @@ export default struct IContact extends IUnknown {
     GetPath(pszPath, cchPath, pdwcchPathRequired) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        pdwcchPathRequiredMarshal := pdwcchPathRequired is VarRef ? "uint*" : "ptr"
+        pdwcchPathRequiredMarshal := pdwcchPathRequired is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, "ptr", pszPath, UInt32, cchPath, pdwcchPathRequiredMarshal, pdwcchPathRequired, "HRESULT")
         return result
@@ -255,9 +255,9 @@ export default struct IContact extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetContactID := CallbackCreate(GetMethod(implObj, "GetContactID"), flags, 4)
-        this.vtbl.GetPath := CallbackCreate(GetMethod(implObj, "GetPath"), flags, 4)
-        this.vtbl.CommitChanges := CallbackCreate(GetMethod(implObj, "CommitChanges"), flags, 2)
+        this.vtbl.GetContactID := CallbackCreate(ObjBindMethod(implObj, "GetContactID"), flags, 4)
+        this.vtbl.GetPath := CallbackCreate(ObjBindMethod(implObj, "GetPath"), flags, 4)
+        this.vtbl.CommitChanges := CallbackCreate(ObjBindMethod(implObj, "CommitChanges"), flags, 2)
     }
 
     Dispose() {

@@ -67,7 +67,7 @@ export default struct IStdMarshalInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetClassForHandler := CallbackCreate(GetMethod(implObj, "GetClassForHandler"), flags, 4)
+        this.vtbl.GetClassForHandler := CallbackCreate(ObjBindMethod(implObj, "GetClassForHandler"), flags, 4)
     }
 
     Dispose() {

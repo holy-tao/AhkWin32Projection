@@ -40,7 +40,6 @@ export default struct IWMDRMTranscryptor2 extends IWMDRMTranscryptor {
     }
 
     /**
-     * 
      * @param {Integer} cnsStartTime 
      * @param {Integer} cnsDuration 
      * @param {Float} flRate 
@@ -53,7 +52,6 @@ export default struct IWMDRMTranscryptor2 extends IWMDRMTranscryptor {
     }
 
     /**
-     * 
      * @param {BOOL} fEnable 
      * @returns {HRESULT} 
      */
@@ -63,7 +61,6 @@ export default struct IWMDRMTranscryptor2 extends IWMDRMTranscryptor {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetSeekStartTime() {
@@ -72,7 +69,6 @@ export default struct IWMDRMTranscryptor2 extends IWMDRMTranscryptor {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetDuration() {
@@ -89,10 +85,10 @@ export default struct IWMDRMTranscryptor2 extends IWMDRMTranscryptor {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SeekEx := CallbackCreate(GetMethod(implObj, "SeekEx"), flags, 5)
-        this.vtbl.ZeroAdjustTimestamps := CallbackCreate(GetMethod(implObj, "ZeroAdjustTimestamps"), flags, 2)
-        this.vtbl.GetSeekStartTime := CallbackCreate(GetMethod(implObj, "GetSeekStartTime"), flags, 2)
-        this.vtbl.GetDuration := CallbackCreate(GetMethod(implObj, "GetDuration"), flags, 2)
+        this.vtbl.SeekEx := CallbackCreate(ObjBindMethod(implObj, "SeekEx"), flags, 5)
+        this.vtbl.ZeroAdjustTimestamps := CallbackCreate(ObjBindMethod(implObj, "ZeroAdjustTimestamps"), flags, 2)
+        this.vtbl.GetSeekStartTime := CallbackCreate(ObjBindMethod(implObj, "GetSeekStartTime"), flags, 2)
+        this.vtbl.GetDuration := CallbackCreate(ObjBindMethod(implObj, "GetDuration"), flags, 2)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct PCLUSAPI_GET_CLUSTER_RESOURCE_DEPENDENCY_EXPRESSION {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {PWSTR} lpszDependencyExpression 
      * @param {Pointer<Integer>} lpcchDependencyExpression 
@@ -29,9 +28,10 @@ export default struct PCLUSAPI_GET_CLUSTER_RESOURCE_DEPENDENCY_EXPRESSION {
     Call(_hResource, lpszDependencyExpression, lpcchDependencyExpression) {
         lpszDependencyExpression := lpszDependencyExpression is String ? StrPtr(lpszDependencyExpression) : lpszDependencyExpression
 
-        lpcchDependencyExpressionMarshal := lpcchDependencyExpression is VarRef ? "uint*" : "ptr"
+        lpszDependencyExpressionMarshal := lpszDependencyExpression == 0 ? IntPtr : PWSTR
+        lpcchDependencyExpressionMarshal := lpcchDependencyExpression is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, HRESOURCE, _hResource, "ptr", lpszDependencyExpression, lpcchDependencyExpressionMarshal, lpcchDependencyExpression, UInt32)
+        result := DllCall(this.value, HRESOURCE, _hResource, lpszDependencyExpressionMarshal, lpszDependencyExpression, lpcchDependencyExpressionMarshal, lpcchDependencyExpression, UInt32)
         return result
     }
 

@@ -59,7 +59,7 @@ export default struct ILaunchSourceAppUserModelId extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAppUserModelId := CallbackCreate(GetMethod(implObj, "GetAppUserModelId"), flags, 2)
+        this.vtbl.GetAppUserModelId := CallbackCreate(ObjBindMethod(implObj, "GetAppUserModelId"), flags, 2)
     }
 
     Dispose() {

@@ -274,19 +274,19 @@ export default struct IUIAutomationProxyFactoryEntry extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ProxyFactory := CallbackCreate(GetMethod(implObj, "get_ProxyFactory"), flags, 2)
-        this.vtbl.get_ClassName := CallbackCreate(GetMethod(implObj, "get_ClassName"), flags, 2)
-        this.vtbl.get_ImageName := CallbackCreate(GetMethod(implObj, "get_ImageName"), flags, 2)
-        this.vtbl.get_AllowSubstringMatch := CallbackCreate(GetMethod(implObj, "get_AllowSubstringMatch"), flags, 2)
-        this.vtbl.get_CanCheckBaseClass := CallbackCreate(GetMethod(implObj, "get_CanCheckBaseClass"), flags, 2)
-        this.vtbl.get_NeedsAdviseEvents := CallbackCreate(GetMethod(implObj, "get_NeedsAdviseEvents"), flags, 2)
-        this.vtbl.put_ClassName := CallbackCreate(GetMethod(implObj, "put_ClassName"), flags, 2)
-        this.vtbl.put_ImageName := CallbackCreate(GetMethod(implObj, "put_ImageName"), flags, 2)
-        this.vtbl.put_AllowSubstringMatch := CallbackCreate(GetMethod(implObj, "put_AllowSubstringMatch"), flags, 2)
-        this.vtbl.put_CanCheckBaseClass := CallbackCreate(GetMethod(implObj, "put_CanCheckBaseClass"), flags, 2)
-        this.vtbl.put_NeedsAdviseEvents := CallbackCreate(GetMethod(implObj, "put_NeedsAdviseEvents"), flags, 2)
-        this.vtbl.SetWinEventsForAutomationEvent := CallbackCreate(GetMethod(implObj, "SetWinEventsForAutomationEvent"), flags, 4)
-        this.vtbl.GetWinEventsForAutomationEvent := CallbackCreate(GetMethod(implObj, "GetWinEventsForAutomationEvent"), flags, 4)
+        this.vtbl.get_ProxyFactory := CallbackCreate(ObjBindMethod(implObj, "get_ProxyFactory"), flags, 2)
+        this.vtbl.get_ClassName := CallbackCreate(ObjBindMethod(implObj, "get_ClassName"), flags, 2)
+        this.vtbl.get_ImageName := CallbackCreate(ObjBindMethod(implObj, "get_ImageName"), flags, 2)
+        this.vtbl.get_AllowSubstringMatch := CallbackCreate(ObjBindMethod(implObj, "get_AllowSubstringMatch"), flags, 2)
+        this.vtbl.get_CanCheckBaseClass := CallbackCreate(ObjBindMethod(implObj, "get_CanCheckBaseClass"), flags, 2)
+        this.vtbl.get_NeedsAdviseEvents := CallbackCreate(ObjBindMethod(implObj, "get_NeedsAdviseEvents"), flags, 2)
+        this.vtbl.put_ClassName := CallbackCreate(ObjBindMethod(implObj, "put_ClassName"), flags, 2)
+        this.vtbl.put_ImageName := CallbackCreate(ObjBindMethod(implObj, "put_ImageName"), flags, 2)
+        this.vtbl.put_AllowSubstringMatch := CallbackCreate(ObjBindMethod(implObj, "put_AllowSubstringMatch"), flags, 2)
+        this.vtbl.put_CanCheckBaseClass := CallbackCreate(ObjBindMethod(implObj, "put_CanCheckBaseClass"), flags, 2)
+        this.vtbl.put_NeedsAdviseEvents := CallbackCreate(ObjBindMethod(implObj, "put_NeedsAdviseEvents"), flags, 2)
+        this.vtbl.SetWinEventsForAutomationEvent := CallbackCreate(ObjBindMethod(implObj, "SetWinEventsForAutomationEvent"), flags, 4)
+        this.vtbl.GetWinEventsForAutomationEvent := CallbackCreate(ObjBindMethod(implObj, "GetWinEventsForAutomationEvent"), flags, 4)
     }
 
     Dispose() {

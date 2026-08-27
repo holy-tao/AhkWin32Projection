@@ -61,7 +61,7 @@ export default struct ITSGAuthenticationEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tsgauthenticationengine/nf-tsgauthenticationengine-itsgauthenticationengine-authenticateuser
      */
     AuthenticateUser(mainSessionId, cookieData, numCookieBytes, _context, pSink) {
-        cookieDataMarshal := cookieData is VarRef ? "char*" : "ptr"
+        cookieDataMarshal := cookieData is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, Guid, mainSessionId, cookieDataMarshal, cookieData, UInt32, numCookieBytes, IntPtr, _context, "ptr", pSink, "HRESULT")
         return result
@@ -88,8 +88,8 @@ export default struct ITSGAuthenticationEngine extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AuthenticateUser := CallbackCreate(GetMethod(implObj, "AuthenticateUser"), flags, 6)
-        this.vtbl.CancelAuthentication := CallbackCreate(GetMethod(implObj, "CancelAuthentication"), flags, 3)
+        this.vtbl.AuthenticateUser := CallbackCreate(ObjBindMethod(implObj, "AuthenticateUser"), flags, 6)
+        this.vtbl.CancelAuthentication := CallbackCreate(ObjBindMethod(implObj, "CancelAuthentication"), flags, 3)
     }
 
     Dispose() {

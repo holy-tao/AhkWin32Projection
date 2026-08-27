@@ -56,7 +56,6 @@ export default struct IPMExtensionFileExtensionInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pName 
      * @returns {HRESULT} 
      */
@@ -66,7 +65,6 @@ export default struct IPMExtensionFileExtensionInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pDisplayName 
      * @returns {HRESULT} 
      */
@@ -76,7 +74,6 @@ export default struct IPMExtensionFileExtensionInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {PM_LOGO_SIZE} LogoSize 
      * @param {Pointer<BSTR>} pLogo 
      * @returns {HRESULT} 
@@ -87,7 +84,6 @@ export default struct IPMExtensionFileExtensionInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} FileType 
      * @param {Pointer<BSTR>} pContentType 
      * @returns {HRESULT} 
@@ -100,7 +96,6 @@ export default struct IPMExtensionFileExtensionInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} ContentType 
      * @param {Pointer<BSTR>} pFileType 
      * @returns {HRESULT} 
@@ -113,7 +108,6 @@ export default struct IPMExtensionFileExtensionInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pImageUrn 
      * @param {Pointer<BSTR>} pParameters 
      * @returns {HRESULT} 
@@ -124,14 +118,13 @@ export default struct IPMExtensionFileExtensionInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcbTypes 
      * @param {Pointer<Pointer<BSTR>>} ppTypes 
      * @returns {HRESULT} 
      */
     get_AllFileTypes(pcbTypes, ppTypes) {
-        pcbTypesMarshal := pcbTypes is VarRef ? "uint*" : "ptr"
-        ppTypesMarshal := ppTypes is VarRef ? "ptr*" : "ptr"
+        pcbTypesMarshal := pcbTypes is VarRef ? "uint*" : IntPtr
+        ppTypesMarshal := ppTypes is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(9, this, pcbTypesMarshal, pcbTypes, ppTypesMarshal, ppTypes, "HRESULT")
         return result
@@ -146,13 +139,13 @@ export default struct IPMExtensionFileExtensionInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_DisplayName := CallbackCreate(GetMethod(implObj, "get_DisplayName"), flags, 2)
-        this.vtbl.get_Logo := CallbackCreate(GetMethod(implObj, "get_Logo"), flags, 3)
-        this.vtbl.get_ContentType := CallbackCreate(GetMethod(implObj, "get_ContentType"), flags, 3)
-        this.vtbl.get_FileType := CallbackCreate(GetMethod(implObj, "get_FileType"), flags, 3)
-        this.vtbl.get_InvocationInfo := CallbackCreate(GetMethod(implObj, "get_InvocationInfo"), flags, 3)
-        this.vtbl.get_AllFileTypes := CallbackCreate(GetMethod(implObj, "get_AllFileTypes"), flags, 3)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_DisplayName := CallbackCreate(ObjBindMethod(implObj, "get_DisplayName"), flags, 2)
+        this.vtbl.get_Logo := CallbackCreate(ObjBindMethod(implObj, "get_Logo"), flags, 3)
+        this.vtbl.get_ContentType := CallbackCreate(ObjBindMethod(implObj, "get_ContentType"), flags, 3)
+        this.vtbl.get_FileType := CallbackCreate(ObjBindMethod(implObj, "get_FileType"), flags, 3)
+        this.vtbl.get_InvocationInfo := CallbackCreate(ObjBindMethod(implObj, "get_InvocationInfo"), flags, 3)
+        this.vtbl.get_AllFileTypes := CallbackCreate(ObjBindMethod(implObj, "get_AllFileTypes"), flags, 3)
     }
 
     Dispose() {

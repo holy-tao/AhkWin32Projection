@@ -41,7 +41,6 @@ export default struct ITransactionResourceAsync extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fRetaining 
      * @param {Integer} grfRM 
      * @param {BOOL} fWantMoniker 
@@ -54,7 +53,6 @@ export default struct ITransactionResourceAsync extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} grfRM 
      * @param {Pointer<BOID>} pNewUOW 
      * @returns {HRESULT} 
@@ -65,7 +63,6 @@ export default struct ITransactionResourceAsync extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BOID>} pboidReason 
      * @param {BOOL} fRetaining 
      * @param {Pointer<BOID>} pNewUOW 
@@ -77,7 +74,6 @@ export default struct ITransactionResourceAsync extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     TMDown() {
@@ -94,10 +90,10 @@ export default struct ITransactionResourceAsync extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PrepareRequest := CallbackCreate(GetMethod(implObj, "PrepareRequest"), flags, 5)
-        this.vtbl.CommitRequest := CallbackCreate(GetMethod(implObj, "CommitRequest"), flags, 3)
-        this.vtbl.AbortRequest := CallbackCreate(GetMethod(implObj, "AbortRequest"), flags, 4)
-        this.vtbl.TMDown := CallbackCreate(GetMethod(implObj, "TMDown"), flags, 1)
+        this.vtbl.PrepareRequest := CallbackCreate(ObjBindMethod(implObj, "PrepareRequest"), flags, 5)
+        this.vtbl.CommitRequest := CallbackCreate(ObjBindMethod(implObj, "CommitRequest"), flags, 3)
+        this.vtbl.AbortRequest := CallbackCreate(ObjBindMethod(implObj, "AbortRequest"), flags, 4)
+        this.vtbl.TMDown := CallbackCreate(ObjBindMethod(implObj, "TMDown"), flags, 1)
     }
 
     Dispose() {

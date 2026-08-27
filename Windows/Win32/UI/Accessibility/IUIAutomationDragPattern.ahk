@@ -199,14 +199,14 @@ export default struct IUIAutomationDragPattern extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_CurrentIsGrabbed := CallbackCreate(GetMethod(implObj, "get_CurrentIsGrabbed"), flags, 2)
-        this.vtbl.get_CachedIsGrabbed := CallbackCreate(GetMethod(implObj, "get_CachedIsGrabbed"), flags, 2)
-        this.vtbl.get_CurrentDropEffect := CallbackCreate(GetMethod(implObj, "get_CurrentDropEffect"), flags, 2)
-        this.vtbl.get_CachedDropEffect := CallbackCreate(GetMethod(implObj, "get_CachedDropEffect"), flags, 2)
-        this.vtbl.get_CurrentDropEffects := CallbackCreate(GetMethod(implObj, "get_CurrentDropEffects"), flags, 2)
-        this.vtbl.get_CachedDropEffects := CallbackCreate(GetMethod(implObj, "get_CachedDropEffects"), flags, 2)
-        this.vtbl.GetCurrentGrabbedItems := CallbackCreate(GetMethod(implObj, "GetCurrentGrabbedItems"), flags, 2)
-        this.vtbl.GetCachedGrabbedItems := CallbackCreate(GetMethod(implObj, "GetCachedGrabbedItems"), flags, 2)
+        this.vtbl.get_CurrentIsGrabbed := CallbackCreate(ObjBindMethod(implObj, "get_CurrentIsGrabbed"), flags, 2)
+        this.vtbl.get_CachedIsGrabbed := CallbackCreate(ObjBindMethod(implObj, "get_CachedIsGrabbed"), flags, 2)
+        this.vtbl.get_CurrentDropEffect := CallbackCreate(ObjBindMethod(implObj, "get_CurrentDropEffect"), flags, 2)
+        this.vtbl.get_CachedDropEffect := CallbackCreate(ObjBindMethod(implObj, "get_CachedDropEffect"), flags, 2)
+        this.vtbl.get_CurrentDropEffects := CallbackCreate(ObjBindMethod(implObj, "get_CurrentDropEffects"), flags, 2)
+        this.vtbl.get_CachedDropEffects := CallbackCreate(ObjBindMethod(implObj, "get_CachedDropEffects"), flags, 2)
+        this.vtbl.GetCurrentGrabbedItems := CallbackCreate(ObjBindMethod(implObj, "GetCurrentGrabbedItems"), flags, 2)
+        this.vtbl.GetCachedGrabbedItems := CallbackCreate(ObjBindMethod(implObj, "GetCachedGrabbedItems"), flags, 2)
     }
 
     Dispose() {

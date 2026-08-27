@@ -131,9 +131,9 @@ export default struct IOpcDigitalSignature extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignature-getnamespaces
      */
     GetNamespaces(prefixes, namespaces, count) {
-        prefixesMarshal := prefixes is VarRef ? "ptr*" : "ptr"
-        namespacesMarshal := namespaces is VarRef ? "ptr*" : "ptr"
-        countMarshal := count is VarRef ? "uint*" : "ptr"
+        prefixesMarshal := prefixes is VarRef ? "ptr*" : IntPtr
+        namespacesMarshal := namespaces is VarRef ? "ptr*" : IntPtr
+        countMarshal := count is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, prefixesMarshal, prefixes, namespacesMarshal, namespaces, countMarshal, count, "HRESULT")
         return result
@@ -250,8 +250,8 @@ export default struct IOpcDigitalSignature extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignature-getsignaturevalue
      */
     GetSignatureValue(signatureValue, count) {
-        signatureValueMarshal := signatureValue is VarRef ? "ptr*" : "ptr"
-        countMarshal := count is VarRef ? "uint*" : "ptr"
+        signatureValueMarshal := signatureValue is VarRef ? "ptr*" : IntPtr
+        countMarshal := count is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, signatureValueMarshal, signatureValue, countMarshal, count, "HRESULT")
         return result
@@ -418,8 +418,8 @@ export default struct IOpcDigitalSignature extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignature-getsignaturexml
      */
     GetSignatureXml(signatureXml, count) {
-        signatureXmlMarshal := signatureXml is VarRef ? "ptr*" : "ptr"
-        countMarshal := count is VarRef ? "uint*" : "ptr"
+        signatureXmlMarshal := signatureXml is VarRef ? "ptr*" : IntPtr
+        countMarshal := count is VarRef ? "uint*" : IntPtr
 
         result := ComCall(17, this, signatureXmlMarshal, signatureXml, countMarshal, count, "HRESULT")
         return result
@@ -434,21 +434,21 @@ export default struct IOpcDigitalSignature extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNamespaces := CallbackCreate(GetMethod(implObj, "GetNamespaces"), flags, 4)
-        this.vtbl.GetSignatureId := CallbackCreate(GetMethod(implObj, "GetSignatureId"), flags, 2)
-        this.vtbl.GetSignaturePartName := CallbackCreate(GetMethod(implObj, "GetSignaturePartName"), flags, 2)
-        this.vtbl.GetSignatureMethod := CallbackCreate(GetMethod(implObj, "GetSignatureMethod"), flags, 2)
-        this.vtbl.GetCanonicalizationMethod := CallbackCreate(GetMethod(implObj, "GetCanonicalizationMethod"), flags, 2)
-        this.vtbl.GetSignatureValue := CallbackCreate(GetMethod(implObj, "GetSignatureValue"), flags, 3)
-        this.vtbl.GetSignaturePartReferenceEnumerator := CallbackCreate(GetMethod(implObj, "GetSignaturePartReferenceEnumerator"), flags, 2)
-        this.vtbl.GetSignatureRelationshipReferenceEnumerator := CallbackCreate(GetMethod(implObj, "GetSignatureRelationshipReferenceEnumerator"), flags, 2)
-        this.vtbl.GetSigningTime := CallbackCreate(GetMethod(implObj, "GetSigningTime"), flags, 2)
-        this.vtbl.GetTimeFormat := CallbackCreate(GetMethod(implObj, "GetTimeFormat"), flags, 2)
-        this.vtbl.GetPackageObjectReference := CallbackCreate(GetMethod(implObj, "GetPackageObjectReference"), flags, 2)
-        this.vtbl.GetCertificateEnumerator := CallbackCreate(GetMethod(implObj, "GetCertificateEnumerator"), flags, 2)
-        this.vtbl.GetCustomReferenceEnumerator := CallbackCreate(GetMethod(implObj, "GetCustomReferenceEnumerator"), flags, 2)
-        this.vtbl.GetCustomObjectEnumerator := CallbackCreate(GetMethod(implObj, "GetCustomObjectEnumerator"), flags, 2)
-        this.vtbl.GetSignatureXml := CallbackCreate(GetMethod(implObj, "GetSignatureXml"), flags, 3)
+        this.vtbl.GetNamespaces := CallbackCreate(ObjBindMethod(implObj, "GetNamespaces"), flags, 4)
+        this.vtbl.GetSignatureId := CallbackCreate(ObjBindMethod(implObj, "GetSignatureId"), flags, 2)
+        this.vtbl.GetSignaturePartName := CallbackCreate(ObjBindMethod(implObj, "GetSignaturePartName"), flags, 2)
+        this.vtbl.GetSignatureMethod := CallbackCreate(ObjBindMethod(implObj, "GetSignatureMethod"), flags, 2)
+        this.vtbl.GetCanonicalizationMethod := CallbackCreate(ObjBindMethod(implObj, "GetCanonicalizationMethod"), flags, 2)
+        this.vtbl.GetSignatureValue := CallbackCreate(ObjBindMethod(implObj, "GetSignatureValue"), flags, 3)
+        this.vtbl.GetSignaturePartReferenceEnumerator := CallbackCreate(ObjBindMethod(implObj, "GetSignaturePartReferenceEnumerator"), flags, 2)
+        this.vtbl.GetSignatureRelationshipReferenceEnumerator := CallbackCreate(ObjBindMethod(implObj, "GetSignatureRelationshipReferenceEnumerator"), flags, 2)
+        this.vtbl.GetSigningTime := CallbackCreate(ObjBindMethod(implObj, "GetSigningTime"), flags, 2)
+        this.vtbl.GetTimeFormat := CallbackCreate(ObjBindMethod(implObj, "GetTimeFormat"), flags, 2)
+        this.vtbl.GetPackageObjectReference := CallbackCreate(ObjBindMethod(implObj, "GetPackageObjectReference"), flags, 2)
+        this.vtbl.GetCertificateEnumerator := CallbackCreate(ObjBindMethod(implObj, "GetCertificateEnumerator"), flags, 2)
+        this.vtbl.GetCustomReferenceEnumerator := CallbackCreate(ObjBindMethod(implObj, "GetCustomReferenceEnumerator"), flags, 2)
+        this.vtbl.GetCustomObjectEnumerator := CallbackCreate(ObjBindMethod(implObj, "GetCustomObjectEnumerator"), flags, 2)
+        this.vtbl.GetSignatureXml := CallbackCreate(ObjBindMethod(implObj, "GetSignatureXml"), flags, 3)
     }
 
     Dispose() {

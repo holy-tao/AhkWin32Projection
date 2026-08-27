@@ -92,7 +92,6 @@ export default struct PDD_CREATESURFACE {
     }
 
     /**
-     * 
      * @param {Pointer<DD_CREATESURFACEDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_createsurfacedata">DD_CREATESURFACEDATA</a> structure that contains the information required to create the buffer.
      * @returns {Integer} <i>CreateD3DBuffer</i> returns one of the following callback codes:
      */

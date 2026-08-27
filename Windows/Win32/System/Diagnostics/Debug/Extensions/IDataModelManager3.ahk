@@ -43,7 +43,6 @@ export default struct IDataModelManager3 extends IDataModelManager2 {
     }
 
     /**
-     * 
      * @param {PWSTR} modelName 
      * @param {PWSTR} subNamespaceModelName 
      * @param {PWSTR} accessName 
@@ -58,12 +57,13 @@ export default struct IDataModelManager3 extends IDataModelManager2 {
         subNamespaceModelName := subNamespaceModelName is String ? StrPtr(subNamespaceModelName) : subNamespaceModelName
         accessName := accessName is String ? StrPtr(accessName) : accessName
 
-        result := ComCall(25, this, "ptr", modelName, "ptr", subNamespaceModelName, "ptr", accessName, "ptr", metadata, "ptr", filter, IModelObject.Ptr, namespaceModelObject, IFilteredNamespacePropertyToken.Ptr, token, "HRESULT")
+        metadataMarshal := metadata == 0 ? IntPtr : "ptr"
+
+        result := ComCall(25, this, "ptr", modelName, "ptr", subNamespaceModelName, "ptr", accessName, metadataMarshal, metadata, "ptr", filter, IModelObject.Ptr, namespaceModelObject, IFilteredNamespacePropertyToken.Ptr, token, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {INamedModelsEnumerator} 
      */
     EnumerateNamedModels() {
@@ -80,8 +80,8 @@ export default struct IDataModelManager3 extends IDataModelManager2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AcquireFilteredSubNamespace := CallbackCreate(GetMethod(implObj, "AcquireFilteredSubNamespace"), flags, 8)
-        this.vtbl.EnumerateNamedModels := CallbackCreate(GetMethod(implObj, "EnumerateNamedModels"), flags, 2)
+        this.vtbl.AcquireFilteredSubNamespace := CallbackCreate(ObjBindMethod(implObj, "AcquireFilteredSubNamespace"), flags, 8)
+        this.vtbl.EnumerateNamedModels := CallbackCreate(ObjBindMethod(implObj, "EnumerateNamedModels"), flags, 2)
     }
 
     Dispose() {

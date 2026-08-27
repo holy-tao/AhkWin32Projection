@@ -109,7 +109,9 @@ export default struct ICertPropertyKeyProvInfo extends ICertProperty {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertykeyprovinfo-initialize
      */
     Initialize(pValue) {
-        result := ComCall(14, this, "ptr", pValue, "HRESULT")
+        pValueMarshal := pValue == 0 ? IntPtr : "ptr"
+
+        result := ComCall(14, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -134,8 +136,8 @@ export default struct ICertPropertyKeyProvInfo extends ICertProperty {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.get_PrivateKey := CallbackCreate(GetMethod(implObj, "get_PrivateKey"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.get_PrivateKey := CallbackCreate(ObjBindMethod(implObj, "get_PrivateKey"), flags, 2)
     }
 
     Dispose() {

@@ -56,7 +56,6 @@ export default struct IHTMLTextAreaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -66,7 +65,6 @@ export default struct IHTMLTextAreaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_selectionStart() {
@@ -75,7 +73,6 @@ export default struct IHTMLTextAreaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -85,7 +82,6 @@ export default struct IHTMLTextAreaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_selectionEnd() {
@@ -94,7 +90,6 @@ export default struct IHTMLTextAreaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} start 
      * @param {Integer} end 
      * @returns {HRESULT} 
@@ -113,11 +108,11 @@ export default struct IHTMLTextAreaElement2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_selectionStart := CallbackCreate(GetMethod(implObj, "put_selectionStart"), flags, 2)
-        this.vtbl.get_selectionStart := CallbackCreate(GetMethod(implObj, "get_selectionStart"), flags, 2)
-        this.vtbl.put_selectionEnd := CallbackCreate(GetMethod(implObj, "put_selectionEnd"), flags, 2)
-        this.vtbl.get_selectionEnd := CallbackCreate(GetMethod(implObj, "get_selectionEnd"), flags, 2)
-        this.vtbl.setSelectionRange := CallbackCreate(GetMethod(implObj, "setSelectionRange"), flags, 3)
+        this.vtbl.put_selectionStart := CallbackCreate(ObjBindMethod(implObj, "put_selectionStart"), flags, 2)
+        this.vtbl.get_selectionStart := CallbackCreate(ObjBindMethod(implObj, "get_selectionStart"), flags, 2)
+        this.vtbl.put_selectionEnd := CallbackCreate(ObjBindMethod(implObj, "put_selectionEnd"), flags, 2)
+        this.vtbl.get_selectionEnd := CallbackCreate(ObjBindMethod(implObj, "get_selectionEnd"), flags, 2)
+        this.vtbl.setSelectionRange := CallbackCreate(ObjBindMethod(implObj, "setSelectionRange"), flags, 3)
     }
 
     Dispose() {

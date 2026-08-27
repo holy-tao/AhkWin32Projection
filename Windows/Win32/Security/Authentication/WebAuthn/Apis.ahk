@@ -5,6 +5,7 @@
 #Import "..\..\..\Foundation\HRESULT.ahk" { HRESULT }
 #Import "..\..\..\Foundation\HWND.ahk" { HWND }
 #Import "..\..\..\Foundation\PWSTR.ahk" { PWSTR }
+#Import ".\AUTHENTICATOR_STATE.ahk" { AUTHENTICATOR_STATE }
 #Import ".\WEBAUTHN_ASSERTION.ahk" { WEBAUTHN_ASSERTION }
 #Import ".\WEBAUTHN_AUTHENTICATOR_DETAILS_LIST.ahk" { WEBAUTHN_AUTHENTICATOR_DETAILS_LIST }
 #Import ".\WEBAUTHN_AUTHENTICATOR_DETAILS_OPTIONS.ahk" { WEBAUTHN_AUTHENTICATOR_DETAILS_OPTIONS }
@@ -14,7 +15,16 @@
 #Import ".\WEBAUTHN_COSE_CREDENTIAL_PARAMETERS.ahk" { WEBAUTHN_COSE_CREDENTIAL_PARAMETERS }
 #Import ".\WEBAUTHN_CREDENTIAL_ATTESTATION.ahk" { WEBAUTHN_CREDENTIAL_ATTESTATION }
 #Import ".\WEBAUTHN_CREDENTIAL_DETAILS_LIST.ahk" { WEBAUTHN_CREDENTIAL_DETAILS_LIST }
+#Import ".\WEBAUTHN_CTAPCBOR_GET_ASSERTION_REQUEST.ahk" { WEBAUTHN_CTAPCBOR_GET_ASSERTION_REQUEST }
+#Import ".\WEBAUTHN_CTAPCBOR_GET_ASSERTION_RESPONSE.ahk" { WEBAUTHN_CTAPCBOR_GET_ASSERTION_RESPONSE }
+#Import ".\WEBAUTHN_CTAPCBOR_MAKE_CREDENTIAL_REQUEST.ahk" { WEBAUTHN_CTAPCBOR_MAKE_CREDENTIAL_REQUEST }
 #Import ".\WEBAUTHN_GET_CREDENTIALS_OPTIONS.ahk" { WEBAUTHN_GET_CREDENTIALS_OPTIONS }
+#Import ".\WEBAUTHN_PLUGIN_ADD_AUTHENTICATOR_OPTIONS.ahk" { WEBAUTHN_PLUGIN_ADD_AUTHENTICATOR_OPTIONS }
+#Import ".\WEBAUTHN_PLUGIN_ADD_AUTHENTICATOR_RESPONSE.ahk" { WEBAUTHN_PLUGIN_ADD_AUTHENTICATOR_RESPONSE }
+#Import ".\WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS.ahk" { WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS }
+#Import ".\WEBAUTHN_PLUGIN_STATUS_CHANGE_CALLBACK.ahk" { WEBAUTHN_PLUGIN_STATUS_CHANGE_CALLBACK }
+#Import ".\WEBAUTHN_PLUGIN_UPDATE_AUTHENTICATOR_DETAILS.ahk" { WEBAUTHN_PLUGIN_UPDATE_AUTHENTICATOR_DETAILS }
+#Import ".\WEBAUTHN_PLUGIN_USER_VERIFICATION_REQUEST.ahk" { WEBAUTHN_PLUGIN_USER_VERIFICATION_REQUEST }
 #Import ".\WEBAUTHN_RP_ENTITY_INFORMATION.ahk" { WEBAUTHN_RP_ENTITY_INFORMATION }
 #Import ".\WEBAUTHN_USER_ENTITY_INFORMATION.ahk" { WEBAUTHN_USER_ENTITY_INFORMATION }
 
@@ -55,7 +65,9 @@ export WebAuthNIsUserVerifyingPlatformAuthenticatorAvailable() {
  * @see https://learn.microsoft.com/windows/win32/api/webauthn/nf-webauthn-webauthnauthenticatormakecredential
  */
 export WebAuthNAuthenticatorMakeCredential(_hWnd, pRpInformation, pUserInformation, pPubKeyCredParams, pWebAuthNClientData, pWebAuthNMakeCredentialOptions) {
-    result := DllCall("webauthn.dll\WebAuthNAuthenticatorMakeCredential", HWND, _hWnd, WEBAUTHN_RP_ENTITY_INFORMATION.Ptr, pRpInformation, WEBAUTHN_USER_ENTITY_INFORMATION.Ptr, pUserInformation, WEBAUTHN_COSE_CREDENTIAL_PARAMETERS.Ptr, pPubKeyCredParams, WEBAUTHN_CLIENT_DATA.Ptr, pWebAuthNClientData, WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS.Ptr, pWebAuthNMakeCredentialOptions, "ptr*", &ppWebAuthNCredentialAttestation := 0, "HRESULT")
+    pWebAuthNMakeCredentialOptionsMarshal := pWebAuthNMakeCredentialOptions == 0 ? IntPtr : WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS.Ptr
+
+    result := DllCall("webauthn.dll\WebAuthNAuthenticatorMakeCredential", HWND, _hWnd, WEBAUTHN_RP_ENTITY_INFORMATION.Ptr, pRpInformation, WEBAUTHN_USER_ENTITY_INFORMATION.Ptr, pUserInformation, WEBAUTHN_COSE_CREDENTIAL_PARAMETERS.Ptr, pPubKeyCredParams, WEBAUTHN_CLIENT_DATA.Ptr, pWebAuthNClientData, pWebAuthNMakeCredentialOptionsMarshal, pWebAuthNMakeCredentialOptions, "ptr*", &ppWebAuthNCredentialAttestation := 0, "HRESULT")
     return ppWebAuthNCredentialAttestation
 }
 
@@ -76,7 +88,9 @@ export WebAuthNAuthenticatorMakeCredential(_hWnd, pRpInformation, pUserInformati
 export WebAuthNAuthenticatorGetAssertion(_hWnd, pwszRpId, pWebAuthNClientData, pWebAuthNGetAssertionOptions) {
     pwszRpId := pwszRpId is String ? StrPtr(pwszRpId) : pwszRpId
 
-    result := DllCall("webauthn.dll\WebAuthNAuthenticatorGetAssertion", HWND, _hWnd, "ptr", pwszRpId, WEBAUTHN_CLIENT_DATA.Ptr, pWebAuthNClientData, WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS.Ptr, pWebAuthNGetAssertionOptions, "ptr*", &ppWebAuthNAssertion := 0, "HRESULT")
+    pWebAuthNGetAssertionOptionsMarshal := pWebAuthNGetAssertionOptions == 0 ? IntPtr : WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS.Ptr
+
+    result := DllCall("webauthn.dll\WebAuthNAuthenticatorGetAssertion", HWND, _hWnd, "ptr", pwszRpId, WEBAUTHN_CLIENT_DATA.Ptr, pWebAuthNClientData, pWebAuthNGetAssertionOptionsMarshal, pWebAuthNGetAssertionOptions, "ptr*", &ppWebAuthNAssertion := 0, "HRESULT")
     return ppWebAuthNAssertion
 }
 
@@ -87,7 +101,9 @@ export WebAuthNAuthenticatorGetAssertion(_hWnd, pwszRpId, pWebAuthNClientData, p
  * @see https://learn.microsoft.com/windows/win32/api/webauthn/nf-webauthn-webauthnfreecredentialattestation
  */
 export WebAuthNFreeCredentialAttestation(pWebAuthNCredentialAttestation) {
-    DllCall("webauthn.dll\WebAuthNFreeCredentialAttestation", WEBAUTHN_CREDENTIAL_ATTESTATION.Ptr, pWebAuthNCredentialAttestation)
+    pWebAuthNCredentialAttestationMarshal := pWebAuthNCredentialAttestation == 0 ? IntPtr : WEBAUTHN_CREDENTIAL_ATTESTATION.Ptr
+
+    DllCall("webauthn.dll\WebAuthNFreeCredentialAttestation", pWebAuthNCredentialAttestationMarshal, pWebAuthNCredentialAttestation)
 }
 
 /**
@@ -158,17 +174,17 @@ export WebAuthNDeletePlatformCredential(cbCredentialId, pbCredentialId) {
 }
 
 /**
- * 
  * @param {Pointer<WEBAUTHN_AUTHENTICATOR_DETAILS_OPTIONS>} pWebAuthNGetAuthenticatorListOptions 
  * @returns {Pointer<WEBAUTHN_AUTHENTICATOR_DETAILS_LIST>} 
  */
 export WebAuthNGetAuthenticatorList(pWebAuthNGetAuthenticatorListOptions) {
-    result := DllCall("webauthn.dll\WebAuthNGetAuthenticatorList", WEBAUTHN_AUTHENTICATOR_DETAILS_OPTIONS.Ptr, pWebAuthNGetAuthenticatorListOptions, "ptr*", &ppAuthenticatorDetailsList := 0, "HRESULT")
+    pWebAuthNGetAuthenticatorListOptionsMarshal := pWebAuthNGetAuthenticatorListOptions == 0 ? IntPtr : WEBAUTHN_AUTHENTICATOR_DETAILS_OPTIONS.Ptr
+
+    result := DllCall("webauthn.dll\WebAuthNGetAuthenticatorList", pWebAuthNGetAuthenticatorListOptionsMarshal, pWebAuthNGetAuthenticatorListOptions, "ptr*", &ppAuthenticatorDetailsList := 0, "HRESULT")
     return ppAuthenticatorDetailsList
 }
 
 /**
- * 
  * @param {Pointer<WEBAUTHN_AUTHENTICATOR_DETAILS_LIST>} pAuthenticatorDetailsList 
  * @returns {String} Nothing - always returns an empty string
  */
@@ -206,6 +222,271 @@ export WebAuthNGetErrorName(hr) {
  */
 export WebAuthNGetW3CExceptionDOMError(hr) {
     result := DllCall("webauthn.dll\WebAuthNGetW3CExceptionDOMError", "int", hr, "HRESULT")
+    return result
+}
+
+/**
+ * @param {Pointer<Guid>} rclsid 
+ * @returns {AUTHENTICATOR_STATE} 
+ */
+export WebAuthNPluginGetAuthenticatorState(rclsid) {
+    result := DllCall("webauthn.dll\WebAuthNPluginGetAuthenticatorState", Guid.Ptr, rclsid, "int*", &pluginAuthenticatorState := 0, "HRESULT")
+    return pluginAuthenticatorState
+}
+
+/**
+ * @param {Pointer<WEBAUTHN_PLUGIN_ADD_AUTHENTICATOR_OPTIONS>} pPluginAddAuthenticatorOptions 
+ * @returns {Pointer<WEBAUTHN_PLUGIN_ADD_AUTHENTICATOR_RESPONSE>} 
+ */
+export WebAuthNPluginAddAuthenticator(pPluginAddAuthenticatorOptions) {
+    result := DllCall("webauthn.dll\WebAuthNPluginAddAuthenticator", WEBAUTHN_PLUGIN_ADD_AUTHENTICATOR_OPTIONS.Ptr, pPluginAddAuthenticatorOptions, "ptr*", &ppPluginAddAuthenticatorResponse := 0, "HRESULT")
+    return ppPluginAddAuthenticatorResponse
+}
+
+/**
+ * @param {Pointer<WEBAUTHN_PLUGIN_ADD_AUTHENTICATOR_RESPONSE>} pPluginAddAuthenticatorResponse 
+ * @returns {String} Nothing - always returns an empty string
+ */
+export WebAuthNPluginFreeAddAuthenticatorResponse(pPluginAddAuthenticatorResponse) {
+    pPluginAddAuthenticatorResponseMarshal := pPluginAddAuthenticatorResponse == 0 ? IntPtr : WEBAUTHN_PLUGIN_ADD_AUTHENTICATOR_RESPONSE.Ptr
+
+    DllCall("webauthn.dll\WebAuthNPluginFreeAddAuthenticatorResponse", pPluginAddAuthenticatorResponseMarshal, pPluginAddAuthenticatorResponse)
+}
+
+/**
+ * @param {Pointer<Guid>} rclsid 
+ * @returns {HRESULT} 
+ */
+export WebAuthNPluginRemoveAuthenticator(rclsid) {
+    result := DllCall("webauthn.dll\WebAuthNPluginRemoveAuthenticator", Guid.Ptr, rclsid, "HRESULT")
+    return result
+}
+
+/**
+ * @param {Pointer<WEBAUTHN_PLUGIN_UPDATE_AUTHENTICATOR_DETAILS>} pPluginUpdateAuthenticatorDetails 
+ * @returns {HRESULT} 
+ */
+export WebAuthNPluginUpdateAuthenticatorDetails(pPluginUpdateAuthenticatorDetails) {
+    result := DllCall("webauthn.dll\WebAuthNPluginUpdateAuthenticatorDetails", WEBAUTHN_PLUGIN_UPDATE_AUTHENTICATOR_DETAILS.Ptr, pPluginUpdateAuthenticatorDetails, "HRESULT")
+    return result
+}
+
+/**
+ * @param {Pointer<Guid>} rclsid 
+ * @param {Integer} cCredentialDetails 
+ * @param {Pointer<WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS>} pCredentialDetails 
+ * @returns {HRESULT} 
+ */
+export WebAuthNPluginAuthenticatorAddCredentials(rclsid, cCredentialDetails, pCredentialDetails) {
+    result := DllCall("webauthn.dll\WebAuthNPluginAuthenticatorAddCredentials", Guid.Ptr, rclsid, UInt32, cCredentialDetails, WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS.Ptr, pCredentialDetails, "HRESULT")
+    return result
+}
+
+/**
+ * @param {Pointer<Guid>} rclsid 
+ * @param {Integer} cCredentialDetails 
+ * @param {Pointer<WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS>} pCredentialDetails 
+ * @returns {HRESULT} 
+ */
+export WebAuthNPluginAuthenticatorRemoveCredentials(rclsid, cCredentialDetails, pCredentialDetails) {
+    result := DllCall("webauthn.dll\WebAuthNPluginAuthenticatorRemoveCredentials", Guid.Ptr, rclsid, UInt32, cCredentialDetails, WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS.Ptr, pCredentialDetails, "HRESULT")
+    return result
+}
+
+/**
+ * @param {Pointer<Guid>} rclsid 
+ * @returns {HRESULT} 
+ */
+export WebAuthNPluginAuthenticatorRemoveAllCredentials(rclsid) {
+    result := DllCall("webauthn.dll\WebAuthNPluginAuthenticatorRemoveAllCredentials", Guid.Ptr, rclsid, "HRESULT")
+    return result
+}
+
+/**
+ * @param {Pointer<Guid>} rclsid 
+ * @param {Pointer<Integer>} pcCredentialDetails 
+ * @param {Pointer<Pointer<WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS>>} ppCredentialDetailsArray 
+ * @returns {HRESULT} 
+ */
+export WebAuthNPluginAuthenticatorGetAllCredentials(rclsid, pcCredentialDetails, ppCredentialDetailsArray) {
+    pcCredentialDetailsMarshal := pcCredentialDetails is VarRef ? "uint*" : IntPtr
+    ppCredentialDetailsArrayMarshal := ppCredentialDetailsArray is VarRef ? "ptr*" : IntPtr
+
+    result := DllCall("webauthn.dll\WebAuthNPluginAuthenticatorGetAllCredentials", Guid.Ptr, rclsid, pcCredentialDetailsMarshal, pcCredentialDetails, ppCredentialDetailsArrayMarshal, ppCredentialDetailsArray, "HRESULT")
+    return result
+}
+
+/**
+ * @param {Integer} cCredentialDetails 
+ * @param {Pointer<WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS>} pCredentialDetailsArray 
+ * @returns {String} Nothing - always returns an empty string
+ */
+export WebAuthNPluginAuthenticatorFreeCredentialDetailsArray(cCredentialDetails, pCredentialDetailsArray) {
+    DllCall("webauthn.dll\WebAuthNPluginAuthenticatorFreeCredentialDetailsArray", UInt32, cCredentialDetails, WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS.Ptr, pCredentialDetailsArray)
+}
+
+/**
+ * @param {Pointer<WEBAUTHN_PLUGIN_USER_VERIFICATION_REQUEST>} pPluginUserVerification 
+ * @param {Pointer<Integer>} pcbResponse 
+ * @param {Pointer<Pointer<Integer>>} ppbResponse 
+ * @returns {HRESULT} 
+ */
+export WebAuthNPluginPerformUserVerification(pPluginUserVerification, pcbResponse, ppbResponse) {
+    pcbResponseMarshal := pcbResponse is VarRef ? "uint*" : IntPtr
+    ppbResponseMarshal := ppbResponse is VarRef ? "ptr*" : IntPtr
+
+    result := DllCall("webauthn.dll\WebAuthNPluginPerformUserVerification", WEBAUTHN_PLUGIN_USER_VERIFICATION_REQUEST.Ptr, pPluginUserVerification, pcbResponseMarshal, pcbResponse, ppbResponseMarshal, ppbResponse, "HRESULT")
+    return result
+}
+
+/**
+ * @param {Pointer<Integer>} ppbResponse 
+ * @returns {String} Nothing - always returns an empty string
+ */
+export WebAuthNPluginFreeUserVerificationResponse(ppbResponse) {
+    ppbResponseMarshal := ppbResponse is VarRef ? "char*" : IntPtr
+    ppbResponseMarshal := ppbResponse == 0 ? IntPtr : "char*"
+
+    DllCall("webauthn.dll\WebAuthNPluginFreeUserVerificationResponse", ppbResponseMarshal, ppbResponse)
+}
+
+/**
+ * @param {Pointer<Guid>} rclsid 
+ * @returns {Integer} 
+ */
+export WebAuthNPluginGetUserVerificationCount(rclsid) {
+    result := DllCall("webauthn.dll\WebAuthNPluginGetUserVerificationCount", Guid.Ptr, rclsid, "uint*", &pdwVerificationCount := 0, "HRESULT")
+    return pdwVerificationCount
+}
+
+/**
+ * @param {Pointer<Guid>} rclsid 
+ * @param {Pointer<Integer>} pcbPublicKey 
+ * @param {Pointer<Pointer<Integer>>} ppbPublicKey 
+ * @returns {HRESULT} 
+ */
+export WebAuthNPluginGetUserVerificationPublicKey(rclsid, pcbPublicKey, ppbPublicKey) {
+    pcbPublicKeyMarshal := pcbPublicKey is VarRef ? "uint*" : IntPtr
+    ppbPublicKeyMarshal := ppbPublicKey is VarRef ? "ptr*" : IntPtr
+
+    result := DllCall("webauthn.dll\WebAuthNPluginGetUserVerificationPublicKey", Guid.Ptr, rclsid, pcbPublicKeyMarshal, pcbPublicKey, ppbPublicKeyMarshal, ppbPublicKey, "HRESULT")
+    return result
+}
+
+/**
+ * @param {Pointer<Guid>} rclsid 
+ * @param {Pointer<Integer>} pcbOpSignPubKey 
+ * @param {Pointer<Pointer<Integer>>} ppbOpSignPubKey 
+ * @returns {HRESULT} 
+ */
+export WebAuthNPluginGetOperationSigningPublicKey(rclsid, pcbOpSignPubKey, ppbOpSignPubKey) {
+    pcbOpSignPubKeyMarshal := pcbOpSignPubKey is VarRef ? "uint*" : IntPtr
+    ppbOpSignPubKeyMarshal := ppbOpSignPubKey is VarRef ? "ptr*" : IntPtr
+
+    result := DllCall("webauthn.dll\WebAuthNPluginGetOperationSigningPublicKey", Guid.Ptr, rclsid, pcbOpSignPubKeyMarshal, pcbOpSignPubKey, ppbOpSignPubKeyMarshal, ppbOpSignPubKey, "HRESULT")
+    return result
+}
+
+/**
+ * @param {Pointer<Integer>} pbOpSignPubKey 
+ * @returns {String} Nothing - always returns an empty string
+ */
+export WebAuthNPluginFreePublicKeyResponse(pbOpSignPubKey) {
+    pbOpSignPubKeyMarshal := pbOpSignPubKey is VarRef ? "char*" : IntPtr
+    pbOpSignPubKeyMarshal := pbOpSignPubKey == 0 ? IntPtr : "char*"
+
+    DllCall("webauthn.dll\WebAuthNPluginFreePublicKeyResponse", pbOpSignPubKeyMarshal, pbOpSignPubKey)
+}
+
+/**
+ * @param {Pointer<WEBAUTHN_CREDENTIAL_ATTESTATION>} pCredentialAttestation 
+ * @param {Pointer<Integer>} pcbResp 
+ * @param {Pointer<Pointer<Integer>>} ppbResp 
+ * @returns {HRESULT} 
+ */
+export WebAuthNEncodeMakeCredentialResponse(pCredentialAttestation, pcbResp, ppbResp) {
+    pcbRespMarshal := pcbResp is VarRef ? "uint*" : IntPtr
+    ppbRespMarshal := ppbResp is VarRef ? "ptr*" : IntPtr
+
+    result := DllCall("webauthn.dll\WebAuthNEncodeMakeCredentialResponse", WEBAUTHN_CREDENTIAL_ATTESTATION.Ptr, pCredentialAttestation, pcbRespMarshal, pcbResp, ppbRespMarshal, ppbResp, "HRESULT")
+    return result
+}
+
+/**
+ * @param {Integer} cbEncoded 
+ * @param {Integer} pbEncoded 
+ * @returns {Pointer<WEBAUTHN_CTAPCBOR_MAKE_CREDENTIAL_REQUEST>} 
+ */
+export WebAuthNDecodeMakeCredentialRequest(cbEncoded, pbEncoded) {
+    result := DllCall("webauthn.dll\WebAuthNDecodeMakeCredentialRequest", UInt32, cbEncoded, IntPtr, pbEncoded, "ptr*", &ppMakeCredentialRequest := 0, "HRESULT")
+    return ppMakeCredentialRequest
+}
+
+/**
+ * @param {Pointer<WEBAUTHN_CTAPCBOR_MAKE_CREDENTIAL_REQUEST>} pMakeCredentialRequest 
+ * @returns {String} Nothing - always returns an empty string
+ */
+export WebAuthNFreeDecodedMakeCredentialRequest(pMakeCredentialRequest) {
+    pMakeCredentialRequestMarshal := pMakeCredentialRequest == 0 ? IntPtr : WEBAUTHN_CTAPCBOR_MAKE_CREDENTIAL_REQUEST.Ptr
+
+    DllCall("webauthn.dll\WebAuthNFreeDecodedMakeCredentialRequest", pMakeCredentialRequestMarshal, pMakeCredentialRequest)
+}
+
+/**
+ * @param {Integer} cbEncoded 
+ * @param {Integer} pbEncoded 
+ * @returns {Pointer<WEBAUTHN_CTAPCBOR_GET_ASSERTION_REQUEST>} 
+ */
+export WebAuthNDecodeGetAssertionRequest(cbEncoded, pbEncoded) {
+    result := DllCall("webauthn.dll\WebAuthNDecodeGetAssertionRequest", UInt32, cbEncoded, IntPtr, pbEncoded, "ptr*", &ppGetAssertionRequest := 0, "HRESULT")
+    return ppGetAssertionRequest
+}
+
+/**
+ * @param {Pointer<WEBAUTHN_CTAPCBOR_GET_ASSERTION_REQUEST>} pGetAssertionRequest 
+ * @returns {String} Nothing - always returns an empty string
+ */
+export WebAuthNFreeDecodedGetAssertionRequest(pGetAssertionRequest) {
+    pGetAssertionRequestMarshal := pGetAssertionRequest == 0 ? IntPtr : WEBAUTHN_CTAPCBOR_GET_ASSERTION_REQUEST.Ptr
+
+    DllCall("webauthn.dll\WebAuthNFreeDecodedGetAssertionRequest", pGetAssertionRequestMarshal, pGetAssertionRequest)
+}
+
+/**
+ * @param {Pointer<WEBAUTHN_CTAPCBOR_GET_ASSERTION_RESPONSE>} pGetAssertionResponse 
+ * @param {Pointer<Integer>} pcbResp 
+ * @param {Pointer<Pointer<Integer>>} ppbResp 
+ * @returns {HRESULT} 
+ */
+export WebAuthNEncodeGetAssertionResponse(pGetAssertionResponse, pcbResp, ppbResp) {
+    pcbRespMarshal := pcbResp is VarRef ? "uint*" : IntPtr
+    ppbRespMarshal := ppbResp is VarRef ? "ptr*" : IntPtr
+
+    result := DllCall("webauthn.dll\WebAuthNEncodeGetAssertionResponse", WEBAUTHN_CTAPCBOR_GET_ASSERTION_RESPONSE.Ptr, pGetAssertionResponse, pcbRespMarshal, pcbResp, ppbRespMarshal, ppbResp, "HRESULT")
+    return result
+}
+
+/**
+ * @param {Pointer<WEBAUTHN_PLUGIN_STATUS_CHANGE_CALLBACK>} callback 
+ * @param {Pointer<Void>} _context 
+ * @param {Pointer<Guid>} rclsid 
+ * @returns {Integer} 
+ */
+export WebAuthNPluginRegisterStatusChangeCallback(callback, _context, rclsid) {
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+
+    result := DllCall("webauthn.dll\WebAuthNPluginRegisterStatusChangeCallback", WEBAUTHN_PLUGIN_STATUS_CHANGE_CALLBACK, callback, _contextMarshal, _context, Guid.Ptr, rclsid, "uint*", &pdwRegister := 0, "HRESULT")
+    return pdwRegister
+}
+
+/**
+ * @param {Pointer<Integer>} pdwRegister 
+ * @returns {HRESULT} 
+ */
+export WebAuthNPluginUnregisterStatusChangeCallback(pdwRegister) {
+    pdwRegisterMarshal := pdwRegister is VarRef ? "uint*" : IntPtr
+
+    result := DllCall("webauthn.dll\WebAuthNPluginUnregisterStatusChangeCallback", pdwRegisterMarshal, pdwRegister, "HRESULT")
     return result
 }
 

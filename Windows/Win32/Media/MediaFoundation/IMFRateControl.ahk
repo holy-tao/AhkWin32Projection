@@ -188,8 +188,8 @@ export default struct IMFRateControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfratecontrol-getrate
      */
     GetRate(pfThin, pflRate) {
-        pfThinMarshal := pfThin is VarRef ? "int*" : "ptr"
-        pflRateMarshal := pflRate is VarRef ? "float*" : "ptr"
+        pfThinMarshal := pfThin is VarRef ? "int*" : IntPtr
+        pflRateMarshal := pflRate is VarRef ? "float*" : IntPtr
 
         result := ComCall(4, this, pfThinMarshal, pfThin, pflRateMarshal, pflRate, "HRESULT")
         return result
@@ -204,8 +204,8 @@ export default struct IMFRateControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetRate := CallbackCreate(GetMethod(implObj, "SetRate"), flags, 3)
-        this.vtbl.GetRate := CallbackCreate(GetMethod(implObj, "GetRate"), flags, 3)
+        this.vtbl.SetRate := CallbackCreate(ObjBindMethod(implObj, "SetRate"), flags, 3)
+        this.vtbl.GetRate := CallbackCreate(ObjBindMethod(implObj, "GetRate"), flags, 3)
     }
 
     Dispose() {

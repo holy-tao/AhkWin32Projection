@@ -18,12 +18,11 @@ export default struct RPC_ADDRESS_CHANGE_FN {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} arg 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(arg) {
-        argMarshal := arg is VarRef ? "ptr" : "ptr"
+        argMarshal := arg is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, argMarshal, arg)
     }

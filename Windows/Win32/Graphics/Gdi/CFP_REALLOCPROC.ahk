@@ -22,13 +22,12 @@ export default struct CFP_REALLOCPROC {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} param0 Pointer to previously allocated memory block.
      * @param {Pointer} param1 New size in bytes.
      * @returns {Pointer<Void>} Returns a void pointer to the reallocated (and possibly moved) memory block. The return value should be <b>NULL</b> if the size is zero and the <i>memblock</i> argument is not <b>NULL</b>, or if there is not enough available memory to expand the block to the given size. In the first case, the original block should be freed. In the second, the original block should be unchanged.
      */
     Call(param0, param1) {
-        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+        param0Marshal := param0 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, param0Marshal, param0, IntPtr, param1, IntPtr)
         return result

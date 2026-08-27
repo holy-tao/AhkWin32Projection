@@ -19,7 +19,6 @@ export default struct LPTOP_LEVEL_EXCEPTION_FILTER {
     }
 
     /**
-     * 
      * @param {Pointer<EXCEPTION_POINTERS>} ExceptionInfo 
      * @returns {Integer} 
      */

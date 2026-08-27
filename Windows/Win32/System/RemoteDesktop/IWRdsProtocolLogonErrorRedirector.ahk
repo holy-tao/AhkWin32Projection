@@ -110,10 +110,10 @@ export default struct IWRdsProtocolLogonErrorRedirector extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnBeginPainting := CallbackCreate(GetMethod(implObj, "OnBeginPainting"), flags, 1)
-        this.vtbl.RedirectStatus := CallbackCreate(GetMethod(implObj, "RedirectStatus"), flags, 3)
-        this.vtbl.RedirectMessage := CallbackCreate(GetMethod(implObj, "RedirectMessage"), flags, 5)
-        this.vtbl.RedirectLogonError := CallbackCreate(GetMethod(implObj, "RedirectLogonError"), flags, 7)
+        this.vtbl.OnBeginPainting := CallbackCreate(ObjBindMethod(implObj, "OnBeginPainting"), flags, 1)
+        this.vtbl.RedirectStatus := CallbackCreate(ObjBindMethod(implObj, "RedirectStatus"), flags, 3)
+        this.vtbl.RedirectMessage := CallbackCreate(ObjBindMethod(implObj, "RedirectMessage"), flags, 5)
+        this.vtbl.RedirectLogonError := CallbackCreate(ObjBindMethod(implObj, "RedirectLogonError"), flags, 7)
     }
 
     Dispose() {

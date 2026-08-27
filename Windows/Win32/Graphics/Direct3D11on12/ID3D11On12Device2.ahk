@@ -98,7 +98,7 @@ export default struct ID3D11On12Device2 extends ID3D11On12Device1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11on12/nf-d3d11on12-id3d11on12device2-returnunderlyingresource
      */
     ReturnUnderlyingResource(pResource11, NumSync, pSignalValues, ppFences) {
-        pSignalValuesMarshal := pSignalValues is VarRef ? "uint*" : "ptr"
+        pSignalValuesMarshal := pSignalValues is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, "ptr", pResource11, UInt32, NumSync, pSignalValuesMarshal, pSignalValues, ID3D12Fence.Ptr, ppFences, "HRESULT")
         return result
@@ -113,8 +113,8 @@ export default struct ID3D11On12Device2 extends ID3D11On12Device1 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.UnwrapUnderlyingResource := CallbackCreate(GetMethod(implObj, "UnwrapUnderlyingResource"), flags, 5)
-        this.vtbl.ReturnUnderlyingResource := CallbackCreate(GetMethod(implObj, "ReturnUnderlyingResource"), flags, 5)
+        this.vtbl.UnwrapUnderlyingResource := CallbackCreate(ObjBindMethod(implObj, "UnwrapUnderlyingResource"), flags, 5)
+        this.vtbl.ReturnUnderlyingResource := CallbackCreate(ObjBindMethod(implObj, "ReturnUnderlyingResource"), flags, 5)
     }
 
     Dispose() {

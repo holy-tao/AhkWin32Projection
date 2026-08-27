@@ -38,7 +38,6 @@ export default struct IHostManualEvent extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwMilliseconds 
      * @param {Integer} option 
      * @returns {HRESULT} 
@@ -49,7 +48,6 @@ export default struct IHostManualEvent extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -58,7 +56,6 @@ export default struct IHostManualEvent extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Set() {
@@ -75,9 +72,9 @@ export default struct IHostManualEvent extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Wait := CallbackCreate(GetMethod(implObj, "Wait"), flags, 3)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.Set := CallbackCreate(GetMethod(implObj, "Set"), flags, 1)
+        this.vtbl.Wait := CallbackCreate(ObjBindMethod(implObj, "Wait"), flags, 3)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Set := CallbackCreate(ObjBindMethod(implObj, "Set"), flags, 1)
     }
 
     Dispose() {

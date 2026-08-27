@@ -20,13 +20,14 @@ export default struct DOT11EXT_SEND_NOTIFICATION {
     }
 
     /**
-     * 
      * @param {HANDLE} hDot11SvcHandle 
      * @param {Pointer<L2_NOTIFICATION_DATA>} pNotificationData 
      * @returns {Integer} 
      */
     Call(hDot11SvcHandle, pNotificationData) {
-        result := DllCall(this.value, HANDLE, hDot11SvcHandle, L2_NOTIFICATION_DATA.Ptr, pNotificationData, UInt32)
+        hDot11SvcHandleMarshal := hDot11SvcHandle == 0 ? IntPtr : HANDLE
+
+        result := DllCall(this.value, hDot11SvcHandleMarshal, hDot11SvcHandle, L2_NOTIFICATION_DATA.Ptr, pNotificationData, UInt32)
         return result
     }
 

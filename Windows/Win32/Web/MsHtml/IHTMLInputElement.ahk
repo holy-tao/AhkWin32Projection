@@ -372,7 +372,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -384,7 +383,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -394,7 +392,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -406,7 +403,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_value() {
@@ -416,7 +412,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -428,7 +423,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -438,7 +432,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -448,7 +441,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_status() {
@@ -457,7 +449,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -467,7 +458,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_disabled() {
@@ -476,7 +466,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLFormElement} 
      */
     get_form() {
@@ -485,7 +474,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -495,7 +483,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_size() {
@@ -504,7 +491,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -514,7 +500,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_maxLength() {
@@ -717,7 +702,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -727,7 +711,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onchange() {
@@ -737,7 +720,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -747,7 +729,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onselect() {
@@ -757,7 +738,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -769,7 +749,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_defaultValue() {
@@ -779,7 +758,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -789,7 +767,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_readOnly() {
@@ -798,7 +775,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLTxtRange} 
      */
     createTextRange() {
@@ -807,7 +783,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -817,7 +792,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_indeterminate() {
@@ -826,7 +800,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -836,7 +809,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_defaultChecked() {
@@ -845,7 +817,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -855,7 +826,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_checked() {
@@ -864,7 +834,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -874,7 +843,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_border() {
@@ -884,7 +852,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -894,7 +861,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_vspace() {
@@ -903,7 +869,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -913,7 +878,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_hspace() {
@@ -922,7 +886,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -934,7 +897,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_alt() {
@@ -944,7 +906,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -956,7 +917,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_src() {
@@ -966,7 +926,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -978,7 +937,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_lowsrc() {
@@ -988,7 +946,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1000,7 +957,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_vrml() {
@@ -1010,7 +966,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1022,7 +977,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_dynsrc() {
@@ -1032,7 +986,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_readyState() {
@@ -1042,7 +995,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_complete() {
@@ -1051,7 +1003,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1061,7 +1012,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_loop() {
@@ -1071,7 +1021,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1083,7 +1032,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_align() {
@@ -1093,7 +1041,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1103,7 +1050,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onload() {
@@ -1113,7 +1059,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1123,7 +1068,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onerror() {
@@ -1133,7 +1077,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1143,7 +1086,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onabort() {
@@ -1153,7 +1095,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -1163,7 +1104,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_width() {
@@ -1172,7 +1112,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -1182,7 +1121,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_height() {
@@ -1191,7 +1129,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1203,7 +1140,6 @@ export default struct IHTMLInputElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_start() {
@@ -1221,71 +1157,71 @@ export default struct IHTMLInputElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_type := CallbackCreate(GetMethod(implObj, "put_type"), flags, 2)
-        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
-        this.vtbl.put_value := CallbackCreate(GetMethod(implObj, "put_value"), flags, 2)
-        this.vtbl.get_value := CallbackCreate(GetMethod(implObj, "get_value"), flags, 2)
-        this.vtbl.put_name := CallbackCreate(GetMethod(implObj, "put_name"), flags, 2)
-        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
-        this.vtbl.put_status := CallbackCreate(GetMethod(implObj, "put_status"), flags, 2)
-        this.vtbl.get_status := CallbackCreate(GetMethod(implObj, "get_status"), flags, 2)
-        this.vtbl.put_disabled := CallbackCreate(GetMethod(implObj, "put_disabled"), flags, 2)
-        this.vtbl.get_disabled := CallbackCreate(GetMethod(implObj, "get_disabled"), flags, 2)
-        this.vtbl.get_form := CallbackCreate(GetMethod(implObj, "get_form"), flags, 2)
-        this.vtbl.put_size := CallbackCreate(GetMethod(implObj, "put_size"), flags, 2)
-        this.vtbl.get_size := CallbackCreate(GetMethod(implObj, "get_size"), flags, 2)
-        this.vtbl.put_maxLength := CallbackCreate(GetMethod(implObj, "put_maxLength"), flags, 2)
-        this.vtbl.get_maxLength := CallbackCreate(GetMethod(implObj, "get_maxLength"), flags, 2)
-        this.vtbl.select := CallbackCreate(GetMethod(implObj, "select"), flags, 1)
-        this.vtbl.put_onchange := CallbackCreate(GetMethod(implObj, "put_onchange"), flags, 2)
-        this.vtbl.get_onchange := CallbackCreate(GetMethod(implObj, "get_onchange"), flags, 2)
-        this.vtbl.put_onselect := CallbackCreate(GetMethod(implObj, "put_onselect"), flags, 2)
-        this.vtbl.get_onselect := CallbackCreate(GetMethod(implObj, "get_onselect"), flags, 2)
-        this.vtbl.put_defaultValue := CallbackCreate(GetMethod(implObj, "put_defaultValue"), flags, 2)
-        this.vtbl.get_defaultValue := CallbackCreate(GetMethod(implObj, "get_defaultValue"), flags, 2)
-        this.vtbl.put_readOnly := CallbackCreate(GetMethod(implObj, "put_readOnly"), flags, 2)
-        this.vtbl.get_readOnly := CallbackCreate(GetMethod(implObj, "get_readOnly"), flags, 2)
-        this.vtbl.createTextRange := CallbackCreate(GetMethod(implObj, "createTextRange"), flags, 2)
-        this.vtbl.put_indeterminate := CallbackCreate(GetMethod(implObj, "put_indeterminate"), flags, 2)
-        this.vtbl.get_indeterminate := CallbackCreate(GetMethod(implObj, "get_indeterminate"), flags, 2)
-        this.vtbl.put_defaultChecked := CallbackCreate(GetMethod(implObj, "put_defaultChecked"), flags, 2)
-        this.vtbl.get_defaultChecked := CallbackCreate(GetMethod(implObj, "get_defaultChecked"), flags, 2)
-        this.vtbl.put_checked := CallbackCreate(GetMethod(implObj, "put_checked"), flags, 2)
-        this.vtbl.get_checked := CallbackCreate(GetMethod(implObj, "get_checked"), flags, 2)
-        this.vtbl.put_border := CallbackCreate(GetMethod(implObj, "put_border"), flags, 2)
-        this.vtbl.get_border := CallbackCreate(GetMethod(implObj, "get_border"), flags, 2)
-        this.vtbl.put_vspace := CallbackCreate(GetMethod(implObj, "put_vspace"), flags, 2)
-        this.vtbl.get_vspace := CallbackCreate(GetMethod(implObj, "get_vspace"), flags, 2)
-        this.vtbl.put_hspace := CallbackCreate(GetMethod(implObj, "put_hspace"), flags, 2)
-        this.vtbl.get_hspace := CallbackCreate(GetMethod(implObj, "get_hspace"), flags, 2)
-        this.vtbl.put_alt := CallbackCreate(GetMethod(implObj, "put_alt"), flags, 2)
-        this.vtbl.get_alt := CallbackCreate(GetMethod(implObj, "get_alt"), flags, 2)
-        this.vtbl.put_src := CallbackCreate(GetMethod(implObj, "put_src"), flags, 2)
-        this.vtbl.get_src := CallbackCreate(GetMethod(implObj, "get_src"), flags, 2)
-        this.vtbl.put_lowsrc := CallbackCreate(GetMethod(implObj, "put_lowsrc"), flags, 2)
-        this.vtbl.get_lowsrc := CallbackCreate(GetMethod(implObj, "get_lowsrc"), flags, 2)
-        this.vtbl.put_vrml := CallbackCreate(GetMethod(implObj, "put_vrml"), flags, 2)
-        this.vtbl.get_vrml := CallbackCreate(GetMethod(implObj, "get_vrml"), flags, 2)
-        this.vtbl.put_dynsrc := CallbackCreate(GetMethod(implObj, "put_dynsrc"), flags, 2)
-        this.vtbl.get_dynsrc := CallbackCreate(GetMethod(implObj, "get_dynsrc"), flags, 2)
-        this.vtbl.get_readyState := CallbackCreate(GetMethod(implObj, "get_readyState"), flags, 2)
-        this.vtbl.get_complete := CallbackCreate(GetMethod(implObj, "get_complete"), flags, 2)
-        this.vtbl.put_loop := CallbackCreate(GetMethod(implObj, "put_loop"), flags, 2)
-        this.vtbl.get_loop := CallbackCreate(GetMethod(implObj, "get_loop"), flags, 2)
-        this.vtbl.put_align := CallbackCreate(GetMethod(implObj, "put_align"), flags, 2)
-        this.vtbl.get_align := CallbackCreate(GetMethod(implObj, "get_align"), flags, 2)
-        this.vtbl.put_onload := CallbackCreate(GetMethod(implObj, "put_onload"), flags, 2)
-        this.vtbl.get_onload := CallbackCreate(GetMethod(implObj, "get_onload"), flags, 2)
-        this.vtbl.put_onerror := CallbackCreate(GetMethod(implObj, "put_onerror"), flags, 2)
-        this.vtbl.get_onerror := CallbackCreate(GetMethod(implObj, "get_onerror"), flags, 2)
-        this.vtbl.put_onabort := CallbackCreate(GetMethod(implObj, "put_onabort"), flags, 2)
-        this.vtbl.get_onabort := CallbackCreate(GetMethod(implObj, "get_onabort"), flags, 2)
-        this.vtbl.put_width := CallbackCreate(GetMethod(implObj, "put_width"), flags, 2)
-        this.vtbl.get_width := CallbackCreate(GetMethod(implObj, "get_width"), flags, 2)
-        this.vtbl.put_height := CallbackCreate(GetMethod(implObj, "put_height"), flags, 2)
-        this.vtbl.get_height := CallbackCreate(GetMethod(implObj, "get_height"), flags, 2)
-        this.vtbl.put_start := CallbackCreate(GetMethod(implObj, "put_start"), flags, 2)
-        this.vtbl.get_start := CallbackCreate(GetMethod(implObj, "get_start"), flags, 2)
+        this.vtbl.put_type := CallbackCreate(ObjBindMethod(implObj, "put_type"), flags, 2)
+        this.vtbl.get_type := CallbackCreate(ObjBindMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.put_value := CallbackCreate(ObjBindMethod(implObj, "put_value"), flags, 2)
+        this.vtbl.get_value := CallbackCreate(ObjBindMethod(implObj, "get_value"), flags, 2)
+        this.vtbl.put_name := CallbackCreate(ObjBindMethod(implObj, "put_name"), flags, 2)
+        this.vtbl.get_name := CallbackCreate(ObjBindMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.put_status := CallbackCreate(ObjBindMethod(implObj, "put_status"), flags, 2)
+        this.vtbl.get_status := CallbackCreate(ObjBindMethod(implObj, "get_status"), flags, 2)
+        this.vtbl.put_disabled := CallbackCreate(ObjBindMethod(implObj, "put_disabled"), flags, 2)
+        this.vtbl.get_disabled := CallbackCreate(ObjBindMethod(implObj, "get_disabled"), flags, 2)
+        this.vtbl.get_form := CallbackCreate(ObjBindMethod(implObj, "get_form"), flags, 2)
+        this.vtbl.put_size := CallbackCreate(ObjBindMethod(implObj, "put_size"), flags, 2)
+        this.vtbl.get_size := CallbackCreate(ObjBindMethod(implObj, "get_size"), flags, 2)
+        this.vtbl.put_maxLength := CallbackCreate(ObjBindMethod(implObj, "put_maxLength"), flags, 2)
+        this.vtbl.get_maxLength := CallbackCreate(ObjBindMethod(implObj, "get_maxLength"), flags, 2)
+        this.vtbl.select := CallbackCreate(ObjBindMethod(implObj, "select"), flags, 1)
+        this.vtbl.put_onchange := CallbackCreate(ObjBindMethod(implObj, "put_onchange"), flags, 2)
+        this.vtbl.get_onchange := CallbackCreate(ObjBindMethod(implObj, "get_onchange"), flags, 2)
+        this.vtbl.put_onselect := CallbackCreate(ObjBindMethod(implObj, "put_onselect"), flags, 2)
+        this.vtbl.get_onselect := CallbackCreate(ObjBindMethod(implObj, "get_onselect"), flags, 2)
+        this.vtbl.put_defaultValue := CallbackCreate(ObjBindMethod(implObj, "put_defaultValue"), flags, 2)
+        this.vtbl.get_defaultValue := CallbackCreate(ObjBindMethod(implObj, "get_defaultValue"), flags, 2)
+        this.vtbl.put_readOnly := CallbackCreate(ObjBindMethod(implObj, "put_readOnly"), flags, 2)
+        this.vtbl.get_readOnly := CallbackCreate(ObjBindMethod(implObj, "get_readOnly"), flags, 2)
+        this.vtbl.createTextRange := CallbackCreate(ObjBindMethod(implObj, "createTextRange"), flags, 2)
+        this.vtbl.put_indeterminate := CallbackCreate(ObjBindMethod(implObj, "put_indeterminate"), flags, 2)
+        this.vtbl.get_indeterminate := CallbackCreate(ObjBindMethod(implObj, "get_indeterminate"), flags, 2)
+        this.vtbl.put_defaultChecked := CallbackCreate(ObjBindMethod(implObj, "put_defaultChecked"), flags, 2)
+        this.vtbl.get_defaultChecked := CallbackCreate(ObjBindMethod(implObj, "get_defaultChecked"), flags, 2)
+        this.vtbl.put_checked := CallbackCreate(ObjBindMethod(implObj, "put_checked"), flags, 2)
+        this.vtbl.get_checked := CallbackCreate(ObjBindMethod(implObj, "get_checked"), flags, 2)
+        this.vtbl.put_border := CallbackCreate(ObjBindMethod(implObj, "put_border"), flags, 2)
+        this.vtbl.get_border := CallbackCreate(ObjBindMethod(implObj, "get_border"), flags, 2)
+        this.vtbl.put_vspace := CallbackCreate(ObjBindMethod(implObj, "put_vspace"), flags, 2)
+        this.vtbl.get_vspace := CallbackCreate(ObjBindMethod(implObj, "get_vspace"), flags, 2)
+        this.vtbl.put_hspace := CallbackCreate(ObjBindMethod(implObj, "put_hspace"), flags, 2)
+        this.vtbl.get_hspace := CallbackCreate(ObjBindMethod(implObj, "get_hspace"), flags, 2)
+        this.vtbl.put_alt := CallbackCreate(ObjBindMethod(implObj, "put_alt"), flags, 2)
+        this.vtbl.get_alt := CallbackCreate(ObjBindMethod(implObj, "get_alt"), flags, 2)
+        this.vtbl.put_src := CallbackCreate(ObjBindMethod(implObj, "put_src"), flags, 2)
+        this.vtbl.get_src := CallbackCreate(ObjBindMethod(implObj, "get_src"), flags, 2)
+        this.vtbl.put_lowsrc := CallbackCreate(ObjBindMethod(implObj, "put_lowsrc"), flags, 2)
+        this.vtbl.get_lowsrc := CallbackCreate(ObjBindMethod(implObj, "get_lowsrc"), flags, 2)
+        this.vtbl.put_vrml := CallbackCreate(ObjBindMethod(implObj, "put_vrml"), flags, 2)
+        this.vtbl.get_vrml := CallbackCreate(ObjBindMethod(implObj, "get_vrml"), flags, 2)
+        this.vtbl.put_dynsrc := CallbackCreate(ObjBindMethod(implObj, "put_dynsrc"), flags, 2)
+        this.vtbl.get_dynsrc := CallbackCreate(ObjBindMethod(implObj, "get_dynsrc"), flags, 2)
+        this.vtbl.get_readyState := CallbackCreate(ObjBindMethod(implObj, "get_readyState"), flags, 2)
+        this.vtbl.get_complete := CallbackCreate(ObjBindMethod(implObj, "get_complete"), flags, 2)
+        this.vtbl.put_loop := CallbackCreate(ObjBindMethod(implObj, "put_loop"), flags, 2)
+        this.vtbl.get_loop := CallbackCreate(ObjBindMethod(implObj, "get_loop"), flags, 2)
+        this.vtbl.put_align := CallbackCreate(ObjBindMethod(implObj, "put_align"), flags, 2)
+        this.vtbl.get_align := CallbackCreate(ObjBindMethod(implObj, "get_align"), flags, 2)
+        this.vtbl.put_onload := CallbackCreate(ObjBindMethod(implObj, "put_onload"), flags, 2)
+        this.vtbl.get_onload := CallbackCreate(ObjBindMethod(implObj, "get_onload"), flags, 2)
+        this.vtbl.put_onerror := CallbackCreate(ObjBindMethod(implObj, "put_onerror"), flags, 2)
+        this.vtbl.get_onerror := CallbackCreate(ObjBindMethod(implObj, "get_onerror"), flags, 2)
+        this.vtbl.put_onabort := CallbackCreate(ObjBindMethod(implObj, "put_onabort"), flags, 2)
+        this.vtbl.get_onabort := CallbackCreate(ObjBindMethod(implObj, "get_onabort"), flags, 2)
+        this.vtbl.put_width := CallbackCreate(ObjBindMethod(implObj, "put_width"), flags, 2)
+        this.vtbl.get_width := CallbackCreate(ObjBindMethod(implObj, "get_width"), flags, 2)
+        this.vtbl.put_height := CallbackCreate(ObjBindMethod(implObj, "put_height"), flags, 2)
+        this.vtbl.get_height := CallbackCreate(ObjBindMethod(implObj, "get_height"), flags, 2)
+        this.vtbl.put_start := CallbackCreate(ObjBindMethod(implObj, "put_start"), flags, 2)
+        this.vtbl.get_start := CallbackCreate(ObjBindMethod(implObj, "get_start"), flags, 2)
     }
 
     Dispose() {

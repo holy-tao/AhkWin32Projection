@@ -18,7 +18,6 @@ export default struct PARM_WPR_WATCHDOG_FOR_CURRENT_RESOURCE_CALL_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer} ResourceHandle 
      * @param {Integer} TimeoutInMs 
      * @returns {Integer} 

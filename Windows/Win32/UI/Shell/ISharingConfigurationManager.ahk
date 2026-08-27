@@ -236,13 +236,13 @@ export default struct ISharingConfigurationManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateShare := CallbackCreate(GetMethod(implObj, "CreateShare"), flags, 3)
-        this.vtbl.DeleteShare := CallbackCreate(GetMethod(implObj, "DeleteShare"), flags, 2)
-        this.vtbl.ShareExists := CallbackCreate(GetMethod(implObj, "ShareExists"), flags, 2)
-        this.vtbl.GetSharePermissions := CallbackCreate(GetMethod(implObj, "GetSharePermissions"), flags, 3)
-        this.vtbl.SharePrinters := CallbackCreate(GetMethod(implObj, "SharePrinters"), flags, 1)
-        this.vtbl.StopSharingPrinters := CallbackCreate(GetMethod(implObj, "StopSharingPrinters"), flags, 1)
-        this.vtbl.ArePrintersShared := CallbackCreate(GetMethod(implObj, "ArePrintersShared"), flags, 1)
+        this.vtbl.CreateShare := CallbackCreate(ObjBindMethod(implObj, "CreateShare"), flags, 3)
+        this.vtbl.DeleteShare := CallbackCreate(ObjBindMethod(implObj, "DeleteShare"), flags, 2)
+        this.vtbl.ShareExists := CallbackCreate(ObjBindMethod(implObj, "ShareExists"), flags, 2)
+        this.vtbl.GetSharePermissions := CallbackCreate(ObjBindMethod(implObj, "GetSharePermissions"), flags, 3)
+        this.vtbl.SharePrinters := CallbackCreate(ObjBindMethod(implObj, "SharePrinters"), flags, 1)
+        this.vtbl.StopSharingPrinters := CallbackCreate(ObjBindMethod(implObj, "StopSharingPrinters"), flags, 1)
+        this.vtbl.ArePrintersShared := CallbackCreate(ObjBindMethod(implObj, "ArePrintersShared"), flags, 1)
     }
 
     Dispose() {

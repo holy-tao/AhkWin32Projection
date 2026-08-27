@@ -18,14 +18,13 @@ export default struct PWINDBG_IOCTL_ROUTINE {
     }
 
     /**
-     * 
      * @param {Integer} IoctlType 
      * @param {Pointer<Void>} lpvData 
      * @param {Integer} cbSize 
      * @returns {Integer} 
      */
     Call(IoctlType, lpvData, cbSize) {
-        lpvDataMarshal := lpvData is VarRef ? "ptr" : "ptr"
+        lpvDataMarshal := lpvData is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, UInt16, IoctlType, lpvDataMarshal, lpvData, UInt32, cbSize, UInt32)
         return result

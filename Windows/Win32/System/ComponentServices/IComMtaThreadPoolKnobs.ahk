@@ -39,7 +39,6 @@ export default struct IComMtaThreadPoolKnobs extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwMaxThreads 
      * @returns {HRESULT} 
      */
@@ -49,7 +48,6 @@ export default struct IComMtaThreadPoolKnobs extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     MTAGetMaxThreadCount() {
@@ -58,7 +56,6 @@ export default struct IComMtaThreadPoolKnobs extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwThrottle 
      * @returns {HRESULT} 
      */
@@ -68,7 +65,6 @@ export default struct IComMtaThreadPoolKnobs extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     MTAGetThrottleValue() {
@@ -85,10 +81,10 @@ export default struct IComMtaThreadPoolKnobs extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.MTASetMaxThreadCount := CallbackCreate(GetMethod(implObj, "MTASetMaxThreadCount"), flags, 2)
-        this.vtbl.MTAGetMaxThreadCount := CallbackCreate(GetMethod(implObj, "MTAGetMaxThreadCount"), flags, 2)
-        this.vtbl.MTASetThrottleValue := CallbackCreate(GetMethod(implObj, "MTASetThrottleValue"), flags, 2)
-        this.vtbl.MTAGetThrottleValue := CallbackCreate(GetMethod(implObj, "MTAGetThrottleValue"), flags, 2)
+        this.vtbl.MTASetMaxThreadCount := CallbackCreate(ObjBindMethod(implObj, "MTASetMaxThreadCount"), flags, 2)
+        this.vtbl.MTAGetMaxThreadCount := CallbackCreate(ObjBindMethod(implObj, "MTAGetMaxThreadCount"), flags, 2)
+        this.vtbl.MTASetThrottleValue := CallbackCreate(ObjBindMethod(implObj, "MTASetThrottleValue"), flags, 2)
+        this.vtbl.MTAGetThrottleValue := CallbackCreate(ObjBindMethod(implObj, "MTAGetThrottleValue"), flags, 2)
     }
 
     Dispose() {

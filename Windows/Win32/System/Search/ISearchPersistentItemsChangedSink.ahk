@@ -108,9 +108,9 @@ export default struct ISearchPersistentItemsChangedSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StartedMonitoringScope := CallbackCreate(GetMethod(implObj, "StartedMonitoringScope"), flags, 2)
-        this.vtbl.StoppedMonitoringScope := CallbackCreate(GetMethod(implObj, "StoppedMonitoringScope"), flags, 2)
-        this.vtbl.OnItemsChanged := CallbackCreate(GetMethod(implObj, "OnItemsChanged"), flags, 4)
+        this.vtbl.StartedMonitoringScope := CallbackCreate(ObjBindMethod(implObj, "StartedMonitoringScope"), flags, 2)
+        this.vtbl.StoppedMonitoringScope := CallbackCreate(ObjBindMethod(implObj, "StoppedMonitoringScope"), flags, 2)
+        this.vtbl.OnItemsChanged := CallbackCreate(ObjBindMethod(implObj, "OnItemsChanged"), flags, 4)
     }
 
     Dispose() {

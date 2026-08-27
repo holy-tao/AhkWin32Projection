@@ -84,8 +84,8 @@ export default struct ISyncFilterInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncfilterinfo-serialize
      */
     Serialize(pbBuffer, pcbBuffer) {
-        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
-        pcbBufferMarshal := pcbBuffer is VarRef ? "uint*" : "ptr"
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : IntPtr
+        pcbBufferMarshal := pcbBuffer is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pbBufferMarshal, pbBuffer, pcbBufferMarshal, pcbBuffer, "HRESULT")
         return result
@@ -100,7 +100,7 @@ export default struct ISyncFilterInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Serialize := CallbackCreate(GetMethod(implObj, "Serialize"), flags, 3)
+        this.vtbl.Serialize := CallbackCreate(ObjBindMethod(implObj, "Serialize"), flags, 3)
     }
 
     Dispose() {

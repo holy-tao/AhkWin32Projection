@@ -20,7 +20,6 @@ export default struct PFN_HSE_GET_PROTOCOL_MANAGER_CUSTOM_INTERFACE_CALLBACK {
     }
 
     /**
-     * 
      * @param {PWSTR} pszProtocolManagerDll 
      * @param {PWSTR} pszProtocolManagerDllInitFunction 
      * @param {Integer} dwCustomInterfaceId 
@@ -31,7 +30,7 @@ export default struct PFN_HSE_GET_PROTOCOL_MANAGER_CUSTOM_INTERFACE_CALLBACK {
         pszProtocolManagerDll := pszProtocolManagerDll is String ? StrPtr(pszProtocolManagerDll) : pszProtocolManagerDll
         pszProtocolManagerDllInitFunction := pszProtocolManagerDllInitFunction is String ? StrPtr(pszProtocolManagerDllInitFunction) : pszProtocolManagerDllInitFunction
 
-        ppCustomInterfaceMarshal := ppCustomInterface is VarRef ? "ptr*" : "ptr"
+        ppCustomInterfaceMarshal := ppCustomInterface is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, "ptr", pszProtocolManagerDll, "ptr", pszProtocolManagerDllInitFunction, UInt32, dwCustomInterfaceId, ppCustomInterfaceMarshal, ppCustomInterface, "HRESULT")
         return result

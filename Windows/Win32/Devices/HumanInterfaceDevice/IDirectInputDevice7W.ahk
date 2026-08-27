@@ -41,7 +41,6 @@ export default struct IDirectInputDevice7W extends IDirectInputDevice2W {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @param {Pointer<LPDIENUMEFFECTSINFILECALLBACK>} param1 
      * @param {Pointer<Void>} param2 
@@ -51,14 +50,13 @@ export default struct IDirectInputDevice7W extends IDirectInputDevice2W {
     EnumEffectsInFile(param0, param1, param2, param3) {
         param0 := param0 is String ? StrPtr(param0) : param0
 
-        param2Marshal := param2 is VarRef ? "ptr" : "ptr"
+        param2Marshal := param2 is VarRef ? "ptr" : IntPtr
 
         result := ComCall(27, this, "ptr", param0, LPDIENUMEFFECTSINFILECALLBACK, param1, param2Marshal, param2, UInt32, param3, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @param {Integer} param1 
      * @param {Pointer<DIFILEEFFECT>} param2 
@@ -81,8 +79,8 @@ export default struct IDirectInputDevice7W extends IDirectInputDevice2W {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumEffectsInFile := CallbackCreate(GetMethod(implObj, "EnumEffectsInFile"), flags, 5)
-        this.vtbl.WriteEffectToFile := CallbackCreate(GetMethod(implObj, "WriteEffectToFile"), flags, 5)
+        this.vtbl.EnumEffectsInFile := CallbackCreate(ObjBindMethod(implObj, "EnumEffectsInFile"), flags, 5)
+        this.vtbl.WriteEffectToFile := CallbackCreate(ObjBindMethod(implObj, "WriteEffectToFile"), flags, 5)
     }
 
     Dispose() {

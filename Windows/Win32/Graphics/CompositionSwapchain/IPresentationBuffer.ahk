@@ -77,8 +77,8 @@ export default struct IPresentationBuffer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAvailableEvent := CallbackCreate(GetMethod(implObj, "GetAvailableEvent"), flags, 2)
-        this.vtbl.IsAvailable := CallbackCreate(GetMethod(implObj, "IsAvailable"), flags, 2)
+        this.vtbl.GetAvailableEvent := CallbackCreate(ObjBindMethod(implObj, "GetAvailableEvent"), flags, 2)
+        this.vtbl.IsAvailable := CallbackCreate(ObjBindMethod(implObj, "IsAvailable"), flags, 2)
     }
 
     Dispose() {

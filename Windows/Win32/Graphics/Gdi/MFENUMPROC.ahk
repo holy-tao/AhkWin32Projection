@@ -28,7 +28,6 @@ export default struct MFENUMPROC {
     }
 
     /**
-     * 
      * @param {HDC} _hdc 
      * @param {Pointer<HANDLETABLE>} lpht 
      * @param {Pointer<METARECORD>} lpMR 
@@ -37,7 +36,9 @@ export default struct MFENUMPROC {
      * @returns {Integer} This function must return a nonzero value to continue enumeration; to stop enumeration, it must return zero.
      */
     Call(_hdc, lpht, lpMR, nObj, param4) {
-        result := DllCall(this.value, HDC, _hdc, HANDLETABLE.Ptr, lpht, METARECORD.Ptr, lpMR, Int32, nObj, LPARAM, param4, Int32)
+        param4Marshal := param4 == 0 ? IntPtr : LPARAM
+
+        result := DllCall(this.value, HDC, _hdc, HANDLETABLE.Ptr, lpht, METARECORD.Ptr, lpMR, Int32, nObj, param4Marshal, param4, Int32)
         return result
     }
 

@@ -92,7 +92,6 @@ export default struct ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Id() {
@@ -102,7 +101,6 @@ export default struct ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechRecoContext} 
      */
     get_RecoContext() {
@@ -111,7 +109,6 @@ export default struct ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * 
      * @param {SpeechGrammarState} State 
      * @returns {HRESULT} 
      */
@@ -121,7 +118,6 @@ export default struct ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechGrammarState} 
      */
     get_State() {
@@ -130,7 +126,6 @@ export default struct ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechGrammarRules} 
      */
     get_Rules() {
@@ -139,7 +134,6 @@ export default struct ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} NewLanguage 
      * @returns {HRESULT} 
      */
@@ -149,7 +143,6 @@ export default struct ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} FileName 
      * @param {SpeechLoadOption} LoadOption 
      * @returns {HRESULT} 
@@ -162,7 +155,6 @@ export default struct ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} ClassId 
      * @param {BSTR} GrammarName 
      * @param {SpeechLoadOption} LoadOption 
@@ -177,7 +169,6 @@ export default struct ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} _hModule 
      * @param {VARIANT} ResourceName 
      * @param {VARIANT} _ResourceType 
@@ -191,7 +182,6 @@ export default struct ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} GrammarData 
      * @param {SpeechLoadOption} LoadOption 
      * @returns {HRESULT} 
@@ -202,7 +192,6 @@ export default struct ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} ProprietaryGuid 
      * @param {BSTR} ProprietaryString 
      * @param {VARIANT} ProprietaryData 
@@ -218,7 +207,6 @@ export default struct ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Name 
      * @param {SpeechRuleState} State 
      * @returns {HRESULT} 
@@ -231,7 +219,6 @@ export default struct ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} RuleId 
      * @param {SpeechRuleState} State 
      * @returns {HRESULT} 
@@ -242,7 +229,6 @@ export default struct ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} TopicName 
      * @param {SpeechLoadOption} LoadOption 
      * @returns {HRESULT} 
@@ -255,7 +241,6 @@ export default struct ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DictationUnload() {
@@ -264,7 +249,6 @@ export default struct ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * 
      * @param {SpeechRuleState} State 
      * @returns {HRESULT} 
      */
@@ -274,7 +258,6 @@ export default struct ISpeechRecoGrammar extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Text 
      * @param {Integer} TextLength 
      * @param {ISpeechTextSelectionInformation} Info 
@@ -283,22 +266,24 @@ export default struct ISpeechRecoGrammar extends IDispatch {
     SetWordSequenceData(Text, TextLength, Info) {
         Text := Text is String ? BSTR.Alloc(Text).Value : Text
 
-        result := ComCall(23, this, BSTR, Text, Int32, TextLength, "ptr", Info, "HRESULT")
+        InfoMarshal := Info == 0 ? IntPtr : "ptr"
+
+        result := ComCall(23, this, BSTR, Text, Int32, TextLength, InfoMarshal, Info, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {ISpeechTextSelectionInformation} Info 
      * @returns {HRESULT} 
      */
     SetTextSelection(Info) {
-        result := ComCall(24, this, "ptr", Info, "HRESULT")
+        InfoMarshal := Info == 0 ? IntPtr : "ptr"
+
+        result := ComCall(24, this, InfoMarshal, Info, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {BSTR} Word 
      * @returns {SpeechWordPronounceable} 
      */
@@ -318,25 +303,25 @@ export default struct ISpeechRecoGrammar extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
-        this.vtbl.get_RecoContext := CallbackCreate(GetMethod(implObj, "get_RecoContext"), flags, 2)
-        this.vtbl.put_State := CallbackCreate(GetMethod(implObj, "put_State"), flags, 2)
-        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
-        this.vtbl.get_Rules := CallbackCreate(GetMethod(implObj, "get_Rules"), flags, 2)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 2)
-        this.vtbl.CmdLoadFromFile := CallbackCreate(GetMethod(implObj, "CmdLoadFromFile"), flags, 3)
-        this.vtbl.CmdLoadFromObject := CallbackCreate(GetMethod(implObj, "CmdLoadFromObject"), flags, 4)
-        this.vtbl.CmdLoadFromResource := CallbackCreate(GetMethod(implObj, "CmdLoadFromResource"), flags, 6)
-        this.vtbl.CmdLoadFromMemory := CallbackCreate(GetMethod(implObj, "CmdLoadFromMemory"), flags, 3)
-        this.vtbl.CmdLoadFromProprietaryGrammar := CallbackCreate(GetMethod(implObj, "CmdLoadFromProprietaryGrammar"), flags, 5)
-        this.vtbl.CmdSetRuleState := CallbackCreate(GetMethod(implObj, "CmdSetRuleState"), flags, 3)
-        this.vtbl.CmdSetRuleIdState := CallbackCreate(GetMethod(implObj, "CmdSetRuleIdState"), flags, 3)
-        this.vtbl.DictationLoad := CallbackCreate(GetMethod(implObj, "DictationLoad"), flags, 3)
-        this.vtbl.DictationUnload := CallbackCreate(GetMethod(implObj, "DictationUnload"), flags, 1)
-        this.vtbl.DictationSetState := CallbackCreate(GetMethod(implObj, "DictationSetState"), flags, 2)
-        this.vtbl.SetWordSequenceData := CallbackCreate(GetMethod(implObj, "SetWordSequenceData"), flags, 4)
-        this.vtbl.SetTextSelection := CallbackCreate(GetMethod(implObj, "SetTextSelection"), flags, 2)
-        this.vtbl.IsPronounceable := CallbackCreate(GetMethod(implObj, "IsPronounceable"), flags, 3)
+        this.vtbl.get_Id := CallbackCreate(ObjBindMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.get_RecoContext := CallbackCreate(ObjBindMethod(implObj, "get_RecoContext"), flags, 2)
+        this.vtbl.put_State := CallbackCreate(ObjBindMethod(implObj, "put_State"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(ObjBindMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.get_Rules := CallbackCreate(ObjBindMethod(implObj, "get_Rules"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 2)
+        this.vtbl.CmdLoadFromFile := CallbackCreate(ObjBindMethod(implObj, "CmdLoadFromFile"), flags, 3)
+        this.vtbl.CmdLoadFromObject := CallbackCreate(ObjBindMethod(implObj, "CmdLoadFromObject"), flags, 4)
+        this.vtbl.CmdLoadFromResource := CallbackCreate(ObjBindMethod(implObj, "CmdLoadFromResource"), flags, 6)
+        this.vtbl.CmdLoadFromMemory := CallbackCreate(ObjBindMethod(implObj, "CmdLoadFromMemory"), flags, 3)
+        this.vtbl.CmdLoadFromProprietaryGrammar := CallbackCreate(ObjBindMethod(implObj, "CmdLoadFromProprietaryGrammar"), flags, 5)
+        this.vtbl.CmdSetRuleState := CallbackCreate(ObjBindMethod(implObj, "CmdSetRuleState"), flags, 3)
+        this.vtbl.CmdSetRuleIdState := CallbackCreate(ObjBindMethod(implObj, "CmdSetRuleIdState"), flags, 3)
+        this.vtbl.DictationLoad := CallbackCreate(ObjBindMethod(implObj, "DictationLoad"), flags, 3)
+        this.vtbl.DictationUnload := CallbackCreate(ObjBindMethod(implObj, "DictationUnload"), flags, 1)
+        this.vtbl.DictationSetState := CallbackCreate(ObjBindMethod(implObj, "DictationSetState"), flags, 2)
+        this.vtbl.SetWordSequenceData := CallbackCreate(ObjBindMethod(implObj, "SetWordSequenceData"), flags, 4)
+        this.vtbl.SetTextSelection := CallbackCreate(ObjBindMethod(implObj, "SetTextSelection"), flags, 2)
+        this.vtbl.IsPronounceable := CallbackCreate(ObjBindMethod(implObj, "IsPronounceable"), flags, 3)
     }
 
     Dispose() {

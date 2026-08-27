@@ -156,9 +156,9 @@ export default struct IMFSampleGrabberSinkCallback extends IMFClockStateSink {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnSetPresentationClock := CallbackCreate(GetMethod(implObj, "OnSetPresentationClock"), flags, 2)
-        this.vtbl.OnProcessSample := CallbackCreate(GetMethod(implObj, "OnProcessSample"), flags, 7)
-        this.vtbl.OnShutdown := CallbackCreate(GetMethod(implObj, "OnShutdown"), flags, 1)
+        this.vtbl.OnSetPresentationClock := CallbackCreate(ObjBindMethod(implObj, "OnSetPresentationClock"), flags, 2)
+        this.vtbl.OnProcessSample := CallbackCreate(ObjBindMethod(implObj, "OnProcessSample"), flags, 7)
+        this.vtbl.OnShutdown := CallbackCreate(ObjBindMethod(implObj, "OnShutdown"), flags, 1)
     }
 
     Dispose() {

@@ -21,7 +21,6 @@ export default struct DRIVER_DISPATCH {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<IRP>} _Irp 
      * @returns {NTSTATUS} 

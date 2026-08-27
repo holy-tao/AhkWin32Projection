@@ -175,7 +175,9 @@ export default struct IDiscMaster extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscmaster-setactivediscrecorder
      */
     SetActiveDiscRecorder(pRecorder) {
-        result := ComCall(9, this, "ptr", pRecorder, "HRESULT")
+        pRecorderMarshal := pRecorder == 0 ? IntPtr : "ptr"
+
+        result := ComCall(9, this, pRecorderMarshal, pRecorder, "HRESULT")
         return result
     }
 
@@ -208,7 +210,9 @@ export default struct IDiscMaster extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscmaster-progressadvise
      */
     ProgressAdvise(pEvents) {
-        result := ComCall(11, this, "ptr", pEvents, "ptr*", &pvCookie := 0, "HRESULT")
+        pEventsMarshal := pEvents == 0 ? IntPtr : "ptr"
+
+        result := ComCall(11, this, pEventsMarshal, pEvents, "ptr*", &pvCookie := 0, "HRESULT")
         return pvCookie
     }
 
@@ -274,18 +278,18 @@ export default struct IDiscMaster extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 1)
-        this.vtbl.EnumDiscMasterFormats := CallbackCreate(GetMethod(implObj, "EnumDiscMasterFormats"), flags, 2)
-        this.vtbl.GetActiveDiscMasterFormat := CallbackCreate(GetMethod(implObj, "GetActiveDiscMasterFormat"), flags, 2)
-        this.vtbl.SetActiveDiscMasterFormat := CallbackCreate(GetMethod(implObj, "SetActiveDiscMasterFormat"), flags, 3)
-        this.vtbl.EnumDiscRecorders := CallbackCreate(GetMethod(implObj, "EnumDiscRecorders"), flags, 2)
-        this.vtbl.GetActiveDiscRecorder := CallbackCreate(GetMethod(implObj, "GetActiveDiscRecorder"), flags, 2)
-        this.vtbl.SetActiveDiscRecorder := CallbackCreate(GetMethod(implObj, "SetActiveDiscRecorder"), flags, 2)
-        this.vtbl.ClearFormatContent := CallbackCreate(GetMethod(implObj, "ClearFormatContent"), flags, 1)
-        this.vtbl.ProgressAdvise := CallbackCreate(GetMethod(implObj, "ProgressAdvise"), flags, 3)
-        this.vtbl.ProgressUnadvise := CallbackCreate(GetMethod(implObj, "ProgressUnadvise"), flags, 2)
-        this.vtbl.RecordDisc := CallbackCreate(GetMethod(implObj, "RecordDisc"), flags, 3)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.Open := CallbackCreate(ObjBindMethod(implObj, "Open"), flags, 1)
+        this.vtbl.EnumDiscMasterFormats := CallbackCreate(ObjBindMethod(implObj, "EnumDiscMasterFormats"), flags, 2)
+        this.vtbl.GetActiveDiscMasterFormat := CallbackCreate(ObjBindMethod(implObj, "GetActiveDiscMasterFormat"), flags, 2)
+        this.vtbl.SetActiveDiscMasterFormat := CallbackCreate(ObjBindMethod(implObj, "SetActiveDiscMasterFormat"), flags, 3)
+        this.vtbl.EnumDiscRecorders := CallbackCreate(ObjBindMethod(implObj, "EnumDiscRecorders"), flags, 2)
+        this.vtbl.GetActiveDiscRecorder := CallbackCreate(ObjBindMethod(implObj, "GetActiveDiscRecorder"), flags, 2)
+        this.vtbl.SetActiveDiscRecorder := CallbackCreate(ObjBindMethod(implObj, "SetActiveDiscRecorder"), flags, 2)
+        this.vtbl.ClearFormatContent := CallbackCreate(ObjBindMethod(implObj, "ClearFormatContent"), flags, 1)
+        this.vtbl.ProgressAdvise := CallbackCreate(ObjBindMethod(implObj, "ProgressAdvise"), flags, 3)
+        this.vtbl.ProgressUnadvise := CallbackCreate(ObjBindMethod(implObj, "ProgressUnadvise"), flags, 2)
+        this.vtbl.RecordDisc := CallbackCreate(ObjBindMethod(implObj, "RecordDisc"), flags, 3)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
     }
 
     Dispose() {

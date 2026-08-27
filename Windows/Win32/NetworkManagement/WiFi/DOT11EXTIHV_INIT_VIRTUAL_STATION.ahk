@@ -19,7 +19,6 @@ export default struct DOT11EXTIHV_INIT_VIRTUAL_STATION {
     }
 
     /**
-     * 
      * @param {Pointer<DOT11EXT_VIRTUAL_STATION_APIS>} pDot11ExtVSAPI 
      * @returns {Integer} 
      */

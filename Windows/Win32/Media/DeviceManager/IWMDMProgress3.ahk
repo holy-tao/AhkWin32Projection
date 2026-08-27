@@ -118,7 +118,9 @@ export default struct IWMDMProgress3 extends IWMDMProgress2 {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmprogress3-begin3
      */
     Begin3(EventId, dwEstimatedTicks, pContext) {
-        result := ComCall(7, this, Guid, EventId, UInt32, dwEstimatedTicks, OPAQUECOMMAND.Ptr, pContext, "HRESULT")
+        pContextMarshal := pContext == 0 ? IntPtr : OPAQUECOMMAND.Ptr
+
+        result := ComCall(7, this, Guid, EventId, UInt32, dwEstimatedTicks, pContextMarshal, pContext, "HRESULT")
         return result
     }
 
@@ -202,7 +204,9 @@ export default struct IWMDMProgress3 extends IWMDMProgress2 {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmprogress3-progress3
      */
     Progress3(EventId, dwTranspiredTicks, pContext) {
-        result := ComCall(8, this, Guid, EventId, UInt32, dwTranspiredTicks, OPAQUECOMMAND.Ptr, pContext, "HRESULT")
+        pContextMarshal := pContext == 0 ? IntPtr : OPAQUECOMMAND.Ptr
+
+        result := ComCall(8, this, Guid, EventId, UInt32, dwTranspiredTicks, pContextMarshal, pContext, "HRESULT")
         return result
     }
 
@@ -255,7 +259,9 @@ export default struct IWMDMProgress3 extends IWMDMProgress2 {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmprogress3-end3
      */
     End3(EventId, hrCompletionCode, pContext) {
-        result := ComCall(9, this, Guid, EventId, "int", hrCompletionCode, OPAQUECOMMAND.Ptr, pContext, "HRESULT")
+        pContextMarshal := pContext == 0 ? IntPtr : OPAQUECOMMAND.Ptr
+
+        result := ComCall(9, this, Guid, EventId, "int", hrCompletionCode, pContextMarshal, pContext, "HRESULT")
         return result
     }
 
@@ -268,9 +274,9 @@ export default struct IWMDMProgress3 extends IWMDMProgress2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Begin3 := CallbackCreate(GetMethod(implObj, "Begin3"), flags, 4)
-        this.vtbl.Progress3 := CallbackCreate(GetMethod(implObj, "Progress3"), flags, 4)
-        this.vtbl.End3 := CallbackCreate(GetMethod(implObj, "End3"), flags, 4)
+        this.vtbl.Begin3 := CallbackCreate(ObjBindMethod(implObj, "Begin3"), flags, 4)
+        this.vtbl.Progress3 := CallbackCreate(ObjBindMethod(implObj, "Progress3"), flags, 4)
+        this.vtbl.End3 := CallbackCreate(ObjBindMethod(implObj, "End3"), flags, 4)
     }
 
     Dispose() {

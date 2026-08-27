@@ -60,7 +60,6 @@ export default struct ISVGAnimatedNumberList extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGNumberList} v 
      * @returns {HRESULT} 
      */
@@ -70,7 +69,6 @@ export default struct ISVGAnimatedNumberList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGNumberList} 
      */
     get_baseVal() {
@@ -79,7 +77,6 @@ export default struct ISVGAnimatedNumberList extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGNumberList} v 
      * @returns {HRESULT} 
      */
@@ -89,7 +86,6 @@ export default struct ISVGAnimatedNumberList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGNumberList} 
      */
     get_animVal() {
@@ -106,10 +102,10 @@ export default struct ISVGAnimatedNumberList extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.putref_baseVal := CallbackCreate(GetMethod(implObj, "putref_baseVal"), flags, 2)
-        this.vtbl.get_baseVal := CallbackCreate(GetMethod(implObj, "get_baseVal"), flags, 2)
-        this.vtbl.putref_animVal := CallbackCreate(GetMethod(implObj, "putref_animVal"), flags, 2)
-        this.vtbl.get_animVal := CallbackCreate(GetMethod(implObj, "get_animVal"), flags, 2)
+        this.vtbl.putref_baseVal := CallbackCreate(ObjBindMethod(implObj, "putref_baseVal"), flags, 2)
+        this.vtbl.get_baseVal := CallbackCreate(ObjBindMethod(implObj, "get_baseVal"), flags, 2)
+        this.vtbl.putref_animVal := CallbackCreate(ObjBindMethod(implObj, "putref_animVal"), flags, 2)
+        this.vtbl.get_animVal := CallbackCreate(ObjBindMethod(implObj, "get_animVal"), flags, 2)
     }
 
     Dispose() {

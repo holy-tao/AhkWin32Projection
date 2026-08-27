@@ -94,7 +94,9 @@ export default struct IX509Extension extends IDispatch {
     Initialize(pObjectId, Encoding, strEncodedData) {
         strEncodedData := strEncodedData is String ? BSTR.Alloc(strEncodedData).Value : strEncodedData
 
-        result := ComCall(7, this, "ptr", pObjectId, EncodingType, Encoding, BSTR, strEncodedData, "HRESULT")
+        pObjectIdMarshal := pObjectId == 0 ? IntPtr : "ptr"
+
+        result := ComCall(7, this, pObjectIdMarshal, pObjectId, EncodingType, Encoding, BSTR, strEncodedData, "HRESULT")
         return result
     }
 
@@ -158,11 +160,11 @@ export default struct IX509Extension extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
-        this.vtbl.get_ObjectId := CallbackCreate(GetMethod(implObj, "get_ObjectId"), flags, 2)
-        this.vtbl.get_RawData := CallbackCreate(GetMethod(implObj, "get_RawData"), flags, 3)
-        this.vtbl.get_Critical := CallbackCreate(GetMethod(implObj, "get_Critical"), flags, 2)
-        this.vtbl.put_Critical := CallbackCreate(GetMethod(implObj, "put_Critical"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 4)
+        this.vtbl.get_ObjectId := CallbackCreate(ObjBindMethod(implObj, "get_ObjectId"), flags, 2)
+        this.vtbl.get_RawData := CallbackCreate(ObjBindMethod(implObj, "get_RawData"), flags, 3)
+        this.vtbl.get_Critical := CallbackCreate(ObjBindMethod(implObj, "get_Critical"), flags, 2)
+        this.vtbl.put_Critical := CallbackCreate(ObjBindMethod(implObj, "put_Critical"), flags, 2)
     }
 
     Dispose() {

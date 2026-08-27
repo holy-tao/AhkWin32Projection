@@ -45,7 +45,6 @@ export default struct ID3D12VideoEncodeCommandList4 extends ID3D12VideoEncodeCom
     }
 
     /**
-     * 
      * @param {ID3D12VideoEncoder} pEncoder 
      * @param {ID3D12VideoEncoderHeap1} pHeap 
      * @param {Pointer<D3D12_VIDEO_ENCODER_ENCODEFRAME_INPUT_ARGUMENTS1>} pInputArguments 
@@ -57,7 +56,6 @@ export default struct ID3D12VideoEncodeCommandList4 extends ID3D12VideoEncodeCom
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_VIDEO_ENCODER_RESOLVE_METADATA_INPUT_ARGUMENTS1>} pInputArguments 
      * @param {Pointer<D3D12_VIDEO_ENCODER_RESOLVE_METADATA_OUTPUT_ARGUMENTS1>} pOutputArguments 
      * @returns {String} Nothing - always returns an empty string
@@ -67,7 +65,6 @@ export default struct ID3D12VideoEncodeCommandList4 extends ID3D12VideoEncodeCom
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_VIDEO_ENCODER_RESOLVE_INPUT_PARAM_LAYOUT_INPUT_ARGUMENTS>} pInputArguments 
      * @param {Pointer<D3D12_VIDEO_ENCODER_RESOLVE_INPUT_PARAM_LAYOUT_OUTPUT_ARGUMENTS>} pOutputArguments 
      * @returns {String} Nothing - always returns an empty string
@@ -85,9 +82,9 @@ export default struct ID3D12VideoEncodeCommandList4 extends ID3D12VideoEncodeCom
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EncodeFrame1 := CallbackCreate(GetMethod(implObj, "EncodeFrame1"), flags, 5)
-        this.vtbl.ResolveEncoderOutputMetadata1 := CallbackCreate(GetMethod(implObj, "ResolveEncoderOutputMetadata1"), flags, 3)
-        this.vtbl.ResolveInputParamLayout := CallbackCreate(GetMethod(implObj, "ResolveInputParamLayout"), flags, 3)
+        this.vtbl.EncodeFrame1 := CallbackCreate(ObjBindMethod(implObj, "EncodeFrame1"), flags, 5)
+        this.vtbl.ResolveEncoderOutputMetadata1 := CallbackCreate(ObjBindMethod(implObj, "ResolveEncoderOutputMetadata1"), flags, 3)
+        this.vtbl.ResolveInputParamLayout := CallbackCreate(ObjBindMethod(implObj, "ResolveInputParamLayout"), flags, 3)
     }
 
     Dispose() {

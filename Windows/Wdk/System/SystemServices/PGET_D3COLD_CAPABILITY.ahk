@@ -19,7 +19,6 @@ export default struct PGET_D3COLD_CAPABILITY {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

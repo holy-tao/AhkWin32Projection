@@ -21,7 +21,6 @@ export default struct DOT11EXT_SET_CURRENT_PROFILE {
     }
 
     /**
-     * 
      * @param {HANDLE} hDot11SvcHandle 
      * @param {HANDLE} hConnectSession 
      * @param {Pointer<DOT11EXT_IHV_CONNECTIVITY_PROFILE>} pIhvConnProfile 
@@ -29,7 +28,12 @@ export default struct DOT11EXT_SET_CURRENT_PROFILE {
      * @returns {Integer} 
      */
     Call(hDot11SvcHandle, hConnectSession, pIhvConnProfile, pIhvSecProfile) {
-        result := DllCall(this.value, HANDLE, hDot11SvcHandle, HANDLE, hConnectSession, DOT11EXT_IHV_CONNECTIVITY_PROFILE.Ptr, pIhvConnProfile, DOT11EXT_IHV_SECURITY_PROFILE.Ptr, pIhvSecProfile, UInt32)
+        hDot11SvcHandleMarshal := hDot11SvcHandle == 0 ? IntPtr : HANDLE
+        hConnectSessionMarshal := hConnectSession == 0 ? IntPtr : HANDLE
+        pIhvConnProfileMarshal := pIhvConnProfile == 0 ? IntPtr : DOT11EXT_IHV_CONNECTIVITY_PROFILE.Ptr
+        pIhvSecProfileMarshal := pIhvSecProfile == 0 ? IntPtr : DOT11EXT_IHV_SECURITY_PROFILE.Ptr
+
+        result := DllCall(this.value, hDot11SvcHandleMarshal, hDot11SvcHandle, hConnectSessionMarshal, hConnectSession, pIhvConnProfileMarshal, pIhvConnProfile, pIhvSecProfileMarshal, pIhvSecProfile, UInt32)
         return result
     }
 

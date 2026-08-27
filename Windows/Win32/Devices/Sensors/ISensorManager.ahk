@@ -113,7 +113,9 @@ export default struct ISensorManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensormanager-seteventsink
      */
     SetEventSink(pEvents) {
-        result := ComCall(6, this, "ptr", pEvents, "HRESULT")
+        pEventsMarshal := pEvents == 0 ? IntPtr : "ptr"
+
+        result := ComCall(6, this, pEventsMarshal, pEvents, "HRESULT")
         return result
     }
 
@@ -275,7 +277,9 @@ export default struct ISensorManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensormanager-requestpermissions
      */
     RequestPermissions(hParent, pSensors, fModal) {
-        result := ComCall(7, this, HWND, hParent, "ptr", pSensors, BOOL, fModal, "HRESULT")
+        pSensorsMarshal := pSensors == 0 ? IntPtr : "ptr"
+
+        result := ComCall(7, this, HWND, hParent, pSensorsMarshal, pSensors, BOOL, fModal, "HRESULT")
         return result
     }
 
@@ -288,11 +292,11 @@ export default struct ISensorManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSensorsByCategory := CallbackCreate(GetMethod(implObj, "GetSensorsByCategory"), flags, 3)
-        this.vtbl.GetSensorsByType := CallbackCreate(GetMethod(implObj, "GetSensorsByType"), flags, 3)
-        this.vtbl.GetSensorByID := CallbackCreate(GetMethod(implObj, "GetSensorByID"), flags, 3)
-        this.vtbl.SetEventSink := CallbackCreate(GetMethod(implObj, "SetEventSink"), flags, 2)
-        this.vtbl.RequestPermissions := CallbackCreate(GetMethod(implObj, "RequestPermissions"), flags, 4)
+        this.vtbl.GetSensorsByCategory := CallbackCreate(ObjBindMethod(implObj, "GetSensorsByCategory"), flags, 3)
+        this.vtbl.GetSensorsByType := CallbackCreate(ObjBindMethod(implObj, "GetSensorsByType"), flags, 3)
+        this.vtbl.GetSensorByID := CallbackCreate(ObjBindMethod(implObj, "GetSensorByID"), flags, 3)
+        this.vtbl.SetEventSink := CallbackCreate(ObjBindMethod(implObj, "SetEventSink"), flags, 2)
+        this.vtbl.RequestPermissions := CallbackCreate(ObjBindMethod(implObj, "RequestPermissions"), flags, 4)
     }
 
     Dispose() {

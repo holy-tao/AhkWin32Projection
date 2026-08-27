@@ -58,7 +58,7 @@ export default struct IWTSBitmapRendererCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnTargetSizeChanged := CallbackCreate(GetMethod(implObj, "OnTargetSizeChanged"), flags, 2)
+        this.vtbl.OnTargetSizeChanged := CallbackCreate(ObjBindMethod(implObj, "OnTargetSizeChanged"), flags, 2)
     }
 
     Dispose() {

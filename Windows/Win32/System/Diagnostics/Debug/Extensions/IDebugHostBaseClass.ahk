@@ -36,7 +36,6 @@ export default struct IDebugHostBaseClass extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetOffset() {
@@ -53,7 +52,7 @@ export default struct IDebugHostBaseClass extends IDebugHostSymbol {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOffset := CallbackCreate(GetMethod(implObj, "GetOffset"), flags, 2)
+        this.vtbl.GetOffset := CallbackCreate(ObjBindMethod(implObj, "GetOffset"), flags, 2)
     }
 
     Dispose() {

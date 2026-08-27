@@ -67,7 +67,7 @@ export default struct IConnectionRequestCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnComplete := CallbackCreate(GetMethod(implObj, "OnComplete"), flags, 2)
+        this.vtbl.OnComplete := CallbackCreate(ObjBindMethod(implObj, "OnComplete"), flags, 2)
     }
 
     Dispose() {

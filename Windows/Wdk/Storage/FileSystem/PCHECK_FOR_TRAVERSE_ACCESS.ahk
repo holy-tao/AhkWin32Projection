@@ -20,15 +20,15 @@ export default struct PCHECK_FOR_TRAVERSE_ACCESS {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NotifyContext 
      * @param {Pointer<Void>} TargetContext 
      * @param {Pointer<SECURITY_SUBJECT_CONTEXT>} SubjectContext 
      * @returns {BOOLEAN} 
      */
     Call(NotifyContext, TargetContext, SubjectContext) {
-        NotifyContextMarshal := NotifyContext is VarRef ? "ptr" : "ptr"
-        TargetContextMarshal := TargetContext is VarRef ? "ptr" : "ptr"
+        NotifyContextMarshal := NotifyContext is VarRef ? "ptr" : IntPtr
+        TargetContextMarshal := TargetContext is VarRef ? "ptr" : IntPtr
+        TargetContextMarshal := TargetContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, NotifyContextMarshal, NotifyContext, TargetContextMarshal, TargetContext, SECURITY_SUBJECT_CONTEXT.Ptr, SubjectContext, BOOLEAN)
         return result

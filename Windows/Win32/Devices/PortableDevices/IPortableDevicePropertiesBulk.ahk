@@ -221,11 +221,11 @@ export default struct IPortableDevicePropertiesBulk extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueueGetValuesByObjectList := CallbackCreate(GetMethod(implObj, "QueueGetValuesByObjectList"), flags, 5)
-        this.vtbl.QueueGetValuesByObjectFormat := CallbackCreate(GetMethod(implObj, "QueueGetValuesByObjectFormat"), flags, 7)
-        this.vtbl.QueueSetValuesByObjectList := CallbackCreate(GetMethod(implObj, "QueueSetValuesByObjectList"), flags, 4)
-        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 2)
-        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 2)
+        this.vtbl.QueueGetValuesByObjectList := CallbackCreate(ObjBindMethod(implObj, "QueueGetValuesByObjectList"), flags, 5)
+        this.vtbl.QueueGetValuesByObjectFormat := CallbackCreate(ObjBindMethod(implObj, "QueueGetValuesByObjectFormat"), flags, 7)
+        this.vtbl.QueueSetValuesByObjectList := CallbackCreate(ObjBindMethod(implObj, "QueueSetValuesByObjectList"), flags, 4)
+        this.vtbl.Start := CallbackCreate(ObjBindMethod(implObj, "Start"), flags, 2)
+        this.vtbl.Cancel := CallbackCreate(ObjBindMethod(implObj, "Cancel"), flags, 2)
     }
 
     Dispose() {

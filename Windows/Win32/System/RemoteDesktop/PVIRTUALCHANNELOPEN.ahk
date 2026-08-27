@@ -20,7 +20,6 @@ export default struct PVIRTUALCHANNELOPEN {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pInitHandle 
      * @param {Pointer<Integer>} pOpenHandle 
      * @param {PSTR} pChannelName 
@@ -30,8 +29,8 @@ export default struct PVIRTUALCHANNELOPEN {
     Call(pInitHandle, pOpenHandle, pChannelName, pChannelOpenEventProc) {
         pChannelName := pChannelName is String ? StrPtr(pChannelName) : pChannelName
 
-        pInitHandleMarshal := pInitHandle is VarRef ? "ptr" : "ptr"
-        pOpenHandleMarshal := pOpenHandle is VarRef ? "uint*" : "ptr"
+        pInitHandleMarshal := pInitHandle is VarRef ? "ptr" : IntPtr
+        pOpenHandleMarshal := pOpenHandle is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, pInitHandleMarshal, pInitHandle, pOpenHandleMarshal, pOpenHandle, "ptr", pChannelName, PCHANNEL_OPEN_EVENT_FN, pChannelOpenEventProc, UInt32)
         return result

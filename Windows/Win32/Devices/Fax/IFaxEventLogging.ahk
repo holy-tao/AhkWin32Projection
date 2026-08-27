@@ -226,16 +226,16 @@ export default struct IFaxEventLogging extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_InitEventsLevel := CallbackCreate(GetMethod(implObj, "get_InitEventsLevel"), flags, 2)
-        this.vtbl.put_InitEventsLevel := CallbackCreate(GetMethod(implObj, "put_InitEventsLevel"), flags, 2)
-        this.vtbl.get_InboundEventsLevel := CallbackCreate(GetMethod(implObj, "get_InboundEventsLevel"), flags, 2)
-        this.vtbl.put_InboundEventsLevel := CallbackCreate(GetMethod(implObj, "put_InboundEventsLevel"), flags, 2)
-        this.vtbl.get_OutboundEventsLevel := CallbackCreate(GetMethod(implObj, "get_OutboundEventsLevel"), flags, 2)
-        this.vtbl.put_OutboundEventsLevel := CallbackCreate(GetMethod(implObj, "put_OutboundEventsLevel"), flags, 2)
-        this.vtbl.get_GeneralEventsLevel := CallbackCreate(GetMethod(implObj, "get_GeneralEventsLevel"), flags, 2)
-        this.vtbl.put_GeneralEventsLevel := CallbackCreate(GetMethod(implObj, "put_GeneralEventsLevel"), flags, 2)
-        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
-        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 1)
+        this.vtbl.get_InitEventsLevel := CallbackCreate(ObjBindMethod(implObj, "get_InitEventsLevel"), flags, 2)
+        this.vtbl.put_InitEventsLevel := CallbackCreate(ObjBindMethod(implObj, "put_InitEventsLevel"), flags, 2)
+        this.vtbl.get_InboundEventsLevel := CallbackCreate(ObjBindMethod(implObj, "get_InboundEventsLevel"), flags, 2)
+        this.vtbl.put_InboundEventsLevel := CallbackCreate(ObjBindMethod(implObj, "put_InboundEventsLevel"), flags, 2)
+        this.vtbl.get_OutboundEventsLevel := CallbackCreate(ObjBindMethod(implObj, "get_OutboundEventsLevel"), flags, 2)
+        this.vtbl.put_OutboundEventsLevel := CallbackCreate(ObjBindMethod(implObj, "put_OutboundEventsLevel"), flags, 2)
+        this.vtbl.get_GeneralEventsLevel := CallbackCreate(ObjBindMethod(implObj, "get_GeneralEventsLevel"), flags, 2)
+        this.vtbl.put_GeneralEventsLevel := CallbackCreate(ObjBindMethod(implObj, "put_GeneralEventsLevel"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(ObjBindMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.Save := CallbackCreate(ObjBindMethod(implObj, "Save"), flags, 1)
     }
 
     Dispose() {

@@ -45,7 +45,6 @@ export default struct IMarkupPointer2 extends IMarkupPointer {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsAtWordBreak() {
@@ -54,7 +53,6 @@ export default struct IMarkupPointer2 extends IMarkupPointer {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMarkupPosition() {
@@ -63,7 +61,6 @@ export default struct IMarkupPointer2 extends IMarkupPointer {
     }
 
     /**
-     * 
      * @param {IMarkupContainer} pContainer 
      * @param {Integer} lMP 
      * @returns {HRESULT} 
@@ -74,7 +71,6 @@ export default struct IMarkupPointer2 extends IMarkupPointer {
     }
 
     /**
-     * 
      * @param {MOVEUNIT_ACTION} muAction 
      * @param {IMarkupPointer} pIBoundary 
      * @returns {HRESULT} 
@@ -85,7 +81,6 @@ export default struct IMarkupPointer2 extends IMarkupPointer {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pRight 
      * @returns {BOOL} 
      */
@@ -95,7 +90,6 @@ export default struct IMarkupPointer2 extends IMarkupPointer {
     }
 
     /**
-     * 
      * @param {IHTMLElement} pIElement 
      * @param {BOOL} fAtStart 
      * @returns {HRESULT} 
@@ -114,12 +108,12 @@ export default struct IMarkupPointer2 extends IMarkupPointer {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsAtWordBreak := CallbackCreate(GetMethod(implObj, "IsAtWordBreak"), flags, 2)
-        this.vtbl.GetMarkupPosition := CallbackCreate(GetMethod(implObj, "GetMarkupPosition"), flags, 2)
-        this.vtbl.MoveToMarkupPosition := CallbackCreate(GetMethod(implObj, "MoveToMarkupPosition"), flags, 3)
-        this.vtbl.MoveUnitBounded := CallbackCreate(GetMethod(implObj, "MoveUnitBounded"), flags, 3)
-        this.vtbl.IsInsideURL := CallbackCreate(GetMethod(implObj, "IsInsideURL"), flags, 3)
-        this.vtbl.MoveToContent := CallbackCreate(GetMethod(implObj, "MoveToContent"), flags, 3)
+        this.vtbl.IsAtWordBreak := CallbackCreate(ObjBindMethod(implObj, "IsAtWordBreak"), flags, 2)
+        this.vtbl.GetMarkupPosition := CallbackCreate(ObjBindMethod(implObj, "GetMarkupPosition"), flags, 2)
+        this.vtbl.MoveToMarkupPosition := CallbackCreate(ObjBindMethod(implObj, "MoveToMarkupPosition"), flags, 3)
+        this.vtbl.MoveUnitBounded := CallbackCreate(ObjBindMethod(implObj, "MoveUnitBounded"), flags, 3)
+        this.vtbl.IsInsideURL := CallbackCreate(ObjBindMethod(implObj, "IsInsideURL"), flags, 3)
+        this.vtbl.MoveToContent := CallbackCreate(ObjBindMethod(implObj, "MoveToContent"), flags, 3)
     }
 
     Dispose() {

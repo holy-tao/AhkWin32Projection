@@ -41,7 +41,6 @@ export default struct ICLRDebugging extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} moduleBaseAddress 
      * @param {IUnknown} pDataTarget 
      * @param {ICLRDebuggingLibraryProvider} pLibraryProvider 
@@ -53,14 +52,13 @@ export default struct ICLRDebugging extends IUnknown {
      * @returns {HRESULT} 
      */
     OpenVirtualProcess(moduleBaseAddress, pDataTarget, pLibraryProvider, pMaxDebuggerSupportedVersion, riidProcess, ppProcess, pVersion, pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
+        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, Int64, moduleBaseAddress, "ptr", pDataTarget, "ptr", pLibraryProvider, CLR_DEBUGGING_VERSION.Ptr, pMaxDebuggerSupportedVersion, Guid.Ptr, riidProcess, IUnknown.Ptr, ppProcess, CLR_DEBUGGING_VERSION.Ptr, pVersion, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HMODULE} _hModule 
      * @returns {HRESULT} 
      */
@@ -78,8 +76,8 @@ export default struct ICLRDebugging extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OpenVirtualProcess := CallbackCreate(GetMethod(implObj, "OpenVirtualProcess"), flags, 9)
-        this.vtbl.CanUnloadNow := CallbackCreate(GetMethod(implObj, "CanUnloadNow"), flags, 2)
+        this.vtbl.OpenVirtualProcess := CallbackCreate(ObjBindMethod(implObj, "OpenVirtualProcess"), flags, 9)
+        this.vtbl.CanUnloadNow := CallbackCreate(ObjBindMethod(implObj, "CanUnloadNow"), flags, 2)
     }
 
     Dispose() {

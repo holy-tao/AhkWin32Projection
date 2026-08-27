@@ -28,7 +28,6 @@ export default struct SpGetContextTokenFn {
     }
 
     /**
-     * 
      * @param {Pointer} ContextHandle A handle to the context to impersonate.
      * @param {Pointer<HANDLE>} ImpersonationToken Pointer that receives a handle to the token for the specified context. Return the handle to the token without first duplicating the handle or the token.
      * @returns {NTSTATUS} If the function succeeds, return STATUS_SUCCESS.

@@ -478,13 +478,13 @@ export default struct IAutomaticUpdates extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DetectNow := CallbackCreate(GetMethod(implObj, "DetectNow"), flags, 1)
-        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
-        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 1)
-        this.vtbl.ShowSettingsDialog := CallbackCreate(GetMethod(implObj, "ShowSettingsDialog"), flags, 1)
-        this.vtbl.get_Settings := CallbackCreate(GetMethod(implObj, "get_Settings"), flags, 2)
-        this.vtbl.get_ServiceEnabled := CallbackCreate(GetMethod(implObj, "get_ServiceEnabled"), flags, 2)
-        this.vtbl.EnableService := CallbackCreate(GetMethod(implObj, "EnableService"), flags, 1)
+        this.vtbl.DetectNow := CallbackCreate(ObjBindMethod(implObj, "DetectNow"), flags, 1)
+        this.vtbl.Pause := CallbackCreate(ObjBindMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Resume := CallbackCreate(ObjBindMethod(implObj, "Resume"), flags, 1)
+        this.vtbl.ShowSettingsDialog := CallbackCreate(ObjBindMethod(implObj, "ShowSettingsDialog"), flags, 1)
+        this.vtbl.get_Settings := CallbackCreate(ObjBindMethod(implObj, "get_Settings"), flags, 2)
+        this.vtbl.get_ServiceEnabled := CallbackCreate(ObjBindMethod(implObj, "get_ServiceEnabled"), flags, 2)
+        this.vtbl.EnableService := CallbackCreate(ObjBindMethod(implObj, "EnableService"), flags, 1)
     }
 
     Dispose() {

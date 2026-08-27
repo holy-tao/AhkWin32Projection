@@ -64,8 +64,8 @@ export default struct IBDA_Topology extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_topology-getnodetypes
      */
     GetNodeTypes(pulcNodeTypes, ulcNodeTypesMax, rgulNodeTypes) {
-        pulcNodeTypesMarshal := pulcNodeTypes is VarRef ? "uint*" : "ptr"
-        rgulNodeTypesMarshal := rgulNodeTypes is VarRef ? "uint*" : "ptr"
+        pulcNodeTypesMarshal := pulcNodeTypes is VarRef ? "uint*" : IntPtr
+        rgulNodeTypesMarshal := rgulNodeTypes is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pulcNodeTypesMarshal, pulcNodeTypes, UInt32, ulcNodeTypesMax, rgulNodeTypesMarshal, rgulNodeTypes, "HRESULT")
         return result
@@ -80,7 +80,7 @@ export default struct IBDA_Topology extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_topology-getnodedescriptors
      */
     GetNodeDescriptors(ulcNodeDescriptors, ulcNodeDescriptorsMax, rgNodeDescriptors) {
-        ulcNodeDescriptorsMarshal := ulcNodeDescriptors is VarRef ? "uint*" : "ptr"
+        ulcNodeDescriptorsMarshal := ulcNodeDescriptors is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, ulcNodeDescriptorsMarshal, ulcNodeDescriptors, UInt32, ulcNodeDescriptorsMax, BDANODE_DESCRIPTOR.Ptr, rgNodeDescriptors, "HRESULT")
         return result
@@ -96,7 +96,7 @@ export default struct IBDA_Topology extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_topology-getnodeinterfaces
      */
     GetNodeInterfaces(ulNodeType, pulcInterfaces, ulcInterfacesMax, rgguidInterfaces) {
-        pulcInterfacesMarshal := pulcInterfaces is VarRef ? "uint*" : "ptr"
+        pulcInterfacesMarshal := pulcInterfaces is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, UInt32, ulNodeType, pulcInterfacesMarshal, pulcInterfaces, UInt32, ulcInterfacesMax, Guid.Ptr, rgguidInterfaces, "HRESULT")
         return result
@@ -111,8 +111,8 @@ export default struct IBDA_Topology extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_topology-getpintypes
      */
     GetPinTypes(pulcPinTypes, ulcPinTypesMax, rgulPinTypes) {
-        pulcPinTypesMarshal := pulcPinTypes is VarRef ? "uint*" : "ptr"
-        rgulPinTypesMarshal := rgulPinTypes is VarRef ? "uint*" : "ptr"
+        pulcPinTypesMarshal := pulcPinTypes is VarRef ? "uint*" : IntPtr
+        rgulPinTypesMarshal := rgulPinTypes is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, pulcPinTypesMarshal, pulcPinTypes, UInt32, ulcPinTypesMax, rgulPinTypesMarshal, rgulPinTypes, "HRESULT")
         return result
@@ -127,7 +127,7 @@ export default struct IBDA_Topology extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_topology-gettemplateconnections
      */
     GetTemplateConnections(pulcConnections, ulcConnectionsMax, rgConnections) {
-        pulcConnectionsMarshal := pulcConnections is VarRef ? "uint*" : "ptr"
+        pulcConnectionsMarshal := pulcConnections is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, pulcConnectionsMarshal, pulcConnections, UInt32, ulcConnectionsMax, BDA_TEMPLATE_CONNECTION.Ptr, rgConnections, "HRESULT")
         return result
@@ -141,7 +141,7 @@ export default struct IBDA_Topology extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_topology-createpin
      */
     CreatePin(ulPinType, pulPinId) {
-        pulPinIdMarshal := pulPinId is VarRef ? "uint*" : "ptr"
+        pulPinIdMarshal := pulPinId is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, UInt32, ulPinType, pulPinIdMarshal, pulPinId, "HRESULT")
         return result
@@ -219,17 +219,17 @@ export default struct IBDA_Topology extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNodeTypes := CallbackCreate(GetMethod(implObj, "GetNodeTypes"), flags, 4)
-        this.vtbl.GetNodeDescriptors := CallbackCreate(GetMethod(implObj, "GetNodeDescriptors"), flags, 4)
-        this.vtbl.GetNodeInterfaces := CallbackCreate(GetMethod(implObj, "GetNodeInterfaces"), flags, 5)
-        this.vtbl.GetPinTypes := CallbackCreate(GetMethod(implObj, "GetPinTypes"), flags, 4)
-        this.vtbl.GetTemplateConnections := CallbackCreate(GetMethod(implObj, "GetTemplateConnections"), flags, 4)
-        this.vtbl.CreatePin := CallbackCreate(GetMethod(implObj, "CreatePin"), flags, 3)
-        this.vtbl.DeletePin := CallbackCreate(GetMethod(implObj, "DeletePin"), flags, 2)
-        this.vtbl.SetMediaType := CallbackCreate(GetMethod(implObj, "SetMediaType"), flags, 3)
-        this.vtbl.SetMedium := CallbackCreate(GetMethod(implObj, "SetMedium"), flags, 3)
-        this.vtbl.CreateTopology := CallbackCreate(GetMethod(implObj, "CreateTopology"), flags, 3)
-        this.vtbl.GetControlNode := CallbackCreate(GetMethod(implObj, "GetControlNode"), flags, 5)
+        this.vtbl.GetNodeTypes := CallbackCreate(ObjBindMethod(implObj, "GetNodeTypes"), flags, 4)
+        this.vtbl.GetNodeDescriptors := CallbackCreate(ObjBindMethod(implObj, "GetNodeDescriptors"), flags, 4)
+        this.vtbl.GetNodeInterfaces := CallbackCreate(ObjBindMethod(implObj, "GetNodeInterfaces"), flags, 5)
+        this.vtbl.GetPinTypes := CallbackCreate(ObjBindMethod(implObj, "GetPinTypes"), flags, 4)
+        this.vtbl.GetTemplateConnections := CallbackCreate(ObjBindMethod(implObj, "GetTemplateConnections"), flags, 4)
+        this.vtbl.CreatePin := CallbackCreate(ObjBindMethod(implObj, "CreatePin"), flags, 3)
+        this.vtbl.DeletePin := CallbackCreate(ObjBindMethod(implObj, "DeletePin"), flags, 2)
+        this.vtbl.SetMediaType := CallbackCreate(ObjBindMethod(implObj, "SetMediaType"), flags, 3)
+        this.vtbl.SetMedium := CallbackCreate(ObjBindMethod(implObj, "SetMedium"), flags, 3)
+        this.vtbl.CreateTopology := CallbackCreate(ObjBindMethod(implObj, "CreateTopology"), flags, 3)
+        this.vtbl.GetControlNode := CallbackCreate(ObjBindMethod(implObj, "GetControlNode"), flags, 5)
     }
 
     Dispose() {

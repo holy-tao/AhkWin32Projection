@@ -19,13 +19,12 @@ export default struct PSYMBOLSERVERGETOPTIONDATAPROC {
     }
 
     /**
-     * 
      * @param {Pointer} param0 
      * @param {Pointer<Integer>} param1 
      * @returns {BOOL} 
      */
     Call(param0, param1) {
-        param1Marshal := param1 is VarRef ? "uint*" : "ptr"
+        param1Marshal := param1 is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, IntPtr, param0, param1Marshal, param1, BOOL)
         return result

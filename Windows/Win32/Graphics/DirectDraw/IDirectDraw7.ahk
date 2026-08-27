@@ -265,7 +265,7 @@ export default struct IDirectDraw7 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-enumdisplaymodes
      */
     EnumDisplayModes(param0, param1, param2, param3) {
-        param2Marshal := param2 is VarRef ? "ptr" : "ptr"
+        param2Marshal := param2 is VarRef ? "ptr" : IntPtr
 
         result := ComCall(8, this, UInt32, param0, DDSURFACEDESC2.Ptr, param1, param2Marshal, param2, LPDDENUMMODESCALLBACK2, param3, "HRESULT")
         return result
@@ -300,7 +300,7 @@ export default struct IDirectDraw7 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-enumsurfaces
      */
     EnumSurfaces(param0, param1, param2, param3) {
-        param2Marshal := param2 is VarRef ? "ptr" : "ptr"
+        param2Marshal := param2 is VarRef ? "ptr" : IntPtr
 
         result := ComCall(9, this, UInt32, param0, DDSURFACEDESC2.Ptr, param1, param2Marshal, param2, LPDDENUMSURFACESCALLBACK7, param3, "HRESULT")
         return result
@@ -392,8 +392,8 @@ export default struct IDirectDraw7 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-getfourcccodes
      */
     GetFourCCCodes(param0, param1) {
-        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-        param1Marshal := param1 is VarRef ? "uint*" : "ptr"
+        param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+        param1Marshal := param1 is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, param0Marshal, param0, param1Marshal, param1, "HRESULT")
         return result
@@ -424,7 +424,7 @@ export default struct IDirectDraw7 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-getmonitorfrequency
      */
     GetMonitorFrequency(param0) {
-        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+        param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
         result := ComCall(15, this, param0Marshal, param0, "HRESULT")
         return result
@@ -448,7 +448,7 @@ export default struct IDirectDraw7 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-getscanline
      */
     GetScanLine(param0) {
-        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+        param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
         result := ComCall(16, this, param0Marshal, param0, "HRESULT")
         return result
@@ -470,7 +470,7 @@ export default struct IDirectDraw7 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-getverticalblankstatus
      */
     GetVerticalBlankStatus(param0) {
-        param0Marshal := param0 is VarRef ? "int*" : "ptr"
+        param0Marshal := param0 is VarRef ? "int*" : IntPtr
 
         result := ComCall(17, this, param0Marshal, param0, "HRESULT")
         return result
@@ -690,8 +690,8 @@ export default struct IDirectDraw7 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-getavailablevidmem
      */
     GetAvailableVidMem(param0, param1, param2) {
-        param1Marshal := param1 is VarRef ? "uint*" : "ptr"
-        param2Marshal := param2 is VarRef ? "uint*" : "ptr"
+        param1Marshal := param1 is VarRef ? "uint*" : IntPtr
+        param2Marshal := param2 is VarRef ? "uint*" : IntPtr
 
         result := ComCall(23, this, DDSCAPS2.Ptr, param0, param1Marshal, param1, param2Marshal, param2, "HRESULT")
         return result
@@ -848,7 +848,7 @@ export default struct IDirectDraw7 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdraw7-evaluatemode
      */
     EvaluateMode(param0, param1) {
-        param1Marshal := param1 is VarRef ? "uint*" : "ptr"
+        param1Marshal := param1 is VarRef ? "uint*" : IntPtr
 
         result := ComCall(29, this, UInt32, param0, param1Marshal, param1, "HRESULT")
         return result
@@ -863,33 +863,33 @@ export default struct IDirectDraw7 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Compact := CallbackCreate(GetMethod(implObj, "Compact"), flags, 1)
-        this.vtbl.CreateClipper := CallbackCreate(GetMethod(implObj, "CreateClipper"), flags, 4)
-        this.vtbl.CreatePalette := CallbackCreate(GetMethod(implObj, "CreatePalette"), flags, 5)
-        this.vtbl.CreateSurface := CallbackCreate(GetMethod(implObj, "CreateSurface"), flags, 4)
-        this.vtbl.DuplicateSurface := CallbackCreate(GetMethod(implObj, "DuplicateSurface"), flags, 3)
-        this.vtbl.EnumDisplayModes := CallbackCreate(GetMethod(implObj, "EnumDisplayModes"), flags, 5)
-        this.vtbl.EnumSurfaces := CallbackCreate(GetMethod(implObj, "EnumSurfaces"), flags, 5)
-        this.vtbl.FlipToGDISurface := CallbackCreate(GetMethod(implObj, "FlipToGDISurface"), flags, 1)
-        this.vtbl.GetCaps := CallbackCreate(GetMethod(implObj, "GetCaps"), flags, 3)
-        this.vtbl.GetDisplayMode := CallbackCreate(GetMethod(implObj, "GetDisplayMode"), flags, 2)
-        this.vtbl.GetFourCCCodes := CallbackCreate(GetMethod(implObj, "GetFourCCCodes"), flags, 3)
-        this.vtbl.GetGDISurface := CallbackCreate(GetMethod(implObj, "GetGDISurface"), flags, 2)
-        this.vtbl.GetMonitorFrequency := CallbackCreate(GetMethod(implObj, "GetMonitorFrequency"), flags, 2)
-        this.vtbl.GetScanLine := CallbackCreate(GetMethod(implObj, "GetScanLine"), flags, 2)
-        this.vtbl.GetVerticalBlankStatus := CallbackCreate(GetMethod(implObj, "GetVerticalBlankStatus"), flags, 2)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.RestoreDisplayMode := CallbackCreate(GetMethod(implObj, "RestoreDisplayMode"), flags, 1)
-        this.vtbl.SetCooperativeLevel := CallbackCreate(GetMethod(implObj, "SetCooperativeLevel"), flags, 3)
-        this.vtbl.SetDisplayMode := CallbackCreate(GetMethod(implObj, "SetDisplayMode"), flags, 6)
-        this.vtbl.WaitForVerticalBlank := CallbackCreate(GetMethod(implObj, "WaitForVerticalBlank"), flags, 3)
-        this.vtbl.GetAvailableVidMem := CallbackCreate(GetMethod(implObj, "GetAvailableVidMem"), flags, 4)
-        this.vtbl.GetSurfaceFromDC := CallbackCreate(GetMethod(implObj, "GetSurfaceFromDC"), flags, 3)
-        this.vtbl.RestoreAllSurfaces := CallbackCreate(GetMethod(implObj, "RestoreAllSurfaces"), flags, 1)
-        this.vtbl.TestCooperativeLevel := CallbackCreate(GetMethod(implObj, "TestCooperativeLevel"), flags, 1)
-        this.vtbl.GetDeviceIdentifier := CallbackCreate(GetMethod(implObj, "GetDeviceIdentifier"), flags, 3)
-        this.vtbl.StartModeTest := CallbackCreate(GetMethod(implObj, "StartModeTest"), flags, 4)
-        this.vtbl.EvaluateMode := CallbackCreate(GetMethod(implObj, "EvaluateMode"), flags, 3)
+        this.vtbl.Compact := CallbackCreate(ObjBindMethod(implObj, "Compact"), flags, 1)
+        this.vtbl.CreateClipper := CallbackCreate(ObjBindMethod(implObj, "CreateClipper"), flags, 4)
+        this.vtbl.CreatePalette := CallbackCreate(ObjBindMethod(implObj, "CreatePalette"), flags, 5)
+        this.vtbl.CreateSurface := CallbackCreate(ObjBindMethod(implObj, "CreateSurface"), flags, 4)
+        this.vtbl.DuplicateSurface := CallbackCreate(ObjBindMethod(implObj, "DuplicateSurface"), flags, 3)
+        this.vtbl.EnumDisplayModes := CallbackCreate(ObjBindMethod(implObj, "EnumDisplayModes"), flags, 5)
+        this.vtbl.EnumSurfaces := CallbackCreate(ObjBindMethod(implObj, "EnumSurfaces"), flags, 5)
+        this.vtbl.FlipToGDISurface := CallbackCreate(ObjBindMethod(implObj, "FlipToGDISurface"), flags, 1)
+        this.vtbl.GetCaps := CallbackCreate(ObjBindMethod(implObj, "GetCaps"), flags, 3)
+        this.vtbl.GetDisplayMode := CallbackCreate(ObjBindMethod(implObj, "GetDisplayMode"), flags, 2)
+        this.vtbl.GetFourCCCodes := CallbackCreate(ObjBindMethod(implObj, "GetFourCCCodes"), flags, 3)
+        this.vtbl.GetGDISurface := CallbackCreate(ObjBindMethod(implObj, "GetGDISurface"), flags, 2)
+        this.vtbl.GetMonitorFrequency := CallbackCreate(ObjBindMethod(implObj, "GetMonitorFrequency"), flags, 2)
+        this.vtbl.GetScanLine := CallbackCreate(ObjBindMethod(implObj, "GetScanLine"), flags, 2)
+        this.vtbl.GetVerticalBlankStatus := CallbackCreate(ObjBindMethod(implObj, "GetVerticalBlankStatus"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.RestoreDisplayMode := CallbackCreate(ObjBindMethod(implObj, "RestoreDisplayMode"), flags, 1)
+        this.vtbl.SetCooperativeLevel := CallbackCreate(ObjBindMethod(implObj, "SetCooperativeLevel"), flags, 3)
+        this.vtbl.SetDisplayMode := CallbackCreate(ObjBindMethod(implObj, "SetDisplayMode"), flags, 6)
+        this.vtbl.WaitForVerticalBlank := CallbackCreate(ObjBindMethod(implObj, "WaitForVerticalBlank"), flags, 3)
+        this.vtbl.GetAvailableVidMem := CallbackCreate(ObjBindMethod(implObj, "GetAvailableVidMem"), flags, 4)
+        this.vtbl.GetSurfaceFromDC := CallbackCreate(ObjBindMethod(implObj, "GetSurfaceFromDC"), flags, 3)
+        this.vtbl.RestoreAllSurfaces := CallbackCreate(ObjBindMethod(implObj, "RestoreAllSurfaces"), flags, 1)
+        this.vtbl.TestCooperativeLevel := CallbackCreate(ObjBindMethod(implObj, "TestCooperativeLevel"), flags, 1)
+        this.vtbl.GetDeviceIdentifier := CallbackCreate(ObjBindMethod(implObj, "GetDeviceIdentifier"), flags, 3)
+        this.vtbl.StartModeTest := CallbackCreate(ObjBindMethod(implObj, "StartModeTest"), flags, 4)
+        this.vtbl.EvaluateMode := CallbackCreate(ObjBindMethod(implObj, "EvaluateMode"), flags, 3)
     }
 
     Dispose() {

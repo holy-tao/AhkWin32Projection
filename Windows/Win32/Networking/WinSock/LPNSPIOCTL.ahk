@@ -88,7 +88,6 @@ export default struct LPNSPIOCTL {
     }
 
     /**
-     * 
      * @param {HANDLE} hLookup The lookup handle returned from a previous call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nc-ws2spi-lpnsplookupservicebegin">NSPLookupServiceBegin</a> function.
      * @param {Integer} dwControlCode The control code of the operation to perform.
@@ -224,9 +223,10 @@ export default struct LPNSPIOCTL {
      * </table>
      */
     Call(hLookup, dwControlCode, lpvInBuffer, cbInBuffer, lpvOutBuffer, cbOutBuffer, lpcbBytesReturned, lpCompletion, lpThreadId) {
-        lpcbBytesReturnedMarshal := lpcbBytesReturned is VarRef ? "uint*" : "ptr"
+        lpcbBytesReturnedMarshal := lpcbBytesReturned is VarRef ? "uint*" : IntPtr
+        lpCompletionMarshal := lpCompletion == 0 ? IntPtr : WSACOMPLETION.Ptr
 
-        result := DllCall(this.value, HANDLE, hLookup, UInt32, dwControlCode, IntPtr, lpvInBuffer, UInt32, cbInBuffer, IntPtr, lpvOutBuffer, UInt32, cbOutBuffer, lpcbBytesReturnedMarshal, lpcbBytesReturned, WSACOMPLETION.Ptr, lpCompletion, WSATHREADID.Ptr, lpThreadId, Int32)
+        result := DllCall(this.value, HANDLE, hLookup, UInt32, dwControlCode, IntPtr, lpvInBuffer, UInt32, cbInBuffer, IntPtr, lpvOutBuffer, UInt32, cbOutBuffer, lpcbBytesReturnedMarshal, lpcbBytesReturned, lpCompletionMarshal, lpCompletion, WSATHREADID.Ptr, lpThreadId, Int32)
         return result
     }
 

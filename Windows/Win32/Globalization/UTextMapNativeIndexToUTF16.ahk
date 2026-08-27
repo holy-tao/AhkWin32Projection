@@ -19,7 +19,6 @@ export default struct UTextMapNativeIndexToUTF16 {
     }
 
     /**
-     * 
      * @param {Pointer<UText>} ut 
      * @param {Integer} nativeIndex 
      * @returns {Integer} 

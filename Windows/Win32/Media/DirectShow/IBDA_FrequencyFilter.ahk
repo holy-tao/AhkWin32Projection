@@ -117,7 +117,7 @@ export default struct IBDA_FrequencyFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_frequencyfilter-get_autotune
      */
     get_Autotune(pulTransponder) {
-        pulTransponderMarshal := pulTransponder is VarRef ? "uint*" : "ptr"
+        pulTransponderMarshal := pulTransponder is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pulTransponderMarshal, pulTransponder, "HRESULT")
         return result
@@ -145,7 +145,7 @@ export default struct IBDA_FrequencyFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_frequencyfilter-get_frequency
      */
     get_Frequency(pulFrequency) {
-        pulFrequencyMarshal := pulFrequency is VarRef ? "uint*" : "ptr"
+        pulFrequencyMarshal := pulFrequency is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, pulFrequencyMarshal, pulFrequency, "HRESULT")
         return result
@@ -169,7 +169,7 @@ export default struct IBDA_FrequencyFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_frequencyfilter-get_polarity
      */
     get_Polarity(pPolarity) {
-        pPolarityMarshal := pPolarity is VarRef ? "int*" : "ptr"
+        pPolarityMarshal := pPolarity is VarRef ? "int*" : IntPtr
 
         result := ComCall(8, this, pPolarityMarshal, pPolarity, "HRESULT")
         return result
@@ -193,7 +193,7 @@ export default struct IBDA_FrequencyFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_frequencyfilter-get_range
      */
     get_Range(pulRange) {
-        pulRangeMarshal := pulRange is VarRef ? "uint*" : "ptr"
+        pulRangeMarshal := pulRange is VarRef ? "uint*" : IntPtr
 
         result := ComCall(10, this, pulRangeMarshal, pulRange, "HRESULT")
         return result
@@ -217,7 +217,7 @@ export default struct IBDA_FrequencyFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_frequencyfilter-get_bandwidth
      */
     get_Bandwidth(pulBandwidth) {
-        pulBandwidthMarshal := pulBandwidth is VarRef ? "uint*" : "ptr"
+        pulBandwidthMarshal := pulBandwidth is VarRef ? "uint*" : IntPtr
 
         result := ComCall(12, this, pulBandwidthMarshal, pulBandwidth, "HRESULT")
         return result
@@ -245,7 +245,7 @@ export default struct IBDA_FrequencyFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_frequencyfilter-get_frequencymultiplier
      */
     get_FrequencyMultiplier(pulMultiplier) {
-        pulMultiplierMarshal := pulMultiplier is VarRef ? "uint*" : "ptr"
+        pulMultiplierMarshal := pulMultiplier is VarRef ? "uint*" : IntPtr
 
         result := ComCall(14, this, pulMultiplierMarshal, pulMultiplier, "HRESULT")
         return result
@@ -260,18 +260,18 @@ export default struct IBDA_FrequencyFilter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_Autotune := CallbackCreate(GetMethod(implObj, "put_Autotune"), flags, 2)
-        this.vtbl.get_Autotune := CallbackCreate(GetMethod(implObj, "get_Autotune"), flags, 2)
-        this.vtbl.put_Frequency := CallbackCreate(GetMethod(implObj, "put_Frequency"), flags, 2)
-        this.vtbl.get_Frequency := CallbackCreate(GetMethod(implObj, "get_Frequency"), flags, 2)
-        this.vtbl.put_Polarity := CallbackCreate(GetMethod(implObj, "put_Polarity"), flags, 2)
-        this.vtbl.get_Polarity := CallbackCreate(GetMethod(implObj, "get_Polarity"), flags, 2)
-        this.vtbl.put_Range := CallbackCreate(GetMethod(implObj, "put_Range"), flags, 2)
-        this.vtbl.get_Range := CallbackCreate(GetMethod(implObj, "get_Range"), flags, 2)
-        this.vtbl.put_Bandwidth := CallbackCreate(GetMethod(implObj, "put_Bandwidth"), flags, 2)
-        this.vtbl.get_Bandwidth := CallbackCreate(GetMethod(implObj, "get_Bandwidth"), flags, 2)
-        this.vtbl.put_FrequencyMultiplier := CallbackCreate(GetMethod(implObj, "put_FrequencyMultiplier"), flags, 2)
-        this.vtbl.get_FrequencyMultiplier := CallbackCreate(GetMethod(implObj, "get_FrequencyMultiplier"), flags, 2)
+        this.vtbl.put_Autotune := CallbackCreate(ObjBindMethod(implObj, "put_Autotune"), flags, 2)
+        this.vtbl.get_Autotune := CallbackCreate(ObjBindMethod(implObj, "get_Autotune"), flags, 2)
+        this.vtbl.put_Frequency := CallbackCreate(ObjBindMethod(implObj, "put_Frequency"), flags, 2)
+        this.vtbl.get_Frequency := CallbackCreate(ObjBindMethod(implObj, "get_Frequency"), flags, 2)
+        this.vtbl.put_Polarity := CallbackCreate(ObjBindMethod(implObj, "put_Polarity"), flags, 2)
+        this.vtbl.get_Polarity := CallbackCreate(ObjBindMethod(implObj, "get_Polarity"), flags, 2)
+        this.vtbl.put_Range := CallbackCreate(ObjBindMethod(implObj, "put_Range"), flags, 2)
+        this.vtbl.get_Range := CallbackCreate(ObjBindMethod(implObj, "get_Range"), flags, 2)
+        this.vtbl.put_Bandwidth := CallbackCreate(ObjBindMethod(implObj, "put_Bandwidth"), flags, 2)
+        this.vtbl.get_Bandwidth := CallbackCreate(ObjBindMethod(implObj, "get_Bandwidth"), flags, 2)
+        this.vtbl.put_FrequencyMultiplier := CallbackCreate(ObjBindMethod(implObj, "put_FrequencyMultiplier"), flags, 2)
+        this.vtbl.get_FrequencyMultiplier := CallbackCreate(ObjBindMethod(implObj, "get_FrequencyMultiplier"), flags, 2)
     }
 
     Dispose() {

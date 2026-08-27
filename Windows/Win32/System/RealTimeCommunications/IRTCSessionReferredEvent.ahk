@@ -73,7 +73,6 @@ export default struct IRTCSessionReferredEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCSession2} 
      */
     get_Session() {
@@ -82,7 +81,6 @@ export default struct IRTCSessionReferredEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ReferredByURI() {
@@ -92,7 +90,6 @@ export default struct IRTCSessionReferredEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ReferToURI() {
@@ -102,7 +99,6 @@ export default struct IRTCSessionReferredEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ReferCookie() {
@@ -112,7 +108,6 @@ export default struct IRTCSessionReferredEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Accept() {
@@ -121,7 +116,6 @@ export default struct IRTCSessionReferredEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reject() {
@@ -130,7 +124,6 @@ export default struct IRTCSessionReferredEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {RTC_SESSION_STATE} enState 
      * @returns {HRESULT} 
      */
@@ -148,13 +141,13 @@ export default struct IRTCSessionReferredEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Session := CallbackCreate(GetMethod(implObj, "get_Session"), flags, 2)
-        this.vtbl.get_ReferredByURI := CallbackCreate(GetMethod(implObj, "get_ReferredByURI"), flags, 2)
-        this.vtbl.get_ReferToURI := CallbackCreate(GetMethod(implObj, "get_ReferToURI"), flags, 2)
-        this.vtbl.get_ReferCookie := CallbackCreate(GetMethod(implObj, "get_ReferCookie"), flags, 2)
-        this.vtbl.Accept := CallbackCreate(GetMethod(implObj, "Accept"), flags, 1)
-        this.vtbl.Reject := CallbackCreate(GetMethod(implObj, "Reject"), flags, 1)
-        this.vtbl.SetReferredSessionState := CallbackCreate(GetMethod(implObj, "SetReferredSessionState"), flags, 2)
+        this.vtbl.get_Session := CallbackCreate(ObjBindMethod(implObj, "get_Session"), flags, 2)
+        this.vtbl.get_ReferredByURI := CallbackCreate(ObjBindMethod(implObj, "get_ReferredByURI"), flags, 2)
+        this.vtbl.get_ReferToURI := CallbackCreate(ObjBindMethod(implObj, "get_ReferToURI"), flags, 2)
+        this.vtbl.get_ReferCookie := CallbackCreate(ObjBindMethod(implObj, "get_ReferCookie"), flags, 2)
+        this.vtbl.Accept := CallbackCreate(ObjBindMethod(implObj, "Accept"), flags, 1)
+        this.vtbl.Reject := CallbackCreate(ObjBindMethod(implObj, "Reject"), flags, 1)
+        this.vtbl.SetReferredSessionState := CallbackCreate(ObjBindMethod(implObj, "SetReferredSessionState"), flags, 2)
     }
 
     Dispose() {

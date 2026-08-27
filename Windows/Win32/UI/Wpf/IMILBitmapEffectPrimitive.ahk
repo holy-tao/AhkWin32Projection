@@ -71,7 +71,7 @@ export default struct IMILBitmapEffectPrimitive extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectprimitive-getoutput
      */
     GetOutput(uiIndex, pContext, pfModifyInPlace) {
-        pfModifyInPlaceMarshal := pfModifyInPlace is VarRef ? "short*" : "ptr"
+        pfModifyInPlaceMarshal := pfModifyInPlace is VarRef ? "short*" : IntPtr
 
         result := ComCall(3, this, UInt32, uiIndex, "ptr", pContext, pfModifyInPlaceMarshal, pfModifyInPlace, "ptr*", &ppBitmapSource := 0, "HRESULT")
         return IWICBitmapSource(ppBitmapSource)
@@ -182,12 +182,12 @@ export default struct IMILBitmapEffectPrimitive extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOutput := CallbackCreate(GetMethod(implObj, "GetOutput"), flags, 5)
-        this.vtbl.TransformPoint := CallbackCreate(GetMethod(implObj, "TransformPoint"), flags, 6)
-        this.vtbl.TransformRect := CallbackCreate(GetMethod(implObj, "TransformRect"), flags, 5)
-        this.vtbl.HasAffineTransform := CallbackCreate(GetMethod(implObj, "HasAffineTransform"), flags, 3)
-        this.vtbl.HasInverseTransform := CallbackCreate(GetMethod(implObj, "HasInverseTransform"), flags, 3)
-        this.vtbl.GetAffineMatrix := CallbackCreate(GetMethod(implObj, "GetAffineMatrix"), flags, 3)
+        this.vtbl.GetOutput := CallbackCreate(ObjBindMethod(implObj, "GetOutput"), flags, 5)
+        this.vtbl.TransformPoint := CallbackCreate(ObjBindMethod(implObj, "TransformPoint"), flags, 6)
+        this.vtbl.TransformRect := CallbackCreate(ObjBindMethod(implObj, "TransformRect"), flags, 5)
+        this.vtbl.HasAffineTransform := CallbackCreate(ObjBindMethod(implObj, "HasAffineTransform"), flags, 3)
+        this.vtbl.HasInverseTransform := CallbackCreate(ObjBindMethod(implObj, "HasInverseTransform"), flags, 3)
+        this.vtbl.GetAffineMatrix := CallbackCreate(ObjBindMethod(implObj, "GetAffineMatrix"), flags, 3)
     }
 
     Dispose() {

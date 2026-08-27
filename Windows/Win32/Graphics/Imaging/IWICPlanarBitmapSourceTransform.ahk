@@ -88,9 +88,9 @@ export default struct IWICPlanarBitmapSourceTransform extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicplanarbitmapsourcetransform-doessupporttransform
      */
     DoesSupportTransform(puiWidth, puiHeight, dstTransform, dstPlanarOptions, pguidDstFormats, pPlaneDescriptions, cPlanes, pfIsSupported) {
-        puiWidthMarshal := puiWidth is VarRef ? "uint*" : "ptr"
-        puiHeightMarshal := puiHeight is VarRef ? "uint*" : "ptr"
-        pfIsSupportedMarshal := pfIsSupported is VarRef ? "int*" : "ptr"
+        puiWidthMarshal := puiWidth is VarRef ? "uint*" : IntPtr
+        puiHeightMarshal := puiHeight is VarRef ? "uint*" : IntPtr
+        pfIsSupportedMarshal := pfIsSupported is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, puiWidthMarshal, puiWidth, puiHeightMarshal, puiHeight, WICBitmapTransformOptions, dstTransform, WICPlanarOptions, dstPlanarOptions, Guid.Ptr, pguidDstFormats, WICBitmapPlaneDescription.Ptr, pPlaneDescriptions, UInt32, cPlanes, pfIsSupportedMarshal, pfIsSupported, "HRESULT")
         return result
@@ -207,8 +207,8 @@ export default struct IWICPlanarBitmapSourceTransform extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DoesSupportTransform := CallbackCreate(GetMethod(implObj, "DoesSupportTransform"), flags, 9)
-        this.vtbl.CopyPixels := CallbackCreate(GetMethod(implObj, "CopyPixels"), flags, 8)
+        this.vtbl.DoesSupportTransform := CallbackCreate(ObjBindMethod(implObj, "DoesSupportTransform"), flags, 9)
+        this.vtbl.CopyPixels := CallbackCreate(ObjBindMethod(implObj, "CopyPixels"), flags, 8)
     }
 
     Dispose() {

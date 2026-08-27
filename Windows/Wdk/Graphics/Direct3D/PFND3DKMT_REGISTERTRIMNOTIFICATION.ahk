@@ -20,7 +20,6 @@ export default struct PFND3DKMT_REGISTERTRIMNOTIFICATION {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_REGISTERTRIMNOTIFICATION>} param0 
      * @returns {NTSTATUS} 
      */

@@ -130,9 +130,9 @@ export default struct IValueProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetValue := CallbackCreate(GetMethod(implObj, "SetValue"), flags, 2)
-        this.vtbl.get_Value := CallbackCreate(GetMethod(implObj, "get_Value"), flags, 2)
-        this.vtbl.get_IsReadOnly := CallbackCreate(GetMethod(implObj, "get_IsReadOnly"), flags, 2)
+        this.vtbl.SetValue := CallbackCreate(ObjBindMethod(implObj, "SetValue"), flags, 2)
+        this.vtbl.get_Value := CallbackCreate(ObjBindMethod(implObj, "get_Value"), flags, 2)
+        this.vtbl.get_IsReadOnly := CallbackCreate(ObjBindMethod(implObj, "get_IsReadOnly"), flags, 2)
     }
 
     Dispose() {

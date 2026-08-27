@@ -78,8 +78,8 @@ export default struct IPrint extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/docobj/nf-docobj-iprint-getpageinfo
      */
     GetPageInfo(pnFirstPage, pcPages) {
-        pnFirstPageMarshal := pnFirstPage is VarRef ? "int*" : "ptr"
-        pcPagesMarshal := pcPages is VarRef ? "int*" : "ptr"
+        pnFirstPageMarshal := pnFirstPage is VarRef ? "int*" : IntPtr
+        pcPagesMarshal := pcPages is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, pnFirstPageMarshal, pnFirstPage, pcPagesMarshal, pcPages, "HRESULT")
         return result
@@ -145,10 +145,10 @@ export default struct IPrint extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/docobj/nf-docobj-iprint-print
      */
     Print(grfFlags, pptd, ppPageSet, pstgmOptions, pcallback, nFirstPage, pcPagesPrinted, pnLastPage) {
-        pptdMarshal := pptd is VarRef ? "ptr*" : "ptr"
-        ppPageSetMarshal := ppPageSet is VarRef ? "ptr*" : "ptr"
-        pcPagesPrintedMarshal := pcPagesPrinted is VarRef ? "int*" : "ptr"
-        pnLastPageMarshal := pnLastPage is VarRef ? "int*" : "ptr"
+        pptdMarshal := pptd is VarRef ? "ptr*" : IntPtr
+        ppPageSetMarshal := ppPageSet is VarRef ? "ptr*" : IntPtr
+        pcPagesPrintedMarshal := pcPagesPrinted is VarRef ? "int*" : IntPtr
+        pnLastPageMarshal := pnLastPage is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, UInt32, grfFlags, pptdMarshal, pptd, ppPageSetMarshal, ppPageSet, STGMEDIUM.Ptr, pstgmOptions, "ptr", pcallback, Int32, nFirstPage, pcPagesPrintedMarshal, pcPagesPrinted, pnLastPageMarshal, pnLastPage, "HRESULT")
         return result
@@ -163,9 +163,9 @@ export default struct IPrint extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetInitialPageNum := CallbackCreate(GetMethod(implObj, "SetInitialPageNum"), flags, 2)
-        this.vtbl.GetPageInfo := CallbackCreate(GetMethod(implObj, "GetPageInfo"), flags, 3)
-        this.vtbl.Print := CallbackCreate(GetMethod(implObj, "Print"), flags, 9)
+        this.vtbl.SetInitialPageNum := CallbackCreate(ObjBindMethod(implObj, "SetInitialPageNum"), flags, 2)
+        this.vtbl.GetPageInfo := CallbackCreate(ObjBindMethod(implObj, "GetPageInfo"), flags, 3)
+        this.vtbl.Print := CallbackCreate(ObjBindMethod(implObj, "Print"), flags, 9)
     }
 
     Dispose() {

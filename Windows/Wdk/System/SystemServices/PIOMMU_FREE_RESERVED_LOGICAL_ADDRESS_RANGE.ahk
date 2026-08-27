@@ -19,7 +19,6 @@ export default struct PIOMMU_FREE_RESERVED_LOGICAL_ADDRESS_RANGE {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

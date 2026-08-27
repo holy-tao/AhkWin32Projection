@@ -159,12 +159,12 @@ export default struct IQualProp extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_FramesDroppedInRenderer := CallbackCreate(GetMethod(implObj, "get_FramesDroppedInRenderer"), flags, 2)
-        this.vtbl.get_FramesDrawn := CallbackCreate(GetMethod(implObj, "get_FramesDrawn"), flags, 2)
-        this.vtbl.get_AvgFrameRate := CallbackCreate(GetMethod(implObj, "get_AvgFrameRate"), flags, 2)
-        this.vtbl.get_Jitter := CallbackCreate(GetMethod(implObj, "get_Jitter"), flags, 2)
-        this.vtbl.get_AvgSyncOffset := CallbackCreate(GetMethod(implObj, "get_AvgSyncOffset"), flags, 2)
-        this.vtbl.get_DevSyncOffset := CallbackCreate(GetMethod(implObj, "get_DevSyncOffset"), flags, 2)
+        this.vtbl.get_FramesDroppedInRenderer := CallbackCreate(ObjBindMethod(implObj, "get_FramesDroppedInRenderer"), flags, 2)
+        this.vtbl.get_FramesDrawn := CallbackCreate(ObjBindMethod(implObj, "get_FramesDrawn"), flags, 2)
+        this.vtbl.get_AvgFrameRate := CallbackCreate(ObjBindMethod(implObj, "get_AvgFrameRate"), flags, 2)
+        this.vtbl.get_Jitter := CallbackCreate(ObjBindMethod(implObj, "get_Jitter"), flags, 2)
+        this.vtbl.get_AvgSyncOffset := CallbackCreate(ObjBindMethod(implObj, "get_AvgSyncOffset"), flags, 2)
+        this.vtbl.get_DevSyncOffset := CallbackCreate(ObjBindMethod(implObj, "get_DevSyncOffset"), flags, 2)
     }
 
     Dispose() {

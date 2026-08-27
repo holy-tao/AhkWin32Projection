@@ -66,7 +66,7 @@ export default struct IAudioProcessingObjectRTQueueService extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRealTimeWorkQueue := CallbackCreate(GetMethod(implObj, "GetRealTimeWorkQueue"), flags, 2)
+        this.vtbl.GetRealTimeWorkQueue := CallbackCreate(ObjBindMethod(implObj, "GetRealTimeWorkQueue"), flags, 2)
     }
 
     Dispose() {

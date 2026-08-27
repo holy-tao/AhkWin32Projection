@@ -21,7 +21,6 @@ export default struct PENUMERATE_SYSTEM_LOCKS {
     }
 
     /**
-     * 
      * @param {IDebugClient} Client 
      * @param {Integer} Flags 
      * @param {Pointer<KDEXTS_LOCK_CALLBACKROUTINE>} Callback 
@@ -29,7 +28,7 @@ export default struct PENUMERATE_SYSTEM_LOCKS {
      * @returns {HRESULT} 
      */
     Call(Client, Flags, Callback, _Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, "ptr", Client, UInt32, Flags, KDEXTS_LOCK_CALLBACKROUTINE, Callback, _ContextMarshal, _Context, "HRESULT")
         return result

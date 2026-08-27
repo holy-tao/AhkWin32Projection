@@ -429,14 +429,14 @@ export default struct ITextStoreAnchorSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnTextChange := CallbackCreate(GetMethod(implObj, "OnTextChange"), flags, 4)
-        this.vtbl.OnSelectionChange := CallbackCreate(GetMethod(implObj, "OnSelectionChange"), flags, 1)
-        this.vtbl.OnLayoutChange := CallbackCreate(GetMethod(implObj, "OnLayoutChange"), flags, 3)
-        this.vtbl.OnStatusChange := CallbackCreate(GetMethod(implObj, "OnStatusChange"), flags, 2)
-        this.vtbl.OnAttrsChange := CallbackCreate(GetMethod(implObj, "OnAttrsChange"), flags, 5)
-        this.vtbl.OnLockGranted := CallbackCreate(GetMethod(implObj, "OnLockGranted"), flags, 2)
-        this.vtbl.OnStartEditTransaction := CallbackCreate(GetMethod(implObj, "OnStartEditTransaction"), flags, 1)
-        this.vtbl.OnEndEditTransaction := CallbackCreate(GetMethod(implObj, "OnEndEditTransaction"), flags, 1)
+        this.vtbl.OnTextChange := CallbackCreate(ObjBindMethod(implObj, "OnTextChange"), flags, 4)
+        this.vtbl.OnSelectionChange := CallbackCreate(ObjBindMethod(implObj, "OnSelectionChange"), flags, 1)
+        this.vtbl.OnLayoutChange := CallbackCreate(ObjBindMethod(implObj, "OnLayoutChange"), flags, 3)
+        this.vtbl.OnStatusChange := CallbackCreate(ObjBindMethod(implObj, "OnStatusChange"), flags, 2)
+        this.vtbl.OnAttrsChange := CallbackCreate(ObjBindMethod(implObj, "OnAttrsChange"), flags, 5)
+        this.vtbl.OnLockGranted := CallbackCreate(ObjBindMethod(implObj, "OnLockGranted"), flags, 2)
+        this.vtbl.OnStartEditTransaction := CallbackCreate(ObjBindMethod(implObj, "OnStartEditTransaction"), flags, 1)
+        this.vtbl.OnEndEditTransaction := CallbackCreate(ObjBindMethod(implObj, "OnEndEditTransaction"), flags, 1)
     }
 
     Dispose() {

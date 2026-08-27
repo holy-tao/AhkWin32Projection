@@ -411,15 +411,15 @@ export default struct IMFMediaSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCharacteristics := CallbackCreate(GetMethod(implObj, "GetCharacteristics"), flags, 2)
-        this.vtbl.AddStreamSink := CallbackCreate(GetMethod(implObj, "AddStreamSink"), flags, 4)
-        this.vtbl.RemoveStreamSink := CallbackCreate(GetMethod(implObj, "RemoveStreamSink"), flags, 2)
-        this.vtbl.GetStreamSinkCount := CallbackCreate(GetMethod(implObj, "GetStreamSinkCount"), flags, 2)
-        this.vtbl.GetStreamSinkByIndex := CallbackCreate(GetMethod(implObj, "GetStreamSinkByIndex"), flags, 3)
-        this.vtbl.GetStreamSinkById := CallbackCreate(GetMethod(implObj, "GetStreamSinkById"), flags, 3)
-        this.vtbl.SetPresentationClock := CallbackCreate(GetMethod(implObj, "SetPresentationClock"), flags, 2)
-        this.vtbl.GetPresentationClock := CallbackCreate(GetMethod(implObj, "GetPresentationClock"), flags, 2)
-        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 1)
+        this.vtbl.GetCharacteristics := CallbackCreate(ObjBindMethod(implObj, "GetCharacteristics"), flags, 2)
+        this.vtbl.AddStreamSink := CallbackCreate(ObjBindMethod(implObj, "AddStreamSink"), flags, 4)
+        this.vtbl.RemoveStreamSink := CallbackCreate(ObjBindMethod(implObj, "RemoveStreamSink"), flags, 2)
+        this.vtbl.GetStreamSinkCount := CallbackCreate(ObjBindMethod(implObj, "GetStreamSinkCount"), flags, 2)
+        this.vtbl.GetStreamSinkByIndex := CallbackCreate(ObjBindMethod(implObj, "GetStreamSinkByIndex"), flags, 3)
+        this.vtbl.GetStreamSinkById := CallbackCreate(ObjBindMethod(implObj, "GetStreamSinkById"), flags, 3)
+        this.vtbl.SetPresentationClock := CallbackCreate(ObjBindMethod(implObj, "SetPresentationClock"), flags, 2)
+        this.vtbl.GetPresentationClock := CallbackCreate(ObjBindMethod(implObj, "GetPresentationClock"), flags, 2)
+        this.vtbl.Shutdown := CallbackCreate(ObjBindMethod(implObj, "Shutdown"), flags, 1)
     }
 
     Dispose() {

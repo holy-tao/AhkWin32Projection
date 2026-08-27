@@ -22,7 +22,6 @@ export default struct LPFNCCSTYLEA {
     }
 
     /**
-     * 
      * @param {HWND} hwndParent 
      * @param {Pointer<CCSTYLEA>} pccs 
      * @returns {BOOL} 

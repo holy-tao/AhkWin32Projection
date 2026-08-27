@@ -51,7 +51,6 @@ export default struct IViewObjectPresentFlipSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pDevice 
      * @param {Integer} width 
      * @param {Integer} height 
@@ -61,12 +60,13 @@ export default struct IViewObjectPresentFlipSite extends IUnknown {
      * @returns {ISurfacePresenterFlip} 
      */
     CreateSurfacePresenterFlip(pDevice, width, height, backBufferCount, format, _mode) {
-        result := ComCall(3, this, "ptr", pDevice, UInt32, width, UInt32, height, UInt32, backBufferCount, DXGI_FORMAT, format, VIEW_OBJECT_ALPHA_MODE, _mode, "ptr*", &ppSPFlip := 0, "HRESULT")
+        pDeviceMarshal := pDevice == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pDeviceMarshal, pDevice, UInt32, width, UInt32, height, UInt32, backBufferCount, DXGI_FORMAT, format, VIEW_OBJECT_ALPHA_MODE, _mode, "ptr*", &ppSPFlip := 0, "HRESULT")
         return ISurfacePresenterFlip(ppSPFlip)
     }
 
     /**
-     * 
      * @returns {LUID} 
      */
     GetDeviceLuid() {
@@ -76,7 +76,6 @@ export default struct IViewObjectPresentFlipSite extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     EnterFullScreen() {
@@ -85,7 +84,6 @@ export default struct IViewObjectPresentFlipSite extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ExitFullScreen() {
@@ -94,7 +92,6 @@ export default struct IViewObjectPresentFlipSite extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsFullScreen() {
@@ -103,7 +100,6 @@ export default struct IViewObjectPresentFlipSite extends IUnknown {
     }
 
     /**
-     * 
      * @returns {RECT} 
      */
     GetBoundingRect() {
@@ -113,7 +109,6 @@ export default struct IViewObjectPresentFlipSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<POINT>} pPos 
      * @param {Pointer<SIZE>} pSize 
      * @param {Pointer<Float>} pScaleX 
@@ -121,15 +116,14 @@ export default struct IViewObjectPresentFlipSite extends IUnknown {
      * @returns {HRESULT} 
      */
     GetMetrics(pPos, pSize, pScaleX, pScaleY) {
-        pScaleXMarshal := pScaleX is VarRef ? "float*" : "ptr"
-        pScaleYMarshal := pScaleY is VarRef ? "float*" : "ptr"
+        pScaleXMarshal := pScaleX is VarRef ? "float*" : IntPtr
+        pScaleYMarshal := pScaleY is VarRef ? "float*" : IntPtr
 
         result := ComCall(9, this, POINT.Ptr, pPos, SIZE.Ptr, pSize, pScaleXMarshal, pScaleX, pScaleYMarshal, pScaleY, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {SIZE} 
      */
     GetFullScreenSize() {
@@ -147,14 +141,14 @@ export default struct IViewObjectPresentFlipSite extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateSurfacePresenterFlip := CallbackCreate(GetMethod(implObj, "CreateSurfacePresenterFlip"), flags, 8)
-        this.vtbl.GetDeviceLuid := CallbackCreate(GetMethod(implObj, "GetDeviceLuid"), flags, 2)
-        this.vtbl.EnterFullScreen := CallbackCreate(GetMethod(implObj, "EnterFullScreen"), flags, 1)
-        this.vtbl.ExitFullScreen := CallbackCreate(GetMethod(implObj, "ExitFullScreen"), flags, 1)
-        this.vtbl.IsFullScreen := CallbackCreate(GetMethod(implObj, "IsFullScreen"), flags, 2)
-        this.vtbl.GetBoundingRect := CallbackCreate(GetMethod(implObj, "GetBoundingRect"), flags, 2)
-        this.vtbl.GetMetrics := CallbackCreate(GetMethod(implObj, "GetMetrics"), flags, 5)
-        this.vtbl.GetFullScreenSize := CallbackCreate(GetMethod(implObj, "GetFullScreenSize"), flags, 2)
+        this.vtbl.CreateSurfacePresenterFlip := CallbackCreate(ObjBindMethod(implObj, "CreateSurfacePresenterFlip"), flags, 8)
+        this.vtbl.GetDeviceLuid := CallbackCreate(ObjBindMethod(implObj, "GetDeviceLuid"), flags, 2)
+        this.vtbl.EnterFullScreen := CallbackCreate(ObjBindMethod(implObj, "EnterFullScreen"), flags, 1)
+        this.vtbl.ExitFullScreen := CallbackCreate(ObjBindMethod(implObj, "ExitFullScreen"), flags, 1)
+        this.vtbl.IsFullScreen := CallbackCreate(ObjBindMethod(implObj, "IsFullScreen"), flags, 2)
+        this.vtbl.GetBoundingRect := CallbackCreate(ObjBindMethod(implObj, "GetBoundingRect"), flags, 2)
+        this.vtbl.GetMetrics := CallbackCreate(ObjBindMethod(implObj, "GetMetrics"), flags, 5)
+        this.vtbl.GetFullScreenSize := CallbackCreate(ObjBindMethod(implObj, "GetFullScreenSize"), flags, 2)
     }
 
     Dispose() {

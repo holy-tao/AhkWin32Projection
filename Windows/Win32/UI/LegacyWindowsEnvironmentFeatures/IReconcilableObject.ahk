@@ -103,8 +103,8 @@ export default struct IReconcilableObject extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Reconcile := CallbackCreate(GetMethod(implObj, "Reconcile"), flags, 10)
-        this.vtbl.GetProgressFeedbackMaxEstimate := CallbackCreate(GetMethod(implObj, "GetProgressFeedbackMaxEstimate"), flags, 2)
+        this.vtbl.Reconcile := CallbackCreate(ObjBindMethod(implObj, "Reconcile"), flags, 10)
+        this.vtbl.GetProgressFeedbackMaxEstimate := CallbackCreate(ObjBindMethod(implObj, "GetProgressFeedbackMaxEstimate"), flags, 2)
     }
 
     Dispose() {

@@ -24,7 +24,6 @@ export default struct WS_ASYNC_CALLBACK {
     }
 
     /**
-     * 
      * @param {HRESULT} errorCode The result of the operation.   If the operation fails
      *                     and a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> object is supplied, the object is filled with rich error information 
      *                     before the callback is invoked.
@@ -34,7 +33,8 @@ export default struct WS_ASYNC_CALLBACK {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(errorCode, callbackModel, callbackState) {
-        callbackStateMarshal := callbackState is VarRef ? "ptr" : "ptr"
+        callbackStateMarshal := callbackState is VarRef ? "ptr" : IntPtr
+        callbackStateMarshal := callbackState == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, "int", errorCode, WS_CALLBACK_MODEL, callbackModel, callbackStateMarshal, callbackState)
     }

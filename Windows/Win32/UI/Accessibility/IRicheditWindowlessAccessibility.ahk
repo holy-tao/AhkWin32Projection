@@ -63,7 +63,7 @@ export default struct IRicheditWindowlessAccessibility extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateProvider := CallbackCreate(GetMethod(implObj, "CreateProvider"), flags, 3)
+        this.vtbl.CreateProvider := CallbackCreate(ObjBindMethod(implObj, "CreateProvider"), flags, 3)
     }
 
     Dispose() {

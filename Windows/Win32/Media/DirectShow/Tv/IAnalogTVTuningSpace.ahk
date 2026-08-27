@@ -186,14 +186,14 @@ export default struct IAnalogTVTuningSpace extends ITuningSpace {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_MinChannel := CallbackCreate(GetMethod(implObj, "get_MinChannel"), flags, 2)
-        this.vtbl.put_MinChannel := CallbackCreate(GetMethod(implObj, "put_MinChannel"), flags, 2)
-        this.vtbl.get_MaxChannel := CallbackCreate(GetMethod(implObj, "get_MaxChannel"), flags, 2)
-        this.vtbl.put_MaxChannel := CallbackCreate(GetMethod(implObj, "put_MaxChannel"), flags, 2)
-        this.vtbl.get_InputType := CallbackCreate(GetMethod(implObj, "get_InputType"), flags, 2)
-        this.vtbl.put_InputType := CallbackCreate(GetMethod(implObj, "put_InputType"), flags, 2)
-        this.vtbl.get_CountryCode := CallbackCreate(GetMethod(implObj, "get_CountryCode"), flags, 2)
-        this.vtbl.put_CountryCode := CallbackCreate(GetMethod(implObj, "put_CountryCode"), flags, 2)
+        this.vtbl.get_MinChannel := CallbackCreate(ObjBindMethod(implObj, "get_MinChannel"), flags, 2)
+        this.vtbl.put_MinChannel := CallbackCreate(ObjBindMethod(implObj, "put_MinChannel"), flags, 2)
+        this.vtbl.get_MaxChannel := CallbackCreate(ObjBindMethod(implObj, "get_MaxChannel"), flags, 2)
+        this.vtbl.put_MaxChannel := CallbackCreate(ObjBindMethod(implObj, "put_MaxChannel"), flags, 2)
+        this.vtbl.get_InputType := CallbackCreate(ObjBindMethod(implObj, "get_InputType"), flags, 2)
+        this.vtbl.put_InputType := CallbackCreate(ObjBindMethod(implObj, "put_InputType"), flags, 2)
+        this.vtbl.get_CountryCode := CallbackCreate(ObjBindMethod(implObj, "get_CountryCode"), flags, 2)
+        this.vtbl.put_CountryCode := CallbackCreate(ObjBindMethod(implObj, "put_CountryCode"), flags, 2)
     }
 
     Dispose() {

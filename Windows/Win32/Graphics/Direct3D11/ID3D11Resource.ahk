@@ -53,7 +53,7 @@ export default struct ID3D11Resource extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11resource-gettype
      */
     GetType(pResourceDimension) {
-        pResourceDimensionMarshal := pResourceDimension is VarRef ? "int*" : "ptr"
+        pResourceDimensionMarshal := pResourceDimension is VarRef ? "int*" : IntPtr
 
         ComCall(7, this, pResourceDimensionMarshal, pResourceDimension)
     }
@@ -103,9 +103,9 @@ export default struct ID3D11Resource extends ID3D11DeviceChild {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
-        this.vtbl.SetEvictionPriority := CallbackCreate(GetMethod(implObj, "SetEvictionPriority"), flags, 2)
-        this.vtbl.GetEvictionPriority := CallbackCreate(GetMethod(implObj, "GetEvictionPriority"), flags, 1)
+        this.vtbl.GetType := CallbackCreate(ObjBindMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.SetEvictionPriority := CallbackCreate(ObjBindMethod(implObj, "SetEvictionPriority"), flags, 2)
+        this.vtbl.GetEvictionPriority := CallbackCreate(ObjBindMethod(implObj, "GetEvictionPriority"), flags, 1)
     }
 
     Dispose() {

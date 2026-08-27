@@ -241,7 +241,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     PrepareForShutdown() {
@@ -250,7 +249,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lFilter 
      * @returns {HRESULT} 
      */
@@ -260,7 +258,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_EventFilter() {
@@ -269,7 +266,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lMediaTypes 
      * @param {VARIANT_BOOL} fPersistent 
      * @returns {HRESULT} 
@@ -280,7 +276,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PreferredMediaTypes() {
@@ -289,7 +284,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MediaCapabilities() {
@@ -298,7 +292,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_SESSION_TYPE} enType 
      * @param {BSTR} bstrLocalPhoneURI 
      * @param {IRTCProfile} pProfile 
@@ -313,7 +306,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_LISTEN_MODE} enListen 
      * @returns {HRESULT} 
      */
@@ -323,7 +315,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {RTC_LISTEN_MODE} 
      */
     get_ListenForIncomingSessions() {
@@ -332,7 +323,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fTCP 
      * @param {VARIANT_BOOL} fExternal 
      * @returns {VARIANT} 
@@ -344,7 +334,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_AUDIO_DEVICE} enDevice 
      * @param {Integer} lVolume 
      * @returns {HRESULT} 
@@ -355,7 +344,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_AUDIO_DEVICE} enDevice 
      * @returns {Integer} 
      */
@@ -365,7 +353,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_AUDIO_DEVICE} enDevice 
      * @param {VARIANT_BOOL} fMuted 
      * @returns {HRESULT} 
@@ -376,7 +363,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_AUDIO_DEVICE} enDevice 
      * @returns {VARIANT_BOOL} 
      */
@@ -386,7 +372,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_VIDEO_DEVICE} enDevice 
      * @returns {IVideoWindow} 
      */
@@ -396,7 +381,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_AUDIO_DEVICE} enDevice 
      * @param {BSTR} bstrDeviceName 
      * @returns {HRESULT} 
@@ -409,7 +393,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_AUDIO_DEVICE} enDevice 
      * @returns {BSTR} 
      */
@@ -420,7 +403,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_AUDIO_DEVICE} enDevice 
      * @param {Integer} lVolume 
      * @returns {HRESULT} 
@@ -431,7 +413,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_AUDIO_DEVICE} enDevice 
      * @returns {Integer} 
      */
@@ -441,7 +422,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bEnable 
      * @returns {HRESULT} 
      */
@@ -451,7 +431,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_PreferredAEC() {
@@ -460,7 +439,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDeviceName 
      * @returns {HRESULT} 
      */
@@ -472,7 +450,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PreferredVideoDevice() {
@@ -482,7 +459,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ActiveMedia() {
@@ -491,7 +467,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lMaxBitrate 
      * @returns {HRESULT} 
      */
@@ -501,7 +476,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MaxBitrate() {
@@ -510,7 +484,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lValue 
      * @returns {HRESULT} 
      */
@@ -520,7 +493,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_TemporalSpatialTradeOff() {
@@ -529,7 +501,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_NetworkQuality() {
@@ -538,7 +509,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_T120_APPLET} enApplet 
      * @returns {HRESULT} 
      */
@@ -548,7 +518,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     StopT120Applets() {
@@ -557,7 +526,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_T120_APPLET} enApplet 
      * @returns {VARIANT_BOOL} 
      */
@@ -567,7 +535,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LocalUserURI() {
@@ -577,7 +544,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrUserURI 
      * @returns {HRESULT} 
      */
@@ -589,7 +555,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LocalUserName() {
@@ -599,7 +564,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrUserName 
      * @returns {HRESULT} 
      */
@@ -611,7 +575,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_RING_TYPE} enType 
      * @param {VARIANT_BOOL} bPlay 
      * @returns {HRESULT} 
@@ -622,7 +585,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_DTMF} enDTMF 
      * @returns {HRESULT} 
      */
@@ -632,7 +594,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hwndParent 
      * @returns {HRESULT} 
      */
@@ -642,7 +603,6 @@ export default struct IRTCClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsTuned() {
@@ -659,48 +619,48 @@ export default struct IRTCClient extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 1)
-        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 1)
-        this.vtbl.PrepareForShutdown := CallbackCreate(GetMethod(implObj, "PrepareForShutdown"), flags, 1)
-        this.vtbl.put_EventFilter := CallbackCreate(GetMethod(implObj, "put_EventFilter"), flags, 2)
-        this.vtbl.get_EventFilter := CallbackCreate(GetMethod(implObj, "get_EventFilter"), flags, 2)
-        this.vtbl.SetPreferredMediaTypes := CallbackCreate(GetMethod(implObj, "SetPreferredMediaTypes"), flags, 3)
-        this.vtbl.get_PreferredMediaTypes := CallbackCreate(GetMethod(implObj, "get_PreferredMediaTypes"), flags, 2)
-        this.vtbl.get_MediaCapabilities := CallbackCreate(GetMethod(implObj, "get_MediaCapabilities"), flags, 2)
-        this.vtbl.CreateSession := CallbackCreate(GetMethod(implObj, "CreateSession"), flags, 6)
-        this.vtbl.put_ListenForIncomingSessions := CallbackCreate(GetMethod(implObj, "put_ListenForIncomingSessions"), flags, 2)
-        this.vtbl.get_ListenForIncomingSessions := CallbackCreate(GetMethod(implObj, "get_ListenForIncomingSessions"), flags, 2)
-        this.vtbl.get_NetworkAddresses := CallbackCreate(GetMethod(implObj, "get_NetworkAddresses"), flags, 4)
-        this.vtbl.put_Volume := CallbackCreate(GetMethod(implObj, "put_Volume"), flags, 3)
-        this.vtbl.get_Volume := CallbackCreate(GetMethod(implObj, "get_Volume"), flags, 3)
-        this.vtbl.put_AudioMuted := CallbackCreate(GetMethod(implObj, "put_AudioMuted"), flags, 3)
-        this.vtbl.get_AudioMuted := CallbackCreate(GetMethod(implObj, "get_AudioMuted"), flags, 3)
-        this.vtbl.get_IVideoWindow := CallbackCreate(GetMethod(implObj, "get_IVideoWindow"), flags, 3)
-        this.vtbl.put_PreferredAudioDevice := CallbackCreate(GetMethod(implObj, "put_PreferredAudioDevice"), flags, 3)
-        this.vtbl.get_PreferredAudioDevice := CallbackCreate(GetMethod(implObj, "get_PreferredAudioDevice"), flags, 3)
-        this.vtbl.put_PreferredVolume := CallbackCreate(GetMethod(implObj, "put_PreferredVolume"), flags, 3)
-        this.vtbl.get_PreferredVolume := CallbackCreate(GetMethod(implObj, "get_PreferredVolume"), flags, 3)
-        this.vtbl.put_PreferredAEC := CallbackCreate(GetMethod(implObj, "put_PreferredAEC"), flags, 2)
-        this.vtbl.get_PreferredAEC := CallbackCreate(GetMethod(implObj, "get_PreferredAEC"), flags, 2)
-        this.vtbl.put_PreferredVideoDevice := CallbackCreate(GetMethod(implObj, "put_PreferredVideoDevice"), flags, 2)
-        this.vtbl.get_PreferredVideoDevice := CallbackCreate(GetMethod(implObj, "get_PreferredVideoDevice"), flags, 2)
-        this.vtbl.get_ActiveMedia := CallbackCreate(GetMethod(implObj, "get_ActiveMedia"), flags, 2)
-        this.vtbl.put_MaxBitrate := CallbackCreate(GetMethod(implObj, "put_MaxBitrate"), flags, 2)
-        this.vtbl.get_MaxBitrate := CallbackCreate(GetMethod(implObj, "get_MaxBitrate"), flags, 2)
-        this.vtbl.put_TemporalSpatialTradeOff := CallbackCreate(GetMethod(implObj, "put_TemporalSpatialTradeOff"), flags, 2)
-        this.vtbl.get_TemporalSpatialTradeOff := CallbackCreate(GetMethod(implObj, "get_TemporalSpatialTradeOff"), flags, 2)
-        this.vtbl.get_NetworkQuality := CallbackCreate(GetMethod(implObj, "get_NetworkQuality"), flags, 2)
-        this.vtbl.StartT120Applet := CallbackCreate(GetMethod(implObj, "StartT120Applet"), flags, 2)
-        this.vtbl.StopT120Applets := CallbackCreate(GetMethod(implObj, "StopT120Applets"), flags, 1)
-        this.vtbl.get_IsT120AppletRunning := CallbackCreate(GetMethod(implObj, "get_IsT120AppletRunning"), flags, 3)
-        this.vtbl.get_LocalUserURI := CallbackCreate(GetMethod(implObj, "get_LocalUserURI"), flags, 2)
-        this.vtbl.put_LocalUserURI := CallbackCreate(GetMethod(implObj, "put_LocalUserURI"), flags, 2)
-        this.vtbl.get_LocalUserName := CallbackCreate(GetMethod(implObj, "get_LocalUserName"), flags, 2)
-        this.vtbl.put_LocalUserName := CallbackCreate(GetMethod(implObj, "put_LocalUserName"), flags, 2)
-        this.vtbl.PlayRing := CallbackCreate(GetMethod(implObj, "PlayRing"), flags, 3)
-        this.vtbl.SendDTMF := CallbackCreate(GetMethod(implObj, "SendDTMF"), flags, 2)
-        this.vtbl.InvokeTuningWizard := CallbackCreate(GetMethod(implObj, "InvokeTuningWizard"), flags, 2)
-        this.vtbl.get_IsTuned := CallbackCreate(GetMethod(implObj, "get_IsTuned"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 1)
+        this.vtbl.Shutdown := CallbackCreate(ObjBindMethod(implObj, "Shutdown"), flags, 1)
+        this.vtbl.PrepareForShutdown := CallbackCreate(ObjBindMethod(implObj, "PrepareForShutdown"), flags, 1)
+        this.vtbl.put_EventFilter := CallbackCreate(ObjBindMethod(implObj, "put_EventFilter"), flags, 2)
+        this.vtbl.get_EventFilter := CallbackCreate(ObjBindMethod(implObj, "get_EventFilter"), flags, 2)
+        this.vtbl.SetPreferredMediaTypes := CallbackCreate(ObjBindMethod(implObj, "SetPreferredMediaTypes"), flags, 3)
+        this.vtbl.get_PreferredMediaTypes := CallbackCreate(ObjBindMethod(implObj, "get_PreferredMediaTypes"), flags, 2)
+        this.vtbl.get_MediaCapabilities := CallbackCreate(ObjBindMethod(implObj, "get_MediaCapabilities"), flags, 2)
+        this.vtbl.CreateSession := CallbackCreate(ObjBindMethod(implObj, "CreateSession"), flags, 6)
+        this.vtbl.put_ListenForIncomingSessions := CallbackCreate(ObjBindMethod(implObj, "put_ListenForIncomingSessions"), flags, 2)
+        this.vtbl.get_ListenForIncomingSessions := CallbackCreate(ObjBindMethod(implObj, "get_ListenForIncomingSessions"), flags, 2)
+        this.vtbl.get_NetworkAddresses := CallbackCreate(ObjBindMethod(implObj, "get_NetworkAddresses"), flags, 4)
+        this.vtbl.put_Volume := CallbackCreate(ObjBindMethod(implObj, "put_Volume"), flags, 3)
+        this.vtbl.get_Volume := CallbackCreate(ObjBindMethod(implObj, "get_Volume"), flags, 3)
+        this.vtbl.put_AudioMuted := CallbackCreate(ObjBindMethod(implObj, "put_AudioMuted"), flags, 3)
+        this.vtbl.get_AudioMuted := CallbackCreate(ObjBindMethod(implObj, "get_AudioMuted"), flags, 3)
+        this.vtbl.get_IVideoWindow := CallbackCreate(ObjBindMethod(implObj, "get_IVideoWindow"), flags, 3)
+        this.vtbl.put_PreferredAudioDevice := CallbackCreate(ObjBindMethod(implObj, "put_PreferredAudioDevice"), flags, 3)
+        this.vtbl.get_PreferredAudioDevice := CallbackCreate(ObjBindMethod(implObj, "get_PreferredAudioDevice"), flags, 3)
+        this.vtbl.put_PreferredVolume := CallbackCreate(ObjBindMethod(implObj, "put_PreferredVolume"), flags, 3)
+        this.vtbl.get_PreferredVolume := CallbackCreate(ObjBindMethod(implObj, "get_PreferredVolume"), flags, 3)
+        this.vtbl.put_PreferredAEC := CallbackCreate(ObjBindMethod(implObj, "put_PreferredAEC"), flags, 2)
+        this.vtbl.get_PreferredAEC := CallbackCreate(ObjBindMethod(implObj, "get_PreferredAEC"), flags, 2)
+        this.vtbl.put_PreferredVideoDevice := CallbackCreate(ObjBindMethod(implObj, "put_PreferredVideoDevice"), flags, 2)
+        this.vtbl.get_PreferredVideoDevice := CallbackCreate(ObjBindMethod(implObj, "get_PreferredVideoDevice"), flags, 2)
+        this.vtbl.get_ActiveMedia := CallbackCreate(ObjBindMethod(implObj, "get_ActiveMedia"), flags, 2)
+        this.vtbl.put_MaxBitrate := CallbackCreate(ObjBindMethod(implObj, "put_MaxBitrate"), flags, 2)
+        this.vtbl.get_MaxBitrate := CallbackCreate(ObjBindMethod(implObj, "get_MaxBitrate"), flags, 2)
+        this.vtbl.put_TemporalSpatialTradeOff := CallbackCreate(ObjBindMethod(implObj, "put_TemporalSpatialTradeOff"), flags, 2)
+        this.vtbl.get_TemporalSpatialTradeOff := CallbackCreate(ObjBindMethod(implObj, "get_TemporalSpatialTradeOff"), flags, 2)
+        this.vtbl.get_NetworkQuality := CallbackCreate(ObjBindMethod(implObj, "get_NetworkQuality"), flags, 2)
+        this.vtbl.StartT120Applet := CallbackCreate(ObjBindMethod(implObj, "StartT120Applet"), flags, 2)
+        this.vtbl.StopT120Applets := CallbackCreate(ObjBindMethod(implObj, "StopT120Applets"), flags, 1)
+        this.vtbl.get_IsT120AppletRunning := CallbackCreate(ObjBindMethod(implObj, "get_IsT120AppletRunning"), flags, 3)
+        this.vtbl.get_LocalUserURI := CallbackCreate(ObjBindMethod(implObj, "get_LocalUserURI"), flags, 2)
+        this.vtbl.put_LocalUserURI := CallbackCreate(ObjBindMethod(implObj, "put_LocalUserURI"), flags, 2)
+        this.vtbl.get_LocalUserName := CallbackCreate(ObjBindMethod(implObj, "get_LocalUserName"), flags, 2)
+        this.vtbl.put_LocalUserName := CallbackCreate(ObjBindMethod(implObj, "put_LocalUserName"), flags, 2)
+        this.vtbl.PlayRing := CallbackCreate(ObjBindMethod(implObj, "PlayRing"), flags, 3)
+        this.vtbl.SendDTMF := CallbackCreate(ObjBindMethod(implObj, "SendDTMF"), flags, 2)
+        this.vtbl.InvokeTuningWizard := CallbackCreate(ObjBindMethod(implObj, "InvokeTuningWizard"), flags, 2)
+        this.vtbl.get_IsTuned := CallbackCreate(ObjBindMethod(implObj, "get_IsTuned"), flags, 2)
     }
 
     Dispose() {

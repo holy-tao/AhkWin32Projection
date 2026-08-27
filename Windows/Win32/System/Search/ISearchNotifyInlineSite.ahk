@@ -99,8 +99,8 @@ export default struct ISearchNotifyInlineSite extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnItemIndexedStatusChange := CallbackCreate(GetMethod(implObj, "OnItemIndexedStatusChange"), flags, 4)
-        this.vtbl.OnCatalogStatusChange := CallbackCreate(GetMethod(implObj, "OnCatalogStatusChange"), flags, 4)
+        this.vtbl.OnItemIndexedStatusChange := CallbackCreate(ObjBindMethod(implObj, "OnItemIndexedStatusChange"), flags, 4)
+        this.vtbl.OnCatalogStatusChange := CallbackCreate(ObjBindMethod(implObj, "OnCatalogStatusChange"), flags, 4)
     }
 
     Dispose() {

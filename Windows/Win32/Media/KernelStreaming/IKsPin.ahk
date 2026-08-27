@@ -80,7 +80,6 @@ export default struct IKsPin extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<KSMULTIPLE_ITEM>} 
      */
     KsQueryInterfaces() {
@@ -89,7 +88,6 @@ export default struct IKsPin extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<KSIDENTIFIER>} _Interface 
      * @param {Pointer<KSIDENTIFIER>} Medium 
      * @returns {HRESULT} 
@@ -100,21 +98,22 @@ export default struct IKsPin extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<KSPIN_COMMUNICATION>} Communication 
      * @param {Pointer<KSIDENTIFIER>} _Interface 
      * @param {Pointer<KSIDENTIFIER>} Medium 
      * @returns {HRESULT} 
      */
     KsGetCurrentCommunication(Communication, _Interface, Medium) {
-        CommunicationMarshal := Communication is VarRef ? "int*" : "ptr"
+        CommunicationMarshal := Communication is VarRef ? "int*" : IntPtr
+        CommunicationMarshal := Communication == 0 ? IntPtr : "int*"
+        _InterfaceMarshal := _Interface == 0 ? IntPtr : KSIDENTIFIER.Ptr
+        MediumMarshal := Medium == 0 ? IntPtr : KSIDENTIFIER.Ptr
 
-        result := ComCall(6, this, CommunicationMarshal, Communication, KSIDENTIFIER.Ptr, _Interface, KSIDENTIFIER.Ptr, Medium, "HRESULT")
+        result := ComCall(6, this, CommunicationMarshal, Communication, _InterfaceMarshal, _Interface, MediumMarshal, Medium, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     KsPropagateAcquire() {
@@ -123,7 +122,6 @@ export default struct IKsPin extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMediaSample} Sample 
      * @param {Integer} Flags 
      * @returns {HRESULT} 
@@ -134,7 +132,6 @@ export default struct IKsPin extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<KSSTREAM_SEGMENT>} StreamSegment 
      * @returns {HRESULT} 
      */
@@ -144,7 +141,6 @@ export default struct IKsPin extends IUnknown {
     }
 
     /**
-     * 
      * @param {KSPEEKOPERATION} Operation 
      * @returns {IMemAllocator} 
      */
@@ -154,17 +150,17 @@ export default struct IKsPin extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMemAllocator} MemAllocator 
      * @returns {HRESULT} 
      */
     KsReceiveAllocator(MemAllocator) {
-        result := ComCall(11, this, "ptr", MemAllocator, "HRESULT")
+        MemAllocatorMarshal := MemAllocator == 0 ? IntPtr : "ptr"
+
+        result := ComCall(11, this, MemAllocatorMarshal, MemAllocator, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     KsRenegotiateAllocator() {
@@ -173,7 +169,6 @@ export default struct IKsPin extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     KsIncrementPendingIoCount() {
@@ -182,7 +177,6 @@ export default struct IKsPin extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     KsDecrementPendingIoCount() {
@@ -191,7 +185,6 @@ export default struct IKsPin extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Proportion 
      * @param {Integer} TimeDelta 
      * @returns {HRESULT} 
@@ -210,19 +203,19 @@ export default struct IKsPin extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.KsQueryMediums := CallbackCreate(GetMethod(implObj, "KsQueryMediums"), flags, 2)
-        this.vtbl.KsQueryInterfaces := CallbackCreate(GetMethod(implObj, "KsQueryInterfaces"), flags, 2)
-        this.vtbl.KsCreateSinkPinHandle := CallbackCreate(GetMethod(implObj, "KsCreateSinkPinHandle"), flags, 3)
-        this.vtbl.KsGetCurrentCommunication := CallbackCreate(GetMethod(implObj, "KsGetCurrentCommunication"), flags, 4)
-        this.vtbl.KsPropagateAcquire := CallbackCreate(GetMethod(implObj, "KsPropagateAcquire"), flags, 1)
-        this.vtbl.KsDeliver := CallbackCreate(GetMethod(implObj, "KsDeliver"), flags, 3)
-        this.vtbl.KsMediaSamplesCompleted := CallbackCreate(GetMethod(implObj, "KsMediaSamplesCompleted"), flags, 2)
-        this.vtbl.KsPeekAllocator := CallbackCreate(GetMethod(implObj, "KsPeekAllocator"), flags, 2)
-        this.vtbl.KsReceiveAllocator := CallbackCreate(GetMethod(implObj, "KsReceiveAllocator"), flags, 2)
-        this.vtbl.KsRenegotiateAllocator := CallbackCreate(GetMethod(implObj, "KsRenegotiateAllocator"), flags, 1)
-        this.vtbl.KsIncrementPendingIoCount := CallbackCreate(GetMethod(implObj, "KsIncrementPendingIoCount"), flags, 1)
-        this.vtbl.KsDecrementPendingIoCount := CallbackCreate(GetMethod(implObj, "KsDecrementPendingIoCount"), flags, 1)
-        this.vtbl.KsQualityNotify := CallbackCreate(GetMethod(implObj, "KsQualityNotify"), flags, 3)
+        this.vtbl.KsQueryMediums := CallbackCreate(ObjBindMethod(implObj, "KsQueryMediums"), flags, 2)
+        this.vtbl.KsQueryInterfaces := CallbackCreate(ObjBindMethod(implObj, "KsQueryInterfaces"), flags, 2)
+        this.vtbl.KsCreateSinkPinHandle := CallbackCreate(ObjBindMethod(implObj, "KsCreateSinkPinHandle"), flags, 3)
+        this.vtbl.KsGetCurrentCommunication := CallbackCreate(ObjBindMethod(implObj, "KsGetCurrentCommunication"), flags, 4)
+        this.vtbl.KsPropagateAcquire := CallbackCreate(ObjBindMethod(implObj, "KsPropagateAcquire"), flags, 1)
+        this.vtbl.KsDeliver := CallbackCreate(ObjBindMethod(implObj, "KsDeliver"), flags, 3)
+        this.vtbl.KsMediaSamplesCompleted := CallbackCreate(ObjBindMethod(implObj, "KsMediaSamplesCompleted"), flags, 2)
+        this.vtbl.KsPeekAllocator := CallbackCreate(ObjBindMethod(implObj, "KsPeekAllocator"), flags, 2)
+        this.vtbl.KsReceiveAllocator := CallbackCreate(ObjBindMethod(implObj, "KsReceiveAllocator"), flags, 2)
+        this.vtbl.KsRenegotiateAllocator := CallbackCreate(ObjBindMethod(implObj, "KsRenegotiateAllocator"), flags, 1)
+        this.vtbl.KsIncrementPendingIoCount := CallbackCreate(ObjBindMethod(implObj, "KsIncrementPendingIoCount"), flags, 1)
+        this.vtbl.KsDecrementPendingIoCount := CallbackCreate(ObjBindMethod(implObj, "KsDecrementPendingIoCount"), flags, 1)
+        this.vtbl.KsQualityNotify := CallbackCreate(ObjBindMethod(implObj, "KsQualityNotify"), flags, 3)
     }
 
     Dispose() {

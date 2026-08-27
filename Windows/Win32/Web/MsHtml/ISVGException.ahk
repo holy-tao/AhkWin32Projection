@@ -60,7 +60,6 @@ export default struct ISVGException extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -70,7 +69,6 @@ export default struct ISVGException extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_code() {
@@ -79,7 +77,6 @@ export default struct ISVGException extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_message() {
@@ -97,9 +94,9 @@ export default struct ISVGException extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_code := CallbackCreate(GetMethod(implObj, "put_code"), flags, 2)
-        this.vtbl.get_code := CallbackCreate(GetMethod(implObj, "get_code"), flags, 2)
-        this.vtbl.get_message := CallbackCreate(GetMethod(implObj, "get_message"), flags, 2)
+        this.vtbl.put_code := CallbackCreate(ObjBindMethod(implObj, "put_code"), flags, 2)
+        this.vtbl.get_code := CallbackCreate(ObjBindMethod(implObj, "get_code"), flags, 2)
+        this.vtbl.get_message := CallbackCreate(ObjBindMethod(implObj, "get_message"), flags, 2)
     }
 
     Dispose() {

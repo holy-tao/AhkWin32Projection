@@ -207,9 +207,9 @@ export default struct IOpcPartUri extends IOpcUri {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ComparePartUri := CallbackCreate(GetMethod(implObj, "ComparePartUri"), flags, 3)
-        this.vtbl.GetSourceUri := CallbackCreate(GetMethod(implObj, "GetSourceUri"), flags, 2)
-        this.vtbl.IsRelationshipsPartUri := CallbackCreate(GetMethod(implObj, "IsRelationshipsPartUri"), flags, 2)
+        this.vtbl.ComparePartUri := CallbackCreate(ObjBindMethod(implObj, "ComparePartUri"), flags, 3)
+        this.vtbl.GetSourceUri := CallbackCreate(ObjBindMethod(implObj, "GetSourceUri"), flags, 2)
+        this.vtbl.IsRelationshipsPartUri := CallbackCreate(ObjBindMethod(implObj, "IsRelationshipsPartUri"), flags, 2)
     }
 
     Dispose() {

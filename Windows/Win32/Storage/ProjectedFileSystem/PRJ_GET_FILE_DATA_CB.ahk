@@ -27,7 +27,6 @@ export default struct PRJ_GET_FILE_DATA_CB {
     }
 
     /**
-     * 
      * @param {Pointer<PRJ_CALLBACK_DATA>} callbackData Information about the operation. The following <i>callbackData</i> members are necessary to implement this callback:<dl>
      * <dd><b>FilePathName</b> Identifies the path to the file in the provider’s backing store for which data should be returned.  Note that this reflects the name the file had when its placeholder was first created.  If it has been renamed since then, <b>FilePathName</b> identifies the original (pre-rename) name, not the current (post-rename) name.
      * 

@@ -212,7 +212,6 @@ export default struct IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMRSOPMode} 
      */
     get_Mode() {
@@ -221,7 +220,6 @@ export default struct IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Namespace() {
@@ -231,7 +229,6 @@ export default struct IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrVal 
      * @returns {HRESULT} 
      */
@@ -243,7 +240,6 @@ export default struct IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LoggingComputer() {
@@ -253,7 +249,6 @@ export default struct IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrVal 
      * @returns {HRESULT} 
      */
@@ -265,7 +260,6 @@ export default struct IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LoggingUser() {
@@ -275,7 +269,6 @@ export default struct IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lVal 
      * @returns {HRESULT} 
      */
@@ -285,7 +278,6 @@ export default struct IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_LoggingFlags() {
@@ -294,7 +286,6 @@ export default struct IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lVal 
      * @returns {HRESULT} 
      */
@@ -304,7 +295,6 @@ export default struct IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PlanningFlags() {
@@ -313,7 +303,6 @@ export default struct IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrVal 
      * @returns {HRESULT} 
      */
@@ -325,7 +314,6 @@ export default struct IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PlanningDomainController() {
@@ -335,7 +323,6 @@ export default struct IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrVal 
      * @returns {HRESULT} 
      */
@@ -347,7 +334,6 @@ export default struct IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PlanningSiteName() {
@@ -357,7 +343,6 @@ export default struct IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrVal 
      * @returns {HRESULT} 
      */
@@ -369,7 +354,6 @@ export default struct IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PlanningUser() {
@@ -379,7 +363,6 @@ export default struct IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrVal 
      * @returns {HRESULT} 
      */
@@ -391,7 +374,6 @@ export default struct IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PlanningUserSOM() {
@@ -401,7 +383,6 @@ export default struct IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varVal 
      * @returns {HRESULT} 
      */
@@ -411,7 +392,6 @@ export default struct IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_PlanningUserWMIFilters() {
@@ -421,7 +401,6 @@ export default struct IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varVal 
      * @returns {HRESULT} 
      */
@@ -431,7 +410,6 @@ export default struct IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_PlanningUserSecurityGroups() {
@@ -441,7 +419,6 @@ export default struct IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrVal 
      * @returns {HRESULT} 
      */
@@ -453,7 +430,6 @@ export default struct IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PlanningComputer() {
@@ -463,7 +439,6 @@ export default struct IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrVal 
      * @returns {HRESULT} 
      */
@@ -475,7 +450,6 @@ export default struct IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PlanningComputerSOM() {
@@ -485,7 +459,6 @@ export default struct IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varVal 
      * @returns {HRESULT} 
      */
@@ -495,7 +468,6 @@ export default struct IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_PlanningComputerWMIFilters() {
@@ -505,7 +477,6 @@ export default struct IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varVal 
      * @returns {HRESULT} 
      */
@@ -515,7 +486,6 @@ export default struct IGPMRSOP extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_PlanningComputerSecurityGroups() {
@@ -611,41 +581,41 @@ export default struct IGPMRSOP extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Mode := CallbackCreate(GetMethod(implObj, "get_Mode"), flags, 2)
-        this.vtbl.get_Namespace := CallbackCreate(GetMethod(implObj, "get_Namespace"), flags, 2)
-        this.vtbl.put_LoggingComputer := CallbackCreate(GetMethod(implObj, "put_LoggingComputer"), flags, 2)
-        this.vtbl.get_LoggingComputer := CallbackCreate(GetMethod(implObj, "get_LoggingComputer"), flags, 2)
-        this.vtbl.put_LoggingUser := CallbackCreate(GetMethod(implObj, "put_LoggingUser"), flags, 2)
-        this.vtbl.get_LoggingUser := CallbackCreate(GetMethod(implObj, "get_LoggingUser"), flags, 2)
-        this.vtbl.put_LoggingFlags := CallbackCreate(GetMethod(implObj, "put_LoggingFlags"), flags, 2)
-        this.vtbl.get_LoggingFlags := CallbackCreate(GetMethod(implObj, "get_LoggingFlags"), flags, 2)
-        this.vtbl.put_PlanningFlags := CallbackCreate(GetMethod(implObj, "put_PlanningFlags"), flags, 2)
-        this.vtbl.get_PlanningFlags := CallbackCreate(GetMethod(implObj, "get_PlanningFlags"), flags, 2)
-        this.vtbl.put_PlanningDomainController := CallbackCreate(GetMethod(implObj, "put_PlanningDomainController"), flags, 2)
-        this.vtbl.get_PlanningDomainController := CallbackCreate(GetMethod(implObj, "get_PlanningDomainController"), flags, 2)
-        this.vtbl.put_PlanningSiteName := CallbackCreate(GetMethod(implObj, "put_PlanningSiteName"), flags, 2)
-        this.vtbl.get_PlanningSiteName := CallbackCreate(GetMethod(implObj, "get_PlanningSiteName"), flags, 2)
-        this.vtbl.put_PlanningUser := CallbackCreate(GetMethod(implObj, "put_PlanningUser"), flags, 2)
-        this.vtbl.get_PlanningUser := CallbackCreate(GetMethod(implObj, "get_PlanningUser"), flags, 2)
-        this.vtbl.put_PlanningUserSOM := CallbackCreate(GetMethod(implObj, "put_PlanningUserSOM"), flags, 2)
-        this.vtbl.get_PlanningUserSOM := CallbackCreate(GetMethod(implObj, "get_PlanningUserSOM"), flags, 2)
-        this.vtbl.put_PlanningUserWMIFilters := CallbackCreate(GetMethod(implObj, "put_PlanningUserWMIFilters"), flags, 2)
-        this.vtbl.get_PlanningUserWMIFilters := CallbackCreate(GetMethod(implObj, "get_PlanningUserWMIFilters"), flags, 2)
-        this.vtbl.put_PlanningUserSecurityGroups := CallbackCreate(GetMethod(implObj, "put_PlanningUserSecurityGroups"), flags, 2)
-        this.vtbl.get_PlanningUserSecurityGroups := CallbackCreate(GetMethod(implObj, "get_PlanningUserSecurityGroups"), flags, 2)
-        this.vtbl.put_PlanningComputer := CallbackCreate(GetMethod(implObj, "put_PlanningComputer"), flags, 2)
-        this.vtbl.get_PlanningComputer := CallbackCreate(GetMethod(implObj, "get_PlanningComputer"), flags, 2)
-        this.vtbl.put_PlanningComputerSOM := CallbackCreate(GetMethod(implObj, "put_PlanningComputerSOM"), flags, 2)
-        this.vtbl.get_PlanningComputerSOM := CallbackCreate(GetMethod(implObj, "get_PlanningComputerSOM"), flags, 2)
-        this.vtbl.put_PlanningComputerWMIFilters := CallbackCreate(GetMethod(implObj, "put_PlanningComputerWMIFilters"), flags, 2)
-        this.vtbl.get_PlanningComputerWMIFilters := CallbackCreate(GetMethod(implObj, "get_PlanningComputerWMIFilters"), flags, 2)
-        this.vtbl.put_PlanningComputerSecurityGroups := CallbackCreate(GetMethod(implObj, "put_PlanningComputerSecurityGroups"), flags, 2)
-        this.vtbl.get_PlanningComputerSecurityGroups := CallbackCreate(GetMethod(implObj, "get_PlanningComputerSecurityGroups"), flags, 2)
-        this.vtbl.LoggingEnumerateUsers := CallbackCreate(GetMethod(implObj, "LoggingEnumerateUsers"), flags, 2)
-        this.vtbl.CreateQueryResults := CallbackCreate(GetMethod(implObj, "CreateQueryResults"), flags, 1)
-        this.vtbl.ReleaseQueryResults := CallbackCreate(GetMethod(implObj, "ReleaseQueryResults"), flags, 1)
-        this.vtbl.GenerateReport := CallbackCreate(GetMethod(implObj, "GenerateReport"), flags, 5)
-        this.vtbl.GenerateReportToFile := CallbackCreate(GetMethod(implObj, "GenerateReportToFile"), flags, 4)
+        this.vtbl.get_Mode := CallbackCreate(ObjBindMethod(implObj, "get_Mode"), flags, 2)
+        this.vtbl.get_Namespace := CallbackCreate(ObjBindMethod(implObj, "get_Namespace"), flags, 2)
+        this.vtbl.put_LoggingComputer := CallbackCreate(ObjBindMethod(implObj, "put_LoggingComputer"), flags, 2)
+        this.vtbl.get_LoggingComputer := CallbackCreate(ObjBindMethod(implObj, "get_LoggingComputer"), flags, 2)
+        this.vtbl.put_LoggingUser := CallbackCreate(ObjBindMethod(implObj, "put_LoggingUser"), flags, 2)
+        this.vtbl.get_LoggingUser := CallbackCreate(ObjBindMethod(implObj, "get_LoggingUser"), flags, 2)
+        this.vtbl.put_LoggingFlags := CallbackCreate(ObjBindMethod(implObj, "put_LoggingFlags"), flags, 2)
+        this.vtbl.get_LoggingFlags := CallbackCreate(ObjBindMethod(implObj, "get_LoggingFlags"), flags, 2)
+        this.vtbl.put_PlanningFlags := CallbackCreate(ObjBindMethod(implObj, "put_PlanningFlags"), flags, 2)
+        this.vtbl.get_PlanningFlags := CallbackCreate(ObjBindMethod(implObj, "get_PlanningFlags"), flags, 2)
+        this.vtbl.put_PlanningDomainController := CallbackCreate(ObjBindMethod(implObj, "put_PlanningDomainController"), flags, 2)
+        this.vtbl.get_PlanningDomainController := CallbackCreate(ObjBindMethod(implObj, "get_PlanningDomainController"), flags, 2)
+        this.vtbl.put_PlanningSiteName := CallbackCreate(ObjBindMethod(implObj, "put_PlanningSiteName"), flags, 2)
+        this.vtbl.get_PlanningSiteName := CallbackCreate(ObjBindMethod(implObj, "get_PlanningSiteName"), flags, 2)
+        this.vtbl.put_PlanningUser := CallbackCreate(ObjBindMethod(implObj, "put_PlanningUser"), flags, 2)
+        this.vtbl.get_PlanningUser := CallbackCreate(ObjBindMethod(implObj, "get_PlanningUser"), flags, 2)
+        this.vtbl.put_PlanningUserSOM := CallbackCreate(ObjBindMethod(implObj, "put_PlanningUserSOM"), flags, 2)
+        this.vtbl.get_PlanningUserSOM := CallbackCreate(ObjBindMethod(implObj, "get_PlanningUserSOM"), flags, 2)
+        this.vtbl.put_PlanningUserWMIFilters := CallbackCreate(ObjBindMethod(implObj, "put_PlanningUserWMIFilters"), flags, 2)
+        this.vtbl.get_PlanningUserWMIFilters := CallbackCreate(ObjBindMethod(implObj, "get_PlanningUserWMIFilters"), flags, 2)
+        this.vtbl.put_PlanningUserSecurityGroups := CallbackCreate(ObjBindMethod(implObj, "put_PlanningUserSecurityGroups"), flags, 2)
+        this.vtbl.get_PlanningUserSecurityGroups := CallbackCreate(ObjBindMethod(implObj, "get_PlanningUserSecurityGroups"), flags, 2)
+        this.vtbl.put_PlanningComputer := CallbackCreate(ObjBindMethod(implObj, "put_PlanningComputer"), flags, 2)
+        this.vtbl.get_PlanningComputer := CallbackCreate(ObjBindMethod(implObj, "get_PlanningComputer"), flags, 2)
+        this.vtbl.put_PlanningComputerSOM := CallbackCreate(ObjBindMethod(implObj, "put_PlanningComputerSOM"), flags, 2)
+        this.vtbl.get_PlanningComputerSOM := CallbackCreate(ObjBindMethod(implObj, "get_PlanningComputerSOM"), flags, 2)
+        this.vtbl.put_PlanningComputerWMIFilters := CallbackCreate(ObjBindMethod(implObj, "put_PlanningComputerWMIFilters"), flags, 2)
+        this.vtbl.get_PlanningComputerWMIFilters := CallbackCreate(ObjBindMethod(implObj, "get_PlanningComputerWMIFilters"), flags, 2)
+        this.vtbl.put_PlanningComputerSecurityGroups := CallbackCreate(ObjBindMethod(implObj, "put_PlanningComputerSecurityGroups"), flags, 2)
+        this.vtbl.get_PlanningComputerSecurityGroups := CallbackCreate(ObjBindMethod(implObj, "get_PlanningComputerSecurityGroups"), flags, 2)
+        this.vtbl.LoggingEnumerateUsers := CallbackCreate(ObjBindMethod(implObj, "LoggingEnumerateUsers"), flags, 2)
+        this.vtbl.CreateQueryResults := CallbackCreate(ObjBindMethod(implObj, "CreateQueryResults"), flags, 1)
+        this.vtbl.ReleaseQueryResults := CallbackCreate(ObjBindMethod(implObj, "ReleaseQueryResults"), flags, 1)
+        this.vtbl.GenerateReport := CallbackCreate(ObjBindMethod(implObj, "GenerateReport"), flags, 5)
+        this.vtbl.GenerateReportToFile := CallbackCreate(ObjBindMethod(implObj, "GenerateReportToFile"), flags, 4)
     }
 
     Dispose() {

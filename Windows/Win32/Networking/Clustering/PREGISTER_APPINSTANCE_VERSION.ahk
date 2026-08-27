@@ -19,7 +19,6 @@ export default struct PREGISTER_APPINSTANCE_VERSION {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} AppInstanceId 
      * @param {Integer} InstanceVersionHigh 
      * @param {Integer} InstanceVersionLow 

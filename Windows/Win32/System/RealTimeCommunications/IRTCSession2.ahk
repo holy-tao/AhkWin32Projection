@@ -45,7 +45,6 @@ export default struct IRTCSession2 extends IRTCSession {
     }
 
     /**
-     * 
      * @param {BSTR} bstrInfoHeader 
      * @param {BSTR} bstrInfo 
      * @param {Pointer} lCookie 
@@ -60,7 +59,6 @@ export default struct IRTCSession2 extends IRTCSession {
     }
 
     /**
-     * 
      * @param {RTC_SECURITY_TYPE} enSecurityType 
      * @param {RTC_SECURITY_LEVEL} enSecurityLevel 
      * @returns {HRESULT} 
@@ -71,7 +69,6 @@ export default struct IRTCSession2 extends IRTCSession {
     }
 
     /**
-     * 
      * @param {RTC_SECURITY_TYPE} enSecurityType 
      * @returns {RTC_SECURITY_LEVEL} 
      */
@@ -81,7 +78,6 @@ export default struct IRTCSession2 extends IRTCSession {
     }
 
     /**
-     * 
      * @param {RTC_SECURITY_TYPE} enSecurityType 
      * @returns {VARIANT_BOOL} 
      */
@@ -91,7 +87,6 @@ export default struct IRTCSession2 extends IRTCSession {
     }
 
     /**
-     * 
      * @param {BSTR} bstrContentType 
      * @param {BSTR} bstrSessionDescription 
      * @returns {HRESULT} 
@@ -105,7 +100,6 @@ export default struct IRTCSession2 extends IRTCSession {
     }
 
     /**
-     * 
      * @param {BSTR} bstrContentType 
      * @param {BSTR} bstrSessionDescription 
      * @param {Pointer} lCookie 
@@ -128,12 +122,12 @@ export default struct IRTCSession2 extends IRTCSession {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SendInfo := CallbackCreate(GetMethod(implObj, "SendInfo"), flags, 4)
-        this.vtbl.put_PreferredSecurityLevel := CallbackCreate(GetMethod(implObj, "put_PreferredSecurityLevel"), flags, 3)
-        this.vtbl.get_PreferredSecurityLevel := CallbackCreate(GetMethod(implObj, "get_PreferredSecurityLevel"), flags, 3)
-        this.vtbl.IsSecurityEnabled := CallbackCreate(GetMethod(implObj, "IsSecurityEnabled"), flags, 3)
-        this.vtbl.AnswerWithSessionDescription := CallbackCreate(GetMethod(implObj, "AnswerWithSessionDescription"), flags, 3)
-        this.vtbl.ReInviteWithSessionDescription := CallbackCreate(GetMethod(implObj, "ReInviteWithSessionDescription"), flags, 4)
+        this.vtbl.SendInfo := CallbackCreate(ObjBindMethod(implObj, "SendInfo"), flags, 4)
+        this.vtbl.put_PreferredSecurityLevel := CallbackCreate(ObjBindMethod(implObj, "put_PreferredSecurityLevel"), flags, 3)
+        this.vtbl.get_PreferredSecurityLevel := CallbackCreate(ObjBindMethod(implObj, "get_PreferredSecurityLevel"), flags, 3)
+        this.vtbl.IsSecurityEnabled := CallbackCreate(ObjBindMethod(implObj, "IsSecurityEnabled"), flags, 3)
+        this.vtbl.AnswerWithSessionDescription := CallbackCreate(ObjBindMethod(implObj, "AnswerWithSessionDescription"), flags, 3)
+        this.vtbl.ReInviteWithSessionDescription := CallbackCreate(ObjBindMethod(implObj, "ReInviteWithSessionDescription"), flags, 4)
     }
 
     Dispose() {

@@ -37,7 +37,6 @@ export default struct ICatalogServices extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Autodone() {
@@ -46,7 +45,6 @@ export default struct ICatalogServices extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     NotAutodone() {
@@ -63,8 +61,8 @@ export default struct ICatalogServices extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Autodone := CallbackCreate(GetMethod(implObj, "Autodone"), flags, 1)
-        this.vtbl.NotAutodone := CallbackCreate(GetMethod(implObj, "NotAutodone"), flags, 1)
+        this.vtbl.Autodone := CallbackCreate(ObjBindMethod(implObj, "Autodone"), flags, 1)
+        this.vtbl.NotAutodone := CallbackCreate(ObjBindMethod(implObj, "NotAutodone"), flags, 1)
     }
 
     Dispose() {

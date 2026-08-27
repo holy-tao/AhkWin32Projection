@@ -78,7 +78,9 @@ export default struct ID3D11Linker extends IUnknown {
         pEntryName := pEntryName is String ? StrPtr(pEntryName) : pEntryName
         pTargetName := pTargetName is String ? StrPtr(pTargetName) : pTargetName
 
-        result := ComCall(3, this, "ptr", pEntry, "ptr", pEntryName, "ptr", pTargetName, UInt32, uFlags, ID3DBlob.Ptr, ppShaderBlob, ID3DBlob.Ptr, ppErrorBuffer, "HRESULT")
+        ppErrorBufferMarshal := ppErrorBuffer == 0 ? IntPtr : ID3DBlob.Ptr
+
+        result := ComCall(3, this, "ptr", pEntry, "ptr", pEntryName, "ptr", pTargetName, UInt32, uFlags, ID3DBlob.Ptr, ppShaderBlob, ppErrorBufferMarshal, ppErrorBuffer, "HRESULT")
         return result
     }
 
@@ -124,9 +126,9 @@ export default struct ID3D11Linker extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Link := CallbackCreate(GetMethod(implObj, "Link"), flags, 7)
-        this.vtbl.UseLibrary := CallbackCreate(GetMethod(implObj, "UseLibrary"), flags, 2)
-        this.vtbl.AddClipPlaneFromCBuffer := CallbackCreate(GetMethod(implObj, "AddClipPlaneFromCBuffer"), flags, 3)
+        this.vtbl.Link := CallbackCreate(ObjBindMethod(implObj, "Link"), flags, 7)
+        this.vtbl.UseLibrary := CallbackCreate(ObjBindMethod(implObj, "UseLibrary"), flags, 2)
+        this.vtbl.AddClipPlaneFromCBuffer := CallbackCreate(ObjBindMethod(implObj, "AddClipPlaneFromCBuffer"), flags, 3)
     }
 
     Dispose() {

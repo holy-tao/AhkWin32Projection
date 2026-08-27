@@ -44,7 +44,6 @@ export default struct ISpPhoneConverter extends ISpObjectWithToken {
     }
 
     /**
-     * 
      * @param {PWSTR} pszPhone 
      * @returns {Integer} 
      */
@@ -56,7 +55,6 @@ export default struct ISpPhoneConverter extends ISpObjectWithToken {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pId 
      * @param {PWSTR} pszPhone 
      * @returns {HRESULT} 
@@ -64,7 +62,7 @@ export default struct ISpPhoneConverter extends ISpObjectWithToken {
     IdToPhone(pId, pszPhone) {
         pszPhone := pszPhone is String ? StrPtr(pszPhone) : pszPhone
 
-        pIdMarshal := pId is VarRef ? "ushort*" : "ptr"
+        pIdMarshal := pId is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(6, this, pIdMarshal, pId, "ptr", pszPhone, "HRESULT")
         return result
@@ -79,8 +77,8 @@ export default struct ISpPhoneConverter extends ISpObjectWithToken {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PhoneToId := CallbackCreate(GetMethod(implObj, "PhoneToId"), flags, 3)
-        this.vtbl.IdToPhone := CallbackCreate(GetMethod(implObj, "IdToPhone"), flags, 3)
+        this.vtbl.PhoneToId := CallbackCreate(ObjBindMethod(implObj, "PhoneToId"), flags, 3)
+        this.vtbl.IdToPhone := CallbackCreate(ObjBindMethod(implObj, "IdToPhone"), flags, 3)
     }
 
     Dispose() {

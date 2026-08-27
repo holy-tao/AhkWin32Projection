@@ -47,7 +47,7 @@ export default struct IPBDA_Services extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_services-initialize
      */
     Initialize(_size, pBuffer) {
-        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, UInt32, _size, pBufferMarshal, pBuffer, "HRESULT")
         return result
@@ -84,9 +84,9 @@ export default struct IPBDA_Services extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.GetCountOfRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRecords"), flags, 2)
-        this.vtbl.GetRecordByIndex := CallbackCreate(GetMethod(implObj, "GetRecordByIndex"), flags, 3)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetCountOfRecords := CallbackCreate(ObjBindMethod(implObj, "GetCountOfRecords"), flags, 2)
+        this.vtbl.GetRecordByIndex := CallbackCreate(ObjBindMethod(implObj, "GetRecordByIndex"), flags, 3)
     }
 
     Dispose() {

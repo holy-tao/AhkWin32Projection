@@ -138,12 +138,12 @@ export default struct IRDPSRAPITransportStream extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AllocBuffer := CallbackCreate(GetMethod(implObj, "AllocBuffer"), flags, 3)
-        this.vtbl.FreeBuffer := CallbackCreate(GetMethod(implObj, "FreeBuffer"), flags, 2)
-        this.vtbl.WriteBuffer := CallbackCreate(GetMethod(implObj, "WriteBuffer"), flags, 2)
-        this.vtbl.ReadBuffer := CallbackCreate(GetMethod(implObj, "ReadBuffer"), flags, 2)
-        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 2)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.AllocBuffer := CallbackCreate(ObjBindMethod(implObj, "AllocBuffer"), flags, 3)
+        this.vtbl.FreeBuffer := CallbackCreate(ObjBindMethod(implObj, "FreeBuffer"), flags, 2)
+        this.vtbl.WriteBuffer := CallbackCreate(ObjBindMethod(implObj, "WriteBuffer"), flags, 2)
+        this.vtbl.ReadBuffer := CallbackCreate(ObjBindMethod(implObj, "ReadBuffer"), flags, 2)
+        this.vtbl.Open := CallbackCreate(ObjBindMethod(implObj, "Open"), flags, 2)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
     }
 
     Dispose() {

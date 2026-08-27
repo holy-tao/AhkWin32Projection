@@ -19,7 +19,6 @@ export default struct PNETISO_EDP_ID_CALLBACK_FN {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {PWSTR} wszEnterpriseId 
      * @param {Integer} dwErr 
@@ -28,9 +27,11 @@ export default struct PNETISO_EDP_ID_CALLBACK_FN {
     Call(_context, wszEnterpriseId, dwErr) {
         wszEnterpriseId := wszEnterpriseId is String ? StrPtr(wszEnterpriseId) : wszEnterpriseId
 
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+        _contextMarshal := _context == 0 ? IntPtr : "ptr"
+        wszEnterpriseIdMarshal := wszEnterpriseId == 0 ? IntPtr : PWSTR
 
-        DllCall(this.value, _contextMarshal, _context, "ptr", wszEnterpriseId, UInt32, dwErr)
+        DllCall(this.value, _contextMarshal, _context, wszEnterpriseIdMarshal, wszEnterpriseId, UInt32, dwErr)
     }
 
     /**

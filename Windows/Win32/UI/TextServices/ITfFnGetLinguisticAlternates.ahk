@@ -59,7 +59,7 @@ export default struct ITfFnGetLinguisticAlternates extends ITfFunction {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAlternates := CallbackCreate(GetMethod(implObj, "GetAlternates"), flags, 3)
+        this.vtbl.GetAlternates := CallbackCreate(ObjBindMethod(implObj, "GetAlternates"), flags, 3)
     }
 
     Dispose() {

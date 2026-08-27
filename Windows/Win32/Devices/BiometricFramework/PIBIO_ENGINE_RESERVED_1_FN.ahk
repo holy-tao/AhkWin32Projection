@@ -21,7 +21,6 @@ export default struct PIBIO_ENGINE_RESERVED_1_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline 
      * @param {Pointer<WINBIO_IDENTITY>} Identity 
      * @returns {HRESULT} 

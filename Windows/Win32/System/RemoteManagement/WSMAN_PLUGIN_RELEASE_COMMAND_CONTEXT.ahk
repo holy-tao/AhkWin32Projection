@@ -20,14 +20,13 @@ export default struct WSMAN_PLUGIN_RELEASE_COMMAND_CONTEXT {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} shellContext Specifies the context that was received when the shell was created.
      * @param {Pointer<Void>} commandContext If this request is aimed at a command and not a shell, this is the context returned from the <b>winrm create</b> operation;  otherwise, this parameter is <b>NULL</b>.
      * @returns {String} Nothing - always returns an empty string
      */
     Call(shellContext, commandContext) {
-        shellContextMarshal := shellContext is VarRef ? "ptr" : "ptr"
-        commandContextMarshal := commandContext is VarRef ? "ptr" : "ptr"
+        shellContextMarshal := shellContext is VarRef ? "ptr" : IntPtr
+        commandContextMarshal := commandContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, shellContextMarshal, shellContext, commandContextMarshal, commandContext)
     }

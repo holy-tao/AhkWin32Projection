@@ -80,9 +80,9 @@ export default struct IMSVidStreamBufferSinkEvent extends IMSVidOutputDeviceEven
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CertificateFailure := CallbackCreate(GetMethod(implObj, "CertificateFailure"), flags, 1)
-        this.vtbl.CertificateSuccess := CallbackCreate(GetMethod(implObj, "CertificateSuccess"), flags, 1)
-        this.vtbl.WriteFailure := CallbackCreate(GetMethod(implObj, "WriteFailure"), flags, 1)
+        this.vtbl.CertificateFailure := CallbackCreate(ObjBindMethod(implObj, "CertificateFailure"), flags, 1)
+        this.vtbl.CertificateSuccess := CallbackCreate(ObjBindMethod(implObj, "CertificateSuccess"), flags, 1)
+        this.vtbl.WriteFailure := CallbackCreate(ObjBindMethod(implObj, "WriteFailure"), flags, 1)
     }
 
     Dispose() {

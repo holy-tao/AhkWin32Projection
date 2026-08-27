@@ -133,11 +133,11 @@ export default struct IWdsTransportContent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Namespace := CallbackCreate(GetMethod(implObj, "get_Namespace"), flags, 2)
-        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.RetrieveSessions := CallbackCreate(GetMethod(implObj, "RetrieveSessions"), flags, 2)
-        this.vtbl.Terminate := CallbackCreate(GetMethod(implObj, "Terminate"), flags, 1)
+        this.vtbl.get_Namespace := CallbackCreate(ObjBindMethod(implObj, "get_Namespace"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(ObjBindMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.RetrieveSessions := CallbackCreate(ObjBindMethod(implObj, "RetrieveSessions"), flags, 2)
+        this.vtbl.Terminate := CallbackCreate(ObjBindMethod(implObj, "Terminate"), flags, 1)
     }
 
     Dispose() {

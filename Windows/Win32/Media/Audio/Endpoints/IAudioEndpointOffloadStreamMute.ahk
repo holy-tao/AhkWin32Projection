@@ -68,8 +68,8 @@ export default struct IAudioEndpointOffloadStreamMute extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetMute := CallbackCreate(GetMethod(implObj, "SetMute"), flags, 2)
-        this.vtbl.GetMute := CallbackCreate(GetMethod(implObj, "GetMute"), flags, 2)
+        this.vtbl.SetMute := CallbackCreate(ObjBindMethod(implObj, "SetMute"), flags, 2)
+        this.vtbl.GetMute := CallbackCreate(ObjBindMethod(implObj, "GetMute"), flags, 2)
     }
 
     Dispose() {

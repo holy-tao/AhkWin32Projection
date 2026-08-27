@@ -129,10 +129,10 @@ export default struct IStreamAsync extends IStream {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ReadAsync := CallbackCreate(GetMethod(implObj, "ReadAsync"), flags, 5)
-        this.vtbl.WriteAsync := CallbackCreate(GetMethod(implObj, "WriteAsync"), flags, 5)
-        this.vtbl.OverlappedResult := CallbackCreate(GetMethod(implObj, "OverlappedResult"), flags, 4)
-        this.vtbl.CancelIo := CallbackCreate(GetMethod(implObj, "CancelIo"), flags, 1)
+        this.vtbl.ReadAsync := CallbackCreate(ObjBindMethod(implObj, "ReadAsync"), flags, 5)
+        this.vtbl.WriteAsync := CallbackCreate(ObjBindMethod(implObj, "WriteAsync"), flags, 5)
+        this.vtbl.OverlappedResult := CallbackCreate(ObjBindMethod(implObj, "OverlappedResult"), flags, 4)
+        this.vtbl.CancelIo := CallbackCreate(ObjBindMethod(implObj, "CancelIo"), flags, 1)
     }
 
     Dispose() {

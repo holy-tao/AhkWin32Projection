@@ -143,7 +143,7 @@ export default struct IDropTarget extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-idroptarget-dragenter
      */
     DragEnter(pDataObj, grfKeyState, pt, pdwEffect) {
-        pdwEffectMarshal := pdwEffect is VarRef ? "uint*" : "ptr"
+        pdwEffectMarshal := pdwEffect is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, "ptr", pDataObj, MODIFIERKEYS_FLAGS, grfKeyState, POINTL, pt, pdwEffectMarshal, pdwEffect, "HRESULT")
         return result
@@ -249,7 +249,7 @@ export default struct IDropTarget extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-idroptarget-dragover
      */
     DragOver(grfKeyState, pt, pdwEffect) {
-        pdwEffectMarshal := pdwEffect is VarRef ? "uint*" : "ptr"
+        pdwEffectMarshal := pdwEffect is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, MODIFIERKEYS_FLAGS, grfKeyState, POINTL, pt, pdwEffectMarshal, pdwEffect, "HRESULT")
         return result
@@ -358,7 +358,7 @@ export default struct IDropTarget extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-idroptarget-drop
      */
     Drop(pDataObj, grfKeyState, pt, pdwEffect) {
-        pdwEffectMarshal := pdwEffect is VarRef ? "uint*" : "ptr"
+        pdwEffectMarshal := pdwEffect is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, "ptr", pDataObj, MODIFIERKEYS_FLAGS, grfKeyState, POINTL, pt, pdwEffectMarshal, pdwEffect, "HRESULT")
         return result
@@ -373,10 +373,10 @@ export default struct IDropTarget extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DragEnter := CallbackCreate(GetMethod(implObj, "DragEnter"), flags, 5)
-        this.vtbl.DragOver := CallbackCreate(GetMethod(implObj, "DragOver"), flags, 4)
-        this.vtbl.DragLeave := CallbackCreate(GetMethod(implObj, "DragLeave"), flags, 1)
-        this.vtbl.Drop := CallbackCreate(GetMethod(implObj, "Drop"), flags, 5)
+        this.vtbl.DragEnter := CallbackCreate(ObjBindMethod(implObj, "DragEnter"), flags, 5)
+        this.vtbl.DragOver := CallbackCreate(ObjBindMethod(implObj, "DragOver"), flags, 4)
+        this.vtbl.DragLeave := CallbackCreate(ObjBindMethod(implObj, "DragLeave"), flags, 1)
+        this.vtbl.Drop := CallbackCreate(ObjBindMethod(implObj, "Drop"), flags, 5)
     }
 
     Dispose() {

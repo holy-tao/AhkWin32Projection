@@ -63,7 +63,7 @@ export default struct IResultDataCompare extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iresultdatacompare-compare
      */
     Compare(lUserParam, cookieA, cookieB, pnResult) {
-        pnResultMarshal := pnResult is VarRef ? "int*" : "ptr"
+        pnResultMarshal := pnResult is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, LPARAM, lUserParam, IntPtr, cookieA, IntPtr, cookieB, pnResultMarshal, pnResult, "HRESULT")
         return result
@@ -78,7 +78,7 @@ export default struct IResultDataCompare extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Compare := CallbackCreate(GetMethod(implObj, "Compare"), flags, 5)
+        this.vtbl.Compare := CallbackCreate(ObjBindMethod(implObj, "Compare"), flags, 5)
     }
 
     Dispose() {

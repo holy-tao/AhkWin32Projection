@@ -126,8 +126,8 @@ export default struct IProviderPublishing extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateInstance := CallbackCreate(GetMethod(implObj, "CreateInstance"), flags, 5)
-        this.vtbl.RemoveInstance := CallbackCreate(GetMethod(implObj, "RemoveInstance"), flags, 4)
+        this.vtbl.CreateInstance := CallbackCreate(ObjBindMethod(implObj, "CreateInstance"), flags, 5)
+        this.vtbl.RemoveInstance := CallbackCreate(ObjBindMethod(implObj, "RemoveInstance"), flags, 4)
     }
 
     Dispose() {

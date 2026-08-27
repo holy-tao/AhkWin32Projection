@@ -39,22 +39,20 @@ export default struct ISpSRAlternates extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SPPHRASEALTREQUEST>} pAltRequest 
      * @param {Pointer<Pointer<SPPHRASEALT>>} ppAlts 
      * @param {Pointer<Integer>} pcAlts 
      * @returns {HRESULT} 
      */
     GetAlternates(pAltRequest, ppAlts, pcAlts) {
-        ppAltsMarshal := ppAlts is VarRef ? "ptr*" : "ptr"
-        pcAltsMarshal := pcAlts is VarRef ? "uint*" : "ptr"
+        ppAltsMarshal := ppAlts is VarRef ? "ptr*" : IntPtr
+        pcAltsMarshal := pcAlts is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, SPPHRASEALTREQUEST.Ptr, pAltRequest, ppAltsMarshal, ppAlts, pcAltsMarshal, pcAlts, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<SPPHRASEALTREQUEST>} pAltRequest 
      * @param {Pointer<SPPHRASEALT>} pAlt 
      * @param {Pointer<Pointer<Void>>} ppvResultExtra 
@@ -62,8 +60,8 @@ export default struct ISpSRAlternates extends IUnknown {
      * @returns {HRESULT} 
      */
     Commit(pAltRequest, pAlt, ppvResultExtra, pcbResultExtra) {
-        ppvResultExtraMarshal := ppvResultExtra is VarRef ? "ptr*" : "ptr"
-        pcbResultExtraMarshal := pcbResultExtra is VarRef ? "uint*" : "ptr"
+        ppvResultExtraMarshal := ppvResultExtra is VarRef ? "ptr*" : IntPtr
+        pcbResultExtraMarshal := pcbResultExtra is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, SPPHRASEALTREQUEST.Ptr, pAltRequest, SPPHRASEALT.Ptr, pAlt, ppvResultExtraMarshal, ppvResultExtra, pcbResultExtraMarshal, pcbResultExtra, "HRESULT")
         return result
@@ -78,8 +76,8 @@ export default struct ISpSRAlternates extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAlternates := CallbackCreate(GetMethod(implObj, "GetAlternates"), flags, 4)
-        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 5)
+        this.vtbl.GetAlternates := CallbackCreate(ObjBindMethod(implObj, "GetAlternates"), flags, 4)
+        this.vtbl.Commit := CallbackCreate(ObjBindMethod(implObj, "Commit"), flags, 5)
     }
 
     Dispose() {

@@ -76,7 +76,7 @@ export default struct ICredentialProviderEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CredentialsChanged := CallbackCreate(GetMethod(implObj, "CredentialsChanged"), flags, 2)
+        this.vtbl.CredentialsChanged := CallbackCreate(ObjBindMethod(implObj, "CredentialsChanged"), flags, 2)
     }
 
     Dispose() {

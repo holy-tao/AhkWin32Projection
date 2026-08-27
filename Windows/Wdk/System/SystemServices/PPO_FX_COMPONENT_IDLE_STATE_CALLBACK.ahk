@@ -18,7 +18,6 @@ export default struct PPO_FX_COMPONENT_IDLE_STATE_CALLBACK {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

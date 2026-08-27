@@ -20,7 +20,6 @@ export default struct EXTDLL_QUERYDATABYTAGEX {
     }
 
     /**
-     * 
      * @param {IDebugClient4} Client 
      * @param {Integer} dwDataTag 
      * @param {Pointer<Void>} pQueryInfo 
@@ -31,7 +30,7 @@ export default struct EXTDLL_QUERYDATABYTAGEX {
      * @returns {HRESULT} 
      */
     Call(Client, dwDataTag, pQueryInfo, pData, cbData, pDataEx, cbDataEx) {
-        pQueryInfoMarshal := pQueryInfo is VarRef ? "ptr" : "ptr"
+        pQueryInfoMarshal := pQueryInfo is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, "ptr", Client, UInt32, dwDataTag, pQueryInfoMarshal, pQueryInfo, IntPtr, pData, UInt32, cbData, IntPtr, pDataEx, UInt32, cbDataEx, "HRESULT")
         return result

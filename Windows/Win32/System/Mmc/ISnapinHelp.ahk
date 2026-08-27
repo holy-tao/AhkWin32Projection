@@ -66,7 +66,7 @@ export default struct ISnapinHelp extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetHelpTopic := CallbackCreate(GetMethod(implObj, "GetHelpTopic"), flags, 2)
+        this.vtbl.GetHelpTopic := CallbackCreate(ObjBindMethod(implObj, "GetHelpTopic"), flags, 2)
     }
 
     Dispose() {

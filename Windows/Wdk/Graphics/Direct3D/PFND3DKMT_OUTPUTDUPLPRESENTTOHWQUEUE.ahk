@@ -20,7 +20,6 @@ export default struct PFND3DKMT_OUTPUTDUPLPRESENTTOHWQUEUE {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_OUTPUTDUPLPRESENTTOHWQUEUE>} param0 
      * @returns {NTSTATUS} 
      */

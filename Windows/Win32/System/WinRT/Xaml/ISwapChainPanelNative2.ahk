@@ -54,7 +54,6 @@ export default struct ISwapChainPanelNative2 extends ISwapChainPanelNative {
     }
 
     /**
-     * 
      * @param {HANDLE} swapChainHandle 
      * @returns {HRESULT} 
      */
@@ -72,7 +71,7 @@ export default struct ISwapChainPanelNative2 extends ISwapChainPanelNative {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetSwapChainHandle := CallbackCreate(GetMethod(implObj, "SetSwapChainHandle"), flags, 2)
+        this.vtbl.SetSwapChainHandle := CallbackCreate(ObjBindMethod(implObj, "SetSwapChainHandle"), flags, 2)
     }
 
     Dispose() {

@@ -37,20 +37,18 @@ export default struct ISpThreadTask extends Win32ComInterface {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvTaskData 
      * @param {HWND} _hwnd 
      * @returns {HRESULT} 
      */
     InitThread(pvTaskData, _hwnd) {
-        pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : "ptr"
+        pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(0, this, pvTaskDataMarshal, pvTaskData, HWND, _hwnd, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvTaskData 
      * @param {HANDLE} hExitThreadEvent 
      * @param {HANDLE} hNotifyEvent 
@@ -59,15 +57,14 @@ export default struct ISpThreadTask extends Win32ComInterface {
      * @returns {HRESULT} 
      */
     ThreadProc(pvTaskData, hExitThreadEvent, hNotifyEvent, hwndWorker, pfContinueProcessing) {
-        pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : "ptr"
-        pfContinueProcessingMarshal := pfContinueProcessing is VarRef ? "int*" : "ptr"
+        pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : IntPtr
+        pfContinueProcessingMarshal := pfContinueProcessing is VarRef ? "int*" : IntPtr
 
         result := ComCall(1, this, pvTaskDataMarshal, pvTaskData, HANDLE, hExitThreadEvent, HANDLE, hNotifyEvent, HWND, hwndWorker, pfContinueProcessingMarshal, pfContinueProcessing, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvTaskData 
      * @param {HWND} _hWnd 
      * @param {Integer} _Msg 
@@ -76,7 +73,7 @@ export default struct ISpThreadTask extends Win32ComInterface {
      * @returns {LRESULT} 
      */
     WindowMessage(pvTaskData, _hWnd, _Msg, _wParam, _lParam) {
-        pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : "ptr"
+        pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(2, this, pvTaskDataMarshal, pvTaskData, HWND, _hWnd, UInt32, _Msg, WPARAM, _wParam, LPARAM, _lParam, LRESULT)
         return result

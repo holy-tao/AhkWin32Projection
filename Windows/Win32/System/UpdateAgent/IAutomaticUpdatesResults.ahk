@@ -88,8 +88,8 @@ export default struct IAutomaticUpdatesResults extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_LastSearchSuccessDate := CallbackCreate(GetMethod(implObj, "get_LastSearchSuccessDate"), flags, 2)
-        this.vtbl.get_LastInstallationSuccessDate := CallbackCreate(GetMethod(implObj, "get_LastInstallationSuccessDate"), flags, 2)
+        this.vtbl.get_LastSearchSuccessDate := CallbackCreate(ObjBindMethod(implObj, "get_LastSearchSuccessDate"), flags, 2)
+        this.vtbl.get_LastInstallationSuccessDate := CallbackCreate(ObjBindMethod(implObj, "get_LastInstallationSuccessDate"), flags, 2)
     }
 
     Dispose() {

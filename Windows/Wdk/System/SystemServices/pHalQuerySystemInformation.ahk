@@ -20,7 +20,6 @@ export default struct pHalQuerySystemInformation {
     }
 
     /**
-     * 
      * @param {HAL_QUERY_INFORMATION_CLASS} InformationClass 
      * @param {Integer} BufferSize 
      * @param {Integer} _Buffer 
@@ -28,7 +27,7 @@ export default struct pHalQuerySystemInformation {
      * @returns {NTSTATUS} 
      */
     Call(InformationClass, BufferSize, _Buffer, ReturnedLength) {
-        ReturnedLengthMarshal := ReturnedLength is VarRef ? "uint*" : "ptr"
+        ReturnedLengthMarshal := ReturnedLength is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HAL_QUERY_INFORMATION_CLASS, InformationClass, UInt32, BufferSize, IntPtr, _Buffer, ReturnedLengthMarshal, ReturnedLength, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

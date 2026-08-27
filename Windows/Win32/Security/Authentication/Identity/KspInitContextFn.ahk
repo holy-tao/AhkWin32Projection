@@ -20,14 +20,13 @@ export default struct KspInitContextFn {
     }
 
     /**
-     * 
      * @param {Pointer} ContextId 
      * @param {Pointer<SecBuffer>} ContextData 
      * @param {Pointer<Pointer>} NewContextId 
      * @returns {NTSTATUS} 
      */
     Call(ContextId, ContextData, NewContextId) {
-        NewContextIdMarshal := NewContextId is VarRef ? "ptr*" : "ptr"
+        NewContextIdMarshal := NewContextId is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, IntPtr, ContextId, SecBuffer.Ptr, ContextData, NewContextIdMarshal, NewContextId, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

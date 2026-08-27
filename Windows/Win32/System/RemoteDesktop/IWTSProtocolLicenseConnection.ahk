@@ -48,7 +48,7 @@ export default struct IWTSProtocolLicenseConnection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocollicenseconnection-requestlicensingcapabilities
      */
     RequestLicensingCapabilities(pcbLicenseCapabilities) {
-        pcbLicenseCapabilitiesMarshal := pcbLicenseCapabilities is VarRef ? "uint*" : "ptr"
+        pcbLicenseCapabilitiesMarshal := pcbLicenseCapabilities is VarRef ? "uint*" : IntPtr
 
         ppLicenseCapabilities := WTS_LICENSE_CAPABILITIES()
         result := ComCall(3, this, WTS_LICENSE_CAPABILITIES.Ptr, ppLicenseCapabilities, pcbLicenseCapabilitiesMarshal, pcbLicenseCapabilities, "HRESULT")
@@ -65,7 +65,7 @@ export default struct IWTSProtocolLicenseConnection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocollicenseconnection-sendclientlicense
      */
     SendClientLicense(pClientLicense, cbClientLicense) {
-        pClientLicenseMarshal := pClientLicense is VarRef ? "char*" : "ptr"
+        pClientLicenseMarshal := pClientLicense is VarRef ? "char*" : IntPtr
 
         result := ComCall(4, this, pClientLicenseMarshal, pClientLicense, UInt32, cbClientLicense, "HRESULT")
         return result
@@ -82,8 +82,8 @@ export default struct IWTSProtocolLicenseConnection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocollicenseconnection-requestclientlicense
      */
     RequestClientLicense(Reserve1, Reserve2, pcbClientLicense) {
-        Reserve1Marshal := Reserve1 is VarRef ? "char*" : "ptr"
-        pcbClientLicenseMarshal := pcbClientLicense is VarRef ? "uint*" : "ptr"
+        Reserve1Marshal := Reserve1 is VarRef ? "char*" : IntPtr
+        pcbClientLicenseMarshal := pcbClientLicense is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, Reserve1Marshal, Reserve1, UInt32, Reserve2, "char*", &ppClientLicense := 0, pcbClientLicenseMarshal, pcbClientLicense, "HRESULT")
         return ppClientLicense
@@ -109,10 +109,10 @@ export default struct IWTSProtocolLicenseConnection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RequestLicensingCapabilities := CallbackCreate(GetMethod(implObj, "RequestLicensingCapabilities"), flags, 3)
-        this.vtbl.SendClientLicense := CallbackCreate(GetMethod(implObj, "SendClientLicense"), flags, 3)
-        this.vtbl.RequestClientLicense := CallbackCreate(GetMethod(implObj, "RequestClientLicense"), flags, 5)
-        this.vtbl.ProtocolComplete := CallbackCreate(GetMethod(implObj, "ProtocolComplete"), flags, 2)
+        this.vtbl.RequestLicensingCapabilities := CallbackCreate(ObjBindMethod(implObj, "RequestLicensingCapabilities"), flags, 3)
+        this.vtbl.SendClientLicense := CallbackCreate(ObjBindMethod(implObj, "SendClientLicense"), flags, 3)
+        this.vtbl.RequestClientLicense := CallbackCreate(ObjBindMethod(implObj, "RequestClientLicense"), flags, 5)
+        this.vtbl.ProtocolComplete := CallbackCreate(ObjBindMethod(implObj, "ProtocolComplete"), flags, 2)
     }
 
     Dispose() {

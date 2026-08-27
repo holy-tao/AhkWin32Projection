@@ -20,14 +20,13 @@ export default struct PFS_FILTER_COMPLETION_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<FS_FILTER_CALLBACK_DATA>} Data 
      * @param {NTSTATUS} OperationStatus 
      * @param {Pointer<Void>} CompletionContext 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(Data, OperationStatus, CompletionContext) {
-        CompletionContextMarshal := CompletionContext is VarRef ? "ptr" : "ptr"
+        CompletionContextMarshal := CompletionContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, FS_FILTER_CALLBACK_DATA.Ptr, Data, NTSTATUS, OperationStatus, CompletionContextMarshal, CompletionContext)
     }

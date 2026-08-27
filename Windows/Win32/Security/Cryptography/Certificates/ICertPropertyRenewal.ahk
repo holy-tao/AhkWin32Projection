@@ -157,9 +157,9 @@ export default struct ICertPropertyRenewal extends ICertProperty {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.InitializeFromCertificateHash := CallbackCreate(GetMethod(implObj, "InitializeFromCertificateHash"), flags, 4)
-        this.vtbl.get_Renewal := CallbackCreate(GetMethod(implObj, "get_Renewal"), flags, 3)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.InitializeFromCertificateHash := CallbackCreate(ObjBindMethod(implObj, "InitializeFromCertificateHash"), flags, 4)
+        this.vtbl.get_Renewal := CallbackCreate(ObjBindMethod(implObj, "get_Renewal"), flags, 3)
     }
 
     Dispose() {

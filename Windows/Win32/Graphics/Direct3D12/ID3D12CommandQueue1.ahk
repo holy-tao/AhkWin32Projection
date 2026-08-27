@@ -41,7 +41,6 @@ export default struct ID3D12CommandQueue1 extends ID3D12CommandQueue {
     }
 
     /**
-     * 
      * @param {D3D12_COMMAND_QUEUE_PROCESS_PRIORITY} _Priority 
      * @returns {HRESULT} 
      */
@@ -51,19 +50,17 @@ export default struct ID3D12CommandQueue1 extends ID3D12CommandQueue {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_COMMAND_QUEUE_PROCESS_PRIORITY>} pOutValue 
      * @returns {HRESULT} 
      */
     GetProcessPriority(pOutValue) {
-        pOutValueMarshal := pOutValue is VarRef ? "int*" : "ptr"
+        pOutValueMarshal := pOutValue is VarRef ? "int*" : IntPtr
 
         result := ComCall(20, this, pOutValueMarshal, pOutValue, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {D3D12_COMMAND_QUEUE_GLOBAL_PRIORITY} _Priority 
      * @returns {HRESULT} 
      */
@@ -73,12 +70,11 @@ export default struct ID3D12CommandQueue1 extends ID3D12CommandQueue {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_COMMAND_QUEUE_GLOBAL_PRIORITY>} pOutValue 
      * @returns {HRESULT} 
      */
     GetGlobalPriority(pOutValue) {
-        pOutValueMarshal := pOutValue is VarRef ? "int*" : "ptr"
+        pOutValueMarshal := pOutValue is VarRef ? "int*" : IntPtr
 
         result := ComCall(22, this, pOutValueMarshal, pOutValue, "HRESULT")
         return result
@@ -93,10 +89,10 @@ export default struct ID3D12CommandQueue1 extends ID3D12CommandQueue {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetProcessPriority := CallbackCreate(GetMethod(implObj, "SetProcessPriority"), flags, 2)
-        this.vtbl.GetProcessPriority := CallbackCreate(GetMethod(implObj, "GetProcessPriority"), flags, 2)
-        this.vtbl.SetGlobalPriority := CallbackCreate(GetMethod(implObj, "SetGlobalPriority"), flags, 2)
-        this.vtbl.GetGlobalPriority := CallbackCreate(GetMethod(implObj, "GetGlobalPriority"), flags, 2)
+        this.vtbl.SetProcessPriority := CallbackCreate(ObjBindMethod(implObj, "SetProcessPriority"), flags, 2)
+        this.vtbl.GetProcessPriority := CallbackCreate(ObjBindMethod(implObj, "GetProcessPriority"), flags, 2)
+        this.vtbl.SetGlobalPriority := CallbackCreate(ObjBindMethod(implObj, "SetGlobalPriority"), flags, 2)
+        this.vtbl.GetGlobalPriority := CallbackCreate(ObjBindMethod(implObj, "GetGlobalPriority"), flags, 2)
     }
 
     Dispose() {

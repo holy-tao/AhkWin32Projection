@@ -38,7 +38,6 @@ export default struct IDebugHostEvaluator2 extends IDebugHostEvaluator {
     }
 
     /**
-     * 
      * @param {IModelObject} assignmentReference 
      * @param {IModelObject} assignmentValue 
      * @param {Pointer<IModelObject>} assignmentResult 
@@ -46,7 +45,9 @@ export default struct IDebugHostEvaluator2 extends IDebugHostEvaluator {
      * @returns {HRESULT} 
      */
     AssignTo(assignmentReference, assignmentValue, assignmentResult, assignmentMetadata) {
-        result := ComCall(5, this, "ptr", assignmentReference, "ptr", assignmentValue, IModelObject.Ptr, assignmentResult, IKeyStore.Ptr, assignmentMetadata, "HRESULT")
+        assignmentMetadataMarshal := assignmentMetadata == 0 ? IntPtr : IKeyStore.Ptr
+
+        result := ComCall(5, this, "ptr", assignmentReference, "ptr", assignmentValue, IModelObject.Ptr, assignmentResult, assignmentMetadataMarshal, assignmentMetadata, "HRESULT")
         return result
     }
 
@@ -59,7 +60,7 @@ export default struct IDebugHostEvaluator2 extends IDebugHostEvaluator {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AssignTo := CallbackCreate(GetMethod(implObj, "AssignTo"), flags, 5)
+        this.vtbl.AssignTo := CallbackCreate(ObjBindMethod(implObj, "AssignTo"), flags, 5)
     }
 
     Dispose() {

@@ -166,8 +166,8 @@ export default struct IAtscContentAdvisoryDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getrecordratingdescriptiontext
      */
     GetRecordRatingDescriptionText(bIndex, pbLength, ppText) {
-        pbLengthMarshal := pbLength is VarRef ? "char*" : "ptr"
-        ppTextMarshal := ppText is VarRef ? "ptr*" : "ptr"
+        pbLengthMarshal := pbLength is VarRef ? "char*" : IntPtr
+        ppTextMarshal := ppText is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(10, this, Int8, bIndex, pbLengthMarshal, pbLength, ppTextMarshal, ppText, "HRESULT")
         return result
@@ -182,14 +182,14 @@ export default struct IAtscContentAdvisoryDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetRatingRegionCount := CallbackCreate(GetMethod(implObj, "GetRatingRegionCount"), flags, 2)
-        this.vtbl.GetRecordRatingRegion := CallbackCreate(GetMethod(implObj, "GetRecordRatingRegion"), flags, 3)
-        this.vtbl.GetRecordRatedDimensions := CallbackCreate(GetMethod(implObj, "GetRecordRatedDimensions"), flags, 3)
-        this.vtbl.GetRecordRatingDimension := CallbackCreate(GetMethod(implObj, "GetRecordRatingDimension"), flags, 4)
-        this.vtbl.GetRecordRatingValue := CallbackCreate(GetMethod(implObj, "GetRecordRatingValue"), flags, 4)
-        this.vtbl.GetRecordRatingDescriptionText := CallbackCreate(GetMethod(implObj, "GetRecordRatingDescriptionText"), flags, 4)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetRatingRegionCount := CallbackCreate(ObjBindMethod(implObj, "GetRatingRegionCount"), flags, 2)
+        this.vtbl.GetRecordRatingRegion := CallbackCreate(ObjBindMethod(implObj, "GetRecordRatingRegion"), flags, 3)
+        this.vtbl.GetRecordRatedDimensions := CallbackCreate(ObjBindMethod(implObj, "GetRecordRatedDimensions"), flags, 3)
+        this.vtbl.GetRecordRatingDimension := CallbackCreate(ObjBindMethod(implObj, "GetRecordRatingDimension"), flags, 4)
+        this.vtbl.GetRecordRatingValue := CallbackCreate(ObjBindMethod(implObj, "GetRecordRatingValue"), flags, 4)
+        this.vtbl.GetRecordRatingDescriptionText := CallbackCreate(ObjBindMethod(implObj, "GetRecordRatingDescriptionText"), flags, 4)
     }
 
     Dispose() {

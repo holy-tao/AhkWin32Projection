@@ -20,14 +20,14 @@ export default struct PCLUSTER_REG_CLOSE_BATCH {
     }
 
     /**
-     * 
      * @param {HREGBATCH} _hRegBatch 
      * @param {BOOL} bCommit 
      * @param {Pointer<Integer>} failedCommandNumber 
      * @returns {Integer} 
      */
     Call(_hRegBatch, bCommit, failedCommandNumber) {
-        failedCommandNumberMarshal := failedCommandNumber is VarRef ? "int*" : "ptr"
+        failedCommandNumberMarshal := failedCommandNumber is VarRef ? "int*" : IntPtr
+        failedCommandNumberMarshal := failedCommandNumber == 0 ? IntPtr : "int*"
 
         result := DllCall(this.value, HREGBATCH, _hRegBatch, BOOL, bCommit, failedCommandNumberMarshal, failedCommandNumber, Int32)
         return result

@@ -21,7 +21,6 @@ export default struct PFN_NT_QUERY_INFORMATION_TRANSACTION {
     }
 
     /**
-     * 
      * @param {HANDLE} TransactionHandle 
      * @param {TRANSACTION_INFORMATION_CLASS} TransactionInformationClass 
      * @param {Integer} TransactionInformation 
@@ -30,7 +29,8 @@ export default struct PFN_NT_QUERY_INFORMATION_TRANSACTION {
      * @returns {NTSTATUS} 
      */
     Call(TransactionHandle, TransactionInformationClass, TransactionInformation, TransactionInformationLength, ReturnLength) {
-        ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
+        ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : IntPtr
+        ReturnLengthMarshal := ReturnLength == 0 ? IntPtr : "uint*"
 
         result := DllCall(this.value, HANDLE, TransactionHandle, TRANSACTION_INFORMATION_CLASS, TransactionInformationClass, IntPtr, TransactionInformation, UInt32, TransactionInformationLength, ReturnLengthMarshal, ReturnLength, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

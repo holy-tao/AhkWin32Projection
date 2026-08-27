@@ -125,7 +125,7 @@ export default struct IHolographicSpaceInterop extends IInspectable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateForWindow := CallbackCreate(GetMethod(implObj, "CreateForWindow"), flags, 4)
+        this.vtbl.CreateForWindow := CallbackCreate(ObjBindMethod(implObj, "CreateForWindow"), flags, 4)
     }
 
     Dispose() {

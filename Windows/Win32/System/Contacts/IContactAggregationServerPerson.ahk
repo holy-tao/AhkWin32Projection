@@ -148,7 +148,6 @@ export default struct IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Delete() {
@@ -157,7 +156,6 @@ export default struct IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Save() {
@@ -166,7 +164,6 @@ export default struct IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_AggregateId() {
@@ -175,7 +172,6 @@ export default struct IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pAggregateId 
      * @returns {HRESULT} 
      */
@@ -187,7 +183,6 @@ export default struct IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_AntiLink() {
@@ -196,7 +191,6 @@ export default struct IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pAntiLink 
      * @returns {HRESULT} 
      */
@@ -208,7 +202,6 @@ export default struct IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_AntiLinkBaseline() {
@@ -217,7 +210,6 @@ export default struct IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pAntiLink 
      * @returns {HRESULT} 
      */
@@ -229,7 +221,6 @@ export default struct IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_FavoriteOrder() {
@@ -238,7 +229,6 @@ export default struct IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} favoriteOrder 
      * @returns {HRESULT} 
      */
@@ -248,7 +238,6 @@ export default struct IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_FavoriteOrderBaseline() {
@@ -257,7 +246,6 @@ export default struct IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} favoriteOrder 
      * @returns {HRESULT} 
      */
@@ -267,7 +255,6 @@ export default struct IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<CONTACT_AGGREGATION_BLOB>} 
      */
     get_Groups() {
@@ -276,7 +263,6 @@ export default struct IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<CONTACT_AGGREGATION_BLOB>} pGroups 
      * @returns {HRESULT} 
      */
@@ -286,7 +272,6 @@ export default struct IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<CONTACT_AGGREGATION_BLOB>} 
      */
     get_GroupsBaseline() {
@@ -295,7 +280,6 @@ export default struct IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<CONTACT_AGGREGATION_BLOB>} pGroups 
      * @returns {HRESULT} 
      */
@@ -305,7 +289,6 @@ export default struct IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_Id() {
@@ -314,7 +297,6 @@ export default struct IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsTombstone() {
@@ -323,7 +305,6 @@ export default struct IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} isTombstone 
      * @returns {HRESULT} 
      */
@@ -333,7 +314,6 @@ export default struct IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_LinkedAggregateId() {
@@ -342,7 +322,6 @@ export default struct IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pLinkedAggregateId 
      * @returns {HRESULT} 
      */
@@ -354,7 +333,6 @@ export default struct IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_ObjectId() {
@@ -363,7 +341,6 @@ export default struct IContactAggregationServerPerson extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pObjectId 
      * @returns {HRESULT} 
      */
@@ -383,29 +360,29 @@ export default struct IContactAggregationServerPerson extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
-        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 1)
-        this.vtbl.get_AggregateId := CallbackCreate(GetMethod(implObj, "get_AggregateId"), flags, 2)
-        this.vtbl.put_AggregateId := CallbackCreate(GetMethod(implObj, "put_AggregateId"), flags, 2)
-        this.vtbl.get_AntiLink := CallbackCreate(GetMethod(implObj, "get_AntiLink"), flags, 2)
-        this.vtbl.put_AntiLink := CallbackCreate(GetMethod(implObj, "put_AntiLink"), flags, 2)
-        this.vtbl.get_AntiLinkBaseline := CallbackCreate(GetMethod(implObj, "get_AntiLinkBaseline"), flags, 2)
-        this.vtbl.put_AntiLinkBaseline := CallbackCreate(GetMethod(implObj, "put_AntiLinkBaseline"), flags, 2)
-        this.vtbl.get_FavoriteOrder := CallbackCreate(GetMethod(implObj, "get_FavoriteOrder"), flags, 2)
-        this.vtbl.put_FavoriteOrder := CallbackCreate(GetMethod(implObj, "put_FavoriteOrder"), flags, 2)
-        this.vtbl.get_FavoriteOrderBaseline := CallbackCreate(GetMethod(implObj, "get_FavoriteOrderBaseline"), flags, 2)
-        this.vtbl.put_FavoriteOrderBaseline := CallbackCreate(GetMethod(implObj, "put_FavoriteOrderBaseline"), flags, 2)
-        this.vtbl.get_Groups := CallbackCreate(GetMethod(implObj, "get_Groups"), flags, 2)
-        this.vtbl.put_Groups := CallbackCreate(GetMethod(implObj, "put_Groups"), flags, 2)
-        this.vtbl.get_GroupsBaseline := CallbackCreate(GetMethod(implObj, "get_GroupsBaseline"), flags, 2)
-        this.vtbl.put_GroupsBaseline := CallbackCreate(GetMethod(implObj, "put_GroupsBaseline"), flags, 2)
-        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
-        this.vtbl.get_IsTombstone := CallbackCreate(GetMethod(implObj, "get_IsTombstone"), flags, 2)
-        this.vtbl.put_IsTombstone := CallbackCreate(GetMethod(implObj, "put_IsTombstone"), flags, 2)
-        this.vtbl.get_LinkedAggregateId := CallbackCreate(GetMethod(implObj, "get_LinkedAggregateId"), flags, 2)
-        this.vtbl.put_LinkedAggregateId := CallbackCreate(GetMethod(implObj, "put_LinkedAggregateId"), flags, 2)
-        this.vtbl.get_ObjectId := CallbackCreate(GetMethod(implObj, "get_ObjectId"), flags, 2)
-        this.vtbl.put_ObjectId := CallbackCreate(GetMethod(implObj, "put_ObjectId"), flags, 2)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.Save := CallbackCreate(ObjBindMethod(implObj, "Save"), flags, 1)
+        this.vtbl.get_AggregateId := CallbackCreate(ObjBindMethod(implObj, "get_AggregateId"), flags, 2)
+        this.vtbl.put_AggregateId := CallbackCreate(ObjBindMethod(implObj, "put_AggregateId"), flags, 2)
+        this.vtbl.get_AntiLink := CallbackCreate(ObjBindMethod(implObj, "get_AntiLink"), flags, 2)
+        this.vtbl.put_AntiLink := CallbackCreate(ObjBindMethod(implObj, "put_AntiLink"), flags, 2)
+        this.vtbl.get_AntiLinkBaseline := CallbackCreate(ObjBindMethod(implObj, "get_AntiLinkBaseline"), flags, 2)
+        this.vtbl.put_AntiLinkBaseline := CallbackCreate(ObjBindMethod(implObj, "put_AntiLinkBaseline"), flags, 2)
+        this.vtbl.get_FavoriteOrder := CallbackCreate(ObjBindMethod(implObj, "get_FavoriteOrder"), flags, 2)
+        this.vtbl.put_FavoriteOrder := CallbackCreate(ObjBindMethod(implObj, "put_FavoriteOrder"), flags, 2)
+        this.vtbl.get_FavoriteOrderBaseline := CallbackCreate(ObjBindMethod(implObj, "get_FavoriteOrderBaseline"), flags, 2)
+        this.vtbl.put_FavoriteOrderBaseline := CallbackCreate(ObjBindMethod(implObj, "put_FavoriteOrderBaseline"), flags, 2)
+        this.vtbl.get_Groups := CallbackCreate(ObjBindMethod(implObj, "get_Groups"), flags, 2)
+        this.vtbl.put_Groups := CallbackCreate(ObjBindMethod(implObj, "put_Groups"), flags, 2)
+        this.vtbl.get_GroupsBaseline := CallbackCreate(ObjBindMethod(implObj, "get_GroupsBaseline"), flags, 2)
+        this.vtbl.put_GroupsBaseline := CallbackCreate(ObjBindMethod(implObj, "put_GroupsBaseline"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(ObjBindMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.get_IsTombstone := CallbackCreate(ObjBindMethod(implObj, "get_IsTombstone"), flags, 2)
+        this.vtbl.put_IsTombstone := CallbackCreate(ObjBindMethod(implObj, "put_IsTombstone"), flags, 2)
+        this.vtbl.get_LinkedAggregateId := CallbackCreate(ObjBindMethod(implObj, "get_LinkedAggregateId"), flags, 2)
+        this.vtbl.put_LinkedAggregateId := CallbackCreate(ObjBindMethod(implObj, "put_LinkedAggregateId"), flags, 2)
+        this.vtbl.get_ObjectId := CallbackCreate(ObjBindMethod(implObj, "get_ObjectId"), flags, 2)
+        this.vtbl.put_ObjectId := CallbackCreate(ObjBindMethod(implObj, "put_ObjectId"), flags, 2)
     }
 
     Dispose() {

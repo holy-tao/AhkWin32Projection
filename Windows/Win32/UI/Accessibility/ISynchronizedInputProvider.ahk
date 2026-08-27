@@ -83,8 +83,8 @@ export default struct ISynchronizedInputProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StartListening := CallbackCreate(GetMethod(implObj, "StartListening"), flags, 2)
-        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.StartListening := CallbackCreate(ObjBindMethod(implObj, "StartListening"), flags, 2)
+        this.vtbl.Cancel := CallbackCreate(ObjBindMethod(implObj, "Cancel"), flags, 1)
     }
 
     Dispose() {

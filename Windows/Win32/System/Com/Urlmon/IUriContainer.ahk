@@ -37,7 +37,6 @@ export default struct IUriContainer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IUri} 
      */
     GetIUri() {
@@ -54,7 +53,7 @@ export default struct IUriContainer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetIUri := CallbackCreate(GetMethod(implObj, "GetIUri"), flags, 2)
+        this.vtbl.GetIUri := CallbackCreate(ObjBindMethod(implObj, "GetIUri"), flags, 2)
     }
 
     Dispose() {

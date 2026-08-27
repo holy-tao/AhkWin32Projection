@@ -20,7 +20,6 @@ export default struct PFN_CARD_DELETE_DIRECTORY {
     }
 
     /**
-     * 
      * @param {Pointer<CARD_DATA>} pCardData 
      * @param {PSTR} pszDirectoryName 
      * @returns {Integer} 

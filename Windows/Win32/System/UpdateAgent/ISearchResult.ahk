@@ -121,10 +121,10 @@ export default struct ISearchResult extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ResultCode := CallbackCreate(GetMethod(implObj, "get_ResultCode"), flags, 2)
-        this.vtbl.get_RootCategories := CallbackCreate(GetMethod(implObj, "get_RootCategories"), flags, 2)
-        this.vtbl.get_Updates := CallbackCreate(GetMethod(implObj, "get_Updates"), flags, 2)
-        this.vtbl.get_Warnings := CallbackCreate(GetMethod(implObj, "get_Warnings"), flags, 2)
+        this.vtbl.get_ResultCode := CallbackCreate(ObjBindMethod(implObj, "get_ResultCode"), flags, 2)
+        this.vtbl.get_RootCategories := CallbackCreate(ObjBindMethod(implObj, "get_RootCategories"), flags, 2)
+        this.vtbl.get_Updates := CallbackCreate(ObjBindMethod(implObj, "get_Updates"), flags, 2)
+        this.vtbl.get_Warnings := CallbackCreate(ObjBindMethod(implObj, "get_Warnings"), flags, 2)
     }
 
     Dispose() {

@@ -331,8 +331,8 @@ export default struct ITfLangBarItemMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritemmgr-getitems
      */
     GetItems(ulCount, ppItem, pInfo, pdwStatus, pcFetched) {
-        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
-        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : IntPtr
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : IntPtr
 
         result := ComCall(12, this, UInt32, ulCount, ITfLangBarItem.Ptr, ppItem, TF_LANGBARITEMINFO.Ptr, pInfo, pdwStatusMarshal, pdwStatus, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
@@ -359,7 +359,7 @@ export default struct ITfLangBarItemMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritemmgr-unadviseitemssink
      */
     UnadviseItemsSink(ulCount, pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : IntPtr
 
         result := ComCall(14, this, UInt32, ulCount, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
@@ -374,18 +374,18 @@ export default struct ITfLangBarItemMgr extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumItems := CallbackCreate(GetMethod(implObj, "EnumItems"), flags, 2)
-        this.vtbl.GetItem := CallbackCreate(GetMethod(implObj, "GetItem"), flags, 3)
-        this.vtbl.AddItem := CallbackCreate(GetMethod(implObj, "AddItem"), flags, 2)
-        this.vtbl.RemoveItem := CallbackCreate(GetMethod(implObj, "RemoveItem"), flags, 2)
-        this.vtbl.AdviseItemSink := CallbackCreate(GetMethod(implObj, "AdviseItemSink"), flags, 4)
-        this.vtbl.UnadviseItemSink := CallbackCreate(GetMethod(implObj, "UnadviseItemSink"), flags, 2)
-        this.vtbl.GetItemFloatingRect := CallbackCreate(GetMethod(implObj, "GetItemFloatingRect"), flags, 4)
-        this.vtbl.GetItemsStatus := CallbackCreate(GetMethod(implObj, "GetItemsStatus"), flags, 4)
-        this.vtbl.GetItemNum := CallbackCreate(GetMethod(implObj, "GetItemNum"), flags, 2)
-        this.vtbl.GetItems := CallbackCreate(GetMethod(implObj, "GetItems"), flags, 6)
-        this.vtbl.AdviseItemsSink := CallbackCreate(GetMethod(implObj, "AdviseItemsSink"), flags, 5)
-        this.vtbl.UnadviseItemsSink := CallbackCreate(GetMethod(implObj, "UnadviseItemsSink"), flags, 3)
+        this.vtbl.EnumItems := CallbackCreate(ObjBindMethod(implObj, "EnumItems"), flags, 2)
+        this.vtbl.GetItem := CallbackCreate(ObjBindMethod(implObj, "GetItem"), flags, 3)
+        this.vtbl.AddItem := CallbackCreate(ObjBindMethod(implObj, "AddItem"), flags, 2)
+        this.vtbl.RemoveItem := CallbackCreate(ObjBindMethod(implObj, "RemoveItem"), flags, 2)
+        this.vtbl.AdviseItemSink := CallbackCreate(ObjBindMethod(implObj, "AdviseItemSink"), flags, 4)
+        this.vtbl.UnadviseItemSink := CallbackCreate(ObjBindMethod(implObj, "UnadviseItemSink"), flags, 2)
+        this.vtbl.GetItemFloatingRect := CallbackCreate(ObjBindMethod(implObj, "GetItemFloatingRect"), flags, 4)
+        this.vtbl.GetItemsStatus := CallbackCreate(ObjBindMethod(implObj, "GetItemsStatus"), flags, 4)
+        this.vtbl.GetItemNum := CallbackCreate(ObjBindMethod(implObj, "GetItemNum"), flags, 2)
+        this.vtbl.GetItems := CallbackCreate(ObjBindMethod(implObj, "GetItems"), flags, 6)
+        this.vtbl.AdviseItemsSink := CallbackCreate(ObjBindMethod(implObj, "AdviseItemsSink"), flags, 5)
+        this.vtbl.UnadviseItemsSink := CallbackCreate(ObjBindMethod(implObj, "UnadviseItemsSink"), flags, 3)
     }
 
     Dispose() {

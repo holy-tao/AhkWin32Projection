@@ -69,14 +69,16 @@ export default struct ID3D11VideoContext3 extends ID3D11VideoContext2 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/nf-d3d11_4-id3d11videocontext3-decoderbeginframe1
      */
     DecoderBeginFrame1(pDecoder, pView, ContentKeySize, pContentKey, NumComponentHistograms, pHistogramOffsets, ppHistogramBuffers) {
-        pHistogramOffsetsMarshal := pHistogramOffsets is VarRef ? "uint*" : "ptr"
+        pContentKeyMarshal := pContentKey == 0 ? IntPtr : IntPtr
+        pHistogramOffsetsMarshal := pHistogramOffsets is VarRef ? "uint*" : IntPtr
+        pHistogramOffsetsMarshal := pHistogramOffsets == 0 ? IntPtr : "uint*"
+        ppHistogramBuffersMarshal := ppHistogramBuffers == 0 ? IntPtr : ID3D11Buffer.Ptr
 
-        result := ComCall(83, this, "ptr", pDecoder, "ptr", pView, UInt32, ContentKeySize, IntPtr, pContentKey, UInt32, NumComponentHistograms, pHistogramOffsetsMarshal, pHistogramOffsets, ID3D11Buffer.Ptr, ppHistogramBuffers, "HRESULT")
+        result := ComCall(83, this, "ptr", pDecoder, "ptr", pView, UInt32, ContentKeySize, pContentKeyMarshal, pContentKey, UInt32, NumComponentHistograms, pHistogramOffsetsMarshal, pHistogramOffsets, ppHistogramBuffersMarshal, ppHistogramBuffers, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {ID3D11VideoDecoder} pDecoder 
      * @param {Integer} NumBuffers 
      * @param {Pointer<D3D11_VIDEO_DECODER_BUFFER_DESC2>} pBufferDesc 
@@ -96,8 +98,8 @@ export default struct ID3D11VideoContext3 extends ID3D11VideoContext2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DecoderBeginFrame1 := CallbackCreate(GetMethod(implObj, "DecoderBeginFrame1"), flags, 8)
-        this.vtbl.SubmitDecoderBuffers2 := CallbackCreate(GetMethod(implObj, "SubmitDecoderBuffers2"), flags, 4)
+        this.vtbl.DecoderBeginFrame1 := CallbackCreate(ObjBindMethod(implObj, "DecoderBeginFrame1"), flags, 8)
+        this.vtbl.SubmitDecoderBuffers2 := CallbackCreate(ObjBindMethod(implObj, "SubmitDecoderBuffers2"), flags, 4)
     }
 
     Dispose() {

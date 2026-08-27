@@ -21,7 +21,6 @@ export default struct PIBIO_FRAMEWORK_LOCK_AND_VALIDATE_SECURE_BUFFER_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline 
      * @param {Guid} SecureBufferIdentifier 
      * @param {Pointer<Pointer<Void>>} SecureBufferAddress 
@@ -29,8 +28,8 @@ export default struct PIBIO_FRAMEWORK_LOCK_AND_VALIDATE_SECURE_BUFFER_FN {
      * @returns {HRESULT} 
      */
     Call(Pipeline, SecureBufferIdentifier, SecureBufferAddress, SecureBufferSize) {
-        SecureBufferAddressMarshal := SecureBufferAddress is VarRef ? "ptr*" : "ptr"
-        SecureBufferSizeMarshal := SecureBufferSize is VarRef ? "ptr*" : "ptr"
+        SecureBufferAddressMarshal := SecureBufferAddress is VarRef ? "ptr*" : IntPtr
+        SecureBufferSizeMarshal := SecureBufferSize is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, WINBIO_PIPELINE.Ptr, Pipeline, Guid, SecureBufferIdentifier, SecureBufferAddressMarshal, SecureBufferAddress, SecureBufferSizeMarshal, SecureBufferSize, "HRESULT")
         return result

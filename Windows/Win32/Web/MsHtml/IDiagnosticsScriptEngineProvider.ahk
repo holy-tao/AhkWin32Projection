@@ -39,14 +39,15 @@ export default struct IDiagnosticsScriptEngineProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDiagnosticsScriptEngineSite} pScriptSite 
      * @param {BOOL} fDebuggingEnabled 
      * @param {Integer} ulProcessId 
      * @returns {IDiagnosticsScriptEngine} 
      */
     CreateDiagnosticsScriptEngine(pScriptSite, fDebuggingEnabled, ulProcessId) {
-        result := ComCall(3, this, "ptr", pScriptSite, BOOL, fDebuggingEnabled, UInt32, ulProcessId, "ptr*", &ppEngine := 0, "HRESULT")
+        pScriptSiteMarshal := pScriptSite == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pScriptSiteMarshal, pScriptSite, BOOL, fDebuggingEnabled, UInt32, ulProcessId, "ptr*", &ppEngine := 0, "HRESULT")
         return IDiagnosticsScriptEngine(ppEngine)
     }
 
@@ -59,7 +60,7 @@ export default struct IDiagnosticsScriptEngineProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateDiagnosticsScriptEngine := CallbackCreate(GetMethod(implObj, "CreateDiagnosticsScriptEngine"), flags, 5)
+        this.vtbl.CreateDiagnosticsScriptEngine := CallbackCreate(ObjBindMethod(implObj, "CreateDiagnosticsScriptEngine"), flags, 5)
     }
 
     Dispose() {

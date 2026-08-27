@@ -22,7 +22,6 @@ export default struct LPFN_RIORESIZECOMPLETIONQUEUE {
     }
 
     /**
-     * 
      * @param {RIO_CQ} CQ A descriptor that identifies an existing I/O completion queue to resize.
      * @param {Integer} QueueSize 
      * @returns {BOOL} If no error occurs, the **RIOResizeCompletionQueue** function returns **TRUE**. Otherwise, a value of **FALSE** is returned, and a specific error code can be retrieved by calling the [**WSAGetLastError**](../winsock/nf-winsock-wsagetlasterror.md) function.

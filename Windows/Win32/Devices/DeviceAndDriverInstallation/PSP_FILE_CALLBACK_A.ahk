@@ -21,7 +21,6 @@ export default struct PSP_FILE_CALLBACK_A {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context The context information about the queue notification  that is returned to the callback function.
      * @param {Integer} _Notification The event that triggers the call to the callback function.
      * @param {Pointer} Param1 The additional notification information. The value is dependent on the notification that is being returned.
@@ -29,7 +28,7 @@ export default struct PSP_FILE_CALLBACK_A {
      * @returns {Integer} 
      */
     Call(_Context, _Notification, Param1, Param2) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, UInt32, _Notification, IntPtr, Param1, IntPtr, Param2, UInt32)
         return result

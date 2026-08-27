@@ -64,7 +64,7 @@ export default struct IInkTablet2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_DeviceKind := CallbackCreate(GetMethod(implObj, "get_DeviceKind"), flags, 2)
+        this.vtbl.get_DeviceKind := CallbackCreate(ObjBindMethod(implObj, "get_DeviceKind"), flags, 2)
     }
 
     Dispose() {

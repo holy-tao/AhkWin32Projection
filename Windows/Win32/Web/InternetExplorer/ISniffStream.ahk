@@ -38,7 +38,6 @@ export default struct ISniffStream extends IUnknown {
     }
 
     /**
-     * 
      * @param {IStream} pStream 
      * @returns {HRESULT} 
      */
@@ -48,15 +47,14 @@ export default struct ISniffStream extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pBuffer 
      * @param {Integer} nBytes 
      * @param {Pointer<Integer>} pnBytesRead 
      * @returns {HRESULT} 
      */
     Peek(pBuffer, nBytes, pnBytesRead) {
-        pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
-        pnBytesReadMarshal := pnBytesRead is VarRef ? "uint*" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "ptr" : IntPtr
+        pnBytesReadMarshal := pnBytesRead is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pBufferMarshal, pBuffer, UInt32, nBytes, pnBytesReadMarshal, pnBytesRead, "HRESULT")
         return result
@@ -71,8 +69,8 @@ export default struct ISniffStream extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 2)
-        this.vtbl.Peek := CallbackCreate(GetMethod(implObj, "Peek"), flags, 4)
+        this.vtbl.Init := CallbackCreate(ObjBindMethod(implObj, "Init"), flags, 2)
+        this.vtbl.Peek := CallbackCreate(ObjBindMethod(implObj, "Peek"), flags, 4)
     }
 
     Dispose() {

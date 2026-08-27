@@ -38,7 +38,6 @@ export default struct ID3D12DebugCommandList2 extends ID3D12DebugCommandList {
     }
 
     /**
-     * 
      * @param {D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE} Type 
      * @param {Integer} pData 
      * @param {Integer} DataSize 
@@ -50,7 +49,6 @@ export default struct ID3D12DebugCommandList2 extends ID3D12DebugCommandList {
     }
 
     /**
-     * 
      * @param {D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE} Type 
      * @param {Integer} pData 
      * @param {Integer} DataSize 
@@ -70,8 +68,8 @@ export default struct ID3D12DebugCommandList2 extends ID3D12DebugCommandList {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetDebugParameter := CallbackCreate(GetMethod(implObj, "SetDebugParameter"), flags, 4)
-        this.vtbl.GetDebugParameter := CallbackCreate(GetMethod(implObj, "GetDebugParameter"), flags, 4)
+        this.vtbl.SetDebugParameter := CallbackCreate(ObjBindMethod(implObj, "SetDebugParameter"), flags, 4)
+        this.vtbl.GetDebugParameter := CallbackCreate(ObjBindMethod(implObj, "GetDebugParameter"), flags, 4)
     }
 
     Dispose() {

@@ -171,12 +171,12 @@ export default struct IAzClientContext2 extends IAzClientContext {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAssignedScopesPage := CallbackCreate(GetMethod(implObj, "GetAssignedScopesPage"), flags, 5)
-        this.vtbl.AddRoles := CallbackCreate(GetMethod(implObj, "AddRoles"), flags, 3)
-        this.vtbl.AddApplicationGroups := CallbackCreate(GetMethod(implObj, "AddApplicationGroups"), flags, 2)
-        this.vtbl.AddStringSids := CallbackCreate(GetMethod(implObj, "AddStringSids"), flags, 2)
-        this.vtbl.put_LDAPQueryDN := CallbackCreate(GetMethod(implObj, "put_LDAPQueryDN"), flags, 2)
-        this.vtbl.get_LDAPQueryDN := CallbackCreate(GetMethod(implObj, "get_LDAPQueryDN"), flags, 2)
+        this.vtbl.GetAssignedScopesPage := CallbackCreate(ObjBindMethod(implObj, "GetAssignedScopesPage"), flags, 5)
+        this.vtbl.AddRoles := CallbackCreate(ObjBindMethod(implObj, "AddRoles"), flags, 3)
+        this.vtbl.AddApplicationGroups := CallbackCreate(ObjBindMethod(implObj, "AddApplicationGroups"), flags, 2)
+        this.vtbl.AddStringSids := CallbackCreate(ObjBindMethod(implObj, "AddStringSids"), flags, 2)
+        this.vtbl.put_LDAPQueryDN := CallbackCreate(ObjBindMethod(implObj, "put_LDAPQueryDN"), flags, 2)
+        this.vtbl.get_LDAPQueryDN := CallbackCreate(ObjBindMethod(implObj, "get_LDAPQueryDN"), flags, 2)
     }
 
     Dispose() {

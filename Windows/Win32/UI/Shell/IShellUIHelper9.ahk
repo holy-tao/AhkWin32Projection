@@ -36,7 +36,6 @@ export default struct IShellUIHelper9 extends IShellUIHelper8 {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetOSSku() {
@@ -53,7 +52,7 @@ export default struct IShellUIHelper9 extends IShellUIHelper8 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOSSku := CallbackCreate(GetMethod(implObj, "GetOSSku"), flags, 2)
+        this.vtbl.GetOSSku := CallbackCreate(ObjBindMethod(implObj, "GetOSSku"), flags, 2)
     }
 
     Dispose() {

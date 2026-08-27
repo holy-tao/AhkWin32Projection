@@ -84,8 +84,8 @@ export default struct IConfigInterleaving extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iconfiginterleaving-put_interleaving
      */
     put_Interleaving(prtInterleave, prtPreroll) {
-        prtInterleaveMarshal := prtInterleave is VarRef ? "int64*" : "ptr"
-        prtPrerollMarshal := prtPreroll is VarRef ? "int64*" : "ptr"
+        prtInterleaveMarshal := prtInterleave is VarRef ? "int64*" : IntPtr
+        prtPrerollMarshal := prtPreroll is VarRef ? "int64*" : IntPtr
 
         result := ComCall(5, this, prtInterleaveMarshal, prtInterleave, prtPrerollMarshal, prtPreroll, "HRESULT")
         return result
@@ -101,8 +101,8 @@ export default struct IConfigInterleaving extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iconfiginterleaving-get_interleaving
      */
     get_Interleaving(prtInterleave, prtPreroll) {
-        prtInterleaveMarshal := prtInterleave is VarRef ? "int64*" : "ptr"
-        prtPrerollMarshal := prtPreroll is VarRef ? "int64*" : "ptr"
+        prtInterleaveMarshal := prtInterleave is VarRef ? "int64*" : IntPtr
+        prtPrerollMarshal := prtPreroll is VarRef ? "int64*" : IntPtr
 
         result := ComCall(6, this, prtInterleaveMarshal, prtInterleave, prtPrerollMarshal, prtPreroll, "HRESULT")
         return result
@@ -117,10 +117,10 @@ export default struct IConfigInterleaving extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_Mode := CallbackCreate(GetMethod(implObj, "put_Mode"), flags, 2)
-        this.vtbl.get_Mode := CallbackCreate(GetMethod(implObj, "get_Mode"), flags, 2)
-        this.vtbl.put_Interleaving := CallbackCreate(GetMethod(implObj, "put_Interleaving"), flags, 3)
-        this.vtbl.get_Interleaving := CallbackCreate(GetMethod(implObj, "get_Interleaving"), flags, 3)
+        this.vtbl.put_Mode := CallbackCreate(ObjBindMethod(implObj, "put_Mode"), flags, 2)
+        this.vtbl.get_Mode := CallbackCreate(ObjBindMethod(implObj, "get_Mode"), flags, 2)
+        this.vtbl.put_Interleaving := CallbackCreate(ObjBindMethod(implObj, "put_Interleaving"), flags, 3)
+        this.vtbl.get_Interleaving := CallbackCreate(ObjBindMethod(implObj, "get_Interleaving"), flags, 3)
     }
 
     Dispose() {

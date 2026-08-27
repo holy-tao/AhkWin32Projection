@@ -144,7 +144,7 @@ export default struct ITextServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itextservices-txsendmessage
      */
     TxSendMessage(_msg, _wparam, _lparam, plresult) {
-        plresultMarshal := plresult is VarRef ? "ptr*" : "ptr"
+        plresultMarshal := plresult is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, UInt32, _msg, WPARAM, _wparam, LPARAM, _lparam, plresultMarshal, plresult, "HRESULT")
         return result
@@ -235,7 +235,7 @@ export default struct ITextServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itextservices-txdraw
      */
     TxDraw(dwDrawAspect, lindex, pvAspect, ptd, hdcDraw, hicTargetDev, lprcBounds, lprcWBounds, lprcUpdate, pfnContinue, dwContinue, lViewId) {
-        pvAspectMarshal := pvAspect is VarRef ? "ptr" : "ptr"
+        pvAspectMarshal := pvAspect is VarRef ? "ptr" : IntPtr
 
         result := ComCall(4, this, DVASPECT, dwDrawAspect, Int32, lindex, pvAspectMarshal, pvAspect, DVTARGETDEVICE.Ptr, ptd, HDC, hdcDraw, HDC, hicTargetDev, RECTL.Ptr, lprcBounds, RECTL.Ptr, lprcWBounds, RECT.Ptr, lprcUpdate, IntPtr, pfnContinue, UInt32, dwContinue, Int32, lViewId, "HRESULT")
         return result
@@ -264,11 +264,11 @@ export default struct ITextServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itextservices-txgethscroll
      */
     TxGetHScroll(plMin, plMax, plPos, plPage, pfEnabled) {
-        plMinMarshal := plMin is VarRef ? "int*" : "ptr"
-        plMaxMarshal := plMax is VarRef ? "int*" : "ptr"
-        plPosMarshal := plPos is VarRef ? "int*" : "ptr"
-        plPageMarshal := plPage is VarRef ? "int*" : "ptr"
-        pfEnabledMarshal := pfEnabled is VarRef ? "int*" : "ptr"
+        plMinMarshal := plMin is VarRef ? "int*" : IntPtr
+        plMaxMarshal := plMax is VarRef ? "int*" : IntPtr
+        plPosMarshal := plPos is VarRef ? "int*" : IntPtr
+        plPageMarshal := plPage is VarRef ? "int*" : IntPtr
+        pfEnabledMarshal := pfEnabled is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, plMinMarshal, plMin, plMaxMarshal, plMax, plPosMarshal, plPos, plPageMarshal, plPage, pfEnabledMarshal, pfEnabled, "HRESULT")
         return result
@@ -328,11 +328,11 @@ export default struct ITextServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itextservices-txgetvscroll
      */
     TxGetVScroll(plMin, plMax, plPos, plPage, pfEnabled) {
-        plMinMarshal := plMin is VarRef ? "int*" : "ptr"
-        plMaxMarshal := plMax is VarRef ? "int*" : "ptr"
-        plPosMarshal := plPos is VarRef ? "int*" : "ptr"
-        plPageMarshal := plPage is VarRef ? "int*" : "ptr"
-        pfEnabledMarshal := pfEnabled is VarRef ? "int*" : "ptr"
+        plMinMarshal := plMin is VarRef ? "int*" : IntPtr
+        plMaxMarshal := plMax is VarRef ? "int*" : IntPtr
+        plPosMarshal := plPos is VarRef ? "int*" : IntPtr
+        plPageMarshal := plPage is VarRef ? "int*" : IntPtr
+        pfEnabledMarshal := pfEnabled is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, plMinMarshal, plMin, plMaxMarshal, plMax, plPosMarshal, plPos, plPageMarshal, plPage, pfEnabledMarshal, pfEnabled, "HRESULT")
         return result
@@ -399,7 +399,7 @@ export default struct ITextServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itextservices-ontxsetcursor
      */
     OnTxSetCursor(dwDrawAspect, lindex, pvAspect, ptd, hdcDraw, hicTargetDev, lprcClient, x, y) {
-        pvAspectMarshal := pvAspect is VarRef ? "ptr" : "ptr"
+        pvAspectMarshal := pvAspect is VarRef ? "ptr" : IntPtr
 
         result := ComCall(7, this, DVASPECT, dwDrawAspect, Int32, lindex, pvAspectMarshal, pvAspect, DVTARGETDEVICE.Ptr, ptd, HDC, hdcDraw, HDC, hicTargetDev, RECT.Ptr, lprcClient, Int32, x, Int32, y, "HRESULT")
         return result
@@ -492,8 +492,8 @@ export default struct ITextServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itextservices-txqueryhitpoint
      */
     TxQueryHitPoint(dwDrawAspect, lindex, pvAspect, ptd, hdcDraw, hicTargetDev, lprcClient, x, y, pHitResult) {
-        pvAspectMarshal := pvAspect is VarRef ? "ptr" : "ptr"
-        pHitResultMarshal := pHitResult is VarRef ? "uint*" : "ptr"
+        pvAspectMarshal := pvAspect is VarRef ? "ptr" : IntPtr
+        pHitResultMarshal := pHitResult is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, DVASPECT, dwDrawAspect, Int32, lindex, pvAspectMarshal, pvAspect, DVTARGETDEVICE.Ptr, ptd, HDC, hdcDraw, HDC, hicTargetDev, RECT.Ptr, lprcClient, Int32, x, Int32, y, pHitResultMarshal, pHitResult, "HRESULT")
         return result
@@ -714,7 +714,7 @@ export default struct ITextServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itextservices-txgetcurtargetx
      */
     TxGetCurTargetX(param0) {
-        param0Marshal := param0 is VarRef ? "int*" : "ptr"
+        param0Marshal := param0 is VarRef ? "int*" : IntPtr
 
         result := ComCall(15, this, param0Marshal, param0, "HRESULT")
         return result
@@ -749,7 +749,7 @@ export default struct ITextServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itextservices-txgetbaselinepos
      */
     TxGetBaseLinePos(param0) {
-        param0Marshal := param0 is VarRef ? "int*" : "ptr"
+        param0Marshal := param0 is VarRef ? "int*" : IntPtr
 
         result := ComCall(16, this, param0Marshal, param0, "HRESULT")
         return result
@@ -917,8 +917,8 @@ export default struct ITextServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itextservices-txgetnaturalsize
      */
     TxGetNaturalSize(dwAspect, hdcDraw, hicTargetDev, ptd, dwMode, psizelExtent, pwidth, pheight) {
-        pwidthMarshal := pwidth is VarRef ? "int*" : "ptr"
-        pheightMarshal := pheight is VarRef ? "int*" : "ptr"
+        pwidthMarshal := pwidth is VarRef ? "int*" : IntPtr
+        pheightMarshal := pheight is VarRef ? "int*" : IntPtr
 
         result := ComCall(17, this, UInt32, dwAspect, HDC, hdcDraw, HDC, hicTargetDev, DVTARGETDEVICE.Ptr, ptd, UInt32, dwMode, SIZE.Ptr, psizelExtent, pwidthMarshal, pwidth, pheightMarshal, pheight, "HRESULT")
         return result
@@ -1304,8 +1304,8 @@ export default struct ITextServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itextservices-txgetcachedsize
      */
     TxGetCachedSize(pdwWidth, pdwHeight) {
-        pdwWidthMarshal := pdwWidth is VarRef ? "uint*" : "ptr"
-        pdwHeightMarshal := pdwHeight is VarRef ? "uint*" : "ptr"
+        pdwWidthMarshal := pdwWidth is VarRef ? "uint*" : IntPtr
+        pdwHeightMarshal := pdwHeight is VarRef ? "uint*" : IntPtr
 
         result := ComCall(20, this, pdwWidthMarshal, pdwWidth, pdwHeightMarshal, pdwHeight, "HRESULT")
         return result
@@ -1320,24 +1320,24 @@ export default struct ITextServices extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.TxSendMessage := CallbackCreate(GetMethod(implObj, "TxSendMessage"), flags, 5)
-        this.vtbl.TxDraw := CallbackCreate(GetMethod(implObj, "TxDraw"), flags, 13)
-        this.vtbl.TxGetHScroll := CallbackCreate(GetMethod(implObj, "TxGetHScroll"), flags, 6)
-        this.vtbl.TxGetVScroll := CallbackCreate(GetMethod(implObj, "TxGetVScroll"), flags, 6)
-        this.vtbl.OnTxSetCursor := CallbackCreate(GetMethod(implObj, "OnTxSetCursor"), flags, 10)
-        this.vtbl.TxQueryHitPoint := CallbackCreate(GetMethod(implObj, "TxQueryHitPoint"), flags, 11)
-        this.vtbl.OnTxInPlaceActivate := CallbackCreate(GetMethod(implObj, "OnTxInPlaceActivate"), flags, 2)
-        this.vtbl.OnTxInPlaceDeactivate := CallbackCreate(GetMethod(implObj, "OnTxInPlaceDeactivate"), flags, 1)
-        this.vtbl.OnTxUIActivate := CallbackCreate(GetMethod(implObj, "OnTxUIActivate"), flags, 1)
-        this.vtbl.OnTxUIDeactivate := CallbackCreate(GetMethod(implObj, "OnTxUIDeactivate"), flags, 1)
-        this.vtbl.TxGetText := CallbackCreate(GetMethod(implObj, "TxGetText"), flags, 2)
-        this.vtbl.TxSetText := CallbackCreate(GetMethod(implObj, "TxSetText"), flags, 2)
-        this.vtbl.TxGetCurTargetX := CallbackCreate(GetMethod(implObj, "TxGetCurTargetX"), flags, 2)
-        this.vtbl.TxGetBaseLinePos := CallbackCreate(GetMethod(implObj, "TxGetBaseLinePos"), flags, 2)
-        this.vtbl.TxGetNaturalSize := CallbackCreate(GetMethod(implObj, "TxGetNaturalSize"), flags, 9)
-        this.vtbl.TxGetDropTarget := CallbackCreate(GetMethod(implObj, "TxGetDropTarget"), flags, 2)
-        this.vtbl.OnTxPropertyBitsChange := CallbackCreate(GetMethod(implObj, "OnTxPropertyBitsChange"), flags, 3)
-        this.vtbl.TxGetCachedSize := CallbackCreate(GetMethod(implObj, "TxGetCachedSize"), flags, 3)
+        this.vtbl.TxSendMessage := CallbackCreate(ObjBindMethod(implObj, "TxSendMessage"), flags, 5)
+        this.vtbl.TxDraw := CallbackCreate(ObjBindMethod(implObj, "TxDraw"), flags, 13)
+        this.vtbl.TxGetHScroll := CallbackCreate(ObjBindMethod(implObj, "TxGetHScroll"), flags, 6)
+        this.vtbl.TxGetVScroll := CallbackCreate(ObjBindMethod(implObj, "TxGetVScroll"), flags, 6)
+        this.vtbl.OnTxSetCursor := CallbackCreate(ObjBindMethod(implObj, "OnTxSetCursor"), flags, 10)
+        this.vtbl.TxQueryHitPoint := CallbackCreate(ObjBindMethod(implObj, "TxQueryHitPoint"), flags, 11)
+        this.vtbl.OnTxInPlaceActivate := CallbackCreate(ObjBindMethod(implObj, "OnTxInPlaceActivate"), flags, 2)
+        this.vtbl.OnTxInPlaceDeactivate := CallbackCreate(ObjBindMethod(implObj, "OnTxInPlaceDeactivate"), flags, 1)
+        this.vtbl.OnTxUIActivate := CallbackCreate(ObjBindMethod(implObj, "OnTxUIActivate"), flags, 1)
+        this.vtbl.OnTxUIDeactivate := CallbackCreate(ObjBindMethod(implObj, "OnTxUIDeactivate"), flags, 1)
+        this.vtbl.TxGetText := CallbackCreate(ObjBindMethod(implObj, "TxGetText"), flags, 2)
+        this.vtbl.TxSetText := CallbackCreate(ObjBindMethod(implObj, "TxSetText"), flags, 2)
+        this.vtbl.TxGetCurTargetX := CallbackCreate(ObjBindMethod(implObj, "TxGetCurTargetX"), flags, 2)
+        this.vtbl.TxGetBaseLinePos := CallbackCreate(ObjBindMethod(implObj, "TxGetBaseLinePos"), flags, 2)
+        this.vtbl.TxGetNaturalSize := CallbackCreate(ObjBindMethod(implObj, "TxGetNaturalSize"), flags, 9)
+        this.vtbl.TxGetDropTarget := CallbackCreate(ObjBindMethod(implObj, "TxGetDropTarget"), flags, 2)
+        this.vtbl.OnTxPropertyBitsChange := CallbackCreate(ObjBindMethod(implObj, "OnTxPropertyBitsChange"), flags, 3)
+        this.vtbl.TxGetCachedSize := CallbackCreate(ObjBindMethod(implObj, "TxGetCachedSize"), flags, 3)
     }
 
     Dispose() {

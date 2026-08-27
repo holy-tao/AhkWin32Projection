@@ -20,7 +20,6 @@ export default struct PFN_CARD_DERIVE_KEY {
     }
 
     /**
-     * 
      * @param {Pointer<CARD_DATA>} pCardData 
      * @param {Pointer<CARD_DERIVE_KEY>} pAgreementInfo 
      * @returns {Integer} 

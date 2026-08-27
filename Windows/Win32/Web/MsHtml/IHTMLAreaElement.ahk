@@ -206,7 +206,6 @@ export default struct IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -218,7 +217,6 @@ export default struct IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_shape() {
@@ -228,7 +226,6 @@ export default struct IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -240,7 +237,6 @@ export default struct IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_coords() {
@@ -250,7 +246,6 @@ export default struct IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -262,7 +257,6 @@ export default struct IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_href() {
@@ -272,7 +266,6 @@ export default struct IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -284,7 +277,6 @@ export default struct IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_target() {
@@ -294,7 +286,6 @@ export default struct IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -306,7 +297,6 @@ export default struct IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_alt() {
@@ -316,7 +306,6 @@ export default struct IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -326,7 +315,6 @@ export default struct IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_noHref() {
@@ -335,7 +323,6 @@ export default struct IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -347,7 +334,6 @@ export default struct IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_host() {
@@ -357,7 +343,6 @@ export default struct IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -369,7 +354,6 @@ export default struct IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_hostname() {
@@ -379,7 +363,6 @@ export default struct IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -391,7 +374,6 @@ export default struct IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_pathname() {
@@ -401,7 +383,6 @@ export default struct IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -413,7 +394,6 @@ export default struct IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_port() {
@@ -423,7 +403,6 @@ export default struct IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -435,7 +414,6 @@ export default struct IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_protocol() {
@@ -445,7 +423,6 @@ export default struct IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -457,7 +434,6 @@ export default struct IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_search() {
@@ -467,7 +443,6 @@ export default struct IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -479,7 +454,6 @@ export default struct IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_hash() {
@@ -489,7 +463,6 @@ export default struct IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -499,7 +472,6 @@ export default struct IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onblur() {
@@ -509,7 +481,6 @@ export default struct IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -519,7 +490,6 @@ export default struct IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onfocus() {
@@ -529,7 +499,6 @@ export default struct IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -539,7 +508,6 @@ export default struct IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_tabIndex() {
@@ -548,7 +516,6 @@ export default struct IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     focus() {
@@ -557,7 +524,6 @@ export default struct IHTMLAreaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     blur() {
@@ -574,40 +540,40 @@ export default struct IHTMLAreaElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_shape := CallbackCreate(GetMethod(implObj, "put_shape"), flags, 2)
-        this.vtbl.get_shape := CallbackCreate(GetMethod(implObj, "get_shape"), flags, 2)
-        this.vtbl.put_coords := CallbackCreate(GetMethod(implObj, "put_coords"), flags, 2)
-        this.vtbl.get_coords := CallbackCreate(GetMethod(implObj, "get_coords"), flags, 2)
-        this.vtbl.put_href := CallbackCreate(GetMethod(implObj, "put_href"), flags, 2)
-        this.vtbl.get_href := CallbackCreate(GetMethod(implObj, "get_href"), flags, 2)
-        this.vtbl.put_target := CallbackCreate(GetMethod(implObj, "put_target"), flags, 2)
-        this.vtbl.get_target := CallbackCreate(GetMethod(implObj, "get_target"), flags, 2)
-        this.vtbl.put_alt := CallbackCreate(GetMethod(implObj, "put_alt"), flags, 2)
-        this.vtbl.get_alt := CallbackCreate(GetMethod(implObj, "get_alt"), flags, 2)
-        this.vtbl.put_noHref := CallbackCreate(GetMethod(implObj, "put_noHref"), flags, 2)
-        this.vtbl.get_noHref := CallbackCreate(GetMethod(implObj, "get_noHref"), flags, 2)
-        this.vtbl.put_host := CallbackCreate(GetMethod(implObj, "put_host"), flags, 2)
-        this.vtbl.get_host := CallbackCreate(GetMethod(implObj, "get_host"), flags, 2)
-        this.vtbl.put_hostname := CallbackCreate(GetMethod(implObj, "put_hostname"), flags, 2)
-        this.vtbl.get_hostname := CallbackCreate(GetMethod(implObj, "get_hostname"), flags, 2)
-        this.vtbl.put_pathname := CallbackCreate(GetMethod(implObj, "put_pathname"), flags, 2)
-        this.vtbl.get_pathname := CallbackCreate(GetMethod(implObj, "get_pathname"), flags, 2)
-        this.vtbl.put_port := CallbackCreate(GetMethod(implObj, "put_port"), flags, 2)
-        this.vtbl.get_port := CallbackCreate(GetMethod(implObj, "get_port"), flags, 2)
-        this.vtbl.put_protocol := CallbackCreate(GetMethod(implObj, "put_protocol"), flags, 2)
-        this.vtbl.get_protocol := CallbackCreate(GetMethod(implObj, "get_protocol"), flags, 2)
-        this.vtbl.put_search := CallbackCreate(GetMethod(implObj, "put_search"), flags, 2)
-        this.vtbl.get_search := CallbackCreate(GetMethod(implObj, "get_search"), flags, 2)
-        this.vtbl.put_hash := CallbackCreate(GetMethod(implObj, "put_hash"), flags, 2)
-        this.vtbl.get_hash := CallbackCreate(GetMethod(implObj, "get_hash"), flags, 2)
-        this.vtbl.put_onblur := CallbackCreate(GetMethod(implObj, "put_onblur"), flags, 2)
-        this.vtbl.get_onblur := CallbackCreate(GetMethod(implObj, "get_onblur"), flags, 2)
-        this.vtbl.put_onfocus := CallbackCreate(GetMethod(implObj, "put_onfocus"), flags, 2)
-        this.vtbl.get_onfocus := CallbackCreate(GetMethod(implObj, "get_onfocus"), flags, 2)
-        this.vtbl.put_tabIndex := CallbackCreate(GetMethod(implObj, "put_tabIndex"), flags, 2)
-        this.vtbl.get_tabIndex := CallbackCreate(GetMethod(implObj, "get_tabIndex"), flags, 2)
-        this.vtbl.focus := CallbackCreate(GetMethod(implObj, "focus"), flags, 1)
-        this.vtbl.blur := CallbackCreate(GetMethod(implObj, "blur"), flags, 1)
+        this.vtbl.put_shape := CallbackCreate(ObjBindMethod(implObj, "put_shape"), flags, 2)
+        this.vtbl.get_shape := CallbackCreate(ObjBindMethod(implObj, "get_shape"), flags, 2)
+        this.vtbl.put_coords := CallbackCreate(ObjBindMethod(implObj, "put_coords"), flags, 2)
+        this.vtbl.get_coords := CallbackCreate(ObjBindMethod(implObj, "get_coords"), flags, 2)
+        this.vtbl.put_href := CallbackCreate(ObjBindMethod(implObj, "put_href"), flags, 2)
+        this.vtbl.get_href := CallbackCreate(ObjBindMethod(implObj, "get_href"), flags, 2)
+        this.vtbl.put_target := CallbackCreate(ObjBindMethod(implObj, "put_target"), flags, 2)
+        this.vtbl.get_target := CallbackCreate(ObjBindMethod(implObj, "get_target"), flags, 2)
+        this.vtbl.put_alt := CallbackCreate(ObjBindMethod(implObj, "put_alt"), flags, 2)
+        this.vtbl.get_alt := CallbackCreate(ObjBindMethod(implObj, "get_alt"), flags, 2)
+        this.vtbl.put_noHref := CallbackCreate(ObjBindMethod(implObj, "put_noHref"), flags, 2)
+        this.vtbl.get_noHref := CallbackCreate(ObjBindMethod(implObj, "get_noHref"), flags, 2)
+        this.vtbl.put_host := CallbackCreate(ObjBindMethod(implObj, "put_host"), flags, 2)
+        this.vtbl.get_host := CallbackCreate(ObjBindMethod(implObj, "get_host"), flags, 2)
+        this.vtbl.put_hostname := CallbackCreate(ObjBindMethod(implObj, "put_hostname"), flags, 2)
+        this.vtbl.get_hostname := CallbackCreate(ObjBindMethod(implObj, "get_hostname"), flags, 2)
+        this.vtbl.put_pathname := CallbackCreate(ObjBindMethod(implObj, "put_pathname"), flags, 2)
+        this.vtbl.get_pathname := CallbackCreate(ObjBindMethod(implObj, "get_pathname"), flags, 2)
+        this.vtbl.put_port := CallbackCreate(ObjBindMethod(implObj, "put_port"), flags, 2)
+        this.vtbl.get_port := CallbackCreate(ObjBindMethod(implObj, "get_port"), flags, 2)
+        this.vtbl.put_protocol := CallbackCreate(ObjBindMethod(implObj, "put_protocol"), flags, 2)
+        this.vtbl.get_protocol := CallbackCreate(ObjBindMethod(implObj, "get_protocol"), flags, 2)
+        this.vtbl.put_search := CallbackCreate(ObjBindMethod(implObj, "put_search"), flags, 2)
+        this.vtbl.get_search := CallbackCreate(ObjBindMethod(implObj, "get_search"), flags, 2)
+        this.vtbl.put_hash := CallbackCreate(ObjBindMethod(implObj, "put_hash"), flags, 2)
+        this.vtbl.get_hash := CallbackCreate(ObjBindMethod(implObj, "get_hash"), flags, 2)
+        this.vtbl.put_onblur := CallbackCreate(ObjBindMethod(implObj, "put_onblur"), flags, 2)
+        this.vtbl.get_onblur := CallbackCreate(ObjBindMethod(implObj, "get_onblur"), flags, 2)
+        this.vtbl.put_onfocus := CallbackCreate(ObjBindMethod(implObj, "put_onfocus"), flags, 2)
+        this.vtbl.get_onfocus := CallbackCreate(ObjBindMethod(implObj, "get_onfocus"), flags, 2)
+        this.vtbl.put_tabIndex := CallbackCreate(ObjBindMethod(implObj, "put_tabIndex"), flags, 2)
+        this.vtbl.get_tabIndex := CallbackCreate(ObjBindMethod(implObj, "get_tabIndex"), flags, 2)
+        this.vtbl.focus := CallbackCreate(ObjBindMethod(implObj, "focus"), flags, 1)
+        this.vtbl.blur := CallbackCreate(ObjBindMethod(implObj, "blur"), flags, 1)
     }
 
     Dispose() {

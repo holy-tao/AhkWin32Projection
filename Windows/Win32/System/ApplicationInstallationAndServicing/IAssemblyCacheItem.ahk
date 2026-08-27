@@ -101,7 +101,7 @@ export default struct IAssemblyCacheItem extends IUnknown {
     CreateStream(dwFlags, pszStreamName, dwFormat, dwFormatFlags, puliMaxSize) {
         pszStreamName := pszStreamName is String ? StrPtr(pszStreamName) : pszStreamName
 
-        puliMaxSizeMarshal := puliMaxSize is VarRef ? "uint*" : "ptr"
+        puliMaxSizeMarshal := puliMaxSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, UInt32, dwFlags, "ptr", pszStreamName, UInt32, dwFormat, UInt32, dwFormatFlags, "ptr*", &ppIStream := 0, puliMaxSizeMarshal, puliMaxSize, "HRESULT")
         return IStream(ppIStream)
@@ -206,14 +206,13 @@ export default struct IAssemblyCacheItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsxs/nf-winsxs-iassemblycacheitem-commit
      */
     Commit(dwFlags, pulDisposition) {
-        pulDispositionMarshal := pulDisposition is VarRef ? "uint*" : "ptr"
+        pulDispositionMarshal := pulDisposition is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, UInt32, dwFlags, pulDispositionMarshal, pulDisposition, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     AbortItem() {
@@ -230,9 +229,9 @@ export default struct IAssemblyCacheItem extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateStream := CallbackCreate(GetMethod(implObj, "CreateStream"), flags, 7)
-        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 3)
-        this.vtbl.AbortItem := CallbackCreate(GetMethod(implObj, "AbortItem"), flags, 1)
+        this.vtbl.CreateStream := CallbackCreate(ObjBindMethod(implObj, "CreateStream"), flags, 7)
+        this.vtbl.Commit := CallbackCreate(ObjBindMethod(implObj, "Commit"), flags, 3)
+        this.vtbl.AbortItem := CallbackCreate(ObjBindMethod(implObj, "AbortItem"), flags, 1)
     }
 
     Dispose() {

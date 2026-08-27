@@ -207,15 +207,15 @@ export default struct IPhotoAcquireItem extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetItemName := CallbackCreate(GetMethod(implObj, "GetItemName"), flags, 2)
-        this.vtbl.GetThumbnail := CallbackCreate(GetMethod(implObj, "GetThumbnail"), flags, 3)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
-        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 3)
-        this.vtbl.GetStream := CallbackCreate(GetMethod(implObj, "GetStream"), flags, 2)
-        this.vtbl.CanDelete := CallbackCreate(GetMethod(implObj, "CanDelete"), flags, 2)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
-        this.vtbl.GetSubItemCount := CallbackCreate(GetMethod(implObj, "GetSubItemCount"), flags, 2)
-        this.vtbl.GetSubItemAt := CallbackCreate(GetMethod(implObj, "GetSubItemAt"), flags, 3)
+        this.vtbl.GetItemName := CallbackCreate(ObjBindMethod(implObj, "GetItemName"), flags, 2)
+        this.vtbl.GetThumbnail := CallbackCreate(ObjBindMethod(implObj, "GetThumbnail"), flags, 3)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.SetProperty := CallbackCreate(ObjBindMethod(implObj, "SetProperty"), flags, 3)
+        this.vtbl.GetStream := CallbackCreate(ObjBindMethod(implObj, "GetStream"), flags, 2)
+        this.vtbl.CanDelete := CallbackCreate(ObjBindMethod(implObj, "CanDelete"), flags, 2)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.GetSubItemCount := CallbackCreate(ObjBindMethod(implObj, "GetSubItemCount"), flags, 2)
+        this.vtbl.GetSubItemAt := CallbackCreate(ObjBindMethod(implObj, "GetSubItemAt"), flags, 3)
     }
 
     Dispose() {

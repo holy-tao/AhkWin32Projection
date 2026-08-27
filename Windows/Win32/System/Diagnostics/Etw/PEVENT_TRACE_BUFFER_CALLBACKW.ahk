@@ -28,7 +28,6 @@ export default struct PEVENT_TRACE_BUFFER_CALLBACKW {
     }
 
     /**
-     * 
      * @param {Pointer<EVENT_TRACE_LOGFILEW>} Logfile Pointer to an
      * [EVENT_TRACE_LOGFILE](/windows/win32/api/evntrace/ns-evntrace-event_trace_logfilew)
      * structure that contains information about the buffer.

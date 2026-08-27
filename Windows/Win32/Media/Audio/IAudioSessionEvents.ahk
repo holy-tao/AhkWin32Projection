@@ -122,7 +122,7 @@ export default struct IAudioSessionEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessionevents-onchannelvolumechanged
      */
     OnChannelVolumeChanged(ChannelCount, NewChannelVolumeArray, ChangedChannel, EventContext) {
-        NewChannelVolumeArrayMarshal := NewChannelVolumeArray is VarRef ? "float*" : "ptr"
+        NewChannelVolumeArrayMarshal := NewChannelVolumeArray is VarRef ? "float*" : IntPtr
 
         result := ComCall(6, this, UInt32, ChannelCount, NewChannelVolumeArrayMarshal, NewChannelVolumeArray, UInt32, ChangedChannel, Guid.Ptr, EventContext, "HRESULT")
         return result
@@ -235,13 +235,13 @@ export default struct IAudioSessionEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnDisplayNameChanged := CallbackCreate(GetMethod(implObj, "OnDisplayNameChanged"), flags, 3)
-        this.vtbl.OnIconPathChanged := CallbackCreate(GetMethod(implObj, "OnIconPathChanged"), flags, 3)
-        this.vtbl.OnSimpleVolumeChanged := CallbackCreate(GetMethod(implObj, "OnSimpleVolumeChanged"), flags, 4)
-        this.vtbl.OnChannelVolumeChanged := CallbackCreate(GetMethod(implObj, "OnChannelVolumeChanged"), flags, 5)
-        this.vtbl.OnGroupingParamChanged := CallbackCreate(GetMethod(implObj, "OnGroupingParamChanged"), flags, 3)
-        this.vtbl.OnStateChanged := CallbackCreate(GetMethod(implObj, "OnStateChanged"), flags, 2)
-        this.vtbl.OnSessionDisconnected := CallbackCreate(GetMethod(implObj, "OnSessionDisconnected"), flags, 2)
+        this.vtbl.OnDisplayNameChanged := CallbackCreate(ObjBindMethod(implObj, "OnDisplayNameChanged"), flags, 3)
+        this.vtbl.OnIconPathChanged := CallbackCreate(ObjBindMethod(implObj, "OnIconPathChanged"), flags, 3)
+        this.vtbl.OnSimpleVolumeChanged := CallbackCreate(ObjBindMethod(implObj, "OnSimpleVolumeChanged"), flags, 4)
+        this.vtbl.OnChannelVolumeChanged := CallbackCreate(ObjBindMethod(implObj, "OnChannelVolumeChanged"), flags, 5)
+        this.vtbl.OnGroupingParamChanged := CallbackCreate(ObjBindMethod(implObj, "OnGroupingParamChanged"), flags, 3)
+        this.vtbl.OnStateChanged := CallbackCreate(ObjBindMethod(implObj, "OnStateChanged"), flags, 2)
+        this.vtbl.OnSessionDisconnected := CallbackCreate(ObjBindMethod(implObj, "OnSessionDisconnected"), flags, 2)
     }
 
     Dispose() {

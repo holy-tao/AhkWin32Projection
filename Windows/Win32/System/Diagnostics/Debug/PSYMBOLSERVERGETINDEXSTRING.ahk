@@ -21,7 +21,6 @@ export default struct PSYMBOLSERVERGETINDEXSTRING {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
@@ -32,7 +31,7 @@ export default struct PSYMBOLSERVERGETINDEXSTRING {
     Call(param0, param1, param2, param3, param4) {
         param3 := param3 is String ? StrPtr(param3) : param3
 
-        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+        param0Marshal := param0 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, param0Marshal, param0, UInt32, param1, UInt32, param2, "ptr", param3, IntPtr, param4, BOOL)
         return result

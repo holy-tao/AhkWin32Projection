@@ -85,10 +85,12 @@ export default struct IDWriteFontFallback extends IUnknown {
     MapCharacters(analysisSource, textPosition, textLength, baseFontCollection, baseFamilyName, baseWeight, baseStyle, baseStretch, mappedLength, mappedFont, scale) {
         baseFamilyName := baseFamilyName is String ? StrPtr(baseFamilyName) : baseFamilyName
 
-        mappedLengthMarshal := mappedLength is VarRef ? "uint*" : "ptr"
-        scaleMarshal := scale is VarRef ? "float*" : "ptr"
+        baseFontCollectionMarshal := baseFontCollection == 0 ? IntPtr : "ptr"
+        baseFamilyNameMarshal := baseFamilyName == 0 ? IntPtr : PWSTR
+        mappedLengthMarshal := mappedLength is VarRef ? "uint*" : IntPtr
+        scaleMarshal := scale is VarRef ? "float*" : IntPtr
 
-        result := ComCall(3, this, "ptr", analysisSource, UInt32, textPosition, UInt32, textLength, "ptr", baseFontCollection, "ptr", baseFamilyName, DWRITE_FONT_WEIGHT, baseWeight, DWRITE_FONT_STYLE, baseStyle, DWRITE_FONT_STRETCH, baseStretch, mappedLengthMarshal, mappedLength, IDWriteFont.Ptr, mappedFont, scaleMarshal, scale, "HRESULT")
+        result := ComCall(3, this, "ptr", analysisSource, UInt32, textPosition, UInt32, textLength, baseFontCollectionMarshal, baseFontCollection, baseFamilyNameMarshal, baseFamilyName, DWRITE_FONT_WEIGHT, baseWeight, DWRITE_FONT_STYLE, baseStyle, DWRITE_FONT_STRETCH, baseStretch, mappedLengthMarshal, mappedLength, IDWriteFont.Ptr, mappedFont, scaleMarshal, scale, "HRESULT")
         return result
     }
 
@@ -101,7 +103,7 @@ export default struct IDWriteFontFallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.MapCharacters := CallbackCreate(GetMethod(implObj, "MapCharacters"), flags, 12)
+        this.vtbl.MapCharacters := CallbackCreate(ObjBindMethod(implObj, "MapCharacters"), flags, 12)
     }
 
     Dispose() {

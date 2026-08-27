@@ -21,7 +21,6 @@ export default struct NCryptFreeSecretFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} _hProvider 
      * @param {NCRYPT_SECRET_HANDLE} hSharedSecret 
      * @returns {HRESULT} 

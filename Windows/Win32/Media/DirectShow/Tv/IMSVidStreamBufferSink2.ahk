@@ -76,7 +76,7 @@ export default struct IMSVidStreamBufferSink2 extends IMSVidStreamBufferSink {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.UnlockProfile := CallbackCreate(GetMethod(implObj, "UnlockProfile"), flags, 1)
+        this.vtbl.UnlockProfile := CallbackCreate(ObjBindMethod(implObj, "UnlockProfile"), flags, 1)
     }
 
     Dispose() {

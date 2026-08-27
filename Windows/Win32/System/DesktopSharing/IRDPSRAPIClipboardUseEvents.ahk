@@ -89,7 +89,7 @@ export default struct IRDPSRAPIClipboardUseEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnPasteFromClipboard := CallbackCreate(GetMethod(implObj, "OnPasteFromClipboard"), flags, 4)
+        this.vtbl.OnPasteFromClipboard := CallbackCreate(ObjBindMethod(implObj, "OnPasteFromClipboard"), flags, 4)
     }
 
     Dispose() {

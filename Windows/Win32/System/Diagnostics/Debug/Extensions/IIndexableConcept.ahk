@@ -40,7 +40,6 @@ export default struct IIndexableConcept extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @returns {Integer} 
      */
@@ -50,7 +49,6 @@ export default struct IIndexableConcept extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @param {Integer} indexerCount 
      * @param {Pointer<IModelObject>} indexers 
@@ -59,12 +57,13 @@ export default struct IIndexableConcept extends IUnknown {
      * @returns {HRESULT} 
      */
     GetAt(contextObject, indexerCount, indexers, _object, metadata) {
-        result := ComCall(4, this, "ptr", contextObject, Int64, indexerCount, IModelObject.Ptr, indexers, IModelObject.Ptr, _object, IKeyStore.Ptr, metadata, "HRESULT")
+        metadataMarshal := metadata == 0 ? IntPtr : IKeyStore.Ptr
+
+        result := ComCall(4, this, "ptr", contextObject, Int64, indexerCount, IModelObject.Ptr, indexers, IModelObject.Ptr, _object, metadataMarshal, metadata, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @param {Integer} indexerCount 
      * @param {Pointer<IModelObject>} indexers 
@@ -85,9 +84,9 @@ export default struct IIndexableConcept extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDimensionality := CallbackCreate(GetMethod(implObj, "GetDimensionality"), flags, 3)
-        this.vtbl.GetAt := CallbackCreate(GetMethod(implObj, "GetAt"), flags, 6)
-        this.vtbl.SetAt := CallbackCreate(GetMethod(implObj, "SetAt"), flags, 5)
+        this.vtbl.GetDimensionality := CallbackCreate(ObjBindMethod(implObj, "GetDimensionality"), flags, 3)
+        this.vtbl.GetAt := CallbackCreate(ObjBindMethod(implObj, "GetAt"), flags, 6)
+        this.vtbl.SetAt := CallbackCreate(ObjBindMethod(implObj, "SetAt"), flags, 5)
     }
 
     Dispose() {

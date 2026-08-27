@@ -26,7 +26,6 @@ export default struct IPSEC_KEY_MANAGER_KEY_DICTATION_CHECK0 {
     }
 
     /**
-     * 
      * @param {Pointer<IKEEXT_TRAFFIC0>} ikeTraffic Type: [IKEEXT_TRAFFIC0](/windows/desktop/api/iketypes/ns-iketypes-ikeext_traffic0)*</b>
      * 
      * Specifies the traffic for which keys should be set or retrieved.
@@ -39,8 +38,8 @@ export default struct IPSEC_KEY_MANAGER_KEY_DICTATION_CHECK0 {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(ikeTraffic, willDictateKey, weight) {
-        willDictateKeyMarshal := willDictateKey is VarRef ? "int*" : "ptr"
-        weightMarshal := weight is VarRef ? "uint*" : "ptr"
+        willDictateKeyMarshal := willDictateKey is VarRef ? "int*" : IntPtr
+        weightMarshal := weight is VarRef ? "uint*" : IntPtr
 
         DllCall(this.value, IKEEXT_TRAFFIC0.Ptr, ikeTraffic, willDictateKeyMarshal, willDictateKey, weightMarshal, weight)
     }

@@ -68,7 +68,6 @@ export default struct IADsTypedName extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ObjectName() {
@@ -78,7 +77,6 @@ export default struct IADsTypedName extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrObjectName 
      * @returns {HRESULT} 
      */
@@ -90,7 +88,6 @@ export default struct IADsTypedName extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Level() {
@@ -99,7 +96,6 @@ export default struct IADsTypedName extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnLevel 
      * @returns {HRESULT} 
      */
@@ -109,7 +105,6 @@ export default struct IADsTypedName extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Interval() {
@@ -118,7 +113,6 @@ export default struct IADsTypedName extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnInterval 
      * @returns {HRESULT} 
      */
@@ -136,12 +130,12 @@ export default struct IADsTypedName extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ObjectName := CallbackCreate(GetMethod(implObj, "get_ObjectName"), flags, 2)
-        this.vtbl.put_ObjectName := CallbackCreate(GetMethod(implObj, "put_ObjectName"), flags, 2)
-        this.vtbl.get_Level := CallbackCreate(GetMethod(implObj, "get_Level"), flags, 2)
-        this.vtbl.put_Level := CallbackCreate(GetMethod(implObj, "put_Level"), flags, 2)
-        this.vtbl.get_Interval := CallbackCreate(GetMethod(implObj, "get_Interval"), flags, 2)
-        this.vtbl.put_Interval := CallbackCreate(GetMethod(implObj, "put_Interval"), flags, 2)
+        this.vtbl.get_ObjectName := CallbackCreate(ObjBindMethod(implObj, "get_ObjectName"), flags, 2)
+        this.vtbl.put_ObjectName := CallbackCreate(ObjBindMethod(implObj, "put_ObjectName"), flags, 2)
+        this.vtbl.get_Level := CallbackCreate(ObjBindMethod(implObj, "get_Level"), flags, 2)
+        this.vtbl.put_Level := CallbackCreate(ObjBindMethod(implObj, "put_Level"), flags, 2)
+        this.vtbl.get_Interval := CallbackCreate(ObjBindMethod(implObj, "get_Interval"), flags, 2)
+        this.vtbl.put_Interval := CallbackCreate(ObjBindMethod(implObj, "put_Interval"), flags, 2)
     }
 
     Dispose() {

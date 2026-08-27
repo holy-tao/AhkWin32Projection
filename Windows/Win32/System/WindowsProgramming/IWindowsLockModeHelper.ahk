@@ -37,7 +37,6 @@ export default struct IWindowsLockModeHelper extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetSMode() {
@@ -54,7 +53,7 @@ export default struct IWindowsLockModeHelper extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSMode := CallbackCreate(GetMethod(implObj, "GetSMode"), flags, 2)
+        this.vtbl.GetSMode := CallbackCreate(ObjBindMethod(implObj, "GetSMode"), flags, 2)
     }
 
     Dispose() {

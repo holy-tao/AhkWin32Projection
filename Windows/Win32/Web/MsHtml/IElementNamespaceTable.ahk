@@ -38,7 +38,6 @@ export default struct IElementNamespaceTable extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrNamespace 
      * @param {BSTR} bstrUrn 
      * @param {Integer} lFlags 
@@ -62,7 +61,7 @@ export default struct IElementNamespaceTable extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddNamespace := CallbackCreate(GetMethod(implObj, "AddNamespace"), flags, 5)
+        this.vtbl.AddNamespace := CallbackCreate(ObjBindMethod(implObj, "AddNamespace"), flags, 5)
     }
 
     Dispose() {

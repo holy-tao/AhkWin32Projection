@@ -125,10 +125,10 @@ export default struct IFrameworkInputPane extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 4)
-        this.vtbl.AdviseWithHWND := CallbackCreate(GetMethod(implObj, "AdviseWithHWND"), flags, 4)
-        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 2)
-        this.vtbl.Location := CallbackCreate(GetMethod(implObj, "Location"), flags, 2)
+        this.vtbl.Advise := CallbackCreate(ObjBindMethod(implObj, "Advise"), flags, 4)
+        this.vtbl.AdviseWithHWND := CallbackCreate(ObjBindMethod(implObj, "AdviseWithHWND"), flags, 4)
+        this.vtbl.Unadvise := CallbackCreate(ObjBindMethod(implObj, "Unadvise"), flags, 2)
+        this.vtbl.Location := CallbackCreate(ObjBindMethod(implObj, "Location"), flags, 2)
     }
 
     Dispose() {

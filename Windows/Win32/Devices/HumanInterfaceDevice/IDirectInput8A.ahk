@@ -53,7 +53,6 @@ export default struct IDirectInput8A extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} param0 
      * @param {IUnknown} param2 
      * @returns {IDirectInputDevice8A} 
@@ -64,7 +63,6 @@ export default struct IDirectInput8A extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<LPDIENUMDEVICESCALLBACKA>} param1 
      * @param {Pointer<Void>} param2 
@@ -72,14 +70,13 @@ export default struct IDirectInput8A extends IUnknown {
      * @returns {HRESULT} 
      */
     EnumDevices(param0, param1, param2, param3) {
-        param2Marshal := param2 is VarRef ? "ptr" : "ptr"
+        param2Marshal := param2 is VarRef ? "ptr" : IntPtr
 
         result := ComCall(4, this, UInt32, param0, LPDIENUMDEVICESCALLBACKA, param1, param2Marshal, param2, UInt32, param3, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} param0 
      * @returns {HRESULT} 
      */
@@ -89,7 +86,6 @@ export default struct IDirectInput8A extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 
@@ -135,7 +131,6 @@ export default struct IDirectInput8A extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} param0 
      * @param {PSTR} param1 
      * @param {Pointer<Guid>} param2 
@@ -149,7 +144,6 @@ export default struct IDirectInput8A extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} param0 
      * @param {Pointer<DIACTIONFORMATA>} param1 
      * @param {Pointer<LPDIENUMDEVICESBYSEMANTICSCBA>} param2 
@@ -160,14 +154,13 @@ export default struct IDirectInput8A extends IUnknown {
     EnumDevicesBySemantics(param0, param1, param2, param3, param4) {
         param0 := param0 is String ? StrPtr(param0) : param0
 
-        param3Marshal := param3 is VarRef ? "ptr" : "ptr"
+        param3Marshal := param3 is VarRef ? "ptr" : IntPtr
 
         result := ComCall(9, this, "ptr", param0, DIACTIONFORMATA.Ptr, param1, LPDIENUMDEVICESBYSEMANTICSCBA, param2, param3Marshal, param3, UInt32, param4, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<LPDICONFIGUREDEVICESCALLBACK>} param0 
      * @param {Pointer<DICONFIGUREDEVICESPARAMSA>} param1 
      * @param {Integer} param2 
@@ -175,7 +168,7 @@ export default struct IDirectInput8A extends IUnknown {
      * @returns {HRESULT} 
      */
     ConfigureDevices(param0, param1, param2, param3) {
-        param3Marshal := param3 is VarRef ? "ptr" : "ptr"
+        param3Marshal := param3 is VarRef ? "ptr" : IntPtr
 
         result := ComCall(10, this, LPDICONFIGUREDEVICESCALLBACK, param0, DICONFIGUREDEVICESPARAMSA.Ptr, param1, UInt32, param2, param3Marshal, param3, "HRESULT")
         return result
@@ -190,14 +183,14 @@ export default struct IDirectInput8A extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateDevice := CallbackCreate(GetMethod(implObj, "CreateDevice"), flags, 4)
-        this.vtbl.EnumDevices := CallbackCreate(GetMethod(implObj, "EnumDevices"), flags, 5)
-        this.vtbl.GetDeviceStatus := CallbackCreate(GetMethod(implObj, "GetDeviceStatus"), flags, 2)
-        this.vtbl.RunControlPanel := CallbackCreate(GetMethod(implObj, "RunControlPanel"), flags, 3)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.FindDevice := CallbackCreate(GetMethod(implObj, "FindDevice"), flags, 4)
-        this.vtbl.EnumDevicesBySemantics := CallbackCreate(GetMethod(implObj, "EnumDevicesBySemantics"), flags, 6)
-        this.vtbl.ConfigureDevices := CallbackCreate(GetMethod(implObj, "ConfigureDevices"), flags, 5)
+        this.vtbl.CreateDevice := CallbackCreate(ObjBindMethod(implObj, "CreateDevice"), flags, 4)
+        this.vtbl.EnumDevices := CallbackCreate(ObjBindMethod(implObj, "EnumDevices"), flags, 5)
+        this.vtbl.GetDeviceStatus := CallbackCreate(ObjBindMethod(implObj, "GetDeviceStatus"), flags, 2)
+        this.vtbl.RunControlPanel := CallbackCreate(ObjBindMethod(implObj, "RunControlPanel"), flags, 3)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.FindDevice := CallbackCreate(ObjBindMethod(implObj, "FindDevice"), flags, 4)
+        this.vtbl.EnumDevicesBySemantics := CallbackCreate(ObjBindMethod(implObj, "EnumDevicesBySemantics"), flags, 6)
+        this.vtbl.ConfigureDevices := CallbackCreate(ObjBindMethod(implObj, "ConfigureDevices"), flags, 5)
     }
 
     Dispose() {

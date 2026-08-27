@@ -121,8 +121,8 @@ export default struct IDVB_DIT extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.GetTransitionFlag := CallbackCreate(GetMethod(implObj, "GetTransitionFlag"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.GetTransitionFlag := CallbackCreate(ObjBindMethod(implObj, "GetTransitionFlag"), flags, 2)
     }
 
     Dispose() {

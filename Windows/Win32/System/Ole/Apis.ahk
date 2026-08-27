@@ -213,7 +213,7 @@ export SafeArrayCreate(vt, cDims, rgsabound) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-safearraycreateex
  */
 export SafeArrayCreateEx(vt, cDims, rgsabound, pvExtra) {
-    pvExtraMarshal := pvExtra is VarRef ? "ptr" : "ptr"
+    pvExtraMarshal := pvExtra is VarRef ? "ptr" : IntPtr
 
     result := DllCall("OLEAUT32.dll\SafeArrayCreateEx", VARENUM, vt, UInt32, cDims, SAFEARRAYBOUND.Ptr, rgsabound, pvExtraMarshal, pvExtra, SAFEARRAY.Ptr)
     return result
@@ -347,7 +347,7 @@ export SafeArrayDestroyDescriptor(psa) {
  * @since windows5.1.2600
  */
 export SafeArrayReleaseData(pData) {
-    pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+    pDataMarshal := pData is VarRef ? "ptr" : IntPtr
 
     DllCall("OLEAUT32.dll\SafeArrayReleaseData", pDataMarshal, pData)
 }
@@ -761,7 +761,7 @@ export SafeArrayUnaccessData(psa) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-safearraygetelement
  */
 export SafeArrayGetElement(psa, rgIndices) {
-    rgIndicesMarshal := rgIndices is VarRef ? "int*" : "ptr"
+    rgIndicesMarshal := rgIndices is VarRef ? "int*" : IntPtr
 
     result := DllCall("OLEAUT32.dll\SafeArrayGetElement", SAFEARRAY.Ptr, psa, rgIndicesMarshal, rgIndices, "ptr", &pv := 0, "HRESULT")
     return pv
@@ -833,8 +833,8 @@ export SafeArrayGetElement(psa, rgIndices) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-safearrayputelement
  */
 export SafeArrayPutElement(psa, rgIndices, pv) {
-    rgIndicesMarshal := rgIndices is VarRef ? "int*" : "ptr"
-    pvMarshal := pv is VarRef ? "ptr" : "ptr"
+    rgIndicesMarshal := rgIndices is VarRef ? "int*" : IntPtr
+    pvMarshal := pv is VarRef ? "ptr" : IntPtr
 
     result := DllCall("OLEAUT32.dll\SafeArrayPutElement", SAFEARRAY.Ptr, psa, rgIndicesMarshal, rgIndices, pvMarshal, pv, "HRESULT")
     return result
@@ -863,7 +863,7 @@ export SafeArrayCopy(psa) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-safearrayptrofindex
  */
 export SafeArrayPtrOfIndex(psa, rgIndices) {
-    rgIndicesMarshal := rgIndices is VarRef ? "int*" : "ptr"
+    rgIndicesMarshal := rgIndices is VarRef ? "int*" : IntPtr
 
     result := DllCall("OLEAUT32.dll\SafeArrayPtrOfIndex", SAFEARRAY.Ptr, psa, rgIndicesMarshal, rgIndices, "ptr*", &ppvData := 0, "HRESULT")
     return ppvData
@@ -1041,7 +1041,7 @@ export SafeArrayCreateVector(vt, lLbound, cElements) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-safearraycreatevectorex
  */
 export SafeArrayCreateVectorEx(vt, lLbound, cElements, pvExtra) {
-    pvExtraMarshal := pvExtra is VarRef ? "ptr" : "ptr"
+    pvExtraMarshal := pvExtra is VarRef ? "ptr" : IntPtr
 
     result := DllCall("OLEAUT32.dll\SafeArrayCreateVectorEx", VARENUM, vt, Int32, lLbound, UInt32, cElements, pvExtraMarshal, pvExtra, SAFEARRAY.Ptr)
     return result
@@ -1395,7 +1395,7 @@ export VarI2FromR8(dblIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-vari2fromcy
  */
 export VarI2FromCy(cyIn, psOut) {
-    psOutMarshal := psOut is VarRef ? "short*" : "ptr"
+    psOutMarshal := psOut is VarRef ? "short*" : IntPtr
 
     result := DllCall("OLEAUT32.dll\VarI2FromCy", CY, cyIn, psOutMarshal, psOut, "HRESULT")
     return result
@@ -2063,7 +2063,7 @@ export VarR4FromR8(dblIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr4fromcy
  */
 export VarR4FromCy(cyIn, pfltOut) {
-    pfltOutMarshal := pfltOut is VarRef ? "float*" : "ptr"
+    pfltOutMarshal := pfltOut is VarRef ? "float*" : IntPtr
 
     result := DllCall("OLEAUT32.dll\VarR4FromCy", CY, cyIn, pfltOutMarshal, pfltOut, "HRESULT")
     return result
@@ -2348,7 +2348,7 @@ export VarR8FromR4(fltIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr8fromcy
  */
 export VarR8FromCy(cyIn, pdblOut) {
-    pdblOutMarshal := pdblOut is VarRef ? "double*" : "ptr"
+    pdblOutMarshal := pdblOut is VarRef ? "double*" : IntPtr
 
     result := DllCall("OLEAUT32.dll\VarR8FromCy", CY, cyIn, pdblOutMarshal, pdblOut, "HRESULT")
     return result
@@ -2523,7 +2523,7 @@ export VarR8FromBool(boolIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varr8fromi1
  */
 export VarR8FromI1(cIn, pdblOut) {
-    pdblOutMarshal := pdblOut is VarRef ? "double*" : "ptr"
+    pdblOutMarshal := pdblOut is VarRef ? "double*" : IntPtr
 
     result := DllCall("OLEAUT32.dll\VarR8FromI1", CHAR, cIn, pdblOutMarshal, pdblOut, "HRESULT")
     return result
@@ -6280,7 +6280,7 @@ export VarUI2FromR4(fltIn) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varui2fromr8
  */
 export VarUI2FromR8(dblIn, puiOut) {
-    puiOutMarshal := puiOut is VarRef ? "ushort*" : "ptr"
+    puiOutMarshal := puiOut is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("OLEAUT32.dll\VarUI2FromR8", Float64, dblIn, puiOutMarshal, puiOut, "HRESULT")
     return result
@@ -8229,7 +8229,7 @@ export VarParseNumFromStr(strIn, lcid, dwFlags, pnumprs) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varnumfromparsenum
  */
 export VarNumFromParseNum(pnumprs, rgbDig, dwVtBits, pvar) {
-    rgbDigMarshal := rgbDig is VarRef ? "char*" : "ptr"
+    rgbDigMarshal := rgbDig is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLEAUT32.dll\VarNumFromParseNum", NUMPARSE.Ptr, pnumprs, rgbDigMarshal, rgbDig, UInt32, dwVtBits, VARIANT.Ptr, pvar, "HRESULT")
     return result
@@ -10127,8 +10127,10 @@ export GetAltMonthNames(lcid) {
 export VarFormat(pvarIn, pstrFormat, iFirstDay, iFirstWeek, dwFlags) {
     pstrFormat := pstrFormat is String ? StrPtr(pstrFormat) : pstrFormat
 
+    pstrFormatMarshal := pstrFormat == 0 ? IntPtr : PWSTR
+
     pbstrOut := BSTR.Owned()
-    result := DllCall("OLEAUT32.dll\VarFormat", VARIANT.Ptr, pvarIn, "ptr", pstrFormat, VARFORMAT_FIRST_DAY, iFirstDay, VARFORMAT_FIRST_WEEK, iFirstWeek, UInt32, dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarFormat", VARIANT.Ptr, pvarIn, pstrFormatMarshal, pstrFormat, VARFORMAT_FIRST_DAY, iFirstDay, VARFORMAT_FIRST_WEEK, iFirstWeek, UInt32, dwFlags, BSTR.Ptr, pbstrOut, "HRESULT")
     return pbstrOut
 }
 
@@ -10868,10 +10870,11 @@ export VarMonthName(iMonth, fAbbrev, dwFlags) {
 export VarFormatFromTokens(pvarIn, pstrFormat, pbTokCur, dwFlags, lcid) {
     pstrFormat := pstrFormat is String ? StrPtr(pstrFormat) : pstrFormat
 
-    pbTokCurMarshal := pbTokCur is VarRef ? "char*" : "ptr"
+    pstrFormatMarshal := pstrFormat == 0 ? IntPtr : PWSTR
+    pbTokCurMarshal := pbTokCur is VarRef ? "char*" : IntPtr
 
     pbstrOut := BSTR.Owned()
-    result := DllCall("OLEAUT32.dll\VarFormatFromTokens", VARIANT.Ptr, pvarIn, "ptr", pstrFormat, pbTokCurMarshal, pbTokCur, UInt32, dwFlags, BSTR.Ptr, pbstrOut, UInt32, lcid, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarFormatFromTokens", VARIANT.Ptr, pvarIn, pstrFormatMarshal, pstrFormat, pbTokCurMarshal, pbTokCur, UInt32, dwFlags, BSTR.Ptr, pbstrOut, UInt32, lcid, "HRESULT")
     return pbstrOut
 }
 
@@ -11083,10 +11086,12 @@ export VarFormatFromTokens(pvarIn, pstrFormat, pbTokCur, dwFlags, lcid) {
 export VarTokenizeFormatString(pstrFormat, rgbTok, cbTok, iFirstDay, iFirstWeek, lcid, pcbActual) {
     pstrFormat := pstrFormat is String ? StrPtr(pstrFormat) : pstrFormat
 
-    rgbTokMarshal := rgbTok is VarRef ? "char*" : "ptr"
-    pcbActualMarshal := pcbActual is VarRef ? "int*" : "ptr"
+    pstrFormatMarshal := pstrFormat == 0 ? IntPtr : PWSTR
+    rgbTokMarshal := rgbTok is VarRef ? "char*" : IntPtr
+    pcbActualMarshal := pcbActual is VarRef ? "int*" : IntPtr
+    pcbActualMarshal := pcbActual == 0 ? IntPtr : "int*"
 
-    result := DllCall("OLEAUT32.dll\VarTokenizeFormatString", "ptr", pstrFormat, rgbTokMarshal, rgbTok, Int32, cbTok, VARFORMAT_FIRST_DAY, iFirstDay, VARFORMAT_FIRST_WEEK, iFirstWeek, UInt32, lcid, pcbActualMarshal, pcbActual, "HRESULT")
+    result := DllCall("OLEAUT32.dll\VarTokenizeFormatString", pstrFormatMarshal, pstrFormat, rgbTokMarshal, rgbTok, Int32, cbTok, VARFORMAT_FIRST_DAY, iFirstDay, VARFORMAT_FIRST_WEEK, iFirstWeek, UInt32, lcid, pcbActualMarshal, pcbActual, "HRESULT")
     return result
 }
 
@@ -11343,7 +11348,9 @@ export RegisterTypeLib(ptlib, szFullPath, szHelpDir) {
     szFullPath := szFullPath is String ? StrPtr(szFullPath) : szFullPath
     szHelpDir := szHelpDir is String ? StrPtr(szHelpDir) : szHelpDir
 
-    result := DllCall("OLEAUT32.dll\RegisterTypeLib", "ptr", ptlib, "ptr", szFullPath, "ptr", szHelpDir, "HRESULT")
+    szHelpDirMarshal := szHelpDir == 0 ? IntPtr : PWSTR
+
+    result := DllCall("OLEAUT32.dll\RegisterTypeLib", "ptr", ptlib, "ptr", szFullPath, szHelpDirMarshal, szHelpDir, "HRESULT")
     return result
 }
 
@@ -11542,7 +11549,9 @@ export RegisterTypeLibForUser(ptlib, szFullPath, szHelpDir) {
     szFullPath := szFullPath is String ? StrPtr(szFullPath) : szFullPath
     szHelpDir := szHelpDir is String ? StrPtr(szHelpDir) : szHelpDir
 
-    result := DllCall("OLEAUT32.dll\RegisterTypeLibForUser", "ptr", ptlib, "ptr", szFullPath, "ptr", szHelpDir, "HRESULT")
+    szHelpDirMarshal := szHelpDir == 0 ? IntPtr : PWSTR
+
+    result := DllCall("OLEAUT32.dll\RegisterTypeLibForUser", "ptr", ptlib, "ptr", szFullPath, szHelpDirMarshal, szHelpDir, "HRESULT")
     return result
 }
 
@@ -11710,7 +11719,7 @@ export DispGetParam(pdispparams, position, vtTarg, pvarResult) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-dispgetidsofnames
  */
 export DispGetIDsOfNames(ptinfo, rgszNames, cNames) {
-    rgszNamesMarshal := rgszNames is VarRef ? "ptr*" : "ptr"
+    rgszNamesMarshal := rgszNames is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("OLEAUT32.dll\DispGetIDsOfNames", "ptr", ptinfo, rgszNamesMarshal, rgszNames, UInt32, cNames, "int*", &rgdispid := 0, "HRESULT")
     return rgdispid
@@ -11931,8 +11940,8 @@ export DispGetIDsOfNames(ptinfo, rgszNames, cNames) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-dispinvoke
  */
 export DispInvoke(_this, ptinfo, dispidMember, wFlags, pparams, pvarResult, pexcepinfo, puArgErr) {
-    _thisMarshal := _this is VarRef ? "ptr" : "ptr"
-    puArgErrMarshal := puArgErr is VarRef ? "uint*" : "ptr"
+    _thisMarshal := _this is VarRef ? "ptr" : IntPtr
+    puArgErrMarshal := puArgErr is VarRef ? "uint*" : IntPtr
 
     result := DllCall("OLEAUT32.dll\DispInvoke", _thisMarshal, _this, "ptr", ptinfo, Int32, dispidMember, UInt16, wFlags, DISPPARAMS.Ptr, pparams, VARIANT.Ptr, pvarResult, EXCEPINFO.Ptr, pexcepinfo, puArgErrMarshal, puArgErr, "HRESULT")
     return result
@@ -11985,7 +11994,7 @@ export CreateDispTypeInfo(pidata, lcid) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-createstddispatch
  */
 export CreateStdDispatch(punkOuter, pvThis, ptinfo) {
-    pvThisMarshal := pvThis is VarRef ? "ptr" : "ptr"
+    pvThisMarshal := pvThis is VarRef ? "ptr" : IntPtr
 
     result := DllCall("OLEAUT32.dll\CreateStdDispatch", "ptr", punkOuter, pvThisMarshal, pvThis, "ptr", ptinfo, "ptr*", &ppunkStdDisp := 0, "HRESULT")
     return IUnknown(ppunkStdDisp)
@@ -12005,9 +12014,10 @@ export CreateStdDispatch(punkOuter, pvThis, ptinfo) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-dispcallfunc
  */
 export DispCallFunc(pvInstance, oVft, cc, vtReturn, cActuals, prgvt, prgpvarg, pvargResult) {
-    pvInstanceMarshal := pvInstance is VarRef ? "ptr" : "ptr"
-    prgvtMarshal := prgvt is VarRef ? "ushort*" : "ptr"
-    prgpvargMarshal := prgpvarg is VarRef ? "ptr*" : "ptr"
+    pvInstanceMarshal := pvInstance is VarRef ? "ptr" : IntPtr
+    pvInstanceMarshal := pvInstance == 0 ? IntPtr : "ptr"
+    prgvtMarshal := prgvt is VarRef ? "ushort*" : IntPtr
+    prgpvargMarshal := prgpvarg is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("OLEAUT32.dll\DispCallFunc", pvInstanceMarshal, pvInstance, IntPtr, oVft, CALLCONV, cc, VARENUM, vtReturn, UInt32, cActuals, prgvtMarshal, prgvt, prgpvargMarshal, prgpvarg, VARIANT.Ptr, pvargResult, "HRESULT")
     return result
@@ -12100,7 +12110,7 @@ export DispCallFunc(pvInstance, oVft, cc, vtReturn, cActuals, prgvt, prgpvarg, p
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-registeractiveobject
  */
 export RegisterActiveObject(punk, rclsid, dwFlags, pdwRegister) {
-    pdwRegisterMarshal := pdwRegister is VarRef ? "uint*" : "ptr"
+    pdwRegisterMarshal := pdwRegister is VarRef ? "uint*" : IntPtr
 
     result := DllCall("OLEAUT32.dll\RegisterActiveObject", "ptr", punk, Guid.Ptr, rclsid, ACTIVEOBJECT_FLAGS, dwFlags, pdwRegisterMarshal, pdwRegister, "HRESULT")
     return result
@@ -12511,9 +12521,9 @@ export OleCreate(rclsid, riid, renderopt, pFormatEtc, pClientSite, pStg) {
  * @since windows5.0
  */
 export OleCreateEx(rclsid, riid, dwFlags, renderopt, cFormats, rgAdvf, rgFormatEtc, lpAdviseSink, rgdwConnection, pClientSite, pStg, ppvObj) {
-    rgAdvfMarshal := rgAdvf is VarRef ? "uint*" : "ptr"
-    rgdwConnectionMarshal := rgdwConnection is VarRef ? "uint*" : "ptr"
-    ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+    rgAdvfMarshal := rgAdvf is VarRef ? "uint*" : IntPtr
+    rgdwConnectionMarshal := rgdwConnection is VarRef ? "uint*" : IntPtr
+    ppvObjMarshal := ppvObj is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("ole32.dll\OleCreateEx", Guid.Ptr, rclsid, Guid.Ptr, riid, OLECREATE_enum, dwFlags, UInt32, renderopt, UInt32, cFormats, rgAdvfMarshal, rgAdvf, FORMATETC.Ptr, rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "HRESULT")
     return result
@@ -12679,9 +12689,9 @@ export OleCreateFromData(pSrcDataObj, riid, renderopt, pFormatEtc, pClientSite, 
  * @since windows5.0
  */
 export OleCreateFromDataEx(pSrcDataObj, riid, dwFlags, renderopt, cFormats, rgAdvf, rgFormatEtc, lpAdviseSink, rgdwConnection, pClientSite, pStg, ppvObj) {
-    rgAdvfMarshal := rgAdvf is VarRef ? "uint*" : "ptr"
-    rgdwConnectionMarshal := rgdwConnection is VarRef ? "uint*" : "ptr"
-    ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+    rgAdvfMarshal := rgAdvf is VarRef ? "uint*" : IntPtr
+    rgdwConnectionMarshal := rgdwConnection is VarRef ? "uint*" : IntPtr
+    ppvObjMarshal := ppvObj is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("ole32.dll\OleCreateFromDataEx", "ptr", pSrcDataObj, Guid.Ptr, riid, OLECREATE_enum, dwFlags, UInt32, renderopt, UInt32, cFormats, rgAdvfMarshal, rgAdvf, FORMATETC.Ptr, rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "HRESULT")
     return result
@@ -12784,8 +12794,8 @@ export OleCreateLinkFromData(pSrcDataObj, riid, renderopt, pFormatEtc, pClientSi
  * @since windows5.0
  */
 export OleCreateLinkFromDataEx(pSrcDataObj, riid, dwFlags, renderopt, cFormats, rgAdvf, rgFormatEtc, lpAdviseSink, rgdwConnection, pClientSite, pStg) {
-    rgAdvfMarshal := rgAdvf is VarRef ? "uint*" : "ptr"
-    rgdwConnectionMarshal := rgdwConnection is VarRef ? "uint*" : "ptr"
+    rgAdvfMarshal := rgAdvf is VarRef ? "uint*" : IntPtr
+    rgdwConnectionMarshal := rgdwConnection is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ole32.dll\OleCreateLinkFromDataEx", "ptr", pSrcDataObj, Guid.Ptr, riid, OLECREATE_enum, dwFlags, UInt32, renderopt, UInt32, cFormats, rgAdvfMarshal, rgAdvf, FORMATETC.Ptr, rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr*", &ppvObj := 0, "HRESULT")
     return ppvObj
@@ -12926,9 +12936,9 @@ export OleCreateLink(pmkLinkSrc, riid, renderopt, lpFormatEtc, pClientSite, pStg
  * @since windows5.0
  */
 export OleCreateLinkEx(pmkLinkSrc, riid, dwFlags, renderopt, cFormats, rgAdvf, rgFormatEtc, lpAdviseSink, rgdwConnection, pClientSite, pStg, ppvObj) {
-    rgAdvfMarshal := rgAdvf is VarRef ? "uint*" : "ptr"
-    rgdwConnectionMarshal := rgdwConnection is VarRef ? "uint*" : "ptr"
-    ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+    rgAdvfMarshal := rgAdvf is VarRef ? "uint*" : IntPtr
+    rgdwConnectionMarshal := rgdwConnection is VarRef ? "uint*" : IntPtr
+    ppvObjMarshal := ppvObj is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("ole32.dll\OleCreateLinkEx", "ptr", pmkLinkSrc, Guid.Ptr, riid, OLECREATE_enum, dwFlags, UInt32, renderopt, UInt32, cFormats, rgAdvfMarshal, rgAdvf, FORMATETC.Ptr, rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "HRESULT")
     return result
@@ -13034,9 +13044,9 @@ export OleCreateLinkToFile(lpszFileName, riid, renderopt, lpFormatEtc, pClientSi
 export OleCreateLinkToFileEx(lpszFileName, riid, dwFlags, renderopt, cFormats, rgAdvf, rgFormatEtc, lpAdviseSink, rgdwConnection, pClientSite, pStg, ppvObj) {
     lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
-    rgAdvfMarshal := rgAdvf is VarRef ? "uint*" : "ptr"
-    rgdwConnectionMarshal := rgdwConnection is VarRef ? "uint*" : "ptr"
-    ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+    rgAdvfMarshal := rgAdvf is VarRef ? "uint*" : IntPtr
+    rgdwConnectionMarshal := rgdwConnection is VarRef ? "uint*" : IntPtr
+    ppvObjMarshal := ppvObj is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("ole32.dll\OleCreateLinkToFileEx", "ptr", lpszFileName, Guid.Ptr, riid, OLECREATE_enum, dwFlags, UInt32, renderopt, UInt32, cFormats, rgAdvfMarshal, rgAdvf, FORMATETC.Ptr, rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "HRESULT")
     return result
@@ -13144,9 +13154,9 @@ export OleCreateFromFile(rclsid, lpszFileName, riid, renderopt, lpFormatEtc, pCl
 export OleCreateFromFileEx(rclsid, lpszFileName, riid, dwFlags, renderopt, cFormats, rgAdvf, rgFormatEtc, lpAdviseSink, rgdwConnection, pClientSite, pStg, ppvObj) {
     lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
-    rgAdvfMarshal := rgAdvf is VarRef ? "uint*" : "ptr"
-    rgdwConnectionMarshal := rgdwConnection is VarRef ? "uint*" : "ptr"
-    ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+    rgAdvfMarshal := rgAdvf is VarRef ? "uint*" : IntPtr
+    rgdwConnectionMarshal := rgdwConnection is VarRef ? "uint*" : IntPtr
+    ppvObjMarshal := ppvObj is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("ole32.dll\OleCreateFromFileEx", Guid.Ptr, rclsid, "ptr", lpszFileName, Guid.Ptr, riid, OLECREATE_enum, dwFlags, UInt32, renderopt, UInt32, cFormats, rgAdvfMarshal, rgAdvf, FORMATETC.Ptr, rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "HRESULT")
     return result
@@ -13826,10 +13836,10 @@ export OleGetClipboard() {
  * @since windows10.0.10240
  */
 export OleGetClipboardWithEnterpriseInfo(dataObject, dataEnterpriseId, sourceDescription, targetDescription, dataDescription) {
-    dataEnterpriseIdMarshal := dataEnterpriseId is VarRef ? "ptr*" : "ptr"
-    sourceDescriptionMarshal := sourceDescription is VarRef ? "ptr*" : "ptr"
-    targetDescriptionMarshal := targetDescription is VarRef ? "ptr*" : "ptr"
-    dataDescriptionMarshal := dataDescription is VarRef ? "ptr*" : "ptr"
+    dataEnterpriseIdMarshal := dataEnterpriseId is VarRef ? "ptr*" : IntPtr
+    sourceDescriptionMarshal := sourceDescription is VarRef ? "ptr*" : IntPtr
+    targetDescriptionMarshal := targetDescription is VarRef ? "ptr*" : IntPtr
+    dataDescriptionMarshal := dataDescription is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("ole32.dll\OleGetClipboardWithEnterpriseInfo", IDataObject.Ptr, dataObject, dataEnterpriseIdMarshal, dataEnterpriseId, sourceDescriptionMarshal, sourceDescription, targetDescriptionMarshal, targetDescription, dataDescriptionMarshal, dataDescription, "HRESULT")
     return result
@@ -14500,7 +14510,7 @@ export OleCreateEmbeddingHelper(clsid, pUnkOuter, flags, pCF, riid) {
  * @since windows5.0
  */
 export IsAccelerator(_hAccel, cAccelEntries, lpMsg, lpwCmd) {
-    lpwCmdMarshal := lpwCmd is VarRef ? "ushort*" : "ptr"
+    lpwCmdMarshal := lpwCmd is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("OLE32.dll\IsAccelerator", HACCEL, _hAccel, Int32, cAccelEntries, MSG.Ptr, lpMsg, lpwCmdMarshal, lpwCmd, BOOL)
     return result
@@ -14533,7 +14543,9 @@ export OleGetIconOfFile(lpszPath, fUseFileAsLabel) {
 export OleGetIconOfClass(rclsid, lpszLabel, fUseTypeAsLabel) {
     lpszLabel := lpszLabel is String ? StrPtr(lpszLabel) : lpszLabel
 
-    result := DllCall("OLE32.dll\OleGetIconOfClass", Guid.Ptr, rclsid, "ptr", lpszLabel, BOOL, fUseTypeAsLabel, HGLOBAL.Owned)
+    lpszLabelMarshal := lpszLabel == 0 ? IntPtr : PWSTR
+
+    result := DllCall("OLE32.dll\OleGetIconOfClass", Guid.Ptr, rclsid, lpszLabelMarshal, lpszLabel, BOOL, fUseTypeAsLabel, HGLOBAL.Owned)
     return result
 }
 
@@ -14641,7 +14653,6 @@ export OleRegEnumVerbs(clsid) {
 }
 
 /**
- * 
  * @param {Pointer<OLESTREAM>} lpolestream 
  * @param {IStorage} pstg 
  * @param {Pointer<DVTARGETDEVICE>} ptd 
@@ -14651,9 +14662,13 @@ export OleRegEnumVerbs(clsid) {
  * @returns {HRESULT} 
  */
 export OleConvertOLESTREAMToIStorage2(lpolestream, pstg, ptd, opt, pvCallbackContext, pQueryConvertOLELinkCallback) {
-    pvCallbackContextMarshal := pvCallbackContext is VarRef ? "ptr" : "ptr"
+    ptdMarshal := ptd == 0 ? IntPtr : DVTARGETDEVICE.Ptr
+    optMarshal := opt == 0 ? IntPtr : UInt32
+    pvCallbackContextMarshal := pvCallbackContext is VarRef ? "ptr" : IntPtr
+    pvCallbackContextMarshal := pvCallbackContext == 0 ? IntPtr : "ptr"
+    pQueryConvertOLELinkCallbackMarshal := pQueryConvertOLELinkCallback == 0 ? IntPtr : OLESTREAMQUERYCONVERTOLELINKCALLBACK
 
-    result := DllCall("ole32.dll\OleConvertOLESTREAMToIStorage2", OLESTREAM.Ptr, lpolestream, "ptr", pstg, DVTARGETDEVICE.Ptr, ptd, UInt32, opt, pvCallbackContextMarshal, pvCallbackContext, OLESTREAMQUERYCONVERTOLELINKCALLBACK, pQueryConvertOLELinkCallback, "HRESULT")
+    result := DllCall("ole32.dll\OleConvertOLESTREAMToIStorage2", OLESTREAM.Ptr, lpolestream, "ptr", pstg, ptdMarshal, ptd, optMarshal, opt, pvCallbackContextMarshal, pvCallbackContext, pQueryConvertOLELinkCallbackMarshal, pQueryConvertOLELinkCallback, "HRESULT")
     return result
 }
 
@@ -14869,7 +14884,6 @@ export OleSetAutoConvert(clsidOld, clsidNew) {
 }
 
 /**
- * 
  * @param {Pointer<OLESTREAM>} polestm 
  * @param {IStorage} pstg 
  * @param {Pointer<Integer>} pcfFormat 
@@ -14883,124 +14897,119 @@ export OleSetAutoConvert(clsidOld, clsidNew) {
  * @returns {HRESULT} 
  */
 export OleConvertOLESTREAMToIStorageEx2(polestm, pstg, pcfFormat, plwWidth, plHeight, pdwSize, pmedium, opt, pvCallbackContext, pQueryConvertOLELinkCallback) {
-    pcfFormatMarshal := pcfFormat is VarRef ? "ushort*" : "ptr"
-    plwWidthMarshal := plwWidth is VarRef ? "int*" : "ptr"
-    plHeightMarshal := plHeight is VarRef ? "int*" : "ptr"
-    pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
-    pvCallbackContextMarshal := pvCallbackContext is VarRef ? "ptr" : "ptr"
+    pcfFormatMarshal := pcfFormat is VarRef ? "ushort*" : IntPtr
+    plwWidthMarshal := plwWidth is VarRef ? "int*" : IntPtr
+    plHeightMarshal := plHeight is VarRef ? "int*" : IntPtr
+    pdwSizeMarshal := pdwSize is VarRef ? "uint*" : IntPtr
+    optMarshal := opt == 0 ? IntPtr : UInt32
+    pvCallbackContextMarshal := pvCallbackContext is VarRef ? "ptr" : IntPtr
+    pvCallbackContextMarshal := pvCallbackContext == 0 ? IntPtr : "ptr"
+    pQueryConvertOLELinkCallbackMarshal := pQueryConvertOLELinkCallback == 0 ? IntPtr : OLESTREAMQUERYCONVERTOLELINKCALLBACK
 
-    result := DllCall("ole32.dll\OleConvertOLESTREAMToIStorageEx2", OLESTREAM.Ptr, polestm, "ptr", pstg, pcfFormatMarshal, pcfFormat, plwWidthMarshal, plwWidth, plHeightMarshal, plHeight, pdwSizeMarshal, pdwSize, STGMEDIUM.Ptr, pmedium, UInt32, opt, pvCallbackContextMarshal, pvCallbackContext, OLESTREAMQUERYCONVERTOLELINKCALLBACK, pQueryConvertOLELinkCallback, "HRESULT")
+    result := DllCall("ole32.dll\OleConvertOLESTREAMToIStorageEx2", OLESTREAM.Ptr, polestm, "ptr", pstg, pcfFormatMarshal, pcfFormat, plwWidthMarshal, plwWidth, plHeightMarshal, plHeight, pdwSizeMarshal, pdwSize, STGMEDIUM.Ptr, pmedium, optMarshal, opt, pvCallbackContextMarshal, pvCallbackContext, pQueryConvertOLELinkCallbackMarshal, pQueryConvertOLELinkCallback, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} param0 
  * @param {Integer} param1 
  * @param {Pointer<HRGN>} param2 
  * @returns {Integer} 
  */
 export HRGN_UserSize(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     result := DllCall("OLE32.dll\HRGN_UserSize", param0Marshal, param0, UInt32, param1, HRGN.Ptr, param2, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} param0 
  * @param {Pointer<Integer>} param1 
  * @param {Pointer<HRGN>} param2 
  * @returns {Pointer<Integer>} 
  */
 export HRGN_UserMarshal(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HRGN_UserMarshal", param0Marshal, param0, param1Marshal, param1, HRGN.Ptr, param2, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} param0 
  * @param {Pointer<Integer>} param1 
  * @param {Pointer<HRGN>} param2 
  * @returns {Pointer<Integer>} 
  */
 export HRGN_UserUnmarshal(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("OLE32.dll\HRGN_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, HRGN.Ptr, param2, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} param0 
  * @param {Pointer<HRGN>} param1 
  * @returns {String} Nothing - always returns an empty string
  */
 export HRGN_UserFree(param0, param1) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     DllCall("OLE32.dll\HRGN_UserFree", param0Marshal, param0, HRGN.Ptr, param1)
 }
 
 /**
- * 
  * @param {Pointer<Integer>} param0 
  * @param {Integer} param1 
  * @param {Pointer<HRGN>} param2 
  * @returns {Integer} 
  */
 export HRGN_UserSize64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     result := DllCall("api-ms-win-core-marshal-l1-1-0.dll\HRGN_UserSize64", param0Marshal, param0, UInt32, param1, HRGN.Ptr, param2, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} param0 
  * @param {Pointer<Integer>} param1 
  * @param {Pointer<HRGN>} param2 
  * @returns {Pointer<Integer>} 
  */
 export HRGN_UserMarshal64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("api-ms-win-core-marshal-l1-1-0.dll\HRGN_UserMarshal64", param0Marshal, param0, param1Marshal, param1, HRGN.Ptr, param2, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} param0 
  * @param {Pointer<Integer>} param1 
  * @param {Pointer<HRGN>} param2 
  * @returns {Pointer<Integer>} 
  */
 export HRGN_UserUnmarshal64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("api-ms-win-core-marshal-l1-1-0.dll\HRGN_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, HRGN.Ptr, param2, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} param0 
  * @param {Pointer<HRGN>} param1 
  * @returns {String} Nothing - always returns an empty string
  */
 export HRGN_UserFree64(param0, param1) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     DllCall("api-ms-win-core-marshal-l1-1-0.dll\HRGN_UserFree64", param0Marshal, param0, HRGN.Ptr, param1)
 }
@@ -15497,7 +15506,10 @@ export OleIconToCursor(hinstExe, _hIcon) {
 export OleUIAddVerbMenuW(lpOleObj, lpszShortType, _hMenu, uPos, uIDVerbMin, uIDVerbMax, bAddConvert, idConvert, lphMenu) {
     lpszShortType := lpszShortType is String ? StrPtr(lpszShortType) : lpszShortType
 
-    result := DllCall("oledlg.dll\OleUIAddVerbMenuW", "ptr", lpOleObj, "ptr", lpszShortType, HMENU, _hMenu, UInt32, uPos, UInt32, uIDVerbMin, UInt32, uIDVerbMax, BOOL, bAddConvert, UInt32, idConvert, HMENU.Ptr, lphMenu, BOOL)
+    lpOleObjMarshal := lpOleObj == 0 ? IntPtr : "ptr"
+    lpszShortTypeMarshal := lpszShortType == 0 ? IntPtr : PWSTR
+
+    result := DllCall("oledlg.dll\OleUIAddVerbMenuW", lpOleObjMarshal, lpOleObj, lpszShortTypeMarshal, lpszShortType, HMENU, _hMenu, UInt32, uPos, UInt32, uIDVerbMin, UInt32, uIDVerbMax, BOOL, bAddConvert, UInt32, idConvert, HMENU.Ptr, lphMenu, BOOL)
     return result
 }
 
@@ -15528,7 +15540,10 @@ export OleUIAddVerbMenuW(lpOleObj, lpszShortType, _hMenu, uPos, uIDVerbMin, uIDV
 export OleUIAddVerbMenuA(lpOleObj, lpszShortType, _hMenu, uPos, uIDVerbMin, uIDVerbMax, bAddConvert, idConvert, lphMenu) {
     lpszShortType := lpszShortType is String ? StrPtr(lpszShortType) : lpszShortType
 
-    result := DllCall("oledlg.dll\OleUIAddVerbMenuA", "ptr", lpOleObj, "ptr", lpszShortType, HMENU, _hMenu, UInt32, uPos, UInt32, uIDVerbMin, UInt32, uIDVerbMax, BOOL, bAddConvert, UInt32, idConvert, HMENU.Ptr, lphMenu, BOOL)
+    lpOleObjMarshal := lpOleObj == 0 ? IntPtr : "ptr"
+    lpszShortTypeMarshal := lpszShortType == 0 ? IntPtr : PSTR
+
+    result := DllCall("oledlg.dll\OleUIAddVerbMenuA", lpOleObjMarshal, lpOleObj, lpszShortTypeMarshal, lpszShortType, HMENU, _hMenu, UInt32, uPos, UInt32, uIDVerbMin, UInt32, uIDVerbMax, BOOL, bAddConvert, UInt32, idConvert, HMENU.Ptr, lphMenu, BOOL)
     return result
 }
 

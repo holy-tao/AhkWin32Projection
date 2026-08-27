@@ -39,7 +39,6 @@ export default struct IWbemClientTransport extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} strAddressType 
      * @param {Integer} dwBinaryAddressLength 
      * @param {Pointer<Integer>} abBinaryAddress 
@@ -60,7 +59,7 @@ export default struct IWbemClientTransport extends IUnknown {
         strLocale := strLocale is String ? BSTR.Alloc(strLocale).Value : strLocale
         strAuthority := strAuthority is String ? BSTR.Alloc(strAuthority).Value : strAuthority
 
-        abBinaryAddressMarshal := abBinaryAddress is VarRef ? "char*" : "ptr"
+        abBinaryAddressMarshal := abBinaryAddress is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, BSTR, strAddressType, UInt32, dwBinaryAddressLength, abBinaryAddressMarshal, abBinaryAddress, BSTR, strNetworkResource, BSTR, strUser, BSTR, strPassword, BSTR, strLocale, Int32, lSecurityFlags, BSTR, strAuthority, "ptr", pCtx, "ptr*", &ppNamespace := 0, "HRESULT")
         return IWbemServices(ppNamespace)
@@ -75,7 +74,7 @@ export default struct IWbemClientTransport extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ConnectServer := CallbackCreate(GetMethod(implObj, "ConnectServer"), flags, 12)
+        this.vtbl.ConnectServer := CallbackCreate(ObjBindMethod(implObj, "ConnectServer"), flags, 12)
     }
 
     Dispose() {

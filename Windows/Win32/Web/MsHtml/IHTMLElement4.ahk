@@ -82,7 +82,6 @@ export default struct IHTMLElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -92,7 +91,6 @@ export default struct IHTMLElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmousewheel() {
@@ -123,7 +121,6 @@ export default struct IHTMLElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrname 
      * @returns {IHTMLDOMAttribute} 
      */
@@ -135,7 +132,6 @@ export default struct IHTMLElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMAttribute} pattr 
      * @returns {IHTMLDOMAttribute} 
      */
@@ -145,7 +141,6 @@ export default struct IHTMLElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMAttribute} pattr 
      * @returns {IHTMLDOMAttribute} 
      */
@@ -155,7 +150,6 @@ export default struct IHTMLElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -165,7 +159,6 @@ export default struct IHTMLElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onbeforeactivate() {
@@ -175,7 +168,6 @@ export default struct IHTMLElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -185,7 +177,6 @@ export default struct IHTMLElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onfocusin() {
@@ -195,7 +186,6 @@ export default struct IHTMLElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -205,7 +195,6 @@ export default struct IHTMLElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onfocusout() {
@@ -223,18 +212,18 @@ export default struct IHTMLElement4 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_onmousewheel := CallbackCreate(GetMethod(implObj, "put_onmousewheel"), flags, 2)
-        this.vtbl.get_onmousewheel := CallbackCreate(GetMethod(implObj, "get_onmousewheel"), flags, 2)
-        this.vtbl.normalize := CallbackCreate(GetMethod(implObj, "normalize"), flags, 1)
-        this.vtbl.getAttributeNode := CallbackCreate(GetMethod(implObj, "getAttributeNode"), flags, 3)
-        this.vtbl.setAttributeNode := CallbackCreate(GetMethod(implObj, "setAttributeNode"), flags, 3)
-        this.vtbl.removeAttributeNode := CallbackCreate(GetMethod(implObj, "removeAttributeNode"), flags, 3)
-        this.vtbl.put_onbeforeactivate := CallbackCreate(GetMethod(implObj, "put_onbeforeactivate"), flags, 2)
-        this.vtbl.get_onbeforeactivate := CallbackCreate(GetMethod(implObj, "get_onbeforeactivate"), flags, 2)
-        this.vtbl.put_onfocusin := CallbackCreate(GetMethod(implObj, "put_onfocusin"), flags, 2)
-        this.vtbl.get_onfocusin := CallbackCreate(GetMethod(implObj, "get_onfocusin"), flags, 2)
-        this.vtbl.put_onfocusout := CallbackCreate(GetMethod(implObj, "put_onfocusout"), flags, 2)
-        this.vtbl.get_onfocusout := CallbackCreate(GetMethod(implObj, "get_onfocusout"), flags, 2)
+        this.vtbl.put_onmousewheel := CallbackCreate(ObjBindMethod(implObj, "put_onmousewheel"), flags, 2)
+        this.vtbl.get_onmousewheel := CallbackCreate(ObjBindMethod(implObj, "get_onmousewheel"), flags, 2)
+        this.vtbl.normalize := CallbackCreate(ObjBindMethod(implObj, "normalize"), flags, 1)
+        this.vtbl.getAttributeNode := CallbackCreate(ObjBindMethod(implObj, "getAttributeNode"), flags, 3)
+        this.vtbl.setAttributeNode := CallbackCreate(ObjBindMethod(implObj, "setAttributeNode"), flags, 3)
+        this.vtbl.removeAttributeNode := CallbackCreate(ObjBindMethod(implObj, "removeAttributeNode"), flags, 3)
+        this.vtbl.put_onbeforeactivate := CallbackCreate(ObjBindMethod(implObj, "put_onbeforeactivate"), flags, 2)
+        this.vtbl.get_onbeforeactivate := CallbackCreate(ObjBindMethod(implObj, "get_onbeforeactivate"), flags, 2)
+        this.vtbl.put_onfocusin := CallbackCreate(ObjBindMethod(implObj, "put_onfocusin"), flags, 2)
+        this.vtbl.get_onfocusin := CallbackCreate(ObjBindMethod(implObj, "get_onfocusin"), flags, 2)
+        this.vtbl.put_onfocusout := CallbackCreate(ObjBindMethod(implObj, "put_onfocusout"), flags, 2)
+        this.vtbl.get_onfocusout := CallbackCreate(ObjBindMethod(implObj, "get_onfocusout"), flags, 2)
     }
 
     Dispose() {

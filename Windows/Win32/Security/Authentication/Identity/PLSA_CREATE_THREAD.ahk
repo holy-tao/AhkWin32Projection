@@ -21,7 +21,6 @@ export default struct PLSA_CREATE_THREAD {
     }
 
     /**
-     * 
      * @param {Pointer<SECURITY_ATTRIBUTES>} SecurityAttributes 
      * @param {Integer} StackSize 
      * @param {Pointer<LPTHREAD_START_ROUTINE>} StartFunction 
@@ -31,8 +30,8 @@ export default struct PLSA_CREATE_THREAD {
      * @returns {HANDLE} 
      */
     Call(SecurityAttributes, StackSize, StartFunction, ThreadParameter, CreationFlags, ThreadId) {
-        ThreadParameterMarshal := ThreadParameter is VarRef ? "ptr" : "ptr"
-        ThreadIdMarshal := ThreadId is VarRef ? "uint*" : "ptr"
+        ThreadParameterMarshal := ThreadParameter is VarRef ? "ptr" : IntPtr
+        ThreadIdMarshal := ThreadId is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, SECURITY_ATTRIBUTES.Ptr, SecurityAttributes, UInt32, StackSize, LPTHREAD_START_ROUTINE, StartFunction, ThreadParameterMarshal, ThreadParameter, UInt32, CreationFlags, ThreadIdMarshal, ThreadId, HANDLE.Owned)
         return result

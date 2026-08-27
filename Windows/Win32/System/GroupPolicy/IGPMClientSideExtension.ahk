@@ -63,7 +63,6 @@ export default struct IGPMClientSideExtension extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ID() {
@@ -73,7 +72,6 @@ export default struct IGPMClientSideExtension extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DisplayName() {
@@ -111,10 +109,10 @@ export default struct IGPMClientSideExtension extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ID := CallbackCreate(GetMethod(implObj, "get_ID"), flags, 2)
-        this.vtbl.get_DisplayName := CallbackCreate(GetMethod(implObj, "get_DisplayName"), flags, 2)
-        this.vtbl.IsUserEnabled := CallbackCreate(GetMethod(implObj, "IsUserEnabled"), flags, 2)
-        this.vtbl.IsComputerEnabled := CallbackCreate(GetMethod(implObj, "IsComputerEnabled"), flags, 2)
+        this.vtbl.get_ID := CallbackCreate(ObjBindMethod(implObj, "get_ID"), flags, 2)
+        this.vtbl.get_DisplayName := CallbackCreate(ObjBindMethod(implObj, "get_DisplayName"), flags, 2)
+        this.vtbl.IsUserEnabled := CallbackCreate(ObjBindMethod(implObj, "IsUserEnabled"), flags, 2)
+        this.vtbl.IsComputerEnabled := CallbackCreate(ObjBindMethod(implObj, "IsComputerEnabled"), flags, 2)
     }
 
     Dispose() {

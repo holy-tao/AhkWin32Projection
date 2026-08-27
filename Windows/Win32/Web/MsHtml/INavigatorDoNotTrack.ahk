@@ -44,7 +44,6 @@ export default struct INavigatorDoNotTrack extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msDoNotTrack() {
@@ -62,7 +61,7 @@ export default struct INavigatorDoNotTrack extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_msDoNotTrack := CallbackCreate(GetMethod(implObj, "get_msDoNotTrack"), flags, 2)
+        this.vtbl.get_msDoNotTrack := CallbackCreate(ObjBindMethod(implObj, "get_msDoNotTrack"), flags, 2)
     }
 
     Dispose() {

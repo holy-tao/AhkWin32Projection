@@ -19,7 +19,6 @@ export default struct LPWSCUNINSTALLNAMESPACE {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} lpProviderId 
      * @returns {Integer} 
      */

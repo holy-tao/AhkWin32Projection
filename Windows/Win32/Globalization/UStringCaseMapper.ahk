@@ -20,7 +20,6 @@ export default struct UStringCaseMapper {
     }
 
     /**
-     * 
      * @param {Pointer<UCaseMap>} csm 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
@@ -30,10 +29,10 @@ export default struct UStringCaseMapper {
      * @returns {Integer} 
      */
     Call(csm, dest, destCapacity, src, srcLength, pErrorCode) {
-        csmMarshal := csm is VarRef ? "ptr*" : "ptr"
-        destMarshal := dest is VarRef ? "ushort*" : "ptr"
-        srcMarshal := src is VarRef ? "ushort*" : "ptr"
-        pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
+        csmMarshal := csm is VarRef ? "ptr*" : IntPtr
+        destMarshal := dest is VarRef ? "ushort*" : IntPtr
+        srcMarshal := src is VarRef ? "ushort*" : IntPtr
+        pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, csmMarshal, csm, destMarshal, dest, Int32, destCapacity, srcMarshal, src, Int32, srcLength, pErrorCodeMarshal, pErrorCode, Int32)
         return result

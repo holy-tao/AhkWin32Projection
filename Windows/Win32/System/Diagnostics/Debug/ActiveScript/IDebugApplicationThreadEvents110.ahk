@@ -39,7 +39,6 @@ export default struct IDebugApplicationThreadEvents110 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     OnSuspendForBreakPoint() {
@@ -48,7 +47,6 @@ export default struct IDebugApplicationThreadEvents110 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     OnResumeFromBreakPoint() {
@@ -57,7 +55,6 @@ export default struct IDebugApplicationThreadEvents110 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     OnThreadRequestComplete() {
@@ -66,7 +63,6 @@ export default struct IDebugApplicationThreadEvents110 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     OnBeginThreadRequest() {
@@ -83,10 +79,10 @@ export default struct IDebugApplicationThreadEvents110 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnSuspendForBreakPoint := CallbackCreate(GetMethod(implObj, "OnSuspendForBreakPoint"), flags, 1)
-        this.vtbl.OnResumeFromBreakPoint := CallbackCreate(GetMethod(implObj, "OnResumeFromBreakPoint"), flags, 1)
-        this.vtbl.OnThreadRequestComplete := CallbackCreate(GetMethod(implObj, "OnThreadRequestComplete"), flags, 1)
-        this.vtbl.OnBeginThreadRequest := CallbackCreate(GetMethod(implObj, "OnBeginThreadRequest"), flags, 1)
+        this.vtbl.OnSuspendForBreakPoint := CallbackCreate(ObjBindMethod(implObj, "OnSuspendForBreakPoint"), flags, 1)
+        this.vtbl.OnResumeFromBreakPoint := CallbackCreate(ObjBindMethod(implObj, "OnResumeFromBreakPoint"), flags, 1)
+        this.vtbl.OnThreadRequestComplete := CallbackCreate(ObjBindMethod(implObj, "OnThreadRequestComplete"), flags, 1)
+        this.vtbl.OnBeginThreadRequest := CallbackCreate(ObjBindMethod(implObj, "OnBeginThreadRequest"), flags, 1)
     }
 
     Dispose() {

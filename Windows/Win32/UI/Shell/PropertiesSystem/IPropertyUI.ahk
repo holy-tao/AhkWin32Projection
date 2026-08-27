@@ -71,15 +71,14 @@ export default struct IPropertyUI extends IUnknown {
     ParsePropertyName(pszName, pfmtid, ppid, pchEaten) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        ppidMarshal := ppid is VarRef ? "uint*" : "ptr"
-        pchEatenMarshal := pchEaten is VarRef ? "uint*" : "ptr"
+        ppidMarshal := ppid is VarRef ? "uint*" : IntPtr
+        pchEatenMarshal := pchEaten is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, "ptr", pszName, Guid.Ptr, pfmtid, ppidMarshal, ppid, pchEatenMarshal, pchEaten, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} fmtid 
      * @param {Integer} pid 
      * @param {PWSTR} pwszText 
@@ -243,14 +242,14 @@ export default struct IPropertyUI extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ParsePropertyName := CallbackCreate(GetMethod(implObj, "ParsePropertyName"), flags, 5)
-        this.vtbl.GetCannonicalName := CallbackCreate(GetMethod(implObj, "GetCannonicalName"), flags, 5)
-        this.vtbl.GetDisplayName := CallbackCreate(GetMethod(implObj, "GetDisplayName"), flags, 6)
-        this.vtbl.GetPropertyDescription := CallbackCreate(GetMethod(implObj, "GetPropertyDescription"), flags, 5)
-        this.vtbl.GetDefaultWidth := CallbackCreate(GetMethod(implObj, "GetDefaultWidth"), flags, 4)
-        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 4)
-        this.vtbl.FormatForDisplay := CallbackCreate(GetMethod(implObj, "FormatForDisplay"), flags, 7)
-        this.vtbl.GetHelpInfo := CallbackCreate(GetMethod(implObj, "GetHelpInfo"), flags, 6)
+        this.vtbl.ParsePropertyName := CallbackCreate(ObjBindMethod(implObj, "ParsePropertyName"), flags, 5)
+        this.vtbl.GetCannonicalName := CallbackCreate(ObjBindMethod(implObj, "GetCannonicalName"), flags, 5)
+        this.vtbl.GetDisplayName := CallbackCreate(ObjBindMethod(implObj, "GetDisplayName"), flags, 6)
+        this.vtbl.GetPropertyDescription := CallbackCreate(ObjBindMethod(implObj, "GetPropertyDescription"), flags, 5)
+        this.vtbl.GetDefaultWidth := CallbackCreate(ObjBindMethod(implObj, "GetDefaultWidth"), flags, 4)
+        this.vtbl.GetFlags := CallbackCreate(ObjBindMethod(implObj, "GetFlags"), flags, 4)
+        this.vtbl.FormatForDisplay := CallbackCreate(ObjBindMethod(implObj, "FormatForDisplay"), flags, 7)
+        this.vtbl.GetHelpInfo := CallbackCreate(ObjBindMethod(implObj, "GetHelpInfo"), flags, 6)
     }
 
     Dispose() {

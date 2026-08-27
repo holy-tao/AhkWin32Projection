@@ -24,7 +24,6 @@ export default struct PIBIO_ENGINE_CREATE_KEY_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/ns-winbio_adapter-winbio_pipeline">WINBIO_PIPELINE</a> structure associated with the biometric unit performing the operation.
      * @param {Pointer<Integer>} Key Pointer to a buffer that contains the HMAC key.
      * @param {Pointer} KeySize Size, in bytes, of the buffer specified by the <b>Key</b>  parameter.
@@ -33,7 +32,7 @@ export default struct PIBIO_ENGINE_CREATE_KEY_FN {
      * @returns {Pointer} Pointer to a variable that receives the size, in bytes, of the data written to the buffer specified by the <b>KeyIdentifier</b>  parameter.
      */
     Call(Pipeline, Key, KeySize, KeyIdentifier, KeyIdentifierSize) {
-        KeyMarshal := Key is VarRef ? "char*" : "ptr"
+        KeyMarshal := Key is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, WINBIO_PIPELINE.Ptr, Pipeline, KeyMarshal, Key, IntPtr, KeySize, IntPtr, KeyIdentifier, IntPtr, KeyIdentifierSize, "ptr*", &ResultSize := 0, "HRESULT")
         return ResultSize

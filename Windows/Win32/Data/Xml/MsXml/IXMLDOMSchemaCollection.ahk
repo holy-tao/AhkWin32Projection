@@ -102,7 +102,6 @@ export default struct IXMLDOMSchemaCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} namespaceURI 
      * @returns {IXMLDOMNode} 
      */
@@ -114,7 +113,6 @@ export default struct IXMLDOMSchemaCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} namespaceURI 
      * @returns {HRESULT} 
      */
@@ -126,7 +124,6 @@ export default struct IXMLDOMSchemaCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -135,7 +132,6 @@ export default struct IXMLDOMSchemaCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {BSTR} 
      */
@@ -146,7 +142,6 @@ export default struct IXMLDOMSchemaCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {IXMLDOMSchemaCollection} otherCollection 
      * @returns {HRESULT} 
      */
@@ -156,7 +151,6 @@ export default struct IXMLDOMSchemaCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__newEnum() {
@@ -173,13 +167,13 @@ export default struct IXMLDOMSchemaCollection extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.add := CallbackCreate(GetMethod(implObj, "add"), flags, 3)
-        this.vtbl.get := CallbackCreate(GetMethod(implObj, "get"), flags, 3)
-        this.vtbl.remove := CallbackCreate(GetMethod(implObj, "remove"), flags, 2)
-        this.vtbl.get_length := CallbackCreate(GetMethod(implObj, "get_length"), flags, 2)
-        this.vtbl.get_namespaceURI := CallbackCreate(GetMethod(implObj, "get_namespaceURI"), flags, 3)
-        this.vtbl.addCollection := CallbackCreate(GetMethod(implObj, "addCollection"), flags, 2)
-        this.vtbl.get__newEnum := CallbackCreate(GetMethod(implObj, "get__newEnum"), flags, 2)
+        this.vtbl.add := CallbackCreate(ObjBindMethod(implObj, "add"), flags, 3)
+        this.vtbl.get := CallbackCreate(ObjBindMethod(implObj, "get"), flags, 3)
+        this.vtbl.remove := CallbackCreate(ObjBindMethod(implObj, "remove"), flags, 2)
+        this.vtbl.get_length := CallbackCreate(ObjBindMethod(implObj, "get_length"), flags, 2)
+        this.vtbl.get_namespaceURI := CallbackCreate(ObjBindMethod(implObj, "get_namespaceURI"), flags, 3)
+        this.vtbl.addCollection := CallbackCreate(ObjBindMethod(implObj, "addCollection"), flags, 2)
+        this.vtbl.get__newEnum := CallbackCreate(ObjBindMethod(implObj, "get__newEnum"), flags, 2)
     }
 
     Dispose() {

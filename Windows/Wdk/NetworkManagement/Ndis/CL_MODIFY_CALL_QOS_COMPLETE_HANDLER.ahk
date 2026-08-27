@@ -18,7 +18,6 @@ export default struct CL_MODIFY_CALL_QOS_COMPLETE_HANDLER {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

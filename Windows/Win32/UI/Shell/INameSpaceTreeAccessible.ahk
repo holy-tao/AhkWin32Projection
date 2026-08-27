@@ -104,9 +104,9 @@ export default struct INameSpaceTreeAccessible extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnGetDefaultAccessibilityAction := CallbackCreate(GetMethod(implObj, "OnGetDefaultAccessibilityAction"), flags, 3)
-        this.vtbl.OnDoDefaultAccessibilityAction := CallbackCreate(GetMethod(implObj, "OnDoDefaultAccessibilityAction"), flags, 2)
-        this.vtbl.OnGetAccessibilityRole := CallbackCreate(GetMethod(implObj, "OnGetAccessibilityRole"), flags, 3)
+        this.vtbl.OnGetDefaultAccessibilityAction := CallbackCreate(ObjBindMethod(implObj, "OnGetDefaultAccessibilityAction"), flags, 3)
+        this.vtbl.OnDoDefaultAccessibilityAction := CallbackCreate(ObjBindMethod(implObj, "OnDoDefaultAccessibilityAction"), flags, 2)
+        this.vtbl.OnGetAccessibilityRole := CallbackCreate(ObjBindMethod(implObj, "OnGetAccessibilityRole"), flags, 3)
     }
 
     Dispose() {

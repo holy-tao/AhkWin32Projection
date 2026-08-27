@@ -20,15 +20,14 @@ export default struct PIBIO_ENGINE_CREATE_ENROLLMENT_AUTHENTICATED_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline 
      * @param {Pointer<Pointer<Integer>>} Nonce 
      * @param {Pointer<Pointer>} NonceSize 
      * @returns {HRESULT} 
      */
     Call(Pipeline, Nonce, NonceSize) {
-        NonceMarshal := Nonce is VarRef ? "ptr*" : "ptr"
-        NonceSizeMarshal := NonceSize is VarRef ? "ptr*" : "ptr"
+        NonceMarshal := Nonce is VarRef ? "ptr*" : IntPtr
+        NonceSizeMarshal := NonceSize is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, WINBIO_PIPELINE.Ptr, Pipeline, NonceMarshal, Nonce, NonceSizeMarshal, NonceSize, "HRESULT")
         return result

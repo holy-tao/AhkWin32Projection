@@ -21,7 +21,6 @@ export default struct PDD_PALCB_DESTROYPALETTE {
     }
 
     /**
-     * 
      * @param {Pointer<DD_DESTROYPALETTEDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_destroypalettedata">DD_DESTROYPALETTEDATA</a> structure that contains the information needed to destroy a palette.
      * @returns {Integer} <b>DdDestroyPalette</b> returns one of the following callback codes:
      */

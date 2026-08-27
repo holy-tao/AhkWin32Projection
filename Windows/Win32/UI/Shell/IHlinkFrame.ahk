@@ -46,7 +46,6 @@ export default struct IHlinkFrame extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHlinkBrowseContext} pihlbc 
      * @returns {HRESULT} 
      */
@@ -56,7 +55,6 @@ export default struct IHlinkFrame extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IHlinkBrowseContext} 
      */
     GetBrowseContext() {
@@ -79,7 +77,6 @@ export default struct IHlinkFrame extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} grfHLNF 
      * @param {IMoniker} pimkTarget 
      * @param {PWSTR} pwzLocation 
@@ -96,7 +93,6 @@ export default struct IHlinkFrame extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uHLID 
      * @param {IMoniker} pimkTarget 
      * @param {PWSTR} pwzLocation 
@@ -120,11 +116,11 @@ export default struct IHlinkFrame extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetBrowseContext := CallbackCreate(GetMethod(implObj, "SetBrowseContext"), flags, 2)
-        this.vtbl.GetBrowseContext := CallbackCreate(GetMethod(implObj, "GetBrowseContext"), flags, 2)
-        this.vtbl.Navigate := CallbackCreate(GetMethod(implObj, "Navigate"), flags, 5)
-        this.vtbl.OnNavigate := CallbackCreate(GetMethod(implObj, "OnNavigate"), flags, 6)
-        this.vtbl.UpdateHlink := CallbackCreate(GetMethod(implObj, "UpdateHlink"), flags, 5)
+        this.vtbl.SetBrowseContext := CallbackCreate(ObjBindMethod(implObj, "SetBrowseContext"), flags, 2)
+        this.vtbl.GetBrowseContext := CallbackCreate(ObjBindMethod(implObj, "GetBrowseContext"), flags, 2)
+        this.vtbl.Navigate := CallbackCreate(ObjBindMethod(implObj, "Navigate"), flags, 5)
+        this.vtbl.OnNavigate := CallbackCreate(ObjBindMethod(implObj, "OnNavigate"), flags, 6)
+        this.vtbl.UpdateHlink := CallbackCreate(ObjBindMethod(implObj, "UpdateHlink"), flags, 5)
     }
 
     Dispose() {

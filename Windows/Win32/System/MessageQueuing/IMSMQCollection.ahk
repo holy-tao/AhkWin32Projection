@@ -70,7 +70,6 @@ export default struct IMSMQCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -79,7 +78,6 @@ export default struct IMSMQCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     _NewEnum() {
@@ -96,9 +94,9 @@ export default struct IMSMQCollection extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 3)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl._NewEnum := CallbackCreate(GetMethod(implObj, "_NewEnum"), flags, 2)
+        this.vtbl.Item := CallbackCreate(ObjBindMethod(implObj, "Item"), flags, 3)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl._NewEnum := CallbackCreate(ObjBindMethod(implObj, "_NewEnum"), flags, 2)
     }
 
     Dispose() {

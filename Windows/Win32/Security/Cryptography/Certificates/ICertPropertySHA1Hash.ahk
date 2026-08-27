@@ -100,8 +100,8 @@ export default struct ICertPropertySHA1Hash extends ICertProperty {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.get_SHA1Hash := CallbackCreate(GetMethod(implObj, "get_SHA1Hash"), flags, 3)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.get_SHA1Hash := CallbackCreate(ObjBindMethod(implObj, "get_SHA1Hash"), flags, 3)
     }
 
     Dispose() {

@@ -493,17 +493,17 @@ export default struct ISignerCertificate extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 5)
-        this.vtbl.get_Certificate := CallbackCreate(GetMethod(implObj, "get_Certificate"), flags, 3)
-        this.vtbl.get_PrivateKey := CallbackCreate(GetMethod(implObj, "get_PrivateKey"), flags, 2)
-        this.vtbl.get_Silent := CallbackCreate(GetMethod(implObj, "get_Silent"), flags, 2)
-        this.vtbl.put_Silent := CallbackCreate(GetMethod(implObj, "put_Silent"), flags, 2)
-        this.vtbl.get_ParentWindow := CallbackCreate(GetMethod(implObj, "get_ParentWindow"), flags, 2)
-        this.vtbl.put_ParentWindow := CallbackCreate(GetMethod(implObj, "put_ParentWindow"), flags, 2)
-        this.vtbl.get_UIContextMessage := CallbackCreate(GetMethod(implObj, "get_UIContextMessage"), flags, 2)
-        this.vtbl.put_UIContextMessage := CallbackCreate(GetMethod(implObj, "put_UIContextMessage"), flags, 2)
-        this.vtbl.put_Pin := CallbackCreate(GetMethod(implObj, "put_Pin"), flags, 2)
-        this.vtbl.get_SignatureInformation := CallbackCreate(GetMethod(implObj, "get_SignatureInformation"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 5)
+        this.vtbl.get_Certificate := CallbackCreate(ObjBindMethod(implObj, "get_Certificate"), flags, 3)
+        this.vtbl.get_PrivateKey := CallbackCreate(ObjBindMethod(implObj, "get_PrivateKey"), flags, 2)
+        this.vtbl.get_Silent := CallbackCreate(ObjBindMethod(implObj, "get_Silent"), flags, 2)
+        this.vtbl.put_Silent := CallbackCreate(ObjBindMethod(implObj, "put_Silent"), flags, 2)
+        this.vtbl.get_ParentWindow := CallbackCreate(ObjBindMethod(implObj, "get_ParentWindow"), flags, 2)
+        this.vtbl.put_ParentWindow := CallbackCreate(ObjBindMethod(implObj, "put_ParentWindow"), flags, 2)
+        this.vtbl.get_UIContextMessage := CallbackCreate(ObjBindMethod(implObj, "get_UIContextMessage"), flags, 2)
+        this.vtbl.put_UIContextMessage := CallbackCreate(ObjBindMethod(implObj, "put_UIContextMessage"), flags, 2)
+        this.vtbl.put_Pin := CallbackCreate(ObjBindMethod(implObj, "put_Pin"), flags, 2)
+        this.vtbl.get_SignatureInformation := CallbackCreate(ObjBindMethod(implObj, "get_SignatureInformation"), flags, 2)
     }
 
     Dispose() {

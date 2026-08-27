@@ -39,7 +39,6 @@ export default struct IModelIterator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -48,7 +47,6 @@ export default struct IModelIterator extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<IModelObject>} _object 
      * @param {Integer} dimensions 
      * @param {Pointer<IModelObject>} indexers 
@@ -56,7 +54,10 @@ export default struct IModelIterator extends IUnknown {
      * @returns {HRESULT} 
      */
     GetNext(_object, dimensions, indexers, metadata) {
-        result := ComCall(4, this, IModelObject.Ptr, _object, Int64, dimensions, IModelObject.Ptr, indexers, IKeyStore.Ptr, metadata, "HRESULT")
+        indexersMarshal := indexers == 0 ? IntPtr : IModelObject.Ptr
+        metadataMarshal := metadata == 0 ? IntPtr : IKeyStore.Ptr
+
+        result := ComCall(4, this, IModelObject.Ptr, _object, Int64, dimensions, indexersMarshal, indexers, metadataMarshal, metadata, "HRESULT")
         return result
     }
 
@@ -69,8 +70,8 @@ export default struct IModelIterator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.GetNext := CallbackCreate(GetMethod(implObj, "GetNext"), flags, 5)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.GetNext := CallbackCreate(ObjBindMethod(implObj, "GetNext"), flags, 5)
     }
 
     Dispose() {

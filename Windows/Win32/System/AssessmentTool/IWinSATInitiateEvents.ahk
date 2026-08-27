@@ -170,8 +170,8 @@ export default struct IWinSATInitiateEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.WinSATComplete := CallbackCreate(GetMethod(implObj, "WinSATComplete"), flags, 3)
-        this.vtbl.WinSATUpdate := CallbackCreate(GetMethod(implObj, "WinSATUpdate"), flags, 4)
+        this.vtbl.WinSATComplete := CallbackCreate(ObjBindMethod(implObj, "WinSATComplete"), flags, 3)
+        this.vtbl.WinSATUpdate := CallbackCreate(ObjBindMethod(implObj, "WinSATUpdate"), flags, 4)
     }
 
     Dispose() {

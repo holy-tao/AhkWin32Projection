@@ -40,7 +40,6 @@ export default struct ITableCreation extends ITableDefinition {
     }
 
     /**
-     * 
      * @param {Pointer<DBID>} pTableID 
      * @param {Pointer<Pointer>} pcColumnDescs 
      * @param {Pointer<Pointer<DBCOLUMNDESC>>} prgColumnDescs 
@@ -52,13 +51,20 @@ export default struct ITableCreation extends ITableDefinition {
      * @returns {HRESULT} 
      */
     GetTableDefinition(pTableID, pcColumnDescs, prgColumnDescs, pcPropertySets, prgPropertySets, pcConstraintDescs, prgConstraintDescs, ppwszStringBuffer) {
-        pcColumnDescsMarshal := pcColumnDescs is VarRef ? "ptr*" : "ptr"
-        prgColumnDescsMarshal := prgColumnDescs is VarRef ? "ptr*" : "ptr"
-        pcPropertySetsMarshal := pcPropertySets is VarRef ? "uint*" : "ptr"
-        prgPropertySetsMarshal := prgPropertySets is VarRef ? "ptr*" : "ptr"
-        pcConstraintDescsMarshal := pcConstraintDescs is VarRef ? "uint*" : "ptr"
-        prgConstraintDescsMarshal := prgConstraintDescs is VarRef ? "ptr*" : "ptr"
-        ppwszStringBufferMarshal := ppwszStringBuffer is VarRef ? "ptr*" : "ptr"
+        pcColumnDescsMarshal := pcColumnDescs is VarRef ? "ptr*" : IntPtr
+        pcColumnDescsMarshal := pcColumnDescs == 0 ? IntPtr : "ptr*"
+        prgColumnDescsMarshal := prgColumnDescs is VarRef ? "ptr*" : IntPtr
+        prgColumnDescsMarshal := prgColumnDescs == 0 ? IntPtr : "ptr*"
+        pcPropertySetsMarshal := pcPropertySets is VarRef ? "uint*" : IntPtr
+        pcPropertySetsMarshal := pcPropertySets == 0 ? IntPtr : "uint*"
+        prgPropertySetsMarshal := prgPropertySets is VarRef ? "ptr*" : IntPtr
+        prgPropertySetsMarshal := prgPropertySets == 0 ? IntPtr : "ptr*"
+        pcConstraintDescsMarshal := pcConstraintDescs is VarRef ? "uint*" : IntPtr
+        pcConstraintDescsMarshal := pcConstraintDescs == 0 ? IntPtr : "uint*"
+        prgConstraintDescsMarshal := prgConstraintDescs is VarRef ? "ptr*" : IntPtr
+        prgConstraintDescsMarshal := prgConstraintDescs == 0 ? IntPtr : "ptr*"
+        ppwszStringBufferMarshal := ppwszStringBuffer is VarRef ? "ptr*" : IntPtr
+        ppwszStringBufferMarshal := ppwszStringBuffer == 0 ? IntPtr : "ptr*"
 
         result := ComCall(7, this, DBID.Ptr, pTableID, pcColumnDescsMarshal, pcColumnDescs, prgColumnDescsMarshal, prgColumnDescs, pcPropertySetsMarshal, pcPropertySets, prgPropertySetsMarshal, prgPropertySets, pcConstraintDescsMarshal, pcConstraintDescs, prgConstraintDescsMarshal, prgConstraintDescs, ppwszStringBufferMarshal, ppwszStringBuffer, "HRESULT")
         return result
@@ -73,7 +79,7 @@ export default struct ITableCreation extends ITableDefinition {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTableDefinition := CallbackCreate(GetMethod(implObj, "GetTableDefinition"), flags, 9)
+        this.vtbl.GetTableDefinition := CallbackCreate(ObjBindMethod(implObj, "GetTableDefinition"), flags, 9)
     }
 
     Dispose() {

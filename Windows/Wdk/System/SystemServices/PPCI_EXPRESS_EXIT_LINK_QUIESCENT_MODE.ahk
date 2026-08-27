@@ -19,7 +19,6 @@ export default struct PPCI_EXPRESS_EXIT_LINK_QUIESCENT_MODE {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

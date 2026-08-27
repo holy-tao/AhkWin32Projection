@@ -21,7 +21,6 @@ export default struct SslDuplicateTranscriptHashFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_HASH_HANDLE} hTranscriptHash 
      * @param {Integer} dwFlags 

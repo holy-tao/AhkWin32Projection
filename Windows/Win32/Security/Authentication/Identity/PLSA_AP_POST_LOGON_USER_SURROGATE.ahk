@@ -26,7 +26,6 @@ export default struct PLSA_AP_POST_LOGON_USER_SURROGATE {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} ClientRequest 
      * @param {SECURITY_LOGON_TYPE} LogonType 
      * @param {Integer} ProtocolSubmitBuffer 
@@ -48,9 +47,9 @@ export default struct PLSA_AP_POST_LOGON_USER_SURROGATE {
      * @returns {NTSTATUS} 
      */
     Call(ClientRequest, LogonType, ProtocolSubmitBuffer, ClientBufferBase, SubmitBufferSize, SurrogateLogon, ProfileBuffer, ProfileBufferSize, LogonId, _Status, SubStatus, TokenInformationType, TokenInformation, AccountName, AuthenticatingAuthority, MachineName, PrimaryCredentials, SupplementalCredentials) {
-        ClientRequestMarshal := ClientRequest is VarRef ? "ptr*" : "ptr"
-        ClientBufferBaseMarshal := ClientBufferBase is VarRef ? "ptr" : "ptr"
-        TokenInformationMarshal := TokenInformation is VarRef ? "ptr" : "ptr"
+        ClientRequestMarshal := ClientRequest is VarRef ? "ptr*" : IntPtr
+        ClientBufferBaseMarshal := ClientBufferBase is VarRef ? "ptr" : IntPtr
+        TokenInformationMarshal := TokenInformation is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, ClientRequestMarshal, ClientRequest, SECURITY_LOGON_TYPE, LogonType, IntPtr, ProtocolSubmitBuffer, ClientBufferBaseMarshal, ClientBufferBase, UInt32, SubmitBufferSize, SECPKG_SURROGATE_LOGON.Ptr, SurrogateLogon, IntPtr, ProfileBuffer, UInt32, ProfileBufferSize, LUID.Ptr, LogonId, NTSTATUS, _Status, NTSTATUS, SubStatus, LSA_TOKEN_INFORMATION_TYPE, TokenInformationType, TokenInformationMarshal, TokenInformation, LSA_UNICODE_STRING.Ptr, AccountName, LSA_UNICODE_STRING.Ptr, AuthenticatingAuthority, LSA_UNICODE_STRING.Ptr, MachineName, SECPKG_PRIMARY_CRED.Ptr, PrimaryCredentials, SECPKG_SUPPLEMENTAL_CRED_ARRAY.Ptr, SupplementalCredentials, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

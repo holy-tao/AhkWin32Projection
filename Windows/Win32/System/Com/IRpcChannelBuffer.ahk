@@ -86,8 +86,8 @@ export default struct IRpcChannelBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-irpcchannelbuffer-getdestctx
      */
     GetDestCtx(pdwDestContext, ppvDestContext) {
-        pdwDestContextMarshal := pdwDestContext is VarRef ? "uint*" : "ptr"
-        ppvDestContextMarshal := ppvDestContext is VarRef ? "ptr*" : "ptr"
+        pdwDestContextMarshal := pdwDestContext is VarRef ? "uint*" : IntPtr
+        ppvDestContextMarshal := ppvDestContext is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(6, this, pdwDestContextMarshal, pdwDestContext, ppvDestContextMarshal, ppvDestContext, "HRESULT")
         return result
@@ -112,11 +112,11 @@ export default struct IRpcChannelBuffer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetBuffer := CallbackCreate(GetMethod(implObj, "GetBuffer"), flags, 3)
-        this.vtbl.SendReceive := CallbackCreate(GetMethod(implObj, "SendReceive"), flags, 3)
-        this.vtbl.FreeBuffer := CallbackCreate(GetMethod(implObj, "FreeBuffer"), flags, 2)
-        this.vtbl.GetDestCtx := CallbackCreate(GetMethod(implObj, "GetDestCtx"), flags, 3)
-        this.vtbl.IsConnected := CallbackCreate(GetMethod(implObj, "IsConnected"), flags, 1)
+        this.vtbl.GetBuffer := CallbackCreate(ObjBindMethod(implObj, "GetBuffer"), flags, 3)
+        this.vtbl.SendReceive := CallbackCreate(ObjBindMethod(implObj, "SendReceive"), flags, 3)
+        this.vtbl.FreeBuffer := CallbackCreate(ObjBindMethod(implObj, "FreeBuffer"), flags, 2)
+        this.vtbl.GetDestCtx := CallbackCreate(ObjBindMethod(implObj, "GetDestCtx"), flags, 3)
+        this.vtbl.IsConnected := CallbackCreate(ObjBindMethod(implObj, "IsConnected"), flags, 1)
     }
 
     Dispose() {

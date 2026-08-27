@@ -147,11 +147,11 @@ export default struct IUIAutomationGridPattern extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetItem := CallbackCreate(GetMethod(implObj, "GetItem"), flags, 4)
-        this.vtbl.get_CurrentRowCount := CallbackCreate(GetMethod(implObj, "get_CurrentRowCount"), flags, 2)
-        this.vtbl.get_CurrentColumnCount := CallbackCreate(GetMethod(implObj, "get_CurrentColumnCount"), flags, 2)
-        this.vtbl.get_CachedRowCount := CallbackCreate(GetMethod(implObj, "get_CachedRowCount"), flags, 2)
-        this.vtbl.get_CachedColumnCount := CallbackCreate(GetMethod(implObj, "get_CachedColumnCount"), flags, 2)
+        this.vtbl.GetItem := CallbackCreate(ObjBindMethod(implObj, "GetItem"), flags, 4)
+        this.vtbl.get_CurrentRowCount := CallbackCreate(ObjBindMethod(implObj, "get_CurrentRowCount"), flags, 2)
+        this.vtbl.get_CurrentColumnCount := CallbackCreate(ObjBindMethod(implObj, "get_CurrentColumnCount"), flags, 2)
+        this.vtbl.get_CachedRowCount := CallbackCreate(ObjBindMethod(implObj, "get_CachedRowCount"), flags, 2)
+        this.vtbl.get_CachedColumnCount := CallbackCreate(ObjBindMethod(implObj, "get_CachedColumnCount"), flags, 2)
     }
 
     Dispose() {

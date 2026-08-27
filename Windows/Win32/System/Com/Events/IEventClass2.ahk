@@ -177,14 +177,14 @@ export default struct IEventClass2 extends IEventClass {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_PublisherID := CallbackCreate(GetMethod(implObj, "get_PublisherID"), flags, 2)
-        this.vtbl.put_PublisherID := CallbackCreate(GetMethod(implObj, "put_PublisherID"), flags, 2)
-        this.vtbl.get_MultiInterfacePublisherFilterCLSID := CallbackCreate(GetMethod(implObj, "get_MultiInterfacePublisherFilterCLSID"), flags, 2)
-        this.vtbl.put_MultiInterfacePublisherFilterCLSID := CallbackCreate(GetMethod(implObj, "put_MultiInterfacePublisherFilterCLSID"), flags, 2)
-        this.vtbl.get_AllowInprocActivation := CallbackCreate(GetMethod(implObj, "get_AllowInprocActivation"), flags, 2)
-        this.vtbl.put_AllowInprocActivation := CallbackCreate(GetMethod(implObj, "put_AllowInprocActivation"), flags, 2)
-        this.vtbl.get_FireInParallel := CallbackCreate(GetMethod(implObj, "get_FireInParallel"), flags, 2)
-        this.vtbl.put_FireInParallel := CallbackCreate(GetMethod(implObj, "put_FireInParallel"), flags, 2)
+        this.vtbl.get_PublisherID := CallbackCreate(ObjBindMethod(implObj, "get_PublisherID"), flags, 2)
+        this.vtbl.put_PublisherID := CallbackCreate(ObjBindMethod(implObj, "put_PublisherID"), flags, 2)
+        this.vtbl.get_MultiInterfacePublisherFilterCLSID := CallbackCreate(ObjBindMethod(implObj, "get_MultiInterfacePublisherFilterCLSID"), flags, 2)
+        this.vtbl.put_MultiInterfacePublisherFilterCLSID := CallbackCreate(ObjBindMethod(implObj, "put_MultiInterfacePublisherFilterCLSID"), flags, 2)
+        this.vtbl.get_AllowInprocActivation := CallbackCreate(ObjBindMethod(implObj, "get_AllowInprocActivation"), flags, 2)
+        this.vtbl.put_AllowInprocActivation := CallbackCreate(ObjBindMethod(implObj, "put_AllowInprocActivation"), flags, 2)
+        this.vtbl.get_FireInParallel := CallbackCreate(ObjBindMethod(implObj, "get_FireInParallel"), flags, 2)
+        this.vtbl.put_FireInParallel := CallbackCreate(ObjBindMethod(implObj, "put_FireInParallel"), flags, 2)
     }
 
     Dispose() {

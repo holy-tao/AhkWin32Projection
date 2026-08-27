@@ -75,8 +75,8 @@ export default struct IPersistIDList extends IPersist {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetIDList := CallbackCreate(GetMethod(implObj, "SetIDList"), flags, 2)
-        this.vtbl.GetIDList := CallbackCreate(GetMethod(implObj, "GetIDList"), flags, 2)
+        this.vtbl.SetIDList := CallbackCreate(ObjBindMethod(implObj, "SetIDList"), flags, 2)
+        this.vtbl.GetIDList := CallbackCreate(ObjBindMethod(implObj, "GetIDList"), flags, 2)
     }
 
     Dispose() {

@@ -132,12 +132,12 @@ export default struct ICatInformation extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumCategories := CallbackCreate(GetMethod(implObj, "EnumCategories"), flags, 3)
-        this.vtbl.GetCategoryDesc := CallbackCreate(GetMethod(implObj, "GetCategoryDesc"), flags, 4)
-        this.vtbl.EnumClassesOfCategories := CallbackCreate(GetMethod(implObj, "EnumClassesOfCategories"), flags, 6)
-        this.vtbl.IsClassOfCategories := CallbackCreate(GetMethod(implObj, "IsClassOfCategories"), flags, 6)
-        this.vtbl.EnumImplCategoriesOfClass := CallbackCreate(GetMethod(implObj, "EnumImplCategoriesOfClass"), flags, 3)
-        this.vtbl.EnumReqCategoriesOfClass := CallbackCreate(GetMethod(implObj, "EnumReqCategoriesOfClass"), flags, 3)
+        this.vtbl.EnumCategories := CallbackCreate(ObjBindMethod(implObj, "EnumCategories"), flags, 3)
+        this.vtbl.GetCategoryDesc := CallbackCreate(ObjBindMethod(implObj, "GetCategoryDesc"), flags, 4)
+        this.vtbl.EnumClassesOfCategories := CallbackCreate(ObjBindMethod(implObj, "EnumClassesOfCategories"), flags, 6)
+        this.vtbl.IsClassOfCategories := CallbackCreate(ObjBindMethod(implObj, "IsClassOfCategories"), flags, 6)
+        this.vtbl.EnumImplCategoriesOfClass := CallbackCreate(ObjBindMethod(implObj, "EnumImplCategoriesOfClass"), flags, 3)
+        this.vtbl.EnumReqCategoriesOfClass := CallbackCreate(ObjBindMethod(implObj, "EnumReqCategoriesOfClass"), flags, 3)
     }
 
     Dispose() {

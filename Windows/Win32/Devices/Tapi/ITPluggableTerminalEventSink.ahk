@@ -59,7 +59,7 @@ export default struct ITPluggableTerminalEventSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FireEvent := CallbackCreate(GetMethod(implObj, "FireEvent"), flags, 2)
+        this.vtbl.FireEvent := CallbackCreate(ObjBindMethod(implObj, "FireEvent"), flags, 2)
     }
 
     Dispose() {

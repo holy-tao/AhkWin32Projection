@@ -161,9 +161,9 @@ export default struct IVdsHwProviderStoragePools extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryStoragePools := CallbackCreate(GetMethod(implObj, "QueryStoragePools"), flags, 5)
-        this.vtbl.CreateLunInStoragePool := CallbackCreate(GetMethod(implObj, "CreateLunInStoragePool"), flags, 7)
-        this.vtbl.QueryMaxLunCreateSizeInStoragePool := CallbackCreate(GetMethod(implObj, "QueryMaxLunCreateSizeInStoragePool"), flags, 5)
+        this.vtbl.QueryStoragePools := CallbackCreate(ObjBindMethod(implObj, "QueryStoragePools"), flags, 5)
+        this.vtbl.CreateLunInStoragePool := CallbackCreate(ObjBindMethod(implObj, "CreateLunInStoragePool"), flags, 7)
+        this.vtbl.QueryMaxLunCreateSizeInStoragePool := CallbackCreate(ObjBindMethod(implObj, "QueryMaxLunCreateSizeInStoragePool"), flags, 5)
     }
 
     Dispose() {

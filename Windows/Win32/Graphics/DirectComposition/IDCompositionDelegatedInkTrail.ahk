@@ -41,7 +41,6 @@ export default struct IDCompositionDelegatedInkTrail extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DCompositionInkTrailPoint>} inkPoints 
      * @param {Integer} inkPointsCount 
      * @returns {Integer} 
@@ -52,7 +51,6 @@ export default struct IDCompositionDelegatedInkTrail extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DCompositionInkTrailPoint>} inkPoints 
      * @param {Integer} inkPointsCount 
      * @param {Pointer<DCompositionInkTrailPoint>} predictedInkPoints 
@@ -65,7 +63,6 @@ export default struct IDCompositionDelegatedInkTrail extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} generationId 
      * @returns {HRESULT} 
      */
@@ -75,7 +72,6 @@ export default struct IDCompositionDelegatedInkTrail extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<D2D1_COLOR_F>} _color 
      * @returns {HRESULT} 
      */
@@ -93,10 +89,10 @@ export default struct IDCompositionDelegatedInkTrail extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddTrailPoints := CallbackCreate(GetMethod(implObj, "AddTrailPoints"), flags, 4)
-        this.vtbl.AddTrailPointsWithPrediction := CallbackCreate(GetMethod(implObj, "AddTrailPointsWithPrediction"), flags, 6)
-        this.vtbl.RemoveTrailPoints := CallbackCreate(GetMethod(implObj, "RemoveTrailPoints"), flags, 2)
-        this.vtbl.StartNewTrail := CallbackCreate(GetMethod(implObj, "StartNewTrail"), flags, 2)
+        this.vtbl.AddTrailPoints := CallbackCreate(ObjBindMethod(implObj, "AddTrailPoints"), flags, 4)
+        this.vtbl.AddTrailPointsWithPrediction := CallbackCreate(ObjBindMethod(implObj, "AddTrailPointsWithPrediction"), flags, 6)
+        this.vtbl.RemoveTrailPoints := CallbackCreate(ObjBindMethod(implObj, "RemoveTrailPoints"), flags, 2)
+        this.vtbl.StartNewTrail := CallbackCreate(ObjBindMethod(implObj, "StartNewTrail"), flags, 2)
     }
 
     Dispose() {

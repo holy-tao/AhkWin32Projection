@@ -80,9 +80,9 @@ export default struct IMFNetSchemeHandlerConfig extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNumberOfSupportedProtocols := CallbackCreate(GetMethod(implObj, "GetNumberOfSupportedProtocols"), flags, 2)
-        this.vtbl.GetSupportedProtocolType := CallbackCreate(GetMethod(implObj, "GetSupportedProtocolType"), flags, 3)
-        this.vtbl.ResetProtocolRolloverSettings := CallbackCreate(GetMethod(implObj, "ResetProtocolRolloverSettings"), flags, 1)
+        this.vtbl.GetNumberOfSupportedProtocols := CallbackCreate(ObjBindMethod(implObj, "GetNumberOfSupportedProtocols"), flags, 2)
+        this.vtbl.GetSupportedProtocolType := CallbackCreate(ObjBindMethod(implObj, "GetSupportedProtocolType"), flags, 3)
+        this.vtbl.ResetProtocolRolloverSettings := CallbackCreate(ObjBindMethod(implObj, "ResetProtocolRolloverSettings"), flags, 1)
     }
 
     Dispose() {

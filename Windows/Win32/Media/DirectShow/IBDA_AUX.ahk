@@ -91,10 +91,10 @@ export default struct IBDA_AUX extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_aux-enumcapability
      */
     EnumCapability(dwIndex, dwInputID, pConnectorType, ConnTypeNum, NumVideoStds, AnalogStds) {
-        dwInputIDMarshal := dwInputID is VarRef ? "uint*" : "ptr"
-        ConnTypeNumMarshal := ConnTypeNum is VarRef ? "uint*" : "ptr"
-        NumVideoStdsMarshal := NumVideoStds is VarRef ? "uint*" : "ptr"
-        AnalogStdsMarshal := AnalogStds is VarRef ? "uint*" : "ptr"
+        dwInputIDMarshal := dwInputID is VarRef ? "uint*" : IntPtr
+        ConnTypeNumMarshal := ConnTypeNum is VarRef ? "uint*" : IntPtr
+        NumVideoStdsMarshal := NumVideoStds is VarRef ? "uint*" : IntPtr
+        AnalogStdsMarshal := AnalogStds is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, UInt32, dwIndex, dwInputIDMarshal, dwInputID, Guid.Ptr, pConnectorType, ConnTypeNumMarshal, ConnTypeNum, NumVideoStdsMarshal, NumVideoStds, AnalogStdsMarshal, AnalogStds, "HRESULT")
         return result
@@ -109,8 +109,8 @@ export default struct IBDA_AUX extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryCapabilities := CallbackCreate(GetMethod(implObj, "QueryCapabilities"), flags, 2)
-        this.vtbl.EnumCapability := CallbackCreate(GetMethod(implObj, "EnumCapability"), flags, 7)
+        this.vtbl.QueryCapabilities := CallbackCreate(ObjBindMethod(implObj, "QueryCapabilities"), flags, 2)
+        this.vtbl.EnumCapability := CallbackCreate(ObjBindMethod(implObj, "EnumCapability"), flags, 7)
     }
 
     Dispose() {

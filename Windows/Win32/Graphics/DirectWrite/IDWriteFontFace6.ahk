@@ -39,7 +39,6 @@ export default struct IDWriteFontFace6 extends IDWriteFontFace5 {
     }
 
     /**
-     * 
      * @param {DWRITE_FONT_FAMILY_MODEL} fontFamilyModel 
      * @returns {IDWriteLocalizedStrings} 
      */
@@ -49,7 +48,6 @@ export default struct IDWriteFontFace6 extends IDWriteFontFace5 {
     }
 
     /**
-     * 
      * @param {DWRITE_FONT_FAMILY_MODEL} fontFamilyModel 
      * @returns {IDWriteLocalizedStrings} 
      */
@@ -67,8 +65,8 @@ export default struct IDWriteFontFace6 extends IDWriteFontFace5 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFamilyNames := CallbackCreate(GetMethod(implObj, "GetFamilyNames"), flags, 3)
-        this.vtbl.GetFaceNames := CallbackCreate(GetMethod(implObj, "GetFaceNames"), flags, 3)
+        this.vtbl.GetFamilyNames := CallbackCreate(ObjBindMethod(implObj, "GetFamilyNames"), flags, 3)
+        this.vtbl.GetFaceNames := CallbackCreate(ObjBindMethod(implObj, "GetFaceNames"), flags, 3)
     }
 
     Dispose() {

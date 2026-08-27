@@ -39,31 +39,29 @@ export default struct IRowsetWithParameters extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} pcParams 
      * @param {Pointer<Pointer<DBPARAMINFO>>} prgParamInfo 
      * @param {Pointer<Pointer<Integer>>} ppNamesBuffer 
      * @returns {HRESULT} 
      */
     GetParameterInfo(pcParams, prgParamInfo, ppNamesBuffer) {
-        pcParamsMarshal := pcParams is VarRef ? "ptr*" : "ptr"
-        prgParamInfoMarshal := prgParamInfo is VarRef ? "ptr*" : "ptr"
-        ppNamesBufferMarshal := ppNamesBuffer is VarRef ? "ptr*" : "ptr"
+        pcParamsMarshal := pcParams is VarRef ? "ptr*" : IntPtr
+        prgParamInfoMarshal := prgParamInfo is VarRef ? "ptr*" : IntPtr
+        ppNamesBufferMarshal := ppNamesBuffer is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, pcParamsMarshal, pcParams, prgParamInfoMarshal, prgParamInfo, ppNamesBufferMarshal, ppNamesBuffer, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<DBPARAMS>} pParams 
      * @param {Pointer<Integer>} pulErrorParam 
      * @param {Pointer<Pointer>} phReserved 
      * @returns {HRESULT} 
      */
     Requery(pParams, pulErrorParam, phReserved) {
-        pulErrorParamMarshal := pulErrorParam is VarRef ? "uint*" : "ptr"
-        phReservedMarshal := phReserved is VarRef ? "ptr*" : "ptr"
+        pulErrorParamMarshal := pulErrorParam is VarRef ? "uint*" : IntPtr
+        phReservedMarshal := phReserved is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, DBPARAMS.Ptr, pParams, pulErrorParamMarshal, pulErrorParam, phReservedMarshal, phReserved, "HRESULT")
         return result
@@ -78,8 +76,8 @@ export default struct IRowsetWithParameters extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetParameterInfo := CallbackCreate(GetMethod(implObj, "GetParameterInfo"), flags, 4)
-        this.vtbl.Requery := CallbackCreate(GetMethod(implObj, "Requery"), flags, 4)
+        this.vtbl.GetParameterInfo := CallbackCreate(ObjBindMethod(implObj, "GetParameterInfo"), flags, 4)
+        this.vtbl.Requery := CallbackCreate(ObjBindMethod(implObj, "Requery"), flags, 4)
     }
 
     Dispose() {

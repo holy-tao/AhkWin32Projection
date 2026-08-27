@@ -18,7 +18,6 @@ export default struct PREQUEST_POWER_COMPLETE {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

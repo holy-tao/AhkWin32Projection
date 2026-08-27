@@ -19,7 +19,6 @@ export default struct PGET_VIRTUAL_DEVICE_LOCATION {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

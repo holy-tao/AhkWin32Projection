@@ -37,7 +37,6 @@ export default struct IHostControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
@@ -47,7 +46,6 @@ export default struct IHostControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwAppDomainID 
      * @param {IUnknown} pUnkAppDomainManager 
      * @returns {HRESULT} 
@@ -66,8 +64,8 @@ export default struct IHostControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetHostManager := CallbackCreate(GetMethod(implObj, "GetHostManager"), flags, 3)
-        this.vtbl.SetAppDomainManager := CallbackCreate(GetMethod(implObj, "SetAppDomainManager"), flags, 3)
+        this.vtbl.GetHostManager := CallbackCreate(ObjBindMethod(implObj, "GetHostManager"), flags, 3)
+        this.vtbl.SetAppDomainManager := CallbackCreate(ObjBindMethod(implObj, "SetAppDomainManager"), flags, 3)
     }
 
     Dispose() {

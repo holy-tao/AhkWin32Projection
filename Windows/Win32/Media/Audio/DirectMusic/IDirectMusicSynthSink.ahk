@@ -216,7 +216,7 @@ export default struct IDirectMusicSynthSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynthsink-sampletoreftime
      */
     SampleToRefTime(llSampleTime, prfTime) {
-        prfTimeMarshal := prfTime is VarRef ? "int64*" : "ptr"
+        prfTimeMarshal := prfTime is VarRef ? "int64*" : IntPtr
 
         result := ComCall(7, this, Int64, llSampleTime, prfTimeMarshal, prfTime, "HRESULT")
         return result
@@ -238,7 +238,7 @@ export default struct IDirectMusicSynthSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynthsink-reftimetosample
      */
     RefTimeToSample(rfTime, pllSampleTime) {
-        pllSampleTimeMarshal := pllSampleTime is VarRef ? "int64*" : "ptr"
+        pllSampleTimeMarshal := pllSampleTime is VarRef ? "int64*" : IntPtr
 
         result := ComCall(8, this, Int64, rfTime, pllSampleTimeMarshal, pllSampleTime, "HRESULT")
         return result
@@ -326,7 +326,7 @@ export default struct IDirectMusicSynthSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynthsink-getdesiredbuffersize
      */
     GetDesiredBufferSize(pdwBufferSizeInSamples) {
-        pdwBufferSizeInSamplesMarshal := pdwBufferSizeInSamples is VarRef ? "uint*" : "ptr"
+        pdwBufferSizeInSamplesMarshal := pdwBufferSizeInSamples is VarRef ? "uint*" : IntPtr
 
         result := ComCall(10, this, pdwBufferSizeInSamplesMarshal, pdwBufferSizeInSamples, "HRESULT")
         return result
@@ -341,14 +341,14 @@ export default struct IDirectMusicSynthSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 2)
-        this.vtbl.SetMasterClock := CallbackCreate(GetMethod(implObj, "SetMasterClock"), flags, 2)
-        this.vtbl.GetLatencyClock := CallbackCreate(GetMethod(implObj, "GetLatencyClock"), flags, 2)
-        this.vtbl.Activate := CallbackCreate(GetMethod(implObj, "Activate"), flags, 2)
-        this.vtbl.SampleToRefTime := CallbackCreate(GetMethod(implObj, "SampleToRefTime"), flags, 3)
-        this.vtbl.RefTimeToSample := CallbackCreate(GetMethod(implObj, "RefTimeToSample"), flags, 3)
-        this.vtbl.SetDirectSound := CallbackCreate(GetMethod(implObj, "SetDirectSound"), flags, 3)
-        this.vtbl.GetDesiredBufferSize := CallbackCreate(GetMethod(implObj, "GetDesiredBufferSize"), flags, 2)
+        this.vtbl.Init := CallbackCreate(ObjBindMethod(implObj, "Init"), flags, 2)
+        this.vtbl.SetMasterClock := CallbackCreate(ObjBindMethod(implObj, "SetMasterClock"), flags, 2)
+        this.vtbl.GetLatencyClock := CallbackCreate(ObjBindMethod(implObj, "GetLatencyClock"), flags, 2)
+        this.vtbl.Activate := CallbackCreate(ObjBindMethod(implObj, "Activate"), flags, 2)
+        this.vtbl.SampleToRefTime := CallbackCreate(ObjBindMethod(implObj, "SampleToRefTime"), flags, 3)
+        this.vtbl.RefTimeToSample := CallbackCreate(ObjBindMethod(implObj, "RefTimeToSample"), flags, 3)
+        this.vtbl.SetDirectSound := CallbackCreate(ObjBindMethod(implObj, "SetDirectSound"), flags, 3)
+        this.vtbl.GetDesiredBufferSize := CallbackCreate(ObjBindMethod(implObj, "GetDesiredBufferSize"), flags, 2)
     }
 
     Dispose() {

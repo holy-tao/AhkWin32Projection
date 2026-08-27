@@ -21,7 +21,6 @@ export default struct PFN_NT_ROLLBACK_TRANSACTION {
     }
 
     /**
-     * 
      * @param {HANDLE} TransactionHandle 
      * @param {BOOLEAN} Wait 
      * @returns {NTSTATUS} 

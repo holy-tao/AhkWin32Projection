@@ -83,7 +83,7 @@ export default struct IWICColorContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwiccolorcontext-initializefrommemory
      */
     InitializeFromMemory(pbBuffer, cbBufferSize) {
-        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(4, this, pbBufferMarshal, pbBuffer, UInt32, cbBufferSize, "HRESULT")
         return result
@@ -166,7 +166,7 @@ export default struct IWICColorContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwiccolorcontext-getprofilebytes
      */
     GetProfileBytes(cbBuffer, pbBuffer) {
-        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(7, this, UInt32, cbBuffer, pbBufferMarshal, pbBuffer, "uint*", &pcbActual := 0, "HRESULT")
         return pcbActual
@@ -235,12 +235,12 @@ export default struct IWICColorContext extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeFromFilename := CallbackCreate(GetMethod(implObj, "InitializeFromFilename"), flags, 2)
-        this.vtbl.InitializeFromMemory := CallbackCreate(GetMethod(implObj, "InitializeFromMemory"), flags, 3)
-        this.vtbl.InitializeFromExifColorSpace := CallbackCreate(GetMethod(implObj, "InitializeFromExifColorSpace"), flags, 2)
-        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
-        this.vtbl.GetProfileBytes := CallbackCreate(GetMethod(implObj, "GetProfileBytes"), flags, 4)
-        this.vtbl.GetExifColorSpace := CallbackCreate(GetMethod(implObj, "GetExifColorSpace"), flags, 2)
+        this.vtbl.InitializeFromFilename := CallbackCreate(ObjBindMethod(implObj, "InitializeFromFilename"), flags, 2)
+        this.vtbl.InitializeFromMemory := CallbackCreate(ObjBindMethod(implObj, "InitializeFromMemory"), flags, 3)
+        this.vtbl.InitializeFromExifColorSpace := CallbackCreate(ObjBindMethod(implObj, "InitializeFromExifColorSpace"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(ObjBindMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.GetProfileBytes := CallbackCreate(ObjBindMethod(implObj, "GetProfileBytes"), flags, 4)
+        this.vtbl.GetExifColorSpace := CallbackCreate(ObjBindMethod(implObj, "GetExifColorSpace"), flags, 2)
     }
 
     Dispose() {

@@ -49,7 +49,9 @@ export default struct IProcessInitializer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iprocessinitializer-startup
      */
     Startup(punkProcessControl) {
-        result := ComCall(3, this, "ptr", punkProcessControl, "HRESULT")
+        punkProcessControlMarshal := punkProcessControl == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, punkProcessControlMarshal, punkProcessControl, "HRESULT")
         return result
     }
 
@@ -74,8 +76,8 @@ export default struct IProcessInitializer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Startup := CallbackCreate(GetMethod(implObj, "Startup"), flags, 2)
-        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 1)
+        this.vtbl.Startup := CallbackCreate(ObjBindMethod(implObj, "Startup"), flags, 2)
+        this.vtbl.Shutdown := CallbackCreate(ObjBindMethod(implObj, "Shutdown"), flags, 1)
     }
 
     Dispose() {

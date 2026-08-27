@@ -43,7 +43,6 @@ export default struct IImageDecodeEventSink extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nWidth 
      * @param {Integer} nHeight 
      * @param {Pointer<Guid>} bfid 
@@ -57,23 +56,21 @@ export default struct IImageDecodeEventSink extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwEvents 
      * @param {Pointer<Integer>} pnFormats 
      * @param {Pointer<Pointer<Guid>>} ppFormats 
      * @returns {HRESULT} 
      */
     OnBeginDecode(pdwEvents, pnFormats, ppFormats) {
-        pdwEventsMarshal := pdwEvents is VarRef ? "uint*" : "ptr"
-        pnFormatsMarshal := pnFormats is VarRef ? "uint*" : "ptr"
-        ppFormatsMarshal := ppFormats is VarRef ? "ptr*" : "ptr"
+        pdwEventsMarshal := pdwEvents is VarRef ? "uint*" : IntPtr
+        pnFormatsMarshal := pnFormats is VarRef ? "uint*" : IntPtr
+        ppFormatsMarshal := ppFormats is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, pdwEventsMarshal, pdwEvents, pnFormatsMarshal, pnFormats, ppFormatsMarshal, ppFormats, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     OnBitsComplete() {
@@ -82,7 +79,6 @@ export default struct IImageDecodeEventSink extends IUnknown {
     }
 
     /**
-     * 
      * @param {HRESULT} hrStatus 
      * @returns {HRESULT} 
      */
@@ -92,7 +88,6 @@ export default struct IImageDecodeEventSink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     OnPalette() {
@@ -101,7 +96,6 @@ export default struct IImageDecodeEventSink extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<RECT>} pBounds 
      * @param {BOOL} bComplete 
      * @returns {HRESULT} 
@@ -120,12 +114,12 @@ export default struct IImageDecodeEventSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSurface := CallbackCreate(GetMethod(implObj, "GetSurface"), flags, 7)
-        this.vtbl.OnBeginDecode := CallbackCreate(GetMethod(implObj, "OnBeginDecode"), flags, 4)
-        this.vtbl.OnBitsComplete := CallbackCreate(GetMethod(implObj, "OnBitsComplete"), flags, 1)
-        this.vtbl.OnDecodeComplete := CallbackCreate(GetMethod(implObj, "OnDecodeComplete"), flags, 2)
-        this.vtbl.OnPalette := CallbackCreate(GetMethod(implObj, "OnPalette"), flags, 1)
-        this.vtbl.OnProgress := CallbackCreate(GetMethod(implObj, "OnProgress"), flags, 3)
+        this.vtbl.GetSurface := CallbackCreate(ObjBindMethod(implObj, "GetSurface"), flags, 7)
+        this.vtbl.OnBeginDecode := CallbackCreate(ObjBindMethod(implObj, "OnBeginDecode"), flags, 4)
+        this.vtbl.OnBitsComplete := CallbackCreate(ObjBindMethod(implObj, "OnBitsComplete"), flags, 1)
+        this.vtbl.OnDecodeComplete := CallbackCreate(ObjBindMethod(implObj, "OnDecodeComplete"), flags, 2)
+        this.vtbl.OnPalette := CallbackCreate(ObjBindMethod(implObj, "OnPalette"), flags, 1)
+        this.vtbl.OnProgress := CallbackCreate(ObjBindMethod(implObj, "OnProgress"), flags, 3)
     }
 
     Dispose() {

@@ -73,8 +73,8 @@ export default struct ITransactionResourcePool extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PutResource := CallbackCreate(GetMethod(implObj, "PutResource"), flags, 3)
-        this.vtbl.GetResource := CallbackCreate(GetMethod(implObj, "GetResource"), flags, 3)
+        this.vtbl.PutResource := CallbackCreate(ObjBindMethod(implObj, "PutResource"), flags, 3)
+        this.vtbl.GetResource := CallbackCreate(ObjBindMethod(implObj, "GetResource"), flags, 3)
     }
 
     Dispose() {

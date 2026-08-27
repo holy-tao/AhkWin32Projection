@@ -18,7 +18,6 @@ export default struct CL_CALL_CONNECTED_HANDLER {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

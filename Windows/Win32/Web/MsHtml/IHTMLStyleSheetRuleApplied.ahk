@@ -44,7 +44,6 @@ export default struct IHTMLStyleSheetRuleApplied extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_msSpecificity() {
@@ -53,7 +52,6 @@ export default struct IHTMLStyleSheetRuleApplied extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {Integer} 
      */
@@ -71,8 +69,8 @@ export default struct IHTMLStyleSheetRuleApplied extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_msSpecificity := CallbackCreate(GetMethod(implObj, "get_msSpecificity"), flags, 2)
-        this.vtbl.msGetSpecificity := CallbackCreate(GetMethod(implObj, "msGetSpecificity"), flags, 3)
+        this.vtbl.get_msSpecificity := CallbackCreate(ObjBindMethod(implObj, "get_msSpecificity"), flags, 2)
+        this.vtbl.msGetSpecificity := CallbackCreate(ObjBindMethod(implObj, "msGetSpecificity"), flags, 3)
     }
 
     Dispose() {

@@ -35,7 +35,6 @@ export default struct CIE4ConnectionPoint extends IConnectionPoint {
     }
 
     /**
-     * 
      * @param {Pointer<BOOL>} pf 
      * @param {Pointer<Pointer<Void>>} ppv 
      * @param {Integer} dispid 
@@ -43,15 +42,14 @@ export default struct CIE4ConnectionPoint extends IConnectionPoint {
      * @returns {HRESULT} 
      */
     DoInvokeIE4(pf, ppv, dispid, pdispparams) {
-        pfMarshal := pf is VarRef ? "int*" : "ptr"
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+        pfMarshal := pf is VarRef ? "int*" : IntPtr
+        ppvMarshal := ppv is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(8, this, pfMarshal, pf, ppvMarshal, ppv, Int32, dispid, DISPPARAMS.Ptr, pdispparams, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dispid 
      * @param {Pointer<ITEMIDLIST>} pidl 
      * @param {BOOL} fCanCancel 
@@ -71,8 +69,8 @@ export default struct CIE4ConnectionPoint extends IConnectionPoint {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DoInvokeIE4 := CallbackCreate(GetMethod(implObj, "DoInvokeIE4"), flags, 5)
-        this.vtbl.DoInvokePIDLIE4 := CallbackCreate(GetMethod(implObj, "DoInvokePIDLIE4"), flags, 4)
+        this.vtbl.DoInvokeIE4 := CallbackCreate(ObjBindMethod(implObj, "DoInvokeIE4"), flags, 5)
+        this.vtbl.DoInvokePIDLIE4 := CallbackCreate(ObjBindMethod(implObj, "DoInvokePIDLIE4"), flags, 4)
     }
 
     Dispose() {

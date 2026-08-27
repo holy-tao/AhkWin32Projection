@@ -20,7 +20,6 @@ export default struct PFND3DKMT_GETALLOCATIONPRIORITY {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_GETALLOCATIONPRIORITY>} param0 
      * @returns {NTSTATUS} 
      */

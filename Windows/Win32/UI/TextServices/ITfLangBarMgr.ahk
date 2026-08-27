@@ -102,7 +102,7 @@ export default struct ITfLangBarMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbarmgr-adviseeventsink
      */
     AdviseEventSink(pSink, _hwnd, dwFlags, pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, "ptr", pSink, HWND, _hwnd, UInt32, dwFlags, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
@@ -170,7 +170,7 @@ export default struct ITfLangBarMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbarmgr-getthreadlangbaritemmgr
      */
     GetThreadLangBarItemMgr(dwThreadId, pplbi, pdwThreadid) {
-        pdwThreadidMarshal := pdwThreadid is VarRef ? "uint*" : "ptr"
+        pdwThreadidMarshal := pdwThreadid is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, UInt32, dwThreadId, ITfLangBarItemMgr.Ptr, pplbi, pdwThreadidMarshal, pdwThreadid, "HRESULT")
         return result
@@ -185,7 +185,7 @@ export default struct ITfLangBarMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbarmgr-getinputprocessorprofiles
      */
     GetInputProcessorProfiles(dwThreadId, ppaip, pdwThreadid) {
-        pdwThreadidMarshal := pdwThreadid is VarRef ? "uint*" : "ptr"
+        pdwThreadidMarshal := pdwThreadid is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, UInt32, dwThreadId, ITfInputProcessorProfiles.Ptr, ppaip, pdwThreadidMarshal, pdwThreadid, "HRESULT")
         return result
@@ -412,15 +412,15 @@ export default struct ITfLangBarMgr extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AdviseEventSink := CallbackCreate(GetMethod(implObj, "AdviseEventSink"), flags, 5)
-        this.vtbl.UnadviseEventSink := CallbackCreate(GetMethod(implObj, "UnadviseEventSink"), flags, 2)
-        this.vtbl.GetThreadMarshalInterface := CallbackCreate(GetMethod(implObj, "GetThreadMarshalInterface"), flags, 5)
-        this.vtbl.GetThreadLangBarItemMgr := CallbackCreate(GetMethod(implObj, "GetThreadLangBarItemMgr"), flags, 4)
-        this.vtbl.GetInputProcessorProfiles := CallbackCreate(GetMethod(implObj, "GetInputProcessorProfiles"), flags, 4)
-        this.vtbl.RestoreLastFocus := CallbackCreate(GetMethod(implObj, "RestoreLastFocus"), flags, 3)
-        this.vtbl.SetModalInput := CallbackCreate(GetMethod(implObj, "SetModalInput"), flags, 4)
-        this.vtbl.ShowFloating := CallbackCreate(GetMethod(implObj, "ShowFloating"), flags, 2)
-        this.vtbl.GetShowFloatingStatus := CallbackCreate(GetMethod(implObj, "GetShowFloatingStatus"), flags, 2)
+        this.vtbl.AdviseEventSink := CallbackCreate(ObjBindMethod(implObj, "AdviseEventSink"), flags, 5)
+        this.vtbl.UnadviseEventSink := CallbackCreate(ObjBindMethod(implObj, "UnadviseEventSink"), flags, 2)
+        this.vtbl.GetThreadMarshalInterface := CallbackCreate(ObjBindMethod(implObj, "GetThreadMarshalInterface"), flags, 5)
+        this.vtbl.GetThreadLangBarItemMgr := CallbackCreate(ObjBindMethod(implObj, "GetThreadLangBarItemMgr"), flags, 4)
+        this.vtbl.GetInputProcessorProfiles := CallbackCreate(ObjBindMethod(implObj, "GetInputProcessorProfiles"), flags, 4)
+        this.vtbl.RestoreLastFocus := CallbackCreate(ObjBindMethod(implObj, "RestoreLastFocus"), flags, 3)
+        this.vtbl.SetModalInput := CallbackCreate(ObjBindMethod(implObj, "SetModalInput"), flags, 4)
+        this.vtbl.ShowFloating := CallbackCreate(ObjBindMethod(implObj, "ShowFloating"), flags, 2)
+        this.vtbl.GetShowFloatingStatus := CallbackCreate(ObjBindMethod(implObj, "GetShowFloatingStatus"), flags, 2)
     }
 
     Dispose() {

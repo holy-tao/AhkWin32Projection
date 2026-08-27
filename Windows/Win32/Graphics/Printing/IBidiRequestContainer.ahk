@@ -46,17 +46,17 @@ export default struct IBidiRequestContainer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IBidiRequest} pRequest 
      * @returns {HRESULT} 
      */
     AddRequest(pRequest) {
-        result := ComCall(3, this, "ptr", pRequest, "HRESULT")
+        pRequestMarshal := pRequest == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pRequestMarshal, pRequest, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {IEnumUnknown} 
      */
     GetEnumObject() {
@@ -65,7 +65,6 @@ export default struct IBidiRequestContainer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetRequestCount() {
@@ -82,9 +81,9 @@ export default struct IBidiRequestContainer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddRequest := CallbackCreate(GetMethod(implObj, "AddRequest"), flags, 2)
-        this.vtbl.GetEnumObject := CallbackCreate(GetMethod(implObj, "GetEnumObject"), flags, 2)
-        this.vtbl.GetRequestCount := CallbackCreate(GetMethod(implObj, "GetRequestCount"), flags, 2)
+        this.vtbl.AddRequest := CallbackCreate(ObjBindMethod(implObj, "AddRequest"), flags, 2)
+        this.vtbl.GetEnumObject := CallbackCreate(ObjBindMethod(implObj, "GetEnumObject"), flags, 2)
+        this.vtbl.GetRequestCount := CallbackCreate(ObjBindMethod(implObj, "GetRequestCount"), flags, 2)
     }
 
     Dispose() {

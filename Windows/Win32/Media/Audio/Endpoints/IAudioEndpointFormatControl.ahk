@@ -65,7 +65,7 @@ export default struct IAudioEndpointFormatControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ResetToDefault := CallbackCreate(GetMethod(implObj, "ResetToDefault"), flags, 2)
+        this.vtbl.ResetToDefault := CallbackCreate(ObjBindMethod(implObj, "ResetToDefault"), flags, 2)
     }
 
     Dispose() {

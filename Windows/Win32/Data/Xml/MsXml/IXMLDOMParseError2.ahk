@@ -62,7 +62,6 @@ export default struct IXMLDOMParseError2 extends IXMLDOMParseError {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_errorXPath() {
@@ -72,7 +71,6 @@ export default struct IXMLDOMParseError2 extends IXMLDOMParseError {
     }
 
     /**
-     * 
      * @returns {IXMLDOMParseErrorCollection} 
      */
     get_allErrors() {
@@ -81,7 +79,6 @@ export default struct IXMLDOMParseError2 extends IXMLDOMParseError {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {BSTR} 
      */
@@ -92,7 +89,6 @@ export default struct IXMLDOMParseError2 extends IXMLDOMParseError {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_errorParametersCount() {
@@ -109,10 +105,10 @@ export default struct IXMLDOMParseError2 extends IXMLDOMParseError {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_errorXPath := CallbackCreate(GetMethod(implObj, "get_errorXPath"), flags, 2)
-        this.vtbl.get_allErrors := CallbackCreate(GetMethod(implObj, "get_allErrors"), flags, 2)
-        this.vtbl.errorParameters := CallbackCreate(GetMethod(implObj, "errorParameters"), flags, 3)
-        this.vtbl.get_errorParametersCount := CallbackCreate(GetMethod(implObj, "get_errorParametersCount"), flags, 2)
+        this.vtbl.get_errorXPath := CallbackCreate(ObjBindMethod(implObj, "get_errorXPath"), flags, 2)
+        this.vtbl.get_allErrors := CallbackCreate(ObjBindMethod(implObj, "get_allErrors"), flags, 2)
+        this.vtbl.errorParameters := CallbackCreate(ObjBindMethod(implObj, "errorParameters"), flags, 3)
+        this.vtbl.get_errorParametersCount := CallbackCreate(ObjBindMethod(implObj, "get_errorParametersCount"), flags, 2)
     }
 
     Dispose() {

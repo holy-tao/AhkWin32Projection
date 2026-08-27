@@ -64,7 +64,6 @@ export default struct IHTMLObjectElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_contentDocument() {
@@ -73,7 +72,6 @@ export default struct IHTMLObjectElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -85,7 +83,6 @@ export default struct IHTMLObjectElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_codeBase() {
@@ -95,7 +92,6 @@ export default struct IHTMLObjectElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -107,7 +103,6 @@ export default struct IHTMLObjectElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_data() {
@@ -125,11 +120,11 @@ export default struct IHTMLObjectElement4 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_contentDocument := CallbackCreate(GetMethod(implObj, "get_contentDocument"), flags, 2)
-        this.vtbl.put_codeBase := CallbackCreate(GetMethod(implObj, "put_codeBase"), flags, 2)
-        this.vtbl.get_codeBase := CallbackCreate(GetMethod(implObj, "get_codeBase"), flags, 2)
-        this.vtbl.put_data := CallbackCreate(GetMethod(implObj, "put_data"), flags, 2)
-        this.vtbl.get_data := CallbackCreate(GetMethod(implObj, "get_data"), flags, 2)
+        this.vtbl.get_contentDocument := CallbackCreate(ObjBindMethod(implObj, "get_contentDocument"), flags, 2)
+        this.vtbl.put_codeBase := CallbackCreate(ObjBindMethod(implObj, "put_codeBase"), flags, 2)
+        this.vtbl.get_codeBase := CallbackCreate(ObjBindMethod(implObj, "get_codeBase"), flags, 2)
+        this.vtbl.put_data := CallbackCreate(ObjBindMethod(implObj, "put_data"), flags, 2)
+        this.vtbl.get_data := CallbackCreate(ObjBindMethod(implObj, "get_data"), flags, 2)
     }
 
     Dispose() {

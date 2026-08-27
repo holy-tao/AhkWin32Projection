@@ -56,7 +56,7 @@ export default struct IVMRSurfaceAllocator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrsurfaceallocator-allocatesurface
      */
     AllocateSurface(dwUserID, lpAllocInfo, lpdwActualBuffers) {
-        lpdwActualBuffersMarshal := lpdwActualBuffers is VarRef ? "uint*" : "ptr"
+        lpdwActualBuffersMarshal := lpdwActualBuffers is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, IntPtr, dwUserID, VMRALLOCATIONINFO.Ptr, lpAllocInfo, lpdwActualBuffersMarshal, lpdwActualBuffers, "ptr*", &lplpSurface := 0, "HRESULT")
         return IDirectDrawSurface7(lplpSurface)
@@ -108,10 +108,10 @@ export default struct IVMRSurfaceAllocator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AllocateSurface := CallbackCreate(GetMethod(implObj, "AllocateSurface"), flags, 5)
-        this.vtbl.FreeSurface := CallbackCreate(GetMethod(implObj, "FreeSurface"), flags, 2)
-        this.vtbl.PrepareSurface := CallbackCreate(GetMethod(implObj, "PrepareSurface"), flags, 4)
-        this.vtbl.AdviseNotify := CallbackCreate(GetMethod(implObj, "AdviseNotify"), flags, 2)
+        this.vtbl.AllocateSurface := CallbackCreate(ObjBindMethod(implObj, "AllocateSurface"), flags, 5)
+        this.vtbl.FreeSurface := CallbackCreate(ObjBindMethod(implObj, "FreeSurface"), flags, 2)
+        this.vtbl.PrepareSurface := CallbackCreate(ObjBindMethod(implObj, "PrepareSurface"), flags, 4)
+        this.vtbl.AdviseNotify := CallbackCreate(ObjBindMethod(implObj, "AdviseNotify"), flags, 2)
     }
 
     Dispose() {

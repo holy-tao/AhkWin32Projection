@@ -143,10 +143,10 @@ export default struct IAudioMediaType extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsCompressedFormat := CallbackCreate(GetMethod(implObj, "IsCompressedFormat"), flags, 2)
-        this.vtbl.IsEqual := CallbackCreate(GetMethod(implObj, "IsEqual"), flags, 3)
-        this.vtbl.GetAudioFormat := CallbackCreate(GetMethod(implObj, "GetAudioFormat"), flags, 1)
-        this.vtbl.GetUncompressedAudioFormat := CallbackCreate(GetMethod(implObj, "GetUncompressedAudioFormat"), flags, 2)
+        this.vtbl.IsCompressedFormat := CallbackCreate(ObjBindMethod(implObj, "IsCompressedFormat"), flags, 2)
+        this.vtbl.IsEqual := CallbackCreate(ObjBindMethod(implObj, "IsEqual"), flags, 3)
+        this.vtbl.GetAudioFormat := CallbackCreate(ObjBindMethod(implObj, "GetAudioFormat"), flags, 1)
+        this.vtbl.GetUncompressedAudioFormat := CallbackCreate(ObjBindMethod(implObj, "GetUncompressedAudioFormat"), flags, 2)
     }
 
     Dispose() {

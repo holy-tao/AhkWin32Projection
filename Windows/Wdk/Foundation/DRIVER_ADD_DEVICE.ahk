@@ -21,7 +21,6 @@ export default struct DRIVER_ADD_DEVICE {
     }
 
     /**
-     * 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
      * @param {Pointer<DEVICE_OBJECT>} PhysicalDeviceObject 
      * @returns {NTSTATUS} 

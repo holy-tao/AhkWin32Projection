@@ -84,7 +84,6 @@ export default struct IWscProduct2 extends IWscProduct {
     }
 
     /**
-     * 
      * @returns {WSC_SECURITY_PRODUCT_SUBSTATUS} 
      */
     get_AntivirusScanSubstatus() {
@@ -93,7 +92,6 @@ export default struct IWscProduct2 extends IWscProduct {
     }
 
     /**
-     * 
      * @returns {WSC_SECURITY_PRODUCT_SUBSTATUS} 
      */
     get_AntivirusSettingsSubstatus() {
@@ -102,7 +100,6 @@ export default struct IWscProduct2 extends IWscProduct {
     }
 
     /**
-     * 
      * @returns {WSC_SECURITY_PRODUCT_SUBSTATUS} 
      */
     get_AntivirusProtectionUpdateSubstatus() {
@@ -111,7 +108,6 @@ export default struct IWscProduct2 extends IWscProduct {
     }
 
     /**
-     * 
      * @returns {WSC_SECURITY_PRODUCT_SUBSTATUS} 
      */
     get_FirewallDomainProfileSubstatus() {
@@ -120,7 +116,6 @@ export default struct IWscProduct2 extends IWscProduct {
     }
 
     /**
-     * 
      * @returns {WSC_SECURITY_PRODUCT_SUBSTATUS} 
      */
     get_FirewallPrivateProfileSubstatus() {
@@ -129,7 +124,6 @@ export default struct IWscProduct2 extends IWscProduct {
     }
 
     /**
-     * 
      * @returns {WSC_SECURITY_PRODUCT_SUBSTATUS} 
      */
     get_FirewallPublicProfileSubstatus() {
@@ -146,12 +140,12 @@ export default struct IWscProduct2 extends IWscProduct {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_AntivirusScanSubstatus := CallbackCreate(GetMethod(implObj, "get_AntivirusScanSubstatus"), flags, 2)
-        this.vtbl.get_AntivirusSettingsSubstatus := CallbackCreate(GetMethod(implObj, "get_AntivirusSettingsSubstatus"), flags, 2)
-        this.vtbl.get_AntivirusProtectionUpdateSubstatus := CallbackCreate(GetMethod(implObj, "get_AntivirusProtectionUpdateSubstatus"), flags, 2)
-        this.vtbl.get_FirewallDomainProfileSubstatus := CallbackCreate(GetMethod(implObj, "get_FirewallDomainProfileSubstatus"), flags, 2)
-        this.vtbl.get_FirewallPrivateProfileSubstatus := CallbackCreate(GetMethod(implObj, "get_FirewallPrivateProfileSubstatus"), flags, 2)
-        this.vtbl.get_FirewallPublicProfileSubstatus := CallbackCreate(GetMethod(implObj, "get_FirewallPublicProfileSubstatus"), flags, 2)
+        this.vtbl.get_AntivirusScanSubstatus := CallbackCreate(ObjBindMethod(implObj, "get_AntivirusScanSubstatus"), flags, 2)
+        this.vtbl.get_AntivirusSettingsSubstatus := CallbackCreate(ObjBindMethod(implObj, "get_AntivirusSettingsSubstatus"), flags, 2)
+        this.vtbl.get_AntivirusProtectionUpdateSubstatus := CallbackCreate(ObjBindMethod(implObj, "get_AntivirusProtectionUpdateSubstatus"), flags, 2)
+        this.vtbl.get_FirewallDomainProfileSubstatus := CallbackCreate(ObjBindMethod(implObj, "get_FirewallDomainProfileSubstatus"), flags, 2)
+        this.vtbl.get_FirewallPrivateProfileSubstatus := CallbackCreate(ObjBindMethod(implObj, "get_FirewallPrivateProfileSubstatus"), flags, 2)
+        this.vtbl.get_FirewallPublicProfileSubstatus := CallbackCreate(ObjBindMethod(implObj, "get_FirewallPublicProfileSubstatus"), flags, 2)
     }
 
     Dispose() {

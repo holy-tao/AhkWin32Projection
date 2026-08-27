@@ -18,7 +18,6 @@ export default struct PIO_CSQ_RELEASE_LOCK {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

@@ -21,7 +21,6 @@ export default struct PGET_PROCESS_COMMIT {
     }
 
     /**
-     * 
      * @param {IDebugClient} Client 
      * @param {Pointer<Integer>} TotalCommitCharge 
      * @param {Pointer<Integer>} NumberOfProcesses 
@@ -29,9 +28,9 @@ export default struct PGET_PROCESS_COMMIT {
      * @returns {HRESULT} 
      */
     Call(Client, TotalCommitCharge, NumberOfProcesses, CommitData) {
-        TotalCommitChargeMarshal := TotalCommitCharge is VarRef ? "uint*" : "ptr"
-        NumberOfProcessesMarshal := NumberOfProcesses is VarRef ? "uint*" : "ptr"
-        CommitDataMarshal := CommitData is VarRef ? "ptr*" : "ptr"
+        TotalCommitChargeMarshal := TotalCommitCharge is VarRef ? "uint*" : IntPtr
+        NumberOfProcessesMarshal := NumberOfProcesses is VarRef ? "uint*" : IntPtr
+        CommitDataMarshal := CommitData is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, "ptr", Client, TotalCommitChargeMarshal, TotalCommitCharge, NumberOfProcessesMarshal, NumberOfProcesses, CommitDataMarshal, CommitData, "HRESULT")
         return result

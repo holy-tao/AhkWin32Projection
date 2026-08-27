@@ -42,7 +42,6 @@ export default struct ICorProfilerInfo14 extends ICorProfilerInfo13 {
     }
 
     /**
-     * 
      * @returns {ICorProfilerObjectEnum} 
      */
     EnumerateNonGCObjects() {
@@ -51,21 +50,19 @@ export default struct ICorProfilerInfo14 extends ICorProfilerInfo13 {
     }
 
     /**
-     * 
      * @param {Integer} cObjectRanges 
      * @param {Pointer<Integer>} pcObjectRanges 
      * @param {Pointer<COR_PRF_NONGC_HEAP_RANGE>} ranges 
      * @returns {HRESULT} 
      */
     GetNonGCHeapBounds(cObjectRanges, pcObjectRanges, ranges) {
-        pcObjectRangesMarshal := pcObjectRanges is VarRef ? "uint*" : "ptr"
+        pcObjectRangesMarshal := pcObjectRanges is VarRef ? "uint*" : IntPtr
 
         result := ComCall(112, this, UInt32, cObjectRanges, pcObjectRangesMarshal, pcObjectRanges, COR_PRF_NONGC_HEAP_RANGE.Ptr, ranges, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} providerName 
      * @param {Pointer<Pointer<EventPipeProviderCallback>>} pCallback 
      * @returns {Pointer} 
@@ -73,7 +70,7 @@ export default struct ICorProfilerInfo14 extends ICorProfilerInfo13 {
     EventPipeCreateProvider2(providerName, pCallback) {
         providerName := providerName is String ? StrPtr(providerName) : providerName
 
-        pCallbackMarshal := pCallback is VarRef ? "ptr*" : "ptr"
+        pCallbackMarshal := pCallback is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(113, this, "ptr", providerName, pCallbackMarshal, pCallback, "ptr*", &pProvider := 0, "HRESULT")
         return pProvider
@@ -88,9 +85,9 @@ export default struct ICorProfilerInfo14 extends ICorProfilerInfo13 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumerateNonGCObjects := CallbackCreate(GetMethod(implObj, "EnumerateNonGCObjects"), flags, 2)
-        this.vtbl.GetNonGCHeapBounds := CallbackCreate(GetMethod(implObj, "GetNonGCHeapBounds"), flags, 4)
-        this.vtbl.EventPipeCreateProvider2 := CallbackCreate(GetMethod(implObj, "EventPipeCreateProvider2"), flags, 4)
+        this.vtbl.EnumerateNonGCObjects := CallbackCreate(ObjBindMethod(implObj, "EnumerateNonGCObjects"), flags, 2)
+        this.vtbl.GetNonGCHeapBounds := CallbackCreate(ObjBindMethod(implObj, "GetNonGCHeapBounds"), flags, 4)
+        this.vtbl.EventPipeCreateProvider2 := CallbackCreate(ObjBindMethod(implObj, "EventPipeCreateProvider2"), flags, 4)
     }
 
     Dispose() {

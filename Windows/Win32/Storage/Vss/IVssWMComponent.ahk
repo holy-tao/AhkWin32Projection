@@ -162,12 +162,12 @@ export default struct IVssWMComponent extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetComponentInfo := CallbackCreate(GetMethod(implObj, "GetComponentInfo"), flags, 2)
-        this.vtbl.FreeComponentInfo := CallbackCreate(GetMethod(implObj, "FreeComponentInfo"), flags, 2)
-        this.vtbl.GetFile := CallbackCreate(GetMethod(implObj, "GetFile"), flags, 3)
-        this.vtbl.GetDatabaseFile := CallbackCreate(GetMethod(implObj, "GetDatabaseFile"), flags, 3)
-        this.vtbl.GetDatabaseLogFile := CallbackCreate(GetMethod(implObj, "GetDatabaseLogFile"), flags, 3)
-        this.vtbl.GetDependency := CallbackCreate(GetMethod(implObj, "GetDependency"), flags, 3)
+        this.vtbl.GetComponentInfo := CallbackCreate(ObjBindMethod(implObj, "GetComponentInfo"), flags, 2)
+        this.vtbl.FreeComponentInfo := CallbackCreate(ObjBindMethod(implObj, "FreeComponentInfo"), flags, 2)
+        this.vtbl.GetFile := CallbackCreate(ObjBindMethod(implObj, "GetFile"), flags, 3)
+        this.vtbl.GetDatabaseFile := CallbackCreate(ObjBindMethod(implObj, "GetDatabaseFile"), flags, 3)
+        this.vtbl.GetDatabaseLogFile := CallbackCreate(ObjBindMethod(implObj, "GetDatabaseLogFile"), flags, 3)
+        this.vtbl.GetDependency := CallbackCreate(ObjBindMethod(implObj, "GetDependency"), flags, 3)
     }
 
     Dispose() {

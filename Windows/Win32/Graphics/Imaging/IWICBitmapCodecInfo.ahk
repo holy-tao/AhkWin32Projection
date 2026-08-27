@@ -290,18 +290,18 @@ export default struct IWICBitmapCodecInfo extends IWICComponentInfo {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetContainerFormat := CallbackCreate(GetMethod(implObj, "GetContainerFormat"), flags, 2)
-        this.vtbl.GetPixelFormats := CallbackCreate(GetMethod(implObj, "GetPixelFormats"), flags, 4)
-        this.vtbl.GetColorManagementVersion := CallbackCreate(GetMethod(implObj, "GetColorManagementVersion"), flags, 4)
-        this.vtbl.GetDeviceManufacturer := CallbackCreate(GetMethod(implObj, "GetDeviceManufacturer"), flags, 4)
-        this.vtbl.GetDeviceModels := CallbackCreate(GetMethod(implObj, "GetDeviceModels"), flags, 4)
-        this.vtbl.GetMimeTypes := CallbackCreate(GetMethod(implObj, "GetMimeTypes"), flags, 4)
-        this.vtbl.GetFileExtensions := CallbackCreate(GetMethod(implObj, "GetFileExtensions"), flags, 4)
-        this.vtbl.DoesSupportAnimation := CallbackCreate(GetMethod(implObj, "DoesSupportAnimation"), flags, 2)
-        this.vtbl.DoesSupportChromakey := CallbackCreate(GetMethod(implObj, "DoesSupportChromakey"), flags, 2)
-        this.vtbl.DoesSupportLossless := CallbackCreate(GetMethod(implObj, "DoesSupportLossless"), flags, 2)
-        this.vtbl.DoesSupportMultiframe := CallbackCreate(GetMethod(implObj, "DoesSupportMultiframe"), flags, 2)
-        this.vtbl.MatchesMimeType := CallbackCreate(GetMethod(implObj, "MatchesMimeType"), flags, 3)
+        this.vtbl.GetContainerFormat := CallbackCreate(ObjBindMethod(implObj, "GetContainerFormat"), flags, 2)
+        this.vtbl.GetPixelFormats := CallbackCreate(ObjBindMethod(implObj, "GetPixelFormats"), flags, 4)
+        this.vtbl.GetColorManagementVersion := CallbackCreate(ObjBindMethod(implObj, "GetColorManagementVersion"), flags, 4)
+        this.vtbl.GetDeviceManufacturer := CallbackCreate(ObjBindMethod(implObj, "GetDeviceManufacturer"), flags, 4)
+        this.vtbl.GetDeviceModels := CallbackCreate(ObjBindMethod(implObj, "GetDeviceModels"), flags, 4)
+        this.vtbl.GetMimeTypes := CallbackCreate(ObjBindMethod(implObj, "GetMimeTypes"), flags, 4)
+        this.vtbl.GetFileExtensions := CallbackCreate(ObjBindMethod(implObj, "GetFileExtensions"), flags, 4)
+        this.vtbl.DoesSupportAnimation := CallbackCreate(ObjBindMethod(implObj, "DoesSupportAnimation"), flags, 2)
+        this.vtbl.DoesSupportChromakey := CallbackCreate(ObjBindMethod(implObj, "DoesSupportChromakey"), flags, 2)
+        this.vtbl.DoesSupportLossless := CallbackCreate(ObjBindMethod(implObj, "DoesSupportLossless"), flags, 2)
+        this.vtbl.DoesSupportMultiframe := CallbackCreate(ObjBindMethod(implObj, "DoesSupportMultiframe"), flags, 2)
+        this.vtbl.MatchesMimeType := CallbackCreate(ObjBindMethod(implObj, "MatchesMimeType"), flags, 3)
     }
 
     Dispose() {

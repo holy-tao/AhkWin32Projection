@@ -47,7 +47,6 @@ export default struct EXPERIMENTAL_IPluginAuthenticator extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<EXPERIMENTAL_WEBAUTHN_PLUGIN_OPERATION_REQUEST>} request 
      * @returns {Pointer<EXPERIMENTAL_WEBAUTHN_PLUGIN_OPERATION_RESPONSE>} 
      */
@@ -57,7 +56,6 @@ export default struct EXPERIMENTAL_IPluginAuthenticator extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<EXPERIMENTAL_WEBAUTHN_PLUGIN_OPERATION_REQUEST>} request 
      * @returns {Pointer<EXPERIMENTAL_WEBAUTHN_PLUGIN_OPERATION_RESPONSE>} 
      */
@@ -67,7 +65,6 @@ export default struct EXPERIMENTAL_IPluginAuthenticator extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<EXPERIMENTAL_WEBAUTHN_PLUGIN_CANCEL_OPERATION_REQUEST>} request 
      * @returns {HRESULT} 
      */
@@ -85,9 +82,9 @@ export default struct EXPERIMENTAL_IPluginAuthenticator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EXPERIMENTAL_PluginMakeCredential := CallbackCreate(GetMethod(implObj, "EXPERIMENTAL_PluginMakeCredential"), flags, 3)
-        this.vtbl.EXPERIMENTAL_PluginGetAssertion := CallbackCreate(GetMethod(implObj, "EXPERIMENTAL_PluginGetAssertion"), flags, 3)
-        this.vtbl.EXPERIMENTAL_PluginCancelOperation := CallbackCreate(GetMethod(implObj, "EXPERIMENTAL_PluginCancelOperation"), flags, 2)
+        this.vtbl.EXPERIMENTAL_PluginMakeCredential := CallbackCreate(ObjBindMethod(implObj, "EXPERIMENTAL_PluginMakeCredential"), flags, 3)
+        this.vtbl.EXPERIMENTAL_PluginGetAssertion := CallbackCreate(ObjBindMethod(implObj, "EXPERIMENTAL_PluginGetAssertion"), flags, 3)
+        this.vtbl.EXPERIMENTAL_PluginCancelOperation := CallbackCreate(ObjBindMethod(implObj, "EXPERIMENTAL_PluginCancelOperation"), flags, 2)
     }
 
     Dispose() {

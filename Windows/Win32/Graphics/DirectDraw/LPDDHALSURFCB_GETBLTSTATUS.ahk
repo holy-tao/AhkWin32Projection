@@ -19,7 +19,6 @@ export default struct LPDDHALSURFCB_GETBLTSTATUS {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_GETBLTSTATUSDATA>} param0 
      * @returns {Integer} 
      */

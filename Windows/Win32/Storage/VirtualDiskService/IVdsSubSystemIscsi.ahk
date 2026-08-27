@@ -126,10 +126,10 @@ export default struct IVdsSubSystemIscsi extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryTargets := CallbackCreate(GetMethod(implObj, "QueryTargets"), flags, 2)
-        this.vtbl.QueryPortals := CallbackCreate(GetMethod(implObj, "QueryPortals"), flags, 2)
-        this.vtbl.CreateTarget := CallbackCreate(GetMethod(implObj, "CreateTarget"), flags, 4)
-        this.vtbl.SetIpsecGroupPresharedKey := CallbackCreate(GetMethod(implObj, "SetIpsecGroupPresharedKey"), flags, 2)
+        this.vtbl.QueryTargets := CallbackCreate(ObjBindMethod(implObj, "QueryTargets"), flags, 2)
+        this.vtbl.QueryPortals := CallbackCreate(ObjBindMethod(implObj, "QueryPortals"), flags, 2)
+        this.vtbl.CreateTarget := CallbackCreate(ObjBindMethod(implObj, "CreateTarget"), flags, 4)
+        this.vtbl.SetIpsecGroupPresharedKey := CallbackCreate(ObjBindMethod(implObj, "SetIpsecGroupPresharedKey"), flags, 2)
     }
 
     Dispose() {

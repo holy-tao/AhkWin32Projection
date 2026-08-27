@@ -95,8 +95,8 @@ export default struct IRawElementProviderWindowlessSite extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAdjacentFragment := CallbackCreate(GetMethod(implObj, "GetAdjacentFragment"), flags, 3)
-        this.vtbl.GetRuntimeIdPrefix := CallbackCreate(GetMethod(implObj, "GetRuntimeIdPrefix"), flags, 2)
+        this.vtbl.GetAdjacentFragment := CallbackCreate(ObjBindMethod(implObj, "GetAdjacentFragment"), flags, 3)
+        this.vtbl.GetRuntimeIdPrefix := CallbackCreate(ObjBindMethod(implObj, "GetRuntimeIdPrefix"), flags, 2)
     }
 
     Dispose() {

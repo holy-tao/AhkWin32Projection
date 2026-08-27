@@ -36,7 +36,6 @@ export default struct IParentRowset extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer} iOrdinal 
      * @param {Pointer<Guid>} riid 
@@ -56,7 +55,7 @@ export default struct IParentRowset extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetChildRowset := CallbackCreate(GetMethod(implObj, "GetChildRowset"), flags, 5)
+        this.vtbl.GetChildRowset := CallbackCreate(ObjBindMethod(implObj, "GetChildRowset"), flags, 5)
     }
 
     Dispose() {

@@ -21,7 +21,6 @@ export default struct PLSA_AP_INITIALIZE_PACKAGE {
     }
 
     /**
-     * 
      * @param {Integer} AuthenticationPackageId 
      * @param {Pointer<LSA_DISPATCH_TABLE>} LsaDispatchTable 
      * @param {Pointer<LSA_STRING>} Database 
@@ -30,9 +29,11 @@ export default struct PLSA_AP_INITIALIZE_PACKAGE {
      * @returns {NTSTATUS} 
      */
     Call(AuthenticationPackageId, LsaDispatchTable, Database, Confidentiality, AuthenticationPackageName) {
-        AuthenticationPackageNameMarshal := AuthenticationPackageName is VarRef ? "ptr*" : "ptr"
+        DatabaseMarshal := Database == 0 ? IntPtr : LSA_STRING.Ptr
+        ConfidentialityMarshal := Confidentiality == 0 ? IntPtr : LSA_STRING.Ptr
+        AuthenticationPackageNameMarshal := AuthenticationPackageName is VarRef ? "ptr*" : IntPtr
 
-        result := DllCall(this.value, UInt32, AuthenticationPackageId, LSA_DISPATCH_TABLE.Ptr, LsaDispatchTable, LSA_STRING.Ptr, Database, LSA_STRING.Ptr, Confidentiality, AuthenticationPackageNameMarshal, AuthenticationPackageName, NTSTATUS)
+        result := DllCall(this.value, UInt32, AuthenticationPackageId, LSA_DISPATCH_TABLE.Ptr, LsaDispatchTable, DatabaseMarshal, Database, ConfidentialityMarshal, Confidentiality, AuthenticationPackageNameMarshal, AuthenticationPackageName, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

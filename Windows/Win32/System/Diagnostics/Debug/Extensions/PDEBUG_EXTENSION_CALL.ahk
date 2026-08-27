@@ -21,7 +21,6 @@ export default struct PDEBUG_EXTENSION_CALL {
     }
 
     /**
-     * 
      * @param {IDebugClient} Client 
      * @param {PSTR} Args 
      * @returns {HRESULT} 
@@ -29,7 +28,9 @@ export default struct PDEBUG_EXTENSION_CALL {
     Call(Client, Args) {
         Args := Args is String ? StrPtr(Args) : Args
 
-        result := DllCall(this.value, "ptr", Client, "ptr", Args, "HRESULT")
+        ArgsMarshal := Args == 0 ? IntPtr : PSTR
+
+        result := DllCall(this.value, "ptr", Client, ArgsMarshal, Args, "HRESULT")
         return result
     }
 

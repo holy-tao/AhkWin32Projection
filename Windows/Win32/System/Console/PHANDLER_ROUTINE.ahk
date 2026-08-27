@@ -19,7 +19,6 @@ export default struct PHANDLER_ROUTINE {
     }
 
     /**
-     * 
      * @param {Integer} CtrlType 
      * @returns {BOOL} 
      */

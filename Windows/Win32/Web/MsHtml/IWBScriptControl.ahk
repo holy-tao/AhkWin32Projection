@@ -95,7 +95,6 @@ export default struct IWBScriptControl extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @param {VARIANT} eventData 
      * @returns {HRESULT} 
@@ -108,7 +107,6 @@ export default struct IWBScriptControl extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     bubbleEvent() {
@@ -117,7 +115,6 @@ export default struct IWBScriptControl extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} menuItemPairs 
      * @returns {HRESULT} 
      */
@@ -127,7 +124,6 @@ export default struct IWBScriptControl extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -137,7 +133,6 @@ export default struct IWBScriptControl extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_selectableContent() {
@@ -146,7 +141,6 @@ export default struct IWBScriptControl extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_frozen() {
@@ -155,7 +149,6 @@ export default struct IWBScriptControl extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -165,7 +158,6 @@ export default struct IWBScriptControl extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_scrollbar() {
@@ -174,7 +166,6 @@ export default struct IWBScriptControl extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_version() {
@@ -184,7 +175,6 @@ export default struct IWBScriptControl extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_visibility() {
@@ -193,7 +183,6 @@ export default struct IWBScriptControl extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -203,7 +192,6 @@ export default struct IWBScriptControl extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onvisibilitychange() {
@@ -221,18 +209,18 @@ export default struct IWBScriptControl extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.raiseEvent := CallbackCreate(GetMethod(implObj, "raiseEvent"), flags, 3)
-        this.vtbl.bubbleEvent := CallbackCreate(GetMethod(implObj, "bubbleEvent"), flags, 1)
-        this.vtbl.setContextMenu := CallbackCreate(GetMethod(implObj, "setContextMenu"), flags, 2)
-        this.vtbl.put_selectableContent := CallbackCreate(GetMethod(implObj, "put_selectableContent"), flags, 2)
-        this.vtbl.get_selectableContent := CallbackCreate(GetMethod(implObj, "get_selectableContent"), flags, 2)
-        this.vtbl.get_frozen := CallbackCreate(GetMethod(implObj, "get_frozen"), flags, 2)
-        this.vtbl.put_scrollbar := CallbackCreate(GetMethod(implObj, "put_scrollbar"), flags, 2)
-        this.vtbl.get_scrollbar := CallbackCreate(GetMethod(implObj, "get_scrollbar"), flags, 2)
-        this.vtbl.get_version := CallbackCreate(GetMethod(implObj, "get_version"), flags, 2)
-        this.vtbl.get_visibility := CallbackCreate(GetMethod(implObj, "get_visibility"), flags, 2)
-        this.vtbl.put_onvisibilitychange := CallbackCreate(GetMethod(implObj, "put_onvisibilitychange"), flags, 2)
-        this.vtbl.get_onvisibilitychange := CallbackCreate(GetMethod(implObj, "get_onvisibilitychange"), flags, 2)
+        this.vtbl.raiseEvent := CallbackCreate(ObjBindMethod(implObj, "raiseEvent"), flags, 3)
+        this.vtbl.bubbleEvent := CallbackCreate(ObjBindMethod(implObj, "bubbleEvent"), flags, 1)
+        this.vtbl.setContextMenu := CallbackCreate(ObjBindMethod(implObj, "setContextMenu"), flags, 2)
+        this.vtbl.put_selectableContent := CallbackCreate(ObjBindMethod(implObj, "put_selectableContent"), flags, 2)
+        this.vtbl.get_selectableContent := CallbackCreate(ObjBindMethod(implObj, "get_selectableContent"), flags, 2)
+        this.vtbl.get_frozen := CallbackCreate(ObjBindMethod(implObj, "get_frozen"), flags, 2)
+        this.vtbl.put_scrollbar := CallbackCreate(ObjBindMethod(implObj, "put_scrollbar"), flags, 2)
+        this.vtbl.get_scrollbar := CallbackCreate(ObjBindMethod(implObj, "get_scrollbar"), flags, 2)
+        this.vtbl.get_version := CallbackCreate(ObjBindMethod(implObj, "get_version"), flags, 2)
+        this.vtbl.get_visibility := CallbackCreate(ObjBindMethod(implObj, "get_visibility"), flags, 2)
+        this.vtbl.put_onvisibilitychange := CallbackCreate(ObjBindMethod(implObj, "put_onvisibilitychange"), flags, 2)
+        this.vtbl.get_onvisibilitychange := CallbackCreate(ObjBindMethod(implObj, "get_onvisibilitychange"), flags, 2)
     }
 
     Dispose() {

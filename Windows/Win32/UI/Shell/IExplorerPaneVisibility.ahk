@@ -63,7 +63,7 @@ export default struct IExplorerPaneVisibility extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPaneState := CallbackCreate(GetMethod(implObj, "GetPaneState"), flags, 3)
+        this.vtbl.GetPaneState := CallbackCreate(ObjBindMethod(implObj, "GetPaneState"), flags, 3)
     }
 
     Dispose() {

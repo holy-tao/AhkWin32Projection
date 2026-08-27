@@ -60,7 +60,7 @@ export default struct ID3D12VideoDecodeCommandList1 extends ID3D12VideoDecodeCom
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DecodeFrame1 := CallbackCreate(GetMethod(implObj, "DecodeFrame1"), flags, 4)
+        this.vtbl.DecodeFrame1 := CallbackCreate(ObjBindMethod(implObj, "DecodeFrame1"), flags, 4)
     }
 
     Dispose() {

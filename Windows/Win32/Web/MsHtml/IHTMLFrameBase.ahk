@@ -134,7 +134,6 @@ export default struct IHTMLFrameBase extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -146,7 +145,6 @@ export default struct IHTMLFrameBase extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_src() {
@@ -156,7 +154,6 @@ export default struct IHTMLFrameBase extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -168,7 +165,6 @@ export default struct IHTMLFrameBase extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -178,7 +174,6 @@ export default struct IHTMLFrameBase extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -188,7 +183,6 @@ export default struct IHTMLFrameBase extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_border() {
@@ -198,7 +192,6 @@ export default struct IHTMLFrameBase extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -210,7 +203,6 @@ export default struct IHTMLFrameBase extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_frameBorder() {
@@ -220,7 +212,6 @@ export default struct IHTMLFrameBase extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -230,7 +221,6 @@ export default struct IHTMLFrameBase extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_frameSpacing() {
@@ -240,7 +230,6 @@ export default struct IHTMLFrameBase extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -250,7 +239,6 @@ export default struct IHTMLFrameBase extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_marginWidth() {
@@ -260,7 +248,6 @@ export default struct IHTMLFrameBase extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -270,7 +257,6 @@ export default struct IHTMLFrameBase extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_marginHeight() {
@@ -280,7 +266,6 @@ export default struct IHTMLFrameBase extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -290,7 +275,6 @@ export default struct IHTMLFrameBase extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_noResize() {
@@ -299,7 +283,6 @@ export default struct IHTMLFrameBase extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -311,7 +294,6 @@ export default struct IHTMLFrameBase extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_scrolling() {
@@ -329,24 +311,24 @@ export default struct IHTMLFrameBase extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_src := CallbackCreate(GetMethod(implObj, "put_src"), flags, 2)
-        this.vtbl.get_src := CallbackCreate(GetMethod(implObj, "get_src"), flags, 2)
-        this.vtbl.put_name := CallbackCreate(GetMethod(implObj, "put_name"), flags, 2)
-        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
-        this.vtbl.put_border := CallbackCreate(GetMethod(implObj, "put_border"), flags, 2)
-        this.vtbl.get_border := CallbackCreate(GetMethod(implObj, "get_border"), flags, 2)
-        this.vtbl.put_frameBorder := CallbackCreate(GetMethod(implObj, "put_frameBorder"), flags, 2)
-        this.vtbl.get_frameBorder := CallbackCreate(GetMethod(implObj, "get_frameBorder"), flags, 2)
-        this.vtbl.put_frameSpacing := CallbackCreate(GetMethod(implObj, "put_frameSpacing"), flags, 2)
-        this.vtbl.get_frameSpacing := CallbackCreate(GetMethod(implObj, "get_frameSpacing"), flags, 2)
-        this.vtbl.put_marginWidth := CallbackCreate(GetMethod(implObj, "put_marginWidth"), flags, 2)
-        this.vtbl.get_marginWidth := CallbackCreate(GetMethod(implObj, "get_marginWidth"), flags, 2)
-        this.vtbl.put_marginHeight := CallbackCreate(GetMethod(implObj, "put_marginHeight"), flags, 2)
-        this.vtbl.get_marginHeight := CallbackCreate(GetMethod(implObj, "get_marginHeight"), flags, 2)
-        this.vtbl.put_noResize := CallbackCreate(GetMethod(implObj, "put_noResize"), flags, 2)
-        this.vtbl.get_noResize := CallbackCreate(GetMethod(implObj, "get_noResize"), flags, 2)
-        this.vtbl.put_scrolling := CallbackCreate(GetMethod(implObj, "put_scrolling"), flags, 2)
-        this.vtbl.get_scrolling := CallbackCreate(GetMethod(implObj, "get_scrolling"), flags, 2)
+        this.vtbl.put_src := CallbackCreate(ObjBindMethod(implObj, "put_src"), flags, 2)
+        this.vtbl.get_src := CallbackCreate(ObjBindMethod(implObj, "get_src"), flags, 2)
+        this.vtbl.put_name := CallbackCreate(ObjBindMethod(implObj, "put_name"), flags, 2)
+        this.vtbl.get_name := CallbackCreate(ObjBindMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.put_border := CallbackCreate(ObjBindMethod(implObj, "put_border"), flags, 2)
+        this.vtbl.get_border := CallbackCreate(ObjBindMethod(implObj, "get_border"), flags, 2)
+        this.vtbl.put_frameBorder := CallbackCreate(ObjBindMethod(implObj, "put_frameBorder"), flags, 2)
+        this.vtbl.get_frameBorder := CallbackCreate(ObjBindMethod(implObj, "get_frameBorder"), flags, 2)
+        this.vtbl.put_frameSpacing := CallbackCreate(ObjBindMethod(implObj, "put_frameSpacing"), flags, 2)
+        this.vtbl.get_frameSpacing := CallbackCreate(ObjBindMethod(implObj, "get_frameSpacing"), flags, 2)
+        this.vtbl.put_marginWidth := CallbackCreate(ObjBindMethod(implObj, "put_marginWidth"), flags, 2)
+        this.vtbl.get_marginWidth := CallbackCreate(ObjBindMethod(implObj, "get_marginWidth"), flags, 2)
+        this.vtbl.put_marginHeight := CallbackCreate(ObjBindMethod(implObj, "put_marginHeight"), flags, 2)
+        this.vtbl.get_marginHeight := CallbackCreate(ObjBindMethod(implObj, "get_marginHeight"), flags, 2)
+        this.vtbl.put_noResize := CallbackCreate(ObjBindMethod(implObj, "put_noResize"), flags, 2)
+        this.vtbl.get_noResize := CallbackCreate(ObjBindMethod(implObj, "get_noResize"), flags, 2)
+        this.vtbl.put_scrolling := CallbackCreate(ObjBindMethod(implObj, "put_scrolling"), flags, 2)
+        this.vtbl.get_scrolling := CallbackCreate(ObjBindMethod(implObj, "get_scrolling"), flags, 2)
     }
 
     Dispose() {

@@ -88,9 +88,9 @@ export default struct ID2D1ColorContext1 extends ID2D1ColorContext {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetColorContextType := CallbackCreate(GetMethod(implObj, "GetColorContextType"), flags, 1)
-        this.vtbl.GetDXGIColorSpace := CallbackCreate(GetMethod(implObj, "GetDXGIColorSpace"), flags, 1)
-        this.vtbl.GetSimpleColorProfile := CallbackCreate(GetMethod(implObj, "GetSimpleColorProfile"), flags, 2)
+        this.vtbl.GetColorContextType := CallbackCreate(ObjBindMethod(implObj, "GetColorContextType"), flags, 1)
+        this.vtbl.GetDXGIColorSpace := CallbackCreate(ObjBindMethod(implObj, "GetDXGIColorSpace"), flags, 1)
+        this.vtbl.GetSimpleColorProfile := CallbackCreate(ObjBindMethod(implObj, "GetSimpleColorProfile"), flags, 2)
     }
 
     Dispose() {

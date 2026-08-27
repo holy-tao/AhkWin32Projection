@@ -61,7 +61,7 @@ export default struct IAsyncErrorNotify extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnError := CallbackCreate(GetMethod(implObj, "OnError"), flags, 2)
+        this.vtbl.OnError := CallbackCreate(ObjBindMethod(implObj, "OnError"), flags, 2)
     }
 
     Dispose() {

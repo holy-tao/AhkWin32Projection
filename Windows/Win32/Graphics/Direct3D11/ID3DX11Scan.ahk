@@ -133,9 +133,9 @@ export default struct ID3DX11Scan extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetScanDirection := CallbackCreate(GetMethod(implObj, "SetScanDirection"), flags, 2)
-        this.vtbl.Scan := CallbackCreate(GetMethod(implObj, "Scan"), flags, 6)
-        this.vtbl.Multiscan := CallbackCreate(GetMethod(implObj, "Multiscan"), flags, 8)
+        this.vtbl.SetScanDirection := CallbackCreate(ObjBindMethod(implObj, "SetScanDirection"), flags, 2)
+        this.vtbl.Scan := CallbackCreate(ObjBindMethod(implObj, "Scan"), flags, 6)
+        this.vtbl.Multiscan := CallbackCreate(ObjBindMethod(implObj, "Multiscan"), flags, 8)
     }
 
     Dispose() {

@@ -22,7 +22,6 @@ export default struct AMGETERRORTEXTPROCA {
     }
 
     /**
-     * 
      * @param {HRESULT} param0 
      * @param {PSTR} param1 
      * @param {Integer} param2 

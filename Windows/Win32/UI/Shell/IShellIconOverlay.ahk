@@ -133,7 +133,7 @@ export default struct IShellIconOverlay extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishelliconoverlay-getoverlayindex
      */
     GetOverlayIndex(pidl, pIndex) {
-        pIndexMarshal := pIndex is VarRef ? "int*" : "ptr"
+        pIndexMarshal := pIndex is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, ITEMIDLIST.Ptr, pidl, pIndexMarshal, pIndex, "HRESULT")
         return result
@@ -195,7 +195,7 @@ export default struct IShellIconOverlay extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishelliconoverlay-getoverlayiconindex
      */
     GetOverlayIconIndex(pidl, pIconIndex) {
-        pIconIndexMarshal := pIconIndex is VarRef ? "int*" : "ptr"
+        pIconIndexMarshal := pIconIndex is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, ITEMIDLIST.Ptr, pidl, pIconIndexMarshal, pIconIndex, "HRESULT")
         return result
@@ -210,8 +210,8 @@ export default struct IShellIconOverlay extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOverlayIndex := CallbackCreate(GetMethod(implObj, "GetOverlayIndex"), flags, 3)
-        this.vtbl.GetOverlayIconIndex := CallbackCreate(GetMethod(implObj, "GetOverlayIconIndex"), flags, 3)
+        this.vtbl.GetOverlayIndex := CallbackCreate(ObjBindMethod(implObj, "GetOverlayIndex"), flags, 3)
+        this.vtbl.GetOverlayIconIndex := CallbackCreate(ObjBindMethod(implObj, "GetOverlayIconIndex"), flags, 3)
     }
 
     Dispose() {

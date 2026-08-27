@@ -21,7 +21,6 @@ export default struct PGET_POOL_DATA {
     }
 
     /**
-     * 
      * @param {IDebugClient} Client 
      * @param {Integer} Pool 
      * @param {Pointer<DEBUG_POOL_DATA>} PoolData 

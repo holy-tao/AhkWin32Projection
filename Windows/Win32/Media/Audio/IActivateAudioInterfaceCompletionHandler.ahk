@@ -84,7 +84,7 @@ export default struct IActivateAudioInterfaceCompletionHandler extends IUnknown 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ActivateCompleted := CallbackCreate(GetMethod(implObj, "ActivateCompleted"), flags, 2)
+        this.vtbl.ActivateCompleted := CallbackCreate(ObjBindMethod(implObj, "ActivateCompleted"), flags, 2)
     }
 
     Dispose() {

@@ -210,7 +210,7 @@ export default struct ITfContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontext-getselection
      */
     GetSelection(ec, ulIndex, ulCount, pSelection, pcFetched) {
-        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, UInt32, ec, UInt32, ulIndex, UInt32, ulCount, TF_SELECTION.Ptr, pSelection, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
@@ -308,7 +308,6 @@ export default struct ITfContext extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumTfContextViews} 
      */
     EnumViews() {
@@ -369,8 +368,8 @@ export default struct ITfContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontext-trackproperties
      */
     TrackProperties(prgProp, cProp, prgAppProp, cAppProp) {
-        prgPropMarshal := prgProp is VarRef ? "ptr*" : "ptr"
-        prgAppPropMarshal := prgAppProp is VarRef ? "ptr*" : "ptr"
+        prgPropMarshal := prgProp is VarRef ? "ptr*" : IntPtr
+        prgAppPropMarshal := prgAppProp is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(14, this, prgPropMarshal, prgProp, UInt32, cProp, prgAppPropMarshal, prgAppProp, UInt32, cAppProp, "ptr*", &ppProperty := 0, "HRESULT")
         return ITfReadOnlyProperty(ppProperty)
@@ -421,21 +420,21 @@ export default struct ITfContext extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RequestEditSession := CallbackCreate(GetMethod(implObj, "RequestEditSession"), flags, 5)
-        this.vtbl.InWriteSession := CallbackCreate(GetMethod(implObj, "InWriteSession"), flags, 3)
-        this.vtbl.GetSelection := CallbackCreate(GetMethod(implObj, "GetSelection"), flags, 6)
-        this.vtbl.SetSelection := CallbackCreate(GetMethod(implObj, "SetSelection"), flags, 4)
-        this.vtbl.GetStart := CallbackCreate(GetMethod(implObj, "GetStart"), flags, 3)
-        this.vtbl.GetEnd := CallbackCreate(GetMethod(implObj, "GetEnd"), flags, 3)
-        this.vtbl.GetActiveView := CallbackCreate(GetMethod(implObj, "GetActiveView"), flags, 2)
-        this.vtbl.EnumViews := CallbackCreate(GetMethod(implObj, "EnumViews"), flags, 2)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
-        this.vtbl.GetAppProperty := CallbackCreate(GetMethod(implObj, "GetAppProperty"), flags, 3)
-        this.vtbl.TrackProperties := CallbackCreate(GetMethod(implObj, "TrackProperties"), flags, 6)
-        this.vtbl.EnumProperties := CallbackCreate(GetMethod(implObj, "EnumProperties"), flags, 2)
-        this.vtbl.GetDocumentMgr := CallbackCreate(GetMethod(implObj, "GetDocumentMgr"), flags, 2)
-        this.vtbl.CreateRangeBackup := CallbackCreate(GetMethod(implObj, "CreateRangeBackup"), flags, 4)
+        this.vtbl.RequestEditSession := CallbackCreate(ObjBindMethod(implObj, "RequestEditSession"), flags, 5)
+        this.vtbl.InWriteSession := CallbackCreate(ObjBindMethod(implObj, "InWriteSession"), flags, 3)
+        this.vtbl.GetSelection := CallbackCreate(ObjBindMethod(implObj, "GetSelection"), flags, 6)
+        this.vtbl.SetSelection := CallbackCreate(ObjBindMethod(implObj, "SetSelection"), flags, 4)
+        this.vtbl.GetStart := CallbackCreate(ObjBindMethod(implObj, "GetStart"), flags, 3)
+        this.vtbl.GetEnd := CallbackCreate(ObjBindMethod(implObj, "GetEnd"), flags, 3)
+        this.vtbl.GetActiveView := CallbackCreate(ObjBindMethod(implObj, "GetActiveView"), flags, 2)
+        this.vtbl.EnumViews := CallbackCreate(ObjBindMethod(implObj, "EnumViews"), flags, 2)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.GetAppProperty := CallbackCreate(ObjBindMethod(implObj, "GetAppProperty"), flags, 3)
+        this.vtbl.TrackProperties := CallbackCreate(ObjBindMethod(implObj, "TrackProperties"), flags, 6)
+        this.vtbl.EnumProperties := CallbackCreate(ObjBindMethod(implObj, "EnumProperties"), flags, 2)
+        this.vtbl.GetDocumentMgr := CallbackCreate(ObjBindMethod(implObj, "GetDocumentMgr"), flags, 2)
+        this.vtbl.CreateRangeBackup := CallbackCreate(ObjBindMethod(implObj, "CreateRangeBackup"), flags, 4)
     }
 
     Dispose() {

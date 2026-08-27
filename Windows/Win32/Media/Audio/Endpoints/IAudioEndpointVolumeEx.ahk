@@ -65,9 +65,9 @@ export default struct IAudioEndpointVolumeEx extends IAudioEndpointVolume {
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudioendpointvolumeex-getvolumerangechannel
      */
     GetVolumeRangeChannel(iChannel, pflVolumeMindB, pflVolumeMaxdB, pflVolumeIncrementdB) {
-        pflVolumeMindBMarshal := pflVolumeMindB is VarRef ? "float*" : "ptr"
-        pflVolumeMaxdBMarshal := pflVolumeMaxdB is VarRef ? "float*" : "ptr"
-        pflVolumeIncrementdBMarshal := pflVolumeIncrementdB is VarRef ? "float*" : "ptr"
+        pflVolumeMindBMarshal := pflVolumeMindB is VarRef ? "float*" : IntPtr
+        pflVolumeMaxdBMarshal := pflVolumeMaxdB is VarRef ? "float*" : IntPtr
+        pflVolumeIncrementdBMarshal := pflVolumeIncrementdB is VarRef ? "float*" : IntPtr
 
         result := ComCall(21, this, UInt32, iChannel, pflVolumeMindBMarshal, pflVolumeMindB, pflVolumeMaxdBMarshal, pflVolumeMaxdB, pflVolumeIncrementdBMarshal, pflVolumeIncrementdB, "HRESULT")
         return result
@@ -82,7 +82,7 @@ export default struct IAudioEndpointVolumeEx extends IAudioEndpointVolume {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetVolumeRangeChannel := CallbackCreate(GetMethod(implObj, "GetVolumeRangeChannel"), flags, 5)
+        this.vtbl.GetVolumeRangeChannel := CallbackCreate(ObjBindMethod(implObj, "GetVolumeRangeChannel"), flags, 5)
     }
 
     Dispose() {

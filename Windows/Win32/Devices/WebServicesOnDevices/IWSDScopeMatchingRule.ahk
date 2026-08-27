@@ -80,8 +80,8 @@ export default struct IWSDScopeMatchingRule extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetScopeRule := CallbackCreate(GetMethod(implObj, "GetScopeRule"), flags, 2)
-        this.vtbl.MatchScopes := CallbackCreate(GetMethod(implObj, "MatchScopes"), flags, 4)
+        this.vtbl.GetScopeRule := CallbackCreate(ObjBindMethod(implObj, "GetScopeRule"), flags, 2)
+        this.vtbl.MatchScopes := CallbackCreate(ObjBindMethod(implObj, "MatchScopes"), flags, 4)
     }
 
     Dispose() {

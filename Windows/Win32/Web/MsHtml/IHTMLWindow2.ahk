@@ -353,7 +353,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {IHTMLFramesCollection2} 
      */
     get_frames() {
@@ -362,7 +361,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -374,7 +372,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_defaultStatus() {
@@ -384,7 +381,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -396,7 +392,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_status() {
@@ -406,7 +401,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {BSTR} expression 
      * @param {Integer} msec 
      * @param {Pointer<VARIANT>} language 
@@ -420,7 +414,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {Integer} timerID 
      * @returns {HRESULT} 
      */
@@ -430,7 +423,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {BSTR} message 
      * @returns {HRESULT} 
      */
@@ -442,7 +434,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {BSTR} message 
      * @returns {VARIANT_BOOL} 
      */
@@ -454,7 +445,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {BSTR} message 
      * @param {BSTR} defstr 
      * @returns {VARIANT} 
@@ -469,7 +459,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {IHTMLImageElementFactory} 
      */
     get_Image() {
@@ -478,7 +467,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {IHTMLLocation} 
      */
     get_location() {
@@ -487,7 +475,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {IOmHistory} 
      */
     get_history() {
@@ -523,7 +510,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -533,7 +519,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_opener() {
@@ -543,7 +528,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {IOmNavigator} 
      */
     get_navigator() {
@@ -552,7 +536,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -564,7 +547,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -574,7 +556,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {IHTMLWindow2} 
      */
     get_parent() {
@@ -629,7 +610,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {IHTMLWindow2} 
      */
     get_self() {
@@ -638,7 +618,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {IHTMLWindow2} 
      */
     get_top() {
@@ -647,7 +626,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {IHTMLWindow2} 
      */
     get_window() {
@@ -656,7 +634,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {BSTR} url 
      * @returns {HRESULT} 
      */
@@ -668,7 +645,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -678,7 +654,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onfocus() {
@@ -688,7 +663,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -698,7 +672,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onblur() {
@@ -708,7 +681,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -718,7 +690,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onload() {
@@ -728,7 +699,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -738,7 +708,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onbeforeunload() {
@@ -748,7 +717,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -758,7 +726,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onunload() {
@@ -768,7 +735,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -778,7 +744,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onhelp() {
@@ -788,7 +753,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -798,7 +762,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onerror() {
@@ -808,7 +771,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -818,7 +780,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onresize() {
@@ -828,7 +789,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -838,7 +798,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onscroll() {
@@ -848,7 +807,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {IHTMLDocument2} 
      */
     get_document() {
@@ -857,7 +815,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {IHTMLEventObj} 
      */
     get_event() {
@@ -866,7 +823,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__newEnum() {
@@ -875,7 +831,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {BSTR} dialog 
      * @param {Pointer<VARIANT>} varArgIn 
      * @param {Pointer<VARIANT>} varOptions 
@@ -890,7 +845,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {BSTR} helpURL 
      * @param {VARIANT} helpArg 
      * @param {BSTR} features 
@@ -905,7 +859,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {IHTMLScreen} 
      */
     get_screen() {
@@ -914,7 +867,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {IHTMLOptionElementFactory} 
      */
     get_Option() {
@@ -923,7 +875,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     focus() {
@@ -932,7 +883,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_closed() {
@@ -941,7 +891,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     blur() {
@@ -950,7 +899,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {HRESULT} 
@@ -961,7 +909,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {IOmNavigator} 
      */
     get_clientInformation() {
@@ -970,7 +917,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {BSTR} expression 
      * @param {Integer} msec 
      * @param {Pointer<VARIANT>} language 
@@ -984,7 +930,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {Integer} timerID 
      * @returns {HRESULT} 
      */
@@ -994,7 +939,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1004,7 +948,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_offscreenBuffering() {
@@ -1014,7 +957,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {BSTR} code 
      * @param {BSTR} language 
      * @returns {VARIANT} 
@@ -1029,7 +971,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     toString() {
@@ -1039,7 +980,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {HRESULT} 
@@ -1050,7 +990,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {HRESULT} 
@@ -1061,7 +1000,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {HRESULT} 
@@ -1072,7 +1010,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {HRESULT} 
@@ -1083,7 +1020,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {HRESULT} 
@@ -1094,7 +1030,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {HRESULT} 
@@ -1105,7 +1040,6 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_external() {
@@ -1122,74 +1056,74 @@ export default struct IHTMLWindow2 extends IHTMLFramesCollection2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_frames := CallbackCreate(GetMethod(implObj, "get_frames"), flags, 2)
-        this.vtbl.put_defaultStatus := CallbackCreate(GetMethod(implObj, "put_defaultStatus"), flags, 2)
-        this.vtbl.get_defaultStatus := CallbackCreate(GetMethod(implObj, "get_defaultStatus"), flags, 2)
-        this.vtbl.put_status := CallbackCreate(GetMethod(implObj, "put_status"), flags, 2)
-        this.vtbl.get_status := CallbackCreate(GetMethod(implObj, "get_status"), flags, 2)
-        this.vtbl.setTimeout := CallbackCreate(GetMethod(implObj, "setTimeout"), flags, 5)
-        this.vtbl.clearTimeout := CallbackCreate(GetMethod(implObj, "clearTimeout"), flags, 2)
-        this.vtbl.alert := CallbackCreate(GetMethod(implObj, "alert"), flags, 2)
-        this.vtbl.confirm := CallbackCreate(GetMethod(implObj, "confirm"), flags, 3)
-        this.vtbl.prompt := CallbackCreate(GetMethod(implObj, "prompt"), flags, 4)
-        this.vtbl.get_Image := CallbackCreate(GetMethod(implObj, "get_Image"), flags, 2)
-        this.vtbl.get_location := CallbackCreate(GetMethod(implObj, "get_location"), flags, 2)
-        this.vtbl.get_history := CallbackCreate(GetMethod(implObj, "get_history"), flags, 2)
-        this.vtbl.close := CallbackCreate(GetMethod(implObj, "close"), flags, 1)
-        this.vtbl.put_opener := CallbackCreate(GetMethod(implObj, "put_opener"), flags, 2)
-        this.vtbl.get_opener := CallbackCreate(GetMethod(implObj, "get_opener"), flags, 2)
-        this.vtbl.get_navigator := CallbackCreate(GetMethod(implObj, "get_navigator"), flags, 2)
-        this.vtbl.put_name := CallbackCreate(GetMethod(implObj, "put_name"), flags, 2)
-        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
-        this.vtbl.get_parent := CallbackCreate(GetMethod(implObj, "get_parent"), flags, 2)
-        this.vtbl.open := CallbackCreate(GetMethod(implObj, "open"), flags, 6)
-        this.vtbl.get_self := CallbackCreate(GetMethod(implObj, "get_self"), flags, 2)
-        this.vtbl.get_top := CallbackCreate(GetMethod(implObj, "get_top"), flags, 2)
-        this.vtbl.get_window := CallbackCreate(GetMethod(implObj, "get_window"), flags, 2)
-        this.vtbl.navigate := CallbackCreate(GetMethod(implObj, "navigate"), flags, 2)
-        this.vtbl.put_onfocus := CallbackCreate(GetMethod(implObj, "put_onfocus"), flags, 2)
-        this.vtbl.get_onfocus := CallbackCreate(GetMethod(implObj, "get_onfocus"), flags, 2)
-        this.vtbl.put_onblur := CallbackCreate(GetMethod(implObj, "put_onblur"), flags, 2)
-        this.vtbl.get_onblur := CallbackCreate(GetMethod(implObj, "get_onblur"), flags, 2)
-        this.vtbl.put_onload := CallbackCreate(GetMethod(implObj, "put_onload"), flags, 2)
-        this.vtbl.get_onload := CallbackCreate(GetMethod(implObj, "get_onload"), flags, 2)
-        this.vtbl.put_onbeforeunload := CallbackCreate(GetMethod(implObj, "put_onbeforeunload"), flags, 2)
-        this.vtbl.get_onbeforeunload := CallbackCreate(GetMethod(implObj, "get_onbeforeunload"), flags, 2)
-        this.vtbl.put_onunload := CallbackCreate(GetMethod(implObj, "put_onunload"), flags, 2)
-        this.vtbl.get_onunload := CallbackCreate(GetMethod(implObj, "get_onunload"), flags, 2)
-        this.vtbl.put_onhelp := CallbackCreate(GetMethod(implObj, "put_onhelp"), flags, 2)
-        this.vtbl.get_onhelp := CallbackCreate(GetMethod(implObj, "get_onhelp"), flags, 2)
-        this.vtbl.put_onerror := CallbackCreate(GetMethod(implObj, "put_onerror"), flags, 2)
-        this.vtbl.get_onerror := CallbackCreate(GetMethod(implObj, "get_onerror"), flags, 2)
-        this.vtbl.put_onresize := CallbackCreate(GetMethod(implObj, "put_onresize"), flags, 2)
-        this.vtbl.get_onresize := CallbackCreate(GetMethod(implObj, "get_onresize"), flags, 2)
-        this.vtbl.put_onscroll := CallbackCreate(GetMethod(implObj, "put_onscroll"), flags, 2)
-        this.vtbl.get_onscroll := CallbackCreate(GetMethod(implObj, "get_onscroll"), flags, 2)
-        this.vtbl.get_document := CallbackCreate(GetMethod(implObj, "get_document"), flags, 2)
-        this.vtbl.get_event := CallbackCreate(GetMethod(implObj, "get_event"), flags, 2)
-        this.vtbl.get__newEnum := CallbackCreate(GetMethod(implObj, "get__newEnum"), flags, 2)
-        this.vtbl.showModalDialog := CallbackCreate(GetMethod(implObj, "showModalDialog"), flags, 5)
-        this.vtbl.showHelp := CallbackCreate(GetMethod(implObj, "showHelp"), flags, 4)
-        this.vtbl.get_screen := CallbackCreate(GetMethod(implObj, "get_screen"), flags, 2)
-        this.vtbl.get_Option := CallbackCreate(GetMethod(implObj, "get_Option"), flags, 2)
-        this.vtbl.focus := CallbackCreate(GetMethod(implObj, "focus"), flags, 1)
-        this.vtbl.get_closed := CallbackCreate(GetMethod(implObj, "get_closed"), flags, 2)
-        this.vtbl.blur := CallbackCreate(GetMethod(implObj, "blur"), flags, 1)
-        this.vtbl.scroll := CallbackCreate(GetMethod(implObj, "scroll"), flags, 3)
-        this.vtbl.get_clientInformation := CallbackCreate(GetMethod(implObj, "get_clientInformation"), flags, 2)
-        this.vtbl.setInterval := CallbackCreate(GetMethod(implObj, "setInterval"), flags, 5)
-        this.vtbl.clearInterval := CallbackCreate(GetMethod(implObj, "clearInterval"), flags, 2)
-        this.vtbl.put_offscreenBuffering := CallbackCreate(GetMethod(implObj, "put_offscreenBuffering"), flags, 2)
-        this.vtbl.get_offscreenBuffering := CallbackCreate(GetMethod(implObj, "get_offscreenBuffering"), flags, 2)
-        this.vtbl.execScript := CallbackCreate(GetMethod(implObj, "execScript"), flags, 4)
-        this.vtbl.toString := CallbackCreate(GetMethod(implObj, "toString"), flags, 2)
-        this.vtbl.scrollBy := CallbackCreate(GetMethod(implObj, "scrollBy"), flags, 3)
-        this.vtbl.scrollTo := CallbackCreate(GetMethod(implObj, "scrollTo"), flags, 3)
-        this.vtbl.moveTo := CallbackCreate(GetMethod(implObj, "moveTo"), flags, 3)
-        this.vtbl.moveBy := CallbackCreate(GetMethod(implObj, "moveBy"), flags, 3)
-        this.vtbl.resizeTo := CallbackCreate(GetMethod(implObj, "resizeTo"), flags, 3)
-        this.vtbl.resizeBy := CallbackCreate(GetMethod(implObj, "resizeBy"), flags, 3)
-        this.vtbl.get_external := CallbackCreate(GetMethod(implObj, "get_external"), flags, 2)
+        this.vtbl.get_frames := CallbackCreate(ObjBindMethod(implObj, "get_frames"), flags, 2)
+        this.vtbl.put_defaultStatus := CallbackCreate(ObjBindMethod(implObj, "put_defaultStatus"), flags, 2)
+        this.vtbl.get_defaultStatus := CallbackCreate(ObjBindMethod(implObj, "get_defaultStatus"), flags, 2)
+        this.vtbl.put_status := CallbackCreate(ObjBindMethod(implObj, "put_status"), flags, 2)
+        this.vtbl.get_status := CallbackCreate(ObjBindMethod(implObj, "get_status"), flags, 2)
+        this.vtbl.setTimeout := CallbackCreate(ObjBindMethod(implObj, "setTimeout"), flags, 5)
+        this.vtbl.clearTimeout := CallbackCreate(ObjBindMethod(implObj, "clearTimeout"), flags, 2)
+        this.vtbl.alert := CallbackCreate(ObjBindMethod(implObj, "alert"), flags, 2)
+        this.vtbl.confirm := CallbackCreate(ObjBindMethod(implObj, "confirm"), flags, 3)
+        this.vtbl.prompt := CallbackCreate(ObjBindMethod(implObj, "prompt"), flags, 4)
+        this.vtbl.get_Image := CallbackCreate(ObjBindMethod(implObj, "get_Image"), flags, 2)
+        this.vtbl.get_location := CallbackCreate(ObjBindMethod(implObj, "get_location"), flags, 2)
+        this.vtbl.get_history := CallbackCreate(ObjBindMethod(implObj, "get_history"), flags, 2)
+        this.vtbl.close := CallbackCreate(ObjBindMethod(implObj, "close"), flags, 1)
+        this.vtbl.put_opener := CallbackCreate(ObjBindMethod(implObj, "put_opener"), flags, 2)
+        this.vtbl.get_opener := CallbackCreate(ObjBindMethod(implObj, "get_opener"), flags, 2)
+        this.vtbl.get_navigator := CallbackCreate(ObjBindMethod(implObj, "get_navigator"), flags, 2)
+        this.vtbl.put_name := CallbackCreate(ObjBindMethod(implObj, "put_name"), flags, 2)
+        this.vtbl.get_name := CallbackCreate(ObjBindMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.get_parent := CallbackCreate(ObjBindMethod(implObj, "get_parent"), flags, 2)
+        this.vtbl.open := CallbackCreate(ObjBindMethod(implObj, "open"), flags, 6)
+        this.vtbl.get_self := CallbackCreate(ObjBindMethod(implObj, "get_self"), flags, 2)
+        this.vtbl.get_top := CallbackCreate(ObjBindMethod(implObj, "get_top"), flags, 2)
+        this.vtbl.get_window := CallbackCreate(ObjBindMethod(implObj, "get_window"), flags, 2)
+        this.vtbl.navigate := CallbackCreate(ObjBindMethod(implObj, "navigate"), flags, 2)
+        this.vtbl.put_onfocus := CallbackCreate(ObjBindMethod(implObj, "put_onfocus"), flags, 2)
+        this.vtbl.get_onfocus := CallbackCreate(ObjBindMethod(implObj, "get_onfocus"), flags, 2)
+        this.vtbl.put_onblur := CallbackCreate(ObjBindMethod(implObj, "put_onblur"), flags, 2)
+        this.vtbl.get_onblur := CallbackCreate(ObjBindMethod(implObj, "get_onblur"), flags, 2)
+        this.vtbl.put_onload := CallbackCreate(ObjBindMethod(implObj, "put_onload"), flags, 2)
+        this.vtbl.get_onload := CallbackCreate(ObjBindMethod(implObj, "get_onload"), flags, 2)
+        this.vtbl.put_onbeforeunload := CallbackCreate(ObjBindMethod(implObj, "put_onbeforeunload"), flags, 2)
+        this.vtbl.get_onbeforeunload := CallbackCreate(ObjBindMethod(implObj, "get_onbeforeunload"), flags, 2)
+        this.vtbl.put_onunload := CallbackCreate(ObjBindMethod(implObj, "put_onunload"), flags, 2)
+        this.vtbl.get_onunload := CallbackCreate(ObjBindMethod(implObj, "get_onunload"), flags, 2)
+        this.vtbl.put_onhelp := CallbackCreate(ObjBindMethod(implObj, "put_onhelp"), flags, 2)
+        this.vtbl.get_onhelp := CallbackCreate(ObjBindMethod(implObj, "get_onhelp"), flags, 2)
+        this.vtbl.put_onerror := CallbackCreate(ObjBindMethod(implObj, "put_onerror"), flags, 2)
+        this.vtbl.get_onerror := CallbackCreate(ObjBindMethod(implObj, "get_onerror"), flags, 2)
+        this.vtbl.put_onresize := CallbackCreate(ObjBindMethod(implObj, "put_onresize"), flags, 2)
+        this.vtbl.get_onresize := CallbackCreate(ObjBindMethod(implObj, "get_onresize"), flags, 2)
+        this.vtbl.put_onscroll := CallbackCreate(ObjBindMethod(implObj, "put_onscroll"), flags, 2)
+        this.vtbl.get_onscroll := CallbackCreate(ObjBindMethod(implObj, "get_onscroll"), flags, 2)
+        this.vtbl.get_document := CallbackCreate(ObjBindMethod(implObj, "get_document"), flags, 2)
+        this.vtbl.get_event := CallbackCreate(ObjBindMethod(implObj, "get_event"), flags, 2)
+        this.vtbl.get__newEnum := CallbackCreate(ObjBindMethod(implObj, "get__newEnum"), flags, 2)
+        this.vtbl.showModalDialog := CallbackCreate(ObjBindMethod(implObj, "showModalDialog"), flags, 5)
+        this.vtbl.showHelp := CallbackCreate(ObjBindMethod(implObj, "showHelp"), flags, 4)
+        this.vtbl.get_screen := CallbackCreate(ObjBindMethod(implObj, "get_screen"), flags, 2)
+        this.vtbl.get_Option := CallbackCreate(ObjBindMethod(implObj, "get_Option"), flags, 2)
+        this.vtbl.focus := CallbackCreate(ObjBindMethod(implObj, "focus"), flags, 1)
+        this.vtbl.get_closed := CallbackCreate(ObjBindMethod(implObj, "get_closed"), flags, 2)
+        this.vtbl.blur := CallbackCreate(ObjBindMethod(implObj, "blur"), flags, 1)
+        this.vtbl.scroll := CallbackCreate(ObjBindMethod(implObj, "scroll"), flags, 3)
+        this.vtbl.get_clientInformation := CallbackCreate(ObjBindMethod(implObj, "get_clientInformation"), flags, 2)
+        this.vtbl.setInterval := CallbackCreate(ObjBindMethod(implObj, "setInterval"), flags, 5)
+        this.vtbl.clearInterval := CallbackCreate(ObjBindMethod(implObj, "clearInterval"), flags, 2)
+        this.vtbl.put_offscreenBuffering := CallbackCreate(ObjBindMethod(implObj, "put_offscreenBuffering"), flags, 2)
+        this.vtbl.get_offscreenBuffering := CallbackCreate(ObjBindMethod(implObj, "get_offscreenBuffering"), flags, 2)
+        this.vtbl.execScript := CallbackCreate(ObjBindMethod(implObj, "execScript"), flags, 4)
+        this.vtbl.toString := CallbackCreate(ObjBindMethod(implObj, "toString"), flags, 2)
+        this.vtbl.scrollBy := CallbackCreate(ObjBindMethod(implObj, "scrollBy"), flags, 3)
+        this.vtbl.scrollTo := CallbackCreate(ObjBindMethod(implObj, "scrollTo"), flags, 3)
+        this.vtbl.moveTo := CallbackCreate(ObjBindMethod(implObj, "moveTo"), flags, 3)
+        this.vtbl.moveBy := CallbackCreate(ObjBindMethod(implObj, "moveBy"), flags, 3)
+        this.vtbl.resizeTo := CallbackCreate(ObjBindMethod(implObj, "resizeTo"), flags, 3)
+        this.vtbl.resizeBy := CallbackCreate(ObjBindMethod(implObj, "resizeBy"), flags, 3)
+        this.vtbl.get_external := CallbackCreate(ObjBindMethod(implObj, "get_external"), flags, 2)
     }
 
     Dispose() {

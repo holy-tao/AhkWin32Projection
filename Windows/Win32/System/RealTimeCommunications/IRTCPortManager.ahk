@@ -40,7 +40,6 @@ export default struct IRTCPortManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrRemoteAddress 
      * @param {RTC_PORT_TYPE} enPortType 
      * @param {Pointer<BSTR>} pbstrInternalLocalAddress 
@@ -52,15 +51,14 @@ export default struct IRTCPortManager extends IUnknown {
     GetMapping(bstrRemoteAddress, enPortType, pbstrInternalLocalAddress, plInternalLocalPort, pbstrExternalLocalAddress, plExternalLocalPort) {
         bstrRemoteAddress := bstrRemoteAddress is String ? BSTR.Alloc(bstrRemoteAddress).Value : bstrRemoteAddress
 
-        plInternalLocalPortMarshal := plInternalLocalPort is VarRef ? "int*" : "ptr"
-        plExternalLocalPortMarshal := plExternalLocalPort is VarRef ? "int*" : "ptr"
+        plInternalLocalPortMarshal := plInternalLocalPort is VarRef ? "int*" : IntPtr
+        plExternalLocalPortMarshal := plExternalLocalPort is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, BSTR, bstrRemoteAddress, RTC_PORT_TYPE, enPortType, BSTR.Ptr, pbstrInternalLocalAddress, plInternalLocalPortMarshal, plInternalLocalPort, BSTR.Ptr, pbstrExternalLocalAddress, plExternalLocalPortMarshal, plExternalLocalPort, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {BSTR} bstrRemoteAddress 
      * @param {BSTR} bstrInternalLocalAddress 
      * @param {Integer} lInternalLocalPort 
@@ -78,7 +76,6 @@ export default struct IRTCPortManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrInternalLocalAddress 
      * @param {Integer} lInternalLocalPort 
      * @param {BSTR} bstrExternalLocalAddress 
@@ -102,9 +99,9 @@ export default struct IRTCPortManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMapping := CallbackCreate(GetMethod(implObj, "GetMapping"), flags, 7)
-        this.vtbl.UpdateRemoteAddress := CallbackCreate(GetMethod(implObj, "UpdateRemoteAddress"), flags, 6)
-        this.vtbl.ReleaseMapping := CallbackCreate(GetMethod(implObj, "ReleaseMapping"), flags, 5)
+        this.vtbl.GetMapping := CallbackCreate(ObjBindMethod(implObj, "GetMapping"), flags, 7)
+        this.vtbl.UpdateRemoteAddress := CallbackCreate(ObjBindMethod(implObj, "UpdateRemoteAddress"), flags, 6)
+        this.vtbl.ReleaseMapping := CallbackCreate(ObjBindMethod(implObj, "ReleaseMapping"), flags, 5)
     }
 
     Dispose() {

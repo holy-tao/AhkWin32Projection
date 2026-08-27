@@ -24,7 +24,6 @@ export default struct LPNSPINSTALLSERVICECLASS {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} lpProviderId A pointer to the GUID of the specific namespace provider that this service class schema is registered in.
      * @param {Pointer<WSASERVICECLASSINFOW>} lpServiceClassInfo A pointer to the service class schema information.
      * @returns {Integer} The function should return **NO_ERROR** (zero) if the routine succeeds. It should return **SOCKET_ERROR** (–1) if the routine fails and it must set the appropriate error code using 

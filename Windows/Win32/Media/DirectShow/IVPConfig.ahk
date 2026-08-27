@@ -53,7 +53,7 @@ export default struct IVPConfig extends IVPBaseConfig {
      * @see https://learn.microsoft.com/windows/win32/api/vpconfig/nf-vpconfig-ivpconfig-isvpdecimationallowed
      */
     IsVPDecimationAllowed(pbIsDecimationAllowed) {
-        pbIsDecimationAllowedMarshal := pbIsDecimationAllowed is VarRef ? "int*" : "ptr"
+        pbIsDecimationAllowedMarshal := pbIsDecimationAllowed is VarRef ? "int*" : IntPtr
 
         result := ComCall(16, this, pbIsDecimationAllowedMarshal, pbIsDecimationAllowed, "HRESULT")
         return result
@@ -83,8 +83,8 @@ export default struct IVPConfig extends IVPBaseConfig {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsVPDecimationAllowed := CallbackCreate(GetMethod(implObj, "IsVPDecimationAllowed"), flags, 2)
-        this.vtbl.SetScalingFactors := CallbackCreate(GetMethod(implObj, "SetScalingFactors"), flags, 2)
+        this.vtbl.IsVPDecimationAllowed := CallbackCreate(ObjBindMethod(implObj, "IsVPDecimationAllowed"), flags, 2)
+        this.vtbl.SetScalingFactors := CallbackCreate(ObjBindMethod(implObj, "SetScalingFactors"), flags, 2)
     }
 
     Dispose() {

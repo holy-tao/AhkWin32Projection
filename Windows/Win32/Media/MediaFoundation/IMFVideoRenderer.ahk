@@ -133,7 +133,10 @@ export default struct IMFVideoRenderer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideorenderer-initializerenderer
      */
     InitializeRenderer(pVideoMixer, pVideoPresenter) {
-        result := ComCall(3, this, "ptr", pVideoMixer, "ptr", pVideoPresenter, "HRESULT")
+        pVideoMixerMarshal := pVideoMixer == 0 ? IntPtr : "ptr"
+        pVideoPresenterMarshal := pVideoPresenter == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pVideoMixerMarshal, pVideoMixer, pVideoPresenterMarshal, pVideoPresenter, "HRESULT")
         return result
     }
 
@@ -146,7 +149,7 @@ export default struct IMFVideoRenderer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeRenderer := CallbackCreate(GetMethod(implObj, "InitializeRenderer"), flags, 3)
+        this.vtbl.InitializeRenderer := CallbackCreate(ObjBindMethod(implObj, "InitializeRenderer"), flags, 3)
     }
 
     Dispose() {

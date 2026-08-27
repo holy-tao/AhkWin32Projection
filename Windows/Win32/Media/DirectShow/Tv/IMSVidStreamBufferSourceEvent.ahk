@@ -156,15 +156,15 @@ export default struct IMSVidStreamBufferSourceEvent extends IMSVidFilePlaybackEv
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CertificateFailure := CallbackCreate(GetMethod(implObj, "CertificateFailure"), flags, 1)
-        this.vtbl.CertificateSuccess := CallbackCreate(GetMethod(implObj, "CertificateSuccess"), flags, 1)
-        this.vtbl.RatingsBlocked := CallbackCreate(GetMethod(implObj, "RatingsBlocked"), flags, 1)
-        this.vtbl.RatingsUnblocked := CallbackCreate(GetMethod(implObj, "RatingsUnblocked"), flags, 1)
-        this.vtbl.RatingsChanged := CallbackCreate(GetMethod(implObj, "RatingsChanged"), flags, 1)
-        this.vtbl.TimeHole := CallbackCreate(GetMethod(implObj, "TimeHole"), flags, 3)
-        this.vtbl.StaleDataRead := CallbackCreate(GetMethod(implObj, "StaleDataRead"), flags, 1)
-        this.vtbl.ContentBecomingStale := CallbackCreate(GetMethod(implObj, "ContentBecomingStale"), flags, 1)
-        this.vtbl.StaleFileDeleted := CallbackCreate(GetMethod(implObj, "StaleFileDeleted"), flags, 1)
+        this.vtbl.CertificateFailure := CallbackCreate(ObjBindMethod(implObj, "CertificateFailure"), flags, 1)
+        this.vtbl.CertificateSuccess := CallbackCreate(ObjBindMethod(implObj, "CertificateSuccess"), flags, 1)
+        this.vtbl.RatingsBlocked := CallbackCreate(ObjBindMethod(implObj, "RatingsBlocked"), flags, 1)
+        this.vtbl.RatingsUnblocked := CallbackCreate(ObjBindMethod(implObj, "RatingsUnblocked"), flags, 1)
+        this.vtbl.RatingsChanged := CallbackCreate(ObjBindMethod(implObj, "RatingsChanged"), flags, 1)
+        this.vtbl.TimeHole := CallbackCreate(ObjBindMethod(implObj, "TimeHole"), flags, 3)
+        this.vtbl.StaleDataRead := CallbackCreate(ObjBindMethod(implObj, "StaleDataRead"), flags, 1)
+        this.vtbl.ContentBecomingStale := CallbackCreate(ObjBindMethod(implObj, "ContentBecomingStale"), flags, 1)
+        this.vtbl.StaleFileDeleted := CallbackCreate(ObjBindMethod(implObj, "StaleFileDeleted"), flags, 1)
     }
 
     Dispose() {

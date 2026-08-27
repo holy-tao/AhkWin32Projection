@@ -56,10 +56,12 @@ export SwDeviceCreate(pszEnumeratorName, pszParentDeviceInstance, pCreateInfo, c
     pszEnumeratorName := pszEnumeratorName is String ? StrPtr(pszEnumeratorName) : pszEnumeratorName
     pszParentDeviceInstance := pszParentDeviceInstance is String ? StrPtr(pszParentDeviceInstance) : pszParentDeviceInstance
 
-    pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+    pPropertiesMarshal := pProperties == 0 ? IntPtr : DEVPROPERTY.Ptr
+    pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
+    pContextMarshal := pContext == 0 ? IntPtr : "ptr"
 
     phSwDevice := HSWDEVICE.Owned()
-    result := DllCall("CFGMGR32.dll\SwDeviceCreate", "ptr", pszEnumeratorName, "ptr", pszParentDeviceInstance, SW_DEVICE_CREATE_INFO.Ptr, pCreateInfo, UInt32, cPropertyCount, DEVPROPERTY.Ptr, pProperties, SW_DEVICE_CREATE_CALLBACK, pCallback, pContextMarshal, pContext, HSWDEVICE.Ptr, phSwDevice, "HRESULT")
+    result := DllCall("CFGMGR32.dll\SwDeviceCreate", "ptr", pszEnumeratorName, "ptr", pszParentDeviceInstance, SW_DEVICE_CREATE_INFO.Ptr, pCreateInfo, UInt32, cPropertyCount, pPropertiesMarshal, pProperties, SW_DEVICE_CREATE_CALLBACK, pCallback, pContextMarshal, pContext, HSWDEVICE.Ptr, phSwDevice, "HRESULT")
     return phSwDevice
 }
 
@@ -218,7 +220,10 @@ export SwDevicePropertySet(_hSwDevice, cPropertyCount, pProperties) {
 export SwDeviceInterfaceRegister(_hSwDevice, pInterfaceClassGuid, pszReferenceString, cPropertyCount, pProperties, fEnabled) {
     pszReferenceString := pszReferenceString is String ? StrPtr(pszReferenceString) : pszReferenceString
 
-    result := DllCall("CFGMGR32.dll\SwDeviceInterfaceRegister", HSWDEVICE, _hSwDevice, Guid.Ptr, pInterfaceClassGuid, "ptr", pszReferenceString, UInt32, cPropertyCount, DEVPROPERTY.Ptr, pProperties, BOOL, fEnabled, PWSTR.Ptr, &ppszDeviceInterfaceId := 0, "HRESULT")
+    pszReferenceStringMarshal := pszReferenceString == 0 ? IntPtr : PWSTR
+    pPropertiesMarshal := pProperties == 0 ? IntPtr : DEVPROPERTY.Ptr
+
+    result := DllCall("CFGMGR32.dll\SwDeviceInterfaceRegister", HSWDEVICE, _hSwDevice, Guid.Ptr, pInterfaceClassGuid, pszReferenceStringMarshal, pszReferenceString, UInt32, cPropertyCount, pPropertiesMarshal, pProperties, BOOL, fEnabled, PWSTR.Ptr, &ppszDeviceInterfaceId := 0, "HRESULT")
     return ppszDeviceInterfaceId
 }
 
@@ -230,7 +235,7 @@ export SwDeviceInterfaceRegister(_hSwDevice, pInterfaceClassGuid, pszReferenceSt
  * @since windows8.0
  */
 export SwMemFree(pMem) {
-    pMemMarshal := pMem is VarRef ? "ptr" : "ptr"
+    pMemMarshal := pMem is VarRef ? "ptr" : IntPtr
 
     DllCall("CFGMGR32.dll\SwMemFree", pMemMarshal, pMem)
 }

@@ -20,7 +20,6 @@ export default struct PFND3DKMT_OUTPUTDUPLGETFRAMEINFO {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_OUTPUTDUPL_GET_FRAMEINFO>} param0 
      * @returns {NTSTATUS} 
      */

@@ -19,15 +19,15 @@ export default struct D3COLD_REQUEST_AUX_POWER {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Integer} AuxPowerInMilliWatts 
      * @param {Pointer<Integer>} RetryInSeconds 
      * @returns {NTSTATUS} 
      */
     Call(_Context, AuxPowerInMilliWatts, RetryInSeconds) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        RetryInSecondsMarshal := RetryInSeconds is VarRef ? "uint*" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
+        RetryInSecondsMarshal := RetryInSeconds is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, UInt32, AuxPowerInMilliWatts, RetryInSecondsMarshal, RetryInSeconds, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

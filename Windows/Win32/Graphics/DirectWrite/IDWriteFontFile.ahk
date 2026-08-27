@@ -57,8 +57,8 @@ export default struct IDWriteFontFile extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontfile-getreferencekey
      */
     GetReferenceKey(fontFileReferenceKey, fontFileReferenceKeySize) {
-        fontFileReferenceKeyMarshal := fontFileReferenceKey is VarRef ? "ptr*" : "ptr"
-        fontFileReferenceKeySizeMarshal := fontFileReferenceKeySize is VarRef ? "uint*" : "ptr"
+        fontFileReferenceKeyMarshal := fontFileReferenceKey is VarRef ? "ptr*" : IntPtr
+        fontFileReferenceKeySizeMarshal := fontFileReferenceKeySize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, fontFileReferenceKeyMarshal, fontFileReferenceKey, fontFileReferenceKeySizeMarshal, fontFileReferenceKeySize, "HRESULT")
         return result
@@ -104,10 +104,11 @@ export default struct IDWriteFontFile extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontfile-analyze
      */
     Analyze(isSupportedFontType, fontFileType, fontFaceType, numberOfFaces) {
-        isSupportedFontTypeMarshal := isSupportedFontType is VarRef ? "int*" : "ptr"
-        fontFileTypeMarshal := fontFileType is VarRef ? "int*" : "ptr"
-        fontFaceTypeMarshal := fontFaceType is VarRef ? "int*" : "ptr"
-        numberOfFacesMarshal := numberOfFaces is VarRef ? "uint*" : "ptr"
+        isSupportedFontTypeMarshal := isSupportedFontType is VarRef ? "int*" : IntPtr
+        fontFileTypeMarshal := fontFileType is VarRef ? "int*" : IntPtr
+        fontFaceTypeMarshal := fontFaceType is VarRef ? "int*" : IntPtr
+        fontFaceTypeMarshal := fontFaceType == 0 ? IntPtr : "int*"
+        numberOfFacesMarshal := numberOfFaces is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, isSupportedFontTypeMarshal, isSupportedFontType, fontFileTypeMarshal, fontFileType, fontFaceTypeMarshal, fontFaceType, numberOfFacesMarshal, numberOfFaces, "HRESULT")
         return result
@@ -122,9 +123,9 @@ export default struct IDWriteFontFile extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetReferenceKey := CallbackCreate(GetMethod(implObj, "GetReferenceKey"), flags, 3)
-        this.vtbl.GetLoader := CallbackCreate(GetMethod(implObj, "GetLoader"), flags, 2)
-        this.vtbl.Analyze := CallbackCreate(GetMethod(implObj, "Analyze"), flags, 5)
+        this.vtbl.GetReferenceKey := CallbackCreate(ObjBindMethod(implObj, "GetReferenceKey"), flags, 3)
+        this.vtbl.GetLoader := CallbackCreate(ObjBindMethod(implObj, "GetLoader"), flags, 2)
+        this.vtbl.Analyze := CallbackCreate(ObjBindMethod(implObj, "Analyze"), flags, 5)
     }
 
     Dispose() {

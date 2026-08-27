@@ -22,7 +22,6 @@ export default struct UnregisterAuthoringClientFunctionType {
     }
 
     /**
-     * 
      * @param {IWebApplicationHost} host Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/webapplication/nn-webapplication-iwebapplicationhost">IWebApplicationHost</a>*</b>
      * 
      * An object that provides a path to the authoring binary.

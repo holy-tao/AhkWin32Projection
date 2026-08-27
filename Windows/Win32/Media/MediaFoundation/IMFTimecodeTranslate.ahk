@@ -248,10 +248,10 @@ export default struct IMFTimecodeTranslate extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BeginConvertTimecodeToHNS := CallbackCreate(GetMethod(implObj, "BeginConvertTimecodeToHNS"), flags, 4)
-        this.vtbl.EndConvertTimecodeToHNS := CallbackCreate(GetMethod(implObj, "EndConvertTimecodeToHNS"), flags, 3)
-        this.vtbl.BeginConvertHNSToTimecode := CallbackCreate(GetMethod(implObj, "BeginConvertHNSToTimecode"), flags, 4)
-        this.vtbl.EndConvertHNSToTimecode := CallbackCreate(GetMethod(implObj, "EndConvertHNSToTimecode"), flags, 3)
+        this.vtbl.BeginConvertTimecodeToHNS := CallbackCreate(ObjBindMethod(implObj, "BeginConvertTimecodeToHNS"), flags, 4)
+        this.vtbl.EndConvertTimecodeToHNS := CallbackCreate(ObjBindMethod(implObj, "EndConvertTimecodeToHNS"), flags, 3)
+        this.vtbl.BeginConvertHNSToTimecode := CallbackCreate(ObjBindMethod(implObj, "BeginConvertHNSToTimecode"), flags, 4)
+        this.vtbl.EndConvertHNSToTimecode := CallbackCreate(ObjBindMethod(implObj, "EndConvertHNSToTimecode"), flags, 3)
     }
 
     Dispose() {

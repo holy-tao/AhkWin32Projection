@@ -20,7 +20,6 @@ export default struct pKdReleasePciDeviceForDebugging {
     }
 
     /**
-     * 
      * @param {Pointer<DEBUG_DEVICE_DESCRIPTOR>} PciDevice 
      * @returns {NTSTATUS} 
      */

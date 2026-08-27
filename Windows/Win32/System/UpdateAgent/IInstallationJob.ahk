@@ -144,12 +144,12 @@ export default struct IInstallationJob extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_AsyncState := CallbackCreate(GetMethod(implObj, "get_AsyncState"), flags, 2)
-        this.vtbl.get_IsCompleted := CallbackCreate(GetMethod(implObj, "get_IsCompleted"), flags, 2)
-        this.vtbl.get_Updates := CallbackCreate(GetMethod(implObj, "get_Updates"), flags, 2)
-        this.vtbl.CleanUp := CallbackCreate(GetMethod(implObj, "CleanUp"), flags, 1)
-        this.vtbl.GetProgress := CallbackCreate(GetMethod(implObj, "GetProgress"), flags, 2)
-        this.vtbl.RequestAbort := CallbackCreate(GetMethod(implObj, "RequestAbort"), flags, 1)
+        this.vtbl.get_AsyncState := CallbackCreate(ObjBindMethod(implObj, "get_AsyncState"), flags, 2)
+        this.vtbl.get_IsCompleted := CallbackCreate(ObjBindMethod(implObj, "get_IsCompleted"), flags, 2)
+        this.vtbl.get_Updates := CallbackCreate(ObjBindMethod(implObj, "get_Updates"), flags, 2)
+        this.vtbl.CleanUp := CallbackCreate(ObjBindMethod(implObj, "CleanUp"), flags, 1)
+        this.vtbl.GetProgress := CallbackCreate(ObjBindMethod(implObj, "GetProgress"), flags, 2)
+        this.vtbl.RequestAbort := CallbackCreate(ObjBindMethod(implObj, "RequestAbort"), flags, 1)
     }
 
     Dispose() {

@@ -107,7 +107,9 @@ export default struct IDWriteRemoteFontFileLoader extends IDWriteFontFileLoader 
         baseUrl := baseUrl is String ? StrPtr(baseUrl) : baseUrl
         fontFileUrl := fontFileUrl is String ? StrPtr(fontFileUrl) : fontFileUrl
 
-        result := ComCall(6, this, "ptr", factory, "ptr", baseUrl, "ptr", fontFileUrl, "ptr*", &fontFile := 0, "HRESULT")
+        baseUrlMarshal := baseUrl == 0 ? IntPtr : PWSTR
+
+        result := ComCall(6, this, "ptr", factory, baseUrlMarshal, baseUrl, "ptr", fontFileUrl, "ptr*", &fontFile := 0, "HRESULT")
         return IDWriteFontFile(fontFile)
     }
 
@@ -120,9 +122,9 @@ export default struct IDWriteRemoteFontFileLoader extends IDWriteFontFileLoader 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateRemoteStreamFromKey := CallbackCreate(GetMethod(implObj, "CreateRemoteStreamFromKey"), flags, 4)
-        this.vtbl.GetLocalityFromKey := CallbackCreate(GetMethod(implObj, "GetLocalityFromKey"), flags, 4)
-        this.vtbl.CreateFontFileReferenceFromUrl := CallbackCreate(GetMethod(implObj, "CreateFontFileReferenceFromUrl"), flags, 5)
+        this.vtbl.CreateRemoteStreamFromKey := CallbackCreate(ObjBindMethod(implObj, "CreateRemoteStreamFromKey"), flags, 4)
+        this.vtbl.GetLocalityFromKey := CallbackCreate(ObjBindMethod(implObj, "GetLocalityFromKey"), flags, 4)
+        this.vtbl.CreateFontFileReferenceFromUrl := CallbackCreate(ObjBindMethod(implObj, "CreateFontFileReferenceFromUrl"), flags, 5)
     }
 
     Dispose() {

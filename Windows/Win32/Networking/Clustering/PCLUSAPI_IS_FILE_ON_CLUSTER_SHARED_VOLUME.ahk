@@ -20,7 +20,6 @@ export default struct PCLUSAPI_IS_FILE_ON_CLUSTER_SHARED_VOLUME {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszPathName 
      * @param {Pointer<BOOL>} pbFileIsOnSharedVolume 
      * @returns {Integer} 
@@ -28,7 +27,7 @@ export default struct PCLUSAPI_IS_FILE_ON_CLUSTER_SHARED_VOLUME {
     Call(lpszPathName, pbFileIsOnSharedVolume) {
         lpszPathName := lpszPathName is String ? StrPtr(lpszPathName) : lpszPathName
 
-        pbFileIsOnSharedVolumeMarshal := pbFileIsOnSharedVolume is VarRef ? "int*" : "ptr"
+        pbFileIsOnSharedVolumeMarshal := pbFileIsOnSharedVolume is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, "ptr", lpszPathName, pbFileIsOnSharedVolumeMarshal, pbFileIsOnSharedVolume, UInt32)
         return result

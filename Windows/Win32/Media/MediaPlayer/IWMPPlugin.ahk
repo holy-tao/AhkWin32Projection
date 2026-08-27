@@ -92,7 +92,7 @@ export default struct IWMPPlugin extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nf-wmpservices-iwmpplugin-getcaps
      */
     GetCaps(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
@@ -132,12 +132,12 @@ export default struct IWMPPlugin extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 2)
-        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 1)
-        this.vtbl.GetID := CallbackCreate(GetMethod(implObj, "GetID"), flags, 2)
-        this.vtbl.GetCaps := CallbackCreate(GetMethod(implObj, "GetCaps"), flags, 2)
-        this.vtbl.AdviseWMPServices := CallbackCreate(GetMethod(implObj, "AdviseWMPServices"), flags, 2)
-        this.vtbl.UnAdviseWMPServices := CallbackCreate(GetMethod(implObj, "UnAdviseWMPServices"), flags, 1)
+        this.vtbl.Init := CallbackCreate(ObjBindMethod(implObj, "Init"), flags, 2)
+        this.vtbl.Shutdown := CallbackCreate(ObjBindMethod(implObj, "Shutdown"), flags, 1)
+        this.vtbl.GetID := CallbackCreate(ObjBindMethod(implObj, "GetID"), flags, 2)
+        this.vtbl.GetCaps := CallbackCreate(ObjBindMethod(implObj, "GetCaps"), flags, 2)
+        this.vtbl.AdviseWMPServices := CallbackCreate(ObjBindMethod(implObj, "AdviseWMPServices"), flags, 2)
+        this.vtbl.UnAdviseWMPServices := CallbackCreate(ObjBindMethod(implObj, "UnAdviseWMPServices"), flags, 1)
     }
 
     Dispose() {

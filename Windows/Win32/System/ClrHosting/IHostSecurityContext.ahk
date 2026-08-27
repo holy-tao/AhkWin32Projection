@@ -56,7 +56,7 @@ export default struct IHostSecurityContext extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Capture := CallbackCreate(GetMethod(implObj, "Capture"), flags, 2)
+        this.vtbl.Capture := CallbackCreate(ObjBindMethod(implObj, "Capture"), flags, 2)
     }
 
     Dispose() {

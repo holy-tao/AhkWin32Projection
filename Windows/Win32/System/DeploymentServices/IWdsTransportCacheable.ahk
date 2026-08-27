@@ -113,10 +113,10 @@ export default struct IWdsTransportCacheable extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Dirty := CallbackCreate(GetMethod(implObj, "get_Dirty"), flags, 2)
-        this.vtbl.Discard := CallbackCreate(GetMethod(implObj, "Discard"), flags, 1)
-        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
-        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 1)
+        this.vtbl.get_Dirty := CallbackCreate(ObjBindMethod(implObj, "get_Dirty"), flags, 2)
+        this.vtbl.Discard := CallbackCreate(ObjBindMethod(implObj, "Discard"), flags, 1)
+        this.vtbl.Refresh := CallbackCreate(ObjBindMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.Commit := CallbackCreate(ObjBindMethod(implObj, "Commit"), flags, 1)
     }
 
     Dispose() {

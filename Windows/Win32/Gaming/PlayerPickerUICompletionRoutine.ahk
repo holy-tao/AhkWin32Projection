@@ -22,7 +22,6 @@ export default struct PlayerPickerUICompletionRoutine {
     }
 
     /**
-     * 
      * @param {HRESULT} returnCode Type: <b>HRESULT</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
@@ -38,7 +37,7 @@ export default struct PlayerPickerUICompletionRoutine {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(returnCode, _context, selectedXuids, selectedXuidsCount) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, "int", returnCode, _contextMarshal, _context, HSTRING.Ptr, selectedXuids, IntPtr, selectedXuidsCount)
     }

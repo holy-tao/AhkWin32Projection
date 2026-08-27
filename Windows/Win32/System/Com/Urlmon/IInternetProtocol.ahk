@@ -39,20 +39,18 @@ export default struct IInternetProtocol extends IInternetProtocolRoot {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pv 
      * @param {Integer} cb 
      * @returns {Integer} 
      */
     Read(pv, cb) {
-        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+        pvMarshal := pv is VarRef ? "ptr" : IntPtr
 
         result := ComCall(9, this, pvMarshal, pv, UInt32, cb, "uint*", &pcbRead := 0, "HRESULT")
         return pcbRead
     }
 
     /**
-     * 
      * @param {Integer} dlibMove 
      * @param {Integer} dwOrigin 
      * @returns {Integer} 
@@ -63,7 +61,6 @@ export default struct IInternetProtocol extends IInternetProtocolRoot {
     }
 
     /**
-     * 
      * @param {Integer} dwOptions 
      * @returns {HRESULT} 
      */
@@ -73,7 +70,6 @@ export default struct IInternetProtocol extends IInternetProtocolRoot {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     UnlockRequest() {
@@ -90,10 +86,10 @@ export default struct IInternetProtocol extends IInternetProtocolRoot {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Read := CallbackCreate(GetMethod(implObj, "Read"), flags, 4)
-        this.vtbl.Seek := CallbackCreate(GetMethod(implObj, "Seek"), flags, 4)
-        this.vtbl.LockRequest := CallbackCreate(GetMethod(implObj, "LockRequest"), flags, 2)
-        this.vtbl.UnlockRequest := CallbackCreate(GetMethod(implObj, "UnlockRequest"), flags, 1)
+        this.vtbl.Read := CallbackCreate(ObjBindMethod(implObj, "Read"), flags, 4)
+        this.vtbl.Seek := CallbackCreate(ObjBindMethod(implObj, "Seek"), flags, 4)
+        this.vtbl.LockRequest := CallbackCreate(ObjBindMethod(implObj, "LockRequest"), flags, 2)
+        this.vtbl.UnlockRequest := CallbackCreate(ObjBindMethod(implObj, "UnlockRequest"), flags, 1)
     }
 
     Dispose() {

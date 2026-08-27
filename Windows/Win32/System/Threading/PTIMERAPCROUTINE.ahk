@@ -24,7 +24,6 @@ export default struct PTIMERAPCROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} lpArgToCompletionRoutine The value passed to the function using the <i>lpArgToCompletionRoutine</i> parameter of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-setwaitabletimer">SetWaitableTimer</a> function.
      * @param {Integer} dwTimerLowValue The low-order portion of the UTC-based time at which the timer was signaled. This value corresponds to the <b>dwLowDateTime</b> member of the 
@@ -34,7 +33,8 @@ export default struct PTIMERAPCROUTINE {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(lpArgToCompletionRoutine, dwTimerLowValue, dwTimerHighValue) {
-        lpArgToCompletionRoutineMarshal := lpArgToCompletionRoutine is VarRef ? "ptr" : "ptr"
+        lpArgToCompletionRoutineMarshal := lpArgToCompletionRoutine is VarRef ? "ptr" : IntPtr
+        lpArgToCompletionRoutineMarshal := lpArgToCompletionRoutine == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, lpArgToCompletionRoutineMarshal, lpArgToCompletionRoutine, UInt32, dwTimerLowValue, UInt32, dwTimerHighValue)
     }

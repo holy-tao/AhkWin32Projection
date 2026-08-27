@@ -79,7 +79,6 @@ export default struct IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugHostContext} 
      */
     GetContext() {
@@ -88,7 +87,6 @@ export default struct IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ModelObjectKind} 
      */
     GetKind() {
@@ -97,7 +95,6 @@ export default struct IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     GetIntrinsicValue() {
@@ -107,7 +104,6 @@ export default struct IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARENUM} vt 
      * @returns {VARIANT} 
      */
@@ -118,7 +114,6 @@ export default struct IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} key 
      * @param {Pointer<IModelObject>} _object 
      * @param {Pointer<IKeyStore>} metadata 
@@ -127,12 +122,14 @@ export default struct IModelObject extends IUnknown {
     GetKeyValue(key, _object, metadata) {
         key := key is String ? StrPtr(key) : key
 
-        result := ComCall(7, this, "ptr", key, IModelObject.Ptr, _object, IKeyStore.Ptr, metadata, "HRESULT")
+        _objectMarshal := _object == 0 ? IntPtr : IModelObject.Ptr
+        metadataMarshal := metadata == 0 ? IntPtr : IKeyStore.Ptr
+
+        result := ComCall(7, this, "ptr", key, _objectMarshal, _object, metadataMarshal, metadata, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} key 
      * @param {IModelObject} _object 
      * @returns {HRESULT} 
@@ -140,12 +137,13 @@ export default struct IModelObject extends IUnknown {
     SetKeyValue(key, _object) {
         key := key is String ? StrPtr(key) : key
 
-        result := ComCall(8, this, "ptr", key, "ptr", _object, "HRESULT")
+        _objectMarshal := _object == 0 ? IntPtr : "ptr"
+
+        result := ComCall(8, this, "ptr", key, _objectMarshal, _object, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {IKeyEnumerator} 
      */
     EnumerateKeyValues() {
@@ -154,7 +152,6 @@ export default struct IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {SymbolKind} kind 
      * @param {PWSTR} name 
      * @param {Integer} searchFlags 
@@ -168,7 +165,6 @@ export default struct IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {SymbolKind} kind 
      * @param {Integer} searchFlags 
      * @returns {IRawEnumerator} 
@@ -179,7 +175,6 @@ export default struct IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IModelObject} 
      */
     Dereference() {
@@ -188,7 +183,6 @@ export default struct IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IModelObject} 
      */
     TryCastToRuntimeType() {
@@ -197,19 +191,19 @@ export default struct IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} conceptId 
      * @param {Pointer<IUnknown>} conceptInterface 
      * @param {Pointer<IKeyStore>} conceptMetadata 
      * @returns {HRESULT} 
      */
     GetConcept(conceptId, conceptInterface, conceptMetadata) {
-        result := ComCall(14, this, Guid.Ptr, conceptId, IUnknown.Ptr, conceptInterface, IKeyStore.Ptr, conceptMetadata, "HRESULT")
+        conceptMetadataMarshal := conceptMetadata == 0 ? IntPtr : IKeyStore.Ptr
+
+        result := ComCall(14, this, Guid.Ptr, conceptId, IUnknown.Ptr, conceptInterface, conceptMetadataMarshal, conceptMetadata, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Location} 
      */
     GetLocation() {
@@ -219,7 +213,6 @@ export default struct IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugHostType} 
      */
     GetTypeInfo() {
@@ -228,7 +221,6 @@ export default struct IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Location>} _location 
      * @param {Pointer<IDebugHostType>} type 
      * @returns {HRESULT} 
@@ -239,7 +231,6 @@ export default struct IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberOfParentModels() {
@@ -248,7 +239,6 @@ export default struct IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} i 
      * @param {Pointer<IModelObject>} model 
      * @param {Pointer<IModelObject>} contextObject 
@@ -260,19 +250,19 @@ export default struct IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} model 
      * @param {IModelObject} contextObject 
      * @param {Integer} override 
      * @returns {HRESULT} 
      */
     AddParentModel(model, contextObject, override) {
-        result := ComCall(20, this, "ptr", model, "ptr", contextObject, Int8, override, "HRESULT")
+        contextObjectMarshal := contextObject == 0 ? IntPtr : "ptr"
+
+        result := ComCall(20, this, "ptr", model, contextObjectMarshal, contextObject, Int8, override, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IModelObject} model 
      * @returns {HRESULT} 
      */
@@ -282,7 +272,6 @@ export default struct IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} key 
      * @param {Pointer<IModelObject>} _object 
      * @param {Pointer<IKeyStore>} metadata 
@@ -291,12 +280,14 @@ export default struct IModelObject extends IUnknown {
     GetKey(key, _object, metadata) {
         key := key is String ? StrPtr(key) : key
 
-        result := ComCall(22, this, "ptr", key, IModelObject.Ptr, _object, IKeyStore.Ptr, metadata, "HRESULT")
+        _objectMarshal := _object == 0 ? IntPtr : IModelObject.Ptr
+        metadataMarshal := metadata == 0 ? IntPtr : IKeyStore.Ptr
+
+        result := ComCall(22, this, "ptr", key, _objectMarshal, _object, metadataMarshal, metadata, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} key 
      * @param {Pointer<IModelObject>} objectReference 
      * @param {Pointer<IKeyStore>} metadata 
@@ -305,12 +296,14 @@ export default struct IModelObject extends IUnknown {
     GetKeyReference(key, objectReference, metadata) {
         key := key is String ? StrPtr(key) : key
 
-        result := ComCall(23, this, "ptr", key, IModelObject.Ptr, objectReference, IKeyStore.Ptr, metadata, "HRESULT")
+        objectReferenceMarshal := objectReference == 0 ? IntPtr : IModelObject.Ptr
+        metadataMarshal := metadata == 0 ? IntPtr : IKeyStore.Ptr
+
+        result := ComCall(23, this, "ptr", key, objectReferenceMarshal, objectReference, metadataMarshal, metadata, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} key 
      * @param {IModelObject} _object 
      * @param {IKeyStore} metadata 
@@ -319,12 +312,14 @@ export default struct IModelObject extends IUnknown {
     SetKey(key, _object, metadata) {
         key := key is String ? StrPtr(key) : key
 
-        result := ComCall(24, this, "ptr", key, "ptr", _object, "ptr", metadata, "HRESULT")
+        _objectMarshal := _object == 0 ? IntPtr : "ptr"
+        metadataMarshal := metadata == 0 ? IntPtr : "ptr"
+
+        result := ComCall(24, this, "ptr", key, _objectMarshal, _object, metadataMarshal, metadata, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ClearKeys() {
@@ -333,7 +328,6 @@ export default struct IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IKeyEnumerator} 
      */
     EnumerateKeys() {
@@ -342,7 +336,6 @@ export default struct IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IKeyEnumerator} 
      */
     EnumerateKeyReferences() {
@@ -351,19 +344,19 @@ export default struct IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} conceptId 
      * @param {IUnknown} conceptInterface 
      * @param {IKeyStore} conceptMetadata 
      * @returns {HRESULT} 
      */
     SetConcept(conceptId, conceptInterface, conceptMetadata) {
-        result := ComCall(28, this, Guid.Ptr, conceptId, "ptr", conceptInterface, "ptr", conceptMetadata, "HRESULT")
+        conceptMetadataMarshal := conceptMetadata == 0 ? IntPtr : "ptr"
+
+        result := ComCall(28, this, Guid.Ptr, conceptId, "ptr", conceptInterface, conceptMetadataMarshal, conceptMetadata, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ClearConcepts() {
@@ -372,7 +365,6 @@ export default struct IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {SymbolKind} kind 
      * @param {PWSTR} name 
      * @param {Integer} searchFlags 
@@ -386,7 +378,6 @@ export default struct IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {SymbolKind} kind 
      * @param {Integer} searchFlags 
      * @returns {IRawEnumerator} 
@@ -397,7 +388,6 @@ export default struct IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} dataModelObject 
      * @param {IUnknown} _context 
      * @returns {HRESULT} 
@@ -408,7 +398,6 @@ export default struct IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} dataModelObject 
      * @returns {IUnknown} 
      */
@@ -418,7 +407,6 @@ export default struct IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} other 
      * @returns {IModelObject} 
      */
@@ -428,7 +416,6 @@ export default struct IModelObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} other 
      * @returns {Boolean} 
      */
@@ -446,39 +433,39 @@ export default struct IModelObject extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetContext := CallbackCreate(GetMethod(implObj, "GetContext"), flags, 2)
-        this.vtbl.GetKind := CallbackCreate(GetMethod(implObj, "GetKind"), flags, 2)
-        this.vtbl.GetIntrinsicValue := CallbackCreate(GetMethod(implObj, "GetIntrinsicValue"), flags, 2)
-        this.vtbl.GetIntrinsicValueAs := CallbackCreate(GetMethod(implObj, "GetIntrinsicValueAs"), flags, 3)
-        this.vtbl.GetKeyValue := CallbackCreate(GetMethod(implObj, "GetKeyValue"), flags, 4)
-        this.vtbl.SetKeyValue := CallbackCreate(GetMethod(implObj, "SetKeyValue"), flags, 3)
-        this.vtbl.EnumerateKeyValues := CallbackCreate(GetMethod(implObj, "EnumerateKeyValues"), flags, 2)
-        this.vtbl.GetRawValue := CallbackCreate(GetMethod(implObj, "GetRawValue"), flags, 5)
-        this.vtbl.EnumerateRawValues := CallbackCreate(GetMethod(implObj, "EnumerateRawValues"), flags, 4)
-        this.vtbl.Dereference := CallbackCreate(GetMethod(implObj, "Dereference"), flags, 2)
-        this.vtbl.TryCastToRuntimeType := CallbackCreate(GetMethod(implObj, "TryCastToRuntimeType"), flags, 2)
-        this.vtbl.GetConcept := CallbackCreate(GetMethod(implObj, "GetConcept"), flags, 4)
-        this.vtbl.GetLocation := CallbackCreate(GetMethod(implObj, "GetLocation"), flags, 2)
-        this.vtbl.GetTypeInfo := CallbackCreate(GetMethod(implObj, "GetTypeInfo"), flags, 2)
-        this.vtbl.GetTargetInfo := CallbackCreate(GetMethod(implObj, "GetTargetInfo"), flags, 3)
-        this.vtbl.GetNumberOfParentModels := CallbackCreate(GetMethod(implObj, "GetNumberOfParentModels"), flags, 2)
-        this.vtbl.GetParentModel := CallbackCreate(GetMethod(implObj, "GetParentModel"), flags, 4)
-        this.vtbl.AddParentModel := CallbackCreate(GetMethod(implObj, "AddParentModel"), flags, 4)
-        this.vtbl.RemoveParentModel := CallbackCreate(GetMethod(implObj, "RemoveParentModel"), flags, 2)
-        this.vtbl.GetKey := CallbackCreate(GetMethod(implObj, "GetKey"), flags, 4)
-        this.vtbl.GetKeyReference := CallbackCreate(GetMethod(implObj, "GetKeyReference"), flags, 4)
-        this.vtbl.SetKey := CallbackCreate(GetMethod(implObj, "SetKey"), flags, 4)
-        this.vtbl.ClearKeys := CallbackCreate(GetMethod(implObj, "ClearKeys"), flags, 1)
-        this.vtbl.EnumerateKeys := CallbackCreate(GetMethod(implObj, "EnumerateKeys"), flags, 2)
-        this.vtbl.EnumerateKeyReferences := CallbackCreate(GetMethod(implObj, "EnumerateKeyReferences"), flags, 2)
-        this.vtbl.SetConcept := CallbackCreate(GetMethod(implObj, "SetConcept"), flags, 4)
-        this.vtbl.ClearConcepts := CallbackCreate(GetMethod(implObj, "ClearConcepts"), flags, 1)
-        this.vtbl.GetRawReference := CallbackCreate(GetMethod(implObj, "GetRawReference"), flags, 5)
-        this.vtbl.EnumerateRawReferences := CallbackCreate(GetMethod(implObj, "EnumerateRawReferences"), flags, 4)
-        this.vtbl.SetContextForDataModel := CallbackCreate(GetMethod(implObj, "SetContextForDataModel"), flags, 3)
-        this.vtbl.GetContextForDataModel := CallbackCreate(GetMethod(implObj, "GetContextForDataModel"), flags, 3)
-        this.vtbl.Compare := CallbackCreate(GetMethod(implObj, "Compare"), flags, 3)
-        this.vtbl.IsEqualTo := CallbackCreate(GetMethod(implObj, "IsEqualTo"), flags, 3)
+        this.vtbl.GetContext := CallbackCreate(ObjBindMethod(implObj, "GetContext"), flags, 2)
+        this.vtbl.GetKind := CallbackCreate(ObjBindMethod(implObj, "GetKind"), flags, 2)
+        this.vtbl.GetIntrinsicValue := CallbackCreate(ObjBindMethod(implObj, "GetIntrinsicValue"), flags, 2)
+        this.vtbl.GetIntrinsicValueAs := CallbackCreate(ObjBindMethod(implObj, "GetIntrinsicValueAs"), flags, 3)
+        this.vtbl.GetKeyValue := CallbackCreate(ObjBindMethod(implObj, "GetKeyValue"), flags, 4)
+        this.vtbl.SetKeyValue := CallbackCreate(ObjBindMethod(implObj, "SetKeyValue"), flags, 3)
+        this.vtbl.EnumerateKeyValues := CallbackCreate(ObjBindMethod(implObj, "EnumerateKeyValues"), flags, 2)
+        this.vtbl.GetRawValue := CallbackCreate(ObjBindMethod(implObj, "GetRawValue"), flags, 5)
+        this.vtbl.EnumerateRawValues := CallbackCreate(ObjBindMethod(implObj, "EnumerateRawValues"), flags, 4)
+        this.vtbl.Dereference := CallbackCreate(ObjBindMethod(implObj, "Dereference"), flags, 2)
+        this.vtbl.TryCastToRuntimeType := CallbackCreate(ObjBindMethod(implObj, "TryCastToRuntimeType"), flags, 2)
+        this.vtbl.GetConcept := CallbackCreate(ObjBindMethod(implObj, "GetConcept"), flags, 4)
+        this.vtbl.GetLocation := CallbackCreate(ObjBindMethod(implObj, "GetLocation"), flags, 2)
+        this.vtbl.GetTypeInfo := CallbackCreate(ObjBindMethod(implObj, "GetTypeInfo"), flags, 2)
+        this.vtbl.GetTargetInfo := CallbackCreate(ObjBindMethod(implObj, "GetTargetInfo"), flags, 3)
+        this.vtbl.GetNumberOfParentModels := CallbackCreate(ObjBindMethod(implObj, "GetNumberOfParentModels"), flags, 2)
+        this.vtbl.GetParentModel := CallbackCreate(ObjBindMethod(implObj, "GetParentModel"), flags, 4)
+        this.vtbl.AddParentModel := CallbackCreate(ObjBindMethod(implObj, "AddParentModel"), flags, 4)
+        this.vtbl.RemoveParentModel := CallbackCreate(ObjBindMethod(implObj, "RemoveParentModel"), flags, 2)
+        this.vtbl.GetKey := CallbackCreate(ObjBindMethod(implObj, "GetKey"), flags, 4)
+        this.vtbl.GetKeyReference := CallbackCreate(ObjBindMethod(implObj, "GetKeyReference"), flags, 4)
+        this.vtbl.SetKey := CallbackCreate(ObjBindMethod(implObj, "SetKey"), flags, 4)
+        this.vtbl.ClearKeys := CallbackCreate(ObjBindMethod(implObj, "ClearKeys"), flags, 1)
+        this.vtbl.EnumerateKeys := CallbackCreate(ObjBindMethod(implObj, "EnumerateKeys"), flags, 2)
+        this.vtbl.EnumerateKeyReferences := CallbackCreate(ObjBindMethod(implObj, "EnumerateKeyReferences"), flags, 2)
+        this.vtbl.SetConcept := CallbackCreate(ObjBindMethod(implObj, "SetConcept"), flags, 4)
+        this.vtbl.ClearConcepts := CallbackCreate(ObjBindMethod(implObj, "ClearConcepts"), flags, 1)
+        this.vtbl.GetRawReference := CallbackCreate(ObjBindMethod(implObj, "GetRawReference"), flags, 5)
+        this.vtbl.EnumerateRawReferences := CallbackCreate(ObjBindMethod(implObj, "EnumerateRawReferences"), flags, 4)
+        this.vtbl.SetContextForDataModel := CallbackCreate(ObjBindMethod(implObj, "SetContextForDataModel"), flags, 3)
+        this.vtbl.GetContextForDataModel := CallbackCreate(ObjBindMethod(implObj, "GetContextForDataModel"), flags, 3)
+        this.vtbl.Compare := CallbackCreate(ObjBindMethod(implObj, "Compare"), flags, 3)
+        this.vtbl.IsEqualTo := CallbackCreate(ObjBindMethod(implObj, "IsEqualTo"), flags, 3)
     }
 
     Dispose() {

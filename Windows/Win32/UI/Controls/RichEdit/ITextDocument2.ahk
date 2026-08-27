@@ -153,7 +153,9 @@ export default struct ITextDocument2 extends ITextDocument {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-setdocumentfont
      */
     SetDocumentFont(pFont) {
-        result := ComCall(30, this, "ptr", pFont, "HRESULT")
+        pFontMarshal := pFont == 0 ? IntPtr : "ptr"
+
+        result := ComCall(30, this, pFontMarshal, pFont, "HRESULT")
         return result
     }
 
@@ -182,7 +184,9 @@ export default struct ITextDocument2 extends ITextDocument {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-setdocumentpara
      */
     SetDocumentPara(pPara) {
-        result := ComCall(32, this, "ptr", pPara, "HRESULT")
+        pParaMarshal := pPara == 0 ? IntPtr : "ptr"
+
+        result := ComCall(32, this, pParaMarshal, pPara, "HRESULT")
         return result
     }
 
@@ -357,7 +361,9 @@ export default struct ITextDocument2 extends ITextDocument {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-attachmsgfilter
      */
     AttachMsgFilter(pFilter) {
-        result := ComCall(43, this, "ptr", pFilter, "HRESULT")
+        pFilterMarshal := pFilter == 0 ? IntPtr : "ptr"
+
+        result := ComCall(43, this, pFilterMarshal, pFilter, "HRESULT")
         return result
     }
 
@@ -375,7 +381,7 @@ export default struct ITextDocument2 extends ITextDocument {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-checktextlimit
      */
     CheckTextLimit(cch, pcch) {
-        pcchMarshal := pcch is VarRef ? "int*" : "ptr"
+        pcchMarshal := pcch is VarRef ? "int*" : IntPtr
 
         result := ComCall(44, this, Int32, cch, pcchMarshal, pcch, "HRESULT")
         return result
@@ -416,10 +422,10 @@ export default struct ITextDocument2 extends ITextDocument {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getclientrect
      */
     GetClientRect(Type, pLeft, pTop, pRight, pBottom) {
-        pLeftMarshal := pLeft is VarRef ? "int*" : "ptr"
-        pTopMarshal := pTop is VarRef ? "int*" : "ptr"
-        pRightMarshal := pRight is VarRef ? "int*" : "ptr"
-        pBottomMarshal := pBottom is VarRef ? "int*" : "ptr"
+        pLeftMarshal := pLeft is VarRef ? "int*" : IntPtr
+        pTopMarshal := pTop is VarRef ? "int*" : IntPtr
+        pRightMarshal := pRight is VarRef ? "int*" : IntPtr
+        pBottomMarshal := pBottom is VarRef ? "int*" : IntPtr
 
         result := ComCall(46, this, tomConstants, Type, pLeftMarshal, pLeft, pTopMarshal, pTop, pRightMarshal, pRight, pBottomMarshal, pBottom, "HRESULT")
         return result
@@ -480,8 +486,8 @@ export default struct ITextDocument2 extends ITextDocument {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getpreferredfont
      */
     GetPreferredFont(cp, CharRep, Options, curCharRep, curFontSize, pbstr, pPitchAndFamily, pNewFontSize) {
-        pPitchAndFamilyMarshal := pPitchAndFamily is VarRef ? "int*" : "ptr"
-        pNewFontSizeMarshal := pNewFontSize is VarRef ? "int*" : "ptr"
+        pPitchAndFamilyMarshal := pPitchAndFamily is VarRef ? "int*" : IntPtr
+        pNewFontSizeMarshal := pNewFontSize is VarRef ? "int*" : IntPtr
 
         result := ComCall(49, this, Int32, cp, Int32, CharRep, Int32, Options, Int32, curCharRep, Int32, curFontSize, BSTR.Ptr, pbstr, pPitchAndFamilyMarshal, pPitchAndFamily, pNewFontSizeMarshal, pNewFontSize, "HRESULT")
         return result
@@ -583,7 +589,9 @@ export default struct ITextDocument2 extends ITextDocument {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-releasecallmanager
      */
     ReleaseCallManager(pVoid) {
-        result := ComCall(55, this, "ptr", pVoid, "HRESULT")
+        pVoidMarshal := pVoid == 0 ? IntPtr : "ptr"
+
+        result := ComCall(55, this, pVoidMarshal, pVoid, "HRESULT")
         return result
     }
 
@@ -1027,7 +1035,9 @@ export default struct ITextDocument2 extends ITextDocument {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-setactivestory
      */
     SetActiveStory(pStory) {
-        result := ComCall(66, this, "ptr", pStory, "HRESULT")
+        pStoryMarshal := pStory == 0 ? IntPtr : "ptr"
+
+        result := ComCall(66, this, pStoryMarshal, pStory, "HRESULT")
         return result
     }
 
@@ -1081,50 +1091,50 @@ export default struct ITextDocument2 extends ITextDocument {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCaretType := CallbackCreate(GetMethod(implObj, "GetCaretType"), flags, 2)
-        this.vtbl.SetCaretType := CallbackCreate(GetMethod(implObj, "SetCaretType"), flags, 2)
-        this.vtbl.GetDisplays := CallbackCreate(GetMethod(implObj, "GetDisplays"), flags, 2)
-        this.vtbl.GetDocumentFont := CallbackCreate(GetMethod(implObj, "GetDocumentFont"), flags, 2)
-        this.vtbl.SetDocumentFont := CallbackCreate(GetMethod(implObj, "SetDocumentFont"), flags, 2)
-        this.vtbl.GetDocumentPara := CallbackCreate(GetMethod(implObj, "GetDocumentPara"), flags, 2)
-        this.vtbl.SetDocumentPara := CallbackCreate(GetMethod(implObj, "SetDocumentPara"), flags, 2)
-        this.vtbl.GetEastAsianFlags := CallbackCreate(GetMethod(implObj, "GetEastAsianFlags"), flags, 2)
-        this.vtbl.GetGenerator := CallbackCreate(GetMethod(implObj, "GetGenerator"), flags, 2)
-        this.vtbl.SetIMEInProgress := CallbackCreate(GetMethod(implObj, "SetIMEInProgress"), flags, 2)
-        this.vtbl.GetNotificationMode := CallbackCreate(GetMethod(implObj, "GetNotificationMode"), flags, 2)
-        this.vtbl.SetNotificationMode := CallbackCreate(GetMethod(implObj, "SetNotificationMode"), flags, 2)
-        this.vtbl.GetSelection2 := CallbackCreate(GetMethod(implObj, "GetSelection2"), flags, 2)
-        this.vtbl.GetStoryRanges2 := CallbackCreate(GetMethod(implObj, "GetStoryRanges2"), flags, 2)
-        this.vtbl.GetTypographyOptions := CallbackCreate(GetMethod(implObj, "GetTypographyOptions"), flags, 2)
-        this.vtbl.GetVersion := CallbackCreate(GetMethod(implObj, "GetVersion"), flags, 2)
-        this.vtbl.GetWindow := CallbackCreate(GetMethod(implObj, "GetWindow"), flags, 2)
-        this.vtbl.AttachMsgFilter := CallbackCreate(GetMethod(implObj, "AttachMsgFilter"), flags, 2)
-        this.vtbl.CheckTextLimit := CallbackCreate(GetMethod(implObj, "CheckTextLimit"), flags, 3)
-        this.vtbl.GetCallManager := CallbackCreate(GetMethod(implObj, "GetCallManager"), flags, 2)
-        this.vtbl.GetClientRect := CallbackCreate(GetMethod(implObj, "GetClientRect"), flags, 6)
-        this.vtbl.GetEffectColor := CallbackCreate(GetMethod(implObj, "GetEffectColor"), flags, 3)
-        this.vtbl.GetImmContext := CallbackCreate(GetMethod(implObj, "GetImmContext"), flags, 2)
-        this.vtbl.GetPreferredFont := CallbackCreate(GetMethod(implObj, "GetPreferredFont"), flags, 9)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
-        this.vtbl.GetStrings := CallbackCreate(GetMethod(implObj, "GetStrings"), flags, 2)
-        this.vtbl.Notify := CallbackCreate(GetMethod(implObj, "Notify"), flags, 2)
-        this.vtbl.Range2 := CallbackCreate(GetMethod(implObj, "Range2"), flags, 4)
-        this.vtbl.RangeFromPoint2 := CallbackCreate(GetMethod(implObj, "RangeFromPoint2"), flags, 5)
-        this.vtbl.ReleaseCallManager := CallbackCreate(GetMethod(implObj, "ReleaseCallManager"), flags, 2)
-        this.vtbl.ReleaseImmContext := CallbackCreate(GetMethod(implObj, "ReleaseImmContext"), flags, 2)
-        this.vtbl.SetEffectColor := CallbackCreate(GetMethod(implObj, "SetEffectColor"), flags, 3)
-        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 3)
-        this.vtbl.SetTypographyOptions := CallbackCreate(GetMethod(implObj, "SetTypographyOptions"), flags, 3)
-        this.vtbl.SysBeep := CallbackCreate(GetMethod(implObj, "SysBeep"), flags, 1)
-        this.vtbl.Update := CallbackCreate(GetMethod(implObj, "Update"), flags, 2)
-        this.vtbl.UpdateWindow := CallbackCreate(GetMethod(implObj, "UpdateWindow"), flags, 1)
-        this.vtbl.GetMathProperties := CallbackCreate(GetMethod(implObj, "GetMathProperties"), flags, 2)
-        this.vtbl.SetMathProperties := CallbackCreate(GetMethod(implObj, "SetMathProperties"), flags, 3)
-        this.vtbl.GetActiveStory := CallbackCreate(GetMethod(implObj, "GetActiveStory"), flags, 2)
-        this.vtbl.SetActiveStory := CallbackCreate(GetMethod(implObj, "SetActiveStory"), flags, 2)
-        this.vtbl.GetMainStory := CallbackCreate(GetMethod(implObj, "GetMainStory"), flags, 2)
-        this.vtbl.GetNewStory := CallbackCreate(GetMethod(implObj, "GetNewStory"), flags, 2)
-        this.vtbl.GetStory := CallbackCreate(GetMethod(implObj, "GetStory"), flags, 3)
+        this.vtbl.GetCaretType := CallbackCreate(ObjBindMethod(implObj, "GetCaretType"), flags, 2)
+        this.vtbl.SetCaretType := CallbackCreate(ObjBindMethod(implObj, "SetCaretType"), flags, 2)
+        this.vtbl.GetDisplays := CallbackCreate(ObjBindMethod(implObj, "GetDisplays"), flags, 2)
+        this.vtbl.GetDocumentFont := CallbackCreate(ObjBindMethod(implObj, "GetDocumentFont"), flags, 2)
+        this.vtbl.SetDocumentFont := CallbackCreate(ObjBindMethod(implObj, "SetDocumentFont"), flags, 2)
+        this.vtbl.GetDocumentPara := CallbackCreate(ObjBindMethod(implObj, "GetDocumentPara"), flags, 2)
+        this.vtbl.SetDocumentPara := CallbackCreate(ObjBindMethod(implObj, "SetDocumentPara"), flags, 2)
+        this.vtbl.GetEastAsianFlags := CallbackCreate(ObjBindMethod(implObj, "GetEastAsianFlags"), flags, 2)
+        this.vtbl.GetGenerator := CallbackCreate(ObjBindMethod(implObj, "GetGenerator"), flags, 2)
+        this.vtbl.SetIMEInProgress := CallbackCreate(ObjBindMethod(implObj, "SetIMEInProgress"), flags, 2)
+        this.vtbl.GetNotificationMode := CallbackCreate(ObjBindMethod(implObj, "GetNotificationMode"), flags, 2)
+        this.vtbl.SetNotificationMode := CallbackCreate(ObjBindMethod(implObj, "SetNotificationMode"), flags, 2)
+        this.vtbl.GetSelection2 := CallbackCreate(ObjBindMethod(implObj, "GetSelection2"), flags, 2)
+        this.vtbl.GetStoryRanges2 := CallbackCreate(ObjBindMethod(implObj, "GetStoryRanges2"), flags, 2)
+        this.vtbl.GetTypographyOptions := CallbackCreate(ObjBindMethod(implObj, "GetTypographyOptions"), flags, 2)
+        this.vtbl.GetVersion := CallbackCreate(ObjBindMethod(implObj, "GetVersion"), flags, 2)
+        this.vtbl.GetWindow := CallbackCreate(ObjBindMethod(implObj, "GetWindow"), flags, 2)
+        this.vtbl.AttachMsgFilter := CallbackCreate(ObjBindMethod(implObj, "AttachMsgFilter"), flags, 2)
+        this.vtbl.CheckTextLimit := CallbackCreate(ObjBindMethod(implObj, "CheckTextLimit"), flags, 3)
+        this.vtbl.GetCallManager := CallbackCreate(ObjBindMethod(implObj, "GetCallManager"), flags, 2)
+        this.vtbl.GetClientRect := CallbackCreate(ObjBindMethod(implObj, "GetClientRect"), flags, 6)
+        this.vtbl.GetEffectColor := CallbackCreate(ObjBindMethod(implObj, "GetEffectColor"), flags, 3)
+        this.vtbl.GetImmContext := CallbackCreate(ObjBindMethod(implObj, "GetImmContext"), flags, 2)
+        this.vtbl.GetPreferredFont := CallbackCreate(ObjBindMethod(implObj, "GetPreferredFont"), flags, 9)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.GetStrings := CallbackCreate(ObjBindMethod(implObj, "GetStrings"), flags, 2)
+        this.vtbl.Notify := CallbackCreate(ObjBindMethod(implObj, "Notify"), flags, 2)
+        this.vtbl.Range2 := CallbackCreate(ObjBindMethod(implObj, "Range2"), flags, 4)
+        this.vtbl.RangeFromPoint2 := CallbackCreate(ObjBindMethod(implObj, "RangeFromPoint2"), flags, 5)
+        this.vtbl.ReleaseCallManager := CallbackCreate(ObjBindMethod(implObj, "ReleaseCallManager"), flags, 2)
+        this.vtbl.ReleaseImmContext := CallbackCreate(ObjBindMethod(implObj, "ReleaseImmContext"), flags, 2)
+        this.vtbl.SetEffectColor := CallbackCreate(ObjBindMethod(implObj, "SetEffectColor"), flags, 3)
+        this.vtbl.SetProperty := CallbackCreate(ObjBindMethod(implObj, "SetProperty"), flags, 3)
+        this.vtbl.SetTypographyOptions := CallbackCreate(ObjBindMethod(implObj, "SetTypographyOptions"), flags, 3)
+        this.vtbl.SysBeep := CallbackCreate(ObjBindMethod(implObj, "SysBeep"), flags, 1)
+        this.vtbl.Update := CallbackCreate(ObjBindMethod(implObj, "Update"), flags, 2)
+        this.vtbl.UpdateWindow := CallbackCreate(ObjBindMethod(implObj, "UpdateWindow"), flags, 1)
+        this.vtbl.GetMathProperties := CallbackCreate(ObjBindMethod(implObj, "GetMathProperties"), flags, 2)
+        this.vtbl.SetMathProperties := CallbackCreate(ObjBindMethod(implObj, "SetMathProperties"), flags, 3)
+        this.vtbl.GetActiveStory := CallbackCreate(ObjBindMethod(implObj, "GetActiveStory"), flags, 2)
+        this.vtbl.SetActiveStory := CallbackCreate(ObjBindMethod(implObj, "SetActiveStory"), flags, 2)
+        this.vtbl.GetMainStory := CallbackCreate(ObjBindMethod(implObj, "GetMainStory"), flags, 2)
+        this.vtbl.GetNewStory := CallbackCreate(ObjBindMethod(implObj, "GetNewStory"), flags, 2)
+        this.vtbl.GetStory := CallbackCreate(ObjBindMethod(implObj, "GetStory"), flags, 3)
     }
 
     Dispose() {

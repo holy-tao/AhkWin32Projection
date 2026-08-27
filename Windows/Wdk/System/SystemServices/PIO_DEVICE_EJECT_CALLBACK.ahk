@@ -19,13 +19,13 @@ export default struct PIO_DEVICE_EJECT_CALLBACK {
     }
 
     /**
-     * 
      * @param {NTSTATUS} _Status 
      * @param {Pointer<Void>} _Context 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Status, _Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, NTSTATUS, _Status, _ContextMarshal, _Context)
     }

@@ -134,12 +134,12 @@ export default struct IVdsIscsiPortalGroup extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
-        this.vtbl.GetTarget := CallbackCreate(GetMethod(implObj, "GetTarget"), flags, 2)
-        this.vtbl.QueryAssociatedPortals := CallbackCreate(GetMethod(implObj, "QueryAssociatedPortals"), flags, 2)
-        this.vtbl.AddPortal := CallbackCreate(GetMethod(implObj, "AddPortal"), flags, 3)
-        this.vtbl.RemovePortal := CallbackCreate(GetMethod(implObj, "RemovePortal"), flags, 3)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 2)
+        this.vtbl.GetProperties := CallbackCreate(ObjBindMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.GetTarget := CallbackCreate(ObjBindMethod(implObj, "GetTarget"), flags, 2)
+        this.vtbl.QueryAssociatedPortals := CallbackCreate(ObjBindMethod(implObj, "QueryAssociatedPortals"), flags, 2)
+        this.vtbl.AddPortal := CallbackCreate(ObjBindMethod(implObj, "AddPortal"), flags, 3)
+        this.vtbl.RemovePortal := CallbackCreate(ObjBindMethod(implObj, "RemovePortal"), flags, 3)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 2)
     }
 
     Dispose() {

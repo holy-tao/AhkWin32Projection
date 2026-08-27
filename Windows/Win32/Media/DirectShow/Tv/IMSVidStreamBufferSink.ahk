@@ -215,12 +215,12 @@ export default struct IMSVidStreamBufferSink extends IMSVidOutputDevice {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ContentRecorder := CallbackCreate(GetMethod(implObj, "get_ContentRecorder"), flags, 3)
-        this.vtbl.get_ReferenceRecorder := CallbackCreate(GetMethod(implObj, "get_ReferenceRecorder"), flags, 3)
-        this.vtbl.get_SinkName := CallbackCreate(GetMethod(implObj, "get_SinkName"), flags, 2)
-        this.vtbl.put_SinkName := CallbackCreate(GetMethod(implObj, "put_SinkName"), flags, 2)
-        this.vtbl.NameSetLock := CallbackCreate(GetMethod(implObj, "NameSetLock"), flags, 1)
-        this.vtbl.get_SBESink := CallbackCreate(GetMethod(implObj, "get_SBESink"), flags, 2)
+        this.vtbl.get_ContentRecorder := CallbackCreate(ObjBindMethod(implObj, "get_ContentRecorder"), flags, 3)
+        this.vtbl.get_ReferenceRecorder := CallbackCreate(ObjBindMethod(implObj, "get_ReferenceRecorder"), flags, 3)
+        this.vtbl.get_SinkName := CallbackCreate(ObjBindMethod(implObj, "get_SinkName"), flags, 2)
+        this.vtbl.put_SinkName := CallbackCreate(ObjBindMethod(implObj, "put_SinkName"), flags, 2)
+        this.vtbl.NameSetLock := CallbackCreate(ObjBindMethod(implObj, "NameSetLock"), flags, 1)
+        this.vtbl.get_SBESink := CallbackCreate(ObjBindMethod(implObj, "get_SBESink"), flags, 2)
     }
 
     Dispose() {

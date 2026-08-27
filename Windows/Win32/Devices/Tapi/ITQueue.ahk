@@ -332,18 +332,18 @@ export default struct ITQueue extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_MeasurementPeriod := CallbackCreate(GetMethod(implObj, "put_MeasurementPeriod"), flags, 2)
-        this.vtbl.get_MeasurementPeriod := CallbackCreate(GetMethod(implObj, "get_MeasurementPeriod"), flags, 2)
-        this.vtbl.get_TotalCallsQueued := CallbackCreate(GetMethod(implObj, "get_TotalCallsQueued"), flags, 2)
-        this.vtbl.get_CurrentCallsQueued := CallbackCreate(GetMethod(implObj, "get_CurrentCallsQueued"), flags, 2)
-        this.vtbl.get_TotalCallsAbandoned := CallbackCreate(GetMethod(implObj, "get_TotalCallsAbandoned"), flags, 2)
-        this.vtbl.get_TotalCallsFlowedIn := CallbackCreate(GetMethod(implObj, "get_TotalCallsFlowedIn"), flags, 2)
-        this.vtbl.get_TotalCallsFlowedOut := CallbackCreate(GetMethod(implObj, "get_TotalCallsFlowedOut"), flags, 2)
-        this.vtbl.get_LongestEverWaitTime := CallbackCreate(GetMethod(implObj, "get_LongestEverWaitTime"), flags, 2)
-        this.vtbl.get_CurrentLongestWaitTime := CallbackCreate(GetMethod(implObj, "get_CurrentLongestWaitTime"), flags, 2)
-        this.vtbl.get_AverageWaitTime := CallbackCreate(GetMethod(implObj, "get_AverageWaitTime"), flags, 2)
-        this.vtbl.get_FinalDisposition := CallbackCreate(GetMethod(implObj, "get_FinalDisposition"), flags, 2)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_MeasurementPeriod := CallbackCreate(ObjBindMethod(implObj, "put_MeasurementPeriod"), flags, 2)
+        this.vtbl.get_MeasurementPeriod := CallbackCreate(ObjBindMethod(implObj, "get_MeasurementPeriod"), flags, 2)
+        this.vtbl.get_TotalCallsQueued := CallbackCreate(ObjBindMethod(implObj, "get_TotalCallsQueued"), flags, 2)
+        this.vtbl.get_CurrentCallsQueued := CallbackCreate(ObjBindMethod(implObj, "get_CurrentCallsQueued"), flags, 2)
+        this.vtbl.get_TotalCallsAbandoned := CallbackCreate(ObjBindMethod(implObj, "get_TotalCallsAbandoned"), flags, 2)
+        this.vtbl.get_TotalCallsFlowedIn := CallbackCreate(ObjBindMethod(implObj, "get_TotalCallsFlowedIn"), flags, 2)
+        this.vtbl.get_TotalCallsFlowedOut := CallbackCreate(ObjBindMethod(implObj, "get_TotalCallsFlowedOut"), flags, 2)
+        this.vtbl.get_LongestEverWaitTime := CallbackCreate(ObjBindMethod(implObj, "get_LongestEverWaitTime"), flags, 2)
+        this.vtbl.get_CurrentLongestWaitTime := CallbackCreate(ObjBindMethod(implObj, "get_CurrentLongestWaitTime"), flags, 2)
+        this.vtbl.get_AverageWaitTime := CallbackCreate(ObjBindMethod(implObj, "get_AverageWaitTime"), flags, 2)
+        this.vtbl.get_FinalDisposition := CallbackCreate(ObjBindMethod(implObj, "get_FinalDisposition"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
     }
 
     Dispose() {

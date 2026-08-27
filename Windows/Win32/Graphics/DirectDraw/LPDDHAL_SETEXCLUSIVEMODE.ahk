@@ -19,7 +19,6 @@ export default struct LPDDHAL_SETEXCLUSIVEMODE {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_SETEXCLUSIVEMODEDATA>} param0 
      * @returns {Integer} 
      */

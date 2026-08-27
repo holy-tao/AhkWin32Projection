@@ -33,7 +33,6 @@ export default struct PFNRASRECEIVEBUFFER {
     }
 
     /**
-     * 
      * @param {HANDLE} hPort Handle to the port on which to receive the data. This handle should be the handle passed in by RAS as the first parameter of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nc-ras-rascustomscriptexecutefn">RasCustomScriptExecute</a> function.
      * @param {Pointer<Integer>} pBuffer Pointer to a buffer to receive the data from the port specified by the <i>hPort</i> parameter. Obtain this buffer using 
@@ -75,8 +74,8 @@ export default struct PFNRASRECEIVEBUFFER {
      * </table>
      */
     Call(hPort, pBuffer, pdwSize, dwTimeOut, hEvent) {
-        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
-        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "char*" : IntPtr
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HANDLE, hPort, pBufferMarshal, pBuffer, pdwSizeMarshal, pdwSize, UInt32, dwTimeOut, HANDLE, hEvent, UInt32)
         return result

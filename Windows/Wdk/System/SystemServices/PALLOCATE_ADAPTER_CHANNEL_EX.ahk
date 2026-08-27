@@ -22,7 +22,6 @@ export default struct PALLOCATE_ADAPTER_CHANNEL_EX {
     }
 
     /**
-     * 
      * @param {Pointer<DMA_ADAPTER>} DmaAdapter 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<Void>} DmaTransferContext 
@@ -34,11 +33,14 @@ export default struct PALLOCATE_ADAPTER_CHANNEL_EX {
      * @returns {NTSTATUS} 
      */
     Call(DmaAdapter, DeviceObject, DmaTransferContext, NumberOfMapRegisters, Flags, ExecutionRoutine, ExecutionContext, MapRegisterBase) {
-        DmaTransferContextMarshal := DmaTransferContext is VarRef ? "ptr" : "ptr"
-        ExecutionContextMarshal := ExecutionContext is VarRef ? "ptr" : "ptr"
-        MapRegisterBaseMarshal := MapRegisterBase is VarRef ? "ptr*" : "ptr"
+        DmaTransferContextMarshal := DmaTransferContext is VarRef ? "ptr" : IntPtr
+        ExecutionRoutineMarshal := ExecutionRoutine == 0 ? IntPtr : DRIVER_CONTROL
+        ExecutionContextMarshal := ExecutionContext is VarRef ? "ptr" : IntPtr
+        ExecutionContextMarshal := ExecutionContext == 0 ? IntPtr : "ptr"
+        MapRegisterBaseMarshal := MapRegisterBase is VarRef ? "ptr*" : IntPtr
+        MapRegisterBaseMarshal := MapRegisterBase == 0 ? IntPtr : "ptr*"
 
-        result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, DEVICE_OBJECT.Ptr, DeviceObject, DmaTransferContextMarshal, DmaTransferContext, UInt32, NumberOfMapRegisters, UInt32, Flags, DRIVER_CONTROL, ExecutionRoutine, ExecutionContextMarshal, ExecutionContext, MapRegisterBaseMarshal, MapRegisterBase, NTSTATUS)
+        result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, DEVICE_OBJECT.Ptr, DeviceObject, DmaTransferContextMarshal, DmaTransferContext, UInt32, NumberOfMapRegisters, UInt32, Flags, ExecutionRoutineMarshal, ExecutionRoutine, ExecutionContextMarshal, ExecutionContext, MapRegisterBaseMarshal, MapRegisterBase, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

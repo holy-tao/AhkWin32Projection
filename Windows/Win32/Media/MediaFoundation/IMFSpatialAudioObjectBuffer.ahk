@@ -133,11 +133,11 @@ export default struct IMFSpatialAudioObjectBuffer extends IMFMediaBuffer {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetID := CallbackCreate(GetMethod(implObj, "SetID"), flags, 2)
-        this.vtbl.GetID := CallbackCreate(GetMethod(implObj, "GetID"), flags, 2)
-        this.vtbl.SetType := CallbackCreate(GetMethod(implObj, "SetType"), flags, 2)
-        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
-        this.vtbl.GetMetadataItems := CallbackCreate(GetMethod(implObj, "GetMetadataItems"), flags, 2)
+        this.vtbl.SetID := CallbackCreate(ObjBindMethod(implObj, "SetID"), flags, 2)
+        this.vtbl.GetID := CallbackCreate(ObjBindMethod(implObj, "GetID"), flags, 2)
+        this.vtbl.SetType := CallbackCreate(ObjBindMethod(implObj, "SetType"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(ObjBindMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.GetMetadataItems := CallbackCreate(ObjBindMethod(implObj, "GetMetadataItems"), flags, 2)
     }
 
     Dispose() {

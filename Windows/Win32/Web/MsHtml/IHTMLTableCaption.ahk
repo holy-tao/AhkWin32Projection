@@ -62,7 +62,6 @@ export default struct IHTMLTableCaption extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -74,7 +73,6 @@ export default struct IHTMLTableCaption extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_align() {
@@ -84,7 +82,6 @@ export default struct IHTMLTableCaption extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -96,7 +93,6 @@ export default struct IHTMLTableCaption extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_vAlign() {
@@ -114,10 +110,10 @@ export default struct IHTMLTableCaption extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_align := CallbackCreate(GetMethod(implObj, "put_align"), flags, 2)
-        this.vtbl.get_align := CallbackCreate(GetMethod(implObj, "get_align"), flags, 2)
-        this.vtbl.put_vAlign := CallbackCreate(GetMethod(implObj, "put_vAlign"), flags, 2)
-        this.vtbl.get_vAlign := CallbackCreate(GetMethod(implObj, "get_vAlign"), flags, 2)
+        this.vtbl.put_align := CallbackCreate(ObjBindMethod(implObj, "put_align"), flags, 2)
+        this.vtbl.get_align := CallbackCreate(ObjBindMethod(implObj, "get_align"), flags, 2)
+        this.vtbl.put_vAlign := CallbackCreate(ObjBindMethod(implObj, "put_vAlign"), flags, 2)
+        this.vtbl.get_vAlign := CallbackCreate(ObjBindMethod(implObj, "get_vAlign"), flags, 2)
     }
 
     Dispose() {

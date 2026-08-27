@@ -71,7 +71,6 @@ export default struct IContactAggregationAggregate extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Save() {
@@ -80,7 +79,6 @@ export default struct IContactAggregationAggregate extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IContactAggregationContactCollection} 
      */
     GetComponentItems() {
@@ -89,7 +87,6 @@ export default struct IContactAggregationAggregate extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pAggregateId 
      * @returns {HRESULT} 
      */
@@ -101,7 +98,6 @@ export default struct IContactAggregationAggregate extends IUnknown {
     }
 
     /**
-     * 
      * @param {CONTACT_AGGREGATION_COLLECTION_OPTIONS} options 
      * @returns {IContactAggregationGroupCollection} 
      */
@@ -111,7 +107,6 @@ export default struct IContactAggregationAggregate extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_AntiLink() {
@@ -120,7 +115,6 @@ export default struct IContactAggregationAggregate extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pAntiLink 
      * @returns {HRESULT} 
      */
@@ -132,7 +126,6 @@ export default struct IContactAggregationAggregate extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_FavoriteOrder() {
@@ -141,7 +134,6 @@ export default struct IContactAggregationAggregate extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} favoriteOrder 
      * @returns {HRESULT} 
      */
@@ -151,7 +143,6 @@ export default struct IContactAggregationAggregate extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_Id() {
@@ -168,15 +159,15 @@ export default struct IContactAggregationAggregate extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 1)
-        this.vtbl.GetComponentItems := CallbackCreate(GetMethod(implObj, "GetComponentItems"), flags, 2)
-        this.vtbl.Link := CallbackCreate(GetMethod(implObj, "Link"), flags, 2)
-        this.vtbl.get_Groups := CallbackCreate(GetMethod(implObj, "get_Groups"), flags, 3)
-        this.vtbl.get_AntiLink := CallbackCreate(GetMethod(implObj, "get_AntiLink"), flags, 2)
-        this.vtbl.put_AntiLink := CallbackCreate(GetMethod(implObj, "put_AntiLink"), flags, 2)
-        this.vtbl.get_FavoriteOrder := CallbackCreate(GetMethod(implObj, "get_FavoriteOrder"), flags, 2)
-        this.vtbl.put_FavoriteOrder := CallbackCreate(GetMethod(implObj, "put_FavoriteOrder"), flags, 2)
-        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.Save := CallbackCreate(ObjBindMethod(implObj, "Save"), flags, 1)
+        this.vtbl.GetComponentItems := CallbackCreate(ObjBindMethod(implObj, "GetComponentItems"), flags, 2)
+        this.vtbl.Link := CallbackCreate(ObjBindMethod(implObj, "Link"), flags, 2)
+        this.vtbl.get_Groups := CallbackCreate(ObjBindMethod(implObj, "get_Groups"), flags, 3)
+        this.vtbl.get_AntiLink := CallbackCreate(ObjBindMethod(implObj, "get_AntiLink"), flags, 2)
+        this.vtbl.put_AntiLink := CallbackCreate(ObjBindMethod(implObj, "put_AntiLink"), flags, 2)
+        this.vtbl.get_FavoriteOrder := CallbackCreate(ObjBindMethod(implObj, "get_FavoriteOrder"), flags, 2)
+        this.vtbl.put_FavoriteOrder := CallbackCreate(ObjBindMethod(implObj, "put_FavoriteOrder"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(ObjBindMethod(implObj, "get_Id"), flags, 2)
     }
 
     Dispose() {

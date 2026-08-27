@@ -20,13 +20,12 @@ export default struct POB_PRE_OPERATION_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} RegistrationContext 
      * @param {Pointer<OB_PRE_OPERATION_INFORMATION>} OperationInformation 
      * @returns {OB_PREOP_CALLBACK_STATUS} 
      */
     Call(RegistrationContext, OperationInformation) {
-        RegistrationContextMarshal := RegistrationContext is VarRef ? "ptr" : "ptr"
+        RegistrationContextMarshal := RegistrationContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, RegistrationContextMarshal, RegistrationContext, OB_PRE_OPERATION_INFORMATION.Ptr, OperationInformation, OB_PREOP_CALLBACK_STATUS)
         return result

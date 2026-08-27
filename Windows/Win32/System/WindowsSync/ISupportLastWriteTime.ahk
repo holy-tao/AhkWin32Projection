@@ -85,8 +85,8 @@ export default struct ISupportLastWriteTime extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isupportlastwritetime-getitemchangetime
      */
     GetItemChangeTime(pbItemId, pullTimestamp) {
-        pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
-        pullTimestampMarshal := pullTimestamp is VarRef ? "uint*" : "ptr"
+        pbItemIdMarshal := pbItemId is VarRef ? "char*" : IntPtr
+        pullTimestampMarshal := pullTimestamp is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pbItemIdMarshal, pbItemId, pullTimestampMarshal, pullTimestamp, "HRESULT")
         return result
@@ -127,9 +127,9 @@ export default struct ISupportLastWriteTime extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isupportlastwritetime-getchangeunitchangetime
      */
     GetChangeUnitChangeTime(pbItemId, pbChangeUnitId, pullTimestamp) {
-        pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
-        pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : "ptr"
-        pullTimestampMarshal := pullTimestamp is VarRef ? "uint*" : "ptr"
+        pbItemIdMarshal := pbItemId is VarRef ? "char*" : IntPtr
+        pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : IntPtr
+        pullTimestampMarshal := pullTimestamp is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pbItemIdMarshal, pbItemId, pbChangeUnitIdMarshal, pbChangeUnitId, pullTimestampMarshal, pullTimestamp, "HRESULT")
         return result
@@ -144,8 +144,8 @@ export default struct ISupportLastWriteTime extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetItemChangeTime := CallbackCreate(GetMethod(implObj, "GetItemChangeTime"), flags, 3)
-        this.vtbl.GetChangeUnitChangeTime := CallbackCreate(GetMethod(implObj, "GetChangeUnitChangeTime"), flags, 4)
+        this.vtbl.GetItemChangeTime := CallbackCreate(ObjBindMethod(implObj, "GetItemChangeTime"), flags, 3)
+        this.vtbl.GetChangeUnitChangeTime := CallbackCreate(ObjBindMethod(implObj, "GetChangeUnitChangeTime"), flags, 4)
     }
 
     Dispose() {

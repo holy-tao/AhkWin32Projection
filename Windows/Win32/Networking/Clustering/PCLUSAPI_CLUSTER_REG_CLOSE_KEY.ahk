@@ -19,7 +19,6 @@ export default struct PCLUSAPI_CLUSTER_REG_CLOSE_KEY {
     }
 
     /**
-     * 
      * @param {HKEY} _hKey 
      * @returns {Integer} 
      */

@@ -18,12 +18,11 @@ export default struct EXPERIMENTAL_WEBAUTHN_PLUGIN_STATUS_CHANGE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_context) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _contextMarshal, _context)
     }

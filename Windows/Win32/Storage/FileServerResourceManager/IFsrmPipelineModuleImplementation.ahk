@@ -83,8 +83,8 @@ export default struct IFsrmPipelineModuleImplementation extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnLoad := CallbackCreate(GetMethod(implObj, "OnLoad"), flags, 3)
-        this.vtbl.OnUnload := CallbackCreate(GetMethod(implObj, "OnUnload"), flags, 1)
+        this.vtbl.OnLoad := CallbackCreate(ObjBindMethod(implObj, "OnLoad"), flags, 3)
+        this.vtbl.OnUnload := CallbackCreate(ObjBindMethod(implObj, "OnUnload"), flags, 1)
     }
 
     Dispose() {

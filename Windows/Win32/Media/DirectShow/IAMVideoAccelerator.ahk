@@ -69,7 +69,7 @@ export default struct IAMVideoAccelerator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoaccelerator-getvideoacceleratorguids
      */
     GetVideoAcceleratorGUIDs(pdwNumGuidsSupported) {
-        pdwNumGuidsSupportedMarshal := pdwNumGuidsSupported is VarRef ? "uint*" : "ptr"
+        pdwNumGuidsSupportedMarshal := pdwNumGuidsSupported is VarRef ? "uint*" : IntPtr
 
         pGuidsSupported := Guid()
         result := ComCall(3, this, pdwNumGuidsSupportedMarshal, pdwNumGuidsSupported, Guid.Ptr, pGuidsSupported, "HRESULT")
@@ -92,7 +92,7 @@ export default struct IAMVideoAccelerator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoaccelerator-getuncompformatssupported
      */
     GetUncompFormatsSupported(pGuid, pdwNumFormatsSupported) {
-        pdwNumFormatsSupportedMarshal := pdwNumFormatsSupported is VarRef ? "uint*" : "ptr"
+        pdwNumFormatsSupportedMarshal := pdwNumFormatsSupported is VarRef ? "uint*" : IntPtr
 
         pFormatsSupported := DDPIXELFORMAT()
         result := ComCall(4, this, Guid.Ptr, pGuid, pdwNumFormatsSupportedMarshal, pdwNumFormatsSupported, DDPIXELFORMAT.Ptr, pFormatsSupported, "HRESULT")
@@ -195,7 +195,7 @@ export default struct IAMVideoAccelerator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoaccelerator-getcompbufferinfo
      */
     GetCompBufferInfo(pGuid, pamvaUncompDataInfo, pdwNumTypesCompBuffers) {
-        pdwNumTypesCompBuffersMarshal := pdwNumTypesCompBuffers is VarRef ? "uint*" : "ptr"
+        pdwNumTypesCompBuffersMarshal := pdwNumTypesCompBuffers is VarRef ? "uint*" : IntPtr
 
         pamvaCompBufferInfo := AMVACompBufferInfo()
         result := ComCall(6, this, Guid.Ptr, pGuid, AMVAUncompDataInfo.Ptr, pamvaUncompDataInfo, pdwNumTypesCompBuffersMarshal, pdwNumTypesCompBuffers, AMVACompBufferInfo.Ptr, pamvaCompBufferInfo, "HRESULT")
@@ -218,7 +218,7 @@ export default struct IAMVideoAccelerator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoaccelerator-getinternalcompbufferinfo
      */
     GetInternalCompBufferInfo(pdwNumTypesCompBuffers) {
-        pdwNumTypesCompBuffersMarshal := pdwNumTypesCompBuffers is VarRef ? "uint*" : "ptr"
+        pdwNumTypesCompBuffersMarshal := pdwNumTypesCompBuffers is VarRef ? "uint*" : IntPtr
 
         pamvaCompBufferInfo := AMVACompBufferInfo()
         result := ComCall(7, this, pdwNumTypesCompBuffersMarshal, pdwNumTypesCompBuffers, AMVACompBufferInfo.Ptr, pamvaCompBufferInfo, "HRESULT")
@@ -540,8 +540,8 @@ export default struct IAMVideoAccelerator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoaccelerator-getbuffer
      */
     GetBuffer(dwTypeIndex, dwBufferIndex, bReadOnly, ppBuffer, lpStride) {
-        ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
-        lpStrideMarshal := lpStride is VarRef ? "int*" : "ptr"
+        ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : IntPtr
+        lpStrideMarshal := lpStride is VarRef ? "int*" : IntPtr
 
         result := ComCall(10, this, UInt32, dwTypeIndex, UInt32, dwBufferIndex, BOOL, bReadOnly, ppBufferMarshal, ppBuffer, lpStrideMarshal, lpStride, "HRESULT")
         return result
@@ -754,8 +754,8 @@ export default struct IAMVideoAccelerator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoaccelerator-execute
      */
     Execute(dwFunction, lpPrivateInputData, cbPrivateInputData, lpPrivateOutputDat, cbPrivateOutputData, dwNumBuffers, pamvaBufferInfo) {
-        lpPrivateInputDataMarshal := lpPrivateInputData is VarRef ? "ptr" : "ptr"
-        lpPrivateOutputDatMarshal := lpPrivateOutputDat is VarRef ? "ptr" : "ptr"
+        lpPrivateInputDataMarshal := lpPrivateInputData is VarRef ? "ptr" : IntPtr
+        lpPrivateOutputDatMarshal := lpPrivateOutputDat is VarRef ? "ptr" : IntPtr
 
         result := ComCall(12, this, UInt32, dwFunction, lpPrivateInputDataMarshal, lpPrivateInputData, UInt32, cbPrivateInputData, lpPrivateOutputDatMarshal, lpPrivateOutputDat, UInt32, cbPrivateOutputData, UInt32, dwNumBuffers, AMVABUFFERINFO.Ptr, pamvaBufferInfo, "HRESULT")
         return result
@@ -972,18 +972,18 @@ export default struct IAMVideoAccelerator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetVideoAcceleratorGUIDs := CallbackCreate(GetMethod(implObj, "GetVideoAcceleratorGUIDs"), flags, 3)
-        this.vtbl.GetUncompFormatsSupported := CallbackCreate(GetMethod(implObj, "GetUncompFormatsSupported"), flags, 4)
-        this.vtbl.GetInternalMemInfo := CallbackCreate(GetMethod(implObj, "GetInternalMemInfo"), flags, 4)
-        this.vtbl.GetCompBufferInfo := CallbackCreate(GetMethod(implObj, "GetCompBufferInfo"), flags, 5)
-        this.vtbl.GetInternalCompBufferInfo := CallbackCreate(GetMethod(implObj, "GetInternalCompBufferInfo"), flags, 3)
-        this.vtbl.BeginFrame := CallbackCreate(GetMethod(implObj, "BeginFrame"), flags, 2)
-        this.vtbl.EndFrame := CallbackCreate(GetMethod(implObj, "EndFrame"), flags, 2)
-        this.vtbl.GetBuffer := CallbackCreate(GetMethod(implObj, "GetBuffer"), flags, 6)
-        this.vtbl.ReleaseBuffer := CallbackCreate(GetMethod(implObj, "ReleaseBuffer"), flags, 3)
-        this.vtbl.Execute := CallbackCreate(GetMethod(implObj, "Execute"), flags, 8)
-        this.vtbl.QueryRenderStatus := CallbackCreate(GetMethod(implObj, "QueryRenderStatus"), flags, 4)
-        this.vtbl.DisplayFrame := CallbackCreate(GetMethod(implObj, "DisplayFrame"), flags, 3)
+        this.vtbl.GetVideoAcceleratorGUIDs := CallbackCreate(ObjBindMethod(implObj, "GetVideoAcceleratorGUIDs"), flags, 3)
+        this.vtbl.GetUncompFormatsSupported := CallbackCreate(ObjBindMethod(implObj, "GetUncompFormatsSupported"), flags, 4)
+        this.vtbl.GetInternalMemInfo := CallbackCreate(ObjBindMethod(implObj, "GetInternalMemInfo"), flags, 4)
+        this.vtbl.GetCompBufferInfo := CallbackCreate(ObjBindMethod(implObj, "GetCompBufferInfo"), flags, 5)
+        this.vtbl.GetInternalCompBufferInfo := CallbackCreate(ObjBindMethod(implObj, "GetInternalCompBufferInfo"), flags, 3)
+        this.vtbl.BeginFrame := CallbackCreate(ObjBindMethod(implObj, "BeginFrame"), flags, 2)
+        this.vtbl.EndFrame := CallbackCreate(ObjBindMethod(implObj, "EndFrame"), flags, 2)
+        this.vtbl.GetBuffer := CallbackCreate(ObjBindMethod(implObj, "GetBuffer"), flags, 6)
+        this.vtbl.ReleaseBuffer := CallbackCreate(ObjBindMethod(implObj, "ReleaseBuffer"), flags, 3)
+        this.vtbl.Execute := CallbackCreate(ObjBindMethod(implObj, "Execute"), flags, 8)
+        this.vtbl.QueryRenderStatus := CallbackCreate(ObjBindMethod(implObj, "QueryRenderStatus"), flags, 4)
+        this.vtbl.DisplayFrame := CallbackCreate(ObjBindMethod(implObj, "DisplayFrame"), flags, 3)
     }
 
     Dispose() {

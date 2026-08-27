@@ -63,7 +63,7 @@ export default struct IIdentityAdvise extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IdentityUpdated := CallbackCreate(GetMethod(implObj, "IdentityUpdated"), flags, 3)
+        this.vtbl.IdentityUpdated := CallbackCreate(ObjBindMethod(implObj, "IdentityUpdated"), flags, 3)
     }
 
     Dispose() {

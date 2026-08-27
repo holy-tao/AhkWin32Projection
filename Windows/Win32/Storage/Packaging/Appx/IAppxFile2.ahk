@@ -36,7 +36,6 @@ export default struct IAppxFile2 extends IAppxFile {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetBlockSize() {
@@ -53,7 +52,7 @@ export default struct IAppxFile2 extends IAppxFile {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetBlockSize := CallbackCreate(GetMethod(implObj, "GetBlockSize"), flags, 2)
+        this.vtbl.GetBlockSize := CallbackCreate(ObjBindMethod(implObj, "GetBlockSize"), flags, 2)
     }
 
     Dispose() {

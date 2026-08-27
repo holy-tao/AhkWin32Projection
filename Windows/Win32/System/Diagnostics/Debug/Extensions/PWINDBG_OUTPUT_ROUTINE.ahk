@@ -19,7 +19,6 @@ export default struct PWINDBG_OUTPUT_ROUTINE {
     }
 
     /**
-     * 
      * @param {PSTR} lpFormat 
      * @returns {String} Nothing - always returns an empty string
      */

@@ -180,11 +180,11 @@ export default struct ITfIntegratableCandidateListUIElement extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetIntegrationStyle := CallbackCreate(GetMethod(implObj, "SetIntegrationStyle"), flags, 2)
-        this.vtbl.GetSelectionStyle := CallbackCreate(GetMethod(implObj, "GetSelectionStyle"), flags, 2)
-        this.vtbl.OnKeyDown := CallbackCreate(GetMethod(implObj, "OnKeyDown"), flags, 4)
-        this.vtbl.ShowCandidateNumbers := CallbackCreate(GetMethod(implObj, "ShowCandidateNumbers"), flags, 2)
-        this.vtbl.FinalizeExactCompositionString := CallbackCreate(GetMethod(implObj, "FinalizeExactCompositionString"), flags, 1)
+        this.vtbl.SetIntegrationStyle := CallbackCreate(ObjBindMethod(implObj, "SetIntegrationStyle"), flags, 2)
+        this.vtbl.GetSelectionStyle := CallbackCreate(ObjBindMethod(implObj, "GetSelectionStyle"), flags, 2)
+        this.vtbl.OnKeyDown := CallbackCreate(ObjBindMethod(implObj, "OnKeyDown"), flags, 4)
+        this.vtbl.ShowCandidateNumbers := CallbackCreate(ObjBindMethod(implObj, "ShowCandidateNumbers"), flags, 2)
+        this.vtbl.FinalizeExactCompositionString := CallbackCreate(ObjBindMethod(implObj, "FinalizeExactCompositionString"), flags, 1)
     }
 
     Dispose() {

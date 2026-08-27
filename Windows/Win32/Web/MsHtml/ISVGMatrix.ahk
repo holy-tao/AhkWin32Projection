@@ -112,7 +112,6 @@ export default struct ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -122,7 +121,6 @@ export default struct ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_a() {
@@ -131,7 +129,6 @@ export default struct ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -141,7 +138,6 @@ export default struct ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_b() {
@@ -150,7 +146,6 @@ export default struct ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -160,7 +155,6 @@ export default struct ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_c() {
@@ -169,7 +163,6 @@ export default struct ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -179,7 +172,6 @@ export default struct ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_d() {
@@ -188,7 +180,6 @@ export default struct ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -198,7 +189,6 @@ export default struct ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_e() {
@@ -207,7 +197,6 @@ export default struct ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -217,7 +206,6 @@ export default struct ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_f() {
@@ -226,7 +214,6 @@ export default struct ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGMatrix} secondMatrix 
      * @returns {ISVGMatrix} 
      */
@@ -236,7 +223,6 @@ export default struct ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGMatrix} 
      */
     inverse() {
@@ -245,7 +231,6 @@ export default struct ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @returns {ISVGMatrix} 
@@ -256,7 +241,6 @@ export default struct ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} scaleFactor 
      * @returns {ISVGMatrix} 
      */
@@ -266,7 +250,6 @@ export default struct ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} scaleFactorX 
      * @param {Float} scaleFactorY 
      * @returns {ISVGMatrix} 
@@ -277,7 +260,6 @@ export default struct ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} angle 
      * @returns {ISVGMatrix} 
      */
@@ -287,7 +269,6 @@ export default struct ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @returns {ISVGMatrix} 
@@ -298,7 +279,6 @@ export default struct ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGMatrix} 
      */
     flipX() {
@@ -307,7 +287,6 @@ export default struct ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGMatrix} 
      */
     flipY() {
@@ -316,7 +295,6 @@ export default struct ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} angle 
      * @returns {ISVGMatrix} 
      */
@@ -326,7 +304,6 @@ export default struct ISVGMatrix extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} angle 
      * @returns {ISVGMatrix} 
      */
@@ -344,29 +321,29 @@ export default struct ISVGMatrix extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_a := CallbackCreate(GetMethod(implObj, "put_a"), flags, 2)
-        this.vtbl.get_a := CallbackCreate(GetMethod(implObj, "get_a"), flags, 2)
-        this.vtbl.put_b := CallbackCreate(GetMethod(implObj, "put_b"), flags, 2)
-        this.vtbl.get_b := CallbackCreate(GetMethod(implObj, "get_b"), flags, 2)
-        this.vtbl.put_c := CallbackCreate(GetMethod(implObj, "put_c"), flags, 2)
-        this.vtbl.get_c := CallbackCreate(GetMethod(implObj, "get_c"), flags, 2)
-        this.vtbl.put_d := CallbackCreate(GetMethod(implObj, "put_d"), flags, 2)
-        this.vtbl.get_d := CallbackCreate(GetMethod(implObj, "get_d"), flags, 2)
-        this.vtbl.put_e := CallbackCreate(GetMethod(implObj, "put_e"), flags, 2)
-        this.vtbl.get_e := CallbackCreate(GetMethod(implObj, "get_e"), flags, 2)
-        this.vtbl.put_f := CallbackCreate(GetMethod(implObj, "put_f"), flags, 2)
-        this.vtbl.get_f := CallbackCreate(GetMethod(implObj, "get_f"), flags, 2)
-        this.vtbl.multiply := CallbackCreate(GetMethod(implObj, "multiply"), flags, 3)
-        this.vtbl.inverse := CallbackCreate(GetMethod(implObj, "inverse"), flags, 2)
-        this.vtbl.translate := CallbackCreate(GetMethod(implObj, "translate"), flags, 4)
-        this.vtbl.scale := CallbackCreate(GetMethod(implObj, "scale"), flags, 3)
-        this.vtbl.scaleNonUniform := CallbackCreate(GetMethod(implObj, "scaleNonUniform"), flags, 4)
-        this.vtbl.rotate := CallbackCreate(GetMethod(implObj, "rotate"), flags, 3)
-        this.vtbl.rotateFromVector := CallbackCreate(GetMethod(implObj, "rotateFromVector"), flags, 4)
-        this.vtbl.flipX := CallbackCreate(GetMethod(implObj, "flipX"), flags, 2)
-        this.vtbl.flipY := CallbackCreate(GetMethod(implObj, "flipY"), flags, 2)
-        this.vtbl.skewX := CallbackCreate(GetMethod(implObj, "skewX"), flags, 3)
-        this.vtbl.skewY := CallbackCreate(GetMethod(implObj, "skewY"), flags, 3)
+        this.vtbl.put_a := CallbackCreate(ObjBindMethod(implObj, "put_a"), flags, 2)
+        this.vtbl.get_a := CallbackCreate(ObjBindMethod(implObj, "get_a"), flags, 2)
+        this.vtbl.put_b := CallbackCreate(ObjBindMethod(implObj, "put_b"), flags, 2)
+        this.vtbl.get_b := CallbackCreate(ObjBindMethod(implObj, "get_b"), flags, 2)
+        this.vtbl.put_c := CallbackCreate(ObjBindMethod(implObj, "put_c"), flags, 2)
+        this.vtbl.get_c := CallbackCreate(ObjBindMethod(implObj, "get_c"), flags, 2)
+        this.vtbl.put_d := CallbackCreate(ObjBindMethod(implObj, "put_d"), flags, 2)
+        this.vtbl.get_d := CallbackCreate(ObjBindMethod(implObj, "get_d"), flags, 2)
+        this.vtbl.put_e := CallbackCreate(ObjBindMethod(implObj, "put_e"), flags, 2)
+        this.vtbl.get_e := CallbackCreate(ObjBindMethod(implObj, "get_e"), flags, 2)
+        this.vtbl.put_f := CallbackCreate(ObjBindMethod(implObj, "put_f"), flags, 2)
+        this.vtbl.get_f := CallbackCreate(ObjBindMethod(implObj, "get_f"), flags, 2)
+        this.vtbl.multiply := CallbackCreate(ObjBindMethod(implObj, "multiply"), flags, 3)
+        this.vtbl.inverse := CallbackCreate(ObjBindMethod(implObj, "inverse"), flags, 2)
+        this.vtbl.translate := CallbackCreate(ObjBindMethod(implObj, "translate"), flags, 4)
+        this.vtbl.scale := CallbackCreate(ObjBindMethod(implObj, "scale"), flags, 3)
+        this.vtbl.scaleNonUniform := CallbackCreate(ObjBindMethod(implObj, "scaleNonUniform"), flags, 4)
+        this.vtbl.rotate := CallbackCreate(ObjBindMethod(implObj, "rotate"), flags, 3)
+        this.vtbl.rotateFromVector := CallbackCreate(ObjBindMethod(implObj, "rotateFromVector"), flags, 4)
+        this.vtbl.flipX := CallbackCreate(ObjBindMethod(implObj, "flipX"), flags, 2)
+        this.vtbl.flipY := CallbackCreate(ObjBindMethod(implObj, "flipY"), flags, 2)
+        this.vtbl.skewX := CallbackCreate(ObjBindMethod(implObj, "skewX"), flags, 3)
+        this.vtbl.skewY := CallbackCreate(ObjBindMethod(implObj, "skewY"), flags, 3)
     }
 
     Dispose() {

@@ -365,16 +365,16 @@ export default struct IWSDUdpAddress extends IWSDTransportAddress {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetSockaddr := CallbackCreate(GetMethod(implObj, "SetSockaddr"), flags, 2)
-        this.vtbl.GetSockaddr := CallbackCreate(GetMethod(implObj, "GetSockaddr"), flags, 2)
-        this.vtbl.SetExclusive := CallbackCreate(GetMethod(implObj, "SetExclusive"), flags, 2)
-        this.vtbl.GetExclusive := CallbackCreate(GetMethod(implObj, "GetExclusive"), flags, 1)
-        this.vtbl.SetMessageType := CallbackCreate(GetMethod(implObj, "SetMessageType"), flags, 2)
-        this.vtbl.GetMessageType := CallbackCreate(GetMethod(implObj, "GetMessageType"), flags, 2)
-        this.vtbl.SetTTL := CallbackCreate(GetMethod(implObj, "SetTTL"), flags, 2)
-        this.vtbl.GetTTL := CallbackCreate(GetMethod(implObj, "GetTTL"), flags, 2)
-        this.vtbl.SetAlias := CallbackCreate(GetMethod(implObj, "SetAlias"), flags, 2)
-        this.vtbl.GetAlias := CallbackCreate(GetMethod(implObj, "GetAlias"), flags, 2)
+        this.vtbl.SetSockaddr := CallbackCreate(ObjBindMethod(implObj, "SetSockaddr"), flags, 2)
+        this.vtbl.GetSockaddr := CallbackCreate(ObjBindMethod(implObj, "GetSockaddr"), flags, 2)
+        this.vtbl.SetExclusive := CallbackCreate(ObjBindMethod(implObj, "SetExclusive"), flags, 2)
+        this.vtbl.GetExclusive := CallbackCreate(ObjBindMethod(implObj, "GetExclusive"), flags, 1)
+        this.vtbl.SetMessageType := CallbackCreate(ObjBindMethod(implObj, "SetMessageType"), flags, 2)
+        this.vtbl.GetMessageType := CallbackCreate(ObjBindMethod(implObj, "GetMessageType"), flags, 2)
+        this.vtbl.SetTTL := CallbackCreate(ObjBindMethod(implObj, "SetTTL"), flags, 2)
+        this.vtbl.GetTTL := CallbackCreate(ObjBindMethod(implObj, "GetTTL"), flags, 2)
+        this.vtbl.SetAlias := CallbackCreate(ObjBindMethod(implObj, "SetAlias"), flags, 2)
+        this.vtbl.GetAlias := CallbackCreate(ObjBindMethod(implObj, "GetAlias"), flags, 2)
     }
 
     Dispose() {

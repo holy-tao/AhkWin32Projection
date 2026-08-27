@@ -257,8 +257,8 @@ export default struct IDirectDrawVideo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-idirectdrawvideo-getfourcccodes
      */
     GetFourCCCodes(pCount, pCodes) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-        pCodesMarshal := pCodes is VarRef ? "uint*" : "ptr"
+        pCountMarshal := pCount is VarRef ? "uint*" : IntPtr
+        pCodesMarshal := pCodes is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, pCountMarshal, pCount, pCodesMarshal, pCodes, "HRESULT")
         return result
@@ -405,22 +405,22 @@ export default struct IDirectDrawVideo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSwitches := CallbackCreate(GetMethod(implObj, "GetSwitches"), flags, 2)
-        this.vtbl.SetSwitches := CallbackCreate(GetMethod(implObj, "SetSwitches"), flags, 2)
-        this.vtbl.GetCaps := CallbackCreate(GetMethod(implObj, "GetCaps"), flags, 2)
-        this.vtbl.GetEmulatedCaps := CallbackCreate(GetMethod(implObj, "GetEmulatedCaps"), flags, 2)
-        this.vtbl.GetSurfaceDesc := CallbackCreate(GetMethod(implObj, "GetSurfaceDesc"), flags, 2)
-        this.vtbl.GetFourCCCodes := CallbackCreate(GetMethod(implObj, "GetFourCCCodes"), flags, 3)
-        this.vtbl.SetDirectDraw := CallbackCreate(GetMethod(implObj, "SetDirectDraw"), flags, 2)
-        this.vtbl.GetDirectDraw := CallbackCreate(GetMethod(implObj, "GetDirectDraw"), flags, 2)
-        this.vtbl.GetSurfaceType := CallbackCreate(GetMethod(implObj, "GetSurfaceType"), flags, 2)
-        this.vtbl.SetDefault := CallbackCreate(GetMethod(implObj, "SetDefault"), flags, 1)
-        this.vtbl.UseScanLine := CallbackCreate(GetMethod(implObj, "UseScanLine"), flags, 2)
-        this.vtbl.CanUseScanLine := CallbackCreate(GetMethod(implObj, "CanUseScanLine"), flags, 2)
-        this.vtbl.UseOverlayStretch := CallbackCreate(GetMethod(implObj, "UseOverlayStretch"), flags, 2)
-        this.vtbl.CanUseOverlayStretch := CallbackCreate(GetMethod(implObj, "CanUseOverlayStretch"), flags, 2)
-        this.vtbl.UseWhenFullScreen := CallbackCreate(GetMethod(implObj, "UseWhenFullScreen"), flags, 2)
-        this.vtbl.WillUseFullScreen := CallbackCreate(GetMethod(implObj, "WillUseFullScreen"), flags, 2)
+        this.vtbl.GetSwitches := CallbackCreate(ObjBindMethod(implObj, "GetSwitches"), flags, 2)
+        this.vtbl.SetSwitches := CallbackCreate(ObjBindMethod(implObj, "SetSwitches"), flags, 2)
+        this.vtbl.GetCaps := CallbackCreate(ObjBindMethod(implObj, "GetCaps"), flags, 2)
+        this.vtbl.GetEmulatedCaps := CallbackCreate(ObjBindMethod(implObj, "GetEmulatedCaps"), flags, 2)
+        this.vtbl.GetSurfaceDesc := CallbackCreate(ObjBindMethod(implObj, "GetSurfaceDesc"), flags, 2)
+        this.vtbl.GetFourCCCodes := CallbackCreate(ObjBindMethod(implObj, "GetFourCCCodes"), flags, 3)
+        this.vtbl.SetDirectDraw := CallbackCreate(ObjBindMethod(implObj, "SetDirectDraw"), flags, 2)
+        this.vtbl.GetDirectDraw := CallbackCreate(ObjBindMethod(implObj, "GetDirectDraw"), flags, 2)
+        this.vtbl.GetSurfaceType := CallbackCreate(ObjBindMethod(implObj, "GetSurfaceType"), flags, 2)
+        this.vtbl.SetDefault := CallbackCreate(ObjBindMethod(implObj, "SetDefault"), flags, 1)
+        this.vtbl.UseScanLine := CallbackCreate(ObjBindMethod(implObj, "UseScanLine"), flags, 2)
+        this.vtbl.CanUseScanLine := CallbackCreate(ObjBindMethod(implObj, "CanUseScanLine"), flags, 2)
+        this.vtbl.UseOverlayStretch := CallbackCreate(ObjBindMethod(implObj, "UseOverlayStretch"), flags, 2)
+        this.vtbl.CanUseOverlayStretch := CallbackCreate(ObjBindMethod(implObj, "CanUseOverlayStretch"), flags, 2)
+        this.vtbl.UseWhenFullScreen := CallbackCreate(ObjBindMethod(implObj, "UseWhenFullScreen"), flags, 2)
+        this.vtbl.WillUseFullScreen := CallbackCreate(ObjBindMethod(implObj, "WillUseFullScreen"), flags, 2)
     }
 
     Dispose() {

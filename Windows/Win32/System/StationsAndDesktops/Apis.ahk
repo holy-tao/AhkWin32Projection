@@ -99,9 +99,11 @@ export CreateDesktopA(lpszDesktop, dwFlags, dwDesiredAccess, lpsa) {
 
     lpszDesktop := lpszDesktop is String ? StrPtr(lpszDesktop) : lpszDesktop
 
+    lpsaMarshal := lpsa == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\CreateDesktopA", "ptr", lpszDesktop, "ptr", lpszDevice, DEVMODEA.Ptr, pDevmode, DESKTOP_CONTROL_FLAGS, dwFlags, UInt32, dwDesiredAccess, SECURITY_ATTRIBUTES.Ptr, lpsa, HDESK.Owned)
+    result := DllCall("USER32.dll\CreateDesktopA", "ptr", lpszDesktop, "ptr", lpszDevice, DEVMODEA.Ptr, pDevmode, DESKTOP_CONTROL_FLAGS, dwFlags, UInt32, dwDesiredAccess, lpsaMarshal, lpsa, HDESK.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -180,9 +182,11 @@ export CreateDesktopW(lpszDesktop, dwFlags, dwDesiredAccess, lpsa) {
 
     lpszDesktop := lpszDesktop is String ? StrPtr(lpszDesktop) : lpszDesktop
 
+    lpsaMarshal := lpsa == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\CreateDesktopW", "ptr", lpszDesktop, "ptr", lpszDevice, DEVMODEW.Ptr, pDevmode, DESKTOP_CONTROL_FLAGS, dwFlags, UInt32, dwDesiredAccess, SECURITY_ATTRIBUTES.Ptr, lpsa, HDESK.Owned)
+    result := DllCall("USER32.dll\CreateDesktopW", "ptr", lpszDesktop, "ptr", lpszDevice, DEVMODEW.Ptr, pDevmode, DESKTOP_CONTROL_FLAGS, dwFlags, UInt32, dwDesiredAccess, lpsaMarshal, lpsa, HDESK.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -270,9 +274,11 @@ export CreateDesktopExA(lpszDesktop, dwFlags, dwDesiredAccess, lpsa, ulHeapSize)
 
     lpszDesktop := lpszDesktop is String ? StrPtr(lpszDesktop) : lpszDesktop
 
+    lpsaMarshal := lpsa == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\CreateDesktopExA", "ptr", lpszDesktop, "ptr", lpszDevice, DEVMODEA.Ptr, pDevmode, DESKTOP_CONTROL_FLAGS, dwFlags, UInt32, dwDesiredAccess, SECURITY_ATTRIBUTES.Ptr, lpsa, UInt32, ulHeapSize, "ptr", pvoid, HDESK.Owned)
+    result := DllCall("USER32.dll\CreateDesktopExA", "ptr", lpszDesktop, "ptr", lpszDevice, DEVMODEA.Ptr, pDevmode, DESKTOP_CONTROL_FLAGS, dwFlags, UInt32, dwDesiredAccess, lpsaMarshal, lpsa, UInt32, ulHeapSize, "ptr", pvoid, HDESK.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -360,9 +366,11 @@ export CreateDesktopExW(lpszDesktop, dwFlags, dwDesiredAccess, lpsa, ulHeapSize)
 
     lpszDesktop := lpszDesktop is String ? StrPtr(lpszDesktop) : lpszDesktop
 
+    lpsaMarshal := lpsa == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\CreateDesktopExW", "ptr", lpszDesktop, "ptr", lpszDevice, DEVMODEW.Ptr, pDevmode, DESKTOP_CONTROL_FLAGS, dwFlags, UInt32, dwDesiredAccess, SECURITY_ATTRIBUTES.Ptr, lpsa, UInt32, ulHeapSize, "ptr", pvoid, HDESK.Owned)
+    result := DllCall("USER32.dll\CreateDesktopExW", "ptr", lpszDesktop, "ptr", lpszDevice, DEVMODEW.Ptr, pDevmode, DESKTOP_CONTROL_FLAGS, dwFlags, UInt32, dwDesiredAccess, lpsaMarshal, lpsa, UInt32, ulHeapSize, "ptr", pvoid, HDESK.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -579,9 +587,11 @@ export OpenInputDesktop(dwFlags, fInherit, dwDesiredAccess) {
  * @since windows5.0
  */
 export EnumDesktopsA(_hwinsta, lpEnumFunc, _lParam) {
+    _hwinstaMarshal := _hwinsta == 0 ? IntPtr : HWINSTA
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\EnumDesktopsA", HWINSTA, _hwinsta, DESKTOPENUMPROCA, lpEnumFunc, LPARAM, _lParam, BOOL)
+    result := DllCall("USER32.dll\EnumDesktopsA", _hwinstaMarshal, _hwinsta, DESKTOPENUMPROCA, lpEnumFunc, LPARAM, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -625,9 +635,11 @@ export EnumDesktopsA(_hwinsta, lpEnumFunc, _lParam) {
  * @since windows5.0
  */
 export EnumDesktopsW(_hwinsta, lpEnumFunc, _lParam) {
+    _hwinstaMarshal := _hwinsta == 0 ? IntPtr : HWINSTA
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\EnumDesktopsW", HWINSTA, _hwinsta, DESKTOPENUMPROCW, lpEnumFunc, LPARAM, _lParam, BOOL)
+    result := DllCall("USER32.dll\EnumDesktopsW", _hwinstaMarshal, _hwinsta, DESKTOPENUMPROCW, lpEnumFunc, LPARAM, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -662,9 +674,11 @@ export EnumDesktopsW(_hwinsta, lpEnumFunc, _lParam) {
  * @since windows5.0
  */
 export EnumDesktopWindows(hDesktop, lpfn, _lParam) {
+    hDesktopMarshal := hDesktop == 0 ? IntPtr : HDESK
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\EnumDesktopWindows", HDESK, hDesktop, WNDENUMPROC, lpfn, LPARAM, _lParam, BOOL)
+    result := DllCall("USER32.dll\EnumDesktopWindows", hDesktopMarshal, hDesktop, WNDENUMPROC, lpfn, LPARAM, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -831,9 +845,12 @@ export GetThreadDesktop(dwThreadId) {
 export CreateWindowStationA(lpwinsta, dwFlags, dwDesiredAccess, lpsa) {
     lpwinsta := lpwinsta is String ? StrPtr(lpwinsta) : lpwinsta
 
+    lpwinstaMarshal := lpwinsta == 0 ? IntPtr : PSTR
+    lpsaMarshal := lpsa == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\CreateWindowStationA", "ptr", lpwinsta, UInt32, dwFlags, UInt32, dwDesiredAccess, SECURITY_ATTRIBUTES.Ptr, lpsa, HWINSTA.Owned)
+    result := DllCall("USER32.dll\CreateWindowStationA", lpwinstaMarshal, lpwinsta, UInt32, dwFlags, UInt32, dwDesiredAccess, lpsaMarshal, lpsa, HWINSTA.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -873,9 +890,12 @@ export CreateWindowStationA(lpwinsta, dwFlags, dwDesiredAccess, lpsa) {
 export CreateWindowStationW(lpwinsta, dwFlags, dwDesiredAccess, lpsa) {
     lpwinsta := lpwinsta is String ? StrPtr(lpwinsta) : lpwinsta
 
+    lpwinstaMarshal := lpwinsta == 0 ? IntPtr : PWSTR
+    lpsaMarshal := lpsa == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\CreateWindowStationW", "ptr", lpwinsta, UInt32, dwFlags, UInt32, dwDesiredAccess, SECURITY_ATTRIBUTES.Ptr, lpsa, HWINSTA.Owned)
+    result := DllCall("USER32.dll\CreateWindowStationW", lpwinstaMarshal, lpwinsta, UInt32, dwFlags, UInt32, dwDesiredAccess, lpsaMarshal, lpsa, HWINSTA.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1142,11 +1162,13 @@ export GetProcessWindowStation() {
  * @since windows5.0
  */
 export GetUserObjectInformationA(hObj, nIndex, pvInfo, nLength, lpnLengthNeeded) {
-    lpnLengthNeededMarshal := lpnLengthNeeded is VarRef ? "uint*" : "ptr"
+    pvInfoMarshal := pvInfo == 0 ? IntPtr : IntPtr
+    lpnLengthNeededMarshal := lpnLengthNeeded is VarRef ? "uint*" : IntPtr
+    lpnLengthNeededMarshal := lpnLengthNeeded == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetUserObjectInformationA", HANDLE, hObj, USER_OBJECT_INFORMATION_INDEX, nIndex, IntPtr, pvInfo, UInt32, nLength, lpnLengthNeededMarshal, lpnLengthNeeded, BOOL)
+    result := DllCall("USER32.dll\GetUserObjectInformationA", HANDLE, hObj, USER_OBJECT_INFORMATION_INDEX, nIndex, pvInfoMarshal, pvInfo, UInt32, nLength, lpnLengthNeededMarshal, lpnLengthNeeded, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1176,11 +1198,13 @@ export GetUserObjectInformationA(hObj, nIndex, pvInfo, nLength, lpnLengthNeeded)
  * @since windows5.0
  */
 export GetUserObjectInformationW(hObj, nIndex, pvInfo, nLength, lpnLengthNeeded) {
-    lpnLengthNeededMarshal := lpnLengthNeeded is VarRef ? "uint*" : "ptr"
+    pvInfoMarshal := pvInfo == 0 ? IntPtr : IntPtr
+    lpnLengthNeededMarshal := lpnLengthNeeded is VarRef ? "uint*" : IntPtr
+    lpnLengthNeededMarshal := lpnLengthNeeded == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetUserObjectInformationW", HANDLE, hObj, USER_OBJECT_INFORMATION_INDEX, nIndex, IntPtr, pvInfo, UInt32, nLength, lpnLengthNeededMarshal, lpnLengthNeeded, BOOL)
+    result := DllCall("USER32.dll\GetUserObjectInformationW", HANDLE, hObj, USER_OBJECT_INFORMATION_INDEX, nIndex, pvInfoMarshal, pvInfo, UInt32, nLength, lpnLengthNeededMarshal, lpnLengthNeeded, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1367,11 +1391,13 @@ export SetUserObjectInformationW(hObj, nIndex, pvInfo, nLength) {
  * @since windows5.1.2600
  */
 export BroadcastSystemMessageExA(flags, lpInfo, _Msg, _wParam, _lParam, pbsmInfo) {
-    lpInfoMarshal := lpInfo is VarRef ? "uint*" : "ptr"
+    lpInfoMarshal := lpInfo is VarRef ? "uint*" : IntPtr
+    lpInfoMarshal := lpInfo == 0 ? IntPtr : "uint*"
+    pbsmInfoMarshal := pbsmInfo == 0 ? IntPtr : BSMINFO.Ptr
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\BroadcastSystemMessageExA", BROADCAST_SYSTEM_MESSAGE_FLAGS, flags, lpInfoMarshal, lpInfo, UInt32, _Msg, WPARAM, _wParam, LPARAM, _lParam, BSMINFO.Ptr, pbsmInfo, Int32)
+    result := DllCall("USER32.dll\BroadcastSystemMessageExA", BROADCAST_SYSTEM_MESSAGE_FLAGS, flags, lpInfoMarshal, lpInfo, UInt32, _Msg, WPARAM, _wParam, LPARAM, _lParam, pbsmInfoMarshal, pbsmInfo, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1428,11 +1454,13 @@ export BroadcastSystemMessageExA(flags, lpInfo, _Msg, _wParam, _lParam, pbsmInfo
  * @since windows5.1.2600
  */
 export BroadcastSystemMessageExW(flags, lpInfo, _Msg, _wParam, _lParam, pbsmInfo) {
-    lpInfoMarshal := lpInfo is VarRef ? "uint*" : "ptr"
+    lpInfoMarshal := lpInfo is VarRef ? "uint*" : IntPtr
+    lpInfoMarshal := lpInfo == 0 ? IntPtr : "uint*"
+    pbsmInfoMarshal := pbsmInfo == 0 ? IntPtr : BSMINFO.Ptr
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\BroadcastSystemMessageExW", BROADCAST_SYSTEM_MESSAGE_FLAGS, flags, lpInfoMarshal, lpInfo, UInt32, _Msg, WPARAM, _wParam, LPARAM, _lParam, BSMINFO.Ptr, pbsmInfo, Int32)
+    result := DllCall("USER32.dll\BroadcastSystemMessageExW", BROADCAST_SYSTEM_MESSAGE_FLAGS, flags, lpInfoMarshal, lpInfo, UInt32, _Msg, WPARAM, _wParam, LPARAM, _lParam, pbsmInfoMarshal, pbsmInfo, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1480,7 +1508,8 @@ export BroadcastSystemMessageExW(flags, lpInfo, _Msg, _wParam, _lParam, pbsmInfo
  * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-broadcastsystemmessagea
  */
 export BroadcastSystemMessageA(flags, lpInfo, _Msg, _wParam, _lParam) {
-    lpInfoMarshal := lpInfo is VarRef ? "uint*" : "ptr"
+    lpInfoMarshal := lpInfo is VarRef ? "uint*" : IntPtr
+    lpInfoMarshal := lpInfo == 0 ? IntPtr : "uint*"
 
     result := DllCall("USER32.dll\BroadcastSystemMessageA", UInt32, flags, lpInfoMarshal, lpInfo, UInt32, _Msg, WPARAM, _wParam, LPARAM, _lParam, Int32)
     return result
@@ -1523,7 +1552,8 @@ export BroadcastSystemMessageA(flags, lpInfo, _Msg, _wParam, _lParam) {
  * @since windows5.0
  */
 export BroadcastSystemMessageW(flags, lpInfo, _Msg, _wParam, _lParam) {
-    lpInfoMarshal := lpInfo is VarRef ? "uint*" : "ptr"
+    lpInfoMarshal := lpInfo is VarRef ? "uint*" : IntPtr
+    lpInfoMarshal := lpInfo == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 

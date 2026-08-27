@@ -25,7 +25,6 @@ export default struct HOOKPROC {
     }
 
     /**
-     * 
      * @param {Integer} code 
      * @param {WPARAM} _wParam Type: <b>WPARAM</b>
      * 

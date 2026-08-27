@@ -36,7 +36,6 @@ export default struct IRowsetNextRowset extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
@@ -55,7 +54,7 @@ export default struct IRowsetNextRowset extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNextRowset := CallbackCreate(GetMethod(implObj, "GetNextRowset"), flags, 4)
+        this.vtbl.GetNextRowset := CallbackCreate(ObjBindMethod(implObj, "GetNextRowset"), flags, 4)
     }
 
     Dispose() {

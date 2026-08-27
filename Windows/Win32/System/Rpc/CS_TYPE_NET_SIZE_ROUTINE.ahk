@@ -19,7 +19,6 @@ export default struct CS_TYPE_NET_SIZE_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hBinding 
      * @param {Integer} ulNetworkCodeSet 
      * @param {Integer} ulLocalBufferSize 
@@ -29,10 +28,10 @@ export default struct CS_TYPE_NET_SIZE_ROUTINE {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(hBinding, ulNetworkCodeSet, ulLocalBufferSize, conversionType, pulNetworkBufferSize, pStatus) {
-        hBindingMarshal := hBinding is VarRef ? "ptr" : "ptr"
-        conversionTypeMarshal := conversionType is VarRef ? "int*" : "ptr"
-        pulNetworkBufferSizeMarshal := pulNetworkBufferSize is VarRef ? "uint*" : "ptr"
-        pStatusMarshal := pStatus is VarRef ? "uint*" : "ptr"
+        hBindingMarshal := hBinding is VarRef ? "ptr" : IntPtr
+        conversionTypeMarshal := conversionType is VarRef ? "int*" : IntPtr
+        pulNetworkBufferSizeMarshal := pulNetworkBufferSize is VarRef ? "uint*" : IntPtr
+        pStatusMarshal := pStatus is VarRef ? "uint*" : IntPtr
 
         DllCall(this.value, hBindingMarshal, hBinding, UInt32, ulNetworkCodeSet, UInt32, ulLocalBufferSize, conversionTypeMarshal, conversionType, pulNetworkBufferSizeMarshal, pulNetworkBufferSize, pStatusMarshal, pStatus)
     }

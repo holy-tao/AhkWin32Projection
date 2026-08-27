@@ -77,7 +77,6 @@ export default struct ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkOutput 
      * @param {BOOL} fAllowFormatChanges 
      * @returns {HRESULT} 
@@ -88,7 +87,6 @@ export default struct ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @returns {ISpObjectToken} 
      */
     GetOutputObjectToken() {
@@ -97,7 +95,6 @@ export default struct ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @returns {ISpStreamFormat} 
      */
     GetOutputStream() {
@@ -128,7 +125,6 @@ export default struct ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {ISpObjectToken} pToken 
      * @returns {HRESULT} 
      */
@@ -138,7 +134,6 @@ export default struct ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @returns {ISpObjectToken} 
      */
     GetVoice() {
@@ -147,7 +142,6 @@ export default struct ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {PWSTR} pwcs 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
@@ -155,12 +149,13 @@ export default struct ISpVoice extends ISpEventSource {
     Speak(pwcs, dwFlags) {
         pwcs := pwcs is String ? StrPtr(pwcs) : pwcs
 
-        result := ComCall(20, this, "ptr", pwcs, UInt32, dwFlags, "uint*", &pulStreamNumber := 0, "HRESULT")
+        pwcsMarshal := pwcs == 0 ? IntPtr : PWSTR
+
+        result := ComCall(20, this, pwcsMarshal, pwcs, UInt32, dwFlags, "uint*", &pulStreamNumber := 0, "HRESULT")
         return pulStreamNumber
     }
 
     /**
-     * 
      * @param {IStream} pStream 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
@@ -171,7 +166,6 @@ export default struct ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {Pointer<SPVOICESTATUS>} pStatus 
      * @returns {PWSTR} 
      */
@@ -181,7 +175,6 @@ export default struct ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {PWSTR} pItemType 
      * @param {Integer} lNumItems 
      * @param {Pointer<Integer>} pulNumSkipped 
@@ -190,14 +183,13 @@ export default struct ISpVoice extends ISpEventSource {
     Skip(pItemType, lNumItems, pulNumSkipped) {
         pItemType := pItemType is String ? StrPtr(pItemType) : pItemType
 
-        pulNumSkippedMarshal := pulNumSkipped is VarRef ? "uint*" : "ptr"
+        pulNumSkippedMarshal := pulNumSkipped is VarRef ? "uint*" : IntPtr
 
         result := ComCall(23, this, "ptr", pItemType, Int32, lNumItems, pulNumSkippedMarshal, pulNumSkipped, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {SPVPRIORITY} ePriority 
      * @returns {HRESULT} 
      */
@@ -207,19 +199,17 @@ export default struct ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {Pointer<SPVPRIORITY>} pePriority 
      * @returns {HRESULT} 
      */
     GetPriority(pePriority) {
-        pePriorityMarshal := pePriority is VarRef ? "int*" : "ptr"
+        pePriorityMarshal := pePriority is VarRef ? "int*" : IntPtr
 
         result := ComCall(25, this, pePriorityMarshal, pePriority, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {SPEVENTENUM} eBoundary 
      * @returns {HRESULT} 
      */
@@ -229,19 +219,17 @@ export default struct ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {Pointer<SPEVENTENUM>} peBoundary 
      * @returns {HRESULT} 
      */
     GetAlertBoundary(peBoundary) {
-        peBoundaryMarshal := peBoundary is VarRef ? "int*" : "ptr"
+        peBoundaryMarshal := peBoundary is VarRef ? "int*" : IntPtr
 
         result := ComCall(27, this, peBoundaryMarshal, peBoundary, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} RateAdjust 
      * @returns {HRESULT} 
      */
@@ -251,19 +239,17 @@ export default struct ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pRateAdjust 
      * @returns {HRESULT} 
      */
     GetRate(pRateAdjust) {
-        pRateAdjustMarshal := pRateAdjust is VarRef ? "int*" : "ptr"
+        pRateAdjustMarshal := pRateAdjust is VarRef ? "int*" : IntPtr
 
         result := ComCall(29, this, pRateAdjustMarshal, pRateAdjust, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} usVolume 
      * @returns {HRESULT} 
      */
@@ -273,19 +259,17 @@ export default struct ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pusVolume 
      * @returns {HRESULT} 
      */
     GetVolume(pusVolume) {
-        pusVolumeMarshal := pusVolume is VarRef ? "ushort*" : "ptr"
+        pusVolumeMarshal := pusVolume is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(31, this, pusVolumeMarshal, pusVolume, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} msTimeout 
      * @returns {HRESULT} 
      */
@@ -295,7 +279,6 @@ export default struct ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {Integer} msTimeout 
      * @returns {HRESULT} 
      */
@@ -305,19 +288,17 @@ export default struct ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pmsTimeout 
      * @returns {HRESULT} 
      */
     GetSyncSpeakTimeout(pmsTimeout) {
-        pmsTimeoutMarshal := pmsTimeout is VarRef ? "uint*" : "ptr"
+        pmsTimeoutMarshal := pmsTimeout is VarRef ? "uint*" : IntPtr
 
         result := ComCall(34, this, pmsTimeoutMarshal, pmsTimeout, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HANDLE} 
      */
     SpeakCompleteEvent() {
@@ -326,7 +307,6 @@ export default struct ISpVoice extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {PWSTR} pszTypeOfUI 
      * @param {Pointer<Void>} pvExtraData 
      * @param {Integer} cbExtraData 
@@ -336,15 +316,14 @@ export default struct ISpVoice extends ISpEventSource {
     IsUISupported(pszTypeOfUI, pvExtraData, cbExtraData, pfSupported) {
         pszTypeOfUI := pszTypeOfUI is String ? StrPtr(pszTypeOfUI) : pszTypeOfUI
 
-        pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : "ptr"
-        pfSupportedMarshal := pfSupported is VarRef ? "int*" : "ptr"
+        pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : IntPtr
+        pfSupportedMarshal := pfSupported is VarRef ? "int*" : IntPtr
 
         result := ComCall(36, this, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, UInt32, cbExtraData, pfSupportedMarshal, pfSupported, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HWND} hwndParent 
      * @param {PWSTR} pszTitle 
      * @param {PWSTR} pszTypeOfUI 
@@ -356,7 +335,7 @@ export default struct ISpVoice extends ISpEventSource {
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
         pszTypeOfUI := pszTypeOfUI is String ? StrPtr(pszTypeOfUI) : pszTypeOfUI
 
-        pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : "ptr"
+        pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(37, this, HWND, hwndParent, "ptr", pszTitle, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, UInt32, cbExtraData, "HRESULT")
         return result
@@ -371,31 +350,31 @@ export default struct ISpVoice extends ISpEventSource {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetOutput := CallbackCreate(GetMethod(implObj, "SetOutput"), flags, 3)
-        this.vtbl.GetOutputObjectToken := CallbackCreate(GetMethod(implObj, "GetOutputObjectToken"), flags, 2)
-        this.vtbl.GetOutputStream := CallbackCreate(GetMethod(implObj, "GetOutputStream"), flags, 2)
-        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
-        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 1)
-        this.vtbl.SetVoice := CallbackCreate(GetMethod(implObj, "SetVoice"), flags, 2)
-        this.vtbl.GetVoice := CallbackCreate(GetMethod(implObj, "GetVoice"), flags, 2)
-        this.vtbl.Speak := CallbackCreate(GetMethod(implObj, "Speak"), flags, 4)
-        this.vtbl.SpeakStream := CallbackCreate(GetMethod(implObj, "SpeakStream"), flags, 4)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 3)
-        this.vtbl.Skip := CallbackCreate(GetMethod(implObj, "Skip"), flags, 4)
-        this.vtbl.SetPriority := CallbackCreate(GetMethod(implObj, "SetPriority"), flags, 2)
-        this.vtbl.GetPriority := CallbackCreate(GetMethod(implObj, "GetPriority"), flags, 2)
-        this.vtbl.SetAlertBoundary := CallbackCreate(GetMethod(implObj, "SetAlertBoundary"), flags, 2)
-        this.vtbl.GetAlertBoundary := CallbackCreate(GetMethod(implObj, "GetAlertBoundary"), flags, 2)
-        this.vtbl.SetRate := CallbackCreate(GetMethod(implObj, "SetRate"), flags, 2)
-        this.vtbl.GetRate := CallbackCreate(GetMethod(implObj, "GetRate"), flags, 2)
-        this.vtbl.SetVolume := CallbackCreate(GetMethod(implObj, "SetVolume"), flags, 2)
-        this.vtbl.GetVolume := CallbackCreate(GetMethod(implObj, "GetVolume"), flags, 2)
-        this.vtbl.WaitUntilDone := CallbackCreate(GetMethod(implObj, "WaitUntilDone"), flags, 2)
-        this.vtbl.SetSyncSpeakTimeout := CallbackCreate(GetMethod(implObj, "SetSyncSpeakTimeout"), flags, 2)
-        this.vtbl.GetSyncSpeakTimeout := CallbackCreate(GetMethod(implObj, "GetSyncSpeakTimeout"), flags, 2)
-        this.vtbl.SpeakCompleteEvent := CallbackCreate(GetMethod(implObj, "SpeakCompleteEvent"), flags, 1)
-        this.vtbl.IsUISupported := CallbackCreate(GetMethod(implObj, "IsUISupported"), flags, 5)
-        this.vtbl.DisplayUI := CallbackCreate(GetMethod(implObj, "DisplayUI"), flags, 6)
+        this.vtbl.SetOutput := CallbackCreate(ObjBindMethod(implObj, "SetOutput"), flags, 3)
+        this.vtbl.GetOutputObjectToken := CallbackCreate(ObjBindMethod(implObj, "GetOutputObjectToken"), flags, 2)
+        this.vtbl.GetOutputStream := CallbackCreate(ObjBindMethod(implObj, "GetOutputStream"), flags, 2)
+        this.vtbl.Pause := CallbackCreate(ObjBindMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Resume := CallbackCreate(ObjBindMethod(implObj, "Resume"), flags, 1)
+        this.vtbl.SetVoice := CallbackCreate(ObjBindMethod(implObj, "SetVoice"), flags, 2)
+        this.vtbl.GetVoice := CallbackCreate(ObjBindMethod(implObj, "GetVoice"), flags, 2)
+        this.vtbl.Speak := CallbackCreate(ObjBindMethod(implObj, "Speak"), flags, 4)
+        this.vtbl.SpeakStream := CallbackCreate(ObjBindMethod(implObj, "SpeakStream"), flags, 4)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 3)
+        this.vtbl.Skip := CallbackCreate(ObjBindMethod(implObj, "Skip"), flags, 4)
+        this.vtbl.SetPriority := CallbackCreate(ObjBindMethod(implObj, "SetPriority"), flags, 2)
+        this.vtbl.GetPriority := CallbackCreate(ObjBindMethod(implObj, "GetPriority"), flags, 2)
+        this.vtbl.SetAlertBoundary := CallbackCreate(ObjBindMethod(implObj, "SetAlertBoundary"), flags, 2)
+        this.vtbl.GetAlertBoundary := CallbackCreate(ObjBindMethod(implObj, "GetAlertBoundary"), flags, 2)
+        this.vtbl.SetRate := CallbackCreate(ObjBindMethod(implObj, "SetRate"), flags, 2)
+        this.vtbl.GetRate := CallbackCreate(ObjBindMethod(implObj, "GetRate"), flags, 2)
+        this.vtbl.SetVolume := CallbackCreate(ObjBindMethod(implObj, "SetVolume"), flags, 2)
+        this.vtbl.GetVolume := CallbackCreate(ObjBindMethod(implObj, "GetVolume"), flags, 2)
+        this.vtbl.WaitUntilDone := CallbackCreate(ObjBindMethod(implObj, "WaitUntilDone"), flags, 2)
+        this.vtbl.SetSyncSpeakTimeout := CallbackCreate(ObjBindMethod(implObj, "SetSyncSpeakTimeout"), flags, 2)
+        this.vtbl.GetSyncSpeakTimeout := CallbackCreate(ObjBindMethod(implObj, "GetSyncSpeakTimeout"), flags, 2)
+        this.vtbl.SpeakCompleteEvent := CallbackCreate(ObjBindMethod(implObj, "SpeakCompleteEvent"), flags, 1)
+        this.vtbl.IsUISupported := CallbackCreate(ObjBindMethod(implObj, "IsUISupported"), flags, 5)
+        this.vtbl.DisplayUI := CallbackCreate(ObjBindMethod(implObj, "DisplayUI"), flags, 6)
     }
 
     Dispose() {

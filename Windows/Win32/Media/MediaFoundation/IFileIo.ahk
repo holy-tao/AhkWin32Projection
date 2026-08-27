@@ -88,19 +88,17 @@ export default struct IFileIo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pqwLength 
      * @returns {HRESULT} 
      */
     GetLength(pqwLength) {
-        pqwLengthMarshal := pqwLength is VarRef ? "uint*" : "ptr"
+        pqwLengthMarshal := pqwLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pqwLengthMarshal, pqwLength, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} qwLength 
      * @returns {HRESULT} 
      */
@@ -110,19 +108,17 @@ export default struct IFileIo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pqwPosition 
      * @returns {HRESULT} 
      */
     GetCurrentPosition(pqwPosition) {
-        pqwPositionMarshal := pqwPosition is VarRef ? "uint*" : "ptr"
+        pqwPositionMarshal := pqwPosition is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, pqwPositionMarshal, pqwPosition, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} qwPosition 
      * @returns {HRESULT} 
      */
@@ -132,49 +128,45 @@ export default struct IFileIo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BOOL>} pbEndOfStream 
      * @returns {HRESULT} 
      */
     IsEndOfStream(pbEndOfStream) {
-        pbEndOfStreamMarshal := pbEndOfStream is VarRef ? "int*" : "ptr"
+        pbEndOfStreamMarshal := pbEndOfStream is VarRef ? "int*" : IntPtr
 
         result := ComCall(8, this, pbEndOfStreamMarshal, pbEndOfStream, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbt 
      * @param {Integer} ul 
      * @param {Pointer<Integer>} pulRead 
      * @returns {HRESULT} 
      */
     Read(pbt, ul, pulRead) {
-        pbtMarshal := pbt is VarRef ? "char*" : "ptr"
-        pulReadMarshal := pulRead is VarRef ? "uint*" : "ptr"
+        pbtMarshal := pbt is VarRef ? "char*" : IntPtr
+        pulReadMarshal := pulRead is VarRef ? "uint*" : IntPtr
 
         result := ComCall(9, this, pbtMarshal, pbt, UInt32, ul, pulReadMarshal, pulRead, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbt 
      * @param {Integer} ul 
      * @param {Pointer<Integer>} pulWritten 
      * @returns {HRESULT} 
      */
     Write(pbt, ul, pulWritten) {
-        pbtMarshal := pbt is VarRef ? "char*" : "ptr"
-        pulWrittenMarshal := pulWritten is VarRef ? "uint*" : "ptr"
+        pbtMarshal := pbt is VarRef ? "char*" : IntPtr
+        pulWrittenMarshal := pulWritten is VarRef ? "uint*" : IntPtr
 
         result := ComCall(10, this, pbtMarshal, pbt, UInt32, ul, pulWrittenMarshal, pulWritten, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {SEEK_ORIGIN} eSeekOrigin 
      * @param {Integer} qwSeekOffset 
      * @param {Integer} dwSeekFlags 
@@ -182,14 +174,13 @@ export default struct IFileIo extends IUnknown {
      * @returns {HRESULT} 
      */
     Seek(eSeekOrigin, qwSeekOffset, dwSeekFlags, pqwCurrentPosition) {
-        pqwCurrentPositionMarshal := pqwCurrentPosition is VarRef ? "uint*" : "ptr"
+        pqwCurrentPositionMarshal := pqwCurrentPosition is VarRef ? "uint*" : IntPtr
 
         result := ComCall(11, this, SEEK_ORIGIN, eSeekOrigin, Int64, qwSeekOffset, UInt32, dwSeekFlags, pqwCurrentPositionMarshal, pqwCurrentPosition, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Close() {
@@ -206,16 +197,16 @@ export default struct IFileIo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.SetLength := CallbackCreate(GetMethod(implObj, "SetLength"), flags, 2)
-        this.vtbl.GetCurrentPosition := CallbackCreate(GetMethod(implObj, "GetCurrentPosition"), flags, 2)
-        this.vtbl.SetCurrentPosition := CallbackCreate(GetMethod(implObj, "SetCurrentPosition"), flags, 2)
-        this.vtbl.IsEndOfStream := CallbackCreate(GetMethod(implObj, "IsEndOfStream"), flags, 2)
-        this.vtbl.Read := CallbackCreate(GetMethod(implObj, "Read"), flags, 4)
-        this.vtbl.Write := CallbackCreate(GetMethod(implObj, "Write"), flags, 4)
-        this.vtbl.Seek := CallbackCreate(GetMethod(implObj, "Seek"), flags, 5)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 4)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.SetLength := CallbackCreate(ObjBindMethod(implObj, "SetLength"), flags, 2)
+        this.vtbl.GetCurrentPosition := CallbackCreate(ObjBindMethod(implObj, "GetCurrentPosition"), flags, 2)
+        this.vtbl.SetCurrentPosition := CallbackCreate(ObjBindMethod(implObj, "SetCurrentPosition"), flags, 2)
+        this.vtbl.IsEndOfStream := CallbackCreate(ObjBindMethod(implObj, "IsEndOfStream"), flags, 2)
+        this.vtbl.Read := CallbackCreate(ObjBindMethod(implObj, "Read"), flags, 4)
+        this.vtbl.Write := CallbackCreate(ObjBindMethod(implObj, "Write"), flags, 4)
+        this.vtbl.Seek := CallbackCreate(ObjBindMethod(implObj, "Seek"), flags, 5)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
     }
 
     Dispose() {

@@ -231,12 +231,12 @@ export default struct IStreamBufferRecComp extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.Append := CallbackCreate(GetMethod(implObj, "Append"), flags, 2)
-        this.vtbl.AppendEx := CallbackCreate(GetMethod(implObj, "AppendEx"), flags, 4)
-        this.vtbl.GetCurrentLength := CallbackCreate(GetMethod(implObj, "GetCurrentLength"), flags, 2)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
-        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.Append := CallbackCreate(ObjBindMethod(implObj, "Append"), flags, 2)
+        this.vtbl.AppendEx := CallbackCreate(ObjBindMethod(implObj, "AppendEx"), flags, 4)
+        this.vtbl.GetCurrentLength := CallbackCreate(ObjBindMethod(implObj, "GetCurrentLength"), flags, 2)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
+        this.vtbl.Cancel := CallbackCreate(ObjBindMethod(implObj, "Cancel"), flags, 1)
     }
 
     Dispose() {

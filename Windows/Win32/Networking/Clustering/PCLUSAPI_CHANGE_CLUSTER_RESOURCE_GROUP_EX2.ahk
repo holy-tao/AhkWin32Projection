@@ -21,7 +21,6 @@ export default struct PCLUSAPI_CHANGE_CLUSTER_RESOURCE_GROUP_EX2 {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {HGROUP} _hGroup 
      * @param {Integer} Flags 
@@ -31,7 +30,9 @@ export default struct PCLUSAPI_CHANGE_CLUSTER_RESOURCE_GROUP_EX2 {
     Call(_hResource, _hGroup, Flags, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall(this.value, HRESOURCE, _hResource, HGROUP, _hGroup, Int64, Flags, "ptr", lpszReason, UInt32)
+        lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+        result := DllCall(this.value, HRESOURCE, _hResource, HGROUP, _hGroup, Int64, Flags, lpszReasonMarshal, lpszReason, UInt32)
         return result
     }
 

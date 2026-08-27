@@ -142,9 +142,9 @@ export default struct IAMGraphStreams extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FindUpstreamInterface := CallbackCreate(GetMethod(implObj, "FindUpstreamInterface"), flags, 5)
-        this.vtbl.SyncUsingStreamOffset := CallbackCreate(GetMethod(implObj, "SyncUsingStreamOffset"), flags, 2)
-        this.vtbl.SetMaxGraphLatency := CallbackCreate(GetMethod(implObj, "SetMaxGraphLatency"), flags, 2)
+        this.vtbl.FindUpstreamInterface := CallbackCreate(ObjBindMethod(implObj, "FindUpstreamInterface"), flags, 5)
+        this.vtbl.SyncUsingStreamOffset := CallbackCreate(ObjBindMethod(implObj, "SyncUsingStreamOffset"), flags, 2)
+        this.vtbl.SetMaxGraphLatency := CallbackCreate(ObjBindMethod(implObj, "SetMaxGraphLatency"), flags, 2)
     }
 
     Dispose() {

@@ -44,8 +44,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-ntquerysysteminformation
  */
 export NtQuerySystemInformation(SystemInformationClass, _SystemInformation, SystemInformationLength, ReturnLength) {
-    _SystemInformationMarshal := _SystemInformation is VarRef ? "ptr" : "ptr"
-    ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
+    _SystemInformationMarshal := _SystemInformation is VarRef ? "ptr" : IntPtr
+    ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ntdll.dll\NtQuerySystemInformation", SYSTEM_INFORMATION_CLASS, SystemInformationClass, _SystemInformationMarshal, _SystemInformation, UInt32, SystemInformationLength, ReturnLengthMarshal, ReturnLength, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -260,8 +260,8 @@ export NtQuerySystemInformation(SystemInformationClass, _SystemInformation, Syst
  * @see https://learn.microsoft.com/windows/win32/SysInfo/zwquerysysteminformation
  */
 export ZwQuerySystemInformation(SystemInformationClass, _SystemInformation, SystemInformationLength, ReturnLength) {
-    _SystemInformationMarshal := _SystemInformation is VarRef ? "ptr" : "ptr"
-    ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
+    _SystemInformationMarshal := _SystemInformation is VarRef ? "ptr" : IntPtr
+    ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ntdll.dll\ZwQuerySystemInformation", SYSTEM_INFORMATION_CLASS, SystemInformationClass, _SystemInformationMarshal, _SystemInformation, UInt32, SystemInformationLength, ReturnLengthMarshal, ReturnLength, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -277,7 +277,7 @@ export ZwQuerySystemInformation(SystemInformationClass, _SystemInformation, Syst
  * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-ntquerysystemtime
  */
 export NtQuerySystemTime(_SystemTime) {
-    _SystemTimeMarshal := _SystemTime is VarRef ? "int64*" : "ptr"
+    _SystemTimeMarshal := _SystemTime is VarRef ? "int64*" : IntPtr
 
     result := DllCall("ntdll.dll\NtQuerySystemTime", _SystemTimeMarshal, _SystemTime, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -285,12 +285,11 @@ export NtQuerySystemTime(_SystemTime) {
 }
 
 /**
- * 
  * @param {Pointer<Integer>} _SystemTime 
  * @returns {NTSTATUS} 
  */
 export ZwQuerySystemTime(_SystemTime) {
-    _SystemTimeMarshal := _SystemTime is VarRef ? "int64*" : "ptr"
+    _SystemTimeMarshal := _SystemTime is VarRef ? "int64*" : IntPtr
 
     result := DllCall("ntdll.dll\ZwQuerySystemTime", _SystemTimeMarshal, _SystemTime, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -298,16 +297,15 @@ export ZwQuerySystemTime(_SystemTime) {
 }
 
 /**
- * 
  * @param {Pointer<Integer>} MaximumTime 
  * @param {Pointer<Integer>} MinimumTime 
  * @param {Pointer<Integer>} CurrentTime 
  * @returns {NTSTATUS} 
  */
 export NtQueryTimerResolution(MaximumTime, MinimumTime, CurrentTime) {
-    MaximumTimeMarshal := MaximumTime is VarRef ? "uint*" : "ptr"
-    MinimumTimeMarshal := MinimumTime is VarRef ? "uint*" : "ptr"
-    CurrentTimeMarshal := CurrentTime is VarRef ? "uint*" : "ptr"
+    MaximumTimeMarshal := MaximumTime is VarRef ? "uint*" : IntPtr
+    MinimumTimeMarshal := MinimumTime is VarRef ? "uint*" : IntPtr
+    CurrentTimeMarshal := CurrentTime is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ntdll.dll\NtQueryTimerResolution", MaximumTimeMarshal, MaximumTime, MinimumTimeMarshal, MinimumTime, CurrentTimeMarshal, CurrentTime, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -315,16 +313,15 @@ export NtQueryTimerResolution(MaximumTime, MinimumTime, CurrentTime) {
 }
 
 /**
- * 
  * @param {Pointer<Integer>} MaximumTime 
  * @param {Pointer<Integer>} MinimumTime 
  * @param {Pointer<Integer>} CurrentTime 
  * @returns {NTSTATUS} 
  */
 export ZwQueryTimerResolution(MaximumTime, MinimumTime, CurrentTime) {
-    MaximumTimeMarshal := MaximumTime is VarRef ? "uint*" : "ptr"
-    MinimumTimeMarshal := MinimumTime is VarRef ? "uint*" : "ptr"
-    CurrentTimeMarshal := CurrentTime is VarRef ? "uint*" : "ptr"
+    MaximumTimeMarshal := MaximumTime is VarRef ? "uint*" : IntPtr
+    MinimumTimeMarshal := MinimumTime is VarRef ? "uint*" : IntPtr
+    CurrentTimeMarshal := CurrentTime is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ntdll.dll\ZwQueryTimerResolution", MaximumTimeMarshal, MaximumTime, MinimumTimeMarshal, MinimumTime, CurrentTimeMarshal, CurrentTime, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)

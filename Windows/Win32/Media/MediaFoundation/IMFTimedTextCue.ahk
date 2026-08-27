@@ -202,17 +202,17 @@ export default struct IMFTimedTextCue extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetId := CallbackCreate(GetMethod(implObj, "GetId"), flags, 1)
-        this.vtbl.GetOriginalId := CallbackCreate(GetMethod(implObj, "GetOriginalId"), flags, 2)
-        this.vtbl.GetCueKind := CallbackCreate(GetMethod(implObj, "GetCueKind"), flags, 1)
-        this.vtbl.GetStartTime := CallbackCreate(GetMethod(implObj, "GetStartTime"), flags, 1)
-        this.vtbl.GetDuration := CallbackCreate(GetMethod(implObj, "GetDuration"), flags, 1)
-        this.vtbl.GetTrackId := CallbackCreate(GetMethod(implObj, "GetTrackId"), flags, 1)
-        this.vtbl.GetData := CallbackCreate(GetMethod(implObj, "GetData"), flags, 2)
-        this.vtbl.GetRegion := CallbackCreate(GetMethod(implObj, "GetRegion"), flags, 2)
-        this.vtbl.GetStyle := CallbackCreate(GetMethod(implObj, "GetStyle"), flags, 2)
-        this.vtbl.GetLineCount := CallbackCreate(GetMethod(implObj, "GetLineCount"), flags, 1)
-        this.vtbl.GetLine := CallbackCreate(GetMethod(implObj, "GetLine"), flags, 3)
+        this.vtbl.GetId := CallbackCreate(ObjBindMethod(implObj, "GetId"), flags, 1)
+        this.vtbl.GetOriginalId := CallbackCreate(ObjBindMethod(implObj, "GetOriginalId"), flags, 2)
+        this.vtbl.GetCueKind := CallbackCreate(ObjBindMethod(implObj, "GetCueKind"), flags, 1)
+        this.vtbl.GetStartTime := CallbackCreate(ObjBindMethod(implObj, "GetStartTime"), flags, 1)
+        this.vtbl.GetDuration := CallbackCreate(ObjBindMethod(implObj, "GetDuration"), flags, 1)
+        this.vtbl.GetTrackId := CallbackCreate(ObjBindMethod(implObj, "GetTrackId"), flags, 1)
+        this.vtbl.GetData := CallbackCreate(ObjBindMethod(implObj, "GetData"), flags, 2)
+        this.vtbl.GetRegion := CallbackCreate(ObjBindMethod(implObj, "GetRegion"), flags, 2)
+        this.vtbl.GetStyle := CallbackCreate(ObjBindMethod(implObj, "GetStyle"), flags, 2)
+        this.vtbl.GetLineCount := CallbackCreate(ObjBindMethod(implObj, "GetLineCount"), flags, 1)
+        this.vtbl.GetLine := CallbackCreate(ObjBindMethod(implObj, "GetLine"), flags, 3)
     }
 
     Dispose() {

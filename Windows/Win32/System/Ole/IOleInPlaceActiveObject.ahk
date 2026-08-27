@@ -113,7 +113,9 @@ export default struct IOleInPlaceActiveObject extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleinplaceactiveobject-translateaccelerator
      */
     TranslateAccelerator(lpmsg) {
-        result := ComCall(5, this, MSG.Ptr, lpmsg, "HRESULT")
+        lpmsgMarshal := lpmsg == 0 ? IntPtr : MSG.Ptr
+
+        result := ComCall(5, this, lpmsgMarshal, lpmsg, "HRESULT")
         return result
     }
 
@@ -230,11 +232,11 @@ export default struct IOleInPlaceActiveObject extends IOleWindow {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.TranslateAccelerator := CallbackCreate(GetMethod(implObj, "TranslateAccelerator"), flags, 2)
-        this.vtbl.OnFrameWindowActivate := CallbackCreate(GetMethod(implObj, "OnFrameWindowActivate"), flags, 2)
-        this.vtbl.OnDocWindowActivate := CallbackCreate(GetMethod(implObj, "OnDocWindowActivate"), flags, 2)
-        this.vtbl.ResizeBorder := CallbackCreate(GetMethod(implObj, "ResizeBorder"), flags, 4)
-        this.vtbl.EnableModeless := CallbackCreate(GetMethod(implObj, "EnableModeless"), flags, 2)
+        this.vtbl.TranslateAccelerator := CallbackCreate(ObjBindMethod(implObj, "TranslateAccelerator"), flags, 2)
+        this.vtbl.OnFrameWindowActivate := CallbackCreate(ObjBindMethod(implObj, "OnFrameWindowActivate"), flags, 2)
+        this.vtbl.OnDocWindowActivate := CallbackCreate(ObjBindMethod(implObj, "OnDocWindowActivate"), flags, 2)
+        this.vtbl.ResizeBorder := CallbackCreate(ObjBindMethod(implObj, "ResizeBorder"), flags, 4)
+        this.vtbl.EnableModeless := CallbackCreate(ObjBindMethod(implObj, "EnableModeless"), flags, 2)
     }
 
     Dispose() {

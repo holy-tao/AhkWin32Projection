@@ -39,7 +39,6 @@ export default struct IMediaRadioManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRadioInstanceCollection} 
      */
     GetRadioInstances() {
@@ -48,7 +47,6 @@ export default struct IMediaRadioManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {SYSTEM_RADIO_STATE} sysRadioState 
      * @param {Integer} uTimeoutSec 
      * @returns {HRESULT} 
@@ -67,8 +65,8 @@ export default struct IMediaRadioManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRadioInstances := CallbackCreate(GetMethod(implObj, "GetRadioInstances"), flags, 2)
-        this.vtbl.OnSystemRadioStateChange := CallbackCreate(GetMethod(implObj, "OnSystemRadioStateChange"), flags, 3)
+        this.vtbl.GetRadioInstances := CallbackCreate(ObjBindMethod(implObj, "GetRadioInstances"), flags, 2)
+        this.vtbl.OnSystemRadioStateChange := CallbackCreate(ObjBindMethod(implObj, "OnSystemRadioStateChange"), flags, 3)
     }
 
     Dispose() {

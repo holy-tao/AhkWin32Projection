@@ -61,7 +61,6 @@ export default struct IRTCBuddyEvent2 extends IRTCBuddyEvent {
     }
 
     /**
-     * 
      * @returns {RTC_BUDDY_EVENT_TYPE} 
      */
     get_EventType() {
@@ -70,7 +69,6 @@ export default struct IRTCBuddyEvent2 extends IRTCBuddyEvent {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_StatusCode() {
@@ -79,7 +77,6 @@ export default struct IRTCBuddyEvent2 extends IRTCBuddyEvent {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_StatusText() {
@@ -97,9 +94,9 @@ export default struct IRTCBuddyEvent2 extends IRTCBuddyEvent {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_EventType := CallbackCreate(GetMethod(implObj, "get_EventType"), flags, 2)
-        this.vtbl.get_StatusCode := CallbackCreate(GetMethod(implObj, "get_StatusCode"), flags, 2)
-        this.vtbl.get_StatusText := CallbackCreate(GetMethod(implObj, "get_StatusText"), flags, 2)
+        this.vtbl.get_EventType := CallbackCreate(ObjBindMethod(implObj, "get_EventType"), flags, 2)
+        this.vtbl.get_StatusCode := CallbackCreate(ObjBindMethod(implObj, "get_StatusCode"), flags, 2)
+        this.vtbl.get_StatusText := CallbackCreate(ObjBindMethod(implObj, "get_StatusText"), flags, 2)
     }
 
     Dispose() {

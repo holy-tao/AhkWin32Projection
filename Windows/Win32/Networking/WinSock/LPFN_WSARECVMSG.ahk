@@ -70,7 +70,6 @@ export default struct LPFN_WSARECVMSG {
     }
 
     /**
-     * 
      * @param {SOCKET} s Type: \_In\_ **SOCKET**
      * 
      * A descriptor that identifies the socket.
@@ -169,9 +168,12 @@ export default struct LPFN_WSARECVMSG {
      * </table>
      */
     Call(s, lpMsg, lpdwNumberOfBytesRecvd, lpOverlapped, lpCompletionRoutine) {
-        lpdwNumberOfBytesRecvdMarshal := lpdwNumberOfBytesRecvd is VarRef ? "uint*" : "ptr"
+        lpdwNumberOfBytesRecvdMarshal := lpdwNumberOfBytesRecvd is VarRef ? "uint*" : IntPtr
+        lpdwNumberOfBytesRecvdMarshal := lpdwNumberOfBytesRecvd == 0 ? IntPtr : "uint*"
+        lpOverlappedMarshal := lpOverlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+        lpCompletionRoutineMarshal := lpCompletionRoutine == 0 ? IntPtr : LPWSAOVERLAPPED_COMPLETION_ROUTINE
 
-        result := DllCall(this.value, SOCKET, s, WSAMSG.Ptr, lpMsg, lpdwNumberOfBytesRecvdMarshal, lpdwNumberOfBytesRecvd, OVERLAPPED.Ptr, lpOverlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE, lpCompletionRoutine, Int32)
+        result := DllCall(this.value, SOCKET, s, WSAMSG.Ptr, lpMsg, lpdwNumberOfBytesRecvdMarshal, lpdwNumberOfBytesRecvd, lpOverlappedMarshal, lpOverlapped, lpCompletionRoutineMarshal, lpCompletionRoutine, Int32)
         return result
     }
 

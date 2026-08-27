@@ -85,9 +85,9 @@ export default struct ITfFunctionProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
-        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 2)
-        this.vtbl.GetFunction := CallbackCreate(GetMethod(implObj, "GetFunction"), flags, 4)
+        this.vtbl.GetType := CallbackCreate(ObjBindMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.GetDescription := CallbackCreate(ObjBindMethod(implObj, "GetDescription"), flags, 2)
+        this.vtbl.GetFunction := CallbackCreate(ObjBindMethod(implObj, "GetFunction"), flags, 4)
     }
 
     Dispose() {

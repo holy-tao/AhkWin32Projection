@@ -94,9 +94,9 @@ export default struct IMediaEventEx extends IMediaEvent {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetNotifyWindow := CallbackCreate(GetMethod(implObj, "SetNotifyWindow"), flags, 4)
-        this.vtbl.SetNotifyFlags := CallbackCreate(GetMethod(implObj, "SetNotifyFlags"), flags, 2)
-        this.vtbl.GetNotifyFlags := CallbackCreate(GetMethod(implObj, "GetNotifyFlags"), flags, 2)
+        this.vtbl.SetNotifyWindow := CallbackCreate(ObjBindMethod(implObj, "SetNotifyWindow"), flags, 4)
+        this.vtbl.SetNotifyFlags := CallbackCreate(ObjBindMethod(implObj, "SetNotifyFlags"), flags, 2)
+        this.vtbl.GetNotifyFlags := CallbackCreate(ObjBindMethod(implObj, "GetNotifyFlags"), flags, 2)
     }
 
     Dispose() {

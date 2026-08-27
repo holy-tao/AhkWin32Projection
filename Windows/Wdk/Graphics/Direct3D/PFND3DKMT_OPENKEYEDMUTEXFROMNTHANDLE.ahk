@@ -20,7 +20,6 @@ export default struct PFND3DKMT_OPENKEYEDMUTEXFROMNTHANDLE {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_OPENKEYEDMUTEXFROMNTHANDLE>} param0 
      * @returns {NTSTATUS} 
      */

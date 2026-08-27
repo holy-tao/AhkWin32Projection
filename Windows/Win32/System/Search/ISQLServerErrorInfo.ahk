@@ -47,7 +47,7 @@ export default struct ISQLServerErrorInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-geterrorinfo
      */
     GetErrorInfo(ppErrorInfo) {
-        ppErrorInfoMarshal := ppErrorInfo is VarRef ? "ptr*" : "ptr"
+        ppErrorInfoMarshal := ppErrorInfo is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, ppErrorInfoMarshal, ppErrorInfo, "ptr*", &ppStringsBuffer := 0, "HRESULT")
         return ppStringsBuffer
@@ -62,7 +62,7 @@ export default struct ISQLServerErrorInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetErrorInfo := CallbackCreate(GetMethod(implObj, "GetErrorInfo"), flags, 3)
+        this.vtbl.GetErrorInfo := CallbackCreate(ObjBindMethod(implObj, "GetErrorInfo"), flags, 3)
     }
 
     Dispose() {

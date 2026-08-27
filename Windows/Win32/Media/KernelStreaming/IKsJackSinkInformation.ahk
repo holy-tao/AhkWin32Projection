@@ -58,7 +58,7 @@ export default struct IKsJackSinkInformation extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetJackSinkInformation := CallbackCreate(GetMethod(implObj, "GetJackSinkInformation"), flags, 2)
+        this.vtbl.GetJackSinkInformation := CallbackCreate(ObjBindMethod(implObj, "GetJackSinkInformation"), flags, 2)
     }
 
     Dispose() {

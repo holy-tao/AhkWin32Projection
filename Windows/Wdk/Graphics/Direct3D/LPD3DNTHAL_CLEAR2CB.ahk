@@ -19,7 +19,6 @@ export default struct LPD3DNTHAL_CLEAR2CB {
     }
 
     /**
-     * 
      * @param {Pointer<D3DNTHAL_CLEAR2DATA>} param0 
      * @returns {Integer} 
      */

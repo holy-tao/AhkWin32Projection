@@ -65,7 +65,7 @@ export default struct IMFMediaStreamSourceSampleRequest extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetSample := CallbackCreate(GetMethod(implObj, "SetSample"), flags, 2)
+        this.vtbl.SetSample := CallbackCreate(ObjBindMethod(implObj, "SetSample"), flags, 2)
     }
 
     Dispose() {

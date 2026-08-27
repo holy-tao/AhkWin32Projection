@@ -95,9 +95,9 @@ export default struct IPortableDeviceServiceMethods extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Invoke := CallbackCreate(GetMethod(implObj, "Invoke"), flags, 4)
-        this.vtbl.InvokeAsync := CallbackCreate(GetMethod(implObj, "InvokeAsync"), flags, 4)
-        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 2)
+        this.vtbl.Invoke := CallbackCreate(ObjBindMethod(implObj, "Invoke"), flags, 4)
+        this.vtbl.InvokeAsync := CallbackCreate(ObjBindMethod(implObj, "InvokeAsync"), flags, 4)
+        this.vtbl.Cancel := CallbackCreate(ObjBindMethod(implObj, "Cancel"), flags, 2)
     }
 
     Dispose() {

@@ -38,7 +38,6 @@ export default struct IFtpAuthenticationProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszSessionId 
      * @param {PWSTR} pszSiteName 
      * @param {PWSTR} pszUserName 
@@ -53,8 +52,8 @@ export default struct IFtpAuthenticationProvider extends IUnknown {
         pszUserName := pszUserName is String ? StrPtr(pszUserName) : pszUserName
         pszPassword := pszPassword is String ? StrPtr(pszPassword) : pszPassword
 
-        ppszCanonicalUserNameMarshal := ppszCanonicalUserName is VarRef ? "ptr*" : "ptr"
-        pfAuthenticatedMarshal := pfAuthenticated is VarRef ? "int*" : "ptr"
+        ppszCanonicalUserNameMarshal := ppszCanonicalUserName is VarRef ? "ptr*" : IntPtr
+        pfAuthenticatedMarshal := pfAuthenticated is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, "ptr", pszSessionId, "ptr", pszSiteName, "ptr", pszUserName, "ptr", pszPassword, ppszCanonicalUserNameMarshal, ppszCanonicalUserName, pfAuthenticatedMarshal, pfAuthenticated, "HRESULT")
         return result
@@ -69,7 +68,7 @@ export default struct IFtpAuthenticationProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AuthenticateUser := CallbackCreate(GetMethod(implObj, "AuthenticateUser"), flags, 7)
+        this.vtbl.AuthenticateUser := CallbackCreate(ObjBindMethod(implObj, "AuthenticateUser"), flags, 7)
     }
 
     Dispose() {

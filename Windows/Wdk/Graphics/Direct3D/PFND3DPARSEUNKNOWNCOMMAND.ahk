@@ -19,14 +19,13 @@ export default struct PFND3DPARSEUNKNOWNCOMMAND {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} lpvCommands 
      * @param {Pointer<Pointer<Void>>} lplpvReturnedCommand 
      * @returns {HRESULT} 
      */
     Call(lpvCommands, lplpvReturnedCommand) {
-        lpvCommandsMarshal := lpvCommands is VarRef ? "ptr" : "ptr"
-        lplpvReturnedCommandMarshal := lplpvReturnedCommand is VarRef ? "ptr*" : "ptr"
+        lpvCommandsMarshal := lpvCommands is VarRef ? "ptr" : IntPtr
+        lplpvReturnedCommandMarshal := lplpvReturnedCommand is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, lpvCommandsMarshal, lpvCommands, lplpvReturnedCommandMarshal, lplpvReturnedCommand, "HRESULT")
         return result

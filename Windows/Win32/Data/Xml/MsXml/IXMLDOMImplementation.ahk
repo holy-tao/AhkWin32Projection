@@ -38,7 +38,6 @@ export default struct IXMLDOMImplementation extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} feature 
      * @param {BSTR} _version 
      * @returns {VARIANT_BOOL} 
@@ -60,7 +59,7 @@ export default struct IXMLDOMImplementation extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.hasFeature := CallbackCreate(GetMethod(implObj, "hasFeature"), flags, 4)
+        this.vtbl.hasFeature := CallbackCreate(ObjBindMethod(implObj, "hasFeature"), flags, 4)
     }
 
     Dispose() {

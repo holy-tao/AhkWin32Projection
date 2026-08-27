@@ -39,7 +39,6 @@ export default struct IMFCapturePhotoConfirmation extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMFAsyncCallback} pNotificationCallback 
      * @returns {HRESULT} 
      */
@@ -87,9 +86,9 @@ export default struct IMFCapturePhotoConfirmation extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetPhotoConfirmationCallback := CallbackCreate(GetMethod(implObj, "SetPhotoConfirmationCallback"), flags, 2)
-        this.vtbl.SetPixelFormat := CallbackCreate(GetMethod(implObj, "SetPixelFormat"), flags, 2)
-        this.vtbl.GetPixelFormat := CallbackCreate(GetMethod(implObj, "GetPixelFormat"), flags, 2)
+        this.vtbl.SetPhotoConfirmationCallback := CallbackCreate(ObjBindMethod(implObj, "SetPhotoConfirmationCallback"), flags, 2)
+        this.vtbl.SetPixelFormat := CallbackCreate(ObjBindMethod(implObj, "SetPixelFormat"), flags, 2)
+        this.vtbl.GetPixelFormat := CallbackCreate(ObjBindMethod(implObj, "GetPixelFormat"), flags, 2)
     }
 
     Dispose() {

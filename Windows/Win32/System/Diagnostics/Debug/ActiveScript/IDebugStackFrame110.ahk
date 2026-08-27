@@ -39,7 +39,6 @@ export default struct IDebugStackFrame110 extends IDebugStackFrame {
     }
 
     /**
-     * 
      * @returns {DEBUG_STACKFRAME_TYPE} 
      */
     GetStackFrameType() {
@@ -48,7 +47,6 @@ export default struct IDebugStackFrame110 extends IDebugStackFrame {
     }
 
     /**
-     * 
      * @returns {IScriptInvocationContext} 
      */
     GetScriptInvocationContext() {
@@ -65,8 +63,8 @@ export default struct IDebugStackFrame110 extends IDebugStackFrame {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStackFrameType := CallbackCreate(GetMethod(implObj, "GetStackFrameType"), flags, 2)
-        this.vtbl.GetScriptInvocationContext := CallbackCreate(GetMethod(implObj, "GetScriptInvocationContext"), flags, 2)
+        this.vtbl.GetStackFrameType := CallbackCreate(ObjBindMethod(implObj, "GetStackFrameType"), flags, 2)
+        this.vtbl.GetScriptInvocationContext := CallbackCreate(ObjBindMethod(implObj, "GetScriptInvocationContext"), flags, 2)
     }
 
     Dispose() {

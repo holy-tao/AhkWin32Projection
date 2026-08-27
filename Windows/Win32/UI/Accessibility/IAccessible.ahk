@@ -1132,10 +1132,10 @@ export default struct IAccessible extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessible-acclocation
      */
     accLocation(pxLeft, pyTop, pcxWidth, pcyHeight, varChild) {
-        pxLeftMarshal := pxLeft is VarRef ? "int*" : "ptr"
-        pyTopMarshal := pyTop is VarRef ? "int*" : "ptr"
-        pcxWidthMarshal := pcxWidth is VarRef ? "int*" : "ptr"
-        pcyHeightMarshal := pcyHeight is VarRef ? "int*" : "ptr"
+        pxLeftMarshal := pxLeft is VarRef ? "int*" : IntPtr
+        pyTopMarshal := pyTop is VarRef ? "int*" : IntPtr
+        pcxWidthMarshal := pcxWidth is VarRef ? "int*" : IntPtr
+        pcyHeightMarshal := pcyHeight is VarRef ? "int*" : IntPtr
 
         result := ComCall(22, this, pxLeftMarshal, pxLeft, pyTopMarshal, pyTop, pcxWidthMarshal, pcxWidth, pcyHeightMarshal, pcyHeight, VARIANT, varChild, "HRESULT")
         return result
@@ -1687,27 +1687,27 @@ export default struct IAccessible extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_accParent := CallbackCreate(GetMethod(implObj, "get_accParent"), flags, 2)
-        this.vtbl.get_accChildCount := CallbackCreate(GetMethod(implObj, "get_accChildCount"), flags, 2)
-        this.vtbl.get_accChild := CallbackCreate(GetMethod(implObj, "get_accChild"), flags, 3)
-        this.vtbl.get_accName := CallbackCreate(GetMethod(implObj, "get_accName"), flags, 3)
-        this.vtbl.get_accValue := CallbackCreate(GetMethod(implObj, "get_accValue"), flags, 3)
-        this.vtbl.get_accDescription := CallbackCreate(GetMethod(implObj, "get_accDescription"), flags, 3)
-        this.vtbl.get_accRole := CallbackCreate(GetMethod(implObj, "get_accRole"), flags, 3)
-        this.vtbl.get_accState := CallbackCreate(GetMethod(implObj, "get_accState"), flags, 3)
-        this.vtbl.get_accHelp := CallbackCreate(GetMethod(implObj, "get_accHelp"), flags, 3)
-        this.vtbl.get_accHelpTopic := CallbackCreate(GetMethod(implObj, "get_accHelpTopic"), flags, 4)
-        this.vtbl.get_accKeyboardShortcut := CallbackCreate(GetMethod(implObj, "get_accKeyboardShortcut"), flags, 3)
-        this.vtbl.get_accFocus := CallbackCreate(GetMethod(implObj, "get_accFocus"), flags, 2)
-        this.vtbl.get_accSelection := CallbackCreate(GetMethod(implObj, "get_accSelection"), flags, 2)
-        this.vtbl.get_accDefaultAction := CallbackCreate(GetMethod(implObj, "get_accDefaultAction"), flags, 3)
-        this.vtbl.accSelect := CallbackCreate(GetMethod(implObj, "accSelect"), flags, 3)
-        this.vtbl.accLocation := CallbackCreate(GetMethod(implObj, "accLocation"), flags, 6)
-        this.vtbl.accNavigate := CallbackCreate(GetMethod(implObj, "accNavigate"), flags, 4)
-        this.vtbl.accHitTest := CallbackCreate(GetMethod(implObj, "accHitTest"), flags, 4)
-        this.vtbl.accDoDefaultAction := CallbackCreate(GetMethod(implObj, "accDoDefaultAction"), flags, 2)
-        this.vtbl.put_accName := CallbackCreate(GetMethod(implObj, "put_accName"), flags, 3)
-        this.vtbl.put_accValue := CallbackCreate(GetMethod(implObj, "put_accValue"), flags, 3)
+        this.vtbl.get_accParent := CallbackCreate(ObjBindMethod(implObj, "get_accParent"), flags, 2)
+        this.vtbl.get_accChildCount := CallbackCreate(ObjBindMethod(implObj, "get_accChildCount"), flags, 2)
+        this.vtbl.get_accChild := CallbackCreate(ObjBindMethod(implObj, "get_accChild"), flags, 3)
+        this.vtbl.get_accName := CallbackCreate(ObjBindMethod(implObj, "get_accName"), flags, 3)
+        this.vtbl.get_accValue := CallbackCreate(ObjBindMethod(implObj, "get_accValue"), flags, 3)
+        this.vtbl.get_accDescription := CallbackCreate(ObjBindMethod(implObj, "get_accDescription"), flags, 3)
+        this.vtbl.get_accRole := CallbackCreate(ObjBindMethod(implObj, "get_accRole"), flags, 3)
+        this.vtbl.get_accState := CallbackCreate(ObjBindMethod(implObj, "get_accState"), flags, 3)
+        this.vtbl.get_accHelp := CallbackCreate(ObjBindMethod(implObj, "get_accHelp"), flags, 3)
+        this.vtbl.get_accHelpTopic := CallbackCreate(ObjBindMethod(implObj, "get_accHelpTopic"), flags, 4)
+        this.vtbl.get_accKeyboardShortcut := CallbackCreate(ObjBindMethod(implObj, "get_accKeyboardShortcut"), flags, 3)
+        this.vtbl.get_accFocus := CallbackCreate(ObjBindMethod(implObj, "get_accFocus"), flags, 2)
+        this.vtbl.get_accSelection := CallbackCreate(ObjBindMethod(implObj, "get_accSelection"), flags, 2)
+        this.vtbl.get_accDefaultAction := CallbackCreate(ObjBindMethod(implObj, "get_accDefaultAction"), flags, 3)
+        this.vtbl.accSelect := CallbackCreate(ObjBindMethod(implObj, "accSelect"), flags, 3)
+        this.vtbl.accLocation := CallbackCreate(ObjBindMethod(implObj, "accLocation"), flags, 6)
+        this.vtbl.accNavigate := CallbackCreate(ObjBindMethod(implObj, "accNavigate"), flags, 4)
+        this.vtbl.accHitTest := CallbackCreate(ObjBindMethod(implObj, "accHitTest"), flags, 4)
+        this.vtbl.accDoDefaultAction := CallbackCreate(ObjBindMethod(implObj, "accDoDefaultAction"), flags, 2)
+        this.vtbl.put_accName := CallbackCreate(ObjBindMethod(implObj, "put_accName"), flags, 3)
+        this.vtbl.put_accValue := CallbackCreate(ObjBindMethod(implObj, "put_accValue"), flags, 3)
     }
 
     Dispose() {

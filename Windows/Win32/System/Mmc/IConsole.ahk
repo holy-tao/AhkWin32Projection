@@ -237,17 +237,17 @@ export default struct IConsole extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetHeader := CallbackCreate(GetMethod(implObj, "SetHeader"), flags, 2)
-        this.vtbl.SetToolbar := CallbackCreate(GetMethod(implObj, "SetToolbar"), flags, 2)
-        this.vtbl.QueryResultView := CallbackCreate(GetMethod(implObj, "QueryResultView"), flags, 2)
-        this.vtbl.QueryScopeImageList := CallbackCreate(GetMethod(implObj, "QueryScopeImageList"), flags, 2)
-        this.vtbl.QueryResultImageList := CallbackCreate(GetMethod(implObj, "QueryResultImageList"), flags, 2)
-        this.vtbl.UpdateAllViews := CallbackCreate(GetMethod(implObj, "UpdateAllViews"), flags, 4)
-        this.vtbl.MessageBox := CallbackCreate(GetMethod(implObj, "MessageBox"), flags, 5)
-        this.vtbl.QueryConsoleVerb := CallbackCreate(GetMethod(implObj, "QueryConsoleVerb"), flags, 2)
-        this.vtbl.SelectScopeItem := CallbackCreate(GetMethod(implObj, "SelectScopeItem"), flags, 2)
-        this.vtbl.GetMainWindow := CallbackCreate(GetMethod(implObj, "GetMainWindow"), flags, 2)
-        this.vtbl.NewWindow := CallbackCreate(GetMethod(implObj, "NewWindow"), flags, 3)
+        this.vtbl.SetHeader := CallbackCreate(ObjBindMethod(implObj, "SetHeader"), flags, 2)
+        this.vtbl.SetToolbar := CallbackCreate(ObjBindMethod(implObj, "SetToolbar"), flags, 2)
+        this.vtbl.QueryResultView := CallbackCreate(ObjBindMethod(implObj, "QueryResultView"), flags, 2)
+        this.vtbl.QueryScopeImageList := CallbackCreate(ObjBindMethod(implObj, "QueryScopeImageList"), flags, 2)
+        this.vtbl.QueryResultImageList := CallbackCreate(ObjBindMethod(implObj, "QueryResultImageList"), flags, 2)
+        this.vtbl.UpdateAllViews := CallbackCreate(ObjBindMethod(implObj, "UpdateAllViews"), flags, 4)
+        this.vtbl.MessageBox := CallbackCreate(ObjBindMethod(implObj, "MessageBox"), flags, 5)
+        this.vtbl.QueryConsoleVerb := CallbackCreate(ObjBindMethod(implObj, "QueryConsoleVerb"), flags, 2)
+        this.vtbl.SelectScopeItem := CallbackCreate(ObjBindMethod(implObj, "SelectScopeItem"), flags, 2)
+        this.vtbl.GetMainWindow := CallbackCreate(ObjBindMethod(implObj, "GetMainWindow"), flags, 2)
+        this.vtbl.NewWindow := CallbackCreate(ObjBindMethod(implObj, "NewWindow"), flags, 3)
     }
 
     Dispose() {

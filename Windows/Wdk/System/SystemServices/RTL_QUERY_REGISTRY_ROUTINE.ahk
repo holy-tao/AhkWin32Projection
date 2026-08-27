@@ -20,7 +20,6 @@ export default struct RTL_QUERY_REGISTRY_ROUTINE {
     }
 
     /**
-     * 
      * @param {PWSTR} _ValueName 
      * @param {Integer} ValueType 
      * @param {Integer} ValueData 
@@ -32,10 +31,13 @@ export default struct RTL_QUERY_REGISTRY_ROUTINE {
     Call(_ValueName, ValueType, ValueData, ValueLength, _Context, EntryContext) {
         _ValueName := _ValueName is String ? StrPtr(_ValueName) : _ValueName
 
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        EntryContextMarshal := EntryContext is VarRef ? "ptr" : "ptr"
+        ValueDataMarshal := ValueData == 0 ? IntPtr : IntPtr
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
+        EntryContextMarshal := EntryContext is VarRef ? "ptr" : IntPtr
+        EntryContextMarshal := EntryContext == 0 ? IntPtr : "ptr"
 
-        result := DllCall(this.value, "ptr", _ValueName, UInt32, ValueType, IntPtr, ValueData, UInt32, ValueLength, _ContextMarshal, _Context, EntryContextMarshal, EntryContext, NTSTATUS)
+        result := DllCall(this.value, "ptr", _ValueName, UInt32, ValueType, ValueDataMarshal, ValueData, UInt32, ValueLength, _ContextMarshal, _Context, EntryContextMarshal, EntryContext, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

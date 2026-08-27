@@ -78,9 +78,9 @@ export default struct IDvbPrivateDataSpecifierDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetPrivateDataSpecifier := CallbackCreate(GetMethod(implObj, "GetPrivateDataSpecifier"), flags, 2)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetPrivateDataSpecifier := CallbackCreate(ObjBindMethod(implObj, "GetPrivateDataSpecifier"), flags, 2)
     }
 
     Dispose() {

@@ -271,7 +271,9 @@ export default struct IX509Enrollment extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment-initializefromrequest
      */
     InitializeFromRequest(pRequest) {
-        result := ComCall(9, this, "ptr", pRequest, "HRESULT")
+        pRequestMarshal := pRequest == 0 ? IntPtr : "ptr"
+
+        result := ComCall(9, this, pRequestMarshal, pRequest, "HRESULT")
         return result
     }
 
@@ -696,29 +698,29 @@ export default struct IX509Enrollment extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.InitializeFromTemplateName := CallbackCreate(GetMethod(implObj, "InitializeFromTemplateName"), flags, 3)
-        this.vtbl.InitializeFromRequest := CallbackCreate(GetMethod(implObj, "InitializeFromRequest"), flags, 2)
-        this.vtbl.CreateRequest := CallbackCreate(GetMethod(implObj, "CreateRequest"), flags, 3)
-        this.vtbl.Enroll := CallbackCreate(GetMethod(implObj, "Enroll"), flags, 1)
-        this.vtbl.InstallResponse := CallbackCreate(GetMethod(implObj, "InstallResponse"), flags, 5)
-        this.vtbl.CreatePFX := CallbackCreate(GetMethod(implObj, "CreatePFX"), flags, 5)
-        this.vtbl.get_Request := CallbackCreate(GetMethod(implObj, "get_Request"), flags, 2)
-        this.vtbl.get_Silent := CallbackCreate(GetMethod(implObj, "get_Silent"), flags, 2)
-        this.vtbl.put_Silent := CallbackCreate(GetMethod(implObj, "put_Silent"), flags, 2)
-        this.vtbl.get_ParentWindow := CallbackCreate(GetMethod(implObj, "get_ParentWindow"), flags, 2)
-        this.vtbl.put_ParentWindow := CallbackCreate(GetMethod(implObj, "put_ParentWindow"), flags, 2)
-        this.vtbl.get_NameValuePairs := CallbackCreate(GetMethod(implObj, "get_NameValuePairs"), flags, 2)
-        this.vtbl.get_EnrollmentContext := CallbackCreate(GetMethod(implObj, "get_EnrollmentContext"), flags, 2)
-        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
-        this.vtbl.get_Certificate := CallbackCreate(GetMethod(implObj, "get_Certificate"), flags, 3)
-        this.vtbl.get_Response := CallbackCreate(GetMethod(implObj, "get_Response"), flags, 3)
-        this.vtbl.get_CertificateFriendlyName := CallbackCreate(GetMethod(implObj, "get_CertificateFriendlyName"), flags, 2)
-        this.vtbl.put_CertificateFriendlyName := CallbackCreate(GetMethod(implObj, "put_CertificateFriendlyName"), flags, 2)
-        this.vtbl.get_CertificateDescription := CallbackCreate(GetMethod(implObj, "get_CertificateDescription"), flags, 2)
-        this.vtbl.put_CertificateDescription := CallbackCreate(GetMethod(implObj, "put_CertificateDescription"), flags, 2)
-        this.vtbl.get_RequestId := CallbackCreate(GetMethod(implObj, "get_RequestId"), flags, 2)
-        this.vtbl.get_CAConfigString := CallbackCreate(GetMethod(implObj, "get_CAConfigString"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.InitializeFromTemplateName := CallbackCreate(ObjBindMethod(implObj, "InitializeFromTemplateName"), flags, 3)
+        this.vtbl.InitializeFromRequest := CallbackCreate(ObjBindMethod(implObj, "InitializeFromRequest"), flags, 2)
+        this.vtbl.CreateRequest := CallbackCreate(ObjBindMethod(implObj, "CreateRequest"), flags, 3)
+        this.vtbl.Enroll := CallbackCreate(ObjBindMethod(implObj, "Enroll"), flags, 1)
+        this.vtbl.InstallResponse := CallbackCreate(ObjBindMethod(implObj, "InstallResponse"), flags, 5)
+        this.vtbl.CreatePFX := CallbackCreate(ObjBindMethod(implObj, "CreatePFX"), flags, 5)
+        this.vtbl.get_Request := CallbackCreate(ObjBindMethod(implObj, "get_Request"), flags, 2)
+        this.vtbl.get_Silent := CallbackCreate(ObjBindMethod(implObj, "get_Silent"), flags, 2)
+        this.vtbl.put_Silent := CallbackCreate(ObjBindMethod(implObj, "put_Silent"), flags, 2)
+        this.vtbl.get_ParentWindow := CallbackCreate(ObjBindMethod(implObj, "get_ParentWindow"), flags, 2)
+        this.vtbl.put_ParentWindow := CallbackCreate(ObjBindMethod(implObj, "put_ParentWindow"), flags, 2)
+        this.vtbl.get_NameValuePairs := CallbackCreate(ObjBindMethod(implObj, "get_NameValuePairs"), flags, 2)
+        this.vtbl.get_EnrollmentContext := CallbackCreate(ObjBindMethod(implObj, "get_EnrollmentContext"), flags, 2)
+        this.vtbl.get_Status := CallbackCreate(ObjBindMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.get_Certificate := CallbackCreate(ObjBindMethod(implObj, "get_Certificate"), flags, 3)
+        this.vtbl.get_Response := CallbackCreate(ObjBindMethod(implObj, "get_Response"), flags, 3)
+        this.vtbl.get_CertificateFriendlyName := CallbackCreate(ObjBindMethod(implObj, "get_CertificateFriendlyName"), flags, 2)
+        this.vtbl.put_CertificateFriendlyName := CallbackCreate(ObjBindMethod(implObj, "put_CertificateFriendlyName"), flags, 2)
+        this.vtbl.get_CertificateDescription := CallbackCreate(ObjBindMethod(implObj, "get_CertificateDescription"), flags, 2)
+        this.vtbl.put_CertificateDescription := CallbackCreate(ObjBindMethod(implObj, "put_CertificateDescription"), flags, 2)
+        this.vtbl.get_RequestId := CallbackCreate(ObjBindMethod(implObj, "get_RequestId"), flags, 2)
+        this.vtbl.get_CAConfigString := CallbackCreate(ObjBindMethod(implObj, "get_CAConfigString"), flags, 2)
     }
 
     Dispose() {

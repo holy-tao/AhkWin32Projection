@@ -105,7 +105,7 @@ export default struct IWMPPlayer extends IWMPCore {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer-get_enabled
      */
     get_enabled(pbEnabled) {
-        pbEnabledMarshal := pbEnabled is VarRef ? "short*" : "ptr"
+        pbEnabledMarshal := pbEnabled is VarRef ? "short*" : IntPtr
 
         result := ComCall(28, this, pbEnabledMarshal, pbEnabled, "HRESULT")
         return result
@@ -182,7 +182,7 @@ export default struct IWMPPlayer extends IWMPCore {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer-get_fullscreen
      */
     get_fullScreen(pbFullScreen) {
-        pbFullScreenMarshal := pbFullScreen is VarRef ? "short*" : "ptr"
+        pbFullScreenMarshal := pbFullScreen is VarRef ? "short*" : IntPtr
 
         result := ComCall(30, this, pbFullScreenMarshal, pbFullScreen, "HRESULT")
         return result
@@ -261,7 +261,7 @@ export default struct IWMPPlayer extends IWMPCore {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer-get_enablecontextmenu
      */
     get_enableContextMenu(pbEnableContextMenu) {
-        pbEnableContextMenuMarshal := pbEnableContextMenu is VarRef ? "short*" : "ptr"
+        pbEnableContextMenuMarshal := pbEnableContextMenu is VarRef ? "short*" : IntPtr
 
         result := ComCall(32, this, pbEnableContextMenuMarshal, pbEnableContextMenu, "HRESULT")
         return result
@@ -397,14 +397,14 @@ export default struct IWMPPlayer extends IWMPCore {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_enabled := CallbackCreate(GetMethod(implObj, "get_enabled"), flags, 2)
-        this.vtbl.put_enabled := CallbackCreate(GetMethod(implObj, "put_enabled"), flags, 2)
-        this.vtbl.get_fullScreen := CallbackCreate(GetMethod(implObj, "get_fullScreen"), flags, 2)
-        this.vtbl.put_fullScreen := CallbackCreate(GetMethod(implObj, "put_fullScreen"), flags, 2)
-        this.vtbl.get_enableContextMenu := CallbackCreate(GetMethod(implObj, "get_enableContextMenu"), flags, 2)
-        this.vtbl.put_enableContextMenu := CallbackCreate(GetMethod(implObj, "put_enableContextMenu"), flags, 2)
-        this.vtbl.put_uiMode := CallbackCreate(GetMethod(implObj, "put_uiMode"), flags, 2)
-        this.vtbl.get_uiMode := CallbackCreate(GetMethod(implObj, "get_uiMode"), flags, 2)
+        this.vtbl.get_enabled := CallbackCreate(ObjBindMethod(implObj, "get_enabled"), flags, 2)
+        this.vtbl.put_enabled := CallbackCreate(ObjBindMethod(implObj, "put_enabled"), flags, 2)
+        this.vtbl.get_fullScreen := CallbackCreate(ObjBindMethod(implObj, "get_fullScreen"), flags, 2)
+        this.vtbl.put_fullScreen := CallbackCreate(ObjBindMethod(implObj, "put_fullScreen"), flags, 2)
+        this.vtbl.get_enableContextMenu := CallbackCreate(ObjBindMethod(implObj, "get_enableContextMenu"), flags, 2)
+        this.vtbl.put_enableContextMenu := CallbackCreate(ObjBindMethod(implObj, "put_enableContextMenu"), flags, 2)
+        this.vtbl.put_uiMode := CallbackCreate(ObjBindMethod(implObj, "put_uiMode"), flags, 2)
+        this.vtbl.get_uiMode := CallbackCreate(ObjBindMethod(implObj, "get_uiMode"), flags, 2)
     }
 
     Dispose() {

@@ -48,7 +48,6 @@ export default struct IBindStatusCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwReserved 
      * @param {IBinding} pib 
      * @returns {HRESULT} 
@@ -59,7 +58,6 @@ export default struct IBindStatusCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetPriority() {
@@ -68,7 +66,6 @@ export default struct IBindStatusCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} reserved 
      * @returns {HRESULT} 
      */
@@ -78,7 +75,6 @@ export default struct IBindStatusCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulProgress 
      * @param {Integer} ulProgressMax 
      * @param {Integer} ulStatusCode 
@@ -93,7 +89,6 @@ export default struct IBindStatusCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {HRESULT} _hresult 
      * @param {PWSTR} szError 
      * @returns {HRESULT} 
@@ -106,7 +101,6 @@ export default struct IBindStatusCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BINDINFO>} pbindinfo 
      * @returns {Integer} 
      */
@@ -116,7 +110,6 @@ export default struct IBindStatusCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} grfBSCF 
      * @param {Integer} dwSize 
      * @param {Pointer<FORMATETC>} pformatetc 
@@ -129,7 +122,6 @@ export default struct IBindStatusCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @param {IUnknown} punk 
      * @returns {HRESULT} 
@@ -148,14 +140,14 @@ export default struct IBindStatusCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnStartBinding := CallbackCreate(GetMethod(implObj, "OnStartBinding"), flags, 3)
-        this.vtbl.GetPriority := CallbackCreate(GetMethod(implObj, "GetPriority"), flags, 2)
-        this.vtbl.OnLowResource := CallbackCreate(GetMethod(implObj, "OnLowResource"), flags, 2)
-        this.vtbl.OnProgress := CallbackCreate(GetMethod(implObj, "OnProgress"), flags, 5)
-        this.vtbl.OnStopBinding := CallbackCreate(GetMethod(implObj, "OnStopBinding"), flags, 3)
-        this.vtbl.GetBindInfo := CallbackCreate(GetMethod(implObj, "GetBindInfo"), flags, 3)
-        this.vtbl.OnDataAvailable := CallbackCreate(GetMethod(implObj, "OnDataAvailable"), flags, 5)
-        this.vtbl.OnObjectAvailable := CallbackCreate(GetMethod(implObj, "OnObjectAvailable"), flags, 3)
+        this.vtbl.OnStartBinding := CallbackCreate(ObjBindMethod(implObj, "OnStartBinding"), flags, 3)
+        this.vtbl.GetPriority := CallbackCreate(ObjBindMethod(implObj, "GetPriority"), flags, 2)
+        this.vtbl.OnLowResource := CallbackCreate(ObjBindMethod(implObj, "OnLowResource"), flags, 2)
+        this.vtbl.OnProgress := CallbackCreate(ObjBindMethod(implObj, "OnProgress"), flags, 5)
+        this.vtbl.OnStopBinding := CallbackCreate(ObjBindMethod(implObj, "OnStopBinding"), flags, 3)
+        this.vtbl.GetBindInfo := CallbackCreate(ObjBindMethod(implObj, "GetBindInfo"), flags, 3)
+        this.vtbl.OnDataAvailable := CallbackCreate(ObjBindMethod(implObj, "OnDataAvailable"), flags, 5)
+        this.vtbl.OnObjectAvailable := CallbackCreate(ObjBindMethod(implObj, "OnObjectAvailable"), flags, 3)
     }
 
     Dispose() {

@@ -117,9 +117,9 @@ export default struct ISynchronize extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Wait := CallbackCreate(GetMethod(implObj, "Wait"), flags, 3)
-        this.vtbl.Signal := CallbackCreate(GetMethod(implObj, "Signal"), flags, 1)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Wait := CallbackCreate(ObjBindMethod(implObj, "Wait"), flags, 3)
+        this.vtbl.Signal := CallbackCreate(ObjBindMethod(implObj, "Signal"), flags, 1)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
     }
 
     Dispose() {

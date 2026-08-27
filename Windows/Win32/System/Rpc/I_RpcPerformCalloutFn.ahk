@@ -21,14 +21,13 @@ export default struct I_RpcPerformCalloutFn {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<RDR_CALLOUT_STATE>} CallOutState 
      * @param {RPC_HTTP_REDIRECTOR_STAGE} Stage 
      * @returns {RPC_STATUS} 
      */
     Call(_Context, CallOutState, Stage) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, RDR_CALLOUT_STATE.Ptr, CallOutState, RPC_HTTP_REDIRECTOR_STAGE, Stage, RPC_STATUS)
         return result

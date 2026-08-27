@@ -159,8 +159,8 @@ export default struct IMediaSample2 extends IMediaSample {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 3)
-        this.vtbl.SetProperties := CallbackCreate(GetMethod(implObj, "SetProperties"), flags, 3)
+        this.vtbl.GetProperties := CallbackCreate(ObjBindMethod(implObj, "GetProperties"), flags, 3)
+        this.vtbl.SetProperties := CallbackCreate(ObjBindMethod(implObj, "SetProperties"), flags, 3)
     }
 
     Dispose() {

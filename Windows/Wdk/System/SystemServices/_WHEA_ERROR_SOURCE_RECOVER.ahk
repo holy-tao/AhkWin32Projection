@@ -20,14 +20,13 @@ export default struct _WHEA_ERROR_SOURCE_RECOVER {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} RecoveryContext 
      * @param {Pointer<WHEA_ERROR_SEVERITY>} Severity 
      * @returns {NTSTATUS} 
      */
     Call(RecoveryContext, Severity) {
-        RecoveryContextMarshal := RecoveryContext is VarRef ? "ptr" : "ptr"
-        SeverityMarshal := Severity is VarRef ? "int*" : "ptr"
+        RecoveryContextMarshal := RecoveryContext is VarRef ? "ptr" : IntPtr
+        SeverityMarshal := Severity is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, RecoveryContextMarshal, RecoveryContext, SeverityMarshal, Severity, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

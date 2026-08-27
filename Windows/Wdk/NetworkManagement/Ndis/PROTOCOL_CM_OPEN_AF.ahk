@@ -19,7 +19,6 @@ export default struct PROTOCOL_CM_OPEN_AF {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} CallMgrBindingContext 
      * @param {Pointer<CO_ADDRESS_FAMILY>} AddressFamily 
      * @param {Pointer<Void>} NdisAfHandle 
@@ -27,9 +26,9 @@ export default struct PROTOCOL_CM_OPEN_AF {
      * @returns {Integer} 
      */
     Call(CallMgrBindingContext, AddressFamily, NdisAfHandle, CallMgrAfContext) {
-        CallMgrBindingContextMarshal := CallMgrBindingContext is VarRef ? "ptr" : "ptr"
-        NdisAfHandleMarshal := NdisAfHandle is VarRef ? "ptr" : "ptr"
-        CallMgrAfContextMarshal := CallMgrAfContext is VarRef ? "ptr*" : "ptr"
+        CallMgrBindingContextMarshal := CallMgrBindingContext is VarRef ? "ptr" : IntPtr
+        NdisAfHandleMarshal := NdisAfHandle is VarRef ? "ptr" : IntPtr
+        CallMgrAfContextMarshal := CallMgrAfContext is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, CallMgrBindingContextMarshal, CallMgrBindingContext, CO_ADDRESS_FAMILY.Ptr, AddressFamily, NdisAfHandleMarshal, NdisAfHandle, CallMgrAfContextMarshal, CallMgrAfContext, Int32)
         return result

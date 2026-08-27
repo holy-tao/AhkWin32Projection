@@ -40,7 +40,6 @@ export default struct IDedupChunkLibrary extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     InitializeForPushBuffers() {
@@ -49,7 +48,6 @@ export default struct IDedupChunkLibrary extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Uninitialize() {
@@ -58,7 +56,6 @@ export default struct IDedupChunkLibrary extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwParamType 
      * @param {VARIANT} vParamValue 
      * @returns {HRESULT} 
@@ -69,7 +66,6 @@ export default struct IDedupChunkLibrary extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} iidIteratorInterfaceID 
      * @returns {IUnknown} 
      */
@@ -87,10 +83,10 @@ export default struct IDedupChunkLibrary extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeForPushBuffers := CallbackCreate(GetMethod(implObj, "InitializeForPushBuffers"), flags, 1)
-        this.vtbl.Uninitialize := CallbackCreate(GetMethod(implObj, "Uninitialize"), flags, 1)
-        this.vtbl.SetParameter := CallbackCreate(GetMethod(implObj, "SetParameter"), flags, 3)
-        this.vtbl.StartChunking := CallbackCreate(GetMethod(implObj, "StartChunking"), flags, 3)
+        this.vtbl.InitializeForPushBuffers := CallbackCreate(ObjBindMethod(implObj, "InitializeForPushBuffers"), flags, 1)
+        this.vtbl.Uninitialize := CallbackCreate(ObjBindMethod(implObj, "Uninitialize"), flags, 1)
+        this.vtbl.SetParameter := CallbackCreate(ObjBindMethod(implObj, "SetParameter"), flags, 3)
+        this.vtbl.StartChunking := CallbackCreate(ObjBindMethod(implObj, "StartChunking"), flags, 3)
     }
 
     Dispose() {

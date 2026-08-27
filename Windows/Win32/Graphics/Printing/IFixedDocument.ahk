@@ -40,7 +40,6 @@ export default struct IFixedDocument extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetUri() {
@@ -50,7 +49,6 @@ export default struct IFixedDocument extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IPartPrintTicket} 
      */
     GetPrintTicket() {
@@ -59,7 +57,6 @@ export default struct IFixedDocument extends IUnknown {
     }
 
     /**
-     * 
      * @param {IPartPrintTicket} pPrintTicket 
      * @returns {HRESULT} 
      */
@@ -77,9 +74,9 @@ export default struct IFixedDocument extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetUri := CallbackCreate(GetMethod(implObj, "GetUri"), flags, 2)
-        this.vtbl.GetPrintTicket := CallbackCreate(GetMethod(implObj, "GetPrintTicket"), flags, 2)
-        this.vtbl.SetPrintTicket := CallbackCreate(GetMethod(implObj, "SetPrintTicket"), flags, 2)
+        this.vtbl.GetUri := CallbackCreate(ObjBindMethod(implObj, "GetUri"), flags, 2)
+        this.vtbl.GetPrintTicket := CallbackCreate(ObjBindMethod(implObj, "GetPrintTicket"), flags, 2)
+        this.vtbl.SetPrintTicket := CallbackCreate(ObjBindMethod(implObj, "SetPrintTicket"), flags, 2)
     }
 
     Dispose() {

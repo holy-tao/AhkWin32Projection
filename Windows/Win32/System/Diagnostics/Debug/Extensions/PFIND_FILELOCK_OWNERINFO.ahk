@@ -21,7 +21,6 @@ export default struct PFIND_FILELOCK_OWNERINFO {
     }
 
     /**
-     * 
      * @param {IDebugClient} Client 
      * @param {Pointer<KDEXT_FILELOCK_OWNER>} pFileLockOwner 
      * @returns {HRESULT} 

@@ -279,17 +279,17 @@ export default struct IDXGISwapChain1 extends IDXGISwapChain {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDesc1 := CallbackCreate(GetMethod(implObj, "GetDesc1"), flags, 2)
-        this.vtbl.GetFullscreenDesc := CallbackCreate(GetMethod(implObj, "GetFullscreenDesc"), flags, 2)
-        this.vtbl.GetHwnd := CallbackCreate(GetMethod(implObj, "GetHwnd"), flags, 2)
-        this.vtbl.GetCoreWindow := CallbackCreate(GetMethod(implObj, "GetCoreWindow"), flags, 3)
-        this.vtbl.Present1 := CallbackCreate(GetMethod(implObj, "Present1"), flags, 4)
-        this.vtbl.IsTemporaryMonoSupported := CallbackCreate(GetMethod(implObj, "IsTemporaryMonoSupported"), flags, 1)
-        this.vtbl.GetRestrictToOutput := CallbackCreate(GetMethod(implObj, "GetRestrictToOutput"), flags, 2)
-        this.vtbl.SetBackgroundColor := CallbackCreate(GetMethod(implObj, "SetBackgroundColor"), flags, 2)
-        this.vtbl.GetBackgroundColor := CallbackCreate(GetMethod(implObj, "GetBackgroundColor"), flags, 2)
-        this.vtbl.SetRotation := CallbackCreate(GetMethod(implObj, "SetRotation"), flags, 2)
-        this.vtbl.GetRotation := CallbackCreate(GetMethod(implObj, "GetRotation"), flags, 2)
+        this.vtbl.GetDesc1 := CallbackCreate(ObjBindMethod(implObj, "GetDesc1"), flags, 2)
+        this.vtbl.GetFullscreenDesc := CallbackCreate(ObjBindMethod(implObj, "GetFullscreenDesc"), flags, 2)
+        this.vtbl.GetHwnd := CallbackCreate(ObjBindMethod(implObj, "GetHwnd"), flags, 2)
+        this.vtbl.GetCoreWindow := CallbackCreate(ObjBindMethod(implObj, "GetCoreWindow"), flags, 3)
+        this.vtbl.Present1 := CallbackCreate(ObjBindMethod(implObj, "Present1"), flags, 4)
+        this.vtbl.IsTemporaryMonoSupported := CallbackCreate(ObjBindMethod(implObj, "IsTemporaryMonoSupported"), flags, 1)
+        this.vtbl.GetRestrictToOutput := CallbackCreate(ObjBindMethod(implObj, "GetRestrictToOutput"), flags, 2)
+        this.vtbl.SetBackgroundColor := CallbackCreate(ObjBindMethod(implObj, "SetBackgroundColor"), flags, 2)
+        this.vtbl.GetBackgroundColor := CallbackCreate(ObjBindMethod(implObj, "GetBackgroundColor"), flags, 2)
+        this.vtbl.SetRotation := CallbackCreate(ObjBindMethod(implObj, "SetRotation"), flags, 2)
+        this.vtbl.GetRotation := CallbackCreate(ObjBindMethod(implObj, "GetRotation"), flags, 2)
     }
 
     Dispose() {

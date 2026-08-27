@@ -57,7 +57,6 @@ export default struct IShellFavoritesNameSpace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     MoveSelectionUp() {
@@ -66,7 +65,6 @@ export default struct IShellFavoritesNameSpace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     MoveSelectionDown() {
@@ -75,7 +73,6 @@ export default struct IShellFavoritesNameSpace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ResetSort() {
@@ -84,7 +81,6 @@ export default struct IShellFavoritesNameSpace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     NewFolder() {
@@ -93,7 +89,6 @@ export default struct IShellFavoritesNameSpace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Synchronize() {
@@ -102,7 +97,6 @@ export default struct IShellFavoritesNameSpace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Import() {
@@ -111,7 +105,6 @@ export default struct IShellFavoritesNameSpace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Export() {
@@ -120,7 +113,6 @@ export default struct IShellFavoritesNameSpace extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strCommand 
      * @returns {HRESULT} 
      */
@@ -132,7 +124,6 @@ export default struct IShellFavoritesNameSpace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     MoveSelectionTo() {
@@ -141,7 +132,6 @@ export default struct IShellFavoritesNameSpace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_SubscriptionsEnabled() {
@@ -150,7 +140,6 @@ export default struct IShellFavoritesNameSpace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     CreateSubscriptionForSelection() {
@@ -159,7 +148,6 @@ export default struct IShellFavoritesNameSpace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     DeleteSubscriptionForSelection() {
@@ -168,7 +156,6 @@ export default struct IShellFavoritesNameSpace extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrFullPath 
      * @returns {HRESULT} 
      */
@@ -188,19 +175,19 @@ export default struct IShellFavoritesNameSpace extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.MoveSelectionUp := CallbackCreate(GetMethod(implObj, "MoveSelectionUp"), flags, 1)
-        this.vtbl.MoveSelectionDown := CallbackCreate(GetMethod(implObj, "MoveSelectionDown"), flags, 1)
-        this.vtbl.ResetSort := CallbackCreate(GetMethod(implObj, "ResetSort"), flags, 1)
-        this.vtbl.NewFolder := CallbackCreate(GetMethod(implObj, "NewFolder"), flags, 1)
-        this.vtbl.Synchronize := CallbackCreate(GetMethod(implObj, "Synchronize"), flags, 1)
-        this.vtbl.Import := CallbackCreate(GetMethod(implObj, "Import"), flags, 1)
-        this.vtbl.Export := CallbackCreate(GetMethod(implObj, "Export"), flags, 1)
-        this.vtbl.InvokeContextMenuCommand := CallbackCreate(GetMethod(implObj, "InvokeContextMenuCommand"), flags, 2)
-        this.vtbl.MoveSelectionTo := CallbackCreate(GetMethod(implObj, "MoveSelectionTo"), flags, 1)
-        this.vtbl.get_SubscriptionsEnabled := CallbackCreate(GetMethod(implObj, "get_SubscriptionsEnabled"), flags, 2)
-        this.vtbl.CreateSubscriptionForSelection := CallbackCreate(GetMethod(implObj, "CreateSubscriptionForSelection"), flags, 2)
-        this.vtbl.DeleteSubscriptionForSelection := CallbackCreate(GetMethod(implObj, "DeleteSubscriptionForSelection"), flags, 2)
-        this.vtbl.SetRoot := CallbackCreate(GetMethod(implObj, "SetRoot"), flags, 2)
+        this.vtbl.MoveSelectionUp := CallbackCreate(ObjBindMethod(implObj, "MoveSelectionUp"), flags, 1)
+        this.vtbl.MoveSelectionDown := CallbackCreate(ObjBindMethod(implObj, "MoveSelectionDown"), flags, 1)
+        this.vtbl.ResetSort := CallbackCreate(ObjBindMethod(implObj, "ResetSort"), flags, 1)
+        this.vtbl.NewFolder := CallbackCreate(ObjBindMethod(implObj, "NewFolder"), flags, 1)
+        this.vtbl.Synchronize := CallbackCreate(ObjBindMethod(implObj, "Synchronize"), flags, 1)
+        this.vtbl.Import := CallbackCreate(ObjBindMethod(implObj, "Import"), flags, 1)
+        this.vtbl.Export := CallbackCreate(ObjBindMethod(implObj, "Export"), flags, 1)
+        this.vtbl.InvokeContextMenuCommand := CallbackCreate(ObjBindMethod(implObj, "InvokeContextMenuCommand"), flags, 2)
+        this.vtbl.MoveSelectionTo := CallbackCreate(ObjBindMethod(implObj, "MoveSelectionTo"), flags, 1)
+        this.vtbl.get_SubscriptionsEnabled := CallbackCreate(ObjBindMethod(implObj, "get_SubscriptionsEnabled"), flags, 2)
+        this.vtbl.CreateSubscriptionForSelection := CallbackCreate(ObjBindMethod(implObj, "CreateSubscriptionForSelection"), flags, 2)
+        this.vtbl.DeleteSubscriptionForSelection := CallbackCreate(ObjBindMethod(implObj, "DeleteSubscriptionForSelection"), flags, 2)
+        this.vtbl.SetRoot := CallbackCreate(ObjBindMethod(implObj, "SetRoot"), flags, 2)
     }
 
     Dispose() {

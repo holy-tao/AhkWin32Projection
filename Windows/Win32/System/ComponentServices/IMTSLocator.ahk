@@ -57,7 +57,7 @@ export default struct IMTSLocator extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetEventDispatcher := CallbackCreate(GetMethod(implObj, "GetEventDispatcher"), flags, 2)
+        this.vtbl.GetEventDispatcher := CallbackCreate(ObjBindMethod(implObj, "GetEventDispatcher"), flags, 2)
     }
 
     Dispose() {

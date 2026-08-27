@@ -119,9 +119,9 @@ export default struct ICertPropertyRequestOriginator extends ICertProperty {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.InitializeFromLocalRequestOriginator := CallbackCreate(GetMethod(implObj, "InitializeFromLocalRequestOriginator"), flags, 1)
-        this.vtbl.get_RequestOriginator := CallbackCreate(GetMethod(implObj, "get_RequestOriginator"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.InitializeFromLocalRequestOriginator := CallbackCreate(ObjBindMethod(implObj, "InitializeFromLocalRequestOriginator"), flags, 1)
+        this.vtbl.get_RequestOriginator := CallbackCreate(ObjBindMethod(implObj, "get_RequestOriginator"), flags, 2)
     }
 
     Dispose() {

@@ -80,7 +80,7 @@ export default struct IMSVidStreamBufferSourceEvent2 extends IMSVidStreamBufferS
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RateChange := CallbackCreate(GetMethod(implObj, "RateChange"), flags, 3)
+        this.vtbl.RateChange := CallbackCreate(ObjBindMethod(implObj, "RateChange"), flags, 3)
     }
 
     Dispose() {

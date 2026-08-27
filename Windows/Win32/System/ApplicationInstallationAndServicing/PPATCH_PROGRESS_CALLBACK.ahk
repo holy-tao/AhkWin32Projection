@@ -19,14 +19,13 @@ export default struct PPATCH_PROGRESS_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} CallbackContext 
      * @param {Integer} CurrentPosition 
      * @param {Integer} MaximumPosition 
      * @returns {BOOL} 
      */
     Call(CallbackContext, CurrentPosition, MaximumPosition) {
-        CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
+        CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, CallbackContextMarshal, CallbackContext, UInt32, CurrentPosition, UInt32, MaximumPosition, BOOL)
         return result

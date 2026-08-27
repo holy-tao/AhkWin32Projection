@@ -20,15 +20,14 @@ export default struct RTL_GENERIC_COMPARE_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_GENERIC_TABLE>} Table 
      * @param {Pointer<Void>} FirstStruct 
      * @param {Pointer<Void>} SecondStruct 
      * @returns {RTL_GENERIC_COMPARE_RESULTS} 
      */
     Call(Table, FirstStruct, SecondStruct) {
-        FirstStructMarshal := FirstStruct is VarRef ? "ptr" : "ptr"
-        SecondStructMarshal := SecondStruct is VarRef ? "ptr" : "ptr"
+        FirstStructMarshal := FirstStruct is VarRef ? "ptr" : IntPtr
+        SecondStructMarshal := SecondStruct is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, RTL_GENERIC_TABLE.Ptr, Table, FirstStructMarshal, FirstStruct, SecondStructMarshal, SecondStruct, RTL_GENERIC_COMPARE_RESULTS)
         return result

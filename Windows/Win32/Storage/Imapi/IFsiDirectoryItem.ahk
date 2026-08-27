@@ -1002,16 +1002,16 @@ export default struct IFsiDirectoryItem extends IFsiItem {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
-        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.get_EnumFsiItems := CallbackCreate(GetMethod(implObj, "get_EnumFsiItems"), flags, 2)
-        this.vtbl.AddDirectory := CallbackCreate(GetMethod(implObj, "AddDirectory"), flags, 2)
-        this.vtbl.AddFile := CallbackCreate(GetMethod(implObj, "AddFile"), flags, 3)
-        this.vtbl.AddTree := CallbackCreate(GetMethod(implObj, "AddTree"), flags, 3)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
-        this.vtbl.RemoveTree := CallbackCreate(GetMethod(implObj, "RemoveTree"), flags, 2)
+        this.vtbl.get__NewEnum := CallbackCreate(ObjBindMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(ObjBindMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get_EnumFsiItems := CallbackCreate(ObjBindMethod(implObj, "get_EnumFsiItems"), flags, 2)
+        this.vtbl.AddDirectory := CallbackCreate(ObjBindMethod(implObj, "AddDirectory"), flags, 2)
+        this.vtbl.AddFile := CallbackCreate(ObjBindMethod(implObj, "AddFile"), flags, 3)
+        this.vtbl.AddTree := CallbackCreate(ObjBindMethod(implObj, "AddTree"), flags, 3)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.RemoveTree := CallbackCreate(ObjBindMethod(implObj, "RemoveTree"), flags, 2)
     }
 
     Dispose() {

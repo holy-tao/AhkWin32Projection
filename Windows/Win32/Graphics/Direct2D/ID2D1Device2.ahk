@@ -91,9 +91,9 @@ export default struct ID2D1Device2 extends ID2D1Device1 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateDeviceContext := CallbackCreate(GetMethod(implObj, "CreateDeviceContext"), flags, 3)
-        this.vtbl.FlushDeviceContexts := CallbackCreate(GetMethod(implObj, "FlushDeviceContexts"), flags, 2)
-        this.vtbl.GetDxgiDevice := CallbackCreate(GetMethod(implObj, "GetDxgiDevice"), flags, 2)
+        this.vtbl.CreateDeviceContext := CallbackCreate(ObjBindMethod(implObj, "CreateDeviceContext"), flags, 3)
+        this.vtbl.FlushDeviceContexts := CallbackCreate(ObjBindMethod(implObj, "FlushDeviceContexts"), flags, 2)
+        this.vtbl.GetDxgiDevice := CallbackCreate(ObjBindMethod(implObj, "GetDxgiDevice"), flags, 2)
     }
 
     Dispose() {

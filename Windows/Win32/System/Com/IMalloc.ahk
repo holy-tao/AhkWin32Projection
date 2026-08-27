@@ -76,7 +76,8 @@ export default struct IMalloc extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-imalloc-realloc
      */
     Realloc(pv, cb) {
-        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+        pvMarshal := pv is VarRef ? "ptr" : IntPtr
+        pvMarshal := pv == 0 ? IntPtr : "ptr"
 
         result := ComCall(4, this, pvMarshal, pv, IntPtr, cb, IntPtr)
         return result
@@ -91,7 +92,8 @@ export default struct IMalloc extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-imalloc-free
      */
     Free(pv) {
-        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+        pvMarshal := pv is VarRef ? "ptr" : IntPtr
+        pvMarshal := pv == 0 ? IntPtr : "ptr"
 
         ComCall(5, this, pvMarshal, pv)
     }
@@ -105,7 +107,8 @@ export default struct IMalloc extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-imalloc-getsize
      */
     GetSize(pv) {
-        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+        pvMarshal := pv is VarRef ? "ptr" : IntPtr
+        pvMarshal := pv == 0 ? IntPtr : "ptr"
 
         result := ComCall(6, this, pvMarshal, pv, IntPtr)
         return result
@@ -158,7 +161,8 @@ export default struct IMalloc extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-imalloc-didalloc
      */
     DidAlloc(pv) {
-        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+        pvMarshal := pv is VarRef ? "ptr" : IntPtr
+        pvMarshal := pv == 0 ? IntPtr : "ptr"
 
         result := ComCall(7, this, pvMarshal, pv, Int32)
         return result
@@ -182,12 +186,12 @@ export default struct IMalloc extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Alloc := CallbackCreate(GetMethod(implObj, "Alloc"), flags, 2)
-        this.vtbl.Realloc := CallbackCreate(GetMethod(implObj, "Realloc"), flags, 3)
-        this.vtbl.Free := CallbackCreate(GetMethod(implObj, "Free"), flags, 2)
-        this.vtbl.GetSize := CallbackCreate(GetMethod(implObj, "GetSize"), flags, 2)
-        this.vtbl.DidAlloc := CallbackCreate(GetMethod(implObj, "DidAlloc"), flags, 2)
-        this.vtbl.HeapMinimize := CallbackCreate(GetMethod(implObj, "HeapMinimize"), flags, 1)
+        this.vtbl.Alloc := CallbackCreate(ObjBindMethod(implObj, "Alloc"), flags, 2)
+        this.vtbl.Realloc := CallbackCreate(ObjBindMethod(implObj, "Realloc"), flags, 3)
+        this.vtbl.Free := CallbackCreate(ObjBindMethod(implObj, "Free"), flags, 2)
+        this.vtbl.GetSize := CallbackCreate(ObjBindMethod(implObj, "GetSize"), flags, 2)
+        this.vtbl.DidAlloc := CallbackCreate(ObjBindMethod(implObj, "DidAlloc"), flags, 2)
+        this.vtbl.HeapMinimize := CallbackCreate(ObjBindMethod(implObj, "HeapMinimize"), flags, 1)
     }
 
     Dispose() {

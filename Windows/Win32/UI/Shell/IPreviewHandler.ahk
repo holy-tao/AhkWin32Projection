@@ -259,13 +259,13 @@ export default struct IPreviewHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetWindow := CallbackCreate(GetMethod(implObj, "SetWindow"), flags, 3)
-        this.vtbl.SetRect := CallbackCreate(GetMethod(implObj, "SetRect"), flags, 2)
-        this.vtbl.DoPreview := CallbackCreate(GetMethod(implObj, "DoPreview"), flags, 1)
-        this.vtbl.Unload := CallbackCreate(GetMethod(implObj, "Unload"), flags, 1)
-        this.vtbl.SetFocus := CallbackCreate(GetMethod(implObj, "SetFocus"), flags, 1)
-        this.vtbl.QueryFocus := CallbackCreate(GetMethod(implObj, "QueryFocus"), flags, 2)
-        this.vtbl.TranslateAccelerator := CallbackCreate(GetMethod(implObj, "TranslateAccelerator"), flags, 2)
+        this.vtbl.SetWindow := CallbackCreate(ObjBindMethod(implObj, "SetWindow"), flags, 3)
+        this.vtbl.SetRect := CallbackCreate(ObjBindMethod(implObj, "SetRect"), flags, 2)
+        this.vtbl.DoPreview := CallbackCreate(ObjBindMethod(implObj, "DoPreview"), flags, 1)
+        this.vtbl.Unload := CallbackCreate(ObjBindMethod(implObj, "Unload"), flags, 1)
+        this.vtbl.SetFocus := CallbackCreate(ObjBindMethod(implObj, "SetFocus"), flags, 1)
+        this.vtbl.QueryFocus := CallbackCreate(ObjBindMethod(implObj, "QueryFocus"), flags, 2)
+        this.vtbl.TranslateAccelerator := CallbackCreate(ObjBindMethod(implObj, "TranslateAccelerator"), flags, 2)
     }
 
     Dispose() {

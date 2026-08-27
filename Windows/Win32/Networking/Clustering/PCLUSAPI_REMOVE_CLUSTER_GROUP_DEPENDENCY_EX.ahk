@@ -20,7 +20,6 @@ export default struct PCLUSAPI_REMOVE_CLUSTER_GROUP_DEPENDENCY_EX {
     }
 
     /**
-     * 
      * @param {HGROUP} _hGroup 
      * @param {HGROUP} hDependsOn 
      * @param {PWSTR} lpszReason 
@@ -29,7 +28,9 @@ export default struct PCLUSAPI_REMOVE_CLUSTER_GROUP_DEPENDENCY_EX {
     Call(_hGroup, hDependsOn, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall(this.value, HGROUP, _hGroup, HGROUP, hDependsOn, "ptr", lpszReason, UInt32)
+        lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+        result := DllCall(this.value, HGROUP, _hGroup, HGROUP, hDependsOn, lpszReasonMarshal, lpszReason, UInt32)
         return result
     }
 

@@ -67,8 +67,8 @@ export default struct ITfThreadFocusSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnSetThreadFocus := CallbackCreate(GetMethod(implObj, "OnSetThreadFocus"), flags, 1)
-        this.vtbl.OnKillThreadFocus := CallbackCreate(GetMethod(implObj, "OnKillThreadFocus"), flags, 1)
+        this.vtbl.OnSetThreadFocus := CallbackCreate(ObjBindMethod(implObj, "OnSetThreadFocus"), flags, 1)
+        this.vtbl.OnKillThreadFocus := CallbackCreate(ObjBindMethod(implObj, "OnKillThreadFocus"), flags, 1)
     }
 
     Dispose() {

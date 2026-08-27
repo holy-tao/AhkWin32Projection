@@ -46,7 +46,6 @@ export default struct IHTMLObjectElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -58,7 +57,6 @@ export default struct IHTMLObjectElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_object() {
@@ -76,8 +74,8 @@ export default struct IHTMLObjectElement5 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_object := CallbackCreate(GetMethod(implObj, "put_object"), flags, 2)
-        this.vtbl.get_object := CallbackCreate(GetMethod(implObj, "get_object"), flags, 2)
+        this.vtbl.put_object := CallbackCreate(ObjBindMethod(implObj, "put_object"), flags, 2)
+        this.vtbl.get_object := CallbackCreate(ObjBindMethod(implObj, "get_object"), flags, 2)
     }
 
     Dispose() {

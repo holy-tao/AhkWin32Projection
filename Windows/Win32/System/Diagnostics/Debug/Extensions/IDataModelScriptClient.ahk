@@ -38,7 +38,6 @@ export default struct IDataModelScriptClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {ErrorClass} errClass 
      * @param {HRESULT} hrFail 
      * @param {PWSTR} message 
@@ -49,7 +48,9 @@ export default struct IDataModelScriptClient extends IUnknown {
     ReportError(errClass, hrFail, message, line, position) {
         message := message is String ? StrPtr(message) : message
 
-        result := ComCall(3, this, ErrorClass, errClass, "int", hrFail, "ptr", message, UInt32, line, UInt32, position, "HRESULT")
+        messageMarshal := message == 0 ? IntPtr : PWSTR
+
+        result := ComCall(3, this, ErrorClass, errClass, "int", hrFail, messageMarshal, message, UInt32, line, UInt32, position, "HRESULT")
         return result
     }
 
@@ -62,7 +63,7 @@ export default struct IDataModelScriptClient extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ReportError := CallbackCreate(GetMethod(implObj, "ReportError"), flags, 6)
+        this.vtbl.ReportError := CallbackCreate(ObjBindMethod(implObj, "ReportError"), flags, 6)
     }
 
     Dispose() {

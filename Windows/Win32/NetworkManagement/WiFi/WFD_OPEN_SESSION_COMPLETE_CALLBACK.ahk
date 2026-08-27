@@ -28,7 +28,6 @@ export default struct WFD_OPEN_SESSION_COMPLETE_CALLBACK {
     }
 
     /**
-     * 
      * @param {HANDLE} hSessionHandle A session handle to a Wi-Fi Direct session. This is a session handle previously returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wfdstartopensession">WFDStartOpenSession</a> function.
      * @param {Pointer<Void>} pvContext An context pointer passed to the callback function from the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wfdstartopensession">WFDStartOpenSession</a> function.
      * @param {Guid} guidSessionInterface The interface GUID of the local network interface on which this Wi-Fi Direct device has an open session.
@@ -90,7 +89,7 @@ export default struct WFD_OPEN_SESSION_COMPLETE_CALLBACK {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(hSessionHandle, pvContext, guidSessionInterface, dwError, dwReasonCode) {
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, HANDLE, hSessionHandle, pvContextMarshal, pvContext, Guid, guidSessionInterface, UInt32, dwError, UInt32, dwReasonCode)
     }

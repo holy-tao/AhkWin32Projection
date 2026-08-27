@@ -137,7 +137,7 @@ export default struct IWMPGraphCreation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nf-wmpservices-iwmpgraphcreation-getgraphcreationflags
      */
     GetGraphCreationFlags(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
@@ -152,9 +152,9 @@ export default struct IWMPGraphCreation extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GraphCreationPreRender := CallbackCreate(GetMethod(implObj, "GraphCreationPreRender"), flags, 3)
-        this.vtbl.GraphCreationPostRender := CallbackCreate(GetMethod(implObj, "GraphCreationPostRender"), flags, 2)
-        this.vtbl.GetGraphCreationFlags := CallbackCreate(GetMethod(implObj, "GetGraphCreationFlags"), flags, 2)
+        this.vtbl.GraphCreationPreRender := CallbackCreate(ObjBindMethod(implObj, "GraphCreationPreRender"), flags, 3)
+        this.vtbl.GraphCreationPostRender := CallbackCreate(ObjBindMethod(implObj, "GraphCreationPostRender"), flags, 2)
+        this.vtbl.GetGraphCreationFlags := CallbackCreate(ObjBindMethod(implObj, "GetGraphCreationFlags"), flags, 2)
     }
 
     Dispose() {

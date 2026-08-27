@@ -86,8 +86,8 @@ export default struct IWMPCore3 extends IWMPCore2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.newPlaylist := CallbackCreate(GetMethod(implObj, "newPlaylist"), flags, 4)
-        this.vtbl.newMedia := CallbackCreate(GetMethod(implObj, "newMedia"), flags, 3)
+        this.vtbl.newPlaylist := CallbackCreate(ObjBindMethod(implObj, "newPlaylist"), flags, 4)
+        this.vtbl.newMedia := CallbackCreate(ObjBindMethod(implObj, "newMedia"), flags, 3)
     }
 
     Dispose() {

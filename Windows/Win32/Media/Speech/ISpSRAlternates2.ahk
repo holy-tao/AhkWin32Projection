@@ -39,7 +39,6 @@ export default struct ISpSRAlternates2 extends ISpSRAlternates {
     }
 
     /**
-     * 
      * @param {Pointer<SPPHRASEALTREQUEST>} pAltRequest 
      * @param {PWSTR} pcszNewText 
      * @param {SPCOMMITFLAGS} commitFlags 
@@ -48,7 +47,9 @@ export default struct ISpSRAlternates2 extends ISpSRAlternates {
     CommitText(pAltRequest, pcszNewText, commitFlags) {
         pcszNewText := pcszNewText is String ? StrPtr(pcszNewText) : pcszNewText
 
-        result := ComCall(5, this, SPPHRASEALTREQUEST.Ptr, pAltRequest, "ptr", pcszNewText, SPCOMMITFLAGS, commitFlags, "HRESULT")
+        pcszNewTextMarshal := pcszNewText == 0 ? IntPtr : PWSTR
+
+        result := ComCall(5, this, SPPHRASEALTREQUEST.Ptr, pAltRequest, pcszNewTextMarshal, pcszNewText, SPCOMMITFLAGS, commitFlags, "HRESULT")
         return result
     }
 
@@ -61,7 +62,7 @@ export default struct ISpSRAlternates2 extends ISpSRAlternates {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CommitText := CallbackCreate(GetMethod(implObj, "CommitText"), flags, 4)
+        this.vtbl.CommitText := CallbackCreate(ObjBindMethod(implObj, "CommitText"), flags, 4)
     }
 
     Dispose() {

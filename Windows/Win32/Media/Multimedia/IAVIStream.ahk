@@ -174,9 +174,10 @@ export default struct IAVIStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavistream-readformat
      */
     ReadFormat(lPos, lpFormat, lpcbFormat) {
-        lpcbFormatMarshal := lpcbFormat is VarRef ? "int*" : "ptr"
+        lpFormatMarshal := lpFormat == 0 ? IntPtr : IntPtr
+        lpcbFormatMarshal := lpcbFormat is VarRef ? "int*" : IntPtr
 
-        result := ComCall(6, this, Int32, lPos, IntPtr, lpFormat, lpcbFormatMarshal, lpcbFormat, "HRESULT")
+        result := ComCall(6, this, Int32, lPos, lpFormatMarshal, lpFormat, lpcbFormatMarshal, lpcbFormat, "HRESULT")
         return result
     }
 
@@ -229,10 +230,13 @@ export default struct IAVIStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavistream-read
      */
     Read(lStart, lSamples, lpBuffer, cbBuffer, plBytes, plSamples) {
-        plBytesMarshal := plBytes is VarRef ? "int*" : "ptr"
-        plSamplesMarshal := plSamples is VarRef ? "int*" : "ptr"
+        lpBufferMarshal := lpBuffer == 0 ? IntPtr : IntPtr
+        plBytesMarshal := plBytes is VarRef ? "int*" : IntPtr
+        plBytesMarshal := plBytes == 0 ? IntPtr : "int*"
+        plSamplesMarshal := plSamples is VarRef ? "int*" : IntPtr
+        plSamplesMarshal := plSamples == 0 ? IntPtr : "int*"
 
-        result := ComCall(8, this, Int32, lStart, Int32, lSamples, IntPtr, lpBuffer, Int32, cbBuffer, plBytesMarshal, plBytes, plSamplesMarshal, plSamples, "HRESULT")
+        result := ComCall(8, this, Int32, lStart, Int32, lSamples, lpBufferMarshal, lpBuffer, Int32, cbBuffer, plBytesMarshal, plBytes, plSamplesMarshal, plSamples, "HRESULT")
         return result
     }
 
@@ -261,8 +265,10 @@ export default struct IAVIStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavistream-write
      */
     Write(lStart, lSamples, lpBuffer, cbBuffer, dwFlags, plSampWritten, plBytesWritten) {
-        plSampWrittenMarshal := plSampWritten is VarRef ? "int*" : "ptr"
-        plBytesWrittenMarshal := plBytesWritten is VarRef ? "int*" : "ptr"
+        plSampWrittenMarshal := plSampWritten is VarRef ? "int*" : IntPtr
+        plSampWrittenMarshal := plSampWritten == 0 ? IntPtr : "int*"
+        plBytesWrittenMarshal := plBytesWritten is VarRef ? "int*" : IntPtr
+        plBytesWrittenMarshal := plBytesWritten == 0 ? IntPtr : "int*"
 
         result := ComCall(9, this, Int32, lStart, Int32, lSamples, IntPtr, lpBuffer, Int32, cbBuffer, UInt32, dwFlags, plSampWrittenMarshal, plSampWritten, plBytesWrittenMarshal, plBytesWritten, "HRESULT")
         return result
@@ -309,9 +315,10 @@ export default struct IAVIStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavistream-readdata
      */
     ReadData(fcc, lp, lpcb) {
-        lpcbMarshal := lpcb is VarRef ? "int*" : "ptr"
+        lpMarshal := lp == 0 ? IntPtr : IntPtr
+        lpcbMarshal := lpcb is VarRef ? "int*" : IntPtr
 
-        result := ComCall(11, this, UInt32, fcc, IntPtr, lp, lpcbMarshal, lpcb, "HRESULT")
+        result := ComCall(11, this, UInt32, fcc, lpMarshal, lp, lpcbMarshal, lpcb, "HRESULT")
         return result
     }
 
@@ -339,7 +346,6 @@ export default struct IAVIStream extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lpInfo 
      * @param {Integer} cbInfo 
      * @returns {HRESULT} 
@@ -358,17 +364,17 @@ export default struct IAVIStream extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 3)
-        this.vtbl.Info := CallbackCreate(GetMethod(implObj, "Info"), flags, 3)
-        this.vtbl.FindSample := CallbackCreate(GetMethod(implObj, "FindSample"), flags, 3)
-        this.vtbl.ReadFormat := CallbackCreate(GetMethod(implObj, "ReadFormat"), flags, 4)
-        this.vtbl.SetFormat := CallbackCreate(GetMethod(implObj, "SetFormat"), flags, 4)
-        this.vtbl.Read := CallbackCreate(GetMethod(implObj, "Read"), flags, 7)
-        this.vtbl.Write := CallbackCreate(GetMethod(implObj, "Write"), flags, 8)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 3)
-        this.vtbl.ReadData := CallbackCreate(GetMethod(implObj, "ReadData"), flags, 4)
-        this.vtbl.WriteData := CallbackCreate(GetMethod(implObj, "WriteData"), flags, 4)
-        this.vtbl.SetInfo := CallbackCreate(GetMethod(implObj, "SetInfo"), flags, 3)
+        this.vtbl.Create := CallbackCreate(ObjBindMethod(implObj, "Create"), flags, 3)
+        this.vtbl.Info := CallbackCreate(ObjBindMethod(implObj, "Info"), flags, 3)
+        this.vtbl.FindSample := CallbackCreate(ObjBindMethod(implObj, "FindSample"), flags, 3)
+        this.vtbl.ReadFormat := CallbackCreate(ObjBindMethod(implObj, "ReadFormat"), flags, 4)
+        this.vtbl.SetFormat := CallbackCreate(ObjBindMethod(implObj, "SetFormat"), flags, 4)
+        this.vtbl.Read := CallbackCreate(ObjBindMethod(implObj, "Read"), flags, 7)
+        this.vtbl.Write := CallbackCreate(ObjBindMethod(implObj, "Write"), flags, 8)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 3)
+        this.vtbl.ReadData := CallbackCreate(ObjBindMethod(implObj, "ReadData"), flags, 4)
+        this.vtbl.WriteData := CallbackCreate(ObjBindMethod(implObj, "WriteData"), flags, 4)
+        this.vtbl.SetInfo := CallbackCreate(ObjBindMethod(implObj, "SetInfo"), flags, 3)
     }
 
     Dispose() {

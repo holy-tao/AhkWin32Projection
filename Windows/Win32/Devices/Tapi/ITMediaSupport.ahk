@@ -77,8 +77,8 @@ export default struct ITMediaSupport extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_MediaTypes := CallbackCreate(GetMethod(implObj, "get_MediaTypes"), flags, 2)
-        this.vtbl.QueryMediaType := CallbackCreate(GetMethod(implObj, "QueryMediaType"), flags, 3)
+        this.vtbl.get_MediaTypes := CallbackCreate(ObjBindMethod(implObj, "get_MediaTypes"), flags, 2)
+        this.vtbl.QueryMediaType := CallbackCreate(ObjBindMethod(implObj, "QueryMediaType"), flags, 3)
     }
 
     Dispose() {

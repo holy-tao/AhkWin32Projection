@@ -30,7 +30,6 @@ export default struct GdiplusAbort extends Win32ComInterface {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Abort() {

@@ -36,7 +36,6 @@ export default struct IKsObject extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HANDLE} 
      */
     KsGetObjectHandle() {
@@ -53,7 +52,7 @@ export default struct IKsObject extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.KsGetObjectHandle := CallbackCreate(GetMethod(implObj, "KsGetObjectHandle"), flags, 1)
+        this.vtbl.KsGetObjectHandle := CallbackCreate(ObjBindMethod(implObj, "KsGetObjectHandle"), flags, 1)
     }
 
     Dispose() {

@@ -85,8 +85,8 @@ export default struct IWMSInternalAdminNetSource2 extends IUnknown {
         bstrRealm := bstrRealm is String ? BSTR.Alloc(bstrRealm).Value : bstrRealm
         bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
 
-        pdwUrlPolicyMarshal := pdwUrlPolicy is VarRef ? "int*" : "ptr"
-        pfConfirmedGoodMarshal := pfConfirmedGood is VarRef ? "int*" : "ptr"
+        pdwUrlPolicyMarshal := pdwUrlPolicy is VarRef ? "int*" : IntPtr
+        pfConfirmedGoodMarshal := pfConfirmedGood is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, BSTR, bstrRealm, BSTR, bstrUrl, BOOL, fProxy, pdwUrlPolicyMarshal, pdwUrlPolicy, BSTR.Ptr, pbstrName, BSTR.Ptr, pbstrPassword, pfConfirmedGoodMarshal, pfConfirmedGood, "HRESULT")
         return result
@@ -125,9 +125,9 @@ export default struct IWMSInternalAdminNetSource2 extends IUnknown {
         bstrHost := bstrHost is String ? BSTR.Alloc(bstrHost).Value : bstrHost
         bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
 
-        pfProxyEnabledMarshal := pfProxyEnabled is VarRef ? "int*" : "ptr"
-        pdwProxyPortMarshal := pdwProxyPort is VarRef ? "uint*" : "ptr"
-        pdwProxyContextMarshal := pdwProxyContext is VarRef ? "uint*" : "ptr"
+        pfProxyEnabledMarshal := pfProxyEnabled is VarRef ? "int*" : IntPtr
+        pdwProxyPortMarshal := pdwProxyPort is VarRef ? "uint*" : IntPtr
+        pdwProxyContextMarshal := pdwProxyContext is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, BSTR, bstrProtocol, BSTR, bstrHost, BSTR, bstrUrl, pfProxyEnabledMarshal, pfProxyEnabled, BSTR.Ptr, pbstrProxyServer, pdwProxyPortMarshal, pdwProxyPort, pdwProxyContextMarshal, pdwProxyContext, "HRESULT")
         return result
@@ -142,10 +142,10 @@ export default struct IWMSInternalAdminNetSource2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetCredentialsEx := CallbackCreate(GetMethod(implObj, "SetCredentialsEx"), flags, 8)
-        this.vtbl.GetCredentialsEx := CallbackCreate(GetMethod(implObj, "GetCredentialsEx"), flags, 8)
-        this.vtbl.DeleteCredentialsEx := CallbackCreate(GetMethod(implObj, "DeleteCredentialsEx"), flags, 4)
-        this.vtbl.FindProxyForURLEx := CallbackCreate(GetMethod(implObj, "FindProxyForURLEx"), flags, 8)
+        this.vtbl.SetCredentialsEx := CallbackCreate(ObjBindMethod(implObj, "SetCredentialsEx"), flags, 8)
+        this.vtbl.GetCredentialsEx := CallbackCreate(ObjBindMethod(implObj, "GetCredentialsEx"), flags, 8)
+        this.vtbl.DeleteCredentialsEx := CallbackCreate(ObjBindMethod(implObj, "DeleteCredentialsEx"), flags, 4)
+        this.vtbl.FindProxyForURLEx := CallbackCreate(ObjBindMethod(implObj, "FindProxyForURLEx"), flags, 8)
     }
 
     Dispose() {

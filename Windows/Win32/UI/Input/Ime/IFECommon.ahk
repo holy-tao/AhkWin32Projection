@@ -109,10 +109,10 @@ export default struct IFECommon extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsDefaultIME := CallbackCreate(GetMethod(implObj, "IsDefaultIME"), flags, 3)
-        this.vtbl.SetDefaultIME := CallbackCreate(GetMethod(implObj, "SetDefaultIME"), flags, 1)
-        this.vtbl.InvokeWordRegDialog := CallbackCreate(GetMethod(implObj, "InvokeWordRegDialog"), flags, 2)
-        this.vtbl.InvokeDictToolDialog := CallbackCreate(GetMethod(implObj, "InvokeDictToolDialog"), flags, 2)
+        this.vtbl.IsDefaultIME := CallbackCreate(ObjBindMethod(implObj, "IsDefaultIME"), flags, 3)
+        this.vtbl.SetDefaultIME := CallbackCreate(ObjBindMethod(implObj, "SetDefaultIME"), flags, 1)
+        this.vtbl.InvokeWordRegDialog := CallbackCreate(ObjBindMethod(implObj, "InvokeWordRegDialog"), flags, 2)
+        this.vtbl.InvokeDictToolDialog := CallbackCreate(ObjBindMethod(implObj, "InvokeDictToolDialog"), flags, 2)
     }
 
     Dispose() {

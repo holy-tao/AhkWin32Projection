@@ -1177,7 +1177,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1189,7 +1188,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msScrollChaining() {
@@ -1199,7 +1197,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1211,7 +1208,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msContentZooming() {
@@ -1221,7 +1217,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1233,7 +1228,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msContentZoomSnapType() {
@@ -1243,7 +1237,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1255,7 +1248,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msScrollRails() {
@@ -1265,7 +1257,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1277,7 +1268,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msContentZoomChaining() {
@@ -1287,7 +1277,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1299,7 +1288,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msScrollSnapType() {
@@ -1309,7 +1297,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1321,7 +1308,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msContentZoomLimit() {
@@ -1331,7 +1317,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1343,7 +1328,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msContentZoomSnap() {
@@ -1353,7 +1337,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1365,7 +1348,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msContentZoomSnapPoints() {
@@ -1375,7 +1357,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1385,7 +1366,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msContentZoomLimitMin() {
@@ -1395,7 +1375,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1405,7 +1384,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msContentZoomLimitMax() {
@@ -1415,7 +1393,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1427,7 +1404,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msScrollSnapX() {
@@ -1437,7 +1413,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1449,7 +1424,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msScrollSnapY() {
@@ -1459,7 +1433,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1471,7 +1444,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msScrollSnapPointsX() {
@@ -1481,7 +1453,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1493,7 +1464,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msScrollSnapPointsY() {
@@ -1503,7 +1473,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1513,7 +1482,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msGridColumn() {
@@ -1523,7 +1491,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1535,7 +1502,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msGridColumnAlign() {
@@ -1545,7 +1511,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1557,7 +1522,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msGridColumns() {
@@ -1567,7 +1531,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1577,7 +1540,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msGridColumnSpan() {
@@ -1587,7 +1549,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1597,7 +1558,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msGridRow() {
@@ -1607,7 +1567,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1619,7 +1578,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msGridRowAlign() {
@@ -1629,7 +1587,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1641,7 +1598,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msGridRows() {
@@ -1651,7 +1607,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1661,7 +1616,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msGridRowSpan() {
@@ -1671,7 +1625,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1683,7 +1636,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msWrapThrough() {
@@ -1693,7 +1645,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1703,7 +1654,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msWrapMargin() {
@@ -1713,7 +1663,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1725,7 +1674,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msWrapFlow() {
@@ -1735,7 +1683,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1747,7 +1694,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msAnimationName() {
@@ -1757,7 +1703,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1769,7 +1714,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msAnimationDuration() {
@@ -1779,7 +1723,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1791,7 +1734,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msAnimationTimingFunction() {
@@ -1801,7 +1743,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1813,7 +1754,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msAnimationDelay() {
@@ -1823,7 +1763,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1835,7 +1774,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msAnimationDirection() {
@@ -1845,7 +1783,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1857,7 +1794,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msAnimationPlayState() {
@@ -1867,7 +1803,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1879,7 +1814,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msAnimationIterationCount() {
@@ -1889,7 +1823,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1901,7 +1834,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msAnimation() {
@@ -1911,7 +1843,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1923,7 +1854,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msAnimationFillMode() {
@@ -1933,7 +1863,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1945,7 +1874,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_colorInterpolationFilters() {
@@ -1955,7 +1883,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1965,7 +1892,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_columnCount() {
@@ -1975,7 +1901,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1985,7 +1910,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_columnWidth() {
@@ -1995,7 +1919,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -2005,7 +1928,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_columnGap() {
@@ -2015,7 +1937,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2027,7 +1948,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_columnFill() {
@@ -2037,7 +1957,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2049,7 +1968,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_columnSpan() {
@@ -2059,7 +1977,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2071,7 +1988,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_columns() {
@@ -2081,7 +1997,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2093,7 +2008,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_columnRule() {
@@ -2103,7 +2017,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -2113,7 +2026,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_columnRuleColor() {
@@ -2123,7 +2035,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2135,7 +2046,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_columnRuleStyle() {
@@ -2145,7 +2055,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -2155,7 +2064,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_columnRuleWidth() {
@@ -2165,7 +2073,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2177,7 +2084,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_breakBefore() {
@@ -2187,7 +2093,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2199,7 +2104,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_breakAfter() {
@@ -2209,7 +2113,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2221,7 +2124,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_breakInside() {
@@ -2231,7 +2133,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -2241,7 +2142,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_floodColor() {
@@ -2251,7 +2151,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -2261,7 +2160,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_floodOpacity() {
@@ -2271,7 +2169,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -2281,7 +2178,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_lightingColor() {
@@ -2291,7 +2187,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -2301,7 +2196,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msScrollLimitXMin() {
@@ -2311,7 +2205,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -2321,7 +2214,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msScrollLimitYMin() {
@@ -2331,7 +2223,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -2341,7 +2232,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msScrollLimitXMax() {
@@ -2351,7 +2241,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -2361,7 +2250,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msScrollLimitYMax() {
@@ -2371,7 +2259,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2383,7 +2270,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msScrollLimit() {
@@ -2393,7 +2279,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2405,7 +2290,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textShadow() {
@@ -2415,7 +2299,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2427,7 +2310,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msFlowFrom() {
@@ -2437,7 +2319,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2449,7 +2330,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msFlowInto() {
@@ -2459,7 +2339,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2471,7 +2350,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msHyphens() {
@@ -2481,7 +2359,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -2491,7 +2368,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msHyphenateLimitZone() {
@@ -2501,7 +2377,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2513,7 +2388,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msHyphenateLimitChars() {
@@ -2523,7 +2397,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -2533,7 +2406,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msHyphenateLimitLines() {
@@ -2543,7 +2415,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2555,7 +2426,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msHighContrastAdjust() {
@@ -2565,7 +2435,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2577,7 +2446,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_enableBackground() {
@@ -2587,7 +2455,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2599,7 +2466,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msFontFeatureSettings() {
@@ -2609,7 +2475,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2621,7 +2486,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msUserSelect() {
@@ -2631,7 +2495,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2643,7 +2506,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msOverflowStyle() {
@@ -2653,7 +2515,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2665,7 +2526,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msTransformStyle() {
@@ -2675,7 +2535,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2687,7 +2546,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msBackfaceVisibility() {
@@ -2697,7 +2555,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -2707,7 +2564,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msPerspective() {
@@ -2717,7 +2573,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2729,7 +2584,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msPerspectiveOrigin() {
@@ -2739,7 +2593,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2751,7 +2604,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msTransitionProperty() {
@@ -2761,7 +2613,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2773,7 +2624,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msTransitionDuration() {
@@ -2783,7 +2633,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2795,7 +2644,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msTransitionTimingFunction() {
@@ -2805,7 +2653,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2817,7 +2664,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msTransitionDelay() {
@@ -2827,7 +2673,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2839,7 +2684,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msTransition() {
@@ -2849,7 +2693,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2861,7 +2704,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msTouchAction() {
@@ -2871,7 +2713,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2883,7 +2724,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msScrollTranslation() {
@@ -2893,7 +2733,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2905,7 +2744,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msFlex() {
@@ -2915,7 +2753,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -2925,7 +2762,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msFlexPositive() {
@@ -2935,7 +2771,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -2945,7 +2780,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msFlexNegative() {
@@ -2955,7 +2789,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -2965,7 +2798,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msFlexPreferredSize() {
@@ -2975,7 +2807,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -2987,7 +2818,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msFlexFlow() {
@@ -2997,7 +2827,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3009,7 +2838,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msFlexDirection() {
@@ -3019,7 +2847,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3031,7 +2858,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msFlexWrap() {
@@ -3041,7 +2867,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3053,7 +2878,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msFlexAlign() {
@@ -3063,7 +2887,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3075,7 +2898,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msFlexItemAlign() {
@@ -3085,7 +2907,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3097,7 +2918,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msFlexPack() {
@@ -3107,7 +2927,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3119,7 +2938,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msFlexLinePack() {
@@ -3129,7 +2947,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -3139,7 +2956,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_msFlexOrder() {
@@ -3149,7 +2965,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3161,7 +2976,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msTouchSelect() {
@@ -3171,7 +2985,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3183,7 +2996,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_transform() {
@@ -3193,7 +3005,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3205,7 +3016,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_transformOrigin() {
@@ -3215,7 +3025,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3227,7 +3036,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_transformStyle() {
@@ -3237,7 +3045,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3249,7 +3056,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_backfaceVisibility() {
@@ -3259,7 +3065,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -3269,7 +3074,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_perspective() {
@@ -3279,7 +3083,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3291,7 +3094,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_perspectiveOrigin() {
@@ -3301,7 +3103,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3313,7 +3114,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_transitionProperty() {
@@ -3323,7 +3123,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3335,7 +3134,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_transitionDuration() {
@@ -3345,7 +3143,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3357,7 +3154,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_transitionTimingFunction() {
@@ -3367,7 +3163,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3379,7 +3174,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_transitionDelay() {
@@ -3389,7 +3183,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3401,7 +3194,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_transition() {
@@ -3411,7 +3203,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3423,7 +3214,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fontFeatureSettings() {
@@ -3433,7 +3223,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3445,7 +3234,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_animationName() {
@@ -3455,7 +3243,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3467,7 +3254,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_animationDuration() {
@@ -3477,7 +3263,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3489,7 +3274,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_animationTimingFunction() {
@@ -3499,7 +3283,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3511,7 +3294,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_animationDelay() {
@@ -3521,7 +3303,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3533,7 +3314,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_animationDirection() {
@@ -3543,7 +3323,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3555,7 +3334,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_animationPlayState() {
@@ -3565,7 +3343,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3577,7 +3354,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_animationIterationCount() {
@@ -3587,7 +3363,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3599,7 +3374,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_animation() {
@@ -3609,7 +3383,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -3621,7 +3394,6 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_animationFillMode() {
@@ -3639,234 +3411,234 @@ export default struct IHTMLCSSStyleDeclaration2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_msScrollChaining := CallbackCreate(GetMethod(implObj, "put_msScrollChaining"), flags, 2)
-        this.vtbl.get_msScrollChaining := CallbackCreate(GetMethod(implObj, "get_msScrollChaining"), flags, 2)
-        this.vtbl.put_msContentZooming := CallbackCreate(GetMethod(implObj, "put_msContentZooming"), flags, 2)
-        this.vtbl.get_msContentZooming := CallbackCreate(GetMethod(implObj, "get_msContentZooming"), flags, 2)
-        this.vtbl.put_msContentZoomSnapType := CallbackCreate(GetMethod(implObj, "put_msContentZoomSnapType"), flags, 2)
-        this.vtbl.get_msContentZoomSnapType := CallbackCreate(GetMethod(implObj, "get_msContentZoomSnapType"), flags, 2)
-        this.vtbl.put_msScrollRails := CallbackCreate(GetMethod(implObj, "put_msScrollRails"), flags, 2)
-        this.vtbl.get_msScrollRails := CallbackCreate(GetMethod(implObj, "get_msScrollRails"), flags, 2)
-        this.vtbl.put_msContentZoomChaining := CallbackCreate(GetMethod(implObj, "put_msContentZoomChaining"), flags, 2)
-        this.vtbl.get_msContentZoomChaining := CallbackCreate(GetMethod(implObj, "get_msContentZoomChaining"), flags, 2)
-        this.vtbl.put_msScrollSnapType := CallbackCreate(GetMethod(implObj, "put_msScrollSnapType"), flags, 2)
-        this.vtbl.get_msScrollSnapType := CallbackCreate(GetMethod(implObj, "get_msScrollSnapType"), flags, 2)
-        this.vtbl.put_msContentZoomLimit := CallbackCreate(GetMethod(implObj, "put_msContentZoomLimit"), flags, 2)
-        this.vtbl.get_msContentZoomLimit := CallbackCreate(GetMethod(implObj, "get_msContentZoomLimit"), flags, 2)
-        this.vtbl.put_msContentZoomSnap := CallbackCreate(GetMethod(implObj, "put_msContentZoomSnap"), flags, 2)
-        this.vtbl.get_msContentZoomSnap := CallbackCreate(GetMethod(implObj, "get_msContentZoomSnap"), flags, 2)
-        this.vtbl.put_msContentZoomSnapPoints := CallbackCreate(GetMethod(implObj, "put_msContentZoomSnapPoints"), flags, 2)
-        this.vtbl.get_msContentZoomSnapPoints := CallbackCreate(GetMethod(implObj, "get_msContentZoomSnapPoints"), flags, 2)
-        this.vtbl.put_msContentZoomLimitMin := CallbackCreate(GetMethod(implObj, "put_msContentZoomLimitMin"), flags, 2)
-        this.vtbl.get_msContentZoomLimitMin := CallbackCreate(GetMethod(implObj, "get_msContentZoomLimitMin"), flags, 2)
-        this.vtbl.put_msContentZoomLimitMax := CallbackCreate(GetMethod(implObj, "put_msContentZoomLimitMax"), flags, 2)
-        this.vtbl.get_msContentZoomLimitMax := CallbackCreate(GetMethod(implObj, "get_msContentZoomLimitMax"), flags, 2)
-        this.vtbl.put_msScrollSnapX := CallbackCreate(GetMethod(implObj, "put_msScrollSnapX"), flags, 2)
-        this.vtbl.get_msScrollSnapX := CallbackCreate(GetMethod(implObj, "get_msScrollSnapX"), flags, 2)
-        this.vtbl.put_msScrollSnapY := CallbackCreate(GetMethod(implObj, "put_msScrollSnapY"), flags, 2)
-        this.vtbl.get_msScrollSnapY := CallbackCreate(GetMethod(implObj, "get_msScrollSnapY"), flags, 2)
-        this.vtbl.put_msScrollSnapPointsX := CallbackCreate(GetMethod(implObj, "put_msScrollSnapPointsX"), flags, 2)
-        this.vtbl.get_msScrollSnapPointsX := CallbackCreate(GetMethod(implObj, "get_msScrollSnapPointsX"), flags, 2)
-        this.vtbl.put_msScrollSnapPointsY := CallbackCreate(GetMethod(implObj, "put_msScrollSnapPointsY"), flags, 2)
-        this.vtbl.get_msScrollSnapPointsY := CallbackCreate(GetMethod(implObj, "get_msScrollSnapPointsY"), flags, 2)
-        this.vtbl.put_msGridColumn := CallbackCreate(GetMethod(implObj, "put_msGridColumn"), flags, 2)
-        this.vtbl.get_msGridColumn := CallbackCreate(GetMethod(implObj, "get_msGridColumn"), flags, 2)
-        this.vtbl.put_msGridColumnAlign := CallbackCreate(GetMethod(implObj, "put_msGridColumnAlign"), flags, 2)
-        this.vtbl.get_msGridColumnAlign := CallbackCreate(GetMethod(implObj, "get_msGridColumnAlign"), flags, 2)
-        this.vtbl.put_msGridColumns := CallbackCreate(GetMethod(implObj, "put_msGridColumns"), flags, 2)
-        this.vtbl.get_msGridColumns := CallbackCreate(GetMethod(implObj, "get_msGridColumns"), flags, 2)
-        this.vtbl.put_msGridColumnSpan := CallbackCreate(GetMethod(implObj, "put_msGridColumnSpan"), flags, 2)
-        this.vtbl.get_msGridColumnSpan := CallbackCreate(GetMethod(implObj, "get_msGridColumnSpan"), flags, 2)
-        this.vtbl.put_msGridRow := CallbackCreate(GetMethod(implObj, "put_msGridRow"), flags, 2)
-        this.vtbl.get_msGridRow := CallbackCreate(GetMethod(implObj, "get_msGridRow"), flags, 2)
-        this.vtbl.put_msGridRowAlign := CallbackCreate(GetMethod(implObj, "put_msGridRowAlign"), flags, 2)
-        this.vtbl.get_msGridRowAlign := CallbackCreate(GetMethod(implObj, "get_msGridRowAlign"), flags, 2)
-        this.vtbl.put_msGridRows := CallbackCreate(GetMethod(implObj, "put_msGridRows"), flags, 2)
-        this.vtbl.get_msGridRows := CallbackCreate(GetMethod(implObj, "get_msGridRows"), flags, 2)
-        this.vtbl.put_msGridRowSpan := CallbackCreate(GetMethod(implObj, "put_msGridRowSpan"), flags, 2)
-        this.vtbl.get_msGridRowSpan := CallbackCreate(GetMethod(implObj, "get_msGridRowSpan"), flags, 2)
-        this.vtbl.put_msWrapThrough := CallbackCreate(GetMethod(implObj, "put_msWrapThrough"), flags, 2)
-        this.vtbl.get_msWrapThrough := CallbackCreate(GetMethod(implObj, "get_msWrapThrough"), flags, 2)
-        this.vtbl.put_msWrapMargin := CallbackCreate(GetMethod(implObj, "put_msWrapMargin"), flags, 2)
-        this.vtbl.get_msWrapMargin := CallbackCreate(GetMethod(implObj, "get_msWrapMargin"), flags, 2)
-        this.vtbl.put_msWrapFlow := CallbackCreate(GetMethod(implObj, "put_msWrapFlow"), flags, 2)
-        this.vtbl.get_msWrapFlow := CallbackCreate(GetMethod(implObj, "get_msWrapFlow"), flags, 2)
-        this.vtbl.put_msAnimationName := CallbackCreate(GetMethod(implObj, "put_msAnimationName"), flags, 2)
-        this.vtbl.get_msAnimationName := CallbackCreate(GetMethod(implObj, "get_msAnimationName"), flags, 2)
-        this.vtbl.put_msAnimationDuration := CallbackCreate(GetMethod(implObj, "put_msAnimationDuration"), flags, 2)
-        this.vtbl.get_msAnimationDuration := CallbackCreate(GetMethod(implObj, "get_msAnimationDuration"), flags, 2)
-        this.vtbl.put_msAnimationTimingFunction := CallbackCreate(GetMethod(implObj, "put_msAnimationTimingFunction"), flags, 2)
-        this.vtbl.get_msAnimationTimingFunction := CallbackCreate(GetMethod(implObj, "get_msAnimationTimingFunction"), flags, 2)
-        this.vtbl.put_msAnimationDelay := CallbackCreate(GetMethod(implObj, "put_msAnimationDelay"), flags, 2)
-        this.vtbl.get_msAnimationDelay := CallbackCreate(GetMethod(implObj, "get_msAnimationDelay"), flags, 2)
-        this.vtbl.put_msAnimationDirection := CallbackCreate(GetMethod(implObj, "put_msAnimationDirection"), flags, 2)
-        this.vtbl.get_msAnimationDirection := CallbackCreate(GetMethod(implObj, "get_msAnimationDirection"), flags, 2)
-        this.vtbl.put_msAnimationPlayState := CallbackCreate(GetMethod(implObj, "put_msAnimationPlayState"), flags, 2)
-        this.vtbl.get_msAnimationPlayState := CallbackCreate(GetMethod(implObj, "get_msAnimationPlayState"), flags, 2)
-        this.vtbl.put_msAnimationIterationCount := CallbackCreate(GetMethod(implObj, "put_msAnimationIterationCount"), flags, 2)
-        this.vtbl.get_msAnimationIterationCount := CallbackCreate(GetMethod(implObj, "get_msAnimationIterationCount"), flags, 2)
-        this.vtbl.put_msAnimation := CallbackCreate(GetMethod(implObj, "put_msAnimation"), flags, 2)
-        this.vtbl.get_msAnimation := CallbackCreate(GetMethod(implObj, "get_msAnimation"), flags, 2)
-        this.vtbl.put_msAnimationFillMode := CallbackCreate(GetMethod(implObj, "put_msAnimationFillMode"), flags, 2)
-        this.vtbl.get_msAnimationFillMode := CallbackCreate(GetMethod(implObj, "get_msAnimationFillMode"), flags, 2)
-        this.vtbl.put_colorInterpolationFilters := CallbackCreate(GetMethod(implObj, "put_colorInterpolationFilters"), flags, 2)
-        this.vtbl.get_colorInterpolationFilters := CallbackCreate(GetMethod(implObj, "get_colorInterpolationFilters"), flags, 2)
-        this.vtbl.put_columnCount := CallbackCreate(GetMethod(implObj, "put_columnCount"), flags, 2)
-        this.vtbl.get_columnCount := CallbackCreate(GetMethod(implObj, "get_columnCount"), flags, 2)
-        this.vtbl.put_columnWidth := CallbackCreate(GetMethod(implObj, "put_columnWidth"), flags, 2)
-        this.vtbl.get_columnWidth := CallbackCreate(GetMethod(implObj, "get_columnWidth"), flags, 2)
-        this.vtbl.put_columnGap := CallbackCreate(GetMethod(implObj, "put_columnGap"), flags, 2)
-        this.vtbl.get_columnGap := CallbackCreate(GetMethod(implObj, "get_columnGap"), flags, 2)
-        this.vtbl.put_columnFill := CallbackCreate(GetMethod(implObj, "put_columnFill"), flags, 2)
-        this.vtbl.get_columnFill := CallbackCreate(GetMethod(implObj, "get_columnFill"), flags, 2)
-        this.vtbl.put_columnSpan := CallbackCreate(GetMethod(implObj, "put_columnSpan"), flags, 2)
-        this.vtbl.get_columnSpan := CallbackCreate(GetMethod(implObj, "get_columnSpan"), flags, 2)
-        this.vtbl.put_columns := CallbackCreate(GetMethod(implObj, "put_columns"), flags, 2)
-        this.vtbl.get_columns := CallbackCreate(GetMethod(implObj, "get_columns"), flags, 2)
-        this.vtbl.put_columnRule := CallbackCreate(GetMethod(implObj, "put_columnRule"), flags, 2)
-        this.vtbl.get_columnRule := CallbackCreate(GetMethod(implObj, "get_columnRule"), flags, 2)
-        this.vtbl.put_columnRuleColor := CallbackCreate(GetMethod(implObj, "put_columnRuleColor"), flags, 2)
-        this.vtbl.get_columnRuleColor := CallbackCreate(GetMethod(implObj, "get_columnRuleColor"), flags, 2)
-        this.vtbl.put_columnRuleStyle := CallbackCreate(GetMethod(implObj, "put_columnRuleStyle"), flags, 2)
-        this.vtbl.get_columnRuleStyle := CallbackCreate(GetMethod(implObj, "get_columnRuleStyle"), flags, 2)
-        this.vtbl.put_columnRuleWidth := CallbackCreate(GetMethod(implObj, "put_columnRuleWidth"), flags, 2)
-        this.vtbl.get_columnRuleWidth := CallbackCreate(GetMethod(implObj, "get_columnRuleWidth"), flags, 2)
-        this.vtbl.put_breakBefore := CallbackCreate(GetMethod(implObj, "put_breakBefore"), flags, 2)
-        this.vtbl.get_breakBefore := CallbackCreate(GetMethod(implObj, "get_breakBefore"), flags, 2)
-        this.vtbl.put_breakAfter := CallbackCreate(GetMethod(implObj, "put_breakAfter"), flags, 2)
-        this.vtbl.get_breakAfter := CallbackCreate(GetMethod(implObj, "get_breakAfter"), flags, 2)
-        this.vtbl.put_breakInside := CallbackCreate(GetMethod(implObj, "put_breakInside"), flags, 2)
-        this.vtbl.get_breakInside := CallbackCreate(GetMethod(implObj, "get_breakInside"), flags, 2)
-        this.vtbl.put_floodColor := CallbackCreate(GetMethod(implObj, "put_floodColor"), flags, 2)
-        this.vtbl.get_floodColor := CallbackCreate(GetMethod(implObj, "get_floodColor"), flags, 2)
-        this.vtbl.put_floodOpacity := CallbackCreate(GetMethod(implObj, "put_floodOpacity"), flags, 2)
-        this.vtbl.get_floodOpacity := CallbackCreate(GetMethod(implObj, "get_floodOpacity"), flags, 2)
-        this.vtbl.put_lightingColor := CallbackCreate(GetMethod(implObj, "put_lightingColor"), flags, 2)
-        this.vtbl.get_lightingColor := CallbackCreate(GetMethod(implObj, "get_lightingColor"), flags, 2)
-        this.vtbl.put_msScrollLimitXMin := CallbackCreate(GetMethod(implObj, "put_msScrollLimitXMin"), flags, 2)
-        this.vtbl.get_msScrollLimitXMin := CallbackCreate(GetMethod(implObj, "get_msScrollLimitXMin"), flags, 2)
-        this.vtbl.put_msScrollLimitYMin := CallbackCreate(GetMethod(implObj, "put_msScrollLimitYMin"), flags, 2)
-        this.vtbl.get_msScrollLimitYMin := CallbackCreate(GetMethod(implObj, "get_msScrollLimitYMin"), flags, 2)
-        this.vtbl.put_msScrollLimitXMax := CallbackCreate(GetMethod(implObj, "put_msScrollLimitXMax"), flags, 2)
-        this.vtbl.get_msScrollLimitXMax := CallbackCreate(GetMethod(implObj, "get_msScrollLimitXMax"), flags, 2)
-        this.vtbl.put_msScrollLimitYMax := CallbackCreate(GetMethod(implObj, "put_msScrollLimitYMax"), flags, 2)
-        this.vtbl.get_msScrollLimitYMax := CallbackCreate(GetMethod(implObj, "get_msScrollLimitYMax"), flags, 2)
-        this.vtbl.put_msScrollLimit := CallbackCreate(GetMethod(implObj, "put_msScrollLimit"), flags, 2)
-        this.vtbl.get_msScrollLimit := CallbackCreate(GetMethod(implObj, "get_msScrollLimit"), flags, 2)
-        this.vtbl.put_textShadow := CallbackCreate(GetMethod(implObj, "put_textShadow"), flags, 2)
-        this.vtbl.get_textShadow := CallbackCreate(GetMethod(implObj, "get_textShadow"), flags, 2)
-        this.vtbl.put_msFlowFrom := CallbackCreate(GetMethod(implObj, "put_msFlowFrom"), flags, 2)
-        this.vtbl.get_msFlowFrom := CallbackCreate(GetMethod(implObj, "get_msFlowFrom"), flags, 2)
-        this.vtbl.put_msFlowInto := CallbackCreate(GetMethod(implObj, "put_msFlowInto"), flags, 2)
-        this.vtbl.get_msFlowInto := CallbackCreate(GetMethod(implObj, "get_msFlowInto"), flags, 2)
-        this.vtbl.put_msHyphens := CallbackCreate(GetMethod(implObj, "put_msHyphens"), flags, 2)
-        this.vtbl.get_msHyphens := CallbackCreate(GetMethod(implObj, "get_msHyphens"), flags, 2)
-        this.vtbl.put_msHyphenateLimitZone := CallbackCreate(GetMethod(implObj, "put_msHyphenateLimitZone"), flags, 2)
-        this.vtbl.get_msHyphenateLimitZone := CallbackCreate(GetMethod(implObj, "get_msHyphenateLimitZone"), flags, 2)
-        this.vtbl.put_msHyphenateLimitChars := CallbackCreate(GetMethod(implObj, "put_msHyphenateLimitChars"), flags, 2)
-        this.vtbl.get_msHyphenateLimitChars := CallbackCreate(GetMethod(implObj, "get_msHyphenateLimitChars"), flags, 2)
-        this.vtbl.put_msHyphenateLimitLines := CallbackCreate(GetMethod(implObj, "put_msHyphenateLimitLines"), flags, 2)
-        this.vtbl.get_msHyphenateLimitLines := CallbackCreate(GetMethod(implObj, "get_msHyphenateLimitLines"), flags, 2)
-        this.vtbl.put_msHighContrastAdjust := CallbackCreate(GetMethod(implObj, "put_msHighContrastAdjust"), flags, 2)
-        this.vtbl.get_msHighContrastAdjust := CallbackCreate(GetMethod(implObj, "get_msHighContrastAdjust"), flags, 2)
-        this.vtbl.put_enableBackground := CallbackCreate(GetMethod(implObj, "put_enableBackground"), flags, 2)
-        this.vtbl.get_enableBackground := CallbackCreate(GetMethod(implObj, "get_enableBackground"), flags, 2)
-        this.vtbl.put_msFontFeatureSettings := CallbackCreate(GetMethod(implObj, "put_msFontFeatureSettings"), flags, 2)
-        this.vtbl.get_msFontFeatureSettings := CallbackCreate(GetMethod(implObj, "get_msFontFeatureSettings"), flags, 2)
-        this.vtbl.put_msUserSelect := CallbackCreate(GetMethod(implObj, "put_msUserSelect"), flags, 2)
-        this.vtbl.get_msUserSelect := CallbackCreate(GetMethod(implObj, "get_msUserSelect"), flags, 2)
-        this.vtbl.put_msOverflowStyle := CallbackCreate(GetMethod(implObj, "put_msOverflowStyle"), flags, 2)
-        this.vtbl.get_msOverflowStyle := CallbackCreate(GetMethod(implObj, "get_msOverflowStyle"), flags, 2)
-        this.vtbl.put_msTransformStyle := CallbackCreate(GetMethod(implObj, "put_msTransformStyle"), flags, 2)
-        this.vtbl.get_msTransformStyle := CallbackCreate(GetMethod(implObj, "get_msTransformStyle"), flags, 2)
-        this.vtbl.put_msBackfaceVisibility := CallbackCreate(GetMethod(implObj, "put_msBackfaceVisibility"), flags, 2)
-        this.vtbl.get_msBackfaceVisibility := CallbackCreate(GetMethod(implObj, "get_msBackfaceVisibility"), flags, 2)
-        this.vtbl.put_msPerspective := CallbackCreate(GetMethod(implObj, "put_msPerspective"), flags, 2)
-        this.vtbl.get_msPerspective := CallbackCreate(GetMethod(implObj, "get_msPerspective"), flags, 2)
-        this.vtbl.put_msPerspectiveOrigin := CallbackCreate(GetMethod(implObj, "put_msPerspectiveOrigin"), flags, 2)
-        this.vtbl.get_msPerspectiveOrigin := CallbackCreate(GetMethod(implObj, "get_msPerspectiveOrigin"), flags, 2)
-        this.vtbl.put_msTransitionProperty := CallbackCreate(GetMethod(implObj, "put_msTransitionProperty"), flags, 2)
-        this.vtbl.get_msTransitionProperty := CallbackCreate(GetMethod(implObj, "get_msTransitionProperty"), flags, 2)
-        this.vtbl.put_msTransitionDuration := CallbackCreate(GetMethod(implObj, "put_msTransitionDuration"), flags, 2)
-        this.vtbl.get_msTransitionDuration := CallbackCreate(GetMethod(implObj, "get_msTransitionDuration"), flags, 2)
-        this.vtbl.put_msTransitionTimingFunction := CallbackCreate(GetMethod(implObj, "put_msTransitionTimingFunction"), flags, 2)
-        this.vtbl.get_msTransitionTimingFunction := CallbackCreate(GetMethod(implObj, "get_msTransitionTimingFunction"), flags, 2)
-        this.vtbl.put_msTransitionDelay := CallbackCreate(GetMethod(implObj, "put_msTransitionDelay"), flags, 2)
-        this.vtbl.get_msTransitionDelay := CallbackCreate(GetMethod(implObj, "get_msTransitionDelay"), flags, 2)
-        this.vtbl.put_msTransition := CallbackCreate(GetMethod(implObj, "put_msTransition"), flags, 2)
-        this.vtbl.get_msTransition := CallbackCreate(GetMethod(implObj, "get_msTransition"), flags, 2)
-        this.vtbl.put_msTouchAction := CallbackCreate(GetMethod(implObj, "put_msTouchAction"), flags, 2)
-        this.vtbl.get_msTouchAction := CallbackCreate(GetMethod(implObj, "get_msTouchAction"), flags, 2)
-        this.vtbl.put_msScrollTranslation := CallbackCreate(GetMethod(implObj, "put_msScrollTranslation"), flags, 2)
-        this.vtbl.get_msScrollTranslation := CallbackCreate(GetMethod(implObj, "get_msScrollTranslation"), flags, 2)
-        this.vtbl.put_msFlex := CallbackCreate(GetMethod(implObj, "put_msFlex"), flags, 2)
-        this.vtbl.get_msFlex := CallbackCreate(GetMethod(implObj, "get_msFlex"), flags, 2)
-        this.vtbl.put_msFlexPositive := CallbackCreate(GetMethod(implObj, "put_msFlexPositive"), flags, 2)
-        this.vtbl.get_msFlexPositive := CallbackCreate(GetMethod(implObj, "get_msFlexPositive"), flags, 2)
-        this.vtbl.put_msFlexNegative := CallbackCreate(GetMethod(implObj, "put_msFlexNegative"), flags, 2)
-        this.vtbl.get_msFlexNegative := CallbackCreate(GetMethod(implObj, "get_msFlexNegative"), flags, 2)
-        this.vtbl.put_msFlexPreferredSize := CallbackCreate(GetMethod(implObj, "put_msFlexPreferredSize"), flags, 2)
-        this.vtbl.get_msFlexPreferredSize := CallbackCreate(GetMethod(implObj, "get_msFlexPreferredSize"), flags, 2)
-        this.vtbl.put_msFlexFlow := CallbackCreate(GetMethod(implObj, "put_msFlexFlow"), flags, 2)
-        this.vtbl.get_msFlexFlow := CallbackCreate(GetMethod(implObj, "get_msFlexFlow"), flags, 2)
-        this.vtbl.put_msFlexDirection := CallbackCreate(GetMethod(implObj, "put_msFlexDirection"), flags, 2)
-        this.vtbl.get_msFlexDirection := CallbackCreate(GetMethod(implObj, "get_msFlexDirection"), flags, 2)
-        this.vtbl.put_msFlexWrap := CallbackCreate(GetMethod(implObj, "put_msFlexWrap"), flags, 2)
-        this.vtbl.get_msFlexWrap := CallbackCreate(GetMethod(implObj, "get_msFlexWrap"), flags, 2)
-        this.vtbl.put_msFlexAlign := CallbackCreate(GetMethod(implObj, "put_msFlexAlign"), flags, 2)
-        this.vtbl.get_msFlexAlign := CallbackCreate(GetMethod(implObj, "get_msFlexAlign"), flags, 2)
-        this.vtbl.put_msFlexItemAlign := CallbackCreate(GetMethod(implObj, "put_msFlexItemAlign"), flags, 2)
-        this.vtbl.get_msFlexItemAlign := CallbackCreate(GetMethod(implObj, "get_msFlexItemAlign"), flags, 2)
-        this.vtbl.put_msFlexPack := CallbackCreate(GetMethod(implObj, "put_msFlexPack"), flags, 2)
-        this.vtbl.get_msFlexPack := CallbackCreate(GetMethod(implObj, "get_msFlexPack"), flags, 2)
-        this.vtbl.put_msFlexLinePack := CallbackCreate(GetMethod(implObj, "put_msFlexLinePack"), flags, 2)
-        this.vtbl.get_msFlexLinePack := CallbackCreate(GetMethod(implObj, "get_msFlexLinePack"), flags, 2)
-        this.vtbl.put_msFlexOrder := CallbackCreate(GetMethod(implObj, "put_msFlexOrder"), flags, 2)
-        this.vtbl.get_msFlexOrder := CallbackCreate(GetMethod(implObj, "get_msFlexOrder"), flags, 2)
-        this.vtbl.put_msTouchSelect := CallbackCreate(GetMethod(implObj, "put_msTouchSelect"), flags, 2)
-        this.vtbl.get_msTouchSelect := CallbackCreate(GetMethod(implObj, "get_msTouchSelect"), flags, 2)
-        this.vtbl.put_transform := CallbackCreate(GetMethod(implObj, "put_transform"), flags, 2)
-        this.vtbl.get_transform := CallbackCreate(GetMethod(implObj, "get_transform"), flags, 2)
-        this.vtbl.put_transformOrigin := CallbackCreate(GetMethod(implObj, "put_transformOrigin"), flags, 2)
-        this.vtbl.get_transformOrigin := CallbackCreate(GetMethod(implObj, "get_transformOrigin"), flags, 2)
-        this.vtbl.put_transformStyle := CallbackCreate(GetMethod(implObj, "put_transformStyle"), flags, 2)
-        this.vtbl.get_transformStyle := CallbackCreate(GetMethod(implObj, "get_transformStyle"), flags, 2)
-        this.vtbl.put_backfaceVisibility := CallbackCreate(GetMethod(implObj, "put_backfaceVisibility"), flags, 2)
-        this.vtbl.get_backfaceVisibility := CallbackCreate(GetMethod(implObj, "get_backfaceVisibility"), flags, 2)
-        this.vtbl.put_perspective := CallbackCreate(GetMethod(implObj, "put_perspective"), flags, 2)
-        this.vtbl.get_perspective := CallbackCreate(GetMethod(implObj, "get_perspective"), flags, 2)
-        this.vtbl.put_perspectiveOrigin := CallbackCreate(GetMethod(implObj, "put_perspectiveOrigin"), flags, 2)
-        this.vtbl.get_perspectiveOrigin := CallbackCreate(GetMethod(implObj, "get_perspectiveOrigin"), flags, 2)
-        this.vtbl.put_transitionProperty := CallbackCreate(GetMethod(implObj, "put_transitionProperty"), flags, 2)
-        this.vtbl.get_transitionProperty := CallbackCreate(GetMethod(implObj, "get_transitionProperty"), flags, 2)
-        this.vtbl.put_transitionDuration := CallbackCreate(GetMethod(implObj, "put_transitionDuration"), flags, 2)
-        this.vtbl.get_transitionDuration := CallbackCreate(GetMethod(implObj, "get_transitionDuration"), flags, 2)
-        this.vtbl.put_transitionTimingFunction := CallbackCreate(GetMethod(implObj, "put_transitionTimingFunction"), flags, 2)
-        this.vtbl.get_transitionTimingFunction := CallbackCreate(GetMethod(implObj, "get_transitionTimingFunction"), flags, 2)
-        this.vtbl.put_transitionDelay := CallbackCreate(GetMethod(implObj, "put_transitionDelay"), flags, 2)
-        this.vtbl.get_transitionDelay := CallbackCreate(GetMethod(implObj, "get_transitionDelay"), flags, 2)
-        this.vtbl.put_transition := CallbackCreate(GetMethod(implObj, "put_transition"), flags, 2)
-        this.vtbl.get_transition := CallbackCreate(GetMethod(implObj, "get_transition"), flags, 2)
-        this.vtbl.put_fontFeatureSettings := CallbackCreate(GetMethod(implObj, "put_fontFeatureSettings"), flags, 2)
-        this.vtbl.get_fontFeatureSettings := CallbackCreate(GetMethod(implObj, "get_fontFeatureSettings"), flags, 2)
-        this.vtbl.put_animationName := CallbackCreate(GetMethod(implObj, "put_animationName"), flags, 2)
-        this.vtbl.get_animationName := CallbackCreate(GetMethod(implObj, "get_animationName"), flags, 2)
-        this.vtbl.put_animationDuration := CallbackCreate(GetMethod(implObj, "put_animationDuration"), flags, 2)
-        this.vtbl.get_animationDuration := CallbackCreate(GetMethod(implObj, "get_animationDuration"), flags, 2)
-        this.vtbl.put_animationTimingFunction := CallbackCreate(GetMethod(implObj, "put_animationTimingFunction"), flags, 2)
-        this.vtbl.get_animationTimingFunction := CallbackCreate(GetMethod(implObj, "get_animationTimingFunction"), flags, 2)
-        this.vtbl.put_animationDelay := CallbackCreate(GetMethod(implObj, "put_animationDelay"), flags, 2)
-        this.vtbl.get_animationDelay := CallbackCreate(GetMethod(implObj, "get_animationDelay"), flags, 2)
-        this.vtbl.put_animationDirection := CallbackCreate(GetMethod(implObj, "put_animationDirection"), flags, 2)
-        this.vtbl.get_animationDirection := CallbackCreate(GetMethod(implObj, "get_animationDirection"), flags, 2)
-        this.vtbl.put_animationPlayState := CallbackCreate(GetMethod(implObj, "put_animationPlayState"), flags, 2)
-        this.vtbl.get_animationPlayState := CallbackCreate(GetMethod(implObj, "get_animationPlayState"), flags, 2)
-        this.vtbl.put_animationIterationCount := CallbackCreate(GetMethod(implObj, "put_animationIterationCount"), flags, 2)
-        this.vtbl.get_animationIterationCount := CallbackCreate(GetMethod(implObj, "get_animationIterationCount"), flags, 2)
-        this.vtbl.put_animation := CallbackCreate(GetMethod(implObj, "put_animation"), flags, 2)
-        this.vtbl.get_animation := CallbackCreate(GetMethod(implObj, "get_animation"), flags, 2)
-        this.vtbl.put_animationFillMode := CallbackCreate(GetMethod(implObj, "put_animationFillMode"), flags, 2)
-        this.vtbl.get_animationFillMode := CallbackCreate(GetMethod(implObj, "get_animationFillMode"), flags, 2)
+        this.vtbl.put_msScrollChaining := CallbackCreate(ObjBindMethod(implObj, "put_msScrollChaining"), flags, 2)
+        this.vtbl.get_msScrollChaining := CallbackCreate(ObjBindMethod(implObj, "get_msScrollChaining"), flags, 2)
+        this.vtbl.put_msContentZooming := CallbackCreate(ObjBindMethod(implObj, "put_msContentZooming"), flags, 2)
+        this.vtbl.get_msContentZooming := CallbackCreate(ObjBindMethod(implObj, "get_msContentZooming"), flags, 2)
+        this.vtbl.put_msContentZoomSnapType := CallbackCreate(ObjBindMethod(implObj, "put_msContentZoomSnapType"), flags, 2)
+        this.vtbl.get_msContentZoomSnapType := CallbackCreate(ObjBindMethod(implObj, "get_msContentZoomSnapType"), flags, 2)
+        this.vtbl.put_msScrollRails := CallbackCreate(ObjBindMethod(implObj, "put_msScrollRails"), flags, 2)
+        this.vtbl.get_msScrollRails := CallbackCreate(ObjBindMethod(implObj, "get_msScrollRails"), flags, 2)
+        this.vtbl.put_msContentZoomChaining := CallbackCreate(ObjBindMethod(implObj, "put_msContentZoomChaining"), flags, 2)
+        this.vtbl.get_msContentZoomChaining := CallbackCreate(ObjBindMethod(implObj, "get_msContentZoomChaining"), flags, 2)
+        this.vtbl.put_msScrollSnapType := CallbackCreate(ObjBindMethod(implObj, "put_msScrollSnapType"), flags, 2)
+        this.vtbl.get_msScrollSnapType := CallbackCreate(ObjBindMethod(implObj, "get_msScrollSnapType"), flags, 2)
+        this.vtbl.put_msContentZoomLimit := CallbackCreate(ObjBindMethod(implObj, "put_msContentZoomLimit"), flags, 2)
+        this.vtbl.get_msContentZoomLimit := CallbackCreate(ObjBindMethod(implObj, "get_msContentZoomLimit"), flags, 2)
+        this.vtbl.put_msContentZoomSnap := CallbackCreate(ObjBindMethod(implObj, "put_msContentZoomSnap"), flags, 2)
+        this.vtbl.get_msContentZoomSnap := CallbackCreate(ObjBindMethod(implObj, "get_msContentZoomSnap"), flags, 2)
+        this.vtbl.put_msContentZoomSnapPoints := CallbackCreate(ObjBindMethod(implObj, "put_msContentZoomSnapPoints"), flags, 2)
+        this.vtbl.get_msContentZoomSnapPoints := CallbackCreate(ObjBindMethod(implObj, "get_msContentZoomSnapPoints"), flags, 2)
+        this.vtbl.put_msContentZoomLimitMin := CallbackCreate(ObjBindMethod(implObj, "put_msContentZoomLimitMin"), flags, 2)
+        this.vtbl.get_msContentZoomLimitMin := CallbackCreate(ObjBindMethod(implObj, "get_msContentZoomLimitMin"), flags, 2)
+        this.vtbl.put_msContentZoomLimitMax := CallbackCreate(ObjBindMethod(implObj, "put_msContentZoomLimitMax"), flags, 2)
+        this.vtbl.get_msContentZoomLimitMax := CallbackCreate(ObjBindMethod(implObj, "get_msContentZoomLimitMax"), flags, 2)
+        this.vtbl.put_msScrollSnapX := CallbackCreate(ObjBindMethod(implObj, "put_msScrollSnapX"), flags, 2)
+        this.vtbl.get_msScrollSnapX := CallbackCreate(ObjBindMethod(implObj, "get_msScrollSnapX"), flags, 2)
+        this.vtbl.put_msScrollSnapY := CallbackCreate(ObjBindMethod(implObj, "put_msScrollSnapY"), flags, 2)
+        this.vtbl.get_msScrollSnapY := CallbackCreate(ObjBindMethod(implObj, "get_msScrollSnapY"), flags, 2)
+        this.vtbl.put_msScrollSnapPointsX := CallbackCreate(ObjBindMethod(implObj, "put_msScrollSnapPointsX"), flags, 2)
+        this.vtbl.get_msScrollSnapPointsX := CallbackCreate(ObjBindMethod(implObj, "get_msScrollSnapPointsX"), flags, 2)
+        this.vtbl.put_msScrollSnapPointsY := CallbackCreate(ObjBindMethod(implObj, "put_msScrollSnapPointsY"), flags, 2)
+        this.vtbl.get_msScrollSnapPointsY := CallbackCreate(ObjBindMethod(implObj, "get_msScrollSnapPointsY"), flags, 2)
+        this.vtbl.put_msGridColumn := CallbackCreate(ObjBindMethod(implObj, "put_msGridColumn"), flags, 2)
+        this.vtbl.get_msGridColumn := CallbackCreate(ObjBindMethod(implObj, "get_msGridColumn"), flags, 2)
+        this.vtbl.put_msGridColumnAlign := CallbackCreate(ObjBindMethod(implObj, "put_msGridColumnAlign"), flags, 2)
+        this.vtbl.get_msGridColumnAlign := CallbackCreate(ObjBindMethod(implObj, "get_msGridColumnAlign"), flags, 2)
+        this.vtbl.put_msGridColumns := CallbackCreate(ObjBindMethod(implObj, "put_msGridColumns"), flags, 2)
+        this.vtbl.get_msGridColumns := CallbackCreate(ObjBindMethod(implObj, "get_msGridColumns"), flags, 2)
+        this.vtbl.put_msGridColumnSpan := CallbackCreate(ObjBindMethod(implObj, "put_msGridColumnSpan"), flags, 2)
+        this.vtbl.get_msGridColumnSpan := CallbackCreate(ObjBindMethod(implObj, "get_msGridColumnSpan"), flags, 2)
+        this.vtbl.put_msGridRow := CallbackCreate(ObjBindMethod(implObj, "put_msGridRow"), flags, 2)
+        this.vtbl.get_msGridRow := CallbackCreate(ObjBindMethod(implObj, "get_msGridRow"), flags, 2)
+        this.vtbl.put_msGridRowAlign := CallbackCreate(ObjBindMethod(implObj, "put_msGridRowAlign"), flags, 2)
+        this.vtbl.get_msGridRowAlign := CallbackCreate(ObjBindMethod(implObj, "get_msGridRowAlign"), flags, 2)
+        this.vtbl.put_msGridRows := CallbackCreate(ObjBindMethod(implObj, "put_msGridRows"), flags, 2)
+        this.vtbl.get_msGridRows := CallbackCreate(ObjBindMethod(implObj, "get_msGridRows"), flags, 2)
+        this.vtbl.put_msGridRowSpan := CallbackCreate(ObjBindMethod(implObj, "put_msGridRowSpan"), flags, 2)
+        this.vtbl.get_msGridRowSpan := CallbackCreate(ObjBindMethod(implObj, "get_msGridRowSpan"), flags, 2)
+        this.vtbl.put_msWrapThrough := CallbackCreate(ObjBindMethod(implObj, "put_msWrapThrough"), flags, 2)
+        this.vtbl.get_msWrapThrough := CallbackCreate(ObjBindMethod(implObj, "get_msWrapThrough"), flags, 2)
+        this.vtbl.put_msWrapMargin := CallbackCreate(ObjBindMethod(implObj, "put_msWrapMargin"), flags, 2)
+        this.vtbl.get_msWrapMargin := CallbackCreate(ObjBindMethod(implObj, "get_msWrapMargin"), flags, 2)
+        this.vtbl.put_msWrapFlow := CallbackCreate(ObjBindMethod(implObj, "put_msWrapFlow"), flags, 2)
+        this.vtbl.get_msWrapFlow := CallbackCreate(ObjBindMethod(implObj, "get_msWrapFlow"), flags, 2)
+        this.vtbl.put_msAnimationName := CallbackCreate(ObjBindMethod(implObj, "put_msAnimationName"), flags, 2)
+        this.vtbl.get_msAnimationName := CallbackCreate(ObjBindMethod(implObj, "get_msAnimationName"), flags, 2)
+        this.vtbl.put_msAnimationDuration := CallbackCreate(ObjBindMethod(implObj, "put_msAnimationDuration"), flags, 2)
+        this.vtbl.get_msAnimationDuration := CallbackCreate(ObjBindMethod(implObj, "get_msAnimationDuration"), flags, 2)
+        this.vtbl.put_msAnimationTimingFunction := CallbackCreate(ObjBindMethod(implObj, "put_msAnimationTimingFunction"), flags, 2)
+        this.vtbl.get_msAnimationTimingFunction := CallbackCreate(ObjBindMethod(implObj, "get_msAnimationTimingFunction"), flags, 2)
+        this.vtbl.put_msAnimationDelay := CallbackCreate(ObjBindMethod(implObj, "put_msAnimationDelay"), flags, 2)
+        this.vtbl.get_msAnimationDelay := CallbackCreate(ObjBindMethod(implObj, "get_msAnimationDelay"), flags, 2)
+        this.vtbl.put_msAnimationDirection := CallbackCreate(ObjBindMethod(implObj, "put_msAnimationDirection"), flags, 2)
+        this.vtbl.get_msAnimationDirection := CallbackCreate(ObjBindMethod(implObj, "get_msAnimationDirection"), flags, 2)
+        this.vtbl.put_msAnimationPlayState := CallbackCreate(ObjBindMethod(implObj, "put_msAnimationPlayState"), flags, 2)
+        this.vtbl.get_msAnimationPlayState := CallbackCreate(ObjBindMethod(implObj, "get_msAnimationPlayState"), flags, 2)
+        this.vtbl.put_msAnimationIterationCount := CallbackCreate(ObjBindMethod(implObj, "put_msAnimationIterationCount"), flags, 2)
+        this.vtbl.get_msAnimationIterationCount := CallbackCreate(ObjBindMethod(implObj, "get_msAnimationIterationCount"), flags, 2)
+        this.vtbl.put_msAnimation := CallbackCreate(ObjBindMethod(implObj, "put_msAnimation"), flags, 2)
+        this.vtbl.get_msAnimation := CallbackCreate(ObjBindMethod(implObj, "get_msAnimation"), flags, 2)
+        this.vtbl.put_msAnimationFillMode := CallbackCreate(ObjBindMethod(implObj, "put_msAnimationFillMode"), flags, 2)
+        this.vtbl.get_msAnimationFillMode := CallbackCreate(ObjBindMethod(implObj, "get_msAnimationFillMode"), flags, 2)
+        this.vtbl.put_colorInterpolationFilters := CallbackCreate(ObjBindMethod(implObj, "put_colorInterpolationFilters"), flags, 2)
+        this.vtbl.get_colorInterpolationFilters := CallbackCreate(ObjBindMethod(implObj, "get_colorInterpolationFilters"), flags, 2)
+        this.vtbl.put_columnCount := CallbackCreate(ObjBindMethod(implObj, "put_columnCount"), flags, 2)
+        this.vtbl.get_columnCount := CallbackCreate(ObjBindMethod(implObj, "get_columnCount"), flags, 2)
+        this.vtbl.put_columnWidth := CallbackCreate(ObjBindMethod(implObj, "put_columnWidth"), flags, 2)
+        this.vtbl.get_columnWidth := CallbackCreate(ObjBindMethod(implObj, "get_columnWidth"), flags, 2)
+        this.vtbl.put_columnGap := CallbackCreate(ObjBindMethod(implObj, "put_columnGap"), flags, 2)
+        this.vtbl.get_columnGap := CallbackCreate(ObjBindMethod(implObj, "get_columnGap"), flags, 2)
+        this.vtbl.put_columnFill := CallbackCreate(ObjBindMethod(implObj, "put_columnFill"), flags, 2)
+        this.vtbl.get_columnFill := CallbackCreate(ObjBindMethod(implObj, "get_columnFill"), flags, 2)
+        this.vtbl.put_columnSpan := CallbackCreate(ObjBindMethod(implObj, "put_columnSpan"), flags, 2)
+        this.vtbl.get_columnSpan := CallbackCreate(ObjBindMethod(implObj, "get_columnSpan"), flags, 2)
+        this.vtbl.put_columns := CallbackCreate(ObjBindMethod(implObj, "put_columns"), flags, 2)
+        this.vtbl.get_columns := CallbackCreate(ObjBindMethod(implObj, "get_columns"), flags, 2)
+        this.vtbl.put_columnRule := CallbackCreate(ObjBindMethod(implObj, "put_columnRule"), flags, 2)
+        this.vtbl.get_columnRule := CallbackCreate(ObjBindMethod(implObj, "get_columnRule"), flags, 2)
+        this.vtbl.put_columnRuleColor := CallbackCreate(ObjBindMethod(implObj, "put_columnRuleColor"), flags, 2)
+        this.vtbl.get_columnRuleColor := CallbackCreate(ObjBindMethod(implObj, "get_columnRuleColor"), flags, 2)
+        this.vtbl.put_columnRuleStyle := CallbackCreate(ObjBindMethod(implObj, "put_columnRuleStyle"), flags, 2)
+        this.vtbl.get_columnRuleStyle := CallbackCreate(ObjBindMethod(implObj, "get_columnRuleStyle"), flags, 2)
+        this.vtbl.put_columnRuleWidth := CallbackCreate(ObjBindMethod(implObj, "put_columnRuleWidth"), flags, 2)
+        this.vtbl.get_columnRuleWidth := CallbackCreate(ObjBindMethod(implObj, "get_columnRuleWidth"), flags, 2)
+        this.vtbl.put_breakBefore := CallbackCreate(ObjBindMethod(implObj, "put_breakBefore"), flags, 2)
+        this.vtbl.get_breakBefore := CallbackCreate(ObjBindMethod(implObj, "get_breakBefore"), flags, 2)
+        this.vtbl.put_breakAfter := CallbackCreate(ObjBindMethod(implObj, "put_breakAfter"), flags, 2)
+        this.vtbl.get_breakAfter := CallbackCreate(ObjBindMethod(implObj, "get_breakAfter"), flags, 2)
+        this.vtbl.put_breakInside := CallbackCreate(ObjBindMethod(implObj, "put_breakInside"), flags, 2)
+        this.vtbl.get_breakInside := CallbackCreate(ObjBindMethod(implObj, "get_breakInside"), flags, 2)
+        this.vtbl.put_floodColor := CallbackCreate(ObjBindMethod(implObj, "put_floodColor"), flags, 2)
+        this.vtbl.get_floodColor := CallbackCreate(ObjBindMethod(implObj, "get_floodColor"), flags, 2)
+        this.vtbl.put_floodOpacity := CallbackCreate(ObjBindMethod(implObj, "put_floodOpacity"), flags, 2)
+        this.vtbl.get_floodOpacity := CallbackCreate(ObjBindMethod(implObj, "get_floodOpacity"), flags, 2)
+        this.vtbl.put_lightingColor := CallbackCreate(ObjBindMethod(implObj, "put_lightingColor"), flags, 2)
+        this.vtbl.get_lightingColor := CallbackCreate(ObjBindMethod(implObj, "get_lightingColor"), flags, 2)
+        this.vtbl.put_msScrollLimitXMin := CallbackCreate(ObjBindMethod(implObj, "put_msScrollLimitXMin"), flags, 2)
+        this.vtbl.get_msScrollLimitXMin := CallbackCreate(ObjBindMethod(implObj, "get_msScrollLimitXMin"), flags, 2)
+        this.vtbl.put_msScrollLimitYMin := CallbackCreate(ObjBindMethod(implObj, "put_msScrollLimitYMin"), flags, 2)
+        this.vtbl.get_msScrollLimitYMin := CallbackCreate(ObjBindMethod(implObj, "get_msScrollLimitYMin"), flags, 2)
+        this.vtbl.put_msScrollLimitXMax := CallbackCreate(ObjBindMethod(implObj, "put_msScrollLimitXMax"), flags, 2)
+        this.vtbl.get_msScrollLimitXMax := CallbackCreate(ObjBindMethod(implObj, "get_msScrollLimitXMax"), flags, 2)
+        this.vtbl.put_msScrollLimitYMax := CallbackCreate(ObjBindMethod(implObj, "put_msScrollLimitYMax"), flags, 2)
+        this.vtbl.get_msScrollLimitYMax := CallbackCreate(ObjBindMethod(implObj, "get_msScrollLimitYMax"), flags, 2)
+        this.vtbl.put_msScrollLimit := CallbackCreate(ObjBindMethod(implObj, "put_msScrollLimit"), flags, 2)
+        this.vtbl.get_msScrollLimit := CallbackCreate(ObjBindMethod(implObj, "get_msScrollLimit"), flags, 2)
+        this.vtbl.put_textShadow := CallbackCreate(ObjBindMethod(implObj, "put_textShadow"), flags, 2)
+        this.vtbl.get_textShadow := CallbackCreate(ObjBindMethod(implObj, "get_textShadow"), flags, 2)
+        this.vtbl.put_msFlowFrom := CallbackCreate(ObjBindMethod(implObj, "put_msFlowFrom"), flags, 2)
+        this.vtbl.get_msFlowFrom := CallbackCreate(ObjBindMethod(implObj, "get_msFlowFrom"), flags, 2)
+        this.vtbl.put_msFlowInto := CallbackCreate(ObjBindMethod(implObj, "put_msFlowInto"), flags, 2)
+        this.vtbl.get_msFlowInto := CallbackCreate(ObjBindMethod(implObj, "get_msFlowInto"), flags, 2)
+        this.vtbl.put_msHyphens := CallbackCreate(ObjBindMethod(implObj, "put_msHyphens"), flags, 2)
+        this.vtbl.get_msHyphens := CallbackCreate(ObjBindMethod(implObj, "get_msHyphens"), flags, 2)
+        this.vtbl.put_msHyphenateLimitZone := CallbackCreate(ObjBindMethod(implObj, "put_msHyphenateLimitZone"), flags, 2)
+        this.vtbl.get_msHyphenateLimitZone := CallbackCreate(ObjBindMethod(implObj, "get_msHyphenateLimitZone"), flags, 2)
+        this.vtbl.put_msHyphenateLimitChars := CallbackCreate(ObjBindMethod(implObj, "put_msHyphenateLimitChars"), flags, 2)
+        this.vtbl.get_msHyphenateLimitChars := CallbackCreate(ObjBindMethod(implObj, "get_msHyphenateLimitChars"), flags, 2)
+        this.vtbl.put_msHyphenateLimitLines := CallbackCreate(ObjBindMethod(implObj, "put_msHyphenateLimitLines"), flags, 2)
+        this.vtbl.get_msHyphenateLimitLines := CallbackCreate(ObjBindMethod(implObj, "get_msHyphenateLimitLines"), flags, 2)
+        this.vtbl.put_msHighContrastAdjust := CallbackCreate(ObjBindMethod(implObj, "put_msHighContrastAdjust"), flags, 2)
+        this.vtbl.get_msHighContrastAdjust := CallbackCreate(ObjBindMethod(implObj, "get_msHighContrastAdjust"), flags, 2)
+        this.vtbl.put_enableBackground := CallbackCreate(ObjBindMethod(implObj, "put_enableBackground"), flags, 2)
+        this.vtbl.get_enableBackground := CallbackCreate(ObjBindMethod(implObj, "get_enableBackground"), flags, 2)
+        this.vtbl.put_msFontFeatureSettings := CallbackCreate(ObjBindMethod(implObj, "put_msFontFeatureSettings"), flags, 2)
+        this.vtbl.get_msFontFeatureSettings := CallbackCreate(ObjBindMethod(implObj, "get_msFontFeatureSettings"), flags, 2)
+        this.vtbl.put_msUserSelect := CallbackCreate(ObjBindMethod(implObj, "put_msUserSelect"), flags, 2)
+        this.vtbl.get_msUserSelect := CallbackCreate(ObjBindMethod(implObj, "get_msUserSelect"), flags, 2)
+        this.vtbl.put_msOverflowStyle := CallbackCreate(ObjBindMethod(implObj, "put_msOverflowStyle"), flags, 2)
+        this.vtbl.get_msOverflowStyle := CallbackCreate(ObjBindMethod(implObj, "get_msOverflowStyle"), flags, 2)
+        this.vtbl.put_msTransformStyle := CallbackCreate(ObjBindMethod(implObj, "put_msTransformStyle"), flags, 2)
+        this.vtbl.get_msTransformStyle := CallbackCreate(ObjBindMethod(implObj, "get_msTransformStyle"), flags, 2)
+        this.vtbl.put_msBackfaceVisibility := CallbackCreate(ObjBindMethod(implObj, "put_msBackfaceVisibility"), flags, 2)
+        this.vtbl.get_msBackfaceVisibility := CallbackCreate(ObjBindMethod(implObj, "get_msBackfaceVisibility"), flags, 2)
+        this.vtbl.put_msPerspective := CallbackCreate(ObjBindMethod(implObj, "put_msPerspective"), flags, 2)
+        this.vtbl.get_msPerspective := CallbackCreate(ObjBindMethod(implObj, "get_msPerspective"), flags, 2)
+        this.vtbl.put_msPerspectiveOrigin := CallbackCreate(ObjBindMethod(implObj, "put_msPerspectiveOrigin"), flags, 2)
+        this.vtbl.get_msPerspectiveOrigin := CallbackCreate(ObjBindMethod(implObj, "get_msPerspectiveOrigin"), flags, 2)
+        this.vtbl.put_msTransitionProperty := CallbackCreate(ObjBindMethod(implObj, "put_msTransitionProperty"), flags, 2)
+        this.vtbl.get_msTransitionProperty := CallbackCreate(ObjBindMethod(implObj, "get_msTransitionProperty"), flags, 2)
+        this.vtbl.put_msTransitionDuration := CallbackCreate(ObjBindMethod(implObj, "put_msTransitionDuration"), flags, 2)
+        this.vtbl.get_msTransitionDuration := CallbackCreate(ObjBindMethod(implObj, "get_msTransitionDuration"), flags, 2)
+        this.vtbl.put_msTransitionTimingFunction := CallbackCreate(ObjBindMethod(implObj, "put_msTransitionTimingFunction"), flags, 2)
+        this.vtbl.get_msTransitionTimingFunction := CallbackCreate(ObjBindMethod(implObj, "get_msTransitionTimingFunction"), flags, 2)
+        this.vtbl.put_msTransitionDelay := CallbackCreate(ObjBindMethod(implObj, "put_msTransitionDelay"), flags, 2)
+        this.vtbl.get_msTransitionDelay := CallbackCreate(ObjBindMethod(implObj, "get_msTransitionDelay"), flags, 2)
+        this.vtbl.put_msTransition := CallbackCreate(ObjBindMethod(implObj, "put_msTransition"), flags, 2)
+        this.vtbl.get_msTransition := CallbackCreate(ObjBindMethod(implObj, "get_msTransition"), flags, 2)
+        this.vtbl.put_msTouchAction := CallbackCreate(ObjBindMethod(implObj, "put_msTouchAction"), flags, 2)
+        this.vtbl.get_msTouchAction := CallbackCreate(ObjBindMethod(implObj, "get_msTouchAction"), flags, 2)
+        this.vtbl.put_msScrollTranslation := CallbackCreate(ObjBindMethod(implObj, "put_msScrollTranslation"), flags, 2)
+        this.vtbl.get_msScrollTranslation := CallbackCreate(ObjBindMethod(implObj, "get_msScrollTranslation"), flags, 2)
+        this.vtbl.put_msFlex := CallbackCreate(ObjBindMethod(implObj, "put_msFlex"), flags, 2)
+        this.vtbl.get_msFlex := CallbackCreate(ObjBindMethod(implObj, "get_msFlex"), flags, 2)
+        this.vtbl.put_msFlexPositive := CallbackCreate(ObjBindMethod(implObj, "put_msFlexPositive"), flags, 2)
+        this.vtbl.get_msFlexPositive := CallbackCreate(ObjBindMethod(implObj, "get_msFlexPositive"), flags, 2)
+        this.vtbl.put_msFlexNegative := CallbackCreate(ObjBindMethod(implObj, "put_msFlexNegative"), flags, 2)
+        this.vtbl.get_msFlexNegative := CallbackCreate(ObjBindMethod(implObj, "get_msFlexNegative"), flags, 2)
+        this.vtbl.put_msFlexPreferredSize := CallbackCreate(ObjBindMethod(implObj, "put_msFlexPreferredSize"), flags, 2)
+        this.vtbl.get_msFlexPreferredSize := CallbackCreate(ObjBindMethod(implObj, "get_msFlexPreferredSize"), flags, 2)
+        this.vtbl.put_msFlexFlow := CallbackCreate(ObjBindMethod(implObj, "put_msFlexFlow"), flags, 2)
+        this.vtbl.get_msFlexFlow := CallbackCreate(ObjBindMethod(implObj, "get_msFlexFlow"), flags, 2)
+        this.vtbl.put_msFlexDirection := CallbackCreate(ObjBindMethod(implObj, "put_msFlexDirection"), flags, 2)
+        this.vtbl.get_msFlexDirection := CallbackCreate(ObjBindMethod(implObj, "get_msFlexDirection"), flags, 2)
+        this.vtbl.put_msFlexWrap := CallbackCreate(ObjBindMethod(implObj, "put_msFlexWrap"), flags, 2)
+        this.vtbl.get_msFlexWrap := CallbackCreate(ObjBindMethod(implObj, "get_msFlexWrap"), flags, 2)
+        this.vtbl.put_msFlexAlign := CallbackCreate(ObjBindMethod(implObj, "put_msFlexAlign"), flags, 2)
+        this.vtbl.get_msFlexAlign := CallbackCreate(ObjBindMethod(implObj, "get_msFlexAlign"), flags, 2)
+        this.vtbl.put_msFlexItemAlign := CallbackCreate(ObjBindMethod(implObj, "put_msFlexItemAlign"), flags, 2)
+        this.vtbl.get_msFlexItemAlign := CallbackCreate(ObjBindMethod(implObj, "get_msFlexItemAlign"), flags, 2)
+        this.vtbl.put_msFlexPack := CallbackCreate(ObjBindMethod(implObj, "put_msFlexPack"), flags, 2)
+        this.vtbl.get_msFlexPack := CallbackCreate(ObjBindMethod(implObj, "get_msFlexPack"), flags, 2)
+        this.vtbl.put_msFlexLinePack := CallbackCreate(ObjBindMethod(implObj, "put_msFlexLinePack"), flags, 2)
+        this.vtbl.get_msFlexLinePack := CallbackCreate(ObjBindMethod(implObj, "get_msFlexLinePack"), flags, 2)
+        this.vtbl.put_msFlexOrder := CallbackCreate(ObjBindMethod(implObj, "put_msFlexOrder"), flags, 2)
+        this.vtbl.get_msFlexOrder := CallbackCreate(ObjBindMethod(implObj, "get_msFlexOrder"), flags, 2)
+        this.vtbl.put_msTouchSelect := CallbackCreate(ObjBindMethod(implObj, "put_msTouchSelect"), flags, 2)
+        this.vtbl.get_msTouchSelect := CallbackCreate(ObjBindMethod(implObj, "get_msTouchSelect"), flags, 2)
+        this.vtbl.put_transform := CallbackCreate(ObjBindMethod(implObj, "put_transform"), flags, 2)
+        this.vtbl.get_transform := CallbackCreate(ObjBindMethod(implObj, "get_transform"), flags, 2)
+        this.vtbl.put_transformOrigin := CallbackCreate(ObjBindMethod(implObj, "put_transformOrigin"), flags, 2)
+        this.vtbl.get_transformOrigin := CallbackCreate(ObjBindMethod(implObj, "get_transformOrigin"), flags, 2)
+        this.vtbl.put_transformStyle := CallbackCreate(ObjBindMethod(implObj, "put_transformStyle"), flags, 2)
+        this.vtbl.get_transformStyle := CallbackCreate(ObjBindMethod(implObj, "get_transformStyle"), flags, 2)
+        this.vtbl.put_backfaceVisibility := CallbackCreate(ObjBindMethod(implObj, "put_backfaceVisibility"), flags, 2)
+        this.vtbl.get_backfaceVisibility := CallbackCreate(ObjBindMethod(implObj, "get_backfaceVisibility"), flags, 2)
+        this.vtbl.put_perspective := CallbackCreate(ObjBindMethod(implObj, "put_perspective"), flags, 2)
+        this.vtbl.get_perspective := CallbackCreate(ObjBindMethod(implObj, "get_perspective"), flags, 2)
+        this.vtbl.put_perspectiveOrigin := CallbackCreate(ObjBindMethod(implObj, "put_perspectiveOrigin"), flags, 2)
+        this.vtbl.get_perspectiveOrigin := CallbackCreate(ObjBindMethod(implObj, "get_perspectiveOrigin"), flags, 2)
+        this.vtbl.put_transitionProperty := CallbackCreate(ObjBindMethod(implObj, "put_transitionProperty"), flags, 2)
+        this.vtbl.get_transitionProperty := CallbackCreate(ObjBindMethod(implObj, "get_transitionProperty"), flags, 2)
+        this.vtbl.put_transitionDuration := CallbackCreate(ObjBindMethod(implObj, "put_transitionDuration"), flags, 2)
+        this.vtbl.get_transitionDuration := CallbackCreate(ObjBindMethod(implObj, "get_transitionDuration"), flags, 2)
+        this.vtbl.put_transitionTimingFunction := CallbackCreate(ObjBindMethod(implObj, "put_transitionTimingFunction"), flags, 2)
+        this.vtbl.get_transitionTimingFunction := CallbackCreate(ObjBindMethod(implObj, "get_transitionTimingFunction"), flags, 2)
+        this.vtbl.put_transitionDelay := CallbackCreate(ObjBindMethod(implObj, "put_transitionDelay"), flags, 2)
+        this.vtbl.get_transitionDelay := CallbackCreate(ObjBindMethod(implObj, "get_transitionDelay"), flags, 2)
+        this.vtbl.put_transition := CallbackCreate(ObjBindMethod(implObj, "put_transition"), flags, 2)
+        this.vtbl.get_transition := CallbackCreate(ObjBindMethod(implObj, "get_transition"), flags, 2)
+        this.vtbl.put_fontFeatureSettings := CallbackCreate(ObjBindMethod(implObj, "put_fontFeatureSettings"), flags, 2)
+        this.vtbl.get_fontFeatureSettings := CallbackCreate(ObjBindMethod(implObj, "get_fontFeatureSettings"), flags, 2)
+        this.vtbl.put_animationName := CallbackCreate(ObjBindMethod(implObj, "put_animationName"), flags, 2)
+        this.vtbl.get_animationName := CallbackCreate(ObjBindMethod(implObj, "get_animationName"), flags, 2)
+        this.vtbl.put_animationDuration := CallbackCreate(ObjBindMethod(implObj, "put_animationDuration"), flags, 2)
+        this.vtbl.get_animationDuration := CallbackCreate(ObjBindMethod(implObj, "get_animationDuration"), flags, 2)
+        this.vtbl.put_animationTimingFunction := CallbackCreate(ObjBindMethod(implObj, "put_animationTimingFunction"), flags, 2)
+        this.vtbl.get_animationTimingFunction := CallbackCreate(ObjBindMethod(implObj, "get_animationTimingFunction"), flags, 2)
+        this.vtbl.put_animationDelay := CallbackCreate(ObjBindMethod(implObj, "put_animationDelay"), flags, 2)
+        this.vtbl.get_animationDelay := CallbackCreate(ObjBindMethod(implObj, "get_animationDelay"), flags, 2)
+        this.vtbl.put_animationDirection := CallbackCreate(ObjBindMethod(implObj, "put_animationDirection"), flags, 2)
+        this.vtbl.get_animationDirection := CallbackCreate(ObjBindMethod(implObj, "get_animationDirection"), flags, 2)
+        this.vtbl.put_animationPlayState := CallbackCreate(ObjBindMethod(implObj, "put_animationPlayState"), flags, 2)
+        this.vtbl.get_animationPlayState := CallbackCreate(ObjBindMethod(implObj, "get_animationPlayState"), flags, 2)
+        this.vtbl.put_animationIterationCount := CallbackCreate(ObjBindMethod(implObj, "put_animationIterationCount"), flags, 2)
+        this.vtbl.get_animationIterationCount := CallbackCreate(ObjBindMethod(implObj, "get_animationIterationCount"), flags, 2)
+        this.vtbl.put_animation := CallbackCreate(ObjBindMethod(implObj, "put_animation"), flags, 2)
+        this.vtbl.get_animation := CallbackCreate(ObjBindMethod(implObj, "get_animation"), flags, 2)
+        this.vtbl.put_animationFillMode := CallbackCreate(ObjBindMethod(implObj, "put_animationFillMode"), flags, 2)
+        this.vtbl.get_animationFillMode := CallbackCreate(ObjBindMethod(implObj, "get_animationFillMode"), flags, 2)
     }
 
     Dispose() {

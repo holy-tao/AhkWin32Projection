@@ -120,7 +120,7 @@ export default struct IWordBreaker extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nf-indexsrv-iwordbreaker-init
      */
     Init(fQuery, ulMaxTokenSize, pfLicense) {
-        pfLicenseMarshal := pfLicense is VarRef ? "int*" : "ptr"
+        pfLicenseMarshal := pfLicense is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, BOOL, fQuery, UInt32, ulMaxTokenSize, pfLicenseMarshal, pfLicense, "HRESULT")
         return result
@@ -201,7 +201,7 @@ export default struct IWordBreaker extends IUnknown {
         pwcModifier := pwcModifier is String ? StrPtr(pwcModifier) : pwcModifier
         pwcPhrase := pwcPhrase is String ? StrPtr(pwcPhrase) : pwcPhrase
 
-        pcwcPhraseMarshal := pcwcPhrase is VarRef ? "uint*" : "ptr"
+        pcwcPhraseMarshal := pcwcPhrase is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, "ptr", pwcNoun, UInt32, cwcNoun, "ptr", pwcModifier, UInt32, cwcModifier, UInt32, ulAttachmentType, "ptr", pwcPhrase, pcwcPhraseMarshal, pcwcPhrase, "HRESULT")
         return result
@@ -218,7 +218,7 @@ export default struct IWordBreaker extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nf-indexsrv-iwordbreaker-getlicensetouse
      */
     GetLicenseToUse(ppwcsLicense) {
-        ppwcsLicenseMarshal := ppwcsLicense is VarRef ? "ptr*" : "ptr"
+        ppwcsLicenseMarshal := ppwcsLicense is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(6, this, ppwcsLicenseMarshal, ppwcsLicense, "HRESULT")
         return result
@@ -233,10 +233,10 @@ export default struct IWordBreaker extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 4)
-        this.vtbl.BreakText := CallbackCreate(GetMethod(implObj, "BreakText"), flags, 4)
-        this.vtbl.ComposePhrase := CallbackCreate(GetMethod(implObj, "ComposePhrase"), flags, 8)
-        this.vtbl.GetLicenseToUse := CallbackCreate(GetMethod(implObj, "GetLicenseToUse"), flags, 2)
+        this.vtbl.Init := CallbackCreate(ObjBindMethod(implObj, "Init"), flags, 4)
+        this.vtbl.BreakText := CallbackCreate(ObjBindMethod(implObj, "BreakText"), flags, 4)
+        this.vtbl.ComposePhrase := CallbackCreate(ObjBindMethod(implObj, "ComposePhrase"), flags, 8)
+        this.vtbl.GetLicenseToUse := CallbackCreate(ObjBindMethod(implObj, "GetLicenseToUse"), flags, 2)
     }
 
     Dispose() {

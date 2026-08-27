@@ -19,7 +19,6 @@ export default struct UCharIteratorPrevious {
     }
 
     /**
-     * 
      * @param {Pointer<UCharIterator>} iter 
      * @returns {Integer} 
      */

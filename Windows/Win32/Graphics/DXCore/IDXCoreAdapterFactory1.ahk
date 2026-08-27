@@ -39,7 +39,6 @@ export default struct IDXCoreAdapterFactory1 extends IDXCoreAdapterFactory {
     }
 
     /**
-     * 
      * @param {DXCoreWorkload} workload 
      * @param {DXCoreRuntimeFilterFlags} runtimeFilter 
      * @param {DXCoreHardwareTypeFilterFlags} hardwareTypeFilter 
@@ -60,7 +59,7 @@ export default struct IDXCoreAdapterFactory1 extends IDXCoreAdapterFactory {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateAdapterListByWorkload := CallbackCreate(GetMethod(implObj, "CreateAdapterListByWorkload"), flags, 6)
+        this.vtbl.CreateAdapterListByWorkload := CallbackCreate(ObjBindMethod(implObj, "CreateAdapterListByWorkload"), flags, 6)
     }
 
     Dispose() {

@@ -19,13 +19,12 @@ export default struct LPWSCDEINSTALLPROVIDER {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} lpProviderId 
      * @param {Pointer<Integer>} lpErrno 
      * @returns {Integer} 
      */
     Call(lpProviderId, lpErrno) {
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, Guid.Ptr, lpProviderId, lpErrnoMarshal, lpErrno, Int32)
         return result

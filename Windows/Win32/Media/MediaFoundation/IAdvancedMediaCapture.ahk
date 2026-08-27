@@ -57,7 +57,7 @@ export default struct IAdvancedMediaCapture extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAdvancedMediaCaptureSettings := CallbackCreate(GetMethod(implObj, "GetAdvancedMediaCaptureSettings"), flags, 2)
+        this.vtbl.GetAdvancedMediaCaptureSettings := CallbackCreate(ObjBindMethod(implObj, "GetAdvancedMediaCaptureSettings"), flags, 2)
     }
 
     Dispose() {

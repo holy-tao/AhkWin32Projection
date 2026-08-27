@@ -165,15 +165,15 @@ export default struct IMSVidStreamBufferV2SourceEvent extends IMSVidFilePlayback
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RatingsChanged := CallbackCreate(GetMethod(implObj, "RatingsChanged"), flags, 1)
-        this.vtbl.TimeHole := CallbackCreate(GetMethod(implObj, "TimeHole"), flags, 3)
-        this.vtbl.StaleDataRead := CallbackCreate(GetMethod(implObj, "StaleDataRead"), flags, 1)
-        this.vtbl.ContentBecomingStale := CallbackCreate(GetMethod(implObj, "ContentBecomingStale"), flags, 1)
-        this.vtbl.StaleFileDeleted := CallbackCreate(GetMethod(implObj, "StaleFileDeleted"), flags, 1)
-        this.vtbl.RateChange := CallbackCreate(GetMethod(implObj, "RateChange"), flags, 3)
-        this.vtbl.BroadcastEvent := CallbackCreate(GetMethod(implObj, "BroadcastEvent"), flags, 2)
-        this.vtbl.BroadcastEventEx := CallbackCreate(GetMethod(implObj, "BroadcastEventEx"), flags, 6)
-        this.vtbl.ContentPrimarilyAudio := CallbackCreate(GetMethod(implObj, "ContentPrimarilyAudio"), flags, 1)
+        this.vtbl.RatingsChanged := CallbackCreate(ObjBindMethod(implObj, "RatingsChanged"), flags, 1)
+        this.vtbl.TimeHole := CallbackCreate(ObjBindMethod(implObj, "TimeHole"), flags, 3)
+        this.vtbl.StaleDataRead := CallbackCreate(ObjBindMethod(implObj, "StaleDataRead"), flags, 1)
+        this.vtbl.ContentBecomingStale := CallbackCreate(ObjBindMethod(implObj, "ContentBecomingStale"), flags, 1)
+        this.vtbl.StaleFileDeleted := CallbackCreate(ObjBindMethod(implObj, "StaleFileDeleted"), flags, 1)
+        this.vtbl.RateChange := CallbackCreate(ObjBindMethod(implObj, "RateChange"), flags, 3)
+        this.vtbl.BroadcastEvent := CallbackCreate(ObjBindMethod(implObj, "BroadcastEvent"), flags, 2)
+        this.vtbl.BroadcastEventEx := CallbackCreate(ObjBindMethod(implObj, "BroadcastEventEx"), flags, 6)
+        this.vtbl.ContentPrimarilyAudio := CallbackCreate(ObjBindMethod(implObj, "ContentPrimarilyAudio"), flags, 1)
     }
 
     Dispose() {

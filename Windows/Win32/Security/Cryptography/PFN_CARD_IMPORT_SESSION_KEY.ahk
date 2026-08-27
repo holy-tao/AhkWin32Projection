@@ -20,7 +20,6 @@ export default struct PFN_CARD_IMPORT_SESSION_KEY {
     }
 
     /**
-     * 
      * @param {Pointer<CARD_DATA>} pCardData 
      * @param {Integer} bContainerIndex 
      * @param {Pointer<Void>} pPaddingInfo 
@@ -36,8 +35,8 @@ export default struct PFN_CARD_IMPORT_SESSION_KEY {
         pwszBlobType := pwszBlobType is String ? StrPtr(pwszBlobType) : pwszBlobType
         pwszAlgId := pwszAlgId is String ? StrPtr(pwszAlgId) : pwszAlgId
 
-        pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
-        phKeyMarshal := phKey is VarRef ? "ptr*" : "ptr"
+        pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : IntPtr
+        phKeyMarshal := phKey is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, CARD_DATA.Ptr, pCardData, Int8, bContainerIndex, pPaddingInfoMarshal, pPaddingInfo, "ptr", pwszBlobType, "ptr", pwszAlgId, phKeyMarshal, phKey, IntPtr, pbInput, UInt32, cbInput, UInt32, dwFlags, UInt32)
         return result

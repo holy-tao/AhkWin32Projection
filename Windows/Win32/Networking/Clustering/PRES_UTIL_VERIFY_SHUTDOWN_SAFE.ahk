@@ -18,14 +18,13 @@ export default struct PRES_UTIL_VERIFY_SHUTDOWN_SAFE {
     }
 
     /**
-     * 
      * @param {Integer} flags 
      * @param {Integer} reason 
      * @param {Pointer<Integer>} pResult 
      * @returns {Integer} 
      */
     Call(flags, reason, pResult) {
-        pResultMarshal := pResult is VarRef ? "uint*" : "ptr"
+        pResultMarshal := pResult is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, UInt32, flags, UInt32, reason, pResultMarshal, pResult, UInt32)
         return result

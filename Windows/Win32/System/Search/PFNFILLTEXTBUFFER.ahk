@@ -20,7 +20,6 @@ export default struct PFNFILLTEXTBUFFER {
     }
 
     /**
-     * 
      * @param {Pointer<TEXT_SOURCE>} pTextSource 
      * @returns {HRESULT} 
      */

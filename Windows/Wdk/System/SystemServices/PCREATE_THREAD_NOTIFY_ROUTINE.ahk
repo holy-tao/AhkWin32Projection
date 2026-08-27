@@ -20,7 +20,6 @@ export default struct PCREATE_THREAD_NOTIFY_ROUTINE {
     }
 
     /**
-     * 
      * @param {HANDLE} ProcessId 
      * @param {HANDLE} ThreadId 
      * @param {BOOLEAN} Create 

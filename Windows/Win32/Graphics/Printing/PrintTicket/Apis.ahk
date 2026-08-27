@@ -82,7 +82,7 @@ export PTOpenProvider(pszPrinterName, dwVersion) {
 export PTOpenProviderEx(pszPrinterName, dwMaxVersion, dwPrefVersion, phProvider, pUsedVersion) {
     pszPrinterName := pszPrinterName is String ? StrPtr(pszPrinterName) : pszPrinterName
 
-    pUsedVersionMarshal := pUsedVersion is VarRef ? "uint*" : "ptr"
+    pUsedVersionMarshal := pUsedVersion is VarRef ? "uint*" : IntPtr
 
     result := DllCall("prntvpt.dll\PTOpenProviderEx", "ptr", pszPrinterName, UInt32, dwMaxVersion, UInt32, dwPrefVersion, HPTPROVIDER.Ptr, phProvider, pUsedVersionMarshal, pUsedVersion, "HRESULT")
     return result
@@ -125,7 +125,7 @@ export PTCloseProvider(_hProvider) {
  * @since windows5.1.2600
  */
 export PTReleaseMemory(pBuffer) {
-    pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
+    pBufferMarshal := pBuffer is VarRef ? "ptr" : IntPtr
 
     result := DllCall("prntvpt.dll\PTReleaseMemory", pBufferMarshal, pBuffer, "HRESULT")
     return result
@@ -152,8 +152,10 @@ export PTReleaseMemory(pBuffer) {
  * @since windows5.1.2600
  */
 export PTGetPrintCapabilities(_hProvider, pPrintTicket, pCapabilities) {
+    pPrintTicketMarshal := pPrintTicket == 0 ? IntPtr : "ptr"
+
     pbstrErrorMessage := BSTR.Owned()
-    result := DllCall("prntvpt.dll\PTGetPrintCapabilities", HPTPROVIDER, _hProvider, "ptr", pPrintTicket, "ptr", pCapabilities, BSTR.Ptr, pbstrErrorMessage, "HRESULT")
+    result := DllCall("prntvpt.dll\PTGetPrintCapabilities", HPTPROVIDER, _hProvider, pPrintTicketMarshal, pPrintTicket, "ptr", pCapabilities, BSTR.Ptr, pbstrErrorMessage, "HRESULT")
     return pbstrErrorMessage
 }
 
@@ -167,8 +169,10 @@ export PTGetPrintCapabilities(_hProvider, pPrintTicket, pCapabilities) {
  * @since windows10.0.15063
  */
 export PTGetPrintDeviceCapabilities(_hProvider, pPrintTicket, pDeviceCapabilities) {
+    pPrintTicketMarshal := pPrintTicket == 0 ? IntPtr : "ptr"
+
     pbstrErrorMessage := BSTR.Owned()
-    result := DllCall("prntvpt.dll\PTGetPrintDeviceCapabilities", HPTPROVIDER, _hProvider, "ptr", pPrintTicket, "ptr", pDeviceCapabilities, BSTR.Ptr, pbstrErrorMessage, "HRESULT")
+    result := DllCall("prntvpt.dll\PTGetPrintDeviceCapabilities", HPTPROVIDER, _hProvider, pPrintTicketMarshal, pPrintTicket, "ptr", pDeviceCapabilities, BSTR.Ptr, pbstrErrorMessage, "HRESULT")
     return pbstrErrorMessage
 }
 
@@ -185,8 +189,10 @@ export PTGetPrintDeviceCapabilities(_hProvider, pPrintTicket, pDeviceCapabilitie
 export PTGetPrintDeviceResources(_hProvider, pszLocaleName, pPrintTicket, pDeviceResources) {
     pszLocaleName := pszLocaleName is String ? StrPtr(pszLocaleName) : pszLocaleName
 
+    pPrintTicketMarshal := pPrintTicket == 0 ? IntPtr : "ptr"
+
     pbstrErrorMessage := BSTR.Owned()
-    result := DllCall("prntvpt.dll\PTGetPrintDeviceResources", HPTPROVIDER, _hProvider, "ptr", pszLocaleName, "ptr", pPrintTicket, "ptr", pDeviceResources, BSTR.Ptr, pbstrErrorMessage, "HRESULT")
+    result := DllCall("prntvpt.dll\PTGetPrintDeviceResources", HPTPROVIDER, _hProvider, "ptr", pszLocaleName, pPrintTicketMarshal, pPrintTicket, "ptr", pDeviceResources, BSTR.Ptr, pbstrErrorMessage, "HRESULT")
     return pbstrErrorMessage
 }
 
@@ -227,8 +233,10 @@ export PTGetPrintDeviceResources(_hProvider, pszLocaleName, pPrintTicket, pDevic
  * @since windows5.1.2600
  */
 export PTMergeAndValidatePrintTicket(_hProvider, pBaseTicket, pDeltaTicket, scope, pResultTicket) {
+    pDeltaTicketMarshal := pDeltaTicket == 0 ? IntPtr : "ptr"
+
     pbstrErrorMessage := BSTR.Owned()
-    result := DllCall("prntvpt.dll\PTMergeAndValidatePrintTicket", HPTPROVIDER, _hProvider, "ptr", pBaseTicket, "ptr", pDeltaTicket, EPrintTicketScope, scope, "ptr", pResultTicket, BSTR.Ptr, pbstrErrorMessage, "HRESULT")
+    result := DllCall("prntvpt.dll\PTMergeAndValidatePrintTicket", HPTPROVIDER, _hProvider, "ptr", pBaseTicket, pDeltaTicketMarshal, pDeltaTicket, EPrintTicketScope, scope, "ptr", pResultTicket, BSTR.Ptr, pbstrErrorMessage, "HRESULT")
     return pbstrErrorMessage
 }
 
@@ -267,10 +275,11 @@ export PTMergeAndValidatePrintTicket(_hProvider, pBaseTicket, pDeltaTicket, scop
  * @since windows5.1.2600
  */
 export PTConvertPrintTicketToDevMode(_hProvider, pPrintTicket, baseDevmodeType, scope, pcbDevmode, ppDevmode, pbstrErrorMessage) {
-    pcbDevmodeMarshal := pcbDevmode is VarRef ? "uint*" : "ptr"
-    ppDevmodeMarshal := ppDevmode is VarRef ? "ptr*" : "ptr"
+    pcbDevmodeMarshal := pcbDevmode is VarRef ? "uint*" : IntPtr
+    ppDevmodeMarshal := ppDevmode is VarRef ? "ptr*" : IntPtr
+    pbstrErrorMessageMarshal := pbstrErrorMessage == 0 ? IntPtr : BSTR.Ptr
 
-    result := DllCall("prntvpt.dll\PTConvertPrintTicketToDevMode", HPTPROVIDER, _hProvider, "ptr", pPrintTicket, EDefaultDevmodeType, baseDevmodeType, EPrintTicketScope, scope, pcbDevmodeMarshal, pcbDevmode, ppDevmodeMarshal, ppDevmode, BSTR.Ptr, pbstrErrorMessage, "HRESULT")
+    result := DllCall("prntvpt.dll\PTConvertPrintTicketToDevMode", HPTPROVIDER, _hProvider, "ptr", pPrintTicket, EDefaultDevmodeType, baseDevmodeType, EPrintTicketScope, scope, pcbDevmodeMarshal, pcbDevmode, ppDevmodeMarshal, ppDevmode, pbstrErrorMessageMarshal, pbstrErrorMessage, "HRESULT")
     return result
 }
 

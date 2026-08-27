@@ -76,7 +76,6 @@ export default struct WINHTTP_STATUS_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hInternet The handle for which the callback function is called.
      * @param {Pointer} dwContext A pointer to a <b>DWORD</b> that specifies the application-defined context value associated with the handle in the 
      * <i>hInternet</i> parameter.
@@ -88,8 +87,8 @@ export default struct WINHTTP_STATUS_CALLBACK {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(hInternet, dwContext, dwInternetStatus, lpvStatusInformation, dwStatusInformationLength) {
-        hInternetMarshal := hInternet is VarRef ? "ptr" : "ptr"
-        lpvStatusInformationMarshal := lpvStatusInformation is VarRef ? "ptr" : "ptr"
+        hInternetMarshal := hInternet is VarRef ? "ptr" : IntPtr
+        lpvStatusInformationMarshal := lpvStatusInformation is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, hInternetMarshal, hInternet, IntPtr, dwContext, UInt32, dwInternetStatus, lpvStatusInformationMarshal, lpvStatusInformation, UInt32, dwStatusInformationLength)
     }

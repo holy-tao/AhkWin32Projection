@@ -20,7 +20,6 @@ export default struct PLSA_CALL_PACKAGE {
     }
 
     /**
-     * 
      * @param {Pointer<LSA_UNICODE_STRING>} AuthenticationPackage 
      * @param {Integer} ProtocolSubmitBuffer 
      * @param {Integer} SubmitBufferLength 
@@ -30,9 +29,9 @@ export default struct PLSA_CALL_PACKAGE {
      * @returns {NTSTATUS} 
      */
     Call(AuthenticationPackage, ProtocolSubmitBuffer, SubmitBufferLength, ProtocolReturnBuffer, ReturnBufferLength, ProtocolStatus) {
-        ProtocolReturnBufferMarshal := ProtocolReturnBuffer is VarRef ? "ptr*" : "ptr"
-        ReturnBufferLengthMarshal := ReturnBufferLength is VarRef ? "uint*" : "ptr"
-        ProtocolStatusMarshal := ProtocolStatus is VarRef ? "int*" : "ptr"
+        ProtocolReturnBufferMarshal := ProtocolReturnBuffer is VarRef ? "ptr*" : IntPtr
+        ReturnBufferLengthMarshal := ReturnBufferLength is VarRef ? "uint*" : IntPtr
+        ProtocolStatusMarshal := ProtocolStatus is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, LSA_UNICODE_STRING.Ptr, AuthenticationPackage, IntPtr, ProtocolSubmitBuffer, UInt32, SubmitBufferLength, ProtocolReturnBufferMarshal, ProtocolReturnBuffer, ReturnBufferLengthMarshal, ReturnBufferLength, ProtocolStatusMarshal, ProtocolStatus, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

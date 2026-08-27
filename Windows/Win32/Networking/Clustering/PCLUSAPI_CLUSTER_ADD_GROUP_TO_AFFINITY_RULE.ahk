@@ -21,7 +21,6 @@ export default struct PCLUSAPI_CLUSTER_ADD_GROUP_TO_AFFINITY_RULE {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} ruleName 
      * @param {HGROUP} _hGroup 

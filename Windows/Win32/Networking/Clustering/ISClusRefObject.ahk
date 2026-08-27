@@ -43,7 +43,6 @@ export default struct ISClusRefObject extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     get_Handle() {
@@ -60,7 +59,7 @@ export default struct ISClusRefObject extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Handle := CallbackCreate(GetMethod(implObj, "get_Handle"), flags, 2)
+        this.vtbl.get_Handle := CallbackCreate(ObjBindMethod(implObj, "get_Handle"), flags, 2)
     }
 
     Dispose() {

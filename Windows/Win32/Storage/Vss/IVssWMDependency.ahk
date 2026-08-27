@@ -330,9 +330,9 @@ export default struct IVssWMDependency extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetWriterId := CallbackCreate(GetMethod(implObj, "GetWriterId"), flags, 2)
-        this.vtbl.GetLogicalPath := CallbackCreate(GetMethod(implObj, "GetLogicalPath"), flags, 2)
-        this.vtbl.GetComponentName := CallbackCreate(GetMethod(implObj, "GetComponentName"), flags, 2)
+        this.vtbl.GetWriterId := CallbackCreate(ObjBindMethod(implObj, "GetWriterId"), flags, 2)
+        this.vtbl.GetLogicalPath := CallbackCreate(ObjBindMethod(implObj, "GetLogicalPath"), flags, 2)
+        this.vtbl.GetComponentName := CallbackCreate(ObjBindMethod(implObj, "GetComponentName"), flags, 2)
     }
 
     Dispose() {

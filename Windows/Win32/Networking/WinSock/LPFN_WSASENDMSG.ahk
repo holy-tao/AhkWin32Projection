@@ -22,7 +22,6 @@ export default struct LPFN_WSASENDMSG {
     }
 
     /**
-     * 
      * @param {SOCKET} s 
      * @param {Pointer<WSAMSG>} lpMsg 
      * @param {Integer} dwFlags 
@@ -32,9 +31,12 @@ export default struct LPFN_WSASENDMSG {
      * @returns {Integer} 
      */
     Call(s, lpMsg, dwFlags, lpNumberOfBytesSent, lpOverlapped, lpCompletionRoutine) {
-        lpNumberOfBytesSentMarshal := lpNumberOfBytesSent is VarRef ? "uint*" : "ptr"
+        lpNumberOfBytesSentMarshal := lpNumberOfBytesSent is VarRef ? "uint*" : IntPtr
+        lpNumberOfBytesSentMarshal := lpNumberOfBytesSent == 0 ? IntPtr : "uint*"
+        lpOverlappedMarshal := lpOverlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+        lpCompletionRoutineMarshal := lpCompletionRoutine == 0 ? IntPtr : LPWSAOVERLAPPED_COMPLETION_ROUTINE
 
-        result := DllCall(this.value, SOCKET, s, WSAMSG.Ptr, lpMsg, UInt32, dwFlags, lpNumberOfBytesSentMarshal, lpNumberOfBytesSent, OVERLAPPED.Ptr, lpOverlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE, lpCompletionRoutine, Int32)
+        result := DllCall(this.value, SOCKET, s, WSAMSG.Ptr, lpMsg, UInt32, dwFlags, lpNumberOfBytesSentMarshal, lpNumberOfBytesSent, lpOverlappedMarshal, lpOverlapped, lpCompletionRoutineMarshal, lpCompletionRoutine, Int32)
         return result
     }
 

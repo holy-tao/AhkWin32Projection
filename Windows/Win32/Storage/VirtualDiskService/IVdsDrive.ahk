@@ -178,8 +178,8 @@ export default struct IVdsDrive extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsdrive-queryextents
      */
     QueryExtents(ppExtentArray, plNumberOfExtents) {
-        ppExtentArrayMarshal := ppExtentArray is VarRef ? "ptr*" : "ptr"
-        plNumberOfExtentsMarshal := plNumberOfExtents is VarRef ? "int*" : "ptr"
+        ppExtentArrayMarshal := ppExtentArray is VarRef ? "ptr*" : IntPtr
+        plNumberOfExtentsMarshal := plNumberOfExtents is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, ppExtentArrayMarshal, ppExtentArray, plNumberOfExtentsMarshal, plNumberOfExtents, "HRESULT")
         return result
@@ -443,12 +443,12 @@ export default struct IVdsDrive extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
-        this.vtbl.GetSubSystem := CallbackCreate(GetMethod(implObj, "GetSubSystem"), flags, 2)
-        this.vtbl.QueryExtents := CallbackCreate(GetMethod(implObj, "QueryExtents"), flags, 3)
-        this.vtbl.SetFlags := CallbackCreate(GetMethod(implObj, "SetFlags"), flags, 2)
-        this.vtbl.ClearFlags := CallbackCreate(GetMethod(implObj, "ClearFlags"), flags, 2)
-        this.vtbl.SetStatus := CallbackCreate(GetMethod(implObj, "SetStatus"), flags, 2)
+        this.vtbl.GetProperties := CallbackCreate(ObjBindMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.GetSubSystem := CallbackCreate(ObjBindMethod(implObj, "GetSubSystem"), flags, 2)
+        this.vtbl.QueryExtents := CallbackCreate(ObjBindMethod(implObj, "QueryExtents"), flags, 3)
+        this.vtbl.SetFlags := CallbackCreate(ObjBindMethod(implObj, "SetFlags"), flags, 2)
+        this.vtbl.ClearFlags := CallbackCreate(ObjBindMethod(implObj, "ClearFlags"), flags, 2)
+        this.vtbl.SetStatus := CallbackCreate(ObjBindMethod(implObj, "SetStatus"), flags, 2)
     }
 
     Dispose() {

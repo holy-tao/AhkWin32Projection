@@ -204,14 +204,14 @@ export default struct IMFSensorGroup extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSymbolicLink := CallbackCreate(GetMethod(implObj, "GetSymbolicLink"), flags, 4)
-        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
-        this.vtbl.GetSensorGroupAttributes := CallbackCreate(GetMethod(implObj, "GetSensorGroupAttributes"), flags, 2)
-        this.vtbl.GetSensorDeviceCount := CallbackCreate(GetMethod(implObj, "GetSensorDeviceCount"), flags, 2)
-        this.vtbl.GetSensorDevice := CallbackCreate(GetMethod(implObj, "GetSensorDevice"), flags, 3)
-        this.vtbl.SetDefaultSensorDeviceIndex := CallbackCreate(GetMethod(implObj, "SetDefaultSensorDeviceIndex"), flags, 2)
-        this.vtbl.GetDefaultSensorDeviceIndex := CallbackCreate(GetMethod(implObj, "GetDefaultSensorDeviceIndex"), flags, 2)
-        this.vtbl.CreateMediaSource := CallbackCreate(GetMethod(implObj, "CreateMediaSource"), flags, 2)
+        this.vtbl.GetSymbolicLink := CallbackCreate(ObjBindMethod(implObj, "GetSymbolicLink"), flags, 4)
+        this.vtbl.GetFlags := CallbackCreate(ObjBindMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.GetSensorGroupAttributes := CallbackCreate(ObjBindMethod(implObj, "GetSensorGroupAttributes"), flags, 2)
+        this.vtbl.GetSensorDeviceCount := CallbackCreate(ObjBindMethod(implObj, "GetSensorDeviceCount"), flags, 2)
+        this.vtbl.GetSensorDevice := CallbackCreate(ObjBindMethod(implObj, "GetSensorDevice"), flags, 3)
+        this.vtbl.SetDefaultSensorDeviceIndex := CallbackCreate(ObjBindMethod(implObj, "SetDefaultSensorDeviceIndex"), flags, 2)
+        this.vtbl.GetDefaultSensorDeviceIndex := CallbackCreate(ObjBindMethod(implObj, "GetDefaultSensorDeviceIndex"), flags, 2)
+        this.vtbl.CreateMediaSource := CallbackCreate(ObjBindMethod(implObj, "CreateMediaSource"), flags, 2)
     }
 
     Dispose() {

@@ -38,7 +38,6 @@ export default struct IActionQueryConcept extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @returns {IActionEnumerator} 
      */
@@ -56,7 +55,7 @@ export default struct IActionQueryConcept extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumerateActions := CallbackCreate(GetMethod(implObj, "EnumerateActions"), flags, 3)
+        this.vtbl.EnumerateActions := CallbackCreate(ObjBindMethod(implObj, "EnumerateActions"), flags, 3)
     }
 
     Dispose() {

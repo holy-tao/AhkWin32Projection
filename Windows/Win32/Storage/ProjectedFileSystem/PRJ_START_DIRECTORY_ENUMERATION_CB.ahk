@@ -25,7 +25,6 @@ export default struct PRJ_START_DIRECTORY_ENUMERATION_CB {
     }
 
     /**
-     * 
      * @param {Pointer<PRJ_CALLBACK_DATA>} callbackData Information about the operation. The following <i>callbackData</i> members are necessary to implement this callback:<dl>
      * <dd><b>FilePathName</b> Identifies the directory to be enumerated.
      * 

@@ -75,7 +75,6 @@ export default struct ISpeechTextSelectionInformation extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} ActiveOffset 
      * @returns {HRESULT} 
      */
@@ -85,7 +84,6 @@ export default struct ISpeechTextSelectionInformation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ActiveOffset() {
@@ -94,7 +92,6 @@ export default struct ISpeechTextSelectionInformation extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} ActiveLength 
      * @returns {HRESULT} 
      */
@@ -104,7 +101,6 @@ export default struct ISpeechTextSelectionInformation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ActiveLength() {
@@ -113,7 +109,6 @@ export default struct ISpeechTextSelectionInformation extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} SelectionOffset 
      * @returns {HRESULT} 
      */
@@ -123,7 +118,6 @@ export default struct ISpeechTextSelectionInformation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_SelectionOffset() {
@@ -132,7 +126,6 @@ export default struct ISpeechTextSelectionInformation extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} SelectionLength 
      * @returns {HRESULT} 
      */
@@ -142,7 +135,6 @@ export default struct ISpeechTextSelectionInformation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_SelectionLength() {
@@ -159,14 +151,14 @@ export default struct ISpeechTextSelectionInformation extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_ActiveOffset := CallbackCreate(GetMethod(implObj, "put_ActiveOffset"), flags, 2)
-        this.vtbl.get_ActiveOffset := CallbackCreate(GetMethod(implObj, "get_ActiveOffset"), flags, 2)
-        this.vtbl.put_ActiveLength := CallbackCreate(GetMethod(implObj, "put_ActiveLength"), flags, 2)
-        this.vtbl.get_ActiveLength := CallbackCreate(GetMethod(implObj, "get_ActiveLength"), flags, 2)
-        this.vtbl.put_SelectionOffset := CallbackCreate(GetMethod(implObj, "put_SelectionOffset"), flags, 2)
-        this.vtbl.get_SelectionOffset := CallbackCreate(GetMethod(implObj, "get_SelectionOffset"), flags, 2)
-        this.vtbl.put_SelectionLength := CallbackCreate(GetMethod(implObj, "put_SelectionLength"), flags, 2)
-        this.vtbl.get_SelectionLength := CallbackCreate(GetMethod(implObj, "get_SelectionLength"), flags, 2)
+        this.vtbl.put_ActiveOffset := CallbackCreate(ObjBindMethod(implObj, "put_ActiveOffset"), flags, 2)
+        this.vtbl.get_ActiveOffset := CallbackCreate(ObjBindMethod(implObj, "get_ActiveOffset"), flags, 2)
+        this.vtbl.put_ActiveLength := CallbackCreate(ObjBindMethod(implObj, "put_ActiveLength"), flags, 2)
+        this.vtbl.get_ActiveLength := CallbackCreate(ObjBindMethod(implObj, "get_ActiveLength"), flags, 2)
+        this.vtbl.put_SelectionOffset := CallbackCreate(ObjBindMethod(implObj, "put_SelectionOffset"), flags, 2)
+        this.vtbl.get_SelectionOffset := CallbackCreate(ObjBindMethod(implObj, "get_SelectionOffset"), flags, 2)
+        this.vtbl.put_SelectionLength := CallbackCreate(ObjBindMethod(implObj, "put_SelectionLength"), flags, 2)
+        this.vtbl.get_SelectionLength := CallbackCreate(ObjBindMethod(implObj, "get_SelectionLength"), flags, 2)
     }
 
     Dispose() {

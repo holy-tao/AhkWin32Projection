@@ -105,7 +105,9 @@ export default struct IDefaultLocation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-idefaultlocation-setreport
      */
     SetReport(reportType, pLocationReport) {
-        result := ComCall(3, this, Guid.Ptr, reportType, "ptr", pLocationReport, "HRESULT")
+        pLocationReportMarshal := pLocationReport == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, Guid.Ptr, reportType, pLocationReportMarshal, pLocationReport, "HRESULT")
         return result
     }
 
@@ -133,8 +135,8 @@ export default struct IDefaultLocation extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetReport := CallbackCreate(GetMethod(implObj, "SetReport"), flags, 3)
-        this.vtbl.GetReport := CallbackCreate(GetMethod(implObj, "GetReport"), flags, 3)
+        this.vtbl.SetReport := CallbackCreate(ObjBindMethod(implObj, "SetReport"), flags, 3)
+        this.vtbl.GetReport := CallbackCreate(ObjBindMethod(implObj, "GetReport"), flags, 3)
     }
 
     Dispose() {

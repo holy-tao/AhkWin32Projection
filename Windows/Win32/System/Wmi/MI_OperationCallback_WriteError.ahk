@@ -20,7 +20,6 @@ export default struct MI_OperationCallback_WriteError {
     }
 
     /**
-     * 
      * @param {Pointer<MI_Operation>} operation 
      * @param {Pointer<Void>} callbackContext 
      * @param {Pointer<MI_Instance>} instance 
@@ -28,9 +27,11 @@ export default struct MI_OperationCallback_WriteError {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(operation, callbackContext, instance, writeErrorResult) {
-        callbackContextMarshal := callbackContext is VarRef ? "ptr" : "ptr"
+        callbackContextMarshal := callbackContext is VarRef ? "ptr" : IntPtr
+        callbackContextMarshal := callbackContext == 0 ? IntPtr : "ptr"
+        writeErrorResultMarshal := writeErrorResult == 0 ? IntPtr : IntPtr
 
-        DllCall(this.value, MI_Operation.Ptr, operation, callbackContextMarshal, callbackContext, MI_Instance.Ptr, instance, IntPtr, writeErrorResult)
+        DllCall(this.value, MI_Operation.Ptr, operation, callbackContextMarshal, callbackContext, MI_Instance.Ptr, instance, writeErrorResultMarshal, writeErrorResult)
     }
 
     /**

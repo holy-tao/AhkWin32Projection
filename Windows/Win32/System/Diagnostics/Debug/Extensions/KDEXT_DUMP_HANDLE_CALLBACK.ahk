@@ -20,14 +20,14 @@ export default struct KDEXT_DUMP_HANDLE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<KDEXT_HANDLE_INFORMATION>} HandleInfo 
      * @param {Integer} Flags 
      * @param {Pointer<Void>} _Context 
      * @returns {BOOLEAN} 
      */
     Call(HandleInfo, Flags, _Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, KDEXT_HANDLE_INFORMATION.Ptr, HandleInfo, UInt32, Flags, _ContextMarshal, _Context, BOOLEAN)
         return result

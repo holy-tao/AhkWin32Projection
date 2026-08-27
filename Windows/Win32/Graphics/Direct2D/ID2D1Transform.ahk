@@ -126,9 +126,9 @@ export default struct ID2D1Transform extends ID2D1TransformNode {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.MapOutputRectToInputRects := CallbackCreate(GetMethod(implObj, "MapOutputRectToInputRects"), flags, 4)
-        this.vtbl.MapInputRectsToOutputRect := CallbackCreate(GetMethod(implObj, "MapInputRectsToOutputRect"), flags, 6)
-        this.vtbl.MapInvalidRect := CallbackCreate(GetMethod(implObj, "MapInvalidRect"), flags, 4)
+        this.vtbl.MapOutputRectToInputRects := CallbackCreate(ObjBindMethod(implObj, "MapOutputRectToInputRects"), flags, 4)
+        this.vtbl.MapInputRectsToOutputRect := CallbackCreate(ObjBindMethod(implObj, "MapInputRectsToOutputRect"), flags, 6)
+        this.vtbl.MapInvalidRect := CallbackCreate(ObjBindMethod(implObj, "MapInvalidRect"), flags, 4)
     }
 
     Dispose() {

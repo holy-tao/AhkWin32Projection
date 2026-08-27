@@ -19,7 +19,6 @@ export default struct RPC_SETFILTER_FUNC {
     }
 
     /**
-     * 
      * @param {Pointer<RPCLT_PDU_FILTER_FUNC>} pfnFilter 
      * @returns {String} Nothing - always returns an empty string
      */

@@ -49,7 +49,6 @@ export default struct IOpenServiceActivityManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {OpenServiceActivityContentType} eType 
      * @returns {IEnumOpenServiceActivityCategory} 
      */
@@ -59,7 +58,6 @@ export default struct IOpenServiceActivityManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzActivityID 
      * @returns {IOpenServiceActivity} 
      */
@@ -71,7 +69,6 @@ export default struct IOpenServiceActivityManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzHomepage 
      * @param {PWSTR} pwzCategory 
      * @returns {IOpenServiceActivity} 
@@ -85,7 +82,6 @@ export default struct IOpenServiceActivityManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetVersionCookie() {
@@ -102,10 +98,10 @@ export default struct IOpenServiceActivityManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCategoryEnumerator := CallbackCreate(GetMethod(implObj, "GetCategoryEnumerator"), flags, 3)
-        this.vtbl.GetActivityByID := CallbackCreate(GetMethod(implObj, "GetActivityByID"), flags, 3)
-        this.vtbl.GetActivityByHomepageAndCategory := CallbackCreate(GetMethod(implObj, "GetActivityByHomepageAndCategory"), flags, 4)
-        this.vtbl.GetVersionCookie := CallbackCreate(GetMethod(implObj, "GetVersionCookie"), flags, 2)
+        this.vtbl.GetCategoryEnumerator := CallbackCreate(ObjBindMethod(implObj, "GetCategoryEnumerator"), flags, 3)
+        this.vtbl.GetActivityByID := CallbackCreate(ObjBindMethod(implObj, "GetActivityByID"), flags, 3)
+        this.vtbl.GetActivityByHomepageAndCategory := CallbackCreate(ObjBindMethod(implObj, "GetActivityByHomepageAndCategory"), flags, 4)
+        this.vtbl.GetVersionCookie := CallbackCreate(ObjBindMethod(implObj, "GetVersionCookie"), flags, 2)
     }
 
     Dispose() {

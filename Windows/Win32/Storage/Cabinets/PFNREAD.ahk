@@ -18,7 +18,6 @@ export default struct PFNREAD {
     }
 
     /**
-     * 
      * @param {Pointer} hf 
      * @param {Integer} pv 
      * @param {Integer} cb 

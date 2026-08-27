@@ -95,7 +95,9 @@ export default struct IFilterRequestCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ifilterrequestcallback-requestfilter
      */
     RequestFilter(pFilter, filteringType) {
-        result := ComCall(3, this, "ptr", pFilter, FILTERING_TYPE, filteringType, "HRESULT")
+        pFilterMarshal := pFilter == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pFilterMarshal, pFilter, FILTERING_TYPE, filteringType, "HRESULT")
         return result
     }
 
@@ -108,7 +110,7 @@ export default struct IFilterRequestCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RequestFilter := CallbackCreate(GetMethod(implObj, "RequestFilter"), flags, 3)
+        this.vtbl.RequestFilter := CallbackCreate(ObjBindMethod(implObj, "RequestFilter"), flags, 3)
     }
 
     Dispose() {

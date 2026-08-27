@@ -21,7 +21,6 @@ export default struct PDD_KERNELCB_SYNCSURFACE {
     }
 
     /**
-     * 
      * @param {Pointer<DD_SYNCSURFACEDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_syncsurfacedata">DD_SYNCSURFACEDATA</a> structure that contains the surface data.
      * @returns {Integer} <i>DdSyncSurfaceData</i> returns one of the following callback codes:
      */

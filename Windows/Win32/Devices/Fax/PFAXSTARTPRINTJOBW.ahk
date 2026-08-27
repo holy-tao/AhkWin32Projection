@@ -23,7 +23,6 @@ export default struct PFAXSTARTPRINTJOBW {
     }
 
     /**
-     * 
      * @param {PWSTR} PrinterName 
      * @param {Pointer<FAX_PRINT_INFOW>} PrintInfo 
      * @param {Pointer<Integer>} FaxJobId 
@@ -33,7 +32,7 @@ export default struct PFAXSTARTPRINTJOBW {
     Call(PrinterName, PrintInfo, FaxJobId, FaxContextInfo) {
         PrinterName := PrinterName is String ? StrPtr(PrinterName) : PrinterName
 
-        FaxJobIdMarshal := FaxJobId is VarRef ? "uint*" : "ptr"
+        FaxJobIdMarshal := FaxJobId is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, "ptr", PrinterName, FAX_PRINT_INFOW.Ptr, PrintInfo, FaxJobIdMarshal, FaxJobId, FAX_CONTEXT_INFOW.Ptr, FaxContextInfo, BOOL)
         return result

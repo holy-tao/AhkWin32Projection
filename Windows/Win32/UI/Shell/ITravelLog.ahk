@@ -66,7 +66,9 @@ export default struct ITravelLog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravellog-addentry
      */
     AddEntry(punk, fIsLocalAnchor) {
-        result := ComCall(3, this, "ptr", punk, BOOL, fIsLocalAnchor, "HRESULT")
+        punkMarshal := punk == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, punkMarshal, punk, BOOL, fIsLocalAnchor, "HRESULT")
         return result
     }
 
@@ -84,7 +86,9 @@ export default struct ITravelLog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravellog-updateentry
      */
     UpdateEntry(punk, fIsLocalAnchor) {
-        result := ComCall(4, this, "ptr", punk, BOOL, fIsLocalAnchor, "HRESULT")
+        punkMarshal := punk == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, punkMarshal, punk, BOOL, fIsLocalAnchor, "HRESULT")
         return result
     }
 
@@ -102,7 +106,10 @@ export default struct ITravelLog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravellog-updateexternal
      */
     UpdateExternal(punk, punkHLBrowseContext) {
-        result := ComCall(5, this, "ptr", punk, "ptr", punkHLBrowseContext, "HRESULT")
+        punkMarshal := punk == 0 ? IntPtr : "ptr"
+        punkHLBrowseContextMarshal := punkHLBrowseContext == 0 ? IntPtr : "ptr"
+
+        result := ComCall(5, this, punkMarshal, punk, punkHLBrowseContextMarshal, punkHLBrowseContext, "HRESULT")
         return result
     }
 
@@ -122,7 +129,9 @@ export default struct ITravelLog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravellog-travel
      */
     Travel(punk, iOffset) {
-        result := ComCall(6, this, "ptr", punk, Int32, iOffset, "HRESULT")
+        punkMarshal := punk == 0 ? IntPtr : "ptr"
+
+        result := ComCall(6, this, punkMarshal, punk, Int32, iOffset, "HRESULT")
         return result
     }
 
@@ -160,7 +169,9 @@ export default struct ITravelLog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravellog-findtravelentry
      */
     FindTravelEntry(punk, pidl) {
-        result := ComCall(8, this, "ptr", punk, ITEMIDLIST.Ptr, pidl, "ptr*", &ppte := 0, "HRESULT")
+        punkMarshal := punk == 0 ? IntPtr : "ptr"
+
+        result := ComCall(8, this, punkMarshal, punk, ITEMIDLIST.Ptr, pidl, "ptr*", &ppte := 0, "HRESULT")
         return ITravelEntry(ppte)
     }
 
@@ -189,7 +200,9 @@ export default struct ITravelLog extends IUnknown {
     GetToolTipText(punk, iOffset, idsTemplate, pwzText, cchText) {
         pwzText := pwzText is String ? StrPtr(pwzText) : pwzText
 
-        result := ComCall(9, this, "ptr", punk, Int32, iOffset, Int32, idsTemplate, "ptr", pwzText, UInt32, cchText, "HRESULT")
+        punkMarshal := punk == 0 ? IntPtr : "ptr"
+
+        result := ComCall(9, this, punkMarshal, punk, Int32, iOffset, Int32, idsTemplate, "ptr", pwzText, UInt32, cchText, "HRESULT")
         return result
     }
 
@@ -219,7 +232,9 @@ export default struct ITravelLog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravellog-insertmenuentries
      */
     InsertMenuEntries(punk, _hmenu, nPos, idFirst, idLast, dwFlags) {
-        result := ComCall(10, this, "ptr", punk, HMENU, _hmenu, Int32, nPos, Int32, idFirst, Int32, idLast, UInt32, dwFlags, "HRESULT")
+        punkMarshal := punk == 0 ? IntPtr : "ptr"
+
+        result := ComCall(10, this, punkMarshal, punk, HMENU, _hmenu, Int32, nPos, Int32, idFirst, Int32, idLast, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -271,17 +286,17 @@ export default struct ITravelLog extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddEntry := CallbackCreate(GetMethod(implObj, "AddEntry"), flags, 3)
-        this.vtbl.UpdateEntry := CallbackCreate(GetMethod(implObj, "UpdateEntry"), flags, 3)
-        this.vtbl.UpdateExternal := CallbackCreate(GetMethod(implObj, "UpdateExternal"), flags, 3)
-        this.vtbl.Travel := CallbackCreate(GetMethod(implObj, "Travel"), flags, 3)
-        this.vtbl.GetTravelEntry := CallbackCreate(GetMethod(implObj, "GetTravelEntry"), flags, 4)
-        this.vtbl.FindTravelEntry := CallbackCreate(GetMethod(implObj, "FindTravelEntry"), flags, 4)
-        this.vtbl.GetToolTipText := CallbackCreate(GetMethod(implObj, "GetToolTipText"), flags, 6)
-        this.vtbl.InsertMenuEntries := CallbackCreate(GetMethod(implObj, "InsertMenuEntries"), flags, 7)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
-        this.vtbl.CountEntries := CallbackCreate(GetMethod(implObj, "CountEntries"), flags, 2)
-        this.vtbl.Revert := CallbackCreate(GetMethod(implObj, "Revert"), flags, 1)
+        this.vtbl.AddEntry := CallbackCreate(ObjBindMethod(implObj, "AddEntry"), flags, 3)
+        this.vtbl.UpdateEntry := CallbackCreate(ObjBindMethod(implObj, "UpdateEntry"), flags, 3)
+        this.vtbl.UpdateExternal := CallbackCreate(ObjBindMethod(implObj, "UpdateExternal"), flags, 3)
+        this.vtbl.Travel := CallbackCreate(ObjBindMethod(implObj, "Travel"), flags, 3)
+        this.vtbl.GetTravelEntry := CallbackCreate(ObjBindMethod(implObj, "GetTravelEntry"), flags, 4)
+        this.vtbl.FindTravelEntry := CallbackCreate(ObjBindMethod(implObj, "FindTravelEntry"), flags, 4)
+        this.vtbl.GetToolTipText := CallbackCreate(ObjBindMethod(implObj, "GetToolTipText"), flags, 6)
+        this.vtbl.InsertMenuEntries := CallbackCreate(ObjBindMethod(implObj, "InsertMenuEntries"), flags, 7)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.CountEntries := CallbackCreate(ObjBindMethod(implObj, "CountEntries"), flags, 2)
+        this.vtbl.Revert := CallbackCreate(ObjBindMethod(implObj, "Revert"), flags, 1)
     }
 
     Dispose() {

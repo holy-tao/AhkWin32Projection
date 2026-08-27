@@ -186,12 +186,12 @@ export default struct IAMTVAudio extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetHardwareSupportedTVAudioModes := CallbackCreate(GetMethod(implObj, "GetHardwareSupportedTVAudioModes"), flags, 2)
-        this.vtbl.GetAvailableTVAudioModes := CallbackCreate(GetMethod(implObj, "GetAvailableTVAudioModes"), flags, 2)
-        this.vtbl.get_TVAudioMode := CallbackCreate(GetMethod(implObj, "get_TVAudioMode"), flags, 2)
-        this.vtbl.put_TVAudioMode := CallbackCreate(GetMethod(implObj, "put_TVAudioMode"), flags, 2)
-        this.vtbl.RegisterNotificationCallBack := CallbackCreate(GetMethod(implObj, "RegisterNotificationCallBack"), flags, 3)
-        this.vtbl.UnRegisterNotificationCallBack := CallbackCreate(GetMethod(implObj, "UnRegisterNotificationCallBack"), flags, 2)
+        this.vtbl.GetHardwareSupportedTVAudioModes := CallbackCreate(ObjBindMethod(implObj, "GetHardwareSupportedTVAudioModes"), flags, 2)
+        this.vtbl.GetAvailableTVAudioModes := CallbackCreate(ObjBindMethod(implObj, "GetAvailableTVAudioModes"), flags, 2)
+        this.vtbl.get_TVAudioMode := CallbackCreate(ObjBindMethod(implObj, "get_TVAudioMode"), flags, 2)
+        this.vtbl.put_TVAudioMode := CallbackCreate(ObjBindMethod(implObj, "put_TVAudioMode"), flags, 2)
+        this.vtbl.RegisterNotificationCallBack := CallbackCreate(ObjBindMethod(implObj, "RegisterNotificationCallBack"), flags, 3)
+        this.vtbl.UnRegisterNotificationCallBack := CallbackCreate(ObjBindMethod(implObj, "UnRegisterNotificationCallBack"), flags, 2)
     }
 
     Dispose() {

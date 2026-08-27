@@ -209,9 +209,9 @@ export default struct IFunctionInstanceCollectionQuery extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddQueryConstraint := CallbackCreate(GetMethod(implObj, "AddQueryConstraint"), flags, 3)
-        this.vtbl.AddPropertyConstraint := CallbackCreate(GetMethod(implObj, "AddPropertyConstraint"), flags, 4)
-        this.vtbl.Execute := CallbackCreate(GetMethod(implObj, "Execute"), flags, 2)
+        this.vtbl.AddQueryConstraint := CallbackCreate(ObjBindMethod(implObj, "AddQueryConstraint"), flags, 3)
+        this.vtbl.AddPropertyConstraint := CallbackCreate(ObjBindMethod(implObj, "AddPropertyConstraint"), flags, 4)
+        this.vtbl.Execute := CallbackCreate(ObjBindMethod(implObj, "Execute"), flags, 2)
     }
 
     Dispose() {

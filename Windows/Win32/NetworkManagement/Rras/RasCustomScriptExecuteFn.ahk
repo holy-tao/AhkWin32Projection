@@ -37,7 +37,6 @@ export default struct RasCustomScriptExecuteFn {
     }
 
     /**
-     * 
      * @param {HANDLE} hPort Handle to the port on which the connection is established. Use this handle when sending or receiving data on the port.
      * @param {PWSTR} lpszPhonebook Pointer to a Unicode string that contains the path to the phone book in which the entry for the connection resides.
      * @param {PWSTR} lpszEntryName Pointer to a Unicode string that contains the name of the entry that was dialed to establish the connection.
@@ -65,7 +64,7 @@ export default struct RasCustomScriptExecuteFn {
         lpszPhonebook := lpszPhonebook is String ? StrPtr(lpszPhonebook) : lpszPhonebook
         lpszEntryName := lpszEntryName is String ? StrPtr(lpszEntryName) : lpszEntryName
 
-        pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
+        pvReservedMarshal := pvReserved is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, HANDLE, hPort, "ptr", lpszPhonebook, "ptr", lpszEntryName, PFNRASGETBUFFER, _pfnRasGetBuffer, PFNRASFREEBUFFER, _pfnRasFreeBuffer, PFNRASSENDBUFFER, _pfnRasSendBuffer, PFNRASRECEIVEBUFFER, _pfnRasReceiveBuffer, PFNRASRETRIEVEBUFFER, _pfnRasRetrieveBuffer, HWND, _hWnd, RASDIALPARAMSA.Ptr, pRasDialParams, pvReservedMarshal, pvReserved, UInt32)
         return result

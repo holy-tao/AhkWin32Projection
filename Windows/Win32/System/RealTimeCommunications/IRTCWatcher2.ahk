@@ -53,7 +53,6 @@ export default struct IRTCWatcher2 extends IRTCWatcher {
     }
 
     /**
-     * 
      * @returns {IRTCProfile2} 
      */
     get_Profile() {
@@ -62,7 +61,6 @@ export default struct IRTCWatcher2 extends IRTCWatcher {
     }
 
     /**
-     * 
      * @returns {RTC_ACE_SCOPE} 
      */
     get_Scope() {
@@ -79,8 +77,8 @@ export default struct IRTCWatcher2 extends IRTCWatcher {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Profile := CallbackCreate(GetMethod(implObj, "get_Profile"), flags, 2)
-        this.vtbl.get_Scope := CallbackCreate(GetMethod(implObj, "get_Scope"), flags, 2)
+        this.vtbl.get_Profile := CallbackCreate(ObjBindMethod(implObj, "get_Profile"), flags, 2)
+        this.vtbl.get_Scope := CallbackCreate(ObjBindMethod(implObj, "get_Scope"), flags, 2)
     }
 
     Dispose() {

@@ -41,7 +41,6 @@ export default struct ISpGrammarBuilder2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {SPSTATEHANDLE} hFromState 
      * @param {SPSTATEHANDLE} hToState 
      * @param {PWSTR} psz 
@@ -56,7 +55,6 @@ export default struct ISpGrammarBuilder2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PHONETICALPHABET} _phoneticALphabet 
      * @returns {HRESULT} 
      */
@@ -74,8 +72,8 @@ export default struct ISpGrammarBuilder2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddTextSubset := CallbackCreate(GetMethod(implObj, "AddTextSubset"), flags, 5)
-        this.vtbl.SetPhoneticAlphabet := CallbackCreate(GetMethod(implObj, "SetPhoneticAlphabet"), flags, 2)
+        this.vtbl.AddTextSubset := CallbackCreate(ObjBindMethod(implObj, "AddTextSubset"), flags, 5)
+        this.vtbl.SetPhoneticAlphabet := CallbackCreate(ObjBindMethod(implObj, "SetPhoneticAlphabet"), flags, 2)
     }
 
     Dispose() {

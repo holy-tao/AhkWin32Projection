@@ -116,7 +116,6 @@ export default struct IADsADSystemInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_UserName() {
@@ -126,7 +125,6 @@ export default struct IADsADSystemInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ComputerName() {
@@ -136,7 +134,6 @@ export default struct IADsADSystemInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_SiteName() {
@@ -146,7 +143,6 @@ export default struct IADsADSystemInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DomainShortName() {
@@ -156,7 +152,6 @@ export default struct IADsADSystemInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DomainDNSName() {
@@ -166,7 +161,6 @@ export default struct IADsADSystemInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ForestDNSName() {
@@ -176,7 +170,6 @@ export default struct IADsADSystemInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PDCRoleOwner() {
@@ -186,7 +179,6 @@ export default struct IADsADSystemInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_SchemaRoleOwner() {
@@ -196,7 +188,6 @@ export default struct IADsADSystemInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsNativeMode() {
@@ -263,19 +254,19 @@ export default struct IADsADSystemInfo extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_UserName := CallbackCreate(GetMethod(implObj, "get_UserName"), flags, 2)
-        this.vtbl.get_ComputerName := CallbackCreate(GetMethod(implObj, "get_ComputerName"), flags, 2)
-        this.vtbl.get_SiteName := CallbackCreate(GetMethod(implObj, "get_SiteName"), flags, 2)
-        this.vtbl.get_DomainShortName := CallbackCreate(GetMethod(implObj, "get_DomainShortName"), flags, 2)
-        this.vtbl.get_DomainDNSName := CallbackCreate(GetMethod(implObj, "get_DomainDNSName"), flags, 2)
-        this.vtbl.get_ForestDNSName := CallbackCreate(GetMethod(implObj, "get_ForestDNSName"), flags, 2)
-        this.vtbl.get_PDCRoleOwner := CallbackCreate(GetMethod(implObj, "get_PDCRoleOwner"), flags, 2)
-        this.vtbl.get_SchemaRoleOwner := CallbackCreate(GetMethod(implObj, "get_SchemaRoleOwner"), flags, 2)
-        this.vtbl.get_IsNativeMode := CallbackCreate(GetMethod(implObj, "get_IsNativeMode"), flags, 2)
-        this.vtbl.GetAnyDCName := CallbackCreate(GetMethod(implObj, "GetAnyDCName"), flags, 2)
-        this.vtbl.GetDCSiteName := CallbackCreate(GetMethod(implObj, "GetDCSiteName"), flags, 3)
-        this.vtbl.RefreshSchemaCache := CallbackCreate(GetMethod(implObj, "RefreshSchemaCache"), flags, 1)
-        this.vtbl.GetTrees := CallbackCreate(GetMethod(implObj, "GetTrees"), flags, 2)
+        this.vtbl.get_UserName := CallbackCreate(ObjBindMethod(implObj, "get_UserName"), flags, 2)
+        this.vtbl.get_ComputerName := CallbackCreate(ObjBindMethod(implObj, "get_ComputerName"), flags, 2)
+        this.vtbl.get_SiteName := CallbackCreate(ObjBindMethod(implObj, "get_SiteName"), flags, 2)
+        this.vtbl.get_DomainShortName := CallbackCreate(ObjBindMethod(implObj, "get_DomainShortName"), flags, 2)
+        this.vtbl.get_DomainDNSName := CallbackCreate(ObjBindMethod(implObj, "get_DomainDNSName"), flags, 2)
+        this.vtbl.get_ForestDNSName := CallbackCreate(ObjBindMethod(implObj, "get_ForestDNSName"), flags, 2)
+        this.vtbl.get_PDCRoleOwner := CallbackCreate(ObjBindMethod(implObj, "get_PDCRoleOwner"), flags, 2)
+        this.vtbl.get_SchemaRoleOwner := CallbackCreate(ObjBindMethod(implObj, "get_SchemaRoleOwner"), flags, 2)
+        this.vtbl.get_IsNativeMode := CallbackCreate(ObjBindMethod(implObj, "get_IsNativeMode"), flags, 2)
+        this.vtbl.GetAnyDCName := CallbackCreate(ObjBindMethod(implObj, "GetAnyDCName"), flags, 2)
+        this.vtbl.GetDCSiteName := CallbackCreate(ObjBindMethod(implObj, "GetDCSiteName"), flags, 3)
+        this.vtbl.RefreshSchemaCache := CallbackCreate(ObjBindMethod(implObj, "RefreshSchemaCache"), flags, 1)
+        this.vtbl.GetTrees := CallbackCreate(ObjBindMethod(implObj, "GetTrees"), flags, 2)
     }
 
     Dispose() {

@@ -367,10 +367,10 @@ export default struct INetwork extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetwork-gettimecreatedandconnected
      */
     GetTimeCreatedAndConnected(pdwLowDateTimeCreated, pdwHighDateTimeCreated, pdwLowDateTimeConnected, pdwHighDateTimeConnected) {
-        pdwLowDateTimeCreatedMarshal := pdwLowDateTimeCreated is VarRef ? "uint*" : "ptr"
-        pdwHighDateTimeCreatedMarshal := pdwHighDateTimeCreated is VarRef ? "uint*" : "ptr"
-        pdwLowDateTimeConnectedMarshal := pdwLowDateTimeConnected is VarRef ? "uint*" : "ptr"
-        pdwHighDateTimeConnectedMarshal := pdwHighDateTimeConnected is VarRef ? "uint*" : "ptr"
+        pdwLowDateTimeCreatedMarshal := pdwLowDateTimeCreated is VarRef ? "uint*" : IntPtr
+        pdwHighDateTimeCreatedMarshal := pdwHighDateTimeCreated is VarRef ? "uint*" : IntPtr
+        pdwLowDateTimeConnectedMarshal := pdwLowDateTimeConnected is VarRef ? "uint*" : IntPtr
+        pdwHighDateTimeConnectedMarshal := pdwHighDateTimeConnected is VarRef ? "uint*" : IntPtr
 
         result := ComCall(14, this, pdwLowDateTimeCreatedMarshal, pdwLowDateTimeCreated, pdwHighDateTimeCreatedMarshal, pdwHighDateTimeCreated, pdwLowDateTimeConnectedMarshal, pdwLowDateTimeConnected, pdwHighDateTimeConnectedMarshal, pdwHighDateTimeConnected, "HRESULT")
         return result
@@ -438,19 +438,19 @@ export default struct INetwork extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
-        this.vtbl.SetName := CallbackCreate(GetMethod(implObj, "SetName"), flags, 2)
-        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 2)
-        this.vtbl.SetDescription := CallbackCreate(GetMethod(implObj, "SetDescription"), flags, 2)
-        this.vtbl.GetNetworkId := CallbackCreate(GetMethod(implObj, "GetNetworkId"), flags, 2)
-        this.vtbl.GetDomainType := CallbackCreate(GetMethod(implObj, "GetDomainType"), flags, 2)
-        this.vtbl.GetNetworkConnections := CallbackCreate(GetMethod(implObj, "GetNetworkConnections"), flags, 2)
-        this.vtbl.GetTimeCreatedAndConnected := CallbackCreate(GetMethod(implObj, "GetTimeCreatedAndConnected"), flags, 5)
-        this.vtbl.get_IsConnectedToInternet := CallbackCreate(GetMethod(implObj, "get_IsConnectedToInternet"), flags, 2)
-        this.vtbl.get_IsConnected := CallbackCreate(GetMethod(implObj, "get_IsConnected"), flags, 2)
-        this.vtbl.GetConnectivity := CallbackCreate(GetMethod(implObj, "GetConnectivity"), flags, 2)
-        this.vtbl.GetCategory := CallbackCreate(GetMethod(implObj, "GetCategory"), flags, 2)
-        this.vtbl.SetCategory := CallbackCreate(GetMethod(implObj, "SetCategory"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.SetName := CallbackCreate(ObjBindMethod(implObj, "SetName"), flags, 2)
+        this.vtbl.GetDescription := CallbackCreate(ObjBindMethod(implObj, "GetDescription"), flags, 2)
+        this.vtbl.SetDescription := CallbackCreate(ObjBindMethod(implObj, "SetDescription"), flags, 2)
+        this.vtbl.GetNetworkId := CallbackCreate(ObjBindMethod(implObj, "GetNetworkId"), flags, 2)
+        this.vtbl.GetDomainType := CallbackCreate(ObjBindMethod(implObj, "GetDomainType"), flags, 2)
+        this.vtbl.GetNetworkConnections := CallbackCreate(ObjBindMethod(implObj, "GetNetworkConnections"), flags, 2)
+        this.vtbl.GetTimeCreatedAndConnected := CallbackCreate(ObjBindMethod(implObj, "GetTimeCreatedAndConnected"), flags, 5)
+        this.vtbl.get_IsConnectedToInternet := CallbackCreate(ObjBindMethod(implObj, "get_IsConnectedToInternet"), flags, 2)
+        this.vtbl.get_IsConnected := CallbackCreate(ObjBindMethod(implObj, "get_IsConnected"), flags, 2)
+        this.vtbl.GetConnectivity := CallbackCreate(ObjBindMethod(implObj, "GetConnectivity"), flags, 2)
+        this.vtbl.GetCategory := CallbackCreate(ObjBindMethod(implObj, "GetCategory"), flags, 2)
+        this.vtbl.SetCategory := CallbackCreate(ObjBindMethod(implObj, "SetCategory"), flags, 2)
     }
 
     Dispose() {

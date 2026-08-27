@@ -76,8 +76,8 @@ export default struct IDisplayPathInterop extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateSourcePresentationHandle := CallbackCreate(GetMethod(implObj, "CreateSourcePresentationHandle"), flags, 2)
-        this.vtbl.GetSourceId := CallbackCreate(GetMethod(implObj, "GetSourceId"), flags, 2)
+        this.vtbl.CreateSourcePresentationHandle := CallbackCreate(ObjBindMethod(implObj, "CreateSourcePresentationHandle"), flags, 2)
+        this.vtbl.GetSourceId := CallbackCreate(ObjBindMethod(implObj, "GetSourceId"), flags, 2)
     }
 
     Dispose() {

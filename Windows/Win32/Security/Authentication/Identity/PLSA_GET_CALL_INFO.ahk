@@ -20,7 +20,6 @@ export default struct PLSA_GET_CALL_INFO {
     }
 
     /**
-     * 
      * @param {Pointer<SECPKG_CALL_INFO>} Info 
      * @returns {BOOLEAN} 
      */

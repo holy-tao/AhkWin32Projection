@@ -23,7 +23,6 @@ export default struct SHOWHTMLDIALOGEXFN {
     }
 
     /**
-     * 
      * @param {HWND} hwndParent 
      * @param {IMoniker} pmk 
      * @param {Integer} dwDialogFlags 

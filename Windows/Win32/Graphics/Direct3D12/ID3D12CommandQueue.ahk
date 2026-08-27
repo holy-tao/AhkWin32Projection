@@ -121,11 +121,17 @@ export default struct ID3D12CommandQueue extends ID3D12Pageable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-updatetilemappings
      */
     UpdateTileMappings(pResource, NumResourceRegions, pResourceRegionStartCoordinates, pResourceRegionSizes, pHeap, NumRanges, pRangeFlags, pHeapRangeStartOffsets, pRangeTileCounts, Flags) {
-        pRangeFlagsMarshal := pRangeFlags is VarRef ? "int*" : "ptr"
-        pHeapRangeStartOffsetsMarshal := pHeapRangeStartOffsets is VarRef ? "uint*" : "ptr"
-        pRangeTileCountsMarshal := pRangeTileCounts is VarRef ? "uint*" : "ptr"
+        pResourceRegionStartCoordinatesMarshal := pResourceRegionStartCoordinates == 0 ? IntPtr : D3D12_TILED_RESOURCE_COORDINATE.Ptr
+        pResourceRegionSizesMarshal := pResourceRegionSizes == 0 ? IntPtr : D3D12_TILE_REGION_SIZE.Ptr
+        pHeapMarshal := pHeap == 0 ? IntPtr : "ptr"
+        pRangeFlagsMarshal := pRangeFlags is VarRef ? "int*" : IntPtr
+        pRangeFlagsMarshal := pRangeFlags == 0 ? IntPtr : "int*"
+        pHeapRangeStartOffsetsMarshal := pHeapRangeStartOffsets is VarRef ? "uint*" : IntPtr
+        pHeapRangeStartOffsetsMarshal := pHeapRangeStartOffsets == 0 ? IntPtr : "uint*"
+        pRangeTileCountsMarshal := pRangeTileCounts is VarRef ? "uint*" : IntPtr
+        pRangeTileCountsMarshal := pRangeTileCounts == 0 ? IntPtr : "uint*"
 
-        ComCall(8, this, "ptr", pResource, UInt32, NumResourceRegions, D3D12_TILED_RESOURCE_COORDINATE.Ptr, pResourceRegionStartCoordinates, D3D12_TILE_REGION_SIZE.Ptr, pResourceRegionSizes, "ptr", pHeap, UInt32, NumRanges, pRangeFlagsMarshal, pRangeFlags, pHeapRangeStartOffsetsMarshal, pHeapRangeStartOffsets, pRangeTileCountsMarshal, pRangeTileCounts, D3D12_TILE_MAPPING_FLAGS, Flags)
+        ComCall(8, this, "ptr", pResource, UInt32, NumResourceRegions, pResourceRegionStartCoordinatesMarshal, pResourceRegionStartCoordinates, pResourceRegionSizesMarshal, pResourceRegionSizes, pHeapMarshal, pHeap, UInt32, NumRanges, pRangeFlagsMarshal, pRangeFlags, pHeapRangeStartOffsetsMarshal, pHeapRangeStartOffsets, pRangeTileCountsMarshal, pRangeTileCounts, D3D12_TILE_MAPPING_FLAGS, Flags)
     }
 
     /**
@@ -189,7 +195,9 @@ export default struct ID3D12CommandQueue extends ID3D12Pageable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-setmarker
      */
     SetMarker(Metadata, pData, _Size) {
-        ComCall(11, this, UInt32, Metadata, IntPtr, pData, UInt32, _Size)
+        pDataMarshal := pData == 0 ? IntPtr : IntPtr
+
+        ComCall(11, this, UInt32, Metadata, pDataMarshal, pData, UInt32, _Size)
     }
 
     /**
@@ -211,7 +219,9 @@ export default struct ID3D12CommandQueue extends ID3D12Pageable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-beginevent
      */
     BeginEvent(Metadata, pData, _Size) {
-        ComCall(12, this, UInt32, Metadata, IntPtr, pData, UInt32, _Size)
+        pDataMarshal := pData == 0 ? IntPtr : IntPtr
+
+        ComCall(12, this, UInt32, Metadata, pDataMarshal, pData, UInt32, _Size)
     }
 
     /**
@@ -299,8 +309,8 @@ export default struct ID3D12CommandQueue extends ID3D12Pageable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-getclockcalibration
      */
     GetClockCalibration(pGpuTimestamp, pCpuTimestamp) {
-        pGpuTimestampMarshal := pGpuTimestamp is VarRef ? "uint*" : "ptr"
-        pCpuTimestampMarshal := pCpuTimestamp is VarRef ? "uint*" : "ptr"
+        pGpuTimestampMarshal := pGpuTimestamp is VarRef ? "uint*" : IntPtr
+        pCpuTimestampMarshal := pCpuTimestamp is VarRef ? "uint*" : IntPtr
 
         result := ComCall(17, this, pGpuTimestampMarshal, pGpuTimestamp, pCpuTimestampMarshal, pCpuTimestamp, "HRESULT")
         return result
@@ -327,17 +337,17 @@ export default struct ID3D12CommandQueue extends ID3D12Pageable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.UpdateTileMappings := CallbackCreate(GetMethod(implObj, "UpdateTileMappings"), flags, 11)
-        this.vtbl.CopyTileMappings := CallbackCreate(GetMethod(implObj, "CopyTileMappings"), flags, 7)
-        this.vtbl.ExecuteCommandLists := CallbackCreate(GetMethod(implObj, "ExecuteCommandLists"), flags, 3)
-        this.vtbl.SetMarker := CallbackCreate(GetMethod(implObj, "SetMarker"), flags, 4)
-        this.vtbl.BeginEvent := CallbackCreate(GetMethod(implObj, "BeginEvent"), flags, 4)
-        this.vtbl.EndEvent := CallbackCreate(GetMethod(implObj, "EndEvent"), flags, 1)
-        this.vtbl.Signal := CallbackCreate(GetMethod(implObj, "Signal"), flags, 3)
-        this.vtbl.Wait := CallbackCreate(GetMethod(implObj, "Wait"), flags, 3)
-        this.vtbl.GetTimestampFrequency := CallbackCreate(GetMethod(implObj, "GetTimestampFrequency"), flags, 2)
-        this.vtbl.GetClockCalibration := CallbackCreate(GetMethod(implObj, "GetClockCalibration"), flags, 3)
-        this.vtbl.GetDesc := CallbackCreate(GetMethod(implObj, "GetDesc"), flags, 1)
+        this.vtbl.UpdateTileMappings := CallbackCreate(ObjBindMethod(implObj, "UpdateTileMappings"), flags, 11)
+        this.vtbl.CopyTileMappings := CallbackCreate(ObjBindMethod(implObj, "CopyTileMappings"), flags, 7)
+        this.vtbl.ExecuteCommandLists := CallbackCreate(ObjBindMethod(implObj, "ExecuteCommandLists"), flags, 3)
+        this.vtbl.SetMarker := CallbackCreate(ObjBindMethod(implObj, "SetMarker"), flags, 4)
+        this.vtbl.BeginEvent := CallbackCreate(ObjBindMethod(implObj, "BeginEvent"), flags, 4)
+        this.vtbl.EndEvent := CallbackCreate(ObjBindMethod(implObj, "EndEvent"), flags, 1)
+        this.vtbl.Signal := CallbackCreate(ObjBindMethod(implObj, "Signal"), flags, 3)
+        this.vtbl.Wait := CallbackCreate(ObjBindMethod(implObj, "Wait"), flags, 3)
+        this.vtbl.GetTimestampFrequency := CallbackCreate(ObjBindMethod(implObj, "GetTimestampFrequency"), flags, 2)
+        this.vtbl.GetClockCalibration := CallbackCreate(ObjBindMethod(implObj, "GetClockCalibration"), flags, 3)
+        this.vtbl.GetDesc := CallbackCreate(ObjBindMethod(implObj, "GetDesc"), flags, 1)
     }
 
     Dispose() {

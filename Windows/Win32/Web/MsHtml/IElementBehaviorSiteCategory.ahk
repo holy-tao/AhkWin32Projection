@@ -38,7 +38,6 @@ export default struct IElementBehaviorSiteCategory extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lDirection 
      * @param {PWSTR} pchCategory 
      * @returns {IEnumUnknown} 
@@ -59,7 +58,7 @@ export default struct IElementBehaviorSiteCategory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRelatedBehaviors := CallbackCreate(GetMethod(implObj, "GetRelatedBehaviors"), flags, 4)
+        this.vtbl.GetRelatedBehaviors := CallbackCreate(ObjBindMethod(implObj, "GetRelatedBehaviors"), flags, 4)
     }
 
     Dispose() {

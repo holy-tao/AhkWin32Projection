@@ -103,9 +103,9 @@ export default struct IUIAutomationPropertyCondition extends IUIAutomationCondit
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_PropertyId := CallbackCreate(GetMethod(implObj, "get_PropertyId"), flags, 2)
-        this.vtbl.get_PropertyValue := CallbackCreate(GetMethod(implObj, "get_PropertyValue"), flags, 2)
-        this.vtbl.get_PropertyConditionFlags := CallbackCreate(GetMethod(implObj, "get_PropertyConditionFlags"), flags, 2)
+        this.vtbl.get_PropertyId := CallbackCreate(ObjBindMethod(implObj, "get_PropertyId"), flags, 2)
+        this.vtbl.get_PropertyValue := CallbackCreate(ObjBindMethod(implObj, "get_PropertyValue"), flags, 2)
+        this.vtbl.get_PropertyConditionFlags := CallbackCreate(ObjBindMethod(implObj, "get_PropertyConditionFlags"), flags, 2)
     }
 
     Dispose() {

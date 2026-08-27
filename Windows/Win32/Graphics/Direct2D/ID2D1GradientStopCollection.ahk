@@ -109,10 +109,10 @@ export default struct ID2D1GradientStopCollection extends ID2D1Resource {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetGradientStopCount := CallbackCreate(GetMethod(implObj, "GetGradientStopCount"), flags, 1)
-        this.vtbl.GetGradientStops := CallbackCreate(GetMethod(implObj, "GetGradientStops"), flags, 3)
-        this.vtbl.GetColorInterpolationGamma := CallbackCreate(GetMethod(implObj, "GetColorInterpolationGamma"), flags, 1)
-        this.vtbl.GetExtendMode := CallbackCreate(GetMethod(implObj, "GetExtendMode"), flags, 1)
+        this.vtbl.GetGradientStopCount := CallbackCreate(ObjBindMethod(implObj, "GetGradientStopCount"), flags, 1)
+        this.vtbl.GetGradientStops := CallbackCreate(ObjBindMethod(implObj, "GetGradientStops"), flags, 3)
+        this.vtbl.GetColorInterpolationGamma := CallbackCreate(ObjBindMethod(implObj, "GetColorInterpolationGamma"), flags, 1)
+        this.vtbl.GetExtendMode := CallbackCreate(ObjBindMethod(implObj, "GetExtendMode"), flags, 1)
     }
 
     Dispose() {

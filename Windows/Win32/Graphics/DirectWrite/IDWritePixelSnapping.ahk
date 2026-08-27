@@ -42,12 +42,12 @@ export default struct IDWritePixelSnapping extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} clientDrawingContext 
      * @returns {BOOL} 
      */
     IsPixelSnappingDisabled(clientDrawingContext) {
-        clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
+        clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : IntPtr
+        clientDrawingContextMarshal := clientDrawingContext == 0 ? IntPtr : "ptr"
 
         result := ComCall(3, this, clientDrawingContextMarshal, clientDrawingContext, BOOL.Ptr, &isDisabled := 0, "HRESULT")
         return isDisabled
@@ -64,7 +64,8 @@ export default struct IDWritePixelSnapping extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritepixelsnapping-getcurrenttransform
      */
     GetCurrentTransform(clientDrawingContext) {
-        clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
+        clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : IntPtr
+        clientDrawingContextMarshal := clientDrawingContext == 0 ? IntPtr : "ptr"
 
         transform := DWRITE_MATRIX()
         result := ComCall(4, this, clientDrawingContextMarshal, clientDrawingContext, DWRITE_MATRIX.Ptr, transform, "HRESULT")
@@ -85,7 +86,8 @@ export default struct IDWritePixelSnapping extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritepixelsnapping-getpixelsperdip
      */
     GetPixelsPerDip(clientDrawingContext) {
-        clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
+        clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : IntPtr
+        clientDrawingContextMarshal := clientDrawingContext == 0 ? IntPtr : "ptr"
 
         result := ComCall(5, this, clientDrawingContextMarshal, clientDrawingContext, "float*", &pixelsPerDip := 0, "HRESULT")
         return pixelsPerDip
@@ -100,9 +102,9 @@ export default struct IDWritePixelSnapping extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsPixelSnappingDisabled := CallbackCreate(GetMethod(implObj, "IsPixelSnappingDisabled"), flags, 3)
-        this.vtbl.GetCurrentTransform := CallbackCreate(GetMethod(implObj, "GetCurrentTransform"), flags, 3)
-        this.vtbl.GetPixelsPerDip := CallbackCreate(GetMethod(implObj, "GetPixelsPerDip"), flags, 3)
+        this.vtbl.IsPixelSnappingDisabled := CallbackCreate(ObjBindMethod(implObj, "IsPixelSnappingDisabled"), flags, 3)
+        this.vtbl.GetCurrentTransform := CallbackCreate(ObjBindMethod(implObj, "GetCurrentTransform"), flags, 3)
+        this.vtbl.GetPixelsPerDip := CallbackCreate(ObjBindMethod(implObj, "GetPixelsPerDip"), flags, 3)
     }
 
     Dispose() {

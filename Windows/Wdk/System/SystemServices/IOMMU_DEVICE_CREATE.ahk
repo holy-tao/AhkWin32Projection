@@ -22,16 +22,16 @@ export default struct IOMMU_DEVICE_CREATE {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<IOMMU_DEVICE_CREATION_CONFIGURATION>} DeviceConfig 
      * @param {Pointer<Pointer<IOMMU_DMA_DEVICE>>} DmaDeviceOut 
      * @returns {NTSTATUS} 
      */
     Call(DeviceObject, DeviceConfig, DmaDeviceOut) {
-        DmaDeviceOutMarshal := DmaDeviceOut is VarRef ? "ptr*" : "ptr"
+        DeviceConfigMarshal := DeviceConfig == 0 ? IntPtr : IOMMU_DEVICE_CREATION_CONFIGURATION.Ptr
+        DmaDeviceOutMarshal := DmaDeviceOut is VarRef ? "ptr*" : IntPtr
 
-        result := DllCall(this.value, DEVICE_OBJECT.Ptr, DeviceObject, IOMMU_DEVICE_CREATION_CONFIGURATION.Ptr, DeviceConfig, DmaDeviceOutMarshal, DmaDeviceOut, NTSTATUS)
+        result := DllCall(this.value, DEVICE_OBJECT.Ptr, DeviceObject, DeviceConfigMarshal, DeviceConfig, DmaDeviceOutMarshal, DmaDeviceOut, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

@@ -87,7 +87,7 @@ export default struct IUIContextualUI extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ShowAtLocation := CallbackCreate(GetMethod(implObj, "ShowAtLocation"), flags, 3)
+        this.vtbl.ShowAtLocation := CallbackCreate(ObjBindMethod(implObj, "ShowAtLocation"), flags, 3)
     }
 
     Dispose() {

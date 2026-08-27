@@ -38,7 +38,6 @@ export default struct IMonikerProp extends IUnknown {
     }
 
     /**
-     * 
      * @param {MONIKERPROPERTY} mkp 
      * @param {PWSTR} _val 
      * @returns {HRESULT} 
@@ -59,7 +58,7 @@ export default struct IMonikerProp extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PutProperty := CallbackCreate(GetMethod(implObj, "PutProperty"), flags, 3)
+        this.vtbl.PutProperty := CallbackCreate(ObjBindMethod(implObj, "PutProperty"), flags, 3)
     }
 
     Dispose() {

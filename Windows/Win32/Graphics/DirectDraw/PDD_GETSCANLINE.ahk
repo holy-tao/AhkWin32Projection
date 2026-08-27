@@ -25,7 +25,6 @@ export default struct PDD_GETSCANLINE {
     }
 
     /**
-     * 
      * @param {Pointer<DD_GETSCANLINEDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_getscanlinedata">DD_GETSCANLINEDATA</a> structure in which the driver returns the number of the current scan line.
      * @returns {Integer} <i>DdGetScanLine</i> returns one of the following callback codes:
      */

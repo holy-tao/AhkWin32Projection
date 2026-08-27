@@ -56,7 +56,7 @@ export default struct IInkCommitRequestHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnCommitRequested := CallbackCreate(GetMethod(implObj, "OnCommitRequested"), flags, 1)
+        this.vtbl.OnCommitRequested := CallbackCreate(ObjBindMethod(implObj, "OnCommitRequested"), flags, 1)
     }
 
     Dispose() {

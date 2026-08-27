@@ -40,20 +40,18 @@ export default struct IDebugDocumentTextExternalAuthor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrLongName 
      * @param {Pointer<BOOL>} pfIsOriginalFile 
      * @returns {HRESULT} 
      */
     GetPathName(pbstrLongName, pfIsOriginalFile) {
-        pfIsOriginalFileMarshal := pfIsOriginalFile is VarRef ? "int*" : "ptr"
+        pfIsOriginalFileMarshal := pfIsOriginalFile is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, BSTR.Ptr, pbstrLongName, pfIsOriginalFileMarshal, pfIsOriginalFile, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetFileName() {
@@ -63,7 +61,6 @@ export default struct IDebugDocumentTextExternalAuthor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     NotifyChanged() {
@@ -80,9 +77,9 @@ export default struct IDebugDocumentTextExternalAuthor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPathName := CallbackCreate(GetMethod(implObj, "GetPathName"), flags, 3)
-        this.vtbl.GetFileName := CallbackCreate(GetMethod(implObj, "GetFileName"), flags, 2)
-        this.vtbl.NotifyChanged := CallbackCreate(GetMethod(implObj, "NotifyChanged"), flags, 1)
+        this.vtbl.GetPathName := CallbackCreate(ObjBindMethod(implObj, "GetPathName"), flags, 3)
+        this.vtbl.GetFileName := CallbackCreate(ObjBindMethod(implObj, "GetFileName"), flags, 2)
+        this.vtbl.NotifyChanged := CallbackCreate(ObjBindMethod(implObj, "NotifyChanged"), flags, 1)
     }
 
     Dispose() {

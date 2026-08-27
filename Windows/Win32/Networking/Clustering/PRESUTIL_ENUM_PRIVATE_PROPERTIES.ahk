@@ -19,7 +19,6 @@ export default struct PRESUTIL_ENUM_PRIVATE_PROPERTIES {
     }
 
     /**
-     * 
      * @param {HKEY} hkeyClusterKey 
      * @param {Integer} pszOutProperties 
      * @param {Integer} cbOutPropertiesSize 
@@ -28,8 +27,8 @@ export default struct PRESUTIL_ENUM_PRIVATE_PROPERTIES {
      * @returns {Integer} 
      */
     Call(hkeyClusterKey, pszOutProperties, cbOutPropertiesSize, pcbBytesReturned, pcbRequired) {
-        pcbBytesReturnedMarshal := pcbBytesReturned is VarRef ? "uint*" : "ptr"
-        pcbRequiredMarshal := pcbRequired is VarRef ? "uint*" : "ptr"
+        pcbBytesReturnedMarshal := pcbBytesReturned is VarRef ? "uint*" : IntPtr
+        pcbRequiredMarshal := pcbRequired is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HKEY, hkeyClusterKey, IntPtr, pszOutProperties, UInt32, cbOutPropertiesSize, pcbBytesReturnedMarshal, pcbBytesReturned, pcbRequiredMarshal, pcbRequired, UInt32)
         return result

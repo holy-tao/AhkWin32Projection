@@ -233,7 +233,6 @@ export default struct IMSVidWebDVDAdm extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DefaultAudioLCID() {
@@ -242,7 +241,6 @@ export default struct IMSVidWebDVDAdm extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} newVal 
      * @returns {HRESULT} 
      */
@@ -252,7 +250,6 @@ export default struct IMSVidWebDVDAdm extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DefaultSubpictureLCID() {
@@ -261,7 +258,6 @@ export default struct IMSVidWebDVDAdm extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} newVal 
      * @returns {HRESULT} 
      */
@@ -271,7 +267,6 @@ export default struct IMSVidWebDVDAdm extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DefaultMenuLCID() {
@@ -280,7 +275,6 @@ export default struct IMSVidWebDVDAdm extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} newVal 
      * @returns {HRESULT} 
      */
@@ -290,7 +284,6 @@ export default struct IMSVidWebDVDAdm extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_BookmarkOnStop() {
@@ -299,7 +292,6 @@ export default struct IMSVidWebDVDAdm extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} newVal 
      * @returns {HRESULT} 
      */
@@ -317,20 +309,20 @@ export default struct IMSVidWebDVDAdm extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ChangePassword := CallbackCreate(GetMethod(implObj, "ChangePassword"), flags, 4)
-        this.vtbl.SaveParentalLevel := CallbackCreate(GetMethod(implObj, "SaveParentalLevel"), flags, 4)
-        this.vtbl.SaveParentalCountry := CallbackCreate(GetMethod(implObj, "SaveParentalCountry"), flags, 4)
-        this.vtbl.ConfirmPassword := CallbackCreate(GetMethod(implObj, "ConfirmPassword"), flags, 4)
-        this.vtbl.GetParentalLevel := CallbackCreate(GetMethod(implObj, "GetParentalLevel"), flags, 2)
-        this.vtbl.GetParentalCountry := CallbackCreate(GetMethod(implObj, "GetParentalCountry"), flags, 2)
-        this.vtbl.get_DefaultAudioLCID := CallbackCreate(GetMethod(implObj, "get_DefaultAudioLCID"), flags, 2)
-        this.vtbl.put_DefaultAudioLCID := CallbackCreate(GetMethod(implObj, "put_DefaultAudioLCID"), flags, 2)
-        this.vtbl.get_DefaultSubpictureLCID := CallbackCreate(GetMethod(implObj, "get_DefaultSubpictureLCID"), flags, 2)
-        this.vtbl.put_DefaultSubpictureLCID := CallbackCreate(GetMethod(implObj, "put_DefaultSubpictureLCID"), flags, 2)
-        this.vtbl.get_DefaultMenuLCID := CallbackCreate(GetMethod(implObj, "get_DefaultMenuLCID"), flags, 2)
-        this.vtbl.put_DefaultMenuLCID := CallbackCreate(GetMethod(implObj, "put_DefaultMenuLCID"), flags, 2)
-        this.vtbl.get_BookmarkOnStop := CallbackCreate(GetMethod(implObj, "get_BookmarkOnStop"), flags, 2)
-        this.vtbl.put_BookmarkOnStop := CallbackCreate(GetMethod(implObj, "put_BookmarkOnStop"), flags, 2)
+        this.vtbl.ChangePassword := CallbackCreate(ObjBindMethod(implObj, "ChangePassword"), flags, 4)
+        this.vtbl.SaveParentalLevel := CallbackCreate(ObjBindMethod(implObj, "SaveParentalLevel"), flags, 4)
+        this.vtbl.SaveParentalCountry := CallbackCreate(ObjBindMethod(implObj, "SaveParentalCountry"), flags, 4)
+        this.vtbl.ConfirmPassword := CallbackCreate(ObjBindMethod(implObj, "ConfirmPassword"), flags, 4)
+        this.vtbl.GetParentalLevel := CallbackCreate(ObjBindMethod(implObj, "GetParentalLevel"), flags, 2)
+        this.vtbl.GetParentalCountry := CallbackCreate(ObjBindMethod(implObj, "GetParentalCountry"), flags, 2)
+        this.vtbl.get_DefaultAudioLCID := CallbackCreate(ObjBindMethod(implObj, "get_DefaultAudioLCID"), flags, 2)
+        this.vtbl.put_DefaultAudioLCID := CallbackCreate(ObjBindMethod(implObj, "put_DefaultAudioLCID"), flags, 2)
+        this.vtbl.get_DefaultSubpictureLCID := CallbackCreate(ObjBindMethod(implObj, "get_DefaultSubpictureLCID"), flags, 2)
+        this.vtbl.put_DefaultSubpictureLCID := CallbackCreate(ObjBindMethod(implObj, "put_DefaultSubpictureLCID"), flags, 2)
+        this.vtbl.get_DefaultMenuLCID := CallbackCreate(ObjBindMethod(implObj, "get_DefaultMenuLCID"), flags, 2)
+        this.vtbl.put_DefaultMenuLCID := CallbackCreate(ObjBindMethod(implObj, "put_DefaultMenuLCID"), flags, 2)
+        this.vtbl.get_BookmarkOnStop := CallbackCreate(ObjBindMethod(implObj, "get_BookmarkOnStop"), flags, 2)
+        this.vtbl.put_BookmarkOnStop := CallbackCreate(ObjBindMethod(implObj, "put_BookmarkOnStop"), flags, 2)
     }
 
     Dispose() {

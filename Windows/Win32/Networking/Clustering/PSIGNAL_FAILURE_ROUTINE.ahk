@@ -21,7 +21,6 @@ export default struct PSIGNAL_FAILURE_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer} ResourceHandle A handle to the resource instance.
      * @param {FAILURE_TYPE} FailureType A <a href="https://docs.microsoft.com/windows/desktop/api/resapi/ne-resapi-failure_type">FAILURE_TYPE</a> enumeration value that describes the failure type.
      * 

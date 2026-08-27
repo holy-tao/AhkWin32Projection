@@ -62,7 +62,7 @@ export default struct IInkD2DRenderer2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Draw := CallbackCreate(GetMethod(implObj, "Draw"), flags, 4)
+        this.vtbl.Draw := CallbackCreate(ObjBindMethod(implObj, "Draw"), flags, 4)
     }
 
     Dispose() {

@@ -72,7 +72,7 @@ export default struct ITSGAuthorizeResourceSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnChannelAuthorized := CallbackCreate(GetMethod(implObj, "OnChannelAuthorized"), flags, 8)
+        this.vtbl.OnChannelAuthorized := CallbackCreate(ObjBindMethod(implObj, "OnChannelAuthorized"), flags, 8)
     }
 
     Dispose() {

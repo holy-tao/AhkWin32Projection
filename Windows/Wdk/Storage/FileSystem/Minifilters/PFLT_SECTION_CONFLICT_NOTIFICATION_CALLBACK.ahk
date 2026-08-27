@@ -22,7 +22,6 @@ export default struct PFLT_SECTION_CONFLICT_NOTIFICATION_CALLBACK {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {PFLT_CONTEXT} SectionContext 
      * @param {Pointer<FLT_CALLBACK_DATA>} Data 

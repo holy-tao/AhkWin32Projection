@@ -40,7 +40,6 @@ export default struct IHTMLSelectElementEx extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fShow 
      * @returns {HRESULT} 
      */
@@ -50,7 +49,6 @@ export default struct IHTMLSelectElementEx extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lFlags 
      * @returns {HRESULT} 
      */
@@ -60,7 +58,6 @@ export default struct IHTMLSelectElementEx extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetSelectExFlags() {
@@ -69,7 +66,6 @@ export default struct IHTMLSelectElementEx extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetDropdownOpen() {
@@ -86,10 +82,10 @@ export default struct IHTMLSelectElementEx extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ShowDropdown := CallbackCreate(GetMethod(implObj, "ShowDropdown"), flags, 2)
-        this.vtbl.SetSelectExFlags := CallbackCreate(GetMethod(implObj, "SetSelectExFlags"), flags, 2)
-        this.vtbl.GetSelectExFlags := CallbackCreate(GetMethod(implObj, "GetSelectExFlags"), flags, 2)
-        this.vtbl.GetDropdownOpen := CallbackCreate(GetMethod(implObj, "GetDropdownOpen"), flags, 2)
+        this.vtbl.ShowDropdown := CallbackCreate(ObjBindMethod(implObj, "ShowDropdown"), flags, 2)
+        this.vtbl.SetSelectExFlags := CallbackCreate(ObjBindMethod(implObj, "SetSelectExFlags"), flags, 2)
+        this.vtbl.GetSelectExFlags := CallbackCreate(ObjBindMethod(implObj, "GetSelectExFlags"), flags, 2)
+        this.vtbl.GetDropdownOpen := CallbackCreate(ObjBindMethod(implObj, "GetDropdownOpen"), flags, 2)
     }
 
     Dispose() {

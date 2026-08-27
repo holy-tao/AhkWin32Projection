@@ -259,15 +259,15 @@ export default struct IUIAutomation6 extends IUIAutomation5 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateEventHandlerGroup := CallbackCreate(GetMethod(implObj, "CreateEventHandlerGroup"), flags, 2)
-        this.vtbl.AddEventHandlerGroup := CallbackCreate(GetMethod(implObj, "AddEventHandlerGroup"), flags, 3)
-        this.vtbl.RemoveEventHandlerGroup := CallbackCreate(GetMethod(implObj, "RemoveEventHandlerGroup"), flags, 3)
-        this.vtbl.get_ConnectionRecoveryBehavior := CallbackCreate(GetMethod(implObj, "get_ConnectionRecoveryBehavior"), flags, 2)
-        this.vtbl.put_ConnectionRecoveryBehavior := CallbackCreate(GetMethod(implObj, "put_ConnectionRecoveryBehavior"), flags, 2)
-        this.vtbl.get_CoalesceEvents := CallbackCreate(GetMethod(implObj, "get_CoalesceEvents"), flags, 2)
-        this.vtbl.put_CoalesceEvents := CallbackCreate(GetMethod(implObj, "put_CoalesceEvents"), flags, 2)
-        this.vtbl.AddActiveTextPositionChangedEventHandler := CallbackCreate(GetMethod(implObj, "AddActiveTextPositionChangedEventHandler"), flags, 5)
-        this.vtbl.RemoveActiveTextPositionChangedEventHandler := CallbackCreate(GetMethod(implObj, "RemoveActiveTextPositionChangedEventHandler"), flags, 3)
+        this.vtbl.CreateEventHandlerGroup := CallbackCreate(ObjBindMethod(implObj, "CreateEventHandlerGroup"), flags, 2)
+        this.vtbl.AddEventHandlerGroup := CallbackCreate(ObjBindMethod(implObj, "AddEventHandlerGroup"), flags, 3)
+        this.vtbl.RemoveEventHandlerGroup := CallbackCreate(ObjBindMethod(implObj, "RemoveEventHandlerGroup"), flags, 3)
+        this.vtbl.get_ConnectionRecoveryBehavior := CallbackCreate(ObjBindMethod(implObj, "get_ConnectionRecoveryBehavior"), flags, 2)
+        this.vtbl.put_ConnectionRecoveryBehavior := CallbackCreate(ObjBindMethod(implObj, "put_ConnectionRecoveryBehavior"), flags, 2)
+        this.vtbl.get_CoalesceEvents := CallbackCreate(ObjBindMethod(implObj, "get_CoalesceEvents"), flags, 2)
+        this.vtbl.put_CoalesceEvents := CallbackCreate(ObjBindMethod(implObj, "put_CoalesceEvents"), flags, 2)
+        this.vtbl.AddActiveTextPositionChangedEventHandler := CallbackCreate(ObjBindMethod(implObj, "AddActiveTextPositionChangedEventHandler"), flags, 5)
+        this.vtbl.RemoveActiveTextPositionChangedEventHandler := CallbackCreate(ObjBindMethod(implObj, "RemoveActiveTextPositionChangedEventHandler"), flags, 3)
     }
 
     Dispose() {

@@ -60,7 +60,6 @@ export default struct IDOMMSTransitionEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_propertyName() {
@@ -70,7 +69,6 @@ export default struct IDOMMSTransitionEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_elapsedTime() {
@@ -79,7 +77,6 @@ export default struct IDOMMSTransitionEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 
@@ -104,9 +101,9 @@ export default struct IDOMMSTransitionEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_propertyName := CallbackCreate(GetMethod(implObj, "get_propertyName"), flags, 2)
-        this.vtbl.get_elapsedTime := CallbackCreate(GetMethod(implObj, "get_elapsedTime"), flags, 2)
-        this.vtbl.initMSTransitionEvent := CallbackCreate(GetMethod(implObj, "initMSTransitionEvent"), flags, 6)
+        this.vtbl.get_propertyName := CallbackCreate(ObjBindMethod(implObj, "get_propertyName"), flags, 2)
+        this.vtbl.get_elapsedTime := CallbackCreate(ObjBindMethod(implObj, "get_elapsedTime"), flags, 2)
+        this.vtbl.initMSTransitionEvent := CallbackCreate(ObjBindMethod(implObj, "initMSTransitionEvent"), flags, 6)
     }
 
     Dispose() {

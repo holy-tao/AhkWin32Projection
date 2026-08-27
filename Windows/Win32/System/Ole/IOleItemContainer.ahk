@@ -157,9 +157,9 @@ export default struct IOleItemContainer extends IOleContainer {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetObject := CallbackCreate(GetMethod(implObj, "GetObject"), flags, 6)
-        this.vtbl.GetObjectStorage := CallbackCreate(GetMethod(implObj, "GetObjectStorage"), flags, 5)
-        this.vtbl.IsRunning := CallbackCreate(GetMethod(implObj, "IsRunning"), flags, 2)
+        this.vtbl.GetObject := CallbackCreate(ObjBindMethod(implObj, "GetObject"), flags, 6)
+        this.vtbl.GetObjectStorage := CallbackCreate(ObjBindMethod(implObj, "GetObjectStorage"), flags, 5)
+        this.vtbl.IsRunning := CallbackCreate(ObjBindMethod(implObj, "IsRunning"), flags, 2)
     }
 
     Dispose() {

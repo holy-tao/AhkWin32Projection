@@ -25,7 +25,6 @@ export default struct PIBIO_SENSOR_EXPORT_SENSOR_DATA_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/ns-winbio_adapter-winbio_pipeline">WINBIO_PIPELINE</a> structure associated with the biometric unit performing the operation.
      * @param {Pointer<Pointer<WINBIO_BIR>>} SampleBuffer Address of a variable that receives a pointer to a <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-bir">WINBIO_BIR</a> structure that contains the sample.
      * @param {Pointer<Pointer>} SampleSize Pointer to a variable that receives the size, in bytes, of the buffer specified by the <i>SampleBuffer</i> parameter.
@@ -94,8 +93,8 @@ export default struct PIBIO_SENSOR_EXPORT_SENSOR_DATA_FN {
      * </table>
      */
     Call(Pipeline, SampleBuffer, SampleSize) {
-        SampleBufferMarshal := SampleBuffer is VarRef ? "ptr*" : "ptr"
-        SampleSizeMarshal := SampleSize is VarRef ? "ptr*" : "ptr"
+        SampleBufferMarshal := SampleBuffer is VarRef ? "ptr*" : IntPtr
+        SampleSizeMarshal := SampleSize is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, WINBIO_PIPELINE.Ptr, Pipeline, SampleBufferMarshal, SampleBuffer, SampleSizeMarshal, SampleSize, "HRESULT")
         return result

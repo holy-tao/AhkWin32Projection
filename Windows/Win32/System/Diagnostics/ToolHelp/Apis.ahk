@@ -187,9 +187,9 @@ export Heap32Next(lphe) {
  * @since windows5.1.2600
  */
 export Toolhelp32ReadProcessMemory(th32ProcessID, lpBaseAddress, lpBuffer, cbRead, lpNumberOfBytesRead) {
-    lpBaseAddressMarshal := lpBaseAddress is VarRef ? "ptr" : "ptr"
-    lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
-    lpNumberOfBytesReadMarshal := lpNumberOfBytesRead is VarRef ? "ptr*" : "ptr"
+    lpBaseAddressMarshal := lpBaseAddress is VarRef ? "ptr" : IntPtr
+    lpBufferMarshal := lpBuffer is VarRef ? "ptr" : IntPtr
+    lpNumberOfBytesReadMarshal := lpNumberOfBytesRead is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("KERNEL32.dll\Toolhelp32ReadProcessMemory", UInt32, th32ProcessID, lpBaseAddressMarshal, lpBaseAddress, lpBufferMarshal, lpBuffer, IntPtr, cbRead, lpNumberOfBytesReadMarshal, lpNumberOfBytesRead, BOOL)
     return result

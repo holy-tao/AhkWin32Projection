@@ -214,8 +214,8 @@ export default struct IUIAnimationStoryboardEventHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnStoryboardStatusChanged := CallbackCreate(GetMethod(implObj, "OnStoryboardStatusChanged"), flags, 4)
-        this.vtbl.OnStoryboardUpdated := CallbackCreate(GetMethod(implObj, "OnStoryboardUpdated"), flags, 2)
+        this.vtbl.OnStoryboardStatusChanged := CallbackCreate(ObjBindMethod(implObj, "OnStoryboardStatusChanged"), flags, 4)
+        this.vtbl.OnStoryboardUpdated := CallbackCreate(ObjBindMethod(implObj, "OnStoryboardUpdated"), flags, 2)
     }
 
     Dispose() {

@@ -51,7 +51,6 @@ export default struct IScriptErrorList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     advanceError() {
@@ -60,7 +59,6 @@ export default struct IScriptErrorList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     retreatError() {
@@ -69,7 +67,6 @@ export default struct IScriptErrorList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     canAdvanceError() {
@@ -78,7 +75,6 @@ export default struct IScriptErrorList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     canRetreatError() {
@@ -87,7 +83,6 @@ export default struct IScriptErrorList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     getErrorLine() {
@@ -96,7 +91,6 @@ export default struct IScriptErrorList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     getErrorChar() {
@@ -105,7 +99,6 @@ export default struct IScriptErrorList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     getErrorCode() {
@@ -114,7 +107,6 @@ export default struct IScriptErrorList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     getErrorMsg() {
@@ -124,7 +116,6 @@ export default struct IScriptErrorList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     getErrorUrl() {
@@ -134,7 +125,6 @@ export default struct IScriptErrorList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     getAlwaysShowLockState() {
@@ -143,7 +133,6 @@ export default struct IScriptErrorList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     getDetailsPaneOpen() {
@@ -152,7 +141,6 @@ export default struct IScriptErrorList extends IDispatch {
     }
 
     /**
-     * 
      * @param {BOOL} fDetailsPaneOpen 
      * @returns {HRESULT} 
      */
@@ -162,7 +150,6 @@ export default struct IScriptErrorList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     getPerErrorDisplay() {
@@ -171,7 +158,6 @@ export default struct IScriptErrorList extends IDispatch {
     }
 
     /**
-     * 
      * @param {BOOL} fPerErrorDisplay 
      * @returns {HRESULT} 
      */
@@ -189,20 +175,20 @@ export default struct IScriptErrorList extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.advanceError := CallbackCreate(GetMethod(implObj, "advanceError"), flags, 1)
-        this.vtbl.retreatError := CallbackCreate(GetMethod(implObj, "retreatError"), flags, 1)
-        this.vtbl.canAdvanceError := CallbackCreate(GetMethod(implObj, "canAdvanceError"), flags, 2)
-        this.vtbl.canRetreatError := CallbackCreate(GetMethod(implObj, "canRetreatError"), flags, 2)
-        this.vtbl.getErrorLine := CallbackCreate(GetMethod(implObj, "getErrorLine"), flags, 2)
-        this.vtbl.getErrorChar := CallbackCreate(GetMethod(implObj, "getErrorChar"), flags, 2)
-        this.vtbl.getErrorCode := CallbackCreate(GetMethod(implObj, "getErrorCode"), flags, 2)
-        this.vtbl.getErrorMsg := CallbackCreate(GetMethod(implObj, "getErrorMsg"), flags, 2)
-        this.vtbl.getErrorUrl := CallbackCreate(GetMethod(implObj, "getErrorUrl"), flags, 2)
-        this.vtbl.getAlwaysShowLockState := CallbackCreate(GetMethod(implObj, "getAlwaysShowLockState"), flags, 2)
-        this.vtbl.getDetailsPaneOpen := CallbackCreate(GetMethod(implObj, "getDetailsPaneOpen"), flags, 2)
-        this.vtbl.setDetailsPaneOpen := CallbackCreate(GetMethod(implObj, "setDetailsPaneOpen"), flags, 2)
-        this.vtbl.getPerErrorDisplay := CallbackCreate(GetMethod(implObj, "getPerErrorDisplay"), flags, 2)
-        this.vtbl.setPerErrorDisplay := CallbackCreate(GetMethod(implObj, "setPerErrorDisplay"), flags, 2)
+        this.vtbl.advanceError := CallbackCreate(ObjBindMethod(implObj, "advanceError"), flags, 1)
+        this.vtbl.retreatError := CallbackCreate(ObjBindMethod(implObj, "retreatError"), flags, 1)
+        this.vtbl.canAdvanceError := CallbackCreate(ObjBindMethod(implObj, "canAdvanceError"), flags, 2)
+        this.vtbl.canRetreatError := CallbackCreate(ObjBindMethod(implObj, "canRetreatError"), flags, 2)
+        this.vtbl.getErrorLine := CallbackCreate(ObjBindMethod(implObj, "getErrorLine"), flags, 2)
+        this.vtbl.getErrorChar := CallbackCreate(ObjBindMethod(implObj, "getErrorChar"), flags, 2)
+        this.vtbl.getErrorCode := CallbackCreate(ObjBindMethod(implObj, "getErrorCode"), flags, 2)
+        this.vtbl.getErrorMsg := CallbackCreate(ObjBindMethod(implObj, "getErrorMsg"), flags, 2)
+        this.vtbl.getErrorUrl := CallbackCreate(ObjBindMethod(implObj, "getErrorUrl"), flags, 2)
+        this.vtbl.getAlwaysShowLockState := CallbackCreate(ObjBindMethod(implObj, "getAlwaysShowLockState"), flags, 2)
+        this.vtbl.getDetailsPaneOpen := CallbackCreate(ObjBindMethod(implObj, "getDetailsPaneOpen"), flags, 2)
+        this.vtbl.setDetailsPaneOpen := CallbackCreate(ObjBindMethod(implObj, "setDetailsPaneOpen"), flags, 2)
+        this.vtbl.getPerErrorDisplay := CallbackCreate(ObjBindMethod(implObj, "getPerErrorDisplay"), flags, 2)
+        this.vtbl.setPerErrorDisplay := CallbackCreate(ObjBindMethod(implObj, "setPerErrorDisplay"), flags, 2)
     }
 
     Dispose() {

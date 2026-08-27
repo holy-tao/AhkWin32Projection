@@ -56,7 +56,7 @@ export default struct ID2D1ComputeInfo extends ID2D1RenderInfo {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1computeinfo-setcomputeshaderconstantbuffer
      */
     SetComputeShaderConstantBuffer(_buffer, bufferCount) {
-        _bufferMarshal := _buffer is VarRef ? "char*" : "ptr"
+        _bufferMarshal := _buffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(7, this, _bufferMarshal, _buffer, UInt32, bufferCount, "HRESULT")
         return result
@@ -142,9 +142,9 @@ export default struct ID2D1ComputeInfo extends ID2D1RenderInfo {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetComputeShaderConstantBuffer := CallbackCreate(GetMethod(implObj, "SetComputeShaderConstantBuffer"), flags, 3)
-        this.vtbl.SetComputeShader := CallbackCreate(GetMethod(implObj, "SetComputeShader"), flags, 2)
-        this.vtbl.SetResourceTexture := CallbackCreate(GetMethod(implObj, "SetResourceTexture"), flags, 3)
+        this.vtbl.SetComputeShaderConstantBuffer := CallbackCreate(ObjBindMethod(implObj, "SetComputeShaderConstantBuffer"), flags, 3)
+        this.vtbl.SetComputeShader := CallbackCreate(ObjBindMethod(implObj, "SetComputeShader"), flags, 2)
+        this.vtbl.SetResourceTexture := CallbackCreate(ObjBindMethod(implObj, "SetResourceTexture"), flags, 3)
     }
 
     Dispose() {

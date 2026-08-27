@@ -20,7 +20,6 @@ export default struct PFND3DKMT_OPENADAPTERFROMLUID {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_OPENADAPTERFROMLUID>} param0 
      * @returns {NTSTATUS} 
      */

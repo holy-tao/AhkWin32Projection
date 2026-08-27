@@ -90,7 +90,7 @@ export default struct IWMMutualExclusion2 extends IWMMutualExclusion {
     GetName(pwszName, pcchName) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        pcchNameMarshal := pcchName is VarRef ? "ushort*" : "ptr"
+        pcchNameMarshal := pcchName is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(8, this, "ptr", pwszName, pcchNameMarshal, pcchName, "HRESULT")
         return result
@@ -314,7 +314,7 @@ export default struct IWMMutualExclusion2 extends IWMMutualExclusion {
     GetRecordName(wRecordNumber, pwszRecordName, pcchRecordName) {
         pwszRecordName := pwszRecordName is String ? StrPtr(pwszRecordName) : pwszRecordName
 
-        pcchRecordNameMarshal := pcchRecordName is VarRef ? "ushort*" : "ptr"
+        pcchRecordNameMarshal := pcchRecordName is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(13, this, UInt16, wRecordNumber, "ptr", pwszRecordName, pcchRecordNameMarshal, pcchRecordName, "HRESULT")
         return result
@@ -377,7 +377,7 @@ export default struct IWMMutualExclusion2 extends IWMMutualExclusion {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmmutualexclusion2-getstreamsforrecord
      */
     GetStreamsForRecord(wRecordNumber, pcStreams) {
-        pcStreamsMarshal := pcStreams is VarRef ? "ushort*" : "ptr"
+        pcStreamsMarshal := pcStreams is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(15, this, UInt16, wRecordNumber, "ushort*", &pwStreamNumArray := 0, pcStreamsMarshal, pcStreams, "HRESULT")
         return pwStreamNumArray
@@ -522,16 +522,16 @@ export default struct IWMMutualExclusion2 extends IWMMutualExclusion {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 3)
-        this.vtbl.SetName := CallbackCreate(GetMethod(implObj, "SetName"), flags, 2)
-        this.vtbl.GetRecordCount := CallbackCreate(GetMethod(implObj, "GetRecordCount"), flags, 2)
-        this.vtbl.AddRecord := CallbackCreate(GetMethod(implObj, "AddRecord"), flags, 1)
-        this.vtbl.RemoveRecord := CallbackCreate(GetMethod(implObj, "RemoveRecord"), flags, 2)
-        this.vtbl.GetRecordName := CallbackCreate(GetMethod(implObj, "GetRecordName"), flags, 4)
-        this.vtbl.SetRecordName := CallbackCreate(GetMethod(implObj, "SetRecordName"), flags, 3)
-        this.vtbl.GetStreamsForRecord := CallbackCreate(GetMethod(implObj, "GetStreamsForRecord"), flags, 4)
-        this.vtbl.AddStreamForRecord := CallbackCreate(GetMethod(implObj, "AddStreamForRecord"), flags, 3)
-        this.vtbl.RemoveStreamForRecord := CallbackCreate(GetMethod(implObj, "RemoveStreamForRecord"), flags, 3)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 3)
+        this.vtbl.SetName := CallbackCreate(ObjBindMethod(implObj, "SetName"), flags, 2)
+        this.vtbl.GetRecordCount := CallbackCreate(ObjBindMethod(implObj, "GetRecordCount"), flags, 2)
+        this.vtbl.AddRecord := CallbackCreate(ObjBindMethod(implObj, "AddRecord"), flags, 1)
+        this.vtbl.RemoveRecord := CallbackCreate(ObjBindMethod(implObj, "RemoveRecord"), flags, 2)
+        this.vtbl.GetRecordName := CallbackCreate(ObjBindMethod(implObj, "GetRecordName"), flags, 4)
+        this.vtbl.SetRecordName := CallbackCreate(ObjBindMethod(implObj, "SetRecordName"), flags, 3)
+        this.vtbl.GetStreamsForRecord := CallbackCreate(ObjBindMethod(implObj, "GetStreamsForRecord"), flags, 4)
+        this.vtbl.AddStreamForRecord := CallbackCreate(ObjBindMethod(implObj, "AddStreamForRecord"), flags, 3)
+        this.vtbl.RemoveStreamForRecord := CallbackCreate(ObjBindMethod(implObj, "RemoveStreamForRecord"), flags, 3)
     }
 
     Dispose() {

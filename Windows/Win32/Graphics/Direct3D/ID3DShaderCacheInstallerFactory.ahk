@@ -38,7 +38,6 @@ export default struct ID3DShaderCacheInstallerFactory extends IUnknown {
     }
 
     /**
-     * 
      * @param {ID3DShaderCacheInstallerClient} pClient 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -49,7 +48,6 @@ export default struct ID3DShaderCacheInstallerFactory extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnknown 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -68,8 +66,8 @@ export default struct ID3DShaderCacheInstallerFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateInstaller := CallbackCreate(GetMethod(implObj, "CreateInstaller"), flags, 4)
-        this.vtbl.CreateExplorer := CallbackCreate(GetMethod(implObj, "CreateExplorer"), flags, 4)
+        this.vtbl.CreateInstaller := CallbackCreate(ObjBindMethod(implObj, "CreateInstaller"), flags, 4)
+        this.vtbl.CreateExplorer := CallbackCreate(ObjBindMethod(implObj, "CreateExplorer"), flags, 4)
     }
 
     Dispose() {

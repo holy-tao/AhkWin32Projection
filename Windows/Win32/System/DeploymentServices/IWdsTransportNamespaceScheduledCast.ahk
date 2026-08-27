@@ -62,7 +62,7 @@ export default struct IWdsTransportNamespaceScheduledCast extends IWdsTransportN
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StartTransmission := CallbackCreate(GetMethod(implObj, "StartTransmission"), flags, 1)
+        this.vtbl.StartTransmission := CallbackCreate(ObjBindMethod(implObj, "StartTransmission"), flags, 1)
     }
 
     Dispose() {

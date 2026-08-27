@@ -19,7 +19,6 @@ export default struct PCLUSAPI_OFFLINE_CLUSTER_GROUP {
     }
 
     /**
-     * 
      * @param {HGROUP} _hGroup 
      * @returns {Integer} 
      */

@@ -192,14 +192,14 @@ export default struct IPresentationSurface extends IPresentationContent {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetBuffer := CallbackCreate(GetMethod(implObj, "SetBuffer"), flags, 2)
-        this.vtbl.SetColorSpace := CallbackCreate(GetMethod(implObj, "SetColorSpace"), flags, 2)
-        this.vtbl.SetAlphaMode := CallbackCreate(GetMethod(implObj, "SetAlphaMode"), flags, 2)
-        this.vtbl.SetSourceRect := CallbackCreate(GetMethod(implObj, "SetSourceRect"), flags, 2)
-        this.vtbl.SetTransform := CallbackCreate(GetMethod(implObj, "SetTransform"), flags, 2)
-        this.vtbl.RestrictToOutput := CallbackCreate(GetMethod(implObj, "RestrictToOutput"), flags, 2)
-        this.vtbl.SetDisableReadback := CallbackCreate(GetMethod(implObj, "SetDisableReadback"), flags, 2)
-        this.vtbl.SetLetterboxingMargins := CallbackCreate(GetMethod(implObj, "SetLetterboxingMargins"), flags, 5)
+        this.vtbl.SetBuffer := CallbackCreate(ObjBindMethod(implObj, "SetBuffer"), flags, 2)
+        this.vtbl.SetColorSpace := CallbackCreate(ObjBindMethod(implObj, "SetColorSpace"), flags, 2)
+        this.vtbl.SetAlphaMode := CallbackCreate(ObjBindMethod(implObj, "SetAlphaMode"), flags, 2)
+        this.vtbl.SetSourceRect := CallbackCreate(ObjBindMethod(implObj, "SetSourceRect"), flags, 2)
+        this.vtbl.SetTransform := CallbackCreate(ObjBindMethod(implObj, "SetTransform"), flags, 2)
+        this.vtbl.RestrictToOutput := CallbackCreate(ObjBindMethod(implObj, "RestrictToOutput"), flags, 2)
+        this.vtbl.SetDisableReadback := CallbackCreate(ObjBindMethod(implObj, "SetDisableReadback"), flags, 2)
+        this.vtbl.SetLetterboxingMargins := CallbackCreate(ObjBindMethod(implObj, "SetLetterboxingMargins"), flags, 5)
     }
 
     Dispose() {

@@ -24,7 +24,6 @@ export default struct PDXVAHD_CreateDevice {
     }
 
     /**
-     * 
      * @param {IDirect3DDevice9Ex} pD3DDevice 
      * @param {Pointer<DXVAHD_CONTENT_DESC>} pContentDesc 
      * @param {DXVAHD_DEVICE_USAGE} Usage 
@@ -32,7 +31,9 @@ export default struct PDXVAHD_CreateDevice {
      * @returns {IDXVAHD_Device} 
      */
     Call(pD3DDevice, pContentDesc, Usage, pPlugin) {
-        result := DllCall(this.value, "ptr", pD3DDevice, DXVAHD_CONTENT_DESC.Ptr, pContentDesc, DXVAHD_DEVICE_USAGE, Usage, PDXVAHDSW_Plugin, pPlugin, "ptr*", &ppDevice := 0, "HRESULT")
+        pPluginMarshal := pPlugin == 0 ? IntPtr : PDXVAHDSW_Plugin
+
+        result := DllCall(this.value, "ptr", pD3DDevice, DXVAHD_CONTENT_DESC.Ptr, pContentDesc, DXVAHD_DEVICE_USAGE, Usage, pPluginMarshal, pPlugin, "ptr*", &ppDevice := 0, "HRESULT")
         return IDXVAHD_Device(ppDevice)
     }
 

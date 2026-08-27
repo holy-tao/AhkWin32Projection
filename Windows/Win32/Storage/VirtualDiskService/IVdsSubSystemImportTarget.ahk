@@ -132,8 +132,8 @@ export default struct IVdsSubSystemImportTarget extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetImportTarget := CallbackCreate(GetMethod(implObj, "GetImportTarget"), flags, 2)
-        this.vtbl.SetImportTarget := CallbackCreate(GetMethod(implObj, "SetImportTarget"), flags, 2)
+        this.vtbl.GetImportTarget := CallbackCreate(ObjBindMethod(implObj, "GetImportTarget"), flags, 2)
+        this.vtbl.SetImportTarget := CallbackCreate(ObjBindMethod(implObj, "SetImportTarget"), flags, 2)
     }
 
     Dispose() {

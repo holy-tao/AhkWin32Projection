@@ -652,19 +652,19 @@ export default struct IXpsOMCanvas extends IXpsOMVisual {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetVisuals := CallbackCreate(GetMethod(implObj, "GetVisuals"), flags, 2)
-        this.vtbl.GetUseAliasedEdgeMode := CallbackCreate(GetMethod(implObj, "GetUseAliasedEdgeMode"), flags, 2)
-        this.vtbl.SetUseAliasedEdgeMode := CallbackCreate(GetMethod(implObj, "SetUseAliasedEdgeMode"), flags, 2)
-        this.vtbl.GetAccessibilityShortDescription := CallbackCreate(GetMethod(implObj, "GetAccessibilityShortDescription"), flags, 2)
-        this.vtbl.SetAccessibilityShortDescription := CallbackCreate(GetMethod(implObj, "SetAccessibilityShortDescription"), flags, 2)
-        this.vtbl.GetAccessibilityLongDescription := CallbackCreate(GetMethod(implObj, "GetAccessibilityLongDescription"), flags, 2)
-        this.vtbl.SetAccessibilityLongDescription := CallbackCreate(GetMethod(implObj, "SetAccessibilityLongDescription"), flags, 2)
-        this.vtbl.GetDictionary := CallbackCreate(GetMethod(implObj, "GetDictionary"), flags, 2)
-        this.vtbl.GetDictionaryLocal := CallbackCreate(GetMethod(implObj, "GetDictionaryLocal"), flags, 2)
-        this.vtbl.SetDictionaryLocal := CallbackCreate(GetMethod(implObj, "SetDictionaryLocal"), flags, 2)
-        this.vtbl.GetDictionaryResource := CallbackCreate(GetMethod(implObj, "GetDictionaryResource"), flags, 2)
-        this.vtbl.SetDictionaryResource := CallbackCreate(GetMethod(implObj, "SetDictionaryResource"), flags, 2)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.GetVisuals := CallbackCreate(ObjBindMethod(implObj, "GetVisuals"), flags, 2)
+        this.vtbl.GetUseAliasedEdgeMode := CallbackCreate(ObjBindMethod(implObj, "GetUseAliasedEdgeMode"), flags, 2)
+        this.vtbl.SetUseAliasedEdgeMode := CallbackCreate(ObjBindMethod(implObj, "SetUseAliasedEdgeMode"), flags, 2)
+        this.vtbl.GetAccessibilityShortDescription := CallbackCreate(ObjBindMethod(implObj, "GetAccessibilityShortDescription"), flags, 2)
+        this.vtbl.SetAccessibilityShortDescription := CallbackCreate(ObjBindMethod(implObj, "SetAccessibilityShortDescription"), flags, 2)
+        this.vtbl.GetAccessibilityLongDescription := CallbackCreate(ObjBindMethod(implObj, "GetAccessibilityLongDescription"), flags, 2)
+        this.vtbl.SetAccessibilityLongDescription := CallbackCreate(ObjBindMethod(implObj, "SetAccessibilityLongDescription"), flags, 2)
+        this.vtbl.GetDictionary := CallbackCreate(ObjBindMethod(implObj, "GetDictionary"), flags, 2)
+        this.vtbl.GetDictionaryLocal := CallbackCreate(ObjBindMethod(implObj, "GetDictionaryLocal"), flags, 2)
+        this.vtbl.SetDictionaryLocal := CallbackCreate(ObjBindMethod(implObj, "SetDictionaryLocal"), flags, 2)
+        this.vtbl.GetDictionaryResource := CallbackCreate(ObjBindMethod(implObj, "GetDictionaryResource"), flags, 2)
+        this.vtbl.SetDictionaryResource := CallbackCreate(ObjBindMethod(implObj, "SetDictionaryResource"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
     }
 
     Dispose() {

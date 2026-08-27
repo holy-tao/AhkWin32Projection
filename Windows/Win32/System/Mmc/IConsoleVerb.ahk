@@ -117,10 +117,10 @@ export default struct IConsoleVerb extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetVerbState := CallbackCreate(GetMethod(implObj, "GetVerbState"), flags, 4)
-        this.vtbl.SetVerbState := CallbackCreate(GetMethod(implObj, "SetVerbState"), flags, 4)
-        this.vtbl.SetDefaultVerb := CallbackCreate(GetMethod(implObj, "SetDefaultVerb"), flags, 2)
-        this.vtbl.GetDefaultVerb := CallbackCreate(GetMethod(implObj, "GetDefaultVerb"), flags, 2)
+        this.vtbl.GetVerbState := CallbackCreate(ObjBindMethod(implObj, "GetVerbState"), flags, 4)
+        this.vtbl.SetVerbState := CallbackCreate(ObjBindMethod(implObj, "SetVerbState"), flags, 4)
+        this.vtbl.SetDefaultVerb := CallbackCreate(ObjBindMethod(implObj, "SetDefaultVerb"), flags, 2)
+        this.vtbl.GetDefaultVerb := CallbackCreate(ObjBindMethod(implObj, "GetDefaultVerb"), flags, 2)
     }
 
     Dispose() {

@@ -39,21 +39,19 @@ export default struct ICorProfilerCallback3 extends ICorProfilerCallback2 {
     }
 
     /**
-     * 
      * @param {IUnknown} pCorProfilerInfoUnk 
      * @param {Pointer<Void>} pvClientData 
      * @param {Integer} cbClientData 
      * @returns {HRESULT} 
      */
     InitializeForAttach(pCorProfilerInfoUnk, pvClientData, cbClientData) {
-        pvClientDataMarshal := pvClientData is VarRef ? "ptr" : "ptr"
+        pvClientDataMarshal := pvClientData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(80, this, "ptr", pCorProfilerInfoUnk, pvClientDataMarshal, pvClientData, UInt32, cbClientData, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ProfilerAttachComplete() {
@@ -62,7 +60,6 @@ export default struct ICorProfilerCallback3 extends ICorProfilerCallback2 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ProfilerDetachSucceeded() {
@@ -79,9 +76,9 @@ export default struct ICorProfilerCallback3 extends ICorProfilerCallback2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeForAttach := CallbackCreate(GetMethod(implObj, "InitializeForAttach"), flags, 4)
-        this.vtbl.ProfilerAttachComplete := CallbackCreate(GetMethod(implObj, "ProfilerAttachComplete"), flags, 1)
-        this.vtbl.ProfilerDetachSucceeded := CallbackCreate(GetMethod(implObj, "ProfilerDetachSucceeded"), flags, 1)
+        this.vtbl.InitializeForAttach := CallbackCreate(ObjBindMethod(implObj, "InitializeForAttach"), flags, 4)
+        this.vtbl.ProfilerAttachComplete := CallbackCreate(ObjBindMethod(implObj, "ProfilerAttachComplete"), flags, 1)
+        this.vtbl.ProfilerDetachSucceeded := CallbackCreate(ObjBindMethod(implObj, "ProfilerDetachSucceeded"), flags, 1)
     }
 
     Dispose() {

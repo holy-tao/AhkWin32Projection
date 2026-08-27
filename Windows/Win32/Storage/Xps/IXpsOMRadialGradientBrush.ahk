@@ -395,13 +395,13 @@ export default struct IXpsOMRadialGradientBrush extends IXpsOMGradientBrush {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCenter := CallbackCreate(GetMethod(implObj, "GetCenter"), flags, 2)
-        this.vtbl.SetCenter := CallbackCreate(GetMethod(implObj, "SetCenter"), flags, 2)
-        this.vtbl.GetRadiiSizes := CallbackCreate(GetMethod(implObj, "GetRadiiSizes"), flags, 2)
-        this.vtbl.SetRadiiSizes := CallbackCreate(GetMethod(implObj, "SetRadiiSizes"), flags, 2)
-        this.vtbl.GetGradientOrigin := CallbackCreate(GetMethod(implObj, "GetGradientOrigin"), flags, 2)
-        this.vtbl.SetGradientOrigin := CallbackCreate(GetMethod(implObj, "SetGradientOrigin"), flags, 2)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.GetCenter := CallbackCreate(ObjBindMethod(implObj, "GetCenter"), flags, 2)
+        this.vtbl.SetCenter := CallbackCreate(ObjBindMethod(implObj, "SetCenter"), flags, 2)
+        this.vtbl.GetRadiiSizes := CallbackCreate(ObjBindMethod(implObj, "GetRadiiSizes"), flags, 2)
+        this.vtbl.SetRadiiSizes := CallbackCreate(ObjBindMethod(implObj, "SetRadiiSizes"), flags, 2)
+        this.vtbl.GetGradientOrigin := CallbackCreate(ObjBindMethod(implObj, "GetGradientOrigin"), flags, 2)
+        this.vtbl.SetGradientOrigin := CallbackCreate(ObjBindMethod(implObj, "SetGradientOrigin"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
     }
 
     Dispose() {

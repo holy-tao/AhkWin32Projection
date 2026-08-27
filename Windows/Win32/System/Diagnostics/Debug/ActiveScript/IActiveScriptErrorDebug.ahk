@@ -39,7 +39,6 @@ export default struct IActiveScriptErrorDebug extends IActiveScriptError {
     }
 
     /**
-     * 
      * @returns {IDebugDocumentContext} 
      */
     GetDocumentContext() {
@@ -48,7 +47,6 @@ export default struct IActiveScriptErrorDebug extends IActiveScriptError {
     }
 
     /**
-     * 
      * @returns {IDebugStackFrame} 
      */
     GetStackFrame() {
@@ -65,8 +63,8 @@ export default struct IActiveScriptErrorDebug extends IActiveScriptError {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDocumentContext := CallbackCreate(GetMethod(implObj, "GetDocumentContext"), flags, 2)
-        this.vtbl.GetStackFrame := CallbackCreate(GetMethod(implObj, "GetStackFrame"), flags, 2)
+        this.vtbl.GetDocumentContext := CallbackCreate(ObjBindMethod(implObj, "GetDocumentContext"), flags, 2)
+        this.vtbl.GetStackFrame := CallbackCreate(ObjBindMethod(implObj, "GetStackFrame"), flags, 2)
     }
 
     Dispose() {

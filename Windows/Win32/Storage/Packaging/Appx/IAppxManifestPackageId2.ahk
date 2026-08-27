@@ -67,7 +67,7 @@ export default struct IAppxManifestPackageId2 extends IAppxManifestPackageId {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetArchitecture2 := CallbackCreate(GetMethod(implObj, "GetArchitecture2"), flags, 2)
+        this.vtbl.GetArchitecture2 := CallbackCreate(ObjBindMethod(implObj, "GetArchitecture2"), flags, 2)
     }
 
     Dispose() {

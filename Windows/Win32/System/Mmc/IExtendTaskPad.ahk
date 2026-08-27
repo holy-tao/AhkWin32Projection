@@ -189,12 +189,12 @@ export default struct IExtendTaskPad extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.TaskNotify := CallbackCreate(GetMethod(implObj, "TaskNotify"), flags, 4)
-        this.vtbl.EnumTasks := CallbackCreate(GetMethod(implObj, "EnumTasks"), flags, 4)
-        this.vtbl.GetTitle := CallbackCreate(GetMethod(implObj, "GetTitle"), flags, 3)
-        this.vtbl.GetDescriptiveText := CallbackCreate(GetMethod(implObj, "GetDescriptiveText"), flags, 3)
-        this.vtbl.GetBackground := CallbackCreate(GetMethod(implObj, "GetBackground"), flags, 3)
-        this.vtbl.GetListPadInfo := CallbackCreate(GetMethod(implObj, "GetListPadInfo"), flags, 3)
+        this.vtbl.TaskNotify := CallbackCreate(ObjBindMethod(implObj, "TaskNotify"), flags, 4)
+        this.vtbl.EnumTasks := CallbackCreate(ObjBindMethod(implObj, "EnumTasks"), flags, 4)
+        this.vtbl.GetTitle := CallbackCreate(ObjBindMethod(implObj, "GetTitle"), flags, 3)
+        this.vtbl.GetDescriptiveText := CallbackCreate(ObjBindMethod(implObj, "GetDescriptiveText"), flags, 3)
+        this.vtbl.GetBackground := CallbackCreate(ObjBindMethod(implObj, "GetBackground"), flags, 3)
+        this.vtbl.GetListPadInfo := CallbackCreate(ObjBindMethod(implObj, "GetListPadInfo"), flags, 3)
     }
 
     Dispose() {

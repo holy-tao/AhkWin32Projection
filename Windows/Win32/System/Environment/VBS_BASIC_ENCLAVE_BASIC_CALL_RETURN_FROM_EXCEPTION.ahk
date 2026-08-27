@@ -20,7 +20,6 @@ export default struct VBS_BASIC_ENCLAVE_BASIC_CALL_RETURN_FROM_EXCEPTION {
     }
 
     /**
-     * 
      * @param {Pointer<VBS_BASIC_ENCLAVE_EXCEPTION_AMD64>} ExceptionRecord 
      * @returns {Integer} 
      */

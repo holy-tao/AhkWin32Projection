@@ -70,8 +70,8 @@ export default struct ITsSbGenericNotifySink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnCompleted := CallbackCreate(GetMethod(implObj, "OnCompleted"), flags, 2)
-        this.vtbl.GetWaitTimeout := CallbackCreate(GetMethod(implObj, "GetWaitTimeout"), flags, 2)
+        this.vtbl.OnCompleted := CallbackCreate(ObjBindMethod(implObj, "OnCompleted"), flags, 2)
+        this.vtbl.GetWaitTimeout := CallbackCreate(ObjBindMethod(implObj, "GetWaitTimeout"), flags, 2)
     }
 
     Dispose() {

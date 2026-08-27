@@ -59,7 +59,7 @@ export default struct IImeSpecifyApplets extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAppletIIDList := CallbackCreate(GetMethod(implObj, "GetAppletIIDList"), flags, 3)
+        this.vtbl.GetAppletIIDList := CallbackCreate(ObjBindMethod(implObj, "GetAppletIIDList"), flags, 3)
     }
 
     Dispose() {

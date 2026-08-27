@@ -39,7 +39,6 @@ export default struct ICLRDomainManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} wszAppDomainManagerAssembly 
      * @param {PWSTR} wszAppDomainManagerType 
      * @param {EInitializeNewDomainFlags} dwInitializeDomainFlags 
@@ -54,15 +53,14 @@ export default struct ICLRDomainManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nProperties 
      * @param {Pointer<PWSTR>} pwszPropertyNames 
      * @param {Pointer<PWSTR>} pwszPropertyValues 
      * @returns {HRESULT} 
      */
     SetPropertiesForDefaultAppDomain(nProperties, pwszPropertyNames, pwszPropertyValues) {
-        pwszPropertyNamesMarshal := pwszPropertyNames is VarRef ? "ptr*" : "ptr"
-        pwszPropertyValuesMarshal := pwszPropertyValues is VarRef ? "ptr*" : "ptr"
+        pwszPropertyNamesMarshal := pwszPropertyNames is VarRef ? "ptr*" : IntPtr
+        pwszPropertyValuesMarshal := pwszPropertyValues is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, UInt32, nProperties, pwszPropertyNamesMarshal, pwszPropertyNames, pwszPropertyValuesMarshal, pwszPropertyValues, "HRESULT")
         return result
@@ -77,8 +75,8 @@ export default struct ICLRDomainManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAppDomainManagerType := CallbackCreate(GetMethod(implObj, "SetAppDomainManagerType"), flags, 4)
-        this.vtbl.SetPropertiesForDefaultAppDomain := CallbackCreate(GetMethod(implObj, "SetPropertiesForDefaultAppDomain"), flags, 4)
+        this.vtbl.SetAppDomainManagerType := CallbackCreate(ObjBindMethod(implObj, "SetAppDomainManagerType"), flags, 4)
+        this.vtbl.SetPropertiesForDefaultAppDomain := CallbackCreate(ObjBindMethod(implObj, "SetPropertiesForDefaultAppDomain"), flags, 4)
     }
 
     Dispose() {

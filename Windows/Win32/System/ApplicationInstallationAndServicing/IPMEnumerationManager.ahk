@@ -79,7 +79,6 @@ export default struct IPMEnumerationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PM_ENUM_FILTER} Filter 
      * @returns {IPMApplicationInfoEnumerator} 
      */
@@ -89,7 +88,6 @@ export default struct IPMEnumerationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PM_ENUM_FILTER} Filter 
      * @returns {IPMTileInfoEnumerator} 
      */
@@ -99,7 +97,6 @@ export default struct IPMEnumerationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PM_ENUM_FILTER} Filter 
      * @returns {IPMTaskInfoEnumerator} 
      */
@@ -109,7 +106,6 @@ export default struct IPMEnumerationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PM_ENUM_FILTER} Filter 
      * @returns {IPMExtensionInfoEnumerator} 
      */
@@ -119,7 +115,6 @@ export default struct IPMEnumerationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PM_ENUM_FILTER} Filter 
      * @returns {IPMBackgroundServiceAgentInfoEnumerator} 
      */
@@ -129,7 +124,6 @@ export default struct IPMEnumerationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PM_ENUM_FILTER} Filter 
      * @returns {IPMBackgroundWorkerInfoEnumerator} 
      */
@@ -139,7 +133,6 @@ export default struct IPMEnumerationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} ProductID 
      * @returns {IPMApplicationInfo} 
      */
@@ -149,7 +142,6 @@ export default struct IPMEnumerationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} ProductID 
      * @param {BSTR} TileID 
      * @returns {IPMTileInfo} 
@@ -162,7 +154,6 @@ export default struct IPMEnumerationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} ProductID 
      * @param {BSTR} TaskID 
      * @returns {IPMTaskInfo} 
@@ -175,7 +166,6 @@ export default struct IPMEnumerationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} ProductID 
      * @param {PWSTR} TaskID 
      * @returns {IPMTaskInfo} 
@@ -188,7 +178,6 @@ export default struct IPMEnumerationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} BSAID 
      * @returns {IPMBackgroundServiceAgentInfo} 
      */
@@ -198,7 +187,6 @@ export default struct IPMEnumerationManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IPMLiveTileJobInfoEnumerator} 
      */
     get_AllLiveTileJobs() {
@@ -207,7 +195,6 @@ export default struct IPMEnumerationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} ProductID 
      * @param {BSTR} TileID 
      * @param {PM_LIVETILE_RECURRENCE_TYPE} RecurrenceType 
@@ -221,7 +208,6 @@ export default struct IPMEnumerationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} ProductID 
      * @returns {IPMApplicationInfo} 
      */
@@ -231,7 +217,6 @@ export default struct IPMEnumerationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} FileType 
      * @param {PM_LOGO_SIZE} LogoSize 
      * @param {Pointer<BSTR>} pLogo 
@@ -245,7 +230,6 @@ export default struct IPMEnumerationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} SysAppID0 
      * @param {BSTR} SysAppID1 
      * @returns {IPMApplicationInfo} 
@@ -259,30 +243,28 @@ export default struct IPMEnumerationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PM_ENUM_FILTER} Filter 
      * @param {Pointer<Integer>} pcTiles 
      * @param {Pointer<Pointer<PM_STARTTILEBLOB>>} ppTileBlobs 
      * @returns {HRESULT} 
      */
     get_StartTileEnumeratorBlob(Filter, pcTiles, ppTileBlobs) {
-        pcTilesMarshal := pcTiles is VarRef ? "uint*" : "ptr"
-        ppTileBlobsMarshal := ppTileBlobs is VarRef ? "ptr*" : "ptr"
+        pcTilesMarshal := pcTiles is VarRef ? "uint*" : IntPtr
+        ppTileBlobsMarshal := ppTileBlobs is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(19, this, PM_ENUM_FILTER, Filter, pcTilesMarshal, pcTiles, ppTileBlobsMarshal, ppTileBlobs, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PM_ENUM_FILTER} Filter 
      * @param {Pointer<Integer>} pcApps 
      * @param {Pointer<Pointer<PM_STARTAPPBLOB>>} ppAppBlobs 
      * @returns {HRESULT} 
      */
     get_StartAppEnumeratorBlob(Filter, pcApps, ppAppBlobs) {
-        pcAppsMarshal := pcApps is VarRef ? "uint*" : "ptr"
-        ppAppBlobsMarshal := ppAppBlobs is VarRef ? "ptr*" : "ptr"
+        pcAppsMarshal := pcApps is VarRef ? "uint*" : IntPtr
+        ppAppBlobsMarshal := ppAppBlobs is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(20, this, PM_ENUM_FILTER, Filter, pcAppsMarshal, pcApps, ppAppBlobsMarshal, ppAppBlobs, "HRESULT")
         return result
@@ -297,24 +279,24 @@ export default struct IPMEnumerationManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_AllApplications := CallbackCreate(GetMethod(implObj, "get_AllApplications"), flags, 3)
-        this.vtbl.get_AllTiles := CallbackCreate(GetMethod(implObj, "get_AllTiles"), flags, 3)
-        this.vtbl.get_AllTasks := CallbackCreate(GetMethod(implObj, "get_AllTasks"), flags, 3)
-        this.vtbl.get_AllExtensions := CallbackCreate(GetMethod(implObj, "get_AllExtensions"), flags, 3)
-        this.vtbl.get_AllBackgroundServiceAgents := CallbackCreate(GetMethod(implObj, "get_AllBackgroundServiceAgents"), flags, 3)
-        this.vtbl.get_AllBackgroundWorkers := CallbackCreate(GetMethod(implObj, "get_AllBackgroundWorkers"), flags, 3)
-        this.vtbl.get_ApplicationInfo := CallbackCreate(GetMethod(implObj, "get_ApplicationInfo"), flags, 3)
-        this.vtbl.get_TileInfo := CallbackCreate(GetMethod(implObj, "get_TileInfo"), flags, 4)
-        this.vtbl.get_TaskInfo := CallbackCreate(GetMethod(implObj, "get_TaskInfo"), flags, 4)
-        this.vtbl.get_TaskInfoEx := CallbackCreate(GetMethod(implObj, "get_TaskInfoEx"), flags, 4)
-        this.vtbl.get_BackgroundServiceAgentInfo := CallbackCreate(GetMethod(implObj, "get_BackgroundServiceAgentInfo"), flags, 3)
-        this.vtbl.get_AllLiveTileJobs := CallbackCreate(GetMethod(implObj, "get_AllLiveTileJobs"), flags, 2)
-        this.vtbl.get_LiveTileJob := CallbackCreate(GetMethod(implObj, "get_LiveTileJob"), flags, 5)
-        this.vtbl.get_ApplicationInfoExternal := CallbackCreate(GetMethod(implObj, "get_ApplicationInfoExternal"), flags, 3)
-        this.vtbl.get_FileHandlerGenericLogo := CallbackCreate(GetMethod(implObj, "get_FileHandlerGenericLogo"), flags, 4)
-        this.vtbl.get_ApplicationInfoFromAccessClaims := CallbackCreate(GetMethod(implObj, "get_ApplicationInfoFromAccessClaims"), flags, 4)
-        this.vtbl.get_StartTileEnumeratorBlob := CallbackCreate(GetMethod(implObj, "get_StartTileEnumeratorBlob"), flags, 4)
-        this.vtbl.get_StartAppEnumeratorBlob := CallbackCreate(GetMethod(implObj, "get_StartAppEnumeratorBlob"), flags, 4)
+        this.vtbl.get_AllApplications := CallbackCreate(ObjBindMethod(implObj, "get_AllApplications"), flags, 3)
+        this.vtbl.get_AllTiles := CallbackCreate(ObjBindMethod(implObj, "get_AllTiles"), flags, 3)
+        this.vtbl.get_AllTasks := CallbackCreate(ObjBindMethod(implObj, "get_AllTasks"), flags, 3)
+        this.vtbl.get_AllExtensions := CallbackCreate(ObjBindMethod(implObj, "get_AllExtensions"), flags, 3)
+        this.vtbl.get_AllBackgroundServiceAgents := CallbackCreate(ObjBindMethod(implObj, "get_AllBackgroundServiceAgents"), flags, 3)
+        this.vtbl.get_AllBackgroundWorkers := CallbackCreate(ObjBindMethod(implObj, "get_AllBackgroundWorkers"), flags, 3)
+        this.vtbl.get_ApplicationInfo := CallbackCreate(ObjBindMethod(implObj, "get_ApplicationInfo"), flags, 3)
+        this.vtbl.get_TileInfo := CallbackCreate(ObjBindMethod(implObj, "get_TileInfo"), flags, 4)
+        this.vtbl.get_TaskInfo := CallbackCreate(ObjBindMethod(implObj, "get_TaskInfo"), flags, 4)
+        this.vtbl.get_TaskInfoEx := CallbackCreate(ObjBindMethod(implObj, "get_TaskInfoEx"), flags, 4)
+        this.vtbl.get_BackgroundServiceAgentInfo := CallbackCreate(ObjBindMethod(implObj, "get_BackgroundServiceAgentInfo"), flags, 3)
+        this.vtbl.get_AllLiveTileJobs := CallbackCreate(ObjBindMethod(implObj, "get_AllLiveTileJobs"), flags, 2)
+        this.vtbl.get_LiveTileJob := CallbackCreate(ObjBindMethod(implObj, "get_LiveTileJob"), flags, 5)
+        this.vtbl.get_ApplicationInfoExternal := CallbackCreate(ObjBindMethod(implObj, "get_ApplicationInfoExternal"), flags, 3)
+        this.vtbl.get_FileHandlerGenericLogo := CallbackCreate(ObjBindMethod(implObj, "get_FileHandlerGenericLogo"), flags, 4)
+        this.vtbl.get_ApplicationInfoFromAccessClaims := CallbackCreate(ObjBindMethod(implObj, "get_ApplicationInfoFromAccessClaims"), flags, 4)
+        this.vtbl.get_StartTileEnumeratorBlob := CallbackCreate(ObjBindMethod(implObj, "get_StartTileEnumeratorBlob"), flags, 4)
+        this.vtbl.get_StartAppEnumeratorBlob := CallbackCreate(ObjBindMethod(implObj, "get_StartAppEnumeratorBlob"), flags, 4)
     }
 
     Dispose() {

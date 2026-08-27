@@ -131,7 +131,6 @@ export default struct LPNSPV2LOOKUPSERVICENEXTEX {
     }
 
     /**
-     * 
      * @param {HANDLE} hAsyncCall A handle returned from the previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nc-ws2spi-lpnsplookupservicebegin">NSPv2LookupServiceBegin</a> used for asynchronous calls.
      * @param {HANDLE} hLookup A handle returned from the previous call to 
@@ -143,7 +142,7 @@ export default struct LPNSPV2LOOKUPSERVICENEXTEX {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(hAsyncCall, hLookup, dwControlFlags, lpdwBufferLength, lpqsResults) {
-        lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
+        lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : IntPtr
 
         DllCall(this.value, HANDLE, hAsyncCall, HANDLE, hLookup, UInt32, dwControlFlags, lpdwBufferLengthMarshal, lpdwBufferLength, WSAQUERYSET2W.Ptr, lpqsResults)
     }

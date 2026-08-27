@@ -18,7 +18,6 @@ export default struct PGET_VIRTUAL_DEVICE_RESOURCES {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

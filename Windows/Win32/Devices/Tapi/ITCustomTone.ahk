@@ -241,14 +241,14 @@ export default struct ITCustomTone extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Frequency := CallbackCreate(GetMethod(implObj, "get_Frequency"), flags, 2)
-        this.vtbl.put_Frequency := CallbackCreate(GetMethod(implObj, "put_Frequency"), flags, 2)
-        this.vtbl.get_CadenceOn := CallbackCreate(GetMethod(implObj, "get_CadenceOn"), flags, 2)
-        this.vtbl.put_CadenceOn := CallbackCreate(GetMethod(implObj, "put_CadenceOn"), flags, 2)
-        this.vtbl.get_CadenceOff := CallbackCreate(GetMethod(implObj, "get_CadenceOff"), flags, 2)
-        this.vtbl.put_CadenceOff := CallbackCreate(GetMethod(implObj, "put_CadenceOff"), flags, 2)
-        this.vtbl.get_Volume := CallbackCreate(GetMethod(implObj, "get_Volume"), flags, 2)
-        this.vtbl.put_Volume := CallbackCreate(GetMethod(implObj, "put_Volume"), flags, 2)
+        this.vtbl.get_Frequency := CallbackCreate(ObjBindMethod(implObj, "get_Frequency"), flags, 2)
+        this.vtbl.put_Frequency := CallbackCreate(ObjBindMethod(implObj, "put_Frequency"), flags, 2)
+        this.vtbl.get_CadenceOn := CallbackCreate(ObjBindMethod(implObj, "get_CadenceOn"), flags, 2)
+        this.vtbl.put_CadenceOn := CallbackCreate(ObjBindMethod(implObj, "put_CadenceOn"), flags, 2)
+        this.vtbl.get_CadenceOff := CallbackCreate(ObjBindMethod(implObj, "get_CadenceOff"), flags, 2)
+        this.vtbl.put_CadenceOff := CallbackCreate(ObjBindMethod(implObj, "put_CadenceOff"), flags, 2)
+        this.vtbl.get_Volume := CallbackCreate(ObjBindMethod(implObj, "get_Volume"), flags, 2)
+        this.vtbl.put_Volume := CallbackCreate(ObjBindMethod(implObj, "put_Volume"), flags, 2)
     }
 
     Dispose() {

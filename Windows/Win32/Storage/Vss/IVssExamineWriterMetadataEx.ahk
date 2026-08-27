@@ -137,8 +137,8 @@ export default struct IVssExamineWriterMetadataEx extends IVssExamineWriterMetad
      * @see https://learn.microsoft.com/windows/win32/api/vsbackup/nf-vsbackup-ivssexaminewritermetadataex-getidentityex
      */
     GetIdentityEx(pidInstance, pidWriter, pbstrWriterName, pbstrInstanceName, pUsage, pSource) {
-        pUsageMarshal := pUsage is VarRef ? "int*" : "ptr"
-        pSourceMarshal := pSource is VarRef ? "int*" : "ptr"
+        pUsageMarshal := pUsage is VarRef ? "int*" : IntPtr
+        pSourceMarshal := pSource is VarRef ? "int*" : IntPtr
 
         result := ComCall(14, this, Guid.Ptr, pidInstance, Guid.Ptr, pidWriter, BSTR.Ptr, pbstrWriterName, BSTR.Ptr, pbstrInstanceName, pUsageMarshal, pUsage, pSourceMarshal, pSource, "HRESULT")
         return result
@@ -153,7 +153,7 @@ export default struct IVssExamineWriterMetadataEx extends IVssExamineWriterMetad
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetIdentityEx := CallbackCreate(GetMethod(implObj, "GetIdentityEx"), flags, 7)
+        this.vtbl.GetIdentityEx := CallbackCreate(ObjBindMethod(implObj, "GetIdentityEx"), flags, 7)
     }
 
     Dispose() {

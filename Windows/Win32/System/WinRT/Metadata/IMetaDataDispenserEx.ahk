@@ -230,9 +230,10 @@ export default struct IMetaDataDispenserEx extends IMetaDataDispenser {
     GetCORSystemDirectory(szBuffer, cchBuffer, pchBuffer) {
         szBuffer := szBuffer is String ? StrPtr(szBuffer) : szBuffer
 
-        pchBufferMarshal := pchBuffer is VarRef ? "uint*" : "ptr"
+        szBufferMarshal := szBuffer == 0 ? IntPtr : PWSTR
+        pchBufferMarshal := pchBuffer is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(9, this, "ptr", szBuffer, UInt32, cchBuffer, pchBufferMarshal, pchBuffer, "HRESULT")
+        result := ComCall(9, this, szBufferMarshal, szBuffer, UInt32, cchBuffer, pchBufferMarshal, pchBuffer, "HRESULT")
         return result
     }
 
@@ -255,7 +256,7 @@ export default struct IMetaDataDispenserEx extends IMetaDataDispenser {
         szAssemblyName := szAssemblyName is String ? StrPtr(szAssemblyName) : szAssemblyName
         szName := szName is String ? StrPtr(szName) : szName
 
-        pcNameMarshal := pcName is VarRef ? "uint*" : "ptr"
+        pcNameMarshal := pcName is VarRef ? "uint*" : IntPtr
 
         result := ComCall(10, this, "ptr", szAppBase, "ptr", szPrivateBin, "ptr", szGlobalBin, "ptr", szAssemblyName, "ptr", szName, UInt32, cchName, pcNameMarshal, pcName, "HRESULT")
         return result
@@ -282,9 +283,10 @@ export default struct IMetaDataDispenserEx extends IMetaDataDispenser {
         szModuleName := szModuleName is String ? StrPtr(szModuleName) : szModuleName
         szName := szName is String ? StrPtr(szName) : szName
 
-        pcNameMarshal := pcName is VarRef ? "uint*" : "ptr"
+        szNameMarshal := szName == 0 ? IntPtr : PWSTR
+        pcNameMarshal := pcName is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(11, this, "ptr", szAppBase, "ptr", szPrivateBin, "ptr", szGlobalBin, "ptr", szAssemblyName, "ptr", szModuleName, "ptr", szName, UInt32, cchName, pcNameMarshal, pcName, "HRESULT")
+        result := ComCall(11, this, "ptr", szAppBase, "ptr", szPrivateBin, "ptr", szGlobalBin, "ptr", szAssemblyName, "ptr", szModuleName, szNameMarshal, szName, UInt32, cchName, pcNameMarshal, pcName, "HRESULT")
         return result
     }
 
@@ -297,12 +299,12 @@ export default struct IMetaDataDispenserEx extends IMetaDataDispenser {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetOption := CallbackCreate(GetMethod(implObj, "SetOption"), flags, 3)
-        this.vtbl.GetOption := CallbackCreate(GetMethod(implObj, "GetOption"), flags, 3)
-        this.vtbl.OpenScopeOnITypeInfo := CallbackCreate(GetMethod(implObj, "OpenScopeOnITypeInfo"), flags, 5)
-        this.vtbl.GetCORSystemDirectory := CallbackCreate(GetMethod(implObj, "GetCORSystemDirectory"), flags, 4)
-        this.vtbl.FindAssembly := CallbackCreate(GetMethod(implObj, "FindAssembly"), flags, 8)
-        this.vtbl.FindAssemblyModule := CallbackCreate(GetMethod(implObj, "FindAssemblyModule"), flags, 9)
+        this.vtbl.SetOption := CallbackCreate(ObjBindMethod(implObj, "SetOption"), flags, 3)
+        this.vtbl.GetOption := CallbackCreate(ObjBindMethod(implObj, "GetOption"), flags, 3)
+        this.vtbl.OpenScopeOnITypeInfo := CallbackCreate(ObjBindMethod(implObj, "OpenScopeOnITypeInfo"), flags, 5)
+        this.vtbl.GetCORSystemDirectory := CallbackCreate(ObjBindMethod(implObj, "GetCORSystemDirectory"), flags, 4)
+        this.vtbl.FindAssembly := CallbackCreate(ObjBindMethod(implObj, "FindAssembly"), flags, 8)
+        this.vtbl.FindAssemblyModule := CallbackCreate(ObjBindMethod(implObj, "FindAssemblyModule"), flags, 9)
     }
 
     Dispose() {

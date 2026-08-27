@@ -71,8 +71,8 @@ export default struct IWsbApplicationAsync extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryStatus := CallbackCreate(GetMethod(implObj, "QueryStatus"), flags, 2)
-        this.vtbl.Abort := CallbackCreate(GetMethod(implObj, "Abort"), flags, 1)
+        this.vtbl.QueryStatus := CallbackCreate(ObjBindMethod(implObj, "QueryStatus"), flags, 2)
+        this.vtbl.Abort := CallbackCreate(ObjBindMethod(implObj, "Abort"), flags, 1)
     }
 
     Dispose() {

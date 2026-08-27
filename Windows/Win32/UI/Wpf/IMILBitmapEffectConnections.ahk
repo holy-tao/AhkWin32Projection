@@ -79,8 +79,8 @@ export default struct IMILBitmapEffectConnections extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetInputConnector := CallbackCreate(GetMethod(implObj, "GetInputConnector"), flags, 3)
-        this.vtbl.GetOutputConnector := CallbackCreate(GetMethod(implObj, "GetOutputConnector"), flags, 3)
+        this.vtbl.GetInputConnector := CallbackCreate(ObjBindMethod(implObj, "GetInputConnector"), flags, 3)
+        this.vtbl.GetOutputConnector := CallbackCreate(ObjBindMethod(implObj, "GetOutputConnector"), flags, 3)
     }
 
     Dispose() {

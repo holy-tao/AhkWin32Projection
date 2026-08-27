@@ -152,8 +152,8 @@ export default struct INSSBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nf-wmsbuffer-inssbuffer-getbufferandlength
      */
     GetBufferAndLength(ppdwBuffer, pdwLength) {
-        ppdwBufferMarshal := ppdwBuffer is VarRef ? "ptr*" : "ptr"
-        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
+        ppdwBufferMarshal := ppdwBuffer is VarRef ? "ptr*" : IntPtr
+        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, ppdwBufferMarshal, ppdwBuffer, pdwLengthMarshal, pdwLength, "HRESULT")
         return result
@@ -168,11 +168,11 @@ export default struct INSSBuffer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.SetLength := CallbackCreate(GetMethod(implObj, "SetLength"), flags, 2)
-        this.vtbl.GetMaxLength := CallbackCreate(GetMethod(implObj, "GetMaxLength"), flags, 2)
-        this.vtbl.GetBuffer := CallbackCreate(GetMethod(implObj, "GetBuffer"), flags, 2)
-        this.vtbl.GetBufferAndLength := CallbackCreate(GetMethod(implObj, "GetBufferAndLength"), flags, 3)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.SetLength := CallbackCreate(ObjBindMethod(implObj, "SetLength"), flags, 2)
+        this.vtbl.GetMaxLength := CallbackCreate(ObjBindMethod(implObj, "GetMaxLength"), flags, 2)
+        this.vtbl.GetBuffer := CallbackCreate(ObjBindMethod(implObj, "GetBuffer"), flags, 2)
+        this.vtbl.GetBufferAndLength := CallbackCreate(ObjBindMethod(implObj, "GetBufferAndLength"), flags, 3)
     }
 
     Dispose() {

@@ -47,7 +47,6 @@ export default struct IHTMLAreasCollection4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -56,7 +55,6 @@ export default struct IHTMLAreasCollection4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {IHTMLElement2} 
      */
@@ -66,7 +64,6 @@ export default struct IHTMLAreasCollection4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {IHTMLElement2} 
      */
@@ -86,9 +83,9 @@ export default struct IHTMLAreasCollection4 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_length := CallbackCreate(GetMethod(implObj, "get_length"), flags, 2)
-        this.vtbl.item := CallbackCreate(GetMethod(implObj, "item"), flags, 3)
-        this.vtbl.namedItem := CallbackCreate(GetMethod(implObj, "namedItem"), flags, 3)
+        this.vtbl.get_length := CallbackCreate(ObjBindMethod(implObj, "get_length"), flags, 2)
+        this.vtbl.item := CallbackCreate(ObjBindMethod(implObj, "item"), flags, 3)
+        this.vtbl.namedItem := CallbackCreate(ObjBindMethod(implObj, "namedItem"), flags, 3)
     }
 
     Dispose() {

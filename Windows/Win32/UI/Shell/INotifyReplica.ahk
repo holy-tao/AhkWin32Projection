@@ -69,7 +69,7 @@ export default struct INotifyReplica extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.YouAreAReplica := CallbackCreate(GetMethod(implObj, "YouAreAReplica"), flags, 3)
+        this.vtbl.YouAreAReplica := CallbackCreate(ObjBindMethod(implObj, "YouAreAReplica"), flags, 3)
     }
 
     Dispose() {

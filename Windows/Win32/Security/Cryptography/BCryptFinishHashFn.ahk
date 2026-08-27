@@ -20,7 +20,6 @@ export default struct BCryptFinishHashFn {
     }
 
     /**
-     * 
      * @param {BCRYPT_HASH_HANDLE} hHash 
      * @param {Integer} pbOutput 
      * @param {Integer} cbOutput 

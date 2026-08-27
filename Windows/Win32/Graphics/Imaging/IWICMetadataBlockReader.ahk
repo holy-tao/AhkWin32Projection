@@ -109,10 +109,10 @@ export default struct IWICMetadataBlockReader extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetContainerFormat := CallbackCreate(GetMethod(implObj, "GetContainerFormat"), flags, 2)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
-        this.vtbl.GetReaderByIndex := CallbackCreate(GetMethod(implObj, "GetReaderByIndex"), flags, 3)
-        this.vtbl.GetEnumerator := CallbackCreate(GetMethod(implObj, "GetEnumerator"), flags, 2)
+        this.vtbl.GetContainerFormat := CallbackCreate(ObjBindMethod(implObj, "GetContainerFormat"), flags, 2)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetReaderByIndex := CallbackCreate(ObjBindMethod(implObj, "GetReaderByIndex"), flags, 3)
+        this.vtbl.GetEnumerator := CallbackCreate(ObjBindMethod(implObj, "GetEnumerator"), flags, 2)
     }
 
     Dispose() {

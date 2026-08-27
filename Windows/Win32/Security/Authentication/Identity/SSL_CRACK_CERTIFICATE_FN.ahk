@@ -20,7 +20,6 @@ export default struct SSL_CRACK_CERTIFICATE_FN {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbCertificate 
      * @param {Integer} cbCertificate 
      * @param {BOOL} VerifySignature 
@@ -28,8 +27,8 @@ export default struct SSL_CRACK_CERTIFICATE_FN {
      * @returns {BOOL} 
      */
     Call(pbCertificate, cbCertificate, VerifySignature, ppCertificate) {
-        pbCertificateMarshal := pbCertificate is VarRef ? "char*" : "ptr"
-        ppCertificateMarshal := ppCertificate is VarRef ? "ptr*" : "ptr"
+        pbCertificateMarshal := pbCertificate is VarRef ? "char*" : IntPtr
+        ppCertificateMarshal := ppCertificate is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, pbCertificateMarshal, pbCertificate, UInt32, cbCertificate, BOOL, VerifySignature, ppCertificateMarshal, ppCertificate, BOOL)
         return result

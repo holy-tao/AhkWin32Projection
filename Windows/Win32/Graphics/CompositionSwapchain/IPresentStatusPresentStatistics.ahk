@@ -71,8 +71,8 @@ export default struct IPresentStatusPresentStatistics extends IPresentStatistics
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCompositionFrameId := CallbackCreate(GetMethod(implObj, "GetCompositionFrameId"), flags, 1)
-        this.vtbl.GetPresentStatus := CallbackCreate(GetMethod(implObj, "GetPresentStatus"), flags, 1)
+        this.vtbl.GetCompositionFrameId := CallbackCreate(ObjBindMethod(implObj, "GetCompositionFrameId"), flags, 1)
+        this.vtbl.GetPresentStatus := CallbackCreate(ObjBindMethod(implObj, "GetPresentStatus"), flags, 1)
     }
 
     Dispose() {

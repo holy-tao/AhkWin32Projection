@@ -114,8 +114,8 @@ export default struct ITfSystemLangBarItemText extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetItemText := CallbackCreate(GetMethod(implObj, "SetItemText"), flags, 3)
-        this.vtbl.GetItemText := CallbackCreate(GetMethod(implObj, "GetItemText"), flags, 2)
+        this.vtbl.SetItemText := CallbackCreate(ObjBindMethod(implObj, "SetItemText"), flags, 3)
+        this.vtbl.GetItemText := CallbackCreate(ObjBindMethod(implObj, "GetItemText"), flags, 2)
     }
 
     Dispose() {

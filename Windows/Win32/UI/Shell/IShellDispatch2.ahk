@@ -360,15 +360,15 @@ export default struct IShellDispatch2 extends IShellDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsRestricted := CallbackCreate(GetMethod(implObj, "IsRestricted"), flags, 4)
-        this.vtbl.ShellExecute := CallbackCreate(GetMethod(implObj, "ShellExecute"), flags, 6)
-        this.vtbl.FindPrinter := CallbackCreate(GetMethod(implObj, "FindPrinter"), flags, 4)
-        this.vtbl.GetSystemInformation := CallbackCreate(GetMethod(implObj, "GetSystemInformation"), flags, 3)
-        this.vtbl.ServiceStart := CallbackCreate(GetMethod(implObj, "ServiceStart"), flags, 4)
-        this.vtbl.ServiceStop := CallbackCreate(GetMethod(implObj, "ServiceStop"), flags, 4)
-        this.vtbl.IsServiceRunning := CallbackCreate(GetMethod(implObj, "IsServiceRunning"), flags, 3)
-        this.vtbl.CanStartStopService := CallbackCreate(GetMethod(implObj, "CanStartStopService"), flags, 3)
-        this.vtbl.ShowBrowserBar := CallbackCreate(GetMethod(implObj, "ShowBrowserBar"), flags, 4)
+        this.vtbl.IsRestricted := CallbackCreate(ObjBindMethod(implObj, "IsRestricted"), flags, 4)
+        this.vtbl.ShellExecute := CallbackCreate(ObjBindMethod(implObj, "ShellExecute"), flags, 6)
+        this.vtbl.FindPrinter := CallbackCreate(ObjBindMethod(implObj, "FindPrinter"), flags, 4)
+        this.vtbl.GetSystemInformation := CallbackCreate(ObjBindMethod(implObj, "GetSystemInformation"), flags, 3)
+        this.vtbl.ServiceStart := CallbackCreate(ObjBindMethod(implObj, "ServiceStart"), flags, 4)
+        this.vtbl.ServiceStop := CallbackCreate(ObjBindMethod(implObj, "ServiceStop"), flags, 4)
+        this.vtbl.IsServiceRunning := CallbackCreate(ObjBindMethod(implObj, "IsServiceRunning"), flags, 3)
+        this.vtbl.CanStartStopService := CallbackCreate(ObjBindMethod(implObj, "CanStartStopService"), flags, 3)
+        this.vtbl.ShowBrowserBar := CallbackCreate(ObjBindMethod(implObj, "ShowBrowserBar"), flags, 4)
     }
 
     Dispose() {

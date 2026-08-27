@@ -37,7 +37,6 @@ export default struct ID3D12VideoDevice4 extends ID3D12VideoDevice3 {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_VIDEO_ENCODER_HEAP_DESC1>} pDesc 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -56,7 +55,7 @@ export default struct ID3D12VideoDevice4 extends ID3D12VideoDevice3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateVideoEncoderHeap1 := CallbackCreate(GetMethod(implObj, "CreateVideoEncoderHeap1"), flags, 4)
+        this.vtbl.CreateVideoEncoderHeap1 := CallbackCreate(ObjBindMethod(implObj, "CreateVideoEncoderHeap1"), flags, 4)
     }
 
     Dispose() {

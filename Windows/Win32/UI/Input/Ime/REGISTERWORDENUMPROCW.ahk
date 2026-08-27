@@ -27,7 +27,6 @@ export default struct REGISTERWORDENUMPROCW {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszReading Pointer to a null-terminated string specifying the matched reading string.
      * @param {Integer} param1 The style of the register string.
      * @param {PWSTR} lpszString Pointer to a null-terminated string specifying the matched register string.
@@ -38,7 +37,7 @@ export default struct REGISTERWORDENUMPROCW {
         lpszReading := lpszReading is String ? StrPtr(lpszReading) : lpszReading
         lpszString := lpszString is String ? StrPtr(lpszString) : lpszString
 
-        param3Marshal := param3 is VarRef ? "ptr" : "ptr"
+        param3Marshal := param3 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, "ptr", lpszReading, UInt32, param1, "ptr", lpszString, param3Marshal, param3, Int32)
         return result

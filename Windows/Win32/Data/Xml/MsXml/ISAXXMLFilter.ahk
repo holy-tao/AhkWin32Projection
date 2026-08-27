@@ -37,7 +37,6 @@ export default struct ISAXXMLFilter extends ISAXXMLReader {
     }
 
     /**
-     * 
      * @returns {ISAXXMLReader} 
      */
     getParent() {
@@ -46,7 +45,6 @@ export default struct ISAXXMLFilter extends ISAXXMLReader {
     }
 
     /**
-     * 
      * @param {ISAXXMLReader} pReader 
      * @returns {HRESULT} 
      */
@@ -64,8 +62,8 @@ export default struct ISAXXMLFilter extends ISAXXMLReader {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.getParent := CallbackCreate(GetMethod(implObj, "getParent"), flags, 2)
-        this.vtbl.putParent := CallbackCreate(GetMethod(implObj, "putParent"), flags, 2)
+        this.vtbl.getParent := CallbackCreate(ObjBindMethod(implObj, "getParent"), flags, 2)
+        this.vtbl.putParent := CallbackCreate(ObjBindMethod(implObj, "putParent"), flags, 2)
     }
 
     Dispose() {

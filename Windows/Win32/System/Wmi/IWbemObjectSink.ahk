@@ -105,8 +105,8 @@ export default struct IWbemObjectSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Indicate := CallbackCreate(GetMethod(implObj, "Indicate"), flags, 3)
-        this.vtbl.SetStatus := CallbackCreate(GetMethod(implObj, "SetStatus"), flags, 5)
+        this.vtbl.Indicate := CallbackCreate(ObjBindMethod(implObj, "Indicate"), flags, 3)
+        this.vtbl.SetStatus := CallbackCreate(ObjBindMethod(implObj, "SetStatus"), flags, 5)
     }
 
     Dispose() {

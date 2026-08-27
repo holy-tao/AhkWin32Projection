@@ -175,7 +175,7 @@ export MagSetWindowFilterList(_hwnd, dwFilterMode, count, pHWND) {
  * @since windows6.0.6000
  */
 export MagGetWindowFilterList(_hwnd, pdwFilterMode, count, pHWND) {
-    pdwFilterModeMarshal := pdwFilterMode is VarRef ? "uint*" : "ptr"
+    pdwFilterModeMarshal := pdwFilterMode is VarRef ? "uint*" : IntPtr
 
     result := DllCall("MAGNIFICATION.dll\MagGetWindowFilterList", HWND, _hwnd, pdwFilterModeMarshal, pdwFilterMode, Int32, count, HWND.Ptr, pHWND, Int32)
     return result
@@ -343,9 +343,9 @@ export MagSetFullscreenTransform(magLevel, xOffset, yOffset) {
  * @since windows8.0
  */
 export MagGetFullscreenTransform(pMagLevel, pxOffset, pyOffset) {
-    pMagLevelMarshal := pMagLevel is VarRef ? "float*" : "ptr"
-    pxOffsetMarshal := pxOffset is VarRef ? "int*" : "ptr"
-    pyOffsetMarshal := pyOffset is VarRef ? "int*" : "ptr"
+    pMagLevelMarshal := pMagLevel is VarRef ? "float*" : IntPtr
+    pxOffsetMarshal := pxOffset is VarRef ? "int*" : IntPtr
+    pyOffsetMarshal := pyOffset is VarRef ? "int*" : IntPtr
 
     result := DllCall("MAGNIFICATION.dll\MagGetFullscreenTransform", pMagLevelMarshal, pMagLevel, pxOffsetMarshal, pxOffset, pyOffsetMarshal, pyOffset, BOOL)
     return result
@@ -441,7 +441,7 @@ export MagSetInputTransform(fEnabled, pRectSource, pRectDest) {
  * @since windows8.0
  */
 export MagGetInputTransform(pfEnabled, pRectSource, pRectDest) {
-    pfEnabledMarshal := pfEnabled is VarRef ? "int*" : "ptr"
+    pfEnabledMarshal := pfEnabled is VarRef ? "int*" : IntPtr
 
     result := DllCall("MAGNIFICATION.dll\MagGetInputTransform", pfEnabledMarshal, pfEnabled, RECT.Ptr, pRectSource, RECT.Ptr, pRectDest, BOOL)
     return result

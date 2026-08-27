@@ -99,8 +99,8 @@ export default struct IMediaObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobject-getstreamcount
      */
     GetStreamCount(pcInputStreams, pcOutputStreams) {
-        pcInputStreamsMarshal := pcInputStreams is VarRef ? "uint*" : "ptr"
-        pcOutputStreamsMarshal := pcOutputStreams is VarRef ? "uint*" : "ptr"
+        pcInputStreamsMarshal := pcInputStreams is VarRef ? "uint*" : IntPtr
+        pcOutputStreamsMarshal := pcOutputStreams is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pcInputStreamsMarshal, pcInputStreams, pcOutputStreamsMarshal, pcOutputStreams, "HRESULT")
         return result
@@ -251,7 +251,9 @@ export default struct IMediaObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobject-setinputtype
      */
     SetInputType(dwInputStreamIndex, pmt, dwFlags) {
-        result := ComCall(8, this, UInt32, dwInputStreamIndex, DMO_MEDIA_TYPE.Ptr, pmt, UInt32, dwFlags, "HRESULT")
+        pmtMarshal := pmt == 0 ? IntPtr : DMO_MEDIA_TYPE.Ptr
+
+        result := ComCall(8, this, UInt32, dwInputStreamIndex, pmtMarshal, pmt, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -324,7 +326,9 @@ export default struct IMediaObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobject-setoutputtype
      */
     SetOutputType(dwOutputStreamIndex, pmt, dwFlags) {
-        result := ComCall(9, this, UInt32, dwOutputStreamIndex, DMO_MEDIA_TYPE.Ptr, pmt, UInt32, dwFlags, "HRESULT")
+        pmtMarshal := pmt == 0 ? IntPtr : DMO_MEDIA_TYPE.Ptr
+
+        result := ComCall(9, this, UInt32, dwOutputStreamIndex, pmtMarshal, pmt, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -416,9 +420,9 @@ export default struct IMediaObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobject-getinputsizeinfo
      */
     GetInputSizeInfo(dwInputStreamIndex, pcbSize, pcbMaxLookahead, pcbAlignment) {
-        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
-        pcbMaxLookaheadMarshal := pcbMaxLookahead is VarRef ? "uint*" : "ptr"
-        pcbAlignmentMarshal := pcbAlignment is VarRef ? "uint*" : "ptr"
+        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : IntPtr
+        pcbMaxLookaheadMarshal := pcbMaxLookahead is VarRef ? "uint*" : IntPtr
+        pcbAlignmentMarshal := pcbAlignment is VarRef ? "uint*" : IntPtr
 
         result := ComCall(12, this, UInt32, dwInputStreamIndex, pcbSizeMarshal, pcbSize, pcbMaxLookaheadMarshal, pcbMaxLookahead, pcbAlignmentMarshal, pcbAlignment, "HRESULT")
         return result
@@ -479,8 +483,8 @@ export default struct IMediaObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobject-getoutputsizeinfo
      */
     GetOutputSizeInfo(dwOutputStreamIndex, pcbSize, pcbAlignment) {
-        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
-        pcbAlignmentMarshal := pcbAlignment is VarRef ? "uint*" : "ptr"
+        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : IntPtr
+        pcbAlignmentMarshal := pcbAlignment is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, UInt32, dwOutputStreamIndex, pcbSizeMarshal, pcbSize, pcbAlignmentMarshal, pcbAlignment, "HRESULT")
         return result
@@ -913,7 +917,7 @@ export default struct IMediaObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobject-processoutput
      */
     ProcessOutput(dwFlags, cOutputBufferCount, pOutputBuffers, pdwStatus) {
-        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
+        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : IntPtr
 
         result := ComCall(22, this, UInt32, dwFlags, UInt32, cOutputBufferCount, DMO_OUTPUT_DATA_BUFFER.Ptr, pOutputBuffers, pdwStatusMarshal, pdwStatus, "HRESULT")
         return result
@@ -975,27 +979,27 @@ export default struct IMediaObject extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStreamCount := CallbackCreate(GetMethod(implObj, "GetStreamCount"), flags, 3)
-        this.vtbl.GetInputStreamInfo := CallbackCreate(GetMethod(implObj, "GetInputStreamInfo"), flags, 3)
-        this.vtbl.GetOutputStreamInfo := CallbackCreate(GetMethod(implObj, "GetOutputStreamInfo"), flags, 3)
-        this.vtbl.GetInputType := CallbackCreate(GetMethod(implObj, "GetInputType"), flags, 4)
-        this.vtbl.GetOutputType := CallbackCreate(GetMethod(implObj, "GetOutputType"), flags, 4)
-        this.vtbl.SetInputType := CallbackCreate(GetMethod(implObj, "SetInputType"), flags, 4)
-        this.vtbl.SetOutputType := CallbackCreate(GetMethod(implObj, "SetOutputType"), flags, 4)
-        this.vtbl.GetInputCurrentType := CallbackCreate(GetMethod(implObj, "GetInputCurrentType"), flags, 3)
-        this.vtbl.GetOutputCurrentType := CallbackCreate(GetMethod(implObj, "GetOutputCurrentType"), flags, 3)
-        this.vtbl.GetInputSizeInfo := CallbackCreate(GetMethod(implObj, "GetInputSizeInfo"), flags, 5)
-        this.vtbl.GetOutputSizeInfo := CallbackCreate(GetMethod(implObj, "GetOutputSizeInfo"), flags, 4)
-        this.vtbl.GetInputMaxLatency := CallbackCreate(GetMethod(implObj, "GetInputMaxLatency"), flags, 3)
-        this.vtbl.SetInputMaxLatency := CallbackCreate(GetMethod(implObj, "SetInputMaxLatency"), flags, 3)
-        this.vtbl.Flush := CallbackCreate(GetMethod(implObj, "Flush"), flags, 1)
-        this.vtbl.Discontinuity := CallbackCreate(GetMethod(implObj, "Discontinuity"), flags, 2)
-        this.vtbl.AllocateStreamingResources := CallbackCreate(GetMethod(implObj, "AllocateStreamingResources"), flags, 1)
-        this.vtbl.FreeStreamingResources := CallbackCreate(GetMethod(implObj, "FreeStreamingResources"), flags, 1)
-        this.vtbl.GetInputStatus := CallbackCreate(GetMethod(implObj, "GetInputStatus"), flags, 3)
-        this.vtbl.ProcessInput := CallbackCreate(GetMethod(implObj, "ProcessInput"), flags, 6)
-        this.vtbl.ProcessOutput := CallbackCreate(GetMethod(implObj, "ProcessOutput"), flags, 5)
-        this.vtbl.Lock := CallbackCreate(GetMethod(implObj, "Lock"), flags, 2)
+        this.vtbl.GetStreamCount := CallbackCreate(ObjBindMethod(implObj, "GetStreamCount"), flags, 3)
+        this.vtbl.GetInputStreamInfo := CallbackCreate(ObjBindMethod(implObj, "GetInputStreamInfo"), flags, 3)
+        this.vtbl.GetOutputStreamInfo := CallbackCreate(ObjBindMethod(implObj, "GetOutputStreamInfo"), flags, 3)
+        this.vtbl.GetInputType := CallbackCreate(ObjBindMethod(implObj, "GetInputType"), flags, 4)
+        this.vtbl.GetOutputType := CallbackCreate(ObjBindMethod(implObj, "GetOutputType"), flags, 4)
+        this.vtbl.SetInputType := CallbackCreate(ObjBindMethod(implObj, "SetInputType"), flags, 4)
+        this.vtbl.SetOutputType := CallbackCreate(ObjBindMethod(implObj, "SetOutputType"), flags, 4)
+        this.vtbl.GetInputCurrentType := CallbackCreate(ObjBindMethod(implObj, "GetInputCurrentType"), flags, 3)
+        this.vtbl.GetOutputCurrentType := CallbackCreate(ObjBindMethod(implObj, "GetOutputCurrentType"), flags, 3)
+        this.vtbl.GetInputSizeInfo := CallbackCreate(ObjBindMethod(implObj, "GetInputSizeInfo"), flags, 5)
+        this.vtbl.GetOutputSizeInfo := CallbackCreate(ObjBindMethod(implObj, "GetOutputSizeInfo"), flags, 4)
+        this.vtbl.GetInputMaxLatency := CallbackCreate(ObjBindMethod(implObj, "GetInputMaxLatency"), flags, 3)
+        this.vtbl.SetInputMaxLatency := CallbackCreate(ObjBindMethod(implObj, "SetInputMaxLatency"), flags, 3)
+        this.vtbl.Flush := CallbackCreate(ObjBindMethod(implObj, "Flush"), flags, 1)
+        this.vtbl.Discontinuity := CallbackCreate(ObjBindMethod(implObj, "Discontinuity"), flags, 2)
+        this.vtbl.AllocateStreamingResources := CallbackCreate(ObjBindMethod(implObj, "AllocateStreamingResources"), flags, 1)
+        this.vtbl.FreeStreamingResources := CallbackCreate(ObjBindMethod(implObj, "FreeStreamingResources"), flags, 1)
+        this.vtbl.GetInputStatus := CallbackCreate(ObjBindMethod(implObj, "GetInputStatus"), flags, 3)
+        this.vtbl.ProcessInput := CallbackCreate(ObjBindMethod(implObj, "ProcessInput"), flags, 6)
+        this.vtbl.ProcessOutput := CallbackCreate(ObjBindMethod(implObj, "ProcessOutput"), flags, 5)
+        this.vtbl.Lock := CallbackCreate(ObjBindMethod(implObj, "Lock"), flags, 2)
     }
 
     Dispose() {

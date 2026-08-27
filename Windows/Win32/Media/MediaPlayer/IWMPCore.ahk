@@ -308,7 +308,7 @@ export default struct IWMPCore extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcore-get_openstate
      */
     get_openState(pwmpos) {
-        pwmposMarshal := pwmpos is VarRef ? "int*" : "ptr"
+        pwmposMarshal := pwmpos is VarRef ? "int*" : IntPtr
 
         result := ComCall(10, this, pwmposMarshal, pwmpos, "HRESULT")
         return result
@@ -341,7 +341,7 @@ export default struct IWMPCore extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcore-get_playstate
      */
     get_playState(pwmpps) {
-        pwmppsMarshal := pwmpps is VarRef ? "int*" : "ptr"
+        pwmppsMarshal := pwmpps is VarRef ? "int*" : IntPtr
 
         result := ComCall(11, this, pwmppsMarshal, pwmpps, "HRESULT")
         return result
@@ -604,7 +604,7 @@ export default struct IWMPCore extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcore-get_isonline
      */
     get_isOnline(pfOnline) {
-        pfOnlineMarshal := pfOnline is VarRef ? "short*" : "ptr"
+        pfOnlineMarshal := pfOnline is VarRef ? "short*" : IntPtr
 
         result := ComCall(25, this, pfOnlineMarshal, pfOnline, "HRESULT")
         return result
@@ -662,27 +662,27 @@ export default struct IWMPCore extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.close := CallbackCreate(GetMethod(implObj, "close"), flags, 1)
-        this.vtbl.get_URL := CallbackCreate(GetMethod(implObj, "get_URL"), flags, 2)
-        this.vtbl.put_URL := CallbackCreate(GetMethod(implObj, "put_URL"), flags, 2)
-        this.vtbl.get_openState := CallbackCreate(GetMethod(implObj, "get_openState"), flags, 2)
-        this.vtbl.get_playState := CallbackCreate(GetMethod(implObj, "get_playState"), flags, 2)
-        this.vtbl.get_controls := CallbackCreate(GetMethod(implObj, "get_controls"), flags, 2)
-        this.vtbl.get_settings := CallbackCreate(GetMethod(implObj, "get_settings"), flags, 2)
-        this.vtbl.get_currentMedia := CallbackCreate(GetMethod(implObj, "get_currentMedia"), flags, 2)
-        this.vtbl.put_currentMedia := CallbackCreate(GetMethod(implObj, "put_currentMedia"), flags, 2)
-        this.vtbl.get_mediaCollection := CallbackCreate(GetMethod(implObj, "get_mediaCollection"), flags, 2)
-        this.vtbl.get_playlistCollection := CallbackCreate(GetMethod(implObj, "get_playlistCollection"), flags, 2)
-        this.vtbl.get_versionInfo := CallbackCreate(GetMethod(implObj, "get_versionInfo"), flags, 2)
-        this.vtbl.launchURL := CallbackCreate(GetMethod(implObj, "launchURL"), flags, 2)
-        this.vtbl.get_network := CallbackCreate(GetMethod(implObj, "get_network"), flags, 2)
-        this.vtbl.get_currentPlaylist := CallbackCreate(GetMethod(implObj, "get_currentPlaylist"), flags, 2)
-        this.vtbl.put_currentPlaylist := CallbackCreate(GetMethod(implObj, "put_currentPlaylist"), flags, 2)
-        this.vtbl.get_cdromCollection := CallbackCreate(GetMethod(implObj, "get_cdromCollection"), flags, 2)
-        this.vtbl.get_closedCaption := CallbackCreate(GetMethod(implObj, "get_closedCaption"), flags, 2)
-        this.vtbl.get_isOnline := CallbackCreate(GetMethod(implObj, "get_isOnline"), flags, 2)
-        this.vtbl.get_error := CallbackCreate(GetMethod(implObj, "get_error"), flags, 2)
-        this.vtbl.get_status := CallbackCreate(GetMethod(implObj, "get_status"), flags, 2)
+        this.vtbl.close := CallbackCreate(ObjBindMethod(implObj, "close"), flags, 1)
+        this.vtbl.get_URL := CallbackCreate(ObjBindMethod(implObj, "get_URL"), flags, 2)
+        this.vtbl.put_URL := CallbackCreate(ObjBindMethod(implObj, "put_URL"), flags, 2)
+        this.vtbl.get_openState := CallbackCreate(ObjBindMethod(implObj, "get_openState"), flags, 2)
+        this.vtbl.get_playState := CallbackCreate(ObjBindMethod(implObj, "get_playState"), flags, 2)
+        this.vtbl.get_controls := CallbackCreate(ObjBindMethod(implObj, "get_controls"), flags, 2)
+        this.vtbl.get_settings := CallbackCreate(ObjBindMethod(implObj, "get_settings"), flags, 2)
+        this.vtbl.get_currentMedia := CallbackCreate(ObjBindMethod(implObj, "get_currentMedia"), flags, 2)
+        this.vtbl.put_currentMedia := CallbackCreate(ObjBindMethod(implObj, "put_currentMedia"), flags, 2)
+        this.vtbl.get_mediaCollection := CallbackCreate(ObjBindMethod(implObj, "get_mediaCollection"), flags, 2)
+        this.vtbl.get_playlistCollection := CallbackCreate(ObjBindMethod(implObj, "get_playlistCollection"), flags, 2)
+        this.vtbl.get_versionInfo := CallbackCreate(ObjBindMethod(implObj, "get_versionInfo"), flags, 2)
+        this.vtbl.launchURL := CallbackCreate(ObjBindMethod(implObj, "launchURL"), flags, 2)
+        this.vtbl.get_network := CallbackCreate(ObjBindMethod(implObj, "get_network"), flags, 2)
+        this.vtbl.get_currentPlaylist := CallbackCreate(ObjBindMethod(implObj, "get_currentPlaylist"), flags, 2)
+        this.vtbl.put_currentPlaylist := CallbackCreate(ObjBindMethod(implObj, "put_currentPlaylist"), flags, 2)
+        this.vtbl.get_cdromCollection := CallbackCreate(ObjBindMethod(implObj, "get_cdromCollection"), flags, 2)
+        this.vtbl.get_closedCaption := CallbackCreate(ObjBindMethod(implObj, "get_closedCaption"), flags, 2)
+        this.vtbl.get_isOnline := CallbackCreate(ObjBindMethod(implObj, "get_isOnline"), flags, 2)
+        this.vtbl.get_error := CallbackCreate(ObjBindMethod(implObj, "get_error"), flags, 2)
+        this.vtbl.get_status := CallbackCreate(ObjBindMethod(implObj, "get_status"), flags, 2)
     }
 
     Dispose() {

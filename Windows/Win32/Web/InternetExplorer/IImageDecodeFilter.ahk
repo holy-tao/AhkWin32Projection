@@ -69,7 +69,9 @@ export default struct IImageDecodeFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-initialize
      */
     Initialize(pEventSink) {
-        result := ComCall(3, this, "ptr", pEventSink, "HRESULT")
+        pEventSinkMarshal := pEventSink == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pEventSinkMarshal, pEventSink, "HRESULT")
         return result
     }
 
@@ -153,12 +155,13 @@ export default struct IImageDecodeFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-process
      */
     Process(pStream) {
-        result := ComCall(4, this, "ptr", pStream, "HRESULT")
+        pStreamMarshal := pStream == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, pStreamMarshal, pStream, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HRESULT} hrStatus 
      * @returns {HRESULT} 
      */
@@ -176,9 +179,9 @@ export default struct IImageDecodeFilter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.Process := CallbackCreate(GetMethod(implObj, "Process"), flags, 2)
-        this.vtbl.Terminate := CallbackCreate(GetMethod(implObj, "Terminate"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.Process := CallbackCreate(ObjBindMethod(implObj, "Process"), flags, 2)
+        this.vtbl.Terminate := CallbackCreate(ObjBindMethod(implObj, "Terminate"), flags, 2)
     }
 
     Dispose() {

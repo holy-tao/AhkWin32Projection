@@ -37,7 +37,6 @@ export default struct IDirectMusic8 extends IDirectMusic {
     }
 
     /**
-     * 
      * @param {IReferenceClock} pClock 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,7 @@ export default struct IDirectMusic8 extends IDirectMusic {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetExternalMasterClock := CallbackCreate(GetMethod(implObj, "SetExternalMasterClock"), flags, 2)
+        this.vtbl.SetExternalMasterClock := CallbackCreate(ObjBindMethod(implObj, "SetExternalMasterClock"), flags, 2)
     }
 
     Dispose() {

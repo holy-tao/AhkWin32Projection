@@ -20,7 +20,6 @@ export default struct PCLUSAPI_CLUSTER_OPEN_ENUM {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {Integer} dwType 
      * @returns {HCLUSENUM} 

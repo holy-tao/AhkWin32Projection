@@ -65,7 +65,7 @@ export default struct IMsmGetFiles extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ModuleFiles := CallbackCreate(GetMethod(implObj, "get_ModuleFiles"), flags, 2)
+        this.vtbl.get_ModuleFiles := CallbackCreate(ObjBindMethod(implObj, "get_ModuleFiles"), flags, 2)
     }
 
     Dispose() {

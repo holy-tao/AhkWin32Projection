@@ -19,7 +19,6 @@ export default struct MI_OperationCallback_WriteMessage {
     }
 
     /**
-     * 
      * @param {Pointer<MI_Operation>} operation 
      * @param {Pointer<Void>} callbackContext 
      * @param {Integer} channel 
@@ -27,8 +26,9 @@ export default struct MI_OperationCallback_WriteMessage {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(operation, callbackContext, channel, message) {
-        callbackContextMarshal := callbackContext is VarRef ? "ptr" : "ptr"
-        messageMarshal := message is VarRef ? "ushort*" : "ptr"
+        callbackContextMarshal := callbackContext is VarRef ? "ptr" : IntPtr
+        callbackContextMarshal := callbackContext == 0 ? IntPtr : "ptr"
+        messageMarshal := message is VarRef ? "ushort*" : IntPtr
 
         DllCall(this.value, MI_Operation.Ptr, operation, callbackContextMarshal, callbackContext, UInt32, channel, messageMarshal, message)
     }

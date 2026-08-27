@@ -92,8 +92,8 @@ export default struct IExtractIconA extends IUnknown {
     GetIconLocation(uFlags, pszIconFile, cchMax, piIndex, pwFlags) {
         pszIconFile := pszIconFile is String ? StrPtr(pszIconFile) : pszIconFile
 
-        piIndexMarshal := piIndex is VarRef ? "int*" : "ptr"
-        pwFlagsMarshal := pwFlags is VarRef ? "uint*" : "ptr"
+        piIndexMarshal := piIndex is VarRef ? "int*" : IntPtr
+        pwFlagsMarshal := pwFlags is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, UInt32, uFlags, "ptr", pszIconFile, UInt32, cchMax, piIndexMarshal, piIndex, pwFlagsMarshal, pwFlags, "HRESULT")
         return result
@@ -126,7 +126,10 @@ export default struct IExtractIconA extends IUnknown {
     Extract(pszFile, nIconIndex, phiconLarge, phiconSmall, nIconSize) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := ComCall(4, this, "ptr", pszFile, UInt32, nIconIndex, HICON.Ptr, phiconLarge, HICON.Ptr, phiconSmall, UInt32, nIconSize, "HRESULT")
+        phiconLargeMarshal := phiconLarge == 0 ? IntPtr : HICON.Ptr
+        phiconSmallMarshal := phiconSmall == 0 ? IntPtr : HICON.Ptr
+
+        result := ComCall(4, this, "ptr", pszFile, UInt32, nIconIndex, phiconLargeMarshal, phiconLarge, phiconSmallMarshal, phiconSmall, UInt32, nIconSize, "HRESULT")
         return result
     }
 
@@ -139,8 +142,8 @@ export default struct IExtractIconA extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetIconLocation := CallbackCreate(GetMethod(implObj, "GetIconLocation"), flags, 6)
-        this.vtbl.Extract := CallbackCreate(GetMethod(implObj, "Extract"), flags, 6)
+        this.vtbl.GetIconLocation := CallbackCreate(ObjBindMethod(implObj, "GetIconLocation"), flags, 6)
+        this.vtbl.Extract := CallbackCreate(ObjBindMethod(implObj, "Extract"), flags, 6)
     }
 
     Dispose() {

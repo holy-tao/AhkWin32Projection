@@ -92,9 +92,9 @@ export default struct ISpreadsheetItemProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Formula := CallbackCreate(GetMethod(implObj, "get_Formula"), flags, 2)
-        this.vtbl.GetAnnotationObjects := CallbackCreate(GetMethod(implObj, "GetAnnotationObjects"), flags, 2)
-        this.vtbl.GetAnnotationTypes := CallbackCreate(GetMethod(implObj, "GetAnnotationTypes"), flags, 2)
+        this.vtbl.get_Formula := CallbackCreate(ObjBindMethod(implObj, "get_Formula"), flags, 2)
+        this.vtbl.GetAnnotationObjects := CallbackCreate(ObjBindMethod(implObj, "GetAnnotationObjects"), flags, 2)
+        this.vtbl.GetAnnotationTypes := CallbackCreate(ObjBindMethod(implObj, "GetAnnotationTypes"), flags, 2)
     }
 
     Dispose() {

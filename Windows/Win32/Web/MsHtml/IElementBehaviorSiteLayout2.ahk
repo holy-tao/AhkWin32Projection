@@ -37,7 +37,6 @@ export default struct IElementBehaviorSiteLayout2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {LOGFONTW} 
      */
     GetFontInfo() {
@@ -55,7 +54,7 @@ export default struct IElementBehaviorSiteLayout2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFontInfo := CallbackCreate(GetMethod(implObj, "GetFontInfo"), flags, 2)
+        this.vtbl.GetFontInfo := CallbackCreate(ObjBindMethod(implObj, "GetFontInfo"), flags, 2)
     }
 
     Dispose() {

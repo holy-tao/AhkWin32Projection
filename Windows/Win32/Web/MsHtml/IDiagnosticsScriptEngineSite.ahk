@@ -39,20 +39,18 @@ export default struct IDiagnosticsScriptEngineSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PWSTR>} pszData 
      * @param {Integer} ulDataCount 
      * @returns {HRESULT} 
      */
     OnMessage(pszData, ulDataCount) {
-        pszDataMarshal := pszData is VarRef ? "ptr*" : "ptr"
+        pszDataMarshal := pszData is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, pszDataMarshal, pszData, UInt32, ulDataCount, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IActiveScriptError} pScriptError 
      * @returns {HRESULT} 
      */
@@ -70,8 +68,8 @@ export default struct IDiagnosticsScriptEngineSite extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnMessage := CallbackCreate(GetMethod(implObj, "OnMessage"), flags, 3)
-        this.vtbl.OnScriptError := CallbackCreate(GetMethod(implObj, "OnScriptError"), flags, 2)
+        this.vtbl.OnMessage := CallbackCreate(ObjBindMethod(implObj, "OnMessage"), flags, 3)
+        this.vtbl.OnScriptError := CallbackCreate(ObjBindMethod(implObj, "OnScriptError"), flags, 2)
     }
 
     Dispose() {

@@ -58,7 +58,7 @@ export default struct IMFRelativePanelReport extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRelativePanel := CallbackCreate(GetMethod(implObj, "GetRelativePanel"), flags, 2)
+        this.vtbl.GetRelativePanel := CallbackCreate(ObjBindMethod(implObj, "GetRelativePanel"), flags, 2)
     }
 
     Dispose() {

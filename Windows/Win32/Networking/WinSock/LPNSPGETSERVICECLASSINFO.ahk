@@ -27,7 +27,6 @@ export default struct LPNSPGETSERVICECLASSINFO {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} lpProviderId A pointer to the [GUID](../guiddef/ns-guiddef-guid.md) of the specific namespace provider from which the service class schema is to be retrieved.
      * @param {Pointer<Integer>} lpdwBufSize On input, the size, in bytes, of the buffer pointed to by <i>lpServiceClassInfo</i> parameter. 
      * 
@@ -121,7 +120,7 @@ export default struct LPNSPGETSERVICECLASSINFO {
      * </table>
      */
     Call(lpProviderId, lpdwBufSize, lpServiceClassInfo) {
-        lpdwBufSizeMarshal := lpdwBufSize is VarRef ? "uint*" : "ptr"
+        lpdwBufSizeMarshal := lpdwBufSize is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, Guid.Ptr, lpProviderId, lpdwBufSizeMarshal, lpdwBufSize, WSASERVICECLASSINFOW.Ptr, lpServiceClassInfo, Int32)
         return result

@@ -77,7 +77,6 @@ export default struct IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} productID 
      * @returns {HRESULT} 
      */
@@ -87,7 +86,6 @@ export default struct IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} productID 
      * @param {Integer} usProgress 
      * @returns {HRESULT} 
@@ -98,7 +96,6 @@ export default struct IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} productID 
      * @param {HRESULT} hrResult 
      * @returns {HRESULT} 
@@ -109,7 +106,6 @@ export default struct IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PM_INSTALLINFO>} pInstallInfo 
      * @returns {HRESULT} 
      */
@@ -119,7 +115,6 @@ export default struct IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PM_UPDATEINFO>} pUpdateInfo 
      * @returns {HRESULT} 
      */
@@ -129,7 +124,6 @@ export default struct IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PM_INSTALLINFO>} pInstallInfo 
      * @returns {HRESULT} 
      */
@@ -139,7 +133,6 @@ export default struct IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PM_UPDATEINFO_LEGACY>} pUpdateInfo 
      * @returns {HRESULT} 
      */
@@ -149,7 +142,6 @@ export default struct IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} productID 
      * @returns {HRESULT} 
      */
@@ -159,7 +151,6 @@ export default struct IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PM_INSTALLINFO>} pInstallInfo 
      * @returns {HRESULT} 
      */
@@ -169,7 +160,6 @@ export default struct IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PM_UPDATEINFO>} pUpdateInfo 
      * @returns {HRESULT} 
      */
@@ -179,7 +169,6 @@ export default struct IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} productID 
      * @param {Guid} offerID 
      * @param {Pointer<Integer>} pbLicense 
@@ -187,14 +176,13 @@ export default struct IPMDeploymentManager extends IUnknown {
      * @returns {HRESULT} 
      */
     BeginUpdateLicense(productID, offerID, pbLicense, cbLicense) {
-        pbLicenseMarshal := pbLicense is VarRef ? "char*" : "ptr"
+        pbLicenseMarshal := pbLicense is VarRef ? "char*" : IntPtr
 
         result := ComCall(13, this, Guid, productID, Guid, offerID, pbLicenseMarshal, pbLicense, UInt32, cbLicense, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {BSTR} PackagePath 
      * @param {Pointer<Pointer<Integer>>} ppbChallenge 
      * @param {Pointer<Integer>} pcbChallenge 
@@ -211,38 +199,44 @@ export default struct IPMDeploymentManager extends IUnknown {
     GetLicenseChallenge(PackagePath, ppbChallenge, pcbChallenge, ppbKID, pcbKID, ppbDeviceID, pcbDeviceID, ppbSaltValue, pcbSaltValue, ppbKGVValue, pcbKGVValue) {
         PackagePath := PackagePath is String ? BSTR.Alloc(PackagePath).Value : PackagePath
 
-        ppbChallengeMarshal := ppbChallenge is VarRef ? "ptr*" : "ptr"
-        pcbChallengeMarshal := pcbChallenge is VarRef ? "uint*" : "ptr"
-        ppbKIDMarshal := ppbKID is VarRef ? "ptr*" : "ptr"
-        pcbKIDMarshal := pcbKID is VarRef ? "uint*" : "ptr"
-        ppbDeviceIDMarshal := ppbDeviceID is VarRef ? "ptr*" : "ptr"
-        pcbDeviceIDMarshal := pcbDeviceID is VarRef ? "uint*" : "ptr"
-        ppbSaltValueMarshal := ppbSaltValue is VarRef ? "ptr*" : "ptr"
-        pcbSaltValueMarshal := pcbSaltValue is VarRef ? "uint*" : "ptr"
-        ppbKGVValueMarshal := ppbKGVValue is VarRef ? "ptr*" : "ptr"
-        pcbKGVValueMarshal := pcbKGVValue is VarRef ? "uint*" : "ptr"
+        ppbChallengeMarshal := ppbChallenge is VarRef ? "ptr*" : IntPtr
+        pcbChallengeMarshal := pcbChallenge is VarRef ? "uint*" : IntPtr
+        ppbKIDMarshal := ppbKID is VarRef ? "ptr*" : IntPtr
+        ppbKIDMarshal := ppbKID == 0 ? IntPtr : "ptr*"
+        pcbKIDMarshal := pcbKID is VarRef ? "uint*" : IntPtr
+        pcbKIDMarshal := pcbKID == 0 ? IntPtr : "uint*"
+        ppbDeviceIDMarshal := ppbDeviceID is VarRef ? "ptr*" : IntPtr
+        ppbDeviceIDMarshal := ppbDeviceID == 0 ? IntPtr : "ptr*"
+        pcbDeviceIDMarshal := pcbDeviceID is VarRef ? "uint*" : IntPtr
+        pcbDeviceIDMarshal := pcbDeviceID == 0 ? IntPtr : "uint*"
+        ppbSaltValueMarshal := ppbSaltValue is VarRef ? "ptr*" : IntPtr
+        ppbSaltValueMarshal := ppbSaltValue == 0 ? IntPtr : "ptr*"
+        pcbSaltValueMarshal := pcbSaltValue is VarRef ? "uint*" : IntPtr
+        pcbSaltValueMarshal := pcbSaltValue == 0 ? IntPtr : "uint*"
+        ppbKGVValueMarshal := ppbKGVValue is VarRef ? "ptr*" : IntPtr
+        ppbKGVValueMarshal := ppbKGVValue == 0 ? IntPtr : "ptr*"
+        pcbKGVValueMarshal := pcbKGVValue is VarRef ? "uint*" : IntPtr
+        pcbKGVValueMarshal := pcbKGVValue == 0 ? IntPtr : "uint*"
 
         result := ComCall(14, this, BSTR, PackagePath, ppbChallengeMarshal, ppbChallenge, pcbChallengeMarshal, pcbChallenge, ppbKIDMarshal, ppbKID, pcbKIDMarshal, pcbKID, ppbDeviceIDMarshal, ppbDeviceID, pcbDeviceIDMarshal, pcbDeviceID, ppbSaltValueMarshal, ppbSaltValue, pcbSaltValueMarshal, pcbSaltValue, ppbKGVValueMarshal, ppbKGVValue, pcbKGVValueMarshal, pcbKGVValue, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Guid} ProductID 
      * @param {Pointer<Pointer<Integer>>} ppbChallenge 
      * @param {Pointer<Integer>} pcbLicense 
      * @returns {HRESULT} 
      */
     GetLicenseChallengeByProductID(ProductID, ppbChallenge, pcbLicense) {
-        ppbChallengeMarshal := ppbChallenge is VarRef ? "ptr*" : "ptr"
-        pcbLicenseMarshal := pcbLicense is VarRef ? "uint*" : "ptr"
+        ppbChallengeMarshal := ppbChallenge is VarRef ? "ptr*" : IntPtr
+        pcbLicenseMarshal := pcbLicense is VarRef ? "uint*" : IntPtr
 
         result := ComCall(15, this, Guid, ProductID, ppbChallengeMarshal, ppbChallenge, pcbLicenseMarshal, pcbLicense, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Guid} ProductID 
      * @param {Pointer<Pointer<Integer>>} ppbChallenge 
      * @param {Pointer<Integer>} pcbLicense 
@@ -257,23 +251,30 @@ export default struct IPMDeploymentManager extends IUnknown {
      * @returns {HRESULT} 
      */
     GetLicenseChallengeByProductID2(ProductID, ppbChallenge, pcbLicense, ppbKID, pcbKID, ppbDeviceID, pcbDeviceID, ppbSaltValue, pcbSaltValue, ppbKGVValue, pcbKGVValue) {
-        ppbChallengeMarshal := ppbChallenge is VarRef ? "ptr*" : "ptr"
-        pcbLicenseMarshal := pcbLicense is VarRef ? "uint*" : "ptr"
-        ppbKIDMarshal := ppbKID is VarRef ? "ptr*" : "ptr"
-        pcbKIDMarshal := pcbKID is VarRef ? "uint*" : "ptr"
-        ppbDeviceIDMarshal := ppbDeviceID is VarRef ? "ptr*" : "ptr"
-        pcbDeviceIDMarshal := pcbDeviceID is VarRef ? "uint*" : "ptr"
-        ppbSaltValueMarshal := ppbSaltValue is VarRef ? "ptr*" : "ptr"
-        pcbSaltValueMarshal := pcbSaltValue is VarRef ? "uint*" : "ptr"
-        ppbKGVValueMarshal := ppbKGVValue is VarRef ? "ptr*" : "ptr"
-        pcbKGVValueMarshal := pcbKGVValue is VarRef ? "uint*" : "ptr"
+        ppbChallengeMarshal := ppbChallenge is VarRef ? "ptr*" : IntPtr
+        pcbLicenseMarshal := pcbLicense is VarRef ? "uint*" : IntPtr
+        ppbKIDMarshal := ppbKID is VarRef ? "ptr*" : IntPtr
+        ppbKIDMarshal := ppbKID == 0 ? IntPtr : "ptr*"
+        pcbKIDMarshal := pcbKID is VarRef ? "uint*" : IntPtr
+        pcbKIDMarshal := pcbKID == 0 ? IntPtr : "uint*"
+        ppbDeviceIDMarshal := ppbDeviceID is VarRef ? "ptr*" : IntPtr
+        ppbDeviceIDMarshal := ppbDeviceID == 0 ? IntPtr : "ptr*"
+        pcbDeviceIDMarshal := pcbDeviceID is VarRef ? "uint*" : IntPtr
+        pcbDeviceIDMarshal := pcbDeviceID == 0 ? IntPtr : "uint*"
+        ppbSaltValueMarshal := ppbSaltValue is VarRef ? "ptr*" : IntPtr
+        ppbSaltValueMarshal := ppbSaltValue == 0 ? IntPtr : "ptr*"
+        pcbSaltValueMarshal := pcbSaltValue is VarRef ? "uint*" : IntPtr
+        pcbSaltValueMarshal := pcbSaltValue == 0 ? IntPtr : "uint*"
+        ppbKGVValueMarshal := ppbKGVValue is VarRef ? "ptr*" : IntPtr
+        ppbKGVValueMarshal := ppbKGVValue == 0 ? IntPtr : "ptr*"
+        pcbKGVValueMarshal := pcbKGVValue is VarRef ? "uint*" : IntPtr
+        pcbKGVValueMarshal := pcbKGVValue == 0 ? IntPtr : "uint*"
 
         result := ComCall(16, this, Guid, ProductID, ppbChallengeMarshal, ppbChallenge, pcbLicenseMarshal, pcbLicense, ppbKIDMarshal, ppbKID, pcbKIDMarshal, pcbKID, ppbDeviceIDMarshal, ppbDeviceID, pcbDeviceIDMarshal, pcbDeviceID, ppbSaltValueMarshal, ppbSaltValue, pcbSaltValueMarshal, pcbSaltValue, ppbKGVValueMarshal, ppbKGVValue, pcbKGVValueMarshal, pcbKGVValue, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Guid} productID 
      * @returns {HRESULT} 
      */
@@ -283,7 +284,6 @@ export default struct IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} ProductID 
      * @param {Pointer<SAFEARRAY>} FileNames 
      * @returns {HRESULT} 
@@ -294,7 +294,6 @@ export default struct IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} ProductID 
      * @param {Guid} InstanceID 
      * @returns {HRESULT} 
@@ -305,7 +304,6 @@ export default struct IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} ProductID 
      * @param {Pointer<SAFEARRAY>} AssemblyPaths 
      * @returns {HRESULT} 
@@ -316,7 +314,6 @@ export default struct IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} ProductID 
      * @returns {HRESULT} 
      */
@@ -326,7 +323,6 @@ export default struct IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} ProductID 
      * @param {BSTR} XMLpath 
      * @returns {HRESULT} 
@@ -339,7 +335,6 @@ export default struct IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} ProductID 
      * @returns {HRESULT} 
      */
@@ -349,7 +344,6 @@ export default struct IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} ProductID 
      * @returns {HRESULT} 
      */
@@ -359,7 +353,6 @@ export default struct IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} RequiredMaintenanceOperations 
      * @returns {Integer} 
      */
@@ -369,7 +362,6 @@ export default struct IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} ProductID 
      * @returns {HRESULT} 
      */
@@ -379,7 +371,6 @@ export default struct IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} productId 
      * @param {PWSTR} publisherName 
      * @returns {BOOL} 
@@ -392,7 +383,6 @@ export default struct IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PM_UPDATEINFO>} pUpdateInfo 
      * @returns {HRESULT} 
      */
@@ -402,7 +392,6 @@ export default struct IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} productID 
      * @returns {HRESULT} 
      */
@@ -412,7 +401,6 @@ export default struct IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} resourceString 
      * @param {Pointer<BSTR>} pResolvedResourceString 
      * @returns {HRESULT} 
@@ -425,7 +413,6 @@ export default struct IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     UpdateCapabilitiesForModernApps() {
@@ -434,7 +421,6 @@ export default struct IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} productId 
      * @returns {HRESULT} 
      */
@@ -444,7 +430,6 @@ export default struct IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} productID 
      * @param {Integer} removalOptions 
      * @returns {HRESULT} 
@@ -455,7 +440,6 @@ export default struct IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     BindDeferredMdilBinaries() {
@@ -464,7 +448,6 @@ export default struct IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} PackageFamilyName 
      * @returns {HRESULT} 
      */
@@ -476,7 +459,6 @@ export default struct IPMDeploymentManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} productID 
      * @param {Pointer<Integer>} pbLicense 
      * @param {Integer} cbLicense 
@@ -485,15 +467,15 @@ export default struct IPMDeploymentManager extends IUnknown {
      * @returns {HRESULT} 
      */
     AddLicenseForAppx(productID, pbLicense, cbLicense, pbPlayReadyHeader, cbPlayReadyHeader) {
-        pbLicenseMarshal := pbLicense is VarRef ? "char*" : "ptr"
-        pbPlayReadyHeaderMarshal := pbPlayReadyHeader is VarRef ? "char*" : "ptr"
+        pbLicenseMarshal := pbLicense is VarRef ? "char*" : IntPtr
+        pbPlayReadyHeaderMarshal := pbPlayReadyHeader is VarRef ? "char*" : IntPtr
+        pbPlayReadyHeaderMarshal := pbPlayReadyHeader == 0 ? IntPtr : "char*"
 
         result := ComCall(36, this, Guid, productID, pbLicenseMarshal, pbLicense, UInt32, cbLicense, pbPlayReadyHeaderMarshal, pbPlayReadyHeader, UInt32, cbPlayReadyHeader, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     FixJunctionsForAppsOnSDCard() {
@@ -510,41 +492,41 @@ export default struct IPMDeploymentManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ReportDownloadBegin := CallbackCreate(GetMethod(implObj, "ReportDownloadBegin"), flags, 2)
-        this.vtbl.ReportDownloadProgress := CallbackCreate(GetMethod(implObj, "ReportDownloadProgress"), flags, 3)
-        this.vtbl.ReportDownloadComplete := CallbackCreate(GetMethod(implObj, "ReportDownloadComplete"), flags, 3)
-        this.vtbl.BeginInstall := CallbackCreate(GetMethod(implObj, "BeginInstall"), flags, 2)
-        this.vtbl.BeginUpdate := CallbackCreate(GetMethod(implObj, "BeginUpdate"), flags, 2)
-        this.vtbl.BeginDeployPackage := CallbackCreate(GetMethod(implObj, "BeginDeployPackage"), flags, 2)
-        this.vtbl.BeginUpdateDeployedPackageLegacy := CallbackCreate(GetMethod(implObj, "BeginUpdateDeployedPackageLegacy"), flags, 2)
-        this.vtbl.BeginUninstall := CallbackCreate(GetMethod(implObj, "BeginUninstall"), flags, 2)
-        this.vtbl.BeginEnterpriseAppInstall := CallbackCreate(GetMethod(implObj, "BeginEnterpriseAppInstall"), flags, 2)
-        this.vtbl.BeginEnterpriseAppUpdate := CallbackCreate(GetMethod(implObj, "BeginEnterpriseAppUpdate"), flags, 2)
-        this.vtbl.BeginUpdateLicense := CallbackCreate(GetMethod(implObj, "BeginUpdateLicense"), flags, 5)
-        this.vtbl.GetLicenseChallenge := CallbackCreate(GetMethod(implObj, "GetLicenseChallenge"), flags, 12)
-        this.vtbl.GetLicenseChallengeByProductID := CallbackCreate(GetMethod(implObj, "GetLicenseChallengeByProductID"), flags, 4)
-        this.vtbl.GetLicenseChallengeByProductID2 := CallbackCreate(GetMethod(implObj, "GetLicenseChallengeByProductID2"), flags, 12)
-        this.vtbl.RevokeLicense := CallbackCreate(GetMethod(implObj, "RevokeLicense"), flags, 2)
-        this.vtbl.RebindMdilBinaries := CallbackCreate(GetMethod(implObj, "RebindMdilBinaries"), flags, 3)
-        this.vtbl.RebindAllMdilBinaries := CallbackCreate(GetMethod(implObj, "RebindAllMdilBinaries"), flags, 3)
-        this.vtbl.RegenerateXbf := CallbackCreate(GetMethod(implObj, "RegenerateXbf"), flags, 3)
-        this.vtbl.GenerateXbfForCurrentLocale := CallbackCreate(GetMethod(implObj, "GenerateXbfForCurrentLocale"), flags, 2)
-        this.vtbl.BeginProvision := CallbackCreate(GetMethod(implObj, "BeginProvision"), flags, 3)
-        this.vtbl.BeginDeprovision := CallbackCreate(GetMethod(implObj, "BeginDeprovision"), flags, 2)
-        this.vtbl.ReindexSQLCEDatabases := CallbackCreate(GetMethod(implObj, "ReindexSQLCEDatabases"), flags, 2)
-        this.vtbl.SetApplicationsNeedMaintenance := CallbackCreate(GetMethod(implObj, "SetApplicationsNeedMaintenance"), flags, 3)
-        this.vtbl.UpdateChamberProfile := CallbackCreate(GetMethod(implObj, "UpdateChamberProfile"), flags, 2)
-        this.vtbl.EnterprisePolicyIsApplicationAllowed := CallbackCreate(GetMethod(implObj, "EnterprisePolicyIsApplicationAllowed"), flags, 4)
-        this.vtbl.BeginUpdateDeployedPackage := CallbackCreate(GetMethod(implObj, "BeginUpdateDeployedPackage"), flags, 2)
-        this.vtbl.ReportRestoreCancelled := CallbackCreate(GetMethod(implObj, "ReportRestoreCancelled"), flags, 2)
-        this.vtbl.ResolveResourceString := CallbackCreate(GetMethod(implObj, "ResolveResourceString"), flags, 3)
-        this.vtbl.UpdateCapabilitiesForModernApps := CallbackCreate(GetMethod(implObj, "UpdateCapabilitiesForModernApps"), flags, 1)
-        this.vtbl.ReportDownloadStatusUpdate := CallbackCreate(GetMethod(implObj, "ReportDownloadStatusUpdate"), flags, 2)
-        this.vtbl.BeginUninstallWithOptions := CallbackCreate(GetMethod(implObj, "BeginUninstallWithOptions"), flags, 3)
-        this.vtbl.BindDeferredMdilBinaries := CallbackCreate(GetMethod(implObj, "BindDeferredMdilBinaries"), flags, 1)
-        this.vtbl.GenerateXamlLightupXbfForCurrentLocale := CallbackCreate(GetMethod(implObj, "GenerateXamlLightupXbfForCurrentLocale"), flags, 2)
-        this.vtbl.AddLicenseForAppx := CallbackCreate(GetMethod(implObj, "AddLicenseForAppx"), flags, 6)
-        this.vtbl.FixJunctionsForAppsOnSDCard := CallbackCreate(GetMethod(implObj, "FixJunctionsForAppsOnSDCard"), flags, 1)
+        this.vtbl.ReportDownloadBegin := CallbackCreate(ObjBindMethod(implObj, "ReportDownloadBegin"), flags, 2)
+        this.vtbl.ReportDownloadProgress := CallbackCreate(ObjBindMethod(implObj, "ReportDownloadProgress"), flags, 3)
+        this.vtbl.ReportDownloadComplete := CallbackCreate(ObjBindMethod(implObj, "ReportDownloadComplete"), flags, 3)
+        this.vtbl.BeginInstall := CallbackCreate(ObjBindMethod(implObj, "BeginInstall"), flags, 2)
+        this.vtbl.BeginUpdate := CallbackCreate(ObjBindMethod(implObj, "BeginUpdate"), flags, 2)
+        this.vtbl.BeginDeployPackage := CallbackCreate(ObjBindMethod(implObj, "BeginDeployPackage"), flags, 2)
+        this.vtbl.BeginUpdateDeployedPackageLegacy := CallbackCreate(ObjBindMethod(implObj, "BeginUpdateDeployedPackageLegacy"), flags, 2)
+        this.vtbl.BeginUninstall := CallbackCreate(ObjBindMethod(implObj, "BeginUninstall"), flags, 2)
+        this.vtbl.BeginEnterpriseAppInstall := CallbackCreate(ObjBindMethod(implObj, "BeginEnterpriseAppInstall"), flags, 2)
+        this.vtbl.BeginEnterpriseAppUpdate := CallbackCreate(ObjBindMethod(implObj, "BeginEnterpriseAppUpdate"), flags, 2)
+        this.vtbl.BeginUpdateLicense := CallbackCreate(ObjBindMethod(implObj, "BeginUpdateLicense"), flags, 5)
+        this.vtbl.GetLicenseChallenge := CallbackCreate(ObjBindMethod(implObj, "GetLicenseChallenge"), flags, 12)
+        this.vtbl.GetLicenseChallengeByProductID := CallbackCreate(ObjBindMethod(implObj, "GetLicenseChallengeByProductID"), flags, 4)
+        this.vtbl.GetLicenseChallengeByProductID2 := CallbackCreate(ObjBindMethod(implObj, "GetLicenseChallengeByProductID2"), flags, 12)
+        this.vtbl.RevokeLicense := CallbackCreate(ObjBindMethod(implObj, "RevokeLicense"), flags, 2)
+        this.vtbl.RebindMdilBinaries := CallbackCreate(ObjBindMethod(implObj, "RebindMdilBinaries"), flags, 3)
+        this.vtbl.RebindAllMdilBinaries := CallbackCreate(ObjBindMethod(implObj, "RebindAllMdilBinaries"), flags, 3)
+        this.vtbl.RegenerateXbf := CallbackCreate(ObjBindMethod(implObj, "RegenerateXbf"), flags, 3)
+        this.vtbl.GenerateXbfForCurrentLocale := CallbackCreate(ObjBindMethod(implObj, "GenerateXbfForCurrentLocale"), flags, 2)
+        this.vtbl.BeginProvision := CallbackCreate(ObjBindMethod(implObj, "BeginProvision"), flags, 3)
+        this.vtbl.BeginDeprovision := CallbackCreate(ObjBindMethod(implObj, "BeginDeprovision"), flags, 2)
+        this.vtbl.ReindexSQLCEDatabases := CallbackCreate(ObjBindMethod(implObj, "ReindexSQLCEDatabases"), flags, 2)
+        this.vtbl.SetApplicationsNeedMaintenance := CallbackCreate(ObjBindMethod(implObj, "SetApplicationsNeedMaintenance"), flags, 3)
+        this.vtbl.UpdateChamberProfile := CallbackCreate(ObjBindMethod(implObj, "UpdateChamberProfile"), flags, 2)
+        this.vtbl.EnterprisePolicyIsApplicationAllowed := CallbackCreate(ObjBindMethod(implObj, "EnterprisePolicyIsApplicationAllowed"), flags, 4)
+        this.vtbl.BeginUpdateDeployedPackage := CallbackCreate(ObjBindMethod(implObj, "BeginUpdateDeployedPackage"), flags, 2)
+        this.vtbl.ReportRestoreCancelled := CallbackCreate(ObjBindMethod(implObj, "ReportRestoreCancelled"), flags, 2)
+        this.vtbl.ResolveResourceString := CallbackCreate(ObjBindMethod(implObj, "ResolveResourceString"), flags, 3)
+        this.vtbl.UpdateCapabilitiesForModernApps := CallbackCreate(ObjBindMethod(implObj, "UpdateCapabilitiesForModernApps"), flags, 1)
+        this.vtbl.ReportDownloadStatusUpdate := CallbackCreate(ObjBindMethod(implObj, "ReportDownloadStatusUpdate"), flags, 2)
+        this.vtbl.BeginUninstallWithOptions := CallbackCreate(ObjBindMethod(implObj, "BeginUninstallWithOptions"), flags, 3)
+        this.vtbl.BindDeferredMdilBinaries := CallbackCreate(ObjBindMethod(implObj, "BindDeferredMdilBinaries"), flags, 1)
+        this.vtbl.GenerateXamlLightupXbfForCurrentLocale := CallbackCreate(ObjBindMethod(implObj, "GenerateXamlLightupXbfForCurrentLocale"), flags, 2)
+        this.vtbl.AddLicenseForAppx := CallbackCreate(ObjBindMethod(implObj, "AddLicenseForAppx"), flags, 6)
+        this.vtbl.FixJunctionsForAppsOnSDCard := CallbackCreate(ObjBindMethod(implObj, "FixJunctionsForAppsOnSDCard"), flags, 1)
     }
 
     Dispose() {

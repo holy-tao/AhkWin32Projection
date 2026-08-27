@@ -75,7 +75,6 @@ export default struct IHTMLRect extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -85,7 +84,6 @@ export default struct IHTMLRect extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_left() {
@@ -94,7 +92,6 @@ export default struct IHTMLRect extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -104,7 +101,6 @@ export default struct IHTMLRect extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_top() {
@@ -113,7 +109,6 @@ export default struct IHTMLRect extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -123,7 +118,6 @@ export default struct IHTMLRect extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_right() {
@@ -132,7 +126,6 @@ export default struct IHTMLRect extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -142,7 +135,6 @@ export default struct IHTMLRect extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_bottom() {
@@ -159,14 +151,14 @@ export default struct IHTMLRect extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_left := CallbackCreate(GetMethod(implObj, "put_left"), flags, 2)
-        this.vtbl.get_left := CallbackCreate(GetMethod(implObj, "get_left"), flags, 2)
-        this.vtbl.put_top := CallbackCreate(GetMethod(implObj, "put_top"), flags, 2)
-        this.vtbl.get_top := CallbackCreate(GetMethod(implObj, "get_top"), flags, 2)
-        this.vtbl.put_right := CallbackCreate(GetMethod(implObj, "put_right"), flags, 2)
-        this.vtbl.get_right := CallbackCreate(GetMethod(implObj, "get_right"), flags, 2)
-        this.vtbl.put_bottom := CallbackCreate(GetMethod(implObj, "put_bottom"), flags, 2)
-        this.vtbl.get_bottom := CallbackCreate(GetMethod(implObj, "get_bottom"), flags, 2)
+        this.vtbl.put_left := CallbackCreate(ObjBindMethod(implObj, "put_left"), flags, 2)
+        this.vtbl.get_left := CallbackCreate(ObjBindMethod(implObj, "get_left"), flags, 2)
+        this.vtbl.put_top := CallbackCreate(ObjBindMethod(implObj, "put_top"), flags, 2)
+        this.vtbl.get_top := CallbackCreate(ObjBindMethod(implObj, "get_top"), flags, 2)
+        this.vtbl.put_right := CallbackCreate(ObjBindMethod(implObj, "put_right"), flags, 2)
+        this.vtbl.get_right := CallbackCreate(ObjBindMethod(implObj, "get_right"), flags, 2)
+        this.vtbl.put_bottom := CallbackCreate(ObjBindMethod(implObj, "put_bottom"), flags, 2)
+        this.vtbl.get_bottom := CallbackCreate(ObjBindMethod(implObj, "get_bottom"), flags, 2)
     }
 
     Dispose() {

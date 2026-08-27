@@ -62,7 +62,7 @@ export default struct IMSVidPlaybackEvent extends IMSVidInputDeviceEvent {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EndOfMedia := CallbackCreate(GetMethod(implObj, "EndOfMedia"), flags, 2)
+        this.vtbl.EndOfMedia := CallbackCreate(ObjBindMethod(implObj, "EndOfMedia"), flags, 2)
     }
 
     Dispose() {

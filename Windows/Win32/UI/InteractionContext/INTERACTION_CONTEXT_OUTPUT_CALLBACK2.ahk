@@ -19,13 +19,13 @@ export default struct INTERACTION_CONTEXT_OUTPUT_CALLBACK2 {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} clientData 
      * @param {Pointer<INTERACTION_CONTEXT_OUTPUT2>} output 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(clientData, output) {
-        clientDataMarshal := clientData is VarRef ? "ptr" : "ptr"
+        clientDataMarshal := clientData is VarRef ? "ptr" : IntPtr
+        clientDataMarshal := clientData == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, clientDataMarshal, clientData, INTERACTION_CONTEXT_OUTPUT2.Ptr, output)
     }

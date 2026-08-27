@@ -21,7 +21,6 @@ export default struct PCLUSAPI_OPEN_CLUSTER_NET_INTERFACE {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszInterfaceName 
      * @returns {HNETINTERFACE} 

@@ -237,7 +237,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -249,7 +248,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_flex() {
@@ -259,7 +257,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -271,7 +268,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_flexDirection() {
@@ -281,7 +277,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -293,7 +288,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_flexWrap() {
@@ -303,7 +297,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -315,7 +308,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_flexFlow() {
@@ -325,7 +317,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -335,7 +326,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_flexGrow() {
@@ -345,7 +335,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -355,7 +344,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_flexShrink() {
@@ -365,7 +353,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -375,7 +362,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_flexBasis() {
@@ -385,7 +371,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -397,7 +382,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_justifyContent() {
@@ -407,7 +391,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -419,7 +402,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_alignItems() {
@@ -429,7 +411,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -441,7 +422,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_alignSelf() {
@@ -451,7 +431,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -463,7 +442,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_alignContent() {
@@ -473,7 +451,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -485,7 +462,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderImage() {
@@ -495,7 +471,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -507,7 +482,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderImageSource() {
@@ -517,7 +491,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -529,7 +502,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderImageSlice() {
@@ -539,7 +511,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -551,7 +522,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderImageWidth() {
@@ -561,7 +531,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -573,7 +542,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderImageOutset() {
@@ -583,7 +551,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -595,7 +562,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderImageRepeat() {
@@ -605,7 +571,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -617,7 +582,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msImeAlign() {
@@ -627,7 +591,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -639,7 +602,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msTextCombineHorizontal() {
@@ -649,7 +611,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -661,7 +622,6 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_touchAction() {
@@ -679,46 +639,46 @@ export default struct IHTMLCSSStyleDeclaration3 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_flex := CallbackCreate(GetMethod(implObj, "put_flex"), flags, 2)
-        this.vtbl.get_flex := CallbackCreate(GetMethod(implObj, "get_flex"), flags, 2)
-        this.vtbl.put_flexDirection := CallbackCreate(GetMethod(implObj, "put_flexDirection"), flags, 2)
-        this.vtbl.get_flexDirection := CallbackCreate(GetMethod(implObj, "get_flexDirection"), flags, 2)
-        this.vtbl.put_flexWrap := CallbackCreate(GetMethod(implObj, "put_flexWrap"), flags, 2)
-        this.vtbl.get_flexWrap := CallbackCreate(GetMethod(implObj, "get_flexWrap"), flags, 2)
-        this.vtbl.put_flexFlow := CallbackCreate(GetMethod(implObj, "put_flexFlow"), flags, 2)
-        this.vtbl.get_flexFlow := CallbackCreate(GetMethod(implObj, "get_flexFlow"), flags, 2)
-        this.vtbl.put_flexGrow := CallbackCreate(GetMethod(implObj, "put_flexGrow"), flags, 2)
-        this.vtbl.get_flexGrow := CallbackCreate(GetMethod(implObj, "get_flexGrow"), flags, 2)
-        this.vtbl.put_flexShrink := CallbackCreate(GetMethod(implObj, "put_flexShrink"), flags, 2)
-        this.vtbl.get_flexShrink := CallbackCreate(GetMethod(implObj, "get_flexShrink"), flags, 2)
-        this.vtbl.put_flexBasis := CallbackCreate(GetMethod(implObj, "put_flexBasis"), flags, 2)
-        this.vtbl.get_flexBasis := CallbackCreate(GetMethod(implObj, "get_flexBasis"), flags, 2)
-        this.vtbl.put_justifyContent := CallbackCreate(GetMethod(implObj, "put_justifyContent"), flags, 2)
-        this.vtbl.get_justifyContent := CallbackCreate(GetMethod(implObj, "get_justifyContent"), flags, 2)
-        this.vtbl.put_alignItems := CallbackCreate(GetMethod(implObj, "put_alignItems"), flags, 2)
-        this.vtbl.get_alignItems := CallbackCreate(GetMethod(implObj, "get_alignItems"), flags, 2)
-        this.vtbl.put_alignSelf := CallbackCreate(GetMethod(implObj, "put_alignSelf"), flags, 2)
-        this.vtbl.get_alignSelf := CallbackCreate(GetMethod(implObj, "get_alignSelf"), flags, 2)
-        this.vtbl.put_alignContent := CallbackCreate(GetMethod(implObj, "put_alignContent"), flags, 2)
-        this.vtbl.get_alignContent := CallbackCreate(GetMethod(implObj, "get_alignContent"), flags, 2)
-        this.vtbl.put_borderImage := CallbackCreate(GetMethod(implObj, "put_borderImage"), flags, 2)
-        this.vtbl.get_borderImage := CallbackCreate(GetMethod(implObj, "get_borderImage"), flags, 2)
-        this.vtbl.put_borderImageSource := CallbackCreate(GetMethod(implObj, "put_borderImageSource"), flags, 2)
-        this.vtbl.get_borderImageSource := CallbackCreate(GetMethod(implObj, "get_borderImageSource"), flags, 2)
-        this.vtbl.put_borderImageSlice := CallbackCreate(GetMethod(implObj, "put_borderImageSlice"), flags, 2)
-        this.vtbl.get_borderImageSlice := CallbackCreate(GetMethod(implObj, "get_borderImageSlice"), flags, 2)
-        this.vtbl.put_borderImageWidth := CallbackCreate(GetMethod(implObj, "put_borderImageWidth"), flags, 2)
-        this.vtbl.get_borderImageWidth := CallbackCreate(GetMethod(implObj, "get_borderImageWidth"), flags, 2)
-        this.vtbl.put_borderImageOutset := CallbackCreate(GetMethod(implObj, "put_borderImageOutset"), flags, 2)
-        this.vtbl.get_borderImageOutset := CallbackCreate(GetMethod(implObj, "get_borderImageOutset"), flags, 2)
-        this.vtbl.put_borderImageRepeat := CallbackCreate(GetMethod(implObj, "put_borderImageRepeat"), flags, 2)
-        this.vtbl.get_borderImageRepeat := CallbackCreate(GetMethod(implObj, "get_borderImageRepeat"), flags, 2)
-        this.vtbl.put_msImeAlign := CallbackCreate(GetMethod(implObj, "put_msImeAlign"), flags, 2)
-        this.vtbl.get_msImeAlign := CallbackCreate(GetMethod(implObj, "get_msImeAlign"), flags, 2)
-        this.vtbl.put_msTextCombineHorizontal := CallbackCreate(GetMethod(implObj, "put_msTextCombineHorizontal"), flags, 2)
-        this.vtbl.get_msTextCombineHorizontal := CallbackCreate(GetMethod(implObj, "get_msTextCombineHorizontal"), flags, 2)
-        this.vtbl.put_touchAction := CallbackCreate(GetMethod(implObj, "put_touchAction"), flags, 2)
-        this.vtbl.get_touchAction := CallbackCreate(GetMethod(implObj, "get_touchAction"), flags, 2)
+        this.vtbl.put_flex := CallbackCreate(ObjBindMethod(implObj, "put_flex"), flags, 2)
+        this.vtbl.get_flex := CallbackCreate(ObjBindMethod(implObj, "get_flex"), flags, 2)
+        this.vtbl.put_flexDirection := CallbackCreate(ObjBindMethod(implObj, "put_flexDirection"), flags, 2)
+        this.vtbl.get_flexDirection := CallbackCreate(ObjBindMethod(implObj, "get_flexDirection"), flags, 2)
+        this.vtbl.put_flexWrap := CallbackCreate(ObjBindMethod(implObj, "put_flexWrap"), flags, 2)
+        this.vtbl.get_flexWrap := CallbackCreate(ObjBindMethod(implObj, "get_flexWrap"), flags, 2)
+        this.vtbl.put_flexFlow := CallbackCreate(ObjBindMethod(implObj, "put_flexFlow"), flags, 2)
+        this.vtbl.get_flexFlow := CallbackCreate(ObjBindMethod(implObj, "get_flexFlow"), flags, 2)
+        this.vtbl.put_flexGrow := CallbackCreate(ObjBindMethod(implObj, "put_flexGrow"), flags, 2)
+        this.vtbl.get_flexGrow := CallbackCreate(ObjBindMethod(implObj, "get_flexGrow"), flags, 2)
+        this.vtbl.put_flexShrink := CallbackCreate(ObjBindMethod(implObj, "put_flexShrink"), flags, 2)
+        this.vtbl.get_flexShrink := CallbackCreate(ObjBindMethod(implObj, "get_flexShrink"), flags, 2)
+        this.vtbl.put_flexBasis := CallbackCreate(ObjBindMethod(implObj, "put_flexBasis"), flags, 2)
+        this.vtbl.get_flexBasis := CallbackCreate(ObjBindMethod(implObj, "get_flexBasis"), flags, 2)
+        this.vtbl.put_justifyContent := CallbackCreate(ObjBindMethod(implObj, "put_justifyContent"), flags, 2)
+        this.vtbl.get_justifyContent := CallbackCreate(ObjBindMethod(implObj, "get_justifyContent"), flags, 2)
+        this.vtbl.put_alignItems := CallbackCreate(ObjBindMethod(implObj, "put_alignItems"), flags, 2)
+        this.vtbl.get_alignItems := CallbackCreate(ObjBindMethod(implObj, "get_alignItems"), flags, 2)
+        this.vtbl.put_alignSelf := CallbackCreate(ObjBindMethod(implObj, "put_alignSelf"), flags, 2)
+        this.vtbl.get_alignSelf := CallbackCreate(ObjBindMethod(implObj, "get_alignSelf"), flags, 2)
+        this.vtbl.put_alignContent := CallbackCreate(ObjBindMethod(implObj, "put_alignContent"), flags, 2)
+        this.vtbl.get_alignContent := CallbackCreate(ObjBindMethod(implObj, "get_alignContent"), flags, 2)
+        this.vtbl.put_borderImage := CallbackCreate(ObjBindMethod(implObj, "put_borderImage"), flags, 2)
+        this.vtbl.get_borderImage := CallbackCreate(ObjBindMethod(implObj, "get_borderImage"), flags, 2)
+        this.vtbl.put_borderImageSource := CallbackCreate(ObjBindMethod(implObj, "put_borderImageSource"), flags, 2)
+        this.vtbl.get_borderImageSource := CallbackCreate(ObjBindMethod(implObj, "get_borderImageSource"), flags, 2)
+        this.vtbl.put_borderImageSlice := CallbackCreate(ObjBindMethod(implObj, "put_borderImageSlice"), flags, 2)
+        this.vtbl.get_borderImageSlice := CallbackCreate(ObjBindMethod(implObj, "get_borderImageSlice"), flags, 2)
+        this.vtbl.put_borderImageWidth := CallbackCreate(ObjBindMethod(implObj, "put_borderImageWidth"), flags, 2)
+        this.vtbl.get_borderImageWidth := CallbackCreate(ObjBindMethod(implObj, "get_borderImageWidth"), flags, 2)
+        this.vtbl.put_borderImageOutset := CallbackCreate(ObjBindMethod(implObj, "put_borderImageOutset"), flags, 2)
+        this.vtbl.get_borderImageOutset := CallbackCreate(ObjBindMethod(implObj, "get_borderImageOutset"), flags, 2)
+        this.vtbl.put_borderImageRepeat := CallbackCreate(ObjBindMethod(implObj, "put_borderImageRepeat"), flags, 2)
+        this.vtbl.get_borderImageRepeat := CallbackCreate(ObjBindMethod(implObj, "get_borderImageRepeat"), flags, 2)
+        this.vtbl.put_msImeAlign := CallbackCreate(ObjBindMethod(implObj, "put_msImeAlign"), flags, 2)
+        this.vtbl.get_msImeAlign := CallbackCreate(ObjBindMethod(implObj, "get_msImeAlign"), flags, 2)
+        this.vtbl.put_msTextCombineHorizontal := CallbackCreate(ObjBindMethod(implObj, "put_msTextCombineHorizontal"), flags, 2)
+        this.vtbl.get_msTextCombineHorizontal := CallbackCreate(ObjBindMethod(implObj, "get_msTextCombineHorizontal"), flags, 2)
+        this.vtbl.put_touchAction := CallbackCreate(ObjBindMethod(implObj, "put_touchAction"), flags, 2)
+        this.vtbl.get_touchAction := CallbackCreate(ObjBindMethod(implObj, "get_touchAction"), flags, 2)
     }
 
     Dispose() {

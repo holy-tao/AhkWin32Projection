@@ -96,9 +96,9 @@ export default struct IBackgroundCopyFile extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRemoteName := CallbackCreate(GetMethod(implObj, "GetRemoteName"), flags, 2)
-        this.vtbl.GetLocalName := CallbackCreate(GetMethod(implObj, "GetLocalName"), flags, 2)
-        this.vtbl.GetProgress := CallbackCreate(GetMethod(implObj, "GetProgress"), flags, 2)
+        this.vtbl.GetRemoteName := CallbackCreate(ObjBindMethod(implObj, "GetRemoteName"), flags, 2)
+        this.vtbl.GetLocalName := CallbackCreate(ObjBindMethod(implObj, "GetLocalName"), flags, 2)
+        this.vtbl.GetProgress := CallbackCreate(ObjBindMethod(implObj, "GetProgress"), flags, 2)
     }
 
     Dispose() {

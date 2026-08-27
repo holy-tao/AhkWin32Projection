@@ -19,7 +19,6 @@ export default struct PIOMMU_SET_DEVICE_FAULT_REPORTING {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

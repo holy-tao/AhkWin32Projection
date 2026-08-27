@@ -44,7 +44,6 @@ export default struct IScopedOperations extends IBindResource {
     }
 
     /**
-     * 
      * @param {Pointer} cRows 
      * @param {Pointer<PWSTR>} rgpwszSourceURLs 
      * @param {Pointer<PWSTR>} rgpwszDestURLs 
@@ -56,18 +55,21 @@ export default struct IScopedOperations extends IBindResource {
      * @returns {HRESULT} 
      */
     Copy(cRows, rgpwszSourceURLs, rgpwszDestURLs, dwCopyFlags, pAuthenticate, rgdwStatus, rgpwszNewURLs, ppStringsBuffer) {
-        rgpwszSourceURLsMarshal := rgpwszSourceURLs is VarRef ? "ptr*" : "ptr"
-        rgpwszDestURLsMarshal := rgpwszDestURLs is VarRef ? "ptr*" : "ptr"
-        rgdwStatusMarshal := rgdwStatus is VarRef ? "uint*" : "ptr"
-        rgpwszNewURLsMarshal := rgpwszNewURLs is VarRef ? "ptr*" : "ptr"
-        ppStringsBufferMarshal := ppStringsBuffer is VarRef ? "ptr*" : "ptr"
+        rgpwszSourceURLsMarshal := rgpwszSourceURLs is VarRef ? "ptr*" : IntPtr
+        rgpwszSourceURLsMarshal := rgpwszSourceURLs == 0 ? IntPtr : PWSTR.Ptr
+        rgpwszDestURLsMarshal := rgpwszDestURLs is VarRef ? "ptr*" : IntPtr
+        pAuthenticateMarshal := pAuthenticate == 0 ? IntPtr : "ptr"
+        rgdwStatusMarshal := rgdwStatus is VarRef ? "uint*" : IntPtr
+        rgpwszNewURLsMarshal := rgpwszNewURLs is VarRef ? "ptr*" : IntPtr
+        rgpwszNewURLsMarshal := rgpwszNewURLs == 0 ? IntPtr : PWSTR.Ptr
+        ppStringsBufferMarshal := ppStringsBuffer is VarRef ? "ptr*" : IntPtr
+        ppStringsBufferMarshal := ppStringsBuffer == 0 ? IntPtr : "ptr*"
 
-        result := ComCall(4, this, IntPtr, cRows, rgpwszSourceURLsMarshal, rgpwszSourceURLs, rgpwszDestURLsMarshal, rgpwszDestURLs, UInt32, dwCopyFlags, "ptr", pAuthenticate, rgdwStatusMarshal, rgdwStatus, rgpwszNewURLsMarshal, rgpwszNewURLs, ppStringsBufferMarshal, ppStringsBuffer, "HRESULT")
+        result := ComCall(4, this, IntPtr, cRows, rgpwszSourceURLsMarshal, rgpwszSourceURLs, rgpwszDestURLsMarshal, rgpwszDestURLs, UInt32, dwCopyFlags, pAuthenticateMarshal, pAuthenticate, rgdwStatusMarshal, rgdwStatus, rgpwszNewURLsMarshal, rgpwszNewURLs, ppStringsBufferMarshal, ppStringsBuffer, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} cRows 
      * @param {Pointer<PWSTR>} rgpwszSourceURLs 
      * @param {Pointer<PWSTR>} rgpwszDestURLs 
@@ -79,32 +81,34 @@ export default struct IScopedOperations extends IBindResource {
      * @returns {HRESULT} 
      */
     Move(cRows, rgpwszSourceURLs, rgpwszDestURLs, dwMoveFlags, pAuthenticate, rgdwStatus, rgpwszNewURLs, ppStringsBuffer) {
-        rgpwszSourceURLsMarshal := rgpwszSourceURLs is VarRef ? "ptr*" : "ptr"
-        rgpwszDestURLsMarshal := rgpwszDestURLs is VarRef ? "ptr*" : "ptr"
-        rgdwStatusMarshal := rgdwStatus is VarRef ? "uint*" : "ptr"
-        rgpwszNewURLsMarshal := rgpwszNewURLs is VarRef ? "ptr*" : "ptr"
-        ppStringsBufferMarshal := ppStringsBuffer is VarRef ? "ptr*" : "ptr"
+        rgpwszSourceURLsMarshal := rgpwszSourceURLs is VarRef ? "ptr*" : IntPtr
+        rgpwszSourceURLsMarshal := rgpwszSourceURLs == 0 ? IntPtr : PWSTR.Ptr
+        rgpwszDestURLsMarshal := rgpwszDestURLs is VarRef ? "ptr*" : IntPtr
+        pAuthenticateMarshal := pAuthenticate == 0 ? IntPtr : "ptr"
+        rgdwStatusMarshal := rgdwStatus is VarRef ? "uint*" : IntPtr
+        rgpwszNewURLsMarshal := rgpwszNewURLs is VarRef ? "ptr*" : IntPtr
+        rgpwszNewURLsMarshal := rgpwszNewURLs == 0 ? IntPtr : PWSTR.Ptr
+        ppStringsBufferMarshal := ppStringsBuffer is VarRef ? "ptr*" : IntPtr
+        ppStringsBufferMarshal := ppStringsBuffer == 0 ? IntPtr : "ptr*"
 
-        result := ComCall(5, this, IntPtr, cRows, rgpwszSourceURLsMarshal, rgpwszSourceURLs, rgpwszDestURLsMarshal, rgpwszDestURLs, UInt32, dwMoveFlags, "ptr", pAuthenticate, rgdwStatusMarshal, rgdwStatus, rgpwszNewURLsMarshal, rgpwszNewURLs, ppStringsBufferMarshal, ppStringsBuffer, "HRESULT")
+        result := ComCall(5, this, IntPtr, cRows, rgpwszSourceURLsMarshal, rgpwszSourceURLs, rgpwszDestURLsMarshal, rgpwszDestURLs, UInt32, dwMoveFlags, pAuthenticateMarshal, pAuthenticate, rgdwStatusMarshal, rgdwStatus, rgpwszNewURLsMarshal, rgpwszNewURLs, ppStringsBufferMarshal, ppStringsBuffer, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} cRows 
      * @param {Pointer<PWSTR>} rgpwszURLs 
      * @param {Integer} dwDeleteFlags 
      * @returns {Integer} 
      */
     Delete(cRows, rgpwszURLs, dwDeleteFlags) {
-        rgpwszURLsMarshal := rgpwszURLs is VarRef ? "ptr*" : "ptr"
+        rgpwszURLsMarshal := rgpwszURLs is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(6, this, IntPtr, cRows, rgpwszURLsMarshal, rgpwszURLs, UInt32, dwDeleteFlags, "uint*", &rgdwStatus := 0, "HRESULT")
         return rgdwStatus
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<DBID>} pTableID 
      * @param {Pointer<DBID>} pIndexID 
@@ -114,7 +118,11 @@ export default struct IScopedOperations extends IBindResource {
      * @returns {IUnknown} 
      */
     OpenRowset(pUnkOuter, pTableID, pIndexID, riid, cPropertySets, rgPropertySets) {
-        result := ComCall(7, this, "ptr", pUnkOuter, DBID.Ptr, pTableID, DBID.Ptr, pIndexID, Guid.Ptr, riid, UInt32, cPropertySets, DBPROPSET.Ptr, rgPropertySets, "ptr*", &ppRowset := 0, "HRESULT")
+        pUnkOuterMarshal := pUnkOuter == 0 ? IntPtr : "ptr"
+        pTableIDMarshal := pTableID == 0 ? IntPtr : DBID.Ptr
+        pIndexIDMarshal := pIndexID == 0 ? IntPtr : DBID.Ptr
+
+        result := ComCall(7, this, pUnkOuterMarshal, pUnkOuter, pTableIDMarshal, pTableID, pIndexIDMarshal, pIndexID, Guid.Ptr, riid, UInt32, cPropertySets, DBPROPSET.Ptr, rgPropertySets, "ptr*", &ppRowset := 0, "HRESULT")
         return IUnknown(ppRowset)
     }
 
@@ -127,10 +135,10 @@ export default struct IScopedOperations extends IBindResource {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Copy := CallbackCreate(GetMethod(implObj, "Copy"), flags, 9)
-        this.vtbl.Move := CallbackCreate(GetMethod(implObj, "Move"), flags, 9)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 5)
-        this.vtbl.OpenRowset := CallbackCreate(GetMethod(implObj, "OpenRowset"), flags, 8)
+        this.vtbl.Copy := CallbackCreate(ObjBindMethod(implObj, "Copy"), flags, 9)
+        this.vtbl.Move := CallbackCreate(ObjBindMethod(implObj, "Move"), flags, 9)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 5)
+        this.vtbl.OpenRowset := CallbackCreate(ObjBindMethod(implObj, "OpenRowset"), flags, 8)
     }
 
     Dispose() {

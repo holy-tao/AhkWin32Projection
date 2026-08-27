@@ -159,7 +159,6 @@ export default struct LPNSPSETSERVICE {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} lpProviderId A pointer to the GUID of the specific namespace provider in which the service is registered.
      * @param {Pointer<WSASERVICECLASSINFOW>} lpServiceClassInfo The service class schema information.
      * @param {Pointer<WSAQUERYSETW>} lpqsRegInfo The property information to be updated upon registration.

@@ -20,7 +20,6 @@ export default struct PWLDP_SETDYNAMICCODETRUST_API {
     }
 
     /**
-     * 
      * @param {HANDLE} hFileHandle 
      * @returns {HRESULT} 
      */

@@ -22,7 +22,6 @@ export default struct PDXVA2SW_GETVIDEOPROCESSORCAPS {
     }
 
     /**
-     * 
      * @param {Pointer<DXVA2_VideoDesc>} pVideoDesc 
      * @param {D3DFORMAT} RenderTargetFormat 
      * @param {Pointer<DXVA2_VideoProcessorCaps>} pCaps 

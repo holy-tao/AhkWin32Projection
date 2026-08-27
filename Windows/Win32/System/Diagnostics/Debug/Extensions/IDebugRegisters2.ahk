@@ -65,7 +65,6 @@ export default struct IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberRegisters() {
@@ -86,14 +85,16 @@ export default struct IDebugRegisters2 extends IUnknown {
     GetDescription(Register, NameBuffer, NameBufferSize, NameSize, Desc) {
         NameBuffer := NameBuffer is String ? StrPtr(NameBuffer) : NameBuffer
 
-        NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
+        NameBufferMarshal := NameBuffer == 0 ? IntPtr : PSTR
+        NameSizeMarshal := NameSize is VarRef ? "uint*" : IntPtr
+        NameSizeMarshal := NameSize == 0 ? IntPtr : "uint*"
+        DescMarshal := Desc == 0 ? IntPtr : DEBUG_REGISTER_DESCRIPTION.Ptr
 
-        result := ComCall(4, this, UInt32, Register, "ptr", NameBuffer, UInt32, NameBufferSize, NameSizeMarshal, NameSize, DEBUG_REGISTER_DESCRIPTION.Ptr, Desc, "HRESULT")
+        result := ComCall(4, this, UInt32, Register, NameBufferMarshal, NameBuffer, UInt32, NameBufferSize, NameSizeMarshal, NameSize, DescMarshal, Desc, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PSTR} Name 
      * @returns {Integer} 
      */
@@ -105,7 +106,6 @@ export default struct IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Register 
      * @returns {DEBUG_VALUE} 
      */
@@ -116,7 +116,6 @@ export default struct IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Register 
      * @param {Pointer<DEBUG_VALUE>} Value 
      * @returns {HRESULT} 
@@ -127,14 +126,14 @@ export default struct IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Count 
      * @param {Pointer<Integer>} Indices 
      * @param {Integer} Start 
      * @returns {DEBUG_VALUE} 
      */
     GetValues(Count, Indices, Start) {
-        IndicesMarshal := Indices is VarRef ? "uint*" : "ptr"
+        IndicesMarshal := Indices is VarRef ? "uint*" : IntPtr
+        IndicesMarshal := Indices == 0 ? IntPtr : "uint*"
 
         Values := DEBUG_VALUE()
         result := ComCall(8, this, UInt32, Count, IndicesMarshal, Indices, UInt32, Start, DEBUG_VALUE.Ptr, Values, "HRESULT")
@@ -142,7 +141,6 @@ export default struct IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Count 
      * @param {Pointer<Integer>} Indices 
      * @param {Integer} Start 
@@ -150,14 +148,14 @@ export default struct IDebugRegisters2 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetValues(Count, Indices, Start, Values) {
-        IndicesMarshal := Indices is VarRef ? "uint*" : "ptr"
+        IndicesMarshal := Indices is VarRef ? "uint*" : IntPtr
+        IndicesMarshal := Indices == 0 ? IntPtr : "uint*"
 
         result := ComCall(9, this, UInt32, Count, IndicesMarshal, Indices, UInt32, Start, DEBUG_VALUE.Ptr, Values, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {Integer} Flags 
      * @returns {HRESULT} 
@@ -168,7 +166,6 @@ export default struct IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetInstructionOffset() {
@@ -177,7 +174,6 @@ export default struct IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetStackOffset() {
@@ -186,7 +182,6 @@ export default struct IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetFrameOffset() {
@@ -195,7 +190,6 @@ export default struct IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Register 
      * @param {PWSTR} NameBuffer 
      * @param {Integer} NameBufferSize 
@@ -206,14 +200,16 @@ export default struct IDebugRegisters2 extends IUnknown {
     GetDescriptionWide(Register, NameBuffer, NameBufferSize, NameSize, Desc) {
         NameBuffer := NameBuffer is String ? StrPtr(NameBuffer) : NameBuffer
 
-        NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
+        NameBufferMarshal := NameBuffer == 0 ? IntPtr : PWSTR
+        NameSizeMarshal := NameSize is VarRef ? "uint*" : IntPtr
+        NameSizeMarshal := NameSize == 0 ? IntPtr : "uint*"
+        DescMarshal := Desc == 0 ? IntPtr : DEBUG_REGISTER_DESCRIPTION.Ptr
 
-        result := ComCall(14, this, UInt32, Register, "ptr", NameBuffer, UInt32, NameBufferSize, NameSizeMarshal, NameSize, DEBUG_REGISTER_DESCRIPTION.Ptr, Desc, "HRESULT")
+        result := ComCall(14, this, UInt32, Register, NameBufferMarshal, NameBuffer, UInt32, NameBufferSize, NameSizeMarshal, NameSize, DescMarshal, Desc, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} Name 
      * @returns {Integer} 
      */
@@ -225,7 +221,6 @@ export default struct IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberPseudoRegisters() {
@@ -234,7 +229,6 @@ export default struct IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Register 
      * @param {PSTR} NameBuffer 
      * @param {Integer} NameBufferSize 
@@ -246,16 +240,19 @@ export default struct IDebugRegisters2 extends IUnknown {
     GetPseudoDescription(Register, NameBuffer, NameBufferSize, NameSize, TypeModule, TypeId) {
         NameBuffer := NameBuffer is String ? StrPtr(NameBuffer) : NameBuffer
 
-        NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
-        TypeModuleMarshal := TypeModule is VarRef ? "uint*" : "ptr"
-        TypeIdMarshal := TypeId is VarRef ? "uint*" : "ptr"
+        NameBufferMarshal := NameBuffer == 0 ? IntPtr : PSTR
+        NameSizeMarshal := NameSize is VarRef ? "uint*" : IntPtr
+        NameSizeMarshal := NameSize == 0 ? IntPtr : "uint*"
+        TypeModuleMarshal := TypeModule is VarRef ? "uint*" : IntPtr
+        TypeModuleMarshal := TypeModule == 0 ? IntPtr : "uint*"
+        TypeIdMarshal := TypeId is VarRef ? "uint*" : IntPtr
+        TypeIdMarshal := TypeId == 0 ? IntPtr : "uint*"
 
-        result := ComCall(17, this, UInt32, Register, "ptr", NameBuffer, UInt32, NameBufferSize, NameSizeMarshal, NameSize, TypeModuleMarshal, TypeModule, TypeIdMarshal, TypeId, "HRESULT")
+        result := ComCall(17, this, UInt32, Register, NameBufferMarshal, NameBuffer, UInt32, NameBufferSize, NameSizeMarshal, NameSize, TypeModuleMarshal, TypeModule, TypeIdMarshal, TypeId, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Register 
      * @param {PWSTR} NameBuffer 
      * @param {Integer} NameBufferSize 
@@ -267,16 +264,19 @@ export default struct IDebugRegisters2 extends IUnknown {
     GetPseudoDescriptionWide(Register, NameBuffer, NameBufferSize, NameSize, TypeModule, TypeId) {
         NameBuffer := NameBuffer is String ? StrPtr(NameBuffer) : NameBuffer
 
-        NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
-        TypeModuleMarshal := TypeModule is VarRef ? "uint*" : "ptr"
-        TypeIdMarshal := TypeId is VarRef ? "uint*" : "ptr"
+        NameBufferMarshal := NameBuffer == 0 ? IntPtr : PWSTR
+        NameSizeMarshal := NameSize is VarRef ? "uint*" : IntPtr
+        NameSizeMarshal := NameSize == 0 ? IntPtr : "uint*"
+        TypeModuleMarshal := TypeModule is VarRef ? "uint*" : IntPtr
+        TypeModuleMarshal := TypeModule == 0 ? IntPtr : "uint*"
+        TypeIdMarshal := TypeId is VarRef ? "uint*" : IntPtr
+        TypeIdMarshal := TypeId == 0 ? IntPtr : "uint*"
 
-        result := ComCall(18, this, UInt32, Register, "ptr", NameBuffer, UInt32, NameBufferSize, NameSizeMarshal, NameSize, TypeModuleMarshal, TypeModule, TypeIdMarshal, TypeId, "HRESULT")
+        result := ComCall(18, this, UInt32, Register, NameBufferMarshal, NameBuffer, UInt32, NameBufferSize, NameSizeMarshal, NameSize, TypeModuleMarshal, TypeModule, TypeIdMarshal, TypeId, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PSTR} Name 
      * @returns {Integer} 
      */
@@ -288,7 +288,6 @@ export default struct IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} Name 
      * @returns {Integer} 
      */
@@ -300,7 +299,6 @@ export default struct IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Source 
      * @param {Integer} Count 
      * @param {Pointer<Integer>} Indices 
@@ -308,7 +306,8 @@ export default struct IDebugRegisters2 extends IUnknown {
      * @returns {DEBUG_VALUE} 
      */
     GetPseudoValues(Source, Count, Indices, Start) {
-        IndicesMarshal := Indices is VarRef ? "uint*" : "ptr"
+        IndicesMarshal := Indices is VarRef ? "uint*" : IntPtr
+        IndicesMarshal := Indices == 0 ? IntPtr : "uint*"
 
         Values := DEBUG_VALUE()
         result := ComCall(21, this, UInt32, Source, UInt32, Count, IndicesMarshal, Indices, UInt32, Start, DEBUG_VALUE.Ptr, Values, "HRESULT")
@@ -316,7 +315,6 @@ export default struct IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Source 
      * @param {Integer} Count 
      * @param {Pointer<Integer>} Indices 
@@ -325,14 +323,14 @@ export default struct IDebugRegisters2 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetPseudoValues(Source, Count, Indices, Start, Values) {
-        IndicesMarshal := Indices is VarRef ? "uint*" : "ptr"
+        IndicesMarshal := Indices is VarRef ? "uint*" : IntPtr
+        IndicesMarshal := Indices == 0 ? IntPtr : "uint*"
 
         result := ComCall(22, this, UInt32, Source, UInt32, Count, IndicesMarshal, Indices, UInt32, Start, DEBUG_VALUE.Ptr, Values, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Source 
      * @param {Integer} Count 
      * @param {Pointer<Integer>} Indices 
@@ -340,7 +338,8 @@ export default struct IDebugRegisters2 extends IUnknown {
      * @returns {DEBUG_VALUE} 
      */
     GetValues2(Source, Count, Indices, Start) {
-        IndicesMarshal := Indices is VarRef ? "uint*" : "ptr"
+        IndicesMarshal := Indices is VarRef ? "uint*" : IntPtr
+        IndicesMarshal := Indices == 0 ? IntPtr : "uint*"
 
         Values := DEBUG_VALUE()
         result := ComCall(23, this, UInt32, Source, UInt32, Count, IndicesMarshal, Indices, UInt32, Start, DEBUG_VALUE.Ptr, Values, "HRESULT")
@@ -348,7 +347,6 @@ export default struct IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Source 
      * @param {Integer} Count 
      * @param {Pointer<Integer>} Indices 
@@ -357,14 +355,14 @@ export default struct IDebugRegisters2 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetValues2(Source, Count, Indices, Start, Values) {
-        IndicesMarshal := Indices is VarRef ? "uint*" : "ptr"
+        IndicesMarshal := Indices is VarRef ? "uint*" : IntPtr
+        IndicesMarshal := Indices == 0 ? IntPtr : "uint*"
 
         result := ComCall(24, this, UInt32, Source, UInt32, Count, IndicesMarshal, Indices, UInt32, Start, DEBUG_VALUE.Ptr, Values, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {Integer} Source 
      * @param {Integer} Flags 
@@ -376,7 +374,6 @@ export default struct IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Source 
      * @returns {Integer} 
      */
@@ -386,7 +383,6 @@ export default struct IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Source 
      * @returns {Integer} 
      */
@@ -396,7 +392,6 @@ export default struct IDebugRegisters2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Source 
      * @returns {Integer} 
      */
@@ -414,32 +409,32 @@ export default struct IDebugRegisters2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNumberRegisters := CallbackCreate(GetMethod(implObj, "GetNumberRegisters"), flags, 2)
-        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 6)
-        this.vtbl.GetIndexByName := CallbackCreate(GetMethod(implObj, "GetIndexByName"), flags, 3)
-        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 3)
-        this.vtbl.SetValue := CallbackCreate(GetMethod(implObj, "SetValue"), flags, 3)
-        this.vtbl.GetValues := CallbackCreate(GetMethod(implObj, "GetValues"), flags, 5)
-        this.vtbl.SetValues := CallbackCreate(GetMethod(implObj, "SetValues"), flags, 5)
-        this.vtbl.OutputRegisters := CallbackCreate(GetMethod(implObj, "OutputRegisters"), flags, 3)
-        this.vtbl.GetInstructionOffset := CallbackCreate(GetMethod(implObj, "GetInstructionOffset"), flags, 2)
-        this.vtbl.GetStackOffset := CallbackCreate(GetMethod(implObj, "GetStackOffset"), flags, 2)
-        this.vtbl.GetFrameOffset := CallbackCreate(GetMethod(implObj, "GetFrameOffset"), flags, 2)
-        this.vtbl.GetDescriptionWide := CallbackCreate(GetMethod(implObj, "GetDescriptionWide"), flags, 6)
-        this.vtbl.GetIndexByNameWide := CallbackCreate(GetMethod(implObj, "GetIndexByNameWide"), flags, 3)
-        this.vtbl.GetNumberPseudoRegisters := CallbackCreate(GetMethod(implObj, "GetNumberPseudoRegisters"), flags, 2)
-        this.vtbl.GetPseudoDescription := CallbackCreate(GetMethod(implObj, "GetPseudoDescription"), flags, 7)
-        this.vtbl.GetPseudoDescriptionWide := CallbackCreate(GetMethod(implObj, "GetPseudoDescriptionWide"), flags, 7)
-        this.vtbl.GetPseudoIndexByName := CallbackCreate(GetMethod(implObj, "GetPseudoIndexByName"), flags, 3)
-        this.vtbl.GetPseudoIndexByNameWide := CallbackCreate(GetMethod(implObj, "GetPseudoIndexByNameWide"), flags, 3)
-        this.vtbl.GetPseudoValues := CallbackCreate(GetMethod(implObj, "GetPseudoValues"), flags, 6)
-        this.vtbl.SetPseudoValues := CallbackCreate(GetMethod(implObj, "SetPseudoValues"), flags, 6)
-        this.vtbl.GetValues2 := CallbackCreate(GetMethod(implObj, "GetValues2"), flags, 6)
-        this.vtbl.SetValues2 := CallbackCreate(GetMethod(implObj, "SetValues2"), flags, 6)
-        this.vtbl.OutputRegisters2 := CallbackCreate(GetMethod(implObj, "OutputRegisters2"), flags, 4)
-        this.vtbl.GetInstructionOffset2 := CallbackCreate(GetMethod(implObj, "GetInstructionOffset2"), flags, 3)
-        this.vtbl.GetStackOffset2 := CallbackCreate(GetMethod(implObj, "GetStackOffset2"), flags, 3)
-        this.vtbl.GetFrameOffset2 := CallbackCreate(GetMethod(implObj, "GetFrameOffset2"), flags, 3)
+        this.vtbl.GetNumberRegisters := CallbackCreate(ObjBindMethod(implObj, "GetNumberRegisters"), flags, 2)
+        this.vtbl.GetDescription := CallbackCreate(ObjBindMethod(implObj, "GetDescription"), flags, 6)
+        this.vtbl.GetIndexByName := CallbackCreate(ObjBindMethod(implObj, "GetIndexByName"), flags, 3)
+        this.vtbl.GetValue := CallbackCreate(ObjBindMethod(implObj, "GetValue"), flags, 3)
+        this.vtbl.SetValue := CallbackCreate(ObjBindMethod(implObj, "SetValue"), flags, 3)
+        this.vtbl.GetValues := CallbackCreate(ObjBindMethod(implObj, "GetValues"), flags, 5)
+        this.vtbl.SetValues := CallbackCreate(ObjBindMethod(implObj, "SetValues"), flags, 5)
+        this.vtbl.OutputRegisters := CallbackCreate(ObjBindMethod(implObj, "OutputRegisters"), flags, 3)
+        this.vtbl.GetInstructionOffset := CallbackCreate(ObjBindMethod(implObj, "GetInstructionOffset"), flags, 2)
+        this.vtbl.GetStackOffset := CallbackCreate(ObjBindMethod(implObj, "GetStackOffset"), flags, 2)
+        this.vtbl.GetFrameOffset := CallbackCreate(ObjBindMethod(implObj, "GetFrameOffset"), flags, 2)
+        this.vtbl.GetDescriptionWide := CallbackCreate(ObjBindMethod(implObj, "GetDescriptionWide"), flags, 6)
+        this.vtbl.GetIndexByNameWide := CallbackCreate(ObjBindMethod(implObj, "GetIndexByNameWide"), flags, 3)
+        this.vtbl.GetNumberPseudoRegisters := CallbackCreate(ObjBindMethod(implObj, "GetNumberPseudoRegisters"), flags, 2)
+        this.vtbl.GetPseudoDescription := CallbackCreate(ObjBindMethod(implObj, "GetPseudoDescription"), flags, 7)
+        this.vtbl.GetPseudoDescriptionWide := CallbackCreate(ObjBindMethod(implObj, "GetPseudoDescriptionWide"), flags, 7)
+        this.vtbl.GetPseudoIndexByName := CallbackCreate(ObjBindMethod(implObj, "GetPseudoIndexByName"), flags, 3)
+        this.vtbl.GetPseudoIndexByNameWide := CallbackCreate(ObjBindMethod(implObj, "GetPseudoIndexByNameWide"), flags, 3)
+        this.vtbl.GetPseudoValues := CallbackCreate(ObjBindMethod(implObj, "GetPseudoValues"), flags, 6)
+        this.vtbl.SetPseudoValues := CallbackCreate(ObjBindMethod(implObj, "SetPseudoValues"), flags, 6)
+        this.vtbl.GetValues2 := CallbackCreate(ObjBindMethod(implObj, "GetValues2"), flags, 6)
+        this.vtbl.SetValues2 := CallbackCreate(ObjBindMethod(implObj, "SetValues2"), flags, 6)
+        this.vtbl.OutputRegisters2 := CallbackCreate(ObjBindMethod(implObj, "OutputRegisters2"), flags, 4)
+        this.vtbl.GetInstructionOffset2 := CallbackCreate(ObjBindMethod(implObj, "GetInstructionOffset2"), flags, 3)
+        this.vtbl.GetStackOffset2 := CallbackCreate(ObjBindMethod(implObj, "GetStackOffset2"), flags, 3)
+        this.vtbl.GetFrameOffset2 := CallbackCreate(ObjBindMethod(implObj, "GetFrameOffset2"), flags, 3)
     }
 
     Dispose() {

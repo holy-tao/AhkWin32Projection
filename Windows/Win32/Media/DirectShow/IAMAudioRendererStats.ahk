@@ -108,8 +108,8 @@ export default struct IAMAudioRendererStats extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamaudiorendererstats-getstatparam
      */
     GetStatParam(dwParam, pdwParam1, pdwParam2) {
-        pdwParam1Marshal := pdwParam1 is VarRef ? "uint*" : "ptr"
-        pdwParam2Marshal := pdwParam2 is VarRef ? "uint*" : "ptr"
+        pdwParam1Marshal := pdwParam1 is VarRef ? "uint*" : IntPtr
+        pdwParam2Marshal := pdwParam2 is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, UInt32, dwParam, pdwParam1Marshal, pdwParam1, pdwParam2Marshal, pdwParam2, "HRESULT")
         return result
@@ -124,7 +124,7 @@ export default struct IAMAudioRendererStats extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStatParam := CallbackCreate(GetMethod(implObj, "GetStatParam"), flags, 4)
+        this.vtbl.GetStatParam := CallbackCreate(ObjBindMethod(implObj, "GetStatParam"), flags, 4)
     }
 
     Dispose() {

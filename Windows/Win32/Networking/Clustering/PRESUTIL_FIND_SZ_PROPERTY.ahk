@@ -19,7 +19,6 @@ export default struct PRESUTIL_FIND_SZ_PROPERTY {
     }
 
     /**
-     * 
      * @param {Integer} pPropertyList 
      * @param {Integer} cbPropertyListSize 
      * @param {PWSTR} pszPropertyName 
@@ -29,7 +28,8 @@ export default struct PRESUTIL_FIND_SZ_PROPERTY {
     Call(pPropertyList, cbPropertyListSize, pszPropertyName, pszPropertyValue) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
 
-        pszPropertyValueMarshal := pszPropertyValue is VarRef ? "ptr*" : "ptr"
+        pszPropertyValueMarshal := pszPropertyValue is VarRef ? "ptr*" : IntPtr
+        pszPropertyValueMarshal := pszPropertyValue == 0 ? IntPtr : PWSTR.Ptr
 
         result := DllCall(this.value, IntPtr, pPropertyList, UInt32, cbPropertyListSize, "ptr", pszPropertyName, pszPropertyValueMarshal, pszPropertyValue, UInt32)
         return result

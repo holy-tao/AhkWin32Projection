@@ -55,7 +55,7 @@ export default struct IWpdSerializer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iwpdserializer-getiportabledevicevaluesfrombuffer
      */
     GetIPortableDeviceValuesFromBuffer(pBuffer, dwInputBufferLength) {
-        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, pBufferMarshal, pBuffer, UInt32, dwInputBufferLength, "ptr*", &ppParams := 0, "HRESULT")
         return IPortableDeviceValues(ppParams)
@@ -81,8 +81,8 @@ export default struct IWpdSerializer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iwpdserializer-writeiportabledevicevaluestobuffer
      */
     WriteIPortableDeviceValuesToBuffer(dwOutputBufferLength, pResults, pBuffer, pdwBytesWritten) {
-        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
-        pdwBytesWrittenMarshal := pdwBytesWritten is VarRef ? "uint*" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "char*" : IntPtr
+        pdwBytesWrittenMarshal := pdwBytesWritten is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, UInt32, dwOutputBufferLength, "ptr", pResults, pBufferMarshal, pBuffer, pdwBytesWrittenMarshal, pdwBytesWritten, "HRESULT")
         return result
@@ -105,8 +105,8 @@ export default struct IWpdSerializer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iwpdserializer-getbufferfromiportabledevicevalues
      */
     GetBufferFromIPortableDeviceValues(pSource, ppBuffer, pdwBufferSize) {
-        ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
-        pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : "ptr"
+        ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : IntPtr
+        pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, "ptr", pSource, ppBufferMarshal, ppBuffer, pdwBufferSizeMarshal, pdwBufferSize, "HRESULT")
         return result
@@ -132,10 +132,10 @@ export default struct IWpdSerializer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetIPortableDeviceValuesFromBuffer := CallbackCreate(GetMethod(implObj, "GetIPortableDeviceValuesFromBuffer"), flags, 4)
-        this.vtbl.WriteIPortableDeviceValuesToBuffer := CallbackCreate(GetMethod(implObj, "WriteIPortableDeviceValuesToBuffer"), flags, 5)
-        this.vtbl.GetBufferFromIPortableDeviceValues := CallbackCreate(GetMethod(implObj, "GetBufferFromIPortableDeviceValues"), flags, 4)
-        this.vtbl.GetSerializedSize := CallbackCreate(GetMethod(implObj, "GetSerializedSize"), flags, 3)
+        this.vtbl.GetIPortableDeviceValuesFromBuffer := CallbackCreate(ObjBindMethod(implObj, "GetIPortableDeviceValuesFromBuffer"), flags, 4)
+        this.vtbl.WriteIPortableDeviceValuesToBuffer := CallbackCreate(ObjBindMethod(implObj, "WriteIPortableDeviceValuesToBuffer"), flags, 5)
+        this.vtbl.GetBufferFromIPortableDeviceValues := CallbackCreate(ObjBindMethod(implObj, "GetBufferFromIPortableDeviceValues"), flags, 4)
+        this.vtbl.GetSerializedSize := CallbackCreate(ObjBindMethod(implObj, "GetSerializedSize"), flags, 3)
     }
 
     Dispose() {

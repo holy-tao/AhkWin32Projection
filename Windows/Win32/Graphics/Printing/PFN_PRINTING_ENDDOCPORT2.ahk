@@ -20,7 +20,6 @@ export default struct PFN_PRINTING_ENDDOCPORT2 {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @returns {BOOL} 
      */

@@ -20,7 +20,6 @@ export default struct PFND3DKMT_OFFERALLOCATIONS {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_OFFERALLOCATIONS>} param0 
      * @returns {NTSTATUS} 
      */

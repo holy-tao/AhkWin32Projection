@@ -94,8 +94,8 @@ export default struct ISequentialStream extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Read := CallbackCreate(GetMethod(implObj, "Read"), flags, 4)
-        this.vtbl.Write := CallbackCreate(GetMethod(implObj, "Write"), flags, 4)
+        this.vtbl.Read := CallbackCreate(ObjBindMethod(implObj, "Read"), flags, 4)
+        this.vtbl.Write := CallbackCreate(ObjBindMethod(implObj, "Write"), flags, 4)
     }
 
     Dispose() {

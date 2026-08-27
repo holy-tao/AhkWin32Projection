@@ -56,7 +56,6 @@ export default struct IHTMLLinkElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -68,7 +67,6 @@ export default struct IHTMLLinkElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_charset() {
@@ -78,7 +76,6 @@ export default struct IHTMLLinkElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -90,7 +87,6 @@ export default struct IHTMLLinkElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_hreflang() {
@@ -108,10 +104,10 @@ export default struct IHTMLLinkElement3 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_charset := CallbackCreate(GetMethod(implObj, "put_charset"), flags, 2)
-        this.vtbl.get_charset := CallbackCreate(GetMethod(implObj, "get_charset"), flags, 2)
-        this.vtbl.put_hreflang := CallbackCreate(GetMethod(implObj, "put_hreflang"), flags, 2)
-        this.vtbl.get_hreflang := CallbackCreate(GetMethod(implObj, "get_hreflang"), flags, 2)
+        this.vtbl.put_charset := CallbackCreate(ObjBindMethod(implObj, "put_charset"), flags, 2)
+        this.vtbl.get_charset := CallbackCreate(ObjBindMethod(implObj, "get_charset"), flags, 2)
+        this.vtbl.put_hreflang := CallbackCreate(ObjBindMethod(implObj, "put_hreflang"), flags, 2)
+        this.vtbl.get_hreflang := CallbackCreate(ObjBindMethod(implObj, "get_hreflang"), flags, 2)
     }
 
     Dispose() {

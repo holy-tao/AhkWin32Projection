@@ -65,7 +65,7 @@ export default struct ITfTextEditSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnEndEdit := CallbackCreate(GetMethod(implObj, "OnEndEdit"), flags, 4)
+        this.vtbl.OnEndEdit := CallbackCreate(ObjBindMethod(implObj, "OnEndEdit"), flags, 4)
     }
 
     Dispose() {

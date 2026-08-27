@@ -229,15 +229,15 @@ export default struct ITPhoneEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Phone := CallbackCreate(GetMethod(implObj, "get_Phone"), flags, 2)
-        this.vtbl.get_Event := CallbackCreate(GetMethod(implObj, "get_Event"), flags, 2)
-        this.vtbl.get_ButtonState := CallbackCreate(GetMethod(implObj, "get_ButtonState"), flags, 2)
-        this.vtbl.get_HookSwitchState := CallbackCreate(GetMethod(implObj, "get_HookSwitchState"), flags, 2)
-        this.vtbl.get_HookSwitchDevice := CallbackCreate(GetMethod(implObj, "get_HookSwitchDevice"), flags, 2)
-        this.vtbl.get_RingMode := CallbackCreate(GetMethod(implObj, "get_RingMode"), flags, 2)
-        this.vtbl.get_ButtonLampId := CallbackCreate(GetMethod(implObj, "get_ButtonLampId"), flags, 2)
-        this.vtbl.get_NumberGathered := CallbackCreate(GetMethod(implObj, "get_NumberGathered"), flags, 2)
-        this.vtbl.get_Call := CallbackCreate(GetMethod(implObj, "get_Call"), flags, 2)
+        this.vtbl.get_Phone := CallbackCreate(ObjBindMethod(implObj, "get_Phone"), flags, 2)
+        this.vtbl.get_Event := CallbackCreate(ObjBindMethod(implObj, "get_Event"), flags, 2)
+        this.vtbl.get_ButtonState := CallbackCreate(ObjBindMethod(implObj, "get_ButtonState"), flags, 2)
+        this.vtbl.get_HookSwitchState := CallbackCreate(ObjBindMethod(implObj, "get_HookSwitchState"), flags, 2)
+        this.vtbl.get_HookSwitchDevice := CallbackCreate(ObjBindMethod(implObj, "get_HookSwitchDevice"), flags, 2)
+        this.vtbl.get_RingMode := CallbackCreate(ObjBindMethod(implObj, "get_RingMode"), flags, 2)
+        this.vtbl.get_ButtonLampId := CallbackCreate(ObjBindMethod(implObj, "get_ButtonLampId"), flags, 2)
+        this.vtbl.get_NumberGathered := CallbackCreate(ObjBindMethod(implObj, "get_NumberGathered"), flags, 2)
+        this.vtbl.get_Call := CallbackCreate(ObjBindMethod(implObj, "get_Call"), flags, 2)
     }
 
     Dispose() {

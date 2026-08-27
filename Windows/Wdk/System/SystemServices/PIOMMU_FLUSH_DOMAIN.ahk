@@ -19,7 +19,6 @@ export default struct PIOMMU_FLUSH_DOMAIN {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

@@ -21,7 +21,6 @@ export default struct NCryptNotifyChangeKeyFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} _hProvider 
      * @param {Pointer<HANDLE>} phEvent 
      * @param {Integer} dwFlags 

@@ -18,12 +18,12 @@ export default struct JsFinalizeCallback {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} data 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(data) {
-        dataMarshal := data is VarRef ? "ptr" : "ptr"
+        dataMarshal := data is VarRef ? "ptr" : IntPtr
+        dataMarshal := data == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, dataMarshal, data)
     }

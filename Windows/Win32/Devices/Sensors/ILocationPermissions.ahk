@@ -121,8 +121,8 @@ export default struct ILocationPermissions extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetGlobalLocationPermission := CallbackCreate(GetMethod(implObj, "GetGlobalLocationPermission"), flags, 2)
-        this.vtbl.CheckLocationCapability := CallbackCreate(GetMethod(implObj, "CheckLocationCapability"), flags, 2)
+        this.vtbl.GetGlobalLocationPermission := CallbackCreate(ObjBindMethod(implObj, "GetGlobalLocationPermission"), flags, 2)
+        this.vtbl.CheckLocationCapability := CallbackCreate(ObjBindMethod(implObj, "CheckLocationCapability"), flags, 2)
     }
 
     Dispose() {

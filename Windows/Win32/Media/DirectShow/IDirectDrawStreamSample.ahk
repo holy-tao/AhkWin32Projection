@@ -151,8 +151,8 @@ export default struct IDirectDrawStreamSample extends IStreamSample {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSurface := CallbackCreate(GetMethod(implObj, "GetSurface"), flags, 3)
-        this.vtbl.SetRect := CallbackCreate(GetMethod(implObj, "SetRect"), flags, 2)
+        this.vtbl.GetSurface := CallbackCreate(ObjBindMethod(implObj, "GetSurface"), flags, 3)
+        this.vtbl.SetRect := CallbackCreate(ObjBindMethod(implObj, "SetRect"), flags, 2)
     }
 
     Dispose() {

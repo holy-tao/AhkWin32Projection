@@ -130,11 +130,11 @@ export default struct IEditionUpgradeHelper extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CanUpgrade := CallbackCreate(GetMethod(implObj, "CanUpgrade"), flags, 2)
-        this.vtbl.UpdateOperatingSystem := CallbackCreate(GetMethod(implObj, "UpdateOperatingSystem"), flags, 2)
-        this.vtbl.ShowProductKeyUI := CallbackCreate(GetMethod(implObj, "ShowProductKeyUI"), flags, 1)
-        this.vtbl.GetOsProductContentId := CallbackCreate(GetMethod(implObj, "GetOsProductContentId"), flags, 2)
-        this.vtbl.GetGenuineLocalStatus := CallbackCreate(GetMethod(implObj, "GetGenuineLocalStatus"), flags, 2)
+        this.vtbl.CanUpgrade := CallbackCreate(ObjBindMethod(implObj, "CanUpgrade"), flags, 2)
+        this.vtbl.UpdateOperatingSystem := CallbackCreate(ObjBindMethod(implObj, "UpdateOperatingSystem"), flags, 2)
+        this.vtbl.ShowProductKeyUI := CallbackCreate(ObjBindMethod(implObj, "ShowProductKeyUI"), flags, 1)
+        this.vtbl.GetOsProductContentId := CallbackCreate(ObjBindMethod(implObj, "GetOsProductContentId"), flags, 2)
+        this.vtbl.GetGenuineLocalStatus := CallbackCreate(ObjBindMethod(implObj, "GetGenuineLocalStatus"), flags, 2)
     }
 
     Dispose() {

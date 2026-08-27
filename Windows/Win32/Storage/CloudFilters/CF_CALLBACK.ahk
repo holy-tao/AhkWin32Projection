@@ -20,7 +20,6 @@ export default struct CF_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<CF_CALLBACK_INFO>} CallbackInfo 
      * @param {Pointer<CF_CALLBACK_PARAMETERS>} CallbackParameters 
      * @returns {String} Nothing - always returns an empty string

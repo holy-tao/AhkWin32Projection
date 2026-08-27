@@ -75,8 +75,8 @@ export default struct IMILBitmapEffectInputConnector extends IMILBitmapEffectCon
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ConnectTo := CallbackCreate(GetMethod(implObj, "ConnectTo"), flags, 2)
-        this.vtbl.GetConnection := CallbackCreate(GetMethod(implObj, "GetConnection"), flags, 2)
+        this.vtbl.ConnectTo := CallbackCreate(ObjBindMethod(implObj, "ConnectTo"), flags, 2)
+        this.vtbl.GetConnection := CallbackCreate(ObjBindMethod(implObj, "GetConnection"), flags, 2)
     }
 
     Dispose() {

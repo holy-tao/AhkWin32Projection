@@ -21,14 +21,14 @@ export default struct PCW_CALLBACK {
     }
 
     /**
-     * 
      * @param {PCW_CALLBACK_TYPE} Type 
      * @param {Pointer<PCW_CALLBACK_INFORMATION>} Info 
      * @param {Pointer<Void>} _Context 
      * @returns {NTSTATUS} 
      */
     Call(Type, Info, _Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, PCW_CALLBACK_TYPE, Type, PCW_CALLBACK_INFORMATION.Ptr, Info, _ContextMarshal, _Context, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

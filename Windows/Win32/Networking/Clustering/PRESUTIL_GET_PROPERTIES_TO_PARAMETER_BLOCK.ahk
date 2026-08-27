@@ -22,7 +22,6 @@ export default struct PRESUTIL_GET_PROPERTIES_TO_PARAMETER_BLOCK {
     }
 
     /**
-     * 
      * @param {HKEY} hkeyClusterKey 
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable 
      * @param {Pointer<Integer>} pOutParams 
@@ -31,8 +30,8 @@ export default struct PRESUTIL_GET_PROPERTIES_TO_PARAMETER_BLOCK {
      * @returns {Integer} 
      */
     Call(hkeyClusterKey, pPropertyTable, pOutParams, bCheckForRequiredProperties, pszNameOfPropInError) {
-        pOutParamsMarshal := pOutParams is VarRef ? "char*" : "ptr"
-        pszNameOfPropInErrorMarshal := pszNameOfPropInError is VarRef ? "ptr*" : "ptr"
+        pOutParamsMarshal := pOutParams is VarRef ? "char*" : IntPtr
+        pszNameOfPropInErrorMarshal := pszNameOfPropInError is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, HKEY, hkeyClusterKey, RESUTIL_PROPERTY_ITEM.Ptr, pPropertyTable, pOutParamsMarshal, pOutParams, BOOL, bCheckForRequiredProperties, pszNameOfPropInErrorMarshal, pszNameOfPropInError, UInt32)
         return result

@@ -110,7 +110,6 @@ export default struct IPicture2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     get_Handle() {
@@ -119,7 +118,6 @@ export default struct IPicture2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     get_hPal() {
@@ -128,7 +126,6 @@ export default struct IPicture2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Type() {
@@ -137,7 +134,6 @@ export default struct IPicture2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Width() {
@@ -146,7 +142,6 @@ export default struct IPicture2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Height() {
@@ -194,7 +189,6 @@ export default struct IPicture2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hPal 
      * @returns {HRESULT} 
      */
@@ -204,7 +198,6 @@ export default struct IPicture2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HDC} 
      */
     get_CurDC() {
@@ -214,21 +207,19 @@ export default struct IPicture2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {HDC} hDCIn 
      * @param {Pointer<HDC>} phDCOut 
      * @param {Pointer<Pointer>} phBmpOut 
      * @returns {HRESULT} 
      */
     SelectPicture(hDCIn, phDCOut, phBmpOut) {
-        phBmpOutMarshal := phBmpOut is VarRef ? "ptr*" : "ptr"
+        phBmpOutMarshal := phBmpOut is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(11, this, HDC, hDCIn, HDC.Ptr, phDCOut, phBmpOutMarshal, phBmpOut, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_KeepOriginalFormat() {
@@ -237,7 +228,6 @@ export default struct IPicture2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} keep 
      * @returns {HRESULT} 
      */
@@ -247,7 +237,6 @@ export default struct IPicture2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     PictureChanged() {
@@ -256,7 +245,6 @@ export default struct IPicture2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IStream} pStream 
      * @param {BOOL} fSaveMemCopy 
      * @returns {Integer} 
@@ -267,7 +255,6 @@ export default struct IPicture2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Attributes() {
@@ -284,20 +271,20 @@ export default struct IPicture2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Handle := CallbackCreate(GetMethod(implObj, "get_Handle"), flags, 2)
-        this.vtbl.get_hPal := CallbackCreate(GetMethod(implObj, "get_hPal"), flags, 2)
-        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
-        this.vtbl.get_Width := CallbackCreate(GetMethod(implObj, "get_Width"), flags, 2)
-        this.vtbl.get_Height := CallbackCreate(GetMethod(implObj, "get_Height"), flags, 2)
-        this.vtbl.Render := CallbackCreate(GetMethod(implObj, "Render"), flags, 11)
-        this.vtbl.set_hPal := CallbackCreate(GetMethod(implObj, "set_hPal"), flags, 2)
-        this.vtbl.get_CurDC := CallbackCreate(GetMethod(implObj, "get_CurDC"), flags, 2)
-        this.vtbl.SelectPicture := CallbackCreate(GetMethod(implObj, "SelectPicture"), flags, 4)
-        this.vtbl.get_KeepOriginalFormat := CallbackCreate(GetMethod(implObj, "get_KeepOriginalFormat"), flags, 2)
-        this.vtbl.put_KeepOriginalFormat := CallbackCreate(GetMethod(implObj, "put_KeepOriginalFormat"), flags, 2)
-        this.vtbl.PictureChanged := CallbackCreate(GetMethod(implObj, "PictureChanged"), flags, 1)
-        this.vtbl.SaveAsFile := CallbackCreate(GetMethod(implObj, "SaveAsFile"), flags, 4)
-        this.vtbl.get_Attributes := CallbackCreate(GetMethod(implObj, "get_Attributes"), flags, 2)
+        this.vtbl.get_Handle := CallbackCreate(ObjBindMethod(implObj, "get_Handle"), flags, 2)
+        this.vtbl.get_hPal := CallbackCreate(ObjBindMethod(implObj, "get_hPal"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(ObjBindMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_Width := CallbackCreate(ObjBindMethod(implObj, "get_Width"), flags, 2)
+        this.vtbl.get_Height := CallbackCreate(ObjBindMethod(implObj, "get_Height"), flags, 2)
+        this.vtbl.Render := CallbackCreate(ObjBindMethod(implObj, "Render"), flags, 11)
+        this.vtbl.set_hPal := CallbackCreate(ObjBindMethod(implObj, "set_hPal"), flags, 2)
+        this.vtbl.get_CurDC := CallbackCreate(ObjBindMethod(implObj, "get_CurDC"), flags, 2)
+        this.vtbl.SelectPicture := CallbackCreate(ObjBindMethod(implObj, "SelectPicture"), flags, 4)
+        this.vtbl.get_KeepOriginalFormat := CallbackCreate(ObjBindMethod(implObj, "get_KeepOriginalFormat"), flags, 2)
+        this.vtbl.put_KeepOriginalFormat := CallbackCreate(ObjBindMethod(implObj, "put_KeepOriginalFormat"), flags, 2)
+        this.vtbl.PictureChanged := CallbackCreate(ObjBindMethod(implObj, "PictureChanged"), flags, 1)
+        this.vtbl.SaveAsFile := CallbackCreate(ObjBindMethod(implObj, "SaveAsFile"), flags, 4)
+        this.vtbl.get_Attributes := CallbackCreate(ObjBindMethod(implObj, "get_Attributes"), flags, 2)
     }
 
     Dispose() {

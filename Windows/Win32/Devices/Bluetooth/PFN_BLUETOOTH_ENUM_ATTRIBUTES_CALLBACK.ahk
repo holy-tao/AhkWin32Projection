@@ -21,7 +21,6 @@ export default struct PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK {
     }
 
     /**
-     * 
      * @param {Integer} uAttribId The current attribute identifier in the SDP stream.
      * @param {Integer} pValueStream The raw SDP stream for the attribute value associated with <b>uAttribId</b>. Use the <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nf-bluetoothapis-bluetoothsdpgetelementdata">BluetoothSdpGetElementData</a> function to parse the raw results into computer-readable data.
      * @param {Integer} cbStreamSize The size, in bytes, of <b>pValueStream</b>.
@@ -29,7 +28,8 @@ export default struct PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK {
      * @returns {BOOL} Should return <b>TRUE</b> when the enumeration continues to the next attribute identifier found in the stream. Should return <b>FALSE</b> when  enumeration of the record attribute identifiers should immediately stop.
      */
     Call(uAttribId, pValueStream, cbStreamSize, pvParam) {
-        pvParamMarshal := pvParam is VarRef ? "ptr" : "ptr"
+        pvParamMarshal := pvParam is VarRef ? "ptr" : IntPtr
+        pvParamMarshal := pvParam == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, UInt32, uAttribId, IntPtr, pValueStream, UInt32, cbStreamSize, pvParamMarshal, pvParam, BOOL)
         return result

@@ -127,7 +127,7 @@ export default struct ITypeComp extends IUnknown {
     Bind(szName, lHashVal, wFlags, ppTInfo, pDescKind, pBindPtr) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        pDescKindMarshal := pDescKind is VarRef ? "int*" : "ptr"
+        pDescKindMarshal := pDescKind is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, "ptr", szName, UInt32, lHashVal, UInt16, wFlags, ITypeInfo.Ptr, ppTInfo, pDescKindMarshal, pDescKind, BINDPTR.Ptr, pBindPtr, "HRESULT")
         return result
@@ -203,8 +203,8 @@ export default struct ITypeComp extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Bind := CallbackCreate(GetMethod(implObj, "Bind"), flags, 7)
-        this.vtbl.BindType := CallbackCreate(GetMethod(implObj, "BindType"), flags, 5)
+        this.vtbl.Bind := CallbackCreate(ObjBindMethod(implObj, "Bind"), flags, 7)
+        this.vtbl.BindType := CallbackCreate(ObjBindMethod(implObj, "BindType"), flags, 5)
     }
 
     Dispose() {

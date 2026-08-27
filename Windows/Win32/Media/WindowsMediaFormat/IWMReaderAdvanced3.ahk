@@ -228,9 +228,9 @@ export default struct IWMReaderAdvanced3 extends IWMReaderAdvanced2 {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced3-startatposition
      */
     StartAtPosition(wStreamNum, pvOffsetStart, pvDuration, dwOffsetFormat, fRate, pvContext) {
-        pvOffsetStartMarshal := pvOffsetStart is VarRef ? "ptr" : "ptr"
-        pvDurationMarshal := pvDuration is VarRef ? "ptr" : "ptr"
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        pvOffsetStartMarshal := pvOffsetStart is VarRef ? "ptr" : IntPtr
+        pvDurationMarshal := pvDuration is VarRef ? "ptr" : IntPtr
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(39, this, UInt16, wStreamNum, pvOffsetStartMarshal, pvOffsetStart, pvDurationMarshal, pvDuration, WMT_OFFSET_FORMAT, dwOffsetFormat, Float32, fRate, pvContextMarshal, pvContext, "HRESULT")
         return result
@@ -245,8 +245,8 @@ export default struct IWMReaderAdvanced3 extends IWMReaderAdvanced2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StopNetStreaming := CallbackCreate(GetMethod(implObj, "StopNetStreaming"), flags, 1)
-        this.vtbl.StartAtPosition := CallbackCreate(GetMethod(implObj, "StartAtPosition"), flags, 7)
+        this.vtbl.StopNetStreaming := CallbackCreate(ObjBindMethod(implObj, "StopNetStreaming"), flags, 1)
+        this.vtbl.StartAtPosition := CallbackCreate(ObjBindMethod(implObj, "StartAtPosition"), flags, 7)
     }
 
     Dispose() {

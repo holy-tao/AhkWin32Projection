@@ -21,13 +21,12 @@ export default struct IOMMU_DOMAIN_CREATE {
     }
 
     /**
-     * 
      * @param {BOOLEAN} OsManagedPageTable 
      * @param {Pointer<Pointer<IOMMU_DMA_DOMAIN>>} DomainOut 
      * @returns {NTSTATUS} 
      */
     Call(OsManagedPageTable, DomainOut) {
-        DomainOutMarshal := DomainOut is VarRef ? "ptr*" : "ptr"
+        DomainOutMarshal := DomainOut is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, BOOLEAN, OsManagedPageTable, DomainOutMarshal, DomainOut, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

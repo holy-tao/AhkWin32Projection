@@ -195,7 +195,6 @@ export default struct IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -205,7 +204,6 @@ export default struct IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmspointerdown() {
@@ -215,7 +213,6 @@ export default struct IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -225,7 +222,6 @@ export default struct IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmspointermove() {
@@ -235,7 +231,6 @@ export default struct IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -245,7 +240,6 @@ export default struct IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmspointerup() {
@@ -255,7 +249,6 @@ export default struct IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -265,7 +258,6 @@ export default struct IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmspointerover() {
@@ -275,7 +267,6 @@ export default struct IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -285,7 +276,6 @@ export default struct IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmspointerout() {
@@ -295,7 +285,6 @@ export default struct IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -305,7 +294,6 @@ export default struct IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmspointercancel() {
@@ -315,7 +303,6 @@ export default struct IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -325,7 +312,6 @@ export default struct IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmspointerhover() {
@@ -335,7 +321,6 @@ export default struct IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -345,7 +330,6 @@ export default struct IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmsgesturestart() {
@@ -355,7 +339,6 @@ export default struct IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -365,7 +348,6 @@ export default struct IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmsgesturechange() {
@@ -375,7 +357,6 @@ export default struct IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -385,7 +366,6 @@ export default struct IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmsgestureend() {
@@ -395,7 +375,6 @@ export default struct IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -405,7 +384,6 @@ export default struct IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmsgesturehold() {
@@ -415,7 +393,6 @@ export default struct IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -425,7 +402,6 @@ export default struct IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmsgesturetap() {
@@ -435,7 +411,6 @@ export default struct IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -445,7 +420,6 @@ export default struct IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmsgesturedoubletap() {
@@ -455,7 +429,6 @@ export default struct IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -465,7 +438,6 @@ export default struct IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmsinertiastart() {
@@ -475,7 +447,6 @@ export default struct IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLApplicationCache} 
      */
     get_applicationCache() {
@@ -484,7 +455,6 @@ export default struct IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -494,7 +464,6 @@ export default struct IHTMLWindow8 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onpopstate() {
@@ -512,37 +481,37 @@ export default struct IHTMLWindow8 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_onmspointerdown := CallbackCreate(GetMethod(implObj, "put_onmspointerdown"), flags, 2)
-        this.vtbl.get_onmspointerdown := CallbackCreate(GetMethod(implObj, "get_onmspointerdown"), flags, 2)
-        this.vtbl.put_onmspointermove := CallbackCreate(GetMethod(implObj, "put_onmspointermove"), flags, 2)
-        this.vtbl.get_onmspointermove := CallbackCreate(GetMethod(implObj, "get_onmspointermove"), flags, 2)
-        this.vtbl.put_onmspointerup := CallbackCreate(GetMethod(implObj, "put_onmspointerup"), flags, 2)
-        this.vtbl.get_onmspointerup := CallbackCreate(GetMethod(implObj, "get_onmspointerup"), flags, 2)
-        this.vtbl.put_onmspointerover := CallbackCreate(GetMethod(implObj, "put_onmspointerover"), flags, 2)
-        this.vtbl.get_onmspointerover := CallbackCreate(GetMethod(implObj, "get_onmspointerover"), flags, 2)
-        this.vtbl.put_onmspointerout := CallbackCreate(GetMethod(implObj, "put_onmspointerout"), flags, 2)
-        this.vtbl.get_onmspointerout := CallbackCreate(GetMethod(implObj, "get_onmspointerout"), flags, 2)
-        this.vtbl.put_onmspointercancel := CallbackCreate(GetMethod(implObj, "put_onmspointercancel"), flags, 2)
-        this.vtbl.get_onmspointercancel := CallbackCreate(GetMethod(implObj, "get_onmspointercancel"), flags, 2)
-        this.vtbl.put_onmspointerhover := CallbackCreate(GetMethod(implObj, "put_onmspointerhover"), flags, 2)
-        this.vtbl.get_onmspointerhover := CallbackCreate(GetMethod(implObj, "get_onmspointerhover"), flags, 2)
-        this.vtbl.put_onmsgesturestart := CallbackCreate(GetMethod(implObj, "put_onmsgesturestart"), flags, 2)
-        this.vtbl.get_onmsgesturestart := CallbackCreate(GetMethod(implObj, "get_onmsgesturestart"), flags, 2)
-        this.vtbl.put_onmsgesturechange := CallbackCreate(GetMethod(implObj, "put_onmsgesturechange"), flags, 2)
-        this.vtbl.get_onmsgesturechange := CallbackCreate(GetMethod(implObj, "get_onmsgesturechange"), flags, 2)
-        this.vtbl.put_onmsgestureend := CallbackCreate(GetMethod(implObj, "put_onmsgestureend"), flags, 2)
-        this.vtbl.get_onmsgestureend := CallbackCreate(GetMethod(implObj, "get_onmsgestureend"), flags, 2)
-        this.vtbl.put_onmsgesturehold := CallbackCreate(GetMethod(implObj, "put_onmsgesturehold"), flags, 2)
-        this.vtbl.get_onmsgesturehold := CallbackCreate(GetMethod(implObj, "get_onmsgesturehold"), flags, 2)
-        this.vtbl.put_onmsgesturetap := CallbackCreate(GetMethod(implObj, "put_onmsgesturetap"), flags, 2)
-        this.vtbl.get_onmsgesturetap := CallbackCreate(GetMethod(implObj, "get_onmsgesturetap"), flags, 2)
-        this.vtbl.put_onmsgesturedoubletap := CallbackCreate(GetMethod(implObj, "put_onmsgesturedoubletap"), flags, 2)
-        this.vtbl.get_onmsgesturedoubletap := CallbackCreate(GetMethod(implObj, "get_onmsgesturedoubletap"), flags, 2)
-        this.vtbl.put_onmsinertiastart := CallbackCreate(GetMethod(implObj, "put_onmsinertiastart"), flags, 2)
-        this.vtbl.get_onmsinertiastart := CallbackCreate(GetMethod(implObj, "get_onmsinertiastart"), flags, 2)
-        this.vtbl.get_applicationCache := CallbackCreate(GetMethod(implObj, "get_applicationCache"), flags, 2)
-        this.vtbl.put_onpopstate := CallbackCreate(GetMethod(implObj, "put_onpopstate"), flags, 2)
-        this.vtbl.get_onpopstate := CallbackCreate(GetMethod(implObj, "get_onpopstate"), flags, 2)
+        this.vtbl.put_onmspointerdown := CallbackCreate(ObjBindMethod(implObj, "put_onmspointerdown"), flags, 2)
+        this.vtbl.get_onmspointerdown := CallbackCreate(ObjBindMethod(implObj, "get_onmspointerdown"), flags, 2)
+        this.vtbl.put_onmspointermove := CallbackCreate(ObjBindMethod(implObj, "put_onmspointermove"), flags, 2)
+        this.vtbl.get_onmspointermove := CallbackCreate(ObjBindMethod(implObj, "get_onmspointermove"), flags, 2)
+        this.vtbl.put_onmspointerup := CallbackCreate(ObjBindMethod(implObj, "put_onmspointerup"), flags, 2)
+        this.vtbl.get_onmspointerup := CallbackCreate(ObjBindMethod(implObj, "get_onmspointerup"), flags, 2)
+        this.vtbl.put_onmspointerover := CallbackCreate(ObjBindMethod(implObj, "put_onmspointerover"), flags, 2)
+        this.vtbl.get_onmspointerover := CallbackCreate(ObjBindMethod(implObj, "get_onmspointerover"), flags, 2)
+        this.vtbl.put_onmspointerout := CallbackCreate(ObjBindMethod(implObj, "put_onmspointerout"), flags, 2)
+        this.vtbl.get_onmspointerout := CallbackCreate(ObjBindMethod(implObj, "get_onmspointerout"), flags, 2)
+        this.vtbl.put_onmspointercancel := CallbackCreate(ObjBindMethod(implObj, "put_onmspointercancel"), flags, 2)
+        this.vtbl.get_onmspointercancel := CallbackCreate(ObjBindMethod(implObj, "get_onmspointercancel"), flags, 2)
+        this.vtbl.put_onmspointerhover := CallbackCreate(ObjBindMethod(implObj, "put_onmspointerhover"), flags, 2)
+        this.vtbl.get_onmspointerhover := CallbackCreate(ObjBindMethod(implObj, "get_onmspointerhover"), flags, 2)
+        this.vtbl.put_onmsgesturestart := CallbackCreate(ObjBindMethod(implObj, "put_onmsgesturestart"), flags, 2)
+        this.vtbl.get_onmsgesturestart := CallbackCreate(ObjBindMethod(implObj, "get_onmsgesturestart"), flags, 2)
+        this.vtbl.put_onmsgesturechange := CallbackCreate(ObjBindMethod(implObj, "put_onmsgesturechange"), flags, 2)
+        this.vtbl.get_onmsgesturechange := CallbackCreate(ObjBindMethod(implObj, "get_onmsgesturechange"), flags, 2)
+        this.vtbl.put_onmsgestureend := CallbackCreate(ObjBindMethod(implObj, "put_onmsgestureend"), flags, 2)
+        this.vtbl.get_onmsgestureend := CallbackCreate(ObjBindMethod(implObj, "get_onmsgestureend"), flags, 2)
+        this.vtbl.put_onmsgesturehold := CallbackCreate(ObjBindMethod(implObj, "put_onmsgesturehold"), flags, 2)
+        this.vtbl.get_onmsgesturehold := CallbackCreate(ObjBindMethod(implObj, "get_onmsgesturehold"), flags, 2)
+        this.vtbl.put_onmsgesturetap := CallbackCreate(ObjBindMethod(implObj, "put_onmsgesturetap"), flags, 2)
+        this.vtbl.get_onmsgesturetap := CallbackCreate(ObjBindMethod(implObj, "get_onmsgesturetap"), flags, 2)
+        this.vtbl.put_onmsgesturedoubletap := CallbackCreate(ObjBindMethod(implObj, "put_onmsgesturedoubletap"), flags, 2)
+        this.vtbl.get_onmsgesturedoubletap := CallbackCreate(ObjBindMethod(implObj, "get_onmsgesturedoubletap"), flags, 2)
+        this.vtbl.put_onmsinertiastart := CallbackCreate(ObjBindMethod(implObj, "put_onmsinertiastart"), flags, 2)
+        this.vtbl.get_onmsinertiastart := CallbackCreate(ObjBindMethod(implObj, "get_onmsinertiastart"), flags, 2)
+        this.vtbl.get_applicationCache := CallbackCreate(ObjBindMethod(implObj, "get_applicationCache"), flags, 2)
+        this.vtbl.put_onpopstate := CallbackCreate(ObjBindMethod(implObj, "put_onpopstate"), flags, 2)
+        this.vtbl.get_onpopstate := CallbackCreate(ObjBindMethod(implObj, "get_onpopstate"), flags, 2)
     }
 
     Dispose() {

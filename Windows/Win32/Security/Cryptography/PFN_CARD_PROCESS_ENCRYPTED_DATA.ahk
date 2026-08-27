@@ -21,7 +21,6 @@ export default struct PFN_CARD_PROCESS_ENCRYPTED_DATA {
     }
 
     /**
-     * 
      * @param {Pointer<CARD_DATA>} pCardData 
      * @param {Pointer} _hKey 
      * @param {PWSTR} pwszSecureFunction 
@@ -36,9 +35,11 @@ export default struct PFN_CARD_PROCESS_ENCRYPTED_DATA {
     Call(pCardData, _hKey, pwszSecureFunction, pEncryptedData, cEncryptedData, pbOutput, cbOutput, pdwOutputLen, dwFlags) {
         pwszSecureFunction := pwszSecureFunction is String ? StrPtr(pwszSecureFunction) : pwszSecureFunction
 
-        pdwOutputLenMarshal := pdwOutputLen is VarRef ? "uint*" : "ptr"
+        pbOutputMarshal := pbOutput == 0 ? IntPtr : IntPtr
+        pdwOutputLenMarshal := pdwOutputLen is VarRef ? "uint*" : IntPtr
+        pdwOutputLenMarshal := pdwOutputLen == 0 ? IntPtr : "uint*"
 
-        result := DllCall(this.value, CARD_DATA.Ptr, pCardData, IntPtr, _hKey, "ptr", pwszSecureFunction, CARD_ENCRYPTED_DATA.Ptr, pEncryptedData, UInt32, cEncryptedData, IntPtr, pbOutput, UInt32, cbOutput, pdwOutputLenMarshal, pdwOutputLen, UInt32, dwFlags, UInt32)
+        result := DllCall(this.value, CARD_DATA.Ptr, pCardData, IntPtr, _hKey, "ptr", pwszSecureFunction, CARD_ENCRYPTED_DATA.Ptr, pEncryptedData, UInt32, cEncryptedData, pbOutputMarshal, pbOutput, UInt32, cbOutput, pdwOutputLenMarshal, pdwOutputLen, UInt32, dwFlags, UInt32)
         return result
     }
 

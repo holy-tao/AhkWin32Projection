@@ -21,7 +21,6 @@ export default struct WINWATCHNOTIFYPROC {
     }
 
     /**
-     * 
      * @param {HWINWATCH} hww 
      * @param {HWND} _hwnd 
      * @param {Integer} code 

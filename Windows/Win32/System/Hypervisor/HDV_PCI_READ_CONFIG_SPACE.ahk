@@ -21,13 +21,13 @@ export default struct HDV_PCI_READ_CONFIG_SPACE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} deviceContext 
      * @param {Integer} offset 
      * @returns {Integer} 
      */
     Call(deviceContext, offset) {
-        deviceContextMarshal := deviceContext is VarRef ? "ptr" : "ptr"
+        deviceContextMarshal := deviceContext is VarRef ? "ptr" : IntPtr
+        deviceContextMarshal := deviceContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, deviceContextMarshal, deviceContext, UInt32, offset, "uint*", &value := 0, "HRESULT")
         return value

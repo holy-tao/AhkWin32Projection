@@ -51,7 +51,6 @@ export default struct ISVGViewElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGStringList} v 
      * @returns {HRESULT} 
      */
@@ -61,7 +60,6 @@ export default struct ISVGViewElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGStringList} 
      */
     get_viewTarget() {
@@ -78,8 +76,8 @@ export default struct ISVGViewElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.putref_viewTarget := CallbackCreate(GetMethod(implObj, "putref_viewTarget"), flags, 2)
-        this.vtbl.get_viewTarget := CallbackCreate(GetMethod(implObj, "get_viewTarget"), flags, 2)
+        this.vtbl.putref_viewTarget := CallbackCreate(ObjBindMethod(implObj, "putref_viewTarget"), flags, 2)
+        this.vtbl.get_viewTarget := CallbackCreate(ObjBindMethod(implObj, "get_viewTarget"), flags, 2)
     }
 
     Dispose() {

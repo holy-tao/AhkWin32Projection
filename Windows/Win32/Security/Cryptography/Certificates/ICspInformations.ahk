@@ -111,7 +111,9 @@ export default struct ICspInformations extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformations-add
      */
     Add(pVal) {
-        result := ComCall(10, this, "ptr", pVal, "HRESULT")
+        pValMarshal := pVal == 0 ? IntPtr : "ptr"
+
+        result := ComCall(10, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -223,7 +225,9 @@ export default struct ICspInformations extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformations-getcspstatusesfromoperations
      */
     GetCspStatusesFromOperations(Operations, pCspInformation) {
-        result := ComCall(16, this, AlgorithmOperationFlags, Operations, "ptr", pCspInformation, "ptr*", &ppValue := 0, "HRESULT")
+        pCspInformationMarshal := pCspInformation == 0 ? IntPtr : "ptr"
+
+        result := ComCall(16, this, AlgorithmOperationFlags, Operations, pCspInformationMarshal, pCspInformation, "ptr*", &ppValue := 0, "HRESULT")
         return ICspStatuses(ppValue)
     }
 
@@ -234,7 +238,9 @@ export default struct ICspInformations extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformations-getencryptioncspalgorithms
      */
     GetEncryptionCspAlgorithms(pCspInformation) {
-        result := ComCall(17, this, "ptr", pCspInformation, "ptr*", &ppValue := 0, "HRESULT")
+        pCspInformationMarshal := pCspInformation == 0 ? IntPtr : "ptr"
+
+        result := ComCall(17, this, pCspInformationMarshal, pCspInformation, "ptr*", &ppValue := 0, "HRESULT")
         return ICspAlgorithms(ppValue)
     }
 
@@ -245,7 +251,9 @@ export default struct ICspInformations extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformations-gethashalgorithms
      */
     GetHashAlgorithms(pCspInformation) {
-        result := ComCall(18, this, "ptr", pCspInformation, "ptr*", &ppValue := 0, "HRESULT")
+        pCspInformationMarshal := pCspInformation == 0 ? IntPtr : "ptr"
+
+        result := ComCall(18, this, pCspInformationMarshal, pCspInformation, "ptr*", &ppValue := 0, "HRESULT")
         return IObjectIds(ppValue)
     }
 
@@ -258,18 +266,18 @@ export default struct ICspInformations extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ItemByIndex := CallbackCreate(GetMethod(implObj, "get_ItemByIndex"), flags, 3)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
-        this.vtbl.AddAvailableCsps := CallbackCreate(GetMethod(implObj, "AddAvailableCsps"), flags, 1)
-        this.vtbl.get_ItemByName := CallbackCreate(GetMethod(implObj, "get_ItemByName"), flags, 3)
-        this.vtbl.GetCspStatusFromProviderName := CallbackCreate(GetMethod(implObj, "GetCspStatusFromProviderName"), flags, 4)
-        this.vtbl.GetCspStatusesFromOperations := CallbackCreate(GetMethod(implObj, "GetCspStatusesFromOperations"), flags, 4)
-        this.vtbl.GetEncryptionCspAlgorithms := CallbackCreate(GetMethod(implObj, "GetEncryptionCspAlgorithms"), flags, 3)
-        this.vtbl.GetHashAlgorithms := CallbackCreate(GetMethod(implObj, "GetHashAlgorithms"), flags, 3)
+        this.vtbl.get_ItemByIndex := CallbackCreate(ObjBindMethod(implObj, "get_ItemByIndex"), flags, 3)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get__NewEnum := CallbackCreate(ObjBindMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.AddAvailableCsps := CallbackCreate(ObjBindMethod(implObj, "AddAvailableCsps"), flags, 1)
+        this.vtbl.get_ItemByName := CallbackCreate(ObjBindMethod(implObj, "get_ItemByName"), flags, 3)
+        this.vtbl.GetCspStatusFromProviderName := CallbackCreate(ObjBindMethod(implObj, "GetCspStatusFromProviderName"), flags, 4)
+        this.vtbl.GetCspStatusesFromOperations := CallbackCreate(ObjBindMethod(implObj, "GetCspStatusesFromOperations"), flags, 4)
+        this.vtbl.GetEncryptionCspAlgorithms := CallbackCreate(ObjBindMethod(implObj, "GetEncryptionCspAlgorithms"), flags, 3)
+        this.vtbl.GetHashAlgorithms := CallbackCreate(ObjBindMethod(implObj, "GetHashAlgorithms"), flags, 3)
     }
 
     Dispose() {

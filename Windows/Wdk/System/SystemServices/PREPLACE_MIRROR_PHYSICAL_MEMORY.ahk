@@ -19,14 +19,13 @@ export default struct PREPLACE_MIRROR_PHYSICAL_MEMORY {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Integer} PhysicalAddress 
      * @param {Integer} ByteCount 
      * @returns {NTSTATUS} 
      */
     Call(_Context, PhysicalAddress, ByteCount) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, Int64, PhysicalAddress, Int64, ByteCount, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

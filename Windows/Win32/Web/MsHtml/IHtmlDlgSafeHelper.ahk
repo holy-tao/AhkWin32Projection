@@ -61,7 +61,6 @@ export default struct IHtmlDlgSafeHelper extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} initColor 
      * @returns {VARIANT} 
      */
@@ -72,7 +71,6 @@ export default struct IHtmlDlgSafeHelper extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} fontName 
      * @returns {VARIANT} 
      */
@@ -85,7 +83,6 @@ export default struct IHtmlDlgSafeHelper extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Fonts() {
@@ -94,7 +91,6 @@ export default struct IHtmlDlgSafeHelper extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_BlockFormats() {
@@ -111,10 +107,10 @@ export default struct IHtmlDlgSafeHelper extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.choosecolordlg := CallbackCreate(GetMethod(implObj, "choosecolordlg"), flags, 3)
-        this.vtbl.getCharset := CallbackCreate(GetMethod(implObj, "getCharset"), flags, 3)
-        this.vtbl.get_Fonts := CallbackCreate(GetMethod(implObj, "get_Fonts"), flags, 2)
-        this.vtbl.get_BlockFormats := CallbackCreate(GetMethod(implObj, "get_BlockFormats"), flags, 2)
+        this.vtbl.choosecolordlg := CallbackCreate(ObjBindMethod(implObj, "choosecolordlg"), flags, 3)
+        this.vtbl.getCharset := CallbackCreate(ObjBindMethod(implObj, "getCharset"), flags, 3)
+        this.vtbl.get_Fonts := CallbackCreate(ObjBindMethod(implObj, "get_Fonts"), flags, 2)
+        this.vtbl.get_BlockFormats := CallbackCreate(ObjBindMethod(implObj, "get_BlockFormats"), flags, 2)
     }
 
     Dispose() {

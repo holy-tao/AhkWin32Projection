@@ -464,17 +464,17 @@ export default struct IPropertyPage extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetPageSite := CallbackCreate(GetMethod(implObj, "SetPageSite"), flags, 2)
-        this.vtbl.Activate := CallbackCreate(GetMethod(implObj, "Activate"), flags, 4)
-        this.vtbl.Deactivate := CallbackCreate(GetMethod(implObj, "Deactivate"), flags, 1)
-        this.vtbl.GetPageInfo := CallbackCreate(GetMethod(implObj, "GetPageInfo"), flags, 2)
-        this.vtbl.SetObjects := CallbackCreate(GetMethod(implObj, "SetObjects"), flags, 3)
-        this.vtbl.Show := CallbackCreate(GetMethod(implObj, "Show"), flags, 2)
-        this.vtbl.Move := CallbackCreate(GetMethod(implObj, "Move"), flags, 2)
-        this.vtbl.IsPageDirty := CallbackCreate(GetMethod(implObj, "IsPageDirty"), flags, 1)
-        this.vtbl.Apply := CallbackCreate(GetMethod(implObj, "Apply"), flags, 1)
-        this.vtbl.Help := CallbackCreate(GetMethod(implObj, "Help"), flags, 2)
-        this.vtbl.TranslateAccelerator := CallbackCreate(GetMethod(implObj, "TranslateAccelerator"), flags, 2)
+        this.vtbl.SetPageSite := CallbackCreate(ObjBindMethod(implObj, "SetPageSite"), flags, 2)
+        this.vtbl.Activate := CallbackCreate(ObjBindMethod(implObj, "Activate"), flags, 4)
+        this.vtbl.Deactivate := CallbackCreate(ObjBindMethod(implObj, "Deactivate"), flags, 1)
+        this.vtbl.GetPageInfo := CallbackCreate(ObjBindMethod(implObj, "GetPageInfo"), flags, 2)
+        this.vtbl.SetObjects := CallbackCreate(ObjBindMethod(implObj, "SetObjects"), flags, 3)
+        this.vtbl.Show := CallbackCreate(ObjBindMethod(implObj, "Show"), flags, 2)
+        this.vtbl.Move := CallbackCreate(ObjBindMethod(implObj, "Move"), flags, 2)
+        this.vtbl.IsPageDirty := CallbackCreate(ObjBindMethod(implObj, "IsPageDirty"), flags, 1)
+        this.vtbl.Apply := CallbackCreate(ObjBindMethod(implObj, "Apply"), flags, 1)
+        this.vtbl.Help := CallbackCreate(ObjBindMethod(implObj, "Help"), flags, 2)
+        this.vtbl.TranslateAccelerator := CallbackCreate(ObjBindMethod(implObj, "TranslateAccelerator"), flags, 2)
     }
 
     Dispose() {

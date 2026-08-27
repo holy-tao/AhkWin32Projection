@@ -92,7 +92,6 @@ export default struct IXMLDOMParseError extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_errorCode() {
@@ -101,7 +100,6 @@ export default struct IXMLDOMParseError extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_url() {
@@ -111,7 +109,6 @@ export default struct IXMLDOMParseError extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_reason() {
@@ -121,7 +118,6 @@ export default struct IXMLDOMParseError extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_srcText() {
@@ -131,7 +127,6 @@ export default struct IXMLDOMParseError extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_line() {
@@ -140,7 +135,6 @@ export default struct IXMLDOMParseError extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_linepos() {
@@ -149,7 +143,6 @@ export default struct IXMLDOMParseError extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_filepos() {
@@ -166,13 +159,13 @@ export default struct IXMLDOMParseError extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_errorCode := CallbackCreate(GetMethod(implObj, "get_errorCode"), flags, 2)
-        this.vtbl.get_url := CallbackCreate(GetMethod(implObj, "get_url"), flags, 2)
-        this.vtbl.get_reason := CallbackCreate(GetMethod(implObj, "get_reason"), flags, 2)
-        this.vtbl.get_srcText := CallbackCreate(GetMethod(implObj, "get_srcText"), flags, 2)
-        this.vtbl.get_line := CallbackCreate(GetMethod(implObj, "get_line"), flags, 2)
-        this.vtbl.get_linepos := CallbackCreate(GetMethod(implObj, "get_linepos"), flags, 2)
-        this.vtbl.get_filepos := CallbackCreate(GetMethod(implObj, "get_filepos"), flags, 2)
+        this.vtbl.get_errorCode := CallbackCreate(ObjBindMethod(implObj, "get_errorCode"), flags, 2)
+        this.vtbl.get_url := CallbackCreate(ObjBindMethod(implObj, "get_url"), flags, 2)
+        this.vtbl.get_reason := CallbackCreate(ObjBindMethod(implObj, "get_reason"), flags, 2)
+        this.vtbl.get_srcText := CallbackCreate(ObjBindMethod(implObj, "get_srcText"), flags, 2)
+        this.vtbl.get_line := CallbackCreate(ObjBindMethod(implObj, "get_line"), flags, 2)
+        this.vtbl.get_linepos := CallbackCreate(ObjBindMethod(implObj, "get_linepos"), flags, 2)
+        this.vtbl.get_filepos := CallbackCreate(ObjBindMethod(implObj, "get_filepos"), flags, 2)
     }
 
     Dispose() {

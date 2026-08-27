@@ -75,7 +75,7 @@ export default struct IFunctionInstanceCollection extends IUnknown {
     Get(pszInstanceIdentity, pdwIndex) {
         pszInstanceIdentity := pszInstanceIdentity is String ? StrPtr(pszInstanceIdentity) : pszInstanceIdentity
 
-        pdwIndexMarshal := pdwIndex is VarRef ? "uint*" : "ptr"
+        pdwIndexMarshal := pdwIndex is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, "ptr", pszInstanceIdentity, pdwIndexMarshal, pdwIndex, "ptr*", &ppIFunctionInstance := 0, "HRESULT")
         return IFunctionInstance(ppIFunctionInstance)
@@ -226,13 +226,13 @@ export default struct IFunctionInstanceCollection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
-        this.vtbl.Get := CallbackCreate(GetMethod(implObj, "Get"), flags, 4)
-        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 3)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 3)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 2)
-        this.vtbl.DeleteAll := CallbackCreate(GetMethod(implObj, "DeleteAll"), flags, 1)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.Get := CallbackCreate(ObjBindMethod(implObj, "Get"), flags, 4)
+        this.vtbl.Item := CallbackCreate(ObjBindMethod(implObj, "Item"), flags, 3)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 3)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 2)
+        this.vtbl.DeleteAll := CallbackCreate(ObjBindMethod(implObj, "DeleteAll"), flags, 1)
     }
 
     Dispose() {

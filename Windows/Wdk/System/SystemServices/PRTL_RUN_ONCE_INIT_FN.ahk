@@ -18,7 +18,6 @@ export default struct PRTL_RUN_ONCE_INIT_FN {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Call() {

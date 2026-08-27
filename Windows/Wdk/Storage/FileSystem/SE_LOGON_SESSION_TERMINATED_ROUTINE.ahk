@@ -20,7 +20,6 @@ export default struct SE_LOGON_SESSION_TERMINATED_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<LUID>} LogonId 
      * @returns {NTSTATUS} 
      */

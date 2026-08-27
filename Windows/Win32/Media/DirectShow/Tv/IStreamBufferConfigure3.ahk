@@ -155,10 +155,10 @@ export default struct IStreamBufferConfigure3 extends IStreamBufferConfigure2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetStartRecConfig := CallbackCreate(GetMethod(implObj, "SetStartRecConfig"), flags, 2)
-        this.vtbl.GetStartRecConfig := CallbackCreate(GetMethod(implObj, "GetStartRecConfig"), flags, 2)
-        this.vtbl.SetNamespace := CallbackCreate(GetMethod(implObj, "SetNamespace"), flags, 2)
-        this.vtbl.GetNamespace := CallbackCreate(GetMethod(implObj, "GetNamespace"), flags, 2)
+        this.vtbl.SetStartRecConfig := CallbackCreate(ObjBindMethod(implObj, "SetStartRecConfig"), flags, 2)
+        this.vtbl.GetStartRecConfig := CallbackCreate(ObjBindMethod(implObj, "GetStartRecConfig"), flags, 2)
+        this.vtbl.SetNamespace := CallbackCreate(ObjBindMethod(implObj, "SetNamespace"), flags, 2)
+        this.vtbl.GetNamespace := CallbackCreate(ObjBindMethod(implObj, "GetNamespace"), flags, 2)
     }
 
     Dispose() {

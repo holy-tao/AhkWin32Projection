@@ -19,14 +19,15 @@ export default struct DOT11EXTIHV_RECEIVE_PACKET {
     }
 
     /**
-     * 
      * @param {HANDLE} hIhvExtAdapter 
      * @param {Integer} dwInBufferSize 
      * @param {Integer} pvInBuffer 
      * @returns {Integer} 
      */
     Call(hIhvExtAdapter, dwInBufferSize, pvInBuffer) {
-        result := DllCall(this.value, HANDLE, hIhvExtAdapter, UInt32, dwInBufferSize, IntPtr, pvInBuffer, UInt32)
+        hIhvExtAdapterMarshal := hIhvExtAdapter == 0 ? IntPtr : HANDLE
+
+        result := DllCall(this.value, hIhvExtAdapterMarshal, hIhvExtAdapter, UInt32, dwInBufferSize, IntPtr, pvInBuffer, UInt32)
         return result
     }
 

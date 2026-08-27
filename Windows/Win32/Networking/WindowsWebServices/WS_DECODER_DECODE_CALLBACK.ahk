@@ -23,7 +23,6 @@ export default struct WS_DECODER_DECODE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} encoderContext The decoder instance returned by the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_create_decoder_callback">WS_CREATE_DECODER_CALLBACK</a>.
      * @param {Integer} _buffer The buffer to read into.
      * @param {Integer} maxLength The maximum number of bytes to read.
@@ -37,10 +36,12 @@ export default struct WS_DECODER_DECODE_CALLBACK {
      *                  be invoked.
      */
     Call(encoderContext, _buffer, maxLength, asyncContext, _error) {
-        encoderContextMarshal := encoderContext is VarRef ? "ptr" : "ptr"
-        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
+        encoderContextMarshal := encoderContext is VarRef ? "ptr" : IntPtr
+        asyncContextMarshal := asyncContext == 0 ? IntPtr : WS_ASYNC_CONTEXT.Ptr
+        _errorMarshal := _error is VarRef ? "ptr*" : IntPtr
+        _errorMarshal := _error == 0 ? IntPtr : WS_ERROR.Ptr
 
-        result := DllCall(this.value, encoderContextMarshal, encoderContext, IntPtr, _buffer, UInt32, maxLength, "uint*", &length := 0, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
+        result := DllCall(this.value, encoderContextMarshal, encoderContext, IntPtr, _buffer, UInt32, maxLength, "uint*", &length := 0, asyncContextMarshal, asyncContext, _errorMarshal, _error, "HRESULT")
         return length
     }
 

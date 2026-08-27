@@ -111,10 +111,10 @@ export default struct IMathInputControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/micaut/nf-micaut-imathinputcontrol-getposition
      */
     GetPosition(Left, Top, Right, Bottom) {
-        LeftMarshal := Left is VarRef ? "int*" : "ptr"
-        TopMarshal := Top is VarRef ? "int*" : "ptr"
-        RightMarshal := Right is VarRef ? "int*" : "ptr"
-        BottomMarshal := Bottom is VarRef ? "int*" : "ptr"
+        LeftMarshal := Left is VarRef ? "int*" : IntPtr
+        TopMarshal := Top is VarRef ? "int*" : IntPtr
+        RightMarshal := Right is VarRef ? "int*" : IntPtr
+        BottomMarshal := Bottom is VarRef ? "int*" : IntPtr
 
         result := ComCall(10, this, LeftMarshal, Left, TopMarshal, Top, RightMarshal, Right, BottomMarshal, Bottom, "HRESULT")
         return result
@@ -228,7 +228,9 @@ export default struct IMathInputControl extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/micaut/nf-micaut-imathinputcontrol-loadink
      */
     LoadInk(_Ink) {
-        result := ComCall(15, this, "ptr", _Ink, "HRESULT")
+        _InkMarshal := _Ink == 0 ? IntPtr : "ptr"
+
+        result := ComCall(15, this, _InkMarshal, _Ink, "HRESULT")
         return result
     }
 
@@ -465,23 +467,23 @@ export default struct IMathInputControl extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Show := CallbackCreate(GetMethod(implObj, "Show"), flags, 1)
-        this.vtbl.Hide := CallbackCreate(GetMethod(implObj, "Hide"), flags, 1)
-        this.vtbl.IsVisible := CallbackCreate(GetMethod(implObj, "IsVisible"), flags, 2)
-        this.vtbl.GetPosition := CallbackCreate(GetMethod(implObj, "GetPosition"), flags, 5)
-        this.vtbl.SetPosition := CallbackCreate(GetMethod(implObj, "SetPosition"), flags, 5)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
-        this.vtbl.SetCustomPaint := CallbackCreate(GetMethod(implObj, "SetCustomPaint"), flags, 3)
-        this.vtbl.SetCaptionText := CallbackCreate(GetMethod(implObj, "SetCaptionText"), flags, 2)
-        this.vtbl.LoadInk := CallbackCreate(GetMethod(implObj, "LoadInk"), flags, 2)
-        this.vtbl.SetOwnerWindow := CallbackCreate(GetMethod(implObj, "SetOwnerWindow"), flags, 2)
-        this.vtbl.EnableExtendedButtons := CallbackCreate(GetMethod(implObj, "EnableExtendedButtons"), flags, 2)
-        this.vtbl.GetPreviewHeight := CallbackCreate(GetMethod(implObj, "GetPreviewHeight"), flags, 2)
-        this.vtbl.SetPreviewHeight := CallbackCreate(GetMethod(implObj, "SetPreviewHeight"), flags, 2)
-        this.vtbl.EnableAutoGrow := CallbackCreate(GetMethod(implObj, "EnableAutoGrow"), flags, 2)
-        this.vtbl.AddFunctionName := CallbackCreate(GetMethod(implObj, "AddFunctionName"), flags, 2)
-        this.vtbl.RemoveFunctionName := CallbackCreate(GetMethod(implObj, "RemoveFunctionName"), flags, 2)
-        this.vtbl.GetHoverIcon := CallbackCreate(GetMethod(implObj, "GetHoverIcon"), flags, 2)
+        this.vtbl.Show := CallbackCreate(ObjBindMethod(implObj, "Show"), flags, 1)
+        this.vtbl.Hide := CallbackCreate(ObjBindMethod(implObj, "Hide"), flags, 1)
+        this.vtbl.IsVisible := CallbackCreate(ObjBindMethod(implObj, "IsVisible"), flags, 2)
+        this.vtbl.GetPosition := CallbackCreate(ObjBindMethod(implObj, "GetPosition"), flags, 5)
+        this.vtbl.SetPosition := CallbackCreate(ObjBindMethod(implObj, "SetPosition"), flags, 5)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.SetCustomPaint := CallbackCreate(ObjBindMethod(implObj, "SetCustomPaint"), flags, 3)
+        this.vtbl.SetCaptionText := CallbackCreate(ObjBindMethod(implObj, "SetCaptionText"), flags, 2)
+        this.vtbl.LoadInk := CallbackCreate(ObjBindMethod(implObj, "LoadInk"), flags, 2)
+        this.vtbl.SetOwnerWindow := CallbackCreate(ObjBindMethod(implObj, "SetOwnerWindow"), flags, 2)
+        this.vtbl.EnableExtendedButtons := CallbackCreate(ObjBindMethod(implObj, "EnableExtendedButtons"), flags, 2)
+        this.vtbl.GetPreviewHeight := CallbackCreate(ObjBindMethod(implObj, "GetPreviewHeight"), flags, 2)
+        this.vtbl.SetPreviewHeight := CallbackCreate(ObjBindMethod(implObj, "SetPreviewHeight"), flags, 2)
+        this.vtbl.EnableAutoGrow := CallbackCreate(ObjBindMethod(implObj, "EnableAutoGrow"), flags, 2)
+        this.vtbl.AddFunctionName := CallbackCreate(ObjBindMethod(implObj, "AddFunctionName"), flags, 2)
+        this.vtbl.RemoveFunctionName := CallbackCreate(ObjBindMethod(implObj, "RemoveFunctionName"), flags, 2)
+        this.vtbl.GetHoverIcon := CallbackCreate(ObjBindMethod(implObj, "GetHoverIcon"), flags, 2)
     }
 
     Dispose() {

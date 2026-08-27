@@ -104,8 +104,8 @@ export default struct ITLegacyAddressMediaControl extends IUnknown {
     GetID(pDeviceClass, pdwSize, ppDeviceID) {
         pDeviceClass := pDeviceClass is String ? BSTR.Alloc(pDeviceClass).Value : pDeviceClass
 
-        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
-        ppDeviceIDMarshal := ppDeviceID is VarRef ? "ptr*" : "ptr"
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : IntPtr
+        ppDeviceIDMarshal := ppDeviceID is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, BSTR, pDeviceClass, pdwSizeMarshal, pdwSize, ppDeviceIDMarshal, ppDeviceID, "HRESULT")
         return result
@@ -178,8 +178,8 @@ export default struct ITLegacyAddressMediaControl extends IUnknown {
     GetDevConfig(pDeviceClass, pdwSize, ppDeviceConfig) {
         pDeviceClass := pDeviceClass is String ? BSTR.Alloc(pDeviceClass).Value : pDeviceClass
 
-        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
-        ppDeviceConfigMarshal := ppDeviceConfig is VarRef ? "ptr*" : "ptr"
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : IntPtr
+        ppDeviceConfigMarshal := ppDeviceConfig is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, BSTR, pDeviceClass, pdwSizeMarshal, pdwSize, ppDeviceConfigMarshal, ppDeviceConfig, "HRESULT")
         return result
@@ -261,7 +261,7 @@ export default struct ITLegacyAddressMediaControl extends IUnknown {
     SetDevConfig(pDeviceClass, dwSize, pDeviceConfig) {
         pDeviceClass := pDeviceClass is String ? BSTR.Alloc(pDeviceClass).Value : pDeviceClass
 
-        pDeviceConfigMarshal := pDeviceConfig is VarRef ? "char*" : "ptr"
+        pDeviceConfigMarshal := pDeviceConfig is VarRef ? "char*" : IntPtr
 
         result := ComCall(5, this, BSTR, pDeviceClass, UInt32, dwSize, pDeviceConfigMarshal, pDeviceConfig, "HRESULT")
         return result
@@ -276,9 +276,9 @@ export default struct ITLegacyAddressMediaControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetID := CallbackCreate(GetMethod(implObj, "GetID"), flags, 4)
-        this.vtbl.GetDevConfig := CallbackCreate(GetMethod(implObj, "GetDevConfig"), flags, 4)
-        this.vtbl.SetDevConfig := CallbackCreate(GetMethod(implObj, "SetDevConfig"), flags, 4)
+        this.vtbl.GetID := CallbackCreate(ObjBindMethod(implObj, "GetID"), flags, 4)
+        this.vtbl.GetDevConfig := CallbackCreate(ObjBindMethod(implObj, "GetDevConfig"), flags, 4)
+        this.vtbl.SetDevConfig := CallbackCreate(ObjBindMethod(implObj, "SetDevConfig"), flags, 4)
     }
 
     Dispose() {

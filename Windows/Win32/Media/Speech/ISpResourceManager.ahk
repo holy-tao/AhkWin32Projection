@@ -45,13 +45,14 @@ export default struct ISpResourceManager extends IServiceProvider {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} guidServiceId 
      * @param {IUnknown} pUnkObject 
      * @returns {HRESULT} 
      */
     SetObject(guidServiceId, pUnkObject) {
-        result := ComCall(4, this, Guid.Ptr, guidServiceId, "ptr", pUnkObject, "HRESULT")
+        pUnkObjectMarshal := pUnkObject == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, Guid.Ptr, guidServiceId, pUnkObjectMarshal, pUnkObject, "HRESULT")
         return result
     }
 
@@ -88,8 +89,8 @@ export default struct ISpResourceManager extends IServiceProvider {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetObject := CallbackCreate(GetMethod(implObj, "SetObject"), flags, 3)
-        this.vtbl.GetObject := CallbackCreate(GetMethod(implObj, "GetObject"), flags, 6)
+        this.vtbl.SetObject := CallbackCreate(ObjBindMethod(implObj, "SetObject"), flags, 3)
+        this.vtbl.GetObject := CallbackCreate(ObjBindMethod(implObj, "GetObject"), flags, 6)
     }
 
     Dispose() {

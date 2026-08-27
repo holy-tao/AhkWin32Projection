@@ -39,7 +39,6 @@ export default struct IEnumACString extends IEnumString {
     }
 
     /**
-     * 
      * @param {PWSTR} pszUrl 
      * @param {Integer} cchMax 
      * @returns {Integer} 
@@ -47,12 +46,13 @@ export default struct IEnumACString extends IEnumString {
     NextItem(pszUrl, cchMax) {
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
-        result := ComCall(7, this, "ptr", pszUrl, UInt32, cchMax, "uint*", &pulSortIndex := 0, "HRESULT")
+        pszUrlMarshal := pszUrl == 0 ? IntPtr : PWSTR
+
+        result := ComCall(7, this, pszUrlMarshal, pszUrl, UInt32, cchMax, "uint*", &pulSortIndex := 0, "HRESULT")
         return pulSortIndex
     }
 
     /**
-     * 
      * @param {Integer} dwOptions 
      * @returns {HRESULT} 
      */
@@ -62,7 +62,6 @@ export default struct IEnumACString extends IEnumString {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetEnumOptions() {
@@ -79,9 +78,9 @@ export default struct IEnumACString extends IEnumString {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.NextItem := CallbackCreate(GetMethod(implObj, "NextItem"), flags, 4)
-        this.vtbl.SetEnumOptions := CallbackCreate(GetMethod(implObj, "SetEnumOptions"), flags, 2)
-        this.vtbl.GetEnumOptions := CallbackCreate(GetMethod(implObj, "GetEnumOptions"), flags, 2)
+        this.vtbl.NextItem := CallbackCreate(ObjBindMethod(implObj, "NextItem"), flags, 4)
+        this.vtbl.SetEnumOptions := CallbackCreate(ObjBindMethod(implObj, "SetEnumOptions"), flags, 2)
+        this.vtbl.GetEnumOptions := CallbackCreate(ObjBindMethod(implObj, "GetEnumOptions"), flags, 2)
     }
 
     Dispose() {

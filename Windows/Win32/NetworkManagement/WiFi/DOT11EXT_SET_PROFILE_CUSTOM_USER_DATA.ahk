@@ -19,7 +19,6 @@ export default struct DOT11EXT_SET_PROFILE_CUSTOM_USER_DATA {
     }
 
     /**
-     * 
      * @param {HANDLE} hDot11SvcHandle 
      * @param {HANDLE} hConnectSession 
      * @param {Integer} dwSessionID 
@@ -28,7 +27,10 @@ export default struct DOT11EXT_SET_PROFILE_CUSTOM_USER_DATA {
      * @returns {Integer} 
      */
     Call(hDot11SvcHandle, hConnectSession, dwSessionID, dwDataSize, pvData) {
-        result := DllCall(this.value, HANDLE, hDot11SvcHandle, HANDLE, hConnectSession, UInt32, dwSessionID, UInt32, dwDataSize, IntPtr, pvData, UInt32)
+        hDot11SvcHandleMarshal := hDot11SvcHandle == 0 ? IntPtr : HANDLE
+        hConnectSessionMarshal := hConnectSession == 0 ? IntPtr : HANDLE
+
+        result := DllCall(this.value, hDot11SvcHandleMarshal, hDot11SvcHandle, hConnectSessionMarshal, hConnectSession, UInt32, dwSessionID, UInt32, dwDataSize, IntPtr, pvData, UInt32)
         return result
     }
 

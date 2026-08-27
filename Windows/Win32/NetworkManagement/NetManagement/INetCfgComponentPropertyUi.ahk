@@ -43,7 +43,6 @@ export default struct INetCfgComponentPropertyUi extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkReserved 
      * @returns {HRESULT} 
      */
@@ -53,7 +52,6 @@ export default struct INetCfgComponentPropertyUi extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkReserved 
      * @returns {HRESULT} 
      */
@@ -63,7 +61,6 @@ export default struct INetCfgComponentPropertyUi extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwDefPages 
      * @param {Pointer<Pointer<Integer>>} pahpspPrivate 
      * @param {Pointer<Integer>} pcPages 
@@ -72,17 +69,17 @@ export default struct INetCfgComponentPropertyUi extends IUnknown {
      * @returns {HRESULT} 
      */
     MergePropPages(pdwDefPages, pahpspPrivate, pcPages, hwndParent, pszStartPage) {
-        pdwDefPagesMarshal := pdwDefPages is VarRef ? "uint*" : "ptr"
-        pahpspPrivateMarshal := pahpspPrivate is VarRef ? "ptr*" : "ptr"
-        pcPagesMarshal := pcPages is VarRef ? "uint*" : "ptr"
-        pszStartPageMarshal := pszStartPage is VarRef ? "ptr*" : "ptr"
+        pdwDefPagesMarshal := pdwDefPages is VarRef ? "uint*" : IntPtr
+        pahpspPrivateMarshal := pahpspPrivate is VarRef ? "ptr*" : IntPtr
+        pcPagesMarshal := pcPages is VarRef ? "uint*" : IntPtr
+        pszStartPageMarshal := pszStartPage is VarRef ? "ptr*" : IntPtr
+        pszStartPageMarshal := pszStartPage == 0 ? IntPtr : PWSTR.Ptr
 
         result := ComCall(5, this, pdwDefPagesMarshal, pdwDefPages, pahpspPrivateMarshal, pahpspPrivate, pcPagesMarshal, pcPages, HWND, hwndParent, pszStartPageMarshal, pszStartPage, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HWND} hwndSheet 
      * @returns {HRESULT} 
      */
@@ -92,7 +89,6 @@ export default struct INetCfgComponentPropertyUi extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ApplyProperties() {
@@ -101,7 +97,6 @@ export default struct INetCfgComponentPropertyUi extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CancelProperties() {
@@ -118,12 +113,12 @@ export default struct INetCfgComponentPropertyUi extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryPropertyUi := CallbackCreate(GetMethod(implObj, "QueryPropertyUi"), flags, 2)
-        this.vtbl.SetContext := CallbackCreate(GetMethod(implObj, "SetContext"), flags, 2)
-        this.vtbl.MergePropPages := CallbackCreate(GetMethod(implObj, "MergePropPages"), flags, 6)
-        this.vtbl.ValidateProperties := CallbackCreate(GetMethod(implObj, "ValidateProperties"), flags, 2)
-        this.vtbl.ApplyProperties := CallbackCreate(GetMethod(implObj, "ApplyProperties"), flags, 1)
-        this.vtbl.CancelProperties := CallbackCreate(GetMethod(implObj, "CancelProperties"), flags, 1)
+        this.vtbl.QueryPropertyUi := CallbackCreate(ObjBindMethod(implObj, "QueryPropertyUi"), flags, 2)
+        this.vtbl.SetContext := CallbackCreate(ObjBindMethod(implObj, "SetContext"), flags, 2)
+        this.vtbl.MergePropPages := CallbackCreate(ObjBindMethod(implObj, "MergePropPages"), flags, 6)
+        this.vtbl.ValidateProperties := CallbackCreate(ObjBindMethod(implObj, "ValidateProperties"), flags, 2)
+        this.vtbl.ApplyProperties := CallbackCreate(ObjBindMethod(implObj, "ApplyProperties"), flags, 1)
+        this.vtbl.CancelProperties := CallbackCreate(ObjBindMethod(implObj, "CancelProperties"), flags, 1)
     }
 
     Dispose() {

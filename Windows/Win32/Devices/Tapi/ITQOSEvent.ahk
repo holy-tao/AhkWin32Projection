@@ -106,9 +106,9 @@ export default struct ITQOSEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Call := CallbackCreate(GetMethod(implObj, "get_Call"), flags, 2)
-        this.vtbl.get_Event := CallbackCreate(GetMethod(implObj, "get_Event"), flags, 2)
-        this.vtbl.get_MediaType := CallbackCreate(GetMethod(implObj, "get_MediaType"), flags, 2)
+        this.vtbl.get_Call := CallbackCreate(ObjBindMethod(implObj, "get_Call"), flags, 2)
+        this.vtbl.get_Event := CallbackCreate(ObjBindMethod(implObj, "get_Event"), flags, 2)
+        this.vtbl.get_MediaType := CallbackCreate(ObjBindMethod(implObj, "get_MediaType"), flags, 2)
     }
 
     Dispose() {

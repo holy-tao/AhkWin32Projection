@@ -77,7 +77,6 @@ export default struct ISpeechObjectToken extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Id() {
@@ -87,7 +86,6 @@ export default struct ISpeechObjectToken extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechDataKey} 
      */
     get_DataKey() {
@@ -96,7 +94,6 @@ export default struct ISpeechObjectToken extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechObjectTokenCategory} 
      */
     get_Category() {
@@ -117,7 +114,6 @@ export default struct ISpeechObjectToken extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Id 
      * @param {BSTR} CategoryID 
      * @param {VARIANT_BOOL} CreateIfNotExist 
@@ -132,7 +128,6 @@ export default struct ISpeechObjectToken extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} AttributeName 
      * @returns {BSTR} 
      */
@@ -154,12 +149,13 @@ export default struct ISpeechObjectToken extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wbemglue/nl-wbemglue-cwbemgluefactory
      */
     CreateInstance(pUnkOuter, ClsContext) {
-        result := ComCall(13, this, "ptr", pUnkOuter, SpeechTokenContext, ClsContext, "ptr*", &_Object := 0, "HRESULT")
+        pUnkOuterMarshal := pUnkOuter == 0 ? IntPtr : "ptr"
+
+        result := ComCall(13, this, pUnkOuterMarshal, pUnkOuter, SpeechTokenContext, ClsContext, "ptr*", &_Object := 0, "HRESULT")
         return IUnknown(_Object)
     }
 
     /**
-     * 
      * @param {BSTR} ObjectStorageCLSID 
      * @returns {HRESULT} 
      */
@@ -171,7 +167,6 @@ export default struct ISpeechObjectToken extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} ObjectStorageCLSID 
      * @param {BSTR} KeyName 
      * @param {BSTR} FileName 
@@ -189,7 +184,6 @@ export default struct ISpeechObjectToken extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} ObjectStorageCLSID 
      * @param {BSTR} KeyName 
      * @param {VARIANT_BOOL} DeleteFile 
@@ -204,7 +198,6 @@ export default struct ISpeechObjectToken extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} TypeOfUI 
      * @param {Pointer<VARIANT>} ExtraData 
      * @param {IUnknown} _Object 
@@ -213,12 +206,13 @@ export default struct ISpeechObjectToken extends IDispatch {
     IsUISupported(TypeOfUI, ExtraData, _Object) {
         TypeOfUI := TypeOfUI is String ? BSTR.Alloc(TypeOfUI).Value : TypeOfUI
 
-        result := ComCall(17, this, BSTR, TypeOfUI, VARIANT.Ptr, ExtraData, "ptr", _Object, VARIANT_BOOL.Ptr, &Supported := 0, "HRESULT")
+        _ObjectMarshal := _Object == 0 ? IntPtr : "ptr"
+
+        result := ComCall(17, this, BSTR, TypeOfUI, VARIANT.Ptr, ExtraData, _ObjectMarshal, _Object, VARIANT_BOOL.Ptr, &Supported := 0, "HRESULT")
         return Supported
     }
 
     /**
-     * 
      * @param {Integer} _hWnd 
      * @param {BSTR} Title 
      * @param {BSTR} TypeOfUI 
@@ -230,12 +224,13 @@ export default struct ISpeechObjectToken extends IDispatch {
         Title := Title is String ? BSTR.Alloc(Title).Value : Title
         TypeOfUI := TypeOfUI is String ? BSTR.Alloc(TypeOfUI).Value : TypeOfUI
 
-        result := ComCall(18, this, Int32, _hWnd, BSTR, Title, BSTR, TypeOfUI, VARIANT.Ptr, ExtraData, "ptr", _Object, "HRESULT")
+        _ObjectMarshal := _Object == 0 ? IntPtr : "ptr"
+
+        result := ComCall(18, this, Int32, _hWnd, BSTR, Title, BSTR, TypeOfUI, VARIANT.Ptr, ExtraData, _ObjectMarshal, _Object, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {BSTR} Attributes 
      * @returns {VARIANT_BOOL} 
      */
@@ -255,19 +250,19 @@ export default struct ISpeechObjectToken extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
-        this.vtbl.get_DataKey := CallbackCreate(GetMethod(implObj, "get_DataKey"), flags, 2)
-        this.vtbl.get_Category := CallbackCreate(GetMethod(implObj, "get_Category"), flags, 2)
-        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 3)
-        this.vtbl.SetId := CallbackCreate(GetMethod(implObj, "SetId"), flags, 4)
-        this.vtbl.GetAttribute := CallbackCreate(GetMethod(implObj, "GetAttribute"), flags, 3)
-        this.vtbl.CreateInstance := CallbackCreate(GetMethod(implObj, "CreateInstance"), flags, 4)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
-        this.vtbl.GetStorageFileName := CallbackCreate(GetMethod(implObj, "GetStorageFileName"), flags, 6)
-        this.vtbl.RemoveStorageFileName := CallbackCreate(GetMethod(implObj, "RemoveStorageFileName"), flags, 4)
-        this.vtbl.IsUISupported := CallbackCreate(GetMethod(implObj, "IsUISupported"), flags, 5)
-        this.vtbl.DisplayUI := CallbackCreate(GetMethod(implObj, "DisplayUI"), flags, 6)
-        this.vtbl.MatchesAttributes := CallbackCreate(GetMethod(implObj, "MatchesAttributes"), flags, 3)
+        this.vtbl.get_Id := CallbackCreate(ObjBindMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.get_DataKey := CallbackCreate(ObjBindMethod(implObj, "get_DataKey"), flags, 2)
+        this.vtbl.get_Category := CallbackCreate(ObjBindMethod(implObj, "get_Category"), flags, 2)
+        this.vtbl.GetDescription := CallbackCreate(ObjBindMethod(implObj, "GetDescription"), flags, 3)
+        this.vtbl.SetId := CallbackCreate(ObjBindMethod(implObj, "SetId"), flags, 4)
+        this.vtbl.GetAttribute := CallbackCreate(ObjBindMethod(implObj, "GetAttribute"), flags, 3)
+        this.vtbl.CreateInstance := CallbackCreate(ObjBindMethod(implObj, "CreateInstance"), flags, 4)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.GetStorageFileName := CallbackCreate(ObjBindMethod(implObj, "GetStorageFileName"), flags, 6)
+        this.vtbl.RemoveStorageFileName := CallbackCreate(ObjBindMethod(implObj, "RemoveStorageFileName"), flags, 4)
+        this.vtbl.IsUISupported := CallbackCreate(ObjBindMethod(implObj, "IsUISupported"), flags, 5)
+        this.vtbl.DisplayUI := CallbackCreate(ObjBindMethod(implObj, "DisplayUI"), flags, 6)
+        this.vtbl.MatchesAttributes := CallbackCreate(ObjBindMethod(implObj, "MatchesAttributes"), flags, 3)
     }
 
     Dispose() {

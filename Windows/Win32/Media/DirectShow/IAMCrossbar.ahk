@@ -81,8 +81,8 @@ export default struct IAMCrossbar extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamcrossbar-get_pincounts
      */
     get_PinCounts(OutputPinCount, InputPinCount) {
-        OutputPinCountMarshal := OutputPinCount is VarRef ? "int*" : "ptr"
-        InputPinCountMarshal := InputPinCount is VarRef ? "int*" : "ptr"
+        OutputPinCountMarshal := OutputPinCount is VarRef ? "int*" : IntPtr
+        InputPinCountMarshal := InputPinCount is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, OutputPinCountMarshal, OutputPinCount, InputPinCountMarshal, InputPinCount, "HRESULT")
         return result
@@ -241,8 +241,8 @@ export default struct IAMCrossbar extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamcrossbar-get_crossbarpininfo
      */
     get_CrossbarPinInfo(IsInputPin, PinIndex, PinIndexRelated, PhysicalType) {
-        PinIndexRelatedMarshal := PinIndexRelated is VarRef ? "int*" : "ptr"
-        PhysicalTypeMarshal := PhysicalType is VarRef ? "int*" : "ptr"
+        PinIndexRelatedMarshal := PinIndexRelated is VarRef ? "int*" : IntPtr
+        PhysicalTypeMarshal := PhysicalType is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, BOOL, IsInputPin, Int32, PinIndex, PinIndexRelatedMarshal, PinIndexRelated, PhysicalTypeMarshal, PhysicalType, "HRESULT")
         return result
@@ -257,11 +257,11 @@ export default struct IAMCrossbar extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_PinCounts := CallbackCreate(GetMethod(implObj, "get_PinCounts"), flags, 3)
-        this.vtbl.CanRoute := CallbackCreate(GetMethod(implObj, "CanRoute"), flags, 3)
-        this.vtbl.Route := CallbackCreate(GetMethod(implObj, "Route"), flags, 3)
-        this.vtbl.get_IsRoutedTo := CallbackCreate(GetMethod(implObj, "get_IsRoutedTo"), flags, 3)
-        this.vtbl.get_CrossbarPinInfo := CallbackCreate(GetMethod(implObj, "get_CrossbarPinInfo"), flags, 5)
+        this.vtbl.get_PinCounts := CallbackCreate(ObjBindMethod(implObj, "get_PinCounts"), flags, 3)
+        this.vtbl.CanRoute := CallbackCreate(ObjBindMethod(implObj, "CanRoute"), flags, 3)
+        this.vtbl.Route := CallbackCreate(ObjBindMethod(implObj, "Route"), flags, 3)
+        this.vtbl.get_IsRoutedTo := CallbackCreate(ObjBindMethod(implObj, "get_IsRoutedTo"), flags, 3)
+        this.vtbl.get_CrossbarPinInfo := CallbackCreate(ObjBindMethod(implObj, "get_CrossbarPinInfo"), flags, 5)
     }
 
     Dispose() {

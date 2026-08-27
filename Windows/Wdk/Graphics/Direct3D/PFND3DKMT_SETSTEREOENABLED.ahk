@@ -20,7 +20,6 @@ export default struct PFND3DKMT_SETSTEREOENABLED {
     }
 
     /**
-     * 
      * @param {BOOL} param0 
      * @returns {NTSTATUS} 
      */

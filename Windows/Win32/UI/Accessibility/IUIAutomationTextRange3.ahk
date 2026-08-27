@@ -91,7 +91,7 @@ export default struct IUIAutomationTextRange3 extends IUIAutomationTextRange2 {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange3-getattributevalues
      */
     GetAttributeValues(attributeIds, attributeIdCount) {
-        attributeIdsMarshal := attributeIds is VarRef ? "int*" : "ptr"
+        attributeIdsMarshal := attributeIds is VarRef ? "int*" : IntPtr
 
         result := ComCall(24, this, attributeIdsMarshal, attributeIds, Int32, attributeIdCount, "ptr*", &attributeValues := 0, "HRESULT")
         return attributeValues
@@ -106,9 +106,9 @@ export default struct IUIAutomationTextRange3 extends IUIAutomationTextRange2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetEnclosingElementBuildCache := CallbackCreate(GetMethod(implObj, "GetEnclosingElementBuildCache"), flags, 3)
-        this.vtbl.GetChildrenBuildCache := CallbackCreate(GetMethod(implObj, "GetChildrenBuildCache"), flags, 3)
-        this.vtbl.GetAttributeValues := CallbackCreate(GetMethod(implObj, "GetAttributeValues"), flags, 4)
+        this.vtbl.GetEnclosingElementBuildCache := CallbackCreate(ObjBindMethod(implObj, "GetEnclosingElementBuildCache"), flags, 3)
+        this.vtbl.GetChildrenBuildCache := CallbackCreate(ObjBindMethod(implObj, "GetChildrenBuildCache"), flags, 3)
+        this.vtbl.GetAttributeValues := CallbackCreate(ObjBindMethod(implObj, "GetAttributeValues"), flags, 4)
     }
 
     Dispose() {

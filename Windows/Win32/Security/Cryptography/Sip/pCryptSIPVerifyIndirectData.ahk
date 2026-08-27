@@ -21,7 +21,6 @@ export default struct pCryptSIPVerifyIndirectData {
     }
 
     /**
-     * 
      * @param {Pointer<SIP_SUBJECTINFO>} pSubjectInfo 
      * @param {Pointer<SIP_INDIRECT_DATA>} pIndirectData 
      * @returns {BOOL} 

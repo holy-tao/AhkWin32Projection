@@ -107,7 +107,9 @@ export default struct IVirtualSurfaceImageSourceNative extends ISurfaceImageSour
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.media.dxinterop/nf-windows-ui-xaml-media-dxinterop-ivirtualsurfaceimagesourcenative-registerforupdatesneeded
      */
     RegisterForUpdatesNeeded(callback) {
-        result := ComCall(10, this, "ptr", callback, "HRESULT")
+        callbackMarshal := callback == 0 ? IntPtr : "ptr"
+
+        result := ComCall(10, this, callbackMarshal, callback, "HRESULT")
         return result
     }
 
@@ -132,12 +134,12 @@ export default struct IVirtualSurfaceImageSourceNative extends ISurfaceImageSour
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Invalidate := CallbackCreate(GetMethod(implObj, "Invalidate"), flags, 2)
-        this.vtbl.GetUpdateRectCount := CallbackCreate(GetMethod(implObj, "GetUpdateRectCount"), flags, 2)
-        this.vtbl.GetUpdateRects := CallbackCreate(GetMethod(implObj, "GetUpdateRects"), flags, 3)
-        this.vtbl.GetVisibleBounds := CallbackCreate(GetMethod(implObj, "GetVisibleBounds"), flags, 2)
-        this.vtbl.RegisterForUpdatesNeeded := CallbackCreate(GetMethod(implObj, "RegisterForUpdatesNeeded"), flags, 2)
-        this.vtbl.Resize := CallbackCreate(GetMethod(implObj, "Resize"), flags, 3)
+        this.vtbl.Invalidate := CallbackCreate(ObjBindMethod(implObj, "Invalidate"), flags, 2)
+        this.vtbl.GetUpdateRectCount := CallbackCreate(ObjBindMethod(implObj, "GetUpdateRectCount"), flags, 2)
+        this.vtbl.GetUpdateRects := CallbackCreate(ObjBindMethod(implObj, "GetUpdateRects"), flags, 3)
+        this.vtbl.GetVisibleBounds := CallbackCreate(ObjBindMethod(implObj, "GetVisibleBounds"), flags, 2)
+        this.vtbl.RegisterForUpdatesNeeded := CallbackCreate(ObjBindMethod(implObj, "RegisterForUpdatesNeeded"), flags, 2)
+        this.vtbl.Resize := CallbackCreate(ObjBindMethod(implObj, "Resize"), flags, 3)
     }
 
     Dispose() {

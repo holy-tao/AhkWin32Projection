@@ -36,7 +36,6 @@ export default struct IViewObjectPrint extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     GetPrintBitmap() {
@@ -53,7 +52,7 @@ export default struct IViewObjectPrint extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPrintBitmap := CallbackCreate(GetMethod(implObj, "GetPrintBitmap"), flags, 2)
+        this.vtbl.GetPrintBitmap := CallbackCreate(ObjBindMethod(implObj, "GetPrintBitmap"), flags, 2)
     }
 
     Dispose() {

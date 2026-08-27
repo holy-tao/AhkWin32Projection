@@ -52,7 +52,6 @@ export default struct PFN_CMSG_EXPORT_KEY_AGREE {
     }
 
     /**
-     * 
      * @param {Pointer<CMSG_CONTENT_ENCRYPT_INFO>} pContentEncryptInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cmsg_content_encrypt_info">CMSG_CONTENT_ENCRYPT_INFO</a> structure that contains the content encryption key.
      * @param {Pointer<CMSG_KEY_AGREE_RECIPIENT_ENCODE_INFO>} pKeyAgreeEncodeInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_key_agree_recipient_encode_info">CMSG_KEY_AGREE_RECIPIENT_ENCODE_INFO</a> structure that specifies the key used to encrypt the content encryption key.
      * @param {Pointer<CMSG_KEY_AGREE_ENCRYPT_INFO>} pKeyAgreeEncryptInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cmsg_key_agree_encrypt_info">CMSG_KEY_AGREE_ENCRYPT_INFO</a> structure that contains the encrypted content encryption key.

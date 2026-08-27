@@ -58,7 +58,7 @@ export default struct IAMTVAudioNotification extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnEvent := CallbackCreate(GetMethod(implObj, "OnEvent"), flags, 2)
+        this.vtbl.OnEvent := CallbackCreate(ObjBindMethod(implObj, "OnEvent"), flags, 2)
     }
 
     Dispose() {

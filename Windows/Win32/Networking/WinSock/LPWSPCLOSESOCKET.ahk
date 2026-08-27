@@ -66,7 +66,6 @@ export default struct LPWSPCLOSESOCKET {
     }
 
     /**
-     * 
      * @param {SOCKET} s Descriptor identifying a socket.
      * @param {Pointer<Integer>} lpErrno Pointer to the error code.
      * @returns {Integer} If no error occurs, **LPWSPCloseSocket** returns zero. Otherwise, a value of SOCKET_ERROR is returned, and a specific error code is available in <i>lpErrno</i>.
@@ -123,7 +122,7 @@ export default struct LPWSPCLOSESOCKET {
      * </table>
      */
     Call(s, lpErrno) {
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, SOCKET, s, lpErrnoMarshal, lpErrno, Int32)
         return result

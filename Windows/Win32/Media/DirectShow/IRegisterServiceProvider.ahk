@@ -130,7 +130,7 @@ export default struct IRegisterServiceProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterService := CallbackCreate(GetMethod(implObj, "RegisterService"), flags, 3)
+        this.vtbl.RegisterService := CallbackCreate(ObjBindMethod(implObj, "RegisterService"), flags, 3)
     }
 
     Dispose() {

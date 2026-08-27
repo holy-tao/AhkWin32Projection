@@ -18,7 +18,6 @@ export default struct PALLOCATE_FUNCTION_EX {
     }
 
     /**
-     * 
      * @returns {Pointer<Void>} 
      */
     Call() {

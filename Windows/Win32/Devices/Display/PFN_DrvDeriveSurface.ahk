@@ -21,7 +21,6 @@ export default struct PFN_DrvDeriveSurface {
     }
 
     /**
-     * 
      * @param {Pointer<DD_DIRECTDRAW_GLOBAL>} param0 
      * @param {Pointer<DD_SURFACE_LOCAL>} param1 
      * @returns {HBITMAP} 

@@ -61,14 +61,13 @@ export default struct PDX_TRANSFER {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} param0 Points to the miniport driver's device extension.
      * @param {Pointer<DDTRANSFERININFO>} param1 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/dxmini/ns-dxmini-ddtransferininfo">DDTRANSFERININFO</a> structure that contains the transfer information for the surface.
      * @param {Pointer<DDTRANSFEROUTINFO>} param2 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/dxmini/ns-dxmini-ddtransferoutinfo">DDTRANSFEROUTINFO</a> structure that contains the polarity of the field being captured.
      * @returns {Integer} <i>DxTransfer</i> returns DX_OK if it succeeds; otherwise, it returns one of the following error values:
      */
     Call(param0, param1, param2) {
-        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+        param0Marshal := param0 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, param0Marshal, param0, DDTRANSFERININFO.Ptr, param1, DDTRANSFEROUTINFO.Ptr, param2, UInt32)
         return result

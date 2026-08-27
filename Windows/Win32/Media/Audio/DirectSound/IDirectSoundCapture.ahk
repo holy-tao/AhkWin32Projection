@@ -41,18 +41,18 @@ export default struct IDirectSoundCapture extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DSCBUFFERDESC>} pcDSCBufferDesc 
      * @param {IUnknown} pUnkOuter 
      * @returns {IDirectSoundCaptureBuffer} 
      */
     CreateCaptureBuffer(pcDSCBufferDesc, pUnkOuter) {
-        result := ComCall(3, this, DSCBUFFERDESC.Ptr, pcDSCBufferDesc, "ptr*", &ppDSCBuffer := 0, "ptr", pUnkOuter, "HRESULT")
+        pUnkOuterMarshal := pUnkOuter == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, DSCBUFFERDESC.Ptr, pcDSCBufferDesc, "ptr*", &ppDSCBuffer := 0, pUnkOuterMarshal, pUnkOuter, "HRESULT")
         return IDirectSoundCaptureBuffer(ppDSCBuffer)
     }
 
     /**
-     * 
      * @returns {DSCCAPS} 
      */
     GetCaps() {
@@ -91,7 +91,9 @@ export default struct IDirectSoundCapture extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-initialize
      */
     Initialize(pcGuidDevice) {
-        result := ComCall(5, this, Guid.Ptr, pcGuidDevice, "HRESULT")
+        pcGuidDeviceMarshal := pcGuidDevice == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(5, this, pcGuidDeviceMarshal, pcGuidDevice, "HRESULT")
         return result
     }
 
@@ -104,9 +106,9 @@ export default struct IDirectSoundCapture extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateCaptureBuffer := CallbackCreate(GetMethod(implObj, "CreateCaptureBuffer"), flags, 4)
-        this.vtbl.GetCaps := CallbackCreate(GetMethod(implObj, "GetCaps"), flags, 2)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.CreateCaptureBuffer := CallbackCreate(ObjBindMethod(implObj, "CreateCaptureBuffer"), flags, 4)
+        this.vtbl.GetCaps := CallbackCreate(ObjBindMethod(implObj, "GetCaps"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
     }
 
     Dispose() {

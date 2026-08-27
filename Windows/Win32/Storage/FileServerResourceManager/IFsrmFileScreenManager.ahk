@@ -249,15 +249,15 @@ export default struct IFsrmFileScreenManager extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ActionVariables := CallbackCreate(GetMethod(implObj, "get_ActionVariables"), flags, 2)
-        this.vtbl.get_ActionVariableDescriptions := CallbackCreate(GetMethod(implObj, "get_ActionVariableDescriptions"), flags, 2)
-        this.vtbl.CreateFileScreen := CallbackCreate(GetMethod(implObj, "CreateFileScreen"), flags, 3)
-        this.vtbl.GetFileScreen := CallbackCreate(GetMethod(implObj, "GetFileScreen"), flags, 3)
-        this.vtbl.EnumFileScreens := CallbackCreate(GetMethod(implObj, "EnumFileScreens"), flags, 4)
-        this.vtbl.CreateFileScreenException := CallbackCreate(GetMethod(implObj, "CreateFileScreenException"), flags, 3)
-        this.vtbl.GetFileScreenException := CallbackCreate(GetMethod(implObj, "GetFileScreenException"), flags, 3)
-        this.vtbl.EnumFileScreenExceptions := CallbackCreate(GetMethod(implObj, "EnumFileScreenExceptions"), flags, 4)
-        this.vtbl.CreateFileScreenCollection := CallbackCreate(GetMethod(implObj, "CreateFileScreenCollection"), flags, 2)
+        this.vtbl.get_ActionVariables := CallbackCreate(ObjBindMethod(implObj, "get_ActionVariables"), flags, 2)
+        this.vtbl.get_ActionVariableDescriptions := CallbackCreate(ObjBindMethod(implObj, "get_ActionVariableDescriptions"), flags, 2)
+        this.vtbl.CreateFileScreen := CallbackCreate(ObjBindMethod(implObj, "CreateFileScreen"), flags, 3)
+        this.vtbl.GetFileScreen := CallbackCreate(ObjBindMethod(implObj, "GetFileScreen"), flags, 3)
+        this.vtbl.EnumFileScreens := CallbackCreate(ObjBindMethod(implObj, "EnumFileScreens"), flags, 4)
+        this.vtbl.CreateFileScreenException := CallbackCreate(ObjBindMethod(implObj, "CreateFileScreenException"), flags, 3)
+        this.vtbl.GetFileScreenException := CallbackCreate(ObjBindMethod(implObj, "GetFileScreenException"), flags, 3)
+        this.vtbl.EnumFileScreenExceptions := CallbackCreate(ObjBindMethod(implObj, "EnumFileScreenExceptions"), flags, 4)
+        this.vtbl.CreateFileScreenCollection := CallbackCreate(ObjBindMethod(implObj, "CreateFileScreenCollection"), flags, 2)
     }
 
     Dispose() {

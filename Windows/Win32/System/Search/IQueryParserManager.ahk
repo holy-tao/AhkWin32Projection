@@ -125,9 +125,9 @@ export default struct IQueryParserManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateLoadedParser := CallbackCreate(GetMethod(implObj, "CreateLoadedParser"), flags, 5)
-        this.vtbl.InitializeOptions := CallbackCreate(GetMethod(implObj, "InitializeOptions"), flags, 4)
-        this.vtbl.SetOption := CallbackCreate(GetMethod(implObj, "SetOption"), flags, 3)
+        this.vtbl.CreateLoadedParser := CallbackCreate(ObjBindMethod(implObj, "CreateLoadedParser"), flags, 5)
+        this.vtbl.InitializeOptions := CallbackCreate(ObjBindMethod(implObj, "InitializeOptions"), flags, 4)
+        this.vtbl.SetOption := CallbackCreate(ObjBindMethod(implObj, "SetOption"), flags, 3)
     }
 
     Dispose() {

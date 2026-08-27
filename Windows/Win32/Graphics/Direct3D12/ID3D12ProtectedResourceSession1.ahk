@@ -56,7 +56,7 @@ export default struct ID3D12ProtectedResourceSession1 extends ID3D12ProtectedRes
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDesc1 := CallbackCreate(GetMethod(implObj, "GetDesc1"), flags, 1)
+        this.vtbl.GetDesc1 := CallbackCreate(ObjBindMethod(implObj, "GetDesc1"), flags, 1)
     }
 
     Dispose() {

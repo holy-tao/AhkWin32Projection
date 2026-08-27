@@ -38,7 +38,6 @@ export default struct ID3D12StateObjectDatabaseFactory extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pDatabaseFile 
      * @param {D3D12_STATE_OBJECT_DATABASE_FLAGS} flags 
      * @param {Pointer<Guid>} riid 
@@ -60,7 +59,7 @@ export default struct ID3D12StateObjectDatabaseFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateStateObjectDatabaseFromFile := CallbackCreate(GetMethod(implObj, "CreateStateObjectDatabaseFromFile"), flags, 5)
+        this.vtbl.CreateStateObjectDatabaseFromFile := CallbackCreate(ObjBindMethod(implObj, "CreateStateObjectDatabaseFromFile"), flags, 5)
     }
 
     Dispose() {

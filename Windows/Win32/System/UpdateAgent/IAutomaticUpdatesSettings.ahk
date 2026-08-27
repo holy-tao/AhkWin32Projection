@@ -457,16 +457,16 @@ export default struct IAutomaticUpdatesSettings extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_NotificationLevel := CallbackCreate(GetMethod(implObj, "get_NotificationLevel"), flags, 2)
-        this.vtbl.put_NotificationLevel := CallbackCreate(GetMethod(implObj, "put_NotificationLevel"), flags, 2)
-        this.vtbl.get_ReadOnly := CallbackCreate(GetMethod(implObj, "get_ReadOnly"), flags, 2)
-        this.vtbl.get_Required := CallbackCreate(GetMethod(implObj, "get_Required"), flags, 2)
-        this.vtbl.get_ScheduledInstallationDay := CallbackCreate(GetMethod(implObj, "get_ScheduledInstallationDay"), flags, 2)
-        this.vtbl.put_ScheduledInstallationDay := CallbackCreate(GetMethod(implObj, "put_ScheduledInstallationDay"), flags, 2)
-        this.vtbl.get_ScheduledInstallationTime := CallbackCreate(GetMethod(implObj, "get_ScheduledInstallationTime"), flags, 2)
-        this.vtbl.put_ScheduledInstallationTime := CallbackCreate(GetMethod(implObj, "put_ScheduledInstallationTime"), flags, 2)
-        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
-        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 1)
+        this.vtbl.get_NotificationLevel := CallbackCreate(ObjBindMethod(implObj, "get_NotificationLevel"), flags, 2)
+        this.vtbl.put_NotificationLevel := CallbackCreate(ObjBindMethod(implObj, "put_NotificationLevel"), flags, 2)
+        this.vtbl.get_ReadOnly := CallbackCreate(ObjBindMethod(implObj, "get_ReadOnly"), flags, 2)
+        this.vtbl.get_Required := CallbackCreate(ObjBindMethod(implObj, "get_Required"), flags, 2)
+        this.vtbl.get_ScheduledInstallationDay := CallbackCreate(ObjBindMethod(implObj, "get_ScheduledInstallationDay"), flags, 2)
+        this.vtbl.put_ScheduledInstallationDay := CallbackCreate(ObjBindMethod(implObj, "put_ScheduledInstallationDay"), flags, 2)
+        this.vtbl.get_ScheduledInstallationTime := CallbackCreate(ObjBindMethod(implObj, "get_ScheduledInstallationTime"), flags, 2)
+        this.vtbl.put_ScheduledInstallationTime := CallbackCreate(ObjBindMethod(implObj, "put_ScheduledInstallationTime"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(ObjBindMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.Save := CallbackCreate(ObjBindMethod(implObj, "Save"), flags, 1)
     }
 
     Dispose() {

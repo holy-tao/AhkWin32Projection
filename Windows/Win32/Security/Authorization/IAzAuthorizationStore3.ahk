@@ -98,8 +98,8 @@ export default struct IAzAuthorizationStore3 extends IAzAuthorizationStore2 {
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore3-getschemaversion
      */
     GetSchemaVersion(plMajorVersion, plMinorVersion) {
-        plMajorVersionMarshal := plMajorVersion is VarRef ? "int*" : "ptr"
-        plMinorVersionMarshal := plMinorVersion is VarRef ? "int*" : "ptr"
+        plMajorVersionMarshal := plMajorVersion is VarRef ? "int*" : IntPtr
+        plMinorVersionMarshal := plMinorVersion is VarRef ? "int*" : IntPtr
 
         result := ComCall(64, this, plMajorVersionMarshal, plMajorVersion, plMinorVersionMarshal, plMinorVersion, "HRESULT")
         return result
@@ -114,11 +114,11 @@ export default struct IAzAuthorizationStore3 extends IAzAuthorizationStore2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsUpdateNeeded := CallbackCreate(GetMethod(implObj, "IsUpdateNeeded"), flags, 2)
-        this.vtbl.BizruleGroupSupported := CallbackCreate(GetMethod(implObj, "BizruleGroupSupported"), flags, 2)
-        this.vtbl.UpgradeStoresFunctionalLevel := CallbackCreate(GetMethod(implObj, "UpgradeStoresFunctionalLevel"), flags, 2)
-        this.vtbl.IsFunctionalLevelUpgradeSupported := CallbackCreate(GetMethod(implObj, "IsFunctionalLevelUpgradeSupported"), flags, 3)
-        this.vtbl.GetSchemaVersion := CallbackCreate(GetMethod(implObj, "GetSchemaVersion"), flags, 3)
+        this.vtbl.IsUpdateNeeded := CallbackCreate(ObjBindMethod(implObj, "IsUpdateNeeded"), flags, 2)
+        this.vtbl.BizruleGroupSupported := CallbackCreate(ObjBindMethod(implObj, "BizruleGroupSupported"), flags, 2)
+        this.vtbl.UpgradeStoresFunctionalLevel := CallbackCreate(ObjBindMethod(implObj, "UpgradeStoresFunctionalLevel"), flags, 2)
+        this.vtbl.IsFunctionalLevelUpgradeSupported := CallbackCreate(ObjBindMethod(implObj, "IsFunctionalLevelUpgradeSupported"), flags, 3)
+        this.vtbl.GetSchemaVersion := CallbackCreate(ObjBindMethod(implObj, "GetSchemaVersion"), flags, 3)
     }
 
     Dispose() {

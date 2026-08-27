@@ -22,7 +22,6 @@ export default struct PMGM_ENABLE_IGMP_CALLBACK {
     }
 
     /**
-     * 
      * @param {Integer} dwIfIndex Specifies the index of the interface on which to enable IGMP.
      * @param {Integer} dwIfNextHopAddr Specifies the address of the next hop that corresponds to the index specified by <i>dwIfIndex</i>. The <i>dwIfIndex</i> and <i>dwIfNextHopIPAddr</i> parameters uniquely identify a next hop on point-to-multipoint interfaces. A point-to-multipoint interface is a connection where one interface connects to multiple networks. Examples of point-to-multipoint interfaces include non-broadcast multiple access (NBMA) interfaces and the internal interface on which all dial-up clients connect. 
      * 

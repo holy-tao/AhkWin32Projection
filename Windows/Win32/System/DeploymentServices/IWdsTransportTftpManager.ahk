@@ -63,7 +63,7 @@ export default struct IWdsTransportTftpManager extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RetrieveTftpClients := CallbackCreate(GetMethod(implObj, "RetrieveTftpClients"), flags, 2)
+        this.vtbl.RetrieveTftpClients := CallbackCreate(ObjBindMethod(implObj, "RetrieveTftpClients"), flags, 2)
     }
 
     Dispose() {

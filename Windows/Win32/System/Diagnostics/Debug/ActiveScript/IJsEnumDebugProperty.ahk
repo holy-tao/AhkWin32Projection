@@ -38,21 +38,19 @@ export default struct IJsEnumDebugProperty extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} count 
      * @param {Pointer<IJsDebugProperty>} ppDebugProperty 
      * @param {Pointer<Integer>} pActualCount 
      * @returns {HRESULT} 
      */
     Next(count, ppDebugProperty, pActualCount) {
-        pActualCountMarshal := pActualCount is VarRef ? "uint*" : "ptr"
+        pActualCountMarshal := pActualCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, UInt32, count, IJsDebugProperty.Ptr, ppDebugProperty, pActualCountMarshal, pActualCount, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCount() {
@@ -69,8 +67,8 @@ export default struct IJsEnumDebugProperty extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 4)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.Next := CallbackCreate(ObjBindMethod(implObj, "Next"), flags, 4)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
     }
 
     Dispose() {

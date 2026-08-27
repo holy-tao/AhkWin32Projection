@@ -51,6 +51,7 @@ export default struct View extends IDispatch {
         get_ListItems                 : IntPtr
         SnapinScopeObject             : IntPtr
         SnapinSelectionObject         : IntPtr
+        Is                            : IntPtr
         get_Document                  : IntPtr
         SelectAll                     : IntPtr
         Select                        : IntPtr
@@ -183,7 +184,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Node} 
      */
     get_ActiveScopeNode() {
@@ -192,7 +192,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @param {Node} _Node 
      * @returns {HRESULT} 
      */
@@ -202,7 +201,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Nodes} 
      */
     get_Selection() {
@@ -211,7 +209,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Nodes} 
      */
     get_ListItems() {
@@ -220,7 +217,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} ScopeNode 
      * @returns {IDispatch} 
      */
@@ -230,7 +226,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     SnapinSelectionObject() {
@@ -239,7 +234,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @param {View} _View 
      * @returns {VARIANT_BOOL} 
      */
@@ -249,7 +243,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Document} 
      */
     get_Document() {
@@ -258,7 +251,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SelectAll() {
@@ -278,7 +270,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @param {Node} _Node 
      * @returns {HRESULT} 
      */
@@ -288,7 +279,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @param {Node} _Node 
      * @returns {BOOL} 
      */
@@ -298,7 +288,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} ScopeNode 
      * @returns {HRESULT} 
      */
@@ -308,7 +297,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DisplaySelectionPropertySheet() {
@@ -317,7 +305,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} ScopeNode 
      * @returns {HRESULT} 
      */
@@ -327,7 +314,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CopySelection() {
@@ -336,7 +322,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} ScopeNode 
      * @returns {HRESULT} 
      */
@@ -346,7 +331,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DeleteSelection() {
@@ -355,7 +339,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} NewName 
      * @param {VARIANT} ScopeNode 
      * @returns {HRESULT} 
@@ -368,7 +351,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} NewName 
      * @returns {HRESULT} 
      */
@@ -380,7 +362,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} ScopeNode 
      * @returns {ContextMenu} 
      */
@@ -390,7 +371,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ContextMenu} 
      */
     get_SelectionContextMenu() {
@@ -399,7 +379,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} ScopeNode 
      * @returns {HRESULT} 
      */
@@ -409,7 +388,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RefreshSelection() {
@@ -418,7 +396,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} MenuItemPath 
      * @returns {HRESULT} 
      */
@@ -430,7 +407,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} MenuItemPath 
      * @param {VARIANT} ScopeNode 
      * @returns {HRESULT} 
@@ -443,7 +419,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Command 
      * @param {BSTR} Directory 
      * @param {BSTR} Parameters 
@@ -461,7 +436,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Frame} 
      */
     get_Frame() {
@@ -485,7 +459,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_ScopeTreeVisible() {
@@ -494,7 +467,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @param {BOOL} Visible 
      * @returns {HRESULT} 
      */
@@ -504,7 +476,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Back() {
@@ -513,7 +484,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Forward() {
@@ -522,7 +492,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} StatusBarText 
      * @returns {HRESULT} 
      */
@@ -534,7 +503,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Memento() {
@@ -544,7 +512,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Memento 
      * @returns {HRESULT} 
      */
@@ -556,7 +523,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Columns} 
      */
     get_Columns() {
@@ -565,7 +531,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @param {Node} _Node 
      * @param {Integer} _Column 
      * @returns {BSTR} 
@@ -577,7 +542,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _File 
      * @param {_ExportListOptions} exportoptions 
      * @returns {HRESULT} 
@@ -590,7 +554,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {_ListViewMode} 
      */
     get_ListViewMode() {
@@ -599,7 +562,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @param {_ListViewMode} _mode 
      * @returns {HRESULT} 
      */
@@ -609,7 +571,6 @@ export default struct View extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_ControlObject() {
@@ -626,48 +587,48 @@ export default struct View extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ActiveScopeNode := CallbackCreate(GetMethod(implObj, "get_ActiveScopeNode"), flags, 2)
-        this.vtbl.put_ActiveScopeNode := CallbackCreate(GetMethod(implObj, "put_ActiveScopeNode"), flags, 2)
-        this.vtbl.get_Selection := CallbackCreate(GetMethod(implObj, "get_Selection"), flags, 2)
-        this.vtbl.get_ListItems := CallbackCreate(GetMethod(implObj, "get_ListItems"), flags, 2)
-        this.vtbl.SnapinScopeObject := CallbackCreate(GetMethod(implObj, "SnapinScopeObject"), flags, 3)
-        this.vtbl.SnapinSelectionObject := CallbackCreate(GetMethod(implObj, "SnapinSelectionObject"), flags, 2)
-        this.vtbl.Is := CallbackCreate(GetMethod(implObj, "Is"), flags, 3)
-        this.vtbl.get_Document := CallbackCreate(GetMethod(implObj, "get_Document"), flags, 2)
-        this.vtbl.SelectAll := CallbackCreate(GetMethod(implObj, "SelectAll"), flags, 1)
-        this.vtbl.Select := CallbackCreate(GetMethod(implObj, "Select"), flags, 2)
-        this.vtbl.Deselect := CallbackCreate(GetMethod(implObj, "Deselect"), flags, 2)
-        this.vtbl.IsSelected := CallbackCreate(GetMethod(implObj, "IsSelected"), flags, 3)
-        this.vtbl.DisplayScopeNodePropertySheet := CallbackCreate(GetMethod(implObj, "DisplayScopeNodePropertySheet"), flags, 2)
-        this.vtbl.DisplaySelectionPropertySheet := CallbackCreate(GetMethod(implObj, "DisplaySelectionPropertySheet"), flags, 1)
-        this.vtbl.CopyScopeNode := CallbackCreate(GetMethod(implObj, "CopyScopeNode"), flags, 2)
-        this.vtbl.CopySelection := CallbackCreate(GetMethod(implObj, "CopySelection"), flags, 1)
-        this.vtbl.DeleteScopeNode := CallbackCreate(GetMethod(implObj, "DeleteScopeNode"), flags, 2)
-        this.vtbl.DeleteSelection := CallbackCreate(GetMethod(implObj, "DeleteSelection"), flags, 1)
-        this.vtbl.RenameScopeNode := CallbackCreate(GetMethod(implObj, "RenameScopeNode"), flags, 3)
-        this.vtbl.RenameSelectedItem := CallbackCreate(GetMethod(implObj, "RenameSelectedItem"), flags, 2)
-        this.vtbl.get_ScopeNodeContextMenu := CallbackCreate(GetMethod(implObj, "get_ScopeNodeContextMenu"), flags, 3)
-        this.vtbl.get_SelectionContextMenu := CallbackCreate(GetMethod(implObj, "get_SelectionContextMenu"), flags, 2)
-        this.vtbl.RefreshScopeNode := CallbackCreate(GetMethod(implObj, "RefreshScopeNode"), flags, 2)
-        this.vtbl.RefreshSelection := CallbackCreate(GetMethod(implObj, "RefreshSelection"), flags, 1)
-        this.vtbl.ExecuteSelectionMenuItem := CallbackCreate(GetMethod(implObj, "ExecuteSelectionMenuItem"), flags, 2)
-        this.vtbl.ExecuteScopeNodeMenuItem := CallbackCreate(GetMethod(implObj, "ExecuteScopeNodeMenuItem"), flags, 3)
-        this.vtbl.ExecuteShellCommand := CallbackCreate(GetMethod(implObj, "ExecuteShellCommand"), flags, 5)
-        this.vtbl.get_Frame := CallbackCreate(GetMethod(implObj, "get_Frame"), flags, 2)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
-        this.vtbl.get_ScopeTreeVisible := CallbackCreate(GetMethod(implObj, "get_ScopeTreeVisible"), flags, 2)
-        this.vtbl.put_ScopeTreeVisible := CallbackCreate(GetMethod(implObj, "put_ScopeTreeVisible"), flags, 2)
-        this.vtbl.Back := CallbackCreate(GetMethod(implObj, "Back"), flags, 1)
-        this.vtbl.Forward := CallbackCreate(GetMethod(implObj, "Forward"), flags, 1)
-        this.vtbl.put_StatusBarText := CallbackCreate(GetMethod(implObj, "put_StatusBarText"), flags, 2)
-        this.vtbl.get_Memento := CallbackCreate(GetMethod(implObj, "get_Memento"), flags, 2)
-        this.vtbl.ViewMemento := CallbackCreate(GetMethod(implObj, "ViewMemento"), flags, 2)
-        this.vtbl.get_Columns := CallbackCreate(GetMethod(implObj, "get_Columns"), flags, 2)
-        this.vtbl.get_CellContents := CallbackCreate(GetMethod(implObj, "get_CellContents"), flags, 4)
-        this.vtbl.ExportList := CallbackCreate(GetMethod(implObj, "ExportList"), flags, 3)
-        this.vtbl.get_ListViewMode := CallbackCreate(GetMethod(implObj, "get_ListViewMode"), flags, 2)
-        this.vtbl.put_ListViewMode := CallbackCreate(GetMethod(implObj, "put_ListViewMode"), flags, 2)
-        this.vtbl.get_ControlObject := CallbackCreate(GetMethod(implObj, "get_ControlObject"), flags, 2)
+        this.vtbl.get_ActiveScopeNode := CallbackCreate(ObjBindMethod(implObj, "get_ActiveScopeNode"), flags, 2)
+        this.vtbl.put_ActiveScopeNode := CallbackCreate(ObjBindMethod(implObj, "put_ActiveScopeNode"), flags, 2)
+        this.vtbl.get_Selection := CallbackCreate(ObjBindMethod(implObj, "get_Selection"), flags, 2)
+        this.vtbl.get_ListItems := CallbackCreate(ObjBindMethod(implObj, "get_ListItems"), flags, 2)
+        this.vtbl.SnapinScopeObject := CallbackCreate(ObjBindMethod(implObj, "SnapinScopeObject"), flags, 3)
+        this.vtbl.SnapinSelectionObject := CallbackCreate(ObjBindMethod(implObj, "SnapinSelectionObject"), flags, 2)
+        this.vtbl.Is := CallbackCreate(ObjBindMethod(implObj, "Is"), flags, 3)
+        this.vtbl.get_Document := CallbackCreate(ObjBindMethod(implObj, "get_Document"), flags, 2)
+        this.vtbl.SelectAll := CallbackCreate(ObjBindMethod(implObj, "SelectAll"), flags, 1)
+        this.vtbl.Select := CallbackCreate(ObjBindMethod(implObj, "Select"), flags, 2)
+        this.vtbl.Deselect := CallbackCreate(ObjBindMethod(implObj, "Deselect"), flags, 2)
+        this.vtbl.IsSelected := CallbackCreate(ObjBindMethod(implObj, "IsSelected"), flags, 3)
+        this.vtbl.DisplayScopeNodePropertySheet := CallbackCreate(ObjBindMethod(implObj, "DisplayScopeNodePropertySheet"), flags, 2)
+        this.vtbl.DisplaySelectionPropertySheet := CallbackCreate(ObjBindMethod(implObj, "DisplaySelectionPropertySheet"), flags, 1)
+        this.vtbl.CopyScopeNode := CallbackCreate(ObjBindMethod(implObj, "CopyScopeNode"), flags, 2)
+        this.vtbl.CopySelection := CallbackCreate(ObjBindMethod(implObj, "CopySelection"), flags, 1)
+        this.vtbl.DeleteScopeNode := CallbackCreate(ObjBindMethod(implObj, "DeleteScopeNode"), flags, 2)
+        this.vtbl.DeleteSelection := CallbackCreate(ObjBindMethod(implObj, "DeleteSelection"), flags, 1)
+        this.vtbl.RenameScopeNode := CallbackCreate(ObjBindMethod(implObj, "RenameScopeNode"), flags, 3)
+        this.vtbl.RenameSelectedItem := CallbackCreate(ObjBindMethod(implObj, "RenameSelectedItem"), flags, 2)
+        this.vtbl.get_ScopeNodeContextMenu := CallbackCreate(ObjBindMethod(implObj, "get_ScopeNodeContextMenu"), flags, 3)
+        this.vtbl.get_SelectionContextMenu := CallbackCreate(ObjBindMethod(implObj, "get_SelectionContextMenu"), flags, 2)
+        this.vtbl.RefreshScopeNode := CallbackCreate(ObjBindMethod(implObj, "RefreshScopeNode"), flags, 2)
+        this.vtbl.RefreshSelection := CallbackCreate(ObjBindMethod(implObj, "RefreshSelection"), flags, 1)
+        this.vtbl.ExecuteSelectionMenuItem := CallbackCreate(ObjBindMethod(implObj, "ExecuteSelectionMenuItem"), flags, 2)
+        this.vtbl.ExecuteScopeNodeMenuItem := CallbackCreate(ObjBindMethod(implObj, "ExecuteScopeNodeMenuItem"), flags, 3)
+        this.vtbl.ExecuteShellCommand := CallbackCreate(ObjBindMethod(implObj, "ExecuteShellCommand"), flags, 5)
+        this.vtbl.get_Frame := CallbackCreate(ObjBindMethod(implObj, "get_Frame"), flags, 2)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
+        this.vtbl.get_ScopeTreeVisible := CallbackCreate(ObjBindMethod(implObj, "get_ScopeTreeVisible"), flags, 2)
+        this.vtbl.put_ScopeTreeVisible := CallbackCreate(ObjBindMethod(implObj, "put_ScopeTreeVisible"), flags, 2)
+        this.vtbl.Back := CallbackCreate(ObjBindMethod(implObj, "Back"), flags, 1)
+        this.vtbl.Forward := CallbackCreate(ObjBindMethod(implObj, "Forward"), flags, 1)
+        this.vtbl.put_StatusBarText := CallbackCreate(ObjBindMethod(implObj, "put_StatusBarText"), flags, 2)
+        this.vtbl.get_Memento := CallbackCreate(ObjBindMethod(implObj, "get_Memento"), flags, 2)
+        this.vtbl.ViewMemento := CallbackCreate(ObjBindMethod(implObj, "ViewMemento"), flags, 2)
+        this.vtbl.get_Columns := CallbackCreate(ObjBindMethod(implObj, "get_Columns"), flags, 2)
+        this.vtbl.get_CellContents := CallbackCreate(ObjBindMethod(implObj, "get_CellContents"), flags, 4)
+        this.vtbl.ExportList := CallbackCreate(ObjBindMethod(implObj, "ExportList"), flags, 3)
+        this.vtbl.get_ListViewMode := CallbackCreate(ObjBindMethod(implObj, "get_ListViewMode"), flags, 2)
+        this.vtbl.put_ListViewMode := CallbackCreate(ObjBindMethod(implObj, "put_ListViewMode"), flags, 2)
+        this.vtbl.get_ControlObject := CallbackCreate(ObjBindMethod(implObj, "get_ControlObject"), flags, 2)
     }
 
     Dispose() {

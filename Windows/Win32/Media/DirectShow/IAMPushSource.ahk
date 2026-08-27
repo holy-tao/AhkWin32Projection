@@ -136,12 +136,12 @@ export default struct IAMPushSource extends IAMLatency {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPushSourceFlags := CallbackCreate(GetMethod(implObj, "GetPushSourceFlags"), flags, 2)
-        this.vtbl.SetPushSourceFlags := CallbackCreate(GetMethod(implObj, "SetPushSourceFlags"), flags, 2)
-        this.vtbl.SetStreamOffset := CallbackCreate(GetMethod(implObj, "SetStreamOffset"), flags, 2)
-        this.vtbl.GetStreamOffset := CallbackCreate(GetMethod(implObj, "GetStreamOffset"), flags, 2)
-        this.vtbl.GetMaxStreamOffset := CallbackCreate(GetMethod(implObj, "GetMaxStreamOffset"), flags, 2)
-        this.vtbl.SetMaxStreamOffset := CallbackCreate(GetMethod(implObj, "SetMaxStreamOffset"), flags, 2)
+        this.vtbl.GetPushSourceFlags := CallbackCreate(ObjBindMethod(implObj, "GetPushSourceFlags"), flags, 2)
+        this.vtbl.SetPushSourceFlags := CallbackCreate(ObjBindMethod(implObj, "SetPushSourceFlags"), flags, 2)
+        this.vtbl.SetStreamOffset := CallbackCreate(ObjBindMethod(implObj, "SetStreamOffset"), flags, 2)
+        this.vtbl.GetStreamOffset := CallbackCreate(ObjBindMethod(implObj, "GetStreamOffset"), flags, 2)
+        this.vtbl.GetMaxStreamOffset := CallbackCreate(ObjBindMethod(implObj, "GetMaxStreamOffset"), flags, 2)
+        this.vtbl.SetMaxStreamOffset := CallbackCreate(ObjBindMethod(implObj, "SetMaxStreamOffset"), flags, 2)
     }
 
     Dispose() {

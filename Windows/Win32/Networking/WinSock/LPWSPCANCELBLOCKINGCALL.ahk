@@ -37,7 +37,6 @@ export default struct LPWSPCANCELBLOCKINGCALL {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} lpErrno Pointer to the error code.
      * @returns {Integer} The value returned by **LPWSPCancelBlockingCall** is zero if the operation was successfully canceled. Otherwise, the value SOCKET_ERROR is returned, and a specific error code is available in <i>lpErrno</i>.
      * 
@@ -72,7 +71,7 @@ export default struct LPWSPCANCELBLOCKINGCALL {
      * </table>
      */
     Call(lpErrno) {
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, lpErrnoMarshal, lpErrno, Int32)
         return result

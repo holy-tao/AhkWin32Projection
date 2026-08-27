@@ -39,7 +39,6 @@ export default struct IHTMLElementAppliedStyles extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRulesAppliedCollection} 
      */
     msGetRulesApplied() {
@@ -48,7 +47,6 @@ export default struct IHTMLElementAppliedStyles extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varContext 
      * @returns {IRulesAppliedCollection} 
      */
@@ -66,8 +64,8 @@ export default struct IHTMLElementAppliedStyles extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.msGetRulesApplied := CallbackCreate(GetMethod(implObj, "msGetRulesApplied"), flags, 2)
-        this.vtbl.msGetRulesAppliedWithAncestor := CallbackCreate(GetMethod(implObj, "msGetRulesAppliedWithAncestor"), flags, 3)
+        this.vtbl.msGetRulesApplied := CallbackCreate(ObjBindMethod(implObj, "msGetRulesApplied"), flags, 2)
+        this.vtbl.msGetRulesAppliedWithAncestor := CallbackCreate(ObjBindMethod(implObj, "msGetRulesAppliedWithAncestor"), flags, 3)
     }
 
     Dispose() {

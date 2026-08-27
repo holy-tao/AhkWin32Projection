@@ -40,7 +40,6 @@ export default struct IDWriteFontFace7 extends IDWriteFontFace6 {
     }
 
     /**
-     * 
      * @param {DWRITE_GLYPH_IMAGE_FORMATS} glyphImageFormat 
      * @returns {DWRITE_PAINT_FEATURE_LEVEL} 
      */
@@ -50,7 +49,6 @@ export default struct IDWriteFontFace7 extends IDWriteFontFace6 {
     }
 
     /**
-     * 
      * @param {DWRITE_GLYPH_IMAGE_FORMATS} glyphImageFormat 
      * @param {DWRITE_PAINT_FEATURE_LEVEL} paintFeatureLevel 
      * @returns {IDWritePaintReader} 
@@ -69,8 +67,8 @@ export default struct IDWriteFontFace7 extends IDWriteFontFace6 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPaintFeatureLevel := CallbackCreate(GetMethod(implObj, "GetPaintFeatureLevel"), flags, 2)
-        this.vtbl.CreatePaintReader := CallbackCreate(GetMethod(implObj, "CreatePaintReader"), flags, 4)
+        this.vtbl.GetPaintFeatureLevel := CallbackCreate(ObjBindMethod(implObj, "GetPaintFeatureLevel"), flags, 2)
+        this.vtbl.CreatePaintReader := CallbackCreate(ObjBindMethod(implObj, "CreatePaintReader"), flags, 4)
     }
 
     Dispose() {

@@ -106,7 +106,6 @@ export default struct IComThreadEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
      * @param {Integer} ThreadID 
      * @param {Integer} MsgWorkID 
@@ -119,7 +118,6 @@ export default struct IComThreadEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
      * @param {Integer} ThreadID 
      * @param {Integer} MsgWorkID 
@@ -131,7 +129,6 @@ export default struct IComThreadEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
      * @param {Integer} ThreadID 
      * @param {Integer} MsgWorkID 
@@ -144,7 +141,6 @@ export default struct IComThreadEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
      * @param {Integer} ThreadID 
      * @param {Integer} MsgWorkID 
@@ -158,7 +154,6 @@ export default struct IComThreadEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
      * @param {Integer} ThreadID 
      * @param {Integer} MsgWorkID 
@@ -204,17 +199,17 @@ export default struct IComThreadEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnThreadStart := CallbackCreate(GetMethod(implObj, "OnThreadStart"), flags, 5)
-        this.vtbl.OnThreadTerminate := CallbackCreate(GetMethod(implObj, "OnThreadTerminate"), flags, 5)
-        this.vtbl.OnThreadBindToApartment := CallbackCreate(GetMethod(implObj, "OnThreadBindToApartment"), flags, 6)
-        this.vtbl.OnThreadUnBind := CallbackCreate(GetMethod(implObj, "OnThreadUnBind"), flags, 5)
-        this.vtbl.OnThreadWorkEnque := CallbackCreate(GetMethod(implObj, "OnThreadWorkEnque"), flags, 5)
-        this.vtbl.OnThreadWorkPrivate := CallbackCreate(GetMethod(implObj, "OnThreadWorkPrivate"), flags, 4)
-        this.vtbl.OnThreadWorkPublic := CallbackCreate(GetMethod(implObj, "OnThreadWorkPublic"), flags, 5)
-        this.vtbl.OnThreadWorkRedirect := CallbackCreate(GetMethod(implObj, "OnThreadWorkRedirect"), flags, 6)
-        this.vtbl.OnThreadWorkReject := CallbackCreate(GetMethod(implObj, "OnThreadWorkReject"), flags, 5)
-        this.vtbl.OnThreadAssignApartment := CallbackCreate(GetMethod(implObj, "OnThreadAssignApartment"), flags, 4)
-        this.vtbl.OnThreadUnassignApartment := CallbackCreate(GetMethod(implObj, "OnThreadUnassignApartment"), flags, 3)
+        this.vtbl.OnThreadStart := CallbackCreate(ObjBindMethod(implObj, "OnThreadStart"), flags, 5)
+        this.vtbl.OnThreadTerminate := CallbackCreate(ObjBindMethod(implObj, "OnThreadTerminate"), flags, 5)
+        this.vtbl.OnThreadBindToApartment := CallbackCreate(ObjBindMethod(implObj, "OnThreadBindToApartment"), flags, 6)
+        this.vtbl.OnThreadUnBind := CallbackCreate(ObjBindMethod(implObj, "OnThreadUnBind"), flags, 5)
+        this.vtbl.OnThreadWorkEnque := CallbackCreate(ObjBindMethod(implObj, "OnThreadWorkEnque"), flags, 5)
+        this.vtbl.OnThreadWorkPrivate := CallbackCreate(ObjBindMethod(implObj, "OnThreadWorkPrivate"), flags, 4)
+        this.vtbl.OnThreadWorkPublic := CallbackCreate(ObjBindMethod(implObj, "OnThreadWorkPublic"), flags, 5)
+        this.vtbl.OnThreadWorkRedirect := CallbackCreate(ObjBindMethod(implObj, "OnThreadWorkRedirect"), flags, 6)
+        this.vtbl.OnThreadWorkReject := CallbackCreate(ObjBindMethod(implObj, "OnThreadWorkReject"), flags, 5)
+        this.vtbl.OnThreadAssignApartment := CallbackCreate(ObjBindMethod(implObj, "OnThreadAssignApartment"), flags, 4)
+        this.vtbl.OnThreadUnassignApartment := CallbackCreate(ObjBindMethod(implObj, "OnThreadUnassignApartment"), flags, 3)
     }
 
     Dispose() {

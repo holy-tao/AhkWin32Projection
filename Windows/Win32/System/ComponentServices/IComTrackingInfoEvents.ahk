@@ -44,7 +44,9 @@ export default struct IComTrackingInfoEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomtrackinginfoevents-onnewtrackinginfo
      */
     OnNewTrackingInfo(pToplevelCollection) {
-        result := ComCall(3, this, "ptr", pToplevelCollection, "HRESULT")
+        pToplevelCollectionMarshal := pToplevelCollection == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pToplevelCollectionMarshal, pToplevelCollection, "HRESULT")
         return result
     }
 
@@ -57,7 +59,7 @@ export default struct IComTrackingInfoEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnNewTrackingInfo := CallbackCreate(GetMethod(implObj, "OnNewTrackingInfo"), flags, 2)
+        this.vtbl.OnNewTrackingInfo := CallbackCreate(ObjBindMethod(implObj, "OnNewTrackingInfo"), flags, 2)
     }
 
     Dispose() {

@@ -58,7 +58,7 @@ export default struct IComputerInfoChangeNotify extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ComputerInfoChanged := CallbackCreate(GetMethod(implObj, "ComputerInfoChanged"), flags, 1)
+        this.vtbl.ComputerInfoChanged := CallbackCreate(ObjBindMethod(implObj, "ComputerInfoChanged"), flags, 1)
     }
 
     Dispose() {

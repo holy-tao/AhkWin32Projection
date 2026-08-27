@@ -37,7 +37,6 @@ export default struct IRowPositionChange extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} eReason 
      * @param {Integer} ePhase 
      * @param {BOOL} fCantDeny 
@@ -57,7 +56,7 @@ export default struct IRowPositionChange extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnRowPositionChange := CallbackCreate(GetMethod(implObj, "OnRowPositionChange"), flags, 4)
+        this.vtbl.OnRowPositionChange := CallbackCreate(ObjBindMethod(implObj, "OnRowPositionChange"), flags, 4)
     }
 
     Dispose() {

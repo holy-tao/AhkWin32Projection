@@ -55,8 +55,8 @@ export default struct IPrintDocumentPackageTarget extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/documenttarget/nf-documenttarget-iprintdocumentpackagetarget-getpackagetargettypes
      */
     GetPackageTargetTypes(targetCount, targetTypes) {
-        targetCountMarshal := targetCount is VarRef ? "uint*" : "ptr"
-        targetTypesMarshal := targetTypes is VarRef ? "ptr*" : "ptr"
+        targetCountMarshal := targetCount is VarRef ? "uint*" : IntPtr
+        targetTypesMarshal := targetTypes is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, targetCountMarshal, targetCount, targetTypesMarshal, targetTypes, "HRESULT")
         return result
@@ -93,9 +93,9 @@ export default struct IPrintDocumentPackageTarget extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPackageTargetTypes := CallbackCreate(GetMethod(implObj, "GetPackageTargetTypes"), flags, 3)
-        this.vtbl.GetPackageTarget := CallbackCreate(GetMethod(implObj, "GetPackageTarget"), flags, 4)
-        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.GetPackageTargetTypes := CallbackCreate(ObjBindMethod(implObj, "GetPackageTargetTypes"), flags, 3)
+        this.vtbl.GetPackageTarget := CallbackCreate(ObjBindMethod(implObj, "GetPackageTarget"), flags, 4)
+        this.vtbl.Cancel := CallbackCreate(ObjBindMethod(implObj, "Cancel"), flags, 1)
     }
 
     Dispose() {

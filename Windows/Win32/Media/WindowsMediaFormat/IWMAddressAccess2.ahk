@@ -83,8 +83,8 @@ export default struct IWMAddressAccess2 extends IWMAddressAccess {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAccessEntryEx := CallbackCreate(GetMethod(implObj, "GetAccessEntryEx"), flags, 5)
-        this.vtbl.AddAccessEntryEx := CallbackCreate(GetMethod(implObj, "AddAccessEntryEx"), flags, 4)
+        this.vtbl.GetAccessEntryEx := CallbackCreate(ObjBindMethod(implObj, "GetAccessEntryEx"), flags, 5)
+        this.vtbl.AddAccessEntryEx := CallbackCreate(ObjBindMethod(implObj, "AddAccessEntryEx"), flags, 4)
     }
 
     Dispose() {

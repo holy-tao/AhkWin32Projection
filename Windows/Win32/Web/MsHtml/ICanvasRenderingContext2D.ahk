@@ -241,7 +241,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLCanvasElement} 
      */
     get_canvas() {
@@ -345,7 +344,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} angle 
      * @returns {HRESULT} 
      */
@@ -355,7 +353,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @returns {HRESULT} 
@@ -366,7 +363,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} m11 
      * @param {Float} m12 
      * @param {Float} m21 
@@ -381,7 +377,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} m11 
      * @param {Float} m12 
      * @param {Float} m21 
@@ -396,7 +391,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @returns {HRESULT} 
@@ -407,7 +401,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -417,7 +410,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_globalAlpha() {
@@ -426,7 +418,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -438,7 +429,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_globalCompositeOperation() {
@@ -448,7 +438,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -458,7 +447,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_fillStyle() {
@@ -468,7 +456,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -478,7 +465,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_strokeStyle() {
@@ -488,7 +474,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x0 
      * @param {Float} y0 
      * @param {Float} x1 
@@ -501,7 +486,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x0 
      * @param {Float} y0 
      * @param {Float} r0 
@@ -516,7 +500,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} _image 
      * @param {VARIANT} repetition 
      * @returns {ICanvasPattern} 
@@ -527,7 +510,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -539,7 +521,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_lineCap() {
@@ -549,7 +530,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -561,7 +541,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_lineJoin() {
@@ -571,7 +550,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -581,7 +559,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_lineWidth() {
@@ -590,7 +567,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -600,7 +576,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_miterLimit() {
@@ -609,7 +584,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -619,7 +593,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_shadowBlur() {
@@ -628,7 +601,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -640,7 +612,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_shadowColor() {
@@ -650,7 +621,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -660,7 +630,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_shadowOffsetX() {
@@ -669,7 +638,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -679,7 +647,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_shadowOffsetY() {
@@ -688,7 +655,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} w 
@@ -701,7 +667,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} w 
@@ -714,7 +679,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} w 
@@ -727,7 +691,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} radius 
@@ -742,7 +705,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x1 
      * @param {Float} y1 
      * @param {Float} x2 
@@ -756,7 +718,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     beginPath() {
@@ -765,7 +726,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} cp1x 
      * @param {Float} cp1y 
      * @param {Float} cp2x 
@@ -808,7 +768,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     closePath() {
@@ -817,7 +776,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     fill() {
@@ -826,7 +784,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @returns {HRESULT} 
@@ -837,7 +794,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @returns {HRESULT} 
@@ -848,7 +804,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} cpx 
      * @param {Float} cpy 
      * @param {Float} x 
@@ -861,7 +816,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} w 
@@ -874,7 +828,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     stroke() {
@@ -883,7 +836,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @returns {VARIANT_BOOL} 
@@ -894,7 +846,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -906,7 +857,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_font() {
@@ -916,7 +866,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -928,7 +877,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textAlign() {
@@ -938,7 +886,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -950,7 +897,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textBaseline() {
@@ -960,7 +906,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} text 
      * @param {Float} x 
      * @param {Float} y 
@@ -975,7 +920,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} text 
      * @returns {ICanvasTextMetrics} 
      */
@@ -987,7 +931,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} text 
      * @param {Float} x 
      * @param {Float} y 
@@ -1002,7 +945,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} pSrc 
      * @param {VARIANT} a1 
      * @param {VARIANT} a2 
@@ -1020,7 +962,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} a1 
      * @param {VARIANT} a2 
      * @returns {ICanvasImageData} 
@@ -1031,7 +972,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} sx 
      * @param {Float} sy 
      * @param {Float} sw 
@@ -1044,7 +984,6 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
     }
 
     /**
-     * 
      * @param {ICanvasImageData} imagedata 
      * @param {Float} dx 
      * @param {Float} dy 
@@ -1068,70 +1007,70 @@ export default struct ICanvasRenderingContext2D extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_canvas := CallbackCreate(GetMethod(implObj, "get_canvas"), flags, 2)
-        this.vtbl.restore := CallbackCreate(GetMethod(implObj, "restore"), flags, 1)
-        this.vtbl.save := CallbackCreate(GetMethod(implObj, "save"), flags, 1)
-        this.vtbl.rotate := CallbackCreate(GetMethod(implObj, "rotate"), flags, 2)
-        this.vtbl.scale := CallbackCreate(GetMethod(implObj, "scale"), flags, 3)
-        this.vtbl.setTransform := CallbackCreate(GetMethod(implObj, "setTransform"), flags, 7)
-        this.vtbl.transform := CallbackCreate(GetMethod(implObj, "transform"), flags, 7)
-        this.vtbl.translate := CallbackCreate(GetMethod(implObj, "translate"), flags, 3)
-        this.vtbl.put_globalAlpha := CallbackCreate(GetMethod(implObj, "put_globalAlpha"), flags, 2)
-        this.vtbl.get_globalAlpha := CallbackCreate(GetMethod(implObj, "get_globalAlpha"), flags, 2)
-        this.vtbl.put_globalCompositeOperation := CallbackCreate(GetMethod(implObj, "put_globalCompositeOperation"), flags, 2)
-        this.vtbl.get_globalCompositeOperation := CallbackCreate(GetMethod(implObj, "get_globalCompositeOperation"), flags, 2)
-        this.vtbl.put_fillStyle := CallbackCreate(GetMethod(implObj, "put_fillStyle"), flags, 2)
-        this.vtbl.get_fillStyle := CallbackCreate(GetMethod(implObj, "get_fillStyle"), flags, 2)
-        this.vtbl.put_strokeStyle := CallbackCreate(GetMethod(implObj, "put_strokeStyle"), flags, 2)
-        this.vtbl.get_strokeStyle := CallbackCreate(GetMethod(implObj, "get_strokeStyle"), flags, 2)
-        this.vtbl.createLinearGradient := CallbackCreate(GetMethod(implObj, "createLinearGradient"), flags, 6)
-        this.vtbl.createRadialGradient := CallbackCreate(GetMethod(implObj, "createRadialGradient"), flags, 8)
-        this.vtbl.createPattern := CallbackCreate(GetMethod(implObj, "createPattern"), flags, 4)
-        this.vtbl.put_lineCap := CallbackCreate(GetMethod(implObj, "put_lineCap"), flags, 2)
-        this.vtbl.get_lineCap := CallbackCreate(GetMethod(implObj, "get_lineCap"), flags, 2)
-        this.vtbl.put_lineJoin := CallbackCreate(GetMethod(implObj, "put_lineJoin"), flags, 2)
-        this.vtbl.get_lineJoin := CallbackCreate(GetMethod(implObj, "get_lineJoin"), flags, 2)
-        this.vtbl.put_lineWidth := CallbackCreate(GetMethod(implObj, "put_lineWidth"), flags, 2)
-        this.vtbl.get_lineWidth := CallbackCreate(GetMethod(implObj, "get_lineWidth"), flags, 2)
-        this.vtbl.put_miterLimit := CallbackCreate(GetMethod(implObj, "put_miterLimit"), flags, 2)
-        this.vtbl.get_miterLimit := CallbackCreate(GetMethod(implObj, "get_miterLimit"), flags, 2)
-        this.vtbl.put_shadowBlur := CallbackCreate(GetMethod(implObj, "put_shadowBlur"), flags, 2)
-        this.vtbl.get_shadowBlur := CallbackCreate(GetMethod(implObj, "get_shadowBlur"), flags, 2)
-        this.vtbl.put_shadowColor := CallbackCreate(GetMethod(implObj, "put_shadowColor"), flags, 2)
-        this.vtbl.get_shadowColor := CallbackCreate(GetMethod(implObj, "get_shadowColor"), flags, 2)
-        this.vtbl.put_shadowOffsetX := CallbackCreate(GetMethod(implObj, "put_shadowOffsetX"), flags, 2)
-        this.vtbl.get_shadowOffsetX := CallbackCreate(GetMethod(implObj, "get_shadowOffsetX"), flags, 2)
-        this.vtbl.put_shadowOffsetY := CallbackCreate(GetMethod(implObj, "put_shadowOffsetY"), flags, 2)
-        this.vtbl.get_shadowOffsetY := CallbackCreate(GetMethod(implObj, "get_shadowOffsetY"), flags, 2)
-        this.vtbl.clearRect := CallbackCreate(GetMethod(implObj, "clearRect"), flags, 5)
-        this.vtbl.fillRect := CallbackCreate(GetMethod(implObj, "fillRect"), flags, 5)
-        this.vtbl.strokeRect := CallbackCreate(GetMethod(implObj, "strokeRect"), flags, 5)
-        this.vtbl.arc := CallbackCreate(GetMethod(implObj, "arc"), flags, 7)
-        this.vtbl.arcTo := CallbackCreate(GetMethod(implObj, "arcTo"), flags, 6)
-        this.vtbl.beginPath := CallbackCreate(GetMethod(implObj, "beginPath"), flags, 1)
-        this.vtbl.bezierCurveTo := CallbackCreate(GetMethod(implObj, "bezierCurveTo"), flags, 7)
-        this.vtbl.clip := CallbackCreate(GetMethod(implObj, "clip"), flags, 1)
-        this.vtbl.closePath := CallbackCreate(GetMethod(implObj, "closePath"), flags, 1)
-        this.vtbl.fill := CallbackCreate(GetMethod(implObj, "fill"), flags, 1)
-        this.vtbl.lineTo := CallbackCreate(GetMethod(implObj, "lineTo"), flags, 3)
-        this.vtbl.moveTo := CallbackCreate(GetMethod(implObj, "moveTo"), flags, 3)
-        this.vtbl.quadraticCurveTo := CallbackCreate(GetMethod(implObj, "quadraticCurveTo"), flags, 5)
-        this.vtbl.rect := CallbackCreate(GetMethod(implObj, "rect"), flags, 5)
-        this.vtbl.stroke := CallbackCreate(GetMethod(implObj, "stroke"), flags, 1)
-        this.vtbl.isPointInPath := CallbackCreate(GetMethod(implObj, "isPointInPath"), flags, 4)
-        this.vtbl.put_font := CallbackCreate(GetMethod(implObj, "put_font"), flags, 2)
-        this.vtbl.get_font := CallbackCreate(GetMethod(implObj, "get_font"), flags, 2)
-        this.vtbl.put_textAlign := CallbackCreate(GetMethod(implObj, "put_textAlign"), flags, 2)
-        this.vtbl.get_textAlign := CallbackCreate(GetMethod(implObj, "get_textAlign"), flags, 2)
-        this.vtbl.put_textBaseline := CallbackCreate(GetMethod(implObj, "put_textBaseline"), flags, 2)
-        this.vtbl.get_textBaseline := CallbackCreate(GetMethod(implObj, "get_textBaseline"), flags, 2)
-        this.vtbl.fillText := CallbackCreate(GetMethod(implObj, "fillText"), flags, 5)
-        this.vtbl.measureText := CallbackCreate(GetMethod(implObj, "measureText"), flags, 3)
-        this.vtbl.strokeText := CallbackCreate(GetMethod(implObj, "strokeText"), flags, 5)
-        this.vtbl.drawImage := CallbackCreate(GetMethod(implObj, "drawImage"), flags, 10)
-        this.vtbl.createImageData := CallbackCreate(GetMethod(implObj, "createImageData"), flags, 4)
-        this.vtbl.getImageData := CallbackCreate(GetMethod(implObj, "getImageData"), flags, 6)
-        this.vtbl.putImageData := CallbackCreate(GetMethod(implObj, "putImageData"), flags, 8)
+        this.vtbl.get_canvas := CallbackCreate(ObjBindMethod(implObj, "get_canvas"), flags, 2)
+        this.vtbl.restore := CallbackCreate(ObjBindMethod(implObj, "restore"), flags, 1)
+        this.vtbl.save := CallbackCreate(ObjBindMethod(implObj, "save"), flags, 1)
+        this.vtbl.rotate := CallbackCreate(ObjBindMethod(implObj, "rotate"), flags, 2)
+        this.vtbl.scale := CallbackCreate(ObjBindMethod(implObj, "scale"), flags, 3)
+        this.vtbl.setTransform := CallbackCreate(ObjBindMethod(implObj, "setTransform"), flags, 7)
+        this.vtbl.transform := CallbackCreate(ObjBindMethod(implObj, "transform"), flags, 7)
+        this.vtbl.translate := CallbackCreate(ObjBindMethod(implObj, "translate"), flags, 3)
+        this.vtbl.put_globalAlpha := CallbackCreate(ObjBindMethod(implObj, "put_globalAlpha"), flags, 2)
+        this.vtbl.get_globalAlpha := CallbackCreate(ObjBindMethod(implObj, "get_globalAlpha"), flags, 2)
+        this.vtbl.put_globalCompositeOperation := CallbackCreate(ObjBindMethod(implObj, "put_globalCompositeOperation"), flags, 2)
+        this.vtbl.get_globalCompositeOperation := CallbackCreate(ObjBindMethod(implObj, "get_globalCompositeOperation"), flags, 2)
+        this.vtbl.put_fillStyle := CallbackCreate(ObjBindMethod(implObj, "put_fillStyle"), flags, 2)
+        this.vtbl.get_fillStyle := CallbackCreate(ObjBindMethod(implObj, "get_fillStyle"), flags, 2)
+        this.vtbl.put_strokeStyle := CallbackCreate(ObjBindMethod(implObj, "put_strokeStyle"), flags, 2)
+        this.vtbl.get_strokeStyle := CallbackCreate(ObjBindMethod(implObj, "get_strokeStyle"), flags, 2)
+        this.vtbl.createLinearGradient := CallbackCreate(ObjBindMethod(implObj, "createLinearGradient"), flags, 6)
+        this.vtbl.createRadialGradient := CallbackCreate(ObjBindMethod(implObj, "createRadialGradient"), flags, 8)
+        this.vtbl.createPattern := CallbackCreate(ObjBindMethod(implObj, "createPattern"), flags, 4)
+        this.vtbl.put_lineCap := CallbackCreate(ObjBindMethod(implObj, "put_lineCap"), flags, 2)
+        this.vtbl.get_lineCap := CallbackCreate(ObjBindMethod(implObj, "get_lineCap"), flags, 2)
+        this.vtbl.put_lineJoin := CallbackCreate(ObjBindMethod(implObj, "put_lineJoin"), flags, 2)
+        this.vtbl.get_lineJoin := CallbackCreate(ObjBindMethod(implObj, "get_lineJoin"), flags, 2)
+        this.vtbl.put_lineWidth := CallbackCreate(ObjBindMethod(implObj, "put_lineWidth"), flags, 2)
+        this.vtbl.get_lineWidth := CallbackCreate(ObjBindMethod(implObj, "get_lineWidth"), flags, 2)
+        this.vtbl.put_miterLimit := CallbackCreate(ObjBindMethod(implObj, "put_miterLimit"), flags, 2)
+        this.vtbl.get_miterLimit := CallbackCreate(ObjBindMethod(implObj, "get_miterLimit"), flags, 2)
+        this.vtbl.put_shadowBlur := CallbackCreate(ObjBindMethod(implObj, "put_shadowBlur"), flags, 2)
+        this.vtbl.get_shadowBlur := CallbackCreate(ObjBindMethod(implObj, "get_shadowBlur"), flags, 2)
+        this.vtbl.put_shadowColor := CallbackCreate(ObjBindMethod(implObj, "put_shadowColor"), flags, 2)
+        this.vtbl.get_shadowColor := CallbackCreate(ObjBindMethod(implObj, "get_shadowColor"), flags, 2)
+        this.vtbl.put_shadowOffsetX := CallbackCreate(ObjBindMethod(implObj, "put_shadowOffsetX"), flags, 2)
+        this.vtbl.get_shadowOffsetX := CallbackCreate(ObjBindMethod(implObj, "get_shadowOffsetX"), flags, 2)
+        this.vtbl.put_shadowOffsetY := CallbackCreate(ObjBindMethod(implObj, "put_shadowOffsetY"), flags, 2)
+        this.vtbl.get_shadowOffsetY := CallbackCreate(ObjBindMethod(implObj, "get_shadowOffsetY"), flags, 2)
+        this.vtbl.clearRect := CallbackCreate(ObjBindMethod(implObj, "clearRect"), flags, 5)
+        this.vtbl.fillRect := CallbackCreate(ObjBindMethod(implObj, "fillRect"), flags, 5)
+        this.vtbl.strokeRect := CallbackCreate(ObjBindMethod(implObj, "strokeRect"), flags, 5)
+        this.vtbl.arc := CallbackCreate(ObjBindMethod(implObj, "arc"), flags, 7)
+        this.vtbl.arcTo := CallbackCreate(ObjBindMethod(implObj, "arcTo"), flags, 6)
+        this.vtbl.beginPath := CallbackCreate(ObjBindMethod(implObj, "beginPath"), flags, 1)
+        this.vtbl.bezierCurveTo := CallbackCreate(ObjBindMethod(implObj, "bezierCurveTo"), flags, 7)
+        this.vtbl.clip := CallbackCreate(ObjBindMethod(implObj, "clip"), flags, 1)
+        this.vtbl.closePath := CallbackCreate(ObjBindMethod(implObj, "closePath"), flags, 1)
+        this.vtbl.fill := CallbackCreate(ObjBindMethod(implObj, "fill"), flags, 1)
+        this.vtbl.lineTo := CallbackCreate(ObjBindMethod(implObj, "lineTo"), flags, 3)
+        this.vtbl.moveTo := CallbackCreate(ObjBindMethod(implObj, "moveTo"), flags, 3)
+        this.vtbl.quadraticCurveTo := CallbackCreate(ObjBindMethod(implObj, "quadraticCurveTo"), flags, 5)
+        this.vtbl.rect := CallbackCreate(ObjBindMethod(implObj, "rect"), flags, 5)
+        this.vtbl.stroke := CallbackCreate(ObjBindMethod(implObj, "stroke"), flags, 1)
+        this.vtbl.isPointInPath := CallbackCreate(ObjBindMethod(implObj, "isPointInPath"), flags, 4)
+        this.vtbl.put_font := CallbackCreate(ObjBindMethod(implObj, "put_font"), flags, 2)
+        this.vtbl.get_font := CallbackCreate(ObjBindMethod(implObj, "get_font"), flags, 2)
+        this.vtbl.put_textAlign := CallbackCreate(ObjBindMethod(implObj, "put_textAlign"), flags, 2)
+        this.vtbl.get_textAlign := CallbackCreate(ObjBindMethod(implObj, "get_textAlign"), flags, 2)
+        this.vtbl.put_textBaseline := CallbackCreate(ObjBindMethod(implObj, "put_textBaseline"), flags, 2)
+        this.vtbl.get_textBaseline := CallbackCreate(ObjBindMethod(implObj, "get_textBaseline"), flags, 2)
+        this.vtbl.fillText := CallbackCreate(ObjBindMethod(implObj, "fillText"), flags, 5)
+        this.vtbl.measureText := CallbackCreate(ObjBindMethod(implObj, "measureText"), flags, 3)
+        this.vtbl.strokeText := CallbackCreate(ObjBindMethod(implObj, "strokeText"), flags, 5)
+        this.vtbl.drawImage := CallbackCreate(ObjBindMethod(implObj, "drawImage"), flags, 10)
+        this.vtbl.createImageData := CallbackCreate(ObjBindMethod(implObj, "createImageData"), flags, 4)
+        this.vtbl.getImageData := CallbackCreate(ObjBindMethod(implObj, "getImageData"), flags, 6)
+        this.vtbl.putImageData := CallbackCreate(ObjBindMethod(implObj, "putImageData"), flags, 8)
     }
 
     Dispose() {

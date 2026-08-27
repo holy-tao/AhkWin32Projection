@@ -18,13 +18,12 @@ export default struct I_RpcProxyUpdatePerfCounterBackendServerFn {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} MachineName 
      * @param {Integer} IsConnectEvent 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(MachineName, IsConnectEvent) {
-        MachineNameMarshal := MachineName is VarRef ? "ushort*" : "ptr"
+        MachineNameMarshal := MachineName is VarRef ? "ushort*" : IntPtr
 
         DllCall(this.value, MachineNameMarshal, MachineName, Int32, IsConnectEvent)
     }

@@ -255,18 +255,18 @@ export default struct IMbnDeviceService extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QuerySupportedCommands := CallbackCreate(GetMethod(implObj, "QuerySupportedCommands"), flags, 2)
-        this.vtbl.OpenCommandSession := CallbackCreate(GetMethod(implObj, "OpenCommandSession"), flags, 2)
-        this.vtbl.CloseCommandSession := CallbackCreate(GetMethod(implObj, "CloseCommandSession"), flags, 2)
-        this.vtbl.SetCommand := CallbackCreate(GetMethod(implObj, "SetCommand"), flags, 4)
-        this.vtbl.QueryCommand := CallbackCreate(GetMethod(implObj, "QueryCommand"), flags, 4)
-        this.vtbl.OpenDataSession := CallbackCreate(GetMethod(implObj, "OpenDataSession"), flags, 2)
-        this.vtbl.CloseDataSession := CallbackCreate(GetMethod(implObj, "CloseDataSession"), flags, 2)
-        this.vtbl.WriteData := CallbackCreate(GetMethod(implObj, "WriteData"), flags, 3)
-        this.vtbl.get_InterfaceID := CallbackCreate(GetMethod(implObj, "get_InterfaceID"), flags, 2)
-        this.vtbl.get_DeviceServiceID := CallbackCreate(GetMethod(implObj, "get_DeviceServiceID"), flags, 2)
-        this.vtbl.get_IsCommandSessionOpen := CallbackCreate(GetMethod(implObj, "get_IsCommandSessionOpen"), flags, 2)
-        this.vtbl.get_IsDataSessionOpen := CallbackCreate(GetMethod(implObj, "get_IsDataSessionOpen"), flags, 2)
+        this.vtbl.QuerySupportedCommands := CallbackCreate(ObjBindMethod(implObj, "QuerySupportedCommands"), flags, 2)
+        this.vtbl.OpenCommandSession := CallbackCreate(ObjBindMethod(implObj, "OpenCommandSession"), flags, 2)
+        this.vtbl.CloseCommandSession := CallbackCreate(ObjBindMethod(implObj, "CloseCommandSession"), flags, 2)
+        this.vtbl.SetCommand := CallbackCreate(ObjBindMethod(implObj, "SetCommand"), flags, 4)
+        this.vtbl.QueryCommand := CallbackCreate(ObjBindMethod(implObj, "QueryCommand"), flags, 4)
+        this.vtbl.OpenDataSession := CallbackCreate(ObjBindMethod(implObj, "OpenDataSession"), flags, 2)
+        this.vtbl.CloseDataSession := CallbackCreate(ObjBindMethod(implObj, "CloseDataSession"), flags, 2)
+        this.vtbl.WriteData := CallbackCreate(ObjBindMethod(implObj, "WriteData"), flags, 3)
+        this.vtbl.get_InterfaceID := CallbackCreate(ObjBindMethod(implObj, "get_InterfaceID"), flags, 2)
+        this.vtbl.get_DeviceServiceID := CallbackCreate(ObjBindMethod(implObj, "get_DeviceServiceID"), flags, 2)
+        this.vtbl.get_IsCommandSessionOpen := CallbackCreate(ObjBindMethod(implObj, "get_IsCommandSessionOpen"), flags, 2)
+        this.vtbl.get_IsDataSessionOpen := CallbackCreate(ObjBindMethod(implObj, "get_IsDataSessionOpen"), flags, 2)
     }
 
     Dispose() {

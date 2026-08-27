@@ -173,10 +173,10 @@ export default struct ISimpleAudioVolume extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetMasterVolume := CallbackCreate(GetMethod(implObj, "SetMasterVolume"), flags, 3)
-        this.vtbl.GetMasterVolume := CallbackCreate(GetMethod(implObj, "GetMasterVolume"), flags, 2)
-        this.vtbl.SetMute := CallbackCreate(GetMethod(implObj, "SetMute"), flags, 3)
-        this.vtbl.GetMute := CallbackCreate(GetMethod(implObj, "GetMute"), flags, 2)
+        this.vtbl.SetMasterVolume := CallbackCreate(ObjBindMethod(implObj, "SetMasterVolume"), flags, 3)
+        this.vtbl.GetMasterVolume := CallbackCreate(ObjBindMethod(implObj, "GetMasterVolume"), flags, 2)
+        this.vtbl.SetMute := CallbackCreate(ObjBindMethod(implObj, "SetMute"), flags, 3)
+        this.vtbl.GetMute := CallbackCreate(ObjBindMethod(implObj, "GetMute"), flags, 2)
     }
 
     Dispose() {

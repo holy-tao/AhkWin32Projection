@@ -81,7 +81,7 @@ export default struct IWbemUnsecuredApartment extends IUnsecuredApartment {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateSinkStub := CallbackCreate(GetMethod(implObj, "CreateSinkStub"), flags, 5)
+        this.vtbl.CreateSinkStub := CallbackCreate(ObjBindMethod(implObj, "CreateSinkStub"), flags, 5)
     }
 
     Dispose() {

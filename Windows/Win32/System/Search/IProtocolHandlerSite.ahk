@@ -78,7 +78,7 @@ export default struct IProtocolHandlerSite extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFilter := CallbackCreate(GetMethod(implObj, "GetFilter"), flags, 5)
+        this.vtbl.GetFilter := CallbackCreate(ObjBindMethod(implObj, "GetFilter"), flags, 5)
     }
 
     Dispose() {

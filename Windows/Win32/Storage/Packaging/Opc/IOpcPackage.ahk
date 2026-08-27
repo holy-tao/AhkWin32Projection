@@ -87,8 +87,8 @@ export default struct IOpcPackage extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPartSet := CallbackCreate(GetMethod(implObj, "GetPartSet"), flags, 2)
-        this.vtbl.GetRelationshipSet := CallbackCreate(GetMethod(implObj, "GetRelationshipSet"), flags, 2)
+        this.vtbl.GetPartSet := CallbackCreate(ObjBindMethod(implObj, "GetPartSet"), flags, 2)
+        this.vtbl.GetRelationshipSet := CallbackCreate(ObjBindMethod(implObj, "GetRelationshipSet"), flags, 2)
     }
 
     Dispose() {

@@ -187,13 +187,13 @@ export default struct IMFMetadata extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetLanguage := CallbackCreate(GetMethod(implObj, "SetLanguage"), flags, 2)
-        this.vtbl.GetLanguage := CallbackCreate(GetMethod(implObj, "GetLanguage"), flags, 2)
-        this.vtbl.GetAllLanguages := CallbackCreate(GetMethod(implObj, "GetAllLanguages"), flags, 2)
-        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 3)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
-        this.vtbl.DeleteProperty := CallbackCreate(GetMethod(implObj, "DeleteProperty"), flags, 2)
-        this.vtbl.GetAllPropertyNames := CallbackCreate(GetMethod(implObj, "GetAllPropertyNames"), flags, 2)
+        this.vtbl.SetLanguage := CallbackCreate(ObjBindMethod(implObj, "SetLanguage"), flags, 2)
+        this.vtbl.GetLanguage := CallbackCreate(ObjBindMethod(implObj, "GetLanguage"), flags, 2)
+        this.vtbl.GetAllLanguages := CallbackCreate(ObjBindMethod(implObj, "GetAllLanguages"), flags, 2)
+        this.vtbl.SetProperty := CallbackCreate(ObjBindMethod(implObj, "SetProperty"), flags, 3)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.DeleteProperty := CallbackCreate(ObjBindMethod(implObj, "DeleteProperty"), flags, 2)
+        this.vtbl.GetAllPropertyNames := CallbackCreate(ObjBindMethod(implObj, "GetAllPropertyNames"), flags, 2)
     }
 
     Dispose() {

@@ -18,7 +18,6 @@ export default struct CM_DROP_PARTY_HANDLER {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Call() {

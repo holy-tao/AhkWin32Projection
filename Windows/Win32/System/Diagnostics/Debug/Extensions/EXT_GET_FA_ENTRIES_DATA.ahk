@@ -21,15 +21,14 @@ export default struct EXT_GET_FA_ENTRIES_DATA {
     }
 
     /**
-     * 
      * @param {IDebugClient4} Client 
      * @param {Pointer<Integer>} Count 
      * @param {Pointer<Pointer<FA_ENTRY>>} Entries 
      * @returns {HRESULT} 
      */
     Call(Client, Count, Entries) {
-        CountMarshal := Count is VarRef ? "uint*" : "ptr"
-        EntriesMarshal := Entries is VarRef ? "ptr*" : "ptr"
+        CountMarshal := Count is VarRef ? "uint*" : IntPtr
+        EntriesMarshal := Entries is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, "ptr", Client, CountMarshal, Count, EntriesMarshal, Entries, "HRESULT")
         return result

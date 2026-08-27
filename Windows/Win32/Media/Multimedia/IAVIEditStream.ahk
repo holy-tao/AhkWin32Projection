@@ -61,8 +61,8 @@ export default struct IAVIEditStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavieditstream-cut
      */
     Cut(plStart, plLength) {
-        plStartMarshal := plStart is VarRef ? "int*" : "ptr"
-        plLengthMarshal := plLength is VarRef ? "int*" : "ptr"
+        plStartMarshal := plStart is VarRef ? "int*" : IntPtr
+        plLengthMarshal := plLength is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, plStartMarshal, plStart, plLengthMarshal, plLength, "ptr*", &ppResult := 0, "HRESULT")
         return IAVIStream(ppResult)
@@ -87,8 +87,8 @@ export default struct IAVIEditStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavieditstream-copy
      */
     Copy(plStart, plLength) {
-        plStartMarshal := plStart is VarRef ? "int*" : "ptr"
-        plLengthMarshal := plLength is VarRef ? "int*" : "ptr"
+        plStartMarshal := plStart is VarRef ? "int*" : IntPtr
+        plLengthMarshal := plLength is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, plStartMarshal, plStart, plLengthMarshal, plLength, "ptr*", &ppResult := 0, "HRESULT")
         return IAVIStream(ppResult)
@@ -116,8 +116,8 @@ export default struct IAVIEditStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavieditstream-paste
      */
     Paste(plPos, plLength, pstream, lStart, lEnd) {
-        plPosMarshal := plPos is VarRef ? "int*" : "ptr"
-        plLengthMarshal := plLength is VarRef ? "int*" : "ptr"
+        plPosMarshal := plPos is VarRef ? "int*" : IntPtr
+        plLengthMarshal := plLength is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, plPosMarshal, plPos, plLengthMarshal, plLength, "ptr", pstream, Int32, lStart, Int32, lEnd, "HRESULT")
         return result
@@ -174,11 +174,11 @@ export default struct IAVIEditStream extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Cut := CallbackCreate(GetMethod(implObj, "Cut"), flags, 4)
-        this.vtbl.Copy := CallbackCreate(GetMethod(implObj, "Copy"), flags, 4)
-        this.vtbl.Paste := CallbackCreate(GetMethod(implObj, "Paste"), flags, 6)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
-        this.vtbl.SetInfo := CallbackCreate(GetMethod(implObj, "SetInfo"), flags, 3)
+        this.vtbl.Cut := CallbackCreate(ObjBindMethod(implObj, "Cut"), flags, 4)
+        this.vtbl.Copy := CallbackCreate(ObjBindMethod(implObj, "Copy"), flags, 4)
+        this.vtbl.Paste := CallbackCreate(ObjBindMethod(implObj, "Paste"), flags, 6)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.SetInfo := CallbackCreate(ObjBindMethod(implObj, "SetInfo"), flags, 3)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct LPSERVICE_CALLBACK_PROC {
     }
 
     /**
-     * 
      * @param {LPARAM} _lParam 
      * @param {HANDLE} hAsyncTaskHandle 
      * @returns {String} Nothing - always returns an empty string

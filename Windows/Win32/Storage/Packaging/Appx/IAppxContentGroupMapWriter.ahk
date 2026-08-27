@@ -67,7 +67,6 @@ export default struct IAppxContentGroupMapWriter extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Close() {
@@ -84,9 +83,9 @@ export default struct IAppxContentGroupMapWriter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddAutomaticGroup := CallbackCreate(GetMethod(implObj, "AddAutomaticGroup"), flags, 2)
-        this.vtbl.AddAutomaticFile := CallbackCreate(GetMethod(implObj, "AddAutomaticFile"), flags, 2)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.AddAutomaticGroup := CallbackCreate(ObjBindMethod(implObj, "AddAutomaticGroup"), flags, 2)
+        this.vtbl.AddAutomaticFile := CallbackCreate(ObjBindMethod(implObj, "AddAutomaticFile"), flags, 2)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
     }
 
     Dispose() {

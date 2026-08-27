@@ -94,7 +94,6 @@ export default struct SnapIn extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -104,7 +103,6 @@ export default struct SnapIn extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Vendor() {
@@ -114,7 +112,6 @@ export default struct SnapIn extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Version() {
@@ -124,7 +121,6 @@ export default struct SnapIn extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Extensions} 
      */
     get_Extensions() {
@@ -133,7 +129,6 @@ export default struct SnapIn extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_SnapinCLSID() {
@@ -143,7 +138,6 @@ export default struct SnapIn extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Properties} 
      */
     get_Properties() {
@@ -152,7 +146,6 @@ export default struct SnapIn extends IDispatch {
     }
 
     /**
-     * 
      * @param {BOOL} Enable 
      * @returns {HRESULT} 
      */
@@ -170,13 +163,13 @@ export default struct SnapIn extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_Vendor := CallbackCreate(GetMethod(implObj, "get_Vendor"), flags, 2)
-        this.vtbl.get_Version := CallbackCreate(GetMethod(implObj, "get_Version"), flags, 2)
-        this.vtbl.get_Extensions := CallbackCreate(GetMethod(implObj, "get_Extensions"), flags, 2)
-        this.vtbl.get_SnapinCLSID := CallbackCreate(GetMethod(implObj, "get_SnapinCLSID"), flags, 2)
-        this.vtbl.get_Properties := CallbackCreate(GetMethod(implObj, "get_Properties"), flags, 2)
-        this.vtbl.EnableAllExtensions := CallbackCreate(GetMethod(implObj, "EnableAllExtensions"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Vendor := CallbackCreate(ObjBindMethod(implObj, "get_Vendor"), flags, 2)
+        this.vtbl.get_Version := CallbackCreate(ObjBindMethod(implObj, "get_Version"), flags, 2)
+        this.vtbl.get_Extensions := CallbackCreate(ObjBindMethod(implObj, "get_Extensions"), flags, 2)
+        this.vtbl.get_SnapinCLSID := CallbackCreate(ObjBindMethod(implObj, "get_SnapinCLSID"), flags, 2)
+        this.vtbl.get_Properties := CallbackCreate(ObjBindMethod(implObj, "get_Properties"), flags, 2)
+        this.vtbl.EnableAllExtensions := CallbackCreate(ObjBindMethod(implObj, "EnableAllExtensions"), flags, 2)
     }
 
     Dispose() {

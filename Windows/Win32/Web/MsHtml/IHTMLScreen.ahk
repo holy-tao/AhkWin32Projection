@@ -110,7 +110,6 @@ export default struct IHTMLScreen extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_colorDepth() {
@@ -119,7 +118,6 @@ export default struct IHTMLScreen extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -129,7 +127,6 @@ export default struct IHTMLScreen extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_bufferDepth() {
@@ -138,7 +135,6 @@ export default struct IHTMLScreen extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_width() {
@@ -147,7 +143,6 @@ export default struct IHTMLScreen extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_height() {
@@ -156,7 +151,6 @@ export default struct IHTMLScreen extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -166,7 +160,6 @@ export default struct IHTMLScreen extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_updateInterval() {
@@ -175,7 +168,6 @@ export default struct IHTMLScreen extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_availHeight() {
@@ -184,7 +176,6 @@ export default struct IHTMLScreen extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_availWidth() {
@@ -193,7 +184,6 @@ export default struct IHTMLScreen extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_fontSmoothingEnabled() {
@@ -210,16 +200,16 @@ export default struct IHTMLScreen extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_colorDepth := CallbackCreate(GetMethod(implObj, "get_colorDepth"), flags, 2)
-        this.vtbl.put_bufferDepth := CallbackCreate(GetMethod(implObj, "put_bufferDepth"), flags, 2)
-        this.vtbl.get_bufferDepth := CallbackCreate(GetMethod(implObj, "get_bufferDepth"), flags, 2)
-        this.vtbl.get_width := CallbackCreate(GetMethod(implObj, "get_width"), flags, 2)
-        this.vtbl.get_height := CallbackCreate(GetMethod(implObj, "get_height"), flags, 2)
-        this.vtbl.put_updateInterval := CallbackCreate(GetMethod(implObj, "put_updateInterval"), flags, 2)
-        this.vtbl.get_updateInterval := CallbackCreate(GetMethod(implObj, "get_updateInterval"), flags, 2)
-        this.vtbl.get_availHeight := CallbackCreate(GetMethod(implObj, "get_availHeight"), flags, 2)
-        this.vtbl.get_availWidth := CallbackCreate(GetMethod(implObj, "get_availWidth"), flags, 2)
-        this.vtbl.get_fontSmoothingEnabled := CallbackCreate(GetMethod(implObj, "get_fontSmoothingEnabled"), flags, 2)
+        this.vtbl.get_colorDepth := CallbackCreate(ObjBindMethod(implObj, "get_colorDepth"), flags, 2)
+        this.vtbl.put_bufferDepth := CallbackCreate(ObjBindMethod(implObj, "put_bufferDepth"), flags, 2)
+        this.vtbl.get_bufferDepth := CallbackCreate(ObjBindMethod(implObj, "get_bufferDepth"), flags, 2)
+        this.vtbl.get_width := CallbackCreate(ObjBindMethod(implObj, "get_width"), flags, 2)
+        this.vtbl.get_height := CallbackCreate(ObjBindMethod(implObj, "get_height"), flags, 2)
+        this.vtbl.put_updateInterval := CallbackCreate(ObjBindMethod(implObj, "put_updateInterval"), flags, 2)
+        this.vtbl.get_updateInterval := CallbackCreate(ObjBindMethod(implObj, "get_updateInterval"), flags, 2)
+        this.vtbl.get_availHeight := CallbackCreate(ObjBindMethod(implObj, "get_availHeight"), flags, 2)
+        this.vtbl.get_availWidth := CallbackCreate(ObjBindMethod(implObj, "get_availWidth"), flags, 2)
+        this.vtbl.get_fontSmoothingEnabled := CallbackCreate(ObjBindMethod(implObj, "get_fontSmoothingEnabled"), flags, 2)
     }
 
     Dispose() {

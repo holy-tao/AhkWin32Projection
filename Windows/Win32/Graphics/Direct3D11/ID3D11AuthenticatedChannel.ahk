@@ -83,9 +83,9 @@ export default struct ID3D11AuthenticatedChannel extends ID3D11DeviceChild {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCertificateSize := CallbackCreate(GetMethod(implObj, "GetCertificateSize"), flags, 2)
-        this.vtbl.GetCertificate := CallbackCreate(GetMethod(implObj, "GetCertificate"), flags, 3)
-        this.vtbl.GetChannelHandle := CallbackCreate(GetMethod(implObj, "GetChannelHandle"), flags, 2)
+        this.vtbl.GetCertificateSize := CallbackCreate(ObjBindMethod(implObj, "GetCertificateSize"), flags, 2)
+        this.vtbl.GetCertificate := CallbackCreate(ObjBindMethod(implObj, "GetCertificate"), flags, 3)
+        this.vtbl.GetChannelHandle := CallbackCreate(ObjBindMethod(implObj, "GetChannelHandle"), flags, 2)
     }
 
     Dispose() {

@@ -18,7 +18,7 @@
  * @see https://learn.microsoft.com/windows/win32/api/oobenotification/nf-oobenotification-oobecomplete
  */
 export OOBEComplete(isOOBEComplete) {
-    isOOBECompleteMarshal := isOOBEComplete is VarRef ? "int*" : "ptr"
+    isOOBECompleteMarshal := isOOBEComplete is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
@@ -41,8 +41,9 @@ export OOBEComplete(isOOBEComplete) {
  * @see https://learn.microsoft.com/windows/win32/api/oobenotification/nf-oobenotification-registerwaituntiloobecompleted
  */
 export RegisterWaitUntilOOBECompleted(OOBECompletedCallback, CallbackContext, WaitHandle) {
-    CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
-    WaitHandleMarshal := WaitHandle is VarRef ? "ptr*" : "ptr"
+    CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : IntPtr
+    CallbackContextMarshal := CallbackContext == 0 ? IntPtr : "ptr"
+    WaitHandleMarshal := WaitHandle is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -61,7 +62,7 @@ export RegisterWaitUntilOOBECompleted(OOBECompletedCallback, CallbackContext, Wa
  * @see https://learn.microsoft.com/windows/win32/api/oobenotification/nf-oobenotification-unregisterwaituntiloobecompleted
  */
 export UnregisterWaitUntilOOBECompleted(WaitHandle) {
-    WaitHandleMarshal := WaitHandle is VarRef ? "ptr" : "ptr"
+    WaitHandleMarshal := WaitHandle is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 

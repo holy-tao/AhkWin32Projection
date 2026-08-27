@@ -100,7 +100,7 @@ export default struct IUIAnimationTransitionLibrary2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary2-createinstantaneousvectortransition
      */
     CreateInstantaneousVectorTransition(finalValue, cDimension) {
-        finalValueMarshal := finalValue is VarRef ? "double*" : "ptr"
+        finalValueMarshal := finalValue is VarRef ? "double*" : IntPtr
 
         result := ComCall(4, this, finalValueMarshal, finalValue, UInt32, cDimension, "ptr*", &transition := 0, "HRESULT")
         return IUIAnimationTransition2(transition)
@@ -158,7 +158,7 @@ export default struct IUIAnimationTransitionLibrary2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary2-creatediscretevectortransition
      */
     CreateDiscreteVectorTransition(delay, finalValue, cDimension, _hold) {
-        finalValueMarshal := finalValue is VarRef ? "double*" : "ptr"
+        finalValueMarshal := finalValue is VarRef ? "double*" : IntPtr
 
         result := ComCall(7, this, Float64, delay, finalValueMarshal, finalValue, UInt32, cDimension, Float64, _hold, "ptr*", &transition := 0, "HRESULT")
         return IUIAnimationTransition2(transition)
@@ -197,7 +197,7 @@ export default struct IUIAnimationTransitionLibrary2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary2-createlinearvectortransition
      */
     CreateLinearVectorTransition(duration, finalValue, cDimension) {
-        finalValueMarshal := finalValue is VarRef ? "double*" : "ptr"
+        finalValueMarshal := finalValue is VarRef ? "double*" : IntPtr
 
         result := ComCall(9, this, Float64, duration, finalValueMarshal, finalValue, UInt32, cDimension, "ptr*", &transition := 0, "HRESULT")
         return IUIAnimationTransition2(transition)
@@ -236,7 +236,7 @@ export default struct IUIAnimationTransitionLibrary2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary2-createlinearvectortransitionfromspeed
      */
     CreateLinearVectorTransitionFromSpeed(speed, finalValue, cDimension) {
-        finalValueMarshal := finalValue is VarRef ? "double*" : "ptr"
+        finalValueMarshal := finalValue is VarRef ? "double*" : IntPtr
 
         result := ComCall(11, this, Float64, speed, finalValueMarshal, finalValue, UInt32, cDimension, "ptr*", &transition := 0, "HRESULT")
         return IUIAnimationTransition2(transition)
@@ -356,8 +356,8 @@ export default struct IUIAnimationTransitionLibrary2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary2-createcubicvectortransition
      */
     CreateCubicVectorTransition(duration, finalValue, finalVelocity, cDimension) {
-        finalValueMarshal := finalValue is VarRef ? "double*" : "ptr"
-        finalVelocityMarshal := finalVelocity is VarRef ? "double*" : "ptr"
+        finalValueMarshal := finalValue is VarRef ? "double*" : IntPtr
+        finalVelocityMarshal := finalVelocity is VarRef ? "double*" : IntPtr
 
         result := ComCall(17, this, Float64, duration, finalValueMarshal, finalValue, finalVelocityMarshal, finalVelocity, UInt32, cDimension, "ptr*", &transition := 0, "HRESULT")
         return IUIAnimationTransition2(transition)
@@ -441,7 +441,7 @@ export default struct IUIAnimationTransitionLibrary2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary2-createcubicbezierlinearvectortransition
      */
     CreateCubicBezierLinearVectorTransition(duration, finalValue, cDimension, x1, y1, x2, y2) {
-        finalValueMarshal := finalValue is VarRef ? "double*" : "ptr"
+        finalValueMarshal := finalValue is VarRef ? "double*" : IntPtr
 
         result := ComCall(21, this, Float64, duration, finalValueMarshal, finalValue, UInt32, cDimension, Float64, x1, Float64, y1, Float64, x2, Float64, y2, "ptr*", &ppTransition := 0, "HRESULT")
         return IUIAnimationTransition2(ppTransition)
@@ -456,25 +456,25 @@ export default struct IUIAnimationTransitionLibrary2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateInstantaneousTransition := CallbackCreate(GetMethod(implObj, "CreateInstantaneousTransition"), flags, 3)
-        this.vtbl.CreateInstantaneousVectorTransition := CallbackCreate(GetMethod(implObj, "CreateInstantaneousVectorTransition"), flags, 4)
-        this.vtbl.CreateConstantTransition := CallbackCreate(GetMethod(implObj, "CreateConstantTransition"), flags, 3)
-        this.vtbl.CreateDiscreteTransition := CallbackCreate(GetMethod(implObj, "CreateDiscreteTransition"), flags, 5)
-        this.vtbl.CreateDiscreteVectorTransition := CallbackCreate(GetMethod(implObj, "CreateDiscreteVectorTransition"), flags, 6)
-        this.vtbl.CreateLinearTransition := CallbackCreate(GetMethod(implObj, "CreateLinearTransition"), flags, 4)
-        this.vtbl.CreateLinearVectorTransition := CallbackCreate(GetMethod(implObj, "CreateLinearVectorTransition"), flags, 5)
-        this.vtbl.CreateLinearTransitionFromSpeed := CallbackCreate(GetMethod(implObj, "CreateLinearTransitionFromSpeed"), flags, 4)
-        this.vtbl.CreateLinearVectorTransitionFromSpeed := CallbackCreate(GetMethod(implObj, "CreateLinearVectorTransitionFromSpeed"), flags, 5)
-        this.vtbl.CreateSinusoidalTransitionFromVelocity := CallbackCreate(GetMethod(implObj, "CreateSinusoidalTransitionFromVelocity"), flags, 4)
-        this.vtbl.CreateSinusoidalTransitionFromRange := CallbackCreate(GetMethod(implObj, "CreateSinusoidalTransitionFromRange"), flags, 7)
-        this.vtbl.CreateAccelerateDecelerateTransition := CallbackCreate(GetMethod(implObj, "CreateAccelerateDecelerateTransition"), flags, 6)
-        this.vtbl.CreateReversalTransition := CallbackCreate(GetMethod(implObj, "CreateReversalTransition"), flags, 3)
-        this.vtbl.CreateCubicTransition := CallbackCreate(GetMethod(implObj, "CreateCubicTransition"), flags, 5)
-        this.vtbl.CreateCubicVectorTransition := CallbackCreate(GetMethod(implObj, "CreateCubicVectorTransition"), flags, 6)
-        this.vtbl.CreateSmoothStopTransition := CallbackCreate(GetMethod(implObj, "CreateSmoothStopTransition"), flags, 4)
-        this.vtbl.CreateParabolicTransitionFromAcceleration := CallbackCreate(GetMethod(implObj, "CreateParabolicTransitionFromAcceleration"), flags, 5)
-        this.vtbl.CreateCubicBezierLinearTransition := CallbackCreate(GetMethod(implObj, "CreateCubicBezierLinearTransition"), flags, 8)
-        this.vtbl.CreateCubicBezierLinearVectorTransition := CallbackCreate(GetMethod(implObj, "CreateCubicBezierLinearVectorTransition"), flags, 9)
+        this.vtbl.CreateInstantaneousTransition := CallbackCreate(ObjBindMethod(implObj, "CreateInstantaneousTransition"), flags, 3)
+        this.vtbl.CreateInstantaneousVectorTransition := CallbackCreate(ObjBindMethod(implObj, "CreateInstantaneousVectorTransition"), flags, 4)
+        this.vtbl.CreateConstantTransition := CallbackCreate(ObjBindMethod(implObj, "CreateConstantTransition"), flags, 3)
+        this.vtbl.CreateDiscreteTransition := CallbackCreate(ObjBindMethod(implObj, "CreateDiscreteTransition"), flags, 5)
+        this.vtbl.CreateDiscreteVectorTransition := CallbackCreate(ObjBindMethod(implObj, "CreateDiscreteVectorTransition"), flags, 6)
+        this.vtbl.CreateLinearTransition := CallbackCreate(ObjBindMethod(implObj, "CreateLinearTransition"), flags, 4)
+        this.vtbl.CreateLinearVectorTransition := CallbackCreate(ObjBindMethod(implObj, "CreateLinearVectorTransition"), flags, 5)
+        this.vtbl.CreateLinearTransitionFromSpeed := CallbackCreate(ObjBindMethod(implObj, "CreateLinearTransitionFromSpeed"), flags, 4)
+        this.vtbl.CreateLinearVectorTransitionFromSpeed := CallbackCreate(ObjBindMethod(implObj, "CreateLinearVectorTransitionFromSpeed"), flags, 5)
+        this.vtbl.CreateSinusoidalTransitionFromVelocity := CallbackCreate(ObjBindMethod(implObj, "CreateSinusoidalTransitionFromVelocity"), flags, 4)
+        this.vtbl.CreateSinusoidalTransitionFromRange := CallbackCreate(ObjBindMethod(implObj, "CreateSinusoidalTransitionFromRange"), flags, 7)
+        this.vtbl.CreateAccelerateDecelerateTransition := CallbackCreate(ObjBindMethod(implObj, "CreateAccelerateDecelerateTransition"), flags, 6)
+        this.vtbl.CreateReversalTransition := CallbackCreate(ObjBindMethod(implObj, "CreateReversalTransition"), flags, 3)
+        this.vtbl.CreateCubicTransition := CallbackCreate(ObjBindMethod(implObj, "CreateCubicTransition"), flags, 5)
+        this.vtbl.CreateCubicVectorTransition := CallbackCreate(ObjBindMethod(implObj, "CreateCubicVectorTransition"), flags, 6)
+        this.vtbl.CreateSmoothStopTransition := CallbackCreate(ObjBindMethod(implObj, "CreateSmoothStopTransition"), flags, 4)
+        this.vtbl.CreateParabolicTransitionFromAcceleration := CallbackCreate(ObjBindMethod(implObj, "CreateParabolicTransitionFromAcceleration"), flags, 5)
+        this.vtbl.CreateCubicBezierLinearTransition := CallbackCreate(ObjBindMethod(implObj, "CreateCubicBezierLinearTransition"), flags, 8)
+        this.vtbl.CreateCubicBezierLinearVectorTransition := CallbackCreate(ObjBindMethod(implObj, "CreateCubicBezierLinearVectorTransition"), flags, 9)
     }
 
     Dispose() {

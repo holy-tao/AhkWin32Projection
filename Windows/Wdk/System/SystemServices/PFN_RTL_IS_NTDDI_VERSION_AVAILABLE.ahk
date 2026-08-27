@@ -19,7 +19,6 @@ export default struct PFN_RTL_IS_NTDDI_VERSION_AVAILABLE {
     }
 
     /**
-     * 
      * @param {Integer} _Version 
      * @returns {BOOLEAN} 
      */

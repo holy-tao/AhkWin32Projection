@@ -21,7 +21,6 @@ export default struct LPFN_ACCEPTEX {
     }
 
     /**
-     * 
      * @param {SOCKET} sListenSocket 
      * @param {SOCKET} sAcceptSocket 
      * @param {Pointer<Void>} lpOutputBuffer 
@@ -33,8 +32,8 @@ export default struct LPFN_ACCEPTEX {
      * @returns {BOOL} 
      */
     Call(sListenSocket, sAcceptSocket, lpOutputBuffer, dwReceiveDataLength, dwLocalAddressLength, dwRemoteAddressLength, lpdwBytesReceived, lpOverlapped) {
-        lpOutputBufferMarshal := lpOutputBuffer is VarRef ? "ptr" : "ptr"
-        lpdwBytesReceivedMarshal := lpdwBytesReceived is VarRef ? "uint*" : "ptr"
+        lpOutputBufferMarshal := lpOutputBuffer is VarRef ? "ptr" : IntPtr
+        lpdwBytesReceivedMarshal := lpdwBytesReceived is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, SOCKET, sListenSocket, SOCKET, sAcceptSocket, lpOutputBufferMarshal, lpOutputBuffer, UInt32, dwReceiveDataLength, UInt32, dwLocalAddressLength, UInt32, dwRemoteAddressLength, lpdwBytesReceivedMarshal, lpdwBytesReceived, OVERLAPPED.Ptr, lpOverlapped, BOOL)
         return result

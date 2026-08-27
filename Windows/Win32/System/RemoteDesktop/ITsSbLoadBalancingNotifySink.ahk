@@ -63,7 +63,7 @@ export default struct ITsSbLoadBalancingNotifySink extends ITsSbBaseNotifySink {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnGetMostSuitableTarget := CallbackCreate(GetMethod(implObj, "OnGetMostSuitableTarget"), flags, 3)
+        this.vtbl.OnGetMostSuitableTarget := CallbackCreate(ObjBindMethod(implObj, "OnGetMostSuitableTarget"), flags, 3)
     }
 
     Dispose() {

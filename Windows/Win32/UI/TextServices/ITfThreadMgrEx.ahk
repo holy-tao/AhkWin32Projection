@@ -200,8 +200,8 @@ export default struct ITfThreadMgrEx extends ITfThreadMgr {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ActivateEx := CallbackCreate(GetMethod(implObj, "ActivateEx"), flags, 3)
-        this.vtbl.GetActiveFlags := CallbackCreate(GetMethod(implObj, "GetActiveFlags"), flags, 2)
+        this.vtbl.ActivateEx := CallbackCreate(ObjBindMethod(implObj, "ActivateEx"), flags, 3)
+        this.vtbl.GetActiveFlags := CallbackCreate(ObjBindMethod(implObj, "GetActiveFlags"), flags, 2)
     }
 
     Dispose() {

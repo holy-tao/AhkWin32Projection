@@ -40,7 +40,6 @@ export default struct ID3DShaderCacheInstallerClient extends Win32ComInterface {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} pNameLength 
      * @param {PWSTR} pName 
      * @returns {HRESULT} 
@@ -48,14 +47,14 @@ export default struct ID3DShaderCacheInstallerClient extends Win32ComInterface {
     GetInstallerName(pNameLength, pName) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        pNameLengthMarshal := pNameLength is VarRef ? "ptr*" : "ptr"
+        pNameLengthMarshal := pNameLength is VarRef ? "ptr*" : IntPtr
+        pNameMarshal := pName == 0 ? IntPtr : PWSTR
 
-        result := ComCall(0, this, pNameLengthMarshal, pNameLength, "ptr", pName, "HRESULT")
+        result := ComCall(0, this, pNameLengthMarshal, pNameLength, pNameMarshal, pName, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {D3D_SHADER_CACHE_APP_REGISTRATION_SCOPE} 
      */
     GetInstallerScope() {
@@ -64,7 +63,6 @@ export default struct ID3DShaderCacheInstallerClient extends Win32ComInterface {
     }
 
     /**
-     * 
      * @param {ID3DShaderCacheInstaller} pInstaller 
      * @returns {HRESULT} 
      */

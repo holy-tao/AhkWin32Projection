@@ -58,7 +58,6 @@ export default struct ICatalog extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrCollName 
      * @returns {IDispatch} 
      */
@@ -70,7 +69,6 @@ export default struct ICatalog extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrConnectString 
      * @returns {IDispatch} 
      */
@@ -82,24 +80,22 @@ export default struct ICatalog extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} retval 
      * @returns {HRESULT} 
      */
     get_MajorVersion(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+        retvalMarshal := retval is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, retvalMarshal, retval, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} retval 
      * @returns {HRESULT} 
      */
     get_MinorVersion(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
+        retvalMarshal := retval is VarRef ? "int*" : IntPtr
 
         result := ComCall(10, this, retvalMarshal, retval, "HRESULT")
         return result
@@ -114,10 +110,10 @@ export default struct ICatalog extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCollection := CallbackCreate(GetMethod(implObj, "GetCollection"), flags, 3)
-        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 3)
-        this.vtbl.get_MajorVersion := CallbackCreate(GetMethod(implObj, "get_MajorVersion"), flags, 2)
-        this.vtbl.get_MinorVersion := CallbackCreate(GetMethod(implObj, "get_MinorVersion"), flags, 2)
+        this.vtbl.GetCollection := CallbackCreate(ObjBindMethod(implObj, "GetCollection"), flags, 3)
+        this.vtbl.Connect := CallbackCreate(ObjBindMethod(implObj, "Connect"), flags, 3)
+        this.vtbl.get_MajorVersion := CallbackCreate(ObjBindMethod(implObj, "get_MajorVersion"), flags, 2)
+        this.vtbl.get_MinorVersion := CallbackCreate(ObjBindMethod(implObj, "get_MinorVersion"), flags, 2)
     }
 
     Dispose() {

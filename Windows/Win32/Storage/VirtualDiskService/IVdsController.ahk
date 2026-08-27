@@ -420,14 +420,14 @@ export default struct IVdsController extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
-        this.vtbl.GetSubSystem := CallbackCreate(GetMethod(implObj, "GetSubSystem"), flags, 2)
-        this.vtbl.GetPortProperties := CallbackCreate(GetMethod(implObj, "GetPortProperties"), flags, 3)
-        this.vtbl.FlushCache := CallbackCreate(GetMethod(implObj, "FlushCache"), flags, 1)
-        this.vtbl.InvalidateCache := CallbackCreate(GetMethod(implObj, "InvalidateCache"), flags, 1)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.QueryAssociatedLuns := CallbackCreate(GetMethod(implObj, "QueryAssociatedLuns"), flags, 2)
-        this.vtbl.SetStatus := CallbackCreate(GetMethod(implObj, "SetStatus"), flags, 2)
+        this.vtbl.GetProperties := CallbackCreate(ObjBindMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.GetSubSystem := CallbackCreate(ObjBindMethod(implObj, "GetSubSystem"), flags, 2)
+        this.vtbl.GetPortProperties := CallbackCreate(ObjBindMethod(implObj, "GetPortProperties"), flags, 3)
+        this.vtbl.FlushCache := CallbackCreate(ObjBindMethod(implObj, "FlushCache"), flags, 1)
+        this.vtbl.InvalidateCache := CallbackCreate(ObjBindMethod(implObj, "InvalidateCache"), flags, 1)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.QueryAssociatedLuns := CallbackCreate(ObjBindMethod(implObj, "QueryAssociatedLuns"), flags, 2)
+        this.vtbl.SetStatus := CallbackCreate(ObjBindMethod(implObj, "SetStatus"), flags, 2)
     }
 
     Dispose() {

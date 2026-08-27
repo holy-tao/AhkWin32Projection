@@ -19,13 +19,12 @@ export default struct KspMapHandleFn {
     }
 
     /**
-     * 
      * @param {Pointer} ContextId 
      * @param {Pointer<Pointer>} LsaContextId 
      * @returns {NTSTATUS} 
      */
     Call(ContextId, LsaContextId) {
-        LsaContextIdMarshal := LsaContextId is VarRef ? "ptr*" : "ptr"
+        LsaContextIdMarshal := LsaContextId is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, IntPtr, ContextId, LsaContextIdMarshal, LsaContextId, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

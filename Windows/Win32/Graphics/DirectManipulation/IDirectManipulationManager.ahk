@@ -104,7 +104,9 @@ export default struct IDirectManipulationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationmanager-registerhittesttarget
      */
     RegisterHitTestTarget(window, hitTestWindow, type) {
-        result := ComCall(5, this, HWND, window, HWND, hitTestWindow, DIRECTMANIPULATION_HITTEST_TYPE, type, "HRESULT")
+        hitTestWindowMarshal := hitTestWindow == 0 ? IntPtr : HWND
+
+        result := ComCall(5, this, HWND, window, hitTestWindowMarshal, hitTestWindow, DIRECTMANIPULATION_HITTEST_TYPE, type, "HRESULT")
         return result
     }
 
@@ -143,7 +145,9 @@ export default struct IDirectManipulationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationmanager-createviewport
      */
     CreateViewport(frameInfo, window, riid) {
-        result := ComCall(8, this, "ptr", frameInfo, HWND, window, Guid.Ptr, riid, "ptr*", &_object := 0, "HRESULT")
+        frameInfoMarshal := frameInfo == 0 ? IntPtr : "ptr"
+
+        result := ComCall(8, this, frameInfoMarshal, frameInfo, HWND, window, Guid.Ptr, riid, "ptr*", &_object := 0, "HRESULT")
         return _object
     }
 
@@ -160,7 +164,9 @@ export default struct IDirectManipulationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationmanager-createcontent
      */
     CreateContent(frameInfo, clsid, riid) {
-        result := ComCall(9, this, "ptr", frameInfo, Guid.Ptr, clsid, Guid.Ptr, riid, "ptr*", &_object := 0, "HRESULT")
+        frameInfoMarshal := frameInfo == 0 ? IntPtr : "ptr"
+
+        result := ComCall(9, this, frameInfoMarshal, frameInfo, Guid.Ptr, clsid, Guid.Ptr, riid, "ptr*", &_object := 0, "HRESULT")
         return _object
     }
 
@@ -173,13 +179,13 @@ export default struct IDirectManipulationManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Activate := CallbackCreate(GetMethod(implObj, "Activate"), flags, 2)
-        this.vtbl.Deactivate := CallbackCreate(GetMethod(implObj, "Deactivate"), flags, 2)
-        this.vtbl.RegisterHitTestTarget := CallbackCreate(GetMethod(implObj, "RegisterHitTestTarget"), flags, 4)
-        this.vtbl.ProcessInput := CallbackCreate(GetMethod(implObj, "ProcessInput"), flags, 3)
-        this.vtbl.GetUpdateManager := CallbackCreate(GetMethod(implObj, "GetUpdateManager"), flags, 3)
-        this.vtbl.CreateViewport := CallbackCreate(GetMethod(implObj, "CreateViewport"), flags, 5)
-        this.vtbl.CreateContent := CallbackCreate(GetMethod(implObj, "CreateContent"), flags, 5)
+        this.vtbl.Activate := CallbackCreate(ObjBindMethod(implObj, "Activate"), flags, 2)
+        this.vtbl.Deactivate := CallbackCreate(ObjBindMethod(implObj, "Deactivate"), flags, 2)
+        this.vtbl.RegisterHitTestTarget := CallbackCreate(ObjBindMethod(implObj, "RegisterHitTestTarget"), flags, 4)
+        this.vtbl.ProcessInput := CallbackCreate(ObjBindMethod(implObj, "ProcessInput"), flags, 3)
+        this.vtbl.GetUpdateManager := CallbackCreate(ObjBindMethod(implObj, "GetUpdateManager"), flags, 3)
+        this.vtbl.CreateViewport := CallbackCreate(ObjBindMethod(implObj, "CreateViewport"), flags, 5)
+        this.vtbl.CreateContent := CallbackCreate(ObjBindMethod(implObj, "CreateContent"), flags, 5)
     }
 
     Dispose() {

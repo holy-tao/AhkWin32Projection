@@ -44,7 +44,6 @@ export default struct IProtectionPolicyManagerInterop3 extends IInspectable {
     }
 
     /**
-     * 
      * @param {HWND} appWindow 
      * @param {HSTRING} sourceIdentity 
      * @param {HSTRING} targetIdentity 
@@ -60,7 +59,6 @@ export default struct IProtectionPolicyManagerInterop3 extends IInspectable {
     }
 
     /**
-     * 
      * @param {HWND} appWindow 
      * @param {HSTRING} sourceIdentity 
      * @param {HSTRING} appPackageFamilyName 
@@ -76,7 +74,6 @@ export default struct IProtectionPolicyManagerInterop3 extends IInspectable {
     }
 
     /**
-     * 
      * @param {HWND} appWindow 
      * @param {IUnknown} sourceItemListUnk 
      * @param {HSTRING} appPackageFamilyName 
@@ -90,7 +87,6 @@ export default struct IProtectionPolicyManagerInterop3 extends IInspectable {
     }
 
     /**
-     * 
      * @param {HWND} appWindow 
      * @param {IUnknown} sourceItemListUnk 
      * @param {HSTRING} appPackageFamilyName 
@@ -106,7 +102,6 @@ export default struct IProtectionPolicyManagerInterop3 extends IInspectable {
     }
 
     /**
-     * 
      * @param {HWND} appWindow 
      * @param {IUnknown} sourceItemListUnk 
      * @param {Integer} processId 
@@ -120,7 +115,6 @@ export default struct IProtectionPolicyManagerInterop3 extends IInspectable {
     }
 
     /**
-     * 
      * @param {HWND} appWindow 
      * @param {IUnknown} sourceItemListUnk 
      * @param {Integer} processId 
@@ -144,12 +138,12 @@ export default struct IProtectionPolicyManagerInterop3 extends IInspectable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RequestAccessWithBehaviorForWindowAsync := CallbackCreate(GetMethod(implObj, "RequestAccessWithBehaviorForWindowAsync"), flags, 9)
-        this.vtbl.RequestAccessForAppWithBehaviorForWindowAsync := CallbackCreate(GetMethod(implObj, "RequestAccessForAppWithBehaviorForWindowAsync"), flags, 9)
-        this.vtbl.RequestAccessToFilesForAppForWindowAsync := CallbackCreate(GetMethod(implObj, "RequestAccessToFilesForAppForWindowAsync"), flags, 7)
-        this.vtbl.RequestAccessToFilesForAppWithMessageAndBehaviorForWindowAsync := CallbackCreate(GetMethod(implObj, "RequestAccessToFilesForAppWithMessageAndBehaviorForWindowAsync"), flags, 9)
-        this.vtbl.RequestAccessToFilesForProcessForWindowAsync := CallbackCreate(GetMethod(implObj, "RequestAccessToFilesForProcessForWindowAsync"), flags, 7)
-        this.vtbl.RequestAccessToFilesForProcessWithMessageAndBehaviorForWindowAsync := CallbackCreate(GetMethod(implObj, "RequestAccessToFilesForProcessWithMessageAndBehaviorForWindowAsync"), flags, 9)
+        this.vtbl.RequestAccessWithBehaviorForWindowAsync := CallbackCreate(ObjBindMethod(implObj, "RequestAccessWithBehaviorForWindowAsync"), flags, 9)
+        this.vtbl.RequestAccessForAppWithBehaviorForWindowAsync := CallbackCreate(ObjBindMethod(implObj, "RequestAccessForAppWithBehaviorForWindowAsync"), flags, 9)
+        this.vtbl.RequestAccessToFilesForAppForWindowAsync := CallbackCreate(ObjBindMethod(implObj, "RequestAccessToFilesForAppForWindowAsync"), flags, 7)
+        this.vtbl.RequestAccessToFilesForAppWithMessageAndBehaviorForWindowAsync := CallbackCreate(ObjBindMethod(implObj, "RequestAccessToFilesForAppWithMessageAndBehaviorForWindowAsync"), flags, 9)
+        this.vtbl.RequestAccessToFilesForProcessForWindowAsync := CallbackCreate(ObjBindMethod(implObj, "RequestAccessToFilesForProcessForWindowAsync"), flags, 7)
+        this.vtbl.RequestAccessToFilesForProcessWithMessageAndBehaviorForWindowAsync := CallbackCreate(ObjBindMethod(implObj, "RequestAccessToFilesForProcessWithMessageAndBehaviorForWindowAsync"), flags, 9)
     }
 
     Dispose() {

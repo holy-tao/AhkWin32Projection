@@ -83,7 +83,6 @@ export default struct ISVGZoomEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGRect} 
      */
     get_zoomRectScreen() {
@@ -92,7 +91,6 @@ export default struct ISVGZoomEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_previousScale() {
@@ -101,7 +99,6 @@ export default struct ISVGZoomEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGPoint} 
      */
     get_previousTranslate() {
@@ -110,7 +107,6 @@ export default struct ISVGZoomEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_newScale() {
@@ -119,7 +115,6 @@ export default struct ISVGZoomEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGPoint} 
      */
     get_newTranslate() {
@@ -136,11 +131,11 @@ export default struct ISVGZoomEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_zoomRectScreen := CallbackCreate(GetMethod(implObj, "get_zoomRectScreen"), flags, 2)
-        this.vtbl.get_previousScale := CallbackCreate(GetMethod(implObj, "get_previousScale"), flags, 2)
-        this.vtbl.get_previousTranslate := CallbackCreate(GetMethod(implObj, "get_previousTranslate"), flags, 2)
-        this.vtbl.get_newScale := CallbackCreate(GetMethod(implObj, "get_newScale"), flags, 2)
-        this.vtbl.get_newTranslate := CallbackCreate(GetMethod(implObj, "get_newTranslate"), flags, 2)
+        this.vtbl.get_zoomRectScreen := CallbackCreate(ObjBindMethod(implObj, "get_zoomRectScreen"), flags, 2)
+        this.vtbl.get_previousScale := CallbackCreate(ObjBindMethod(implObj, "get_previousScale"), flags, 2)
+        this.vtbl.get_previousTranslate := CallbackCreate(ObjBindMethod(implObj, "get_previousTranslate"), flags, 2)
+        this.vtbl.get_newScale := CallbackCreate(ObjBindMethod(implObj, "get_newScale"), flags, 2)
+        this.vtbl.get_newTranslate := CallbackCreate(ObjBindMethod(implObj, "get_newTranslate"), flags, 2)
     }
 
     Dispose() {

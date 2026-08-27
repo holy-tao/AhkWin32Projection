@@ -79,8 +79,8 @@ export default struct ISpatialAudioObjectRenderStreamForMetadata extends ISpatia
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ActivateSpatialAudioObjectForMetadataCommands := CallbackCreate(GetMethod(implObj, "ActivateSpatialAudioObjectForMetadataCommands"), flags, 3)
-        this.vtbl.ActivateSpatialAudioObjectForMetadataItems := CallbackCreate(GetMethod(implObj, "ActivateSpatialAudioObjectForMetadataItems"), flags, 3)
+        this.vtbl.ActivateSpatialAudioObjectForMetadataCommands := CallbackCreate(ObjBindMethod(implObj, "ActivateSpatialAudioObjectForMetadataCommands"), flags, 3)
+        this.vtbl.ActivateSpatialAudioObjectForMetadataItems := CallbackCreate(ObjBindMethod(implObj, "ActivateSpatialAudioObjectForMetadataItems"), flags, 3)
     }
 
     Dispose() {

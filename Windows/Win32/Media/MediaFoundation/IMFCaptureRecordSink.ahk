@@ -149,12 +149,12 @@ export default struct IMFCaptureRecordSink extends IMFCaptureSink {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetOutputByteStream := CallbackCreate(GetMethod(implObj, "SetOutputByteStream"), flags, 3)
-        this.vtbl.SetOutputFileName := CallbackCreate(GetMethod(implObj, "SetOutputFileName"), flags, 2)
-        this.vtbl.SetSampleCallback := CallbackCreate(GetMethod(implObj, "SetSampleCallback"), flags, 3)
-        this.vtbl.SetCustomSink := CallbackCreate(GetMethod(implObj, "SetCustomSink"), flags, 2)
-        this.vtbl.GetRotation := CallbackCreate(GetMethod(implObj, "GetRotation"), flags, 3)
-        this.vtbl.SetRotation := CallbackCreate(GetMethod(implObj, "SetRotation"), flags, 3)
+        this.vtbl.SetOutputByteStream := CallbackCreate(ObjBindMethod(implObj, "SetOutputByteStream"), flags, 3)
+        this.vtbl.SetOutputFileName := CallbackCreate(ObjBindMethod(implObj, "SetOutputFileName"), flags, 2)
+        this.vtbl.SetSampleCallback := CallbackCreate(ObjBindMethod(implObj, "SetSampleCallback"), flags, 3)
+        this.vtbl.SetCustomSink := CallbackCreate(ObjBindMethod(implObj, "SetCustomSink"), flags, 2)
+        this.vtbl.GetRotation := CallbackCreate(ObjBindMethod(implObj, "GetRotation"), flags, 3)
+        this.vtbl.SetRotation := CallbackCreate(ObjBindMethod(implObj, "SetRotation"), flags, 3)
     }
 
     Dispose() {

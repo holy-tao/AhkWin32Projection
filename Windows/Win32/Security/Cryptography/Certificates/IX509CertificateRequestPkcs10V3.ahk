@@ -155,7 +155,9 @@ export default struct IX509CertificateRequestPkcs10V3 extends IX509CertificateRe
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10v3-put_encryptionalgorithm
      */
     put_EncryptionAlgorithm(pValue) {
-        result := ComCall(70, this, "ptr", pValue, "HRESULT")
+        pValueMarshal := pValue == 0 ? IntPtr : "ptr"
+
+        result := ComCall(70, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -223,17 +225,17 @@ export default struct IX509CertificateRequestPkcs10V3 extends IX509CertificateRe
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_AttestPrivateKey := CallbackCreate(GetMethod(implObj, "get_AttestPrivateKey"), flags, 2)
-        this.vtbl.put_AttestPrivateKey := CallbackCreate(GetMethod(implObj, "put_AttestPrivateKey"), flags, 2)
-        this.vtbl.get_AttestationEncryptionCertificate := CallbackCreate(GetMethod(implObj, "get_AttestationEncryptionCertificate"), flags, 3)
-        this.vtbl.put_AttestationEncryptionCertificate := CallbackCreate(GetMethod(implObj, "put_AttestationEncryptionCertificate"), flags, 3)
-        this.vtbl.get_EncryptionAlgorithm := CallbackCreate(GetMethod(implObj, "get_EncryptionAlgorithm"), flags, 2)
-        this.vtbl.put_EncryptionAlgorithm := CallbackCreate(GetMethod(implObj, "put_EncryptionAlgorithm"), flags, 2)
-        this.vtbl.get_EncryptionStrength := CallbackCreate(GetMethod(implObj, "get_EncryptionStrength"), flags, 2)
-        this.vtbl.put_EncryptionStrength := CallbackCreate(GetMethod(implObj, "put_EncryptionStrength"), flags, 2)
-        this.vtbl.get_ChallengePassword := CallbackCreate(GetMethod(implObj, "get_ChallengePassword"), flags, 2)
-        this.vtbl.put_ChallengePassword := CallbackCreate(GetMethod(implObj, "put_ChallengePassword"), flags, 2)
-        this.vtbl.get_NameValuePairs := CallbackCreate(GetMethod(implObj, "get_NameValuePairs"), flags, 2)
+        this.vtbl.get_AttestPrivateKey := CallbackCreate(ObjBindMethod(implObj, "get_AttestPrivateKey"), flags, 2)
+        this.vtbl.put_AttestPrivateKey := CallbackCreate(ObjBindMethod(implObj, "put_AttestPrivateKey"), flags, 2)
+        this.vtbl.get_AttestationEncryptionCertificate := CallbackCreate(ObjBindMethod(implObj, "get_AttestationEncryptionCertificate"), flags, 3)
+        this.vtbl.put_AttestationEncryptionCertificate := CallbackCreate(ObjBindMethod(implObj, "put_AttestationEncryptionCertificate"), flags, 3)
+        this.vtbl.get_EncryptionAlgorithm := CallbackCreate(ObjBindMethod(implObj, "get_EncryptionAlgorithm"), flags, 2)
+        this.vtbl.put_EncryptionAlgorithm := CallbackCreate(ObjBindMethod(implObj, "put_EncryptionAlgorithm"), flags, 2)
+        this.vtbl.get_EncryptionStrength := CallbackCreate(ObjBindMethod(implObj, "get_EncryptionStrength"), flags, 2)
+        this.vtbl.put_EncryptionStrength := CallbackCreate(ObjBindMethod(implObj, "put_EncryptionStrength"), flags, 2)
+        this.vtbl.get_ChallengePassword := CallbackCreate(ObjBindMethod(implObj, "get_ChallengePassword"), flags, 2)
+        this.vtbl.put_ChallengePassword := CallbackCreate(ObjBindMethod(implObj, "put_ChallengePassword"), flags, 2)
+        this.vtbl.get_NameValuePairs := CallbackCreate(ObjBindMethod(implObj, "get_NameValuePairs"), flags, 2)
     }
 
     Dispose() {

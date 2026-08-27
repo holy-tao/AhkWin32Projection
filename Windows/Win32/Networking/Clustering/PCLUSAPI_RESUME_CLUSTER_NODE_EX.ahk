@@ -20,7 +20,6 @@ export default struct PCLUSAPI_RESUME_CLUSTER_NODE_EX {
     }
 
     /**
-     * 
      * @param {HNODE} _hNode 
      * @param {CLUSTER_NODE_RESUME_FAILBACK_TYPE} eResumeFailbackType 
      * @param {Integer} dwResumeFlagsReserved 

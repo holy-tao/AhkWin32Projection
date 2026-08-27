@@ -38,7 +38,6 @@ export default struct ITransactionPhase0NotifyAsync extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fAbortingHint 
      * @returns {HRESULT} 
      */
@@ -48,7 +47,6 @@ export default struct ITransactionPhase0NotifyAsync extends IUnknown {
     }
 
     /**
-     * 
      * @param {HRESULT} _status 
      * @returns {HRESULT} 
      */
@@ -66,8 +64,8 @@ export default struct ITransactionPhase0NotifyAsync extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Phase0Request := CallbackCreate(GetMethod(implObj, "Phase0Request"), flags, 2)
-        this.vtbl.EnlistCompleted := CallbackCreate(GetMethod(implObj, "EnlistCompleted"), flags, 2)
+        this.vtbl.Phase0Request := CallbackCreate(ObjBindMethod(implObj, "Phase0Request"), flags, 2)
+        this.vtbl.EnlistCompleted := CallbackCreate(ObjBindMethod(implObj, "EnlistCompleted"), flags, 2)
     }
 
     Dispose() {

@@ -30,7 +30,6 @@ export default struct PFAXGETPAGEDATA {
     }
 
     /**
-     * 
      * @param {HANDLE} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
@@ -107,10 +106,10 @@ export default struct PFAXGETPAGEDATA {
      * </table>
      */
     Call(FaxHandle, JobId, _Buffer, BufferSize, ImageWidth, ImageHeight) {
-        _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
-        BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
-        ImageWidthMarshal := ImageWidth is VarRef ? "uint*" : "ptr"
-        ImageHeightMarshal := ImageHeight is VarRef ? "uint*" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr*" : IntPtr
+        BufferSizeMarshal := BufferSize is VarRef ? "uint*" : IntPtr
+        ImageWidthMarshal := ImageWidth is VarRef ? "uint*" : IntPtr
+        ImageHeightMarshal := ImageHeight is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HANDLE, FaxHandle, UInt32, JobId, _BufferMarshal, _Buffer, BufferSizeMarshal, BufferSize, ImageWidthMarshal, ImageWidth, ImageHeightMarshal, ImageHeight, BOOL)
         return result

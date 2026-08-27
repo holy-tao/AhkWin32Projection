@@ -105,7 +105,7 @@ export default struct IAMDecoderCaps extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDecoderCaps := CallbackCreate(GetMethod(implObj, "GetDecoderCaps"), flags, 3)
+        this.vtbl.GetDecoderCaps := CallbackCreate(ObjBindMethod(implObj, "GetDecoderCaps"), flags, 3)
     }
 
     Dispose() {

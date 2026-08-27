@@ -20,7 +20,6 @@ export default struct PRESUTIL_SET_MULTI_SZ_VALUE {
     }
 
     /**
-     * 
      * @param {HKEY} hkeyClusterKey 
      * @param {PWSTR} pszValueName 
      * @param {Integer} pszNewValue 
@@ -32,8 +31,10 @@ export default struct PRESUTIL_SET_MULTI_SZ_VALUE {
     Call(hkeyClusterKey, pszValueName, pszNewValue, cbNewValueSize, ppszOutValue, pcbOutValueSize) {
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
-        ppszOutValueMarshal := ppszOutValue is VarRef ? "ptr*" : "ptr"
-        pcbOutValueSizeMarshal := pcbOutValueSize is VarRef ? "uint*" : "ptr"
+        ppszOutValueMarshal := ppszOutValue is VarRef ? "ptr*" : IntPtr
+        ppszOutValueMarshal := ppszOutValue == 0 ? IntPtr : PWSTR.Ptr
+        pcbOutValueSizeMarshal := pcbOutValueSize is VarRef ? "uint*" : IntPtr
+        pcbOutValueSizeMarshal := pcbOutValueSize == 0 ? IntPtr : "uint*"
 
         result := DllCall(this.value, HKEY, hkeyClusterKey, "ptr", pszValueName, IntPtr, pszNewValue, UInt32, cbNewValueSize, ppszOutValueMarshal, ppszOutValue, pcbOutValueSizeMarshal, pcbOutValueSize, UInt32)
         return result

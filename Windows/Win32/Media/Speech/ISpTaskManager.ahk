@@ -48,7 +48,6 @@ export default struct ISpTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SPTMTHREADINFO>} pPoolInfo 
      * @returns {HRESULT} 
      */
@@ -58,7 +57,6 @@ export default struct ISpTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {SPTMTHREADINFO} 
      */
     GetThreadPoolInfo() {
@@ -68,7 +66,6 @@ export default struct ISpTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISpTask} pTask 
      * @param {Pointer<Void>} pvTaskData 
      * @param {HANDLE} hCompEvent 
@@ -76,43 +73,40 @@ export default struct ISpTaskManager extends IUnknown {
      * @returns {Integer} 
      */
     QueueTask(pTask, pvTaskData, hCompEvent, pdwGroupId) {
-        pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : "ptr"
-        pdwGroupIdMarshal := pdwGroupId is VarRef ? "uint*" : "ptr"
+        pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : IntPtr
+        pdwGroupIdMarshal := pdwGroupId is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, "ptr", pTask, pvTaskDataMarshal, pvTaskData, HANDLE, hCompEvent, pdwGroupIdMarshal, pdwGroupId, "uint*", &pTaskID := 0, "HRESULT")
         return pTaskID
     }
 
     /**
-     * 
      * @param {ISpTask} pTask 
      * @param {Pointer<Void>} pvTaskData 
      * @param {HANDLE} hCompEvent 
      * @returns {ISpNotifySink} 
      */
     CreateReoccurringTask(pTask, pvTaskData, hCompEvent) {
-        pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : "ptr"
+        pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(6, this, "ptr", pTask, pvTaskDataMarshal, pvTaskData, HANDLE, hCompEvent, "ptr*", &ppTaskCtrl := 0, "HRESULT")
         return ISpNotifySink(ppTaskCtrl)
     }
 
     /**
-     * 
      * @param {ISpThreadTask} pTask 
      * @param {Pointer<Void>} pvTaskData 
      * @param {Integer} nPriority 
      * @returns {ISpThreadControl} 
      */
     CreateThreadControl(pTask, pvTaskData, nPriority) {
-        pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : "ptr"
+        pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(7, this, "ptr", pTask, pvTaskDataMarshal, pvTaskData, Int32, nPriority, "ptr*", &ppTaskCtrl := 0, "HRESULT")
         return ISpThreadControl(ppTaskCtrl)
     }
 
     /**
-     * 
      * @param {Integer} dwTaskId 
      * @param {Integer} ulWaitPeriod 
      * @returns {HRESULT} 
@@ -123,7 +117,6 @@ export default struct ISpTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwGroupId 
      * @param {Integer} ulWaitPeriod 
      * @returns {HRESULT} 
@@ -142,13 +135,13 @@ export default struct ISpTaskManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetThreadPoolInfo := CallbackCreate(GetMethod(implObj, "SetThreadPoolInfo"), flags, 2)
-        this.vtbl.GetThreadPoolInfo := CallbackCreate(GetMethod(implObj, "GetThreadPoolInfo"), flags, 2)
-        this.vtbl.QueueTask := CallbackCreate(GetMethod(implObj, "QueueTask"), flags, 6)
-        this.vtbl.CreateReoccurringTask := CallbackCreate(GetMethod(implObj, "CreateReoccurringTask"), flags, 5)
-        this.vtbl.CreateThreadControl := CallbackCreate(GetMethod(implObj, "CreateThreadControl"), flags, 5)
-        this.vtbl.TerminateTask := CallbackCreate(GetMethod(implObj, "TerminateTask"), flags, 3)
-        this.vtbl.TerminateTaskGroup := CallbackCreate(GetMethod(implObj, "TerminateTaskGroup"), flags, 3)
+        this.vtbl.SetThreadPoolInfo := CallbackCreate(ObjBindMethod(implObj, "SetThreadPoolInfo"), flags, 2)
+        this.vtbl.GetThreadPoolInfo := CallbackCreate(ObjBindMethod(implObj, "GetThreadPoolInfo"), flags, 2)
+        this.vtbl.QueueTask := CallbackCreate(ObjBindMethod(implObj, "QueueTask"), flags, 6)
+        this.vtbl.CreateReoccurringTask := CallbackCreate(ObjBindMethod(implObj, "CreateReoccurringTask"), flags, 5)
+        this.vtbl.CreateThreadControl := CallbackCreate(ObjBindMethod(implObj, "CreateThreadControl"), flags, 5)
+        this.vtbl.TerminateTask := CallbackCreate(ObjBindMethod(implObj, "TerminateTask"), flags, 3)
+        this.vtbl.TerminateTaskGroup := CallbackCreate(ObjBindMethod(implObj, "TerminateTaskGroup"), flags, 3)
     }
 
     Dispose() {

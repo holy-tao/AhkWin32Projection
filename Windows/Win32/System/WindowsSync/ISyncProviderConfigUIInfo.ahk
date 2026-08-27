@@ -60,7 +60,7 @@ export default struct ISyncProviderConfigUIInfo extends IPropertyStore {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSyncProviderConfigUI := CallbackCreate(GetMethod(implObj, "GetSyncProviderConfigUI"), flags, 3)
+        this.vtbl.GetSyncProviderConfigUI := CallbackCreate(ObjBindMethod(implObj, "GetSyncProviderConfigUI"), flags, 3)
     }
 
     Dispose() {

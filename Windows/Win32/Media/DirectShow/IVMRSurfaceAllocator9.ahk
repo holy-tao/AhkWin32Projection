@@ -76,7 +76,7 @@ export default struct IVMRSurfaceAllocator9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrsurfaceallocator9-initializedevice
      */
     InitializeDevice(dwUserID, lpAllocInfo, lpNumBuffers) {
-        lpNumBuffersMarshal := lpNumBuffers is VarRef ? "uint*" : "ptr"
+        lpNumBuffersMarshal := lpNumBuffers is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, IntPtr, dwUserID, VMR9AllocationInfo.Ptr, lpAllocInfo, lpNumBuffersMarshal, lpNumBuffers, "HRESULT")
         return result
@@ -168,10 +168,10 @@ export default struct IVMRSurfaceAllocator9 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeDevice := CallbackCreate(GetMethod(implObj, "InitializeDevice"), flags, 4)
-        this.vtbl.TerminateDevice := CallbackCreate(GetMethod(implObj, "TerminateDevice"), flags, 2)
-        this.vtbl.GetSurface := CallbackCreate(GetMethod(implObj, "GetSurface"), flags, 5)
-        this.vtbl.AdviseNotify := CallbackCreate(GetMethod(implObj, "AdviseNotify"), flags, 2)
+        this.vtbl.InitializeDevice := CallbackCreate(ObjBindMethod(implObj, "InitializeDevice"), flags, 4)
+        this.vtbl.TerminateDevice := CallbackCreate(ObjBindMethod(implObj, "TerminateDevice"), flags, 2)
+        this.vtbl.GetSurface := CallbackCreate(ObjBindMethod(implObj, "GetSurface"), flags, 5)
+        this.vtbl.AdviseNotify := CallbackCreate(ObjBindMethod(implObj, "AdviseNotify"), flags, 2)
     }
 
     Dispose() {

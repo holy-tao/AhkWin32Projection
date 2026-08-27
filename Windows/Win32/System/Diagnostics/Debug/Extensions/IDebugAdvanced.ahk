@@ -88,8 +88,8 @@ export default struct IDebugAdvanced extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetThreadContext := CallbackCreate(GetMethod(implObj, "GetThreadContext"), flags, 3)
-        this.vtbl.SetThreadContext := CallbackCreate(GetMethod(implObj, "SetThreadContext"), flags, 3)
+        this.vtbl.GetThreadContext := CallbackCreate(ObjBindMethod(implObj, "GetThreadContext"), flags, 3)
+        this.vtbl.SetThreadContext := CallbackCreate(ObjBindMethod(implObj, "SetThreadContext"), flags, 3)
     }
 
     Dispose() {

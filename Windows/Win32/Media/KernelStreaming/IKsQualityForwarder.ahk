@@ -36,7 +36,6 @@ export default struct IKsQualityForwarder extends IKsObject {
     }
 
     /**
-     * 
      * @param {IKsPin} Pin 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -53,7 +52,7 @@ export default struct IKsQualityForwarder extends IKsObject {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.KsFlushClient := CallbackCreate(GetMethod(implObj, "KsFlushClient"), flags, 2)
+        this.vtbl.KsFlushClient := CallbackCreate(ObjBindMethod(implObj, "KsFlushClient"), flags, 2)
     }
 
     Dispose() {

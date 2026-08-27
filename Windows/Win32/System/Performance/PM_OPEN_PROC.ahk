@@ -19,14 +19,15 @@ export default struct PM_OPEN_PROC {
     }
 
     /**
-     * 
      * @param {PWSTR} pContext 
      * @returns {Integer} 
      */
     Call(pContext) {
         pContext := pContext is String ? StrPtr(pContext) : pContext
 
-        result := DllCall(this.value, "ptr", pContext, UInt32)
+        pContextMarshal := pContext == 0 ? IntPtr : PWSTR
+
+        result := DllCall(this.value, pContextMarshal, pContext, UInt32)
         return result
     }
 

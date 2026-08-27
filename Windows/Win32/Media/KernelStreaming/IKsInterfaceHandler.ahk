@@ -43,7 +43,6 @@ export default struct IKsInterfaceHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {IKsPin} KsPin 
      * @returns {HRESULT} 
      */
@@ -53,7 +52,6 @@ export default struct IKsInterfaceHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {IKsDataTypeHandler} KsDataTypeHandler 
      * @param {Pointer<IMediaSample>} SampleList 
      * @param {Pointer<Integer>} SampleCount 
@@ -61,14 +59,13 @@ export default struct IKsInterfaceHandler extends IUnknown {
      * @returns {Pointer<KSSTREAM_SEGMENT>} 
      */
     KsProcessMediaSamples(KsDataTypeHandler, SampleList, SampleCount, IoOperation) {
-        SampleCountMarshal := SampleCount is VarRef ? "int*" : "ptr"
+        SampleCountMarshal := SampleCount is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, "ptr", KsDataTypeHandler, IMediaSample.Ptr, SampleList, SampleCountMarshal, SampleCount, KSIOOPERATION, IoOperation, "ptr*", &StreamSegment := 0, "HRESULT")
         return StreamSegment
     }
 
     /**
-     * 
      * @param {Pointer<KSSTREAM_SEGMENT>} StreamSegment 
      * @returns {HRESULT} 
      */
@@ -86,9 +83,9 @@ export default struct IKsInterfaceHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.KsSetPin := CallbackCreate(GetMethod(implObj, "KsSetPin"), flags, 2)
-        this.vtbl.KsProcessMediaSamples := CallbackCreate(GetMethod(implObj, "KsProcessMediaSamples"), flags, 6)
-        this.vtbl.KsCompleteIo := CallbackCreate(GetMethod(implObj, "KsCompleteIo"), flags, 2)
+        this.vtbl.KsSetPin := CallbackCreate(ObjBindMethod(implObj, "KsSetPin"), flags, 2)
+        this.vtbl.KsProcessMediaSamples := CallbackCreate(ObjBindMethod(implObj, "KsProcessMediaSamples"), flags, 6)
+        this.vtbl.KsCompleteIo := CallbackCreate(ObjBindMethod(implObj, "KsCompleteIo"), flags, 2)
     }
 
     Dispose() {

@@ -21,14 +21,13 @@ export default struct PFSCE_LOG_INFO {
     }
 
     /**
-     * 
      * @param {SCE_LOG_ERR_LEVEL} ErrLevel 
      * @param {Integer} Win32rc Specifies the Windows result code to log.
      * @param {Pointer<Integer>} pErrFmt Specifies the result format. This parameter uses the same format conventions as the C library function <b>printf</b>.
      * @returns {Integer} If the function succeeds, it returns SCESTATUS_SUCCESS; otherwise, an error code is returned.
      */
     Call(ErrLevel, Win32rc, pErrFmt) {
-        pErrFmtMarshal := pErrFmt is VarRef ? "char*" : "ptr"
+        pErrFmtMarshal := pErrFmt is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, SCE_LOG_ERR_LEVEL, ErrLevel, UInt32, Win32rc, pErrFmtMarshal, pErrFmt, UInt32)
         return result

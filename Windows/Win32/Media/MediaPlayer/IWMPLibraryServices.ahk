@@ -72,7 +72,7 @@ export default struct IWMPLibraryServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmplibraryservices-getcountbytype
      */
     getCountByType(wmplt, plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+        plCountMarshal := plCount is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, WMPLibraryType, wmplt, plCountMarshal, plCount, "HRESULT")
         return result
@@ -103,8 +103,8 @@ export default struct IWMPLibraryServices extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.getCountByType := CallbackCreate(GetMethod(implObj, "getCountByType"), flags, 3)
-        this.vtbl.getLibraryByType := CallbackCreate(GetMethod(implObj, "getLibraryByType"), flags, 4)
+        this.vtbl.getCountByType := CallbackCreate(ObjBindMethod(implObj, "getCountByType"), flags, 3)
+        this.vtbl.getLibraryByType := CallbackCreate(ObjBindMethod(implObj, "getLibraryByType"), flags, 4)
     }
 
     Dispose() {

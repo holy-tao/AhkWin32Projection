@@ -41,7 +41,6 @@ export default struct IGameStatisticsMgr extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} GDFBinaryPath 
      * @param {GAMESTATS_OPEN_TYPE} openType 
      * @param {Pointer<GAMESTATS_OPEN_RESULT>} pOpenResult 
@@ -51,14 +50,13 @@ export default struct IGameStatisticsMgr extends IUnknown {
     GetGameStatistics(GDFBinaryPath, openType, pOpenResult, ppiStats) {
         GDFBinaryPath := GDFBinaryPath is String ? StrPtr(GDFBinaryPath) : GDFBinaryPath
 
-        pOpenResultMarshal := pOpenResult is VarRef ? "int*" : "ptr"
+        pOpenResultMarshal := pOpenResult is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, "ptr", GDFBinaryPath, GAMESTATS_OPEN_TYPE, openType, pOpenResultMarshal, pOpenResult, IGameStatistics.Ptr, ppiStats, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} GDFBinaryPath 
      * @returns {HRESULT} 
      */
@@ -78,8 +76,8 @@ export default struct IGameStatisticsMgr extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetGameStatistics := CallbackCreate(GetMethod(implObj, "GetGameStatistics"), flags, 5)
-        this.vtbl.RemoveGameStatistics := CallbackCreate(GetMethod(implObj, "RemoveGameStatistics"), flags, 2)
+        this.vtbl.GetGameStatistics := CallbackCreate(ObjBindMethod(implObj, "GetGameStatistics"), flags, 5)
+        this.vtbl.RemoveGameStatistics := CallbackCreate(ObjBindMethod(implObj, "RemoveGameStatistics"), flags, 2)
     }
 
     Dispose() {

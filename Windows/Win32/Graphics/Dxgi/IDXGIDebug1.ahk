@@ -80,9 +80,9 @@ export default struct IDXGIDebug1 extends IDXGIDebug {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnableLeakTrackingForThread := CallbackCreate(GetMethod(implObj, "EnableLeakTrackingForThread"), flags, 1)
-        this.vtbl.DisableLeakTrackingForThread := CallbackCreate(GetMethod(implObj, "DisableLeakTrackingForThread"), flags, 1)
-        this.vtbl.IsLeakTrackingEnabledForThread := CallbackCreate(GetMethod(implObj, "IsLeakTrackingEnabledForThread"), flags, 1)
+        this.vtbl.EnableLeakTrackingForThread := CallbackCreate(ObjBindMethod(implObj, "EnableLeakTrackingForThread"), flags, 1)
+        this.vtbl.DisableLeakTrackingForThread := CallbackCreate(ObjBindMethod(implObj, "DisableLeakTrackingForThread"), flags, 1)
+        this.vtbl.IsLeakTrackingEnabledForThread := CallbackCreate(ObjBindMethod(implObj, "IsLeakTrackingEnabledForThread"), flags, 1)
     }
 
     Dispose() {

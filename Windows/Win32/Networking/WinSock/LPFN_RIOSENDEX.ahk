@@ -81,7 +81,6 @@ export default struct LPFN_RIOSENDEX {
     }
 
     /**
-     * 
      * @param {RIO_RQ} SocketQueue A descriptor that identifies a connected registered I/O TCP socket or a bound registered I/O UDP socket.
      * @param {Pointer<RIO_BUF>} pData A buffer segment from a registered buffer from which to send data. The [**RIO\_BUF**](../mswsockdef/ns-mswsockdef-rio_buf.md) structure pointed to by this parameter can represent a portion of a registered buffer or a complete registered buffer.
      * 
@@ -122,9 +121,14 @@ export default struct LPFN_RIOSENDEX {
      * | <dl> <dt>**[WSA\_IO\_PENDING](/windows/win32/winsock/windows-sockets-error-codes-2#wsa-io-pending)**</dt> </dl> | The operation has been successfully initiated and the completion will be queued at a later time.<br/>                                                                                                                                                                                                                                          |
      */
     Call(SocketQueue, pData, DataBufferCount, pLocalAddress, pRemoteAddress, pControlContext, pFlags, Flags, RequestContext) {
-        RequestContextMarshal := RequestContext is VarRef ? "ptr" : "ptr"
+        pLocalAddressMarshal := pLocalAddress == 0 ? IntPtr : RIO_BUF.Ptr
+        pRemoteAddressMarshal := pRemoteAddress == 0 ? IntPtr : RIO_BUF.Ptr
+        pControlContextMarshal := pControlContext == 0 ? IntPtr : RIO_BUF.Ptr
+        pFlagsMarshal := pFlags == 0 ? IntPtr : RIO_BUF.Ptr
+        RequestContextMarshal := RequestContext is VarRef ? "ptr" : IntPtr
+        RequestContextMarshal := RequestContext == 0 ? IntPtr : "ptr"
 
-        result := DllCall(this.value, RIO_RQ, SocketQueue, RIO_BUF.Ptr, pData, UInt32, DataBufferCount, RIO_BUF.Ptr, pLocalAddress, RIO_BUF.Ptr, pRemoteAddress, RIO_BUF.Ptr, pControlContext, RIO_BUF.Ptr, pFlags, UInt32, Flags, RequestContextMarshal, RequestContext, BOOL)
+        result := DllCall(this.value, RIO_RQ, SocketQueue, RIO_BUF.Ptr, pData, UInt32, DataBufferCount, pLocalAddressMarshal, pLocalAddress, pRemoteAddressMarshal, pRemoteAddress, pControlContextMarshal, pControlContext, pFlagsMarshal, pFlags, UInt32, Flags, RequestContextMarshal, RequestContext, BOOL)
         return result
     }
 

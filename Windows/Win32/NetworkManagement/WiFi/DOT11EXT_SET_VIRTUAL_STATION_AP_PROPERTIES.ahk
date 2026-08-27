@@ -20,7 +20,6 @@ export default struct DOT11EXT_SET_VIRTUAL_STATION_AP_PROPERTIES {
     }
 
     /**
-     * 
      * @param {HANDLE} hDot11SvcHandle 
      * @param {HANDLE} hConnectSession 
      * @param {Integer} dwNumProperties 
@@ -30,7 +29,10 @@ export default struct DOT11EXT_SET_VIRTUAL_STATION_AP_PROPERTIES {
     Call(hDot11SvcHandle, hConnectSession, dwNumProperties, pProperties) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall(this.value, HANDLE, hDot11SvcHandle, HANDLE, hConnectSession, UInt32, dwNumProperties, DOT11EXT_VIRTUAL_STATION_AP_PROPERTY.Ptr, pProperties, "ptr", pvReserved, UInt32)
+        hDot11SvcHandleMarshal := hDot11SvcHandle == 0 ? IntPtr : HANDLE
+        hConnectSessionMarshal := hConnectSession == 0 ? IntPtr : HANDLE
+
+        result := DllCall(this.value, hDot11SvcHandleMarshal, hDot11SvcHandle, hConnectSessionMarshal, hConnectSession, UInt32, dwNumProperties, DOT11EXT_VIRTUAL_STATION_AP_PROPERTY.Ptr, pProperties, "ptr", pvReserved, UInt32)
         return result
     }
 

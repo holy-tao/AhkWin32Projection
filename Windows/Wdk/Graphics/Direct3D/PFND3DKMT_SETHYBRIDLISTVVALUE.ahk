@@ -20,7 +20,6 @@ export default struct PFND3DKMT_SETHYBRIDLISTVVALUE {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_HYBRID_LIST>} param0 
      * @returns {NTSTATUS} 
      */

@@ -19,14 +19,13 @@ export default struct PROTOCOL_CL_INCOMING_CALL_QOS_CHANGE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} ProtocolVcContext 
      * @param {Pointer<CO_CALL_PARAMETERS>} CallParameters 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(ProtocolVcContext, CallParameters) {
-        ProtocolVcContextMarshal := ProtocolVcContext is VarRef ? "ptr" : "ptr"
-        CallParametersMarshal := CallParameters is VarRef ? "ptr*" : "ptr"
+        ProtocolVcContextMarshal := ProtocolVcContext is VarRef ? "ptr" : IntPtr
+        CallParametersMarshal := CallParameters is VarRef ? "ptr*" : IntPtr
 
         DllCall(this.value, ProtocolVcContextMarshal, ProtocolVcContext, CallParametersMarshal, CallParameters)
     }

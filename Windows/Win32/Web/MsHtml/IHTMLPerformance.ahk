@@ -63,7 +63,6 @@ export default struct IHTMLPerformance extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLPerformanceNavigation} 
      */
     get_navigation() {
@@ -72,7 +71,6 @@ export default struct IHTMLPerformance extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLPerformanceTiming} 
      */
     get_timing() {
@@ -81,7 +79,6 @@ export default struct IHTMLPerformance extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     toString() {
@@ -91,7 +88,6 @@ export default struct IHTMLPerformance extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     toJSON() {
@@ -109,10 +105,10 @@ export default struct IHTMLPerformance extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_navigation := CallbackCreate(GetMethod(implObj, "get_navigation"), flags, 2)
-        this.vtbl.get_timing := CallbackCreate(GetMethod(implObj, "get_timing"), flags, 2)
-        this.vtbl.toString := CallbackCreate(GetMethod(implObj, "toString"), flags, 2)
-        this.vtbl.toJSON := CallbackCreate(GetMethod(implObj, "toJSON"), flags, 2)
+        this.vtbl.get_navigation := CallbackCreate(ObjBindMethod(implObj, "get_navigation"), flags, 2)
+        this.vtbl.get_timing := CallbackCreate(ObjBindMethod(implObj, "get_timing"), flags, 2)
+        this.vtbl.toString := CallbackCreate(ObjBindMethod(implObj, "toString"), flags, 2)
+        this.vtbl.toJSON := CallbackCreate(ObjBindMethod(implObj, "toJSON"), flags, 2)
     }
 
     Dispose() {

@@ -52,7 +52,7 @@ export default struct IWTSBitmapRenderer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nf-tsvirtualchannels-iwtsbitmaprenderer-render
      */
     Render(imageFormat, dwWidth, dwHeight, cbStride, cbImageBuffer, pImageBuffer) {
-        pImageBufferMarshal := pImageBuffer is VarRef ? "char*" : "ptr"
+        pImageBufferMarshal := pImageBuffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, Guid, imageFormat, UInt32, dwWidth, UInt32, dwHeight, Int32, cbStride, UInt32, cbImageBuffer, pImageBufferMarshal, pImageBuffer, "HRESULT")
         return result
@@ -92,9 +92,9 @@ export default struct IWTSBitmapRenderer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Render := CallbackCreate(GetMethod(implObj, "Render"), flags, 7)
-        this.vtbl.GetRendererStatistics := CallbackCreate(GetMethod(implObj, "GetRendererStatistics"), flags, 2)
-        this.vtbl.RemoveMapping := CallbackCreate(GetMethod(implObj, "RemoveMapping"), flags, 1)
+        this.vtbl.Render := CallbackCreate(ObjBindMethod(implObj, "Render"), flags, 7)
+        this.vtbl.GetRendererStatistics := CallbackCreate(ObjBindMethod(implObj, "GetRendererStatistics"), flags, 2)
+        this.vtbl.RemoveMapping := CallbackCreate(ObjBindMethod(implObj, "RemoveMapping"), flags, 1)
     }
 
     Dispose() {

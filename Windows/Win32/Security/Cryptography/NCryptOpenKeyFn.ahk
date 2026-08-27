@@ -22,7 +22,6 @@ export default struct NCryptOpenKeyFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} _hProvider 
      * @param {PWSTR} pszKeyName 
      * @param {Integer} dwLegacyKeySpec 
@@ -32,8 +31,10 @@ export default struct NCryptOpenKeyFn {
     Call(_hProvider, pszKeyName, dwLegacyKeySpec, dwFlags) {
         pszKeyName := pszKeyName is String ? StrPtr(pszKeyName) : pszKeyName
 
+        dwLegacyKeySpecMarshal := dwLegacyKeySpec == 0 ? IntPtr : UInt32
+
         phKey := NCRYPT_KEY_HANDLE.Owned()
-        result := DllCall(this.value, NCRYPT_PROV_HANDLE, _hProvider, NCRYPT_KEY_HANDLE.Ptr, phKey, "ptr", pszKeyName, UInt32, dwLegacyKeySpec, UInt32, dwFlags, "HRESULT")
+        result := DllCall(this.value, NCRYPT_PROV_HANDLE, _hProvider, NCRYPT_KEY_HANDLE.Ptr, phKey, "ptr", pszKeyName, dwLegacyKeySpecMarshal, dwLegacyKeySpec, UInt32, dwFlags, "HRESULT")
         return phKey
     }
 

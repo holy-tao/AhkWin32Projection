@@ -19,7 +19,6 @@ export default struct PRESUTIL_GET_LONG_PROPERTY {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} plOutValue 
      * @param {Pointer<CLUSPROP_LONG>} pValueStruct 
      * @param {Integer} lOldValue 
@@ -30,9 +29,9 @@ export default struct PRESUTIL_GET_LONG_PROPERTY {
      * @returns {Integer} 
      */
     Call(plOutValue, pValueStruct, lOldValue, lMinimum, lMaximum, ppPropertyList, pcbPropertyListSize) {
-        plOutValueMarshal := plOutValue is VarRef ? "int*" : "ptr"
-        ppPropertyListMarshal := ppPropertyList is VarRef ? "ptr*" : "ptr"
-        pcbPropertyListSizeMarshal := pcbPropertyListSize is VarRef ? "uint*" : "ptr"
+        plOutValueMarshal := plOutValue is VarRef ? "int*" : IntPtr
+        ppPropertyListMarshal := ppPropertyList is VarRef ? "ptr*" : IntPtr
+        pcbPropertyListSizeMarshal := pcbPropertyListSize is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, plOutValueMarshal, plOutValue, CLUSPROP_LONG.Ptr, pValueStruct, Int32, lOldValue, Int32, lMinimum, Int32, lMaximum, ppPropertyListMarshal, ppPropertyList, pcbPropertyListSizeMarshal, pcbPropertyListSize, UInt32)
         return result

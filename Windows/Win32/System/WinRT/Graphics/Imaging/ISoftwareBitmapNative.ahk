@@ -38,7 +38,6 @@ export default struct ISoftwareBitmapNative extends IInspectable {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
@@ -56,7 +55,7 @@ export default struct ISoftwareBitmapNative extends IInspectable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetData := CallbackCreate(GetMethod(implObj, "GetData"), flags, 3)
+        this.vtbl.GetData := CallbackCreate(ObjBindMethod(implObj, "GetData"), flags, 3)
     }
 
     Dispose() {

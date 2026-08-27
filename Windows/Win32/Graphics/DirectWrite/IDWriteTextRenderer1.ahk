@@ -85,9 +85,11 @@ export default struct IDWriteTextRenderer1 extends IDWriteTextRenderer {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextrenderer1-drawglyphrun
      */
     DrawGlyphRun(clientDrawingContext, baselineOriginX, baselineOriginY, orientationAngle, measuringMode, _glyphRun, glyphRunDescription, clientDrawingEffect) {
-        clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
+        clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : IntPtr
+        clientDrawingContextMarshal := clientDrawingContext == 0 ? IntPtr : "ptr"
+        clientDrawingEffectMarshal := clientDrawingEffect == 0 ? IntPtr : "ptr"
 
-        result := ComCall(10, this, clientDrawingContextMarshal, clientDrawingContext, Float32, baselineOriginX, Float32, baselineOriginY, DWRITE_GLYPH_ORIENTATION_ANGLE, orientationAngle, DWRITE_MEASURING_MODE, measuringMode, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_GLYPH_RUN_DESCRIPTION.Ptr, glyphRunDescription, "ptr", clientDrawingEffect, "HRESULT")
+        result := ComCall(10, this, clientDrawingContextMarshal, clientDrawingContext, Float32, baselineOriginX, Float32, baselineOriginY, DWRITE_GLYPH_ORIENTATION_ANGLE, orientationAngle, DWRITE_MEASURING_MODE, measuringMode, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_GLYPH_RUN_DESCRIPTION.Ptr, glyphRunDescription, clientDrawingEffectMarshal, clientDrawingEffect, "HRESULT")
         return result
     }
 
@@ -130,9 +132,11 @@ export default struct IDWriteTextRenderer1 extends IDWriteTextRenderer {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextrenderer1-drawunderline
      */
     DrawUnderline(clientDrawingContext, baselineOriginX, baselineOriginY, orientationAngle, underline, clientDrawingEffect) {
-        clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
+        clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : IntPtr
+        clientDrawingContextMarshal := clientDrawingContext == 0 ? IntPtr : "ptr"
+        clientDrawingEffectMarshal := clientDrawingEffect == 0 ? IntPtr : "ptr"
 
-        result := ComCall(11, this, clientDrawingContextMarshal, clientDrawingContext, Float32, baselineOriginX, Float32, baselineOriginY, DWRITE_GLYPH_ORIENTATION_ANGLE, orientationAngle, DWRITE_UNDERLINE.Ptr, underline, "ptr", clientDrawingEffect, "HRESULT")
+        result := ComCall(11, this, clientDrawingContextMarshal, clientDrawingContext, Float32, baselineOriginX, Float32, baselineOriginY, DWRITE_GLYPH_ORIENTATION_ANGLE, orientationAngle, DWRITE_UNDERLINE.Ptr, underline, clientDrawingEffectMarshal, clientDrawingEffect, "HRESULT")
         return result
     }
 
@@ -171,9 +175,11 @@ export default struct IDWriteTextRenderer1 extends IDWriteTextRenderer {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextrenderer1-drawstrikethrough
      */
     DrawStrikethrough(clientDrawingContext, baselineOriginX, baselineOriginY, orientationAngle, strikethrough, clientDrawingEffect) {
-        clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
+        clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : IntPtr
+        clientDrawingContextMarshal := clientDrawingContext == 0 ? IntPtr : "ptr"
+        clientDrawingEffectMarshal := clientDrawingEffect == 0 ? IntPtr : "ptr"
 
-        result := ComCall(12, this, clientDrawingContextMarshal, clientDrawingContext, Float32, baselineOriginX, Float32, baselineOriginY, DWRITE_GLYPH_ORIENTATION_ANGLE, orientationAngle, DWRITE_STRIKETHROUGH.Ptr, strikethrough, "ptr", clientDrawingEffect, "HRESULT")
+        result := ComCall(12, this, clientDrawingContextMarshal, clientDrawingContext, Float32, baselineOriginX, Float32, baselineOriginY, DWRITE_GLYPH_ORIENTATION_ANGLE, orientationAngle, DWRITE_STRIKETHROUGH.Ptr, strikethrough, clientDrawingEffectMarshal, clientDrawingEffect, "HRESULT")
         return result
     }
 
@@ -209,9 +215,11 @@ export default struct IDWriteTextRenderer1 extends IDWriteTextRenderer {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextrenderer1-drawinlineobject
      */
     DrawInlineObject(clientDrawingContext, originX, originY, orientationAngle, inlineObject, isSideways, isRightToLeft, clientDrawingEffect) {
-        clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
+        clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : IntPtr
+        clientDrawingContextMarshal := clientDrawingContext == 0 ? IntPtr : "ptr"
+        clientDrawingEffectMarshal := clientDrawingEffect == 0 ? IntPtr : "ptr"
 
-        result := ComCall(13, this, clientDrawingContextMarshal, clientDrawingContext, Float32, originX, Float32, originY, DWRITE_GLYPH_ORIENTATION_ANGLE, orientationAngle, "ptr", inlineObject, BOOL, isSideways, BOOL, isRightToLeft, "ptr", clientDrawingEffect, "HRESULT")
+        result := ComCall(13, this, clientDrawingContextMarshal, clientDrawingContext, Float32, originX, Float32, originY, DWRITE_GLYPH_ORIENTATION_ANGLE, orientationAngle, "ptr", inlineObject, BOOL, isSideways, BOOL, isRightToLeft, clientDrawingEffectMarshal, clientDrawingEffect, "HRESULT")
         return result
     }
 
@@ -224,10 +232,10 @@ export default struct IDWriteTextRenderer1 extends IDWriteTextRenderer {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DrawGlyphRun := CallbackCreate(GetMethod(implObj, "DrawGlyphRun"), flags, 9)
-        this.vtbl.DrawUnderline := CallbackCreate(GetMethod(implObj, "DrawUnderline"), flags, 7)
-        this.vtbl.DrawStrikethrough := CallbackCreate(GetMethod(implObj, "DrawStrikethrough"), flags, 7)
-        this.vtbl.DrawInlineObject := CallbackCreate(GetMethod(implObj, "DrawInlineObject"), flags, 9)
+        this.vtbl.DrawGlyphRun := CallbackCreate(ObjBindMethod(implObj, "DrawGlyphRun"), flags, 9)
+        this.vtbl.DrawUnderline := CallbackCreate(ObjBindMethod(implObj, "DrawUnderline"), flags, 7)
+        this.vtbl.DrawStrikethrough := CallbackCreate(ObjBindMethod(implObj, "DrawStrikethrough"), flags, 7)
+        this.vtbl.DrawInlineObject := CallbackCreate(ObjBindMethod(implObj, "DrawInlineObject"), flags, 9)
     }
 
     Dispose() {

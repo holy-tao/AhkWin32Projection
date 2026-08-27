@@ -50,7 +50,6 @@ export default struct IHostSyncManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {ICLRSyncManager} pManager 
      * @returns {HRESULT} 
      */
@@ -60,7 +59,6 @@ export default struct IHostSyncManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IHostCrst} 
      */
     CreateCrst() {
@@ -69,7 +67,6 @@ export default struct IHostSyncManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSpinCount 
      * @returns {IHostCrst} 
      */
@@ -79,7 +76,6 @@ export default struct IHostSyncManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IHostAutoEvent} 
      */
     CreateAutoEvent() {
@@ -88,7 +84,6 @@ export default struct IHostSyncManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} bInitialState 
      * @returns {IHostManualEvent} 
      */
@@ -98,7 +93,6 @@ export default struct IHostSyncManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} Cookie 
      * @returns {IHostAutoEvent} 
      */
@@ -108,7 +102,6 @@ export default struct IHostSyncManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} Cookie 
      * @returns {IHostAutoEvent} 
      */
@@ -118,7 +111,6 @@ export default struct IHostSyncManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} bInitialState 
      * @param {Pointer} Cookie 
      * @returns {IHostManualEvent} 
@@ -170,15 +162,15 @@ export default struct IHostSyncManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetCLRSyncManager := CallbackCreate(GetMethod(implObj, "SetCLRSyncManager"), flags, 2)
-        this.vtbl.CreateCrst := CallbackCreate(GetMethod(implObj, "CreateCrst"), flags, 2)
-        this.vtbl.CreateCrstWithSpinCount := CallbackCreate(GetMethod(implObj, "CreateCrstWithSpinCount"), flags, 3)
-        this.vtbl.CreateAutoEvent := CallbackCreate(GetMethod(implObj, "CreateAutoEvent"), flags, 2)
-        this.vtbl.CreateManualEvent := CallbackCreate(GetMethod(implObj, "CreateManualEvent"), flags, 3)
-        this.vtbl.CreateMonitorEvent := CallbackCreate(GetMethod(implObj, "CreateMonitorEvent"), flags, 3)
-        this.vtbl.CreateRWLockWriterEvent := CallbackCreate(GetMethod(implObj, "CreateRWLockWriterEvent"), flags, 3)
-        this.vtbl.CreateRWLockReaderEvent := CallbackCreate(GetMethod(implObj, "CreateRWLockReaderEvent"), flags, 4)
-        this.vtbl.CreateSemaphoreA := CallbackCreate(GetMethod(implObj, "CreateSemaphoreA"), flags, 4)
+        this.vtbl.SetCLRSyncManager := CallbackCreate(ObjBindMethod(implObj, "SetCLRSyncManager"), flags, 2)
+        this.vtbl.CreateCrst := CallbackCreate(ObjBindMethod(implObj, "CreateCrst"), flags, 2)
+        this.vtbl.CreateCrstWithSpinCount := CallbackCreate(ObjBindMethod(implObj, "CreateCrstWithSpinCount"), flags, 3)
+        this.vtbl.CreateAutoEvent := CallbackCreate(ObjBindMethod(implObj, "CreateAutoEvent"), flags, 2)
+        this.vtbl.CreateManualEvent := CallbackCreate(ObjBindMethod(implObj, "CreateManualEvent"), flags, 3)
+        this.vtbl.CreateMonitorEvent := CallbackCreate(ObjBindMethod(implObj, "CreateMonitorEvent"), flags, 3)
+        this.vtbl.CreateRWLockWriterEvent := CallbackCreate(ObjBindMethod(implObj, "CreateRWLockWriterEvent"), flags, 3)
+        this.vtbl.CreateRWLockReaderEvent := CallbackCreate(ObjBindMethod(implObj, "CreateRWLockReaderEvent"), flags, 4)
+        this.vtbl.CreateSemaphoreA := CallbackCreate(ObjBindMethod(implObj, "CreateSemaphoreA"), flags, 4)
     }
 
     Dispose() {

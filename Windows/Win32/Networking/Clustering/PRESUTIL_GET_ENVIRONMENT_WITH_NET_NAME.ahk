@@ -19,7 +19,6 @@ export default struct PRESUTIL_GET_ENVIRONMENT_WITH_NET_NAME {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @returns {Pointer<Void>} 
      */

@@ -20,13 +20,12 @@ export default struct pKdSetupIntegratedDeviceForDebugging {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} LoaderBlock 
      * @param {Pointer<DEBUG_DEVICE_DESCRIPTOR>} IntegratedDevice 
      * @returns {NTSTATUS} 
      */
     Call(LoaderBlock, IntegratedDevice) {
-        LoaderBlockMarshal := LoaderBlock is VarRef ? "ptr" : "ptr"
+        LoaderBlockMarshal := LoaderBlock is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, LoaderBlockMarshal, LoaderBlock, DEBUG_DEVICE_DESCRIPTOR.Ptr, IntegratedDevice, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

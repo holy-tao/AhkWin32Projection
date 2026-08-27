@@ -20,7 +20,6 @@ export default struct PFN_DIAL_HANDLER {
     }
 
     /**
-     * 
      * @param {HWND} param0 
      * @param {PSTR} param1 
      * @param {Integer} param2 
@@ -30,7 +29,7 @@ export default struct PFN_DIAL_HANDLER {
     Call(param0, param1, param2, param3) {
         param1 := param1 is String ? StrPtr(param1) : param1
 
-        param3Marshal := param3 is VarRef ? "uint*" : "ptr"
+        param3Marshal := param3 is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HWND, param0, "ptr", param1, UInt32, param2, param3Marshal, param3, UInt32)
         return result

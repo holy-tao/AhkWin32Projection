@@ -133,8 +133,8 @@ export default struct IContinueCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FContinue := CallbackCreate(GetMethod(implObj, "FContinue"), flags, 1)
-        this.vtbl.FContinuePrinting := CallbackCreate(GetMethod(implObj, "FContinuePrinting"), flags, 4)
+        this.vtbl.FContinue := CallbackCreate(ObjBindMethod(implObj, "FContinue"), flags, 1)
+        this.vtbl.FContinuePrinting := CallbackCreate(ObjBindMethod(implObj, "FContinuePrinting"), flags, 4)
     }
 
     Dispose() {

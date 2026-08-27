@@ -39,7 +39,6 @@ export default struct IMFDXGICrossAdapterBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkDevice 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -50,7 +49,6 @@ export default struct IMFDXGICrossAdapterBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkDevice 
      * @returns {Integer} 
      */
@@ -60,7 +58,6 @@ export default struct IMFDXGICrossAdapterBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkDevice 
      * @param {Pointer<Guid>} guid 
      * @param {Pointer<Guid>} riid 
@@ -72,14 +69,15 @@ export default struct IMFDXGICrossAdapterBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkDevice 
      * @param {Pointer<Guid>} guid 
      * @param {IUnknown} pUnkData 
      * @returns {HRESULT} 
      */
     SetUnknownForDevice(pUnkDevice, guid, pUnkData) {
-        result := ComCall(6, this, "ptr", pUnkDevice, Guid.Ptr, guid, "ptr", pUnkData, "HRESULT")
+        pUnkDataMarshal := pUnkData == 0 ? IntPtr : "ptr"
+
+        result := ComCall(6, this, "ptr", pUnkDevice, Guid.Ptr, guid, pUnkDataMarshal, pUnkData, "HRESULT")
         return result
     }
 
@@ -92,10 +90,10 @@ export default struct IMFDXGICrossAdapterBuffer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetResourceForDevice := CallbackCreate(GetMethod(implObj, "GetResourceForDevice"), flags, 4)
-        this.vtbl.GetSubresourceIndexForDevice := CallbackCreate(GetMethod(implObj, "GetSubresourceIndexForDevice"), flags, 3)
-        this.vtbl.GetUnknownForDevice := CallbackCreate(GetMethod(implObj, "GetUnknownForDevice"), flags, 5)
-        this.vtbl.SetUnknownForDevice := CallbackCreate(GetMethod(implObj, "SetUnknownForDevice"), flags, 4)
+        this.vtbl.GetResourceForDevice := CallbackCreate(ObjBindMethod(implObj, "GetResourceForDevice"), flags, 4)
+        this.vtbl.GetSubresourceIndexForDevice := CallbackCreate(ObjBindMethod(implObj, "GetSubresourceIndexForDevice"), flags, 3)
+        this.vtbl.GetUnknownForDevice := CallbackCreate(ObjBindMethod(implObj, "GetUnknownForDevice"), flags, 5)
+        this.vtbl.SetUnknownForDevice := CallbackCreate(ObjBindMethod(implObj, "SetUnknownForDevice"), flags, 4)
     }
 
     Dispose() {

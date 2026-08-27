@@ -216,10 +216,10 @@ export default struct ITextStoreACPServices extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Serialize := CallbackCreate(GetMethod(implObj, "Serialize"), flags, 5)
-        this.vtbl.Unserialize := CallbackCreate(GetMethod(implObj, "Unserialize"), flags, 5)
-        this.vtbl.ForceLoadProperty := CallbackCreate(GetMethod(implObj, "ForceLoadProperty"), flags, 2)
-        this.vtbl.CreateRange := CallbackCreate(GetMethod(implObj, "CreateRange"), flags, 4)
+        this.vtbl.Serialize := CallbackCreate(ObjBindMethod(implObj, "Serialize"), flags, 5)
+        this.vtbl.Unserialize := CallbackCreate(ObjBindMethod(implObj, "Unserialize"), flags, 5)
+        this.vtbl.ForceLoadProperty := CallbackCreate(ObjBindMethod(implObj, "ForceLoadProperty"), flags, 2)
+        this.vtbl.CreateRange := CallbackCreate(ObjBindMethod(implObj, "CreateRange"), flags, 4)
     }
 
     Dispose() {

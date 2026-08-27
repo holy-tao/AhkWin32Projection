@@ -125,7 +125,6 @@ export default struct IWebBrowser2 extends IWebBrowserApp {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} URL 
      * @param {Pointer<VARIANT>} Flags 
      * @param {Pointer<VARIANT>} TargetFrameName 
@@ -134,12 +133,16 @@ export default struct IWebBrowser2 extends IWebBrowserApp {
      * @returns {HRESULT} 
      */
     Navigate2(URL, Flags, TargetFrameName, PostData, Headers) {
-        result := ComCall(52, this, VARIANT.Ptr, URL, VARIANT.Ptr, Flags, VARIANT.Ptr, TargetFrameName, VARIANT.Ptr, PostData, VARIANT.Ptr, Headers, "HRESULT")
+        FlagsMarshal := Flags == 0 ? IntPtr : VARIANT.Ptr
+        TargetFrameNameMarshal := TargetFrameName == 0 ? IntPtr : VARIANT.Ptr
+        PostDataMarshal := PostData == 0 ? IntPtr : VARIANT.Ptr
+        HeadersMarshal := Headers == 0 ? IntPtr : VARIANT.Ptr
+
+        result := ComCall(52, this, VARIANT.Ptr, URL, FlagsMarshal, Flags, TargetFrameNameMarshal, TargetFrameName, PostDataMarshal, PostData, HeadersMarshal, Headers, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {OLECMDID} cmdID 
      * @returns {OLECMDF} 
      */
@@ -149,7 +152,6 @@ export default struct IWebBrowser2 extends IWebBrowserApp {
     }
 
     /**
-     * 
      * @param {OLECMDID} cmdID 
      * @param {OLECMDEXECOPT} cmdexecopt 
      * @param {Pointer<VARIANT>} pvaIn 
@@ -157,24 +159,28 @@ export default struct IWebBrowser2 extends IWebBrowserApp {
      * @returns {HRESULT} 
      */
     ExecWB(cmdID, cmdexecopt, pvaIn, pvaOut) {
-        result := ComCall(54, this, OLECMDID, cmdID, OLECMDEXECOPT, cmdexecopt, VARIANT.Ptr, pvaIn, VARIANT.Ptr, pvaOut, "HRESULT")
+        pvaInMarshal := pvaIn == 0 ? IntPtr : VARIANT.Ptr
+        pvaOutMarshal := pvaOut == 0 ? IntPtr : VARIANT.Ptr
+
+        result := ComCall(54, this, OLECMDID, cmdID, OLECMDEXECOPT, cmdexecopt, pvaInMarshal, pvaIn, pvaOutMarshal, pvaOut, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvaClsid 
      * @param {Pointer<VARIANT>} pvarShow 
      * @param {Pointer<VARIANT>} pvarSize 
      * @returns {HRESULT} 
      */
     ShowBrowserBar(pvaClsid, pvarShow, pvarSize) {
-        result := ComCall(55, this, VARIANT.Ptr, pvaClsid, VARIANT.Ptr, pvarShow, VARIANT.Ptr, pvarSize, "HRESULT")
+        pvarShowMarshal := pvarShow == 0 ? IntPtr : VARIANT.Ptr
+        pvarSizeMarshal := pvarSize == 0 ? IntPtr : VARIANT.Ptr
+
+        result := ComCall(55, this, VARIANT.Ptr, pvaClsid, pvarShowMarshal, pvarShow, pvarSizeMarshal, pvarSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {READYSTATE} 
      */
     get_ReadyState() {
@@ -183,7 +189,6 @@ export default struct IWebBrowser2 extends IWebBrowserApp {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Offline() {
@@ -192,7 +197,6 @@ export default struct IWebBrowser2 extends IWebBrowserApp {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bOffline 
      * @returns {HRESULT} 
      */
@@ -202,7 +206,6 @@ export default struct IWebBrowser2 extends IWebBrowserApp {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Silent() {
@@ -211,7 +214,6 @@ export default struct IWebBrowser2 extends IWebBrowserApp {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bSilent 
      * @returns {HRESULT} 
      */
@@ -221,7 +223,6 @@ export default struct IWebBrowser2 extends IWebBrowserApp {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_RegisterAsBrowser() {
@@ -230,7 +231,6 @@ export default struct IWebBrowser2 extends IWebBrowserApp {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bRegister 
      * @returns {HRESULT} 
      */
@@ -240,7 +240,6 @@ export default struct IWebBrowser2 extends IWebBrowserApp {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_RegisterAsDropTarget() {
@@ -249,7 +248,6 @@ export default struct IWebBrowser2 extends IWebBrowserApp {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bRegister 
      * @returns {HRESULT} 
      */
@@ -292,7 +290,6 @@ export default struct IWebBrowser2 extends IWebBrowserApp {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_AddressBar() {
@@ -301,7 +298,6 @@ export default struct IWebBrowser2 extends IWebBrowserApp {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} Value 
      * @returns {HRESULT} 
      */
@@ -311,7 +307,6 @@ export default struct IWebBrowser2 extends IWebBrowserApp {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Resizable() {
@@ -320,7 +315,6 @@ export default struct IWebBrowser2 extends IWebBrowserApp {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} Value 
      * @returns {HRESULT} 
      */
@@ -338,25 +332,25 @@ export default struct IWebBrowser2 extends IWebBrowserApp {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Navigate2 := CallbackCreate(GetMethod(implObj, "Navigate2"), flags, 6)
-        this.vtbl.QueryStatusWB := CallbackCreate(GetMethod(implObj, "QueryStatusWB"), flags, 3)
-        this.vtbl.ExecWB := CallbackCreate(GetMethod(implObj, "ExecWB"), flags, 5)
-        this.vtbl.ShowBrowserBar := CallbackCreate(GetMethod(implObj, "ShowBrowserBar"), flags, 4)
-        this.vtbl.get_ReadyState := CallbackCreate(GetMethod(implObj, "get_ReadyState"), flags, 2)
-        this.vtbl.get_Offline := CallbackCreate(GetMethod(implObj, "get_Offline"), flags, 2)
-        this.vtbl.put_Offline := CallbackCreate(GetMethod(implObj, "put_Offline"), flags, 2)
-        this.vtbl.get_Silent := CallbackCreate(GetMethod(implObj, "get_Silent"), flags, 2)
-        this.vtbl.put_Silent := CallbackCreate(GetMethod(implObj, "put_Silent"), flags, 2)
-        this.vtbl.get_RegisterAsBrowser := CallbackCreate(GetMethod(implObj, "get_RegisterAsBrowser"), flags, 2)
-        this.vtbl.put_RegisterAsBrowser := CallbackCreate(GetMethod(implObj, "put_RegisterAsBrowser"), flags, 2)
-        this.vtbl.get_RegisterAsDropTarget := CallbackCreate(GetMethod(implObj, "get_RegisterAsDropTarget"), flags, 2)
-        this.vtbl.put_RegisterAsDropTarget := CallbackCreate(GetMethod(implObj, "put_RegisterAsDropTarget"), flags, 2)
-        this.vtbl.get_TheaterMode := CallbackCreate(GetMethod(implObj, "get_TheaterMode"), flags, 2)
-        this.vtbl.put_TheaterMode := CallbackCreate(GetMethod(implObj, "put_TheaterMode"), flags, 2)
-        this.vtbl.get_AddressBar := CallbackCreate(GetMethod(implObj, "get_AddressBar"), flags, 2)
-        this.vtbl.put_AddressBar := CallbackCreate(GetMethod(implObj, "put_AddressBar"), flags, 2)
-        this.vtbl.get_Resizable := CallbackCreate(GetMethod(implObj, "get_Resizable"), flags, 2)
-        this.vtbl.put_Resizable := CallbackCreate(GetMethod(implObj, "put_Resizable"), flags, 2)
+        this.vtbl.Navigate2 := CallbackCreate(ObjBindMethod(implObj, "Navigate2"), flags, 6)
+        this.vtbl.QueryStatusWB := CallbackCreate(ObjBindMethod(implObj, "QueryStatusWB"), flags, 3)
+        this.vtbl.ExecWB := CallbackCreate(ObjBindMethod(implObj, "ExecWB"), flags, 5)
+        this.vtbl.ShowBrowserBar := CallbackCreate(ObjBindMethod(implObj, "ShowBrowserBar"), flags, 4)
+        this.vtbl.get_ReadyState := CallbackCreate(ObjBindMethod(implObj, "get_ReadyState"), flags, 2)
+        this.vtbl.get_Offline := CallbackCreate(ObjBindMethod(implObj, "get_Offline"), flags, 2)
+        this.vtbl.put_Offline := CallbackCreate(ObjBindMethod(implObj, "put_Offline"), flags, 2)
+        this.vtbl.get_Silent := CallbackCreate(ObjBindMethod(implObj, "get_Silent"), flags, 2)
+        this.vtbl.put_Silent := CallbackCreate(ObjBindMethod(implObj, "put_Silent"), flags, 2)
+        this.vtbl.get_RegisterAsBrowser := CallbackCreate(ObjBindMethod(implObj, "get_RegisterAsBrowser"), flags, 2)
+        this.vtbl.put_RegisterAsBrowser := CallbackCreate(ObjBindMethod(implObj, "put_RegisterAsBrowser"), flags, 2)
+        this.vtbl.get_RegisterAsDropTarget := CallbackCreate(ObjBindMethod(implObj, "get_RegisterAsDropTarget"), flags, 2)
+        this.vtbl.put_RegisterAsDropTarget := CallbackCreate(ObjBindMethod(implObj, "put_RegisterAsDropTarget"), flags, 2)
+        this.vtbl.get_TheaterMode := CallbackCreate(ObjBindMethod(implObj, "get_TheaterMode"), flags, 2)
+        this.vtbl.put_TheaterMode := CallbackCreate(ObjBindMethod(implObj, "put_TheaterMode"), flags, 2)
+        this.vtbl.get_AddressBar := CallbackCreate(ObjBindMethod(implObj, "get_AddressBar"), flags, 2)
+        this.vtbl.put_AddressBar := CallbackCreate(ObjBindMethod(implObj, "put_AddressBar"), flags, 2)
+        this.vtbl.get_Resizable := CallbackCreate(ObjBindMethod(implObj, "get_Resizable"), flags, 2)
+        this.vtbl.put_Resizable := CallbackCreate(ObjBindMethod(implObj, "put_Resizable"), flags, 2)
     }
 
     Dispose() {

@@ -133,11 +133,11 @@ export default struct ID2D1LinearGradientBrush extends ID2D1Brush {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetStartPoint := CallbackCreate(GetMethod(implObj, "SetStartPoint"), flags, 2)
-        this.vtbl.SetEndPoint := CallbackCreate(GetMethod(implObj, "SetEndPoint"), flags, 2)
-        this.vtbl.GetStartPoint := CallbackCreate(GetMethod(implObj, "GetStartPoint"), flags, 1)
-        this.vtbl.GetEndPoint := CallbackCreate(GetMethod(implObj, "GetEndPoint"), flags, 1)
-        this.vtbl.GetGradientStopCollection := CallbackCreate(GetMethod(implObj, "GetGradientStopCollection"), flags, 2)
+        this.vtbl.SetStartPoint := CallbackCreate(ObjBindMethod(implObj, "SetStartPoint"), flags, 2)
+        this.vtbl.SetEndPoint := CallbackCreate(ObjBindMethod(implObj, "SetEndPoint"), flags, 2)
+        this.vtbl.GetStartPoint := CallbackCreate(ObjBindMethod(implObj, "GetStartPoint"), flags, 1)
+        this.vtbl.GetEndPoint := CallbackCreate(ObjBindMethod(implObj, "GetEndPoint"), flags, 1)
+        this.vtbl.GetGradientStopCollection := CallbackCreate(ObjBindMethod(implObj, "GetGradientStopCollection"), flags, 2)
     }
 
     Dispose() {

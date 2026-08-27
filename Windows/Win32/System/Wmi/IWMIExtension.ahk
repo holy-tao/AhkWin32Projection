@@ -54,7 +54,6 @@ export default struct IWMIExtension extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_WMIObjectPath() {
@@ -64,7 +63,6 @@ export default struct IWMIExtension extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemObject} 
      */
     GetWMIObject() {
@@ -73,7 +71,6 @@ export default struct IWMIExtension extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemServices} 
      */
     GetWMIServices() {
@@ -90,9 +87,9 @@ export default struct IWMIExtension extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_WMIObjectPath := CallbackCreate(GetMethod(implObj, "get_WMIObjectPath"), flags, 2)
-        this.vtbl.GetWMIObject := CallbackCreate(GetMethod(implObj, "GetWMIObject"), flags, 2)
-        this.vtbl.GetWMIServices := CallbackCreate(GetMethod(implObj, "GetWMIServices"), flags, 2)
+        this.vtbl.get_WMIObjectPath := CallbackCreate(ObjBindMethod(implObj, "get_WMIObjectPath"), flags, 2)
+        this.vtbl.GetWMIObject := CallbackCreate(ObjBindMethod(implObj, "GetWMIObject"), flags, 2)
+        this.vtbl.GetWMIServices := CallbackCreate(ObjBindMethod(implObj, "GetWMIServices"), flags, 2)
     }
 
     Dispose() {

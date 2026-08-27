@@ -28,7 +28,6 @@ export default struct SpFormatCredentialsFn {
     }
 
     /**
-     * 
      * @param {Pointer<SecBuffer>} Credentials Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secbuffer">SecBuffer</a> structure containing the credentials to be formatted.
      * @param {Pointer<SecBuffer>} FormattedCredentials Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secbuffer">SecBuffer</a> structure containing the formatted credentials. Allocate memory for the structure using the 

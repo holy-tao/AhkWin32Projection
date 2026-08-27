@@ -22,7 +22,6 @@ export default struct SslCreateClientAuthHashFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {Integer} dwProtocol 
      * @param {Integer} dwCipherSuite 

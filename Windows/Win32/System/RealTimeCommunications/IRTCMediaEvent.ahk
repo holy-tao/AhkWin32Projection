@@ -61,7 +61,6 @@ export default struct IRTCMediaEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MediaType() {
@@ -70,7 +69,6 @@ export default struct IRTCMediaEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {RTC_MEDIA_EVENT_TYPE} 
      */
     get_EventType() {
@@ -79,7 +77,6 @@ export default struct IRTCMediaEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {RTC_MEDIA_EVENT_REASON} 
      */
     get_EventReason() {
@@ -96,9 +93,9 @@ export default struct IRTCMediaEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_MediaType := CallbackCreate(GetMethod(implObj, "get_MediaType"), flags, 2)
-        this.vtbl.get_EventType := CallbackCreate(GetMethod(implObj, "get_EventType"), flags, 2)
-        this.vtbl.get_EventReason := CallbackCreate(GetMethod(implObj, "get_EventReason"), flags, 2)
+        this.vtbl.get_MediaType := CallbackCreate(ObjBindMethod(implObj, "get_MediaType"), flags, 2)
+        this.vtbl.get_EventType := CallbackCreate(ObjBindMethod(implObj, "get_EventType"), flags, 2)
+        this.vtbl.get_EventReason := CallbackCreate(ObjBindMethod(implObj, "get_EventReason"), flags, 2)
     }
 
     Dispose() {

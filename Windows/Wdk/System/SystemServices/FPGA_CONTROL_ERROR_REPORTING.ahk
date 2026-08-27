@@ -20,7 +20,6 @@ export default struct FPGA_CONTROL_ERROR_REPORTING {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Integer} UncorrectableMask 
      * @param {Integer} CorrectableMask 
@@ -28,7 +27,8 @@ export default struct FPGA_CONTROL_ERROR_REPORTING {
      * @returns {NTSTATUS} 
      */
     Call(_Context, UncorrectableMask, CorrectableMask, DisableErrorReporting) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, UInt32, UncorrectableMask, UInt32, CorrectableMask, BOOLEAN, DisableErrorReporting, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

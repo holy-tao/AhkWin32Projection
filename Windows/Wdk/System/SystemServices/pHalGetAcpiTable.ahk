@@ -19,7 +19,6 @@ export default struct pHalGetAcpiTable {
     }
 
     /**
-     * 
      * @param {Integer} Signature 
      * @param {PSTR} OemId 
      * @param {PSTR} OemTableId 
@@ -29,7 +28,10 @@ export default struct pHalGetAcpiTable {
         OemId := OemId is String ? StrPtr(OemId) : OemId
         OemTableId := OemTableId is String ? StrPtr(OemTableId) : OemTableId
 
-        result := DllCall(this.value, UInt32, Signature, "ptr", OemId, "ptr", OemTableId, IntPtr)
+        OemIdMarshal := OemId == 0 ? IntPtr : PSTR
+        OemTableIdMarshal := OemTableId == 0 ? IntPtr : PSTR
+
+        result := DllCall(this.value, UInt32, Signature, OemIdMarshal, OemId, OemTableIdMarshal, OemTableId, IntPtr)
         return result
     }
 

@@ -41,7 +41,6 @@ export default struct ICertEncodeAltName2 extends ICertEncodeAltName {
     }
 
     /**
-     * 
      * @param {BSTR} strEncodedData 
      * @param {EncodingType} Encoding 
      * @returns {HRESULT} 
@@ -54,7 +53,6 @@ export default struct ICertEncodeAltName2 extends ICertEncodeAltName {
     }
 
     /**
-     * 
      * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      */
@@ -65,7 +63,6 @@ export default struct ICertEncodeAltName2 extends ICertEncodeAltName {
     }
 
     /**
-     * 
      * @param {Integer} NameIndex 
      * @param {EncodingType} Encoding 
      * @returns {BSTR} 
@@ -77,7 +74,6 @@ export default struct ICertEncodeAltName2 extends ICertEncodeAltName {
     }
 
     /**
-     * 
      * @param {Integer} NameIndex 
      * @param {Integer} NameChoice 
      * @param {BSTR} strName 
@@ -100,10 +96,10 @@ export default struct ICertEncodeAltName2 extends ICertEncodeAltName {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DecodeBlob := CallbackCreate(GetMethod(implObj, "DecodeBlob"), flags, 3)
-        this.vtbl.EncodeBlob := CallbackCreate(GetMethod(implObj, "EncodeBlob"), flags, 3)
-        this.vtbl.GetNameBlob := CallbackCreate(GetMethod(implObj, "GetNameBlob"), flags, 4)
-        this.vtbl.SetNameEntryBlob := CallbackCreate(GetMethod(implObj, "SetNameEntryBlob"), flags, 5)
+        this.vtbl.DecodeBlob := CallbackCreate(ObjBindMethod(implObj, "DecodeBlob"), flags, 3)
+        this.vtbl.EncodeBlob := CallbackCreate(ObjBindMethod(implObj, "EncodeBlob"), flags, 3)
+        this.vtbl.GetNameBlob := CallbackCreate(ObjBindMethod(implObj, "GetNameBlob"), flags, 4)
+        this.vtbl.SetNameEntryBlob := CallbackCreate(ObjBindMethod(implObj, "SetNameEntryBlob"), flags, 5)
     }
 
     Dispose() {

@@ -149,7 +149,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {HIMC} hIME 
      * @returns {HIMC} 
@@ -161,7 +160,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {HWND} _hWnd 
      * @param {Integer} dwMode 
@@ -174,7 +172,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {HWND} _hWnd 
      * @param {Integer} dwMode 
@@ -260,7 +257,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {PSTR} szReading 
      * @param {Integer} dwStyle 
@@ -272,14 +268,13 @@ export default struct IActiveIMMIME extends IUnknown {
         szReading := szReading is String ? StrPtr(szReading) : szReading
         szRegister := szRegister is String ? StrPtr(szRegister) : szRegister
 
-        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+        pDataMarshal := pData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(8, this, HKL, _hKL, "ptr", szReading, UInt32, dwStyle, "ptr", szRegister, pDataMarshal, pData, "ptr*", &pEnum := 0, "HRESULT")
         return IEnumRegisterWordA(pEnum)
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {PWSTR} szReading 
      * @param {Integer} dwStyle 
@@ -291,14 +286,13 @@ export default struct IActiveIMMIME extends IUnknown {
         szReading := szReading is String ? StrPtr(szReading) : szReading
         szRegister := szRegister is String ? StrPtr(szRegister) : szRegister
 
-        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+        pDataMarshal := pData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(9, this, HKL, _hKL, "ptr", szReading, UInt32, dwStyle, "ptr", szRegister, pDataMarshal, pData, "ptr*", &pEnum := 0, "HRESULT")
         return IEnumRegisterWordW(pEnum)
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {HIMC} _hIMC 
      * @param {Integer} uEscape 
@@ -306,14 +300,13 @@ export default struct IActiveIMMIME extends IUnknown {
      * @returns {LRESULT} 
      */
     EscapeA(_hKL, _hIMC, uEscape, pData) {
-        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+        pDataMarshal := pData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(10, this, HKL, _hKL, HIMC, _hIMC, UInt32, uEscape, pDataMarshal, pData, LRESULT.Ptr, &plResult := 0, "HRESULT")
         return plResult
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {HIMC} _hIMC 
      * @param {Integer} uEscape 
@@ -321,14 +314,13 @@ export default struct IActiveIMMIME extends IUnknown {
      * @returns {LRESULT} 
      */
     EscapeW(_hKL, _hIMC, uEscape, pData) {
-        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+        pDataMarshal := pData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(11, this, HKL, _hKL, HIMC, _hIMC, UInt32, uEscape, pDataMarshal, pData, LRESULT.Ptr, &plResult := 0, "HRESULT")
         return plResult
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwIndex 
      * @param {Integer} uBufLen 
@@ -337,14 +329,13 @@ export default struct IActiveIMMIME extends IUnknown {
      * @returns {HRESULT} 
      */
     GetCandidateListA(_hIMC, dwIndex, uBufLen, pCandList, puCopied) {
-        puCopiedMarshal := puCopied is VarRef ? "uint*" : "ptr"
+        puCopiedMarshal := puCopied is VarRef ? "uint*" : IntPtr
 
         result := ComCall(12, this, HIMC, _hIMC, UInt32, dwIndex, UInt32, uBufLen, CANDIDATELIST.Ptr, pCandList, puCopiedMarshal, puCopied, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwIndex 
      * @param {Integer} uBufLen 
@@ -353,44 +344,41 @@ export default struct IActiveIMMIME extends IUnknown {
      * @returns {HRESULT} 
      */
     GetCandidateListW(_hIMC, dwIndex, uBufLen, pCandList, puCopied) {
-        puCopiedMarshal := puCopied is VarRef ? "uint*" : "ptr"
+        puCopiedMarshal := puCopied is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, HIMC, _hIMC, UInt32, dwIndex, UInt32, uBufLen, CANDIDATELIST.Ptr, pCandList, puCopiedMarshal, puCopied, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Pointer<Integer>} pdwListSize 
      * @param {Pointer<Integer>} pdwBufLen 
      * @returns {HRESULT} 
      */
     GetCandidateListCountA(_hIMC, pdwListSize, pdwBufLen) {
-        pdwListSizeMarshal := pdwListSize is VarRef ? "uint*" : "ptr"
-        pdwBufLenMarshal := pdwBufLen is VarRef ? "uint*" : "ptr"
+        pdwListSizeMarshal := pdwListSize is VarRef ? "uint*" : IntPtr
+        pdwBufLenMarshal := pdwBufLen is VarRef ? "uint*" : IntPtr
 
         result := ComCall(14, this, HIMC, _hIMC, pdwListSizeMarshal, pdwListSize, pdwBufLenMarshal, pdwBufLen, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Pointer<Integer>} pdwListSize 
      * @param {Pointer<Integer>} pdwBufLen 
      * @returns {HRESULT} 
      */
     GetCandidateListCountW(_hIMC, pdwListSize, pdwBufLen) {
-        pdwListSizeMarshal := pdwListSize is VarRef ? "uint*" : "ptr"
-        pdwBufLenMarshal := pdwBufLen is VarRef ? "uint*" : "ptr"
+        pdwListSizeMarshal := pdwListSize is VarRef ? "uint*" : IntPtr
+        pdwBufLenMarshal := pdwBufLen is VarRef ? "uint*" : IntPtr
 
         result := ComCall(15, this, HIMC, _hIMC, pdwListSizeMarshal, pdwListSize, pdwBufLenMarshal, pdwBufLen, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwIndex 
      * @returns {CANDIDATEFORM} 
@@ -402,7 +390,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @returns {LOGFONTA} 
      */
@@ -413,7 +400,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @returns {LOGFONTW} 
      */
@@ -424,7 +410,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwIndex 
      * @param {Integer} dwBufLen 
@@ -433,15 +418,14 @@ export default struct IActiveIMMIME extends IUnknown {
      * @returns {HRESULT} 
      */
     GetCompositionStringA(_hIMC, dwIndex, dwBufLen, plCopied, pBuf) {
-        plCopiedMarshal := plCopied is VarRef ? "int*" : "ptr"
-        pBufMarshal := pBuf is VarRef ? "ptr" : "ptr"
+        plCopiedMarshal := plCopied is VarRef ? "int*" : IntPtr
+        pBufMarshal := pBuf is VarRef ? "ptr" : IntPtr
 
         result := ComCall(19, this, HIMC, _hIMC, UInt32, dwIndex, UInt32, dwBufLen, plCopiedMarshal, plCopied, pBufMarshal, pBuf, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwIndex 
      * @param {Integer} dwBufLen 
@@ -450,15 +434,14 @@ export default struct IActiveIMMIME extends IUnknown {
      * @returns {HRESULT} 
      */
     GetCompositionStringW(_hIMC, dwIndex, dwBufLen, plCopied, pBuf) {
-        plCopiedMarshal := plCopied is VarRef ? "int*" : "ptr"
-        pBufMarshal := pBuf is VarRef ? "ptr" : "ptr"
+        plCopiedMarshal := plCopied is VarRef ? "int*" : IntPtr
+        pBufMarshal := pBuf is VarRef ? "ptr" : IntPtr
 
         result := ComCall(20, this, HIMC, _hIMC, UInt32, dwIndex, UInt32, dwBufLen, plCopiedMarshal, plCopied, pBufMarshal, pBuf, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @returns {COMPOSITIONFORM} 
      */
@@ -469,7 +452,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @returns {HIMC} 
      */
@@ -480,7 +462,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {HIMC} _hIMC 
      * @param {PSTR} pSrc 
@@ -493,14 +474,13 @@ export default struct IActiveIMMIME extends IUnknown {
     GetConversionListA(_hKL, _hIMC, pSrc, uBufLen, uFlag, pDst, puCopied) {
         pSrc := pSrc is String ? StrPtr(pSrc) : pSrc
 
-        puCopiedMarshal := puCopied is VarRef ? "uint*" : "ptr"
+        puCopiedMarshal := puCopied is VarRef ? "uint*" : IntPtr
 
         result := ComCall(23, this, HKL, _hKL, HIMC, _hIMC, "ptr", pSrc, UInt32, uBufLen, UInt32, uFlag, CANDIDATELIST.Ptr, pDst, puCopiedMarshal, puCopied, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {HIMC} _hIMC 
      * @param {PWSTR} pSrc 
@@ -513,7 +493,7 @@ export default struct IActiveIMMIME extends IUnknown {
     GetConversionListW(_hKL, _hIMC, pSrc, uBufLen, uFlag, pDst, puCopied) {
         pSrc := pSrc is String ? StrPtr(pSrc) : pSrc
 
-        puCopiedMarshal := puCopied is VarRef ? "uint*" : "ptr"
+        puCopiedMarshal := puCopied is VarRef ? "uint*" : IntPtr
 
         result := ComCall(24, this, HKL, _hKL, HIMC, _hIMC, "ptr", pSrc, UInt32, uBufLen, UInt32, uFlag, CANDIDATELIST.Ptr, pDst, puCopiedMarshal, puCopied, "HRESULT")
         return result
@@ -539,15 +519,14 @@ export default struct IActiveIMMIME extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/SecProv/getconversionstatus-win32-encryptablevolume
      */
     GetConversionStatus(_hIMC, pfdwConversion, pfdwSentence) {
-        pfdwConversionMarshal := pfdwConversion is VarRef ? "uint*" : "ptr"
-        pfdwSentenceMarshal := pfdwSentence is VarRef ? "uint*" : "ptr"
+        pfdwConversionMarshal := pfdwConversion is VarRef ? "uint*" : IntPtr
+        pfdwSentenceMarshal := pfdwSentence is VarRef ? "uint*" : IntPtr
 
         result := ComCall(25, this, HIMC, _hIMC, pfdwConversionMarshal, pfdwConversion, pfdwSentenceMarshal, pfdwSentence, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @returns {HWND} 
      */
@@ -558,7 +537,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {Integer} uBufLen 
      * @param {PSTR} szDescription 
@@ -572,7 +550,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {Integer} uBufLen 
      * @param {PWSTR} szDescription 
@@ -586,7 +563,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwIndex 
      * @param {Integer} dwBufLen 
@@ -601,7 +577,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwIndex 
      * @param {Integer} dwBufLen 
@@ -616,7 +591,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {Integer} uBufLen 
      * @param {PSTR} szFileName 
@@ -630,7 +604,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {Integer} uBufLen 
      * @param {PWSTR} szFileName 
@@ -644,7 +617,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @returns {HRESULT} 
      */
@@ -670,7 +642,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {Integer} nItem 
      * @param {Pointer<STYLEBUFA>} pStyleBuf 
@@ -678,14 +649,13 @@ export default struct IActiveIMMIME extends IUnknown {
      * @returns {HRESULT} 
      */
     GetRegisterWordStyleA(_hKL, nItem, pStyleBuf, puCopied) {
-        puCopiedMarshal := puCopied is VarRef ? "uint*" : "ptr"
+        puCopiedMarshal := puCopied is VarRef ? "uint*" : IntPtr
 
         result := ComCall(35, this, HKL, _hKL, UInt32, nItem, STYLEBUFA.Ptr, pStyleBuf, puCopiedMarshal, puCopied, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {Integer} nItem 
      * @param {Pointer<STYLEBUFW>} pStyleBuf 
@@ -693,14 +663,13 @@ export default struct IActiveIMMIME extends IUnknown {
      * @returns {HRESULT} 
      */
     GetRegisterWordStyleW(_hKL, nItem, pStyleBuf, puCopied) {
-        puCopiedMarshal := puCopied is VarRef ? "uint*" : "ptr"
+        puCopiedMarshal := puCopied is VarRef ? "uint*" : IntPtr
 
         result := ComCall(36, this, HKL, _hKL, UInt32, nItem, STYLEBUFW.Ptr, pStyleBuf, puCopiedMarshal, puCopied, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @returns {POINT} 
      */
@@ -711,7 +680,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @returns {Integer} 
      */
@@ -721,7 +689,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} szIMEFileName 
      * @param {PSTR} szLayoutText 
      * @returns {HKL} 
@@ -736,7 +703,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} szIMEFileName 
      * @param {PWSTR} szLayoutText 
      * @returns {HKL} 
@@ -751,7 +717,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @returns {HRESULT} 
      */
@@ -761,7 +726,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} hWndIME 
      * @param {Integer} _msg 
      * @param {WPARAM} _wParam 
@@ -774,7 +738,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} hWndIME 
      * @param {Integer} _msg 
      * @param {WPARAM} _wParam 
@@ -787,7 +750,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwAction 
      * @param {Integer} dwIndex 
@@ -800,7 +762,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {PSTR} szReading 
      * @param {Integer} dwStyle 
@@ -816,7 +777,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {PWSTR} szReading 
      * @param {Integer} dwStyle 
@@ -832,7 +792,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {HIMC} _hIMC 
      * @returns {HRESULT} 
@@ -843,7 +802,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Pointer<CANDIDATEFORM>} pCandidate 
      * @returns {HRESULT} 
@@ -854,7 +812,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Pointer<LOGFONTA>} plf 
      * @returns {HRESULT} 
@@ -865,7 +822,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Pointer<LOGFONTW>} plf 
      * @returns {HRESULT} 
@@ -876,7 +832,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwIndex 
      * @param {Pointer<Void>} pComp 
@@ -886,15 +841,14 @@ export default struct IActiveIMMIME extends IUnknown {
      * @returns {HRESULT} 
      */
     SetCompositionStringA(_hIMC, dwIndex, pComp, dwCompLen, pRead, dwReadLen) {
-        pCompMarshal := pComp is VarRef ? "ptr" : "ptr"
-        pReadMarshal := pRead is VarRef ? "ptr" : "ptr"
+        pCompMarshal := pComp is VarRef ? "ptr" : IntPtr
+        pReadMarshal := pRead is VarRef ? "ptr" : IntPtr
 
         result := ComCall(51, this, HIMC, _hIMC, UInt32, dwIndex, pCompMarshal, pComp, UInt32, dwCompLen, pReadMarshal, pRead, UInt32, dwReadLen, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwIndex 
      * @param {Pointer<Void>} pComp 
@@ -904,15 +858,14 @@ export default struct IActiveIMMIME extends IUnknown {
      * @returns {HRESULT} 
      */
     SetCompositionStringW(_hIMC, dwIndex, pComp, dwCompLen, pRead, dwReadLen) {
-        pCompMarshal := pComp is VarRef ? "ptr" : "ptr"
-        pReadMarshal := pRead is VarRef ? "ptr" : "ptr"
+        pCompMarshal := pComp is VarRef ? "ptr" : IntPtr
+        pReadMarshal := pRead is VarRef ? "ptr" : IntPtr
 
         result := ComCall(52, this, HIMC, _hIMC, UInt32, dwIndex, pCompMarshal, pComp, UInt32, dwCompLen, pReadMarshal, pRead, UInt32, dwReadLen, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Pointer<COMPOSITIONFORM>} pCompForm 
      * @returns {HRESULT} 
@@ -923,7 +876,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} fdwConversion 
      * @param {Integer} fdwSentence 
@@ -935,7 +887,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {BOOL} fOpen 
      * @returns {HRESULT} 
@@ -946,7 +897,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Pointer<POINT>} pptPos 
      * @returns {HRESULT} 
@@ -957,7 +907,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {Integer} dwHotKeyID 
      * @returns {HRESULT} 
@@ -968,7 +917,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {PSTR} szReading 
      * @param {Integer} dwStyle 
@@ -984,7 +932,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @param {PWSTR} szReading 
      * @param {Integer} dwStyle 
@@ -1000,7 +947,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @returns {HRESULT} 
      */
@@ -1010,7 +956,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @returns {Pointer<INPUTCONTEXT>} 
      */
@@ -1020,7 +965,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @returns {HRESULT} 
      */
@@ -1030,7 +974,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @returns {Integer} 
      */
@@ -1040,7 +983,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSize 
      * @returns {HIMCC} 
      */
@@ -1051,7 +993,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMCC} _hIMCC 
      * @returns {HRESULT} 
      */
@@ -1061,7 +1002,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMCC} _hIMCC 
      * @returns {Pointer<Void>} 
      */
@@ -1071,7 +1011,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMCC} _hIMCC 
      * @returns {HRESULT} 
      */
@@ -1081,7 +1020,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMCC} _hIMCC 
      * @param {Integer} dwSize 
      * @returns {HIMCC} 
@@ -1093,7 +1031,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMCC} _hIMCC 
      * @returns {Integer} 
      */
@@ -1103,7 +1040,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMCC} _hIMCC 
      * @returns {Integer} 
      */
@@ -1113,7 +1049,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwHotKeyID 
      * @param {Pointer<Integer>} puModifiers 
      * @param {Pointer<Integer>} puVKey 
@@ -1121,15 +1056,14 @@ export default struct IActiveIMMIME extends IUnknown {
      * @returns {HRESULT} 
      */
     GetHotKey(dwHotKeyID, puModifiers, puVKey, phKL) {
-        puModifiersMarshal := puModifiers is VarRef ? "uint*" : "ptr"
-        puVKeyMarshal := puVKey is VarRef ? "uint*" : "ptr"
+        puModifiersMarshal := puModifiers is VarRef ? "uint*" : IntPtr
+        puVKeyMarshal := puVKey is VarRef ? "uint*" : IntPtr
 
         result := ComCall(71, this, UInt32, dwHotKeyID, puModifiersMarshal, puModifiers, puVKeyMarshal, puVKey, HKL.Ptr, phKL, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwHotKeyID 
      * @param {Integer} uModifiers 
      * @param {Integer} uVKey 
@@ -1142,7 +1076,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uType 
      * @param {HWND} hOwner 
      * @param {Integer} x 
@@ -1156,7 +1089,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} hSoftKbdWnd 
      * @returns {HRESULT} 
      */
@@ -1166,7 +1098,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} hSoftKbdWnd 
      * @param {Integer} nCmdShow 
      * @returns {HRESULT} 
@@ -1177,7 +1108,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @returns {Integer} 
      */
@@ -1187,7 +1117,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HKL} _hKL 
      * @returns {Integer} 
      */
@@ -1197,7 +1126,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lgidIME 
      * @param {Integer} bVk 
      * @param {Integer} bScan 
@@ -1211,7 +1139,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     LockModal() {
@@ -1220,7 +1147,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     UnlockModal() {
@@ -1229,7 +1155,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwFlags 
@@ -1241,7 +1166,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} idThread 
      * @returns {HRESULT} 
      */
@@ -1251,7 +1175,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwFlags 
      * @param {Integer} dwType 
@@ -1262,14 +1185,13 @@ export default struct IActiveIMMIME extends IUnknown {
      * @returns {HRESULT} 
      */
     GetImeMenuItemsA(_hIMC, dwFlags, dwType, pImeParentMenu, pImeMenu, dwSize, pdwResult) {
-        pdwResultMarshal := pdwResult is VarRef ? "uint*" : "ptr"
+        pdwResultMarshal := pdwResult is VarRef ? "uint*" : IntPtr
 
         result := ComCall(83, this, HIMC, _hIMC, UInt32, dwFlags, UInt32, dwType, IMEMENUITEMINFOA.Ptr, pImeParentMenu, IMEMENUITEMINFOA.Ptr, pImeMenu, UInt32, dwSize, pdwResultMarshal, pdwResult, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {Integer} dwFlags 
      * @param {Integer} dwType 
@@ -1280,14 +1202,13 @@ export default struct IActiveIMMIME extends IUnknown {
      * @returns {HRESULT} 
      */
     GetImeMenuItemsW(_hIMC, dwFlags, dwType, pImeParentMenu, pImeMenu, dwSize, pdwResult) {
-        pdwResultMarshal := pdwResult is VarRef ? "uint*" : "ptr"
+        pdwResultMarshal := pdwResult is VarRef ? "uint*" : IntPtr
 
         result := ComCall(84, this, HIMC, _hIMC, UInt32, dwFlags, UInt32, dwType, IMEMENUITEMINFOW.Ptr, pImeParentMenu, IMEMENUITEMINFOW.Ptr, pImeMenu, UInt32, dwSize, pdwResultMarshal, pdwResult, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} idThread 
      * @returns {IEnumInputContext} 
      */
@@ -1297,7 +1218,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {WPARAM} _wParam 
      * @param {LPARAM} _lParam 
@@ -1309,7 +1229,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HIMC} _hIMC 
      * @param {WPARAM} _wParam 
      * @param {LPARAM} _lParam 
@@ -1321,7 +1240,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {Integer} uMsg 
      * @param {WPARAM} _wParam 
@@ -1334,7 +1252,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {Integer} uMsg 
      * @param {WPARAM} _wParam 
@@ -1347,7 +1264,6 @@ export default struct IActiveIMMIME extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     IsSleeping() {
@@ -1364,94 +1280,94 @@ export default struct IActiveIMMIME extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AssociateContext := CallbackCreate(GetMethod(implObj, "AssociateContext"), flags, 4)
-        this.vtbl.ConfigureIMEA := CallbackCreate(GetMethod(implObj, "ConfigureIMEA"), flags, 5)
-        this.vtbl.ConfigureIMEW := CallbackCreate(GetMethod(implObj, "ConfigureIMEW"), flags, 5)
-        this.vtbl.CreateContext := CallbackCreate(GetMethod(implObj, "CreateContext"), flags, 2)
-        this.vtbl.DestroyContext := CallbackCreate(GetMethod(implObj, "DestroyContext"), flags, 2)
-        this.vtbl.EnumRegisterWordA := CallbackCreate(GetMethod(implObj, "EnumRegisterWordA"), flags, 7)
-        this.vtbl.EnumRegisterWordW := CallbackCreate(GetMethod(implObj, "EnumRegisterWordW"), flags, 7)
-        this.vtbl.EscapeA := CallbackCreate(GetMethod(implObj, "EscapeA"), flags, 6)
-        this.vtbl.EscapeW := CallbackCreate(GetMethod(implObj, "EscapeW"), flags, 6)
-        this.vtbl.GetCandidateListA := CallbackCreate(GetMethod(implObj, "GetCandidateListA"), flags, 6)
-        this.vtbl.GetCandidateListW := CallbackCreate(GetMethod(implObj, "GetCandidateListW"), flags, 6)
-        this.vtbl.GetCandidateListCountA := CallbackCreate(GetMethod(implObj, "GetCandidateListCountA"), flags, 4)
-        this.vtbl.GetCandidateListCountW := CallbackCreate(GetMethod(implObj, "GetCandidateListCountW"), flags, 4)
-        this.vtbl.GetCandidateWindow := CallbackCreate(GetMethod(implObj, "GetCandidateWindow"), flags, 4)
-        this.vtbl.GetCompositionFontA := CallbackCreate(GetMethod(implObj, "GetCompositionFontA"), flags, 3)
-        this.vtbl.GetCompositionFontW := CallbackCreate(GetMethod(implObj, "GetCompositionFontW"), flags, 3)
-        this.vtbl.GetCompositionStringA := CallbackCreate(GetMethod(implObj, "GetCompositionStringA"), flags, 6)
-        this.vtbl.GetCompositionStringW := CallbackCreate(GetMethod(implObj, "GetCompositionStringW"), flags, 6)
-        this.vtbl.GetCompositionWindow := CallbackCreate(GetMethod(implObj, "GetCompositionWindow"), flags, 3)
-        this.vtbl.GetContext := CallbackCreate(GetMethod(implObj, "GetContext"), flags, 3)
-        this.vtbl.GetConversionListA := CallbackCreate(GetMethod(implObj, "GetConversionListA"), flags, 8)
-        this.vtbl.GetConversionListW := CallbackCreate(GetMethod(implObj, "GetConversionListW"), flags, 8)
-        this.vtbl.GetConversionStatus := CallbackCreate(GetMethod(implObj, "GetConversionStatus"), flags, 4)
-        this.vtbl.GetDefaultIMEWnd := CallbackCreate(GetMethod(implObj, "GetDefaultIMEWnd"), flags, 3)
-        this.vtbl.GetDescriptionA := CallbackCreate(GetMethod(implObj, "GetDescriptionA"), flags, 5)
-        this.vtbl.GetDescriptionW := CallbackCreate(GetMethod(implObj, "GetDescriptionW"), flags, 5)
-        this.vtbl.GetGuideLineA := CallbackCreate(GetMethod(implObj, "GetGuideLineA"), flags, 6)
-        this.vtbl.GetGuideLineW := CallbackCreate(GetMethod(implObj, "GetGuideLineW"), flags, 6)
-        this.vtbl.GetIMEFileNameA := CallbackCreate(GetMethod(implObj, "GetIMEFileNameA"), flags, 5)
-        this.vtbl.GetIMEFileNameW := CallbackCreate(GetMethod(implObj, "GetIMEFileNameW"), flags, 5)
-        this.vtbl.GetOpenStatus := CallbackCreate(GetMethod(implObj, "GetOpenStatus"), flags, 2)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 4)
-        this.vtbl.GetRegisterWordStyleA := CallbackCreate(GetMethod(implObj, "GetRegisterWordStyleA"), flags, 5)
-        this.vtbl.GetRegisterWordStyleW := CallbackCreate(GetMethod(implObj, "GetRegisterWordStyleW"), flags, 5)
-        this.vtbl.GetStatusWindowPos := CallbackCreate(GetMethod(implObj, "GetStatusWindowPos"), flags, 3)
-        this.vtbl.GetVirtualKey := CallbackCreate(GetMethod(implObj, "GetVirtualKey"), flags, 3)
-        this.vtbl.InstallIMEA := CallbackCreate(GetMethod(implObj, "InstallIMEA"), flags, 4)
-        this.vtbl.InstallIMEW := CallbackCreate(GetMethod(implObj, "InstallIMEW"), flags, 4)
-        this.vtbl.IsIME := CallbackCreate(GetMethod(implObj, "IsIME"), flags, 2)
-        this.vtbl.IsUIMessageA := CallbackCreate(GetMethod(implObj, "IsUIMessageA"), flags, 5)
-        this.vtbl.IsUIMessageW := CallbackCreate(GetMethod(implObj, "IsUIMessageW"), flags, 5)
-        this.vtbl.NotifyIME := CallbackCreate(GetMethod(implObj, "NotifyIME"), flags, 5)
-        this.vtbl.RegisterWordA := CallbackCreate(GetMethod(implObj, "RegisterWordA"), flags, 5)
-        this.vtbl.RegisterWordW := CallbackCreate(GetMethod(implObj, "RegisterWordW"), flags, 5)
-        this.vtbl.ReleaseContext := CallbackCreate(GetMethod(implObj, "ReleaseContext"), flags, 3)
-        this.vtbl.SetCandidateWindow := CallbackCreate(GetMethod(implObj, "SetCandidateWindow"), flags, 3)
-        this.vtbl.SetCompositionFontA := CallbackCreate(GetMethod(implObj, "SetCompositionFontA"), flags, 3)
-        this.vtbl.SetCompositionFontW := CallbackCreate(GetMethod(implObj, "SetCompositionFontW"), flags, 3)
-        this.vtbl.SetCompositionStringA := CallbackCreate(GetMethod(implObj, "SetCompositionStringA"), flags, 7)
-        this.vtbl.SetCompositionStringW := CallbackCreate(GetMethod(implObj, "SetCompositionStringW"), flags, 7)
-        this.vtbl.SetCompositionWindow := CallbackCreate(GetMethod(implObj, "SetCompositionWindow"), flags, 3)
-        this.vtbl.SetConversionStatus := CallbackCreate(GetMethod(implObj, "SetConversionStatus"), flags, 4)
-        this.vtbl.SetOpenStatus := CallbackCreate(GetMethod(implObj, "SetOpenStatus"), flags, 3)
-        this.vtbl.SetStatusWindowPos := CallbackCreate(GetMethod(implObj, "SetStatusWindowPos"), flags, 3)
-        this.vtbl.SimulateHotKey := CallbackCreate(GetMethod(implObj, "SimulateHotKey"), flags, 3)
-        this.vtbl.UnregisterWordA := CallbackCreate(GetMethod(implObj, "UnregisterWordA"), flags, 5)
-        this.vtbl.UnregisterWordW := CallbackCreate(GetMethod(implObj, "UnregisterWordW"), flags, 5)
-        this.vtbl.GenerateMessage := CallbackCreate(GetMethod(implObj, "GenerateMessage"), flags, 2)
-        this.vtbl.LockIMC := CallbackCreate(GetMethod(implObj, "LockIMC"), flags, 3)
-        this.vtbl.UnlockIMC := CallbackCreate(GetMethod(implObj, "UnlockIMC"), flags, 2)
-        this.vtbl.GetIMCLockCount := CallbackCreate(GetMethod(implObj, "GetIMCLockCount"), flags, 3)
-        this.vtbl.CreateIMCC := CallbackCreate(GetMethod(implObj, "CreateIMCC"), flags, 3)
-        this.vtbl.DestroyIMCC := CallbackCreate(GetMethod(implObj, "DestroyIMCC"), flags, 2)
-        this.vtbl.LockIMCC := CallbackCreate(GetMethod(implObj, "LockIMCC"), flags, 3)
-        this.vtbl.UnlockIMCC := CallbackCreate(GetMethod(implObj, "UnlockIMCC"), flags, 2)
-        this.vtbl.ReSizeIMCC := CallbackCreate(GetMethod(implObj, "ReSizeIMCC"), flags, 4)
-        this.vtbl.GetIMCCSize := CallbackCreate(GetMethod(implObj, "GetIMCCSize"), flags, 3)
-        this.vtbl.GetIMCCLockCount := CallbackCreate(GetMethod(implObj, "GetIMCCLockCount"), flags, 3)
-        this.vtbl.GetHotKey := CallbackCreate(GetMethod(implObj, "GetHotKey"), flags, 5)
-        this.vtbl.SetHotKey := CallbackCreate(GetMethod(implObj, "SetHotKey"), flags, 5)
-        this.vtbl.CreateSoftKeyboard := CallbackCreate(GetMethod(implObj, "CreateSoftKeyboard"), flags, 6)
-        this.vtbl.DestroySoftKeyboard := CallbackCreate(GetMethod(implObj, "DestroySoftKeyboard"), flags, 2)
-        this.vtbl.ShowSoftKeyboard := CallbackCreate(GetMethod(implObj, "ShowSoftKeyboard"), flags, 3)
-        this.vtbl.GetCodePageA := CallbackCreate(GetMethod(implObj, "GetCodePageA"), flags, 3)
-        this.vtbl.GetLangId := CallbackCreate(GetMethod(implObj, "GetLangId"), flags, 3)
-        this.vtbl.KeybdEvent := CallbackCreate(GetMethod(implObj, "KeybdEvent"), flags, 6)
-        this.vtbl.LockModal := CallbackCreate(GetMethod(implObj, "LockModal"), flags, 1)
-        this.vtbl.UnlockModal := CallbackCreate(GetMethod(implObj, "UnlockModal"), flags, 1)
-        this.vtbl.AssociateContextEx := CallbackCreate(GetMethod(implObj, "AssociateContextEx"), flags, 4)
-        this.vtbl.DisableIME := CallbackCreate(GetMethod(implObj, "DisableIME"), flags, 2)
-        this.vtbl.GetImeMenuItemsA := CallbackCreate(GetMethod(implObj, "GetImeMenuItemsA"), flags, 8)
-        this.vtbl.GetImeMenuItemsW := CallbackCreate(GetMethod(implObj, "GetImeMenuItemsW"), flags, 8)
-        this.vtbl.EnumInputContext := CallbackCreate(GetMethod(implObj, "EnumInputContext"), flags, 3)
-        this.vtbl.RequestMessageA := CallbackCreate(GetMethod(implObj, "RequestMessageA"), flags, 5)
-        this.vtbl.RequestMessageW := CallbackCreate(GetMethod(implObj, "RequestMessageW"), flags, 5)
-        this.vtbl.SendIMCA := CallbackCreate(GetMethod(implObj, "SendIMCA"), flags, 6)
-        this.vtbl.SendIMCW := CallbackCreate(GetMethod(implObj, "SendIMCW"), flags, 6)
-        this.vtbl.IsSleeping := CallbackCreate(GetMethod(implObj, "IsSleeping"), flags, 1)
+        this.vtbl.AssociateContext := CallbackCreate(ObjBindMethod(implObj, "AssociateContext"), flags, 4)
+        this.vtbl.ConfigureIMEA := CallbackCreate(ObjBindMethod(implObj, "ConfigureIMEA"), flags, 5)
+        this.vtbl.ConfigureIMEW := CallbackCreate(ObjBindMethod(implObj, "ConfigureIMEW"), flags, 5)
+        this.vtbl.CreateContext := CallbackCreate(ObjBindMethod(implObj, "CreateContext"), flags, 2)
+        this.vtbl.DestroyContext := CallbackCreate(ObjBindMethod(implObj, "DestroyContext"), flags, 2)
+        this.vtbl.EnumRegisterWordA := CallbackCreate(ObjBindMethod(implObj, "EnumRegisterWordA"), flags, 7)
+        this.vtbl.EnumRegisterWordW := CallbackCreate(ObjBindMethod(implObj, "EnumRegisterWordW"), flags, 7)
+        this.vtbl.EscapeA := CallbackCreate(ObjBindMethod(implObj, "EscapeA"), flags, 6)
+        this.vtbl.EscapeW := CallbackCreate(ObjBindMethod(implObj, "EscapeW"), flags, 6)
+        this.vtbl.GetCandidateListA := CallbackCreate(ObjBindMethod(implObj, "GetCandidateListA"), flags, 6)
+        this.vtbl.GetCandidateListW := CallbackCreate(ObjBindMethod(implObj, "GetCandidateListW"), flags, 6)
+        this.vtbl.GetCandidateListCountA := CallbackCreate(ObjBindMethod(implObj, "GetCandidateListCountA"), flags, 4)
+        this.vtbl.GetCandidateListCountW := CallbackCreate(ObjBindMethod(implObj, "GetCandidateListCountW"), flags, 4)
+        this.vtbl.GetCandidateWindow := CallbackCreate(ObjBindMethod(implObj, "GetCandidateWindow"), flags, 4)
+        this.vtbl.GetCompositionFontA := CallbackCreate(ObjBindMethod(implObj, "GetCompositionFontA"), flags, 3)
+        this.vtbl.GetCompositionFontW := CallbackCreate(ObjBindMethod(implObj, "GetCompositionFontW"), flags, 3)
+        this.vtbl.GetCompositionStringA := CallbackCreate(ObjBindMethod(implObj, "GetCompositionStringA"), flags, 6)
+        this.vtbl.GetCompositionStringW := CallbackCreate(ObjBindMethod(implObj, "GetCompositionStringW"), flags, 6)
+        this.vtbl.GetCompositionWindow := CallbackCreate(ObjBindMethod(implObj, "GetCompositionWindow"), flags, 3)
+        this.vtbl.GetContext := CallbackCreate(ObjBindMethod(implObj, "GetContext"), flags, 3)
+        this.vtbl.GetConversionListA := CallbackCreate(ObjBindMethod(implObj, "GetConversionListA"), flags, 8)
+        this.vtbl.GetConversionListW := CallbackCreate(ObjBindMethod(implObj, "GetConversionListW"), flags, 8)
+        this.vtbl.GetConversionStatus := CallbackCreate(ObjBindMethod(implObj, "GetConversionStatus"), flags, 4)
+        this.vtbl.GetDefaultIMEWnd := CallbackCreate(ObjBindMethod(implObj, "GetDefaultIMEWnd"), flags, 3)
+        this.vtbl.GetDescriptionA := CallbackCreate(ObjBindMethod(implObj, "GetDescriptionA"), flags, 5)
+        this.vtbl.GetDescriptionW := CallbackCreate(ObjBindMethod(implObj, "GetDescriptionW"), flags, 5)
+        this.vtbl.GetGuideLineA := CallbackCreate(ObjBindMethod(implObj, "GetGuideLineA"), flags, 6)
+        this.vtbl.GetGuideLineW := CallbackCreate(ObjBindMethod(implObj, "GetGuideLineW"), flags, 6)
+        this.vtbl.GetIMEFileNameA := CallbackCreate(ObjBindMethod(implObj, "GetIMEFileNameA"), flags, 5)
+        this.vtbl.GetIMEFileNameW := CallbackCreate(ObjBindMethod(implObj, "GetIMEFileNameW"), flags, 5)
+        this.vtbl.GetOpenStatus := CallbackCreate(ObjBindMethod(implObj, "GetOpenStatus"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 4)
+        this.vtbl.GetRegisterWordStyleA := CallbackCreate(ObjBindMethod(implObj, "GetRegisterWordStyleA"), flags, 5)
+        this.vtbl.GetRegisterWordStyleW := CallbackCreate(ObjBindMethod(implObj, "GetRegisterWordStyleW"), flags, 5)
+        this.vtbl.GetStatusWindowPos := CallbackCreate(ObjBindMethod(implObj, "GetStatusWindowPos"), flags, 3)
+        this.vtbl.GetVirtualKey := CallbackCreate(ObjBindMethod(implObj, "GetVirtualKey"), flags, 3)
+        this.vtbl.InstallIMEA := CallbackCreate(ObjBindMethod(implObj, "InstallIMEA"), flags, 4)
+        this.vtbl.InstallIMEW := CallbackCreate(ObjBindMethod(implObj, "InstallIMEW"), flags, 4)
+        this.vtbl.IsIME := CallbackCreate(ObjBindMethod(implObj, "IsIME"), flags, 2)
+        this.vtbl.IsUIMessageA := CallbackCreate(ObjBindMethod(implObj, "IsUIMessageA"), flags, 5)
+        this.vtbl.IsUIMessageW := CallbackCreate(ObjBindMethod(implObj, "IsUIMessageW"), flags, 5)
+        this.vtbl.NotifyIME := CallbackCreate(ObjBindMethod(implObj, "NotifyIME"), flags, 5)
+        this.vtbl.RegisterWordA := CallbackCreate(ObjBindMethod(implObj, "RegisterWordA"), flags, 5)
+        this.vtbl.RegisterWordW := CallbackCreate(ObjBindMethod(implObj, "RegisterWordW"), flags, 5)
+        this.vtbl.ReleaseContext := CallbackCreate(ObjBindMethod(implObj, "ReleaseContext"), flags, 3)
+        this.vtbl.SetCandidateWindow := CallbackCreate(ObjBindMethod(implObj, "SetCandidateWindow"), flags, 3)
+        this.vtbl.SetCompositionFontA := CallbackCreate(ObjBindMethod(implObj, "SetCompositionFontA"), flags, 3)
+        this.vtbl.SetCompositionFontW := CallbackCreate(ObjBindMethod(implObj, "SetCompositionFontW"), flags, 3)
+        this.vtbl.SetCompositionStringA := CallbackCreate(ObjBindMethod(implObj, "SetCompositionStringA"), flags, 7)
+        this.vtbl.SetCompositionStringW := CallbackCreate(ObjBindMethod(implObj, "SetCompositionStringW"), flags, 7)
+        this.vtbl.SetCompositionWindow := CallbackCreate(ObjBindMethod(implObj, "SetCompositionWindow"), flags, 3)
+        this.vtbl.SetConversionStatus := CallbackCreate(ObjBindMethod(implObj, "SetConversionStatus"), flags, 4)
+        this.vtbl.SetOpenStatus := CallbackCreate(ObjBindMethod(implObj, "SetOpenStatus"), flags, 3)
+        this.vtbl.SetStatusWindowPos := CallbackCreate(ObjBindMethod(implObj, "SetStatusWindowPos"), flags, 3)
+        this.vtbl.SimulateHotKey := CallbackCreate(ObjBindMethod(implObj, "SimulateHotKey"), flags, 3)
+        this.vtbl.UnregisterWordA := CallbackCreate(ObjBindMethod(implObj, "UnregisterWordA"), flags, 5)
+        this.vtbl.UnregisterWordW := CallbackCreate(ObjBindMethod(implObj, "UnregisterWordW"), flags, 5)
+        this.vtbl.GenerateMessage := CallbackCreate(ObjBindMethod(implObj, "GenerateMessage"), flags, 2)
+        this.vtbl.LockIMC := CallbackCreate(ObjBindMethod(implObj, "LockIMC"), flags, 3)
+        this.vtbl.UnlockIMC := CallbackCreate(ObjBindMethod(implObj, "UnlockIMC"), flags, 2)
+        this.vtbl.GetIMCLockCount := CallbackCreate(ObjBindMethod(implObj, "GetIMCLockCount"), flags, 3)
+        this.vtbl.CreateIMCC := CallbackCreate(ObjBindMethod(implObj, "CreateIMCC"), flags, 3)
+        this.vtbl.DestroyIMCC := CallbackCreate(ObjBindMethod(implObj, "DestroyIMCC"), flags, 2)
+        this.vtbl.LockIMCC := CallbackCreate(ObjBindMethod(implObj, "LockIMCC"), flags, 3)
+        this.vtbl.UnlockIMCC := CallbackCreate(ObjBindMethod(implObj, "UnlockIMCC"), flags, 2)
+        this.vtbl.ReSizeIMCC := CallbackCreate(ObjBindMethod(implObj, "ReSizeIMCC"), flags, 4)
+        this.vtbl.GetIMCCSize := CallbackCreate(ObjBindMethod(implObj, "GetIMCCSize"), flags, 3)
+        this.vtbl.GetIMCCLockCount := CallbackCreate(ObjBindMethod(implObj, "GetIMCCLockCount"), flags, 3)
+        this.vtbl.GetHotKey := CallbackCreate(ObjBindMethod(implObj, "GetHotKey"), flags, 5)
+        this.vtbl.SetHotKey := CallbackCreate(ObjBindMethod(implObj, "SetHotKey"), flags, 5)
+        this.vtbl.CreateSoftKeyboard := CallbackCreate(ObjBindMethod(implObj, "CreateSoftKeyboard"), flags, 6)
+        this.vtbl.DestroySoftKeyboard := CallbackCreate(ObjBindMethod(implObj, "DestroySoftKeyboard"), flags, 2)
+        this.vtbl.ShowSoftKeyboard := CallbackCreate(ObjBindMethod(implObj, "ShowSoftKeyboard"), flags, 3)
+        this.vtbl.GetCodePageA := CallbackCreate(ObjBindMethod(implObj, "GetCodePageA"), flags, 3)
+        this.vtbl.GetLangId := CallbackCreate(ObjBindMethod(implObj, "GetLangId"), flags, 3)
+        this.vtbl.KeybdEvent := CallbackCreate(ObjBindMethod(implObj, "KeybdEvent"), flags, 6)
+        this.vtbl.LockModal := CallbackCreate(ObjBindMethod(implObj, "LockModal"), flags, 1)
+        this.vtbl.UnlockModal := CallbackCreate(ObjBindMethod(implObj, "UnlockModal"), flags, 1)
+        this.vtbl.AssociateContextEx := CallbackCreate(ObjBindMethod(implObj, "AssociateContextEx"), flags, 4)
+        this.vtbl.DisableIME := CallbackCreate(ObjBindMethod(implObj, "DisableIME"), flags, 2)
+        this.vtbl.GetImeMenuItemsA := CallbackCreate(ObjBindMethod(implObj, "GetImeMenuItemsA"), flags, 8)
+        this.vtbl.GetImeMenuItemsW := CallbackCreate(ObjBindMethod(implObj, "GetImeMenuItemsW"), flags, 8)
+        this.vtbl.EnumInputContext := CallbackCreate(ObjBindMethod(implObj, "EnumInputContext"), flags, 3)
+        this.vtbl.RequestMessageA := CallbackCreate(ObjBindMethod(implObj, "RequestMessageA"), flags, 5)
+        this.vtbl.RequestMessageW := CallbackCreate(ObjBindMethod(implObj, "RequestMessageW"), flags, 5)
+        this.vtbl.SendIMCA := CallbackCreate(ObjBindMethod(implObj, "SendIMCA"), flags, 6)
+        this.vtbl.SendIMCW := CallbackCreate(ObjBindMethod(implObj, "SendIMCW"), flags, 6)
+        this.vtbl.IsSleeping := CallbackCreate(ObjBindMethod(implObj, "IsSleeping"), flags, 1)
     }
 
     Dispose() {

@@ -46,7 +46,10 @@ export default struct ITransactionVoterFactory2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/Msi/create-time-date-summary
      */
     Create(pTransaction, pVoterNotify) {
-        result := ComCall(3, this, "ptr", pTransaction, "ptr", pVoterNotify, "ptr*", &ppVoterBallot := 0, "HRESULT")
+        pTransactionMarshal := pTransaction == 0 ? IntPtr : "ptr"
+        pVoterNotifyMarshal := pVoterNotify == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pTransactionMarshal, pTransaction, pVoterNotifyMarshal, pVoterNotify, "ptr*", &ppVoterBallot := 0, "HRESULT")
         return ITransactionVoterBallotAsync2(ppVoterBallot)
     }
 
@@ -59,7 +62,7 @@ export default struct ITransactionVoterFactory2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 4)
+        this.vtbl.Create := CallbackCreate(ObjBindMethod(implObj, "Create"), flags, 4)
     }
 
     Dispose() {

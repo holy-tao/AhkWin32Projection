@@ -37,21 +37,19 @@ export default struct ICorProfilerInfo5 extends ICorProfilerInfo4 {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwEventsLow 
      * @param {Pointer<Integer>} pdwEventsHigh 
      * @returns {HRESULT} 
      */
     GetEventMask2(pdwEventsLow, pdwEventsHigh) {
-        pdwEventsLowMarshal := pdwEventsLow is VarRef ? "uint*" : "ptr"
-        pdwEventsHighMarshal := pdwEventsHigh is VarRef ? "uint*" : "ptr"
+        pdwEventsLowMarshal := pdwEventsLow is VarRef ? "uint*" : IntPtr
+        pdwEventsHighMarshal := pdwEventsHigh is VarRef ? "uint*" : IntPtr
 
         result := ComCall(81, this, pdwEventsLowMarshal, pdwEventsLow, pdwEventsHighMarshal, pdwEventsHigh, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwEventsLow 
      * @param {Integer} dwEventsHigh 
      * @returns {HRESULT} 
@@ -70,8 +68,8 @@ export default struct ICorProfilerInfo5 extends ICorProfilerInfo4 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetEventMask2 := CallbackCreate(GetMethod(implObj, "GetEventMask2"), flags, 3)
-        this.vtbl.SetEventMask2 := CallbackCreate(GetMethod(implObj, "SetEventMask2"), flags, 3)
+        this.vtbl.GetEventMask2 := CallbackCreate(ObjBindMethod(implObj, "GetEventMask2"), flags, 3)
+        this.vtbl.SetEventMask2 := CallbackCreate(ObjBindMethod(implObj, "SetEventMask2"), flags, 3)
     }
 
     Dispose() {

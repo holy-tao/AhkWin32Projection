@@ -39,7 +39,6 @@ export default struct INamedModelsEnumerator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -48,7 +47,6 @@ export default struct INamedModelsEnumerator extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pModelName 
      * @param {Pointer<IModelObject>} ppModel 
      * @returns {HRESULT} 
@@ -67,8 +65,8 @@ export default struct INamedModelsEnumerator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.GetNext := CallbackCreate(GetMethod(implObj, "GetNext"), flags, 3)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.GetNext := CallbackCreate(ObjBindMethod(implObj, "GetNext"), flags, 3)
     }
 
     Dispose() {

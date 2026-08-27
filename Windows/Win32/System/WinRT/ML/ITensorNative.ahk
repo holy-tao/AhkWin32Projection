@@ -38,21 +38,19 @@ export default struct ITensorNative extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Integer>>} value 
      * @param {Pointer<Integer>} capacity 
      * @returns {HRESULT} 
      */
     GetBuffer(value, capacity) {
-        valueMarshal := value is VarRef ? "ptr*" : "ptr"
-        capacityMarshal := capacity is VarRef ? "uint*" : "ptr"
+        valueMarshal := value is VarRef ? "ptr*" : IntPtr
+        capacityMarshal := capacity is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, valueMarshal, value, capacityMarshal, capacity, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {ID3D12Resource} 
      */
     GetD3D12Resource() {
@@ -69,8 +67,8 @@ export default struct ITensorNative extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetBuffer := CallbackCreate(GetMethod(implObj, "GetBuffer"), flags, 3)
-        this.vtbl.GetD3D12Resource := CallbackCreate(GetMethod(implObj, "GetD3D12Resource"), flags, 2)
+        this.vtbl.GetBuffer := CallbackCreate(ObjBindMethod(implObj, "GetBuffer"), flags, 3)
+        this.vtbl.GetD3D12Resource := CallbackCreate(ObjBindMethod(implObj, "GetD3D12Resource"), flags, 2)
     }
 
     Dispose() {

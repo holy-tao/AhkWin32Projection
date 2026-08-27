@@ -20,13 +20,12 @@ export default struct PREPLACE_DRIVER_INIT {
     }
 
     /**
-     * 
      * @param {Pointer<PNP_REPLACE_DRIVER_INTERFACE>} _Interface 
      * @param {Pointer<Void>} Unused 
      * @returns {NTSTATUS} 
      */
     Call(_Interface, Unused) {
-        UnusedMarshal := Unused is VarRef ? "ptr" : "ptr"
+        UnusedMarshal := Unused is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, PNP_REPLACE_DRIVER_INTERFACE.Ptr, _Interface, UnusedMarshal, Unused, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

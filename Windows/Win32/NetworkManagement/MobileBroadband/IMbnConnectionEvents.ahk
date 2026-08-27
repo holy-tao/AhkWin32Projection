@@ -119,10 +119,10 @@ export default struct IMbnConnectionEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnConnectComplete := CallbackCreate(GetMethod(implObj, "OnConnectComplete"), flags, 4)
-        this.vtbl.OnDisconnectComplete := CallbackCreate(GetMethod(implObj, "OnDisconnectComplete"), flags, 4)
-        this.vtbl.OnConnectStateChange := CallbackCreate(GetMethod(implObj, "OnConnectStateChange"), flags, 2)
-        this.vtbl.OnVoiceCallStateChange := CallbackCreate(GetMethod(implObj, "OnVoiceCallStateChange"), flags, 2)
+        this.vtbl.OnConnectComplete := CallbackCreate(ObjBindMethod(implObj, "OnConnectComplete"), flags, 4)
+        this.vtbl.OnDisconnectComplete := CallbackCreate(ObjBindMethod(implObj, "OnDisconnectComplete"), flags, 4)
+        this.vtbl.OnConnectStateChange := CallbackCreate(ObjBindMethod(implObj, "OnConnectStateChange"), flags, 2)
+        this.vtbl.OnVoiceCallStateChange := CallbackCreate(ObjBindMethod(implObj, "OnVoiceCallStateChange"), flags, 2)
     }
 
     Dispose() {

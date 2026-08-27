@@ -102,9 +102,9 @@ export default struct IMenuButton extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddButton := CallbackCreate(GetMethod(implObj, "AddButton"), flags, 4)
-        this.vtbl.SetButton := CallbackCreate(GetMethod(implObj, "SetButton"), flags, 4)
-        this.vtbl.SetButtonState := CallbackCreate(GetMethod(implObj, "SetButtonState"), flags, 4)
+        this.vtbl.AddButton := CallbackCreate(ObjBindMethod(implObj, "AddButton"), flags, 4)
+        this.vtbl.SetButton := CallbackCreate(ObjBindMethod(implObj, "SetButton"), flags, 4)
+        this.vtbl.SetButtonState := CallbackCreate(ObjBindMethod(implObj, "SetButtonState"), flags, 4)
     }
 
     Dispose() {

@@ -22,7 +22,6 @@ export default struct ACMFILTERCHOOSEHOOKPROCA {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {Integer} uMsg 
      * @param {WPARAM} _wParam 

@@ -2280,7 +2280,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getlightenable
      */
     GetLightEnable(Index, pEnable) {
-        pEnableMarshal := pEnable is VarRef ? "int*" : "ptr"
+        pEnableMarshal := pEnable is VarRef ? "int*" : IntPtr
 
         result := ComCall(54, this, UInt32, Index, pEnableMarshal, pEnable, "HRESULT")
         return result
@@ -2306,7 +2306,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setclipplane
      */
     SetClipPlane(Index, pPlane) {
-        pPlaneMarshal := pPlane is VarRef ? "float*" : "ptr"
+        pPlaneMarshal := pPlane is VarRef ? "float*" : IntPtr
 
         result := ComCall(55, this, UInt32, Index, pPlaneMarshal, pPlane, "HRESULT")
         return result
@@ -2334,7 +2334,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getclipplane
      */
     GetClipPlane(Index, pPlane) {
-        pPlaneMarshal := pPlane is VarRef ? "float*" : "ptr"
+        pPlaneMarshal := pPlane is VarRef ? "float*" : IntPtr
 
         result := ComCall(56, this, UInt32, Index, pPlaneMarshal, pPlane, "HRESULT")
         return result
@@ -2374,7 +2374,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getrenderstate
      */
     GetRenderState(State, pValue) {
-        pValueMarshal := pValue is VarRef ? "uint*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "uint*" : IntPtr
 
         result := ComCall(58, this, D3DRENDERSTATETYPE, State, pValueMarshal, pValue, "HRESULT")
         return result
@@ -2635,7 +2635,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-gettexturestagestate
      */
     GetTextureStageState(Stage, Type, pValue) {
-        pValueMarshal := pValue is VarRef ? "uint*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "uint*" : IntPtr
 
         result := ComCall(66, this, UInt32, Stage, D3DTEXTURESTAGESTATETYPE, Type, pValueMarshal, pValue, "HRESULT")
         return result
@@ -2681,7 +2681,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getsamplerstate
      */
     GetSamplerState(Sampler, Type, pValue) {
-        pValueMarshal := pValue is VarRef ? "uint*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "uint*" : IntPtr
 
         result := ComCall(68, this, UInt32, Sampler, D3DSAMPLERSTATETYPE, Type, pValueMarshal, pValue, "HRESULT")
         return result
@@ -2741,7 +2741,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-validatedevice
      */
     ValidateDevice(pNumPasses) {
-        pNumPassesMarshal := pNumPasses is VarRef ? "uint*" : "ptr"
+        pNumPassesMarshal := pNumPasses is VarRef ? "uint*" : IntPtr
 
         result := ComCall(70, this, pNumPassesMarshal, pNumPasses, "HRESULT")
         return result
@@ -2820,7 +2820,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getcurrenttexturepalette
      */
     GetCurrentTexturePalette(PaletteNumber) {
-        PaletteNumberMarshal := PaletteNumber is VarRef ? "uint*" : "ptr"
+        PaletteNumberMarshal := PaletteNumber is VarRef ? "uint*" : IntPtr
 
         result := ComCall(74, this, PaletteNumberMarshal, PaletteNumber, "HRESULT")
         return result
@@ -3030,7 +3030,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-drawprimitiveup
      */
     DrawPrimitiveUP(PrimitiveType, PrimitiveCount, pVertexStreamZeroData, VertexStreamZeroStride) {
-        pVertexStreamZeroDataMarshal := pVertexStreamZeroData is VarRef ? "ptr" : "ptr"
+        pVertexStreamZeroDataMarshal := pVertexStreamZeroData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(83, this, D3DPRIMITIVETYPE, PrimitiveType, UInt32, PrimitiveCount, pVertexStreamZeroDataMarshal, pVertexStreamZeroData, UInt32, VertexStreamZeroStride, "HRESULT")
         return result
@@ -3087,8 +3087,8 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-drawindexedprimitiveup
      */
     DrawIndexedPrimitiveUP(PrimitiveType, MinVertexIndex, NumVertices, PrimitiveCount, pIndexData, IndexDataFormat, pVertexStreamZeroData, VertexStreamZeroStride) {
-        pIndexDataMarshal := pIndexData is VarRef ? "ptr" : "ptr"
-        pVertexStreamZeroDataMarshal := pVertexStreamZeroData is VarRef ? "ptr" : "ptr"
+        pIndexDataMarshal := pIndexData is VarRef ? "ptr" : IntPtr
+        pVertexStreamZeroDataMarshal := pVertexStreamZeroData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(84, this, D3DPRIMITIVETYPE, PrimitiveType, UInt32, MinVertexIndex, UInt32, NumVertices, UInt32, PrimitiveCount, pIndexDataMarshal, pIndexData, D3DFORMAT, IndexDataFormat, pVertexStreamZeroDataMarshal, pVertexStreamZeroData, UInt32, VertexStreamZeroStride, "HRESULT")
         return result
@@ -3373,7 +3373,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getfvf
      */
     GetFVF(pFVF) {
-        pFVFMarshal := pFVF is VarRef ? "uint*" : "ptr"
+        pFVFMarshal := pFVF is VarRef ? "uint*" : IntPtr
 
         result := ComCall(90, this, pFVFMarshal, pFVF, "HRESULT")
         return result
@@ -3407,7 +3407,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createvertexshader
      */
     CreateVertexShader(pFunction) {
-        pFunctionMarshal := pFunction is VarRef ? "uint*" : "ptr"
+        pFunctionMarshal := pFunction is VarRef ? "uint*" : IntPtr
 
         result := ComCall(91, this, pFunctionMarshal, pFunction, "ptr*", &ppShader := 0, "HRESULT")
         return IDirect3DVertexShader9(ppShader)
@@ -3462,7 +3462,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setvertexshaderconstantf
      */
     SetVertexShaderConstantF(StartRegister, pConstantData, Vector4fCount) {
-        pConstantDataMarshal := pConstantData is VarRef ? "float*" : "ptr"
+        pConstantDataMarshal := pConstantData is VarRef ? "float*" : IntPtr
 
         result := ComCall(94, this, UInt32, StartRegister, pConstantDataMarshal, pConstantData, UInt32, Vector4fCount, "HRESULT")
         return result
@@ -3486,7 +3486,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getvertexshaderconstantf
      */
     GetVertexShaderConstantF(StartRegister, pConstantData, Vector4fCount) {
-        pConstantDataMarshal := pConstantData is VarRef ? "float*" : "ptr"
+        pConstantDataMarshal := pConstantData is VarRef ? "float*" : IntPtr
 
         result := ComCall(95, this, UInt32, StartRegister, pConstantDataMarshal, pConstantData, UInt32, Vector4fCount, "HRESULT")
         return result
@@ -3510,7 +3510,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setvertexshaderconstanti
      */
     SetVertexShaderConstantI(StartRegister, pConstantData, Vector4iCount) {
-        pConstantDataMarshal := pConstantData is VarRef ? "int*" : "ptr"
+        pConstantDataMarshal := pConstantData is VarRef ? "int*" : IntPtr
 
         result := ComCall(96, this, UInt32, StartRegister, pConstantDataMarshal, pConstantData, UInt32, Vector4iCount, "HRESULT")
         return result
@@ -3534,7 +3534,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getvertexshaderconstanti
      */
     GetVertexShaderConstantI(StartRegister, pConstantData, Vector4iCount) {
-        pConstantDataMarshal := pConstantData is VarRef ? "int*" : "ptr"
+        pConstantDataMarshal := pConstantData is VarRef ? "int*" : IntPtr
 
         result := ComCall(97, this, UInt32, StartRegister, pConstantDataMarshal, pConstantData, UInt32, Vector4iCount, "HRESULT")
         return result
@@ -3558,7 +3558,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setvertexshaderconstantb
      */
     SetVertexShaderConstantB(StartRegister, pConstantData, BoolCount) {
-        pConstantDataMarshal := pConstantData is VarRef ? "int*" : "ptr"
+        pConstantDataMarshal := pConstantData is VarRef ? "int*" : IntPtr
 
         result := ComCall(98, this, UInt32, StartRegister, pConstantDataMarshal, pConstantData, UInt32, BoolCount, "HRESULT")
         return result
@@ -3582,7 +3582,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getvertexshaderconstantb
      */
     GetVertexShaderConstantB(StartRegister, pConstantData, BoolCount) {
-        pConstantDataMarshal := pConstantData is VarRef ? "int*" : "ptr"
+        pConstantDataMarshal := pConstantData is VarRef ? "int*" : IntPtr
 
         result := ComCall(99, this, UInt32, StartRegister, pConstantDataMarshal, pConstantData, UInt32, BoolCount, "HRESULT")
         return result
@@ -3639,8 +3639,8 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getstreamsource
      */
     GetStreamSource(StreamNumber, pOffsetInBytes, pStride) {
-        pOffsetInBytesMarshal := pOffsetInBytes is VarRef ? "uint*" : "ptr"
-        pStrideMarshal := pStride is VarRef ? "uint*" : "ptr"
+        pOffsetInBytesMarshal := pOffsetInBytes is VarRef ? "uint*" : IntPtr
+        pStrideMarshal := pStride is VarRef ? "uint*" : IntPtr
 
         result := ComCall(101, this, UInt32, StreamNumber, "ptr*", &ppStreamData := 0, pOffsetInBytesMarshal, pOffsetInBytes, pStrideMarshal, pStride, "HRESULT")
         return IDirect3DVertexBuffer9(ppStreamData)
@@ -3678,7 +3678,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getstreamsourcefreq
      */
     GetStreamSourceFreq(StreamNumber, pSetting) {
-        pSettingMarshal := pSetting is VarRef ? "uint*" : "ptr"
+        pSettingMarshal := pSetting is VarRef ? "uint*" : IntPtr
 
         result := ComCall(103, this, UInt32, StreamNumber, pSettingMarshal, pSetting, "HRESULT")
         return result
@@ -3728,7 +3728,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-createpixelshader
      */
     CreatePixelShader(pFunction) {
-        pFunctionMarshal := pFunction is VarRef ? "uint*" : "ptr"
+        pFunctionMarshal := pFunction is VarRef ? "uint*" : IntPtr
 
         result := ComCall(106, this, pFunctionMarshal, pFunction, "ptr*", &ppShader := 0, "HRESULT")
         return IDirect3DPixelShader9(ppShader)
@@ -3781,7 +3781,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setpixelshaderconstantf
      */
     SetPixelShaderConstantF(StartRegister, pConstantData, Vector4fCount) {
-        pConstantDataMarshal := pConstantData is VarRef ? "float*" : "ptr"
+        pConstantDataMarshal := pConstantData is VarRef ? "float*" : IntPtr
 
         result := ComCall(109, this, UInt32, StartRegister, pConstantDataMarshal, pConstantData, UInt32, Vector4fCount, "HRESULT")
         return result
@@ -3805,7 +3805,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getpixelshaderconstantf
      */
     GetPixelShaderConstantF(StartRegister, pConstantData, Vector4fCount) {
-        pConstantDataMarshal := pConstantData is VarRef ? "float*" : "ptr"
+        pConstantDataMarshal := pConstantData is VarRef ? "float*" : IntPtr
 
         result := ComCall(110, this, UInt32, StartRegister, pConstantDataMarshal, pConstantData, UInt32, Vector4fCount, "HRESULT")
         return result
@@ -3829,7 +3829,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setpixelshaderconstanti
      */
     SetPixelShaderConstantI(StartRegister, pConstantData, Vector4iCount) {
-        pConstantDataMarshal := pConstantData is VarRef ? "int*" : "ptr"
+        pConstantDataMarshal := pConstantData is VarRef ? "int*" : IntPtr
 
         result := ComCall(111, this, UInt32, StartRegister, pConstantDataMarshal, pConstantData, UInt32, Vector4iCount, "HRESULT")
         return result
@@ -3853,7 +3853,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getpixelshaderconstanti
      */
     GetPixelShaderConstantI(StartRegister, pConstantData, Vector4iCount) {
-        pConstantDataMarshal := pConstantData is VarRef ? "int*" : "ptr"
+        pConstantDataMarshal := pConstantData is VarRef ? "int*" : IntPtr
 
         result := ComCall(112, this, UInt32, StartRegister, pConstantDataMarshal, pConstantData, UInt32, Vector4iCount, "HRESULT")
         return result
@@ -3877,7 +3877,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-setpixelshaderconstantb
      */
     SetPixelShaderConstantB(StartRegister, pConstantData, BoolCount) {
-        pConstantDataMarshal := pConstantData is VarRef ? "int*" : "ptr"
+        pConstantDataMarshal := pConstantData is VarRef ? "int*" : IntPtr
 
         result := ComCall(113, this, UInt32, StartRegister, pConstantDataMarshal, pConstantData, UInt32, BoolCount, "HRESULT")
         return result
@@ -3901,7 +3901,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-getpixelshaderconstantb
      */
     GetPixelShaderConstantB(StartRegister, pConstantData, BoolCount) {
-        pConstantDataMarshal := pConstantData is VarRef ? "int*" : "ptr"
+        pConstantDataMarshal := pConstantData is VarRef ? "int*" : IntPtr
 
         result := ComCall(114, this, UInt32, StartRegister, pConstantDataMarshal, pConstantData, UInt32, BoolCount, "HRESULT")
         return result
@@ -3931,7 +3931,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-drawrectpatch
      */
     DrawRectPatch(_Handle, pNumSegs, pRectPatchInfo) {
-        pNumSegsMarshal := pNumSegs is VarRef ? "float*" : "ptr"
+        pNumSegsMarshal := pNumSegs is VarRef ? "float*" : IntPtr
 
         result := ComCall(115, this, UInt32, _Handle, pNumSegsMarshal, pNumSegs, D3DRECTPATCH_INFO.Ptr, pRectPatchInfo, "HRESULT")
         return result
@@ -3961,7 +3961,7 @@ export default struct IDirect3DDevice9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9-drawtripatch
      */
     DrawTriPatch(_Handle, pNumSegs, pTriPatchInfo) {
-        pNumSegsMarshal := pNumSegs is VarRef ? "float*" : "ptr"
+        pNumSegsMarshal := pNumSegs is VarRef ? "float*" : IntPtr
 
         result := ComCall(116, this, UInt32, _Handle, pNumSegsMarshal, pNumSegs, D3DTRIPATCH_INFO.Ptr, pTriPatchInfo, "HRESULT")
         return result
@@ -4013,122 +4013,122 @@ export default struct IDirect3DDevice9 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.TestCooperativeLevel := CallbackCreate(GetMethod(implObj, "TestCooperativeLevel"), flags, 1)
-        this.vtbl.GetAvailableTextureMem := CallbackCreate(GetMethod(implObj, "GetAvailableTextureMem"), flags, 1)
-        this.vtbl.EvictManagedResources := CallbackCreate(GetMethod(implObj, "EvictManagedResources"), flags, 1)
-        this.vtbl.GetDirect3D := CallbackCreate(GetMethod(implObj, "GetDirect3D"), flags, 2)
-        this.vtbl.GetDeviceCaps := CallbackCreate(GetMethod(implObj, "GetDeviceCaps"), flags, 2)
-        this.vtbl.GetDisplayMode := CallbackCreate(GetMethod(implObj, "GetDisplayMode"), flags, 3)
-        this.vtbl.GetCreationParameters := CallbackCreate(GetMethod(implObj, "GetCreationParameters"), flags, 2)
-        this.vtbl.SetCursorProperties := CallbackCreate(GetMethod(implObj, "SetCursorProperties"), flags, 4)
-        this.vtbl.SetCursorPosition := CallbackCreate(GetMethod(implObj, "SetCursorPosition"), flags, 4)
-        this.vtbl.ShowCursor := CallbackCreate(GetMethod(implObj, "ShowCursor"), flags, 2)
-        this.vtbl.CreateAdditionalSwapChain := CallbackCreate(GetMethod(implObj, "CreateAdditionalSwapChain"), flags, 3)
-        this.vtbl.GetSwapChain := CallbackCreate(GetMethod(implObj, "GetSwapChain"), flags, 3)
-        this.vtbl.GetNumberOfSwapChains := CallbackCreate(GetMethod(implObj, "GetNumberOfSwapChains"), flags, 1)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 2)
-        this.vtbl.Present := CallbackCreate(GetMethod(implObj, "Present"), flags, 5)
-        this.vtbl.GetBackBuffer := CallbackCreate(GetMethod(implObj, "GetBackBuffer"), flags, 5)
-        this.vtbl.GetRasterStatus := CallbackCreate(GetMethod(implObj, "GetRasterStatus"), flags, 3)
-        this.vtbl.SetDialogBoxMode := CallbackCreate(GetMethod(implObj, "SetDialogBoxMode"), flags, 2)
-        this.vtbl.SetGammaRamp := CallbackCreate(GetMethod(implObj, "SetGammaRamp"), flags, 4)
-        this.vtbl.GetGammaRamp := CallbackCreate(GetMethod(implObj, "GetGammaRamp"), flags, 3)
-        this.vtbl.CreateTexture := CallbackCreate(GetMethod(implObj, "CreateTexture"), flags, 9)
-        this.vtbl.CreateVolumeTexture := CallbackCreate(GetMethod(implObj, "CreateVolumeTexture"), flags, 10)
-        this.vtbl.CreateCubeTexture := CallbackCreate(GetMethod(implObj, "CreateCubeTexture"), flags, 8)
-        this.vtbl.CreateVertexBuffer := CallbackCreate(GetMethod(implObj, "CreateVertexBuffer"), flags, 7)
-        this.vtbl.CreateIndexBuffer := CallbackCreate(GetMethod(implObj, "CreateIndexBuffer"), flags, 7)
-        this.vtbl.CreateRenderTarget := CallbackCreate(GetMethod(implObj, "CreateRenderTarget"), flags, 9)
-        this.vtbl.CreateDepthStencilSurface := CallbackCreate(GetMethod(implObj, "CreateDepthStencilSurface"), flags, 9)
-        this.vtbl.UpdateSurface := CallbackCreate(GetMethod(implObj, "UpdateSurface"), flags, 5)
-        this.vtbl.UpdateTexture := CallbackCreate(GetMethod(implObj, "UpdateTexture"), flags, 3)
-        this.vtbl.GetRenderTargetData := CallbackCreate(GetMethod(implObj, "GetRenderTargetData"), flags, 3)
-        this.vtbl.GetFrontBufferData := CallbackCreate(GetMethod(implObj, "GetFrontBufferData"), flags, 3)
-        this.vtbl.StretchRect := CallbackCreate(GetMethod(implObj, "StretchRect"), flags, 6)
-        this.vtbl.ColorFill := CallbackCreate(GetMethod(implObj, "ColorFill"), flags, 4)
-        this.vtbl.CreateOffscreenPlainSurface := CallbackCreate(GetMethod(implObj, "CreateOffscreenPlainSurface"), flags, 7)
-        this.vtbl.SetRenderTarget := CallbackCreate(GetMethod(implObj, "SetRenderTarget"), flags, 3)
-        this.vtbl.GetRenderTarget := CallbackCreate(GetMethod(implObj, "GetRenderTarget"), flags, 3)
-        this.vtbl.SetDepthStencilSurface := CallbackCreate(GetMethod(implObj, "SetDepthStencilSurface"), flags, 2)
-        this.vtbl.GetDepthStencilSurface := CallbackCreate(GetMethod(implObj, "GetDepthStencilSurface"), flags, 2)
-        this.vtbl.BeginScene := CallbackCreate(GetMethod(implObj, "BeginScene"), flags, 1)
-        this.vtbl.EndScene := CallbackCreate(GetMethod(implObj, "EndScene"), flags, 1)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 7)
-        this.vtbl.SetTransform := CallbackCreate(GetMethod(implObj, "SetTransform"), flags, 3)
-        this.vtbl.GetTransform := CallbackCreate(GetMethod(implObj, "GetTransform"), flags, 3)
-        this.vtbl.MultiplyTransform := CallbackCreate(GetMethod(implObj, "MultiplyTransform"), flags, 3)
-        this.vtbl.SetViewport := CallbackCreate(GetMethod(implObj, "SetViewport"), flags, 2)
-        this.vtbl.GetViewport := CallbackCreate(GetMethod(implObj, "GetViewport"), flags, 2)
-        this.vtbl.SetMaterial := CallbackCreate(GetMethod(implObj, "SetMaterial"), flags, 2)
-        this.vtbl.GetMaterial := CallbackCreate(GetMethod(implObj, "GetMaterial"), flags, 2)
-        this.vtbl.SetLight := CallbackCreate(GetMethod(implObj, "SetLight"), flags, 3)
-        this.vtbl.GetLight := CallbackCreate(GetMethod(implObj, "GetLight"), flags, 3)
-        this.vtbl.LightEnable := CallbackCreate(GetMethod(implObj, "LightEnable"), flags, 3)
-        this.vtbl.GetLightEnable := CallbackCreate(GetMethod(implObj, "GetLightEnable"), flags, 3)
-        this.vtbl.SetClipPlane := CallbackCreate(GetMethod(implObj, "SetClipPlane"), flags, 3)
-        this.vtbl.GetClipPlane := CallbackCreate(GetMethod(implObj, "GetClipPlane"), flags, 3)
-        this.vtbl.SetRenderState := CallbackCreate(GetMethod(implObj, "SetRenderState"), flags, 3)
-        this.vtbl.GetRenderState := CallbackCreate(GetMethod(implObj, "GetRenderState"), flags, 3)
-        this.vtbl.CreateStateBlock := CallbackCreate(GetMethod(implObj, "CreateStateBlock"), flags, 3)
-        this.vtbl.BeginStateBlock := CallbackCreate(GetMethod(implObj, "BeginStateBlock"), flags, 1)
-        this.vtbl.EndStateBlock := CallbackCreate(GetMethod(implObj, "EndStateBlock"), flags, 2)
-        this.vtbl.SetClipStatus := CallbackCreate(GetMethod(implObj, "SetClipStatus"), flags, 2)
-        this.vtbl.GetClipStatus := CallbackCreate(GetMethod(implObj, "GetClipStatus"), flags, 2)
-        this.vtbl.GetTexture := CallbackCreate(GetMethod(implObj, "GetTexture"), flags, 3)
-        this.vtbl.SetTexture := CallbackCreate(GetMethod(implObj, "SetTexture"), flags, 3)
-        this.vtbl.GetTextureStageState := CallbackCreate(GetMethod(implObj, "GetTextureStageState"), flags, 4)
-        this.vtbl.SetTextureStageState := CallbackCreate(GetMethod(implObj, "SetTextureStageState"), flags, 4)
-        this.vtbl.GetSamplerState := CallbackCreate(GetMethod(implObj, "GetSamplerState"), flags, 4)
-        this.vtbl.SetSamplerState := CallbackCreate(GetMethod(implObj, "SetSamplerState"), flags, 4)
-        this.vtbl.ValidateDevice := CallbackCreate(GetMethod(implObj, "ValidateDevice"), flags, 2)
-        this.vtbl.SetPaletteEntries := CallbackCreate(GetMethod(implObj, "SetPaletteEntries"), flags, 3)
-        this.vtbl.GetPaletteEntries := CallbackCreate(GetMethod(implObj, "GetPaletteEntries"), flags, 3)
-        this.vtbl.SetCurrentTexturePalette := CallbackCreate(GetMethod(implObj, "SetCurrentTexturePalette"), flags, 2)
-        this.vtbl.GetCurrentTexturePalette := CallbackCreate(GetMethod(implObj, "GetCurrentTexturePalette"), flags, 2)
-        this.vtbl.SetScissorRect := CallbackCreate(GetMethod(implObj, "SetScissorRect"), flags, 2)
-        this.vtbl.GetScissorRect := CallbackCreate(GetMethod(implObj, "GetScissorRect"), flags, 2)
-        this.vtbl.SetSoftwareVertexProcessing := CallbackCreate(GetMethod(implObj, "SetSoftwareVertexProcessing"), flags, 2)
-        this.vtbl.GetSoftwareVertexProcessing := CallbackCreate(GetMethod(implObj, "GetSoftwareVertexProcessing"), flags, 1)
-        this.vtbl.SetNPatchMode := CallbackCreate(GetMethod(implObj, "SetNPatchMode"), flags, 2)
-        this.vtbl.GetNPatchMode := CallbackCreate(GetMethod(implObj, "GetNPatchMode"), flags, 1)
-        this.vtbl.DrawPrimitive := CallbackCreate(GetMethod(implObj, "DrawPrimitive"), flags, 4)
-        this.vtbl.DrawIndexedPrimitive := CallbackCreate(GetMethod(implObj, "DrawIndexedPrimitive"), flags, 7)
-        this.vtbl.DrawPrimitiveUP := CallbackCreate(GetMethod(implObj, "DrawPrimitiveUP"), flags, 5)
-        this.vtbl.DrawIndexedPrimitiveUP := CallbackCreate(GetMethod(implObj, "DrawIndexedPrimitiveUP"), flags, 9)
-        this.vtbl.ProcessVertices := CallbackCreate(GetMethod(implObj, "ProcessVertices"), flags, 7)
-        this.vtbl.CreateVertexDeclaration := CallbackCreate(GetMethod(implObj, "CreateVertexDeclaration"), flags, 3)
-        this.vtbl.SetVertexDeclaration := CallbackCreate(GetMethod(implObj, "SetVertexDeclaration"), flags, 2)
-        this.vtbl.GetVertexDeclaration := CallbackCreate(GetMethod(implObj, "GetVertexDeclaration"), flags, 2)
-        this.vtbl.SetFVF := CallbackCreate(GetMethod(implObj, "SetFVF"), flags, 2)
-        this.vtbl.GetFVF := CallbackCreate(GetMethod(implObj, "GetFVF"), flags, 2)
-        this.vtbl.CreateVertexShader := CallbackCreate(GetMethod(implObj, "CreateVertexShader"), flags, 3)
-        this.vtbl.SetVertexShader := CallbackCreate(GetMethod(implObj, "SetVertexShader"), flags, 2)
-        this.vtbl.GetVertexShader := CallbackCreate(GetMethod(implObj, "GetVertexShader"), flags, 2)
-        this.vtbl.SetVertexShaderConstantF := CallbackCreate(GetMethod(implObj, "SetVertexShaderConstantF"), flags, 4)
-        this.vtbl.GetVertexShaderConstantF := CallbackCreate(GetMethod(implObj, "GetVertexShaderConstantF"), flags, 4)
-        this.vtbl.SetVertexShaderConstantI := CallbackCreate(GetMethod(implObj, "SetVertexShaderConstantI"), flags, 4)
-        this.vtbl.GetVertexShaderConstantI := CallbackCreate(GetMethod(implObj, "GetVertexShaderConstantI"), flags, 4)
-        this.vtbl.SetVertexShaderConstantB := CallbackCreate(GetMethod(implObj, "SetVertexShaderConstantB"), flags, 4)
-        this.vtbl.GetVertexShaderConstantB := CallbackCreate(GetMethod(implObj, "GetVertexShaderConstantB"), flags, 4)
-        this.vtbl.SetStreamSource := CallbackCreate(GetMethod(implObj, "SetStreamSource"), flags, 5)
-        this.vtbl.GetStreamSource := CallbackCreate(GetMethod(implObj, "GetStreamSource"), flags, 5)
-        this.vtbl.SetStreamSourceFreq := CallbackCreate(GetMethod(implObj, "SetStreamSourceFreq"), flags, 3)
-        this.vtbl.GetStreamSourceFreq := CallbackCreate(GetMethod(implObj, "GetStreamSourceFreq"), flags, 3)
-        this.vtbl.SetIndices := CallbackCreate(GetMethod(implObj, "SetIndices"), flags, 2)
-        this.vtbl.GetIndices := CallbackCreate(GetMethod(implObj, "GetIndices"), flags, 2)
-        this.vtbl.CreatePixelShader := CallbackCreate(GetMethod(implObj, "CreatePixelShader"), flags, 3)
-        this.vtbl.SetPixelShader := CallbackCreate(GetMethod(implObj, "SetPixelShader"), flags, 2)
-        this.vtbl.GetPixelShader := CallbackCreate(GetMethod(implObj, "GetPixelShader"), flags, 2)
-        this.vtbl.SetPixelShaderConstantF := CallbackCreate(GetMethod(implObj, "SetPixelShaderConstantF"), flags, 4)
-        this.vtbl.GetPixelShaderConstantF := CallbackCreate(GetMethod(implObj, "GetPixelShaderConstantF"), flags, 4)
-        this.vtbl.SetPixelShaderConstantI := CallbackCreate(GetMethod(implObj, "SetPixelShaderConstantI"), flags, 4)
-        this.vtbl.GetPixelShaderConstantI := CallbackCreate(GetMethod(implObj, "GetPixelShaderConstantI"), flags, 4)
-        this.vtbl.SetPixelShaderConstantB := CallbackCreate(GetMethod(implObj, "SetPixelShaderConstantB"), flags, 4)
-        this.vtbl.GetPixelShaderConstantB := CallbackCreate(GetMethod(implObj, "GetPixelShaderConstantB"), flags, 4)
-        this.vtbl.DrawRectPatch := CallbackCreate(GetMethod(implObj, "DrawRectPatch"), flags, 4)
-        this.vtbl.DrawTriPatch := CallbackCreate(GetMethod(implObj, "DrawTriPatch"), flags, 4)
-        this.vtbl.DeletePatch := CallbackCreate(GetMethod(implObj, "DeletePatch"), flags, 2)
-        this.vtbl.CreateQuery := CallbackCreate(GetMethod(implObj, "CreateQuery"), flags, 3)
+        this.vtbl.TestCooperativeLevel := CallbackCreate(ObjBindMethod(implObj, "TestCooperativeLevel"), flags, 1)
+        this.vtbl.GetAvailableTextureMem := CallbackCreate(ObjBindMethod(implObj, "GetAvailableTextureMem"), flags, 1)
+        this.vtbl.EvictManagedResources := CallbackCreate(ObjBindMethod(implObj, "EvictManagedResources"), flags, 1)
+        this.vtbl.GetDirect3D := CallbackCreate(ObjBindMethod(implObj, "GetDirect3D"), flags, 2)
+        this.vtbl.GetDeviceCaps := CallbackCreate(ObjBindMethod(implObj, "GetDeviceCaps"), flags, 2)
+        this.vtbl.GetDisplayMode := CallbackCreate(ObjBindMethod(implObj, "GetDisplayMode"), flags, 3)
+        this.vtbl.GetCreationParameters := CallbackCreate(ObjBindMethod(implObj, "GetCreationParameters"), flags, 2)
+        this.vtbl.SetCursorProperties := CallbackCreate(ObjBindMethod(implObj, "SetCursorProperties"), flags, 4)
+        this.vtbl.SetCursorPosition := CallbackCreate(ObjBindMethod(implObj, "SetCursorPosition"), flags, 4)
+        this.vtbl.ShowCursor := CallbackCreate(ObjBindMethod(implObj, "ShowCursor"), flags, 2)
+        this.vtbl.CreateAdditionalSwapChain := CallbackCreate(ObjBindMethod(implObj, "CreateAdditionalSwapChain"), flags, 3)
+        this.vtbl.GetSwapChain := CallbackCreate(ObjBindMethod(implObj, "GetSwapChain"), flags, 3)
+        this.vtbl.GetNumberOfSwapChains := CallbackCreate(ObjBindMethod(implObj, "GetNumberOfSwapChains"), flags, 1)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 2)
+        this.vtbl.Present := CallbackCreate(ObjBindMethod(implObj, "Present"), flags, 5)
+        this.vtbl.GetBackBuffer := CallbackCreate(ObjBindMethod(implObj, "GetBackBuffer"), flags, 5)
+        this.vtbl.GetRasterStatus := CallbackCreate(ObjBindMethod(implObj, "GetRasterStatus"), flags, 3)
+        this.vtbl.SetDialogBoxMode := CallbackCreate(ObjBindMethod(implObj, "SetDialogBoxMode"), flags, 2)
+        this.vtbl.SetGammaRamp := CallbackCreate(ObjBindMethod(implObj, "SetGammaRamp"), flags, 4)
+        this.vtbl.GetGammaRamp := CallbackCreate(ObjBindMethod(implObj, "GetGammaRamp"), flags, 3)
+        this.vtbl.CreateTexture := CallbackCreate(ObjBindMethod(implObj, "CreateTexture"), flags, 9)
+        this.vtbl.CreateVolumeTexture := CallbackCreate(ObjBindMethod(implObj, "CreateVolumeTexture"), flags, 10)
+        this.vtbl.CreateCubeTexture := CallbackCreate(ObjBindMethod(implObj, "CreateCubeTexture"), flags, 8)
+        this.vtbl.CreateVertexBuffer := CallbackCreate(ObjBindMethod(implObj, "CreateVertexBuffer"), flags, 7)
+        this.vtbl.CreateIndexBuffer := CallbackCreate(ObjBindMethod(implObj, "CreateIndexBuffer"), flags, 7)
+        this.vtbl.CreateRenderTarget := CallbackCreate(ObjBindMethod(implObj, "CreateRenderTarget"), flags, 9)
+        this.vtbl.CreateDepthStencilSurface := CallbackCreate(ObjBindMethod(implObj, "CreateDepthStencilSurface"), flags, 9)
+        this.vtbl.UpdateSurface := CallbackCreate(ObjBindMethod(implObj, "UpdateSurface"), flags, 5)
+        this.vtbl.UpdateTexture := CallbackCreate(ObjBindMethod(implObj, "UpdateTexture"), flags, 3)
+        this.vtbl.GetRenderTargetData := CallbackCreate(ObjBindMethod(implObj, "GetRenderTargetData"), flags, 3)
+        this.vtbl.GetFrontBufferData := CallbackCreate(ObjBindMethod(implObj, "GetFrontBufferData"), flags, 3)
+        this.vtbl.StretchRect := CallbackCreate(ObjBindMethod(implObj, "StretchRect"), flags, 6)
+        this.vtbl.ColorFill := CallbackCreate(ObjBindMethod(implObj, "ColorFill"), flags, 4)
+        this.vtbl.CreateOffscreenPlainSurface := CallbackCreate(ObjBindMethod(implObj, "CreateOffscreenPlainSurface"), flags, 7)
+        this.vtbl.SetRenderTarget := CallbackCreate(ObjBindMethod(implObj, "SetRenderTarget"), flags, 3)
+        this.vtbl.GetRenderTarget := CallbackCreate(ObjBindMethod(implObj, "GetRenderTarget"), flags, 3)
+        this.vtbl.SetDepthStencilSurface := CallbackCreate(ObjBindMethod(implObj, "SetDepthStencilSurface"), flags, 2)
+        this.vtbl.GetDepthStencilSurface := CallbackCreate(ObjBindMethod(implObj, "GetDepthStencilSurface"), flags, 2)
+        this.vtbl.BeginScene := CallbackCreate(ObjBindMethod(implObj, "BeginScene"), flags, 1)
+        this.vtbl.EndScene := CallbackCreate(ObjBindMethod(implObj, "EndScene"), flags, 1)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 7)
+        this.vtbl.SetTransform := CallbackCreate(ObjBindMethod(implObj, "SetTransform"), flags, 3)
+        this.vtbl.GetTransform := CallbackCreate(ObjBindMethod(implObj, "GetTransform"), flags, 3)
+        this.vtbl.MultiplyTransform := CallbackCreate(ObjBindMethod(implObj, "MultiplyTransform"), flags, 3)
+        this.vtbl.SetViewport := CallbackCreate(ObjBindMethod(implObj, "SetViewport"), flags, 2)
+        this.vtbl.GetViewport := CallbackCreate(ObjBindMethod(implObj, "GetViewport"), flags, 2)
+        this.vtbl.SetMaterial := CallbackCreate(ObjBindMethod(implObj, "SetMaterial"), flags, 2)
+        this.vtbl.GetMaterial := CallbackCreate(ObjBindMethod(implObj, "GetMaterial"), flags, 2)
+        this.vtbl.SetLight := CallbackCreate(ObjBindMethod(implObj, "SetLight"), flags, 3)
+        this.vtbl.GetLight := CallbackCreate(ObjBindMethod(implObj, "GetLight"), flags, 3)
+        this.vtbl.LightEnable := CallbackCreate(ObjBindMethod(implObj, "LightEnable"), flags, 3)
+        this.vtbl.GetLightEnable := CallbackCreate(ObjBindMethod(implObj, "GetLightEnable"), flags, 3)
+        this.vtbl.SetClipPlane := CallbackCreate(ObjBindMethod(implObj, "SetClipPlane"), flags, 3)
+        this.vtbl.GetClipPlane := CallbackCreate(ObjBindMethod(implObj, "GetClipPlane"), flags, 3)
+        this.vtbl.SetRenderState := CallbackCreate(ObjBindMethod(implObj, "SetRenderState"), flags, 3)
+        this.vtbl.GetRenderState := CallbackCreate(ObjBindMethod(implObj, "GetRenderState"), flags, 3)
+        this.vtbl.CreateStateBlock := CallbackCreate(ObjBindMethod(implObj, "CreateStateBlock"), flags, 3)
+        this.vtbl.BeginStateBlock := CallbackCreate(ObjBindMethod(implObj, "BeginStateBlock"), flags, 1)
+        this.vtbl.EndStateBlock := CallbackCreate(ObjBindMethod(implObj, "EndStateBlock"), flags, 2)
+        this.vtbl.SetClipStatus := CallbackCreate(ObjBindMethod(implObj, "SetClipStatus"), flags, 2)
+        this.vtbl.GetClipStatus := CallbackCreate(ObjBindMethod(implObj, "GetClipStatus"), flags, 2)
+        this.vtbl.GetTexture := CallbackCreate(ObjBindMethod(implObj, "GetTexture"), flags, 3)
+        this.vtbl.SetTexture := CallbackCreate(ObjBindMethod(implObj, "SetTexture"), flags, 3)
+        this.vtbl.GetTextureStageState := CallbackCreate(ObjBindMethod(implObj, "GetTextureStageState"), flags, 4)
+        this.vtbl.SetTextureStageState := CallbackCreate(ObjBindMethod(implObj, "SetTextureStageState"), flags, 4)
+        this.vtbl.GetSamplerState := CallbackCreate(ObjBindMethod(implObj, "GetSamplerState"), flags, 4)
+        this.vtbl.SetSamplerState := CallbackCreate(ObjBindMethod(implObj, "SetSamplerState"), flags, 4)
+        this.vtbl.ValidateDevice := CallbackCreate(ObjBindMethod(implObj, "ValidateDevice"), flags, 2)
+        this.vtbl.SetPaletteEntries := CallbackCreate(ObjBindMethod(implObj, "SetPaletteEntries"), flags, 3)
+        this.vtbl.GetPaletteEntries := CallbackCreate(ObjBindMethod(implObj, "GetPaletteEntries"), flags, 3)
+        this.vtbl.SetCurrentTexturePalette := CallbackCreate(ObjBindMethod(implObj, "SetCurrentTexturePalette"), flags, 2)
+        this.vtbl.GetCurrentTexturePalette := CallbackCreate(ObjBindMethod(implObj, "GetCurrentTexturePalette"), flags, 2)
+        this.vtbl.SetScissorRect := CallbackCreate(ObjBindMethod(implObj, "SetScissorRect"), flags, 2)
+        this.vtbl.GetScissorRect := CallbackCreate(ObjBindMethod(implObj, "GetScissorRect"), flags, 2)
+        this.vtbl.SetSoftwareVertexProcessing := CallbackCreate(ObjBindMethod(implObj, "SetSoftwareVertexProcessing"), flags, 2)
+        this.vtbl.GetSoftwareVertexProcessing := CallbackCreate(ObjBindMethod(implObj, "GetSoftwareVertexProcessing"), flags, 1)
+        this.vtbl.SetNPatchMode := CallbackCreate(ObjBindMethod(implObj, "SetNPatchMode"), flags, 2)
+        this.vtbl.GetNPatchMode := CallbackCreate(ObjBindMethod(implObj, "GetNPatchMode"), flags, 1)
+        this.vtbl.DrawPrimitive := CallbackCreate(ObjBindMethod(implObj, "DrawPrimitive"), flags, 4)
+        this.vtbl.DrawIndexedPrimitive := CallbackCreate(ObjBindMethod(implObj, "DrawIndexedPrimitive"), flags, 7)
+        this.vtbl.DrawPrimitiveUP := CallbackCreate(ObjBindMethod(implObj, "DrawPrimitiveUP"), flags, 5)
+        this.vtbl.DrawIndexedPrimitiveUP := CallbackCreate(ObjBindMethod(implObj, "DrawIndexedPrimitiveUP"), flags, 9)
+        this.vtbl.ProcessVertices := CallbackCreate(ObjBindMethod(implObj, "ProcessVertices"), flags, 7)
+        this.vtbl.CreateVertexDeclaration := CallbackCreate(ObjBindMethod(implObj, "CreateVertexDeclaration"), flags, 3)
+        this.vtbl.SetVertexDeclaration := CallbackCreate(ObjBindMethod(implObj, "SetVertexDeclaration"), flags, 2)
+        this.vtbl.GetVertexDeclaration := CallbackCreate(ObjBindMethod(implObj, "GetVertexDeclaration"), flags, 2)
+        this.vtbl.SetFVF := CallbackCreate(ObjBindMethod(implObj, "SetFVF"), flags, 2)
+        this.vtbl.GetFVF := CallbackCreate(ObjBindMethod(implObj, "GetFVF"), flags, 2)
+        this.vtbl.CreateVertexShader := CallbackCreate(ObjBindMethod(implObj, "CreateVertexShader"), flags, 3)
+        this.vtbl.SetVertexShader := CallbackCreate(ObjBindMethod(implObj, "SetVertexShader"), flags, 2)
+        this.vtbl.GetVertexShader := CallbackCreate(ObjBindMethod(implObj, "GetVertexShader"), flags, 2)
+        this.vtbl.SetVertexShaderConstantF := CallbackCreate(ObjBindMethod(implObj, "SetVertexShaderConstantF"), flags, 4)
+        this.vtbl.GetVertexShaderConstantF := CallbackCreate(ObjBindMethod(implObj, "GetVertexShaderConstantF"), flags, 4)
+        this.vtbl.SetVertexShaderConstantI := CallbackCreate(ObjBindMethod(implObj, "SetVertexShaderConstantI"), flags, 4)
+        this.vtbl.GetVertexShaderConstantI := CallbackCreate(ObjBindMethod(implObj, "GetVertexShaderConstantI"), flags, 4)
+        this.vtbl.SetVertexShaderConstantB := CallbackCreate(ObjBindMethod(implObj, "SetVertexShaderConstantB"), flags, 4)
+        this.vtbl.GetVertexShaderConstantB := CallbackCreate(ObjBindMethod(implObj, "GetVertexShaderConstantB"), flags, 4)
+        this.vtbl.SetStreamSource := CallbackCreate(ObjBindMethod(implObj, "SetStreamSource"), flags, 5)
+        this.vtbl.GetStreamSource := CallbackCreate(ObjBindMethod(implObj, "GetStreamSource"), flags, 5)
+        this.vtbl.SetStreamSourceFreq := CallbackCreate(ObjBindMethod(implObj, "SetStreamSourceFreq"), flags, 3)
+        this.vtbl.GetStreamSourceFreq := CallbackCreate(ObjBindMethod(implObj, "GetStreamSourceFreq"), flags, 3)
+        this.vtbl.SetIndices := CallbackCreate(ObjBindMethod(implObj, "SetIndices"), flags, 2)
+        this.vtbl.GetIndices := CallbackCreate(ObjBindMethod(implObj, "GetIndices"), flags, 2)
+        this.vtbl.CreatePixelShader := CallbackCreate(ObjBindMethod(implObj, "CreatePixelShader"), flags, 3)
+        this.vtbl.SetPixelShader := CallbackCreate(ObjBindMethod(implObj, "SetPixelShader"), flags, 2)
+        this.vtbl.GetPixelShader := CallbackCreate(ObjBindMethod(implObj, "GetPixelShader"), flags, 2)
+        this.vtbl.SetPixelShaderConstantF := CallbackCreate(ObjBindMethod(implObj, "SetPixelShaderConstantF"), flags, 4)
+        this.vtbl.GetPixelShaderConstantF := CallbackCreate(ObjBindMethod(implObj, "GetPixelShaderConstantF"), flags, 4)
+        this.vtbl.SetPixelShaderConstantI := CallbackCreate(ObjBindMethod(implObj, "SetPixelShaderConstantI"), flags, 4)
+        this.vtbl.GetPixelShaderConstantI := CallbackCreate(ObjBindMethod(implObj, "GetPixelShaderConstantI"), flags, 4)
+        this.vtbl.SetPixelShaderConstantB := CallbackCreate(ObjBindMethod(implObj, "SetPixelShaderConstantB"), flags, 4)
+        this.vtbl.GetPixelShaderConstantB := CallbackCreate(ObjBindMethod(implObj, "GetPixelShaderConstantB"), flags, 4)
+        this.vtbl.DrawRectPatch := CallbackCreate(ObjBindMethod(implObj, "DrawRectPatch"), flags, 4)
+        this.vtbl.DrawTriPatch := CallbackCreate(ObjBindMethod(implObj, "DrawTriPatch"), flags, 4)
+        this.vtbl.DeletePatch := CallbackCreate(ObjBindMethod(implObj, "DeletePatch"), flags, 2)
+        this.vtbl.CreateQuery := CallbackCreate(ObjBindMethod(implObj, "CreateQuery"), flags, 3)
     }
 
     Dispose() {

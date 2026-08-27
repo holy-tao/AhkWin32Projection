@@ -22,7 +22,6 @@ export default struct PFN_DrvGetDirectDrawInfo {
     }
 
     /**
-     * 
      * @param {DHPDEV} param0 
      * @param {Pointer<DD_HALINFO>} param1 
      * @param {Pointer<Integer>} param2 
@@ -32,9 +31,9 @@ export default struct PFN_DrvGetDirectDrawInfo {
      * @returns {BOOL} 
      */
     Call(param0, param1, param2, param3, param4, param5) {
-        param2Marshal := param2 is VarRef ? "uint*" : "ptr"
-        param4Marshal := param4 is VarRef ? "uint*" : "ptr"
-        param5Marshal := param5 is VarRef ? "uint*" : "ptr"
+        param2Marshal := param2 is VarRef ? "uint*" : IntPtr
+        param4Marshal := param4 is VarRef ? "uint*" : IntPtr
+        param5Marshal := param5 is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, DHPDEV, param0, DD_HALINFO.Ptr, param1, param2Marshal, param2, VIDEOMEMORY.Ptr, param3, param4Marshal, param4, param5Marshal, param5, BOOL)
         return result

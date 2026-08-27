@@ -57,7 +57,7 @@ export default struct IWTSListener extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetConfiguration := CallbackCreate(GetMethod(implObj, "GetConfiguration"), flags, 2)
+        this.vtbl.GetConfiguration := CallbackCreate(ObjBindMethod(implObj, "GetConfiguration"), flags, 2)
     }
 
     Dispose() {

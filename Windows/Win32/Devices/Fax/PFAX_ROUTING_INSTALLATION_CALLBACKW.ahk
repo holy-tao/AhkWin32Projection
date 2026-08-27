@@ -29,7 +29,6 @@ export default struct PFAX_ROUTING_INSTALLATION_CALLBACKW {
     }
 
     /**
-     * 
      * @param {HANDLE} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
@@ -60,7 +59,7 @@ export default struct PFAX_ROUTING_INSTALLATION_CALLBACKW {
         FunctionName := FunctionName is String ? StrPtr(FunctionName) : FunctionName
         Guid := Guid is String ? StrPtr(Guid) : Guid
 
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, HANDLE, FaxHandle, _ContextMarshal, _Context, "ptr", MethodName, "ptr", FriendlyName, "ptr", FunctionName, "ptr", Guid, BOOL)
         return result

@@ -38,7 +38,6 @@ export default struct IPrintSchemaCapabilities2 extends IPrintSchemaCapabilities
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrNamespaceUri 
      * @returns {IPrintSchemaParameterDefinition} 
@@ -60,7 +59,7 @@ export default struct IPrintSchemaCapabilities2 extends IPrintSchemaCapabilities
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetParameterDefinition := CallbackCreate(GetMethod(implObj, "GetParameterDefinition"), flags, 4)
+        this.vtbl.GetParameterDefinition := CallbackCreate(ObjBindMethod(implObj, "GetParameterDefinition"), flags, 4)
     }
 
     Dispose() {

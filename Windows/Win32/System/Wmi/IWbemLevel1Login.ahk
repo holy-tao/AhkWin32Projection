@@ -48,7 +48,6 @@ export default struct IWbemLevel1Login extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} wszLocaleList 
      * @param {Integer} dwNumLocales 
      * @returns {Integer} 
@@ -61,7 +60,6 @@ export default struct IWbemLevel1Login extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} wszNetworkResource 
      * @param {PWSTR} wszUser 
      * @returns {Integer} 
@@ -75,7 +73,6 @@ export default struct IWbemLevel1Login extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} wszPreferredLocale 
      * @param {Pointer<Integer>} AccessToken 
      * @param {Integer} lFlags 
@@ -85,14 +82,13 @@ export default struct IWbemLevel1Login extends IUnknown {
     WBEMLogin(wszPreferredLocale, AccessToken, lFlags, pCtx) {
         wszPreferredLocale := wszPreferredLocale is String ? StrPtr(wszPreferredLocale) : wszPreferredLocale
 
-        AccessTokenMarshal := AccessToken is VarRef ? "char*" : "ptr"
+        AccessTokenMarshal := AccessToken is VarRef ? "char*" : IntPtr
 
         result := ComCall(5, this, "ptr", wszPreferredLocale, AccessTokenMarshal, AccessToken, Int32, lFlags, "ptr", pCtx, "ptr*", &ppNamespace := 0, "HRESULT")
         return IWbemServices(ppNamespace)
     }
 
     /**
-     * 
      * @param {PWSTR} wszNetworkResource 
      * @param {PWSTR} wszPreferredLocale 
      * @param {Integer} lFlags 
@@ -116,10 +112,10 @@ export default struct IWbemLevel1Login extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EstablishPosition := CallbackCreate(GetMethod(implObj, "EstablishPosition"), flags, 4)
-        this.vtbl.RequestChallenge := CallbackCreate(GetMethod(implObj, "RequestChallenge"), flags, 4)
-        this.vtbl.WBEMLogin := CallbackCreate(GetMethod(implObj, "WBEMLogin"), flags, 6)
-        this.vtbl.NTLMLogin := CallbackCreate(GetMethod(implObj, "NTLMLogin"), flags, 6)
+        this.vtbl.EstablishPosition := CallbackCreate(ObjBindMethod(implObj, "EstablishPosition"), flags, 4)
+        this.vtbl.RequestChallenge := CallbackCreate(ObjBindMethod(implObj, "RequestChallenge"), flags, 4)
+        this.vtbl.WBEMLogin := CallbackCreate(ObjBindMethod(implObj, "WBEMLogin"), flags, 6)
+        this.vtbl.NTLMLogin := CallbackCreate(ObjBindMethod(implObj, "NTLMLogin"), flags, 6)
     }
 
     Dispose() {

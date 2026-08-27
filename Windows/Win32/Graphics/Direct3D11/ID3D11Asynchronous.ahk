@@ -68,7 +68,7 @@ export default struct ID3D11Asynchronous extends ID3D11DeviceChild {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDataSize := CallbackCreate(GetMethod(implObj, "GetDataSize"), flags, 1)
+        this.vtbl.GetDataSize := CallbackCreate(ObjBindMethod(implObj, "GetDataSize"), flags, 1)
     }
 
     Dispose() {

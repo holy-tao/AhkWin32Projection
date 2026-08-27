@@ -37,7 +37,6 @@ export default struct IDebugApplicationThread64 extends IDebugApplicationThread 
     }
 
     /**
-     * 
      * @param {IDebugThreadCall64} pstcb 
      * @param {Integer} dwParam1 
      * @param {Integer} dwParam2 
@@ -58,7 +57,7 @@ export default struct IDebugApplicationThread64 extends IDebugApplicationThread 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SynchronousCallIntoThread64 := CallbackCreate(GetMethod(implObj, "SynchronousCallIntoThread64"), flags, 5)
+        this.vtbl.SynchronousCallIntoThread64 := CallbackCreate(ObjBindMethod(implObj, "SynchronousCallIntoThread64"), flags, 5)
     }
 
     Dispose() {

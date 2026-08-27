@@ -60,7 +60,7 @@ export default struct IUIAutomationNotCondition extends IUIAutomationCondition {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetChild := CallbackCreate(GetMethod(implObj, "GetChild"), flags, 2)
+        this.vtbl.GetChild := CallbackCreate(ObjBindMethod(implObj, "GetChild"), flags, 2)
     }
 
     Dispose() {

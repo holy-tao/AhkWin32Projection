@@ -36,7 +36,6 @@ export default struct IXFeedItem2 extends IXFeedItem {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     EffectiveId() {
@@ -53,7 +52,7 @@ export default struct IXFeedItem2 extends IXFeedItem {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EffectiveId := CallbackCreate(GetMethod(implObj, "EffectiveId"), flags, 2)
+        this.vtbl.EffectiveId := CallbackCreate(ObjBindMethod(implObj, "EffectiveId"), flags, 2)
     }
 
     Dispose() {

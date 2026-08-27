@@ -77,7 +77,6 @@ export default struct IRTCPresenceContact extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PresentityURI() {
@@ -87,7 +86,6 @@ export default struct IRTCPresenceContact extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPresentityURI 
      * @returns {HRESULT} 
      */
@@ -99,7 +97,6 @@ export default struct IRTCPresenceContact extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -109,7 +106,6 @@ export default struct IRTCPresenceContact extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @returns {HRESULT} 
      */
@@ -121,7 +117,6 @@ export default struct IRTCPresenceContact extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Data() {
@@ -131,7 +126,6 @@ export default struct IRTCPresenceContact extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrData 
      * @returns {HRESULT} 
      */
@@ -143,7 +137,6 @@ export default struct IRTCPresenceContact extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Persistent() {
@@ -152,7 +145,6 @@ export default struct IRTCPresenceContact extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fPersistent 
      * @returns {HRESULT} 
      */
@@ -170,14 +162,14 @@ export default struct IRTCPresenceContact extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_PresentityURI := CallbackCreate(GetMethod(implObj, "get_PresentityURI"), flags, 2)
-        this.vtbl.put_PresentityURI := CallbackCreate(GetMethod(implObj, "put_PresentityURI"), flags, 2)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
-        this.vtbl.get_Data := CallbackCreate(GetMethod(implObj, "get_Data"), flags, 2)
-        this.vtbl.put_Data := CallbackCreate(GetMethod(implObj, "put_Data"), flags, 2)
-        this.vtbl.get_Persistent := CallbackCreate(GetMethod(implObj, "get_Persistent"), flags, 2)
-        this.vtbl.put_Persistent := CallbackCreate(GetMethod(implObj, "put_Persistent"), flags, 2)
+        this.vtbl.get_PresentityURI := CallbackCreate(ObjBindMethod(implObj, "get_PresentityURI"), flags, 2)
+        this.vtbl.put_PresentityURI := CallbackCreate(ObjBindMethod(implObj, "put_PresentityURI"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(ObjBindMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.get_Data := CallbackCreate(ObjBindMethod(implObj, "get_Data"), flags, 2)
+        this.vtbl.put_Data := CallbackCreate(ObjBindMethod(implObj, "put_Data"), flags, 2)
+        this.vtbl.get_Persistent := CallbackCreate(ObjBindMethod(implObj, "get_Persistent"), flags, 2)
+        this.vtbl.put_Persistent := CallbackCreate(ObjBindMethod(implObj, "put_Persistent"), flags, 2)
     }
 
     Dispose() {

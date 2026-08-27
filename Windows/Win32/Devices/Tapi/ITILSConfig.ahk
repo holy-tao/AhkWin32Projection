@@ -120,8 +120,8 @@ export default struct ITILSConfig extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Port := CallbackCreate(GetMethod(implObj, "get_Port"), flags, 2)
-        this.vtbl.put_Port := CallbackCreate(GetMethod(implObj, "put_Port"), flags, 2)
+        this.vtbl.get_Port := CallbackCreate(ObjBindMethod(implObj, "get_Port"), flags, 2)
+        this.vtbl.put_Port := CallbackCreate(ObjBindMethod(implObj, "put_Port"), flags, 2)
     }
 
     Dispose() {

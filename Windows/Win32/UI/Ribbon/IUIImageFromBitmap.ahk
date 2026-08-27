@@ -119,7 +119,7 @@ export default struct IUIImageFromBitmap extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateImage := CallbackCreate(GetMethod(implObj, "CreateImage"), flags, 4)
+        this.vtbl.CreateImage := CallbackCreate(ObjBindMethod(implObj, "CreateImage"), flags, 4)
     }
 
     Dispose() {

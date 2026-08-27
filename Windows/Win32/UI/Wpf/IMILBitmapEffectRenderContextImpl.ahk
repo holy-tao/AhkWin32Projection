@@ -125,11 +125,11 @@ export default struct IMILBitmapEffectRenderContextImpl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetUseSoftwareRenderer := CallbackCreate(GetMethod(implObj, "GetUseSoftwareRenderer"), flags, 2)
-        this.vtbl.GetTransform := CallbackCreate(GetMethod(implObj, "GetTransform"), flags, 2)
-        this.vtbl.UpdateTransform := CallbackCreate(GetMethod(implObj, "UpdateTransform"), flags, 2)
-        this.vtbl.GetOutputBounds := CallbackCreate(GetMethod(implObj, "GetOutputBounds"), flags, 2)
-        this.vtbl.UpdateOutputBounds := CallbackCreate(GetMethod(implObj, "UpdateOutputBounds"), flags, 2)
+        this.vtbl.GetUseSoftwareRenderer := CallbackCreate(ObjBindMethod(implObj, "GetUseSoftwareRenderer"), flags, 2)
+        this.vtbl.GetTransform := CallbackCreate(ObjBindMethod(implObj, "GetTransform"), flags, 2)
+        this.vtbl.UpdateTransform := CallbackCreate(ObjBindMethod(implObj, "UpdateTransform"), flags, 2)
+        this.vtbl.GetOutputBounds := CallbackCreate(ObjBindMethod(implObj, "GetOutputBounds"), flags, 2)
+        this.vtbl.UpdateOutputBounds := CallbackCreate(ObjBindMethod(implObj, "UpdateOutputBounds"), flags, 2)
     }
 
     Dispose() {

@@ -37,7 +37,6 @@ export default struct IDebugOutputStream extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} psz 
      * @returns {HRESULT} 
      */
@@ -57,7 +56,7 @@ export default struct IDebugOutputStream extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Write := CallbackCreate(GetMethod(implObj, "Write"), flags, 2)
+        this.vtbl.Write := CallbackCreate(ObjBindMethod(implObj, "Write"), flags, 2)
     }
 
     Dispose() {

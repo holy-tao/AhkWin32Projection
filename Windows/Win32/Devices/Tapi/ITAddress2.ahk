@@ -234,7 +234,7 @@ export default struct ITAddress2 extends ITAddress {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress2-devicespecific
      */
     DeviceSpecific(pCall, pParams, dwSize) {
-        pParamsMarshal := pParams is VarRef ? "char*" : "ptr"
+        pParamsMarshal := pParams is VarRef ? "char*" : IntPtr
 
         result := ComCall(29, this, "ptr", pCall, pParamsMarshal, pParams, UInt32, dwSize, "HRESULT")
         return result
@@ -316,16 +316,16 @@ export default struct ITAddress2 extends ITAddress {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Phones := CallbackCreate(GetMethod(implObj, "get_Phones"), flags, 2)
-        this.vtbl.EnumeratePhones := CallbackCreate(GetMethod(implObj, "EnumeratePhones"), flags, 2)
-        this.vtbl.GetPhoneFromTerminal := CallbackCreate(GetMethod(implObj, "GetPhoneFromTerminal"), flags, 3)
-        this.vtbl.get_PreferredPhones := CallbackCreate(GetMethod(implObj, "get_PreferredPhones"), flags, 2)
-        this.vtbl.EnumeratePreferredPhones := CallbackCreate(GetMethod(implObj, "EnumeratePreferredPhones"), flags, 2)
-        this.vtbl.get_EventFilter := CallbackCreate(GetMethod(implObj, "get_EventFilter"), flags, 4)
-        this.vtbl.put_EventFilter := CallbackCreate(GetMethod(implObj, "put_EventFilter"), flags, 4)
-        this.vtbl.DeviceSpecific := CallbackCreate(GetMethod(implObj, "DeviceSpecific"), flags, 4)
-        this.vtbl.DeviceSpecificVariant := CallbackCreate(GetMethod(implObj, "DeviceSpecificVariant"), flags, 3)
-        this.vtbl.NegotiateExtVersion := CallbackCreate(GetMethod(implObj, "NegotiateExtVersion"), flags, 4)
+        this.vtbl.get_Phones := CallbackCreate(ObjBindMethod(implObj, "get_Phones"), flags, 2)
+        this.vtbl.EnumeratePhones := CallbackCreate(ObjBindMethod(implObj, "EnumeratePhones"), flags, 2)
+        this.vtbl.GetPhoneFromTerminal := CallbackCreate(ObjBindMethod(implObj, "GetPhoneFromTerminal"), flags, 3)
+        this.vtbl.get_PreferredPhones := CallbackCreate(ObjBindMethod(implObj, "get_PreferredPhones"), flags, 2)
+        this.vtbl.EnumeratePreferredPhones := CallbackCreate(ObjBindMethod(implObj, "EnumeratePreferredPhones"), flags, 2)
+        this.vtbl.get_EventFilter := CallbackCreate(ObjBindMethod(implObj, "get_EventFilter"), flags, 4)
+        this.vtbl.put_EventFilter := CallbackCreate(ObjBindMethod(implObj, "put_EventFilter"), flags, 4)
+        this.vtbl.DeviceSpecific := CallbackCreate(ObjBindMethod(implObj, "DeviceSpecific"), flags, 4)
+        this.vtbl.DeviceSpecificVariant := CallbackCreate(ObjBindMethod(implObj, "DeviceSpecificVariant"), flags, 3)
+        this.vtbl.NegotiateExtVersion := CallbackCreate(ObjBindMethod(implObj, "NegotiateExtVersion"), flags, 4)
     }
 
     Dispose() {

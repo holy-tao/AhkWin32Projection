@@ -91,8 +91,8 @@ export default struct IUIAutomationProxyFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateProvider := CallbackCreate(GetMethod(implObj, "CreateProvider"), flags, 5)
-        this.vtbl.get_ProxyFactoryId := CallbackCreate(GetMethod(implObj, "get_ProxyFactoryId"), flags, 2)
+        this.vtbl.CreateProvider := CallbackCreate(ObjBindMethod(implObj, "CreateProvider"), flags, 5)
+        this.vtbl.get_ProxyFactoryId := CallbackCreate(ObjBindMethod(implObj, "get_ProxyFactoryId"), flags, 2)
     }
 
     Dispose() {

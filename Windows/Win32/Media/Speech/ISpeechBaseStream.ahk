@@ -50,7 +50,6 @@ export default struct ISpeechBaseStream extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechAudioFormat} 
      */
     get_Format() {
@@ -59,31 +58,30 @@ export default struct ISpeechBaseStream extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISpeechAudioFormat} AudioFormat 
      * @returns {HRESULT} 
      */
     putref_Format(AudioFormat) {
-        result := ComCall(8, this, "ptr", AudioFormat, "HRESULT")
+        AudioFormatMarshal := AudioFormat == 0 ? IntPtr : "ptr"
+
+        result := ComCall(8, this, AudioFormatMarshal, AudioFormat, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} _Buffer 
      * @param {Integer} NumberOfBytes 
      * @param {Pointer<Integer>} BytesRead 
      * @returns {HRESULT} 
      */
     Read(_Buffer, NumberOfBytes, BytesRead) {
-        BytesReadMarshal := BytesRead is VarRef ? "int*" : "ptr"
+        BytesReadMarshal := BytesRead is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, VARIANT.Ptr, _Buffer, Int32, NumberOfBytes, BytesReadMarshal, BytesRead, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {VARIANT} _Buffer 
      * @returns {Integer} 
      */
@@ -93,7 +91,6 @@ export default struct ISpeechBaseStream extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} Position 
      * @param {SpeechStreamSeekPositionType} Origin 
      * @returns {VARIANT} 
@@ -113,11 +110,11 @@ export default struct ISpeechBaseStream extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Format := CallbackCreate(GetMethod(implObj, "get_Format"), flags, 2)
-        this.vtbl.putref_Format := CallbackCreate(GetMethod(implObj, "putref_Format"), flags, 2)
-        this.vtbl.Read := CallbackCreate(GetMethod(implObj, "Read"), flags, 4)
-        this.vtbl.Write := CallbackCreate(GetMethod(implObj, "Write"), flags, 3)
-        this.vtbl.Seek := CallbackCreate(GetMethod(implObj, "Seek"), flags, 4)
+        this.vtbl.get_Format := CallbackCreate(ObjBindMethod(implObj, "get_Format"), flags, 2)
+        this.vtbl.putref_Format := CallbackCreate(ObjBindMethod(implObj, "putref_Format"), flags, 2)
+        this.vtbl.Read := CallbackCreate(ObjBindMethod(implObj, "Read"), flags, 4)
+        this.vtbl.Write := CallbackCreate(ObjBindMethod(implObj, "Write"), flags, 3)
+        this.vtbl.Seek := CallbackCreate(ObjBindMethod(implObj, "Seek"), flags, 4)
     }
 
     Dispose() {

@@ -38,7 +38,6 @@ export default struct IAudioProcessingObjectPreferredFormatSupport extends IUnkn
     }
 
     /**
-     * 
      * @param {IAudioMediaType} outputFormat 
      * @returns {IAudioMediaType} 
      */
@@ -48,7 +47,6 @@ export default struct IAudioProcessingObjectPreferredFormatSupport extends IUnkn
     }
 
     /**
-     * 
      * @param {IAudioMediaType} inputFormat 
      * @returns {IAudioMediaType} 
      */
@@ -66,8 +64,8 @@ export default struct IAudioProcessingObjectPreferredFormatSupport extends IUnkn
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPreferredInputFormat := CallbackCreate(GetMethod(implObj, "GetPreferredInputFormat"), flags, 3)
-        this.vtbl.GetPreferredOutputFormat := CallbackCreate(GetMethod(implObj, "GetPreferredOutputFormat"), flags, 3)
+        this.vtbl.GetPreferredInputFormat := CallbackCreate(ObjBindMethod(implObj, "GetPreferredInputFormat"), flags, 3)
+        this.vtbl.GetPreferredOutputFormat := CallbackCreate(ObjBindMethod(implObj, "GetPreferredOutputFormat"), flags, 3)
     }
 
     Dispose() {

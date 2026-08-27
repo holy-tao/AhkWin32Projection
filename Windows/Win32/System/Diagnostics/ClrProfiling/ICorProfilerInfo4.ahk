@@ -49,7 +49,6 @@ export default struct ICorProfilerInfo4 extends ICorProfilerInfo3 {
     }
 
     /**
-     * 
      * @returns {ICorProfilerThreadEnum} 
      */
     EnumThreads() {
@@ -58,7 +57,6 @@ export default struct ICorProfilerInfo4 extends ICorProfilerInfo3 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     InitializeCurrentThread() {
@@ -67,37 +65,34 @@ export default struct ICorProfilerInfo4 extends ICorProfilerInfo3 {
     }
 
     /**
-     * 
      * @param {Integer} cFunctions 
      * @param {Pointer<Pointer>} moduleIds 
      * @param {Pointer<Integer>} methodIds 
      * @returns {HRESULT} 
      */
     RequestReJIT(cFunctions, moduleIds, methodIds) {
-        moduleIdsMarshal := moduleIds is VarRef ? "ptr*" : "ptr"
-        methodIdsMarshal := methodIds is VarRef ? "uint*" : "ptr"
+        moduleIdsMarshal := moduleIds is VarRef ? "ptr*" : IntPtr
+        methodIdsMarshal := methodIds is VarRef ? "uint*" : IntPtr
 
         result := ComCall(73, this, UInt32, cFunctions, moduleIdsMarshal, moduleIds, methodIdsMarshal, methodIds, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} cFunctions 
      * @param {Pointer<Pointer>} moduleIds 
      * @param {Pointer<Integer>} methodIds 
      * @returns {HRESULT} 
      */
     RequestRevert(cFunctions, moduleIds, methodIds) {
-        moduleIdsMarshal := moduleIds is VarRef ? "ptr*" : "ptr"
-        methodIdsMarshal := methodIds is VarRef ? "uint*" : "ptr"
+        moduleIdsMarshal := moduleIds is VarRef ? "ptr*" : IntPtr
+        methodIdsMarshal := methodIds is VarRef ? "uint*" : IntPtr
 
         result := ComCall(74, this, UInt32, cFunctions, moduleIdsMarshal, moduleIds, methodIdsMarshal, methodIds, "int*", &_status := 0, "HRESULT")
         return _status
     }
 
     /**
-     * 
      * @param {Pointer} functionID 
      * @param {Pointer} reJitId 
      * @param {Integer} cCodeInfos 
@@ -106,30 +101,28 @@ export default struct ICorProfilerInfo4 extends ICorProfilerInfo3 {
      * @returns {HRESULT} 
      */
     GetCodeInfo3(functionID, reJitId, cCodeInfos, pcCodeInfos, codeInfos) {
-        pcCodeInfosMarshal := pcCodeInfos is VarRef ? "uint*" : "ptr"
+        pcCodeInfosMarshal := pcCodeInfos is VarRef ? "uint*" : IntPtr
 
         result := ComCall(75, this, IntPtr, functionID, IntPtr, reJitId, UInt32, cCodeInfos, pcCodeInfosMarshal, pcCodeInfos, COR_PRF_CODE_INFO.Ptr, codeInfos, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} ip 
      * @param {Pointer<Pointer>} pFunctionId 
      * @param {Pointer<Pointer>} pReJitId 
      * @returns {HRESULT} 
      */
     GetFunctionFromIP2(ip, pFunctionId, pReJitId) {
-        ipMarshal := ip is VarRef ? "char*" : "ptr"
-        pFunctionIdMarshal := pFunctionId is VarRef ? "ptr*" : "ptr"
-        pReJitIdMarshal := pReJitId is VarRef ? "ptr*" : "ptr"
+        ipMarshal := ip is VarRef ? "char*" : IntPtr
+        pFunctionIdMarshal := pFunctionId is VarRef ? "ptr*" : IntPtr
+        pReJitIdMarshal := pReJitId is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(76, this, ipMarshal, ip, pFunctionIdMarshal, pFunctionId, pReJitIdMarshal, pReJitId, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {Integer} cReJitIds 
      * @param {Pointer<Integer>} pcReJitIds 
@@ -137,15 +130,14 @@ export default struct ICorProfilerInfo4 extends ICorProfilerInfo3 {
      * @returns {HRESULT} 
      */
     GetReJITIDs(functionId, cReJitIds, pcReJitIds, reJitIds) {
-        pcReJitIdsMarshal := pcReJitIds is VarRef ? "uint*" : "ptr"
-        reJitIdsMarshal := reJitIds is VarRef ? "ptr*" : "ptr"
+        pcReJitIdsMarshal := pcReJitIds is VarRef ? "uint*" : IntPtr
+        reJitIdsMarshal := reJitIds is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(77, this, IntPtr, functionId, UInt32, cReJitIds, pcReJitIdsMarshal, pcReJitIds, reJitIdsMarshal, reJitIds, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {Pointer} reJitId 
      * @param {Integer} cMap 
@@ -154,14 +146,13 @@ export default struct ICorProfilerInfo4 extends ICorProfilerInfo3 {
      * @returns {HRESULT} 
      */
     GetILToNativeMapping2(functionId, reJitId, cMap, pcMap, _map) {
-        pcMapMarshal := pcMap is VarRef ? "uint*" : "ptr"
+        pcMapMarshal := pcMap is VarRef ? "uint*" : IntPtr
 
         result := ComCall(78, this, IntPtr, functionId, IntPtr, reJitId, UInt32, cMap, pcMapMarshal, pcMap, COR_DEBUG_IL_TO_NATIVE_MAP.Ptr, _map, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {ICorProfilerFunctionEnum} 
      */
     EnumJITedFunctions2() {
@@ -170,7 +161,6 @@ export default struct ICorProfilerInfo4 extends ICorProfilerInfo3 {
     }
 
     /**
-     * 
      * @param {Pointer} _objectId 
      * @returns {Pointer} 
      */
@@ -188,16 +178,16 @@ export default struct ICorProfilerInfo4 extends ICorProfilerInfo3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumThreads := CallbackCreate(GetMethod(implObj, "EnumThreads"), flags, 2)
-        this.vtbl.InitializeCurrentThread := CallbackCreate(GetMethod(implObj, "InitializeCurrentThread"), flags, 1)
-        this.vtbl.RequestReJIT := CallbackCreate(GetMethod(implObj, "RequestReJIT"), flags, 4)
-        this.vtbl.RequestRevert := CallbackCreate(GetMethod(implObj, "RequestRevert"), flags, 5)
-        this.vtbl.GetCodeInfo3 := CallbackCreate(GetMethod(implObj, "GetCodeInfo3"), flags, 6)
-        this.vtbl.GetFunctionFromIP2 := CallbackCreate(GetMethod(implObj, "GetFunctionFromIP2"), flags, 4)
-        this.vtbl.GetReJITIDs := CallbackCreate(GetMethod(implObj, "GetReJITIDs"), flags, 5)
-        this.vtbl.GetILToNativeMapping2 := CallbackCreate(GetMethod(implObj, "GetILToNativeMapping2"), flags, 6)
-        this.vtbl.EnumJITedFunctions2 := CallbackCreate(GetMethod(implObj, "EnumJITedFunctions2"), flags, 2)
-        this.vtbl.GetObjectSize2 := CallbackCreate(GetMethod(implObj, "GetObjectSize2"), flags, 3)
+        this.vtbl.EnumThreads := CallbackCreate(ObjBindMethod(implObj, "EnumThreads"), flags, 2)
+        this.vtbl.InitializeCurrentThread := CallbackCreate(ObjBindMethod(implObj, "InitializeCurrentThread"), flags, 1)
+        this.vtbl.RequestReJIT := CallbackCreate(ObjBindMethod(implObj, "RequestReJIT"), flags, 4)
+        this.vtbl.RequestRevert := CallbackCreate(ObjBindMethod(implObj, "RequestRevert"), flags, 5)
+        this.vtbl.GetCodeInfo3 := CallbackCreate(ObjBindMethod(implObj, "GetCodeInfo3"), flags, 6)
+        this.vtbl.GetFunctionFromIP2 := CallbackCreate(ObjBindMethod(implObj, "GetFunctionFromIP2"), flags, 4)
+        this.vtbl.GetReJITIDs := CallbackCreate(ObjBindMethod(implObj, "GetReJITIDs"), flags, 5)
+        this.vtbl.GetILToNativeMapping2 := CallbackCreate(ObjBindMethod(implObj, "GetILToNativeMapping2"), flags, 6)
+        this.vtbl.EnumJITedFunctions2 := CallbackCreate(ObjBindMethod(implObj, "EnumJITedFunctions2"), flags, 2)
+        this.vtbl.GetObjectSize2 := CallbackCreate(ObjBindMethod(implObj, "GetObjectSize2"), flags, 3)
     }
 
     Dispose() {

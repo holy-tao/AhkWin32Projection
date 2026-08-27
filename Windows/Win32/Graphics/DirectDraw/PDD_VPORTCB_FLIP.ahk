@@ -27,7 +27,6 @@ export default struct PDD_VPORTCB_FLIP {
     }
 
     /**
-     * 
      * @param {Pointer<DD_FLIPVPORTDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_flipvportdata">DD_FLIPVPORTDATA</a> structure that contains the information required for the driver to perform the flip.
      * @returns {Integer} <i>DdVideoPortFlip</i> returns one of the following callback codes:
      */

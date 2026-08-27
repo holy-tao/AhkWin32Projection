@@ -23,7 +23,6 @@ export default struct PWSD_SOAP_MESSAGE_HANDLER {
     }
 
     /**
-     * 
      * @param {IUnknown} thisUnknown Pointer to the object calling this function.
      * @param {Pointer<WSD_EVENT>} event A <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_event">WSD_EVENT</a> structure containing the message to be handled.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following.

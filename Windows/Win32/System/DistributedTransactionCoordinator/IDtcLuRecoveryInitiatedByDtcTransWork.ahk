@@ -55,21 +55,19 @@ export default struct IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcbOurLogName 
      * @param {Pointer<Integer>} pcbRemoteLogName 
      * @returns {HRESULT} 
      */
     GetLogNameSizes(pcbOurLogName, pcbRemoteLogName) {
-        pcbOurLogNameMarshal := pcbOurLogName is VarRef ? "uint*" : "ptr"
-        pcbRemoteLogNameMarshal := pcbRemoteLogName is VarRef ? "uint*" : "ptr"
+        pcbOurLogNameMarshal := pcbOurLogName is VarRef ? "uint*" : IntPtr
+        pcbRemoteLogNameMarshal := pcbRemoteLogName is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pcbOurLogNameMarshal, pcbOurLogName, pcbRemoteLogNameMarshal, pcbRemoteLogName, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<DTCLUXLN>} pXln 
      * @param {Pointer<Integer>} pOurLogName 
      * @param {Pointer<Integer>} pRemoteLogName 
@@ -77,17 +75,16 @@ export default struct IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown {
      * @returns {HRESULT} 
      */
     GetOurXln(pXln, pOurLogName, pRemoteLogName, pdwProtocol) {
-        pXlnMarshal := pXln is VarRef ? "int*" : "ptr"
-        pOurLogNameMarshal := pOurLogName is VarRef ? "char*" : "ptr"
-        pRemoteLogNameMarshal := pRemoteLogName is VarRef ? "char*" : "ptr"
-        pdwProtocolMarshal := pdwProtocol is VarRef ? "uint*" : "ptr"
+        pXlnMarshal := pXln is VarRef ? "int*" : IntPtr
+        pOurLogNameMarshal := pOurLogName is VarRef ? "char*" : IntPtr
+        pRemoteLogNameMarshal := pRemoteLogName is VarRef ? "char*" : IntPtr
+        pdwProtocolMarshal := pdwProtocol is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pXlnMarshal, pXln, pOurLogNameMarshal, pOurLogName, pRemoteLogNameMarshal, pRemoteLogName, pdwProtocolMarshal, pdwProtocol, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {DTCLUXLNCONFIRMATION} Confirmation 
      * @returns {HRESULT} 
      */
@@ -97,7 +94,6 @@ export default struct IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown {
     }
 
     /**
-     * 
      * @param {DTCLUXLN} Xln 
      * @param {Pointer<Integer>} pRemoteLogName 
      * @param {Integer} cbRemoteLogName 
@@ -106,15 +102,14 @@ export default struct IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown {
      * @returns {HRESULT} 
      */
     HandleTheirXlnResponse(Xln, pRemoteLogName, cbRemoteLogName, dwProtocol, pConfirmation) {
-        pRemoteLogNameMarshal := pRemoteLogName is VarRef ? "char*" : "ptr"
-        pConfirmationMarshal := pConfirmation is VarRef ? "int*" : "ptr"
+        pRemoteLogNameMarshal := pRemoteLogName is VarRef ? "char*" : IntPtr
+        pConfirmationMarshal := pConfirmation is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, DTCLUXLN, Xln, pRemoteLogNameMarshal, pRemoteLogName, UInt32, cbRemoteLogName, UInt32, dwProtocol, pConfirmationMarshal, pConfirmation, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {DTCLUXLNERROR} _Error 
      * @returns {HRESULT} 
      */
@@ -124,58 +119,53 @@ export default struct IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BOOL>} fCompareStates 
      * @returns {HRESULT} 
      */
     CheckForCompareStates(fCompareStates) {
-        fCompareStatesMarshal := fCompareStates is VarRef ? "int*" : "ptr"
+        fCompareStatesMarshal := fCompareStates is VarRef ? "int*" : IntPtr
 
         result := ComCall(8, this, fCompareStatesMarshal, fCompareStates, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcbOurTransId 
      * @returns {HRESULT} 
      */
     GetOurTransIdSize(pcbOurTransId) {
-        pcbOurTransIdMarshal := pcbOurTransId is VarRef ? "uint*" : "ptr"
+        pcbOurTransIdMarshal := pcbOurTransId is VarRef ? "uint*" : IntPtr
 
         result := ComCall(9, this, pcbOurTransIdMarshal, pcbOurTransId, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pOurTransId 
      * @param {Pointer<DTCLUCOMPARESTATE>} pCompareState 
      * @returns {HRESULT} 
      */
     GetOurCompareStates(pOurTransId, pCompareState) {
-        pOurTransIdMarshal := pOurTransId is VarRef ? "char*" : "ptr"
-        pCompareStateMarshal := pCompareState is VarRef ? "int*" : "ptr"
+        pOurTransIdMarshal := pOurTransId is VarRef ? "char*" : IntPtr
+        pCompareStateMarshal := pCompareState is VarRef ? "int*" : IntPtr
 
         result := ComCall(10, this, pOurTransIdMarshal, pOurTransId, pCompareStateMarshal, pCompareState, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {DTCLUCOMPARESTATE} CompareState 
      * @param {Pointer<DTCLUCOMPARESTATESCONFIRMATION>} pConfirmation 
      * @returns {HRESULT} 
      */
     HandleTheirCompareStatesResponse(CompareState, pConfirmation) {
-        pConfirmationMarshal := pConfirmation is VarRef ? "int*" : "ptr"
+        pConfirmationMarshal := pConfirmation is VarRef ? "int*" : IntPtr
 
         result := ComCall(11, this, DTCLUCOMPARESTATE, CompareState, pConfirmationMarshal, pConfirmation, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {DTCLUCOMPARESTATESERROR} _Error 
      * @returns {HRESULT} 
      */
@@ -185,7 +175,6 @@ export default struct IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ConversationLost() {
@@ -194,19 +183,17 @@ export default struct IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} plRecoverySeqNum 
      * @returns {HRESULT} 
      */
     GetRecoverySeqNum(plRecoverySeqNum) {
-        plRecoverySeqNumMarshal := plRecoverySeqNum is VarRef ? "int*" : "ptr"
+        plRecoverySeqNumMarshal := plRecoverySeqNum is VarRef ? "int*" : IntPtr
 
         result := ComCall(14, this, plRecoverySeqNumMarshal, plRecoverySeqNum, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} lNewRecoverySeqNum 
      * @returns {HRESULT} 
      */
@@ -224,19 +211,19 @@ export default struct IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLogNameSizes := CallbackCreate(GetMethod(implObj, "GetLogNameSizes"), flags, 3)
-        this.vtbl.GetOurXln := CallbackCreate(GetMethod(implObj, "GetOurXln"), flags, 5)
-        this.vtbl.HandleConfirmationFromOurXln := CallbackCreate(GetMethod(implObj, "HandleConfirmationFromOurXln"), flags, 2)
-        this.vtbl.HandleTheirXlnResponse := CallbackCreate(GetMethod(implObj, "HandleTheirXlnResponse"), flags, 6)
-        this.vtbl.HandleErrorFromOurXln := CallbackCreate(GetMethod(implObj, "HandleErrorFromOurXln"), flags, 2)
-        this.vtbl.CheckForCompareStates := CallbackCreate(GetMethod(implObj, "CheckForCompareStates"), flags, 2)
-        this.vtbl.GetOurTransIdSize := CallbackCreate(GetMethod(implObj, "GetOurTransIdSize"), flags, 2)
-        this.vtbl.GetOurCompareStates := CallbackCreate(GetMethod(implObj, "GetOurCompareStates"), flags, 3)
-        this.vtbl.HandleTheirCompareStatesResponse := CallbackCreate(GetMethod(implObj, "HandleTheirCompareStatesResponse"), flags, 3)
-        this.vtbl.HandleErrorFromOurCompareStates := CallbackCreate(GetMethod(implObj, "HandleErrorFromOurCompareStates"), flags, 2)
-        this.vtbl.ConversationLost := CallbackCreate(GetMethod(implObj, "ConversationLost"), flags, 1)
-        this.vtbl.GetRecoverySeqNum := CallbackCreate(GetMethod(implObj, "GetRecoverySeqNum"), flags, 2)
-        this.vtbl.ObsoleteRecoverySeqNum := CallbackCreate(GetMethod(implObj, "ObsoleteRecoverySeqNum"), flags, 2)
+        this.vtbl.GetLogNameSizes := CallbackCreate(ObjBindMethod(implObj, "GetLogNameSizes"), flags, 3)
+        this.vtbl.GetOurXln := CallbackCreate(ObjBindMethod(implObj, "GetOurXln"), flags, 5)
+        this.vtbl.HandleConfirmationFromOurXln := CallbackCreate(ObjBindMethod(implObj, "HandleConfirmationFromOurXln"), flags, 2)
+        this.vtbl.HandleTheirXlnResponse := CallbackCreate(ObjBindMethod(implObj, "HandleTheirXlnResponse"), flags, 6)
+        this.vtbl.HandleErrorFromOurXln := CallbackCreate(ObjBindMethod(implObj, "HandleErrorFromOurXln"), flags, 2)
+        this.vtbl.CheckForCompareStates := CallbackCreate(ObjBindMethod(implObj, "CheckForCompareStates"), flags, 2)
+        this.vtbl.GetOurTransIdSize := CallbackCreate(ObjBindMethod(implObj, "GetOurTransIdSize"), flags, 2)
+        this.vtbl.GetOurCompareStates := CallbackCreate(ObjBindMethod(implObj, "GetOurCompareStates"), flags, 3)
+        this.vtbl.HandleTheirCompareStatesResponse := CallbackCreate(ObjBindMethod(implObj, "HandleTheirCompareStatesResponse"), flags, 3)
+        this.vtbl.HandleErrorFromOurCompareStates := CallbackCreate(ObjBindMethod(implObj, "HandleErrorFromOurCompareStates"), flags, 2)
+        this.vtbl.ConversationLost := CallbackCreate(ObjBindMethod(implObj, "ConversationLost"), flags, 1)
+        this.vtbl.GetRecoverySeqNum := CallbackCreate(ObjBindMethod(implObj, "GetRecoverySeqNum"), flags, 2)
+        this.vtbl.ObsoleteRecoverySeqNum := CallbackCreate(ObjBindMethod(implObj, "ObsoleteRecoverySeqNum"), flags, 2)
     }
 
     Dispose() {

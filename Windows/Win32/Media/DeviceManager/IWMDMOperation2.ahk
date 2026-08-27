@@ -90,7 +90,10 @@ export default struct IWMDMOperation2 extends IWMDMOperation {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmoperation2-setobjectattributes2
      */
     SetObjectAttributes2(dwAttributes, dwAttributesEx, pFormat, pVideoFormat) {
-        result := ComCall(13, this, UInt32, dwAttributes, UInt32, dwAttributesEx, WAVEFORMATEX.Ptr, pFormat, VIDEOINFOHEADER.Ptr, pVideoFormat, "HRESULT")
+        pFormatMarshal := pFormat == 0 ? IntPtr : WAVEFORMATEX.Ptr
+        pVideoFormatMarshal := pVideoFormat == 0 ? IntPtr : VIDEOINFOHEADER.Ptr
+
+        result := ComCall(13, this, UInt32, dwAttributes, UInt32, dwAttributesEx, pFormatMarshal, pFormat, pVideoFormatMarshal, pVideoFormat, "HRESULT")
         return result
     }
 
@@ -144,10 +147,12 @@ export default struct IWMDMOperation2 extends IWMDMOperation {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmoperation2-getobjectattributes2
      */
     GetObjectAttributes2(pdwAttributes, pdwAttributesEx, pAudioFormat, pVideoFormat) {
-        pdwAttributesMarshal := pdwAttributes is VarRef ? "uint*" : "ptr"
-        pdwAttributesExMarshal := pdwAttributesEx is VarRef ? "uint*" : "ptr"
+        pdwAttributesMarshal := pdwAttributes is VarRef ? "uint*" : IntPtr
+        pdwAttributesExMarshal := pdwAttributesEx is VarRef ? "uint*" : IntPtr
+        pAudioFormatMarshal := pAudioFormat == 0 ? IntPtr : WAVEFORMATEX.Ptr
+        pVideoFormatMarshal := pVideoFormat == 0 ? IntPtr : VIDEOINFOHEADER.Ptr
 
-        result := ComCall(14, this, pdwAttributesMarshal, pdwAttributes, pdwAttributesExMarshal, pdwAttributesEx, WAVEFORMATEX.Ptr, pAudioFormat, VIDEOINFOHEADER.Ptr, pVideoFormat, "HRESULT")
+        result := ComCall(14, this, pdwAttributesMarshal, pdwAttributes, pdwAttributesExMarshal, pdwAttributesEx, pAudioFormatMarshal, pAudioFormat, pVideoFormatMarshal, pVideoFormat, "HRESULT")
         return result
     }
 
@@ -160,8 +165,8 @@ export default struct IWMDMOperation2 extends IWMDMOperation {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetObjectAttributes2 := CallbackCreate(GetMethod(implObj, "SetObjectAttributes2"), flags, 5)
-        this.vtbl.GetObjectAttributes2 := CallbackCreate(GetMethod(implObj, "GetObjectAttributes2"), flags, 5)
+        this.vtbl.SetObjectAttributes2 := CallbackCreate(ObjBindMethod(implObj, "SetObjectAttributes2"), flags, 5)
+        this.vtbl.GetObjectAttributes2 := CallbackCreate(ObjBindMethod(implObj, "GetObjectAttributes2"), flags, 5)
     }
 
     Dispose() {

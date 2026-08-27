@@ -42,7 +42,6 @@ export default struct PFN_CMSG_CNG_IMPORT_CONTENT_ENCRYPT_KEY {
     }
 
     /**
-     * 
      * @param {Pointer<CMSG_CNG_CONTENT_DECRYPT_INFO>} pCNGContentDecryptInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cmsg_cng_content_decrypt_info">CMSG_CNG_CONTENT_DECRYPT_INFO</a> structure to be updated with the imported CEK. This structure contains all the relevant information passed to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmsgcontrol">CryptMsgControl</a> function.
      * @param {Integer} dwFlags This parameter is reserved. Set it to zero.
      * @returns {BOOL} If the function succeeds, the return value is nonzero (<b>TRUE</b>).

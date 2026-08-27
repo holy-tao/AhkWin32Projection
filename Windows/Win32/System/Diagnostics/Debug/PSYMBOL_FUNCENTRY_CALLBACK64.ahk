@@ -37,7 +37,6 @@ export default struct PSYMBOL_FUNCENTRY_CALLBACK64 {
     }
 
     /**
-     * 
      * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-stackwalk">StackWalk64</a> function.
      * @param {Integer} AddrBase The address of an instruction for which the callback function should return a function table entry.

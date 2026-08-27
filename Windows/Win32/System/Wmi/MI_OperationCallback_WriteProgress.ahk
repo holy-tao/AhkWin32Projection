@@ -19,7 +19,6 @@ export default struct MI_OperationCallback_WriteProgress {
     }
 
     /**
-     * 
      * @param {Pointer<MI_Operation>} operation 
      * @param {Pointer<Void>} callbackContext 
      * @param {Pointer<Integer>} activity 
@@ -30,10 +29,11 @@ export default struct MI_OperationCallback_WriteProgress {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(operation, callbackContext, activity, currentOperation, statusDescription, percentageComplete, secondsRemaining) {
-        callbackContextMarshal := callbackContext is VarRef ? "ptr" : "ptr"
-        activityMarshal := activity is VarRef ? "ushort*" : "ptr"
-        currentOperationMarshal := currentOperation is VarRef ? "ushort*" : "ptr"
-        statusDescriptionMarshal := statusDescription is VarRef ? "ushort*" : "ptr"
+        callbackContextMarshal := callbackContext is VarRef ? "ptr" : IntPtr
+        callbackContextMarshal := callbackContext == 0 ? IntPtr : "ptr"
+        activityMarshal := activity is VarRef ? "ushort*" : IntPtr
+        currentOperationMarshal := currentOperation is VarRef ? "ushort*" : IntPtr
+        statusDescriptionMarshal := statusDescription is VarRef ? "ushort*" : IntPtr
 
         DllCall(this.value, MI_Operation.Ptr, operation, callbackContextMarshal, callbackContext, activityMarshal, activity, currentOperationMarshal, currentOperation, statusDescriptionMarshal, statusDescription, UInt32, percentageComplete, UInt32, secondsRemaining)
     }

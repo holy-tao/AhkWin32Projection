@@ -138,11 +138,11 @@ export default struct IWICMetadataBlockWriter extends IWICMetadataBlockReader {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeFromBlockReader := CallbackCreate(GetMethod(implObj, "InitializeFromBlockReader"), flags, 2)
-        this.vtbl.GetWriterByIndex := CallbackCreate(GetMethod(implObj, "GetWriterByIndex"), flags, 3)
-        this.vtbl.AddWriter := CallbackCreate(GetMethod(implObj, "AddWriter"), flags, 2)
-        this.vtbl.SetWriterByIndex := CallbackCreate(GetMethod(implObj, "SetWriterByIndex"), flags, 3)
-        this.vtbl.RemoveWriterByIndex := CallbackCreate(GetMethod(implObj, "RemoveWriterByIndex"), flags, 2)
+        this.vtbl.InitializeFromBlockReader := CallbackCreate(ObjBindMethod(implObj, "InitializeFromBlockReader"), flags, 2)
+        this.vtbl.GetWriterByIndex := CallbackCreate(ObjBindMethod(implObj, "GetWriterByIndex"), flags, 3)
+        this.vtbl.AddWriter := CallbackCreate(ObjBindMethod(implObj, "AddWriter"), flags, 2)
+        this.vtbl.SetWriterByIndex := CallbackCreate(ObjBindMethod(implObj, "SetWriterByIndex"), flags, 3)
+        this.vtbl.RemoveWriterByIndex := CallbackCreate(ObjBindMethod(implObj, "RemoveWriterByIndex"), flags, 2)
     }
 
     Dispose() {

@@ -57,7 +57,7 @@ export default struct ID3D12VideoProcessor1 extends ID3D12VideoProcessor {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProtectedResourceSession := CallbackCreate(GetMethod(implObj, "GetProtectedResourceSession"), flags, 3)
+        this.vtbl.GetProtectedResourceSession := CallbackCreate(ObjBindMethod(implObj, "GetProtectedResourceSession"), flags, 3)
     }
 
     Dispose() {

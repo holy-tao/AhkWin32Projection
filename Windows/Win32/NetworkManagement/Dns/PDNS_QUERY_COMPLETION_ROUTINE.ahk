@@ -19,13 +19,12 @@ export default struct PDNS_QUERY_COMPLETION_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pQueryContext 
      * @param {Pointer<DNS_QUERY_RESULT>} pQueryResults 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(pQueryContext, pQueryResults) {
-        pQueryContextMarshal := pQueryContext is VarRef ? "ptr" : "ptr"
+        pQueryContextMarshal := pQueryContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, pQueryContextMarshal, pQueryContext, DNS_QUERY_RESULT.Ptr, pQueryResults)
     }

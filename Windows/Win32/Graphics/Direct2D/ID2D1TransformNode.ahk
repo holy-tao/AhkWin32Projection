@@ -59,7 +59,7 @@ export default struct ID2D1TransformNode extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetInputCount := CallbackCreate(GetMethod(implObj, "GetInputCount"), flags, 1)
+        this.vtbl.GetInputCount := CallbackCreate(ObjBindMethod(implObj, "GetInputCount"), flags, 1)
     }
 
     Dispose() {

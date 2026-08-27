@@ -108,7 +108,6 @@ export default struct IADsPropertyEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -118,7 +117,6 @@ export default struct IADsPropertyEntry extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @returns {HRESULT} 
      */
@@ -130,7 +128,6 @@ export default struct IADsPropertyEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ADsType() {
@@ -139,7 +136,6 @@ export default struct IADsPropertyEntry extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnADsType 
      * @returns {HRESULT} 
      */
@@ -149,7 +145,6 @@ export default struct IADsPropertyEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ControlCode() {
@@ -158,7 +153,6 @@ export default struct IADsPropertyEntry extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnControlCode 
      * @returns {HRESULT} 
      */
@@ -168,7 +162,6 @@ export default struct IADsPropertyEntry extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Values() {
@@ -178,7 +171,6 @@ export default struct IADsPropertyEntry extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} vValues 
      * @returns {HRESULT} 
      */
@@ -196,15 +188,15 @@ export default struct IADsPropertyEntry extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
-        this.vtbl.get_ADsType := CallbackCreate(GetMethod(implObj, "get_ADsType"), flags, 2)
-        this.vtbl.put_ADsType := CallbackCreate(GetMethod(implObj, "put_ADsType"), flags, 2)
-        this.vtbl.get_ControlCode := CallbackCreate(GetMethod(implObj, "get_ControlCode"), flags, 2)
-        this.vtbl.put_ControlCode := CallbackCreate(GetMethod(implObj, "put_ControlCode"), flags, 2)
-        this.vtbl.get_Values := CallbackCreate(GetMethod(implObj, "get_Values"), flags, 2)
-        this.vtbl.put_Values := CallbackCreate(GetMethod(implObj, "put_Values"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(ObjBindMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.get_ADsType := CallbackCreate(ObjBindMethod(implObj, "get_ADsType"), flags, 2)
+        this.vtbl.put_ADsType := CallbackCreate(ObjBindMethod(implObj, "put_ADsType"), flags, 2)
+        this.vtbl.get_ControlCode := CallbackCreate(ObjBindMethod(implObj, "get_ControlCode"), flags, 2)
+        this.vtbl.put_ControlCode := CallbackCreate(ObjBindMethod(implObj, "put_ControlCode"), flags, 2)
+        this.vtbl.get_Values := CallbackCreate(ObjBindMethod(implObj, "get_Values"), flags, 2)
+        this.vtbl.put_Values := CallbackCreate(ObjBindMethod(implObj, "put_Values"), flags, 2)
     }
 
     Dispose() {

@@ -19,13 +19,12 @@ export default struct FNCERTSRVRESTOREREGISTERCOMPLETE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hbc 
      * @param {HRESULT} hrRestoreState 
      * @returns {HRESULT} 
      */
     Call(hbc, hrRestoreState) {
-        hbcMarshal := hbc is VarRef ? "ptr" : "ptr"
+        hbcMarshal := hbc is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, hbcMarshal, hbc, "int", hrRestoreState, "HRESULT")
         return result

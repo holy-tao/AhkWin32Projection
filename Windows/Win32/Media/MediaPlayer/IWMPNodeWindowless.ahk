@@ -37,7 +37,6 @@ export default struct IWMPNodeWindowless extends IWMPWindowMessageSink {
     }
 
     /**
-     * 
      * @param {Pointer} _hdc 
      * @param {Pointer<RECT>} prcDraw 
      * @returns {HRESULT} 
@@ -56,7 +55,7 @@ export default struct IWMPNodeWindowless extends IWMPWindowMessageSink {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnDraw := CallbackCreate(GetMethod(implObj, "OnDraw"), flags, 3)
+        this.vtbl.OnDraw := CallbackCreate(ObjBindMethod(implObj, "OnDraw"), flags, 3)
     }
 
     Dispose() {

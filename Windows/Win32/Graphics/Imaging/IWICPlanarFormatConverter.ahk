@@ -99,8 +99,8 @@ export default struct IWICPlanarFormatConverter extends IWICBitmapSource {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 8)
-        this.vtbl.CanConvert := CallbackCreate(GetMethod(implObj, "CanConvert"), flags, 5)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 8)
+        this.vtbl.CanConvert := CallbackCreate(ObjBindMethod(implObj, "CanConvert"), flags, 5)
     }
 
     Dispose() {

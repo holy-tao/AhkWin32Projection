@@ -18,14 +18,13 @@ export default struct PFNGLEDGEFLAGPOINTEREXTPROC {
     }
 
     /**
-     * 
      * @param {Integer} stride 
      * @param {Integer} count 
      * @param {Pointer<Integer>} pointer 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(stride, count, pointer) {
-        pointerMarshal := pointer is VarRef ? "char*" : "ptr"
+        pointerMarshal := pointer is VarRef ? "char*" : IntPtr
 
         DllCall(this.value, Int32, stride, Int32, count, pointerMarshal, pointer)
     }

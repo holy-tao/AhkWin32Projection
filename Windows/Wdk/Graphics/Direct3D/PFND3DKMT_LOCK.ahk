@@ -20,7 +20,6 @@ export default struct PFND3DKMT_LOCK {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_LOCK>} param0 
      * @returns {NTSTATUS} 
      */

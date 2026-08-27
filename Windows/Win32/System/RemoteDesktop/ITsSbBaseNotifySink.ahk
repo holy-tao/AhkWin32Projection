@@ -83,8 +83,8 @@ export default struct ITsSbBaseNotifySink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnError := CallbackCreate(GetMethod(implObj, "OnError"), flags, 2)
-        this.vtbl.OnReportStatus := CallbackCreate(GetMethod(implObj, "OnReportStatus"), flags, 3)
+        this.vtbl.OnError := CallbackCreate(ObjBindMethod(implObj, "OnError"), flags, 2)
+        this.vtbl.OnReportStatus := CallbackCreate(ObjBindMethod(implObj, "OnReportStatus"), flags, 3)
     }
 
     Dispose() {

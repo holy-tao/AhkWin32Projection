@@ -20,7 +20,6 @@ export default struct PCLUSAPI_SET_CLUSTER_NAME_EX {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszNewClusterName 
      * @param {PWSTR} lpszReason 
@@ -30,7 +29,9 @@ export default struct PCLUSAPI_SET_CLUSTER_NAME_EX {
         lpszNewClusterName := lpszNewClusterName is String ? StrPtr(lpszNewClusterName) : lpszNewClusterName
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall(this.value, HCLUSTER, _hCluster, "ptr", lpszNewClusterName, "ptr", lpszReason, UInt32)
+        lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+        result := DllCall(this.value, HCLUSTER, _hCluster, "ptr", lpszNewClusterName, lpszReasonMarshal, lpszReason, UInt32)
         return result
     }
 

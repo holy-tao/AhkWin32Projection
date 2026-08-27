@@ -21,7 +21,6 @@ export default struct ACCEPT_SECURITY_CONTEXT_FN {
     }
 
     /**
-     * 
      * @param {Pointer<SecHandle>} param0 
      * @param {Pointer<SecHandle>} param1 
      * @param {Pointer<SecBufferDesc>} param2 
@@ -34,8 +33,8 @@ export default struct ACCEPT_SECURITY_CONTEXT_FN {
      * @returns {HRESULT} 
      */
     Call(param0, param1, param2, param3, param4, param5, param6, param7, param8) {
-        param7Marshal := param7 is VarRef ? "uint*" : "ptr"
-        param8Marshal := param8 is VarRef ? "int64*" : "ptr"
+        param7Marshal := param7 is VarRef ? "uint*" : IntPtr
+        param8Marshal := param8 is VarRef ? "int64*" : IntPtr
 
         result := DllCall(this.value, SecHandle.Ptr, param0, SecHandle.Ptr, param1, SecBufferDesc.Ptr, param2, UInt32, param3, UInt32, param4, SecHandle.Ptr, param5, SecBufferDesc.Ptr, param6, param7Marshal, param7, param8Marshal, param8, "HRESULT")
         return result

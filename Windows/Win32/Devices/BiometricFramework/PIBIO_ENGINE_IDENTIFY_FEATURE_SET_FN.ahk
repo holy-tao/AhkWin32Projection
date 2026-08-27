@@ -29,7 +29,6 @@ export default struct PIBIO_ENGINE_IDENTIFY_FEATURE_SET_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/ns-winbio_adapter-winbio_pipeline">WINBIO_PIPELINE</a> structure associated with the biometric unit performing the operation.
      * @param {Pointer<WINBIO_IDENTITY>} Identity Pointer to a  <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-identity">WINBIO_IDENTITY</a> structure that contains the GUID or SID of the template recovered from the database. This value is returned only if a match is found.
      * @param {Pointer<Integer>} SubFactor A <b>WINBIO_BIOMETRIC_SUBTYPE</b> value that receives the sub-factor associated with the template in the database. See the Remarks section for more details. This value is returned only if a match is found.
@@ -94,12 +93,12 @@ export default struct PIBIO_ENGINE_IDENTIFY_FEATURE_SET_FN {
      * </table>
      */
     Call(Pipeline, Identity, SubFactor, PayloadBlob, PayloadBlobSize, HashValue, HashSize, RejectDetail) {
-        SubFactorMarshal := SubFactor is VarRef ? "char*" : "ptr"
-        PayloadBlobMarshal := PayloadBlob is VarRef ? "ptr*" : "ptr"
-        PayloadBlobSizeMarshal := PayloadBlobSize is VarRef ? "ptr*" : "ptr"
-        HashValueMarshal := HashValue is VarRef ? "ptr*" : "ptr"
-        HashSizeMarshal := HashSize is VarRef ? "ptr*" : "ptr"
-        RejectDetailMarshal := RejectDetail is VarRef ? "uint*" : "ptr"
+        SubFactorMarshal := SubFactor is VarRef ? "char*" : IntPtr
+        PayloadBlobMarshal := PayloadBlob is VarRef ? "ptr*" : IntPtr
+        PayloadBlobSizeMarshal := PayloadBlobSize is VarRef ? "ptr*" : IntPtr
+        HashValueMarshal := HashValue is VarRef ? "ptr*" : IntPtr
+        HashSizeMarshal := HashSize is VarRef ? "ptr*" : IntPtr
+        RejectDetailMarshal := RejectDetail is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, WINBIO_PIPELINE.Ptr, Pipeline, WINBIO_IDENTITY.Ptr, Identity, SubFactorMarshal, SubFactor, PayloadBlobMarshal, PayloadBlob, PayloadBlobSizeMarshal, PayloadBlobSize, HashValueMarshal, HashValue, HashSizeMarshal, HashSize, RejectDetailMarshal, RejectDetail, "HRESULT")
         return result

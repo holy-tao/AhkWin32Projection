@@ -108,7 +108,10 @@ export default struct IBaseFilter extends IMediaFilter {
     JoinFilterGraph(pGraph, pName) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        result := ComCall(13, this, "ptr", pGraph, "ptr", pName, "HRESULT")
+        pGraphMarshal := pGraph == 0 ? IntPtr : "ptr"
+        pNameMarshal := pName == 0 ? IntPtr : PWSTR
+
+        result := ComCall(13, this, pGraphMarshal, pGraph, pNameMarshal, pName, "HRESULT")
         return result
     }
 
@@ -135,11 +138,11 @@ export default struct IBaseFilter extends IMediaFilter {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumPins := CallbackCreate(GetMethod(implObj, "EnumPins"), flags, 2)
-        this.vtbl.FindPin := CallbackCreate(GetMethod(implObj, "FindPin"), flags, 3)
-        this.vtbl.QueryFilterInfo := CallbackCreate(GetMethod(implObj, "QueryFilterInfo"), flags, 2)
-        this.vtbl.JoinFilterGraph := CallbackCreate(GetMethod(implObj, "JoinFilterGraph"), flags, 3)
-        this.vtbl.QueryVendorInfo := CallbackCreate(GetMethod(implObj, "QueryVendorInfo"), flags, 2)
+        this.vtbl.EnumPins := CallbackCreate(ObjBindMethod(implObj, "EnumPins"), flags, 2)
+        this.vtbl.FindPin := CallbackCreate(ObjBindMethod(implObj, "FindPin"), flags, 3)
+        this.vtbl.QueryFilterInfo := CallbackCreate(ObjBindMethod(implObj, "QueryFilterInfo"), flags, 2)
+        this.vtbl.JoinFilterGraph := CallbackCreate(ObjBindMethod(implObj, "JoinFilterGraph"), flags, 3)
+        this.vtbl.QueryVendorInfo := CallbackCreate(ObjBindMethod(implObj, "QueryVendorInfo"), flags, 2)
     }
 
     Dispose() {

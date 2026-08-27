@@ -253,8 +253,8 @@ export default struct IWMReaderAdvanced extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-setstreamsselected
      */
     SetStreamsSelected(cStreamCount, pwStreamNumbers, pSelections) {
-        pwStreamNumbersMarshal := pwStreamNumbers is VarRef ? "ushort*" : "ptr"
-        pSelectionsMarshal := pSelections is VarRef ? "int*" : "ptr"
+        pwStreamNumbersMarshal := pwStreamNumbers is VarRef ? "ushort*" : IntPtr
+        pSelectionsMarshal := pSelections is VarRef ? "int*" : IntPtr
 
         result := ComCall(8, this, UInt16, cStreamCount, pwStreamNumbersMarshal, pwStreamNumbers, pSelectionsMarshal, pSelections, "HRESULT")
         return result
@@ -622,26 +622,26 @@ export default struct IWMReaderAdvanced extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetUserProvidedClock := CallbackCreate(GetMethod(implObj, "SetUserProvidedClock"), flags, 2)
-        this.vtbl.GetUserProvidedClock := CallbackCreate(GetMethod(implObj, "GetUserProvidedClock"), flags, 2)
-        this.vtbl.DeliverTime := CallbackCreate(GetMethod(implObj, "DeliverTime"), flags, 2)
-        this.vtbl.SetManualStreamSelection := CallbackCreate(GetMethod(implObj, "SetManualStreamSelection"), flags, 2)
-        this.vtbl.GetManualStreamSelection := CallbackCreate(GetMethod(implObj, "GetManualStreamSelection"), flags, 2)
-        this.vtbl.SetStreamsSelected := CallbackCreate(GetMethod(implObj, "SetStreamsSelected"), flags, 4)
-        this.vtbl.GetStreamSelected := CallbackCreate(GetMethod(implObj, "GetStreamSelected"), flags, 3)
-        this.vtbl.SetReceiveSelectionCallbacks := CallbackCreate(GetMethod(implObj, "SetReceiveSelectionCallbacks"), flags, 2)
-        this.vtbl.GetReceiveSelectionCallbacks := CallbackCreate(GetMethod(implObj, "GetReceiveSelectionCallbacks"), flags, 2)
-        this.vtbl.SetReceiveStreamSamples := CallbackCreate(GetMethod(implObj, "SetReceiveStreamSamples"), flags, 3)
-        this.vtbl.GetReceiveStreamSamples := CallbackCreate(GetMethod(implObj, "GetReceiveStreamSamples"), flags, 3)
-        this.vtbl.SetAllocateForOutput := CallbackCreate(GetMethod(implObj, "SetAllocateForOutput"), flags, 3)
-        this.vtbl.GetAllocateForOutput := CallbackCreate(GetMethod(implObj, "GetAllocateForOutput"), flags, 3)
-        this.vtbl.SetAllocateForStream := CallbackCreate(GetMethod(implObj, "SetAllocateForStream"), flags, 3)
-        this.vtbl.GetAllocateForStream := CallbackCreate(GetMethod(implObj, "GetAllocateForStream"), flags, 3)
-        this.vtbl.GetStatistics := CallbackCreate(GetMethod(implObj, "GetStatistics"), flags, 2)
-        this.vtbl.SetClientInfo := CallbackCreate(GetMethod(implObj, "SetClientInfo"), flags, 2)
-        this.vtbl.GetMaxOutputSampleSize := CallbackCreate(GetMethod(implObj, "GetMaxOutputSampleSize"), flags, 3)
-        this.vtbl.GetMaxStreamSampleSize := CallbackCreate(GetMethod(implObj, "GetMaxStreamSampleSize"), flags, 3)
-        this.vtbl.NotifyLateDelivery := CallbackCreate(GetMethod(implObj, "NotifyLateDelivery"), flags, 2)
+        this.vtbl.SetUserProvidedClock := CallbackCreate(ObjBindMethod(implObj, "SetUserProvidedClock"), flags, 2)
+        this.vtbl.GetUserProvidedClock := CallbackCreate(ObjBindMethod(implObj, "GetUserProvidedClock"), flags, 2)
+        this.vtbl.DeliverTime := CallbackCreate(ObjBindMethod(implObj, "DeliverTime"), flags, 2)
+        this.vtbl.SetManualStreamSelection := CallbackCreate(ObjBindMethod(implObj, "SetManualStreamSelection"), flags, 2)
+        this.vtbl.GetManualStreamSelection := CallbackCreate(ObjBindMethod(implObj, "GetManualStreamSelection"), flags, 2)
+        this.vtbl.SetStreamsSelected := CallbackCreate(ObjBindMethod(implObj, "SetStreamsSelected"), flags, 4)
+        this.vtbl.GetStreamSelected := CallbackCreate(ObjBindMethod(implObj, "GetStreamSelected"), flags, 3)
+        this.vtbl.SetReceiveSelectionCallbacks := CallbackCreate(ObjBindMethod(implObj, "SetReceiveSelectionCallbacks"), flags, 2)
+        this.vtbl.GetReceiveSelectionCallbacks := CallbackCreate(ObjBindMethod(implObj, "GetReceiveSelectionCallbacks"), flags, 2)
+        this.vtbl.SetReceiveStreamSamples := CallbackCreate(ObjBindMethod(implObj, "SetReceiveStreamSamples"), flags, 3)
+        this.vtbl.GetReceiveStreamSamples := CallbackCreate(ObjBindMethod(implObj, "GetReceiveStreamSamples"), flags, 3)
+        this.vtbl.SetAllocateForOutput := CallbackCreate(ObjBindMethod(implObj, "SetAllocateForOutput"), flags, 3)
+        this.vtbl.GetAllocateForOutput := CallbackCreate(ObjBindMethod(implObj, "GetAllocateForOutput"), flags, 3)
+        this.vtbl.SetAllocateForStream := CallbackCreate(ObjBindMethod(implObj, "SetAllocateForStream"), flags, 3)
+        this.vtbl.GetAllocateForStream := CallbackCreate(ObjBindMethod(implObj, "GetAllocateForStream"), flags, 3)
+        this.vtbl.GetStatistics := CallbackCreate(ObjBindMethod(implObj, "GetStatistics"), flags, 2)
+        this.vtbl.SetClientInfo := CallbackCreate(ObjBindMethod(implObj, "SetClientInfo"), flags, 2)
+        this.vtbl.GetMaxOutputSampleSize := CallbackCreate(ObjBindMethod(implObj, "GetMaxOutputSampleSize"), flags, 3)
+        this.vtbl.GetMaxStreamSampleSize := CallbackCreate(ObjBindMethod(implObj, "GetMaxStreamSampleSize"), flags, 3)
+        this.vtbl.NotifyLateDelivery := CallbackCreate(ObjBindMethod(implObj, "NotifyLateDelivery"), flags, 2)
     }
 
     Dispose() {

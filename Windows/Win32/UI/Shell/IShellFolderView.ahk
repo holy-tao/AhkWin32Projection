@@ -215,7 +215,9 @@ export default struct IShellFolderView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-removeobject
      */
     RemoveObject(pidl) {
-        result := ComCall(10, this, ITEMIDLIST.Ptr, pidl, "uint*", &puItem := 0, "HRESULT")
+        pidlMarshal := pidl == 0 ? IntPtr : ITEMIDLIST.Ptr
+
+        result := ComCall(10, this, pidlMarshal, pidl, "uint*", &puItem := 0, "HRESULT")
         return puItem
     }
 
@@ -335,8 +337,8 @@ export default struct IShellFolderView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-getselectedobjects
      */
     GetSelectedObjects(pppidl, puItems) {
-        pppidlMarshal := pppidl is VarRef ? "ptr*" : "ptr"
-        puItemsMarshal := puItems is VarRef ? "uint*" : "ptr"
+        pppidlMarshal := pppidl is VarRef ? "ptr*" : IntPtr
+        puItemsMarshal := puItems is VarRef ? "uint*" : IntPtr
 
         result := ComCall(17, this, pppidlMarshal, pppidl, puItemsMarshal, puItems, "HRESULT")
         return result
@@ -353,7 +355,9 @@ export default struct IShellFolderView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-isdroponsource
      */
     IsDropOnSource(pDropTarget) {
-        result := ComCall(18, this, "ptr", pDropTarget, "HRESULT")
+        pDropTargetMarshal := pDropTarget == 0 ? IntPtr : "ptr"
+
+        result := ComCall(18, this, pDropTargetMarshal, pDropTarget, "HRESULT")
         return result
     }
 
@@ -425,7 +429,9 @@ export default struct IShellFolderView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-isbkdroptarget
      */
     IsBkDropTarget(pDropTarget) {
-        result := ComCall(23, this, "ptr", pDropTarget, "HRESULT")
+        pDropTargetMarshal := pDropTarget == 0 ? IntPtr : "ptr"
+
+        result := ComCall(23, this, pDropTargetMarshal, pDropTarget, "HRESULT")
         return result
     }
 
@@ -491,7 +497,9 @@ export default struct IShellFolderView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-setcallback
      */
     SetCallback(pNewCB) {
-        result := ComCall(27, this, "ptr", pNewCB, "ptr*", &ppOldCB := 0, "HRESULT")
+        pNewCBMarshal := pNewCB == 0 ? IntPtr : "ptr"
+
+        result := ComCall(27, this, pNewCBMarshal, pNewCB, "ptr*", &ppOldCB := 0, "HRESULT")
         return IShellFolderViewCB(ppOldCB)
     }
 
@@ -521,7 +529,7 @@ export default struct IShellFolderView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-querysupport
      */
     QuerySupport(pdwSupport) {
-        pdwSupportMarshal := pdwSupport is VarRef ? "uint*" : "ptr"
+        pdwSupportMarshal := pdwSupport is VarRef ? "uint*" : IntPtr
 
         result := ComCall(29, this, pdwSupportMarshal, pdwSupport, "HRESULT")
         return result
@@ -538,7 +546,9 @@ export default struct IShellFolderView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-setautomationobject
      */
     SetAutomationObject(pdisp) {
-        result := ComCall(30, this, "ptr", pdisp, "HRESULT")
+        pdispMarshal := pdisp == 0 ? IntPtr : "ptr"
+
+        result := ComCall(30, this, pdispMarshal, pdisp, "HRESULT")
         return result
     }
 
@@ -551,34 +561,34 @@ export default struct IShellFolderView extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Rearrange := CallbackCreate(GetMethod(implObj, "Rearrange"), flags, 2)
-        this.vtbl.GetArrangeParam := CallbackCreate(GetMethod(implObj, "GetArrangeParam"), flags, 2)
-        this.vtbl.ArrangeGrid := CallbackCreate(GetMethod(implObj, "ArrangeGrid"), flags, 1)
-        this.vtbl.AutoArrange := CallbackCreate(GetMethod(implObj, "AutoArrange"), flags, 1)
-        this.vtbl.GetAutoArrange := CallbackCreate(GetMethod(implObj, "GetAutoArrange"), flags, 1)
-        this.vtbl.AddObject := CallbackCreate(GetMethod(implObj, "AddObject"), flags, 3)
-        this.vtbl.GetObject := CallbackCreate(GetMethod(implObj, "GetObject"), flags, 3)
-        this.vtbl.RemoveObject := CallbackCreate(GetMethod(implObj, "RemoveObject"), flags, 3)
-        this.vtbl.GetObjectCount := CallbackCreate(GetMethod(implObj, "GetObjectCount"), flags, 2)
-        this.vtbl.SetObjectCount := CallbackCreate(GetMethod(implObj, "SetObjectCount"), flags, 3)
-        this.vtbl.UpdateObject := CallbackCreate(GetMethod(implObj, "UpdateObject"), flags, 4)
-        this.vtbl.RefreshObject := CallbackCreate(GetMethod(implObj, "RefreshObject"), flags, 3)
-        this.vtbl.SetRedraw := CallbackCreate(GetMethod(implObj, "SetRedraw"), flags, 2)
-        this.vtbl.GetSelectedCount := CallbackCreate(GetMethod(implObj, "GetSelectedCount"), flags, 2)
-        this.vtbl.GetSelectedObjects := CallbackCreate(GetMethod(implObj, "GetSelectedObjects"), flags, 3)
-        this.vtbl.IsDropOnSource := CallbackCreate(GetMethod(implObj, "IsDropOnSource"), flags, 2)
-        this.vtbl.GetDragPoint := CallbackCreate(GetMethod(implObj, "GetDragPoint"), flags, 2)
-        this.vtbl.GetDropPoint := CallbackCreate(GetMethod(implObj, "GetDropPoint"), flags, 2)
-        this.vtbl.MoveIcons := CallbackCreate(GetMethod(implObj, "MoveIcons"), flags, 2)
-        this.vtbl.SetItemPos := CallbackCreate(GetMethod(implObj, "SetItemPos"), flags, 3)
-        this.vtbl.IsBkDropTarget := CallbackCreate(GetMethod(implObj, "IsBkDropTarget"), flags, 2)
-        this.vtbl.SetClipboard := CallbackCreate(GetMethod(implObj, "SetClipboard"), flags, 2)
-        this.vtbl.SetPoints := CallbackCreate(GetMethod(implObj, "SetPoints"), flags, 2)
-        this.vtbl.GetItemSpacing := CallbackCreate(GetMethod(implObj, "GetItemSpacing"), flags, 2)
-        this.vtbl.SetCallback := CallbackCreate(GetMethod(implObj, "SetCallback"), flags, 3)
-        this.vtbl.Select := CallbackCreate(GetMethod(implObj, "Select"), flags, 2)
-        this.vtbl.QuerySupport := CallbackCreate(GetMethod(implObj, "QuerySupport"), flags, 2)
-        this.vtbl.SetAutomationObject := CallbackCreate(GetMethod(implObj, "SetAutomationObject"), flags, 2)
+        this.vtbl.Rearrange := CallbackCreate(ObjBindMethod(implObj, "Rearrange"), flags, 2)
+        this.vtbl.GetArrangeParam := CallbackCreate(ObjBindMethod(implObj, "GetArrangeParam"), flags, 2)
+        this.vtbl.ArrangeGrid := CallbackCreate(ObjBindMethod(implObj, "ArrangeGrid"), flags, 1)
+        this.vtbl.AutoArrange := CallbackCreate(ObjBindMethod(implObj, "AutoArrange"), flags, 1)
+        this.vtbl.GetAutoArrange := CallbackCreate(ObjBindMethod(implObj, "GetAutoArrange"), flags, 1)
+        this.vtbl.AddObject := CallbackCreate(ObjBindMethod(implObj, "AddObject"), flags, 3)
+        this.vtbl.GetObject := CallbackCreate(ObjBindMethod(implObj, "GetObject"), flags, 3)
+        this.vtbl.RemoveObject := CallbackCreate(ObjBindMethod(implObj, "RemoveObject"), flags, 3)
+        this.vtbl.GetObjectCount := CallbackCreate(ObjBindMethod(implObj, "GetObjectCount"), flags, 2)
+        this.vtbl.SetObjectCount := CallbackCreate(ObjBindMethod(implObj, "SetObjectCount"), flags, 3)
+        this.vtbl.UpdateObject := CallbackCreate(ObjBindMethod(implObj, "UpdateObject"), flags, 4)
+        this.vtbl.RefreshObject := CallbackCreate(ObjBindMethod(implObj, "RefreshObject"), flags, 3)
+        this.vtbl.SetRedraw := CallbackCreate(ObjBindMethod(implObj, "SetRedraw"), flags, 2)
+        this.vtbl.GetSelectedCount := CallbackCreate(ObjBindMethod(implObj, "GetSelectedCount"), flags, 2)
+        this.vtbl.GetSelectedObjects := CallbackCreate(ObjBindMethod(implObj, "GetSelectedObjects"), flags, 3)
+        this.vtbl.IsDropOnSource := CallbackCreate(ObjBindMethod(implObj, "IsDropOnSource"), flags, 2)
+        this.vtbl.GetDragPoint := CallbackCreate(ObjBindMethod(implObj, "GetDragPoint"), flags, 2)
+        this.vtbl.GetDropPoint := CallbackCreate(ObjBindMethod(implObj, "GetDropPoint"), flags, 2)
+        this.vtbl.MoveIcons := CallbackCreate(ObjBindMethod(implObj, "MoveIcons"), flags, 2)
+        this.vtbl.SetItemPos := CallbackCreate(ObjBindMethod(implObj, "SetItemPos"), flags, 3)
+        this.vtbl.IsBkDropTarget := CallbackCreate(ObjBindMethod(implObj, "IsBkDropTarget"), flags, 2)
+        this.vtbl.SetClipboard := CallbackCreate(ObjBindMethod(implObj, "SetClipboard"), flags, 2)
+        this.vtbl.SetPoints := CallbackCreate(ObjBindMethod(implObj, "SetPoints"), flags, 2)
+        this.vtbl.GetItemSpacing := CallbackCreate(ObjBindMethod(implObj, "GetItemSpacing"), flags, 2)
+        this.vtbl.SetCallback := CallbackCreate(ObjBindMethod(implObj, "SetCallback"), flags, 3)
+        this.vtbl.Select := CallbackCreate(ObjBindMethod(implObj, "Select"), flags, 2)
+        this.vtbl.QuerySupport := CallbackCreate(ObjBindMethod(implObj, "QuerySupport"), flags, 2)
+        this.vtbl.SetAutomationObject := CallbackCreate(ObjBindMethod(implObj, "SetAutomationObject"), flags, 2)
     }
 
     Dispose() {

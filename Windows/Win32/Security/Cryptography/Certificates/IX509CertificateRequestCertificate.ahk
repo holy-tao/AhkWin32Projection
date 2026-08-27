@@ -159,7 +159,9 @@ export default struct IX509CertificateRequestCertificate extends IX509Certificat
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcertificate-checkpublickeysignature
      */
     CheckPublicKeySignature(pPublicKey) {
-        result := ComCall(60, this, "ptr", pPublicKey, "HRESULT")
+        pPublicKeyMarshal := pPublicKey == 0 ? IntPtr : "ptr"
+
+        result := ComCall(60, this, pPublicKeyMarshal, pPublicKey, "HRESULT")
         return result
     }
 
@@ -226,7 +228,9 @@ export default struct IX509CertificateRequestCertificate extends IX509Certificat
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcertificate-put_issuer
      */
     put_Issuer(pValue) {
-        result := ComCall(62, this, "ptr", pValue, "HRESULT")
+        pValueMarshal := pValue == 0 ? IntPtr : "ptr"
+
+        result := ComCall(62, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -511,7 +515,9 @@ export default struct IX509CertificateRequestCertificate extends IX509Certificat
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcertificate-put_signercertificate
      */
     put_SignerCertificate(pValue) {
-        result := ComCall(70, this, "ptr", pValue, "HRESULT")
+        pValueMarshal := pValue == 0 ? IntPtr : "ptr"
+
+        result := ComCall(70, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -524,17 +530,17 @@ export default struct IX509CertificateRequestCertificate extends IX509Certificat
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CheckPublicKeySignature := CallbackCreate(GetMethod(implObj, "CheckPublicKeySignature"), flags, 2)
-        this.vtbl.get_Issuer := CallbackCreate(GetMethod(implObj, "get_Issuer"), flags, 2)
-        this.vtbl.put_Issuer := CallbackCreate(GetMethod(implObj, "put_Issuer"), flags, 2)
-        this.vtbl.get_NotBefore := CallbackCreate(GetMethod(implObj, "get_NotBefore"), flags, 2)
-        this.vtbl.put_NotBefore := CallbackCreate(GetMethod(implObj, "put_NotBefore"), flags, 2)
-        this.vtbl.get_NotAfter := CallbackCreate(GetMethod(implObj, "get_NotAfter"), flags, 2)
-        this.vtbl.put_NotAfter := CallbackCreate(GetMethod(implObj, "put_NotAfter"), flags, 2)
-        this.vtbl.get_SerialNumber := CallbackCreate(GetMethod(implObj, "get_SerialNumber"), flags, 3)
-        this.vtbl.put_SerialNumber := CallbackCreate(GetMethod(implObj, "put_SerialNumber"), flags, 3)
-        this.vtbl.get_SignerCertificate := CallbackCreate(GetMethod(implObj, "get_SignerCertificate"), flags, 2)
-        this.vtbl.put_SignerCertificate := CallbackCreate(GetMethod(implObj, "put_SignerCertificate"), flags, 2)
+        this.vtbl.CheckPublicKeySignature := CallbackCreate(ObjBindMethod(implObj, "CheckPublicKeySignature"), flags, 2)
+        this.vtbl.get_Issuer := CallbackCreate(ObjBindMethod(implObj, "get_Issuer"), flags, 2)
+        this.vtbl.put_Issuer := CallbackCreate(ObjBindMethod(implObj, "put_Issuer"), flags, 2)
+        this.vtbl.get_NotBefore := CallbackCreate(ObjBindMethod(implObj, "get_NotBefore"), flags, 2)
+        this.vtbl.put_NotBefore := CallbackCreate(ObjBindMethod(implObj, "put_NotBefore"), flags, 2)
+        this.vtbl.get_NotAfter := CallbackCreate(ObjBindMethod(implObj, "get_NotAfter"), flags, 2)
+        this.vtbl.put_NotAfter := CallbackCreate(ObjBindMethod(implObj, "put_NotAfter"), flags, 2)
+        this.vtbl.get_SerialNumber := CallbackCreate(ObjBindMethod(implObj, "get_SerialNumber"), flags, 3)
+        this.vtbl.put_SerialNumber := CallbackCreate(ObjBindMethod(implObj, "put_SerialNumber"), flags, 3)
+        this.vtbl.get_SignerCertificate := CallbackCreate(ObjBindMethod(implObj, "get_SignerCertificate"), flags, 2)
+        this.vtbl.put_SignerCertificate := CallbackCreate(ObjBindMethod(implObj, "put_SignerCertificate"), flags, 2)
     }
 
     Dispose() {

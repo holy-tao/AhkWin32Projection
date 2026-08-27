@@ -20,7 +20,6 @@ export default struct PM_CLOSE_PROC {
     }
 
     /**
-     * 
      * @returns {Integer} This function should return ERROR_SUCCESS.
      */
     Call() {

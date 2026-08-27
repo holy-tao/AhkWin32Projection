@@ -42,7 +42,6 @@ export default struct IServerXMLHTTPRequest extends IXMLHTTPRequest {
     }
 
     /**
-     * 
      * @param {Integer} resolveTimeout 
      * @param {Integer} connectTimeout 
      * @param {Integer} sendTimeout 
@@ -55,7 +54,6 @@ export default struct IServerXMLHTTPRequest extends IXMLHTTPRequest {
     }
 
     /**
-     * 
      * @param {VARIANT} timeoutInSeconds 
      * @returns {VARIANT_BOOL} 
      */
@@ -65,7 +63,6 @@ export default struct IServerXMLHTTPRequest extends IXMLHTTPRequest {
     }
 
     /**
-     * 
      * @param {SERVERXMLHTTP_OPTION} option 
      * @returns {VARIANT} 
      */
@@ -76,7 +73,6 @@ export default struct IServerXMLHTTPRequest extends IXMLHTTPRequest {
     }
 
     /**
-     * 
      * @param {SERVERXMLHTTP_OPTION} option 
      * @param {VARIANT} value 
      * @returns {HRESULT} 
@@ -95,10 +91,10 @@ export default struct IServerXMLHTTPRequest extends IXMLHTTPRequest {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.setTimeouts := CallbackCreate(GetMethod(implObj, "setTimeouts"), flags, 5)
-        this.vtbl.waitForResponse := CallbackCreate(GetMethod(implObj, "waitForResponse"), flags, 3)
-        this.vtbl.getOption := CallbackCreate(GetMethod(implObj, "getOption"), flags, 3)
-        this.vtbl.setOption := CallbackCreate(GetMethod(implObj, "setOption"), flags, 3)
+        this.vtbl.setTimeouts := CallbackCreate(ObjBindMethod(implObj, "setTimeouts"), flags, 5)
+        this.vtbl.waitForResponse := CallbackCreate(ObjBindMethod(implObj, "waitForResponse"), flags, 3)
+        this.vtbl.getOption := CallbackCreate(ObjBindMethod(implObj, "getOption"), flags, 3)
+        this.vtbl.setOption := CallbackCreate(ObjBindMethod(implObj, "setOption"), flags, 3)
     }
 
     Dispose() {

@@ -51,7 +51,6 @@ export default struct IDebugDocumentInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     GetDocumentClassId() {
@@ -69,8 +68,8 @@ export default struct IDebugDocumentInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 3)
-        this.vtbl.GetDocumentClassId := CallbackCreate(GetMethod(implObj, "GetDocumentClassId"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 3)
+        this.vtbl.GetDocumentClassId := CallbackCreate(ObjBindMethod(implObj, "GetDocumentClassId"), flags, 2)
     }
 
     Dispose() {

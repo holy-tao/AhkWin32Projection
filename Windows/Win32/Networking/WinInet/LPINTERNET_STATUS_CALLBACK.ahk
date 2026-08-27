@@ -18,7 +18,6 @@ export default struct LPINTERNET_STATUS_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hInternet 
      * @param {Pointer} dwContext 
      * @param {Integer} dwInternetStatus 
@@ -27,10 +26,12 @@ export default struct LPINTERNET_STATUS_CALLBACK {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(hInternet, dwContext, dwInternetStatus, lpvStatusInformation, dwStatusInformationLength) {
-        hInternetMarshal := hInternet is VarRef ? "ptr" : "ptr"
-        lpvStatusInformationMarshal := lpvStatusInformation is VarRef ? "ptr" : "ptr"
+        hInternetMarshal := hInternet is VarRef ? "ptr" : IntPtr
+        dwContextMarshal := dwContext == 0 ? IntPtr : IntPtr
+        lpvStatusInformationMarshal := lpvStatusInformation is VarRef ? "ptr" : IntPtr
+        lpvStatusInformationMarshal := lpvStatusInformation == 0 ? IntPtr : "ptr"
 
-        DllCall(this.value, hInternetMarshal, hInternet, IntPtr, dwContext, UInt32, dwInternetStatus, lpvStatusInformationMarshal, lpvStatusInformation, UInt32, dwStatusInformationLength)
+        DllCall(this.value, hInternetMarshal, hInternet, dwContextMarshal, dwContext, UInt32, dwInternetStatus, lpvStatusInformationMarshal, lpvStatusInformation, UInt32, dwStatusInformationLength)
     }
 
     /**

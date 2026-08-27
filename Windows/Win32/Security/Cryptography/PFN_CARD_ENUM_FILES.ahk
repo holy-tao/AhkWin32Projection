@@ -20,7 +20,6 @@ export default struct PFN_CARD_ENUM_FILES {
     }
 
     /**
-     * 
      * @param {Pointer<CARD_DATA>} pCardData 
      * @param {PSTR} pszDirectoryName 
      * @param {Pointer<PSTR>} pmszFileNames 
@@ -31,10 +30,11 @@ export default struct PFN_CARD_ENUM_FILES {
     Call(pCardData, pszDirectoryName, pmszFileNames, pdwcbFileName, dwFlags) {
         pszDirectoryName := pszDirectoryName is String ? StrPtr(pszDirectoryName) : pszDirectoryName
 
-        pmszFileNamesMarshal := pmszFileNames is VarRef ? "ptr*" : "ptr"
-        pdwcbFileNameMarshal := pdwcbFileName is VarRef ? "uint*" : "ptr"
+        pszDirectoryNameMarshal := pszDirectoryName == 0 ? IntPtr : PSTR
+        pmszFileNamesMarshal := pmszFileNames is VarRef ? "ptr*" : IntPtr
+        pdwcbFileNameMarshal := pdwcbFileName is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, CARD_DATA.Ptr, pCardData, "ptr", pszDirectoryName, pmszFileNamesMarshal, pmszFileNames, pdwcbFileNameMarshal, pdwcbFileName, UInt32, dwFlags, UInt32)
+        result := DllCall(this.value, CARD_DATA.Ptr, pCardData, pszDirectoryNameMarshal, pszDirectoryName, pmszFileNamesMarshal, pmszFileNames, pdwcbFileNameMarshal, pdwcbFileName, UInt32, dwFlags, UInt32)
         return result
     }
 

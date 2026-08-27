@@ -149,11 +149,11 @@ export default struct IFileIsInUse extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAppName := CallbackCreate(GetMethod(implObj, "GetAppName"), flags, 2)
-        this.vtbl.GetUsage := CallbackCreate(GetMethod(implObj, "GetUsage"), flags, 2)
-        this.vtbl.GetCapabilities := CallbackCreate(GetMethod(implObj, "GetCapabilities"), flags, 2)
-        this.vtbl.GetSwitchToHWND := CallbackCreate(GetMethod(implObj, "GetSwitchToHWND"), flags, 2)
-        this.vtbl.CloseFile := CallbackCreate(GetMethod(implObj, "CloseFile"), flags, 1)
+        this.vtbl.GetAppName := CallbackCreate(ObjBindMethod(implObj, "GetAppName"), flags, 2)
+        this.vtbl.GetUsage := CallbackCreate(ObjBindMethod(implObj, "GetUsage"), flags, 2)
+        this.vtbl.GetCapabilities := CallbackCreate(ObjBindMethod(implObj, "GetCapabilities"), flags, 2)
+        this.vtbl.GetSwitchToHWND := CallbackCreate(ObjBindMethod(implObj, "GetSwitchToHWND"), flags, 2)
+        this.vtbl.CloseFile := CallbackCreate(ObjBindMethod(implObj, "CloseFile"), flags, 1)
     }
 
     Dispose() {

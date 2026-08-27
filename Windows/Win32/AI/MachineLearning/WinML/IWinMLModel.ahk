@@ -62,8 +62,8 @@ export default struct IWinMLModel extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winml/nf-winml-iwinmlmodel-enumeratemetadata
      */
     EnumerateMetadata(Index, pKey, pValue) {
-        pKeyMarshal := pKey is VarRef ? "ptr*" : "ptr"
-        pValueMarshal := pValue is VarRef ? "ptr*" : "ptr"
+        pKeyMarshal := pKey is VarRef ? "ptr*" : IntPtr
+        pValueMarshal := pValue is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, UInt32, Index, pKeyMarshal, pKey, pValueMarshal, pValue, "HRESULT")
         return result
@@ -100,10 +100,10 @@ export default struct IWinMLModel extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 2)
-        this.vtbl.EnumerateMetadata := CallbackCreate(GetMethod(implObj, "EnumerateMetadata"), flags, 4)
-        this.vtbl.EnumerateModelInputs := CallbackCreate(GetMethod(implObj, "EnumerateModelInputs"), flags, 3)
-        this.vtbl.EnumerateModelOutputs := CallbackCreate(GetMethod(implObj, "EnumerateModelOutputs"), flags, 3)
+        this.vtbl.GetDescription := CallbackCreate(ObjBindMethod(implObj, "GetDescription"), flags, 2)
+        this.vtbl.EnumerateMetadata := CallbackCreate(ObjBindMethod(implObj, "EnumerateMetadata"), flags, 4)
+        this.vtbl.EnumerateModelInputs := CallbackCreate(ObjBindMethod(implObj, "EnumerateModelInputs"), flags, 3)
+        this.vtbl.EnumerateModelOutputs := CallbackCreate(ObjBindMethod(implObj, "EnumerateModelOutputs"), flags, 3)
     }
 
     Dispose() {

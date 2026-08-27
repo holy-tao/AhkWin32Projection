@@ -39,7 +39,6 @@ export default struct IXpsRasterizer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} x 
      * @param {Integer} y 
      * @param {Integer} width 
@@ -48,12 +47,13 @@ export default struct IXpsRasterizer extends IUnknown {
      * @returns {IWICBitmap} 
      */
     RasterizeRect(x, y, width, height, notificationCallback) {
-        result := ComCall(3, this, Int32, x, Int32, y, Int32, width, Int32, height, "ptr", notificationCallback, "ptr*", &_bitmap := 0, "HRESULT")
+        notificationCallbackMarshal := notificationCallback == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, Int32, x, Int32, y, Int32, width, Int32, height, notificationCallbackMarshal, notificationCallback, "ptr*", &_bitmap := 0, "HRESULT")
         return IWICBitmap(_bitmap)
     }
 
     /**
-     * 
      * @param {Integer} width 
      * @returns {HRESULT} 
      */
@@ -71,8 +71,8 @@ export default struct IXpsRasterizer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RasterizeRect := CallbackCreate(GetMethod(implObj, "RasterizeRect"), flags, 7)
-        this.vtbl.SetMinimalLineWidth := CallbackCreate(GetMethod(implObj, "SetMinimalLineWidth"), flags, 2)
+        this.vtbl.RasterizeRect := CallbackCreate(ObjBindMethod(implObj, "RasterizeRect"), flags, 7)
+        this.vtbl.SetMinimalLineWidth := CallbackCreate(ObjBindMethod(implObj, "SetMinimalLineWidth"), flags, 2)
     }
 
     Dispose() {

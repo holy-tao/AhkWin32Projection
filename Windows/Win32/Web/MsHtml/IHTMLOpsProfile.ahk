@@ -47,7 +47,6 @@ export default struct IHTMLOpsProfile extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @param {VARIANT} reserved 
      * @returns {VARIANT_BOOL} 
@@ -60,7 +59,6 @@ export default struct IHTMLOpsProfile extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     clearRequest() {
@@ -69,7 +67,6 @@ export default struct IHTMLOpsProfile extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} usage 
      * @param {VARIANT} fname 
      * @param {VARIANT} domain 
@@ -84,7 +81,6 @@ export default struct IHTMLOpsProfile extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {BSTR} 
      */
@@ -97,7 +93,6 @@ export default struct IHTMLOpsProfile extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @param {BSTR} value 
      * @param {VARIANT} prefs 
@@ -112,7 +107,6 @@ export default struct IHTMLOpsProfile extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     commitChanges() {
@@ -121,7 +115,6 @@ export default struct IHTMLOpsProfile extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @param {VARIANT} reserved 
      * @returns {VARIANT_BOOL} 
@@ -134,7 +127,6 @@ export default struct IHTMLOpsProfile extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} usage 
      * @param {VARIANT} fname 
      * @param {VARIANT} domain 
@@ -149,7 +141,6 @@ export default struct IHTMLOpsProfile extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     doWriteRequest() {
@@ -166,15 +157,15 @@ export default struct IHTMLOpsProfile extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.addRequest := CallbackCreate(GetMethod(implObj, "addRequest"), flags, 4)
-        this.vtbl.clearRequest := CallbackCreate(GetMethod(implObj, "clearRequest"), flags, 1)
-        this.vtbl.doRequest := CallbackCreate(GetMethod(implObj, "doRequest"), flags, 7)
-        this.vtbl.getAttribute := CallbackCreate(GetMethod(implObj, "getAttribute"), flags, 3)
-        this.vtbl.setAttribute := CallbackCreate(GetMethod(implObj, "setAttribute"), flags, 5)
-        this.vtbl.commitChanges := CallbackCreate(GetMethod(implObj, "commitChanges"), flags, 2)
-        this.vtbl.addReadRequest := CallbackCreate(GetMethod(implObj, "addReadRequest"), flags, 4)
-        this.vtbl.doReadRequest := CallbackCreate(GetMethod(implObj, "doReadRequest"), flags, 7)
-        this.vtbl.doWriteRequest := CallbackCreate(GetMethod(implObj, "doWriteRequest"), flags, 2)
+        this.vtbl.addRequest := CallbackCreate(ObjBindMethod(implObj, "addRequest"), flags, 4)
+        this.vtbl.clearRequest := CallbackCreate(ObjBindMethod(implObj, "clearRequest"), flags, 1)
+        this.vtbl.doRequest := CallbackCreate(ObjBindMethod(implObj, "doRequest"), flags, 7)
+        this.vtbl.getAttribute := CallbackCreate(ObjBindMethod(implObj, "getAttribute"), flags, 3)
+        this.vtbl.setAttribute := CallbackCreate(ObjBindMethod(implObj, "setAttribute"), flags, 5)
+        this.vtbl.commitChanges := CallbackCreate(ObjBindMethod(implObj, "commitChanges"), flags, 2)
+        this.vtbl.addReadRequest := CallbackCreate(ObjBindMethod(implObj, "addReadRequest"), flags, 4)
+        this.vtbl.doReadRequest := CallbackCreate(ObjBindMethod(implObj, "doReadRequest"), flags, 7)
+        this.vtbl.doWriteRequest := CallbackCreate(ObjBindMethod(implObj, "doWriteRequest"), flags, 2)
     }
 
     Dispose() {

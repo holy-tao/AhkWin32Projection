@@ -67,7 +67,7 @@ export default struct IWdsTransportManager extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetWdsTransportServer := CallbackCreate(GetMethod(implObj, "GetWdsTransportServer"), flags, 3)
+        this.vtbl.GetWdsTransportServer := CallbackCreate(ObjBindMethod(implObj, "GetWdsTransportServer"), flags, 3)
     }
 
     Dispose() {

@@ -96,8 +96,8 @@ export default struct IFileSystemBindData extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetFindData := CallbackCreate(GetMethod(implObj, "SetFindData"), flags, 2)
-        this.vtbl.GetFindData := CallbackCreate(GetMethod(implObj, "GetFindData"), flags, 2)
+        this.vtbl.SetFindData := CallbackCreate(ObjBindMethod(implObj, "SetFindData"), flags, 2)
+        this.vtbl.GetFindData := CallbackCreate(ObjBindMethod(implObj, "GetFindData"), flags, 2)
     }
 
     Dispose() {

@@ -22,7 +22,6 @@ export default struct SslGenerateSessionKeysFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_KEY_HANDLE} hMasterKey 
      * @param {Pointer<NCRYPT_KEY_HANDLE>} phReadKey 

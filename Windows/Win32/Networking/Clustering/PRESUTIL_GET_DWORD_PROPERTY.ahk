@@ -19,7 +19,6 @@ export default struct PRESUTIL_GET_DWORD_PROPERTY {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwOutValue 
      * @param {Pointer<CLUSPROP_DWORD>} pValueStruct 
      * @param {Integer} dwOldValue 
@@ -30,9 +29,9 @@ export default struct PRESUTIL_GET_DWORD_PROPERTY {
      * @returns {Integer} 
      */
     Call(pdwOutValue, pValueStruct, dwOldValue, dwMinimum, dwMaximum, ppPropertyList, pcbPropertyListSize) {
-        pdwOutValueMarshal := pdwOutValue is VarRef ? "uint*" : "ptr"
-        ppPropertyListMarshal := ppPropertyList is VarRef ? "ptr*" : "ptr"
-        pcbPropertyListSizeMarshal := pcbPropertyListSize is VarRef ? "uint*" : "ptr"
+        pdwOutValueMarshal := pdwOutValue is VarRef ? "uint*" : IntPtr
+        ppPropertyListMarshal := ppPropertyList is VarRef ? "ptr*" : IntPtr
+        pcbPropertyListSizeMarshal := pcbPropertyListSize is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, pdwOutValueMarshal, pdwOutValue, CLUSPROP_DWORD.Ptr, pValueStruct, UInt32, dwOldValue, UInt32, dwMinimum, UInt32, dwMaximum, ppPropertyListMarshal, ppPropertyList, pcbPropertyListSizeMarshal, pcbPropertyListSize, UInt32)
         return result

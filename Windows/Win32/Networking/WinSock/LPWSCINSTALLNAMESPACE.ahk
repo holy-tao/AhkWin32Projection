@@ -20,7 +20,6 @@ export default struct LPWSCINSTALLNAMESPACE {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszIdentifier 
      * @param {PWSTR} lpszPathName 
      * @param {Integer} dwNameSpace 

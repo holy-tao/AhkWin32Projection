@@ -21,7 +21,6 @@ export default struct PGET_PNP_TRIAGE_INFO {
     }
 
     /**
-     * 
      * @param {IDebugClient} Client 
      * @param {Pointer<DEBUG_PNP_TRIAGE_INFO>} pPNPTriageInfo 
      * @returns {HRESULT} 

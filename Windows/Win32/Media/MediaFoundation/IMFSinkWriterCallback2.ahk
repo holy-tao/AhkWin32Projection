@@ -71,8 +71,8 @@ export default struct IMFSinkWriterCallback2 extends IMFSinkWriterCallback {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnTransformChange := CallbackCreate(GetMethod(implObj, "OnTransformChange"), flags, 1)
-        this.vtbl.OnStreamError := CallbackCreate(GetMethod(implObj, "OnStreamError"), flags, 3)
+        this.vtbl.OnTransformChange := CallbackCreate(ObjBindMethod(implObj, "OnTransformChange"), flags, 1)
+        this.vtbl.OnStreamError := CallbackCreate(ObjBindMethod(implObj, "OnStreamError"), flags, 3)
     }
 
     Dispose() {

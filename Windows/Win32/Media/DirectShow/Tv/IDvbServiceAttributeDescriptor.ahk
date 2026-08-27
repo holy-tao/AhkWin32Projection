@@ -42,7 +42,6 @@ export default struct IDvbServiceAttributeDescriptor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetTag() {
@@ -51,7 +50,6 @@ export default struct IDvbServiceAttributeDescriptor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetLength() {
@@ -60,7 +58,6 @@ export default struct IDvbServiceAttributeDescriptor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCountOfRecords() {
@@ -69,7 +66,6 @@ export default struct IDvbServiceAttributeDescriptor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} bRecordIndex 
      * @returns {Integer} 
      */
@@ -79,7 +75,6 @@ export default struct IDvbServiceAttributeDescriptor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} bRecordIndex 
      * @returns {BOOL} 
      */
@@ -89,7 +84,6 @@ export default struct IDvbServiceAttributeDescriptor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} bRecordIndex 
      * @returns {BOOL} 
      */
@@ -107,12 +101,12 @@ export default struct IDvbServiceAttributeDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetCountOfRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRecords"), flags, 2)
-        this.vtbl.GetRecordServiceId := CallbackCreate(GetMethod(implObj, "GetRecordServiceId"), flags, 3)
-        this.vtbl.GetRecordNumericSelectionFlag := CallbackCreate(GetMethod(implObj, "GetRecordNumericSelectionFlag"), flags, 3)
-        this.vtbl.GetRecordVisibleServiceFlag := CallbackCreate(GetMethod(implObj, "GetRecordVisibleServiceFlag"), flags, 3)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetCountOfRecords := CallbackCreate(ObjBindMethod(implObj, "GetCountOfRecords"), flags, 2)
+        this.vtbl.GetRecordServiceId := CallbackCreate(ObjBindMethod(implObj, "GetRecordServiceId"), flags, 3)
+        this.vtbl.GetRecordNumericSelectionFlag := CallbackCreate(ObjBindMethod(implObj, "GetRecordNumericSelectionFlag"), flags, 3)
+        this.vtbl.GetRecordVisibleServiceFlag := CallbackCreate(ObjBindMethod(implObj, "GetRecordVisibleServiceFlag"), flags, 3)
     }
 
     Dispose() {

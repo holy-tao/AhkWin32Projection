@@ -20,7 +20,6 @@ export default struct PFND3DKMT_CHECKOCCLUSION {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CHECKOCCLUSION>} param0 
      * @returns {NTSTATUS} 
      */

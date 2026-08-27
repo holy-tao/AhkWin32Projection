@@ -41,7 +41,6 @@ export default struct IHostPolicyManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {EClrOperation} operation 
      * @param {EPolicyAction} action 
      * @returns {HRESULT} 
@@ -52,7 +51,6 @@ export default struct IHostPolicyManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {EClrOperation} operation 
      * @param {EPolicyAction} action 
      * @returns {HRESULT} 
@@ -63,7 +61,6 @@ export default struct IHostPolicyManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {EClrFailure} failure 
      * @param {EPolicyAction} action 
      * @returns {HRESULT} 
@@ -82,9 +79,9 @@ export default struct IHostPolicyManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnDefaultAction := CallbackCreate(GetMethod(implObj, "OnDefaultAction"), flags, 3)
-        this.vtbl.OnTimeout := CallbackCreate(GetMethod(implObj, "OnTimeout"), flags, 3)
-        this.vtbl.OnFailure := CallbackCreate(GetMethod(implObj, "OnFailure"), flags, 3)
+        this.vtbl.OnDefaultAction := CallbackCreate(ObjBindMethod(implObj, "OnDefaultAction"), flags, 3)
+        this.vtbl.OnTimeout := CallbackCreate(ObjBindMethod(implObj, "OnTimeout"), flags, 3)
+        this.vtbl.OnFailure := CallbackCreate(ObjBindMethod(implObj, "OnFailure"), flags, 3)
     }
 
     Dispose() {

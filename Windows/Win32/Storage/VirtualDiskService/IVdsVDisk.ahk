@@ -103,10 +103,10 @@ export default struct IVdsVDisk extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 5)
-        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
-        this.vtbl.GetHostVolume := CallbackCreate(GetMethod(implObj, "GetHostVolume"), flags, 2)
-        this.vtbl.GetDeviceName := CallbackCreate(GetMethod(implObj, "GetDeviceName"), flags, 2)
+        this.vtbl.Open := CallbackCreate(ObjBindMethod(implObj, "Open"), flags, 5)
+        this.vtbl.GetProperties := CallbackCreate(ObjBindMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.GetHostVolume := CallbackCreate(ObjBindMethod(implObj, "GetHostVolume"), flags, 2)
+        this.vtbl.GetDeviceName := CallbackCreate(ObjBindMethod(implObj, "GetDeviceName"), flags, 2)
     }
 
     Dispose() {

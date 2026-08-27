@@ -400,16 +400,16 @@ export default struct ICertAdmin extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsValidCertificate := CallbackCreate(GetMethod(implObj, "IsValidCertificate"), flags, 4)
-        this.vtbl.GetRevocationReason := CallbackCreate(GetMethod(implObj, "GetRevocationReason"), flags, 2)
-        this.vtbl.RevokeCertificate := CallbackCreate(GetMethod(implObj, "RevokeCertificate"), flags, 5)
-        this.vtbl.SetRequestAttributes := CallbackCreate(GetMethod(implObj, "SetRequestAttributes"), flags, 4)
-        this.vtbl.SetCertificateExtension := CallbackCreate(GetMethod(implObj, "SetCertificateExtension"), flags, 7)
-        this.vtbl.DenyRequest := CallbackCreate(GetMethod(implObj, "DenyRequest"), flags, 3)
-        this.vtbl.ResubmitRequest := CallbackCreate(GetMethod(implObj, "ResubmitRequest"), flags, 4)
-        this.vtbl.PublishCRL := CallbackCreate(GetMethod(implObj, "PublishCRL"), flags, 3)
-        this.vtbl.GetCRL := CallbackCreate(GetMethod(implObj, "GetCRL"), flags, 4)
-        this.vtbl.ImportCertificate := CallbackCreate(GetMethod(implObj, "ImportCertificate"), flags, 5)
+        this.vtbl.IsValidCertificate := CallbackCreate(ObjBindMethod(implObj, "IsValidCertificate"), flags, 4)
+        this.vtbl.GetRevocationReason := CallbackCreate(ObjBindMethod(implObj, "GetRevocationReason"), flags, 2)
+        this.vtbl.RevokeCertificate := CallbackCreate(ObjBindMethod(implObj, "RevokeCertificate"), flags, 5)
+        this.vtbl.SetRequestAttributes := CallbackCreate(ObjBindMethod(implObj, "SetRequestAttributes"), flags, 4)
+        this.vtbl.SetCertificateExtension := CallbackCreate(ObjBindMethod(implObj, "SetCertificateExtension"), flags, 7)
+        this.vtbl.DenyRequest := CallbackCreate(ObjBindMethod(implObj, "DenyRequest"), flags, 3)
+        this.vtbl.ResubmitRequest := CallbackCreate(ObjBindMethod(implObj, "ResubmitRequest"), flags, 4)
+        this.vtbl.PublishCRL := CallbackCreate(ObjBindMethod(implObj, "PublishCRL"), flags, 3)
+        this.vtbl.GetCRL := CallbackCreate(ObjBindMethod(implObj, "GetCRL"), flags, 4)
+        this.vtbl.ImportCertificate := CallbackCreate(ObjBindMethod(implObj, "ImportCertificate"), flags, 5)
     }
 
     Dispose() {

@@ -35,7 +35,6 @@ export default struct ID3D12GraphicsCommandList8 extends ID3D12GraphicsCommandLi
     }
 
     /**
-     * 
      * @param {Integer} FrontStencilRef 
      * @param {Integer} BackStencilRef 
      * @returns {String} Nothing - always returns an empty string
@@ -53,7 +52,7 @@ export default struct ID3D12GraphicsCommandList8 extends ID3D12GraphicsCommandLi
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OMSetFrontAndBackStencilRef := CallbackCreate(GetMethod(implObj, "OMSetFrontAndBackStencilRef"), flags, 3)
+        this.vtbl.OMSetFrontAndBackStencilRef := CallbackCreate(ObjBindMethod(implObj, "OMSetFrontAndBackStencilRef"), flags, 3)
     }
 
     Dispose() {

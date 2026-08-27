@@ -39,7 +39,6 @@ export default struct IXpsRasterizationFactory extends IUnknown {
     }
 
     /**
-     * 
      * @param {IXpsOMPage} xpsPage 
      * @param {Float} DPI 
      * @param {XPSRAS_RENDERING_MODE} nonTextRenderingMode 
@@ -47,7 +46,9 @@ export default struct IXpsRasterizationFactory extends IUnknown {
      * @returns {IXpsRasterizer} 
      */
     CreateRasterizer(xpsPage, DPI, nonTextRenderingMode, textRenderingMode) {
-        result := ComCall(3, this, "ptr", xpsPage, Float32, DPI, XPSRAS_RENDERING_MODE, nonTextRenderingMode, XPSRAS_RENDERING_MODE, textRenderingMode, "ptr*", &ppIXPSRasterizer := 0, "HRESULT")
+        xpsPageMarshal := xpsPage == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, xpsPageMarshal, xpsPage, Float32, DPI, XPSRAS_RENDERING_MODE, nonTextRenderingMode, XPSRAS_RENDERING_MODE, textRenderingMode, "ptr*", &ppIXPSRasterizer := 0, "HRESULT")
         return IXpsRasterizer(ppIXPSRasterizer)
     }
 
@@ -60,7 +61,7 @@ export default struct IXpsRasterizationFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateRasterizer := CallbackCreate(GetMethod(implObj, "CreateRasterizer"), flags, 6)
+        this.vtbl.CreateRasterizer := CallbackCreate(ObjBindMethod(implObj, "CreateRasterizer"), flags, 6)
     }
 
     Dispose() {

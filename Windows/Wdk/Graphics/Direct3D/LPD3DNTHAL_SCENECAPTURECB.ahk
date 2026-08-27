@@ -19,7 +19,6 @@ export default struct LPD3DNTHAL_SCENECAPTURECB {
     }
 
     /**
-     * 
      * @param {Pointer<D3DNTHAL_SCENECAPTUREDATA>} param0 
      * @returns {Integer} 
      */

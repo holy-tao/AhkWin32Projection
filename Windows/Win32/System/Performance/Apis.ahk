@@ -58,7 +58,7 @@
  * @since windows5.0
  */
 export QueryPerformanceCounter(lpPerformanceCount) {
-    lpPerformanceCountMarshal := lpPerformanceCount is VarRef ? "int64*" : "ptr"
+    lpPerformanceCountMarshal := lpPerformanceCount is VarRef ? "int64*" : IntPtr
 
     A_LastError := 0
 
@@ -82,7 +82,7 @@ export QueryPerformanceCounter(lpPerformanceCount) {
  * @since windows5.0
  */
 export QueryPerformanceFrequency(lpFrequency) {
-    lpFrequencyMarshal := lpFrequency is VarRef ? "int64*" : "ptr"
+    lpFrequencyMarshal := lpFrequency is VarRef ? "int64*" : IntPtr
 
     A_LastError := 0
 
@@ -115,7 +115,9 @@ export InstallPerfDllW(szComputerName, lpIniFile, dwFlags) {
     szComputerName := szComputerName is String ? StrPtr(szComputerName) : szComputerName
     lpIniFile := lpIniFile is String ? StrPtr(lpIniFile) : lpIniFile
 
-    result := DllCall("loadperf.dll\InstallPerfDllW", "ptr", szComputerName, "ptr", lpIniFile, IntPtr, dwFlags, UInt32)
+    szComputerNameMarshal := szComputerName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("loadperf.dll\InstallPerfDllW", szComputerNameMarshal, szComputerName, "ptr", lpIniFile, IntPtr, dwFlags, UInt32)
     return result
 }
 
@@ -140,7 +142,9 @@ export InstallPerfDllA(szComputerName, lpIniFile, dwFlags) {
     szComputerName := szComputerName is String ? StrPtr(szComputerName) : szComputerName
     lpIniFile := lpIniFile is String ? StrPtr(lpIniFile) : lpIniFile
 
-    result := DllCall("loadperf.dll\InstallPerfDllA", "ptr", szComputerName, "ptr", lpIniFile, IntPtr, dwFlags, UInt32)
+    szComputerNameMarshal := szComputerName == 0 ? IntPtr : PSTR
+
+    result := DllCall("loadperf.dll\InstallPerfDllA", szComputerNameMarshal, szComputerName, "ptr", lpIniFile, IntPtr, dwFlags, UInt32)
     return result
 }
 
@@ -261,7 +265,6 @@ export UnloadPerfCounterTextStringsA(lpCommandLine, bQuietModeArg) {
 }
 
 /**
- * 
  * @param {PSTR} szNewCtrFilePath 
  * @param {PSTR} szNewHlpFilePath 
  * @param {PSTR} szLanguageID 
@@ -273,12 +276,13 @@ export UpdatePerfNameFilesA(szNewCtrFilePath, szNewHlpFilePath, szLanguageID, dw
     szNewHlpFilePath := szNewHlpFilePath is String ? StrPtr(szNewHlpFilePath) : szNewHlpFilePath
     szLanguageID := szLanguageID is String ? StrPtr(szLanguageID) : szLanguageID
 
-    result := DllCall("loadperf.dll\UpdatePerfNameFilesA", "ptr", szNewCtrFilePath, "ptr", szNewHlpFilePath, "ptr", szLanguageID, IntPtr, dwModes, UInt32)
+    szNewHlpFilePathMarshal := szNewHlpFilePath == 0 ? IntPtr : PSTR
+
+    result := DllCall("loadperf.dll\UpdatePerfNameFilesA", "ptr", szNewCtrFilePath, szNewHlpFilePathMarshal, szNewHlpFilePath, "ptr", szLanguageID, IntPtr, dwModes, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} szNewCtrFilePath 
  * @param {PWSTR} szNewHlpFilePath 
  * @param {PWSTR} szLanguageID 
@@ -290,12 +294,13 @@ export UpdatePerfNameFilesW(szNewCtrFilePath, szNewHlpFilePath, szLanguageID, dw
     szNewHlpFilePath := szNewHlpFilePath is String ? StrPtr(szNewHlpFilePath) : szNewHlpFilePath
     szLanguageID := szLanguageID is String ? StrPtr(szLanguageID) : szLanguageID
 
-    result := DllCall("loadperf.dll\UpdatePerfNameFilesW", "ptr", szNewCtrFilePath, "ptr", szNewHlpFilePath, "ptr", szLanguageID, IntPtr, dwModes, UInt32)
+    szNewHlpFilePathMarshal := szNewHlpFilePath == 0 ? IntPtr : PWSTR
+
+    result := DllCall("loadperf.dll\UpdatePerfNameFilesW", "ptr", szNewCtrFilePath, szNewHlpFilePathMarshal, szNewHlpFilePath, "ptr", szLanguageID, IntPtr, dwModes, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PSTR} szReserved 
  * @param {PSTR} szServiceName 
  * @returns {Integer} 
@@ -304,12 +309,13 @@ export SetServiceAsTrustedA(szReserved, szServiceName) {
     szReserved := szReserved is String ? StrPtr(szReserved) : szReserved
     szServiceName := szServiceName is String ? StrPtr(szServiceName) : szServiceName
 
-    result := DllCall("loadperf.dll\SetServiceAsTrustedA", "ptr", szReserved, "ptr", szServiceName, UInt32)
+    szReservedMarshal := szReserved == 0 ? IntPtr : PSTR
+
+    result := DllCall("loadperf.dll\SetServiceAsTrustedA", szReservedMarshal, szReserved, "ptr", szServiceName, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} szReserved 
  * @param {PWSTR} szServiceName 
  * @returns {Integer} 
@@ -318,12 +324,13 @@ export SetServiceAsTrustedW(szReserved, szServiceName) {
     szReserved := szReserved is String ? StrPtr(szReserved) : szReserved
     szServiceName := szServiceName is String ? StrPtr(szServiceName) : szServiceName
 
-    result := DllCall("loadperf.dll\SetServiceAsTrustedW", "ptr", szReserved, "ptr", szServiceName, UInt32)
+    szReservedMarshal := szReserved == 0 ? IntPtr : PWSTR
+
+    result := DllCall("loadperf.dll\SetServiceAsTrustedW", szReservedMarshal, szReserved, "ptr", szServiceName, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} szFileName 
  * @param {PWSTR} szCommentString 
  * @returns {Integer} 
@@ -332,12 +339,13 @@ export BackupPerfRegistryToFileW(szFileName, szCommentString) {
     szFileName := szFileName is String ? StrPtr(szFileName) : szFileName
     szCommentString := szCommentString is String ? StrPtr(szCommentString) : szCommentString
 
-    result := DllCall("loadperf.dll\BackupPerfRegistryToFileW", "ptr", szFileName, "ptr", szCommentString, UInt32)
+    szCommentStringMarshal := szCommentString == 0 ? IntPtr : PWSTR
+
+    result := DllCall("loadperf.dll\BackupPerfRegistryToFileW", "ptr", szFileName, szCommentStringMarshal, szCommentString, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} szFileName 
  * @param {PWSTR} szLangId 
  * @returns {Integer} 
@@ -346,7 +354,10 @@ export RestorePerfRegistryFromFileW(szFileName, szLangId) {
     szFileName := szFileName is String ? StrPtr(szFileName) : szFileName
     szLangId := szLangId is String ? StrPtr(szLangId) : szLangId
 
-    result := DllCall("loadperf.dll\RestorePerfRegistryFromFileW", "ptr", szFileName, "ptr", szLangId, UInt32)
+    szFileNameMarshal := szFileName == 0 ? IntPtr : PWSTR
+    szLangIdMarshal := szLangId == 0 ? IntPtr : PWSTR
+
+    result := DllCall("loadperf.dll\RestorePerfRegistryFromFileW", szFileNameMarshal, szFileName, szLangIdMarshal, szLangId, UInt32)
     return result
 }
 
@@ -368,7 +379,9 @@ export RestorePerfRegistryFromFileW(szFileName, szLangId) {
  * @since windows6.0.6000
  */
 export PerfStartProvider(ProviderGuid, ControlCallback, phProvider) {
-    result := DllCall("ADVAPI32.dll\PerfStartProvider", Guid.Ptr, ProviderGuid, PERFLIBREQUEST, ControlCallback, HANDLE.Ptr, phProvider, UInt32)
+    ControlCallbackMarshal := ControlCallback == 0 ? IntPtr : PERFLIBREQUEST
+
+    result := DllCall("ADVAPI32.dll\PerfStartProvider", Guid.Ptr, ProviderGuid, ControlCallbackMarshal, ControlCallback, HANDLE.Ptr, phProvider, UInt32)
     return result
 }
 
@@ -392,7 +405,9 @@ export PerfStartProvider(ProviderGuid, ControlCallback, phProvider) {
  * @since windows6.0.6000
  */
 export PerfStartProviderEx(ProviderGuid, ProviderContext, Provider) {
-    result := DllCall("ADVAPI32.dll\PerfStartProviderEx", Guid.Ptr, ProviderGuid, PERF_PROVIDER_CONTEXT.Ptr, ProviderContext, HANDLE.Ptr, Provider, UInt32)
+    ProviderContextMarshal := ProviderContext == 0 ? IntPtr : PERF_PROVIDER_CONTEXT.Ptr
+
+    result := DllCall("ADVAPI32.dll\PerfStartProviderEx", Guid.Ptr, ProviderGuid, ProviderContextMarshal, ProviderContext, HANDLE.Ptr, Provider, UInt32)
     return result
 }
 
@@ -571,7 +586,7 @@ export PerfQueryInstance(ProviderHandle, CounterSetGuid, Name, Id) {
  * @since windows6.0.6000
  */
 export PerfSetCounterRefValue(Provider, Instance, CounterId, _Address) {
-    _AddressMarshal := _Address is VarRef ? "ptr" : "ptr"
+    _AddressMarshal := _Address is VarRef ? "ptr" : IntPtr
 
     result := DllCall("ADVAPI32.dll\PerfSetCounterRefValue", HANDLE, Provider, PERF_COUNTERSET_INSTANCE.Ptr, Instance, UInt32, CounterId, _AddressMarshal, _Address, UInt32)
     return result
@@ -826,9 +841,11 @@ export PerfDecrementULongLongCounterValue(Provider, Instance, CounterId, Value) 
 export PerfEnumerateCounterSet(szMachine, pCounterSetIds, cCounterSetIds, pcCounterSetIdsActual) {
     szMachine := szMachine is String ? StrPtr(szMachine) : szMachine
 
-    pcCounterSetIdsActualMarshal := pcCounterSetIdsActual is VarRef ? "uint*" : "ptr"
+    szMachineMarshal := szMachine == 0 ? IntPtr : PWSTR
+    pCounterSetIdsMarshal := pCounterSetIds == 0 ? IntPtr : Guid.Ptr
+    pcCounterSetIdsActualMarshal := pcCounterSetIdsActual is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("ADVAPI32.dll\PerfEnumerateCounterSet", "ptr", szMachine, Guid.Ptr, pCounterSetIds, UInt32, cCounterSetIds, pcCounterSetIdsActualMarshal, pcCounterSetIdsActual, UInt32)
+    result := DllCall("ADVAPI32.dll\PerfEnumerateCounterSet", szMachineMarshal, szMachine, pCounterSetIdsMarshal, pCounterSetIds, UInt32, cCounterSetIds, pcCounterSetIdsActualMarshal, pcCounterSetIdsActual, UInt32)
     return result
 }
 
@@ -922,9 +939,11 @@ export PerfEnumerateCounterSet(szMachine, pCounterSetIds, cCounterSetIds, pcCoun
 export PerfEnumerateCounterSetInstances(szMachine, pCounterSetId, pInstances, cbInstances, pcbInstancesActual) {
     szMachine := szMachine is String ? StrPtr(szMachine) : szMachine
 
-    pcbInstancesActualMarshal := pcbInstancesActual is VarRef ? "uint*" : "ptr"
+    szMachineMarshal := szMachine == 0 ? IntPtr : PWSTR
+    pInstancesMarshal := pInstances == 0 ? IntPtr : IntPtr
+    pcbInstancesActualMarshal := pcbInstancesActual is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("ADVAPI32.dll\PerfEnumerateCounterSetInstances", "ptr", szMachine, Guid.Ptr, pCounterSetId, IntPtr, pInstances, UInt32, cbInstances, pcbInstancesActualMarshal, pcbInstancesActual, UInt32)
+    result := DllCall("ADVAPI32.dll\PerfEnumerateCounterSetInstances", szMachineMarshal, szMachine, Guid.Ptr, pCounterSetId, pInstancesMarshal, pInstances, UInt32, cbInstances, pcbInstancesActualMarshal, pcbInstancesActual, UInt32)
     return result
 }
 
@@ -1022,9 +1041,11 @@ export PerfEnumerateCounterSetInstances(szMachine, pCounterSetId, pInstances, cb
 export PerfQueryCounterSetRegistrationInfo(szMachine, pCounterSetId, requestCode, requestLangId, pbRegInfo, cbRegInfo, pcbRegInfoActual) {
     szMachine := szMachine is String ? StrPtr(szMachine) : szMachine
 
-    pcbRegInfoActualMarshal := pcbRegInfoActual is VarRef ? "uint*" : "ptr"
+    szMachineMarshal := szMachine == 0 ? IntPtr : PWSTR
+    pbRegInfoMarshal := pbRegInfo == 0 ? IntPtr : IntPtr
+    pcbRegInfoActualMarshal := pcbRegInfoActual is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("ADVAPI32.dll\PerfQueryCounterSetRegistrationInfo", "ptr", szMachine, Guid.Ptr, pCounterSetId, PerfRegInfoType, requestCode, UInt32, requestLangId, IntPtr, pbRegInfo, UInt32, cbRegInfo, pcbRegInfoActualMarshal, pcbRegInfoActual, UInt32)
+    result := DllCall("ADVAPI32.dll\PerfQueryCounterSetRegistrationInfo", szMachineMarshal, szMachine, Guid.Ptr, pCounterSetId, PerfRegInfoType, requestCode, UInt32, requestLangId, pbRegInfoMarshal, pbRegInfo, UInt32, cbRegInfo, pcbRegInfoActualMarshal, pcbRegInfoActual, UInt32)
     return result
 }
 
@@ -1050,7 +1071,9 @@ export PerfQueryCounterSetRegistrationInfo(szMachine, pCounterSetId, requestCode
 export PerfOpenQueryHandle(szMachine, phQuery) {
     szMachine := szMachine is String ? StrPtr(szMachine) : szMachine
 
-    result := DllCall("ADVAPI32.dll\PerfOpenQueryHandle", "ptr", szMachine, HANDLE.Ptr, phQuery, UInt32)
+    szMachineMarshal := szMachine == 0 ? IntPtr : PWSTR
+
+    result := DllCall("ADVAPI32.dll\PerfOpenQueryHandle", szMachineMarshal, szMachine, HANDLE.Ptr, phQuery, UInt32)
     return result
 }
 
@@ -1159,9 +1182,10 @@ export PerfCloseQueryHandle(hQuery) {
  * @since windows10.0.14393
  */
 export PerfQueryCounterInfo(hQuery, pCounters, cbCounters, pcbCountersActual) {
-    pcbCountersActualMarshal := pcbCountersActual is VarRef ? "uint*" : "ptr"
+    pCountersMarshal := pCounters == 0 ? IntPtr : IntPtr
+    pcbCountersActualMarshal := pcbCountersActual is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("ADVAPI32.dll\PerfQueryCounterInfo", HANDLE, hQuery, IntPtr, pCounters, UInt32, cbCounters, pcbCountersActualMarshal, pcbCountersActual, UInt32)
+    result := DllCall("ADVAPI32.dll\PerfQueryCounterInfo", HANDLE, hQuery, pCountersMarshal, pCounters, UInt32, cbCounters, pcbCountersActualMarshal, pcbCountersActual, UInt32)
     return result
 }
 
@@ -1244,9 +1268,10 @@ export PerfQueryCounterInfo(hQuery, pCounters, cbCounters, pcbCountersActual) {
  * @since windows10.0.14393
  */
 export PerfQueryCounterData(hQuery, pCounterBlock, cbCounterBlock, pcbCounterBlockActual) {
-    pcbCounterBlockActualMarshal := pcbCounterBlockActual is VarRef ? "uint*" : "ptr"
+    pCounterBlockMarshal := pCounterBlock == 0 ? IntPtr : IntPtr
+    pcbCounterBlockActualMarshal := pcbCounterBlockActual is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("ADVAPI32.dll\PerfQueryCounterData", HANDLE, hQuery, IntPtr, pCounterBlock, UInt32, cbCounterBlock, pcbCounterBlockActualMarshal, pcbCounterBlockActual, UInt32)
+    result := DllCall("ADVAPI32.dll\PerfQueryCounterData", HANDLE, hQuery, pCounterBlockMarshal, pCounterBlock, UInt32, cbCounterBlock, pcbCounterBlockActualMarshal, pcbCounterBlockActual, UInt32)
     return result
 }
 
@@ -1348,7 +1373,8 @@ export PerfDeleteCounters(hQuery, pCounters, cbCounters) {
  * @since windows5.1.2600
  */
 export PdhGetDllVersion(lpdwVersion) {
-    lpdwVersionMarshal := lpdwVersion is VarRef ? "uint*" : "ptr"
+    lpdwVersionMarshal := lpdwVersion is VarRef ? "uint*" : IntPtr
+    lpdwVersionMarshal := lpdwVersion == 0 ? IntPtr : "uint*"
 
     result := DllCall("pdh.dll\PdhGetDllVersion", lpdwVersionMarshal, lpdwVersion, UInt32)
     return result
@@ -1375,7 +1401,9 @@ export PdhGetDllVersion(lpdwVersion) {
 export PdhOpenQueryW(szDataSource, dwUserData, phQuery) {
     szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
 
-    result := DllCall("pdh.dll\PdhOpenQueryW", "ptr", szDataSource, IntPtr, dwUserData, PDH_HQUERY.Ptr, phQuery, UInt32)
+    szDataSourceMarshal := szDataSource == 0 ? IntPtr : PWSTR
+
+    result := DllCall("pdh.dll\PdhOpenQueryW", szDataSourceMarshal, szDataSource, IntPtr, dwUserData, PDH_HQUERY.Ptr, phQuery, UInt32)
     return result
 }
 
@@ -1400,7 +1428,9 @@ export PdhOpenQueryW(szDataSource, dwUserData, phQuery) {
 export PdhOpenQueryA(szDataSource, dwUserData, phQuery) {
     szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
 
-    result := DllCall("pdh.dll\PdhOpenQueryA", "ptr", szDataSource, IntPtr, dwUserData, PDH_HQUERY.Ptr, phQuery, UInt32)
+    szDataSourceMarshal := szDataSource == 0 ? IntPtr : PSTR
+
+    result := DllCall("pdh.dll\PdhOpenQueryA", szDataSourceMarshal, szDataSource, IntPtr, dwUserData, PDH_HQUERY.Ptr, phQuery, UInt32)
     return result
 }
 
@@ -1538,7 +1568,7 @@ export PdhOpenQueryA(szDataSource, dwUserData, phQuery) {
 export PdhAddCounterW(hQuery, szFullCounterPath, dwUserData, phCounter) {
     szFullCounterPath := szFullCounterPath is String ? StrPtr(szFullCounterPath) : szFullCounterPath
 
-    phCounterMarshal := phCounter is VarRef ? "ptr*" : "ptr"
+    phCounterMarshal := phCounter is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("pdh.dll\PdhAddCounterW", PDH_HQUERY, hQuery, "ptr", szFullCounterPath, IntPtr, dwUserData, phCounterMarshal, phCounter, UInt32)
     return result
@@ -1678,7 +1708,7 @@ export PdhAddCounterW(hQuery, szFullCounterPath, dwUserData, phCounter) {
 export PdhAddCounterA(hQuery, szFullCounterPath, dwUserData, phCounter) {
     szFullCounterPath := szFullCounterPath is String ? StrPtr(szFullCounterPath) : szFullCounterPath
 
-    phCounterMarshal := phCounter is VarRef ? "ptr*" : "ptr"
+    phCounterMarshal := phCounter is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("pdh.dll\PdhAddCounterA", PDH_HQUERY, hQuery, "ptr", szFullCounterPath, IntPtr, dwUserData, phCounterMarshal, phCounter, UInt32)
     return result
@@ -1836,7 +1866,7 @@ export PdhAddCounterA(hQuery, szFullCounterPath, dwUserData, phCounter) {
 export PdhAddEnglishCounterW(hQuery, szFullCounterPath, dwUserData, phCounter) {
     szFullCounterPath := szFullCounterPath is String ? StrPtr(szFullCounterPath) : szFullCounterPath
 
-    phCounterMarshal := phCounter is VarRef ? "ptr*" : "ptr"
+    phCounterMarshal := phCounter is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("pdh.dll\PdhAddEnglishCounterW", PDH_HQUERY, hQuery, "ptr", szFullCounterPath, IntPtr, dwUserData, phCounterMarshal, phCounter, UInt32)
     return result
@@ -1994,7 +2024,7 @@ export PdhAddEnglishCounterW(hQuery, szFullCounterPath, dwUserData, phCounter) {
 export PdhAddEnglishCounterA(hQuery, szFullCounterPath, dwUserData, phCounter) {
     szFullCounterPath := szFullCounterPath is String ? StrPtr(szFullCounterPath) : szFullCounterPath
 
-    phCounterMarshal := phCounter is VarRef ? "ptr*" : "ptr"
+    phCounterMarshal := phCounter is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("pdh.dll\PdhAddEnglishCounterA", PDH_HQUERY, hQuery, "ptr", szFullCounterPath, IntPtr, dwUserData, phCounterMarshal, phCounter, UInt32)
     return result
@@ -2057,7 +2087,7 @@ export PdhAddEnglishCounterA(hQuery, szFullCounterPath, dwUserData, phCounter) {
  * @since windows6.0.6000
  */
 export PdhCollectQueryDataWithTime(hQuery, pllTimeStamp) {
-    pllTimeStampMarshal := pllTimeStamp is VarRef ? "int64*" : "ptr"
+    pllTimeStampMarshal := pllTimeStamp is VarRef ? "int64*" : IntPtr
 
     result := DllCall("pdh.dll\PdhCollectQueryDataWithTime", PDH_HQUERY, hQuery, pllTimeStampMarshal, pllTimeStamp, UInt32)
     return result
@@ -2157,7 +2187,9 @@ export PdhCollectQueryDataWithTime(hQuery, pllTimeStamp) {
 export PdhValidatePathExW(hDataSource, szFullPathBuffer) {
     szFullPathBuffer := szFullPathBuffer is String ? StrPtr(szFullPathBuffer) : szFullPathBuffer
 
-    result := DllCall("pdh.dll\PdhValidatePathExW", PDH_HLOG, hDataSource, "ptr", szFullPathBuffer, UInt32)
+    hDataSourceMarshal := hDataSource == 0 ? IntPtr : PDH_HLOG
+
+    result := DllCall("pdh.dll\PdhValidatePathExW", hDataSourceMarshal, hDataSource, "ptr", szFullPathBuffer, UInt32)
     return result
 }
 
@@ -2255,7 +2287,9 @@ export PdhValidatePathExW(hDataSource, szFullPathBuffer) {
 export PdhValidatePathExA(hDataSource, szFullPathBuffer) {
     szFullPathBuffer := szFullPathBuffer is String ? StrPtr(szFullPathBuffer) : szFullPathBuffer
 
-    result := DllCall("pdh.dll\PdhValidatePathExA", PDH_HLOG, hDataSource, "ptr", szFullPathBuffer, UInt32)
+    hDataSourceMarshal := hDataSource == 0 ? IntPtr : PDH_HLOG
+
+    result := DllCall("pdh.dll\PdhValidatePathExA", hDataSourceMarshal, hDataSource, "ptr", szFullPathBuffer, UInt32)
     return result
 }
 
@@ -2504,7 +2538,8 @@ export PdhCloseQuery(hQuery) {
  * @since windows5.1.2600
  */
 export PdhGetFormattedCounterValue(hCounter, dwFormat, lpdwType, pValue) {
-    lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : "ptr"
+    lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : IntPtr
+    lpdwTypeMarshal := lpdwType == 0 ? IntPtr : "uint*"
 
     result := DllCall("pdh.dll\PdhGetFormattedCounterValue", PDH_HCOUNTER, hCounter, PDH_FMT, dwFormat, lpdwTypeMarshal, lpdwType, PDH_FMT_COUNTERVALUE.Ptr, pValue, UInt32)
     return result
@@ -2574,10 +2609,11 @@ export PdhGetFormattedCounterValue(hCounter, dwFormat, lpdwType, pValue) {
  * @since windows5.1.2600
  */
 export PdhGetFormattedCounterArrayA(hCounter, dwFormat, lpdwBufferSize, lpdwItemCount, ItemBuffer) {
-    lpdwBufferSizeMarshal := lpdwBufferSize is VarRef ? "uint*" : "ptr"
-    lpdwItemCountMarshal := lpdwItemCount is VarRef ? "uint*" : "ptr"
+    lpdwBufferSizeMarshal := lpdwBufferSize is VarRef ? "uint*" : IntPtr
+    lpdwItemCountMarshal := lpdwItemCount is VarRef ? "uint*" : IntPtr
+    ItemBufferMarshal := ItemBuffer == 0 ? IntPtr : PDH_FMT_COUNTERVALUE_ITEM_A.Ptr
 
-    result := DllCall("pdh.dll\PdhGetFormattedCounterArrayA", PDH_HCOUNTER, hCounter, PDH_FMT, dwFormat, lpdwBufferSizeMarshal, lpdwBufferSize, lpdwItemCountMarshal, lpdwItemCount, PDH_FMT_COUNTERVALUE_ITEM_A.Ptr, ItemBuffer, UInt32)
+    result := DllCall("pdh.dll\PdhGetFormattedCounterArrayA", PDH_HCOUNTER, hCounter, PDH_FMT, dwFormat, lpdwBufferSizeMarshal, lpdwBufferSize, lpdwItemCountMarshal, lpdwItemCount, ItemBufferMarshal, ItemBuffer, UInt32)
     return result
 }
 
@@ -2645,10 +2681,11 @@ export PdhGetFormattedCounterArrayA(hCounter, dwFormat, lpdwBufferSize, lpdwItem
  * @since windows5.1.2600
  */
 export PdhGetFormattedCounterArrayW(hCounter, dwFormat, lpdwBufferSize, lpdwItemCount, ItemBuffer) {
-    lpdwBufferSizeMarshal := lpdwBufferSize is VarRef ? "uint*" : "ptr"
-    lpdwItemCountMarshal := lpdwItemCount is VarRef ? "uint*" : "ptr"
+    lpdwBufferSizeMarshal := lpdwBufferSize is VarRef ? "uint*" : IntPtr
+    lpdwItemCountMarshal := lpdwItemCount is VarRef ? "uint*" : IntPtr
+    ItemBufferMarshal := ItemBuffer == 0 ? IntPtr : PDH_FMT_COUNTERVALUE_ITEM_W.Ptr
 
-    result := DllCall("pdh.dll\PdhGetFormattedCounterArrayW", PDH_HCOUNTER, hCounter, PDH_FMT, dwFormat, lpdwBufferSizeMarshal, lpdwBufferSize, lpdwItemCountMarshal, lpdwItemCount, PDH_FMT_COUNTERVALUE_ITEM_W.Ptr, ItemBuffer, UInt32)
+    result := DllCall("pdh.dll\PdhGetFormattedCounterArrayW", PDH_HCOUNTER, hCounter, PDH_FMT, dwFormat, lpdwBufferSizeMarshal, lpdwBufferSize, lpdwItemCountMarshal, lpdwItemCount, ItemBufferMarshal, ItemBuffer, UInt32)
     return result
 }
 
@@ -2705,7 +2742,8 @@ export PdhGetFormattedCounterArrayW(hCounter, dwFormat, lpdwBufferSize, lpdwItem
  * @since windows5.1.2600
  */
 export PdhGetRawCounterValue(hCounter, lpdwType, pValue) {
-    lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : "ptr"
+    lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : IntPtr
+    lpdwTypeMarshal := lpdwType == 0 ? IntPtr : "uint*"
 
     result := DllCall("pdh.dll\PdhGetRawCounterValue", PDH_HCOUNTER, hCounter, lpdwTypeMarshal, lpdwType, PDH_RAW_COUNTER.Ptr, pValue, UInt32)
     return result
@@ -2781,10 +2819,11 @@ export PdhGetRawCounterValue(hCounter, lpdwType, pValue) {
  * @since windows5.1.2600
  */
 export PdhGetRawCounterArrayA(hCounter, lpdwBufferSize, lpdwItemCount, ItemBuffer) {
-    lpdwBufferSizeMarshal := lpdwBufferSize is VarRef ? "uint*" : "ptr"
-    lpdwItemCountMarshal := lpdwItemCount is VarRef ? "uint*" : "ptr"
+    lpdwBufferSizeMarshal := lpdwBufferSize is VarRef ? "uint*" : IntPtr
+    lpdwItemCountMarshal := lpdwItemCount is VarRef ? "uint*" : IntPtr
+    ItemBufferMarshal := ItemBuffer == 0 ? IntPtr : PDH_RAW_COUNTER_ITEM_A.Ptr
 
-    result := DllCall("pdh.dll\PdhGetRawCounterArrayA", PDH_HCOUNTER, hCounter, lpdwBufferSizeMarshal, lpdwBufferSize, lpdwItemCountMarshal, lpdwItemCount, PDH_RAW_COUNTER_ITEM_A.Ptr, ItemBuffer, UInt32)
+    result := DllCall("pdh.dll\PdhGetRawCounterArrayA", PDH_HCOUNTER, hCounter, lpdwBufferSizeMarshal, lpdwBufferSize, lpdwItemCountMarshal, lpdwItemCount, ItemBufferMarshal, ItemBuffer, UInt32)
     return result
 }
 
@@ -2858,10 +2897,11 @@ export PdhGetRawCounterArrayA(hCounter, lpdwBufferSize, lpdwItemCount, ItemBuffe
  * @since windows5.1.2600
  */
 export PdhGetRawCounterArrayW(hCounter, lpdwBufferSize, lpdwItemCount, ItemBuffer) {
-    lpdwBufferSizeMarshal := lpdwBufferSize is VarRef ? "uint*" : "ptr"
-    lpdwItemCountMarshal := lpdwItemCount is VarRef ? "uint*" : "ptr"
+    lpdwBufferSizeMarshal := lpdwBufferSize is VarRef ? "uint*" : IntPtr
+    lpdwItemCountMarshal := lpdwItemCount is VarRef ? "uint*" : IntPtr
+    ItemBufferMarshal := ItemBuffer == 0 ? IntPtr : PDH_RAW_COUNTER_ITEM_W.Ptr
 
-    result := DllCall("pdh.dll\PdhGetRawCounterArrayW", PDH_HCOUNTER, hCounter, lpdwBufferSizeMarshal, lpdwBufferSize, lpdwItemCountMarshal, lpdwItemCount, PDH_RAW_COUNTER_ITEM_W.Ptr, ItemBuffer, UInt32)
+    result := DllCall("pdh.dll\PdhGetRawCounterArrayW", PDH_HCOUNTER, hCounter, lpdwBufferSizeMarshal, lpdwBufferSize, lpdwItemCountMarshal, lpdwItemCount, ItemBufferMarshal, ItemBuffer, UInt32)
     return result
 }
 
@@ -3041,9 +3081,10 @@ export PdhComputeCounterStatistics(hCounter, dwFormat, dwFirstEntry, dwNumEntrie
  * @since windows5.1.2600
  */
 export PdhGetCounterInfoW(hCounter, bRetrieveExplainText, pdwBufferSize, lpBuffer) {
-    pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : "ptr"
+    pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : IntPtr
+    lpBufferMarshal := lpBuffer == 0 ? IntPtr : PDH_COUNTER_INFO_W.Ptr
 
-    result := DllCall("pdh.dll\PdhGetCounterInfoW", PDH_HCOUNTER, hCounter, BOOLEAN, bRetrieveExplainText, pdwBufferSizeMarshal, pdwBufferSize, PDH_COUNTER_INFO_W.Ptr, lpBuffer, UInt32)
+    result := DllCall("pdh.dll\PdhGetCounterInfoW", PDH_HCOUNTER, hCounter, BOOLEAN, bRetrieveExplainText, pdwBufferSizeMarshal, pdwBufferSize, lpBufferMarshal, lpBuffer, UInt32)
     return result
 }
 
@@ -3114,9 +3155,10 @@ export PdhGetCounterInfoW(hCounter, bRetrieveExplainText, pdwBufferSize, lpBuffe
  * @since windows5.1.2600
  */
 export PdhGetCounterInfoA(hCounter, bRetrieveExplainText, pdwBufferSize, lpBuffer) {
-    pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : "ptr"
+    pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : IntPtr
+    lpBufferMarshal := lpBuffer == 0 ? IntPtr : PDH_COUNTER_INFO_A.Ptr
 
-    result := DllCall("pdh.dll\PdhGetCounterInfoA", PDH_HCOUNTER, hCounter, BOOLEAN, bRetrieveExplainText, pdwBufferSizeMarshal, pdwBufferSize, PDH_COUNTER_INFO_A.Ptr, lpBuffer, UInt32)
+    result := DllCall("pdh.dll\PdhGetCounterInfoA", PDH_HCOUNTER, hCounter, BOOLEAN, bRetrieveExplainText, pdwBufferSizeMarshal, pdwBufferSize, lpBufferMarshal, lpBuffer, UInt32)
     return result
 }
 
@@ -3223,7 +3265,9 @@ export PdhSetCounterScaleFactor(hCounter, lFactor) {
 export PdhConnectMachineW(szMachineName) {
     szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
 
-    result := DllCall("pdh.dll\PdhConnectMachineW", "ptr", szMachineName, UInt32)
+    szMachineNameMarshal := szMachineName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("pdh.dll\PdhConnectMachineW", szMachineNameMarshal, szMachineName, UInt32)
     return result
 }
 
@@ -3282,7 +3326,9 @@ export PdhConnectMachineW(szMachineName) {
 export PdhConnectMachineA(szMachineName) {
     szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
 
-    result := DllCall("pdh.dll\PdhConnectMachineA", "ptr", szMachineName, UInt32)
+    szMachineNameMarshal := szMachineName == 0 ? IntPtr : PSTR
+
+    result := DllCall("pdh.dll\PdhConnectMachineA", szMachineNameMarshal, szMachineName, UInt32)
     return result
 }
 
@@ -3342,9 +3388,11 @@ export PdhEnumMachinesW(szDataSource, mszMachineList, pcchBufferSize) {
     szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
     mszMachineList := mszMachineList is String ? StrPtr(mszMachineList) : mszMachineList
 
-    pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : "ptr"
+    szDataSourceMarshal := szDataSource == 0 ? IntPtr : PWSTR
+    mszMachineListMarshal := mszMachineList == 0 ? IntPtr : PWSTR
+    pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhEnumMachinesW", "ptr", szDataSource, "ptr", mszMachineList, pcchBufferSizeMarshal, pcchBufferSize, UInt32)
+    result := DllCall("pdh.dll\PdhEnumMachinesW", szDataSourceMarshal, szDataSource, mszMachineListMarshal, mszMachineList, pcchBufferSizeMarshal, pcchBufferSize, UInt32)
     return result
 }
 
@@ -3404,9 +3452,11 @@ export PdhEnumMachinesA(szDataSource, mszMachineList, pcchBufferSize) {
     szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
     mszMachineList := mszMachineList is String ? StrPtr(mszMachineList) : mszMachineList
 
-    pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : "ptr"
+    szDataSourceMarshal := szDataSource == 0 ? IntPtr : PSTR
+    mszMachineListMarshal := mszMachineList == 0 ? IntPtr : PSTR
+    pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhEnumMachinesA", "ptr", szDataSource, "ptr", mszMachineList, pcchBufferSizeMarshal, pcchBufferSize, UInt32)
+    result := DllCall("pdh.dll\PdhEnumMachinesA", szDataSourceMarshal, szDataSource, mszMachineListMarshal, mszMachineList, pcchBufferSizeMarshal, pcchBufferSize, UInt32)
     return result
 }
 
@@ -3502,9 +3552,12 @@ export PdhEnumObjectsW(szDataSource, szMachineName, mszObjectList, pcchBufferSiz
     szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
     mszObjectList := mszObjectList is String ? StrPtr(mszObjectList) : mszObjectList
 
-    pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : "ptr"
+    szDataSourceMarshal := szDataSource == 0 ? IntPtr : PWSTR
+    szMachineNameMarshal := szMachineName == 0 ? IntPtr : PWSTR
+    mszObjectListMarshal := mszObjectList == 0 ? IntPtr : PWSTR
+    pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhEnumObjectsW", "ptr", szDataSource, "ptr", szMachineName, "ptr", mszObjectList, pcchBufferSizeMarshal, pcchBufferSize, PERF_DETAIL, dwDetailLevel, BOOL, bRefresh, UInt32)
+    result := DllCall("pdh.dll\PdhEnumObjectsW", szDataSourceMarshal, szDataSource, szMachineNameMarshal, szMachineName, mszObjectListMarshal, mszObjectList, pcchBufferSizeMarshal, pcchBufferSize, PERF_DETAIL, dwDetailLevel, BOOL, bRefresh, UInt32)
     return result
 }
 
@@ -3600,9 +3653,12 @@ export PdhEnumObjectsA(szDataSource, szMachineName, mszObjectList, pcchBufferSiz
     szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
     mszObjectList := mszObjectList is String ? StrPtr(mszObjectList) : mszObjectList
 
-    pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : "ptr"
+    szDataSourceMarshal := szDataSource == 0 ? IntPtr : PSTR
+    szMachineNameMarshal := szMachineName == 0 ? IntPtr : PSTR
+    mszObjectListMarshal := mszObjectList == 0 ? IntPtr : PSTR
+    pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhEnumObjectsA", "ptr", szDataSource, "ptr", szMachineName, "ptr", mszObjectList, pcchBufferSizeMarshal, pcchBufferSize, PERF_DETAIL, dwDetailLevel, BOOL, bRefresh, UInt32)
+    result := DllCall("pdh.dll\PdhEnumObjectsA", szDataSourceMarshal, szDataSource, szMachineNameMarshal, szMachineName, mszObjectListMarshal, mszObjectList, pcchBufferSizeMarshal, pcchBufferSize, PERF_DETAIL, dwDetailLevel, BOOL, bRefresh, UInt32)
     return result
 }
 
@@ -3715,10 +3771,14 @@ export PdhEnumObjectItemsW(szDataSource, szMachineName, szObjectName, mszCounter
     mszCounterList := mszCounterList is String ? StrPtr(mszCounterList) : mszCounterList
     mszInstanceList := mszInstanceList is String ? StrPtr(mszInstanceList) : mszInstanceList
 
-    pcchCounterListLengthMarshal := pcchCounterListLength is VarRef ? "uint*" : "ptr"
-    pcchInstanceListLengthMarshal := pcchInstanceListLength is VarRef ? "uint*" : "ptr"
+    szDataSourceMarshal := szDataSource == 0 ? IntPtr : PWSTR
+    szMachineNameMarshal := szMachineName == 0 ? IntPtr : PWSTR
+    mszCounterListMarshal := mszCounterList == 0 ? IntPtr : PWSTR
+    pcchCounterListLengthMarshal := pcchCounterListLength is VarRef ? "uint*" : IntPtr
+    mszInstanceListMarshal := mszInstanceList == 0 ? IntPtr : PWSTR
+    pcchInstanceListLengthMarshal := pcchInstanceListLength is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhEnumObjectItemsW", "ptr", szDataSource, "ptr", szMachineName, "ptr", szObjectName, "ptr", mszCounterList, pcchCounterListLengthMarshal, pcchCounterListLength, "ptr", mszInstanceList, pcchInstanceListLengthMarshal, pcchInstanceListLength, PERF_DETAIL, dwDetailLevel, UInt32, dwFlags, UInt32)
+    result := DllCall("pdh.dll\PdhEnumObjectItemsW", szDataSourceMarshal, szDataSource, szMachineNameMarshal, szMachineName, "ptr", szObjectName, mszCounterListMarshal, mszCounterList, pcchCounterListLengthMarshal, pcchCounterListLength, mszInstanceListMarshal, mszInstanceList, pcchInstanceListLengthMarshal, pcchInstanceListLength, PERF_DETAIL, dwDetailLevel, UInt32, dwFlags, UInt32)
     return result
 }
 
@@ -3831,10 +3891,14 @@ export PdhEnumObjectItemsA(szDataSource, szMachineName, szObjectName, mszCounter
     mszCounterList := mszCounterList is String ? StrPtr(mszCounterList) : mszCounterList
     mszInstanceList := mszInstanceList is String ? StrPtr(mszInstanceList) : mszInstanceList
 
-    pcchCounterListLengthMarshal := pcchCounterListLength is VarRef ? "uint*" : "ptr"
-    pcchInstanceListLengthMarshal := pcchInstanceListLength is VarRef ? "uint*" : "ptr"
+    szDataSourceMarshal := szDataSource == 0 ? IntPtr : PSTR
+    szMachineNameMarshal := szMachineName == 0 ? IntPtr : PSTR
+    mszCounterListMarshal := mszCounterList == 0 ? IntPtr : PSTR
+    pcchCounterListLengthMarshal := pcchCounterListLength is VarRef ? "uint*" : IntPtr
+    mszInstanceListMarshal := mszInstanceList == 0 ? IntPtr : PSTR
+    pcchInstanceListLengthMarshal := pcchInstanceListLength is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhEnumObjectItemsA", "ptr", szDataSource, "ptr", szMachineName, "ptr", szObjectName, "ptr", mszCounterList, pcchCounterListLengthMarshal, pcchCounterListLength, "ptr", mszInstanceList, pcchInstanceListLengthMarshal, pcchInstanceListLength, PERF_DETAIL, dwDetailLevel, UInt32, dwFlags, UInt32)
+    result := DllCall("pdh.dll\PdhEnumObjectItemsA", szDataSourceMarshal, szDataSource, szMachineNameMarshal, szMachineName, "ptr", szObjectName, mszCounterListMarshal, mszCounterList, pcchCounterListLengthMarshal, pcchCounterListLength, mszInstanceListMarshal, mszInstanceList, pcchInstanceListLengthMarshal, pcchInstanceListLength, PERF_DETAIL, dwDetailLevel, UInt32, dwFlags, UInt32)
     return result
 }
 
@@ -3899,9 +3963,10 @@ export PdhEnumObjectItemsA(szDataSource, szMachineName, szObjectName, mszCounter
 export PdhMakeCounterPathW(pCounterPathElements, szFullPathBuffer, pcchBufferSize, dwFlags) {
     szFullPathBuffer := szFullPathBuffer is String ? StrPtr(szFullPathBuffer) : szFullPathBuffer
 
-    pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : "ptr"
+    szFullPathBufferMarshal := szFullPathBuffer == 0 ? IntPtr : PWSTR
+    pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhMakeCounterPathW", PDH_COUNTER_PATH_ELEMENTS_W.Ptr, pCounterPathElements, "ptr", szFullPathBuffer, pcchBufferSizeMarshal, pcchBufferSize, PDH_PATH_FLAGS, dwFlags, UInt32)
+    result := DllCall("pdh.dll\PdhMakeCounterPathW", PDH_COUNTER_PATH_ELEMENTS_W.Ptr, pCounterPathElements, szFullPathBufferMarshal, szFullPathBuffer, pcchBufferSizeMarshal, pcchBufferSize, PDH_PATH_FLAGS, dwFlags, UInt32)
     return result
 }
 
@@ -3966,9 +4031,10 @@ export PdhMakeCounterPathW(pCounterPathElements, szFullPathBuffer, pcchBufferSiz
 export PdhMakeCounterPathA(pCounterPathElements, szFullPathBuffer, pcchBufferSize, dwFlags) {
     szFullPathBuffer := szFullPathBuffer is String ? StrPtr(szFullPathBuffer) : szFullPathBuffer
 
-    pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : "ptr"
+    szFullPathBufferMarshal := szFullPathBuffer == 0 ? IntPtr : PSTR
+    pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhMakeCounterPathA", PDH_COUNTER_PATH_ELEMENTS_A.Ptr, pCounterPathElements, "ptr", szFullPathBuffer, pcchBufferSizeMarshal, pcchBufferSize, PDH_PATH_FLAGS, dwFlags, UInt32)
+    result := DllCall("pdh.dll\PdhMakeCounterPathA", PDH_COUNTER_PATH_ELEMENTS_A.Ptr, pCounterPathElements, szFullPathBufferMarshal, szFullPathBuffer, pcchBufferSizeMarshal, pcchBufferSize, PDH_PATH_FLAGS, dwFlags, UInt32)
     return result
 }
 
@@ -4051,9 +4117,10 @@ export PdhMakeCounterPathA(pCounterPathElements, szFullPathBuffer, pcchBufferSiz
 export PdhParseCounterPathW(szFullPathBuffer, pCounterPathElements, pdwBufferSize, dwFlags) {
     szFullPathBuffer := szFullPathBuffer is String ? StrPtr(szFullPathBuffer) : szFullPathBuffer
 
-    pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : "ptr"
+    pCounterPathElementsMarshal := pCounterPathElements == 0 ? IntPtr : PDH_COUNTER_PATH_ELEMENTS_W.Ptr
+    pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhParseCounterPathW", "ptr", szFullPathBuffer, PDH_COUNTER_PATH_ELEMENTS_W.Ptr, pCounterPathElements, pdwBufferSizeMarshal, pdwBufferSize, UInt32, dwFlags, UInt32)
+    result := DllCall("pdh.dll\PdhParseCounterPathW", "ptr", szFullPathBuffer, pCounterPathElementsMarshal, pCounterPathElements, pdwBufferSizeMarshal, pdwBufferSize, UInt32, dwFlags, UInt32)
     return result
 }
 
@@ -4136,9 +4203,10 @@ export PdhParseCounterPathW(szFullPathBuffer, pCounterPathElements, pdwBufferSiz
 export PdhParseCounterPathA(szFullPathBuffer, pCounterPathElements, pdwBufferSize, dwFlags) {
     szFullPathBuffer := szFullPathBuffer is String ? StrPtr(szFullPathBuffer) : szFullPathBuffer
 
-    pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : "ptr"
+    pCounterPathElementsMarshal := pCounterPathElements == 0 ? IntPtr : PDH_COUNTER_PATH_ELEMENTS_A.Ptr
+    pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhParseCounterPathA", "ptr", szFullPathBuffer, PDH_COUNTER_PATH_ELEMENTS_A.Ptr, pCounterPathElements, pdwBufferSizeMarshal, pdwBufferSize, UInt32, dwFlags, UInt32)
+    result := DllCall("pdh.dll\PdhParseCounterPathA", "ptr", szFullPathBuffer, pCounterPathElementsMarshal, pCounterPathElements, pdwBufferSizeMarshal, pdwBufferSize, UInt32, dwFlags, UInt32)
     return result
 }
 
@@ -4223,11 +4291,13 @@ export PdhParseInstanceNameW(szInstanceString, szInstanceName, pcchInstanceNameL
     szInstanceName := szInstanceName is String ? StrPtr(szInstanceName) : szInstanceName
     szParentName := szParentName is String ? StrPtr(szParentName) : szParentName
 
-    pcchInstanceNameLengthMarshal := pcchInstanceNameLength is VarRef ? "uint*" : "ptr"
-    pcchParentNameLengthMarshal := pcchParentNameLength is VarRef ? "uint*" : "ptr"
-    lpIndexMarshal := lpIndex is VarRef ? "uint*" : "ptr"
+    szInstanceNameMarshal := szInstanceName == 0 ? IntPtr : PWSTR
+    pcchInstanceNameLengthMarshal := pcchInstanceNameLength is VarRef ? "uint*" : IntPtr
+    szParentNameMarshal := szParentName == 0 ? IntPtr : PWSTR
+    pcchParentNameLengthMarshal := pcchParentNameLength is VarRef ? "uint*" : IntPtr
+    lpIndexMarshal := lpIndex is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhParseInstanceNameW", "ptr", szInstanceString, "ptr", szInstanceName, pcchInstanceNameLengthMarshal, pcchInstanceNameLength, "ptr", szParentName, pcchParentNameLengthMarshal, pcchParentNameLength, lpIndexMarshal, lpIndex, UInt32)
+    result := DllCall("pdh.dll\PdhParseInstanceNameW", "ptr", szInstanceString, szInstanceNameMarshal, szInstanceName, pcchInstanceNameLengthMarshal, pcchInstanceNameLength, szParentNameMarshal, szParentName, pcchParentNameLengthMarshal, pcchParentNameLength, lpIndexMarshal, lpIndex, UInt32)
     return result
 }
 
@@ -4312,11 +4382,13 @@ export PdhParseInstanceNameA(szInstanceString, szInstanceName, pcchInstanceNameL
     szInstanceName := szInstanceName is String ? StrPtr(szInstanceName) : szInstanceName
     szParentName := szParentName is String ? StrPtr(szParentName) : szParentName
 
-    pcchInstanceNameLengthMarshal := pcchInstanceNameLength is VarRef ? "uint*" : "ptr"
-    pcchParentNameLengthMarshal := pcchParentNameLength is VarRef ? "uint*" : "ptr"
-    lpIndexMarshal := lpIndex is VarRef ? "uint*" : "ptr"
+    szInstanceNameMarshal := szInstanceName == 0 ? IntPtr : PSTR
+    pcchInstanceNameLengthMarshal := pcchInstanceNameLength is VarRef ? "uint*" : IntPtr
+    szParentNameMarshal := szParentName == 0 ? IntPtr : PSTR
+    pcchParentNameLengthMarshal := pcchParentNameLength is VarRef ? "uint*" : IntPtr
+    lpIndexMarshal := lpIndex is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhParseInstanceNameA", "ptr", szInstanceString, "ptr", szInstanceName, pcchInstanceNameLengthMarshal, pcchInstanceNameLength, "ptr", szParentName, pcchParentNameLengthMarshal, pcchParentNameLength, lpIndexMarshal, lpIndex, UInt32)
+    result := DllCall("pdh.dll\PdhParseInstanceNameA", "ptr", szInstanceString, szInstanceNameMarshal, szInstanceName, pcchInstanceNameLengthMarshal, pcchInstanceNameLength, szParentNameMarshal, szParentName, pcchParentNameLengthMarshal, pcchParentNameLength, lpIndexMarshal, lpIndex, UInt32)
     return result
 }
 
@@ -4594,9 +4666,12 @@ export PdhGetDefaultPerfObjectW(szDataSource, szMachineName, szDefaultObjectName
     szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
     szDefaultObjectName := szDefaultObjectName is String ? StrPtr(szDefaultObjectName) : szDefaultObjectName
 
-    pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : "ptr"
+    szDataSourceMarshal := szDataSource == 0 ? IntPtr : PWSTR
+    szMachineNameMarshal := szMachineName == 0 ? IntPtr : PWSTR
+    szDefaultObjectNameMarshal := szDefaultObjectName == 0 ? IntPtr : PWSTR
+    pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhGetDefaultPerfObjectW", "ptr", szDataSource, "ptr", szMachineName, "ptr", szDefaultObjectName, pcchBufferSizeMarshal, pcchBufferSize, UInt32)
+    result := DllCall("pdh.dll\PdhGetDefaultPerfObjectW", szDataSourceMarshal, szDataSource, szMachineNameMarshal, szMachineName, szDefaultObjectNameMarshal, szDefaultObjectName, pcchBufferSizeMarshal, pcchBufferSize, UInt32)
     return result
 }
 
@@ -4684,9 +4759,12 @@ export PdhGetDefaultPerfObjectA(szDataSource, szMachineName, szDefaultObjectName
     szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
     szDefaultObjectName := szDefaultObjectName is String ? StrPtr(szDefaultObjectName) : szDefaultObjectName
 
-    pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : "ptr"
+    szDataSourceMarshal := szDataSource == 0 ? IntPtr : PSTR
+    szMachineNameMarshal := szMachineName == 0 ? IntPtr : PSTR
+    szDefaultObjectNameMarshal := szDefaultObjectName == 0 ? IntPtr : PSTR
+    pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhGetDefaultPerfObjectA", "ptr", szDataSource, "ptr", szMachineName, "ptr", szDefaultObjectName, pcchBufferSizeMarshal, pcchBufferSize, UInt32)
+    result := DllCall("pdh.dll\PdhGetDefaultPerfObjectA", szDataSourceMarshal, szDataSource, szMachineNameMarshal, szMachineName, szDefaultObjectNameMarshal, szDefaultObjectName, pcchBufferSizeMarshal, pcchBufferSize, UInt32)
     return result
 }
 
@@ -4808,9 +4886,12 @@ export PdhGetDefaultPerfCounterW(szDataSource, szMachineName, szObjectName, szDe
     szObjectName := szObjectName is String ? StrPtr(szObjectName) : szObjectName
     szDefaultCounterName := szDefaultCounterName is String ? StrPtr(szDefaultCounterName) : szDefaultCounterName
 
-    pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : "ptr"
+    szDataSourceMarshal := szDataSource == 0 ? IntPtr : PWSTR
+    szMachineNameMarshal := szMachineName == 0 ? IntPtr : PWSTR
+    szDefaultCounterNameMarshal := szDefaultCounterName == 0 ? IntPtr : PWSTR
+    pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhGetDefaultPerfCounterW", "ptr", szDataSource, "ptr", szMachineName, "ptr", szObjectName, "ptr", szDefaultCounterName, pcchBufferSizeMarshal, pcchBufferSize, UInt32)
+    result := DllCall("pdh.dll\PdhGetDefaultPerfCounterW", szDataSourceMarshal, szDataSource, szMachineNameMarshal, szMachineName, "ptr", szObjectName, szDefaultCounterNameMarshal, szDefaultCounterName, pcchBufferSizeMarshal, pcchBufferSize, UInt32)
     return result
 }
 
@@ -4931,9 +5012,12 @@ export PdhGetDefaultPerfCounterA(szDataSource, szMachineName, szObjectName, szDe
     szObjectName := szObjectName is String ? StrPtr(szObjectName) : szObjectName
     szDefaultCounterName := szDefaultCounterName is String ? StrPtr(szDefaultCounterName) : szDefaultCounterName
 
-    pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : "ptr"
+    szDataSourceMarshal := szDataSource == 0 ? IntPtr : PSTR
+    szMachineNameMarshal := szMachineName == 0 ? IntPtr : PSTR
+    szDefaultCounterNameMarshal := szDefaultCounterName == 0 ? IntPtr : PSTR
+    pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhGetDefaultPerfCounterA", "ptr", szDataSource, "ptr", szMachineName, "ptr", szObjectName, "ptr", szDefaultCounterName, pcchBufferSizeMarshal, pcchBufferSize, UInt32)
+    result := DllCall("pdh.dll\PdhGetDefaultPerfCounterA", szDataSourceMarshal, szDataSource, szMachineNameMarshal, szMachineName, "ptr", szObjectName, szDefaultCounterNameMarshal, szDefaultCounterName, pcchBufferSizeMarshal, pcchBufferSize, UInt32)
     return result
 }
 
@@ -5082,9 +5166,10 @@ export PdhExpandCounterPathW(szWildCardPath, mszExpandedPathList, pcchPathListLe
     szWildCardPath := szWildCardPath is String ? StrPtr(szWildCardPath) : szWildCardPath
     mszExpandedPathList := mszExpandedPathList is String ? StrPtr(mszExpandedPathList) : mszExpandedPathList
 
-    pcchPathListLengthMarshal := pcchPathListLength is VarRef ? "uint*" : "ptr"
+    mszExpandedPathListMarshal := mszExpandedPathList == 0 ? IntPtr : PWSTR
+    pcchPathListLengthMarshal := pcchPathListLength is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhExpandCounterPathW", "ptr", szWildCardPath, "ptr", mszExpandedPathList, pcchPathListLengthMarshal, pcchPathListLength, UInt32)
+    result := DllCall("pdh.dll\PdhExpandCounterPathW", "ptr", szWildCardPath, mszExpandedPathListMarshal, mszExpandedPathList, pcchPathListLengthMarshal, pcchPathListLength, UInt32)
     return result
 }
 
@@ -5187,9 +5272,10 @@ export PdhExpandCounterPathA(szWildCardPath, mszExpandedPathList, pcchPathListLe
     szWildCardPath := szWildCardPath is String ? StrPtr(szWildCardPath) : szWildCardPath
     mszExpandedPathList := mszExpandedPathList is String ? StrPtr(mszExpandedPathList) : mszExpandedPathList
 
-    pcchPathListLengthMarshal := pcchPathListLength is VarRef ? "uint*" : "ptr"
+    mszExpandedPathListMarshal := mszExpandedPathList == 0 ? IntPtr : PSTR
+    pcchPathListLengthMarshal := pcchPathListLength is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhExpandCounterPathA", "ptr", szWildCardPath, "ptr", mszExpandedPathList, pcchPathListLengthMarshal, pcchPathListLength, UInt32)
+    result := DllCall("pdh.dll\PdhExpandCounterPathA", "ptr", szWildCardPath, mszExpandedPathListMarshal, mszExpandedPathList, pcchPathListLengthMarshal, pcchPathListLength, UInt32)
     return result
 }
 
@@ -5268,9 +5354,11 @@ export PdhLookupPerfNameByIndexW(szMachineName, dwNameIndex, szNameBuffer, pcchN
     szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
     szNameBuffer := szNameBuffer is String ? StrPtr(szNameBuffer) : szNameBuffer
 
-    pcchNameBufferSizeMarshal := pcchNameBufferSize is VarRef ? "uint*" : "ptr"
+    szMachineNameMarshal := szMachineName == 0 ? IntPtr : PWSTR
+    szNameBufferMarshal := szNameBuffer == 0 ? IntPtr : PWSTR
+    pcchNameBufferSizeMarshal := pcchNameBufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhLookupPerfNameByIndexW", "ptr", szMachineName, UInt32, dwNameIndex, "ptr", szNameBuffer, pcchNameBufferSizeMarshal, pcchNameBufferSize, UInt32)
+    result := DllCall("pdh.dll\PdhLookupPerfNameByIndexW", szMachineNameMarshal, szMachineName, UInt32, dwNameIndex, szNameBufferMarshal, szNameBuffer, pcchNameBufferSizeMarshal, pcchNameBufferSize, UInt32)
     return result
 }
 
@@ -5349,9 +5437,11 @@ export PdhLookupPerfNameByIndexA(szMachineName, dwNameIndex, szNameBuffer, pcchN
     szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
     szNameBuffer := szNameBuffer is String ? StrPtr(szNameBuffer) : szNameBuffer
 
-    pcchNameBufferSizeMarshal := pcchNameBufferSize is VarRef ? "uint*" : "ptr"
+    szMachineNameMarshal := szMachineName == 0 ? IntPtr : PSTR
+    szNameBufferMarshal := szNameBuffer == 0 ? IntPtr : PSTR
+    pcchNameBufferSizeMarshal := pcchNameBufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhLookupPerfNameByIndexA", "ptr", szMachineName, UInt32, dwNameIndex, "ptr", szNameBuffer, pcchNameBufferSizeMarshal, pcchNameBufferSize, UInt32)
+    result := DllCall("pdh.dll\PdhLookupPerfNameByIndexA", szMachineNameMarshal, szMachineName, UInt32, dwNameIndex, szNameBufferMarshal, szNameBuffer, pcchNameBufferSizeMarshal, pcchNameBufferSize, UInt32)
     return result
 }
 
@@ -5394,9 +5484,10 @@ export PdhLookupPerfIndexByNameW(szMachineName, szNameBuffer, pdwIndex) {
     szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
     szNameBuffer := szNameBuffer is String ? StrPtr(szNameBuffer) : szNameBuffer
 
-    pdwIndexMarshal := pdwIndex is VarRef ? "uint*" : "ptr"
+    szMachineNameMarshal := szMachineName == 0 ? IntPtr : PWSTR
+    pdwIndexMarshal := pdwIndex is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhLookupPerfIndexByNameW", "ptr", szMachineName, "ptr", szNameBuffer, pdwIndexMarshal, pdwIndex, UInt32)
+    result := DllCall("pdh.dll\PdhLookupPerfIndexByNameW", szMachineNameMarshal, szMachineName, "ptr", szNameBuffer, pdwIndexMarshal, pdwIndex, UInt32)
     return result
 }
 
@@ -5439,9 +5530,10 @@ export PdhLookupPerfIndexByNameA(szMachineName, szNameBuffer, pdwIndex) {
     szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
     szNameBuffer := szNameBuffer is String ? StrPtr(szNameBuffer) : szNameBuffer
 
-    pdwIndexMarshal := pdwIndex is VarRef ? "uint*" : "ptr"
+    szMachineNameMarshal := szMachineName == 0 ? IntPtr : PSTR
+    pdwIndexMarshal := pdwIndex is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhLookupPerfIndexByNameA", "ptr", szMachineName, "ptr", szNameBuffer, pdwIndexMarshal, pdwIndex, UInt32)
+    result := DllCall("pdh.dll\PdhLookupPerfIndexByNameA", szMachineNameMarshal, szMachineName, "ptr", szNameBuffer, pdwIndexMarshal, pdwIndex, UInt32)
     return result
 }
 
@@ -5622,9 +5714,11 @@ export PdhExpandWildCardPathA(szDataSource, szWildCardPath, mszExpandedPathList,
     szWildCardPath := szWildCardPath is String ? StrPtr(szWildCardPath) : szWildCardPath
     mszExpandedPathList := mszExpandedPathList is String ? StrPtr(mszExpandedPathList) : mszExpandedPathList
 
-    pcchPathListLengthMarshal := pcchPathListLength is VarRef ? "uint*" : "ptr"
+    szDataSourceMarshal := szDataSource == 0 ? IntPtr : PSTR
+    mszExpandedPathListMarshal := mszExpandedPathList == 0 ? IntPtr : PSTR
+    pcchPathListLengthMarshal := pcchPathListLength is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhExpandWildCardPathA", "ptr", szDataSource, "ptr", szWildCardPath, "ptr", mszExpandedPathList, pcchPathListLengthMarshal, pcchPathListLength, UInt32, dwFlags, UInt32)
+    result := DllCall("pdh.dll\PdhExpandWildCardPathA", szDataSourceMarshal, szDataSource, "ptr", szWildCardPath, mszExpandedPathListMarshal, mszExpandedPathList, pcchPathListLengthMarshal, pcchPathListLength, UInt32, dwFlags, UInt32)
     return result
 }
 
@@ -5804,9 +5898,11 @@ export PdhExpandWildCardPathW(szDataSource, szWildCardPath, mszExpandedPathList,
     szWildCardPath := szWildCardPath is String ? StrPtr(szWildCardPath) : szWildCardPath
     mszExpandedPathList := mszExpandedPathList is String ? StrPtr(mszExpandedPathList) : mszExpandedPathList
 
-    pcchPathListLengthMarshal := pcchPathListLength is VarRef ? "uint*" : "ptr"
+    szDataSourceMarshal := szDataSource == 0 ? IntPtr : PWSTR
+    mszExpandedPathListMarshal := mszExpandedPathList == 0 ? IntPtr : PWSTR
+    pcchPathListLengthMarshal := pcchPathListLength is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhExpandWildCardPathW", "ptr", szDataSource, "ptr", szWildCardPath, "ptr", mszExpandedPathList, pcchPathListLengthMarshal, pcchPathListLength, UInt32, dwFlags, UInt32)
+    result := DllCall("pdh.dll\PdhExpandWildCardPathW", szDataSourceMarshal, szDataSource, "ptr", szWildCardPath, mszExpandedPathListMarshal, mszExpandedPathList, pcchPathListLengthMarshal, pcchPathListLength, UInt32, dwFlags, UInt32)
     return result
 }
 
@@ -5858,9 +5954,11 @@ export PdhOpenLogW(szLogFileName, dwAccessFlags, lpdwLogType, hQuery, dwMaxSize,
     szLogFileName := szLogFileName is String ? StrPtr(szLogFileName) : szLogFileName
     szUserCaption := szUserCaption is String ? StrPtr(szUserCaption) : szUserCaption
 
-    lpdwLogTypeMarshal := lpdwLogType is VarRef ? "uint*" : "ptr"
+    lpdwLogTypeMarshal := lpdwLogType is VarRef ? "uint*" : IntPtr
+    hQueryMarshal := hQuery == 0 ? IntPtr : PDH_HQUERY
+    szUserCaptionMarshal := szUserCaption == 0 ? IntPtr : PWSTR
 
-    result := DllCall("pdh.dll\PdhOpenLogW", "ptr", szLogFileName, PDH_LOG, dwAccessFlags, lpdwLogTypeMarshal, lpdwLogType, PDH_HQUERY, hQuery, UInt32, dwMaxSize, "ptr", szUserCaption, PDH_HLOG.Ptr, phLog, UInt32)
+    result := DllCall("pdh.dll\PdhOpenLogW", "ptr", szLogFileName, PDH_LOG, dwAccessFlags, lpdwLogTypeMarshal, lpdwLogType, hQueryMarshal, hQuery, UInt32, dwMaxSize, szUserCaptionMarshal, szUserCaption, PDH_HLOG.Ptr, phLog, UInt32)
     return result
 }
 
@@ -5912,9 +6010,11 @@ export PdhOpenLogA(szLogFileName, dwAccessFlags, lpdwLogType, hQuery, dwMaxSize,
     szLogFileName := szLogFileName is String ? StrPtr(szLogFileName) : szLogFileName
     szUserCaption := szUserCaption is String ? StrPtr(szUserCaption) : szUserCaption
 
-    lpdwLogTypeMarshal := lpdwLogType is VarRef ? "uint*" : "ptr"
+    lpdwLogTypeMarshal := lpdwLogType is VarRef ? "uint*" : IntPtr
+    hQueryMarshal := hQuery == 0 ? IntPtr : PDH_HQUERY
+    szUserCaptionMarshal := szUserCaption == 0 ? IntPtr : PSTR
 
-    result := DllCall("pdh.dll\PdhOpenLogA", "ptr", szLogFileName, PDH_LOG, dwAccessFlags, lpdwLogTypeMarshal, lpdwLogType, PDH_HQUERY, hQuery, UInt32, dwMaxSize, "ptr", szUserCaption, PDH_HLOG.Ptr, phLog, UInt32)
+    result := DllCall("pdh.dll\PdhOpenLogA", "ptr", szLogFileName, PDH_LOG, dwAccessFlags, lpdwLogTypeMarshal, lpdwLogType, hQueryMarshal, hQuery, UInt32, dwMaxSize, szUserCaptionMarshal, szUserCaption, PDH_HLOG.Ptr, phLog, UInt32)
     return result
 }
 
@@ -5966,7 +6066,9 @@ export PdhOpenLogA(szLogFileName, dwAccessFlags, lpdwLogType, hQuery, dwMaxSize,
 export PdhUpdateLogW(_hLog, szUserString) {
     szUserString := szUserString is String ? StrPtr(szUserString) : szUserString
 
-    result := DllCall("pdh.dll\PdhUpdateLogW", PDH_HLOG, _hLog, "ptr", szUserString, UInt32)
+    szUserStringMarshal := szUserString == 0 ? IntPtr : PWSTR
+
+    result := DllCall("pdh.dll\PdhUpdateLogW", PDH_HLOG, _hLog, szUserStringMarshal, szUserString, UInt32)
     return result
 }
 
@@ -6018,7 +6120,9 @@ export PdhUpdateLogW(_hLog, szUserString) {
 export PdhUpdateLogA(_hLog, szUserString) {
     szUserString := szUserString is String ? StrPtr(szUserString) : szUserString
 
-    result := DllCall("pdh.dll\PdhUpdateLogA", PDH_HLOG, _hLog, "ptr", szUserString, UInt32)
+    szUserStringMarshal := szUserString == 0 ? IntPtr : PSTR
+
+    result := DllCall("pdh.dll\PdhUpdateLogA", PDH_HLOG, _hLog, szUserStringMarshal, szUserString, UInt32)
     return result
 }
 
@@ -6132,7 +6236,7 @@ export PdhUpdateLogFileCatalog(_hLog) {
  * @since windows5.1.2600
  */
 export PdhGetLogFileSize(_hLog, llSize) {
-    llSizeMarshal := llSize is VarRef ? "int64*" : "ptr"
+    llSizeMarshal := llSize is VarRef ? "int64*" : IntPtr
 
     result := DllCall("pdh.dll\PdhGetLogFileSize", PDH_HLOG, _hLog, llSizeMarshal, llSize, UInt32)
     return result
@@ -6246,7 +6350,7 @@ export PdhCloseLog(_hLog, dwFlags) {
 export PdhSelectDataSourceW(hWndOwner, dwFlags, szDataSource, pcchBufferLength) {
     szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
 
-    pcchBufferLengthMarshal := pcchBufferLength is VarRef ? "uint*" : "ptr"
+    pcchBufferLengthMarshal := pcchBufferLength is VarRef ? "uint*" : IntPtr
 
     result := DllCall("pdh.dll\PdhSelectDataSourceW", HWND, hWndOwner, PDH_SELECT_DATA_SOURCE_FLAGS, dwFlags, "ptr", szDataSource, pcchBufferLengthMarshal, pcchBufferLength, UInt32)
     return result
@@ -6304,7 +6408,7 @@ export PdhSelectDataSourceW(hWndOwner, dwFlags, szDataSource, pcchBufferLength) 
 export PdhSelectDataSourceA(hWndOwner, dwFlags, szDataSource, pcchBufferLength) {
     szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
 
-    pcchBufferLengthMarshal := pcchBufferLength is VarRef ? "uint*" : "ptr"
+    pcchBufferLengthMarshal := pcchBufferLength is VarRef ? "uint*" : IntPtr
 
     result := DllCall("pdh.dll\PdhSelectDataSourceA", HWND, hWndOwner, PDH_SELECT_DATA_SOURCE_FLAGS, dwFlags, "ptr", szDataSource, pcchBufferLengthMarshal, pcchBufferLength, UInt32)
     return result
@@ -6442,10 +6546,11 @@ export PdhSetQueryTimeRange(hQuery, pInfo) {
 export PdhGetDataSourceTimeRangeW(szDataSource, pdwNumEntries, pInfo, pdwBufferSize) {
     szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
 
-    pdwNumEntriesMarshal := pdwNumEntries is VarRef ? "uint*" : "ptr"
-    pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : "ptr"
+    szDataSourceMarshal := szDataSource == 0 ? IntPtr : PWSTR
+    pdwNumEntriesMarshal := pdwNumEntries is VarRef ? "uint*" : IntPtr
+    pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhGetDataSourceTimeRangeW", "ptr", szDataSource, pdwNumEntriesMarshal, pdwNumEntries, PDH_TIME_INFO.Ptr, pInfo, pdwBufferSizeMarshal, pdwBufferSize, UInt32)
+    result := DllCall("pdh.dll\PdhGetDataSourceTimeRangeW", szDataSourceMarshal, szDataSource, pdwNumEntriesMarshal, pdwNumEntries, PDH_TIME_INFO.Ptr, pInfo, pdwBufferSizeMarshal, pdwBufferSize, UInt32)
     return result
 }
 
@@ -6511,10 +6616,11 @@ export PdhGetDataSourceTimeRangeW(szDataSource, pdwNumEntries, pInfo, pdwBufferS
 export PdhGetDataSourceTimeRangeA(szDataSource, pdwNumEntries, pInfo, pdwBufferSize) {
     szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
 
-    pdwNumEntriesMarshal := pdwNumEntries is VarRef ? "uint*" : "ptr"
-    pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : "ptr"
+    szDataSourceMarshal := szDataSource == 0 ? IntPtr : PSTR
+    pdwNumEntriesMarshal := pdwNumEntries is VarRef ? "uint*" : IntPtr
+    pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhGetDataSourceTimeRangeA", "ptr", szDataSource, pdwNumEntriesMarshal, pdwNumEntries, PDH_TIME_INFO.Ptr, pInfo, pdwBufferSizeMarshal, pdwBufferSize, UInt32)
+    result := DllCall("pdh.dll\PdhGetDataSourceTimeRangeA", szDataSourceMarshal, szDataSource, pdwNumEntriesMarshal, pdwNumEntries, PDH_TIME_INFO.Ptr, pInfo, pdwBufferSizeMarshal, pdwBufferSize, UInt32)
     return result
 }
 
@@ -6601,7 +6707,8 @@ export PdhCollectQueryDataEx(hQuery, dwIntervalTime, hNewDataEvent) {
  * @since windows5.1.2600
  */
 export PdhFormatFromRawValue(dwCounterType, dwFormat, pTimeBase, pRawValue1, pRawValue2, pFmtValue) {
-    pTimeBaseMarshal := pTimeBase is VarRef ? "int64*" : "ptr"
+    pTimeBaseMarshal := pTimeBase is VarRef ? "int64*" : IntPtr
+    pTimeBaseMarshal := pTimeBase == 0 ? IntPtr : "int64*"
 
     result := DllCall("pdh.dll\PdhFormatFromRawValue", UInt32, dwCounterType, PDH_FMT, dwFormat, pTimeBaseMarshal, pTimeBase, PDH_RAW_COUNTER.Ptr, pRawValue1, PDH_RAW_COUNTER.Ptr, pRawValue2, PDH_FMT_COUNTERVALUE.Ptr, pFmtValue, UInt32)
     return result
@@ -6659,7 +6766,7 @@ export PdhFormatFromRawValue(dwCounterType, dwFormat, pTimeBase, pRawValue1, pRa
  * @since windows5.1.2600
  */
 export PdhGetCounterTimeBase(hCounter, pTimeBase) {
-    pTimeBaseMarshal := pTimeBase is VarRef ? "int64*" : "ptr"
+    pTimeBaseMarshal := pTimeBase is VarRef ? "int64*" : IntPtr
 
     result := DllCall("pdh.dll\PdhGetCounterTimeBase", PDH_HCOUNTER, hCounter, pTimeBaseMarshal, pTimeBase, UInt32)
     return result
@@ -6725,9 +6832,10 @@ export PdhGetCounterTimeBase(hCounter, pTimeBase) {
  * @since windows5.1.2600
  */
 export PdhReadRawLogRecord(_hLog, ftRecord, pRawLogRecord, pdwBufferLength) {
-    pdwBufferLengthMarshal := pdwBufferLength is VarRef ? "uint*" : "ptr"
+    pRawLogRecordMarshal := pRawLogRecord == 0 ? IntPtr : PDH_RAW_LOG_RECORD.Ptr
+    pdwBufferLengthMarshal := pdwBufferLength is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhReadRawLogRecord", PDH_HLOG, _hLog, FILETIME, ftRecord, PDH_RAW_LOG_RECORD.Ptr, pRawLogRecord, pdwBufferLengthMarshal, pdwBufferLength, UInt32)
+    result := DllCall("pdh.dll\PdhReadRawLogRecord", PDH_HLOG, _hLog, FILETIME, ftRecord, pRawLogRecordMarshal, pRawLogRecord, pdwBufferLengthMarshal, pdwBufferLength, UInt32)
     return result
 }
 
@@ -6801,7 +6909,9 @@ export PdhSetDefaultRealTimeDataSource(dwDataSourceId) {
 export PdhBindInputDataSourceW(phDataSource, LogFileNameList) {
     LogFileNameList := LogFileNameList is String ? StrPtr(LogFileNameList) : LogFileNameList
 
-    result := DllCall("pdh.dll\PdhBindInputDataSourceW", PDH_HLOG.Ptr, phDataSource, "ptr", LogFileNameList, UInt32)
+    LogFileNameListMarshal := LogFileNameList == 0 ? IntPtr : PWSTR
+
+    result := DllCall("pdh.dll\PdhBindInputDataSourceW", PDH_HLOG.Ptr, phDataSource, LogFileNameListMarshal, LogFileNameList, UInt32)
     return result
 }
 
@@ -6836,7 +6946,9 @@ export PdhBindInputDataSourceW(phDataSource, LogFileNameList) {
 export PdhBindInputDataSourceA(phDataSource, LogFileNameList) {
     LogFileNameList := LogFileNameList is String ? StrPtr(LogFileNameList) : LogFileNameList
 
-    result := DllCall("pdh.dll\PdhBindInputDataSourceA", PDH_HLOG.Ptr, phDataSource, "ptr", LogFileNameList, UInt32)
+    LogFileNameListMarshal := LogFileNameList == 0 ? IntPtr : PSTR
+
+    result := DllCall("pdh.dll\PdhBindInputDataSourceA", PDH_HLOG.Ptr, phDataSource, LogFileNameListMarshal, LogFileNameList, UInt32)
     return result
 }
 
@@ -6857,7 +6969,9 @@ export PdhBindInputDataSourceA(phDataSource, LogFileNameList) {
  * @since windows5.1.2600
  */
 export PdhOpenQueryH(hDataSource, dwUserData, phQuery) {
-    result := DllCall("pdh.dll\PdhOpenQueryH", PDH_HLOG, hDataSource, IntPtr, dwUserData, PDH_HQUERY.Ptr, phQuery, UInt32)
+    hDataSourceMarshal := hDataSource == 0 ? IntPtr : PDH_HLOG
+
+    result := DllCall("pdh.dll\PdhOpenQueryH", hDataSourceMarshal, hDataSource, IntPtr, dwUserData, PDH_HQUERY.Ptr, phQuery, UInt32)
     return result
 }
 
@@ -6917,9 +7031,11 @@ export PdhOpenQueryH(hDataSource, dwUserData, phQuery) {
 export PdhEnumMachinesHW(hDataSource, mszMachineList, pcchBufferSize) {
     mszMachineList := mszMachineList is String ? StrPtr(mszMachineList) : mszMachineList
 
-    pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : "ptr"
+    hDataSourceMarshal := hDataSource == 0 ? IntPtr : PDH_HLOG
+    mszMachineListMarshal := mszMachineList == 0 ? IntPtr : PWSTR
+    pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhEnumMachinesHW", PDH_HLOG, hDataSource, "ptr", mszMachineList, pcchBufferSizeMarshal, pcchBufferSize, UInt32)
+    result := DllCall("pdh.dll\PdhEnumMachinesHW", hDataSourceMarshal, hDataSource, mszMachineListMarshal, mszMachineList, pcchBufferSizeMarshal, pcchBufferSize, UInt32)
     return result
 }
 
@@ -6979,9 +7095,11 @@ export PdhEnumMachinesHW(hDataSource, mszMachineList, pcchBufferSize) {
 export PdhEnumMachinesHA(hDataSource, mszMachineList, pcchBufferSize) {
     mszMachineList := mszMachineList is String ? StrPtr(mszMachineList) : mszMachineList
 
-    pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : "ptr"
+    hDataSourceMarshal := hDataSource == 0 ? IntPtr : PDH_HLOG
+    mszMachineListMarshal := mszMachineList == 0 ? IntPtr : PSTR
+    pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhEnumMachinesHA", PDH_HLOG, hDataSource, "ptr", mszMachineList, pcchBufferSizeMarshal, pcchBufferSize, UInt32)
+    result := DllCall("pdh.dll\PdhEnumMachinesHA", hDataSourceMarshal, hDataSource, mszMachineListMarshal, mszMachineList, pcchBufferSizeMarshal, pcchBufferSize, UInt32)
     return result
 }
 
@@ -7074,9 +7192,12 @@ export PdhEnumObjectsHW(hDataSource, szMachineName, mszObjectList, pcchBufferSiz
     szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
     mszObjectList := mszObjectList is String ? StrPtr(mszObjectList) : mszObjectList
 
-    pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : "ptr"
+    hDataSourceMarshal := hDataSource == 0 ? IntPtr : PDH_HLOG
+    szMachineNameMarshal := szMachineName == 0 ? IntPtr : PWSTR
+    mszObjectListMarshal := mszObjectList == 0 ? IntPtr : PWSTR
+    pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhEnumObjectsHW", PDH_HLOG, hDataSource, "ptr", szMachineName, "ptr", mszObjectList, pcchBufferSizeMarshal, pcchBufferSize, PERF_DETAIL, dwDetailLevel, BOOL, bRefresh, UInt32)
+    result := DllCall("pdh.dll\PdhEnumObjectsHW", hDataSourceMarshal, hDataSource, szMachineNameMarshal, szMachineName, mszObjectListMarshal, mszObjectList, pcchBufferSizeMarshal, pcchBufferSize, PERF_DETAIL, dwDetailLevel, BOOL, bRefresh, UInt32)
     return result
 }
 
@@ -7169,9 +7290,12 @@ export PdhEnumObjectsHA(hDataSource, szMachineName, mszObjectList, pcchBufferSiz
     szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
     mszObjectList := mszObjectList is String ? StrPtr(mszObjectList) : mszObjectList
 
-    pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : "ptr"
+    hDataSourceMarshal := hDataSource == 0 ? IntPtr : PDH_HLOG
+    szMachineNameMarshal := szMachineName == 0 ? IntPtr : PSTR
+    mszObjectListMarshal := mszObjectList == 0 ? IntPtr : PSTR
+    pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhEnumObjectsHA", PDH_HLOG, hDataSource, "ptr", szMachineName, "ptr", mszObjectList, pcchBufferSizeMarshal, pcchBufferSize, PERF_DETAIL, dwDetailLevel, BOOL, bRefresh, UInt32)
+    result := DllCall("pdh.dll\PdhEnumObjectsHA", hDataSourceMarshal, hDataSource, szMachineNameMarshal, szMachineName, mszObjectListMarshal, mszObjectList, pcchBufferSizeMarshal, pcchBufferSize, PERF_DETAIL, dwDetailLevel, BOOL, bRefresh, UInt32)
     return result
 }
 
@@ -7288,10 +7412,14 @@ export PdhEnumObjectItemsHW(hDataSource, szMachineName, szObjectName, mszCounter
     mszCounterList := mszCounterList is String ? StrPtr(mszCounterList) : mszCounterList
     mszInstanceList := mszInstanceList is String ? StrPtr(mszInstanceList) : mszInstanceList
 
-    pcchCounterListLengthMarshal := pcchCounterListLength is VarRef ? "uint*" : "ptr"
-    pcchInstanceListLengthMarshal := pcchInstanceListLength is VarRef ? "uint*" : "ptr"
+    hDataSourceMarshal := hDataSource == 0 ? IntPtr : PDH_HLOG
+    szMachineNameMarshal := szMachineName == 0 ? IntPtr : PWSTR
+    mszCounterListMarshal := mszCounterList == 0 ? IntPtr : PWSTR
+    pcchCounterListLengthMarshal := pcchCounterListLength is VarRef ? "uint*" : IntPtr
+    mszInstanceListMarshal := mszInstanceList == 0 ? IntPtr : PWSTR
+    pcchInstanceListLengthMarshal := pcchInstanceListLength is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhEnumObjectItemsHW", PDH_HLOG, hDataSource, "ptr", szMachineName, "ptr", szObjectName, "ptr", mszCounterList, pcchCounterListLengthMarshal, pcchCounterListLength, "ptr", mszInstanceList, pcchInstanceListLengthMarshal, pcchInstanceListLength, PERF_DETAIL, dwDetailLevel, UInt32, dwFlags, UInt32)
+    result := DllCall("pdh.dll\PdhEnumObjectItemsHW", hDataSourceMarshal, hDataSource, szMachineNameMarshal, szMachineName, "ptr", szObjectName, mszCounterListMarshal, mszCounterList, pcchCounterListLengthMarshal, pcchCounterListLength, mszInstanceListMarshal, mszInstanceList, pcchInstanceListLengthMarshal, pcchInstanceListLength, PERF_DETAIL, dwDetailLevel, UInt32, dwFlags, UInt32)
     return result
 }
 
@@ -7408,10 +7536,14 @@ export PdhEnumObjectItemsHA(hDataSource, szMachineName, szObjectName, mszCounter
     mszCounterList := mszCounterList is String ? StrPtr(mszCounterList) : mszCounterList
     mszInstanceList := mszInstanceList is String ? StrPtr(mszInstanceList) : mszInstanceList
 
-    pcchCounterListLengthMarshal := pcchCounterListLength is VarRef ? "uint*" : "ptr"
-    pcchInstanceListLengthMarshal := pcchInstanceListLength is VarRef ? "uint*" : "ptr"
+    hDataSourceMarshal := hDataSource == 0 ? IntPtr : PDH_HLOG
+    szMachineNameMarshal := szMachineName == 0 ? IntPtr : PSTR
+    mszCounterListMarshal := mszCounterList == 0 ? IntPtr : PSTR
+    pcchCounterListLengthMarshal := pcchCounterListLength is VarRef ? "uint*" : IntPtr
+    mszInstanceListMarshal := mszInstanceList == 0 ? IntPtr : PSTR
+    pcchInstanceListLengthMarshal := pcchInstanceListLength is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhEnumObjectItemsHA", PDH_HLOG, hDataSource, "ptr", szMachineName, "ptr", szObjectName, "ptr", mszCounterList, pcchCounterListLengthMarshal, pcchCounterListLength, "ptr", mszInstanceList, pcchInstanceListLengthMarshal, pcchInstanceListLength, PERF_DETAIL, dwDetailLevel, UInt32, dwFlags, UInt32)
+    result := DllCall("pdh.dll\PdhEnumObjectItemsHA", hDataSourceMarshal, hDataSource, szMachineNameMarshal, szMachineName, "ptr", szObjectName, mszCounterListMarshal, mszCounterList, pcchCounterListLengthMarshal, pcchCounterListLength, mszInstanceListMarshal, mszInstanceList, pcchInstanceListLengthMarshal, pcchInstanceListLength, PERF_DETAIL, dwDetailLevel, UInt32, dwFlags, UInt32)
     return result
 }
 
@@ -7578,9 +7710,11 @@ export PdhExpandWildCardPathHW(hDataSource, szWildCardPath, mszExpandedPathList,
     szWildCardPath := szWildCardPath is String ? StrPtr(szWildCardPath) : szWildCardPath
     mszExpandedPathList := mszExpandedPathList is String ? StrPtr(mszExpandedPathList) : mszExpandedPathList
 
-    pcchPathListLengthMarshal := pcchPathListLength is VarRef ? "uint*" : "ptr"
+    hDataSourceMarshal := hDataSource == 0 ? IntPtr : PDH_HLOG
+    mszExpandedPathListMarshal := mszExpandedPathList == 0 ? IntPtr : PWSTR
+    pcchPathListLengthMarshal := pcchPathListLength is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhExpandWildCardPathHW", PDH_HLOG, hDataSource, "ptr", szWildCardPath, "ptr", mszExpandedPathList, pcchPathListLengthMarshal, pcchPathListLength, UInt32, dwFlags, UInt32)
+    result := DllCall("pdh.dll\PdhExpandWildCardPathHW", hDataSourceMarshal, hDataSource, "ptr", szWildCardPath, mszExpandedPathListMarshal, mszExpandedPathList, pcchPathListLengthMarshal, pcchPathListLength, UInt32, dwFlags, UInt32)
     return result
 }
 
@@ -7747,9 +7881,11 @@ export PdhExpandWildCardPathHA(hDataSource, szWildCardPath, mszExpandedPathList,
     szWildCardPath := szWildCardPath is String ? StrPtr(szWildCardPath) : szWildCardPath
     mszExpandedPathList := mszExpandedPathList is String ? StrPtr(mszExpandedPathList) : mszExpandedPathList
 
-    pcchPathListLengthMarshal := pcchPathListLength is VarRef ? "uint*" : "ptr"
+    hDataSourceMarshal := hDataSource == 0 ? IntPtr : PDH_HLOG
+    mszExpandedPathListMarshal := mszExpandedPathList == 0 ? IntPtr : PSTR
+    pcchPathListLengthMarshal := pcchPathListLength is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhExpandWildCardPathHA", PDH_HLOG, hDataSource, "ptr", szWildCardPath, "ptr", mszExpandedPathList, pcchPathListLengthMarshal, pcchPathListLength, UInt32, dwFlags, UInt32)
+    result := DllCall("pdh.dll\PdhExpandWildCardPathHA", hDataSourceMarshal, hDataSource, "ptr", szWildCardPath, mszExpandedPathListMarshal, mszExpandedPathList, pcchPathListLengthMarshal, pcchPathListLength, UInt32, dwFlags, UInt32)
     return result
 }
 
@@ -7811,10 +7947,11 @@ export PdhExpandWildCardPathHA(hDataSource, szWildCardPath, mszExpandedPathList,
  * @since windows5.1.2600
  */
 export PdhGetDataSourceTimeRangeH(hDataSource, pdwNumEntries, pInfo, pdwBufferSize) {
-    pdwNumEntriesMarshal := pdwNumEntries is VarRef ? "uint*" : "ptr"
-    pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : "ptr"
+    hDataSourceMarshal := hDataSource == 0 ? IntPtr : PDH_HLOG
+    pdwNumEntriesMarshal := pdwNumEntries is VarRef ? "uint*" : IntPtr
+    pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhGetDataSourceTimeRangeH", PDH_HLOG, hDataSource, pdwNumEntriesMarshal, pdwNumEntries, PDH_TIME_INFO.Ptr, pInfo, pdwBufferSizeMarshal, pdwBufferSize, UInt32)
+    result := DllCall("pdh.dll\PdhGetDataSourceTimeRangeH", hDataSourceMarshal, hDataSource, pdwNumEntriesMarshal, pdwNumEntries, PDH_TIME_INFO.Ptr, pInfo, pdwBufferSizeMarshal, pdwBufferSize, UInt32)
     return result
 }
 
@@ -7912,9 +8049,12 @@ export PdhGetDefaultPerfObjectHW(hDataSource, szMachineName, szDefaultObjectName
     szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
     szDefaultObjectName := szDefaultObjectName is String ? StrPtr(szDefaultObjectName) : szDefaultObjectName
 
-    pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : "ptr"
+    hDataSourceMarshal := hDataSource == 0 ? IntPtr : PDH_HLOG
+    szMachineNameMarshal := szMachineName == 0 ? IntPtr : PWSTR
+    szDefaultObjectNameMarshal := szDefaultObjectName == 0 ? IntPtr : PWSTR
+    pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhGetDefaultPerfObjectHW", PDH_HLOG, hDataSource, "ptr", szMachineName, "ptr", szDefaultObjectName, pcchBufferSizeMarshal, pcchBufferSize, UInt32)
+    result := DllCall("pdh.dll\PdhGetDefaultPerfObjectHW", hDataSourceMarshal, hDataSource, szMachineNameMarshal, szMachineName, szDefaultObjectNameMarshal, szDefaultObjectName, pcchBufferSizeMarshal, pcchBufferSize, UInt32)
     return result
 }
 
@@ -8012,9 +8152,12 @@ export PdhGetDefaultPerfObjectHA(hDataSource, szMachineName, szDefaultObjectName
     szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
     szDefaultObjectName := szDefaultObjectName is String ? StrPtr(szDefaultObjectName) : szDefaultObjectName
 
-    pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : "ptr"
+    hDataSourceMarshal := hDataSource == 0 ? IntPtr : PDH_HLOG
+    szMachineNameMarshal := szMachineName == 0 ? IntPtr : PSTR
+    szDefaultObjectNameMarshal := szDefaultObjectName == 0 ? IntPtr : PSTR
+    pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhGetDefaultPerfObjectHA", PDH_HLOG, hDataSource, "ptr", szMachineName, "ptr", szDefaultObjectName, pcchBufferSizeMarshal, pcchBufferSize, UInt32)
+    result := DllCall("pdh.dll\PdhGetDefaultPerfObjectHA", hDataSourceMarshal, hDataSource, szMachineNameMarshal, szMachineName, szDefaultObjectNameMarshal, szDefaultObjectName, pcchBufferSizeMarshal, pcchBufferSize, UInt32)
     return result
 }
 
@@ -8134,9 +8277,12 @@ export PdhGetDefaultPerfCounterHW(hDataSource, szMachineName, szObjectName, szDe
     szObjectName := szObjectName is String ? StrPtr(szObjectName) : szObjectName
     szDefaultCounterName := szDefaultCounterName is String ? StrPtr(szDefaultCounterName) : szDefaultCounterName
 
-    pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : "ptr"
+    hDataSourceMarshal := hDataSource == 0 ? IntPtr : PDH_HLOG
+    szMachineNameMarshal := szMachineName == 0 ? IntPtr : PWSTR
+    szDefaultCounterNameMarshal := szDefaultCounterName == 0 ? IntPtr : PWSTR
+    pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhGetDefaultPerfCounterHW", PDH_HLOG, hDataSource, "ptr", szMachineName, "ptr", szObjectName, "ptr", szDefaultCounterName, pcchBufferSizeMarshal, pcchBufferSize, UInt32)
+    result := DllCall("pdh.dll\PdhGetDefaultPerfCounterHW", hDataSourceMarshal, hDataSource, szMachineNameMarshal, szMachineName, "ptr", szObjectName, szDefaultCounterNameMarshal, szDefaultCounterName, pcchBufferSizeMarshal, pcchBufferSize, UInt32)
     return result
 }
 
@@ -8256,9 +8402,12 @@ export PdhGetDefaultPerfCounterHA(hDataSource, szMachineName, szObjectName, szDe
     szObjectName := szObjectName is String ? StrPtr(szObjectName) : szObjectName
     szDefaultCounterName := szDefaultCounterName is String ? StrPtr(szDefaultCounterName) : szDefaultCounterName
 
-    pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : "ptr"
+    hDataSourceMarshal := hDataSource == 0 ? IntPtr : PDH_HLOG
+    szMachineNameMarshal := szMachineName == 0 ? IntPtr : PSTR
+    szDefaultCounterNameMarshal := szDefaultCounterName == 0 ? IntPtr : PSTR
+    pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhGetDefaultPerfCounterHA", PDH_HLOG, hDataSource, "ptr", szMachineName, "ptr", szObjectName, "ptr", szDefaultCounterName, pcchBufferSizeMarshal, pcchBufferSize, UInt32)
+    result := DllCall("pdh.dll\PdhGetDefaultPerfCounterHA", hDataSourceMarshal, hDataSource, szMachineNameMarshal, szMachineName, "ptr", szObjectName, szDefaultCounterNameMarshal, szDefaultCounterName, pcchBufferSizeMarshal, pcchBufferSize, UInt32)
     return result
 }
 
@@ -8319,7 +8468,6 @@ export PdhBrowseCountersHA(pBrowseDlgData) {
 }
 
 /**
- * 
  * @param {PWSTR} szDataSource 
  * @returns {Integer} 
  */
@@ -8331,7 +8479,6 @@ export PdhVerifySQLDBW(szDataSource) {
 }
 
 /**
- * 
  * @param {PSTR} szDataSource 
  * @returns {Integer} 
  */
@@ -8343,7 +8490,6 @@ export PdhVerifySQLDBA(szDataSource) {
 }
 
 /**
- * 
  * @param {PWSTR} szDataSource 
  * @returns {Integer} 
  */
@@ -8355,7 +8501,6 @@ export PdhCreateSQLTablesW(szDataSource) {
 }
 
 /**
- * 
  * @param {PSTR} szDataSource 
  * @returns {Integer} 
  */
@@ -8421,9 +8566,10 @@ export PdhEnumLogSetNamesW(szDataSource, mszDataSetNameList, pcchBufferLength) {
     szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
     mszDataSetNameList := mszDataSetNameList is String ? StrPtr(mszDataSetNameList) : mszDataSetNameList
 
-    pcchBufferLengthMarshal := pcchBufferLength is VarRef ? "uint*" : "ptr"
+    mszDataSetNameListMarshal := mszDataSetNameList == 0 ? IntPtr : PWSTR
+    pcchBufferLengthMarshal := pcchBufferLength is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhEnumLogSetNamesW", "ptr", szDataSource, "ptr", mszDataSetNameList, pcchBufferLengthMarshal, pcchBufferLength, UInt32)
+    result := DllCall("pdh.dll\PdhEnumLogSetNamesW", "ptr", szDataSource, mszDataSetNameListMarshal, mszDataSetNameList, pcchBufferLengthMarshal, pcchBufferLength, UInt32)
     return result
 }
 
@@ -8482,28 +8628,29 @@ export PdhEnumLogSetNamesA(szDataSource, mszDataSetNameList, pcchBufferLength) {
     szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
     mszDataSetNameList := mszDataSetNameList is String ? StrPtr(mszDataSetNameList) : mszDataSetNameList
 
-    pcchBufferLengthMarshal := pcchBufferLength is VarRef ? "uint*" : "ptr"
+    mszDataSetNameListMarshal := mszDataSetNameList == 0 ? IntPtr : PSTR
+    pcchBufferLengthMarshal := pcchBufferLength is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("pdh.dll\PdhEnumLogSetNamesA", "ptr", szDataSource, "ptr", mszDataSetNameList, pcchBufferLengthMarshal, pcchBufferLength, UInt32)
+    result := DllCall("pdh.dll\PdhEnumLogSetNamesA", "ptr", szDataSource, mszDataSetNameListMarshal, mszDataSetNameList, pcchBufferLengthMarshal, pcchBufferLength, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PDH_HLOG} _hLog 
  * @param {Pointer<Guid>} pGuid 
  * @param {Pointer<Integer>} pRunId 
  * @returns {Integer} 
  */
 export PdhGetLogSetGUID(_hLog, pGuid, pRunId) {
-    pRunIdMarshal := pRunId is VarRef ? "int*" : "ptr"
+    pGuidMarshal := pGuid == 0 ? IntPtr : Guid.Ptr
+    pRunIdMarshal := pRunId is VarRef ? "int*" : IntPtr
+    pRunIdMarshal := pRunId == 0 ? IntPtr : "int*"
 
-    result := DllCall("pdh.dll\PdhGetLogSetGUID", PDH_HLOG, _hLog, Guid.Ptr, pGuid, pRunIdMarshal, pRunId, UInt32)
+    result := DllCall("pdh.dll\PdhGetLogSetGUID", PDH_HLOG, _hLog, pGuidMarshal, pGuid, pRunIdMarshal, pRunId, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PDH_HLOG} _hLog 
  * @param {Integer} RunId 
  * @returns {Integer} 

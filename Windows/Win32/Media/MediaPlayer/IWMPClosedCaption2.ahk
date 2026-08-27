@@ -83,7 +83,7 @@ export default struct IWMPClosedCaption2 extends IWMPClosedCaption {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpclosedcaption2-get_samilangcount
      */
     get_SAMILangCount(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+        plCountMarshal := plCount is VarRef ? "int*" : IntPtr
 
         result := ComCall(15, this, plCountMarshal, plCount, "HRESULT")
         return result
@@ -157,7 +157,7 @@ export default struct IWMPClosedCaption2 extends IWMPClosedCaption {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpclosedcaption2-getsamilangid
      */
     getSAMILangID(nIndex, plLangID) {
-        plLangIDMarshal := plLangID is VarRef ? "int*" : "ptr"
+        plLangIDMarshal := plLangID is VarRef ? "int*" : IntPtr
 
         result := ComCall(17, this, Int32, nIndex, plLangIDMarshal, plLangID, "HRESULT")
         return result
@@ -192,7 +192,7 @@ export default struct IWMPClosedCaption2 extends IWMPClosedCaption {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpclosedcaption2-get_samistylecount
      */
     get_SAMIStyleCount(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+        plCountMarshal := plCount is VarRef ? "int*" : IntPtr
 
         result := ComCall(18, this, plCountMarshal, plCount, "HRESULT")
         return result
@@ -243,11 +243,11 @@ export default struct IWMPClosedCaption2 extends IWMPClosedCaption {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_SAMILangCount := CallbackCreate(GetMethod(implObj, "get_SAMILangCount"), flags, 2)
-        this.vtbl.getSAMILangName := CallbackCreate(GetMethod(implObj, "getSAMILangName"), flags, 3)
-        this.vtbl.getSAMILangID := CallbackCreate(GetMethod(implObj, "getSAMILangID"), flags, 3)
-        this.vtbl.get_SAMIStyleCount := CallbackCreate(GetMethod(implObj, "get_SAMIStyleCount"), flags, 2)
-        this.vtbl.getSAMIStyleName := CallbackCreate(GetMethod(implObj, "getSAMIStyleName"), flags, 3)
+        this.vtbl.get_SAMILangCount := CallbackCreate(ObjBindMethod(implObj, "get_SAMILangCount"), flags, 2)
+        this.vtbl.getSAMILangName := CallbackCreate(ObjBindMethod(implObj, "getSAMILangName"), flags, 3)
+        this.vtbl.getSAMILangID := CallbackCreate(ObjBindMethod(implObj, "getSAMILangID"), flags, 3)
+        this.vtbl.get_SAMIStyleCount := CallbackCreate(ObjBindMethod(implObj, "get_SAMIStyleCount"), flags, 2)
+        this.vtbl.getSAMIStyleName := CallbackCreate(ObjBindMethod(implObj, "getSAMIStyleName"), flags, 3)
     }
 
     Dispose() {

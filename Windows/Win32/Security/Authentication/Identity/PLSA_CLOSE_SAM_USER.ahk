@@ -19,12 +19,11 @@ export default struct PLSA_CLOSE_SAM_USER {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} UserHandle 
      * @returns {NTSTATUS} 
      */
     Call(UserHandle) {
-        UserHandleMarshal := UserHandle is VarRef ? "ptr" : "ptr"
+        UserHandleMarshal := UserHandle is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, UserHandleMarshal, UserHandle, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

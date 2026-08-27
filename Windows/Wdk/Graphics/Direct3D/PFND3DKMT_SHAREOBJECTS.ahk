@@ -21,7 +21,6 @@ export default struct PFND3DKMT_SHAREOBJECTS {
     }
 
     /**
-     * 
      * @param {Integer} cObjects 
      * @param {Pointer<Integer>} hObjects 
      * @param {Pointer<OBJECT_ATTRIBUTES>} pObjectAttributes 
@@ -30,7 +29,7 @@ export default struct PFND3DKMT_SHAREOBJECTS {
      * @returns {NTSTATUS} 
      */
     Call(cObjects, hObjects, pObjectAttributes, dwDesiredAccess, phSharedNtHandle) {
-        hObjectsMarshal := hObjects is VarRef ? "uint*" : "ptr"
+        hObjectsMarshal := hObjects is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, UInt32, cObjects, hObjectsMarshal, hObjects, OBJECT_ATTRIBUTES.Ptr, pObjectAttributes, UInt32, dwDesiredAccess, HANDLE.Ptr, phSharedNtHandle, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

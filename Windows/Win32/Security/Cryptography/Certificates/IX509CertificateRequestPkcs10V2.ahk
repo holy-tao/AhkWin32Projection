@@ -122,7 +122,10 @@ export default struct IX509CertificateRequestPkcs10V2 extends IX509CertificateRe
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10v2-initializefromtemplate
      */
     InitializeFromTemplate(_context, pPolicyServer, pTemplate) {
-        result := ComCall(60, this, X509CertificateEnrollmentContext, _context, "ptr", pPolicyServer, "ptr", pTemplate, "HRESULT")
+        pPolicyServerMarshal := pPolicyServer == 0 ? IntPtr : "ptr"
+        pTemplateMarshal := pTemplate == 0 ? IntPtr : "ptr"
+
+        result := ComCall(60, this, X509CertificateEnrollmentContext, _context, pPolicyServerMarshal, pPolicyServer, pTemplateMarshal, pTemplate, "HRESULT")
         return result
     }
 
@@ -183,7 +186,11 @@ export default struct IX509CertificateRequestPkcs10V2 extends IX509CertificateRe
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10v2-initializefromprivatekeytemplate
      */
     InitializeFromPrivateKeyTemplate(_Context, pPrivateKey, pPolicyServer, pTemplate) {
-        result := ComCall(61, this, X509CertificateEnrollmentContext, _Context, "ptr", pPrivateKey, "ptr", pPolicyServer, "ptr", pTemplate, "HRESULT")
+        pPrivateKeyMarshal := pPrivateKey == 0 ? IntPtr : "ptr"
+        pPolicyServerMarshal := pPolicyServer == 0 ? IntPtr : "ptr"
+        pTemplateMarshal := pTemplate == 0 ? IntPtr : "ptr"
+
+        result := ComCall(61, this, X509CertificateEnrollmentContext, _Context, pPrivateKeyMarshal, pPrivateKey, pPolicyServerMarshal, pPolicyServer, pTemplateMarshal, pTemplate, "HRESULT")
         return result
     }
 
@@ -244,7 +251,11 @@ export default struct IX509CertificateRequestPkcs10V2 extends IX509CertificateRe
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10v2-initializefrompublickeytemplate
      */
     InitializeFromPublicKeyTemplate(_Context, pPublicKey, pPolicyServer, pTemplate) {
-        result := ComCall(62, this, X509CertificateEnrollmentContext, _Context, "ptr", pPublicKey, "ptr", pPolicyServer, "ptr", pTemplate, "HRESULT")
+        pPublicKeyMarshal := pPublicKey == 0 ? IntPtr : "ptr"
+        pPolicyServerMarshal := pPolicyServer == 0 ? IntPtr : "ptr"
+        pTemplateMarshal := pTemplate == 0 ? IntPtr : "ptr"
+
+        result := ComCall(62, this, X509CertificateEnrollmentContext, _Context, pPublicKeyMarshal, pPublicKey, pPolicyServerMarshal, pPolicyServer, pTemplateMarshal, pTemplate, "HRESULT")
         return result
     }
 
@@ -277,11 +288,11 @@ export default struct IX509CertificateRequestPkcs10V2 extends IX509CertificateRe
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeFromTemplate := CallbackCreate(GetMethod(implObj, "InitializeFromTemplate"), flags, 4)
-        this.vtbl.InitializeFromPrivateKeyTemplate := CallbackCreate(GetMethod(implObj, "InitializeFromPrivateKeyTemplate"), flags, 5)
-        this.vtbl.InitializeFromPublicKeyTemplate := CallbackCreate(GetMethod(implObj, "InitializeFromPublicKeyTemplate"), flags, 5)
-        this.vtbl.get_PolicyServer := CallbackCreate(GetMethod(implObj, "get_PolicyServer"), flags, 2)
-        this.vtbl.get_Template := CallbackCreate(GetMethod(implObj, "get_Template"), flags, 2)
+        this.vtbl.InitializeFromTemplate := CallbackCreate(ObjBindMethod(implObj, "InitializeFromTemplate"), flags, 4)
+        this.vtbl.InitializeFromPrivateKeyTemplate := CallbackCreate(ObjBindMethod(implObj, "InitializeFromPrivateKeyTemplate"), flags, 5)
+        this.vtbl.InitializeFromPublicKeyTemplate := CallbackCreate(ObjBindMethod(implObj, "InitializeFromPublicKeyTemplate"), flags, 5)
+        this.vtbl.get_PolicyServer := CallbackCreate(ObjBindMethod(implObj, "get_PolicyServer"), flags, 2)
+        this.vtbl.get_Template := CallbackCreate(ObjBindMethod(implObj, "get_Template"), flags, 2)
     }
 
     Dispose() {

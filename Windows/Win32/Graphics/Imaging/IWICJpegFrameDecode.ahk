@@ -247,15 +247,14 @@ export default struct IWICJpegFrameDecode extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicjpegframedecode-copyscan
      */
     CopyScan(scanIndex, scanOffset, cbScanData, pbScanData, pcbScanDataActual) {
-        pbScanDataMarshal := pbScanData is VarRef ? "char*" : "ptr"
-        pcbScanDataActualMarshal := pcbScanDataActual is VarRef ? "uint*" : "ptr"
+        pbScanDataMarshal := pbScanData is VarRef ? "char*" : IntPtr
+        pcbScanDataActualMarshal := pcbScanDataActual is VarRef ? "uint*" : IntPtr
 
         result := ComCall(11, this, UInt32, scanIndex, UInt32, scanOffset, UInt32, cbScanData, pbScanDataMarshal, pbScanData, pcbScanDataActualMarshal, pcbScanDataActual, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} streamOffset 
      * @param {Integer} cbStreamData 
      * @param {Pointer<Integer>} pbStreamData 
@@ -263,8 +262,8 @@ export default struct IWICJpegFrameDecode extends IUnknown {
      * @returns {HRESULT} 
      */
     CopyMinimalStream(streamOffset, cbStreamData, pbStreamData, pcbStreamDataActual) {
-        pbStreamDataMarshal := pbStreamData is VarRef ? "char*" : "ptr"
-        pcbStreamDataActualMarshal := pcbStreamDataActual is VarRef ? "uint*" : "ptr"
+        pbStreamDataMarshal := pbStreamData is VarRef ? "char*" : IntPtr
+        pcbStreamDataActualMarshal := pcbStreamDataActual is VarRef ? "uint*" : IntPtr
 
         result := ComCall(12, this, UInt32, streamOffset, UInt32, cbStreamData, pbStreamDataMarshal, pbStreamData, pcbStreamDataActualMarshal, pcbStreamDataActual, "HRESULT")
         return result
@@ -279,16 +278,16 @@ export default struct IWICJpegFrameDecode extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DoesSupportIndexing := CallbackCreate(GetMethod(implObj, "DoesSupportIndexing"), flags, 2)
-        this.vtbl.SetIndexing := CallbackCreate(GetMethod(implObj, "SetIndexing"), flags, 3)
-        this.vtbl.ClearIndexing := CallbackCreate(GetMethod(implObj, "ClearIndexing"), flags, 1)
-        this.vtbl.GetAcHuffmanTable := CallbackCreate(GetMethod(implObj, "GetAcHuffmanTable"), flags, 4)
-        this.vtbl.GetDcHuffmanTable := CallbackCreate(GetMethod(implObj, "GetDcHuffmanTable"), flags, 4)
-        this.vtbl.GetQuantizationTable := CallbackCreate(GetMethod(implObj, "GetQuantizationTable"), flags, 4)
-        this.vtbl.GetFrameHeader := CallbackCreate(GetMethod(implObj, "GetFrameHeader"), flags, 2)
-        this.vtbl.GetScanHeader := CallbackCreate(GetMethod(implObj, "GetScanHeader"), flags, 3)
-        this.vtbl.CopyScan := CallbackCreate(GetMethod(implObj, "CopyScan"), flags, 6)
-        this.vtbl.CopyMinimalStream := CallbackCreate(GetMethod(implObj, "CopyMinimalStream"), flags, 5)
+        this.vtbl.DoesSupportIndexing := CallbackCreate(ObjBindMethod(implObj, "DoesSupportIndexing"), flags, 2)
+        this.vtbl.SetIndexing := CallbackCreate(ObjBindMethod(implObj, "SetIndexing"), flags, 3)
+        this.vtbl.ClearIndexing := CallbackCreate(ObjBindMethod(implObj, "ClearIndexing"), flags, 1)
+        this.vtbl.GetAcHuffmanTable := CallbackCreate(ObjBindMethod(implObj, "GetAcHuffmanTable"), flags, 4)
+        this.vtbl.GetDcHuffmanTable := CallbackCreate(ObjBindMethod(implObj, "GetDcHuffmanTable"), flags, 4)
+        this.vtbl.GetQuantizationTable := CallbackCreate(ObjBindMethod(implObj, "GetQuantizationTable"), flags, 4)
+        this.vtbl.GetFrameHeader := CallbackCreate(ObjBindMethod(implObj, "GetFrameHeader"), flags, 2)
+        this.vtbl.GetScanHeader := CallbackCreate(ObjBindMethod(implObj, "GetScanHeader"), flags, 3)
+        this.vtbl.CopyScan := CallbackCreate(ObjBindMethod(implObj, "CopyScan"), flags, 6)
+        this.vtbl.CopyMinimalStream := CallbackCreate(ObjBindMethod(implObj, "CopyMinimalStream"), flags, 5)
     }
 
     Dispose() {

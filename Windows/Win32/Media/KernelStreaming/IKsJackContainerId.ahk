@@ -36,7 +36,6 @@ export default struct IKsJackContainerId extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     GetJackContainerId() {
@@ -54,7 +53,7 @@ export default struct IKsJackContainerId extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetJackContainerId := CallbackCreate(GetMethod(implObj, "GetJackContainerId"), flags, 2)
+        this.vtbl.GetJackContainerId := CallbackCreate(ObjBindMethod(implObj, "GetJackContainerId"), flags, 2)
     }
 
     Dispose() {

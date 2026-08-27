@@ -40,7 +40,6 @@ export default struct IDebugApplication11032 extends IRemoteDebugApplication110 
     }
 
     /**
-     * 
      * @param {IDebugThreadCall32} pptc 
      * @param {Pointer} dwParam1 
      * @param {Pointer} dwParam2 
@@ -53,7 +52,6 @@ export default struct IDebugApplication11032 extends IRemoteDebugApplication110 
     }
 
     /**
-     * 
      * @param {IDebugThreadCall32} pptc 
      * @param {Pointer} dwParam1 
      * @param {Pointer} dwParam2 
@@ -66,7 +64,6 @@ export default struct IDebugApplication11032 extends IRemoteDebugApplication110 
     }
 
     /**
-     * 
      * @param {Integer} handleCount 
      * @param {Pointer<HANDLE>} pHandles 
      * @returns {Integer} 
@@ -85,9 +82,9 @@ export default struct IDebugApplication11032 extends IRemoteDebugApplication110 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SynchronousCallInMainThread := CallbackCreate(GetMethod(implObj, "SynchronousCallInMainThread"), flags, 5)
-        this.vtbl.AsynchronousCallInMainThread := CallbackCreate(GetMethod(implObj, "AsynchronousCallInMainThread"), flags, 5)
-        this.vtbl.CallableWaitForHandles := CallbackCreate(GetMethod(implObj, "CallableWaitForHandles"), flags, 4)
+        this.vtbl.SynchronousCallInMainThread := CallbackCreate(ObjBindMethod(implObj, "SynchronousCallInMainThread"), flags, 5)
+        this.vtbl.AsynchronousCallInMainThread := CallbackCreate(ObjBindMethod(implObj, "AsynchronousCallInMainThread"), flags, 5)
+        this.vtbl.CallableWaitForHandles := CallbackCreate(ObjBindMethod(implObj, "CallableWaitForHandles"), flags, 4)
     }
 
     Dispose() {

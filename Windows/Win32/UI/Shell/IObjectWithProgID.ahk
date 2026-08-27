@@ -77,8 +77,8 @@ export default struct IObjectWithProgID extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetProgID := CallbackCreate(GetMethod(implObj, "SetProgID"), flags, 2)
-        this.vtbl.GetProgID := CallbackCreate(GetMethod(implObj, "GetProgID"), flags, 2)
+        this.vtbl.SetProgID := CallbackCreate(ObjBindMethod(implObj, "SetProgID"), flags, 2)
+        this.vtbl.GetProgID := CallbackCreate(ObjBindMethod(implObj, "GetProgID"), flags, 2)
     }
 
     Dispose() {

@@ -120,8 +120,8 @@ export default struct IOpcSignatureRelationshipReference extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturerelationshipreference-getdigestvalue
      */
     GetDigestValue(digestValue, count) {
-        digestValueMarshal := digestValue is VarRef ? "ptr*" : "ptr"
-        countMarshal := count is VarRef ? "uint*" : "ptr"
+        digestValueMarshal := digestValue is VarRef ? "ptr*" : IntPtr
+        countMarshal := count is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, digestValueMarshal, digestValue, countMarshal, count, "HRESULT")
         return result
@@ -170,12 +170,12 @@ export default struct IOpcSignatureRelationshipReference extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSourceUri := CallbackCreate(GetMethod(implObj, "GetSourceUri"), flags, 2)
-        this.vtbl.GetDigestMethod := CallbackCreate(GetMethod(implObj, "GetDigestMethod"), flags, 2)
-        this.vtbl.GetDigestValue := CallbackCreate(GetMethod(implObj, "GetDigestValue"), flags, 3)
-        this.vtbl.GetTransformMethod := CallbackCreate(GetMethod(implObj, "GetTransformMethod"), flags, 2)
-        this.vtbl.GetRelationshipSigningOption := CallbackCreate(GetMethod(implObj, "GetRelationshipSigningOption"), flags, 2)
-        this.vtbl.GetRelationshipSelectorEnumerator := CallbackCreate(GetMethod(implObj, "GetRelationshipSelectorEnumerator"), flags, 2)
+        this.vtbl.GetSourceUri := CallbackCreate(ObjBindMethod(implObj, "GetSourceUri"), flags, 2)
+        this.vtbl.GetDigestMethod := CallbackCreate(ObjBindMethod(implObj, "GetDigestMethod"), flags, 2)
+        this.vtbl.GetDigestValue := CallbackCreate(ObjBindMethod(implObj, "GetDigestValue"), flags, 3)
+        this.vtbl.GetTransformMethod := CallbackCreate(ObjBindMethod(implObj, "GetTransformMethod"), flags, 2)
+        this.vtbl.GetRelationshipSigningOption := CallbackCreate(ObjBindMethod(implObj, "GetRelationshipSigningOption"), flags, 2)
+        this.vtbl.GetRelationshipSelectorEnumerator := CallbackCreate(ObjBindMethod(implObj, "GetRelationshipSelectorEnumerator"), flags, 2)
     }
 
     Dispose() {

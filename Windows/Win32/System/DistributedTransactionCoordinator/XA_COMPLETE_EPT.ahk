@@ -18,7 +18,6 @@ export default struct XA_COMPLETE_EPT {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Integer} param2 
@@ -26,8 +25,8 @@ export default struct XA_COMPLETE_EPT {
      * @returns {Integer} 
      */
     Call(param0, param1, param2, param3) {
-        param0Marshal := param0 is VarRef ? "int*" : "ptr"
-        param1Marshal := param1 is VarRef ? "int*" : "ptr"
+        param0Marshal := param0 is VarRef ? "int*" : IntPtr
+        param1Marshal := param1 is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, param0Marshal, param0, param1Marshal, param1, Int32, param2, Int32, param3, Int32)
         return result

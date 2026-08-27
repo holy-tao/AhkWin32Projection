@@ -20,7 +20,6 @@ export default struct pHalHandlerForBus {
     }
 
     /**
-     * 
      * @param {INTERFACE_TYPE} InterfaceType 
      * @param {Integer} BusNumber 
      * @returns {PBUS_HANDLER} 

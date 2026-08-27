@@ -23,7 +23,6 @@ export default struct PDD_MOCOMPCB_QUERYSTATUS {
     }
 
     /**
-     * 
      * @param {Pointer<DD_QUERYMOCOMPSTATUSDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_querymocompstatusdata">DD_QUERYMOCOMPSTATUSDATA</a> structure that contains the information needed to query the status.
      * @returns {Integer} <b>DdMoCompQueryStatus</b> returns one of the following callback codes:
      */

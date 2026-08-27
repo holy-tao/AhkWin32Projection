@@ -98,9 +98,9 @@ export default struct IVirtualDesktopManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsWindowOnCurrentVirtualDesktop := CallbackCreate(GetMethod(implObj, "IsWindowOnCurrentVirtualDesktop"), flags, 3)
-        this.vtbl.GetWindowDesktopId := CallbackCreate(GetMethod(implObj, "GetWindowDesktopId"), flags, 3)
-        this.vtbl.MoveWindowToDesktop := CallbackCreate(GetMethod(implObj, "MoveWindowToDesktop"), flags, 3)
+        this.vtbl.IsWindowOnCurrentVirtualDesktop := CallbackCreate(ObjBindMethod(implObj, "IsWindowOnCurrentVirtualDesktop"), flags, 3)
+        this.vtbl.GetWindowDesktopId := CallbackCreate(ObjBindMethod(implObj, "GetWindowDesktopId"), flags, 3)
+        this.vtbl.MoveWindowToDesktop := CallbackCreate(ObjBindMethod(implObj, "MoveWindowToDesktop"), flags, 3)
     }
 
     Dispose() {

@@ -21,7 +21,6 @@ export default struct PWLDP_GETAPPLICATIONSETTINGBOOLEAN_API {
     }
 
     /**
-     * 
      * @param {PWSTR} id 
      * @param {PWSTR} setting 
      * @returns {BOOL} 

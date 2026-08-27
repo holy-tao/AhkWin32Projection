@@ -80,9 +80,9 @@ export default struct ITLegacyAddressMediaControl2 extends ITLegacyAddressMediaC
     ConfigDialogEdit(hwndOwner, pDeviceClass, dwSizeIn, pDeviceConfigIn, pdwSizeOut, ppDeviceConfigOut) {
         pDeviceClass := pDeviceClass is String ? BSTR.Alloc(pDeviceClass).Value : pDeviceClass
 
-        pDeviceConfigInMarshal := pDeviceConfigIn is VarRef ? "char*" : "ptr"
-        pdwSizeOutMarshal := pdwSizeOut is VarRef ? "uint*" : "ptr"
-        ppDeviceConfigOutMarshal := ppDeviceConfigOut is VarRef ? "ptr*" : "ptr"
+        pDeviceConfigInMarshal := pDeviceConfigIn is VarRef ? "char*" : IntPtr
+        pdwSizeOutMarshal := pdwSizeOut is VarRef ? "uint*" : IntPtr
+        ppDeviceConfigOutMarshal := ppDeviceConfigOut is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(7, this, HWND, hwndOwner, BSTR, pDeviceClass, UInt32, dwSizeIn, pDeviceConfigInMarshal, pDeviceConfigIn, pdwSizeOutMarshal, pdwSizeOut, ppDeviceConfigOutMarshal, ppDeviceConfigOut, "HRESULT")
         return result
@@ -97,8 +97,8 @@ export default struct ITLegacyAddressMediaControl2 extends ITLegacyAddressMediaC
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ConfigDialog := CallbackCreate(GetMethod(implObj, "ConfigDialog"), flags, 3)
-        this.vtbl.ConfigDialogEdit := CallbackCreate(GetMethod(implObj, "ConfigDialogEdit"), flags, 7)
+        this.vtbl.ConfigDialog := CallbackCreate(ObjBindMethod(implObj, "ConfigDialog"), flags, 3)
+        this.vtbl.ConfigDialogEdit := CallbackCreate(ObjBindMethod(implObj, "ConfigDialogEdit"), flags, 7)
     }
 
     Dispose() {

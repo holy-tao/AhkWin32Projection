@@ -18,12 +18,11 @@ export default struct MINIPORT_CO_DEACTIVATE_VC {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} MiniportVcContext 
      * @returns {Integer} 
      */
     Call(MiniportVcContext) {
-        MiniportVcContextMarshal := MiniportVcContext is VarRef ? "ptr" : "ptr"
+        MiniportVcContextMarshal := MiniportVcContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, MiniportVcContextMarshal, MiniportVcContext, Int32)
         return result

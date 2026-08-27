@@ -56,7 +56,6 @@ export default struct IHTMLDialog3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -68,7 +67,6 @@ export default struct IHTMLDialog3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_unadorned() {
@@ -78,7 +76,6 @@ export default struct IHTMLDialog3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -90,7 +87,6 @@ export default struct IHTMLDialog3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_dialogHide() {
@@ -108,10 +104,10 @@ export default struct IHTMLDialog3 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_unadorned := CallbackCreate(GetMethod(implObj, "put_unadorned"), flags, 2)
-        this.vtbl.get_unadorned := CallbackCreate(GetMethod(implObj, "get_unadorned"), flags, 2)
-        this.vtbl.put_dialogHide := CallbackCreate(GetMethod(implObj, "put_dialogHide"), flags, 2)
-        this.vtbl.get_dialogHide := CallbackCreate(GetMethod(implObj, "get_dialogHide"), flags, 2)
+        this.vtbl.put_unadorned := CallbackCreate(ObjBindMethod(implObj, "put_unadorned"), flags, 2)
+        this.vtbl.get_unadorned := CallbackCreate(ObjBindMethod(implObj, "get_unadorned"), flags, 2)
+        this.vtbl.put_dialogHide := CallbackCreate(ObjBindMethod(implObj, "put_dialogHide"), flags, 2)
+        this.vtbl.get_dialogHide := CallbackCreate(ObjBindMethod(implObj, "get_dialogHide"), flags, 2)
     }
 
     Dispose() {

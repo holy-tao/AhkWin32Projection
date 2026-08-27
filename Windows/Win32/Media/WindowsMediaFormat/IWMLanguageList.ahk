@@ -91,7 +91,7 @@ export default struct IWMLanguageList extends IUnknown {
     GetLanguageDetails(wIndex, pwszLanguageString, pcchLanguageStringLength) {
         pwszLanguageString := pwszLanguageString is String ? StrPtr(pwszLanguageString) : pwszLanguageString
 
-        pcchLanguageStringLengthMarshal := pcchLanguageStringLength is VarRef ? "ushort*" : "ptr"
+        pcchLanguageStringLengthMarshal := pcchLanguageStringLength is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(4, this, UInt16, wIndex, "ptr", pwszLanguageString, pcchLanguageStringLengthMarshal, pcchLanguageStringLength, "HRESULT")
         return result
@@ -121,9 +121,9 @@ export default struct IWMLanguageList extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLanguageCount := CallbackCreate(GetMethod(implObj, "GetLanguageCount"), flags, 2)
-        this.vtbl.GetLanguageDetails := CallbackCreate(GetMethod(implObj, "GetLanguageDetails"), flags, 4)
-        this.vtbl.AddLanguageByRFC1766String := CallbackCreate(GetMethod(implObj, "AddLanguageByRFC1766String"), flags, 3)
+        this.vtbl.GetLanguageCount := CallbackCreate(ObjBindMethod(implObj, "GetLanguageCount"), flags, 2)
+        this.vtbl.GetLanguageDetails := CallbackCreate(ObjBindMethod(implObj, "GetLanguageDetails"), flags, 4)
+        this.vtbl.AddLanguageByRFC1766String := CallbackCreate(ObjBindMethod(implObj, "AddLanguageByRFC1766String"), flags, 3)
     }
 
     Dispose() {

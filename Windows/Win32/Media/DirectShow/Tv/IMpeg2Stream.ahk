@@ -199,8 +199,8 @@ export default struct IMpeg2Stream extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 8)
-        this.vtbl.SupplyDataBuffer := CallbackCreate(GetMethod(implObj, "SupplyDataBuffer"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 8)
+        this.vtbl.SupplyDataBuffer := CallbackCreate(ObjBindMethod(implObj, "SupplyDataBuffer"), flags, 2)
     }
 
     Dispose() {

@@ -100,9 +100,9 @@ export default struct ISurfaceImageSourceNative extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetDevice := CallbackCreate(GetMethod(implObj, "SetDevice"), flags, 2)
-        this.vtbl.BeginDraw := CallbackCreate(GetMethod(implObj, "BeginDraw"), flags, 4)
-        this.vtbl.EndDraw := CallbackCreate(GetMethod(implObj, "EndDraw"), flags, 1)
+        this.vtbl.SetDevice := CallbackCreate(ObjBindMethod(implObj, "SetDevice"), flags, 2)
+        this.vtbl.BeginDraw := CallbackCreate(ObjBindMethod(implObj, "BeginDraw"), flags, 4)
+        this.vtbl.EndDraw := CallbackCreate(ObjBindMethod(implObj, "EndDraw"), flags, 1)
     }
 
     Dispose() {

@@ -26,7 +26,6 @@ export default struct PFN_DrvStrokeAndFillPath {
     }
 
     /**
-     * 
      * @param {Pointer<SURFOBJ>} param0 
      * @param {Pointer<PATHOBJ>} param1 
      * @param {Pointer<CLIPOBJ>} param2 

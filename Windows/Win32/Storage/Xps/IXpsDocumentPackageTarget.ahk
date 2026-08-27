@@ -84,9 +84,9 @@ export default struct IXpsDocumentPackageTarget extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetXpsOMPackageWriter := CallbackCreate(GetMethod(implObj, "GetXpsOMPackageWriter"), flags, 4)
-        this.vtbl.GetXpsOMFactory := CallbackCreate(GetMethod(implObj, "GetXpsOMFactory"), flags, 2)
-        this.vtbl.GetXpsType := CallbackCreate(GetMethod(implObj, "GetXpsType"), flags, 2)
+        this.vtbl.GetXpsOMPackageWriter := CallbackCreate(ObjBindMethod(implObj, "GetXpsOMPackageWriter"), flags, 4)
+        this.vtbl.GetXpsOMFactory := CallbackCreate(ObjBindMethod(implObj, "GetXpsOMFactory"), flags, 2)
+        this.vtbl.GetXpsType := CallbackCreate(ObjBindMethod(implObj, "GetXpsType"), flags, 2)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct PFLT_INSTANCE_TEARDOWN_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_RELATED_OBJECTS>} FltObjects 
      * @param {Integer} Reason 
      * @returns {String} Nothing - always returns an empty string

@@ -56,7 +56,7 @@ export default struct IShellDispatch5 extends IShellDispatch4 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.WindowSwitcher := CallbackCreate(GetMethod(implObj, "WindowSwitcher"), flags, 1)
+        this.vtbl.WindowSwitcher := CallbackCreate(ObjBindMethod(implObj, "WindowSwitcher"), flags, 1)
     }
 
     Dispose() {

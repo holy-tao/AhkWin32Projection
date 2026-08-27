@@ -59,7 +59,7 @@ export default struct IUnknown extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/unknwn/nf-unknwn-iunknown-queryinterface(refiid_void)
      */
     QueryInterface(riid, ppvObject) {
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(0, this, Guid.Ptr, riid, ppvObjectMarshal, ppvObject, Int32)
         return result

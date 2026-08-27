@@ -159,10 +159,10 @@ export default struct IWindowsDriverUpdate2 extends IWindowsDriverUpdate {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_RebootRequired := CallbackCreate(GetMethod(implObj, "get_RebootRequired"), flags, 2)
-        this.vtbl.get_IsPresent := CallbackCreate(GetMethod(implObj, "get_IsPresent"), flags, 2)
-        this.vtbl.get_CveIDs := CallbackCreate(GetMethod(implObj, "get_CveIDs"), flags, 2)
-        this.vtbl.CopyToCache := CallbackCreate(GetMethod(implObj, "CopyToCache"), flags, 2)
+        this.vtbl.get_RebootRequired := CallbackCreate(ObjBindMethod(implObj, "get_RebootRequired"), flags, 2)
+        this.vtbl.get_IsPresent := CallbackCreate(ObjBindMethod(implObj, "get_IsPresent"), flags, 2)
+        this.vtbl.get_CveIDs := CallbackCreate(ObjBindMethod(implObj, "get_CveIDs"), flags, 2)
+        this.vtbl.CopyToCache := CallbackCreate(ObjBindMethod(implObj, "CopyToCache"), flags, 2)
     }
 
     Dispose() {

@@ -52,7 +52,6 @@ export default struct IHTMLStyleMedia extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -62,7 +61,6 @@ export default struct IHTMLStyleMedia extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} mediaQuery 
      * @returns {VARIANT_BOOL} 
      */
@@ -82,8 +80,8 @@ export default struct IHTMLStyleMedia extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
-        this.vtbl.matchMedium := CallbackCreate(GetMethod(implObj, "matchMedium"), flags, 3)
+        this.vtbl.get_type := CallbackCreate(ObjBindMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.matchMedium := CallbackCreate(ObjBindMethod(implObj, "matchMedium"), flags, 3)
     }
 
     Dispose() {

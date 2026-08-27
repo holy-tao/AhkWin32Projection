@@ -95,9 +95,9 @@ export default struct IComMethodEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnMethodCall := CallbackCreate(GetMethod(implObj, "OnMethodCall"), flags, 6)
-        this.vtbl.OnMethodReturn := CallbackCreate(GetMethod(implObj, "OnMethodReturn"), flags, 7)
-        this.vtbl.OnMethodException := CallbackCreate(GetMethod(implObj, "OnMethodException"), flags, 6)
+        this.vtbl.OnMethodCall := CallbackCreate(ObjBindMethod(implObj, "OnMethodCall"), flags, 6)
+        this.vtbl.OnMethodReturn := CallbackCreate(ObjBindMethod(implObj, "OnMethodReturn"), flags, 7)
+        this.vtbl.OnMethodException := CallbackCreate(ObjBindMethod(implObj, "OnMethodException"), flags, 6)
     }
 
     Dispose() {

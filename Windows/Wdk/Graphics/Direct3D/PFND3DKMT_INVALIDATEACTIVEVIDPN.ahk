@@ -20,7 +20,6 @@ export default struct PFND3DKMT_INVALIDATEACTIVEVIDPN {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_INVALIDATEACTIVEVIDPN>} param0 
      * @returns {NTSTATUS} 
      */

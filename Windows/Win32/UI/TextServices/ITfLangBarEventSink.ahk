@@ -125,12 +125,12 @@ export default struct ITfLangBarEventSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnSetFocus := CallbackCreate(GetMethod(implObj, "OnSetFocus"), flags, 2)
-        this.vtbl.OnThreadTerminate := CallbackCreate(GetMethod(implObj, "OnThreadTerminate"), flags, 2)
-        this.vtbl.OnThreadItemChange := CallbackCreate(GetMethod(implObj, "OnThreadItemChange"), flags, 2)
-        this.vtbl.OnModalInput := CallbackCreate(GetMethod(implObj, "OnModalInput"), flags, 5)
-        this.vtbl.ShowFloating := CallbackCreate(GetMethod(implObj, "ShowFloating"), flags, 2)
-        this.vtbl.GetItemFloatingRect := CallbackCreate(GetMethod(implObj, "GetItemFloatingRect"), flags, 4)
+        this.vtbl.OnSetFocus := CallbackCreate(ObjBindMethod(implObj, "OnSetFocus"), flags, 2)
+        this.vtbl.OnThreadTerminate := CallbackCreate(ObjBindMethod(implObj, "OnThreadTerminate"), flags, 2)
+        this.vtbl.OnThreadItemChange := CallbackCreate(ObjBindMethod(implObj, "OnThreadItemChange"), flags, 2)
+        this.vtbl.OnModalInput := CallbackCreate(ObjBindMethod(implObj, "OnModalInput"), flags, 5)
+        this.vtbl.ShowFloating := CallbackCreate(ObjBindMethod(implObj, "ShowFloating"), flags, 2)
+        this.vtbl.GetItemFloatingRect := CallbackCreate(ObjBindMethod(implObj, "GetItemFloatingRect"), flags, 4)
     }
 
     Dispose() {

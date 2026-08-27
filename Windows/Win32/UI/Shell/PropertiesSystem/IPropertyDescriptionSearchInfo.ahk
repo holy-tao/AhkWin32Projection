@@ -107,10 +107,10 @@ export default struct IPropertyDescriptionSearchInfo extends IPropertyDescriptio
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSearchInfoFlags := CallbackCreate(GetMethod(implObj, "GetSearchInfoFlags"), flags, 2)
-        this.vtbl.GetColumnIndexType := CallbackCreate(GetMethod(implObj, "GetColumnIndexType"), flags, 2)
-        this.vtbl.GetProjectionString := CallbackCreate(GetMethod(implObj, "GetProjectionString"), flags, 2)
-        this.vtbl.GetMaxSize := CallbackCreate(GetMethod(implObj, "GetMaxSize"), flags, 2)
+        this.vtbl.GetSearchInfoFlags := CallbackCreate(ObjBindMethod(implObj, "GetSearchInfoFlags"), flags, 2)
+        this.vtbl.GetColumnIndexType := CallbackCreate(ObjBindMethod(implObj, "GetColumnIndexType"), flags, 2)
+        this.vtbl.GetProjectionString := CallbackCreate(ObjBindMethod(implObj, "GetProjectionString"), flags, 2)
+        this.vtbl.GetMaxSize := CallbackCreate(ObjBindMethod(implObj, "GetMaxSize"), flags, 2)
     }
 
     Dispose() {

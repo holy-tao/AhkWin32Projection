@@ -104,7 +104,7 @@ export default struct ID3D11VideoContext1 extends ID3D11VideoContext {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-getdatafornewhardwarekey
      */
     GetDataForNewHardwareKey(pCryptoSession, PrivateInputSize, pPrivatInputData) {
-        pPrivatInputDataMarshal := pPrivatInputData is VarRef ? "ptr" : "ptr"
+        pPrivatInputDataMarshal := pPrivatInputData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(66, this, "ptr", pCryptoSession, UInt32, PrivateInputSize, pPrivatInputDataMarshal, pPrivatInputData, "uint*", &pPrivateOutputData := 0, "HRESULT")
         return pPrivateOutputData
@@ -243,7 +243,7 @@ export default struct ID3D11VideoContext1 extends ID3D11VideoContext {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorgetoutputcolorspace1
      */
     VideoProcessorGetOutputColorSpace1(pVideoProcessor, pColorSpace) {
-        pColorSpaceMarshal := pColorSpace is VarRef ? "int*" : "ptr"
+        pColorSpaceMarshal := pColorSpace is VarRef ? "int*" : IntPtr
 
         ComCall(72, this, "ptr", pVideoProcessor, pColorSpaceMarshal, pColorSpace)
     }
@@ -260,7 +260,7 @@ export default struct ID3D11VideoContext1 extends ID3D11VideoContext {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorgetoutputshaderusage
      */
     VideoProcessorGetOutputShaderUsage(pVideoProcessor, pShaderUsage) {
-        pShaderUsageMarshal := pShaderUsage is VarRef ? "int*" : "ptr"
+        pShaderUsageMarshal := pShaderUsage is VarRef ? "int*" : IntPtr
 
         ComCall(73, this, "ptr", pVideoProcessor, pShaderUsageMarshal, pShaderUsage)
     }
@@ -330,7 +330,7 @@ export default struct ID3D11VideoContext1 extends ID3D11VideoContext {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorgetstreamcolorspace1
      */
     VideoProcessorGetStreamColorSpace1(pVideoProcessor, StreamIndex, pColorSpace) {
-        pColorSpaceMarshal := pColorSpace is VarRef ? "int*" : "ptr"
+        pColorSpaceMarshal := pColorSpace is VarRef ? "int*" : IntPtr
 
         ComCall(76, this, "ptr", pVideoProcessor, UInt32, StreamIndex, pColorSpaceMarshal, pColorSpace)
     }
@@ -356,9 +356,9 @@ export default struct ID3D11VideoContext1 extends ID3D11VideoContext {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorgetstreammirror
      */
     VideoProcessorGetStreamMirror(pVideoProcessor, StreamIndex, pEnable, pFlipHorizontal, pFlipVertical) {
-        pEnableMarshal := pEnable is VarRef ? "int*" : "ptr"
-        pFlipHorizontalMarshal := pFlipHorizontal is VarRef ? "int*" : "ptr"
-        pFlipVerticalMarshal := pFlipVertical is VarRef ? "int*" : "ptr"
+        pEnableMarshal := pEnable is VarRef ? "int*" : IntPtr
+        pFlipHorizontalMarshal := pFlipHorizontal is VarRef ? "int*" : IntPtr
+        pFlipVerticalMarshal := pFlipVertical is VarRef ? "int*" : IntPtr
 
         ComCall(77, this, "ptr", pVideoProcessor, UInt32, StreamIndex, pEnableMarshal, pEnable, pFlipHorizontalMarshal, pFlipHorizontal, pFlipVerticalMarshal, pFlipVertical)
     }
@@ -404,20 +404,20 @@ export default struct ID3D11VideoContext1 extends ID3D11VideoContext {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SubmitDecoderBuffers1 := CallbackCreate(GetMethod(implObj, "SubmitDecoderBuffers1"), flags, 4)
-        this.vtbl.GetDataForNewHardwareKey := CallbackCreate(GetMethod(implObj, "GetDataForNewHardwareKey"), flags, 5)
-        this.vtbl.CheckCryptoSessionStatus := CallbackCreate(GetMethod(implObj, "CheckCryptoSessionStatus"), flags, 3)
-        this.vtbl.DecoderEnableDownsampling := CallbackCreate(GetMethod(implObj, "DecoderEnableDownsampling"), flags, 5)
-        this.vtbl.DecoderUpdateDownsampling := CallbackCreate(GetMethod(implObj, "DecoderUpdateDownsampling"), flags, 3)
-        this.vtbl.VideoProcessorSetOutputColorSpace1 := CallbackCreate(GetMethod(implObj, "VideoProcessorSetOutputColorSpace1"), flags, 3)
-        this.vtbl.VideoProcessorSetOutputShaderUsage := CallbackCreate(GetMethod(implObj, "VideoProcessorSetOutputShaderUsage"), flags, 3)
-        this.vtbl.VideoProcessorGetOutputColorSpace1 := CallbackCreate(GetMethod(implObj, "VideoProcessorGetOutputColorSpace1"), flags, 3)
-        this.vtbl.VideoProcessorGetOutputShaderUsage := CallbackCreate(GetMethod(implObj, "VideoProcessorGetOutputShaderUsage"), flags, 3)
-        this.vtbl.VideoProcessorSetStreamColorSpace1 := CallbackCreate(GetMethod(implObj, "VideoProcessorSetStreamColorSpace1"), flags, 4)
-        this.vtbl.VideoProcessorSetStreamMirror := CallbackCreate(GetMethod(implObj, "VideoProcessorSetStreamMirror"), flags, 6)
-        this.vtbl.VideoProcessorGetStreamColorSpace1 := CallbackCreate(GetMethod(implObj, "VideoProcessorGetStreamColorSpace1"), flags, 4)
-        this.vtbl.VideoProcessorGetStreamMirror := CallbackCreate(GetMethod(implObj, "VideoProcessorGetStreamMirror"), flags, 6)
-        this.vtbl.VideoProcessorGetBehaviorHints := CallbackCreate(GetMethod(implObj, "VideoProcessorGetBehaviorHints"), flags, 8)
+        this.vtbl.SubmitDecoderBuffers1 := CallbackCreate(ObjBindMethod(implObj, "SubmitDecoderBuffers1"), flags, 4)
+        this.vtbl.GetDataForNewHardwareKey := CallbackCreate(ObjBindMethod(implObj, "GetDataForNewHardwareKey"), flags, 5)
+        this.vtbl.CheckCryptoSessionStatus := CallbackCreate(ObjBindMethod(implObj, "CheckCryptoSessionStatus"), flags, 3)
+        this.vtbl.DecoderEnableDownsampling := CallbackCreate(ObjBindMethod(implObj, "DecoderEnableDownsampling"), flags, 5)
+        this.vtbl.DecoderUpdateDownsampling := CallbackCreate(ObjBindMethod(implObj, "DecoderUpdateDownsampling"), flags, 3)
+        this.vtbl.VideoProcessorSetOutputColorSpace1 := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorSetOutputColorSpace1"), flags, 3)
+        this.vtbl.VideoProcessorSetOutputShaderUsage := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorSetOutputShaderUsage"), flags, 3)
+        this.vtbl.VideoProcessorGetOutputColorSpace1 := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorGetOutputColorSpace1"), flags, 3)
+        this.vtbl.VideoProcessorGetOutputShaderUsage := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorGetOutputShaderUsage"), flags, 3)
+        this.vtbl.VideoProcessorSetStreamColorSpace1 := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorSetStreamColorSpace1"), flags, 4)
+        this.vtbl.VideoProcessorSetStreamMirror := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorSetStreamMirror"), flags, 6)
+        this.vtbl.VideoProcessorGetStreamColorSpace1 := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorGetStreamColorSpace1"), flags, 4)
+        this.vtbl.VideoProcessorGetStreamMirror := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorGetStreamMirror"), flags, 6)
+        this.vtbl.VideoProcessorGetBehaviorHints := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorGetBehaviorHints"), flags, 8)
     }
 
     Dispose() {

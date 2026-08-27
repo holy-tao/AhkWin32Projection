@@ -75,7 +75,7 @@ export default struct IBDA_DRIDRMService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_dridrmservice-getpairingstatus
      */
     GetPairingStatus(penumPairingStatus) {
-        penumPairingStatusMarshal := penumPairingStatus is VarRef ? "int*" : "ptr"
+        penumPairingStatusMarshal := penumPairingStatus is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, penumPairingStatusMarshal, penumPairingStatus, "HRESULT")
         return result
@@ -90,9 +90,9 @@ export default struct IBDA_DRIDRMService extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetDRM := CallbackCreate(GetMethod(implObj, "SetDRM"), flags, 2)
-        this.vtbl.GetDRMStatus := CallbackCreate(GetMethod(implObj, "GetDRMStatus"), flags, 3)
-        this.vtbl.GetPairingStatus := CallbackCreate(GetMethod(implObj, "GetPairingStatus"), flags, 2)
+        this.vtbl.SetDRM := CallbackCreate(ObjBindMethod(implObj, "SetDRM"), flags, 2)
+        this.vtbl.GetDRMStatus := CallbackCreate(ObjBindMethod(implObj, "GetDRMStatus"), flags, 3)
+        this.vtbl.GetPairingStatus := CallbackCreate(ObjBindMethod(implObj, "GetPairingStatus"), flags, 2)
     }
 
     Dispose() {

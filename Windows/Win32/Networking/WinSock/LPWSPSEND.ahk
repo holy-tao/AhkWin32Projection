@@ -88,7 +88,6 @@ export default struct LPWSPSEND {
     }
 
     /**
-     * 
      * @param {SOCKET} s A descriptor identifying a connected socket.
      * @param {Pointer<WSABUF>} lpBuffers A pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/ws2def/ns-ws2def-wsabuf">WSABUF</a> structures. Each **WSABUF** structure contains a pointer to a buffer and the length of the buffer, in bytes. For a Winsock application, once the **LPWSPSend** function is called, the system owns these buffers and the application may not access them. Data buffers referenced in each WSABUF structure are owned by the system and your application may not access them for the lifetime of the call.
      * @param {Integer} dwBufferCount The number of <a href="https://docs.microsoft.com/windows/win32/api/ws2def/ns-ws2def-wsabuf">WSABUF</a> structures in the <i>lpBuffers</i> array.
@@ -281,10 +280,14 @@ export default struct LPWSPSEND {
      * </table>
      */
     Call(s, lpBuffers, dwBufferCount, lpNumberOfBytesSent, dwFlags, lpOverlapped, lpCompletionRoutine, lpThreadId, lpErrno) {
-        lpNumberOfBytesSentMarshal := lpNumberOfBytesSent is VarRef ? "uint*" : "ptr"
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        lpNumberOfBytesSentMarshal := lpNumberOfBytesSent is VarRef ? "uint*" : IntPtr
+        lpNumberOfBytesSentMarshal := lpNumberOfBytesSent == 0 ? IntPtr : "uint*"
+        lpOverlappedMarshal := lpOverlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+        lpCompletionRoutineMarshal := lpCompletionRoutine == 0 ? IntPtr : LPWSAOVERLAPPED_COMPLETION_ROUTINE
+        lpThreadIdMarshal := lpThreadId == 0 ? IntPtr : WSATHREADID.Ptr
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
-        result := DllCall(this.value, SOCKET, s, WSABUF.Ptr, lpBuffers, UInt32, dwBufferCount, lpNumberOfBytesSentMarshal, lpNumberOfBytesSent, UInt32, dwFlags, OVERLAPPED.Ptr, lpOverlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE, lpCompletionRoutine, WSATHREADID.Ptr, lpThreadId, lpErrnoMarshal, lpErrno, Int32)
+        result := DllCall(this.value, SOCKET, s, WSABUF.Ptr, lpBuffers, UInt32, dwBufferCount, lpNumberOfBytesSentMarshal, lpNumberOfBytesSent, UInt32, dwFlags, lpOverlappedMarshal, lpOverlapped, lpCompletionRoutineMarshal, lpCompletionRoutine, lpThreadIdMarshal, lpThreadId, lpErrnoMarshal, lpErrno, Int32)
         return result
     }
 

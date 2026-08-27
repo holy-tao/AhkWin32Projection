@@ -99,8 +99,8 @@ export default struct ISearchItemsChangedSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchitemschangedsink-onitemschanged
      */
     OnItemsChanged(dwNumberOfChanges, rgDataChangeEntries, rgdwDocIds, rghrCompletionCodes) {
-        rgdwDocIdsMarshal := rgdwDocIds is VarRef ? "uint*" : "ptr"
-        rghrCompletionCodesMarshal := rghrCompletionCodes is VarRef ? "int*" : "ptr"
+        rgdwDocIdsMarshal := rgdwDocIds is VarRef ? "uint*" : IntPtr
+        rghrCompletionCodesMarshal := rghrCompletionCodes is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, UInt32, dwNumberOfChanges, SEARCH_ITEM_CHANGE.Ptr, rgDataChangeEntries, rgdwDocIdsMarshal, rgdwDocIds, rghrCompletionCodesMarshal, rghrCompletionCodes, "HRESULT")
         return result
@@ -115,9 +115,9 @@ export default struct ISearchItemsChangedSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StartedMonitoringScope := CallbackCreate(GetMethod(implObj, "StartedMonitoringScope"), flags, 2)
-        this.vtbl.StoppedMonitoringScope := CallbackCreate(GetMethod(implObj, "StoppedMonitoringScope"), flags, 2)
-        this.vtbl.OnItemsChanged := CallbackCreate(GetMethod(implObj, "OnItemsChanged"), flags, 5)
+        this.vtbl.StartedMonitoringScope := CallbackCreate(ObjBindMethod(implObj, "StartedMonitoringScope"), flags, 2)
+        this.vtbl.StoppedMonitoringScope := CallbackCreate(ObjBindMethod(implObj, "StoppedMonitoringScope"), flags, 2)
+        this.vtbl.OnItemsChanged := CallbackCreate(ObjBindMethod(implObj, "OnItemsChanged"), flags, 5)
     }
 
     Dispose() {

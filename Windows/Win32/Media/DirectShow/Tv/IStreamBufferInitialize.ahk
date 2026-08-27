@@ -160,7 +160,7 @@ export default struct IStreamBufferInitialize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferinitialize-setsids
      */
     SetSIDs(cSIDs, ppSID) {
-        ppSIDMarshal := ppSID is VarRef ? "ptr*" : "ptr"
+        ppSIDMarshal := ppSID is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, UInt32, cSIDs, ppSIDMarshal, ppSID, "HRESULT")
         return result
@@ -175,8 +175,8 @@ export default struct IStreamBufferInitialize extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetHKEY := CallbackCreate(GetMethod(implObj, "SetHKEY"), flags, 2)
-        this.vtbl.SetSIDs := CallbackCreate(GetMethod(implObj, "SetSIDs"), flags, 3)
+        this.vtbl.SetHKEY := CallbackCreate(ObjBindMethod(implObj, "SetHKEY"), flags, 2)
+        this.vtbl.SetSIDs := CallbackCreate(ObjBindMethod(implObj, "SetSIDs"), flags, 3)
     }
 
     Dispose() {

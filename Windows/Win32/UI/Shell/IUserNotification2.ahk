@@ -166,11 +166,11 @@ export default struct IUserNotification2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetBalloonInfo := CallbackCreate(GetMethod(implObj, "SetBalloonInfo"), flags, 4)
-        this.vtbl.SetBalloonRetry := CallbackCreate(GetMethod(implObj, "SetBalloonRetry"), flags, 4)
-        this.vtbl.SetIconInfo := CallbackCreate(GetMethod(implObj, "SetIconInfo"), flags, 3)
-        this.vtbl.Show := CallbackCreate(GetMethod(implObj, "Show"), flags, 4)
-        this.vtbl.PlaySound := CallbackCreate(GetMethod(implObj, "PlaySound"), flags, 2)
+        this.vtbl.SetBalloonInfo := CallbackCreate(ObjBindMethod(implObj, "SetBalloonInfo"), flags, 4)
+        this.vtbl.SetBalloonRetry := CallbackCreate(ObjBindMethod(implObj, "SetBalloonRetry"), flags, 4)
+        this.vtbl.SetIconInfo := CallbackCreate(ObjBindMethod(implObj, "SetIconInfo"), flags, 3)
+        this.vtbl.Show := CallbackCreate(ObjBindMethod(implObj, "Show"), flags, 4)
+        this.vtbl.PlaySound := CallbackCreate(ObjBindMethod(implObj, "PlaySound"), flags, 2)
     }
 
     Dispose() {

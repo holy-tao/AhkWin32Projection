@@ -58,7 +58,7 @@ export default struct IDMLDebugDevice extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetMuteDebugOutput := CallbackCreate(GetMethod(implObj, "SetMuteDebugOutput"), flags, 2)
+        this.vtbl.SetMuteDebugOutput := CallbackCreate(ObjBindMethod(implObj, "SetMuteDebugOutput"), flags, 2)
     }
 
     Dispose() {

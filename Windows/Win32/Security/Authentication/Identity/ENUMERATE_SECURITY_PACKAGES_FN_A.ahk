@@ -21,14 +21,13 @@ export default struct ENUMERATE_SECURITY_PACKAGES_FN_A {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Pointer<SecPkgInfoA>>} param1 
      * @returns {HRESULT} 
      */
     Call(param0, param1) {
-        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-        param1Marshal := param1 is VarRef ? "ptr*" : "ptr"
+        param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+        param1Marshal := param1 is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, param0Marshal, param0, param1Marshal, param1, "HRESULT")
         return result

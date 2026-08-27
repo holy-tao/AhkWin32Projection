@@ -19,7 +19,6 @@ export default struct UTextMapOffsetToNative {
     }
 
     /**
-     * 
      * @param {Pointer<UText>} ut 
      * @returns {Integer} 
      */

@@ -57,7 +57,7 @@ export default struct ITfInputScope2 extends ITfInputScope {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumWordList := CallbackCreate(GetMethod(implObj, "EnumWordList"), flags, 2)
+        this.vtbl.EnumWordList := CallbackCreate(ObjBindMethod(implObj, "EnumWordList"), flags, 2)
     }
 
     Dispose() {

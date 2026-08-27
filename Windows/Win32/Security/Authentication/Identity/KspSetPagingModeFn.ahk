@@ -20,7 +20,6 @@ export default struct KspSetPagingModeFn {
     }
 
     /**
-     * 
      * @param {BOOLEAN} PagingMode 
      * @returns {NTSTATUS} 
      */

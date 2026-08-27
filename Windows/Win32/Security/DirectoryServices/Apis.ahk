@@ -114,7 +114,10 @@ export DSCreateISecurityInfoObject(pwszObjectPath, pwszObjectClass, dwFlags, pfn
     pwszObjectPath := pwszObjectPath is String ? StrPtr(pwszObjectPath) : pwszObjectPath
     pwszObjectClass := pwszObjectClass is String ? StrPtr(pwszObjectClass) : pwszObjectClass
 
-    result := DllCall("DSSEC.dll\DSCreateISecurityInfoObject", "ptr", pwszObjectPath, "ptr", pwszObjectClass, UInt32, dwFlags, "ptr*", &ppSI := 0, PFNREADOBJECTSECURITY, pfnReadSD, PFNWRITEOBJECTSECURITY, pfnWriteSD, LPARAM, lpContext, "HRESULT")
+    pfnReadSDMarshal := pfnReadSD == 0 ? IntPtr : PFNREADOBJECTSECURITY
+    pfnWriteSDMarshal := pfnWriteSD == 0 ? IntPtr : PFNWRITEOBJECTSECURITY
+
+    result := DllCall("DSSEC.dll\DSCreateISecurityInfoObject", "ptr", pwszObjectPath, "ptr", pwszObjectClass, UInt32, dwFlags, "ptr*", &ppSI := 0, pfnReadSDMarshal, pfnReadSD, pfnWriteSDMarshal, pfnWriteSD, LPARAM, lpContext, "HRESULT")
     return ISecurityInformation(ppSI)
 }
 
@@ -224,7 +227,10 @@ export DSCreateISecurityInfoObjectEx(pwszObjectPath, pwszObjectClass, pwszServer
     pwszUserName := pwszUserName is String ? StrPtr(pwszUserName) : pwszUserName
     pwszPassword := pwszPassword is String ? StrPtr(pwszPassword) : pwszPassword
 
-    result := DllCall("DSSEC.dll\DSCreateISecurityInfoObjectEx", "ptr", pwszObjectPath, "ptr", pwszObjectClass, "ptr", pwszServer, "ptr", pwszUserName, "ptr", pwszPassword, UInt32, dwFlags, "ptr*", &ppSI := 0, PFNREADOBJECTSECURITY, pfnReadSD, PFNWRITEOBJECTSECURITY, pfnWriteSD, LPARAM, lpContext, "HRESULT")
+    pfnReadSDMarshal := pfnReadSD == 0 ? IntPtr : PFNREADOBJECTSECURITY
+    pfnWriteSDMarshal := pfnWriteSD == 0 ? IntPtr : PFNWRITEOBJECTSECURITY
+
+    result := DllCall("DSSEC.dll\DSCreateISecurityInfoObjectEx", "ptr", pwszObjectPath, "ptr", pwszObjectClass, "ptr", pwszServer, "ptr", pwszUserName, "ptr", pwszPassword, UInt32, dwFlags, "ptr*", &ppSI := 0, pfnReadSDMarshal, pfnReadSD, pfnWriteSDMarshal, pfnWriteSD, LPARAM, lpContext, "HRESULT")
     return ISecurityInformation(ppSI)
 }
 
@@ -333,8 +339,11 @@ export DSCreateSecurityPage(pwszObjectPath, pwszObjectClass, dwFlags, pfnReadSD,
     pwszObjectPath := pwszObjectPath is String ? StrPtr(pwszObjectPath) : pwszObjectPath
     pwszObjectClass := pwszObjectClass is String ? StrPtr(pwszObjectClass) : pwszObjectClass
 
+    pfnReadSDMarshal := pfnReadSD == 0 ? IntPtr : PFNREADOBJECTSECURITY
+    pfnWriteSDMarshal := pfnWriteSD == 0 ? IntPtr : PFNWRITEOBJECTSECURITY
+
     phPage := HPROPSHEETPAGE.Owned()
-    result := DllCall("DSSEC.dll\DSCreateSecurityPage", "ptr", pwszObjectPath, "ptr", pwszObjectClass, UInt32, dwFlags, HPROPSHEETPAGE.Ptr, phPage, PFNREADOBJECTSECURITY, pfnReadSD, PFNWRITEOBJECTSECURITY, pfnWriteSD, LPARAM, lpContext, "HRESULT")
+    result := DllCall("DSSEC.dll\DSCreateSecurityPage", "ptr", pwszObjectPath, "ptr", pwszObjectClass, UInt32, dwFlags, HPROPSHEETPAGE.Ptr, phPage, pfnReadSDMarshal, pfnReadSD, pfnWriteSDMarshal, pfnWriteSD, LPARAM, lpContext, "HRESULT")
     return phPage
 }
 
@@ -359,7 +368,10 @@ export DSEditSecurity(hwndOwner, pwszObjectPath, pwszObjectClass, dwFlags, pwszC
     pwszObjectClass := pwszObjectClass is String ? StrPtr(pwszObjectClass) : pwszObjectClass
     pwszCaption := pwszCaption is String ? StrPtr(pwszCaption) : pwszCaption
 
-    result := DllCall("DSSEC.dll\DSEditSecurity", HWND, hwndOwner, "ptr", pwszObjectPath, "ptr", pwszObjectClass, UInt32, dwFlags, "ptr", pwszCaption, PFNREADOBJECTSECURITY, pfnReadSD, PFNWRITEOBJECTSECURITY, pfnWriteSD, LPARAM, lpContext, "HRESULT")
+    pfnReadSDMarshal := pfnReadSD == 0 ? IntPtr : PFNREADOBJECTSECURITY
+    pfnWriteSDMarshal := pfnWriteSD == 0 ? IntPtr : PFNWRITEOBJECTSECURITY
+
+    result := DllCall("DSSEC.dll\DSEditSecurity", HWND, hwndOwner, "ptr", pwszObjectPath, "ptr", pwszObjectClass, UInt32, dwFlags, "ptr", pwszCaption, pfnReadSDMarshal, pfnReadSD, pfnWriteSDMarshal, pfnWriteSD, LPARAM, lpContext, "HRESULT")
     return result
 }
 

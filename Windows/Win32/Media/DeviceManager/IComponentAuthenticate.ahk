@@ -61,9 +61,9 @@ export default struct IComponentAuthenticate extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-icomponentauthenticate-sacauth
      */
     SACAuth(dwProtocolID, dwPass, pbDataIn, dwDataInLen, ppbDataOut, pdwDataOutLen) {
-        pbDataInMarshal := pbDataIn is VarRef ? "char*" : "ptr"
-        ppbDataOutMarshal := ppbDataOut is VarRef ? "ptr*" : "ptr"
-        pdwDataOutLenMarshal := pdwDataOutLen is VarRef ? "uint*" : "ptr"
+        pbDataInMarshal := pbDataIn is VarRef ? "char*" : IntPtr
+        ppbDataOutMarshal := ppbDataOut is VarRef ? "ptr*" : IntPtr
+        pdwDataOutLenMarshal := pdwDataOutLen is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, UInt32, dwProtocolID, UInt32, dwPass, pbDataInMarshal, pbDataIn, UInt32, dwDataInLen, ppbDataOutMarshal, ppbDataOut, pdwDataOutLenMarshal, pdwDataOutLen, "HRESULT")
         return result
@@ -86,8 +86,8 @@ export default struct IComponentAuthenticate extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-icomponentauthenticate-sacgetprotocols
      */
     SACGetProtocols(ppdwProtocols, pdwProtocolCount) {
-        ppdwProtocolsMarshal := ppdwProtocols is VarRef ? "ptr*" : "ptr"
-        pdwProtocolCountMarshal := pdwProtocolCount is VarRef ? "uint*" : "ptr"
+        ppdwProtocolsMarshal := ppdwProtocols is VarRef ? "ptr*" : IntPtr
+        pdwProtocolCountMarshal := pdwProtocolCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, ppdwProtocolsMarshal, ppdwProtocols, pdwProtocolCountMarshal, pdwProtocolCount, "HRESULT")
         return result
@@ -102,8 +102,8 @@ export default struct IComponentAuthenticate extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SACAuth := CallbackCreate(GetMethod(implObj, "SACAuth"), flags, 7)
-        this.vtbl.SACGetProtocols := CallbackCreate(GetMethod(implObj, "SACGetProtocols"), flags, 3)
+        this.vtbl.SACAuth := CallbackCreate(ObjBindMethod(implObj, "SACAuth"), flags, 7)
+        this.vtbl.SACGetProtocols := CallbackCreate(ObjBindMethod(implObj, "SACGetProtocols"), flags, 3)
     }
 
     Dispose() {

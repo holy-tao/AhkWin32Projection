@@ -18,7 +18,6 @@ export default struct WHEA_ERROR_SOURCE_UNINITIALIZE {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

@@ -108,7 +108,7 @@ export default struct IWebApplicationHost extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/webapplication/nf-webapplication-iwebapplicationhost-advise
      */
     Advise(interfaceId, callback, cookie) {
-        cookieMarshal := cookie is VarRef ? "uint*" : "ptr"
+        cookieMarshal := cookie is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, Guid.Ptr, interfaceId, "ptr", callback, cookieMarshal, cookie, "HRESULT")
         return result
@@ -138,11 +138,11 @@ export default struct IWebApplicationHost extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_HWND := CallbackCreate(GetMethod(implObj, "get_HWND"), flags, 2)
-        this.vtbl.get_Document := CallbackCreate(GetMethod(implObj, "get_Document"), flags, 2)
-        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
-        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 4)
-        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 2)
+        this.vtbl.get_HWND := CallbackCreate(ObjBindMethod(implObj, "get_HWND"), flags, 2)
+        this.vtbl.get_Document := CallbackCreate(ObjBindMethod(implObj, "get_Document"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(ObjBindMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.Advise := CallbackCreate(ObjBindMethod(implObj, "Advise"), flags, 4)
+        this.vtbl.Unadvise := CallbackCreate(ObjBindMethod(implObj, "Unadvise"), flags, 2)
     }
 
     Dispose() {

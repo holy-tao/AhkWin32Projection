@@ -22,7 +22,6 @@ export default struct PIBIO_ENGINE_UPDATE_ENROLLMENT_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/ns-winbio_adapter-winbio_pipeline">WINBIO_PIPELINE</a> structure associated with the biometric unit performing the operation.
      * @returns {Integer} Pointer to a <b>WINBIO_REJECT_DETAIL</b> value that receives  additional information about the failure to update the enrollment object. If the update succeeds, this value should be set to zero.
      */

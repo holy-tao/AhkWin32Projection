@@ -102,7 +102,10 @@ export default struct IATSC_EIT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_eit-initialize
      */
     Initialize(pSectionList, pMPEGData) {
-        result := ComCall(3, this, "ptr", pSectionList, "ptr", pMPEGData, "HRESULT")
+        pSectionListMarshal := pSectionList == 0 ? IntPtr : "ptr"
+        pMPEGDataMarshal := pMPEGData == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pSectionListMarshal, pSectionList, pMPEGDataMarshal, pMPEGData, "HRESULT")
         return result
     }
 
@@ -263,8 +266,8 @@ export default struct IATSC_EIT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_eit-getrecordtitletext
      */
     GetRecordTitleText(dwRecordIndex, pdwLength, ppText) {
-        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
-        ppTextMarshal := ppText is VarRef ? "ptr*" : "ptr"
+        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : IntPtr
+        ppTextMarshal := ppText is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(12, this, UInt32, dwRecordIndex, pdwLengthMarshal, pdwLength, ppTextMarshal, ppText, "HRESULT")
         return result
@@ -304,7 +307,7 @@ export default struct IATSC_EIT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_eit-getrecorddescriptorbytag
      */
     GetRecordDescriptorByTag(dwRecordIndex, bTag, pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : IntPtr
 
         result := ComCall(15, this, UInt32, dwRecordIndex, Int8, bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
@@ -319,19 +322,19 @@ export default struct IATSC_EIT extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.GetVersionNumber := CallbackCreate(GetMethod(implObj, "GetVersionNumber"), flags, 2)
-        this.vtbl.GetSourceId := CallbackCreate(GetMethod(implObj, "GetSourceId"), flags, 2)
-        this.vtbl.GetProtocolVersion := CallbackCreate(GetMethod(implObj, "GetProtocolVersion"), flags, 2)
-        this.vtbl.GetCountOfRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRecords"), flags, 2)
-        this.vtbl.GetRecordEventId := CallbackCreate(GetMethod(implObj, "GetRecordEventId"), flags, 3)
-        this.vtbl.GetRecordStartTime := CallbackCreate(GetMethod(implObj, "GetRecordStartTime"), flags, 3)
-        this.vtbl.GetRecordEtmLocation := CallbackCreate(GetMethod(implObj, "GetRecordEtmLocation"), flags, 3)
-        this.vtbl.GetRecordDuration := CallbackCreate(GetMethod(implObj, "GetRecordDuration"), flags, 3)
-        this.vtbl.GetRecordTitleText := CallbackCreate(GetMethod(implObj, "GetRecordTitleText"), flags, 4)
-        this.vtbl.GetRecordCountOfDescriptors := CallbackCreate(GetMethod(implObj, "GetRecordCountOfDescriptors"), flags, 3)
-        this.vtbl.GetRecordDescriptorByIndex := CallbackCreate(GetMethod(implObj, "GetRecordDescriptorByIndex"), flags, 4)
-        this.vtbl.GetRecordDescriptorByTag := CallbackCreate(GetMethod(implObj, "GetRecordDescriptorByTag"), flags, 5)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetVersionNumber := CallbackCreate(ObjBindMethod(implObj, "GetVersionNumber"), flags, 2)
+        this.vtbl.GetSourceId := CallbackCreate(ObjBindMethod(implObj, "GetSourceId"), flags, 2)
+        this.vtbl.GetProtocolVersion := CallbackCreate(ObjBindMethod(implObj, "GetProtocolVersion"), flags, 2)
+        this.vtbl.GetCountOfRecords := CallbackCreate(ObjBindMethod(implObj, "GetCountOfRecords"), flags, 2)
+        this.vtbl.GetRecordEventId := CallbackCreate(ObjBindMethod(implObj, "GetRecordEventId"), flags, 3)
+        this.vtbl.GetRecordStartTime := CallbackCreate(ObjBindMethod(implObj, "GetRecordStartTime"), flags, 3)
+        this.vtbl.GetRecordEtmLocation := CallbackCreate(ObjBindMethod(implObj, "GetRecordEtmLocation"), flags, 3)
+        this.vtbl.GetRecordDuration := CallbackCreate(ObjBindMethod(implObj, "GetRecordDuration"), flags, 3)
+        this.vtbl.GetRecordTitleText := CallbackCreate(ObjBindMethod(implObj, "GetRecordTitleText"), flags, 4)
+        this.vtbl.GetRecordCountOfDescriptors := CallbackCreate(ObjBindMethod(implObj, "GetRecordCountOfDescriptors"), flags, 3)
+        this.vtbl.GetRecordDescriptorByIndex := CallbackCreate(ObjBindMethod(implObj, "GetRecordDescriptorByIndex"), flags, 4)
+        this.vtbl.GetRecordDescriptorByTag := CallbackCreate(ObjBindMethod(implObj, "GetRecordDescriptorByTag"), flags, 5)
     }
 
     Dispose() {

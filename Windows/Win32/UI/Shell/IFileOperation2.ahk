@@ -37,7 +37,6 @@ export default struct IFileOperation2 extends IFileOperation {
     }
 
     /**
-     * 
      * @param {FILE_OPERATION_FLAGS2} operationFlags2 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,7 @@ export default struct IFileOperation2 extends IFileOperation {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetOperationFlags2 := CallbackCreate(GetMethod(implObj, "SetOperationFlags2"), flags, 2)
+        this.vtbl.SetOperationFlags2 := CallbackCreate(ObjBindMethod(implObj, "SetOperationFlags2"), flags, 2)
     }
 
     Dispose() {

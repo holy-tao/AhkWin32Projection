@@ -18,7 +18,6 @@ export default struct PFNCLOSE {
     }
 
     /**
-     * 
      * @param {Pointer} hf 
      * @returns {Integer} 
      */

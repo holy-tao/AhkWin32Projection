@@ -108,8 +108,8 @@ export default struct IInterval extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iinterval-getlimits
      */
     GetLimits(pilkLower, ppropvarLower, pilkUpper, ppropvarUpper) {
-        pilkLowerMarshal := pilkLower is VarRef ? "int*" : "ptr"
-        pilkUpperMarshal := pilkUpper is VarRef ? "int*" : "ptr"
+        pilkLowerMarshal := pilkLower is VarRef ? "int*" : IntPtr
+        pilkUpperMarshal := pilkUpper is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, pilkLowerMarshal, pilkLower, PROPVARIANT.Ptr, ppropvarLower, pilkUpperMarshal, pilkUpper, PROPVARIANT.Ptr, ppropvarUpper, "HRESULT")
         return result
@@ -124,7 +124,7 @@ export default struct IInterval extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLimits := CallbackCreate(GetMethod(implObj, "GetLimits"), flags, 5)
+        this.vtbl.GetLimits := CallbackCreate(ObjBindMethod(implObj, "GetLimits"), flags, 5)
     }
 
     Dispose() {

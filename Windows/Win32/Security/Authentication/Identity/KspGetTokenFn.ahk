@@ -20,16 +20,17 @@ export default struct KspGetTokenFn {
     }
 
     /**
-     * 
      * @param {Pointer} ContextId 
      * @param {Pointer<HANDLE>} ImpersonationToken 
      * @param {Pointer<Pointer<Void>>} RawToken 
      * @returns {NTSTATUS} 
      */
     Call(ContextId, ImpersonationToken, RawToken) {
-        RawTokenMarshal := RawToken is VarRef ? "ptr*" : "ptr"
+        ImpersonationTokenMarshal := ImpersonationToken == 0 ? IntPtr : HANDLE.Ptr
+        RawTokenMarshal := RawToken is VarRef ? "ptr*" : IntPtr
+        RawTokenMarshal := RawToken == 0 ? IntPtr : "ptr*"
 
-        result := DllCall(this.value, IntPtr, ContextId, HANDLE.Ptr, ImpersonationToken, RawTokenMarshal, RawToken, NTSTATUS)
+        result := DllCall(this.value, IntPtr, ContextId, ImpersonationTokenMarshal, ImpersonationToken, RawTokenMarshal, RawToken, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

@@ -21,7 +21,6 @@ export default struct PCLUSAPI_CLUSTER_AFFINITY_RULE_CONTROL {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} affinityRuleName 
      * @param {HNODE} hHostNode 
@@ -36,9 +35,13 @@ export default struct PCLUSAPI_CLUSTER_AFFINITY_RULE_CONTROL {
     Call(_hCluster, affinityRuleName, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned) {
         affinityRuleName := affinityRuleName is String ? StrPtr(affinityRuleName) : affinityRuleName
 
-        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+        hHostNodeMarshal := hHostNode == 0 ? IntPtr : HNODE
+        lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+        lpOutBufferMarshal := lpOutBuffer == 0 ? IntPtr : IntPtr
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : IntPtr
+        lpBytesReturnedMarshal := lpBytesReturned == 0 ? IntPtr : "uint*"
 
-        result := DllCall(this.value, HCLUSTER, _hCluster, "ptr", affinityRuleName, HNODE, hHostNode, UInt32, dwControlCode, IntPtr, lpInBuffer, UInt32, cbInBufferSize, IntPtr, lpOutBuffer, UInt32, cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, UInt32)
+        result := DllCall(this.value, HCLUSTER, _hCluster, "ptr", affinityRuleName, hHostNodeMarshal, hHostNode, UInt32, dwControlCode, lpInBufferMarshal, lpInBuffer, UInt32, cbInBufferSize, lpOutBufferMarshal, lpOutBuffer, UInt32, cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, UInt32)
         return result
     }
 

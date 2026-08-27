@@ -36,7 +36,6 @@ export default struct IDxcVersionInfo3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<Integer>} 
      */
     GetCustomVersionString() {
@@ -53,7 +52,7 @@ export default struct IDxcVersionInfo3 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCustomVersionString := CallbackCreate(GetMethod(implObj, "GetCustomVersionString"), flags, 2)
+        this.vtbl.GetCustomVersionString := CallbackCreate(ObjBindMethod(implObj, "GetCustomVersionString"), flags, 2)
     }
 
     Dispose() {

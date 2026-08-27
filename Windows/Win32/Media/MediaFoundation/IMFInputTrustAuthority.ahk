@@ -228,12 +228,12 @@ export default struct IMFInputTrustAuthority extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDecrypter := CallbackCreate(GetMethod(implObj, "GetDecrypter"), flags, 3)
-        this.vtbl.RequestAccess := CallbackCreate(GetMethod(implObj, "RequestAccess"), flags, 3)
-        this.vtbl.GetPolicy := CallbackCreate(GetMethod(implObj, "GetPolicy"), flags, 3)
-        this.vtbl.BindAccess := CallbackCreate(GetMethod(implObj, "BindAccess"), flags, 2)
-        this.vtbl.UpdateAccess := CallbackCreate(GetMethod(implObj, "UpdateAccess"), flags, 2)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.GetDecrypter := CallbackCreate(ObjBindMethod(implObj, "GetDecrypter"), flags, 3)
+        this.vtbl.RequestAccess := CallbackCreate(ObjBindMethod(implObj, "RequestAccess"), flags, 3)
+        this.vtbl.GetPolicy := CallbackCreate(ObjBindMethod(implObj, "GetPolicy"), flags, 3)
+        this.vtbl.BindAccess := CallbackCreate(ObjBindMethod(implObj, "BindAccess"), flags, 2)
+        this.vtbl.UpdateAccess := CallbackCreate(ObjBindMethod(implObj, "UpdateAccess"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
     }
 
     Dispose() {

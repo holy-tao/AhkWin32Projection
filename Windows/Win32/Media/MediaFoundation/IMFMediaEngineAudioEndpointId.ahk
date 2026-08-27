@@ -38,19 +38,19 @@ export default struct IMFMediaEngineAudioEndpointId extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszEndpointId 
      * @returns {HRESULT} 
      */
     SetAudioEndpointId(pszEndpointId) {
         pszEndpointId := pszEndpointId is String ? StrPtr(pszEndpointId) : pszEndpointId
 
-        result := ComCall(3, this, "ptr", pszEndpointId, "HRESULT")
+        pszEndpointIdMarshal := pszEndpointId == 0 ? IntPtr : PWSTR
+
+        result := ComCall(3, this, pszEndpointIdMarshal, pszEndpointId, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetAudioEndpointId() {
@@ -67,8 +67,8 @@ export default struct IMFMediaEngineAudioEndpointId extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAudioEndpointId := CallbackCreate(GetMethod(implObj, "SetAudioEndpointId"), flags, 2)
-        this.vtbl.GetAudioEndpointId := CallbackCreate(GetMethod(implObj, "GetAudioEndpointId"), flags, 2)
+        this.vtbl.SetAudioEndpointId := CallbackCreate(ObjBindMethod(implObj, "SetAudioEndpointId"), flags, 2)
+        this.vtbl.GetAudioEndpointId := CallbackCreate(ObjBindMethod(implObj, "GetAudioEndpointId"), flags, 2)
     }
 
     Dispose() {

@@ -139,7 +139,6 @@ export default struct Document extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Save() {
@@ -148,7 +147,6 @@ export default struct Document extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Filename 
      * @returns {HRESULT} 
      */
@@ -160,7 +158,6 @@ export default struct Document extends IDispatch {
     }
 
     /**
-     * 
      * @param {BOOL} SaveChanges 
      * @returns {HRESULT} 
      */
@@ -170,7 +167,6 @@ export default struct Document extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Views} 
      */
     get_Views() {
@@ -179,7 +175,6 @@ export default struct Document extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SnapIns} 
      */
     get_SnapIns() {
@@ -188,7 +183,6 @@ export default struct Document extends IDispatch {
     }
 
     /**
-     * 
      * @returns {View} 
      */
     get_ActiveView() {
@@ -197,7 +191,6 @@ export default struct Document extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -207,7 +200,6 @@ export default struct Document extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Name 
      * @returns {HRESULT} 
      */
@@ -219,7 +211,6 @@ export default struct Document extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Location() {
@@ -229,7 +220,6 @@ export default struct Document extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsSaved() {
@@ -238,7 +228,6 @@ export default struct Document extends IDispatch {
     }
 
     /**
-     * 
      * @returns {_DocumentMode} 
      */
     get_Mode() {
@@ -247,7 +236,6 @@ export default struct Document extends IDispatch {
     }
 
     /**
-     * 
      * @param {_DocumentMode} _Mode 
      * @returns {HRESULT} 
      */
@@ -257,7 +245,6 @@ export default struct Document extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Node} 
      */
     get_RootNode() {
@@ -266,7 +253,6 @@ export default struct Document extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ScopeNamespace} 
      */
     get_ScopeNamespace() {
@@ -275,7 +261,6 @@ export default struct Document extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Properties} 
      */
     CreateProperties() {
@@ -284,7 +269,6 @@ export default struct Document extends IDispatch {
     }
 
     /**
-     * 
      * @returns {_Application} 
      */
     get_Application() {
@@ -301,22 +285,22 @@ export default struct Document extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 1)
-        this.vtbl.SaveAs := CallbackCreate(GetMethod(implObj, "SaveAs"), flags, 2)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 2)
-        this.vtbl.get_Views := CallbackCreate(GetMethod(implObj, "get_Views"), flags, 2)
-        this.vtbl.get_SnapIns := CallbackCreate(GetMethod(implObj, "get_SnapIns"), flags, 2)
-        this.vtbl.get_ActiveView := CallbackCreate(GetMethod(implObj, "get_ActiveView"), flags, 2)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
-        this.vtbl.get_Location := CallbackCreate(GetMethod(implObj, "get_Location"), flags, 2)
-        this.vtbl.get_IsSaved := CallbackCreate(GetMethod(implObj, "get_IsSaved"), flags, 2)
-        this.vtbl.get_Mode := CallbackCreate(GetMethod(implObj, "get_Mode"), flags, 2)
-        this.vtbl.put_Mode := CallbackCreate(GetMethod(implObj, "put_Mode"), flags, 2)
-        this.vtbl.get_RootNode := CallbackCreate(GetMethod(implObj, "get_RootNode"), flags, 2)
-        this.vtbl.get_ScopeNamespace := CallbackCreate(GetMethod(implObj, "get_ScopeNamespace"), flags, 2)
-        this.vtbl.CreateProperties := CallbackCreate(GetMethod(implObj, "CreateProperties"), flags, 2)
-        this.vtbl.get_Application := CallbackCreate(GetMethod(implObj, "get_Application"), flags, 2)
+        this.vtbl.Save := CallbackCreate(ObjBindMethod(implObj, "Save"), flags, 1)
+        this.vtbl.SaveAs := CallbackCreate(ObjBindMethod(implObj, "SaveAs"), flags, 2)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 2)
+        this.vtbl.get_Views := CallbackCreate(ObjBindMethod(implObj, "get_Views"), flags, 2)
+        this.vtbl.get_SnapIns := CallbackCreate(ObjBindMethod(implObj, "get_SnapIns"), flags, 2)
+        this.vtbl.get_ActiveView := CallbackCreate(ObjBindMethod(implObj, "get_ActiveView"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(ObjBindMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.get_Location := CallbackCreate(ObjBindMethod(implObj, "get_Location"), flags, 2)
+        this.vtbl.get_IsSaved := CallbackCreate(ObjBindMethod(implObj, "get_IsSaved"), flags, 2)
+        this.vtbl.get_Mode := CallbackCreate(ObjBindMethod(implObj, "get_Mode"), flags, 2)
+        this.vtbl.put_Mode := CallbackCreate(ObjBindMethod(implObj, "put_Mode"), flags, 2)
+        this.vtbl.get_RootNode := CallbackCreate(ObjBindMethod(implObj, "get_RootNode"), flags, 2)
+        this.vtbl.get_ScopeNamespace := CallbackCreate(ObjBindMethod(implObj, "get_ScopeNamespace"), flags, 2)
+        this.vtbl.CreateProperties := CallbackCreate(ObjBindMethod(implObj, "CreateProperties"), flags, 2)
+        this.vtbl.get_Application := CallbackCreate(ObjBindMethod(implObj, "get_Application"), flags, 2)
     }
 
     Dispose() {

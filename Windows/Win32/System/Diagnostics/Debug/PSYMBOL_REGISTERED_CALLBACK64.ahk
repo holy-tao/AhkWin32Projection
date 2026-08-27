@@ -29,7 +29,6 @@ export default struct PSYMBOL_REGISTERED_CALLBACK64 {
     }
 
     /**
-     * 
      * @param {HANDLE} hProcess A handle to the process that was originally passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-syminitialize">SymInitialize</a> function.
      * @param {Integer} ActionCode 
@@ -43,7 +42,10 @@ export default struct PSYMBOL_REGISTERED_CALLBACK64 {
      * To indicate failure handling the code, return <b>FALSE</b>. If your code does not handle a particular code, you should also return <b>FALSE</b>. (Returning <b>TRUE</b> in this case may have unintended consequences.)
      */
     Call(hProcess, ActionCode, CallbackData, UserContext) {
-        result := DllCall(this.value, HANDLE, hProcess, UInt32, ActionCode, Int64, CallbackData, Int64, UserContext, BOOL)
+        CallbackDataMarshal := CallbackData == 0 ? IntPtr : Int64
+        UserContextMarshal := UserContext == 0 ? IntPtr : Int64
+
+        result := DllCall(this.value, HANDLE, hProcess, UInt32, ActionCode, CallbackDataMarshal, CallbackData, UserContextMarshal, UserContext, BOOL)
         return result
     }
 

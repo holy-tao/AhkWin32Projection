@@ -35,7 +35,6 @@ export default struct PWINBIO_VERIFY_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} VerifyCallbackContext Pointer to a buffer defined by the application and passed to the <i>VerifyCallbackContext</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioverifywithcallback">WinBioVerifyWithCallback</a> function. The buffer is not modified by the framework or the biometric unit. Your application can use the data to help it determine what actions to perform or to maintain additional information about the biometric capture.
      * @param {HRESULT} OperationStatus Error code returned by the capture operation.
      * @param {Integer} UnitId Biometric unit ID number.
@@ -44,7 +43,8 @@ export default struct PWINBIO_VERIFY_CALLBACK {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(VerifyCallbackContext, OperationStatus, UnitId, Match, RejectDetail) {
-        VerifyCallbackContextMarshal := VerifyCallbackContext is VarRef ? "ptr" : "ptr"
+        VerifyCallbackContextMarshal := VerifyCallbackContext is VarRef ? "ptr" : IntPtr
+        VerifyCallbackContextMarshal := VerifyCallbackContext == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, VerifyCallbackContextMarshal, VerifyCallbackContext, "int", OperationStatus, UInt32, UnitId, BOOLEAN, Match, UInt32, RejectDetail)
     }

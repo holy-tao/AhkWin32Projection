@@ -85,7 +85,7 @@ export default struct IDXGIOutput1 extends IDXGIOutput {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgioutput1-getdisplaymodelist1
      */
     GetDisplayModeList1(EnumFormat, Flags, pNumModes) {
-        pNumModesMarshal := pNumModes is VarRef ? "uint*" : "ptr"
+        pNumModesMarshal := pNumModes is VarRef ? "uint*" : IntPtr
 
         pDesc := DXGI_MODE_DESC1()
         result := ComCall(19, this, DXGI_FORMAT, EnumFormat, DXGI_ENUM_MODES, Flags, pNumModesMarshal, pNumModes, DXGI_MODE_DESC1.Ptr, pDesc, "HRESULT")
@@ -154,8 +154,10 @@ export default struct IDXGIOutput1 extends IDXGIOutput {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgioutput1-findclosestmatchingmode1
      */
     FindClosestMatchingMode1(pModeToMatch, pConcernedDevice) {
+        pConcernedDeviceMarshal := pConcernedDevice == 0 ? IntPtr : "ptr"
+
         pClosestMatch := DXGI_MODE_DESC1()
-        result := ComCall(20, this, DXGI_MODE_DESC1.Ptr, pModeToMatch, DXGI_MODE_DESC1.Ptr, pClosestMatch, "ptr", pConcernedDevice, "HRESULT")
+        result := ComCall(20, this, DXGI_MODE_DESC1.Ptr, pModeToMatch, DXGI_MODE_DESC1.Ptr, pClosestMatch, pConcernedDeviceMarshal, pConcernedDevice, "HRESULT")
         return pClosestMatch
     }
 
@@ -210,10 +212,10 @@ export default struct IDXGIOutput1 extends IDXGIOutput {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDisplayModeList1 := CallbackCreate(GetMethod(implObj, "GetDisplayModeList1"), flags, 5)
-        this.vtbl.FindClosestMatchingMode1 := CallbackCreate(GetMethod(implObj, "FindClosestMatchingMode1"), flags, 4)
-        this.vtbl.GetDisplaySurfaceData1 := CallbackCreate(GetMethod(implObj, "GetDisplaySurfaceData1"), flags, 2)
-        this.vtbl.DuplicateOutput := CallbackCreate(GetMethod(implObj, "DuplicateOutput"), flags, 3)
+        this.vtbl.GetDisplayModeList1 := CallbackCreate(ObjBindMethod(implObj, "GetDisplayModeList1"), flags, 5)
+        this.vtbl.FindClosestMatchingMode1 := CallbackCreate(ObjBindMethod(implObj, "FindClosestMatchingMode1"), flags, 4)
+        this.vtbl.GetDisplaySurfaceData1 := CallbackCreate(ObjBindMethod(implObj, "GetDisplaySurfaceData1"), flags, 2)
+        this.vtbl.DuplicateOutput := CallbackCreate(ObjBindMethod(implObj, "DuplicateOutput"), flags, 3)
     }
 
     Dispose() {

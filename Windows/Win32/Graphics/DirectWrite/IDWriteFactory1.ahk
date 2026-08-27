@@ -101,8 +101,8 @@ export default struct IDWriteFactory1 extends IDWriteFactory {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetEudcFontCollection := CallbackCreate(GetMethod(implObj, "GetEudcFontCollection"), flags, 3)
-        this.vtbl.CreateCustomRenderingParams := CallbackCreate(GetMethod(implObj, "CreateCustomRenderingParams"), flags, 8)
+        this.vtbl.GetEudcFontCollection := CallbackCreate(ObjBindMethod(implObj, "GetEudcFontCollection"), flags, 3)
+        this.vtbl.CreateCustomRenderingParams := CallbackCreate(ObjBindMethod(implObj, "CreateCustomRenderingParams"), flags, 8)
     }
 
     Dispose() {

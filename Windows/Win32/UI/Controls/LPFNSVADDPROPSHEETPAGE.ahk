@@ -21,7 +21,6 @@ export default struct LPFNSVADDPROPSHEETPAGE {
     }
 
     /**
-     * 
      * @param {HPROPSHEETPAGE} param0 
      * @param {LPARAM} param1 
      * @returns {BOOL} 

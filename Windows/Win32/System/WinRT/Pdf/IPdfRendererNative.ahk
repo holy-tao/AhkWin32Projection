@@ -76,7 +76,9 @@ export default struct IPdfRendererNative extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/windows.data.pdf.interop/nf-windows-data-pdf-interop-ipdfrenderernative-renderpagetosurface
      */
     RenderPageToSurface(pdfPage, pSurface, offset, pRenderParams) {
-        result := ComCall(3, this, "ptr", pdfPage, "ptr", pSurface, POINT, offset, PDF_RENDER_PARAMS.Ptr, pRenderParams, "HRESULT")
+        pRenderParamsMarshal := pRenderParams == 0 ? IntPtr : PDF_RENDER_PARAMS.Ptr
+
+        result := ComCall(3, this, "ptr", pdfPage, "ptr", pSurface, POINT, offset, pRenderParamsMarshal, pRenderParams, "HRESULT")
         return result
     }
 
@@ -109,7 +111,9 @@ export default struct IPdfRendererNative extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/windows.data.pdf.interop/nf-windows-data-pdf-interop-ipdfrenderernative-renderpagetodevicecontext
      */
     RenderPageToDeviceContext(pdfPage, pD2DDeviceContext, pRenderParams) {
-        result := ComCall(4, this, "ptr", pdfPage, "ptr", pD2DDeviceContext, PDF_RENDER_PARAMS.Ptr, pRenderParams, "HRESULT")
+        pRenderParamsMarshal := pRenderParams == 0 ? IntPtr : PDF_RENDER_PARAMS.Ptr
+
+        result := ComCall(4, this, "ptr", pdfPage, "ptr", pD2DDeviceContext, pRenderParamsMarshal, pRenderParams, "HRESULT")
         return result
     }
 
@@ -122,8 +126,8 @@ export default struct IPdfRendererNative extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RenderPageToSurface := CallbackCreate(GetMethod(implObj, "RenderPageToSurface"), flags, 5)
-        this.vtbl.RenderPageToDeviceContext := CallbackCreate(GetMethod(implObj, "RenderPageToDeviceContext"), flags, 4)
+        this.vtbl.RenderPageToSurface := CallbackCreate(ObjBindMethod(implObj, "RenderPageToSurface"), flags, 5)
+        this.vtbl.RenderPageToDeviceContext := CallbackCreate(ObjBindMethod(implObj, "RenderPageToDeviceContext"), flags, 4)
     }
 
     Dispose() {

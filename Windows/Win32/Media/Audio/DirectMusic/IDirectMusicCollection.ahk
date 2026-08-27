@@ -39,7 +39,6 @@ export default struct IDirectMusicCollection extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwPatch 
      * @returns {IDirectMusicInstrument} 
      */
@@ -49,7 +48,6 @@ export default struct IDirectMusicCollection extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwIndex 
      * @param {Pointer<Integer>} pdwPatch 
      * @param {PWSTR} pwszName 
@@ -59,7 +57,7 @@ export default struct IDirectMusicCollection extends IUnknown {
     EnumInstrument(dwIndex, pdwPatch, pwszName, dwNameLen) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        pdwPatchMarshal := pdwPatch is VarRef ? "uint*" : "ptr"
+        pdwPatchMarshal := pdwPatch is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, UInt32, dwIndex, pdwPatchMarshal, pdwPatch, "ptr", pwszName, UInt32, dwNameLen, "HRESULT")
         return result
@@ -74,8 +72,8 @@ export default struct IDirectMusicCollection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetInstrument := CallbackCreate(GetMethod(implObj, "GetInstrument"), flags, 3)
-        this.vtbl.EnumInstrument := CallbackCreate(GetMethod(implObj, "EnumInstrument"), flags, 5)
+        this.vtbl.GetInstrument := CallbackCreate(ObjBindMethod(implObj, "GetInstrument"), flags, 3)
+        this.vtbl.EnumInstrument := CallbackCreate(ObjBindMethod(implObj, "EnumInstrument"), flags, 5)
     }
 
     Dispose() {

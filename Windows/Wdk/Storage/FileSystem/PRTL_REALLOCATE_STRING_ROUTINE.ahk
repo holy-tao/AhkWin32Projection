@@ -18,7 +18,6 @@ export default struct PRTL_REALLOCATE_STRING_ROUTINE {
     }
 
     /**
-     * 
      * @returns {Pointer<Void>} 
      */
     Call() {

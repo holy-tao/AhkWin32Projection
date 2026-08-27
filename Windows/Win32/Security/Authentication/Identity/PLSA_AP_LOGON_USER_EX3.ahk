@@ -26,7 +26,6 @@ export default struct PLSA_AP_LOGON_USER_EX3 {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} ClientRequest 
      * @param {SECURITY_LOGON_TYPE} LogonType 
      * @param {Integer} ProtocolSubmitBuffer 
@@ -47,17 +46,17 @@ export default struct PLSA_AP_LOGON_USER_EX3 {
      * @returns {NTSTATUS} 
      */
     Call(ClientRequest, LogonType, ProtocolSubmitBuffer, ClientBufferBase, SubmitBufferSize, SurrogateLogon, ProfileBuffer, ProfileBufferSize, LogonId, SubStatus, TokenInformationType, TokenInformation, AccountName, AuthenticatingAuthority, MachineName, PrimaryCredentials, SupplementalCredentials) {
-        ClientRequestMarshal := ClientRequest is VarRef ? "ptr*" : "ptr"
-        ClientBufferBaseMarshal := ClientBufferBase is VarRef ? "ptr" : "ptr"
-        ProfileBufferMarshal := ProfileBuffer is VarRef ? "ptr*" : "ptr"
-        ProfileBufferSizeMarshal := ProfileBufferSize is VarRef ? "uint*" : "ptr"
-        SubStatusMarshal := SubStatus is VarRef ? "int*" : "ptr"
-        TokenInformationTypeMarshal := TokenInformationType is VarRef ? "int*" : "ptr"
-        TokenInformationMarshal := TokenInformation is VarRef ? "ptr*" : "ptr"
-        AccountNameMarshal := AccountName is VarRef ? "ptr*" : "ptr"
-        AuthenticatingAuthorityMarshal := AuthenticatingAuthority is VarRef ? "ptr*" : "ptr"
-        MachineNameMarshal := MachineName is VarRef ? "ptr*" : "ptr"
-        SupplementalCredentialsMarshal := SupplementalCredentials is VarRef ? "ptr*" : "ptr"
+        ClientRequestMarshal := ClientRequest is VarRef ? "ptr*" : IntPtr
+        ClientBufferBaseMarshal := ClientBufferBase is VarRef ? "ptr" : IntPtr
+        ProfileBufferMarshal := ProfileBuffer is VarRef ? "ptr*" : IntPtr
+        ProfileBufferSizeMarshal := ProfileBufferSize is VarRef ? "uint*" : IntPtr
+        SubStatusMarshal := SubStatus is VarRef ? "int*" : IntPtr
+        TokenInformationTypeMarshal := TokenInformationType is VarRef ? "int*" : IntPtr
+        TokenInformationMarshal := TokenInformation is VarRef ? "ptr*" : IntPtr
+        AccountNameMarshal := AccountName is VarRef ? "ptr*" : IntPtr
+        AuthenticatingAuthorityMarshal := AuthenticatingAuthority is VarRef ? "ptr*" : IntPtr
+        MachineNameMarshal := MachineName is VarRef ? "ptr*" : IntPtr
+        SupplementalCredentialsMarshal := SupplementalCredentials is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, ClientRequestMarshal, ClientRequest, SECURITY_LOGON_TYPE, LogonType, IntPtr, ProtocolSubmitBuffer, ClientBufferBaseMarshal, ClientBufferBase, UInt32, SubmitBufferSize, SECPKG_SURROGATE_LOGON.Ptr, SurrogateLogon, ProfileBufferMarshal, ProfileBuffer, ProfileBufferSizeMarshal, ProfileBufferSize, LUID.Ptr, LogonId, SubStatusMarshal, SubStatus, TokenInformationTypeMarshal, TokenInformationType, TokenInformationMarshal, TokenInformation, AccountNameMarshal, AccountName, AuthenticatingAuthorityMarshal, AuthenticatingAuthority, MachineNameMarshal, MachineName, SECPKG_PRIMARY_CRED.Ptr, PrimaryCredentials, SupplementalCredentialsMarshal, SupplementalCredentials, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

@@ -21,7 +21,6 @@ export default struct PCLUSAPI_OPEN_CLUSTER_NETWORK {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszNetworkName 
      * @returns {HNETWORK} 

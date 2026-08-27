@@ -150,7 +150,9 @@ export default struct IDCompositionVisual extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual-settransform(constd2d_matrix_3x2_f_)
      */
     SetTransform(transform) {
-        result := ComCall(7, this, "ptr", transform, "HRESULT")
+        transformMarshal := transform == 0 ? IntPtr : "ptr"
+
+        result := ComCall(7, this, transformMarshal, transform, "HRESULT")
         return result
     }
 
@@ -196,7 +198,9 @@ export default struct IDCompositionVisual extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual-settransformparent
      */
     SetTransformParent(visual) {
-        result := ComCall(9, this, "ptr", visual, "HRESULT")
+        visualMarshal := visual == 0 ? IntPtr : "ptr"
+
+        result := ComCall(9, this, visualMarshal, visual, "HRESULT")
         return result
     }
 
@@ -225,7 +229,9 @@ export default struct IDCompositionVisual extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual-seteffect
      */
     SetEffect(_effect) {
-        result := ComCall(10, this, "ptr", _effect, "HRESULT")
+        _effectMarshal := _effect == 0 ? IntPtr : "ptr"
+
+        result := ComCall(10, this, _effectMarshal, _effect, "HRESULT")
         return result
     }
 
@@ -301,7 +307,9 @@ export default struct IDCompositionVisual extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual-setclip(constd2d_rect_f_)
      */
     SetClip(clip) {
-        result := ComCall(13, this, "ptr", clip, "HRESULT")
+        clipMarshal := clip == 0 ? IntPtr : "ptr"
+
+        result := ComCall(13, this, clipMarshal, clip, "HRESULT")
         return result
     }
 
@@ -363,7 +371,9 @@ export default struct IDCompositionVisual extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual-setcontent
      */
     SetContent(content) {
-        result := ComCall(15, this, "ptr", content, "HRESULT")
+        contentMarshal := content == 0 ? IntPtr : "ptr"
+
+        result := ComCall(15, this, contentMarshal, content, "HRESULT")
         return result
     }
 
@@ -396,7 +406,9 @@ export default struct IDCompositionVisual extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual-addvisual
      */
     AddVisual(visual, insertAbove, referenceVisual) {
-        result := ComCall(16, this, "ptr", visual, BOOL, insertAbove, "ptr", referenceVisual, "HRESULT")
+        referenceVisualMarshal := referenceVisual == 0 ? IntPtr : "ptr"
+
+        result := ComCall(16, this, "ptr", visual, BOOL, insertAbove, referenceVisualMarshal, referenceVisual, "HRESULT")
         return result
     }
 
@@ -459,23 +471,23 @@ export default struct IDCompositionVisual extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetOffsetX := CallbackCreate(GetMethod(implObj, "SetOffsetX"), flags, 2)
-        this.vtbl.SetOffsetX1 := CallbackCreate(GetMethod(implObj, "SetOffsetX1"), flags, 2)
-        this.vtbl.SetOffsetY := CallbackCreate(GetMethod(implObj, "SetOffsetY"), flags, 2)
-        this.vtbl.SetOffsetY1 := CallbackCreate(GetMethod(implObj, "SetOffsetY1"), flags, 2)
-        this.vtbl.SetTransform := CallbackCreate(GetMethod(implObj, "SetTransform"), flags, 2)
-        this.vtbl.SetTransform1 := CallbackCreate(GetMethod(implObj, "SetTransform1"), flags, 2)
-        this.vtbl.SetTransformParent := CallbackCreate(GetMethod(implObj, "SetTransformParent"), flags, 2)
-        this.vtbl.SetEffect := CallbackCreate(GetMethod(implObj, "SetEffect"), flags, 2)
-        this.vtbl.SetBitmapInterpolationMode := CallbackCreate(GetMethod(implObj, "SetBitmapInterpolationMode"), flags, 2)
-        this.vtbl.SetBorderMode := CallbackCreate(GetMethod(implObj, "SetBorderMode"), flags, 2)
-        this.vtbl.SetClip := CallbackCreate(GetMethod(implObj, "SetClip"), flags, 2)
-        this.vtbl.SetClip1 := CallbackCreate(GetMethod(implObj, "SetClip1"), flags, 2)
-        this.vtbl.SetContent := CallbackCreate(GetMethod(implObj, "SetContent"), flags, 2)
-        this.vtbl.AddVisual := CallbackCreate(GetMethod(implObj, "AddVisual"), flags, 4)
-        this.vtbl.RemoveVisual := CallbackCreate(GetMethod(implObj, "RemoveVisual"), flags, 2)
-        this.vtbl.RemoveAllVisuals := CallbackCreate(GetMethod(implObj, "RemoveAllVisuals"), flags, 1)
-        this.vtbl.SetCompositeMode := CallbackCreate(GetMethod(implObj, "SetCompositeMode"), flags, 2)
+        this.vtbl.SetOffsetX := CallbackCreate(ObjBindMethod(implObj, "SetOffsetX"), flags, 2)
+        this.vtbl.SetOffsetX1 := CallbackCreate(ObjBindMethod(implObj, "SetOffsetX1"), flags, 2)
+        this.vtbl.SetOffsetY := CallbackCreate(ObjBindMethod(implObj, "SetOffsetY"), flags, 2)
+        this.vtbl.SetOffsetY1 := CallbackCreate(ObjBindMethod(implObj, "SetOffsetY1"), flags, 2)
+        this.vtbl.SetTransform := CallbackCreate(ObjBindMethod(implObj, "SetTransform"), flags, 2)
+        this.vtbl.SetTransform1 := CallbackCreate(ObjBindMethod(implObj, "SetTransform1"), flags, 2)
+        this.vtbl.SetTransformParent := CallbackCreate(ObjBindMethod(implObj, "SetTransformParent"), flags, 2)
+        this.vtbl.SetEffect := CallbackCreate(ObjBindMethod(implObj, "SetEffect"), flags, 2)
+        this.vtbl.SetBitmapInterpolationMode := CallbackCreate(ObjBindMethod(implObj, "SetBitmapInterpolationMode"), flags, 2)
+        this.vtbl.SetBorderMode := CallbackCreate(ObjBindMethod(implObj, "SetBorderMode"), flags, 2)
+        this.vtbl.SetClip := CallbackCreate(ObjBindMethod(implObj, "SetClip"), flags, 2)
+        this.vtbl.SetClip1 := CallbackCreate(ObjBindMethod(implObj, "SetClip1"), flags, 2)
+        this.vtbl.SetContent := CallbackCreate(ObjBindMethod(implObj, "SetContent"), flags, 2)
+        this.vtbl.AddVisual := CallbackCreate(ObjBindMethod(implObj, "AddVisual"), flags, 4)
+        this.vtbl.RemoveVisual := CallbackCreate(ObjBindMethod(implObj, "RemoveVisual"), flags, 2)
+        this.vtbl.RemoveAllVisuals := CallbackCreate(ObjBindMethod(implObj, "RemoveAllVisuals"), flags, 1)
+        this.vtbl.SetCompositeMode := CallbackCreate(ObjBindMethod(implObj, "SetCompositeMode"), flags, 2)
     }
 
     Dispose() {

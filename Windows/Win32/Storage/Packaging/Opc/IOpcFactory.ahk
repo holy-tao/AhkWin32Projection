@@ -293,13 +293,13 @@ export default struct IOpcFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreatePackageRootUri := CallbackCreate(GetMethod(implObj, "CreatePackageRootUri"), flags, 2)
-        this.vtbl.CreatePartUri := CallbackCreate(GetMethod(implObj, "CreatePartUri"), flags, 3)
-        this.vtbl.CreateStreamOnFile := CallbackCreate(GetMethod(implObj, "CreateStreamOnFile"), flags, 6)
-        this.vtbl.CreatePackage := CallbackCreate(GetMethod(implObj, "CreatePackage"), flags, 2)
-        this.vtbl.ReadPackageFromStream := CallbackCreate(GetMethod(implObj, "ReadPackageFromStream"), flags, 4)
-        this.vtbl.WritePackageToStream := CallbackCreate(GetMethod(implObj, "WritePackageToStream"), flags, 4)
-        this.vtbl.CreateDigitalSignatureManager := CallbackCreate(GetMethod(implObj, "CreateDigitalSignatureManager"), flags, 3)
+        this.vtbl.CreatePackageRootUri := CallbackCreate(ObjBindMethod(implObj, "CreatePackageRootUri"), flags, 2)
+        this.vtbl.CreatePartUri := CallbackCreate(ObjBindMethod(implObj, "CreatePartUri"), flags, 3)
+        this.vtbl.CreateStreamOnFile := CallbackCreate(ObjBindMethod(implObj, "CreateStreamOnFile"), flags, 6)
+        this.vtbl.CreatePackage := CallbackCreate(ObjBindMethod(implObj, "CreatePackage"), flags, 2)
+        this.vtbl.ReadPackageFromStream := CallbackCreate(ObjBindMethod(implObj, "ReadPackageFromStream"), flags, 4)
+        this.vtbl.WritePackageToStream := CallbackCreate(ObjBindMethod(implObj, "WritePackageToStream"), flags, 4)
+        this.vtbl.CreateDigitalSignatureManager := CallbackCreate(ObjBindMethod(implObj, "CreateDigitalSignatureManager"), flags, 3)
     }
 
     Dispose() {

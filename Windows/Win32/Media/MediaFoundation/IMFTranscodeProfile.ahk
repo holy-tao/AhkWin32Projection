@@ -68,7 +68,9 @@ export default struct IMFTranscodeProfile extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftranscodeprofile-setaudioattributes
      */
     SetAudioAttributes(pAttrs) {
-        result := ComCall(3, this, "ptr", pAttrs, "HRESULT")
+        pAttrsMarshal := pAttrs == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pAttrsMarshal, pAttrs, "HRESULT")
         return result
     }
 
@@ -123,7 +125,9 @@ export default struct IMFTranscodeProfile extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftranscodeprofile-setvideoattributes
      */
     SetVideoAttributes(pAttrs) {
-        result := ComCall(5, this, "ptr", pAttrs, "HRESULT")
+        pAttrsMarshal := pAttrs == 0 ? IntPtr : "ptr"
+
+        result := ComCall(5, this, pAttrsMarshal, pAttrs, "HRESULT")
         return result
     }
 
@@ -184,7 +188,9 @@ export default struct IMFTranscodeProfile extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftranscodeprofile-setcontainerattributes
      */
     SetContainerAttributes(pAttrs) {
-        result := ComCall(7, this, "ptr", pAttrs, "HRESULT")
+        pAttrsMarshal := pAttrs == 0 ? IntPtr : "ptr"
+
+        result := ComCall(7, this, pAttrsMarshal, pAttrs, "HRESULT")
         return result
     }
 
@@ -223,12 +229,12 @@ export default struct IMFTranscodeProfile extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAudioAttributes := CallbackCreate(GetMethod(implObj, "SetAudioAttributes"), flags, 2)
-        this.vtbl.GetAudioAttributes := CallbackCreate(GetMethod(implObj, "GetAudioAttributes"), flags, 2)
-        this.vtbl.SetVideoAttributes := CallbackCreate(GetMethod(implObj, "SetVideoAttributes"), flags, 2)
-        this.vtbl.GetVideoAttributes := CallbackCreate(GetMethod(implObj, "GetVideoAttributes"), flags, 2)
-        this.vtbl.SetContainerAttributes := CallbackCreate(GetMethod(implObj, "SetContainerAttributes"), flags, 2)
-        this.vtbl.GetContainerAttributes := CallbackCreate(GetMethod(implObj, "GetContainerAttributes"), flags, 2)
+        this.vtbl.SetAudioAttributes := CallbackCreate(ObjBindMethod(implObj, "SetAudioAttributes"), flags, 2)
+        this.vtbl.GetAudioAttributes := CallbackCreate(ObjBindMethod(implObj, "GetAudioAttributes"), flags, 2)
+        this.vtbl.SetVideoAttributes := CallbackCreate(ObjBindMethod(implObj, "SetVideoAttributes"), flags, 2)
+        this.vtbl.GetVideoAttributes := CallbackCreate(ObjBindMethod(implObj, "GetVideoAttributes"), flags, 2)
+        this.vtbl.SetContainerAttributes := CallbackCreate(ObjBindMethod(implObj, "SetContainerAttributes"), flags, 2)
+        this.vtbl.GetContainerAttributes := CallbackCreate(ObjBindMethod(implObj, "GetContainerAttributes"), flags, 2)
     }
 
     Dispose() {

@@ -63,7 +63,7 @@ export default struct IDestinationStreamFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDestinationStream := CallbackCreate(GetMethod(implObj, "GetDestinationStream"), flags, 2)
+        this.vtbl.GetDestinationStream := CallbackCreate(ObjBindMethod(implObj, "GetDestinationStream"), flags, 2)
     }
 
     Dispose() {

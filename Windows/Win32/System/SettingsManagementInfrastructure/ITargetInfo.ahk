@@ -310,7 +310,7 @@ export default struct ITargetInfo extends IUnknown {
     SetWow64Context(InstallerModule, Wow64Context) {
         InstallerModule := InstallerModule is String ? StrPtr(InstallerModule) : InstallerModule
 
-        Wow64ContextMarshal := Wow64Context is VarRef ? "char*" : "ptr"
+        Wow64ContextMarshal := Wow64Context is VarRef ? "char*" : IntPtr
 
         result := ComCall(18, this, "ptr", InstallerModule, Wow64ContextMarshal, Wow64Context, "HRESULT")
         return result
@@ -432,27 +432,27 @@ export default struct ITargetInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTargetMode := CallbackCreate(GetMethod(implObj, "GetTargetMode"), flags, 2)
-        this.vtbl.SetTargetMode := CallbackCreate(GetMethod(implObj, "SetTargetMode"), flags, 2)
-        this.vtbl.GetTemporaryStoreLocation := CallbackCreate(GetMethod(implObj, "GetTemporaryStoreLocation"), flags, 2)
-        this.vtbl.SetTemporaryStoreLocation := CallbackCreate(GetMethod(implObj, "SetTemporaryStoreLocation"), flags, 2)
-        this.vtbl.GetTargetID := CallbackCreate(GetMethod(implObj, "GetTargetID"), flags, 2)
-        this.vtbl.SetTargetID := CallbackCreate(GetMethod(implObj, "SetTargetID"), flags, 2)
-        this.vtbl.GetTargetProcessorArchitecture := CallbackCreate(GetMethod(implObj, "GetTargetProcessorArchitecture"), flags, 2)
-        this.vtbl.SetTargetProcessorArchitecture := CallbackCreate(GetMethod(implObj, "SetTargetProcessorArchitecture"), flags, 2)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 4)
-        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 4)
-        this.vtbl.GetEnumerator := CallbackCreate(GetMethod(implObj, "GetEnumerator"), flags, 2)
-        this.vtbl.ExpandTarget := CallbackCreate(GetMethod(implObj, "ExpandTarget"), flags, 4)
-        this.vtbl.ExpandTargetPath := CallbackCreate(GetMethod(implObj, "ExpandTargetPath"), flags, 4)
-        this.vtbl.SetModulePath := CallbackCreate(GetMethod(implObj, "SetModulePath"), flags, 3)
-        this.vtbl.LoadModule := CallbackCreate(GetMethod(implObj, "LoadModule"), flags, 3)
-        this.vtbl.SetWow64Context := CallbackCreate(GetMethod(implObj, "SetWow64Context"), flags, 3)
-        this.vtbl.TranslateWow64 := CallbackCreate(GetMethod(implObj, "TranslateWow64"), flags, 4)
-        this.vtbl.SetSchemaHiveLocation := CallbackCreate(GetMethod(implObj, "SetSchemaHiveLocation"), flags, 2)
-        this.vtbl.GetSchemaHiveLocation := CallbackCreate(GetMethod(implObj, "GetSchemaHiveLocation"), flags, 2)
-        this.vtbl.SetSchemaHiveMountName := CallbackCreate(GetMethod(implObj, "SetSchemaHiveMountName"), flags, 2)
-        this.vtbl.GetSchemaHiveMountName := CallbackCreate(GetMethod(implObj, "GetSchemaHiveMountName"), flags, 2)
+        this.vtbl.GetTargetMode := CallbackCreate(ObjBindMethod(implObj, "GetTargetMode"), flags, 2)
+        this.vtbl.SetTargetMode := CallbackCreate(ObjBindMethod(implObj, "SetTargetMode"), flags, 2)
+        this.vtbl.GetTemporaryStoreLocation := CallbackCreate(ObjBindMethod(implObj, "GetTemporaryStoreLocation"), flags, 2)
+        this.vtbl.SetTemporaryStoreLocation := CallbackCreate(ObjBindMethod(implObj, "SetTemporaryStoreLocation"), flags, 2)
+        this.vtbl.GetTargetID := CallbackCreate(ObjBindMethod(implObj, "GetTargetID"), flags, 2)
+        this.vtbl.SetTargetID := CallbackCreate(ObjBindMethod(implObj, "SetTargetID"), flags, 2)
+        this.vtbl.GetTargetProcessorArchitecture := CallbackCreate(ObjBindMethod(implObj, "GetTargetProcessorArchitecture"), flags, 2)
+        this.vtbl.SetTargetProcessorArchitecture := CallbackCreate(ObjBindMethod(implObj, "SetTargetProcessorArchitecture"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 4)
+        this.vtbl.SetProperty := CallbackCreate(ObjBindMethod(implObj, "SetProperty"), flags, 4)
+        this.vtbl.GetEnumerator := CallbackCreate(ObjBindMethod(implObj, "GetEnumerator"), flags, 2)
+        this.vtbl.ExpandTarget := CallbackCreate(ObjBindMethod(implObj, "ExpandTarget"), flags, 4)
+        this.vtbl.ExpandTargetPath := CallbackCreate(ObjBindMethod(implObj, "ExpandTargetPath"), flags, 4)
+        this.vtbl.SetModulePath := CallbackCreate(ObjBindMethod(implObj, "SetModulePath"), flags, 3)
+        this.vtbl.LoadModule := CallbackCreate(ObjBindMethod(implObj, "LoadModule"), flags, 3)
+        this.vtbl.SetWow64Context := CallbackCreate(ObjBindMethod(implObj, "SetWow64Context"), flags, 3)
+        this.vtbl.TranslateWow64 := CallbackCreate(ObjBindMethod(implObj, "TranslateWow64"), flags, 4)
+        this.vtbl.SetSchemaHiveLocation := CallbackCreate(ObjBindMethod(implObj, "SetSchemaHiveLocation"), flags, 2)
+        this.vtbl.GetSchemaHiveLocation := CallbackCreate(ObjBindMethod(implObj, "GetSchemaHiveLocation"), flags, 2)
+        this.vtbl.SetSchemaHiveMountName := CallbackCreate(ObjBindMethod(implObj, "SetSchemaHiveMountName"), flags, 2)
+        this.vtbl.GetSchemaHiveMountName := CallbackCreate(ObjBindMethod(implObj, "GetSchemaHiveMountName"), flags, 2)
     }
 
     Dispose() {

@@ -58,7 +58,7 @@ export default struct IMSVidStreamBufferSinkEvent4 extends IMSVidStreamBufferSin
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.WriteFailureClear := CallbackCreate(GetMethod(implObj, "WriteFailureClear"), flags, 1)
+        this.vtbl.WriteFailureClear := CallbackCreate(ObjBindMethod(implObj, "WriteFailureClear"), flags, 1)
     }
 
     Dispose() {

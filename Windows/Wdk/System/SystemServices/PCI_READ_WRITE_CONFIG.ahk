@@ -18,7 +18,6 @@ export default struct PCI_READ_WRITE_CONFIG {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Integer} BusOffset 
      * @param {Integer} Slot 
@@ -28,7 +27,7 @@ export default struct PCI_READ_WRITE_CONFIG {
      * @returns {Integer} 
      */
     Call(_Context, BusOffset, Slot, _Buffer, Offset, Length) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, UInt32, BusOffset, UInt32, Slot, IntPtr, _Buffer, UInt32, Offset, UInt32, Length, UInt32)
         return result

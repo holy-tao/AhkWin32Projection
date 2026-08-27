@@ -18,7 +18,6 @@ export default struct PROTOCOL_CM_CLOSE_CALL {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} CallMgrVcContext 
      * @param {Pointer<Void>} CallMgrPartyContext 
      * @param {Pointer<Void>} CloseData 
@@ -26,11 +25,14 @@ export default struct PROTOCOL_CM_CLOSE_CALL {
      * @returns {Integer} 
      */
     Call(CallMgrVcContext, CallMgrPartyContext, CloseData, _Size) {
-        CallMgrVcContextMarshal := CallMgrVcContext is VarRef ? "ptr" : "ptr"
-        CallMgrPartyContextMarshal := CallMgrPartyContext is VarRef ? "ptr" : "ptr"
-        CloseDataMarshal := CloseData is VarRef ? "ptr" : "ptr"
+        CallMgrVcContextMarshal := CallMgrVcContext is VarRef ? "ptr" : IntPtr
+        CallMgrPartyContextMarshal := CallMgrPartyContext is VarRef ? "ptr" : IntPtr
+        CallMgrPartyContextMarshal := CallMgrPartyContext == 0 ? IntPtr : "ptr"
+        CloseDataMarshal := CloseData is VarRef ? "ptr" : IntPtr
+        CloseDataMarshal := CloseData == 0 ? IntPtr : "ptr"
+        _SizeMarshal := _Size == 0 ? IntPtr : UInt32
 
-        result := DllCall(this.value, CallMgrVcContextMarshal, CallMgrVcContext, CallMgrPartyContextMarshal, CallMgrPartyContext, CloseDataMarshal, CloseData, UInt32, _Size, Int32)
+        result := DllCall(this.value, CallMgrVcContextMarshal, CallMgrVcContext, CallMgrPartyContextMarshal, CallMgrPartyContext, CloseDataMarshal, CloseData, _SizeMarshal, _Size, Int32)
         return result
     }
 

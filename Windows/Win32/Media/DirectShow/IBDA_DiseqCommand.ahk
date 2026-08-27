@@ -189,7 +189,7 @@ export default struct IBDA_DiseqCommand extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_diseqcommand-put_diseqsendcommand
      */
     put_DiseqSendCommand(ulRequestId, ulcbCommandLen, pbCommand) {
-        pbCommandMarshal := pbCommand is VarRef ? "char*" : "ptr"
+        pbCommandMarshal := pbCommand is VarRef ? "char*" : IntPtr
 
         result := ComCall(7, this, UInt32, ulRequestId, UInt32, ulcbCommandLen, pbCommandMarshal, pbCommand, "HRESULT")
         return result
@@ -233,8 +233,8 @@ export default struct IBDA_DiseqCommand extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_diseqcommand-get_diseqresponse
      */
     get_DiseqResponse(ulRequestId, pulcbResponseLen, pbResponse) {
-        pulcbResponseLenMarshal := pulcbResponseLen is VarRef ? "uint*" : "ptr"
-        pbResponseMarshal := pbResponse is VarRef ? "char*" : "ptr"
+        pulcbResponseLenMarshal := pulcbResponseLen is VarRef ? "uint*" : IntPtr
+        pbResponseMarshal := pbResponse is VarRef ? "char*" : IntPtr
 
         result := ComCall(8, this, UInt32, ulRequestId, pulcbResponseLenMarshal, pulcbResponseLen, pbResponseMarshal, pbResponse, "HRESULT")
         return result
@@ -249,12 +249,12 @@ export default struct IBDA_DiseqCommand extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_EnableDiseqCommands := CallbackCreate(GetMethod(implObj, "put_EnableDiseqCommands"), flags, 2)
-        this.vtbl.put_DiseqLNBSource := CallbackCreate(GetMethod(implObj, "put_DiseqLNBSource"), flags, 2)
-        this.vtbl.put_DiseqUseToneBurst := CallbackCreate(GetMethod(implObj, "put_DiseqUseToneBurst"), flags, 2)
-        this.vtbl.put_DiseqRepeats := CallbackCreate(GetMethod(implObj, "put_DiseqRepeats"), flags, 2)
-        this.vtbl.put_DiseqSendCommand := CallbackCreate(GetMethod(implObj, "put_DiseqSendCommand"), flags, 4)
-        this.vtbl.get_DiseqResponse := CallbackCreate(GetMethod(implObj, "get_DiseqResponse"), flags, 4)
+        this.vtbl.put_EnableDiseqCommands := CallbackCreate(ObjBindMethod(implObj, "put_EnableDiseqCommands"), flags, 2)
+        this.vtbl.put_DiseqLNBSource := CallbackCreate(ObjBindMethod(implObj, "put_DiseqLNBSource"), flags, 2)
+        this.vtbl.put_DiseqUseToneBurst := CallbackCreate(ObjBindMethod(implObj, "put_DiseqUseToneBurst"), flags, 2)
+        this.vtbl.put_DiseqRepeats := CallbackCreate(ObjBindMethod(implObj, "put_DiseqRepeats"), flags, 2)
+        this.vtbl.put_DiseqSendCommand := CallbackCreate(ObjBindMethod(implObj, "put_DiseqSendCommand"), flags, 4)
+        this.vtbl.get_DiseqResponse := CallbackCreate(ObjBindMethod(implObj, "get_DiseqResponse"), flags, 4)
     }
 
     Dispose() {

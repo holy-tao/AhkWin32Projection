@@ -64,7 +64,7 @@ export default struct IAccessibleObject extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAccessibleName := CallbackCreate(GetMethod(implObj, "SetAccessibleName"), flags, 2)
+        this.vtbl.SetAccessibleName := CallbackCreate(ObjBindMethod(implObj, "SetAccessibleName"), flags, 2)
     }
 
     Dispose() {

@@ -329,8 +329,8 @@ export default struct IVssBackupComponentsEx extends IVssBackupComponents {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetWriterMetadataEx := CallbackCreate(GetMethod(implObj, "GetWriterMetadataEx"), flags, 4)
-        this.vtbl.SetSelectedForRestoreEx := CallbackCreate(GetMethod(implObj, "SetSelectedForRestoreEx"), flags, 7)
+        this.vtbl.GetWriterMetadataEx := CallbackCreate(ObjBindMethod(implObj, "GetWriterMetadataEx"), flags, 4)
+        this.vtbl.SetSelectedForRestoreEx := CallbackCreate(ObjBindMethod(implObj, "SetSelectedForRestoreEx"), flags, 7)
     }
 
     Dispose() {

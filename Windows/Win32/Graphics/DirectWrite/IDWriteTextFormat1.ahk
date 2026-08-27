@@ -161,14 +161,14 @@ export default struct IDWriteTextFormat1 extends IDWriteTextFormat {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetVerticalGlyphOrientation := CallbackCreate(GetMethod(implObj, "SetVerticalGlyphOrientation"), flags, 2)
-        this.vtbl.GetVerticalGlyphOrientation := CallbackCreate(GetMethod(implObj, "GetVerticalGlyphOrientation"), flags, 1)
-        this.vtbl.SetLastLineWrapping := CallbackCreate(GetMethod(implObj, "SetLastLineWrapping"), flags, 2)
-        this.vtbl.GetLastLineWrapping := CallbackCreate(GetMethod(implObj, "GetLastLineWrapping"), flags, 1)
-        this.vtbl.SetOpticalAlignment := CallbackCreate(GetMethod(implObj, "SetOpticalAlignment"), flags, 2)
-        this.vtbl.GetOpticalAlignment := CallbackCreate(GetMethod(implObj, "GetOpticalAlignment"), flags, 1)
-        this.vtbl.SetFontFallback := CallbackCreate(GetMethod(implObj, "SetFontFallback"), flags, 2)
-        this.vtbl.GetFontFallback := CallbackCreate(GetMethod(implObj, "GetFontFallback"), flags, 2)
+        this.vtbl.SetVerticalGlyphOrientation := CallbackCreate(ObjBindMethod(implObj, "SetVerticalGlyphOrientation"), flags, 2)
+        this.vtbl.GetVerticalGlyphOrientation := CallbackCreate(ObjBindMethod(implObj, "GetVerticalGlyphOrientation"), flags, 1)
+        this.vtbl.SetLastLineWrapping := CallbackCreate(ObjBindMethod(implObj, "SetLastLineWrapping"), flags, 2)
+        this.vtbl.GetLastLineWrapping := CallbackCreate(ObjBindMethod(implObj, "GetLastLineWrapping"), flags, 1)
+        this.vtbl.SetOpticalAlignment := CallbackCreate(ObjBindMethod(implObj, "SetOpticalAlignment"), flags, 2)
+        this.vtbl.GetOpticalAlignment := CallbackCreate(ObjBindMethod(implObj, "GetOpticalAlignment"), flags, 1)
+        this.vtbl.SetFontFallback := CallbackCreate(ObjBindMethod(implObj, "SetFontFallback"), flags, 2)
+        this.vtbl.GetFontFallback := CallbackCreate(ObjBindMethod(implObj, "GetFontFallback"), flags, 2)
     }
 
     Dispose() {

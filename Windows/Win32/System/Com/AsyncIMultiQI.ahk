@@ -44,7 +44,6 @@ export default struct AsyncIMultiQI extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cMQIs 
      * @param {Pointer<MULTI_QI>} pMQIs 
      * @returns {HRESULT} 
@@ -55,7 +54,6 @@ export default struct AsyncIMultiQI extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<MULTI_QI>} pMQIs 
      * @returns {HRESULT} 
      */
@@ -73,8 +71,8 @@ export default struct AsyncIMultiQI extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Begin_QueryMultipleInterfaces := CallbackCreate(GetMethod(implObj, "Begin_QueryMultipleInterfaces"), flags, 3)
-        this.vtbl.Finish_QueryMultipleInterfaces := CallbackCreate(GetMethod(implObj, "Finish_QueryMultipleInterfaces"), flags, 2)
+        this.vtbl.Begin_QueryMultipleInterfaces := CallbackCreate(ObjBindMethod(implObj, "Begin_QueryMultipleInterfaces"), flags, 3)
+        this.vtbl.Finish_QueryMultipleInterfaces := CallbackCreate(ObjBindMethod(implObj, "Finish_QueryMultipleInterfaces"), flags, 2)
     }
 
     Dispose() {

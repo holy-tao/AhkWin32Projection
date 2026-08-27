@@ -69,7 +69,7 @@ export default struct ISimilarityTraitsTable extends IUnknown {
     CreateTable(_path, truncate, _securityDescriptor) {
         _path := _path is String ? StrPtr(_path) : _path
 
-        _securityDescriptorMarshal := _securityDescriptor is VarRef ? "char*" : "ptr"
+        _securityDescriptorMarshal := _securityDescriptor is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, "ptr", _path, BOOL, truncate, _securityDescriptorMarshal, _securityDescriptor, "int*", &isNew := 0, "HRESULT")
         return isNew
@@ -131,7 +131,7 @@ export default struct ISimilarityTraitsTable extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilaritytraitstable-findsimilarfileindex
      */
     FindSimilarFileIndex(_similarityData, numberOfMatchesRequired, _findSimilarFileIndexResults, resultsSize, resultsUsed) {
-        resultsUsedMarshal := resultsUsed is VarRef ? "uint*" : "ptr"
+        resultsUsedMarshal := resultsUsed is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, SimilarityData.Ptr, _similarityData, UInt16, numberOfMatchesRequired, FindSimilarFileIndexResults.Ptr, _findSimilarFileIndexResults, UInt32, resultsSize, resultsUsedMarshal, resultsUsed, "HRESULT")
         return result
@@ -168,13 +168,13 @@ export default struct ISimilarityTraitsTable extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateTable := CallbackCreate(GetMethod(implObj, "CreateTable"), flags, 5)
-        this.vtbl.CreateTableIndirect := CallbackCreate(GetMethod(implObj, "CreateTableIndirect"), flags, 4)
-        this.vtbl.CloseTable := CallbackCreate(GetMethod(implObj, "CloseTable"), flags, 2)
-        this.vtbl.Append := CallbackCreate(GetMethod(implObj, "Append"), flags, 3)
-        this.vtbl.FindSimilarFileIndex := CallbackCreate(GetMethod(implObj, "FindSimilarFileIndex"), flags, 6)
-        this.vtbl.BeginDump := CallbackCreate(GetMethod(implObj, "BeginDump"), flags, 2)
-        this.vtbl.GetLastIndex := CallbackCreate(GetMethod(implObj, "GetLastIndex"), flags, 2)
+        this.vtbl.CreateTable := CallbackCreate(ObjBindMethod(implObj, "CreateTable"), flags, 5)
+        this.vtbl.CreateTableIndirect := CallbackCreate(ObjBindMethod(implObj, "CreateTableIndirect"), flags, 4)
+        this.vtbl.CloseTable := CallbackCreate(ObjBindMethod(implObj, "CloseTable"), flags, 2)
+        this.vtbl.Append := CallbackCreate(ObjBindMethod(implObj, "Append"), flags, 3)
+        this.vtbl.FindSimilarFileIndex := CallbackCreate(ObjBindMethod(implObj, "FindSimilarFileIndex"), flags, 6)
+        this.vtbl.BeginDump := CallbackCreate(ObjBindMethod(implObj, "BeginDump"), flags, 2)
+        this.vtbl.GetLastIndex := CallbackCreate(ObjBindMethod(implObj, "GetLastIndex"), flags, 2)
     }
 
     Dispose() {

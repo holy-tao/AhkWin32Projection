@@ -60,7 +60,6 @@ export default struct ISAXXMLReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchName 
      * @returns {VARIANT_BOOL} 
      */
@@ -72,7 +71,6 @@ export default struct ISAXXMLReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchName 
      * @param {VARIANT_BOOL} vfValue 
      * @returns {HRESULT} 
@@ -85,7 +83,6 @@ export default struct ISAXXMLReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchName 
      * @returns {VARIANT} 
      */
@@ -98,7 +95,6 @@ export default struct ISAXXMLReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchName 
      * @param {VARIANT} varValue 
      * @returns {HRESULT} 
@@ -111,7 +107,6 @@ export default struct ISAXXMLReader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ISAXEntityResolver} 
      */
     getEntityResolver() {
@@ -120,7 +115,6 @@ export default struct ISAXXMLReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISAXEntityResolver} pResolver 
      * @returns {HRESULT} 
      */
@@ -130,7 +124,6 @@ export default struct ISAXXMLReader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ISAXContentHandler} 
      */
     getContentHandler() {
@@ -139,7 +132,6 @@ export default struct ISAXXMLReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISAXContentHandler} pHandler 
      * @returns {HRESULT} 
      */
@@ -149,7 +141,6 @@ export default struct ISAXXMLReader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ISAXDTDHandler} 
      */
     getDTDHandler() {
@@ -158,7 +149,6 @@ export default struct ISAXXMLReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISAXDTDHandler} pHandler 
      * @returns {HRESULT} 
      */
@@ -168,7 +158,6 @@ export default struct ISAXXMLReader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ISAXErrorHandler} 
      */
     getErrorHandler() {
@@ -177,7 +166,6 @@ export default struct ISAXXMLReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISAXErrorHandler} pHandler 
      * @returns {HRESULT} 
      */
@@ -187,7 +175,6 @@ export default struct ISAXXMLReader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<Integer>} 
      */
     getBaseURL() {
@@ -196,7 +183,6 @@ export default struct ISAXXMLReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchBaseUrl 
      * @returns {HRESULT} 
      */
@@ -208,7 +194,6 @@ export default struct ISAXXMLReader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<Integer>} 
      */
     getSecureBaseURL() {
@@ -217,7 +202,6 @@ export default struct ISAXXMLReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchSecureBaseUrl 
      * @returns {HRESULT} 
      */
@@ -229,7 +213,6 @@ export default struct ISAXXMLReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT} varInput 
      * @returns {HRESULT} 
      */
@@ -239,7 +222,6 @@ export default struct ISAXXMLReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchUrl 
      * @returns {HRESULT} 
      */
@@ -259,24 +241,24 @@ export default struct ISAXXMLReader extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.getFeature := CallbackCreate(GetMethod(implObj, "getFeature"), flags, 3)
-        this.vtbl.putFeature := CallbackCreate(GetMethod(implObj, "putFeature"), flags, 3)
-        this.vtbl.getProperty := CallbackCreate(GetMethod(implObj, "getProperty"), flags, 3)
-        this.vtbl.putProperty := CallbackCreate(GetMethod(implObj, "putProperty"), flags, 3)
-        this.vtbl.getEntityResolver := CallbackCreate(GetMethod(implObj, "getEntityResolver"), flags, 2)
-        this.vtbl.putEntityResolver := CallbackCreate(GetMethod(implObj, "putEntityResolver"), flags, 2)
-        this.vtbl.getContentHandler := CallbackCreate(GetMethod(implObj, "getContentHandler"), flags, 2)
-        this.vtbl.putContentHandler := CallbackCreate(GetMethod(implObj, "putContentHandler"), flags, 2)
-        this.vtbl.getDTDHandler := CallbackCreate(GetMethod(implObj, "getDTDHandler"), flags, 2)
-        this.vtbl.putDTDHandler := CallbackCreate(GetMethod(implObj, "putDTDHandler"), flags, 2)
-        this.vtbl.getErrorHandler := CallbackCreate(GetMethod(implObj, "getErrorHandler"), flags, 2)
-        this.vtbl.putErrorHandler := CallbackCreate(GetMethod(implObj, "putErrorHandler"), flags, 2)
-        this.vtbl.getBaseURL := CallbackCreate(GetMethod(implObj, "getBaseURL"), flags, 2)
-        this.vtbl.putBaseURL := CallbackCreate(GetMethod(implObj, "putBaseURL"), flags, 2)
-        this.vtbl.getSecureBaseURL := CallbackCreate(GetMethod(implObj, "getSecureBaseURL"), flags, 2)
-        this.vtbl.putSecureBaseURL := CallbackCreate(GetMethod(implObj, "putSecureBaseURL"), flags, 2)
-        this.vtbl.parse := CallbackCreate(GetMethod(implObj, "parse"), flags, 2)
-        this.vtbl.parseURL := CallbackCreate(GetMethod(implObj, "parseURL"), flags, 2)
+        this.vtbl.getFeature := CallbackCreate(ObjBindMethod(implObj, "getFeature"), flags, 3)
+        this.vtbl.putFeature := CallbackCreate(ObjBindMethod(implObj, "putFeature"), flags, 3)
+        this.vtbl.getProperty := CallbackCreate(ObjBindMethod(implObj, "getProperty"), flags, 3)
+        this.vtbl.putProperty := CallbackCreate(ObjBindMethod(implObj, "putProperty"), flags, 3)
+        this.vtbl.getEntityResolver := CallbackCreate(ObjBindMethod(implObj, "getEntityResolver"), flags, 2)
+        this.vtbl.putEntityResolver := CallbackCreate(ObjBindMethod(implObj, "putEntityResolver"), flags, 2)
+        this.vtbl.getContentHandler := CallbackCreate(ObjBindMethod(implObj, "getContentHandler"), flags, 2)
+        this.vtbl.putContentHandler := CallbackCreate(ObjBindMethod(implObj, "putContentHandler"), flags, 2)
+        this.vtbl.getDTDHandler := CallbackCreate(ObjBindMethod(implObj, "getDTDHandler"), flags, 2)
+        this.vtbl.putDTDHandler := CallbackCreate(ObjBindMethod(implObj, "putDTDHandler"), flags, 2)
+        this.vtbl.getErrorHandler := CallbackCreate(ObjBindMethod(implObj, "getErrorHandler"), flags, 2)
+        this.vtbl.putErrorHandler := CallbackCreate(ObjBindMethod(implObj, "putErrorHandler"), flags, 2)
+        this.vtbl.getBaseURL := CallbackCreate(ObjBindMethod(implObj, "getBaseURL"), flags, 2)
+        this.vtbl.putBaseURL := CallbackCreate(ObjBindMethod(implObj, "putBaseURL"), flags, 2)
+        this.vtbl.getSecureBaseURL := CallbackCreate(ObjBindMethod(implObj, "getSecureBaseURL"), flags, 2)
+        this.vtbl.putSecureBaseURL := CallbackCreate(ObjBindMethod(implObj, "putSecureBaseURL"), flags, 2)
+        this.vtbl.parse := CallbackCreate(ObjBindMethod(implObj, "parse"), flags, 2)
+        this.vtbl.parseURL := CallbackCreate(ObjBindMethod(implObj, "parseURL"), flags, 2)
     }
 
     Dispose() {

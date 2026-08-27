@@ -77,7 +77,6 @@ export default struct IHTMLBodyElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -89,7 +88,6 @@ export default struct IHTMLBodyElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_background() {
@@ -99,7 +97,6 @@ export default struct IHTMLBodyElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -109,7 +106,6 @@ export default struct IHTMLBodyElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ononline() {
@@ -119,7 +115,6 @@ export default struct IHTMLBodyElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -129,7 +124,6 @@ export default struct IHTMLBodyElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onoffline() {
@@ -139,7 +133,6 @@ export default struct IHTMLBodyElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -149,7 +142,6 @@ export default struct IHTMLBodyElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onhashchange() {
@@ -167,14 +159,14 @@ export default struct IHTMLBodyElement3 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_background := CallbackCreate(GetMethod(implObj, "put_background"), flags, 2)
-        this.vtbl.get_background := CallbackCreate(GetMethod(implObj, "get_background"), flags, 2)
-        this.vtbl.put_ononline := CallbackCreate(GetMethod(implObj, "put_ononline"), flags, 2)
-        this.vtbl.get_ononline := CallbackCreate(GetMethod(implObj, "get_ononline"), flags, 2)
-        this.vtbl.put_onoffline := CallbackCreate(GetMethod(implObj, "put_onoffline"), flags, 2)
-        this.vtbl.get_onoffline := CallbackCreate(GetMethod(implObj, "get_onoffline"), flags, 2)
-        this.vtbl.put_onhashchange := CallbackCreate(GetMethod(implObj, "put_onhashchange"), flags, 2)
-        this.vtbl.get_onhashchange := CallbackCreate(GetMethod(implObj, "get_onhashchange"), flags, 2)
+        this.vtbl.put_background := CallbackCreate(ObjBindMethod(implObj, "put_background"), flags, 2)
+        this.vtbl.get_background := CallbackCreate(ObjBindMethod(implObj, "get_background"), flags, 2)
+        this.vtbl.put_ononline := CallbackCreate(ObjBindMethod(implObj, "put_ononline"), flags, 2)
+        this.vtbl.get_ononline := CallbackCreate(ObjBindMethod(implObj, "get_ononline"), flags, 2)
+        this.vtbl.put_onoffline := CallbackCreate(ObjBindMethod(implObj, "put_onoffline"), flags, 2)
+        this.vtbl.get_onoffline := CallbackCreate(ObjBindMethod(implObj, "get_onoffline"), flags, 2)
+        this.vtbl.put_onhashchange := CallbackCreate(ObjBindMethod(implObj, "put_onhashchange"), flags, 2)
+        this.vtbl.get_onhashchange := CallbackCreate(ObjBindMethod(implObj, "get_onhashchange"), flags, 2)
     }
 
     Dispose() {

@@ -78,8 +78,8 @@ export default struct IMILBitmapEffectPrimitiveImpl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsDirty := CallbackCreate(GetMethod(implObj, "IsDirty"), flags, 3)
-        this.vtbl.IsVolatile := CallbackCreate(GetMethod(implObj, "IsVolatile"), flags, 3)
+        this.vtbl.IsDirty := CallbackCreate(ObjBindMethod(implObj, "IsDirty"), flags, 3)
+        this.vtbl.IsVolatile := CallbackCreate(ObjBindMethod(implObj, "IsVolatile"), flags, 3)
     }
 
     Dispose() {

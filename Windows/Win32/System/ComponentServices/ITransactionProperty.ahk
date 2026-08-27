@@ -56,7 +56,6 @@ export default struct ITransactionProperty extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved1() {
@@ -64,7 +63,6 @@ export default struct ITransactionProperty extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved2() {
@@ -72,7 +70,6 @@ export default struct ITransactionProperty extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved3() {
@@ -80,7 +77,6 @@ export default struct ITransactionProperty extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved4() {
@@ -88,7 +84,6 @@ export default struct ITransactionProperty extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved5() {
@@ -96,7 +91,6 @@ export default struct ITransactionProperty extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved6() {
@@ -104,7 +98,6 @@ export default struct ITransactionProperty extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved7() {
@@ -112,7 +105,6 @@ export default struct ITransactionProperty extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved8() {
@@ -120,7 +112,6 @@ export default struct ITransactionProperty extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved9() {
@@ -138,7 +129,6 @@ export default struct ITransactionProperty extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved10() {
@@ -146,7 +136,6 @@ export default struct ITransactionProperty extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved11() {
@@ -154,7 +143,6 @@ export default struct ITransactionProperty extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved12() {
@@ -162,7 +150,6 @@ export default struct ITransactionProperty extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved13() {
@@ -170,7 +157,6 @@ export default struct ITransactionProperty extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved14() {
@@ -178,7 +164,6 @@ export default struct ITransactionProperty extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved15() {
@@ -186,7 +171,6 @@ export default struct ITransactionProperty extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved16() {
@@ -194,7 +178,6 @@ export default struct ITransactionProperty extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved17() {
@@ -210,24 +193,24 @@ export default struct ITransactionProperty extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Reserved1 := CallbackCreate(GetMethod(implObj, "Reserved1"), flags, 1)
-        this.vtbl.Reserved2 := CallbackCreate(GetMethod(implObj, "Reserved2"), flags, 1)
-        this.vtbl.Reserved3 := CallbackCreate(GetMethod(implObj, "Reserved3"), flags, 1)
-        this.vtbl.Reserved4 := CallbackCreate(GetMethod(implObj, "Reserved4"), flags, 1)
-        this.vtbl.Reserved5 := CallbackCreate(GetMethod(implObj, "Reserved5"), flags, 1)
-        this.vtbl.Reserved6 := CallbackCreate(GetMethod(implObj, "Reserved6"), flags, 1)
-        this.vtbl.Reserved7 := CallbackCreate(GetMethod(implObj, "Reserved7"), flags, 1)
-        this.vtbl.Reserved8 := CallbackCreate(GetMethod(implObj, "Reserved8"), flags, 1)
-        this.vtbl.Reserved9 := CallbackCreate(GetMethod(implObj, "Reserved9"), flags, 1)
-        this.vtbl.GetTransactionResourcePool := CallbackCreate(GetMethod(implObj, "GetTransactionResourcePool"), flags, 2)
-        this.vtbl.Reserved10 := CallbackCreate(GetMethod(implObj, "Reserved10"), flags, 1)
-        this.vtbl.Reserved11 := CallbackCreate(GetMethod(implObj, "Reserved11"), flags, 1)
-        this.vtbl.Reserved12 := CallbackCreate(GetMethod(implObj, "Reserved12"), flags, 1)
-        this.vtbl.Reserved13 := CallbackCreate(GetMethod(implObj, "Reserved13"), flags, 1)
-        this.vtbl.Reserved14 := CallbackCreate(GetMethod(implObj, "Reserved14"), flags, 1)
-        this.vtbl.Reserved15 := CallbackCreate(GetMethod(implObj, "Reserved15"), flags, 1)
-        this.vtbl.Reserved16 := CallbackCreate(GetMethod(implObj, "Reserved16"), flags, 1)
-        this.vtbl.Reserved17 := CallbackCreate(GetMethod(implObj, "Reserved17"), flags, 1)
+        this.vtbl.Reserved1 := CallbackCreate(ObjBindMethod(implObj, "Reserved1"), flags, 1)
+        this.vtbl.Reserved2 := CallbackCreate(ObjBindMethod(implObj, "Reserved2"), flags, 1)
+        this.vtbl.Reserved3 := CallbackCreate(ObjBindMethod(implObj, "Reserved3"), flags, 1)
+        this.vtbl.Reserved4 := CallbackCreate(ObjBindMethod(implObj, "Reserved4"), flags, 1)
+        this.vtbl.Reserved5 := CallbackCreate(ObjBindMethod(implObj, "Reserved5"), flags, 1)
+        this.vtbl.Reserved6 := CallbackCreate(ObjBindMethod(implObj, "Reserved6"), flags, 1)
+        this.vtbl.Reserved7 := CallbackCreate(ObjBindMethod(implObj, "Reserved7"), flags, 1)
+        this.vtbl.Reserved8 := CallbackCreate(ObjBindMethod(implObj, "Reserved8"), flags, 1)
+        this.vtbl.Reserved9 := CallbackCreate(ObjBindMethod(implObj, "Reserved9"), flags, 1)
+        this.vtbl.GetTransactionResourcePool := CallbackCreate(ObjBindMethod(implObj, "GetTransactionResourcePool"), flags, 2)
+        this.vtbl.Reserved10 := CallbackCreate(ObjBindMethod(implObj, "Reserved10"), flags, 1)
+        this.vtbl.Reserved11 := CallbackCreate(ObjBindMethod(implObj, "Reserved11"), flags, 1)
+        this.vtbl.Reserved12 := CallbackCreate(ObjBindMethod(implObj, "Reserved12"), flags, 1)
+        this.vtbl.Reserved13 := CallbackCreate(ObjBindMethod(implObj, "Reserved13"), flags, 1)
+        this.vtbl.Reserved14 := CallbackCreate(ObjBindMethod(implObj, "Reserved14"), flags, 1)
+        this.vtbl.Reserved15 := CallbackCreate(ObjBindMethod(implObj, "Reserved15"), flags, 1)
+        this.vtbl.Reserved16 := CallbackCreate(ObjBindMethod(implObj, "Reserved16"), flags, 1)
+        this.vtbl.Reserved17 := CallbackCreate(ObjBindMethod(implObj, "Reserved17"), flags, 1)
     }
 
     Dispose() {

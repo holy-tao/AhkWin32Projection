@@ -56,7 +56,6 @@ export default struct IAppxPackageEditor extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} workingDirectory 
      * @returns {HRESULT} 
      */
@@ -147,12 +146,12 @@ export default struct IAppxPackageEditor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetWorkingDirectory := CallbackCreate(GetMethod(implObj, "SetWorkingDirectory"), flags, 2)
-        this.vtbl.CreateDeltaPackage := CallbackCreate(GetMethod(implObj, "CreateDeltaPackage"), flags, 4)
-        this.vtbl.CreateDeltaPackageUsingBaselineBlockMap := CallbackCreate(GetMethod(implObj, "CreateDeltaPackageUsingBaselineBlockMap"), flags, 5)
-        this.vtbl.UpdatePackage := CallbackCreate(GetMethod(implObj, "UpdatePackage"), flags, 4)
-        this.vtbl.UpdateEncryptedPackage := CallbackCreate(GetMethod(implObj, "UpdateEncryptedPackage"), flags, 6)
-        this.vtbl.UpdatePackageManifest := CallbackCreate(GetMethod(implObj, "UpdatePackageManifest"), flags, 5)
+        this.vtbl.SetWorkingDirectory := CallbackCreate(ObjBindMethod(implObj, "SetWorkingDirectory"), flags, 2)
+        this.vtbl.CreateDeltaPackage := CallbackCreate(ObjBindMethod(implObj, "CreateDeltaPackage"), flags, 4)
+        this.vtbl.CreateDeltaPackageUsingBaselineBlockMap := CallbackCreate(ObjBindMethod(implObj, "CreateDeltaPackageUsingBaselineBlockMap"), flags, 5)
+        this.vtbl.UpdatePackage := CallbackCreate(ObjBindMethod(implObj, "UpdatePackage"), flags, 4)
+        this.vtbl.UpdateEncryptedPackage := CallbackCreate(ObjBindMethod(implObj, "UpdateEncryptedPackage"), flags, 6)
+        this.vtbl.UpdatePackageManifest := CallbackCreate(ObjBindMethod(implObj, "UpdatePackageManifest"), flags, 5)
     }
 
     Dispose() {

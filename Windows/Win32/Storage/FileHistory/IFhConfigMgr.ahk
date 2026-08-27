@@ -464,7 +464,7 @@ export default struct IFhConfigMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-queryprotectionstatus
      */
     QueryProtectionStatus(ProtectionState, ProtectedUntilTime) {
-        ProtectionStateMarshal := ProtectionState is VarRef ? "uint*" : "ptr"
+        ProtectionStateMarshal := ProtectionState is VarRef ? "uint*" : IntPtr
 
         result := ComCall(16, this, ProtectionStateMarshal, ProtectionState, BSTR.Ptr, ProtectedUntilTime, "HRESULT")
         return result
@@ -479,20 +479,20 @@ export default struct IFhConfigMgr extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LoadConfiguration := CallbackCreate(GetMethod(implObj, "LoadConfiguration"), flags, 1)
-        this.vtbl.CreateDefaultConfiguration := CallbackCreate(GetMethod(implObj, "CreateDefaultConfiguration"), flags, 2)
-        this.vtbl.SaveConfiguration := CallbackCreate(GetMethod(implObj, "SaveConfiguration"), flags, 1)
-        this.vtbl.AddRemoveExcludeRule := CallbackCreate(GetMethod(implObj, "AddRemoveExcludeRule"), flags, 4)
-        this.vtbl.GetIncludeExcludeRules := CallbackCreate(GetMethod(implObj, "GetIncludeExcludeRules"), flags, 4)
-        this.vtbl.GetLocalPolicy := CallbackCreate(GetMethod(implObj, "GetLocalPolicy"), flags, 3)
-        this.vtbl.SetLocalPolicy := CallbackCreate(GetMethod(implObj, "SetLocalPolicy"), flags, 3)
-        this.vtbl.GetBackupStatus := CallbackCreate(GetMethod(implObj, "GetBackupStatus"), flags, 2)
-        this.vtbl.SetBackupStatus := CallbackCreate(GetMethod(implObj, "SetBackupStatus"), flags, 2)
-        this.vtbl.GetDefaultTarget := CallbackCreate(GetMethod(implObj, "GetDefaultTarget"), flags, 2)
-        this.vtbl.ValidateTarget := CallbackCreate(GetMethod(implObj, "ValidateTarget"), flags, 3)
-        this.vtbl.ProvisionAndSetNewTarget := CallbackCreate(GetMethod(implObj, "ProvisionAndSetNewTarget"), flags, 3)
-        this.vtbl.ChangeDefaultTargetRecommendation := CallbackCreate(GetMethod(implObj, "ChangeDefaultTargetRecommendation"), flags, 2)
-        this.vtbl.QueryProtectionStatus := CallbackCreate(GetMethod(implObj, "QueryProtectionStatus"), flags, 3)
+        this.vtbl.LoadConfiguration := CallbackCreate(ObjBindMethod(implObj, "LoadConfiguration"), flags, 1)
+        this.vtbl.CreateDefaultConfiguration := CallbackCreate(ObjBindMethod(implObj, "CreateDefaultConfiguration"), flags, 2)
+        this.vtbl.SaveConfiguration := CallbackCreate(ObjBindMethod(implObj, "SaveConfiguration"), flags, 1)
+        this.vtbl.AddRemoveExcludeRule := CallbackCreate(ObjBindMethod(implObj, "AddRemoveExcludeRule"), flags, 4)
+        this.vtbl.GetIncludeExcludeRules := CallbackCreate(ObjBindMethod(implObj, "GetIncludeExcludeRules"), flags, 4)
+        this.vtbl.GetLocalPolicy := CallbackCreate(ObjBindMethod(implObj, "GetLocalPolicy"), flags, 3)
+        this.vtbl.SetLocalPolicy := CallbackCreate(ObjBindMethod(implObj, "SetLocalPolicy"), flags, 3)
+        this.vtbl.GetBackupStatus := CallbackCreate(ObjBindMethod(implObj, "GetBackupStatus"), flags, 2)
+        this.vtbl.SetBackupStatus := CallbackCreate(ObjBindMethod(implObj, "SetBackupStatus"), flags, 2)
+        this.vtbl.GetDefaultTarget := CallbackCreate(ObjBindMethod(implObj, "GetDefaultTarget"), flags, 2)
+        this.vtbl.ValidateTarget := CallbackCreate(ObjBindMethod(implObj, "ValidateTarget"), flags, 3)
+        this.vtbl.ProvisionAndSetNewTarget := CallbackCreate(ObjBindMethod(implObj, "ProvisionAndSetNewTarget"), flags, 3)
+        this.vtbl.ChangeDefaultTargetRecommendation := CallbackCreate(ObjBindMethod(implObj, "ChangeDefaultTargetRecommendation"), flags, 2)
+        this.vtbl.QueryProtectionStatus := CallbackCreate(ObjBindMethod(implObj, "QueryProtectionStatus"), flags, 3)
     }
 
     Dispose() {

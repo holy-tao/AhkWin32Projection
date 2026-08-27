@@ -87,7 +87,8 @@ export default struct ID3D12GraphicsCommandList5 extends ID3D12GraphicsCommandLi
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist5-rssetshadingrate
      */
     RSSetShadingRate(baseShadingRate, combiners) {
-        combinersMarshal := combiners is VarRef ? "int*" : "ptr"
+        combinersMarshal := combiners is VarRef ? "int*" : IntPtr
+        combinersMarshal := combiners == 0 ? IntPtr : "int*"
 
         ComCall(77, this, D3D12_SHADING_RATE, baseShadingRate, combinersMarshal, combiners)
     }
@@ -149,7 +150,9 @@ export default struct ID3D12GraphicsCommandList5 extends ID3D12GraphicsCommandLi
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist5-rssetshadingrateimage
      */
     RSSetShadingRateImage(shadingRateImage) {
-        ComCall(78, this, "ptr", shadingRateImage)
+        shadingRateImageMarshal := shadingRateImage == 0 ? IntPtr : "ptr"
+
+        ComCall(78, this, shadingRateImageMarshal, shadingRateImage)
     }
 
     _Query(iid) {
@@ -161,8 +164,8 @@ export default struct ID3D12GraphicsCommandList5 extends ID3D12GraphicsCommandLi
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RSSetShadingRate := CallbackCreate(GetMethod(implObj, "RSSetShadingRate"), flags, 3)
-        this.vtbl.RSSetShadingRateImage := CallbackCreate(GetMethod(implObj, "RSSetShadingRateImage"), flags, 2)
+        this.vtbl.RSSetShadingRate := CallbackCreate(ObjBindMethod(implObj, "RSSetShadingRate"), flags, 3)
+        this.vtbl.RSSetShadingRateImage := CallbackCreate(ObjBindMethod(implObj, "RSSetShadingRateImage"), flags, 2)
     }
 
     Dispose() {

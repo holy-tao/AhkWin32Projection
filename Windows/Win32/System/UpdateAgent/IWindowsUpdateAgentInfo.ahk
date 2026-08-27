@@ -94,7 +94,7 @@ export default struct IWindowsUpdateAgentInfo extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetInfo := CallbackCreate(GetMethod(implObj, "GetInfo"), flags, 3)
+        this.vtbl.GetInfo := CallbackCreate(ObjBindMethod(implObj, "GetInfo"), flags, 3)
     }
 
     Dispose() {

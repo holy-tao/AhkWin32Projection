@@ -36,7 +36,6 @@ export default struct IXMLDOMText extends IXMLDOMCharacterData {
     }
 
     /**
-     * 
      * @param {Integer} offset 
      * @returns {IXMLDOMText} 
      */
@@ -54,7 +53,7 @@ export default struct IXMLDOMText extends IXMLDOMCharacterData {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.splitText := CallbackCreate(GetMethod(implObj, "splitText"), flags, 3)
+        this.vtbl.splitText := CallbackCreate(ObjBindMethod(implObj, "splitText"), flags, 3)
     }
 
     Dispose() {

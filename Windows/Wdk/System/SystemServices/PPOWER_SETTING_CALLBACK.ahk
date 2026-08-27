@@ -19,7 +19,6 @@ export default struct PPOWER_SETTING_CALLBACK {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

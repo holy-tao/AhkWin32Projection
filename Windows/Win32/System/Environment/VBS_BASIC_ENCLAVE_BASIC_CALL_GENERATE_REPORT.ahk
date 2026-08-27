@@ -18,7 +18,6 @@ export default struct VBS_BASIC_ENCLAVE_BASIC_CALL_GENERATE_REPORT {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} EnclaveData 
      * @param {Integer} Report 
      * @param {Integer} BufferSize 
@@ -26,10 +25,12 @@ export default struct VBS_BASIC_ENCLAVE_BASIC_CALL_GENERATE_REPORT {
      * @returns {Integer} 
      */
     Call(EnclaveData, Report, BufferSize, OutputSize) {
-        EnclaveDataMarshal := EnclaveData is VarRef ? "char*" : "ptr"
-        OutputSizeMarshal := OutputSize is VarRef ? "uint*" : "ptr"
+        EnclaveDataMarshal := EnclaveData is VarRef ? "char*" : IntPtr
+        EnclaveDataMarshal := EnclaveData == 0 ? IntPtr : "char*"
+        ReportMarshal := Report == 0 ? IntPtr : IntPtr
+        OutputSizeMarshal := OutputSize is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, EnclaveDataMarshal, EnclaveData, IntPtr, Report, UInt32, BufferSize, OutputSizeMarshal, OutputSize, Int32)
+        result := DllCall(this.value, EnclaveDataMarshal, EnclaveData, ReportMarshal, Report, UInt32, BufferSize, OutputSizeMarshal, OutputSize, Int32)
         return result
     }
 

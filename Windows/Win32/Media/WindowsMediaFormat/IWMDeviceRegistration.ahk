@@ -68,7 +68,7 @@ export default struct IWMDeviceRegistration extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdeviceregistration-registerdevice
      */
     RegisterDevice(dwRegisterType, pbCertificate, cbCertificate, SerialNumber) {
-        pbCertificateMarshal := pbCertificate is VarRef ? "char*" : "ptr"
+        pbCertificateMarshal := pbCertificate is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, UInt32, dwRegisterType, pbCertificateMarshal, pbCertificate, UInt32, cbCertificate, DRM_VAL16, SerialNumber, "ptr*", &ppDevice := 0, "HRESULT")
         return IWMRegisteredDevice(ppDevice)
@@ -115,7 +115,7 @@ export default struct IWMDeviceRegistration extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdeviceregistration-unregisterdevice
      */
     UnregisterDevice(dwRegisterType, pbCertificate, cbCertificate, SerialNumber) {
-        pbCertificateMarshal := pbCertificate is VarRef ? "char*" : "ptr"
+        pbCertificateMarshal := pbCertificate is VarRef ? "char*" : IntPtr
 
         result := ComCall(4, this, UInt32, dwRegisterType, pbCertificateMarshal, pbCertificate, UInt32, cbCertificate, DRM_VAL16, SerialNumber, "HRESULT")
         return result
@@ -175,7 +175,7 @@ export default struct IWMDeviceRegistration extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdeviceregistration-getregistereddevicebyid
      */
     GetRegisteredDeviceByID(dwRegisterType, pbCertificate, cbCertificate, SerialNumber) {
-        pbCertificateMarshal := pbCertificate is VarRef ? "char*" : "ptr"
+        pbCertificateMarshal := pbCertificate is VarRef ? "char*" : IntPtr
 
         result := ComCall(8, this, UInt32, dwRegisterType, pbCertificateMarshal, pbCertificate, UInt32, cbCertificate, DRM_VAL16, SerialNumber, "ptr*", &ppDevice := 0, "HRESULT")
         return IWMRegisteredDevice(ppDevice)
@@ -190,12 +190,12 @@ export default struct IWMDeviceRegistration extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterDevice := CallbackCreate(GetMethod(implObj, "RegisterDevice"), flags, 6)
-        this.vtbl.UnregisterDevice := CallbackCreate(GetMethod(implObj, "UnregisterDevice"), flags, 5)
-        this.vtbl.GetRegistrationStats := CallbackCreate(GetMethod(implObj, "GetRegistrationStats"), flags, 3)
-        this.vtbl.GetFirstRegisteredDevice := CallbackCreate(GetMethod(implObj, "GetFirstRegisteredDevice"), flags, 3)
-        this.vtbl.GetNextRegisteredDevice := CallbackCreate(GetMethod(implObj, "GetNextRegisteredDevice"), flags, 2)
-        this.vtbl.GetRegisteredDeviceByID := CallbackCreate(GetMethod(implObj, "GetRegisteredDeviceByID"), flags, 6)
+        this.vtbl.RegisterDevice := CallbackCreate(ObjBindMethod(implObj, "RegisterDevice"), flags, 6)
+        this.vtbl.UnregisterDevice := CallbackCreate(ObjBindMethod(implObj, "UnregisterDevice"), flags, 5)
+        this.vtbl.GetRegistrationStats := CallbackCreate(ObjBindMethod(implObj, "GetRegistrationStats"), flags, 3)
+        this.vtbl.GetFirstRegisteredDevice := CallbackCreate(ObjBindMethod(implObj, "GetFirstRegisteredDevice"), flags, 3)
+        this.vtbl.GetNextRegisteredDevice := CallbackCreate(ObjBindMethod(implObj, "GetNextRegisteredDevice"), flags, 2)
+        this.vtbl.GetRegisteredDeviceByID := CallbackCreate(ObjBindMethod(implObj, "GetRegisteredDeviceByID"), flags, 6)
     }
 
     Dispose() {

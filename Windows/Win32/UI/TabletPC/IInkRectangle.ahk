@@ -269,10 +269,10 @@ export default struct IInkRectangle extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrectangle-getrectangle
      */
     GetRectangle(Top, Left, Bottom, Right) {
-        TopMarshal := Top is VarRef ? "int*" : "ptr"
-        LeftMarshal := Left is VarRef ? "int*" : "ptr"
-        BottomMarshal := Bottom is VarRef ? "int*" : "ptr"
-        RightMarshal := Right is VarRef ? "int*" : "ptr"
+        TopMarshal := Top is VarRef ? "int*" : IntPtr
+        LeftMarshal := Left is VarRef ? "int*" : IntPtr
+        BottomMarshal := Bottom is VarRef ? "int*" : IntPtr
+        RightMarshal := Right is VarRef ? "int*" : IntPtr
 
         result := ComCall(17, this, TopMarshal, Top, LeftMarshal, Left, BottomMarshal, Bottom, RightMarshal, Right, "HRESULT")
         return result
@@ -344,18 +344,18 @@ export default struct IInkRectangle extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Top := CallbackCreate(GetMethod(implObj, "get_Top"), flags, 2)
-        this.vtbl.put_Top := CallbackCreate(GetMethod(implObj, "put_Top"), flags, 2)
-        this.vtbl.get_Left := CallbackCreate(GetMethod(implObj, "get_Left"), flags, 2)
-        this.vtbl.put_Left := CallbackCreate(GetMethod(implObj, "put_Left"), flags, 2)
-        this.vtbl.get_Bottom := CallbackCreate(GetMethod(implObj, "get_Bottom"), flags, 2)
-        this.vtbl.put_Bottom := CallbackCreate(GetMethod(implObj, "put_Bottom"), flags, 2)
-        this.vtbl.get_Right := CallbackCreate(GetMethod(implObj, "get_Right"), flags, 2)
-        this.vtbl.put_Right := CallbackCreate(GetMethod(implObj, "put_Right"), flags, 2)
-        this.vtbl.get_Data := CallbackCreate(GetMethod(implObj, "get_Data"), flags, 2)
-        this.vtbl.put_Data := CallbackCreate(GetMethod(implObj, "put_Data"), flags, 2)
-        this.vtbl.GetRectangle := CallbackCreate(GetMethod(implObj, "GetRectangle"), flags, 5)
-        this.vtbl.SetRectangle := CallbackCreate(GetMethod(implObj, "SetRectangle"), flags, 5)
+        this.vtbl.get_Top := CallbackCreate(ObjBindMethod(implObj, "get_Top"), flags, 2)
+        this.vtbl.put_Top := CallbackCreate(ObjBindMethod(implObj, "put_Top"), flags, 2)
+        this.vtbl.get_Left := CallbackCreate(ObjBindMethod(implObj, "get_Left"), flags, 2)
+        this.vtbl.put_Left := CallbackCreate(ObjBindMethod(implObj, "put_Left"), flags, 2)
+        this.vtbl.get_Bottom := CallbackCreate(ObjBindMethod(implObj, "get_Bottom"), flags, 2)
+        this.vtbl.put_Bottom := CallbackCreate(ObjBindMethod(implObj, "put_Bottom"), flags, 2)
+        this.vtbl.get_Right := CallbackCreate(ObjBindMethod(implObj, "get_Right"), flags, 2)
+        this.vtbl.put_Right := CallbackCreate(ObjBindMethod(implObj, "put_Right"), flags, 2)
+        this.vtbl.get_Data := CallbackCreate(ObjBindMethod(implObj, "get_Data"), flags, 2)
+        this.vtbl.put_Data := CallbackCreate(ObjBindMethod(implObj, "put_Data"), flags, 2)
+        this.vtbl.GetRectangle := CallbackCreate(ObjBindMethod(implObj, "GetRectangle"), flags, 5)
+        this.vtbl.SetRectangle := CallbackCreate(ObjBindMethod(implObj, "SetRectangle"), flags, 5)
     }
 
     Dispose() {

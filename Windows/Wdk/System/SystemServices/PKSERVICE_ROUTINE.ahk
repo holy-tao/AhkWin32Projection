@@ -19,7 +19,6 @@ export default struct PKSERVICE_ROUTINE {
     }
 
     /**
-     * 
      * @returns {BOOLEAN} 
      */
     Call() {

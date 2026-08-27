@@ -48,7 +48,6 @@ export default struct ISpRecoResult extends ISpPhrase {
     }
 
     /**
-     * 
      * @param {Pointer<SPRECORESULTTIMES>} pTimes 
      * @returns {HRESULT} 
      */
@@ -58,7 +57,6 @@ export default struct ISpRecoResult extends ISpPhrase {
     }
 
     /**
-     * 
      * @param {Integer} ulStartElement 
      * @param {Integer} cElements 
      * @param {Integer} ulRequestCount 
@@ -66,14 +64,13 @@ export default struct ISpRecoResult extends ISpPhrase {
      * @returns {ISpPhraseAlt} 
      */
     GetAlternates(ulStartElement, cElements, ulRequestCount, pcPhrasesReturned) {
-        pcPhrasesReturnedMarshal := pcPhrasesReturned is VarRef ? "uint*" : "ptr"
+        pcPhrasesReturnedMarshal := pcPhrasesReturned is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, UInt32, ulStartElement, UInt32, cElements, UInt32, ulRequestCount, "ptr*", &ppPhrases := 0, pcPhrasesReturnedMarshal, pcPhrasesReturned, "HRESULT")
         return ISpPhraseAlt(ppPhrases)
     }
 
     /**
-     * 
      * @param {Integer} ulStartElement 
      * @param {Integer} cElements 
      * @returns {ISpStreamFormat} 
@@ -84,7 +81,6 @@ export default struct ISpRecoResult extends ISpPhrase {
     }
 
     /**
-     * 
      * @param {Integer} ulStartElement 
      * @param {Integer} cElements 
      * @param {Integer} dwFlags 
@@ -92,26 +88,24 @@ export default struct ISpRecoResult extends ISpPhrase {
      * @returns {HRESULT} 
      */
     SpeakAudio(ulStartElement, cElements, dwFlags, pulStreamNumber) {
-        pulStreamNumberMarshal := pulStreamNumber is VarRef ? "uint*" : "ptr"
+        pulStreamNumberMarshal := pulStreamNumber is VarRef ? "uint*" : IntPtr
 
         result := ComCall(10, this, UInt32, ulStartElement, UInt32, cElements, UInt32, dwFlags, pulStreamNumberMarshal, pulStreamNumber, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<SPSERIALIZEDRESULT>>} ppCoMemSerializedResult 
      * @returns {HRESULT} 
      */
     Serialize(ppCoMemSerializedResult) {
-        ppCoMemSerializedResultMarshal := ppCoMemSerializedResult is VarRef ? "ptr*" : "ptr"
+        ppCoMemSerializedResultMarshal := ppCoMemSerializedResult is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(11, this, ppCoMemSerializedResultMarshal, ppCoMemSerializedResult, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pAudioFormatId 
      * @param {Pointer<WAVEFORMATEX>} pWaveFormatEx 
      * @returns {HRESULT} 
@@ -122,7 +116,6 @@ export default struct ISpRecoResult extends ISpPhrase {
     }
 
     /**
-     * 
      * @returns {ISpRecoContext} 
      */
     GetRecoContext() {
@@ -139,13 +132,13 @@ export default struct ISpRecoResult extends ISpPhrase {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetResultTimes := CallbackCreate(GetMethod(implObj, "GetResultTimes"), flags, 2)
-        this.vtbl.GetAlternates := CallbackCreate(GetMethod(implObj, "GetAlternates"), flags, 6)
-        this.vtbl.GetAudio := CallbackCreate(GetMethod(implObj, "GetAudio"), flags, 4)
-        this.vtbl.SpeakAudio := CallbackCreate(GetMethod(implObj, "SpeakAudio"), flags, 5)
-        this.vtbl.Serialize := CallbackCreate(GetMethod(implObj, "Serialize"), flags, 2)
-        this.vtbl.ScaleAudio := CallbackCreate(GetMethod(implObj, "ScaleAudio"), flags, 3)
-        this.vtbl.GetRecoContext := CallbackCreate(GetMethod(implObj, "GetRecoContext"), flags, 2)
+        this.vtbl.GetResultTimes := CallbackCreate(ObjBindMethod(implObj, "GetResultTimes"), flags, 2)
+        this.vtbl.GetAlternates := CallbackCreate(ObjBindMethod(implObj, "GetAlternates"), flags, 6)
+        this.vtbl.GetAudio := CallbackCreate(ObjBindMethod(implObj, "GetAudio"), flags, 4)
+        this.vtbl.SpeakAudio := CallbackCreate(ObjBindMethod(implObj, "SpeakAudio"), flags, 5)
+        this.vtbl.Serialize := CallbackCreate(ObjBindMethod(implObj, "Serialize"), flags, 2)
+        this.vtbl.ScaleAudio := CallbackCreate(ObjBindMethod(implObj, "ScaleAudio"), flags, 3)
+        this.vtbl.GetRecoContext := CallbackCreate(ObjBindMethod(implObj, "GetRecoContext"), flags, 2)
     }
 
     Dispose() {

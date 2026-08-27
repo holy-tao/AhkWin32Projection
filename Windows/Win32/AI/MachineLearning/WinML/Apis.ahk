@@ -10,7 +10,6 @@
 
 ;@region Functions
 /**
- * 
  * @returns {IWinMLRuntime} 
  */
 export WinMLCreateRuntime() {
@@ -19,7 +18,6 @@ export WinMLCreateRuntime() {
 }
 
 /**
- * 
  * @returns {IMLOperatorRegistry} 
  */
 export MLCreateOperatorRegistry() {

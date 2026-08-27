@@ -38,7 +38,6 @@ export default struct ISurfaceImageSourceManagerNative extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} device 
      * @returns {HRESULT} 
      */
@@ -56,7 +55,7 @@ export default struct ISurfaceImageSourceManagerNative extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FlushAllSurfacesWithDevice := CallbackCreate(GetMethod(implObj, "FlushAllSurfacesWithDevice"), flags, 2)
+        this.vtbl.FlushAllSurfacesWithDevice := CallbackCreate(ObjBindMethod(implObj, "FlushAllSurfacesWithDevice"), flags, 2)
     }
 
     Dispose() {

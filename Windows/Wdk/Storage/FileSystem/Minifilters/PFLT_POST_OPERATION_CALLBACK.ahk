@@ -21,7 +21,6 @@ export default struct PFLT_POST_OPERATION_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} Data 
      * @param {Pointer<FLT_RELATED_OBJECTS>} FltObjects 
      * @param {Pointer<Void>} CompletionContext 
@@ -29,7 +28,8 @@ export default struct PFLT_POST_OPERATION_CALLBACK {
      * @returns {FLT_POSTOP_CALLBACK_STATUS} 
      */
     Call(Data, FltObjects, CompletionContext, Flags) {
-        CompletionContextMarshal := CompletionContext is VarRef ? "ptr" : "ptr"
+        CompletionContextMarshal := CompletionContext is VarRef ? "ptr" : IntPtr
+        CompletionContextMarshal := CompletionContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, FLT_CALLBACK_DATA.Ptr, Data, FLT_RELATED_OBJECTS.Ptr, FltObjects, CompletionContextMarshal, CompletionContext, UInt32, Flags, FLT_POSTOP_CALLBACK_STATUS)
         return result

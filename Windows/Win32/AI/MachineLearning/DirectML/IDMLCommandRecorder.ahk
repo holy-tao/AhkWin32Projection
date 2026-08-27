@@ -68,7 +68,7 @@ export default struct IDMLCommandRecorder extends IDMLDeviceChild {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RecordDispatch := CallbackCreate(GetMethod(implObj, "RecordDispatch"), flags, 4)
+        this.vtbl.RecordDispatch := CallbackCreate(ObjBindMethod(implObj, "RecordDispatch"), flags, 4)
     }
 
     Dispose() {

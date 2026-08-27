@@ -25,7 +25,6 @@ export default struct RPC_IF_CALLBACK_FN {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} InterfaceUuid 
      * @param {Pointer<Void>} _Context Pointer to an RPC_IF_ID server binding handle representing the client. In the function declaration, this must be of type RPC_IF_HANDLE, but it is a client binding handle and can be safely cast to it. The callback function may pass this handle to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcimpersonateclient">RpcImpersonateClient</a>, 
@@ -37,8 +36,8 @@ export default struct RPC_IF_CALLBACK_FN {
      * <div> </div>
      */
     Call(InterfaceUuid, _Context) {
-        InterfaceUuidMarshal := InterfaceUuid is VarRef ? "ptr" : "ptr"
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        InterfaceUuidMarshal := InterfaceUuid is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, InterfaceUuidMarshal, InterfaceUuid, _ContextMarshal, _Context, RPC_STATUS)
         return result

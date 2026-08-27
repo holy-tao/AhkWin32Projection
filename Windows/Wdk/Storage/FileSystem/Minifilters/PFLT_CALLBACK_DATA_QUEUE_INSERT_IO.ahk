@@ -21,14 +21,14 @@ export default struct PFLT_CALLBACK_DATA_QUEUE_INSERT_IO {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA_QUEUE>} Cbdq 
      * @param {Pointer<FLT_CALLBACK_DATA>} Cbd 
      * @param {Pointer<Void>} InsertContext 
      * @returns {NTSTATUS} 
      */
     Call(Cbdq, Cbd, InsertContext) {
-        InsertContextMarshal := InsertContext is VarRef ? "ptr" : "ptr"
+        InsertContextMarshal := InsertContext is VarRef ? "ptr" : IntPtr
+        InsertContextMarshal := InsertContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, FLT_CALLBACK_DATA_QUEUE.Ptr, Cbdq, FLT_CALLBACK_DATA.Ptr, Cbd, InsertContextMarshal, InsertContext, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

@@ -18,7 +18,6 @@ export default struct PFREE_FUNCTION_EX {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

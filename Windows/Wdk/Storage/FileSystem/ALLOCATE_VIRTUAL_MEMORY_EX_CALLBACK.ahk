@@ -21,7 +21,6 @@ export default struct ALLOCATE_VIRTUAL_MEMORY_EX_CALLBACK {
     }
 
     /**
-     * 
      * @param {HANDLE} CallbackContext 
      * @param {HANDLE} ProcessHandle 
      * @param {Integer} BaseAddress 
@@ -33,9 +32,10 @@ export default struct ALLOCATE_VIRTUAL_MEMORY_EX_CALLBACK {
      * @returns {NTSTATUS} 
      */
     Call(CallbackContext, ProcessHandle, BaseAddress, RegionSize, AllocationType, PageProtection, ExtendedParameters, ExtendedParameterCount) {
-        RegionSizeMarshal := RegionSize is VarRef ? "ptr*" : "ptr"
+        RegionSizeMarshal := RegionSize is VarRef ? "ptr*" : IntPtr
+        ExtendedParametersMarshal := ExtendedParameters == 0 ? IntPtr : MEM_EXTENDED_PARAMETER.Ptr
 
-        result := DllCall(this.value, HANDLE, CallbackContext, HANDLE, ProcessHandle, IntPtr, BaseAddress, RegionSizeMarshal, RegionSize, UInt32, AllocationType, UInt32, PageProtection, MEM_EXTENDED_PARAMETER.Ptr, ExtendedParameters, UInt32, ExtendedParameterCount, NTSTATUS)
+        result := DllCall(this.value, HANDLE, CallbackContext, HANDLE, ProcessHandle, IntPtr, BaseAddress, RegionSizeMarshal, RegionSize, UInt32, AllocationType, UInt32, PageProtection, ExtendedParametersMarshal, ExtendedParameters, UInt32, ExtendedParameterCount, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

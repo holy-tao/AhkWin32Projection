@@ -19,7 +19,6 @@ export default struct PMPRADMINRASVALIDATEPREAUTHENTICATEDCONNECTIONEX {
     }
 
     /**
-     * 
      * @param {Pointer<AUTH_VALIDATION_EX>} param0 
      * @returns {Integer} 
      */

@@ -39,22 +39,24 @@ export default struct IFilterTrackingProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {IFilterTrackingRequestCallback} pCallback 
      * @returns {HRESULT} 
      */
     SpecifyTrackedFilters(pCallback) {
-        result := ComCall(3, this, "ptr", pCallback, "HRESULT")
+        pCallbackMarshal := pCallback == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pCallbackMarshal, pCallback, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {ISyncFilter} pFilter 
      * @returns {HRESULT} 
      */
     AddTrackedFilter(pFilter) {
-        result := ComCall(4, this, "ptr", pFilter, "HRESULT")
+        pFilterMarshal := pFilter == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, pFilterMarshal, pFilter, "HRESULT")
         return result
     }
 
@@ -67,8 +69,8 @@ export default struct IFilterTrackingProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SpecifyTrackedFilters := CallbackCreate(GetMethod(implObj, "SpecifyTrackedFilters"), flags, 2)
-        this.vtbl.AddTrackedFilter := CallbackCreate(GetMethod(implObj, "AddTrackedFilter"), flags, 2)
+        this.vtbl.SpecifyTrackedFilters := CallbackCreate(ObjBindMethod(implObj, "SpecifyTrackedFilters"), flags, 2)
+        this.vtbl.AddTrackedFilter := CallbackCreate(ObjBindMethod(implObj, "AddTrackedFilter"), flags, 2)
     }
 
     Dispose() {

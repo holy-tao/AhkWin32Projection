@@ -42,7 +42,6 @@ export default struct ITrusteeGroupAdmin extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<TRUSTEE_W>} pMembershipTrustee 
      * @param {Pointer<TRUSTEE_W>} pMemberTrustee 
      * @returns {HRESULT} 
@@ -53,7 +52,6 @@ export default struct ITrusteeGroupAdmin extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<TRUSTEE_W>} pMembershipTrustee 
      * @param {Pointer<TRUSTEE_W>} pMemberTrustee 
      * @returns {HRESULT} 
@@ -64,7 +62,6 @@ export default struct ITrusteeGroupAdmin extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<TRUSTEE_W>} pMembershipTrustee 
      * @param {Pointer<TRUSTEE_W>} pMemberTrustee 
      * @returns {BOOL} 
@@ -75,30 +72,28 @@ export default struct ITrusteeGroupAdmin extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<TRUSTEE_W>} pMembershipTrustee 
      * @param {Pointer<Integer>} pcMembers 
      * @param {Pointer<Pointer<TRUSTEE_W>>} prgMembers 
      * @returns {HRESULT} 
      */
     GetMembers(pMembershipTrustee, pcMembers, prgMembers) {
-        pcMembersMarshal := pcMembers is VarRef ? "uint*" : "ptr"
-        prgMembersMarshal := prgMembers is VarRef ? "ptr*" : "ptr"
+        pcMembersMarshal := pcMembers is VarRef ? "uint*" : IntPtr
+        prgMembersMarshal := prgMembers is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(6, this, TRUSTEE_W.Ptr, pMembershipTrustee, pcMembersMarshal, pcMembers, prgMembersMarshal, prgMembers, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<TRUSTEE_W>} pTrustee 
      * @param {Pointer<Integer>} pcMemberships 
      * @param {Pointer<Pointer<TRUSTEE_W>>} prgMemberships 
      * @returns {HRESULT} 
      */
     GetMemberships(pTrustee, pcMemberships, prgMemberships) {
-        pcMembershipsMarshal := pcMemberships is VarRef ? "uint*" : "ptr"
-        prgMembershipsMarshal := prgMemberships is VarRef ? "ptr*" : "ptr"
+        pcMembershipsMarshal := pcMemberships is VarRef ? "uint*" : IntPtr
+        prgMembershipsMarshal := prgMemberships is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(7, this, TRUSTEE_W.Ptr, pTrustee, pcMembershipsMarshal, pcMemberships, prgMembershipsMarshal, prgMemberships, "HRESULT")
         return result
@@ -113,11 +108,11 @@ export default struct ITrusteeGroupAdmin extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddMember := CallbackCreate(GetMethod(implObj, "AddMember"), flags, 3)
-        this.vtbl.DeleteMember := CallbackCreate(GetMethod(implObj, "DeleteMember"), flags, 3)
-        this.vtbl.IsMember := CallbackCreate(GetMethod(implObj, "IsMember"), flags, 4)
-        this.vtbl.GetMembers := CallbackCreate(GetMethod(implObj, "GetMembers"), flags, 4)
-        this.vtbl.GetMemberships := CallbackCreate(GetMethod(implObj, "GetMemberships"), flags, 4)
+        this.vtbl.AddMember := CallbackCreate(ObjBindMethod(implObj, "AddMember"), flags, 3)
+        this.vtbl.DeleteMember := CallbackCreate(ObjBindMethod(implObj, "DeleteMember"), flags, 3)
+        this.vtbl.IsMember := CallbackCreate(ObjBindMethod(implObj, "IsMember"), flags, 4)
+        this.vtbl.GetMembers := CallbackCreate(ObjBindMethod(implObj, "GetMembers"), flags, 4)
+        this.vtbl.GetMemberships := CallbackCreate(ObjBindMethod(implObj, "GetMemberships"), flags, 4)
     }
 
     Dispose() {

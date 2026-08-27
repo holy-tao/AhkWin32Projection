@@ -18,7 +18,6 @@ export default struct PFNWRITE {
     }
 
     /**
-     * 
      * @param {Pointer} hf 
      * @param {Integer} pv 
      * @param {Integer} cb 

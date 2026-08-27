@@ -24,7 +24,6 @@ export default struct PWLX_QUERY_CONSOLESWITCH_CREDENTIALS {
     }
 
     /**
-     * 
      * @param {Pointer<WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0>} pCred Pointer to a 
      * <a href="https://docs.microsoft.com/windows/win32/api/winwlx/ns-winwlx-wlx_consoleswitch_credentials_info_v1_0">WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0</a> structure to be filled with credentials information.
      * @returns {Integer} Returns <b>TRUE</b> if credentials were transferred and <b>FALSE</b> if the transfer failed.

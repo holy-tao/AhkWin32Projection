@@ -59,7 +59,7 @@ export default struct IGetSecurityCallContext extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSecurityCallContext := CallbackCreate(GetMethod(implObj, "GetSecurityCallContext"), flags, 2)
+        this.vtbl.GetSecurityCallContext := CallbackCreate(ObjBindMethod(implObj, "GetSecurityCallContext"), flags, 2)
     }
 
     Dispose() {

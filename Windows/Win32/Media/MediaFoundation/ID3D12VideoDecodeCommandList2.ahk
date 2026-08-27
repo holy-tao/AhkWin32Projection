@@ -47,7 +47,9 @@ export default struct ID3D12VideoDecodeCommandList2 extends ID3D12VideoDecodeCom
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodecodecommandlist2-setprotectedresourcesession
      */
     SetProtectedResourceSession(pProtectedResourceSession) {
-        ComCall(24, this, "ptr", pProtectedResourceSession)
+        pProtectedResourceSessionMarshal := pProtectedResourceSession == 0 ? IntPtr : "ptr"
+
+        ComCall(24, this, pProtectedResourceSessionMarshal, pProtectedResourceSession)
     }
 
     /**
@@ -87,9 +89,9 @@ export default struct ID3D12VideoDecodeCommandList2 extends ID3D12VideoDecodeCom
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetProtectedResourceSession := CallbackCreate(GetMethod(implObj, "SetProtectedResourceSession"), flags, 2)
-        this.vtbl.InitializeExtensionCommand := CallbackCreate(GetMethod(implObj, "InitializeExtensionCommand"), flags, 4)
-        this.vtbl.ExecuteExtensionCommand := CallbackCreate(GetMethod(implObj, "ExecuteExtensionCommand"), flags, 4)
+        this.vtbl.SetProtectedResourceSession := CallbackCreate(ObjBindMethod(implObj, "SetProtectedResourceSession"), flags, 2)
+        this.vtbl.InitializeExtensionCommand := CallbackCreate(ObjBindMethod(implObj, "InitializeExtensionCommand"), flags, 4)
+        this.vtbl.ExecuteExtensionCommand := CallbackCreate(ObjBindMethod(implObj, "ExecuteExtensionCommand"), flags, 4)
     }
 
     Dispose() {

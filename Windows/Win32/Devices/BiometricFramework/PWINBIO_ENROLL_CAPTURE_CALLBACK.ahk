@@ -34,14 +34,14 @@ export default struct PWINBIO_ENROLL_CAPTURE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} EnrollCallbackContext Pointer to a buffer defined by the application and passed to the <i>EnrollCallback</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioenrollcapturewithcallback">WinBioEnrollCaptureWithCallback</a> function. The buffer is not modified by the framework or the biometric unit. Your application can use the data to help it determine what actions to perform or to maintain additional information about the biometric capture.
      * @param {HRESULT} OperationStatus Error code returned by the capture operation.
      * @param {Integer} RejectDetail Additional information about the failure, if any, to perform the operation. For more information,  see Remarks.
      * @returns {String} Nothing - always returns an empty string
      */
     Call(EnrollCallbackContext, OperationStatus, RejectDetail) {
-        EnrollCallbackContextMarshal := EnrollCallbackContext is VarRef ? "ptr" : "ptr"
+        EnrollCallbackContextMarshal := EnrollCallbackContext is VarRef ? "ptr" : IntPtr
+        EnrollCallbackContextMarshal := EnrollCallbackContext == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, EnrollCallbackContextMarshal, EnrollCallbackContext, "int", OperationStatus, UInt32, RejectDetail)
     }

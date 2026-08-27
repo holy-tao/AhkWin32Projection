@@ -120,7 +120,7 @@ export default struct IWMDeviceManager3 extends IWMDeviceManager2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetDeviceEnumPreference := CallbackCreate(GetMethod(implObj, "SetDeviceEnumPreference"), flags, 2)
+        this.vtbl.SetDeviceEnumPreference := CallbackCreate(ObjBindMethod(implObj, "SetDeviceEnumPreference"), flags, 2)
     }
 
     Dispose() {

@@ -69,15 +69,15 @@ export default struct IWSDSignatureProperty extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pbKeyInfo 
      * @param {Pointer<Integer>} pdwKeyInfoSize 
      * @returns {HRESULT} 
      */
     GetKeyInfo(pbKeyInfo, pdwKeyInfoSize) {
-        pdwKeyInfoSizeMarshal := pdwKeyInfoSize is VarRef ? "uint*" : "ptr"
+        pbKeyInfoMarshal := pbKeyInfo == 0 ? IntPtr : IntPtr
+        pdwKeyInfoSizeMarshal := pdwKeyInfoSize is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(5, this, IntPtr, pbKeyInfo, pdwKeyInfoSizeMarshal, pdwKeyInfoSize, "HRESULT")
+        result := ComCall(5, this, pbKeyInfoMarshal, pbKeyInfo, pdwKeyInfoSizeMarshal, pdwKeyInfoSize, "HRESULT")
         return result
     }
 
@@ -131,9 +131,10 @@ export default struct IWSDSignatureProperty extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdsignatureproperty-getsignature
      */
     GetSignature(pbSignature, pdwSignatureSize) {
-        pdwSignatureSizeMarshal := pdwSignatureSize is VarRef ? "uint*" : "ptr"
+        pbSignatureMarshal := pbSignature == 0 ? IntPtr : IntPtr
+        pdwSignatureSizeMarshal := pdwSignatureSize is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(6, this, IntPtr, pbSignature, pdwSignatureSizeMarshal, pdwSignatureSize, "HRESULT")
+        result := ComCall(6, this, pbSignatureMarshal, pbSignature, pdwSignatureSizeMarshal, pdwSignatureSize, "HRESULT")
         return result
     }
 
@@ -189,9 +190,10 @@ export default struct IWSDSignatureProperty extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdsignatureproperty-getsignedinfohash
      */
     GetSignedInfoHash(pbSignedInfoHash, pdwHashSize) {
-        pdwHashSizeMarshal := pdwHashSize is VarRef ? "uint*" : "ptr"
+        pbSignedInfoHashMarshal := pbSignedInfoHash == 0 ? IntPtr : IntPtr
+        pdwHashSizeMarshal := pdwHashSize is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(7, this, IntPtr, pbSignedInfoHash, pdwHashSizeMarshal, pdwHashSize, "HRESULT")
+        result := ComCall(7, this, pbSignedInfoHashMarshal, pbSignedInfoHash, pdwHashSizeMarshal, pdwHashSize, "HRESULT")
         return result
     }
 
@@ -204,11 +206,11 @@ export default struct IWSDSignatureProperty extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsMessageSigned := CallbackCreate(GetMethod(implObj, "IsMessageSigned"), flags, 2)
-        this.vtbl.IsMessageSignatureTrusted := CallbackCreate(GetMethod(implObj, "IsMessageSignatureTrusted"), flags, 2)
-        this.vtbl.GetKeyInfo := CallbackCreate(GetMethod(implObj, "GetKeyInfo"), flags, 3)
-        this.vtbl.GetSignature := CallbackCreate(GetMethod(implObj, "GetSignature"), flags, 3)
-        this.vtbl.GetSignedInfoHash := CallbackCreate(GetMethod(implObj, "GetSignedInfoHash"), flags, 3)
+        this.vtbl.IsMessageSigned := CallbackCreate(ObjBindMethod(implObj, "IsMessageSigned"), flags, 2)
+        this.vtbl.IsMessageSignatureTrusted := CallbackCreate(ObjBindMethod(implObj, "IsMessageSignatureTrusted"), flags, 2)
+        this.vtbl.GetKeyInfo := CallbackCreate(ObjBindMethod(implObj, "GetKeyInfo"), flags, 3)
+        this.vtbl.GetSignature := CallbackCreate(ObjBindMethod(implObj, "GetSignature"), flags, 3)
+        this.vtbl.GetSignedInfoHash := CallbackCreate(ObjBindMethod(implObj, "GetSignedInfoHash"), flags, 3)
     }
 
     Dispose() {

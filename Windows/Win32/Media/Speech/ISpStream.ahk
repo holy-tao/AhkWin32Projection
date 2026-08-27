@@ -49,7 +49,6 @@ export default struct ISpStream extends ISpStreamFormat {
     }
 
     /**
-     * 
      * @param {IStream} pStream 
      * @param {Pointer<Guid>} rguidFormat 
      * @param {Pointer<WAVEFORMATEX>} pWaveFormatEx 
@@ -61,7 +60,6 @@ export default struct ISpStream extends ISpStreamFormat {
     }
 
     /**
-     * 
      * @returns {IStream} 
      */
     GetBaseStream() {
@@ -70,7 +68,6 @@ export default struct ISpStream extends ISpStreamFormat {
     }
 
     /**
-     * 
      * @param {PWSTR} pszFileName 
      * @param {SPFILEMODE} eMode 
      * @param {Pointer<Guid>} pFormatId 
@@ -81,12 +78,14 @@ export default struct ISpStream extends ISpStreamFormat {
     BindToFile(pszFileName, eMode, pFormatId, pWaveFormatEx, ullEventInterest) {
         pszFileName := pszFileName is String ? StrPtr(pszFileName) : pszFileName
 
-        result := ComCall(17, this, "ptr", pszFileName, SPFILEMODE, eMode, Guid.Ptr, pFormatId, WAVEFORMATEX.Ptr, pWaveFormatEx, Int64, ullEventInterest, "HRESULT")
+        pFormatIdMarshal := pFormatId == 0 ? IntPtr : Guid.Ptr
+        pWaveFormatExMarshal := pWaveFormatEx == 0 ? IntPtr : WAVEFORMATEX.Ptr
+
+        result := ComCall(17, this, "ptr", pszFileName, SPFILEMODE, eMode, pFormatIdMarshal, pFormatId, pWaveFormatExMarshal, pWaveFormatEx, Int64, ullEventInterest, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Close() {
@@ -103,10 +102,10 @@ export default struct ISpStream extends ISpStreamFormat {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetBaseStream := CallbackCreate(GetMethod(implObj, "SetBaseStream"), flags, 4)
-        this.vtbl.GetBaseStream := CallbackCreate(GetMethod(implObj, "GetBaseStream"), flags, 2)
-        this.vtbl.BindToFile := CallbackCreate(GetMethod(implObj, "BindToFile"), flags, 6)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.SetBaseStream := CallbackCreate(ObjBindMethod(implObj, "SetBaseStream"), flags, 4)
+        this.vtbl.GetBaseStream := CallbackCreate(ObjBindMethod(implObj, "GetBaseStream"), flags, 2)
+        this.vtbl.BindToFile := CallbackCreate(ObjBindMethod(implObj, "BindToFile"), flags, 6)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
     }
 
     Dispose() {

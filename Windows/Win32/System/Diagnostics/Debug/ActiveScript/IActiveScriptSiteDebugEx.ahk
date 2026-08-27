@@ -38,7 +38,6 @@ export default struct IActiveScriptSiteDebugEx extends IUnknown {
     }
 
     /**
-     * 
      * @param {IActiveScriptErrorDebug} pErrorDebug 
      * @returns {BOOL} 
      */
@@ -56,7 +55,7 @@ export default struct IActiveScriptSiteDebugEx extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnCanNotJITScriptErrorDebug := CallbackCreate(GetMethod(implObj, "OnCanNotJITScriptErrorDebug"), flags, 3)
+        this.vtbl.OnCanNotJITScriptErrorDebug := CallbackCreate(ObjBindMethod(implObj, "OnCanNotJITScriptErrorDebug"), flags, 3)
     }
 
     Dispose() {

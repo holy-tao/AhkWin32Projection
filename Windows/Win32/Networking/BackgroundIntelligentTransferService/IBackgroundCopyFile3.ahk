@@ -168,10 +168,10 @@ export default struct IBackgroundCopyFile3 extends IBackgroundCopyFile2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTemporaryName := CallbackCreate(GetMethod(implObj, "GetTemporaryName"), flags, 2)
-        this.vtbl.SetValidationState := CallbackCreate(GetMethod(implObj, "SetValidationState"), flags, 2)
-        this.vtbl.GetValidationState := CallbackCreate(GetMethod(implObj, "GetValidationState"), flags, 2)
-        this.vtbl.IsDownloadedFromPeer := CallbackCreate(GetMethod(implObj, "IsDownloadedFromPeer"), flags, 2)
+        this.vtbl.GetTemporaryName := CallbackCreate(ObjBindMethod(implObj, "GetTemporaryName"), flags, 2)
+        this.vtbl.SetValidationState := CallbackCreate(ObjBindMethod(implObj, "SetValidationState"), flags, 2)
+        this.vtbl.GetValidationState := CallbackCreate(ObjBindMethod(implObj, "GetValidationState"), flags, 2)
+        this.vtbl.IsDownloadedFromPeer := CallbackCreate(ObjBindMethod(implObj, "IsDownloadedFromPeer"), flags, 2)
     }
 
     Dispose() {

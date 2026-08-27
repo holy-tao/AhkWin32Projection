@@ -68,12 +68,13 @@ export default struct IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pOutput 
      * @returns {HRESULT} 
      */
     SetOutput(pOutput) {
-        result := ComCall(3, this, "ptr", pOutput, "HRESULT")
+        pOutputMarshal := pOutput == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pOutputMarshal, pOutput, "HRESULT")
         return result
     }
 
@@ -93,18 +94,18 @@ export default struct IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nProperty 
      * @param {Pointer} pValue 
      * @returns {HRESULT} 
      */
     SetProperty(nProperty, pValue) {
-        result := ComCall(5, this, UInt32, nProperty, IntPtr, pValue, "HRESULT")
+        pValueMarshal := pValue == 0 ? IntPtr : IntPtr
+
+        result := ComCall(5, this, UInt32, nProperty, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IXmlReader} pReader 
      * @param {BOOL} fWriteDefaultAttributes 
      * @returns {HRESULT} 
@@ -115,7 +116,6 @@ export default struct IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszPrefix 
      * @param {PWSTR} pwszLocalName 
      * @param {PWSTR} pwszNamespaceUri 
@@ -128,24 +128,29 @@ export default struct IXmlWriter extends IUnknown {
         pwszNamespaceUri := pwszNamespaceUri is String ? StrPtr(pwszNamespaceUri) : pwszNamespaceUri
         pwszValue := pwszValue is String ? StrPtr(pwszValue) : pwszValue
 
-        result := ComCall(7, this, "ptr", pwszPrefix, "ptr", pwszLocalName, "ptr", pwszNamespaceUri, "ptr", pwszValue, "HRESULT")
+        pwszPrefixMarshal := pwszPrefix == 0 ? IntPtr : PWSTR
+        pwszLocalNameMarshal := pwszLocalName == 0 ? IntPtr : PWSTR
+        pwszNamespaceUriMarshal := pwszNamespaceUri == 0 ? IntPtr : PWSTR
+        pwszValueMarshal := pwszValue == 0 ? IntPtr : PWSTR
+
+        result := ComCall(7, this, pwszPrefixMarshal, pwszPrefix, pwszLocalNameMarshal, pwszLocalName, pwszNamespaceUriMarshal, pwszNamespaceUri, pwszValueMarshal, pwszValue, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwszText 
      * @returns {HRESULT} 
      */
     WriteCData(pwszText) {
         pwszText := pwszText is String ? StrPtr(pwszText) : pwszText
 
-        result := ComCall(8, this, "ptr", pwszText, "HRESULT")
+        pwszTextMarshal := pwszText == 0 ? IntPtr : PWSTR
+
+        result := ComCall(8, this, pwszTextMarshal, pwszText, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} wch 
      * @returns {HRESULT} 
      */
@@ -155,7 +160,6 @@ export default struct IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwch 
      * @param {Integer} cwch 
      * @returns {HRESULT} 
@@ -163,24 +167,26 @@ export default struct IXmlWriter extends IUnknown {
     WriteChars(pwch, cwch) {
         pwch := pwch is String ? StrPtr(pwch) : pwch
 
-        result := ComCall(10, this, "ptr", pwch, UInt32, cwch, "HRESULT")
+        pwchMarshal := pwch == 0 ? IntPtr : PWSTR
+
+        result := ComCall(10, this, pwchMarshal, pwch, UInt32, cwch, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwszComment 
      * @returns {HRESULT} 
      */
     WriteComment(pwszComment) {
         pwszComment := pwszComment is String ? StrPtr(pwszComment) : pwszComment
 
-        result := ComCall(11, this, "ptr", pwszComment, "HRESULT")
+        pwszCommentMarshal := pwszComment == 0 ? IntPtr : PWSTR
+
+        result := ComCall(11, this, pwszCommentMarshal, pwszComment, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwszName 
      * @param {PWSTR} pwszPublicId 
      * @param {PWSTR} pwszSystemId 
@@ -193,12 +199,16 @@ export default struct IXmlWriter extends IUnknown {
         pwszSystemId := pwszSystemId is String ? StrPtr(pwszSystemId) : pwszSystemId
         pwszSubset := pwszSubset is String ? StrPtr(pwszSubset) : pwszSubset
 
-        result := ComCall(12, this, "ptr", pwszName, "ptr", pwszPublicId, "ptr", pwszSystemId, "ptr", pwszSubset, "HRESULT")
+        pwszNameMarshal := pwszName == 0 ? IntPtr : PWSTR
+        pwszPublicIdMarshal := pwszPublicId == 0 ? IntPtr : PWSTR
+        pwszSystemIdMarshal := pwszSystemId == 0 ? IntPtr : PWSTR
+        pwszSubsetMarshal := pwszSubset == 0 ? IntPtr : PWSTR
+
+        result := ComCall(12, this, pwszNameMarshal, pwszName, pwszPublicIdMarshal, pwszPublicId, pwszSystemIdMarshal, pwszSystemId, pwszSubsetMarshal, pwszSubset, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwszPrefix 
      * @param {PWSTR} pwszLocalName 
      * @param {PWSTR} pwszNamespaceUri 
@@ -211,12 +221,15 @@ export default struct IXmlWriter extends IUnknown {
         pwszNamespaceUri := pwszNamespaceUri is String ? StrPtr(pwszNamespaceUri) : pwszNamespaceUri
         pwszValue := pwszValue is String ? StrPtr(pwszValue) : pwszValue
 
-        result := ComCall(13, this, "ptr", pwszPrefix, "ptr", pwszLocalName, "ptr", pwszNamespaceUri, "ptr", pwszValue, "HRESULT")
+        pwszPrefixMarshal := pwszPrefix == 0 ? IntPtr : PWSTR
+        pwszNamespaceUriMarshal := pwszNamespaceUri == 0 ? IntPtr : PWSTR
+        pwszValueMarshal := pwszValue == 0 ? IntPtr : PWSTR
+
+        result := ComCall(13, this, pwszPrefixMarshal, pwszPrefix, "ptr", pwszLocalName, pwszNamespaceUriMarshal, pwszNamespaceUri, pwszValueMarshal, pwszValue, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     WriteEndDocument() {
@@ -225,7 +238,6 @@ export default struct IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     WriteEndElement() {
@@ -234,7 +246,6 @@ export default struct IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszName 
      * @returns {HRESULT} 
      */
@@ -246,7 +257,6 @@ export default struct IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     WriteFullEndElement() {
@@ -255,7 +265,6 @@ export default struct IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszName 
      * @returns {HRESULT} 
      */
@@ -267,7 +276,6 @@ export default struct IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszNmToken 
      * @returns {HRESULT} 
      */
@@ -279,7 +287,6 @@ export default struct IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {IXmlReader} pReader 
      * @param {BOOL} fWriteDefaultAttributes 
      * @returns {HRESULT} 
@@ -290,7 +297,6 @@ export default struct IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {IXmlReader} pReader 
      * @param {BOOL} fWriteDefaultAttributes 
      * @returns {HRESULT} 
@@ -301,7 +307,6 @@ export default struct IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszName 
      * @param {PWSTR} pwszText 
      * @returns {HRESULT} 
@@ -310,12 +315,13 @@ export default struct IXmlWriter extends IUnknown {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
         pwszText := pwszText is String ? StrPtr(pwszText) : pwszText
 
-        result := ComCall(22, this, "ptr", pwszName, "ptr", pwszText, "HRESULT")
+        pwszTextMarshal := pwszText == 0 ? IntPtr : PWSTR
+
+        result := ComCall(22, this, "ptr", pwszName, pwszTextMarshal, pwszText, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwszLocalName 
      * @param {PWSTR} pwszNamespaceUri 
      * @returns {HRESULT} 
@@ -324,24 +330,26 @@ export default struct IXmlWriter extends IUnknown {
         pwszLocalName := pwszLocalName is String ? StrPtr(pwszLocalName) : pwszLocalName
         pwszNamespaceUri := pwszNamespaceUri is String ? StrPtr(pwszNamespaceUri) : pwszNamespaceUri
 
-        result := ComCall(23, this, "ptr", pwszLocalName, "ptr", pwszNamespaceUri, "HRESULT")
+        pwszNamespaceUriMarshal := pwszNamespaceUri == 0 ? IntPtr : PWSTR
+
+        result := ComCall(23, this, "ptr", pwszLocalName, pwszNamespaceUriMarshal, pwszNamespaceUri, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwszData 
      * @returns {HRESULT} 
      */
     WriteRaw(pwszData) {
         pwszData := pwszData is String ? StrPtr(pwszData) : pwszData
 
-        result := ComCall(24, this, "ptr", pwszData, "HRESULT")
+        pwszDataMarshal := pwszData == 0 ? IntPtr : PWSTR
+
+        result := ComCall(24, this, pwszDataMarshal, pwszData, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwch 
      * @param {Integer} cwch 
      * @returns {HRESULT} 
@@ -349,12 +357,13 @@ export default struct IXmlWriter extends IUnknown {
     WriteRawChars(pwch, cwch) {
         pwch := pwch is String ? StrPtr(pwch) : pwch
 
-        result := ComCall(25, this, "ptr", pwch, UInt32, cwch, "HRESULT")
+        pwchMarshal := pwch == 0 ? IntPtr : PWSTR
+
+        result := ComCall(25, this, pwchMarshal, pwch, UInt32, cwch, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {XmlStandalone} standalone 
      * @returns {HRESULT} 
      */
@@ -364,7 +373,6 @@ export default struct IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszPrefix 
      * @param {PWSTR} pwszLocalName 
      * @param {PWSTR} pwszNamespaceUri 
@@ -375,24 +383,27 @@ export default struct IXmlWriter extends IUnknown {
         pwszLocalName := pwszLocalName is String ? StrPtr(pwszLocalName) : pwszLocalName
         pwszNamespaceUri := pwszNamespaceUri is String ? StrPtr(pwszNamespaceUri) : pwszNamespaceUri
 
-        result := ComCall(27, this, "ptr", pwszPrefix, "ptr", pwszLocalName, "ptr", pwszNamespaceUri, "HRESULT")
+        pwszPrefixMarshal := pwszPrefix == 0 ? IntPtr : PWSTR
+        pwszNamespaceUriMarshal := pwszNamespaceUri == 0 ? IntPtr : PWSTR
+
+        result := ComCall(27, this, pwszPrefixMarshal, pwszPrefix, "ptr", pwszLocalName, pwszNamespaceUriMarshal, pwszNamespaceUri, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwszText 
      * @returns {HRESULT} 
      */
     WriteString(pwszText) {
         pwszText := pwszText is String ? StrPtr(pwszText) : pwszText
 
-        result := ComCall(28, this, "ptr", pwszText, "HRESULT")
+        pwszTextMarshal := pwszText == 0 ? IntPtr : PWSTR
+
+        result := ComCall(28, this, pwszTextMarshal, pwszText, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} wchLow 
      * @param {Integer} wchHigh 
      * @returns {HRESULT} 
@@ -403,14 +414,15 @@ export default struct IXmlWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszWhitespace 
      * @returns {HRESULT} 
      */
     WriteWhitespace(pwszWhitespace) {
         pwszWhitespace := pwszWhitespace is String ? StrPtr(pwszWhitespace) : pwszWhitespace
 
-        result := ComCall(30, this, "ptr", pwszWhitespace, "HRESULT")
+        pwszWhitespaceMarshal := pwszWhitespace == 0 ? IntPtr : PWSTR
+
+        result := ComCall(30, this, pwszWhitespaceMarshal, pwszWhitespace, "HRESULT")
         return result
     }
 
@@ -436,35 +448,35 @@ export default struct IXmlWriter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetOutput := CallbackCreate(GetMethod(implObj, "SetOutput"), flags, 2)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
-        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 3)
-        this.vtbl.WriteAttributes := CallbackCreate(GetMethod(implObj, "WriteAttributes"), flags, 3)
-        this.vtbl.WriteAttributeString := CallbackCreate(GetMethod(implObj, "WriteAttributeString"), flags, 5)
-        this.vtbl.WriteCData := CallbackCreate(GetMethod(implObj, "WriteCData"), flags, 2)
-        this.vtbl.WriteCharEntity := CallbackCreate(GetMethod(implObj, "WriteCharEntity"), flags, 2)
-        this.vtbl.WriteChars := CallbackCreate(GetMethod(implObj, "WriteChars"), flags, 3)
-        this.vtbl.WriteComment := CallbackCreate(GetMethod(implObj, "WriteComment"), flags, 2)
-        this.vtbl.WriteDocType := CallbackCreate(GetMethod(implObj, "WriteDocType"), flags, 5)
-        this.vtbl.WriteElementString := CallbackCreate(GetMethod(implObj, "WriteElementString"), flags, 5)
-        this.vtbl.WriteEndDocument := CallbackCreate(GetMethod(implObj, "WriteEndDocument"), flags, 1)
-        this.vtbl.WriteEndElement := CallbackCreate(GetMethod(implObj, "WriteEndElement"), flags, 1)
-        this.vtbl.WriteEntityRef := CallbackCreate(GetMethod(implObj, "WriteEntityRef"), flags, 2)
-        this.vtbl.WriteFullEndElement := CallbackCreate(GetMethod(implObj, "WriteFullEndElement"), flags, 1)
-        this.vtbl.WriteName := CallbackCreate(GetMethod(implObj, "WriteName"), flags, 2)
-        this.vtbl.WriteNmToken := CallbackCreate(GetMethod(implObj, "WriteNmToken"), flags, 2)
-        this.vtbl.WriteNode := CallbackCreate(GetMethod(implObj, "WriteNode"), flags, 3)
-        this.vtbl.WriteNodeShallow := CallbackCreate(GetMethod(implObj, "WriteNodeShallow"), flags, 3)
-        this.vtbl.WriteProcessingInstruction := CallbackCreate(GetMethod(implObj, "WriteProcessingInstruction"), flags, 3)
-        this.vtbl.WriteQualifiedName := CallbackCreate(GetMethod(implObj, "WriteQualifiedName"), flags, 3)
-        this.vtbl.WriteRaw := CallbackCreate(GetMethod(implObj, "WriteRaw"), flags, 2)
-        this.vtbl.WriteRawChars := CallbackCreate(GetMethod(implObj, "WriteRawChars"), flags, 3)
-        this.vtbl.WriteStartDocument := CallbackCreate(GetMethod(implObj, "WriteStartDocument"), flags, 2)
-        this.vtbl.WriteStartElement := CallbackCreate(GetMethod(implObj, "WriteStartElement"), flags, 4)
-        this.vtbl.WriteString := CallbackCreate(GetMethod(implObj, "WriteString"), flags, 2)
-        this.vtbl.WriteSurrogateCharEntity := CallbackCreate(GetMethod(implObj, "WriteSurrogateCharEntity"), flags, 3)
-        this.vtbl.WriteWhitespace := CallbackCreate(GetMethod(implObj, "WriteWhitespace"), flags, 2)
-        this.vtbl.Flush := CallbackCreate(GetMethod(implObj, "Flush"), flags, 1)
+        this.vtbl.SetOutput := CallbackCreate(ObjBindMethod(implObj, "SetOutput"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.SetProperty := CallbackCreate(ObjBindMethod(implObj, "SetProperty"), flags, 3)
+        this.vtbl.WriteAttributes := CallbackCreate(ObjBindMethod(implObj, "WriteAttributes"), flags, 3)
+        this.vtbl.WriteAttributeString := CallbackCreate(ObjBindMethod(implObj, "WriteAttributeString"), flags, 5)
+        this.vtbl.WriteCData := CallbackCreate(ObjBindMethod(implObj, "WriteCData"), flags, 2)
+        this.vtbl.WriteCharEntity := CallbackCreate(ObjBindMethod(implObj, "WriteCharEntity"), flags, 2)
+        this.vtbl.WriteChars := CallbackCreate(ObjBindMethod(implObj, "WriteChars"), flags, 3)
+        this.vtbl.WriteComment := CallbackCreate(ObjBindMethod(implObj, "WriteComment"), flags, 2)
+        this.vtbl.WriteDocType := CallbackCreate(ObjBindMethod(implObj, "WriteDocType"), flags, 5)
+        this.vtbl.WriteElementString := CallbackCreate(ObjBindMethod(implObj, "WriteElementString"), flags, 5)
+        this.vtbl.WriteEndDocument := CallbackCreate(ObjBindMethod(implObj, "WriteEndDocument"), flags, 1)
+        this.vtbl.WriteEndElement := CallbackCreate(ObjBindMethod(implObj, "WriteEndElement"), flags, 1)
+        this.vtbl.WriteEntityRef := CallbackCreate(ObjBindMethod(implObj, "WriteEntityRef"), flags, 2)
+        this.vtbl.WriteFullEndElement := CallbackCreate(ObjBindMethod(implObj, "WriteFullEndElement"), flags, 1)
+        this.vtbl.WriteName := CallbackCreate(ObjBindMethod(implObj, "WriteName"), flags, 2)
+        this.vtbl.WriteNmToken := CallbackCreate(ObjBindMethod(implObj, "WriteNmToken"), flags, 2)
+        this.vtbl.WriteNode := CallbackCreate(ObjBindMethod(implObj, "WriteNode"), flags, 3)
+        this.vtbl.WriteNodeShallow := CallbackCreate(ObjBindMethod(implObj, "WriteNodeShallow"), flags, 3)
+        this.vtbl.WriteProcessingInstruction := CallbackCreate(ObjBindMethod(implObj, "WriteProcessingInstruction"), flags, 3)
+        this.vtbl.WriteQualifiedName := CallbackCreate(ObjBindMethod(implObj, "WriteQualifiedName"), flags, 3)
+        this.vtbl.WriteRaw := CallbackCreate(ObjBindMethod(implObj, "WriteRaw"), flags, 2)
+        this.vtbl.WriteRawChars := CallbackCreate(ObjBindMethod(implObj, "WriteRawChars"), flags, 3)
+        this.vtbl.WriteStartDocument := CallbackCreate(ObjBindMethod(implObj, "WriteStartDocument"), flags, 2)
+        this.vtbl.WriteStartElement := CallbackCreate(ObjBindMethod(implObj, "WriteStartElement"), flags, 4)
+        this.vtbl.WriteString := CallbackCreate(ObjBindMethod(implObj, "WriteString"), flags, 2)
+        this.vtbl.WriteSurrogateCharEntity := CallbackCreate(ObjBindMethod(implObj, "WriteSurrogateCharEntity"), flags, 3)
+        this.vtbl.WriteWhitespace := CallbackCreate(ObjBindMethod(implObj, "WriteWhitespace"), flags, 2)
+        this.vtbl.Flush := CallbackCreate(ObjBindMethod(implObj, "Flush"), flags, 1)
     }
 
     Dispose() {

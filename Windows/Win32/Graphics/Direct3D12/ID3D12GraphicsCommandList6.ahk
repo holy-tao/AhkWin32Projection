@@ -35,7 +35,6 @@ export default struct ID3D12GraphicsCommandList6 extends ID3D12GraphicsCommandLi
     }
 
     /**
-     * 
      * @param {Integer} ThreadGroupCountX 
      * @param {Integer} ThreadGroupCountY 
      * @param {Integer} ThreadGroupCountZ 
@@ -54,7 +53,7 @@ export default struct ID3D12GraphicsCommandList6 extends ID3D12GraphicsCommandLi
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DispatchMesh := CallbackCreate(GetMethod(implObj, "DispatchMesh"), flags, 4)
+        this.vtbl.DispatchMesh := CallbackCreate(ObjBindMethod(implObj, "DispatchMesh"), flags, 4)
     }
 
     Dispose() {

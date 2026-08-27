@@ -45,7 +45,6 @@ export default struct IGameInputRawDeviceReport extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<IGameInputDevice>} device 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -54,7 +53,6 @@ export default struct IGameInputRawDeviceReport extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<GameInputRawDeviceReportInfo>} 
      */
     GetReportInfo() {
@@ -63,7 +61,6 @@ export default struct IGameInputRawDeviceReport extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     GetRawDataSize() {
@@ -72,46 +69,42 @@ export default struct IGameInputRawDeviceReport extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} bufferSize 
      * @param {Pointer<Void>} _buffer 
      * @returns {Pointer} 
      */
     GetRawData(bufferSize, _buffer) {
-        _bufferMarshal := _buffer is VarRef ? "ptr" : "ptr"
+        _bufferMarshal := _buffer is VarRef ? "ptr" : IntPtr
 
         result := ComCall(6, this, IntPtr, bufferSize, _bufferMarshal, _buffer, IntPtr)
         return result
     }
 
     /**
-     * 
      * @param {Pointer} bufferSize 
      * @param {Pointer<Void>} _buffer 
      * @returns {Boolean} 
      */
     SetRawData(bufferSize, _buffer) {
-        _bufferMarshal := _buffer is VarRef ? "ptr" : "ptr"
+        _bufferMarshal := _buffer is VarRef ? "ptr" : IntPtr
 
         result := ComCall(7, this, IntPtr, bufferSize, _bufferMarshal, _buffer, Int32)
         return result
     }
 
     /**
-     * 
      * @param {Integer} itemIndex 
      * @param {Pointer<Integer>} value 
      * @returns {Boolean} 
      */
     GetItemValue(itemIndex, value) {
-        valueMarshal := value is VarRef ? "int64*" : "ptr"
+        valueMarshal := value is VarRef ? "int64*" : IntPtr
 
         result := ComCall(8, this, UInt32, itemIndex, valueMarshal, value, Int32)
         return result
     }
 
     /**
-     * 
      * @param {Integer} itemIndex 
      * @param {Integer} value 
      * @returns {Boolean} 
@@ -122,7 +115,6 @@ export default struct IGameInputRawDeviceReport extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} itemIndex 
      * @returns {Boolean} 
      */
@@ -132,7 +124,6 @@ export default struct IGameInputRawDeviceReport extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Boolean} 
      */
     ResetAllItems() {
@@ -149,15 +140,15 @@ export default struct IGameInputRawDeviceReport extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDevice := CallbackCreate(GetMethod(implObj, "GetDevice"), flags, 2)
-        this.vtbl.GetReportInfo := CallbackCreate(GetMethod(implObj, "GetReportInfo"), flags, 1)
-        this.vtbl.GetRawDataSize := CallbackCreate(GetMethod(implObj, "GetRawDataSize"), flags, 1)
-        this.vtbl.GetRawData := CallbackCreate(GetMethod(implObj, "GetRawData"), flags, 3)
-        this.vtbl.SetRawData := CallbackCreate(GetMethod(implObj, "SetRawData"), flags, 3)
-        this.vtbl.GetItemValue := CallbackCreate(GetMethod(implObj, "GetItemValue"), flags, 3)
-        this.vtbl.SetItemValue := CallbackCreate(GetMethod(implObj, "SetItemValue"), flags, 3)
-        this.vtbl.ResetItemValue := CallbackCreate(GetMethod(implObj, "ResetItemValue"), flags, 2)
-        this.vtbl.ResetAllItems := CallbackCreate(GetMethod(implObj, "ResetAllItems"), flags, 1)
+        this.vtbl.GetDevice := CallbackCreate(ObjBindMethod(implObj, "GetDevice"), flags, 2)
+        this.vtbl.GetReportInfo := CallbackCreate(ObjBindMethod(implObj, "GetReportInfo"), flags, 1)
+        this.vtbl.GetRawDataSize := CallbackCreate(ObjBindMethod(implObj, "GetRawDataSize"), flags, 1)
+        this.vtbl.GetRawData := CallbackCreate(ObjBindMethod(implObj, "GetRawData"), flags, 3)
+        this.vtbl.SetRawData := CallbackCreate(ObjBindMethod(implObj, "SetRawData"), flags, 3)
+        this.vtbl.GetItemValue := CallbackCreate(ObjBindMethod(implObj, "GetItemValue"), flags, 3)
+        this.vtbl.SetItemValue := CallbackCreate(ObjBindMethod(implObj, "SetItemValue"), flags, 3)
+        this.vtbl.ResetItemValue := CallbackCreate(ObjBindMethod(implObj, "ResetItemValue"), flags, 2)
+        this.vtbl.ResetAllItems := CallbackCreate(ObjBindMethod(implObj, "ResetAllItems"), flags, 1)
     }
 
     Dispose() {

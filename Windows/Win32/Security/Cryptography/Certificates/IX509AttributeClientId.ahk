@@ -253,12 +253,12 @@ export default struct IX509AttributeClientId extends IX509Attribute {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeEncode := CallbackCreate(GetMethod(implObj, "InitializeEncode"), flags, 5)
-        this.vtbl.InitializeDecode := CallbackCreate(GetMethod(implObj, "InitializeDecode"), flags, 3)
-        this.vtbl.get_ClientId := CallbackCreate(GetMethod(implObj, "get_ClientId"), flags, 2)
-        this.vtbl.get_MachineDnsName := CallbackCreate(GetMethod(implObj, "get_MachineDnsName"), flags, 2)
-        this.vtbl.get_UserSamName := CallbackCreate(GetMethod(implObj, "get_UserSamName"), flags, 2)
-        this.vtbl.get_ProcessName := CallbackCreate(GetMethod(implObj, "get_ProcessName"), flags, 2)
+        this.vtbl.InitializeEncode := CallbackCreate(ObjBindMethod(implObj, "InitializeEncode"), flags, 5)
+        this.vtbl.InitializeDecode := CallbackCreate(ObjBindMethod(implObj, "InitializeDecode"), flags, 3)
+        this.vtbl.get_ClientId := CallbackCreate(ObjBindMethod(implObj, "get_ClientId"), flags, 2)
+        this.vtbl.get_MachineDnsName := CallbackCreate(ObjBindMethod(implObj, "get_MachineDnsName"), flags, 2)
+        this.vtbl.get_UserSamName := CallbackCreate(ObjBindMethod(implObj, "get_UserSamName"), flags, 2)
+        this.vtbl.get_ProcessName := CallbackCreate(ObjBindMethod(implObj, "get_ProcessName"), flags, 2)
     }
 
     Dispose() {

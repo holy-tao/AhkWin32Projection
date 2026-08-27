@@ -28,7 +28,6 @@ export default struct LPWSPGETQOSBYNAME {
     }
 
     /**
-     * 
      * @param {SOCKET} s Descriptor identifying a socket.
      * @param {Pointer<WSABUF>} lpQOSName Specifies the QOS template name, or supplies a buffer to retrieve an enumeration of the available template names.
      * @param {Pointer<QOS>} lpQOS Pointer to the <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/qos/qos-structures">QOS</a></b> structure to be filled.
@@ -87,7 +86,7 @@ export default struct LPWSPGETQOSBYNAME {
      * </table>
      */
     Call(s, lpQOSName, lpQOS, lpErrno) {
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, SOCKET, s, WSABUF.Ptr, lpQOSName, QOS.Ptr, lpQOS, lpErrnoMarshal, lpErrno, BOOL)
         return result

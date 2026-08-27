@@ -22,7 +22,6 @@ export default struct NCryptEnumKeysFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} _hProvider 
      * @param {PWSTR} pszScope 
      * @param {Pointer<Pointer<Void>>} ppEnumState 
@@ -32,9 +31,10 @@ export default struct NCryptEnumKeysFn {
     Call(_hProvider, pszScope, ppEnumState, dwFlags) {
         pszScope := pszScope is String ? StrPtr(pszScope) : pszScope
 
-        ppEnumStateMarshal := ppEnumState is VarRef ? "ptr*" : "ptr"
+        pszScopeMarshal := pszScope == 0 ? IntPtr : PWSTR
+        ppEnumStateMarshal := ppEnumState is VarRef ? "ptr*" : IntPtr
 
-        result := DllCall(this.value, NCRYPT_PROV_HANDLE, _hProvider, "ptr", pszScope, "ptr*", &ppKeyName := 0, ppEnumStateMarshal, ppEnumState, UInt32, dwFlags, "HRESULT")
+        result := DllCall(this.value, NCRYPT_PROV_HANDLE, _hProvider, pszScopeMarshal, pszScope, "ptr*", &ppKeyName := 0, ppEnumStateMarshal, ppEnumState, UInt32, dwFlags, "HRESULT")
         return ppKeyName
     }
 

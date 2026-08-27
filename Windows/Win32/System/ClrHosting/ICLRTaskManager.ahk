@@ -42,7 +42,6 @@ export default struct ICLRTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ICLRTask} 
      */
     CreateTask() {
@@ -51,7 +50,6 @@ export default struct ICLRTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ICLRTask} 
      */
     GetCurrentTask() {
@@ -60,7 +58,6 @@ export default struct ICLRTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lcid 
      * @returns {HRESULT} 
      */
@@ -70,7 +67,6 @@ export default struct ICLRTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lcid 
      * @returns {HRESULT} 
      */
@@ -80,7 +76,6 @@ export default struct ICLRTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ETaskType} 
      */
     GetCurrentTaskType() {
@@ -97,11 +92,11 @@ export default struct ICLRTaskManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateTask := CallbackCreate(GetMethod(implObj, "CreateTask"), flags, 2)
-        this.vtbl.GetCurrentTask := CallbackCreate(GetMethod(implObj, "GetCurrentTask"), flags, 2)
-        this.vtbl.SetUILocale := CallbackCreate(GetMethod(implObj, "SetUILocale"), flags, 2)
-        this.vtbl.SetLocale := CallbackCreate(GetMethod(implObj, "SetLocale"), flags, 2)
-        this.vtbl.GetCurrentTaskType := CallbackCreate(GetMethod(implObj, "GetCurrentTaskType"), flags, 2)
+        this.vtbl.CreateTask := CallbackCreate(ObjBindMethod(implObj, "CreateTask"), flags, 2)
+        this.vtbl.GetCurrentTask := CallbackCreate(ObjBindMethod(implObj, "GetCurrentTask"), flags, 2)
+        this.vtbl.SetUILocale := CallbackCreate(ObjBindMethod(implObj, "SetUILocale"), flags, 2)
+        this.vtbl.SetLocale := CallbackCreate(ObjBindMethod(implObj, "SetLocale"), flags, 2)
+        this.vtbl.GetCurrentTaskType := CallbackCreate(ObjBindMethod(implObj, "GetCurrentTaskType"), flags, 2)
     }
 
     Dispose() {

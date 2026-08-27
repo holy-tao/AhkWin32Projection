@@ -60,7 +60,6 @@ export default struct IRTCProfileEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCProfile} 
      */
     get_Profile() {
@@ -69,7 +68,6 @@ export default struct IRTCProfileEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     get_Cookie() {
@@ -78,7 +76,6 @@ export default struct IRTCProfileEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_StatusCode() {
@@ -95,9 +92,9 @@ export default struct IRTCProfileEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Profile := CallbackCreate(GetMethod(implObj, "get_Profile"), flags, 2)
-        this.vtbl.get_Cookie := CallbackCreate(GetMethod(implObj, "get_Cookie"), flags, 2)
-        this.vtbl.get_StatusCode := CallbackCreate(GetMethod(implObj, "get_StatusCode"), flags, 2)
+        this.vtbl.get_Profile := CallbackCreate(ObjBindMethod(implObj, "get_Profile"), flags, 2)
+        this.vtbl.get_Cookie := CallbackCreate(ObjBindMethod(implObj, "get_Cookie"), flags, 2)
+        this.vtbl.get_StatusCode := CallbackCreate(ObjBindMethod(implObj, "get_StatusCode"), flags, 2)
     }
 
     Dispose() {

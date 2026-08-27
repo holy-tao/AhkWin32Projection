@@ -106,13 +106,17 @@ export default struct IClientSecurity extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-iclientsecurity-queryblanket
      */
     QueryBlanket(pProxy, pAuthnSvc, pAuthzSvc, pServerPrincName, pAuthnLevel, pImpLevel, pAuthInfo, pCapabilites) {
-        pAuthnSvcMarshal := pAuthnSvc is VarRef ? "uint*" : "ptr"
-        pAuthzSvcMarshal := pAuthzSvc is VarRef ? "uint*" : "ptr"
-        pServerPrincNameMarshal := pServerPrincName is VarRef ? "ptr*" : "ptr"
-        pAuthnLevelMarshal := pAuthnLevel is VarRef ? "uint*" : "ptr"
-        pImpLevelMarshal := pImpLevel is VarRef ? "uint*" : "ptr"
-        pAuthInfoMarshal := pAuthInfo is VarRef ? "ptr*" : "ptr"
-        pCapabilitesMarshal := pCapabilites is VarRef ? "uint*" : "ptr"
+        pAuthnSvcMarshal := pAuthnSvc is VarRef ? "uint*" : IntPtr
+        pAuthzSvcMarshal := pAuthzSvc is VarRef ? "uint*" : IntPtr
+        pAuthzSvcMarshal := pAuthzSvc == 0 ? IntPtr : "uint*"
+        pServerPrincNameMarshal := pServerPrincName is VarRef ? "ptr*" : IntPtr
+        pAuthnLevelMarshal := pAuthnLevel is VarRef ? "uint*" : IntPtr
+        pAuthnLevelMarshal := pAuthnLevel == 0 ? IntPtr : "uint*"
+        pImpLevelMarshal := pImpLevel is VarRef ? "uint*" : IntPtr
+        pImpLevelMarshal := pImpLevel == 0 ? IntPtr : "uint*"
+        pAuthInfoMarshal := pAuthInfo is VarRef ? "ptr*" : IntPtr
+        pCapabilitesMarshal := pCapabilites is VarRef ? "uint*" : IntPtr
+        pCapabilitesMarshal := pCapabilites == 0 ? IntPtr : "uint*"
 
         result := ComCall(3, this, "ptr", pProxy, pAuthnSvcMarshal, pAuthnSvc, pAuthzSvcMarshal, pAuthzSvc, pServerPrincNameMarshal, pServerPrincName, pAuthnLevelMarshal, pAuthnLevel, pImpLevelMarshal, pImpLevel, pAuthInfoMarshal, pAuthInfo, pCapabilitesMarshal, pCapabilites, "HRESULT")
         return result
@@ -201,9 +205,11 @@ export default struct IClientSecurity extends IUnknown {
     SetBlanket(pProxy, dwAuthnSvc, dwAuthzSvc, pServerPrincName, dwAuthnLevel, dwImpLevel, pAuthInfo, dwCapabilities) {
         pServerPrincName := pServerPrincName is String ? StrPtr(pServerPrincName) : pServerPrincName
 
-        pAuthInfoMarshal := pAuthInfo is VarRef ? "ptr" : "ptr"
+        pServerPrincNameMarshal := pServerPrincName == 0 ? IntPtr : PWSTR
+        pAuthInfoMarshal := pAuthInfo is VarRef ? "ptr" : IntPtr
+        pAuthInfoMarshal := pAuthInfo == 0 ? IntPtr : "ptr"
 
-        result := ComCall(4, this, "ptr", pProxy, UInt32, dwAuthnSvc, UInt32, dwAuthzSvc, "ptr", pServerPrincName, RPC_C_AUTHN_LEVEL, dwAuthnLevel, RPC_C_IMP_LEVEL, dwImpLevel, pAuthInfoMarshal, pAuthInfo, UInt32, dwCapabilities, "HRESULT")
+        result := ComCall(4, this, "ptr", pProxy, UInt32, dwAuthnSvc, UInt32, dwAuthzSvc, pServerPrincNameMarshal, pServerPrincName, RPC_C_AUTHN_LEVEL, dwAuthnLevel, RPC_C_IMP_LEVEL, dwImpLevel, pAuthInfoMarshal, pAuthInfo, UInt32, dwCapabilities, "HRESULT")
         return result
     }
 
@@ -237,9 +243,9 @@ export default struct IClientSecurity extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryBlanket := CallbackCreate(GetMethod(implObj, "QueryBlanket"), flags, 9)
-        this.vtbl.SetBlanket := CallbackCreate(GetMethod(implObj, "SetBlanket"), flags, 9)
-        this.vtbl.CopyProxy := CallbackCreate(GetMethod(implObj, "CopyProxy"), flags, 3)
+        this.vtbl.QueryBlanket := CallbackCreate(ObjBindMethod(implObj, "QueryBlanket"), flags, 9)
+        this.vtbl.SetBlanket := CallbackCreate(ObjBindMethod(implObj, "SetBlanket"), flags, 9)
+        this.vtbl.CopyProxy := CallbackCreate(ObjBindMethod(implObj, "CopyProxy"), flags, 3)
     }
 
     Dispose() {

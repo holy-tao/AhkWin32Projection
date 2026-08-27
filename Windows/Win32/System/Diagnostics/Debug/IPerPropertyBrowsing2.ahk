@@ -42,7 +42,6 @@ export default struct IPerPropertyBrowsing2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dispid 
      * @returns {BSTR} 
      */
@@ -53,7 +52,6 @@ export default struct IPerPropertyBrowsing2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dispid 
      * @returns {Guid} 
      */
@@ -64,7 +62,6 @@ export default struct IPerPropertyBrowsing2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dispid 
      * @param {Pointer<CALPOLESTR>} pCaStrings 
      * @param {Pointer<CADWORD>} pCaCookies 
@@ -76,7 +73,6 @@ export default struct IPerPropertyBrowsing2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dispid 
      * @param {Integer} dwCookie 
      * @returns {HRESULT} 
@@ -95,10 +91,10 @@ export default struct IPerPropertyBrowsing2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDisplayString := CallbackCreate(GetMethod(implObj, "GetDisplayString"), flags, 3)
-        this.vtbl.MapPropertyToPage := CallbackCreate(GetMethod(implObj, "MapPropertyToPage"), flags, 3)
-        this.vtbl.GetPredefinedStrings := CallbackCreate(GetMethod(implObj, "GetPredefinedStrings"), flags, 4)
-        this.vtbl.SetPredefinedValue := CallbackCreate(GetMethod(implObj, "SetPredefinedValue"), flags, 3)
+        this.vtbl.GetDisplayString := CallbackCreate(ObjBindMethod(implObj, "GetDisplayString"), flags, 3)
+        this.vtbl.MapPropertyToPage := CallbackCreate(ObjBindMethod(implObj, "MapPropertyToPage"), flags, 3)
+        this.vtbl.GetPredefinedStrings := CallbackCreate(ObjBindMethod(implObj, "GetPredefinedStrings"), flags, 4)
+        this.vtbl.SetPredefinedValue := CallbackCreate(ObjBindMethod(implObj, "SetPredefinedValue"), flags, 3)
     }
 
     Dispose() {

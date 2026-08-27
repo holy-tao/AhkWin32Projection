@@ -66,7 +66,7 @@ export default struct ITfEditRecord extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfeditrecord-gettextandpropertyupdates
      */
     GetTextAndPropertyUpdates(dwFlags, prgProperties, cProperties) {
-        prgPropertiesMarshal := prgProperties is VarRef ? "ptr*" : "ptr"
+        prgPropertiesMarshal := prgProperties is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, GET_TEXT_AND_PROPERTY_UPDATES_FLAGS, dwFlags, prgPropertiesMarshal, prgProperties, UInt32, cProperties, "ptr*", &ppEnum := 0, "HRESULT")
         return IEnumTfRanges(ppEnum)
@@ -81,8 +81,8 @@ export default struct ITfEditRecord extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSelectionStatus := CallbackCreate(GetMethod(implObj, "GetSelectionStatus"), flags, 2)
-        this.vtbl.GetTextAndPropertyUpdates := CallbackCreate(GetMethod(implObj, "GetTextAndPropertyUpdates"), flags, 5)
+        this.vtbl.GetSelectionStatus := CallbackCreate(ObjBindMethod(implObj, "GetSelectionStatus"), flags, 2)
+        this.vtbl.GetTextAndPropertyUpdates := CallbackCreate(ObjBindMethod(implObj, "GetTextAndPropertyUpdates"), flags, 5)
     }
 
     Dispose() {

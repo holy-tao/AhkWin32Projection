@@ -38,7 +38,6 @@ export default struct IWICBitmapToneMapper extends IWICBitmapSource {
     }
 
     /**
-     * 
      * @param {IWICBitmapSource} pISource 
      * @param {Pointer<Guid>} guidDstFormat 
      * @param {Float} fLuminanceInNits 
@@ -52,7 +51,6 @@ export default struct IWICBitmapToneMapper extends IWICBitmapSource {
     }
 
     /**
-     * 
      * @param {IWICBitmapSource} pISource 
      * @param {Pointer<Guid>} guidDstFormat 
      * @param {WICBitmapToneMappingMode} _mode 
@@ -72,8 +70,8 @@ export default struct IWICBitmapToneMapper extends IWICBitmapSource {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeForHdrTarget := CallbackCreate(GetMethod(implObj, "InitializeForHdrTarget"), flags, 6)
-        this.vtbl.InitializeForSdrTarget := CallbackCreate(GetMethod(implObj, "InitializeForSdrTarget"), flags, 4)
+        this.vtbl.InitializeForHdrTarget := CallbackCreate(ObjBindMethod(implObj, "InitializeForHdrTarget"), flags, 6)
+        this.vtbl.InitializeForSdrTarget := CallbackCreate(ObjBindMethod(implObj, "InitializeForSdrTarget"), flags, 4)
     }
 
     Dispose() {

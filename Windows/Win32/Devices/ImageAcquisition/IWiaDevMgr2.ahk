@@ -439,8 +439,8 @@ export default struct IWiaDevMgr2 extends IUnknown {
         bstrFolderName := bstrFolderName is String ? BSTR.Alloc(bstrFolderName).Value : bstrFolderName
         bstrFilename := bstrFilename is String ? BSTR.Alloc(bstrFilename).Value : bstrFilename
 
-        plNumFilesMarshal := plNumFiles is VarRef ? "int*" : "ptr"
-        ppbstrFilePathsMarshal := ppbstrFilePaths is VarRef ? "ptr*" : "ptr"
+        plNumFilesMarshal := plNumFiles is VarRef ? "int*" : IntPtr
+        ppbstrFilePathsMarshal := ppbstrFilePaths is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(10, this, Int32, lFlags, BSTR, bstrDeviceID, HWND, hwndParent, BSTR, bstrFolderName, BSTR, bstrFilename, plNumFilesMarshal, plNumFiles, ppbstrFilePathsMarshal, ppbstrFilePaths, "ptr*", &ppItem := 0, "HRESULT")
         return IWiaItem2(ppItem)
@@ -455,14 +455,14 @@ export default struct IWiaDevMgr2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumDeviceInfo := CallbackCreate(GetMethod(implObj, "EnumDeviceInfo"), flags, 3)
-        this.vtbl.CreateDevice := CallbackCreate(GetMethod(implObj, "CreateDevice"), flags, 4)
-        this.vtbl.SelectDeviceDlg := CallbackCreate(GetMethod(implObj, "SelectDeviceDlg"), flags, 6)
-        this.vtbl.SelectDeviceDlgID := CallbackCreate(GetMethod(implObj, "SelectDeviceDlgID"), flags, 5)
-        this.vtbl.RegisterEventCallbackInterface := CallbackCreate(GetMethod(implObj, "RegisterEventCallbackInterface"), flags, 6)
-        this.vtbl.RegisterEventCallbackProgram := CallbackCreate(GetMethod(implObj, "RegisterEventCallbackProgram"), flags, 9)
-        this.vtbl.RegisterEventCallbackCLSID := CallbackCreate(GetMethod(implObj, "RegisterEventCallbackCLSID"), flags, 8)
-        this.vtbl.GetImageDlg := CallbackCreate(GetMethod(implObj, "GetImageDlg"), flags, 9)
+        this.vtbl.EnumDeviceInfo := CallbackCreate(ObjBindMethod(implObj, "EnumDeviceInfo"), flags, 3)
+        this.vtbl.CreateDevice := CallbackCreate(ObjBindMethod(implObj, "CreateDevice"), flags, 4)
+        this.vtbl.SelectDeviceDlg := CallbackCreate(ObjBindMethod(implObj, "SelectDeviceDlg"), flags, 6)
+        this.vtbl.SelectDeviceDlgID := CallbackCreate(ObjBindMethod(implObj, "SelectDeviceDlgID"), flags, 5)
+        this.vtbl.RegisterEventCallbackInterface := CallbackCreate(ObjBindMethod(implObj, "RegisterEventCallbackInterface"), flags, 6)
+        this.vtbl.RegisterEventCallbackProgram := CallbackCreate(ObjBindMethod(implObj, "RegisterEventCallbackProgram"), flags, 9)
+        this.vtbl.RegisterEventCallbackCLSID := CallbackCreate(ObjBindMethod(implObj, "RegisterEventCallbackCLSID"), flags, 8)
+        this.vtbl.GetImageDlg := CallbackCreate(ObjBindMethod(implObj, "GetImageDlg"), flags, 9)
     }
 
     Dispose() {

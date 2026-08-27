@@ -57,7 +57,7 @@ export default struct IWMPlayerTimestampHook extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.MapTimestamp := CallbackCreate(GetMethod(implObj, "MapTimestamp"), flags, 3)
+        this.vtbl.MapTimestamp := CallbackCreate(ObjBindMethod(implObj, "MapTimestamp"), flags, 3)
     }
 
     Dispose() {

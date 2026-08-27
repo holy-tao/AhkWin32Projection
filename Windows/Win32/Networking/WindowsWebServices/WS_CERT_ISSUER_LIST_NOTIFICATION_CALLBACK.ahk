@@ -23,15 +23,16 @@ export default struct WS_CERT_ISSUER_LIST_NOTIFICATION_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} certIssuerListNotificationCallbackState State that was specified along with this callback in the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_custom_cert_credential">WS_CUSTOM_CERT_CREDENTIAL</a>.
      * @param {Pointer<SecPkgContext_IssuerListInfoEx>} issuerList The list of certificate issuers acceptable to the server.
      * @param {Pointer<WS_ERROR>} _error Specifies where additional error information should be stored if the function fails.
      * @returns {HRESULT} This callback function does not return a value.
      */
     Call(certIssuerListNotificationCallbackState, issuerList, _error) {
-        certIssuerListNotificationCallbackStateMarshal := certIssuerListNotificationCallbackState is VarRef ? "ptr" : "ptr"
-        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
+        certIssuerListNotificationCallbackStateMarshal := certIssuerListNotificationCallbackState is VarRef ? "ptr" : IntPtr
+        certIssuerListNotificationCallbackStateMarshal := certIssuerListNotificationCallbackState == 0 ? IntPtr : "ptr"
+        _errorMarshal := _error is VarRef ? "ptr*" : IntPtr
+        _errorMarshal := _error == 0 ? IntPtr : WS_ERROR.Ptr
 
         result := DllCall(this.value, certIssuerListNotificationCallbackStateMarshal, certIssuerListNotificationCallbackState, SecPkgContext_IssuerListInfoEx.Ptr, issuerList, _errorMarshal, _error, "HRESULT")
         return result

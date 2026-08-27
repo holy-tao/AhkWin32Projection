@@ -45,7 +45,6 @@ export default struct IHTMLPainter extends IUnknown {
     }
 
     /**
-     * 
      * @param {RECT} rcBounds 
      * @param {RECT} rcUpdate 
      * @param {Integer} lDrawFlags 
@@ -54,14 +53,13 @@ export default struct IHTMLPainter extends IUnknown {
      * @returns {HRESULT} 
      */
     Draw(rcBounds, rcUpdate, lDrawFlags, _hdc, pvDrawObject) {
-        pvDrawObjectMarshal := pvDrawObject is VarRef ? "ptr" : "ptr"
+        pvDrawObjectMarshal := pvDrawObject is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, RECT, rcBounds, RECT, rcUpdate, Int32, lDrawFlags, HDC, _hdc, pvDrawObjectMarshal, pvDrawObject, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {SIZE} _size 
      * @returns {HRESULT} 
      */
@@ -71,7 +69,6 @@ export default struct IHTMLPainter extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HTML_PAINTER_INFO} 
      */
     GetPainterInfo() {
@@ -81,15 +78,14 @@ export default struct IHTMLPainter extends IUnknown {
     }
 
     /**
-     * 
      * @param {POINT} pt 
      * @param {Pointer<BOOL>} pbHit 
      * @param {Pointer<Integer>} plPartID 
      * @returns {HRESULT} 
      */
     HitTestPoint(pt, pbHit, plPartID) {
-        pbHitMarshal := pbHit is VarRef ? "int*" : "ptr"
-        plPartIDMarshal := plPartID is VarRef ? "int*" : "ptr"
+        pbHitMarshal := pbHit is VarRef ? "int*" : IntPtr
+        plPartIDMarshal := plPartID is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, POINT, pt, pbHitMarshal, pbHit, plPartIDMarshal, plPartID, "HRESULT")
         return result
@@ -104,10 +100,10 @@ export default struct IHTMLPainter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Draw := CallbackCreate(GetMethod(implObj, "Draw"), flags, 6)
-        this.vtbl.OnResize := CallbackCreate(GetMethod(implObj, "OnResize"), flags, 2)
-        this.vtbl.GetPainterInfo := CallbackCreate(GetMethod(implObj, "GetPainterInfo"), flags, 2)
-        this.vtbl.HitTestPoint := CallbackCreate(GetMethod(implObj, "HitTestPoint"), flags, 4)
+        this.vtbl.Draw := CallbackCreate(ObjBindMethod(implObj, "Draw"), flags, 6)
+        this.vtbl.OnResize := CallbackCreate(ObjBindMethod(implObj, "OnResize"), flags, 2)
+        this.vtbl.GetPainterInfo := CallbackCreate(ObjBindMethod(implObj, "GetPainterInfo"), flags, 2)
+        this.vtbl.HitTestPoint := CallbackCreate(ObjBindMethod(implObj, "HitTestPoint"), flags, 4)
     }
 
     Dispose() {

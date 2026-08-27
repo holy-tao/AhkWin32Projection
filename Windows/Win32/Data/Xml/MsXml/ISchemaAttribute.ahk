@@ -88,7 +88,6 @@ export default struct ISchemaAttribute extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {ISchemaType} 
      */
     get_type() {
@@ -97,7 +96,6 @@ export default struct ISchemaAttribute extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {ISchemaComplexType} 
      */
     get_scope() {
@@ -106,7 +104,6 @@ export default struct ISchemaAttribute extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_defaultValue() {
@@ -116,7 +113,6 @@ export default struct ISchemaAttribute extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fixedValue() {
@@ -126,7 +122,6 @@ export default struct ISchemaAttribute extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {SCHEMAUSE} 
      */
     get_use() {
@@ -135,7 +130,6 @@ export default struct ISchemaAttribute extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_isReference() {
@@ -152,12 +146,12 @@ export default struct ISchemaAttribute extends ISchemaItem {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
-        this.vtbl.get_scope := CallbackCreate(GetMethod(implObj, "get_scope"), flags, 2)
-        this.vtbl.get_defaultValue := CallbackCreate(GetMethod(implObj, "get_defaultValue"), flags, 2)
-        this.vtbl.get_fixedValue := CallbackCreate(GetMethod(implObj, "get_fixedValue"), flags, 2)
-        this.vtbl.get_use := CallbackCreate(GetMethod(implObj, "get_use"), flags, 2)
-        this.vtbl.get_isReference := CallbackCreate(GetMethod(implObj, "get_isReference"), flags, 2)
+        this.vtbl.get_type := CallbackCreate(ObjBindMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.get_scope := CallbackCreate(ObjBindMethod(implObj, "get_scope"), flags, 2)
+        this.vtbl.get_defaultValue := CallbackCreate(ObjBindMethod(implObj, "get_defaultValue"), flags, 2)
+        this.vtbl.get_fixedValue := CallbackCreate(ObjBindMethod(implObj, "get_fixedValue"), flags, 2)
+        this.vtbl.get_use := CallbackCreate(ObjBindMethod(implObj, "get_use"), flags, 2)
+        this.vtbl.get_isReference := CallbackCreate(ObjBindMethod(implObj, "get_isReference"), flags, 2)
     }
 
     Dispose() {

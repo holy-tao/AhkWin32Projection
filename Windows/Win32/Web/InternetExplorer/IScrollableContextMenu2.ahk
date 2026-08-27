@@ -38,7 +38,6 @@ export default struct IScrollableContextMenu2 extends IScrollableContextMenu {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     AddSeparator() {
@@ -47,7 +46,6 @@ export default struct IScrollableContextMenu2 extends IScrollableContextMenu {
     }
 
     /**
-     * 
      * @param {SCROLLABLECONTEXTMENU_PLACEMENT} scmp 
      * @returns {HRESULT} 
      */
@@ -65,8 +63,8 @@ export default struct IScrollableContextMenu2 extends IScrollableContextMenu {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddSeparator := CallbackCreate(GetMethod(implObj, "AddSeparator"), flags, 1)
-        this.vtbl.SetPlacement := CallbackCreate(GetMethod(implObj, "SetPlacement"), flags, 2)
+        this.vtbl.AddSeparator := CallbackCreate(ObjBindMethod(implObj, "AddSeparator"), flags, 1)
+        this.vtbl.SetPlacement := CallbackCreate(ObjBindMethod(implObj, "SetPlacement"), flags, 2)
     }
 
     Dispose() {

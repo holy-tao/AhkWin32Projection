@@ -106,9 +106,9 @@ export default struct IWdsTransportNamespaceManager extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateNamespace := CallbackCreate(GetMethod(implObj, "CreateNamespace"), flags, 6)
-        this.vtbl.RetrieveNamespace := CallbackCreate(GetMethod(implObj, "RetrieveNamespace"), flags, 3)
-        this.vtbl.RetrieveNamespaces := CallbackCreate(GetMethod(implObj, "RetrieveNamespaces"), flags, 5)
+        this.vtbl.CreateNamespace := CallbackCreate(ObjBindMethod(implObj, "CreateNamespace"), flags, 6)
+        this.vtbl.RetrieveNamespace := CallbackCreate(ObjBindMethod(implObj, "RetrieveNamespace"), flags, 3)
+        this.vtbl.RetrieveNamespaces := CallbackCreate(ObjBindMethod(implObj, "RetrieveNamespaces"), flags, 5)
     }
 
     Dispose() {

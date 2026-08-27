@@ -192,14 +192,14 @@ export default struct ISchedule extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_StartDate := CallbackCreate(GetMethod(implObj, "get_StartDate"), flags, 2)
-        this.vtbl.put_StartDate := CallbackCreate(GetMethod(implObj, "put_StartDate"), flags, 2)
-        this.vtbl.get_EndDate := CallbackCreate(GetMethod(implObj, "get_EndDate"), flags, 2)
-        this.vtbl.put_EndDate := CallbackCreate(GetMethod(implObj, "put_EndDate"), flags, 2)
-        this.vtbl.get_StartTime := CallbackCreate(GetMethod(implObj, "get_StartTime"), flags, 2)
-        this.vtbl.put_StartTime := CallbackCreate(GetMethod(implObj, "put_StartTime"), flags, 2)
-        this.vtbl.get_Days := CallbackCreate(GetMethod(implObj, "get_Days"), flags, 2)
-        this.vtbl.put_Days := CallbackCreate(GetMethod(implObj, "put_Days"), flags, 2)
+        this.vtbl.get_StartDate := CallbackCreate(ObjBindMethod(implObj, "get_StartDate"), flags, 2)
+        this.vtbl.put_StartDate := CallbackCreate(ObjBindMethod(implObj, "put_StartDate"), flags, 2)
+        this.vtbl.get_EndDate := CallbackCreate(ObjBindMethod(implObj, "get_EndDate"), flags, 2)
+        this.vtbl.put_EndDate := CallbackCreate(ObjBindMethod(implObj, "put_EndDate"), flags, 2)
+        this.vtbl.get_StartTime := CallbackCreate(ObjBindMethod(implObj, "get_StartTime"), flags, 2)
+        this.vtbl.put_StartTime := CallbackCreate(ObjBindMethod(implObj, "put_StartTime"), flags, 2)
+        this.vtbl.get_Days := CallbackCreate(ObjBindMethod(implObj, "get_Days"), flags, 2)
+        this.vtbl.put_Days := CallbackCreate(ObjBindMethod(implObj, "put_Days"), flags, 2)
     }
 
     Dispose() {

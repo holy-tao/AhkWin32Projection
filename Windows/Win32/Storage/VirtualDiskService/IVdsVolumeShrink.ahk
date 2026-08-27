@@ -100,8 +100,8 @@ export default struct IVdsVolumeShrink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryMaxReclaimableBytes := CallbackCreate(GetMethod(implObj, "QueryMaxReclaimableBytes"), flags, 2)
-        this.vtbl.Shrink := CallbackCreate(GetMethod(implObj, "Shrink"), flags, 4)
+        this.vtbl.QueryMaxReclaimableBytes := CallbackCreate(ObjBindMethod(implObj, "QueryMaxReclaimableBytes"), flags, 2)
+        this.vtbl.Shrink := CallbackCreate(ObjBindMethod(implObj, "Shrink"), flags, 4)
     }
 
     Dispose() {

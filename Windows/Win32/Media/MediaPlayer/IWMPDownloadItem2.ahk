@@ -37,7 +37,6 @@ export default struct IWMPDownloadItem2 extends IWMPDownloadItem {
     }
 
     /**
-     * 
      * @param {BSTR} bstrItemName 
      * @param {Pointer<BSTR>} pbstrVal 
      * @returns {HRESULT} 
@@ -58,7 +57,7 @@ export default struct IWMPDownloadItem2 extends IWMPDownloadItem {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.getItemInfo := CallbackCreate(GetMethod(implObj, "getItemInfo"), flags, 3)
+        this.vtbl.getItemInfo := CallbackCreate(ObjBindMethod(implObj, "getItemInfo"), flags, 3)
     }
 
     Dispose() {

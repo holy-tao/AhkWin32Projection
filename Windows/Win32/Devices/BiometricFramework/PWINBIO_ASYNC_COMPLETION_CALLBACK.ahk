@@ -26,7 +26,6 @@ export default struct PWINBIO_ASYNC_COMPLETION_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_ASYNC_RESULT>} AsyncResult Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure that contains information about the completed operation. The structure is created by the Windows Biometric Framework. You must call <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiofree">WinBioFree</a> to release the structure.
      * @returns {String} Nothing - always returns an empty string
      */

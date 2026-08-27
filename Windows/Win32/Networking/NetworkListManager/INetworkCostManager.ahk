@@ -148,9 +148,9 @@ export default struct INetworkCostManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCost := CallbackCreate(GetMethod(implObj, "GetCost"), flags, 3)
-        this.vtbl.GetDataPlanStatus := CallbackCreate(GetMethod(implObj, "GetDataPlanStatus"), flags, 3)
-        this.vtbl.SetDestinationAddresses := CallbackCreate(GetMethod(implObj, "SetDestinationAddresses"), flags, 4)
+        this.vtbl.GetCost := CallbackCreate(ObjBindMethod(implObj, "GetCost"), flags, 3)
+        this.vtbl.GetDataPlanStatus := CallbackCreate(ObjBindMethod(implObj, "GetDataPlanStatus"), flags, 3)
+        this.vtbl.SetDestinationAddresses := CallbackCreate(ObjBindMethod(implObj, "SetDestinationAddresses"), flags, 4)
     }
 
     Dispose() {

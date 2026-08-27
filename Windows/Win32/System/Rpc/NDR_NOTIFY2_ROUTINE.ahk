@@ -18,7 +18,6 @@ export default struct NDR_NOTIFY2_ROUTINE {
     }
 
     /**
-     * 
      * @param {Integer} flag 
      * @returns {String} Nothing - always returns an empty string
      */

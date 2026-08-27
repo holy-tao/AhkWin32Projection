@@ -257,17 +257,17 @@ export default struct IMbnPin extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_PinType := CallbackCreate(GetMethod(implObj, "get_PinType"), flags, 2)
-        this.vtbl.get_PinFormat := CallbackCreate(GetMethod(implObj, "get_PinFormat"), flags, 2)
-        this.vtbl.get_PinLengthMin := CallbackCreate(GetMethod(implObj, "get_PinLengthMin"), flags, 2)
-        this.vtbl.get_PinLengthMax := CallbackCreate(GetMethod(implObj, "get_PinLengthMax"), flags, 2)
-        this.vtbl.get_PinMode := CallbackCreate(GetMethod(implObj, "get_PinMode"), flags, 2)
-        this.vtbl.Enable := CallbackCreate(GetMethod(implObj, "Enable"), flags, 3)
-        this.vtbl.Disable := CallbackCreate(GetMethod(implObj, "Disable"), flags, 3)
-        this.vtbl.Enter := CallbackCreate(GetMethod(implObj, "Enter"), flags, 3)
-        this.vtbl.Change := CallbackCreate(GetMethod(implObj, "Change"), flags, 4)
-        this.vtbl.Unblock := CallbackCreate(GetMethod(implObj, "Unblock"), flags, 4)
-        this.vtbl.GetPinManager := CallbackCreate(GetMethod(implObj, "GetPinManager"), flags, 2)
+        this.vtbl.get_PinType := CallbackCreate(ObjBindMethod(implObj, "get_PinType"), flags, 2)
+        this.vtbl.get_PinFormat := CallbackCreate(ObjBindMethod(implObj, "get_PinFormat"), flags, 2)
+        this.vtbl.get_PinLengthMin := CallbackCreate(ObjBindMethod(implObj, "get_PinLengthMin"), flags, 2)
+        this.vtbl.get_PinLengthMax := CallbackCreate(ObjBindMethod(implObj, "get_PinLengthMax"), flags, 2)
+        this.vtbl.get_PinMode := CallbackCreate(ObjBindMethod(implObj, "get_PinMode"), flags, 2)
+        this.vtbl.Enable := CallbackCreate(ObjBindMethod(implObj, "Enable"), flags, 3)
+        this.vtbl.Disable := CallbackCreate(ObjBindMethod(implObj, "Disable"), flags, 3)
+        this.vtbl.Enter := CallbackCreate(ObjBindMethod(implObj, "Enter"), flags, 3)
+        this.vtbl.Change := CallbackCreate(ObjBindMethod(implObj, "Change"), flags, 4)
+        this.vtbl.Unblock := CallbackCreate(ObjBindMethod(implObj, "Unblock"), flags, 4)
+        this.vtbl.GetPinManager := CallbackCreate(ObjBindMethod(implObj, "GetPinManager"), flags, 2)
     }
 
     Dispose() {

@@ -18,7 +18,6 @@ export default struct pHalVectorToIDTEntry {
     }
 
     /**
-     * 
      * @param {Integer} Vector 
      * @returns {Integer} 
      */

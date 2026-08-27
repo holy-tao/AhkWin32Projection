@@ -1375,10 +1375,10 @@ export default struct IVideoWindow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-getwindowposition
      */
     GetWindowPosition(pLeft, pTop, pWidth, pHeight) {
-        pLeftMarshal := pLeft is VarRef ? "int*" : "ptr"
-        pTopMarshal := pTop is VarRef ? "int*" : "ptr"
-        pWidthMarshal := pWidth is VarRef ? "int*" : "ptr"
-        pHeightMarshal := pHeight is VarRef ? "int*" : "ptr"
+        pLeftMarshal := pLeft is VarRef ? "int*" : IntPtr
+        pTopMarshal := pTop is VarRef ? "int*" : IntPtr
+        pWidthMarshal := pWidth is VarRef ? "int*" : IntPtr
+        pHeightMarshal := pHeight is VarRef ? "int*" : IntPtr
 
         result := ComCall(40, this, pLeftMarshal, pLeft, pTopMarshal, pTop, pWidthMarshal, pWidth, pHeightMarshal, pHeight, "HRESULT")
         return result
@@ -1454,8 +1454,8 @@ export default struct IVideoWindow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-getminidealimagesize
      */
     GetMinIdealImageSize(pWidth, pHeight) {
-        pWidthMarshal := pWidth is VarRef ? "int*" : "ptr"
-        pHeightMarshal := pHeight is VarRef ? "int*" : "ptr"
+        pWidthMarshal := pWidth is VarRef ? "int*" : IntPtr
+        pHeightMarshal := pHeight is VarRef ? "int*" : IntPtr
 
         result := ComCall(41, this, pWidthMarshal, pWidth, pHeightMarshal, pHeight, "HRESULT")
         return result
@@ -1530,8 +1530,8 @@ export default struct IVideoWindow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-getmaxidealimagesize
      */
     GetMaxIdealImageSize(pWidth, pHeight) {
-        pWidthMarshal := pWidth is VarRef ? "int*" : "ptr"
-        pHeightMarshal := pHeight is VarRef ? "int*" : "ptr"
+        pWidthMarshal := pWidth is VarRef ? "int*" : IntPtr
+        pHeightMarshal := pHeight is VarRef ? "int*" : IntPtr
 
         result := ComCall(42, this, pWidthMarshal, pWidth, pHeightMarshal, pHeight, "HRESULT")
         return result
@@ -1589,10 +1589,10 @@ export default struct IVideoWindow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-getrestoreposition
      */
     GetRestorePosition(pLeft, pTop, pWidth, pHeight) {
-        pLeftMarshal := pLeft is VarRef ? "int*" : "ptr"
-        pTopMarshal := pTop is VarRef ? "int*" : "ptr"
-        pWidthMarshal := pWidth is VarRef ? "int*" : "ptr"
-        pHeightMarshal := pHeight is VarRef ? "int*" : "ptr"
+        pLeftMarshal := pLeft is VarRef ? "int*" : IntPtr
+        pTopMarshal := pTop is VarRef ? "int*" : IntPtr
+        pWidthMarshal := pWidth is VarRef ? "int*" : IntPtr
+        pHeightMarshal := pHeight is VarRef ? "int*" : IntPtr
 
         result := ComCall(43, this, pLeftMarshal, pLeft, pTopMarshal, pTop, pWidthMarshal, pWidth, pHeightMarshal, pHeight, "HRESULT")
         return result
@@ -1668,45 +1668,45 @@ export default struct IVideoWindow extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_Caption := CallbackCreate(GetMethod(implObj, "put_Caption"), flags, 2)
-        this.vtbl.get_Caption := CallbackCreate(GetMethod(implObj, "get_Caption"), flags, 2)
-        this.vtbl.put_WindowStyle := CallbackCreate(GetMethod(implObj, "put_WindowStyle"), flags, 2)
-        this.vtbl.get_WindowStyle := CallbackCreate(GetMethod(implObj, "get_WindowStyle"), flags, 2)
-        this.vtbl.put_WindowStyleEx := CallbackCreate(GetMethod(implObj, "put_WindowStyleEx"), flags, 2)
-        this.vtbl.get_WindowStyleEx := CallbackCreate(GetMethod(implObj, "get_WindowStyleEx"), flags, 2)
-        this.vtbl.put_AutoShow := CallbackCreate(GetMethod(implObj, "put_AutoShow"), flags, 2)
-        this.vtbl.get_AutoShow := CallbackCreate(GetMethod(implObj, "get_AutoShow"), flags, 2)
-        this.vtbl.put_WindowState := CallbackCreate(GetMethod(implObj, "put_WindowState"), flags, 2)
-        this.vtbl.get_WindowState := CallbackCreate(GetMethod(implObj, "get_WindowState"), flags, 2)
-        this.vtbl.put_BackgroundPalette := CallbackCreate(GetMethod(implObj, "put_BackgroundPalette"), flags, 2)
-        this.vtbl.get_BackgroundPalette := CallbackCreate(GetMethod(implObj, "get_BackgroundPalette"), flags, 2)
-        this.vtbl.put_Visible := CallbackCreate(GetMethod(implObj, "put_Visible"), flags, 2)
-        this.vtbl.get_Visible := CallbackCreate(GetMethod(implObj, "get_Visible"), flags, 2)
-        this.vtbl.put_Left := CallbackCreate(GetMethod(implObj, "put_Left"), flags, 2)
-        this.vtbl.get_Left := CallbackCreate(GetMethod(implObj, "get_Left"), flags, 2)
-        this.vtbl.put_Width := CallbackCreate(GetMethod(implObj, "put_Width"), flags, 2)
-        this.vtbl.get_Width := CallbackCreate(GetMethod(implObj, "get_Width"), flags, 2)
-        this.vtbl.put_Top := CallbackCreate(GetMethod(implObj, "put_Top"), flags, 2)
-        this.vtbl.get_Top := CallbackCreate(GetMethod(implObj, "get_Top"), flags, 2)
-        this.vtbl.put_Height := CallbackCreate(GetMethod(implObj, "put_Height"), flags, 2)
-        this.vtbl.get_Height := CallbackCreate(GetMethod(implObj, "get_Height"), flags, 2)
-        this.vtbl.put_Owner := CallbackCreate(GetMethod(implObj, "put_Owner"), flags, 2)
-        this.vtbl.get_Owner := CallbackCreate(GetMethod(implObj, "get_Owner"), flags, 2)
-        this.vtbl.put_MessageDrain := CallbackCreate(GetMethod(implObj, "put_MessageDrain"), flags, 2)
-        this.vtbl.get_MessageDrain := CallbackCreate(GetMethod(implObj, "get_MessageDrain"), flags, 2)
-        this.vtbl.get_BorderColor := CallbackCreate(GetMethod(implObj, "get_BorderColor"), flags, 2)
-        this.vtbl.put_BorderColor := CallbackCreate(GetMethod(implObj, "put_BorderColor"), flags, 2)
-        this.vtbl.get_FullScreenMode := CallbackCreate(GetMethod(implObj, "get_FullScreenMode"), flags, 2)
-        this.vtbl.put_FullScreenMode := CallbackCreate(GetMethod(implObj, "put_FullScreenMode"), flags, 2)
-        this.vtbl.SetWindowForeground := CallbackCreate(GetMethod(implObj, "SetWindowForeground"), flags, 2)
-        this.vtbl.NotifyOwnerMessage := CallbackCreate(GetMethod(implObj, "NotifyOwnerMessage"), flags, 5)
-        this.vtbl.SetWindowPosition := CallbackCreate(GetMethod(implObj, "SetWindowPosition"), flags, 5)
-        this.vtbl.GetWindowPosition := CallbackCreate(GetMethod(implObj, "GetWindowPosition"), flags, 5)
-        this.vtbl.GetMinIdealImageSize := CallbackCreate(GetMethod(implObj, "GetMinIdealImageSize"), flags, 3)
-        this.vtbl.GetMaxIdealImageSize := CallbackCreate(GetMethod(implObj, "GetMaxIdealImageSize"), flags, 3)
-        this.vtbl.GetRestorePosition := CallbackCreate(GetMethod(implObj, "GetRestorePosition"), flags, 5)
-        this.vtbl.HideCursor := CallbackCreate(GetMethod(implObj, "HideCursor"), flags, 2)
-        this.vtbl.IsCursorHidden := CallbackCreate(GetMethod(implObj, "IsCursorHidden"), flags, 2)
+        this.vtbl.put_Caption := CallbackCreate(ObjBindMethod(implObj, "put_Caption"), flags, 2)
+        this.vtbl.get_Caption := CallbackCreate(ObjBindMethod(implObj, "get_Caption"), flags, 2)
+        this.vtbl.put_WindowStyle := CallbackCreate(ObjBindMethod(implObj, "put_WindowStyle"), flags, 2)
+        this.vtbl.get_WindowStyle := CallbackCreate(ObjBindMethod(implObj, "get_WindowStyle"), flags, 2)
+        this.vtbl.put_WindowStyleEx := CallbackCreate(ObjBindMethod(implObj, "put_WindowStyleEx"), flags, 2)
+        this.vtbl.get_WindowStyleEx := CallbackCreate(ObjBindMethod(implObj, "get_WindowStyleEx"), flags, 2)
+        this.vtbl.put_AutoShow := CallbackCreate(ObjBindMethod(implObj, "put_AutoShow"), flags, 2)
+        this.vtbl.get_AutoShow := CallbackCreate(ObjBindMethod(implObj, "get_AutoShow"), flags, 2)
+        this.vtbl.put_WindowState := CallbackCreate(ObjBindMethod(implObj, "put_WindowState"), flags, 2)
+        this.vtbl.get_WindowState := CallbackCreate(ObjBindMethod(implObj, "get_WindowState"), flags, 2)
+        this.vtbl.put_BackgroundPalette := CallbackCreate(ObjBindMethod(implObj, "put_BackgroundPalette"), flags, 2)
+        this.vtbl.get_BackgroundPalette := CallbackCreate(ObjBindMethod(implObj, "get_BackgroundPalette"), flags, 2)
+        this.vtbl.put_Visible := CallbackCreate(ObjBindMethod(implObj, "put_Visible"), flags, 2)
+        this.vtbl.get_Visible := CallbackCreate(ObjBindMethod(implObj, "get_Visible"), flags, 2)
+        this.vtbl.put_Left := CallbackCreate(ObjBindMethod(implObj, "put_Left"), flags, 2)
+        this.vtbl.get_Left := CallbackCreate(ObjBindMethod(implObj, "get_Left"), flags, 2)
+        this.vtbl.put_Width := CallbackCreate(ObjBindMethod(implObj, "put_Width"), flags, 2)
+        this.vtbl.get_Width := CallbackCreate(ObjBindMethod(implObj, "get_Width"), flags, 2)
+        this.vtbl.put_Top := CallbackCreate(ObjBindMethod(implObj, "put_Top"), flags, 2)
+        this.vtbl.get_Top := CallbackCreate(ObjBindMethod(implObj, "get_Top"), flags, 2)
+        this.vtbl.put_Height := CallbackCreate(ObjBindMethod(implObj, "put_Height"), flags, 2)
+        this.vtbl.get_Height := CallbackCreate(ObjBindMethod(implObj, "get_Height"), flags, 2)
+        this.vtbl.put_Owner := CallbackCreate(ObjBindMethod(implObj, "put_Owner"), flags, 2)
+        this.vtbl.get_Owner := CallbackCreate(ObjBindMethod(implObj, "get_Owner"), flags, 2)
+        this.vtbl.put_MessageDrain := CallbackCreate(ObjBindMethod(implObj, "put_MessageDrain"), flags, 2)
+        this.vtbl.get_MessageDrain := CallbackCreate(ObjBindMethod(implObj, "get_MessageDrain"), flags, 2)
+        this.vtbl.get_BorderColor := CallbackCreate(ObjBindMethod(implObj, "get_BorderColor"), flags, 2)
+        this.vtbl.put_BorderColor := CallbackCreate(ObjBindMethod(implObj, "put_BorderColor"), flags, 2)
+        this.vtbl.get_FullScreenMode := CallbackCreate(ObjBindMethod(implObj, "get_FullScreenMode"), flags, 2)
+        this.vtbl.put_FullScreenMode := CallbackCreate(ObjBindMethod(implObj, "put_FullScreenMode"), flags, 2)
+        this.vtbl.SetWindowForeground := CallbackCreate(ObjBindMethod(implObj, "SetWindowForeground"), flags, 2)
+        this.vtbl.NotifyOwnerMessage := CallbackCreate(ObjBindMethod(implObj, "NotifyOwnerMessage"), flags, 5)
+        this.vtbl.SetWindowPosition := CallbackCreate(ObjBindMethod(implObj, "SetWindowPosition"), flags, 5)
+        this.vtbl.GetWindowPosition := CallbackCreate(ObjBindMethod(implObj, "GetWindowPosition"), flags, 5)
+        this.vtbl.GetMinIdealImageSize := CallbackCreate(ObjBindMethod(implObj, "GetMinIdealImageSize"), flags, 3)
+        this.vtbl.GetMaxIdealImageSize := CallbackCreate(ObjBindMethod(implObj, "GetMaxIdealImageSize"), flags, 3)
+        this.vtbl.GetRestorePosition := CallbackCreate(ObjBindMethod(implObj, "GetRestorePosition"), flags, 5)
+        this.vtbl.HideCursor := CallbackCreate(ObjBindMethod(implObj, "HideCursor"), flags, 2)
+        this.vtbl.IsCursorHidden := CallbackCreate(ObjBindMethod(implObj, "IsCursorHidden"), flags, 2)
     }
 
     Dispose() {

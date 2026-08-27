@@ -19,7 +19,6 @@ export default struct AVISAVECALLBACK {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @returns {BOOL} 
      */

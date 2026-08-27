@@ -20,13 +20,14 @@ export default struct PDXVA2SW_VIDEOPROCESSENDFRAME {
     }
 
     /**
-     * 
      * @param {HANDLE} hDevice 
      * @param {Pointer<HANDLE>} pHandleComplete 
      * @returns {HRESULT} 
      */
     Call(hDevice, pHandleComplete) {
-        result := DllCall(this.value, HANDLE, hDevice, HANDLE.Ptr, pHandleComplete, "HRESULT")
+        pHandleCompleteMarshal := pHandleComplete == 0 ? IntPtr : HANDLE.Ptr
+
+        result := DllCall(this.value, HANDLE, hDevice, pHandleCompleteMarshal, pHandleComplete, "HRESULT")
         return result
     }
 

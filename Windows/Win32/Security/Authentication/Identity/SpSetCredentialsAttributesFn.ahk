@@ -19,7 +19,6 @@ export default struct SpSetCredentialsAttributesFn {
     }
 
     /**
-     * 
      * @param {Pointer} CredentialHandle 
      * @param {Integer} CredentialAttribute 
      * @param {Integer} _Buffer 

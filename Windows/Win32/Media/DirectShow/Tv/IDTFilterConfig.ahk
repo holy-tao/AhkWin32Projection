@@ -60,7 +60,7 @@ export default struct IDTFilterConfig extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSecureChannelObject := CallbackCreate(GetMethod(implObj, "GetSecureChannelObject"), flags, 2)
+        this.vtbl.GetSecureChannelObject := CallbackCreate(ObjBindMethod(implObj, "GetSecureChannelObject"), flags, 2)
     }
 
     Dispose() {

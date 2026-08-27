@@ -76,7 +76,9 @@ export default struct IDMLDevice extends IDMLObject {
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-checkfeaturesupport
      */
     CheckFeatureSupport(feature, featureQueryDataSize, featureQueryData, featureSupportDataSize, featureSupportData) {
-        result := ComCall(7, this, DML_FEATURE, feature, UInt32, featureQueryDataSize, IntPtr, featureQueryData, UInt32, featureSupportDataSize, IntPtr, featureSupportData, "HRESULT")
+        featureQueryDataMarshal := featureQueryData == 0 ? IntPtr : IntPtr
+
+        result := ComCall(7, this, DML_FEATURE, feature, UInt32, featureQueryDataSize, featureQueryDataMarshal, featureQueryData, UInt32, featureSupportDataSize, IntPtr, featureSupportData, "HRESULT")
         return result
     }
 
@@ -138,7 +140,9 @@ export default struct IDMLDevice extends IDMLObject {
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-createoperatorinitializer
      */
     CreateOperatorInitializer(operatorCount, operators, riid) {
-        result := ComCall(10, this, UInt32, operatorCount, IDMLCompiledOperator.Ptr, operators, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        operatorsMarshal := operators == 0 ? IntPtr : IDMLCompiledOperator.Ptr
+
+        result := ComCall(10, this, UInt32, operatorCount, operatorsMarshal, operators, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -171,7 +175,9 @@ export default struct IDMLDevice extends IDMLObject {
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-createbindingtable
      */
     CreateBindingTable(desc, riid) {
-        result := ComCall(12, this, DML_BINDING_TABLE_DESC.Ptr, desc, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        descMarshal := desc == 0 ? IntPtr : DML_BINDING_TABLE_DESC.Ptr
+
+        result := ComCall(12, this, descMarshal, desc, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -247,16 +253,16 @@ export default struct IDMLDevice extends IDMLObject {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CheckFeatureSupport := CallbackCreate(GetMethod(implObj, "CheckFeatureSupport"), flags, 6)
-        this.vtbl.CreateOperator := CallbackCreate(GetMethod(implObj, "CreateOperator"), flags, 4)
-        this.vtbl.CompileOperator := CallbackCreate(GetMethod(implObj, "CompileOperator"), flags, 5)
-        this.vtbl.CreateOperatorInitializer := CallbackCreate(GetMethod(implObj, "CreateOperatorInitializer"), flags, 5)
-        this.vtbl.CreateCommandRecorder := CallbackCreate(GetMethod(implObj, "CreateCommandRecorder"), flags, 3)
-        this.vtbl.CreateBindingTable := CallbackCreate(GetMethod(implObj, "CreateBindingTable"), flags, 4)
-        this.vtbl.Evict := CallbackCreate(GetMethod(implObj, "Evict"), flags, 3)
-        this.vtbl.MakeResident := CallbackCreate(GetMethod(implObj, "MakeResident"), flags, 3)
-        this.vtbl.GetDeviceRemovedReason := CallbackCreate(GetMethod(implObj, "GetDeviceRemovedReason"), flags, 1)
-        this.vtbl.GetParentDevice := CallbackCreate(GetMethod(implObj, "GetParentDevice"), flags, 3)
+        this.vtbl.CheckFeatureSupport := CallbackCreate(ObjBindMethod(implObj, "CheckFeatureSupport"), flags, 6)
+        this.vtbl.CreateOperator := CallbackCreate(ObjBindMethod(implObj, "CreateOperator"), flags, 4)
+        this.vtbl.CompileOperator := CallbackCreate(ObjBindMethod(implObj, "CompileOperator"), flags, 5)
+        this.vtbl.CreateOperatorInitializer := CallbackCreate(ObjBindMethod(implObj, "CreateOperatorInitializer"), flags, 5)
+        this.vtbl.CreateCommandRecorder := CallbackCreate(ObjBindMethod(implObj, "CreateCommandRecorder"), flags, 3)
+        this.vtbl.CreateBindingTable := CallbackCreate(ObjBindMethod(implObj, "CreateBindingTable"), flags, 4)
+        this.vtbl.Evict := CallbackCreate(ObjBindMethod(implObj, "Evict"), flags, 3)
+        this.vtbl.MakeResident := CallbackCreate(ObjBindMethod(implObj, "MakeResident"), flags, 3)
+        this.vtbl.GetDeviceRemovedReason := CallbackCreate(ObjBindMethod(implObj, "GetDeviceRemovedReason"), flags, 1)
+        this.vtbl.GetParentDevice := CallbackCreate(ObjBindMethod(implObj, "GetParentDevice"), flags, 3)
     }
 
     Dispose() {

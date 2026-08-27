@@ -39,7 +39,6 @@ export default struct IDirectDrawVideoPortNotify extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} param0 
      * @param {Pointer<DDVIDEOPORTNOTIFY>} param1 
      * @returns {HRESULT} 
@@ -50,7 +49,6 @@ export default struct IDirectDrawVideoPortNotify extends IUnknown {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @returns {HRESULT} 
      */
@@ -68,8 +66,8 @@ export default struct IDirectDrawVideoPortNotify extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AcquireNotification := CallbackCreate(GetMethod(implObj, "AcquireNotification"), flags, 3)
-        this.vtbl.ReleaseNotification := CallbackCreate(GetMethod(implObj, "ReleaseNotification"), flags, 2)
+        this.vtbl.AcquireNotification := CallbackCreate(ObjBindMethod(implObj, "AcquireNotification"), flags, 3)
+        this.vtbl.ReleaseNotification := CallbackCreate(ObjBindMethod(implObj, "ReleaseNotification"), flags, 2)
     }
 
     Dispose() {

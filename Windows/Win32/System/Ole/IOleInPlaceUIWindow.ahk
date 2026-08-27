@@ -230,10 +230,10 @@ export default struct IOleInPlaceUIWindow extends IOleWindow {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetBorder := CallbackCreate(GetMethod(implObj, "GetBorder"), flags, 2)
-        this.vtbl.RequestBorderSpace := CallbackCreate(GetMethod(implObj, "RequestBorderSpace"), flags, 2)
-        this.vtbl.SetBorderSpace := CallbackCreate(GetMethod(implObj, "SetBorderSpace"), flags, 2)
-        this.vtbl.SetActiveObject := CallbackCreate(GetMethod(implObj, "SetActiveObject"), flags, 3)
+        this.vtbl.GetBorder := CallbackCreate(ObjBindMethod(implObj, "GetBorder"), flags, 2)
+        this.vtbl.RequestBorderSpace := CallbackCreate(ObjBindMethod(implObj, "RequestBorderSpace"), flags, 2)
+        this.vtbl.SetBorderSpace := CallbackCreate(ObjBindMethod(implObj, "SetBorderSpace"), flags, 2)
+        this.vtbl.SetActiveObject := CallbackCreate(ObjBindMethod(implObj, "SetActiveObject"), flags, 3)
     }
 
     Dispose() {

@@ -43,7 +43,6 @@ export default struct ITableDefinitionWithConstraints extends ITableCreation {
     }
 
     /**
-     * 
      * @param {Pointer<DBID>} pTableID 
      * @param {Pointer<DBCONSTRAINTDESC>} pConstraintDesc 
      * @returns {HRESULT} 
@@ -54,7 +53,6 @@ export default struct ITableDefinitionWithConstraints extends ITableCreation {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<DBID>} pTableID 
      * @param {Pointer} cColumnDescs 
@@ -69,14 +67,13 @@ export default struct ITableDefinitionWithConstraints extends ITableCreation {
      * @returns {HRESULT} 
      */
     CreateTableWithConstraints(pUnkOuter, pTableID, cColumnDescs, rgColumnDescs, cConstraintDescs, rgConstraintDescs, riid, cPropertySets, rgPropertySets, ppTableID, ppRowset) {
-        ppTableIDMarshal := ppTableID is VarRef ? "ptr*" : "ptr"
+        ppTableIDMarshal := ppTableID is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(9, this, "ptr", pUnkOuter, DBID.Ptr, pTableID, IntPtr, cColumnDescs, DBCOLUMNDESC.Ptr, rgColumnDescs, UInt32, cConstraintDescs, DBCONSTRAINTDESC.Ptr, rgConstraintDescs, Guid.Ptr, riid, UInt32, cPropertySets, DBPROPSET.Ptr, rgPropertySets, ppTableIDMarshal, ppTableID, IUnknown.Ptr, ppRowset, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<DBID>} pTableID 
      * @param {Pointer<DBID>} pConstraintID 
      * @returns {HRESULT} 
@@ -95,9 +92,9 @@ export default struct ITableDefinitionWithConstraints extends ITableCreation {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddConstraint := CallbackCreate(GetMethod(implObj, "AddConstraint"), flags, 3)
-        this.vtbl.CreateTableWithConstraints := CallbackCreate(GetMethod(implObj, "CreateTableWithConstraints"), flags, 12)
-        this.vtbl.DropConstraint := CallbackCreate(GetMethod(implObj, "DropConstraint"), flags, 3)
+        this.vtbl.AddConstraint := CallbackCreate(ObjBindMethod(implObj, "AddConstraint"), flags, 3)
+        this.vtbl.CreateTableWithConstraints := CallbackCreate(ObjBindMethod(implObj, "CreateTableWithConstraints"), flags, 12)
+        this.vtbl.DropConstraint := CallbackCreate(ObjBindMethod(implObj, "DropConstraint"), flags, 3)
     }
 
     Dispose() {

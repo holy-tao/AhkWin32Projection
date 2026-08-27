@@ -22,7 +22,6 @@ export default struct PFAXGETROUTINGINFOW {
     }
 
     /**
-     * 
      * @param {HANDLE} FaxPortHandle 
      * @param {PWSTR} RoutingGuid 
      * @param {Pointer<Pointer<Integer>>} RoutingInfoBuffer 
@@ -32,8 +31,8 @@ export default struct PFAXGETROUTINGINFOW {
     Call(FaxPortHandle, RoutingGuid, RoutingInfoBuffer, RoutingInfoBufferSize) {
         RoutingGuid := RoutingGuid is String ? StrPtr(RoutingGuid) : RoutingGuid
 
-        RoutingInfoBufferMarshal := RoutingInfoBuffer is VarRef ? "ptr*" : "ptr"
-        RoutingInfoBufferSizeMarshal := RoutingInfoBufferSize is VarRef ? "uint*" : "ptr"
+        RoutingInfoBufferMarshal := RoutingInfoBuffer is VarRef ? "ptr*" : IntPtr
+        RoutingInfoBufferSizeMarshal := RoutingInfoBufferSize is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HANDLE, FaxPortHandle, "ptr", RoutingGuid, RoutingInfoBufferMarshal, RoutingInfoBuffer, RoutingInfoBufferSizeMarshal, RoutingInfoBufferSize, BOOL)
         return result

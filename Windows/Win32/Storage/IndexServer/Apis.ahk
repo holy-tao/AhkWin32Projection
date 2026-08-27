@@ -28,7 +28,6 @@ export LoadIFilter(pwcsPath, pUnkOuter) {
 }
 
 /**
- * 
  * @param {PWSTR} pwcsPath 
  * @param {Integer} dwFlags 
  * @param {Pointer<Guid>} riid 

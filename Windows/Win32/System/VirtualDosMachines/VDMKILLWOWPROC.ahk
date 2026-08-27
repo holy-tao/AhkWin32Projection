@@ -19,7 +19,6 @@ export default struct VDMKILLWOWPROC {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     Call() {

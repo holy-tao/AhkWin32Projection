@@ -134,11 +134,11 @@ export default struct ISurrogateService extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 4)
-        this.vtbl.ApplicationLaunch := CallbackCreate(GetMethod(implObj, "ApplicationLaunch"), flags, 3)
-        this.vtbl.ApplicationFree := CallbackCreate(GetMethod(implObj, "ApplicationFree"), flags, 2)
-        this.vtbl.CatalogRefresh := CallbackCreate(GetMethod(implObj, "CatalogRefresh"), flags, 2)
-        this.vtbl.ProcessShutdown := CallbackCreate(GetMethod(implObj, "ProcessShutdown"), flags, 2)
+        this.vtbl.Init := CallbackCreate(ObjBindMethod(implObj, "Init"), flags, 4)
+        this.vtbl.ApplicationLaunch := CallbackCreate(ObjBindMethod(implObj, "ApplicationLaunch"), flags, 3)
+        this.vtbl.ApplicationFree := CallbackCreate(ObjBindMethod(implObj, "ApplicationFree"), flags, 2)
+        this.vtbl.CatalogRefresh := CallbackCreate(ObjBindMethod(implObj, "CatalogRefresh"), flags, 2)
+        this.vtbl.ProcessShutdown := CallbackCreate(ObjBindMethod(implObj, "ProcessShutdown"), flags, 2)
     }
 
     Dispose() {

@@ -97,10 +97,10 @@ export default struct IMFSAMIStyle extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStyleCount := CallbackCreate(GetMethod(implObj, "GetStyleCount"), flags, 2)
-        this.vtbl.GetStyles := CallbackCreate(GetMethod(implObj, "GetStyles"), flags, 2)
-        this.vtbl.SetSelectedStyle := CallbackCreate(GetMethod(implObj, "SetSelectedStyle"), flags, 2)
-        this.vtbl.GetSelectedStyle := CallbackCreate(GetMethod(implObj, "GetSelectedStyle"), flags, 2)
+        this.vtbl.GetStyleCount := CallbackCreate(ObjBindMethod(implObj, "GetStyleCount"), flags, 2)
+        this.vtbl.GetStyles := CallbackCreate(ObjBindMethod(implObj, "GetStyles"), flags, 2)
+        this.vtbl.SetSelectedStyle := CallbackCreate(ObjBindMethod(implObj, "SetSelectedStyle"), flags, 2)
+        this.vtbl.GetSelectedStyle := CallbackCreate(ObjBindMethod(implObj, "GetSelectedStyle"), flags, 2)
     }
 
     Dispose() {

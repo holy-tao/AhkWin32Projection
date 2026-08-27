@@ -119,7 +119,9 @@ export default struct IInkRecognizerGuide extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizerguide-put_writingbox
      */
     put_WritingBox(Rectangle) {
-        result := ComCall(8, this, "ptr", Rectangle, "HRESULT")
+        RectangleMarshal := Rectangle == 0 ? IntPtr : "ptr"
+
+        result := ComCall(8, this, RectangleMarshal, Rectangle, "HRESULT")
         return result
     }
 
@@ -152,7 +154,9 @@ export default struct IInkRecognizerGuide extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizerguide-put_drawnbox
      */
     put_DrawnBox(Rectangle) {
-        result := ComCall(10, this, "ptr", Rectangle, "HRESULT")
+        RectangleMarshal := Rectangle == 0 ? IntPtr : "ptr"
+
+        result := ComCall(10, this, RectangleMarshal, Rectangle, "HRESULT")
         return result
     }
 
@@ -750,18 +754,18 @@ export default struct IInkRecognizerGuide extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_WritingBox := CallbackCreate(GetMethod(implObj, "get_WritingBox"), flags, 2)
-        this.vtbl.put_WritingBox := CallbackCreate(GetMethod(implObj, "put_WritingBox"), flags, 2)
-        this.vtbl.get_DrawnBox := CallbackCreate(GetMethod(implObj, "get_DrawnBox"), flags, 2)
-        this.vtbl.put_DrawnBox := CallbackCreate(GetMethod(implObj, "put_DrawnBox"), flags, 2)
-        this.vtbl.get_Rows := CallbackCreate(GetMethod(implObj, "get_Rows"), flags, 2)
-        this.vtbl.put_Rows := CallbackCreate(GetMethod(implObj, "put_Rows"), flags, 2)
-        this.vtbl.get_Columns := CallbackCreate(GetMethod(implObj, "get_Columns"), flags, 2)
-        this.vtbl.put_Columns := CallbackCreate(GetMethod(implObj, "put_Columns"), flags, 2)
-        this.vtbl.get_Midline := CallbackCreate(GetMethod(implObj, "get_Midline"), flags, 2)
-        this.vtbl.put_Midline := CallbackCreate(GetMethod(implObj, "put_Midline"), flags, 2)
-        this.vtbl.get_GuideData := CallbackCreate(GetMethod(implObj, "get_GuideData"), flags, 2)
-        this.vtbl.put_GuideData := CallbackCreate(GetMethod(implObj, "put_GuideData"), flags, 2)
+        this.vtbl.get_WritingBox := CallbackCreate(ObjBindMethod(implObj, "get_WritingBox"), flags, 2)
+        this.vtbl.put_WritingBox := CallbackCreate(ObjBindMethod(implObj, "put_WritingBox"), flags, 2)
+        this.vtbl.get_DrawnBox := CallbackCreate(ObjBindMethod(implObj, "get_DrawnBox"), flags, 2)
+        this.vtbl.put_DrawnBox := CallbackCreate(ObjBindMethod(implObj, "put_DrawnBox"), flags, 2)
+        this.vtbl.get_Rows := CallbackCreate(ObjBindMethod(implObj, "get_Rows"), flags, 2)
+        this.vtbl.put_Rows := CallbackCreate(ObjBindMethod(implObj, "put_Rows"), flags, 2)
+        this.vtbl.get_Columns := CallbackCreate(ObjBindMethod(implObj, "get_Columns"), flags, 2)
+        this.vtbl.put_Columns := CallbackCreate(ObjBindMethod(implObj, "put_Columns"), flags, 2)
+        this.vtbl.get_Midline := CallbackCreate(ObjBindMethod(implObj, "get_Midline"), flags, 2)
+        this.vtbl.put_Midline := CallbackCreate(ObjBindMethod(implObj, "put_Midline"), flags, 2)
+        this.vtbl.get_GuideData := CallbackCreate(ObjBindMethod(implObj, "get_GuideData"), flags, 2)
+        this.vtbl.put_GuideData := CallbackCreate(ObjBindMethod(implObj, "put_GuideData"), flags, 2)
     }
 
     Dispose() {

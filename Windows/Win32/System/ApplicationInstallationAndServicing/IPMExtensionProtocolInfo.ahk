@@ -44,7 +44,6 @@ export default struct IPMExtensionProtocolInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pProtocol 
      * @returns {HRESULT} 
      */
@@ -54,7 +53,6 @@ export default struct IPMExtensionProtocolInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pImageUrn 
      * @param {Pointer<BSTR>} pParameters 
      * @returns {HRESULT} 
@@ -73,8 +71,8 @@ export default struct IPMExtensionProtocolInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Protocol := CallbackCreate(GetMethod(implObj, "get_Protocol"), flags, 2)
-        this.vtbl.get_InvocationInfo := CallbackCreate(GetMethod(implObj, "get_InvocationInfo"), flags, 3)
+        this.vtbl.get_Protocol := CallbackCreate(ObjBindMethod(implObj, "get_Protocol"), flags, 2)
+        this.vtbl.get_InvocationInfo := CallbackCreate(ObjBindMethod(implObj, "get_InvocationInfo"), flags, 3)
     }
 
     Dispose() {

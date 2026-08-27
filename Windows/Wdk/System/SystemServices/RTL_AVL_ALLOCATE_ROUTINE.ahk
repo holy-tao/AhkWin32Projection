@@ -19,7 +19,6 @@ export default struct RTL_AVL_ALLOCATE_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_AVL_TABLE>} Table 
      * @param {Integer} ByteSize 
      * @returns {Pointer<Void>} 

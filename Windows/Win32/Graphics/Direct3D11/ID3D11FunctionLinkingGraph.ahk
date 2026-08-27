@@ -71,7 +71,9 @@ export default struct ID3D11FunctionLinkingGraph extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11functionlinkinggraph-createmoduleinstance
      */
     CreateModuleInstance(ppModuleInstance, ppErrorBuffer) {
-        result := ComCall(3, this, ID3D11ModuleInstance.Ptr, ppModuleInstance, ID3DBlob.Ptr, ppErrorBuffer, "HRESULT")
+        ppErrorBufferMarshal := ppErrorBuffer == 0 ? IntPtr : ID3DBlob.Ptr
+
+        result := ComCall(3, this, ID3D11ModuleInstance.Ptr, ppModuleInstance, ppErrorBufferMarshal, ppErrorBuffer, "HRESULT")
         return result
     }
 
@@ -131,7 +133,9 @@ export default struct ID3D11FunctionLinkingGraph extends IUnknown {
         pModuleInstanceNamespace := pModuleInstanceNamespace is String ? StrPtr(pModuleInstanceNamespace) : pModuleInstanceNamespace
         pFunctionName := pFunctionName is String ? StrPtr(pFunctionName) : pFunctionName
 
-        result := ComCall(6, this, "ptr", pModuleInstanceNamespace, "ptr", pModuleWithFunctionPrototype, "ptr", pFunctionName, "ptr*", &ppCallNode := 0, "HRESULT")
+        pModuleInstanceNamespaceMarshal := pModuleInstanceNamespace == 0 ? IntPtr : PSTR
+
+        result := ComCall(6, this, pModuleInstanceNamespaceMarshal, pModuleInstanceNamespace, "ptr", pModuleWithFunctionPrototype, "ptr", pFunctionName, "ptr*", &ppCallNode := 0, "HRESULT")
         return ID3D11LinkingNode(ppCallNode)
     }
 
@@ -228,14 +232,14 @@ export default struct ID3D11FunctionLinkingGraph extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateModuleInstance := CallbackCreate(GetMethod(implObj, "CreateModuleInstance"), flags, 3)
-        this.vtbl.SetInputSignature := CallbackCreate(GetMethod(implObj, "SetInputSignature"), flags, 4)
-        this.vtbl.SetOutputSignature := CallbackCreate(GetMethod(implObj, "SetOutputSignature"), flags, 4)
-        this.vtbl.CallFunction := CallbackCreate(GetMethod(implObj, "CallFunction"), flags, 5)
-        this.vtbl.PassValue := CallbackCreate(GetMethod(implObj, "PassValue"), flags, 5)
-        this.vtbl.PassValueWithSwizzle := CallbackCreate(GetMethod(implObj, "PassValueWithSwizzle"), flags, 7)
-        this.vtbl.GetLastError := CallbackCreate(GetMethod(implObj, "GetLastError"), flags, 2)
-        this.vtbl.GenerateHlsl := CallbackCreate(GetMethod(implObj, "GenerateHlsl"), flags, 3)
+        this.vtbl.CreateModuleInstance := CallbackCreate(ObjBindMethod(implObj, "CreateModuleInstance"), flags, 3)
+        this.vtbl.SetInputSignature := CallbackCreate(ObjBindMethod(implObj, "SetInputSignature"), flags, 4)
+        this.vtbl.SetOutputSignature := CallbackCreate(ObjBindMethod(implObj, "SetOutputSignature"), flags, 4)
+        this.vtbl.CallFunction := CallbackCreate(ObjBindMethod(implObj, "CallFunction"), flags, 5)
+        this.vtbl.PassValue := CallbackCreate(ObjBindMethod(implObj, "PassValue"), flags, 5)
+        this.vtbl.PassValueWithSwizzle := CallbackCreate(ObjBindMethod(implObj, "PassValueWithSwizzle"), flags, 7)
+        this.vtbl.GetLastError := CallbackCreate(ObjBindMethod(implObj, "GetLastError"), flags, 2)
+        this.vtbl.GenerateHlsl := CallbackCreate(ObjBindMethod(implObj, "GenerateHlsl"), flags, 3)
     }
 
     Dispose() {

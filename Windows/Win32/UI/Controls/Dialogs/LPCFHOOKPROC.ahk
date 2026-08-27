@@ -33,7 +33,6 @@ export default struct LPCFHOOKPROC {
     }
 
     /**
-     * 
      * @param {HWND} param0 A handle to the <b>Font</b> dialog box for which the message is intended.
      * @param {Integer} param1 The identifier of the message being received.
      * @param {WPARAM} param2 Additional information about the message. The exact meaning depends on the value of the <i>unnamedParam2</i> parameter.

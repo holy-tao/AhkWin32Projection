@@ -72,7 +72,7 @@ export default struct ISimilarity extends IUnknown {
     CreateTable(_path, truncate, _securityDescriptor, recordSize) {
         _path := _path is String ? StrPtr(_path) : _path
 
-        _securityDescriptorMarshal := _securityDescriptor is VarRef ? "char*" : "ptr"
+        _securityDescriptorMarshal := _securityDescriptor is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, "ptr", _path, BOOL, truncate, _securityDescriptorMarshal, _securityDescriptor, UInt32, recordSize, "int*", &isNew := 0, "HRESULT")
         return isNew
@@ -172,13 +172,13 @@ export default struct ISimilarity extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateTable := CallbackCreate(GetMethod(implObj, "CreateTable"), flags, 6)
-        this.vtbl.CreateTableIndirect := CallbackCreate(GetMethod(implObj, "CreateTableIndirect"), flags, 6)
-        this.vtbl.CloseTable := CallbackCreate(GetMethod(implObj, "CloseTable"), flags, 2)
-        this.vtbl.Append := CallbackCreate(GetMethod(implObj, "Append"), flags, 3)
-        this.vtbl.FindSimilarFileId := CallbackCreate(GetMethod(implObj, "FindSimilarFileId"), flags, 5)
-        this.vtbl.CopyAndSwap := CallbackCreate(GetMethod(implObj, "CopyAndSwap"), flags, 3)
-        this.vtbl.GetRecordCount := CallbackCreate(GetMethod(implObj, "GetRecordCount"), flags, 2)
+        this.vtbl.CreateTable := CallbackCreate(ObjBindMethod(implObj, "CreateTable"), flags, 6)
+        this.vtbl.CreateTableIndirect := CallbackCreate(ObjBindMethod(implObj, "CreateTableIndirect"), flags, 6)
+        this.vtbl.CloseTable := CallbackCreate(ObjBindMethod(implObj, "CloseTable"), flags, 2)
+        this.vtbl.Append := CallbackCreate(ObjBindMethod(implObj, "Append"), flags, 3)
+        this.vtbl.FindSimilarFileId := CallbackCreate(ObjBindMethod(implObj, "FindSimilarFileId"), flags, 5)
+        this.vtbl.CopyAndSwap := CallbackCreate(ObjBindMethod(implObj, "CopyAndSwap"), flags, 3)
+        this.vtbl.GetRecordCount := CallbackCreate(ObjBindMethod(implObj, "GetRecordCount"), flags, 2)
     }
 
     Dispose() {

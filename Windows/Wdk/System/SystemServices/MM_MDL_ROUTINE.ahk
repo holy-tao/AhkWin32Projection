@@ -18,14 +18,14 @@ export default struct MM_MDL_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} DriverContext 
      * @param {Pointer<Void>} MappedVa 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(DriverContext, MappedVa) {
-        DriverContextMarshal := DriverContext is VarRef ? "ptr" : "ptr"
-        MappedVaMarshal := MappedVa is VarRef ? "ptr" : "ptr"
+        DriverContextMarshal := DriverContext is VarRef ? "ptr" : IntPtr
+        DriverContextMarshal := DriverContext == 0 ? IntPtr : "ptr"
+        MappedVaMarshal := MappedVa is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, DriverContextMarshal, DriverContext, MappedVaMarshal, MappedVa)
     }

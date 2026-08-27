@@ -141,7 +141,6 @@ export default struct IHTMLCurrentStyle5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_captionSide() {
@@ -151,7 +150,6 @@ export default struct IHTMLCurrentStyle5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_outline() {
@@ -161,7 +159,6 @@ export default struct IHTMLCurrentStyle5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_outlineWidth() {
@@ -171,7 +168,6 @@ export default struct IHTMLCurrentStyle5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_outlineStyle() {
@@ -181,7 +177,6 @@ export default struct IHTMLCurrentStyle5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_outlineColor() {
@@ -191,7 +186,6 @@ export default struct IHTMLCurrentStyle5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_boxSizing() {
@@ -201,7 +195,6 @@ export default struct IHTMLCurrentStyle5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderSpacing() {
@@ -211,7 +204,6 @@ export default struct IHTMLCurrentStyle5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_orphans() {
@@ -221,7 +213,6 @@ export default struct IHTMLCurrentStyle5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_widows() {
@@ -231,7 +222,6 @@ export default struct IHTMLCurrentStyle5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_pageBreakInside() {
@@ -241,7 +231,6 @@ export default struct IHTMLCurrentStyle5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_emptyCells() {
@@ -251,7 +240,6 @@ export default struct IHTMLCurrentStyle5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_msBlockProgression() {
@@ -261,7 +249,6 @@ export default struct IHTMLCurrentStyle5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_quotes() {
@@ -279,19 +266,19 @@ export default struct IHTMLCurrentStyle5 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_captionSide := CallbackCreate(GetMethod(implObj, "get_captionSide"), flags, 2)
-        this.vtbl.get_outline := CallbackCreate(GetMethod(implObj, "get_outline"), flags, 2)
-        this.vtbl.get_outlineWidth := CallbackCreate(GetMethod(implObj, "get_outlineWidth"), flags, 2)
-        this.vtbl.get_outlineStyle := CallbackCreate(GetMethod(implObj, "get_outlineStyle"), flags, 2)
-        this.vtbl.get_outlineColor := CallbackCreate(GetMethod(implObj, "get_outlineColor"), flags, 2)
-        this.vtbl.get_boxSizing := CallbackCreate(GetMethod(implObj, "get_boxSizing"), flags, 2)
-        this.vtbl.get_borderSpacing := CallbackCreate(GetMethod(implObj, "get_borderSpacing"), flags, 2)
-        this.vtbl.get_orphans := CallbackCreate(GetMethod(implObj, "get_orphans"), flags, 2)
-        this.vtbl.get_widows := CallbackCreate(GetMethod(implObj, "get_widows"), flags, 2)
-        this.vtbl.get_pageBreakInside := CallbackCreate(GetMethod(implObj, "get_pageBreakInside"), flags, 2)
-        this.vtbl.get_emptyCells := CallbackCreate(GetMethod(implObj, "get_emptyCells"), flags, 2)
-        this.vtbl.get_msBlockProgression := CallbackCreate(GetMethod(implObj, "get_msBlockProgression"), flags, 2)
-        this.vtbl.get_quotes := CallbackCreate(GetMethod(implObj, "get_quotes"), flags, 2)
+        this.vtbl.get_captionSide := CallbackCreate(ObjBindMethod(implObj, "get_captionSide"), flags, 2)
+        this.vtbl.get_outline := CallbackCreate(ObjBindMethod(implObj, "get_outline"), flags, 2)
+        this.vtbl.get_outlineWidth := CallbackCreate(ObjBindMethod(implObj, "get_outlineWidth"), flags, 2)
+        this.vtbl.get_outlineStyle := CallbackCreate(ObjBindMethod(implObj, "get_outlineStyle"), flags, 2)
+        this.vtbl.get_outlineColor := CallbackCreate(ObjBindMethod(implObj, "get_outlineColor"), flags, 2)
+        this.vtbl.get_boxSizing := CallbackCreate(ObjBindMethod(implObj, "get_boxSizing"), flags, 2)
+        this.vtbl.get_borderSpacing := CallbackCreate(ObjBindMethod(implObj, "get_borderSpacing"), flags, 2)
+        this.vtbl.get_orphans := CallbackCreate(ObjBindMethod(implObj, "get_orphans"), flags, 2)
+        this.vtbl.get_widows := CallbackCreate(ObjBindMethod(implObj, "get_widows"), flags, 2)
+        this.vtbl.get_pageBreakInside := CallbackCreate(ObjBindMethod(implObj, "get_pageBreakInside"), flags, 2)
+        this.vtbl.get_emptyCells := CallbackCreate(ObjBindMethod(implObj, "get_emptyCells"), flags, 2)
+        this.vtbl.get_msBlockProgression := CallbackCreate(ObjBindMethod(implObj, "get_msBlockProgression"), flags, 2)
+        this.vtbl.get_quotes := CallbackCreate(ObjBindMethod(implObj, "get_quotes"), flags, 2)
     }
 
     Dispose() {

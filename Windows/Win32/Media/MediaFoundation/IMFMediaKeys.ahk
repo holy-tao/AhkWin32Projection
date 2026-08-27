@@ -65,7 +65,12 @@ export default struct IMFMediaKeys extends IUnknown {
     CreateSession(mimeType, initData, cb, customData, cbCustomData, notify) {
         mimeType := mimeType is String ? BSTR.Alloc(mimeType).Value : mimeType
 
-        result := ComCall(3, this, BSTR, mimeType, IntPtr, initData, UInt32, cb, IntPtr, customData, UInt32, cbCustomData, "ptr", notify, "ptr*", &ppSession := 0, "HRESULT")
+        mimeTypeMarshal := mimeType == 0 ? IntPtr : BSTR
+        initDataMarshal := initData == 0 ? IntPtr : IntPtr
+        cbMarshal := cb == 0 ? IntPtr : UInt32
+        customDataMarshal := customData == 0 ? IntPtr : IntPtr
+
+        result := ComCall(3, this, mimeTypeMarshal, mimeType, initDataMarshal, initData, cbMarshal, cb, customDataMarshal, customData, UInt32, cbCustomData, "ptr", notify, "ptr*", &ppSession := 0, "HRESULT")
         return IMFMediaKeySession(ppSession)
     }
 
@@ -111,10 +116,10 @@ export default struct IMFMediaKeys extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateSession := CallbackCreate(GetMethod(implObj, "CreateSession"), flags, 8)
-        this.vtbl.get_KeySystem := CallbackCreate(GetMethod(implObj, "get_KeySystem"), flags, 2)
-        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 1)
-        this.vtbl.GetSuspendNotify := CallbackCreate(GetMethod(implObj, "GetSuspendNotify"), flags, 2)
+        this.vtbl.CreateSession := CallbackCreate(ObjBindMethod(implObj, "CreateSession"), flags, 8)
+        this.vtbl.get_KeySystem := CallbackCreate(ObjBindMethod(implObj, "get_KeySystem"), flags, 2)
+        this.vtbl.Shutdown := CallbackCreate(ObjBindMethod(implObj, "Shutdown"), flags, 1)
+        this.vtbl.GetSuspendNotify := CallbackCreate(ObjBindMethod(implObj, "GetSuspendNotify"), flags, 2)
     }
 
     Dispose() {

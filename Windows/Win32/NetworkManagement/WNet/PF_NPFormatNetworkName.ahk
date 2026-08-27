@@ -19,7 +19,6 @@ export default struct PF_NPFormatNetworkName {
     }
 
     /**
-     * 
      * @param {PWSTR} lpRemoteName 
      * @param {PWSTR} lpFormattedName 
      * @param {Pointer<Integer>} lpnLength 
@@ -31,7 +30,7 @@ export default struct PF_NPFormatNetworkName {
         lpRemoteName := lpRemoteName is String ? StrPtr(lpRemoteName) : lpRemoteName
         lpFormattedName := lpFormattedName is String ? StrPtr(lpFormattedName) : lpFormattedName
 
-        lpnLengthMarshal := lpnLength is VarRef ? "uint*" : "ptr"
+        lpnLengthMarshal := lpnLength is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, "ptr", lpRemoteName, "ptr", lpFormattedName, lpnLengthMarshal, lpnLength, UInt32, dwFlags, UInt32, dwAveCharPerLine, UInt32)
         return result

@@ -100,9 +100,9 @@ export default struct IMpeg2Demultiplexer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateOutputPin := CallbackCreate(GetMethod(implObj, "CreateOutputPin"), flags, 4)
-        this.vtbl.SetOutputPinMediaType := CallbackCreate(GetMethod(implObj, "SetOutputPinMediaType"), flags, 3)
-        this.vtbl.DeleteOutputPin := CallbackCreate(GetMethod(implObj, "DeleteOutputPin"), flags, 2)
+        this.vtbl.CreateOutputPin := CallbackCreate(ObjBindMethod(implObj, "CreateOutputPin"), flags, 4)
+        this.vtbl.SetOutputPinMediaType := CallbackCreate(ObjBindMethod(implObj, "SetOutputPinMediaType"), flags, 3)
+        this.vtbl.DeleteOutputPin := CallbackCreate(ObjBindMethod(implObj, "DeleteOutputPin"), flags, 2)
     }
 
     Dispose() {

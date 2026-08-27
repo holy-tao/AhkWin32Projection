@@ -19,7 +19,6 @@ export default struct LPBLOCKINGCALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer} dwContext 
      * @returns {BOOL} 
      */

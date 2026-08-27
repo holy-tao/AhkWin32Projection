@@ -37,7 +37,6 @@ export default struct ICLRMemoryNotificationCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {EMemoryAvailable} _eMemoryAvailable 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,7 @@ export default struct ICLRMemoryNotificationCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnMemoryNotification := CallbackCreate(GetMethod(implObj, "OnMemoryNotification"), flags, 2)
+        this.vtbl.OnMemoryNotification := CallbackCreate(ObjBindMethod(implObj, "OnMemoryNotification"), flags, 2)
     }
 
     Dispose() {

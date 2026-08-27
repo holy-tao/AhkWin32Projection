@@ -133,7 +133,7 @@ export default struct IWMPMedia extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-get_isidentical
      */
     get_isIdentical(pIWMPMedia, pvbool) {
-        pvboolMarshal := pvbool is VarRef ? "short*" : "ptr"
+        pvboolMarshal := pvbool is VarRef ? "short*" : IntPtr
 
         result := ComCall(7, this, "ptr", pIWMPMedia, pvboolMarshal, pvbool, "HRESULT")
         return result
@@ -263,7 +263,7 @@ export default struct IWMPMedia extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-get_imagesourcewidth
      */
     get_imageSourceWidth(pWidth) {
-        pWidthMarshal := pWidth is VarRef ? "int*" : "ptr"
+        pWidthMarshal := pWidth is VarRef ? "int*" : IntPtr
 
         result := ComCall(11, this, pWidthMarshal, pWidth, "HRESULT")
         return result
@@ -298,7 +298,7 @@ export default struct IWMPMedia extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-get_imagesourceheight
      */
     get_imageSourceHeight(pHeight) {
-        pHeightMarshal := pHeight is VarRef ? "int*" : "ptr"
+        pHeightMarshal := pHeight is VarRef ? "int*" : IntPtr
 
         result := ComCall(12, this, pHeightMarshal, pHeight, "HRESULT")
         return result
@@ -335,7 +335,7 @@ export default struct IWMPMedia extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-get_markercount
      */
     get_markerCount(pMarkerCount) {
-        pMarkerCountMarshal := pMarkerCount is VarRef ? "int*" : "ptr"
+        pMarkerCountMarshal := pMarkerCount is VarRef ? "int*" : IntPtr
 
         result := ComCall(13, this, pMarkerCountMarshal, pMarkerCount, "HRESULT")
         return result
@@ -375,7 +375,7 @@ export default struct IWMPMedia extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-getmarkertime
      */
     getMarkerTime(MarkerNum, pMarkerTime) {
-        pMarkerTimeMarshal := pMarkerTime is VarRef ? "double*" : "ptr"
+        pMarkerTimeMarshal := pMarkerTime is VarRef ? "double*" : IntPtr
 
         result := ComCall(14, this, Int32, MarkerNum, pMarkerTimeMarshal, pMarkerTime, "HRESULT")
         return result
@@ -452,7 +452,7 @@ export default struct IWMPMedia extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-get_duration
      */
     get_duration(pDuration) {
-        pDurationMarshal := pDuration is VarRef ? "double*" : "ptr"
+        pDurationMarshal := pDuration is VarRef ? "double*" : IntPtr
 
         result := ComCall(16, this, pDurationMarshal, pDuration, "HRESULT")
         return result
@@ -522,7 +522,7 @@ export default struct IWMPMedia extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-get_attributecount
      */
     get_attributeCount(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+        plCountMarshal := plCount is VarRef ? "int*" : IntPtr
 
         result := ComCall(18, this, plCountMarshal, plCount, "HRESULT")
         return result
@@ -767,7 +767,7 @@ export default struct IWMPMedia extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-ismemberof
      */
     isMemberOf(pPlaylist, pvarfIsMemberOf) {
-        pvarfIsMemberOfMarshal := pvarfIsMemberOf is VarRef ? "short*" : "ptr"
+        pvarfIsMemberOfMarshal := pvarfIsMemberOf is VarRef ? "short*" : IntPtr
 
         result := ComCall(23, this, "ptr", pPlaylist, pvarfIsMemberOfMarshal, pvarfIsMemberOf, "HRESULT")
         return result
@@ -807,7 +807,7 @@ export default struct IWMPMedia extends IDispatch {
     isReadOnlyItem(bstrItemName, pvarfIsReadOnly) {
         bstrItemName := bstrItemName is String ? BSTR.Alloc(bstrItemName).Value : bstrItemName
 
-        pvarfIsReadOnlyMarshal := pvarfIsReadOnly is VarRef ? "short*" : "ptr"
+        pvarfIsReadOnlyMarshal := pvarfIsReadOnly is VarRef ? "short*" : IntPtr
 
         result := ComCall(24, this, BSTR, bstrItemName, pvarfIsReadOnlyMarshal, pvarfIsReadOnly, "HRESULT")
         return result
@@ -822,24 +822,24 @@ export default struct IWMPMedia extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_isIdentical := CallbackCreate(GetMethod(implObj, "get_isIdentical"), flags, 3)
-        this.vtbl.get_sourceURL := CallbackCreate(GetMethod(implObj, "get_sourceURL"), flags, 2)
-        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
-        this.vtbl.put_name := CallbackCreate(GetMethod(implObj, "put_name"), flags, 2)
-        this.vtbl.get_imageSourceWidth := CallbackCreate(GetMethod(implObj, "get_imageSourceWidth"), flags, 2)
-        this.vtbl.get_imageSourceHeight := CallbackCreate(GetMethod(implObj, "get_imageSourceHeight"), flags, 2)
-        this.vtbl.get_markerCount := CallbackCreate(GetMethod(implObj, "get_markerCount"), flags, 2)
-        this.vtbl.getMarkerTime := CallbackCreate(GetMethod(implObj, "getMarkerTime"), flags, 3)
-        this.vtbl.getMarkerName := CallbackCreate(GetMethod(implObj, "getMarkerName"), flags, 3)
-        this.vtbl.get_duration := CallbackCreate(GetMethod(implObj, "get_duration"), flags, 2)
-        this.vtbl.get_durationString := CallbackCreate(GetMethod(implObj, "get_durationString"), flags, 2)
-        this.vtbl.get_attributeCount := CallbackCreate(GetMethod(implObj, "get_attributeCount"), flags, 2)
-        this.vtbl.getAttributeName := CallbackCreate(GetMethod(implObj, "getAttributeName"), flags, 3)
-        this.vtbl.getItemInfo := CallbackCreate(GetMethod(implObj, "getItemInfo"), flags, 3)
-        this.vtbl.setItemInfo := CallbackCreate(GetMethod(implObj, "setItemInfo"), flags, 3)
-        this.vtbl.getItemInfoByAtom := CallbackCreate(GetMethod(implObj, "getItemInfoByAtom"), flags, 3)
-        this.vtbl.isMemberOf := CallbackCreate(GetMethod(implObj, "isMemberOf"), flags, 3)
-        this.vtbl.isReadOnlyItem := CallbackCreate(GetMethod(implObj, "isReadOnlyItem"), flags, 3)
+        this.vtbl.get_isIdentical := CallbackCreate(ObjBindMethod(implObj, "get_isIdentical"), flags, 3)
+        this.vtbl.get_sourceURL := CallbackCreate(ObjBindMethod(implObj, "get_sourceURL"), flags, 2)
+        this.vtbl.get_name := CallbackCreate(ObjBindMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.put_name := CallbackCreate(ObjBindMethod(implObj, "put_name"), flags, 2)
+        this.vtbl.get_imageSourceWidth := CallbackCreate(ObjBindMethod(implObj, "get_imageSourceWidth"), flags, 2)
+        this.vtbl.get_imageSourceHeight := CallbackCreate(ObjBindMethod(implObj, "get_imageSourceHeight"), flags, 2)
+        this.vtbl.get_markerCount := CallbackCreate(ObjBindMethod(implObj, "get_markerCount"), flags, 2)
+        this.vtbl.getMarkerTime := CallbackCreate(ObjBindMethod(implObj, "getMarkerTime"), flags, 3)
+        this.vtbl.getMarkerName := CallbackCreate(ObjBindMethod(implObj, "getMarkerName"), flags, 3)
+        this.vtbl.get_duration := CallbackCreate(ObjBindMethod(implObj, "get_duration"), flags, 2)
+        this.vtbl.get_durationString := CallbackCreate(ObjBindMethod(implObj, "get_durationString"), flags, 2)
+        this.vtbl.get_attributeCount := CallbackCreate(ObjBindMethod(implObj, "get_attributeCount"), flags, 2)
+        this.vtbl.getAttributeName := CallbackCreate(ObjBindMethod(implObj, "getAttributeName"), flags, 3)
+        this.vtbl.getItemInfo := CallbackCreate(ObjBindMethod(implObj, "getItemInfo"), flags, 3)
+        this.vtbl.setItemInfo := CallbackCreate(ObjBindMethod(implObj, "setItemInfo"), flags, 3)
+        this.vtbl.getItemInfoByAtom := CallbackCreate(ObjBindMethod(implObj, "getItemInfoByAtom"), flags, 3)
+        this.vtbl.isMemberOf := CallbackCreate(ObjBindMethod(implObj, "isMemberOf"), flags, 3)
+        this.vtbl.isReadOnlyItem := CallbackCreate(ObjBindMethod(implObj, "isReadOnlyItem"), flags, 3)
     }
 
     Dispose() {

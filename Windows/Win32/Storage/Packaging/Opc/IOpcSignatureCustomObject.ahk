@@ -170,8 +170,8 @@ export default struct IOpcSignatureCustomObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturecustomobject-getxml
      */
     GetXml(xmlMarkup, count) {
-        xmlMarkupMarshal := xmlMarkup is VarRef ? "ptr*" : "ptr"
-        countMarshal := count is VarRef ? "uint*" : "ptr"
+        xmlMarkupMarshal := xmlMarkup is VarRef ? "ptr*" : IntPtr
+        countMarshal := count is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, xmlMarkupMarshal, xmlMarkup, countMarshal, count, "HRESULT")
         return result
@@ -186,7 +186,7 @@ export default struct IOpcSignatureCustomObject extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetXml := CallbackCreate(GetMethod(implObj, "GetXml"), flags, 3)
+        this.vtbl.GetXml := CallbackCreate(ObjBindMethod(implObj, "GetXml"), flags, 3)
     }
 
     Dispose() {

@@ -57,7 +57,7 @@ export default struct ID3D12VideoProcessCommandList3 extends ID3D12VideoProcessC
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Barrier := CallbackCreate(GetMethod(implObj, "Barrier"), flags, 3)
+        this.vtbl.Barrier := CallbackCreate(ObjBindMethod(implObj, "Barrier"), flags, 3)
     }
 
     Dispose() {

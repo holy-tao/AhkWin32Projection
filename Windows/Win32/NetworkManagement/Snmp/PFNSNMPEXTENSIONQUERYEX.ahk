@@ -21,7 +21,6 @@ export default struct PFNSNMPEXTENSIONQUERYEX {
     }
 
     /**
-     * 
      * @param {Integer} nRequestType 
      * @param {Integer} nTransactionId 
      * @param {Pointer<SnmpVarBindList>} pVarBindList 
@@ -31,8 +30,8 @@ export default struct PFNSNMPEXTENSIONQUERYEX {
      * @returns {BOOL} 
      */
     Call(nRequestType, nTransactionId, pVarBindList, pContextInfo, pErrorStatus, pErrorIndex) {
-        pErrorStatusMarshal := pErrorStatus is VarRef ? "int*" : "ptr"
-        pErrorIndexMarshal := pErrorIndex is VarRef ? "int*" : "ptr"
+        pErrorStatusMarshal := pErrorStatus is VarRef ? "int*" : IntPtr
+        pErrorIndexMarshal := pErrorIndex is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, UInt32, nRequestType, UInt32, nTransactionId, SnmpVarBindList.Ptr, pVarBindList, AsnOctetString.Ptr, pContextInfo, pErrorStatusMarshal, pErrorStatus, pErrorIndexMarshal, pErrorIndex, BOOL)
         return result

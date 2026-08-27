@@ -62,7 +62,6 @@ export default struct IPrinterQueue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {PRINTER_HANDLE} 
      */
     get_Handle() {
@@ -72,7 +71,6 @@ export default struct IPrinterQueue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -82,7 +80,6 @@ export default struct IPrinterQueue extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrBidiQuery 
      * @returns {HRESULT} 
      */
@@ -94,7 +91,6 @@ export default struct IPrinterQueue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IPrinterPropertyBag} 
      */
     GetProperties() {
@@ -111,10 +107,10 @@ export default struct IPrinterQueue extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Handle := CallbackCreate(GetMethod(implObj, "get_Handle"), flags, 2)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.SendBidiQuery := CallbackCreate(GetMethod(implObj, "SendBidiQuery"), flags, 2)
-        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.get_Handle := CallbackCreate(ObjBindMethod(implObj, "get_Handle"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.SendBidiQuery := CallbackCreate(ObjBindMethod(implObj, "SendBidiQuery"), flags, 2)
+        this.vtbl.GetProperties := CallbackCreate(ObjBindMethod(implObj, "GetProperties"), flags, 2)
     }
 
     Dispose() {

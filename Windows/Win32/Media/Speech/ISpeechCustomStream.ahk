@@ -45,7 +45,6 @@ export default struct ISpeechCustomStream extends ISpeechBaseStream {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_BaseStream() {
@@ -54,12 +53,13 @@ export default struct ISpeechCustomStream extends ISpeechBaseStream {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkStream 
      * @returns {HRESULT} 
      */
     putref_BaseStream(pUnkStream) {
-        result := ComCall(13, this, "ptr", pUnkStream, "HRESULT")
+        pUnkStreamMarshal := pUnkStream == 0 ? IntPtr : "ptr"
+
+        result := ComCall(13, this, pUnkStreamMarshal, pUnkStream, "HRESULT")
         return result
     }
 
@@ -72,8 +72,8 @@ export default struct ISpeechCustomStream extends ISpeechBaseStream {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_BaseStream := CallbackCreate(GetMethod(implObj, "get_BaseStream"), flags, 2)
-        this.vtbl.putref_BaseStream := CallbackCreate(GetMethod(implObj, "putref_BaseStream"), flags, 2)
+        this.vtbl.get_BaseStream := CallbackCreate(ObjBindMethod(implObj, "get_BaseStream"), flags, 2)
+        this.vtbl.putref_BaseStream := CallbackCreate(ObjBindMethod(implObj, "putref_BaseStream"), flags, 2)
     }
 
     Dispose() {

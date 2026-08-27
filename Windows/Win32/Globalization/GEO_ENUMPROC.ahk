@@ -19,7 +19,6 @@ export default struct GEO_ENUMPROC {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @returns {BOOL} 
      */

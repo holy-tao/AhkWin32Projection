@@ -19,7 +19,6 @@ export default struct PPCW_CALLBACK {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

@@ -37,7 +37,6 @@ export default struct IPartFont2 extends IPartFont {
     }
 
     /**
-     * 
      * @returns {EXpsFontRestriction} 
      */
     GetFontRestriction() {
@@ -54,7 +53,7 @@ export default struct IPartFont2 extends IPartFont {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFontRestriction := CallbackCreate(GetMethod(implObj, "GetFontRestriction"), flags, 2)
+        this.vtbl.GetFontRestriction := CallbackCreate(ObjBindMethod(implObj, "GetFontRestriction"), flags, 2)
     }
 
     Dispose() {

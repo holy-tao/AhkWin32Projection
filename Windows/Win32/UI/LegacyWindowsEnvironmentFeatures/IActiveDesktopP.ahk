@@ -57,7 +57,6 @@ export default struct IActiveDesktopP extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     EnsureUpdateHTML() {
@@ -66,7 +65,6 @@ export default struct IActiveDesktopP extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszSchemeName 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
@@ -79,7 +77,6 @@ export default struct IActiveDesktopP extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszSchemeName 
      * @param {Pointer<Integer>} pdwcchBuffer 
      * @param {Integer} dwFlags 
@@ -88,7 +85,7 @@ export default struct IActiveDesktopP extends IUnknown {
     GetScheme(pwszSchemeName, pdwcchBuffer, dwFlags) {
         pwszSchemeName := pwszSchemeName is String ? StrPtr(pwszSchemeName) : pwszSchemeName
 
-        pdwcchBufferMarshal := pdwcchBuffer is VarRef ? "uint*" : "ptr"
+        pdwcchBufferMarshal := pdwcchBuffer is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, "ptr", pwszSchemeName, pdwcchBufferMarshal, pdwcchBuffer, UInt32, dwFlags, "HRESULT")
         return result
@@ -103,10 +100,10 @@ export default struct IActiveDesktopP extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetSafeMode := CallbackCreate(GetMethod(implObj, "SetSafeMode"), flags, 2)
-        this.vtbl.EnsureUpdateHTML := CallbackCreate(GetMethod(implObj, "EnsureUpdateHTML"), flags, 1)
-        this.vtbl.SetScheme := CallbackCreate(GetMethod(implObj, "SetScheme"), flags, 3)
-        this.vtbl.GetScheme := CallbackCreate(GetMethod(implObj, "GetScheme"), flags, 4)
+        this.vtbl.SetSafeMode := CallbackCreate(ObjBindMethod(implObj, "SetSafeMode"), flags, 2)
+        this.vtbl.EnsureUpdateHTML := CallbackCreate(ObjBindMethod(implObj, "EnsureUpdateHTML"), flags, 1)
+        this.vtbl.SetScheme := CallbackCreate(ObjBindMethod(implObj, "SetScheme"), flags, 3)
+        this.vtbl.GetScheme := CallbackCreate(ObjBindMethod(implObj, "GetScheme"), flags, 4)
     }
 
     Dispose() {

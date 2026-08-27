@@ -19,13 +19,12 @@ export default struct DNS_QUERY_RAW_COMPLETION_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _queryContext 
      * @param {Pointer<DNS_QUERY_RAW_RESULT>} queryResults 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_queryContext, queryResults) {
-        _queryContextMarshal := _queryContext is VarRef ? "ptr" : "ptr"
+        _queryContextMarshal := _queryContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _queryContextMarshal, _queryContext, DNS_QUERY_RAW_RESULT.Ptr, queryResults)
     }

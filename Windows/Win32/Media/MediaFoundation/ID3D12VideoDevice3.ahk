@@ -73,8 +73,8 @@ export default struct ID3D12VideoDevice3 extends ID3D12VideoDevice2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateVideoEncoder := CallbackCreate(GetMethod(implObj, "CreateVideoEncoder"), flags, 4)
-        this.vtbl.CreateVideoEncoderHeap := CallbackCreate(GetMethod(implObj, "CreateVideoEncoderHeap"), flags, 4)
+        this.vtbl.CreateVideoEncoder := CallbackCreate(ObjBindMethod(implObj, "CreateVideoEncoder"), flags, 4)
+        this.vtbl.CreateVideoEncoderHeap := CallbackCreate(ObjBindMethod(implObj, "CreateVideoEncoderHeap"), flags, 4)
     }
 
     Dispose() {

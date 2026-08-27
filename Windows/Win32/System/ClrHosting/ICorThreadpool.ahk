@@ -51,7 +51,6 @@ export default struct ICorThreadpool extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} phNewWaitObject 
      * @param {HANDLE} hWaitObject 
      * @param {Pointer<WAITORTIMERCALLBACK>} Callback 
@@ -61,14 +60,13 @@ export default struct ICorThreadpool extends IUnknown {
      * @returns {BOOL} 
      */
     CorRegisterWaitForSingleObject(phNewWaitObject, hWaitObject, Callback, _Context, timeout, executeOnlyOnce) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, HANDLE.Ptr, phNewWaitObject, HANDLE, hWaitObject, WAITORTIMERCALLBACK, Callback, _ContextMarshal, _Context, UInt32, timeout, BOOL, executeOnlyOnce, BOOL.Ptr, &result := 0, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HANDLE} hWaitObject 
      * @param {HANDLE} CompletionEvent 
      * @returns {BOOL} 
@@ -79,21 +77,19 @@ export default struct ICorThreadpool extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<LPTHREAD_START_ROUTINE>} Function 
      * @param {Pointer<Void>} _Context 
      * @param {BOOL} executeOnlyOnce 
      * @returns {BOOL} 
      */
     CorQueueUserWorkItem(Function, _Context, executeOnlyOnce) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         result := ComCall(5, this, LPTHREAD_START_ROUTINE, Function, _ContextMarshal, _Context, BOOL, executeOnlyOnce, BOOL.Ptr, &result := 0, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} phNewTimer 
      * @param {Pointer<WAITORTIMERCALLBACK>} Callback 
      * @param {Pointer<Void>} Parameter 
@@ -102,14 +98,13 @@ export default struct ICorThreadpool extends IUnknown {
      * @returns {BOOL} 
      */
     CorCreateTimer(phNewTimer, Callback, Parameter, DueTime, Period) {
-        ParameterMarshal := Parameter is VarRef ? "ptr" : "ptr"
+        ParameterMarshal := Parameter is VarRef ? "ptr" : IntPtr
 
         result := ComCall(6, this, HANDLE.Ptr, phNewTimer, WAITORTIMERCALLBACK, Callback, ParameterMarshal, Parameter, UInt32, DueTime, UInt32, Period, BOOL.Ptr, &result := 0, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HANDLE} Timer 
      * @param {Integer} DueTime 
      * @param {Integer} Period 
@@ -121,7 +116,6 @@ export default struct ICorThreadpool extends IUnknown {
     }
 
     /**
-     * 
      * @param {HANDLE} Timer 
      * @param {HANDLE} CompletionEvent 
      * @returns {BOOL} 
@@ -132,7 +126,6 @@ export default struct ICorThreadpool extends IUnknown {
     }
 
     /**
-     * 
      * @param {HANDLE} fileHandle 
      * @param {Pointer<LPOVERLAPPED_COMPLETION_ROUTINE>} callback 
      * @returns {HRESULT} 
@@ -143,20 +136,18 @@ export default struct ICorThreadpool extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<LPTHREAD_START_ROUTINE>} Function 
      * @param {Pointer<Void>} _Context 
      * @returns {BOOL} 
      */
     CorCallOrQueueUserWorkItem(Function, _Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         result := ComCall(10, this, LPTHREAD_START_ROUTINE, Function, _ContextMarshal, _Context, BOOL.Ptr, &result := 0, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} MaxWorkerThreads 
      * @param {Integer} MaxIOCompletionThreads 
      * @returns {HRESULT} 
@@ -167,28 +158,26 @@ export default struct ICorThreadpool extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} MaxWorkerThreads 
      * @param {Pointer<Integer>} MaxIOCompletionThreads 
      * @returns {HRESULT} 
      */
     CorGetMaxThreads(MaxWorkerThreads, MaxIOCompletionThreads) {
-        MaxWorkerThreadsMarshal := MaxWorkerThreads is VarRef ? "uint*" : "ptr"
-        MaxIOCompletionThreadsMarshal := MaxIOCompletionThreads is VarRef ? "uint*" : "ptr"
+        MaxWorkerThreadsMarshal := MaxWorkerThreads is VarRef ? "uint*" : IntPtr
+        MaxIOCompletionThreadsMarshal := MaxIOCompletionThreads is VarRef ? "uint*" : IntPtr
 
         result := ComCall(12, this, MaxWorkerThreadsMarshal, MaxWorkerThreads, MaxIOCompletionThreadsMarshal, MaxIOCompletionThreads, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} AvailableWorkerThreads 
      * @param {Pointer<Integer>} AvailableIOCompletionThreads 
      * @returns {HRESULT} 
      */
     CorGetAvailableThreads(AvailableWorkerThreads, AvailableIOCompletionThreads) {
-        AvailableWorkerThreadsMarshal := AvailableWorkerThreads is VarRef ? "uint*" : "ptr"
-        AvailableIOCompletionThreadsMarshal := AvailableIOCompletionThreads is VarRef ? "uint*" : "ptr"
+        AvailableWorkerThreadsMarshal := AvailableWorkerThreads is VarRef ? "uint*" : IntPtr
+        AvailableIOCompletionThreadsMarshal := AvailableIOCompletionThreads is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, AvailableWorkerThreadsMarshal, AvailableWorkerThreads, AvailableIOCompletionThreadsMarshal, AvailableIOCompletionThreads, "HRESULT")
         return result
@@ -203,17 +192,17 @@ export default struct ICorThreadpool extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CorRegisterWaitForSingleObject := CallbackCreate(GetMethod(implObj, "CorRegisterWaitForSingleObject"), flags, 8)
-        this.vtbl.CorUnregisterWait := CallbackCreate(GetMethod(implObj, "CorUnregisterWait"), flags, 4)
-        this.vtbl.CorQueueUserWorkItem := CallbackCreate(GetMethod(implObj, "CorQueueUserWorkItem"), flags, 5)
-        this.vtbl.CorCreateTimer := CallbackCreate(GetMethod(implObj, "CorCreateTimer"), flags, 7)
-        this.vtbl.CorChangeTimer := CallbackCreate(GetMethod(implObj, "CorChangeTimer"), flags, 5)
-        this.vtbl.CorDeleteTimer := CallbackCreate(GetMethod(implObj, "CorDeleteTimer"), flags, 4)
-        this.vtbl.CorBindIoCompletionCallback := CallbackCreate(GetMethod(implObj, "CorBindIoCompletionCallback"), flags, 3)
-        this.vtbl.CorCallOrQueueUserWorkItem := CallbackCreate(GetMethod(implObj, "CorCallOrQueueUserWorkItem"), flags, 4)
-        this.vtbl.CorSetMaxThreads := CallbackCreate(GetMethod(implObj, "CorSetMaxThreads"), flags, 3)
-        this.vtbl.CorGetMaxThreads := CallbackCreate(GetMethod(implObj, "CorGetMaxThreads"), flags, 3)
-        this.vtbl.CorGetAvailableThreads := CallbackCreate(GetMethod(implObj, "CorGetAvailableThreads"), flags, 3)
+        this.vtbl.CorRegisterWaitForSingleObject := CallbackCreate(ObjBindMethod(implObj, "CorRegisterWaitForSingleObject"), flags, 8)
+        this.vtbl.CorUnregisterWait := CallbackCreate(ObjBindMethod(implObj, "CorUnregisterWait"), flags, 4)
+        this.vtbl.CorQueueUserWorkItem := CallbackCreate(ObjBindMethod(implObj, "CorQueueUserWorkItem"), flags, 5)
+        this.vtbl.CorCreateTimer := CallbackCreate(ObjBindMethod(implObj, "CorCreateTimer"), flags, 7)
+        this.vtbl.CorChangeTimer := CallbackCreate(ObjBindMethod(implObj, "CorChangeTimer"), flags, 5)
+        this.vtbl.CorDeleteTimer := CallbackCreate(ObjBindMethod(implObj, "CorDeleteTimer"), flags, 4)
+        this.vtbl.CorBindIoCompletionCallback := CallbackCreate(ObjBindMethod(implObj, "CorBindIoCompletionCallback"), flags, 3)
+        this.vtbl.CorCallOrQueueUserWorkItem := CallbackCreate(ObjBindMethod(implObj, "CorCallOrQueueUserWorkItem"), flags, 4)
+        this.vtbl.CorSetMaxThreads := CallbackCreate(ObjBindMethod(implObj, "CorSetMaxThreads"), flags, 3)
+        this.vtbl.CorGetMaxThreads := CallbackCreate(ObjBindMethod(implObj, "CorGetMaxThreads"), flags, 3)
+        this.vtbl.CorGetAvailableThreads := CallbackCreate(ObjBindMethod(implObj, "CorGetAvailableThreads"), flags, 3)
     }
 
     Dispose() {

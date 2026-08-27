@@ -221,15 +221,15 @@ export default struct IAppxManifestReader extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPackageId := CallbackCreate(GetMethod(implObj, "GetPackageId"), flags, 2)
-        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
-        this.vtbl.GetPackageDependencies := CallbackCreate(GetMethod(implObj, "GetPackageDependencies"), flags, 2)
-        this.vtbl.GetCapabilities := CallbackCreate(GetMethod(implObj, "GetCapabilities"), flags, 2)
-        this.vtbl.GetResources := CallbackCreate(GetMethod(implObj, "GetResources"), flags, 2)
-        this.vtbl.GetDeviceCapabilities := CallbackCreate(GetMethod(implObj, "GetDeviceCapabilities"), flags, 2)
-        this.vtbl.GetPrerequisite := CallbackCreate(GetMethod(implObj, "GetPrerequisite"), flags, 3)
-        this.vtbl.GetApplications := CallbackCreate(GetMethod(implObj, "GetApplications"), flags, 2)
-        this.vtbl.GetStream := CallbackCreate(GetMethod(implObj, "GetStream"), flags, 2)
+        this.vtbl.GetPackageId := CallbackCreate(ObjBindMethod(implObj, "GetPackageId"), flags, 2)
+        this.vtbl.GetProperties := CallbackCreate(ObjBindMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.GetPackageDependencies := CallbackCreate(ObjBindMethod(implObj, "GetPackageDependencies"), flags, 2)
+        this.vtbl.GetCapabilities := CallbackCreate(ObjBindMethod(implObj, "GetCapabilities"), flags, 2)
+        this.vtbl.GetResources := CallbackCreate(ObjBindMethod(implObj, "GetResources"), flags, 2)
+        this.vtbl.GetDeviceCapabilities := CallbackCreate(ObjBindMethod(implObj, "GetDeviceCapabilities"), flags, 2)
+        this.vtbl.GetPrerequisite := CallbackCreate(ObjBindMethod(implObj, "GetPrerequisite"), flags, 3)
+        this.vtbl.GetApplications := CallbackCreate(ObjBindMethod(implObj, "GetApplications"), flags, 2)
+        this.vtbl.GetStream := CallbackCreate(ObjBindMethod(implObj, "GetStream"), flags, 2)
     }
 
     Dispose() {

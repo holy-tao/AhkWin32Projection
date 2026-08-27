@@ -109,10 +109,10 @@ export default struct ISdoServiceControl extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StartService := CallbackCreate(GetMethod(implObj, "StartService"), flags, 1)
-        this.vtbl.StopService := CallbackCreate(GetMethod(implObj, "StopService"), flags, 1)
-        this.vtbl.GetServiceStatus := CallbackCreate(GetMethod(implObj, "GetServiceStatus"), flags, 2)
-        this.vtbl.ResetService := CallbackCreate(GetMethod(implObj, "ResetService"), flags, 1)
+        this.vtbl.StartService := CallbackCreate(ObjBindMethod(implObj, "StartService"), flags, 1)
+        this.vtbl.StopService := CallbackCreate(ObjBindMethod(implObj, "StopService"), flags, 1)
+        this.vtbl.GetServiceStatus := CallbackCreate(ObjBindMethod(implObj, "GetServiceStatus"), flags, 2)
+        this.vtbl.ResetService := CallbackCreate(ObjBindMethod(implObj, "ResetService"), flags, 1)
     }
 
     Dispose() {

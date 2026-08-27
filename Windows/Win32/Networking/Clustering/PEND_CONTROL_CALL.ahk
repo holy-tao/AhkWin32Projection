@@ -18,7 +18,6 @@ export default struct PEND_CONTROL_CALL {
     }
 
     /**
-     * 
      * @param {Integer} _context 
      * @param {Integer} _status 
      * @returns {Integer} 

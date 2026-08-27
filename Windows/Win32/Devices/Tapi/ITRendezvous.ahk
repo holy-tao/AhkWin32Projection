@@ -149,10 +149,10 @@ export default struct ITRendezvous extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_DefaultDirectories := CallbackCreate(GetMethod(implObj, "get_DefaultDirectories"), flags, 2)
-        this.vtbl.EnumerateDefaultDirectories := CallbackCreate(GetMethod(implObj, "EnumerateDefaultDirectories"), flags, 2)
-        this.vtbl.CreateDirectory := CallbackCreate(GetMethod(implObj, "CreateDirectory"), flags, 4)
-        this.vtbl.CreateDirectoryObject := CallbackCreate(GetMethod(implObj, "CreateDirectoryObject"), flags, 4)
+        this.vtbl.get_DefaultDirectories := CallbackCreate(ObjBindMethod(implObj, "get_DefaultDirectories"), flags, 2)
+        this.vtbl.EnumerateDefaultDirectories := CallbackCreate(ObjBindMethod(implObj, "EnumerateDefaultDirectories"), flags, 2)
+        this.vtbl.CreateDirectory := CallbackCreate(ObjBindMethod(implObj, "CreateDirectory"), flags, 4)
+        this.vtbl.CreateDirectoryObject := CallbackCreate(ObjBindMethod(implObj, "CreateDirectoryObject"), flags, 4)
     }
 
     Dispose() {

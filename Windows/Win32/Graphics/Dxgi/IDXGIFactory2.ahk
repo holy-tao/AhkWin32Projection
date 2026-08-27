@@ -122,7 +122,10 @@ export default struct IDXGIFactory2 extends IDXGIFactory1 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforhwnd
      */
     CreateSwapChainForHwnd(pDevice, _hWnd, pDesc, pFullscreenDesc, pRestrictToOutput) {
-        result := ComCall(15, this, "ptr", pDevice, HWND, _hWnd, DXGI_SWAP_CHAIN_DESC1.Ptr, pDesc, DXGI_SWAP_CHAIN_FULLSCREEN_DESC.Ptr, pFullscreenDesc, "ptr", pRestrictToOutput, "ptr*", &ppSwapChain := 0, "HRESULT")
+        pFullscreenDescMarshal := pFullscreenDesc == 0 ? IntPtr : DXGI_SWAP_CHAIN_FULLSCREEN_DESC.Ptr
+        pRestrictToOutputMarshal := pRestrictToOutput == 0 ? IntPtr : "ptr"
+
+        result := ComCall(15, this, "ptr", pDevice, HWND, _hWnd, DXGI_SWAP_CHAIN_DESC1.Ptr, pDesc, pFullscreenDescMarshal, pFullscreenDesc, pRestrictToOutputMarshal, pRestrictToOutput, "ptr*", &ppSwapChain := 0, "HRESULT")
         return IDXGISwapChain1(ppSwapChain)
     }
 
@@ -199,7 +202,9 @@ export default struct IDXGIFactory2 extends IDXGIFactory1 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforcorewindow
      */
     CreateSwapChainForCoreWindow(pDevice, pWindow, pDesc, pRestrictToOutput) {
-        result := ComCall(16, this, "ptr", pDevice, "ptr", pWindow, DXGI_SWAP_CHAIN_DESC1.Ptr, pDesc, "ptr", pRestrictToOutput, "ptr*", &ppSwapChain := 0, "HRESULT")
+        pRestrictToOutputMarshal := pRestrictToOutput == 0 ? IntPtr : "ptr"
+
+        result := ComCall(16, this, "ptr", pDevice, "ptr", pWindow, DXGI_SWAP_CHAIN_DESC1.Ptr, pDesc, pRestrictToOutputMarshal, pRestrictToOutput, "ptr*", &ppSwapChain := 0, "HRESULT")
         return IDXGISwapChain1(ppSwapChain)
     }
 
@@ -320,7 +325,9 @@ export default struct IDXGIFactory2 extends IDXGIFactory1 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforcomposition
      */
     CreateSwapChainForComposition(pDevice, pDesc, pRestrictToOutput) {
-        result := ComCall(24, this, "ptr", pDevice, DXGI_SWAP_CHAIN_DESC1.Ptr, pDesc, "ptr", pRestrictToOutput, "ptr*", &ppSwapChain := 0, "HRESULT")
+        pRestrictToOutputMarshal := pRestrictToOutput == 0 ? IntPtr : "ptr"
+
+        result := ComCall(24, this, "ptr", pDevice, DXGI_SWAP_CHAIN_DESC1.Ptr, pDesc, pRestrictToOutputMarshal, pRestrictToOutput, "ptr*", &ppSwapChain := 0, "HRESULT")
         return IDXGISwapChain1(ppSwapChain)
     }
 
@@ -333,17 +340,17 @@ export default struct IDXGIFactory2 extends IDXGIFactory1 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsWindowedStereoEnabled := CallbackCreate(GetMethod(implObj, "IsWindowedStereoEnabled"), flags, 1)
-        this.vtbl.CreateSwapChainForHwnd := CallbackCreate(GetMethod(implObj, "CreateSwapChainForHwnd"), flags, 7)
-        this.vtbl.CreateSwapChainForCoreWindow := CallbackCreate(GetMethod(implObj, "CreateSwapChainForCoreWindow"), flags, 6)
-        this.vtbl.GetSharedResourceAdapterLuid := CallbackCreate(GetMethod(implObj, "GetSharedResourceAdapterLuid"), flags, 3)
-        this.vtbl.RegisterStereoStatusWindow := CallbackCreate(GetMethod(implObj, "RegisterStereoStatusWindow"), flags, 4)
-        this.vtbl.RegisterStereoStatusEvent := CallbackCreate(GetMethod(implObj, "RegisterStereoStatusEvent"), flags, 3)
-        this.vtbl.UnregisterStereoStatus := CallbackCreate(GetMethod(implObj, "UnregisterStereoStatus"), flags, 2)
-        this.vtbl.RegisterOcclusionStatusWindow := CallbackCreate(GetMethod(implObj, "RegisterOcclusionStatusWindow"), flags, 4)
-        this.vtbl.RegisterOcclusionStatusEvent := CallbackCreate(GetMethod(implObj, "RegisterOcclusionStatusEvent"), flags, 3)
-        this.vtbl.UnregisterOcclusionStatus := CallbackCreate(GetMethod(implObj, "UnregisterOcclusionStatus"), flags, 2)
-        this.vtbl.CreateSwapChainForComposition := CallbackCreate(GetMethod(implObj, "CreateSwapChainForComposition"), flags, 5)
+        this.vtbl.IsWindowedStereoEnabled := CallbackCreate(ObjBindMethod(implObj, "IsWindowedStereoEnabled"), flags, 1)
+        this.vtbl.CreateSwapChainForHwnd := CallbackCreate(ObjBindMethod(implObj, "CreateSwapChainForHwnd"), flags, 7)
+        this.vtbl.CreateSwapChainForCoreWindow := CallbackCreate(ObjBindMethod(implObj, "CreateSwapChainForCoreWindow"), flags, 6)
+        this.vtbl.GetSharedResourceAdapterLuid := CallbackCreate(ObjBindMethod(implObj, "GetSharedResourceAdapterLuid"), flags, 3)
+        this.vtbl.RegisterStereoStatusWindow := CallbackCreate(ObjBindMethod(implObj, "RegisterStereoStatusWindow"), flags, 4)
+        this.vtbl.RegisterStereoStatusEvent := CallbackCreate(ObjBindMethod(implObj, "RegisterStereoStatusEvent"), flags, 3)
+        this.vtbl.UnregisterStereoStatus := CallbackCreate(ObjBindMethod(implObj, "UnregisterStereoStatus"), flags, 2)
+        this.vtbl.RegisterOcclusionStatusWindow := CallbackCreate(ObjBindMethod(implObj, "RegisterOcclusionStatusWindow"), flags, 4)
+        this.vtbl.RegisterOcclusionStatusEvent := CallbackCreate(ObjBindMethod(implObj, "RegisterOcclusionStatusEvent"), flags, 3)
+        this.vtbl.UnregisterOcclusionStatus := CallbackCreate(ObjBindMethod(implObj, "UnregisterOcclusionStatus"), flags, 2)
+        this.vtbl.CreateSwapChainForComposition := CallbackCreate(ObjBindMethod(implObj, "CreateSwapChainForComposition"), flags, 5)
     }
 
     Dispose() {

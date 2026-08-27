@@ -204,7 +204,9 @@ export default struct ITextPara extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-setduplicate
      */
     SetDuplicate(pPara) {
-        result := ComCall(8, this, "ptr", pPara, "HRESULT")
+        pParaMarshal := pPara == 0 ? IntPtr : "ptr"
+
+        result := ComCall(8, this, pParaMarshal, pPara, "HRESULT")
         return result
     }
 
@@ -233,7 +235,9 @@ export default struct ITextPara extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-isequal
      */
     IsEqual(pPara) {
-        result := ComCall(10, this, "ptr", pPara, "int*", &pValue := 0, "HRESULT")
+        pParaMarshal := pPara == 0 ? IntPtr : "ptr"
+
+        result := ComCall(10, this, pParaMarshal, pPara, "int*", &pValue := 0, "HRESULT")
         return pValue
     }
 
@@ -2992,9 +2996,9 @@ export default struct ITextPara extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-gettab
      */
     GetTab(iTab, ptbPos, ptbAlign, ptbLeader) {
-        ptbPosMarshal := ptbPos is VarRef ? "float*" : "ptr"
-        ptbAlignMarshal := ptbAlign is VarRef ? "int*" : "ptr"
-        ptbLeaderMarshal := ptbLeader is VarRef ? "int*" : "ptr"
+        ptbPosMarshal := ptbPos is VarRef ? "float*" : IntPtr
+        ptbAlignMarshal := ptbAlign is VarRef ? "int*" : IntPtr
+        ptbLeaderMarshal := ptbLeader is VarRef ? "int*" : IntPtr
 
         result := ComCall(54, this, Int32, iTab, ptbPosMarshal, ptbPos, ptbAlignMarshal, ptbAlign, ptbLeaderMarshal, ptbLeader, "HRESULT")
         return result
@@ -3009,54 +3013,54 @@ export default struct ITextPara extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDuplicate := CallbackCreate(GetMethod(implObj, "GetDuplicate"), flags, 2)
-        this.vtbl.SetDuplicate := CallbackCreate(GetMethod(implObj, "SetDuplicate"), flags, 2)
-        this.vtbl.CanChange := CallbackCreate(GetMethod(implObj, "CanChange"), flags, 2)
-        this.vtbl.IsEqual := CallbackCreate(GetMethod(implObj, "IsEqual"), flags, 3)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 2)
-        this.vtbl.GetStyle := CallbackCreate(GetMethod(implObj, "GetStyle"), flags, 2)
-        this.vtbl.SetStyle := CallbackCreate(GetMethod(implObj, "SetStyle"), flags, 2)
-        this.vtbl.GetAlignment := CallbackCreate(GetMethod(implObj, "GetAlignment"), flags, 2)
-        this.vtbl.SetAlignment := CallbackCreate(GetMethod(implObj, "SetAlignment"), flags, 2)
-        this.vtbl.GetHyphenation := CallbackCreate(GetMethod(implObj, "GetHyphenation"), flags, 2)
-        this.vtbl.SetHyphenation := CallbackCreate(GetMethod(implObj, "SetHyphenation"), flags, 2)
-        this.vtbl.GetFirstLineIndent := CallbackCreate(GetMethod(implObj, "GetFirstLineIndent"), flags, 2)
-        this.vtbl.GetKeepTogether := CallbackCreate(GetMethod(implObj, "GetKeepTogether"), flags, 2)
-        this.vtbl.SetKeepTogether := CallbackCreate(GetMethod(implObj, "SetKeepTogether"), flags, 2)
-        this.vtbl.GetKeepWithNext := CallbackCreate(GetMethod(implObj, "GetKeepWithNext"), flags, 2)
-        this.vtbl.SetKeepWithNext := CallbackCreate(GetMethod(implObj, "SetKeepWithNext"), flags, 2)
-        this.vtbl.GetLeftIndent := CallbackCreate(GetMethod(implObj, "GetLeftIndent"), flags, 2)
-        this.vtbl.GetLineSpacing := CallbackCreate(GetMethod(implObj, "GetLineSpacing"), flags, 2)
-        this.vtbl.GetLineSpacingRule := CallbackCreate(GetMethod(implObj, "GetLineSpacingRule"), flags, 2)
-        this.vtbl.GetListAlignment := CallbackCreate(GetMethod(implObj, "GetListAlignment"), flags, 2)
-        this.vtbl.SetListAlignment := CallbackCreate(GetMethod(implObj, "SetListAlignment"), flags, 2)
-        this.vtbl.GetListLevelIndex := CallbackCreate(GetMethod(implObj, "GetListLevelIndex"), flags, 2)
-        this.vtbl.SetListLevelIndex := CallbackCreate(GetMethod(implObj, "SetListLevelIndex"), flags, 2)
-        this.vtbl.GetListStart := CallbackCreate(GetMethod(implObj, "GetListStart"), flags, 2)
-        this.vtbl.SetListStart := CallbackCreate(GetMethod(implObj, "SetListStart"), flags, 2)
-        this.vtbl.GetListTab := CallbackCreate(GetMethod(implObj, "GetListTab"), flags, 2)
-        this.vtbl.SetListTab := CallbackCreate(GetMethod(implObj, "SetListTab"), flags, 2)
-        this.vtbl.GetListType := CallbackCreate(GetMethod(implObj, "GetListType"), flags, 2)
-        this.vtbl.SetListType := CallbackCreate(GetMethod(implObj, "SetListType"), flags, 2)
-        this.vtbl.GetNoLineNumber := CallbackCreate(GetMethod(implObj, "GetNoLineNumber"), flags, 2)
-        this.vtbl.SetNoLineNumber := CallbackCreate(GetMethod(implObj, "SetNoLineNumber"), flags, 2)
-        this.vtbl.GetPageBreakBefore := CallbackCreate(GetMethod(implObj, "GetPageBreakBefore"), flags, 2)
-        this.vtbl.SetPageBreakBefore := CallbackCreate(GetMethod(implObj, "SetPageBreakBefore"), flags, 2)
-        this.vtbl.GetRightIndent := CallbackCreate(GetMethod(implObj, "GetRightIndent"), flags, 2)
-        this.vtbl.SetRightIndent := CallbackCreate(GetMethod(implObj, "SetRightIndent"), flags, 2)
-        this.vtbl.SetIndents := CallbackCreate(GetMethod(implObj, "SetIndents"), flags, 4)
-        this.vtbl.SetLineSpacing := CallbackCreate(GetMethod(implObj, "SetLineSpacing"), flags, 3)
-        this.vtbl.GetSpaceAfter := CallbackCreate(GetMethod(implObj, "GetSpaceAfter"), flags, 2)
-        this.vtbl.SetSpaceAfter := CallbackCreate(GetMethod(implObj, "SetSpaceAfter"), flags, 2)
-        this.vtbl.GetSpaceBefore := CallbackCreate(GetMethod(implObj, "GetSpaceBefore"), flags, 2)
-        this.vtbl.SetSpaceBefore := CallbackCreate(GetMethod(implObj, "SetSpaceBefore"), flags, 2)
-        this.vtbl.GetWidowControl := CallbackCreate(GetMethod(implObj, "GetWidowControl"), flags, 2)
-        this.vtbl.SetWidowControl := CallbackCreate(GetMethod(implObj, "SetWidowControl"), flags, 2)
-        this.vtbl.GetTabCount := CallbackCreate(GetMethod(implObj, "GetTabCount"), flags, 2)
-        this.vtbl.AddTab := CallbackCreate(GetMethod(implObj, "AddTab"), flags, 4)
-        this.vtbl.ClearAllTabs := CallbackCreate(GetMethod(implObj, "ClearAllTabs"), flags, 1)
-        this.vtbl.DeleteTab := CallbackCreate(GetMethod(implObj, "DeleteTab"), flags, 2)
-        this.vtbl.GetTab := CallbackCreate(GetMethod(implObj, "GetTab"), flags, 5)
+        this.vtbl.GetDuplicate := CallbackCreate(ObjBindMethod(implObj, "GetDuplicate"), flags, 2)
+        this.vtbl.SetDuplicate := CallbackCreate(ObjBindMethod(implObj, "SetDuplicate"), flags, 2)
+        this.vtbl.CanChange := CallbackCreate(ObjBindMethod(implObj, "CanChange"), flags, 2)
+        this.vtbl.IsEqual := CallbackCreate(ObjBindMethod(implObj, "IsEqual"), flags, 3)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 2)
+        this.vtbl.GetStyle := CallbackCreate(ObjBindMethod(implObj, "GetStyle"), flags, 2)
+        this.vtbl.SetStyle := CallbackCreate(ObjBindMethod(implObj, "SetStyle"), flags, 2)
+        this.vtbl.GetAlignment := CallbackCreate(ObjBindMethod(implObj, "GetAlignment"), flags, 2)
+        this.vtbl.SetAlignment := CallbackCreate(ObjBindMethod(implObj, "SetAlignment"), flags, 2)
+        this.vtbl.GetHyphenation := CallbackCreate(ObjBindMethod(implObj, "GetHyphenation"), flags, 2)
+        this.vtbl.SetHyphenation := CallbackCreate(ObjBindMethod(implObj, "SetHyphenation"), flags, 2)
+        this.vtbl.GetFirstLineIndent := CallbackCreate(ObjBindMethod(implObj, "GetFirstLineIndent"), flags, 2)
+        this.vtbl.GetKeepTogether := CallbackCreate(ObjBindMethod(implObj, "GetKeepTogether"), flags, 2)
+        this.vtbl.SetKeepTogether := CallbackCreate(ObjBindMethod(implObj, "SetKeepTogether"), flags, 2)
+        this.vtbl.GetKeepWithNext := CallbackCreate(ObjBindMethod(implObj, "GetKeepWithNext"), flags, 2)
+        this.vtbl.SetKeepWithNext := CallbackCreate(ObjBindMethod(implObj, "SetKeepWithNext"), flags, 2)
+        this.vtbl.GetLeftIndent := CallbackCreate(ObjBindMethod(implObj, "GetLeftIndent"), flags, 2)
+        this.vtbl.GetLineSpacing := CallbackCreate(ObjBindMethod(implObj, "GetLineSpacing"), flags, 2)
+        this.vtbl.GetLineSpacingRule := CallbackCreate(ObjBindMethod(implObj, "GetLineSpacingRule"), flags, 2)
+        this.vtbl.GetListAlignment := CallbackCreate(ObjBindMethod(implObj, "GetListAlignment"), flags, 2)
+        this.vtbl.SetListAlignment := CallbackCreate(ObjBindMethod(implObj, "SetListAlignment"), flags, 2)
+        this.vtbl.GetListLevelIndex := CallbackCreate(ObjBindMethod(implObj, "GetListLevelIndex"), flags, 2)
+        this.vtbl.SetListLevelIndex := CallbackCreate(ObjBindMethod(implObj, "SetListLevelIndex"), flags, 2)
+        this.vtbl.GetListStart := CallbackCreate(ObjBindMethod(implObj, "GetListStart"), flags, 2)
+        this.vtbl.SetListStart := CallbackCreate(ObjBindMethod(implObj, "SetListStart"), flags, 2)
+        this.vtbl.GetListTab := CallbackCreate(ObjBindMethod(implObj, "GetListTab"), flags, 2)
+        this.vtbl.SetListTab := CallbackCreate(ObjBindMethod(implObj, "SetListTab"), flags, 2)
+        this.vtbl.GetListType := CallbackCreate(ObjBindMethod(implObj, "GetListType"), flags, 2)
+        this.vtbl.SetListType := CallbackCreate(ObjBindMethod(implObj, "SetListType"), flags, 2)
+        this.vtbl.GetNoLineNumber := CallbackCreate(ObjBindMethod(implObj, "GetNoLineNumber"), flags, 2)
+        this.vtbl.SetNoLineNumber := CallbackCreate(ObjBindMethod(implObj, "SetNoLineNumber"), flags, 2)
+        this.vtbl.GetPageBreakBefore := CallbackCreate(ObjBindMethod(implObj, "GetPageBreakBefore"), flags, 2)
+        this.vtbl.SetPageBreakBefore := CallbackCreate(ObjBindMethod(implObj, "SetPageBreakBefore"), flags, 2)
+        this.vtbl.GetRightIndent := CallbackCreate(ObjBindMethod(implObj, "GetRightIndent"), flags, 2)
+        this.vtbl.SetRightIndent := CallbackCreate(ObjBindMethod(implObj, "SetRightIndent"), flags, 2)
+        this.vtbl.SetIndents := CallbackCreate(ObjBindMethod(implObj, "SetIndents"), flags, 4)
+        this.vtbl.SetLineSpacing := CallbackCreate(ObjBindMethod(implObj, "SetLineSpacing"), flags, 3)
+        this.vtbl.GetSpaceAfter := CallbackCreate(ObjBindMethod(implObj, "GetSpaceAfter"), flags, 2)
+        this.vtbl.SetSpaceAfter := CallbackCreate(ObjBindMethod(implObj, "SetSpaceAfter"), flags, 2)
+        this.vtbl.GetSpaceBefore := CallbackCreate(ObjBindMethod(implObj, "GetSpaceBefore"), flags, 2)
+        this.vtbl.SetSpaceBefore := CallbackCreate(ObjBindMethod(implObj, "SetSpaceBefore"), flags, 2)
+        this.vtbl.GetWidowControl := CallbackCreate(ObjBindMethod(implObj, "GetWidowControl"), flags, 2)
+        this.vtbl.SetWidowControl := CallbackCreate(ObjBindMethod(implObj, "SetWidowControl"), flags, 2)
+        this.vtbl.GetTabCount := CallbackCreate(ObjBindMethod(implObj, "GetTabCount"), flags, 2)
+        this.vtbl.AddTab := CallbackCreate(ObjBindMethod(implObj, "AddTab"), flags, 4)
+        this.vtbl.ClearAllTabs := CallbackCreate(ObjBindMethod(implObj, "ClearAllTabs"), flags, 1)
+        this.vtbl.DeleteTab := CallbackCreate(ObjBindMethod(implObj, "DeleteTab"), flags, 2)
+        this.vtbl.GetTab := CallbackCreate(ObjBindMethod(implObj, "GetTab"), flags, 5)
     }
 
     Dispose() {

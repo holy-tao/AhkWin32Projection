@@ -55,7 +55,9 @@ export default struct ID3D10EffectConstantBuffer extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectconstantbuffer-setconstantbuffer
      */
     SetConstantBuffer(pConstantBuffer) {
-        result := ComCall(25, this, "ptr", pConstantBuffer, "HRESULT")
+        pConstantBufferMarshal := pConstantBuffer == 0 ? IntPtr : "ptr"
+
+        result := ComCall(25, this, pConstantBufferMarshal, pConstantBuffer, "HRESULT")
         return result
     }
 
@@ -82,7 +84,9 @@ export default struct ID3D10EffectConstantBuffer extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectconstantbuffer-settexturebuffer
      */
     SetTextureBuffer(pTextureBuffer) {
-        result := ComCall(27, this, "ptr", pTextureBuffer, "HRESULT")
+        pTextureBufferMarshal := pTextureBuffer == 0 ? IntPtr : "ptr"
+
+        result := ComCall(27, this, pTextureBufferMarshal, pTextureBuffer, "HRESULT")
         return result
     }
 
@@ -107,10 +111,10 @@ export default struct ID3D10EffectConstantBuffer extends ID3D10EffectVariable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetConstantBuffer := CallbackCreate(GetMethod(implObj, "SetConstantBuffer"), flags, 2)
-        this.vtbl.GetConstantBuffer := CallbackCreate(GetMethod(implObj, "GetConstantBuffer"), flags, 2)
-        this.vtbl.SetTextureBuffer := CallbackCreate(GetMethod(implObj, "SetTextureBuffer"), flags, 2)
-        this.vtbl.GetTextureBuffer := CallbackCreate(GetMethod(implObj, "GetTextureBuffer"), flags, 2)
+        this.vtbl.SetConstantBuffer := CallbackCreate(ObjBindMethod(implObj, "SetConstantBuffer"), flags, 2)
+        this.vtbl.GetConstantBuffer := CallbackCreate(ObjBindMethod(implObj, "GetConstantBuffer"), flags, 2)
+        this.vtbl.SetTextureBuffer := CallbackCreate(ObjBindMethod(implObj, "SetTextureBuffer"), flags, 2)
+        this.vtbl.GetTextureBuffer := CallbackCreate(ObjBindMethod(implObj, "GetTextureBuffer"), flags, 2)
     }
 
     Dispose() {

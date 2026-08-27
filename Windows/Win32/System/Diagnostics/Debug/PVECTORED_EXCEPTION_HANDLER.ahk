@@ -23,7 +23,6 @@ export default struct PVECTORED_EXCEPTION_HANDLER {
     }
 
     /**
-     * 
      * @param {Pointer<EXCEPTION_POINTERS>} ExceptionInfo A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-exception_pointers">EXCEPTION_POINTERS</a> structure that receives the exception record.
      * @returns {Integer} To return control to the point at which the exception occurred, return EXCEPTION_CONTINUE_EXECUTION (0xffffffff). To continue the handler search, return EXCEPTION_CONTINUE_SEARCH (0x0).

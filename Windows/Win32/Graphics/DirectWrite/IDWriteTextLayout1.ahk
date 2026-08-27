@@ -77,9 +77,10 @@ export default struct IDWriteTextLayout1 extends IDWriteTextLayout {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritetextlayout1-getpairkerning
      */
     GetPairKerning(currentPosition, isPairKerningEnabled, textRange) {
-        isPairKerningEnabledMarshal := isPairKerningEnabled is VarRef ? "int*" : "ptr"
+        isPairKerningEnabledMarshal := isPairKerningEnabled is VarRef ? "int*" : IntPtr
+        textRangeMarshal := textRange == 0 ? IntPtr : DWRITE_TEXT_RANGE.Ptr
 
-        result := ComCall(68, this, UInt32, currentPosition, isPairKerningEnabledMarshal, isPairKerningEnabled, DWRITE_TEXT_RANGE.Ptr, textRange, "HRESULT")
+        result := ComCall(68, this, UInt32, currentPosition, isPairKerningEnabledMarshal, isPairKerningEnabled, textRangeMarshal, textRange, "HRESULT")
         return result
     }
 
@@ -131,11 +132,12 @@ export default struct IDWriteTextLayout1 extends IDWriteTextLayout {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritetextlayout1-getcharacterspacing
      */
     GetCharacterSpacing(currentPosition, leadingSpacing, trailingSpacing, minimumAdvanceWidth, textRange) {
-        leadingSpacingMarshal := leadingSpacing is VarRef ? "float*" : "ptr"
-        trailingSpacingMarshal := trailingSpacing is VarRef ? "float*" : "ptr"
-        minimumAdvanceWidthMarshal := minimumAdvanceWidth is VarRef ? "float*" : "ptr"
+        leadingSpacingMarshal := leadingSpacing is VarRef ? "float*" : IntPtr
+        trailingSpacingMarshal := trailingSpacing is VarRef ? "float*" : IntPtr
+        minimumAdvanceWidthMarshal := minimumAdvanceWidth is VarRef ? "float*" : IntPtr
+        textRangeMarshal := textRange == 0 ? IntPtr : DWRITE_TEXT_RANGE.Ptr
 
-        result := ComCall(70, this, UInt32, currentPosition, leadingSpacingMarshal, leadingSpacing, trailingSpacingMarshal, trailingSpacing, minimumAdvanceWidthMarshal, minimumAdvanceWidth, DWRITE_TEXT_RANGE.Ptr, textRange, "HRESULT")
+        result := ComCall(70, this, UInt32, currentPosition, leadingSpacingMarshal, leadingSpacing, trailingSpacingMarshal, trailingSpacing, minimumAdvanceWidthMarshal, minimumAdvanceWidth, textRangeMarshal, textRange, "HRESULT")
         return result
     }
 
@@ -148,10 +150,10 @@ export default struct IDWriteTextLayout1 extends IDWriteTextLayout {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetPairKerning := CallbackCreate(GetMethod(implObj, "SetPairKerning"), flags, 3)
-        this.vtbl.GetPairKerning := CallbackCreate(GetMethod(implObj, "GetPairKerning"), flags, 4)
-        this.vtbl.SetCharacterSpacing := CallbackCreate(GetMethod(implObj, "SetCharacterSpacing"), flags, 5)
-        this.vtbl.GetCharacterSpacing := CallbackCreate(GetMethod(implObj, "GetCharacterSpacing"), flags, 6)
+        this.vtbl.SetPairKerning := CallbackCreate(ObjBindMethod(implObj, "SetPairKerning"), flags, 3)
+        this.vtbl.GetPairKerning := CallbackCreate(ObjBindMethod(implObj, "GetPairKerning"), flags, 4)
+        this.vtbl.SetCharacterSpacing := CallbackCreate(ObjBindMethod(implObj, "SetCharacterSpacing"), flags, 5)
+        this.vtbl.GetCharacterSpacing := CallbackCreate(ObjBindMethod(implObj, "GetCharacterSpacing"), flags, 6)
     }
 
     Dispose() {

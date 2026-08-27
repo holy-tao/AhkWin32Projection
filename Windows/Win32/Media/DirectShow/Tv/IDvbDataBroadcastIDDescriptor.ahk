@@ -77,7 +77,7 @@ export default struct IDvbDataBroadcastIDDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbdatabroadcastiddescriptor-getidselectorbytes
      */
     GetIDSelectorBytes(pbLen) {
-        pbLenMarshal := pbLen is VarRef ? "char*" : "ptr"
+        pbLenMarshal := pbLen is VarRef ? "char*" : IntPtr
 
         result := ComCall(6, this, pbLenMarshal, pbLen, "char*", &pbVal := 0, "HRESULT")
         return pbVal
@@ -92,10 +92,10 @@ export default struct IDvbDataBroadcastIDDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetDataBroadcastID := CallbackCreate(GetMethod(implObj, "GetDataBroadcastID"), flags, 2)
-        this.vtbl.GetIDSelectorBytes := CallbackCreate(GetMethod(implObj, "GetIDSelectorBytes"), flags, 3)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetDataBroadcastID := CallbackCreate(ObjBindMethod(implObj, "GetDataBroadcastID"), flags, 2)
+        this.vtbl.GetIDSelectorBytes := CallbackCreate(ObjBindMethod(implObj, "GetIDSelectorBytes"), flags, 3)
     }
 
     Dispose() {

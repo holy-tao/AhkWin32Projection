@@ -66,7 +66,7 @@ export default struct IObjectConstructString extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ConstructString := CallbackCreate(GetMethod(implObj, "get_ConstructString"), flags, 2)
+        this.vtbl.get_ConstructString := CallbackCreate(ObjBindMethod(implObj, "get_ConstructString"), flags, 2)
     }
 
     Dispose() {

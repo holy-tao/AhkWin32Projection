@@ -18,7 +18,6 @@ export default struct PROC {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     Call() {

@@ -115,7 +115,7 @@ export default struct IMFSourceResolver extends IUnknown {
     CreateObjectFromURL(pwszURL, dwFlags, pProps, pObjectType, ppObject) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        pObjectTypeMarshal := pObjectType is VarRef ? "int*" : "ptr"
+        pObjectTypeMarshal := pObjectType is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, "ptr", pwszURL, UInt32, dwFlags, "ptr", pProps, pObjectTypeMarshal, pObjectType, IUnknown.Ptr, ppObject, "HRESULT")
         return result
@@ -192,7 +192,7 @@ export default struct IMFSourceResolver extends IUnknown {
     CreateObjectFromByteStream(pByteStream, pwszURL, dwFlags, pProps, pObjectType, ppObject) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        pObjectTypeMarshal := pObjectType is VarRef ? "int*" : "ptr"
+        pObjectTypeMarshal := pObjectType is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, "ptr", pByteStream, "ptr", pwszURL, UInt32, dwFlags, "ptr", pProps, pObjectTypeMarshal, pObjectType, IUnknown.Ptr, ppObject, "HRESULT")
         return result
@@ -266,7 +266,7 @@ export default struct IMFSourceResolver extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsourceresolver-endcreateobjectfromurl
      */
     EndCreateObjectFromURL(pResult, pObjectType, ppObject) {
-        pObjectTypeMarshal := pObjectType is VarRef ? "int*" : "ptr"
+        pObjectTypeMarshal := pObjectType is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, "ptr", pResult, pObjectTypeMarshal, pObjectType, IUnknown.Ptr, ppObject, "HRESULT")
         return result
@@ -336,7 +336,7 @@ export default struct IMFSourceResolver extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsourceresolver-endcreateobjectfrombytestream
      */
     EndCreateObjectFromByteStream(pResult, pObjectType, ppObject) {
-        pObjectTypeMarshal := pObjectType is VarRef ? "int*" : "ptr"
+        pObjectTypeMarshal := pObjectType is VarRef ? "int*" : IntPtr
 
         result := ComCall(8, this, "ptr", pResult, pObjectTypeMarshal, pObjectType, IUnknown.Ptr, ppObject, "HRESULT")
         return result
@@ -368,13 +368,13 @@ export default struct IMFSourceResolver extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateObjectFromURL := CallbackCreate(GetMethod(implObj, "CreateObjectFromURL"), flags, 6)
-        this.vtbl.CreateObjectFromByteStream := CallbackCreate(GetMethod(implObj, "CreateObjectFromByteStream"), flags, 7)
-        this.vtbl.BeginCreateObjectFromURL := CallbackCreate(GetMethod(implObj, "BeginCreateObjectFromURL"), flags, 7)
-        this.vtbl.EndCreateObjectFromURL := CallbackCreate(GetMethod(implObj, "EndCreateObjectFromURL"), flags, 4)
-        this.vtbl.BeginCreateObjectFromByteStream := CallbackCreate(GetMethod(implObj, "BeginCreateObjectFromByteStream"), flags, 8)
-        this.vtbl.EndCreateObjectFromByteStream := CallbackCreate(GetMethod(implObj, "EndCreateObjectFromByteStream"), flags, 4)
-        this.vtbl.CancelObjectCreation := CallbackCreate(GetMethod(implObj, "CancelObjectCreation"), flags, 2)
+        this.vtbl.CreateObjectFromURL := CallbackCreate(ObjBindMethod(implObj, "CreateObjectFromURL"), flags, 6)
+        this.vtbl.CreateObjectFromByteStream := CallbackCreate(ObjBindMethod(implObj, "CreateObjectFromByteStream"), flags, 7)
+        this.vtbl.BeginCreateObjectFromURL := CallbackCreate(ObjBindMethod(implObj, "BeginCreateObjectFromURL"), flags, 7)
+        this.vtbl.EndCreateObjectFromURL := CallbackCreate(ObjBindMethod(implObj, "EndCreateObjectFromURL"), flags, 4)
+        this.vtbl.BeginCreateObjectFromByteStream := CallbackCreate(ObjBindMethod(implObj, "BeginCreateObjectFromByteStream"), flags, 8)
+        this.vtbl.EndCreateObjectFromByteStream := CallbackCreate(ObjBindMethod(implObj, "EndCreateObjectFromByteStream"), flags, 4)
+        this.vtbl.CancelObjectCreation := CallbackCreate(ObjBindMethod(implObj, "CancelObjectCreation"), flags, 2)
     }
 
     Dispose() {

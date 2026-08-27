@@ -136,7 +136,7 @@ export default struct ITfContextOwnerCompositionServices extends ITfContextCompo
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.TerminateComposition := CallbackCreate(GetMethod(implObj, "TerminateComposition"), flags, 2)
+        this.vtbl.TerminateComposition := CallbackCreate(ObjBindMethod(implObj, "TerminateComposition"), flags, 2)
     }
 
     Dispose() {

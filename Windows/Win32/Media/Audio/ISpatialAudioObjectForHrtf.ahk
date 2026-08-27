@@ -195,7 +195,7 @@ export default struct ISpatialAudioObjectForHrtf extends ISpatialAudioObjectBase
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiohrtf/nf-spatialaudiohrtf-ispatialaudioobjectforhrtf-setorientation
      */
     SetOrientation(orientation) {
-        orientationMarshal := orientation is VarRef ? "ptr*" : "ptr"
+        orientationMarshal := orientation is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(9, this, orientationMarshal, orientation, "HRESULT")
         return result
@@ -356,12 +356,12 @@ export default struct ISpatialAudioObjectForHrtf extends ISpatialAudioObjectBase
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetPosition := CallbackCreate(GetMethod(implObj, "SetPosition"), flags, 4)
-        this.vtbl.SetGain := CallbackCreate(GetMethod(implObj, "SetGain"), flags, 2)
-        this.vtbl.SetOrientation := CallbackCreate(GetMethod(implObj, "SetOrientation"), flags, 2)
-        this.vtbl.SetEnvironment := CallbackCreate(GetMethod(implObj, "SetEnvironment"), flags, 2)
-        this.vtbl.SetDistanceDecay := CallbackCreate(GetMethod(implObj, "SetDistanceDecay"), flags, 2)
-        this.vtbl.SetDirectivity := CallbackCreate(GetMethod(implObj, "SetDirectivity"), flags, 2)
+        this.vtbl.SetPosition := CallbackCreate(ObjBindMethod(implObj, "SetPosition"), flags, 4)
+        this.vtbl.SetGain := CallbackCreate(ObjBindMethod(implObj, "SetGain"), flags, 2)
+        this.vtbl.SetOrientation := CallbackCreate(ObjBindMethod(implObj, "SetOrientation"), flags, 2)
+        this.vtbl.SetEnvironment := CallbackCreate(ObjBindMethod(implObj, "SetEnvironment"), flags, 2)
+        this.vtbl.SetDistanceDecay := CallbackCreate(ObjBindMethod(implObj, "SetDistanceDecay"), flags, 2)
+        this.vtbl.SetDirectivity := CallbackCreate(ObjBindMethod(implObj, "SetDirectivity"), flags, 2)
     }
 
     Dispose() {

@@ -21,7 +21,6 @@ export default struct PFN_CERT_STORE_PROV_GET_CTL_PROPERTY {
     }
 
     /**
-     * 
      * @param {HCERTSTOREPROV} hStoreProv 
      * @param {Pointer<CTL_CONTEXT>} pCtlContext 
      * @param {Integer} dwPropId 
@@ -31,9 +30,10 @@ export default struct PFN_CERT_STORE_PROV_GET_CTL_PROPERTY {
      * @returns {BOOL} 
      */
     Call(hStoreProv, pCtlContext, dwPropId, dwFlags, pvData, pcbData) {
-        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+        pvDataMarshal := pvData == 0 ? IntPtr : IntPtr
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, HCERTSTOREPROV, hStoreProv, CTL_CONTEXT.Ptr, pCtlContext, UInt32, dwPropId, UInt32, dwFlags, IntPtr, pvData, pcbDataMarshal, pcbData, BOOL)
+        result := DllCall(this.value, HCERTSTOREPROV, hStoreProv, CTL_CONTEXT.Ptr, pCtlContext, UInt32, dwPropId, UInt32, dwFlags, pvDataMarshal, pvData, pcbDataMarshal, pcbData, BOOL)
         return result
     }
 

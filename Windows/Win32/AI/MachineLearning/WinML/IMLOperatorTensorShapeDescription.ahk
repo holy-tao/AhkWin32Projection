@@ -40,7 +40,6 @@ export default struct IMLOperatorTensorShapeDescription extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} inputIndex 
      * @returns {Integer} 
      */
@@ -50,7 +49,6 @@ export default struct IMLOperatorTensorShapeDescription extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} inputIndex 
      * @param {Integer} dimensionCount 
      * @returns {Integer} 
@@ -61,7 +59,6 @@ export default struct IMLOperatorTensorShapeDescription extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Boolean} 
      */
     HasOutputShapeDescription() {
@@ -70,7 +67,6 @@ export default struct IMLOperatorTensorShapeDescription extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} outputIndex 
      * @returns {Integer} 
      */
@@ -80,7 +76,6 @@ export default struct IMLOperatorTensorShapeDescription extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} outputIndex 
      * @param {Integer} dimensionCount 
      * @returns {Integer} 
@@ -99,11 +94,11 @@ export default struct IMLOperatorTensorShapeDescription extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetInputTensorDimensionCount := CallbackCreate(GetMethod(implObj, "GetInputTensorDimensionCount"), flags, 3)
-        this.vtbl.GetInputTensorShape := CallbackCreate(GetMethod(implObj, "GetInputTensorShape"), flags, 4)
-        this.vtbl.HasOutputShapeDescription := CallbackCreate(GetMethod(implObj, "HasOutputShapeDescription"), flags, 1)
-        this.vtbl.GetOutputTensorDimensionCount := CallbackCreate(GetMethod(implObj, "GetOutputTensorDimensionCount"), flags, 3)
-        this.vtbl.GetOutputTensorShape := CallbackCreate(GetMethod(implObj, "GetOutputTensorShape"), flags, 4)
+        this.vtbl.GetInputTensorDimensionCount := CallbackCreate(ObjBindMethod(implObj, "GetInputTensorDimensionCount"), flags, 3)
+        this.vtbl.GetInputTensorShape := CallbackCreate(ObjBindMethod(implObj, "GetInputTensorShape"), flags, 4)
+        this.vtbl.HasOutputShapeDescription := CallbackCreate(ObjBindMethod(implObj, "HasOutputShapeDescription"), flags, 1)
+        this.vtbl.GetOutputTensorDimensionCount := CallbackCreate(ObjBindMethod(implObj, "GetOutputTensorDimensionCount"), flags, 3)
+        this.vtbl.GetOutputTensorShape := CallbackCreate(ObjBindMethod(implObj, "GetOutputTensorShape"), flags, 4)
     }
 
     Dispose() {

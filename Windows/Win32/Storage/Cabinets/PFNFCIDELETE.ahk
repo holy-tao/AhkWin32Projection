@@ -19,7 +19,6 @@ export default struct PFNFCIDELETE {
     }
 
     /**
-     * 
      * @param {PSTR} pszFile 
      * @param {Pointer<Integer>} err 
      * @param {Pointer<Void>} pv 
@@ -28,8 +27,8 @@ export default struct PFNFCIDELETE {
     Call(pszFile, err, pv) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        errMarshal := err is VarRef ? "int*" : "ptr"
-        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+        errMarshal := err is VarRef ? "int*" : IntPtr
+        pvMarshal := pv is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, "ptr", pszFile, errMarshal, err, pvMarshal, pv, Int32)
         return result

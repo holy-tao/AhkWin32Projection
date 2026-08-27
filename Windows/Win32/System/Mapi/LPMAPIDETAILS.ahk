@@ -19,7 +19,6 @@ export default struct LPMAPIDETAILS {
     }
 
     /**
-     * 
      * @param {Pointer} lhSession 
      * @param {Pointer} ulUIParam 
      * @param {Pointer<MapiRecipDesc>} lpRecip 

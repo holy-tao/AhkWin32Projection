@@ -19,14 +19,14 @@ export default struct DRIVER_NOTIFICATION_CALLBACK_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NotificationStructure 
      * @param {Pointer<Void>} _Context 
      * @returns {NTSTATUS} 
      */
     Call(NotificationStructure, _Context) {
-        NotificationStructureMarshal := NotificationStructure is VarRef ? "ptr" : "ptr"
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        NotificationStructureMarshal := NotificationStructure is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, NotificationStructureMarshal, NotificationStructure, _ContextMarshal, _Context, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

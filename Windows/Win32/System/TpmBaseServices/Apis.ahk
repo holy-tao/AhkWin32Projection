@@ -156,20 +156,19 @@
  * @since windows6.0.6000
  */
 export Tbsi_Context_Create(pContextParams, phContext) {
-    phContextMarshal := phContext is VarRef ? "ptr*" : "ptr"
+    phContextMarshal := phContext is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("tbs.dll\Tbsi_Context_Create", TBS_CONTEXT_PARAMS.Ptr, pContextParams, phContextMarshal, phContext, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<TBS_CONTEXT_PARAMS>} pContextParams 
  * @param {Pointer<Pointer<Void>>} phContext 
  * @returns {Integer} 
  */
 export Tbsi_Tpm_Vendor_Maintenance_Mode(pContextParams, phContext) {
-    phContextMarshal := phContext is VarRef ? "ptr*" : "ptr"
+    phContextMarshal := phContext is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("tbs.dll\Tbsi_Tpm_Vendor_Maintenance_Mode", TBS_CONTEXT_PARAMS.Ptr, pContextParams, phContextMarshal, phContext, UInt32)
     return result
@@ -230,7 +229,7 @@ export Tbsi_Tpm_Vendor_Maintenance_Mode(pContextParams, phContext) {
  * @since windows6.0.6000
  */
 export Tbsip_Context_Close(hContext) {
-    hContextMarshal := hContext is VarRef ? "ptr" : "ptr"
+    hContextMarshal := hContext is VarRef ? "ptr" : IntPtr
 
     result := DllCall("tbs.dll\Tbsip_Context_Close", hContextMarshal, hContext, UInt32)
     return result
@@ -357,8 +356,8 @@ export Tbsip_Context_Close(hContext) {
  * @since windows6.0.6000
  */
 export Tbsip_Submit_Command(hContext, Locality, _Priority, pabCommand, cbCommand, pabResult, pcbResult) {
-    hContextMarshal := hContext is VarRef ? "ptr" : "ptr"
-    pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+    hContextMarshal := hContext is VarRef ? "ptr" : IntPtr
+    pcbResultMarshal := pcbResult is VarRef ? "uint*" : IntPtr
 
     result := DllCall("tbs.dll\Tbsip_Submit_Command", hContextMarshal, hContext, TBS_COMMAND_LOCALITY, Locality, TBS_COMMAND_PRIORITY, _Priority, IntPtr, pabCommand, UInt32, cbCommand, IntPtr, pabResult, pcbResultMarshal, pcbResult, UInt32)
     return result
@@ -431,7 +430,7 @@ export Tbsip_Submit_Command(hContext, Locality, _Priority, pabCommand, cbCommand
  * @since windows6.0.6000
  */
 export Tbsip_Cancel_Commands(hContext) {
-    hContextMarshal := hContext is VarRef ? "ptr" : "ptr"
+    hContextMarshal := hContext is VarRef ? "ptr" : IntPtr
 
     result := DllCall("tbs.dll\Tbsip_Cancel_Commands", hContextMarshal, hContext, UInt32)
     return result
@@ -526,8 +525,8 @@ export Tbsip_Cancel_Commands(hContext) {
  * @since windows6.0.6000
  */
 export Tbsi_Physical_Presence_Command(hContext, pabInput, cbInput, pabOutput, pcbOutput) {
-    hContextMarshal := hContext is VarRef ? "ptr" : "ptr"
-    pcbOutputMarshal := pcbOutput is VarRef ? "uint*" : "ptr"
+    hContextMarshal := hContext is VarRef ? "ptr" : IntPtr
+    pcbOutputMarshal := pcbOutput is VarRef ? "uint*" : IntPtr
 
     result := DllCall("tbs.dll\Tbsi_Physical_Presence_Command", hContextMarshal, hContext, IntPtr, pabInput, UInt32, cbInput, IntPtr, pabOutput, pcbOutputMarshal, pcbOutput, UInt32)
     return result
@@ -768,10 +767,11 @@ export Tbsi_Physical_Presence_Command(hContext, pabInput, cbInput, pabOutput, pc
  * @since windows6.0.6000
  */
 export Tbsi_Get_TCG_Log(hContext, pOutputBuf, pOutputBufLen) {
-    hContextMarshal := hContext is VarRef ? "ptr" : "ptr"
-    pOutputBufLenMarshal := pOutputBufLen is VarRef ? "uint*" : "ptr"
+    hContextMarshal := hContext is VarRef ? "ptr" : IntPtr
+    pOutputBufMarshal := pOutputBuf == 0 ? IntPtr : IntPtr
+    pOutputBufLenMarshal := pOutputBufLen is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("tbs.dll\Tbsi_Get_TCG_Log", hContextMarshal, hContext, IntPtr, pOutputBuf, pOutputBufLenMarshal, pOutputBufLen, UInt32)
+    result := DllCall("tbs.dll\Tbsi_Get_TCG_Log", hContextMarshal, hContext, pOutputBufMarshal, pOutputBuf, pOutputBufLenMarshal, pOutputBufLen, UInt32)
     return result
 }
 
@@ -976,10 +976,11 @@ export Tbsi_GetDeviceInfo(_Size, Info) {
  * @since windows8.0
  */
 export Tbsi_Get_OwnerAuth(hContext, ownerauthType, pOutputBuf, pOutputBufLen) {
-    hContextMarshal := hContext is VarRef ? "ptr" : "ptr"
-    pOutputBufLenMarshal := pOutputBufLen is VarRef ? "uint*" : "ptr"
+    hContextMarshal := hContext is VarRef ? "ptr" : IntPtr
+    pOutputBufMarshal := pOutputBuf == 0 ? IntPtr : IntPtr
+    pOutputBufLenMarshal := pOutputBufLen is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("tbs.dll\Tbsi_Get_OwnerAuth", hContextMarshal, hContext, UInt32, ownerauthType, IntPtr, pOutputBuf, pOutputBufLenMarshal, pOutputBufLen, UInt32)
+    result := DllCall("tbs.dll\Tbsi_Get_OwnerAuth", hContextMarshal, hContext, UInt32, ownerauthType, pOutputBufMarshal, pOutputBuf, pOutputBufLenMarshal, pOutputBufLen, UInt32)
     return result
 }
 
@@ -1034,7 +1035,6 @@ export Tbsi_Revoke_Attestation() {
 }
 
 /**
- * 
  * @param {Integer} pbWindowsAIK 
  * @param {Integer} cbWindowsAIK 
  * @param {Pointer<Integer>} pcbResult 
@@ -1042,15 +1042,16 @@ export Tbsi_Revoke_Attestation() {
  * @returns {HRESULT} 
  */
 export GetDeviceID(pbWindowsAIK, cbWindowsAIK, pcbResult, pfProtectedByTPM) {
-    pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
-    pfProtectedByTPMMarshal := pfProtectedByTPM is VarRef ? "int*" : "ptr"
+    pbWindowsAIKMarshal := pbWindowsAIK == 0 ? IntPtr : IntPtr
+    pcbResultMarshal := pcbResult is VarRef ? "uint*" : IntPtr
+    pfProtectedByTPMMarshal := pfProtectedByTPM is VarRef ? "int*" : IntPtr
+    pfProtectedByTPMMarshal := pfProtectedByTPM == 0 ? IntPtr : BOOL.Ptr
 
-    result := DllCall("tbs.dll\GetDeviceID", IntPtr, pbWindowsAIK, UInt32, cbWindowsAIK, pcbResultMarshal, pcbResult, pfProtectedByTPMMarshal, pfProtectedByTPM, "HRESULT")
+    result := DllCall("tbs.dll\GetDeviceID", pbWindowsAIKMarshal, pbWindowsAIK, UInt32, cbWindowsAIK, pcbResultMarshal, pcbResult, pfProtectedByTPMMarshal, pfProtectedByTPM, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {PWSTR} pszWindowsAIK 
  * @param {Integer} cchWindowsAIK 
  * @param {Pointer<Integer>} pcchResult 
@@ -1060,15 +1061,16 @@ export GetDeviceID(pbWindowsAIK, cbWindowsAIK, pcbResult, pfProtectedByTPM) {
 export GetDeviceIDString(pszWindowsAIK, cchWindowsAIK, pcchResult, pfProtectedByTPM) {
     pszWindowsAIK := pszWindowsAIK is String ? StrPtr(pszWindowsAIK) : pszWindowsAIK
 
-    pcchResultMarshal := pcchResult is VarRef ? "uint*" : "ptr"
-    pfProtectedByTPMMarshal := pfProtectedByTPM is VarRef ? "int*" : "ptr"
+    pszWindowsAIKMarshal := pszWindowsAIK == 0 ? IntPtr : PWSTR
+    pcchResultMarshal := pcchResult is VarRef ? "uint*" : IntPtr
+    pfProtectedByTPMMarshal := pfProtectedByTPM is VarRef ? "int*" : IntPtr
+    pfProtectedByTPMMarshal := pfProtectedByTPM == 0 ? IntPtr : BOOL.Ptr
 
-    result := DllCall("tbs.dll\GetDeviceIDString", "ptr", pszWindowsAIK, UInt32, cchWindowsAIK, pcchResultMarshal, pcchResult, pfProtectedByTPMMarshal, pfProtectedByTPM, "HRESULT")
+    result := DllCall("tbs.dll\GetDeviceIDString", pszWindowsAIKMarshal, pszWindowsAIK, UInt32, cchWindowsAIK, pcchResultMarshal, pcchResult, pfProtectedByTPMMarshal, pfProtectedByTPM, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {Integer} keyHandle 
  * @returns {Integer} 
  */
@@ -1354,14 +1356,14 @@ export Tbsi_Create_Windows_Key(keyHandle) {
  * @since windows10.0.17134
  */
 export Tbsi_Get_TCG_Log_Ex(logType, pbOutput, pcbOutput) {
-    pcbOutputMarshal := pcbOutput is VarRef ? "uint*" : "ptr"
+    pbOutputMarshal := pbOutput == 0 ? IntPtr : IntPtr
+    pcbOutputMarshal := pcbOutput is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("tbs.dll\Tbsi_Get_TCG_Log_Ex", UInt32, logType, IntPtr, pbOutput, pcbOutputMarshal, pcbOutput, UInt32)
+    result := DllCall("tbs.dll\Tbsi_Get_TCG_Log_Ex", UInt32, logType, pbOutputMarshal, pbOutput, pcbOutputMarshal, pcbOutput, UInt32)
     return result
 }
 
 /**
- * 
  * @returns {BOOL} 
  */
 export Tbsi_Is_Tpm_Present() {

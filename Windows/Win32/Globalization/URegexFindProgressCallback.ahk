@@ -18,13 +18,12 @@ export default struct URegexFindProgressCallback {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {Integer} matchIndex 
      * @returns {Integer} 
      */
     Call(_context, matchIndex) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _contextMarshal, _context, Int64, matchIndex, Int8)
         return result

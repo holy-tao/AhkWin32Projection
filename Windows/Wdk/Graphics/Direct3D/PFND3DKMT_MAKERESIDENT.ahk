@@ -20,7 +20,6 @@ export default struct PFND3DKMT_MAKERESIDENT {
     }
 
     /**
-     * 
      * @param {Pointer<D3DDDI_MAKERESIDENT>} param0 
      * @returns {NTSTATUS} 
      */

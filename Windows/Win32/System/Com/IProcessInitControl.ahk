@@ -57,7 +57,7 @@ export default struct IProcessInitControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ResetInitializerTimeout := CallbackCreate(GetMethod(implObj, "ResetInitializerTimeout"), flags, 2)
+        this.vtbl.ResetInitializerTimeout := CallbackCreate(ObjBindMethod(implObj, "ResetInitializerTimeout"), flags, 2)
     }
 
     Dispose() {

@@ -32,7 +32,6 @@ export default struct LANGGROUPLOCALE_ENUMPROCW {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @param {PWSTR} param2 

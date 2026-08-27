@@ -114,10 +114,10 @@ export default struct IInstallationResult extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_HResult := CallbackCreate(GetMethod(implObj, "get_HResult"), flags, 2)
-        this.vtbl.get_RebootRequired := CallbackCreate(GetMethod(implObj, "get_RebootRequired"), flags, 2)
-        this.vtbl.get_ResultCode := CallbackCreate(GetMethod(implObj, "get_ResultCode"), flags, 2)
-        this.vtbl.GetUpdateResult := CallbackCreate(GetMethod(implObj, "GetUpdateResult"), flags, 3)
+        this.vtbl.get_HResult := CallbackCreate(ObjBindMethod(implObj, "get_HResult"), flags, 2)
+        this.vtbl.get_RebootRequired := CallbackCreate(ObjBindMethod(implObj, "get_RebootRequired"), flags, 2)
+        this.vtbl.get_ResultCode := CallbackCreate(ObjBindMethod(implObj, "get_ResultCode"), flags, 2)
+        this.vtbl.GetUpdateResult := CallbackCreate(ObjBindMethod(implObj, "GetUpdateResult"), flags, 3)
     }
 
     Dispose() {

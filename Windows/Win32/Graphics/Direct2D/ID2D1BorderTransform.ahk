@@ -101,10 +101,10 @@ export default struct ID2D1BorderTransform extends ID2D1ConcreteTransform {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetExtendModeX := CallbackCreate(GetMethod(implObj, "SetExtendModeX"), flags, 2)
-        this.vtbl.SetExtendModeY := CallbackCreate(GetMethod(implObj, "SetExtendModeY"), flags, 2)
-        this.vtbl.GetExtendModeX := CallbackCreate(GetMethod(implObj, "GetExtendModeX"), flags, 1)
-        this.vtbl.GetExtendModeY := CallbackCreate(GetMethod(implObj, "GetExtendModeY"), flags, 1)
+        this.vtbl.SetExtendModeX := CallbackCreate(ObjBindMethod(implObj, "SetExtendModeX"), flags, 2)
+        this.vtbl.SetExtendModeY := CallbackCreate(ObjBindMethod(implObj, "SetExtendModeY"), flags, 2)
+        this.vtbl.GetExtendModeX := CallbackCreate(ObjBindMethod(implObj, "GetExtendModeX"), flags, 1)
+        this.vtbl.GetExtendModeY := CallbackCreate(ObjBindMethod(implObj, "GetExtendModeY"), flags, 1)
     }
 
     Dispose() {

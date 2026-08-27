@@ -61,7 +61,7 @@ export default struct IMFNetProxyLocatorFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateProxyLocator := CallbackCreate(GetMethod(implObj, "CreateProxyLocator"), flags, 3)
+        this.vtbl.CreateProxyLocator := CallbackCreate(ObjBindMethod(implObj, "CreateProxyLocator"), flags, 3)
     }
 
     Dispose() {

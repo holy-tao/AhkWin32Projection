@@ -19,13 +19,12 @@ export default struct WAITORTIMERCALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} param0 
      * @param {BOOLEAN} param1 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(param0, param1) {
-        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+        param0Marshal := param0 is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, param0Marshal, param0, BOOLEAN, param1)
     }

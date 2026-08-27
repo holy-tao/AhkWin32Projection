@@ -46,7 +46,6 @@ export default struct IInternetSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {IClassFactory} pCF 
      * @param {Pointer<Guid>} rclsid 
      * @param {PWSTR} pwzProtocol 
@@ -58,14 +57,13 @@ export default struct IInternetSession extends IUnknown {
     RegisterNameSpace(pCF, rclsid, pwzProtocol, cPatterns, ppwzPatterns, dwReserved) {
         pwzProtocol := pwzProtocol is String ? StrPtr(pwzProtocol) : pwzProtocol
 
-        ppwzPatternsMarshal := ppwzPatterns is VarRef ? "ptr*" : "ptr"
+        ppwzPatternsMarshal := ppwzPatterns is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, "ptr", pCF, Guid.Ptr, rclsid, "ptr", pwzProtocol, UInt32, cPatterns, ppwzPatternsMarshal, ppwzPatterns, UInt32, dwReserved, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IClassFactory} pCF 
      * @param {PWSTR} pszProtocol 
      * @returns {HRESULT} 
@@ -78,7 +76,6 @@ export default struct IInternetSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {IClassFactory} pCF 
      * @param {Pointer<Guid>} rclsid 
      * @param {PWSTR} pwzType 
@@ -92,7 +89,6 @@ export default struct IInternetSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {IClassFactory} pCF 
      * @param {PWSTR} pwzType 
      * @returns {HRESULT} 
@@ -105,7 +101,6 @@ export default struct IInternetSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {IBindCtx} pBC 
      * @param {PWSTR} szUrl 
      * @param {IUnknown} pUnkOuter 
@@ -122,7 +117,6 @@ export default struct IInternetSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwOption 
      * @param {Pointer<Void>} pBuffer 
      * @param {Integer} dwBufferLength 
@@ -130,14 +124,13 @@ export default struct IInternetSession extends IUnknown {
      * @returns {HRESULT} 
      */
     SetSessionOption(dwOption, pBuffer, dwBufferLength, dwReserved) {
-        pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "ptr" : IntPtr
 
         result := ComCall(8, this, UInt32, dwOption, pBufferMarshal, pBuffer, UInt32, dwBufferLength, UInt32, dwReserved, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwOption 
      * @param {Pointer<Void>} pBuffer 
      * @param {Pointer<Integer>} pdwBufferLength 
@@ -145,8 +138,8 @@ export default struct IInternetSession extends IUnknown {
      * @returns {HRESULT} 
      */
     GetSessionOption(dwOption, pBuffer, pdwBufferLength, dwReserved) {
-        pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
-        pdwBufferLengthMarshal := pdwBufferLength is VarRef ? "uint*" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "ptr" : IntPtr
+        pdwBufferLengthMarshal := pdwBufferLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(9, this, UInt32, dwOption, pBufferMarshal, pBuffer, pdwBufferLengthMarshal, pdwBufferLength, UInt32, dwReserved, "HRESULT")
         return result
@@ -161,13 +154,13 @@ export default struct IInternetSession extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterNameSpace := CallbackCreate(GetMethod(implObj, "RegisterNameSpace"), flags, 7)
-        this.vtbl.UnregisterNameSpace := CallbackCreate(GetMethod(implObj, "UnregisterNameSpace"), flags, 3)
-        this.vtbl.RegisterMimeFilter := CallbackCreate(GetMethod(implObj, "RegisterMimeFilter"), flags, 4)
-        this.vtbl.UnregisterMimeFilter := CallbackCreate(GetMethod(implObj, "UnregisterMimeFilter"), flags, 3)
-        this.vtbl.CreateBinding := CallbackCreate(GetMethod(implObj, "CreateBinding"), flags, 7)
-        this.vtbl.SetSessionOption := CallbackCreate(GetMethod(implObj, "SetSessionOption"), flags, 5)
-        this.vtbl.GetSessionOption := CallbackCreate(GetMethod(implObj, "GetSessionOption"), flags, 5)
+        this.vtbl.RegisterNameSpace := CallbackCreate(ObjBindMethod(implObj, "RegisterNameSpace"), flags, 7)
+        this.vtbl.UnregisterNameSpace := CallbackCreate(ObjBindMethod(implObj, "UnregisterNameSpace"), flags, 3)
+        this.vtbl.RegisterMimeFilter := CallbackCreate(ObjBindMethod(implObj, "RegisterMimeFilter"), flags, 4)
+        this.vtbl.UnregisterMimeFilter := CallbackCreate(ObjBindMethod(implObj, "UnregisterMimeFilter"), flags, 3)
+        this.vtbl.CreateBinding := CallbackCreate(ObjBindMethod(implObj, "CreateBinding"), flags, 7)
+        this.vtbl.SetSessionOption := CallbackCreate(ObjBindMethod(implObj, "SetSessionOption"), flags, 5)
+        this.vtbl.GetSessionOption := CallbackCreate(ObjBindMethod(implObj, "GetSessionOption"), flags, 5)
     }
 
     Dispose() {

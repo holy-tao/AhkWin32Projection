@@ -40,7 +40,6 @@ export default struct IIsolatedAppLauncher extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} appUserModelId 
      * @param {PWSTR} arguments 
      * @param {Pointer<IsolatedAppLauncherTelemetryParameters>} telemetryParameters 
@@ -63,7 +62,7 @@ export default struct IIsolatedAppLauncher extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Launch := CallbackCreate(GetMethod(implObj, "Launch"), flags, 4)
+        this.vtbl.Launch := CallbackCreate(ObjBindMethod(implObj, "Launch"), flags, 4)
     }
 
     Dispose() {

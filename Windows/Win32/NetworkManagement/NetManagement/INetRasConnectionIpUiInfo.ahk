@@ -37,7 +37,6 @@ export default struct INetRasConnectionIpUiInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {RASCON_IPUI} 
      */
     GetUiInfo() {
@@ -55,7 +54,7 @@ export default struct INetRasConnectionIpUiInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetUiInfo := CallbackCreate(GetMethod(implObj, "GetUiInfo"), flags, 2)
+        this.vtbl.GetUiInfo := CallbackCreate(ObjBindMethod(implObj, "GetUiInfo"), flags, 2)
     }
 
     Dispose() {

@@ -106,9 +106,9 @@ export default struct IAutomaticUpdatesSettings2 extends IAutomaticUpdatesSettin
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_IncludeRecommendedUpdates := CallbackCreate(GetMethod(implObj, "get_IncludeRecommendedUpdates"), flags, 2)
-        this.vtbl.put_IncludeRecommendedUpdates := CallbackCreate(GetMethod(implObj, "put_IncludeRecommendedUpdates"), flags, 2)
-        this.vtbl.CheckPermission := CallbackCreate(GetMethod(implObj, "CheckPermission"), flags, 4)
+        this.vtbl.get_IncludeRecommendedUpdates := CallbackCreate(ObjBindMethod(implObj, "get_IncludeRecommendedUpdates"), flags, 2)
+        this.vtbl.put_IncludeRecommendedUpdates := CallbackCreate(ObjBindMethod(implObj, "put_IncludeRecommendedUpdates"), flags, 2)
+        this.vtbl.CheckPermission := CallbackCreate(ObjBindMethod(implObj, "CheckPermission"), flags, 4)
     }
 
     Dispose() {

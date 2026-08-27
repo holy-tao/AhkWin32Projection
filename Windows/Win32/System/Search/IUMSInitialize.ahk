@@ -65,7 +65,7 @@ export default struct IUMSInitialize extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-initialize
      */
     Initialize(pUMS) {
-        pUMSMarshal := pUMS is VarRef ? "ptr" : "ptr"
+        pUMSMarshal := pUMS is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, pUMSMarshal, pUMS, "HRESULT")
         return result
@@ -80,7 +80,7 @@ export default struct IUMSInitialize extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
     }
 
     Dispose() {

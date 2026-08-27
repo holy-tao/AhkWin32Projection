@@ -65,7 +65,7 @@ export default struct IUpdateDownloadContent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_DownloadUrl := CallbackCreate(GetMethod(implObj, "get_DownloadUrl"), flags, 2)
+        this.vtbl.get_DownloadUrl := CallbackCreate(ObjBindMethod(implObj, "get_DownloadUrl"), flags, 2)
     }
 
     Dispose() {

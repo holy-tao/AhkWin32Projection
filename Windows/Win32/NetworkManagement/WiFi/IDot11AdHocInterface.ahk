@@ -204,7 +204,7 @@ export default struct IDot11AdHocInterface extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocinterface-isdot11d
      */
     IsDot11d(pf11d) {
-        pf11dMarshal := pf11d is VarRef ? "char*" : "ptr"
+        pf11dMarshal := pf11d is VarRef ? "char*" : IntPtr
 
         result := ComCall(5, this, pf11dMarshal, pf11d, "HRESULT")
         return result
@@ -287,7 +287,7 @@ export default struct IDot11AdHocInterface extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocinterface-isadhoccapable
      */
     IsAdHocCapable(pfAdHocCapable) {
-        pfAdHocCapableMarshal := pfAdHocCapable is VarRef ? "char*" : "ptr"
+        pfAdHocCapableMarshal := pfAdHocCapable is VarRef ? "char*" : IntPtr
 
         result := ComCall(6, this, pfAdHocCapableMarshal, pfAdHocCapable, "HRESULT")
         return result
@@ -362,7 +362,7 @@ export default struct IDot11AdHocInterface extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocinterface-isradioon
      */
     IsRadioOn(pfIsRadioOn) {
-        pfIsRadioOnMarshal := pfIsRadioOn is VarRef ? "char*" : "ptr"
+        pfIsRadioOnMarshal := pfIsRadioOn is VarRef ? "char*" : IntPtr
 
         result := ComCall(7, this, pfIsRadioOnMarshal, pfIsRadioOn, "HRESULT")
         return result
@@ -468,7 +468,7 @@ export default struct IDot11AdHocInterface extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocinterface-getstatus
      */
     GetStatus(pState) {
-        pStateMarshal := pState is VarRef ? "int*" : "ptr"
+        pStateMarshal := pState is VarRef ? "int*" : IntPtr
 
         result := ComCall(11, this, pStateMarshal, pState, "HRESULT")
         return result
@@ -483,15 +483,15 @@ export default struct IDot11AdHocInterface extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDeviceSignature := CallbackCreate(GetMethod(implObj, "GetDeviceSignature"), flags, 2)
-        this.vtbl.GetFriendlyName := CallbackCreate(GetMethod(implObj, "GetFriendlyName"), flags, 2)
-        this.vtbl.IsDot11d := CallbackCreate(GetMethod(implObj, "IsDot11d"), flags, 2)
-        this.vtbl.IsAdHocCapable := CallbackCreate(GetMethod(implObj, "IsAdHocCapable"), flags, 2)
-        this.vtbl.IsRadioOn := CallbackCreate(GetMethod(implObj, "IsRadioOn"), flags, 2)
-        this.vtbl.GetActiveNetwork := CallbackCreate(GetMethod(implObj, "GetActiveNetwork"), flags, 2)
-        this.vtbl.GetIEnumSecuritySettings := CallbackCreate(GetMethod(implObj, "GetIEnumSecuritySettings"), flags, 2)
-        this.vtbl.GetIEnumDot11AdHocNetworks := CallbackCreate(GetMethod(implObj, "GetIEnumDot11AdHocNetworks"), flags, 3)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.GetDeviceSignature := CallbackCreate(ObjBindMethod(implObj, "GetDeviceSignature"), flags, 2)
+        this.vtbl.GetFriendlyName := CallbackCreate(ObjBindMethod(implObj, "GetFriendlyName"), flags, 2)
+        this.vtbl.IsDot11d := CallbackCreate(ObjBindMethod(implObj, "IsDot11d"), flags, 2)
+        this.vtbl.IsAdHocCapable := CallbackCreate(ObjBindMethod(implObj, "IsAdHocCapable"), flags, 2)
+        this.vtbl.IsRadioOn := CallbackCreate(ObjBindMethod(implObj, "IsRadioOn"), flags, 2)
+        this.vtbl.GetActiveNetwork := CallbackCreate(ObjBindMethod(implObj, "GetActiveNetwork"), flags, 2)
+        this.vtbl.GetIEnumSecuritySettings := CallbackCreate(ObjBindMethod(implObj, "GetIEnumSecuritySettings"), flags, 2)
+        this.vtbl.GetIEnumDot11AdHocNetworks := CallbackCreate(ObjBindMethod(implObj, "GetIEnumDot11AdHocNetworks"), flags, 3)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 2)
     }
 
     Dispose() {

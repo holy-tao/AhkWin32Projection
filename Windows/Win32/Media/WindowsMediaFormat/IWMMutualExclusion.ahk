@@ -131,8 +131,8 @@ export default struct IWMMutualExclusion extends IWMStreamList {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
-        this.vtbl.SetType := CallbackCreate(GetMethod(implObj, "SetType"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(ObjBindMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.SetType := CallbackCreate(ObjBindMethod(implObj, "SetType"), flags, 2)
     }
 
     Dispose() {

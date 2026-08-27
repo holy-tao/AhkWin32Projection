@@ -37,7 +37,6 @@ export default struct IPrintClassObjectFactory extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszPrinterName 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -58,7 +57,7 @@ export default struct IPrintClassObjectFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPrintClassObject := CallbackCreate(GetMethod(implObj, "GetPrintClassObject"), flags, 4)
+        this.vtbl.GetPrintClassObject := CallbackCreate(ObjBindMethod(implObj, "GetPrintClassObject"), flags, 4)
     }
 
     Dispose() {

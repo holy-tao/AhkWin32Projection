@@ -51,7 +51,7 @@ export default struct IWiaLogEx extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwialogex-initializelogex
      */
     InitializeLogEx(_hInstance) {
-        _hInstanceMarshal := _hInstance is VarRef ? "char*" : "ptr"
+        _hInstanceMarshal := _hInstance is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, _hInstanceMarshal, _hInstance, "HRESULT")
         return result
@@ -130,11 +130,11 @@ export default struct IWiaLogEx extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeLogEx := CallbackCreate(GetMethod(implObj, "InitializeLogEx"), flags, 2)
-        this.vtbl.hResult := CallbackCreate(GetMethod(implObj, "hResult"), flags, 2)
-        this.vtbl.Log := CallbackCreate(GetMethod(implObj, "Log"), flags, 5)
-        this.vtbl.hResultEx := CallbackCreate(GetMethod(implObj, "hResultEx"), flags, 3)
-        this.vtbl.LogEx := CallbackCreate(GetMethod(implObj, "LogEx"), flags, 6)
+        this.vtbl.InitializeLogEx := CallbackCreate(ObjBindMethod(implObj, "InitializeLogEx"), flags, 2)
+        this.vtbl.hResult := CallbackCreate(ObjBindMethod(implObj, "hResult"), flags, 2)
+        this.vtbl.Log := CallbackCreate(ObjBindMethod(implObj, "Log"), flags, 5)
+        this.vtbl.hResultEx := CallbackCreate(ObjBindMethod(implObj, "hResultEx"), flags, 3)
+        this.vtbl.LogEx := CallbackCreate(ObjBindMethod(implObj, "LogEx"), flags, 6)
     }
 
     Dispose() {

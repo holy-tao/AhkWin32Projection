@@ -61,7 +61,6 @@ export default struct ISpeechObjectTokenCategory extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Id() {
@@ -71,7 +70,6 @@ export default struct ISpeechObjectTokenCategory extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} TokenId 
      * @returns {HRESULT} 
      */
@@ -83,7 +81,6 @@ export default struct ISpeechObjectTokenCategory extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Default() {
@@ -93,7 +90,6 @@ export default struct ISpeechObjectTokenCategory extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Id 
      * @param {VARIANT_BOOL} CreateIfNotExist 
      * @returns {HRESULT} 
@@ -106,7 +102,6 @@ export default struct ISpeechObjectTokenCategory extends IDispatch {
     }
 
     /**
-     * 
      * @param {SpeechDataKeyLocation} _Location 
      * @returns {ISpeechDataKey} 
      */
@@ -116,7 +111,6 @@ export default struct ISpeechObjectTokenCategory extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} RequiredAttributes 
      * @param {BSTR} OptionalAttributes 
      * @returns {ISpeechObjectTokens} 
@@ -138,12 +132,12 @@ export default struct ISpeechObjectTokenCategory extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
-        this.vtbl.put_Default := CallbackCreate(GetMethod(implObj, "put_Default"), flags, 2)
-        this.vtbl.get_Default := CallbackCreate(GetMethod(implObj, "get_Default"), flags, 2)
-        this.vtbl.SetId := CallbackCreate(GetMethod(implObj, "SetId"), flags, 3)
-        this.vtbl.GetDataKey := CallbackCreate(GetMethod(implObj, "GetDataKey"), flags, 3)
-        this.vtbl.EnumerateTokens := CallbackCreate(GetMethod(implObj, "EnumerateTokens"), flags, 4)
+        this.vtbl.get_Id := CallbackCreate(ObjBindMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.put_Default := CallbackCreate(ObjBindMethod(implObj, "put_Default"), flags, 2)
+        this.vtbl.get_Default := CallbackCreate(ObjBindMethod(implObj, "get_Default"), flags, 2)
+        this.vtbl.SetId := CallbackCreate(ObjBindMethod(implObj, "SetId"), flags, 3)
+        this.vtbl.GetDataKey := CallbackCreate(ObjBindMethod(implObj, "GetDataKey"), flags, 3)
+        this.vtbl.EnumerateTokens := CallbackCreate(ObjBindMethod(implObj, "EnumerateTokens"), flags, 4)
     }
 
     Dispose() {

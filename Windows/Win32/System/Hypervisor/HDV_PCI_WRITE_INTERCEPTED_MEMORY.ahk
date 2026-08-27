@@ -22,7 +22,6 @@ export default struct HDV_PCI_WRITE_INTERCEPTED_MEMORY {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} deviceContext 
      * @param {HDV_PCI_BAR_SELECTOR} barIndex 
      * @param {Integer} offset 
@@ -45,8 +44,9 @@ export default struct HDV_PCI_WRITE_INTERCEPTED_MEMORY {
      * |     |     |
      */
     Call(deviceContext, barIndex, offset, length, value) {
-        deviceContextMarshal := deviceContext is VarRef ? "ptr" : "ptr"
-        valueMarshal := value is VarRef ? "char*" : "ptr"
+        deviceContextMarshal := deviceContext is VarRef ? "ptr" : IntPtr
+        deviceContextMarshal := deviceContext == 0 ? IntPtr : "ptr"
+        valueMarshal := value is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, deviceContextMarshal, deviceContext, HDV_PCI_BAR_SELECTOR, barIndex, Int64, offset, Int64, length, valueMarshal, value, "HRESULT")
         return result

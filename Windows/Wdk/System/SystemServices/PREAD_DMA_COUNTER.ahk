@@ -19,7 +19,6 @@ export default struct PREAD_DMA_COUNTER {
     }
 
     /**
-     * 
      * @param {Pointer<DMA_ADAPTER>} DmaAdapter 
      * @returns {Integer} 
      */

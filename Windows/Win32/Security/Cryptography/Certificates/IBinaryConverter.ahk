@@ -95,9 +95,9 @@ export default struct IBinaryConverter extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StringToString := CallbackCreate(GetMethod(implObj, "StringToString"), flags, 5)
-        this.vtbl.VariantByteArrayToString := CallbackCreate(GetMethod(implObj, "VariantByteArrayToString"), flags, 4)
-        this.vtbl.StringToVariantByteArray := CallbackCreate(GetMethod(implObj, "StringToVariantByteArray"), flags, 4)
+        this.vtbl.StringToString := CallbackCreate(ObjBindMethod(implObj, "StringToString"), flags, 5)
+        this.vtbl.VariantByteArrayToString := CallbackCreate(ObjBindMethod(implObj, "VariantByteArrayToString"), flags, 4)
+        this.vtbl.StringToVariantByteArray := CallbackCreate(ObjBindMethod(implObj, "StringToVariantByteArray"), flags, 4)
     }
 
     Dispose() {

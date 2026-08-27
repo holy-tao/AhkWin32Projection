@@ -339,8 +339,8 @@ export default struct IPrintAsyncNotifyChannel extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SendNotification := CallbackCreate(GetMethod(implObj, "SendNotification"), flags, 2)
-        this.vtbl.CloseChannel := CallbackCreate(GetMethod(implObj, "CloseChannel"), flags, 2)
+        this.vtbl.SendNotification := CallbackCreate(ObjBindMethod(implObj, "SendNotification"), flags, 2)
+        this.vtbl.CloseChannel := CallbackCreate(ObjBindMethod(implObj, "CloseChannel"), flags, 2)
     }
 
     Dispose() {

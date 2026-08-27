@@ -59,7 +59,7 @@ export default struct IDWriteFontList2 extends IDWriteFontList1 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFontSet := CallbackCreate(GetMethod(implObj, "GetFontSet"), flags, 2)
+        this.vtbl.GetFontSet := CallbackCreate(ObjBindMethod(implObj, "GetFontSet"), flags, 2)
     }
 
     Dispose() {

@@ -92,7 +92,6 @@ export default struct IADsAccessControlList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AclRevision() {
@@ -101,7 +100,6 @@ export default struct IADsAccessControlList extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnAclRevision 
      * @returns {HRESULT} 
      */
@@ -111,7 +109,6 @@ export default struct IADsAccessControlList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AceCount() {
@@ -120,7 +117,6 @@ export default struct IADsAccessControlList extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnAceCount 
      * @returns {HRESULT} 
      */
@@ -147,7 +143,9 @@ export default struct IADsAccessControlList extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsaccesscontrollist-addace
      */
     AddAce(pAccessControlEntry) {
-        result := ComCall(11, this, "ptr", pAccessControlEntry, "HRESULT")
+        pAccessControlEntryMarshal := pAccessControlEntry == 0 ? IntPtr : "ptr"
+
+        result := ComCall(11, this, pAccessControlEntryMarshal, pAccessControlEntry, "HRESULT")
         return result
     }
 
@@ -160,7 +158,9 @@ export default struct IADsAccessControlList extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsaccesscontrollist-removeace
      */
     RemoveAce(pAccessControlEntry) {
-        result := ComCall(12, this, "ptr", pAccessControlEntry, "HRESULT")
+        pAccessControlEntryMarshal := pAccessControlEntry == 0 ? IntPtr : "ptr"
+
+        result := ComCall(12, this, pAccessControlEntryMarshal, pAccessControlEntry, "HRESULT")
         return result
     }
 
@@ -198,14 +198,14 @@ export default struct IADsAccessControlList extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_AclRevision := CallbackCreate(GetMethod(implObj, "get_AclRevision"), flags, 2)
-        this.vtbl.put_AclRevision := CallbackCreate(GetMethod(implObj, "put_AclRevision"), flags, 2)
-        this.vtbl.get_AceCount := CallbackCreate(GetMethod(implObj, "get_AceCount"), flags, 2)
-        this.vtbl.put_AceCount := CallbackCreate(GetMethod(implObj, "put_AceCount"), flags, 2)
-        this.vtbl.AddAce := CallbackCreate(GetMethod(implObj, "AddAce"), flags, 2)
-        this.vtbl.RemoveAce := CallbackCreate(GetMethod(implObj, "RemoveAce"), flags, 2)
-        this.vtbl.CopyAccessList := CallbackCreate(GetMethod(implObj, "CopyAccessList"), flags, 2)
-        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_AclRevision := CallbackCreate(ObjBindMethod(implObj, "get_AclRevision"), flags, 2)
+        this.vtbl.put_AclRevision := CallbackCreate(ObjBindMethod(implObj, "put_AclRevision"), flags, 2)
+        this.vtbl.get_AceCount := CallbackCreate(ObjBindMethod(implObj, "get_AceCount"), flags, 2)
+        this.vtbl.put_AceCount := CallbackCreate(ObjBindMethod(implObj, "put_AceCount"), flags, 2)
+        this.vtbl.AddAce := CallbackCreate(ObjBindMethod(implObj, "AddAce"), flags, 2)
+        this.vtbl.RemoveAce := CallbackCreate(ObjBindMethod(implObj, "RemoveAce"), flags, 2)
+        this.vtbl.CopyAccessList := CallbackCreate(ObjBindMethod(implObj, "CopyAccessList"), flags, 2)
+        this.vtbl.get__NewEnum := CallbackCreate(ObjBindMethod(implObj, "get__NewEnum"), flags, 2)
     }
 
     Dispose() {

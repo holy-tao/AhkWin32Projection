@@ -19,7 +19,6 @@ export default struct PLSA_AP_LOGON_TERMINATED {
     }
 
     /**
-     * 
      * @param {Pointer<LUID>} LogonId 
      * @returns {String} Nothing - always returns an empty string
      */

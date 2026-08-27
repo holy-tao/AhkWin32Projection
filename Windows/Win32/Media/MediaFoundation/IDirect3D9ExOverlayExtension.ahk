@@ -109,7 +109,7 @@ export default struct IDirect3D9ExOverlayExtension extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CheckDeviceOverlayType := CallbackCreate(GetMethod(implObj, "CheckDeviceOverlayType"), flags, 9)
+        this.vtbl.CheckDeviceOverlayType := CallbackCreate(ObjBindMethod(implObj, "CheckDeviceOverlayType"), flags, 9)
     }
 
     Dispose() {

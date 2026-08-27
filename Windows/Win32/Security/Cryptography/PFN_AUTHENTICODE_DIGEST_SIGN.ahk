@@ -26,7 +26,6 @@ export default struct PFN_AUTHENTICODE_DIGEST_SIGN {
     }
 
     /**
-     * 
      * @param {Pointer<CERT_CONTEXT>} pSigningCert A pointer to a [**CERT\_CONTEXT**](/windows/desktop/api/Wincrypt/ns-wincrypt-cert_context) structure that specifies the certificate used to create the digital signature.
      * @param {Pointer<CRYPT_INTEGER_BLOB>} pMetadataBlob Pointer to a [**CRYPT_DATA_BLOB**](/windows/win32/api/wincrypt/ns-wincrypt-crypt_integer_blob) structure that contains metadata for digest signing.
      * @param {ALG_ID} digestAlgId Specifies the digest algorithm to be used for digest signing.
@@ -37,9 +36,10 @@ export default struct PFN_AUTHENTICODE_DIGEST_SIGN {
      * If the function fails, it returns an HRESULT value that indicates the error. For a list of common error codes, see [Common HRESULT Values](/windows/win32/seccrypto/common-hresult-values).
      */
     Call(pSigningCert, pMetadataBlob, digestAlgId, pbToBeSignedDigest, cbToBeSignedDigest, pSignedDigest) {
-        pbToBeSignedDigestMarshal := pbToBeSignedDigest is VarRef ? "char*" : "ptr"
+        pMetadataBlobMarshal := pMetadataBlob == 0 ? IntPtr : CRYPT_INTEGER_BLOB.Ptr
+        pbToBeSignedDigestMarshal := pbToBeSignedDigest is VarRef ? "char*" : IntPtr
 
-        result := DllCall(this.value, CERT_CONTEXT.Ptr, pSigningCert, CRYPT_INTEGER_BLOB.Ptr, pMetadataBlob, ALG_ID, digestAlgId, pbToBeSignedDigestMarshal, pbToBeSignedDigest, UInt32, cbToBeSignedDigest, CRYPT_INTEGER_BLOB.Ptr, pSignedDigest, "HRESULT")
+        result := DllCall(this.value, CERT_CONTEXT.Ptr, pSigningCert, pMetadataBlobMarshal, pMetadataBlob, ALG_ID, digestAlgId, pbToBeSignedDigestMarshal, pbToBeSignedDigest, UInt32, cbToBeSignedDigest, CRYPT_INTEGER_BLOB.Ptr, pSignedDigest, "HRESULT")
         return result
     }
 

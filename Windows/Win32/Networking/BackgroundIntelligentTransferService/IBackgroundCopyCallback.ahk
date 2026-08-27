@@ -181,9 +181,9 @@ export default struct IBackgroundCopyCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.JobTransferred := CallbackCreate(GetMethod(implObj, "JobTransferred"), flags, 2)
-        this.vtbl.JobError := CallbackCreate(GetMethod(implObj, "JobError"), flags, 3)
-        this.vtbl.JobModification := CallbackCreate(GetMethod(implObj, "JobModification"), flags, 3)
+        this.vtbl.JobTransferred := CallbackCreate(ObjBindMethod(implObj, "JobTransferred"), flags, 2)
+        this.vtbl.JobError := CallbackCreate(ObjBindMethod(implObj, "JobError"), flags, 3)
+        this.vtbl.JobModification := CallbackCreate(ObjBindMethod(implObj, "JobModification"), flags, 3)
     }
 
     Dispose() {

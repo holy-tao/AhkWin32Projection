@@ -19,7 +19,6 @@ export default struct SpMarshalAttributeDataFn {
     }
 
     /**
-     * 
      * @param {Integer} _AttributeInfo 
      * @param {Integer} Attribute 
      * @param {Integer} AttributeDataSize 
@@ -29,8 +28,8 @@ export default struct SpMarshalAttributeDataFn {
      * @returns {NTSTATUS} 
      */
     Call(_AttributeInfo, Attribute, AttributeDataSize, AttributeData, MarshaledAttributeDataSize, MarshaledAttributeData) {
-        MarshaledAttributeDataSizeMarshal := MarshaledAttributeDataSize is VarRef ? "uint*" : "ptr"
-        MarshaledAttributeDataMarshal := MarshaledAttributeData is VarRef ? "ptr*" : "ptr"
+        MarshaledAttributeDataSizeMarshal := MarshaledAttributeDataSize is VarRef ? "uint*" : IntPtr
+        MarshaledAttributeDataMarshal := MarshaledAttributeData is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, UInt32, _AttributeInfo, UInt32, Attribute, UInt32, AttributeDataSize, IntPtr, AttributeData, MarshaledAttributeDataSizeMarshal, MarshaledAttributeDataSize, MarshaledAttributeDataMarshal, MarshaledAttributeData, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

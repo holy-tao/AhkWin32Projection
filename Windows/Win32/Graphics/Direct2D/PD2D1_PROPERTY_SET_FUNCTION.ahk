@@ -24,14 +24,13 @@ export default struct PD2D1_PROPERTY_SET_FUNCTION {
     }
 
     /**
-     * 
      * @param {IUnknown} _effect A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface for the effect on which the property will be set.
      * @param {Pointer<Integer>} data A pointer to the data to be set on the property.
      * @param {Integer} dataSize The number of bytes in the property set by the function.
      * @returns {HRESULT} Returns S_OK if successful; otherwise, returns an <b>HRESULT</b> error code.
      */
     Call(_effect, data, dataSize) {
-        dataMarshal := data is VarRef ? "char*" : "ptr"
+        dataMarshal := data is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, "ptr", _effect, dataMarshal, data, UInt32, dataSize, "HRESULT")
         return result

@@ -107,9 +107,12 @@ export default struct IBandSite extends IUnknown {
     QueryBand(dwBandID, ppstb, pdwState, pszName, cchName) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        pdwStateMarshal := pdwState is VarRef ? "uint*" : "ptr"
+        ppstbMarshal := ppstb == 0 ? IntPtr : IDeskBand.Ptr
+        pdwStateMarshal := pdwState is VarRef ? "uint*" : IntPtr
+        pdwStateMarshal := pdwState == 0 ? IntPtr : "uint*"
+        pszNameMarshal := pszName == 0 ? IntPtr : PWSTR
 
-        result := ComCall(5, this, UInt32, dwBandID, IDeskBand.Ptr, ppstb, pdwStateMarshal, pdwState, "ptr", pszName, Int32, cchName, "HRESULT")
+        result := ComCall(5, this, UInt32, dwBandID, ppstbMarshal, ppstb, pdwStateMarshal, pdwState, pszNameMarshal, pszName, Int32, cchName, "HRESULT")
         return result
     }
 
@@ -215,14 +218,14 @@ export default struct IBandSite extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddBand := CallbackCreate(GetMethod(implObj, "AddBand"), flags, 2)
-        this.vtbl.EnumBands := CallbackCreate(GetMethod(implObj, "EnumBands"), flags, 3)
-        this.vtbl.QueryBand := CallbackCreate(GetMethod(implObj, "QueryBand"), flags, 6)
-        this.vtbl.SetBandState := CallbackCreate(GetMethod(implObj, "SetBandState"), flags, 4)
-        this.vtbl.RemoveBand := CallbackCreate(GetMethod(implObj, "RemoveBand"), flags, 2)
-        this.vtbl.GetBandObject := CallbackCreate(GetMethod(implObj, "GetBandObject"), flags, 4)
-        this.vtbl.SetBandSiteInfo := CallbackCreate(GetMethod(implObj, "SetBandSiteInfo"), flags, 2)
-        this.vtbl.GetBandSiteInfo := CallbackCreate(GetMethod(implObj, "GetBandSiteInfo"), flags, 2)
+        this.vtbl.AddBand := CallbackCreate(ObjBindMethod(implObj, "AddBand"), flags, 2)
+        this.vtbl.EnumBands := CallbackCreate(ObjBindMethod(implObj, "EnumBands"), flags, 3)
+        this.vtbl.QueryBand := CallbackCreate(ObjBindMethod(implObj, "QueryBand"), flags, 6)
+        this.vtbl.SetBandState := CallbackCreate(ObjBindMethod(implObj, "SetBandState"), flags, 4)
+        this.vtbl.RemoveBand := CallbackCreate(ObjBindMethod(implObj, "RemoveBand"), flags, 2)
+        this.vtbl.GetBandObject := CallbackCreate(ObjBindMethod(implObj, "GetBandObject"), flags, 4)
+        this.vtbl.SetBandSiteInfo := CallbackCreate(ObjBindMethod(implObj, "SetBandSiteInfo"), flags, 2)
+        this.vtbl.GetBandSiteInfo := CallbackCreate(ObjBindMethod(implObj, "GetBandSiteInfo"), flags, 2)
     }
 
     Dispose() {

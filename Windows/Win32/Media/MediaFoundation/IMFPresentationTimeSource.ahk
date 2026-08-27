@@ -72,7 +72,7 @@ export default struct IMFPresentationTimeSource extends IMFClock {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetUnderlyingClock := CallbackCreate(GetMethod(implObj, "GetUnderlyingClock"), flags, 2)
+        this.vtbl.GetUnderlyingClock := CallbackCreate(ObjBindMethod(implObj, "GetUnderlyingClock"), flags, 2)
     }
 
     Dispose() {

@@ -19,13 +19,12 @@ export default struct FWPM_SERVICE_STATE_CHANGE_CALLBACK0 {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {FWPM_SERVICE_STATE} newState 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_context, newState) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _contextMarshal, _context, FWPM_SERVICE_STATE, newState)
     }

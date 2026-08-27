@@ -21,7 +21,6 @@ export default struct EXCEPTION_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<EXCEPTION_RECORD>} ExceptionRecord 
      * @param {Pointer<Void>} EstablisherFrame 
      * @param {Pointer<CONTEXT>} ContextRecord 
@@ -29,8 +28,8 @@ export default struct EXCEPTION_ROUTINE {
      * @returns {EXCEPTION_DISPOSITION} 
      */
     Call(ExceptionRecord, EstablisherFrame, ContextRecord, DispatcherContext) {
-        EstablisherFrameMarshal := EstablisherFrame is VarRef ? "ptr" : "ptr"
-        DispatcherContextMarshal := DispatcherContext is VarRef ? "ptr" : "ptr"
+        EstablisherFrameMarshal := EstablisherFrame is VarRef ? "ptr" : IntPtr
+        DispatcherContextMarshal := DispatcherContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, EXCEPTION_RECORD.Ptr, ExceptionRecord, EstablisherFrameMarshal, EstablisherFrame, CONTEXT.Ptr, ContextRecord, DispatcherContextMarshal, DispatcherContext, EXCEPTION_DISPOSITION)
         return result

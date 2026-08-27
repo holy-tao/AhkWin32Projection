@@ -20,13 +20,12 @@ export default struct PCI_SET_ATS {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {BOOLEAN} EnableAts 
      * @returns {NTSTATUS} 
      */
     Call(_Context, EnableAts) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, BOOLEAN, EnableAts, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

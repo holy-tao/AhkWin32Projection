@@ -30,7 +30,6 @@ export default struct PFAXROUTEMODIFYROUTINGDATA {
     }
 
     /**
-     * 
      * @param {Integer} JobId Type: <b>DWORD</b>
      * 
      * Specifies a unique number that identifies the fax job that received the fax document.
@@ -56,7 +55,7 @@ export default struct PFAXROUTEMODIFYROUTINGDATA {
     Call(JobId, RoutingGuid, RoutingData, RoutingDataSize) {
         RoutingGuid := RoutingGuid is String ? StrPtr(RoutingGuid) : RoutingGuid
 
-        RoutingDataMarshal := RoutingData is VarRef ? "char*" : "ptr"
+        RoutingDataMarshal := RoutingData is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, UInt32, JobId, "ptr", RoutingGuid, RoutingDataMarshal, RoutingData, UInt32, RoutingDataSize, BOOL)
         return result

@@ -55,7 +55,6 @@ export default struct IVBSAXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -64,7 +63,6 @@ export default struct IVBSAXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @returns {BSTR} 
      */
@@ -75,7 +73,6 @@ export default struct IVBSAXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @returns {BSTR} 
      */
@@ -86,7 +83,6 @@ export default struct IVBSAXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @returns {BSTR} 
      */
@@ -97,7 +93,6 @@ export default struct IVBSAXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strURI 
      * @param {BSTR} strLocalName 
      * @returns {Integer} 
@@ -111,7 +106,6 @@ export default struct IVBSAXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strQName 
      * @returns {Integer} 
      */
@@ -123,7 +117,6 @@ export default struct IVBSAXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @returns {BSTR} 
      */
@@ -134,7 +127,6 @@ export default struct IVBSAXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strURI 
      * @param {BSTR} strLocalName 
      * @returns {BSTR} 
@@ -149,7 +141,6 @@ export default struct IVBSAXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strQName 
      * @returns {BSTR} 
      */
@@ -162,7 +153,6 @@ export default struct IVBSAXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @returns {BSTR} 
      */
@@ -173,7 +163,6 @@ export default struct IVBSAXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strURI 
      * @param {BSTR} strLocalName 
      * @returns {BSTR} 
@@ -188,7 +177,6 @@ export default struct IVBSAXAttributes extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strQName 
      * @returns {BSTR} 
      */
@@ -209,18 +197,18 @@ export default struct IVBSAXAttributes extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_length := CallbackCreate(GetMethod(implObj, "get_length"), flags, 2)
-        this.vtbl.getURI := CallbackCreate(GetMethod(implObj, "getURI"), flags, 3)
-        this.vtbl.getLocalName := CallbackCreate(GetMethod(implObj, "getLocalName"), flags, 3)
-        this.vtbl.getQName := CallbackCreate(GetMethod(implObj, "getQName"), flags, 3)
-        this.vtbl.getIndexFromName := CallbackCreate(GetMethod(implObj, "getIndexFromName"), flags, 4)
-        this.vtbl.getIndexFromQName := CallbackCreate(GetMethod(implObj, "getIndexFromQName"), flags, 3)
-        this.vtbl.getType := CallbackCreate(GetMethod(implObj, "getType"), flags, 3)
-        this.vtbl.getTypeFromName := CallbackCreate(GetMethod(implObj, "getTypeFromName"), flags, 4)
-        this.vtbl.getTypeFromQName := CallbackCreate(GetMethod(implObj, "getTypeFromQName"), flags, 3)
-        this.vtbl.getValue := CallbackCreate(GetMethod(implObj, "getValue"), flags, 3)
-        this.vtbl.getValueFromName := CallbackCreate(GetMethod(implObj, "getValueFromName"), flags, 4)
-        this.vtbl.getValueFromQName := CallbackCreate(GetMethod(implObj, "getValueFromQName"), flags, 3)
+        this.vtbl.get_length := CallbackCreate(ObjBindMethod(implObj, "get_length"), flags, 2)
+        this.vtbl.getURI := CallbackCreate(ObjBindMethod(implObj, "getURI"), flags, 3)
+        this.vtbl.getLocalName := CallbackCreate(ObjBindMethod(implObj, "getLocalName"), flags, 3)
+        this.vtbl.getQName := CallbackCreate(ObjBindMethod(implObj, "getQName"), flags, 3)
+        this.vtbl.getIndexFromName := CallbackCreate(ObjBindMethod(implObj, "getIndexFromName"), flags, 4)
+        this.vtbl.getIndexFromQName := CallbackCreate(ObjBindMethod(implObj, "getIndexFromQName"), flags, 3)
+        this.vtbl.getType := CallbackCreate(ObjBindMethod(implObj, "getType"), flags, 3)
+        this.vtbl.getTypeFromName := CallbackCreate(ObjBindMethod(implObj, "getTypeFromName"), flags, 4)
+        this.vtbl.getTypeFromQName := CallbackCreate(ObjBindMethod(implObj, "getTypeFromQName"), flags, 3)
+        this.vtbl.getValue := CallbackCreate(ObjBindMethod(implObj, "getValue"), flags, 3)
+        this.vtbl.getValueFromName := CallbackCreate(ObjBindMethod(implObj, "getValueFromName"), flags, 4)
+        this.vtbl.getValueFromQName := CallbackCreate(ObjBindMethod(implObj, "getValueFromQName"), flags, 3)
     }
 
     Dispose() {

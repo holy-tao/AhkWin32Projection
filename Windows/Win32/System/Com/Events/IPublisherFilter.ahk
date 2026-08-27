@@ -402,8 +402,8 @@ export default struct IPublisherFilter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.PrepareToFire := CallbackCreate(GetMethod(implObj, "PrepareToFire"), flags, 3)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.PrepareToFire := CallbackCreate(ObjBindMethod(implObj, "PrepareToFire"), flags, 3)
     }
 
     Dispose() {

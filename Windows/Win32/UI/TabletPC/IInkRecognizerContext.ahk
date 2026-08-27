@@ -178,7 +178,9 @@ export default struct IInkRecognizerContext extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-putref_strokes
      */
     putref_Strokes(Strokes) {
-        result := ComCall(8, this, "ptr", Strokes, "HRESULT")
+        StrokesMarshal := Strokes == 0 ? IntPtr : "ptr"
+
+        result := ComCall(8, this, StrokesMarshal, Strokes, "HRESULT")
         return result
     }
 
@@ -320,7 +322,9 @@ export default struct IInkRecognizerContext extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-putref_guide
      */
     putref_Guide(RecognizerGuide) {
-        result := ComCall(14, this, "ptr", RecognizerGuide, "HRESULT")
+        RecognizerGuideMarshal := RecognizerGuide == 0 ? IntPtr : "ptr"
+
+        result := ComCall(14, this, RecognizerGuideMarshal, RecognizerGuide, "HRESULT")
         return result
     }
 
@@ -508,7 +512,9 @@ export default struct IInkRecognizerContext extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-putref_wordlist
      */
     putref_WordList(WordList) {
-        result := ComCall(22, this, "ptr", WordList, "HRESULT")
+        WordListMarshal := WordList == 0 ? IntPtr : "ptr"
+
+        result := ComCall(22, this, WordListMarshal, WordList, "HRESULT")
         return result
     }
 
@@ -533,7 +539,7 @@ export default struct IInkRecognizerContext extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext-recognize
      */
     Recognize(RecognitionStatus) {
-        RecognitionStatusMarshal := RecognitionStatus is VarRef ? "int*" : "ptr"
+        RecognitionStatusMarshal := RecognitionStatus is VarRef ? "int*" : IntPtr
 
         result := ComCall(24, this, RecognitionStatusMarshal, RecognitionStatus, "ptr*", &RecognitionResult := 0, "HRESULT")
         return IInkRecognitionResult(RecognitionResult)
@@ -855,30 +861,30 @@ export default struct IInkRecognizerContext extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Strokes := CallbackCreate(GetMethod(implObj, "get_Strokes"), flags, 2)
-        this.vtbl.putref_Strokes := CallbackCreate(GetMethod(implObj, "putref_Strokes"), flags, 2)
-        this.vtbl.get_CharacterAutoCompletionMode := CallbackCreate(GetMethod(implObj, "get_CharacterAutoCompletionMode"), flags, 2)
-        this.vtbl.put_CharacterAutoCompletionMode := CallbackCreate(GetMethod(implObj, "put_CharacterAutoCompletionMode"), flags, 2)
-        this.vtbl.get_Factoid := CallbackCreate(GetMethod(implObj, "get_Factoid"), flags, 2)
-        this.vtbl.put_Factoid := CallbackCreate(GetMethod(implObj, "put_Factoid"), flags, 2)
-        this.vtbl.get_Guide := CallbackCreate(GetMethod(implObj, "get_Guide"), flags, 2)
-        this.vtbl.putref_Guide := CallbackCreate(GetMethod(implObj, "putref_Guide"), flags, 2)
-        this.vtbl.get_PrefixText := CallbackCreate(GetMethod(implObj, "get_PrefixText"), flags, 2)
-        this.vtbl.put_PrefixText := CallbackCreate(GetMethod(implObj, "put_PrefixText"), flags, 2)
-        this.vtbl.get_SuffixText := CallbackCreate(GetMethod(implObj, "get_SuffixText"), flags, 2)
-        this.vtbl.put_SuffixText := CallbackCreate(GetMethod(implObj, "put_SuffixText"), flags, 2)
-        this.vtbl.get_RecognitionFlags := CallbackCreate(GetMethod(implObj, "get_RecognitionFlags"), flags, 2)
-        this.vtbl.put_RecognitionFlags := CallbackCreate(GetMethod(implObj, "put_RecognitionFlags"), flags, 2)
-        this.vtbl.get_WordList := CallbackCreate(GetMethod(implObj, "get_WordList"), flags, 2)
-        this.vtbl.putref_WordList := CallbackCreate(GetMethod(implObj, "putref_WordList"), flags, 2)
-        this.vtbl.get_Recognizer := CallbackCreate(GetMethod(implObj, "get_Recognizer"), flags, 2)
-        this.vtbl.Recognize := CallbackCreate(GetMethod(implObj, "Recognize"), flags, 3)
-        this.vtbl.StopBackgroundRecognition := CallbackCreate(GetMethod(implObj, "StopBackgroundRecognition"), flags, 1)
-        this.vtbl.EndInkInput := CallbackCreate(GetMethod(implObj, "EndInkInput"), flags, 1)
-        this.vtbl.BackgroundRecognize := CallbackCreate(GetMethod(implObj, "BackgroundRecognize"), flags, 2)
-        this.vtbl.BackgroundRecognizeWithAlternates := CallbackCreate(GetMethod(implObj, "BackgroundRecognizeWithAlternates"), flags, 2)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
-        this.vtbl.IsStringSupported := CallbackCreate(GetMethod(implObj, "IsStringSupported"), flags, 3)
+        this.vtbl.get_Strokes := CallbackCreate(ObjBindMethod(implObj, "get_Strokes"), flags, 2)
+        this.vtbl.putref_Strokes := CallbackCreate(ObjBindMethod(implObj, "putref_Strokes"), flags, 2)
+        this.vtbl.get_CharacterAutoCompletionMode := CallbackCreate(ObjBindMethod(implObj, "get_CharacterAutoCompletionMode"), flags, 2)
+        this.vtbl.put_CharacterAutoCompletionMode := CallbackCreate(ObjBindMethod(implObj, "put_CharacterAutoCompletionMode"), flags, 2)
+        this.vtbl.get_Factoid := CallbackCreate(ObjBindMethod(implObj, "get_Factoid"), flags, 2)
+        this.vtbl.put_Factoid := CallbackCreate(ObjBindMethod(implObj, "put_Factoid"), flags, 2)
+        this.vtbl.get_Guide := CallbackCreate(ObjBindMethod(implObj, "get_Guide"), flags, 2)
+        this.vtbl.putref_Guide := CallbackCreate(ObjBindMethod(implObj, "putref_Guide"), flags, 2)
+        this.vtbl.get_PrefixText := CallbackCreate(ObjBindMethod(implObj, "get_PrefixText"), flags, 2)
+        this.vtbl.put_PrefixText := CallbackCreate(ObjBindMethod(implObj, "put_PrefixText"), flags, 2)
+        this.vtbl.get_SuffixText := CallbackCreate(ObjBindMethod(implObj, "get_SuffixText"), flags, 2)
+        this.vtbl.put_SuffixText := CallbackCreate(ObjBindMethod(implObj, "put_SuffixText"), flags, 2)
+        this.vtbl.get_RecognitionFlags := CallbackCreate(ObjBindMethod(implObj, "get_RecognitionFlags"), flags, 2)
+        this.vtbl.put_RecognitionFlags := CallbackCreate(ObjBindMethod(implObj, "put_RecognitionFlags"), flags, 2)
+        this.vtbl.get_WordList := CallbackCreate(ObjBindMethod(implObj, "get_WordList"), flags, 2)
+        this.vtbl.putref_WordList := CallbackCreate(ObjBindMethod(implObj, "putref_WordList"), flags, 2)
+        this.vtbl.get_Recognizer := CallbackCreate(ObjBindMethod(implObj, "get_Recognizer"), flags, 2)
+        this.vtbl.Recognize := CallbackCreate(ObjBindMethod(implObj, "Recognize"), flags, 3)
+        this.vtbl.StopBackgroundRecognition := CallbackCreate(ObjBindMethod(implObj, "StopBackgroundRecognition"), flags, 1)
+        this.vtbl.EndInkInput := CallbackCreate(ObjBindMethod(implObj, "EndInkInput"), flags, 1)
+        this.vtbl.BackgroundRecognize := CallbackCreate(ObjBindMethod(implObj, "BackgroundRecognize"), flags, 2)
+        this.vtbl.BackgroundRecognizeWithAlternates := CallbackCreate(ObjBindMethod(implObj, "BackgroundRecognizeWithAlternates"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.IsStringSupported := CallbackCreate(ObjBindMethod(implObj, "IsStringSupported"), flags, 3)
     }
 
     Dispose() {

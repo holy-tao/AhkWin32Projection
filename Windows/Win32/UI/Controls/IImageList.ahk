@@ -93,7 +93,9 @@ export default struct IImageList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-add
      */
     Add(hbmImage, hbmMask) {
-        result := ComCall(3, this, HBITMAP, hbmImage, HBITMAP, hbmMask, "int*", &pi := 0, "HRESULT")
+        hbmMaskMarshal := hbmMask == 0 ? IntPtr : HBITMAP
+
+        result := ComCall(3, this, HBITMAP, hbmImage, hbmMaskMarshal, hbmMask, "int*", &pi := 0, "HRESULT")
         return pi
     }
 
@@ -167,7 +169,9 @@ export default struct IImageList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-replace
      */
     Replace(i, hbmImage, hbmMask) {
-        result := ComCall(6, this, Int32, i, HBITMAP, hbmImage, HBITMAP, hbmMask, "HRESULT")
+        hbmMaskMarshal := hbmMask == 0 ? IntPtr : HBITMAP
+
+        result := ComCall(6, this, Int32, i, HBITMAP, hbmImage, hbmMaskMarshal, hbmMask, "HRESULT")
         return result
     }
 
@@ -409,8 +413,8 @@ export default struct IImageList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-geticonsize
      */
     GetIconSize(cx, _cy) {
-        cxMarshal := cx is VarRef ? "int*" : "ptr"
-        _cyMarshal := _cy is VarRef ? "int*" : "ptr"
+        cxMarshal := cx is VarRef ? "int*" : IntPtr
+        _cyMarshal := _cy is VarRef ? "int*" : IntPtr
 
         result := ComCall(16, this, cxMarshal, cx, _cyMarshal, _cy, "HRESULT")
         return result
@@ -565,7 +569,9 @@ export default struct IImageList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-dragenter
      */
     DragEnter(hwndLock, x, y) {
-        result := ComCall(24, this, HWND, hwndLock, Int32, x, Int32, y, "HRESULT")
+        hwndLockMarshal := hwndLock == 0 ? IntPtr : HWND
+
+        result := ComCall(24, this, hwndLockMarshal, hwndLock, Int32, x, Int32, y, "HRESULT")
         return result
     }
 
@@ -582,7 +588,9 @@ export default struct IImageList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-dragleave
      */
     DragLeave(hwndLock) {
-        result := ComCall(25, this, HWND, hwndLock, "HRESULT")
+        hwndLockMarshal := hwndLock == 0 ? IntPtr : HWND
+
+        result := ComCall(25, this, hwndLockMarshal, hwndLock, "HRESULT")
         return result
     }
 
@@ -677,9 +685,11 @@ export default struct IImageList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-getdragimage
      */
     GetDragImage(ppt, pptHotspot, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+        pptMarshal := ppt == 0 ? IntPtr : POINT.Ptr
+        pptHotspotMarshal := pptHotspot == 0 ? IntPtr : POINT.Ptr
+        ppvMarshal := ppv is VarRef ? "ptr*" : IntPtr
 
-        result := ComCall(29, this, POINT.Ptr, ppt, POINT.Ptr, pptHotspot, Guid.Ptr, riid, ppvMarshal, ppv, "HRESULT")
+        result := ComCall(29, this, pptMarshal, ppt, pptHotspotMarshal, pptHotspot, Guid.Ptr, riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -725,35 +735,35 @@ export default struct IImageList extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 4)
-        this.vtbl.ReplaceIcon := CallbackCreate(GetMethod(implObj, "ReplaceIcon"), flags, 4)
-        this.vtbl.SetOverlayImage := CallbackCreate(GetMethod(implObj, "SetOverlayImage"), flags, 3)
-        this.vtbl.Replace := CallbackCreate(GetMethod(implObj, "Replace"), flags, 4)
-        this.vtbl.AddMasked := CallbackCreate(GetMethod(implObj, "AddMasked"), flags, 4)
-        this.vtbl.Draw := CallbackCreate(GetMethod(implObj, "Draw"), flags, 2)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
-        this.vtbl.GetIcon := CallbackCreate(GetMethod(implObj, "GetIcon"), flags, 4)
-        this.vtbl.GetImageInfo := CallbackCreate(GetMethod(implObj, "GetImageInfo"), flags, 3)
-        this.vtbl.Copy := CallbackCreate(GetMethod(implObj, "Copy"), flags, 5)
-        this.vtbl.Merge := CallbackCreate(GetMethod(implObj, "Merge"), flags, 8)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 3)
-        this.vtbl.GetImageRect := CallbackCreate(GetMethod(implObj, "GetImageRect"), flags, 3)
-        this.vtbl.GetIconSize := CallbackCreate(GetMethod(implObj, "GetIconSize"), flags, 3)
-        this.vtbl.SetIconSize := CallbackCreate(GetMethod(implObj, "SetIconSize"), flags, 3)
-        this.vtbl.GetImageCount := CallbackCreate(GetMethod(implObj, "GetImageCount"), flags, 2)
-        this.vtbl.SetImageCount := CallbackCreate(GetMethod(implObj, "SetImageCount"), flags, 2)
-        this.vtbl.SetBkColor := CallbackCreate(GetMethod(implObj, "SetBkColor"), flags, 3)
-        this.vtbl.GetBkColor := CallbackCreate(GetMethod(implObj, "GetBkColor"), flags, 2)
-        this.vtbl.BeginDrag := CallbackCreate(GetMethod(implObj, "BeginDrag"), flags, 4)
-        this.vtbl.EndDrag := CallbackCreate(GetMethod(implObj, "EndDrag"), flags, 1)
-        this.vtbl.DragEnter := CallbackCreate(GetMethod(implObj, "DragEnter"), flags, 4)
-        this.vtbl.DragLeave := CallbackCreate(GetMethod(implObj, "DragLeave"), flags, 2)
-        this.vtbl.DragMove := CallbackCreate(GetMethod(implObj, "DragMove"), flags, 3)
-        this.vtbl.SetDragCursorImage := CallbackCreate(GetMethod(implObj, "SetDragCursorImage"), flags, 5)
-        this.vtbl.DragShowNolock := CallbackCreate(GetMethod(implObj, "DragShowNolock"), flags, 2)
-        this.vtbl.GetDragImage := CallbackCreate(GetMethod(implObj, "GetDragImage"), flags, 5)
-        this.vtbl.GetItemFlags := CallbackCreate(GetMethod(implObj, "GetItemFlags"), flags, 3)
-        this.vtbl.GetOverlayImage := CallbackCreate(GetMethod(implObj, "GetOverlayImage"), flags, 3)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 4)
+        this.vtbl.ReplaceIcon := CallbackCreate(ObjBindMethod(implObj, "ReplaceIcon"), flags, 4)
+        this.vtbl.SetOverlayImage := CallbackCreate(ObjBindMethod(implObj, "SetOverlayImage"), flags, 3)
+        this.vtbl.Replace := CallbackCreate(ObjBindMethod(implObj, "Replace"), flags, 4)
+        this.vtbl.AddMasked := CallbackCreate(ObjBindMethod(implObj, "AddMasked"), flags, 4)
+        this.vtbl.Draw := CallbackCreate(ObjBindMethod(implObj, "Draw"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.GetIcon := CallbackCreate(ObjBindMethod(implObj, "GetIcon"), flags, 4)
+        this.vtbl.GetImageInfo := CallbackCreate(ObjBindMethod(implObj, "GetImageInfo"), flags, 3)
+        this.vtbl.Copy := CallbackCreate(ObjBindMethod(implObj, "Copy"), flags, 5)
+        this.vtbl.Merge := CallbackCreate(ObjBindMethod(implObj, "Merge"), flags, 8)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 3)
+        this.vtbl.GetImageRect := CallbackCreate(ObjBindMethod(implObj, "GetImageRect"), flags, 3)
+        this.vtbl.GetIconSize := CallbackCreate(ObjBindMethod(implObj, "GetIconSize"), flags, 3)
+        this.vtbl.SetIconSize := CallbackCreate(ObjBindMethod(implObj, "SetIconSize"), flags, 3)
+        this.vtbl.GetImageCount := CallbackCreate(ObjBindMethod(implObj, "GetImageCount"), flags, 2)
+        this.vtbl.SetImageCount := CallbackCreate(ObjBindMethod(implObj, "SetImageCount"), flags, 2)
+        this.vtbl.SetBkColor := CallbackCreate(ObjBindMethod(implObj, "SetBkColor"), flags, 3)
+        this.vtbl.GetBkColor := CallbackCreate(ObjBindMethod(implObj, "GetBkColor"), flags, 2)
+        this.vtbl.BeginDrag := CallbackCreate(ObjBindMethod(implObj, "BeginDrag"), flags, 4)
+        this.vtbl.EndDrag := CallbackCreate(ObjBindMethod(implObj, "EndDrag"), flags, 1)
+        this.vtbl.DragEnter := CallbackCreate(ObjBindMethod(implObj, "DragEnter"), flags, 4)
+        this.vtbl.DragLeave := CallbackCreate(ObjBindMethod(implObj, "DragLeave"), flags, 2)
+        this.vtbl.DragMove := CallbackCreate(ObjBindMethod(implObj, "DragMove"), flags, 3)
+        this.vtbl.SetDragCursorImage := CallbackCreate(ObjBindMethod(implObj, "SetDragCursorImage"), flags, 5)
+        this.vtbl.DragShowNolock := CallbackCreate(ObjBindMethod(implObj, "DragShowNolock"), flags, 2)
+        this.vtbl.GetDragImage := CallbackCreate(ObjBindMethod(implObj, "GetDragImage"), flags, 5)
+        this.vtbl.GetItemFlags := CallbackCreate(ObjBindMethod(implObj, "GetItemFlags"), flags, 3)
+        this.vtbl.GetOverlayImage := CallbackCreate(ObjBindMethod(implObj, "GetOverlayImage"), flags, 3)
     }
 
     Dispose() {

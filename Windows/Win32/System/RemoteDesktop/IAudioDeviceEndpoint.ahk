@@ -122,8 +122,8 @@ export default struct IAudioDeviceEndpoint extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudiodeviceendpoint-writeexclusivemodeparameterstosharedmemory
      */
     WriteExclusiveModeParametersToSharedMemory(hTargetProcess, hnsPeriod, hnsBufferDuration, u32LatencyCoefficient, pu32SharedMemorySize, phSharedMemory) {
-        pu32SharedMemorySizeMarshal := pu32SharedMemorySize is VarRef ? "uint*" : "ptr"
-        phSharedMemoryMarshal := phSharedMemory is VarRef ? "ptr*" : "ptr"
+        pu32SharedMemorySizeMarshal := pu32SharedMemorySize is VarRef ? "uint*" : IntPtr
+        phSharedMemoryMarshal := phSharedMemory is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(6, this, IntPtr, hTargetProcess, Int64, hnsPeriod, Int64, hnsBufferDuration, UInt32, u32LatencyCoefficient, pu32SharedMemorySizeMarshal, pu32SharedMemorySize, phSharedMemoryMarshal, phSharedMemory, "HRESULT")
         return result
@@ -138,10 +138,10 @@ export default struct IAudioDeviceEndpoint extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetBuffer := CallbackCreate(GetMethod(implObj, "SetBuffer"), flags, 3)
-        this.vtbl.GetRTCaps := CallbackCreate(GetMethod(implObj, "GetRTCaps"), flags, 2)
-        this.vtbl.GetEventDrivenCapable := CallbackCreate(GetMethod(implObj, "GetEventDrivenCapable"), flags, 2)
-        this.vtbl.WriteExclusiveModeParametersToSharedMemory := CallbackCreate(GetMethod(implObj, "WriteExclusiveModeParametersToSharedMemory"), flags, 7)
+        this.vtbl.SetBuffer := CallbackCreate(ObjBindMethod(implObj, "SetBuffer"), flags, 3)
+        this.vtbl.GetRTCaps := CallbackCreate(ObjBindMethod(implObj, "GetRTCaps"), flags, 2)
+        this.vtbl.GetEventDrivenCapable := CallbackCreate(ObjBindMethod(implObj, "GetEventDrivenCapable"), flags, 2)
+        this.vtbl.WriteExclusiveModeParametersToSharedMemory := CallbackCreate(ObjBindMethod(implObj, "WriteExclusiveModeParametersToSharedMemory"), flags, 7)
     }
 
     Dispose() {

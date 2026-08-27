@@ -22,7 +22,6 @@ export default struct SslGeneratePreMasterKeyFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_KEY_HANDLE} hPublicKey 
      * @param {Pointer<NCRYPT_KEY_HANDLE>} phPreMasterKey 
@@ -36,9 +35,10 @@ export default struct SslGeneratePreMasterKeyFn {
      * @returns {HRESULT} 
      */
     Call(hSslProvider, hPublicKey, phPreMasterKey, dwProtocol, dwCipherSuite, pParameterList, pbOutput, cbOutput, pcbResult, dwFlags) {
-        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+        pbOutputMarshal := pbOutput == 0 ? IntPtr : IntPtr
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hPublicKey, NCRYPT_KEY_HANDLE.Ptr, phPreMasterKey, UInt32, dwProtocol, UInt32, dwCipherSuite, BCryptBufferDesc.Ptr, pParameterList, IntPtr, pbOutput, UInt32, cbOutput, pcbResultMarshal, pcbResult, UInt32, dwFlags, "HRESULT")
+        result := DllCall(this.value, NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hPublicKey, NCRYPT_KEY_HANDLE.Ptr, phPreMasterKey, UInt32, dwProtocol, UInt32, dwCipherSuite, BCryptBufferDesc.Ptr, pParameterList, pbOutputMarshal, pbOutput, UInt32, cbOutput, pcbResultMarshal, pcbResult, UInt32, dwFlags, "HRESULT")
         return result
     }
 

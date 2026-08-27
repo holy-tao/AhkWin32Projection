@@ -18,12 +18,11 @@ export default struct PROTOCOL_CM_CLOSE_AF {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} CallMgrAfContext 
      * @returns {Integer} 
      */
     Call(CallMgrAfContext) {
-        CallMgrAfContextMarshal := CallMgrAfContext is VarRef ? "ptr" : "ptr"
+        CallMgrAfContextMarshal := CallMgrAfContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, CallMgrAfContextMarshal, CallMgrAfContext, Int32)
         return result

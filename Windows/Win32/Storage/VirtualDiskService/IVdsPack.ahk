@@ -490,8 +490,8 @@ export default struct IVdsPack extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdspack-migratedisks
      */
     MigrateDisks(pDiskArray, lNumberOfDisks, TargetPack, bForce, bQueryOnly, pResults, pbRebootNeeded) {
-        pResultsMarshal := pResults is VarRef ? "int*" : "ptr"
-        pbRebootNeededMarshal := pbRebootNeeded is VarRef ? "int*" : "ptr"
+        pResultsMarshal := pResults is VarRef ? "int*" : IntPtr
+        pbRebootNeededMarshal := pbRebootNeeded is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, Guid.Ptr, pDiskArray, Int32, lNumberOfDisks, Guid, TargetPack, BOOL, bForce, BOOL, bQueryOnly, pResultsMarshal, pResults, pbRebootNeededMarshal, pbRebootNeeded, "HRESULT")
         return result
@@ -597,16 +597,16 @@ export default struct IVdsPack extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
-        this.vtbl.GetProvider := CallbackCreate(GetMethod(implObj, "GetProvider"), flags, 2)
-        this.vtbl.QueryVolumes := CallbackCreate(GetMethod(implObj, "QueryVolumes"), flags, 2)
-        this.vtbl.QueryDisks := CallbackCreate(GetMethod(implObj, "QueryDisks"), flags, 2)
-        this.vtbl.CreateVolume := CallbackCreate(GetMethod(implObj, "CreateVolume"), flags, 6)
-        this.vtbl.AddDisk := CallbackCreate(GetMethod(implObj, "AddDisk"), flags, 4)
-        this.vtbl.MigrateDisks := CallbackCreate(GetMethod(implObj, "MigrateDisks"), flags, 8)
-        this.vtbl.ReplaceDisk := CallbackCreate(GetMethod(implObj, "ReplaceDisk"), flags, 4)
-        this.vtbl.RemoveMissingDisk := CallbackCreate(GetMethod(implObj, "RemoveMissingDisk"), flags, 2)
-        this.vtbl.Recover := CallbackCreate(GetMethod(implObj, "Recover"), flags, 2)
+        this.vtbl.GetProperties := CallbackCreate(ObjBindMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.GetProvider := CallbackCreate(ObjBindMethod(implObj, "GetProvider"), flags, 2)
+        this.vtbl.QueryVolumes := CallbackCreate(ObjBindMethod(implObj, "QueryVolumes"), flags, 2)
+        this.vtbl.QueryDisks := CallbackCreate(ObjBindMethod(implObj, "QueryDisks"), flags, 2)
+        this.vtbl.CreateVolume := CallbackCreate(ObjBindMethod(implObj, "CreateVolume"), flags, 6)
+        this.vtbl.AddDisk := CallbackCreate(ObjBindMethod(implObj, "AddDisk"), flags, 4)
+        this.vtbl.MigrateDisks := CallbackCreate(ObjBindMethod(implObj, "MigrateDisks"), flags, 8)
+        this.vtbl.ReplaceDisk := CallbackCreate(ObjBindMethod(implObj, "ReplaceDisk"), flags, 4)
+        this.vtbl.RemoveMissingDisk := CallbackCreate(ObjBindMethod(implObj, "RemoveMissingDisk"), flags, 2)
+        this.vtbl.Recover := CallbackCreate(ObjBindMethod(implObj, "Recover"), flags, 2)
     }
 
     Dispose() {

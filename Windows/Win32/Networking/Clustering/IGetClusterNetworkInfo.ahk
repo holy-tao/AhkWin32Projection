@@ -94,7 +94,7 @@ export default struct IGetClusterNetworkInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNetworkHandle := CallbackCreate(GetMethod(implObj, "GetNetworkHandle"), flags, 2)
+        this.vtbl.GetNetworkHandle := CallbackCreate(ObjBindMethod(implObj, "GetNetworkHandle"), flags, 2)
     }
 
     Dispose() {

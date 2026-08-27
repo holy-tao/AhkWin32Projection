@@ -21,14 +21,13 @@ export default struct QUERY_SECURITY_PACKAGE_INFO_FN_W {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Pointer<SecPkgInfoW>>} param1 
      * @returns {HRESULT} 
      */
     Call(param0, param1) {
-        param0Marshal := param0 is VarRef ? "ushort*" : "ptr"
-        param1Marshal := param1 is VarRef ? "ptr*" : "ptr"
+        param0Marshal := param0 is VarRef ? "ushort*" : IntPtr
+        param1Marshal := param1 is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, param0Marshal, param0, param1Marshal, param1, "HRESULT")
         return result

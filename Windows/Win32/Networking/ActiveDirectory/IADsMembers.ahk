@@ -65,7 +65,6 @@ export default struct IADsMembers extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -84,7 +83,6 @@ export default struct IADsMembers extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Filter() {
@@ -94,7 +92,6 @@ export default struct IADsMembers extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} pvFilter 
      * @returns {HRESULT} 
      */
@@ -112,10 +109,10 @@ export default struct IADsMembers extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
-        this.vtbl.get_Filter := CallbackCreate(GetMethod(implObj, "get_Filter"), flags, 2)
-        this.vtbl.put_Filter := CallbackCreate(GetMethod(implObj, "put_Filter"), flags, 2)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get__NewEnum := CallbackCreate(ObjBindMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Filter := CallbackCreate(ObjBindMethod(implObj, "get_Filter"), flags, 2)
+        this.vtbl.put_Filter := CallbackCreate(ObjBindMethod(implObj, "put_Filter"), flags, 2)
     }
 
     Dispose() {

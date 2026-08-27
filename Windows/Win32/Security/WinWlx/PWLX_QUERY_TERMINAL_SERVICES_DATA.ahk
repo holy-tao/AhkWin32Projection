@@ -30,7 +30,6 @@ export default struct PWLX_QUERY_TERMINAL_SERVICES_DATA {
     }
 
     /**
-     * 
      * @param {HANDLE} hWlx Specifies the Winlogon handle passed to GINA in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nf-winwlx-wlxinitialize">WlxInitialize</a> call.
      * @param {Pointer<WLX_TERMINAL_SERVICES_DATA>} pTSData Points to a structure that will contain the user configuration information specific to Terminal Services.

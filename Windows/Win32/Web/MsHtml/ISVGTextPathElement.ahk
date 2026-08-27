@@ -70,7 +70,6 @@ export default struct ISVGTextPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -80,7 +79,6 @@ export default struct ISVGTextPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_startOffset() {
@@ -89,7 +87,6 @@ export default struct ISVGTextPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedEnumeration} v 
      * @returns {HRESULT} 
      */
@@ -99,7 +96,6 @@ export default struct ISVGTextPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedEnumeration} 
      */
     get_method() {
@@ -108,7 +104,6 @@ export default struct ISVGTextPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedEnumeration} v 
      * @returns {HRESULT} 
      */
@@ -118,7 +113,6 @@ export default struct ISVGTextPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedEnumeration} 
      */
     get_spacing() {
@@ -135,12 +129,12 @@ export default struct ISVGTextPathElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.putref_startOffset := CallbackCreate(GetMethod(implObj, "putref_startOffset"), flags, 2)
-        this.vtbl.get_startOffset := CallbackCreate(GetMethod(implObj, "get_startOffset"), flags, 2)
-        this.vtbl.putref_method := CallbackCreate(GetMethod(implObj, "putref_method"), flags, 2)
-        this.vtbl.get_method := CallbackCreate(GetMethod(implObj, "get_method"), flags, 2)
-        this.vtbl.putref_spacing := CallbackCreate(GetMethod(implObj, "putref_spacing"), flags, 2)
-        this.vtbl.get_spacing := CallbackCreate(GetMethod(implObj, "get_spacing"), flags, 2)
+        this.vtbl.putref_startOffset := CallbackCreate(ObjBindMethod(implObj, "putref_startOffset"), flags, 2)
+        this.vtbl.get_startOffset := CallbackCreate(ObjBindMethod(implObj, "get_startOffset"), flags, 2)
+        this.vtbl.putref_method := CallbackCreate(ObjBindMethod(implObj, "putref_method"), flags, 2)
+        this.vtbl.get_method := CallbackCreate(ObjBindMethod(implObj, "get_method"), flags, 2)
+        this.vtbl.putref_spacing := CallbackCreate(ObjBindMethod(implObj, "putref_spacing"), flags, 2)
+        this.vtbl.get_spacing := CallbackCreate(ObjBindMethod(implObj, "get_spacing"), flags, 2)
     }
 
     Dispose() {

@@ -93,9 +93,9 @@ export default struct IMFVideoProcessorControl2 extends IMFVideoProcessorControl
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetRotationOverride := CallbackCreate(GetMethod(implObj, "SetRotationOverride"), flags, 2)
-        this.vtbl.EnableHardwareEffects := CallbackCreate(GetMethod(implObj, "EnableHardwareEffects"), flags, 2)
-        this.vtbl.GetSupportedHardwareEffects := CallbackCreate(GetMethod(implObj, "GetSupportedHardwareEffects"), flags, 2)
+        this.vtbl.SetRotationOverride := CallbackCreate(ObjBindMethod(implObj, "SetRotationOverride"), flags, 2)
+        this.vtbl.EnableHardwareEffects := CallbackCreate(ObjBindMethod(implObj, "EnableHardwareEffects"), flags, 2)
+        this.vtbl.GetSupportedHardwareEffects := CallbackCreate(ObjBindMethod(implObj, "GetSupportedHardwareEffects"), flags, 2)
     }
 
     Dispose() {

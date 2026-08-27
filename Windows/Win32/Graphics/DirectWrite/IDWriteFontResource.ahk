@@ -269,18 +269,18 @@ export default struct IDWriteFontResource extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFontFile := CallbackCreate(GetMethod(implObj, "GetFontFile"), flags, 2)
-        this.vtbl.GetFontFaceIndex := CallbackCreate(GetMethod(implObj, "GetFontFaceIndex"), flags, 1)
-        this.vtbl.GetFontAxisCount := CallbackCreate(GetMethod(implObj, "GetFontAxisCount"), flags, 1)
-        this.vtbl.GetDefaultFontAxisValues := CallbackCreate(GetMethod(implObj, "GetDefaultFontAxisValues"), flags, 3)
-        this.vtbl.GetFontAxisRanges := CallbackCreate(GetMethod(implObj, "GetFontAxisRanges"), flags, 3)
-        this.vtbl.GetFontAxisAttributes := CallbackCreate(GetMethod(implObj, "GetFontAxisAttributes"), flags, 2)
-        this.vtbl.GetAxisNames := CallbackCreate(GetMethod(implObj, "GetAxisNames"), flags, 3)
-        this.vtbl.GetAxisValueNameCount := CallbackCreate(GetMethod(implObj, "GetAxisValueNameCount"), flags, 2)
-        this.vtbl.GetAxisValueNames := CallbackCreate(GetMethod(implObj, "GetAxisValueNames"), flags, 5)
-        this.vtbl.HasVariations := CallbackCreate(GetMethod(implObj, "HasVariations"), flags, 1)
-        this.vtbl.CreateFontFace := CallbackCreate(GetMethod(implObj, "CreateFontFace"), flags, 5)
-        this.vtbl.CreateFontFaceReference := CallbackCreate(GetMethod(implObj, "CreateFontFaceReference"), flags, 5)
+        this.vtbl.GetFontFile := CallbackCreate(ObjBindMethod(implObj, "GetFontFile"), flags, 2)
+        this.vtbl.GetFontFaceIndex := CallbackCreate(ObjBindMethod(implObj, "GetFontFaceIndex"), flags, 1)
+        this.vtbl.GetFontAxisCount := CallbackCreate(ObjBindMethod(implObj, "GetFontAxisCount"), flags, 1)
+        this.vtbl.GetDefaultFontAxisValues := CallbackCreate(ObjBindMethod(implObj, "GetDefaultFontAxisValues"), flags, 3)
+        this.vtbl.GetFontAxisRanges := CallbackCreate(ObjBindMethod(implObj, "GetFontAxisRanges"), flags, 3)
+        this.vtbl.GetFontAxisAttributes := CallbackCreate(ObjBindMethod(implObj, "GetFontAxisAttributes"), flags, 2)
+        this.vtbl.GetAxisNames := CallbackCreate(ObjBindMethod(implObj, "GetAxisNames"), flags, 3)
+        this.vtbl.GetAxisValueNameCount := CallbackCreate(ObjBindMethod(implObj, "GetAxisValueNameCount"), flags, 2)
+        this.vtbl.GetAxisValueNames := CallbackCreate(ObjBindMethod(implObj, "GetAxisValueNames"), flags, 5)
+        this.vtbl.HasVariations := CallbackCreate(ObjBindMethod(implObj, "HasVariations"), flags, 1)
+        this.vtbl.CreateFontFace := CallbackCreate(ObjBindMethod(implObj, "CreateFontFace"), flags, 5)
+        this.vtbl.CreateFontFaceReference := CallbackCreate(ObjBindMethod(implObj, "CreateFontFaceReference"), flags, 5)
     }
 
     Dispose() {

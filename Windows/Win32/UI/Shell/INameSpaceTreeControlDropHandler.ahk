@@ -70,9 +70,10 @@ export default struct INameSpaceTreeControlDropHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontroldrophandler-ondragenter
      */
     OnDragEnter(psiOver, psiaData, fOutsideSource, grfKeyState, pdwEffect) {
-        pdwEffectMarshal := pdwEffect is VarRef ? "uint*" : "ptr"
+        psiOverMarshal := psiOver == 0 ? IntPtr : "ptr"
+        pdwEffectMarshal := pdwEffect is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(3, this, "ptr", psiOver, "ptr", psiaData, BOOL, fOutsideSource, UInt32, grfKeyState, pdwEffectMarshal, pdwEffect, "HRESULT")
+        result := ComCall(3, this, psiOverMarshal, psiOver, "ptr", psiaData, BOOL, fOutsideSource, UInt32, grfKeyState, pdwEffectMarshal, pdwEffect, "HRESULT")
         return result
     }
 
@@ -98,9 +99,10 @@ export default struct INameSpaceTreeControlDropHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontroldrophandler-ondragover
      */
     OnDragOver(psiOver, psiaData, grfKeyState, pdwEffect) {
-        pdwEffectMarshal := pdwEffect is VarRef ? "uint*" : "ptr"
+        psiOverMarshal := psiOver == 0 ? IntPtr : "ptr"
+        pdwEffectMarshal := pdwEffect is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(4, this, "ptr", psiOver, "ptr", psiaData, UInt32, grfKeyState, pdwEffectMarshal, pdwEffect, "HRESULT")
+        result := ComCall(4, this, psiOverMarshal, psiOver, "ptr", psiaData, UInt32, grfKeyState, pdwEffectMarshal, pdwEffect, "HRESULT")
         return result
     }
 
@@ -126,7 +128,9 @@ export default struct INameSpaceTreeControlDropHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontroldrophandler-ondragposition
      */
     OnDragPosition(psiOver, psiaData, iNewPosition, iOldPosition) {
-        result := ComCall(5, this, "ptr", psiOver, "ptr", psiaData, Int32, iNewPosition, Int32, iOldPosition, "HRESULT")
+        psiOverMarshal := psiOver == 0 ? IntPtr : "ptr"
+
+        result := ComCall(5, this, psiOverMarshal, psiOver, "ptr", psiaData, Int32, iNewPosition, Int32, iOldPosition, "HRESULT")
         return result
     }
 
@@ -156,9 +160,10 @@ export default struct INameSpaceTreeControlDropHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontroldrophandler-ondrop
      */
     OnDrop(psiOver, psiaData, iPosition, grfKeyState, pdwEffect) {
-        pdwEffectMarshal := pdwEffect is VarRef ? "uint*" : "ptr"
+        psiOverMarshal := psiOver == 0 ? IntPtr : "ptr"
+        pdwEffectMarshal := pdwEffect is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(6, this, "ptr", psiOver, "ptr", psiaData, Int32, iPosition, UInt32, grfKeyState, pdwEffectMarshal, pdwEffect, "HRESULT")
+        result := ComCall(6, this, psiOverMarshal, psiOver, "ptr", psiaData, Int32, iPosition, UInt32, grfKeyState, pdwEffectMarshal, pdwEffect, "HRESULT")
         return result
     }
 
@@ -184,7 +189,9 @@ export default struct INameSpaceTreeControlDropHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontroldrophandler-ondropposition
      */
     OnDropPosition(psiOver, psiaData, iNewPosition, iOldPosition) {
-        result := ComCall(7, this, "ptr", psiOver, "ptr", psiaData, Int32, iNewPosition, Int32, iOldPosition, "HRESULT")
+        psiOverMarshal := psiOver == 0 ? IntPtr : "ptr"
+
+        result := ComCall(7, this, psiOverMarshal, psiOver, "ptr", psiaData, Int32, iNewPosition, Int32, iOldPosition, "HRESULT")
         return result
     }
 
@@ -199,7 +206,9 @@ export default struct INameSpaceTreeControlDropHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontroldrophandler-ondragleave
      */
     OnDragLeave(psiOver) {
-        result := ComCall(8, this, "ptr", psiOver, "HRESULT")
+        psiOverMarshal := psiOver == 0 ? IntPtr : "ptr"
+
+        result := ComCall(8, this, psiOverMarshal, psiOver, "HRESULT")
         return result
     }
 
@@ -212,12 +221,12 @@ export default struct INameSpaceTreeControlDropHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnDragEnter := CallbackCreate(GetMethod(implObj, "OnDragEnter"), flags, 6)
-        this.vtbl.OnDragOver := CallbackCreate(GetMethod(implObj, "OnDragOver"), flags, 5)
-        this.vtbl.OnDragPosition := CallbackCreate(GetMethod(implObj, "OnDragPosition"), flags, 5)
-        this.vtbl.OnDrop := CallbackCreate(GetMethod(implObj, "OnDrop"), flags, 6)
-        this.vtbl.OnDropPosition := CallbackCreate(GetMethod(implObj, "OnDropPosition"), flags, 5)
-        this.vtbl.OnDragLeave := CallbackCreate(GetMethod(implObj, "OnDragLeave"), flags, 2)
+        this.vtbl.OnDragEnter := CallbackCreate(ObjBindMethod(implObj, "OnDragEnter"), flags, 6)
+        this.vtbl.OnDragOver := CallbackCreate(ObjBindMethod(implObj, "OnDragOver"), flags, 5)
+        this.vtbl.OnDragPosition := CallbackCreate(ObjBindMethod(implObj, "OnDragPosition"), flags, 5)
+        this.vtbl.OnDrop := CallbackCreate(ObjBindMethod(implObj, "OnDrop"), flags, 6)
+        this.vtbl.OnDropPosition := CallbackCreate(ObjBindMethod(implObj, "OnDropPosition"), flags, 5)
+        this.vtbl.OnDragLeave := CallbackCreate(ObjBindMethod(implObj, "OnDragLeave"), flags, 2)
     }
 
     Dispose() {

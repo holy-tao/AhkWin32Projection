@@ -43,7 +43,6 @@ export default struct IMarkupServices2 extends IMarkupServices {
     }
 
     /**
-     * 
      * @param {HGLOBAL} hglobalHTML 
      * @param {Integer} dwFlags 
      * @param {IMarkupContainer} pContext 
@@ -57,7 +56,6 @@ export default struct IMarkupServices2 extends IMarkupServices {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pPointerStart 
      * @param {IMarkupPointer} pPointerFinish 
      * @param {IMarkupPointer} pPointerTarget 
@@ -72,7 +70,6 @@ export default struct IMarkupServices2 extends IMarkupServices {
     }
 
     /**
-     * 
      * @param {ISegmentList} pSegmentList 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
@@ -91,9 +88,9 @@ export default struct IMarkupServices2 extends IMarkupServices {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ParseGlobalEx := CallbackCreate(GetMethod(implObj, "ParseGlobalEx"), flags, 7)
-        this.vtbl.ValidateElements := CallbackCreate(GetMethod(implObj, "ValidateElements"), flags, 7)
-        this.vtbl.SaveSegmentsToClipboard := CallbackCreate(GetMethod(implObj, "SaveSegmentsToClipboard"), flags, 3)
+        this.vtbl.ParseGlobalEx := CallbackCreate(ObjBindMethod(implObj, "ParseGlobalEx"), flags, 7)
+        this.vtbl.ValidateElements := CallbackCreate(ObjBindMethod(implObj, "ValidateElements"), flags, 7)
+        this.vtbl.SaveSegmentsToClipboard := CallbackCreate(ObjBindMethod(implObj, "SaveSegmentsToClipboard"), flags, 3)
     }
 
     Dispose() {

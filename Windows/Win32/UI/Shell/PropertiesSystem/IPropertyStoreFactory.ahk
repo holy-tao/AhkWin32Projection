@@ -102,8 +102,8 @@ export default struct IPropertyStoreFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPropertyStore := CallbackCreate(GetMethod(implObj, "GetPropertyStore"), flags, 5)
-        this.vtbl.GetPropertyStoreForKeys := CallbackCreate(GetMethod(implObj, "GetPropertyStoreForKeys"), flags, 6)
+        this.vtbl.GetPropertyStore := CallbackCreate(ObjBindMethod(implObj, "GetPropertyStore"), flags, 5)
+        this.vtbl.GetPropertyStoreForKeys := CallbackCreate(ObjBindMethod(implObj, "GetPropertyStoreForKeys"), flags, 6)
     }
 
     Dispose() {

@@ -40,7 +40,6 @@ export default struct IAppxPackagingDiagnosticEventSink extends IUnknown {
     }
 
     /**
-     * 
      * @param {APPX_PACKAGING_CONTEXT_CHANGE_TYPE} _changeType 
      * @param {Integer} contextId 
      * @param {PSTR} contextName 
@@ -58,7 +57,6 @@ export default struct IAppxPackagingDiagnosticEventSink extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} errorMessage 
      * @returns {HRESULT} 
      */
@@ -78,8 +76,8 @@ export default struct IAppxPackagingDiagnosticEventSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ReportContextChange := CallbackCreate(GetMethod(implObj, "ReportContextChange"), flags, 6)
-        this.vtbl.ReportError := CallbackCreate(GetMethod(implObj, "ReportError"), flags, 2)
+        this.vtbl.ReportContextChange := CallbackCreate(ObjBindMethod(implObj, "ReportContextChange"), flags, 6)
+        this.vtbl.ReportError := CallbackCreate(ObjBindMethod(implObj, "ReportError"), flags, 2)
     }
 
     Dispose() {

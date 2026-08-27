@@ -32,7 +32,6 @@ export default struct PWLX_MESSAGE_BOX {
     }
 
     /**
-     * 
      * @param {HANDLE} hWlx Specifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/w-gly">Winlogon</a> handle passed to GINA in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nf-winwlx-wlxinitialize">WlxInitialize</a> call.
      * @param {HWND} hwndOwner Specifies the owner window of the message box to be created. If this parameter is <b>NULL</b>, the message box has no owner window.

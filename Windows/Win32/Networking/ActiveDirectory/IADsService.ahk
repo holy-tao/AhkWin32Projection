@@ -163,7 +163,6 @@ export default struct IADsService extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_HostComputer() {
@@ -173,7 +172,6 @@ export default struct IADsService extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrHostComputer 
      * @returns {HRESULT} 
      */
@@ -185,7 +183,6 @@ export default struct IADsService extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DisplayName() {
@@ -195,7 +192,6 @@ export default struct IADsService extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDisplayName 
      * @returns {HRESULT} 
      */
@@ -207,7 +203,6 @@ export default struct IADsService extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Version() {
@@ -217,7 +212,6 @@ export default struct IADsService extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrVersion 
      * @returns {HRESULT} 
      */
@@ -229,7 +223,6 @@ export default struct IADsService extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ServiceType() {
@@ -238,7 +231,6 @@ export default struct IADsService extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnServiceType 
      * @returns {HRESULT} 
      */
@@ -248,7 +240,6 @@ export default struct IADsService extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_StartType() {
@@ -257,7 +248,6 @@ export default struct IADsService extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnStartType 
      * @returns {HRESULT} 
      */
@@ -267,7 +257,6 @@ export default struct IADsService extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Path() {
@@ -277,7 +266,6 @@ export default struct IADsService extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPath 
      * @returns {HRESULT} 
      */
@@ -289,7 +277,6 @@ export default struct IADsService extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_StartupParameters() {
@@ -299,7 +286,6 @@ export default struct IADsService extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrStartupParameters 
      * @returns {HRESULT} 
      */
@@ -311,7 +297,6 @@ export default struct IADsService extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ErrorControl() {
@@ -320,7 +305,6 @@ export default struct IADsService extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnErrorControl 
      * @returns {HRESULT} 
      */
@@ -330,7 +314,6 @@ export default struct IADsService extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LoadOrderGroup() {
@@ -340,7 +323,6 @@ export default struct IADsService extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrLoadOrderGroup 
      * @returns {HRESULT} 
      */
@@ -352,7 +334,6 @@ export default struct IADsService extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ServiceAccountName() {
@@ -362,7 +343,6 @@ export default struct IADsService extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrServiceAccountName 
      * @returns {HRESULT} 
      */
@@ -374,7 +354,6 @@ export default struct IADsService extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ServiceAccountPath() {
@@ -384,7 +363,6 @@ export default struct IADsService extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrServiceAccountPath 
      * @returns {HRESULT} 
      */
@@ -396,7 +374,6 @@ export default struct IADsService extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Dependencies() {
@@ -406,7 +383,6 @@ export default struct IADsService extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vDependencies 
      * @returns {HRESULT} 
      */
@@ -424,30 +400,30 @@ export default struct IADsService extends IADs {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_HostComputer := CallbackCreate(GetMethod(implObj, "get_HostComputer"), flags, 2)
-        this.vtbl.put_HostComputer := CallbackCreate(GetMethod(implObj, "put_HostComputer"), flags, 2)
-        this.vtbl.get_DisplayName := CallbackCreate(GetMethod(implObj, "get_DisplayName"), flags, 2)
-        this.vtbl.put_DisplayName := CallbackCreate(GetMethod(implObj, "put_DisplayName"), flags, 2)
-        this.vtbl.get_Version := CallbackCreate(GetMethod(implObj, "get_Version"), flags, 2)
-        this.vtbl.put_Version := CallbackCreate(GetMethod(implObj, "put_Version"), flags, 2)
-        this.vtbl.get_ServiceType := CallbackCreate(GetMethod(implObj, "get_ServiceType"), flags, 2)
-        this.vtbl.put_ServiceType := CallbackCreate(GetMethod(implObj, "put_ServiceType"), flags, 2)
-        this.vtbl.get_StartType := CallbackCreate(GetMethod(implObj, "get_StartType"), flags, 2)
-        this.vtbl.put_StartType := CallbackCreate(GetMethod(implObj, "put_StartType"), flags, 2)
-        this.vtbl.get_Path := CallbackCreate(GetMethod(implObj, "get_Path"), flags, 2)
-        this.vtbl.put_Path := CallbackCreate(GetMethod(implObj, "put_Path"), flags, 2)
-        this.vtbl.get_StartupParameters := CallbackCreate(GetMethod(implObj, "get_StartupParameters"), flags, 2)
-        this.vtbl.put_StartupParameters := CallbackCreate(GetMethod(implObj, "put_StartupParameters"), flags, 2)
-        this.vtbl.get_ErrorControl := CallbackCreate(GetMethod(implObj, "get_ErrorControl"), flags, 2)
-        this.vtbl.put_ErrorControl := CallbackCreate(GetMethod(implObj, "put_ErrorControl"), flags, 2)
-        this.vtbl.get_LoadOrderGroup := CallbackCreate(GetMethod(implObj, "get_LoadOrderGroup"), flags, 2)
-        this.vtbl.put_LoadOrderGroup := CallbackCreate(GetMethod(implObj, "put_LoadOrderGroup"), flags, 2)
-        this.vtbl.get_ServiceAccountName := CallbackCreate(GetMethod(implObj, "get_ServiceAccountName"), flags, 2)
-        this.vtbl.put_ServiceAccountName := CallbackCreate(GetMethod(implObj, "put_ServiceAccountName"), flags, 2)
-        this.vtbl.get_ServiceAccountPath := CallbackCreate(GetMethod(implObj, "get_ServiceAccountPath"), flags, 2)
-        this.vtbl.put_ServiceAccountPath := CallbackCreate(GetMethod(implObj, "put_ServiceAccountPath"), flags, 2)
-        this.vtbl.get_Dependencies := CallbackCreate(GetMethod(implObj, "get_Dependencies"), flags, 2)
-        this.vtbl.put_Dependencies := CallbackCreate(GetMethod(implObj, "put_Dependencies"), flags, 2)
+        this.vtbl.get_HostComputer := CallbackCreate(ObjBindMethod(implObj, "get_HostComputer"), flags, 2)
+        this.vtbl.put_HostComputer := CallbackCreate(ObjBindMethod(implObj, "put_HostComputer"), flags, 2)
+        this.vtbl.get_DisplayName := CallbackCreate(ObjBindMethod(implObj, "get_DisplayName"), flags, 2)
+        this.vtbl.put_DisplayName := CallbackCreate(ObjBindMethod(implObj, "put_DisplayName"), flags, 2)
+        this.vtbl.get_Version := CallbackCreate(ObjBindMethod(implObj, "get_Version"), flags, 2)
+        this.vtbl.put_Version := CallbackCreate(ObjBindMethod(implObj, "put_Version"), flags, 2)
+        this.vtbl.get_ServiceType := CallbackCreate(ObjBindMethod(implObj, "get_ServiceType"), flags, 2)
+        this.vtbl.put_ServiceType := CallbackCreate(ObjBindMethod(implObj, "put_ServiceType"), flags, 2)
+        this.vtbl.get_StartType := CallbackCreate(ObjBindMethod(implObj, "get_StartType"), flags, 2)
+        this.vtbl.put_StartType := CallbackCreate(ObjBindMethod(implObj, "put_StartType"), flags, 2)
+        this.vtbl.get_Path := CallbackCreate(ObjBindMethod(implObj, "get_Path"), flags, 2)
+        this.vtbl.put_Path := CallbackCreate(ObjBindMethod(implObj, "put_Path"), flags, 2)
+        this.vtbl.get_StartupParameters := CallbackCreate(ObjBindMethod(implObj, "get_StartupParameters"), flags, 2)
+        this.vtbl.put_StartupParameters := CallbackCreate(ObjBindMethod(implObj, "put_StartupParameters"), flags, 2)
+        this.vtbl.get_ErrorControl := CallbackCreate(ObjBindMethod(implObj, "get_ErrorControl"), flags, 2)
+        this.vtbl.put_ErrorControl := CallbackCreate(ObjBindMethod(implObj, "put_ErrorControl"), flags, 2)
+        this.vtbl.get_LoadOrderGroup := CallbackCreate(ObjBindMethod(implObj, "get_LoadOrderGroup"), flags, 2)
+        this.vtbl.put_LoadOrderGroup := CallbackCreate(ObjBindMethod(implObj, "put_LoadOrderGroup"), flags, 2)
+        this.vtbl.get_ServiceAccountName := CallbackCreate(ObjBindMethod(implObj, "get_ServiceAccountName"), flags, 2)
+        this.vtbl.put_ServiceAccountName := CallbackCreate(ObjBindMethod(implObj, "put_ServiceAccountName"), flags, 2)
+        this.vtbl.get_ServiceAccountPath := CallbackCreate(ObjBindMethod(implObj, "get_ServiceAccountPath"), flags, 2)
+        this.vtbl.put_ServiceAccountPath := CallbackCreate(ObjBindMethod(implObj, "put_ServiceAccountPath"), flags, 2)
+        this.vtbl.get_Dependencies := CallbackCreate(ObjBindMethod(implObj, "get_Dependencies"), flags, 2)
+        this.vtbl.put_Dependencies := CallbackCreate(ObjBindMethod(implObj, "put_Dependencies"), flags, 2)
     }
 
     Dispose() {

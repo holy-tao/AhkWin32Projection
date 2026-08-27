@@ -118,12 +118,12 @@ export default struct IOfflineFilesChangeInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsDirty := CallbackCreate(GetMethod(implObj, "IsDirty"), flags, 2)
-        this.vtbl.IsDeletedOffline := CallbackCreate(GetMethod(implObj, "IsDeletedOffline"), flags, 2)
-        this.vtbl.IsCreatedOffline := CallbackCreate(GetMethod(implObj, "IsCreatedOffline"), flags, 2)
-        this.vtbl.IsLocallyModifiedData := CallbackCreate(GetMethod(implObj, "IsLocallyModifiedData"), flags, 2)
-        this.vtbl.IsLocallyModifiedAttributes := CallbackCreate(GetMethod(implObj, "IsLocallyModifiedAttributes"), flags, 2)
-        this.vtbl.IsLocallyModifiedTime := CallbackCreate(GetMethod(implObj, "IsLocallyModifiedTime"), flags, 2)
+        this.vtbl.IsDirty := CallbackCreate(ObjBindMethod(implObj, "IsDirty"), flags, 2)
+        this.vtbl.IsDeletedOffline := CallbackCreate(ObjBindMethod(implObj, "IsDeletedOffline"), flags, 2)
+        this.vtbl.IsCreatedOffline := CallbackCreate(ObjBindMethod(implObj, "IsCreatedOffline"), flags, 2)
+        this.vtbl.IsLocallyModifiedData := CallbackCreate(ObjBindMethod(implObj, "IsLocallyModifiedData"), flags, 2)
+        this.vtbl.IsLocallyModifiedAttributes := CallbackCreate(ObjBindMethod(implObj, "IsLocallyModifiedAttributes"), flags, 2)
+        this.vtbl.IsLocallyModifiedTime := CallbackCreate(ObjBindMethod(implObj, "IsLocallyModifiedTime"), flags, 2)
     }
 
     Dispose() {

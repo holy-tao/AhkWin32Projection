@@ -22,7 +22,6 @@ export default struct FAST_IO_ACQUIRE_FOR_MOD_WRITE {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} EndingOffset 
      * @param {Pointer<Pointer<ERESOURCE>>} ResourceToRelease 
@@ -30,8 +29,8 @@ export default struct FAST_IO_ACQUIRE_FOR_MOD_WRITE {
      * @returns {NTSTATUS} 
      */
     Call(FileObject, EndingOffset, ResourceToRelease, DeviceObject) {
-        EndingOffsetMarshal := EndingOffset is VarRef ? "int64*" : "ptr"
-        ResourceToReleaseMarshal := ResourceToRelease is VarRef ? "ptr*" : "ptr"
+        EndingOffsetMarshal := EndingOffset is VarRef ? "int64*" : IntPtr
+        ResourceToReleaseMarshal := ResourceToRelease is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, FILE_OBJECT.Ptr, FileObject, EndingOffsetMarshal, EndingOffset, ResourceToReleaseMarshal, ResourceToRelease, DEVICE_OBJECT.Ptr, DeviceObject, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

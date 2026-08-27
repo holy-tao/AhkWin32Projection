@@ -18,13 +18,12 @@ export default struct CACHE_KEY_HASH {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} lpbKey 
      * @param {Integer} cbKey 
      * @returns {Integer} 
      */
     Call(lpbKey, cbKey) {
-        lpbKeyMarshal := lpbKey is VarRef ? "char*" : "ptr"
+        lpbKeyMarshal := lpbKey is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, lpbKeyMarshal, lpbKey, UInt32, cbKey, UInt32)
         return result

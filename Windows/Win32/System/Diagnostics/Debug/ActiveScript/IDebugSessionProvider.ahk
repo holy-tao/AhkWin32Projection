@@ -37,7 +37,6 @@ export default struct IDebugSessionProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRemoteDebugApplication} pda 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,7 @@ export default struct IDebugSessionProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StartDebugSession := CallbackCreate(GetMethod(implObj, "StartDebugSession"), flags, 2)
+        this.vtbl.StartDebugSession := CallbackCreate(ObjBindMethod(implObj, "StartDebugSession"), flags, 2)
     }
 
     Dispose() {

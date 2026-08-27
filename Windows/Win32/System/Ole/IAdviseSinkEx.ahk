@@ -57,7 +57,7 @@ export default struct IAdviseSinkEx extends IAdviseSink {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnViewStatusChange := CallbackCreate(GetMethod(implObj, "OnViewStatusChange"), flags, 2)
+        this.vtbl.OnViewStatusChange := CallbackCreate(ObjBindMethod(implObj, "OnViewStatusChange"), flags, 2)
     }
 
     Dispose() {

@@ -24,7 +24,6 @@ export default struct BFFCALLBACK {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd Contains the window handle of the browse dialog box. This handle is used to send messages to the browse dialog box using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/oe/oe-ihttpmailtransport-sendmessage">SendMessage</a> function.
      * 
      * 

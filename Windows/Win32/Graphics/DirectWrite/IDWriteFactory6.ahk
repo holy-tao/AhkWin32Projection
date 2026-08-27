@@ -196,7 +196,9 @@ export default struct IDWriteFactory6 extends IDWriteFactory5 {
         fontFamilyName := fontFamilyName is String ? StrPtr(fontFamilyName) : fontFamilyName
         localeName := localeName is String ? StrPtr(localeName) : localeName
 
-        result := ComCall(54, this, "ptr", fontFamilyName, "ptr", _fontCollection, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, UInt32, fontAxisValueCount, Float32, fontSize, "ptr", localeName, "ptr*", &textFormat := 0, "HRESULT")
+        _fontCollectionMarshal := _fontCollection == 0 ? IntPtr : "ptr"
+
+        result := ComCall(54, this, "ptr", fontFamilyName, _fontCollectionMarshal, _fontCollection, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, UInt32, fontAxisValueCount, Float32, fontSize, "ptr", localeName, "ptr*", &textFormat := 0, "HRESULT")
         return IDWriteTextFormat3(textFormat)
     }
 
@@ -209,13 +211,13 @@ export default struct IDWriteFactory6 extends IDWriteFactory5 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateFontFaceReference := CallbackCreate(GetMethod(implObj, "CreateFontFaceReference"), flags, 7)
-        this.vtbl.CreateFontResource := CallbackCreate(GetMethod(implObj, "CreateFontResource"), flags, 4)
-        this.vtbl.GetSystemFontSet := CallbackCreate(GetMethod(implObj, "GetSystemFontSet"), flags, 3)
-        this.vtbl.GetSystemFontCollection := CallbackCreate(GetMethod(implObj, "GetSystemFontCollection"), flags, 4)
-        this.vtbl.CreateFontCollectionFromFontSet := CallbackCreate(GetMethod(implObj, "CreateFontCollectionFromFontSet"), flags, 4)
-        this.vtbl.CreateFontSetBuilder := CallbackCreate(GetMethod(implObj, "CreateFontSetBuilder"), flags, 2)
-        this.vtbl.CreateTextFormat := CallbackCreate(GetMethod(implObj, "CreateTextFormat"), flags, 8)
+        this.vtbl.CreateFontFaceReference := CallbackCreate(ObjBindMethod(implObj, "CreateFontFaceReference"), flags, 7)
+        this.vtbl.CreateFontResource := CallbackCreate(ObjBindMethod(implObj, "CreateFontResource"), flags, 4)
+        this.vtbl.GetSystemFontSet := CallbackCreate(ObjBindMethod(implObj, "GetSystemFontSet"), flags, 3)
+        this.vtbl.GetSystemFontCollection := CallbackCreate(ObjBindMethod(implObj, "GetSystemFontCollection"), flags, 4)
+        this.vtbl.CreateFontCollectionFromFontSet := CallbackCreate(ObjBindMethod(implObj, "CreateFontCollectionFromFontSet"), flags, 4)
+        this.vtbl.CreateFontSetBuilder := CallbackCreate(ObjBindMethod(implObj, "CreateFontSetBuilder"), flags, 2)
+        this.vtbl.CreateTextFormat := CallbackCreate(ObjBindMethod(implObj, "CreateTextFormat"), flags, 8)
     }
 
     Dispose() {

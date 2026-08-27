@@ -37,7 +37,6 @@ export default struct ISegment extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pIStart 
      * @param {IMarkupPointer} pIEnd 
      * @returns {HRESULT} 
@@ -56,7 +55,7 @@ export default struct ISegment extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPointers := CallbackCreate(GetMethod(implObj, "GetPointers"), flags, 3)
+        this.vtbl.GetPointers := CallbackCreate(ObjBindMethod(implObj, "GetPointers"), flags, 3)
     }
 
     Dispose() {

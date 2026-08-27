@@ -20,7 +20,6 @@ export default struct PFND3DKMT_GETMULTIPLANEOVERLAYCAPS {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_GET_MULTIPLANE_OVERLAY_CAPS>} param0 
      * @returns {NTSTATUS} 
      */

@@ -27,7 +27,6 @@ export default struct PDD_FREEDRIVERMEMORY {
     }
 
     /**
-     * 
      * @param {Pointer<DD_FREEDRIVERMEMORYDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_freedrivermemorydata">DD_FREEDRIVERMEMORYDATA</a> structure that contains the details of the free request.
      * @returns {Integer} <b>DdFreeDriverMemory</b> returns one of the following callback codes:
      */

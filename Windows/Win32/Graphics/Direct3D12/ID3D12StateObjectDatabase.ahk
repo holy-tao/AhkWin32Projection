@@ -48,7 +48,6 @@ export default struct ID3D12StateObjectDatabase extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_APPLICATION_DESC>} pApplicationDesc 
      * @returns {HRESULT} 
      */
@@ -58,20 +57,19 @@ export default struct ID3D12StateObjectDatabase extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12ApplicationDescFunc>} CallbackFunc 
      * @param {Pointer<Void>} pContext 
      * @returns {HRESULT} 
      */
     GetApplicationDesc(CallbackFunc, pContext) {
-        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+        pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
+        pContextMarshal := pContext == 0 ? IntPtr : "ptr"
 
         result := ComCall(4, this, D3D12ApplicationDescFunc, CallbackFunc, pContextMarshal, pContext, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pKey 
      * @param {Integer} KeySize 
      * @param {Integer} _Version 
@@ -79,14 +77,13 @@ export default struct ID3D12StateObjectDatabase extends IUnknown {
      * @returns {HRESULT} 
      */
     StorePipelineStateDesc(pKey, KeySize, _Version, pDesc) {
-        pKeyMarshal := pKey is VarRef ? "ptr" : "ptr"
+        pKeyMarshal := pKey is VarRef ? "ptr" : IntPtr
 
         result := ComCall(5, this, pKeyMarshal, pKey, UInt32, KeySize, UInt32, _Version, D3D12_PIPELINE_STATE_STREAM_DESC.Ptr, pDesc, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pKey 
      * @param {Integer} KeySize 
      * @param {Pointer<D3D12PipelineStateFunc>} CallbackFunc 
@@ -94,15 +91,15 @@ export default struct ID3D12StateObjectDatabase extends IUnknown {
      * @returns {HRESULT} 
      */
     FindPipelineStateDesc(pKey, KeySize, CallbackFunc, pContext) {
-        pKeyMarshal := pKey is VarRef ? "ptr" : "ptr"
-        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+        pKeyMarshal := pKey is VarRef ? "ptr" : IntPtr
+        pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
+        pContextMarshal := pContext == 0 ? IntPtr : "ptr"
 
         result := ComCall(6, this, pKeyMarshal, pKey, UInt32, KeySize, D3D12PipelineStateFunc, CallbackFunc, pContextMarshal, pContext, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pKey 
      * @param {Integer} KeySize 
      * @param {Integer} _Version 
@@ -112,15 +109,15 @@ export default struct ID3D12StateObjectDatabase extends IUnknown {
      * @returns {HRESULT} 
      */
     StoreStateObjectDesc(pKey, KeySize, _Version, pDesc, pStateObjectToGrowFromKey, StateObjectToGrowFromKeySize) {
-        pKeyMarshal := pKey is VarRef ? "ptr" : "ptr"
-        pStateObjectToGrowFromKeyMarshal := pStateObjectToGrowFromKey is VarRef ? "ptr" : "ptr"
+        pKeyMarshal := pKey is VarRef ? "ptr" : IntPtr
+        pStateObjectToGrowFromKeyMarshal := pStateObjectToGrowFromKey is VarRef ? "ptr" : IntPtr
+        pStateObjectToGrowFromKeyMarshal := pStateObjectToGrowFromKey == 0 ? IntPtr : "ptr"
 
         result := ComCall(7, this, pKeyMarshal, pKey, UInt32, KeySize, UInt32, _Version, D3D12_STATE_OBJECT_DESC.Ptr, pDesc, pStateObjectToGrowFromKeyMarshal, pStateObjectToGrowFromKey, UInt32, StateObjectToGrowFromKeySize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pKey 
      * @param {Integer} KeySize 
      * @param {Pointer<D3D12StateObjectFunc>} CallbackFunc 
@@ -128,21 +125,21 @@ export default struct ID3D12StateObjectDatabase extends IUnknown {
      * @returns {HRESULT} 
      */
     FindStateObjectDesc(pKey, KeySize, CallbackFunc, pContext) {
-        pKeyMarshal := pKey is VarRef ? "ptr" : "ptr"
-        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+        pKeyMarshal := pKey is VarRef ? "ptr" : IntPtr
+        pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
+        pContextMarshal := pContext == 0 ? IntPtr : "ptr"
 
         result := ComCall(8, this, pKeyMarshal, pKey, UInt32, KeySize, D3D12StateObjectFunc, CallbackFunc, pContextMarshal, pContext, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pKey 
      * @param {Integer} KeySize 
      * @returns {Integer} 
      */
     FindObjectVersion(pKey, KeySize) {
-        pKeyMarshal := pKey is VarRef ? "ptr" : "ptr"
+        pKeyMarshal := pKey is VarRef ? "ptr" : IntPtr
 
         result := ComCall(9, this, pKeyMarshal, pKey, UInt32, KeySize, "uint*", &pVersion := 0, "HRESULT")
         return pVersion
@@ -157,13 +154,13 @@ export default struct ID3D12StateObjectDatabase extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetApplicationDesc := CallbackCreate(GetMethod(implObj, "SetApplicationDesc"), flags, 2)
-        this.vtbl.GetApplicationDesc := CallbackCreate(GetMethod(implObj, "GetApplicationDesc"), flags, 3)
-        this.vtbl.StorePipelineStateDesc := CallbackCreate(GetMethod(implObj, "StorePipelineStateDesc"), flags, 5)
-        this.vtbl.FindPipelineStateDesc := CallbackCreate(GetMethod(implObj, "FindPipelineStateDesc"), flags, 5)
-        this.vtbl.StoreStateObjectDesc := CallbackCreate(GetMethod(implObj, "StoreStateObjectDesc"), flags, 7)
-        this.vtbl.FindStateObjectDesc := CallbackCreate(GetMethod(implObj, "FindStateObjectDesc"), flags, 5)
-        this.vtbl.FindObjectVersion := CallbackCreate(GetMethod(implObj, "FindObjectVersion"), flags, 4)
+        this.vtbl.SetApplicationDesc := CallbackCreate(ObjBindMethod(implObj, "SetApplicationDesc"), flags, 2)
+        this.vtbl.GetApplicationDesc := CallbackCreate(ObjBindMethod(implObj, "GetApplicationDesc"), flags, 3)
+        this.vtbl.StorePipelineStateDesc := CallbackCreate(ObjBindMethod(implObj, "StorePipelineStateDesc"), flags, 5)
+        this.vtbl.FindPipelineStateDesc := CallbackCreate(ObjBindMethod(implObj, "FindPipelineStateDesc"), flags, 5)
+        this.vtbl.StoreStateObjectDesc := CallbackCreate(ObjBindMethod(implObj, "StoreStateObjectDesc"), flags, 7)
+        this.vtbl.FindStateObjectDesc := CallbackCreate(ObjBindMethod(implObj, "FindStateObjectDesc"), flags, 5)
+        this.vtbl.FindObjectVersion := CallbackCreate(ObjBindMethod(implObj, "FindObjectVersion"), flags, 4)
     }
 
     Dispose() {

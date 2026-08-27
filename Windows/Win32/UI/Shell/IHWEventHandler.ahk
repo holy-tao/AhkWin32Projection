@@ -135,9 +135,9 @@ export default struct IHWEventHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.HandleEvent := CallbackCreate(GetMethod(implObj, "HandleEvent"), flags, 4)
-        this.vtbl.HandleEventWithContent := CallbackCreate(GetMethod(implObj, "HandleEventWithContent"), flags, 6)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.HandleEvent := CallbackCreate(ObjBindMethod(implObj, "HandleEvent"), flags, 4)
+        this.vtbl.HandleEventWithContent := CallbackCreate(ObjBindMethod(implObj, "HandleEventWithContent"), flags, 6)
     }
 
     Dispose() {

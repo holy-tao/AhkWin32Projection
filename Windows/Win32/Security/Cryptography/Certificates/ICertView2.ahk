@@ -66,7 +66,7 @@ export default struct ICertView2 extends ICertView {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetTable := CallbackCreate(GetMethod(implObj, "SetTable"), flags, 2)
+        this.vtbl.SetTable := CallbackCreate(ObjBindMethod(implObj, "SetTable"), flags, 2)
     }
 
     Dispose() {

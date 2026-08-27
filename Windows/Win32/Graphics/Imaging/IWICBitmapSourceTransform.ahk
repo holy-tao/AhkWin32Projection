@@ -135,8 +135,8 @@ export default struct IWICBitmapSourceTransform extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapsourcetransform-getclosestsize
      */
     GetClosestSize(puiWidth, puiHeight) {
-        puiWidthMarshal := puiWidth is VarRef ? "uint*" : "ptr"
-        puiHeightMarshal := puiHeight is VarRef ? "uint*" : "ptr"
+        puiWidthMarshal := puiWidth is VarRef ? "uint*" : IntPtr
+        puiHeightMarshal := puiHeight is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, puiWidthMarshal, puiWidth, puiHeightMarshal, puiHeight, "HRESULT")
         return result
@@ -197,10 +197,10 @@ export default struct IWICBitmapSourceTransform extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CopyPixels := CallbackCreate(GetMethod(implObj, "CopyPixels"), flags, 9)
-        this.vtbl.GetClosestSize := CallbackCreate(GetMethod(implObj, "GetClosestSize"), flags, 3)
-        this.vtbl.GetClosestPixelFormat := CallbackCreate(GetMethod(implObj, "GetClosestPixelFormat"), flags, 2)
-        this.vtbl.DoesSupportTransform := CallbackCreate(GetMethod(implObj, "DoesSupportTransform"), flags, 3)
+        this.vtbl.CopyPixels := CallbackCreate(ObjBindMethod(implObj, "CopyPixels"), flags, 9)
+        this.vtbl.GetClosestSize := CallbackCreate(ObjBindMethod(implObj, "GetClosestSize"), flags, 3)
+        this.vtbl.GetClosestPixelFormat := CallbackCreate(ObjBindMethod(implObj, "GetClosestPixelFormat"), flags, 2)
+        this.vtbl.DoesSupportTransform := CallbackCreate(ObjBindMethod(implObj, "DoesSupportTransform"), flags, 3)
     }
 
     Dispose() {

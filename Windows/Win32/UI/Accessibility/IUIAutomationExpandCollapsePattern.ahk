@@ -116,10 +116,10 @@ export default struct IUIAutomationExpandCollapsePattern extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Expand := CallbackCreate(GetMethod(implObj, "Expand"), flags, 1)
-        this.vtbl.Collapse := CallbackCreate(GetMethod(implObj, "Collapse"), flags, 1)
-        this.vtbl.get_CurrentExpandCollapseState := CallbackCreate(GetMethod(implObj, "get_CurrentExpandCollapseState"), flags, 2)
-        this.vtbl.get_CachedExpandCollapseState := CallbackCreate(GetMethod(implObj, "get_CachedExpandCollapseState"), flags, 2)
+        this.vtbl.Expand := CallbackCreate(ObjBindMethod(implObj, "Expand"), flags, 1)
+        this.vtbl.Collapse := CallbackCreate(ObjBindMethod(implObj, "Collapse"), flags, 1)
+        this.vtbl.get_CurrentExpandCollapseState := CallbackCreate(ObjBindMethod(implObj, "get_CurrentExpandCollapseState"), flags, 2)
+        this.vtbl.get_CachedExpandCollapseState := CallbackCreate(ObjBindMethod(implObj, "get_CachedExpandCollapseState"), flags, 2)
     }
 
     Dispose() {

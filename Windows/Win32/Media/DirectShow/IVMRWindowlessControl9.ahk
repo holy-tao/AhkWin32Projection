@@ -102,10 +102,10 @@ export default struct IVMRWindowlessControl9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrwindowlesscontrol9-getnativevideosize
      */
     GetNativeVideoSize(lpWidth, lpHeight, lpARWidth, lpARHeight) {
-        lpWidthMarshal := lpWidth is VarRef ? "int*" : "ptr"
-        lpHeightMarshal := lpHeight is VarRef ? "int*" : "ptr"
-        lpARWidthMarshal := lpARWidth is VarRef ? "int*" : "ptr"
-        lpARHeightMarshal := lpARHeight is VarRef ? "int*" : "ptr"
+        lpWidthMarshal := lpWidth is VarRef ? "int*" : IntPtr
+        lpHeightMarshal := lpHeight is VarRef ? "int*" : IntPtr
+        lpARWidthMarshal := lpARWidth is VarRef ? "int*" : IntPtr
+        lpARHeightMarshal := lpARHeight is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, lpWidthMarshal, lpWidth, lpHeightMarshal, lpHeight, lpARWidthMarshal, lpARWidth, lpARHeightMarshal, lpARHeight, "HRESULT")
         return result
@@ -150,8 +150,8 @@ export default struct IVMRWindowlessControl9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrwindowlesscontrol9-getminidealvideosize
      */
     GetMinIdealVideoSize(lpWidth, lpHeight) {
-        lpWidthMarshal := lpWidth is VarRef ? "int*" : "ptr"
-        lpHeightMarshal := lpHeight is VarRef ? "int*" : "ptr"
+        lpWidthMarshal := lpWidth is VarRef ? "int*" : IntPtr
+        lpHeightMarshal := lpHeight is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, lpWidthMarshal, lpWidth, lpHeightMarshal, lpHeight, "HRESULT")
         return result
@@ -196,8 +196,8 @@ export default struct IVMRWindowlessControl9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrwindowlesscontrol9-getmaxidealvideosize
      */
     GetMaxIdealVideoSize(lpWidth, lpHeight) {
-        lpWidthMarshal := lpWidth is VarRef ? "int*" : "ptr"
-        lpHeightMarshal := lpHeight is VarRef ? "int*" : "ptr"
+        lpWidthMarshal := lpWidth is VarRef ? "int*" : IntPtr
+        lpHeightMarshal := lpHeight is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, lpWidthMarshal, lpWidth, lpHeightMarshal, lpHeight, "HRESULT")
         return result
@@ -547,19 +547,19 @@ export default struct IVMRWindowlessControl9 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNativeVideoSize := CallbackCreate(GetMethod(implObj, "GetNativeVideoSize"), flags, 5)
-        this.vtbl.GetMinIdealVideoSize := CallbackCreate(GetMethod(implObj, "GetMinIdealVideoSize"), flags, 3)
-        this.vtbl.GetMaxIdealVideoSize := CallbackCreate(GetMethod(implObj, "GetMaxIdealVideoSize"), flags, 3)
-        this.vtbl.SetVideoPosition := CallbackCreate(GetMethod(implObj, "SetVideoPosition"), flags, 3)
-        this.vtbl.GetVideoPosition := CallbackCreate(GetMethod(implObj, "GetVideoPosition"), flags, 3)
-        this.vtbl.GetAspectRatioMode := CallbackCreate(GetMethod(implObj, "GetAspectRatioMode"), flags, 2)
-        this.vtbl.SetAspectRatioMode := CallbackCreate(GetMethod(implObj, "SetAspectRatioMode"), flags, 2)
-        this.vtbl.SetVideoClippingWindow := CallbackCreate(GetMethod(implObj, "SetVideoClippingWindow"), flags, 2)
-        this.vtbl.RepaintVideo := CallbackCreate(GetMethod(implObj, "RepaintVideo"), flags, 3)
-        this.vtbl.DisplayModeChanged := CallbackCreate(GetMethod(implObj, "DisplayModeChanged"), flags, 1)
-        this.vtbl.GetCurrentImage := CallbackCreate(GetMethod(implObj, "GetCurrentImage"), flags, 2)
-        this.vtbl.SetBorderColor := CallbackCreate(GetMethod(implObj, "SetBorderColor"), flags, 2)
-        this.vtbl.GetBorderColor := CallbackCreate(GetMethod(implObj, "GetBorderColor"), flags, 2)
+        this.vtbl.GetNativeVideoSize := CallbackCreate(ObjBindMethod(implObj, "GetNativeVideoSize"), flags, 5)
+        this.vtbl.GetMinIdealVideoSize := CallbackCreate(ObjBindMethod(implObj, "GetMinIdealVideoSize"), flags, 3)
+        this.vtbl.GetMaxIdealVideoSize := CallbackCreate(ObjBindMethod(implObj, "GetMaxIdealVideoSize"), flags, 3)
+        this.vtbl.SetVideoPosition := CallbackCreate(ObjBindMethod(implObj, "SetVideoPosition"), flags, 3)
+        this.vtbl.GetVideoPosition := CallbackCreate(ObjBindMethod(implObj, "GetVideoPosition"), flags, 3)
+        this.vtbl.GetAspectRatioMode := CallbackCreate(ObjBindMethod(implObj, "GetAspectRatioMode"), flags, 2)
+        this.vtbl.SetAspectRatioMode := CallbackCreate(ObjBindMethod(implObj, "SetAspectRatioMode"), flags, 2)
+        this.vtbl.SetVideoClippingWindow := CallbackCreate(ObjBindMethod(implObj, "SetVideoClippingWindow"), flags, 2)
+        this.vtbl.RepaintVideo := CallbackCreate(ObjBindMethod(implObj, "RepaintVideo"), flags, 3)
+        this.vtbl.DisplayModeChanged := CallbackCreate(ObjBindMethod(implObj, "DisplayModeChanged"), flags, 1)
+        this.vtbl.GetCurrentImage := CallbackCreate(ObjBindMethod(implObj, "GetCurrentImage"), flags, 2)
+        this.vtbl.SetBorderColor := CallbackCreate(ObjBindMethod(implObj, "SetBorderColor"), flags, 2)
+        this.vtbl.GetBorderColor := CallbackCreate(ObjBindMethod(implObj, "GetBorderColor"), flags, 2)
     }
 
     Dispose() {

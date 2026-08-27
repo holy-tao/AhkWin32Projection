@@ -98,7 +98,7 @@ export default struct IPropertyStoreCapabilities extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsPropertyWritable := CallbackCreate(GetMethod(implObj, "IsPropertyWritable"), flags, 2)
+        this.vtbl.IsPropertyWritable := CallbackCreate(ObjBindMethod(implObj, "IsPropertyWritable"), flags, 2)
     }
 
     Dispose() {

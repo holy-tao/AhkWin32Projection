@@ -218,7 +218,7 @@ export default struct IUpdateLockdown extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LockDown := CallbackCreate(GetMethod(implObj, "LockDown"), flags, 2)
+        this.vtbl.LockDown := CallbackCreate(ObjBindMethod(implObj, "LockDown"), flags, 2)
     }
 
     Dispose() {

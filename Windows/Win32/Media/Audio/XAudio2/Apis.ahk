@@ -32,12 +32,13 @@
  * @see https://learn.microsoft.com/windows/win32/api/xapofx/nf-xapofx-createfx
  */
 export CreateFX(clsid, pInitDat, InitDataByteSize) {
-    result := DllCall("XAudio2_8.dll\CreateFX", Guid.Ptr, clsid, "ptr*", &pEffect := 0, IntPtr, pInitDat, UInt32, InitDataByteSize, "HRESULT")
+    pInitDatMarshal := pInitDat == 0 ? IntPtr : IntPtr
+
+    result := DllCall("XAudio2_8.dll\CreateFX", Guid.Ptr, clsid, "ptr*", &pEffect := 0, pInitDatMarshal, pInitDat, UInt32, InitDataByteSize, "HRESULT")
     return IUnknown(pEffect)
 }
 
 /**
- * 
  * @param {Integer} Flags 
  * @param {Integer} XAudio2Processor 
  * @param {Integer} ntddiVersion 
@@ -49,7 +50,6 @@ export XAudio2CreateWithVersionInfo(Flags, XAudio2Processor, ntddiVersion) {
 }
 
 /**
- * 
  * @returns {IUnknown} 
  */
 export CreateAudioVolumeMeter() {
@@ -58,7 +58,6 @@ export CreateAudioVolumeMeter() {
 }
 
 /**
- * 
  * @returns {IUnknown} 
  */
 export CreateAudioReverb() {

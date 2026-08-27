@@ -134,10 +134,10 @@ export default struct IExplorerBrowserEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnNavigationPending := CallbackCreate(GetMethod(implObj, "OnNavigationPending"), flags, 2)
-        this.vtbl.OnViewCreated := CallbackCreate(GetMethod(implObj, "OnViewCreated"), flags, 2)
-        this.vtbl.OnNavigationComplete := CallbackCreate(GetMethod(implObj, "OnNavigationComplete"), flags, 2)
-        this.vtbl.OnNavigationFailed := CallbackCreate(GetMethod(implObj, "OnNavigationFailed"), flags, 2)
+        this.vtbl.OnNavigationPending := CallbackCreate(ObjBindMethod(implObj, "OnNavigationPending"), flags, 2)
+        this.vtbl.OnViewCreated := CallbackCreate(ObjBindMethod(implObj, "OnViewCreated"), flags, 2)
+        this.vtbl.OnNavigationComplete := CallbackCreate(ObjBindMethod(implObj, "OnNavigationComplete"), flags, 2)
+        this.vtbl.OnNavigationFailed := CallbackCreate(ObjBindMethod(implObj, "OnNavigationFailed"), flags, 2)
     }
 
     Dispose() {

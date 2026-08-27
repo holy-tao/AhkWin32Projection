@@ -20,7 +20,6 @@ export default struct PRESUTIL_RESOURCES_EQUAL {
     }
 
     /**
-     * 
      * @param {HRESOURCE} hSelf 
      * @param {HRESOURCE} _hResource 
      * @returns {BOOL} 

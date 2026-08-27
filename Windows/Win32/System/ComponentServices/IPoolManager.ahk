@@ -60,7 +60,7 @@ export default struct IPoolManager extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ShutdownPool := CallbackCreate(GetMethod(implObj, "ShutdownPool"), flags, 2)
+        this.vtbl.ShutdownPool := CallbackCreate(ObjBindMethod(implObj, "ShutdownPool"), flags, 2)
     }
 
     Dispose() {

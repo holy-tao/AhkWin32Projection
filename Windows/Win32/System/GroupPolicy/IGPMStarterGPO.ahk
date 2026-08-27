@@ -157,7 +157,6 @@ export default struct IGPMStarterGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DisplayName() {
@@ -167,7 +166,6 @@ export default struct IGPMStarterGPO extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} newVal 
      * @returns {HRESULT} 
      */
@@ -179,7 +177,6 @@ export default struct IGPMStarterGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Description() {
@@ -189,7 +186,6 @@ export default struct IGPMStarterGPO extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} newVal 
      * @returns {HRESULT} 
      */
@@ -201,7 +197,6 @@ export default struct IGPMStarterGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Author() {
@@ -211,7 +206,6 @@ export default struct IGPMStarterGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Product() {
@@ -221,7 +215,6 @@ export default struct IGPMStarterGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_CreationTime() {
@@ -230,7 +223,6 @@ export default struct IGPMStarterGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ID() {
@@ -240,7 +232,6 @@ export default struct IGPMStarterGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_ModifiedTime() {
@@ -249,7 +240,6 @@ export default struct IGPMStarterGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMStarterGPOType} 
      */
     get_Type() {
@@ -258,7 +248,6 @@ export default struct IGPMStarterGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ComputerVersion() {
@@ -267,7 +256,6 @@ export default struct IGPMStarterGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_UserVersion() {
@@ -276,7 +264,6 @@ export default struct IGPMStarterGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_StarterGPOVersion() {
@@ -432,27 +419,27 @@ export default struct IGPMStarterGPO extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_DisplayName := CallbackCreate(GetMethod(implObj, "get_DisplayName"), flags, 2)
-        this.vtbl.put_DisplayName := CallbackCreate(GetMethod(implObj, "put_DisplayName"), flags, 2)
-        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
-        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
-        this.vtbl.get_Author := CallbackCreate(GetMethod(implObj, "get_Author"), flags, 2)
-        this.vtbl.get_Product := CallbackCreate(GetMethod(implObj, "get_Product"), flags, 2)
-        this.vtbl.get_CreationTime := CallbackCreate(GetMethod(implObj, "get_CreationTime"), flags, 2)
-        this.vtbl.get_ID := CallbackCreate(GetMethod(implObj, "get_ID"), flags, 2)
-        this.vtbl.get_ModifiedTime := CallbackCreate(GetMethod(implObj, "get_ModifiedTime"), flags, 2)
-        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
-        this.vtbl.get_ComputerVersion := CallbackCreate(GetMethod(implObj, "get_ComputerVersion"), flags, 2)
-        this.vtbl.get_UserVersion := CallbackCreate(GetMethod(implObj, "get_UserVersion"), flags, 2)
-        this.vtbl.get_StarterGPOVersion := CallbackCreate(GetMethod(implObj, "get_StarterGPOVersion"), flags, 2)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
-        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 12)
-        this.vtbl.Backup := CallbackCreate(GetMethod(implObj, "Backup"), flags, 6)
-        this.vtbl.CopyTo := CallbackCreate(GetMethod(implObj, "CopyTo"), flags, 5)
-        this.vtbl.GenerateReport := CallbackCreate(GetMethod(implObj, "GenerateReport"), flags, 5)
-        this.vtbl.GenerateReportToFile := CallbackCreate(GetMethod(implObj, "GenerateReportToFile"), flags, 4)
-        this.vtbl.GetSecurityInfo := CallbackCreate(GetMethod(implObj, "GetSecurityInfo"), flags, 2)
-        this.vtbl.SetSecurityInfo := CallbackCreate(GetMethod(implObj, "SetSecurityInfo"), flags, 2)
+        this.vtbl.get_DisplayName := CallbackCreate(ObjBindMethod(implObj, "get_DisplayName"), flags, 2)
+        this.vtbl.put_DisplayName := CallbackCreate(ObjBindMethod(implObj, "put_DisplayName"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(ObjBindMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(ObjBindMethod(implObj, "put_Description"), flags, 2)
+        this.vtbl.get_Author := CallbackCreate(ObjBindMethod(implObj, "get_Author"), flags, 2)
+        this.vtbl.get_Product := CallbackCreate(ObjBindMethod(implObj, "get_Product"), flags, 2)
+        this.vtbl.get_CreationTime := CallbackCreate(ObjBindMethod(implObj, "get_CreationTime"), flags, 2)
+        this.vtbl.get_ID := CallbackCreate(ObjBindMethod(implObj, "get_ID"), flags, 2)
+        this.vtbl.get_ModifiedTime := CallbackCreate(ObjBindMethod(implObj, "get_ModifiedTime"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(ObjBindMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_ComputerVersion := CallbackCreate(ObjBindMethod(implObj, "get_ComputerVersion"), flags, 2)
+        this.vtbl.get_UserVersion := CallbackCreate(ObjBindMethod(implObj, "get_UserVersion"), flags, 2)
+        this.vtbl.get_StarterGPOVersion := CallbackCreate(ObjBindMethod(implObj, "get_StarterGPOVersion"), flags, 2)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.Save := CallbackCreate(ObjBindMethod(implObj, "Save"), flags, 12)
+        this.vtbl.Backup := CallbackCreate(ObjBindMethod(implObj, "Backup"), flags, 6)
+        this.vtbl.CopyTo := CallbackCreate(ObjBindMethod(implObj, "CopyTo"), flags, 5)
+        this.vtbl.GenerateReport := CallbackCreate(ObjBindMethod(implObj, "GenerateReport"), flags, 5)
+        this.vtbl.GenerateReportToFile := CallbackCreate(ObjBindMethod(implObj, "GenerateReportToFile"), flags, 4)
+        this.vtbl.GetSecurityInfo := CallbackCreate(ObjBindMethod(implObj, "GetSecurityInfo"), flags, 2)
+        this.vtbl.SetSecurityInfo := CallbackCreate(ObjBindMethod(implObj, "SetSecurityInfo"), flags, 2)
     }
 
     Dispose() {

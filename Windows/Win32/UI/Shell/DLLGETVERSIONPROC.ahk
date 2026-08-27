@@ -26,7 +26,6 @@ export default struct DLLGETVERSIONPROC {
     }
 
     /**
-     * 
      * @param {Pointer<DLLVERSIONINFO>} param0 
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 

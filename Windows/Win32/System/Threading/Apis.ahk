@@ -162,8 +162,8 @@ export GetCurrentThreadEffectiveToken() {
  * @since windows5.1.2600
  */
 export GetProcessWorkingSetSize(hProcess, lpMinimumWorkingSetSize, lpMaximumWorkingSetSize) {
-    lpMinimumWorkingSetSizeMarshal := lpMinimumWorkingSetSize is VarRef ? "ptr*" : "ptr"
-    lpMaximumWorkingSetSizeMarshal := lpMaximumWorkingSetSize is VarRef ? "ptr*" : "ptr"
+    lpMinimumWorkingSetSizeMarshal := lpMinimumWorkingSetSize is VarRef ? "ptr*" : IntPtr
+    lpMaximumWorkingSetSizeMarshal := lpMaximumWorkingSetSize is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -251,9 +251,11 @@ export SetProcessWorkingSetSize(hProcess, dwMinimumWorkingSetSize, dwMaximumWork
  * @since windows6.0.6000
  */
 export FlsAlloc(lpCallback) {
+    lpCallbackMarshal := lpCallback == 0 ? IntPtr : PFLS_CALLBACK_FUNCTION
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\FlsAlloc", PFLS_CALLBACK_FUNCTION, lpCallback, UInt32)
+    result := DllCall("KERNEL32.dll\FlsAlloc", lpCallbackMarshal, lpCallback, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -335,7 +337,8 @@ export FlsGetValue(dwFlsIndex) {
  * @since windows6.0.6000
  */
 export FlsSetValue(dwFlsIndex, lpFlsData) {
-    lpFlsDataMarshal := lpFlsData is VarRef ? "ptr" : "ptr"
+    lpFlsDataMarshal := lpFlsData is VarRef ? "ptr" : IntPtr
+    lpFlsDataMarshal := lpFlsData == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -390,7 +393,6 @@ export IsThreadAFiber() {
 }
 
 /**
- * 
  * @param {Integer} dwTlsIndex 
  * @returns {Pointer<Void>} 
  */
@@ -800,8 +802,10 @@ export InitOnceInitialize(InitOnce) {
  * @since windows6.0.6000
  */
 export InitOnceExecuteOnce(InitOnce, InitFn, Parameter, _Context) {
-    ParameterMarshal := Parameter is VarRef ? "ptr" : "ptr"
-    _ContextMarshal := _Context is VarRef ? "ptr*" : "ptr"
+    ParameterMarshal := Parameter is VarRef ? "ptr" : IntPtr
+    ParameterMarshal := Parameter == 0 ? IntPtr : "ptr"
+    _ContextMarshal := _Context is VarRef ? "ptr*" : IntPtr
+    _ContextMarshal := _Context == 0 ? IntPtr : "ptr*"
 
     A_LastError := 0
 
@@ -873,8 +877,9 @@ export InitOnceExecuteOnce(InitOnce, InitFn, Parameter, _Context) {
  * @since windows6.0.6000
  */
 export InitOnceBeginInitialize(lpInitOnce, dwFlags, fPending, lpContext) {
-    fPendingMarshal := fPending is VarRef ? "int*" : "ptr"
-    lpContextMarshal := lpContext is VarRef ? "ptr*" : "ptr"
+    fPendingMarshal := fPending is VarRef ? "int*" : IntPtr
+    lpContextMarshal := lpContext is VarRef ? "ptr*" : IntPtr
+    lpContextMarshal := lpContext == 0 ? IntPtr : "ptr*"
 
     A_LastError := 0
 
@@ -931,7 +936,8 @@ export InitOnceBeginInitialize(lpInitOnce, dwFlags, fPending, lpContext) {
  * @since windows6.0.6000
  */
 export InitOnceComplete(lpInitOnce, dwFlags, lpContext) {
-    lpContextMarshal := lpContext is VarRef ? "ptr" : "ptr"
+    lpContextMarshal := lpContext is VarRef ? "ptr" : IntPtr
+    lpContextMarshal := lpContext == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -1163,7 +1169,8 @@ export ResetEvent(hEvent) {
  * @since windows5.1.2600
  */
 export ReleaseSemaphore(_hSemaphore, lReleaseCount, lpPreviousCount) {
-    lpPreviousCountMarshal := lpPreviousCount is VarRef ? "int*" : "ptr"
+    lpPreviousCountMarshal := lpPreviousCount is VarRef ? "int*" : IntPtr
+    lpPreviousCountMarshal := lpPreviousCount == 0 ? IntPtr : "int*"
 
     A_LastError := 0
 
@@ -1725,9 +1732,12 @@ export WaitForMultipleObjectsEx(nCount, lpHandles, bWaitAll, dwMilliseconds, bAl
 export CreateMutexA(lpMutexAttributes, bInitialOwner, lpName) {
     lpName := lpName is String ? StrPtr(lpName) : lpName
 
+    lpMutexAttributesMarshal := lpMutexAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpNameMarshal := lpName == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateMutexA", SECURITY_ATTRIBUTES.Ptr, lpMutexAttributes, BOOL, bInitialOwner, "ptr", lpName, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateMutexA", lpMutexAttributesMarshal, lpMutexAttributes, BOOL, bInitialOwner, lpNameMarshal, lpName, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1804,9 +1814,12 @@ export CreateMutexA(lpMutexAttributes, bInitialOwner, lpName) {
 export CreateMutexW(lpMutexAttributes, bInitialOwner, lpName) {
     lpName := lpName is String ? StrPtr(lpName) : lpName
 
+    lpMutexAttributesMarshal := lpMutexAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpNameMarshal := lpName == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateMutexW", SECURITY_ATTRIBUTES.Ptr, lpMutexAttributes, BOOL, bInitialOwner, "ptr", lpName, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateMutexW", lpMutexAttributesMarshal, lpMutexAttributes, BOOL, bInitialOwner, lpNameMarshal, lpName, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1956,9 +1969,12 @@ export OpenMutexW(dwDesiredAccess, bInheritHandle, lpName) {
 export CreateEventA(lpEventAttributes, bManualReset, bInitialState, lpName) {
     lpName := lpName is String ? StrPtr(lpName) : lpName
 
+    lpEventAttributesMarshal := lpEventAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpNameMarshal := lpName == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateEventA", SECURITY_ATTRIBUTES.Ptr, lpEventAttributes, BOOL, bManualReset, BOOL, bInitialState, "ptr", lpName, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateEventA", lpEventAttributesMarshal, lpEventAttributes, BOOL, bManualReset, BOOL, bInitialState, lpNameMarshal, lpName, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2061,9 +2077,12 @@ export CreateEventA(lpEventAttributes, bManualReset, bInitialState, lpName) {
 export CreateEventW(lpEventAttributes, bManualReset, bInitialState, lpName) {
     lpName := lpName is String ? StrPtr(lpName) : lpName
 
+    lpEventAttributesMarshal := lpEventAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpNameMarshal := lpName == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateEventW", SECURITY_ATTRIBUTES.Ptr, lpEventAttributes, BOOL, bManualReset, BOOL, bInitialState, "ptr", lpName, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateEventW", lpEventAttributesMarshal, lpEventAttributes, BOOL, bManualReset, BOOL, bInitialState, lpNameMarshal, lpName, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2297,12 +2316,15 @@ export OpenWaitableTimerW(dwDesiredAccess, bInheritHandle, lpTimerName) {
  * @since windows6.1
  */
 export SetWaitableTimerEx(hTimer, lpDueTime, lPeriod, pfnCompletionRoutine, lpArgToCompletionRoutine, WakeContext, TolerableDelay) {
-    lpDueTimeMarshal := lpDueTime is VarRef ? "int64*" : "ptr"
-    lpArgToCompletionRoutineMarshal := lpArgToCompletionRoutine is VarRef ? "ptr" : "ptr"
+    lpDueTimeMarshal := lpDueTime is VarRef ? "int64*" : IntPtr
+    pfnCompletionRoutineMarshal := pfnCompletionRoutine == 0 ? IntPtr : PTIMERAPCROUTINE
+    lpArgToCompletionRoutineMarshal := lpArgToCompletionRoutine is VarRef ? "ptr" : IntPtr
+    lpArgToCompletionRoutineMarshal := lpArgToCompletionRoutine == 0 ? IntPtr : "ptr"
+    WakeContextMarshal := WakeContext == 0 ? IntPtr : REASON_CONTEXT.Ptr
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetWaitableTimerEx", HANDLE, hTimer, lpDueTimeMarshal, lpDueTime, Int32, lPeriod, PTIMERAPCROUTINE, pfnCompletionRoutine, lpArgToCompletionRoutineMarshal, lpArgToCompletionRoutine, REASON_CONTEXT.Ptr, WakeContext, UInt32, TolerableDelay, BOOL)
+    result := DllCall("KERNEL32.dll\SetWaitableTimerEx", HANDLE, hTimer, lpDueTimeMarshal, lpDueTime, Int32, lPeriod, pfnCompletionRoutineMarshal, pfnCompletionRoutine, lpArgToCompletionRoutineMarshal, lpArgToCompletionRoutine, WakeContextMarshal, WakeContext, UInt32, TolerableDelay, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2360,12 +2382,14 @@ export SetWaitableTimerEx(hTimer, lpDueTime, lPeriod, pfnCompletionRoutine, lpAr
  * @since windows5.1.2600
  */
 export SetWaitableTimer(hTimer, lpDueTime, lPeriod, pfnCompletionRoutine, lpArgToCompletionRoutine, fResume) {
-    lpDueTimeMarshal := lpDueTime is VarRef ? "int64*" : "ptr"
-    lpArgToCompletionRoutineMarshal := lpArgToCompletionRoutine is VarRef ? "ptr" : "ptr"
+    lpDueTimeMarshal := lpDueTime is VarRef ? "int64*" : IntPtr
+    pfnCompletionRoutineMarshal := pfnCompletionRoutine == 0 ? IntPtr : PTIMERAPCROUTINE
+    lpArgToCompletionRoutineMarshal := lpArgToCompletionRoutine is VarRef ? "ptr" : IntPtr
+    lpArgToCompletionRoutineMarshal := lpArgToCompletionRoutine == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetWaitableTimer", HANDLE, hTimer, lpDueTimeMarshal, lpDueTime, Int32, lPeriod, PTIMERAPCROUTINE, pfnCompletionRoutine, lpArgToCompletionRoutineMarshal, lpArgToCompletionRoutine, BOOL, fResume, BOOL)
+    result := DllCall("KERNEL32.dll\SetWaitableTimer", HANDLE, hTimer, lpDueTimeMarshal, lpDueTime, Int32, lPeriod, pfnCompletionRoutineMarshal, pfnCompletionRoutine, lpArgToCompletionRoutineMarshal, lpArgToCompletionRoutine, BOOL, fResume, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2496,9 +2520,12 @@ export CancelWaitableTimer(hTimer) {
 export CreateMutexExA(lpMutexAttributes, lpName, dwFlags, dwDesiredAccess) {
     lpName := lpName is String ? StrPtr(lpName) : lpName
 
+    lpMutexAttributesMarshal := lpMutexAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpNameMarshal := lpName == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateMutexExA", SECURITY_ATTRIBUTES.Ptr, lpMutexAttributes, "ptr", lpName, UInt32, dwFlags, UInt32, dwDesiredAccess, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateMutexExA", lpMutexAttributesMarshal, lpMutexAttributes, lpNameMarshal, lpName, UInt32, dwFlags, UInt32, dwDesiredAccess, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2596,9 +2623,12 @@ export CreateMutexExA(lpMutexAttributes, lpName, dwFlags, dwDesiredAccess) {
 export CreateMutexExW(lpMutexAttributes, lpName, dwFlags, dwDesiredAccess) {
     lpName := lpName is String ? StrPtr(lpName) : lpName
 
+    lpMutexAttributesMarshal := lpMutexAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpNameMarshal := lpName == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateMutexExW", SECURITY_ATTRIBUTES.Ptr, lpMutexAttributes, "ptr", lpName, UInt32, dwFlags, UInt32, dwDesiredAccess, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateMutexExW", lpMutexAttributesMarshal, lpMutexAttributes, lpNameMarshal, lpName, UInt32, dwFlags, UInt32, dwDesiredAccess, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2696,9 +2726,12 @@ export CreateMutexExW(lpMutexAttributes, lpName, dwFlags, dwDesiredAccess) {
 export CreateEventExA(lpEventAttributes, lpName, dwFlags, dwDesiredAccess) {
     lpName := lpName is String ? StrPtr(lpName) : lpName
 
+    lpEventAttributesMarshal := lpEventAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpNameMarshal := lpName == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateEventExA", SECURITY_ATTRIBUTES.Ptr, lpEventAttributes, "ptr", lpName, CREATE_EVENT, dwFlags, UInt32, dwDesiredAccess, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateEventExA", lpEventAttributesMarshal, lpEventAttributes, lpNameMarshal, lpName, CREATE_EVENT, dwFlags, UInt32, dwDesiredAccess, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2796,9 +2829,12 @@ export CreateEventExA(lpEventAttributes, lpName, dwFlags, dwDesiredAccess) {
 export CreateEventExW(lpEventAttributes, lpName, dwFlags, dwDesiredAccess) {
     lpName := lpName is String ? StrPtr(lpName) : lpName
 
+    lpEventAttributesMarshal := lpEventAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpNameMarshal := lpName == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateEventExW", SECURITY_ATTRIBUTES.Ptr, lpEventAttributes, "ptr", lpName, CREATE_EVENT, dwFlags, UInt32, dwDesiredAccess, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateEventExW", lpEventAttributesMarshal, lpEventAttributes, lpNameMarshal, lpName, CREATE_EVENT, dwFlags, UInt32, dwDesiredAccess, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2864,9 +2900,12 @@ export CreateSemaphoreExW(lpSemaphoreAttributes, lInitialCount, lMaximumCount, l
 
     lpName := lpName is String ? StrPtr(lpName) : lpName
 
+    lpSemaphoreAttributesMarshal := lpSemaphoreAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpNameMarshal := lpName == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateSemaphoreExW", SECURITY_ATTRIBUTES.Ptr, lpSemaphoreAttributes, Int32, lInitialCount, Int32, lMaximumCount, "ptr", lpName, UInt32, dwFlags, UInt32, dwDesiredAccess, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateSemaphoreExW", lpSemaphoreAttributesMarshal, lpSemaphoreAttributes, Int32, lInitialCount, Int32, lMaximumCount, lpNameMarshal, lpName, UInt32, dwFlags, UInt32, dwDesiredAccess, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2946,9 +2985,12 @@ export CreateSemaphoreExW(lpSemaphoreAttributes, lInitialCount, lMaximumCount, l
 export CreateWaitableTimerExW(lpTimerAttributes, lpTimerName, dwFlags, dwDesiredAccess) {
     lpTimerName := lpTimerName is String ? StrPtr(lpTimerName) : lpTimerName
 
+    lpTimerAttributesMarshal := lpTimerAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpTimerNameMarshal := lpTimerName == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateWaitableTimerExW", SECURITY_ATTRIBUTES.Ptr, lpTimerAttributes, "ptr", lpTimerName, UInt32, dwFlags, UInt32, dwDesiredAccess, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateWaitableTimerExW", lpTimerAttributesMarshal, lpTimerAttributes, lpTimerNameMarshal, lpTimerName, UInt32, dwFlags, UInt32, dwDesiredAccess, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3138,9 +3180,11 @@ export Sleep(dwMilliseconds) {
  * @since windows8.0
  */
 export WaitOnAddress(_Address, CompareAddress, AddressSize, dwMilliseconds) {
+    dwMillisecondsMarshal := dwMilliseconds == 0 ? IntPtr : UInt32
+
     A_LastError := 0
 
-    result := DllCall("api-ms-win-core-synch-l1-2-0.dll\WaitOnAddress", IntPtr, _Address, IntPtr, CompareAddress, IntPtr, AddressSize, UInt32, dwMilliseconds, BOOL)
+    result := DllCall("api-ms-win-core-synch-l1-2-0.dll\WaitOnAddress", IntPtr, _Address, IntPtr, CompareAddress, IntPtr, AddressSize, dwMillisecondsMarshal, dwMilliseconds, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3163,7 +3207,7 @@ export WaitOnAddress(_Address, CompareAddress, AddressSize, dwMilliseconds) {
  * @since windows8.0
  */
 export WakeByAddressSingle(_Address) {
-    _AddressMarshal := _Address is VarRef ? "ptr" : "ptr"
+    _AddressMarshal := _Address is VarRef ? "ptr" : IntPtr
 
     DllCall("api-ms-win-core-synch-l1-2-0.dll\WakeByAddressSingle", _AddressMarshal, _Address)
 }
@@ -3182,7 +3226,7 @@ export WakeByAddressSingle(_Address) {
  * @since windows8.0
  */
 export WakeByAddressAll(_Address) {
-    _AddressMarshal := _Address is VarRef ? "ptr" : "ptr"
+    _AddressMarshal := _Address is VarRef ? "ptr" : IntPtr
 
     DllCall("api-ms-win-core-synch-l1-2-0.dll\WakeByAddressAll", _AddressMarshal, _Address)
 }
@@ -3377,9 +3421,12 @@ export WaitForMultipleObjects(nCount, lpHandles, bWaitAll, dwMilliseconds) {
 export CreateSemaphoreW(lpSemaphoreAttributes, lInitialCount, lMaximumCount, lpName) {
     lpName := lpName is String ? StrPtr(lpName) : lpName
 
+    lpSemaphoreAttributesMarshal := lpSemaphoreAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpNameMarshal := lpName == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateSemaphoreW", SECURITY_ATTRIBUTES.Ptr, lpSemaphoreAttributes, Int32, lInitialCount, Int32, lMaximumCount, "ptr", lpName, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateSemaphoreW", lpSemaphoreAttributesMarshal, lpSemaphoreAttributes, Int32, lInitialCount, Int32, lMaximumCount, lpNameMarshal, lpName, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3441,9 +3488,12 @@ export CreateSemaphoreW(lpSemaphoreAttributes, lInitialCount, lMaximumCount, lpN
 export CreateWaitableTimerW(lpTimerAttributes, bManualReset, lpTimerName) {
     lpTimerName := lpTimerName is String ? StrPtr(lpTimerName) : lpTimerName
 
+    lpTimerAttributesMarshal := lpTimerAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpTimerNameMarshal := lpTimerName == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateWaitableTimerW", SECURITY_ATTRIBUTES.Ptr, lpTimerAttributes, BOOL, bManualReset, "ptr", lpTimerName, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateWaitableTimerW", lpTimerAttributesMarshal, lpTimerAttributes, BOOL, bManualReset, lpTimerNameMarshal, lpTimerName, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3811,7 +3861,7 @@ export TerminateProcess(hProcess, uExitCode) {
  * @since windows5.1.2600
  */
 export GetExitCodeProcess(hProcess, lpExitCode) {
-    lpExitCodeMarshal := lpExitCode is VarRef ? "uint*" : "ptr"
+    lpExitCodeMarshal := lpExitCode is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -3961,12 +4011,15 @@ export SwitchToThread() {
  * @since windows5.1.2600
  */
 export CreateThread(lpThreadAttributes, dwStackSize, lpStartAddress, lpParameter, dwCreationFlags, lpThreadId) {
-    lpParameterMarshal := lpParameter is VarRef ? "ptr" : "ptr"
-    lpThreadIdMarshal := lpThreadId is VarRef ? "uint*" : "ptr"
+    lpThreadAttributesMarshal := lpThreadAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpParameterMarshal := lpParameter is VarRef ? "ptr" : IntPtr
+    lpParameterMarshal := lpParameter == 0 ? IntPtr : "ptr"
+    lpThreadIdMarshal := lpThreadId is VarRef ? "uint*" : IntPtr
+    lpThreadIdMarshal := lpThreadId == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateThread", SECURITY_ATTRIBUTES.Ptr, lpThreadAttributes, IntPtr, dwStackSize, LPTHREAD_START_ROUTINE, lpStartAddress, lpParameterMarshal, lpParameter, THREAD_CREATION_FLAGS, dwCreationFlags, lpThreadIdMarshal, lpThreadId, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateThread", lpThreadAttributesMarshal, lpThreadAttributes, IntPtr, dwStackSize, LPTHREAD_START_ROUTINE, lpStartAddress, lpParameterMarshal, lpParameter, THREAD_CREATION_FLAGS, dwCreationFlags, lpThreadIdMarshal, lpThreadId, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4088,12 +4141,15 @@ export CreateThread(lpThreadAttributes, dwStackSize, lpStartAddress, lpParameter
  * @since windows5.1.2600
  */
 export CreateRemoteThread(hProcess, lpThreadAttributes, dwStackSize, lpStartAddress, lpParameter, dwCreationFlags, lpThreadId) {
-    lpParameterMarshal := lpParameter is VarRef ? "ptr" : "ptr"
-    lpThreadIdMarshal := lpThreadId is VarRef ? "uint*" : "ptr"
+    lpThreadAttributesMarshal := lpThreadAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpParameterMarshal := lpParameter is VarRef ? "ptr" : IntPtr
+    lpParameterMarshal := lpParameter == 0 ? IntPtr : "ptr"
+    lpThreadIdMarshal := lpThreadId is VarRef ? "uint*" : IntPtr
+    lpThreadIdMarshal := lpThreadId == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateRemoteThread", HANDLE, hProcess, SECURITY_ATTRIBUTES.Ptr, lpThreadAttributes, IntPtr, dwStackSize, LPTHREAD_START_ROUTINE, lpStartAddress, lpParameterMarshal, lpParameter, UInt32, dwCreationFlags, lpThreadIdMarshal, lpThreadId, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateRemoteThread", HANDLE, hProcess, lpThreadAttributesMarshal, lpThreadAttributes, IntPtr, dwStackSize, LPTHREAD_START_ROUTINE, lpStartAddress, lpParameterMarshal, lpParameter, UInt32, dwCreationFlags, lpThreadIdMarshal, lpThreadId, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4272,7 +4328,7 @@ export SetThreadPriorityBoost(hThread, bDisablePriorityBoost) {
  * @since windows5.1.2600
  */
 export GetThreadPriorityBoost(hThread, pDisablePriorityBoost) {
-    pDisablePriorityBoostMarshal := pDisablePriorityBoost is VarRef ? "int*" : "ptr"
+    pDisablePriorityBoostMarshal := pDisablePriorityBoost is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
@@ -4548,7 +4604,7 @@ export TerminateThread(hThread, dwExitCode) {
  * @since windows5.1.2600
  */
 export GetExitCodeThread(hThread, lpExitCode) {
-    lpExitCodeMarshal := lpExitCode is VarRef ? "uint*" : "ptr"
+    lpExitCodeMarshal := lpExitCode is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -4740,7 +4796,8 @@ export TlsGetValue(dwTlsIndex) {
  * @since windows5.1.2600
  */
 export TlsSetValue(dwTlsIndex, lpTlsValue) {
-    lpTlsValueMarshal := lpTlsValue is VarRef ? "ptr" : "ptr"
+    lpTlsValueMarshal := lpTlsValue is VarRef ? "ptr" : IntPtr
+    lpTlsValueMarshal := lpTlsValue == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -4968,11 +5025,17 @@ export CreateProcessA(lpApplicationName, lpCommandLine, lpProcessAttributes, lpT
     lpCommandLine := lpCommandLine is String ? StrPtr(lpCommandLine) : lpCommandLine
     lpCurrentDirectory := lpCurrentDirectory is String ? StrPtr(lpCurrentDirectory) : lpCurrentDirectory
 
-    lpEnvironmentMarshal := lpEnvironment is VarRef ? "ptr" : "ptr"
+    lpApplicationNameMarshal := lpApplicationName == 0 ? IntPtr : PSTR
+    lpCommandLineMarshal := lpCommandLine == 0 ? IntPtr : PSTR
+    lpProcessAttributesMarshal := lpProcessAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpThreadAttributesMarshal := lpThreadAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpEnvironmentMarshal := lpEnvironment is VarRef ? "ptr" : IntPtr
+    lpEnvironmentMarshal := lpEnvironment == 0 ? IntPtr : "ptr"
+    lpCurrentDirectoryMarshal := lpCurrentDirectory == 0 ? IntPtr : PSTR
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateProcessA", "ptr", lpApplicationName, "ptr", lpCommandLine, SECURITY_ATTRIBUTES.Ptr, lpProcessAttributes, SECURITY_ATTRIBUTES.Ptr, lpThreadAttributes, BOOL, bInheritHandles, PROCESS_CREATION_FLAGS, dwCreationFlags, lpEnvironmentMarshal, lpEnvironment, "ptr", lpCurrentDirectory, STARTUPINFOA.Ptr, lpStartupInfo, PROCESS_INFORMATION.Ptr, lpProcessInformation, BOOL)
+    result := DllCall("KERNEL32.dll\CreateProcessA", lpApplicationNameMarshal, lpApplicationName, lpCommandLineMarshal, lpCommandLine, lpProcessAttributesMarshal, lpProcessAttributes, lpThreadAttributesMarshal, lpThreadAttributes, BOOL, bInheritHandles, PROCESS_CREATION_FLAGS, dwCreationFlags, lpEnvironmentMarshal, lpEnvironment, lpCurrentDirectoryMarshal, lpCurrentDirectory, STARTUPINFOA.Ptr, lpStartupInfo, PROCESS_INFORMATION.Ptr, lpProcessInformation, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5165,11 +5228,17 @@ export CreateProcessW(lpApplicationName, lpCommandLine, lpProcessAttributes, lpT
     lpCommandLine := lpCommandLine is String ? StrPtr(lpCommandLine) : lpCommandLine
     lpCurrentDirectory := lpCurrentDirectory is String ? StrPtr(lpCurrentDirectory) : lpCurrentDirectory
 
-    lpEnvironmentMarshal := lpEnvironment is VarRef ? "ptr" : "ptr"
+    lpApplicationNameMarshal := lpApplicationName == 0 ? IntPtr : PWSTR
+    lpCommandLineMarshal := lpCommandLine == 0 ? IntPtr : PWSTR
+    lpProcessAttributesMarshal := lpProcessAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpThreadAttributesMarshal := lpThreadAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpEnvironmentMarshal := lpEnvironment is VarRef ? "ptr" : IntPtr
+    lpEnvironmentMarshal := lpEnvironment == 0 ? IntPtr : "ptr"
+    lpCurrentDirectoryMarshal := lpCurrentDirectory == 0 ? IntPtr : PWSTR
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateProcessW", "ptr", lpApplicationName, "ptr", lpCommandLine, SECURITY_ATTRIBUTES.Ptr, lpProcessAttributes, SECURITY_ATTRIBUTES.Ptr, lpThreadAttributes, BOOL, bInheritHandles, PROCESS_CREATION_FLAGS, dwCreationFlags, lpEnvironmentMarshal, lpEnvironment, "ptr", lpCurrentDirectory, STARTUPINFOW.Ptr, lpStartupInfo, PROCESS_INFORMATION.Ptr, lpProcessInformation, BOOL)
+    result := DllCall("KERNEL32.dll\CreateProcessW", lpApplicationNameMarshal, lpApplicationName, lpCommandLineMarshal, lpCommandLine, lpProcessAttributesMarshal, lpProcessAttributes, lpThreadAttributesMarshal, lpThreadAttributes, BOOL, bInheritHandles, PROCESS_CREATION_FLAGS, dwCreationFlags, lpEnvironmentMarshal, lpEnvironment, lpCurrentDirectoryMarshal, lpCurrentDirectory, STARTUPINFOW.Ptr, lpStartupInfo, PROCESS_INFORMATION.Ptr, lpProcessInformation, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5540,11 +5609,18 @@ export CreateProcessAsUserW(hToken, lpApplicationName, lpCommandLine, lpProcessA
     lpCommandLine := lpCommandLine is String ? StrPtr(lpCommandLine) : lpCommandLine
     lpCurrentDirectory := lpCurrentDirectory is String ? StrPtr(lpCurrentDirectory) : lpCurrentDirectory
 
-    lpEnvironmentMarshal := lpEnvironment is VarRef ? "ptr" : "ptr"
+    hTokenMarshal := hToken == 0 ? IntPtr : HANDLE
+    lpApplicationNameMarshal := lpApplicationName == 0 ? IntPtr : PWSTR
+    lpCommandLineMarshal := lpCommandLine == 0 ? IntPtr : PWSTR
+    lpProcessAttributesMarshal := lpProcessAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpThreadAttributesMarshal := lpThreadAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpEnvironmentMarshal := lpEnvironment is VarRef ? "ptr" : IntPtr
+    lpEnvironmentMarshal := lpEnvironment == 0 ? IntPtr : "ptr"
+    lpCurrentDirectoryMarshal := lpCurrentDirectory == 0 ? IntPtr : PWSTR
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CreateProcessAsUserW", HANDLE, hToken, "ptr", lpApplicationName, "ptr", lpCommandLine, SECURITY_ATTRIBUTES.Ptr, lpProcessAttributes, SECURITY_ATTRIBUTES.Ptr, lpThreadAttributes, BOOL, bInheritHandles, PROCESS_CREATION_FLAGS, dwCreationFlags, lpEnvironmentMarshal, lpEnvironment, "ptr", lpCurrentDirectory, STARTUPINFOW.Ptr, lpStartupInfo, PROCESS_INFORMATION.Ptr, lpProcessInformation, BOOL)
+    result := DllCall("ADVAPI32.dll\CreateProcessAsUserW", hTokenMarshal, hToken, lpApplicationNameMarshal, lpApplicationName, lpCommandLineMarshal, lpCommandLine, lpProcessAttributesMarshal, lpProcessAttributes, lpThreadAttributesMarshal, lpThreadAttributes, BOOL, bInheritHandles, PROCESS_CREATION_FLAGS, dwCreationFlags, lpEnvironmentMarshal, lpEnvironment, lpCurrentDirectoryMarshal, lpCurrentDirectory, STARTUPINFOW.Ptr, lpStartupInfo, PROCESS_INFORMATION.Ptr, lpProcessInformation, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5577,9 +5653,12 @@ export CreateProcessAsUserW(hToken, lpApplicationName, lpCommandLine, lpProcessA
  * @since windows5.1.2600
  */
 export SetThreadToken(Thread, Token) {
+    ThreadMarshal := Thread == 0 ? IntPtr : HANDLE.Ptr
+    TokenMarshal := Token == 0 ? IntPtr : HANDLE
+
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\SetThreadToken", HANDLE.Ptr, Thread, HANDLE, Token, BOOL)
+    result := DllCall("ADVAPI32.dll\SetThreadToken", ThreadMarshal, Thread, TokenMarshal, Token, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5836,7 +5915,7 @@ export GetPriorityClass(hProcess) {
  * @since windows6.0.6000
  */
 export SetThreadStackGuarantee(StackSizeInBytes) {
-    StackSizeInBytesMarshal := StackSizeInBytes is VarRef ? "uint*" : "ptr"
+    StackSizeInBytesMarshal := StackSizeInBytes is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -5968,11 +6047,12 @@ export GetProcessIdOfThread(Thread) {
 export InitializeProcThreadAttributeList(lpAttributeList, dwAttributeCount, lpSize) {
     static dwFlags := 0 ;Reserved parameters must always be NULL
 
-    lpSizeMarshal := lpSize is VarRef ? "ptr*" : "ptr"
+    lpAttributeListMarshal := lpAttributeList == 0 ? IntPtr : IntPtr
+    lpSizeMarshal := lpSize is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\InitializeProcThreadAttributeList", IntPtr, lpAttributeList, UInt32, dwAttributeCount, UInt32, dwFlags, lpSizeMarshal, lpSize, BOOL)
+    result := DllCall("KERNEL32.dll\InitializeProcThreadAttributeList", lpAttributeListMarshal, lpAttributeList, UInt32, dwAttributeCount, UInt32, dwFlags, lpSizeMarshal, lpSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6399,11 +6479,14 @@ export DeleteProcThreadAttributeList(lpAttributeList) {
  * @since windows6.0.6000
  */
 export UpdateProcThreadAttribute(lpAttributeList, dwFlags, Attribute, lpValue, cbSize, lpPreviousValue, lpReturnSize) {
-    lpReturnSizeMarshal := lpReturnSize is VarRef ? "ptr*" : "ptr"
+    lpValueMarshal := lpValue == 0 ? IntPtr : IntPtr
+    lpPreviousValueMarshal := lpPreviousValue == 0 ? IntPtr : IntPtr
+    lpReturnSizeMarshal := lpReturnSize is VarRef ? "ptr*" : IntPtr
+    lpReturnSizeMarshal := lpReturnSize == 0 ? IntPtr : "ptr*"
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\UpdateProcThreadAttribute", LPPROC_THREAD_ATTRIBUTE_LIST, lpAttributeList, UInt32, dwFlags, IntPtr, Attribute, IntPtr, lpValue, IntPtr, cbSize, IntPtr, lpPreviousValue, lpReturnSizeMarshal, lpReturnSize, BOOL)
+    result := DllCall("KERNEL32.dll\UpdateProcThreadAttribute", LPPROC_THREAD_ATTRIBUTE_LIST, lpAttributeList, UInt32, dwFlags, IntPtr, Attribute, lpValueMarshal, lpValue, IntPtr, cbSize, lpPreviousValueMarshal, lpPreviousValue, lpReturnSizeMarshal, lpReturnSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6515,7 +6598,8 @@ export SetProcessAffinityUpdateMode(hProcess, dwFlags) {
  * @since windows6.0.6000
  */
 export QueryProcessAffinityUpdateMode(hProcess, lpdwFlags) {
-    lpdwFlagsMarshal := lpdwFlags is VarRef ? "uint*" : "ptr"
+    lpdwFlagsMarshal := lpdwFlags is VarRef ? "uint*" : IntPtr
+    lpdwFlagsMarshal := lpdwFlags == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
@@ -6636,12 +6720,16 @@ export QueryProcessAffinityUpdateMode(hProcess, lpdwFlags) {
  * @since windows6.1
  */
 export CreateRemoteThreadEx(hProcess, lpThreadAttributes, dwStackSize, lpStartAddress, lpParameter, dwCreationFlags, lpAttributeList, lpThreadId) {
-    lpParameterMarshal := lpParameter is VarRef ? "ptr" : "ptr"
-    lpThreadIdMarshal := lpThreadId is VarRef ? "uint*" : "ptr"
+    lpThreadAttributesMarshal := lpThreadAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpParameterMarshal := lpParameter is VarRef ? "ptr" : IntPtr
+    lpParameterMarshal := lpParameter == 0 ? IntPtr : "ptr"
+    lpAttributeListMarshal := lpAttributeList == 0 ? IntPtr : LPPROC_THREAD_ATTRIBUTE_LIST
+    lpThreadIdMarshal := lpThreadId is VarRef ? "uint*" : IntPtr
+    lpThreadIdMarshal := lpThreadId == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateRemoteThreadEx", HANDLE, hProcess, SECURITY_ATTRIBUTES.Ptr, lpThreadAttributes, IntPtr, dwStackSize, LPTHREAD_START_ROUTINE, lpStartAddress, lpParameterMarshal, lpParameter, UInt32, dwCreationFlags, LPPROC_THREAD_ATTRIBUTE_LIST, lpAttributeList, lpThreadIdMarshal, lpThreadId, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateRemoteThreadEx", HANDLE, hProcess, lpThreadAttributesMarshal, lpThreadAttributes, IntPtr, dwStackSize, LPTHREAD_START_ROUTINE, lpStartAddress, lpParameterMarshal, lpParameter, UInt32, dwCreationFlags, lpAttributeListMarshal, lpAttributeList, lpThreadIdMarshal, lpThreadId, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6666,8 +6754,8 @@ export CreateRemoteThreadEx(hProcess, lpThreadAttributes, dwStackSize, lpStartAd
  * @since windows8.0
  */
 export GetCurrentThreadStackLimits(LowLimit, HighLimit) {
-    LowLimitMarshal := LowLimit is VarRef ? "ptr*" : "ptr"
-    HighLimitMarshal := HighLimit is VarRef ? "ptr*" : "ptr"
+    LowLimitMarshal := LowLimit is VarRef ? "ptr*" : IntPtr
+    HighLimitMarshal := HighLimit is VarRef ? "ptr*" : IntPtr
 
     DllCall("KERNEL32.dll\GetCurrentThreadStackLimits", LowLimitMarshal, LowLimit, HighLimitMarshal, HighLimit)
 }
@@ -6890,7 +6978,7 @@ export IsProcessorFeaturePresent(ProcessorFeature) {
  * @since windows6.0.6000
  */
 export GetProcessHandleCount(hProcess, pdwHandleCount) {
-    pdwHandleCountMarshal := pdwHandleCount is VarRef ? "uint*" : "ptr"
+    pdwHandleCountMarshal := pdwHandleCount is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -6940,9 +7028,11 @@ export GetCurrentProcessorNumber() {
  * @since windows6.1
  */
 export SetThreadIdealProcessorEx(hThread, lpIdealProcessor, lpPreviousIdealProcessor) {
+    lpPreviousIdealProcessorMarshal := lpPreviousIdealProcessor == 0 ? IntPtr : PROCESSOR_NUMBER.Ptr
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetThreadIdealProcessorEx", HANDLE, hThread, PROCESSOR_NUMBER.Ptr, lpIdealProcessor, PROCESSOR_NUMBER.Ptr, lpPreviousIdealProcessor, BOOL)
+    result := DllCall("KERNEL32.dll\SetThreadIdealProcessorEx", HANDLE, hThread, PROCESSOR_NUMBER.Ptr, lpIdealProcessor, lpPreviousIdealProcessorMarshal, lpPreviousIdealProcessor, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7001,7 +7091,7 @@ export GetCurrentProcessorNumberEx(ProcNumber) {
  * @since windows5.1.2600
  */
 export GetProcessPriorityBoost(hProcess, pDisablePriorityBoost) {
-    pDisablePriorityBoostMarshal := pDisablePriorityBoost is VarRef ? "int*" : "ptr"
+    pDisablePriorityBoostMarshal := pDisablePriorityBoost is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
@@ -7056,7 +7146,7 @@ export SetProcessPriorityBoost(hProcess, bDisablePriorityBoost) {
  * @since windows6.0.6000
  */
 export GetThreadIOPendingFlag(hThread, lpIOIsPending) {
-    lpIOIsPendingMarshal := lpIOIsPending is VarRef ? "int*" : "ptr"
+    lpIOIsPendingMarshal := lpIOIsPending is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
@@ -7082,9 +7172,13 @@ export GetThreadIOPendingFlag(hThread, lpIOIsPending) {
  * @since windows6.0.6000
  */
 export GetSystemTimes(lpIdleTime, lpKernelTime, lpUserTime) {
+    lpIdleTimeMarshal := lpIdleTime == 0 ? IntPtr : FILETIME.Ptr
+    lpKernelTimeMarshal := lpKernelTime == 0 ? IntPtr : FILETIME.Ptr
+    lpUserTimeMarshal := lpUserTime == 0 ? IntPtr : FILETIME.Ptr
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetSystemTimes", FILETIME.Ptr, lpIdleTime, FILETIME.Ptr, lpKernelTime, FILETIME.Ptr, lpUserTime, BOOL)
+    result := DllCall("KERNEL32.dll\GetSystemTimes", lpIdleTimeMarshal, lpIdleTime, lpKernelTimeMarshal, lpKernelTime, lpUserTimeMarshal, lpUserTime, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7177,7 +7271,7 @@ export SetThreadInformation(hThread, ThreadInformationClass, ThreadInformation, 
  * @since windows8.1
  */
 export IsProcessCritical(hProcess, Critical) {
-    CriticalMarshal := Critical is VarRef ? "int*" : "ptr"
+    CriticalMarshal := Critical is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
@@ -7206,7 +7300,8 @@ export IsProcessCritical(hProcess, Critical) {
  * @since windows8.1
  */
 export SetProtectedPolicy(PolicyGuid, PolicyValue, OldPolicyValue) {
-    OldPolicyValueMarshal := OldPolicyValue is VarRef ? "ptr*" : "ptr"
+    OldPolicyValueMarshal := OldPolicyValue is VarRef ? "ptr*" : IntPtr
+    OldPolicyValueMarshal := OldPolicyValue == 0 ? IntPtr : "ptr*"
 
     A_LastError := 0
 
@@ -7234,7 +7329,7 @@ export SetProtectedPolicy(PolicyGuid, PolicyValue, OldPolicyValue) {
  * @since windows8.1
  */
 export QueryProtectedPolicy(PolicyGuid, PolicyValue) {
-    PolicyValueMarshal := PolicyValue is VarRef ? "ptr*" : "ptr"
+    PolicyValueMarshal := PolicyValue is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("KERNEL32.dll\QueryProtectedPolicy", Guid.Ptr, PolicyGuid, PolicyValueMarshal, PolicyValue, BOOL)
     return result
@@ -7397,8 +7492,9 @@ export GetProcessInformation(hProcess, ProcessInformationClass, ProcessInformati
  * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getprocessdefaultcpusets
  */
 export GetProcessDefaultCpuSets(Process, CpuSetIds, CpuSetIdCount, RequiredIdCount) {
-    CpuSetIdsMarshal := CpuSetIds is VarRef ? "uint*" : "ptr"
-    RequiredIdCountMarshal := RequiredIdCount is VarRef ? "uint*" : "ptr"
+    CpuSetIdsMarshal := CpuSetIds is VarRef ? "uint*" : IntPtr
+    CpuSetIdsMarshal := CpuSetIds == 0 ? IntPtr : "uint*"
+    RequiredIdCountMarshal := RequiredIdCount is VarRef ? "uint*" : IntPtr
 
     result := DllCall("KERNEL32.dll\GetProcessDefaultCpuSets", HANDLE, Process, CpuSetIdsMarshal, CpuSetIds, UInt32, CpuSetIdCount, RequiredIdCountMarshal, RequiredIdCount, BOOL)
     return result
@@ -7413,7 +7509,8 @@ export GetProcessDefaultCpuSets(Process, CpuSetIds, CpuSetIdCount, RequiredIdCou
  * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-setprocessdefaultcpusets
  */
 export SetProcessDefaultCpuSets(Process, CpuSetIds, CpuSetIdCount) {
-    CpuSetIdsMarshal := CpuSetIds is VarRef ? "uint*" : "ptr"
+    CpuSetIdsMarshal := CpuSetIds is VarRef ? "uint*" : IntPtr
+    CpuSetIdsMarshal := CpuSetIds == 0 ? IntPtr : "uint*"
 
     result := DllCall("KERNEL32.dll\SetProcessDefaultCpuSets", HANDLE, Process, CpuSetIdsMarshal, CpuSetIds, UInt32, CpuSetIdCount, BOOL)
     return result
@@ -7429,8 +7526,9 @@ export SetProcessDefaultCpuSets(Process, CpuSetIds, CpuSetIdCount) {
  * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getthreadselectedcpusets
  */
 export GetThreadSelectedCpuSets(Thread, CpuSetIds, CpuSetIdCount, RequiredIdCount) {
-    CpuSetIdsMarshal := CpuSetIds is VarRef ? "uint*" : "ptr"
-    RequiredIdCountMarshal := RequiredIdCount is VarRef ? "uint*" : "ptr"
+    CpuSetIdsMarshal := CpuSetIds is VarRef ? "uint*" : IntPtr
+    CpuSetIdsMarshal := CpuSetIds == 0 ? IntPtr : "uint*"
+    RequiredIdCountMarshal := RequiredIdCount is VarRef ? "uint*" : IntPtr
 
     result := DllCall("KERNEL32.dll\GetThreadSelectedCpuSets", HANDLE, Thread, CpuSetIdsMarshal, CpuSetIds, UInt32, CpuSetIdCount, RequiredIdCountMarshal, RequiredIdCount, BOOL)
     return result
@@ -7445,7 +7543,7 @@ export GetThreadSelectedCpuSets(Thread, CpuSetIds, CpuSetIdCount, RequiredIdCoun
  * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-setthreadselectedcpusets
  */
 export SetThreadSelectedCpuSets(Thread, CpuSetIds, CpuSetIdCount) {
-    CpuSetIdsMarshal := CpuSetIds is VarRef ? "uint*" : "ptr"
+    CpuSetIdsMarshal := CpuSetIds is VarRef ? "uint*" : IntPtr
 
     result := DllCall("KERNEL32.dll\SetThreadSelectedCpuSets", HANDLE, Thread, CpuSetIdsMarshal, CpuSetIds, UInt32, CpuSetIdCount, BOOL)
     return result
@@ -7659,11 +7757,18 @@ export CreateProcessAsUserA(hToken, lpApplicationName, lpCommandLine, lpProcessA
     lpCommandLine := lpCommandLine is String ? StrPtr(lpCommandLine) : lpCommandLine
     lpCurrentDirectory := lpCurrentDirectory is String ? StrPtr(lpCurrentDirectory) : lpCurrentDirectory
 
-    lpEnvironmentMarshal := lpEnvironment is VarRef ? "ptr" : "ptr"
+    hTokenMarshal := hToken == 0 ? IntPtr : HANDLE
+    lpApplicationNameMarshal := lpApplicationName == 0 ? IntPtr : PSTR
+    lpCommandLineMarshal := lpCommandLine == 0 ? IntPtr : PSTR
+    lpProcessAttributesMarshal := lpProcessAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpThreadAttributesMarshal := lpThreadAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpEnvironmentMarshal := lpEnvironment is VarRef ? "ptr" : IntPtr
+    lpEnvironmentMarshal := lpEnvironment == 0 ? IntPtr : "ptr"
+    lpCurrentDirectoryMarshal := lpCurrentDirectory == 0 ? IntPtr : PSTR
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CreateProcessAsUserA", HANDLE, hToken, "ptr", lpApplicationName, "ptr", lpCommandLine, SECURITY_ATTRIBUTES.Ptr, lpProcessAttributes, SECURITY_ATTRIBUTES.Ptr, lpThreadAttributes, BOOL, bInheritHandles, PROCESS_CREATION_FLAGS, dwCreationFlags, lpEnvironmentMarshal, lpEnvironment, "ptr", lpCurrentDirectory, STARTUPINFOA.Ptr, lpStartupInfo, PROCESS_INFORMATION.Ptr, lpProcessInformation, BOOL)
+    result := DllCall("ADVAPI32.dll\CreateProcessAsUserA", hTokenMarshal, hToken, lpApplicationNameMarshal, lpApplicationName, lpCommandLineMarshal, lpCommandLine, lpProcessAttributesMarshal, lpProcessAttributes, lpThreadAttributesMarshal, lpThreadAttributes, BOOL, bInheritHandles, PROCESS_CREATION_FLAGS, dwCreationFlags, lpEnvironmentMarshal, lpEnvironment, lpCurrentDirectoryMarshal, lpCurrentDirectory, STARTUPINFOA.Ptr, lpStartupInfo, PROCESS_INFORMATION.Ptr, lpProcessInformation, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7766,8 +7871,8 @@ export CreateProcessAsUserA(hToken, lpApplicationName, lpCommandLine, lpProcessA
  * @since windows5.1.2600
  */
 export GetProcessShutdownParameters(lpdwLevel, lpdwFlags) {
-    lpdwLevelMarshal := lpdwLevel is VarRef ? "uint*" : "ptr"
-    lpdwFlagsMarshal := lpdwFlags is VarRef ? "uint*" : "ptr"
+    lpdwLevelMarshal := lpdwLevel is VarRef ? "uint*" : IntPtr
+    lpdwFlagsMarshal := lpdwFlags is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -7797,9 +7902,10 @@ export GetProcessShutdownParameters(lpdwLevel, lpdwFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getprocessdefaultcpusetmasks
  */
 export GetProcessDefaultCpuSetMasks(Process, CpuSetMasks, CpuSetMaskCount, RequiredMaskCount) {
-    RequiredMaskCountMarshal := RequiredMaskCount is VarRef ? "ushort*" : "ptr"
+    CpuSetMasksMarshal := CpuSetMasks == 0 ? IntPtr : GROUP_AFFINITY.Ptr
+    RequiredMaskCountMarshal := RequiredMaskCount is VarRef ? "ushort*" : IntPtr
 
-    result := DllCall("KERNEL32.dll\GetProcessDefaultCpuSetMasks", HANDLE, Process, GROUP_AFFINITY.Ptr, CpuSetMasks, UInt16, CpuSetMaskCount, RequiredMaskCountMarshal, RequiredMaskCount, BOOL)
+    result := DllCall("KERNEL32.dll\GetProcessDefaultCpuSetMasks", HANDLE, Process, CpuSetMasksMarshal, CpuSetMasks, UInt16, CpuSetMaskCount, RequiredMaskCountMarshal, RequiredMaskCount, BOOL)
     return result
 }
 
@@ -7816,7 +7922,9 @@ export GetProcessDefaultCpuSetMasks(Process, CpuSetMasks, CpuSetMaskCount, Requi
  * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-setprocessdefaultcpusetmasks
  */
 export SetProcessDefaultCpuSetMasks(Process, CpuSetMasks, CpuSetMaskCount) {
-    result := DllCall("KERNEL32.dll\SetProcessDefaultCpuSetMasks", HANDLE, Process, GROUP_AFFINITY.Ptr, CpuSetMasks, UInt16, CpuSetMaskCount, BOOL)
+    CpuSetMasksMarshal := CpuSetMasks == 0 ? IntPtr : GROUP_AFFINITY.Ptr
+
+    result := DllCall("KERNEL32.dll\SetProcessDefaultCpuSetMasks", HANDLE, Process, CpuSetMasksMarshal, CpuSetMasks, UInt16, CpuSetMaskCount, BOOL)
     return result
 }
 
@@ -7840,9 +7948,10 @@ export SetProcessDefaultCpuSetMasks(Process, CpuSetMasks, CpuSetMaskCount) {
  * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getthreadselectedcpusetmasks
  */
 export GetThreadSelectedCpuSetMasks(Thread, CpuSetMasks, CpuSetMaskCount, RequiredMaskCount) {
-    RequiredMaskCountMarshal := RequiredMaskCount is VarRef ? "ushort*" : "ptr"
+    CpuSetMasksMarshal := CpuSetMasks == 0 ? IntPtr : GROUP_AFFINITY.Ptr
+    RequiredMaskCountMarshal := RequiredMaskCount is VarRef ? "ushort*" : IntPtr
 
-    result := DllCall("KERNEL32.dll\GetThreadSelectedCpuSetMasks", HANDLE, Thread, GROUP_AFFINITY.Ptr, CpuSetMasks, UInt16, CpuSetMaskCount, RequiredMaskCountMarshal, RequiredMaskCount, BOOL)
+    result := DllCall("KERNEL32.dll\GetThreadSelectedCpuSetMasks", HANDLE, Thread, CpuSetMasksMarshal, CpuSetMasks, UInt16, CpuSetMaskCount, RequiredMaskCountMarshal, RequiredMaskCount, BOOL)
     return result
 }
 
@@ -7859,7 +7968,9 @@ export GetThreadSelectedCpuSetMasks(Thread, CpuSetMasks, CpuSetMaskCount, Requir
  * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-setthreadselectedcpusetmasks
  */
 export SetThreadSelectedCpuSetMasks(Thread, CpuSetMasks, CpuSetMaskCount) {
-    result := DllCall("KERNEL32.dll\SetThreadSelectedCpuSetMasks", HANDLE, Thread, GROUP_AFFINITY.Ptr, CpuSetMasks, UInt16, CpuSetMaskCount, BOOL)
+    CpuSetMasksMarshal := CpuSetMasks == 0 ? IntPtr : GROUP_AFFINITY.Ptr
+
+    result := DllCall("KERNEL32.dll\SetThreadSelectedCpuSetMasks", HANDLE, Thread, CpuSetMasksMarshal, CpuSetMasks, UInt16, CpuSetMaskCount, BOOL)
     return result
 }
 
@@ -7915,7 +8026,6 @@ export GetThreadDescription(hThread) {
 }
 
 /**
- * 
  * @param {Integer} dwTlsIndex 
  * @returns {Pointer<Void>} 
  */
@@ -7950,7 +8060,8 @@ export TlsGetValue2(dwTlsIndex) {
  * @since windows5.1.2600
  */
 export QueueUserWorkItem(Function, _Context, Flags) {
-    _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+    _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+    _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -7993,9 +8104,11 @@ export QueueUserWorkItem(Function, _Context, Flags) {
  * @since windows5.1.2600
  */
 export UnregisterWaitEx(WaitHandle, CompletionEvent) {
+    CompletionEventMarshal := CompletionEvent == 0 ? IntPtr : HANDLE
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\UnregisterWaitEx", HANDLE, WaitHandle, HANDLE, CompletionEvent, BOOL)
+    result := DllCall("KERNEL32.dll\UnregisterWaitEx", HANDLE, WaitHandle, CompletionEventMarshal, CompletionEvent, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8069,11 +8182,13 @@ export CreateTimerQueue() {
  * @since windows5.1.2600
  */
 export CreateTimerQueueTimer(phNewTimer, TimerQueue, Callback, Parameter, DueTime, Period, Flags) {
-    ParameterMarshal := Parameter is VarRef ? "ptr" : "ptr"
+    TimerQueueMarshal := TimerQueue == 0 ? IntPtr : HANDLE
+    ParameterMarshal := Parameter is VarRef ? "ptr" : IntPtr
+    ParameterMarshal := Parameter == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateTimerQueueTimer", HANDLE.Ptr, phNewTimer, HANDLE, TimerQueue, WAITORTIMERCALLBACK, Callback, ParameterMarshal, Parameter, UInt32, DueTime, UInt32, Period, WORKER_THREAD_FLAGS, Flags, BOOL)
+    result := DllCall("KERNEL32.dll\CreateTimerQueueTimer", HANDLE.Ptr, phNewTimer, TimerQueueMarshal, TimerQueue, WAITORTIMERCALLBACK, Callback, ParameterMarshal, Parameter, UInt32, DueTime, UInt32, Period, WORKER_THREAD_FLAGS, Flags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8119,9 +8234,11 @@ export CreateTimerQueueTimer(phNewTimer, TimerQueue, Callback, Parameter, DueTim
  * @since windows5.1.2600
  */
 export ChangeTimerQueueTimer(TimerQueue, Timer, DueTime, Period) {
+    TimerQueueMarshal := TimerQueue == 0 ? IntPtr : HANDLE
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\ChangeTimerQueueTimer", HANDLE, TimerQueue, HANDLE, Timer, UInt32, DueTime, UInt32, Period, BOOL)
+    result := DllCall("KERNEL32.dll\ChangeTimerQueueTimer", TimerQueueMarshal, TimerQueue, HANDLE, Timer, UInt32, DueTime, UInt32, Period, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8171,9 +8288,12 @@ export ChangeTimerQueueTimer(TimerQueue, Timer, DueTime, Period) {
  * @since windows5.1.2600
  */
 export DeleteTimerQueueTimer(TimerQueue, Timer, CompletionEvent) {
+    TimerQueueMarshal := TimerQueue == 0 ? IntPtr : HANDLE
+    CompletionEventMarshal := CompletionEvent == 0 ? IntPtr : HANDLE
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\DeleteTimerQueueTimer", HANDLE, TimerQueue, HANDLE, Timer, HANDLE, CompletionEvent, BOOL)
+    result := DllCall("KERNEL32.dll\DeleteTimerQueueTimer", TimerQueueMarshal, TimerQueue, HANDLE, Timer, CompletionEventMarshal, CompletionEvent, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8234,9 +8354,11 @@ export DeleteTimerQueue(TimerQueue) {
  * @since windows5.1.2600
  */
 export DeleteTimerQueueEx(TimerQueue, CompletionEvent) {
+    CompletionEventMarshal := CompletionEvent == 0 ? IntPtr : HANDLE
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\DeleteTimerQueueEx", HANDLE, TimerQueue, HANDLE, CompletionEvent, BOOL)
+    result := DllCall("KERNEL32.dll\DeleteTimerQueueEx", HANDLE, TimerQueue, CompletionEventMarshal, CompletionEvent, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8461,7 +8583,8 @@ export CreateThreadpoolCleanupGroup() {
  * @since windows6.0.6000
  */
 export CloseThreadpoolCleanupGroupMembers(ptpcg, fCancelPendingCallbacks, pvCleanupContext) {
-    pvCleanupContextMarshal := pvCleanupContext is VarRef ? "ptr" : "ptr"
+    pvCleanupContextMarshal := pvCleanupContext is VarRef ? "ptr" : IntPtr
+    pvCleanupContextMarshal := pvCleanupContext == 0 ? IntPtr : "ptr"
 
     DllCall("KERNEL32.dll\CloseThreadpoolCleanupGroupMembers", PTP_CLEANUP_GROUP, ptpcg, BOOL, fCancelPendingCallbacks, pvCleanupContextMarshal, pvCleanupContext)
 }
@@ -8609,11 +8732,13 @@ export DisassociateCurrentThreadFromCallback(pci) {
  * @since windows6.0.6000
  */
 export TrySubmitThreadpoolCallback(pfns, pv, pcbe) {
-    pvMarshal := pv is VarRef ? "ptr" : "ptr"
+    pvMarshal := pv is VarRef ? "ptr" : IntPtr
+    pvMarshal := pv == 0 ? IntPtr : "ptr"
+    pcbeMarshal := pcbe == 0 ? IntPtr : TP_CALLBACK_ENVIRON_V3.Ptr
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\TrySubmitThreadpoolCallback", PTP_SIMPLE_CALLBACK, pfns, pvMarshal, pv, TP_CALLBACK_ENVIRON_V3.Ptr, pcbe, BOOL)
+    result := DllCall("KERNEL32.dll\TrySubmitThreadpoolCallback", PTP_SIMPLE_CALLBACK, pfns, pvMarshal, pv, pcbeMarshal, pcbe, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8637,11 +8762,13 @@ export TrySubmitThreadpoolCallback(pfns, pv, pcbe) {
  * @since windows6.0.6000
  */
 export CreateThreadpoolWork(pfnwk, pv, pcbe) {
-    pvMarshal := pv is VarRef ? "ptr" : "ptr"
+    pvMarshal := pv is VarRef ? "ptr" : IntPtr
+    pvMarshal := pv == 0 ? IntPtr : "ptr"
+    pcbeMarshal := pcbe == 0 ? IntPtr : TP_CALLBACK_ENVIRON_V3.Ptr
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateThreadpoolWork", PTP_WORK_CALLBACK, pfnwk, pvMarshal, pv, TP_CALLBACK_ENVIRON_V3.Ptr, pcbe, PTP_WORK.Owned)
+    result := DllCall("KERNEL32.dll\CreateThreadpoolWork", PTP_WORK_CALLBACK, pfnwk, pvMarshal, pv, pcbeMarshal, pcbe, PTP_WORK.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8713,11 +8840,13 @@ export CloseThreadpoolWork(pwk) {
  * @since windows6.0.6000
  */
 export CreateThreadpoolTimer(pfnti, pv, pcbe) {
-    pvMarshal := pv is VarRef ? "ptr" : "ptr"
+    pvMarshal := pv is VarRef ? "ptr" : IntPtr
+    pvMarshal := pv == 0 ? IntPtr : "ptr"
+    pcbeMarshal := pcbe == 0 ? IntPtr : TP_CALLBACK_ENVIRON_V3.Ptr
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateThreadpoolTimer", PTP_TIMER_CALLBACK, pfnti, pvMarshal, pv, TP_CALLBACK_ENVIRON_V3.Ptr, pcbe, PTP_TIMER.Owned)
+    result := DllCall("KERNEL32.dll\CreateThreadpoolTimer", PTP_TIMER_CALLBACK, pfnti, pvMarshal, pv, pcbeMarshal, pcbe, PTP_TIMER.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8750,7 +8879,10 @@ export CreateThreadpoolTimer(pfnti, pv, pcbe) {
  * @since windows6.0.6000
  */
 export SetThreadpoolTimer(pti, pftDueTime, msPeriod, msWindowLength) {
-    DllCall("KERNEL32.dll\SetThreadpoolTimer", PTP_TIMER, pti, FILETIME.Ptr, pftDueTime, UInt32, msPeriod, UInt32, msWindowLength)
+    pftDueTimeMarshal := pftDueTime == 0 ? IntPtr : FILETIME.Ptr
+    msWindowLengthMarshal := msWindowLength == 0 ? IntPtr : UInt32
+
+    DllCall("KERNEL32.dll\SetThreadpoolTimer", PTP_TIMER, pti, pftDueTimeMarshal, pftDueTime, UInt32, msPeriod, msWindowLengthMarshal, msWindowLength)
 }
 
 /**
@@ -8831,11 +8963,13 @@ export CloseThreadpoolTimer(pti) {
  * @since windows6.0.6000
  */
 export CreateThreadpoolWait(pfnwa, pv, pcbe) {
-    pvMarshal := pv is VarRef ? "ptr" : "ptr"
+    pvMarshal := pv is VarRef ? "ptr" : IntPtr
+    pvMarshal := pv == 0 ? IntPtr : "ptr"
+    pcbeMarshal := pcbe == 0 ? IntPtr : TP_CALLBACK_ENVIRON_V3.Ptr
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateThreadpoolWait", PTP_WAIT_CALLBACK, pfnwa, pvMarshal, pv, TP_CALLBACK_ENVIRON_V3.Ptr, pcbe, PTP_WAIT.Owned)
+    result := DllCall("KERNEL32.dll\CreateThreadpoolWait", PTP_WAIT_CALLBACK, pfnwa, pvMarshal, pv, pcbeMarshal, pcbe, PTP_WAIT.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8869,7 +9003,10 @@ export CreateThreadpoolWait(pfnwa, pv, pcbe) {
  * @since windows6.0.6000
  */
 export SetThreadpoolWait(pwa, h, pftTimeout) {
-    DllCall("KERNEL32.dll\SetThreadpoolWait", PTP_WAIT, pwa, HANDLE, h, FILETIME.Ptr, pftTimeout)
+    hMarshal := h == 0 ? IntPtr : HANDLE
+    pftTimeoutMarshal := pftTimeout == 0 ? IntPtr : FILETIME.Ptr
+
+    DllCall("KERNEL32.dll\SetThreadpoolWait", PTP_WAIT, pwa, hMarshal, h, pftTimeoutMarshal, pftTimeout)
 }
 
 /**
@@ -8932,11 +9069,13 @@ export CloseThreadpoolWait(pwa) {
  * @since windows6.0.6000
  */
 export CreateThreadpoolIo(fl, pfnio, pv, pcbe) {
-    pvMarshal := pv is VarRef ? "ptr" : "ptr"
+    pvMarshal := pv is VarRef ? "ptr" : IntPtr
+    pvMarshal := pv == 0 ? IntPtr : "ptr"
+    pcbeMarshal := pcbe == 0 ? IntPtr : TP_CALLBACK_ENVIRON_V3.Ptr
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateThreadpoolIo", HANDLE, fl, PTP_WIN32_IO_CALLBACK, pfnio, pvMarshal, pv, TP_CALLBACK_ENVIRON_V3.Ptr, pcbe, PTP_IO.Owned)
+    result := DllCall("KERNEL32.dll\CreateThreadpoolIo", HANDLE, fl, PTP_WIN32_IO_CALLBACK, pfnio, pvMarshal, pv, pcbeMarshal, pcbe, PTP_IO.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9044,7 +9183,10 @@ export CloseThreadpoolIo(pio) {
  * @since windows8.0
  */
 export SetThreadpoolTimerEx(pti, pftDueTime, msPeriod, msWindowLength) {
-    result := DllCall("KERNEL32.dll\SetThreadpoolTimerEx", PTP_TIMER, pti, FILETIME.Ptr, pftDueTime, UInt32, msPeriod, UInt32, msWindowLength, BOOL)
+    pftDueTimeMarshal := pftDueTime == 0 ? IntPtr : FILETIME.Ptr
+    msWindowLengthMarshal := msWindowLength == 0 ? IntPtr : UInt32
+
+    result := DllCall("KERNEL32.dll\SetThreadpoolTimerEx", PTP_TIMER, pti, pftDueTimeMarshal, pftDueTime, UInt32, msPeriod, msWindowLengthMarshal, msWindowLength, BOOL)
     return result
 }
 
@@ -9080,7 +9222,10 @@ export SetThreadpoolTimerEx(pti, pftDueTime, msPeriod, msWindowLength) {
 export SetThreadpoolWaitEx(pwa, h, pftTimeout) {
     static Reserved := 0 ;Reserved parameters must always be NULL
 
-    result := DllCall("KERNEL32.dll\SetThreadpoolWaitEx", PTP_WAIT, pwa, HANDLE, h, FILETIME.Ptr, pftTimeout, "ptr", Reserved, BOOL)
+    hMarshal := h == 0 ? IntPtr : HANDLE
+    pftTimeoutMarshal := pftTimeout == 0 ? IntPtr : FILETIME.Ptr
+
+    result := DllCall("KERNEL32.dll\SetThreadpoolWaitEx", PTP_WAIT, pwa, hMarshal, h, pftTimeoutMarshal, pftTimeout, "ptr", Reserved, BOOL)
     return result
 }
 
@@ -9101,7 +9246,7 @@ export SetThreadpoolWaitEx(pwa, h, pftTimeout) {
  * @since windows6.0.6000
  */
 export IsWow64Process(hProcess, Wow64Process) {
-    Wow64ProcessMarshal := Wow64Process is VarRef ? "int*" : "ptr"
+    Wow64ProcessMarshal := Wow64Process is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
@@ -9145,8 +9290,9 @@ export Wow64SetThreadDefaultGuestMachine(Machine) {
  * @since windows10.0.10586
  */
 export IsWow64Process2(hProcess, pProcessMachine, pNativeMachine) {
-    pProcessMachineMarshal := pProcessMachine is VarRef ? "ushort*" : "ptr"
-    pNativeMachineMarshal := pNativeMachine is VarRef ? "ushort*" : "ptr"
+    pProcessMachineMarshal := pProcessMachine is VarRef ? "ushort*" : IntPtr
+    pNativeMachineMarshal := pNativeMachine is VarRef ? "ushort*" : IntPtr
+    pNativeMachineMarshal := pNativeMachine == 0 ? IntPtr : "ushort*"
 
     A_LastError := 0
 
@@ -9217,9 +9363,10 @@ export Wow64SuspendThread(hThread) {
 export CreatePrivateNamespaceW(lpPrivateNamespaceAttributes, lpBoundaryDescriptor, lpAliasPrefix) {
     lpAliasPrefix := lpAliasPrefix is String ? StrPtr(lpAliasPrefix) : lpAliasPrefix
 
-    lpBoundaryDescriptorMarshal := lpBoundaryDescriptor is VarRef ? "ptr" : "ptr"
+    lpPrivateNamespaceAttributesMarshal := lpPrivateNamespaceAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpBoundaryDescriptorMarshal := lpBoundaryDescriptor is VarRef ? "ptr" : IntPtr
 
-    result := DllCall("KERNEL32.dll\CreatePrivateNamespaceW", SECURITY_ATTRIBUTES.Ptr, lpPrivateNamespaceAttributes, lpBoundaryDescriptorMarshal, lpBoundaryDescriptor, "ptr", lpAliasPrefix, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreatePrivateNamespaceW", lpPrivateNamespaceAttributesMarshal, lpPrivateNamespaceAttributes, lpBoundaryDescriptorMarshal, lpBoundaryDescriptor, "ptr", lpAliasPrefix, HANDLE.Owned)
     return result
 }
 
@@ -9235,7 +9382,7 @@ export CreatePrivateNamespaceW(lpPrivateNamespaceAttributes, lpBoundaryDescripto
 export OpenPrivateNamespaceW(lpBoundaryDescriptor, lpAliasPrefix) {
     lpAliasPrefix := lpAliasPrefix is String ? StrPtr(lpAliasPrefix) : lpAliasPrefix
 
-    lpBoundaryDescriptorMarshal := lpBoundaryDescriptor is VarRef ? "ptr" : "ptr"
+    lpBoundaryDescriptorMarshal := lpBoundaryDescriptor is VarRef ? "ptr" : IntPtr
 
     result := DllCall("KERNEL32.dll\OpenPrivateNamespaceW", lpBoundaryDescriptorMarshal, lpBoundaryDescriptor, "ptr", lpAliasPrefix, HANDLE.Owned)
     return result
@@ -9344,7 +9491,7 @@ export DeleteBoundaryDescriptor(BoundaryDescriptor) {
  * @since windows6.0.6000
  */
 export GetNumaHighestNodeNumber(HighestNodeNumber) {
-    HighestNodeNumberMarshal := HighestNodeNumber is VarRef ? "uint*" : "ptr"
+    HighestNodeNumberMarshal := HighestNodeNumber is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -9411,9 +9558,10 @@ export GetNumaNodeProcessorMaskEx(_Node, ProcessorMask) {
  * @see https://learn.microsoft.com/windows/win32/api/systemtopologyapi/nf-systemtopologyapi-getnumanodeprocessormask2
  */
 export GetNumaNodeProcessorMask2(NodeNumber, ProcessorMasks, ProcessorMaskCount, RequiredMaskCount) {
-    RequiredMaskCountMarshal := RequiredMaskCount is VarRef ? "ushort*" : "ptr"
+    ProcessorMasksMarshal := ProcessorMasks == 0 ? IntPtr : GROUP_AFFINITY.Ptr
+    RequiredMaskCountMarshal := RequiredMaskCount is VarRef ? "ushort*" : IntPtr
 
-    result := DllCall("KERNEL32.dll\GetNumaNodeProcessorMask2", UInt16, NodeNumber, GROUP_AFFINITY.Ptr, ProcessorMasks, UInt16, ProcessorMaskCount, RequiredMaskCountMarshal, RequiredMaskCount, BOOL)
+    result := DllCall("KERNEL32.dll\GetNumaNodeProcessorMask2", UInt16, NodeNumber, ProcessorMasksMarshal, ProcessorMasks, UInt16, ProcessorMaskCount, RequiredMaskCountMarshal, RequiredMaskCount, BOOL)
     return result
 }
 
@@ -9436,7 +9584,7 @@ export GetNumaNodeProcessorMask2(NodeNumber, ProcessorMasks, ProcessorMaskCount,
  * @since windows6.1
  */
 export GetNumaProximityNodeEx(ProximityId, NodeNumber) {
-    NodeNumberMarshal := NodeNumber is VarRef ? "ushort*" : "ptr"
+    NodeNumberMarshal := NodeNumber is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("KERNEL32.dll\GetNumaProximityNodeEx", UInt32, ProximityId, NodeNumberMarshal, NodeNumber, BOOL)
     return result
@@ -9463,8 +9611,8 @@ export GetNumaProximityNodeEx(ProximityId, NodeNumber) {
  * @since windows6.1
  */
 export GetProcessGroupAffinity(hProcess, GroupCount, GroupArray) {
-    GroupCountMarshal := GroupCount is VarRef ? "ushort*" : "ptr"
-    GroupArrayMarshal := GroupArray is VarRef ? "ushort*" : "ptr"
+    GroupCountMarshal := GroupCount is VarRef ? "ushort*" : IntPtr
+    GroupArrayMarshal := GroupArray is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("KERNEL32.dll\GetProcessGroupAffinity", HANDLE, hProcess, GroupCountMarshal, GroupCount, GroupArrayMarshal, GroupArray, BOOL)
     return result
@@ -9512,7 +9660,9 @@ export GetThreadGroupAffinity(hThread, GroupAffinity) {
  * @since windows6.1
  */
 export SetThreadGroupAffinity(hThread, GroupAffinity, PreviousGroupAffinity) {
-    result := DllCall("KERNEL32.dll\SetThreadGroupAffinity", HANDLE, hThread, GROUP_AFFINITY.Ptr, GroupAffinity, GROUP_AFFINITY.Ptr, PreviousGroupAffinity, BOOL)
+    PreviousGroupAffinityMarshal := PreviousGroupAffinity == 0 ? IntPtr : GROUP_AFFINITY.Ptr
+
+    result := DllCall("KERNEL32.dll\SetThreadGroupAffinity", HANDLE, hThread, GROUP_AFFINITY.Ptr, GroupAffinity, PreviousGroupAffinityMarshal, PreviousGroupAffinity, BOOL)
     return result
 }
 
@@ -9583,7 +9733,7 @@ export SetThreadGroupAffinity(hThread, GroupAffinity, PreviousGroupAffinity) {
 export AvSetMmThreadCharacteristicsA(TaskName, TaskIndex) {
     TaskName := TaskName is String ? StrPtr(TaskName) : TaskName
 
-    TaskIndexMarshal := TaskIndex is VarRef ? "uint*" : "ptr"
+    TaskIndexMarshal := TaskIndex is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -9662,7 +9812,7 @@ export AvSetMmThreadCharacteristicsA(TaskName, TaskIndex) {
 export AvSetMmThreadCharacteristicsW(TaskName, TaskIndex) {
     TaskName := TaskName is String ? StrPtr(TaskName) : TaskName
 
-    TaskIndexMarshal := TaskIndex is VarRef ? "uint*" : "ptr"
+    TaskIndexMarshal := TaskIndex is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -9745,7 +9895,7 @@ export AvSetMmMaxThreadCharacteristicsA(FirstTask, SecondTask, TaskIndex) {
     FirstTask := FirstTask is String ? StrPtr(FirstTask) : FirstTask
     SecondTask := SecondTask is String ? StrPtr(SecondTask) : SecondTask
 
-    TaskIndexMarshal := TaskIndex is VarRef ? "uint*" : "ptr"
+    TaskIndexMarshal := TaskIndex is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -9828,7 +9978,7 @@ export AvSetMmMaxThreadCharacteristicsW(FirstTask, SecondTask, TaskIndex) {
     FirstTask := FirstTask is String ? StrPtr(FirstTask) : FirstTask
     SecondTask := SecondTask is String ? StrPtr(SecondTask) : SecondTask
 
-    TaskIndexMarshal := TaskIndex is VarRef ? "uint*" : "ptr"
+    TaskIndexMarshal := TaskIndex is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -9921,8 +10071,9 @@ export AvSetMmThreadPriority(AvrtHandle, _Priority) {
  * @since windows6.0.6000
  */
 export AvRtCreateThreadOrderingGroup(_Context, Period, ThreadOrderingGuid, Timeout) {
-    PeriodMarshal := Period is VarRef ? "int64*" : "ptr"
-    TimeoutMarshal := Timeout is VarRef ? "int64*" : "ptr"
+    PeriodMarshal := Period is VarRef ? "int64*" : IntPtr
+    TimeoutMarshal := Timeout is VarRef ? "int64*" : IntPtr
+    TimeoutMarshal := Timeout == 0 ? IntPtr : "int64*"
 
     A_LastError := 0
 
@@ -9975,8 +10126,9 @@ export AvRtCreateThreadOrderingGroup(_Context, Period, ThreadOrderingGuid, Timeo
 export AvRtCreateThreadOrderingGroupExA(_Context, Period, ThreadOrderingGuid, Timeout, TaskName) {
     TaskName := TaskName is String ? StrPtr(TaskName) : TaskName
 
-    PeriodMarshal := Period is VarRef ? "int64*" : "ptr"
-    TimeoutMarshal := Timeout is VarRef ? "int64*" : "ptr"
+    PeriodMarshal := Period is VarRef ? "int64*" : IntPtr
+    TimeoutMarshal := Timeout is VarRef ? "int64*" : IntPtr
+    TimeoutMarshal := Timeout == 0 ? IntPtr : "int64*"
 
     A_LastError := 0
 
@@ -10029,8 +10181,9 @@ export AvRtCreateThreadOrderingGroupExA(_Context, Period, ThreadOrderingGuid, Ti
 export AvRtCreateThreadOrderingGroupExW(_Context, Period, ThreadOrderingGuid, Timeout, TaskName) {
     TaskName := TaskName is String ? StrPtr(TaskName) : TaskName
 
-    PeriodMarshal := Period is VarRef ? "int64*" : "ptr"
-    TimeoutMarshal := Timeout is VarRef ? "int64*" : "ptr"
+    PeriodMarshal := Period is VarRef ? "int64*" : IntPtr
+    TimeoutMarshal := Timeout is VarRef ? "int64*" : IntPtr
+    TimeoutMarshal := Timeout == 0 ? IntPtr : "int64*"
 
     A_LastError := 0
 
@@ -10160,7 +10313,7 @@ export AvRtDeleteThreadOrderingGroup(_Context) {
  * @since windows6.0.6000
  */
 export AvQuerySystemResponsiveness(AvrtHandle, SystemResponsivenessValue) {
-    SystemResponsivenessValueMarshal := SystemResponsivenessValue is VarRef ? "uint*" : "ptr"
+    SystemResponsivenessValueMarshal := SystemResponsivenessValue is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -10232,7 +10385,7 @@ export RtwqUnlockWorkQueue(workQueueId) {
 export RtwqLockSharedWorkQueue(usageClass, basePriority, taskId) {
     usageClass := usageClass is String ? StrPtr(usageClass) : usageClass
 
-    taskIdMarshal := taskId is VarRef ? "uint*" : "ptr"
+    taskIdMarshal := taskId is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RTWorkQ.dll\RtwqLockSharedWorkQueue", "ptr", usageClass, Int32, basePriority, taskIdMarshal, taskId, "uint*", &id := 0, "HRESULT")
     return id
@@ -10327,7 +10480,7 @@ export RtwqUnlockPlatform() {
 export RtwqRegisterPlatformWithMMCSS(usageClass, taskId, lPriority) {
     usageClass := usageClass is String ? StrPtr(usageClass) : usageClass
 
-    taskIdMarshal := taskId is VarRef ? "uint*" : "ptr"
+    taskIdMarshal := taskId is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RTWorkQ.dll\RtwqRegisterPlatformWithMMCSS", "ptr", usageClass, taskIdMarshal, taskId, Int32, lPriority, "HRESULT")
     return result
@@ -10557,9 +10710,10 @@ export RtwqEndRegisterWorkQueueWithMMCSS(result) {
 export RtwqGetWorkQueueMMCSSClass(workQueueId, usageClass, usageClassLength) {
     usageClass := usageClass is String ? StrPtr(usageClass) : usageClass
 
-    usageClassLengthMarshal := usageClassLength is VarRef ? "uint*" : "ptr"
+    usageClassMarshal := usageClass == 0 ? IntPtr : PWSTR
+    usageClassLengthMarshal := usageClassLength is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("RTWorkQ.dll\RtwqGetWorkQueueMMCSSClass", UInt32, workQueueId, "ptr", usageClass, usageClassLengthMarshal, usageClassLength, "HRESULT")
+    result := DllCall("RTWorkQ.dll\RtwqGetWorkQueueMMCSSClass", UInt32, workQueueId, usageClassMarshal, usageClass, usageClassLengthMarshal, usageClassLength, "HRESULT")
     return result
 }
 
@@ -10901,8 +11055,8 @@ export SetProcessRestrictionExemption(fEnableExemption) {
  * @since windows5.1.2600
  */
 export GetProcessAffinityMask(hProcess, lpProcessAffinityMask, lpSystemAffinityMask) {
-    lpProcessAffinityMaskMarshal := lpProcessAffinityMask is VarRef ? "ptr*" : "ptr"
-    lpSystemAffinityMaskMarshal := lpSystemAffinityMask is VarRef ? "ptr*" : "ptr"
+    lpProcessAffinityMaskMarshal := lpProcessAffinityMask is VarRef ? "ptr*" : IntPtr
+    lpSystemAffinityMaskMarshal := lpSystemAffinityMask is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -11009,7 +11163,7 @@ export GetProcessIoCounters(hProcess, lpIoCounters) {
  * @since windows5.1.2600
  */
 export SwitchToFiber(lpFiber) {
-    lpFiberMarshal := lpFiber is VarRef ? "ptr" : "ptr"
+    lpFiberMarshal := lpFiber is VarRef ? "ptr" : IntPtr
 
     DllCall("KERNEL32.dll\SwitchToFiber", lpFiberMarshal, lpFiber)
 }
@@ -11032,7 +11186,7 @@ export SwitchToFiber(lpFiber) {
  * @since windows5.1.2600
  */
 export DeleteFiber(lpFiber) {
-    lpFiberMarshal := lpFiber is VarRef ? "ptr" : "ptr"
+    lpFiberMarshal := lpFiber is VarRef ? "ptr" : IntPtr
 
     DllCall("KERNEL32.dll\DeleteFiber", lpFiberMarshal, lpFiber)
 }
@@ -11092,7 +11246,8 @@ export ConvertFiberToThread() {
  * @since windows5.1.2600
  */
 export CreateFiberEx(dwStackCommitSize, dwStackReserveSize, dwFlags, lpStartAddress, lpParameter) {
-    lpParameterMarshal := lpParameter is VarRef ? "ptr" : "ptr"
+    lpParameterMarshal := lpParameter is VarRef ? "ptr" : IntPtr
+    lpParameterMarshal := lpParameter == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -11124,7 +11279,8 @@ export CreateFiberEx(dwStackCommitSize, dwStackReserveSize, dwFlags, lpStartAddr
  * @since windows6.0.6000
  */
 export ConvertThreadToFiberEx(lpParameter, dwFlags) {
-    lpParameterMarshal := lpParameter is VarRef ? "ptr" : "ptr"
+    lpParameterMarshal := lpParameter is VarRef ? "ptr" : IntPtr
+    lpParameterMarshal := lpParameter == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -11162,7 +11318,8 @@ export ConvertThreadToFiberEx(lpParameter, dwFlags) {
  * @since windows5.1.2600
  */
 export CreateFiber(dwStackSize, lpStartAddress, lpParameter) {
-    lpParameterMarshal := lpParameter is VarRef ? "ptr" : "ptr"
+    lpParameterMarshal := lpParameter is VarRef ? "ptr" : IntPtr
+    lpParameterMarshal := lpParameter == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -11193,7 +11350,8 @@ export CreateFiber(dwStackSize, lpStartAddress, lpParameter) {
  * @since windows5.1.2600
  */
 export ConvertThreadToFiber(lpParameter) {
-    lpParameterMarshal := lpParameter is VarRef ? "ptr" : "ptr"
+    lpParameterMarshal := lpParameter is VarRef ? "ptr" : IntPtr
+    lpParameterMarshal := lpParameter == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -11262,7 +11420,7 @@ export ConvertThreadToFiber(lpParameter) {
  * @since windows6.1
  */
 export CreateUmsCompletionList(UmsCompletionList) {
-    UmsCompletionListMarshal := UmsCompletionList is VarRef ? "ptr*" : "ptr"
+    UmsCompletionListMarshal := UmsCompletionList is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -11322,8 +11480,8 @@ export CreateUmsCompletionList(UmsCompletionList) {
  * @since windows6.1
  */
 export DequeueUmsCompletionListItems(UmsCompletionList, WaitTimeOut, UmsThreadList) {
-    UmsCompletionListMarshal := UmsCompletionList is VarRef ? "ptr" : "ptr"
-    UmsThreadListMarshal := UmsThreadList is VarRef ? "ptr*" : "ptr"
+    UmsCompletionListMarshal := UmsCompletionList is VarRef ? "ptr" : IntPtr
+    UmsThreadListMarshal := UmsThreadList is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -11352,7 +11510,7 @@ export DequeueUmsCompletionListItems(UmsCompletionList, WaitTimeOut, UmsThreadLi
  * @since windows6.1
  */
 export GetUmsCompletionListEvent(UmsCompletionList, UmsCompletionEvent) {
-    UmsCompletionListMarshal := UmsCompletionList is VarRef ? "ptr" : "ptr"
+    UmsCompletionListMarshal := UmsCompletionList is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -11408,7 +11566,7 @@ export GetUmsCompletionListEvent(UmsCompletionList, UmsCompletionEvent) {
  * @since windows6.1
  */
 export ExecuteUmsThread(UmsThread) {
-    UmsThreadMarshal := UmsThread is VarRef ? "ptr" : "ptr"
+    UmsThreadMarshal := UmsThread is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -11436,7 +11594,7 @@ export ExecuteUmsThread(UmsThread) {
  * @since windows6.1
  */
 export UmsThreadYield(SchedulerParam) {
-    SchedulerParamMarshal := SchedulerParam is VarRef ? "ptr" : "ptr"
+    SchedulerParamMarshal := SchedulerParam is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -11460,7 +11618,7 @@ export UmsThreadYield(SchedulerParam) {
  * @since windows6.1
  */
 export DeleteUmsCompletionList(UmsCompletionList) {
-    UmsCompletionListMarshal := UmsCompletionList is VarRef ? "ptr" : "ptr"
+    UmsCompletionListMarshal := UmsCompletionList is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -11503,7 +11661,7 @@ export GetCurrentUmsThread() {
  * @since windows6.1
  */
 export GetNextUmsListItem(UmsContext) {
-    UmsContextMarshal := UmsContext is VarRef ? "ptr" : "ptr"
+    UmsContextMarshal := UmsContext is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -11574,8 +11732,9 @@ export GetNextUmsListItem(UmsContext) {
  * @since windows6.1
  */
 export QueryUmsThreadInformation(UmsThread, UmsThreadInfoClass, UmsThreadInformation, UmsThreadInformationLength, ReturnLength) {
-    UmsThreadMarshal := UmsThread is VarRef ? "ptr" : "ptr"
-    ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
+    UmsThreadMarshal := UmsThread is VarRef ? "ptr" : IntPtr
+    ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : IntPtr
+    ReturnLengthMarshal := ReturnLength == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
@@ -11642,8 +11801,8 @@ export QueryUmsThreadInformation(UmsThread, UmsThreadInfoClass, UmsThreadInforma
  * @since windows6.1
  */
 export SetUmsThreadInformation(UmsThread, UmsThreadInfoClass, UmsThreadInformation, UmsThreadInformationLength) {
-    UmsThreadMarshal := UmsThread is VarRef ? "ptr" : "ptr"
-    UmsThreadInformationMarshal := UmsThreadInformation is VarRef ? "ptr" : "ptr"
+    UmsThreadMarshal := UmsThread is VarRef ? "ptr" : IntPtr
+    UmsThreadInformationMarshal := UmsThreadInformation is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -11673,7 +11832,7 @@ export SetUmsThreadInformation(UmsThread, UmsThreadInfoClass, UmsThreadInformati
  * @since windows6.1
  */
 export DeleteUmsThreadContext(UmsThread) {
-    UmsThreadMarshal := UmsThread is VarRef ? "ptr" : "ptr"
+    UmsThreadMarshal := UmsThread is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -11721,7 +11880,7 @@ export DeleteUmsThreadContext(UmsThread) {
  * @since windows6.1
  */
 export CreateUmsThreadContext(lpUmsThread) {
-    lpUmsThreadMarshal := lpUmsThread is VarRef ? "ptr*" : "ptr"
+    lpUmsThreadMarshal := lpUmsThread is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -12006,8 +12165,8 @@ export SetProcessDEPPolicy(dwFlags) {
  * @since windows6.0.6000
  */
 export GetProcessDEPPolicy(hProcess, lpFlags, lpPermanent) {
-    lpFlagsMarshal := lpFlags is VarRef ? "uint*" : "ptr"
-    lpPermanentMarshal := lpPermanent is VarRef ? "int*" : "ptr"
+    lpFlagsMarshal := lpFlags is VarRef ? "uint*" : IntPtr
+    lpPermanentMarshal := lpPermanent is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
@@ -12381,9 +12540,12 @@ export SignalObjectAndWait(hObjectToSignal, hObjectToWaitOn, dwMilliseconds, bAl
 export CreateSemaphoreA(lpSemaphoreAttributes, lInitialCount, lMaximumCount, lpName) {
     lpName := lpName is String ? StrPtr(lpName) : lpName
 
+    lpSemaphoreAttributesMarshal := lpSemaphoreAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpNameMarshal := lpName == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateSemaphoreA", SECURITY_ATTRIBUTES.Ptr, lpSemaphoreAttributes, Int32, lInitialCount, Int32, lMaximumCount, "ptr", lpName, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateSemaphoreA", lpSemaphoreAttributesMarshal, lpSemaphoreAttributes, Int32, lInitialCount, Int32, lMaximumCount, lpNameMarshal, lpName, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -12444,7 +12606,10 @@ export CreateSemaphoreA(lpSemaphoreAttributes, lInitialCount, lMaximumCount, lpN
 export CreateWaitableTimerA(lpTimerAttributes, bManualReset, lpTimerName) {
     lpTimerName := lpTimerName is String ? StrPtr(lpTimerName) : lpTimerName
 
-    result := DllCall("KERNEL32.dll\CreateWaitableTimerA", SECURITY_ATTRIBUTES.Ptr, lpTimerAttributes, BOOL, bManualReset, "ptr", lpTimerName, HANDLE.Owned)
+    lpTimerAttributesMarshal := lpTimerAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpTimerNameMarshal := lpTimerName == 0 ? IntPtr : PSTR
+
+    result := DllCall("KERNEL32.dll\CreateWaitableTimerA", lpTimerAttributesMarshal, lpTimerAttributes, BOOL, bManualReset, lpTimerNameMarshal, lpTimerName, HANDLE.Owned)
     return result
 }
 
@@ -12543,9 +12708,12 @@ export CreateSemaphoreExA(lpSemaphoreAttributes, lInitialCount, lMaximumCount, l
 
     lpName := lpName is String ? StrPtr(lpName) : lpName
 
+    lpSemaphoreAttributesMarshal := lpSemaphoreAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpNameMarshal := lpName == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateSemaphoreExA", SECURITY_ATTRIBUTES.Ptr, lpSemaphoreAttributes, Int32, lInitialCount, Int32, lMaximumCount, "ptr", lpName, UInt32, dwFlags, UInt32, dwDesiredAccess, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateSemaphoreExA", lpSemaphoreAttributesMarshal, lpSemaphoreAttributes, Int32, lInitialCount, Int32, lMaximumCount, lpNameMarshal, lpName, UInt32, dwFlags, UInt32, dwDesiredAccess, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -12624,7 +12792,10 @@ export CreateSemaphoreExA(lpSemaphoreAttributes, lInitialCount, lMaximumCount, l
 export CreateWaitableTimerExA(lpTimerAttributes, lpTimerName, dwFlags, dwDesiredAccess) {
     lpTimerName := lpTimerName is String ? StrPtr(lpTimerName) : lpTimerName
 
-    result := DllCall("KERNEL32.dll\CreateWaitableTimerExA", SECURITY_ATTRIBUTES.Ptr, lpTimerAttributes, "ptr", lpTimerName, UInt32, dwFlags, UInt32, dwDesiredAccess, HANDLE.Owned)
+    lpTimerAttributesMarshal := lpTimerAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpTimerNameMarshal := lpTimerName == 0 ? IntPtr : PSTR
+
+    result := DllCall("KERNEL32.dll\CreateWaitableTimerExA", lpTimerAttributesMarshal, lpTimerAttributes, lpTimerNameMarshal, lpTimerName, UInt32, dwFlags, UInt32, dwDesiredAccess, HANDLE.Owned)
     return result
 }
 
@@ -12654,7 +12825,7 @@ export CreateWaitableTimerExA(lpTimerAttributes, lpTimerName, dwFlags, dwDesired
 export QueryFullProcessImageNameA(hProcess, dwFlags, lpExeName, lpdwSize) {
     lpExeName := lpExeName is String ? StrPtr(lpExeName) : lpExeName
 
-    lpdwSizeMarshal := lpdwSize is VarRef ? "uint*" : "ptr"
+    lpdwSizeMarshal := lpdwSize is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -12692,7 +12863,7 @@ export QueryFullProcessImageNameA(hProcess, dwFlags, lpExeName, lpdwSize) {
 export QueryFullProcessImageNameW(hProcess, dwFlags, lpExeName, lpdwSize) {
     lpExeName := lpExeName is String ? StrPtr(lpExeName) : lpExeName
 
-    lpdwSizeMarshal := lpdwSize is VarRef ? "uint*" : "ptr"
+    lpdwSizeMarshal := lpdwSize is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -12902,11 +13073,16 @@ export CreateProcessWithLogonW(lpUsername, lpDomain, lpPassword, dwLogonFlags, l
     lpCommandLine := lpCommandLine is String ? StrPtr(lpCommandLine) : lpCommandLine
     lpCurrentDirectory := lpCurrentDirectory is String ? StrPtr(lpCurrentDirectory) : lpCurrentDirectory
 
-    lpEnvironmentMarshal := lpEnvironment is VarRef ? "ptr" : "ptr"
+    lpDomainMarshal := lpDomain == 0 ? IntPtr : PWSTR
+    lpApplicationNameMarshal := lpApplicationName == 0 ? IntPtr : PWSTR
+    lpCommandLineMarshal := lpCommandLine == 0 ? IntPtr : PWSTR
+    lpEnvironmentMarshal := lpEnvironment is VarRef ? "ptr" : IntPtr
+    lpEnvironmentMarshal := lpEnvironment == 0 ? IntPtr : "ptr"
+    lpCurrentDirectoryMarshal := lpCurrentDirectory == 0 ? IntPtr : PWSTR
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CreateProcessWithLogonW", "ptr", lpUsername, "ptr", lpDomain, "ptr", lpPassword, CREATE_PROCESS_LOGON_FLAGS, dwLogonFlags, "ptr", lpApplicationName, "ptr", lpCommandLine, PROCESS_CREATION_FLAGS, dwCreationFlags, lpEnvironmentMarshal, lpEnvironment, "ptr", lpCurrentDirectory, STARTUPINFOW.Ptr, lpStartupInfo, PROCESS_INFORMATION.Ptr, lpProcessInformation, BOOL)
+    result := DllCall("ADVAPI32.dll\CreateProcessWithLogonW", "ptr", lpUsername, lpDomainMarshal, lpDomain, "ptr", lpPassword, CREATE_PROCESS_LOGON_FLAGS, dwLogonFlags, lpApplicationNameMarshal, lpApplicationName, lpCommandLineMarshal, lpCommandLine, PROCESS_CREATION_FLAGS, dwCreationFlags, lpEnvironmentMarshal, lpEnvironment, lpCurrentDirectoryMarshal, lpCurrentDirectory, STARTUPINFOW.Ptr, lpStartupInfo, PROCESS_INFORMATION.Ptr, lpProcessInformation, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -13084,11 +13260,15 @@ export CreateProcessWithTokenW(hToken, dwLogonFlags, lpApplicationName, lpComman
     lpCommandLine := lpCommandLine is String ? StrPtr(lpCommandLine) : lpCommandLine
     lpCurrentDirectory := lpCurrentDirectory is String ? StrPtr(lpCurrentDirectory) : lpCurrentDirectory
 
-    lpEnvironmentMarshal := lpEnvironment is VarRef ? "ptr" : "ptr"
+    lpApplicationNameMarshal := lpApplicationName == 0 ? IntPtr : PWSTR
+    lpCommandLineMarshal := lpCommandLine == 0 ? IntPtr : PWSTR
+    lpEnvironmentMarshal := lpEnvironment is VarRef ? "ptr" : IntPtr
+    lpEnvironmentMarshal := lpEnvironment == 0 ? IntPtr : "ptr"
+    lpCurrentDirectoryMarshal := lpCurrentDirectory == 0 ? IntPtr : PWSTR
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CreateProcessWithTokenW", HANDLE, hToken, CREATE_PROCESS_LOGON_FLAGS, dwLogonFlags, "ptr", lpApplicationName, "ptr", lpCommandLine, PROCESS_CREATION_FLAGS, dwCreationFlags, lpEnvironmentMarshal, lpEnvironment, "ptr", lpCurrentDirectory, STARTUPINFOW.Ptr, lpStartupInfo, PROCESS_INFORMATION.Ptr, lpProcessInformation, BOOL)
+    result := DllCall("ADVAPI32.dll\CreateProcessWithTokenW", HANDLE, hToken, CREATE_PROCESS_LOGON_FLAGS, dwLogonFlags, lpApplicationNameMarshal, lpApplicationName, lpCommandLineMarshal, lpCommandLine, PROCESS_CREATION_FLAGS, dwCreationFlags, lpEnvironmentMarshal, lpEnvironment, lpCurrentDirectoryMarshal, lpCurrentDirectory, STARTUPINFOW.Ptr, lpStartupInfo, PROCESS_INFORMATION.Ptr, lpProcessInformation, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -13155,7 +13335,8 @@ export CreateProcessWithTokenW(hToken, dwLogonFlags, lpApplicationName, lpComman
  * @since windows5.1.2600
  */
 export RegisterWaitForSingleObject(phNewWaitObject, hObject, Callback, _Context, dwMilliseconds, dwFlags) {
-    _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+    _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+    _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -13195,7 +13376,6 @@ export UnregisterWait(WaitHandle) {
 }
 
 /**
- * 
  * @param {HANDLE} TimerQueue 
  * @param {Pointer<WAITORTIMERCALLBACK>} Callback 
  * @param {Pointer<Void>} Parameter 
@@ -13205,20 +13385,23 @@ export UnregisterWait(WaitHandle) {
  * @returns {HANDLE} 
  */
 export SetTimerQueueTimer(TimerQueue, Callback, Parameter, DueTime, Period, PreferIo) {
-    ParameterMarshal := Parameter is VarRef ? "ptr" : "ptr"
+    TimerQueueMarshal := TimerQueue == 0 ? IntPtr : HANDLE
+    ParameterMarshal := Parameter is VarRef ? "ptr" : IntPtr
+    ParameterMarshal := Parameter == 0 ? IntPtr : "ptr"
 
-    result := DllCall("KERNEL32.dll\SetTimerQueueTimer", HANDLE, TimerQueue, WAITORTIMERCALLBACK, Callback, ParameterMarshal, Parameter, UInt32, DueTime, UInt32, Period, BOOL, PreferIo, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\SetTimerQueueTimer", TimerQueueMarshal, TimerQueue, WAITORTIMERCALLBACK, Callback, ParameterMarshal, Parameter, UInt32, DueTime, UInt32, Period, BOOL, PreferIo, HANDLE.Owned)
     return result
 }
 
 /**
- * 
  * @param {HANDLE} TimerQueue 
  * @param {HANDLE} Timer 
  * @returns {BOOL} 
  */
 export CancelTimerQueueTimer(TimerQueue, Timer) {
-    result := DllCall("KERNEL32.dll\CancelTimerQueueTimer", HANDLE, TimerQueue, HANDLE, Timer, BOOL)
+    TimerQueueMarshal := TimerQueue == 0 ? IntPtr : HANDLE
+
+    result := DllCall("KERNEL32.dll\CancelTimerQueueTimer", TimerQueueMarshal, TimerQueue, HANDLE, Timer, BOOL)
     return result
 }
 
@@ -13245,11 +13428,12 @@ export CancelTimerQueueTimer(TimerQueue, Timer) {
 export CreatePrivateNamespaceA(lpPrivateNamespaceAttributes, lpBoundaryDescriptor, lpAliasPrefix) {
     lpAliasPrefix := lpAliasPrefix is String ? StrPtr(lpAliasPrefix) : lpAliasPrefix
 
-    lpBoundaryDescriptorMarshal := lpBoundaryDescriptor is VarRef ? "ptr" : "ptr"
+    lpPrivateNamespaceAttributesMarshal := lpPrivateNamespaceAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpBoundaryDescriptorMarshal := lpBoundaryDescriptor is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreatePrivateNamespaceA", SECURITY_ATTRIBUTES.Ptr, lpPrivateNamespaceAttributes, lpBoundaryDescriptorMarshal, lpBoundaryDescriptor, "ptr", lpAliasPrefix, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreatePrivateNamespaceA", lpPrivateNamespaceAttributesMarshal, lpPrivateNamespaceAttributes, lpBoundaryDescriptorMarshal, lpBoundaryDescriptor, "ptr", lpAliasPrefix, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -13270,7 +13454,7 @@ export CreatePrivateNamespaceA(lpPrivateNamespaceAttributes, lpBoundaryDescripto
 export OpenPrivateNamespaceA(lpBoundaryDescriptor, lpAliasPrefix) {
     lpAliasPrefix := lpAliasPrefix is String ? StrPtr(lpAliasPrefix) : lpAliasPrefix
 
-    lpBoundaryDescriptorMarshal := lpBoundaryDescriptor is VarRef ? "ptr" : "ptr"
+    lpBoundaryDescriptorMarshal := lpBoundaryDescriptor is VarRef ? "ptr" : IntPtr
 
     result := DllCall("KERNEL32.dll\OpenPrivateNamespaceA", lpBoundaryDescriptorMarshal, lpBoundaryDescriptor, "ptr", lpAliasPrefix, HANDLE.Owned)
     return result
@@ -13436,7 +13620,7 @@ export GetMaximumProcessorCount(GroupNumber) {
  * @since windows6.0.6000
  */
 export GetNumaProcessorNode(Processor, NodeNumber) {
-    NodeNumberMarshal := NodeNumber is VarRef ? "char*" : "ptr"
+    NodeNumberMarshal := NodeNumber is VarRef ? "char*" : IntPtr
 
     A_LastError := 0
 
@@ -13463,7 +13647,7 @@ export GetNumaProcessorNode(Processor, NodeNumber) {
  * @since windows6.1
  */
 export GetNumaNodeNumberFromHandle(hFile, NodeNumber) {
-    NodeNumberMarshal := NodeNumber is VarRef ? "ushort*" : "ptr"
+    NodeNumberMarshal := NodeNumber is VarRef ? "ushort*" : IntPtr
 
     A_LastError := 0
 
@@ -13488,7 +13672,7 @@ export GetNumaNodeNumberFromHandle(hFile, NodeNumber) {
  * @since windows6.1
  */
 export GetNumaProcessorNodeEx(Processor, NodeNumber) {
-    NodeNumberMarshal := NodeNumber is VarRef ? "ushort*" : "ptr"
+    NodeNumberMarshal := NodeNumber is VarRef ? "ushort*" : IntPtr
 
     A_LastError := 0
 
@@ -13527,7 +13711,7 @@ export GetNumaProcessorNodeEx(Processor, NodeNumber) {
  * @since windows6.0.6000
  */
 export GetNumaNodeProcessorMask(_Node, ProcessorMask) {
-    ProcessorMaskMarshal := ProcessorMask is VarRef ? "uint*" : "ptr"
+    ProcessorMaskMarshal := ProcessorMask is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -13553,7 +13737,7 @@ export GetNumaNodeProcessorMask(_Node, ProcessorMask) {
  * @since windows6.0.6000
  */
 export GetNumaAvailableMemoryNode(_Node, AvailableBytes) {
-    AvailableBytesMarshal := AvailableBytes is VarRef ? "uint*" : "ptr"
+    AvailableBytesMarshal := AvailableBytes is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -13582,7 +13766,7 @@ export GetNumaAvailableMemoryNode(_Node, AvailableBytes) {
  * @since windows6.1
  */
 export GetNumaAvailableMemoryNodeEx(_Node, AvailableBytes) {
-    AvailableBytesMarshal := AvailableBytes is VarRef ? "uint*" : "ptr"
+    AvailableBytesMarshal := AvailableBytes is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -13609,7 +13793,7 @@ export GetNumaAvailableMemoryNodeEx(_Node, AvailableBytes) {
  * @since windows6.0.6000
  */
 export GetNumaProximityNode(ProximityId, NodeNumber) {
-    NodeNumberMarshal := NodeNumber is VarRef ? "char*" : "ptr"
+    NodeNumberMarshal := NodeNumber is VarRef ? "char*" : IntPtr
 
     A_LastError := 0
 

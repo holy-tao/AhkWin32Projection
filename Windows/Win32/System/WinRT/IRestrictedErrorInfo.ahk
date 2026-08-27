@@ -57,7 +57,7 @@ export default struct IRestrictedErrorInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/restrictederrorinfo/nf-restrictederrorinfo-irestrictederrorinfo-geterrordetails
      */
     GetErrorDetails(description, _error, restrictedDescription, capabilitySid) {
-        _errorMarshal := _error is VarRef ? "int*" : "ptr"
+        _errorMarshal := _error is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, BSTR.Ptr, description, _errorMarshal, _error, BSTR.Ptr, restrictedDescription, BSTR.Ptr, capabilitySid, "HRESULT")
         return result
@@ -85,8 +85,8 @@ export default struct IRestrictedErrorInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetErrorDetails := CallbackCreate(GetMethod(implObj, "GetErrorDetails"), flags, 5)
-        this.vtbl.GetReference := CallbackCreate(GetMethod(implObj, "GetReference"), flags, 2)
+        this.vtbl.GetErrorDetails := CallbackCreate(ObjBindMethod(implObj, "GetErrorDetails"), flags, 5)
+        this.vtbl.GetReference := CallbackCreate(ObjBindMethod(implObj, "GetReference"), flags, 2)
     }
 
     Dispose() {

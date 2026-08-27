@@ -72,8 +72,8 @@ export default struct IXDSCodecConfig extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSecureChannelObject := CallbackCreate(GetMethod(implObj, "GetSecureChannelObject"), flags, 2)
-        this.vtbl.SetPauseBufferTime := CallbackCreate(GetMethod(implObj, "SetPauseBufferTime"), flags, 2)
+        this.vtbl.GetSecureChannelObject := CallbackCreate(ObjBindMethod(implObj, "GetSecureChannelObject"), flags, 2)
+        this.vtbl.SetPauseBufferTime := CallbackCreate(ObjBindMethod(implObj, "SetPauseBufferTime"), flags, 2)
     }
 
     Dispose() {

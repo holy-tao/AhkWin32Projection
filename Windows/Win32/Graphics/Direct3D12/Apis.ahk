@@ -45,7 +45,9 @@
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-d3d12serializerootsignature
  */
 export D3D12SerializeRootSignature(pRootSignature, _Version, ppBlob, ppErrorBlob) {
-    result := DllCall("d3d12.dll\D3D12SerializeRootSignature", D3D12_ROOT_SIGNATURE_DESC.Ptr, pRootSignature, D3D_ROOT_SIGNATURE_VERSION, _Version, ID3DBlob.Ptr, ppBlob, ID3DBlob.Ptr, ppErrorBlob, "HRESULT")
+    ppErrorBlobMarshal := ppErrorBlob == 0 ? IntPtr : ID3DBlob.Ptr
+
+    result := DllCall("d3d12.dll\D3D12SerializeRootSignature", D3D12_ROOT_SIGNATURE_DESC.Ptr, pRootSignature, D3D_ROOT_SIGNATURE_VERSION, _Version, ID3DBlob.Ptr, ppBlob, ppErrorBlobMarshal, ppErrorBlob, "HRESULT")
     return result
 }
 
@@ -113,7 +115,9 @@ export D3D12CreateRootSignatureDeserializer(pSrcData, SrcDataSizeInBytes, pRootS
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-d3d12serializeversionedrootsignature
  */
 export D3D12SerializeVersionedRootSignature(pRootSignature, ppBlob, ppErrorBlob) {
-    result := DllCall("d3d12.dll\D3D12SerializeVersionedRootSignature", D3D12_VERSIONED_ROOT_SIGNATURE_DESC.Ptr, pRootSignature, ID3DBlob.Ptr, ppBlob, ID3DBlob.Ptr, ppErrorBlob, "HRESULT")
+    ppErrorBlobMarshal := ppErrorBlob == 0 ? IntPtr : ID3DBlob.Ptr
+
+    result := DllCall("d3d12.dll\D3D12SerializeVersionedRootSignature", D3D12_VERSIONED_ROOT_SIGNATURE_DESC.Ptr, pRootSignature, ID3DBlob.Ptr, ppBlob, ppErrorBlobMarshal, ppErrorBlob, "HRESULT")
     return result
 }
 
@@ -214,7 +218,9 @@ export D3D12CreateVersionedRootSignatureDeserializer(pSrcData, SrcDataSizeInByte
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-d3d12createdevice
  */
 export D3D12CreateDevice(pAdapter, MinimumFeatureLevel, riid) {
-    result := DllCall("d3d12.dll\D3D12CreateDevice", "ptr", pAdapter, D3D_FEATURE_LEVEL, MinimumFeatureLevel, Guid.Ptr, riid, "ptr*", &ppDevice := 0, "HRESULT")
+    pAdapterMarshal := pAdapter == 0 ? IntPtr : "ptr"
+
+    result := DllCall("d3d12.dll\D3D12CreateDevice", pAdapterMarshal, pAdapter, D3D_FEATURE_LEVEL, MinimumFeatureLevel, Guid.Ptr, riid, "ptr*", &ppDevice := 0, "HRESULT")
     return ppDevice
 }
 
@@ -276,8 +282,10 @@ export D3D12GetDebugInterface(riid) {
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-d3d12enableexperimentalfeatures
  */
 export D3D12EnableExperimentalFeatures(NumFeatures, pIIDs, pConfigurationStructs, pConfigurationStructSizes) {
-    pConfigurationStructsMarshal := pConfigurationStructs is VarRef ? "ptr" : "ptr"
-    pConfigurationStructSizesMarshal := pConfigurationStructSizes is VarRef ? "uint*" : "ptr"
+    pConfigurationStructsMarshal := pConfigurationStructs is VarRef ? "ptr" : IntPtr
+    pConfigurationStructsMarshal := pConfigurationStructs == 0 ? IntPtr : "ptr"
+    pConfigurationStructSizesMarshal := pConfigurationStructSizes is VarRef ? "uint*" : IntPtr
+    pConfigurationStructSizesMarshal := pConfigurationStructSizes == 0 ? IntPtr : "uint*"
 
     result := DllCall("d3d12.dll\D3D12EnableExperimentalFeatures", UInt32, NumFeatures, Guid.Ptr, pIIDs, pConfigurationStructsMarshal, pConfigurationStructs, pConfigurationStructSizesMarshal, pConfigurationStructSizes, "HRESULT")
     return result

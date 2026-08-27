@@ -87,7 +87,7 @@ export default struct IHeaderCtrl2 extends IHeaderCtrl {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iheaderctrl2-getcolumnfilter
      */
     GetColumnFilter(nColumn, pdwType, pFilterData) {
-        pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
+        pdwTypeMarshal := pdwType is VarRef ? "uint*" : IntPtr
 
         result := ComCall(11, this, UInt32, nColumn, pdwTypeMarshal, pdwType, MMC_FILTERDATA.Ptr, pFilterData, "HRESULT")
         return result
@@ -102,9 +102,9 @@ export default struct IHeaderCtrl2 extends IHeaderCtrl {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetChangeTimeOut := CallbackCreate(GetMethod(implObj, "SetChangeTimeOut"), flags, 2)
-        this.vtbl.SetColumnFilter := CallbackCreate(GetMethod(implObj, "SetColumnFilter"), flags, 4)
-        this.vtbl.GetColumnFilter := CallbackCreate(GetMethod(implObj, "GetColumnFilter"), flags, 4)
+        this.vtbl.SetChangeTimeOut := CallbackCreate(ObjBindMethod(implObj, "SetChangeTimeOut"), flags, 2)
+        this.vtbl.SetColumnFilter := CallbackCreate(ObjBindMethod(implObj, "SetColumnFilter"), flags, 4)
+        this.vtbl.GetColumnFilter := CallbackCreate(ObjBindMethod(implObj, "GetColumnFilter"), flags, 4)
     }
 
     Dispose() {

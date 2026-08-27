@@ -35,7 +35,6 @@ export default struct ACMFILTERENUMCBW {
     }
 
     /**
-     * 
      * @param {HACMDRIVERID} hadid Handle to the ACM driver identifier.
      * @param {Pointer<ACMFILTERDETAILSW>} pafd Pointer to an [ACMFILTERDETAILS](./nf-msacm-acmfilterdetails.md) structure that contains the enumerated filter details for a filter tag.
      * @param {Pointer} dwInstance Application-defined value specified in <a href="https://docs.microsoft.com/windows/desktop/api/msacm/nf-msacm-acmfilterenum">acmFilterEnum</a>.

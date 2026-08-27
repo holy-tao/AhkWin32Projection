@@ -44,22 +44,20 @@ export default struct IObjectAccessControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SEC_OBJECT>} pObject 
      * @param {Pointer<Integer>} pcAccessEntries 
      * @param {Pointer<Pointer<EXPLICIT_ACCESS_W>>} prgAccessEntries 
      * @returns {HRESULT} 
      */
     GetObjectAccessRights(pObject, pcAccessEntries, prgAccessEntries) {
-        pcAccessEntriesMarshal := pcAccessEntries is VarRef ? "uint*" : "ptr"
-        prgAccessEntriesMarshal := prgAccessEntries is VarRef ? "ptr*" : "ptr"
+        pcAccessEntriesMarshal := pcAccessEntries is VarRef ? "uint*" : IntPtr
+        prgAccessEntriesMarshal := prgAccessEntries is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, SEC_OBJECT.Ptr, pObject, pcAccessEntriesMarshal, pcAccessEntries, prgAccessEntriesMarshal, prgAccessEntries, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<SEC_OBJECT>} pObject 
      * @returns {Pointer<TRUSTEE_W>} 
      */
@@ -69,7 +67,6 @@ export default struct IObjectAccessControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SEC_OBJECT>} pObject 
      * @param {Pointer<EXPLICIT_ACCESS_W>} pAccessEntry 
      * @returns {BOOL} 
@@ -80,7 +77,6 @@ export default struct IObjectAccessControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SEC_OBJECT>} pObject 
      * @param {Integer} cAccessEntries 
      * @param {Pointer<EXPLICIT_ACCESS_W>} prgAccessEntries 
@@ -92,7 +88,6 @@ export default struct IObjectAccessControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SEC_OBJECT>} pObject 
      * @param {Pointer<TRUSTEE_W>} pOwner 
      * @returns {HRESULT} 
@@ -111,11 +106,11 @@ export default struct IObjectAccessControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetObjectAccessRights := CallbackCreate(GetMethod(implObj, "GetObjectAccessRights"), flags, 4)
-        this.vtbl.GetObjectOwner := CallbackCreate(GetMethod(implObj, "GetObjectOwner"), flags, 3)
-        this.vtbl.IsObjectAccessAllowed := CallbackCreate(GetMethod(implObj, "IsObjectAccessAllowed"), flags, 4)
-        this.vtbl.SetObjectAccessRights := CallbackCreate(GetMethod(implObj, "SetObjectAccessRights"), flags, 4)
-        this.vtbl.SetObjectOwner := CallbackCreate(GetMethod(implObj, "SetObjectOwner"), flags, 3)
+        this.vtbl.GetObjectAccessRights := CallbackCreate(ObjBindMethod(implObj, "GetObjectAccessRights"), flags, 4)
+        this.vtbl.GetObjectOwner := CallbackCreate(ObjBindMethod(implObj, "GetObjectOwner"), flags, 3)
+        this.vtbl.IsObjectAccessAllowed := CallbackCreate(ObjBindMethod(implObj, "IsObjectAccessAllowed"), flags, 4)
+        this.vtbl.SetObjectAccessRights := CallbackCreate(ObjBindMethod(implObj, "SetObjectAccessRights"), flags, 4)
+        this.vtbl.SetObjectOwner := CallbackCreate(ObjBindMethod(implObj, "SetObjectOwner"), flags, 3)
     }
 
     Dispose() {

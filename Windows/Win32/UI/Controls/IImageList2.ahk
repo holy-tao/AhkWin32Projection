@@ -120,8 +120,8 @@ export default struct IImageList2 extends IImageList {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist2-getoriginalsize
      */
     GetOriginalSize(iImage, dwFlags, pcx, pcy) {
-        pcxMarshal := pcx is VarRef ? "int*" : "ptr"
-        pcyMarshal := pcy is VarRef ? "int*" : "ptr"
+        pcxMarshal := pcx is VarRef ? "int*" : IntPtr
+        pcyMarshal := pcy is VarRef ? "int*" : IntPtr
 
         result := ComCall(33, this, Int32, iImage, UInt32, dwFlags, pcxMarshal, pcx, pcyMarshal, pcy, "HRESULT")
         return result
@@ -159,7 +159,9 @@ export default struct IImageList2 extends IImageList {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist2-setcallback
      */
     SetCallback(punk) {
-        result := ComCall(35, this, "ptr", punk, "HRESULT")
+        punkMarshal := punk == 0 ? IntPtr : "ptr"
+
+        result := ComCall(35, this, punkMarshal, punk, "HRESULT")
         return result
     }
 
@@ -483,7 +485,10 @@ export default struct IImageList2 extends IImageList {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist2-replace2
      */
     Replace2(i, hbmImage, hbmMask, punk, dwFlags) {
-        result := ComCall(42, this, Int32, i, HBITMAP, hbmImage, HBITMAP, hbmMask, "ptr", punk, UInt32, dwFlags, "HRESULT")
+        hbmMaskMarshal := hbmMask == 0 ? IntPtr : HBITMAP
+        punkMarshal := punk == 0 ? IntPtr : "ptr"
+
+        result := ComCall(42, this, Int32, i, HBITMAP, hbmImage, hbmMaskMarshal, hbmMask, punkMarshal, punk, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -510,7 +515,9 @@ export default struct IImageList2 extends IImageList {
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist2-replacefromimagelist
      */
     ReplaceFromImageList(i, pil, iSrc, punk, dwFlags) {
-        result := ComCall(43, this, Int32, i, "ptr", pil, Int32, iSrc, "ptr", punk, UInt32, dwFlags, "HRESULT")
+        punkMarshal := punk == 0 ? IntPtr : "ptr"
+
+        result := ComCall(43, this, Int32, i, "ptr", pil, Int32, iSrc, punkMarshal, punk, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -523,18 +530,18 @@ export default struct IImageList2 extends IImageList {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Resize := CallbackCreate(GetMethod(implObj, "Resize"), flags, 3)
-        this.vtbl.GetOriginalSize := CallbackCreate(GetMethod(implObj, "GetOriginalSize"), flags, 5)
-        this.vtbl.SetOriginalSize := CallbackCreate(GetMethod(implObj, "SetOriginalSize"), flags, 4)
-        this.vtbl.SetCallback := CallbackCreate(GetMethod(implObj, "SetCallback"), flags, 2)
-        this.vtbl.GetCallback := CallbackCreate(GetMethod(implObj, "GetCallback"), flags, 3)
-        this.vtbl.ForceImagePresent := CallbackCreate(GetMethod(implObj, "ForceImagePresent"), flags, 3)
-        this.vtbl.DiscardImages := CallbackCreate(GetMethod(implObj, "DiscardImages"), flags, 4)
-        this.vtbl.PreloadImages := CallbackCreate(GetMethod(implObj, "PreloadImages"), flags, 2)
-        this.vtbl.GetStatistics := CallbackCreate(GetMethod(implObj, "GetStatistics"), flags, 2)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 6)
-        this.vtbl.Replace2 := CallbackCreate(GetMethod(implObj, "Replace2"), flags, 6)
-        this.vtbl.ReplaceFromImageList := CallbackCreate(GetMethod(implObj, "ReplaceFromImageList"), flags, 6)
+        this.vtbl.Resize := CallbackCreate(ObjBindMethod(implObj, "Resize"), flags, 3)
+        this.vtbl.GetOriginalSize := CallbackCreate(ObjBindMethod(implObj, "GetOriginalSize"), flags, 5)
+        this.vtbl.SetOriginalSize := CallbackCreate(ObjBindMethod(implObj, "SetOriginalSize"), flags, 4)
+        this.vtbl.SetCallback := CallbackCreate(ObjBindMethod(implObj, "SetCallback"), flags, 2)
+        this.vtbl.GetCallback := CallbackCreate(ObjBindMethod(implObj, "GetCallback"), flags, 3)
+        this.vtbl.ForceImagePresent := CallbackCreate(ObjBindMethod(implObj, "ForceImagePresent"), flags, 3)
+        this.vtbl.DiscardImages := CallbackCreate(ObjBindMethod(implObj, "DiscardImages"), flags, 4)
+        this.vtbl.PreloadImages := CallbackCreate(ObjBindMethod(implObj, "PreloadImages"), flags, 2)
+        this.vtbl.GetStatistics := CallbackCreate(ObjBindMethod(implObj, "GetStatistics"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 6)
+        this.vtbl.Replace2 := CallbackCreate(ObjBindMethod(implObj, "Replace2"), flags, 6)
+        this.vtbl.ReplaceFromImageList := CallbackCreate(ObjBindMethod(implObj, "ReplaceFromImageList"), flags, 6)
     }
 
     Dispose() {

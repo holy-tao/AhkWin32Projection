@@ -19,7 +19,6 @@ export default struct PF_NPPasswordChangeNotify {
     }
 
     /**
-     * 
      * @param {PWSTR} lpAuthentInfoType 
      * @param {Pointer<Void>} lpAuthentInfo 
      * @param {PWSTR} lpPreviousAuthentInfoType 
@@ -34,9 +33,10 @@ export default struct PF_NPPasswordChangeNotify {
         lpPreviousAuthentInfoType := lpPreviousAuthentInfoType is String ? StrPtr(lpPreviousAuthentInfoType) : lpPreviousAuthentInfoType
         lpStationName := lpStationName is String ? StrPtr(lpStationName) : lpStationName
 
-        lpAuthentInfoMarshal := lpAuthentInfo is VarRef ? "ptr" : "ptr"
-        lpPreviousAuthentInfoMarshal := lpPreviousAuthentInfo is VarRef ? "ptr" : "ptr"
-        StationHandleMarshal := StationHandle is VarRef ? "ptr" : "ptr"
+        lpAuthentInfoMarshal := lpAuthentInfo is VarRef ? "ptr" : IntPtr
+        lpPreviousAuthentInfoMarshal := lpPreviousAuthentInfo is VarRef ? "ptr" : IntPtr
+        StationHandleMarshal := StationHandle is VarRef ? "ptr" : IntPtr
+        StationHandleMarshal := StationHandle == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, "ptr", lpAuthentInfoType, lpAuthentInfoMarshal, lpAuthentInfo, "ptr", lpPreviousAuthentInfoType, lpPreviousAuthentInfoMarshal, lpPreviousAuthentInfo, "ptr", lpStationName, StationHandleMarshal, StationHandle, UInt32, dwChangeInfo, UInt32)
         return result

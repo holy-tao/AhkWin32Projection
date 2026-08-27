@@ -19,7 +19,6 @@ export default struct LPDDHALVPORTCB_GETVPORTCONNECT {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_GETVPORTCONNECTDATA>} param0 
      * @returns {Integer} 
      */

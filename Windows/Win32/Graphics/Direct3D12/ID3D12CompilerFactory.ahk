@@ -47,7 +47,6 @@ export default struct ID3D12CompilerFactory extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} AdapterFamilyIndex 
      * @returns {D3D12_ADAPTER_FAMILY} 
      */
@@ -58,20 +57,18 @@ export default struct ID3D12CompilerFactory extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} AdapterFamilyIndex 
      * @param {Pointer<Integer>} pNumABIVersions 
      * @returns {Integer} 
      */
     EnumerateAdapterFamilyABIVersions(AdapterFamilyIndex, pNumABIVersions) {
-        pNumABIVersionsMarshal := pNumABIVersions is VarRef ? "uint*" : "ptr"
+        pNumABIVersionsMarshal := pNumABIVersions is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, UInt32, AdapterFamilyIndex, pNumABIVersionsMarshal, pNumABIVersions, "uint*", &pABIVersions := 0, "HRESULT")
         return pABIVersions
     }
 
     /**
-     * 
      * @param {Integer} AdapterFamilyIndex 
      * @returns {D3D12_VERSION_NUMBER} 
      */
@@ -82,7 +79,6 @@ export default struct ID3D12CompilerFactory extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_COMPILER_TARGET>} pTarget 
      * @param {Pointer<D3D12_APPLICATION_DESC>} pApplicationDesc 
      * @returns {D3D12_VERSION_NUMBER} 
@@ -94,7 +90,6 @@ export default struct ID3D12CompilerFactory extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_COMPILER_DATABASE_PATH>} pPaths 
      * @param {Integer} NumPaths 
      * @param {Pointer<D3D12_COMPILER_TARGET>} pTarget 
@@ -103,12 +98,14 @@ export default struct ID3D12CompilerFactory extends IUnknown {
      * @returns {Pointer<Void>} 
      */
     CreateCompilerCacheSession(pPaths, NumPaths, pTarget, pApplicationDesc, riid) {
-        result := ComCall(7, this, D3D12_COMPILER_DATABASE_PATH.Ptr, pPaths, UInt32, NumPaths, D3D12_COMPILER_TARGET.Ptr, pTarget, D3D12_APPLICATION_DESC.Ptr, pApplicationDesc, Guid.Ptr, riid, "ptr*", &ppCompilerCacheSession := 0, "HRESULT")
+        pTargetMarshal := pTarget == 0 ? IntPtr : D3D12_COMPILER_TARGET.Ptr
+        pApplicationDescMarshal := pApplicationDesc == 0 ? IntPtr : D3D12_APPLICATION_DESC.Ptr
+
+        result := ComCall(7, this, D3D12_COMPILER_DATABASE_PATH.Ptr, pPaths, UInt32, NumPaths, pTargetMarshal, pTarget, pApplicationDescMarshal, pApplicationDesc, Guid.Ptr, riid, "ptr*", &ppCompilerCacheSession := 0, "HRESULT")
         return ppCompilerCacheSession
     }
 
     /**
-     * 
      * @param {ID3D12CompilerCacheSession} pCompilerCacheSession 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -127,12 +124,12 @@ export default struct ID3D12CompilerFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumerateAdapterFamilies := CallbackCreate(GetMethod(implObj, "EnumerateAdapterFamilies"), flags, 3)
-        this.vtbl.EnumerateAdapterFamilyABIVersions := CallbackCreate(GetMethod(implObj, "EnumerateAdapterFamilyABIVersions"), flags, 4)
-        this.vtbl.EnumerateAdapterFamilyCompilerVersion := CallbackCreate(GetMethod(implObj, "EnumerateAdapterFamilyCompilerVersion"), flags, 3)
-        this.vtbl.GetApplicationProfileVersion := CallbackCreate(GetMethod(implObj, "GetApplicationProfileVersion"), flags, 4)
-        this.vtbl.CreateCompilerCacheSession := CallbackCreate(GetMethod(implObj, "CreateCompilerCacheSession"), flags, 7)
-        this.vtbl.CreateCompiler := CallbackCreate(GetMethod(implObj, "CreateCompiler"), flags, 4)
+        this.vtbl.EnumerateAdapterFamilies := CallbackCreate(ObjBindMethod(implObj, "EnumerateAdapterFamilies"), flags, 3)
+        this.vtbl.EnumerateAdapterFamilyABIVersions := CallbackCreate(ObjBindMethod(implObj, "EnumerateAdapterFamilyABIVersions"), flags, 4)
+        this.vtbl.EnumerateAdapterFamilyCompilerVersion := CallbackCreate(ObjBindMethod(implObj, "EnumerateAdapterFamilyCompilerVersion"), flags, 3)
+        this.vtbl.GetApplicationProfileVersion := CallbackCreate(ObjBindMethod(implObj, "GetApplicationProfileVersion"), flags, 4)
+        this.vtbl.CreateCompilerCacheSession := CallbackCreate(ObjBindMethod(implObj, "CreateCompilerCacheSession"), flags, 7)
+        this.vtbl.CreateCompiler := CallbackCreate(ObjBindMethod(implObj, "CreateCompiler"), flags, 4)
     }
 
     Dispose() {

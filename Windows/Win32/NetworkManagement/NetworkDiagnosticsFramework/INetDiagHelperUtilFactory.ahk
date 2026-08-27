@@ -61,7 +61,7 @@ export default struct INetDiagHelperUtilFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateUtilityInstance := CallbackCreate(GetMethod(implObj, "CreateUtilityInstance"), flags, 3)
+        this.vtbl.CreateUtilityInstance := CallbackCreate(ObjBindMethod(implObj, "CreateUtilityInstance"), flags, 3)
     }
 
     Dispose() {

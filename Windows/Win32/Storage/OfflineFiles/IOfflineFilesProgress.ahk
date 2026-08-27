@@ -82,9 +82,9 @@ export default struct IOfflineFilesProgress extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Begin := CallbackCreate(GetMethod(implObj, "Begin"), flags, 2)
-        this.vtbl.QueryAbort := CallbackCreate(GetMethod(implObj, "QueryAbort"), flags, 2)
-        this.vtbl.End := CallbackCreate(GetMethod(implObj, "End"), flags, 2)
+        this.vtbl.Begin := CallbackCreate(ObjBindMethod(implObj, "Begin"), flags, 2)
+        this.vtbl.QueryAbort := CallbackCreate(ObjBindMethod(implObj, "QueryAbort"), flags, 2)
+        this.vtbl.End := CallbackCreate(ObjBindMethod(implObj, "End"), flags, 2)
     }
 
     Dispose() {

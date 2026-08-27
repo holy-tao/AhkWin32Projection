@@ -182,7 +182,6 @@ export default struct ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_CommonProperties() {
@@ -191,7 +190,6 @@ export default struct ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_PrivateProperties() {
@@ -200,7 +198,6 @@ export default struct ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_CommonROProperties() {
@@ -209,7 +206,6 @@ export default struct ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_PrivateROProperties() {
@@ -218,7 +214,6 @@ export default struct ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     get_Handle() {
@@ -227,7 +222,6 @@ export default struct ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrClusterName 
      * @returns {HRESULT} 
      */
@@ -239,7 +233,6 @@ export default struct ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -249,7 +242,6 @@ export default struct ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrClusterName 
      * @returns {HRESULT} 
      */
@@ -261,7 +253,6 @@ export default struct ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusVersion} 
      */
     get_Version() {
@@ -270,7 +261,6 @@ export default struct ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISClusResource} pClusterResource 
      * @returns {HRESULT} 
      */
@@ -280,7 +270,6 @@ export default struct ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusResource} 
      */
     get_QuorumResource() {
@@ -289,7 +278,6 @@ export default struct ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_QuorumLogSize() {
@@ -298,7 +286,6 @@ export default struct ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} nLogSize 
      * @returns {HRESULT} 
      */
@@ -308,7 +295,6 @@ export default struct ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_QuorumPath() {
@@ -318,7 +304,6 @@ export default struct ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} pPath 
      * @returns {HRESULT} 
      */
@@ -330,7 +315,6 @@ export default struct ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusNodes} 
      */
     get_Nodes() {
@@ -339,7 +323,6 @@ export default struct ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusResGroups} 
      */
     get_ResourceGroups() {
@@ -348,7 +331,6 @@ export default struct ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusResources} 
      */
     get_Resources() {
@@ -357,7 +339,6 @@ export default struct ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusResTypes} 
      */
     get_ResourceTypes() {
@@ -366,7 +347,6 @@ export default struct ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusNetworks} 
      */
     get_Networks() {
@@ -375,7 +355,6 @@ export default struct ISCluster extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusNetInterfaces} 
      */
     get_NetInterfaces() {
@@ -392,27 +371,27 @@ export default struct ISCluster extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_CommonProperties := CallbackCreate(GetMethod(implObj, "get_CommonProperties"), flags, 2)
-        this.vtbl.get_PrivateProperties := CallbackCreate(GetMethod(implObj, "get_PrivateProperties"), flags, 2)
-        this.vtbl.get_CommonROProperties := CallbackCreate(GetMethod(implObj, "get_CommonROProperties"), flags, 2)
-        this.vtbl.get_PrivateROProperties := CallbackCreate(GetMethod(implObj, "get_PrivateROProperties"), flags, 2)
-        this.vtbl.get_Handle := CallbackCreate(GetMethod(implObj, "get_Handle"), flags, 2)
-        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 2)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
-        this.vtbl.get_Version := CallbackCreate(GetMethod(implObj, "get_Version"), flags, 2)
-        this.vtbl.put_QuorumResource := CallbackCreate(GetMethod(implObj, "put_QuorumResource"), flags, 2)
-        this.vtbl.get_QuorumResource := CallbackCreate(GetMethod(implObj, "get_QuorumResource"), flags, 2)
-        this.vtbl.get_QuorumLogSize := CallbackCreate(GetMethod(implObj, "get_QuorumLogSize"), flags, 2)
-        this.vtbl.put_QuorumLogSize := CallbackCreate(GetMethod(implObj, "put_QuorumLogSize"), flags, 2)
-        this.vtbl.get_QuorumPath := CallbackCreate(GetMethod(implObj, "get_QuorumPath"), flags, 2)
-        this.vtbl.put_QuorumPath := CallbackCreate(GetMethod(implObj, "put_QuorumPath"), flags, 2)
-        this.vtbl.get_Nodes := CallbackCreate(GetMethod(implObj, "get_Nodes"), flags, 2)
-        this.vtbl.get_ResourceGroups := CallbackCreate(GetMethod(implObj, "get_ResourceGroups"), flags, 2)
-        this.vtbl.get_Resources := CallbackCreate(GetMethod(implObj, "get_Resources"), flags, 2)
-        this.vtbl.get_ResourceTypes := CallbackCreate(GetMethod(implObj, "get_ResourceTypes"), flags, 2)
-        this.vtbl.get_Networks := CallbackCreate(GetMethod(implObj, "get_Networks"), flags, 2)
-        this.vtbl.get_NetInterfaces := CallbackCreate(GetMethod(implObj, "get_NetInterfaces"), flags, 2)
+        this.vtbl.get_CommonProperties := CallbackCreate(ObjBindMethod(implObj, "get_CommonProperties"), flags, 2)
+        this.vtbl.get_PrivateProperties := CallbackCreate(ObjBindMethod(implObj, "get_PrivateProperties"), flags, 2)
+        this.vtbl.get_CommonROProperties := CallbackCreate(ObjBindMethod(implObj, "get_CommonROProperties"), flags, 2)
+        this.vtbl.get_PrivateROProperties := CallbackCreate(ObjBindMethod(implObj, "get_PrivateROProperties"), flags, 2)
+        this.vtbl.get_Handle := CallbackCreate(ObjBindMethod(implObj, "get_Handle"), flags, 2)
+        this.vtbl.Open := CallbackCreate(ObjBindMethod(implObj, "Open"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(ObjBindMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.get_Version := CallbackCreate(ObjBindMethod(implObj, "get_Version"), flags, 2)
+        this.vtbl.put_QuorumResource := CallbackCreate(ObjBindMethod(implObj, "put_QuorumResource"), flags, 2)
+        this.vtbl.get_QuorumResource := CallbackCreate(ObjBindMethod(implObj, "get_QuorumResource"), flags, 2)
+        this.vtbl.get_QuorumLogSize := CallbackCreate(ObjBindMethod(implObj, "get_QuorumLogSize"), flags, 2)
+        this.vtbl.put_QuorumLogSize := CallbackCreate(ObjBindMethod(implObj, "put_QuorumLogSize"), flags, 2)
+        this.vtbl.get_QuorumPath := CallbackCreate(ObjBindMethod(implObj, "get_QuorumPath"), flags, 2)
+        this.vtbl.put_QuorumPath := CallbackCreate(ObjBindMethod(implObj, "put_QuorumPath"), flags, 2)
+        this.vtbl.get_Nodes := CallbackCreate(ObjBindMethod(implObj, "get_Nodes"), flags, 2)
+        this.vtbl.get_ResourceGroups := CallbackCreate(ObjBindMethod(implObj, "get_ResourceGroups"), flags, 2)
+        this.vtbl.get_Resources := CallbackCreate(ObjBindMethod(implObj, "get_Resources"), flags, 2)
+        this.vtbl.get_ResourceTypes := CallbackCreate(ObjBindMethod(implObj, "get_ResourceTypes"), flags, 2)
+        this.vtbl.get_Networks := CallbackCreate(ObjBindMethod(implObj, "get_Networks"), flags, 2)
+        this.vtbl.get_NetInterfaces := CallbackCreate(ObjBindMethod(implObj, "get_NetInterfaces"), flags, 2)
     }
 
     Dispose() {

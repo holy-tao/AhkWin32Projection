@@ -176,8 +176,8 @@ export default struct IWMPConvert extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ConvertFile := CallbackCreate(GetMethod(implObj, "ConvertFile"), flags, 4)
-        this.vtbl.GetErrorURL := CallbackCreate(GetMethod(implObj, "GetErrorURL"), flags, 2)
+        this.vtbl.ConvertFile := CallbackCreate(ObjBindMethod(implObj, "ConvertFile"), flags, 4)
+        this.vtbl.GetErrorURL := CallbackCreate(ObjBindMethod(implObj, "GetErrorURL"), flags, 2)
     }
 
     Dispose() {

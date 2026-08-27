@@ -34,7 +34,6 @@ export default struct PWLX_QUERY_CLIENT_CREDENTIALS {
     }
 
     /**
-     * 
      * @param {Pointer<WLX_CLIENT_CREDENTIALS_INFO_V1_0>} pCred Specifies a pointer to a 
      * <a href="https://docs.microsoft.com/windows/win32/api/winwlx/ns-winwlx-wlx_client_credentials_info_v1_0">WLX_CLIENT_CREDENTIALS_INFO_V1_0</a> structure that contains the credentials of the client on return.
      * @returns {BOOL} The <b>WlxQueryClientCredentials</b> function returns one of the following values.

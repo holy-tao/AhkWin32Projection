@@ -37,7 +37,6 @@ export default struct ID3D12RootSignature1 extends ID3D12RootSignature {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     GetSerializedSize() {
@@ -46,7 +45,6 @@ export default struct ID3D12RootSignature1 extends ID3D12RootSignature {
     }
 
     /**
-     * 
      * @param {Integer} pData 
      * @param {Pointer} _Size 
      * @returns {HRESULT} 
@@ -65,8 +63,8 @@ export default struct ID3D12RootSignature1 extends ID3D12RootSignature {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSerializedSize := CallbackCreate(GetMethod(implObj, "GetSerializedSize"), flags, 1)
-        this.vtbl.GetSerializedData := CallbackCreate(GetMethod(implObj, "GetSerializedData"), flags, 3)
+        this.vtbl.GetSerializedSize := CallbackCreate(ObjBindMethod(implObj, "GetSerializedSize"), flags, 1)
+        this.vtbl.GetSerializedData := CallbackCreate(ObjBindMethod(implObj, "GetSerializedData"), flags, 3)
     }
 
     Dispose() {

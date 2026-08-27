@@ -33,7 +33,6 @@ export default struct PFAXINITIALIZEEVENTQUEUE {
     }
 
     /**
-     * 
      * @param {HANDLE} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.

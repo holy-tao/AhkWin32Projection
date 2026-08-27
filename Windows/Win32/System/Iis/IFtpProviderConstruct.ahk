@@ -37,7 +37,6 @@ export default struct IFtpProviderConstruct extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SAFEARRAY>} configurationEntries 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,7 @@ export default struct IFtpProviderConstruct extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Construct := CallbackCreate(GetMethod(implObj, "Construct"), flags, 2)
+        this.vtbl.Construct := CallbackCreate(ObjBindMethod(implObj, "Construct"), flags, 2)
     }
 
     Dispose() {

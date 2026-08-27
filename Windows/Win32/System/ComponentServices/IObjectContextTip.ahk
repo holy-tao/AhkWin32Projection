@@ -58,7 +58,7 @@ export default struct IObjectContextTip extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTipUrl := CallbackCreate(GetMethod(implObj, "GetTipUrl"), flags, 2)
+        this.vtbl.GetTipUrl := CallbackCreate(ObjBindMethod(implObj, "GetTipUrl"), flags, 2)
     }
 
     Dispose() {

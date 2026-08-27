@@ -24,7 +24,6 @@ export default struct PLOG_FULL_HANDLER_CALLBACK {
     }
 
     /**
-     * 
      * @param {HANDLE} hLogFile The handle to the log.
      * @param {Integer} dwError The status of the operation.
      * @param {BOOL} fLogIsPinned Specifies if the log is considered "pinned". If <i>fLogIsPinned</i> is <b>TRUE</b> and the log is then unpinned, the <a href="https://docs.microsoft.com/windows/desktop/api/clfsmgmtw32/nc-clfsmgmtw32-plog_unpinned_callback">LOG_UNPINNED_CALLBACK</a> is invoked.
@@ -32,7 +31,7 @@ export default struct PLOG_FULL_HANDLER_CALLBACK {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(hLogFile, dwError, fLogIsPinned, pvClientContext) {
-        pvClientContextMarshal := pvClientContext is VarRef ? "ptr" : "ptr"
+        pvClientContextMarshal := pvClientContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, HANDLE, hLogFile, UInt32, dwError, BOOL, fLogIsPinned, pvClientContextMarshal, pvClientContext)
     }

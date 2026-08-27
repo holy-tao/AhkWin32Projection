@@ -23,7 +23,6 @@ export default struct LPDSENUMATTRIBUTES {
     }
 
     /**
-     * 
      * @param {LPARAM} _lParam Contains an application-defined  parameter  passed as the <i>lParam</i> parameter to the <a href="https://docs.microsoft.com/windows/desktop/api/dsclient/nf-dsclient-idsdisplayspecifier-enumclassattributes">IDsDisplaySpecifier::EnumClassAttributes</a> method.
      * @param {PWSTR} pszAttributeName Pointer to a null-terminated Unicode string that contains the LDAP name of the attribute.
      * @param {PWSTR} pszDisplayName Pointer to a null-terminated Unicode string that contains the localized name of the attribute.

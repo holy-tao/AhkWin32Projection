@@ -21,7 +21,6 @@ export default struct PFNFCIFILEPLACED {
     }
 
     /**
-     * 
      * @param {Pointer<CCAB>} pccab 
      * @param {PSTR} pszFile 
      * @param {Integer} cbFile 
@@ -32,7 +31,7 @@ export default struct PFNFCIFILEPLACED {
     Call(pccab, pszFile, cbFile, fContinuation, pv) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+        pvMarshal := pv is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, CCAB.Ptr, pccab, "ptr", pszFile, Int32, cbFile, BOOL, fContinuation, pvMarshal, pv, Int32)
         return result

@@ -40,7 +40,6 @@ export default struct ID2D1EffectContext2 extends ID2D1EffectContext1 {
     }
 
     /**
-     * 
      * @param {DXGI_COLOR_SPACE_TYPE} colorSpace 
      * @returns {ID2D1ColorContext1} 
      */
@@ -50,7 +49,6 @@ export default struct ID2D1EffectContext2 extends ID2D1EffectContext1 {
     }
 
     /**
-     * 
      * @param {Pointer<D2D1_SIMPLE_COLOR_PROFILE>} simpleProfile 
      * @returns {ID2D1ColorContext1} 
      */
@@ -68,8 +66,8 @@ export default struct ID2D1EffectContext2 extends ID2D1EffectContext1 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateColorContextFromDxgiColorSpace := CallbackCreate(GetMethod(implObj, "CreateColorContextFromDxgiColorSpace"), flags, 3)
-        this.vtbl.CreateColorContextFromSimpleColorProfile := CallbackCreate(GetMethod(implObj, "CreateColorContextFromSimpleColorProfile"), flags, 3)
+        this.vtbl.CreateColorContextFromDxgiColorSpace := CallbackCreate(ObjBindMethod(implObj, "CreateColorContextFromDxgiColorSpace"), flags, 3)
+        this.vtbl.CreateColorContextFromSimpleColorProfile := CallbackCreate(ObjBindMethod(implObj, "CreateColorContextFromSimpleColorProfile"), flags, 3)
     }
 
     Dispose() {

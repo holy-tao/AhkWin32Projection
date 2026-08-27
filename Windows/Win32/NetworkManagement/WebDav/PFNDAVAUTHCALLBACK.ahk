@@ -30,7 +30,6 @@ export default struct PFNDAVAUTHCALLBACK {
     }
 
     /**
-     * 
      * @param {PWSTR} lpwzServerName A pointer to a <b>NULL</b>-terminated Unicode string that contains the name of the target server.
      * @param {PWSTR} lpwzRemoteName A pointer to a <b>NULL</b>-terminated Unicode string that contains the name of the network resource.
      * @param {Integer} dwAuthScheme A bitmask of flags that specify the authentication schemes to be used.
@@ -134,8 +133,8 @@ export default struct PFNDAVAUTHCALLBACK {
         lpwzServerName := lpwzServerName is String ? StrPtr(lpwzServerName) : lpwzServerName
         lpwzRemoteName := lpwzRemoteName is String ? StrPtr(lpwzRemoteName) : lpwzRemoteName
 
-        NextStepMarshal := NextStep is VarRef ? "int*" : "ptr"
-        pFreeCredMarshal := pFreeCred is VarRef ? "ptr*" : "ptr"
+        NextStepMarshal := NextStep is VarRef ? "int*" : IntPtr
+        pFreeCredMarshal := pFreeCred is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, "ptr", lpwzServerName, "ptr", lpwzRemoteName, UInt32, dwAuthScheme, UInt32, dwFlags, DAV_CALLBACK_CRED.Ptr, pCallbackCred, NextStepMarshal, NextStep, pFreeCredMarshal, pFreeCred, UInt32)
         return result

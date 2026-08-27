@@ -139,7 +139,7 @@ export PeerGraphShutdown() {
  * @since windows5.1.2600
  */
 export PeerGraphFreeData(pvData) {
-    pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
+    pvDataMarshal := pvData is VarRef ? "ptr" : IntPtr
 
     DllCall("P2PGRAPH.dll\PeerGraphFreeData", pvDataMarshal, pvData)
 }
@@ -154,7 +154,7 @@ export PeerGraphFreeData(pvData) {
  * @since windows5.1.2600
  */
 export PeerGraphGetItemCount(hPeerEnum) {
-    hPeerEnumMarshal := hPeerEnum is VarRef ? "ptr" : "ptr"
+    hPeerEnumMarshal := hPeerEnum is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2PGRAPH.dll\PeerGraphGetItemCount", hPeerEnumMarshal, hPeerEnum, "uint*", &pCount := 0, "HRESULT")
     return pCount
@@ -178,8 +178,8 @@ export PeerGraphGetItemCount(hPeerEnum) {
  * @since windows5.1.2600
  */
 export PeerGraphGetNextItem(hPeerEnum, pCount) {
-    hPeerEnumMarshal := hPeerEnum is VarRef ? "ptr" : "ptr"
-    pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+    hPeerEnumMarshal := hPeerEnum is VarRef ? "ptr" : IntPtr
+    pCountMarshal := pCount is VarRef ? "uint*" : IntPtr
 
     result := DllCall("P2PGRAPH.dll\PeerGraphGetNextItem", hPeerEnumMarshal, hPeerEnum, pCountMarshal, pCount, "ptr*", &pppvItems := 0, "HRESULT")
     return pppvItems
@@ -222,7 +222,7 @@ export PeerGraphGetNextItem(hPeerEnum, pCount) {
  * @since windows5.1.2600
  */
 export PeerGraphEndEnumeration(hPeerEnum) {
-    hPeerEnumMarshal := hPeerEnum is VarRef ? "ptr" : "ptr"
+    hPeerEnumMarshal := hPeerEnum is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2PGRAPH.dll\PeerGraphEndEnumeration", hPeerEnumMarshal, hPeerEnum, "HRESULT")
     return result
@@ -244,7 +244,9 @@ export PeerGraphEndEnumeration(hPeerEnum) {
 export PeerGraphCreate(pGraphProperties, pwzDatabaseName, pSecurityInterface) {
     pwzDatabaseName := pwzDatabaseName is String ? StrPtr(pwzDatabaseName) : pwzDatabaseName
 
-    result := DllCall("P2PGRAPH.dll\PeerGraphCreate", PEER_GRAPH_PROPERTIES.Ptr, pGraphProperties, "ptr", pwzDatabaseName, PEER_SECURITY_INTERFACE.Ptr, pSecurityInterface, "ptr*", &phGraph := 0, "HRESULT")
+    pSecurityInterfaceMarshal := pSecurityInterface == 0 ? IntPtr : PEER_SECURITY_INTERFACE.Ptr
+
+    result := DllCall("P2PGRAPH.dll\PeerGraphCreate", PEER_GRAPH_PROPERTIES.Ptr, pGraphProperties, "ptr", pwzDatabaseName, pSecurityInterfaceMarshal, pSecurityInterface, "ptr*", &phGraph := 0, "HRESULT")
     return phGraph
 }
 
@@ -286,7 +288,10 @@ export PeerGraphOpen(pwzGraphId, pwzPeerId, pwzDatabaseName, pSecurityInterface,
     pwzPeerId := pwzPeerId is String ? StrPtr(pwzPeerId) : pwzPeerId
     pwzDatabaseName := pwzDatabaseName is String ? StrPtr(pwzDatabaseName) : pwzDatabaseName
 
-    result := DllCall("P2PGRAPH.dll\PeerGraphOpen", "ptr", pwzGraphId, "ptr", pwzPeerId, "ptr", pwzDatabaseName, PEER_SECURITY_INTERFACE.Ptr, pSecurityInterface, UInt32, cRecordTypeSyncPrecedence, Guid.Ptr, pRecordTypeSyncPrecedence, "ptr*", &phGraph := 0, "HRESULT")
+    pSecurityInterfaceMarshal := pSecurityInterface == 0 ? IntPtr : PEER_SECURITY_INTERFACE.Ptr
+    pRecordTypeSyncPrecedenceMarshal := pRecordTypeSyncPrecedence == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("P2PGRAPH.dll\PeerGraphOpen", "ptr", pwzGraphId, "ptr", pwzPeerId, "ptr", pwzDatabaseName, pSecurityInterfaceMarshal, pSecurityInterface, UInt32, cRecordTypeSyncPrecedence, pRecordTypeSyncPrecedenceMarshal, pRecordTypeSyncPrecedence, "ptr*", &phGraph := 0, "HRESULT")
     return phGraph
 }
 
@@ -411,9 +416,12 @@ export PeerGraphOpen(pwzGraphId, pwzPeerId, pwzDatabaseName, pSecurityInterface,
  * @since windows5.1.2600
  */
 export PeerGraphListen(hGraph, dwScope, dwScopeId, wPort) {
-    hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+    hGraphMarshal := hGraph is VarRef ? "ptr" : IntPtr
+    dwScopeMarshal := dwScope == 0 ? IntPtr : UInt32
+    dwScopeIdMarshal := dwScopeId == 0 ? IntPtr : UInt32
+    wPortMarshal := wPort == 0 ? IntPtr : UInt16
 
-    result := DllCall("P2PGRAPH.dll\PeerGraphListen", hGraphMarshal, hGraph, UInt32, dwScope, UInt32, dwScopeId, UInt16, wPort, "HRESULT")
+    result := DllCall("P2PGRAPH.dll\PeerGraphListen", hGraphMarshal, hGraph, dwScopeMarshal, dwScope, dwScopeIdMarshal, dwScopeId, wPortMarshal, wPort, "HRESULT")
     return result
 }
 
@@ -429,9 +437,10 @@ export PeerGraphListen(hGraph, dwScope, dwScopeId, wPort) {
 export PeerGraphConnect(hGraph, pwzPeerId, pAddress) {
     pwzPeerId := pwzPeerId is String ? StrPtr(pwzPeerId) : pwzPeerId
 
-    hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+    hGraphMarshal := hGraph is VarRef ? "ptr" : IntPtr
+    pwzPeerIdMarshal := pwzPeerId == 0 ? IntPtr : PWSTR
 
-    result := DllCall("P2PGRAPH.dll\PeerGraphConnect", hGraphMarshal, hGraph, "ptr", pwzPeerId, PEER_ADDRESS.Ptr, pAddress, "uint*", &pullConnectionId := 0, "HRESULT")
+    result := DllCall("P2PGRAPH.dll\PeerGraphConnect", hGraphMarshal, hGraph, pwzPeerIdMarshal, pwzPeerId, PEER_ADDRESS.Ptr, pAddress, "uint*", &pullConnectionId := 0, "HRESULT")
     return pullConnectionId
 }
 
@@ -494,7 +503,7 @@ export PeerGraphConnect(hGraph, pwzPeerId, pAddress) {
  * @since windows5.1.2600
  */
 export PeerGraphClose(hGraph) {
-    hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+    hGraphMarshal := hGraph is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2PGRAPH.dll\PeerGraphClose", hGraphMarshal, hGraph, "HRESULT")
     return result
@@ -570,7 +579,7 @@ export PeerGraphDelete(pwzGraphId, pwzPeerId, pwzDatabaseName) {
  * @since windows5.1.2600
  */
 export PeerGraphGetStatus(hGraph) {
-    hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+    hGraphMarshal := hGraph is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2PGRAPH.dll\PeerGraphGetStatus", hGraphMarshal, hGraph, "uint*", &pdwStatus := 0, "HRESULT")
     return pdwStatus
@@ -584,7 +593,7 @@ export PeerGraphGetStatus(hGraph) {
  * @since windows5.1.2600
  */
 export PeerGraphGetProperties(hGraph) {
-    hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+    hGraphMarshal := hGraph is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2PGRAPH.dll\PeerGraphGetProperties", hGraphMarshal, hGraph, "ptr*", &ppGraphProperties := 0, "HRESULT")
     return ppGraphProperties
@@ -664,7 +673,7 @@ export PeerGraphGetProperties(hGraph) {
  * @since windows5.1.2600
  */
 export PeerGraphSetProperties(hGraph, pGraphProperties) {
-    hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+    hGraphMarshal := hGraph is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2PGRAPH.dll\PeerGraphSetProperties", hGraphMarshal, hGraph, PEER_GRAPH_PROPERTIES.Ptr, pGraphProperties, "HRESULT")
     return result
@@ -681,7 +690,7 @@ export PeerGraphSetProperties(hGraph, pGraphProperties) {
  * @since windows5.1.2600
  */
 export PeerGraphRegisterEvent(hGraph, hEvent, cEventRegistrations, pEventRegistrations) {
-    hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+    hGraphMarshal := hGraph is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2PGRAPH.dll\PeerGraphRegisterEvent", hGraphMarshal, hGraph, HANDLE, hEvent, UInt32, cEventRegistrations, PEER_GRAPH_EVENT_REGISTRATION.Ptr, pEventRegistrations, "ptr*", &phPeerEvent := 0, "HRESULT")
     return phPeerEvent
@@ -726,7 +735,7 @@ export PeerGraphRegisterEvent(hGraph, hEvent, cEventRegistrations, pEventRegistr
  * @since windows5.1.2600
  */
 export PeerGraphUnregisterEvent(hPeerEvent) {
-    hPeerEventMarshal := hPeerEvent is VarRef ? "ptr" : "ptr"
+    hPeerEventMarshal := hPeerEvent is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2PGRAPH.dll\PeerGraphUnregisterEvent", hPeerEventMarshal, hPeerEvent, "HRESULT")
     return result
@@ -742,7 +751,7 @@ export PeerGraphUnregisterEvent(hPeerEvent) {
  * @since windows5.1.2600
  */
 export PeerGraphGetEventData(hPeerEvent) {
-    hPeerEventMarshal := hPeerEvent is VarRef ? "ptr" : "ptr"
+    hPeerEventMarshal := hPeerEvent is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2PGRAPH.dll\PeerGraphGetEventData", hPeerEventMarshal, hPeerEvent, "ptr*", &ppEventData := 0, "HRESULT")
     return ppEventData
@@ -757,7 +766,7 @@ export PeerGraphGetEventData(hPeerEvent) {
  * @since windows5.1.2600
  */
 export PeerGraphGetRecord(hGraph, pRecordId) {
-    hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+    hGraphMarshal := hGraph is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2PGRAPH.dll\PeerGraphGetRecord", hGraphMarshal, hGraph, Guid.Ptr, pRecordId, "ptr*", &ppRecord := 0, "HRESULT")
     return ppRecord
@@ -909,7 +918,7 @@ export PeerGraphGetRecord(hGraph, pRecordId) {
  * @since windows5.1.2600
  */
 export PeerGraphAddRecord(hGraph, pRecord, pRecordId) {
-    hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+    hGraphMarshal := hGraph is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2PGRAPH.dll\PeerGraphAddRecord", hGraphMarshal, hGraph, PEER_RECORD.Ptr, pRecord, Guid.Ptr, pRecordId, "HRESULT")
     return result
@@ -995,7 +1004,7 @@ export PeerGraphAddRecord(hGraph, pRecord, pRecordId) {
  * @since windows5.1.2600
  */
 export PeerGraphUpdateRecord(hGraph, pRecord) {
-    hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+    hGraphMarshal := hGraph is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2PGRAPH.dll\PeerGraphUpdateRecord", hGraphMarshal, hGraph, PEER_RECORD.Ptr, pRecord, "HRESULT")
     return result
@@ -1076,7 +1085,7 @@ export PeerGraphUpdateRecord(hGraph, pRecord) {
  * @since windows5.1.2600
  */
 export PeerGraphDeleteRecord(hGraph, pRecordId, fLocal) {
-    hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+    hGraphMarshal := hGraph is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2PGRAPH.dll\PeerGraphDeleteRecord", hGraphMarshal, hGraph, Guid.Ptr, pRecordId, BOOL, fLocal, "HRESULT")
     return result
@@ -1104,9 +1113,11 @@ export PeerGraphDeleteRecord(hGraph, pRecordId, fLocal) {
 export PeerGraphEnumRecords(hGraph, pRecordType, pwzPeerId) {
     pwzPeerId := pwzPeerId is String ? StrPtr(pwzPeerId) : pwzPeerId
 
-    hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+    hGraphMarshal := hGraph is VarRef ? "ptr" : IntPtr
+    pRecordTypeMarshal := pRecordType == 0 ? IntPtr : Guid.Ptr
+    pwzPeerIdMarshal := pwzPeerId == 0 ? IntPtr : PWSTR
 
-    result := DllCall("P2PGRAPH.dll\PeerGraphEnumRecords", hGraphMarshal, hGraph, Guid.Ptr, pRecordType, "ptr", pwzPeerId, "ptr*", &phPeerEnum := 0, "HRESULT")
+    result := DllCall("P2PGRAPH.dll\PeerGraphEnumRecords", hGraphMarshal, hGraph, pRecordTypeMarshal, pRecordType, pwzPeerIdMarshal, pwzPeerId, "ptr*", &phPeerEnum := 0, "HRESULT")
     return phPeerEnum
 }
 
@@ -1125,7 +1136,7 @@ export PeerGraphEnumRecords(hGraph, pRecordType, pwzPeerId) {
 export PeerGraphSearchRecords(hGraph, pwzCriteria) {
     pwzCriteria := pwzCriteria is String ? StrPtr(pwzCriteria) : pwzCriteria
 
-    hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+    hGraphMarshal := hGraph is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2PGRAPH.dll\PeerGraphSearchRecords", hGraphMarshal, hGraph, "ptr", pwzCriteria, "ptr*", &phPeerEnum := 0, "HRESULT")
     return phPeerEnum
@@ -1195,7 +1206,7 @@ export PeerGraphSearchRecords(hGraph, pwzCriteria) {
 export PeerGraphExportDatabase(hGraph, pwzFilePath) {
     pwzFilePath := pwzFilePath is String ? StrPtr(pwzFilePath) : pwzFilePath
 
-    hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+    hGraphMarshal := hGraph is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2PGRAPH.dll\PeerGraphExportDatabase", hGraphMarshal, hGraph, "ptr", pwzFilePath, "HRESULT")
     return result
@@ -1278,7 +1289,7 @@ export PeerGraphExportDatabase(hGraph, pwzFilePath) {
 export PeerGraphImportDatabase(hGraph, pwzFilePath) {
     pwzFilePath := pwzFilePath is String ? StrPtr(pwzFilePath) : pwzFilePath
 
-    hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+    hGraphMarshal := hGraph is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2PGRAPH.dll\PeerGraphImportDatabase", hGraphMarshal, hGraph, "ptr", pwzFilePath, "HRESULT")
     return result
@@ -1347,7 +1358,7 @@ export PeerGraphImportDatabase(hGraph, pwzFilePath) {
  * @since windows5.1.2600
  */
 export PeerGraphValidateDeferredRecords(hGraph, cRecordIds, pRecordIds) {
-    hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+    hGraphMarshal := hGraph is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2PGRAPH.dll\PeerGraphValidateDeferredRecords", hGraphMarshal, hGraph, UInt32, cRecordIds, Guid.Ptr, pRecordIds, "HRESULT")
     return result
@@ -1367,7 +1378,7 @@ export PeerGraphValidateDeferredRecords(hGraph, cRecordIds, pRecordIds) {
 export PeerGraphOpenDirectConnection(hGraph, pwzPeerId, pAddress) {
     pwzPeerId := pwzPeerId is String ? StrPtr(pwzPeerId) : pwzPeerId
 
-    hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+    hGraphMarshal := hGraph is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2PGRAPH.dll\PeerGraphOpenDirectConnection", hGraphMarshal, hGraph, "ptr", pwzPeerId, PEER_ADDRESS.Ptr, pAddress, "uint*", &pullConnectionId := 0, "HRESULT")
     return pullConnectionId
@@ -1441,7 +1452,7 @@ export PeerGraphOpenDirectConnection(hGraph, pwzPeerId, pAddress) {
  * @since windows5.1.2600
  */
 export PeerGraphSendData(hGraph, ullConnectionId, pType, cbData, pvData) {
-    hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+    hGraphMarshal := hGraph is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2PGRAPH.dll\PeerGraphSendData", hGraphMarshal, hGraph, Int64, ullConnectionId, Guid.Ptr, pType, UInt32, cbData, IntPtr, pvData, "HRESULT")
     return result
@@ -1507,7 +1518,7 @@ export PeerGraphSendData(hGraph, ullConnectionId, pType, cbData, pvData) {
  * @since windows5.1.2600
  */
 export PeerGraphCloseDirectConnection(hGraph, ullConnectionId) {
-    hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+    hGraphMarshal := hGraph is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2PGRAPH.dll\PeerGraphCloseDirectConnection", hGraphMarshal, hGraph, Int64, ullConnectionId, "HRESULT")
     return result
@@ -1524,7 +1535,7 @@ export PeerGraphCloseDirectConnection(hGraph, ullConnectionId) {
  * @since windows5.1.2600
  */
 export PeerGraphEnumConnections(hGraph, dwFlags) {
-    hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+    hGraphMarshal := hGraph is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2PGRAPH.dll\PeerGraphEnumConnections", hGraphMarshal, hGraph, UInt32, dwFlags, "ptr*", &phPeerEnum := 0, "HRESULT")
     return phPeerEnum
@@ -1543,9 +1554,10 @@ export PeerGraphEnumConnections(hGraph, dwFlags) {
 export PeerGraphEnumNodes(hGraph, pwzPeerId) {
     pwzPeerId := pwzPeerId is String ? StrPtr(pwzPeerId) : pwzPeerId
 
-    hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+    hGraphMarshal := hGraph is VarRef ? "ptr" : IntPtr
+    pwzPeerIdMarshal := pwzPeerId == 0 ? IntPtr : PWSTR
 
-    result := DllCall("P2PGRAPH.dll\PeerGraphEnumNodes", hGraphMarshal, hGraph, "ptr", pwzPeerId, "ptr*", &phPeerEnum := 0, "HRESULT")
+    result := DllCall("P2PGRAPH.dll\PeerGraphEnumNodes", hGraphMarshal, hGraph, pwzPeerIdMarshal, pwzPeerId, "ptr*", &phPeerEnum := 0, "HRESULT")
     return phPeerEnum
 }
 
@@ -1603,7 +1615,7 @@ export PeerGraphEnumNodes(hGraph, pwzPeerId) {
  * @since windows5.1.2600
  */
 export PeerGraphSetPresence(hGraph, fPresent) {
-    hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+    hGraphMarshal := hGraph is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2PGRAPH.dll\PeerGraphSetPresence", hGraphMarshal, hGraph, BOOL, fPresent, "HRESULT")
     return result
@@ -1620,7 +1632,7 @@ export PeerGraphSetPresence(hGraph, fPresent) {
  * @since windows5.1.2600
  */
 export PeerGraphGetNodeInfo(hGraph, ullNodeId) {
-    hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+    hGraphMarshal := hGraph is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2PGRAPH.dll\PeerGraphGetNodeInfo", hGraphMarshal, hGraph, Int64, ullNodeId, "ptr*", &ppNodeInfo := 0, "HRESULT")
     return ppNodeInfo
@@ -1690,7 +1702,7 @@ export PeerGraphGetNodeInfo(hGraph, ullNodeId) {
 export PeerGraphSetNodeAttributes(hGraph, pwzAttributes) {
     pwzAttributes := pwzAttributes is String ? StrPtr(pwzAttributes) : pwzAttributes
 
-    hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+    hGraphMarshal := hGraph is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2PGRAPH.dll\PeerGraphSetNodeAttributes", hGraphMarshal, hGraph, "ptr", pwzAttributes, "HRESULT")
     return result
@@ -1754,7 +1766,7 @@ export PeerGraphSetNodeAttributes(hGraph, pwzAttributes) {
  * @since windows5.1.2600
  */
 export PeerGraphPeerTimeToUniversalTime(hGraph, pftPeerTime, pftUniversalTime) {
-    hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+    hGraphMarshal := hGraph is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2PGRAPH.dll\PeerGraphPeerTimeToUniversalTime", hGraphMarshal, hGraph, FILETIME.Ptr, pftPeerTime, FILETIME.Ptr, pftUniversalTime, "HRESULT")
     return result
@@ -1818,7 +1830,7 @@ export PeerGraphPeerTimeToUniversalTime(hGraph, pftPeerTime, pftUniversalTime) {
  * @since windows5.1.2600
  */
 export PeerGraphUniversalTimeToPeerTime(hGraph, pftUniversalTime, pftPeerTime) {
-    hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
+    hGraphMarshal := hGraph is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2PGRAPH.dll\PeerGraphUniversalTimeToPeerTime", hGraphMarshal, hGraph, FILETIME.Ptr, pftUniversalTime, FILETIME.Ptr, pftPeerTime, "HRESULT")
     return result
@@ -1834,7 +1846,8 @@ export PeerGraphUniversalTimeToPeerTime(hGraph, pftUniversalTime, pftPeerTime) {
  * @since windows5.1.2600
  */
 export PeerFreeData(pvData) {
-    pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
+    pvDataMarshal := pvData is VarRef ? "ptr" : IntPtr
+    pvDataMarshal := pvData == 0 ? IntPtr : "ptr"
 
     DllCall("P2P.dll\PeerFreeData", pvDataMarshal, pvData)
 }
@@ -1847,7 +1860,7 @@ export PeerFreeData(pvData) {
  * @since windows5.1.2600
  */
 export PeerGetItemCount(hPeerEnum) {
-    hPeerEnumMarshal := hPeerEnum is VarRef ? "ptr" : "ptr"
+    hPeerEnumMarshal := hPeerEnum is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2P.dll\PeerGetItemCount", hPeerEnumMarshal, hPeerEnum, "uint*", &pCount := 0, "HRESULT")
     return pCount
@@ -1874,8 +1887,8 @@ export PeerGetItemCount(hPeerEnum) {
  * @since windows5.1.2600
  */
 export PeerGetNextItem(hPeerEnum, pCount) {
-    hPeerEnumMarshal := hPeerEnum is VarRef ? "ptr" : "ptr"
-    pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+    hPeerEnumMarshal := hPeerEnum is VarRef ? "ptr" : IntPtr
+    pCountMarshal := pCount is VarRef ? "uint*" : IntPtr
 
     result := DllCall("P2P.dll\PeerGetNextItem", hPeerEnumMarshal, hPeerEnum, pCountMarshal, pCount, "ptr*", &pppvItems := 0, "HRESULT")
     return pppvItems
@@ -1907,7 +1920,7 @@ export PeerGetNextItem(hPeerEnum, pCount) {
  * @since windows5.1.2600
  */
 export PeerEndEnumeration(hPeerEnum) {
-    hPeerEnumMarshal := hPeerEnum is VarRef ? "ptr" : "ptr"
+    hPeerEnumMarshal := hPeerEnum is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2P.dll\PeerEndEnumeration", hPeerEnumMarshal, hPeerEnum, "HRESULT")
     return result
@@ -2063,7 +2076,9 @@ export PeerGroupOpen(pwzIdentity, pwzGroupPeerName, pwzCloud) {
     pwzGroupPeerName := pwzGroupPeerName is String ? StrPtr(pwzGroupPeerName) : pwzGroupPeerName
     pwzCloud := pwzCloud is String ? StrPtr(pwzCloud) : pwzCloud
 
-    result := DllCall("P2P.dll\PeerGroupOpen", "ptr", pwzIdentity, "ptr", pwzGroupPeerName, "ptr", pwzCloud, "ptr*", &phGroup := 0, "HRESULT")
+    pwzCloudMarshal := pwzCloud == 0 ? IntPtr : PWSTR
+
+    result := DllCall("P2P.dll\PeerGroupOpen", "ptr", pwzIdentity, "ptr", pwzGroupPeerName, pwzCloudMarshal, pwzCloud, "ptr*", &phGroup := 0, "HRESULT")
     return phGroup
 }
 
@@ -2081,7 +2096,9 @@ export PeerGroupJoin(pwzIdentity, pwzInvitation, pwzCloud) {
     pwzInvitation := pwzInvitation is String ? StrPtr(pwzInvitation) : pwzInvitation
     pwzCloud := pwzCloud is String ? StrPtr(pwzCloud) : pwzCloud
 
-    result := DllCall("P2P.dll\PeerGroupJoin", "ptr", pwzIdentity, "ptr", pwzInvitation, "ptr", pwzCloud, "ptr*", &phGroup := 0, "HRESULT")
+    pwzCloudMarshal := pwzCloud == 0 ? IntPtr : PWSTR
+
+    result := DllCall("P2P.dll\PeerGroupJoin", "ptr", pwzIdentity, "ptr", pwzInvitation, pwzCloudMarshal, pwzCloud, "ptr*", &phGroup := 0, "HRESULT")
     return phGroup
 }
 
@@ -2103,7 +2120,9 @@ export PeerGroupPasswordJoin(pwzIdentity, pwzInvitation, pwzPassword, pwzCloud) 
     pwzPassword := pwzPassword is String ? StrPtr(pwzPassword) : pwzPassword
     pwzCloud := pwzCloud is String ? StrPtr(pwzCloud) : pwzCloud
 
-    result := DllCall("P2P.dll\PeerGroupPasswordJoin", "ptr", pwzIdentity, "ptr", pwzInvitation, "ptr", pwzPassword, "ptr", pwzCloud, "ptr*", &phGroup := 0, "HRESULT")
+    pwzCloudMarshal := pwzCloud == 0 ? IntPtr : PWSTR
+
+    result := DllCall("P2P.dll\PeerGroupPasswordJoin", "ptr", pwzIdentity, "ptr", pwzInvitation, "ptr", pwzPassword, pwzCloudMarshal, pwzCloud, "ptr*", &phGroup := 0, "HRESULT")
     return phGroup
 }
 
@@ -2149,7 +2168,7 @@ export PeerGroupPasswordJoin(pwzIdentity, pwzInvitation, pwzPassword, pwzCloud) 
  * @since windows5.1.2600
  */
 export PeerGroupConnect(_hGroup) {
-    _hGroupMarshal := _hGroup is VarRef ? "ptr" : "ptr"
+    _hGroupMarshal := _hGroup is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2P.dll\PeerGroupConnect", _hGroupMarshal, _hGroup, "HRESULT")
     return result
@@ -2188,7 +2207,7 @@ export PeerGroupConnect(_hGroup) {
  * @since windows5.1.2600
  */
 export PeerGroupConnectByAddress(_hGroup, cAddresses, pAddresses) {
-    _hGroupMarshal := _hGroup is VarRef ? "ptr" : "ptr"
+    _hGroupMarshal := _hGroup is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2P.dll\PeerGroupConnectByAddress", _hGroupMarshal, _hGroup, UInt32, cAddresses, PEER_ADDRESS.Ptr, pAddresses, "HRESULT")
     return result
@@ -2225,7 +2244,7 @@ export PeerGroupConnectByAddress(_hGroup, cAddresses, pAddresses) {
  * @since windows5.1.2600
  */
 export PeerGroupClose(_hGroup) {
-    _hGroupMarshal := _hGroup is VarRef ? "ptr" : "ptr"
+    _hGroupMarshal := _hGroup is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2P.dll\PeerGroupClose", _hGroupMarshal, _hGroup, "HRESULT")
     return result
@@ -2351,9 +2370,11 @@ export PeerGroupDelete(pwzIdentity, pwzGroupPeerName) {
 export PeerGroupCreateInvitation(_hGroup, pwzIdentityInfo, pftExpiration, cRoles, pRoles) {
     pwzIdentityInfo := pwzIdentityInfo is String ? StrPtr(pwzIdentityInfo) : pwzIdentityInfo
 
-    _hGroupMarshal := _hGroup is VarRef ? "ptr" : "ptr"
+    _hGroupMarshal := _hGroup is VarRef ? "ptr" : IntPtr
+    pftExpirationMarshal := pftExpiration == 0 ? IntPtr : FILETIME.Ptr
+    pRolesMarshal := pRoles == 0 ? IntPtr : Guid.Ptr
 
-    result := DllCall("P2P.dll\PeerGroupCreateInvitation", _hGroupMarshal, _hGroup, "ptr", pwzIdentityInfo, FILETIME.Ptr, pftExpiration, UInt32, cRoles, Guid.Ptr, pRoles, PWSTR.Ptr, &ppwzInvitation := 0, "HRESULT")
+    result := DllCall("P2P.dll\PeerGroupCreateInvitation", _hGroupMarshal, _hGroup, "ptr", pwzIdentityInfo, pftExpirationMarshal, pftExpiration, UInt32, cRoles, pRolesMarshal, pRoles, PWSTR.Ptr, &ppwzInvitation := 0, "HRESULT")
     return ppwzInvitation
 }
 
@@ -2371,7 +2392,7 @@ export PeerGroupCreateInvitation(_hGroup, pwzIdentityInfo, pftExpiration, cRoles
  * @since windows5.1.2600
  */
 export PeerGroupCreatePasswordInvitation(_hGroup) {
-    _hGroupMarshal := _hGroup is VarRef ? "ptr" : "ptr"
+    _hGroupMarshal := _hGroup is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2P.dll\PeerGroupCreatePasswordInvitation", _hGroupMarshal, _hGroup, PWSTR.Ptr, &ppwzInvitation := 0, "HRESULT")
     return ppwzInvitation
@@ -2399,7 +2420,7 @@ export PeerGroupParseInvitation(pwzInvitation) {
  * @since windows5.1.2600
  */
 export PeerGroupGetStatus(_hGroup) {
-    _hGroupMarshal := _hGroup is VarRef ? "ptr" : "ptr"
+    _hGroupMarshal := _hGroup is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2P.dll\PeerGroupGetStatus", _hGroupMarshal, _hGroup, "uint*", &pdwStatus := 0, "HRESULT")
     return pdwStatus
@@ -2415,7 +2436,7 @@ export PeerGroupGetStatus(_hGroup) {
  * @since windows5.1.2600
  */
 export PeerGroupGetProperties(_hGroup) {
-    _hGroupMarshal := _hGroup is VarRef ? "ptr" : "ptr"
+    _hGroupMarshal := _hGroup is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2P.dll\PeerGroupGetProperties", _hGroupMarshal, _hGroup, "ptr*", &ppProperties := 0, "HRESULT")
     return ppProperties
@@ -2517,7 +2538,7 @@ export PeerGroupGetProperties(_hGroup) {
  * @since windows5.1.2600
  */
 export PeerGroupSetProperties(_hGroup, pProperties) {
-    _hGroupMarshal := _hGroup is VarRef ? "ptr" : "ptr"
+    _hGroupMarshal := _hGroup is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2P.dll\PeerGroupSetProperties", _hGroupMarshal, _hGroup, PEER_GROUP_PROPERTIES.Ptr, pProperties, "HRESULT")
     return result
@@ -2557,9 +2578,10 @@ export PeerGroupSetProperties(_hGroup, pProperties) {
 export PeerGroupEnumMembers(_hGroup, dwFlags, pwzIdentity) {
     pwzIdentity := pwzIdentity is String ? StrPtr(pwzIdentity) : pwzIdentity
 
-    _hGroupMarshal := _hGroup is VarRef ? "ptr" : "ptr"
+    _hGroupMarshal := _hGroup is VarRef ? "ptr" : IntPtr
+    pwzIdentityMarshal := pwzIdentity == 0 ? IntPtr : PWSTR
 
-    result := DllCall("P2P.dll\PeerGroupEnumMembers", _hGroupMarshal, _hGroup, UInt32, dwFlags, "ptr", pwzIdentity, "ptr*", &phPeerEnum := 0, "HRESULT")
+    result := DllCall("P2P.dll\PeerGroupEnumMembers", _hGroupMarshal, _hGroup, UInt32, dwFlags, pwzIdentityMarshal, pwzIdentity, "ptr*", &phPeerEnum := 0, "HRESULT")
     return phPeerEnum
 }
 
@@ -2577,7 +2599,7 @@ export PeerGroupEnumMembers(_hGroup, dwFlags, pwzIdentity) {
 export PeerGroupOpenDirectConnection(_hGroup, pwzIdentity, pAddress) {
     pwzIdentity := pwzIdentity is String ? StrPtr(pwzIdentity) : pwzIdentity
 
-    _hGroupMarshal := _hGroup is VarRef ? "ptr" : "ptr"
+    _hGroupMarshal := _hGroup is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2P.dll\PeerGroupOpenDirectConnection", _hGroupMarshal, _hGroup, "ptr", pwzIdentity, PEER_ADDRESS.Ptr, pAddress, "uint*", &pullConnectionId := 0, "HRESULT")
     return pullConnectionId
@@ -2624,7 +2646,7 @@ export PeerGroupOpenDirectConnection(_hGroup, pwzIdentity, pAddress) {
  * @since windows5.1.2600
  */
 export PeerGroupCloseDirectConnection(_hGroup, ullConnectionId) {
-    _hGroupMarshal := _hGroup is VarRef ? "ptr" : "ptr"
+    _hGroupMarshal := _hGroup is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2P.dll\PeerGroupCloseDirectConnection", _hGroupMarshal, _hGroup, Int64, ullConnectionId, "HRESULT")
     return result
@@ -2640,7 +2662,7 @@ export PeerGroupCloseDirectConnection(_hGroup, ullConnectionId) {
  * @since windows5.1.2600
  */
 export PeerGroupEnumConnections(_hGroup, dwFlags) {
-    _hGroupMarshal := _hGroup is VarRef ? "ptr" : "ptr"
+    _hGroupMarshal := _hGroup is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2P.dll\PeerGroupEnumConnections", _hGroupMarshal, _hGroup, UInt32, dwFlags, "ptr*", &phPeerEnum := 0, "HRESULT")
     return phPeerEnum
@@ -2692,7 +2714,7 @@ export PeerGroupEnumConnections(_hGroup, dwFlags) {
  * @since windows5.1.2600
  */
 export PeerGroupSendData(_hGroup, ullConnectionId, pType, cbData, pvData) {
-    _hGroupMarshal := _hGroup is VarRef ? "ptr" : "ptr"
+    _hGroupMarshal := _hGroup is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2P.dll\PeerGroupSendData", _hGroupMarshal, _hGroup, Int64, ullConnectionId, Guid.Ptr, pType, UInt32, cbData, IntPtr, pvData, "HRESULT")
     return result
@@ -2712,7 +2734,7 @@ export PeerGroupSendData(_hGroup, ullConnectionId, pType, cbData, pvData) {
  * @since windows5.1.2600
  */
 export PeerGroupRegisterEvent(_hGroup, hEvent, cEventRegistration, pEventRegistrations) {
-    _hGroupMarshal := _hGroup is VarRef ? "ptr" : "ptr"
+    _hGroupMarshal := _hGroup is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2P.dll\PeerGroupRegisterEvent", _hGroupMarshal, _hGroup, HANDLE, hEvent, UInt32, cEventRegistration, PEER_GROUP_EVENT_REGISTRATION.Ptr, pEventRegistrations, "ptr*", &phPeerEvent := 0, "HRESULT")
     return phPeerEvent
@@ -2749,7 +2771,7 @@ export PeerGroupRegisterEvent(_hGroup, hEvent, cEventRegistration, pEventRegistr
  * @since windows5.1.2600
  */
 export PeerGroupUnregisterEvent(hPeerEvent) {
-    hPeerEventMarshal := hPeerEvent is VarRef ? "ptr" : "ptr"
+    hPeerEventMarshal := hPeerEvent is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2P.dll\PeerGroupUnregisterEvent", hPeerEventMarshal, hPeerEvent, "HRESULT")
     return result
@@ -2770,7 +2792,7 @@ export PeerGroupUnregisterEvent(hPeerEvent) {
  * @since windows5.1.2600
  */
 export PeerGroupGetEventData(hPeerEvent) {
-    hPeerEventMarshal := hPeerEvent is VarRef ? "ptr" : "ptr"
+    hPeerEventMarshal := hPeerEvent is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2P.dll\PeerGroupGetEventData", hPeerEventMarshal, hPeerEvent, "ptr*", &ppEventData := 0, "HRESULT")
     return ppEventData
@@ -2785,7 +2807,7 @@ export PeerGroupGetEventData(hPeerEvent) {
  * @since windows5.1.2600
  */
 export PeerGroupGetRecord(_hGroup, pRecordId) {
-    _hGroupMarshal := _hGroup is VarRef ? "ptr" : "ptr"
+    _hGroupMarshal := _hGroup is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2P.dll\PeerGroupGetRecord", _hGroupMarshal, _hGroup, Guid.Ptr, pRecordId, "ptr*", &ppRecord := 0, "HRESULT")
     return ppRecord
@@ -2931,7 +2953,7 @@ export PeerGroupGetRecord(_hGroup, pRecordId) {
  * @since windows5.1.2600
  */
 export PeerGroupAddRecord(_hGroup, pRecord, pRecordId) {
-    _hGroupMarshal := _hGroup is VarRef ? "ptr" : "ptr"
+    _hGroupMarshal := _hGroup is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2P.dll\PeerGroupAddRecord", _hGroupMarshal, _hGroup, PEER_RECORD.Ptr, pRecord, Guid.Ptr, pRecordId, "HRESULT")
     return result
@@ -3038,7 +3060,7 @@ export PeerGroupAddRecord(_hGroup, pRecord, pRecordId) {
  * @since windows5.1.2600
  */
 export PeerGroupUpdateRecord(_hGroup, pRecord) {
-    _hGroupMarshal := _hGroup is VarRef ? "ptr" : "ptr"
+    _hGroupMarshal := _hGroup is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2P.dll\PeerGroupUpdateRecord", _hGroupMarshal, _hGroup, PEER_RECORD.Ptr, pRecord, "HRESULT")
     return result
@@ -3107,7 +3129,7 @@ export PeerGroupUpdateRecord(_hGroup, pRecord) {
  * @since windows5.1.2600
  */
 export PeerGroupDeleteRecord(_hGroup, pRecordId) {
-    _hGroupMarshal := _hGroup is VarRef ? "ptr" : "ptr"
+    _hGroupMarshal := _hGroup is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2P.dll\PeerGroupDeleteRecord", _hGroupMarshal, _hGroup, Guid.Ptr, pRecordId, "HRESULT")
     return result
@@ -3123,9 +3145,10 @@ export PeerGroupDeleteRecord(_hGroup, pRecordId) {
  * @since windows5.1.2600
  */
 export PeerGroupEnumRecords(_hGroup, pRecordType) {
-    _hGroupMarshal := _hGroup is VarRef ? "ptr" : "ptr"
+    _hGroupMarshal := _hGroup is VarRef ? "ptr" : IntPtr
+    pRecordTypeMarshal := pRecordType == 0 ? IntPtr : Guid.Ptr
 
-    result := DllCall("P2P.dll\PeerGroupEnumRecords", _hGroupMarshal, _hGroup, Guid.Ptr, pRecordType, "ptr*", &phPeerEnum := 0, "HRESULT")
+    result := DllCall("P2P.dll\PeerGroupEnumRecords", _hGroupMarshal, _hGroup, pRecordTypeMarshal, pRecordType, "ptr*", &phPeerEnum := 0, "HRESULT")
     return phPeerEnum
 }
 
@@ -3141,7 +3164,7 @@ export PeerGroupEnumRecords(_hGroup, pRecordType) {
 export PeerGroupSearchRecords(_hGroup, pwzCriteria) {
     pwzCriteria := pwzCriteria is String ? StrPtr(pwzCriteria) : pwzCriteria
 
-    _hGroupMarshal := _hGroup is VarRef ? "ptr" : "ptr"
+    _hGroupMarshal := _hGroup is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2P.dll\PeerGroupSearchRecords", _hGroupMarshal, _hGroup, "ptr", pwzCriteria, "ptr*", &phPeerEnum := 0, "HRESULT")
     return phPeerEnum
@@ -3192,7 +3215,7 @@ export PeerGroupSearchRecords(_hGroup, pwzCriteria) {
 export PeerGroupExportDatabase(_hGroup, pwzFilePath) {
     pwzFilePath := pwzFilePath is String ? StrPtr(pwzFilePath) : pwzFilePath
 
-    _hGroupMarshal := _hGroup is VarRef ? "ptr" : "ptr"
+    _hGroupMarshal := _hGroup is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2P.dll\PeerGroupExportDatabase", _hGroupMarshal, _hGroup, "ptr", pwzFilePath, "HRESULT")
     return result
@@ -3256,7 +3279,7 @@ export PeerGroupExportDatabase(_hGroup, pwzFilePath) {
 export PeerGroupImportDatabase(_hGroup, pwzFilePath) {
     pwzFilePath := pwzFilePath is String ? StrPtr(pwzFilePath) : pwzFilePath
 
-    _hGroupMarshal := _hGroup is VarRef ? "ptr" : "ptr"
+    _hGroupMarshal := _hGroup is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2P.dll\PeerGroupImportDatabase", _hGroupMarshal, _hGroup, "ptr", pwzFilePath, "HRESULT")
     return result
@@ -3301,9 +3324,10 @@ export PeerGroupImportDatabase(_hGroup, pwzFilePath) {
 export PeerGroupIssueCredentials(_hGroup, pwzSubjectIdentity, pCredentialInfo, dwFlags) {
     pwzSubjectIdentity := pwzSubjectIdentity is String ? StrPtr(pwzSubjectIdentity) : pwzSubjectIdentity
 
-    _hGroupMarshal := _hGroup is VarRef ? "ptr" : "ptr"
+    _hGroupMarshal := _hGroup is VarRef ? "ptr" : IntPtr
+    pCredentialInfoMarshal := pCredentialInfo == 0 ? IntPtr : PEER_CREDENTIAL_INFO.Ptr
 
-    result := DllCall("P2P.dll\PeerGroupIssueCredentials", _hGroupMarshal, _hGroup, "ptr", pwzSubjectIdentity, PEER_CREDENTIAL_INFO.Ptr, pCredentialInfo, UInt32, dwFlags, PWSTR.Ptr, &ppwzInvitation := 0, "HRESULT")
+    result := DllCall("P2P.dll\PeerGroupIssueCredentials", _hGroupMarshal, _hGroup, "ptr", pwzSubjectIdentity, pCredentialInfoMarshal, pCredentialInfo, UInt32, dwFlags, PWSTR.Ptr, &ppwzInvitation := 0, "HRESULT")
     return ppwzInvitation
 }
 
@@ -3346,7 +3370,7 @@ export PeerGroupIssueCredentials(_hGroup, pwzSubjectIdentity, pCredentialInfo, d
 export PeerGroupExportConfig(_hGroup, pwzPassword) {
     pwzPassword := pwzPassword is String ? StrPtr(pwzPassword) : pwzPassword
 
-    _hGroupMarshal := _hGroup is VarRef ? "ptr" : "ptr"
+    _hGroupMarshal := _hGroup is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2P.dll\PeerGroupExportConfig", _hGroupMarshal, _hGroup, "ptr", pwzPassword, PWSTR.Ptr, &ppwzXML := 0, "HRESULT")
     return ppwzXML
@@ -3438,8 +3462,8 @@ export PeerGroupImportConfig(pwzXML, pwzPassword, fOverwrite, ppwzIdentity, ppwz
     pwzXML := pwzXML is String ? StrPtr(pwzXML) : pwzXML
     pwzPassword := pwzPassword is String ? StrPtr(pwzPassword) : pwzPassword
 
-    ppwzIdentityMarshal := ppwzIdentity is VarRef ? "ptr*" : "ptr"
-    ppwzGroupMarshal := ppwzGroup is VarRef ? "ptr*" : "ptr"
+    ppwzIdentityMarshal := ppwzIdentity is VarRef ? "ptr*" : IntPtr
+    ppwzGroupMarshal := ppwzGroup is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("P2P.dll\PeerGroupImportConfig", "ptr", pwzXML, "ptr", pwzPassword, BOOL, fOverwrite, ppwzIdentityMarshal, ppwzIdentity, ppwzGroupMarshal, ppwzGroup, "HRESULT")
     return result
@@ -3504,7 +3528,7 @@ export PeerGroupImportConfig(pwzXML, pwzPassword, fOverwrite, ppwzIdentity, ppwz
  * @since windows5.1.2600
  */
 export PeerGroupPeerTimeToUniversalTime(_hGroup, pftPeerTime, pftUniversalTime) {
-    _hGroupMarshal := _hGroup is VarRef ? "ptr" : "ptr"
+    _hGroupMarshal := _hGroup is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2P.dll\PeerGroupPeerTimeToUniversalTime", _hGroupMarshal, _hGroup, FILETIME.Ptr, pftPeerTime, FILETIME.Ptr, pftUniversalTime, "HRESULT")
     return result
@@ -3569,21 +3593,20 @@ export PeerGroupPeerTimeToUniversalTime(_hGroup, pftPeerTime, pftUniversalTime) 
  * @since windows5.1.2600
  */
 export PeerGroupUniversalTimeToPeerTime(_hGroup, pftUniversalTime, pftPeerTime) {
-    _hGroupMarshal := _hGroup is VarRef ? "ptr" : "ptr"
+    _hGroupMarshal := _hGroup is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2P.dll\PeerGroupUniversalTimeToPeerTime", _hGroupMarshal, _hGroup, FILETIME.Ptr, pftUniversalTime, FILETIME.Ptr, pftPeerTime, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} _hGroup 
  * @param {Pointer<Void>} hPeerEventHandle 
  * @returns {HRESULT} 
  */
 export PeerGroupResumePasswordAuthentication(_hGroup, hPeerEventHandle) {
-    _hGroupMarshal := _hGroup is VarRef ? "ptr" : "ptr"
-    hPeerEventHandleMarshal := hPeerEventHandle is VarRef ? "ptr" : "ptr"
+    _hGroupMarshal := _hGroup is VarRef ? "ptr" : IntPtr
+    hPeerEventHandleMarshal := hPeerEventHandle is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2P.dll\PeerGroupResumePasswordAuthentication", _hGroupMarshal, _hGroup, hPeerEventHandleMarshal, hPeerEventHandle, "HRESULT")
     return result
@@ -3611,7 +3634,11 @@ export PeerIdentityCreate(pwzClassifier, pwzFriendlyName, hCryptProv) {
     pwzClassifier := pwzClassifier is String ? StrPtr(pwzClassifier) : pwzClassifier
     pwzFriendlyName := pwzFriendlyName is String ? StrPtr(pwzFriendlyName) : pwzFriendlyName
 
-    result := DllCall("P2P.dll\PeerIdentityCreate", "ptr", pwzClassifier, "ptr", pwzFriendlyName, IntPtr, hCryptProv, PWSTR.Ptr, &ppwzIdentity := 0, "HRESULT")
+    pwzClassifierMarshal := pwzClassifier == 0 ? IntPtr : PWSTR
+    pwzFriendlyNameMarshal := pwzFriendlyName == 0 ? IntPtr : PWSTR
+    hCryptProvMarshal := hCryptProv == 0 ? IntPtr : IntPtr
+
+    result := DllCall("P2P.dll\PeerIdentityCreate", pwzClassifierMarshal, pwzClassifier, pwzFriendlyNameMarshal, pwzFriendlyName, hCryptProvMarshal, hCryptProv, PWSTR.Ptr, &ppwzIdentity := 0, "HRESULT")
     return ppwzIdentity
 }
 
@@ -3625,7 +3652,9 @@ export PeerIdentityCreate(pwzClassifier, pwzFriendlyName, hCryptProv) {
 export PeerIdentityGetFriendlyName(pwzIdentity) {
     pwzIdentity := pwzIdentity is String ? StrPtr(pwzIdentity) : pwzIdentity
 
-    result := DllCall("P2P.dll\PeerIdentityGetFriendlyName", "ptr", pwzIdentity, PWSTR.Ptr, &ppwzFriendlyName := 0, "HRESULT")
+    pwzIdentityMarshal := pwzIdentity == 0 ? IntPtr : PWSTR
+
+    result := DllCall("P2P.dll\PeerIdentityGetFriendlyName", pwzIdentityMarshal, pwzIdentity, PWSTR.Ptr, &ppwzFriendlyName := 0, "HRESULT")
     return ppwzFriendlyName
 }
 
@@ -3692,7 +3721,9 @@ export PeerIdentitySetFriendlyName(pwzIdentity, pwzFriendlyName) {
     pwzIdentity := pwzIdentity is String ? StrPtr(pwzIdentity) : pwzIdentity
     pwzFriendlyName := pwzFriendlyName is String ? StrPtr(pwzFriendlyName) : pwzFriendlyName
 
-    result := DllCall("P2P.dll\PeerIdentitySetFriendlyName", "ptr", pwzIdentity, "ptr", pwzFriendlyName, "HRESULT")
+    pwzIdentityMarshal := pwzIdentity == 0 ? IntPtr : PWSTR
+
+    result := DllCall("P2P.dll\PeerIdentitySetFriendlyName", pwzIdentityMarshal, pwzIdentity, "ptr", pwzFriendlyName, "HRESULT")
     return result
 }
 
@@ -3710,7 +3741,9 @@ export PeerIdentitySetFriendlyName(pwzIdentity, pwzFriendlyName) {
 export PeerIdentityGetCryptKey(pwzIdentity) {
     pwzIdentity := pwzIdentity is String ? StrPtr(pwzIdentity) : pwzIdentity
 
-    result := DllCall("P2P.dll\PeerIdentityGetCryptKey", "ptr", pwzIdentity, "ptr*", &phCryptProv := 0, "HRESULT")
+    pwzIdentityMarshal := pwzIdentity == 0 ? IntPtr : PWSTR
+
+    result := DllCall("P2P.dll\PeerIdentityGetCryptKey", pwzIdentityMarshal, pwzIdentity, "ptr*", &phCryptProv := 0, "HRESULT")
     return phCryptProv
 }
 
@@ -3824,7 +3857,10 @@ export PeerCreatePeerName(pwzIdentity, pwzClassifier) {
     pwzIdentity := pwzIdentity is String ? StrPtr(pwzIdentity) : pwzIdentity
     pwzClassifier := pwzClassifier is String ? StrPtr(pwzClassifier) : pwzClassifier
 
-    result := DllCall("P2P.dll\PeerCreatePeerName", "ptr", pwzIdentity, "ptr", pwzClassifier, PWSTR.Ptr, &ppwzPeerName := 0, "HRESULT")
+    pwzIdentityMarshal := pwzIdentity == 0 ? IntPtr : PWSTR
+    pwzClassifierMarshal := pwzClassifier == 0 ? IntPtr : PWSTR
+
+    result := DllCall("P2P.dll\PeerCreatePeerName", pwzIdentityMarshal, pwzIdentity, pwzClassifierMarshal, pwzClassifier, PWSTR.Ptr, &ppwzPeerName := 0, "HRESULT")
     return ppwzPeerName
 }
 
@@ -3853,7 +3889,9 @@ export PeerCreatePeerName(pwzIdentity, pwzClassifier) {
 export PeerIdentityGetXML(pwzIdentity) {
     pwzIdentity := pwzIdentity is String ? StrPtr(pwzIdentity) : pwzIdentity
 
-    result := DllCall("P2P.dll\PeerIdentityGetXML", "ptr", pwzIdentity, PWSTR.Ptr, &ppwzIdentityXML := 0, "HRESULT")
+    pwzIdentityMarshal := pwzIdentity == 0 ? IntPtr : PWSTR
+
+    result := DllCall("P2P.dll\PeerIdentityGetXML", pwzIdentityMarshal, pwzIdentity, PWSTR.Ptr, &ppwzIdentityXML := 0, "HRESULT")
     return ppwzIdentityXML
 }
 
@@ -3889,7 +3927,9 @@ export PeerIdentityExport(pwzIdentity, pwzPassword) {
     pwzIdentity := pwzIdentity is String ? StrPtr(pwzIdentity) : pwzIdentity
     pwzPassword := pwzPassword is String ? StrPtr(pwzPassword) : pwzPassword
 
-    result := DllCall("P2P.dll\PeerIdentityExport", "ptr", pwzIdentity, "ptr", pwzPassword, PWSTR.Ptr, &ppwzExportXML := 0, "HRESULT")
+    pwzIdentityMarshal := pwzIdentity == 0 ? IntPtr : PWSTR
+
+    result := DllCall("P2P.dll\PeerIdentityExport", pwzIdentityMarshal, pwzIdentity, "ptr", pwzPassword, PWSTR.Ptr, &ppwzExportXML := 0, "HRESULT")
     return ppwzExportXML
 }
 
@@ -4116,7 +4156,9 @@ export PeerCollabShutdown() {
  * @since windows6.0.6000
  */
 export PeerCollabSignin(hwndParent, dwSigninOptions) {
-    result := DllCall("P2P.dll\PeerCollabSignin", HWND, hwndParent, UInt32, dwSigninOptions, "HRESULT")
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+
+    result := DllCall("P2P.dll\PeerCollabSignin", hwndParentMarshal, hwndParent, UInt32, dwSigninOptions, "HRESULT")
     return result
 }
 
@@ -4218,8 +4260,11 @@ export PeerCollabGetSigninOptions() {
  * @since windows6.0.6000
  */
 export PeerCollabAsyncInviteContact(pcContact, pcEndpoint, pcInvitation, hEvent) {
+    pcContactMarshal := pcContact == 0 ? IntPtr : PEER_CONTACT.Ptr
+    hEventMarshal := hEvent == 0 ? IntPtr : HANDLE
+
     phInvitation := HANDLE.Owned()
-    result := DllCall("P2P.dll\PeerCollabAsyncInviteContact", PEER_CONTACT.Ptr, pcContact, PEER_ENDPOINT.Ptr, pcEndpoint, PEER_INVITATION.Ptr, pcInvitation, HANDLE, hEvent, HANDLE.Ptr, phInvitation, "HRESULT")
+    result := DllCall("P2P.dll\PeerCollabAsyncInviteContact", pcContactMarshal, pcContact, PEER_ENDPOINT.Ptr, pcEndpoint, PEER_INVITATION.Ptr, pcInvitation, hEventMarshal, hEvent, HANDLE.Ptr, phInvitation, "HRESULT")
     return phInvitation
 }
 
@@ -4383,7 +4428,9 @@ export PeerCollabCloseHandle(hInvitation) {
  * @since windows6.0.6000
  */
 export PeerCollabInviteContact(pcContact, pcEndpoint, pcInvitation) {
-    result := DllCall("P2P.dll\PeerCollabInviteContact", PEER_CONTACT.Ptr, pcContact, PEER_ENDPOINT.Ptr, pcEndpoint, PEER_INVITATION.Ptr, pcInvitation, "ptr*", &ppResponse := 0, "HRESULT")
+    pcContactMarshal := pcContact == 0 ? IntPtr : PEER_CONTACT.Ptr
+
+    result := DllCall("P2P.dll\PeerCollabInviteContact", pcContactMarshal, pcContact, PEER_ENDPOINT.Ptr, pcEndpoint, PEER_INVITATION.Ptr, pcInvitation, "ptr*", &ppResponse := 0, "HRESULT")
     return ppResponse
 }
 
@@ -4415,8 +4462,10 @@ export PeerCollabInviteContact(pcContact, pcEndpoint, pcInvitation) {
  * @since windows6.0.6000
  */
 export PeerCollabAsyncInviteEndpoint(pcEndpoint, pcInvitation, hEvent) {
+    hEventMarshal := hEvent == 0 ? IntPtr : HANDLE
+
     phInvitation := HANDLE.Owned()
-    result := DllCall("P2P.dll\PeerCollabAsyncInviteEndpoint", PEER_ENDPOINT.Ptr, pcEndpoint, PEER_INVITATION.Ptr, pcInvitation, HANDLE, hEvent, HANDLE.Ptr, phInvitation, "HRESULT")
+    result := DllCall("P2P.dll\PeerCollabAsyncInviteEndpoint", PEER_ENDPOINT.Ptr, pcEndpoint, PEER_INVITATION.Ptr, pcInvitation, hEventMarshal, hEvent, HANDLE.Ptr, phInvitation, "HRESULT")
     return phInvitation
 }
 
@@ -4634,7 +4683,9 @@ export PeerCollabEnumApplicationRegistrationInfo(registrationType) {
  * @since windows6.0.6000
  */
 export PeerCollabGetPresenceInfo(pcEndpoint) {
-    result := DllCall("P2P.dll\PeerCollabGetPresenceInfo", PEER_ENDPOINT.Ptr, pcEndpoint, "ptr*", &ppPresenceInfo := 0, "HRESULT")
+    pcEndpointMarshal := pcEndpoint == 0 ? IntPtr : PEER_ENDPOINT.Ptr
+
+    result := DllCall("P2P.dll\PeerCollabGetPresenceInfo", pcEndpointMarshal, pcEndpoint, "ptr*", &ppPresenceInfo := 0, "HRESULT")
     return ppPresenceInfo
 }
 
@@ -4663,7 +4714,10 @@ export PeerCollabGetPresenceInfo(pcEndpoint) {
  * @since windows6.0.6000
  */
 export PeerCollabEnumApplications(pcEndpoint, pApplicationId) {
-    result := DllCall("P2P.dll\PeerCollabEnumApplications", PEER_ENDPOINT.Ptr, pcEndpoint, Guid.Ptr, pApplicationId, "ptr*", &phPeerEnum := 0, "HRESULT")
+    pcEndpointMarshal := pcEndpoint == 0 ? IntPtr : PEER_ENDPOINT.Ptr
+    pApplicationIdMarshal := pApplicationId == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("P2P.dll\PeerCollabEnumApplications", pcEndpointMarshal, pcEndpoint, pApplicationIdMarshal, pApplicationId, "ptr*", &phPeerEnum := 0, "HRESULT")
     return phPeerEnum
 }
 
@@ -4694,7 +4748,10 @@ export PeerCollabEnumApplications(pcEndpoint, pApplicationId) {
  * @since windows6.0.6000
  */
 export PeerCollabEnumObjects(pcEndpoint, pObjectId) {
-    result := DllCall("P2P.dll\PeerCollabEnumObjects", PEER_ENDPOINT.Ptr, pcEndpoint, Guid.Ptr, pObjectId, "ptr*", &phPeerEnum := 0, "HRESULT")
+    pcEndpointMarshal := pcEndpoint == 0 ? IntPtr : PEER_ENDPOINT.Ptr
+    pObjectIdMarshal := pObjectId == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("P2P.dll\PeerCollabEnumObjects", pcEndpointMarshal, pcEndpoint, pObjectIdMarshal, pObjectId, "ptr*", &phPeerEnum := 0, "HRESULT")
     return phPeerEnum
 }
 
@@ -4714,7 +4771,9 @@ export PeerCollabEnumObjects(pcEndpoint, pObjectId) {
  * @since windows6.0.6000
  */
 export PeerCollabEnumEndpoints(pcContact) {
-    result := DllCall("P2P.dll\PeerCollabEnumEndpoints", PEER_CONTACT.Ptr, pcContact, "ptr*", &phPeerEnum := 0, "HRESULT")
+    pcContactMarshal := pcContact == 0 ? IntPtr : PEER_CONTACT.Ptr
+
+    result := DllCall("P2P.dll\PeerCollabEnumEndpoints", pcContactMarshal, pcContact, "ptr*", &phPeerEnum := 0, "HRESULT")
     return phPeerEnum
 }
 
@@ -4830,7 +4889,9 @@ export PeerCollabDeleteEndpointData(pcEndpoint) {
  * @since windows6.0.6000
  */
 export PeerCollabQueryContactData(pcEndpoint) {
-    result := DllCall("P2P.dll\PeerCollabQueryContactData", PEER_ENDPOINT.Ptr, pcEndpoint, PWSTR.Ptr, &ppwzContactData := 0, "HRESULT")
+    pcEndpointMarshal := pcEndpoint == 0 ? IntPtr : PEER_ENDPOINT.Ptr
+
+    result := DllCall("P2P.dll\PeerCollabQueryContactData", pcEndpointMarshal, pcEndpoint, PWSTR.Ptr, &ppwzContactData := 0, "HRESULT")
     return ppwzContactData
 }
 
@@ -5264,7 +5325,7 @@ export PeerCollabRegisterEvent(hEvent, cEventRegistration, pEventRegistrations) 
  * @since windows6.0.6000
  */
 export PeerCollabGetEventData(hPeerEvent) {
-    hPeerEventMarshal := hPeerEvent is VarRef ? "ptr" : "ptr"
+    hPeerEventMarshal := hPeerEvent is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2P.dll\PeerCollabGetEventData", hPeerEventMarshal, hPeerEvent, "ptr*", &ppEventData := 0, "HRESULT")
     return ppEventData
@@ -5307,7 +5368,7 @@ export PeerCollabGetEventData(hPeerEvent) {
  * @since windows6.0.6000
  */
 export PeerCollabUnregisterEvent(hPeerEvent) {
-    hPeerEventMarshal := hPeerEvent is VarRef ? "ptr" : "ptr"
+    hPeerEventMarshal := hPeerEvent is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2P.dll\PeerCollabUnregisterEvent", hPeerEventMarshal, hPeerEvent, "HRESULT")
     return result
@@ -5403,7 +5464,9 @@ export PeerCollabDeleteContact(pwzPeerName) {
 export PeerCollabGetContact(pwzPeerName) {
     pwzPeerName := pwzPeerName is String ? StrPtr(pwzPeerName) : pwzPeerName
 
-    result := DllCall("P2P.dll\PeerCollabGetContact", "ptr", pwzPeerName, "ptr*", &ppContact := 0, "HRESULT")
+    pwzPeerNameMarshal := pwzPeerName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("P2P.dll\PeerCollabGetContact", pwzPeerNameMarshal, pwzPeerName, "ptr*", &ppContact := 0, "HRESULT")
     return ppContact
 }
 
@@ -5479,7 +5542,9 @@ export PeerCollabEnumContacts() {
 export PeerCollabExportContact(pwzPeerName) {
     pwzPeerName := pwzPeerName is String ? StrPtr(pwzPeerName) : pwzPeerName
 
-    result := DllCall("P2P.dll\PeerCollabExportContact", "ptr", pwzPeerName, PWSTR.Ptr, &ppwzContactData := 0, "HRESULT")
+    pwzPeerNameMarshal := pwzPeerName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("P2P.dll\PeerCollabExportContact", pwzPeerNameMarshal, pwzPeerName, PWSTR.Ptr, &ppwzContactData := 0, "HRESULT")
     return ppwzContactData
 }
 
@@ -5647,7 +5712,9 @@ export PeerPnrpShutdown() {
 export PeerPnrpRegister(pcwzPeerName, pRegistrationInfo) {
     pcwzPeerName := pcwzPeerName is String ? StrPtr(pcwzPeerName) : pcwzPeerName
 
-    result := DllCall("P2P.dll\PeerPnrpRegister", "ptr", pcwzPeerName, PEER_PNRP_REGISTRATION_INFO.Ptr, pRegistrationInfo, "ptr*", &phRegistration := 0, "HRESULT")
+    pRegistrationInfoMarshal := pRegistrationInfo == 0 ? IntPtr : PEER_PNRP_REGISTRATION_INFO.Ptr
+
+    result := DllCall("P2P.dll\PeerPnrpRegister", "ptr", pcwzPeerName, pRegistrationInfoMarshal, pRegistrationInfo, "ptr*", &phRegistration := 0, "HRESULT")
     return phRegistration
 }
 
@@ -5693,7 +5760,7 @@ export PeerPnrpRegister(pcwzPeerName, pRegistrationInfo) {
  * @since windows5.1.2600
  */
 export PeerPnrpUpdateRegistration(hRegistration, pRegistrationInfo) {
-    hRegistrationMarshal := hRegistration is VarRef ? "ptr" : "ptr"
+    hRegistrationMarshal := hRegistration is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2P.dll\PeerPnrpUpdateRegistration", hRegistrationMarshal, hRegistration, PEER_PNRP_REGISTRATION_INFO.Ptr, pRegistrationInfo, "HRESULT")
     return result
@@ -5736,7 +5803,7 @@ export PeerPnrpUpdateRegistration(hRegistration, pRegistrationInfo) {
  * @since windows5.1.2600
  */
 export PeerPnrpUnregister(hRegistration) {
-    hRegistrationMarshal := hRegistration is VarRef ? "ptr" : "ptr"
+    hRegistrationMarshal := hRegistration is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2P.dll\PeerPnrpUnregister", hRegistrationMarshal, hRegistration, "HRESULT")
     return result
@@ -5763,9 +5830,10 @@ export PeerPnrpResolve(pcwzPeerName, pcwzCloudName, pcEndpoints) {
     pcwzPeerName := pcwzPeerName is String ? StrPtr(pcwzPeerName) : pcwzPeerName
     pcwzCloudName := pcwzCloudName is String ? StrPtr(pcwzCloudName) : pcwzCloudName
 
-    pcEndpointsMarshal := pcEndpoints is VarRef ? "uint*" : "ptr"
+    pcwzCloudNameMarshal := pcwzCloudName == 0 ? IntPtr : PWSTR
+    pcEndpointsMarshal := pcEndpoints is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("P2P.dll\PeerPnrpResolve", "ptr", pcwzPeerName, "ptr", pcwzCloudName, pcEndpointsMarshal, pcEndpoints, "ptr*", &ppEndpoints := 0, "HRESULT")
+    result := DllCall("P2P.dll\PeerPnrpResolve", "ptr", pcwzPeerName, pcwzCloudNameMarshal, pcwzCloudName, pcEndpointsMarshal, pcEndpoints, "ptr*", &ppEndpoints := 0, "HRESULT")
     return ppEndpoints
 }
 
@@ -5791,7 +5859,10 @@ export PeerPnrpStartResolve(pcwzPeerName, pcwzCloudName, cMaxEndpoints, hEvent) 
     pcwzPeerName := pcwzPeerName is String ? StrPtr(pcwzPeerName) : pcwzPeerName
     pcwzCloudName := pcwzCloudName is String ? StrPtr(pcwzCloudName) : pcwzCloudName
 
-    result := DllCall("P2P.dll\PeerPnrpStartResolve", "ptr", pcwzPeerName, "ptr", pcwzCloudName, UInt32, cMaxEndpoints, HANDLE, hEvent, "ptr*", &phResolve := 0, "HRESULT")
+    pcwzCloudNameMarshal := pcwzCloudName == 0 ? IntPtr : PWSTR
+    cMaxEndpointsMarshal := cMaxEndpoints == 0 ? IntPtr : UInt32
+
+    result := DllCall("P2P.dll\PeerPnrpStartResolve", "ptr", pcwzPeerName, pcwzCloudNameMarshal, pcwzCloudName, cMaxEndpointsMarshal, cMaxEndpoints, HANDLE, hEvent, "ptr*", &phResolve := 0, "HRESULT")
     return phResolve
 }
 
@@ -5835,8 +5906,8 @@ export PeerPnrpStartResolve(pcwzPeerName, pcwzCloudName, cMaxEndpoints, hEvent) 
  * @since windows5.1.2600
  */
 export PeerPnrpGetCloudInfo(pcNumClouds, ppCloudInfo) {
-    pcNumCloudsMarshal := pcNumClouds is VarRef ? "uint*" : "ptr"
-    ppCloudInfoMarshal := ppCloudInfo is VarRef ? "ptr*" : "ptr"
+    pcNumCloudsMarshal := pcNumClouds is VarRef ? "uint*" : IntPtr
+    ppCloudInfoMarshal := ppCloudInfo is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("P2P.dll\PeerPnrpGetCloudInfo", pcNumCloudsMarshal, pcNumClouds, ppCloudInfoMarshal, ppCloudInfo, "HRESULT")
     return result
@@ -5858,7 +5929,7 @@ export PeerPnrpGetCloudInfo(pcNumClouds, ppCloudInfo) {
  * @since windows5.1.2600
  */
 export PeerPnrpGetEndpoint(hResolve) {
-    hResolveMarshal := hResolve is VarRef ? "ptr" : "ptr"
+    hResolveMarshal := hResolve is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2P.dll\PeerPnrpGetEndpoint", hResolveMarshal, hResolve, "ptr*", &ppEndpoint := 0, "HRESULT")
     return ppEndpoint
@@ -5901,7 +5972,7 @@ export PeerPnrpGetEndpoint(hResolve) {
  * @since windows5.1.2600
  */
 export PeerPnrpEndResolve(hResolve) {
-    hResolveMarshal := hResolve is VarRef ? "ptr" : "ptr"
+    hResolveMarshal := hResolve is VarRef ? "ptr" : IntPtr
 
     result := DllCall("P2P.dll\PeerPnrpEndResolve", hResolveMarshal, hResolve, "HRESULT")
     return result
@@ -5928,7 +5999,10 @@ export DrtCreatePnrpBootstrapResolver(fPublish, pwzPeerName, pwzCloudName, pwzPu
     pwzCloudName := pwzCloudName is String ? StrPtr(pwzCloudName) : pwzCloudName
     pwzPublishingIdentity := pwzPublishingIdentity is String ? StrPtr(pwzPublishingIdentity) : pwzPublishingIdentity
 
-    result := DllCall("drtprov.dll\DrtCreatePnrpBootstrapResolver", BOOL, fPublish, "ptr", pwzPeerName, "ptr", pwzCloudName, "ptr", pwzPublishingIdentity, "ptr*", &ppResolver := 0, "HRESULT")
+    pwzCloudNameMarshal := pwzCloudName == 0 ? IntPtr : PWSTR
+    pwzPublishingIdentityMarshal := pwzPublishingIdentity == 0 ? IntPtr : PWSTR
+
+    result := DllCall("drtprov.dll\DrtCreatePnrpBootstrapResolver", BOOL, fPublish, "ptr", pwzPeerName, pwzCloudNameMarshal, pwzCloudName, pwzPublishingIdentityMarshal, pwzPublishingIdentity, "ptr*", &ppResolver := 0, "HRESULT")
     return ppResolver
 }
 
@@ -5987,7 +6061,7 @@ export DrtDeleteDnsBootstrapResolver(pResolver) {
  * @since windows6.1
  */
 export DrtCreateIpv6UdpTransport(scope, dwScopeId, dwLocalityThreshold, pwPort) {
-    pwPortMarshal := pwPort is VarRef ? "ushort*" : "ptr"
+    pwPortMarshal := pwPort is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("drttransport.dll\DrtCreateIpv6UdpTransport", DRT_SCOPE, scope, UInt32, dwScopeId, UInt32, dwLocalityThreshold, pwPortMarshal, pwPort, "ptr*", &phTransport := 0, "HRESULT")
     return phTransport
@@ -6056,7 +6130,7 @@ export DrtCreateIpv6UdpTransport(scope, dwScopeId, dwLocalityThreshold, pwPort) 
  * @since windows6.1
  */
 export DrtDeleteIpv6UdpTransport(hTransport) {
-    hTransportMarshal := hTransport is VarRef ? "ptr" : "ptr"
+    hTransportMarshal := hTransport is VarRef ? "ptr" : IntPtr
 
     result := DllCall("drttransport.dll\DrtDeleteIpv6UdpTransport", hTransportMarshal, hTransport, "HRESULT")
     return result
@@ -6073,7 +6147,9 @@ export DrtDeleteIpv6UdpTransport(hTransport) {
  * @since windows6.1
  */
 export DrtCreateDerivedKeySecurityProvider(pRootCert, pLocalCert) {
-    result := DllCall("drtprov.dll\DrtCreateDerivedKeySecurityProvider", CERT_CONTEXT.Ptr, pRootCert, CERT_CONTEXT.Ptr, pLocalCert, "ptr*", &ppSecurityProvider := 0, "HRESULT")
+    pLocalCertMarshal := pLocalCert == 0 ? IntPtr : CERT_CONTEXT.Ptr
+
+    result := DllCall("drtprov.dll\DrtCreateDerivedKeySecurityProvider", CERT_CONTEXT.Ptr, pRootCert, pLocalCertMarshal, pLocalCert, "ptr*", &ppSecurityProvider := 0, "HRESULT")
     return ppSecurityProvider
 }
 
@@ -6171,9 +6247,11 @@ export DrtDeleteNullSecurityProvider(pSecurityProvider) {
  * @since windows6.1
  */
 export DrtOpen(pSettings, hEvent, pvContext) {
-    pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+    hEventMarshal := hEvent == 0 ? IntPtr : HANDLE
+    pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
+    pvContextMarshal := pvContext == 0 ? IntPtr : "ptr"
 
-    result := DllCall("drt.dll\DrtOpen", DRT_SETTINGS.Ptr, pSettings, HANDLE, hEvent, pvContextMarshal, pvContext, "ptr*", &phDrt := 0, "HRESULT")
+    result := DllCall("drt.dll\DrtOpen", DRT_SETTINGS.Ptr, pSettings, hEventMarshal, hEvent, pvContextMarshal, pvContext, "ptr*", &phDrt := 0, "HRESULT")
     return phDrt
 }
 
@@ -6185,7 +6263,7 @@ export DrtOpen(pSettings, hEvent, pvContext) {
  * @since windows6.1
  */
 export DrtClose(hDrt) {
-    hDrtMarshal := hDrt is VarRef ? "ptr" : "ptr"
+    hDrtMarshal := hDrt is VarRef ? "ptr" : IntPtr
 
     DllCall("drt.dll\DrtClose", hDrtMarshal, hDrt)
 }
@@ -6198,7 +6276,7 @@ export DrtClose(hDrt) {
  * @since windows6.1
  */
 export DrtGetEventDataSize(hDrt) {
-    hDrtMarshal := hDrt is VarRef ? "ptr" : "ptr"
+    hDrtMarshal := hDrt is VarRef ? "ptr" : IntPtr
 
     result := DllCall("drt.dll\DrtGetEventDataSize", hDrtMarshal, hDrt, "uint*", &pulEventDataLen := 0, "HRESULT")
     return pulEventDataLen
@@ -6265,7 +6343,7 @@ export DrtGetEventDataSize(hDrt) {
  * @since windows6.1
  */
 export DrtGetEventData(hDrt, ulEventDataLen, pEventData) {
-    hDrtMarshal := hDrt is VarRef ? "ptr" : "ptr"
+    hDrtMarshal := hDrt is VarRef ? "ptr" : IntPtr
 
     result := DllCall("drt.dll\DrtGetEventData", hDrtMarshal, hDrt, UInt32, ulEventDataLen, IntPtr, pEventData, "HRESULT")
     return result
@@ -6285,8 +6363,9 @@ export DrtGetEventData(hDrt, ulEventDataLen, pEventData) {
  * @since windows6.1
  */
 export DrtRegisterKey(hDrt, pRegistration, pvKeyContext) {
-    hDrtMarshal := hDrt is VarRef ? "ptr" : "ptr"
-    pvKeyContextMarshal := pvKeyContext is VarRef ? "ptr" : "ptr"
+    hDrtMarshal := hDrt is VarRef ? "ptr" : IntPtr
+    pvKeyContextMarshal := pvKeyContext is VarRef ? "ptr" : IntPtr
+    pvKeyContextMarshal := pvKeyContext == 0 ? IntPtr : "ptr"
 
     result := DllCall("drt.dll\DrtRegisterKey", hDrtMarshal, hDrt, DRT_REGISTRATION.Ptr, pRegistration, pvKeyContextMarshal, pvKeyContext, "ptr*", &phKeyRegistration := 0, "HRESULT")
     return phKeyRegistration
@@ -6345,7 +6424,7 @@ export DrtRegisterKey(hDrt, pRegistration, pvKeyContext) {
  * @since windows6.1
  */
 export DrtUpdateKey(hKeyRegistration, pAppData) {
-    hKeyRegistrationMarshal := hKeyRegistration is VarRef ? "ptr" : "ptr"
+    hKeyRegistrationMarshal := hKeyRegistration is VarRef ? "ptr" : IntPtr
 
     result := DllCall("drt.dll\DrtUpdateKey", hKeyRegistrationMarshal, hKeyRegistration, DRT_DATA.Ptr, pAppData, "HRESULT")
     return result
@@ -6363,7 +6442,7 @@ export DrtUpdateKey(hKeyRegistration, pAppData) {
  * @since windows6.1
  */
 export DrtUnregisterKey(hKeyRegistration) {
-    hKeyRegistrationMarshal := hKeyRegistration is VarRef ? "ptr" : "ptr"
+    hKeyRegistrationMarshal := hKeyRegistration is VarRef ? "ptr" : IntPtr
 
     DllCall("drt.dll\DrtUnregisterKey", hKeyRegistrationMarshal, hKeyRegistration)
 }
@@ -6381,10 +6460,12 @@ export DrtUnregisterKey(hKeyRegistration) {
  * @since windows6.1
  */
 export DrtStartSearch(hDrt, pKey, pInfo, timeout, hEvent, pvContext) {
-    hDrtMarshal := hDrt is VarRef ? "ptr" : "ptr"
-    pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+    hDrtMarshal := hDrt is VarRef ? "ptr" : IntPtr
+    pInfoMarshal := pInfo == 0 ? IntPtr : DRT_SEARCH_INFO.Ptr
+    pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
+    pvContextMarshal := pvContext == 0 ? IntPtr : "ptr"
 
-    result := DllCall("drt.dll\DrtStartSearch", hDrtMarshal, hDrt, DRT_DATA.Ptr, pKey, DRT_SEARCH_INFO.Ptr, pInfo, UInt32, timeout, HANDLE, hEvent, pvContextMarshal, pvContext, "ptr*", &hSearchContext := 0, "HRESULT")
+    result := DllCall("drt.dll\DrtStartSearch", hDrtMarshal, hDrt, DRT_DATA.Ptr, pKey, pInfoMarshal, pInfo, UInt32, timeout, HANDLE, hEvent, pvContextMarshal, pvContext, "ptr*", &hSearchContext := 0, "HRESULT")
     return hSearchContext
 }
 
@@ -6425,7 +6506,7 @@ export DrtStartSearch(hDrt, pKey, pInfo, timeout, hEvent, pvContext) {
  * @since windows6.1
  */
 export DrtContinueSearch(hSearchContext) {
-    hSearchContextMarshal := hSearchContext is VarRef ? "ptr" : "ptr"
+    hSearchContextMarshal := hSearchContext is VarRef ? "ptr" : IntPtr
 
     result := DllCall("drt.dll\DrtContinueSearch", hSearchContextMarshal, hSearchContext, "HRESULT")
     return result
@@ -6441,7 +6522,7 @@ export DrtContinueSearch(hSearchContext) {
  * @since windows6.1
  */
 export DrtGetSearchResultSize(hSearchContext) {
-    hSearchContextMarshal := hSearchContext is VarRef ? "ptr" : "ptr"
+    hSearchContextMarshal := hSearchContext is VarRef ? "ptr" : IntPtr
 
     result := DllCall("drt.dll\DrtGetSearchResultSize", hSearchContextMarshal, hSearchContext, "uint*", &pulSearchResultSize := 0, "HRESULT")
     return pulSearchResultSize
@@ -6541,7 +6622,7 @@ export DrtGetSearchResultSize(hSearchContext) {
  * @since windows6.1
  */
 export DrtGetSearchResult(hSearchContext, ulSearchResultSize, pSearchResult) {
-    hSearchContextMarshal := hSearchContext is VarRef ? "ptr" : "ptr"
+    hSearchContextMarshal := hSearchContext is VarRef ? "ptr" : IntPtr
 
     result := DllCall("drt.dll\DrtGetSearchResult", hSearchContextMarshal, hSearchContext, UInt32, ulSearchResultSize, IntPtr, pSearchResult, "HRESULT")
     return result
@@ -6555,7 +6636,7 @@ export DrtGetSearchResult(hSearchContext, ulSearchResultSize, pSearchResult) {
  * @since windows6.1
  */
 export DrtGetSearchPathSize(hSearchContext) {
-    hSearchContextMarshal := hSearchContext is VarRef ? "ptr" : "ptr"
+    hSearchContextMarshal := hSearchContext is VarRef ? "ptr" : IntPtr
 
     result := DllCall("drt.dll\DrtGetSearchPathSize", hSearchContextMarshal, hSearchContext, "uint*", &pulSearchPathSize := 0, "HRESULT")
     return pulSearchPathSize
@@ -6571,7 +6652,7 @@ export DrtGetSearchPathSize(hSearchContext) {
  * @since windows6.1
  */
 export DrtGetSearchPath(hSearchContext, ulSearchPathSize, pSearchPath) {
-    hSearchContextMarshal := hSearchContext is VarRef ? "ptr" : "ptr"
+    hSearchContextMarshal := hSearchContext is VarRef ? "ptr" : IntPtr
 
     result := DllCall("drt.dll\DrtGetSearchPath", hSearchContextMarshal, hSearchContext, UInt32, ulSearchPathSize, IntPtr, pSearchPath, "HRESULT")
     return result
@@ -6616,7 +6697,7 @@ export DrtGetSearchPath(hSearchContext, ulSearchPathSize, pSearchPath) {
  * @since windows6.1
  */
 export DrtEndSearch(hSearchContext) {
-    hSearchContextMarshal := hSearchContext is VarRef ? "ptr" : "ptr"
+    hSearchContextMarshal := hSearchContext is VarRef ? "ptr" : IntPtr
 
     result := DllCall("drt.dll\DrtEndSearch", hSearchContextMarshal, hSearchContext, "HRESULT")
     return result
@@ -6672,7 +6753,7 @@ export DrtEndSearch(hSearchContext) {
  * @since windows6.1
  */
 export DrtGetInstanceName(hDrt, ulcbInstanceNameSize, pwzDrtInstanceName) {
-    hDrtMarshal := hDrt is VarRef ? "ptr" : "ptr"
+    hDrtMarshal := hDrt is VarRef ? "ptr" : IntPtr
 
     result := DllCall("drt.dll\DrtGetInstanceName", hDrtMarshal, hDrt, UInt32, ulcbInstanceNameSize, IntPtr, pwzDrtInstanceName, "HRESULT")
     return result
@@ -6686,7 +6767,7 @@ export DrtGetInstanceName(hDrt, ulcbInstanceNameSize, pwzDrtInstanceName) {
  * @since windows6.1
  */
 export DrtGetInstanceNameSize(hDrt) {
-    hDrtMarshal := hDrt is VarRef ? "ptr" : "ptr"
+    hDrtMarshal := hDrt is VarRef ? "ptr" : IntPtr
 
     result := DllCall("drt.dll\DrtGetInstanceNameSize", hDrtMarshal, hDrt, "uint*", &pulcbInstanceNameSize := 0, "HRESULT")
     return pulcbInstanceNameSize
@@ -6733,8 +6814,9 @@ export DrtGetInstanceNameSize(hDrt) {
  * @since windows6.1
  */
 export PeerDistStartup(dwVersionRequested, phPeerDist, pdwSupportedVersion) {
-    phPeerDistMarshal := phPeerDist is VarRef ? "ptr*" : "ptr"
-    pdwSupportedVersionMarshal := pdwSupportedVersion is VarRef ? "uint*" : "ptr"
+    phPeerDistMarshal := phPeerDist is VarRef ? "ptr*" : IntPtr
+    pdwSupportedVersionMarshal := pdwSupportedVersion is VarRef ? "uint*" : IntPtr
+    pdwSupportedVersionMarshal := pdwSupportedVersion == 0 ? IntPtr : "uint*"
 
     result := DllCall("PeerDist.dll\PeerDistStartup", UInt32, dwVersionRequested, phPeerDistMarshal, phPeerDist, pdwSupportedVersionMarshal, pdwSupportedVersion, UInt32)
     return result
@@ -6783,7 +6865,7 @@ export PeerDistShutdown(hPeerDist) {
  * @since windows6.1
  */
 export PeerDistGetStatus(hPeerDist, pPeerDistStatus) {
-    pPeerDistStatusMarshal := pPeerDistStatus is VarRef ? "int*" : "ptr"
+    pPeerDistStatusMarshal := pPeerDistStatus is VarRef ? "int*" : IntPtr
 
     result := DllCall("PeerDist.dll\PeerDistGetStatus", IntPtr, hPeerDist, pPeerDistStatusMarshal, pPeerDistStatus, UInt32)
     return result
@@ -6836,9 +6918,11 @@ export PeerDistGetStatus(hPeerDist, pPeerDistStatus) {
  * @since windows6.1
  */
 export PeerDistRegisterForStatusChangeNotification(hPeerDist, hCompletionPort, ulCompletionKey, lpOverlapped, pPeerDistStatus) {
-    pPeerDistStatusMarshal := pPeerDistStatus is VarRef ? "int*" : "ptr"
+    hCompletionPortMarshal := hCompletionPort == 0 ? IntPtr : HANDLE
+    ulCompletionKeyMarshal := ulCompletionKey == 0 ? IntPtr : IntPtr
+    pPeerDistStatusMarshal := pPeerDistStatus is VarRef ? "int*" : IntPtr
 
-    result := DllCall("PeerDist.dll\PeerDistRegisterForStatusChangeNotification", IntPtr, hPeerDist, HANDLE, hCompletionPort, IntPtr, ulCompletionKey, OVERLAPPED.Ptr, lpOverlapped, pPeerDistStatusMarshal, pPeerDistStatus, UInt32)
+    result := DllCall("PeerDist.dll\PeerDistRegisterForStatusChangeNotification", IntPtr, hPeerDist, hCompletionPortMarshal, hCompletionPort, ulCompletionKeyMarshal, ulCompletionKey, OVERLAPPED.Ptr, lpOverlapped, pPeerDistStatusMarshal, pPeerDistStatus, UInt32)
     return result
 }
 
@@ -6978,9 +7062,12 @@ export PeerDistUnregisterForStatusChangeNotification(hPeerDist) {
  * @since windows6.1
  */
 export PeerDistServerPublishStream(hPeerDist, cbContentIdentifier, pContentIdentifier, cbContentLength, pPublishOptions, hCompletionPort, ulCompletionKey, phStream) {
-    phStreamMarshal := phStream is VarRef ? "ptr*" : "ptr"
+    pPublishOptionsMarshal := pPublishOptions == 0 ? IntPtr : PEERDIST_PUBLICATION_OPTIONS.Ptr
+    hCompletionPortMarshal := hCompletionPort == 0 ? IntPtr : HANDLE
+    ulCompletionKeyMarshal := ulCompletionKey == 0 ? IntPtr : IntPtr
+    phStreamMarshal := phStream is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("PeerDist.dll\PeerDistServerPublishStream", IntPtr, hPeerDist, UInt32, cbContentIdentifier, IntPtr, pContentIdentifier, Int64, cbContentLength, PEERDIST_PUBLICATION_OPTIONS.Ptr, pPublishOptions, HANDLE, hCompletionPort, IntPtr, ulCompletionKey, phStreamMarshal, phStream, UInt32)
+    result := DllCall("PeerDist.dll\PeerDistServerPublishStream", IntPtr, hPeerDist, UInt32, cbContentIdentifier, IntPtr, pContentIdentifier, Int64, cbContentLength, pPublishOptionsMarshal, pPublishOptions, hCompletionPortMarshal, hCompletionPort, ulCompletionKeyMarshal, ulCompletionKey, phStreamMarshal, phStream, UInt32)
     return result
 }
 
@@ -7343,9 +7430,11 @@ export PeerDistServerUnpublish(hPeerDist, cbContentIdentifier, pContentIdentifie
  * @since windows6.1
  */
 export PeerDistServerOpenContentInformation(hPeerDist, cbContentIdentifier, pContentIdentifier, ullContentOffset, cbContentLength, hCompletionPort, ulCompletionKey, phContentInfo) {
-    phContentInfoMarshal := phContentInfo is VarRef ? "ptr*" : "ptr"
+    hCompletionPortMarshal := hCompletionPort == 0 ? IntPtr : HANDLE
+    ulCompletionKeyMarshal := ulCompletionKey == 0 ? IntPtr : IntPtr
+    phContentInfoMarshal := phContentInfo is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("PeerDist.dll\PeerDistServerOpenContentInformation", IntPtr, hPeerDist, UInt32, cbContentIdentifier, IntPtr, pContentIdentifier, Int64, ullContentOffset, Int64, cbContentLength, HANDLE, hCompletionPort, IntPtr, ulCompletionKey, phContentInfoMarshal, phContentInfo, UInt32)
+    result := DllCall("PeerDist.dll\PeerDistServerOpenContentInformation", IntPtr, hPeerDist, UInt32, cbContentIdentifier, IntPtr, pContentIdentifier, Int64, ullContentOffset, Int64, cbContentLength, hCompletionPortMarshal, hCompletionPort, ulCompletionKeyMarshal, ulCompletionKey, phContentInfoMarshal, phContentInfo, UInt32)
     return result
 }
 
@@ -7653,9 +7742,11 @@ export PeerDistServerCancelAsyncOperation(hPeerDist, cbContentIdentifier, pConte
  * @since windows6.1
  */
 export PeerDistClientOpenContent(hPeerDist, pContentTag, hCompletionPort, ulCompletionKey, phContentHandle) {
-    phContentHandleMarshal := phContentHandle is VarRef ? "ptr*" : "ptr"
+    hCompletionPortMarshal := hCompletionPort == 0 ? IntPtr : HANDLE
+    ulCompletionKeyMarshal := ulCompletionKey == 0 ? IntPtr : IntPtr
+    phContentHandleMarshal := phContentHandle is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("PeerDist.dll\PeerDistClientOpenContent", IntPtr, hPeerDist, PEERDIST_CONTENT_TAG.Ptr, pContentTag, HANDLE, hCompletionPort, IntPtr, ulCompletionKey, phContentHandleMarshal, phContentHandle, UInt32)
+    result := DllCall("PeerDist.dll\PeerDistClientOpenContent", IntPtr, hPeerDist, PEERDIST_CONTENT_TAG.Ptr, pContentTag, hCompletionPortMarshal, hCompletionPort, ulCompletionKeyMarshal, ulCompletionKey, phContentHandleMarshal, phContentHandle, UInt32)
     return result
 }
 
@@ -8035,7 +8126,9 @@ export PeerDistClientAddData(hPeerDist, hContentHandle, cbNumberOfBytes, pBuffer
  * @since windows6.1
  */
 export PeerDistClientBlockRead(hPeerDist, hContentHandle, cbMaxNumberOfBytes, pBuffer, dwTimeoutInMilliseconds, lpOverlapped) {
-    result := DllCall("PeerDist.dll\PeerDistClientBlockRead", IntPtr, hPeerDist, IntPtr, hContentHandle, UInt32, cbMaxNumberOfBytes, IntPtr, pBuffer, UInt32, dwTimeoutInMilliseconds, OVERLAPPED.Ptr, lpOverlapped, UInt32)
+    pBufferMarshal := pBuffer == 0 ? IntPtr : IntPtr
+
+    result := DllCall("PeerDist.dll\PeerDistClientBlockRead", IntPtr, hPeerDist, IntPtr, hContentHandle, UInt32, cbMaxNumberOfBytes, pBufferMarshal, pBuffer, UInt32, dwTimeoutInMilliseconds, OVERLAPPED.Ptr, lpOverlapped, UInt32)
     return result
 }
 
@@ -8158,7 +8251,9 @@ export PeerDistClientBlockRead(hPeerDist, hContentHandle, cbMaxNumberOfBytes, pB
  * @since windows6.1
  */
 export PeerDistClientStreamRead(hPeerDist, hContentHandle, cbMaxNumberOfBytes, pBuffer, dwTimeoutInMilliseconds, lpOverlapped) {
-    result := DllCall("PeerDist.dll\PeerDistClientStreamRead", IntPtr, hPeerDist, IntPtr, hContentHandle, UInt32, cbMaxNumberOfBytes, IntPtr, pBuffer, UInt32, dwTimeoutInMilliseconds, OVERLAPPED.Ptr, lpOverlapped, UInt32)
+    pBufferMarshal := pBuffer == 0 ? IntPtr : IntPtr
+
+    result := DllCall("PeerDist.dll\PeerDistClientStreamRead", IntPtr, hPeerDist, IntPtr, hContentHandle, UInt32, cbMaxNumberOfBytes, pBufferMarshal, pBuffer, UInt32, dwTimeoutInMilliseconds, OVERLAPPED.Ptr, lpOverlapped, UInt32)
     return result
 }
 
@@ -8227,7 +8322,10 @@ export PeerDistClientStreamRead(hPeerDist, hContentHandle, cbMaxNumberOfBytes, p
  * @since windows6.1
  */
 export PeerDistClientFlushContent(hPeerDist, pContentTag, hCompletionPort, ulCompletionKey, lpOverlapped) {
-    result := DllCall("PeerDist.dll\PeerDistClientFlushContent", IntPtr, hPeerDist, PEERDIST_CONTENT_TAG.Ptr, pContentTag, HANDLE, hCompletionPort, IntPtr, ulCompletionKey, OVERLAPPED.Ptr, lpOverlapped, UInt32)
+    hCompletionPortMarshal := hCompletionPort == 0 ? IntPtr : HANDLE
+    ulCompletionKeyMarshal := ulCompletionKey == 0 ? IntPtr : IntPtr
+
+    result := DllCall("PeerDist.dll\PeerDistClientFlushContent", IntPtr, hPeerDist, PEERDIST_CONTENT_TAG.Ptr, pContentTag, hCompletionPortMarshal, hCompletionPort, ulCompletionKeyMarshal, ulCompletionKey, OVERLAPPED.Ptr, lpOverlapped, UInt32)
     return result
 }
 
@@ -8311,9 +8409,11 @@ export PeerDistClientFlushContent(hPeerDist, pContentTag, hCompletionPort, ulCom
  * @since windows6.1
  */
 export PeerDistClientCancelAsyncOperation(hPeerDist, hContentHandle, pOverlapped) {
+    pOverlappedMarshal := pOverlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+
     A_LastError := 0
 
-    result := DllCall("PeerDist.dll\PeerDistClientCancelAsyncOperation", IntPtr, hPeerDist, IntPtr, hContentHandle, OVERLAPPED.Ptr, pOverlapped, UInt32)
+    result := DllCall("PeerDist.dll\PeerDistClientCancelAsyncOperation", IntPtr, hPeerDist, IntPtr, hContentHandle, pOverlappedMarshal, pOverlapped, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8354,7 +8454,10 @@ export PeerDistGetStatusEx(hPeerDist, pPeerDistStatus) {
  * @since windows8.0
  */
 export PeerDistRegisterForStatusChangeNotificationEx(hPeerDist, hCompletionPort, ulCompletionKey, lpOverlapped, pPeerDistStatus) {
-    result := DllCall("PeerDist.dll\PeerDistRegisterForStatusChangeNotificationEx", IntPtr, hPeerDist, HANDLE, hCompletionPort, IntPtr, ulCompletionKey, OVERLAPPED.Ptr, lpOverlapped, PEERDIST_STATUS_INFO.Ptr, pPeerDistStatus, UInt32)
+    hCompletionPortMarshal := hCompletionPort == 0 ? IntPtr : HANDLE
+    ulCompletionKeyMarshal := ulCompletionKey == 0 ? IntPtr : IntPtr
+
+    result := DllCall("PeerDist.dll\PeerDistRegisterForStatusChangeNotificationEx", IntPtr, hPeerDist, hCompletionPortMarshal, hCompletionPort, ulCompletionKeyMarshal, ulCompletionKey, OVERLAPPED.Ptr, lpOverlapped, PEERDIST_STATUS_INFO.Ptr, pPeerDistStatus, UInt32)
     return result
 }
 
@@ -8370,7 +8473,7 @@ export PeerDistRegisterForStatusChangeNotificationEx(hPeerDist, hCompletionPort,
  * @since windows8.0
  */
 export PeerDistGetOverlappedResult(lpOverlapped, lpNumberOfBytesTransferred, bWait) {
-    lpNumberOfBytesTransferredMarshal := lpNumberOfBytesTransferred is VarRef ? "uint*" : "ptr"
+    lpNumberOfBytesTransferredMarshal := lpNumberOfBytesTransferred is VarRef ? "uint*" : IntPtr
 
     result := DllCall("PeerDist.dll\PeerDistGetOverlappedResult", OVERLAPPED.Ptr, lpOverlapped, lpNumberOfBytesTransferredMarshal, lpNumberOfBytesTransferred, BOOL, bWait, BOOL)
     return result
@@ -8401,9 +8504,11 @@ export PeerDistGetOverlappedResult(lpOverlapped, lpNumberOfBytesTransferred, bWa
  * @since windows8.0
  */
 export PeerDistServerOpenContentInformationEx(hPeerDist, cbContentIdentifier, pContentIdentifier, ullContentOffset, cbContentLength, pRetrievalOptions, hCompletionPort, ulCompletionKey, phContentInfo) {
-    phContentInfoMarshal := phContentInfo is VarRef ? "ptr*" : "ptr"
+    hCompletionPortMarshal := hCompletionPort == 0 ? IntPtr : HANDLE
+    ulCompletionKeyMarshal := ulCompletionKey == 0 ? IntPtr : IntPtr
+    phContentInfoMarshal := phContentInfo is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("PeerDist.dll\PeerDistServerOpenContentInformationEx", IntPtr, hPeerDist, UInt32, cbContentIdentifier, IntPtr, pContentIdentifier, Int64, ullContentOffset, Int64, cbContentLength, PEERDIST_RETRIEVAL_OPTIONS.Ptr, pRetrievalOptions, HANDLE, hCompletionPort, IntPtr, ulCompletionKey, phContentInfoMarshal, phContentInfo, UInt32)
+    result := DllCall("PeerDist.dll\PeerDistServerOpenContentInformationEx", IntPtr, hPeerDist, UInt32, cbContentIdentifier, IntPtr, pContentIdentifier, Int64, ullContentOffset, Int64, cbContentLength, PEERDIST_RETRIEVAL_OPTIONS.Ptr, pRetrievalOptions, hCompletionPortMarshal, hCompletionPort, ulCompletionKeyMarshal, ulCompletionKey, phContentInfoMarshal, phContentInfo, UInt32)
     return result
 }
 

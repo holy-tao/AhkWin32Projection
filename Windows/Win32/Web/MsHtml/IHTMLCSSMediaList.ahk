@@ -63,7 +63,6 @@ export default struct IHTMLCSSMediaList extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -75,7 +74,6 @@ export default struct IHTMLCSSMediaList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_mediaText() {
@@ -85,7 +83,6 @@ export default struct IHTMLCSSMediaList extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -94,7 +91,6 @@ export default struct IHTMLCSSMediaList extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {BSTR} 
      */
@@ -105,7 +101,6 @@ export default struct IHTMLCSSMediaList extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrMedium 
      * @returns {HRESULT} 
      */
@@ -117,7 +112,6 @@ export default struct IHTMLCSSMediaList extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrMedium 
      * @returns {HRESULT} 
      */
@@ -137,12 +131,12 @@ export default struct IHTMLCSSMediaList extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_mediaText := CallbackCreate(GetMethod(implObj, "put_mediaText"), flags, 2)
-        this.vtbl.get_mediaText := CallbackCreate(GetMethod(implObj, "get_mediaText"), flags, 2)
-        this.vtbl.get_length := CallbackCreate(GetMethod(implObj, "get_length"), flags, 2)
-        this.vtbl.item := CallbackCreate(GetMethod(implObj, "item"), flags, 3)
-        this.vtbl.appendMedium := CallbackCreate(GetMethod(implObj, "appendMedium"), flags, 2)
-        this.vtbl.deleteMedium := CallbackCreate(GetMethod(implObj, "deleteMedium"), flags, 2)
+        this.vtbl.put_mediaText := CallbackCreate(ObjBindMethod(implObj, "put_mediaText"), flags, 2)
+        this.vtbl.get_mediaText := CallbackCreate(ObjBindMethod(implObj, "get_mediaText"), flags, 2)
+        this.vtbl.get_length := CallbackCreate(ObjBindMethod(implObj, "get_length"), flags, 2)
+        this.vtbl.item := CallbackCreate(ObjBindMethod(implObj, "item"), flags, 3)
+        this.vtbl.appendMedium := CallbackCreate(ObjBindMethod(implObj, "appendMedium"), flags, 2)
+        this.vtbl.deleteMedium := CallbackCreate(ObjBindMethod(implObj, "deleteMedium"), flags, 2)
     }
 
     Dispose() {

@@ -36,7 +36,6 @@ export default struct IKsTopology extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} NodeId 
      * @param {Integer} Flags 
      * @param {Integer} DesiredAccess 
@@ -45,7 +44,9 @@ export default struct IKsTopology extends IUnknown {
      * @returns {Pointer<Void>} 
      */
     CreateNodeInstance(NodeId, Flags, DesiredAccess, UnkOuter, InterfaceId) {
-        result := ComCall(3, this, UInt32, NodeId, UInt32, Flags, UInt32, DesiredAccess, "ptr", UnkOuter, Guid.Ptr, InterfaceId, "ptr*", &_Interface := 0, "HRESULT")
+        UnkOuterMarshal := UnkOuter == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, UInt32, NodeId, UInt32, Flags, UInt32, DesiredAccess, UnkOuterMarshal, UnkOuter, Guid.Ptr, InterfaceId, "ptr*", &_Interface := 0, "HRESULT")
         return _Interface
     }
 
@@ -58,7 +59,7 @@ export default struct IKsTopology extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateNodeInstance := CallbackCreate(GetMethod(implObj, "CreateNodeInstance"), flags, 7)
+        this.vtbl.CreateNodeInstance := CallbackCreate(ObjBindMethod(implObj, "CreateNodeInstance"), flags, 7)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct PCLUSAPI_ADD_CLUSTER_GROUP_DEPENDENCY {
     }
 
     /**
-     * 
      * @param {HGROUP} hDependentGroup 
      * @param {HGROUP} hProviderGroup 
      * @returns {Integer} 

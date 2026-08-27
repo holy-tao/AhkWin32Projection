@@ -21,7 +21,6 @@ export default struct CODEPAGE_ENUMPROCW {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @returns {BOOL} 
      */

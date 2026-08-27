@@ -94,7 +94,7 @@ export default struct IStreamInterleave extends IStream {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-istreaminterleave-initialize
      */
     Initialize(streams, interleaveSizes, streamCount) {
-        interleaveSizesMarshal := interleaveSizes is VarRef ? "uint*" : "ptr"
+        interleaveSizesMarshal := interleaveSizes is VarRef ? "uint*" : IntPtr
 
         result := ComCall(14, this, IStream.Ptr, streams, interleaveSizesMarshal, interleaveSizes, UInt32, streamCount, "HRESULT")
         return result
@@ -109,7 +109,7 @@ export default struct IStreamInterleave extends IStream {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 4)
     }
 
     Dispose() {

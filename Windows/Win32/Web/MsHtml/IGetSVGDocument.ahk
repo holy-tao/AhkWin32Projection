@@ -36,7 +36,6 @@ export default struct IGetSVGDocument extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     getSVGDocument() {
@@ -53,7 +52,7 @@ export default struct IGetSVGDocument extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.getSVGDocument := CallbackCreate(GetMethod(implObj, "getSVGDocument"), flags, 2)
+        this.vtbl.getSVGDocument := CallbackCreate(ObjBindMethod(implObj, "getSVGDocument"), flags, 2)
     }
 
     Dispose() {

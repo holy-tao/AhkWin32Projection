@@ -191,13 +191,13 @@ export default struct ITCallingCard extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_PermanentCardID := CallbackCreate(GetMethod(implObj, "get_PermanentCardID"), flags, 2)
-        this.vtbl.get_NumberOfDigits := CallbackCreate(GetMethod(implObj, "get_NumberOfDigits"), flags, 2)
-        this.vtbl.get_Options := CallbackCreate(GetMethod(implObj, "get_Options"), flags, 2)
-        this.vtbl.get_CardName := CallbackCreate(GetMethod(implObj, "get_CardName"), flags, 2)
-        this.vtbl.get_SameAreaDialingRule := CallbackCreate(GetMethod(implObj, "get_SameAreaDialingRule"), flags, 2)
-        this.vtbl.get_LongDistanceDialingRule := CallbackCreate(GetMethod(implObj, "get_LongDistanceDialingRule"), flags, 2)
-        this.vtbl.get_InternationalDialingRule := CallbackCreate(GetMethod(implObj, "get_InternationalDialingRule"), flags, 2)
+        this.vtbl.get_PermanentCardID := CallbackCreate(ObjBindMethod(implObj, "get_PermanentCardID"), flags, 2)
+        this.vtbl.get_NumberOfDigits := CallbackCreate(ObjBindMethod(implObj, "get_NumberOfDigits"), flags, 2)
+        this.vtbl.get_Options := CallbackCreate(ObjBindMethod(implObj, "get_Options"), flags, 2)
+        this.vtbl.get_CardName := CallbackCreate(ObjBindMethod(implObj, "get_CardName"), flags, 2)
+        this.vtbl.get_SameAreaDialingRule := CallbackCreate(ObjBindMethod(implObj, "get_SameAreaDialingRule"), flags, 2)
+        this.vtbl.get_LongDistanceDialingRule := CallbackCreate(ObjBindMethod(implObj, "get_LongDistanceDialingRule"), flags, 2)
+        this.vtbl.get_InternationalDialingRule := CallbackCreate(ObjBindMethod(implObj, "get_InternationalDialingRule"), flags, 2)
     }
 
     Dispose() {

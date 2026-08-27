@@ -67,7 +67,7 @@ export default struct IWMPMediaPluginRegistrar extends IUnknown {
         pwszDescription := pwszDescription is String ? StrPtr(pwszDescription) : pwszDescription
         pwszUninstallString := pwszUninstallString is String ? StrPtr(pwszUninstallString) : pwszUninstallString
 
-        pMediaTypesMarshal := pMediaTypes is VarRef ? "ptr" : "ptr"
+        pMediaTypesMarshal := pMediaTypes is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, "ptr", pwszFriendlyName, "ptr", pwszDescription, "ptr", pwszUninstallString, UInt32, dwPriority, Guid, guidPluginType, Guid, clsid, UInt32, cMediaTypes, pMediaTypesMarshal, pMediaTypes, "HRESULT")
         return result
@@ -98,8 +98,8 @@ export default struct IWMPMediaPluginRegistrar extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.WMPRegisterPlayerPlugin := CallbackCreate(GetMethod(implObj, "WMPRegisterPlayerPlugin"), flags, 9)
-        this.vtbl.WMPUnRegisterPlayerPlugin := CallbackCreate(GetMethod(implObj, "WMPUnRegisterPlayerPlugin"), flags, 3)
+        this.vtbl.WMPRegisterPlayerPlugin := CallbackCreate(ObjBindMethod(implObj, "WMPRegisterPlayerPlugin"), flags, 9)
+        this.vtbl.WMPUnRegisterPlayerPlugin := CallbackCreate(ObjBindMethod(implObj, "WMPUnRegisterPlayerPlugin"), flags, 3)
     }
 
     Dispose() {

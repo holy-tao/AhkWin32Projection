@@ -60,7 +60,7 @@ export default struct IPSITables extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTable := CallbackCreate(GetMethod(implObj, "GetTable"), flags, 6)
+        this.vtbl.GetTable := CallbackCreate(ObjBindMethod(implObj, "GetTable"), flags, 6)
     }
 
     Dispose() {

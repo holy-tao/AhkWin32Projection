@@ -127,7 +127,9 @@ export default struct IMFVirtualCamera extends IMFAttributes {
         EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
         SubkeyPath := SubkeyPath is String ? StrPtr(SubkeyPath) : SubkeyPath
 
-        result := ComCall(35, this, "ptr", EntryName, "ptr", SubkeyPath, UInt32, dwRegType, IntPtr, pbData, UInt32, cbData, "HRESULT")
+        SubkeyPathMarshal := SubkeyPath == 0 ? IntPtr : PWSTR
+
+        result := ComCall(35, this, "ptr", EntryName, SubkeyPathMarshal, SubkeyPath, UInt32, dwRegType, IntPtr, pbData, UInt32, cbData, "HRESULT")
         return result
     }
 
@@ -159,7 +161,9 @@ export default struct IMFVirtualCamera extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfvirtualcamera/nf-mfvirtualcamera-imfvirtualcamera-start
      */
     Start(pCallback) {
-        result := ComCall(36, this, "ptr", pCallback, "HRESULT")
+        pCallbackMarshal := pCallback == 0 ? IntPtr : "ptr"
+
+        result := ComCall(36, this, pCallbackMarshal, pCallback, "HRESULT")
         return result
     }
 
@@ -228,7 +232,10 @@ export default struct IMFVirtualCamera extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfvirtualcamera/nf-mfvirtualcamera-imfvirtualcamera-sendcameraproperty
      */
     SendCameraProperty(propertySet, propertyId, propertyFlags, propertyPayload, propertyPayloadLength, data, dataLength) {
-        result := ComCall(40, this, Guid.Ptr, propertySet, UInt32, propertyId, UInt32, propertyFlags, IntPtr, propertyPayload, UInt32, propertyPayloadLength, IntPtr, data, UInt32, dataLength, "uint*", &dataWritten := 0, "HRESULT")
+        propertyPayloadMarshal := propertyPayload == 0 ? IntPtr : IntPtr
+        dataMarshal := data == 0 ? IntPtr : IntPtr
+
+        result := ComCall(40, this, Guid.Ptr, propertySet, UInt32, propertyId, UInt32, propertyFlags, propertyPayloadMarshal, propertyPayload, UInt32, propertyPayloadLength, dataMarshal, data, UInt32, dataLength, "uint*", &dataWritten := 0, "HRESULT")
         return dataWritten
     }
 
@@ -302,17 +309,17 @@ export default struct IMFVirtualCamera extends IMFAttributes {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddDeviceSourceInfo := CallbackCreate(GetMethod(implObj, "AddDeviceSourceInfo"), flags, 2)
-        this.vtbl.AddProperty := CallbackCreate(GetMethod(implObj, "AddProperty"), flags, 5)
-        this.vtbl.AddRegistryEntry := CallbackCreate(GetMethod(implObj, "AddRegistryEntry"), flags, 6)
-        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 2)
-        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 1)
-        this.vtbl.GetMediaSource := CallbackCreate(GetMethod(implObj, "GetMediaSource"), flags, 2)
-        this.vtbl.SendCameraProperty := CallbackCreate(GetMethod(implObj, "SendCameraProperty"), flags, 9)
-        this.vtbl.CreateSyncEvent := CallbackCreate(GetMethod(implObj, "CreateSyncEvent"), flags, 6)
-        this.vtbl.CreateSyncSemaphore := CallbackCreate(GetMethod(implObj, "CreateSyncSemaphore"), flags, 7)
-        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 1)
+        this.vtbl.AddDeviceSourceInfo := CallbackCreate(ObjBindMethod(implObj, "AddDeviceSourceInfo"), flags, 2)
+        this.vtbl.AddProperty := CallbackCreate(ObjBindMethod(implObj, "AddProperty"), flags, 5)
+        this.vtbl.AddRegistryEntry := CallbackCreate(ObjBindMethod(implObj, "AddRegistryEntry"), flags, 6)
+        this.vtbl.Start := CallbackCreate(ObjBindMethod(implObj, "Start"), flags, 2)
+        this.vtbl.Stop := CallbackCreate(ObjBindMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 1)
+        this.vtbl.GetMediaSource := CallbackCreate(ObjBindMethod(implObj, "GetMediaSource"), flags, 2)
+        this.vtbl.SendCameraProperty := CallbackCreate(ObjBindMethod(implObj, "SendCameraProperty"), flags, 9)
+        this.vtbl.CreateSyncEvent := CallbackCreate(ObjBindMethod(implObj, "CreateSyncEvent"), flags, 6)
+        this.vtbl.CreateSyncSemaphore := CallbackCreate(ObjBindMethod(implObj, "CreateSyncSemaphore"), flags, 7)
+        this.vtbl.Shutdown := CallbackCreate(ObjBindMethod(implObj, "Shutdown"), flags, 1)
     }
 
     Dispose() {

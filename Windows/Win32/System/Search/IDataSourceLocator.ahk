@@ -49,7 +49,6 @@ export default struct IDataSourceLocator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HWND} 
      */
     get_hWnd() {
@@ -76,7 +75,6 @@ export default struct IDataSourceLocator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     PromptNew() {
@@ -85,7 +83,6 @@ export default struct IDataSourceLocator extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<IDispatch>} ppADOConnection 
      * @returns {VARIANT_BOOL} 
      */
@@ -103,10 +100,10 @@ export default struct IDataSourceLocator extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_hWnd := CallbackCreate(GetMethod(implObj, "get_hWnd"), flags, 2)
-        this.vtbl.put_hWnd := CallbackCreate(GetMethod(implObj, "put_hWnd"), flags, 2)
-        this.vtbl.PromptNew := CallbackCreate(GetMethod(implObj, "PromptNew"), flags, 2)
-        this.vtbl.PromptEdit := CallbackCreate(GetMethod(implObj, "PromptEdit"), flags, 3)
+        this.vtbl.get_hWnd := CallbackCreate(ObjBindMethod(implObj, "get_hWnd"), flags, 2)
+        this.vtbl.put_hWnd := CallbackCreate(ObjBindMethod(implObj, "put_hWnd"), flags, 2)
+        this.vtbl.PromptNew := CallbackCreate(ObjBindMethod(implObj, "PromptNew"), flags, 2)
+        this.vtbl.PromptEdit := CallbackCreate(ObjBindMethod(implObj, "PromptEdit"), flags, 3)
     }
 
     Dispose() {

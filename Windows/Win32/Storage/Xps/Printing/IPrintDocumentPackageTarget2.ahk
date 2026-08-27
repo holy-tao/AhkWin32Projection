@@ -38,7 +38,6 @@ export default struct IPrintDocumentPackageTarget2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetIsTargetIppPrinter() {
@@ -47,7 +46,6 @@ export default struct IPrintDocumentPackageTarget2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
@@ -65,8 +63,8 @@ export default struct IPrintDocumentPackageTarget2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetIsTargetIppPrinter := CallbackCreate(GetMethod(implObj, "GetIsTargetIppPrinter"), flags, 2)
-        this.vtbl.GetTargetIppPrintDevice := CallbackCreate(GetMethod(implObj, "GetTargetIppPrintDevice"), flags, 3)
+        this.vtbl.GetIsTargetIppPrinter := CallbackCreate(ObjBindMethod(implObj, "GetIsTargetIppPrinter"), flags, 2)
+        this.vtbl.GetTargetIppPrintDevice := CallbackCreate(ObjBindMethod(implObj, "GetTargetIppPrintDevice"), flags, 3)
     }
 
     Dispose() {

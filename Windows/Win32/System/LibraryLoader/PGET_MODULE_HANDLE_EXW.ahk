@@ -22,7 +22,6 @@ export default struct PGET_MODULE_HANDLE_EXW {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @param {PWSTR} lpModuleName 
      * @param {Pointer<HMODULE>} phModule 
@@ -31,7 +30,9 @@ export default struct PGET_MODULE_HANDLE_EXW {
     Call(dwFlags, lpModuleName, phModule) {
         lpModuleName := lpModuleName is String ? StrPtr(lpModuleName) : lpModuleName
 
-        result := DllCall(this.value, UInt32, dwFlags, "ptr", lpModuleName, HMODULE.Ptr, phModule, BOOL)
+        lpModuleNameMarshal := lpModuleName == 0 ? IntPtr : PWSTR
+
+        result := DllCall(this.value, UInt32, dwFlags, lpModuleNameMarshal, lpModuleName, HMODULE.Ptr, phModule, BOOL)
         return result
     }
 

@@ -67,8 +67,8 @@ export default struct IWebApplicationUpdateEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnPaint := CallbackCreate(GetMethod(implObj, "OnPaint"), flags, 1)
-        this.vtbl.OnCssChanged := CallbackCreate(GetMethod(implObj, "OnCssChanged"), flags, 1)
+        this.vtbl.OnPaint := CallbackCreate(ObjBindMethod(implObj, "OnPaint"), flags, 1)
+        this.vtbl.OnCssChanged := CallbackCreate(ObjBindMethod(implObj, "OnCssChanged"), flags, 1)
     }
 
     Dispose() {

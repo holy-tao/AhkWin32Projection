@@ -29,7 +29,6 @@ export default struct WS_READ_TYPE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<WS_XML_READER>} reader A pointer to a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-xml-reader">WS_XML_READER</a> handle that contains the type value.
      * @param {WS_TYPE_MAPPING} typeMapping Indicates how the XML is being mapped to this type.  
      * 
@@ -57,10 +56,12 @@ export default struct WS_READ_TYPE_CALLBACK {
      * @returns {HRESULT} This callback function does not return a value.
      */
     Call(reader, typeMapping, descriptionData, heap, value, valueSize, _error) {
-        readerMarshal := reader is VarRef ? "ptr*" : "ptr"
-        descriptionDataMarshal := descriptionData is VarRef ? "ptr" : "ptr"
-        heapMarshal := heap is VarRef ? "ptr*" : "ptr"
-        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
+        readerMarshal := reader is VarRef ? "ptr*" : IntPtr
+        descriptionDataMarshal := descriptionData is VarRef ? "ptr" : IntPtr
+        heapMarshal := heap is VarRef ? "ptr*" : IntPtr
+        heapMarshal := heap == 0 ? IntPtr : WS_HEAP.Ptr
+        _errorMarshal := _error is VarRef ? "ptr*" : IntPtr
+        _errorMarshal := _error == 0 ? IntPtr : WS_ERROR.Ptr
 
         result := DllCall(this.value, readerMarshal, reader, WS_TYPE_MAPPING, typeMapping, descriptionDataMarshal, descriptionData, heapMarshal, heap, IntPtr, value, UInt32, valueSize, _errorMarshal, _error, "HRESULT")
         return result

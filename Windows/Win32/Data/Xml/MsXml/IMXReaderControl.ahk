@@ -75,7 +75,6 @@ export default struct IMXReaderControl extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     suspend() {
@@ -92,9 +91,9 @@ export default struct IMXReaderControl extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.abort := CallbackCreate(GetMethod(implObj, "abort"), flags, 1)
-        this.vtbl.resume := CallbackCreate(GetMethod(implObj, "resume"), flags, 1)
-        this.vtbl.suspend := CallbackCreate(GetMethod(implObj, "suspend"), flags, 1)
+        this.vtbl.abort := CallbackCreate(ObjBindMethod(implObj, "abort"), flags, 1)
+        this.vtbl.resume := CallbackCreate(ObjBindMethod(implObj, "resume"), flags, 1)
+        this.vtbl.suspend := CallbackCreate(ObjBindMethod(implObj, "suspend"), flags, 1)
     }
 
     Dispose() {

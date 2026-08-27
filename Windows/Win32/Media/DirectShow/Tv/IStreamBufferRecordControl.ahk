@@ -95,7 +95,7 @@ export default struct IStreamBufferRecordControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferrecordcontrol-start
      */
     Start(prtStart) {
-        prtStartMarshal := prtStart is VarRef ? "int64*" : "ptr"
+        prtStartMarshal := prtStart is VarRef ? "int64*" : IntPtr
 
         result := ComCall(3, this, prtStartMarshal, prtStart, "HRESULT")
         return result
@@ -205,9 +205,9 @@ export default struct IStreamBufferRecordControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferrecordcontrol-getrecordingstatus
      */
     GetRecordingStatus(phResult, pbStarted, pbStopped) {
-        phResultMarshal := phResult is VarRef ? "int*" : "ptr"
-        pbStartedMarshal := pbStarted is VarRef ? "int*" : "ptr"
-        pbStoppedMarshal := pbStopped is VarRef ? "int*" : "ptr"
+        phResultMarshal := phResult is VarRef ? "int*" : IntPtr
+        pbStartedMarshal := pbStarted is VarRef ? "int*" : IntPtr
+        pbStoppedMarshal := pbStopped is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, phResultMarshal, phResult, pbStartedMarshal, pbStarted, pbStoppedMarshal, pbStopped, "HRESULT")
         return result
@@ -222,9 +222,9 @@ export default struct IStreamBufferRecordControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 2)
-        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 2)
-        this.vtbl.GetRecordingStatus := CallbackCreate(GetMethod(implObj, "GetRecordingStatus"), flags, 4)
+        this.vtbl.Start := CallbackCreate(ObjBindMethod(implObj, "Start"), flags, 2)
+        this.vtbl.Stop := CallbackCreate(ObjBindMethod(implObj, "Stop"), flags, 2)
+        this.vtbl.GetRecordingStatus := CallbackCreate(ObjBindMethod(implObj, "GetRecordingStatus"), flags, 4)
     }
 
     Dispose() {

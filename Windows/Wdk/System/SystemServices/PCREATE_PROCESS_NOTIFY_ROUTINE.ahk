@@ -20,7 +20,6 @@ export default struct PCREATE_PROCESS_NOTIFY_ROUTINE {
     }
 
     /**
-     * 
      * @param {HANDLE} ParentId 
      * @param {HANDLE} ProcessId 
      * @param {BOOLEAN} Create 

@@ -132,7 +132,7 @@ export default struct IScheduledWorkItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-createtrigger
      */
     CreateTrigger(piNewTrigger, ppTrigger) {
-        piNewTriggerMarshal := piNewTrigger is VarRef ? "ushort*" : "ptr"
+        piNewTriggerMarshal := piNewTrigger is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(3, this, piNewTriggerMarshal, piNewTrigger, ITaskTrigger.Ptr, ppTrigger, "HRESULT")
         return result
@@ -252,7 +252,7 @@ export default struct IScheduledWorkItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-getruntimes
      */
     GetRunTimes(pstBegin, pstEnd, pCount) {
-        pCountMarshal := pCount is VarRef ? "ushort*" : "ptr"
+        pCountMarshal := pCount is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(8, this, SYSTEMTIME.Ptr, pstBegin, SYSTEMTIME.Ptr, pstEnd, pCountMarshal, pCount, "ptr*", &rgstTaskTimes := 0, "HRESULT")
         return rgstTaskTimes
@@ -392,8 +392,8 @@ export default struct IScheduledWorkItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-getidlewait
      */
     GetIdleWait(pwIdleMinutes, pwDeadlineMinutes) {
-        pwIdleMinutesMarshal := pwIdleMinutes is VarRef ? "ushort*" : "ptr"
-        pwDeadlineMinutesMarshal := pwDeadlineMinutes is VarRef ? "ushort*" : "ptr"
+        pwIdleMinutesMarshal := pwIdleMinutes is VarRef ? "ushort*" : IntPtr
+        pwDeadlineMinutesMarshal := pwDeadlineMinutes is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(11, this, pwIdleMinutesMarshal, pwIdleMinutes, pwDeadlineMinutesMarshal, pwDeadlineMinutes, "HRESULT")
         return result
@@ -812,7 +812,7 @@ export default struct IScheduledWorkItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-setworkitemdata
      */
     SetWorkItemData(cbData, rgbData) {
-        rgbDataMarshal := rgbData is VarRef ? "char*" : "ptr"
+        rgbDataMarshal := rgbData is VarRef ? "char*" : IntPtr
 
         result := ComCall(22, this, UInt16, cbData, rgbDataMarshal, rgbData, "HRESULT")
         return result
@@ -870,8 +870,8 @@ export default struct IScheduledWorkItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-getworkitemdata
      */
     GetWorkItemData(pcbData, prgbData) {
-        pcbDataMarshal := pcbData is VarRef ? "ushort*" : "ptr"
-        prgbDataMarshal := prgbData is VarRef ? "ptr*" : "ptr"
+        pcbDataMarshal := pcbData is VarRef ? "ushort*" : IntPtr
+        prgbDataMarshal := prgbData is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(23, this, pcbDataMarshal, pcbData, prgbDataMarshal, prgbData, "HRESULT")
         return result
@@ -1260,35 +1260,35 @@ export default struct IScheduledWorkItem extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateTrigger := CallbackCreate(GetMethod(implObj, "CreateTrigger"), flags, 3)
-        this.vtbl.DeleteTrigger := CallbackCreate(GetMethod(implObj, "DeleteTrigger"), flags, 2)
-        this.vtbl.GetTriggerCount := CallbackCreate(GetMethod(implObj, "GetTriggerCount"), flags, 2)
-        this.vtbl.GetTrigger := CallbackCreate(GetMethod(implObj, "GetTrigger"), flags, 3)
-        this.vtbl.GetTriggerString := CallbackCreate(GetMethod(implObj, "GetTriggerString"), flags, 3)
-        this.vtbl.GetRunTimes := CallbackCreate(GetMethod(implObj, "GetRunTimes"), flags, 5)
-        this.vtbl.GetNextRunTime := CallbackCreate(GetMethod(implObj, "GetNextRunTime"), flags, 2)
-        this.vtbl.SetIdleWait := CallbackCreate(GetMethod(implObj, "SetIdleWait"), flags, 3)
-        this.vtbl.GetIdleWait := CallbackCreate(GetMethod(implObj, "GetIdleWait"), flags, 3)
-        this.vtbl.Run := CallbackCreate(GetMethod(implObj, "Run"), flags, 1)
-        this.vtbl.Terminate := CallbackCreate(GetMethod(implObj, "Terminate"), flags, 1)
-        this.vtbl.EditWorkItem := CallbackCreate(GetMethod(implObj, "EditWorkItem"), flags, 3)
-        this.vtbl.GetMostRecentRunTime := CallbackCreate(GetMethod(implObj, "GetMostRecentRunTime"), flags, 2)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
-        this.vtbl.GetExitCode := CallbackCreate(GetMethod(implObj, "GetExitCode"), flags, 2)
-        this.vtbl.SetComment := CallbackCreate(GetMethod(implObj, "SetComment"), flags, 2)
-        this.vtbl.GetComment := CallbackCreate(GetMethod(implObj, "GetComment"), flags, 2)
-        this.vtbl.SetCreator := CallbackCreate(GetMethod(implObj, "SetCreator"), flags, 2)
-        this.vtbl.GetCreator := CallbackCreate(GetMethod(implObj, "GetCreator"), flags, 2)
-        this.vtbl.SetWorkItemData := CallbackCreate(GetMethod(implObj, "SetWorkItemData"), flags, 3)
-        this.vtbl.GetWorkItemData := CallbackCreate(GetMethod(implObj, "GetWorkItemData"), flags, 3)
-        this.vtbl.SetErrorRetryCount := CallbackCreate(GetMethod(implObj, "SetErrorRetryCount"), flags, 2)
-        this.vtbl.GetErrorRetryCount := CallbackCreate(GetMethod(implObj, "GetErrorRetryCount"), flags, 2)
-        this.vtbl.SetErrorRetryInterval := CallbackCreate(GetMethod(implObj, "SetErrorRetryInterval"), flags, 2)
-        this.vtbl.GetErrorRetryInterval := CallbackCreate(GetMethod(implObj, "GetErrorRetryInterval"), flags, 2)
-        this.vtbl.SetFlags := CallbackCreate(GetMethod(implObj, "SetFlags"), flags, 2)
-        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
-        this.vtbl.SetAccountInformation := CallbackCreate(GetMethod(implObj, "SetAccountInformation"), flags, 3)
-        this.vtbl.GetAccountInformation := CallbackCreate(GetMethod(implObj, "GetAccountInformation"), flags, 2)
+        this.vtbl.CreateTrigger := CallbackCreate(ObjBindMethod(implObj, "CreateTrigger"), flags, 3)
+        this.vtbl.DeleteTrigger := CallbackCreate(ObjBindMethod(implObj, "DeleteTrigger"), flags, 2)
+        this.vtbl.GetTriggerCount := CallbackCreate(ObjBindMethod(implObj, "GetTriggerCount"), flags, 2)
+        this.vtbl.GetTrigger := CallbackCreate(ObjBindMethod(implObj, "GetTrigger"), flags, 3)
+        this.vtbl.GetTriggerString := CallbackCreate(ObjBindMethod(implObj, "GetTriggerString"), flags, 3)
+        this.vtbl.GetRunTimes := CallbackCreate(ObjBindMethod(implObj, "GetRunTimes"), flags, 5)
+        this.vtbl.GetNextRunTime := CallbackCreate(ObjBindMethod(implObj, "GetNextRunTime"), flags, 2)
+        this.vtbl.SetIdleWait := CallbackCreate(ObjBindMethod(implObj, "SetIdleWait"), flags, 3)
+        this.vtbl.GetIdleWait := CallbackCreate(ObjBindMethod(implObj, "GetIdleWait"), flags, 3)
+        this.vtbl.Run := CallbackCreate(ObjBindMethod(implObj, "Run"), flags, 1)
+        this.vtbl.Terminate := CallbackCreate(ObjBindMethod(implObj, "Terminate"), flags, 1)
+        this.vtbl.EditWorkItem := CallbackCreate(ObjBindMethod(implObj, "EditWorkItem"), flags, 3)
+        this.vtbl.GetMostRecentRunTime := CallbackCreate(ObjBindMethod(implObj, "GetMostRecentRunTime"), flags, 2)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.GetExitCode := CallbackCreate(ObjBindMethod(implObj, "GetExitCode"), flags, 2)
+        this.vtbl.SetComment := CallbackCreate(ObjBindMethod(implObj, "SetComment"), flags, 2)
+        this.vtbl.GetComment := CallbackCreate(ObjBindMethod(implObj, "GetComment"), flags, 2)
+        this.vtbl.SetCreator := CallbackCreate(ObjBindMethod(implObj, "SetCreator"), flags, 2)
+        this.vtbl.GetCreator := CallbackCreate(ObjBindMethod(implObj, "GetCreator"), flags, 2)
+        this.vtbl.SetWorkItemData := CallbackCreate(ObjBindMethod(implObj, "SetWorkItemData"), flags, 3)
+        this.vtbl.GetWorkItemData := CallbackCreate(ObjBindMethod(implObj, "GetWorkItemData"), flags, 3)
+        this.vtbl.SetErrorRetryCount := CallbackCreate(ObjBindMethod(implObj, "SetErrorRetryCount"), flags, 2)
+        this.vtbl.GetErrorRetryCount := CallbackCreate(ObjBindMethod(implObj, "GetErrorRetryCount"), flags, 2)
+        this.vtbl.SetErrorRetryInterval := CallbackCreate(ObjBindMethod(implObj, "SetErrorRetryInterval"), flags, 2)
+        this.vtbl.GetErrorRetryInterval := CallbackCreate(ObjBindMethod(implObj, "GetErrorRetryInterval"), flags, 2)
+        this.vtbl.SetFlags := CallbackCreate(ObjBindMethod(implObj, "SetFlags"), flags, 2)
+        this.vtbl.GetFlags := CallbackCreate(ObjBindMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.SetAccountInformation := CallbackCreate(ObjBindMethod(implObj, "SetAccountInformation"), flags, 3)
+        this.vtbl.GetAccountInformation := CallbackCreate(ObjBindMethod(implObj, "GetAccountInformation"), flags, 2)
     }
 
     Dispose() {

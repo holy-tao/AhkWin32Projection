@@ -37,7 +37,6 @@ export default struct ITypeLibRegistrationReader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumUnknown} 
      */
     EnumTypeLibRegistrations() {
@@ -54,7 +53,7 @@ export default struct ITypeLibRegistrationReader extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumTypeLibRegistrations := CallbackCreate(GetMethod(implObj, "EnumTypeLibRegistrations"), flags, 2)
+        this.vtbl.EnumTypeLibRegistrations := CallbackCreate(ObjBindMethod(implObj, "EnumTypeLibRegistrations"), flags, 2)
     }
 
     Dispose() {

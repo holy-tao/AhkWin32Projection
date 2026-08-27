@@ -88,8 +88,8 @@ export default struct IRawElementProviderFragmentRoot extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ElementProviderFromPoint := CallbackCreate(GetMethod(implObj, "ElementProviderFromPoint"), flags, 4)
-        this.vtbl.GetFocus := CallbackCreate(GetMethod(implObj, "GetFocus"), flags, 2)
+        this.vtbl.ElementProviderFromPoint := CallbackCreate(ObjBindMethod(implObj, "ElementProviderFromPoint"), flags, 4)
+        this.vtbl.GetFocus := CallbackCreate(ObjBindMethod(implObj, "GetFocus"), flags, 2)
     }
 
     Dispose() {

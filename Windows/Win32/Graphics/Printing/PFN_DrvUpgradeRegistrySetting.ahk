@@ -21,7 +21,6 @@ export default struct PFN_DrvUpgradeRegistrySetting {
     }
 
     /**
-     * 
      * @param {HANDLE} hPrinter 
      * @param {PSTR} pFeature 
      * @param {PSTR} pOption 

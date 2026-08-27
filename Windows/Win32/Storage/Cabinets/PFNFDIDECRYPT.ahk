@@ -19,7 +19,6 @@ export default struct PFNFDIDECRYPT {
     }
 
     /**
-     * 
      * @param {Pointer<FDIDECRYPT>} pfdid 
      * @returns {Integer} 
      */

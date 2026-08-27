@@ -75,7 +75,9 @@ export default struct ID3D12Device8 extends ID3D12Device7 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device8-getresourceallocationinfo2
      */
     GetResourceAllocationInfo2(visibleMask, numResourceDescs, pResourceDescs, pResourceAllocationInfo1) {
-        result := ComCall(68, this, UInt32, visibleMask, UInt32, numResourceDescs, D3D12_RESOURCE_DESC1.Ptr, pResourceDescs, D3D12_RESOURCE_ALLOCATION_INFO1.Ptr, pResourceAllocationInfo1, D3D12_RESOURCE_ALLOCATION_INFO)
+        pResourceAllocationInfo1Marshal := pResourceAllocationInfo1 == 0 ? IntPtr : D3D12_RESOURCE_ALLOCATION_INFO1.Ptr
+
+        result := ComCall(68, this, UInt32, visibleMask, UInt32, numResourceDescs, D3D12_RESOURCE_DESC1.Ptr, pResourceDescs, pResourceAllocationInfo1Marshal, pResourceAllocationInfo1, D3D12_RESOURCE_ALLOCATION_INFO)
         return result
     }
 
@@ -128,7 +130,10 @@ export default struct ID3D12Device8 extends ID3D12Device7 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device8-createcommittedresource2
      */
     CreateCommittedResource2(pHeapProperties, HeapFlags, pDesc, InitialResourceState, pOptimizedClearValue, pProtectedSession, riidResource) {
-        result := ComCall(69, this, D3D12_HEAP_PROPERTIES.Ptr, pHeapProperties, D3D12_HEAP_FLAGS, HeapFlags, D3D12_RESOURCE_DESC1.Ptr, pDesc, D3D12_RESOURCE_STATES, InitialResourceState, D3D12_CLEAR_VALUE.Ptr, pOptimizedClearValue, "ptr", pProtectedSession, Guid.Ptr, riidResource, "ptr*", &ppvResource := 0, "HRESULT")
+        pOptimizedClearValueMarshal := pOptimizedClearValue == 0 ? IntPtr : D3D12_CLEAR_VALUE.Ptr
+        pProtectedSessionMarshal := pProtectedSession == 0 ? IntPtr : "ptr"
+
+        result := ComCall(69, this, D3D12_HEAP_PROPERTIES.Ptr, pHeapProperties, D3D12_HEAP_FLAGS, HeapFlags, D3D12_RESOURCE_DESC1.Ptr, pDesc, D3D12_RESOURCE_STATES, InitialResourceState, pOptimizedClearValueMarshal, pOptimizedClearValue, pProtectedSessionMarshal, pProtectedSession, Guid.Ptr, riidResource, "ptr*", &ppvResource := 0, "HRESULT")
         return ppvResource
     }
 
@@ -170,7 +175,9 @@ export default struct ID3D12Device8 extends ID3D12Device7 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device8-createplacedresource1
      */
     CreatePlacedResource1(pHeap, HeapOffset, pDesc, InitialState, pOptimizedClearValue, riid) {
-        result := ComCall(70, this, "ptr", pHeap, Int64, HeapOffset, D3D12_RESOURCE_DESC1.Ptr, pDesc, D3D12_RESOURCE_STATES, InitialState, D3D12_CLEAR_VALUE.Ptr, pOptimizedClearValue, Guid.Ptr, riid, "ptr*", &ppvResource := 0, "HRESULT")
+        pOptimizedClearValueMarshal := pOptimizedClearValue == 0 ? IntPtr : D3D12_CLEAR_VALUE.Ptr
+
+        result := ComCall(70, this, "ptr", pHeap, Int64, HeapOffset, D3D12_RESOURCE_DESC1.Ptr, pDesc, D3D12_RESOURCE_STATES, InitialState, pOptimizedClearValueMarshal, pOptimizedClearValue, Guid.Ptr, riid, "ptr*", &ppvResource := 0, "HRESULT")
         return ppvResource
     }
 
@@ -189,7 +196,10 @@ export default struct ID3D12Device8 extends ID3D12Device7 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device8-createsamplerfeedbackunorderedaccessview
      */
     CreateSamplerFeedbackUnorderedAccessView(pTargetedResource, pFeedbackResource, DestDescriptor) {
-        ComCall(71, this, "ptr", pTargetedResource, "ptr", pFeedbackResource, D3D12_CPU_DESCRIPTOR_HANDLE, DestDescriptor)
+        pTargetedResourceMarshal := pTargetedResource == 0 ? IntPtr : "ptr"
+        pFeedbackResourceMarshal := pFeedbackResource == 0 ? IntPtr : "ptr"
+
+        ComCall(71, this, pTargetedResourceMarshal, pTargetedResource, pFeedbackResourceMarshal, pFeedbackResource, D3D12_CPU_DESCRIPTOR_HANDLE, DestDescriptor)
     }
 
     /**
@@ -228,11 +238,15 @@ export default struct ID3D12Device8 extends ID3D12Device7 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device8-getcopyablefootprints1
      */
     GetCopyableFootprints1(pResourceDesc, FirstSubresource, NumSubresources, BaseOffset, pLayouts, pNumRows, pRowSizeInBytes, pTotalBytes) {
-        pNumRowsMarshal := pNumRows is VarRef ? "uint*" : "ptr"
-        pRowSizeInBytesMarshal := pRowSizeInBytes is VarRef ? "uint*" : "ptr"
-        pTotalBytesMarshal := pTotalBytes is VarRef ? "uint*" : "ptr"
+        pLayoutsMarshal := pLayouts == 0 ? IntPtr : D3D12_PLACED_SUBRESOURCE_FOOTPRINT.Ptr
+        pNumRowsMarshal := pNumRows is VarRef ? "uint*" : IntPtr
+        pNumRowsMarshal := pNumRows == 0 ? IntPtr : "uint*"
+        pRowSizeInBytesMarshal := pRowSizeInBytes is VarRef ? "uint*" : IntPtr
+        pRowSizeInBytesMarshal := pRowSizeInBytes == 0 ? IntPtr : "uint*"
+        pTotalBytesMarshal := pTotalBytes is VarRef ? "uint*" : IntPtr
+        pTotalBytesMarshal := pTotalBytes == 0 ? IntPtr : "uint*"
 
-        ComCall(72, this, D3D12_RESOURCE_DESC1.Ptr, pResourceDesc, UInt32, FirstSubresource, UInt32, NumSubresources, Int64, BaseOffset, D3D12_PLACED_SUBRESOURCE_FOOTPRINT.Ptr, pLayouts, pNumRowsMarshal, pNumRows, pRowSizeInBytesMarshal, pRowSizeInBytes, pTotalBytesMarshal, pTotalBytes)
+        ComCall(72, this, D3D12_RESOURCE_DESC1.Ptr, pResourceDesc, UInt32, FirstSubresource, UInt32, NumSubresources, Int64, BaseOffset, pLayoutsMarshal, pLayouts, pNumRowsMarshal, pNumRows, pRowSizeInBytesMarshal, pRowSizeInBytes, pTotalBytesMarshal, pTotalBytes)
     }
 
     _Query(iid) {
@@ -244,11 +258,11 @@ export default struct ID3D12Device8 extends ID3D12Device7 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetResourceAllocationInfo2 := CallbackCreate(GetMethod(implObj, "GetResourceAllocationInfo2"), flags, 5)
-        this.vtbl.CreateCommittedResource2 := CallbackCreate(GetMethod(implObj, "CreateCommittedResource2"), flags, 9)
-        this.vtbl.CreatePlacedResource1 := CallbackCreate(GetMethod(implObj, "CreatePlacedResource1"), flags, 8)
-        this.vtbl.CreateSamplerFeedbackUnorderedAccessView := CallbackCreate(GetMethod(implObj, "CreateSamplerFeedbackUnorderedAccessView"), flags, 4)
-        this.vtbl.GetCopyableFootprints1 := CallbackCreate(GetMethod(implObj, "GetCopyableFootprints1"), flags, 9)
+        this.vtbl.GetResourceAllocationInfo2 := CallbackCreate(ObjBindMethod(implObj, "GetResourceAllocationInfo2"), flags, 5)
+        this.vtbl.CreateCommittedResource2 := CallbackCreate(ObjBindMethod(implObj, "CreateCommittedResource2"), flags, 9)
+        this.vtbl.CreatePlacedResource1 := CallbackCreate(ObjBindMethod(implObj, "CreatePlacedResource1"), flags, 8)
+        this.vtbl.CreateSamplerFeedbackUnorderedAccessView := CallbackCreate(ObjBindMethod(implObj, "CreateSamplerFeedbackUnorderedAccessView"), flags, 4)
+        this.vtbl.GetCopyableFootprints1 := CallbackCreate(ObjBindMethod(implObj, "GetCopyableFootprints1"), flags, 9)
     }
 
     Dispose() {

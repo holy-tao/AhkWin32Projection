@@ -143,11 +143,11 @@ export default struct IAnnotationProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_AnnotationTypeId := CallbackCreate(GetMethod(implObj, "get_AnnotationTypeId"), flags, 2)
-        this.vtbl.get_AnnotationTypeName := CallbackCreate(GetMethod(implObj, "get_AnnotationTypeName"), flags, 2)
-        this.vtbl.get_Author := CallbackCreate(GetMethod(implObj, "get_Author"), flags, 2)
-        this.vtbl.get_DateTime := CallbackCreate(GetMethod(implObj, "get_DateTime"), flags, 2)
-        this.vtbl.get_Target := CallbackCreate(GetMethod(implObj, "get_Target"), flags, 2)
+        this.vtbl.get_AnnotationTypeId := CallbackCreate(ObjBindMethod(implObj, "get_AnnotationTypeId"), flags, 2)
+        this.vtbl.get_AnnotationTypeName := CallbackCreate(ObjBindMethod(implObj, "get_AnnotationTypeName"), flags, 2)
+        this.vtbl.get_Author := CallbackCreate(ObjBindMethod(implObj, "get_Author"), flags, 2)
+        this.vtbl.get_DateTime := CallbackCreate(ObjBindMethod(implObj, "get_DateTime"), flags, 2)
+        this.vtbl.get_Target := CallbackCreate(ObjBindMethod(implObj, "get_Target"), flags, 2)
     }
 
     Dispose() {

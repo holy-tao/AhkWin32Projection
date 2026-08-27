@@ -571,18 +571,18 @@ export default struct ITextInputPanelEventSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InPlaceStateChanging := CallbackCreate(GetMethod(implObj, "InPlaceStateChanging"), flags, 3)
-        this.vtbl.InPlaceStateChanged := CallbackCreate(GetMethod(implObj, "InPlaceStateChanged"), flags, 3)
-        this.vtbl.InPlaceSizeChanging := CallbackCreate(GetMethod(implObj, "InPlaceSizeChanging"), flags, 3)
-        this.vtbl.InPlaceSizeChanged := CallbackCreate(GetMethod(implObj, "InPlaceSizeChanged"), flags, 3)
-        this.vtbl.InputAreaChanging := CallbackCreate(GetMethod(implObj, "InputAreaChanging"), flags, 3)
-        this.vtbl.InputAreaChanged := CallbackCreate(GetMethod(implObj, "InputAreaChanged"), flags, 3)
-        this.vtbl.CorrectionModeChanging := CallbackCreate(GetMethod(implObj, "CorrectionModeChanging"), flags, 3)
-        this.vtbl.CorrectionModeChanged := CallbackCreate(GetMethod(implObj, "CorrectionModeChanged"), flags, 3)
-        this.vtbl.InPlaceVisibilityChanging := CallbackCreate(GetMethod(implObj, "InPlaceVisibilityChanging"), flags, 3)
-        this.vtbl.InPlaceVisibilityChanged := CallbackCreate(GetMethod(implObj, "InPlaceVisibilityChanged"), flags, 3)
-        this.vtbl.TextInserting := CallbackCreate(GetMethod(implObj, "TextInserting"), flags, 2)
-        this.vtbl.TextInserted := CallbackCreate(GetMethod(implObj, "TextInserted"), flags, 2)
+        this.vtbl.InPlaceStateChanging := CallbackCreate(ObjBindMethod(implObj, "InPlaceStateChanging"), flags, 3)
+        this.vtbl.InPlaceStateChanged := CallbackCreate(ObjBindMethod(implObj, "InPlaceStateChanged"), flags, 3)
+        this.vtbl.InPlaceSizeChanging := CallbackCreate(ObjBindMethod(implObj, "InPlaceSizeChanging"), flags, 3)
+        this.vtbl.InPlaceSizeChanged := CallbackCreate(ObjBindMethod(implObj, "InPlaceSizeChanged"), flags, 3)
+        this.vtbl.InputAreaChanging := CallbackCreate(ObjBindMethod(implObj, "InputAreaChanging"), flags, 3)
+        this.vtbl.InputAreaChanged := CallbackCreate(ObjBindMethod(implObj, "InputAreaChanged"), flags, 3)
+        this.vtbl.CorrectionModeChanging := CallbackCreate(ObjBindMethod(implObj, "CorrectionModeChanging"), flags, 3)
+        this.vtbl.CorrectionModeChanged := CallbackCreate(ObjBindMethod(implObj, "CorrectionModeChanged"), flags, 3)
+        this.vtbl.InPlaceVisibilityChanging := CallbackCreate(ObjBindMethod(implObj, "InPlaceVisibilityChanging"), flags, 3)
+        this.vtbl.InPlaceVisibilityChanged := CallbackCreate(ObjBindMethod(implObj, "InPlaceVisibilityChanged"), flags, 3)
+        this.vtbl.TextInserting := CallbackCreate(ObjBindMethod(implObj, "TextInserting"), flags, 2)
+        this.vtbl.TextInserted := CallbackCreate(ObjBindMethod(implObj, "TextInserted"), flags, 2)
     }
 
     Dispose() {

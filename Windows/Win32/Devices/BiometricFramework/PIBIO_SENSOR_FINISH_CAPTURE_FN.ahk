@@ -28,7 +28,6 @@ export default struct PIBIO_SENSOR_FINISH_CAPTURE_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/ns-winbio_adapter-winbio_pipeline">WINBIO_PIPELINE</a> structure associated with the biometric unit performing the operation.
      * @returns {Integer} Pointer to a <b>WINBIO_REJECT_DETAIL</b> value that receives additional information about the failure to capture a biometric sample. If the operation succeeded, this parameter is set to zero. The following values are defined for fingerprint samples:
      * 

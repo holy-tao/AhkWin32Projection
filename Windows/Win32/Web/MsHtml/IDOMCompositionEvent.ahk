@@ -61,7 +61,6 @@ export default struct IDOMCompositionEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_data() {
@@ -71,7 +70,6 @@ export default struct IDOMCompositionEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 
@@ -90,7 +88,6 @@ export default struct IDOMCompositionEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_locale() {
@@ -108,9 +105,9 @@ export default struct IDOMCompositionEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_data := CallbackCreate(GetMethod(implObj, "get_data"), flags, 2)
-        this.vtbl.initCompositionEvent := CallbackCreate(GetMethod(implObj, "initCompositionEvent"), flags, 7)
-        this.vtbl.get_locale := CallbackCreate(GetMethod(implObj, "get_locale"), flags, 2)
+        this.vtbl.get_data := CallbackCreate(ObjBindMethod(implObj, "get_data"), flags, 2)
+        this.vtbl.initCompositionEvent := CallbackCreate(ObjBindMethod(implObj, "initCompositionEvent"), flags, 7)
+        this.vtbl.get_locale := CallbackCreate(ObjBindMethod(implObj, "get_locale"), flags, 2)
     }
 
     Dispose() {

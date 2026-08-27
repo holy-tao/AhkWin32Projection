@@ -62,7 +62,7 @@ export default struct IWbemProviderIdentity extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetRegistrationObject := CallbackCreate(GetMethod(implObj, "SetRegistrationObject"), flags, 3)
+        this.vtbl.SetRegistrationObject := CallbackCreate(ObjBindMethod(implObj, "SetRegistrationObject"), flags, 3)
     }
 
     Dispose() {

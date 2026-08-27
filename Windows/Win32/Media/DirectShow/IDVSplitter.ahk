@@ -86,7 +86,7 @@ export default struct IDVSplitter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DiscardAlternateVideoFrames := CallbackCreate(GetMethod(implObj, "DiscardAlternateVideoFrames"), flags, 2)
+        this.vtbl.DiscardAlternateVideoFrames := CallbackCreate(ObjBindMethod(implObj, "DiscardAlternateVideoFrames"), flags, 2)
     }
 
     Dispose() {

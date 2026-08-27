@@ -19,7 +19,6 @@ export default struct PLSA_IMPERSONATE_CLIENT {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

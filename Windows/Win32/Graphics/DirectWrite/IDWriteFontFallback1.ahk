@@ -43,7 +43,6 @@ export default struct IDWriteFontFallback1 extends IDWriteFontFallback {
     }
 
     /**
-     * 
      * @param {IDWriteTextAnalysisSource} analysisSource 
      * @param {Integer} textPosition 
      * @param {Integer} textLength 
@@ -59,10 +58,12 @@ export default struct IDWriteFontFallback1 extends IDWriteFontFallback {
     MapCharacters(analysisSource, textPosition, textLength, baseFontCollection, baseFamilyName, fontAxisValues, fontAxisValueCount, mappedLength, scale, mappedFontFace) {
         baseFamilyName := baseFamilyName is String ? StrPtr(baseFamilyName) : baseFamilyName
 
-        mappedLengthMarshal := mappedLength is VarRef ? "uint*" : "ptr"
-        scaleMarshal := scale is VarRef ? "float*" : "ptr"
+        baseFontCollectionMarshal := baseFontCollection == 0 ? IntPtr : "ptr"
+        baseFamilyNameMarshal := baseFamilyName == 0 ? IntPtr : PWSTR
+        mappedLengthMarshal := mappedLength is VarRef ? "uint*" : IntPtr
+        scaleMarshal := scale is VarRef ? "float*" : IntPtr
 
-        result := ComCall(4, this, "ptr", analysisSource, UInt32, textPosition, UInt32, textLength, "ptr", baseFontCollection, "ptr", baseFamilyName, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, UInt32, fontAxisValueCount, mappedLengthMarshal, mappedLength, scaleMarshal, scale, IDWriteFontFace5.Ptr, mappedFontFace, "HRESULT")
+        result := ComCall(4, this, "ptr", analysisSource, UInt32, textPosition, UInt32, textLength, baseFontCollectionMarshal, baseFontCollection, baseFamilyNameMarshal, baseFamilyName, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, UInt32, fontAxisValueCount, mappedLengthMarshal, mappedLength, scaleMarshal, scale, IDWriteFontFace5.Ptr, mappedFontFace, "HRESULT")
         return result
     }
 
@@ -75,7 +76,7 @@ export default struct IDWriteFontFallback1 extends IDWriteFontFallback {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.MapCharacters := CallbackCreate(GetMethod(implObj, "MapCharacters"), flags, 11)
+        this.vtbl.MapCharacters := CallbackCreate(ObjBindMethod(implObj, "MapCharacters"), flags, 11)
     }
 
     Dispose() {

@@ -60,7 +60,7 @@ export default struct IDMOWrapperFilter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 3)
+        this.vtbl.Init := CallbackCreate(ObjBindMethod(implObj, "Init"), flags, 3)
     }
 
     Dispose() {

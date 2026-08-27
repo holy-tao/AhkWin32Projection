@@ -41,7 +41,6 @@ export default struct INetCfgSysPrep extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszSection 
      * @param {PWSTR} pwszKey 
      * @param {Integer} dwValue 
@@ -56,7 +55,6 @@ export default struct INetCfgSysPrep extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszSection 
      * @param {PWSTR} pwszKey 
      * @param {PWSTR} pwszValue 
@@ -72,7 +70,6 @@ export default struct INetCfgSysPrep extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszSection 
      * @param {PWSTR} pwszKey 
      * @param {BOOL} fValue 
@@ -87,7 +84,6 @@ export default struct INetCfgSysPrep extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszSection 
      * @param {PWSTR} pwszKey 
      * @param {PWSTR} pmszValue 
@@ -111,10 +107,10 @@ export default struct INetCfgSysPrep extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.HrSetupSetFirstDword := CallbackCreate(GetMethod(implObj, "HrSetupSetFirstDword"), flags, 4)
-        this.vtbl.HrSetupSetFirstString := CallbackCreate(GetMethod(implObj, "HrSetupSetFirstString"), flags, 4)
-        this.vtbl.HrSetupSetFirstStringAsBool := CallbackCreate(GetMethod(implObj, "HrSetupSetFirstStringAsBool"), flags, 4)
-        this.vtbl.HrSetupSetFirstMultiSzField := CallbackCreate(GetMethod(implObj, "HrSetupSetFirstMultiSzField"), flags, 4)
+        this.vtbl.HrSetupSetFirstDword := CallbackCreate(ObjBindMethod(implObj, "HrSetupSetFirstDword"), flags, 4)
+        this.vtbl.HrSetupSetFirstString := CallbackCreate(ObjBindMethod(implObj, "HrSetupSetFirstString"), flags, 4)
+        this.vtbl.HrSetupSetFirstStringAsBool := CallbackCreate(ObjBindMethod(implObj, "HrSetupSetFirstStringAsBool"), flags, 4)
+        this.vtbl.HrSetupSetFirstMultiSzField := CallbackCreate(ObjBindMethod(implObj, "HrSetupSetFirstMultiSzField"), flags, 4)
     }
 
     Dispose() {

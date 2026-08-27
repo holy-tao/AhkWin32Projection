@@ -182,11 +182,11 @@ export default struct IFsiFileItem extends IFsiItem {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_DataSize := CallbackCreate(GetMethod(implObj, "get_DataSize"), flags, 2)
-        this.vtbl.get_DataSize32BitLow := CallbackCreate(GetMethod(implObj, "get_DataSize32BitLow"), flags, 2)
-        this.vtbl.get_DataSize32BitHigh := CallbackCreate(GetMethod(implObj, "get_DataSize32BitHigh"), flags, 2)
-        this.vtbl.get_Data := CallbackCreate(GetMethod(implObj, "get_Data"), flags, 2)
-        this.vtbl.put_Data := CallbackCreate(GetMethod(implObj, "put_Data"), flags, 2)
+        this.vtbl.get_DataSize := CallbackCreate(ObjBindMethod(implObj, "get_DataSize"), flags, 2)
+        this.vtbl.get_DataSize32BitLow := CallbackCreate(ObjBindMethod(implObj, "get_DataSize32BitLow"), flags, 2)
+        this.vtbl.get_DataSize32BitHigh := CallbackCreate(ObjBindMethod(implObj, "get_DataSize32BitHigh"), flags, 2)
+        this.vtbl.get_Data := CallbackCreate(ObjBindMethod(implObj, "get_Data"), flags, 2)
+        this.vtbl.put_Data := CallbackCreate(ObjBindMethod(implObj, "put_Data"), flags, 2)
     }
 
     Dispose() {

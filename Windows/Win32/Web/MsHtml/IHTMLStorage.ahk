@@ -64,7 +64,6 @@ export default struct IHTMLStorage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -73,7 +72,6 @@ export default struct IHTMLStorage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_remainingSpace() {
@@ -82,7 +80,6 @@ export default struct IHTMLStorage extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lIndex 
      * @returns {BSTR} 
      */
@@ -93,7 +90,6 @@ export default struct IHTMLStorage extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrKey 
      * @returns {VARIANT} 
      */
@@ -106,7 +102,6 @@ export default struct IHTMLStorage extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrKey 
      * @param {BSTR} bstrValue 
      * @returns {HRESULT} 
@@ -120,7 +115,6 @@ export default struct IHTMLStorage extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrKey 
      * @returns {HRESULT} 
      */
@@ -132,7 +126,6 @@ export default struct IHTMLStorage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     clear() {
@@ -149,13 +142,13 @@ export default struct IHTMLStorage extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_length := CallbackCreate(GetMethod(implObj, "get_length"), flags, 2)
-        this.vtbl.get_remainingSpace := CallbackCreate(GetMethod(implObj, "get_remainingSpace"), flags, 2)
-        this.vtbl.key := CallbackCreate(GetMethod(implObj, "key"), flags, 3)
-        this.vtbl.getItem := CallbackCreate(GetMethod(implObj, "getItem"), flags, 3)
-        this.vtbl.setItem := CallbackCreate(GetMethod(implObj, "setItem"), flags, 3)
-        this.vtbl.removeItem := CallbackCreate(GetMethod(implObj, "removeItem"), flags, 2)
-        this.vtbl.clear := CallbackCreate(GetMethod(implObj, "clear"), flags, 1)
+        this.vtbl.get_length := CallbackCreate(ObjBindMethod(implObj, "get_length"), flags, 2)
+        this.vtbl.get_remainingSpace := CallbackCreate(ObjBindMethod(implObj, "get_remainingSpace"), flags, 2)
+        this.vtbl.key := CallbackCreate(ObjBindMethod(implObj, "key"), flags, 3)
+        this.vtbl.getItem := CallbackCreate(ObjBindMethod(implObj, "getItem"), flags, 3)
+        this.vtbl.setItem := CallbackCreate(ObjBindMethod(implObj, "setItem"), flags, 3)
+        this.vtbl.removeItem := CallbackCreate(ObjBindMethod(implObj, "removeItem"), flags, 2)
+        this.vtbl.clear := CallbackCreate(ObjBindMethod(implObj, "clear"), flags, 1)
     }
 
     Dispose() {

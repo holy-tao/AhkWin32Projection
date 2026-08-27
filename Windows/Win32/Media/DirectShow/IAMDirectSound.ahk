@@ -188,7 +188,7 @@ export default struct IAMDirectSound extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/amaudio/nf-amaudio-iamdirectsound-getfocuswindow
      */
     GetFocusWindow(param0, param1) {
-        param1Marshal := param1 is VarRef ? "int*" : "ptr"
+        param1Marshal := param1 is VarRef ? "int*" : IntPtr
 
         result := ComCall(10, this, HWND.Ptr, param0, param1Marshal, param1, "HRESULT")
         return result
@@ -203,14 +203,14 @@ export default struct IAMDirectSound extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDirectSoundInterface := CallbackCreate(GetMethod(implObj, "GetDirectSoundInterface"), flags, 2)
-        this.vtbl.GetPrimaryBufferInterface := CallbackCreate(GetMethod(implObj, "GetPrimaryBufferInterface"), flags, 2)
-        this.vtbl.GetSecondaryBufferInterface := CallbackCreate(GetMethod(implObj, "GetSecondaryBufferInterface"), flags, 2)
-        this.vtbl.ReleaseDirectSoundInterface := CallbackCreate(GetMethod(implObj, "ReleaseDirectSoundInterface"), flags, 2)
-        this.vtbl.ReleasePrimaryBufferInterface := CallbackCreate(GetMethod(implObj, "ReleasePrimaryBufferInterface"), flags, 2)
-        this.vtbl.ReleaseSecondaryBufferInterface := CallbackCreate(GetMethod(implObj, "ReleaseSecondaryBufferInterface"), flags, 2)
-        this.vtbl.SetFocusWindow := CallbackCreate(GetMethod(implObj, "SetFocusWindow"), flags, 3)
-        this.vtbl.GetFocusWindow := CallbackCreate(GetMethod(implObj, "GetFocusWindow"), flags, 3)
+        this.vtbl.GetDirectSoundInterface := CallbackCreate(ObjBindMethod(implObj, "GetDirectSoundInterface"), flags, 2)
+        this.vtbl.GetPrimaryBufferInterface := CallbackCreate(ObjBindMethod(implObj, "GetPrimaryBufferInterface"), flags, 2)
+        this.vtbl.GetSecondaryBufferInterface := CallbackCreate(ObjBindMethod(implObj, "GetSecondaryBufferInterface"), flags, 2)
+        this.vtbl.ReleaseDirectSoundInterface := CallbackCreate(ObjBindMethod(implObj, "ReleaseDirectSoundInterface"), flags, 2)
+        this.vtbl.ReleasePrimaryBufferInterface := CallbackCreate(ObjBindMethod(implObj, "ReleasePrimaryBufferInterface"), flags, 2)
+        this.vtbl.ReleaseSecondaryBufferInterface := CallbackCreate(ObjBindMethod(implObj, "ReleaseSecondaryBufferInterface"), flags, 2)
+        this.vtbl.SetFocusWindow := CallbackCreate(ObjBindMethod(implObj, "SetFocusWindow"), flags, 3)
+        this.vtbl.GetFocusWindow := CallbackCreate(ObjBindMethod(implObj, "GetFocusWindow"), flags, 3)
     }
 
     Dispose() {

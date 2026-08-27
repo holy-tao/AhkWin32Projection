@@ -202,10 +202,10 @@ export default struct IWMPMetadataPicture extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_mimeType := CallbackCreate(GetMethod(implObj, "get_mimeType"), flags, 2)
-        this.vtbl.get_pictureType := CallbackCreate(GetMethod(implObj, "get_pictureType"), flags, 2)
-        this.vtbl.get_description := CallbackCreate(GetMethod(implObj, "get_description"), flags, 2)
-        this.vtbl.get_URL := CallbackCreate(GetMethod(implObj, "get_URL"), flags, 2)
+        this.vtbl.get_mimeType := CallbackCreate(ObjBindMethod(implObj, "get_mimeType"), flags, 2)
+        this.vtbl.get_pictureType := CallbackCreate(ObjBindMethod(implObj, "get_pictureType"), flags, 2)
+        this.vtbl.get_description := CallbackCreate(ObjBindMethod(implObj, "get_description"), flags, 2)
+        this.vtbl.get_URL := CallbackCreate(ObjBindMethod(implObj, "get_URL"), flags, 2)
     }
 
     Dispose() {

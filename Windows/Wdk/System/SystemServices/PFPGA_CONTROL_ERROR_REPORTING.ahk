@@ -19,7 +19,6 @@ export default struct PFPGA_CONTROL_ERROR_REPORTING {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

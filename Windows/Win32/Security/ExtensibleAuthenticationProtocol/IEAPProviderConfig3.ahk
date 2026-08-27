@@ -37,7 +37,6 @@ export default struct IEAPProviderConfig3 extends IEAPProviderConfig2 {
     }
 
     /**
-     * 
      * @param {Integer} dwEapTypeId 
      * @param {Pointer} uConnectionParam 
      * @param {HWND} _hWnd 
@@ -49,9 +48,9 @@ export default struct IEAPProviderConfig3 extends IEAPProviderConfig2 {
      * @returns {HRESULT} 
      */
     ServerInvokeCertificateConfigUI(dwEapTypeId, uConnectionParam, _hWnd, pConfigDataIn, dwSizeOfConfigDataIn, ppConfigDataOut, pdwSizeOfConfigDataOut, uReserved) {
-        pConfigDataInMarshal := pConfigDataIn is VarRef ? "char*" : "ptr"
-        ppConfigDataOutMarshal := ppConfigDataOut is VarRef ? "ptr*" : "ptr"
-        pdwSizeOfConfigDataOutMarshal := pdwSizeOfConfigDataOut is VarRef ? "uint*" : "ptr"
+        pConfigDataInMarshal := pConfigDataIn is VarRef ? "char*" : IntPtr
+        ppConfigDataOutMarshal := ppConfigDataOut is VarRef ? "ptr*" : IntPtr
+        pdwSizeOfConfigDataOutMarshal := pdwSizeOfConfigDataOut is VarRef ? "uint*" : IntPtr
 
         result := ComCall(10, this, UInt32, dwEapTypeId, IntPtr, uConnectionParam, HWND, _hWnd, pConfigDataInMarshal, pConfigDataIn, UInt32, dwSizeOfConfigDataIn, ppConfigDataOutMarshal, ppConfigDataOut, pdwSizeOfConfigDataOutMarshal, pdwSizeOfConfigDataOut, IntPtr, uReserved, "HRESULT")
         return result
@@ -66,7 +65,7 @@ export default struct IEAPProviderConfig3 extends IEAPProviderConfig2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ServerInvokeCertificateConfigUI := CallbackCreate(GetMethod(implObj, "ServerInvokeCertificateConfigUI"), flags, 9)
+        this.vtbl.ServerInvokeCertificateConfigUI := CallbackCreate(ObjBindMethod(implObj, "ServerInvokeCertificateConfigUI"), flags, 9)
     }
 
     Dispose() {

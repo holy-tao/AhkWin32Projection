@@ -71,7 +71,7 @@ export default struct FolderItems2 extends FolderItems {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InvokeVerbEx := CallbackCreate(GetMethod(implObj, "InvokeVerbEx"), flags, 3)
+        this.vtbl.InvokeVerbEx := CallbackCreate(ObjBindMethod(implObj, "InvokeVerbEx"), flags, 3)
     }
 
     Dispose() {

@@ -69,7 +69,7 @@ export default struct IMFTopoLoader extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Load := CallbackCreate(GetMethod(implObj, "Load"), flags, 4)
+        this.vtbl.Load := CallbackCreate(ObjBindMethod(implObj, "Load"), flags, 4)
     }
 
     Dispose() {

@@ -23,7 +23,6 @@ export default struct DIGEST_FUNCTION {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} refdata A user-supplied handle to the digest. This value is passed as a parameter to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/imagehlp/nf-imagehlp-imagegetdigeststream">ImageGetDigestStream</a> function.
      * @param {Pointer<Integer>} pData The data stream.
@@ -31,8 +30,8 @@ export default struct DIGEST_FUNCTION {
      * @returns {BOOL} If the function succeeds, the return value should be <b>TRUE</b>. If the function fails, the return value should be <b>FALSE</b>.
      */
     Call(refdata, pData, dwLength) {
-        refdataMarshal := refdata is VarRef ? "ptr" : "ptr"
-        pDataMarshal := pData is VarRef ? "char*" : "ptr"
+        refdataMarshal := refdata is VarRef ? "ptr" : IntPtr
+        pDataMarshal := pData is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, refdataMarshal, refdata, pDataMarshal, pData, UInt32, dwLength, BOOL)
         return result

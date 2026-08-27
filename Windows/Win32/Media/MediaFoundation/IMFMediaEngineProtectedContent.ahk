@@ -97,7 +97,10 @@ export default struct IMFMediaEngineProtectedContent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineprotectedcontent-transfervideoframe
      */
     TransferVideoFrame(pDstSurf, pSrc, pDst, pBorderClr) {
-        result := ComCall(6, this, "ptr", pDstSurf, MFVideoNormalizedRect.Ptr, pSrc, RECT.Ptr, pDst, MFARGB.Ptr, pBorderClr, "uint*", &pFrameProtectionFlags := 0, "HRESULT")
+        pSrcMarshal := pSrc == 0 ? IntPtr : MFVideoNormalizedRect.Ptr
+        pBorderClrMarshal := pBorderClr == 0 ? IntPtr : MFARGB.Ptr
+
+        result := ComCall(6, this, "ptr", pDstSurf, pSrcMarshal, pSrc, RECT.Ptr, pDst, pBorderClrMarshal, pBorderClr, "uint*", &pFrameProtectionFlags := 0, "HRESULT")
         return pFrameProtectionFlags
     }
 
@@ -110,7 +113,9 @@ export default struct IMFMediaEngineProtectedContent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineprotectedcontent-setcontentprotectionmanager
      */
     SetContentProtectionManager(pCPM) {
-        result := ComCall(7, this, "ptr", pCPM, "HRESULT")
+        pCPMMarshal := pCPM == 0 ? IntPtr : "ptr"
+
+        result := ComCall(7, this, pCPMMarshal, pCPM, "HRESULT")
         return result
     }
 
@@ -137,12 +142,12 @@ export default struct IMFMediaEngineProtectedContent extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ShareResources := CallbackCreate(GetMethod(implObj, "ShareResources"), flags, 2)
-        this.vtbl.GetRequiredProtections := CallbackCreate(GetMethod(implObj, "GetRequiredProtections"), flags, 2)
-        this.vtbl.SetOPMWindow := CallbackCreate(GetMethod(implObj, "SetOPMWindow"), flags, 2)
-        this.vtbl.TransferVideoFrame := CallbackCreate(GetMethod(implObj, "TransferVideoFrame"), flags, 6)
-        this.vtbl.SetContentProtectionManager := CallbackCreate(GetMethod(implObj, "SetContentProtectionManager"), flags, 2)
-        this.vtbl.SetApplicationCertificate := CallbackCreate(GetMethod(implObj, "SetApplicationCertificate"), flags, 3)
+        this.vtbl.ShareResources := CallbackCreate(ObjBindMethod(implObj, "ShareResources"), flags, 2)
+        this.vtbl.GetRequiredProtections := CallbackCreate(ObjBindMethod(implObj, "GetRequiredProtections"), flags, 2)
+        this.vtbl.SetOPMWindow := CallbackCreate(ObjBindMethod(implObj, "SetOPMWindow"), flags, 2)
+        this.vtbl.TransferVideoFrame := CallbackCreate(ObjBindMethod(implObj, "TransferVideoFrame"), flags, 6)
+        this.vtbl.SetContentProtectionManager := CallbackCreate(ObjBindMethod(implObj, "SetContentProtectionManager"), flags, 2)
+        this.vtbl.SetApplicationCertificate := CallbackCreate(ObjBindMethod(implObj, "SetApplicationCertificate"), flags, 3)
     }
 
     Dispose() {

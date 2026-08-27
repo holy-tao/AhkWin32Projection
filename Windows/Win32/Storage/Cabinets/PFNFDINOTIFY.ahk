@@ -20,7 +20,6 @@ export default struct PFNFDINOTIFY {
     }
 
     /**
-     * 
      * @param {FDINOTIFICATIONTYPE} fdint 
      * @param {Pointer<FDINOTIFICATION>} pfdin 
      * @returns {Pointer} 

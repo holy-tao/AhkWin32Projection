@@ -21,16 +21,17 @@ export default struct PCLUSAPI_CREATE_CLUSTER_CNOLESS {
     }
 
     /**
-     * 
      * @param {Pointer<CREATE_CLUSTER_CONFIG>} pConfig 
      * @param {Pointer<PCLUSTER_SETUP_PROGRESS_CALLBACK>} pfnProgressCallback 
      * @param {Pointer<Void>} pvCallbackArg 
      * @returns {HCLUSTER} 
      */
     Call(pConfig, pfnProgressCallback, pvCallbackArg) {
-        pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
+        pfnProgressCallbackMarshal := pfnProgressCallback == 0 ? IntPtr : PCLUSTER_SETUP_PROGRESS_CALLBACK
+        pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : IntPtr
+        pvCallbackArgMarshal := pvCallbackArg == 0 ? IntPtr : "ptr"
 
-        result := DllCall(this.value, CREATE_CLUSTER_CONFIG.Ptr, pConfig, PCLUSTER_SETUP_PROGRESS_CALLBACK, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, HCLUSTER)
+        result := DllCall(this.value, CREATE_CLUSTER_CONFIG.Ptr, pConfig, pfnProgressCallbackMarshal, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, HCLUSTER)
         return result
     }
 

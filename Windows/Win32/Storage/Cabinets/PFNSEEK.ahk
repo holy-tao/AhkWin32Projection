@@ -18,7 +18,6 @@ export default struct PFNSEEK {
     }
 
     /**
-     * 
      * @param {Pointer} hf 
      * @param {Integer} dist 
      * @param {Integer} seektype 

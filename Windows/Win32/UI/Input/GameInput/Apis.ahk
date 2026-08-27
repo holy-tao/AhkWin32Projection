@@ -9,7 +9,6 @@
 
 ;@region Functions
 /**
- * 
  * @returns {IGameInput} 
  */
 export GameInputCreate() {

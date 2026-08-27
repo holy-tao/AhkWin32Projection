@@ -19,7 +19,6 @@ export default struct LPFN_WSAPOLL {
     }
 
     /**
-     * 
      * @param {Pointer<WSAPOLLFD>} fdarray 
      * @param {Integer} nfds 
      * @param {Integer} timeout 

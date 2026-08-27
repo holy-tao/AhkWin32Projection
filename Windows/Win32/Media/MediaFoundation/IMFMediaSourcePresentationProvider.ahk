@@ -76,7 +76,7 @@ export default struct IMFMediaSourcePresentationProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ForceEndOfPresentation := CallbackCreate(GetMethod(implObj, "ForceEndOfPresentation"), flags, 2)
+        this.vtbl.ForceEndOfPresentation := CallbackCreate(ObjBindMethod(implObj, "ForceEndOfPresentation"), flags, 2)
     }
 
     Dispose() {

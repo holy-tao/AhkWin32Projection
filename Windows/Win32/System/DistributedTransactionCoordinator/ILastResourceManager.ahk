@@ -37,20 +37,18 @@ export default struct ILastResourceManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pPrepInfo 
      * @param {Integer} cbPrepInfo 
      * @returns {HRESULT} 
      */
     TransactionCommitted(pPrepInfo, cbPrepInfo) {
-        pPrepInfoMarshal := pPrepInfo is VarRef ? "char*" : "ptr"
+        pPrepInfoMarshal := pPrepInfo is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, pPrepInfoMarshal, pPrepInfo, UInt32, cbPrepInfo, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RecoveryDone() {
@@ -67,8 +65,8 @@ export default struct ILastResourceManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.TransactionCommitted := CallbackCreate(GetMethod(implObj, "TransactionCommitted"), flags, 3)
-        this.vtbl.RecoveryDone := CallbackCreate(GetMethod(implObj, "RecoveryDone"), flags, 1)
+        this.vtbl.TransactionCommitted := CallbackCreate(ObjBindMethod(implObj, "TransactionCommitted"), flags, 3)
+        this.vtbl.RecoveryDone := CallbackCreate(ObjBindMethod(implObj, "RecoveryDone"), flags, 1)
     }
 
     Dispose() {

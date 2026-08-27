@@ -528,13 +528,13 @@ export default struct IUPnPDescriptionDocument extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ReadyState := CallbackCreate(GetMethod(implObj, "get_ReadyState"), flags, 2)
-        this.vtbl.Load := CallbackCreate(GetMethod(implObj, "Load"), flags, 2)
-        this.vtbl.LoadAsync := CallbackCreate(GetMethod(implObj, "LoadAsync"), flags, 3)
-        this.vtbl.get_LoadResult := CallbackCreate(GetMethod(implObj, "get_LoadResult"), flags, 2)
-        this.vtbl.Abort := CallbackCreate(GetMethod(implObj, "Abort"), flags, 1)
-        this.vtbl.RootDevice := CallbackCreate(GetMethod(implObj, "RootDevice"), flags, 2)
-        this.vtbl.DeviceByUDN := CallbackCreate(GetMethod(implObj, "DeviceByUDN"), flags, 3)
+        this.vtbl.get_ReadyState := CallbackCreate(ObjBindMethod(implObj, "get_ReadyState"), flags, 2)
+        this.vtbl.Load := CallbackCreate(ObjBindMethod(implObj, "Load"), flags, 2)
+        this.vtbl.LoadAsync := CallbackCreate(ObjBindMethod(implObj, "LoadAsync"), flags, 3)
+        this.vtbl.get_LoadResult := CallbackCreate(ObjBindMethod(implObj, "get_LoadResult"), flags, 2)
+        this.vtbl.Abort := CallbackCreate(ObjBindMethod(implObj, "Abort"), flags, 1)
+        this.vtbl.RootDevice := CallbackCreate(ObjBindMethod(implObj, "RootDevice"), flags, 2)
+        this.vtbl.DeviceByUDN := CallbackCreate(ObjBindMethod(implObj, "DeviceByUDN"), flags, 3)
     }
 
     Dispose() {

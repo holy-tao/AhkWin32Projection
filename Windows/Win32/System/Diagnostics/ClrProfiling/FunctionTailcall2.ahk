@@ -18,7 +18,6 @@ export default struct FunctionTailcall2 {
     }
 
     /**
-     * 
      * @param {Pointer} funcId 
      * @param {Pointer} clientData 
      * @param {Pointer} _func 

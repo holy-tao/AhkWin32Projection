@@ -186,14 +186,14 @@ export default struct IFolderAction extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Age := CallbackCreate(GetMethod(implObj, "get_Age"), flags, 2)
-        this.vtbl.put_Age := CallbackCreate(GetMethod(implObj, "put_Age"), flags, 2)
-        this.vtbl.get_Size := CallbackCreate(GetMethod(implObj, "get_Size"), flags, 2)
-        this.vtbl.put_Size := CallbackCreate(GetMethod(implObj, "put_Size"), flags, 2)
-        this.vtbl.get_Actions := CallbackCreate(GetMethod(implObj, "get_Actions"), flags, 2)
-        this.vtbl.put_Actions := CallbackCreate(GetMethod(implObj, "put_Actions"), flags, 2)
-        this.vtbl.get_SendCabTo := CallbackCreate(GetMethod(implObj, "get_SendCabTo"), flags, 2)
-        this.vtbl.put_SendCabTo := CallbackCreate(GetMethod(implObj, "put_SendCabTo"), flags, 2)
+        this.vtbl.get_Age := CallbackCreate(ObjBindMethod(implObj, "get_Age"), flags, 2)
+        this.vtbl.put_Age := CallbackCreate(ObjBindMethod(implObj, "put_Age"), flags, 2)
+        this.vtbl.get_Size := CallbackCreate(ObjBindMethod(implObj, "get_Size"), flags, 2)
+        this.vtbl.put_Size := CallbackCreate(ObjBindMethod(implObj, "put_Size"), flags, 2)
+        this.vtbl.get_Actions := CallbackCreate(ObjBindMethod(implObj, "get_Actions"), flags, 2)
+        this.vtbl.put_Actions := CallbackCreate(ObjBindMethod(implObj, "put_Actions"), flags, 2)
+        this.vtbl.get_SendCabTo := CallbackCreate(ObjBindMethod(implObj, "get_SendCabTo"), flags, 2)
+        this.vtbl.put_SendCabTo := CallbackCreate(ObjBindMethod(implObj, "put_SendCabTo"), flags, 2)
     }
 
     Dispose() {

@@ -38,7 +38,6 @@ export default struct IPrintSchemaTicket2 extends IPrintSchemaTicket {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrNamespaceUri 
      * @returns {IPrintSchemaParameterInitializer} 
@@ -60,7 +59,7 @@ export default struct IPrintSchemaTicket2 extends IPrintSchemaTicket {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetParameterInitializer := CallbackCreate(GetMethod(implObj, "GetParameterInitializer"), flags, 4)
+        this.vtbl.GetParameterInitializer := CallbackCreate(ObjBindMethod(implObj, "GetParameterInitializer"), flags, 4)
     }
 
     Dispose() {

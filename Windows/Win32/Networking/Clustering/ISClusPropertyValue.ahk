@@ -93,7 +93,6 @@ export default struct ISClusPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Value() {
@@ -103,7 +102,6 @@ export default struct ISClusPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varValue 
      * @returns {HRESULT} 
      */
@@ -113,7 +111,6 @@ export default struct ISClusPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {CLUSTER_PROPERTY_TYPE} 
      */
     get_Type() {
@@ -122,7 +119,6 @@ export default struct ISClusPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @param {CLUSTER_PROPERTY_TYPE} Type 
      * @returns {HRESULT} 
      */
@@ -132,7 +128,6 @@ export default struct ISClusPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {CLUSTER_PROPERTY_FORMAT} 
      */
     get_Format() {
@@ -141,7 +136,6 @@ export default struct ISClusPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @param {CLUSTER_PROPERTY_FORMAT} Format 
      * @returns {HRESULT} 
      */
@@ -151,7 +145,6 @@ export default struct ISClusPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Length() {
@@ -160,7 +153,6 @@ export default struct ISClusPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DataCount() {
@@ -169,7 +161,6 @@ export default struct ISClusPropertyValue extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusPropertyValueData} 
      */
     get_Data() {
@@ -186,15 +177,15 @@ export default struct ISClusPropertyValue extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Value := CallbackCreate(GetMethod(implObj, "get_Value"), flags, 2)
-        this.vtbl.put_Value := CallbackCreate(GetMethod(implObj, "put_Value"), flags, 2)
-        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
-        this.vtbl.put_Type := CallbackCreate(GetMethod(implObj, "put_Type"), flags, 2)
-        this.vtbl.get_Format := CallbackCreate(GetMethod(implObj, "get_Format"), flags, 2)
-        this.vtbl.put_Format := CallbackCreate(GetMethod(implObj, "put_Format"), flags, 2)
-        this.vtbl.get_Length := CallbackCreate(GetMethod(implObj, "get_Length"), flags, 2)
-        this.vtbl.get_DataCount := CallbackCreate(GetMethod(implObj, "get_DataCount"), flags, 2)
-        this.vtbl.get_Data := CallbackCreate(GetMethod(implObj, "get_Data"), flags, 2)
+        this.vtbl.get_Value := CallbackCreate(ObjBindMethod(implObj, "get_Value"), flags, 2)
+        this.vtbl.put_Value := CallbackCreate(ObjBindMethod(implObj, "put_Value"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(ObjBindMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.put_Type := CallbackCreate(ObjBindMethod(implObj, "put_Type"), flags, 2)
+        this.vtbl.get_Format := CallbackCreate(ObjBindMethod(implObj, "get_Format"), flags, 2)
+        this.vtbl.put_Format := CallbackCreate(ObjBindMethod(implObj, "put_Format"), flags, 2)
+        this.vtbl.get_Length := CallbackCreate(ObjBindMethod(implObj, "get_Length"), flags, 2)
+        this.vtbl.get_DataCount := CallbackCreate(ObjBindMethod(implObj, "get_DataCount"), flags, 2)
+        this.vtbl.get_Data := CallbackCreate(ObjBindMethod(implObj, "get_Data"), flags, 2)
     }
 
     Dispose() {

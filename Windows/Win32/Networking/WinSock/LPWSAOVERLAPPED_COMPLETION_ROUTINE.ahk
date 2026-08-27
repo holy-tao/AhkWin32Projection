@@ -23,7 +23,6 @@ export default struct LPWSAOVERLAPPED_COMPLETION_ROUTINE {
     }
 
     /**
-     * 
      * @param {Integer} dwError Type: IN **[DWORD](/windows/win32/winprog/windows-data-types)**
      * 
      * The I/O completion status. This parameter can be one of the <a href="https://docs.microsoft.com/windows/win32/Debug/system-error-codes">system error codes</a>.

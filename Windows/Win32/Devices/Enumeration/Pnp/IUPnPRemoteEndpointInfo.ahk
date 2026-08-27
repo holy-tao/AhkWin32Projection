@@ -131,9 +131,9 @@ export default struct IUPnPRemoteEndpointInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDwordValue := CallbackCreate(GetMethod(implObj, "GetDwordValue"), flags, 3)
-        this.vtbl.GetStringValue := CallbackCreate(GetMethod(implObj, "GetStringValue"), flags, 3)
-        this.vtbl.GetGuidValue := CallbackCreate(GetMethod(implObj, "GetGuidValue"), flags, 3)
+        this.vtbl.GetDwordValue := CallbackCreate(ObjBindMethod(implObj, "GetDwordValue"), flags, 3)
+        this.vtbl.GetStringValue := CallbackCreate(ObjBindMethod(implObj, "GetStringValue"), flags, 3)
+        this.vtbl.GetGuidValue := CallbackCreate(ObjBindMethod(implObj, "GetGuidValue"), flags, 3)
     }
 
     Dispose() {

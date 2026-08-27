@@ -19,7 +19,6 @@ export default struct KDEFERRED_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<KDPC>} Dpc 
      * @param {Pointer<Void>} DeferredContext 
      * @param {Pointer<Void>} SystemArgument1 
@@ -27,9 +26,12 @@ export default struct KDEFERRED_ROUTINE {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(Dpc, DeferredContext, SystemArgument1, SystemArgument2) {
-        DeferredContextMarshal := DeferredContext is VarRef ? "ptr" : "ptr"
-        SystemArgument1Marshal := SystemArgument1 is VarRef ? "ptr" : "ptr"
-        SystemArgument2Marshal := SystemArgument2 is VarRef ? "ptr" : "ptr"
+        DeferredContextMarshal := DeferredContext is VarRef ? "ptr" : IntPtr
+        DeferredContextMarshal := DeferredContext == 0 ? IntPtr : "ptr"
+        SystemArgument1Marshal := SystemArgument1 is VarRef ? "ptr" : IntPtr
+        SystemArgument1Marshal := SystemArgument1 == 0 ? IntPtr : "ptr"
+        SystemArgument2Marshal := SystemArgument2 is VarRef ? "ptr" : IntPtr
+        SystemArgument2Marshal := SystemArgument2 == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, KDPC.Ptr, Dpc, DeferredContextMarshal, DeferredContext, SystemArgument1Marshal, SystemArgument1, SystemArgument2Marshal, SystemArgument2)
     }

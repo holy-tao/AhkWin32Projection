@@ -96,9 +96,9 @@ export default struct IMbnPinManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPinList := CallbackCreate(GetMethod(implObj, "GetPinList"), flags, 2)
-        this.vtbl.GetPin := CallbackCreate(GetMethod(implObj, "GetPin"), flags, 3)
-        this.vtbl.GetPinState := CallbackCreate(GetMethod(implObj, "GetPinState"), flags, 2)
+        this.vtbl.GetPinList := CallbackCreate(ObjBindMethod(implObj, "GetPinList"), flags, 2)
+        this.vtbl.GetPin := CallbackCreate(ObjBindMethod(implObj, "GetPin"), flags, 3)
+        this.vtbl.GetPinState := CallbackCreate(ObjBindMethod(implObj, "GetPinState"), flags, 2)
     }
 
     Dispose() {

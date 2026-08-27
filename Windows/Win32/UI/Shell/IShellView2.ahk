@@ -148,10 +148,10 @@ export default struct IShellView2 extends IShellView {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetView := CallbackCreate(GetMethod(implObj, "GetView"), flags, 3)
-        this.vtbl.CreateViewWindow2 := CallbackCreate(GetMethod(implObj, "CreateViewWindow2"), flags, 2)
-        this.vtbl.HandleRename := CallbackCreate(GetMethod(implObj, "HandleRename"), flags, 2)
-        this.vtbl.SelectAndPositionItem := CallbackCreate(GetMethod(implObj, "SelectAndPositionItem"), flags, 4)
+        this.vtbl.GetView := CallbackCreate(ObjBindMethod(implObj, "GetView"), flags, 3)
+        this.vtbl.CreateViewWindow2 := CallbackCreate(ObjBindMethod(implObj, "CreateViewWindow2"), flags, 2)
+        this.vtbl.HandleRename := CallbackCreate(ObjBindMethod(implObj, "HandleRename"), flags, 2)
+        this.vtbl.SelectAndPositionItem := CallbackCreate(ObjBindMethod(implObj, "SelectAndPositionItem"), flags, 4)
     }
 
     Dispose() {

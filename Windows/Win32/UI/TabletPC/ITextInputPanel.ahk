@@ -682,7 +682,9 @@ export default struct ITextInputPanel extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-advise
      */
     Advise(EventSink, _EventMask) {
-        result := ComCall(26, this, "ptr", EventSink, UInt32, _EventMask, "HRESULT")
+        EventSinkMarshal := EventSink == 0 ? IntPtr : "ptr"
+
+        result := ComCall(26, this, EventSinkMarshal, EventSink, UInt32, _EventMask, "HRESULT")
         return result
     }
 
@@ -722,7 +724,9 @@ export default struct ITextInputPanel extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanel-unadvise
      */
     Unadvise(EventSink) {
-        result := ComCall(27, this, "ptr", EventSink, "HRESULT")
+        EventSinkMarshal := EventSink == 0 ? IntPtr : "ptr"
+
+        result := ComCall(27, this, EventSinkMarshal, EventSink, "HRESULT")
         return result
     }
 
@@ -735,31 +739,31 @@ export default struct ITextInputPanel extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_AttachedEditWindow := CallbackCreate(GetMethod(implObj, "get_AttachedEditWindow"), flags, 2)
-        this.vtbl.put_AttachedEditWindow := CallbackCreate(GetMethod(implObj, "put_AttachedEditWindow"), flags, 2)
-        this.vtbl.get_CurrentInteractionMode := CallbackCreate(GetMethod(implObj, "get_CurrentInteractionMode"), flags, 2)
-        this.vtbl.get_DefaultInPlaceState := CallbackCreate(GetMethod(implObj, "get_DefaultInPlaceState"), flags, 2)
-        this.vtbl.put_DefaultInPlaceState := CallbackCreate(GetMethod(implObj, "put_DefaultInPlaceState"), flags, 2)
-        this.vtbl.get_CurrentInPlaceState := CallbackCreate(GetMethod(implObj, "get_CurrentInPlaceState"), flags, 2)
-        this.vtbl.get_DefaultInputArea := CallbackCreate(GetMethod(implObj, "get_DefaultInputArea"), flags, 2)
-        this.vtbl.put_DefaultInputArea := CallbackCreate(GetMethod(implObj, "put_DefaultInputArea"), flags, 2)
-        this.vtbl.get_CurrentInputArea := CallbackCreate(GetMethod(implObj, "get_CurrentInputArea"), flags, 2)
-        this.vtbl.get_CurrentCorrectionMode := CallbackCreate(GetMethod(implObj, "get_CurrentCorrectionMode"), flags, 2)
-        this.vtbl.get_PreferredInPlaceDirection := CallbackCreate(GetMethod(implObj, "get_PreferredInPlaceDirection"), flags, 2)
-        this.vtbl.put_PreferredInPlaceDirection := CallbackCreate(GetMethod(implObj, "put_PreferredInPlaceDirection"), flags, 2)
-        this.vtbl.get_ExpandPostInsertionCorrection := CallbackCreate(GetMethod(implObj, "get_ExpandPostInsertionCorrection"), flags, 2)
-        this.vtbl.put_ExpandPostInsertionCorrection := CallbackCreate(GetMethod(implObj, "put_ExpandPostInsertionCorrection"), flags, 2)
-        this.vtbl.get_InPlaceVisibleOnFocus := CallbackCreate(GetMethod(implObj, "get_InPlaceVisibleOnFocus"), flags, 2)
-        this.vtbl.put_InPlaceVisibleOnFocus := CallbackCreate(GetMethod(implObj, "put_InPlaceVisibleOnFocus"), flags, 2)
-        this.vtbl.get_InPlaceBoundingRectangle := CallbackCreate(GetMethod(implObj, "get_InPlaceBoundingRectangle"), flags, 2)
-        this.vtbl.get_PopUpCorrectionHeight := CallbackCreate(GetMethod(implObj, "get_PopUpCorrectionHeight"), flags, 2)
-        this.vtbl.get_PopDownCorrectionHeight := CallbackCreate(GetMethod(implObj, "get_PopDownCorrectionHeight"), flags, 2)
-        this.vtbl.CommitPendingInput := CallbackCreate(GetMethod(implObj, "CommitPendingInput"), flags, 1)
-        this.vtbl.SetInPlaceVisibility := CallbackCreate(GetMethod(implObj, "SetInPlaceVisibility"), flags, 2)
-        this.vtbl.SetInPlacePosition := CallbackCreate(GetMethod(implObj, "SetInPlacePosition"), flags, 4)
-        this.vtbl.SetInPlaceHoverTargetPosition := CallbackCreate(GetMethod(implObj, "SetInPlaceHoverTargetPosition"), flags, 3)
-        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 3)
-        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 2)
+        this.vtbl.get_AttachedEditWindow := CallbackCreate(ObjBindMethod(implObj, "get_AttachedEditWindow"), flags, 2)
+        this.vtbl.put_AttachedEditWindow := CallbackCreate(ObjBindMethod(implObj, "put_AttachedEditWindow"), flags, 2)
+        this.vtbl.get_CurrentInteractionMode := CallbackCreate(ObjBindMethod(implObj, "get_CurrentInteractionMode"), flags, 2)
+        this.vtbl.get_DefaultInPlaceState := CallbackCreate(ObjBindMethod(implObj, "get_DefaultInPlaceState"), flags, 2)
+        this.vtbl.put_DefaultInPlaceState := CallbackCreate(ObjBindMethod(implObj, "put_DefaultInPlaceState"), flags, 2)
+        this.vtbl.get_CurrentInPlaceState := CallbackCreate(ObjBindMethod(implObj, "get_CurrentInPlaceState"), flags, 2)
+        this.vtbl.get_DefaultInputArea := CallbackCreate(ObjBindMethod(implObj, "get_DefaultInputArea"), flags, 2)
+        this.vtbl.put_DefaultInputArea := CallbackCreate(ObjBindMethod(implObj, "put_DefaultInputArea"), flags, 2)
+        this.vtbl.get_CurrentInputArea := CallbackCreate(ObjBindMethod(implObj, "get_CurrentInputArea"), flags, 2)
+        this.vtbl.get_CurrentCorrectionMode := CallbackCreate(ObjBindMethod(implObj, "get_CurrentCorrectionMode"), flags, 2)
+        this.vtbl.get_PreferredInPlaceDirection := CallbackCreate(ObjBindMethod(implObj, "get_PreferredInPlaceDirection"), flags, 2)
+        this.vtbl.put_PreferredInPlaceDirection := CallbackCreate(ObjBindMethod(implObj, "put_PreferredInPlaceDirection"), flags, 2)
+        this.vtbl.get_ExpandPostInsertionCorrection := CallbackCreate(ObjBindMethod(implObj, "get_ExpandPostInsertionCorrection"), flags, 2)
+        this.vtbl.put_ExpandPostInsertionCorrection := CallbackCreate(ObjBindMethod(implObj, "put_ExpandPostInsertionCorrection"), flags, 2)
+        this.vtbl.get_InPlaceVisibleOnFocus := CallbackCreate(ObjBindMethod(implObj, "get_InPlaceVisibleOnFocus"), flags, 2)
+        this.vtbl.put_InPlaceVisibleOnFocus := CallbackCreate(ObjBindMethod(implObj, "put_InPlaceVisibleOnFocus"), flags, 2)
+        this.vtbl.get_InPlaceBoundingRectangle := CallbackCreate(ObjBindMethod(implObj, "get_InPlaceBoundingRectangle"), flags, 2)
+        this.vtbl.get_PopUpCorrectionHeight := CallbackCreate(ObjBindMethod(implObj, "get_PopUpCorrectionHeight"), flags, 2)
+        this.vtbl.get_PopDownCorrectionHeight := CallbackCreate(ObjBindMethod(implObj, "get_PopDownCorrectionHeight"), flags, 2)
+        this.vtbl.CommitPendingInput := CallbackCreate(ObjBindMethod(implObj, "CommitPendingInput"), flags, 1)
+        this.vtbl.SetInPlaceVisibility := CallbackCreate(ObjBindMethod(implObj, "SetInPlaceVisibility"), flags, 2)
+        this.vtbl.SetInPlacePosition := CallbackCreate(ObjBindMethod(implObj, "SetInPlacePosition"), flags, 4)
+        this.vtbl.SetInPlaceHoverTargetPosition := CallbackCreate(ObjBindMethod(implObj, "SetInPlaceHoverTargetPosition"), flags, 3)
+        this.vtbl.Advise := CallbackCreate(ObjBindMethod(implObj, "Advise"), flags, 3)
+        this.vtbl.Unadvise := CallbackCreate(ObjBindMethod(implObj, "Unadvise"), flags, 2)
     }
 
     Dispose() {

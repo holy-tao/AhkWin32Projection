@@ -22,7 +22,6 @@ export default struct LPRESOURCE_CALLBACK_EX {
     }
 
     /**
-     * 
      * @param {HCLUSTER} param0 
      * @param {HRESOURCE} param1 
      * @param {HRESOURCE} param2 
@@ -30,7 +29,7 @@ export default struct LPRESOURCE_CALLBACK_EX {
      * @returns {Integer} 
      */
     Call(param0, param1, param2, param3) {
-        param3Marshal := param3 is VarRef ? "ptr" : "ptr"
+        param3Marshal := param3 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, HCLUSTER, param0, HRESOURCE, param1, HRESOURCE, param2, param3Marshal, param3, UInt32)
         return result

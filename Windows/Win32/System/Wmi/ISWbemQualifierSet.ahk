@@ -65,7 +65,6 @@ export default struct ISWbemQualifierSet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -93,7 +92,6 @@ export default struct ISWbemQualifierSet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -102,7 +100,6 @@ export default struct ISWbemQualifierSet extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strName 
      * @param {Pointer<VARIANT>} varVal 
      * @param {VARIANT_BOOL} bPropagatesToSubclass 
@@ -119,7 +116,6 @@ export default struct ISWbemQualifierSet extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strName 
      * @param {Integer} iFlags 
      * @returns {HRESULT} 
@@ -140,11 +136,11 @@ export default struct ISWbemQualifierSet extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
-        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 4)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 8)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 3)
+        this.vtbl.get__NewEnum := CallbackCreate(ObjBindMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.Item := CallbackCreate(ObjBindMethod(implObj, "Item"), flags, 4)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 8)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 3)
     }
 
     Dispose() {

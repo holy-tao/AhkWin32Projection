@@ -122,8 +122,8 @@ export default struct IWMPAudioRenderConfig extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_audioOutputDevice := CallbackCreate(GetMethod(implObj, "get_audioOutputDevice"), flags, 2)
-        this.vtbl.put_audioOutputDevice := CallbackCreate(GetMethod(implObj, "put_audioOutputDevice"), flags, 2)
+        this.vtbl.get_audioOutputDevice := CallbackCreate(ObjBindMethod(implObj, "get_audioOutputDevice"), flags, 2)
+        this.vtbl.put_audioOutputDevice := CallbackCreate(ObjBindMethod(implObj, "put_audioOutputDevice"), flags, 2)
     }
 
     Dispose() {

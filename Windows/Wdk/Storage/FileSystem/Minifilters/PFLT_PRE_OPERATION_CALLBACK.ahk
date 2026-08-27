@@ -21,14 +21,13 @@ export default struct PFLT_PRE_OPERATION_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA>} Data 
      * @param {Pointer<FLT_RELATED_OBJECTS>} FltObjects 
      * @param {Pointer<Pointer<Void>>} CompletionContext 
      * @returns {FLT_PREOP_CALLBACK_STATUS} 
      */
     Call(Data, FltObjects, CompletionContext) {
-        CompletionContextMarshal := CompletionContext is VarRef ? "ptr*" : "ptr"
+        CompletionContextMarshal := CompletionContext is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, FLT_CALLBACK_DATA.Ptr, Data, FLT_RELATED_OBJECTS.Ptr, FltObjects, CompletionContextMarshal, CompletionContext, FLT_PREOP_CALLBACK_STATUS)
         return result

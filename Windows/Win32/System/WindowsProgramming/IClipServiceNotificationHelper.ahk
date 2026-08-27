@@ -37,7 +37,6 @@ export default struct IClipServiceNotificationHelper extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} titleText 
      * @param {BSTR} bodyText 
      * @param {BSTR} packageName 
@@ -65,7 +64,7 @@ export default struct IClipServiceNotificationHelper extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ShowToast := CallbackCreate(GetMethod(implObj, "ShowToast"), flags, 6)
+        this.vtbl.ShowToast := CallbackCreate(ObjBindMethod(implObj, "ShowToast"), flags, 6)
     }
 
     Dispose() {

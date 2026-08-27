@@ -44,7 +44,6 @@ export default struct AsyncIIdentityAdvise extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwIdentityUpdateEvents 
      * @param {PWSTR} lpszUniqueID 
      * @returns {HRESULT} 
@@ -57,7 +56,6 @@ export default struct AsyncIIdentityAdvise extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_IdentityUpdated() {
@@ -74,8 +72,8 @@ export default struct AsyncIIdentityAdvise extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Begin_IdentityUpdated := CallbackCreate(GetMethod(implObj, "Begin_IdentityUpdated"), flags, 3)
-        this.vtbl.Finish_IdentityUpdated := CallbackCreate(GetMethod(implObj, "Finish_IdentityUpdated"), flags, 1)
+        this.vtbl.Begin_IdentityUpdated := CallbackCreate(ObjBindMethod(implObj, "Begin_IdentityUpdated"), flags, 3)
+        this.vtbl.Finish_IdentityUpdated := CallbackCreate(ObjBindMethod(implObj, "Finish_IdentityUpdated"), flags, 1)
     }
 
     Dispose() {

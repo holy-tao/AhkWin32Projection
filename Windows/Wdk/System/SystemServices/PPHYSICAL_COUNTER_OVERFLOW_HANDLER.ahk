@@ -19,7 +19,6 @@ export default struct PPHYSICAL_COUNTER_OVERFLOW_HANDLER {
     }
 
     /**
-     * 
      * @param {Integer} OverflowBits 
      * @param {HANDLE} OwningHandle 
      * @returns {String} Nothing - always returns an empty string

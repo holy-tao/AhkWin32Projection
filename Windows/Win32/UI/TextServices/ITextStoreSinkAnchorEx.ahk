@@ -36,7 +36,6 @@ export default struct ITextStoreSinkAnchorEx extends ITextStoreAnchorSink {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     OnDisconnect() {
@@ -53,7 +52,7 @@ export default struct ITextStoreSinkAnchorEx extends ITextStoreAnchorSink {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnDisconnect := CallbackCreate(GetMethod(implObj, "OnDisconnect"), flags, 1)
+        this.vtbl.OnDisconnect := CallbackCreate(ObjBindMethod(implObj, "OnDisconnect"), flags, 1)
     }
 
     Dispose() {

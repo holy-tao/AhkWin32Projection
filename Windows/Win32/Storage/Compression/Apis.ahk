@@ -24,9 +24,11 @@
  * @since windows8.0
  */
 export CreateCompressor(Algorithm, AllocationRoutines, CompressorHandle) {
+    AllocationRoutinesMarshal := AllocationRoutines == 0 ? IntPtr : COMPRESS_ALLOCATION_ROUTINES.Ptr
+
     A_LastError := 0
 
-    result := DllCall("Cabinet.dll\CreateCompressor", COMPRESS_ALGORITHM, Algorithm, COMPRESS_ALLOCATION_ROUTINES.Ptr, AllocationRoutines, COMPRESSOR_HANDLE.Ptr, CompressorHandle, BOOL)
+    result := DllCall("Cabinet.dll\CreateCompressor", COMPRESS_ALGORITHM, Algorithm, AllocationRoutinesMarshal, AllocationRoutines, COMPRESSOR_HANDLE.Ptr, CompressorHandle, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -97,11 +99,13 @@ export QueryCompressorInformation(CompressorHandle, CompressInformationClass, Co
  * @since windows8.0
  */
 export Compress(CompressorHandle, UncompressedData, UncompressedDataSize, CompressedBuffer, CompressedBufferSize, CompressedDataSize) {
-    CompressedDataSizeMarshal := CompressedDataSize is VarRef ? "ptr*" : "ptr"
+    UncompressedDataMarshal := UncompressedData == 0 ? IntPtr : IntPtr
+    CompressedBufferMarshal := CompressedBuffer == 0 ? IntPtr : IntPtr
+    CompressedDataSizeMarshal := CompressedDataSize is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("Cabinet.dll\Compress", COMPRESSOR_HANDLE, CompressorHandle, IntPtr, UncompressedData, IntPtr, UncompressedDataSize, IntPtr, CompressedBuffer, IntPtr, CompressedBufferSize, CompressedDataSizeMarshal, CompressedDataSize, BOOL)
+    result := DllCall("Cabinet.dll\Compress", COMPRESSOR_HANDLE, CompressorHandle, UncompressedDataMarshal, UncompressedData, IntPtr, UncompressedDataSize, CompressedBufferMarshal, CompressedBuffer, IntPtr, CompressedBufferSize, CompressedDataSizeMarshal, CompressedDataSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -161,9 +165,11 @@ export CloseCompressor(CompressorHandle) {
  * @since windows8.0
  */
 export CreateDecompressor(Algorithm, AllocationRoutines, DecompressorHandle) {
+    AllocationRoutinesMarshal := AllocationRoutines == 0 ? IntPtr : COMPRESS_ALLOCATION_ROUTINES.Ptr
+
     A_LastError := 0
 
-    result := DllCall("Cabinet.dll\CreateDecompressor", COMPRESS_ALGORITHM, Algorithm, COMPRESS_ALLOCATION_ROUTINES.Ptr, AllocationRoutines, DECOMPRESSOR_HANDLE.Ptr, DecompressorHandle, BOOL)
+    result := DllCall("Cabinet.dll\CreateDecompressor", COMPRESS_ALGORITHM, Algorithm, AllocationRoutinesMarshal, AllocationRoutines, DECOMPRESSOR_HANDLE.Ptr, DecompressorHandle, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -246,11 +252,14 @@ export QueryDecompressorInformation(DecompressorHandle, CompressInformationClass
  * @since windows8.0
  */
 export Decompress(DecompressorHandle, CompressedData, CompressedDataSize, UncompressedBuffer, UncompressedBufferSize, UncompressedDataSize) {
-    UncompressedDataSizeMarshal := UncompressedDataSize is VarRef ? "ptr*" : "ptr"
+    CompressedDataMarshal := CompressedData == 0 ? IntPtr : IntPtr
+    UncompressedBufferMarshal := UncompressedBuffer == 0 ? IntPtr : IntPtr
+    UncompressedDataSizeMarshal := UncompressedDataSize is VarRef ? "ptr*" : IntPtr
+    UncompressedDataSizeMarshal := UncompressedDataSize == 0 ? IntPtr : "ptr*"
 
     A_LastError := 0
 
-    result := DllCall("Cabinet.dll\Decompress", DECOMPRESSOR_HANDLE, DecompressorHandle, IntPtr, CompressedData, IntPtr, CompressedDataSize, IntPtr, UncompressedBuffer, IntPtr, UncompressedBufferSize, UncompressedDataSizeMarshal, UncompressedDataSize, BOOL)
+    result := DllCall("Cabinet.dll\Decompress", DECOMPRESSOR_HANDLE, DecompressorHandle, CompressedDataMarshal, CompressedData, IntPtr, CompressedDataSize, UncompressedBufferMarshal, UncompressedBuffer, IntPtr, UncompressedBufferSize, UncompressedDataSizeMarshal, UncompressedDataSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }

@@ -166,11 +166,11 @@ export default struct ITCallHub extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
-        this.vtbl.EnumerateCalls := CallbackCreate(GetMethod(implObj, "EnumerateCalls"), flags, 2)
-        this.vtbl.get_Calls := CallbackCreate(GetMethod(implObj, "get_Calls"), flags, 2)
-        this.vtbl.get_NumCalls := CallbackCreate(GetMethod(implObj, "get_NumCalls"), flags, 2)
-        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.EnumerateCalls := CallbackCreate(ObjBindMethod(implObj, "EnumerateCalls"), flags, 2)
+        this.vtbl.get_Calls := CallbackCreate(ObjBindMethod(implObj, "get_Calls"), flags, 2)
+        this.vtbl.get_NumCalls := CallbackCreate(ObjBindMethod(implObj, "get_NumCalls"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(ObjBindMethod(implObj, "get_State"), flags, 2)
     }
 
     Dispose() {

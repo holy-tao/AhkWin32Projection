@@ -81,8 +81,8 @@ export default struct IDXGIOutput6 extends IDXGIOutput5 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDesc1 := CallbackCreate(GetMethod(implObj, "GetDesc1"), flags, 2)
-        this.vtbl.CheckHardwareCompositionSupport := CallbackCreate(GetMethod(implObj, "CheckHardwareCompositionSupport"), flags, 2)
+        this.vtbl.GetDesc1 := CallbackCreate(ObjBindMethod(implObj, "GetDesc1"), flags, 2)
+        this.vtbl.CheckHardwareCompositionSupport := CallbackCreate(ObjBindMethod(implObj, "CheckHardwareCompositionSupport"), flags, 2)
     }
 
     Dispose() {

@@ -78,7 +78,6 @@ export default struct IDOMWheelEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_deltaX() {
@@ -87,7 +86,6 @@ export default struct IDOMWheelEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_deltaY() {
@@ -96,7 +94,6 @@ export default struct IDOMWheelEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_deltaZ() {
@@ -105,7 +102,6 @@ export default struct IDOMWheelEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_deltaMode() {
@@ -114,7 +110,6 @@ export default struct IDOMWheelEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 
@@ -150,11 +145,11 @@ export default struct IDOMWheelEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_deltaX := CallbackCreate(GetMethod(implObj, "get_deltaX"), flags, 2)
-        this.vtbl.get_deltaY := CallbackCreate(GetMethod(implObj, "get_deltaY"), flags, 2)
-        this.vtbl.get_deltaZ := CallbackCreate(GetMethod(implObj, "get_deltaZ"), flags, 2)
-        this.vtbl.get_deltaMode := CallbackCreate(GetMethod(implObj, "get_deltaMode"), flags, 2)
-        this.vtbl.initWheelEvent := CallbackCreate(GetMethod(implObj, "initWheelEvent"), flags, 17)
+        this.vtbl.get_deltaX := CallbackCreate(ObjBindMethod(implObj, "get_deltaX"), flags, 2)
+        this.vtbl.get_deltaY := CallbackCreate(ObjBindMethod(implObj, "get_deltaY"), flags, 2)
+        this.vtbl.get_deltaZ := CallbackCreate(ObjBindMethod(implObj, "get_deltaZ"), flags, 2)
+        this.vtbl.get_deltaMode := CallbackCreate(ObjBindMethod(implObj, "get_deltaMode"), flags, 2)
+        this.vtbl.initWheelEvent := CallbackCreate(ObjBindMethod(implObj, "initWheelEvent"), flags, 17)
     }
 
     Dispose() {

@@ -18,15 +18,14 @@ export default struct PROTOCOL_CL_OPEN_AF_COMPLETE {
     }
 
     /**
-     * 
      * @param {Integer} _Status 
      * @param {Pointer<Void>} ProtocolAfContext 
      * @param {Pointer<Void>} NdisAfHandle 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Status, ProtocolAfContext, NdisAfHandle) {
-        ProtocolAfContextMarshal := ProtocolAfContext is VarRef ? "ptr" : "ptr"
-        NdisAfHandleMarshal := NdisAfHandle is VarRef ? "ptr" : "ptr"
+        ProtocolAfContextMarshal := ProtocolAfContext is VarRef ? "ptr" : IntPtr
+        NdisAfHandleMarshal := NdisAfHandle is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, Int32, _Status, ProtocolAfContextMarshal, ProtocolAfContext, NdisAfHandleMarshal, NdisAfHandle)
     }

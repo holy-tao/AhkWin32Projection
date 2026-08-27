@@ -40,32 +40,29 @@ export default struct IFilterKeyMap extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwCount 
      * @returns {HRESULT} 
      */
     GetCount(pdwCount) {
-        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pdwCountMarshal, pdwCount, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {ISyncFilter} pISyncFilter 
      * @param {Pointer<Integer>} pdwFilterKey 
      * @returns {HRESULT} 
      */
     AddFilter(pISyncFilter, pdwFilterKey) {
-        pdwFilterKeyMarshal := pdwFilterKey is VarRef ? "uint*" : "ptr"
+        pdwFilterKeyMarshal := pdwFilterKey is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, "ptr", pISyncFilter, pdwFilterKeyMarshal, pdwFilterKey, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwFilterKey 
      * @returns {ISyncFilter} 
      */
@@ -75,14 +72,13 @@ export default struct IFilterKeyMap extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbFilterKeyMap 
      * @param {Pointer<Integer>} pcbFilterKeyMap 
      * @returns {HRESULT} 
      */
     Serialize(pbFilterKeyMap, pcbFilterKeyMap) {
-        pbFilterKeyMapMarshal := pbFilterKeyMap is VarRef ? "char*" : "ptr"
-        pcbFilterKeyMapMarshal := pcbFilterKeyMap is VarRef ? "uint*" : "ptr"
+        pbFilterKeyMapMarshal := pbFilterKeyMap is VarRef ? "char*" : IntPtr
+        pcbFilterKeyMapMarshal := pcbFilterKeyMap is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, pbFilterKeyMapMarshal, pbFilterKeyMap, pcbFilterKeyMapMarshal, pcbFilterKeyMap, "HRESULT")
         return result
@@ -97,10 +93,10 @@ export default struct IFilterKeyMap extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
-        this.vtbl.AddFilter := CallbackCreate(GetMethod(implObj, "AddFilter"), flags, 3)
-        this.vtbl.GetFilter := CallbackCreate(GetMethod(implObj, "GetFilter"), flags, 3)
-        this.vtbl.Serialize := CallbackCreate(GetMethod(implObj, "Serialize"), flags, 3)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.AddFilter := CallbackCreate(ObjBindMethod(implObj, "AddFilter"), flags, 3)
+        this.vtbl.GetFilter := CallbackCreate(ObjBindMethod(implObj, "GetFilter"), flags, 3)
+        this.vtbl.Serialize := CallbackCreate(ObjBindMethod(implObj, "Serialize"), flags, 3)
     }
 
     Dispose() {

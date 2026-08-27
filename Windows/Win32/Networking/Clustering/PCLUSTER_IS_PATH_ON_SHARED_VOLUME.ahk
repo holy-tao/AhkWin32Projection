@@ -20,7 +20,6 @@ export default struct PCLUSTER_IS_PATH_ON_SHARED_VOLUME {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszPathName 
      * @returns {BOOL} 
      */

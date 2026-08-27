@@ -56,7 +56,6 @@ export default struct IHTMLFrameSetElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -66,7 +65,6 @@ export default struct IHTMLFrameSetElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onbeforeprint() {
@@ -76,7 +74,6 @@ export default struct IHTMLFrameSetElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -86,7 +83,6 @@ export default struct IHTMLFrameSetElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onafterprint() {
@@ -104,10 +100,10 @@ export default struct IHTMLFrameSetElement2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_onbeforeprint := CallbackCreate(GetMethod(implObj, "put_onbeforeprint"), flags, 2)
-        this.vtbl.get_onbeforeprint := CallbackCreate(GetMethod(implObj, "get_onbeforeprint"), flags, 2)
-        this.vtbl.put_onafterprint := CallbackCreate(GetMethod(implObj, "put_onafterprint"), flags, 2)
-        this.vtbl.get_onafterprint := CallbackCreate(GetMethod(implObj, "get_onafterprint"), flags, 2)
+        this.vtbl.put_onbeforeprint := CallbackCreate(ObjBindMethod(implObj, "put_onbeforeprint"), flags, 2)
+        this.vtbl.get_onbeforeprint := CallbackCreate(ObjBindMethod(implObj, "get_onbeforeprint"), flags, 2)
+        this.vtbl.put_onafterprint := CallbackCreate(ObjBindMethod(implObj, "put_onafterprint"), flags, 2)
+        this.vtbl.get_onafterprint := CallbackCreate(ObjBindMethod(implObj, "get_onafterprint"), flags, 2)
     }
 
     Dispose() {

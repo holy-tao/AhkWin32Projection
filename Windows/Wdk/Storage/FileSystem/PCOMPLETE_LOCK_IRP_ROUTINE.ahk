@@ -20,13 +20,12 @@ export default struct PCOMPLETE_LOCK_IRP_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<IRP>} _Irp 
      * @returns {NTSTATUS} 
      */
     Call(_Context, _Irp) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, IRP.Ptr, _Irp, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

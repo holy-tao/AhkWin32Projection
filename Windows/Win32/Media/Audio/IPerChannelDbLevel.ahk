@@ -91,9 +91,9 @@ export default struct IPerChannelDbLevel extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iperchanneldblevel-getlevelrange
      */
     GetLevelRange(nChannel, pfMinLevelDB, pfMaxLevelDB, pfStepping) {
-        pfMinLevelDBMarshal := pfMinLevelDB is VarRef ? "float*" : "ptr"
-        pfMaxLevelDBMarshal := pfMaxLevelDB is VarRef ? "float*" : "ptr"
-        pfSteppingMarshal := pfStepping is VarRef ? "float*" : "ptr"
+        pfMinLevelDBMarshal := pfMinLevelDB is VarRef ? "float*" : IntPtr
+        pfMaxLevelDBMarshal := pfMaxLevelDB is VarRef ? "float*" : IntPtr
+        pfSteppingMarshal := pfStepping is VarRef ? "float*" : IntPtr
 
         result := ComCall(4, this, UInt32, nChannel, pfMinLevelDBMarshal, pfMinLevelDB, pfMaxLevelDBMarshal, pfMaxLevelDB, pfSteppingMarshal, pfStepping, "HRESULT")
         return result
@@ -154,7 +154,9 @@ export default struct IPerChannelDbLevel extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iperchanneldblevel-setlevel
      */
     SetLevel(nChannel, fLevelDB, pguidEventContext) {
-        result := ComCall(6, this, UInt32, nChannel, Float32, fLevelDB, Guid.Ptr, pguidEventContext, "HRESULT")
+        pguidEventContextMarshal := pguidEventContext == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(6, this, UInt32, nChannel, Float32, fLevelDB, pguidEventContextMarshal, pguidEventContext, "HRESULT")
         return result
     }
 
@@ -186,7 +188,9 @@ export default struct IPerChannelDbLevel extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iperchanneldblevel-setleveluniform
      */
     SetLevelUniform(fLevelDB, pguidEventContext) {
-        result := ComCall(7, this, Float32, fLevelDB, Guid.Ptr, pguidEventContext, "HRESULT")
+        pguidEventContextMarshal := pguidEventContext == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(7, this, Float32, fLevelDB, pguidEventContextMarshal, pguidEventContext, "HRESULT")
         return result
     }
 
@@ -241,9 +245,10 @@ export default struct IPerChannelDbLevel extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iperchanneldblevel-setlevelallchannels
      */
     SetLevelAllChannels(aLevelsDB, cChannels, pguidEventContext) {
-        aLevelsDBMarshal := aLevelsDB is VarRef ? "float*" : "ptr"
+        aLevelsDBMarshal := aLevelsDB is VarRef ? "float*" : IntPtr
+        pguidEventContextMarshal := pguidEventContext == 0 ? IntPtr : Guid.Ptr
 
-        result := ComCall(8, this, aLevelsDBMarshal, aLevelsDB, UInt32, cChannels, Guid.Ptr, pguidEventContext, "HRESULT")
+        result := ComCall(8, this, aLevelsDBMarshal, aLevelsDB, UInt32, cChannels, pguidEventContextMarshal, pguidEventContext, "HRESULT")
         return result
     }
 
@@ -256,12 +261,12 @@ export default struct IPerChannelDbLevel extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetChannelCount := CallbackCreate(GetMethod(implObj, "GetChannelCount"), flags, 2)
-        this.vtbl.GetLevelRange := CallbackCreate(GetMethod(implObj, "GetLevelRange"), flags, 5)
-        this.vtbl.GetLevel := CallbackCreate(GetMethod(implObj, "GetLevel"), flags, 3)
-        this.vtbl.SetLevel := CallbackCreate(GetMethod(implObj, "SetLevel"), flags, 4)
-        this.vtbl.SetLevelUniform := CallbackCreate(GetMethod(implObj, "SetLevelUniform"), flags, 3)
-        this.vtbl.SetLevelAllChannels := CallbackCreate(GetMethod(implObj, "SetLevelAllChannels"), flags, 4)
+        this.vtbl.GetChannelCount := CallbackCreate(ObjBindMethod(implObj, "GetChannelCount"), flags, 2)
+        this.vtbl.GetLevelRange := CallbackCreate(ObjBindMethod(implObj, "GetLevelRange"), flags, 5)
+        this.vtbl.GetLevel := CallbackCreate(ObjBindMethod(implObj, "GetLevel"), flags, 3)
+        this.vtbl.SetLevel := CallbackCreate(ObjBindMethod(implObj, "SetLevel"), flags, 4)
+        this.vtbl.SetLevelUniform := CallbackCreate(ObjBindMethod(implObj, "SetLevelUniform"), flags, 3)
+        this.vtbl.SetLevelAllChannels := CallbackCreate(ObjBindMethod(implObj, "SetLevelAllChannels"), flags, 4)
     }
 
     Dispose() {

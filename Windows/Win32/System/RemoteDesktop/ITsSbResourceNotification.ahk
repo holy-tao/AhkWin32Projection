@@ -95,9 +95,9 @@ export default struct ITsSbResourceNotification extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.NotifySessionChange := CallbackCreate(GetMethod(implObj, "NotifySessionChange"), flags, 3)
-        this.vtbl.NotifyTargetChange := CallbackCreate(GetMethod(implObj, "NotifyTargetChange"), flags, 3)
-        this.vtbl.NotifyClientConnectionStateChange := CallbackCreate(GetMethod(implObj, "NotifyClientConnectionStateChange"), flags, 3)
+        this.vtbl.NotifySessionChange := CallbackCreate(ObjBindMethod(implObj, "NotifySessionChange"), flags, 3)
+        this.vtbl.NotifyTargetChange := CallbackCreate(ObjBindMethod(implObj, "NotifyTargetChange"), flags, 3)
+        this.vtbl.NotifyClientConnectionStateChange := CallbackCreate(ObjBindMethod(implObj, "NotifyClientConnectionStateChange"), flags, 3)
     }
 
     Dispose() {

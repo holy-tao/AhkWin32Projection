@@ -255,12 +255,12 @@ export default struct IMemInputPin extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAllocator := CallbackCreate(GetMethod(implObj, "GetAllocator"), flags, 2)
-        this.vtbl.NotifyAllocator := CallbackCreate(GetMethod(implObj, "NotifyAllocator"), flags, 3)
-        this.vtbl.GetAllocatorRequirements := CallbackCreate(GetMethod(implObj, "GetAllocatorRequirements"), flags, 2)
-        this.vtbl.Receive := CallbackCreate(GetMethod(implObj, "Receive"), flags, 2)
-        this.vtbl.ReceiveMultiple := CallbackCreate(GetMethod(implObj, "ReceiveMultiple"), flags, 4)
-        this.vtbl.ReceiveCanBlock := CallbackCreate(GetMethod(implObj, "ReceiveCanBlock"), flags, 1)
+        this.vtbl.GetAllocator := CallbackCreate(ObjBindMethod(implObj, "GetAllocator"), flags, 2)
+        this.vtbl.NotifyAllocator := CallbackCreate(ObjBindMethod(implObj, "NotifyAllocator"), flags, 3)
+        this.vtbl.GetAllocatorRequirements := CallbackCreate(ObjBindMethod(implObj, "GetAllocatorRequirements"), flags, 2)
+        this.vtbl.Receive := CallbackCreate(ObjBindMethod(implObj, "Receive"), flags, 2)
+        this.vtbl.ReceiveMultiple := CallbackCreate(ObjBindMethod(implObj, "ReceiveMultiple"), flags, 4)
+        this.vtbl.ReceiveCanBlock := CallbackCreate(ObjBindMethod(implObj, "ReceiveCanBlock"), flags, 1)
     }
 
     Dispose() {

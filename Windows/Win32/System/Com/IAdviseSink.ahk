@@ -127,11 +127,11 @@ export default struct IAdviseSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnDataChange := CallbackCreate(GetMethod(implObj, "OnDataChange"), flags, 3)
-        this.vtbl.OnViewChange := CallbackCreate(GetMethod(implObj, "OnViewChange"), flags, 3)
-        this.vtbl.OnRename := CallbackCreate(GetMethod(implObj, "OnRename"), flags, 2)
-        this.vtbl.OnSave := CallbackCreate(GetMethod(implObj, "OnSave"), flags, 1)
-        this.vtbl.OnClose := CallbackCreate(GetMethod(implObj, "OnClose"), flags, 1)
+        this.vtbl.OnDataChange := CallbackCreate(ObjBindMethod(implObj, "OnDataChange"), flags, 3)
+        this.vtbl.OnViewChange := CallbackCreate(ObjBindMethod(implObj, "OnViewChange"), flags, 3)
+        this.vtbl.OnRename := CallbackCreate(ObjBindMethod(implObj, "OnRename"), flags, 2)
+        this.vtbl.OnSave := CallbackCreate(ObjBindMethod(implObj, "OnSave"), flags, 1)
+        this.vtbl.OnClose := CallbackCreate(ObjBindMethod(implObj, "OnClose"), flags, 1)
     }
 
     Dispose() {

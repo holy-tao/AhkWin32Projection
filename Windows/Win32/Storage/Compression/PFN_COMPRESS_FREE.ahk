@@ -18,14 +18,13 @@ export default struct PFN_COMPRESS_FREE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} UserContext 
      * @param {Pointer<Void>} Memory 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(UserContext, Memory) {
-        UserContextMarshal := UserContext is VarRef ? "ptr" : "ptr"
-        MemoryMarshal := Memory is VarRef ? "ptr" : "ptr"
+        UserContextMarshal := UserContext is VarRef ? "ptr" : IntPtr
+        MemoryMarshal := Memory is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, UserContextMarshal, UserContext, MemoryMarshal, Memory)
     }

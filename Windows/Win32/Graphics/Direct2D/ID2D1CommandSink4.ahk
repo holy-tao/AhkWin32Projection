@@ -62,7 +62,7 @@ export default struct ID2D1CommandSink4 extends ID2D1CommandSink3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetPrimitiveBlend2 := CallbackCreate(GetMethod(implObj, "SetPrimitiveBlend2"), flags, 2)
+        this.vtbl.SetPrimitiveBlend2 := CallbackCreate(ObjBindMethod(implObj, "SetPrimitiveBlend2"), flags, 2)
     }
 
     Dispose() {

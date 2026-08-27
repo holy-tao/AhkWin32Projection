@@ -220,18 +220,18 @@ export default struct IMSCEPSetup extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_MSCEPErrorId := CallbackCreate(GetMethod(implObj, "get_MSCEPErrorId"), flags, 2)
-        this.vtbl.get_MSCEPErrorString := CallbackCreate(GetMethod(implObj, "get_MSCEPErrorString"), flags, 2)
-        this.vtbl.InitializeDefaults := CallbackCreate(GetMethod(implObj, "InitializeDefaults"), flags, 1)
-        this.vtbl.GetMSCEPSetupProperty := CallbackCreate(GetMethod(implObj, "GetMSCEPSetupProperty"), flags, 3)
-        this.vtbl.SetMSCEPSetupProperty := CallbackCreate(GetMethod(implObj, "SetMSCEPSetupProperty"), flags, 3)
-        this.vtbl.SetAccountInformation := CallbackCreate(GetMethod(implObj, "SetAccountInformation"), flags, 3)
-        this.vtbl.IsMSCEPStoreEmpty := CallbackCreate(GetMethod(implObj, "IsMSCEPStoreEmpty"), flags, 2)
-        this.vtbl.GetProviderNameList := CallbackCreate(GetMethod(implObj, "GetProviderNameList"), flags, 3)
-        this.vtbl.GetKeyLengthList := CallbackCreate(GetMethod(implObj, "GetKeyLengthList"), flags, 4)
-        this.vtbl.Install := CallbackCreate(GetMethod(implObj, "Install"), flags, 1)
-        this.vtbl.PreUnInstall := CallbackCreate(GetMethod(implObj, "PreUnInstall"), flags, 1)
-        this.vtbl.PostUnInstall := CallbackCreate(GetMethod(implObj, "PostUnInstall"), flags, 1)
+        this.vtbl.get_MSCEPErrorId := CallbackCreate(ObjBindMethod(implObj, "get_MSCEPErrorId"), flags, 2)
+        this.vtbl.get_MSCEPErrorString := CallbackCreate(ObjBindMethod(implObj, "get_MSCEPErrorString"), flags, 2)
+        this.vtbl.InitializeDefaults := CallbackCreate(ObjBindMethod(implObj, "InitializeDefaults"), flags, 1)
+        this.vtbl.GetMSCEPSetupProperty := CallbackCreate(ObjBindMethod(implObj, "GetMSCEPSetupProperty"), flags, 3)
+        this.vtbl.SetMSCEPSetupProperty := CallbackCreate(ObjBindMethod(implObj, "SetMSCEPSetupProperty"), flags, 3)
+        this.vtbl.SetAccountInformation := CallbackCreate(ObjBindMethod(implObj, "SetAccountInformation"), flags, 3)
+        this.vtbl.IsMSCEPStoreEmpty := CallbackCreate(ObjBindMethod(implObj, "IsMSCEPStoreEmpty"), flags, 2)
+        this.vtbl.GetProviderNameList := CallbackCreate(ObjBindMethod(implObj, "GetProviderNameList"), flags, 3)
+        this.vtbl.GetKeyLengthList := CallbackCreate(ObjBindMethod(implObj, "GetKeyLengthList"), flags, 4)
+        this.vtbl.Install := CallbackCreate(ObjBindMethod(implObj, "Install"), flags, 1)
+        this.vtbl.PreUnInstall := CallbackCreate(ObjBindMethod(implObj, "PreUnInstall"), flags, 1)
+        this.vtbl.PostUnInstall := CallbackCreate(ObjBindMethod(implObj, "PostUnInstall"), flags, 1)
     }
 
     Dispose() {

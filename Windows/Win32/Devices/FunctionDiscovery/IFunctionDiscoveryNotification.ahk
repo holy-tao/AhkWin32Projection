@@ -267,9 +267,9 @@ export default struct IFunctionDiscoveryNotification extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnUpdate := CallbackCreate(GetMethod(implObj, "OnUpdate"), flags, 4)
-        this.vtbl.OnError := CallbackCreate(GetMethod(implObj, "OnError"), flags, 4)
-        this.vtbl.OnEvent := CallbackCreate(GetMethod(implObj, "OnEvent"), flags, 4)
+        this.vtbl.OnUpdate := CallbackCreate(ObjBindMethod(implObj, "OnUpdate"), flags, 4)
+        this.vtbl.OnError := CallbackCreate(ObjBindMethod(implObj, "OnError"), flags, 4)
+        this.vtbl.OnEvent := CallbackCreate(ObjBindMethod(implObj, "OnEvent"), flags, 4)
     }
 
     Dispose() {

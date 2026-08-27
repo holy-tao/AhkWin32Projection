@@ -62,7 +62,7 @@ export default struct IMFRealTimeClientEx extends IUnknown {
     RegisterThreadsEx(pdwTaskIndex, wszClassName, lBasePriority) {
         wszClassName := wszClassName is String ? StrPtr(wszClassName) : wszClassName
 
-        pdwTaskIndexMarshal := pdwTaskIndex is VarRef ? "uint*" : "ptr"
+        pdwTaskIndexMarshal := pdwTaskIndex is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pdwTaskIndexMarshal, pdwTaskIndex, "ptr", wszClassName, Int32, lBasePriority, "HRESULT")
         return result
@@ -101,9 +101,9 @@ export default struct IMFRealTimeClientEx extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterThreadsEx := CallbackCreate(GetMethod(implObj, "RegisterThreadsEx"), flags, 4)
-        this.vtbl.UnregisterThreads := CallbackCreate(GetMethod(implObj, "UnregisterThreads"), flags, 1)
-        this.vtbl.SetWorkQueueEx := CallbackCreate(GetMethod(implObj, "SetWorkQueueEx"), flags, 3)
+        this.vtbl.RegisterThreadsEx := CallbackCreate(ObjBindMethod(implObj, "RegisterThreadsEx"), flags, 4)
+        this.vtbl.UnregisterThreads := CallbackCreate(ObjBindMethod(implObj, "UnregisterThreads"), flags, 1)
+        this.vtbl.SetWorkQueueEx := CallbackCreate(ObjBindMethod(implObj, "SetWorkQueueEx"), flags, 3)
     }
 
     Dispose() {

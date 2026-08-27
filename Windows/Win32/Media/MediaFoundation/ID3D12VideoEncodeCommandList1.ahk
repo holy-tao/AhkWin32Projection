@@ -75,8 +75,8 @@ export default struct ID3D12VideoEncodeCommandList1 extends ID3D12VideoEncodeCom
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeExtensionCommand := CallbackCreate(GetMethod(implObj, "InitializeExtensionCommand"), flags, 4)
-        this.vtbl.ExecuteExtensionCommand := CallbackCreate(GetMethod(implObj, "ExecuteExtensionCommand"), flags, 4)
+        this.vtbl.InitializeExtensionCommand := CallbackCreate(ObjBindMethod(implObj, "InitializeExtensionCommand"), flags, 4)
+        this.vtbl.ExecuteExtensionCommand := CallbackCreate(ObjBindMethod(implObj, "ExecuteExtensionCommand"), flags, 4)
     }
 
     Dispose() {

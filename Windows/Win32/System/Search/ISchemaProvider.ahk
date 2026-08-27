@@ -177,8 +177,8 @@ export default struct ISchemaProvider extends IUnknown {
     LookupAuthoredNamedEntity(pEntity, pszInputString, pTokenCollection, cTokensBegin, pcTokensLength, ppszValue) {
         pszInputString := pszInputString is String ? StrPtr(pszInputString) : pszInputString
 
-        pcTokensLengthMarshal := pcTokensLength is VarRef ? "uint*" : "ptr"
-        ppszValueMarshal := ppszValue is VarRef ? "ptr*" : "ptr"
+        pcTokensLengthMarshal := pcTokensLength is VarRef ? "uint*" : IntPtr
+        ppszValueMarshal := ppszValue is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(9, this, "ptr", pEntity, "ptr", pszInputString, "ptr", pTokenCollection, UInt32, cTokensBegin, pcTokensLengthMarshal, pcTokensLength, ppszValueMarshal, ppszValue, "HRESULT")
         return result
@@ -193,13 +193,13 @@ export default struct ISchemaProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Entities := CallbackCreate(GetMethod(implObj, "Entities"), flags, 3)
-        this.vtbl.RootEntity := CallbackCreate(GetMethod(implObj, "RootEntity"), flags, 2)
-        this.vtbl.GetEntity := CallbackCreate(GetMethod(implObj, "GetEntity"), flags, 3)
-        this.vtbl.MetaData := CallbackCreate(GetMethod(implObj, "MetaData"), flags, 3)
-        this.vtbl.Localize := CallbackCreate(GetMethod(implObj, "Localize"), flags, 3)
-        this.vtbl.SaveBinary := CallbackCreate(GetMethod(implObj, "SaveBinary"), flags, 2)
-        this.vtbl.LookupAuthoredNamedEntity := CallbackCreate(GetMethod(implObj, "LookupAuthoredNamedEntity"), flags, 7)
+        this.vtbl.Entities := CallbackCreate(ObjBindMethod(implObj, "Entities"), flags, 3)
+        this.vtbl.RootEntity := CallbackCreate(ObjBindMethod(implObj, "RootEntity"), flags, 2)
+        this.vtbl.GetEntity := CallbackCreate(ObjBindMethod(implObj, "GetEntity"), flags, 3)
+        this.vtbl.MetaData := CallbackCreate(ObjBindMethod(implObj, "MetaData"), flags, 3)
+        this.vtbl.Localize := CallbackCreate(ObjBindMethod(implObj, "Localize"), flags, 3)
+        this.vtbl.SaveBinary := CallbackCreate(ObjBindMethod(implObj, "SaveBinary"), flags, 2)
+        this.vtbl.LookupAuthoredNamedEntity := CallbackCreate(ObjBindMethod(implObj, "LookupAuthoredNamedEntity"), flags, 7)
     }
 
     Dispose() {

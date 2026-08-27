@@ -119,7 +119,9 @@ export default struct IExplorerBrowser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowser-initialize
      */
     Initialize(hwndParent, prc, pfs) {
-        result := ComCall(3, this, HWND, hwndParent, RECT.Ptr, prc, FOLDERSETTINGS.Ptr, pfs, "HRESULT")
+        pfsMarshal := pfs == 0 ? IntPtr : FOLDERSETTINGS.Ptr
+
+        result := ComCall(3, this, HWND, hwndParent, RECT.Ptr, prc, pfsMarshal, pfs, "HRESULT")
         return result
     }
 
@@ -153,7 +155,9 @@ export default struct IExplorerBrowser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowser-setrect
      */
     SetRect(phdwp, rcBrowser) {
-        result := ComCall(5, this, HDWP.Ptr, phdwp, RECT, rcBrowser, "HRESULT")
+        phdwpMarshal := phdwp == 0 ? IntPtr : HDWP.Ptr
+
+        result := ComCall(5, this, phdwpMarshal, phdwp, RECT, rcBrowser, "HRESULT")
         return result
     }
 
@@ -421,21 +425,21 @@ export default struct IExplorerBrowser extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
-        this.vtbl.Destroy := CallbackCreate(GetMethod(implObj, "Destroy"), flags, 1)
-        this.vtbl.SetRect := CallbackCreate(GetMethod(implObj, "SetRect"), flags, 3)
-        this.vtbl.SetPropertyBag := CallbackCreate(GetMethod(implObj, "SetPropertyBag"), flags, 2)
-        this.vtbl.SetEmptyText := CallbackCreate(GetMethod(implObj, "SetEmptyText"), flags, 2)
-        this.vtbl.SetFolderSettings := CallbackCreate(GetMethod(implObj, "SetFolderSettings"), flags, 2)
-        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 3)
-        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 2)
-        this.vtbl.SetOptions := CallbackCreate(GetMethod(implObj, "SetOptions"), flags, 2)
-        this.vtbl.GetOptions := CallbackCreate(GetMethod(implObj, "GetOptions"), flags, 2)
-        this.vtbl.BrowseToIDList := CallbackCreate(GetMethod(implObj, "BrowseToIDList"), flags, 3)
-        this.vtbl.BrowseToObject := CallbackCreate(GetMethod(implObj, "BrowseToObject"), flags, 3)
-        this.vtbl.FillFromObject := CallbackCreate(GetMethod(implObj, "FillFromObject"), flags, 3)
-        this.vtbl.RemoveAll := CallbackCreate(GetMethod(implObj, "RemoveAll"), flags, 1)
-        this.vtbl.GetCurrentView := CallbackCreate(GetMethod(implObj, "GetCurrentView"), flags, 3)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 4)
+        this.vtbl.Destroy := CallbackCreate(ObjBindMethod(implObj, "Destroy"), flags, 1)
+        this.vtbl.SetRect := CallbackCreate(ObjBindMethod(implObj, "SetRect"), flags, 3)
+        this.vtbl.SetPropertyBag := CallbackCreate(ObjBindMethod(implObj, "SetPropertyBag"), flags, 2)
+        this.vtbl.SetEmptyText := CallbackCreate(ObjBindMethod(implObj, "SetEmptyText"), flags, 2)
+        this.vtbl.SetFolderSettings := CallbackCreate(ObjBindMethod(implObj, "SetFolderSettings"), flags, 2)
+        this.vtbl.Advise := CallbackCreate(ObjBindMethod(implObj, "Advise"), flags, 3)
+        this.vtbl.Unadvise := CallbackCreate(ObjBindMethod(implObj, "Unadvise"), flags, 2)
+        this.vtbl.SetOptions := CallbackCreate(ObjBindMethod(implObj, "SetOptions"), flags, 2)
+        this.vtbl.GetOptions := CallbackCreate(ObjBindMethod(implObj, "GetOptions"), flags, 2)
+        this.vtbl.BrowseToIDList := CallbackCreate(ObjBindMethod(implObj, "BrowseToIDList"), flags, 3)
+        this.vtbl.BrowseToObject := CallbackCreate(ObjBindMethod(implObj, "BrowseToObject"), flags, 3)
+        this.vtbl.FillFromObject := CallbackCreate(ObjBindMethod(implObj, "FillFromObject"), flags, 3)
+        this.vtbl.RemoveAll := CallbackCreate(ObjBindMethod(implObj, "RemoveAll"), flags, 1)
+        this.vtbl.GetCurrentView := CallbackCreate(ObjBindMethod(implObj, "GetCurrentView"), flags, 3)
     }
 
     Dispose() {

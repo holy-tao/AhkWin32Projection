@@ -33,7 +33,6 @@ export default struct PFN_FWADDDYNAMICKEYWORDADDRESS0 {
     }
 
     /**
-     * 
      * @param {Pointer<FW_DYNAMIC_KEYWORD_ADDRESS0>} dynamicKeywordAddress Type: **const [PFW_DYNAMIC_KEYWORD_ADDRESS0](ns-netfw-fw_dynamic_keyword_address0.md)**
      * 
      * A pointer to a constant (populated) dynamic keyword address object.

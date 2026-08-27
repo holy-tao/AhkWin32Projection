@@ -84,7 +84,7 @@ export default struct IXpsOMDictionary extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdictionary-getat
      */
     GetAt(index, key) {
-        keyMarshal := key is VarRef ? "ptr*" : "ptr"
+        keyMarshal := key is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, UInt32, index, keyMarshal, key, "ptr*", &entry := 0, "HRESULT")
         return IXpsOMShareable(entry)
@@ -318,16 +318,16 @@ export default struct IXpsOMDictionary extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOwner := CallbackCreate(GetMethod(implObj, "GetOwner"), flags, 2)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
-        this.vtbl.GetAt := CallbackCreate(GetMethod(implObj, "GetAt"), flags, 4)
-        this.vtbl.GetByKey := CallbackCreate(GetMethod(implObj, "GetByKey"), flags, 4)
-        this.vtbl.GetIndex := CallbackCreate(GetMethod(implObj, "GetIndex"), flags, 3)
-        this.vtbl.Append := CallbackCreate(GetMethod(implObj, "Append"), flags, 3)
-        this.vtbl.InsertAt := CallbackCreate(GetMethod(implObj, "InsertAt"), flags, 4)
-        this.vtbl.RemoveAt := CallbackCreate(GetMethod(implObj, "RemoveAt"), flags, 2)
-        this.vtbl.SetAt := CallbackCreate(GetMethod(implObj, "SetAt"), flags, 4)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.GetOwner := CallbackCreate(ObjBindMethod(implObj, "GetOwner"), flags, 2)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetAt := CallbackCreate(ObjBindMethod(implObj, "GetAt"), flags, 4)
+        this.vtbl.GetByKey := CallbackCreate(ObjBindMethod(implObj, "GetByKey"), flags, 4)
+        this.vtbl.GetIndex := CallbackCreate(ObjBindMethod(implObj, "GetIndex"), flags, 3)
+        this.vtbl.Append := CallbackCreate(ObjBindMethod(implObj, "Append"), flags, 3)
+        this.vtbl.InsertAt := CallbackCreate(ObjBindMethod(implObj, "InsertAt"), flags, 4)
+        this.vtbl.RemoveAt := CallbackCreate(ObjBindMethod(implObj, "RemoveAt"), flags, 2)
+        this.vtbl.SetAt := CallbackCreate(ObjBindMethod(implObj, "SetAt"), flags, 4)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
     }
 
     Dispose() {

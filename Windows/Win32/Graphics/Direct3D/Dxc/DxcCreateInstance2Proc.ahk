@@ -21,7 +21,6 @@ export default struct DxcCreateInstance2Proc {
     }
 
     /**
-     * 
      * @param {IMalloc} pMalloc 
      * @param {Pointer<Guid>} rclsid 
      * @param {Pointer<Guid>} riid 

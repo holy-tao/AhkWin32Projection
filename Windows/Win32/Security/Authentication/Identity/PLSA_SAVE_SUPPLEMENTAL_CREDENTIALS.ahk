@@ -21,7 +21,6 @@ export default struct PLSA_SAVE_SUPPLEMENTAL_CREDENTIALS {
     }
 
     /**
-     * 
      * @param {Pointer<LUID>} LogonId 
      * @param {Integer} SupplementalCredSize 
      * @param {Integer} SupplementalCreds 

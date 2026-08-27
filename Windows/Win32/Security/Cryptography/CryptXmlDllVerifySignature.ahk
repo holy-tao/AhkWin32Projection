@@ -23,7 +23,6 @@ export default struct CryptXmlDllVerifySignature {
     }
 
     /**
-     * 
      * @param {Pointer<CRYPT_XML_ALGORITHM>} pSignatureMethod A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_algorithm">CRYPT_XML_ALGORITHM</a> structure that specifies the algorithm.
      * @param {BCRYPT_KEY_HANDLE} _hKey A handle to the public key.
      * @param {Integer} pbInput A pointer to a buffer that contains the signed data. The <i>cbInput</i> parameter contains the size of this buffer.

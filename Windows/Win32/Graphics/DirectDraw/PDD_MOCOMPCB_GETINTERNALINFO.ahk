@@ -25,7 +25,6 @@ export default struct PDD_MOCOMPCB_GETINTERNALINFO {
     }
 
     /**
-     * 
      * @param {Pointer<DD_GETINTERNALMOCOMPDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_getinternalmocompdata">DD_GETINTERNALMOCOMPDATA</a> structure that contains the internal memory requirements.
      * @returns {Integer} <b>DdMoCompGetInternalInfo</b> returns one of the following callback codes:
      */

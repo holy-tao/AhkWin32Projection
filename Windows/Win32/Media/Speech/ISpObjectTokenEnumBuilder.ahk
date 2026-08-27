@@ -43,7 +43,6 @@ export default struct ISpObjectTokenEnumBuilder extends IEnumSpObjectTokens {
     }
 
     /**
-     * 
      * @param {PWSTR} pszReqAttribs 
      * @param {PWSTR} pszOptAttribs 
      * @returns {HRESULT} 
@@ -52,12 +51,14 @@ export default struct ISpObjectTokenEnumBuilder extends IEnumSpObjectTokens {
         pszReqAttribs := pszReqAttribs is String ? StrPtr(pszReqAttribs) : pszReqAttribs
         pszOptAttribs := pszOptAttribs is String ? StrPtr(pszOptAttribs) : pszOptAttribs
 
-        result := ComCall(9, this, "ptr", pszReqAttribs, "ptr", pszOptAttribs, "HRESULT")
+        pszReqAttribsMarshal := pszReqAttribs == 0 ? IntPtr : PWSTR
+        pszOptAttribsMarshal := pszOptAttribs == 0 ? IntPtr : PWSTR
+
+        result := ComCall(9, this, pszReqAttribsMarshal, pszReqAttribs, pszOptAttribsMarshal, pszOptAttribs, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} cTokens 
      * @param {Pointer<ISpObjectToken>} pToken 
      * @returns {HRESULT} 
@@ -68,7 +69,6 @@ export default struct ISpObjectTokenEnumBuilder extends IEnumSpObjectTokens {
     }
 
     /**
-     * 
      * @param {ISpDataKey} pDataKey 
      * @param {PWSTR} pszSubKey 
      * @param {PWSTR} pszCategoryId 
@@ -83,7 +83,6 @@ export default struct ISpObjectTokenEnumBuilder extends IEnumSpObjectTokens {
     }
 
     /**
-     * 
      * @param {IEnumSpObjectTokens} pTokenEnum 
      * @returns {HRESULT} 
      */
@@ -93,7 +92,6 @@ export default struct ISpObjectTokenEnumBuilder extends IEnumSpObjectTokens {
     }
 
     /**
-     * 
      * @param {PWSTR} pszTokenIdToListFirst 
      * @returns {HRESULT} 
      */
@@ -113,11 +111,11 @@ export default struct ISpObjectTokenEnumBuilder extends IEnumSpObjectTokens {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAttribs := CallbackCreate(GetMethod(implObj, "SetAttribs"), flags, 3)
-        this.vtbl.AddTokens := CallbackCreate(GetMethod(implObj, "AddTokens"), flags, 3)
-        this.vtbl.AddTokensFromDataKey := CallbackCreate(GetMethod(implObj, "AddTokensFromDataKey"), flags, 4)
-        this.vtbl.AddTokensFromTokenEnum := CallbackCreate(GetMethod(implObj, "AddTokensFromTokenEnum"), flags, 2)
-        this.vtbl.Sort := CallbackCreate(GetMethod(implObj, "Sort"), flags, 2)
+        this.vtbl.SetAttribs := CallbackCreate(ObjBindMethod(implObj, "SetAttribs"), flags, 3)
+        this.vtbl.AddTokens := CallbackCreate(ObjBindMethod(implObj, "AddTokens"), flags, 3)
+        this.vtbl.AddTokensFromDataKey := CallbackCreate(ObjBindMethod(implObj, "AddTokensFromDataKey"), flags, 4)
+        this.vtbl.AddTokensFromTokenEnum := CallbackCreate(ObjBindMethod(implObj, "AddTokensFromTokenEnum"), flags, 2)
+        this.vtbl.Sort := CallbackCreate(ObjBindMethod(implObj, "Sort"), flags, 2)
     }
 
     Dispose() {

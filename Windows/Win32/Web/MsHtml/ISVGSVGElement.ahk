@@ -221,7 +221,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -231,7 +230,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_x() {
@@ -240,7 +238,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -250,7 +247,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_y() {
@@ -259,7 +255,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -269,7 +264,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_width() {
@@ -278,7 +272,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -288,7 +281,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_height() {
@@ -297,7 +289,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -309,7 +300,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_contentScriptType() {
@@ -319,7 +309,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -331,7 +320,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_contentStyleType() {
@@ -341,7 +329,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGRect} v 
      * @returns {HRESULT} 
      */
@@ -351,7 +338,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGRect} 
      */
     get_viewport() {
@@ -360,7 +346,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -370,7 +355,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_pixelUnitToMillimeterX() {
@@ -379,7 +363,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -389,7 +372,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_pixelUnitToMillimeterY() {
@@ -398,7 +380,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -408,7 +389,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_screenPixelToMillimeterX() {
@@ -417,7 +397,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -427,7 +406,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_screenPixelToMillimeterY() {
@@ -436,7 +414,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -446,7 +423,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_useCurrentView() {
@@ -455,7 +431,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGViewSpec} v 
      * @returns {HRESULT} 
      */
@@ -465,7 +440,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGViewSpec} 
      */
     get_currentView() {
@@ -474,7 +448,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -484,7 +457,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_currentScale() {
@@ -493,7 +465,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGPoint} v 
      * @returns {HRESULT} 
      */
@@ -503,7 +474,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGPoint} 
      */
     get_currentTranslate() {
@@ -512,7 +482,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} maxWaitMilliseconds 
      * @returns {Integer} 
      */
@@ -522,7 +491,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} suspendHandeID 
      * @returns {HRESULT} 
      */
@@ -532,7 +500,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     unsuspendRedrawAll() {
@@ -541,7 +508,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     forceRedraw() {
@@ -550,7 +516,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     pauseAnimations() {
@@ -559,7 +524,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     unpauseAnimations() {
@@ -568,7 +532,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     animationsPaused() {
@@ -577,7 +540,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     getCurrentTime() {
@@ -586,7 +548,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} seconds 
      * @returns {HRESULT} 
      */
@@ -596,7 +557,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGRect} _rect 
      * @param {ISVGElement} referenceElement 
      * @returns {VARIANT} 
@@ -608,7 +568,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGRect} _rect 
      * @param {ISVGElement} referenceElement 
      * @returns {VARIANT} 
@@ -620,7 +579,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGElement} element 
      * @param {ISVGRect} _rect 
      * @returns {VARIANT_BOOL} 
@@ -631,7 +589,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGElement} element 
      * @param {ISVGRect} _rect 
      * @returns {VARIANT_BOOL} 
@@ -642,7 +599,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     deselectAll() {
@@ -651,7 +607,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGNumber} 
      */
     createSVGNumber() {
@@ -660,7 +615,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGLength} 
      */
     createSVGLength() {
@@ -669,7 +623,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAngle} 
      */
     createSVGAngle() {
@@ -678,7 +631,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGPoint} 
      */
     createSVGPoint() {
@@ -687,7 +639,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGMatrix} 
      */
     createSVGMatrix() {
@@ -696,7 +647,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGRect} 
      */
     createSVGRect() {
@@ -705,7 +655,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGTransform} 
      */
     createSVGTransform() {
@@ -714,7 +663,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGMatrix} _matrix 
      * @returns {ISVGTransform} 
      */
@@ -724,7 +672,6 @@ export default struct ISVGSVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} elementId 
      * @returns {IHTMLElement} 
      */
@@ -744,59 +691,59 @@ export default struct ISVGSVGElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.putref_x := CallbackCreate(GetMethod(implObj, "putref_x"), flags, 2)
-        this.vtbl.get_x := CallbackCreate(GetMethod(implObj, "get_x"), flags, 2)
-        this.vtbl.putref_y := CallbackCreate(GetMethod(implObj, "putref_y"), flags, 2)
-        this.vtbl.get_y := CallbackCreate(GetMethod(implObj, "get_y"), flags, 2)
-        this.vtbl.putref_width := CallbackCreate(GetMethod(implObj, "putref_width"), flags, 2)
-        this.vtbl.get_width := CallbackCreate(GetMethod(implObj, "get_width"), flags, 2)
-        this.vtbl.putref_height := CallbackCreate(GetMethod(implObj, "putref_height"), flags, 2)
-        this.vtbl.get_height := CallbackCreate(GetMethod(implObj, "get_height"), flags, 2)
-        this.vtbl.put_contentScriptType := CallbackCreate(GetMethod(implObj, "put_contentScriptType"), flags, 2)
-        this.vtbl.get_contentScriptType := CallbackCreate(GetMethod(implObj, "get_contentScriptType"), flags, 2)
-        this.vtbl.put_contentStyleType := CallbackCreate(GetMethod(implObj, "put_contentStyleType"), flags, 2)
-        this.vtbl.get_contentStyleType := CallbackCreate(GetMethod(implObj, "get_contentStyleType"), flags, 2)
-        this.vtbl.putref_viewport := CallbackCreate(GetMethod(implObj, "putref_viewport"), flags, 2)
-        this.vtbl.get_viewport := CallbackCreate(GetMethod(implObj, "get_viewport"), flags, 2)
-        this.vtbl.put_pixelUnitToMillimeterX := CallbackCreate(GetMethod(implObj, "put_pixelUnitToMillimeterX"), flags, 2)
-        this.vtbl.get_pixelUnitToMillimeterX := CallbackCreate(GetMethod(implObj, "get_pixelUnitToMillimeterX"), flags, 2)
-        this.vtbl.put_pixelUnitToMillimeterY := CallbackCreate(GetMethod(implObj, "put_pixelUnitToMillimeterY"), flags, 2)
-        this.vtbl.get_pixelUnitToMillimeterY := CallbackCreate(GetMethod(implObj, "get_pixelUnitToMillimeterY"), flags, 2)
-        this.vtbl.put_screenPixelToMillimeterX := CallbackCreate(GetMethod(implObj, "put_screenPixelToMillimeterX"), flags, 2)
-        this.vtbl.get_screenPixelToMillimeterX := CallbackCreate(GetMethod(implObj, "get_screenPixelToMillimeterX"), flags, 2)
-        this.vtbl.put_screenPixelToMillimeterY := CallbackCreate(GetMethod(implObj, "put_screenPixelToMillimeterY"), flags, 2)
-        this.vtbl.get_screenPixelToMillimeterY := CallbackCreate(GetMethod(implObj, "get_screenPixelToMillimeterY"), flags, 2)
-        this.vtbl.put_useCurrentView := CallbackCreate(GetMethod(implObj, "put_useCurrentView"), flags, 2)
-        this.vtbl.get_useCurrentView := CallbackCreate(GetMethod(implObj, "get_useCurrentView"), flags, 2)
-        this.vtbl.putref_currentView := CallbackCreate(GetMethod(implObj, "putref_currentView"), flags, 2)
-        this.vtbl.get_currentView := CallbackCreate(GetMethod(implObj, "get_currentView"), flags, 2)
-        this.vtbl.put_currentScale := CallbackCreate(GetMethod(implObj, "put_currentScale"), flags, 2)
-        this.vtbl.get_currentScale := CallbackCreate(GetMethod(implObj, "get_currentScale"), flags, 2)
-        this.vtbl.putref_currentTranslate := CallbackCreate(GetMethod(implObj, "putref_currentTranslate"), flags, 2)
-        this.vtbl.get_currentTranslate := CallbackCreate(GetMethod(implObj, "get_currentTranslate"), flags, 2)
-        this.vtbl.suspendRedraw := CallbackCreate(GetMethod(implObj, "suspendRedraw"), flags, 3)
-        this.vtbl.unsuspendRedraw := CallbackCreate(GetMethod(implObj, "unsuspendRedraw"), flags, 2)
-        this.vtbl.unsuspendRedrawAll := CallbackCreate(GetMethod(implObj, "unsuspendRedrawAll"), flags, 1)
-        this.vtbl.forceRedraw := CallbackCreate(GetMethod(implObj, "forceRedraw"), flags, 1)
-        this.vtbl.pauseAnimations := CallbackCreate(GetMethod(implObj, "pauseAnimations"), flags, 1)
-        this.vtbl.unpauseAnimations := CallbackCreate(GetMethod(implObj, "unpauseAnimations"), flags, 1)
-        this.vtbl.animationsPaused := CallbackCreate(GetMethod(implObj, "animationsPaused"), flags, 2)
-        this.vtbl.getCurrentTime := CallbackCreate(GetMethod(implObj, "getCurrentTime"), flags, 2)
-        this.vtbl.setCurrentTime := CallbackCreate(GetMethod(implObj, "setCurrentTime"), flags, 2)
-        this.vtbl.getIntersectionList := CallbackCreate(GetMethod(implObj, "getIntersectionList"), flags, 4)
-        this.vtbl.getEnclosureList := CallbackCreate(GetMethod(implObj, "getEnclosureList"), flags, 4)
-        this.vtbl.checkIntersection := CallbackCreate(GetMethod(implObj, "checkIntersection"), flags, 4)
-        this.vtbl.checkEnclosure := CallbackCreate(GetMethod(implObj, "checkEnclosure"), flags, 4)
-        this.vtbl.deselectAll := CallbackCreate(GetMethod(implObj, "deselectAll"), flags, 1)
-        this.vtbl.createSVGNumber := CallbackCreate(GetMethod(implObj, "createSVGNumber"), flags, 2)
-        this.vtbl.createSVGLength := CallbackCreate(GetMethod(implObj, "createSVGLength"), flags, 2)
-        this.vtbl.createSVGAngle := CallbackCreate(GetMethod(implObj, "createSVGAngle"), flags, 2)
-        this.vtbl.createSVGPoint := CallbackCreate(GetMethod(implObj, "createSVGPoint"), flags, 2)
-        this.vtbl.createSVGMatrix := CallbackCreate(GetMethod(implObj, "createSVGMatrix"), flags, 2)
-        this.vtbl.createSVGRect := CallbackCreate(GetMethod(implObj, "createSVGRect"), flags, 2)
-        this.vtbl.createSVGTransform := CallbackCreate(GetMethod(implObj, "createSVGTransform"), flags, 2)
-        this.vtbl.createSVGTransformFromMatrix := CallbackCreate(GetMethod(implObj, "createSVGTransformFromMatrix"), flags, 3)
-        this.vtbl.getElementById := CallbackCreate(GetMethod(implObj, "getElementById"), flags, 3)
+        this.vtbl.putref_x := CallbackCreate(ObjBindMethod(implObj, "putref_x"), flags, 2)
+        this.vtbl.get_x := CallbackCreate(ObjBindMethod(implObj, "get_x"), flags, 2)
+        this.vtbl.putref_y := CallbackCreate(ObjBindMethod(implObj, "putref_y"), flags, 2)
+        this.vtbl.get_y := CallbackCreate(ObjBindMethod(implObj, "get_y"), flags, 2)
+        this.vtbl.putref_width := CallbackCreate(ObjBindMethod(implObj, "putref_width"), flags, 2)
+        this.vtbl.get_width := CallbackCreate(ObjBindMethod(implObj, "get_width"), flags, 2)
+        this.vtbl.putref_height := CallbackCreate(ObjBindMethod(implObj, "putref_height"), flags, 2)
+        this.vtbl.get_height := CallbackCreate(ObjBindMethod(implObj, "get_height"), flags, 2)
+        this.vtbl.put_contentScriptType := CallbackCreate(ObjBindMethod(implObj, "put_contentScriptType"), flags, 2)
+        this.vtbl.get_contentScriptType := CallbackCreate(ObjBindMethod(implObj, "get_contentScriptType"), flags, 2)
+        this.vtbl.put_contentStyleType := CallbackCreate(ObjBindMethod(implObj, "put_contentStyleType"), flags, 2)
+        this.vtbl.get_contentStyleType := CallbackCreate(ObjBindMethod(implObj, "get_contentStyleType"), flags, 2)
+        this.vtbl.putref_viewport := CallbackCreate(ObjBindMethod(implObj, "putref_viewport"), flags, 2)
+        this.vtbl.get_viewport := CallbackCreate(ObjBindMethod(implObj, "get_viewport"), flags, 2)
+        this.vtbl.put_pixelUnitToMillimeterX := CallbackCreate(ObjBindMethod(implObj, "put_pixelUnitToMillimeterX"), flags, 2)
+        this.vtbl.get_pixelUnitToMillimeterX := CallbackCreate(ObjBindMethod(implObj, "get_pixelUnitToMillimeterX"), flags, 2)
+        this.vtbl.put_pixelUnitToMillimeterY := CallbackCreate(ObjBindMethod(implObj, "put_pixelUnitToMillimeterY"), flags, 2)
+        this.vtbl.get_pixelUnitToMillimeterY := CallbackCreate(ObjBindMethod(implObj, "get_pixelUnitToMillimeterY"), flags, 2)
+        this.vtbl.put_screenPixelToMillimeterX := CallbackCreate(ObjBindMethod(implObj, "put_screenPixelToMillimeterX"), flags, 2)
+        this.vtbl.get_screenPixelToMillimeterX := CallbackCreate(ObjBindMethod(implObj, "get_screenPixelToMillimeterX"), flags, 2)
+        this.vtbl.put_screenPixelToMillimeterY := CallbackCreate(ObjBindMethod(implObj, "put_screenPixelToMillimeterY"), flags, 2)
+        this.vtbl.get_screenPixelToMillimeterY := CallbackCreate(ObjBindMethod(implObj, "get_screenPixelToMillimeterY"), flags, 2)
+        this.vtbl.put_useCurrentView := CallbackCreate(ObjBindMethod(implObj, "put_useCurrentView"), flags, 2)
+        this.vtbl.get_useCurrentView := CallbackCreate(ObjBindMethod(implObj, "get_useCurrentView"), flags, 2)
+        this.vtbl.putref_currentView := CallbackCreate(ObjBindMethod(implObj, "putref_currentView"), flags, 2)
+        this.vtbl.get_currentView := CallbackCreate(ObjBindMethod(implObj, "get_currentView"), flags, 2)
+        this.vtbl.put_currentScale := CallbackCreate(ObjBindMethod(implObj, "put_currentScale"), flags, 2)
+        this.vtbl.get_currentScale := CallbackCreate(ObjBindMethod(implObj, "get_currentScale"), flags, 2)
+        this.vtbl.putref_currentTranslate := CallbackCreate(ObjBindMethod(implObj, "putref_currentTranslate"), flags, 2)
+        this.vtbl.get_currentTranslate := CallbackCreate(ObjBindMethod(implObj, "get_currentTranslate"), flags, 2)
+        this.vtbl.suspendRedraw := CallbackCreate(ObjBindMethod(implObj, "suspendRedraw"), flags, 3)
+        this.vtbl.unsuspendRedraw := CallbackCreate(ObjBindMethod(implObj, "unsuspendRedraw"), flags, 2)
+        this.vtbl.unsuspendRedrawAll := CallbackCreate(ObjBindMethod(implObj, "unsuspendRedrawAll"), flags, 1)
+        this.vtbl.forceRedraw := CallbackCreate(ObjBindMethod(implObj, "forceRedraw"), flags, 1)
+        this.vtbl.pauseAnimations := CallbackCreate(ObjBindMethod(implObj, "pauseAnimations"), flags, 1)
+        this.vtbl.unpauseAnimations := CallbackCreate(ObjBindMethod(implObj, "unpauseAnimations"), flags, 1)
+        this.vtbl.animationsPaused := CallbackCreate(ObjBindMethod(implObj, "animationsPaused"), flags, 2)
+        this.vtbl.getCurrentTime := CallbackCreate(ObjBindMethod(implObj, "getCurrentTime"), flags, 2)
+        this.vtbl.setCurrentTime := CallbackCreate(ObjBindMethod(implObj, "setCurrentTime"), flags, 2)
+        this.vtbl.getIntersectionList := CallbackCreate(ObjBindMethod(implObj, "getIntersectionList"), flags, 4)
+        this.vtbl.getEnclosureList := CallbackCreate(ObjBindMethod(implObj, "getEnclosureList"), flags, 4)
+        this.vtbl.checkIntersection := CallbackCreate(ObjBindMethod(implObj, "checkIntersection"), flags, 4)
+        this.vtbl.checkEnclosure := CallbackCreate(ObjBindMethod(implObj, "checkEnclosure"), flags, 4)
+        this.vtbl.deselectAll := CallbackCreate(ObjBindMethod(implObj, "deselectAll"), flags, 1)
+        this.vtbl.createSVGNumber := CallbackCreate(ObjBindMethod(implObj, "createSVGNumber"), flags, 2)
+        this.vtbl.createSVGLength := CallbackCreate(ObjBindMethod(implObj, "createSVGLength"), flags, 2)
+        this.vtbl.createSVGAngle := CallbackCreate(ObjBindMethod(implObj, "createSVGAngle"), flags, 2)
+        this.vtbl.createSVGPoint := CallbackCreate(ObjBindMethod(implObj, "createSVGPoint"), flags, 2)
+        this.vtbl.createSVGMatrix := CallbackCreate(ObjBindMethod(implObj, "createSVGMatrix"), flags, 2)
+        this.vtbl.createSVGRect := CallbackCreate(ObjBindMethod(implObj, "createSVGRect"), flags, 2)
+        this.vtbl.createSVGTransform := CallbackCreate(ObjBindMethod(implObj, "createSVGTransform"), flags, 2)
+        this.vtbl.createSVGTransformFromMatrix := CallbackCreate(ObjBindMethod(implObj, "createSVGTransformFromMatrix"), flags, 3)
+        this.vtbl.getElementById := CallbackCreate(ObjBindMethod(implObj, "getElementById"), flags, 3)
     }
 
     Dispose() {

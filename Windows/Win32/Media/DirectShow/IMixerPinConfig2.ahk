@@ -70,8 +70,8 @@ export default struct IMixerPinConfig2 extends IMixerPinConfig {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetOverlaySurfaceColorControls := CallbackCreate(GetMethod(implObj, "SetOverlaySurfaceColorControls"), flags, 2)
-        this.vtbl.GetOverlaySurfaceColorControls := CallbackCreate(GetMethod(implObj, "GetOverlaySurfaceColorControls"), flags, 2)
+        this.vtbl.SetOverlaySurfaceColorControls := CallbackCreate(ObjBindMethod(implObj, "SetOverlaySurfaceColorControls"), flags, 2)
+        this.vtbl.GetOverlaySurfaceColorControls := CallbackCreate(ObjBindMethod(implObj, "GetOverlaySurfaceColorControls"), flags, 2)
     }
 
     Dispose() {

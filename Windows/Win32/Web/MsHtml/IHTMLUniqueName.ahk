@@ -52,7 +52,6 @@ export default struct IHTMLUniqueName extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_uniqueNumber() {
@@ -61,7 +60,6 @@ export default struct IHTMLUniqueName extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_uniqueID() {
@@ -79,8 +77,8 @@ export default struct IHTMLUniqueName extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_uniqueNumber := CallbackCreate(GetMethod(implObj, "get_uniqueNumber"), flags, 2)
-        this.vtbl.get_uniqueID := CallbackCreate(GetMethod(implObj, "get_uniqueID"), flags, 2)
+        this.vtbl.get_uniqueNumber := CallbackCreate(ObjBindMethod(implObj, "get_uniqueNumber"), flags, 2)
+        this.vtbl.get_uniqueID := CallbackCreate(ObjBindMethod(implObj, "get_uniqueID"), flags, 2)
     }
 
     Dispose() {

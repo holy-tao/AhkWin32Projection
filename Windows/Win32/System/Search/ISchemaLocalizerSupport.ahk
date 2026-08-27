@@ -64,7 +64,7 @@ export default struct ISchemaLocalizerSupport extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Localize := CallbackCreate(GetMethod(implObj, "Localize"), flags, 3)
+        this.vtbl.Localize := CallbackCreate(ObjBindMethod(implObj, "Localize"), flags, 3)
     }
 
     Dispose() {

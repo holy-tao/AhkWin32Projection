@@ -34,7 +34,6 @@ export default struct LPFN_RIOCLOSECOMPLETIONQUEUE {
     }
 
     /**
-     * 
      * @param {RIO_CQ} CQ A descriptor identifying an existing completion queue.
      * @returns {String} Nothing - always returns an empty string
      */

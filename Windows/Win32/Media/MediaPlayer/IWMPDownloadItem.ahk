@@ -75,7 +75,6 @@ export default struct IWMPDownloadItem extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrURL 
      * @returns {HRESULT} 
      */
@@ -85,19 +84,17 @@ export default struct IWMPDownloadItem extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} plSize 
      * @returns {HRESULT} 
      */
     get_size(plSize) {
-        plSizeMarshal := plSize is VarRef ? "int*" : "ptr"
+        plSizeMarshal := plSize is VarRef ? "int*" : IntPtr
 
         result := ComCall(8, this, plSizeMarshal, plSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrType 
      * @returns {HRESULT} 
      */
@@ -107,24 +104,22 @@ export default struct IWMPDownloadItem extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} plProgress 
      * @returns {HRESULT} 
      */
     get_progress(plProgress) {
-        plProgressMarshal := plProgress is VarRef ? "int*" : "ptr"
+        plProgressMarshal := plProgress is VarRef ? "int*" : IntPtr
 
         result := ComCall(10, this, plProgressMarshal, plProgress, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<WMPSubscriptionDownloadState>} pwmpsdls 
      * @returns {HRESULT} 
      */
     get_downloadState(pwmpsdls) {
-        pwmpsdlsMarshal := pwmpsdls is VarRef ? "int*" : "ptr"
+        pwmpsdlsMarshal := pwmpsdls is VarRef ? "int*" : IntPtr
 
         result := ComCall(11, this, pwmpsdlsMarshal, pwmpsdls, "HRESULT")
         return result
@@ -175,7 +170,6 @@ export default struct IWMPDownloadItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     cancel() {
@@ -192,14 +186,14 @@ export default struct IWMPDownloadItem extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_sourceURL := CallbackCreate(GetMethod(implObj, "get_sourceURL"), flags, 2)
-        this.vtbl.get_size := CallbackCreate(GetMethod(implObj, "get_size"), flags, 2)
-        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
-        this.vtbl.get_progress := CallbackCreate(GetMethod(implObj, "get_progress"), flags, 2)
-        this.vtbl.get_downloadState := CallbackCreate(GetMethod(implObj, "get_downloadState"), flags, 2)
-        this.vtbl.pause := CallbackCreate(GetMethod(implObj, "pause"), flags, 1)
-        this.vtbl.resume := CallbackCreate(GetMethod(implObj, "resume"), flags, 1)
-        this.vtbl.cancel := CallbackCreate(GetMethod(implObj, "cancel"), flags, 1)
+        this.vtbl.get_sourceURL := CallbackCreate(ObjBindMethod(implObj, "get_sourceURL"), flags, 2)
+        this.vtbl.get_size := CallbackCreate(ObjBindMethod(implObj, "get_size"), flags, 2)
+        this.vtbl.get_type := CallbackCreate(ObjBindMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.get_progress := CallbackCreate(ObjBindMethod(implObj, "get_progress"), flags, 2)
+        this.vtbl.get_downloadState := CallbackCreate(ObjBindMethod(implObj, "get_downloadState"), flags, 2)
+        this.vtbl.pause := CallbackCreate(ObjBindMethod(implObj, "pause"), flags, 1)
+        this.vtbl.resume := CallbackCreate(ObjBindMethod(implObj, "resume"), flags, 1)
+        this.vtbl.cancel := CallbackCreate(ObjBindMethod(implObj, "cancel"), flags, 1)
     }
 
     Dispose() {

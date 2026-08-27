@@ -26,7 +26,6 @@ export default struct SENDASYNCPROC {
     }
 
     /**
-     * 
      * @param {HWND} param0 Type: <b>HWND</b>
      * 
      * A handle to the window whose window procedure received the message. 

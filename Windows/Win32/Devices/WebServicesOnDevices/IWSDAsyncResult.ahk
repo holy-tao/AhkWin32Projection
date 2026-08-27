@@ -281,13 +281,13 @@ export default struct IWSDAsyncResult extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetCallback := CallbackCreate(GetMethod(implObj, "SetCallback"), flags, 3)
-        this.vtbl.SetWaitHandle := CallbackCreate(GetMethod(implObj, "SetWaitHandle"), flags, 2)
-        this.vtbl.HasCompleted := CallbackCreate(GetMethod(implObj, "HasCompleted"), flags, 1)
-        this.vtbl.GetAsyncState := CallbackCreate(GetMethod(implObj, "GetAsyncState"), flags, 2)
-        this.vtbl.Abort := CallbackCreate(GetMethod(implObj, "Abort"), flags, 1)
-        this.vtbl.GetEvent := CallbackCreate(GetMethod(implObj, "GetEvent"), flags, 2)
-        this.vtbl.GetEndpointProxy := CallbackCreate(GetMethod(implObj, "GetEndpointProxy"), flags, 2)
+        this.vtbl.SetCallback := CallbackCreate(ObjBindMethod(implObj, "SetCallback"), flags, 3)
+        this.vtbl.SetWaitHandle := CallbackCreate(ObjBindMethod(implObj, "SetWaitHandle"), flags, 2)
+        this.vtbl.HasCompleted := CallbackCreate(ObjBindMethod(implObj, "HasCompleted"), flags, 1)
+        this.vtbl.GetAsyncState := CallbackCreate(ObjBindMethod(implObj, "GetAsyncState"), flags, 2)
+        this.vtbl.Abort := CallbackCreate(ObjBindMethod(implObj, "Abort"), flags, 1)
+        this.vtbl.GetEvent := CallbackCreate(ObjBindMethod(implObj, "GetEvent"), flags, 2)
+        this.vtbl.GetEndpointProxy := CallbackCreate(ObjBindMethod(implObj, "GetEndpointProxy"), flags, 2)
     }
 
     Dispose() {

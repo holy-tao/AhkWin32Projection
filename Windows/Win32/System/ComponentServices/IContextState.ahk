@@ -125,7 +125,7 @@ export default struct IContextState extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icontextstate-getdeactivateonreturn
      */
     GetDeactivateOnReturn(pbDeactivate) {
-        pbDeactivateMarshal := pbDeactivate is VarRef ? "short*" : "ptr"
+        pbDeactivateMarshal := pbDeactivate is VarRef ? "short*" : IntPtr
 
         result := ComCall(4, this, pbDeactivateMarshal, pbDeactivate, "HRESULT")
         return result
@@ -214,7 +214,7 @@ export default struct IContextState extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icontextstate-getmytransactionvote
      */
     GetMyTransactionVote(ptxVote) {
-        ptxVoteMarshal := ptxVote is VarRef ? "int*" : "ptr"
+        ptxVoteMarshal := ptxVote is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, ptxVoteMarshal, ptxVote, "HRESULT")
         return result
@@ -229,10 +229,10 @@ export default struct IContextState extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetDeactivateOnReturn := CallbackCreate(GetMethod(implObj, "SetDeactivateOnReturn"), flags, 2)
-        this.vtbl.GetDeactivateOnReturn := CallbackCreate(GetMethod(implObj, "GetDeactivateOnReturn"), flags, 2)
-        this.vtbl.SetMyTransactionVote := CallbackCreate(GetMethod(implObj, "SetMyTransactionVote"), flags, 2)
-        this.vtbl.GetMyTransactionVote := CallbackCreate(GetMethod(implObj, "GetMyTransactionVote"), flags, 2)
+        this.vtbl.SetDeactivateOnReturn := CallbackCreate(ObjBindMethod(implObj, "SetDeactivateOnReturn"), flags, 2)
+        this.vtbl.GetDeactivateOnReturn := CallbackCreate(ObjBindMethod(implObj, "GetDeactivateOnReturn"), flags, 2)
+        this.vtbl.SetMyTransactionVote := CallbackCreate(ObjBindMethod(implObj, "SetMyTransactionVote"), flags, 2)
+        this.vtbl.GetMyTransactionVote := CallbackCreate(ObjBindMethod(implObj, "GetMyTransactionVote"), flags, 2)
     }
 
     Dispose() {

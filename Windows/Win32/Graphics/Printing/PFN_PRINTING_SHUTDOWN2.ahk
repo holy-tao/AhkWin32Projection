@@ -19,7 +19,6 @@ export default struct PFN_PRINTING_SHUTDOWN2 {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @returns {String} Nothing - always returns an empty string
      */

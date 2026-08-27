@@ -60,7 +60,7 @@ export default struct ID3D12RootSignatureDeserializer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRootSignatureDesc := CallbackCreate(GetMethod(implObj, "GetRootSignatureDesc"), flags, 1)
+        this.vtbl.GetRootSignatureDesc := CallbackCreate(ObjBindMethod(implObj, "GetRootSignatureDesc"), flags, 1)
     }
 
     Dispose() {

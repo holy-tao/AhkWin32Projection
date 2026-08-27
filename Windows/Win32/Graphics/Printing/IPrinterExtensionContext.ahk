@@ -70,7 +70,6 @@ export default struct IPrinterExtensionContext extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IPrinterQueue} 
      */
     get_PrinterQueue() {
@@ -79,7 +78,6 @@ export default struct IPrinterExtensionContext extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IPrintSchemaTicket} 
      */
     get_PrintSchemaTicket() {
@@ -88,7 +86,6 @@ export default struct IPrinterExtensionContext extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IPrinterPropertyBag} 
      */
     get_DriverProperties() {
@@ -97,7 +94,6 @@ export default struct IPrinterExtensionContext extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IPrinterPropertyBag} 
      */
     get_UserProperties() {
@@ -114,10 +110,10 @@ export default struct IPrinterExtensionContext extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_PrinterQueue := CallbackCreate(GetMethod(implObj, "get_PrinterQueue"), flags, 2)
-        this.vtbl.get_PrintSchemaTicket := CallbackCreate(GetMethod(implObj, "get_PrintSchemaTicket"), flags, 2)
-        this.vtbl.get_DriverProperties := CallbackCreate(GetMethod(implObj, "get_DriverProperties"), flags, 2)
-        this.vtbl.get_UserProperties := CallbackCreate(GetMethod(implObj, "get_UserProperties"), flags, 2)
+        this.vtbl.get_PrinterQueue := CallbackCreate(ObjBindMethod(implObj, "get_PrinterQueue"), flags, 2)
+        this.vtbl.get_PrintSchemaTicket := CallbackCreate(ObjBindMethod(implObj, "get_PrintSchemaTicket"), flags, 2)
+        this.vtbl.get_DriverProperties := CallbackCreate(ObjBindMethod(implObj, "get_DriverProperties"), flags, 2)
+        this.vtbl.get_UserProperties := CallbackCreate(ObjBindMethod(implObj, "get_UserProperties"), flags, 2)
     }
 
     Dispose() {

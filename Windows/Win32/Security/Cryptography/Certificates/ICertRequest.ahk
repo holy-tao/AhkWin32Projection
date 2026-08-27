@@ -575,13 +575,13 @@ export default struct ICertRequest extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Submit := CallbackCreate(GetMethod(implObj, "Submit"), flags, 6)
-        this.vtbl.RetrievePending := CallbackCreate(GetMethod(implObj, "RetrievePending"), flags, 4)
-        this.vtbl.GetLastStatus := CallbackCreate(GetMethod(implObj, "GetLastStatus"), flags, 2)
-        this.vtbl.GetRequestId := CallbackCreate(GetMethod(implObj, "GetRequestId"), flags, 2)
-        this.vtbl.GetDispositionMessage := CallbackCreate(GetMethod(implObj, "GetDispositionMessage"), flags, 2)
-        this.vtbl.GetCACertificate := CallbackCreate(GetMethod(implObj, "GetCACertificate"), flags, 5)
-        this.vtbl.GetCertificate := CallbackCreate(GetMethod(implObj, "GetCertificate"), flags, 3)
+        this.vtbl.Submit := CallbackCreate(ObjBindMethod(implObj, "Submit"), flags, 6)
+        this.vtbl.RetrievePending := CallbackCreate(ObjBindMethod(implObj, "RetrievePending"), flags, 4)
+        this.vtbl.GetLastStatus := CallbackCreate(ObjBindMethod(implObj, "GetLastStatus"), flags, 2)
+        this.vtbl.GetRequestId := CallbackCreate(ObjBindMethod(implObj, "GetRequestId"), flags, 2)
+        this.vtbl.GetDispositionMessage := CallbackCreate(ObjBindMethod(implObj, "GetDispositionMessage"), flags, 2)
+        this.vtbl.GetCACertificate := CallbackCreate(ObjBindMethod(implObj, "GetCACertificate"), flags, 5)
+        this.vtbl.GetCertificate := CallbackCreate(ObjBindMethod(implObj, "GetCertificate"), flags, 3)
     }
 
     Dispose() {

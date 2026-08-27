@@ -58,7 +58,7 @@ export default struct ITLegacyWaveSupport extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsFullDuplex := CallbackCreate(GetMethod(implObj, "IsFullDuplex"), flags, 2)
+        this.vtbl.IsFullDuplex := CallbackCreate(ObjBindMethod(implObj, "IsFullDuplex"), flags, 2)
     }
 
     Dispose() {

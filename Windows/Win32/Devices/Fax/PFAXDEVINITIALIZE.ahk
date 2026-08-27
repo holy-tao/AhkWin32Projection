@@ -22,7 +22,6 @@ export default struct PFAXDEVINITIALIZE {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {HANDLE} param1 
      * @param {Pointer<Pointer<PFAX_LINECALLBACK>>} param2 
@@ -30,7 +29,7 @@ export default struct PFAXDEVINITIALIZE {
      * @returns {BOOL} 
      */
     Call(param0, param1, param2, param3) {
-        param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
+        param2Marshal := param2 is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, UInt32, param0, HANDLE, param1, param2Marshal, param2, PFAX_SERVICE_CALLBACK, param3, BOOL)
         return result

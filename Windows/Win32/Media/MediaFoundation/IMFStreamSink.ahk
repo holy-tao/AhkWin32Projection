@@ -351,12 +351,12 @@ export default struct IMFStreamSink extends IMFMediaEventGenerator {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMediaSink := CallbackCreate(GetMethod(implObj, "GetMediaSink"), flags, 2)
-        this.vtbl.GetIdentifier := CallbackCreate(GetMethod(implObj, "GetIdentifier"), flags, 2)
-        this.vtbl.GetMediaTypeHandler := CallbackCreate(GetMethod(implObj, "GetMediaTypeHandler"), flags, 2)
-        this.vtbl.ProcessSample := CallbackCreate(GetMethod(implObj, "ProcessSample"), flags, 2)
-        this.vtbl.PlaceMarker := CallbackCreate(GetMethod(implObj, "PlaceMarker"), flags, 4)
-        this.vtbl.Flush := CallbackCreate(GetMethod(implObj, "Flush"), flags, 1)
+        this.vtbl.GetMediaSink := CallbackCreate(ObjBindMethod(implObj, "GetMediaSink"), flags, 2)
+        this.vtbl.GetIdentifier := CallbackCreate(ObjBindMethod(implObj, "GetIdentifier"), flags, 2)
+        this.vtbl.GetMediaTypeHandler := CallbackCreate(ObjBindMethod(implObj, "GetMediaTypeHandler"), flags, 2)
+        this.vtbl.ProcessSample := CallbackCreate(ObjBindMethod(implObj, "ProcessSample"), flags, 2)
+        this.vtbl.PlaceMarker := CallbackCreate(ObjBindMethod(implObj, "PlaceMarker"), flags, 4)
+        this.vtbl.Flush := CallbackCreate(ObjBindMethod(implObj, "Flush"), flags, 1)
     }
 
     Dispose() {

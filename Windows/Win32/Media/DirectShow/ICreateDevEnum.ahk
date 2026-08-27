@@ -107,7 +107,7 @@ export default struct ICreateDevEnum extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateClassEnumerator := CallbackCreate(GetMethod(implObj, "CreateClassEnumerator"), flags, 4)
+        this.vtbl.CreateClassEnumerator := CallbackCreate(ObjBindMethod(implObj, "CreateClassEnumerator"), flags, 4)
     }
 
     Dispose() {

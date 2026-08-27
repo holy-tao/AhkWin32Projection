@@ -26,7 +26,6 @@ export default struct PFN_D3D10_CREATE_DEVICE_AND_SWAP_CHAIN1 {
     }
 
     /**
-     * 
      * @param {IDXGIAdapter} param0 
      * @param {D3D10_DRIVER_TYPE} param1 
      * @param {HMODULE} param2 

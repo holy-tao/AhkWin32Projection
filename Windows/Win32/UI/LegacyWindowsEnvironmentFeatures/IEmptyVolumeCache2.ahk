@@ -131,10 +131,10 @@ export default struct IEmptyVolumeCache2 extends IEmptyVolumeCache {
         pcwszVolume := pcwszVolume is String ? StrPtr(pcwszVolume) : pcwszVolume
         pcwszKeyName := pcwszKeyName is String ? StrPtr(pcwszKeyName) : pcwszKeyName
 
-        ppwszDisplayNameMarshal := ppwszDisplayName is VarRef ? "ptr*" : "ptr"
-        ppwszDescriptionMarshal := ppwszDescription is VarRef ? "ptr*" : "ptr"
-        ppwszBtnTextMarshal := ppwszBtnText is VarRef ? "ptr*" : "ptr"
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+        ppwszDisplayNameMarshal := ppwszDisplayName is VarRef ? "ptr*" : IntPtr
+        ppwszDescriptionMarshal := ppwszDescription is VarRef ? "ptr*" : IntPtr
+        ppwszBtnTextMarshal := ppwszBtnText is VarRef ? "ptr*" : IntPtr
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, HKEY, hkRegKey, "ptr", pcwszVolume, "ptr", pcwszKeyName, ppwszDisplayNameMarshal, ppwszDisplayName, ppwszDescriptionMarshal, ppwszDescription, ppwszBtnTextMarshal, ppwszBtnText, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
@@ -149,7 +149,7 @@ export default struct IEmptyVolumeCache2 extends IEmptyVolumeCache {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeEx := CallbackCreate(GetMethod(implObj, "InitializeEx"), flags, 8)
+        this.vtbl.InitializeEx := CallbackCreate(ObjBindMethod(implObj, "InitializeEx"), flags, 8)
     }
 
     Dispose() {

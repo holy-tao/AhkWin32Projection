@@ -21,7 +21,6 @@ export default struct SslCreateHandshakeHashFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {Integer} dwProtocol 
      * @param {Integer} dwCipherSuite 

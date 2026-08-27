@@ -117,11 +117,11 @@ export default struct IComLTxEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnLtxTransactionStart := CallbackCreate(GetMethod(implObj, "OnLtxTransactionStart"), flags, 6)
-        this.vtbl.OnLtxTransactionPrepare := CallbackCreate(GetMethod(implObj, "OnLtxTransactionPrepare"), flags, 4)
-        this.vtbl.OnLtxTransactionAbort := CallbackCreate(GetMethod(implObj, "OnLtxTransactionAbort"), flags, 3)
-        this.vtbl.OnLtxTransactionCommit := CallbackCreate(GetMethod(implObj, "OnLtxTransactionCommit"), flags, 3)
-        this.vtbl.OnLtxTransactionPromote := CallbackCreate(GetMethod(implObj, "OnLtxTransactionPromote"), flags, 4)
+        this.vtbl.OnLtxTransactionStart := CallbackCreate(ObjBindMethod(implObj, "OnLtxTransactionStart"), flags, 6)
+        this.vtbl.OnLtxTransactionPrepare := CallbackCreate(ObjBindMethod(implObj, "OnLtxTransactionPrepare"), flags, 4)
+        this.vtbl.OnLtxTransactionAbort := CallbackCreate(ObjBindMethod(implObj, "OnLtxTransactionAbort"), flags, 3)
+        this.vtbl.OnLtxTransactionCommit := CallbackCreate(ObjBindMethod(implObj, "OnLtxTransactionCommit"), flags, 3)
+        this.vtbl.OnLtxTransactionPromote := CallbackCreate(ObjBindMethod(implObj, "OnLtxTransactionPromote"), flags, 4)
     }
 
     Dispose() {

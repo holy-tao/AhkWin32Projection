@@ -148,8 +148,8 @@ export default struct IVssAdmin extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsadmin/nf-vsadmin-ivssadmin-registerprovider
      */
     RegisterProvider(pProviderId, ClassId, pwszProviderName, eProviderType, pwszProviderVersion, ProviderVersionId) {
-        pwszProviderNameMarshal := pwszProviderName is VarRef ? "ushort*" : "ptr"
-        pwszProviderVersionMarshal := pwszProviderVersion is VarRef ? "ushort*" : "ptr"
+        pwszProviderNameMarshal := pwszProviderName is VarRef ? "ushort*" : IntPtr
+        pwszProviderVersionMarshal := pwszProviderVersion is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(3, this, Guid, pProviderId, Guid, ClassId, pwszProviderNameMarshal, pwszProviderName, VSS_PROVIDER_TYPE, eProviderType, pwszProviderVersionMarshal, pwszProviderVersion, Guid, ProviderVersionId, "HRESULT")
         return result
@@ -268,10 +268,10 @@ export default struct IVssAdmin extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterProvider := CallbackCreate(GetMethod(implObj, "RegisterProvider"), flags, 7)
-        this.vtbl.UnregisterProvider := CallbackCreate(GetMethod(implObj, "UnregisterProvider"), flags, 2)
-        this.vtbl.QueryProviders := CallbackCreate(GetMethod(implObj, "QueryProviders"), flags, 2)
-        this.vtbl.AbortAllSnapshotsInProgress := CallbackCreate(GetMethod(implObj, "AbortAllSnapshotsInProgress"), flags, 1)
+        this.vtbl.RegisterProvider := CallbackCreate(ObjBindMethod(implObj, "RegisterProvider"), flags, 7)
+        this.vtbl.UnregisterProvider := CallbackCreate(ObjBindMethod(implObj, "UnregisterProvider"), flags, 2)
+        this.vtbl.QueryProviders := CallbackCreate(ObjBindMethod(implObj, "QueryProviders"), flags, 2)
+        this.vtbl.AbortAllSnapshotsInProgress := CallbackCreate(ObjBindMethod(implObj, "AbortAllSnapshotsInProgress"), flags, 1)
     }
 
     Dispose() {

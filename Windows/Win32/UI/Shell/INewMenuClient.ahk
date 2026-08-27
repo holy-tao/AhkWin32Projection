@@ -72,8 +72,8 @@ export default struct INewMenuClient extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IncludeItems := CallbackCreate(GetMethod(implObj, "IncludeItems"), flags, 2)
-        this.vtbl.SelectAndEditItem := CallbackCreate(GetMethod(implObj, "SelectAndEditItem"), flags, 3)
+        this.vtbl.IncludeItems := CallbackCreate(ObjBindMethod(implObj, "IncludeItems"), flags, 2)
+        this.vtbl.SelectAndEditItem := CallbackCreate(ObjBindMethod(implObj, "SelectAndEditItem"), flags, 3)
     }
 
     Dispose() {

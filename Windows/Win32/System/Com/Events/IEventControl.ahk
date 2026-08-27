@@ -118,7 +118,7 @@ export default struct IEventControl extends IDispatch {
         methodName := methodName is String ? BSTR.Alloc(methodName).Value : methodName
         optionalCriteria := optionalCriteria is String ? BSTR.Alloc(optionalCriteria).Value : optionalCriteria
 
-        optionalErrorIndexMarshal := optionalErrorIndex is VarRef ? "int*" : "ptr"
+        optionalErrorIndexMarshal := optionalErrorIndex is VarRef ? "int*" : IntPtr
 
         result := ComCall(10, this, BSTR, methodName, BSTR, optionalCriteria, optionalErrorIndexMarshal, optionalErrorIndex, "ptr*", &ppCollection := 0, "HRESULT")
         return IEventObjectCollection(ppCollection)
@@ -162,11 +162,11 @@ export default struct IEventControl extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetPublisherFilter := CallbackCreate(GetMethod(implObj, "SetPublisherFilter"), flags, 3)
-        this.vtbl.get_AllowInprocActivation := CallbackCreate(GetMethod(implObj, "get_AllowInprocActivation"), flags, 2)
-        this.vtbl.put_AllowInprocActivation := CallbackCreate(GetMethod(implObj, "put_AllowInprocActivation"), flags, 2)
-        this.vtbl.GetSubscriptions := CallbackCreate(GetMethod(implObj, "GetSubscriptions"), flags, 5)
-        this.vtbl.SetDefaultQuery := CallbackCreate(GetMethod(implObj, "SetDefaultQuery"), flags, 4)
+        this.vtbl.SetPublisherFilter := CallbackCreate(ObjBindMethod(implObj, "SetPublisherFilter"), flags, 3)
+        this.vtbl.get_AllowInprocActivation := CallbackCreate(ObjBindMethod(implObj, "get_AllowInprocActivation"), flags, 2)
+        this.vtbl.put_AllowInprocActivation := CallbackCreate(ObjBindMethod(implObj, "put_AllowInprocActivation"), flags, 2)
+        this.vtbl.GetSubscriptions := CallbackCreate(ObjBindMethod(implObj, "GetSubscriptions"), flags, 5)
+        this.vtbl.SetDefaultQuery := CallbackCreate(ObjBindMethod(implObj, "SetDefaultQuery"), flags, 4)
     }
 
     Dispose() {

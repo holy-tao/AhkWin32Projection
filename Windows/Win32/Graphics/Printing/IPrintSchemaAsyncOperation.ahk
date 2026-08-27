@@ -43,7 +43,6 @@ export default struct IPrintSchemaAsyncOperation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Start() {
@@ -52,7 +51,6 @@ export default struct IPrintSchemaAsyncOperation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Cancel() {
@@ -69,8 +67,8 @@ export default struct IPrintSchemaAsyncOperation extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 1)
-        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.Start := CallbackCreate(ObjBindMethod(implObj, "Start"), flags, 1)
+        this.vtbl.Cancel := CallbackCreate(ObjBindMethod(implObj, "Cancel"), flags, 1)
     }
 
     Dispose() {

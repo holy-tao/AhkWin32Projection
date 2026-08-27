@@ -100,10 +100,10 @@ export default struct IWRdsWddmIddProps extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetHardwareId := CallbackCreate(GetMethod(implObj, "GetHardwareId"), flags, 3)
-        this.vtbl.OnDriverLoad := CallbackCreate(GetMethod(implObj, "OnDriverLoad"), flags, 3)
-        this.vtbl.OnDriverUnload := CallbackCreate(GetMethod(implObj, "OnDriverUnload"), flags, 2)
-        this.vtbl.EnableWddmIdd := CallbackCreate(GetMethod(implObj, "EnableWddmIdd"), flags, 2)
+        this.vtbl.GetHardwareId := CallbackCreate(ObjBindMethod(implObj, "GetHardwareId"), flags, 3)
+        this.vtbl.OnDriverLoad := CallbackCreate(ObjBindMethod(implObj, "OnDriverLoad"), flags, 3)
+        this.vtbl.OnDriverUnload := CallbackCreate(ObjBindMethod(implObj, "OnDriverUnload"), flags, 2)
+        this.vtbl.EnableWddmIdd := CallbackCreate(ObjBindMethod(implObj, "EnableWddmIdd"), flags, 2)
     }
 
     Dispose() {

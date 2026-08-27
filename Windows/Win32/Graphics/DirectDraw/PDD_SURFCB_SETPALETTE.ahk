@@ -21,7 +21,6 @@ export default struct PDD_SURFCB_SETPALETTE {
     }
 
     /**
-     * 
      * @param {Pointer<DD_SETPALETTEDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_setpalettedata">DD_SETPALETTEDATA</a> structure that contains the information required to set a palette to the specified surface.
      * @returns {Integer} <b>DdSetPalette</b> returns one of the following callback codes:
      */

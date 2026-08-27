@@ -37,7 +37,6 @@ export default struct PSTARTUP_ROUTINE {
     }
 
     /**
-     * 
      * @param {PWSTR} _ResourceType Type of resource being started.
      * @param {Integer} MinVersionSupported Minimum version of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-api">Resource API</a> supported by the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-service">Cluster service</a>.
@@ -91,7 +90,7 @@ export default struct PSTARTUP_ROUTINE {
     Call(_ResourceType, MinVersionSupported, MaxVersionSupported, SetResourceStatus, LogEvent, FunctionTable) {
         _ResourceType := _ResourceType is String ? StrPtr(_ResourceType) : _ResourceType
 
-        FunctionTableMarshal := FunctionTable is VarRef ? "ptr*" : "ptr"
+        FunctionTableMarshal := FunctionTable is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, "ptr", _ResourceType, UInt32, MinVersionSupported, UInt32, MaxVersionSupported, PSET_RESOURCE_STATUS_ROUTINE, SetResourceStatus, PLOG_EVENT_ROUTINE, LogEvent, FunctionTableMarshal, FunctionTable, UInt32)
         return result

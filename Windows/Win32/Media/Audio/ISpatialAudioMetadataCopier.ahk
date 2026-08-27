@@ -131,9 +131,9 @@ export default struct ISpatialAudioMetadataCopier extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 2)
-        this.vtbl.CopyMetadataForFrames := CallbackCreate(GetMethod(implObj, "CopyMetadataForFrames"), flags, 5)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.Open := CallbackCreate(ObjBindMethod(implObj, "Open"), flags, 2)
+        this.vtbl.CopyMetadataForFrames := CallbackCreate(ObjBindMethod(implObj, "CopyMetadataForFrames"), flags, 5)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
     }
 
     Dispose() {

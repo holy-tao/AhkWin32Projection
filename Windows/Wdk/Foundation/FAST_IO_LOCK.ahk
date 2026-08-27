@@ -23,7 +23,6 @@ export default struct FAST_IO_LOCK {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} FileOffset 
      * @param {Pointer<Integer>} Length 
@@ -36,8 +35,8 @@ export default struct FAST_IO_LOCK {
      * @returns {BOOLEAN} 
      */
     Call(FileObject, FileOffset, Length, ProcessId, Key, FailImmediately, ExclusiveLock, IoStatus, DeviceObject) {
-        FileOffsetMarshal := FileOffset is VarRef ? "int64*" : "ptr"
-        LengthMarshal := Length is VarRef ? "int64*" : "ptr"
+        FileOffsetMarshal := FileOffset is VarRef ? "int64*" : IntPtr
+        LengthMarshal := Length is VarRef ? "int64*" : IntPtr
 
         result := DllCall(this.value, FILE_OBJECT.Ptr, FileObject, FileOffsetMarshal, FileOffset, LengthMarshal, Length, PEPROCESS, ProcessId, UInt32, Key, BOOLEAN, FailImmediately, BOOLEAN, ExclusiveLock, IO_STATUS_BLOCK.Ptr, IoStatus, DEVICE_OBJECT.Ptr, DeviceObject, BOOLEAN)
         return result

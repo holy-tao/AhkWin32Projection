@@ -21,7 +21,6 @@ export default struct PFNSNMPEXTENSIONINIT {
     }
 
     /**
-     * 
      * @param {Integer} dwUpTimeReference 
      * @param {Pointer<HANDLE>} phSubagentTrapEvent 
      * @param {Pointer<AsnObjectIdentifier>} pFirstSupportedRegion 

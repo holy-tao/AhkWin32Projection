@@ -21,7 +21,6 @@ export default struct PFN_ALLOCANDFILLDEFUSAGE {
     }
 
     /**
-     * 
      * @param {PSTR} pszUsageOID 
      * @param {Pointer<CRYPT_PROVIDER_DEFUSAGE>} psDefUsage 
      * @returns {BOOL} 

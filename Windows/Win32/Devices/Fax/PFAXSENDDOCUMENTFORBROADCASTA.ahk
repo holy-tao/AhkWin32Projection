@@ -23,7 +23,6 @@ export default struct PFAXSENDDOCUMENTFORBROADCASTA {
     }
 
     /**
-     * 
      * @param {HANDLE} FaxHandle 
      * @param {PSTR} FileName 
      * @param {Pointer<Integer>} FaxJobId 
@@ -34,8 +33,8 @@ export default struct PFAXSENDDOCUMENTFORBROADCASTA {
     Call(FaxHandle, FileName, FaxJobId, FaxRecipientCallback, _Context) {
         FileName := FileName is String ? StrPtr(FileName) : FileName
 
-        FaxJobIdMarshal := FaxJobId is VarRef ? "uint*" : "ptr"
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        FaxJobIdMarshal := FaxJobId is VarRef ? "uint*" : IntPtr
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, HANDLE, FaxHandle, "ptr", FileName, FaxJobIdMarshal, FaxJobId, PFAX_RECIPIENT_CALLBACKA, FaxRecipientCallback, _ContextMarshal, _Context, BOOL)
         return result

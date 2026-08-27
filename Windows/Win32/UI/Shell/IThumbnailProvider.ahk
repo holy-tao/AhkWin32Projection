@@ -76,7 +76,7 @@ export default struct IThumbnailProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/thumbcache/nf-thumbcache-ithumbnailprovider-getthumbnail
      */
     GetThumbnail(cx, phbmp, pdwAlpha) {
-        pdwAlphaMarshal := pdwAlpha is VarRef ? "int*" : "ptr"
+        pdwAlphaMarshal := pdwAlpha is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, UInt32, cx, HBITMAP.Ptr, phbmp, pdwAlphaMarshal, pdwAlpha, "HRESULT")
         return result
@@ -91,7 +91,7 @@ export default struct IThumbnailProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetThumbnail := CallbackCreate(GetMethod(implObj, "GetThumbnail"), flags, 4)
+        this.vtbl.GetThumbnail := CallbackCreate(ObjBindMethod(implObj, "GetThumbnail"), flags, 4)
     }
 
     Dispose() {

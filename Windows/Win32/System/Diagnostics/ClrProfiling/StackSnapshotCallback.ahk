@@ -19,7 +19,6 @@ export default struct StackSnapshotCallback {
     }
 
     /**
-     * 
      * @param {Pointer} funcId 
      * @param {Pointer} ip 
      * @param {Pointer} frameInfo 
@@ -29,8 +28,8 @@ export default struct StackSnapshotCallback {
      * @returns {HRESULT} 
      */
     Call(funcId, ip, frameInfo, contextSize, _context, clientData) {
-        _contextMarshal := _context is VarRef ? "char*" : "ptr"
-        clientDataMarshal := clientData is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "char*" : IntPtr
+        clientDataMarshal := clientData is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, IntPtr, funcId, IntPtr, ip, IntPtr, frameInfo, UInt32, contextSize, _contextMarshal, _context, clientDataMarshal, clientData, "HRESULT")
         return result

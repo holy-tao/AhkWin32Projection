@@ -40,7 +40,6 @@ export default struct IActionEnumerator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -49,7 +48,6 @@ export default struct IActionEnumerator extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} keyName 
      * @param {Pointer<BSTR>} actionName 
      * @param {Pointer<BSTR>} actionDescription 
@@ -59,9 +57,11 @@ export default struct IActionEnumerator extends IUnknown {
      * @returns {HRESULT} 
      */
     GetNext(keyName, actionName, actionDescription, actionIsDefault, actionMethod, metadta) {
-        actionIsDefaultMarshal := actionIsDefault is VarRef ? "int*" : "ptr"
+        actionIsDefaultMarshal := actionIsDefault is VarRef ? "int*" : IntPtr
+        actionMethodMarshal := actionMethod == 0 ? IntPtr : IModelObject.Ptr
+        metadtaMarshal := metadta == 0 ? IntPtr : IKeyStore.Ptr
 
-        result := ComCall(4, this, BSTR.Ptr, keyName, BSTR.Ptr, actionName, BSTR.Ptr, actionDescription, actionIsDefaultMarshal, actionIsDefault, IModelObject.Ptr, actionMethod, IKeyStore.Ptr, metadta, "HRESULT")
+        result := ComCall(4, this, BSTR.Ptr, keyName, BSTR.Ptr, actionName, BSTR.Ptr, actionDescription, actionIsDefaultMarshal, actionIsDefault, actionMethodMarshal, actionMethod, metadtaMarshal, metadta, "HRESULT")
         return result
     }
 
@@ -74,8 +74,8 @@ export default struct IActionEnumerator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.GetNext := CallbackCreate(GetMethod(implObj, "GetNext"), flags, 7)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.GetNext := CallbackCreate(ObjBindMethod(implObj, "GetNext"), flags, 7)
     }
 
     Dispose() {

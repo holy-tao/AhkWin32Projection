@@ -20,7 +20,6 @@ export default struct pCryptSIPGetSealedDigest {
     }
 
     /**
-     * 
      * @param {Pointer<SIP_SUBJECTINFO>} pSubjectInfo 
      * @param {Pointer<Integer>} pSig 
      * @param {Integer} dwSig 
@@ -29,9 +28,11 @@ export default struct pCryptSIPGetSealedDigest {
      * @returns {BOOL} 
      */
     Call(pSubjectInfo, pSig, dwSig, pbDigest, pcbDigest) {
-        pSigMarshal := pSig is VarRef ? "char*" : "ptr"
-        pbDigestMarshal := pbDigest is VarRef ? "char*" : "ptr"
-        pcbDigestMarshal := pcbDigest is VarRef ? "uint*" : "ptr"
+        pSigMarshal := pSig is VarRef ? "char*" : IntPtr
+        pSigMarshal := pSig == 0 ? IntPtr : "char*"
+        pbDigestMarshal := pbDigest is VarRef ? "char*" : IntPtr
+        pbDigestMarshal := pbDigest == 0 ? IntPtr : "char*"
+        pcbDigestMarshal := pcbDigest is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, SIP_SUBJECTINFO.Ptr, pSubjectInfo, pSigMarshal, pSig, UInt32, dwSig, pbDigestMarshal, pbDigest, pcbDigestMarshal, pcbDigest, BOOL)
         return result

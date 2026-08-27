@@ -149,7 +149,7 @@ export default struct IRecoverableErrorData extends IUnknown {
     GetItemDisplayName(pszItemDisplayName, pcchItemDisplayName) {
         pszItemDisplayName := pszItemDisplayName is String ? StrPtr(pszItemDisplayName) : pszItemDisplayName
 
-        pcchItemDisplayNameMarshal := pcchItemDisplayName is VarRef ? "uint*" : "ptr"
+        pcchItemDisplayNameMarshal := pcchItemDisplayName is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, "ptr", pszItemDisplayName, pcchItemDisplayNameMarshal, pcchItemDisplayName, "HRESULT")
         return result
@@ -213,7 +213,7 @@ export default struct IRecoverableErrorData extends IUnknown {
     GetErrorDescription(pszErrorDescription, pcchErrorDescription) {
         pszErrorDescription := pszErrorDescription is String ? StrPtr(pszErrorDescription) : pszErrorDescription
 
-        pcchErrorDescriptionMarshal := pcchErrorDescription is VarRef ? "uint*" : "ptr"
+        pcchErrorDescriptionMarshal := pcchErrorDescription is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, "ptr", pszErrorDescription, pcchErrorDescriptionMarshal, pcchErrorDescription, "HRESULT")
         return result
@@ -228,9 +228,9 @@ export default struct IRecoverableErrorData extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.GetItemDisplayName := CallbackCreate(GetMethod(implObj, "GetItemDisplayName"), flags, 3)
-        this.vtbl.GetErrorDescription := CallbackCreate(GetMethod(implObj, "GetErrorDescription"), flags, 3)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetItemDisplayName := CallbackCreate(ObjBindMethod(implObj, "GetItemDisplayName"), flags, 3)
+        this.vtbl.GetErrorDescription := CallbackCreate(ObjBindMethod(implObj, "GetErrorDescription"), flags, 3)
     }
 
     Dispose() {

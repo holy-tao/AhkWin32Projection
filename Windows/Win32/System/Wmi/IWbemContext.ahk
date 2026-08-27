@@ -234,15 +234,15 @@ export default struct IWbemContext extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
-        this.vtbl.GetNames := CallbackCreate(GetMethod(implObj, "GetNames"), flags, 3)
-        this.vtbl.BeginEnumeration := CallbackCreate(GetMethod(implObj, "BeginEnumeration"), flags, 2)
-        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 4)
-        this.vtbl.EndEnumeration := CallbackCreate(GetMethod(implObj, "EndEnumeration"), flags, 1)
-        this.vtbl.SetValue := CallbackCreate(GetMethod(implObj, "SetValue"), flags, 4)
-        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 4)
-        this.vtbl.DeleteValue := CallbackCreate(GetMethod(implObj, "DeleteValue"), flags, 3)
-        this.vtbl.DeleteAll := CallbackCreate(GetMethod(implObj, "DeleteAll"), flags, 1)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.GetNames := CallbackCreate(ObjBindMethod(implObj, "GetNames"), flags, 3)
+        this.vtbl.BeginEnumeration := CallbackCreate(ObjBindMethod(implObj, "BeginEnumeration"), flags, 2)
+        this.vtbl.Next := CallbackCreate(ObjBindMethod(implObj, "Next"), flags, 4)
+        this.vtbl.EndEnumeration := CallbackCreate(ObjBindMethod(implObj, "EndEnumeration"), flags, 1)
+        this.vtbl.SetValue := CallbackCreate(ObjBindMethod(implObj, "SetValue"), flags, 4)
+        this.vtbl.GetValue := CallbackCreate(ObjBindMethod(implObj, "GetValue"), flags, 4)
+        this.vtbl.DeleteValue := CallbackCreate(ObjBindMethod(implObj, "DeleteValue"), flags, 3)
+        this.vtbl.DeleteAll := CallbackCreate(ObjBindMethod(implObj, "DeleteAll"), flags, 1)
     }
 
     Dispose() {

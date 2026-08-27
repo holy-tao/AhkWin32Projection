@@ -37,7 +37,6 @@ export default struct IAppxManifestReader4 extends IAppxManifestReader3 {
     }
 
     /**
-     * 
      * @returns {IAppxManifestOptionalPackageInfo} 
      */
     GetOptionalPackageInfo() {
@@ -54,7 +53,7 @@ export default struct IAppxManifestReader4 extends IAppxManifestReader3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOptionalPackageInfo := CallbackCreate(GetMethod(implObj, "GetOptionalPackageInfo"), flags, 2)
+        this.vtbl.GetOptionalPackageInfo := CallbackCreate(ObjBindMethod(implObj, "GetOptionalPackageInfo"), flags, 2)
     }
 
     Dispose() {

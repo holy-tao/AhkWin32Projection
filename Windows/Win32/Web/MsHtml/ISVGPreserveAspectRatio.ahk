@@ -61,7 +61,6 @@ export default struct ISVGPreserveAspectRatio extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -71,7 +70,6 @@ export default struct ISVGPreserveAspectRatio extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_align() {
@@ -80,7 +78,6 @@ export default struct ISVGPreserveAspectRatio extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -90,7 +87,6 @@ export default struct ISVGPreserveAspectRatio extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_meetOrSlice() {
@@ -107,10 +103,10 @@ export default struct ISVGPreserveAspectRatio extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_align := CallbackCreate(GetMethod(implObj, "put_align"), flags, 2)
-        this.vtbl.get_align := CallbackCreate(GetMethod(implObj, "get_align"), flags, 2)
-        this.vtbl.put_meetOrSlice := CallbackCreate(GetMethod(implObj, "put_meetOrSlice"), flags, 2)
-        this.vtbl.get_meetOrSlice := CallbackCreate(GetMethod(implObj, "get_meetOrSlice"), flags, 2)
+        this.vtbl.put_align := CallbackCreate(ObjBindMethod(implObj, "put_align"), flags, 2)
+        this.vtbl.get_align := CallbackCreate(ObjBindMethod(implObj, "get_align"), flags, 2)
+        this.vtbl.put_meetOrSlice := CallbackCreate(ObjBindMethod(implObj, "put_meetOrSlice"), flags, 2)
+        this.vtbl.get_meetOrSlice := CallbackCreate(ObjBindMethod(implObj, "get_meetOrSlice"), flags, 2)
     }
 
     Dispose() {

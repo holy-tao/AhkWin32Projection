@@ -76,8 +76,8 @@ export default struct IFhTarget extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStringProperty := CallbackCreate(GetMethod(implObj, "GetStringProperty"), flags, 3)
-        this.vtbl.GetNumericalProperty := CallbackCreate(GetMethod(implObj, "GetNumericalProperty"), flags, 3)
+        this.vtbl.GetStringProperty := CallbackCreate(ObjBindMethod(implObj, "GetStringProperty"), flags, 3)
+        this.vtbl.GetNumericalProperty := CallbackCreate(ObjBindMethod(implObj, "GetNumericalProperty"), flags, 3)
     }
 
     Dispose() {

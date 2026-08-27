@@ -106,9 +106,9 @@ export default struct IAccServerDocMgr extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.NewDocument := CallbackCreate(GetMethod(implObj, "NewDocument"), flags, 3)
-        this.vtbl.RevokeDocument := CallbackCreate(GetMethod(implObj, "RevokeDocument"), flags, 2)
-        this.vtbl.OnDocumentFocus := CallbackCreate(GetMethod(implObj, "OnDocumentFocus"), flags, 2)
+        this.vtbl.NewDocument := CallbackCreate(ObjBindMethod(implObj, "NewDocument"), flags, 3)
+        this.vtbl.RevokeDocument := CallbackCreate(ObjBindMethod(implObj, "RevokeDocument"), flags, 2)
+        this.vtbl.OnDocumentFocus := CallbackCreate(ObjBindMethod(implObj, "OnDocumentFocus"), flags, 2)
     }
 
     Dispose() {

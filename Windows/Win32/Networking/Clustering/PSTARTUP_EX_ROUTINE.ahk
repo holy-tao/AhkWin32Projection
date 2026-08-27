@@ -21,7 +21,6 @@ export default struct PSTARTUP_EX_ROUTINE {
     }
 
     /**
-     * 
      * @param {PWSTR} _ResourceType 
      * @param {Integer} MinVersionSupported 
      * @param {Integer} MaxVersionSupported 
@@ -32,7 +31,7 @@ export default struct PSTARTUP_EX_ROUTINE {
     Call(_ResourceType, MinVersionSupported, MaxVersionSupported, MonitorCallbackFunctions, ResourceDllInterfaceFunctions) {
         _ResourceType := _ResourceType is String ? StrPtr(_ResourceType) : _ResourceType
 
-        ResourceDllInterfaceFunctionsMarshal := ResourceDllInterfaceFunctions is VarRef ? "ptr*" : "ptr"
+        ResourceDllInterfaceFunctionsMarshal := ResourceDllInterfaceFunctions is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, "ptr", _ResourceType, UInt32, MinVersionSupported, UInt32, MaxVersionSupported, CLRES_CALLBACK_FUNCTION_TABLE.Ptr, MonitorCallbackFunctions, ResourceDllInterfaceFunctionsMarshal, ResourceDllInterfaceFunctions, UInt32)
         return result

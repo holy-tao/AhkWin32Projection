@@ -71,8 +71,8 @@ export default struct IVdsSwProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryPacks := CallbackCreate(GetMethod(implObj, "QueryPacks"), flags, 2)
-        this.vtbl.CreatePack := CallbackCreate(GetMethod(implObj, "CreatePack"), flags, 2)
+        this.vtbl.QueryPacks := CallbackCreate(ObjBindMethod(implObj, "QueryPacks"), flags, 2)
+        this.vtbl.CreatePack := CallbackCreate(ObjBindMethod(implObj, "CreatePack"), flags, 2)
     }
 
     Dispose() {

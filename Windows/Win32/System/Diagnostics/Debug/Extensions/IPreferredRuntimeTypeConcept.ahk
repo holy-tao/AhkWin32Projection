@@ -37,7 +37,6 @@ export default struct IPreferredRuntimeTypeConcept extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @returns {IModelObject} 
      */
@@ -55,7 +54,7 @@ export default struct IPreferredRuntimeTypeConcept extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CastToPreferredRuntimeType := CallbackCreate(GetMethod(implObj, "CastToPreferredRuntimeType"), flags, 3)
+        this.vtbl.CastToPreferredRuntimeType := CallbackCreate(ObjBindMethod(implObj, "CastToPreferredRuntimeType"), flags, 3)
     }
 
     Dispose() {

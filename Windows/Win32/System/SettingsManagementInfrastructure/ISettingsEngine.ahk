@@ -79,7 +79,7 @@ export default struct ISettingsEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsengine-getnamespaces
      */
     GetNamespaces(Flags, Reserved) {
-        ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
+        ReservedMarshal := Reserved is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, WcmNamespaceEnumerationFlags, Flags, ReservedMarshal, Reserved, "ptr*", &Namespaces := 0, "HRESULT")
         return IItemEnumerator(Namespaces)
@@ -94,7 +94,7 @@ export default struct ISettingsEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsengine-getnamespace
      */
     GetNamespace(SettingsID, Access, Reserved) {
-        ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
+        ReservedMarshal := Reserved is VarRef ? "ptr" : IntPtr
 
         result := ComCall(4, this, "ptr", SettingsID, WcmNamespaceAccess, Access, ReservedMarshal, Reserved, "ptr*", &NamespaceItem := 0, "HRESULT")
         return ISettingsNamespace(NamespaceItem)
@@ -129,7 +129,7 @@ export default struct ISettingsEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsengine-getstorestatus
      */
     GetStoreStatus(Reserved) {
-        ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
+        ReservedMarshal := Reserved is VarRef ? "ptr" : IntPtr
 
         result := ComCall(7, this, ReservedMarshal, Reserved, "int*", &_Status := 0, "HRESULT")
         return _Status
@@ -158,7 +158,7 @@ export default struct ISettingsEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsengine-unloadstore
      */
     UnloadStore(Reserved) {
-        ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
+        ReservedMarshal := Reserved is VarRef ? "ptr" : IntPtr
 
         result := ComCall(9, this, ReservedMarshal, Reserved, "HRESULT")
         return result
@@ -229,14 +229,13 @@ export default struct ISettingsEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsengine-createsettingscontext
      */
     CreateSettingsContext(Flags, Reserved) {
-        ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
+        ReservedMarshal := Reserved is VarRef ? "ptr" : IntPtr
 
         result := ComCall(15, this, UInt32, Flags, ReservedMarshal, Reserved, "ptr*", &SettingsContext := 0, "HRESULT")
         return ISettingsContext(SettingsContext)
     }
 
     /**
-     * 
      * @param {ISettingsContext} SettingsContext 
      * @returns {HRESULT} 
      */
@@ -253,14 +252,13 @@ export default struct ISettingsEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsengine-applysettingscontext
      */
     ApplySettingsContext(SettingsContext, pppwzIdentities) {
-        pppwzIdentitiesMarshal := pppwzIdentities is VarRef ? "ptr*" : "ptr"
+        pppwzIdentitiesMarshal := pppwzIdentities is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(17, this, "ptr", SettingsContext, pppwzIdentitiesMarshal, pppwzIdentities, "ptr*", &pcIdentities := 0, "HRESULT")
         return pcIdentities
     }
 
     /**
-     * 
      * @returns {ISettingsContext} 
      */
     GetSettingsContext() {
@@ -277,22 +275,22 @@ export default struct ISettingsEngine extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNamespaces := CallbackCreate(GetMethod(implObj, "GetNamespaces"), flags, 4)
-        this.vtbl.GetNamespace := CallbackCreate(GetMethod(implObj, "GetNamespace"), flags, 5)
-        this.vtbl.GetErrorDescription := CallbackCreate(GetMethod(implObj, "GetErrorDescription"), flags, 3)
-        this.vtbl.CreateSettingsIdentity := CallbackCreate(GetMethod(implObj, "CreateSettingsIdentity"), flags, 2)
-        this.vtbl.GetStoreStatus := CallbackCreate(GetMethod(implObj, "GetStoreStatus"), flags, 3)
-        this.vtbl.LoadStore := CallbackCreate(GetMethod(implObj, "LoadStore"), flags, 2)
-        this.vtbl.UnloadStore := CallbackCreate(GetMethod(implObj, "UnloadStore"), flags, 2)
-        this.vtbl.RegisterNamespace := CallbackCreate(GetMethod(implObj, "RegisterNamespace"), flags, 5)
-        this.vtbl.UnregisterNamespace := CallbackCreate(GetMethod(implObj, "UnregisterNamespace"), flags, 3)
-        this.vtbl.CreateTargetInfo := CallbackCreate(GetMethod(implObj, "CreateTargetInfo"), flags, 2)
-        this.vtbl.GetTargetInfo := CallbackCreate(GetMethod(implObj, "GetTargetInfo"), flags, 2)
-        this.vtbl.SetTargetInfo := CallbackCreate(GetMethod(implObj, "SetTargetInfo"), flags, 2)
-        this.vtbl.CreateSettingsContext := CallbackCreate(GetMethod(implObj, "CreateSettingsContext"), flags, 4)
-        this.vtbl.SetSettingsContext := CallbackCreate(GetMethod(implObj, "SetSettingsContext"), flags, 2)
-        this.vtbl.ApplySettingsContext := CallbackCreate(GetMethod(implObj, "ApplySettingsContext"), flags, 4)
-        this.vtbl.GetSettingsContext := CallbackCreate(GetMethod(implObj, "GetSettingsContext"), flags, 2)
+        this.vtbl.GetNamespaces := CallbackCreate(ObjBindMethod(implObj, "GetNamespaces"), flags, 4)
+        this.vtbl.GetNamespace := CallbackCreate(ObjBindMethod(implObj, "GetNamespace"), flags, 5)
+        this.vtbl.GetErrorDescription := CallbackCreate(ObjBindMethod(implObj, "GetErrorDescription"), flags, 3)
+        this.vtbl.CreateSettingsIdentity := CallbackCreate(ObjBindMethod(implObj, "CreateSettingsIdentity"), flags, 2)
+        this.vtbl.GetStoreStatus := CallbackCreate(ObjBindMethod(implObj, "GetStoreStatus"), flags, 3)
+        this.vtbl.LoadStore := CallbackCreate(ObjBindMethod(implObj, "LoadStore"), flags, 2)
+        this.vtbl.UnloadStore := CallbackCreate(ObjBindMethod(implObj, "UnloadStore"), flags, 2)
+        this.vtbl.RegisterNamespace := CallbackCreate(ObjBindMethod(implObj, "RegisterNamespace"), flags, 5)
+        this.vtbl.UnregisterNamespace := CallbackCreate(ObjBindMethod(implObj, "UnregisterNamespace"), flags, 3)
+        this.vtbl.CreateTargetInfo := CallbackCreate(ObjBindMethod(implObj, "CreateTargetInfo"), flags, 2)
+        this.vtbl.GetTargetInfo := CallbackCreate(ObjBindMethod(implObj, "GetTargetInfo"), flags, 2)
+        this.vtbl.SetTargetInfo := CallbackCreate(ObjBindMethod(implObj, "SetTargetInfo"), flags, 2)
+        this.vtbl.CreateSettingsContext := CallbackCreate(ObjBindMethod(implObj, "CreateSettingsContext"), flags, 4)
+        this.vtbl.SetSettingsContext := CallbackCreate(ObjBindMethod(implObj, "SetSettingsContext"), flags, 2)
+        this.vtbl.ApplySettingsContext := CallbackCreate(ObjBindMethod(implObj, "ApplySettingsContext"), flags, 4)
+        this.vtbl.GetSettingsContext := CallbackCreate(ObjBindMethod(implObj, "GetSettingsContext"), flags, 2)
     }
 
     Dispose() {

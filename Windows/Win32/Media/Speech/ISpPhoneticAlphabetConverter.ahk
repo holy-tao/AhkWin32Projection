@@ -47,7 +47,6 @@ export default struct ISpPhoneticAlphabetConverter extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetLangId() {
@@ -56,7 +55,6 @@ export default struct ISpPhoneticAlphabetConverter extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} LangID 
      * @returns {HRESULT} 
      */
@@ -66,33 +64,30 @@ export default struct ISpPhoneticAlphabetConverter extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pszSAPIId 
      * @param {Integer} cMaxLength 
      * @returns {Integer} 
      */
     SAPI2UPS(pszSAPIId, cMaxLength) {
-        pszSAPIIdMarshal := pszSAPIId is VarRef ? "ushort*" : "ptr"
+        pszSAPIIdMarshal := pszSAPIId is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(5, this, pszSAPIIdMarshal, pszSAPIId, "ushort*", &pszUPSId := 0, UInt32, cMaxLength, "HRESULT")
         return pszUPSId
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pszUPSId 
      * @param {Integer} cMaxLength 
      * @returns {Integer} 
      */
     UPS2SAPI(pszUPSId, cMaxLength) {
-        pszUPSIdMarshal := pszUPSId is VarRef ? "ushort*" : "ptr"
+        pszUPSIdMarshal := pszUPSId is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(6, this, pszUPSIdMarshal, pszUPSId, "ushort*", &pszSAPIId := 0, UInt32, cMaxLength, "HRESULT")
         return pszSAPIId
     }
 
     /**
-     * 
      * @param {Integer} cSrcLength 
      * @param {BOOL} bSAPI2UPS 
      * @returns {Integer} 
@@ -111,11 +106,11 @@ export default struct ISpPhoneticAlphabetConverter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLangId := CallbackCreate(GetMethod(implObj, "GetLangId"), flags, 2)
-        this.vtbl.SetLangId := CallbackCreate(GetMethod(implObj, "SetLangId"), flags, 2)
-        this.vtbl.SAPI2UPS := CallbackCreate(GetMethod(implObj, "SAPI2UPS"), flags, 4)
-        this.vtbl.UPS2SAPI := CallbackCreate(GetMethod(implObj, "UPS2SAPI"), flags, 4)
-        this.vtbl.GetMaxConvertLength := CallbackCreate(GetMethod(implObj, "GetMaxConvertLength"), flags, 4)
+        this.vtbl.GetLangId := CallbackCreate(ObjBindMethod(implObj, "GetLangId"), flags, 2)
+        this.vtbl.SetLangId := CallbackCreate(ObjBindMethod(implObj, "SetLangId"), flags, 2)
+        this.vtbl.SAPI2UPS := CallbackCreate(ObjBindMethod(implObj, "SAPI2UPS"), flags, 4)
+        this.vtbl.UPS2SAPI := CallbackCreate(ObjBindMethod(implObj, "UPS2SAPI"), flags, 4)
+        this.vtbl.GetMaxConvertLength := CallbackCreate(ObjBindMethod(implObj, "GetMaxConvertLength"), flags, 4)
     }
 
     Dispose() {

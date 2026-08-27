@@ -94,7 +94,6 @@ export default struct IEventPublisher extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PublisherID() {
@@ -280,20 +279,20 @@ export default struct IEventPublisher extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_PublisherID := CallbackCreate(GetMethod(implObj, "get_PublisherID"), flags, 2)
-        this.vtbl.put_PublisherID := CallbackCreate(GetMethod(implObj, "put_PublisherID"), flags, 2)
-        this.vtbl.get_PublisherName := CallbackCreate(GetMethod(implObj, "get_PublisherName"), flags, 2)
-        this.vtbl.put_PublisherName := CallbackCreate(GetMethod(implObj, "put_PublisherName"), flags, 2)
-        this.vtbl.get_PublisherType := CallbackCreate(GetMethod(implObj, "get_PublisherType"), flags, 2)
-        this.vtbl.put_PublisherType := CallbackCreate(GetMethod(implObj, "put_PublisherType"), flags, 2)
-        this.vtbl.get_OwnerSID := CallbackCreate(GetMethod(implObj, "get_OwnerSID"), flags, 2)
-        this.vtbl.put_OwnerSID := CallbackCreate(GetMethod(implObj, "put_OwnerSID"), flags, 2)
-        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
-        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
-        this.vtbl.GetDefaultProperty := CallbackCreate(GetMethod(implObj, "GetDefaultProperty"), flags, 3)
-        this.vtbl.PutDefaultProperty := CallbackCreate(GetMethod(implObj, "PutDefaultProperty"), flags, 3)
-        this.vtbl.RemoveDefaultProperty := CallbackCreate(GetMethod(implObj, "RemoveDefaultProperty"), flags, 2)
-        this.vtbl.GetDefaultPropertyCollection := CallbackCreate(GetMethod(implObj, "GetDefaultPropertyCollection"), flags, 2)
+        this.vtbl.get_PublisherID := CallbackCreate(ObjBindMethod(implObj, "get_PublisherID"), flags, 2)
+        this.vtbl.put_PublisherID := CallbackCreate(ObjBindMethod(implObj, "put_PublisherID"), flags, 2)
+        this.vtbl.get_PublisherName := CallbackCreate(ObjBindMethod(implObj, "get_PublisherName"), flags, 2)
+        this.vtbl.put_PublisherName := CallbackCreate(ObjBindMethod(implObj, "put_PublisherName"), flags, 2)
+        this.vtbl.get_PublisherType := CallbackCreate(ObjBindMethod(implObj, "get_PublisherType"), flags, 2)
+        this.vtbl.put_PublisherType := CallbackCreate(ObjBindMethod(implObj, "put_PublisherType"), flags, 2)
+        this.vtbl.get_OwnerSID := CallbackCreate(ObjBindMethod(implObj, "get_OwnerSID"), flags, 2)
+        this.vtbl.put_OwnerSID := CallbackCreate(ObjBindMethod(implObj, "put_OwnerSID"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(ObjBindMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(ObjBindMethod(implObj, "put_Description"), flags, 2)
+        this.vtbl.GetDefaultProperty := CallbackCreate(ObjBindMethod(implObj, "GetDefaultProperty"), flags, 3)
+        this.vtbl.PutDefaultProperty := CallbackCreate(ObjBindMethod(implObj, "PutDefaultProperty"), flags, 3)
+        this.vtbl.RemoveDefaultProperty := CallbackCreate(ObjBindMethod(implObj, "RemoveDefaultProperty"), flags, 2)
+        this.vtbl.GetDefaultPropertyCollection := CallbackCreate(ObjBindMethod(implObj, "GetDefaultPropertyCollection"), flags, 2)
     }
 
     Dispose() {

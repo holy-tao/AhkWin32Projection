@@ -161,8 +161,8 @@ export default struct ICustomDestinationList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icustomdestinationlist-beginlist
      */
     BeginList(pcMinSlots, riid, ppv) {
-        pcMinSlotsMarshal := pcMinSlots is VarRef ? "uint*" : "ptr"
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+        pcMinSlotsMarshal := pcMinSlots is VarRef ? "uint*" : IntPtr
+        ppvMarshal := ppv is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, pcMinSlotsMarshal, pcMinSlots, Guid.Ptr, riid, ppvMarshal, ppv, "HRESULT")
         return result
@@ -415,15 +415,15 @@ export default struct ICustomDestinationList extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAppID := CallbackCreate(GetMethod(implObj, "SetAppID"), flags, 2)
-        this.vtbl.BeginList := CallbackCreate(GetMethod(implObj, "BeginList"), flags, 4)
-        this.vtbl.AppendCategory := CallbackCreate(GetMethod(implObj, "AppendCategory"), flags, 3)
-        this.vtbl.AppendKnownCategory := CallbackCreate(GetMethod(implObj, "AppendKnownCategory"), flags, 2)
-        this.vtbl.AddUserTasks := CallbackCreate(GetMethod(implObj, "AddUserTasks"), flags, 2)
-        this.vtbl.CommitList := CallbackCreate(GetMethod(implObj, "CommitList"), flags, 1)
-        this.vtbl.GetRemovedDestinations := CallbackCreate(GetMethod(implObj, "GetRemovedDestinations"), flags, 3)
-        this.vtbl.DeleteList := CallbackCreate(GetMethod(implObj, "DeleteList"), flags, 2)
-        this.vtbl.AbortList := CallbackCreate(GetMethod(implObj, "AbortList"), flags, 1)
+        this.vtbl.SetAppID := CallbackCreate(ObjBindMethod(implObj, "SetAppID"), flags, 2)
+        this.vtbl.BeginList := CallbackCreate(ObjBindMethod(implObj, "BeginList"), flags, 4)
+        this.vtbl.AppendCategory := CallbackCreate(ObjBindMethod(implObj, "AppendCategory"), flags, 3)
+        this.vtbl.AppendKnownCategory := CallbackCreate(ObjBindMethod(implObj, "AppendKnownCategory"), flags, 2)
+        this.vtbl.AddUserTasks := CallbackCreate(ObjBindMethod(implObj, "AddUserTasks"), flags, 2)
+        this.vtbl.CommitList := CallbackCreate(ObjBindMethod(implObj, "CommitList"), flags, 1)
+        this.vtbl.GetRemovedDestinations := CallbackCreate(ObjBindMethod(implObj, "GetRemovedDestinations"), flags, 3)
+        this.vtbl.DeleteList := CallbackCreate(ObjBindMethod(implObj, "DeleteList"), flags, 2)
+        this.vtbl.AbortList := CallbackCreate(ObjBindMethod(implObj, "AbortList"), flags, 1)
     }
 
     Dispose() {

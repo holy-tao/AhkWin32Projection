@@ -53,7 +53,6 @@ export default struct IADsNameTranslate extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnChaseReferral 
      * @returns {HRESULT} 
      */
@@ -175,13 +174,13 @@ export default struct IADsNameTranslate extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_ChaseReferral := CallbackCreate(GetMethod(implObj, "put_ChaseReferral"), flags, 2)
-        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 3)
-        this.vtbl.InitEx := CallbackCreate(GetMethod(implObj, "InitEx"), flags, 6)
-        this.vtbl.Set := CallbackCreate(GetMethod(implObj, "Set"), flags, 3)
-        this.vtbl.Get := CallbackCreate(GetMethod(implObj, "Get"), flags, 3)
-        this.vtbl.SetEx := CallbackCreate(GetMethod(implObj, "SetEx"), flags, 3)
-        this.vtbl.GetEx := CallbackCreate(GetMethod(implObj, "GetEx"), flags, 3)
+        this.vtbl.put_ChaseReferral := CallbackCreate(ObjBindMethod(implObj, "put_ChaseReferral"), flags, 2)
+        this.vtbl.Init := CallbackCreate(ObjBindMethod(implObj, "Init"), flags, 3)
+        this.vtbl.InitEx := CallbackCreate(ObjBindMethod(implObj, "InitEx"), flags, 6)
+        this.vtbl.Set := CallbackCreate(ObjBindMethod(implObj, "Set"), flags, 3)
+        this.vtbl.Get := CallbackCreate(ObjBindMethod(implObj, "Get"), flags, 3)
+        this.vtbl.SetEx := CallbackCreate(ObjBindMethod(implObj, "SetEx"), flags, 3)
+        this.vtbl.GetEx := CallbackCreate(ObjBindMethod(implObj, "GetEx"), flags, 3)
     }
 
     Dispose() {

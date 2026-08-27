@@ -22,7 +22,6 @@ export default struct LPFNDEVMODE {
     }
 
     /**
-     * 
      * @param {HWND} param0 
      * @param {HMODULE} param1 
      * @param {Pointer<DEVMODEA>} param2 

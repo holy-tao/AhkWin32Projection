@@ -29,14 +29,14 @@ export default struct WS_HTTP_REDIRECT_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} state The 'state' as specified as part of <a href="https://docs.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_http_redirect_callback_context">WS_HTTP_REDIRECT_CALLBACK_CONTEXT</a> 'state' field.
      * @param {Pointer<WS_STRING>} originalUrl The original endpoint URL that the message was sent to.
      * @param {Pointer<WS_STRING>} newUrl The endpoint URL that the message is about to be forwarded to.
      * @returns {HRESULT} This callback function does not return a value.
      */
     Call(state, originalUrl, newUrl) {
-        stateMarshal := state is VarRef ? "ptr" : "ptr"
+        stateMarshal := state is VarRef ? "ptr" : IntPtr
+        stateMarshal := state == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, stateMarshal, state, WS_STRING.Ptr, originalUrl, WS_STRING.Ptr, newUrl, "HRESULT")
         return result

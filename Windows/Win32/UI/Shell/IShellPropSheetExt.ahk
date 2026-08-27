@@ -105,8 +105,8 @@ export default struct IShellPropSheetExt extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddPages := CallbackCreate(GetMethod(implObj, "AddPages"), flags, 3)
-        this.vtbl.ReplacePage := CallbackCreate(GetMethod(implObj, "ReplacePage"), flags, 4)
+        this.vtbl.AddPages := CallbackCreate(ObjBindMethod(implObj, "AddPages"), flags, 3)
+        this.vtbl.ReplacePage := CallbackCreate(ObjBindMethod(implObj, "ReplacePage"), flags, 4)
     }
 
     Dispose() {

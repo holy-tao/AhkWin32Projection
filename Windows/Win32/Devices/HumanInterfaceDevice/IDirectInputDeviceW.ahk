@@ -61,7 +61,6 @@ export default struct IDirectInputDeviceW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DIDEVCAPS>} param0 
      * @returns {HRESULT} 
      */
@@ -81,7 +80,7 @@ export default struct IDirectInputDeviceW extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-enumobjects
      */
     EnumObjects(param0, param1, param2) {
-        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+        param1Marshal := param1 is VarRef ? "ptr" : IntPtr
 
         result := ComCall(4, this, LPDIENUMDEVICEOBJECTSCALLBACKW, param0, param1Marshal, param1, UInt32, param2, "HRESULT")
         return result
@@ -106,7 +105,6 @@ export default struct IDirectInputDeviceW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} param0 
      * @param {Pointer<DIPROPHEADER>} param1 
      * @returns {HRESULT} 
@@ -117,7 +115,6 @@ export default struct IDirectInputDeviceW extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Acquire() {
@@ -126,7 +123,6 @@ export default struct IDirectInputDeviceW extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Unacquire() {
@@ -135,20 +131,18 @@ export default struct IDirectInputDeviceW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<Void>} param1 
      * @returns {HRESULT} 
      */
     GetDeviceState(param0, param1) {
-        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+        param1Marshal := param1 is VarRef ? "ptr" : IntPtr
 
         result := ComCall(9, this, UInt32, param0, param1Marshal, param1, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<DIDEVICEOBJECTDATA>} param1 
      * @param {Pointer<Integer>} param2 
@@ -156,14 +150,13 @@ export default struct IDirectInputDeviceW extends IUnknown {
      * @returns {HRESULT} 
      */
     GetDeviceData(param0, param1, param2, param3) {
-        param2Marshal := param2 is VarRef ? "uint*" : "ptr"
+        param2Marshal := param2 is VarRef ? "uint*" : IntPtr
 
         result := ComCall(10, this, UInt32, param0, DIDEVICEOBJECTDATA.Ptr, param1, param2Marshal, param2, UInt32, param3, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<DIDATAFORMAT>} param0 
      * @returns {HRESULT} 
      */
@@ -173,7 +166,6 @@ export default struct IDirectInputDeviceW extends IUnknown {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @returns {HRESULT} 
      */
@@ -183,7 +175,6 @@ export default struct IDirectInputDeviceW extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 
@@ -194,7 +185,6 @@ export default struct IDirectInputDeviceW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DIDEVICEOBJECTINSTANCEW>} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
@@ -206,7 +196,6 @@ export default struct IDirectInputDeviceW extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DIDEVICEINSTANCEW>} param0 
      * @returns {HRESULT} 
      */
@@ -216,7 +205,6 @@ export default struct IDirectInputDeviceW extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 
@@ -271,21 +259,21 @@ export default struct IDirectInputDeviceW extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCapabilities := CallbackCreate(GetMethod(implObj, "GetCapabilities"), flags, 2)
-        this.vtbl.EnumObjects := CallbackCreate(GetMethod(implObj, "EnumObjects"), flags, 4)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
-        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 3)
-        this.vtbl.Acquire := CallbackCreate(GetMethod(implObj, "Acquire"), flags, 1)
-        this.vtbl.Unacquire := CallbackCreate(GetMethod(implObj, "Unacquire"), flags, 1)
-        this.vtbl.GetDeviceState := CallbackCreate(GetMethod(implObj, "GetDeviceState"), flags, 3)
-        this.vtbl.GetDeviceData := CallbackCreate(GetMethod(implObj, "GetDeviceData"), flags, 5)
-        this.vtbl.SetDataFormat := CallbackCreate(GetMethod(implObj, "SetDataFormat"), flags, 2)
-        this.vtbl.SetEventNotification := CallbackCreate(GetMethod(implObj, "SetEventNotification"), flags, 2)
-        this.vtbl.SetCooperativeLevel := CallbackCreate(GetMethod(implObj, "SetCooperativeLevel"), flags, 3)
-        this.vtbl.GetObjectInfo := CallbackCreate(GetMethod(implObj, "GetObjectInfo"), flags, 4)
-        this.vtbl.GetDeviceInfo := CallbackCreate(GetMethod(implObj, "GetDeviceInfo"), flags, 2)
-        this.vtbl.RunControlPanel := CallbackCreate(GetMethod(implObj, "RunControlPanel"), flags, 3)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
+        this.vtbl.GetCapabilities := CallbackCreate(ObjBindMethod(implObj, "GetCapabilities"), flags, 2)
+        this.vtbl.EnumObjects := CallbackCreate(ObjBindMethod(implObj, "EnumObjects"), flags, 4)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.SetProperty := CallbackCreate(ObjBindMethod(implObj, "SetProperty"), flags, 3)
+        this.vtbl.Acquire := CallbackCreate(ObjBindMethod(implObj, "Acquire"), flags, 1)
+        this.vtbl.Unacquire := CallbackCreate(ObjBindMethod(implObj, "Unacquire"), flags, 1)
+        this.vtbl.GetDeviceState := CallbackCreate(ObjBindMethod(implObj, "GetDeviceState"), flags, 3)
+        this.vtbl.GetDeviceData := CallbackCreate(ObjBindMethod(implObj, "GetDeviceData"), flags, 5)
+        this.vtbl.SetDataFormat := CallbackCreate(ObjBindMethod(implObj, "SetDataFormat"), flags, 2)
+        this.vtbl.SetEventNotification := CallbackCreate(ObjBindMethod(implObj, "SetEventNotification"), flags, 2)
+        this.vtbl.SetCooperativeLevel := CallbackCreate(ObjBindMethod(implObj, "SetCooperativeLevel"), flags, 3)
+        this.vtbl.GetObjectInfo := CallbackCreate(ObjBindMethod(implObj, "GetObjectInfo"), flags, 4)
+        this.vtbl.GetDeviceInfo := CallbackCreate(ObjBindMethod(implObj, "GetDeviceInfo"), flags, 2)
+        this.vtbl.RunControlPanel := CallbackCreate(ObjBindMethod(implObj, "RunControlPanel"), flags, 3)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 4)
     }
 
     Dispose() {

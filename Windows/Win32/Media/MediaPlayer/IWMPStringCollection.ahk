@@ -72,7 +72,7 @@ export default struct IWMPStringCollection extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpstringcollection-get_count
      */
     get_count(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+        plCountMarshal := plCount is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, plCountMarshal, plCount, "HRESULT")
         return result
@@ -121,8 +121,8 @@ export default struct IWMPStringCollection extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_count := CallbackCreate(GetMethod(implObj, "get_count"), flags, 2)
-        this.vtbl.item := CallbackCreate(GetMethod(implObj, "item"), flags, 3)
+        this.vtbl.get_count := CallbackCreate(ObjBindMethod(implObj, "get_count"), flags, 2)
+        this.vtbl.item := CallbackCreate(ObjBindMethod(implObj, "item"), flags, 3)
     }
 
     Dispose() {

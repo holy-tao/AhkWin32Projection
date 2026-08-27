@@ -911,16 +911,16 @@ export default struct ICspAlgorithm extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAlgorithmOid := CallbackCreate(GetMethod(implObj, "GetAlgorithmOid"), flags, 4)
-        this.vtbl.get_DefaultLength := CallbackCreate(GetMethod(implObj, "get_DefaultLength"), flags, 2)
-        this.vtbl.get_IncrementLength := CallbackCreate(GetMethod(implObj, "get_IncrementLength"), flags, 2)
-        this.vtbl.get_LongName := CallbackCreate(GetMethod(implObj, "get_LongName"), flags, 2)
-        this.vtbl.get_Valid := CallbackCreate(GetMethod(implObj, "get_Valid"), flags, 2)
-        this.vtbl.get_MaxLength := CallbackCreate(GetMethod(implObj, "get_MaxLength"), flags, 2)
-        this.vtbl.get_MinLength := CallbackCreate(GetMethod(implObj, "get_MinLength"), flags, 2)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
-        this.vtbl.get_Operations := CallbackCreate(GetMethod(implObj, "get_Operations"), flags, 2)
+        this.vtbl.GetAlgorithmOid := CallbackCreate(ObjBindMethod(implObj, "GetAlgorithmOid"), flags, 4)
+        this.vtbl.get_DefaultLength := CallbackCreate(ObjBindMethod(implObj, "get_DefaultLength"), flags, 2)
+        this.vtbl.get_IncrementLength := CallbackCreate(ObjBindMethod(implObj, "get_IncrementLength"), flags, 2)
+        this.vtbl.get_LongName := CallbackCreate(ObjBindMethod(implObj, "get_LongName"), flags, 2)
+        this.vtbl.get_Valid := CallbackCreate(ObjBindMethod(implObj, "get_Valid"), flags, 2)
+        this.vtbl.get_MaxLength := CallbackCreate(ObjBindMethod(implObj, "get_MaxLength"), flags, 2)
+        this.vtbl.get_MinLength := CallbackCreate(ObjBindMethod(implObj, "get_MinLength"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(ObjBindMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_Operations := CallbackCreate(ObjBindMethod(implObj, "get_Operations"), flags, 2)
     }
 
     Dispose() {

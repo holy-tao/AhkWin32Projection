@@ -20,7 +20,6 @@ export default struct PCLUSAPI_CLUSTER_GROUP_CONTROL {
     }
 
     /**
-     * 
      * @param {HGROUP} _hGroup 
      * @param {HNODE} hHostNode 
      * @param {Integer} dwControlCode 
@@ -32,9 +31,13 @@ export default struct PCLUSAPI_CLUSTER_GROUP_CONTROL {
      * @returns {Integer} 
      */
     Call(_hGroup, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
-        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+        hHostNodeMarshal := hHostNode == 0 ? IntPtr : HNODE
+        lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+        lpOutBufferMarshal := lpOutBuffer == 0 ? IntPtr : IntPtr
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : IntPtr
+        lpBytesReturnedMarshal := lpBytesReturned == 0 ? IntPtr : "uint*"
 
-        result := DllCall(this.value, HGROUP, _hGroup, HNODE, hHostNode, UInt32, dwControlCode, IntPtr, lpInBuffer, UInt32, nInBufferSize, IntPtr, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, UInt32)
+        result := DllCall(this.value, HGROUP, _hGroup, hHostNodeMarshal, hHostNode, UInt32, dwControlCode, lpInBufferMarshal, lpInBuffer, UInt32, nInBufferSize, lpOutBufferMarshal, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, UInt32)
         return result
     }
 

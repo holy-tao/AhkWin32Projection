@@ -79,7 +79,7 @@ export default struct IWMPControls2 extends IWMPControls {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.step := CallbackCreate(GetMethod(implObj, "step"), flags, 2)
+        this.vtbl.step := CallbackCreate(ObjBindMethod(implObj, "step"), flags, 2)
     }
 
     Dispose() {

@@ -91,9 +91,9 @@ export default struct IMFTimedTextTrackList extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 1)
-        this.vtbl.GetTrack := CallbackCreate(GetMethod(implObj, "GetTrack"), flags, 3)
-        this.vtbl.GetTrackById := CallbackCreate(GetMethod(implObj, "GetTrackById"), flags, 3)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 1)
+        this.vtbl.GetTrack := CallbackCreate(ObjBindMethod(implObj, "GetTrack"), flags, 3)
+        this.vtbl.GetTrackById := CallbackCreate(ObjBindMethod(implObj, "GetTrackById"), flags, 3)
     }
 
     Dispose() {

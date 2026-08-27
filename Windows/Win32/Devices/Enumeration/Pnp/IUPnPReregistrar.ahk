@@ -309,8 +309,8 @@ export default struct IUPnPReregistrar extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ReregisterDevice := CallbackCreate(GetMethod(implObj, "ReregisterDevice"), flags, 8)
-        this.vtbl.ReregisterRunningDevice := CallbackCreate(GetMethod(implObj, "ReregisterRunningDevice"), flags, 7)
+        this.vtbl.ReregisterDevice := CallbackCreate(ObjBindMethod(implObj, "ReregisterDevice"), flags, 8)
+        this.vtbl.ReregisterRunningDevice := CallbackCreate(ObjBindMethod(implObj, "ReregisterRunningDevice"), flags, 7)
     }
 
     Dispose() {

@@ -21,7 +21,6 @@ export default struct PSYMBOLSERVERISSTORE {
     }
 
     /**
-     * 
      * @param {PSTR} param0 
      * @returns {BOOL} 
      */

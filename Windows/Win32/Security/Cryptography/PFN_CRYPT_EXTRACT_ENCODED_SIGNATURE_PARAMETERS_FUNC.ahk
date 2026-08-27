@@ -39,7 +39,6 @@ export default struct PFN_CRYPT_EXTRACT_ENCODED_SIGNATURE_PARAMETERS_FUNC {
     }
 
     /**
-     * 
      * @param {CERT_QUERY_ENCODING_TYPE} dwCertEncodingType Specifies the type of encoding used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING Currently defined encoding types are:
@@ -58,8 +57,8 @@ export default struct PFN_CRYPT_EXTRACT_ENCODED_SIGNATURE_PARAMETERS_FUNC {
      * If this callback function does not support the signature algorithm, it must return <b>FALSE</b> and call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-setlasterror">SetLastError</a> with <b>ERROR_NOT_SUPPORTED</b>.
      */
     Call(dwCertEncodingType, pSignatureAlgorithm, ppvDecodedSignPara, ppwszCNGHashAlgid) {
-        ppvDecodedSignParaMarshal := ppvDecodedSignPara is VarRef ? "ptr*" : "ptr"
-        ppwszCNGHashAlgidMarshal := ppwszCNGHashAlgid is VarRef ? "ptr*" : "ptr"
+        ppvDecodedSignParaMarshal := ppvDecodedSignPara is VarRef ? "ptr*" : IntPtr
+        ppwszCNGHashAlgidMarshal := ppwszCNGHashAlgid is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, CERT_QUERY_ENCODING_TYPE, dwCertEncodingType, CRYPT_ALGORITHM_IDENTIFIER.Ptr, pSignatureAlgorithm, ppvDecodedSignParaMarshal, ppvDecodedSignPara, ppwszCNGHashAlgidMarshal, ppwszCNGHashAlgid, BOOL)
         return result

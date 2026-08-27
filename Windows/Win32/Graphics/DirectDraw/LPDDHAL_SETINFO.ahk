@@ -20,7 +20,6 @@ export default struct LPDDHAL_SETINFO {
     }
 
     /**
-     * 
      * @param {Pointer<DDHALINFO>} lpDDHalInfo 
      * @param {BOOL} reset 
      * @returns {BOOL} 

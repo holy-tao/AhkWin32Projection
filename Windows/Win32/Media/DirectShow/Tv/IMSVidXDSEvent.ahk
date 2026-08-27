@@ -67,7 +67,7 @@ export default struct IMSVidXDSEvent extends IMSVidFeatureEvent {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RatingChange := CallbackCreate(GetMethod(implObj, "RatingChange"), flags, 7)
+        this.vtbl.RatingChange := CallbackCreate(ObjBindMethod(implObj, "RatingChange"), flags, 7)
     }
 
     Dispose() {

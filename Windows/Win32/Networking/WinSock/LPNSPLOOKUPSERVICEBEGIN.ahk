@@ -120,7 +120,6 @@ export default struct LPNSPLOOKUPSERVICEBEGIN {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} lpProviderId A pointer to the name service provider identifier to query.
      * @param {Pointer<WSAQUERYSETW>} lpqsRestrictions A pointer to the search criteria. See Remarks.
      * @param {Pointer<WSASERVICECLASSINFOW>} lpServiceClassInfo A pointer to the  <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaserviceclassinfow">WSASERVICECLASSINFO</a> structure that contains schema information for the service.

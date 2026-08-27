@@ -19,7 +19,6 @@ export default struct PCLUSAPI_REMOVE_RESOURCE_FROM_CLUSTER_SHARED_VOLUMES {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @returns {Integer} 
      */

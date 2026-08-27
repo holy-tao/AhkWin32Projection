@@ -27,7 +27,6 @@ export default struct PFN_AUTHENTICODE_DIGEST_SIGN_EX {
     }
 
     /**
-     * 
      * @param {Pointer<CRYPT_INTEGER_BLOB>} pMetadataBlob Pointer to a [**CRYPT_DATA_BLOB**](/windows/win32/api/wincrypt/ns-wincrypt-crypt_integer_blob) structure that contains metadata for digest signing.
      * @param {ALG_ID} digestAlgId Specifies the digest algorithm to be used for digest signing.
      * @param {Pointer<Integer>} pbToBeSignedDigest Pointer to a buffer which contains the digest to be signed.
@@ -37,9 +36,10 @@ export default struct PFN_AUTHENTICODE_DIGEST_SIGN_EX {
      * @returns {Pointer<CERT_CONTEXT>} Pointer to [**PCCERT_CONTEXT\***](/windows/win32/api/wincrypt/ns-wincrypt-cert_context) which receives the certificate chain signing certificate.
      */
     Call(pMetadataBlob, digestAlgId, pbToBeSignedDigest, cbToBeSignedDigest, pSignedDigest, hCertChainStore) {
-        pbToBeSignedDigestMarshal := pbToBeSignedDigest is VarRef ? "char*" : "ptr"
+        pMetadataBlobMarshal := pMetadataBlob == 0 ? IntPtr : CRYPT_INTEGER_BLOB.Ptr
+        pbToBeSignedDigestMarshal := pbToBeSignedDigest is VarRef ? "char*" : IntPtr
 
-        result := DllCall(this.value, CRYPT_INTEGER_BLOB.Ptr, pMetadataBlob, ALG_ID, digestAlgId, pbToBeSignedDigestMarshal, pbToBeSignedDigest, UInt32, cbToBeSignedDigest, CRYPT_INTEGER_BLOB.Ptr, pSignedDigest, "ptr*", &ppSignerCert := 0, HCERTSTORE, hCertChainStore, "HRESULT")
+        result := DllCall(this.value, pMetadataBlobMarshal, pMetadataBlob, ALG_ID, digestAlgId, pbToBeSignedDigestMarshal, pbToBeSignedDigest, UInt32, cbToBeSignedDigest, CRYPT_INTEGER_BLOB.Ptr, pSignedDigest, "ptr*", &ppSignerCert := 0, HCERTSTORE, hCertChainStore, "HRESULT")
         return ppSignerCert
     }
 

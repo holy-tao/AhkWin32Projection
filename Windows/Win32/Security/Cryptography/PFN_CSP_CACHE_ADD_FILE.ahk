@@ -19,7 +19,6 @@ export default struct PFN_CSP_CACHE_ADD_FILE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvCacheContext 
      * @param {PWSTR} wszTag 
      * @param {Integer} dwFlags 
@@ -30,7 +29,7 @@ export default struct PFN_CSP_CACHE_ADD_FILE {
     Call(pvCacheContext, wszTag, dwFlags, pbData, cbData) {
         wszTag := wszTag is String ? StrPtr(wszTag) : wszTag
 
-        pvCacheContextMarshal := pvCacheContext is VarRef ? "ptr" : "ptr"
+        pvCacheContextMarshal := pvCacheContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, pvCacheContextMarshal, pvCacheContext, "ptr", wszTag, UInt32, dwFlags, IntPtr, pbData, UInt32, cbData, UInt32)
         return result

@@ -21,14 +21,13 @@ export default struct LPRESOURCE_CALLBACK {
     }
 
     /**
-     * 
      * @param {HRESOURCE} param0 
      * @param {HRESOURCE} param1 
      * @param {Pointer<Void>} param2 
      * @returns {Integer} 
      */
     Call(param0, param1, param2) {
-        param2Marshal := param2 is VarRef ? "ptr" : "ptr"
+        param2Marshal := param2 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, HRESOURCE, param0, HRESOURCE, param1, param2Marshal, param2, UInt32)
         return result

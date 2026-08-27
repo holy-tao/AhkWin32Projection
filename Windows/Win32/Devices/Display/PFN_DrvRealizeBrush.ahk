@@ -22,7 +22,6 @@ export default struct PFN_DrvRealizeBrush {
     }
 
     /**
-     * 
      * @param {Pointer<BRUSHOBJ>} param0 
      * @param {Pointer<SURFOBJ>} param1 
      * @param {Pointer<SURFOBJ>} param2 

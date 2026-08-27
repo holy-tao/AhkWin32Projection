@@ -45,7 +45,6 @@ export default struct IFsrmFileCondition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {FsrmFileConditionType} 
      */
     get_Type() {
@@ -54,7 +53,6 @@ export default struct IFsrmFileCondition extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Delete() {
@@ -71,8 +69,8 @@ export default struct IFsrmFileCondition extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.get_Type := CallbackCreate(ObjBindMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 1)
     }
 
     Dispose() {

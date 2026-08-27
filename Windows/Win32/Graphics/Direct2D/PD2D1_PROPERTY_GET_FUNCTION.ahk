@@ -24,7 +24,6 @@ export default struct PD2D1_PROPERTY_GET_FUNCTION {
     }
 
     /**
-     * 
      * @param {IUnknown} _effect A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface for the effect on which the property will be retrieved.
      * @param {Pointer<Integer>} data A pointer to a variable that stores the data that this function retrieves on the property.
      * @param {Integer} dataSize The number of bytes in the property to retrieve.
@@ -32,8 +31,10 @@ export default struct PD2D1_PROPERTY_GET_FUNCTION {
      * @returns {HRESULT} Returns S_OK if successful; otherwise, returns an <b>HRESULT</b> error code.
      */
     Call(_effect, data, dataSize, actualSize) {
-        dataMarshal := data is VarRef ? "char*" : "ptr"
-        actualSizeMarshal := actualSize is VarRef ? "uint*" : "ptr"
+        dataMarshal := data is VarRef ? "char*" : IntPtr
+        dataMarshal := data == 0 ? IntPtr : "char*"
+        actualSizeMarshal := actualSize is VarRef ? "uint*" : IntPtr
+        actualSizeMarshal := actualSize == 0 ? IntPtr : "uint*"
 
         result := DllCall(this.value, "ptr", _effect, dataMarshal, data, UInt32, dataSize, actualSizeMarshal, actualSize, "HRESULT")
         return result

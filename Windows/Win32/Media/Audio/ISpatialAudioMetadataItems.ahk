@@ -104,11 +104,11 @@ export default struct ISpatialAudioMetadataItems extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFrameCount := CallbackCreate(GetMethod(implObj, "GetFrameCount"), flags, 2)
-        this.vtbl.GetItemCount := CallbackCreate(GetMethod(implObj, "GetItemCount"), flags, 2)
-        this.vtbl.GetMaxItemCount := CallbackCreate(GetMethod(implObj, "GetMaxItemCount"), flags, 2)
-        this.vtbl.GetMaxValueBufferLength := CallbackCreate(GetMethod(implObj, "GetMaxValueBufferLength"), flags, 2)
-        this.vtbl.GetInfo := CallbackCreate(GetMethod(implObj, "GetInfo"), flags, 2)
+        this.vtbl.GetFrameCount := CallbackCreate(ObjBindMethod(implObj, "GetFrameCount"), flags, 2)
+        this.vtbl.GetItemCount := CallbackCreate(ObjBindMethod(implObj, "GetItemCount"), flags, 2)
+        this.vtbl.GetMaxItemCount := CallbackCreate(ObjBindMethod(implObj, "GetMaxItemCount"), flags, 2)
+        this.vtbl.GetMaxValueBufferLength := CallbackCreate(ObjBindMethod(implObj, "GetMaxValueBufferLength"), flags, 2)
+        this.vtbl.GetInfo := CallbackCreate(ObjBindMethod(implObj, "GetInfo"), flags, 2)
     }
 
     Dispose() {

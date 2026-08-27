@@ -20,7 +20,6 @@ export default struct PSAM_CREDENTIAL_UPDATE_REGISTER_MAPPED_ENTRYPOINTS_ROUTINE
     }
 
     /**
-     * 
      * @param {Pointer<SAM_REGISTER_MAPPING_TABLE>} Table 
      * @returns {NTSTATUS} 
      */

@@ -68,7 +68,6 @@ export default struct IADsPath extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Type() {
@@ -77,7 +76,6 @@ export default struct IADsPath extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnType 
      * @returns {HRESULT} 
      */
@@ -87,7 +85,6 @@ export default struct IADsPath extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_VolumeName() {
@@ -97,7 +94,6 @@ export default struct IADsPath extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrVolumeName 
      * @returns {HRESULT} 
      */
@@ -109,7 +105,6 @@ export default struct IADsPath extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Path() {
@@ -119,7 +114,6 @@ export default struct IADsPath extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPath 
      * @returns {HRESULT} 
      */
@@ -139,12 +133,12 @@ export default struct IADsPath extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
-        this.vtbl.put_Type := CallbackCreate(GetMethod(implObj, "put_Type"), flags, 2)
-        this.vtbl.get_VolumeName := CallbackCreate(GetMethod(implObj, "get_VolumeName"), flags, 2)
-        this.vtbl.put_VolumeName := CallbackCreate(GetMethod(implObj, "put_VolumeName"), flags, 2)
-        this.vtbl.get_Path := CallbackCreate(GetMethod(implObj, "get_Path"), flags, 2)
-        this.vtbl.put_Path := CallbackCreate(GetMethod(implObj, "put_Path"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(ObjBindMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.put_Type := CallbackCreate(ObjBindMethod(implObj, "put_Type"), flags, 2)
+        this.vtbl.get_VolumeName := CallbackCreate(ObjBindMethod(implObj, "get_VolumeName"), flags, 2)
+        this.vtbl.put_VolumeName := CallbackCreate(ObjBindMethod(implObj, "put_VolumeName"), flags, 2)
+        this.vtbl.get_Path := CallbackCreate(ObjBindMethod(implObj, "get_Path"), flags, 2)
+        this.vtbl.put_Path := CallbackCreate(ObjBindMethod(implObj, "put_Path"), flags, 2)
     }
 
     Dispose() {

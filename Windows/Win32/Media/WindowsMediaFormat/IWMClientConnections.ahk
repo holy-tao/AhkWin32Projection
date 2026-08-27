@@ -70,8 +70,8 @@ export default struct IWMClientConnections extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetClientCount := CallbackCreate(GetMethod(implObj, "GetClientCount"), flags, 2)
-        this.vtbl.GetClientProperties := CallbackCreate(GetMethod(implObj, "GetClientProperties"), flags, 3)
+        this.vtbl.GetClientCount := CallbackCreate(ObjBindMethod(implObj, "GetClientCount"), flags, 2)
+        this.vtbl.GetClientProperties := CallbackCreate(ObjBindMethod(implObj, "GetClientProperties"), flags, 3)
     }
 
     Dispose() {

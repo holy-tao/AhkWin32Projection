@@ -93,7 +93,10 @@ export default struct IAutoComplete extends IUnknown {
         pwszRegKeyPath := pwszRegKeyPath is String ? StrPtr(pwszRegKeyPath) : pwszRegKeyPath
         pwszQuickComplete := pwszQuickComplete is String ? StrPtr(pwszQuickComplete) : pwszQuickComplete
 
-        result := ComCall(3, this, HWND, hwndEdit, "ptr", punkACL, "ptr", pwszRegKeyPath, "ptr", pwszQuickComplete, "HRESULT")
+        pwszRegKeyPathMarshal := pwszRegKeyPath == 0 ? IntPtr : PWSTR
+        pwszQuickCompleteMarshal := pwszQuickComplete == 0 ? IntPtr : PWSTR
+
+        result := ComCall(3, this, HWND, hwndEdit, "ptr", punkACL, pwszRegKeyPathMarshal, pwszRegKeyPath, pwszQuickCompleteMarshal, pwszQuickComplete, "HRESULT")
         return result
     }
 
@@ -123,8 +126,8 @@ export default struct IAutoComplete extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 5)
-        this.vtbl.Enable := CallbackCreate(GetMethod(implObj, "Enable"), flags, 2)
+        this.vtbl.Init := CallbackCreate(ObjBindMethod(implObj, "Init"), flags, 5)
+        this.vtbl.Enable := CallbackCreate(ObjBindMethod(implObj, "Enable"), flags, 2)
     }
 
     Dispose() {

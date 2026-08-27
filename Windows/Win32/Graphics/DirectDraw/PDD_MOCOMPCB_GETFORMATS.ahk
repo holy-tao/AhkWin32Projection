@@ -23,7 +23,6 @@ export default struct PDD_MOCOMPCB_GETFORMATS {
     }
 
     /**
-     * 
      * @param {Pointer<DD_GETMOCOMPFORMATSDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_getmocompformatsdata">DD_GETMOCOMPFORMATSDATA</a> structure that contains the uncompressed format information for the hardware.
      * @returns {Integer} <b>DdMoCompGetFormats</b> returns one of the following callback codes:
      */

@@ -78,8 +78,8 @@ export default struct ID2D1SolidColorBrush extends ID2D1Brush {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetColor := CallbackCreate(GetMethod(implObj, "SetColor"), flags, 2)
-        this.vtbl.GetColor := CallbackCreate(GetMethod(implObj, "GetColor"), flags, 1)
+        this.vtbl.SetColor := CallbackCreate(ObjBindMethod(implObj, "SetColor"), flags, 2)
+        this.vtbl.GetColor := CallbackCreate(ObjBindMethod(implObj, "GetColor"), flags, 1)
     }
 
     Dispose() {

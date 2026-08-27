@@ -338,12 +338,12 @@ export default struct IUPnPService extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryStateVariable := CallbackCreate(GetMethod(implObj, "QueryStateVariable"), flags, 3)
-        this.vtbl.InvokeAction := CallbackCreate(GetMethod(implObj, "InvokeAction"), flags, 5)
-        this.vtbl.get_ServiceTypeIdentifier := CallbackCreate(GetMethod(implObj, "get_ServiceTypeIdentifier"), flags, 2)
-        this.vtbl.AddCallback := CallbackCreate(GetMethod(implObj, "AddCallback"), flags, 2)
-        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
-        this.vtbl.get_LastTransportStatus := CallbackCreate(GetMethod(implObj, "get_LastTransportStatus"), flags, 2)
+        this.vtbl.QueryStateVariable := CallbackCreate(ObjBindMethod(implObj, "QueryStateVariable"), flags, 3)
+        this.vtbl.InvokeAction := CallbackCreate(ObjBindMethod(implObj, "InvokeAction"), flags, 5)
+        this.vtbl.get_ServiceTypeIdentifier := CallbackCreate(ObjBindMethod(implObj, "get_ServiceTypeIdentifier"), flags, 2)
+        this.vtbl.AddCallback := CallbackCreate(ObjBindMethod(implObj, "AddCallback"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(ObjBindMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.get_LastTransportStatus := CallbackCreate(ObjBindMethod(implObj, "get_LastTransportStatus"), flags, 2)
     }
 
     Dispose() {

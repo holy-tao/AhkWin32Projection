@@ -131,11 +131,11 @@ export default struct IWMImageInfo extends IUnknown {
         pwszMIMEType := pwszMIMEType is String ? StrPtr(pwszMIMEType) : pwszMIMEType
         pwszDescription := pwszDescription is String ? StrPtr(pwszDescription) : pwszDescription
 
-        pcchMIMETypeMarshal := pcchMIMEType is VarRef ? "ushort*" : "ptr"
-        pcchDescriptionMarshal := pcchDescription is VarRef ? "ushort*" : "ptr"
-        pImageTypeMarshal := pImageType is VarRef ? "ushort*" : "ptr"
-        pcbImageDataMarshal := pcbImageData is VarRef ? "uint*" : "ptr"
-        pbImageDataMarshal := pbImageData is VarRef ? "char*" : "ptr"
+        pcchMIMETypeMarshal := pcchMIMEType is VarRef ? "ushort*" : IntPtr
+        pcchDescriptionMarshal := pcchDescription is VarRef ? "ushort*" : IntPtr
+        pImageTypeMarshal := pImageType is VarRef ? "ushort*" : IntPtr
+        pcbImageDataMarshal := pcbImageData is VarRef ? "uint*" : IntPtr
+        pbImageDataMarshal := pbImageData is VarRef ? "char*" : IntPtr
 
         result := ComCall(4, this, UInt32, wIndex, pcchMIMETypeMarshal, pcchMIMEType, "ptr", pwszMIMEType, pcchDescriptionMarshal, pcchDescription, "ptr", pwszDescription, pImageTypeMarshal, pImageType, pcbImageDataMarshal, pcbImageData, pbImageDataMarshal, pbImageData, "HRESULT")
         return result
@@ -150,8 +150,8 @@ export default struct IWMImageInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetImageCount := CallbackCreate(GetMethod(implObj, "GetImageCount"), flags, 2)
-        this.vtbl.GetImage := CallbackCreate(GetMethod(implObj, "GetImage"), flags, 9)
+        this.vtbl.GetImageCount := CallbackCreate(ObjBindMethod(implObj, "GetImageCount"), flags, 2)
+        this.vtbl.GetImage := CallbackCreate(ObjBindMethod(implObj, "GetImage"), flags, 9)
     }
 
     Dispose() {

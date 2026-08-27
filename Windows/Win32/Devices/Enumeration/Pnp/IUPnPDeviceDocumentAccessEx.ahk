@@ -65,7 +65,7 @@ export default struct IUPnPDeviceDocumentAccessEx extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDocument := CallbackCreate(GetMethod(implObj, "GetDocument"), flags, 2)
+        this.vtbl.GetDocument := CallbackCreate(ObjBindMethod(implObj, "GetDocument"), flags, 2)
     }
 
     Dispose() {

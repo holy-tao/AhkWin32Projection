@@ -106,7 +106,6 @@ export default struct ISpeechWaveFormatEx extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_FormatTag() {
@@ -115,7 +114,6 @@ export default struct ISpeechWaveFormatEx extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} FormatTag 
      * @returns {HRESULT} 
      */
@@ -125,7 +123,6 @@ export default struct ISpeechWaveFormatEx extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Channels() {
@@ -134,7 +131,6 @@ export default struct ISpeechWaveFormatEx extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} Channels 
      * @returns {HRESULT} 
      */
@@ -144,7 +140,6 @@ export default struct ISpeechWaveFormatEx extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_SamplesPerSec() {
@@ -153,7 +148,6 @@ export default struct ISpeechWaveFormatEx extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} SamplesPerSec 
      * @returns {HRESULT} 
      */
@@ -163,7 +157,6 @@ export default struct ISpeechWaveFormatEx extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AvgBytesPerSec() {
@@ -172,7 +165,6 @@ export default struct ISpeechWaveFormatEx extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} AvgBytesPerSec 
      * @returns {HRESULT} 
      */
@@ -182,7 +174,6 @@ export default struct ISpeechWaveFormatEx extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_BlockAlign() {
@@ -191,7 +182,6 @@ export default struct ISpeechWaveFormatEx extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} BlockAlign 
      * @returns {HRESULT} 
      */
@@ -201,7 +191,6 @@ export default struct ISpeechWaveFormatEx extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_BitsPerSample() {
@@ -210,7 +199,6 @@ export default struct ISpeechWaveFormatEx extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} BitsPerSample 
      * @returns {HRESULT} 
      */
@@ -220,7 +208,6 @@ export default struct ISpeechWaveFormatEx extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ExtraData() {
@@ -230,7 +217,6 @@ export default struct ISpeechWaveFormatEx extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} ExtraData 
      * @returns {HRESULT} 
      */
@@ -248,20 +234,20 @@ export default struct ISpeechWaveFormatEx extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_FormatTag := CallbackCreate(GetMethod(implObj, "get_FormatTag"), flags, 2)
-        this.vtbl.put_FormatTag := CallbackCreate(GetMethod(implObj, "put_FormatTag"), flags, 2)
-        this.vtbl.get_Channels := CallbackCreate(GetMethod(implObj, "get_Channels"), flags, 2)
-        this.vtbl.put_Channels := CallbackCreate(GetMethod(implObj, "put_Channels"), flags, 2)
-        this.vtbl.get_SamplesPerSec := CallbackCreate(GetMethod(implObj, "get_SamplesPerSec"), flags, 2)
-        this.vtbl.put_SamplesPerSec := CallbackCreate(GetMethod(implObj, "put_SamplesPerSec"), flags, 2)
-        this.vtbl.get_AvgBytesPerSec := CallbackCreate(GetMethod(implObj, "get_AvgBytesPerSec"), flags, 2)
-        this.vtbl.put_AvgBytesPerSec := CallbackCreate(GetMethod(implObj, "put_AvgBytesPerSec"), flags, 2)
-        this.vtbl.get_BlockAlign := CallbackCreate(GetMethod(implObj, "get_BlockAlign"), flags, 2)
-        this.vtbl.put_BlockAlign := CallbackCreate(GetMethod(implObj, "put_BlockAlign"), flags, 2)
-        this.vtbl.get_BitsPerSample := CallbackCreate(GetMethod(implObj, "get_BitsPerSample"), flags, 2)
-        this.vtbl.put_BitsPerSample := CallbackCreate(GetMethod(implObj, "put_BitsPerSample"), flags, 2)
-        this.vtbl.get_ExtraData := CallbackCreate(GetMethod(implObj, "get_ExtraData"), flags, 2)
-        this.vtbl.put_ExtraData := CallbackCreate(GetMethod(implObj, "put_ExtraData"), flags, 2)
+        this.vtbl.get_FormatTag := CallbackCreate(ObjBindMethod(implObj, "get_FormatTag"), flags, 2)
+        this.vtbl.put_FormatTag := CallbackCreate(ObjBindMethod(implObj, "put_FormatTag"), flags, 2)
+        this.vtbl.get_Channels := CallbackCreate(ObjBindMethod(implObj, "get_Channels"), flags, 2)
+        this.vtbl.put_Channels := CallbackCreate(ObjBindMethod(implObj, "put_Channels"), flags, 2)
+        this.vtbl.get_SamplesPerSec := CallbackCreate(ObjBindMethod(implObj, "get_SamplesPerSec"), flags, 2)
+        this.vtbl.put_SamplesPerSec := CallbackCreate(ObjBindMethod(implObj, "put_SamplesPerSec"), flags, 2)
+        this.vtbl.get_AvgBytesPerSec := CallbackCreate(ObjBindMethod(implObj, "get_AvgBytesPerSec"), flags, 2)
+        this.vtbl.put_AvgBytesPerSec := CallbackCreate(ObjBindMethod(implObj, "put_AvgBytesPerSec"), flags, 2)
+        this.vtbl.get_BlockAlign := CallbackCreate(ObjBindMethod(implObj, "get_BlockAlign"), flags, 2)
+        this.vtbl.put_BlockAlign := CallbackCreate(ObjBindMethod(implObj, "put_BlockAlign"), flags, 2)
+        this.vtbl.get_BitsPerSample := CallbackCreate(ObjBindMethod(implObj, "get_BitsPerSample"), flags, 2)
+        this.vtbl.put_BitsPerSample := CallbackCreate(ObjBindMethod(implObj, "put_BitsPerSample"), flags, 2)
+        this.vtbl.get_ExtraData := CallbackCreate(ObjBindMethod(implObj, "get_ExtraData"), flags, 2)
+        this.vtbl.put_ExtraData := CallbackCreate(ObjBindMethod(implObj, "put_ExtraData"), flags, 2)
     }
 
     Dispose() {

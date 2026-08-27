@@ -52,7 +52,7 @@ export default struct IMPEG2PIDMap extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-impeg2pidmap-mappid
      */
     MapPID(culPID, pulPID, MediaSampleContent) {
-        pulPIDMarshal := pulPID is VarRef ? "uint*" : "ptr"
+        pulPIDMarshal := pulPID is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, UInt32, culPID, pulPIDMarshal, pulPID, MEDIA_SAMPLE_CONTENT, MediaSampleContent, "HRESULT")
         return result
@@ -68,7 +68,7 @@ export default struct IMPEG2PIDMap extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-impeg2pidmap-unmappid
      */
     UnmapPID(culPID, pulPID) {
-        pulPIDMarshal := pulPID is VarRef ? "uint*" : "ptr"
+        pulPIDMarshal := pulPID is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, UInt32, culPID, pulPIDMarshal, pulPID, "HRESULT")
         return result
@@ -93,9 +93,9 @@ export default struct IMPEG2PIDMap extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.MapPID := CallbackCreate(GetMethod(implObj, "MapPID"), flags, 4)
-        this.vtbl.UnmapPID := CallbackCreate(GetMethod(implObj, "UnmapPID"), flags, 3)
-        this.vtbl.EnumPIDMap := CallbackCreate(GetMethod(implObj, "EnumPIDMap"), flags, 2)
+        this.vtbl.MapPID := CallbackCreate(ObjBindMethod(implObj, "MapPID"), flags, 4)
+        this.vtbl.UnmapPID := CallbackCreate(ObjBindMethod(implObj, "UnmapPID"), flags, 3)
+        this.vtbl.EnumPIDMap := CallbackCreate(ObjBindMethod(implObj, "EnumPIDMap"), flags, 2)
     }
 
     Dispose() {

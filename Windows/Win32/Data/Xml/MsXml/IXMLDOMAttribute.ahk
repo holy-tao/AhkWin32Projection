@@ -55,7 +55,6 @@ export default struct IXMLDOMAttribute extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -65,7 +64,6 @@ export default struct IXMLDOMAttribute extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_value() {
@@ -75,7 +73,6 @@ export default struct IXMLDOMAttribute extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @param {VARIANT} attributeValue 
      * @returns {HRESULT} 
      */
@@ -93,9 +90,9 @@ export default struct IXMLDOMAttribute extends IXMLDOMNode {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
-        this.vtbl.get_value := CallbackCreate(GetMethod(implObj, "get_value"), flags, 2)
-        this.vtbl.put_value := CallbackCreate(GetMethod(implObj, "put_value"), flags, 2)
+        this.vtbl.get_name := CallbackCreate(ObjBindMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.get_value := CallbackCreate(ObjBindMethod(implObj, "get_value"), flags, 2)
+        this.vtbl.put_value := CallbackCreate(ObjBindMethod(implObj, "put_value"), flags, 2)
     }
 
     Dispose() {

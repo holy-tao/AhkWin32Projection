@@ -160,8 +160,8 @@ export default struct IVssProviderNotifications extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnLoad := CallbackCreate(GetMethod(implObj, "OnLoad"), flags, 2)
-        this.vtbl.OnUnload := CallbackCreate(GetMethod(implObj, "OnUnload"), flags, 2)
+        this.vtbl.OnLoad := CallbackCreate(ObjBindMethod(implObj, "OnLoad"), flags, 2)
+        this.vtbl.OnUnload := CallbackCreate(ObjBindMethod(implObj, "OnUnload"), flags, 2)
     }
 
     Dispose() {

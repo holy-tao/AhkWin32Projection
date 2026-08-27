@@ -22,7 +22,6 @@ export default struct DTC_GET_TRANSACTION_MANAGER_EX_W {
     }
 
     /**
-     * 
      * @param {PWSTR} i_pwszHost 
      * @param {PWSTR} i_pwszTmName 
      * @param {Pointer<Guid>} i_riid 
@@ -35,8 +34,8 @@ export default struct DTC_GET_TRANSACTION_MANAGER_EX_W {
         i_pwszHost := i_pwszHost is String ? StrPtr(i_pwszHost) : i_pwszHost
         i_pwszTmName := i_pwszTmName is String ? StrPtr(i_pwszTmName) : i_pwszTmName
 
-        i_pvConfigParamsMarshal := i_pvConfigParams is VarRef ? "ptr" : "ptr"
-        o_ppvObjectMarshal := o_ppvObject is VarRef ? "ptr*" : "ptr"
+        i_pvConfigParamsMarshal := i_pvConfigParams is VarRef ? "ptr" : IntPtr
+        o_ppvObjectMarshal := o_ppvObject is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, "ptr", i_pwszHost, "ptr", i_pwszTmName, Guid.Ptr, i_riid, UInt32, i_grfOptions, i_pvConfigParamsMarshal, i_pvConfigParams, o_ppvObjectMarshal, o_ppvObject, "HRESULT")
         return result

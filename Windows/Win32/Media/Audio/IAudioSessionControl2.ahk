@@ -188,11 +188,11 @@ export default struct IAudioSessionControl2 extends IAudioSessionControl {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSessionIdentifier := CallbackCreate(GetMethod(implObj, "GetSessionIdentifier"), flags, 2)
-        this.vtbl.GetSessionInstanceIdentifier := CallbackCreate(GetMethod(implObj, "GetSessionInstanceIdentifier"), flags, 2)
-        this.vtbl.GetProcessId := CallbackCreate(GetMethod(implObj, "GetProcessId"), flags, 2)
-        this.vtbl.IsSystemSoundsSession := CallbackCreate(GetMethod(implObj, "IsSystemSoundsSession"), flags, 1)
-        this.vtbl.SetDuckingPreference := CallbackCreate(GetMethod(implObj, "SetDuckingPreference"), flags, 2)
+        this.vtbl.GetSessionIdentifier := CallbackCreate(ObjBindMethod(implObj, "GetSessionIdentifier"), flags, 2)
+        this.vtbl.GetSessionInstanceIdentifier := CallbackCreate(ObjBindMethod(implObj, "GetSessionInstanceIdentifier"), flags, 2)
+        this.vtbl.GetProcessId := CallbackCreate(ObjBindMethod(implObj, "GetProcessId"), flags, 2)
+        this.vtbl.IsSystemSoundsSession := CallbackCreate(ObjBindMethod(implObj, "IsSystemSoundsSession"), flags, 1)
+        this.vtbl.SetDuckingPreference := CallbackCreate(ObjBindMethod(implObj, "SetDuckingPreference"), flags, 2)
     }
 
     Dispose() {

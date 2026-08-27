@@ -19,14 +19,13 @@ export default struct PTM_DEVICE_QUERY_TIME_SOURCE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<Integer>} TimeSource 
      * @returns {NTSTATUS} 
      */
     Call(_Context, TimeSource) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        TimeSourceMarshal := TimeSource is VarRef ? "uint*" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        TimeSourceMarshal := TimeSource is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, TimeSourceMarshal, TimeSource, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

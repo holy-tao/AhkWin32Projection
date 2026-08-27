@@ -68,7 +68,7 @@ export default struct IXpsOMPackageTarget extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateXpsOMPackageWriter := CallbackCreate(GetMethod(implObj, "CreateXpsOMPackageWriter"), flags, 5)
+        this.vtbl.CreateXpsOMPackageWriter := CallbackCreate(ObjBindMethod(implObj, "CreateXpsOMPackageWriter"), flags, 5)
     }
 
     Dispose() {

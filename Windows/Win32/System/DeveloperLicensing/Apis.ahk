@@ -107,7 +107,9 @@ export CheckDeveloperLicense(pExpiration) {
  * @see https://learn.microsoft.com/windows/win32/api/wsdevlicensing/nf-wsdevlicensing-acquiredeveloperlicense
  */
 export AcquireDeveloperLicense(hwndParent, pExpiration) {
-    result := DllCall("WSClient.dll\AcquireDeveloperLicense", HWND, hwndParent, FILETIME.Ptr, pExpiration, "HRESULT")
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+
+    result := DllCall("WSClient.dll\AcquireDeveloperLicense", hwndParentMarshal, hwndParent, FILETIME.Ptr, pExpiration, "HRESULT")
     return result
 }
 
@@ -155,7 +157,9 @@ export AcquireDeveloperLicense(hwndParent, pExpiration) {
  * @see https://learn.microsoft.com/windows/win32/api/wsdevlicensing/nf-wsdevlicensing-removedeveloperlicense
  */
 export RemoveDeveloperLicense(hwndParent) {
-    result := DllCall("WSClient.dll\RemoveDeveloperLicense", HWND, hwndParent, "HRESULT")
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+
+    result := DllCall("WSClient.dll\RemoveDeveloperLicense", hwndParentMarshal, hwndParent, "HRESULT")
     return result
 }
 

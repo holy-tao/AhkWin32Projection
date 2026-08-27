@@ -69,8 +69,8 @@ export default struct IDropSourceNotify extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DragEnterTarget := CallbackCreate(GetMethod(implObj, "DragEnterTarget"), flags, 2)
-        this.vtbl.DragLeaveTarget := CallbackCreate(GetMethod(implObj, "DragLeaveTarget"), flags, 1)
+        this.vtbl.DragEnterTarget := CallbackCreate(ObjBindMethod(implObj, "DragEnterTarget"), flags, 2)
+        this.vtbl.DragLeaveTarget := CallbackCreate(ObjBindMethod(implObj, "DragLeaveTarget"), flags, 1)
     }
 
     Dispose() {

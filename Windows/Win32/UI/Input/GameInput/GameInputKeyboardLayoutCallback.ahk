@@ -19,7 +19,6 @@ export default struct GameInputKeyboardLayoutCallback {
     }
 
     /**
-     * 
      * @param {Integer} callbackToken 
      * @param {Pointer<Void>} _context 
      * @param {IGameInputDevice} device 
@@ -29,7 +28,7 @@ export default struct GameInputKeyboardLayoutCallback {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(callbackToken, _context, device, _timestamp, currentLayout, previousLayout) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, Int64, callbackToken, _contextMarshal, _context, "ptr", device, Int64, _timestamp, UInt32, currentLayout, UInt32, previousLayout)
     }

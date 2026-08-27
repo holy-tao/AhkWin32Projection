@@ -53,7 +53,6 @@ export default struct ISWbemLocator extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strServer 
      * @param {BSTR} strNamespace 
      * @param {BSTR} strUser 
@@ -77,7 +76,6 @@ export default struct ISWbemLocator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemSecurity} 
      */
     get_Security_() {
@@ -94,8 +92,8 @@ export default struct ISWbemLocator extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ConnectServer := CallbackCreate(GetMethod(implObj, "ConnectServer"), flags, 10)
-        this.vtbl.get_Security_ := CallbackCreate(GetMethod(implObj, "get_Security_"), flags, 2)
+        this.vtbl.ConnectServer := CallbackCreate(ObjBindMethod(implObj, "ConnectServer"), flags, 10)
+        this.vtbl.get_Security_ := CallbackCreate(ObjBindMethod(implObj, "get_Security_"), flags, 2)
     }
 
     Dispose() {

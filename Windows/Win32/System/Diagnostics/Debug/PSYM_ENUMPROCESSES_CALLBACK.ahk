@@ -22,7 +22,6 @@ export default struct PSYM_ENUMPROCESSES_CALLBACK {
     }
 
     /**
-     * 
      * @param {HANDLE} hProcess A handle to the process.
      * @param {Pointer<Void>} UserContext The user-defined value passed from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symenumprocesses">SymEnumProcesses</a> function, or <b>NULL</b>. This parameter is typically used by an application to pass a pointer to a data structure that provides context information for the callback function.
@@ -32,7 +31,7 @@ export default struct PSYM_ENUMPROCESSES_CALLBACK {
      * If the function returns <b>FALSE</b>, the enumeration will stop.
      */
     Call(hProcess, UserContext) {
-        UserContextMarshal := UserContext is VarRef ? "ptr" : "ptr"
+        UserContextMarshal := UserContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, HANDLE, hProcess, UserContextMarshal, UserContext, BOOL)
         return result

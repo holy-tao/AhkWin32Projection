@@ -22,14 +22,14 @@ export default struct PFN_CRYPT_ENUM_OID_INFO {
     }
 
     /**
-     * 
      * @param {Pointer<CRYPT_OID_INFO>} pInfo A pointer to the OID information.
      * @param {Pointer<Void>} pvArg A pointer to arguments passed through to the callback function.
      * @returns {BOOL} Returns <b>TRUE</b> to continue the enumeration and <b>FALSE</b> to stop the enumeration.
      *  If <b>FALSE</b> is returned, the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptenumoidinfo">CryptEnumOIDInfo</a> enumeration is stopped.
      */
     Call(pInfo, pvArg) {
-        pvArgMarshal := pvArg is VarRef ? "ptr" : "ptr"
+        pvArgMarshal := pvArg is VarRef ? "ptr" : IntPtr
+        pvArgMarshal := pvArg == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, CRYPT_OID_INFO.Ptr, pInfo, pvArgMarshal, pvArg, BOOL)
         return result

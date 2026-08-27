@@ -178,10 +178,10 @@ export default struct IWTSProtocolConnection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocolconnection-getprotocolhandles
      */
     GetProtocolHandles(pKeyboardHandle, pMouseHandle, pBeepHandle, pVideoHandle) {
-        pKeyboardHandleMarshal := pKeyboardHandle is VarRef ? "ptr*" : "ptr"
-        pMouseHandleMarshal := pMouseHandle is VarRef ? "ptr*" : "ptr"
-        pBeepHandleMarshal := pBeepHandle is VarRef ? "ptr*" : "ptr"
-        pVideoHandleMarshal := pVideoHandle is VarRef ? "ptr*" : "ptr"
+        pKeyboardHandleMarshal := pKeyboardHandle is VarRef ? "ptr*" : IntPtr
+        pMouseHandleMarshal := pMouseHandle is VarRef ? "ptr*" : IntPtr
+        pBeepHandleMarshal := pBeepHandle is VarRef ? "ptr*" : IntPtr
+        pVideoHandleMarshal := pVideoHandle is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(11, this, pKeyboardHandleMarshal, pKeyboardHandle, pMouseHandleMarshal, pMouseHandle, pBeepHandleMarshal, pBeepHandle, pVideoHandleMarshal, pVideoHandle, "HRESULT")
         return result
@@ -228,7 +228,7 @@ export default struct IWTSProtocolConnection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocolconnection-sessionarbitrationenumeration
      */
     SessionArbitrationEnumeration(hUserToken, bSingleSessionPerUserEnabled, pdwSessionIdentifierCount) {
-        pdwSessionIdentifierCountMarshal := pdwSessionIdentifierCount is VarRef ? "uint*" : "ptr"
+        pdwSessionIdentifierCountMarshal := pdwSessionIdentifierCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(14, this, HANDLE_PTR, hUserToken, BOOL, bSingleSessionPerUserEnabled, "uint*", &pSessionIdArray := 0, pdwSessionIdentifierCountMarshal, pdwSessionIdentifierCount, "HRESULT")
         return pSessionIdArray
@@ -395,29 +395,29 @@ export default struct IWTSProtocolConnection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLogonErrorRedirector := CallbackCreate(GetMethod(implObj, "GetLogonErrorRedirector"), flags, 2)
-        this.vtbl.SendPolicyData := CallbackCreate(GetMethod(implObj, "SendPolicyData"), flags, 2)
-        this.vtbl.AcceptConnection := CallbackCreate(GetMethod(implObj, "AcceptConnection"), flags, 1)
-        this.vtbl.GetClientData := CallbackCreate(GetMethod(implObj, "GetClientData"), flags, 2)
-        this.vtbl.GetUserCredentials := CallbackCreate(GetMethod(implObj, "GetUserCredentials"), flags, 2)
-        this.vtbl.GetLicenseConnection := CallbackCreate(GetMethod(implObj, "GetLicenseConnection"), flags, 2)
-        this.vtbl.AuthenticateClientToSession := CallbackCreate(GetMethod(implObj, "AuthenticateClientToSession"), flags, 2)
-        this.vtbl.NotifySessionId := CallbackCreate(GetMethod(implObj, "NotifySessionId"), flags, 2)
-        this.vtbl.GetProtocolHandles := CallbackCreate(GetMethod(implObj, "GetProtocolHandles"), flags, 5)
-        this.vtbl.ConnectNotify := CallbackCreate(GetMethod(implObj, "ConnectNotify"), flags, 2)
-        this.vtbl.IsUserAllowedToLogon := CallbackCreate(GetMethod(implObj, "IsUserAllowedToLogon"), flags, 5)
-        this.vtbl.SessionArbitrationEnumeration := CallbackCreate(GetMethod(implObj, "SessionArbitrationEnumeration"), flags, 5)
-        this.vtbl.LogonNotify := CallbackCreate(GetMethod(implObj, "LogonNotify"), flags, 5)
-        this.vtbl.GetUserData := CallbackCreate(GetMethod(implObj, "GetUserData"), flags, 3)
-        this.vtbl.DisconnectNotify := CallbackCreate(GetMethod(implObj, "DisconnectNotify"), flags, 1)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
-        this.vtbl.GetProtocolStatus := CallbackCreate(GetMethod(implObj, "GetProtocolStatus"), flags, 2)
-        this.vtbl.GetLastInputTime := CallbackCreate(GetMethod(implObj, "GetLastInputTime"), flags, 2)
-        this.vtbl.SetErrorInfo := CallbackCreate(GetMethod(implObj, "SetErrorInfo"), flags, 2)
-        this.vtbl.SendBeep := CallbackCreate(GetMethod(implObj, "SendBeep"), flags, 3)
-        this.vtbl.CreateVirtualChannel := CallbackCreate(GetMethod(implObj, "CreateVirtualChannel"), flags, 5)
-        this.vtbl.QueryProperty := CallbackCreate(GetMethod(implObj, "QueryProperty"), flags, 6)
-        this.vtbl.GetShadowConnection := CallbackCreate(GetMethod(implObj, "GetShadowConnection"), flags, 2)
+        this.vtbl.GetLogonErrorRedirector := CallbackCreate(ObjBindMethod(implObj, "GetLogonErrorRedirector"), flags, 2)
+        this.vtbl.SendPolicyData := CallbackCreate(ObjBindMethod(implObj, "SendPolicyData"), flags, 2)
+        this.vtbl.AcceptConnection := CallbackCreate(ObjBindMethod(implObj, "AcceptConnection"), flags, 1)
+        this.vtbl.GetClientData := CallbackCreate(ObjBindMethod(implObj, "GetClientData"), flags, 2)
+        this.vtbl.GetUserCredentials := CallbackCreate(ObjBindMethod(implObj, "GetUserCredentials"), flags, 2)
+        this.vtbl.GetLicenseConnection := CallbackCreate(ObjBindMethod(implObj, "GetLicenseConnection"), flags, 2)
+        this.vtbl.AuthenticateClientToSession := CallbackCreate(ObjBindMethod(implObj, "AuthenticateClientToSession"), flags, 2)
+        this.vtbl.NotifySessionId := CallbackCreate(ObjBindMethod(implObj, "NotifySessionId"), flags, 2)
+        this.vtbl.GetProtocolHandles := CallbackCreate(ObjBindMethod(implObj, "GetProtocolHandles"), flags, 5)
+        this.vtbl.ConnectNotify := CallbackCreate(ObjBindMethod(implObj, "ConnectNotify"), flags, 2)
+        this.vtbl.IsUserAllowedToLogon := CallbackCreate(ObjBindMethod(implObj, "IsUserAllowedToLogon"), flags, 5)
+        this.vtbl.SessionArbitrationEnumeration := CallbackCreate(ObjBindMethod(implObj, "SessionArbitrationEnumeration"), flags, 5)
+        this.vtbl.LogonNotify := CallbackCreate(ObjBindMethod(implObj, "LogonNotify"), flags, 5)
+        this.vtbl.GetUserData := CallbackCreate(ObjBindMethod(implObj, "GetUserData"), flags, 3)
+        this.vtbl.DisconnectNotify := CallbackCreate(ObjBindMethod(implObj, "DisconnectNotify"), flags, 1)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
+        this.vtbl.GetProtocolStatus := CallbackCreate(ObjBindMethod(implObj, "GetProtocolStatus"), flags, 2)
+        this.vtbl.GetLastInputTime := CallbackCreate(ObjBindMethod(implObj, "GetLastInputTime"), flags, 2)
+        this.vtbl.SetErrorInfo := CallbackCreate(ObjBindMethod(implObj, "SetErrorInfo"), flags, 2)
+        this.vtbl.SendBeep := CallbackCreate(ObjBindMethod(implObj, "SendBeep"), flags, 3)
+        this.vtbl.CreateVirtualChannel := CallbackCreate(ObjBindMethod(implObj, "CreateVirtualChannel"), flags, 5)
+        this.vtbl.QueryProperty := CallbackCreate(ObjBindMethod(implObj, "QueryProperty"), flags, 6)
+        this.vtbl.GetShadowConnection := CallbackCreate(ObjBindMethod(implObj, "GetShadowConnection"), flags, 2)
     }
 
     Dispose() {

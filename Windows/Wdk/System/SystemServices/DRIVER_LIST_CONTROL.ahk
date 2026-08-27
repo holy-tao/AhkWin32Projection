@@ -21,7 +21,6 @@ export default struct DRIVER_LIST_CONTROL {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<SCATTER_GATHER_LIST>} ScatterGather 
@@ -29,7 +28,7 @@ export default struct DRIVER_LIST_CONTROL {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(DeviceObject, _Irp, ScatterGather, _Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, DEVICE_OBJECT.Ptr, DeviceObject, IRP.Ptr, _Irp, SCATTER_GATHER_LIST.Ptr, ScatterGather, _ContextMarshal, _Context)
     }

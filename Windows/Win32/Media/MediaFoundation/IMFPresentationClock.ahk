@@ -365,14 +365,14 @@ export default struct IMFPresentationClock extends IMFClock {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetTimeSource := CallbackCreate(GetMethod(implObj, "SetTimeSource"), flags, 2)
-        this.vtbl.GetTimeSource := CallbackCreate(GetMethod(implObj, "GetTimeSource"), flags, 2)
-        this.vtbl.GetTime := CallbackCreate(GetMethod(implObj, "GetTime"), flags, 2)
-        this.vtbl.AddClockStateSink := CallbackCreate(GetMethod(implObj, "AddClockStateSink"), flags, 2)
-        this.vtbl.RemoveClockStateSink := CallbackCreate(GetMethod(implObj, "RemoveClockStateSink"), flags, 2)
-        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 2)
-        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
-        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.SetTimeSource := CallbackCreate(ObjBindMethod(implObj, "SetTimeSource"), flags, 2)
+        this.vtbl.GetTimeSource := CallbackCreate(ObjBindMethod(implObj, "GetTimeSource"), flags, 2)
+        this.vtbl.GetTime := CallbackCreate(ObjBindMethod(implObj, "GetTime"), flags, 2)
+        this.vtbl.AddClockStateSink := CallbackCreate(ObjBindMethod(implObj, "AddClockStateSink"), flags, 2)
+        this.vtbl.RemoveClockStateSink := CallbackCreate(ObjBindMethod(implObj, "RemoveClockStateSink"), flags, 2)
+        this.vtbl.Start := CallbackCreate(ObjBindMethod(implObj, "Start"), flags, 2)
+        this.vtbl.Stop := CallbackCreate(ObjBindMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.Pause := CallbackCreate(ObjBindMethod(implObj, "Pause"), flags, 1)
     }
 
     Dispose() {

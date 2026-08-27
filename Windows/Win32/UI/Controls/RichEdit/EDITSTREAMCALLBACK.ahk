@@ -40,7 +40,6 @@ export default struct EDITSTREAMCALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer} dwCookie Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD_PTR</a></b>
      * 
      * Value of the 
@@ -63,8 +62,8 @@ export default struct EDITSTREAMCALLBACK {
      * 						<i>dwError</i> member of the <a href="https://docs.microsoft.com/windows/win32/api/richedit/ns-richedit-editstream">EDITSTREAM</a> structure to pass the value back to the application.
      */
     Call(dwCookie, pbBuff, cb, pcb) {
-        pbBuffMarshal := pbBuff is VarRef ? "char*" : "ptr"
-        pcbMarshal := pcb is VarRef ? "int*" : "ptr"
+        pbBuffMarshal := pbBuff is VarRef ? "char*" : IntPtr
+        pcbMarshal := pcb is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, IntPtr, dwCookie, pbBuffMarshal, pbBuff, Int32, cb, pcbMarshal, pcb, UInt32)
         return result

@@ -22,7 +22,6 @@ export default struct PMGM_LOCAL_JOIN_CALLBACK {
     }
 
     /**
-     * 
      * @param {Integer} dwSourceAddr Specifies the source address from which the multicast data was received. Zero indicates that data is received from all sources (a wildcard receiver for a group); otherwise, the value of <i>dwSourceAddr</i> is the IP address of the source or source network. 
      * 
      * 

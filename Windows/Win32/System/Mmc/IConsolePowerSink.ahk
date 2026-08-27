@@ -65,7 +65,7 @@ export default struct IConsolePowerSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnPowerBroadcast := CallbackCreate(GetMethod(implObj, "OnPowerBroadcast"), flags, 4)
+        this.vtbl.OnPowerBroadcast := CallbackCreate(ObjBindMethod(implObj, "OnPowerBroadcast"), flags, 4)
     }
 
     Dispose() {

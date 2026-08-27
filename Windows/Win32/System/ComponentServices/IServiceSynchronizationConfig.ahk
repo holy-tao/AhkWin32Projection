@@ -58,7 +58,7 @@ export default struct IServiceSynchronizationConfig extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ConfigureSynchronization := CallbackCreate(GetMethod(implObj, "ConfigureSynchronization"), flags, 2)
+        this.vtbl.ConfigureSynchronization := CallbackCreate(ObjBindMethod(implObj, "ConfigureSynchronization"), flags, 2)
     }
 
     Dispose() {

@@ -36,7 +36,6 @@ export default struct IViewObjectPresentFlip2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     NotifyLeavingView() {
@@ -53,7 +52,7 @@ export default struct IViewObjectPresentFlip2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.NotifyLeavingView := CallbackCreate(GetMethod(implObj, "NotifyLeavingView"), flags, 1)
+        this.vtbl.NotifyLeavingView := CallbackCreate(ObjBindMethod(implObj, "NotifyLeavingView"), flags, 1)
     }
 
     Dispose() {

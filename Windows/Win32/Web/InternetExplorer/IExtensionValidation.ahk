@@ -42,7 +42,6 @@ export default struct IExtensionValidation extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} extensionGuid 
      * @param {PWSTR} extensionModulePath 
      * @param {Integer} extensionFileVersionMS 
@@ -83,8 +82,8 @@ export default struct IExtensionValidation extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Validate := CallbackCreate(GetMethod(implObj, "Validate"), flags, 10)
-        this.vtbl.DisplayName := CallbackCreate(GetMethod(implObj, "DisplayName"), flags, 2)
+        this.vtbl.Validate := CallbackCreate(ObjBindMethod(implObj, "Validate"), flags, 10)
+        this.vtbl.DisplayName := CallbackCreate(ObjBindMethod(implObj, "DisplayName"), flags, 2)
     }
 
     Dispose() {

@@ -39,7 +39,6 @@ export default struct IRowsetRefresh extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hChapter 
      * @param {Pointer} cRows 
      * @param {Pointer<Pointer>} rghRows 
@@ -50,17 +49,16 @@ export default struct IRowsetRefresh extends IUnknown {
      * @returns {HRESULT} 
      */
     RefreshVisibleData(hChapter, cRows, rghRows, fOverWrite, pcRowsRefreshed, prghRowsRefreshed, prgRowStatus) {
-        rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
-        pcRowsRefreshedMarshal := pcRowsRefreshed is VarRef ? "ptr*" : "ptr"
-        prghRowsRefreshedMarshal := prghRowsRefreshed is VarRef ? "ptr*" : "ptr"
-        prgRowStatusMarshal := prgRowStatus is VarRef ? "ptr*" : "ptr"
+        rghRowsMarshal := rghRows is VarRef ? "ptr*" : IntPtr
+        pcRowsRefreshedMarshal := pcRowsRefreshed is VarRef ? "ptr*" : IntPtr
+        prghRowsRefreshedMarshal := prghRowsRefreshed is VarRef ? "ptr*" : IntPtr
+        prgRowStatusMarshal := prgRowStatus is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, IntPtr, hChapter, IntPtr, cRows, rghRowsMarshal, rghRows, BOOL, fOverWrite, pcRowsRefreshedMarshal, pcRowsRefreshed, prghRowsRefreshedMarshal, prghRowsRefreshed, prgRowStatusMarshal, prgRowStatus, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} hRow 
      * @param {HACCESSOR} _hAccessor 
      * @returns {Void} 
@@ -79,8 +77,8 @@ export default struct IRowsetRefresh extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RefreshVisibleData := CallbackCreate(GetMethod(implObj, "RefreshVisibleData"), flags, 8)
-        this.vtbl.GetLastVisibleData := CallbackCreate(GetMethod(implObj, "GetLastVisibleData"), flags, 4)
+        this.vtbl.RefreshVisibleData := CallbackCreate(ObjBindMethod(implObj, "RefreshVisibleData"), flags, 8)
+        this.vtbl.GetLastVisibleData := CallbackCreate(ObjBindMethod(implObj, "GetLastVisibleData"), flags, 4)
     }
 
     Dispose() {

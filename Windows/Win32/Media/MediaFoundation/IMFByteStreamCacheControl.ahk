@@ -63,7 +63,7 @@ export default struct IMFByteStreamCacheControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StopBackgroundTransfer := CallbackCreate(GetMethod(implObj, "StopBackgroundTransfer"), flags, 1)
+        this.vtbl.StopBackgroundTransfer := CallbackCreate(ObjBindMethod(implObj, "StopBackgroundTransfer"), flags, 1)
     }
 
     Dispose() {

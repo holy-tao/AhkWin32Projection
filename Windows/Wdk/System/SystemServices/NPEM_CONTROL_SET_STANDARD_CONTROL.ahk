@@ -21,14 +21,14 @@ export default struct NPEM_CONTROL_SET_STANDARD_CONTROL {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {NPEM_CONTROL_STANDARD_CONTROL_BIT} StandardControl 
      * @param {BOOLEAN} Set 
      * @returns {NTSTATUS} 
      */
     Call(_Context, StandardControl, Set) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, NPEM_CONTROL_STANDARD_CONTROL_BIT, StandardControl, BOOLEAN, Set, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

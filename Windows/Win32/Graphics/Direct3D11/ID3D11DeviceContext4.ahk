@@ -84,8 +84,8 @@ export default struct ID3D11DeviceContext4 extends ID3D11DeviceContext3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Signal := CallbackCreate(GetMethod(implObj, "Signal"), flags, 3)
-        this.vtbl.Wait := CallbackCreate(GetMethod(implObj, "Wait"), flags, 3)
+        this.vtbl.Signal := CallbackCreate(ObjBindMethod(implObj, "Signal"), flags, 3)
+        this.vtbl.Wait := CallbackCreate(ObjBindMethod(implObj, "Wait"), flags, 3)
     }
 
     Dispose() {

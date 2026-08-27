@@ -50,8 +50,8 @@ export default struct IBDA_IPSinkControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ipsinkcontrol-getmulticastlist
      */
     GetMulticastList(pulcbSize, pbBuffer) {
-        pulcbSizeMarshal := pulcbSize is VarRef ? "uint*" : "ptr"
-        pbBufferMarshal := pbBuffer is VarRef ? "ptr*" : "ptr"
+        pulcbSizeMarshal := pulcbSize is VarRef ? "uint*" : IntPtr
+        pbBufferMarshal := pbBuffer is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, pulcbSizeMarshal, pulcbSize, pbBufferMarshal, pbBuffer, "HRESULT")
         return result
@@ -67,8 +67,8 @@ export default struct IBDA_IPSinkControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ipsinkcontrol-getadapteripaddress
      */
     GetAdapterIPAddress(pulcbSize, pbBuffer) {
-        pulcbSizeMarshal := pulcbSize is VarRef ? "uint*" : "ptr"
-        pbBufferMarshal := pbBuffer is VarRef ? "ptr*" : "ptr"
+        pulcbSizeMarshal := pulcbSize is VarRef ? "uint*" : IntPtr
+        pbBufferMarshal := pbBuffer is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, pulcbSizeMarshal, pulcbSize, pbBufferMarshal, pbBuffer, "HRESULT")
         return result
@@ -83,8 +83,8 @@ export default struct IBDA_IPSinkControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMulticastList := CallbackCreate(GetMethod(implObj, "GetMulticastList"), flags, 3)
-        this.vtbl.GetAdapterIPAddress := CallbackCreate(GetMethod(implObj, "GetAdapterIPAddress"), flags, 3)
+        this.vtbl.GetMulticastList := CallbackCreate(ObjBindMethod(implObj, "GetMulticastList"), flags, 3)
+        this.vtbl.GetAdapterIPAddress := CallbackCreate(ObjBindMethod(implObj, "GetAdapterIPAddress"), flags, 3)
     }
 
     Dispose() {

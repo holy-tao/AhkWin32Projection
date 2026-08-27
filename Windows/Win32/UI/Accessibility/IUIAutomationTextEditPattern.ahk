@@ -74,8 +74,8 @@ export default struct IUIAutomationTextEditPattern extends IUIAutomationTextPatt
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetActiveComposition := CallbackCreate(GetMethod(implObj, "GetActiveComposition"), flags, 2)
-        this.vtbl.GetConversionTarget := CallbackCreate(GetMethod(implObj, "GetConversionTarget"), flags, 2)
+        this.vtbl.GetActiveComposition := CallbackCreate(ObjBindMethod(implObj, "GetActiveComposition"), flags, 2)
+        this.vtbl.GetConversionTarget := CallbackCreate(ObjBindMethod(implObj, "GetConversionTarget"), flags, 2)
     }
 
     Dispose() {

@@ -117,7 +117,7 @@ export default struct IPinFlowControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Block := CallbackCreate(GetMethod(implObj, "Block"), flags, 3)
+        this.vtbl.Block := CallbackCreate(ObjBindMethod(implObj, "Block"), flags, 3)
     }
 
     Dispose() {

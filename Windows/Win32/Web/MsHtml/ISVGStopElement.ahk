@@ -51,7 +51,6 @@ export default struct ISVGStopElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedNumber} v 
      * @returns {HRESULT} 
      */
@@ -61,7 +60,6 @@ export default struct ISVGStopElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedNumber} 
      */
     get_offset() {
@@ -78,8 +76,8 @@ export default struct ISVGStopElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.putref_offset := CallbackCreate(GetMethod(implObj, "putref_offset"), flags, 2)
-        this.vtbl.get_offset := CallbackCreate(GetMethod(implObj, "get_offset"), flags, 2)
+        this.vtbl.putref_offset := CallbackCreate(ObjBindMethod(implObj, "putref_offset"), flags, 2)
+        this.vtbl.get_offset := CallbackCreate(ObjBindMethod(implObj, "get_offset"), flags, 2)
     }
 
     Dispose() {

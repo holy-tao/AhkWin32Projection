@@ -37,7 +37,6 @@ export default struct IAudioProcessingObjectVBR extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} u32MaxOutputFrameCount 
      * @returns {Integer} 
      */
@@ -47,7 +46,6 @@ export default struct IAudioProcessingObjectVBR extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} u32MaxInputFrameCount 
      * @returns {Integer} 
      */
@@ -65,8 +63,8 @@ export default struct IAudioProcessingObjectVBR extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CalcMaxInputFrames := CallbackCreate(GetMethod(implObj, "CalcMaxInputFrames"), flags, 3)
-        this.vtbl.CalcMaxOutputFrames := CallbackCreate(GetMethod(implObj, "CalcMaxOutputFrames"), flags, 3)
+        this.vtbl.CalcMaxInputFrames := CallbackCreate(ObjBindMethod(implObj, "CalcMaxInputFrames"), flags, 3)
+        this.vtbl.CalcMaxOutputFrames := CallbackCreate(ObjBindMethod(implObj, "CalcMaxOutputFrames"), flags, 3)
     }
 
     Dispose() {

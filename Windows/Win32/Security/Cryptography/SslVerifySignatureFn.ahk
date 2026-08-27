@@ -21,7 +21,6 @@ export default struct SslVerifySignatureFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_KEY_HANDLE} hPublicKey 
      * @param {Integer} pbHashValue 

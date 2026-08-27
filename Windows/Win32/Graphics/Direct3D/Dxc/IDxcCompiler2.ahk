@@ -41,7 +41,6 @@ export default struct IDxcCompiler2 extends IDxcCompiler {
     }
 
     /**
-     * 
      * @param {IDxcBlob} pSource 
      * @param {PWSTR} pSourceName 
      * @param {PWSTR} pEntryPoint 
@@ -61,10 +60,16 @@ export default struct IDxcCompiler2 extends IDxcCompiler {
         pEntryPoint := pEntryPoint is String ? StrPtr(pEntryPoint) : pEntryPoint
         pTargetProfile := pTargetProfile is String ? StrPtr(pTargetProfile) : pTargetProfile
 
-        pArgumentsMarshal := pArguments is VarRef ? "ptr*" : "ptr"
-        ppDebugBlobNameMarshal := ppDebugBlobName is VarRef ? "ptr*" : "ptr"
+        pSourceNameMarshal := pSourceName == 0 ? IntPtr : PWSTR
+        pEntryPointMarshal := pEntryPoint == 0 ? IntPtr : PWSTR
+        pArgumentsMarshal := pArguments is VarRef ? "ptr*" : IntPtr
+        pArgumentsMarshal := pArguments == 0 ? IntPtr : PWSTR.Ptr
+        pIncludeHandlerMarshal := pIncludeHandler == 0 ? IntPtr : "ptr"
+        ppDebugBlobNameMarshal := ppDebugBlobName is VarRef ? "ptr*" : IntPtr
+        ppDebugBlobNameMarshal := ppDebugBlobName == 0 ? IntPtr : PWSTR.Ptr
+        ppDebugBlobMarshal := ppDebugBlob == 0 ? IntPtr : IDxcBlob.Ptr
 
-        result := ComCall(6, this, "ptr", pSource, "ptr", pSourceName, "ptr", pEntryPoint, "ptr", pTargetProfile, pArgumentsMarshal, pArguments, UInt32, argCount, DxcDefine.Ptr, pDefines, UInt32, defineCount, "ptr", pIncludeHandler, IDxcOperationResult.Ptr, ppResult, ppDebugBlobNameMarshal, ppDebugBlobName, IDxcBlob.Ptr, ppDebugBlob, "HRESULT")
+        result := ComCall(6, this, "ptr", pSource, pSourceNameMarshal, pSourceName, pEntryPointMarshal, pEntryPoint, "ptr", pTargetProfile, pArgumentsMarshal, pArguments, UInt32, argCount, DxcDefine.Ptr, pDefines, UInt32, defineCount, pIncludeHandlerMarshal, pIncludeHandler, IDxcOperationResult.Ptr, ppResult, ppDebugBlobNameMarshal, ppDebugBlobName, ppDebugBlobMarshal, ppDebugBlob, "HRESULT")
         return result
     }
 
@@ -77,7 +82,7 @@ export default struct IDxcCompiler2 extends IDxcCompiler {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CompileWithDebug := CallbackCreate(GetMethod(implObj, "CompileWithDebug"), flags, 13)
+        this.vtbl.CompileWithDebug := CallbackCreate(ObjBindMethod(implObj, "CompileWithDebug"), flags, 13)
     }
 
     Dispose() {

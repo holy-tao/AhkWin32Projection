@@ -44,7 +44,6 @@ export default struct IHTMLScriptElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_usedCharset() {
@@ -62,7 +61,7 @@ export default struct IHTMLScriptElement4 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_usedCharset := CallbackCreate(GetMethod(implObj, "get_usedCharset"), flags, 2)
+        this.vtbl.get_usedCharset := CallbackCreate(ObjBindMethod(implObj, "get_usedCharset"), flags, 2)
     }
 
     Dispose() {

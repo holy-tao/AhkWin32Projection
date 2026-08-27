@@ -84,7 +84,6 @@ export default struct IGPMTrustee extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_TrusteeSid() {
@@ -94,7 +93,6 @@ export default struct IGPMTrustee extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_TrusteeName() {
@@ -104,7 +102,6 @@ export default struct IGPMTrustee extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_TrusteeDomain() {
@@ -114,7 +111,6 @@ export default struct IGPMTrustee extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_TrusteeDSPath() {
@@ -124,7 +120,6 @@ export default struct IGPMTrustee extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_TrusteeType() {
@@ -141,11 +136,11 @@ export default struct IGPMTrustee extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_TrusteeSid := CallbackCreate(GetMethod(implObj, "get_TrusteeSid"), flags, 2)
-        this.vtbl.get_TrusteeName := CallbackCreate(GetMethod(implObj, "get_TrusteeName"), flags, 2)
-        this.vtbl.get_TrusteeDomain := CallbackCreate(GetMethod(implObj, "get_TrusteeDomain"), flags, 2)
-        this.vtbl.get_TrusteeDSPath := CallbackCreate(GetMethod(implObj, "get_TrusteeDSPath"), flags, 2)
-        this.vtbl.get_TrusteeType := CallbackCreate(GetMethod(implObj, "get_TrusteeType"), flags, 2)
+        this.vtbl.get_TrusteeSid := CallbackCreate(ObjBindMethod(implObj, "get_TrusteeSid"), flags, 2)
+        this.vtbl.get_TrusteeName := CallbackCreate(ObjBindMethod(implObj, "get_TrusteeName"), flags, 2)
+        this.vtbl.get_TrusteeDomain := CallbackCreate(ObjBindMethod(implObj, "get_TrusteeDomain"), flags, 2)
+        this.vtbl.get_TrusteeDSPath := CallbackCreate(ObjBindMethod(implObj, "get_TrusteeDSPath"), flags, 2)
+        this.vtbl.get_TrusteeType := CallbackCreate(ObjBindMethod(implObj, "get_TrusteeType"), flags, 2)
     }
 
     Dispose() {

@@ -113,8 +113,8 @@ export default struct ISyncKnowledge extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-getownerreplicaid
      */
     GetOwnerReplicaId(pbReplicaId, pcbIdSize) {
-        pbReplicaIdMarshal := pbReplicaId is VarRef ? "char*" : "ptr"
-        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
+        pbReplicaIdMarshal := pbReplicaId is VarRef ? "char*" : IntPtr
+        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pbReplicaIdMarshal, pbReplicaId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
         return result
@@ -185,8 +185,8 @@ export default struct ISyncKnowledge extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-serialize
      */
     Serialize(fSerializeReplicaKeyMap, pbKnowledge, pcbKnowledge) {
-        pbKnowledgeMarshal := pbKnowledge is VarRef ? "char*" : "ptr"
-        pcbKnowledgeMarshal := pcbKnowledge is VarRef ? "uint*" : "ptr"
+        pbKnowledgeMarshal := pbKnowledge is VarRef ? "char*" : IntPtr
+        pcbKnowledgeMarshal := pcbKnowledge is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, BOOL, fSerializeReplicaKeyMap, pbKnowledgeMarshal, pbKnowledge, pcbKnowledgeMarshal, pcbKnowledge, "HRESULT")
         return result
@@ -288,8 +288,8 @@ export default struct ISyncKnowledge extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-containschange
      */
     ContainsChange(pbVersionOwnerReplicaId, pgidItemId, pSyncVersion) {
-        pbVersionOwnerReplicaIdMarshal := pbVersionOwnerReplicaId is VarRef ? "char*" : "ptr"
-        pgidItemIdMarshal := pgidItemId is VarRef ? "char*" : "ptr"
+        pbVersionOwnerReplicaIdMarshal := pbVersionOwnerReplicaId is VarRef ? "char*" : IntPtr
+        pgidItemIdMarshal := pgidItemId is VarRef ? "char*" : IntPtr
 
         result := ComCall(6, this, pbVersionOwnerReplicaIdMarshal, pbVersionOwnerReplicaId, pgidItemIdMarshal, pgidItemId, SYNC_VERSION.Ptr, pSyncVersion, "HRESULT")
         return result
@@ -342,9 +342,9 @@ export default struct ISyncKnowledge extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-containschangeunit
      */
     ContainsChangeUnit(pbVersionOwnerReplicaId, pbItemId, pbChangeUnitId, pSyncVersion) {
-        pbVersionOwnerReplicaIdMarshal := pbVersionOwnerReplicaId is VarRef ? "char*" : "ptr"
-        pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
-        pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : "ptr"
+        pbVersionOwnerReplicaIdMarshal := pbVersionOwnerReplicaId is VarRef ? "char*" : IntPtr
+        pbItemIdMarshal := pbItemId is VarRef ? "char*" : IntPtr
+        pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : IntPtr
 
         result := ComCall(7, this, pbVersionOwnerReplicaIdMarshal, pbVersionOwnerReplicaId, pbItemIdMarshal, pbItemId, pbChangeUnitIdMarshal, pbChangeUnitId, SYNC_VERSION.Ptr, pSyncVersion, "HRESULT")
         return result
@@ -402,7 +402,7 @@ export default struct ISyncKnowledge extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-getscopevector
      */
     GetScopeVector(riid, ppUnk) {
-        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
+        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(8, this, Guid.Ptr, riid, ppUnkMarshal, ppUnk, "HRESULT")
         return result
@@ -487,9 +487,9 @@ export default struct ISyncKnowledge extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-convertversion
      */
     ConvertVersion(pKnowledgeIn, pbCurrentOwnerId, pVersionIn, pbNewOwnerId, pcbIdSize, pVersionOut) {
-        pbCurrentOwnerIdMarshal := pbCurrentOwnerId is VarRef ? "char*" : "ptr"
-        pbNewOwnerIdMarshal := pbNewOwnerId is VarRef ? "char*" : "ptr"
-        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
+        pbCurrentOwnerIdMarshal := pbCurrentOwnerId is VarRef ? "char*" : IntPtr
+        pbNewOwnerIdMarshal := pbNewOwnerId is VarRef ? "char*" : IntPtr
+        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(11, this, "ptr", pKnowledgeIn, pbCurrentOwnerIdMarshal, pbCurrentOwnerId, SYNC_VERSION.Ptr, pVersionIn, pbNewOwnerIdMarshal, pbNewOwnerId, pcbIdSizeMarshal, pcbIdSize, SYNC_VERSION.Ptr, pVersionOut, "HRESULT")
         return result
@@ -569,7 +569,7 @@ export default struct ISyncKnowledge extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-projectontoitem
      */
     ProjectOntoItem(pbItemId) {
-        pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
+        pbItemIdMarshal := pbItemId is VarRef ? "char*" : IntPtr
 
         result := ComCall(14, this, pbItemIdMarshal, pbItemId, "ptr*", &ppKnowledgeOut := 0, "HRESULT")
         return ISyncKnowledge(ppKnowledgeOut)
@@ -583,8 +583,8 @@ export default struct ISyncKnowledge extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-projectontochangeunit
      */
     ProjectOntoChangeUnit(pbItemId, pbChangeUnitId) {
-        pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
-        pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : "ptr"
+        pbItemIdMarshal := pbItemId is VarRef ? "char*" : IntPtr
+        pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : IntPtr
 
         result := ComCall(15, this, pbItemIdMarshal, pbItemId, pbChangeUnitIdMarshal, pbChangeUnitId, "ptr*", &ppKnowledgeOut := 0, "HRESULT")
         return ISyncKnowledge(ppKnowledgeOut)
@@ -642,7 +642,7 @@ export default struct ISyncKnowledge extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-excludeitem
      */
     ExcludeItem(pbItemId) {
-        pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
+        pbItemIdMarshal := pbItemId is VarRef ? "char*" : IntPtr
 
         result := ComCall(17, this, pbItemIdMarshal, pbItemId, "HRESULT")
         return result
@@ -690,8 +690,8 @@ export default struct ISyncKnowledge extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-excludechangeunit
      */
     ExcludeChangeUnit(pbItemId, pbChangeUnitId) {
-        pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
-        pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : "ptr"
+        pbItemIdMarshal := pbItemId is VarRef ? "char*" : IntPtr
+        pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : IntPtr
 
         result := ComCall(18, this, pbItemIdMarshal, pbItemId, pbChangeUnitIdMarshal, pbChangeUnitId, "HRESULT")
         return result
@@ -779,8 +779,8 @@ export default struct ISyncKnowledge extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-findmintickcountforreplica
      */
     FindMinTickCountForReplica(pbReplicaId, pullReplicaTickCount) {
-        pbReplicaIdMarshal := pbReplicaId is VarRef ? "char*" : "ptr"
-        pullReplicaTickCountMarshal := pullReplicaTickCount is VarRef ? "uint*" : "ptr"
+        pbReplicaIdMarshal := pbReplicaId is VarRef ? "char*" : IntPtr
+        pullReplicaTickCountMarshal := pullReplicaTickCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(20, this, pbReplicaIdMarshal, pbReplicaId, pullReplicaTickCountMarshal, pullReplicaTickCount, "HRESULT")
         return result
@@ -838,7 +838,7 @@ export default struct ISyncKnowledge extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-getrangeexceptions
      */
     GetRangeExceptions(riid, ppUnk) {
-        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
+        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(21, this, Guid.Ptr, riid, ppUnkMarshal, ppUnk, "HRESULT")
         return result
@@ -896,7 +896,7 @@ export default struct ISyncKnowledge extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-getsingleitemexceptions
      */
     GetSingleItemExceptions(riid, ppUnk) {
-        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
+        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(22, this, Guid.Ptr, riid, ppUnkMarshal, ppUnk, "HRESULT")
         return result
@@ -954,7 +954,7 @@ export default struct ISyncKnowledge extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-getchangeunitexceptions
      */
     GetChangeUnitExceptions(riid, ppUnk) {
-        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
+        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(23, this, Guid.Ptr, riid, ppUnkMarshal, ppUnk, "HRESULT")
         return result
@@ -1011,8 +1011,8 @@ export default struct ISyncKnowledge extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-findclockvectorforitem
      */
     FindClockVectorForItem(pbItemId, riid, ppUnk) {
-        pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
-        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
+        pbItemIdMarshal := pbItemId is VarRef ? "char*" : IntPtr
+        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(24, this, pbItemIdMarshal, pbItemId, Guid.Ptr, riid, ppUnkMarshal, ppUnk, "HRESULT")
         return result
@@ -1070,9 +1070,9 @@ export default struct ISyncKnowledge extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-findclockvectorforchangeunit
      */
     FindClockVectorForChangeUnit(pbItemId, pbChangeUnitId, riid, ppUnk) {
-        pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
-        pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : "ptr"
-        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
+        pbItemIdMarshal := pbItemId is VarRef ? "char*" : IntPtr
+        pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : IntPtr
+        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(25, this, pbItemIdMarshal, pbItemId, pbChangeUnitIdMarshal, pbChangeUnitId, Guid.Ptr, riid, ppUnkMarshal, ppUnk, "HRESULT")
         return result
@@ -1116,7 +1116,7 @@ export default struct ISyncKnowledge extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-getversion
      */
     GetVersion(pdwVersion) {
-        pdwVersionMarshal := pdwVersion is VarRef ? "uint*" : "ptr"
+        pdwVersionMarshal := pdwVersion is VarRef ? "uint*" : IntPtr
 
         result := ComCall(26, this, pdwVersionMarshal, pdwVersion, "HRESULT")
         return result
@@ -1131,30 +1131,30 @@ export default struct ISyncKnowledge extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOwnerReplicaId := CallbackCreate(GetMethod(implObj, "GetOwnerReplicaId"), flags, 3)
-        this.vtbl.Serialize := CallbackCreate(GetMethod(implObj, "Serialize"), flags, 4)
-        this.vtbl.SetLocalTickCount := CallbackCreate(GetMethod(implObj, "SetLocalTickCount"), flags, 2)
-        this.vtbl.ContainsChange := CallbackCreate(GetMethod(implObj, "ContainsChange"), flags, 4)
-        this.vtbl.ContainsChangeUnit := CallbackCreate(GetMethod(implObj, "ContainsChangeUnit"), flags, 5)
-        this.vtbl.GetScopeVector := CallbackCreate(GetMethod(implObj, "GetScopeVector"), flags, 3)
-        this.vtbl.GetReplicaKeyMap := CallbackCreate(GetMethod(implObj, "GetReplicaKeyMap"), flags, 2)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
-        this.vtbl.ConvertVersion := CallbackCreate(GetMethod(implObj, "ConvertVersion"), flags, 7)
-        this.vtbl.MapRemoteToLocal := CallbackCreate(GetMethod(implObj, "MapRemoteToLocal"), flags, 3)
-        this.vtbl.Union := CallbackCreate(GetMethod(implObj, "Union"), flags, 2)
-        this.vtbl.ProjectOntoItem := CallbackCreate(GetMethod(implObj, "ProjectOntoItem"), flags, 3)
-        this.vtbl.ProjectOntoChangeUnit := CallbackCreate(GetMethod(implObj, "ProjectOntoChangeUnit"), flags, 4)
-        this.vtbl.ProjectOntoRange := CallbackCreate(GetMethod(implObj, "ProjectOntoRange"), flags, 3)
-        this.vtbl.ExcludeItem := CallbackCreate(GetMethod(implObj, "ExcludeItem"), flags, 2)
-        this.vtbl.ExcludeChangeUnit := CallbackCreate(GetMethod(implObj, "ExcludeChangeUnit"), flags, 3)
-        this.vtbl.ContainsKnowledge := CallbackCreate(GetMethod(implObj, "ContainsKnowledge"), flags, 2)
-        this.vtbl.FindMinTickCountForReplica := CallbackCreate(GetMethod(implObj, "FindMinTickCountForReplica"), flags, 3)
-        this.vtbl.GetRangeExceptions := CallbackCreate(GetMethod(implObj, "GetRangeExceptions"), flags, 3)
-        this.vtbl.GetSingleItemExceptions := CallbackCreate(GetMethod(implObj, "GetSingleItemExceptions"), flags, 3)
-        this.vtbl.GetChangeUnitExceptions := CallbackCreate(GetMethod(implObj, "GetChangeUnitExceptions"), flags, 3)
-        this.vtbl.FindClockVectorForItem := CallbackCreate(GetMethod(implObj, "FindClockVectorForItem"), flags, 4)
-        this.vtbl.FindClockVectorForChangeUnit := CallbackCreate(GetMethod(implObj, "FindClockVectorForChangeUnit"), flags, 5)
-        this.vtbl.GetVersion := CallbackCreate(GetMethod(implObj, "GetVersion"), flags, 2)
+        this.vtbl.GetOwnerReplicaId := CallbackCreate(ObjBindMethod(implObj, "GetOwnerReplicaId"), flags, 3)
+        this.vtbl.Serialize := CallbackCreate(ObjBindMethod(implObj, "Serialize"), flags, 4)
+        this.vtbl.SetLocalTickCount := CallbackCreate(ObjBindMethod(implObj, "SetLocalTickCount"), flags, 2)
+        this.vtbl.ContainsChange := CallbackCreate(ObjBindMethod(implObj, "ContainsChange"), flags, 4)
+        this.vtbl.ContainsChangeUnit := CallbackCreate(ObjBindMethod(implObj, "ContainsChangeUnit"), flags, 5)
+        this.vtbl.GetScopeVector := CallbackCreate(ObjBindMethod(implObj, "GetScopeVector"), flags, 3)
+        this.vtbl.GetReplicaKeyMap := CallbackCreate(ObjBindMethod(implObj, "GetReplicaKeyMap"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.ConvertVersion := CallbackCreate(ObjBindMethod(implObj, "ConvertVersion"), flags, 7)
+        this.vtbl.MapRemoteToLocal := CallbackCreate(ObjBindMethod(implObj, "MapRemoteToLocal"), flags, 3)
+        this.vtbl.Union := CallbackCreate(ObjBindMethod(implObj, "Union"), flags, 2)
+        this.vtbl.ProjectOntoItem := CallbackCreate(ObjBindMethod(implObj, "ProjectOntoItem"), flags, 3)
+        this.vtbl.ProjectOntoChangeUnit := CallbackCreate(ObjBindMethod(implObj, "ProjectOntoChangeUnit"), flags, 4)
+        this.vtbl.ProjectOntoRange := CallbackCreate(ObjBindMethod(implObj, "ProjectOntoRange"), flags, 3)
+        this.vtbl.ExcludeItem := CallbackCreate(ObjBindMethod(implObj, "ExcludeItem"), flags, 2)
+        this.vtbl.ExcludeChangeUnit := CallbackCreate(ObjBindMethod(implObj, "ExcludeChangeUnit"), flags, 3)
+        this.vtbl.ContainsKnowledge := CallbackCreate(ObjBindMethod(implObj, "ContainsKnowledge"), flags, 2)
+        this.vtbl.FindMinTickCountForReplica := CallbackCreate(ObjBindMethod(implObj, "FindMinTickCountForReplica"), flags, 3)
+        this.vtbl.GetRangeExceptions := CallbackCreate(ObjBindMethod(implObj, "GetRangeExceptions"), flags, 3)
+        this.vtbl.GetSingleItemExceptions := CallbackCreate(ObjBindMethod(implObj, "GetSingleItemExceptions"), flags, 3)
+        this.vtbl.GetChangeUnitExceptions := CallbackCreate(ObjBindMethod(implObj, "GetChangeUnitExceptions"), flags, 3)
+        this.vtbl.FindClockVectorForItem := CallbackCreate(ObjBindMethod(implObj, "FindClockVectorForItem"), flags, 4)
+        this.vtbl.FindClockVectorForChangeUnit := CallbackCreate(ObjBindMethod(implObj, "FindClockVectorForChangeUnit"), flags, 5)
+        this.vtbl.GetVersion := CallbackCreate(ObjBindMethod(implObj, "GetVersion"), flags, 2)
     }
 
     Dispose() {

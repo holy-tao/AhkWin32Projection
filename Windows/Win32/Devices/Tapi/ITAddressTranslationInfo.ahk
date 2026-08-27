@@ -162,11 +162,11 @@ export default struct ITAddressTranslationInfo extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_DialableString := CallbackCreate(GetMethod(implObj, "get_DialableString"), flags, 2)
-        this.vtbl.get_DisplayableString := CallbackCreate(GetMethod(implObj, "get_DisplayableString"), flags, 2)
-        this.vtbl.get_CurrentCountryCode := CallbackCreate(GetMethod(implObj, "get_CurrentCountryCode"), flags, 2)
-        this.vtbl.get_DestinationCountryCode := CallbackCreate(GetMethod(implObj, "get_DestinationCountryCode"), flags, 2)
-        this.vtbl.get_TranslationResults := CallbackCreate(GetMethod(implObj, "get_TranslationResults"), flags, 2)
+        this.vtbl.get_DialableString := CallbackCreate(ObjBindMethod(implObj, "get_DialableString"), flags, 2)
+        this.vtbl.get_DisplayableString := CallbackCreate(ObjBindMethod(implObj, "get_DisplayableString"), flags, 2)
+        this.vtbl.get_CurrentCountryCode := CallbackCreate(ObjBindMethod(implObj, "get_CurrentCountryCode"), flags, 2)
+        this.vtbl.get_DestinationCountryCode := CallbackCreate(ObjBindMethod(implObj, "get_DestinationCountryCode"), flags, 2)
+        this.vtbl.get_TranslationResults := CallbackCreate(ObjBindMethod(implObj, "get_TranslationResults"), flags, 2)
     }
 
     Dispose() {

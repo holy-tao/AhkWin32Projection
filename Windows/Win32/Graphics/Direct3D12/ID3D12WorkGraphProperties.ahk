@@ -50,7 +50,6 @@ export default struct ID3D12WorkGraphProperties extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumWorkGraphs() {
@@ -59,7 +58,6 @@ export default struct ID3D12WorkGraphProperties extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} WorkGraphIndex 
      * @returns {PWSTR} 
      */
@@ -69,7 +67,6 @@ export default struct ID3D12WorkGraphProperties extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pProgramName 
      * @returns {Integer} 
      */
@@ -81,7 +78,6 @@ export default struct ID3D12WorkGraphProperties extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} WorkGraphIndex 
      * @returns {Integer} 
      */
@@ -91,7 +87,6 @@ export default struct ID3D12WorkGraphProperties extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} WorkGraphIndex 
      * @param {Integer} NodeIndex 
      * @returns {D3D12_NODE_ID} 
@@ -102,7 +97,6 @@ export default struct ID3D12WorkGraphProperties extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} WorkGraphIndex 
      * @param {D3D12_NODE_ID} NodeID 
      * @returns {Integer} 
@@ -113,7 +107,6 @@ export default struct ID3D12WorkGraphProperties extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} WorkGraphIndex 
      * @param {Integer} NodeIndex 
      * @returns {Integer} 
@@ -124,7 +117,6 @@ export default struct ID3D12WorkGraphProperties extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} WorkGraphIndex 
      * @returns {Integer} 
      */
@@ -134,7 +126,6 @@ export default struct ID3D12WorkGraphProperties extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} WorkGraphIndex 
      * @param {Integer} EntrypointIndex 
      * @returns {D3D12_NODE_ID} 
@@ -145,7 +136,6 @@ export default struct ID3D12WorkGraphProperties extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} WorkGraphIndex 
      * @param {D3D12_NODE_ID} NodeID 
      * @returns {Integer} 
@@ -156,7 +146,6 @@ export default struct ID3D12WorkGraphProperties extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} WorkGraphIndex 
      * @param {Integer} EntrypointIndex 
      * @returns {Integer} 
@@ -167,7 +156,6 @@ export default struct ID3D12WorkGraphProperties extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} WorkGraphIndex 
      * @param {Pointer<D3D12_WORK_GRAPH_MEMORY_REQUIREMENTS>} pWorkGraphMemoryRequirements 
      * @returns {String} Nothing - always returns an empty string
@@ -177,7 +165,6 @@ export default struct ID3D12WorkGraphProperties extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} WorkGraphIndex 
      * @param {Integer} EntrypointIndex 
      * @returns {Integer} 
@@ -196,19 +183,19 @@ export default struct ID3D12WorkGraphProperties extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNumWorkGraphs := CallbackCreate(GetMethod(implObj, "GetNumWorkGraphs"), flags, 1)
-        this.vtbl.GetProgramName := CallbackCreate(GetMethod(implObj, "GetProgramName"), flags, 2)
-        this.vtbl.GetWorkGraphIndex := CallbackCreate(GetMethod(implObj, "GetWorkGraphIndex"), flags, 2)
-        this.vtbl.GetNumNodes := CallbackCreate(GetMethod(implObj, "GetNumNodes"), flags, 2)
-        this.vtbl.GetNodeID := CallbackCreate(GetMethod(implObj, "GetNodeID"), flags, 3)
-        this.vtbl.GetNodeIndex := CallbackCreate(GetMethod(implObj, "GetNodeIndex"), flags, 3)
-        this.vtbl.GetNodeLocalRootArgumentsTableIndex := CallbackCreate(GetMethod(implObj, "GetNodeLocalRootArgumentsTableIndex"), flags, 3)
-        this.vtbl.GetNumEntrypoints := CallbackCreate(GetMethod(implObj, "GetNumEntrypoints"), flags, 2)
-        this.vtbl.GetEntrypointID := CallbackCreate(GetMethod(implObj, "GetEntrypointID"), flags, 3)
-        this.vtbl.GetEntrypointIndex := CallbackCreate(GetMethod(implObj, "GetEntrypointIndex"), flags, 3)
-        this.vtbl.GetEntrypointRecordSizeInBytes := CallbackCreate(GetMethod(implObj, "GetEntrypointRecordSizeInBytes"), flags, 3)
-        this.vtbl.GetWorkGraphMemoryRequirements := CallbackCreate(GetMethod(implObj, "GetWorkGraphMemoryRequirements"), flags, 3)
-        this.vtbl.GetEntrypointRecordAlignmentInBytes := CallbackCreate(GetMethod(implObj, "GetEntrypointRecordAlignmentInBytes"), flags, 3)
+        this.vtbl.GetNumWorkGraphs := CallbackCreate(ObjBindMethod(implObj, "GetNumWorkGraphs"), flags, 1)
+        this.vtbl.GetProgramName := CallbackCreate(ObjBindMethod(implObj, "GetProgramName"), flags, 2)
+        this.vtbl.GetWorkGraphIndex := CallbackCreate(ObjBindMethod(implObj, "GetWorkGraphIndex"), flags, 2)
+        this.vtbl.GetNumNodes := CallbackCreate(ObjBindMethod(implObj, "GetNumNodes"), flags, 2)
+        this.vtbl.GetNodeID := CallbackCreate(ObjBindMethod(implObj, "GetNodeID"), flags, 3)
+        this.vtbl.GetNodeIndex := CallbackCreate(ObjBindMethod(implObj, "GetNodeIndex"), flags, 3)
+        this.vtbl.GetNodeLocalRootArgumentsTableIndex := CallbackCreate(ObjBindMethod(implObj, "GetNodeLocalRootArgumentsTableIndex"), flags, 3)
+        this.vtbl.GetNumEntrypoints := CallbackCreate(ObjBindMethod(implObj, "GetNumEntrypoints"), flags, 2)
+        this.vtbl.GetEntrypointID := CallbackCreate(ObjBindMethod(implObj, "GetEntrypointID"), flags, 3)
+        this.vtbl.GetEntrypointIndex := CallbackCreate(ObjBindMethod(implObj, "GetEntrypointIndex"), flags, 3)
+        this.vtbl.GetEntrypointRecordSizeInBytes := CallbackCreate(ObjBindMethod(implObj, "GetEntrypointRecordSizeInBytes"), flags, 3)
+        this.vtbl.GetWorkGraphMemoryRequirements := CallbackCreate(ObjBindMethod(implObj, "GetWorkGraphMemoryRequirements"), flags, 3)
+        this.vtbl.GetEntrypointRecordAlignmentInBytes := CallbackCreate(ObjBindMethod(implObj, "GetEntrypointRecordAlignmentInBytes"), flags, 3)
     }
 
     Dispose() {

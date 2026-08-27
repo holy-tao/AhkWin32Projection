@@ -21,7 +21,6 @@ export default struct BCryptSetPropertyFn {
     }
 
     /**
-     * 
      * @param {BCRYPT_HANDLE} hObject 
      * @param {PWSTR} pszProperty 
      * @param {Integer} pbInput 

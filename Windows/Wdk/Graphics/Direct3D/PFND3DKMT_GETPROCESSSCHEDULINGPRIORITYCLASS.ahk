@@ -21,13 +21,12 @@ export default struct PFND3DKMT_GETPROCESSSCHEDULINGPRIORITYCLASS {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @param {Pointer<D3DKMT_SCHEDULINGPRIORITYCLASS>} param1 
      * @returns {NTSTATUS} 
      */
     Call(param0, param1) {
-        param1Marshal := param1 is VarRef ? "int*" : "ptr"
+        param1Marshal := param1 is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, HANDLE, param0, param1Marshal, param1, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

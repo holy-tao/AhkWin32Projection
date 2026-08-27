@@ -20,7 +20,6 @@ export default struct PFN_PRINTING_XCVCLOSEPORT {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @returns {BOOL} 
      */

@@ -50,7 +50,6 @@ export default struct IDispatchEx extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {Integer} grfdex 
      * @returns {Integer} 
@@ -63,7 +62,6 @@ export default struct IDispatchEx extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} id 
      * @param {Integer} lcid 
      * @param {Integer} wFlags 
@@ -74,12 +72,15 @@ export default struct IDispatchEx extends IDispatch {
      * @returns {HRESULT} 
      */
     InvokeEx(id, lcid, wFlags, pdp, pvarRes, pei, pspCaller) {
-        result := ComCall(8, this, Int32, id, UInt32, lcid, UInt16, wFlags, DISPPARAMS.Ptr, pdp, VARIANT.Ptr, pvarRes, EXCEPINFO.Ptr, pei, "ptr", pspCaller, "HRESULT")
+        pvarResMarshal := pvarRes == 0 ? IntPtr : VARIANT.Ptr
+        peiMarshal := pei == 0 ? IntPtr : EXCEPINFO.Ptr
+        pspCallerMarshal := pspCaller == 0 ? IntPtr : "ptr"
+
+        result := ComCall(8, this, Int32, id, UInt32, lcid, UInt16, wFlags, DISPPARAMS.Ptr, pdp, pvarResMarshal, pvarRes, peiMarshal, pei, pspCallerMarshal, pspCaller, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {Integer} grfdex 
      * @returns {HRESULT} 
@@ -92,7 +93,6 @@ export default struct IDispatchEx extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} id 
      * @returns {HRESULT} 
      */
@@ -102,7 +102,6 @@ export default struct IDispatchEx extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} id 
      * @param {Integer} grfdexFetch 
      * @returns {FDEX_PROP_FLAGS} 
@@ -113,7 +112,6 @@ export default struct IDispatchEx extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} id 
      * @returns {BSTR} 
      */
@@ -124,7 +122,6 @@ export default struct IDispatchEx extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} grfdex 
      * @param {Integer} id 
      * @returns {Integer} 
@@ -135,7 +132,6 @@ export default struct IDispatchEx extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     GetNameSpaceParent() {
@@ -152,14 +148,14 @@ export default struct IDispatchEx extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDispID := CallbackCreate(GetMethod(implObj, "GetDispID"), flags, 4)
-        this.vtbl.InvokeEx := CallbackCreate(GetMethod(implObj, "InvokeEx"), flags, 8)
-        this.vtbl.DeleteMemberByName := CallbackCreate(GetMethod(implObj, "DeleteMemberByName"), flags, 3)
-        this.vtbl.DeleteMemberByDispID := CallbackCreate(GetMethod(implObj, "DeleteMemberByDispID"), flags, 2)
-        this.vtbl.GetMemberProperties := CallbackCreate(GetMethod(implObj, "GetMemberProperties"), flags, 4)
-        this.vtbl.GetMemberName := CallbackCreate(GetMethod(implObj, "GetMemberName"), flags, 3)
-        this.vtbl.GetNextDispID := CallbackCreate(GetMethod(implObj, "GetNextDispID"), flags, 4)
-        this.vtbl.GetNameSpaceParent := CallbackCreate(GetMethod(implObj, "GetNameSpaceParent"), flags, 2)
+        this.vtbl.GetDispID := CallbackCreate(ObjBindMethod(implObj, "GetDispID"), flags, 4)
+        this.vtbl.InvokeEx := CallbackCreate(ObjBindMethod(implObj, "InvokeEx"), flags, 8)
+        this.vtbl.DeleteMemberByName := CallbackCreate(ObjBindMethod(implObj, "DeleteMemberByName"), flags, 3)
+        this.vtbl.DeleteMemberByDispID := CallbackCreate(ObjBindMethod(implObj, "DeleteMemberByDispID"), flags, 2)
+        this.vtbl.GetMemberProperties := CallbackCreate(ObjBindMethod(implObj, "GetMemberProperties"), flags, 4)
+        this.vtbl.GetMemberName := CallbackCreate(ObjBindMethod(implObj, "GetMemberName"), flags, 3)
+        this.vtbl.GetNextDispID := CallbackCreate(ObjBindMethod(implObj, "GetNextDispID"), flags, 4)
+        this.vtbl.GetNameSpaceParent := CallbackCreate(ObjBindMethod(implObj, "GetNameSpaceParent"), flags, 2)
     }
 
     Dispose() {

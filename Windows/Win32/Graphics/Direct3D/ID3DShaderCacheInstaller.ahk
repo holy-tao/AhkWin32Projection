@@ -52,7 +52,6 @@ export default struct ID3DShaderCacheInstaller extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RegisterDriverUpdateListener() {
@@ -61,7 +60,6 @@ export default struct ID3DShaderCacheInstaller extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     UnregisterDriverUpdateListener() {
@@ -70,7 +68,6 @@ export default struct ID3DShaderCacheInstaller extends IUnknown {
     }
 
     /**
-     * 
      * @param {SC_HANDLE} hServiceHandle 
      * @returns {HRESULT} 
      */
@@ -80,7 +77,6 @@ export default struct ID3DShaderCacheInstaller extends IUnknown {
     }
 
     /**
-     * 
      * @param {SC_HANDLE} hServiceHandle 
      * @returns {HRESULT} 
      */
@@ -90,7 +86,6 @@ export default struct ID3DShaderCacheInstaller extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pExePath 
      * @param {Pointer<D3D_SHADER_CACHE_APPLICATION_DESC>} pApplicationDesc 
      * @param {Pointer<Guid>} riid 
@@ -104,7 +99,6 @@ export default struct ID3DShaderCacheInstaller extends IUnknown {
     }
 
     /**
-     * 
      * @param {ID3DShaderCacheApplication} pApplication 
      * @returns {HRESULT} 
      */
@@ -114,7 +108,6 @@ export default struct ID3DShaderCacheInstaller extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetApplicationCount() {
@@ -123,7 +116,6 @@ export default struct ID3DShaderCacheInstaller extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -134,7 +126,6 @@ export default struct ID3DShaderCacheInstaller extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ClearAllState() {
@@ -143,7 +134,6 @@ export default struct ID3DShaderCacheInstaller extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMaxPrecompileTargetCount() {
@@ -152,17 +142,17 @@ export default struct ID3DShaderCacheInstaller extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<D3D_SHADER_CACHE_APPLICATION_DESC>} pApplicationDesc 
      * @param {Pointer<Integer>} pArraySize 
      * @param {D3D_SHADER_CACHE_TARGET_FLAGS} flags 
      * @returns {D3D_SHADER_CACHE_COMPILER_PROPERTIES} 
      */
     GetPrecompileTargets(pApplicationDesc, pArraySize, flags) {
-        pArraySizeMarshal := pArraySize is VarRef ? "uint*" : "ptr"
+        pApplicationDescMarshal := pApplicationDesc == 0 ? IntPtr : D3D_SHADER_CACHE_APPLICATION_DESC.Ptr
+        pArraySizeMarshal := pArraySize is VarRef ? "uint*" : IntPtr
 
         pArray := D3D_SHADER_CACHE_COMPILER_PROPERTIES()
-        result := ComCall(13, this, D3D_SHADER_CACHE_APPLICATION_DESC.Ptr, pApplicationDesc, pArraySizeMarshal, pArraySize, D3D_SHADER_CACHE_COMPILER_PROPERTIES.Ptr, pArray, D3D_SHADER_CACHE_TARGET_FLAGS, flags, "HRESULT")
+        result := ComCall(13, this, pApplicationDescMarshal, pApplicationDesc, pArraySizeMarshal, pArraySize, D3D_SHADER_CACHE_COMPILER_PROPERTIES.Ptr, pArray, D3D_SHADER_CACHE_TARGET_FLAGS, flags, "HRESULT")
         return pArray
     }
 
@@ -175,17 +165,17 @@ export default struct ID3DShaderCacheInstaller extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterDriverUpdateListener := CallbackCreate(GetMethod(implObj, "RegisterDriverUpdateListener"), flags, 1)
-        this.vtbl.UnregisterDriverUpdateListener := CallbackCreate(GetMethod(implObj, "UnregisterDriverUpdateListener"), flags, 1)
-        this.vtbl.RegisterServiceDriverUpdateTrigger := CallbackCreate(GetMethod(implObj, "RegisterServiceDriverUpdateTrigger"), flags, 2)
-        this.vtbl.UnregisterServiceDriverUpdateTrigger := CallbackCreate(GetMethod(implObj, "UnregisterServiceDriverUpdateTrigger"), flags, 2)
-        this.vtbl.RegisterApplication := CallbackCreate(GetMethod(implObj, "RegisterApplication"), flags, 5)
-        this.vtbl.RemoveApplication := CallbackCreate(GetMethod(implObj, "RemoveApplication"), flags, 2)
-        this.vtbl.GetApplicationCount := CallbackCreate(GetMethod(implObj, "GetApplicationCount"), flags, 1)
-        this.vtbl.GetApplication := CallbackCreate(GetMethod(implObj, "GetApplication"), flags, 4)
-        this.vtbl.ClearAllState := CallbackCreate(GetMethod(implObj, "ClearAllState"), flags, 1)
-        this.vtbl.GetMaxPrecompileTargetCount := CallbackCreate(GetMethod(implObj, "GetMaxPrecompileTargetCount"), flags, 1)
-        this.vtbl.GetPrecompileTargets := CallbackCreate(GetMethod(implObj, "GetPrecompileTargets"), flags, 5)
+        this.vtbl.RegisterDriverUpdateListener := CallbackCreate(ObjBindMethod(implObj, "RegisterDriverUpdateListener"), flags, 1)
+        this.vtbl.UnregisterDriverUpdateListener := CallbackCreate(ObjBindMethod(implObj, "UnregisterDriverUpdateListener"), flags, 1)
+        this.vtbl.RegisterServiceDriverUpdateTrigger := CallbackCreate(ObjBindMethod(implObj, "RegisterServiceDriverUpdateTrigger"), flags, 2)
+        this.vtbl.UnregisterServiceDriverUpdateTrigger := CallbackCreate(ObjBindMethod(implObj, "UnregisterServiceDriverUpdateTrigger"), flags, 2)
+        this.vtbl.RegisterApplication := CallbackCreate(ObjBindMethod(implObj, "RegisterApplication"), flags, 5)
+        this.vtbl.RemoveApplication := CallbackCreate(ObjBindMethod(implObj, "RemoveApplication"), flags, 2)
+        this.vtbl.GetApplicationCount := CallbackCreate(ObjBindMethod(implObj, "GetApplicationCount"), flags, 1)
+        this.vtbl.GetApplication := CallbackCreate(ObjBindMethod(implObj, "GetApplication"), flags, 4)
+        this.vtbl.ClearAllState := CallbackCreate(ObjBindMethod(implObj, "ClearAllState"), flags, 1)
+        this.vtbl.GetMaxPrecompileTargetCount := CallbackCreate(ObjBindMethod(implObj, "GetMaxPrecompileTargetCount"), flags, 1)
+        this.vtbl.GetPrecompileTargets := CallbackCreate(ObjBindMethod(implObj, "GetPrecompileTargets"), flags, 5)
     }
 
     Dispose() {

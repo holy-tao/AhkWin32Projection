@@ -131,7 +131,7 @@ export default struct IRedbookDiscMaster extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-iredbookdiscmaster-addaudiotrackblocks
      */
     AddAudioTrackBlocks(pby, cb) {
-        pbyMarshal := pby is VarRef ? "char*" : "ptr"
+        pbyMarshal := pby is VarRef ? "char*" : IntPtr
 
         result := ComCall(9, this, pbyMarshal, pby, Int32, cb, "HRESULT")
         return result
@@ -156,14 +156,14 @@ export default struct IRedbookDiscMaster extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTotalAudioTracks := CallbackCreate(GetMethod(implObj, "GetTotalAudioTracks"), flags, 2)
-        this.vtbl.GetTotalAudioBlocks := CallbackCreate(GetMethod(implObj, "GetTotalAudioBlocks"), flags, 2)
-        this.vtbl.GetUsedAudioBlocks := CallbackCreate(GetMethod(implObj, "GetUsedAudioBlocks"), flags, 2)
-        this.vtbl.GetAvailableAudioTrackBlocks := CallbackCreate(GetMethod(implObj, "GetAvailableAudioTrackBlocks"), flags, 2)
-        this.vtbl.GetAudioBlockSize := CallbackCreate(GetMethod(implObj, "GetAudioBlockSize"), flags, 2)
-        this.vtbl.CreateAudioTrack := CallbackCreate(GetMethod(implObj, "CreateAudioTrack"), flags, 2)
-        this.vtbl.AddAudioTrackBlocks := CallbackCreate(GetMethod(implObj, "AddAudioTrackBlocks"), flags, 3)
-        this.vtbl.CloseAudioTrack := CallbackCreate(GetMethod(implObj, "CloseAudioTrack"), flags, 1)
+        this.vtbl.GetTotalAudioTracks := CallbackCreate(ObjBindMethod(implObj, "GetTotalAudioTracks"), flags, 2)
+        this.vtbl.GetTotalAudioBlocks := CallbackCreate(ObjBindMethod(implObj, "GetTotalAudioBlocks"), flags, 2)
+        this.vtbl.GetUsedAudioBlocks := CallbackCreate(ObjBindMethod(implObj, "GetUsedAudioBlocks"), flags, 2)
+        this.vtbl.GetAvailableAudioTrackBlocks := CallbackCreate(ObjBindMethod(implObj, "GetAvailableAudioTrackBlocks"), flags, 2)
+        this.vtbl.GetAudioBlockSize := CallbackCreate(ObjBindMethod(implObj, "GetAudioBlockSize"), flags, 2)
+        this.vtbl.CreateAudioTrack := CallbackCreate(ObjBindMethod(implObj, "CreateAudioTrack"), flags, 2)
+        this.vtbl.AddAudioTrackBlocks := CallbackCreate(ObjBindMethod(implObj, "AddAudioTrackBlocks"), flags, 3)
+        this.vtbl.CloseAudioTrack := CallbackCreate(ObjBindMethod(implObj, "CloseAudioTrack"), flags, 1)
     }
 
     Dispose() {

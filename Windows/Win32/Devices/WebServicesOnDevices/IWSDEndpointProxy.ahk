@@ -92,7 +92,7 @@ export default struct IWSDEndpointProxy extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdendpointproxy-sendonewayrequest
      */
     SendOneWayRequest(pBody, pOperation) {
-        pBodyMarshal := pBody is VarRef ? "ptr" : "ptr"
+        pBodyMarshal := pBody is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, pBodyMarshal, pBody, WSD_OPERATION.Ptr, pOperation, "HRESULT")
         return result
@@ -143,9 +143,10 @@ export default struct IWSDEndpointProxy extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdendpointproxy-sendtwowayrequest
      */
     SendTwoWayRequest(pBody, pOperation, pResponseContext) {
-        pBodyMarshal := pBody is VarRef ? "ptr" : "ptr"
+        pBodyMarshal := pBody is VarRef ? "ptr" : IntPtr
+        pResponseContextMarshal := pResponseContext == 0 ? IntPtr : WSD_SYNCHRONOUS_RESPONSE_CONTEXT.Ptr
 
-        result := ComCall(4, this, pBodyMarshal, pBody, WSD_OPERATION.Ptr, pOperation, WSD_SYNCHRONOUS_RESPONSE_CONTEXT.Ptr, pResponseContext, "HRESULT")
+        result := ComCall(4, this, pBodyMarshal, pBody, WSD_OPERATION.Ptr, pOperation, pResponseContextMarshal, pResponseContext, "HRESULT")
         return result
     }
 
@@ -161,7 +162,7 @@ export default struct IWSDEndpointProxy extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdendpointproxy-sendtwowayrequestasync
      */
     SendTwoWayRequestAsync(pBody, pOperation, pAsyncState, pCallback) {
-        pBodyMarshal := pBody is VarRef ? "ptr" : "ptr"
+        pBodyMarshal := pBody is VarRef ? "ptr" : IntPtr
 
         result := ComCall(5, this, pBodyMarshal, pBody, WSD_OPERATION.Ptr, pOperation, "ptr", pAsyncState, "ptr", pCallback, "ptr*", &pResult := 0, "HRESULT")
         return IWSDAsyncResult(pResult)
@@ -298,13 +299,13 @@ export default struct IWSDEndpointProxy extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SendOneWayRequest := CallbackCreate(GetMethod(implObj, "SendOneWayRequest"), flags, 3)
-        this.vtbl.SendTwoWayRequest := CallbackCreate(GetMethod(implObj, "SendTwoWayRequest"), flags, 4)
-        this.vtbl.SendTwoWayRequestAsync := CallbackCreate(GetMethod(implObj, "SendTwoWayRequestAsync"), flags, 6)
-        this.vtbl.AbortAsyncOperation := CallbackCreate(GetMethod(implObj, "AbortAsyncOperation"), flags, 2)
-        this.vtbl.ProcessFault := CallbackCreate(GetMethod(implObj, "ProcessFault"), flags, 2)
-        this.vtbl.GetErrorInfo := CallbackCreate(GetMethod(implObj, "GetErrorInfo"), flags, 2)
-        this.vtbl.GetFaultInfo := CallbackCreate(GetMethod(implObj, "GetFaultInfo"), flags, 2)
+        this.vtbl.SendOneWayRequest := CallbackCreate(ObjBindMethod(implObj, "SendOneWayRequest"), flags, 3)
+        this.vtbl.SendTwoWayRequest := CallbackCreate(ObjBindMethod(implObj, "SendTwoWayRequest"), flags, 4)
+        this.vtbl.SendTwoWayRequestAsync := CallbackCreate(ObjBindMethod(implObj, "SendTwoWayRequestAsync"), flags, 6)
+        this.vtbl.AbortAsyncOperation := CallbackCreate(ObjBindMethod(implObj, "AbortAsyncOperation"), flags, 2)
+        this.vtbl.ProcessFault := CallbackCreate(ObjBindMethod(implObj, "ProcessFault"), flags, 2)
+        this.vtbl.GetErrorInfo := CallbackCreate(ObjBindMethod(implObj, "GetErrorInfo"), flags, 2)
+        this.vtbl.GetFaultInfo := CallbackCreate(ObjBindMethod(implObj, "GetFaultInfo"), flags, 2)
     }
 
     Dispose() {

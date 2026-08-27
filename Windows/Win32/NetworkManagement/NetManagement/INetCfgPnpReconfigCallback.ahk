@@ -38,7 +38,6 @@ export default struct INetCfgPnpReconfigCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {NCPNP_RECONFIG_LAYER} Layer 
      * @param {PWSTR} pszwUpper 
      * @param {PWSTR} pszwLower 
@@ -63,7 +62,7 @@ export default struct INetCfgPnpReconfigCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SendPnpReconfig := CallbackCreate(GetMethod(implObj, "SendPnpReconfig"), flags, 6)
+        this.vtbl.SendPnpReconfig := CallbackCreate(ObjBindMethod(implObj, "SendPnpReconfig"), flags, 6)
     }
 
     Dispose() {

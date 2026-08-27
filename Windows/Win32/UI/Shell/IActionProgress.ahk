@@ -168,12 +168,12 @@ export default struct IActionProgress extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Begin := CallbackCreate(GetMethod(implObj, "Begin"), flags, 3)
-        this.vtbl.UpdateProgress := CallbackCreate(GetMethod(implObj, "UpdateProgress"), flags, 3)
-        this.vtbl.UpdateText := CallbackCreate(GetMethod(implObj, "UpdateText"), flags, 4)
-        this.vtbl.QueryCancel := CallbackCreate(GetMethod(implObj, "QueryCancel"), flags, 2)
-        this.vtbl.ResetCancel := CallbackCreate(GetMethod(implObj, "ResetCancel"), flags, 1)
-        this.vtbl.End := CallbackCreate(GetMethod(implObj, "End"), flags, 1)
+        this.vtbl.Begin := CallbackCreate(ObjBindMethod(implObj, "Begin"), flags, 3)
+        this.vtbl.UpdateProgress := CallbackCreate(ObjBindMethod(implObj, "UpdateProgress"), flags, 3)
+        this.vtbl.UpdateText := CallbackCreate(ObjBindMethod(implObj, "UpdateText"), flags, 4)
+        this.vtbl.QueryCancel := CallbackCreate(ObjBindMethod(implObj, "QueryCancel"), flags, 2)
+        this.vtbl.ResetCancel := CallbackCreate(ObjBindMethod(implObj, "ResetCancel"), flags, 1)
+        this.vtbl.End := CallbackCreate(ObjBindMethod(implObj, "End"), flags, 1)
     }
 
     Dispose() {

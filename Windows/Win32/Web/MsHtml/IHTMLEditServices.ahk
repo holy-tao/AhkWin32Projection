@@ -46,7 +46,6 @@ export default struct IHTMLEditServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHTMLEditDesigner} pIDesigner 
      * @returns {HRESULT} 
      */
@@ -56,7 +55,6 @@ export default struct IHTMLEditServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHTMLEditDesigner} pIDesigner 
      * @returns {HRESULT} 
      */
@@ -66,7 +64,6 @@ export default struct IHTMLEditServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupContainer} pIContainer 
      * @returns {ISelectionServices} 
      */
@@ -76,7 +73,6 @@ export default struct IHTMLEditServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pIStartAnchor 
      * @returns {HRESULT} 
      */
@@ -86,7 +82,6 @@ export default struct IHTMLEditServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pIEndAnchor 
      * @returns {HRESULT} 
      */
@@ -96,7 +91,6 @@ export default struct IHTMLEditServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pStart 
      * @param {IMarkupPointer} pEnd 
      * @param {SELECTION_TYPE} eType 
@@ -116,12 +110,12 @@ export default struct IHTMLEditServices extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddDesigner := CallbackCreate(GetMethod(implObj, "AddDesigner"), flags, 2)
-        this.vtbl.RemoveDesigner := CallbackCreate(GetMethod(implObj, "RemoveDesigner"), flags, 2)
-        this.vtbl.GetSelectionServices := CallbackCreate(GetMethod(implObj, "GetSelectionServices"), flags, 3)
-        this.vtbl.MoveToSelectionAnchor := CallbackCreate(GetMethod(implObj, "MoveToSelectionAnchor"), flags, 2)
-        this.vtbl.MoveToSelectionEnd := CallbackCreate(GetMethod(implObj, "MoveToSelectionEnd"), flags, 2)
-        this.vtbl.SelectRange := CallbackCreate(GetMethod(implObj, "SelectRange"), flags, 4)
+        this.vtbl.AddDesigner := CallbackCreate(ObjBindMethod(implObj, "AddDesigner"), flags, 2)
+        this.vtbl.RemoveDesigner := CallbackCreate(ObjBindMethod(implObj, "RemoveDesigner"), flags, 2)
+        this.vtbl.GetSelectionServices := CallbackCreate(ObjBindMethod(implObj, "GetSelectionServices"), flags, 3)
+        this.vtbl.MoveToSelectionAnchor := CallbackCreate(ObjBindMethod(implObj, "MoveToSelectionAnchor"), flags, 2)
+        this.vtbl.MoveToSelectionEnd := CallbackCreate(ObjBindMethod(implObj, "MoveToSelectionEnd"), flags, 2)
+        this.vtbl.SelectRange := CallbackCreate(ObjBindMethod(implObj, "SelectRange"), flags, 4)
     }
 
     Dispose() {

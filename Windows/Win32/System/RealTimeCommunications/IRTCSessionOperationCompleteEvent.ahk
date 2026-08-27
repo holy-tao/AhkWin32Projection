@@ -69,7 +69,6 @@ export default struct IRTCSessionOperationCompleteEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCSession} 
      */
     get_Session() {
@@ -78,7 +77,6 @@ export default struct IRTCSessionOperationCompleteEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     get_Cookie() {
@@ -87,7 +85,6 @@ export default struct IRTCSessionOperationCompleteEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_StatusCode() {
@@ -96,7 +93,6 @@ export default struct IRTCSessionOperationCompleteEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_StatusText() {
@@ -114,10 +110,10 @@ export default struct IRTCSessionOperationCompleteEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Session := CallbackCreate(GetMethod(implObj, "get_Session"), flags, 2)
-        this.vtbl.get_Cookie := CallbackCreate(GetMethod(implObj, "get_Cookie"), flags, 2)
-        this.vtbl.get_StatusCode := CallbackCreate(GetMethod(implObj, "get_StatusCode"), flags, 2)
-        this.vtbl.get_StatusText := CallbackCreate(GetMethod(implObj, "get_StatusText"), flags, 2)
+        this.vtbl.get_Session := CallbackCreate(ObjBindMethod(implObj, "get_Session"), flags, 2)
+        this.vtbl.get_Cookie := CallbackCreate(ObjBindMethod(implObj, "get_Cookie"), flags, 2)
+        this.vtbl.get_StatusCode := CallbackCreate(ObjBindMethod(implObj, "get_StatusCode"), flags, 2)
+        this.vtbl.get_StatusText := CallbackCreate(ObjBindMethod(implObj, "get_StatusText"), flags, 2)
     }
 
     Dispose() {

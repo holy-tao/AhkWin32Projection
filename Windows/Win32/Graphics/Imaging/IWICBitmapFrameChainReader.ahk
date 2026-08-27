@@ -39,7 +39,6 @@ export default struct IWICBitmapFrameChainReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {WICBitmapChainType} chainType 
      * @returns {Integer} 
      */
@@ -49,7 +48,6 @@ export default struct IWICBitmapFrameChainReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {WICBitmapChainType} chainType 
      * @param {Integer} index 
      * @returns {IWICBitmapFrameDecode} 
@@ -68,8 +66,8 @@ export default struct IWICBitmapFrameChainReader extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetChainedFrameCount := CallbackCreate(GetMethod(implObj, "GetChainedFrameCount"), flags, 3)
-        this.vtbl.GetChainedFrame := CallbackCreate(GetMethod(implObj, "GetChainedFrame"), flags, 4)
+        this.vtbl.GetChainedFrameCount := CallbackCreate(ObjBindMethod(implObj, "GetChainedFrameCount"), flags, 3)
+        this.vtbl.GetChainedFrame := CallbackCreate(ObjBindMethod(implObj, "GetChainedFrame"), flags, 4)
     }
 
     Dispose() {

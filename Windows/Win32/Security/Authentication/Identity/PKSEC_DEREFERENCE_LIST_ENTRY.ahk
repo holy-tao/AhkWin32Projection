@@ -19,13 +19,13 @@ export default struct PKSEC_DEREFERENCE_LIST_ENTRY {
     }
 
     /**
-     * 
      * @param {Pointer<KSEC_LIST_ENTRY>} Entry 
      * @param {Pointer<Integer>} Delete 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(Entry, Delete) {
-        DeleteMarshal := Delete is VarRef ? "char*" : "ptr"
+        DeleteMarshal := Delete is VarRef ? "char*" : IntPtr
+        DeleteMarshal := Delete == 0 ? IntPtr : "char*"
 
         DllCall(this.value, KSEC_LIST_ENTRY.Ptr, Entry, DeleteMarshal, Delete)
     }

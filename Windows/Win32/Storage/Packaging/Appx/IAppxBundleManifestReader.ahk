@@ -91,9 +91,9 @@ export default struct IAppxBundleManifestReader extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPackageId := CallbackCreate(GetMethod(implObj, "GetPackageId"), flags, 2)
-        this.vtbl.GetPackageInfoItems := CallbackCreate(GetMethod(implObj, "GetPackageInfoItems"), flags, 2)
-        this.vtbl.GetStream := CallbackCreate(GetMethod(implObj, "GetStream"), flags, 2)
+        this.vtbl.GetPackageId := CallbackCreate(ObjBindMethod(implObj, "GetPackageId"), flags, 2)
+        this.vtbl.GetPackageInfoItems := CallbackCreate(ObjBindMethod(implObj, "GetPackageInfoItems"), flags, 2)
+        this.vtbl.GetStream := CallbackCreate(ObjBindMethod(implObj, "GetStream"), flags, 2)
     }
 
     Dispose() {

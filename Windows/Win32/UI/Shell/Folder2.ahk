@@ -71,7 +71,6 @@ export default struct Folder2 extends Folder {
     }
 
     /**
-     * 
      * @returns {FolderItem} 
      */
     get_Self() {
@@ -80,7 +79,6 @@ export default struct Folder2 extends Folder {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_OfflineStatus() {
@@ -104,7 +102,6 @@ export default struct Folder2 extends Folder {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_HaveToShowWebViewBarricade() {
@@ -136,11 +133,11 @@ export default struct Folder2 extends Folder {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Self := CallbackCreate(GetMethod(implObj, "get_Self"), flags, 2)
-        this.vtbl.get_OfflineStatus := CallbackCreate(GetMethod(implObj, "get_OfflineStatus"), flags, 2)
-        this.vtbl.Synchronize := CallbackCreate(GetMethod(implObj, "Synchronize"), flags, 1)
-        this.vtbl.get_HaveToShowWebViewBarricade := CallbackCreate(GetMethod(implObj, "get_HaveToShowWebViewBarricade"), flags, 2)
-        this.vtbl.DismissedWebViewBarricade := CallbackCreate(GetMethod(implObj, "DismissedWebViewBarricade"), flags, 1)
+        this.vtbl.get_Self := CallbackCreate(ObjBindMethod(implObj, "get_Self"), flags, 2)
+        this.vtbl.get_OfflineStatus := CallbackCreate(ObjBindMethod(implObj, "get_OfflineStatus"), flags, 2)
+        this.vtbl.Synchronize := CallbackCreate(ObjBindMethod(implObj, "Synchronize"), flags, 1)
+        this.vtbl.get_HaveToShowWebViewBarricade := CallbackCreate(ObjBindMethod(implObj, "get_HaveToShowWebViewBarricade"), flags, 2)
+        this.vtbl.DismissedWebViewBarricade := CallbackCreate(ObjBindMethod(implObj, "DismissedWebViewBarricade"), flags, 1)
     }
 
     Dispose() {

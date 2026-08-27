@@ -114,10 +114,10 @@ export default struct ITsSbProvisioning extends ITsSbPlugin {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateVirtualMachines := CallbackCreate(GetMethod(implObj, "CreateVirtualMachines"), flags, 4)
-        this.vtbl.PatchVirtualMachines := CallbackCreate(GetMethod(implObj, "PatchVirtualMachines"), flags, 5)
-        this.vtbl.DeleteVirtualMachines := CallbackCreate(GetMethod(implObj, "DeleteVirtualMachines"), flags, 4)
-        this.vtbl.CancelJob := CallbackCreate(GetMethod(implObj, "CancelJob"), flags, 2)
+        this.vtbl.CreateVirtualMachines := CallbackCreate(ObjBindMethod(implObj, "CreateVirtualMachines"), flags, 4)
+        this.vtbl.PatchVirtualMachines := CallbackCreate(ObjBindMethod(implObj, "PatchVirtualMachines"), flags, 5)
+        this.vtbl.DeleteVirtualMachines := CallbackCreate(ObjBindMethod(implObj, "DeleteVirtualMachines"), flags, 4)
+        this.vtbl.CancelJob := CallbackCreate(ObjBindMethod(implObj, "CancelJob"), flags, 2)
     }
 
     Dispose() {

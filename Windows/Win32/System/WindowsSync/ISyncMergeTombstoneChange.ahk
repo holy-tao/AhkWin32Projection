@@ -36,14 +36,13 @@ export default struct ISyncMergeTombstoneChange extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbWinnerItemId 
      * @param {Pointer<Integer>} pcbIdSize 
      * @returns {HRESULT} 
      */
     GetWinnerItemId(pbWinnerItemId, pcbIdSize) {
-        pbWinnerItemIdMarshal := pbWinnerItemId is VarRef ? "char*" : "ptr"
-        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
+        pbWinnerItemIdMarshal := pbWinnerItemId is VarRef ? "char*" : IntPtr
+        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pbWinnerItemIdMarshal, pbWinnerItemId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
         return result
@@ -58,7 +57,7 @@ export default struct ISyncMergeTombstoneChange extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetWinnerItemId := CallbackCreate(GetMethod(implObj, "GetWinnerItemId"), flags, 3)
+        this.vtbl.GetWinnerItemId := CallbackCreate(ObjBindMethod(implObj, "GetWinnerItemId"), flags, 3)
     }
 
     Dispose() {

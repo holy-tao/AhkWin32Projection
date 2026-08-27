@@ -90,7 +90,6 @@ export default struct IADsFileShare extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_CurrentUserCount() {
@@ -99,7 +98,6 @@ export default struct IADsFileShare extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Description() {
@@ -109,7 +107,6 @@ export default struct IADsFileShare extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDescription 
      * @returns {HRESULT} 
      */
@@ -121,7 +118,6 @@ export default struct IADsFileShare extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_HostComputer() {
@@ -131,7 +127,6 @@ export default struct IADsFileShare extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrHostComputer 
      * @returns {HRESULT} 
      */
@@ -143,7 +138,6 @@ export default struct IADsFileShare extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Path() {
@@ -153,7 +147,6 @@ export default struct IADsFileShare extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPath 
      * @returns {HRESULT} 
      */
@@ -165,7 +158,6 @@ export default struct IADsFileShare extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MaxUserCount() {
@@ -174,7 +166,6 @@ export default struct IADsFileShare extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnMaxUserCount 
      * @returns {HRESULT} 
      */
@@ -192,15 +183,15 @@ export default struct IADsFileShare extends IADs {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_CurrentUserCount := CallbackCreate(GetMethod(implObj, "get_CurrentUserCount"), flags, 2)
-        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
-        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
-        this.vtbl.get_HostComputer := CallbackCreate(GetMethod(implObj, "get_HostComputer"), flags, 2)
-        this.vtbl.put_HostComputer := CallbackCreate(GetMethod(implObj, "put_HostComputer"), flags, 2)
-        this.vtbl.get_Path := CallbackCreate(GetMethod(implObj, "get_Path"), flags, 2)
-        this.vtbl.put_Path := CallbackCreate(GetMethod(implObj, "put_Path"), flags, 2)
-        this.vtbl.get_MaxUserCount := CallbackCreate(GetMethod(implObj, "get_MaxUserCount"), flags, 2)
-        this.vtbl.put_MaxUserCount := CallbackCreate(GetMethod(implObj, "put_MaxUserCount"), flags, 2)
+        this.vtbl.get_CurrentUserCount := CallbackCreate(ObjBindMethod(implObj, "get_CurrentUserCount"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(ObjBindMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(ObjBindMethod(implObj, "put_Description"), flags, 2)
+        this.vtbl.get_HostComputer := CallbackCreate(ObjBindMethod(implObj, "get_HostComputer"), flags, 2)
+        this.vtbl.put_HostComputer := CallbackCreate(ObjBindMethod(implObj, "put_HostComputer"), flags, 2)
+        this.vtbl.get_Path := CallbackCreate(ObjBindMethod(implObj, "get_Path"), flags, 2)
+        this.vtbl.put_Path := CallbackCreate(ObjBindMethod(implObj, "put_Path"), flags, 2)
+        this.vtbl.get_MaxUserCount := CallbackCreate(ObjBindMethod(implObj, "get_MaxUserCount"), flags, 2)
+        this.vtbl.put_MaxUserCount := CallbackCreate(ObjBindMethod(implObj, "put_MaxUserCount"), flags, 2)
     }
 
     Dispose() {

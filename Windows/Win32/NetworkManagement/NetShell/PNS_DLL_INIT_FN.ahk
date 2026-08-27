@@ -18,13 +18,12 @@ export default struct PNS_DLL_INIT_FN {
     }
 
     /**
-     * 
      * @param {Integer} dwNetshVersion 
      * @param {Pointer<Void>} pReserved 
      * @returns {Integer} 
      */
     Call(dwNetshVersion, pReserved) {
-        pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
+        pReservedMarshal := pReserved is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, UInt32, dwNetshVersion, pReservedMarshal, pReserved, UInt32)
         return result

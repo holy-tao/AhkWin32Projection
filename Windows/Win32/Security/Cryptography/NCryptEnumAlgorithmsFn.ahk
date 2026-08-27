@@ -21,7 +21,6 @@ export default struct NCryptEnumAlgorithmsFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} _hProvider 
      * @param {Integer} dwAlgClass 
      * @param {Pointer<Integer>} pdwAlgCount 
@@ -30,8 +29,8 @@ export default struct NCryptEnumAlgorithmsFn {
      * @returns {HRESULT} 
      */
     Call(_hProvider, dwAlgClass, pdwAlgCount, ppAlgList, dwFlags) {
-        pdwAlgCountMarshal := pdwAlgCount is VarRef ? "uint*" : "ptr"
-        ppAlgListMarshal := ppAlgList is VarRef ? "ptr*" : "ptr"
+        pdwAlgCountMarshal := pdwAlgCount is VarRef ? "uint*" : IntPtr
+        ppAlgListMarshal := ppAlgList is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, NCRYPT_PROV_HANDLE, _hProvider, UInt32, dwAlgClass, pdwAlgCountMarshal, pdwAlgCount, ppAlgListMarshal, ppAlgList, UInt32, dwFlags, "HRESULT")
         return result

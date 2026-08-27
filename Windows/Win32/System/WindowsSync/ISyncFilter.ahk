@@ -37,7 +37,6 @@ export default struct ISyncFilter extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISyncFilter} pSyncFilter 
      * @returns {HRESULT} 
      */
@@ -47,14 +46,13 @@ export default struct ISyncFilter extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbSyncFilter 
      * @param {Pointer<Integer>} pcbSyncFilter 
      * @returns {HRESULT} 
      */
     Serialize(pbSyncFilter, pcbSyncFilter) {
-        pbSyncFilterMarshal := pbSyncFilter is VarRef ? "char*" : "ptr"
-        pcbSyncFilterMarshal := pcbSyncFilter is VarRef ? "uint*" : "ptr"
+        pbSyncFilterMarshal := pbSyncFilter is VarRef ? "char*" : IntPtr
+        pcbSyncFilterMarshal := pcbSyncFilter is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pbSyncFilterMarshal, pbSyncFilter, pcbSyncFilterMarshal, pcbSyncFilter, "HRESULT")
         return result
@@ -69,8 +67,8 @@ export default struct ISyncFilter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsIdentical := CallbackCreate(GetMethod(implObj, "IsIdentical"), flags, 2)
-        this.vtbl.Serialize := CallbackCreate(GetMethod(implObj, "Serialize"), flags, 3)
+        this.vtbl.IsIdentical := CallbackCreate(ObjBindMethod(implObj, "IsIdentical"), flags, 2)
+        this.vtbl.Serialize := CallbackCreate(ObjBindMethod(implObj, "Serialize"), flags, 3)
     }
 
     Dispose() {

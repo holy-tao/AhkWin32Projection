@@ -64,7 +64,7 @@ export default struct IInputObject2 extends IInputObject {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.TranslateAcceleratorGlobal := CallbackCreate(GetMethod(implObj, "TranslateAcceleratorGlobal"), flags, 2)
+        this.vtbl.TranslateAcceleratorGlobal := CallbackCreate(ObjBindMethod(implObj, "TranslateAcceleratorGlobal"), flags, 2)
     }
 
     Dispose() {

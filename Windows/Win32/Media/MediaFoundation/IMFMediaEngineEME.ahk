@@ -63,7 +63,9 @@ export default struct IMFMediaEngineEME extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineeme-setmediakeys
      */
     SetMediaKeys(keys) {
-        result := ComCall(4, this, "ptr", keys, "HRESULT")
+        keysMarshal := keys == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, keysMarshal, keys, "HRESULT")
         return result
     }
 
@@ -76,8 +78,8 @@ export default struct IMFMediaEngineEME extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Keys := CallbackCreate(GetMethod(implObj, "get_Keys"), flags, 2)
-        this.vtbl.SetMediaKeys := CallbackCreate(GetMethod(implObj, "SetMediaKeys"), flags, 2)
+        this.vtbl.get_Keys := CallbackCreate(ObjBindMethod(implObj, "get_Keys"), flags, 2)
+        this.vtbl.SetMediaKeys := CallbackCreate(ObjBindMethod(implObj, "SetMediaKeys"), flags, 2)
     }
 
     Dispose() {

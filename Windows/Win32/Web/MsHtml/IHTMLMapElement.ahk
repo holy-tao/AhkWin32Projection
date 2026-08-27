@@ -61,7 +61,6 @@ export default struct IHTMLMapElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLAreasCollection} 
      */
     get_areas() {
@@ -70,7 +69,6 @@ export default struct IHTMLMapElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -82,7 +80,6 @@ export default struct IHTMLMapElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -100,9 +97,9 @@ export default struct IHTMLMapElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_areas := CallbackCreate(GetMethod(implObj, "get_areas"), flags, 2)
-        this.vtbl.put_name := CallbackCreate(GetMethod(implObj, "put_name"), flags, 2)
-        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.get_areas := CallbackCreate(ObjBindMethod(implObj, "get_areas"), flags, 2)
+        this.vtbl.put_name := CallbackCreate(ObjBindMethod(implObj, "put_name"), flags, 2)
+        this.vtbl.get_name := CallbackCreate(ObjBindMethod(implObj, "get_name"), flags, 2)
     }
 
     Dispose() {

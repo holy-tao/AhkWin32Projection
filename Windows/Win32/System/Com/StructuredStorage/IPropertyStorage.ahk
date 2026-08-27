@@ -145,7 +145,7 @@ export default struct IPropertyStorage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propidlbase/nf-propidlbase-ipropertystorage-readpropertynames
      */
     ReadPropertyNames(cpropid, rgpropid) {
-        rgpropidMarshal := rgpropid is VarRef ? "uint*" : "ptr"
+        rgpropidMarshal := rgpropid is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, UInt32, cpropid, rgpropidMarshal, rgpropid, PWSTR.Ptr, &rglpwstrName := 0, "HRESULT")
         return rglpwstrName
@@ -173,8 +173,8 @@ export default struct IPropertyStorage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propidlbase/nf-propidlbase-ipropertystorage-writepropertynames
      */
     WritePropertyNames(cpropid, rgpropid, rglpwstrName) {
-        rgpropidMarshal := rgpropid is VarRef ? "uint*" : "ptr"
-        rglpwstrNameMarshal := rglpwstrName is VarRef ? "ptr*" : "ptr"
+        rgpropidMarshal := rgpropid is VarRef ? "uint*" : IntPtr
+        rglpwstrNameMarshal := rglpwstrName is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(7, this, UInt32, cpropid, rgpropidMarshal, rgpropid, rglpwstrNameMarshal, rglpwstrName, "HRESULT")
         return result
@@ -193,7 +193,7 @@ export default struct IPropertyStorage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/propidlbase/nf-propidlbase-ipropertystorage-deletepropertynames
      */
     DeletePropertyNames(cpropid, rgpropid) {
-        rgpropidMarshal := rgpropid is VarRef ? "uint*" : "ptr"
+        rgpropidMarshal := rgpropid is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, UInt32, cpropid, rgpropidMarshal, rgpropid, "HRESULT")
         return result
@@ -366,18 +366,18 @@ export default struct IPropertyStorage extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ReadMultiple := CallbackCreate(GetMethod(implObj, "ReadMultiple"), flags, 4)
-        this.vtbl.WriteMultiple := CallbackCreate(GetMethod(implObj, "WriteMultiple"), flags, 5)
-        this.vtbl.DeleteMultiple := CallbackCreate(GetMethod(implObj, "DeleteMultiple"), flags, 3)
-        this.vtbl.ReadPropertyNames := CallbackCreate(GetMethod(implObj, "ReadPropertyNames"), flags, 4)
-        this.vtbl.WritePropertyNames := CallbackCreate(GetMethod(implObj, "WritePropertyNames"), flags, 4)
-        this.vtbl.DeletePropertyNames := CallbackCreate(GetMethod(implObj, "DeletePropertyNames"), flags, 3)
-        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 2)
-        this.vtbl.Revert := CallbackCreate(GetMethod(implObj, "Revert"), flags, 1)
-        this.vtbl.Enum := CallbackCreate(GetMethod(implObj, "Enum"), flags, 2)
-        this.vtbl.SetTimes := CallbackCreate(GetMethod(implObj, "SetTimes"), flags, 4)
-        this.vtbl.SetClass := CallbackCreate(GetMethod(implObj, "SetClass"), flags, 2)
-        this.vtbl.Stat := CallbackCreate(GetMethod(implObj, "Stat"), flags, 2)
+        this.vtbl.ReadMultiple := CallbackCreate(ObjBindMethod(implObj, "ReadMultiple"), flags, 4)
+        this.vtbl.WriteMultiple := CallbackCreate(ObjBindMethod(implObj, "WriteMultiple"), flags, 5)
+        this.vtbl.DeleteMultiple := CallbackCreate(ObjBindMethod(implObj, "DeleteMultiple"), flags, 3)
+        this.vtbl.ReadPropertyNames := CallbackCreate(ObjBindMethod(implObj, "ReadPropertyNames"), flags, 4)
+        this.vtbl.WritePropertyNames := CallbackCreate(ObjBindMethod(implObj, "WritePropertyNames"), flags, 4)
+        this.vtbl.DeletePropertyNames := CallbackCreate(ObjBindMethod(implObj, "DeletePropertyNames"), flags, 3)
+        this.vtbl.Commit := CallbackCreate(ObjBindMethod(implObj, "Commit"), flags, 2)
+        this.vtbl.Revert := CallbackCreate(ObjBindMethod(implObj, "Revert"), flags, 1)
+        this.vtbl.Enum := CallbackCreate(ObjBindMethod(implObj, "Enum"), flags, 2)
+        this.vtbl.SetTimes := CallbackCreate(ObjBindMethod(implObj, "SetTimes"), flags, 4)
+        this.vtbl.SetClass := CallbackCreate(ObjBindMethod(implObj, "SetClass"), flags, 2)
+        this.vtbl.Stat := CallbackCreate(ObjBindMethod(implObj, "Stat"), flags, 2)
     }
 
     Dispose() {

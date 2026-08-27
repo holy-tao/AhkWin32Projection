@@ -40,7 +40,6 @@ export default struct IRawEnumerator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -49,16 +48,18 @@ export default struct IRawEnumerator extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} name 
      * @param {Pointer<SymbolKind>} kind 
      * @param {Pointer<IModelObject>} value 
      * @returns {HRESULT} 
      */
     GetNext(name, kind, value) {
-        kindMarshal := kind is VarRef ? "int*" : "ptr"
+        nameMarshal := name == 0 ? IntPtr : BSTR.Ptr
+        kindMarshal := kind is VarRef ? "int*" : IntPtr
+        kindMarshal := kind == 0 ? IntPtr : "int*"
+        valueMarshal := value == 0 ? IntPtr : IModelObject.Ptr
 
-        result := ComCall(4, this, BSTR.Ptr, name, kindMarshal, kind, IModelObject.Ptr, value, "HRESULT")
+        result := ComCall(4, this, nameMarshal, name, kindMarshal, kind, valueMarshal, value, "HRESULT")
         return result
     }
 
@@ -71,8 +72,8 @@ export default struct IRawEnumerator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.GetNext := CallbackCreate(GetMethod(implObj, "GetNext"), flags, 4)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.GetNext := CallbackCreate(ObjBindMethod(implObj, "GetNext"), flags, 4)
     }
 
     Dispose() {

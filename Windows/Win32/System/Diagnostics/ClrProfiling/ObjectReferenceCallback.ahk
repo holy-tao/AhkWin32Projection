@@ -19,15 +19,14 @@ export default struct ObjectReferenceCallback {
     }
 
     /**
-     * 
      * @param {Pointer} root 
      * @param {Pointer<Pointer>} _reference 
      * @param {Pointer<Void>} clientData 
      * @returns {BOOL} 
      */
     Call(root, _reference, clientData) {
-        _referenceMarshal := _reference is VarRef ? "ptr*" : "ptr"
-        clientDataMarshal := clientData is VarRef ? "ptr" : "ptr"
+        _referenceMarshal := _reference is VarRef ? "ptr*" : IntPtr
+        clientDataMarshal := clientData is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, IntPtr, root, _referenceMarshal, _reference, clientDataMarshal, clientData, BOOL)
         return result

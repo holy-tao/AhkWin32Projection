@@ -20,7 +20,6 @@ export default struct PF_NPGetDirectoryType {
     }
 
     /**
-     * 
      * @param {PWSTR} lpName 
      * @param {Pointer<Integer>} lpType 
      * @param {BOOL} bFlushCache 
@@ -29,7 +28,7 @@ export default struct PF_NPGetDirectoryType {
     Call(lpName, lpType, bFlushCache) {
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
-        lpTypeMarshal := lpType is VarRef ? "int*" : "ptr"
+        lpTypeMarshal := lpType is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, "ptr", lpName, lpTypeMarshal, lpType, BOOL, bFlushCache, UInt32)
         return result

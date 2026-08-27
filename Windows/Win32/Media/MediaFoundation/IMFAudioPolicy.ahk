@@ -170,12 +170,12 @@ export default struct IMFAudioPolicy extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetGroupingParam := CallbackCreate(GetMethod(implObj, "SetGroupingParam"), flags, 2)
-        this.vtbl.GetGroupingParam := CallbackCreate(GetMethod(implObj, "GetGroupingParam"), flags, 2)
-        this.vtbl.SetDisplayName := CallbackCreate(GetMethod(implObj, "SetDisplayName"), flags, 2)
-        this.vtbl.GetDisplayName := CallbackCreate(GetMethod(implObj, "GetDisplayName"), flags, 2)
-        this.vtbl.SetIconPath := CallbackCreate(GetMethod(implObj, "SetIconPath"), flags, 2)
-        this.vtbl.GetIconPath := CallbackCreate(GetMethod(implObj, "GetIconPath"), flags, 2)
+        this.vtbl.SetGroupingParam := CallbackCreate(ObjBindMethod(implObj, "SetGroupingParam"), flags, 2)
+        this.vtbl.GetGroupingParam := CallbackCreate(ObjBindMethod(implObj, "GetGroupingParam"), flags, 2)
+        this.vtbl.SetDisplayName := CallbackCreate(ObjBindMethod(implObj, "SetDisplayName"), flags, 2)
+        this.vtbl.GetDisplayName := CallbackCreate(ObjBindMethod(implObj, "GetDisplayName"), flags, 2)
+        this.vtbl.SetIconPath := CallbackCreate(ObjBindMethod(implObj, "SetIconPath"), flags, 2)
+        this.vtbl.GetIconPath := CallbackCreate(ObjBindMethod(implObj, "GetIconPath"), flags, 2)
     }
 
     Dispose() {

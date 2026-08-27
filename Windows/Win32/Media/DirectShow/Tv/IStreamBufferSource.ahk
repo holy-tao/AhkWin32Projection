@@ -82,7 +82,7 @@ export default struct IStreamBufferSource extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetStreamSink := CallbackCreate(GetMethod(implObj, "SetStreamSink"), flags, 2)
+        this.vtbl.SetStreamSink := CallbackCreate(ObjBindMethod(implObj, "SetStreamSink"), flags, 2)
     }
 
     Dispose() {

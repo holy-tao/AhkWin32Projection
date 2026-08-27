@@ -18,7 +18,6 @@ export default struct PROTOCOL_CL_INCOMING_DROP_PARTY {
     }
 
     /**
-     * 
      * @param {Integer} DropStatus 
      * @param {Pointer<Void>} ProtocolPartyContext 
      * @param {Pointer<Void>} CloseData 
@@ -26,10 +25,12 @@ export default struct PROTOCOL_CL_INCOMING_DROP_PARTY {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(DropStatus, ProtocolPartyContext, CloseData, _Size) {
-        ProtocolPartyContextMarshal := ProtocolPartyContext is VarRef ? "ptr" : "ptr"
-        CloseDataMarshal := CloseData is VarRef ? "ptr" : "ptr"
+        ProtocolPartyContextMarshal := ProtocolPartyContext is VarRef ? "ptr" : IntPtr
+        CloseDataMarshal := CloseData is VarRef ? "ptr" : IntPtr
+        CloseDataMarshal := CloseData == 0 ? IntPtr : "ptr"
+        _SizeMarshal := _Size == 0 ? IntPtr : UInt32
 
-        DllCall(this.value, Int32, DropStatus, ProtocolPartyContextMarshal, ProtocolPartyContext, CloseDataMarshal, CloseData, UInt32, _Size)
+        DllCall(this.value, Int32, DropStatus, ProtocolPartyContextMarshal, ProtocolPartyContext, CloseDataMarshal, CloseData, _SizeMarshal, _Size)
     }
 
     /**

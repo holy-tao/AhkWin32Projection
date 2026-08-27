@@ -61,7 +61,7 @@ export default struct IMFPMediaPlayerCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnMediaPlayerEvent := CallbackCreate(GetMethod(implObj, "OnMediaPlayerEvent"), flags, 2)
+        this.vtbl.OnMediaPlayerEvent := CallbackCreate(ObjBindMethod(implObj, "OnMediaPlayerEvent"), flags, 2)
     }
 
     Dispose() {

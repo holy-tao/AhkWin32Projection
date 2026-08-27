@@ -20,12 +20,11 @@ export default struct WSMAN_PLUGIN_AUTHORIZE_RELEASE_CONTEXT {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} userAuthorizationContext Specifies the context that was returned by either <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmanpluginauthzusercomplete">WSManPluginAuthzUserComplete</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmanpluginauthzoperationcomplete">WSManPluginAuthzOperationComplete</a>.  If these methods return no context, this method will not be called.
      * @returns {String} Nothing - always returns an empty string
      */
     Call(userAuthorizationContext) {
-        userAuthorizationContextMarshal := userAuthorizationContext is VarRef ? "ptr" : "ptr"
+        userAuthorizationContextMarshal := userAuthorizationContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, userAuthorizationContextMarshal, userAuthorizationContext)
     }

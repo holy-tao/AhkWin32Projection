@@ -19,7 +19,6 @@ export default struct DOT11EXT_NIC_SPECIFIC_EXTENSION {
     }
 
     /**
-     * 
      * @param {HANDLE} hDot11SvcHandle 
      * @param {Integer} dwInBufferSize 
      * @param {Integer} pvInBuffer 
@@ -28,9 +27,11 @@ export default struct DOT11EXT_NIC_SPECIFIC_EXTENSION {
      * @returns {Integer} 
      */
     Call(hDot11SvcHandle, dwInBufferSize, pvInBuffer, pdwOutBufferSize, pvOutBuffer) {
-        pdwOutBufferSizeMarshal := pdwOutBufferSize is VarRef ? "uint*" : "ptr"
+        hDot11SvcHandleMarshal := hDot11SvcHandle == 0 ? IntPtr : HANDLE
+        pdwOutBufferSizeMarshal := pdwOutBufferSize is VarRef ? "uint*" : IntPtr
+        pvOutBufferMarshal := pvOutBuffer == 0 ? IntPtr : IntPtr
 
-        result := DllCall(this.value, HANDLE, hDot11SvcHandle, UInt32, dwInBufferSize, IntPtr, pvInBuffer, pdwOutBufferSizeMarshal, pdwOutBufferSize, IntPtr, pvOutBuffer, UInt32)
+        result := DllCall(this.value, hDot11SvcHandleMarshal, hDot11SvcHandle, UInt32, dwInBufferSize, IntPtr, pvInBuffer, pdwOutBufferSizeMarshal, pdwOutBufferSize, pvOutBufferMarshal, pvOutBuffer, UInt32)
         return result
     }
 

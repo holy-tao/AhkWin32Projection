@@ -146,12 +146,12 @@ export default struct IUIAutomationMultipleViewPattern extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetViewName := CallbackCreate(GetMethod(implObj, "GetViewName"), flags, 3)
-        this.vtbl.SetCurrentView := CallbackCreate(GetMethod(implObj, "SetCurrentView"), flags, 2)
-        this.vtbl.get_CurrentCurrentView := CallbackCreate(GetMethod(implObj, "get_CurrentCurrentView"), flags, 2)
-        this.vtbl.GetCurrentSupportedViews := CallbackCreate(GetMethod(implObj, "GetCurrentSupportedViews"), flags, 2)
-        this.vtbl.get_CachedCurrentView := CallbackCreate(GetMethod(implObj, "get_CachedCurrentView"), flags, 2)
-        this.vtbl.GetCachedSupportedViews := CallbackCreate(GetMethod(implObj, "GetCachedSupportedViews"), flags, 2)
+        this.vtbl.GetViewName := CallbackCreate(ObjBindMethod(implObj, "GetViewName"), flags, 3)
+        this.vtbl.SetCurrentView := CallbackCreate(ObjBindMethod(implObj, "SetCurrentView"), flags, 2)
+        this.vtbl.get_CurrentCurrentView := CallbackCreate(ObjBindMethod(implObj, "get_CurrentCurrentView"), flags, 2)
+        this.vtbl.GetCurrentSupportedViews := CallbackCreate(ObjBindMethod(implObj, "GetCurrentSupportedViews"), flags, 2)
+        this.vtbl.get_CachedCurrentView := CallbackCreate(ObjBindMethod(implObj, "get_CachedCurrentView"), flags, 2)
+        this.vtbl.GetCachedSupportedViews := CallbackCreate(ObjBindMethod(implObj, "GetCachedSupportedViews"), flags, 2)
     }
 
     Dispose() {

@@ -62,7 +62,7 @@ export default struct ILanguageExceptionTransform extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTransformedRestrictedErrorInfo := CallbackCreate(GetMethod(implObj, "GetTransformedRestrictedErrorInfo"), flags, 2)
+        this.vtbl.GetTransformedRestrictedErrorInfo := CallbackCreate(ObjBindMethod(implObj, "GetTransformedRestrictedErrorInfo"), flags, 2)
     }
 
     Dispose() {

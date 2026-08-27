@@ -95,10 +95,10 @@ export default struct IManagedObjectInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetIUnknown := CallbackCreate(GetMethod(implObj, "GetIUnknown"), flags, 2)
-        this.vtbl.GetIObjectControl := CallbackCreate(GetMethod(implObj, "GetIObjectControl"), flags, 2)
-        this.vtbl.SetInPool := CallbackCreate(GetMethod(implObj, "SetInPool"), flags, 3)
-        this.vtbl.SetWrapperStrength := CallbackCreate(GetMethod(implObj, "SetWrapperStrength"), flags, 2)
+        this.vtbl.GetIUnknown := CallbackCreate(ObjBindMethod(implObj, "GetIUnknown"), flags, 2)
+        this.vtbl.GetIObjectControl := CallbackCreate(ObjBindMethod(implObj, "GetIObjectControl"), flags, 2)
+        this.vtbl.SetInPool := CallbackCreate(ObjBindMethod(implObj, "SetInPool"), flags, 3)
+        this.vtbl.SetWrapperStrength := CallbackCreate(ObjBindMethod(implObj, "SetWrapperStrength"), flags, 2)
     }
 
     Dispose() {

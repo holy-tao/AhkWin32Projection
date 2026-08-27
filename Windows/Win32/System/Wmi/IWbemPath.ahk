@@ -90,7 +90,7 @@ export default struct IWbemPath extends IUnknown {
     GetText(lFlags, puBuffLength, pszText) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
 
-        puBuffLengthMarshal := puBuffLength is VarRef ? "uint*" : "ptr"
+        puBuffLengthMarshal := puBuffLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, Int32, lFlags, puBuffLengthMarshal, puBuffLength, "ptr", pszText, "HRESULT")
         return result
@@ -132,7 +132,7 @@ export default struct IWbemPath extends IUnknown {
     GetServer(puNameBufLength, pName) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        puNameBufLengthMarshal := puNameBufLength is VarRef ? "uint*" : "ptr"
+        puNameBufLengthMarshal := puNameBufLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, puNameBufLengthMarshal, puNameBufLength, "ptr", pName, "HRESULT")
         return result
@@ -175,7 +175,7 @@ export default struct IWbemPath extends IUnknown {
     GetNamespaceAt(uIndex, puNameBufLength, pName) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        puNameBufLengthMarshal := puNameBufLength is VarRef ? "uint*" : "ptr"
+        puNameBufLengthMarshal := puNameBufLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(10, this, UInt32, uIndex, puNameBufLengthMarshal, puNameBufLength, "ptr", pName, "HRESULT")
         return result
@@ -254,7 +254,7 @@ export default struct IWbemPath extends IUnknown {
     GetScope(uIndex, puClassNameBufSize, pszClass) {
         pszClass := pszClass is String ? StrPtr(pszClass) : pszClass
 
-        puClassNameBufSizeMarshal := puClassNameBufSize is VarRef ? "uint*" : "ptr"
+        puClassNameBufSizeMarshal := puClassNameBufSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(16, this, UInt32, uIndex, puClassNameBufSizeMarshal, puClassNameBufSize, "ptr", pszClass, "ptr*", &pKeyList := 0, "HRESULT")
         return IWbemPathKeyList(pKeyList)
@@ -273,7 +273,7 @@ export default struct IWbemPath extends IUnknown {
     GetScopeAsText(uIndex, puTextBufSize, pszText) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
 
-        puTextBufSizeMarshal := puTextBufSize is VarRef ? "uint*" : "ptr"
+        puTextBufSizeMarshal := puTextBufSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(17, this, UInt32, uIndex, puTextBufSizeMarshal, puTextBufSize, "ptr", pszText, "HRESULT")
         return result
@@ -325,9 +325,10 @@ export default struct IWbemPath extends IUnknown {
     GetClassName(puBuffLength, pszName) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        puBuffLengthMarshal := puBuffLength is VarRef ? "uint*" : "ptr"
+        puBuffLengthMarshal := puBuffLength is VarRef ? "uint*" : IntPtr
+        pszNameMarshal := pszName == 0 ? IntPtr : PWSTR
 
-        result := ComCall(21, this, puBuffLengthMarshal, puBuffLength, "ptr", pszName, "HRESULT")
+        result := ComCall(21, this, puBuffLengthMarshal, puBuffLength, pszNameMarshal, pszName, "HRESULT")
         return result
     }
 
@@ -433,32 +434,32 @@ export default struct IWbemPath extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetText := CallbackCreate(GetMethod(implObj, "SetText"), flags, 3)
-        this.vtbl.GetText := CallbackCreate(GetMethod(implObj, "GetText"), flags, 4)
-        this.vtbl.GetInfo := CallbackCreate(GetMethod(implObj, "GetInfo"), flags, 3)
-        this.vtbl.SetServer := CallbackCreate(GetMethod(implObj, "SetServer"), flags, 2)
-        this.vtbl.GetServer := CallbackCreate(GetMethod(implObj, "GetServer"), flags, 3)
-        this.vtbl.GetNamespaceCount := CallbackCreate(GetMethod(implObj, "GetNamespaceCount"), flags, 2)
-        this.vtbl.SetNamespaceAt := CallbackCreate(GetMethod(implObj, "SetNamespaceAt"), flags, 3)
-        this.vtbl.GetNamespaceAt := CallbackCreate(GetMethod(implObj, "GetNamespaceAt"), flags, 4)
-        this.vtbl.RemoveNamespaceAt := CallbackCreate(GetMethod(implObj, "RemoveNamespaceAt"), flags, 2)
-        this.vtbl.RemoveAllNamespaces := CallbackCreate(GetMethod(implObj, "RemoveAllNamespaces"), flags, 1)
-        this.vtbl.GetScopeCount := CallbackCreate(GetMethod(implObj, "GetScopeCount"), flags, 2)
-        this.vtbl.SetScope := CallbackCreate(GetMethod(implObj, "SetScope"), flags, 3)
-        this.vtbl.SetScopeFromText := CallbackCreate(GetMethod(implObj, "SetScopeFromText"), flags, 3)
-        this.vtbl.GetScope := CallbackCreate(GetMethod(implObj, "GetScope"), flags, 5)
-        this.vtbl.GetScopeAsText := CallbackCreate(GetMethod(implObj, "GetScopeAsText"), flags, 4)
-        this.vtbl.RemoveScope := CallbackCreate(GetMethod(implObj, "RemoveScope"), flags, 2)
-        this.vtbl.RemoveAllScopes := CallbackCreate(GetMethod(implObj, "RemoveAllScopes"), flags, 1)
-        this.vtbl.SetClassName := CallbackCreate(GetMethod(implObj, "SetClassName"), flags, 2)
-        this.vtbl.GetClassName := CallbackCreate(GetMethod(implObj, "GetClassName"), flags, 3)
-        this.vtbl.GetKeyList := CallbackCreate(GetMethod(implObj, "GetKeyList"), flags, 2)
-        this.vtbl.CreateClassPart := CallbackCreate(GetMethod(implObj, "CreateClassPart"), flags, 3)
-        this.vtbl.DeleteClassPart := CallbackCreate(GetMethod(implObj, "DeleteClassPart"), flags, 2)
-        this.vtbl.IsRelative := CallbackCreate(GetMethod(implObj, "IsRelative"), flags, 3)
-        this.vtbl.IsRelativeOrChild := CallbackCreate(GetMethod(implObj, "IsRelativeOrChild"), flags, 4)
-        this.vtbl.IsLocal := CallbackCreate(GetMethod(implObj, "IsLocal"), flags, 2)
-        this.vtbl.IsSameClassName := CallbackCreate(GetMethod(implObj, "IsSameClassName"), flags, 2)
+        this.vtbl.SetText := CallbackCreate(ObjBindMethod(implObj, "SetText"), flags, 3)
+        this.vtbl.GetText := CallbackCreate(ObjBindMethod(implObj, "GetText"), flags, 4)
+        this.vtbl.GetInfo := CallbackCreate(ObjBindMethod(implObj, "GetInfo"), flags, 3)
+        this.vtbl.SetServer := CallbackCreate(ObjBindMethod(implObj, "SetServer"), flags, 2)
+        this.vtbl.GetServer := CallbackCreate(ObjBindMethod(implObj, "GetServer"), flags, 3)
+        this.vtbl.GetNamespaceCount := CallbackCreate(ObjBindMethod(implObj, "GetNamespaceCount"), flags, 2)
+        this.vtbl.SetNamespaceAt := CallbackCreate(ObjBindMethod(implObj, "SetNamespaceAt"), flags, 3)
+        this.vtbl.GetNamespaceAt := CallbackCreate(ObjBindMethod(implObj, "GetNamespaceAt"), flags, 4)
+        this.vtbl.RemoveNamespaceAt := CallbackCreate(ObjBindMethod(implObj, "RemoveNamespaceAt"), flags, 2)
+        this.vtbl.RemoveAllNamespaces := CallbackCreate(ObjBindMethod(implObj, "RemoveAllNamespaces"), flags, 1)
+        this.vtbl.GetScopeCount := CallbackCreate(ObjBindMethod(implObj, "GetScopeCount"), flags, 2)
+        this.vtbl.SetScope := CallbackCreate(ObjBindMethod(implObj, "SetScope"), flags, 3)
+        this.vtbl.SetScopeFromText := CallbackCreate(ObjBindMethod(implObj, "SetScopeFromText"), flags, 3)
+        this.vtbl.GetScope := CallbackCreate(ObjBindMethod(implObj, "GetScope"), flags, 5)
+        this.vtbl.GetScopeAsText := CallbackCreate(ObjBindMethod(implObj, "GetScopeAsText"), flags, 4)
+        this.vtbl.RemoveScope := CallbackCreate(ObjBindMethod(implObj, "RemoveScope"), flags, 2)
+        this.vtbl.RemoveAllScopes := CallbackCreate(ObjBindMethod(implObj, "RemoveAllScopes"), flags, 1)
+        this.vtbl.SetClassName := CallbackCreate(ObjBindMethod(implObj, "SetClassName"), flags, 2)
+        this.vtbl.GetClassName := CallbackCreate(ObjBindMethod(implObj, "GetClassName"), flags, 3)
+        this.vtbl.GetKeyList := CallbackCreate(ObjBindMethod(implObj, "GetKeyList"), flags, 2)
+        this.vtbl.CreateClassPart := CallbackCreate(ObjBindMethod(implObj, "CreateClassPart"), flags, 3)
+        this.vtbl.DeleteClassPart := CallbackCreate(ObjBindMethod(implObj, "DeleteClassPart"), flags, 2)
+        this.vtbl.IsRelative := CallbackCreate(ObjBindMethod(implObj, "IsRelative"), flags, 3)
+        this.vtbl.IsRelativeOrChild := CallbackCreate(ObjBindMethod(implObj, "IsRelativeOrChild"), flags, 4)
+        this.vtbl.IsLocal := CallbackCreate(ObjBindMethod(implObj, "IsLocal"), flags, 2)
+        this.vtbl.IsSameClassName := CallbackCreate(ObjBindMethod(implObj, "IsSameClassName"), flags, 2)
     }
 
     Dispose() {

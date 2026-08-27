@@ -32,7 +32,6 @@ export default struct PRJ_CANCEL_COMMAND_CB {
     }
 
     /**
-     * 
      * @param {Pointer<PRJ_CALLBACK_DATA>} callbackData Information about the operation. The following <i>callbackData</i> members are necessary to implement this callback:<dl>
      * <dd><b>CommandId</b> Identifies the operation to be cancelled.
      * 

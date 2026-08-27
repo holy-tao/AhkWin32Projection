@@ -96,7 +96,6 @@ export default struct IStiUSD extends IUnknown {
     }
 
     /**
-     * 
      * @returns {STI_USD_CAPS} 
      */
     GetCapabilities() {
@@ -106,7 +105,6 @@ export default struct IStiUSD extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<STI_DEVICE_STATUS>} pDevStatus 
      * @returns {HRESULT} 
      */
@@ -116,7 +114,6 @@ export default struct IStiUSD extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DeviceReset() {
@@ -125,7 +122,6 @@ export default struct IStiUSD extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<STI_DIAG>} pBuffer 
      * @returns {HRESULT} 
      */
@@ -214,7 +210,6 @@ export default struct IStiUSD extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     LockDevice() {
@@ -223,7 +218,6 @@ export default struct IStiUSD extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     UnLockDevice() {
@@ -232,69 +226,71 @@ export default struct IStiUSD extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lpBuffer 
      * @param {Pointer<Integer>} lpdwNumberOfBytes 
      * @param {Pointer<OVERLAPPED>} lpOverlapped 
      * @returns {HRESULT} 
      */
     RawReadData(lpBuffer, lpdwNumberOfBytes, lpOverlapped) {
-        lpdwNumberOfBytesMarshal := lpdwNumberOfBytes is VarRef ? "uint*" : "ptr"
+        lpdwNumberOfBytesMarshal := lpdwNumberOfBytes is VarRef ? "uint*" : IntPtr
+        lpOverlappedMarshal := lpOverlapped == 0 ? IntPtr : OVERLAPPED.Ptr
 
-        result := ComCall(12, this, IntPtr, lpBuffer, lpdwNumberOfBytesMarshal, lpdwNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
+        result := ComCall(12, this, IntPtr, lpBuffer, lpdwNumberOfBytesMarshal, lpdwNumberOfBytes, lpOverlappedMarshal, lpOverlapped, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} lpBuffer 
      * @param {Integer} nNumberOfBytes 
      * @param {Pointer<OVERLAPPED>} lpOverlapped 
      * @returns {HRESULT} 
      */
     RawWriteData(lpBuffer, nNumberOfBytes, lpOverlapped) {
-        result := ComCall(13, this, IntPtr, lpBuffer, UInt32, nNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
+        lpOverlappedMarshal := lpOverlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+
+        result := ComCall(13, this, IntPtr, lpBuffer, UInt32, nNumberOfBytes, lpOverlappedMarshal, lpOverlapped, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} lpBuffer 
      * @param {Pointer<Integer>} lpdwNumberOfBytes 
      * @param {Pointer<OVERLAPPED>} lpOverlapped 
      * @returns {HRESULT} 
      */
     RawReadCommand(lpBuffer, lpdwNumberOfBytes, lpOverlapped) {
-        lpdwNumberOfBytesMarshal := lpdwNumberOfBytes is VarRef ? "uint*" : "ptr"
+        lpdwNumberOfBytesMarshal := lpdwNumberOfBytes is VarRef ? "uint*" : IntPtr
+        lpOverlappedMarshal := lpOverlapped == 0 ? IntPtr : OVERLAPPED.Ptr
 
-        result := ComCall(14, this, IntPtr, lpBuffer, lpdwNumberOfBytesMarshal, lpdwNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
+        result := ComCall(14, this, IntPtr, lpBuffer, lpdwNumberOfBytesMarshal, lpdwNumberOfBytes, lpOverlappedMarshal, lpOverlapped, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} lpBuffer 
      * @param {Integer} nNumberOfBytes 
      * @param {Pointer<OVERLAPPED>} lpOverlapped 
      * @returns {HRESULT} 
      */
     RawWriteCommand(lpBuffer, nNumberOfBytes, lpOverlapped) {
-        result := ComCall(15, this, IntPtr, lpBuffer, UInt32, nNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
+        lpOverlappedMarshal := lpOverlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+
+        result := ComCall(15, this, IntPtr, lpBuffer, UInt32, nNumberOfBytes, lpOverlappedMarshal, lpOverlapped, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HANDLE} hEvent 
      * @returns {HRESULT} 
      */
     SetNotificationHandle(hEvent) {
-        result := ComCall(16, this, HANDLE, hEvent, "HRESULT")
+        hEventMarshal := hEvent == 0 ? IntPtr : HANDLE
+
+        result := ComCall(16, this, hEventMarshal, hEvent, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {STINOTIFY} 
      */
     GetNotificationData() {
@@ -304,7 +300,6 @@ export default struct IStiUSD extends IUnknown {
     }
 
     /**
-     * 
      * @returns {_ERROR_INFOW} 
      */
     GetLastErrorInfo() {
@@ -322,22 +317,22 @@ export default struct IStiUSD extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
-        this.vtbl.GetCapabilities := CallbackCreate(GetMethod(implObj, "GetCapabilities"), flags, 2)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
-        this.vtbl.DeviceReset := CallbackCreate(GetMethod(implObj, "DeviceReset"), flags, 1)
-        this.vtbl.Diagnostic := CallbackCreate(GetMethod(implObj, "Diagnostic"), flags, 2)
-        this.vtbl.Escape := CallbackCreate(GetMethod(implObj, "Escape"), flags, 7)
-        this.vtbl.GetLastError := CallbackCreate(GetMethod(implObj, "GetLastError"), flags, 2)
-        this.vtbl.LockDevice := CallbackCreate(GetMethod(implObj, "LockDevice"), flags, 1)
-        this.vtbl.UnLockDevice := CallbackCreate(GetMethod(implObj, "UnLockDevice"), flags, 1)
-        this.vtbl.RawReadData := CallbackCreate(GetMethod(implObj, "RawReadData"), flags, 4)
-        this.vtbl.RawWriteData := CallbackCreate(GetMethod(implObj, "RawWriteData"), flags, 4)
-        this.vtbl.RawReadCommand := CallbackCreate(GetMethod(implObj, "RawReadCommand"), flags, 4)
-        this.vtbl.RawWriteCommand := CallbackCreate(GetMethod(implObj, "RawWriteCommand"), flags, 4)
-        this.vtbl.SetNotificationHandle := CallbackCreate(GetMethod(implObj, "SetNotificationHandle"), flags, 2)
-        this.vtbl.GetNotificationData := CallbackCreate(GetMethod(implObj, "GetNotificationData"), flags, 2)
-        this.vtbl.GetLastErrorInfo := CallbackCreate(GetMethod(implObj, "GetLastErrorInfo"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 4)
+        this.vtbl.GetCapabilities := CallbackCreate(ObjBindMethod(implObj, "GetCapabilities"), flags, 2)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.DeviceReset := CallbackCreate(ObjBindMethod(implObj, "DeviceReset"), flags, 1)
+        this.vtbl.Diagnostic := CallbackCreate(ObjBindMethod(implObj, "Diagnostic"), flags, 2)
+        this.vtbl.Escape := CallbackCreate(ObjBindMethod(implObj, "Escape"), flags, 7)
+        this.vtbl.GetLastError := CallbackCreate(ObjBindMethod(implObj, "GetLastError"), flags, 2)
+        this.vtbl.LockDevice := CallbackCreate(ObjBindMethod(implObj, "LockDevice"), flags, 1)
+        this.vtbl.UnLockDevice := CallbackCreate(ObjBindMethod(implObj, "UnLockDevice"), flags, 1)
+        this.vtbl.RawReadData := CallbackCreate(ObjBindMethod(implObj, "RawReadData"), flags, 4)
+        this.vtbl.RawWriteData := CallbackCreate(ObjBindMethod(implObj, "RawWriteData"), flags, 4)
+        this.vtbl.RawReadCommand := CallbackCreate(ObjBindMethod(implObj, "RawReadCommand"), flags, 4)
+        this.vtbl.RawWriteCommand := CallbackCreate(ObjBindMethod(implObj, "RawWriteCommand"), flags, 4)
+        this.vtbl.SetNotificationHandle := CallbackCreate(ObjBindMethod(implObj, "SetNotificationHandle"), flags, 2)
+        this.vtbl.GetNotificationData := CallbackCreate(ObjBindMethod(implObj, "GetNotificationData"), flags, 2)
+        this.vtbl.GetLastErrorInfo := CallbackCreate(ObjBindMethod(implObj, "GetLastErrorInfo"), flags, 2)
     }
 
     Dispose() {

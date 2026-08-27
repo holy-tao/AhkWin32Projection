@@ -243,15 +243,15 @@ export default struct ICategory extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_CategoryID := CallbackCreate(GetMethod(implObj, "get_CategoryID"), flags, 2)
-        this.vtbl.get_Children := CallbackCreate(GetMethod(implObj, "get_Children"), flags, 2)
-        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
-        this.vtbl.get_Image := CallbackCreate(GetMethod(implObj, "get_Image"), flags, 2)
-        this.vtbl.get_Order := CallbackCreate(GetMethod(implObj, "get_Order"), flags, 2)
-        this.vtbl.get_Parent := CallbackCreate(GetMethod(implObj, "get_Parent"), flags, 2)
-        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
-        this.vtbl.get_Updates := CallbackCreate(GetMethod(implObj, "get_Updates"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_CategoryID := CallbackCreate(ObjBindMethod(implObj, "get_CategoryID"), flags, 2)
+        this.vtbl.get_Children := CallbackCreate(ObjBindMethod(implObj, "get_Children"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(ObjBindMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.get_Image := CallbackCreate(ObjBindMethod(implObj, "get_Image"), flags, 2)
+        this.vtbl.get_Order := CallbackCreate(ObjBindMethod(implObj, "get_Order"), flags, 2)
+        this.vtbl.get_Parent := CallbackCreate(ObjBindMethod(implObj, "get_Parent"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(ObjBindMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_Updates := CallbackCreate(ObjBindMethod(implObj, "get_Updates"), flags, 2)
     }
 
     Dispose() {

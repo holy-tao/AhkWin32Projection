@@ -148,10 +148,10 @@ export default struct ISearchProtocol extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 4)
-        this.vtbl.CreateAccessor := CallbackCreate(GetMethod(implObj, "CreateAccessor"), flags, 6)
-        this.vtbl.CloseAccessor := CallbackCreate(GetMethod(implObj, "CloseAccessor"), flags, 2)
-        this.vtbl.ShutDown := CallbackCreate(GetMethod(implObj, "ShutDown"), flags, 1)
+        this.vtbl.Init := CallbackCreate(ObjBindMethod(implObj, "Init"), flags, 4)
+        this.vtbl.CreateAccessor := CallbackCreate(ObjBindMethod(implObj, "CreateAccessor"), flags, 6)
+        this.vtbl.CloseAccessor := CallbackCreate(ObjBindMethod(implObj, "CloseAccessor"), flags, 2)
+        this.vtbl.ShutDown := CallbackCreate(ObjBindMethod(implObj, "ShutDown"), flags, 1)
     }
 
     Dispose() {

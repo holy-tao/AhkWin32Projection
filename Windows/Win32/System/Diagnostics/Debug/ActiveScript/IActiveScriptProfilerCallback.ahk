@@ -91,7 +91,6 @@ export default struct IActiveScriptProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} scriptId 
      * @param {PROFILER_SCRIPT_TYPE} type 
      * @param {IUnknown} pIDebugDocumentContext 
@@ -103,7 +102,6 @@ export default struct IActiveScriptProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} functionId 
      * @param {Integer} scriptId 
      * @param {PWSTR} pwszFunctionName 
@@ -120,7 +118,6 @@ export default struct IActiveScriptProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} scriptId 
      * @param {Integer} functionId 
      * @returns {HRESULT} 
@@ -131,7 +128,6 @@ export default struct IActiveScriptProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} scriptId 
      * @param {Integer} functionId 
      * @returns {HRESULT} 
@@ -150,12 +146,12 @@ export default struct IActiveScriptProfilerCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 2)
-        this.vtbl.ScriptCompiled := CallbackCreate(GetMethod(implObj, "ScriptCompiled"), flags, 4)
-        this.vtbl.FunctionCompiled := CallbackCreate(GetMethod(implObj, "FunctionCompiled"), flags, 6)
-        this.vtbl.OnFunctionEnter := CallbackCreate(GetMethod(implObj, "OnFunctionEnter"), flags, 3)
-        this.vtbl.OnFunctionExit := CallbackCreate(GetMethod(implObj, "OnFunctionExit"), flags, 3)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.Shutdown := CallbackCreate(ObjBindMethod(implObj, "Shutdown"), flags, 2)
+        this.vtbl.ScriptCompiled := CallbackCreate(ObjBindMethod(implObj, "ScriptCompiled"), flags, 4)
+        this.vtbl.FunctionCompiled := CallbackCreate(ObjBindMethod(implObj, "FunctionCompiled"), flags, 6)
+        this.vtbl.OnFunctionEnter := CallbackCreate(ObjBindMethod(implObj, "OnFunctionEnter"), flags, 3)
+        this.vtbl.OnFunctionExit := CallbackCreate(ObjBindMethod(implObj, "OnFunctionExit"), flags, 3)
     }
 
     Dispose() {

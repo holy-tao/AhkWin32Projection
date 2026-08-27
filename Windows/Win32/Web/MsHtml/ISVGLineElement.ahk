@@ -78,7 +78,6 @@ export default struct ISVGLineElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -88,7 +87,6 @@ export default struct ISVGLineElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_x1() {
@@ -97,7 +95,6 @@ export default struct ISVGLineElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -107,7 +104,6 @@ export default struct ISVGLineElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_y1() {
@@ -116,7 +112,6 @@ export default struct ISVGLineElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -126,7 +121,6 @@ export default struct ISVGLineElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_x2() {
@@ -135,7 +129,6 @@ export default struct ISVGLineElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -145,7 +138,6 @@ export default struct ISVGLineElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_y2() {
@@ -162,14 +154,14 @@ export default struct ISVGLineElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.putref_x1 := CallbackCreate(GetMethod(implObj, "putref_x1"), flags, 2)
-        this.vtbl.get_x1 := CallbackCreate(GetMethod(implObj, "get_x1"), flags, 2)
-        this.vtbl.putref_y1 := CallbackCreate(GetMethod(implObj, "putref_y1"), flags, 2)
-        this.vtbl.get_y1 := CallbackCreate(GetMethod(implObj, "get_y1"), flags, 2)
-        this.vtbl.putref_x2 := CallbackCreate(GetMethod(implObj, "putref_x2"), flags, 2)
-        this.vtbl.get_x2 := CallbackCreate(GetMethod(implObj, "get_x2"), flags, 2)
-        this.vtbl.putref_y2 := CallbackCreate(GetMethod(implObj, "putref_y2"), flags, 2)
-        this.vtbl.get_y2 := CallbackCreate(GetMethod(implObj, "get_y2"), flags, 2)
+        this.vtbl.putref_x1 := CallbackCreate(ObjBindMethod(implObj, "putref_x1"), flags, 2)
+        this.vtbl.get_x1 := CallbackCreate(ObjBindMethod(implObj, "get_x1"), flags, 2)
+        this.vtbl.putref_y1 := CallbackCreate(ObjBindMethod(implObj, "putref_y1"), flags, 2)
+        this.vtbl.get_y1 := CallbackCreate(ObjBindMethod(implObj, "get_y1"), flags, 2)
+        this.vtbl.putref_x2 := CallbackCreate(ObjBindMethod(implObj, "putref_x2"), flags, 2)
+        this.vtbl.get_x2 := CallbackCreate(ObjBindMethod(implObj, "get_x2"), flags, 2)
+        this.vtbl.putref_y2 := CallbackCreate(ObjBindMethod(implObj, "putref_y2"), flags, 2)
+        this.vtbl.get_y2 := CallbackCreate(ObjBindMethod(implObj, "get_y2"), flags, 2)
     }
 
     Dispose() {

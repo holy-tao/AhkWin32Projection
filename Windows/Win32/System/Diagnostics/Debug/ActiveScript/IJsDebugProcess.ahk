@@ -42,7 +42,6 @@ export default struct IJsDebugProcess extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} threadId 
      * @returns {IJsDebugStackWalker} 
      */
@@ -52,7 +51,6 @@ export default struct IJsDebugProcess extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} documentId 
      * @param {Integer} characterOffset 
      * @param {Integer} characterCount 
@@ -65,7 +63,6 @@ export default struct IJsDebugProcess extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} threadId 
      * @returns {HRESULT} 
      */
@@ -75,7 +72,6 @@ export default struct IJsDebugProcess extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetExternalStepAddress() {
@@ -92,10 +88,10 @@ export default struct IJsDebugProcess extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateStackWalker := CallbackCreate(GetMethod(implObj, "CreateStackWalker"), flags, 3)
-        this.vtbl.CreateBreakPoint := CallbackCreate(GetMethod(implObj, "CreateBreakPoint"), flags, 6)
-        this.vtbl.PerformAsyncBreak := CallbackCreate(GetMethod(implObj, "PerformAsyncBreak"), flags, 2)
-        this.vtbl.GetExternalStepAddress := CallbackCreate(GetMethod(implObj, "GetExternalStepAddress"), flags, 2)
+        this.vtbl.CreateStackWalker := CallbackCreate(ObjBindMethod(implObj, "CreateStackWalker"), flags, 3)
+        this.vtbl.CreateBreakPoint := CallbackCreate(ObjBindMethod(implObj, "CreateBreakPoint"), flags, 6)
+        this.vtbl.PerformAsyncBreak := CallbackCreate(ObjBindMethod(implObj, "PerformAsyncBreak"), flags, 2)
+        this.vtbl.GetExternalStepAddress := CallbackCreate(ObjBindMethod(implObj, "GetExternalStepAddress"), flags, 2)
     }
 
     Dispose() {

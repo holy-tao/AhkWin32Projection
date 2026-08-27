@@ -38,7 +38,6 @@ export default struct IDBSchemaCommand extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<Guid>} rguidSchema 
      * @returns {ICommand} 
@@ -49,12 +48,11 @@ export default struct IDBSchemaCommand extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcSchemas 
      * @returns {Pointer<Guid>} 
      */
     GetSchemas(pcSchemas) {
-        pcSchemasMarshal := pcSchemas is VarRef ? "uint*" : "ptr"
+        pcSchemasMarshal := pcSchemas is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pcSchemasMarshal, pcSchemas, "ptr*", &prgSchemas := 0, "HRESULT")
         return prgSchemas
@@ -69,8 +67,8 @@ export default struct IDBSchemaCommand extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCommand := CallbackCreate(GetMethod(implObj, "GetCommand"), flags, 4)
-        this.vtbl.GetSchemas := CallbackCreate(GetMethod(implObj, "GetSchemas"), flags, 3)
+        this.vtbl.GetCommand := CallbackCreate(ObjBindMethod(implObj, "GetCommand"), flags, 4)
+        this.vtbl.GetSchemas := CallbackCreate(ObjBindMethod(implObj, "GetSchemas"), flags, 3)
     }
 
     Dispose() {

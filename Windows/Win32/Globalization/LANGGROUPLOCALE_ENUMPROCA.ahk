@@ -32,7 +32,6 @@ export default struct LANGGROUPLOCALE_ENUMPROCA {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @param {PSTR} param2 

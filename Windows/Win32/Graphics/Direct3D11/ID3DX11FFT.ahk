@@ -191,13 +191,13 @@ export default struct ID3DX11FFT extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetForwardScale := CallbackCreate(GetMethod(implObj, "SetForwardScale"), flags, 2)
-        this.vtbl.GetForwardScale := CallbackCreate(GetMethod(implObj, "GetForwardScale"), flags, 1)
-        this.vtbl.SetInverseScale := CallbackCreate(GetMethod(implObj, "SetInverseScale"), flags, 2)
-        this.vtbl.GetInverseScale := CallbackCreate(GetMethod(implObj, "GetInverseScale"), flags, 1)
-        this.vtbl.AttachBuffersAndPrecompute := CallbackCreate(GetMethod(implObj, "AttachBuffersAndPrecompute"), flags, 5)
-        this.vtbl.ForwardTransform := CallbackCreate(GetMethod(implObj, "ForwardTransform"), flags, 3)
-        this.vtbl.InverseTransform := CallbackCreate(GetMethod(implObj, "InverseTransform"), flags, 3)
+        this.vtbl.SetForwardScale := CallbackCreate(ObjBindMethod(implObj, "SetForwardScale"), flags, 2)
+        this.vtbl.GetForwardScale := CallbackCreate(ObjBindMethod(implObj, "GetForwardScale"), flags, 1)
+        this.vtbl.SetInverseScale := CallbackCreate(ObjBindMethod(implObj, "SetInverseScale"), flags, 2)
+        this.vtbl.GetInverseScale := CallbackCreate(ObjBindMethod(implObj, "GetInverseScale"), flags, 1)
+        this.vtbl.AttachBuffersAndPrecompute := CallbackCreate(ObjBindMethod(implObj, "AttachBuffersAndPrecompute"), flags, 5)
+        this.vtbl.ForwardTransform := CallbackCreate(ObjBindMethod(implObj, "ForwardTransform"), flags, 3)
+        this.vtbl.InverseTransform := CallbackCreate(ObjBindMethod(implObj, "InverseTransform"), flags, 3)
     }
 
     Dispose() {

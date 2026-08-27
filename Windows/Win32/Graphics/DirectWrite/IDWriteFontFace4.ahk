@@ -105,7 +105,7 @@ export default struct IDWriteFontFace4 extends IDWriteFontFace3 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface4-getglyphimagedata
      */
     GetGlyphImageData(glyphId, pixelsPerEm, glyphImageFormat, _glyphData, glyphDataContext) {
-        glyphDataContextMarshal := glyphDataContext is VarRef ? "ptr*" : "ptr"
+        glyphDataContextMarshal := glyphDataContext is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(51, this, UInt16, glyphId, UInt32, pixelsPerEm, DWRITE_GLYPH_IMAGE_FORMATS, glyphImageFormat, DWRITE_GLYPH_IMAGE_DATA.Ptr, _glyphData, glyphDataContextMarshal, glyphDataContext, "HRESULT")
         return result
@@ -120,7 +120,7 @@ export default struct IDWriteFontFace4 extends IDWriteFontFace3 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface4-releaseglyphimagedata
      */
     ReleaseGlyphImageData(glyphDataContext) {
-        glyphDataContextMarshal := glyphDataContext is VarRef ? "ptr" : "ptr"
+        glyphDataContextMarshal := glyphDataContext is VarRef ? "ptr" : IntPtr
 
         ComCall(52, this, glyphDataContextMarshal, glyphDataContext)
     }
@@ -134,10 +134,10 @@ export default struct IDWriteFontFace4 extends IDWriteFontFace3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetGlyphImageFormats := CallbackCreate(GetMethod(implObj, "GetGlyphImageFormats"), flags, 5)
-        this.vtbl.GetGlyphImageFormats1 := CallbackCreate(GetMethod(implObj, "GetGlyphImageFormats1"), flags, 1)
-        this.vtbl.GetGlyphImageData := CallbackCreate(GetMethod(implObj, "GetGlyphImageData"), flags, 6)
-        this.vtbl.ReleaseGlyphImageData := CallbackCreate(GetMethod(implObj, "ReleaseGlyphImageData"), flags, 2)
+        this.vtbl.GetGlyphImageFormats := CallbackCreate(ObjBindMethod(implObj, "GetGlyphImageFormats"), flags, 5)
+        this.vtbl.GetGlyphImageFormats1 := CallbackCreate(ObjBindMethod(implObj, "GetGlyphImageFormats1"), flags, 1)
+        this.vtbl.GetGlyphImageData := CallbackCreate(ObjBindMethod(implObj, "GetGlyphImageData"), flags, 6)
+        this.vtbl.ReleaseGlyphImageData := CallbackCreate(ObjBindMethod(implObj, "ReleaseGlyphImageData"), flags, 2)
     }
 
     Dispose() {

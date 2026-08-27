@@ -19,7 +19,6 @@ export default struct SET_APP_INSTANCE_CSV_FLAGS {
     }
 
     /**
-     * 
      * @param {HANDLE} ProcessHandle 
      * @param {Integer} Mask 
      * @param {Integer} Flags 

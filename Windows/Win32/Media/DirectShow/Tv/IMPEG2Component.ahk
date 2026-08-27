@@ -146,12 +146,12 @@ export default struct IMPEG2Component extends IComponent {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_PID := CallbackCreate(GetMethod(implObj, "get_PID"), flags, 2)
-        this.vtbl.put_PID := CallbackCreate(GetMethod(implObj, "put_PID"), flags, 2)
-        this.vtbl.get_PCRPID := CallbackCreate(GetMethod(implObj, "get_PCRPID"), flags, 2)
-        this.vtbl.put_PCRPID := CallbackCreate(GetMethod(implObj, "put_PCRPID"), flags, 2)
-        this.vtbl.get_ProgramNumber := CallbackCreate(GetMethod(implObj, "get_ProgramNumber"), flags, 2)
-        this.vtbl.put_ProgramNumber := CallbackCreate(GetMethod(implObj, "put_ProgramNumber"), flags, 2)
+        this.vtbl.get_PID := CallbackCreate(ObjBindMethod(implObj, "get_PID"), flags, 2)
+        this.vtbl.put_PID := CallbackCreate(ObjBindMethod(implObj, "put_PID"), flags, 2)
+        this.vtbl.get_PCRPID := CallbackCreate(ObjBindMethod(implObj, "get_PCRPID"), flags, 2)
+        this.vtbl.put_PCRPID := CallbackCreate(ObjBindMethod(implObj, "put_PCRPID"), flags, 2)
+        this.vtbl.get_ProgramNumber := CallbackCreate(ObjBindMethod(implObj, "get_ProgramNumber"), flags, 2)
+        this.vtbl.put_ProgramNumber := CallbackCreate(ObjBindMethod(implObj, "put_ProgramNumber"), flags, 2)
     }
 
     Dispose() {

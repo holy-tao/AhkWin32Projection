@@ -100,8 +100,10 @@ export default struct IDirectManipulationContent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-gettag
      */
     GetTag(riid, _object, id) {
-        _objectMarshal := _object is VarRef ? "ptr*" : "ptr"
-        idMarshal := id is VarRef ? "uint*" : "ptr"
+        _objectMarshal := _object is VarRef ? "ptr*" : IntPtr
+        _objectMarshal := _object == 0 ? IntPtr : "ptr*"
+        idMarshal := id is VarRef ? "uint*" : IntPtr
+        idMarshal := id == 0 ? IntPtr : "uint*"
 
         result := ComCall(6, this, Guid.Ptr, riid, _objectMarshal, _object, idMarshal, id, "HRESULT")
         return result
@@ -121,7 +123,9 @@ export default struct IDirectManipulationContent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-settag
      */
     SetTag(_object, id) {
-        result := ComCall(7, this, "ptr", _object, UInt32, id, "HRESULT")
+        _objectMarshal := _object == 0 ? IntPtr : "ptr"
+
+        result := ComCall(7, this, _objectMarshal, _object, UInt32, id, "HRESULT")
         return result
     }
 
@@ -178,7 +182,7 @@ export default struct IDirectManipulationContent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcontent-synccontenttransform
      */
     SyncContentTransform(_matrix, pointCount) {
-        _matrixMarshal := _matrix is VarRef ? "float*" : "ptr"
+        _matrixMarshal := _matrix is VarRef ? "float*" : IntPtr
 
         result := ComCall(10, this, _matrixMarshal, _matrix, UInt32, pointCount, "HRESULT")
         return result
@@ -193,14 +197,14 @@ export default struct IDirectManipulationContent extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetContentRect := CallbackCreate(GetMethod(implObj, "GetContentRect"), flags, 2)
-        this.vtbl.SetContentRect := CallbackCreate(GetMethod(implObj, "SetContentRect"), flags, 2)
-        this.vtbl.GetViewport := CallbackCreate(GetMethod(implObj, "GetViewport"), flags, 3)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 4)
-        this.vtbl.SetTag := CallbackCreate(GetMethod(implObj, "SetTag"), flags, 3)
-        this.vtbl.GetOutputTransform := CallbackCreate(GetMethod(implObj, "GetOutputTransform"), flags, 3)
-        this.vtbl.GetContentTransform := CallbackCreate(GetMethod(implObj, "GetContentTransform"), flags, 3)
-        this.vtbl.SyncContentTransform := CallbackCreate(GetMethod(implObj, "SyncContentTransform"), flags, 3)
+        this.vtbl.GetContentRect := CallbackCreate(ObjBindMethod(implObj, "GetContentRect"), flags, 2)
+        this.vtbl.SetContentRect := CallbackCreate(ObjBindMethod(implObj, "SetContentRect"), flags, 2)
+        this.vtbl.GetViewport := CallbackCreate(ObjBindMethod(implObj, "GetViewport"), flags, 3)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 4)
+        this.vtbl.SetTag := CallbackCreate(ObjBindMethod(implObj, "SetTag"), flags, 3)
+        this.vtbl.GetOutputTransform := CallbackCreate(ObjBindMethod(implObj, "GetOutputTransform"), flags, 3)
+        this.vtbl.GetContentTransform := CallbackCreate(ObjBindMethod(implObj, "GetContentTransform"), flags, 3)
+        this.vtbl.SyncContentTransform := CallbackCreate(ObjBindMethod(implObj, "SyncContentTransform"), flags, 3)
     }
 
     Dispose() {

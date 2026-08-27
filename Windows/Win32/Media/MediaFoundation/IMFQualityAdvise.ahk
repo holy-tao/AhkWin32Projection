@@ -202,11 +202,11 @@ export default struct IMFQualityAdvise extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetDropMode := CallbackCreate(GetMethod(implObj, "SetDropMode"), flags, 2)
-        this.vtbl.SetQualityLevel := CallbackCreate(GetMethod(implObj, "SetQualityLevel"), flags, 2)
-        this.vtbl.GetDropMode := CallbackCreate(GetMethod(implObj, "GetDropMode"), flags, 2)
-        this.vtbl.GetQualityLevel := CallbackCreate(GetMethod(implObj, "GetQualityLevel"), flags, 2)
-        this.vtbl.DropTime := CallbackCreate(GetMethod(implObj, "DropTime"), flags, 2)
+        this.vtbl.SetDropMode := CallbackCreate(ObjBindMethod(implObj, "SetDropMode"), flags, 2)
+        this.vtbl.SetQualityLevel := CallbackCreate(ObjBindMethod(implObj, "SetQualityLevel"), flags, 2)
+        this.vtbl.GetDropMode := CallbackCreate(ObjBindMethod(implObj, "GetDropMode"), flags, 2)
+        this.vtbl.GetQualityLevel := CallbackCreate(ObjBindMethod(implObj, "GetQualityLevel"), flags, 2)
+        this.vtbl.DropTime := CallbackCreate(ObjBindMethod(implObj, "DropTime"), flags, 2)
     }
 
     Dispose() {

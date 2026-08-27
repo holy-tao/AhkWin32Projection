@@ -37,14 +37,13 @@ export default struct PDX_SETSTATE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} param0 Points to the miniport driver's device extension.
      * @param {Pointer<DDSETSTATEININFO>} param1 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/dxmini/ns-dxmini-ddsetstateininfo">DDSETSTATEININFO</a> structure that contains the surface and VPE object information.
      * @param {Pointer<DDSETSTATEOUTINFO>} param2 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/dxmini/ns-dxmini-ddsetstateoutinfo">DDSETSTATEOUTINFO</a> structure that contains the state information for the hardware video port.
      * @returns {Integer} <i>DxSetState</i> returns DX_OK if it succeeds; otherwise, it returns one of the following error values:
      */
     Call(param0, param1, param2) {
-        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+        param0Marshal := param0 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, param0Marshal, param0, DDSETSTATEININFO.Ptr, param1, DDSETSTATEOUTINFO.Ptr, param2, UInt32)
         return result

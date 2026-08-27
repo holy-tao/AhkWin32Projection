@@ -19,7 +19,6 @@ export default struct VDMTERMINATETASKINWOWPROC {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @returns {BOOL} 

@@ -47,7 +47,6 @@ export default struct IHTMLSelectionObject extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     createRange() {
@@ -56,7 +55,6 @@ export default struct IHTMLSelectionObject extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     empty() {
@@ -65,7 +63,6 @@ export default struct IHTMLSelectionObject extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     clear() {
@@ -74,7 +71,6 @@ export default struct IHTMLSelectionObject extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -92,10 +88,10 @@ export default struct IHTMLSelectionObject extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.createRange := CallbackCreate(GetMethod(implObj, "createRange"), flags, 2)
-        this.vtbl.empty := CallbackCreate(GetMethod(implObj, "empty"), flags, 1)
-        this.vtbl.clear := CallbackCreate(GetMethod(implObj, "clear"), flags, 1)
-        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.createRange := CallbackCreate(ObjBindMethod(implObj, "createRange"), flags, 2)
+        this.vtbl.empty := CallbackCreate(ObjBindMethod(implObj, "empty"), flags, 1)
+        this.vtbl.clear := CallbackCreate(ObjBindMethod(implObj, "clear"), flags, 1)
+        this.vtbl.get_type := CallbackCreate(ObjBindMethod(implObj, "get_type"), flags, 2)
     }
 
     Dispose() {

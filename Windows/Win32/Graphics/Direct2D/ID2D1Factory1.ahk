@@ -98,7 +98,8 @@ export default struct ID2D1Factory1 extends ID2D1Factory {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1factory1-createstrokestyle(constd2d1_stroke_style_properties1_constfloat_uint32_id2d1strokestyle1)
      */
     CreateStrokeStyle(strokeStyleProperties, dashes, dashesCount) {
-        dashesMarshal := dashes is VarRef ? "float*" : "ptr"
+        dashesMarshal := dashes is VarRef ? "float*" : IntPtr
+        dashesMarshal := dashes == 0 ? IntPtr : "float*"
 
         result := ComCall(18, this, D2D1_STROKE_STYLE_PROPERTIES1.Ptr, strokeStyleProperties, dashesMarshal, dashes, UInt32, dashesCount, "ptr*", &strokeStyle := 0, "HRESULT")
         return ID2D1StrokeStyle1(strokeStyle)
@@ -130,7 +131,10 @@ export default struct ID2D1Factory1 extends ID2D1Factory {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1factory1-createdrawingstateblock(constd2d1_drawing_state_description1_idwriterenderingparams_id2d1drawingstateblock1)
      */
     CreateDrawingStateBlock(drawingStateDescription, textRenderingParams) {
-        result := ComCall(20, this, D2D1_DRAWING_STATE_DESCRIPTION1.Ptr, drawingStateDescription, "ptr", textRenderingParams, "ptr*", &drawingStateBlock := 0, "HRESULT")
+        drawingStateDescriptionMarshal := drawingStateDescription == 0 ? IntPtr : D2D1_DRAWING_STATE_DESCRIPTION1.Ptr
+        textRenderingParamsMarshal := textRenderingParams == 0 ? IntPtr : "ptr"
+
+        result := ComCall(20, this, drawingStateDescriptionMarshal, drawingStateDescription, textRenderingParamsMarshal, textRenderingParams, "ptr*", &drawingStateBlock := 0, "HRESULT")
         return ID2D1DrawingStateBlock1(drawingStateBlock)
     }
 
@@ -213,7 +217,9 @@ export default struct ID2D1Factory1 extends ID2D1Factory {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1factory1-registereffectfromstream
      */
     RegisterEffectFromStream(classId, propertyXml, bindings, bindingsCount, effectFactory) {
-        result := ComCall(22, this, Guid.Ptr, classId, "ptr", propertyXml, D2D1_PROPERTY_BINDING.Ptr, bindings, UInt32, bindingsCount, PD2D1_EFFECT_FACTORY, effectFactory, "HRESULT")
+        bindingsMarshal := bindings == 0 ? IntPtr : D2D1_PROPERTY_BINDING.Ptr
+
+        result := ComCall(22, this, Guid.Ptr, classId, "ptr", propertyXml, bindingsMarshal, bindings, UInt32, bindingsCount, PD2D1_EFFECT_FACTORY, effectFactory, "HRESULT")
         return result
     }
 
@@ -282,7 +288,9 @@ export default struct ID2D1Factory1 extends ID2D1Factory {
     RegisterEffectFromString(classId, propertyXml, bindings, bindingsCount, effectFactory) {
         propertyXml := propertyXml is String ? StrPtr(propertyXml) : propertyXml
 
-        result := ComCall(23, this, Guid.Ptr, classId, "ptr", propertyXml, D2D1_PROPERTY_BINDING.Ptr, bindings, UInt32, bindingsCount, PD2D1_EFFECT_FACTORY, effectFactory, "HRESULT")
+        bindingsMarshal := bindings == 0 ? IntPtr : D2D1_PROPERTY_BINDING.Ptr
+
+        result := ComCall(23, this, Guid.Ptr, classId, "ptr", propertyXml, bindingsMarshal, bindings, UInt32, bindingsCount, PD2D1_EFFECT_FACTORY, effectFactory, "HRESULT")
         return result
     }
 
@@ -348,10 +356,13 @@ export default struct ID2D1Factory1 extends ID2D1Factory {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1factory1-getregisteredeffects
      */
     GetRegisteredEffects(effects, effectsCount, effectsReturned, effectsRegistered) {
-        effectsReturnedMarshal := effectsReturned is VarRef ? "uint*" : "ptr"
-        effectsRegisteredMarshal := effectsRegistered is VarRef ? "uint*" : "ptr"
+        effectsMarshal := effects == 0 ? IntPtr : Guid.Ptr
+        effectsReturnedMarshal := effectsReturned is VarRef ? "uint*" : IntPtr
+        effectsReturnedMarshal := effectsReturned == 0 ? IntPtr : "uint*"
+        effectsRegisteredMarshal := effectsRegistered is VarRef ? "uint*" : IntPtr
+        effectsRegisteredMarshal := effectsRegistered == 0 ? IntPtr : "uint*"
 
-        result := ComCall(25, this, Guid.Ptr, effects, UInt32, effectsCount, effectsReturnedMarshal, effectsReturned, effectsRegisteredMarshal, effectsRegistered, "HRESULT")
+        result := ComCall(25, this, effectsMarshal, effects, UInt32, effectsCount, effectsReturnedMarshal, effectsReturned, effectsRegisteredMarshal, effectsRegistered, "HRESULT")
         return result
     }
 
@@ -388,16 +399,16 @@ export default struct ID2D1Factory1 extends ID2D1Factory {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateDevice := CallbackCreate(GetMethod(implObj, "CreateDevice"), flags, 3)
-        this.vtbl.CreateStrokeStyle := CallbackCreate(GetMethod(implObj, "CreateStrokeStyle"), flags, 5)
-        this.vtbl.CreatePathGeometry := CallbackCreate(GetMethod(implObj, "CreatePathGeometry"), flags, 2)
-        this.vtbl.CreateDrawingStateBlock := CallbackCreate(GetMethod(implObj, "CreateDrawingStateBlock"), flags, 4)
-        this.vtbl.CreateGdiMetafile := CallbackCreate(GetMethod(implObj, "CreateGdiMetafile"), flags, 3)
-        this.vtbl.RegisterEffectFromStream := CallbackCreate(GetMethod(implObj, "RegisterEffectFromStream"), flags, 6)
-        this.vtbl.RegisterEffectFromString := CallbackCreate(GetMethod(implObj, "RegisterEffectFromString"), flags, 6)
-        this.vtbl.UnregisterEffect := CallbackCreate(GetMethod(implObj, "UnregisterEffect"), flags, 2)
-        this.vtbl.GetRegisteredEffects := CallbackCreate(GetMethod(implObj, "GetRegisteredEffects"), flags, 5)
-        this.vtbl.GetEffectProperties := CallbackCreate(GetMethod(implObj, "GetEffectProperties"), flags, 3)
+        this.vtbl.CreateDevice := CallbackCreate(ObjBindMethod(implObj, "CreateDevice"), flags, 3)
+        this.vtbl.CreateStrokeStyle := CallbackCreate(ObjBindMethod(implObj, "CreateStrokeStyle"), flags, 5)
+        this.vtbl.CreatePathGeometry := CallbackCreate(ObjBindMethod(implObj, "CreatePathGeometry"), flags, 2)
+        this.vtbl.CreateDrawingStateBlock := CallbackCreate(ObjBindMethod(implObj, "CreateDrawingStateBlock"), flags, 4)
+        this.vtbl.CreateGdiMetafile := CallbackCreate(ObjBindMethod(implObj, "CreateGdiMetafile"), flags, 3)
+        this.vtbl.RegisterEffectFromStream := CallbackCreate(ObjBindMethod(implObj, "RegisterEffectFromStream"), flags, 6)
+        this.vtbl.RegisterEffectFromString := CallbackCreate(ObjBindMethod(implObj, "RegisterEffectFromString"), flags, 6)
+        this.vtbl.UnregisterEffect := CallbackCreate(ObjBindMethod(implObj, "UnregisterEffect"), flags, 2)
+        this.vtbl.GetRegisteredEffects := CallbackCreate(ObjBindMethod(implObj, "GetRegisteredEffects"), flags, 5)
+        this.vtbl.GetEffectProperties := CallbackCreate(ObjBindMethod(implObj, "GetEffectProperties"), flags, 3)
     }
 
     Dispose() {

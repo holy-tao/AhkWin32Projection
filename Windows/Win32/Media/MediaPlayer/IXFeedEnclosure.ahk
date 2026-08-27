@@ -51,7 +51,6 @@ export default struct IXFeedEnclosure extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     Url() {
@@ -70,7 +69,6 @@ export default struct IXFeedEnclosure extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Length() {
@@ -79,7 +77,6 @@ export default struct IXFeedEnclosure extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     AsyncDownload() {
@@ -88,7 +85,6 @@ export default struct IXFeedEnclosure extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CancelAsyncDownload() {
@@ -109,7 +105,6 @@ export default struct IXFeedEnclosure extends IUnknown {
     }
 
     /**
-     * 
      * @returns {FEEDS_DOWNLOAD_ERROR} 
      */
     LastDownloadError() {
@@ -118,7 +113,6 @@ export default struct IXFeedEnclosure extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     LocalPath() {
@@ -127,7 +121,6 @@ export default struct IXFeedEnclosure extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
@@ -137,7 +130,6 @@ export default struct IXFeedEnclosure extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     DownloadUrl() {
@@ -146,7 +138,6 @@ export default struct IXFeedEnclosure extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     DownloadMimeType() {
@@ -155,7 +146,6 @@ export default struct IXFeedEnclosure extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RemoveFile() {
@@ -164,7 +154,6 @@ export default struct IXFeedEnclosure extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszDownloadUrl 
      * @param {PWSTR} pszDownloadFilePath 
      * @param {PWSTR} pszDownloadMimeType 
@@ -190,19 +179,19 @@ export default struct IXFeedEnclosure extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Url := CallbackCreate(GetMethod(implObj, "Url"), flags, 2)
-        this.vtbl.Type := CallbackCreate(GetMethod(implObj, "Type"), flags, 2)
-        this.vtbl.Length := CallbackCreate(GetMethod(implObj, "Length"), flags, 2)
-        this.vtbl.AsyncDownload := CallbackCreate(GetMethod(implObj, "AsyncDownload"), flags, 1)
-        this.vtbl.CancelAsyncDownload := CallbackCreate(GetMethod(implObj, "CancelAsyncDownload"), flags, 1)
-        this.vtbl.DownloadStatus := CallbackCreate(GetMethod(implObj, "DownloadStatus"), flags, 2)
-        this.vtbl.LastDownloadError := CallbackCreate(GetMethod(implObj, "LastDownloadError"), flags, 2)
-        this.vtbl.LocalPath := CallbackCreate(GetMethod(implObj, "LocalPath"), flags, 2)
-        this.vtbl.Parent := CallbackCreate(GetMethod(implObj, "Parent"), flags, 3)
-        this.vtbl.DownloadUrl := CallbackCreate(GetMethod(implObj, "DownloadUrl"), flags, 2)
-        this.vtbl.DownloadMimeType := CallbackCreate(GetMethod(implObj, "DownloadMimeType"), flags, 2)
-        this.vtbl.RemoveFile := CallbackCreate(GetMethod(implObj, "RemoveFile"), flags, 1)
-        this.vtbl.SetFile := CallbackCreate(GetMethod(implObj, "SetFile"), flags, 5)
+        this.vtbl.Url := CallbackCreate(ObjBindMethod(implObj, "Url"), flags, 2)
+        this.vtbl.Type := CallbackCreate(ObjBindMethod(implObj, "Type"), flags, 2)
+        this.vtbl.Length := CallbackCreate(ObjBindMethod(implObj, "Length"), flags, 2)
+        this.vtbl.AsyncDownload := CallbackCreate(ObjBindMethod(implObj, "AsyncDownload"), flags, 1)
+        this.vtbl.CancelAsyncDownload := CallbackCreate(ObjBindMethod(implObj, "CancelAsyncDownload"), flags, 1)
+        this.vtbl.DownloadStatus := CallbackCreate(ObjBindMethod(implObj, "DownloadStatus"), flags, 2)
+        this.vtbl.LastDownloadError := CallbackCreate(ObjBindMethod(implObj, "LastDownloadError"), flags, 2)
+        this.vtbl.LocalPath := CallbackCreate(ObjBindMethod(implObj, "LocalPath"), flags, 2)
+        this.vtbl.Parent := CallbackCreate(ObjBindMethod(implObj, "Parent"), flags, 3)
+        this.vtbl.DownloadUrl := CallbackCreate(ObjBindMethod(implObj, "DownloadUrl"), flags, 2)
+        this.vtbl.DownloadMimeType := CallbackCreate(ObjBindMethod(implObj, "DownloadMimeType"), flags, 2)
+        this.vtbl.RemoveFile := CallbackCreate(ObjBindMethod(implObj, "RemoveFile"), flags, 1)
+        this.vtbl.SetFile := CallbackCreate(ObjBindMethod(implObj, "SetFile"), flags, 5)
     }
 
     Dispose() {

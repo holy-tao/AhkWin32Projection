@@ -185,7 +185,9 @@ export default struct ISpatialAudioMetadataWriter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatawriter-writenextitemcommand
      */
     WriteNextItemCommand(commandID, valueBuffer, valueBufferLength) {
-        result := ComCall(5, this, Int8, commandID, IntPtr, valueBuffer, UInt32, valueBufferLength, "HRESULT")
+        valueBufferMarshal := valueBuffer == 0 ? IntPtr : IntPtr
+
+        result := ComCall(5, this, Int8, commandID, valueBufferMarshal, valueBuffer, UInt32, valueBufferLength, "HRESULT")
         return result
     }
 
@@ -219,10 +221,10 @@ export default struct ISpatialAudioMetadataWriter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 2)
-        this.vtbl.WriteNextItem := CallbackCreate(GetMethod(implObj, "WriteNextItem"), flags, 2)
-        this.vtbl.WriteNextItemCommand := CallbackCreate(GetMethod(implObj, "WriteNextItemCommand"), flags, 4)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.Open := CallbackCreate(ObjBindMethod(implObj, "Open"), flags, 2)
+        this.vtbl.WriteNextItem := CallbackCreate(ObjBindMethod(implObj, "WriteNextItem"), flags, 2)
+        this.vtbl.WriteNextItemCommand := CallbackCreate(ObjBindMethod(implObj, "WriteNextItemCommand"), flags, 4)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
     }
 
     Dispose() {

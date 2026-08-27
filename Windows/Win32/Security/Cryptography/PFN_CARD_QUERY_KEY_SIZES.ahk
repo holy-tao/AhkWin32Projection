@@ -20,7 +20,6 @@ export default struct PFN_CARD_QUERY_KEY_SIZES {
     }
 
     /**
-     * 
      * @param {Pointer<CARD_DATA>} pCardData 
      * @param {Integer} dwKeySpec 
      * @param {Integer} dwFlags 

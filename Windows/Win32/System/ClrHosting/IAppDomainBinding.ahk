@@ -36,7 +36,6 @@ export default struct IAppDomainBinding extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pAppdomain 
      * @returns {HRESULT} 
      */
@@ -54,7 +53,7 @@ export default struct IAppDomainBinding extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnAppDomain := CallbackCreate(GetMethod(implObj, "OnAppDomain"), flags, 2)
+        this.vtbl.OnAppDomain := CallbackCreate(ObjBindMethod(implObj, "OnAppDomain"), flags, 2)
     }
 
     Dispose() {

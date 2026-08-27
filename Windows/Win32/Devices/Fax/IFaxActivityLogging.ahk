@@ -207,14 +207,14 @@ export default struct IFaxActivityLogging extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_LogIncoming := CallbackCreate(GetMethod(implObj, "get_LogIncoming"), flags, 2)
-        this.vtbl.put_LogIncoming := CallbackCreate(GetMethod(implObj, "put_LogIncoming"), flags, 2)
-        this.vtbl.get_LogOutgoing := CallbackCreate(GetMethod(implObj, "get_LogOutgoing"), flags, 2)
-        this.vtbl.put_LogOutgoing := CallbackCreate(GetMethod(implObj, "put_LogOutgoing"), flags, 2)
-        this.vtbl.get_DatabasePath := CallbackCreate(GetMethod(implObj, "get_DatabasePath"), flags, 2)
-        this.vtbl.put_DatabasePath := CallbackCreate(GetMethod(implObj, "put_DatabasePath"), flags, 2)
-        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
-        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 1)
+        this.vtbl.get_LogIncoming := CallbackCreate(ObjBindMethod(implObj, "get_LogIncoming"), flags, 2)
+        this.vtbl.put_LogIncoming := CallbackCreate(ObjBindMethod(implObj, "put_LogIncoming"), flags, 2)
+        this.vtbl.get_LogOutgoing := CallbackCreate(ObjBindMethod(implObj, "get_LogOutgoing"), flags, 2)
+        this.vtbl.put_LogOutgoing := CallbackCreate(ObjBindMethod(implObj, "put_LogOutgoing"), flags, 2)
+        this.vtbl.get_DatabasePath := CallbackCreate(ObjBindMethod(implObj, "get_DatabasePath"), flags, 2)
+        this.vtbl.put_DatabasePath := CallbackCreate(ObjBindMethod(implObj, "put_DatabasePath"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(ObjBindMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.Save := CallbackCreate(ObjBindMethod(implObj, "Save"), flags, 1)
     }
 
     Dispose() {

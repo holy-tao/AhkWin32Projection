@@ -23,7 +23,6 @@ export default struct IPSEC_KEY_MANAGER_NOTIFY_KEY0 {
     }
 
     /**
-     * 
      * @param {Pointer<IPSEC_SA_DETAILS1>} inboundSa Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_sa_details1">IPSEC_SA_DETAILS1</a>*</b>
      * 
      * Information about the inbound SA.

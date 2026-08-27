@@ -134,10 +134,10 @@ export default struct IWICMetadataWriter extends IWICMetadataReader {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetValue := CallbackCreate(GetMethod(implObj, "SetValue"), flags, 4)
-        this.vtbl.SetValueByIndex := CallbackCreate(GetMethod(implObj, "SetValueByIndex"), flags, 5)
-        this.vtbl.RemoveValue := CallbackCreate(GetMethod(implObj, "RemoveValue"), flags, 3)
-        this.vtbl.RemoveValueByIndex := CallbackCreate(GetMethod(implObj, "RemoveValueByIndex"), flags, 2)
+        this.vtbl.SetValue := CallbackCreate(ObjBindMethod(implObj, "SetValue"), flags, 4)
+        this.vtbl.SetValueByIndex := CallbackCreate(ObjBindMethod(implObj, "SetValueByIndex"), flags, 5)
+        this.vtbl.RemoveValue := CallbackCreate(ObjBindMethod(implObj, "RemoveValue"), flags, 3)
+        this.vtbl.RemoveValueByIndex := CallbackCreate(ObjBindMethod(implObj, "RemoveValueByIndex"), flags, 2)
     }
 
     Dispose() {

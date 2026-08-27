@@ -89,7 +89,7 @@ export default struct IDXGIFactory6 extends IDXGIFactory5 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumAdapterByGpuPreference := CallbackCreate(GetMethod(implObj, "EnumAdapterByGpuPreference"), flags, 5)
+        this.vtbl.EnumAdapterByGpuPreference := CallbackCreate(ObjBindMethod(implObj, "EnumAdapterByGpuPreference"), flags, 5)
     }
 
     Dispose() {

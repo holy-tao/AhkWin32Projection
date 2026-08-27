@@ -84,9 +84,9 @@ export default struct ITsSbFilterPluginStore extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SaveProperties := CallbackCreate(GetMethod(implObj, "SaveProperties"), flags, 2)
-        this.vtbl.EnumerateProperties := CallbackCreate(GetMethod(implObj, "EnumerateProperties"), flags, 2)
-        this.vtbl.DeleteProperties := CallbackCreate(GetMethod(implObj, "DeleteProperties"), flags, 2)
+        this.vtbl.SaveProperties := CallbackCreate(ObjBindMethod(implObj, "SaveProperties"), flags, 2)
+        this.vtbl.EnumerateProperties := CallbackCreate(ObjBindMethod(implObj, "EnumerateProperties"), flags, 2)
+        this.vtbl.DeleteProperties := CallbackCreate(ObjBindMethod(implObj, "DeleteProperties"), flags, 2)
     }
 
     Dispose() {

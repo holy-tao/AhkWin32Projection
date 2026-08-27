@@ -20,7 +20,6 @@ export default struct PDXGK_SET_SHARED_POWER_COMPONENT_STATE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} DeviceHandle 
      * @param {Pointer<Void>} PrivateHandle 
      * @param {Integer} ComponentIndex 
@@ -28,8 +27,8 @@ export default struct PDXGK_SET_SHARED_POWER_COMPONENT_STATE {
      * @returns {NTSTATUS} 
      */
     Call(DeviceHandle, PrivateHandle, ComponentIndex, Active) {
-        DeviceHandleMarshal := DeviceHandle is VarRef ? "ptr" : "ptr"
-        PrivateHandleMarshal := PrivateHandle is VarRef ? "ptr" : "ptr"
+        DeviceHandleMarshal := DeviceHandle is VarRef ? "ptr" : IntPtr
+        PrivateHandleMarshal := PrivateHandle is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, DeviceHandleMarshal, DeviceHandle, PrivateHandleMarshal, PrivateHandle, UInt32, ComponentIndex, BOOLEAN, Active, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

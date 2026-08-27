@@ -46,19 +46,17 @@ export default struct IExecAction2 extends IExecAction {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT_BOOL>} pHideAppWindow 
      * @returns {HRESULT} 
      */
     get_HideAppWindow(pHideAppWindow) {
-        pHideAppWindowMarshal := pHideAppWindow is VarRef ? "short*" : "ptr"
+        pHideAppWindowMarshal := pHideAppWindow is VarRef ? "short*" : IntPtr
 
         result := ComCall(16, this, pHideAppWindowMarshal, pHideAppWindow, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} hideAppWindow 
      * @returns {HRESULT} 
      */
@@ -76,8 +74,8 @@ export default struct IExecAction2 extends IExecAction {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_HideAppWindow := CallbackCreate(GetMethod(implObj, "get_HideAppWindow"), flags, 2)
-        this.vtbl.put_HideAppWindow := CallbackCreate(GetMethod(implObj, "put_HideAppWindow"), flags, 2)
+        this.vtbl.get_HideAppWindow := CallbackCreate(ObjBindMethod(implObj, "get_HideAppWindow"), flags, 2)
+        this.vtbl.put_HideAppWindow := CallbackCreate(ObjBindMethod(implObj, "put_HideAppWindow"), flags, 2)
     }
 
     Dispose() {

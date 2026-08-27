@@ -147,8 +147,8 @@ export default struct IDvdInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo-getcurrentbutton
      */
     GetCurrentButton(pulButtonsAvailable, pulCurrentButton) {
-        pulButtonsAvailableMarshal := pulButtonsAvailable is VarRef ? "uint*" : "ptr"
-        pulCurrentButtonMarshal := pulCurrentButton is VarRef ? "uint*" : "ptr"
+        pulButtonsAvailableMarshal := pulButtonsAvailable is VarRef ? "uint*" : IntPtr
+        pulCurrentButtonMarshal := pulCurrentButton is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, pulButtonsAvailableMarshal, pulButtonsAvailable, pulCurrentButtonMarshal, pulCurrentButton, "HRESULT")
         return result
@@ -217,8 +217,8 @@ export default struct IDvdInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo-getcurrentangle
      */
     GetCurrentAngle(pulAnglesAvailable, pulCurrentAngle) {
-        pulAnglesAvailableMarshal := pulAnglesAvailable is VarRef ? "uint*" : "ptr"
-        pulCurrentAngleMarshal := pulCurrentAngle is VarRef ? "uint*" : "ptr"
+        pulAnglesAvailableMarshal := pulAnglesAvailable is VarRef ? "uint*" : IntPtr
+        pulCurrentAngleMarshal := pulCurrentAngle is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, pulAnglesAvailableMarshal, pulAnglesAvailable, pulCurrentAngleMarshal, pulCurrentAngle, "HRESULT")
         return result
@@ -285,8 +285,8 @@ export default struct IDvdInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo-getcurrentaudio
      */
     GetCurrentAudio(pulStreamsAvailable, pulCurrentStream) {
-        pulStreamsAvailableMarshal := pulStreamsAvailable is VarRef ? "uint*" : "ptr"
-        pulCurrentStreamMarshal := pulCurrentStream is VarRef ? "uint*" : "ptr"
+        pulStreamsAvailableMarshal := pulStreamsAvailable is VarRef ? "uint*" : IntPtr
+        pulCurrentStreamMarshal := pulCurrentStream is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, pulStreamsAvailableMarshal, pulStreamsAvailable, pulCurrentStreamMarshal, pulCurrentStream, "HRESULT")
         return result
@@ -356,9 +356,9 @@ export default struct IDvdInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo-getcurrentsubpicture
      */
     GetCurrentSubpicture(pulStreamsAvailable, pulCurrentStream, pIsDisabled) {
-        pulStreamsAvailableMarshal := pulStreamsAvailable is VarRef ? "uint*" : "ptr"
-        pulCurrentStreamMarshal := pulCurrentStream is VarRef ? "uint*" : "ptr"
-        pIsDisabledMarshal := pIsDisabled is VarRef ? "int*" : "ptr"
+        pulStreamsAvailableMarshal := pulStreamsAvailable is VarRef ? "uint*" : IntPtr
+        pulCurrentStreamMarshal := pulCurrentStream is VarRef ? "uint*" : IntPtr
+        pIsDisabledMarshal := pIsDisabled is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, pulStreamsAvailableMarshal, pulStreamsAvailable, pulCurrentStreamMarshal, pulCurrentStream, pIsDisabledMarshal, pIsDisabled, "HRESULT")
         return result
@@ -777,10 +777,10 @@ export default struct IDvdInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo-getcurrentvolumeinfo
      */
     GetCurrentVolumeInfo(pulNumOfVol, pulThisVolNum, pSide, pulNumOfTitles) {
-        pulNumOfVolMarshal := pulNumOfVol is VarRef ? "uint*" : "ptr"
-        pulThisVolNumMarshal := pulThisVolNum is VarRef ? "uint*" : "ptr"
-        pSideMarshal := pSide is VarRef ? "int*" : "ptr"
-        pulNumOfTitlesMarshal := pulNumOfTitles is VarRef ? "uint*" : "ptr"
+        pulNumOfVolMarshal := pulNumOfVol is VarRef ? "uint*" : IntPtr
+        pulThisVolNumMarshal := pulThisVolNum is VarRef ? "uint*" : IntPtr
+        pSideMarshal := pSide is VarRef ? "int*" : IntPtr
+        pulNumOfTitlesMarshal := pulNumOfTitles is VarRef ? "uint*" : IntPtr
 
         result := ComCall(20, this, pulNumOfVolMarshal, pulNumOfVol, pulThisVolNumMarshal, pulThisVolNum, pSideMarshal, pSide, pulNumOfTitlesMarshal, pulNumOfTitles, "HRESULT")
         return result
@@ -871,8 +871,8 @@ export default struct IDvdInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo-getplayerparentallevel
      */
     GetPlayerParentalLevel(pulParentalLevel, pulCountryCode) {
-        pulParentalLevelMarshal := pulParentalLevel is VarRef ? "uint*" : "ptr"
-        pulCountryCodeMarshal := pulCountryCode is VarRef ? "uint*" : "ptr"
+        pulParentalLevelMarshal := pulParentalLevel is VarRef ? "uint*" : IntPtr
+        pulCountryCodeMarshal := pulCountryCode is VarRef ? "uint*" : IntPtr
 
         result := ComCall(22, this, pulParentalLevelMarshal, pulParentalLevel, pulCountryCodeMarshal, pulCountryCode, "HRESULT")
         return result
@@ -940,29 +940,29 @@ export default struct IDvdInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCurrentDomain := CallbackCreate(GetMethod(implObj, "GetCurrentDomain"), flags, 2)
-        this.vtbl.GetCurrentLocation := CallbackCreate(GetMethod(implObj, "GetCurrentLocation"), flags, 2)
-        this.vtbl.GetTotalTitleTime := CallbackCreate(GetMethod(implObj, "GetTotalTitleTime"), flags, 2)
-        this.vtbl.GetCurrentButton := CallbackCreate(GetMethod(implObj, "GetCurrentButton"), flags, 3)
-        this.vtbl.GetCurrentAngle := CallbackCreate(GetMethod(implObj, "GetCurrentAngle"), flags, 3)
-        this.vtbl.GetCurrentAudio := CallbackCreate(GetMethod(implObj, "GetCurrentAudio"), flags, 3)
-        this.vtbl.GetCurrentSubpicture := CallbackCreate(GetMethod(implObj, "GetCurrentSubpicture"), flags, 4)
-        this.vtbl.GetCurrentUOPS := CallbackCreate(GetMethod(implObj, "GetCurrentUOPS"), flags, 2)
-        this.vtbl.GetAllSPRMs := CallbackCreate(GetMethod(implObj, "GetAllSPRMs"), flags, 2)
-        this.vtbl.GetAllGPRMs := CallbackCreate(GetMethod(implObj, "GetAllGPRMs"), flags, 2)
-        this.vtbl.GetAudioLanguage := CallbackCreate(GetMethod(implObj, "GetAudioLanguage"), flags, 3)
-        this.vtbl.GetSubpictureLanguage := CallbackCreate(GetMethod(implObj, "GetSubpictureLanguage"), flags, 3)
-        this.vtbl.GetTitleAttributes := CallbackCreate(GetMethod(implObj, "GetTitleAttributes"), flags, 3)
-        this.vtbl.GetVMGAttributes := CallbackCreate(GetMethod(implObj, "GetVMGAttributes"), flags, 2)
-        this.vtbl.GetCurrentVideoAttributes := CallbackCreate(GetMethod(implObj, "GetCurrentVideoAttributes"), flags, 2)
-        this.vtbl.GetCurrentAudioAttributes := CallbackCreate(GetMethod(implObj, "GetCurrentAudioAttributes"), flags, 2)
-        this.vtbl.GetCurrentSubpictureAttributes := CallbackCreate(GetMethod(implObj, "GetCurrentSubpictureAttributes"), flags, 2)
-        this.vtbl.GetCurrentVolumeInfo := CallbackCreate(GetMethod(implObj, "GetCurrentVolumeInfo"), flags, 5)
-        this.vtbl.GetDVDTextInfo := CallbackCreate(GetMethod(implObj, "GetDVDTextInfo"), flags, 4)
-        this.vtbl.GetPlayerParentalLevel := CallbackCreate(GetMethod(implObj, "GetPlayerParentalLevel"), flags, 3)
-        this.vtbl.GetNumberOfChapters := CallbackCreate(GetMethod(implObj, "GetNumberOfChapters"), flags, 3)
-        this.vtbl.GetTitleParentalLevels := CallbackCreate(GetMethod(implObj, "GetTitleParentalLevels"), flags, 3)
-        this.vtbl.GetRoot := CallbackCreate(GetMethod(implObj, "GetRoot"), flags, 4)
+        this.vtbl.GetCurrentDomain := CallbackCreate(ObjBindMethod(implObj, "GetCurrentDomain"), flags, 2)
+        this.vtbl.GetCurrentLocation := CallbackCreate(ObjBindMethod(implObj, "GetCurrentLocation"), flags, 2)
+        this.vtbl.GetTotalTitleTime := CallbackCreate(ObjBindMethod(implObj, "GetTotalTitleTime"), flags, 2)
+        this.vtbl.GetCurrentButton := CallbackCreate(ObjBindMethod(implObj, "GetCurrentButton"), flags, 3)
+        this.vtbl.GetCurrentAngle := CallbackCreate(ObjBindMethod(implObj, "GetCurrentAngle"), flags, 3)
+        this.vtbl.GetCurrentAudio := CallbackCreate(ObjBindMethod(implObj, "GetCurrentAudio"), flags, 3)
+        this.vtbl.GetCurrentSubpicture := CallbackCreate(ObjBindMethod(implObj, "GetCurrentSubpicture"), flags, 4)
+        this.vtbl.GetCurrentUOPS := CallbackCreate(ObjBindMethod(implObj, "GetCurrentUOPS"), flags, 2)
+        this.vtbl.GetAllSPRMs := CallbackCreate(ObjBindMethod(implObj, "GetAllSPRMs"), flags, 2)
+        this.vtbl.GetAllGPRMs := CallbackCreate(ObjBindMethod(implObj, "GetAllGPRMs"), flags, 2)
+        this.vtbl.GetAudioLanguage := CallbackCreate(ObjBindMethod(implObj, "GetAudioLanguage"), flags, 3)
+        this.vtbl.GetSubpictureLanguage := CallbackCreate(ObjBindMethod(implObj, "GetSubpictureLanguage"), flags, 3)
+        this.vtbl.GetTitleAttributes := CallbackCreate(ObjBindMethod(implObj, "GetTitleAttributes"), flags, 3)
+        this.vtbl.GetVMGAttributes := CallbackCreate(ObjBindMethod(implObj, "GetVMGAttributes"), flags, 2)
+        this.vtbl.GetCurrentVideoAttributes := CallbackCreate(ObjBindMethod(implObj, "GetCurrentVideoAttributes"), flags, 2)
+        this.vtbl.GetCurrentAudioAttributes := CallbackCreate(ObjBindMethod(implObj, "GetCurrentAudioAttributes"), flags, 2)
+        this.vtbl.GetCurrentSubpictureAttributes := CallbackCreate(ObjBindMethod(implObj, "GetCurrentSubpictureAttributes"), flags, 2)
+        this.vtbl.GetCurrentVolumeInfo := CallbackCreate(ObjBindMethod(implObj, "GetCurrentVolumeInfo"), flags, 5)
+        this.vtbl.GetDVDTextInfo := CallbackCreate(ObjBindMethod(implObj, "GetDVDTextInfo"), flags, 4)
+        this.vtbl.GetPlayerParentalLevel := CallbackCreate(ObjBindMethod(implObj, "GetPlayerParentalLevel"), flags, 3)
+        this.vtbl.GetNumberOfChapters := CallbackCreate(ObjBindMethod(implObj, "GetNumberOfChapters"), flags, 3)
+        this.vtbl.GetTitleParentalLevels := CallbackCreate(ObjBindMethod(implObj, "GetTitleParentalLevels"), flags, 3)
+        this.vtbl.GetRoot := CallbackCreate(ObjBindMethod(implObj, "GetRoot"), flags, 4)
     }
 
     Dispose() {

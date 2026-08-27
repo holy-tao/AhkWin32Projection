@@ -115,7 +115,10 @@ export default struct IATSC_VCT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-initialize
      */
     Initialize(pSectionList, pMPEGData) {
-        result := ComCall(3, this, "ptr", pSectionList, "ptr", pMPEGData, "HRESULT")
+        pSectionListMarshal := pSectionList == 0 ? IntPtr : "ptr"
+        pMPEGDataMarshal := pMPEGData == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pSectionListMarshal, pSectionList, pMPEGDataMarshal, pMPEGData, "HRESULT")
         return result
     }
 
@@ -366,7 +369,7 @@ export default struct IATSC_VCT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecorddescriptorbytag
      */
     GetRecordDescriptorByTag(dwRecordIndex, bTag, pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : IntPtr
 
         result := ComCall(25, this, UInt32, dwRecordIndex, Int8, bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
@@ -397,7 +400,7 @@ export default struct IATSC_VCT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getcountoftabledescriptors
      */
     GetCountOfTableDescriptors(pdwVal) {
-        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
+        pdwValMarshal := pdwVal is VarRef ? "uint*" : IntPtr
 
         result := ComCall(26, this, pdwValMarshal, pdwVal, "HRESULT")
         return result
@@ -424,7 +427,7 @@ export default struct IATSC_VCT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-gettabledescriptorbytag
      */
     GetTableDescriptorByTag(bTag, pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : IntPtr
 
         result := ComCall(28, this, Int8, bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
@@ -439,32 +442,32 @@ export default struct IATSC_VCT extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.GetVersionNumber := CallbackCreate(GetMethod(implObj, "GetVersionNumber"), flags, 2)
-        this.vtbl.GetTransportStreamId := CallbackCreate(GetMethod(implObj, "GetTransportStreamId"), flags, 2)
-        this.vtbl.GetProtocolVersion := CallbackCreate(GetMethod(implObj, "GetProtocolVersion"), flags, 2)
-        this.vtbl.GetCountOfRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRecords"), flags, 2)
-        this.vtbl.GetRecordName := CallbackCreate(GetMethod(implObj, "GetRecordName"), flags, 3)
-        this.vtbl.GetRecordMajorChannelNumber := CallbackCreate(GetMethod(implObj, "GetRecordMajorChannelNumber"), flags, 3)
-        this.vtbl.GetRecordMinorChannelNumber := CallbackCreate(GetMethod(implObj, "GetRecordMinorChannelNumber"), flags, 3)
-        this.vtbl.GetRecordModulationMode := CallbackCreate(GetMethod(implObj, "GetRecordModulationMode"), flags, 3)
-        this.vtbl.GetRecordCarrierFrequency := CallbackCreate(GetMethod(implObj, "GetRecordCarrierFrequency"), flags, 3)
-        this.vtbl.GetRecordTransportStreamId := CallbackCreate(GetMethod(implObj, "GetRecordTransportStreamId"), flags, 3)
-        this.vtbl.GetRecordProgramNumber := CallbackCreate(GetMethod(implObj, "GetRecordProgramNumber"), flags, 3)
-        this.vtbl.GetRecordEtmLocation := CallbackCreate(GetMethod(implObj, "GetRecordEtmLocation"), flags, 3)
-        this.vtbl.GetRecordIsAccessControlledBitSet := CallbackCreate(GetMethod(implObj, "GetRecordIsAccessControlledBitSet"), flags, 3)
-        this.vtbl.GetRecordIsHiddenBitSet := CallbackCreate(GetMethod(implObj, "GetRecordIsHiddenBitSet"), flags, 3)
-        this.vtbl.GetRecordIsPathSelectBitSet := CallbackCreate(GetMethod(implObj, "GetRecordIsPathSelectBitSet"), flags, 3)
-        this.vtbl.GetRecordIsOutOfBandBitSet := CallbackCreate(GetMethod(implObj, "GetRecordIsOutOfBandBitSet"), flags, 3)
-        this.vtbl.GetRecordIsHideGuideBitSet := CallbackCreate(GetMethod(implObj, "GetRecordIsHideGuideBitSet"), flags, 3)
-        this.vtbl.GetRecordServiceType := CallbackCreate(GetMethod(implObj, "GetRecordServiceType"), flags, 3)
-        this.vtbl.GetRecordSourceId := CallbackCreate(GetMethod(implObj, "GetRecordSourceId"), flags, 3)
-        this.vtbl.GetRecordCountOfDescriptors := CallbackCreate(GetMethod(implObj, "GetRecordCountOfDescriptors"), flags, 3)
-        this.vtbl.GetRecordDescriptorByIndex := CallbackCreate(GetMethod(implObj, "GetRecordDescriptorByIndex"), flags, 4)
-        this.vtbl.GetRecordDescriptorByTag := CallbackCreate(GetMethod(implObj, "GetRecordDescriptorByTag"), flags, 5)
-        this.vtbl.GetCountOfTableDescriptors := CallbackCreate(GetMethod(implObj, "GetCountOfTableDescriptors"), flags, 2)
-        this.vtbl.GetTableDescriptorByIndex := CallbackCreate(GetMethod(implObj, "GetTableDescriptorByIndex"), flags, 3)
-        this.vtbl.GetTableDescriptorByTag := CallbackCreate(GetMethod(implObj, "GetTableDescriptorByTag"), flags, 4)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetVersionNumber := CallbackCreate(ObjBindMethod(implObj, "GetVersionNumber"), flags, 2)
+        this.vtbl.GetTransportStreamId := CallbackCreate(ObjBindMethod(implObj, "GetTransportStreamId"), flags, 2)
+        this.vtbl.GetProtocolVersion := CallbackCreate(ObjBindMethod(implObj, "GetProtocolVersion"), flags, 2)
+        this.vtbl.GetCountOfRecords := CallbackCreate(ObjBindMethod(implObj, "GetCountOfRecords"), flags, 2)
+        this.vtbl.GetRecordName := CallbackCreate(ObjBindMethod(implObj, "GetRecordName"), flags, 3)
+        this.vtbl.GetRecordMajorChannelNumber := CallbackCreate(ObjBindMethod(implObj, "GetRecordMajorChannelNumber"), flags, 3)
+        this.vtbl.GetRecordMinorChannelNumber := CallbackCreate(ObjBindMethod(implObj, "GetRecordMinorChannelNumber"), flags, 3)
+        this.vtbl.GetRecordModulationMode := CallbackCreate(ObjBindMethod(implObj, "GetRecordModulationMode"), flags, 3)
+        this.vtbl.GetRecordCarrierFrequency := CallbackCreate(ObjBindMethod(implObj, "GetRecordCarrierFrequency"), flags, 3)
+        this.vtbl.GetRecordTransportStreamId := CallbackCreate(ObjBindMethod(implObj, "GetRecordTransportStreamId"), flags, 3)
+        this.vtbl.GetRecordProgramNumber := CallbackCreate(ObjBindMethod(implObj, "GetRecordProgramNumber"), flags, 3)
+        this.vtbl.GetRecordEtmLocation := CallbackCreate(ObjBindMethod(implObj, "GetRecordEtmLocation"), flags, 3)
+        this.vtbl.GetRecordIsAccessControlledBitSet := CallbackCreate(ObjBindMethod(implObj, "GetRecordIsAccessControlledBitSet"), flags, 3)
+        this.vtbl.GetRecordIsHiddenBitSet := CallbackCreate(ObjBindMethod(implObj, "GetRecordIsHiddenBitSet"), flags, 3)
+        this.vtbl.GetRecordIsPathSelectBitSet := CallbackCreate(ObjBindMethod(implObj, "GetRecordIsPathSelectBitSet"), flags, 3)
+        this.vtbl.GetRecordIsOutOfBandBitSet := CallbackCreate(ObjBindMethod(implObj, "GetRecordIsOutOfBandBitSet"), flags, 3)
+        this.vtbl.GetRecordIsHideGuideBitSet := CallbackCreate(ObjBindMethod(implObj, "GetRecordIsHideGuideBitSet"), flags, 3)
+        this.vtbl.GetRecordServiceType := CallbackCreate(ObjBindMethod(implObj, "GetRecordServiceType"), flags, 3)
+        this.vtbl.GetRecordSourceId := CallbackCreate(ObjBindMethod(implObj, "GetRecordSourceId"), flags, 3)
+        this.vtbl.GetRecordCountOfDescriptors := CallbackCreate(ObjBindMethod(implObj, "GetRecordCountOfDescriptors"), flags, 3)
+        this.vtbl.GetRecordDescriptorByIndex := CallbackCreate(ObjBindMethod(implObj, "GetRecordDescriptorByIndex"), flags, 4)
+        this.vtbl.GetRecordDescriptorByTag := CallbackCreate(ObjBindMethod(implObj, "GetRecordDescriptorByTag"), flags, 5)
+        this.vtbl.GetCountOfTableDescriptors := CallbackCreate(ObjBindMethod(implObj, "GetCountOfTableDescriptors"), flags, 2)
+        this.vtbl.GetTableDescriptorByIndex := CallbackCreate(ObjBindMethod(implObj, "GetTableDescriptorByIndex"), flags, 3)
+        this.vtbl.GetTableDescriptorByTag := CallbackCreate(ObjBindMethod(implObj, "GetTableDescriptorByTag"), flags, 4)
     }
 
     Dispose() {

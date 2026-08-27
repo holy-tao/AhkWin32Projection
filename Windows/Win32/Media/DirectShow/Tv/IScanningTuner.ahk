@@ -128,11 +128,11 @@ export default struct IScanningTuner extends ITuner {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SeekUp := CallbackCreate(GetMethod(implObj, "SeekUp"), flags, 1)
-        this.vtbl.SeekDown := CallbackCreate(GetMethod(implObj, "SeekDown"), flags, 1)
-        this.vtbl.ScanUp := CallbackCreate(GetMethod(implObj, "ScanUp"), flags, 2)
-        this.vtbl.ScanDown := CallbackCreate(GetMethod(implObj, "ScanDown"), flags, 2)
-        this.vtbl.AutoProgram := CallbackCreate(GetMethod(implObj, "AutoProgram"), flags, 1)
+        this.vtbl.SeekUp := CallbackCreate(ObjBindMethod(implObj, "SeekUp"), flags, 1)
+        this.vtbl.SeekDown := CallbackCreate(ObjBindMethod(implObj, "SeekDown"), flags, 1)
+        this.vtbl.ScanUp := CallbackCreate(ObjBindMethod(implObj, "ScanUp"), flags, 2)
+        this.vtbl.ScanDown := CallbackCreate(ObjBindMethod(implObj, "ScanDown"), flags, 2)
+        this.vtbl.AutoProgram := CallbackCreate(ObjBindMethod(implObj, "AutoProgram"), flags, 1)
     }
 
     Dispose() {

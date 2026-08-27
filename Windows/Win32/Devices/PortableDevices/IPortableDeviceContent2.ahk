@@ -59,7 +59,7 @@ export default struct IPortableDeviceContent2 extends IPortableDeviceContent {
     UpdateObjectWithPropertiesAndData(pszObjectID, pProperties, pdwOptimalWriteBufferSize) {
         pszObjectID := pszObjectID is String ? StrPtr(pszObjectID) : pszObjectID
 
-        pdwOptimalWriteBufferSizeMarshal := pdwOptimalWriteBufferSize is VarRef ? "uint*" : "ptr"
+        pdwOptimalWriteBufferSizeMarshal := pdwOptimalWriteBufferSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, "ptr", pszObjectID, "ptr", pProperties, "ptr*", &ppData := 0, pdwOptimalWriteBufferSizeMarshal, pdwOptimalWriteBufferSize, "HRESULT")
         return IStream(ppData)
@@ -74,7 +74,7 @@ export default struct IPortableDeviceContent2 extends IPortableDeviceContent {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.UpdateObjectWithPropertiesAndData := CallbackCreate(GetMethod(implObj, "UpdateObjectWithPropertiesAndData"), flags, 5)
+        this.vtbl.UpdateObjectWithPropertiesAndData := CallbackCreate(ObjBindMethod(implObj, "UpdateObjectWithPropertiesAndData"), flags, 5)
     }
 
     Dispose() {

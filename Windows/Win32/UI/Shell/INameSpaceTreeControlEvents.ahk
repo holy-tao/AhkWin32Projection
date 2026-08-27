@@ -331,7 +331,9 @@ export default struct INameSpaceTreeControlEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolevents-onbeforecontextmenu
      */
     OnBeforeContextMenu(psi, riid) {
-        result := ComCall(17, this, "ptr", psi, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        psiMarshal := psi == 0 ? IntPtr : "ptr"
+
+        result := ComCall(17, this, psiMarshal, psi, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -354,7 +356,9 @@ export default struct INameSpaceTreeControlEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolevents-onaftercontextmenu
      */
     OnAfterContextMenu(psi, pcmIn, riid) {
-        result := ComCall(18, this, "ptr", psi, "ptr", pcmIn, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        psiMarshal := psi == 0 ? IntPtr : "ptr"
+
+        result := ComCall(18, this, psiMarshal, psi, "ptr", pcmIn, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -376,15 +380,14 @@ export default struct INameSpaceTreeControlEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {IShellItem} psi 
      * @param {Pointer<Integer>} piDefaultIcon 
      * @param {Pointer<Integer>} piOpenIcon 
      * @returns {HRESULT} 
      */
     OnGetDefaultIconIndex(psi, piDefaultIcon, piOpenIcon) {
-        piDefaultIconMarshal := piDefaultIcon is VarRef ? "int*" : "ptr"
-        piOpenIconMarshal := piOpenIcon is VarRef ? "int*" : "ptr"
+        piDefaultIconMarshal := piDefaultIcon is VarRef ? "int*" : IntPtr
+        piOpenIconMarshal := piOpenIcon is VarRef ? "int*" : IntPtr
 
         result := ComCall(20, this, "ptr", psi, piDefaultIconMarshal, piDefaultIcon, piOpenIconMarshal, piOpenIcon, "HRESULT")
         return result
@@ -399,24 +402,24 @@ export default struct INameSpaceTreeControlEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnItemClick := CallbackCreate(GetMethod(implObj, "OnItemClick"), flags, 4)
-        this.vtbl.OnPropertyItemCommit := CallbackCreate(GetMethod(implObj, "OnPropertyItemCommit"), flags, 2)
-        this.vtbl.OnItemStateChanging := CallbackCreate(GetMethod(implObj, "OnItemStateChanging"), flags, 4)
-        this.vtbl.OnItemStateChanged := CallbackCreate(GetMethod(implObj, "OnItemStateChanged"), flags, 4)
-        this.vtbl.OnSelectionChanged := CallbackCreate(GetMethod(implObj, "OnSelectionChanged"), flags, 2)
-        this.vtbl.OnKeyboardInput := CallbackCreate(GetMethod(implObj, "OnKeyboardInput"), flags, 4)
-        this.vtbl.OnBeforeExpand := CallbackCreate(GetMethod(implObj, "OnBeforeExpand"), flags, 2)
-        this.vtbl.OnAfterExpand := CallbackCreate(GetMethod(implObj, "OnAfterExpand"), flags, 2)
-        this.vtbl.OnBeginLabelEdit := CallbackCreate(GetMethod(implObj, "OnBeginLabelEdit"), flags, 2)
-        this.vtbl.OnEndLabelEdit := CallbackCreate(GetMethod(implObj, "OnEndLabelEdit"), flags, 2)
-        this.vtbl.OnGetToolTip := CallbackCreate(GetMethod(implObj, "OnGetToolTip"), flags, 4)
-        this.vtbl.OnBeforeItemDelete := CallbackCreate(GetMethod(implObj, "OnBeforeItemDelete"), flags, 2)
-        this.vtbl.OnItemAdded := CallbackCreate(GetMethod(implObj, "OnItemAdded"), flags, 3)
-        this.vtbl.OnItemDeleted := CallbackCreate(GetMethod(implObj, "OnItemDeleted"), flags, 3)
-        this.vtbl.OnBeforeContextMenu := CallbackCreate(GetMethod(implObj, "OnBeforeContextMenu"), flags, 4)
-        this.vtbl.OnAfterContextMenu := CallbackCreate(GetMethod(implObj, "OnAfterContextMenu"), flags, 5)
-        this.vtbl.OnBeforeStateImageChange := CallbackCreate(GetMethod(implObj, "OnBeforeStateImageChange"), flags, 2)
-        this.vtbl.OnGetDefaultIconIndex := CallbackCreate(GetMethod(implObj, "OnGetDefaultIconIndex"), flags, 4)
+        this.vtbl.OnItemClick := CallbackCreate(ObjBindMethod(implObj, "OnItemClick"), flags, 4)
+        this.vtbl.OnPropertyItemCommit := CallbackCreate(ObjBindMethod(implObj, "OnPropertyItemCommit"), flags, 2)
+        this.vtbl.OnItemStateChanging := CallbackCreate(ObjBindMethod(implObj, "OnItemStateChanging"), flags, 4)
+        this.vtbl.OnItemStateChanged := CallbackCreate(ObjBindMethod(implObj, "OnItemStateChanged"), flags, 4)
+        this.vtbl.OnSelectionChanged := CallbackCreate(ObjBindMethod(implObj, "OnSelectionChanged"), flags, 2)
+        this.vtbl.OnKeyboardInput := CallbackCreate(ObjBindMethod(implObj, "OnKeyboardInput"), flags, 4)
+        this.vtbl.OnBeforeExpand := CallbackCreate(ObjBindMethod(implObj, "OnBeforeExpand"), flags, 2)
+        this.vtbl.OnAfterExpand := CallbackCreate(ObjBindMethod(implObj, "OnAfterExpand"), flags, 2)
+        this.vtbl.OnBeginLabelEdit := CallbackCreate(ObjBindMethod(implObj, "OnBeginLabelEdit"), flags, 2)
+        this.vtbl.OnEndLabelEdit := CallbackCreate(ObjBindMethod(implObj, "OnEndLabelEdit"), flags, 2)
+        this.vtbl.OnGetToolTip := CallbackCreate(ObjBindMethod(implObj, "OnGetToolTip"), flags, 4)
+        this.vtbl.OnBeforeItemDelete := CallbackCreate(ObjBindMethod(implObj, "OnBeforeItemDelete"), flags, 2)
+        this.vtbl.OnItemAdded := CallbackCreate(ObjBindMethod(implObj, "OnItemAdded"), flags, 3)
+        this.vtbl.OnItemDeleted := CallbackCreate(ObjBindMethod(implObj, "OnItemDeleted"), flags, 3)
+        this.vtbl.OnBeforeContextMenu := CallbackCreate(ObjBindMethod(implObj, "OnBeforeContextMenu"), flags, 4)
+        this.vtbl.OnAfterContextMenu := CallbackCreate(ObjBindMethod(implObj, "OnAfterContextMenu"), flags, 5)
+        this.vtbl.OnBeforeStateImageChange := CallbackCreate(ObjBindMethod(implObj, "OnBeforeStateImageChange"), flags, 2)
+        this.vtbl.OnGetDefaultIconIndex := CallbackCreate(ObjBindMethod(implObj, "OnGetDefaultIconIndex"), flags, 4)
     }
 
     Dispose() {

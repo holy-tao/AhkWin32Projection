@@ -63,8 +63,10 @@ export default struct ID2D1PathGeometry1 extends ID2D1PathGeometry {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1pathgeometry1-computepointandsegmentatlength(float_uint32_constd2d1_matrix_3x2_f__float_d2d1_point_description)
      */
     ComputePointAndSegmentAtLength(length, startSegment, worldTransform, flatteningTolerance) {
+        worldTransformMarshal := worldTransform == 0 ? IntPtr : D2D_MATRIX_3X2_F.Ptr
+
         pointDescription := D2D1_POINT_DESCRIPTION()
-        result := ComCall(21, this, Float32, length, UInt32, startSegment, D2D_MATRIX_3X2_F.Ptr, worldTransform, Float32, flatteningTolerance, D2D1_POINT_DESCRIPTION.Ptr, pointDescription, "HRESULT")
+        result := ComCall(21, this, Float32, length, UInt32, startSegment, worldTransformMarshal, worldTransform, Float32, flatteningTolerance, D2D1_POINT_DESCRIPTION.Ptr, pointDescription, "HRESULT")
         return pointDescription
     }
 
@@ -77,7 +79,7 @@ export default struct ID2D1PathGeometry1 extends ID2D1PathGeometry {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ComputePointAndSegmentAtLength := CallbackCreate(GetMethod(implObj, "ComputePointAndSegmentAtLength"), flags, 6)
+        this.vtbl.ComputePointAndSegmentAtLength := CallbackCreate(ObjBindMethod(implObj, "ComputePointAndSegmentAtLength"), flags, 6)
     }
 
     Dispose() {

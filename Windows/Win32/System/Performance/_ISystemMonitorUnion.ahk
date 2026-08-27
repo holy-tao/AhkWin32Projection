@@ -471,7 +471,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Appearance() {
@@ -480,7 +479,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iAppearance 
      * @returns {HRESULT} 
      */
@@ -490,7 +488,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_BackColor() {
@@ -499,7 +496,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Color 
      * @returns {HRESULT} 
      */
@@ -509,7 +505,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_BorderStyle() {
@@ -518,7 +513,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iBorderStyle 
      * @returns {HRESULT} 
      */
@@ -528,7 +522,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ForeColor() {
@@ -537,7 +530,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Color 
      * @returns {HRESULT} 
      */
@@ -547,7 +539,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IFontDisp} 
      */
     get_Font() {
@@ -556,17 +547,17 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {IFontDisp} pFont 
      * @returns {HRESULT} 
      */
     putref_Font(pFont) {
-        result := ComCall(12, this, "ptr", pFont, "HRESULT")
+        pFontMarshal := pFont == 0 ? IntPtr : "ptr"
+
+        result := ComCall(12, this, pFontMarshal, pFont, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {ICounters} 
      */
     get_Counters() {
@@ -575,7 +566,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -585,7 +575,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ShowVerticalGrid() {
@@ -594,7 +583,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -604,7 +592,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ShowHorizontalGrid() {
@@ -613,7 +600,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -623,7 +609,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ShowLegend() {
@@ -632,7 +617,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -642,7 +626,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ShowScaleLabels() {
@@ -651,7 +634,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -661,7 +643,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ShowValueBar() {
@@ -670,7 +651,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iValue 
      * @returns {HRESULT} 
      */
@@ -680,7 +660,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MaximumScale() {
@@ -689,7 +668,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iValue 
      * @returns {HRESULT} 
      */
@@ -699,7 +677,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MinimumScale() {
@@ -708,7 +685,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} fValue 
      * @returns {HRESULT} 
      */
@@ -718,7 +694,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_UpdateInterval() {
@@ -727,7 +702,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {DisplayTypeConstants} eDisplayType 
      * @returns {HRESULT} 
      */
@@ -737,7 +711,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DisplayTypeConstants} 
      */
     get_DisplayType() {
@@ -746,7 +719,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -756,7 +728,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ManualUpdate() {
@@ -765,7 +736,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bsTitle 
      * @returns {HRESULT} 
      */
@@ -777,7 +747,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_GraphTitle() {
@@ -787,7 +756,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bsTitle 
      * @returns {HRESULT} 
      */
@@ -799,7 +767,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_YAxisLabel() {
@@ -809,7 +776,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CollectSample() {
@@ -818,7 +784,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     UpdateGraph() {
@@ -827,7 +792,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     BrowseCounters() {
@@ -836,7 +800,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DisplayProperties() {
@@ -845,7 +808,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iIndex 
      * @returns {ICounterItem} 
      */
@@ -855,7 +817,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bsPath 
      * @returns {ICounterItem} 
      */
@@ -867,17 +828,17 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {ICounterItem} pCtr 
      * @returns {HRESULT} 
      */
     DeleteCounter(pCtr) {
-        result := ComCall(44, this, "ptr", pCtr, "HRESULT")
+        pCtrMarshal := pCtr == 0 ? IntPtr : "ptr"
+
+        result := ComCall(44, this, pCtrMarshal, pCtr, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_BackColorCtl() {
@@ -886,7 +847,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Color 
      * @returns {HRESULT} 
      */
@@ -896,7 +856,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bsFileName 
      * @returns {HRESULT} 
      */
@@ -908,7 +867,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LogFileName() {
@@ -918,7 +876,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} StartTime 
      * @returns {HRESULT} 
      */
@@ -928,7 +885,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_LogViewStart() {
@@ -937,7 +893,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} StopTime 
      * @returns {HRESULT} 
      */
@@ -947,7 +902,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_LogViewStop() {
@@ -956,7 +910,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_GridColor() {
@@ -965,7 +918,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Color 
      * @returns {HRESULT} 
      */
@@ -975,7 +927,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_TimeBarColor() {
@@ -984,7 +935,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Color 
      * @returns {HRESULT} 
      */
@@ -994,7 +944,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Highlight() {
@@ -1003,7 +952,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -1013,7 +961,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ShowToolbar() {
@@ -1022,7 +969,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -1032,7 +978,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Paste() {
@@ -1041,7 +986,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Copy() {
@@ -1050,7 +994,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -1059,7 +1002,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -1069,7 +1011,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ReadOnly() {
@@ -1078,7 +1019,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {ReportValueTypeConstants} eReportValueType 
      * @returns {HRESULT} 
      */
@@ -1088,7 +1028,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ReportValueTypeConstants} 
      */
     get_ReportValueType() {
@@ -1097,7 +1036,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -1107,7 +1045,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_MonitorDuplicateInstances() {
@@ -1116,7 +1053,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iValue 
      * @returns {HRESULT} 
      */
@@ -1126,7 +1062,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DisplayFilter() {
@@ -1135,7 +1070,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ILogFiles} 
      */
     get_LogFiles() {
@@ -1144,7 +1078,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {DataSourceTypeConstants} eDataSourceType 
      * @returns {HRESULT} 
      */
@@ -1154,7 +1087,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DataSourceTypeConstants} 
      */
     get_DataSourceType() {
@@ -1163,7 +1095,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bsSqlDsnName 
      * @returns {HRESULT} 
      */
@@ -1175,7 +1106,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_SqlDsnName() {
@@ -1185,7 +1115,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bsSqlLogSetName 
      * @returns {HRESULT} 
      */
@@ -1197,7 +1126,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_SqlLogSetName() {
@@ -1207,7 +1135,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -1217,7 +1144,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_EnableDigitGrouping() {
@@ -1226,7 +1152,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -1236,7 +1161,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_EnableToolTips() {
@@ -1245,7 +1169,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -1255,7 +1178,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ShowTimeAxisLabels() {
@@ -1264,7 +1186,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bScroll 
      * @returns {HRESULT} 
      */
@@ -1274,7 +1195,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ChartScroll() {
@@ -1283,7 +1203,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iNewCount 
      * @returns {HRESULT} 
      */
@@ -1293,7 +1212,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DataPointCount() {
@@ -1302,7 +1220,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bSelectedCountersOnly 
      * @returns {HRESULT} 
      */
@@ -1312,7 +1229,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrFileName 
      * @param {SysmonFileType} eSysmonFileType 
      * @returns {HRESULT} 
@@ -1325,7 +1241,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrFileName 
      * @param {SysmonFileType} eSysmonFileType 
      * @param {Integer} _iFilter 
@@ -1339,7 +1254,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ClearData() {
@@ -1348,7 +1262,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_LogSourceStartTime() {
@@ -1357,7 +1270,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_LogSourceStopTime() {
@@ -1366,7 +1278,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} StartTime 
      * @param {Float} StopTime 
      * @returns {HRESULT} 
@@ -1377,21 +1288,19 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Float>} StartTime 
      * @param {Pointer<Float>} StopTime 
      * @returns {HRESULT} 
      */
     GetLogViewRange(StartTime, StopTime) {
-        StartTimeMarshal := StartTime is VarRef ? "double*" : "ptr"
-        StopTimeMarshal := StopTime is VarRef ? "double*" : "ptr"
+        StartTimeMarshal := StartTime is VarRef ? "double*" : IntPtr
+        StopTimeMarshal := StopTime is VarRef ? "double*" : IntPtr
 
         result := ComCall(96, this, StartTimeMarshal, StartTime, StopTimeMarshal, StopTime, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fLock 
      * @param {SysmonBatchReason} eBatchReason 
      * @returns {HRESULT} 
@@ -1402,7 +1311,6 @@ export default struct _ISystemMonitorUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrSettingFileName 
      * @returns {HRESULT} 
      */
@@ -1422,102 +1330,102 @@ export default struct _ISystemMonitorUnion extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Appearance := CallbackCreate(GetMethod(implObj, "get_Appearance"), flags, 2)
-        this.vtbl.put_Appearance := CallbackCreate(GetMethod(implObj, "put_Appearance"), flags, 2)
-        this.vtbl.get_BackColor := CallbackCreate(GetMethod(implObj, "get_BackColor"), flags, 2)
-        this.vtbl.put_BackColor := CallbackCreate(GetMethod(implObj, "put_BackColor"), flags, 2)
-        this.vtbl.get_BorderStyle := CallbackCreate(GetMethod(implObj, "get_BorderStyle"), flags, 2)
-        this.vtbl.put_BorderStyle := CallbackCreate(GetMethod(implObj, "put_BorderStyle"), flags, 2)
-        this.vtbl.get_ForeColor := CallbackCreate(GetMethod(implObj, "get_ForeColor"), flags, 2)
-        this.vtbl.put_ForeColor := CallbackCreate(GetMethod(implObj, "put_ForeColor"), flags, 2)
-        this.vtbl.get_Font := CallbackCreate(GetMethod(implObj, "get_Font"), flags, 2)
-        this.vtbl.putref_Font := CallbackCreate(GetMethod(implObj, "putref_Font"), flags, 2)
-        this.vtbl.get_Counters := CallbackCreate(GetMethod(implObj, "get_Counters"), flags, 2)
-        this.vtbl.put_ShowVerticalGrid := CallbackCreate(GetMethod(implObj, "put_ShowVerticalGrid"), flags, 2)
-        this.vtbl.get_ShowVerticalGrid := CallbackCreate(GetMethod(implObj, "get_ShowVerticalGrid"), flags, 2)
-        this.vtbl.put_ShowHorizontalGrid := CallbackCreate(GetMethod(implObj, "put_ShowHorizontalGrid"), flags, 2)
-        this.vtbl.get_ShowHorizontalGrid := CallbackCreate(GetMethod(implObj, "get_ShowHorizontalGrid"), flags, 2)
-        this.vtbl.put_ShowLegend := CallbackCreate(GetMethod(implObj, "put_ShowLegend"), flags, 2)
-        this.vtbl.get_ShowLegend := CallbackCreate(GetMethod(implObj, "get_ShowLegend"), flags, 2)
-        this.vtbl.put_ShowScaleLabels := CallbackCreate(GetMethod(implObj, "put_ShowScaleLabels"), flags, 2)
-        this.vtbl.get_ShowScaleLabels := CallbackCreate(GetMethod(implObj, "get_ShowScaleLabels"), flags, 2)
-        this.vtbl.put_ShowValueBar := CallbackCreate(GetMethod(implObj, "put_ShowValueBar"), flags, 2)
-        this.vtbl.get_ShowValueBar := CallbackCreate(GetMethod(implObj, "get_ShowValueBar"), flags, 2)
-        this.vtbl.put_MaximumScale := CallbackCreate(GetMethod(implObj, "put_MaximumScale"), flags, 2)
-        this.vtbl.get_MaximumScale := CallbackCreate(GetMethod(implObj, "get_MaximumScale"), flags, 2)
-        this.vtbl.put_MinimumScale := CallbackCreate(GetMethod(implObj, "put_MinimumScale"), flags, 2)
-        this.vtbl.get_MinimumScale := CallbackCreate(GetMethod(implObj, "get_MinimumScale"), flags, 2)
-        this.vtbl.put_UpdateInterval := CallbackCreate(GetMethod(implObj, "put_UpdateInterval"), flags, 2)
-        this.vtbl.get_UpdateInterval := CallbackCreate(GetMethod(implObj, "get_UpdateInterval"), flags, 2)
-        this.vtbl.put_DisplayType := CallbackCreate(GetMethod(implObj, "put_DisplayType"), flags, 2)
-        this.vtbl.get_DisplayType := CallbackCreate(GetMethod(implObj, "get_DisplayType"), flags, 2)
-        this.vtbl.put_ManualUpdate := CallbackCreate(GetMethod(implObj, "put_ManualUpdate"), flags, 2)
-        this.vtbl.get_ManualUpdate := CallbackCreate(GetMethod(implObj, "get_ManualUpdate"), flags, 2)
-        this.vtbl.put_GraphTitle := CallbackCreate(GetMethod(implObj, "put_GraphTitle"), flags, 2)
-        this.vtbl.get_GraphTitle := CallbackCreate(GetMethod(implObj, "get_GraphTitle"), flags, 2)
-        this.vtbl.put_YAxisLabel := CallbackCreate(GetMethod(implObj, "put_YAxisLabel"), flags, 2)
-        this.vtbl.get_YAxisLabel := CallbackCreate(GetMethod(implObj, "get_YAxisLabel"), flags, 2)
-        this.vtbl.CollectSample := CallbackCreate(GetMethod(implObj, "CollectSample"), flags, 1)
-        this.vtbl.UpdateGraph := CallbackCreate(GetMethod(implObj, "UpdateGraph"), flags, 1)
-        this.vtbl.BrowseCounters := CallbackCreate(GetMethod(implObj, "BrowseCounters"), flags, 1)
-        this.vtbl.DisplayProperties := CallbackCreate(GetMethod(implObj, "DisplayProperties"), flags, 1)
-        this.vtbl.Counter := CallbackCreate(GetMethod(implObj, "Counter"), flags, 3)
-        this.vtbl.AddCounter := CallbackCreate(GetMethod(implObj, "AddCounter"), flags, 3)
-        this.vtbl.DeleteCounter := CallbackCreate(GetMethod(implObj, "DeleteCounter"), flags, 2)
-        this.vtbl.get_BackColorCtl := CallbackCreate(GetMethod(implObj, "get_BackColorCtl"), flags, 2)
-        this.vtbl.put_BackColorCtl := CallbackCreate(GetMethod(implObj, "put_BackColorCtl"), flags, 2)
-        this.vtbl.put_LogFileName := CallbackCreate(GetMethod(implObj, "put_LogFileName"), flags, 2)
-        this.vtbl.get_LogFileName := CallbackCreate(GetMethod(implObj, "get_LogFileName"), flags, 2)
-        this.vtbl.put_LogViewStart := CallbackCreate(GetMethod(implObj, "put_LogViewStart"), flags, 2)
-        this.vtbl.get_LogViewStart := CallbackCreate(GetMethod(implObj, "get_LogViewStart"), flags, 2)
-        this.vtbl.put_LogViewStop := CallbackCreate(GetMethod(implObj, "put_LogViewStop"), flags, 2)
-        this.vtbl.get_LogViewStop := CallbackCreate(GetMethod(implObj, "get_LogViewStop"), flags, 2)
-        this.vtbl.get_GridColor := CallbackCreate(GetMethod(implObj, "get_GridColor"), flags, 2)
-        this.vtbl.put_GridColor := CallbackCreate(GetMethod(implObj, "put_GridColor"), flags, 2)
-        this.vtbl.get_TimeBarColor := CallbackCreate(GetMethod(implObj, "get_TimeBarColor"), flags, 2)
-        this.vtbl.put_TimeBarColor := CallbackCreate(GetMethod(implObj, "put_TimeBarColor"), flags, 2)
-        this.vtbl.get_Highlight := CallbackCreate(GetMethod(implObj, "get_Highlight"), flags, 2)
-        this.vtbl.put_Highlight := CallbackCreate(GetMethod(implObj, "put_Highlight"), flags, 2)
-        this.vtbl.get_ShowToolbar := CallbackCreate(GetMethod(implObj, "get_ShowToolbar"), flags, 2)
-        this.vtbl.put_ShowToolbar := CallbackCreate(GetMethod(implObj, "put_ShowToolbar"), flags, 2)
-        this.vtbl.Paste := CallbackCreate(GetMethod(implObj, "Paste"), flags, 1)
-        this.vtbl.Copy := CallbackCreate(GetMethod(implObj, "Copy"), flags, 1)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.put_ReadOnly := CallbackCreate(GetMethod(implObj, "put_ReadOnly"), flags, 2)
-        this.vtbl.get_ReadOnly := CallbackCreate(GetMethod(implObj, "get_ReadOnly"), flags, 2)
-        this.vtbl.put_ReportValueType := CallbackCreate(GetMethod(implObj, "put_ReportValueType"), flags, 2)
-        this.vtbl.get_ReportValueType := CallbackCreate(GetMethod(implObj, "get_ReportValueType"), flags, 2)
-        this.vtbl.put_MonitorDuplicateInstances := CallbackCreate(GetMethod(implObj, "put_MonitorDuplicateInstances"), flags, 2)
-        this.vtbl.get_MonitorDuplicateInstances := CallbackCreate(GetMethod(implObj, "get_MonitorDuplicateInstances"), flags, 2)
-        this.vtbl.put_DisplayFilter := CallbackCreate(GetMethod(implObj, "put_DisplayFilter"), flags, 2)
-        this.vtbl.get_DisplayFilter := CallbackCreate(GetMethod(implObj, "get_DisplayFilter"), flags, 2)
-        this.vtbl.get_LogFiles := CallbackCreate(GetMethod(implObj, "get_LogFiles"), flags, 2)
-        this.vtbl.put_DataSourceType := CallbackCreate(GetMethod(implObj, "put_DataSourceType"), flags, 2)
-        this.vtbl.get_DataSourceType := CallbackCreate(GetMethod(implObj, "get_DataSourceType"), flags, 2)
-        this.vtbl.put_SqlDsnName := CallbackCreate(GetMethod(implObj, "put_SqlDsnName"), flags, 2)
-        this.vtbl.get_SqlDsnName := CallbackCreate(GetMethod(implObj, "get_SqlDsnName"), flags, 2)
-        this.vtbl.put_SqlLogSetName := CallbackCreate(GetMethod(implObj, "put_SqlLogSetName"), flags, 2)
-        this.vtbl.get_SqlLogSetName := CallbackCreate(GetMethod(implObj, "get_SqlLogSetName"), flags, 2)
-        this.vtbl.put_EnableDigitGrouping := CallbackCreate(GetMethod(implObj, "put_EnableDigitGrouping"), flags, 2)
-        this.vtbl.get_EnableDigitGrouping := CallbackCreate(GetMethod(implObj, "get_EnableDigitGrouping"), flags, 2)
-        this.vtbl.put_EnableToolTips := CallbackCreate(GetMethod(implObj, "put_EnableToolTips"), flags, 2)
-        this.vtbl.get_EnableToolTips := CallbackCreate(GetMethod(implObj, "get_EnableToolTips"), flags, 2)
-        this.vtbl.put_ShowTimeAxisLabels := CallbackCreate(GetMethod(implObj, "put_ShowTimeAxisLabels"), flags, 2)
-        this.vtbl.get_ShowTimeAxisLabels := CallbackCreate(GetMethod(implObj, "get_ShowTimeAxisLabels"), flags, 2)
-        this.vtbl.put_ChartScroll := CallbackCreate(GetMethod(implObj, "put_ChartScroll"), flags, 2)
-        this.vtbl.get_ChartScroll := CallbackCreate(GetMethod(implObj, "get_ChartScroll"), flags, 2)
-        this.vtbl.put_DataPointCount := CallbackCreate(GetMethod(implObj, "put_DataPointCount"), flags, 2)
-        this.vtbl.get_DataPointCount := CallbackCreate(GetMethod(implObj, "get_DataPointCount"), flags, 2)
-        this.vtbl.ScaleToFit := CallbackCreate(GetMethod(implObj, "ScaleToFit"), flags, 2)
-        this.vtbl.SaveAs := CallbackCreate(GetMethod(implObj, "SaveAs"), flags, 3)
-        this.vtbl.Relog := CallbackCreate(GetMethod(implObj, "Relog"), flags, 4)
-        this.vtbl.ClearData := CallbackCreate(GetMethod(implObj, "ClearData"), flags, 1)
-        this.vtbl.get_LogSourceStartTime := CallbackCreate(GetMethod(implObj, "get_LogSourceStartTime"), flags, 2)
-        this.vtbl.get_LogSourceStopTime := CallbackCreate(GetMethod(implObj, "get_LogSourceStopTime"), flags, 2)
-        this.vtbl.SetLogViewRange := CallbackCreate(GetMethod(implObj, "SetLogViewRange"), flags, 3)
-        this.vtbl.GetLogViewRange := CallbackCreate(GetMethod(implObj, "GetLogViewRange"), flags, 3)
-        this.vtbl.BatchingLock := CallbackCreate(GetMethod(implObj, "BatchingLock"), flags, 3)
-        this.vtbl.LoadSettings := CallbackCreate(GetMethod(implObj, "LoadSettings"), flags, 2)
+        this.vtbl.get_Appearance := CallbackCreate(ObjBindMethod(implObj, "get_Appearance"), flags, 2)
+        this.vtbl.put_Appearance := CallbackCreate(ObjBindMethod(implObj, "put_Appearance"), flags, 2)
+        this.vtbl.get_BackColor := CallbackCreate(ObjBindMethod(implObj, "get_BackColor"), flags, 2)
+        this.vtbl.put_BackColor := CallbackCreate(ObjBindMethod(implObj, "put_BackColor"), flags, 2)
+        this.vtbl.get_BorderStyle := CallbackCreate(ObjBindMethod(implObj, "get_BorderStyle"), flags, 2)
+        this.vtbl.put_BorderStyle := CallbackCreate(ObjBindMethod(implObj, "put_BorderStyle"), flags, 2)
+        this.vtbl.get_ForeColor := CallbackCreate(ObjBindMethod(implObj, "get_ForeColor"), flags, 2)
+        this.vtbl.put_ForeColor := CallbackCreate(ObjBindMethod(implObj, "put_ForeColor"), flags, 2)
+        this.vtbl.get_Font := CallbackCreate(ObjBindMethod(implObj, "get_Font"), flags, 2)
+        this.vtbl.putref_Font := CallbackCreate(ObjBindMethod(implObj, "putref_Font"), flags, 2)
+        this.vtbl.get_Counters := CallbackCreate(ObjBindMethod(implObj, "get_Counters"), flags, 2)
+        this.vtbl.put_ShowVerticalGrid := CallbackCreate(ObjBindMethod(implObj, "put_ShowVerticalGrid"), flags, 2)
+        this.vtbl.get_ShowVerticalGrid := CallbackCreate(ObjBindMethod(implObj, "get_ShowVerticalGrid"), flags, 2)
+        this.vtbl.put_ShowHorizontalGrid := CallbackCreate(ObjBindMethod(implObj, "put_ShowHorizontalGrid"), flags, 2)
+        this.vtbl.get_ShowHorizontalGrid := CallbackCreate(ObjBindMethod(implObj, "get_ShowHorizontalGrid"), flags, 2)
+        this.vtbl.put_ShowLegend := CallbackCreate(ObjBindMethod(implObj, "put_ShowLegend"), flags, 2)
+        this.vtbl.get_ShowLegend := CallbackCreate(ObjBindMethod(implObj, "get_ShowLegend"), flags, 2)
+        this.vtbl.put_ShowScaleLabels := CallbackCreate(ObjBindMethod(implObj, "put_ShowScaleLabels"), flags, 2)
+        this.vtbl.get_ShowScaleLabels := CallbackCreate(ObjBindMethod(implObj, "get_ShowScaleLabels"), flags, 2)
+        this.vtbl.put_ShowValueBar := CallbackCreate(ObjBindMethod(implObj, "put_ShowValueBar"), flags, 2)
+        this.vtbl.get_ShowValueBar := CallbackCreate(ObjBindMethod(implObj, "get_ShowValueBar"), flags, 2)
+        this.vtbl.put_MaximumScale := CallbackCreate(ObjBindMethod(implObj, "put_MaximumScale"), flags, 2)
+        this.vtbl.get_MaximumScale := CallbackCreate(ObjBindMethod(implObj, "get_MaximumScale"), flags, 2)
+        this.vtbl.put_MinimumScale := CallbackCreate(ObjBindMethod(implObj, "put_MinimumScale"), flags, 2)
+        this.vtbl.get_MinimumScale := CallbackCreate(ObjBindMethod(implObj, "get_MinimumScale"), flags, 2)
+        this.vtbl.put_UpdateInterval := CallbackCreate(ObjBindMethod(implObj, "put_UpdateInterval"), flags, 2)
+        this.vtbl.get_UpdateInterval := CallbackCreate(ObjBindMethod(implObj, "get_UpdateInterval"), flags, 2)
+        this.vtbl.put_DisplayType := CallbackCreate(ObjBindMethod(implObj, "put_DisplayType"), flags, 2)
+        this.vtbl.get_DisplayType := CallbackCreate(ObjBindMethod(implObj, "get_DisplayType"), flags, 2)
+        this.vtbl.put_ManualUpdate := CallbackCreate(ObjBindMethod(implObj, "put_ManualUpdate"), flags, 2)
+        this.vtbl.get_ManualUpdate := CallbackCreate(ObjBindMethod(implObj, "get_ManualUpdate"), flags, 2)
+        this.vtbl.put_GraphTitle := CallbackCreate(ObjBindMethod(implObj, "put_GraphTitle"), flags, 2)
+        this.vtbl.get_GraphTitle := CallbackCreate(ObjBindMethod(implObj, "get_GraphTitle"), flags, 2)
+        this.vtbl.put_YAxisLabel := CallbackCreate(ObjBindMethod(implObj, "put_YAxisLabel"), flags, 2)
+        this.vtbl.get_YAxisLabel := CallbackCreate(ObjBindMethod(implObj, "get_YAxisLabel"), flags, 2)
+        this.vtbl.CollectSample := CallbackCreate(ObjBindMethod(implObj, "CollectSample"), flags, 1)
+        this.vtbl.UpdateGraph := CallbackCreate(ObjBindMethod(implObj, "UpdateGraph"), flags, 1)
+        this.vtbl.BrowseCounters := CallbackCreate(ObjBindMethod(implObj, "BrowseCounters"), flags, 1)
+        this.vtbl.DisplayProperties := CallbackCreate(ObjBindMethod(implObj, "DisplayProperties"), flags, 1)
+        this.vtbl.Counter := CallbackCreate(ObjBindMethod(implObj, "Counter"), flags, 3)
+        this.vtbl.AddCounter := CallbackCreate(ObjBindMethod(implObj, "AddCounter"), flags, 3)
+        this.vtbl.DeleteCounter := CallbackCreate(ObjBindMethod(implObj, "DeleteCounter"), flags, 2)
+        this.vtbl.get_BackColorCtl := CallbackCreate(ObjBindMethod(implObj, "get_BackColorCtl"), flags, 2)
+        this.vtbl.put_BackColorCtl := CallbackCreate(ObjBindMethod(implObj, "put_BackColorCtl"), flags, 2)
+        this.vtbl.put_LogFileName := CallbackCreate(ObjBindMethod(implObj, "put_LogFileName"), flags, 2)
+        this.vtbl.get_LogFileName := CallbackCreate(ObjBindMethod(implObj, "get_LogFileName"), flags, 2)
+        this.vtbl.put_LogViewStart := CallbackCreate(ObjBindMethod(implObj, "put_LogViewStart"), flags, 2)
+        this.vtbl.get_LogViewStart := CallbackCreate(ObjBindMethod(implObj, "get_LogViewStart"), flags, 2)
+        this.vtbl.put_LogViewStop := CallbackCreate(ObjBindMethod(implObj, "put_LogViewStop"), flags, 2)
+        this.vtbl.get_LogViewStop := CallbackCreate(ObjBindMethod(implObj, "get_LogViewStop"), flags, 2)
+        this.vtbl.get_GridColor := CallbackCreate(ObjBindMethod(implObj, "get_GridColor"), flags, 2)
+        this.vtbl.put_GridColor := CallbackCreate(ObjBindMethod(implObj, "put_GridColor"), flags, 2)
+        this.vtbl.get_TimeBarColor := CallbackCreate(ObjBindMethod(implObj, "get_TimeBarColor"), flags, 2)
+        this.vtbl.put_TimeBarColor := CallbackCreate(ObjBindMethod(implObj, "put_TimeBarColor"), flags, 2)
+        this.vtbl.get_Highlight := CallbackCreate(ObjBindMethod(implObj, "get_Highlight"), flags, 2)
+        this.vtbl.put_Highlight := CallbackCreate(ObjBindMethod(implObj, "put_Highlight"), flags, 2)
+        this.vtbl.get_ShowToolbar := CallbackCreate(ObjBindMethod(implObj, "get_ShowToolbar"), flags, 2)
+        this.vtbl.put_ShowToolbar := CallbackCreate(ObjBindMethod(implObj, "put_ShowToolbar"), flags, 2)
+        this.vtbl.Paste := CallbackCreate(ObjBindMethod(implObj, "Paste"), flags, 1)
+        this.vtbl.Copy := CallbackCreate(ObjBindMethod(implObj, "Copy"), flags, 1)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.put_ReadOnly := CallbackCreate(ObjBindMethod(implObj, "put_ReadOnly"), flags, 2)
+        this.vtbl.get_ReadOnly := CallbackCreate(ObjBindMethod(implObj, "get_ReadOnly"), flags, 2)
+        this.vtbl.put_ReportValueType := CallbackCreate(ObjBindMethod(implObj, "put_ReportValueType"), flags, 2)
+        this.vtbl.get_ReportValueType := CallbackCreate(ObjBindMethod(implObj, "get_ReportValueType"), flags, 2)
+        this.vtbl.put_MonitorDuplicateInstances := CallbackCreate(ObjBindMethod(implObj, "put_MonitorDuplicateInstances"), flags, 2)
+        this.vtbl.get_MonitorDuplicateInstances := CallbackCreate(ObjBindMethod(implObj, "get_MonitorDuplicateInstances"), flags, 2)
+        this.vtbl.put_DisplayFilter := CallbackCreate(ObjBindMethod(implObj, "put_DisplayFilter"), flags, 2)
+        this.vtbl.get_DisplayFilter := CallbackCreate(ObjBindMethod(implObj, "get_DisplayFilter"), flags, 2)
+        this.vtbl.get_LogFiles := CallbackCreate(ObjBindMethod(implObj, "get_LogFiles"), flags, 2)
+        this.vtbl.put_DataSourceType := CallbackCreate(ObjBindMethod(implObj, "put_DataSourceType"), flags, 2)
+        this.vtbl.get_DataSourceType := CallbackCreate(ObjBindMethod(implObj, "get_DataSourceType"), flags, 2)
+        this.vtbl.put_SqlDsnName := CallbackCreate(ObjBindMethod(implObj, "put_SqlDsnName"), flags, 2)
+        this.vtbl.get_SqlDsnName := CallbackCreate(ObjBindMethod(implObj, "get_SqlDsnName"), flags, 2)
+        this.vtbl.put_SqlLogSetName := CallbackCreate(ObjBindMethod(implObj, "put_SqlLogSetName"), flags, 2)
+        this.vtbl.get_SqlLogSetName := CallbackCreate(ObjBindMethod(implObj, "get_SqlLogSetName"), flags, 2)
+        this.vtbl.put_EnableDigitGrouping := CallbackCreate(ObjBindMethod(implObj, "put_EnableDigitGrouping"), flags, 2)
+        this.vtbl.get_EnableDigitGrouping := CallbackCreate(ObjBindMethod(implObj, "get_EnableDigitGrouping"), flags, 2)
+        this.vtbl.put_EnableToolTips := CallbackCreate(ObjBindMethod(implObj, "put_EnableToolTips"), flags, 2)
+        this.vtbl.get_EnableToolTips := CallbackCreate(ObjBindMethod(implObj, "get_EnableToolTips"), flags, 2)
+        this.vtbl.put_ShowTimeAxisLabels := CallbackCreate(ObjBindMethod(implObj, "put_ShowTimeAxisLabels"), flags, 2)
+        this.vtbl.get_ShowTimeAxisLabels := CallbackCreate(ObjBindMethod(implObj, "get_ShowTimeAxisLabels"), flags, 2)
+        this.vtbl.put_ChartScroll := CallbackCreate(ObjBindMethod(implObj, "put_ChartScroll"), flags, 2)
+        this.vtbl.get_ChartScroll := CallbackCreate(ObjBindMethod(implObj, "get_ChartScroll"), flags, 2)
+        this.vtbl.put_DataPointCount := CallbackCreate(ObjBindMethod(implObj, "put_DataPointCount"), flags, 2)
+        this.vtbl.get_DataPointCount := CallbackCreate(ObjBindMethod(implObj, "get_DataPointCount"), flags, 2)
+        this.vtbl.ScaleToFit := CallbackCreate(ObjBindMethod(implObj, "ScaleToFit"), flags, 2)
+        this.vtbl.SaveAs := CallbackCreate(ObjBindMethod(implObj, "SaveAs"), flags, 3)
+        this.vtbl.Relog := CallbackCreate(ObjBindMethod(implObj, "Relog"), flags, 4)
+        this.vtbl.ClearData := CallbackCreate(ObjBindMethod(implObj, "ClearData"), flags, 1)
+        this.vtbl.get_LogSourceStartTime := CallbackCreate(ObjBindMethod(implObj, "get_LogSourceStartTime"), flags, 2)
+        this.vtbl.get_LogSourceStopTime := CallbackCreate(ObjBindMethod(implObj, "get_LogSourceStopTime"), flags, 2)
+        this.vtbl.SetLogViewRange := CallbackCreate(ObjBindMethod(implObj, "SetLogViewRange"), flags, 3)
+        this.vtbl.GetLogViewRange := CallbackCreate(ObjBindMethod(implObj, "GetLogViewRange"), flags, 3)
+        this.vtbl.BatchingLock := CallbackCreate(ObjBindMethod(implObj, "BatchingLock"), flags, 3)
+        this.vtbl.LoadSettings := CallbackCreate(ObjBindMethod(implObj, "LoadSettings"), flags, 2)
     }
 
     Dispose() {

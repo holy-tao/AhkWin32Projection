@@ -41,7 +41,6 @@ export default struct ISyncDataConverter extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkDataRetrieverIn 
      * @param {IEnumSyncChanges} pEnumSyncChanges 
      * @returns {IUnknown} 
@@ -52,7 +51,6 @@ export default struct ISyncDataConverter extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkDataRetrieverIn 
      * @param {IEnumSyncChanges} pEnumSyncChanges 
      * @returns {IUnknown} 
@@ -63,7 +61,6 @@ export default struct ISyncDataConverter extends IUnknown {
     }
 
     /**
-     * 
      * @param {ILoadChangeContext} pDataContext 
      * @param {IUnknown} pUnkDataIn 
      * @returns {IUnknown} 
@@ -74,7 +71,6 @@ export default struct ISyncDataConverter extends IUnknown {
     }
 
     /**
-     * 
      * @param {ILoadChangeContext} pDataContext 
      * @param {IUnknown} pUnkDataOut 
      * @returns {IUnknown} 
@@ -93,10 +89,10 @@ export default struct ISyncDataConverter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ConvertDataRetrieverFromProviderFormat := CallbackCreate(GetMethod(implObj, "ConvertDataRetrieverFromProviderFormat"), flags, 4)
-        this.vtbl.ConvertDataRetrieverToProviderFormat := CallbackCreate(GetMethod(implObj, "ConvertDataRetrieverToProviderFormat"), flags, 4)
-        this.vtbl.ConvertDataFromProviderFormat := CallbackCreate(GetMethod(implObj, "ConvertDataFromProviderFormat"), flags, 4)
-        this.vtbl.ConvertDataToProviderFormat := CallbackCreate(GetMethod(implObj, "ConvertDataToProviderFormat"), flags, 4)
+        this.vtbl.ConvertDataRetrieverFromProviderFormat := CallbackCreate(ObjBindMethod(implObj, "ConvertDataRetrieverFromProviderFormat"), flags, 4)
+        this.vtbl.ConvertDataRetrieverToProviderFormat := CallbackCreate(ObjBindMethod(implObj, "ConvertDataRetrieverToProviderFormat"), flags, 4)
+        this.vtbl.ConvertDataFromProviderFormat := CallbackCreate(ObjBindMethod(implObj, "ConvertDataFromProviderFormat"), flags, 4)
+        this.vtbl.ConvertDataToProviderFormat := CallbackCreate(ObjBindMethod(implObj, "ConvertDataToProviderFormat"), flags, 4)
     }
 
     Dispose() {

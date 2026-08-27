@@ -40,7 +40,6 @@ export default struct IViewFilter extends IUnknown {
     }
 
     /**
-     * 
      * @param {HACCESSOR} _hAccessor 
      * @param {Pointer<Pointer>} pcRows 
      * @param {Pointer<Pointer<Integer>>} pCompareOps 
@@ -48,30 +47,28 @@ export default struct IViewFilter extends IUnknown {
      * @returns {HRESULT} 
      */
     GetFilter(_hAccessor, pcRows, pCompareOps, pCriteriaData) {
-        pcRowsMarshal := pcRows is VarRef ? "ptr*" : "ptr"
-        pCompareOpsMarshal := pCompareOps is VarRef ? "ptr*" : "ptr"
-        pCriteriaDataMarshal := pCriteriaData is VarRef ? "ptr" : "ptr"
+        pcRowsMarshal := pcRows is VarRef ? "ptr*" : IntPtr
+        pCompareOpsMarshal := pCompareOps is VarRef ? "ptr*" : IntPtr
+        pCriteriaDataMarshal := pCriteriaData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, HACCESSOR, _hAccessor, pcRowsMarshal, pcRows, pCompareOpsMarshal, pCompareOps, pCriteriaDataMarshal, pCriteriaData, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} pcBindings 
      * @param {Pointer<Pointer<DBBINDING>>} prgBindings 
      * @returns {HRESULT} 
      */
     GetFilterBindings(pcBindings, prgBindings) {
-        pcBindingsMarshal := pcBindings is VarRef ? "ptr*" : "ptr"
-        prgBindingsMarshal := prgBindings is VarRef ? "ptr*" : "ptr"
+        pcBindingsMarshal := pcBindings is VarRef ? "ptr*" : IntPtr
+        prgBindingsMarshal := prgBindings is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, pcBindingsMarshal, pcBindings, prgBindingsMarshal, prgBindings, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HACCESSOR} _hAccessor 
      * @param {Pointer} cRows 
      * @param {Pointer<Integer>} CompareOps 
@@ -79,8 +76,8 @@ export default struct IViewFilter extends IUnknown {
      * @returns {HRESULT} 
      */
     SetFilter(_hAccessor, cRows, CompareOps, pCriteriaData) {
-        CompareOpsMarshal := CompareOps is VarRef ? "uint*" : "ptr"
-        pCriteriaDataMarshal := pCriteriaData is VarRef ? "ptr" : "ptr"
+        CompareOpsMarshal := CompareOps is VarRef ? "uint*" : IntPtr
+        pCriteriaDataMarshal := pCriteriaData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(5, this, HACCESSOR, _hAccessor, IntPtr, cRows, CompareOpsMarshal, CompareOps, pCriteriaDataMarshal, pCriteriaData, "HRESULT")
         return result
@@ -95,9 +92,9 @@ export default struct IViewFilter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFilter := CallbackCreate(GetMethod(implObj, "GetFilter"), flags, 5)
-        this.vtbl.GetFilterBindings := CallbackCreate(GetMethod(implObj, "GetFilterBindings"), flags, 3)
-        this.vtbl.SetFilter := CallbackCreate(GetMethod(implObj, "SetFilter"), flags, 5)
+        this.vtbl.GetFilter := CallbackCreate(ObjBindMethod(implObj, "GetFilter"), flags, 5)
+        this.vtbl.GetFilterBindings := CallbackCreate(ObjBindMethod(implObj, "GetFilterBindings"), flags, 3)
+        this.vtbl.SetFilter := CallbackCreate(ObjBindMethod(implObj, "SetFilter"), flags, 5)
     }
 
     Dispose() {

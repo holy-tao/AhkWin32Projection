@@ -269,11 +269,15 @@ export GetGPOListA(hToken, lpName, lpHostName, lpComputerName, dwFlags, pGPOList
     lpHostName := lpHostName is String ? StrPtr(lpHostName) : lpHostName
     lpComputerName := lpComputerName is String ? StrPtr(lpComputerName) : lpComputerName
 
-    pGPOListMarshal := pGPOList is VarRef ? "ptr*" : "ptr"
+    hTokenMarshal := hToken == 0 ? IntPtr : HANDLE
+    lpNameMarshal := lpName == 0 ? IntPtr : PSTR
+    lpHostNameMarshal := lpHostName == 0 ? IntPtr : PSTR
+    lpComputerNameMarshal := lpComputerName == 0 ? IntPtr : PSTR
+    pGPOListMarshal := pGPOList is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("USERENV.dll\GetGPOListA", HANDLE, hToken, "ptr", lpName, "ptr", lpHostName, "ptr", lpComputerName, UInt32, dwFlags, pGPOListMarshal, pGPOList, BOOL)
+    result := DllCall("USERENV.dll\GetGPOListA", hTokenMarshal, hToken, lpNameMarshal, lpName, lpHostNameMarshal, lpHostName, lpComputerNameMarshal, lpComputerName, UInt32, dwFlags, pGPOListMarshal, pGPOList, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -369,11 +373,15 @@ export GetGPOListW(hToken, lpName, lpHostName, lpComputerName, dwFlags, pGPOList
     lpHostName := lpHostName is String ? StrPtr(lpHostName) : lpHostName
     lpComputerName := lpComputerName is String ? StrPtr(lpComputerName) : lpComputerName
 
-    pGPOListMarshal := pGPOList is VarRef ? "ptr*" : "ptr"
+    hTokenMarshal := hToken == 0 ? IntPtr : HANDLE
+    lpNameMarshal := lpName == 0 ? IntPtr : PWSTR
+    lpHostNameMarshal := lpHostName == 0 ? IntPtr : PWSTR
+    lpComputerNameMarshal := lpComputerName == 0 ? IntPtr : PWSTR
+    pGPOListMarshal := pGPOList is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("USERENV.dll\GetGPOListW", HANDLE, hToken, "ptr", lpName, "ptr", lpHostName, "ptr", lpComputerName, UInt32, dwFlags, pGPOListMarshal, pGPOList, BOOL)
+    result := DllCall("USERENV.dll\GetGPOListW", hTokenMarshal, hToken, lpNameMarshal, lpName, lpHostNameMarshal, lpHostName, lpComputerNameMarshal, lpComputerName, UInt32, dwFlags, pGPOListMarshal, pGPOList, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -464,9 +472,11 @@ export FreeGPOListW(pGPOList) {
 export GetAppliedGPOListA(dwFlags, pMachineName, pSidUser, pGuidExtension, ppGPOList) {
     pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
 
-    ppGPOListMarshal := ppGPOList is VarRef ? "ptr*" : "ptr"
+    pMachineNameMarshal := pMachineName == 0 ? IntPtr : PSTR
+    pSidUserMarshal := pSidUser == 0 ? IntPtr : PSID
+    ppGPOListMarshal := ppGPOList is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("USERENV.dll\GetAppliedGPOListA", UInt32, dwFlags, "ptr", pMachineName, PSID, pSidUser, Guid.Ptr, pGuidExtension, ppGPOListMarshal, ppGPOList, UInt32)
+    result := DllCall("USERENV.dll\GetAppliedGPOListA", UInt32, dwFlags, pMachineNameMarshal, pMachineName, pSidUserMarshal, pSidUser, Guid.Ptr, pGuidExtension, ppGPOListMarshal, ppGPOList, UInt32)
     return result
 }
 
@@ -499,9 +509,11 @@ export GetAppliedGPOListA(dwFlags, pMachineName, pSidUser, pGuidExtension, ppGPO
 export GetAppliedGPOListW(dwFlags, pMachineName, pSidUser, pGuidExtension, ppGPOList) {
     pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
 
-    ppGPOListMarshal := ppGPOList is VarRef ? "ptr*" : "ptr"
+    pMachineNameMarshal := pMachineName == 0 ? IntPtr : PWSTR
+    pSidUserMarshal := pSidUser == 0 ? IntPtr : PSID
+    ppGPOListMarshal := ppGPOList is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("USERENV.dll\GetAppliedGPOListW", UInt32, dwFlags, "ptr", pMachineName, PSID, pSidUser, Guid.Ptr, pGuidExtension, ppGPOListMarshal, ppGPOList, UInt32)
+    result := DllCall("USERENV.dll\GetAppliedGPOListW", UInt32, dwFlags, pMachineNameMarshal, pMachineName, pSidUserMarshal, pSidUser, Guid.Ptr, pGuidExtension, ppGPOListMarshal, ppGPOList, UInt32)
     return result
 }
 
@@ -578,14 +590,18 @@ export ProcessGroupPolicyCompletedEx(extensionId, pAsyncHandle, dwStatus, RsopSt
  * @since windows6.0.6000
  */
 export RsopAccessCheckByType(pSecurityDescriptor, pPrincipalSelfSid, pRsopToken, dwDesiredAccessMask, pObjectTypeList, ObjectTypeListLength, pGenericMapping, pPrivilegeSet, pdwPrivilegeSetLength, pdwGrantedAccessMask, pbAccessStatus) {
-    pRsopTokenMarshal := pRsopToken is VarRef ? "ptr" : "ptr"
-    pdwPrivilegeSetLengthMarshal := pdwPrivilegeSetLength is VarRef ? "uint*" : "ptr"
-    pdwGrantedAccessMaskMarshal := pdwGrantedAccessMask is VarRef ? "uint*" : "ptr"
-    pbAccessStatusMarshal := pbAccessStatus is VarRef ? "int*" : "ptr"
+    pPrincipalSelfSidMarshal := pPrincipalSelfSid == 0 ? IntPtr : PSID
+    pRsopTokenMarshal := pRsopToken is VarRef ? "ptr" : IntPtr
+    pObjectTypeListMarshal := pObjectTypeList == 0 ? IntPtr : OBJECT_TYPE_LIST.Ptr
+    pPrivilegeSetMarshal := pPrivilegeSet == 0 ? IntPtr : IntPtr
+    pdwPrivilegeSetLengthMarshal := pdwPrivilegeSetLength is VarRef ? "uint*" : IntPtr
+    pdwPrivilegeSetLengthMarshal := pdwPrivilegeSetLength == 0 ? IntPtr : "uint*"
+    pdwGrantedAccessMaskMarshal := pdwGrantedAccessMask is VarRef ? "uint*" : IntPtr
+    pbAccessStatusMarshal := pbAccessStatus is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("USERENV.dll\RsopAccessCheckByType", PSECURITY_DESCRIPTOR, pSecurityDescriptor, PSID, pPrincipalSelfSid, pRsopTokenMarshal, pRsopToken, UInt32, dwDesiredAccessMask, OBJECT_TYPE_LIST.Ptr, pObjectTypeList, UInt32, ObjectTypeListLength, GENERIC_MAPPING.Ptr, pGenericMapping, IntPtr, pPrivilegeSet, pdwPrivilegeSetLengthMarshal, pdwPrivilegeSetLength, pdwGrantedAccessMaskMarshal, pdwGrantedAccessMask, pbAccessStatusMarshal, pbAccessStatus, "HRESULT")
+    result := DllCall("USERENV.dll\RsopAccessCheckByType", PSECURITY_DESCRIPTOR, pSecurityDescriptor, pPrincipalSelfSidMarshal, pPrincipalSelfSid, pRsopTokenMarshal, pRsopToken, UInt32, dwDesiredAccessMask, pObjectTypeListMarshal, pObjectTypeList, UInt32, ObjectTypeListLength, GENERIC_MAPPING.Ptr, pGenericMapping, pPrivilegeSetMarshal, pPrivilegeSet, pdwPrivilegeSetLengthMarshal, pdwPrivilegeSetLength, pdwGrantedAccessMaskMarshal, pdwGrantedAccessMask, pbAccessStatusMarshal, pbAccessStatus, "HRESULT")
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -617,9 +633,9 @@ export RsopAccessCheckByType(pSecurityDescriptor, pPrincipalSelfSid, pRsopToken,
 export RsopFileAccessCheck(pszFileName, pRsopToken, dwDesiredAccessMask, pdwGrantedAccessMask, pbAccessStatus) {
     pszFileName := pszFileName is String ? StrPtr(pszFileName) : pszFileName
 
-    pRsopTokenMarshal := pRsopToken is VarRef ? "ptr" : "ptr"
-    pdwGrantedAccessMaskMarshal := pdwGrantedAccessMask is VarRef ? "uint*" : "ptr"
-    pbAccessStatusMarshal := pbAccessStatus is VarRef ? "int*" : "ptr"
+    pRsopTokenMarshal := pRsopToken is VarRef ? "ptr" : IntPtr
+    pdwGrantedAccessMaskMarshal := pdwGrantedAccessMask is VarRef ? "uint*" : IntPtr
+    pbAccessStatusMarshal := pbAccessStatus is VarRef ? "int*" : IntPtr
 
     result := DllCall("USERENV.dll\RsopFileAccessCheck", "ptr", pszFileName, pRsopTokenMarshal, pRsopToken, UInt32, dwDesiredAccessMask, pdwGrantedAccessMaskMarshal, pdwGrantedAccessMask, pbAccessStatusMarshal, pbAccessStatus, "HRESULT")
     return result
@@ -669,7 +685,6 @@ export RsopResetPolicySettingStatus(dwFlags, pServices, pSettingInstance) {
 }
 
 /**
- * 
  * @param {BOOL} bMachine 
  * @param {PWSTR} lpwszMgmtProduct 
  * @param {Integer} dwMgmtProductOptions 
@@ -733,7 +748,6 @@ export UninstallApplication(ProductCode, dwStatus) {
 }
 
 /**
- * 
  * @param {PWSTR} Descriptor 
  * @param {PWSTR} CommandLine 
  * @param {Pointer<Integer>} CommandLineLength 
@@ -743,7 +757,7 @@ export CommandLineFromMsiDescriptor(Descriptor, CommandLine, CommandLineLength) 
     Descriptor := Descriptor is String ? StrPtr(Descriptor) : Descriptor
     CommandLine := CommandLine is String ? StrPtr(CommandLine) : CommandLine
 
-    CommandLineLengthMarshal := CommandLineLength is VarRef ? "uint*" : "ptr"
+    CommandLineLengthMarshal := CommandLineLength is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ADVAPI32.dll\CommandLineFromMsiDescriptor", "ptr", Descriptor, "ptr", CommandLine, CommandLineLengthMarshal, CommandLineLength, UInt32)
     return result
@@ -764,8 +778,8 @@ export CommandLineFromMsiDescriptor(Descriptor, CommandLine, CommandLineLength) 
  * @since windows6.0.6000
  */
 export GetManagedApplications(pCategory, dwQueryFlags, dwInfoLevel, pdwApps, prgManagedApps) {
-    pdwAppsMarshal := pdwApps is VarRef ? "uint*" : "ptr"
-    prgManagedAppsMarshal := prgManagedApps is VarRef ? "ptr*" : "ptr"
+    pdwAppsMarshal := pdwApps is VarRef ? "uint*" : IntPtr
+    prgManagedAppsMarshal := prgManagedApps is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("ADVAPI32.dll\GetManagedApplications", Guid.Ptr, pCategory, UInt32, dwQueryFlags, UInt32, dwInfoLevel, pdwAppsMarshal, pdwApps, prgManagedAppsMarshal, prgManagedApps, UInt32)
     return result
@@ -782,15 +796,14 @@ export GetManagedApplications(pCategory, dwQueryFlags, dwInfoLevel, pdwApps, prg
  * @since windows6.0.6000
  */
 export GetLocalManagedApplications(bUserApps, pdwApps, prgLocalApps) {
-    pdwAppsMarshal := pdwApps is VarRef ? "uint*" : "ptr"
-    prgLocalAppsMarshal := prgLocalApps is VarRef ? "ptr*" : "ptr"
+    pdwAppsMarshal := pdwApps is VarRef ? "uint*" : IntPtr
+    prgLocalAppsMarshal := prgLocalApps is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("ADVAPI32.dll\GetLocalManagedApplications", BOOL, bUserApps, pdwAppsMarshal, pdwApps, prgLocalAppsMarshal, prgLocalApps, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} ProductCode 
  * @param {Pointer<PWSTR>} DisplayName 
  * @param {Pointer<PWSTR>} SupportUrl 
@@ -799,8 +812,8 @@ export GetLocalManagedApplications(bUserApps, pdwApps, prgLocalApps) {
 export GetLocalManagedApplicationData(ProductCode, DisplayName, SupportUrl) {
     ProductCode := ProductCode is String ? StrPtr(ProductCode) : ProductCode
 
-    DisplayNameMarshal := DisplayName is VarRef ? "ptr*" : "ptr"
-    SupportUrlMarshal := SupportUrl is VarRef ? "ptr*" : "ptr"
+    DisplayNameMarshal := DisplayName is VarRef ? "ptr*" : IntPtr
+    SupportUrlMarshal := SupportUrl is VarRef ? "ptr*" : IntPtr
 
     DllCall("ADVAPI32.dll\GetLocalManagedApplicationData", "ptr", ProductCode, DisplayNameMarshal, DisplayName, SupportUrlMarshal, SupportUrl)
 }

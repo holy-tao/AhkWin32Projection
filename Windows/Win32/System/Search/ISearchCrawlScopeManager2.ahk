@@ -66,7 +66,7 @@ export default struct ISearchCrawlScopeManager2 extends ISearchCrawlScopeManager
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcrawlscopemanager2-getversion
      */
     GetVersion(plVersion, phFileMapping) {
-        plVersionMarshal := plVersion is VarRef ? "ptr*" : "ptr"
+        plVersionMarshal := plVersion is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(19, this, plVersionMarshal, plVersion, HANDLE.Ptr, phFileMapping, "HRESULT")
         return result
@@ -81,7 +81,7 @@ export default struct ISearchCrawlScopeManager2 extends ISearchCrawlScopeManager
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetVersion := CallbackCreate(GetMethod(implObj, "GetVersion"), flags, 3)
+        this.vtbl.GetVersion := CallbackCreate(ObjBindMethod(implObj, "GetVersion"), flags, 3)
     }
 
     Dispose() {

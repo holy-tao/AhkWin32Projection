@@ -175,12 +175,12 @@ export default struct ICaptionServiceDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNumberOfServices := CallbackCreate(GetMethod(implObj, "GetNumberOfServices"), flags, 2)
-        this.vtbl.GetLanguageCode := CallbackCreate(GetMethod(implObj, "GetLanguageCode"), flags, 3)
-        this.vtbl.GetCaptionServiceNumber := CallbackCreate(GetMethod(implObj, "GetCaptionServiceNumber"), flags, 3)
-        this.vtbl.GetCCType := CallbackCreate(GetMethod(implObj, "GetCCType"), flags, 3)
-        this.vtbl.GetEasyReader := CallbackCreate(GetMethod(implObj, "GetEasyReader"), flags, 3)
-        this.vtbl.GetWideAspectRatio := CallbackCreate(GetMethod(implObj, "GetWideAspectRatio"), flags, 3)
+        this.vtbl.GetNumberOfServices := CallbackCreate(ObjBindMethod(implObj, "GetNumberOfServices"), flags, 2)
+        this.vtbl.GetLanguageCode := CallbackCreate(ObjBindMethod(implObj, "GetLanguageCode"), flags, 3)
+        this.vtbl.GetCaptionServiceNumber := CallbackCreate(ObjBindMethod(implObj, "GetCaptionServiceNumber"), flags, 3)
+        this.vtbl.GetCCType := CallbackCreate(ObjBindMethod(implObj, "GetCCType"), flags, 3)
+        this.vtbl.GetEasyReader := CallbackCreate(ObjBindMethod(implObj, "GetEasyReader"), flags, 3)
+        this.vtbl.GetWideAspectRatio := CallbackCreate(ObjBindMethod(implObj, "GetWideAspectRatio"), flags, 3)
     }
 
     Dispose() {

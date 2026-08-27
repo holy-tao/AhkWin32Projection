@@ -42,7 +42,6 @@ export default struct IActiveScriptParse64 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     InitNew() {
@@ -51,7 +50,6 @@ export default struct IActiveScriptParse64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pstrDefaultName 
      * @param {PWSTR} pstrCode 
      * @param {PWSTR} pstrItemName 
@@ -78,7 +76,6 @@ export default struct IActiveScriptParse64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pstrCode 
      * @param {PWSTR} pstrItemName 
      * @param {IUnknown} punkContext 
@@ -108,9 +105,9 @@ export default struct IActiveScriptParse64 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitNew := CallbackCreate(GetMethod(implObj, "InitNew"), flags, 1)
-        this.vtbl.AddScriptlet := CallbackCreate(GetMethod(implObj, "AddScriptlet"), flags, 12)
-        this.vtbl.ParseScriptText := CallbackCreate(GetMethod(implObj, "ParseScriptText"), flags, 10)
+        this.vtbl.InitNew := CallbackCreate(ObjBindMethod(implObj, "InitNew"), flags, 1)
+        this.vtbl.AddScriptlet := CallbackCreate(ObjBindMethod(implObj, "AddScriptlet"), flags, 12)
+        this.vtbl.ParseScriptText := CallbackCreate(ObjBindMethod(implObj, "ParseScriptText"), flags, 10)
     }
 
     Dispose() {

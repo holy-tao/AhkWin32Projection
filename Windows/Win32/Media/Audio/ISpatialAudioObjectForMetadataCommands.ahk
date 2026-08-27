@@ -49,7 +49,9 @@ export default struct ISpatialAudioObjectForMetadataCommands extends ISpatialAud
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudioobjectformetadatacommands-writenextmetadatacommand
      */
     WriteNextMetadataCommand(commandID, valueBuffer, valueBufferLength) {
-        result := ComCall(7, this, Int8, commandID, IntPtr, valueBuffer, UInt32, valueBufferLength, "HRESULT")
+        valueBufferMarshal := valueBuffer == 0 ? IntPtr : IntPtr
+
+        result := ComCall(7, this, Int8, commandID, valueBufferMarshal, valueBuffer, UInt32, valueBufferLength, "HRESULT")
         return result
     }
 
@@ -62,7 +64,7 @@ export default struct ISpatialAudioObjectForMetadataCommands extends ISpatialAud
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.WriteNextMetadataCommand := CallbackCreate(GetMethod(implObj, "WriteNextMetadataCommand"), flags, 4)
+        this.vtbl.WriteNextMetadataCommand := CallbackCreate(ObjBindMethod(implObj, "WriteNextMetadataCommand"), flags, 4)
     }
 
     Dispose() {

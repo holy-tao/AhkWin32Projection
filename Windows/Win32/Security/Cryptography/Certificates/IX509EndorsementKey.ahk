@@ -218,17 +218,17 @@ export default struct IX509EndorsementKey extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ProviderName := CallbackCreate(GetMethod(implObj, "get_ProviderName"), flags, 2)
-        this.vtbl.put_ProviderName := CallbackCreate(GetMethod(implObj, "put_ProviderName"), flags, 2)
-        this.vtbl.get_Length := CallbackCreate(GetMethod(implObj, "get_Length"), flags, 2)
-        this.vtbl.get_Opened := CallbackCreate(GetMethod(implObj, "get_Opened"), flags, 2)
-        this.vtbl.AddCertificate := CallbackCreate(GetMethod(implObj, "AddCertificate"), flags, 3)
-        this.vtbl.RemoveCertificate := CallbackCreate(GetMethod(implObj, "RemoveCertificate"), flags, 3)
-        this.vtbl.GetCertificateByIndex := CallbackCreate(GetMethod(implObj, "GetCertificateByIndex"), flags, 5)
-        this.vtbl.GetCertificateCount := CallbackCreate(GetMethod(implObj, "GetCertificateCount"), flags, 3)
-        this.vtbl.ExportPublicKey := CallbackCreate(GetMethod(implObj, "ExportPublicKey"), flags, 2)
-        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 1)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.get_ProviderName := CallbackCreate(ObjBindMethod(implObj, "get_ProviderName"), flags, 2)
+        this.vtbl.put_ProviderName := CallbackCreate(ObjBindMethod(implObj, "put_ProviderName"), flags, 2)
+        this.vtbl.get_Length := CallbackCreate(ObjBindMethod(implObj, "get_Length"), flags, 2)
+        this.vtbl.get_Opened := CallbackCreate(ObjBindMethod(implObj, "get_Opened"), flags, 2)
+        this.vtbl.AddCertificate := CallbackCreate(ObjBindMethod(implObj, "AddCertificate"), flags, 3)
+        this.vtbl.RemoveCertificate := CallbackCreate(ObjBindMethod(implObj, "RemoveCertificate"), flags, 3)
+        this.vtbl.GetCertificateByIndex := CallbackCreate(ObjBindMethod(implObj, "GetCertificateByIndex"), flags, 5)
+        this.vtbl.GetCertificateCount := CallbackCreate(ObjBindMethod(implObj, "GetCertificateCount"), flags, 3)
+        this.vtbl.ExportPublicKey := CallbackCreate(ObjBindMethod(implObj, "ExportPublicKey"), flags, 2)
+        this.vtbl.Open := CallbackCreate(ObjBindMethod(implObj, "Open"), flags, 1)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
     }
 
     Dispose() {

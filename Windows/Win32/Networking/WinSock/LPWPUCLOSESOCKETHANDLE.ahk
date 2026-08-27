@@ -19,13 +19,12 @@ export default struct LPWPUCLOSESOCKETHANDLE {
     }
 
     /**
-     * 
      * @param {SOCKET} s 
      * @param {Pointer<Integer>} lpErrno 
      * @returns {Integer} 
      */
     Call(s, lpErrno) {
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, SOCKET, s, lpErrnoMarshal, lpErrno, Int32)
         return result

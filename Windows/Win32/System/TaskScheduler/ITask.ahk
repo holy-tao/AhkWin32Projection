@@ -484,18 +484,18 @@ export default struct ITask extends IScheduledWorkItem {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetApplicationName := CallbackCreate(GetMethod(implObj, "SetApplicationName"), flags, 2)
-        this.vtbl.GetApplicationName := CallbackCreate(GetMethod(implObj, "GetApplicationName"), flags, 2)
-        this.vtbl.SetParameters := CallbackCreate(GetMethod(implObj, "SetParameters"), flags, 2)
-        this.vtbl.GetParameters := CallbackCreate(GetMethod(implObj, "GetParameters"), flags, 2)
-        this.vtbl.SetWorkingDirectory := CallbackCreate(GetMethod(implObj, "SetWorkingDirectory"), flags, 2)
-        this.vtbl.GetWorkingDirectory := CallbackCreate(GetMethod(implObj, "GetWorkingDirectory"), flags, 2)
-        this.vtbl.SetPriority := CallbackCreate(GetMethod(implObj, "SetPriority"), flags, 2)
-        this.vtbl.GetPriority := CallbackCreate(GetMethod(implObj, "GetPriority"), flags, 2)
-        this.vtbl.SetTaskFlags := CallbackCreate(GetMethod(implObj, "SetTaskFlags"), flags, 2)
-        this.vtbl.GetTaskFlags := CallbackCreate(GetMethod(implObj, "GetTaskFlags"), flags, 2)
-        this.vtbl.SetMaxRunTime := CallbackCreate(GetMethod(implObj, "SetMaxRunTime"), flags, 2)
-        this.vtbl.GetMaxRunTime := CallbackCreate(GetMethod(implObj, "GetMaxRunTime"), flags, 2)
+        this.vtbl.SetApplicationName := CallbackCreate(ObjBindMethod(implObj, "SetApplicationName"), flags, 2)
+        this.vtbl.GetApplicationName := CallbackCreate(ObjBindMethod(implObj, "GetApplicationName"), flags, 2)
+        this.vtbl.SetParameters := CallbackCreate(ObjBindMethod(implObj, "SetParameters"), flags, 2)
+        this.vtbl.GetParameters := CallbackCreate(ObjBindMethod(implObj, "GetParameters"), flags, 2)
+        this.vtbl.SetWorkingDirectory := CallbackCreate(ObjBindMethod(implObj, "SetWorkingDirectory"), flags, 2)
+        this.vtbl.GetWorkingDirectory := CallbackCreate(ObjBindMethod(implObj, "GetWorkingDirectory"), flags, 2)
+        this.vtbl.SetPriority := CallbackCreate(ObjBindMethod(implObj, "SetPriority"), flags, 2)
+        this.vtbl.GetPriority := CallbackCreate(ObjBindMethod(implObj, "GetPriority"), flags, 2)
+        this.vtbl.SetTaskFlags := CallbackCreate(ObjBindMethod(implObj, "SetTaskFlags"), flags, 2)
+        this.vtbl.GetTaskFlags := CallbackCreate(ObjBindMethod(implObj, "GetTaskFlags"), flags, 2)
+        this.vtbl.SetMaxRunTime := CallbackCreate(ObjBindMethod(implObj, "SetMaxRunTime"), flags, 2)
+        this.vtbl.GetMaxRunTime := CallbackCreate(ObjBindMethod(implObj, "GetMaxRunTime"), flags, 2)
     }
 
     Dispose() {

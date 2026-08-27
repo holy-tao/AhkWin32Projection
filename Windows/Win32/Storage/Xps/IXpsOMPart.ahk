@@ -100,8 +100,8 @@ export default struct IXpsOMPart extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPartName := CallbackCreate(GetMethod(implObj, "GetPartName"), flags, 2)
-        this.vtbl.SetPartName := CallbackCreate(GetMethod(implObj, "SetPartName"), flags, 2)
+        this.vtbl.GetPartName := CallbackCreate(ObjBindMethod(implObj, "GetPartName"), flags, 2)
+        this.vtbl.SetPartName := CallbackCreate(ObjBindMethod(implObj, "SetPartName"), flags, 2)
     }
 
     Dispose() {

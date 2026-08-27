@@ -94,9 +94,9 @@ export default struct ISBE2GlobalEvent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2globalevent-getevent
      */
     GetEvent(idEvt, param1, param2, param3, param4, pSpanning, pcb, pb) {
-        pSpanningMarshal := pSpanning is VarRef ? "int*" : "ptr"
-        pcbMarshal := pcb is VarRef ? "uint*" : "ptr"
-        pbMarshal := pb is VarRef ? "char*" : "ptr"
+        pSpanningMarshal := pSpanning is VarRef ? "int*" : IntPtr
+        pcbMarshal := pcb is VarRef ? "uint*" : IntPtr
+        pbMarshal := pb is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, Guid.Ptr, idEvt, UInt32, param1, UInt32, param2, UInt32, param3, UInt32, param4, pSpanningMarshal, pSpanning, pcbMarshal, pcb, pbMarshal, pb, "HRESULT")
         return result
@@ -111,7 +111,7 @@ export default struct ISBE2GlobalEvent extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetEvent := CallbackCreate(GetMethod(implObj, "GetEvent"), flags, 9)
+        this.vtbl.GetEvent := CallbackCreate(ObjBindMethod(implObj, "GetEvent"), flags, 9)
     }
 
     Dispose() {

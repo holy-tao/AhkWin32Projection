@@ -137,10 +137,10 @@ export default struct IPropertyPageSite extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnStatusChange := CallbackCreate(GetMethod(implObj, "OnStatusChange"), flags, 2)
-        this.vtbl.GetLocaleID := CallbackCreate(GetMethod(implObj, "GetLocaleID"), flags, 2)
-        this.vtbl.GetPageContainer := CallbackCreate(GetMethod(implObj, "GetPageContainer"), flags, 2)
-        this.vtbl.TranslateAccelerator := CallbackCreate(GetMethod(implObj, "TranslateAccelerator"), flags, 2)
+        this.vtbl.OnStatusChange := CallbackCreate(ObjBindMethod(implObj, "OnStatusChange"), flags, 2)
+        this.vtbl.GetLocaleID := CallbackCreate(ObjBindMethod(implObj, "GetLocaleID"), flags, 2)
+        this.vtbl.GetPageContainer := CallbackCreate(ObjBindMethod(implObj, "GetPageContainer"), flags, 2)
+        this.vtbl.TranslateAccelerator := CallbackCreate(ObjBindMethod(implObj, "TranslateAccelerator"), flags, 2)
     }
 
     Dispose() {

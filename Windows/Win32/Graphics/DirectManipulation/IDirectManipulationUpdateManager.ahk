@@ -80,7 +80,9 @@ export default struct IDirectManipulationUpdateManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationupdatemanager-update
      */
     Update(frameInfo) {
-        result := ComCall(5, this, "ptr", frameInfo, "HRESULT")
+        frameInfoMarshal := frameInfo == 0 ? IntPtr : "ptr"
+
+        result := ComCall(5, this, frameInfoMarshal, frameInfo, "HRESULT")
         return result
     }
 
@@ -93,9 +95,9 @@ export default struct IDirectManipulationUpdateManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterWaitHandleCallback := CallbackCreate(GetMethod(implObj, "RegisterWaitHandleCallback"), flags, 4)
-        this.vtbl.UnregisterWaitHandleCallback := CallbackCreate(GetMethod(implObj, "UnregisterWaitHandleCallback"), flags, 2)
-        this.vtbl.Update := CallbackCreate(GetMethod(implObj, "Update"), flags, 2)
+        this.vtbl.RegisterWaitHandleCallback := CallbackCreate(ObjBindMethod(implObj, "RegisterWaitHandleCallback"), flags, 4)
+        this.vtbl.UnregisterWaitHandleCallback := CallbackCreate(ObjBindMethod(implObj, "UnregisterWaitHandleCallback"), flags, 2)
+        this.vtbl.Update := CallbackCreate(ObjBindMethod(implObj, "Update"), flags, 2)
     }
 
     Dispose() {

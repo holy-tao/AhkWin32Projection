@@ -40,32 +40,29 @@ export default struct ITipHelper extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} i_pszTxUrl 
      * @returns {ITransaction} 
      */
     Pull(i_pszTxUrl) {
-        i_pszTxUrlMarshal := i_pszTxUrl is VarRef ? "char*" : "ptr"
+        i_pszTxUrlMarshal := i_pszTxUrl is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, i_pszTxUrlMarshal, i_pszTxUrl, "ptr*", &o_ppITransaction := 0, "HRESULT")
         return ITransaction(o_ppITransaction)
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} i_pszTxUrl 
      * @param {ITipPullSink} i_pTipPullSink 
      * @returns {ITransaction} 
      */
     PullAsync(i_pszTxUrl, i_pTipPullSink) {
-        i_pszTxUrlMarshal := i_pszTxUrl is VarRef ? "char*" : "ptr"
+        i_pszTxUrlMarshal := i_pszTxUrl is VarRef ? "char*" : IntPtr
 
         result := ComCall(4, this, i_pszTxUrlMarshal, i_pszTxUrl, "ptr", i_pTipPullSink, "ptr*", &o_ppITransaction := 0, "HRESULT")
         return ITransaction(o_ppITransaction)
     }
 
     /**
-     * 
      * @returns {Pointer<Integer>} 
      */
     GetLocalTmUrl() {
@@ -82,9 +79,9 @@ export default struct ITipHelper extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Pull := CallbackCreate(GetMethod(implObj, "Pull"), flags, 3)
-        this.vtbl.PullAsync := CallbackCreate(GetMethod(implObj, "PullAsync"), flags, 4)
-        this.vtbl.GetLocalTmUrl := CallbackCreate(GetMethod(implObj, "GetLocalTmUrl"), flags, 2)
+        this.vtbl.Pull := CallbackCreate(ObjBindMethod(implObj, "Pull"), flags, 3)
+        this.vtbl.PullAsync := CallbackCreate(ObjBindMethod(implObj, "PullAsync"), flags, 4)
+        this.vtbl.GetLocalTmUrl := CallbackCreate(ObjBindMethod(implObj, "GetLocalTmUrl"), flags, 2)
     }
 
     Dispose() {

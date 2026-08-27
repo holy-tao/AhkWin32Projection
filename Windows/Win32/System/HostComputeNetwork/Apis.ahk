@@ -26,8 +26,9 @@
 export HcnEnumerateNetworks(Query, Networks, ErrorRecord) {
     Query := Query is String ? StrPtr(Query) : Query
 
-    NetworksMarshal := Networks is VarRef ? "ptr*" : "ptr"
-    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
+    NetworksMarshal := Networks is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord == 0 ? IntPtr : PWSTR.Ptr
 
     result := DllCall("computenetwork.dll\HcnEnumerateNetworks", "ptr", Query, NetworksMarshal, Networks, ErrorRecordMarshal, ErrorRecord, "HRESULT")
     return result
@@ -45,8 +46,9 @@ export HcnEnumerateNetworks(Query, Networks, ErrorRecord) {
 export HcnCreateNetwork(Id, Settings, Network, ErrorRecord) {
     Settings := Settings is String ? StrPtr(Settings) : Settings
 
-    NetworkMarshal := Network is VarRef ? "ptr*" : "ptr"
-    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
+    NetworkMarshal := Network is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord == 0 ? IntPtr : PWSTR.Ptr
 
     result := DllCall("computenetwork.dll\HcnCreateNetwork", Guid.Ptr, Id, "ptr", Settings, NetworkMarshal, Network, ErrorRecordMarshal, ErrorRecord, "HRESULT")
     return result
@@ -61,8 +63,9 @@ export HcnCreateNetwork(Id, Settings, Network, ErrorRecord) {
  * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnOpenNetwork
  */
 export HcnOpenNetwork(Id, Network, ErrorRecord) {
-    NetworkMarshal := Network is VarRef ? "ptr*" : "ptr"
-    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
+    NetworkMarshal := Network is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord == 0 ? IntPtr : PWSTR.Ptr
 
     result := DllCall("computenetwork.dll\HcnOpenNetwork", Guid.Ptr, Id, NetworkMarshal, Network, ErrorRecordMarshal, ErrorRecord, "HRESULT")
     return result
@@ -78,7 +81,7 @@ export HcnOpenNetwork(Id, Network, ErrorRecord) {
 export HcnModifyNetwork(Network, Settings) {
     Settings := Settings is String ? StrPtr(Settings) : Settings
 
-    NetworkMarshal := Network is VarRef ? "ptr" : "ptr"
+    NetworkMarshal := Network is VarRef ? "ptr" : IntPtr
 
     result := DllCall("computenetwork.dll\HcnModifyNetwork", NetworkMarshal, Network, "ptr", Settings, PWSTR.Ptr, &ErrorRecord := 0, "HRESULT")
     return ErrorRecord
@@ -96,9 +99,10 @@ export HcnModifyNetwork(Network, Settings) {
 export HcnQueryNetworkProperties(Network, Query, _Properties, ErrorRecord) {
     Query := Query is String ? StrPtr(Query) : Query
 
-    NetworkMarshal := Network is VarRef ? "ptr" : "ptr"
-    _PropertiesMarshal := _Properties is VarRef ? "ptr*" : "ptr"
-    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
+    NetworkMarshal := Network is VarRef ? "ptr" : IntPtr
+    _PropertiesMarshal := _Properties is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord == 0 ? IntPtr : PWSTR.Ptr
 
     result := DllCall("computenetwork.dll\HcnQueryNetworkProperties", NetworkMarshal, Network, "ptr", Query, _PropertiesMarshal, _Properties, ErrorRecordMarshal, ErrorRecord, "HRESULT")
     return result
@@ -122,7 +126,7 @@ export HcnDeleteNetwork(Id) {
  * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnCloseNetwork
  */
 export HcnCloseNetwork(Network) {
-    NetworkMarshal := Network is VarRef ? "ptr" : "ptr"
+    NetworkMarshal := Network is VarRef ? "ptr" : IntPtr
 
     result := DllCall("computenetwork.dll\HcnCloseNetwork", NetworkMarshal, Network, "HRESULT")
     return result
@@ -139,8 +143,9 @@ export HcnCloseNetwork(Network) {
 export HcnEnumerateNamespaces(Query, Namespaces, ErrorRecord) {
     Query := Query is String ? StrPtr(Query) : Query
 
-    NamespacesMarshal := Namespaces is VarRef ? "ptr*" : "ptr"
-    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
+    NamespacesMarshal := Namespaces is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord == 0 ? IntPtr : PWSTR.Ptr
 
     result := DllCall("computenetwork.dll\HcnEnumerateNamespaces", "ptr", Query, NamespacesMarshal, Namespaces, ErrorRecordMarshal, ErrorRecord, "HRESULT")
     return result
@@ -158,8 +163,9 @@ export HcnEnumerateNamespaces(Query, Namespaces, ErrorRecord) {
 export HcnCreateNamespace(Id, Settings, Namespace, ErrorRecord) {
     Settings := Settings is String ? StrPtr(Settings) : Settings
 
-    NamespaceMarshal := Namespace is VarRef ? "ptr*" : "ptr"
-    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
+    NamespaceMarshal := Namespace is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord == 0 ? IntPtr : PWSTR.Ptr
 
     result := DllCall("computenetwork.dll\HcnCreateNamespace", Guid.Ptr, Id, "ptr", Settings, NamespaceMarshal, Namespace, ErrorRecordMarshal, ErrorRecord, "HRESULT")
     return result
@@ -174,8 +180,9 @@ export HcnCreateNamespace(Id, Settings, Namespace, ErrorRecord) {
  * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnOpenNamespace
  */
 export HcnOpenNamespace(Id, Namespace, ErrorRecord) {
-    NamespaceMarshal := Namespace is VarRef ? "ptr*" : "ptr"
-    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
+    NamespaceMarshal := Namespace is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord == 0 ? IntPtr : PWSTR.Ptr
 
     result := DllCall("computenetwork.dll\HcnOpenNamespace", Guid.Ptr, Id, NamespaceMarshal, Namespace, ErrorRecordMarshal, ErrorRecord, "HRESULT")
     return result
@@ -191,7 +198,7 @@ export HcnOpenNamespace(Id, Namespace, ErrorRecord) {
 export HcnModifyNamespace(Namespace, Settings) {
     Settings := Settings is String ? StrPtr(Settings) : Settings
 
-    NamespaceMarshal := Namespace is VarRef ? "ptr" : "ptr"
+    NamespaceMarshal := Namespace is VarRef ? "ptr" : IntPtr
 
     result := DllCall("computenetwork.dll\HcnModifyNamespace", NamespaceMarshal, Namespace, "ptr", Settings, PWSTR.Ptr, &ErrorRecord := 0, "HRESULT")
     return ErrorRecord
@@ -209,9 +216,10 @@ export HcnModifyNamespace(Namespace, Settings) {
 export HcnQueryNamespaceProperties(Namespace, Query, _Properties, ErrorRecord) {
     Query := Query is String ? StrPtr(Query) : Query
 
-    NamespaceMarshal := Namespace is VarRef ? "ptr" : "ptr"
-    _PropertiesMarshal := _Properties is VarRef ? "ptr*" : "ptr"
-    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
+    NamespaceMarshal := Namespace is VarRef ? "ptr" : IntPtr
+    _PropertiesMarshal := _Properties is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord == 0 ? IntPtr : PWSTR.Ptr
 
     result := DllCall("computenetwork.dll\HcnQueryNamespaceProperties", NamespaceMarshal, Namespace, "ptr", Query, _PropertiesMarshal, _Properties, ErrorRecordMarshal, ErrorRecord, "HRESULT")
     return result
@@ -235,7 +243,7 @@ export HcnDeleteNamespace(Id) {
  * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnCloseNamespace
  */
 export HcnCloseNamespace(Namespace) {
-    NamespaceMarshal := Namespace is VarRef ? "ptr" : "ptr"
+    NamespaceMarshal := Namespace is VarRef ? "ptr" : IntPtr
 
     result := DllCall("computenetwork.dll\HcnCloseNamespace", NamespaceMarshal, Namespace, "HRESULT")
     return result
@@ -252,8 +260,9 @@ export HcnCloseNamespace(Namespace) {
 export HcnEnumerateEndpoints(Query, Endpoints, ErrorRecord) {
     Query := Query is String ? StrPtr(Query) : Query
 
-    EndpointsMarshal := Endpoints is VarRef ? "ptr*" : "ptr"
-    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
+    EndpointsMarshal := Endpoints is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord == 0 ? IntPtr : PWSTR.Ptr
 
     result := DllCall("computenetwork.dll\HcnEnumerateEndpoints", "ptr", Query, EndpointsMarshal, Endpoints, ErrorRecordMarshal, ErrorRecord, "HRESULT")
     return result
@@ -272,9 +281,10 @@ export HcnEnumerateEndpoints(Query, Endpoints, ErrorRecord) {
 export HcnCreateEndpoint(Network, Id, Settings, Endpoint, ErrorRecord) {
     Settings := Settings is String ? StrPtr(Settings) : Settings
 
-    NetworkMarshal := Network is VarRef ? "ptr" : "ptr"
-    EndpointMarshal := Endpoint is VarRef ? "ptr*" : "ptr"
-    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
+    NetworkMarshal := Network is VarRef ? "ptr" : IntPtr
+    EndpointMarshal := Endpoint is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord == 0 ? IntPtr : PWSTR.Ptr
 
     result := DllCall("computenetwork.dll\HcnCreateEndpoint", NetworkMarshal, Network, Guid.Ptr, Id, "ptr", Settings, EndpointMarshal, Endpoint, ErrorRecordMarshal, ErrorRecord, "HRESULT")
     return result
@@ -289,8 +299,9 @@ export HcnCreateEndpoint(Network, Id, Settings, Endpoint, ErrorRecord) {
  * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnOpenEndpoint
  */
 export HcnOpenEndpoint(Id, Endpoint, ErrorRecord) {
-    EndpointMarshal := Endpoint is VarRef ? "ptr*" : "ptr"
-    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
+    EndpointMarshal := Endpoint is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord == 0 ? IntPtr : PWSTR.Ptr
 
     result := DllCall("computenetwork.dll\HcnOpenEndpoint", Guid.Ptr, Id, EndpointMarshal, Endpoint, ErrorRecordMarshal, ErrorRecord, "HRESULT")
     return result
@@ -306,7 +317,7 @@ export HcnOpenEndpoint(Id, Endpoint, ErrorRecord) {
 export HcnModifyEndpoint(Endpoint, Settings) {
     Settings := Settings is String ? StrPtr(Settings) : Settings
 
-    EndpointMarshal := Endpoint is VarRef ? "ptr" : "ptr"
+    EndpointMarshal := Endpoint is VarRef ? "ptr" : IntPtr
 
     result := DllCall("computenetwork.dll\HcnModifyEndpoint", EndpointMarshal, Endpoint, "ptr", Settings, PWSTR.Ptr, &ErrorRecord := 0, "HRESULT")
     return ErrorRecord
@@ -324,9 +335,10 @@ export HcnModifyEndpoint(Endpoint, Settings) {
 export HcnQueryEndpointProperties(Endpoint, Query, _Properties, ErrorRecord) {
     Query := Query is String ? StrPtr(Query) : Query
 
-    EndpointMarshal := Endpoint is VarRef ? "ptr" : "ptr"
-    _PropertiesMarshal := _Properties is VarRef ? "ptr*" : "ptr"
-    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
+    EndpointMarshal := Endpoint is VarRef ? "ptr" : IntPtr
+    _PropertiesMarshal := _Properties is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord == 0 ? IntPtr : PWSTR.Ptr
 
     result := DllCall("computenetwork.dll\HcnQueryEndpointProperties", EndpointMarshal, Endpoint, "ptr", Query, _PropertiesMarshal, _Properties, ErrorRecordMarshal, ErrorRecord, "HRESULT")
     return result
@@ -350,7 +362,7 @@ export HcnDeleteEndpoint(Id) {
  * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnCloseEndpoint
  */
 export HcnCloseEndpoint(Endpoint) {
-    EndpointMarshal := Endpoint is VarRef ? "ptr" : "ptr"
+    EndpointMarshal := Endpoint is VarRef ? "ptr" : IntPtr
 
     result := DllCall("computenetwork.dll\HcnCloseEndpoint", EndpointMarshal, Endpoint, "HRESULT")
     return result
@@ -367,8 +379,9 @@ export HcnCloseEndpoint(Endpoint) {
 export HcnEnumerateLoadBalancers(Query, LoadBalancer, ErrorRecord) {
     Query := Query is String ? StrPtr(Query) : Query
 
-    LoadBalancerMarshal := LoadBalancer is VarRef ? "ptr*" : "ptr"
-    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
+    LoadBalancerMarshal := LoadBalancer is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord == 0 ? IntPtr : PWSTR.Ptr
 
     result := DllCall("computenetwork.dll\HcnEnumerateLoadBalancers", "ptr", Query, LoadBalancerMarshal, LoadBalancer, ErrorRecordMarshal, ErrorRecord, "HRESULT")
     return result
@@ -386,8 +399,9 @@ export HcnEnumerateLoadBalancers(Query, LoadBalancer, ErrorRecord) {
 export HcnCreateLoadBalancer(Id, Settings, LoadBalancer, ErrorRecord) {
     Settings := Settings is String ? StrPtr(Settings) : Settings
 
-    LoadBalancerMarshal := LoadBalancer is VarRef ? "ptr*" : "ptr"
-    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
+    LoadBalancerMarshal := LoadBalancer is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord == 0 ? IntPtr : PWSTR.Ptr
 
     result := DllCall("computenetwork.dll\HcnCreateLoadBalancer", Guid.Ptr, Id, "ptr", Settings, LoadBalancerMarshal, LoadBalancer, ErrorRecordMarshal, ErrorRecord, "HRESULT")
     return result
@@ -402,8 +416,9 @@ export HcnCreateLoadBalancer(Id, Settings, LoadBalancer, ErrorRecord) {
  * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnOpenLoadBalancer
  */
 export HcnOpenLoadBalancer(Id, LoadBalancer, ErrorRecord) {
-    LoadBalancerMarshal := LoadBalancer is VarRef ? "ptr*" : "ptr"
-    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
+    LoadBalancerMarshal := LoadBalancer is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord == 0 ? IntPtr : PWSTR.Ptr
 
     result := DllCall("computenetwork.dll\HcnOpenLoadBalancer", Guid.Ptr, Id, LoadBalancerMarshal, LoadBalancer, ErrorRecordMarshal, ErrorRecord, "HRESULT")
     return result
@@ -419,7 +434,7 @@ export HcnOpenLoadBalancer(Id, LoadBalancer, ErrorRecord) {
 export HcnModifyLoadBalancer(LoadBalancer, Settings) {
     Settings := Settings is String ? StrPtr(Settings) : Settings
 
-    LoadBalancerMarshal := LoadBalancer is VarRef ? "ptr" : "ptr"
+    LoadBalancerMarshal := LoadBalancer is VarRef ? "ptr" : IntPtr
 
     result := DllCall("computenetwork.dll\HcnModifyLoadBalancer", LoadBalancerMarshal, LoadBalancer, "ptr", Settings, PWSTR.Ptr, &ErrorRecord := 0, "HRESULT")
     return ErrorRecord
@@ -437,9 +452,10 @@ export HcnModifyLoadBalancer(LoadBalancer, Settings) {
 export HcnQueryLoadBalancerProperties(LoadBalancer, Query, _Properties, ErrorRecord) {
     Query := Query is String ? StrPtr(Query) : Query
 
-    LoadBalancerMarshal := LoadBalancer is VarRef ? "ptr" : "ptr"
-    _PropertiesMarshal := _Properties is VarRef ? "ptr*" : "ptr"
-    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
+    LoadBalancerMarshal := LoadBalancer is VarRef ? "ptr" : IntPtr
+    _PropertiesMarshal := _Properties is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord == 0 ? IntPtr : PWSTR.Ptr
 
     result := DllCall("computenetwork.dll\HcnQueryLoadBalancerProperties", LoadBalancerMarshal, LoadBalancer, "ptr", Query, _PropertiesMarshal, _Properties, ErrorRecordMarshal, ErrorRecord, "HRESULT")
     return result
@@ -463,7 +479,7 @@ export HcnDeleteLoadBalancer(Id) {
  * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnCloseLoadBalancer
  */
 export HcnCloseLoadBalancer(LoadBalancer) {
-    LoadBalancerMarshal := LoadBalancer is VarRef ? "ptr" : "ptr"
+    LoadBalancerMarshal := LoadBalancer is VarRef ? "ptr" : IntPtr
 
     result := DllCall("computenetwork.dll\HcnCloseLoadBalancer", LoadBalancerMarshal, LoadBalancer, "HRESULT")
     return result
@@ -477,7 +493,7 @@ export HcnCloseLoadBalancer(LoadBalancer) {
  * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnRegisterServiceCallback
  */
 export HcnRegisterServiceCallback(Callback, _Context) {
-    _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+    _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
     result := DllCall("computenetwork.dll\HcnRegisterServiceCallback", HCN_NOTIFICATION_CALLBACK, Callback, _ContextMarshal, _Context, "ptr*", &CallbackHandle := 0, "HRESULT")
     return CallbackHandle
@@ -490,7 +506,7 @@ export HcnRegisterServiceCallback(Callback, _Context) {
  * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnUnregisterServiceCallback
  */
 export HcnUnregisterServiceCallback(CallbackHandle) {
-    CallbackHandleMarshal := CallbackHandle is VarRef ? "ptr" : "ptr"
+    CallbackHandleMarshal := CallbackHandle is VarRef ? "ptr" : IntPtr
 
     result := DllCall("computenetwork.dll\HcnUnregisterServiceCallback", CallbackHandleMarshal, CallbackHandle, "HRESULT")
     return result
@@ -505,8 +521,8 @@ export HcnUnregisterServiceCallback(CallbackHandle) {
  * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnRegisterGuestNetworkServiceCallback
  */
 export HcnRegisterGuestNetworkServiceCallback(GuestNetworkService, Callback, _Context) {
-    GuestNetworkServiceMarshal := GuestNetworkService is VarRef ? "ptr" : "ptr"
-    _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+    GuestNetworkServiceMarshal := GuestNetworkService is VarRef ? "ptr" : IntPtr
+    _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
     result := DllCall("computenetwork.dll\HcnRegisterGuestNetworkServiceCallback", GuestNetworkServiceMarshal, GuestNetworkService, HCN_NOTIFICATION_CALLBACK, Callback, _ContextMarshal, _Context, "ptr*", &CallbackHandle := 0, "HRESULT")
     return CallbackHandle
@@ -519,7 +535,7 @@ export HcnRegisterGuestNetworkServiceCallback(GuestNetworkService, Callback, _Co
  * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnUnregisterGuestNetworkServiceCallback
  */
 export HcnUnregisterGuestNetworkServiceCallback(CallbackHandle) {
-    CallbackHandleMarshal := CallbackHandle is VarRef ? "ptr" : "ptr"
+    CallbackHandleMarshal := CallbackHandle is VarRef ? "ptr" : IntPtr
 
     result := DllCall("computenetwork.dll\HcnUnregisterGuestNetworkServiceCallback", CallbackHandleMarshal, CallbackHandle, "HRESULT")
     return result
@@ -537,8 +553,9 @@ export HcnUnregisterGuestNetworkServiceCallback(CallbackHandle) {
 export HcnCreateGuestNetworkService(Id, Settings, GuestNetworkService, ErrorRecord) {
     Settings := Settings is String ? StrPtr(Settings) : Settings
 
-    GuestNetworkServiceMarshal := GuestNetworkService is VarRef ? "ptr*" : "ptr"
-    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
+    GuestNetworkServiceMarshal := GuestNetworkService is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord == 0 ? IntPtr : PWSTR.Ptr
 
     result := DllCall("computenetwork.dll\HcnCreateGuestNetworkService", Guid.Ptr, Id, "ptr", Settings, GuestNetworkServiceMarshal, GuestNetworkService, ErrorRecordMarshal, ErrorRecord, "HRESULT")
     return result
@@ -551,7 +568,7 @@ export HcnCreateGuestNetworkService(Id, Settings, GuestNetworkService, ErrorReco
  * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnCloseGuestNetworkService
  */
 export HcnCloseGuestNetworkService(GuestNetworkService) {
-    GuestNetworkServiceMarshal := GuestNetworkService is VarRef ? "ptr" : "ptr"
+    GuestNetworkServiceMarshal := GuestNetworkService is VarRef ? "ptr" : IntPtr
 
     result := DllCall("computenetwork.dll\HcnCloseGuestNetworkService", GuestNetworkServiceMarshal, GuestNetworkService, "HRESULT")
     return result
@@ -567,7 +584,7 @@ export HcnCloseGuestNetworkService(GuestNetworkService) {
 export HcnModifyGuestNetworkService(GuestNetworkService, Settings) {
     Settings := Settings is String ? StrPtr(Settings) : Settings
 
-    GuestNetworkServiceMarshal := GuestNetworkService is VarRef ? "ptr" : "ptr"
+    GuestNetworkServiceMarshal := GuestNetworkService is VarRef ? "ptr" : IntPtr
 
     result := DllCall("computenetwork.dll\HcnModifyGuestNetworkService", GuestNetworkServiceMarshal, GuestNetworkService, "ptr", Settings, PWSTR.Ptr, &ErrorRecord := 0, "HRESULT")
     return ErrorRecord
@@ -594,7 +611,7 @@ export HcnDeleteGuestNetworkService(Id) {
  * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnReserveGuestNetworkServicePort
  */
 export HcnReserveGuestNetworkServicePort(GuestNetworkService, Protocol, Access, Port) {
-    GuestNetworkServiceMarshal := GuestNetworkService is VarRef ? "ptr" : "ptr"
+    GuestNetworkServiceMarshal := GuestNetworkService is VarRef ? "ptr" : IntPtr
 
     PortReservationHandle := HANDLE.Owned()
     result := DllCall("computenetwork.dll\HcnReserveGuestNetworkServicePort", GuestNetworkServiceMarshal, GuestNetworkService, HCN_PORT_PROTOCOL, Protocol, HCN_PORT_ACCESS, Access, UInt16, Port, HANDLE.Ptr, PortReservationHandle, "HRESULT")
@@ -610,7 +627,7 @@ export HcnReserveGuestNetworkServicePort(GuestNetworkService, Protocol, Access, 
  * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnReserveGuestNetworkServicePortRange
  */
 export HcnReserveGuestNetworkServicePortRange(GuestNetworkService, PortCount, PortRangeReservation) {
-    GuestNetworkServiceMarshal := GuestNetworkService is VarRef ? "ptr" : "ptr"
+    GuestNetworkServiceMarshal := GuestNetworkService is VarRef ? "ptr" : IntPtr
 
     PortReservationHandle := HANDLE.Owned()
     result := DllCall("computenetwork.dll\HcnReserveGuestNetworkServicePortRange", GuestNetworkServiceMarshal, GuestNetworkService, UInt16, PortCount, HCN_PORT_RANGE_RESERVATION.Ptr, PortRangeReservation, HANDLE.Ptr, PortReservationHandle, "HRESULT")
@@ -646,11 +663,12 @@ export HcnEnumerateGuestNetworkPortReservations(PortEntries) {
  * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnFreeGuestNetworkPortReservations
  */
 export HcnFreeGuestNetworkPortReservations(PortEntries) {
-    DllCall("computenetwork.dll\HcnFreeGuestNetworkPortReservations", HCN_PORT_RANGE_ENTRY.Ptr, PortEntries)
+    PortEntriesMarshal := PortEntries == 0 ? IntPtr : HCN_PORT_RANGE_ENTRY.Ptr
+
+    DllCall("computenetwork.dll\HcnFreeGuestNetworkPortReservations", PortEntriesMarshal, PortEntries)
 }
 
 /**
- * 
  * @param {Pointer<Void>} Endpoint 
  * @param {PWSTR} Query 
  * @param {Pointer<PWSTR>} Stats 
@@ -660,16 +678,16 @@ export HcnFreeGuestNetworkPortReservations(PortEntries) {
 export HcnQueryEndpointStats(Endpoint, Query, Stats, ErrorRecord) {
     Query := Query is String ? StrPtr(Query) : Query
 
-    EndpointMarshal := Endpoint is VarRef ? "ptr" : "ptr"
-    StatsMarshal := Stats is VarRef ? "ptr*" : "ptr"
-    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
+    EndpointMarshal := Endpoint is VarRef ? "ptr" : IntPtr
+    StatsMarshal := Stats is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord == 0 ? IntPtr : PWSTR.Ptr
 
     result := DllCall("computenetwork.dll\HcnQueryEndpointStats", EndpointMarshal, Endpoint, "ptr", Query, StatsMarshal, Stats, ErrorRecordMarshal, ErrorRecord, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} Endpoint 
  * @param {PWSTR} Query 
  * @param {Pointer<PWSTR>} Addresses 
@@ -679,9 +697,10 @@ export HcnQueryEndpointStats(Endpoint, Query, Stats, ErrorRecord) {
 export HcnQueryEndpointAddresses(Endpoint, Query, Addresses, ErrorRecord) {
     Query := Query is String ? StrPtr(Query) : Query
 
-    EndpointMarshal := Endpoint is VarRef ? "ptr" : "ptr"
-    AddressesMarshal := Addresses is VarRef ? "ptr*" : "ptr"
-    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
+    EndpointMarshal := Endpoint is VarRef ? "ptr" : IntPtr
+    AddressesMarshal := Addresses is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : IntPtr
+    ErrorRecordMarshal := ErrorRecord == 0 ? IntPtr : PWSTR.Ptr
 
     result := DllCall("computenetwork.dll\HcnQueryEndpointAddresses", EndpointMarshal, Endpoint, "ptr", Query, AddressesMarshal, Addresses, ErrorRecordMarshal, ErrorRecord, "HRESULT")
     return result

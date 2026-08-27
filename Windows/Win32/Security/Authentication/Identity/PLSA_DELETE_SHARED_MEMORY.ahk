@@ -19,12 +19,11 @@ export default struct PLSA_DELETE_SHARED_MEMORY {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} SharedMem 
      * @returns {BOOLEAN} 
      */
     Call(SharedMem) {
-        SharedMemMarshal := SharedMem is VarRef ? "ptr" : "ptr"
+        SharedMemMarshal := SharedMem is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, SharedMemMarshal, SharedMem, BOOLEAN)
         return result

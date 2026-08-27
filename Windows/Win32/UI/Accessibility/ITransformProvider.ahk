@@ -188,12 +188,12 @@ export default struct ITransformProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Move := CallbackCreate(GetMethod(implObj, "Move"), flags, 3)
-        this.vtbl.Resize := CallbackCreate(GetMethod(implObj, "Resize"), flags, 3)
-        this.vtbl.Rotate := CallbackCreate(GetMethod(implObj, "Rotate"), flags, 2)
-        this.vtbl.get_CanMove := CallbackCreate(GetMethod(implObj, "get_CanMove"), flags, 2)
-        this.vtbl.get_CanResize := CallbackCreate(GetMethod(implObj, "get_CanResize"), flags, 2)
-        this.vtbl.get_CanRotate := CallbackCreate(GetMethod(implObj, "get_CanRotate"), flags, 2)
+        this.vtbl.Move := CallbackCreate(ObjBindMethod(implObj, "Move"), flags, 3)
+        this.vtbl.Resize := CallbackCreate(ObjBindMethod(implObj, "Resize"), flags, 3)
+        this.vtbl.Rotate := CallbackCreate(ObjBindMethod(implObj, "Rotate"), flags, 2)
+        this.vtbl.get_CanMove := CallbackCreate(ObjBindMethod(implObj, "get_CanMove"), flags, 2)
+        this.vtbl.get_CanResize := CallbackCreate(ObjBindMethod(implObj, "get_CanResize"), flags, 2)
+        this.vtbl.get_CanRotate := CallbackCreate(ObjBindMethod(implObj, "get_CanRotate"), flags, 2)
     }
 
     Dispose() {

@@ -198,11 +198,11 @@ export default struct IWMHeaderInfo extends IUnknown {
     GetAttributeByIndex(wIndex, pwStreamNum, pwszName, pcchNameLen, pType, pValue, pcbLength) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        pwStreamNumMarshal := pwStreamNum is VarRef ? "ushort*" : "ptr"
-        pcchNameLenMarshal := pcchNameLen is VarRef ? "ushort*" : "ptr"
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
-        pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : "ptr"
+        pwStreamNumMarshal := pwStreamNum is VarRef ? "ushort*" : IntPtr
+        pcchNameLenMarshal := pcchNameLen is VarRef ? "ushort*" : IntPtr
+        pTypeMarshal := pType is VarRef ? "int*" : IntPtr
+        pValueMarshal := pValue is VarRef ? "char*" : IntPtr
+        pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(4, this, UInt16, wIndex, pwStreamNumMarshal, pwStreamNum, "ptr", pwszName, pcchNameLenMarshal, pcchNameLen, pTypeMarshal, pType, pValueMarshal, pValue, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
@@ -304,10 +304,10 @@ export default struct IWMHeaderInfo extends IUnknown {
     GetAttributeByName(pwStreamNum, pszName, pType, pValue, pcbLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        pwStreamNumMarshal := pwStreamNum is VarRef ? "ushort*" : "ptr"
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
-        pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : "ptr"
+        pwStreamNumMarshal := pwStreamNum is VarRef ? "ushort*" : IntPtr
+        pTypeMarshal := pType is VarRef ? "int*" : IntPtr
+        pValueMarshal := pValue is VarRef ? "char*" : IntPtr
+        pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(5, this, pwStreamNumMarshal, pwStreamNum, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
@@ -402,7 +402,7 @@ export default struct IWMHeaderInfo extends IUnknown {
     SetAttribute(wStreamNum, pszName, Type, pValue, cbLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "char*" : IntPtr
 
         result := ComCall(6, this, UInt16, wStreamNum, "ptr", pszName, WMT_ATTR_DATATYPE, Type, pValueMarshal, pValue, UInt16, cbLength, "HRESULT")
         return result
@@ -431,7 +431,7 @@ export default struct IWMHeaderInfo extends IUnknown {
     GetMarker(wIndex, pwszMarkerName, pcchMarkerNameLen) {
         pwszMarkerName := pwszMarkerName is String ? StrPtr(pwszMarkerName) : pwszMarkerName
 
-        pcchMarkerNameLenMarshal := pcchMarkerNameLen is VarRef ? "ushort*" : "ptr"
+        pcchMarkerNameLenMarshal := pcchMarkerNameLen is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(8, this, UInt16, wIndex, "ptr", pwszMarkerName, pcchMarkerNameLenMarshal, pcchMarkerNameLen, "uint*", &pcnsMarkerTime := 0, "HRESULT")
         return pcnsMarkerTime
@@ -594,8 +594,8 @@ export default struct IWMHeaderInfo extends IUnknown {
         pwszType := pwszType is String ? StrPtr(pwszType) : pwszType
         pwszCommand := pwszCommand is String ? StrPtr(pwszCommand) : pwszCommand
 
-        pcchTypeLenMarshal := pcchTypeLen is VarRef ? "ushort*" : "ptr"
-        pcchCommandLenMarshal := pcchCommandLen is VarRef ? "ushort*" : "ptr"
+        pcchTypeLenMarshal := pcchTypeLen is VarRef ? "ushort*" : IntPtr
+        pcchCommandLenMarshal := pcchCommandLen is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(12, this, UInt16, wIndex, "ptr", pwszType, pcchTypeLenMarshal, pcchTypeLen, "ptr", pwszCommand, pcchCommandLenMarshal, pcchCommandLen, "uint*", &pcnsScriptTime := 0, "HRESULT")
         return pcnsScriptTime
@@ -747,18 +747,18 @@ export default struct IWMHeaderInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAttributeCount := CallbackCreate(GetMethod(implObj, "GetAttributeCount"), flags, 3)
-        this.vtbl.GetAttributeByIndex := CallbackCreate(GetMethod(implObj, "GetAttributeByIndex"), flags, 8)
-        this.vtbl.GetAttributeByName := CallbackCreate(GetMethod(implObj, "GetAttributeByName"), flags, 6)
-        this.vtbl.SetAttribute := CallbackCreate(GetMethod(implObj, "SetAttribute"), flags, 6)
-        this.vtbl.GetMarkerCount := CallbackCreate(GetMethod(implObj, "GetMarkerCount"), flags, 2)
-        this.vtbl.GetMarker := CallbackCreate(GetMethod(implObj, "GetMarker"), flags, 5)
-        this.vtbl.AddMarker := CallbackCreate(GetMethod(implObj, "AddMarker"), flags, 3)
-        this.vtbl.RemoveMarker := CallbackCreate(GetMethod(implObj, "RemoveMarker"), flags, 2)
-        this.vtbl.GetScriptCount := CallbackCreate(GetMethod(implObj, "GetScriptCount"), flags, 2)
-        this.vtbl.GetScript := CallbackCreate(GetMethod(implObj, "GetScript"), flags, 7)
-        this.vtbl.AddScript := CallbackCreate(GetMethod(implObj, "AddScript"), flags, 4)
-        this.vtbl.RemoveScript := CallbackCreate(GetMethod(implObj, "RemoveScript"), flags, 2)
+        this.vtbl.GetAttributeCount := CallbackCreate(ObjBindMethod(implObj, "GetAttributeCount"), flags, 3)
+        this.vtbl.GetAttributeByIndex := CallbackCreate(ObjBindMethod(implObj, "GetAttributeByIndex"), flags, 8)
+        this.vtbl.GetAttributeByName := CallbackCreate(ObjBindMethod(implObj, "GetAttributeByName"), flags, 6)
+        this.vtbl.SetAttribute := CallbackCreate(ObjBindMethod(implObj, "SetAttribute"), flags, 6)
+        this.vtbl.GetMarkerCount := CallbackCreate(ObjBindMethod(implObj, "GetMarkerCount"), flags, 2)
+        this.vtbl.GetMarker := CallbackCreate(ObjBindMethod(implObj, "GetMarker"), flags, 5)
+        this.vtbl.AddMarker := CallbackCreate(ObjBindMethod(implObj, "AddMarker"), flags, 3)
+        this.vtbl.RemoveMarker := CallbackCreate(ObjBindMethod(implObj, "RemoveMarker"), flags, 2)
+        this.vtbl.GetScriptCount := CallbackCreate(ObjBindMethod(implObj, "GetScriptCount"), flags, 2)
+        this.vtbl.GetScript := CallbackCreate(ObjBindMethod(implObj, "GetScript"), flags, 7)
+        this.vtbl.AddScript := CallbackCreate(ObjBindMethod(implObj, "AddScript"), flags, 4)
+        this.vtbl.RemoveScript := CallbackCreate(ObjBindMethod(implObj, "RemoveScript"), flags, 2)
     }
 
     Dispose() {

@@ -21,7 +21,6 @@ export default struct PFN_CARD_CREATE_DIRECTORY {
     }
 
     /**
-     * 
      * @param {Pointer<CARD_DATA>} pCardData 
      * @param {PSTR} pszDirectoryName 
      * @param {CARD_DIRECTORY_ACCESS_CONDITION} AccessCondition 

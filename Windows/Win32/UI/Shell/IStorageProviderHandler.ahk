@@ -98,9 +98,9 @@ export default struct IStorageProviderHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPropertyHandlerFromPath := CallbackCreate(GetMethod(implObj, "GetPropertyHandlerFromPath"), flags, 3)
-        this.vtbl.GetPropertyHandlerFromUri := CallbackCreate(GetMethod(implObj, "GetPropertyHandlerFromUri"), flags, 3)
-        this.vtbl.GetPropertyHandlerFromFileId := CallbackCreate(GetMethod(implObj, "GetPropertyHandlerFromFileId"), flags, 3)
+        this.vtbl.GetPropertyHandlerFromPath := CallbackCreate(ObjBindMethod(implObj, "GetPropertyHandlerFromPath"), flags, 3)
+        this.vtbl.GetPropertyHandlerFromUri := CallbackCreate(ObjBindMethod(implObj, "GetPropertyHandlerFromUri"), flags, 3)
+        this.vtbl.GetPropertyHandlerFromFileId := CallbackCreate(ObjBindMethod(implObj, "GetPropertyHandlerFromFileId"), flags, 3)
     }
 
     Dispose() {

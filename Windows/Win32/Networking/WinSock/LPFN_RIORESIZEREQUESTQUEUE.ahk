@@ -35,7 +35,6 @@ export default struct LPFN_RIORESIZEREQUESTQUEUE {
     }
 
     /**
-     * 
      * @param {RIO_RQ} RQ A descriptor that identifies an existing registered I/O socket descriptor (request queue) to resize.
      * @param {Integer} MaxOutstandingReceive The maximum number of outstanding sends allowed on the socket. This value can be larger or smaller than the original number.
      * 

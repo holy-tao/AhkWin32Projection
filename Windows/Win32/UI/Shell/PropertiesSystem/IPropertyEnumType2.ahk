@@ -63,7 +63,7 @@ export default struct IPropertyEnumType2 extends IPropertyEnumType {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetImageReference := CallbackCreate(GetMethod(implObj, "GetImageReference"), flags, 2)
+        this.vtbl.GetImageReference := CallbackCreate(ObjBindMethod(implObj, "GetImageReference"), flags, 2)
     }
 
     Dispose() {

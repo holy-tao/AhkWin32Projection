@@ -82,7 +82,6 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetEventThread() {
@@ -91,7 +90,6 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetEventProcess() {
@@ -112,7 +110,6 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Id 
      * @returns {HRESULT} 
      */
@@ -134,7 +131,6 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Id 
      * @returns {HRESULT} 
      */
@@ -144,7 +140,6 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberThreads() {
@@ -153,21 +148,19 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} Total 
      * @param {Pointer<Integer>} LargestProcess 
      * @returns {HRESULT} 
      */
     GetTotalNumberThreads(Total, LargestProcess) {
-        TotalMarshal := Total is VarRef ? "uint*" : "ptr"
-        LargestProcessMarshal := LargestProcess is VarRef ? "uint*" : "ptr"
+        TotalMarshal := Total is VarRef ? "uint*" : IntPtr
+        LargestProcessMarshal := LargestProcess is VarRef ? "uint*" : IntPtr
 
         result := ComCall(10, this, TotalMarshal, Total, LargestProcessMarshal, LargestProcess, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Start 
      * @param {Integer} Count 
      * @param {Pointer<Integer>} Ids 
@@ -175,15 +168,16 @@ export default struct IDebugSystemObjects4 extends IUnknown {
      * @returns {HRESULT} 
      */
     GetThreadIdsByIndex(Start, Count, Ids, SysIds) {
-        IdsMarshal := Ids is VarRef ? "uint*" : "ptr"
-        SysIdsMarshal := SysIds is VarRef ? "uint*" : "ptr"
+        IdsMarshal := Ids is VarRef ? "uint*" : IntPtr
+        IdsMarshal := Ids == 0 ? IntPtr : "uint*"
+        SysIdsMarshal := SysIds is VarRef ? "uint*" : IntPtr
+        SysIdsMarshal := SysIds == 0 ? IntPtr : "uint*"
 
         result := ComCall(11, this, UInt32, Start, UInt32, Count, IdsMarshal, Ids, SysIdsMarshal, SysIds, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Processor 
      * @returns {Integer} 
      */
@@ -193,7 +187,6 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentThreadDataOffset() {
@@ -202,7 +195,6 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @returns {Integer} 
      */
@@ -212,7 +204,6 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentThreadTeb() {
@@ -221,7 +212,6 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @returns {Integer} 
      */
@@ -231,7 +221,6 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentThreadSystemId() {
@@ -240,7 +229,6 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} SysId 
      * @returns {Integer} 
      */
@@ -250,7 +238,6 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentThreadHandle() {
@@ -259,7 +246,6 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Handle 
      * @returns {Integer} 
      */
@@ -269,7 +255,6 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberProcesses() {
@@ -278,7 +263,6 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Start 
      * @param {Integer} Count 
      * @param {Pointer<Integer>} Ids 
@@ -286,15 +270,16 @@ export default struct IDebugSystemObjects4 extends IUnknown {
      * @returns {HRESULT} 
      */
     GetProcessIdsByIndex(Start, Count, Ids, SysIds) {
-        IdsMarshal := Ids is VarRef ? "uint*" : "ptr"
-        SysIdsMarshal := SysIds is VarRef ? "uint*" : "ptr"
+        IdsMarshal := Ids is VarRef ? "uint*" : IntPtr
+        IdsMarshal := Ids == 0 ? IntPtr : "uint*"
+        SysIdsMarshal := SysIds is VarRef ? "uint*" : IntPtr
+        SysIdsMarshal := SysIds == 0 ? IntPtr : "uint*"
 
         result := ComCall(22, this, UInt32, Start, UInt32, Count, IdsMarshal, Ids, SysIdsMarshal, SysIds, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentProcessDataOffset() {
@@ -303,7 +288,6 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @returns {Integer} 
      */
@@ -313,7 +297,6 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentProcessPeb() {
@@ -322,7 +305,6 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @returns {Integer} 
      */
@@ -332,7 +314,6 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentProcessSystemId() {
@@ -341,7 +322,6 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} SysId 
      * @returns {Integer} 
      */
@@ -351,7 +331,6 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentProcessHandle() {
@@ -360,7 +339,6 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Handle 
      * @returns {Integer} 
      */
@@ -370,7 +348,6 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -378,12 +355,13 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     GetCurrentProcessExecutableName(_Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(31, this, "ptr", _Buffer, UInt32, BufferSize, "uint*", &ExeSize := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PSTR
+
+        result := ComCall(31, this, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &ExeSize := 0, "HRESULT")
         return ExeSize
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentProcessUpTime() {
@@ -392,7 +370,6 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetImplicitThreadDataOffset() {
@@ -401,7 +378,6 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @returns {HRESULT} 
      */
@@ -411,7 +387,6 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetImplicitProcessDataOffset() {
@@ -420,7 +395,6 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @returns {HRESULT} 
      */
@@ -430,7 +404,6 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetEventSystem() {
@@ -439,7 +412,6 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentSystemId() {
@@ -448,7 +420,6 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Id 
      * @returns {HRESULT} 
      */
@@ -458,7 +429,6 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetNumberSystems() {
@@ -467,7 +437,6 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Start 
      * @param {Integer} Count 
      * @returns {Integer} 
@@ -478,7 +447,6 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} TotalThreads 
      * @param {Pointer<Integer>} TotalProcesses 
      * @param {Pointer<Integer>} LargestProcessThreads 
@@ -487,18 +455,17 @@ export default struct IDebugSystemObjects4 extends IUnknown {
      * @returns {HRESULT} 
      */
     GetTotalNumberThreadsAndProcesses(TotalThreads, TotalProcesses, LargestProcessThreads, LargestSystemThreads, LargestSystemProcesses) {
-        TotalThreadsMarshal := TotalThreads is VarRef ? "uint*" : "ptr"
-        TotalProcessesMarshal := TotalProcesses is VarRef ? "uint*" : "ptr"
-        LargestProcessThreadsMarshal := LargestProcessThreads is VarRef ? "uint*" : "ptr"
-        LargestSystemThreadsMarshal := LargestSystemThreads is VarRef ? "uint*" : "ptr"
-        LargestSystemProcessesMarshal := LargestSystemProcesses is VarRef ? "uint*" : "ptr"
+        TotalThreadsMarshal := TotalThreads is VarRef ? "uint*" : IntPtr
+        TotalProcessesMarshal := TotalProcesses is VarRef ? "uint*" : IntPtr
+        LargestProcessThreadsMarshal := LargestProcessThreads is VarRef ? "uint*" : IntPtr
+        LargestSystemThreadsMarshal := LargestSystemThreads is VarRef ? "uint*" : IntPtr
+        LargestSystemProcessesMarshal := LargestSystemProcesses is VarRef ? "uint*" : IntPtr
 
         result := ComCall(42, this, TotalThreadsMarshal, TotalThreads, TotalProcessesMarshal, TotalProcesses, LargestProcessThreadsMarshal, LargestProcessThreads, LargestSystemThreadsMarshal, LargestSystemThreads, LargestSystemProcessesMarshal, LargestSystemProcesses, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentSystemServer() {
@@ -507,7 +474,6 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @returns {Integer} 
      */
@@ -517,7 +483,6 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -525,12 +490,13 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     GetCurrentSystemServerName(_Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(45, this, "ptr", _Buffer, UInt32, BufferSize, "uint*", &NameSize := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PSTR
+
+        result := ComCall(45, this, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &NameSize := 0, "HRESULT")
         return NameSize
     }
 
     /**
-     * 
      * @param {PWSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -538,12 +504,13 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     GetCurrentProcessExecutableNameWide(_Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(46, this, "ptr", _Buffer, UInt32, BufferSize, "uint*", &ExeSize := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PWSTR
+
+        result := ComCall(46, this, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &ExeSize := 0, "HRESULT")
         return ExeSize
     }
 
     /**
-     * 
      * @param {PWSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -551,7 +518,9 @@ export default struct IDebugSystemObjects4 extends IUnknown {
     GetCurrentSystemServerNameWide(_Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(47, this, "ptr", _Buffer, UInt32, BufferSize, "uint*", &NameSize := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PWSTR
+
+        result := ComCall(47, this, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &NameSize := 0, "HRESULT")
         return NameSize
     }
 
@@ -564,51 +533,51 @@ export default struct IDebugSystemObjects4 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetEventThread := CallbackCreate(GetMethod(implObj, "GetEventThread"), flags, 2)
-        this.vtbl.GetEventProcess := CallbackCreate(GetMethod(implObj, "GetEventProcess"), flags, 2)
-        this.vtbl.GetCurrentThreadId := CallbackCreate(GetMethod(implObj, "GetCurrentThreadId"), flags, 2)
-        this.vtbl.SetCurrentThreadId := CallbackCreate(GetMethod(implObj, "SetCurrentThreadId"), flags, 2)
-        this.vtbl.GetCurrentProcessId := CallbackCreate(GetMethod(implObj, "GetCurrentProcessId"), flags, 2)
-        this.vtbl.SetCurrentProcessId := CallbackCreate(GetMethod(implObj, "SetCurrentProcessId"), flags, 2)
-        this.vtbl.GetNumberThreads := CallbackCreate(GetMethod(implObj, "GetNumberThreads"), flags, 2)
-        this.vtbl.GetTotalNumberThreads := CallbackCreate(GetMethod(implObj, "GetTotalNumberThreads"), flags, 3)
-        this.vtbl.GetThreadIdsByIndex := CallbackCreate(GetMethod(implObj, "GetThreadIdsByIndex"), flags, 5)
-        this.vtbl.GetThreadIdByProcessor := CallbackCreate(GetMethod(implObj, "GetThreadIdByProcessor"), flags, 3)
-        this.vtbl.GetCurrentThreadDataOffset := CallbackCreate(GetMethod(implObj, "GetCurrentThreadDataOffset"), flags, 2)
-        this.vtbl.GetThreadIdByDataOffset := CallbackCreate(GetMethod(implObj, "GetThreadIdByDataOffset"), flags, 3)
-        this.vtbl.GetCurrentThreadTeb := CallbackCreate(GetMethod(implObj, "GetCurrentThreadTeb"), flags, 2)
-        this.vtbl.GetThreadIdByTeb := CallbackCreate(GetMethod(implObj, "GetThreadIdByTeb"), flags, 3)
-        this.vtbl.GetCurrentThreadSystemId := CallbackCreate(GetMethod(implObj, "GetCurrentThreadSystemId"), flags, 2)
-        this.vtbl.GetThreadIdBySystemId := CallbackCreate(GetMethod(implObj, "GetThreadIdBySystemId"), flags, 3)
-        this.vtbl.GetCurrentThreadHandle := CallbackCreate(GetMethod(implObj, "GetCurrentThreadHandle"), flags, 2)
-        this.vtbl.GetThreadIdByHandle := CallbackCreate(GetMethod(implObj, "GetThreadIdByHandle"), flags, 3)
-        this.vtbl.GetNumberProcesses := CallbackCreate(GetMethod(implObj, "GetNumberProcesses"), flags, 2)
-        this.vtbl.GetProcessIdsByIndex := CallbackCreate(GetMethod(implObj, "GetProcessIdsByIndex"), flags, 5)
-        this.vtbl.GetCurrentProcessDataOffset := CallbackCreate(GetMethod(implObj, "GetCurrentProcessDataOffset"), flags, 2)
-        this.vtbl.GetProcessIdByDataOffset := CallbackCreate(GetMethod(implObj, "GetProcessIdByDataOffset"), flags, 3)
-        this.vtbl.GetCurrentProcessPeb := CallbackCreate(GetMethod(implObj, "GetCurrentProcessPeb"), flags, 2)
-        this.vtbl.GetProcessIdByPeb := CallbackCreate(GetMethod(implObj, "GetProcessIdByPeb"), flags, 3)
-        this.vtbl.GetCurrentProcessSystemId := CallbackCreate(GetMethod(implObj, "GetCurrentProcessSystemId"), flags, 2)
-        this.vtbl.GetProcessIdBySystemId := CallbackCreate(GetMethod(implObj, "GetProcessIdBySystemId"), flags, 3)
-        this.vtbl.GetCurrentProcessHandle := CallbackCreate(GetMethod(implObj, "GetCurrentProcessHandle"), flags, 2)
-        this.vtbl.GetProcessIdByHandle := CallbackCreate(GetMethod(implObj, "GetProcessIdByHandle"), flags, 3)
-        this.vtbl.GetCurrentProcessExecutableName := CallbackCreate(GetMethod(implObj, "GetCurrentProcessExecutableName"), flags, 4)
-        this.vtbl.GetCurrentProcessUpTime := CallbackCreate(GetMethod(implObj, "GetCurrentProcessUpTime"), flags, 2)
-        this.vtbl.GetImplicitThreadDataOffset := CallbackCreate(GetMethod(implObj, "GetImplicitThreadDataOffset"), flags, 2)
-        this.vtbl.SetImplicitThreadDataOffset := CallbackCreate(GetMethod(implObj, "SetImplicitThreadDataOffset"), flags, 2)
-        this.vtbl.GetImplicitProcessDataOffset := CallbackCreate(GetMethod(implObj, "GetImplicitProcessDataOffset"), flags, 2)
-        this.vtbl.SetImplicitProcessDataOffset := CallbackCreate(GetMethod(implObj, "SetImplicitProcessDataOffset"), flags, 2)
-        this.vtbl.GetEventSystem := CallbackCreate(GetMethod(implObj, "GetEventSystem"), flags, 2)
-        this.vtbl.GetCurrentSystemId := CallbackCreate(GetMethod(implObj, "GetCurrentSystemId"), flags, 2)
-        this.vtbl.SetCurrentSystemId := CallbackCreate(GetMethod(implObj, "SetCurrentSystemId"), flags, 2)
-        this.vtbl.GetNumberSystems := CallbackCreate(GetMethod(implObj, "GetNumberSystems"), flags, 2)
-        this.vtbl.GetSystemIdsByIndex := CallbackCreate(GetMethod(implObj, "GetSystemIdsByIndex"), flags, 4)
-        this.vtbl.GetTotalNumberThreadsAndProcesses := CallbackCreate(GetMethod(implObj, "GetTotalNumberThreadsAndProcesses"), flags, 6)
-        this.vtbl.GetCurrentSystemServer := CallbackCreate(GetMethod(implObj, "GetCurrentSystemServer"), flags, 2)
-        this.vtbl.GetSystemByServer := CallbackCreate(GetMethod(implObj, "GetSystemByServer"), flags, 3)
-        this.vtbl.GetCurrentSystemServerName := CallbackCreate(GetMethod(implObj, "GetCurrentSystemServerName"), flags, 4)
-        this.vtbl.GetCurrentProcessExecutableNameWide := CallbackCreate(GetMethod(implObj, "GetCurrentProcessExecutableNameWide"), flags, 4)
-        this.vtbl.GetCurrentSystemServerNameWide := CallbackCreate(GetMethod(implObj, "GetCurrentSystemServerNameWide"), flags, 4)
+        this.vtbl.GetEventThread := CallbackCreate(ObjBindMethod(implObj, "GetEventThread"), flags, 2)
+        this.vtbl.GetEventProcess := CallbackCreate(ObjBindMethod(implObj, "GetEventProcess"), flags, 2)
+        this.vtbl.GetCurrentThreadId := CallbackCreate(ObjBindMethod(implObj, "GetCurrentThreadId"), flags, 2)
+        this.vtbl.SetCurrentThreadId := CallbackCreate(ObjBindMethod(implObj, "SetCurrentThreadId"), flags, 2)
+        this.vtbl.GetCurrentProcessId := CallbackCreate(ObjBindMethod(implObj, "GetCurrentProcessId"), flags, 2)
+        this.vtbl.SetCurrentProcessId := CallbackCreate(ObjBindMethod(implObj, "SetCurrentProcessId"), flags, 2)
+        this.vtbl.GetNumberThreads := CallbackCreate(ObjBindMethod(implObj, "GetNumberThreads"), flags, 2)
+        this.vtbl.GetTotalNumberThreads := CallbackCreate(ObjBindMethod(implObj, "GetTotalNumberThreads"), flags, 3)
+        this.vtbl.GetThreadIdsByIndex := CallbackCreate(ObjBindMethod(implObj, "GetThreadIdsByIndex"), flags, 5)
+        this.vtbl.GetThreadIdByProcessor := CallbackCreate(ObjBindMethod(implObj, "GetThreadIdByProcessor"), flags, 3)
+        this.vtbl.GetCurrentThreadDataOffset := CallbackCreate(ObjBindMethod(implObj, "GetCurrentThreadDataOffset"), flags, 2)
+        this.vtbl.GetThreadIdByDataOffset := CallbackCreate(ObjBindMethod(implObj, "GetThreadIdByDataOffset"), flags, 3)
+        this.vtbl.GetCurrentThreadTeb := CallbackCreate(ObjBindMethod(implObj, "GetCurrentThreadTeb"), flags, 2)
+        this.vtbl.GetThreadIdByTeb := CallbackCreate(ObjBindMethod(implObj, "GetThreadIdByTeb"), flags, 3)
+        this.vtbl.GetCurrentThreadSystemId := CallbackCreate(ObjBindMethod(implObj, "GetCurrentThreadSystemId"), flags, 2)
+        this.vtbl.GetThreadIdBySystemId := CallbackCreate(ObjBindMethod(implObj, "GetThreadIdBySystemId"), flags, 3)
+        this.vtbl.GetCurrentThreadHandle := CallbackCreate(ObjBindMethod(implObj, "GetCurrentThreadHandle"), flags, 2)
+        this.vtbl.GetThreadIdByHandle := CallbackCreate(ObjBindMethod(implObj, "GetThreadIdByHandle"), flags, 3)
+        this.vtbl.GetNumberProcesses := CallbackCreate(ObjBindMethod(implObj, "GetNumberProcesses"), flags, 2)
+        this.vtbl.GetProcessIdsByIndex := CallbackCreate(ObjBindMethod(implObj, "GetProcessIdsByIndex"), flags, 5)
+        this.vtbl.GetCurrentProcessDataOffset := CallbackCreate(ObjBindMethod(implObj, "GetCurrentProcessDataOffset"), flags, 2)
+        this.vtbl.GetProcessIdByDataOffset := CallbackCreate(ObjBindMethod(implObj, "GetProcessIdByDataOffset"), flags, 3)
+        this.vtbl.GetCurrentProcessPeb := CallbackCreate(ObjBindMethod(implObj, "GetCurrentProcessPeb"), flags, 2)
+        this.vtbl.GetProcessIdByPeb := CallbackCreate(ObjBindMethod(implObj, "GetProcessIdByPeb"), flags, 3)
+        this.vtbl.GetCurrentProcessSystemId := CallbackCreate(ObjBindMethod(implObj, "GetCurrentProcessSystemId"), flags, 2)
+        this.vtbl.GetProcessIdBySystemId := CallbackCreate(ObjBindMethod(implObj, "GetProcessIdBySystemId"), flags, 3)
+        this.vtbl.GetCurrentProcessHandle := CallbackCreate(ObjBindMethod(implObj, "GetCurrentProcessHandle"), flags, 2)
+        this.vtbl.GetProcessIdByHandle := CallbackCreate(ObjBindMethod(implObj, "GetProcessIdByHandle"), flags, 3)
+        this.vtbl.GetCurrentProcessExecutableName := CallbackCreate(ObjBindMethod(implObj, "GetCurrentProcessExecutableName"), flags, 4)
+        this.vtbl.GetCurrentProcessUpTime := CallbackCreate(ObjBindMethod(implObj, "GetCurrentProcessUpTime"), flags, 2)
+        this.vtbl.GetImplicitThreadDataOffset := CallbackCreate(ObjBindMethod(implObj, "GetImplicitThreadDataOffset"), flags, 2)
+        this.vtbl.SetImplicitThreadDataOffset := CallbackCreate(ObjBindMethod(implObj, "SetImplicitThreadDataOffset"), flags, 2)
+        this.vtbl.GetImplicitProcessDataOffset := CallbackCreate(ObjBindMethod(implObj, "GetImplicitProcessDataOffset"), flags, 2)
+        this.vtbl.SetImplicitProcessDataOffset := CallbackCreate(ObjBindMethod(implObj, "SetImplicitProcessDataOffset"), flags, 2)
+        this.vtbl.GetEventSystem := CallbackCreate(ObjBindMethod(implObj, "GetEventSystem"), flags, 2)
+        this.vtbl.GetCurrentSystemId := CallbackCreate(ObjBindMethod(implObj, "GetCurrentSystemId"), flags, 2)
+        this.vtbl.SetCurrentSystemId := CallbackCreate(ObjBindMethod(implObj, "SetCurrentSystemId"), flags, 2)
+        this.vtbl.GetNumberSystems := CallbackCreate(ObjBindMethod(implObj, "GetNumberSystems"), flags, 2)
+        this.vtbl.GetSystemIdsByIndex := CallbackCreate(ObjBindMethod(implObj, "GetSystemIdsByIndex"), flags, 4)
+        this.vtbl.GetTotalNumberThreadsAndProcesses := CallbackCreate(ObjBindMethod(implObj, "GetTotalNumberThreadsAndProcesses"), flags, 6)
+        this.vtbl.GetCurrentSystemServer := CallbackCreate(ObjBindMethod(implObj, "GetCurrentSystemServer"), flags, 2)
+        this.vtbl.GetSystemByServer := CallbackCreate(ObjBindMethod(implObj, "GetSystemByServer"), flags, 3)
+        this.vtbl.GetCurrentSystemServerName := CallbackCreate(ObjBindMethod(implObj, "GetCurrentSystemServerName"), flags, 4)
+        this.vtbl.GetCurrentProcessExecutableNameWide := CallbackCreate(ObjBindMethod(implObj, "GetCurrentProcessExecutableNameWide"), flags, 4)
+        this.vtbl.GetCurrentSystemServerNameWide := CallbackCreate(ObjBindMethod(implObj, "GetCurrentSystemServerNameWide"), flags, 4)
     }
 
     Dispose() {

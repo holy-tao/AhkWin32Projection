@@ -53,8 +53,8 @@ export default struct ID2D1GdiMetafile1 extends ID2D1GdiMetafile {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1gdimetafile1-getdpi
      */
     GetDpi(dpiX, dpiY) {
-        dpiXMarshal := dpiX is VarRef ? "float*" : "ptr"
-        dpiYMarshal := dpiY is VarRef ? "float*" : "ptr"
+        dpiXMarshal := dpiX is VarRef ? "float*" : IntPtr
+        dpiYMarshal := dpiY is VarRef ? "float*" : IntPtr
 
         result := ComCall(6, this, dpiXMarshal, dpiX, dpiYMarshal, dpiY, "HRESULT")
         return result
@@ -82,8 +82,8 @@ export default struct ID2D1GdiMetafile1 extends ID2D1GdiMetafile {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDpi := CallbackCreate(GetMethod(implObj, "GetDpi"), flags, 3)
-        this.vtbl.GetSourceBounds := CallbackCreate(GetMethod(implObj, "GetSourceBounds"), flags, 2)
+        this.vtbl.GetDpi := CallbackCreate(ObjBindMethod(implObj, "GetDpi"), flags, 3)
+        this.vtbl.GetSourceBounds := CallbackCreate(ObjBindMethod(implObj, "GetSourceBounds"), flags, 2)
     }
 
     Dispose() {

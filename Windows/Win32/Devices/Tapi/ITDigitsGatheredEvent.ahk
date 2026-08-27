@@ -142,11 +142,11 @@ export default struct ITDigitsGatheredEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Call := CallbackCreate(GetMethod(implObj, "get_Call"), flags, 2)
-        this.vtbl.get_Digits := CallbackCreate(GetMethod(implObj, "get_Digits"), flags, 2)
-        this.vtbl.get_GatherTermination := CallbackCreate(GetMethod(implObj, "get_GatherTermination"), flags, 2)
-        this.vtbl.get_TickCount := CallbackCreate(GetMethod(implObj, "get_TickCount"), flags, 2)
-        this.vtbl.get_CallbackInstance := CallbackCreate(GetMethod(implObj, "get_CallbackInstance"), flags, 2)
+        this.vtbl.get_Call := CallbackCreate(ObjBindMethod(implObj, "get_Call"), flags, 2)
+        this.vtbl.get_Digits := CallbackCreate(ObjBindMethod(implObj, "get_Digits"), flags, 2)
+        this.vtbl.get_GatherTermination := CallbackCreate(ObjBindMethod(implObj, "get_GatherTermination"), flags, 2)
+        this.vtbl.get_TickCount := CallbackCreate(ObjBindMethod(implObj, "get_TickCount"), flags, 2)
+        this.vtbl.get_CallbackInstance := CallbackCreate(ObjBindMethod(implObj, "get_CallbackInstance"), flags, 2)
     }
 
     Dispose() {

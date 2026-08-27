@@ -524,12 +524,12 @@ export default struct IXpsOMVisualBrush extends IXpsOMTileBrush {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetVisual := CallbackCreate(GetMethod(implObj, "GetVisual"), flags, 2)
-        this.vtbl.GetVisualLocal := CallbackCreate(GetMethod(implObj, "GetVisualLocal"), flags, 2)
-        this.vtbl.SetVisualLocal := CallbackCreate(GetMethod(implObj, "SetVisualLocal"), flags, 2)
-        this.vtbl.GetVisualLookup := CallbackCreate(GetMethod(implObj, "GetVisualLookup"), flags, 2)
-        this.vtbl.SetVisualLookup := CallbackCreate(GetMethod(implObj, "SetVisualLookup"), flags, 2)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.GetVisual := CallbackCreate(ObjBindMethod(implObj, "GetVisual"), flags, 2)
+        this.vtbl.GetVisualLocal := CallbackCreate(ObjBindMethod(implObj, "GetVisualLocal"), flags, 2)
+        this.vtbl.SetVisualLocal := CallbackCreate(ObjBindMethod(implObj, "SetVisualLocal"), flags, 2)
+        this.vtbl.GetVisualLookup := CallbackCreate(ObjBindMethod(implObj, "GetVisualLookup"), flags, 2)
+        this.vtbl.SetVisualLookup := CallbackCreate(ObjBindMethod(implObj, "SetVisualLookup"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
     }
 
     Dispose() {

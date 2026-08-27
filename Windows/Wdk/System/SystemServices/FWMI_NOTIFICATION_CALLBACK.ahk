@@ -18,14 +18,13 @@ export default struct FWMI_NOTIFICATION_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Wnode 
      * @param {Pointer<Void>} _Context 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(Wnode, _Context) {
-        WnodeMarshal := Wnode is VarRef ? "ptr" : "ptr"
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        WnodeMarshal := Wnode is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, WnodeMarshal, Wnode, _ContextMarshal, _Context)
     }

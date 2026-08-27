@@ -21,7 +21,6 @@ export default struct PFLUSH_ADAPTER_BUFFERS {
     }
 
     /**
-     * 
      * @param {Pointer<DMA_ADAPTER>} DmaAdapter 
      * @param {Pointer<MDL>} _Mdl 
      * @param {Pointer<Void>} MapRegisterBase 
@@ -31,8 +30,8 @@ export default struct PFLUSH_ADAPTER_BUFFERS {
      * @returns {BOOLEAN} 
      */
     Call(DmaAdapter, _Mdl, MapRegisterBase, CurrentVa, Length, WriteToDevice) {
-        MapRegisterBaseMarshal := MapRegisterBase is VarRef ? "ptr" : "ptr"
-        CurrentVaMarshal := CurrentVa is VarRef ? "ptr" : "ptr"
+        MapRegisterBaseMarshal := MapRegisterBase is VarRef ? "ptr" : IntPtr
+        CurrentVaMarshal := CurrentVa is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, MDL.Ptr, _Mdl, MapRegisterBaseMarshal, MapRegisterBase, CurrentVaMarshal, CurrentVa, UInt32, Length, BOOLEAN, WriteToDevice, BOOLEAN)
         return result

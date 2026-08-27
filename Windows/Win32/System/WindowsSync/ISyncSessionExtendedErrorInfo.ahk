@@ -59,7 +59,7 @@ export default struct ISyncSessionExtendedErrorInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSyncProviderWithError := CallbackCreate(GetMethod(implObj, "GetSyncProviderWithError"), flags, 2)
+        this.vtbl.GetSyncProviderWithError := CallbackCreate(ObjBindMethod(implObj, "GetSyncProviderWithError"), flags, 2)
     }
 
     Dispose() {

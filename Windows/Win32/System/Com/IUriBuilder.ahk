@@ -61,7 +61,6 @@ export default struct IUriBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwAllowEncodingPropertyMask 
      * @param {Pointer} dwReserved 
      * @returns {IUri} 
@@ -72,7 +71,6 @@ export default struct IUriBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwCreateFlags 
      * @param {Integer} dwAllowEncodingPropertyMask 
      * @param {Pointer} dwReserved 
@@ -84,7 +82,6 @@ export default struct IUriBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwCreateFlags 
      * @param {Integer} dwUriBuilderFlags 
      * @param {Integer} dwAllowEncodingPropertyMask 
@@ -97,7 +94,6 @@ export default struct IUriBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IUri} 
      */
     GetIUri() {
@@ -106,52 +102,50 @@ export default struct IUriBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUri} pIUri 
      * @returns {HRESULT} 
      */
     SetIUri(pIUri) {
-        result := ComCall(7, this, "ptr", pIUri, "HRESULT")
+        pIUriMarshal := pIUri == 0 ? IntPtr : "ptr"
+
+        result := ComCall(7, this, pIUriMarshal, pIUri, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcchFragment 
      * @param {Pointer<PWSTR>} ppwzFragment 
      * @returns {HRESULT} 
      */
     GetFragment(pcchFragment, ppwzFragment) {
-        pcchFragmentMarshal := pcchFragment is VarRef ? "uint*" : "ptr"
-        ppwzFragmentMarshal := ppwzFragment is VarRef ? "ptr*" : "ptr"
+        pcchFragmentMarshal := pcchFragment is VarRef ? "uint*" : IntPtr
+        ppwzFragmentMarshal := ppwzFragment is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(8, this, pcchFragmentMarshal, pcchFragment, ppwzFragmentMarshal, ppwzFragment, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcchHost 
      * @param {Pointer<PWSTR>} ppwzHost 
      * @returns {HRESULT} 
      */
     GetHost(pcchHost, ppwzHost) {
-        pcchHostMarshal := pcchHost is VarRef ? "uint*" : "ptr"
-        ppwzHostMarshal := ppwzHost is VarRef ? "ptr*" : "ptr"
+        pcchHostMarshal := pcchHost is VarRef ? "uint*" : IntPtr
+        ppwzHostMarshal := ppwzHost is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(9, this, pcchHostMarshal, pcchHost, ppwzHostMarshal, ppwzHost, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcchPassword 
      * @param {Pointer<PWSTR>} ppwzPassword 
      * @returns {HRESULT} 
      */
     GetPassword(pcchPassword, ppwzPassword) {
-        pcchPasswordMarshal := pcchPassword is VarRef ? "uint*" : "ptr"
-        ppwzPasswordMarshal := ppwzPassword is VarRef ? "ptr*" : "ptr"
+        pcchPasswordMarshal := pcchPassword is VarRef ? "uint*" : IntPtr
+        ppwzPasswordMarshal := ppwzPassword is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(10, this, pcchPasswordMarshal, pcchPassword, ppwzPasswordMarshal, ppwzPassword, "HRESULT")
         return result
@@ -171,50 +165,47 @@ export default struct IUriBuilder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getpath
      */
     GetPath(pcchPath, ppwzPath) {
-        pcchPathMarshal := pcchPath is VarRef ? "uint*" : "ptr"
-        ppwzPathMarshal := ppwzPath is VarRef ? "ptr*" : "ptr"
+        pcchPathMarshal := pcchPath is VarRef ? "uint*" : IntPtr
+        ppwzPathMarshal := ppwzPath is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(11, this, pcchPathMarshal, pcchPath, ppwzPathMarshal, ppwzPath, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<BOOL>} pfHasPort 
      * @param {Pointer<Integer>} pdwPort 
      * @returns {HRESULT} 
      */
     GetPort(pfHasPort, pdwPort) {
-        pfHasPortMarshal := pfHasPort is VarRef ? "int*" : "ptr"
-        pdwPortMarshal := pdwPort is VarRef ? "uint*" : "ptr"
+        pfHasPortMarshal := pfHasPort is VarRef ? "int*" : IntPtr
+        pdwPortMarshal := pdwPort is VarRef ? "uint*" : IntPtr
 
         result := ComCall(12, this, pfHasPortMarshal, pfHasPort, pdwPortMarshal, pdwPort, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcchQuery 
      * @param {Pointer<PWSTR>} ppwzQuery 
      * @returns {HRESULT} 
      */
     GetQuery(pcchQuery, ppwzQuery) {
-        pcchQueryMarshal := pcchQuery is VarRef ? "uint*" : "ptr"
-        ppwzQueryMarshal := ppwzQuery is VarRef ? "ptr*" : "ptr"
+        pcchQueryMarshal := pcchQuery is VarRef ? "uint*" : IntPtr
+        ppwzQueryMarshal := ppwzQuery is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(13, this, pcchQueryMarshal, pcchQuery, ppwzQueryMarshal, ppwzQuery, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcchSchemeName 
      * @param {Pointer<PWSTR>} ppwzSchemeName 
      * @returns {HRESULT} 
      */
     GetSchemeName(pcchSchemeName, ppwzSchemeName) {
-        pcchSchemeNameMarshal := pcchSchemeName is VarRef ? "uint*" : "ptr"
-        ppwzSchemeNameMarshal := ppwzSchemeName is VarRef ? "ptr*" : "ptr"
+        pcchSchemeNameMarshal := pcchSchemeName is VarRef ? "uint*" : IntPtr
+        ppwzSchemeNameMarshal := ppwzSchemeName is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(14, this, pcchSchemeNameMarshal, pcchSchemeName, ppwzSchemeNameMarshal, ppwzSchemeName, "HRESULT")
         return result
@@ -236,27 +227,27 @@ export default struct IUriBuilder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getusernamew
      */
     GetUserName(pcchUserName, ppwzUserName) {
-        pcchUserNameMarshal := pcchUserName is VarRef ? "uint*" : "ptr"
-        ppwzUserNameMarshal := ppwzUserName is VarRef ? "ptr*" : "ptr"
+        pcchUserNameMarshal := pcchUserName is VarRef ? "uint*" : IntPtr
+        ppwzUserNameMarshal := ppwzUserName is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(15, this, pcchUserNameMarshal, pcchUserName, ppwzUserNameMarshal, ppwzUserName, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwzNewValue 
      * @returns {HRESULT} 
      */
     SetFragment(pwzNewValue) {
         pwzNewValue := pwzNewValue is String ? StrPtr(pwzNewValue) : pwzNewValue
 
-        result := ComCall(16, this, "ptr", pwzNewValue, "HRESULT")
+        pwzNewValueMarshal := pwzNewValue == 0 ? IntPtr : PWSTR
+
+        result := ComCall(16, this, pwzNewValueMarshal, pwzNewValue, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwzNewValue 
      * @returns {HRESULT} 
      */
@@ -268,26 +259,28 @@ export default struct IUriBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzNewValue 
      * @returns {HRESULT} 
      */
     SetPassword(pwzNewValue) {
         pwzNewValue := pwzNewValue is String ? StrPtr(pwzNewValue) : pwzNewValue
 
-        result := ComCall(18, this, "ptr", pwzNewValue, "HRESULT")
+        pwzNewValueMarshal := pwzNewValue == 0 ? IntPtr : PWSTR
+
+        result := ComCall(18, this, pwzNewValueMarshal, pwzNewValue, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwzNewValue 
      * @returns {HRESULT} 
      */
     SetPath(pwzNewValue) {
         pwzNewValue := pwzNewValue is String ? StrPtr(pwzNewValue) : pwzNewValue
 
-        result := ComCall(19, this, "ptr", pwzNewValue, "HRESULT")
+        pwzNewValueMarshal := pwzNewValue == 0 ? IntPtr : PWSTR
+
+        result := ComCall(19, this, pwzNewValueMarshal, pwzNewValue, "HRESULT")
         return result
     }
 
@@ -317,19 +310,19 @@ export default struct IUriBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzNewValue 
      * @returns {HRESULT} 
      */
     SetQuery(pwzNewValue) {
         pwzNewValue := pwzNewValue is String ? StrPtr(pwzNewValue) : pwzNewValue
 
-        result := ComCall(21, this, "ptr", pwzNewValue, "HRESULT")
+        pwzNewValueMarshal := pwzNewValue == 0 ? IntPtr : PWSTR
+
+        result := ComCall(21, this, pwzNewValueMarshal, pwzNewValue, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwzNewValue 
      * @returns {HRESULT} 
      */
@@ -341,19 +334,19 @@ export default struct IUriBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzNewValue 
      * @returns {HRESULT} 
      */
     SetUserName(pwzNewValue) {
         pwzNewValue := pwzNewValue is String ? StrPtr(pwzNewValue) : pwzNewValue
 
-        result := ComCall(23, this, "ptr", pwzNewValue, "HRESULT")
+        pwzNewValueMarshal := pwzNewValue == 0 ? IntPtr : PWSTR
+
+        result := ComCall(23, this, pwzNewValueMarshal, pwzNewValue, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwPropertyMask 
      * @returns {HRESULT} 
      */
@@ -363,7 +356,6 @@ export default struct IUriBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     HasBeenModified() {
@@ -380,29 +372,29 @@ export default struct IUriBuilder extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateUriSimple := CallbackCreate(GetMethod(implObj, "CreateUriSimple"), flags, 4)
-        this.vtbl.CreateUri := CallbackCreate(GetMethod(implObj, "CreateUri"), flags, 5)
-        this.vtbl.CreateUriWithFlags := CallbackCreate(GetMethod(implObj, "CreateUriWithFlags"), flags, 6)
-        this.vtbl.GetIUri := CallbackCreate(GetMethod(implObj, "GetIUri"), flags, 2)
-        this.vtbl.SetIUri := CallbackCreate(GetMethod(implObj, "SetIUri"), flags, 2)
-        this.vtbl.GetFragment := CallbackCreate(GetMethod(implObj, "GetFragment"), flags, 3)
-        this.vtbl.GetHost := CallbackCreate(GetMethod(implObj, "GetHost"), flags, 3)
-        this.vtbl.GetPassword := CallbackCreate(GetMethod(implObj, "GetPassword"), flags, 3)
-        this.vtbl.GetPath := CallbackCreate(GetMethod(implObj, "GetPath"), flags, 3)
-        this.vtbl.GetPort := CallbackCreate(GetMethod(implObj, "GetPort"), flags, 3)
-        this.vtbl.GetQuery := CallbackCreate(GetMethod(implObj, "GetQuery"), flags, 3)
-        this.vtbl.GetSchemeName := CallbackCreate(GetMethod(implObj, "GetSchemeName"), flags, 3)
-        this.vtbl.GetUserName := CallbackCreate(GetMethod(implObj, "GetUserName"), flags, 3)
-        this.vtbl.SetFragment := CallbackCreate(GetMethod(implObj, "SetFragment"), flags, 2)
-        this.vtbl.SetHost := CallbackCreate(GetMethod(implObj, "SetHost"), flags, 2)
-        this.vtbl.SetPassword := CallbackCreate(GetMethod(implObj, "SetPassword"), flags, 2)
-        this.vtbl.SetPath := CallbackCreate(GetMethod(implObj, "SetPath"), flags, 2)
-        this.vtbl.SetPort := CallbackCreate(GetMethod(implObj, "SetPort"), flags, 3)
-        this.vtbl.SetQuery := CallbackCreate(GetMethod(implObj, "SetQuery"), flags, 2)
-        this.vtbl.SetSchemeName := CallbackCreate(GetMethod(implObj, "SetSchemeName"), flags, 2)
-        this.vtbl.SetUserName := CallbackCreate(GetMethod(implObj, "SetUserName"), flags, 2)
-        this.vtbl.RemoveProperties := CallbackCreate(GetMethod(implObj, "RemoveProperties"), flags, 2)
-        this.vtbl.HasBeenModified := CallbackCreate(GetMethod(implObj, "HasBeenModified"), flags, 2)
+        this.vtbl.CreateUriSimple := CallbackCreate(ObjBindMethod(implObj, "CreateUriSimple"), flags, 4)
+        this.vtbl.CreateUri := CallbackCreate(ObjBindMethod(implObj, "CreateUri"), flags, 5)
+        this.vtbl.CreateUriWithFlags := CallbackCreate(ObjBindMethod(implObj, "CreateUriWithFlags"), flags, 6)
+        this.vtbl.GetIUri := CallbackCreate(ObjBindMethod(implObj, "GetIUri"), flags, 2)
+        this.vtbl.SetIUri := CallbackCreate(ObjBindMethod(implObj, "SetIUri"), flags, 2)
+        this.vtbl.GetFragment := CallbackCreate(ObjBindMethod(implObj, "GetFragment"), flags, 3)
+        this.vtbl.GetHost := CallbackCreate(ObjBindMethod(implObj, "GetHost"), flags, 3)
+        this.vtbl.GetPassword := CallbackCreate(ObjBindMethod(implObj, "GetPassword"), flags, 3)
+        this.vtbl.GetPath := CallbackCreate(ObjBindMethod(implObj, "GetPath"), flags, 3)
+        this.vtbl.GetPort := CallbackCreate(ObjBindMethod(implObj, "GetPort"), flags, 3)
+        this.vtbl.GetQuery := CallbackCreate(ObjBindMethod(implObj, "GetQuery"), flags, 3)
+        this.vtbl.GetSchemeName := CallbackCreate(ObjBindMethod(implObj, "GetSchemeName"), flags, 3)
+        this.vtbl.GetUserName := CallbackCreate(ObjBindMethod(implObj, "GetUserName"), flags, 3)
+        this.vtbl.SetFragment := CallbackCreate(ObjBindMethod(implObj, "SetFragment"), flags, 2)
+        this.vtbl.SetHost := CallbackCreate(ObjBindMethod(implObj, "SetHost"), flags, 2)
+        this.vtbl.SetPassword := CallbackCreate(ObjBindMethod(implObj, "SetPassword"), flags, 2)
+        this.vtbl.SetPath := CallbackCreate(ObjBindMethod(implObj, "SetPath"), flags, 2)
+        this.vtbl.SetPort := CallbackCreate(ObjBindMethod(implObj, "SetPort"), flags, 3)
+        this.vtbl.SetQuery := CallbackCreate(ObjBindMethod(implObj, "SetQuery"), flags, 2)
+        this.vtbl.SetSchemeName := CallbackCreate(ObjBindMethod(implObj, "SetSchemeName"), flags, 2)
+        this.vtbl.SetUserName := CallbackCreate(ObjBindMethod(implObj, "SetUserName"), flags, 2)
+        this.vtbl.RemoveProperties := CallbackCreate(ObjBindMethod(implObj, "RemoveProperties"), flags, 2)
+        this.vtbl.HasBeenModified := CallbackCreate(ObjBindMethod(implObj, "HasBeenModified"), flags, 2)
     }
 
     Dispose() {

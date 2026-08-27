@@ -90,8 +90,8 @@ export default struct IWSDUdpMessageParameters extends IWSDMessageParameters {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetRetransmitParams := CallbackCreate(GetMethod(implObj, "SetRetransmitParams"), flags, 2)
-        this.vtbl.GetRetransmitParams := CallbackCreate(GetMethod(implObj, "GetRetransmitParams"), flags, 2)
+        this.vtbl.SetRetransmitParams := CallbackCreate(ObjBindMethod(implObj, "SetRetransmitParams"), flags, 2)
+        this.vtbl.GetRetransmitParams := CallbackCreate(ObjBindMethod(implObj, "GetRetransmitParams"), flags, 2)
     }
 
     Dispose() {

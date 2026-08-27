@@ -135,11 +135,11 @@ export default struct IDiscFormat2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsRecorderSupported := CallbackCreate(GetMethod(implObj, "IsRecorderSupported"), flags, 3)
-        this.vtbl.IsCurrentMediaSupported := CallbackCreate(GetMethod(implObj, "IsCurrentMediaSupported"), flags, 3)
-        this.vtbl.get_MediaPhysicallyBlank := CallbackCreate(GetMethod(implObj, "get_MediaPhysicallyBlank"), flags, 2)
-        this.vtbl.get_MediaHeuristicallyBlank := CallbackCreate(GetMethod(implObj, "get_MediaHeuristicallyBlank"), flags, 2)
-        this.vtbl.get_SupportedMediaTypes := CallbackCreate(GetMethod(implObj, "get_SupportedMediaTypes"), flags, 2)
+        this.vtbl.IsRecorderSupported := CallbackCreate(ObjBindMethod(implObj, "IsRecorderSupported"), flags, 3)
+        this.vtbl.IsCurrentMediaSupported := CallbackCreate(ObjBindMethod(implObj, "IsCurrentMediaSupported"), flags, 3)
+        this.vtbl.get_MediaPhysicallyBlank := CallbackCreate(ObjBindMethod(implObj, "get_MediaPhysicallyBlank"), flags, 2)
+        this.vtbl.get_MediaHeuristicallyBlank := CallbackCreate(ObjBindMethod(implObj, "get_MediaHeuristicallyBlank"), flags, 2)
+        this.vtbl.get_SupportedMediaTypes := CallbackCreate(ObjBindMethod(implObj, "get_SupportedMediaTypes"), flags, 2)
     }
 
     Dispose() {

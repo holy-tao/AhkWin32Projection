@@ -210,7 +210,6 @@ export default struct IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -222,7 +221,6 @@ export default struct IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_background() {
@@ -232,7 +230,6 @@ export default struct IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -244,7 +241,6 @@ export default struct IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_bgProperties() {
@@ -254,7 +250,6 @@ export default struct IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -264,7 +259,6 @@ export default struct IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_leftMargin() {
@@ -274,7 +268,6 @@ export default struct IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -284,7 +277,6 @@ export default struct IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_topMargin() {
@@ -294,7 +286,6 @@ export default struct IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -304,7 +295,6 @@ export default struct IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_rightMargin() {
@@ -314,7 +304,6 @@ export default struct IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -324,7 +313,6 @@ export default struct IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_bottomMargin() {
@@ -334,7 +322,6 @@ export default struct IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -344,7 +331,6 @@ export default struct IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_noWrap() {
@@ -353,7 +339,6 @@ export default struct IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -363,7 +348,6 @@ export default struct IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_bgColor() {
@@ -373,7 +357,6 @@ export default struct IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -383,7 +366,6 @@ export default struct IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_text() {
@@ -393,7 +375,6 @@ export default struct IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -403,7 +384,6 @@ export default struct IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_link() {
@@ -413,7 +393,6 @@ export default struct IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -423,7 +402,6 @@ export default struct IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_vLink() {
@@ -433,7 +411,6 @@ export default struct IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -443,7 +420,6 @@ export default struct IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_aLink() {
@@ -453,7 +429,6 @@ export default struct IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -463,7 +438,6 @@ export default struct IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onload() {
@@ -473,7 +447,6 @@ export default struct IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -483,7 +456,6 @@ export default struct IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onunload() {
@@ -493,7 +465,6 @@ export default struct IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -505,7 +476,6 @@ export default struct IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_scroll() {
@@ -515,7 +485,6 @@ export default struct IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -525,7 +494,6 @@ export default struct IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onselect() {
@@ -535,7 +503,6 @@ export default struct IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -545,7 +512,6 @@ export default struct IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onbeforeunload() {
@@ -555,7 +521,6 @@ export default struct IHTMLBodyElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLTxtRange} 
      */
     createTextRange() {
@@ -572,41 +537,41 @@ export default struct IHTMLBodyElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_background := CallbackCreate(GetMethod(implObj, "put_background"), flags, 2)
-        this.vtbl.get_background := CallbackCreate(GetMethod(implObj, "get_background"), flags, 2)
-        this.vtbl.put_bgProperties := CallbackCreate(GetMethod(implObj, "put_bgProperties"), flags, 2)
-        this.vtbl.get_bgProperties := CallbackCreate(GetMethod(implObj, "get_bgProperties"), flags, 2)
-        this.vtbl.put_leftMargin := CallbackCreate(GetMethod(implObj, "put_leftMargin"), flags, 2)
-        this.vtbl.get_leftMargin := CallbackCreate(GetMethod(implObj, "get_leftMargin"), flags, 2)
-        this.vtbl.put_topMargin := CallbackCreate(GetMethod(implObj, "put_topMargin"), flags, 2)
-        this.vtbl.get_topMargin := CallbackCreate(GetMethod(implObj, "get_topMargin"), flags, 2)
-        this.vtbl.put_rightMargin := CallbackCreate(GetMethod(implObj, "put_rightMargin"), flags, 2)
-        this.vtbl.get_rightMargin := CallbackCreate(GetMethod(implObj, "get_rightMargin"), flags, 2)
-        this.vtbl.put_bottomMargin := CallbackCreate(GetMethod(implObj, "put_bottomMargin"), flags, 2)
-        this.vtbl.get_bottomMargin := CallbackCreate(GetMethod(implObj, "get_bottomMargin"), flags, 2)
-        this.vtbl.put_noWrap := CallbackCreate(GetMethod(implObj, "put_noWrap"), flags, 2)
-        this.vtbl.get_noWrap := CallbackCreate(GetMethod(implObj, "get_noWrap"), flags, 2)
-        this.vtbl.put_bgColor := CallbackCreate(GetMethod(implObj, "put_bgColor"), flags, 2)
-        this.vtbl.get_bgColor := CallbackCreate(GetMethod(implObj, "get_bgColor"), flags, 2)
-        this.vtbl.put_text := CallbackCreate(GetMethod(implObj, "put_text"), flags, 2)
-        this.vtbl.get_text := CallbackCreate(GetMethod(implObj, "get_text"), flags, 2)
-        this.vtbl.put_link := CallbackCreate(GetMethod(implObj, "put_link"), flags, 2)
-        this.vtbl.get_link := CallbackCreate(GetMethod(implObj, "get_link"), flags, 2)
-        this.vtbl.put_vLink := CallbackCreate(GetMethod(implObj, "put_vLink"), flags, 2)
-        this.vtbl.get_vLink := CallbackCreate(GetMethod(implObj, "get_vLink"), flags, 2)
-        this.vtbl.put_aLink := CallbackCreate(GetMethod(implObj, "put_aLink"), flags, 2)
-        this.vtbl.get_aLink := CallbackCreate(GetMethod(implObj, "get_aLink"), flags, 2)
-        this.vtbl.put_onload := CallbackCreate(GetMethod(implObj, "put_onload"), flags, 2)
-        this.vtbl.get_onload := CallbackCreate(GetMethod(implObj, "get_onload"), flags, 2)
-        this.vtbl.put_onunload := CallbackCreate(GetMethod(implObj, "put_onunload"), flags, 2)
-        this.vtbl.get_onunload := CallbackCreate(GetMethod(implObj, "get_onunload"), flags, 2)
-        this.vtbl.put_scroll := CallbackCreate(GetMethod(implObj, "put_scroll"), flags, 2)
-        this.vtbl.get_scroll := CallbackCreate(GetMethod(implObj, "get_scroll"), flags, 2)
-        this.vtbl.put_onselect := CallbackCreate(GetMethod(implObj, "put_onselect"), flags, 2)
-        this.vtbl.get_onselect := CallbackCreate(GetMethod(implObj, "get_onselect"), flags, 2)
-        this.vtbl.put_onbeforeunload := CallbackCreate(GetMethod(implObj, "put_onbeforeunload"), flags, 2)
-        this.vtbl.get_onbeforeunload := CallbackCreate(GetMethod(implObj, "get_onbeforeunload"), flags, 2)
-        this.vtbl.createTextRange := CallbackCreate(GetMethod(implObj, "createTextRange"), flags, 2)
+        this.vtbl.put_background := CallbackCreate(ObjBindMethod(implObj, "put_background"), flags, 2)
+        this.vtbl.get_background := CallbackCreate(ObjBindMethod(implObj, "get_background"), flags, 2)
+        this.vtbl.put_bgProperties := CallbackCreate(ObjBindMethod(implObj, "put_bgProperties"), flags, 2)
+        this.vtbl.get_bgProperties := CallbackCreate(ObjBindMethod(implObj, "get_bgProperties"), flags, 2)
+        this.vtbl.put_leftMargin := CallbackCreate(ObjBindMethod(implObj, "put_leftMargin"), flags, 2)
+        this.vtbl.get_leftMargin := CallbackCreate(ObjBindMethod(implObj, "get_leftMargin"), flags, 2)
+        this.vtbl.put_topMargin := CallbackCreate(ObjBindMethod(implObj, "put_topMargin"), flags, 2)
+        this.vtbl.get_topMargin := CallbackCreate(ObjBindMethod(implObj, "get_topMargin"), flags, 2)
+        this.vtbl.put_rightMargin := CallbackCreate(ObjBindMethod(implObj, "put_rightMargin"), flags, 2)
+        this.vtbl.get_rightMargin := CallbackCreate(ObjBindMethod(implObj, "get_rightMargin"), flags, 2)
+        this.vtbl.put_bottomMargin := CallbackCreate(ObjBindMethod(implObj, "put_bottomMargin"), flags, 2)
+        this.vtbl.get_bottomMargin := CallbackCreate(ObjBindMethod(implObj, "get_bottomMargin"), flags, 2)
+        this.vtbl.put_noWrap := CallbackCreate(ObjBindMethod(implObj, "put_noWrap"), flags, 2)
+        this.vtbl.get_noWrap := CallbackCreate(ObjBindMethod(implObj, "get_noWrap"), flags, 2)
+        this.vtbl.put_bgColor := CallbackCreate(ObjBindMethod(implObj, "put_bgColor"), flags, 2)
+        this.vtbl.get_bgColor := CallbackCreate(ObjBindMethod(implObj, "get_bgColor"), flags, 2)
+        this.vtbl.put_text := CallbackCreate(ObjBindMethod(implObj, "put_text"), flags, 2)
+        this.vtbl.get_text := CallbackCreate(ObjBindMethod(implObj, "get_text"), flags, 2)
+        this.vtbl.put_link := CallbackCreate(ObjBindMethod(implObj, "put_link"), flags, 2)
+        this.vtbl.get_link := CallbackCreate(ObjBindMethod(implObj, "get_link"), flags, 2)
+        this.vtbl.put_vLink := CallbackCreate(ObjBindMethod(implObj, "put_vLink"), flags, 2)
+        this.vtbl.get_vLink := CallbackCreate(ObjBindMethod(implObj, "get_vLink"), flags, 2)
+        this.vtbl.put_aLink := CallbackCreate(ObjBindMethod(implObj, "put_aLink"), flags, 2)
+        this.vtbl.get_aLink := CallbackCreate(ObjBindMethod(implObj, "get_aLink"), flags, 2)
+        this.vtbl.put_onload := CallbackCreate(ObjBindMethod(implObj, "put_onload"), flags, 2)
+        this.vtbl.get_onload := CallbackCreate(ObjBindMethod(implObj, "get_onload"), flags, 2)
+        this.vtbl.put_onunload := CallbackCreate(ObjBindMethod(implObj, "put_onunload"), flags, 2)
+        this.vtbl.get_onunload := CallbackCreate(ObjBindMethod(implObj, "get_onunload"), flags, 2)
+        this.vtbl.put_scroll := CallbackCreate(ObjBindMethod(implObj, "put_scroll"), flags, 2)
+        this.vtbl.get_scroll := CallbackCreate(ObjBindMethod(implObj, "get_scroll"), flags, 2)
+        this.vtbl.put_onselect := CallbackCreate(ObjBindMethod(implObj, "put_onselect"), flags, 2)
+        this.vtbl.get_onselect := CallbackCreate(ObjBindMethod(implObj, "get_onselect"), flags, 2)
+        this.vtbl.put_onbeforeunload := CallbackCreate(ObjBindMethod(implObj, "put_onbeforeunload"), flags, 2)
+        this.vtbl.get_onbeforeunload := CallbackCreate(ObjBindMethod(implObj, "get_onbeforeunload"), flags, 2)
+        this.vtbl.createTextRange := CallbackCreate(ObjBindMethod(implObj, "createTextRange"), flags, 2)
     }
 
     Dispose() {

@@ -37,7 +37,6 @@ export default struct IProtectFocus extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     AllowFocusChange() {
@@ -54,7 +53,7 @@ export default struct IProtectFocus extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AllowFocusChange := CallbackCreate(GetMethod(implObj, "AllowFocusChange"), flags, 2)
+        this.vtbl.AllowFocusChange := CallbackCreate(ObjBindMethod(implObj, "AllowFocusChange"), flags, 2)
     }
 
     Dispose() {

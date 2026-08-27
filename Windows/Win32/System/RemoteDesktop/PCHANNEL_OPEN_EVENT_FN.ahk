@@ -18,7 +18,6 @@ export default struct PCHANNEL_OPEN_EVENT_FN {
     }
 
     /**
-     * 
      * @param {Integer} openHandle 
      * @param {Integer} event 
      * @param {Pointer<Void>} pData 
@@ -28,7 +27,7 @@ export default struct PCHANNEL_OPEN_EVENT_FN {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(openHandle, event, pData, dataLength, totalLength, dataFlags) {
-        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+        pDataMarshal := pData is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, UInt32, openHandle, UInt32, event, pDataMarshal, pData, UInt32, dataLength, UInt32, totalLength, UInt32, dataFlags)
     }

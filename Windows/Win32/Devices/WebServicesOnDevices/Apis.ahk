@@ -134,7 +134,9 @@ export WSDCreateDiscoveryProvider(pContext) {
  * @since windows6.1
  */
 export WSDCreateDiscoveryProvider2(pContext, pConfigParams, dwConfigParamCount) {
-    result := DllCall("wsdapi.dll\WSDCreateDiscoveryProvider2", "ptr", pContext, WSD_CONFIG_PARAM.Ptr, pConfigParams, UInt32, dwConfigParamCount, "ptr*", &ppProvider := 0, "HRESULT")
+    pConfigParamsMarshal := pConfigParams == 0 ? IntPtr : WSD_CONFIG_PARAM.Ptr
+
+    result := DllCall("wsdapi.dll\WSDCreateDiscoveryProvider2", "ptr", pContext, pConfigParamsMarshal, pConfigParams, UInt32, dwConfigParamCount, "ptr*", &ppProvider := 0, "HRESULT")
     return IWSDiscoveryProvider(ppProvider)
 }
 
@@ -164,7 +166,9 @@ export WSDCreateDiscoveryPublisher(pContext) {
  * @since windows6.1
  */
 export WSDCreateDiscoveryPublisher2(pContext, pConfigParams, dwConfigParamCount) {
-    result := DllCall("wsdapi.dll\WSDCreateDiscoveryPublisher2", "ptr", pContext, WSD_CONFIG_PARAM.Ptr, pConfigParams, UInt32, dwConfigParamCount, "ptr*", &ppPublisher := 0, "HRESULT")
+    pConfigParamsMarshal := pConfigParams == 0 ? IntPtr : WSD_CONFIG_PARAM.Ptr
+
+    result := DllCall("wsdapi.dll\WSDCreateDiscoveryPublisher2", "ptr", pContext, pConfigParamsMarshal, pConfigParams, UInt32, dwConfigParamCount, "ptr*", &ppPublisher := 0, "HRESULT")
     return IWSDiscoveryPublisher(ppPublisher)
 }
 
@@ -258,7 +262,9 @@ export WSDCreateDeviceProxy2(pszDeviceId, pszLocalId, pContext, pConfigParams, d
     pszDeviceId := pszDeviceId is String ? StrPtr(pszDeviceId) : pszDeviceId
     pszLocalId := pszLocalId is String ? StrPtr(pszLocalId) : pszLocalId
 
-    result := DllCall("wsdapi.dll\WSDCreateDeviceProxy2", "ptr", pszDeviceId, "ptr", pszLocalId, "ptr", pContext, WSD_CONFIG_PARAM.Ptr, pConfigParams, UInt32, dwConfigParamCount, "ptr*", &ppDeviceProxy := 0, "HRESULT")
+    pConfigParamsMarshal := pConfigParams == 0 ? IntPtr : WSD_CONFIG_PARAM.Ptr
+
+    result := DllCall("wsdapi.dll\WSDCreateDeviceProxy2", "ptr", pszDeviceId, "ptr", pszLocalId, "ptr", pContext, pConfigParamsMarshal, pConfigParams, UInt32, dwConfigParamCount, "ptr*", &ppDeviceProxy := 0, "HRESULT")
     return IWSDDeviceProxy(ppDeviceProxy)
 }
 
@@ -355,7 +361,9 @@ export WSDCreateDeviceHost(pszLocalId, pContext) {
 export WSDCreateDeviceHostAdvanced(pszLocalId, pContext, ppHostAddresses, dwHostAddressCount) {
     pszLocalId := pszLocalId is String ? StrPtr(pszLocalId) : pszLocalId
 
-    result := DllCall("wsdapi.dll\WSDCreateDeviceHostAdvanced", "ptr", pszLocalId, "ptr", pContext, IWSDAddress.Ptr, ppHostAddresses, UInt32, dwHostAddressCount, "ptr*", &ppDeviceHost := 0, "HRESULT")
+    ppHostAddressesMarshal := ppHostAddresses == 0 ? IntPtr : IWSDAddress.Ptr
+
+    result := DllCall("wsdapi.dll\WSDCreateDeviceHostAdvanced", "ptr", pszLocalId, "ptr", pContext, ppHostAddressesMarshal, ppHostAddresses, UInt32, dwHostAddressCount, "ptr*", &ppDeviceHost := 0, "HRESULT")
     return IWSDDeviceHost(ppDeviceHost)
 }
 
@@ -401,7 +409,9 @@ export WSDCreateDeviceHostAdvanced(pszLocalId, pContext, ppHostAddresses, dwHost
 export WSDCreateDeviceHost2(pszLocalId, pContext, pConfigParams, dwConfigParamCount) {
     pszLocalId := pszLocalId is String ? StrPtr(pszLocalId) : pszLocalId
 
-    result := DllCall("wsdapi.dll\WSDCreateDeviceHost2", "ptr", pszLocalId, "ptr", pContext, WSD_CONFIG_PARAM.Ptr, pConfigParams, UInt32, dwConfigParamCount, "ptr*", &ppDeviceHost := 0, "HRESULT")
+    pConfigParamsMarshal := pConfigParams == 0 ? IntPtr : WSD_CONFIG_PARAM.Ptr
+
+    result := DllCall("wsdapi.dll\WSDCreateDeviceHost2", "ptr", pszLocalId, "ptr", pContext, pConfigParamsMarshal, pConfigParams, UInt32, dwConfigParamCount, "ptr*", &ppDeviceHost := 0, "HRESULT")
     return IWSDDeviceHost(ppDeviceHost)
 }
 
@@ -554,7 +564,7 @@ export WSDGetConfigurationOption(dwOption, pVoid, cbOutBuffer) {
  * @since windows6.0.6000
  */
 export WSDAllocateLinkedMemory(pParent, cbSize) {
-    pParentMarshal := pParent is VarRef ? "ptr" : "ptr"
+    pParentMarshal := pParent is VarRef ? "ptr" : IntPtr
 
     result := DllCall("wsdapi.dll\WSDAllocateLinkedMemory", pParentMarshal, pParent, IntPtr, cbSize, IntPtr)
     return result
@@ -570,7 +580,7 @@ export WSDAllocateLinkedMemory(pParent, cbSize) {
  * @since windows6.0.6000
  */
 export WSDFreeLinkedMemory(pVoid) {
-    pVoidMarshal := pVoid is VarRef ? "ptr" : "ptr"
+    pVoidMarshal := pVoid is VarRef ? "ptr" : IntPtr
 
     DllCall("wsdapi.dll\WSDFreeLinkedMemory", pVoidMarshal, pVoid)
 }
@@ -587,8 +597,8 @@ export WSDFreeLinkedMemory(pVoid) {
  * @since windows6.0.6000
  */
 export WSDAttachLinkedMemory(pParent, pChild) {
-    pParentMarshal := pParent is VarRef ? "ptr" : "ptr"
-    pChildMarshal := pChild is VarRef ? "ptr" : "ptr"
+    pParentMarshal := pParent is VarRef ? "ptr" : IntPtr
+    pChildMarshal := pChild is VarRef ? "ptr" : IntPtr
 
     DllCall("wsdapi.dll\WSDAttachLinkedMemory", pParentMarshal, pParent, pChildMarshal, pChild)
 }
@@ -603,7 +613,7 @@ export WSDAttachLinkedMemory(pParent, pChild) {
  * @since windows6.0.6000
  */
 export WSDDetachLinkedMemory(pVoid) {
-    pVoidMarshal := pVoid is VarRef ? "ptr" : "ptr"
+    pVoidMarshal := pVoid is VarRef ? "ptr" : IntPtr
 
     DllCall("wsdapi.dll\WSDDetachLinkedMemory", pVoidMarshal, pVoid)
 }
@@ -619,7 +629,9 @@ export WSDDetachLinkedMemory(pVoid) {
 export WSDXMLBuildAnyForSingleElement(pElementName, pszText) {
     pszText := pszText is String ? StrPtr(pszText) : pszText
 
-    result := DllCall("wsdapi.dll\WSDXMLBuildAnyForSingleElement", WSDXML_NAME.Ptr, pElementName, "ptr", pszText, "ptr*", &ppAny := 0, "HRESULT")
+    pszTextMarshal := pszText == 0 ? IntPtr : PWSTR
+
+    result := DllCall("wsdapi.dll\WSDXMLBuildAnyForSingleElement", WSDXML_NAME.Ptr, pElementName, pszTextMarshal, pszText, "ptr*", &ppAny := 0, "HRESULT")
     return ppAny
 }
 
@@ -801,7 +813,10 @@ export WSDGenerateFault(pszCode, pszSubCode, pszReason, pszDetail, pContext) {
     pszReason := pszReason is String ? StrPtr(pszReason) : pszReason
     pszDetail := pszDetail is String ? StrPtr(pszDetail) : pszDetail
 
-    result := DllCall("wsdapi.dll\WSDGenerateFault", "ptr", pszCode, "ptr", pszSubCode, "ptr", pszReason, "ptr", pszDetail, "ptr", pContext, "ptr*", &ppFault := 0, "HRESULT")
+    pszSubCodeMarshal := pszSubCode == 0 ? IntPtr : PWSTR
+    pszDetailMarshal := pszDetail == 0 ? IntPtr : PWSTR
+
+    result := DllCall("wsdapi.dll\WSDGenerateFault", "ptr", pszCode, pszSubCodeMarshal, pszSubCode, "ptr", pszReason, pszDetailMarshal, pszDetail, "ptr", pContext, "ptr*", &ppFault := 0, "HRESULT")
     return ppFault
 }
 
@@ -839,7 +854,10 @@ export WSDGenerateFault(pszCode, pszSubCode, pszReason, pszDetail, pContext) {
 export WSDGenerateFaultEx(pCode, pSubCode, pReasons, pszDetail) {
     pszDetail := pszDetail is String ? StrPtr(pszDetail) : pszDetail
 
-    result := DllCall("wsdapi.dll\WSDGenerateFaultEx", WSDXML_NAME.Ptr, pCode, WSDXML_NAME.Ptr, pSubCode, WSD_LOCALIZED_STRING_LIST.Ptr, pReasons, "ptr", pszDetail, "ptr*", &ppFault := 0, "HRESULT")
+    pSubCodeMarshal := pSubCode == 0 ? IntPtr : WSDXML_NAME.Ptr
+    pszDetailMarshal := pszDetail == 0 ? IntPtr : PWSTR
+
+    result := DllCall("wsdapi.dll\WSDGenerateFaultEx", WSDXML_NAME.Ptr, pCode, pSubCodeMarshal, pSubCode, WSD_LOCALIZED_STRING_LIST.Ptr, pReasons, pszDetailMarshal, pszDetail, "ptr*", &ppFault := 0, "HRESULT")
     return ppFault
 }
 
@@ -911,8 +929,9 @@ export WSDGenerateFaultEx(pCode, pSubCode, pReasons, pszDetail) {
 export WSDUriEncode(source, cchSource, destOut, cchDestOut) {
     source := source is String ? StrPtr(source) : source
 
-    destOutMarshal := destOut is VarRef ? "ptr*" : "ptr"
-    cchDestOutMarshal := cchDestOut is VarRef ? "uint*" : "ptr"
+    destOutMarshal := destOut is VarRef ? "ptr*" : IntPtr
+    cchDestOutMarshal := cchDestOut is VarRef ? "uint*" : IntPtr
+    cchDestOutMarshal := cchDestOut == 0 ? IntPtr : "uint*"
 
     result := DllCall("wsdapi.dll\WSDUriEncode", "ptr", source, UInt32, cchSource, destOutMarshal, destOut, cchDestOutMarshal, cchDestOut, "HRESULT")
     return result
@@ -984,8 +1003,9 @@ export WSDUriEncode(source, cchSource, destOut, cchDestOut) {
 export WSDUriDecode(source, cchSource, destOut, cchDestOut) {
     source := source is String ? StrPtr(source) : source
 
-    destOutMarshal := destOut is VarRef ? "ptr*" : "ptr"
-    cchDestOutMarshal := cchDestOut is VarRef ? "uint*" : "ptr"
+    destOutMarshal := destOut is VarRef ? "ptr*" : IntPtr
+    cchDestOutMarshal := cchDestOut is VarRef ? "uint*" : IntPtr
+    cchDestOutMarshal := cchDestOut == 0 ? IntPtr : "uint*"
 
     result := DllCall("wsdapi.dll\WSDUriDecode", "ptr", source, UInt32, cchSource, destOutMarshal, destOut, cchDestOutMarshal, cchDestOut, "HRESULT")
     return result

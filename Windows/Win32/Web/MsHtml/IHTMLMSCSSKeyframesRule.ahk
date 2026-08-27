@@ -65,7 +65,6 @@ export default struct IHTMLMSCSSKeyframesRule extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -77,7 +76,6 @@ export default struct IHTMLMSCSSKeyframesRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -87,7 +85,6 @@ export default struct IHTMLMSCSSKeyframesRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStyleSheetRulesCollection} 
      */
     get_cssRules() {
@@ -96,7 +93,6 @@ export default struct IHTMLMSCSSKeyframesRule extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrRule 
      * @returns {HRESULT} 
      */
@@ -108,7 +104,6 @@ export default struct IHTMLMSCSSKeyframesRule extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrKey 
      * @returns {HRESULT} 
      */
@@ -120,7 +115,6 @@ export default struct IHTMLMSCSSKeyframesRule extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrKey 
      * @returns {IHTMLMSCSSKeyframeRule} 
      */
@@ -140,12 +134,12 @@ export default struct IHTMLMSCSSKeyframesRule extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_name := CallbackCreate(GetMethod(implObj, "put_name"), flags, 2)
-        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
-        this.vtbl.get_cssRules := CallbackCreate(GetMethod(implObj, "get_cssRules"), flags, 2)
-        this.vtbl.appendRule := CallbackCreate(GetMethod(implObj, "appendRule"), flags, 2)
-        this.vtbl.deleteRule := CallbackCreate(GetMethod(implObj, "deleteRule"), flags, 2)
-        this.vtbl.findRule := CallbackCreate(GetMethod(implObj, "findRule"), flags, 3)
+        this.vtbl.put_name := CallbackCreate(ObjBindMethod(implObj, "put_name"), flags, 2)
+        this.vtbl.get_name := CallbackCreate(ObjBindMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.get_cssRules := CallbackCreate(ObjBindMethod(implObj, "get_cssRules"), flags, 2)
+        this.vtbl.appendRule := CallbackCreate(ObjBindMethod(implObj, "appendRule"), flags, 2)
+        this.vtbl.deleteRule := CallbackCreate(ObjBindMethod(implObj, "deleteRule"), flags, 2)
+        this.vtbl.findRule := CallbackCreate(ObjBindMethod(implObj, "findRule"), flags, 3)
     }
 
     Dispose() {

@@ -55,7 +55,6 @@ export default struct IDataModelScriptProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetExtension() {
@@ -65,7 +64,6 @@ export default struct IDataModelScriptProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDataModelScript} 
      */
     CreateScript() {
@@ -74,7 +72,6 @@ export default struct IDataModelScriptProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDataModelScriptTemplate} 
      */
     GetDefaultTemplateContent() {
@@ -83,7 +80,6 @@ export default struct IDataModelScriptProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDataModelScriptTemplateEnumerator} 
      */
     EnumerateTemplates() {
@@ -100,11 +96,11 @@ export default struct IDataModelScriptProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
-        this.vtbl.GetExtension := CallbackCreate(GetMethod(implObj, "GetExtension"), flags, 2)
-        this.vtbl.CreateScript := CallbackCreate(GetMethod(implObj, "CreateScript"), flags, 2)
-        this.vtbl.GetDefaultTemplateContent := CallbackCreate(GetMethod(implObj, "GetDefaultTemplateContent"), flags, 2)
-        this.vtbl.EnumerateTemplates := CallbackCreate(GetMethod(implObj, "EnumerateTemplates"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetExtension := CallbackCreate(ObjBindMethod(implObj, "GetExtension"), flags, 2)
+        this.vtbl.CreateScript := CallbackCreate(ObjBindMethod(implObj, "CreateScript"), flags, 2)
+        this.vtbl.GetDefaultTemplateContent := CallbackCreate(ObjBindMethod(implObj, "GetDefaultTemplateContent"), flags, 2)
+        this.vtbl.EnumerateTemplates := CallbackCreate(ObjBindMethod(implObj, "EnumerateTemplates"), flags, 2)
     }
 
     Dispose() {

@@ -114,7 +114,6 @@ export default struct ISClusResType extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_CommonProperties() {
@@ -123,7 +122,6 @@ export default struct ISClusResType extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_PrivateProperties() {
@@ -132,7 +130,6 @@ export default struct ISClusResType extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_CommonROProperties() {
@@ -141,7 +138,6 @@ export default struct ISClusResType extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_PrivateROProperties() {
@@ -150,7 +146,6 @@ export default struct ISClusResType extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -160,7 +155,6 @@ export default struct ISClusResType extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Delete() {
@@ -169,7 +163,6 @@ export default struct ISClusResType extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISCluster} 
      */
     get_Cluster() {
@@ -178,7 +171,6 @@ export default struct ISClusResType extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusResTypeResources} 
      */
     get_Resources() {
@@ -187,7 +179,6 @@ export default struct ISClusResType extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusResTypePossibleOwnerNodes} 
      */
     get_PossibleOwnerNodes() {
@@ -196,7 +187,6 @@ export default struct ISClusResType extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusDisks} 
      */
     get_AvailableDisks() {
@@ -213,16 +203,16 @@ export default struct ISClusResType extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_CommonProperties := CallbackCreate(GetMethod(implObj, "get_CommonProperties"), flags, 2)
-        this.vtbl.get_PrivateProperties := CallbackCreate(GetMethod(implObj, "get_PrivateProperties"), flags, 2)
-        this.vtbl.get_CommonROProperties := CallbackCreate(GetMethod(implObj, "get_CommonROProperties"), flags, 2)
-        this.vtbl.get_PrivateROProperties := CallbackCreate(GetMethod(implObj, "get_PrivateROProperties"), flags, 2)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
-        this.vtbl.get_Cluster := CallbackCreate(GetMethod(implObj, "get_Cluster"), flags, 2)
-        this.vtbl.get_Resources := CallbackCreate(GetMethod(implObj, "get_Resources"), flags, 2)
-        this.vtbl.get_PossibleOwnerNodes := CallbackCreate(GetMethod(implObj, "get_PossibleOwnerNodes"), flags, 2)
-        this.vtbl.get_AvailableDisks := CallbackCreate(GetMethod(implObj, "get_AvailableDisks"), flags, 2)
+        this.vtbl.get_CommonProperties := CallbackCreate(ObjBindMethod(implObj, "get_CommonProperties"), flags, 2)
+        this.vtbl.get_PrivateProperties := CallbackCreate(ObjBindMethod(implObj, "get_PrivateProperties"), flags, 2)
+        this.vtbl.get_CommonROProperties := CallbackCreate(ObjBindMethod(implObj, "get_CommonROProperties"), flags, 2)
+        this.vtbl.get_PrivateROProperties := CallbackCreate(ObjBindMethod(implObj, "get_PrivateROProperties"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.get_Cluster := CallbackCreate(ObjBindMethod(implObj, "get_Cluster"), flags, 2)
+        this.vtbl.get_Resources := CallbackCreate(ObjBindMethod(implObj, "get_Resources"), flags, 2)
+        this.vtbl.get_PossibleOwnerNodes := CallbackCreate(ObjBindMethod(implObj, "get_PossibleOwnerNodes"), flags, 2)
+        this.vtbl.get_AvailableDisks := CallbackCreate(ObjBindMethod(implObj, "get_AvailableDisks"), flags, 2)
     }
 
     Dispose() {

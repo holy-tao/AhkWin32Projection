@@ -128,8 +128,8 @@ export default struct IXpsOMColorProfileResource extends IXpsOMResource {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStream := CallbackCreate(GetMethod(implObj, "GetStream"), flags, 2)
-        this.vtbl.SetContent := CallbackCreate(GetMethod(implObj, "SetContent"), flags, 3)
+        this.vtbl.GetStream := CallbackCreate(ObjBindMethod(implObj, "GetStream"), flags, 2)
+        this.vtbl.SetContent := CallbackCreate(ObjBindMethod(implObj, "SetContent"), flags, 3)
     }
 
     Dispose() {

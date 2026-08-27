@@ -80,7 +80,9 @@ export default struct IMFCaptureSink2 extends IMFCaptureSink {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesink2-setoutputmediatype
      */
     SetOutputMediaType(dwStreamIndex, pMediaType, pEncodingAttributes) {
-        result := ComCall(8, this, UInt32, dwStreamIndex, "ptr", pMediaType, "ptr", pEncodingAttributes, "HRESULT")
+        pEncodingAttributesMarshal := pEncodingAttributes == 0 ? IntPtr : "ptr"
+
+        result := ComCall(8, this, UInt32, dwStreamIndex, "ptr", pMediaType, pEncodingAttributesMarshal, pEncodingAttributes, "HRESULT")
         return result
     }
 
@@ -93,7 +95,7 @@ export default struct IMFCaptureSink2 extends IMFCaptureSink {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetOutputMediaType := CallbackCreate(GetMethod(implObj, "SetOutputMediaType"), flags, 4)
+        this.vtbl.SetOutputMediaType := CallbackCreate(ObjBindMethod(implObj, "SetOutputMediaType"), flags, 4)
     }
 
     Dispose() {

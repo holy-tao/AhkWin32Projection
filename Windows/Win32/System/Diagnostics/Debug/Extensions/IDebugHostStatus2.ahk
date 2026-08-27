@@ -37,7 +37,6 @@ export default struct IDebugHostStatus2 extends IDebugHostStatus {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SetUserInterrupt() {
@@ -46,7 +45,6 @@ export default struct IDebugHostStatus2 extends IDebugHostStatus {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ClearUserInterrupt() {
@@ -63,8 +61,8 @@ export default struct IDebugHostStatus2 extends IDebugHostStatus {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetUserInterrupt := CallbackCreate(GetMethod(implObj, "SetUserInterrupt"), flags, 1)
-        this.vtbl.ClearUserInterrupt := CallbackCreate(GetMethod(implObj, "ClearUserInterrupt"), flags, 1)
+        this.vtbl.SetUserInterrupt := CallbackCreate(ObjBindMethod(implObj, "SetUserInterrupt"), flags, 1)
+        this.vtbl.ClearUserInterrupt := CallbackCreate(ObjBindMethod(implObj, "ClearUserInterrupt"), flags, 1)
     }
 
     Dispose() {

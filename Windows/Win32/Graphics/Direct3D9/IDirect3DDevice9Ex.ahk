@@ -134,8 +134,8 @@ export default struct IDirect3DDevice9Ex extends IDirect3DDevice9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9ex-setconvolutionmonokernel
      */
     SetConvolutionMonoKernel(width, height, rows, _columns) {
-        rowsMarshal := rows is VarRef ? "float*" : "ptr"
-        _columnsMarshal := _columns is VarRef ? "float*" : "ptr"
+        rowsMarshal := rows is VarRef ? "float*" : IntPtr
+        _columnsMarshal := _columns is VarRef ? "float*" : IntPtr
 
         result := ComCall(119, this, UInt32, width, UInt32, height, rowsMarshal, rows, _columnsMarshal, _columns, "HRESULT")
         return result
@@ -263,7 +263,7 @@ export default struct IDirect3DDevice9Ex extends IDirect3DDevice9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9ex-getgputhreadpriority
      */
     GetGPUThreadPriority(pPriority) {
-        pPriorityMarshal := pPriority is VarRef ? "int*" : "ptr"
+        pPriorityMarshal := pPriority is VarRef ? "int*" : IntPtr
 
         result := ComCall(122, this, pPriorityMarshal, pPriority, "HRESULT")
         return result
@@ -360,7 +360,7 @@ export default struct IDirect3DDevice9Ex extends IDirect3DDevice9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9ex-getmaximumframelatency
      */
     GetMaximumFrameLatency(pMaxLatency) {
-        pMaxLatencyMarshal := pMaxLatency is VarRef ? "uint*" : "ptr"
+        pMaxLatencyMarshal := pMaxLatency is VarRef ? "uint*" : IntPtr
 
         result := ComCall(127, this, pMaxLatencyMarshal, pMaxLatency, "HRESULT")
         return result
@@ -576,7 +576,7 @@ export default struct IDirect3DDevice9Ex extends IDirect3DDevice9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9ex-getdisplaymodeex
      */
     GetDisplayModeEx(iSwapChain, pMode, pRotation) {
-        pRotationMarshal := pRotation is VarRef ? "int*" : "ptr"
+        pRotationMarshal := pRotation is VarRef ? "int*" : IntPtr
 
         result := ComCall(133, this, UInt32, iSwapChain, D3DDISPLAYMODEEX.Ptr, pMode, pRotationMarshal, pRotation, "HRESULT")
         return result
@@ -591,21 +591,21 @@ export default struct IDirect3DDevice9Ex extends IDirect3DDevice9 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetConvolutionMonoKernel := CallbackCreate(GetMethod(implObj, "SetConvolutionMonoKernel"), flags, 5)
-        this.vtbl.ComposeRects := CallbackCreate(GetMethod(implObj, "ComposeRects"), flags, 9)
-        this.vtbl.PresentEx := CallbackCreate(GetMethod(implObj, "PresentEx"), flags, 6)
-        this.vtbl.GetGPUThreadPriority := CallbackCreate(GetMethod(implObj, "GetGPUThreadPriority"), flags, 2)
-        this.vtbl.SetGPUThreadPriority := CallbackCreate(GetMethod(implObj, "SetGPUThreadPriority"), flags, 2)
-        this.vtbl.WaitForVBlank := CallbackCreate(GetMethod(implObj, "WaitForVBlank"), flags, 2)
-        this.vtbl.CheckResourceResidency := CallbackCreate(GetMethod(implObj, "CheckResourceResidency"), flags, 3)
-        this.vtbl.SetMaximumFrameLatency := CallbackCreate(GetMethod(implObj, "SetMaximumFrameLatency"), flags, 2)
-        this.vtbl.GetMaximumFrameLatency := CallbackCreate(GetMethod(implObj, "GetMaximumFrameLatency"), flags, 2)
-        this.vtbl.CheckDeviceState := CallbackCreate(GetMethod(implObj, "CheckDeviceState"), flags, 2)
-        this.vtbl.CreateRenderTargetEx := CallbackCreate(GetMethod(implObj, "CreateRenderTargetEx"), flags, 10)
-        this.vtbl.CreateOffscreenPlainSurfaceEx := CallbackCreate(GetMethod(implObj, "CreateOffscreenPlainSurfaceEx"), flags, 8)
-        this.vtbl.CreateDepthStencilSurfaceEx := CallbackCreate(GetMethod(implObj, "CreateDepthStencilSurfaceEx"), flags, 10)
-        this.vtbl.ResetEx := CallbackCreate(GetMethod(implObj, "ResetEx"), flags, 3)
-        this.vtbl.GetDisplayModeEx := CallbackCreate(GetMethod(implObj, "GetDisplayModeEx"), flags, 4)
+        this.vtbl.SetConvolutionMonoKernel := CallbackCreate(ObjBindMethod(implObj, "SetConvolutionMonoKernel"), flags, 5)
+        this.vtbl.ComposeRects := CallbackCreate(ObjBindMethod(implObj, "ComposeRects"), flags, 9)
+        this.vtbl.PresentEx := CallbackCreate(ObjBindMethod(implObj, "PresentEx"), flags, 6)
+        this.vtbl.GetGPUThreadPriority := CallbackCreate(ObjBindMethod(implObj, "GetGPUThreadPriority"), flags, 2)
+        this.vtbl.SetGPUThreadPriority := CallbackCreate(ObjBindMethod(implObj, "SetGPUThreadPriority"), flags, 2)
+        this.vtbl.WaitForVBlank := CallbackCreate(ObjBindMethod(implObj, "WaitForVBlank"), flags, 2)
+        this.vtbl.CheckResourceResidency := CallbackCreate(ObjBindMethod(implObj, "CheckResourceResidency"), flags, 3)
+        this.vtbl.SetMaximumFrameLatency := CallbackCreate(ObjBindMethod(implObj, "SetMaximumFrameLatency"), flags, 2)
+        this.vtbl.GetMaximumFrameLatency := CallbackCreate(ObjBindMethod(implObj, "GetMaximumFrameLatency"), flags, 2)
+        this.vtbl.CheckDeviceState := CallbackCreate(ObjBindMethod(implObj, "CheckDeviceState"), flags, 2)
+        this.vtbl.CreateRenderTargetEx := CallbackCreate(ObjBindMethod(implObj, "CreateRenderTargetEx"), flags, 10)
+        this.vtbl.CreateOffscreenPlainSurfaceEx := CallbackCreate(ObjBindMethod(implObj, "CreateOffscreenPlainSurfaceEx"), flags, 8)
+        this.vtbl.CreateDepthStencilSurfaceEx := CallbackCreate(ObjBindMethod(implObj, "CreateDepthStencilSurfaceEx"), flags, 10)
+        this.vtbl.ResetEx := CallbackCreate(ObjBindMethod(implObj, "ResetEx"), flags, 3)
+        this.vtbl.GetDisplayModeEx := CallbackCreate(ObjBindMethod(implObj, "GetDisplayModeEx"), flags, 4)
     }
 
     Dispose() {

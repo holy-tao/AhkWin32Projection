@@ -39,42 +39,39 @@ export default struct IRowsetChange extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hReserved 
      * @param {Pointer} cRows 
      * @param {Pointer<Pointer>} rghRows 
      * @returns {Integer} 
      */
     DeleteRows(hReserved, cRows, rghRows) {
-        rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
+        rghRowsMarshal := rghRows is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, IntPtr, hReserved, IntPtr, cRows, rghRowsMarshal, rghRows, "uint*", &rgRowStatus := 0, "HRESULT")
         return rgRowStatus
     }
 
     /**
-     * 
      * @param {Pointer} hRow 
      * @param {HACCESSOR} _hAccessor 
      * @param {Pointer<Void>} pData 
      * @returns {HRESULT} 
      */
     SetData(hRow, _hAccessor, pData) {
-        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+        pDataMarshal := pData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(4, this, IntPtr, hRow, HACCESSOR, _hAccessor, pDataMarshal, pData, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} hReserved 
      * @param {HACCESSOR} _hAccessor 
      * @param {Pointer<Void>} pData 
      * @returns {Pointer} 
      */
     InsertRow(hReserved, _hAccessor, pData) {
-        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+        pDataMarshal := pData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(5, this, IntPtr, hReserved, HACCESSOR, _hAccessor, pDataMarshal, pData, "ptr*", &phRow := 0, "HRESULT")
         return phRow
@@ -89,9 +86,9 @@ export default struct IRowsetChange extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DeleteRows := CallbackCreate(GetMethod(implObj, "DeleteRows"), flags, 5)
-        this.vtbl.SetData := CallbackCreate(GetMethod(implObj, "SetData"), flags, 4)
-        this.vtbl.InsertRow := CallbackCreate(GetMethod(implObj, "InsertRow"), flags, 5)
+        this.vtbl.DeleteRows := CallbackCreate(ObjBindMethod(implObj, "DeleteRows"), flags, 5)
+        this.vtbl.SetData := CallbackCreate(ObjBindMethod(implObj, "SetData"), flags, 4)
+        this.vtbl.InsertRow := CallbackCreate(ObjBindMethod(implObj, "InsertRow"), flags, 5)
     }
 
     Dispose() {

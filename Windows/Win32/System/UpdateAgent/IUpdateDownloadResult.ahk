@@ -82,8 +82,8 @@ export default struct IUpdateDownloadResult extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_HResult := CallbackCreate(GetMethod(implObj, "get_HResult"), flags, 2)
-        this.vtbl.get_ResultCode := CallbackCreate(GetMethod(implObj, "get_ResultCode"), flags, 2)
+        this.vtbl.get_HResult := CallbackCreate(ObjBindMethod(implObj, "get_HResult"), flags, 2)
+        this.vtbl.get_ResultCode := CallbackCreate(ObjBindMethod(implObj, "get_ResultCode"), flags, 2)
     }
 
     Dispose() {

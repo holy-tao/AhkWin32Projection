@@ -66,8 +66,8 @@ export default struct IDWriteFontFileStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontfilestream-readfilefragment
      */
     ReadFileFragment(fragmentStart, fileOffset, fragmentSize, fragmentContext) {
-        fragmentStartMarshal := fragmentStart is VarRef ? "ptr*" : "ptr"
-        fragmentContextMarshal := fragmentContext is VarRef ? "ptr*" : "ptr"
+        fragmentStartMarshal := fragmentStart is VarRef ? "ptr*" : IntPtr
+        fragmentContextMarshal := fragmentContext is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, fragmentStartMarshal, fragmentStart, Int64, fileOffset, Int64, fragmentSize, fragmentContextMarshal, fragmentContext, "HRESULT")
         return result
@@ -82,7 +82,7 @@ export default struct IDWriteFontFileStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontfilestream-releasefilefragment
      */
     ReleaseFileFragment(fragmentContext) {
-        fragmentContextMarshal := fragmentContext is VarRef ? "ptr" : "ptr"
+        fragmentContextMarshal := fragmentContext is VarRef ? "ptr" : IntPtr
 
         ComCall(4, this, fragmentContextMarshal, fragmentContext)
     }
@@ -129,10 +129,10 @@ export default struct IDWriteFontFileStream extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ReadFileFragment := CallbackCreate(GetMethod(implObj, "ReadFileFragment"), flags, 5)
-        this.vtbl.ReleaseFileFragment := CallbackCreate(GetMethod(implObj, "ReleaseFileFragment"), flags, 2)
-        this.vtbl.GetFileSize := CallbackCreate(GetMethod(implObj, "GetFileSize"), flags, 2)
-        this.vtbl.GetLastWriteTime := CallbackCreate(GetMethod(implObj, "GetLastWriteTime"), flags, 2)
+        this.vtbl.ReadFileFragment := CallbackCreate(ObjBindMethod(implObj, "ReadFileFragment"), flags, 5)
+        this.vtbl.ReleaseFileFragment := CallbackCreate(ObjBindMethod(implObj, "ReleaseFileFragment"), flags, 2)
+        this.vtbl.GetFileSize := CallbackCreate(ObjBindMethod(implObj, "GetFileSize"), flags, 2)
+        this.vtbl.GetLastWriteTime := CallbackCreate(ObjBindMethod(implObj, "GetLastWriteTime"), flags, 2)
     }
 
     Dispose() {

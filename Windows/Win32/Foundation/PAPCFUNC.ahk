@@ -20,7 +20,6 @@ export default struct PAPCFUNC {
     }
 
     /**
-     * 
      * @param {Pointer} Parameter The data passed to the function using the <i>dwData</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-queueuserapc">QueueUserAPC</a> function.
      * @returns {String} Nothing - always returns an empty string
      */

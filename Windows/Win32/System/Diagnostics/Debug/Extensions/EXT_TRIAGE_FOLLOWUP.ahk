@@ -21,7 +21,6 @@ export default struct EXT_TRIAGE_FOLLOWUP {
     }
 
     /**
-     * 
      * @param {IDebugClient4} Client 
      * @param {PSTR} SymbolName 
      * @param {Pointer<DEBUG_TRIAGE_FOLLOWUP_INFO>} OwnerInfo 

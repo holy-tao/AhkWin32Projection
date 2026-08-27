@@ -18,13 +18,12 @@ export default struct PDEVICE_NOTIFY_CALLBACK2 {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} NotificationContext 
      * @param {Integer} NotifyCode 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(NotificationContext, NotifyCode) {
-        NotificationContextMarshal := NotificationContext is VarRef ? "ptr" : "ptr"
+        NotificationContextMarshal := NotificationContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, NotificationContextMarshal, NotificationContext, UInt32, NotifyCode)
     }

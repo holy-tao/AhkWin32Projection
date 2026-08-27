@@ -33,13 +33,12 @@ export default struct PDXVAHDSW_ProposeVideoPrivateFormat {
     }
 
     /**
-     * 
      * @param {HANDLE} hDevice A handle to the plug-in DXVA-HD device.
      * @param {Pointer<D3DFORMAT>} pFormat A pointer to a <b>D3DFORMAT</b> value. On input, specifies the surface format that is requested by the application. On output, specifies the private surface format that the plug-in device proposes.
      * @returns {HRESULT} If this callback function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      */
     Call(hDevice, pFormat) {
-        pFormatMarshal := pFormat is VarRef ? "uint*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HANDLE, hDevice, pFormatMarshal, pFormat, "HRESULT")
         return result

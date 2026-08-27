@@ -63,7 +63,6 @@ export default struct IGameInputDevice extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<GameInputDeviceInfo>} 
      */
     GetDeviceInfo() {
@@ -72,7 +71,6 @@ export default struct IGameInputDevice extends IUnknown {
     }
 
     /**
-     * 
      * @returns {GameInputDeviceStatus} 
      */
     GetDeviceStatus() {
@@ -81,7 +79,6 @@ export default struct IGameInputDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<GameInputBatteryState>} state 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -90,7 +87,6 @@ export default struct IGameInputDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} motorIndex 
      * @param {Pointer<GameInputForceFeedbackParams>} params 
      * @returns {IGameInputForceFeedbackEffect} 
@@ -101,7 +97,6 @@ export default struct IGameInputDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} motorIndex 
      * @returns {Boolean} 
      */
@@ -111,7 +106,6 @@ export default struct IGameInputDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} motorIndex 
      * @param {Float} masterGain 
      * @returns {String} Nothing - always returns an empty string
@@ -121,27 +115,28 @@ export default struct IGameInputDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} motorIndex 
      * @param {Pointer<GameInputHapticFeedbackParams>} params 
      * @returns {HRESULT} 
      */
     SetHapticMotorState(motorIndex, params) {
-        result := ComCall(9, this, UInt32, motorIndex, GameInputHapticFeedbackParams.Ptr, params, "HRESULT")
+        paramsMarshal := params == 0 ? IntPtr : GameInputHapticFeedbackParams.Ptr
+
+        result := ComCall(9, this, UInt32, motorIndex, paramsMarshal, params, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<GameInputRumbleParams>} params 
      * @returns {String} Nothing - always returns an empty string
      */
     SetRumbleState(params) {
-        ComCall(10, this, GameInputRumbleParams.Ptr, params)
+        paramsMarshal := params == 0 ? IntPtr : GameInputRumbleParams.Ptr
+
+        ComCall(10, this, paramsMarshal, params)
     }
 
     /**
-     * 
      * @param {Integer} enabled 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -150,7 +145,6 @@ export default struct IGameInputDevice extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     SendInputSynchronizationHint() {
@@ -158,7 +152,6 @@ export default struct IGameInputDevice extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     PowerOff() {
@@ -166,7 +159,6 @@ export default struct IGameInputDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} reportId 
      * @param {GameInputRawDeviceReportKind} reportKind 
      * @returns {IGameInputRawDeviceReport} 
@@ -177,7 +169,6 @@ export default struct IGameInputDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} reportId 
      * @returns {IGameInputRawDeviceReport} 
      */
@@ -187,7 +178,6 @@ export default struct IGameInputDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {IGameInputRawDeviceReport} report 
      * @returns {HRESULT} 
      */
@@ -197,7 +187,6 @@ export default struct IGameInputDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {IGameInputRawDeviceReport} report 
      * @returns {HRESULT} 
      */
@@ -207,7 +196,6 @@ export default struct IGameInputDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {IGameInputRawDeviceReport} requestReport 
      * @returns {IGameInputRawDeviceReport} 
      */
@@ -217,7 +205,6 @@ export default struct IGameInputDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} controlCode 
      * @param {Pointer} inputBufferSize 
      * @param {Integer} inputBuffer 
@@ -226,12 +213,14 @@ export default struct IGameInputDevice extends IUnknown {
      * @returns {Pointer} 
      */
     ExecuteRawDeviceIoControl(controlCode, inputBufferSize, inputBuffer, outputBufferSize, outputBuffer) {
-        result := ComCall(19, this, UInt32, controlCode, IntPtr, inputBufferSize, IntPtr, inputBuffer, IntPtr, outputBufferSize, IntPtr, outputBuffer, "ptr*", &outputSize := 0, "HRESULT")
+        inputBufferMarshal := inputBuffer == 0 ? IntPtr : IntPtr
+        outputBufferMarshal := outputBuffer == 0 ? IntPtr : IntPtr
+
+        result := ComCall(19, this, UInt32, controlCode, IntPtr, inputBufferSize, inputBufferMarshal, inputBuffer, IntPtr, outputBufferSize, outputBufferMarshal, outputBuffer, "ptr*", &outputSize := 0, "HRESULT")
         return outputSize
     }
 
     /**
-     * 
      * @param {Integer} timeoutInMicroseconds 
      * @returns {Boolean} 
      */
@@ -241,7 +230,6 @@ export default struct IGameInputDevice extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     ReleaseExclusiveRawDeviceAccess() {
@@ -257,25 +245,25 @@ export default struct IGameInputDevice extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDeviceInfo := CallbackCreate(GetMethod(implObj, "GetDeviceInfo"), flags, 1)
-        this.vtbl.GetDeviceStatus := CallbackCreate(GetMethod(implObj, "GetDeviceStatus"), flags, 1)
-        this.vtbl.GetBatteryState := CallbackCreate(GetMethod(implObj, "GetBatteryState"), flags, 2)
-        this.vtbl.CreateForceFeedbackEffect := CallbackCreate(GetMethod(implObj, "CreateForceFeedbackEffect"), flags, 4)
-        this.vtbl.IsForceFeedbackMotorPoweredOn := CallbackCreate(GetMethod(implObj, "IsForceFeedbackMotorPoweredOn"), flags, 2)
-        this.vtbl.SetForceFeedbackMotorGain := CallbackCreate(GetMethod(implObj, "SetForceFeedbackMotorGain"), flags, 3)
-        this.vtbl.SetHapticMotorState := CallbackCreate(GetMethod(implObj, "SetHapticMotorState"), flags, 3)
-        this.vtbl.SetRumbleState := CallbackCreate(GetMethod(implObj, "SetRumbleState"), flags, 2)
-        this.vtbl.SetInputSynchronizationState := CallbackCreate(GetMethod(implObj, "SetInputSynchronizationState"), flags, 2)
-        this.vtbl.SendInputSynchronizationHint := CallbackCreate(GetMethod(implObj, "SendInputSynchronizationHint"), flags, 1)
-        this.vtbl.PowerOff := CallbackCreate(GetMethod(implObj, "PowerOff"), flags, 1)
-        this.vtbl.CreateRawDeviceReport := CallbackCreate(GetMethod(implObj, "CreateRawDeviceReport"), flags, 4)
-        this.vtbl.GetRawDeviceFeature := CallbackCreate(GetMethod(implObj, "GetRawDeviceFeature"), flags, 3)
-        this.vtbl.SetRawDeviceFeature := CallbackCreate(GetMethod(implObj, "SetRawDeviceFeature"), flags, 2)
-        this.vtbl.SendRawDeviceOutput := CallbackCreate(GetMethod(implObj, "SendRawDeviceOutput"), flags, 2)
-        this.vtbl.SendRawDeviceOutputWithResponse := CallbackCreate(GetMethod(implObj, "SendRawDeviceOutputWithResponse"), flags, 3)
-        this.vtbl.ExecuteRawDeviceIoControl := CallbackCreate(GetMethod(implObj, "ExecuteRawDeviceIoControl"), flags, 7)
-        this.vtbl.AcquireExclusiveRawDeviceAccess := CallbackCreate(GetMethod(implObj, "AcquireExclusiveRawDeviceAccess"), flags, 2)
-        this.vtbl.ReleaseExclusiveRawDeviceAccess := CallbackCreate(GetMethod(implObj, "ReleaseExclusiveRawDeviceAccess"), flags, 1)
+        this.vtbl.GetDeviceInfo := CallbackCreate(ObjBindMethod(implObj, "GetDeviceInfo"), flags, 1)
+        this.vtbl.GetDeviceStatus := CallbackCreate(ObjBindMethod(implObj, "GetDeviceStatus"), flags, 1)
+        this.vtbl.GetBatteryState := CallbackCreate(ObjBindMethod(implObj, "GetBatteryState"), flags, 2)
+        this.vtbl.CreateForceFeedbackEffect := CallbackCreate(ObjBindMethod(implObj, "CreateForceFeedbackEffect"), flags, 4)
+        this.vtbl.IsForceFeedbackMotorPoweredOn := CallbackCreate(ObjBindMethod(implObj, "IsForceFeedbackMotorPoweredOn"), flags, 2)
+        this.vtbl.SetForceFeedbackMotorGain := CallbackCreate(ObjBindMethod(implObj, "SetForceFeedbackMotorGain"), flags, 3)
+        this.vtbl.SetHapticMotorState := CallbackCreate(ObjBindMethod(implObj, "SetHapticMotorState"), flags, 3)
+        this.vtbl.SetRumbleState := CallbackCreate(ObjBindMethod(implObj, "SetRumbleState"), flags, 2)
+        this.vtbl.SetInputSynchronizationState := CallbackCreate(ObjBindMethod(implObj, "SetInputSynchronizationState"), flags, 2)
+        this.vtbl.SendInputSynchronizationHint := CallbackCreate(ObjBindMethod(implObj, "SendInputSynchronizationHint"), flags, 1)
+        this.vtbl.PowerOff := CallbackCreate(ObjBindMethod(implObj, "PowerOff"), flags, 1)
+        this.vtbl.CreateRawDeviceReport := CallbackCreate(ObjBindMethod(implObj, "CreateRawDeviceReport"), flags, 4)
+        this.vtbl.GetRawDeviceFeature := CallbackCreate(ObjBindMethod(implObj, "GetRawDeviceFeature"), flags, 3)
+        this.vtbl.SetRawDeviceFeature := CallbackCreate(ObjBindMethod(implObj, "SetRawDeviceFeature"), flags, 2)
+        this.vtbl.SendRawDeviceOutput := CallbackCreate(ObjBindMethod(implObj, "SendRawDeviceOutput"), flags, 2)
+        this.vtbl.SendRawDeviceOutputWithResponse := CallbackCreate(ObjBindMethod(implObj, "SendRawDeviceOutputWithResponse"), flags, 3)
+        this.vtbl.ExecuteRawDeviceIoControl := CallbackCreate(ObjBindMethod(implObj, "ExecuteRawDeviceIoControl"), flags, 7)
+        this.vtbl.AcquireExclusiveRawDeviceAccess := CallbackCreate(ObjBindMethod(implObj, "AcquireExclusiveRawDeviceAccess"), flags, 2)
+        this.vtbl.ReleaseExclusiveRawDeviceAccess := CallbackCreate(ObjBindMethod(implObj, "ReleaseExclusiveRawDeviceAccess"), flags, 1)
     }
 
     Dispose() {

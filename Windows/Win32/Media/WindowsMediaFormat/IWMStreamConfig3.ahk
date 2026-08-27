@@ -49,7 +49,7 @@ export default struct IWMStreamConfig3 extends IWMStreamConfig2 {
     GetLanguage(pwszLanguageString, pcchLanguageStringLength) {
         pwszLanguageString := pwszLanguageString is String ? StrPtr(pwszLanguageString) : pwszLanguageString
 
-        pcchLanguageStringLengthMarshal := pcchLanguageStringLength is VarRef ? "ushort*" : "ptr"
+        pcchLanguageStringLengthMarshal := pcchLanguageStringLength is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(20, this, "ptr", pwszLanguageString, pcchLanguageStringLengthMarshal, pcchLanguageStringLength, "HRESULT")
         return result
@@ -81,8 +81,8 @@ export default struct IWMStreamConfig3 extends IWMStreamConfig2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLanguage := CallbackCreate(GetMethod(implObj, "GetLanguage"), flags, 3)
-        this.vtbl.SetLanguage := CallbackCreate(GetMethod(implObj, "SetLanguage"), flags, 2)
+        this.vtbl.GetLanguage := CallbackCreate(ObjBindMethod(implObj, "GetLanguage"), flags, 3)
+        this.vtbl.SetLanguage := CallbackCreate(ObjBindMethod(implObj, "SetLanguage"), flags, 2)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct PGET_DMA_ALIGNMENT {
     }
 
     /**
-     * 
      * @param {Pointer<DMA_ADAPTER>} DmaAdapter 
      * @returns {Integer} 
      */

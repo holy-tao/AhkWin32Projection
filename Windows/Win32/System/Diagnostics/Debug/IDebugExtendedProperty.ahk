@@ -39,7 +39,6 @@ export default struct IDebugExtendedProperty extends IDebugProperty {
     }
 
     /**
-     * 
      * @param {Integer} dwFieldSpec 
      * @param {Integer} nRadix 
      * @returns {ExtendedDebugPropertyInfo} 
@@ -51,7 +50,6 @@ export default struct IDebugExtendedProperty extends IDebugProperty {
     }
 
     /**
-     * 
      * @param {Integer} dwFieldSpec 
      * @param {Integer} nRadix 
      * @returns {IEnumDebugExtendedPropertyInfo} 
@@ -70,8 +68,8 @@ export default struct IDebugExtendedProperty extends IDebugProperty {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetExtendedPropertyInfo := CallbackCreate(GetMethod(implObj, "GetExtendedPropertyInfo"), flags, 4)
-        this.vtbl.EnumExtendedMembers := CallbackCreate(GetMethod(implObj, "EnumExtendedMembers"), flags, 4)
+        this.vtbl.GetExtendedPropertyInfo := CallbackCreate(ObjBindMethod(implObj, "GetExtendedPropertyInfo"), flags, 4)
+        this.vtbl.EnumExtendedMembers := CallbackCreate(ObjBindMethod(implObj, "EnumExtendedMembers"), flags, 4)
     }
 
     Dispose() {

@@ -153,7 +153,7 @@ export default struct IConditionGenerator extends IUnknown {
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
         pszValue2 := pszValue2 is String ? StrPtr(pszValue2) : pszValue2
 
-        pNoStringQueryMarshal := pNoStringQuery is VarRef ? "int*" : "ptr"
+        pNoStringQueryMarshal := pNoStringQuery is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, "ptr", pConditionFactory, "ptr", pszPropertyName, CONDITION_OPERATION, cop, "ptr", pszValueType, "ptr", pszValue, "ptr", pszValue2, "ptr", pPropertyNameTerm, "ptr", pOperationTerm, "ptr", pValueTerm, BOOL, automaticWildcard, pNoStringQueryMarshal, pNoStringQuery, "ptr*", &ppQueryExpression := 0, "HRESULT")
         return ICondition(ppQueryExpression)
@@ -191,10 +191,10 @@ export default struct IConditionGenerator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.RecognizeNamedEntities := CallbackCreate(GetMethod(implObj, "RecognizeNamedEntities"), flags, 5)
-        this.vtbl.GenerateForLeaf := CallbackCreate(GetMethod(implObj, "GenerateForLeaf"), flags, 13)
-        this.vtbl.DefaultPhrase := CallbackCreate(GetMethod(implObj, "DefaultPhrase"), flags, 5)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.RecognizeNamedEntities := CallbackCreate(ObjBindMethod(implObj, "RecognizeNamedEntities"), flags, 5)
+        this.vtbl.GenerateForLeaf := CallbackCreate(ObjBindMethod(implObj, "GenerateForLeaf"), flags, 13)
+        this.vtbl.DefaultPhrase := CallbackCreate(ObjBindMethod(implObj, "DefaultPhrase"), flags, 5)
     }
 
     Dispose() {

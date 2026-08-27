@@ -19,7 +19,6 @@ export default struct PSYMBOLSERVERMESSAGEPROC {
     }
 
     /**
-     * 
      * @param {Pointer} action 
      * @param {Integer} data 
      * @param {Integer} _context 

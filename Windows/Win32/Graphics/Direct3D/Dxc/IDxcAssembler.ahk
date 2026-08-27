@@ -38,7 +38,6 @@ export default struct IDxcAssembler extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDxcBlob} pShader 
      * @returns {IDxcOperationResult} 
      */
@@ -56,7 +55,7 @@ export default struct IDxcAssembler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AssembleToContainer := CallbackCreate(GetMethod(implObj, "AssembleToContainer"), flags, 3)
+        this.vtbl.AssembleToContainer := CallbackCreate(ObjBindMethod(implObj, "AssembleToContainer"), flags, 3)
     }
 
     Dispose() {

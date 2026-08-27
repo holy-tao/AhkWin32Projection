@@ -84,8 +84,8 @@ export default struct ICorProfilerInfo11 extends ICorProfilerInfo10 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetEnvironmentVariableA := CallbackCreate(GetMethod(implObj, "GetEnvironmentVariableA"), flags, 5)
-        this.vtbl.SetEnvironmentVariable := CallbackCreate(GetMethod(implObj, "SetEnvironmentVariable"), flags, 3)
+        this.vtbl.GetEnvironmentVariableA := CallbackCreate(ObjBindMethod(implObj, "GetEnvironmentVariableA"), flags, 5)
+        this.vtbl.SetEnvironmentVariable := CallbackCreate(ObjBindMethod(implObj, "SetEnvironmentVariable"), flags, 3)
     }
 
     Dispose() {

@@ -125,7 +125,7 @@ export default struct ISessionStateChangeTrigger extends ITrigger {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-isessionstatechangetrigger-get_statechange
      */
     get_StateChange(pType) {
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        pTypeMarshal := pType is VarRef ? "int*" : IntPtr
 
         result := ComCall(24, this, pTypeMarshal, pType, "HRESULT")
         return result
@@ -151,12 +151,12 @@ export default struct ISessionStateChangeTrigger extends ITrigger {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Delay := CallbackCreate(GetMethod(implObj, "get_Delay"), flags, 2)
-        this.vtbl.put_Delay := CallbackCreate(GetMethod(implObj, "put_Delay"), flags, 2)
-        this.vtbl.get_UserId := CallbackCreate(GetMethod(implObj, "get_UserId"), flags, 2)
-        this.vtbl.put_UserId := CallbackCreate(GetMethod(implObj, "put_UserId"), flags, 2)
-        this.vtbl.get_StateChange := CallbackCreate(GetMethod(implObj, "get_StateChange"), flags, 2)
-        this.vtbl.put_StateChange := CallbackCreate(GetMethod(implObj, "put_StateChange"), flags, 2)
+        this.vtbl.get_Delay := CallbackCreate(ObjBindMethod(implObj, "get_Delay"), flags, 2)
+        this.vtbl.put_Delay := CallbackCreate(ObjBindMethod(implObj, "put_Delay"), flags, 2)
+        this.vtbl.get_UserId := CallbackCreate(ObjBindMethod(implObj, "get_UserId"), flags, 2)
+        this.vtbl.put_UserId := CallbackCreate(ObjBindMethod(implObj, "put_UserId"), flags, 2)
+        this.vtbl.get_StateChange := CallbackCreate(ObjBindMethod(implObj, "get_StateChange"), flags, 2)
+        this.vtbl.put_StateChange := CallbackCreate(ObjBindMethod(implObj, "put_StateChange"), flags, 2)
     }
 
     Dispose() {

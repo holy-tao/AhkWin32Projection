@@ -22,7 +22,6 @@ export default struct SslExtractMasterKeyFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_KEY_HANDLE} hHandshakeKey 
      * @param {Pointer<BCryptBufferDesc>} pParameterList 
@@ -30,8 +29,10 @@ export default struct SslExtractMasterKeyFn {
      * @returns {NCRYPT_KEY_HANDLE} 
      */
     Call(hSslProvider, hHandshakeKey, pParameterList, dwFlags) {
+        pParameterListMarshal := pParameterList == 0 ? IntPtr : BCryptBufferDesc.Ptr
+
         phMasterKey := NCRYPT_KEY_HANDLE.Owned()
-        result := DllCall(this.value, NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hHandshakeKey, NCRYPT_KEY_HANDLE.Ptr, phMasterKey, BCryptBufferDesc.Ptr, pParameterList, UInt32, dwFlags, "HRESULT")
+        result := DllCall(this.value, NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hHandshakeKey, NCRYPT_KEY_HANDLE.Ptr, phMasterKey, pParameterListMarshal, pParameterList, UInt32, dwFlags, "HRESULT")
         return phMasterKey
     }
 

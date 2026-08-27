@@ -238,11 +238,11 @@ export default struct IDot11AdHocManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateNetwork := CallbackCreate(GetMethod(implObj, "CreateNetwork"), flags, 8)
-        this.vtbl.CommitCreatedNetwork := CallbackCreate(GetMethod(implObj, "CommitCreatedNetwork"), flags, 4)
-        this.vtbl.GetIEnumDot11AdHocNetworks := CallbackCreate(GetMethod(implObj, "GetIEnumDot11AdHocNetworks"), flags, 3)
-        this.vtbl.GetIEnumDot11AdHocInterfaces := CallbackCreate(GetMethod(implObj, "GetIEnumDot11AdHocInterfaces"), flags, 2)
-        this.vtbl.GetNetwork := CallbackCreate(GetMethod(implObj, "GetNetwork"), flags, 3)
+        this.vtbl.CreateNetwork := CallbackCreate(ObjBindMethod(implObj, "CreateNetwork"), flags, 8)
+        this.vtbl.CommitCreatedNetwork := CallbackCreate(ObjBindMethod(implObj, "CommitCreatedNetwork"), flags, 4)
+        this.vtbl.GetIEnumDot11AdHocNetworks := CallbackCreate(ObjBindMethod(implObj, "GetIEnumDot11AdHocNetworks"), flags, 3)
+        this.vtbl.GetIEnumDot11AdHocInterfaces := CallbackCreate(ObjBindMethod(implObj, "GetIEnumDot11AdHocInterfaces"), flags, 2)
+        this.vtbl.GetNetwork := CallbackCreate(ObjBindMethod(implObj, "GetNetwork"), flags, 3)
     }
 
     Dispose() {

@@ -335,9 +335,9 @@ export default struct IMFASFIndexer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-getindexstatus
      */
     GetIndexStatus(pIndexIdentifier, pfIsIndexed, pbIndexDescriptor, pcbIndexDescriptor) {
-        pfIsIndexedMarshal := pfIsIndexed is VarRef ? "int*" : "ptr"
-        pbIndexDescriptorMarshal := pbIndexDescriptor is VarRef ? "char*" : "ptr"
-        pcbIndexDescriptorMarshal := pcbIndexDescriptor is VarRef ? "uint*" : "ptr"
+        pfIsIndexedMarshal := pfIsIndexed is VarRef ? "int*" : IntPtr
+        pbIndexDescriptorMarshal := pbIndexDescriptor is VarRef ? "char*" : IntPtr
+        pcbIndexDescriptorMarshal := pcbIndexDescriptor is VarRef ? "uint*" : IntPtr
 
         result := ComCall(9, this, ASF_INDEX_IDENTIFIER.Ptr, pIndexIdentifier, pfIsIndexedMarshal, pfIsIndexed, pbIndexDescriptorMarshal, pbIndexDescriptor, pcbIndexDescriptorMarshal, pcbIndexDescriptor, "HRESULT")
         return result
@@ -387,7 +387,7 @@ export default struct IMFASFIndexer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-setindexstatus
      */
     SetIndexStatus(pbIndexDescriptor, cbIndexDescriptor, fGenerateIndex) {
-        pbIndexDescriptorMarshal := pbIndexDescriptor is VarRef ? "char*" : "ptr"
+        pbIndexDescriptorMarshal := pbIndexDescriptor is VarRef ? "char*" : IntPtr
 
         result := ComCall(10, this, pbIndexDescriptorMarshal, pbIndexDescriptor, UInt32, cbIndexDescriptor, BOOL, fGenerateIndex, "HRESULT")
         return result
@@ -415,8 +415,8 @@ export default struct IMFASFIndexer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-getseekpositionforvalue
      */
     GetSeekPositionForValue(pvarValue, pIndexIdentifier, phnsApproxTime, pdwPayloadNumberOfStreamWithinPacket) {
-        phnsApproxTimeMarshal := phnsApproxTime is VarRef ? "int64*" : "ptr"
-        pdwPayloadNumberOfStreamWithinPacketMarshal := pdwPayloadNumberOfStreamWithinPacket is VarRef ? "uint*" : "ptr"
+        phnsApproxTimeMarshal := phnsApproxTime is VarRef ? "int64*" : IntPtr
+        pdwPayloadNumberOfStreamWithinPacketMarshal := pdwPayloadNumberOfStreamWithinPacket is VarRef ? "uint*" : IntPtr
 
         result := ComCall(11, this, PROPVARIANT.Ptr, pvarValue, ASF_INDEX_IDENTIFIER.Ptr, pIndexIdentifier, "uint*", &pcbOffsetWithinData := 0, phnsApproxTimeMarshal, phnsApproxTime, pdwPayloadNumberOfStreamWithinPacketMarshal, pdwPayloadNumberOfStreamWithinPacket, "HRESULT")
         return pcbOffsetWithinData
@@ -608,19 +608,19 @@ export default struct IMFASFIndexer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetFlags := CallbackCreate(GetMethod(implObj, "SetFlags"), flags, 2)
-        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.GetIndexPosition := CallbackCreate(GetMethod(implObj, "GetIndexPosition"), flags, 3)
-        this.vtbl.SetIndexByteStreams := CallbackCreate(GetMethod(implObj, "SetIndexByteStreams"), flags, 3)
-        this.vtbl.GetIndexByteStreamCount := CallbackCreate(GetMethod(implObj, "GetIndexByteStreamCount"), flags, 2)
-        this.vtbl.GetIndexStatus := CallbackCreate(GetMethod(implObj, "GetIndexStatus"), flags, 5)
-        this.vtbl.SetIndexStatus := CallbackCreate(GetMethod(implObj, "SetIndexStatus"), flags, 4)
-        this.vtbl.GetSeekPositionForValue := CallbackCreate(GetMethod(implObj, "GetSeekPositionForValue"), flags, 6)
-        this.vtbl.GenerateIndexEntries := CallbackCreate(GetMethod(implObj, "GenerateIndexEntries"), flags, 2)
-        this.vtbl.CommitIndex := CallbackCreate(GetMethod(implObj, "CommitIndex"), flags, 2)
-        this.vtbl.GetIndexWriteSpace := CallbackCreate(GetMethod(implObj, "GetIndexWriteSpace"), flags, 2)
-        this.vtbl.GetCompletedIndex := CallbackCreate(GetMethod(implObj, "GetCompletedIndex"), flags, 3)
+        this.vtbl.SetFlags := CallbackCreate(ObjBindMethod(implObj, "SetFlags"), flags, 2)
+        this.vtbl.GetFlags := CallbackCreate(ObjBindMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.GetIndexPosition := CallbackCreate(ObjBindMethod(implObj, "GetIndexPosition"), flags, 3)
+        this.vtbl.SetIndexByteStreams := CallbackCreate(ObjBindMethod(implObj, "SetIndexByteStreams"), flags, 3)
+        this.vtbl.GetIndexByteStreamCount := CallbackCreate(ObjBindMethod(implObj, "GetIndexByteStreamCount"), flags, 2)
+        this.vtbl.GetIndexStatus := CallbackCreate(ObjBindMethod(implObj, "GetIndexStatus"), flags, 5)
+        this.vtbl.SetIndexStatus := CallbackCreate(ObjBindMethod(implObj, "SetIndexStatus"), flags, 4)
+        this.vtbl.GetSeekPositionForValue := CallbackCreate(ObjBindMethod(implObj, "GetSeekPositionForValue"), flags, 6)
+        this.vtbl.GenerateIndexEntries := CallbackCreate(ObjBindMethod(implObj, "GenerateIndexEntries"), flags, 2)
+        this.vtbl.CommitIndex := CallbackCreate(ObjBindMethod(implObj, "CommitIndex"), flags, 2)
+        this.vtbl.GetIndexWriteSpace := CallbackCreate(ObjBindMethod(implObj, "GetIndexWriteSpace"), flags, 2)
+        this.vtbl.GetCompletedIndex := CallbackCreate(ObjBindMethod(implObj, "GetCompletedIndex"), flags, 3)
     }
 
     Dispose() {

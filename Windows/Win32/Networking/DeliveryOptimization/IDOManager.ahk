@@ -77,8 +77,8 @@ export default struct IDOManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateDownload := CallbackCreate(GetMethod(implObj, "CreateDownload"), flags, 2)
-        this.vtbl.EnumDownloads := CallbackCreate(GetMethod(implObj, "EnumDownloads"), flags, 3)
+        this.vtbl.CreateDownload := CallbackCreate(ObjBindMethod(implObj, "CreateDownload"), flags, 2)
+        this.vtbl.EnumDownloads := CallbackCreate(ObjBindMethod(implObj, "EnumDownloads"), flags, 3)
     }
 
     Dispose() {

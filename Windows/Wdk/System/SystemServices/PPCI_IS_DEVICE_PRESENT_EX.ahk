@@ -19,7 +19,6 @@ export default struct PPCI_IS_DEVICE_PRESENT_EX {
     }
 
     /**
-     * 
      * @returns {BOOLEAN} 
      */
     Call() {

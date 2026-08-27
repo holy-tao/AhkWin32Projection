@@ -486,8 +486,10 @@ export default struct IAttachmentExecute extends IUnknown {
     Execute(_hwnd, pszVerb) {
         pszVerb := pszVerb is String ? StrPtr(pszVerb) : pszVerb
 
+        pszVerbMarshal := pszVerb == 0 ? IntPtr : PWSTR
+
         phProcess := HANDLE.Owned()
-        result := ComCall(12, this, HWND, _hwnd, "ptr", pszVerb, HANDLE.Ptr, phProcess, "HRESULT")
+        result := ComCall(12, this, HWND, _hwnd, pszVerbMarshal, pszVerb, HANDLE.Ptr, phProcess, "HRESULT")
         return phProcess
     }
 
@@ -537,18 +539,18 @@ export default struct IAttachmentExecute extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetClientTitle := CallbackCreate(GetMethod(implObj, "SetClientTitle"), flags, 2)
-        this.vtbl.SetClientGuid := CallbackCreate(GetMethod(implObj, "SetClientGuid"), flags, 2)
-        this.vtbl.SetLocalPath := CallbackCreate(GetMethod(implObj, "SetLocalPath"), flags, 2)
-        this.vtbl.SetFileName := CallbackCreate(GetMethod(implObj, "SetFileName"), flags, 2)
-        this.vtbl.SetSource := CallbackCreate(GetMethod(implObj, "SetSource"), flags, 2)
-        this.vtbl.SetReferrer := CallbackCreate(GetMethod(implObj, "SetReferrer"), flags, 2)
-        this.vtbl.CheckPolicy := CallbackCreate(GetMethod(implObj, "CheckPolicy"), flags, 1)
-        this.vtbl.Prompt := CallbackCreate(GetMethod(implObj, "Prompt"), flags, 4)
-        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 1)
-        this.vtbl.Execute := CallbackCreate(GetMethod(implObj, "Execute"), flags, 4)
-        this.vtbl.SaveWithUI := CallbackCreate(GetMethod(implObj, "SaveWithUI"), flags, 2)
-        this.vtbl.ClearClientState := CallbackCreate(GetMethod(implObj, "ClearClientState"), flags, 1)
+        this.vtbl.SetClientTitle := CallbackCreate(ObjBindMethod(implObj, "SetClientTitle"), flags, 2)
+        this.vtbl.SetClientGuid := CallbackCreate(ObjBindMethod(implObj, "SetClientGuid"), flags, 2)
+        this.vtbl.SetLocalPath := CallbackCreate(ObjBindMethod(implObj, "SetLocalPath"), flags, 2)
+        this.vtbl.SetFileName := CallbackCreate(ObjBindMethod(implObj, "SetFileName"), flags, 2)
+        this.vtbl.SetSource := CallbackCreate(ObjBindMethod(implObj, "SetSource"), flags, 2)
+        this.vtbl.SetReferrer := CallbackCreate(ObjBindMethod(implObj, "SetReferrer"), flags, 2)
+        this.vtbl.CheckPolicy := CallbackCreate(ObjBindMethod(implObj, "CheckPolicy"), flags, 1)
+        this.vtbl.Prompt := CallbackCreate(ObjBindMethod(implObj, "Prompt"), flags, 4)
+        this.vtbl.Save := CallbackCreate(ObjBindMethod(implObj, "Save"), flags, 1)
+        this.vtbl.Execute := CallbackCreate(ObjBindMethod(implObj, "Execute"), flags, 4)
+        this.vtbl.SaveWithUI := CallbackCreate(ObjBindMethod(implObj, "SaveWithUI"), flags, 2)
+        this.vtbl.ClearClientState := CallbackCreate(ObjBindMethod(implObj, "ClearClientState"), flags, 1)
     }
 
     Dispose() {

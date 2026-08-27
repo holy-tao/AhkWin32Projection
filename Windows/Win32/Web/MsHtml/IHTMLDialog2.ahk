@@ -56,7 +56,6 @@ export default struct IHTMLDialog2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -68,7 +67,6 @@ export default struct IHTMLDialog2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_status() {
@@ -78,7 +76,6 @@ export default struct IHTMLDialog2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -90,7 +87,6 @@ export default struct IHTMLDialog2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_resizable() {
@@ -108,10 +104,10 @@ export default struct IHTMLDialog2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_status := CallbackCreate(GetMethod(implObj, "put_status"), flags, 2)
-        this.vtbl.get_status := CallbackCreate(GetMethod(implObj, "get_status"), flags, 2)
-        this.vtbl.put_resizable := CallbackCreate(GetMethod(implObj, "put_resizable"), flags, 2)
-        this.vtbl.get_resizable := CallbackCreate(GetMethod(implObj, "get_resizable"), flags, 2)
+        this.vtbl.put_status := CallbackCreate(ObjBindMethod(implObj, "put_status"), flags, 2)
+        this.vtbl.get_status := CallbackCreate(ObjBindMethod(implObj, "get_status"), flags, 2)
+        this.vtbl.put_resizable := CallbackCreate(ObjBindMethod(implObj, "put_resizable"), flags, 2)
+        this.vtbl.get_resizable := CallbackCreate(ObjBindMethod(implObj, "get_resizable"), flags, 2)
     }
 
     Dispose() {

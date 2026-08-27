@@ -21,7 +21,6 @@ export default struct PIBIO_FRAMEWORK_RELEASE_SECURE_BUFFER_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline 
      * @param {Guid} SecureBufferIdentifier 
      * @returns {HRESULT} 

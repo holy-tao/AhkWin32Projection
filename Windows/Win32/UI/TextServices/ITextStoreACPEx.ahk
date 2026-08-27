@@ -37,7 +37,6 @@ export default struct ITextStoreACPEx extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} acpStart 
      * @param {Integer} acpEnd 
      * @param {RECT} rc 
@@ -58,7 +57,7 @@ export default struct ITextStoreACPEx extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ScrollToRect := CallbackCreate(GetMethod(implObj, "ScrollToRect"), flags, 5)
+        this.vtbl.ScrollToRect := CallbackCreate(ObjBindMethod(implObj, "ScrollToRect"), flags, 5)
     }
 
     Dispose() {

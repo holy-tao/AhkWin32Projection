@@ -22,7 +22,6 @@ export default struct MI_OperationCallback_Class {
     }
 
     /**
-     * 
      * @param {Pointer<MI_Operation>} operation 
      * @param {Pointer<Void>} callbackContext 
      * @param {Pointer<MI_Class>} classResult 
@@ -34,10 +33,15 @@ export default struct MI_OperationCallback_Class {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(operation, callbackContext, classResult, moreResults, resultCode, errorString, errorDetails, resultAcknowledgement) {
-        callbackContextMarshal := callbackContext is VarRef ? "ptr" : "ptr"
-        errorStringMarshal := errorString is VarRef ? "ushort*" : "ptr"
+        operationMarshal := operation == 0 ? IntPtr : MI_Operation.Ptr
+        callbackContextMarshal := callbackContext is VarRef ? "ptr" : IntPtr
+        classResultMarshal := classResult == 0 ? IntPtr : MI_Class.Ptr
+        errorStringMarshal := errorString is VarRef ? "ushort*" : IntPtr
+        errorStringMarshal := errorString == 0 ? IntPtr : "ushort*"
+        errorDetailsMarshal := errorDetails == 0 ? IntPtr : MI_Instance.Ptr
+        resultAcknowledgementMarshal := resultAcknowledgement == 0 ? IntPtr : IntPtr
 
-        DllCall(this.value, MI_Operation.Ptr, operation, callbackContextMarshal, callbackContext, MI_Class.Ptr, classResult, Int8, moreResults, MI_Result, resultCode, errorStringMarshal, errorString, MI_Instance.Ptr, errorDetails, IntPtr, resultAcknowledgement)
+        DllCall(this.value, operationMarshal, operation, callbackContextMarshal, callbackContext, classResultMarshal, classResult, Int8, moreResults, MI_Result, resultCode, errorStringMarshal, errorString, errorDetailsMarshal, errorDetails, resultAcknowledgementMarshal, resultAcknowledgement)
     }
 
     /**

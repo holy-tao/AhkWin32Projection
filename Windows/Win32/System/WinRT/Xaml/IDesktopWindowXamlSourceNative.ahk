@@ -86,8 +86,8 @@ export default struct IDesktopWindowXamlSourceNative extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AttachToWindow := CallbackCreate(GetMethod(implObj, "AttachToWindow"), flags, 2)
-        this.vtbl.get_WindowHandle := CallbackCreate(GetMethod(implObj, "get_WindowHandle"), flags, 2)
+        this.vtbl.AttachToWindow := CallbackCreate(ObjBindMethod(implObj, "AttachToWindow"), flags, 2)
+        this.vtbl.get_WindowHandle := CallbackCreate(ObjBindMethod(implObj, "get_WindowHandle"), flags, 2)
     }
 
     Dispose() {

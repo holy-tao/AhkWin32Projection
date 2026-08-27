@@ -61,9 +61,12 @@ export default struct IPrintAsyncNotifyDataObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/prnasnot/nf-prnasnot-iprintasyncnotifydataobject-acquiredata
      */
     AcquireData(ppNotificationData, pSize, ppSchema) {
-        ppNotificationDataMarshal := ppNotificationData is VarRef ? "ptr*" : "ptr"
-        pSizeMarshal := pSize is VarRef ? "uint*" : "ptr"
-        ppSchemaMarshal := ppSchema is VarRef ? "ptr*" : "ptr"
+        ppNotificationDataMarshal := ppNotificationData is VarRef ? "ptr*" : IntPtr
+        ppNotificationDataMarshal := ppNotificationData == 0 ? IntPtr : "ptr*"
+        pSizeMarshal := pSize is VarRef ? "uint*" : IntPtr
+        pSizeMarshal := pSize == 0 ? IntPtr : "uint*"
+        ppSchemaMarshal := ppSchema is VarRef ? "ptr*" : IntPtr
+        ppSchemaMarshal := ppSchema == 0 ? IntPtr : "ptr*"
 
         result := ComCall(3, this, ppNotificationDataMarshal, ppNotificationData, pSizeMarshal, pSize, ppSchemaMarshal, ppSchema, "HRESULT")
         return result
@@ -94,8 +97,8 @@ export default struct IPrintAsyncNotifyDataObject extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AcquireData := CallbackCreate(GetMethod(implObj, "AcquireData"), flags, 4)
-        this.vtbl.ReleaseData := CallbackCreate(GetMethod(implObj, "ReleaseData"), flags, 1)
+        this.vtbl.AcquireData := CallbackCreate(ObjBindMethod(implObj, "AcquireData"), flags, 4)
+        this.vtbl.ReleaseData := CallbackCreate(ObjBindMethod(implObj, "ReleaseData"), flags, 1)
     }
 
     Dispose() {

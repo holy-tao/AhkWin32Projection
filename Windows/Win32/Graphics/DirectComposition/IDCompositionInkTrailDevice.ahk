@@ -38,7 +38,6 @@ export default struct IDCompositionInkTrailDevice extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDCompositionDelegatedInkTrail} 
      */
     CreateDelegatedInkTrail() {
@@ -47,7 +46,6 @@ export default struct IDCompositionInkTrailDevice extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} swapChain 
      * @returns {IDCompositionDelegatedInkTrail} 
      */
@@ -65,8 +63,8 @@ export default struct IDCompositionInkTrailDevice extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateDelegatedInkTrail := CallbackCreate(GetMethod(implObj, "CreateDelegatedInkTrail"), flags, 2)
-        this.vtbl.CreateDelegatedInkTrailForSwapChain := CallbackCreate(GetMethod(implObj, "CreateDelegatedInkTrailForSwapChain"), flags, 3)
+        this.vtbl.CreateDelegatedInkTrail := CallbackCreate(ObjBindMethod(implObj, "CreateDelegatedInkTrail"), flags, 2)
+        this.vtbl.CreateDelegatedInkTrailForSwapChain := CallbackCreate(ObjBindMethod(implObj, "CreateDelegatedInkTrailForSwapChain"), flags, 3)
     }
 
     Dispose() {

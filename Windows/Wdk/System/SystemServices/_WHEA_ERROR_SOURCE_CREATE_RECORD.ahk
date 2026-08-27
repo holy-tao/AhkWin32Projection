@@ -21,7 +21,6 @@ export default struct _WHEA_ERROR_SOURCE_CREATE_RECORD {
     }
 
     /**
-     * 
      * @param {Pointer<WHEA_ERROR_SOURCE_DESCRIPTOR>} ErrorSource 
      * @param {Pointer<WHEA_ERROR_PACKET_V2>} ErrorPacket 
      * @param {Integer} ErrorRecord 
@@ -30,7 +29,8 @@ export default struct _WHEA_ERROR_SOURCE_CREATE_RECORD {
      * @returns {NTSTATUS} 
      */
     Call(ErrorSource, ErrorPacket, ErrorRecord, BufferSize, _Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, WHEA_ERROR_SOURCE_DESCRIPTOR.Ptr, ErrorSource, WHEA_ERROR_PACKET_V2.Ptr, ErrorPacket, IntPtr, ErrorRecord, UInt32, BufferSize, _ContextMarshal, _Context, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

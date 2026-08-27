@@ -21,7 +21,6 @@ export default struct PLSA_DELETE_CREDENTIAL {
     }
 
     /**
-     * 
      * @param {Pointer<LUID>} LogonId 
      * @param {Integer} AuthenticationPackage 
      * @param {Pointer<LSA_STRING>} PrimaryKeyValue 

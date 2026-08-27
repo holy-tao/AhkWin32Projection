@@ -38,7 +38,6 @@ export default struct IRowsetResynch extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hRow 
      * @param {HACCESSOR} _hAccessor 
      * @returns {Void} 
@@ -49,7 +48,6 @@ export default struct IRowsetResynch extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} cRows 
      * @param {Pointer<Pointer>} rghRows 
      * @param {Pointer<Pointer>} pcRowsResynched 
@@ -58,10 +56,10 @@ export default struct IRowsetResynch extends IUnknown {
      * @returns {HRESULT} 
      */
     ResynchRows(cRows, rghRows, pcRowsResynched, prghRowsResynched, prgRowStatus) {
-        rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
-        pcRowsResynchedMarshal := pcRowsResynched is VarRef ? "ptr*" : "ptr"
-        prghRowsResynchedMarshal := prghRowsResynched is VarRef ? "ptr*" : "ptr"
-        prgRowStatusMarshal := prgRowStatus is VarRef ? "ptr*" : "ptr"
+        rghRowsMarshal := rghRows is VarRef ? "ptr*" : IntPtr
+        pcRowsResynchedMarshal := pcRowsResynched is VarRef ? "ptr*" : IntPtr
+        prghRowsResynchedMarshal := prghRowsResynched is VarRef ? "ptr*" : IntPtr
+        prgRowStatusMarshal := prgRowStatus is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, IntPtr, cRows, rghRowsMarshal, rghRows, pcRowsResynchedMarshal, pcRowsResynched, prghRowsResynchedMarshal, prghRowsResynched, prgRowStatusMarshal, prgRowStatus, "HRESULT")
         return result
@@ -76,8 +74,8 @@ export default struct IRowsetResynch extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetVisibleData := CallbackCreate(GetMethod(implObj, "GetVisibleData"), flags, 4)
-        this.vtbl.ResynchRows := CallbackCreate(GetMethod(implObj, "ResynchRows"), flags, 6)
+        this.vtbl.GetVisibleData := CallbackCreate(ObjBindMethod(implObj, "GetVisibleData"), flags, 4)
+        this.vtbl.ResynchRows := CallbackCreate(ObjBindMethod(implObj, "ResynchRows"), flags, 6)
     }
 
     Dispose() {

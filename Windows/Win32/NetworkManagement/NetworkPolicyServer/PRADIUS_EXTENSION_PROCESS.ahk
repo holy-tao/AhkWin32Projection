@@ -35,7 +35,6 @@ export default struct PRADIUS_EXTENSION_PROCESS {
     }
 
     /**
-     * 
      * @param {Pointer<RADIUS_ATTRIBUTE>} pAttrs Pointer to an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/authif/ns-authif-radius_attribute">attributes</a> from the request. The array is terminated by an attribute with <b>dwAttrType</b> set to <b>ratMinimum</b>. These attributes should be treated as read-only; they should not be modified by 
      * <b>RadiusExtensionProcess</b>. Also, these attributes should not be referenced in any way after 
@@ -47,7 +46,7 @@ export default struct PRADIUS_EXTENSION_PROCESS {
      * If the function fails, the return value should be an appropriate error code from Winerror.h.
      */
     Call(pAttrs, pfAction) {
-        pfActionMarshal := pfAction is VarRef ? "int*" : "ptr"
+        pfActionMarshal := pfAction is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, RADIUS_ATTRIBUTE.Ptr, pAttrs, pfActionMarshal, pfAction, UInt32)
         return result

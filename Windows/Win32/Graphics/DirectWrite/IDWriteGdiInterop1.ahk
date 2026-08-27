@@ -61,7 +61,9 @@ export default struct IDWriteGdiInterop1 extends IDWriteGdiInterop {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritegdiinterop1-createfontfromlogfont
      */
     CreateFontFromLOGFONT(logFont, _fontCollection) {
-        result := ComCall(8, this, LOGFONTW.Ptr, logFont, "ptr", _fontCollection, "ptr*", &_font := 0, "HRESULT")
+        _fontCollectionMarshal := _fontCollection == 0 ? IntPtr : "ptr"
+
+        result := ComCall(8, this, LOGFONTW.Ptr, logFont, _fontCollectionMarshal, _fontCollection, "ptr*", &_font := 0, "HRESULT")
         return IDWriteFont(_font)
     }
 
@@ -122,10 +124,10 @@ export default struct IDWriteGdiInterop1 extends IDWriteGdiInterop {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateFontFromLOGFONT := CallbackCreate(GetMethod(implObj, "CreateFontFromLOGFONT"), flags, 4)
-        this.vtbl.GetFontSignature := CallbackCreate(GetMethod(implObj, "GetFontSignature"), flags, 3)
-        this.vtbl.GetFontSignature1 := CallbackCreate(GetMethod(implObj, "GetFontSignature1"), flags, 3)
-        this.vtbl.GetMatchingFontsByLOGFONT := CallbackCreate(GetMethod(implObj, "GetMatchingFontsByLOGFONT"), flags, 4)
+        this.vtbl.CreateFontFromLOGFONT := CallbackCreate(ObjBindMethod(implObj, "CreateFontFromLOGFONT"), flags, 4)
+        this.vtbl.GetFontSignature := CallbackCreate(ObjBindMethod(implObj, "GetFontSignature"), flags, 3)
+        this.vtbl.GetFontSignature1 := CallbackCreate(ObjBindMethod(implObj, "GetFontSignature1"), flags, 3)
+        this.vtbl.GetMatchingFontsByLOGFONT := CallbackCreate(ObjBindMethod(implObj, "GetMatchingFontsByLOGFONT"), flags, 4)
     }
 
     Dispose() {

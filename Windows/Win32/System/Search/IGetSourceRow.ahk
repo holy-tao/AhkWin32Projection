@@ -36,7 +36,6 @@ export default struct IGetSourceRow extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
      */
@@ -54,7 +53,7 @@ export default struct IGetSourceRow extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSourceRow := CallbackCreate(GetMethod(implObj, "GetSourceRow"), flags, 3)
+        this.vtbl.GetSourceRow := CallbackCreate(ObjBindMethod(implObj, "GetSourceRow"), flags, 3)
     }
 
     Dispose() {

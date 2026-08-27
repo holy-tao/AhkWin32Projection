@@ -20,7 +20,6 @@ export default struct pHalIoSetPartitionInformation {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Integer} SectorSize 
      * @param {Integer} PartitionNumber 

@@ -103,8 +103,8 @@ export default struct ID2D1SourceTransform extends ID2D1Transform {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetRenderInfo := CallbackCreate(GetMethod(implObj, "SetRenderInfo"), flags, 2)
-        this.vtbl.Draw := CallbackCreate(GetMethod(implObj, "Draw"), flags, 4)
+        this.vtbl.SetRenderInfo := CallbackCreate(ObjBindMethod(implObj, "SetRenderInfo"), flags, 2)
+        this.vtbl.Draw := CallbackCreate(ObjBindMethod(implObj, "Draw"), flags, 4)
     }
 
     Dispose() {

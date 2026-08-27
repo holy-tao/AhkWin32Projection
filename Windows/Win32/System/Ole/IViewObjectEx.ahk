@@ -268,11 +268,11 @@ export default struct IViewObjectEx extends IViewObject2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRect := CallbackCreate(GetMethod(implObj, "GetRect"), flags, 3)
-        this.vtbl.GetViewStatus := CallbackCreate(GetMethod(implObj, "GetViewStatus"), flags, 2)
-        this.vtbl.QueryHitPoint := CallbackCreate(GetMethod(implObj, "QueryHitPoint"), flags, 6)
-        this.vtbl.QueryHitRect := CallbackCreate(GetMethod(implObj, "QueryHitRect"), flags, 6)
-        this.vtbl.GetNaturalExtent := CallbackCreate(GetMethod(implObj, "GetNaturalExtent"), flags, 7)
+        this.vtbl.GetRect := CallbackCreate(ObjBindMethod(implObj, "GetRect"), flags, 3)
+        this.vtbl.GetViewStatus := CallbackCreate(ObjBindMethod(implObj, "GetViewStatus"), flags, 2)
+        this.vtbl.QueryHitPoint := CallbackCreate(ObjBindMethod(implObj, "QueryHitPoint"), flags, 6)
+        this.vtbl.QueryHitRect := CallbackCreate(ObjBindMethod(implObj, "QueryHitRect"), flags, 6)
+        this.vtbl.GetNaturalExtent := CallbackCreate(ObjBindMethod(implObj, "GetNaturalExtent"), flags, 7)
     }
 
     Dispose() {

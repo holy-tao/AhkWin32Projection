@@ -62,8 +62,8 @@ export default struct IFrequencyMap extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ifrequencymap-get_frequencymapping
      */
     get_FrequencyMapping(ulCount, ppulList) {
-        ulCountMarshal := ulCount is VarRef ? "uint*" : "ptr"
-        ppulListMarshal := ppulList is VarRef ? "ptr*" : "ptr"
+        ulCountMarshal := ulCount is VarRef ? "uint*" : IntPtr
+        ppulListMarshal := ppulList is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, ulCountMarshal, ulCount, ppulListMarshal, ppulList, "HRESULT")
         return result
@@ -79,7 +79,7 @@ export default struct IFrequencyMap extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ifrequencymap-put_frequencymapping
      */
     put_FrequencyMapping(ulCount, pList) {
-        pListMarshal := pList is VarRef ? "uint*" : "ptr"
+        pListMarshal := pList is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, UInt32, ulCount, pListMarshal, pList, "HRESULT")
         return result
@@ -127,8 +127,8 @@ export default struct IFrequencyMap extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ifrequencymap-get_defaultfrequencymapping
      */
     get_DefaultFrequencyMapping(ulCountryCode, pulCount, ppulList) {
-        pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"
-        ppulListMarshal := ppulList is VarRef ? "ptr*" : "ptr"
+        pulCountMarshal := pulCount is VarRef ? "uint*" : IntPtr
+        ppulListMarshal := ppulList is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(7, this, UInt32, ulCountryCode, pulCountMarshal, pulCount, ppulListMarshal, ppulList, "HRESULT")
         return result
@@ -144,8 +144,8 @@ export default struct IFrequencyMap extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ifrequencymap-get_countrycodelist
      */
     get_CountryCodeList(pulCount, ppulList) {
-        pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"
-        ppulListMarshal := ppulList is VarRef ? "ptr*" : "ptr"
+        pulCountMarshal := pulCount is VarRef ? "uint*" : IntPtr
+        ppulListMarshal := ppulList is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(8, this, pulCountMarshal, pulCount, ppulListMarshal, ppulList, "HRESULT")
         return result
@@ -160,12 +160,12 @@ export default struct IFrequencyMap extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_FrequencyMapping := CallbackCreate(GetMethod(implObj, "get_FrequencyMapping"), flags, 3)
-        this.vtbl.put_FrequencyMapping := CallbackCreate(GetMethod(implObj, "put_FrequencyMapping"), flags, 3)
-        this.vtbl.get_CountryCode := CallbackCreate(GetMethod(implObj, "get_CountryCode"), flags, 2)
-        this.vtbl.put_CountryCode := CallbackCreate(GetMethod(implObj, "put_CountryCode"), flags, 2)
-        this.vtbl.get_DefaultFrequencyMapping := CallbackCreate(GetMethod(implObj, "get_DefaultFrequencyMapping"), flags, 4)
-        this.vtbl.get_CountryCodeList := CallbackCreate(GetMethod(implObj, "get_CountryCodeList"), flags, 3)
+        this.vtbl.get_FrequencyMapping := CallbackCreate(ObjBindMethod(implObj, "get_FrequencyMapping"), flags, 3)
+        this.vtbl.put_FrequencyMapping := CallbackCreate(ObjBindMethod(implObj, "put_FrequencyMapping"), flags, 3)
+        this.vtbl.get_CountryCode := CallbackCreate(ObjBindMethod(implObj, "get_CountryCode"), flags, 2)
+        this.vtbl.put_CountryCode := CallbackCreate(ObjBindMethod(implObj, "put_CountryCode"), flags, 2)
+        this.vtbl.get_DefaultFrequencyMapping := CallbackCreate(ObjBindMethod(implObj, "get_DefaultFrequencyMapping"), flags, 4)
+        this.vtbl.get_CountryCodeList := CallbackCreate(ObjBindMethod(implObj, "get_CountryCodeList"), flags, 3)
     }
 
     Dispose() {

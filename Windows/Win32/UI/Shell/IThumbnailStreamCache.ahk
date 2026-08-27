@@ -91,8 +91,8 @@ export default struct IThumbnailStreamCache extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetThumbnailStream := CallbackCreate(GetMethod(implObj, "GetThumbnailStream"), flags, 7)
-        this.vtbl.SetThumbnailStream := CallbackCreate(GetMethod(implObj, "SetThumbnailStream"), flags, 5)
+        this.vtbl.GetThumbnailStream := CallbackCreate(ObjBindMethod(implObj, "GetThumbnailStream"), flags, 7)
+        this.vtbl.SetThumbnailStream := CallbackCreate(ObjBindMethod(implObj, "SetThumbnailStream"), flags, 5)
     }
 
     Dispose() {

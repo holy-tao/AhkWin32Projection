@@ -18,13 +18,13 @@ export default struct PSC_NOTIFICATION_CALLBACK {
     }
 
     /**
-     * 
      * @param {Integer} dwNotify 
      * @param {Pointer<Void>} pCallbackContext 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(dwNotify, pCallbackContext) {
-        pCallbackContextMarshal := pCallbackContext is VarRef ? "ptr" : "ptr"
+        pCallbackContextMarshal := pCallbackContext is VarRef ? "ptr" : IntPtr
+        pCallbackContextMarshal := pCallbackContext == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, UInt32, dwNotify, pCallbackContextMarshal, pCallbackContext)
     }

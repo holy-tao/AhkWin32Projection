@@ -128,9 +128,9 @@ export default struct IAMDevMemoryControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryWriteSync := CallbackCreate(GetMethod(implObj, "QueryWriteSync"), flags, 1)
-        this.vtbl.WriteSync := CallbackCreate(GetMethod(implObj, "WriteSync"), flags, 1)
-        this.vtbl.GetDevId := CallbackCreate(GetMethod(implObj, "GetDevId"), flags, 2)
+        this.vtbl.QueryWriteSync := CallbackCreate(ObjBindMethod(implObj, "QueryWriteSync"), flags, 1)
+        this.vtbl.WriteSync := CallbackCreate(ObjBindMethod(implObj, "WriteSync"), flags, 1)
+        this.vtbl.GetDevId := CallbackCreate(ObjBindMethod(implObj, "GetDevId"), flags, 2)
     }
 
     Dispose() {

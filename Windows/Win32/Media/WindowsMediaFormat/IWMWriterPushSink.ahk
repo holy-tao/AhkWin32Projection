@@ -192,9 +192,9 @@ export default struct IWMWriterPushSink extends IWMWriterSink {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 4)
-        this.vtbl.Disconnect := CallbackCreate(GetMethod(implObj, "Disconnect"), flags, 1)
-        this.vtbl.EndSession := CallbackCreate(GetMethod(implObj, "EndSession"), flags, 1)
+        this.vtbl.Connect := CallbackCreate(ObjBindMethod(implObj, "Connect"), flags, 4)
+        this.vtbl.Disconnect := CallbackCreate(ObjBindMethod(implObj, "Disconnect"), flags, 1)
+        this.vtbl.EndSession := CallbackCreate(ObjBindMethod(implObj, "EndSession"), flags, 1)
     }
 
     Dispose() {

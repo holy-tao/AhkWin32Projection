@@ -251,18 +251,18 @@ export default struct INetFwRule3 extends INetFwRule2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_LocalAppPackageId := CallbackCreate(GetMethod(implObj, "get_LocalAppPackageId"), flags, 2)
-        this.vtbl.put_LocalAppPackageId := CallbackCreate(GetMethod(implObj, "put_LocalAppPackageId"), flags, 2)
-        this.vtbl.get_LocalUserOwner := CallbackCreate(GetMethod(implObj, "get_LocalUserOwner"), flags, 2)
-        this.vtbl.put_LocalUserOwner := CallbackCreate(GetMethod(implObj, "put_LocalUserOwner"), flags, 2)
-        this.vtbl.get_LocalUserAuthorizedList := CallbackCreate(GetMethod(implObj, "get_LocalUserAuthorizedList"), flags, 2)
-        this.vtbl.put_LocalUserAuthorizedList := CallbackCreate(GetMethod(implObj, "put_LocalUserAuthorizedList"), flags, 2)
-        this.vtbl.get_RemoteUserAuthorizedList := CallbackCreate(GetMethod(implObj, "get_RemoteUserAuthorizedList"), flags, 2)
-        this.vtbl.put_RemoteUserAuthorizedList := CallbackCreate(GetMethod(implObj, "put_RemoteUserAuthorizedList"), flags, 2)
-        this.vtbl.get_RemoteMachineAuthorizedList := CallbackCreate(GetMethod(implObj, "get_RemoteMachineAuthorizedList"), flags, 2)
-        this.vtbl.put_RemoteMachineAuthorizedList := CallbackCreate(GetMethod(implObj, "put_RemoteMachineAuthorizedList"), flags, 2)
-        this.vtbl.get_SecureFlags := CallbackCreate(GetMethod(implObj, "get_SecureFlags"), flags, 2)
-        this.vtbl.put_SecureFlags := CallbackCreate(GetMethod(implObj, "put_SecureFlags"), flags, 2)
+        this.vtbl.get_LocalAppPackageId := CallbackCreate(ObjBindMethod(implObj, "get_LocalAppPackageId"), flags, 2)
+        this.vtbl.put_LocalAppPackageId := CallbackCreate(ObjBindMethod(implObj, "put_LocalAppPackageId"), flags, 2)
+        this.vtbl.get_LocalUserOwner := CallbackCreate(ObjBindMethod(implObj, "get_LocalUserOwner"), flags, 2)
+        this.vtbl.put_LocalUserOwner := CallbackCreate(ObjBindMethod(implObj, "put_LocalUserOwner"), flags, 2)
+        this.vtbl.get_LocalUserAuthorizedList := CallbackCreate(ObjBindMethod(implObj, "get_LocalUserAuthorizedList"), flags, 2)
+        this.vtbl.put_LocalUserAuthorizedList := CallbackCreate(ObjBindMethod(implObj, "put_LocalUserAuthorizedList"), flags, 2)
+        this.vtbl.get_RemoteUserAuthorizedList := CallbackCreate(ObjBindMethod(implObj, "get_RemoteUserAuthorizedList"), flags, 2)
+        this.vtbl.put_RemoteUserAuthorizedList := CallbackCreate(ObjBindMethod(implObj, "put_RemoteUserAuthorizedList"), flags, 2)
+        this.vtbl.get_RemoteMachineAuthorizedList := CallbackCreate(ObjBindMethod(implObj, "get_RemoteMachineAuthorizedList"), flags, 2)
+        this.vtbl.put_RemoteMachineAuthorizedList := CallbackCreate(ObjBindMethod(implObj, "put_RemoteMachineAuthorizedList"), flags, 2)
+        this.vtbl.get_SecureFlags := CallbackCreate(ObjBindMethod(implObj, "get_SecureFlags"), flags, 2)
+        this.vtbl.put_SecureFlags := CallbackCreate(ObjBindMethod(implObj, "put_SecureFlags"), flags, 2)
     }
 
     Dispose() {

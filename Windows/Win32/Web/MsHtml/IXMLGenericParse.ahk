@@ -37,7 +37,6 @@ export default struct IXMLGenericParse extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fDoGeneric 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,7 @@ export default struct IXMLGenericParse extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetGenericParse := CallbackCreate(GetMethod(implObj, "SetGenericParse"), flags, 2)
+        this.vtbl.SetGenericParse := CallbackCreate(ObjBindMethod(implObj, "SetGenericParse"), flags, 2)
     }
 
     Dispose() {

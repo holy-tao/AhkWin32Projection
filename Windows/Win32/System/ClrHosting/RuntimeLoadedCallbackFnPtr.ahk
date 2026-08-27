@@ -21,7 +21,6 @@ export default struct RuntimeLoadedCallbackFnPtr {
     }
 
     /**
-     * 
      * @param {ICLRRuntimeInfo} pRuntimeInfo 
      * @param {Pointer<CallbackThreadSetFnPtr>} pfnCallbackThreadSet 
      * @param {Pointer<CallbackThreadUnsetFnPtr>} pfnCallbackThreadUnset 

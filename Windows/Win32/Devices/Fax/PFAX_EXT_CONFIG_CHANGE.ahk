@@ -20,7 +20,6 @@ export default struct PFAX_EXT_CONFIG_CHANGE {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {PWSTR} param1 
      * @param {Pointer<Integer>} param2 
@@ -30,7 +29,7 @@ export default struct PFAX_EXT_CONFIG_CHANGE {
     Call(param0, param1, param2, param3) {
         param1 := param1 is String ? StrPtr(param1) : param1
 
-        param2Marshal := param2 is VarRef ? "char*" : "ptr"
+        param2Marshal := param2 is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, UInt32, param0, "ptr", param1, param2Marshal, param2, UInt32, param3, "HRESULT")
         return result

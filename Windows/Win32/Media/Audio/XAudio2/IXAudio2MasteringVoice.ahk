@@ -83,7 +83,7 @@ export default struct IXAudio2MasteringVoice extends IXAudio2Voice {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetChannelMask := CallbackCreate(GetMethod(implObj, "GetChannelMask"), flags, 2)
+        this.vtbl.GetChannelMask := CallbackCreate(ObjBindMethod(implObj, "GetChannelMask"), flags, 2)
     }
 
     Dispose() {

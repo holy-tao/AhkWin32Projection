@@ -19,7 +19,6 @@ export default struct pHalMirrorPhysicalMemory {
     }
 
     /**
-     * 
      * @param {Integer} PhysicalAddress 
      * @param {Integer} NumberOfBytes 
      * @returns {NTSTATUS} 

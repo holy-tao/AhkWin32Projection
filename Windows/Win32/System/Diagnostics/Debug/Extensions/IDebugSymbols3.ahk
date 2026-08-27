@@ -168,7 +168,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetSymbolOptions() {
@@ -177,7 +176,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
@@ -187,7 +185,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
@@ -197,7 +194,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
@@ -207,7 +203,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {PSTR} NameBuffer 
      * @param {Integer} NameBufferSize 
@@ -218,15 +213,17 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetNameByOffset(Offset, NameBuffer, NameBufferSize, NameSize, Displacement) {
         NameBuffer := NameBuffer is String ? StrPtr(NameBuffer) : NameBuffer
 
-        NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
-        DisplacementMarshal := Displacement is VarRef ? "uint*" : "ptr"
+        NameBufferMarshal := NameBuffer == 0 ? IntPtr : PSTR
+        NameSizeMarshal := NameSize is VarRef ? "uint*" : IntPtr
+        NameSizeMarshal := NameSize == 0 ? IntPtr : "uint*"
+        DisplacementMarshal := Displacement is VarRef ? "uint*" : IntPtr
+        DisplacementMarshal := Displacement == 0 ? IntPtr : "uint*"
 
-        result := ComCall(7, this, Int64, Offset, "ptr", NameBuffer, UInt32, NameBufferSize, NameSizeMarshal, NameSize, DisplacementMarshal, Displacement, "HRESULT")
+        result := ComCall(7, this, Int64, Offset, NameBufferMarshal, NameBuffer, UInt32, NameBufferSize, NameSizeMarshal, NameSize, DisplacementMarshal, Displacement, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PSTR} Symbol 
      * @returns {Integer} 
      */
@@ -238,7 +235,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} Delta 
      * @param {PSTR} NameBuffer 
@@ -250,15 +246,17 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetNearNameByOffset(Offset, Delta, NameBuffer, NameBufferSize, NameSize, Displacement) {
         NameBuffer := NameBuffer is String ? StrPtr(NameBuffer) : NameBuffer
 
-        NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
-        DisplacementMarshal := Displacement is VarRef ? "uint*" : "ptr"
+        NameBufferMarshal := NameBuffer == 0 ? IntPtr : PSTR
+        NameSizeMarshal := NameSize is VarRef ? "uint*" : IntPtr
+        NameSizeMarshal := NameSize == 0 ? IntPtr : "uint*"
+        DisplacementMarshal := Displacement is VarRef ? "uint*" : IntPtr
+        DisplacementMarshal := Displacement == 0 ? IntPtr : "uint*"
 
-        result := ComCall(9, this, Int64, Offset, Int32, Delta, "ptr", NameBuffer, UInt32, NameBufferSize, NameSizeMarshal, NameSize, DisplacementMarshal, Displacement, "HRESULT")
+        result := ComCall(9, this, Int64, Offset, Int32, Delta, NameBufferMarshal, NameBuffer, UInt32, NameBufferSize, NameSizeMarshal, NameSize, DisplacementMarshal, Displacement, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Pointer<Integer>} Line 
      * @param {PSTR} FileBuffer 
@@ -270,16 +268,19 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetLineByOffset(Offset, Line, FileBuffer, FileBufferSize, FileSize, Displacement) {
         FileBuffer := FileBuffer is String ? StrPtr(FileBuffer) : FileBuffer
 
-        LineMarshal := Line is VarRef ? "uint*" : "ptr"
-        FileSizeMarshal := FileSize is VarRef ? "uint*" : "ptr"
-        DisplacementMarshal := Displacement is VarRef ? "uint*" : "ptr"
+        LineMarshal := Line is VarRef ? "uint*" : IntPtr
+        LineMarshal := Line == 0 ? IntPtr : "uint*"
+        FileBufferMarshal := FileBuffer == 0 ? IntPtr : PSTR
+        FileSizeMarshal := FileSize is VarRef ? "uint*" : IntPtr
+        FileSizeMarshal := FileSize == 0 ? IntPtr : "uint*"
+        DisplacementMarshal := Displacement is VarRef ? "uint*" : IntPtr
+        DisplacementMarshal := Displacement == 0 ? IntPtr : "uint*"
 
-        result := ComCall(10, this, Int64, Offset, LineMarshal, Line, "ptr", FileBuffer, UInt32, FileBufferSize, FileSizeMarshal, FileSize, DisplacementMarshal, Displacement, "HRESULT")
+        result := ComCall(10, this, Int64, Offset, LineMarshal, Line, FileBufferMarshal, FileBuffer, UInt32, FileBufferSize, FileSizeMarshal, FileSize, DisplacementMarshal, Displacement, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Line 
      * @param {PSTR} _File 
      * @returns {Integer} 
@@ -292,21 +293,19 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} Loaded 
      * @param {Pointer<Integer>} Unloaded 
      * @returns {HRESULT} 
      */
     GetNumberModules(Loaded, Unloaded) {
-        LoadedMarshal := Loaded is VarRef ? "uint*" : "ptr"
-        UnloadedMarshal := Unloaded is VarRef ? "uint*" : "ptr"
+        LoadedMarshal := Loaded is VarRef ? "uint*" : IntPtr
+        UnloadedMarshal := Unloaded is VarRef ? "uint*" : IntPtr
 
         result := ComCall(12, this, LoadedMarshal, Loaded, UnloadedMarshal, Unloaded, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {Integer} 
      */
@@ -316,7 +315,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Name 
      * @param {Integer} StartIndex 
      * @param {Pointer<Integer>} Index 
@@ -326,15 +324,16 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetModuleByModuleName(Name, StartIndex, Index, Base) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        IndexMarshal := Index is VarRef ? "uint*" : "ptr"
-        BaseMarshal := Base is VarRef ? "uint*" : "ptr"
+        IndexMarshal := Index is VarRef ? "uint*" : IntPtr
+        IndexMarshal := Index == 0 ? IntPtr : "uint*"
+        BaseMarshal := Base is VarRef ? "uint*" : IntPtr
+        BaseMarshal := Base == 0 ? IntPtr : "uint*"
 
         result := ComCall(14, this, "ptr", Name, UInt32, StartIndex, IndexMarshal, Index, BaseMarshal, Base, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} StartIndex 
      * @param {Pointer<Integer>} Index 
@@ -342,15 +341,16 @@ export default struct IDebugSymbols3 extends IUnknown {
      * @returns {HRESULT} 
      */
     GetModuleByOffset(Offset, StartIndex, Index, Base) {
-        IndexMarshal := Index is VarRef ? "uint*" : "ptr"
-        BaseMarshal := Base is VarRef ? "uint*" : "ptr"
+        IndexMarshal := Index is VarRef ? "uint*" : IntPtr
+        IndexMarshal := Index == 0 ? IntPtr : "uint*"
+        BaseMarshal := Base is VarRef ? "uint*" : IntPtr
+        BaseMarshal := Base == 0 ? IntPtr : "uint*"
 
         result := ComCall(15, this, Int64, Offset, UInt32, StartIndex, IndexMarshal, Index, BaseMarshal, Base, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {Integer} Base 
      * @param {PSTR} ImageNameBuffer 
@@ -369,23 +369,29 @@ export default struct IDebugSymbols3 extends IUnknown {
         ModuleNameBuffer := ModuleNameBuffer is String ? StrPtr(ModuleNameBuffer) : ModuleNameBuffer
         LoadedImageNameBuffer := LoadedImageNameBuffer is String ? StrPtr(LoadedImageNameBuffer) : LoadedImageNameBuffer
 
-        ImageNameSizeMarshal := ImageNameSize is VarRef ? "uint*" : "ptr"
-        ModuleNameSizeMarshal := ModuleNameSize is VarRef ? "uint*" : "ptr"
-        LoadedImageNameSizeMarshal := LoadedImageNameSize is VarRef ? "uint*" : "ptr"
+        ImageNameBufferMarshal := ImageNameBuffer == 0 ? IntPtr : PSTR
+        ImageNameSizeMarshal := ImageNameSize is VarRef ? "uint*" : IntPtr
+        ImageNameSizeMarshal := ImageNameSize == 0 ? IntPtr : "uint*"
+        ModuleNameBufferMarshal := ModuleNameBuffer == 0 ? IntPtr : PSTR
+        ModuleNameSizeMarshal := ModuleNameSize is VarRef ? "uint*" : IntPtr
+        ModuleNameSizeMarshal := ModuleNameSize == 0 ? IntPtr : "uint*"
+        LoadedImageNameBufferMarshal := LoadedImageNameBuffer == 0 ? IntPtr : PSTR
+        LoadedImageNameSizeMarshal := LoadedImageNameSize is VarRef ? "uint*" : IntPtr
+        LoadedImageNameSizeMarshal := LoadedImageNameSize == 0 ? IntPtr : "uint*"
 
-        result := ComCall(16, this, UInt32, Index, Int64, Base, "ptr", ImageNameBuffer, UInt32, ImageNameBufferSize, ImageNameSizeMarshal, ImageNameSize, "ptr", ModuleNameBuffer, UInt32, ModuleNameBufferSize, ModuleNameSizeMarshal, ModuleNameSize, "ptr", LoadedImageNameBuffer, UInt32, LoadedImageNameBufferSize, LoadedImageNameSizeMarshal, LoadedImageNameSize, "HRESULT")
+        result := ComCall(16, this, UInt32, Index, Int64, Base, ImageNameBufferMarshal, ImageNameBuffer, UInt32, ImageNameBufferSize, ImageNameSizeMarshal, ImageNameSize, ModuleNameBufferMarshal, ModuleNameBuffer, UInt32, ModuleNameBufferSize, ModuleNameSizeMarshal, ModuleNameSize, LoadedImageNameBufferMarshal, LoadedImageNameBuffer, UInt32, LoadedImageNameBufferSize, LoadedImageNameSizeMarshal, LoadedImageNameSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Count 
      * @param {Pointer<Integer>} Bases 
      * @param {Integer} Start 
      * @returns {DEBUG_MODULE_PARAMETERS} 
      */
     GetModuleParameters(Count, Bases, Start) {
-        BasesMarshal := Bases is VarRef ? "uint*" : "ptr"
+        BasesMarshal := Bases is VarRef ? "uint*" : IntPtr
+        BasesMarshal := Bases == 0 ? IntPtr : "uint*"
 
         Params := DEBUG_MODULE_PARAMETERS()
         result := ComCall(17, this, UInt32, Count, BasesMarshal, Bases, UInt32, Start, DEBUG_MODULE_PARAMETERS.Ptr, Params, "HRESULT")
@@ -393,7 +399,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Symbol 
      * @returns {Integer} 
      */
@@ -405,7 +410,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
      * @param {PSTR} NameBuffer 
@@ -415,12 +419,13 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetTypeName(Module, TypeId, NameBuffer, NameBufferSize) {
         NameBuffer := NameBuffer is String ? StrPtr(NameBuffer) : NameBuffer
 
-        result := ComCall(19, this, Int64, Module, UInt32, TypeId, "ptr", NameBuffer, UInt32, NameBufferSize, "uint*", &NameSize := 0, "HRESULT")
+        NameBufferMarshal := NameBuffer == 0 ? IntPtr : PSTR
+
+        result := ComCall(19, this, Int64, Module, UInt32, TypeId, NameBufferMarshal, NameBuffer, UInt32, NameBufferSize, "uint*", &NameSize := 0, "HRESULT")
         return NameSize
     }
 
     /**
-     * 
      * @param {Integer} Module 
      * @param {PSTR} Name 
      * @returns {Integer} 
@@ -433,7 +438,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
      * @returns {Integer} 
@@ -444,7 +448,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
      * @param {PSTR} Field 
@@ -458,7 +461,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Symbol 
      * @param {Pointer<Integer>} TypeId 
      * @param {Pointer<Integer>} Module 
@@ -467,30 +469,30 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetSymbolTypeId(Symbol, TypeId, Module) {
         Symbol := Symbol is String ? StrPtr(Symbol) : Symbol
 
-        TypeIdMarshal := TypeId is VarRef ? "uint*" : "ptr"
-        ModuleMarshal := Module is VarRef ? "uint*" : "ptr"
+        TypeIdMarshal := TypeId is VarRef ? "uint*" : IntPtr
+        ModuleMarshal := Module is VarRef ? "uint*" : IntPtr
+        ModuleMarshal := Module == 0 ? IntPtr : "uint*"
 
         result := ComCall(23, this, "ptr", Symbol, TypeIdMarshal, TypeId, ModuleMarshal, Module, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Pointer<Integer>} TypeId 
      * @param {Pointer<Integer>} Module 
      * @returns {HRESULT} 
      */
     GetOffsetTypeId(Offset, TypeId, Module) {
-        TypeIdMarshal := TypeId is VarRef ? "uint*" : "ptr"
-        ModuleMarshal := Module is VarRef ? "uint*" : "ptr"
+        TypeIdMarshal := TypeId is VarRef ? "uint*" : IntPtr
+        ModuleMarshal := Module is VarRef ? "uint*" : IntPtr
+        ModuleMarshal := Module == 0 ? IntPtr : "uint*"
 
         result := ComCall(24, this, Int64, Offset, TypeIdMarshal, TypeId, ModuleMarshal, Module, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
@@ -504,7 +506,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
@@ -518,7 +519,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {Integer} Offset 
      * @param {Integer} Module 
@@ -532,7 +532,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
@@ -546,7 +545,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
@@ -560,7 +558,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {Integer} Offset 
      * @param {Integer} Module 
@@ -574,7 +571,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} InstructionOffset 
      * @param {Pointer<DEBUG_STACK_FRAME>} ScopeFrame 
      * @param {Integer} ScopeContext 
@@ -582,14 +578,16 @@ export default struct IDebugSymbols3 extends IUnknown {
      * @returns {HRESULT} 
      */
     GetScope(InstructionOffset, ScopeFrame, ScopeContext, ScopeContextSize) {
-        InstructionOffsetMarshal := InstructionOffset is VarRef ? "uint*" : "ptr"
+        InstructionOffsetMarshal := InstructionOffset is VarRef ? "uint*" : IntPtr
+        InstructionOffsetMarshal := InstructionOffset == 0 ? IntPtr : "uint*"
+        ScopeFrameMarshal := ScopeFrame == 0 ? IntPtr : DEBUG_STACK_FRAME.Ptr
+        ScopeContextMarshal := ScopeContext == 0 ? IntPtr : IntPtr
 
-        result := ComCall(31, this, InstructionOffsetMarshal, InstructionOffset, DEBUG_STACK_FRAME.Ptr, ScopeFrame, IntPtr, ScopeContext, UInt32, ScopeContextSize, "HRESULT")
+        result := ComCall(31, this, InstructionOffsetMarshal, InstructionOffset, ScopeFrameMarshal, ScopeFrame, ScopeContextMarshal, ScopeContext, UInt32, ScopeContextSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} InstructionOffset 
      * @param {Pointer<DEBUG_STACK_FRAME>} ScopeFrame 
      * @param {Integer} ScopeContext 
@@ -597,12 +595,14 @@ export default struct IDebugSymbols3 extends IUnknown {
      * @returns {HRESULT} 
      */
     SetScope(InstructionOffset, ScopeFrame, ScopeContext, ScopeContextSize) {
-        result := ComCall(32, this, Int64, InstructionOffset, DEBUG_STACK_FRAME.Ptr, ScopeFrame, IntPtr, ScopeContext, UInt32, ScopeContextSize, "HRESULT")
+        ScopeFrameMarshal := ScopeFrame == 0 ? IntPtr : DEBUG_STACK_FRAME.Ptr
+        ScopeContextMarshal := ScopeContext == 0 ? IntPtr : IntPtr
+
+        result := ComCall(32, this, Int64, InstructionOffset, ScopeFrameMarshal, ScopeFrame, ScopeContextMarshal, ScopeContext, UInt32, ScopeContextSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ResetScope() {
@@ -611,18 +611,18 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @param {IDebugSymbolGroup} Update 
      * @returns {IDebugSymbolGroup} 
      */
     GetScopeSymbolGroup(Flags, Update) {
-        result := ComCall(34, this, UInt32, Flags, "ptr", Update, "ptr*", &Symbols := 0, "HRESULT")
+        UpdateMarshal := Update == 0 ? IntPtr : "ptr"
+
+        result := ComCall(34, this, UInt32, Flags, UpdateMarshal, Update, "ptr*", &Symbols := 0, "HRESULT")
         return IDebugSymbolGroup(Symbols)
     }
 
     /**
-     * 
      * @returns {IDebugSymbolGroup} 
      */
     CreateSymbolGroup() {
@@ -631,7 +631,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Pattern 
      * @returns {Integer} 
      */
@@ -643,7 +642,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Handle 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
@@ -654,15 +652,17 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetNextSymbolMatch(_Handle, _Buffer, BufferSize, MatchSize, Offset) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        MatchSizeMarshal := MatchSize is VarRef ? "uint*" : "ptr"
-        OffsetMarshal := Offset is VarRef ? "uint*" : "ptr"
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PSTR
+        MatchSizeMarshal := MatchSize is VarRef ? "uint*" : IntPtr
+        MatchSizeMarshal := MatchSize == 0 ? IntPtr : "uint*"
+        OffsetMarshal := Offset is VarRef ? "uint*" : IntPtr
+        OffsetMarshal := Offset == 0 ? IntPtr : "uint*"
 
-        result := ComCall(37, this, Int64, _Handle, "ptr", _Buffer, UInt32, BufferSize, MatchSizeMarshal, MatchSize, OffsetMarshal, Offset, "HRESULT")
+        result := ComCall(37, this, Int64, _Handle, _BufferMarshal, _Buffer, UInt32, BufferSize, MatchSizeMarshal, MatchSize, OffsetMarshal, Offset, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} _Handle 
      * @returns {HRESULT} 
      */
@@ -672,7 +672,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Module 
      * @returns {HRESULT} 
      */
@@ -684,7 +683,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -692,12 +690,13 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetSymbolPath(_Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(40, this, "ptr", _Buffer, UInt32, BufferSize, "uint*", &PathSize := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PSTR
+
+        result := ComCall(40, this, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &PathSize := 0, "HRESULT")
         return PathSize
     }
 
     /**
-     * 
      * @param {PSTR} _Path 
      * @returns {HRESULT} 
      */
@@ -709,7 +708,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Addition 
      * @returns {HRESULT} 
      */
@@ -721,7 +719,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -729,12 +726,13 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetImagePath(_Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(43, this, "ptr", _Buffer, UInt32, BufferSize, "uint*", &PathSize := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PSTR
+
+        result := ComCall(43, this, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &PathSize := 0, "HRESULT")
         return PathSize
     }
 
     /**
-     * 
      * @param {PSTR} _Path 
      * @returns {HRESULT} 
      */
@@ -746,7 +744,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Addition 
      * @returns {HRESULT} 
      */
@@ -758,7 +755,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -766,12 +762,13 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetSourcePath(_Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(46, this, "ptr", _Buffer, UInt32, BufferSize, "uint*", &PathSize := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PSTR
+
+        result := ComCall(46, this, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &PathSize := 0, "HRESULT")
         return PathSize
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
@@ -780,12 +777,13 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetSourcePathElement(Index, _Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(47, this, UInt32, Index, "ptr", _Buffer, UInt32, BufferSize, "uint*", &ElementSize := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PSTR
+
+        result := ComCall(47, this, UInt32, Index, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &ElementSize := 0, "HRESULT")
         return ElementSize
     }
 
     /**
-     * 
      * @param {PSTR} _Path 
      * @returns {HRESULT} 
      */
@@ -797,7 +795,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Addition 
      * @returns {HRESULT} 
      */
@@ -809,7 +806,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} StartElement 
      * @param {PSTR} _File 
      * @param {Integer} Flags 
@@ -823,15 +819,17 @@ export default struct IDebugSymbols3 extends IUnknown {
         _File := _File is String ? StrPtr(_File) : _File
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        FoundElementMarshal := FoundElement is VarRef ? "uint*" : "ptr"
-        FoundSizeMarshal := FoundSize is VarRef ? "uint*" : "ptr"
+        FoundElementMarshal := FoundElement is VarRef ? "uint*" : IntPtr
+        FoundElementMarshal := FoundElement == 0 ? IntPtr : "uint*"
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PSTR
+        FoundSizeMarshal := FoundSize is VarRef ? "uint*" : IntPtr
+        FoundSizeMarshal := FoundSize == 0 ? IntPtr : "uint*"
 
-        result := ComCall(50, this, UInt32, StartElement, "ptr", _File, UInt32, Flags, FoundElementMarshal, FoundElement, "ptr", _Buffer, UInt32, BufferSize, FoundSizeMarshal, FoundSize, "HRESULT")
+        result := ComCall(50, this, UInt32, StartElement, "ptr", _File, UInt32, Flags, FoundElementMarshal, FoundElement, _BufferMarshal, _Buffer, UInt32, BufferSize, FoundSizeMarshal, FoundSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PSTR} _File 
      * @param {Pointer<Integer>} _Buffer 
      * @param {Integer} BufferLines 
@@ -841,15 +839,16 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetSourceFileLineOffsets(_File, _Buffer, BufferLines, FileLines) {
         _File := _File is String ? StrPtr(_File) : _File
 
-        _BufferMarshal := _Buffer is VarRef ? "uint*" : "ptr"
-        FileLinesMarshal := FileLines is VarRef ? "uint*" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "uint*" : IntPtr
+        _BufferMarshal := _Buffer == 0 ? IntPtr : "uint*"
+        FileLinesMarshal := FileLines is VarRef ? "uint*" : IntPtr
+        FileLinesMarshal := FileLines == 0 ? IntPtr : "uint*"
 
         result := ComCall(51, this, "ptr", _File, _BufferMarshal, _Buffer, UInt32, BufferLines, FileLinesMarshal, FileLines, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {Integer} Base 
      * @param {PSTR} Item 
@@ -860,12 +859,13 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetModuleVersionInformation(Index, Base, Item, _Buffer, BufferSize) {
         Item := Item is String ? StrPtr(Item) : Item
 
-        result := ComCall(52, this, UInt32, Index, Int64, Base, "ptr", Item, IntPtr, _Buffer, UInt32, BufferSize, "uint*", &VerInfoSize := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+
+        result := ComCall(52, this, UInt32, Index, Int64, Base, "ptr", Item, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &VerInfoSize := 0, "HRESULT")
         return VerInfoSize
     }
 
     /**
-     * 
      * @param {Integer} Which 
      * @param {Integer} Index 
      * @param {Integer} Base 
@@ -876,12 +876,13 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetModuleNameString(Which, Index, Base, _Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(53, this, UInt32, Which, UInt32, Index, Int64, Base, "ptr", _Buffer, UInt32, BufferSize, "uint*", &NameSize := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PSTR
+
+        result := ComCall(53, this, UInt32, Which, UInt32, Index, Int64, Base, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &NameSize := 0, "HRESULT")
         return NameSize
     }
 
     /**
-     * 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
      * @param {Integer} Value 
@@ -892,12 +893,13 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetConstantName(Module, TypeId, Value, NameBuffer, NameBufferSize) {
         NameBuffer := NameBuffer is String ? StrPtr(NameBuffer) : NameBuffer
 
-        result := ComCall(54, this, Int64, Module, UInt32, TypeId, Int64, Value, "ptr", NameBuffer, UInt32, NameBufferSize, "uint*", &NameSize := 0, "HRESULT")
+        NameBufferMarshal := NameBuffer == 0 ? IntPtr : PSTR
+
+        result := ComCall(54, this, Int64, Module, UInt32, TypeId, Int64, Value, NameBufferMarshal, NameBuffer, UInt32, NameBufferSize, "uint*", &NameSize := 0, "HRESULT")
         return NameSize
     }
 
     /**
-     * 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
      * @param {Integer} FieldIndex 
@@ -908,12 +910,13 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetFieldName(Module, TypeId, FieldIndex, NameBuffer, NameBufferSize) {
         NameBuffer := NameBuffer is String ? StrPtr(NameBuffer) : NameBuffer
 
-        result := ComCall(55, this, Int64, Module, UInt32, TypeId, UInt32, FieldIndex, "ptr", NameBuffer, UInt32, NameBufferSize, "uint*", &NameSize := 0, "HRESULT")
+        NameBufferMarshal := NameBuffer == 0 ? IntPtr : PSTR
+
+        result := ComCall(55, this, Int64, Module, UInt32, TypeId, UInt32, FieldIndex, NameBufferMarshal, NameBuffer, UInt32, NameBufferSize, "uint*", &NameSize := 0, "HRESULT")
         return NameSize
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetTypeOptions() {
@@ -922,7 +925,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
@@ -932,7 +934,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
@@ -942,7 +943,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
@@ -952,7 +952,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {PWSTR} NameBuffer 
      * @param {Integer} NameBufferSize 
@@ -963,15 +962,17 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetNameByOffsetWide(Offset, NameBuffer, NameBufferSize, NameSize, Displacement) {
         NameBuffer := NameBuffer is String ? StrPtr(NameBuffer) : NameBuffer
 
-        NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
-        DisplacementMarshal := Displacement is VarRef ? "uint*" : "ptr"
+        NameBufferMarshal := NameBuffer == 0 ? IntPtr : PWSTR
+        NameSizeMarshal := NameSize is VarRef ? "uint*" : IntPtr
+        NameSizeMarshal := NameSize == 0 ? IntPtr : "uint*"
+        DisplacementMarshal := Displacement is VarRef ? "uint*" : IntPtr
+        DisplacementMarshal := Displacement == 0 ? IntPtr : "uint*"
 
-        result := ComCall(60, this, Int64, Offset, "ptr", NameBuffer, UInt32, NameBufferSize, NameSizeMarshal, NameSize, DisplacementMarshal, Displacement, "HRESULT")
+        result := ComCall(60, this, Int64, Offset, NameBufferMarshal, NameBuffer, UInt32, NameBufferSize, NameSizeMarshal, NameSize, DisplacementMarshal, Displacement, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} Symbol 
      * @returns {Integer} 
      */
@@ -983,7 +984,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} Delta 
      * @param {PWSTR} NameBuffer 
@@ -995,15 +995,17 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetNearNameByOffsetWide(Offset, Delta, NameBuffer, NameBufferSize, NameSize, Displacement) {
         NameBuffer := NameBuffer is String ? StrPtr(NameBuffer) : NameBuffer
 
-        NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
-        DisplacementMarshal := Displacement is VarRef ? "uint*" : "ptr"
+        NameBufferMarshal := NameBuffer == 0 ? IntPtr : PWSTR
+        NameSizeMarshal := NameSize is VarRef ? "uint*" : IntPtr
+        NameSizeMarshal := NameSize == 0 ? IntPtr : "uint*"
+        DisplacementMarshal := Displacement is VarRef ? "uint*" : IntPtr
+        DisplacementMarshal := Displacement == 0 ? IntPtr : "uint*"
 
-        result := ComCall(62, this, Int64, Offset, Int32, Delta, "ptr", NameBuffer, UInt32, NameBufferSize, NameSizeMarshal, NameSize, DisplacementMarshal, Displacement, "HRESULT")
+        result := ComCall(62, this, Int64, Offset, Int32, Delta, NameBufferMarshal, NameBuffer, UInt32, NameBufferSize, NameSizeMarshal, NameSize, DisplacementMarshal, Displacement, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Pointer<Integer>} Line 
      * @param {PWSTR} FileBuffer 
@@ -1015,16 +1017,19 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetLineByOffsetWide(Offset, Line, FileBuffer, FileBufferSize, FileSize, Displacement) {
         FileBuffer := FileBuffer is String ? StrPtr(FileBuffer) : FileBuffer
 
-        LineMarshal := Line is VarRef ? "uint*" : "ptr"
-        FileSizeMarshal := FileSize is VarRef ? "uint*" : "ptr"
-        DisplacementMarshal := Displacement is VarRef ? "uint*" : "ptr"
+        LineMarshal := Line is VarRef ? "uint*" : IntPtr
+        LineMarshal := Line == 0 ? IntPtr : "uint*"
+        FileBufferMarshal := FileBuffer == 0 ? IntPtr : PWSTR
+        FileSizeMarshal := FileSize is VarRef ? "uint*" : IntPtr
+        FileSizeMarshal := FileSize == 0 ? IntPtr : "uint*"
+        DisplacementMarshal := Displacement is VarRef ? "uint*" : IntPtr
+        DisplacementMarshal := Displacement == 0 ? IntPtr : "uint*"
 
-        result := ComCall(63, this, Int64, Offset, LineMarshal, Line, "ptr", FileBuffer, UInt32, FileBufferSize, FileSizeMarshal, FileSize, DisplacementMarshal, Displacement, "HRESULT")
+        result := ComCall(63, this, Int64, Offset, LineMarshal, Line, FileBufferMarshal, FileBuffer, UInt32, FileBufferSize, FileSizeMarshal, FileSize, DisplacementMarshal, Displacement, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Line 
      * @param {PWSTR} _File 
      * @returns {Integer} 
@@ -1037,7 +1042,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} Name 
      * @param {Integer} StartIndex 
      * @param {Pointer<Integer>} Index 
@@ -1047,15 +1051,16 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetModuleByModuleNameWide(Name, StartIndex, Index, Base) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        IndexMarshal := Index is VarRef ? "uint*" : "ptr"
-        BaseMarshal := Base is VarRef ? "uint*" : "ptr"
+        IndexMarshal := Index is VarRef ? "uint*" : IntPtr
+        IndexMarshal := Index == 0 ? IntPtr : "uint*"
+        BaseMarshal := Base is VarRef ? "uint*" : IntPtr
+        BaseMarshal := Base == 0 ? IntPtr : "uint*"
 
         result := ComCall(65, this, "ptr", Name, UInt32, StartIndex, IndexMarshal, Index, BaseMarshal, Base, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} Symbol 
      * @returns {Integer} 
      */
@@ -1067,7 +1072,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
      * @param {PWSTR} NameBuffer 
@@ -1077,12 +1081,13 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetTypeNameWide(Module, TypeId, NameBuffer, NameBufferSize) {
         NameBuffer := NameBuffer is String ? StrPtr(NameBuffer) : NameBuffer
 
-        result := ComCall(67, this, Int64, Module, UInt32, TypeId, "ptr", NameBuffer, UInt32, NameBufferSize, "uint*", &NameSize := 0, "HRESULT")
+        NameBufferMarshal := NameBuffer == 0 ? IntPtr : PWSTR
+
+        result := ComCall(67, this, Int64, Module, UInt32, TypeId, NameBufferMarshal, NameBuffer, UInt32, NameBufferSize, "uint*", &NameSize := 0, "HRESULT")
         return NameSize
     }
 
     /**
-     * 
      * @param {Integer} Module 
      * @param {PWSTR} Name 
      * @returns {Integer} 
@@ -1095,7 +1100,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
      * @param {PWSTR} Field 
@@ -1109,7 +1113,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} Symbol 
      * @param {Pointer<Integer>} TypeId 
      * @param {Pointer<Integer>} Module 
@@ -1118,26 +1121,27 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetSymbolTypeIdWide(Symbol, TypeId, Module) {
         Symbol := Symbol is String ? StrPtr(Symbol) : Symbol
 
-        TypeIdMarshal := TypeId is VarRef ? "uint*" : "ptr"
-        ModuleMarshal := Module is VarRef ? "uint*" : "ptr"
+        TypeIdMarshal := TypeId is VarRef ? "uint*" : IntPtr
+        ModuleMarshal := Module is VarRef ? "uint*" : IntPtr
+        ModuleMarshal := Module == 0 ? IntPtr : "uint*"
 
         result := ComCall(70, this, "ptr", Symbol, TypeIdMarshal, TypeId, ModuleMarshal, Module, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @param {IDebugSymbolGroup2} Update 
      * @returns {IDebugSymbolGroup2} 
      */
     GetScopeSymbolGroup2(Flags, Update) {
-        result := ComCall(71, this, UInt32, Flags, "ptr", Update, "ptr*", &Symbols := 0, "HRESULT")
+        UpdateMarshal := Update == 0 ? IntPtr : "ptr"
+
+        result := ComCall(71, this, UInt32, Flags, UpdateMarshal, Update, "ptr*", &Symbols := 0, "HRESULT")
         return IDebugSymbolGroup2(Symbols)
     }
 
     /**
-     * 
      * @returns {IDebugSymbolGroup2} 
      */
     CreateSymbolGroup2() {
@@ -1146,7 +1150,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} Pattern 
      * @returns {Integer} 
      */
@@ -1158,7 +1161,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Handle 
      * @param {PWSTR} _Buffer 
      * @param {Integer} BufferSize 
@@ -1169,15 +1171,17 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetNextSymbolMatchWide(_Handle, _Buffer, BufferSize, MatchSize, Offset) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        MatchSizeMarshal := MatchSize is VarRef ? "uint*" : "ptr"
-        OffsetMarshal := Offset is VarRef ? "uint*" : "ptr"
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PWSTR
+        MatchSizeMarshal := MatchSize is VarRef ? "uint*" : IntPtr
+        MatchSizeMarshal := MatchSize == 0 ? IntPtr : "uint*"
+        OffsetMarshal := Offset is VarRef ? "uint*" : IntPtr
+        OffsetMarshal := Offset == 0 ? IntPtr : "uint*"
 
-        result := ComCall(74, this, Int64, _Handle, "ptr", _Buffer, UInt32, BufferSize, MatchSizeMarshal, MatchSize, OffsetMarshal, Offset, "HRESULT")
+        result := ComCall(74, this, Int64, _Handle, _BufferMarshal, _Buffer, UInt32, BufferSize, MatchSizeMarshal, MatchSize, OffsetMarshal, Offset, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} Module 
      * @returns {HRESULT} 
      */
@@ -1189,7 +1193,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -1197,12 +1200,13 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetSymbolPathWide(_Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(76, this, "ptr", _Buffer, UInt32, BufferSize, "uint*", &PathSize := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PWSTR
+
+        result := ComCall(76, this, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &PathSize := 0, "HRESULT")
         return PathSize
     }
 
     /**
-     * 
      * @param {PWSTR} _Path 
      * @returns {HRESULT} 
      */
@@ -1214,7 +1218,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} Addition 
      * @returns {HRESULT} 
      */
@@ -1226,7 +1229,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -1234,12 +1236,13 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetImagePathWide(_Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(79, this, "ptr", _Buffer, UInt32, BufferSize, "uint*", &PathSize := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PWSTR
+
+        result := ComCall(79, this, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &PathSize := 0, "HRESULT")
         return PathSize
     }
 
     /**
-     * 
      * @param {PWSTR} _Path 
      * @returns {HRESULT} 
      */
@@ -1251,7 +1254,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} Addition 
      * @returns {HRESULT} 
      */
@@ -1263,7 +1265,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -1271,12 +1272,13 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetSourcePathWide(_Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(82, this, "ptr", _Buffer, UInt32, BufferSize, "uint*", &PathSize := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PWSTR
+
+        result := ComCall(82, this, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &PathSize := 0, "HRESULT")
         return PathSize
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {PWSTR} _Buffer 
      * @param {Integer} BufferSize 
@@ -1285,12 +1287,13 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetSourcePathElementWide(Index, _Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(83, this, UInt32, Index, "ptr", _Buffer, UInt32, BufferSize, "uint*", &ElementSize := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PWSTR
+
+        result := ComCall(83, this, UInt32, Index, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &ElementSize := 0, "HRESULT")
         return ElementSize
     }
 
     /**
-     * 
      * @param {PWSTR} _Path 
      * @returns {HRESULT} 
      */
@@ -1302,7 +1305,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} Addition 
      * @returns {HRESULT} 
      */
@@ -1314,7 +1316,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} StartElement 
      * @param {PWSTR} _File 
      * @param {Integer} Flags 
@@ -1328,15 +1329,17 @@ export default struct IDebugSymbols3 extends IUnknown {
         _File := _File is String ? StrPtr(_File) : _File
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        FoundElementMarshal := FoundElement is VarRef ? "uint*" : "ptr"
-        FoundSizeMarshal := FoundSize is VarRef ? "uint*" : "ptr"
+        FoundElementMarshal := FoundElement is VarRef ? "uint*" : IntPtr
+        FoundElementMarshal := FoundElement == 0 ? IntPtr : "uint*"
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PWSTR
+        FoundSizeMarshal := FoundSize is VarRef ? "uint*" : IntPtr
+        FoundSizeMarshal := FoundSize == 0 ? IntPtr : "uint*"
 
-        result := ComCall(86, this, UInt32, StartElement, "ptr", _File, UInt32, Flags, FoundElementMarshal, FoundElement, "ptr", _Buffer, UInt32, BufferSize, FoundSizeMarshal, FoundSize, "HRESULT")
+        result := ComCall(86, this, UInt32, StartElement, "ptr", _File, UInt32, Flags, FoundElementMarshal, FoundElement, _BufferMarshal, _Buffer, UInt32, BufferSize, FoundSizeMarshal, FoundSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} _File 
      * @param {Pointer<Integer>} _Buffer 
      * @param {Integer} BufferLines 
@@ -1346,15 +1349,16 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetSourceFileLineOffsetsWide(_File, _Buffer, BufferLines, FileLines) {
         _File := _File is String ? StrPtr(_File) : _File
 
-        _BufferMarshal := _Buffer is VarRef ? "uint*" : "ptr"
-        FileLinesMarshal := FileLines is VarRef ? "uint*" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "uint*" : IntPtr
+        _BufferMarshal := _Buffer == 0 ? IntPtr : "uint*"
+        FileLinesMarshal := FileLines is VarRef ? "uint*" : IntPtr
+        FileLinesMarshal := FileLines == 0 ? IntPtr : "uint*"
 
         result := ComCall(87, this, "ptr", _File, _BufferMarshal, _Buffer, UInt32, BufferLines, FileLinesMarshal, FileLines, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {Integer} Base 
      * @param {PWSTR} Item 
@@ -1365,12 +1369,13 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetModuleVersionInformationWide(Index, Base, Item, _Buffer, BufferSize) {
         Item := Item is String ? StrPtr(Item) : Item
 
-        result := ComCall(88, this, UInt32, Index, Int64, Base, "ptr", Item, IntPtr, _Buffer, UInt32, BufferSize, "uint*", &VerInfoSize := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+
+        result := ComCall(88, this, UInt32, Index, Int64, Base, "ptr", Item, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &VerInfoSize := 0, "HRESULT")
         return VerInfoSize
     }
 
     /**
-     * 
      * @param {Integer} Which 
      * @param {Integer} Index 
      * @param {Integer} Base 
@@ -1381,12 +1386,13 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetModuleNameStringWide(Which, Index, Base, _Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(89, this, UInt32, Which, UInt32, Index, Int64, Base, "ptr", _Buffer, UInt32, BufferSize, "uint*", &NameSize := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PWSTR
+
+        result := ComCall(89, this, UInt32, Which, UInt32, Index, Int64, Base, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &NameSize := 0, "HRESULT")
         return NameSize
     }
 
     /**
-     * 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
      * @param {Integer} Value 
@@ -1397,12 +1403,13 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetConstantNameWide(Module, TypeId, Value, NameBuffer, NameBufferSize) {
         NameBuffer := NameBuffer is String ? StrPtr(NameBuffer) : NameBuffer
 
-        result := ComCall(90, this, Int64, Module, UInt32, TypeId, Int64, Value, "ptr", NameBuffer, UInt32, NameBufferSize, "uint*", &NameSize := 0, "HRESULT")
+        NameBufferMarshal := NameBuffer == 0 ? IntPtr : PWSTR
+
+        result := ComCall(90, this, Int64, Module, UInt32, TypeId, Int64, Value, NameBufferMarshal, NameBuffer, UInt32, NameBufferSize, "uint*", &NameSize := 0, "HRESULT")
         return NameSize
     }
 
     /**
-     * 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
      * @param {Integer} FieldIndex 
@@ -1413,12 +1420,13 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetFieldNameWide(Module, TypeId, FieldIndex, NameBuffer, NameBufferSize) {
         NameBuffer := NameBuffer is String ? StrPtr(NameBuffer) : NameBuffer
 
-        result := ComCall(91, this, Int64, Module, UInt32, TypeId, UInt32, FieldIndex, "ptr", NameBuffer, UInt32, NameBufferSize, "uint*", &NameSize := 0, "HRESULT")
+        NameBufferMarshal := NameBuffer == 0 ? IntPtr : PWSTR
+
+        result := ComCall(91, this, Int64, Module, UInt32, TypeId, UInt32, FieldIndex, NameBufferMarshal, NameBuffer, UInt32, NameBufferSize, "uint*", &NameSize := 0, "HRESULT")
         return NameSize
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {Integer} Base 
      * @returns {HRESULT} 
@@ -1429,7 +1437,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Name 
      * @param {Integer} StartIndex 
      * @param {Integer} Flags 
@@ -1440,15 +1447,16 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetModuleByModuleName2(Name, StartIndex, Flags, Index, Base) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        IndexMarshal := Index is VarRef ? "uint*" : "ptr"
-        BaseMarshal := Base is VarRef ? "uint*" : "ptr"
+        IndexMarshal := Index is VarRef ? "uint*" : IntPtr
+        IndexMarshal := Index == 0 ? IntPtr : "uint*"
+        BaseMarshal := Base is VarRef ? "uint*" : IntPtr
+        BaseMarshal := Base == 0 ? IntPtr : "uint*"
 
         result := ComCall(93, this, "ptr", Name, UInt32, StartIndex, UInt32, Flags, IndexMarshal, Index, BaseMarshal, Base, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} Name 
      * @param {Integer} StartIndex 
      * @param {Integer} Flags 
@@ -1459,15 +1467,16 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetModuleByModuleName2Wide(Name, StartIndex, Flags, Index, Base) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        IndexMarshal := Index is VarRef ? "uint*" : "ptr"
-        BaseMarshal := Base is VarRef ? "uint*" : "ptr"
+        IndexMarshal := Index is VarRef ? "uint*" : IntPtr
+        IndexMarshal := Index == 0 ? IntPtr : "uint*"
+        BaseMarshal := Base is VarRef ? "uint*" : IntPtr
+        BaseMarshal := Base == 0 ? IntPtr : "uint*"
 
         result := ComCall(94, this, "ptr", Name, UInt32, StartIndex, UInt32, Flags, IndexMarshal, Index, BaseMarshal, Base, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} StartIndex 
      * @param {Integer} Flags 
@@ -1476,15 +1485,16 @@ export default struct IDebugSymbols3 extends IUnknown {
      * @returns {HRESULT} 
      */
     GetModuleByOffset2(Offset, StartIndex, Flags, Index, Base) {
-        IndexMarshal := Index is VarRef ? "uint*" : "ptr"
-        BaseMarshal := Base is VarRef ? "uint*" : "ptr"
+        IndexMarshal := Index is VarRef ? "uint*" : IntPtr
+        IndexMarshal := Index == 0 ? IntPtr : "uint*"
+        BaseMarshal := Base is VarRef ? "uint*" : IntPtr
+        BaseMarshal := Base == 0 ? IntPtr : "uint*"
 
         result := ComCall(95, this, Int64, Offset, UInt32, StartIndex, UInt32, Flags, IndexMarshal, Index, BaseMarshal, Base, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Base 
      * @param {Integer} _Size 
      * @param {PSTR} ImagePath 
@@ -1501,7 +1511,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Base 
      * @param {Integer} _Size 
      * @param {PWSTR} ImagePath 
@@ -1518,7 +1527,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Base 
      * @returns {HRESULT} 
      */
@@ -1528,7 +1536,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentScopeFrameIndex() {
@@ -1537,7 +1544,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {HRESULT} 
      */
@@ -1547,7 +1553,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {Integer} InfoOffset 
      * @returns {HRESULT} 
@@ -1558,7 +1563,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SetScopeFromStoredEvent() {
@@ -1567,7 +1571,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {Integer} Flags 
      * @param {Integer} Offset 
@@ -1579,7 +1582,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} Flags 
      * @param {Integer} _Buffer 
@@ -1587,12 +1589,13 @@ export default struct IDebugSymbols3 extends IUnknown {
      * @returns {Integer} 
      */
     GetFunctionEntryByOffset(Offset, Flags, _Buffer, BufferSize) {
-        result := ComCall(104, this, Int64, Offset, UInt32, Flags, IntPtr, _Buffer, UInt32, BufferSize, "uint*", &BufferNeeded := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+
+        result := ComCall(104, this, Int64, Offset, UInt32, Flags, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &BufferNeeded := 0, "HRESULT")
         return BufferNeeded
     }
 
     /**
-     * 
      * @param {Integer} Module 
      * @param {Integer} ContainerTypeId 
      * @param {PSTR} Field 
@@ -1603,15 +1606,16 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetFieldTypeAndOffset(Module, ContainerTypeId, Field, FieldTypeId, Offset) {
         Field := Field is String ? StrPtr(Field) : Field
 
-        FieldTypeIdMarshal := FieldTypeId is VarRef ? "uint*" : "ptr"
-        OffsetMarshal := Offset is VarRef ? "uint*" : "ptr"
+        FieldTypeIdMarshal := FieldTypeId is VarRef ? "uint*" : IntPtr
+        FieldTypeIdMarshal := FieldTypeId == 0 ? IntPtr : "uint*"
+        OffsetMarshal := Offset is VarRef ? "uint*" : IntPtr
+        OffsetMarshal := Offset == 0 ? IntPtr : "uint*"
 
         result := ComCall(105, this, Int64, Module, UInt32, ContainerTypeId, "ptr", Field, FieldTypeIdMarshal, FieldTypeId, OffsetMarshal, Offset, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Module 
      * @param {Integer} ContainerTypeId 
      * @param {PWSTR} Field 
@@ -1622,15 +1626,16 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetFieldTypeAndOffsetWide(Module, ContainerTypeId, Field, FieldTypeId, Offset) {
         Field := Field is String ? StrPtr(Field) : Field
 
-        FieldTypeIdMarshal := FieldTypeId is VarRef ? "uint*" : "ptr"
-        OffsetMarshal := Offset is VarRef ? "uint*" : "ptr"
+        FieldTypeIdMarshal := FieldTypeId is VarRef ? "uint*" : IntPtr
+        FieldTypeIdMarshal := FieldTypeId == 0 ? IntPtr : "uint*"
+        OffsetMarshal := Offset is VarRef ? "uint*" : IntPtr
+        OffsetMarshal := Offset == 0 ? IntPtr : "uint*"
 
         result := ComCall(106, this, Int64, Module, UInt32, ContainerTypeId, "ptr", Field, FieldTypeIdMarshal, FieldTypeId, OffsetMarshal, Offset, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} _Size 
      * @param {PSTR} Name 
@@ -1646,7 +1651,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} _Size 
      * @param {PWSTR} Name 
@@ -1662,7 +1666,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DEBUG_MODULE_AND_ID>} Id 
      * @returns {HRESULT} 
      */
@@ -1672,7 +1675,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} Flags 
      * @param {Pointer<DEBUG_MODULE_AND_ID>} Ids 
@@ -1682,15 +1684,17 @@ export default struct IDebugSymbols3 extends IUnknown {
      * @returns {HRESULT} 
      */
     GetSymbolEntriesByOffset(Offset, Flags, Ids, Displacements, IdsCount, Entries) {
-        DisplacementsMarshal := Displacements is VarRef ? "uint*" : "ptr"
-        EntriesMarshal := Entries is VarRef ? "uint*" : "ptr"
+        IdsMarshal := Ids == 0 ? IntPtr : DEBUG_MODULE_AND_ID.Ptr
+        DisplacementsMarshal := Displacements is VarRef ? "uint*" : IntPtr
+        DisplacementsMarshal := Displacements == 0 ? IntPtr : "uint*"
+        EntriesMarshal := Entries is VarRef ? "uint*" : IntPtr
+        EntriesMarshal := Entries == 0 ? IntPtr : "uint*"
 
-        result := ComCall(110, this, Int64, Offset, UInt32, Flags, DEBUG_MODULE_AND_ID.Ptr, Ids, DisplacementsMarshal, Displacements, UInt32, IdsCount, EntriesMarshal, Entries, "HRESULT")
+        result := ComCall(110, this, Int64, Offset, UInt32, Flags, IdsMarshal, Ids, DisplacementsMarshal, Displacements, UInt32, IdsCount, EntriesMarshal, Entries, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PSTR} Symbol 
      * @param {Integer} Flags 
      * @param {Pointer<DEBUG_MODULE_AND_ID>} Ids 
@@ -1701,14 +1705,15 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetSymbolEntriesByName(Symbol, Flags, Ids, IdsCount, Entries) {
         Symbol := Symbol is String ? StrPtr(Symbol) : Symbol
 
-        EntriesMarshal := Entries is VarRef ? "uint*" : "ptr"
+        IdsMarshal := Ids == 0 ? IntPtr : DEBUG_MODULE_AND_ID.Ptr
+        EntriesMarshal := Entries is VarRef ? "uint*" : IntPtr
+        EntriesMarshal := Entries == 0 ? IntPtr : "uint*"
 
-        result := ComCall(111, this, "ptr", Symbol, UInt32, Flags, DEBUG_MODULE_AND_ID.Ptr, Ids, UInt32, IdsCount, EntriesMarshal, Entries, "HRESULT")
+        result := ComCall(111, this, "ptr", Symbol, UInt32, Flags, IdsMarshal, Ids, UInt32, IdsCount, EntriesMarshal, Entries, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} Symbol 
      * @param {Integer} Flags 
      * @param {Pointer<DEBUG_MODULE_AND_ID>} Ids 
@@ -1719,14 +1724,15 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetSymbolEntriesByNameWide(Symbol, Flags, Ids, IdsCount, Entries) {
         Symbol := Symbol is String ? StrPtr(Symbol) : Symbol
 
-        EntriesMarshal := Entries is VarRef ? "uint*" : "ptr"
+        IdsMarshal := Ids == 0 ? IntPtr : DEBUG_MODULE_AND_ID.Ptr
+        EntriesMarshal := Entries is VarRef ? "uint*" : IntPtr
+        EntriesMarshal := Entries == 0 ? IntPtr : "uint*"
 
-        result := ComCall(112, this, "ptr", Symbol, UInt32, Flags, DEBUG_MODULE_AND_ID.Ptr, Ids, UInt32, IdsCount, EntriesMarshal, Entries, "HRESULT")
+        result := ComCall(112, this, "ptr", Symbol, UInt32, Flags, IdsMarshal, Ids, UInt32, IdsCount, EntriesMarshal, Entries, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} ModuleBase 
      * @param {Integer} Token 
      * @returns {DEBUG_MODULE_AND_ID} 
@@ -1738,7 +1744,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DEBUG_MODULE_AND_ID>} Id 
      * @returns {DEBUG_SYMBOL_ENTRY} 
      */
@@ -1749,7 +1754,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DEBUG_MODULE_AND_ID>} Id 
      * @param {Integer} Which 
      * @param {PSTR} _Buffer 
@@ -1759,12 +1763,13 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetSymbolEntryString(Id, Which, _Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(115, this, DEBUG_MODULE_AND_ID.Ptr, Id, UInt32, Which, "ptr", _Buffer, UInt32, BufferSize, "uint*", &StringSize := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PSTR
+
+        result := ComCall(115, this, DEBUG_MODULE_AND_ID.Ptr, Id, UInt32, Which, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &StringSize := 0, "HRESULT")
         return StringSize
     }
 
     /**
-     * 
      * @param {Pointer<DEBUG_MODULE_AND_ID>} Id 
      * @param {Integer} Which 
      * @param {PWSTR} _Buffer 
@@ -1774,12 +1779,13 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetSymbolEntryStringWide(Id, Which, _Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(116, this, DEBUG_MODULE_AND_ID.Ptr, Id, UInt32, Which, "ptr", _Buffer, UInt32, BufferSize, "uint*", &StringSize := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PWSTR
+
+        result := ComCall(116, this, DEBUG_MODULE_AND_ID.Ptr, Id, UInt32, Which, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &StringSize := 0, "HRESULT")
         return StringSize
     }
 
     /**
-     * 
      * @param {Pointer<DEBUG_MODULE_AND_ID>} Id 
      * @param {Integer} Flags 
      * @param {Pointer<DEBUG_OFFSET_REGION>} Regions 
@@ -1788,14 +1794,15 @@ export default struct IDebugSymbols3 extends IUnknown {
      * @returns {HRESULT} 
      */
     GetSymbolEntryOffsetRegions(Id, Flags, Regions, RegionsCount, RegionsAvail) {
-        RegionsAvailMarshal := RegionsAvail is VarRef ? "uint*" : "ptr"
+        RegionsMarshal := Regions == 0 ? IntPtr : DEBUG_OFFSET_REGION.Ptr
+        RegionsAvailMarshal := RegionsAvail is VarRef ? "uint*" : IntPtr
+        RegionsAvailMarshal := RegionsAvail == 0 ? IntPtr : "uint*"
 
-        result := ComCall(117, this, DEBUG_MODULE_AND_ID.Ptr, Id, UInt32, Flags, DEBUG_OFFSET_REGION.Ptr, Regions, UInt32, RegionsCount, RegionsAvailMarshal, RegionsAvail, "HRESULT")
+        result := ComCall(117, this, DEBUG_MODULE_AND_ID.Ptr, Id, UInt32, Flags, RegionsMarshal, Regions, UInt32, RegionsCount, RegionsAvailMarshal, RegionsAvail, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<DEBUG_MODULE_AND_ID>} FromId 
      * @param {Integer} Flags 
      * @returns {DEBUG_MODULE_AND_ID} 
@@ -1807,7 +1814,6 @@ export default struct IDebugSymbols3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} Flags 
      * @param {Pointer<DEBUG_SYMBOL_SOURCE_ENTRY>} Entries 
@@ -1816,14 +1822,15 @@ export default struct IDebugSymbols3 extends IUnknown {
      * @returns {HRESULT} 
      */
     GetSourceEntriesByOffset(Offset, Flags, Entries, EntriesCount, EntriesAvail) {
-        EntriesAvailMarshal := EntriesAvail is VarRef ? "uint*" : "ptr"
+        EntriesMarshal := Entries == 0 ? IntPtr : DEBUG_SYMBOL_SOURCE_ENTRY.Ptr
+        EntriesAvailMarshal := EntriesAvail is VarRef ? "uint*" : IntPtr
+        EntriesAvailMarshal := EntriesAvail == 0 ? IntPtr : "uint*"
 
-        result := ComCall(119, this, Int64, Offset, UInt32, Flags, DEBUG_SYMBOL_SOURCE_ENTRY.Ptr, Entries, UInt32, EntriesCount, EntriesAvailMarshal, EntriesAvail, "HRESULT")
+        result := ComCall(119, this, Int64, Offset, UInt32, Flags, EntriesMarshal, Entries, UInt32, EntriesCount, EntriesAvailMarshal, EntriesAvail, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Line 
      * @param {PSTR} _File 
      * @param {Integer} Flags 
@@ -1835,14 +1842,15 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetSourceEntriesByLine(Line, _File, Flags, Entries, EntriesCount, EntriesAvail) {
         _File := _File is String ? StrPtr(_File) : _File
 
-        EntriesAvailMarshal := EntriesAvail is VarRef ? "uint*" : "ptr"
+        EntriesMarshal := Entries == 0 ? IntPtr : DEBUG_SYMBOL_SOURCE_ENTRY.Ptr
+        EntriesAvailMarshal := EntriesAvail is VarRef ? "uint*" : IntPtr
+        EntriesAvailMarshal := EntriesAvail == 0 ? IntPtr : "uint*"
 
-        result := ComCall(120, this, UInt32, Line, "ptr", _File, UInt32, Flags, DEBUG_SYMBOL_SOURCE_ENTRY.Ptr, Entries, UInt32, EntriesCount, EntriesAvailMarshal, EntriesAvail, "HRESULT")
+        result := ComCall(120, this, UInt32, Line, "ptr", _File, UInt32, Flags, EntriesMarshal, Entries, UInt32, EntriesCount, EntriesAvailMarshal, EntriesAvail, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Line 
      * @param {PWSTR} _File 
      * @param {Integer} Flags 
@@ -1854,14 +1862,15 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetSourceEntriesByLineWide(Line, _File, Flags, Entries, EntriesCount, EntriesAvail) {
         _File := _File is String ? StrPtr(_File) : _File
 
-        EntriesAvailMarshal := EntriesAvail is VarRef ? "uint*" : "ptr"
+        EntriesMarshal := Entries == 0 ? IntPtr : DEBUG_SYMBOL_SOURCE_ENTRY.Ptr
+        EntriesAvailMarshal := EntriesAvail is VarRef ? "uint*" : IntPtr
+        EntriesAvailMarshal := EntriesAvail == 0 ? IntPtr : "uint*"
 
-        result := ComCall(121, this, UInt32, Line, "ptr", _File, UInt32, Flags, DEBUG_SYMBOL_SOURCE_ENTRY.Ptr, Entries, UInt32, EntriesCount, EntriesAvailMarshal, EntriesAvail, "HRESULT")
+        result := ComCall(121, this, UInt32, Line, "ptr", _File, UInt32, Flags, EntriesMarshal, Entries, UInt32, EntriesCount, EntriesAvailMarshal, EntriesAvail, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<DEBUG_SYMBOL_SOURCE_ENTRY>} Entry 
      * @param {Integer} Which 
      * @param {PSTR} _Buffer 
@@ -1871,12 +1880,13 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetSourceEntryString(Entry, Which, _Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(122, this, DEBUG_SYMBOL_SOURCE_ENTRY.Ptr, Entry, UInt32, Which, "ptr", _Buffer, UInt32, BufferSize, "uint*", &StringSize := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PSTR
+
+        result := ComCall(122, this, DEBUG_SYMBOL_SOURCE_ENTRY.Ptr, Entry, UInt32, Which, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &StringSize := 0, "HRESULT")
         return StringSize
     }
 
     /**
-     * 
      * @param {Pointer<DEBUG_SYMBOL_SOURCE_ENTRY>} Entry 
      * @param {Integer} Which 
      * @param {PWSTR} _Buffer 
@@ -1886,12 +1896,13 @@ export default struct IDebugSymbols3 extends IUnknown {
     GetSourceEntryStringWide(Entry, Which, _Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(123, this, DEBUG_SYMBOL_SOURCE_ENTRY.Ptr, Entry, UInt32, Which, "ptr", _Buffer, UInt32, BufferSize, "uint*", &StringSize := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PWSTR
+
+        result := ComCall(123, this, DEBUG_SYMBOL_SOURCE_ENTRY.Ptr, Entry, UInt32, Which, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &StringSize := 0, "HRESULT")
         return StringSize
     }
 
     /**
-     * 
      * @param {Pointer<DEBUG_SYMBOL_SOURCE_ENTRY>} Entry 
      * @param {Integer} Flags 
      * @param {Pointer<DEBUG_OFFSET_REGION>} Regions 
@@ -1900,14 +1911,15 @@ export default struct IDebugSymbols3 extends IUnknown {
      * @returns {HRESULT} 
      */
     GetSourceEntryOffsetRegions(Entry, Flags, Regions, RegionsCount, RegionsAvail) {
-        RegionsAvailMarshal := RegionsAvail is VarRef ? "uint*" : "ptr"
+        RegionsMarshal := Regions == 0 ? IntPtr : DEBUG_OFFSET_REGION.Ptr
+        RegionsAvailMarshal := RegionsAvail is VarRef ? "uint*" : IntPtr
+        RegionsAvailMarshal := RegionsAvail == 0 ? IntPtr : "uint*"
 
-        result := ComCall(124, this, DEBUG_SYMBOL_SOURCE_ENTRY.Ptr, Entry, UInt32, Flags, DEBUG_OFFSET_REGION.Ptr, Regions, UInt32, RegionsCount, RegionsAvailMarshal, RegionsAvail, "HRESULT")
+        result := ComCall(124, this, DEBUG_SYMBOL_SOURCE_ENTRY.Ptr, Entry, UInt32, Flags, RegionsMarshal, Regions, UInt32, RegionsCount, RegionsAvailMarshal, RegionsAvail, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<DEBUG_SYMBOL_SOURCE_ENTRY>} FromEntry 
      * @param {Integer} Flags 
      * @returns {DEBUG_SYMBOL_SOURCE_ENTRY} 
@@ -1927,129 +1939,129 @@ export default struct IDebugSymbols3 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSymbolOptions := CallbackCreate(GetMethod(implObj, "GetSymbolOptions"), flags, 2)
-        this.vtbl.AddSymbolOptions := CallbackCreate(GetMethod(implObj, "AddSymbolOptions"), flags, 2)
-        this.vtbl.RemoveSymbolOptions := CallbackCreate(GetMethod(implObj, "RemoveSymbolOptions"), flags, 2)
-        this.vtbl.SetSymbolOptions := CallbackCreate(GetMethod(implObj, "SetSymbolOptions"), flags, 2)
-        this.vtbl.GetNameByOffset := CallbackCreate(GetMethod(implObj, "GetNameByOffset"), flags, 6)
-        this.vtbl.GetOffsetByName := CallbackCreate(GetMethod(implObj, "GetOffsetByName"), flags, 3)
-        this.vtbl.GetNearNameByOffset := CallbackCreate(GetMethod(implObj, "GetNearNameByOffset"), flags, 7)
-        this.vtbl.GetLineByOffset := CallbackCreate(GetMethod(implObj, "GetLineByOffset"), flags, 7)
-        this.vtbl.GetOffsetByLine := CallbackCreate(GetMethod(implObj, "GetOffsetByLine"), flags, 4)
-        this.vtbl.GetNumberModules := CallbackCreate(GetMethod(implObj, "GetNumberModules"), flags, 3)
-        this.vtbl.GetModuleByIndex := CallbackCreate(GetMethod(implObj, "GetModuleByIndex"), flags, 3)
-        this.vtbl.GetModuleByModuleName := CallbackCreate(GetMethod(implObj, "GetModuleByModuleName"), flags, 5)
-        this.vtbl.GetModuleByOffset := CallbackCreate(GetMethod(implObj, "GetModuleByOffset"), flags, 5)
-        this.vtbl.GetModuleNames := CallbackCreate(GetMethod(implObj, "GetModuleNames"), flags, 12)
-        this.vtbl.GetModuleParameters := CallbackCreate(GetMethod(implObj, "GetModuleParameters"), flags, 5)
-        this.vtbl.GetSymbolModule := CallbackCreate(GetMethod(implObj, "GetSymbolModule"), flags, 3)
-        this.vtbl.GetTypeName := CallbackCreate(GetMethod(implObj, "GetTypeName"), flags, 6)
-        this.vtbl.GetTypeId := CallbackCreate(GetMethod(implObj, "GetTypeId"), flags, 4)
-        this.vtbl.GetTypeSize := CallbackCreate(GetMethod(implObj, "GetTypeSize"), flags, 4)
-        this.vtbl.GetFieldOffset := CallbackCreate(GetMethod(implObj, "GetFieldOffset"), flags, 5)
-        this.vtbl.GetSymbolTypeId := CallbackCreate(GetMethod(implObj, "GetSymbolTypeId"), flags, 4)
-        this.vtbl.GetOffsetTypeId := CallbackCreate(GetMethod(implObj, "GetOffsetTypeId"), flags, 4)
-        this.vtbl.ReadTypedDataVirtual := CallbackCreate(GetMethod(implObj, "ReadTypedDataVirtual"), flags, 7)
-        this.vtbl.WriteTypedDataVirtual := CallbackCreate(GetMethod(implObj, "WriteTypedDataVirtual"), flags, 7)
-        this.vtbl.OutputTypedDataVirtual := CallbackCreate(GetMethod(implObj, "OutputTypedDataVirtual"), flags, 6)
-        this.vtbl.ReadTypedDataPhysical := CallbackCreate(GetMethod(implObj, "ReadTypedDataPhysical"), flags, 7)
-        this.vtbl.WriteTypedDataPhysical := CallbackCreate(GetMethod(implObj, "WriteTypedDataPhysical"), flags, 7)
-        this.vtbl.OutputTypedDataPhysical := CallbackCreate(GetMethod(implObj, "OutputTypedDataPhysical"), flags, 6)
-        this.vtbl.GetScope := CallbackCreate(GetMethod(implObj, "GetScope"), flags, 5)
-        this.vtbl.SetScope := CallbackCreate(GetMethod(implObj, "SetScope"), flags, 5)
-        this.vtbl.ResetScope := CallbackCreate(GetMethod(implObj, "ResetScope"), flags, 1)
-        this.vtbl.GetScopeSymbolGroup := CallbackCreate(GetMethod(implObj, "GetScopeSymbolGroup"), flags, 4)
-        this.vtbl.CreateSymbolGroup := CallbackCreate(GetMethod(implObj, "CreateSymbolGroup"), flags, 2)
-        this.vtbl.StartSymbolMatch := CallbackCreate(GetMethod(implObj, "StartSymbolMatch"), flags, 3)
-        this.vtbl.GetNextSymbolMatch := CallbackCreate(GetMethod(implObj, "GetNextSymbolMatch"), flags, 6)
-        this.vtbl.EndSymbolMatch := CallbackCreate(GetMethod(implObj, "EndSymbolMatch"), flags, 2)
-        this.vtbl.Reload := CallbackCreate(GetMethod(implObj, "Reload"), flags, 2)
-        this.vtbl.GetSymbolPath := CallbackCreate(GetMethod(implObj, "GetSymbolPath"), flags, 4)
-        this.vtbl.SetSymbolPath := CallbackCreate(GetMethod(implObj, "SetSymbolPath"), flags, 2)
-        this.vtbl.AppendSymbolPath := CallbackCreate(GetMethod(implObj, "AppendSymbolPath"), flags, 2)
-        this.vtbl.GetImagePath := CallbackCreate(GetMethod(implObj, "GetImagePath"), flags, 4)
-        this.vtbl.SetImagePath := CallbackCreate(GetMethod(implObj, "SetImagePath"), flags, 2)
-        this.vtbl.AppendImagePath := CallbackCreate(GetMethod(implObj, "AppendImagePath"), flags, 2)
-        this.vtbl.GetSourcePath := CallbackCreate(GetMethod(implObj, "GetSourcePath"), flags, 4)
-        this.vtbl.GetSourcePathElement := CallbackCreate(GetMethod(implObj, "GetSourcePathElement"), flags, 5)
-        this.vtbl.SetSourcePath := CallbackCreate(GetMethod(implObj, "SetSourcePath"), flags, 2)
-        this.vtbl.AppendSourcePath := CallbackCreate(GetMethod(implObj, "AppendSourcePath"), flags, 2)
-        this.vtbl.FindSourceFile := CallbackCreate(GetMethod(implObj, "FindSourceFile"), flags, 8)
-        this.vtbl.GetSourceFileLineOffsets := CallbackCreate(GetMethod(implObj, "GetSourceFileLineOffsets"), flags, 5)
-        this.vtbl.GetModuleVersionInformation := CallbackCreate(GetMethod(implObj, "GetModuleVersionInformation"), flags, 7)
-        this.vtbl.GetModuleNameString := CallbackCreate(GetMethod(implObj, "GetModuleNameString"), flags, 7)
-        this.vtbl.GetConstantName := CallbackCreate(GetMethod(implObj, "GetConstantName"), flags, 7)
-        this.vtbl.GetFieldName := CallbackCreate(GetMethod(implObj, "GetFieldName"), flags, 7)
-        this.vtbl.GetTypeOptions := CallbackCreate(GetMethod(implObj, "GetTypeOptions"), flags, 2)
-        this.vtbl.AddTypeOptions := CallbackCreate(GetMethod(implObj, "AddTypeOptions"), flags, 2)
-        this.vtbl.RemoveTypeOptions := CallbackCreate(GetMethod(implObj, "RemoveTypeOptions"), flags, 2)
-        this.vtbl.SetTypeOptions := CallbackCreate(GetMethod(implObj, "SetTypeOptions"), flags, 2)
-        this.vtbl.GetNameByOffsetWide := CallbackCreate(GetMethod(implObj, "GetNameByOffsetWide"), flags, 6)
-        this.vtbl.GetOffsetByNameWide := CallbackCreate(GetMethod(implObj, "GetOffsetByNameWide"), flags, 3)
-        this.vtbl.GetNearNameByOffsetWide := CallbackCreate(GetMethod(implObj, "GetNearNameByOffsetWide"), flags, 7)
-        this.vtbl.GetLineByOffsetWide := CallbackCreate(GetMethod(implObj, "GetLineByOffsetWide"), flags, 7)
-        this.vtbl.GetOffsetByLineWide := CallbackCreate(GetMethod(implObj, "GetOffsetByLineWide"), flags, 4)
-        this.vtbl.GetModuleByModuleNameWide := CallbackCreate(GetMethod(implObj, "GetModuleByModuleNameWide"), flags, 5)
-        this.vtbl.GetSymbolModuleWide := CallbackCreate(GetMethod(implObj, "GetSymbolModuleWide"), flags, 3)
-        this.vtbl.GetTypeNameWide := CallbackCreate(GetMethod(implObj, "GetTypeNameWide"), flags, 6)
-        this.vtbl.GetTypeIdWide := CallbackCreate(GetMethod(implObj, "GetTypeIdWide"), flags, 4)
-        this.vtbl.GetFieldOffsetWide := CallbackCreate(GetMethod(implObj, "GetFieldOffsetWide"), flags, 5)
-        this.vtbl.GetSymbolTypeIdWide := CallbackCreate(GetMethod(implObj, "GetSymbolTypeIdWide"), flags, 4)
-        this.vtbl.GetScopeSymbolGroup2 := CallbackCreate(GetMethod(implObj, "GetScopeSymbolGroup2"), flags, 4)
-        this.vtbl.CreateSymbolGroup2 := CallbackCreate(GetMethod(implObj, "CreateSymbolGroup2"), flags, 2)
-        this.vtbl.StartSymbolMatchWide := CallbackCreate(GetMethod(implObj, "StartSymbolMatchWide"), flags, 3)
-        this.vtbl.GetNextSymbolMatchWide := CallbackCreate(GetMethod(implObj, "GetNextSymbolMatchWide"), flags, 6)
-        this.vtbl.ReloadWide := CallbackCreate(GetMethod(implObj, "ReloadWide"), flags, 2)
-        this.vtbl.GetSymbolPathWide := CallbackCreate(GetMethod(implObj, "GetSymbolPathWide"), flags, 4)
-        this.vtbl.SetSymbolPathWide := CallbackCreate(GetMethod(implObj, "SetSymbolPathWide"), flags, 2)
-        this.vtbl.AppendSymbolPathWide := CallbackCreate(GetMethod(implObj, "AppendSymbolPathWide"), flags, 2)
-        this.vtbl.GetImagePathWide := CallbackCreate(GetMethod(implObj, "GetImagePathWide"), flags, 4)
-        this.vtbl.SetImagePathWide := CallbackCreate(GetMethod(implObj, "SetImagePathWide"), flags, 2)
-        this.vtbl.AppendImagePathWide := CallbackCreate(GetMethod(implObj, "AppendImagePathWide"), flags, 2)
-        this.vtbl.GetSourcePathWide := CallbackCreate(GetMethod(implObj, "GetSourcePathWide"), flags, 4)
-        this.vtbl.GetSourcePathElementWide := CallbackCreate(GetMethod(implObj, "GetSourcePathElementWide"), flags, 5)
-        this.vtbl.SetSourcePathWide := CallbackCreate(GetMethod(implObj, "SetSourcePathWide"), flags, 2)
-        this.vtbl.AppendSourcePathWide := CallbackCreate(GetMethod(implObj, "AppendSourcePathWide"), flags, 2)
-        this.vtbl.FindSourceFileWide := CallbackCreate(GetMethod(implObj, "FindSourceFileWide"), flags, 8)
-        this.vtbl.GetSourceFileLineOffsetsWide := CallbackCreate(GetMethod(implObj, "GetSourceFileLineOffsetsWide"), flags, 5)
-        this.vtbl.GetModuleVersionInformationWide := CallbackCreate(GetMethod(implObj, "GetModuleVersionInformationWide"), flags, 7)
-        this.vtbl.GetModuleNameStringWide := CallbackCreate(GetMethod(implObj, "GetModuleNameStringWide"), flags, 7)
-        this.vtbl.GetConstantNameWide := CallbackCreate(GetMethod(implObj, "GetConstantNameWide"), flags, 7)
-        this.vtbl.GetFieldNameWide := CallbackCreate(GetMethod(implObj, "GetFieldNameWide"), flags, 7)
-        this.vtbl.IsManagedModule := CallbackCreate(GetMethod(implObj, "IsManagedModule"), flags, 3)
-        this.vtbl.GetModuleByModuleName2 := CallbackCreate(GetMethod(implObj, "GetModuleByModuleName2"), flags, 6)
-        this.vtbl.GetModuleByModuleName2Wide := CallbackCreate(GetMethod(implObj, "GetModuleByModuleName2Wide"), flags, 6)
-        this.vtbl.GetModuleByOffset2 := CallbackCreate(GetMethod(implObj, "GetModuleByOffset2"), flags, 6)
-        this.vtbl.AddSyntheticModule := CallbackCreate(GetMethod(implObj, "AddSyntheticModule"), flags, 6)
-        this.vtbl.AddSyntheticModuleWide := CallbackCreate(GetMethod(implObj, "AddSyntheticModuleWide"), flags, 6)
-        this.vtbl.RemoveSyntheticModule := CallbackCreate(GetMethod(implObj, "RemoveSyntheticModule"), flags, 2)
-        this.vtbl.GetCurrentScopeFrameIndex := CallbackCreate(GetMethod(implObj, "GetCurrentScopeFrameIndex"), flags, 2)
-        this.vtbl.SetScopeFrameByIndex := CallbackCreate(GetMethod(implObj, "SetScopeFrameByIndex"), flags, 2)
-        this.vtbl.SetScopeFromJitDebugInfo := CallbackCreate(GetMethod(implObj, "SetScopeFromJitDebugInfo"), flags, 3)
-        this.vtbl.SetScopeFromStoredEvent := CallbackCreate(GetMethod(implObj, "SetScopeFromStoredEvent"), flags, 1)
-        this.vtbl.OutputSymbolByOffset := CallbackCreate(GetMethod(implObj, "OutputSymbolByOffset"), flags, 4)
-        this.vtbl.GetFunctionEntryByOffset := CallbackCreate(GetMethod(implObj, "GetFunctionEntryByOffset"), flags, 6)
-        this.vtbl.GetFieldTypeAndOffset := CallbackCreate(GetMethod(implObj, "GetFieldTypeAndOffset"), flags, 6)
-        this.vtbl.GetFieldTypeAndOffsetWide := CallbackCreate(GetMethod(implObj, "GetFieldTypeAndOffsetWide"), flags, 6)
-        this.vtbl.AddSyntheticSymbol := CallbackCreate(GetMethod(implObj, "AddSyntheticSymbol"), flags, 6)
-        this.vtbl.AddSyntheticSymbolWide := CallbackCreate(GetMethod(implObj, "AddSyntheticSymbolWide"), flags, 6)
-        this.vtbl.RemoveSyntheticSymbol := CallbackCreate(GetMethod(implObj, "RemoveSyntheticSymbol"), flags, 2)
-        this.vtbl.GetSymbolEntriesByOffset := CallbackCreate(GetMethod(implObj, "GetSymbolEntriesByOffset"), flags, 7)
-        this.vtbl.GetSymbolEntriesByName := CallbackCreate(GetMethod(implObj, "GetSymbolEntriesByName"), flags, 6)
-        this.vtbl.GetSymbolEntriesByNameWide := CallbackCreate(GetMethod(implObj, "GetSymbolEntriesByNameWide"), flags, 6)
-        this.vtbl.GetSymbolEntryByToken := CallbackCreate(GetMethod(implObj, "GetSymbolEntryByToken"), flags, 4)
-        this.vtbl.GetSymbolEntryInformation := CallbackCreate(GetMethod(implObj, "GetSymbolEntryInformation"), flags, 3)
-        this.vtbl.GetSymbolEntryString := CallbackCreate(GetMethod(implObj, "GetSymbolEntryString"), flags, 6)
-        this.vtbl.GetSymbolEntryStringWide := CallbackCreate(GetMethod(implObj, "GetSymbolEntryStringWide"), flags, 6)
-        this.vtbl.GetSymbolEntryOffsetRegions := CallbackCreate(GetMethod(implObj, "GetSymbolEntryOffsetRegions"), flags, 6)
-        this.vtbl.GetSymbolEntryBySymbolEntry := CallbackCreate(GetMethod(implObj, "GetSymbolEntryBySymbolEntry"), flags, 4)
-        this.vtbl.GetSourceEntriesByOffset := CallbackCreate(GetMethod(implObj, "GetSourceEntriesByOffset"), flags, 6)
-        this.vtbl.GetSourceEntriesByLine := CallbackCreate(GetMethod(implObj, "GetSourceEntriesByLine"), flags, 7)
-        this.vtbl.GetSourceEntriesByLineWide := CallbackCreate(GetMethod(implObj, "GetSourceEntriesByLineWide"), flags, 7)
-        this.vtbl.GetSourceEntryString := CallbackCreate(GetMethod(implObj, "GetSourceEntryString"), flags, 6)
-        this.vtbl.GetSourceEntryStringWide := CallbackCreate(GetMethod(implObj, "GetSourceEntryStringWide"), flags, 6)
-        this.vtbl.GetSourceEntryOffsetRegions := CallbackCreate(GetMethod(implObj, "GetSourceEntryOffsetRegions"), flags, 6)
-        this.vtbl.GetSourceEntryBySourceEntry := CallbackCreate(GetMethod(implObj, "GetSourceEntryBySourceEntry"), flags, 4)
+        this.vtbl.GetSymbolOptions := CallbackCreate(ObjBindMethod(implObj, "GetSymbolOptions"), flags, 2)
+        this.vtbl.AddSymbolOptions := CallbackCreate(ObjBindMethod(implObj, "AddSymbolOptions"), flags, 2)
+        this.vtbl.RemoveSymbolOptions := CallbackCreate(ObjBindMethod(implObj, "RemoveSymbolOptions"), flags, 2)
+        this.vtbl.SetSymbolOptions := CallbackCreate(ObjBindMethod(implObj, "SetSymbolOptions"), flags, 2)
+        this.vtbl.GetNameByOffset := CallbackCreate(ObjBindMethod(implObj, "GetNameByOffset"), flags, 6)
+        this.vtbl.GetOffsetByName := CallbackCreate(ObjBindMethod(implObj, "GetOffsetByName"), flags, 3)
+        this.vtbl.GetNearNameByOffset := CallbackCreate(ObjBindMethod(implObj, "GetNearNameByOffset"), flags, 7)
+        this.vtbl.GetLineByOffset := CallbackCreate(ObjBindMethod(implObj, "GetLineByOffset"), flags, 7)
+        this.vtbl.GetOffsetByLine := CallbackCreate(ObjBindMethod(implObj, "GetOffsetByLine"), flags, 4)
+        this.vtbl.GetNumberModules := CallbackCreate(ObjBindMethod(implObj, "GetNumberModules"), flags, 3)
+        this.vtbl.GetModuleByIndex := CallbackCreate(ObjBindMethod(implObj, "GetModuleByIndex"), flags, 3)
+        this.vtbl.GetModuleByModuleName := CallbackCreate(ObjBindMethod(implObj, "GetModuleByModuleName"), flags, 5)
+        this.vtbl.GetModuleByOffset := CallbackCreate(ObjBindMethod(implObj, "GetModuleByOffset"), flags, 5)
+        this.vtbl.GetModuleNames := CallbackCreate(ObjBindMethod(implObj, "GetModuleNames"), flags, 12)
+        this.vtbl.GetModuleParameters := CallbackCreate(ObjBindMethod(implObj, "GetModuleParameters"), flags, 5)
+        this.vtbl.GetSymbolModule := CallbackCreate(ObjBindMethod(implObj, "GetSymbolModule"), flags, 3)
+        this.vtbl.GetTypeName := CallbackCreate(ObjBindMethod(implObj, "GetTypeName"), flags, 6)
+        this.vtbl.GetTypeId := CallbackCreate(ObjBindMethod(implObj, "GetTypeId"), flags, 4)
+        this.vtbl.GetTypeSize := CallbackCreate(ObjBindMethod(implObj, "GetTypeSize"), flags, 4)
+        this.vtbl.GetFieldOffset := CallbackCreate(ObjBindMethod(implObj, "GetFieldOffset"), flags, 5)
+        this.vtbl.GetSymbolTypeId := CallbackCreate(ObjBindMethod(implObj, "GetSymbolTypeId"), flags, 4)
+        this.vtbl.GetOffsetTypeId := CallbackCreate(ObjBindMethod(implObj, "GetOffsetTypeId"), flags, 4)
+        this.vtbl.ReadTypedDataVirtual := CallbackCreate(ObjBindMethod(implObj, "ReadTypedDataVirtual"), flags, 7)
+        this.vtbl.WriteTypedDataVirtual := CallbackCreate(ObjBindMethod(implObj, "WriteTypedDataVirtual"), flags, 7)
+        this.vtbl.OutputTypedDataVirtual := CallbackCreate(ObjBindMethod(implObj, "OutputTypedDataVirtual"), flags, 6)
+        this.vtbl.ReadTypedDataPhysical := CallbackCreate(ObjBindMethod(implObj, "ReadTypedDataPhysical"), flags, 7)
+        this.vtbl.WriteTypedDataPhysical := CallbackCreate(ObjBindMethod(implObj, "WriteTypedDataPhysical"), flags, 7)
+        this.vtbl.OutputTypedDataPhysical := CallbackCreate(ObjBindMethod(implObj, "OutputTypedDataPhysical"), flags, 6)
+        this.vtbl.GetScope := CallbackCreate(ObjBindMethod(implObj, "GetScope"), flags, 5)
+        this.vtbl.SetScope := CallbackCreate(ObjBindMethod(implObj, "SetScope"), flags, 5)
+        this.vtbl.ResetScope := CallbackCreate(ObjBindMethod(implObj, "ResetScope"), flags, 1)
+        this.vtbl.GetScopeSymbolGroup := CallbackCreate(ObjBindMethod(implObj, "GetScopeSymbolGroup"), flags, 4)
+        this.vtbl.CreateSymbolGroup := CallbackCreate(ObjBindMethod(implObj, "CreateSymbolGroup"), flags, 2)
+        this.vtbl.StartSymbolMatch := CallbackCreate(ObjBindMethod(implObj, "StartSymbolMatch"), flags, 3)
+        this.vtbl.GetNextSymbolMatch := CallbackCreate(ObjBindMethod(implObj, "GetNextSymbolMatch"), flags, 6)
+        this.vtbl.EndSymbolMatch := CallbackCreate(ObjBindMethod(implObj, "EndSymbolMatch"), flags, 2)
+        this.vtbl.Reload := CallbackCreate(ObjBindMethod(implObj, "Reload"), flags, 2)
+        this.vtbl.GetSymbolPath := CallbackCreate(ObjBindMethod(implObj, "GetSymbolPath"), flags, 4)
+        this.vtbl.SetSymbolPath := CallbackCreate(ObjBindMethod(implObj, "SetSymbolPath"), flags, 2)
+        this.vtbl.AppendSymbolPath := CallbackCreate(ObjBindMethod(implObj, "AppendSymbolPath"), flags, 2)
+        this.vtbl.GetImagePath := CallbackCreate(ObjBindMethod(implObj, "GetImagePath"), flags, 4)
+        this.vtbl.SetImagePath := CallbackCreate(ObjBindMethod(implObj, "SetImagePath"), flags, 2)
+        this.vtbl.AppendImagePath := CallbackCreate(ObjBindMethod(implObj, "AppendImagePath"), flags, 2)
+        this.vtbl.GetSourcePath := CallbackCreate(ObjBindMethod(implObj, "GetSourcePath"), flags, 4)
+        this.vtbl.GetSourcePathElement := CallbackCreate(ObjBindMethod(implObj, "GetSourcePathElement"), flags, 5)
+        this.vtbl.SetSourcePath := CallbackCreate(ObjBindMethod(implObj, "SetSourcePath"), flags, 2)
+        this.vtbl.AppendSourcePath := CallbackCreate(ObjBindMethod(implObj, "AppendSourcePath"), flags, 2)
+        this.vtbl.FindSourceFile := CallbackCreate(ObjBindMethod(implObj, "FindSourceFile"), flags, 8)
+        this.vtbl.GetSourceFileLineOffsets := CallbackCreate(ObjBindMethod(implObj, "GetSourceFileLineOffsets"), flags, 5)
+        this.vtbl.GetModuleVersionInformation := CallbackCreate(ObjBindMethod(implObj, "GetModuleVersionInformation"), flags, 7)
+        this.vtbl.GetModuleNameString := CallbackCreate(ObjBindMethod(implObj, "GetModuleNameString"), flags, 7)
+        this.vtbl.GetConstantName := CallbackCreate(ObjBindMethod(implObj, "GetConstantName"), flags, 7)
+        this.vtbl.GetFieldName := CallbackCreate(ObjBindMethod(implObj, "GetFieldName"), flags, 7)
+        this.vtbl.GetTypeOptions := CallbackCreate(ObjBindMethod(implObj, "GetTypeOptions"), flags, 2)
+        this.vtbl.AddTypeOptions := CallbackCreate(ObjBindMethod(implObj, "AddTypeOptions"), flags, 2)
+        this.vtbl.RemoveTypeOptions := CallbackCreate(ObjBindMethod(implObj, "RemoveTypeOptions"), flags, 2)
+        this.vtbl.SetTypeOptions := CallbackCreate(ObjBindMethod(implObj, "SetTypeOptions"), flags, 2)
+        this.vtbl.GetNameByOffsetWide := CallbackCreate(ObjBindMethod(implObj, "GetNameByOffsetWide"), flags, 6)
+        this.vtbl.GetOffsetByNameWide := CallbackCreate(ObjBindMethod(implObj, "GetOffsetByNameWide"), flags, 3)
+        this.vtbl.GetNearNameByOffsetWide := CallbackCreate(ObjBindMethod(implObj, "GetNearNameByOffsetWide"), flags, 7)
+        this.vtbl.GetLineByOffsetWide := CallbackCreate(ObjBindMethod(implObj, "GetLineByOffsetWide"), flags, 7)
+        this.vtbl.GetOffsetByLineWide := CallbackCreate(ObjBindMethod(implObj, "GetOffsetByLineWide"), flags, 4)
+        this.vtbl.GetModuleByModuleNameWide := CallbackCreate(ObjBindMethod(implObj, "GetModuleByModuleNameWide"), flags, 5)
+        this.vtbl.GetSymbolModuleWide := CallbackCreate(ObjBindMethod(implObj, "GetSymbolModuleWide"), flags, 3)
+        this.vtbl.GetTypeNameWide := CallbackCreate(ObjBindMethod(implObj, "GetTypeNameWide"), flags, 6)
+        this.vtbl.GetTypeIdWide := CallbackCreate(ObjBindMethod(implObj, "GetTypeIdWide"), flags, 4)
+        this.vtbl.GetFieldOffsetWide := CallbackCreate(ObjBindMethod(implObj, "GetFieldOffsetWide"), flags, 5)
+        this.vtbl.GetSymbolTypeIdWide := CallbackCreate(ObjBindMethod(implObj, "GetSymbolTypeIdWide"), flags, 4)
+        this.vtbl.GetScopeSymbolGroup2 := CallbackCreate(ObjBindMethod(implObj, "GetScopeSymbolGroup2"), flags, 4)
+        this.vtbl.CreateSymbolGroup2 := CallbackCreate(ObjBindMethod(implObj, "CreateSymbolGroup2"), flags, 2)
+        this.vtbl.StartSymbolMatchWide := CallbackCreate(ObjBindMethod(implObj, "StartSymbolMatchWide"), flags, 3)
+        this.vtbl.GetNextSymbolMatchWide := CallbackCreate(ObjBindMethod(implObj, "GetNextSymbolMatchWide"), flags, 6)
+        this.vtbl.ReloadWide := CallbackCreate(ObjBindMethod(implObj, "ReloadWide"), flags, 2)
+        this.vtbl.GetSymbolPathWide := CallbackCreate(ObjBindMethod(implObj, "GetSymbolPathWide"), flags, 4)
+        this.vtbl.SetSymbolPathWide := CallbackCreate(ObjBindMethod(implObj, "SetSymbolPathWide"), flags, 2)
+        this.vtbl.AppendSymbolPathWide := CallbackCreate(ObjBindMethod(implObj, "AppendSymbolPathWide"), flags, 2)
+        this.vtbl.GetImagePathWide := CallbackCreate(ObjBindMethod(implObj, "GetImagePathWide"), flags, 4)
+        this.vtbl.SetImagePathWide := CallbackCreate(ObjBindMethod(implObj, "SetImagePathWide"), flags, 2)
+        this.vtbl.AppendImagePathWide := CallbackCreate(ObjBindMethod(implObj, "AppendImagePathWide"), flags, 2)
+        this.vtbl.GetSourcePathWide := CallbackCreate(ObjBindMethod(implObj, "GetSourcePathWide"), flags, 4)
+        this.vtbl.GetSourcePathElementWide := CallbackCreate(ObjBindMethod(implObj, "GetSourcePathElementWide"), flags, 5)
+        this.vtbl.SetSourcePathWide := CallbackCreate(ObjBindMethod(implObj, "SetSourcePathWide"), flags, 2)
+        this.vtbl.AppendSourcePathWide := CallbackCreate(ObjBindMethod(implObj, "AppendSourcePathWide"), flags, 2)
+        this.vtbl.FindSourceFileWide := CallbackCreate(ObjBindMethod(implObj, "FindSourceFileWide"), flags, 8)
+        this.vtbl.GetSourceFileLineOffsetsWide := CallbackCreate(ObjBindMethod(implObj, "GetSourceFileLineOffsetsWide"), flags, 5)
+        this.vtbl.GetModuleVersionInformationWide := CallbackCreate(ObjBindMethod(implObj, "GetModuleVersionInformationWide"), flags, 7)
+        this.vtbl.GetModuleNameStringWide := CallbackCreate(ObjBindMethod(implObj, "GetModuleNameStringWide"), flags, 7)
+        this.vtbl.GetConstantNameWide := CallbackCreate(ObjBindMethod(implObj, "GetConstantNameWide"), flags, 7)
+        this.vtbl.GetFieldNameWide := CallbackCreate(ObjBindMethod(implObj, "GetFieldNameWide"), flags, 7)
+        this.vtbl.IsManagedModule := CallbackCreate(ObjBindMethod(implObj, "IsManagedModule"), flags, 3)
+        this.vtbl.GetModuleByModuleName2 := CallbackCreate(ObjBindMethod(implObj, "GetModuleByModuleName2"), flags, 6)
+        this.vtbl.GetModuleByModuleName2Wide := CallbackCreate(ObjBindMethod(implObj, "GetModuleByModuleName2Wide"), flags, 6)
+        this.vtbl.GetModuleByOffset2 := CallbackCreate(ObjBindMethod(implObj, "GetModuleByOffset2"), flags, 6)
+        this.vtbl.AddSyntheticModule := CallbackCreate(ObjBindMethod(implObj, "AddSyntheticModule"), flags, 6)
+        this.vtbl.AddSyntheticModuleWide := CallbackCreate(ObjBindMethod(implObj, "AddSyntheticModuleWide"), flags, 6)
+        this.vtbl.RemoveSyntheticModule := CallbackCreate(ObjBindMethod(implObj, "RemoveSyntheticModule"), flags, 2)
+        this.vtbl.GetCurrentScopeFrameIndex := CallbackCreate(ObjBindMethod(implObj, "GetCurrentScopeFrameIndex"), flags, 2)
+        this.vtbl.SetScopeFrameByIndex := CallbackCreate(ObjBindMethod(implObj, "SetScopeFrameByIndex"), flags, 2)
+        this.vtbl.SetScopeFromJitDebugInfo := CallbackCreate(ObjBindMethod(implObj, "SetScopeFromJitDebugInfo"), flags, 3)
+        this.vtbl.SetScopeFromStoredEvent := CallbackCreate(ObjBindMethod(implObj, "SetScopeFromStoredEvent"), flags, 1)
+        this.vtbl.OutputSymbolByOffset := CallbackCreate(ObjBindMethod(implObj, "OutputSymbolByOffset"), flags, 4)
+        this.vtbl.GetFunctionEntryByOffset := CallbackCreate(ObjBindMethod(implObj, "GetFunctionEntryByOffset"), flags, 6)
+        this.vtbl.GetFieldTypeAndOffset := CallbackCreate(ObjBindMethod(implObj, "GetFieldTypeAndOffset"), flags, 6)
+        this.vtbl.GetFieldTypeAndOffsetWide := CallbackCreate(ObjBindMethod(implObj, "GetFieldTypeAndOffsetWide"), flags, 6)
+        this.vtbl.AddSyntheticSymbol := CallbackCreate(ObjBindMethod(implObj, "AddSyntheticSymbol"), flags, 6)
+        this.vtbl.AddSyntheticSymbolWide := CallbackCreate(ObjBindMethod(implObj, "AddSyntheticSymbolWide"), flags, 6)
+        this.vtbl.RemoveSyntheticSymbol := CallbackCreate(ObjBindMethod(implObj, "RemoveSyntheticSymbol"), flags, 2)
+        this.vtbl.GetSymbolEntriesByOffset := CallbackCreate(ObjBindMethod(implObj, "GetSymbolEntriesByOffset"), flags, 7)
+        this.vtbl.GetSymbolEntriesByName := CallbackCreate(ObjBindMethod(implObj, "GetSymbolEntriesByName"), flags, 6)
+        this.vtbl.GetSymbolEntriesByNameWide := CallbackCreate(ObjBindMethod(implObj, "GetSymbolEntriesByNameWide"), flags, 6)
+        this.vtbl.GetSymbolEntryByToken := CallbackCreate(ObjBindMethod(implObj, "GetSymbolEntryByToken"), flags, 4)
+        this.vtbl.GetSymbolEntryInformation := CallbackCreate(ObjBindMethod(implObj, "GetSymbolEntryInformation"), flags, 3)
+        this.vtbl.GetSymbolEntryString := CallbackCreate(ObjBindMethod(implObj, "GetSymbolEntryString"), flags, 6)
+        this.vtbl.GetSymbolEntryStringWide := CallbackCreate(ObjBindMethod(implObj, "GetSymbolEntryStringWide"), flags, 6)
+        this.vtbl.GetSymbolEntryOffsetRegions := CallbackCreate(ObjBindMethod(implObj, "GetSymbolEntryOffsetRegions"), flags, 6)
+        this.vtbl.GetSymbolEntryBySymbolEntry := CallbackCreate(ObjBindMethod(implObj, "GetSymbolEntryBySymbolEntry"), flags, 4)
+        this.vtbl.GetSourceEntriesByOffset := CallbackCreate(ObjBindMethod(implObj, "GetSourceEntriesByOffset"), flags, 6)
+        this.vtbl.GetSourceEntriesByLine := CallbackCreate(ObjBindMethod(implObj, "GetSourceEntriesByLine"), flags, 7)
+        this.vtbl.GetSourceEntriesByLineWide := CallbackCreate(ObjBindMethod(implObj, "GetSourceEntriesByLineWide"), flags, 7)
+        this.vtbl.GetSourceEntryString := CallbackCreate(ObjBindMethod(implObj, "GetSourceEntryString"), flags, 6)
+        this.vtbl.GetSourceEntryStringWide := CallbackCreate(ObjBindMethod(implObj, "GetSourceEntryStringWide"), flags, 6)
+        this.vtbl.GetSourceEntryOffsetRegions := CallbackCreate(ObjBindMethod(implObj, "GetSourceEntryOffsetRegions"), flags, 6)
+        this.vtbl.GetSourceEntryBySourceEntry := CallbackCreate(ObjBindMethod(implObj, "GetSourceEntryBySourceEntry"), flags, 4)
     }
 
     Dispose() {

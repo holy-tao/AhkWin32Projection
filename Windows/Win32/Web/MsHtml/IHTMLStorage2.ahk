@@ -37,7 +37,6 @@ export default struct IHTMLStorage2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrKey 
      * @param {BSTR} bstrValue 
      * @returns {HRESULT} 
@@ -59,7 +58,7 @@ export default struct IHTMLStorage2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.setItem := CallbackCreate(GetMethod(implObj, "setItem"), flags, 3)
+        this.vtbl.setItem := CallbackCreate(ObjBindMethod(implObj, "setItem"), flags, 3)
     }
 
     Dispose() {

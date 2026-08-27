@@ -223,17 +223,17 @@ export default struct IPortableDeviceCapabilities extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSupportedCommands := CallbackCreate(GetMethod(implObj, "GetSupportedCommands"), flags, 2)
-        this.vtbl.GetCommandOptions := CallbackCreate(GetMethod(implObj, "GetCommandOptions"), flags, 3)
-        this.vtbl.GetFunctionalCategories := CallbackCreate(GetMethod(implObj, "GetFunctionalCategories"), flags, 2)
-        this.vtbl.GetFunctionalObjects := CallbackCreate(GetMethod(implObj, "GetFunctionalObjects"), flags, 3)
-        this.vtbl.GetSupportedContentTypes := CallbackCreate(GetMethod(implObj, "GetSupportedContentTypes"), flags, 3)
-        this.vtbl.GetSupportedFormats := CallbackCreate(GetMethod(implObj, "GetSupportedFormats"), flags, 3)
-        this.vtbl.GetSupportedFormatProperties := CallbackCreate(GetMethod(implObj, "GetSupportedFormatProperties"), flags, 3)
-        this.vtbl.GetFixedPropertyAttributes := CallbackCreate(GetMethod(implObj, "GetFixedPropertyAttributes"), flags, 4)
-        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
-        this.vtbl.GetSupportedEvents := CallbackCreate(GetMethod(implObj, "GetSupportedEvents"), flags, 2)
-        this.vtbl.GetEventOptions := CallbackCreate(GetMethod(implObj, "GetEventOptions"), flags, 3)
+        this.vtbl.GetSupportedCommands := CallbackCreate(ObjBindMethod(implObj, "GetSupportedCommands"), flags, 2)
+        this.vtbl.GetCommandOptions := CallbackCreate(ObjBindMethod(implObj, "GetCommandOptions"), flags, 3)
+        this.vtbl.GetFunctionalCategories := CallbackCreate(ObjBindMethod(implObj, "GetFunctionalCategories"), flags, 2)
+        this.vtbl.GetFunctionalObjects := CallbackCreate(ObjBindMethod(implObj, "GetFunctionalObjects"), flags, 3)
+        this.vtbl.GetSupportedContentTypes := CallbackCreate(ObjBindMethod(implObj, "GetSupportedContentTypes"), flags, 3)
+        this.vtbl.GetSupportedFormats := CallbackCreate(ObjBindMethod(implObj, "GetSupportedFormats"), flags, 3)
+        this.vtbl.GetSupportedFormatProperties := CallbackCreate(ObjBindMethod(implObj, "GetSupportedFormatProperties"), flags, 3)
+        this.vtbl.GetFixedPropertyAttributes := CallbackCreate(ObjBindMethod(implObj, "GetFixedPropertyAttributes"), flags, 4)
+        this.vtbl.Cancel := CallbackCreate(ObjBindMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.GetSupportedEvents := CallbackCreate(ObjBindMethod(implObj, "GetSupportedEvents"), flags, 2)
+        this.vtbl.GetEventOptions := CallbackCreate(ObjBindMethod(implObj, "GetEventOptions"), flags, 3)
     }
 
     Dispose() {

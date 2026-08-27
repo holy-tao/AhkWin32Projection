@@ -113,7 +113,8 @@ export default struct IWSDServiceMessaging extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wsdhost/nf-wsdhost-iwsdservicemessaging-sendresponse
      */
     SendResponse(pBody, pOperation, pMessageParameters) {
-        pBodyMarshal := pBody is VarRef ? "ptr" : "ptr"
+        pBodyMarshal := pBody is VarRef ? "ptr" : IntPtr
+        pBodyMarshal := pBody == 0 ? IntPtr : "ptr"
 
         result := ComCall(3, this, pBodyMarshal, pBody, WSD_OPERATION.Ptr, pOperation, "ptr", pMessageParameters, "HRESULT")
         return result
@@ -190,7 +191,9 @@ export default struct IWSDServiceMessaging extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wsdhost/nf-wsdhost-iwsdservicemessaging-faultrequest
      */
     FaultRequest(pRequestHeader, pMessageParameters, pFault) {
-        result := ComCall(4, this, WSD_SOAP_HEADER.Ptr, pRequestHeader, "ptr", pMessageParameters, WSD_SOAP_FAULT.Ptr, pFault, "HRESULT")
+        pFaultMarshal := pFault == 0 ? IntPtr : WSD_SOAP_FAULT.Ptr
+
+        result := ComCall(4, this, WSD_SOAP_HEADER.Ptr, pRequestHeader, "ptr", pMessageParameters, pFaultMarshal, pFault, "HRESULT")
         return result
     }
 
@@ -203,8 +206,8 @@ export default struct IWSDServiceMessaging extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SendResponse := CallbackCreate(GetMethod(implObj, "SendResponse"), flags, 4)
-        this.vtbl.FaultRequest := CallbackCreate(GetMethod(implObj, "FaultRequest"), flags, 4)
+        this.vtbl.SendResponse := CallbackCreate(ObjBindMethod(implObj, "SendResponse"), flags, 4)
+        this.vtbl.FaultRequest := CallbackCreate(ObjBindMethod(implObj, "FaultRequest"), flags, 4)
     }
 
     Dispose() {

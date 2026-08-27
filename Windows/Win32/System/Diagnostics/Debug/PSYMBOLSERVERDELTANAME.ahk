@@ -21,7 +21,6 @@ export default struct PSYMBOLSERVERDELTANAME {
     }
 
     /**
-     * 
      * @param {PSTR} param0 
      * @param {Pointer<Void>} param1 
      * @param {Integer} param2 
@@ -37,8 +36,8 @@ export default struct PSYMBOLSERVERDELTANAME {
         param0 := param0 is String ? StrPtr(param0) : param0
         param7 := param7 is String ? StrPtr(param7) : param7
 
-        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
-        param4Marshal := param4 is VarRef ? "ptr" : "ptr"
+        param1Marshal := param1 is VarRef ? "ptr" : IntPtr
+        param4Marshal := param4 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, "ptr", param0, param1Marshal, param1, UInt32, param2, UInt32, param3, param4Marshal, param4, UInt32, param5, UInt32, param6, "ptr", param7, IntPtr, param8, BOOL)
         return result

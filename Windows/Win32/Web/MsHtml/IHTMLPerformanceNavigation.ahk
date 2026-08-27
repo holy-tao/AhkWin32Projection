@@ -61,7 +61,6 @@ export default struct IHTMLPerformanceNavigation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_type() {
@@ -70,7 +69,6 @@ export default struct IHTMLPerformanceNavigation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_redirectCount() {
@@ -79,7 +77,6 @@ export default struct IHTMLPerformanceNavigation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     toString() {
@@ -89,7 +86,6 @@ export default struct IHTMLPerformanceNavigation extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     toJSON() {
@@ -107,10 +103,10 @@ export default struct IHTMLPerformanceNavigation extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
-        this.vtbl.get_redirectCount := CallbackCreate(GetMethod(implObj, "get_redirectCount"), flags, 2)
-        this.vtbl.toString := CallbackCreate(GetMethod(implObj, "toString"), flags, 2)
-        this.vtbl.toJSON := CallbackCreate(GetMethod(implObj, "toJSON"), flags, 2)
+        this.vtbl.get_type := CallbackCreate(ObjBindMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.get_redirectCount := CallbackCreate(ObjBindMethod(implObj, "get_redirectCount"), flags, 2)
+        this.vtbl.toString := CallbackCreate(ObjBindMethod(implObj, "toString"), flags, 2)
+        this.vtbl.toJSON := CallbackCreate(ObjBindMethod(implObj, "toJSON"), flags, 2)
     }
 
     Dispose() {

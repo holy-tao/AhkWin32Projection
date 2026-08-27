@@ -143,7 +143,6 @@ export default struct PEVENT_RECORD_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<EVENT_RECORD>} EventRecord Pointer to an
      * [EVENT_RECORD](/windows/win32/api/evntcons/ns-evntcons-event_record) structure
      * that contains the event information.

@@ -161,12 +161,12 @@ export default struct ID3D10ShaderReflection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDesc := CallbackCreate(GetMethod(implObj, "GetDesc"), flags, 2)
-        this.vtbl.GetConstantBufferByIndex := CallbackCreate(GetMethod(implObj, "GetConstantBufferByIndex"), flags, 2)
-        this.vtbl.GetConstantBufferByName := CallbackCreate(GetMethod(implObj, "GetConstantBufferByName"), flags, 2)
-        this.vtbl.GetResourceBindingDesc := CallbackCreate(GetMethod(implObj, "GetResourceBindingDesc"), flags, 3)
-        this.vtbl.GetInputParameterDesc := CallbackCreate(GetMethod(implObj, "GetInputParameterDesc"), flags, 3)
-        this.vtbl.GetOutputParameterDesc := CallbackCreate(GetMethod(implObj, "GetOutputParameterDesc"), flags, 3)
+        this.vtbl.GetDesc := CallbackCreate(ObjBindMethod(implObj, "GetDesc"), flags, 2)
+        this.vtbl.GetConstantBufferByIndex := CallbackCreate(ObjBindMethod(implObj, "GetConstantBufferByIndex"), flags, 2)
+        this.vtbl.GetConstantBufferByName := CallbackCreate(ObjBindMethod(implObj, "GetConstantBufferByName"), flags, 2)
+        this.vtbl.GetResourceBindingDesc := CallbackCreate(ObjBindMethod(implObj, "GetResourceBindingDesc"), flags, 3)
+        this.vtbl.GetInputParameterDesc := CallbackCreate(ObjBindMethod(implObj, "GetInputParameterDesc"), flags, 3)
+        this.vtbl.GetOutputParameterDesc := CallbackCreate(ObjBindMethod(implObj, "GetOutputParameterDesc"), flags, 3)
     }
 
     Dispose() {

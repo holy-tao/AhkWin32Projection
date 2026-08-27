@@ -69,7 +69,6 @@ export default struct IGameInput extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentTimestamp() {
@@ -78,42 +77,44 @@ export default struct IGameInput extends IUnknown {
     }
 
     /**
-     * 
      * @param {GameInputKind} inputKind 
      * @param {IGameInputDevice} device 
      * @returns {IGameInputReading} 
      */
     GetCurrentReading(inputKind, device) {
-        result := ComCall(4, this, GameInputKind, inputKind, "ptr", device, "ptr*", &reading := 0, "HRESULT")
+        deviceMarshal := device == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, GameInputKind, inputKind, deviceMarshal, device, "ptr*", &reading := 0, "HRESULT")
         return IGameInputReading(reading)
     }
 
     /**
-     * 
      * @param {IGameInputReading} referenceReading 
      * @param {GameInputKind} inputKind 
      * @param {IGameInputDevice} device 
      * @returns {IGameInputReading} 
      */
     GetNextReading(referenceReading, inputKind, device) {
-        result := ComCall(5, this, "ptr", referenceReading, GameInputKind, inputKind, "ptr", device, "ptr*", &reading := 0, "HRESULT")
+        deviceMarshal := device == 0 ? IntPtr : "ptr"
+
+        result := ComCall(5, this, "ptr", referenceReading, GameInputKind, inputKind, deviceMarshal, device, "ptr*", &reading := 0, "HRESULT")
         return IGameInputReading(reading)
     }
 
     /**
-     * 
      * @param {IGameInputReading} referenceReading 
      * @param {GameInputKind} inputKind 
      * @param {IGameInputDevice} device 
      * @returns {IGameInputReading} 
      */
     GetPreviousReading(referenceReading, inputKind, device) {
-        result := ComCall(6, this, "ptr", referenceReading, GameInputKind, inputKind, "ptr", device, "ptr*", &reading := 0, "HRESULT")
+        deviceMarshal := device == 0 ? IntPtr : "ptr"
+
+        result := ComCall(6, this, "ptr", referenceReading, GameInputKind, inputKind, deviceMarshal, device, "ptr*", &reading := 0, "HRESULT")
         return IGameInputReading(reading)
     }
 
     /**
-     * 
      * @param {Integer} _timestamp 
      * @param {IGameInputDevice} device 
      * @returns {IGameInputReading} 
@@ -124,7 +125,6 @@ export default struct IGameInput extends IUnknown {
     }
 
     /**
-     * 
      * @param {IGameInputDevice} device 
      * @param {GameInputKind} inputKind 
      * @param {Float} analogThreshold 
@@ -133,14 +133,15 @@ export default struct IGameInput extends IUnknown {
      * @returns {Integer} 
      */
     RegisterReadingCallback(device, inputKind, analogThreshold, _context, callbackFunc) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        deviceMarshal := device == 0 ? IntPtr : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+        _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
-        result := ComCall(8, this, "ptr", device, GameInputKind, inputKind, Float32, analogThreshold, _contextMarshal, _context, GameInputReadingCallback, callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
+        result := ComCall(8, this, deviceMarshal, device, GameInputKind, inputKind, Float32, analogThreshold, _contextMarshal, _context, GameInputReadingCallback, callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
         return callbackToken
     }
 
     /**
-     * 
      * @param {IGameInputDevice} device 
      * @param {GameInputKind} inputKind 
      * @param {GameInputDeviceStatus} statusFilter 
@@ -150,14 +151,15 @@ export default struct IGameInput extends IUnknown {
      * @returns {Integer} 
      */
     RegisterDeviceCallback(device, inputKind, statusFilter, enumerationKind, _context, callbackFunc) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        deviceMarshal := device == 0 ? IntPtr : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+        _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
-        result := ComCall(9, this, "ptr", device, GameInputKind, inputKind, GameInputDeviceStatus, statusFilter, GameInputEnumerationKind, enumerationKind, _contextMarshal, _context, GameInputDeviceCallback, callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
+        result := ComCall(9, this, deviceMarshal, device, GameInputKind, inputKind, GameInputDeviceStatus, statusFilter, GameInputEnumerationKind, enumerationKind, _contextMarshal, _context, GameInputDeviceCallback, callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
         return callbackToken
     }
 
     /**
-     * 
      * @param {IGameInputDevice} device 
      * @param {GameInputSystemButtons} buttonFilter 
      * @param {Pointer<Void>} _context 
@@ -165,28 +167,30 @@ export default struct IGameInput extends IUnknown {
      * @returns {Integer} 
      */
     RegisterSystemButtonCallback(device, buttonFilter, _context, callbackFunc) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        deviceMarshal := device == 0 ? IntPtr : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+        _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
-        result := ComCall(10, this, "ptr", device, GameInputSystemButtons, buttonFilter, _contextMarshal, _context, GameInputSystemButtonCallback, callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
+        result := ComCall(10, this, deviceMarshal, device, GameInputSystemButtons, buttonFilter, _contextMarshal, _context, GameInputSystemButtonCallback, callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
         return callbackToken
     }
 
     /**
-     * 
      * @param {IGameInputDevice} device 
      * @param {Pointer<Void>} _context 
      * @param {Pointer<GameInputKeyboardLayoutCallback>} callbackFunc 
      * @returns {Integer} 
      */
     RegisterKeyboardLayoutCallback(device, _context, callbackFunc) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        deviceMarshal := device == 0 ? IntPtr : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+        _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
-        result := ComCall(11, this, "ptr", device, _contextMarshal, _context, GameInputKeyboardLayoutCallback, callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
+        result := ComCall(11, this, deviceMarshal, device, _contextMarshal, _context, GameInputKeyboardLayoutCallback, callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
         return callbackToken
     }
 
     /**
-     * 
      * @param {Integer} callbackToken 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -195,7 +199,6 @@ export default struct IGameInput extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} callbackToken 
      * @param {Integer} timeoutInMicroseconds 
      * @returns {Boolean} 
@@ -206,7 +209,6 @@ export default struct IGameInput extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IGameInputDispatcher} 
      */
     CreateDispatcher() {
@@ -215,7 +217,6 @@ export default struct IGameInput extends IUnknown {
     }
 
     /**
-     * 
      * @param {GameInputKind} inputKind 
      * @returns {IGameInputDevice} 
      */
@@ -225,7 +226,6 @@ export default struct IGameInput extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<APP_LOCAL_DEVICE_ID>} value 
      * @returns {IGameInputDevice} 
      */
@@ -235,7 +235,6 @@ export default struct IGameInput extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} value 
      * @returns {IGameInputDevice} 
      */
@@ -245,7 +244,6 @@ export default struct IGameInput extends IUnknown {
     }
 
     /**
-     * 
      * @param {HANDLE} value 
      * @returns {IGameInputDevice} 
      */
@@ -255,7 +253,6 @@ export default struct IGameInput extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} value 
      * @returns {IGameInputDevice} 
      */
@@ -267,7 +264,6 @@ export default struct IGameInput extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} vendorId 
      * @param {Integer} productId 
      * @param {Integer} interfaceNumber 
@@ -280,7 +276,6 @@ export default struct IGameInput extends IUnknown {
     }
 
     /**
-     * 
      * @param {GameInputFocusPolicy} policy 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -297,25 +292,25 @@ export default struct IGameInput extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCurrentTimestamp := CallbackCreate(GetMethod(implObj, "GetCurrentTimestamp"), flags, 1)
-        this.vtbl.GetCurrentReading := CallbackCreate(GetMethod(implObj, "GetCurrentReading"), flags, 4)
-        this.vtbl.GetNextReading := CallbackCreate(GetMethod(implObj, "GetNextReading"), flags, 5)
-        this.vtbl.GetPreviousReading := CallbackCreate(GetMethod(implObj, "GetPreviousReading"), flags, 5)
-        this.vtbl.GetTemporalReading := CallbackCreate(GetMethod(implObj, "GetTemporalReading"), flags, 4)
-        this.vtbl.RegisterReadingCallback := CallbackCreate(GetMethod(implObj, "RegisterReadingCallback"), flags, 7)
-        this.vtbl.RegisterDeviceCallback := CallbackCreate(GetMethod(implObj, "RegisterDeviceCallback"), flags, 8)
-        this.vtbl.RegisterSystemButtonCallback := CallbackCreate(GetMethod(implObj, "RegisterSystemButtonCallback"), flags, 6)
-        this.vtbl.RegisterKeyboardLayoutCallback := CallbackCreate(GetMethod(implObj, "RegisterKeyboardLayoutCallback"), flags, 5)
-        this.vtbl.StopCallback := CallbackCreate(GetMethod(implObj, "StopCallback"), flags, 2)
-        this.vtbl.UnregisterCallback := CallbackCreate(GetMethod(implObj, "UnregisterCallback"), flags, 3)
-        this.vtbl.CreateDispatcher := CallbackCreate(GetMethod(implObj, "CreateDispatcher"), flags, 2)
-        this.vtbl.CreateAggregateDevice := CallbackCreate(GetMethod(implObj, "CreateAggregateDevice"), flags, 3)
-        this.vtbl.FindDeviceFromId := CallbackCreate(GetMethod(implObj, "FindDeviceFromId"), flags, 3)
-        this.vtbl.FindDeviceFromObject := CallbackCreate(GetMethod(implObj, "FindDeviceFromObject"), flags, 3)
-        this.vtbl.FindDeviceFromPlatformHandle := CallbackCreate(GetMethod(implObj, "FindDeviceFromPlatformHandle"), flags, 3)
-        this.vtbl.FindDeviceFromPlatformString := CallbackCreate(GetMethod(implObj, "FindDeviceFromPlatformString"), flags, 3)
-        this.vtbl.EnableOemDeviceSupport := CallbackCreate(GetMethod(implObj, "EnableOemDeviceSupport"), flags, 5)
-        this.vtbl.SetFocusPolicy := CallbackCreate(GetMethod(implObj, "SetFocusPolicy"), flags, 2)
+        this.vtbl.GetCurrentTimestamp := CallbackCreate(ObjBindMethod(implObj, "GetCurrentTimestamp"), flags, 1)
+        this.vtbl.GetCurrentReading := CallbackCreate(ObjBindMethod(implObj, "GetCurrentReading"), flags, 4)
+        this.vtbl.GetNextReading := CallbackCreate(ObjBindMethod(implObj, "GetNextReading"), flags, 5)
+        this.vtbl.GetPreviousReading := CallbackCreate(ObjBindMethod(implObj, "GetPreviousReading"), flags, 5)
+        this.vtbl.GetTemporalReading := CallbackCreate(ObjBindMethod(implObj, "GetTemporalReading"), flags, 4)
+        this.vtbl.RegisterReadingCallback := CallbackCreate(ObjBindMethod(implObj, "RegisterReadingCallback"), flags, 7)
+        this.vtbl.RegisterDeviceCallback := CallbackCreate(ObjBindMethod(implObj, "RegisterDeviceCallback"), flags, 8)
+        this.vtbl.RegisterSystemButtonCallback := CallbackCreate(ObjBindMethod(implObj, "RegisterSystemButtonCallback"), flags, 6)
+        this.vtbl.RegisterKeyboardLayoutCallback := CallbackCreate(ObjBindMethod(implObj, "RegisterKeyboardLayoutCallback"), flags, 5)
+        this.vtbl.StopCallback := CallbackCreate(ObjBindMethod(implObj, "StopCallback"), flags, 2)
+        this.vtbl.UnregisterCallback := CallbackCreate(ObjBindMethod(implObj, "UnregisterCallback"), flags, 3)
+        this.vtbl.CreateDispatcher := CallbackCreate(ObjBindMethod(implObj, "CreateDispatcher"), flags, 2)
+        this.vtbl.CreateAggregateDevice := CallbackCreate(ObjBindMethod(implObj, "CreateAggregateDevice"), flags, 3)
+        this.vtbl.FindDeviceFromId := CallbackCreate(ObjBindMethod(implObj, "FindDeviceFromId"), flags, 3)
+        this.vtbl.FindDeviceFromObject := CallbackCreate(ObjBindMethod(implObj, "FindDeviceFromObject"), flags, 3)
+        this.vtbl.FindDeviceFromPlatformHandle := CallbackCreate(ObjBindMethod(implObj, "FindDeviceFromPlatformHandle"), flags, 3)
+        this.vtbl.FindDeviceFromPlatformString := CallbackCreate(ObjBindMethod(implObj, "FindDeviceFromPlatformString"), flags, 3)
+        this.vtbl.EnableOemDeviceSupport := CallbackCreate(ObjBindMethod(implObj, "EnableOemDeviceSupport"), flags, 5)
+        this.vtbl.SetFocusPolicy := CallbackCreate(ObjBindMethod(implObj, "SetFocusPolicy"), flags, 2)
     }
 
     Dispose() {

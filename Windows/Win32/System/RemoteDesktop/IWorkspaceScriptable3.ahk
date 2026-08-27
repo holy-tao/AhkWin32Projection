@@ -39,7 +39,6 @@ export default struct IWorkspaceScriptable3 extends IWorkspaceScriptable2 {
     }
 
     /**
-     * 
      * @param {BSTR} bstrWorkspaceId 
      * @param {BSTR} bstrWorkspaceFriendlyName 
      * @param {BSTR} bstrRedirectorName 
@@ -76,7 +75,7 @@ export default struct IWorkspaceScriptable3 extends IWorkspaceScriptable2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StartWorkspaceEx2 := CallbackCreate(GetMethod(implObj, "StartWorkspaceEx2"), flags, 12)
+        this.vtbl.StartWorkspaceEx2 := CallbackCreate(ObjBindMethod(implObj, "StartWorkspaceEx2"), flags, 12)
     }
 
     Dispose() {

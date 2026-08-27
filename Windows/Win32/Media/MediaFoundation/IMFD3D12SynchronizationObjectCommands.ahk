@@ -121,10 +121,10 @@ export default struct IMFD3D12SynchronizationObjectCommands extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnqueueResourceReady := CallbackCreate(GetMethod(implObj, "EnqueueResourceReady"), flags, 2)
-        this.vtbl.EnqueueResourceReadyWait := CallbackCreate(GetMethod(implObj, "EnqueueResourceReadyWait"), flags, 2)
-        this.vtbl.SignalEventOnResourceReady := CallbackCreate(GetMethod(implObj, "SignalEventOnResourceReady"), flags, 2)
-        this.vtbl.EnqueueResourceRelease := CallbackCreate(GetMethod(implObj, "EnqueueResourceRelease"), flags, 2)
+        this.vtbl.EnqueueResourceReady := CallbackCreate(ObjBindMethod(implObj, "EnqueueResourceReady"), flags, 2)
+        this.vtbl.EnqueueResourceReadyWait := CallbackCreate(ObjBindMethod(implObj, "EnqueueResourceReadyWait"), flags, 2)
+        this.vtbl.SignalEventOnResourceReady := CallbackCreate(ObjBindMethod(implObj, "SignalEventOnResourceReady"), flags, 2)
+        this.vtbl.EnqueueResourceRelease := CallbackCreate(ObjBindMethod(implObj, "EnqueueResourceRelease"), flags, 2)
     }
 
     Dispose() {

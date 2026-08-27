@@ -38,7 +38,6 @@ export default struct IMFMediaKeySessionNotify2 extends IMFMediaKeySessionNotify
     }
 
     /**
-     * 
      * @param {MF_MEDIAKEYSESSION_MESSAGETYPE} eMessageType 
      * @param {BSTR} destinationURL 
      * @param {Integer} pbMessage 
@@ -48,11 +47,12 @@ export default struct IMFMediaKeySessionNotify2 extends IMFMediaKeySessionNotify
     KeyMessage2(eMessageType, destinationURL, pbMessage, cbMessage) {
         destinationURL := destinationURL is String ? BSTR.Alloc(destinationURL).Value : destinationURL
 
-        ComCall(6, this, MF_MEDIAKEYSESSION_MESSAGETYPE, eMessageType, BSTR, destinationURL, IntPtr, pbMessage, UInt32, cbMessage)
+        destinationURLMarshal := destinationURL == 0 ? IntPtr : BSTR
+
+        ComCall(6, this, MF_MEDIAKEYSESSION_MESSAGETYPE, eMessageType, destinationURLMarshal, destinationURL, IntPtr, pbMessage, UInt32, cbMessage)
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     KeyStatusChange() {
@@ -68,8 +68,8 @@ export default struct IMFMediaKeySessionNotify2 extends IMFMediaKeySessionNotify
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.KeyMessage2 := CallbackCreate(GetMethod(implObj, "KeyMessage2"), flags, 5)
-        this.vtbl.KeyStatusChange := CallbackCreate(GetMethod(implObj, "KeyStatusChange"), flags, 1)
+        this.vtbl.KeyMessage2 := CallbackCreate(ObjBindMethod(implObj, "KeyMessage2"), flags, 5)
+        this.vtbl.KeyStatusChange := CallbackCreate(ObjBindMethod(implObj, "KeyStatusChange"), flags, 1)
     }
 
     Dispose() {

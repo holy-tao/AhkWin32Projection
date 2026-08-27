@@ -69,7 +69,6 @@ export default struct ISpeechPhraseReplacement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechDisplayAttributes} 
      */
     get_DisplayAttributes() {
@@ -78,7 +77,6 @@ export default struct ISpeechPhraseReplacement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Text() {
@@ -88,7 +86,6 @@ export default struct ISpeechPhraseReplacement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_FirstElement() {
@@ -97,7 +94,6 @@ export default struct ISpeechPhraseReplacement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_NumberOfElements() {
@@ -114,10 +110,10 @@ export default struct ISpeechPhraseReplacement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_DisplayAttributes := CallbackCreate(GetMethod(implObj, "get_DisplayAttributes"), flags, 2)
-        this.vtbl.get_Text := CallbackCreate(GetMethod(implObj, "get_Text"), flags, 2)
-        this.vtbl.get_FirstElement := CallbackCreate(GetMethod(implObj, "get_FirstElement"), flags, 2)
-        this.vtbl.get_NumberOfElements := CallbackCreate(GetMethod(implObj, "get_NumberOfElements"), flags, 2)
+        this.vtbl.get_DisplayAttributes := CallbackCreate(ObjBindMethod(implObj, "get_DisplayAttributes"), flags, 2)
+        this.vtbl.get_Text := CallbackCreate(ObjBindMethod(implObj, "get_Text"), flags, 2)
+        this.vtbl.get_FirstElement := CallbackCreate(ObjBindMethod(implObj, "get_FirstElement"), flags, 2)
+        this.vtbl.get_NumberOfElements := CallbackCreate(ObjBindMethod(implObj, "get_NumberOfElements"), flags, 2)
     }
 
     Dispose() {

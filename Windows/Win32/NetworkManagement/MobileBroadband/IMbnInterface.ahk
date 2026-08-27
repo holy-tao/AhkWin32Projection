@@ -203,7 +203,7 @@ export default struct IMbnInterface extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbninterface-getvisibleproviders
      */
     GetVisibleProviders(age) {
-        ageMarshal := age is VarRef ? "uint*" : "ptr"
+        ageMarshal := age is VarRef ? "uint*" : IntPtr
 
         result := ComCall(11, this, ageMarshal, age, "ptr*", &visibleProviders := 0, "HRESULT")
         return visibleProviders
@@ -246,17 +246,17 @@ export default struct IMbnInterface extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_InterfaceID := CallbackCreate(GetMethod(implObj, "get_InterfaceID"), flags, 2)
-        this.vtbl.GetInterfaceCapability := CallbackCreate(GetMethod(implObj, "GetInterfaceCapability"), flags, 2)
-        this.vtbl.GetSubscriberInformation := CallbackCreate(GetMethod(implObj, "GetSubscriberInformation"), flags, 2)
-        this.vtbl.GetReadyState := CallbackCreate(GetMethod(implObj, "GetReadyState"), flags, 2)
-        this.vtbl.InEmergencyMode := CallbackCreate(GetMethod(implObj, "InEmergencyMode"), flags, 2)
-        this.vtbl.GetHomeProvider := CallbackCreate(GetMethod(implObj, "GetHomeProvider"), flags, 2)
-        this.vtbl.GetPreferredProviders := CallbackCreate(GetMethod(implObj, "GetPreferredProviders"), flags, 2)
-        this.vtbl.SetPreferredProviders := CallbackCreate(GetMethod(implObj, "SetPreferredProviders"), flags, 3)
-        this.vtbl.GetVisibleProviders := CallbackCreate(GetMethod(implObj, "GetVisibleProviders"), flags, 3)
-        this.vtbl.ScanNetwork := CallbackCreate(GetMethod(implObj, "ScanNetwork"), flags, 2)
-        this.vtbl.GetConnection := CallbackCreate(GetMethod(implObj, "GetConnection"), flags, 2)
+        this.vtbl.get_InterfaceID := CallbackCreate(ObjBindMethod(implObj, "get_InterfaceID"), flags, 2)
+        this.vtbl.GetInterfaceCapability := CallbackCreate(ObjBindMethod(implObj, "GetInterfaceCapability"), flags, 2)
+        this.vtbl.GetSubscriberInformation := CallbackCreate(ObjBindMethod(implObj, "GetSubscriberInformation"), flags, 2)
+        this.vtbl.GetReadyState := CallbackCreate(ObjBindMethod(implObj, "GetReadyState"), flags, 2)
+        this.vtbl.InEmergencyMode := CallbackCreate(ObjBindMethod(implObj, "InEmergencyMode"), flags, 2)
+        this.vtbl.GetHomeProvider := CallbackCreate(ObjBindMethod(implObj, "GetHomeProvider"), flags, 2)
+        this.vtbl.GetPreferredProviders := CallbackCreate(ObjBindMethod(implObj, "GetPreferredProviders"), flags, 2)
+        this.vtbl.SetPreferredProviders := CallbackCreate(ObjBindMethod(implObj, "SetPreferredProviders"), flags, 3)
+        this.vtbl.GetVisibleProviders := CallbackCreate(ObjBindMethod(implObj, "GetVisibleProviders"), flags, 3)
+        this.vtbl.ScanNetwork := CallbackCreate(ObjBindMethod(implObj, "ScanNetwork"), flags, 2)
+        this.vtbl.GetConnection := CallbackCreate(ObjBindMethod(implObj, "GetConnection"), flags, 2)
     }
 
     Dispose() {

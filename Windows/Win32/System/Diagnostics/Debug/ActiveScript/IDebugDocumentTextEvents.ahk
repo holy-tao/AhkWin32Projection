@@ -41,7 +41,6 @@ export default struct IDebugDocumentTextEvents extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     onDestroy() {
@@ -50,7 +49,6 @@ export default struct IDebugDocumentTextEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cCharacterPosition 
      * @param {Integer} cNumToInsert 
      * @returns {HRESULT} 
@@ -61,7 +59,6 @@ export default struct IDebugDocumentTextEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cCharacterPosition 
      * @param {Integer} cNumToRemove 
      * @returns {HRESULT} 
@@ -72,7 +69,6 @@ export default struct IDebugDocumentTextEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cCharacterPosition 
      * @param {Integer} cNumToReplace 
      * @returns {HRESULT} 
@@ -83,7 +79,6 @@ export default struct IDebugDocumentTextEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cCharacterPosition 
      * @param {Integer} cNumToUpdate 
      * @returns {HRESULT} 
@@ -94,7 +89,6 @@ export default struct IDebugDocumentTextEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} textdocattr 
      * @returns {HRESULT} 
      */
@@ -112,12 +106,12 @@ export default struct IDebugDocumentTextEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.onDestroy := CallbackCreate(GetMethod(implObj, "onDestroy"), flags, 1)
-        this.vtbl.onInsertText := CallbackCreate(GetMethod(implObj, "onInsertText"), flags, 3)
-        this.vtbl.onRemoveText := CallbackCreate(GetMethod(implObj, "onRemoveText"), flags, 3)
-        this.vtbl.onReplaceText := CallbackCreate(GetMethod(implObj, "onReplaceText"), flags, 3)
-        this.vtbl.onUpdateTextAttributes := CallbackCreate(GetMethod(implObj, "onUpdateTextAttributes"), flags, 3)
-        this.vtbl.onUpdateDocumentAttributes := CallbackCreate(GetMethod(implObj, "onUpdateDocumentAttributes"), flags, 2)
+        this.vtbl.onDestroy := CallbackCreate(ObjBindMethod(implObj, "onDestroy"), flags, 1)
+        this.vtbl.onInsertText := CallbackCreate(ObjBindMethod(implObj, "onInsertText"), flags, 3)
+        this.vtbl.onRemoveText := CallbackCreate(ObjBindMethod(implObj, "onRemoveText"), flags, 3)
+        this.vtbl.onReplaceText := CallbackCreate(ObjBindMethod(implObj, "onReplaceText"), flags, 3)
+        this.vtbl.onUpdateTextAttributes := CallbackCreate(ObjBindMethod(implObj, "onUpdateTextAttributes"), flags, 3)
+        this.vtbl.onUpdateDocumentAttributes := CallbackCreate(ObjBindMethod(implObj, "onUpdateDocumentAttributes"), flags, 2)
     }
 
     Dispose() {

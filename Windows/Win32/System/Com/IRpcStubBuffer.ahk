@@ -119,7 +119,7 @@ export default struct IRpcStubBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-irpcstubbuffer-debugserverrelease
      */
     DebugServerRelease(pv) {
-        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+        pvMarshal := pv is VarRef ? "ptr" : IntPtr
 
         ComCall(9, this, pvMarshal, pv)
     }
@@ -133,13 +133,13 @@ export default struct IRpcStubBuffer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 2)
-        this.vtbl.Disconnect := CallbackCreate(GetMethod(implObj, "Disconnect"), flags, 1)
-        this.vtbl.Invoke := CallbackCreate(GetMethod(implObj, "Invoke"), flags, 3)
-        this.vtbl.IsIIDSupported := CallbackCreate(GetMethod(implObj, "IsIIDSupported"), flags, 2)
-        this.vtbl.CountRefs := CallbackCreate(GetMethod(implObj, "CountRefs"), flags, 1)
-        this.vtbl.DebugServerQueryInterface := CallbackCreate(GetMethod(implObj, "DebugServerQueryInterface"), flags, 2)
-        this.vtbl.DebugServerRelease := CallbackCreate(GetMethod(implObj, "DebugServerRelease"), flags, 2)
+        this.vtbl.Connect := CallbackCreate(ObjBindMethod(implObj, "Connect"), flags, 2)
+        this.vtbl.Disconnect := CallbackCreate(ObjBindMethod(implObj, "Disconnect"), flags, 1)
+        this.vtbl.Invoke := CallbackCreate(ObjBindMethod(implObj, "Invoke"), flags, 3)
+        this.vtbl.IsIIDSupported := CallbackCreate(ObjBindMethod(implObj, "IsIIDSupported"), flags, 2)
+        this.vtbl.CountRefs := CallbackCreate(ObjBindMethod(implObj, "CountRefs"), flags, 1)
+        this.vtbl.DebugServerQueryInterface := CallbackCreate(ObjBindMethod(implObj, "DebugServerQueryInterface"), flags, 2)
+        this.vtbl.DebugServerRelease := CallbackCreate(ObjBindMethod(implObj, "DebugServerRelease"), flags, 2)
     }
 
     Dispose() {

@@ -37,7 +37,6 @@ export default struct IPMExtensionContractInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pAUMID 
      * @param {Pointer<BSTR>} pArgs 
      * @returns {HRESULT} 
@@ -56,7 +55,7 @@ export default struct IPMExtensionContractInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_InvocationInfo := CallbackCreate(GetMethod(implObj, "get_InvocationInfo"), flags, 3)
+        this.vtbl.get_InvocationInfo := CallbackCreate(ObjBindMethod(implObj, "get_InvocationInfo"), flags, 3)
     }
 
     Dispose() {

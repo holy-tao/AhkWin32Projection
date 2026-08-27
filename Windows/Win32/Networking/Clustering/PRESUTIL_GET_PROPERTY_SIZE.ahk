@@ -20,7 +20,6 @@ export default struct PRESUTIL_GET_PROPERTY_SIZE {
     }
 
     /**
-     * 
      * @param {HKEY} hkeyClusterKey 
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTableItem 
      * @param {Pointer<Integer>} pcbOutPropertyListSize 
@@ -28,8 +27,8 @@ export default struct PRESUTIL_GET_PROPERTY_SIZE {
      * @returns {Integer} 
      */
     Call(hkeyClusterKey, pPropertyTableItem, pcbOutPropertyListSize, pnPropertyCount) {
-        pcbOutPropertyListSizeMarshal := pcbOutPropertyListSize is VarRef ? "uint*" : "ptr"
-        pnPropertyCountMarshal := pnPropertyCount is VarRef ? "uint*" : "ptr"
+        pcbOutPropertyListSizeMarshal := pcbOutPropertyListSize is VarRef ? "uint*" : IntPtr
+        pnPropertyCountMarshal := pnPropertyCount is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HKEY, hkeyClusterKey, RESUTIL_PROPERTY_ITEM.Ptr, pPropertyTableItem, pcbOutPropertyListSizeMarshal, pcbOutPropertyListSize, pnPropertyCountMarshal, pnPropertyCount, UInt32)
         return result

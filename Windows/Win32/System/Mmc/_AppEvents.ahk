@@ -61,7 +61,6 @@ export default struct _AppEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {_Application} _Application 
      * @returns {HRESULT} 
      */
@@ -71,7 +70,6 @@ export default struct _AppEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {Document} _Document 
      * @param {BOOL} New 
      * @returns {HRESULT} 
@@ -82,7 +80,6 @@ export default struct _AppEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {Document} _Document 
      * @returns {HRESULT} 
      */
@@ -92,7 +89,6 @@ export default struct _AppEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {Document} _Document 
      * @param {SnapIn} _SnapIn 
      * @returns {HRESULT} 
@@ -103,7 +99,6 @@ export default struct _AppEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {Document} _Document 
      * @param {SnapIn} _SnapIn 
      * @returns {HRESULT} 
@@ -114,7 +109,6 @@ export default struct _AppEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {View} _View 
      * @returns {HRESULT} 
      */
@@ -124,7 +118,6 @@ export default struct _AppEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {View} _View 
      * @returns {HRESULT} 
      */
@@ -134,7 +127,6 @@ export default struct _AppEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {View} _View 
      * @param {Node} NewOwnerNode 
      * @returns {HRESULT} 
@@ -145,7 +137,6 @@ export default struct _AppEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {View} _View 
      * @param {Nodes} NewNodes 
      * @returns {HRESULT} 
@@ -156,7 +147,6 @@ export default struct _AppEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {MenuItem} _MenuItem 
      * @returns {HRESULT} 
      */
@@ -166,7 +156,6 @@ export default struct _AppEvents extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     OnToolbarButtonClicked() {
@@ -175,7 +164,6 @@ export default struct _AppEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {View} _View 
      * @returns {HRESULT} 
      */
@@ -193,18 +181,18 @@ export default struct _AppEvents extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnQuit := CallbackCreate(GetMethod(implObj, "OnQuit"), flags, 2)
-        this.vtbl.OnDocumentOpen := CallbackCreate(GetMethod(implObj, "OnDocumentOpen"), flags, 3)
-        this.vtbl.OnDocumentClose := CallbackCreate(GetMethod(implObj, "OnDocumentClose"), flags, 2)
-        this.vtbl.OnSnapInAdded := CallbackCreate(GetMethod(implObj, "OnSnapInAdded"), flags, 3)
-        this.vtbl.OnSnapInRemoved := CallbackCreate(GetMethod(implObj, "OnSnapInRemoved"), flags, 3)
-        this.vtbl.OnNewView := CallbackCreate(GetMethod(implObj, "OnNewView"), flags, 2)
-        this.vtbl.OnViewClose := CallbackCreate(GetMethod(implObj, "OnViewClose"), flags, 2)
-        this.vtbl.OnViewChange := CallbackCreate(GetMethod(implObj, "OnViewChange"), flags, 3)
-        this.vtbl.OnSelectionChange := CallbackCreate(GetMethod(implObj, "OnSelectionChange"), flags, 3)
-        this.vtbl.OnContextMenuExecuted := CallbackCreate(GetMethod(implObj, "OnContextMenuExecuted"), flags, 2)
-        this.vtbl.OnToolbarButtonClicked := CallbackCreate(GetMethod(implObj, "OnToolbarButtonClicked"), flags, 1)
-        this.vtbl.OnListUpdated := CallbackCreate(GetMethod(implObj, "OnListUpdated"), flags, 2)
+        this.vtbl.OnQuit := CallbackCreate(ObjBindMethod(implObj, "OnQuit"), flags, 2)
+        this.vtbl.OnDocumentOpen := CallbackCreate(ObjBindMethod(implObj, "OnDocumentOpen"), flags, 3)
+        this.vtbl.OnDocumentClose := CallbackCreate(ObjBindMethod(implObj, "OnDocumentClose"), flags, 2)
+        this.vtbl.OnSnapInAdded := CallbackCreate(ObjBindMethod(implObj, "OnSnapInAdded"), flags, 3)
+        this.vtbl.OnSnapInRemoved := CallbackCreate(ObjBindMethod(implObj, "OnSnapInRemoved"), flags, 3)
+        this.vtbl.OnNewView := CallbackCreate(ObjBindMethod(implObj, "OnNewView"), flags, 2)
+        this.vtbl.OnViewClose := CallbackCreate(ObjBindMethod(implObj, "OnViewClose"), flags, 2)
+        this.vtbl.OnViewChange := CallbackCreate(ObjBindMethod(implObj, "OnViewChange"), flags, 3)
+        this.vtbl.OnSelectionChange := CallbackCreate(ObjBindMethod(implObj, "OnSelectionChange"), flags, 3)
+        this.vtbl.OnContextMenuExecuted := CallbackCreate(ObjBindMethod(implObj, "OnContextMenuExecuted"), flags, 2)
+        this.vtbl.OnToolbarButtonClicked := CallbackCreate(ObjBindMethod(implObj, "OnToolbarButtonClicked"), flags, 1)
+        this.vtbl.OnListUpdated := CallbackCreate(ObjBindMethod(implObj, "OnListUpdated"), flags, 2)
     }
 
     Dispose() {

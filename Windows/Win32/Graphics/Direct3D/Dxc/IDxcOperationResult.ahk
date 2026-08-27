@@ -40,7 +40,6 @@ export default struct IDxcOperationResult extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     GetStatus() {
@@ -49,7 +48,6 @@ export default struct IDxcOperationResult extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDxcBlob} 
      */
     GetResult() {
@@ -58,7 +56,6 @@ export default struct IDxcOperationResult extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDxcBlobEncoding} 
      */
     GetErrorBuffer() {
@@ -75,9 +72,9 @@ export default struct IDxcOperationResult extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
-        this.vtbl.GetResult := CallbackCreate(GetMethod(implObj, "GetResult"), flags, 2)
-        this.vtbl.GetErrorBuffer := CallbackCreate(GetMethod(implObj, "GetErrorBuffer"), flags, 2)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.GetResult := CallbackCreate(ObjBindMethod(implObj, "GetResult"), flags, 2)
+        this.vtbl.GetErrorBuffer := CallbackCreate(ObjBindMethod(implObj, "GetErrorBuffer"), flags, 2)
     }
 
     Dispose() {

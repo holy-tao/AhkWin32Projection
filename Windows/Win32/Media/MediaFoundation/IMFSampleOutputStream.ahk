@@ -87,7 +87,6 @@ export default struct IMFSampleOutputStream extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Close() {
@@ -104,9 +103,9 @@ export default struct IMFSampleOutputStream extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BeginWriteSample := CallbackCreate(GetMethod(implObj, "BeginWriteSample"), flags, 4)
-        this.vtbl.EndWriteSample := CallbackCreate(GetMethod(implObj, "EndWriteSample"), flags, 2)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.BeginWriteSample := CallbackCreate(ObjBindMethod(implObj, "BeginWriteSample"), flags, 4)
+        this.vtbl.EndWriteSample := CallbackCreate(ObjBindMethod(implObj, "EndWriteSample"), flags, 2)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
     }
 
     Dispose() {

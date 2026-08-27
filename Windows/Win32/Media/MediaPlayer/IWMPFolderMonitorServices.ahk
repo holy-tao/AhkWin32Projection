@@ -112,7 +112,7 @@ export default struct IWMPFolderMonitorServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpfoldermonitorservices-get_count
      */
     get_count(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+        plCountMarshal := plCount is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, plCountMarshal, plCount, "HRESULT")
         return result
@@ -243,7 +243,7 @@ export default struct IWMPFolderMonitorServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpfoldermonitorservices-get_scanstate
      */
     get_scanState(pwmpfss) {
-        pwmpfssMarshal := pwmpfss is VarRef ? "int*" : "ptr"
+        pwmpfssMarshal := pwmpfss is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, pwmpfssMarshal, pwmpfss, "HRESULT")
         return result
@@ -309,7 +309,7 @@ export default struct IWMPFolderMonitorServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpfoldermonitorservices-get_scannedfilescount
      */
     get_scannedFilesCount(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+        plCountMarshal := plCount is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, plCountMarshal, plCount, "HRESULT")
         return result
@@ -344,7 +344,7 @@ export default struct IWMPFolderMonitorServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpfoldermonitorservices-get_addedfilescount
      */
     get_addedFilesCount(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+        plCountMarshal := plCount is VarRef ? "int*" : IntPtr
 
         result := ComCall(10, this, plCountMarshal, plCount, "HRESULT")
         return result
@@ -379,7 +379,7 @@ export default struct IWMPFolderMonitorServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpfoldermonitorservices-get_updateprogress
      */
     get_updateProgress(plProgress) {
-        plProgressMarshal := plProgress is VarRef ? "int*" : "ptr"
+        plProgressMarshal := plProgress is VarRef ? "int*" : IntPtr
 
         result := ComCall(11, this, plProgressMarshal, plProgress, "HRESULT")
         return result
@@ -458,17 +458,17 @@ export default struct IWMPFolderMonitorServices extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_count := CallbackCreate(GetMethod(implObj, "get_count"), flags, 2)
-        this.vtbl.item := CallbackCreate(GetMethod(implObj, "item"), flags, 3)
-        this.vtbl.add := CallbackCreate(GetMethod(implObj, "add"), flags, 2)
-        this.vtbl.remove := CallbackCreate(GetMethod(implObj, "remove"), flags, 2)
-        this.vtbl.get_scanState := CallbackCreate(GetMethod(implObj, "get_scanState"), flags, 2)
-        this.vtbl.get_currentFolder := CallbackCreate(GetMethod(implObj, "get_currentFolder"), flags, 2)
-        this.vtbl.get_scannedFilesCount := CallbackCreate(GetMethod(implObj, "get_scannedFilesCount"), flags, 2)
-        this.vtbl.get_addedFilesCount := CallbackCreate(GetMethod(implObj, "get_addedFilesCount"), flags, 2)
-        this.vtbl.get_updateProgress := CallbackCreate(GetMethod(implObj, "get_updateProgress"), flags, 2)
-        this.vtbl.startScan := CallbackCreate(GetMethod(implObj, "startScan"), flags, 1)
-        this.vtbl.stopScan := CallbackCreate(GetMethod(implObj, "stopScan"), flags, 1)
+        this.vtbl.get_count := CallbackCreate(ObjBindMethod(implObj, "get_count"), flags, 2)
+        this.vtbl.item := CallbackCreate(ObjBindMethod(implObj, "item"), flags, 3)
+        this.vtbl.add := CallbackCreate(ObjBindMethod(implObj, "add"), flags, 2)
+        this.vtbl.remove := CallbackCreate(ObjBindMethod(implObj, "remove"), flags, 2)
+        this.vtbl.get_scanState := CallbackCreate(ObjBindMethod(implObj, "get_scanState"), flags, 2)
+        this.vtbl.get_currentFolder := CallbackCreate(ObjBindMethod(implObj, "get_currentFolder"), flags, 2)
+        this.vtbl.get_scannedFilesCount := CallbackCreate(ObjBindMethod(implObj, "get_scannedFilesCount"), flags, 2)
+        this.vtbl.get_addedFilesCount := CallbackCreate(ObjBindMethod(implObj, "get_addedFilesCount"), flags, 2)
+        this.vtbl.get_updateProgress := CallbackCreate(ObjBindMethod(implObj, "get_updateProgress"), flags, 2)
+        this.vtbl.startScan := CallbackCreate(ObjBindMethod(implObj, "startScan"), flags, 1)
+        this.vtbl.stopScan := CallbackCreate(ObjBindMethod(implObj, "stopScan"), flags, 1)
     }
 
     Dispose() {

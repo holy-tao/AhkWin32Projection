@@ -660,10 +660,10 @@ export default struct ITextRow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-getcellbordercolors
      */
     GetCellBorderColors(pcrLeft, pcrTop, pcrRight, pcrBottom) {
-        pcrLeftMarshal := pcrLeft is VarRef ? "int*" : "ptr"
-        pcrTopMarshal := pcrTop is VarRef ? "int*" : "ptr"
-        pcrRightMarshal := pcrRight is VarRef ? "int*" : "ptr"
-        pcrBottomMarshal := pcrBottom is VarRef ? "int*" : "ptr"
+        pcrLeftMarshal := pcrLeft is VarRef ? "int*" : IntPtr
+        pcrTopMarshal := pcrTop is VarRef ? "int*" : IntPtr
+        pcrRightMarshal := pcrRight is VarRef ? "int*" : IntPtr
+        pcrBottomMarshal := pcrBottom is VarRef ? "int*" : IntPtr
 
         result := ComCall(42, this, pcrLeftMarshal, pcrLeft, pcrTopMarshal, pcrTop, pcrRightMarshal, pcrRight, pcrBottomMarshal, pcrBottom, "HRESULT")
         return result
@@ -689,10 +689,10 @@ export default struct ITextRow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-getcellborderwidths
      */
     GetCellBorderWidths(pduLeft, pduTop, pduRight, pduBottom) {
-        pduLeftMarshal := pduLeft is VarRef ? "int*" : "ptr"
-        pduTopMarshal := pduTop is VarRef ? "int*" : "ptr"
-        pduRightMarshal := pduRight is VarRef ? "int*" : "ptr"
-        pduBottomMarshal := pduBottom is VarRef ? "int*" : "ptr"
+        pduLeftMarshal := pduLeft is VarRef ? "int*" : IntPtr
+        pduTopMarshal := pduTop is VarRef ? "int*" : IntPtr
+        pduRightMarshal := pduRight is VarRef ? "int*" : IntPtr
+        pduBottomMarshal := pduBottom is VarRef ? "int*" : IntPtr
 
         result := ComCall(43, this, pduLeftMarshal, pduLeft, pduTopMarshal, pduTop, pduRightMarshal, pduRight, pduBottomMarshal, pduBottom, "HRESULT")
         return result
@@ -819,7 +819,9 @@ export default struct ITextRow extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrow-isequal
      */
     IsEqual(pRow) {
-        result := ComCall(50, this, "ptr", pRow, "int*", &pB := 0, "HRESULT")
+        pRowMarshal := pRow == 0 ? IntPtr : "ptr"
+
+        result := ComCall(50, this, pRowMarshal, pRow, "int*", &pB := 0, "HRESULT")
         return pB
     }
 
@@ -894,52 +896,52 @@ export default struct ITextRow extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAlignment := CallbackCreate(GetMethod(implObj, "GetAlignment"), flags, 2)
-        this.vtbl.SetAlignment := CallbackCreate(GetMethod(implObj, "SetAlignment"), flags, 2)
-        this.vtbl.GetCellCount := CallbackCreate(GetMethod(implObj, "GetCellCount"), flags, 2)
-        this.vtbl.SetCellCount := CallbackCreate(GetMethod(implObj, "SetCellCount"), flags, 2)
-        this.vtbl.GetCellCountCache := CallbackCreate(GetMethod(implObj, "GetCellCountCache"), flags, 2)
-        this.vtbl.SetCellCountCache := CallbackCreate(GetMethod(implObj, "SetCellCountCache"), flags, 2)
-        this.vtbl.GetCellIndex := CallbackCreate(GetMethod(implObj, "GetCellIndex"), flags, 2)
-        this.vtbl.SetCellIndex := CallbackCreate(GetMethod(implObj, "SetCellIndex"), flags, 2)
-        this.vtbl.GetCellMargin := CallbackCreate(GetMethod(implObj, "GetCellMargin"), flags, 2)
-        this.vtbl.SetCellMargin := CallbackCreate(GetMethod(implObj, "SetCellMargin"), flags, 2)
-        this.vtbl.GetHeight := CallbackCreate(GetMethod(implObj, "GetHeight"), flags, 2)
-        this.vtbl.SetHeight := CallbackCreate(GetMethod(implObj, "SetHeight"), flags, 2)
-        this.vtbl.GetIndent := CallbackCreate(GetMethod(implObj, "GetIndent"), flags, 2)
-        this.vtbl.SetIndent := CallbackCreate(GetMethod(implObj, "SetIndent"), flags, 2)
-        this.vtbl.GetKeepTogether := CallbackCreate(GetMethod(implObj, "GetKeepTogether"), flags, 2)
-        this.vtbl.SetKeepTogether := CallbackCreate(GetMethod(implObj, "SetKeepTogether"), flags, 2)
-        this.vtbl.GetKeepWithNext := CallbackCreate(GetMethod(implObj, "GetKeepWithNext"), flags, 2)
-        this.vtbl.SetKeepWithNext := CallbackCreate(GetMethod(implObj, "SetKeepWithNext"), flags, 2)
-        this.vtbl.GetNestLevel := CallbackCreate(GetMethod(implObj, "GetNestLevel"), flags, 2)
-        this.vtbl.GetRTL := CallbackCreate(GetMethod(implObj, "GetRTL"), flags, 2)
-        this.vtbl.SetRTL := CallbackCreate(GetMethod(implObj, "SetRTL"), flags, 2)
-        this.vtbl.GetCellAlignment := CallbackCreate(GetMethod(implObj, "GetCellAlignment"), flags, 2)
-        this.vtbl.SetCellAlignment := CallbackCreate(GetMethod(implObj, "SetCellAlignment"), flags, 2)
-        this.vtbl.GetCellColorBack := CallbackCreate(GetMethod(implObj, "GetCellColorBack"), flags, 2)
-        this.vtbl.SetCellColorBack := CallbackCreate(GetMethod(implObj, "SetCellColorBack"), flags, 2)
-        this.vtbl.GetCellColorFore := CallbackCreate(GetMethod(implObj, "GetCellColorFore"), flags, 2)
-        this.vtbl.SetCellColorFore := CallbackCreate(GetMethod(implObj, "SetCellColorFore"), flags, 2)
-        this.vtbl.GetCellMergeFlags := CallbackCreate(GetMethod(implObj, "GetCellMergeFlags"), flags, 2)
-        this.vtbl.SetCellMergeFlags := CallbackCreate(GetMethod(implObj, "SetCellMergeFlags"), flags, 2)
-        this.vtbl.GetCellShading := CallbackCreate(GetMethod(implObj, "GetCellShading"), flags, 2)
-        this.vtbl.SetCellShading := CallbackCreate(GetMethod(implObj, "SetCellShading"), flags, 2)
-        this.vtbl.GetCellVerticalText := CallbackCreate(GetMethod(implObj, "GetCellVerticalText"), flags, 2)
-        this.vtbl.SetCellVerticalText := CallbackCreate(GetMethod(implObj, "SetCellVerticalText"), flags, 2)
-        this.vtbl.GetCellWidth := CallbackCreate(GetMethod(implObj, "GetCellWidth"), flags, 2)
-        this.vtbl.SetCellWidth := CallbackCreate(GetMethod(implObj, "SetCellWidth"), flags, 2)
-        this.vtbl.GetCellBorderColors := CallbackCreate(GetMethod(implObj, "GetCellBorderColors"), flags, 5)
-        this.vtbl.GetCellBorderWidths := CallbackCreate(GetMethod(implObj, "GetCellBorderWidths"), flags, 5)
-        this.vtbl.SetCellBorderColors := CallbackCreate(GetMethod(implObj, "SetCellBorderColors"), flags, 5)
-        this.vtbl.SetCellBorderWidths := CallbackCreate(GetMethod(implObj, "SetCellBorderWidths"), flags, 5)
-        this.vtbl.Apply := CallbackCreate(GetMethod(implObj, "Apply"), flags, 3)
-        this.vtbl.CanChange := CallbackCreate(GetMethod(implObj, "CanChange"), flags, 2)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
-        this.vtbl.Insert := CallbackCreate(GetMethod(implObj, "Insert"), flags, 2)
-        this.vtbl.IsEqual := CallbackCreate(GetMethod(implObj, "IsEqual"), flags, 3)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 2)
-        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 3)
+        this.vtbl.GetAlignment := CallbackCreate(ObjBindMethod(implObj, "GetAlignment"), flags, 2)
+        this.vtbl.SetAlignment := CallbackCreate(ObjBindMethod(implObj, "SetAlignment"), flags, 2)
+        this.vtbl.GetCellCount := CallbackCreate(ObjBindMethod(implObj, "GetCellCount"), flags, 2)
+        this.vtbl.SetCellCount := CallbackCreate(ObjBindMethod(implObj, "SetCellCount"), flags, 2)
+        this.vtbl.GetCellCountCache := CallbackCreate(ObjBindMethod(implObj, "GetCellCountCache"), flags, 2)
+        this.vtbl.SetCellCountCache := CallbackCreate(ObjBindMethod(implObj, "SetCellCountCache"), flags, 2)
+        this.vtbl.GetCellIndex := CallbackCreate(ObjBindMethod(implObj, "GetCellIndex"), flags, 2)
+        this.vtbl.SetCellIndex := CallbackCreate(ObjBindMethod(implObj, "SetCellIndex"), flags, 2)
+        this.vtbl.GetCellMargin := CallbackCreate(ObjBindMethod(implObj, "GetCellMargin"), flags, 2)
+        this.vtbl.SetCellMargin := CallbackCreate(ObjBindMethod(implObj, "SetCellMargin"), flags, 2)
+        this.vtbl.GetHeight := CallbackCreate(ObjBindMethod(implObj, "GetHeight"), flags, 2)
+        this.vtbl.SetHeight := CallbackCreate(ObjBindMethod(implObj, "SetHeight"), flags, 2)
+        this.vtbl.GetIndent := CallbackCreate(ObjBindMethod(implObj, "GetIndent"), flags, 2)
+        this.vtbl.SetIndent := CallbackCreate(ObjBindMethod(implObj, "SetIndent"), flags, 2)
+        this.vtbl.GetKeepTogether := CallbackCreate(ObjBindMethod(implObj, "GetKeepTogether"), flags, 2)
+        this.vtbl.SetKeepTogether := CallbackCreate(ObjBindMethod(implObj, "SetKeepTogether"), flags, 2)
+        this.vtbl.GetKeepWithNext := CallbackCreate(ObjBindMethod(implObj, "GetKeepWithNext"), flags, 2)
+        this.vtbl.SetKeepWithNext := CallbackCreate(ObjBindMethod(implObj, "SetKeepWithNext"), flags, 2)
+        this.vtbl.GetNestLevel := CallbackCreate(ObjBindMethod(implObj, "GetNestLevel"), flags, 2)
+        this.vtbl.GetRTL := CallbackCreate(ObjBindMethod(implObj, "GetRTL"), flags, 2)
+        this.vtbl.SetRTL := CallbackCreate(ObjBindMethod(implObj, "SetRTL"), flags, 2)
+        this.vtbl.GetCellAlignment := CallbackCreate(ObjBindMethod(implObj, "GetCellAlignment"), flags, 2)
+        this.vtbl.SetCellAlignment := CallbackCreate(ObjBindMethod(implObj, "SetCellAlignment"), flags, 2)
+        this.vtbl.GetCellColorBack := CallbackCreate(ObjBindMethod(implObj, "GetCellColorBack"), flags, 2)
+        this.vtbl.SetCellColorBack := CallbackCreate(ObjBindMethod(implObj, "SetCellColorBack"), flags, 2)
+        this.vtbl.GetCellColorFore := CallbackCreate(ObjBindMethod(implObj, "GetCellColorFore"), flags, 2)
+        this.vtbl.SetCellColorFore := CallbackCreate(ObjBindMethod(implObj, "SetCellColorFore"), flags, 2)
+        this.vtbl.GetCellMergeFlags := CallbackCreate(ObjBindMethod(implObj, "GetCellMergeFlags"), flags, 2)
+        this.vtbl.SetCellMergeFlags := CallbackCreate(ObjBindMethod(implObj, "SetCellMergeFlags"), flags, 2)
+        this.vtbl.GetCellShading := CallbackCreate(ObjBindMethod(implObj, "GetCellShading"), flags, 2)
+        this.vtbl.SetCellShading := CallbackCreate(ObjBindMethod(implObj, "SetCellShading"), flags, 2)
+        this.vtbl.GetCellVerticalText := CallbackCreate(ObjBindMethod(implObj, "GetCellVerticalText"), flags, 2)
+        this.vtbl.SetCellVerticalText := CallbackCreate(ObjBindMethod(implObj, "SetCellVerticalText"), flags, 2)
+        this.vtbl.GetCellWidth := CallbackCreate(ObjBindMethod(implObj, "GetCellWidth"), flags, 2)
+        this.vtbl.SetCellWidth := CallbackCreate(ObjBindMethod(implObj, "SetCellWidth"), flags, 2)
+        this.vtbl.GetCellBorderColors := CallbackCreate(ObjBindMethod(implObj, "GetCellBorderColors"), flags, 5)
+        this.vtbl.GetCellBorderWidths := CallbackCreate(ObjBindMethod(implObj, "GetCellBorderWidths"), flags, 5)
+        this.vtbl.SetCellBorderColors := CallbackCreate(ObjBindMethod(implObj, "SetCellBorderColors"), flags, 5)
+        this.vtbl.SetCellBorderWidths := CallbackCreate(ObjBindMethod(implObj, "SetCellBorderWidths"), flags, 5)
+        this.vtbl.Apply := CallbackCreate(ObjBindMethod(implObj, "Apply"), flags, 3)
+        this.vtbl.CanChange := CallbackCreate(ObjBindMethod(implObj, "CanChange"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.Insert := CallbackCreate(ObjBindMethod(implObj, "Insert"), flags, 2)
+        this.vtbl.IsEqual := CallbackCreate(ObjBindMethod(implObj, "IsEqual"), flags, 3)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 2)
+        this.vtbl.SetProperty := CallbackCreate(ObjBindMethod(implObj, "SetProperty"), flags, 3)
     }
 
     Dispose() {

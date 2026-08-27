@@ -258,15 +258,15 @@ export default struct IMSVidDevice extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
-        this.vtbl.put_Power := CallbackCreate(GetMethod(implObj, "put_Power"), flags, 2)
-        this.vtbl.get_Power := CallbackCreate(GetMethod(implObj, "get_Power"), flags, 2)
-        this.vtbl.get_Category := CallbackCreate(GetMethod(implObj, "get_Category"), flags, 2)
-        this.vtbl.get_ClassID := CallbackCreate(GetMethod(implObj, "get_ClassID"), flags, 2)
-        this.vtbl.get__Category := CallbackCreate(GetMethod(implObj, "get__Category"), flags, 2)
-        this.vtbl.get__ClassID := CallbackCreate(GetMethod(implObj, "get__ClassID"), flags, 2)
-        this.vtbl.IsEqualDevice := CallbackCreate(GetMethod(implObj, "IsEqualDevice"), flags, 3)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Status := CallbackCreate(ObjBindMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.put_Power := CallbackCreate(ObjBindMethod(implObj, "put_Power"), flags, 2)
+        this.vtbl.get_Power := CallbackCreate(ObjBindMethod(implObj, "get_Power"), flags, 2)
+        this.vtbl.get_Category := CallbackCreate(ObjBindMethod(implObj, "get_Category"), flags, 2)
+        this.vtbl.get_ClassID := CallbackCreate(ObjBindMethod(implObj, "get_ClassID"), flags, 2)
+        this.vtbl.get__Category := CallbackCreate(ObjBindMethod(implObj, "get__Category"), flags, 2)
+        this.vtbl.get__ClassID := CallbackCreate(ObjBindMethod(implObj, "get__ClassID"), flags, 2)
+        this.vtbl.IsEqualDevice := CallbackCreate(ObjBindMethod(implObj, "IsEqualDevice"), flags, 3)
     }
 
     Dispose() {

@@ -169,13 +169,13 @@ export default struct IDCompositionAffineTransform2DEffect extends IDComposition
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetInterpolationMode := CallbackCreate(GetMethod(implObj, "SetInterpolationMode"), flags, 2)
-        this.vtbl.SetBorderMode := CallbackCreate(GetMethod(implObj, "SetBorderMode"), flags, 2)
-        this.vtbl.SetTransformMatrix := CallbackCreate(GetMethod(implObj, "SetTransformMatrix"), flags, 2)
-        this.vtbl.SetTransformMatrixElement := CallbackCreate(GetMethod(implObj, "SetTransformMatrixElement"), flags, 4)
-        this.vtbl.SetTransformMatrixElement1 := CallbackCreate(GetMethod(implObj, "SetTransformMatrixElement1"), flags, 4)
-        this.vtbl.SetSharpness := CallbackCreate(GetMethod(implObj, "SetSharpness"), flags, 2)
-        this.vtbl.SetSharpness1 := CallbackCreate(GetMethod(implObj, "SetSharpness1"), flags, 2)
+        this.vtbl.SetInterpolationMode := CallbackCreate(ObjBindMethod(implObj, "SetInterpolationMode"), flags, 2)
+        this.vtbl.SetBorderMode := CallbackCreate(ObjBindMethod(implObj, "SetBorderMode"), flags, 2)
+        this.vtbl.SetTransformMatrix := CallbackCreate(ObjBindMethod(implObj, "SetTransformMatrix"), flags, 2)
+        this.vtbl.SetTransformMatrixElement := CallbackCreate(ObjBindMethod(implObj, "SetTransformMatrixElement"), flags, 4)
+        this.vtbl.SetTransformMatrixElement1 := CallbackCreate(ObjBindMethod(implObj, "SetTransformMatrixElement1"), flags, 4)
+        this.vtbl.SetSharpness := CallbackCreate(ObjBindMethod(implObj, "SetSharpness"), flags, 2)
+        this.vtbl.SetSharpness1 := CallbackCreate(ObjBindMethod(implObj, "SetSharpness1"), flags, 2)
     }
 
     Dispose() {

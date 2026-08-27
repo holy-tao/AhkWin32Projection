@@ -36,13 +36,14 @@ export default struct ISpContainerLexicon extends ISpLexicon {
     }
 
     /**
-     * 
      * @param {ISpLexicon} pAddLexicon 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
     AddLexicon(pAddLexicon, dwFlags) {
-        result := ComCall(9, this, "ptr", pAddLexicon, UInt32, dwFlags, "HRESULT")
+        pAddLexiconMarshal := pAddLexicon == 0 ? IntPtr : "ptr"
+
+        result := ComCall(9, this, pAddLexiconMarshal, pAddLexicon, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -55,7 +56,7 @@ export default struct ISpContainerLexicon extends ISpLexicon {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddLexicon := CallbackCreate(GetMethod(implObj, "AddLexicon"), flags, 3)
+        this.vtbl.AddLexicon := CallbackCreate(ObjBindMethod(implObj, "AddLexicon"), flags, 3)
     }
 
     Dispose() {

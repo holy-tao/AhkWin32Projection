@@ -20,14 +20,13 @@ export default struct CreateInterfaceFnPtr {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} clsid 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Pointer<Void>>} ppInterface 
      * @returns {HRESULT} 
      */
     Call(clsid, riid, ppInterface) {
-        ppInterfaceMarshal := ppInterface is VarRef ? "ptr*" : "ptr"
+        ppInterfaceMarshal := ppInterface is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, Guid.Ptr, clsid, Guid.Ptr, riid, ppInterfaceMarshal, ppInterface, "HRESULT")
         return result

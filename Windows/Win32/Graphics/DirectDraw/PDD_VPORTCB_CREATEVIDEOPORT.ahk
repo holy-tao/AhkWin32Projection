@@ -29,7 +29,6 @@ export default struct PDD_VPORTCB_CREATEVIDEOPORT {
     }
 
     /**
-     * 
      * @param {Pointer<DD_CREATEVPORTDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_createvportdata">DD_CREATEVPORTDATA</a> structure that describes the created VPE object.
      * @returns {Integer} <b>DdVideoPortCreate</b> returns one of the following values:
      */

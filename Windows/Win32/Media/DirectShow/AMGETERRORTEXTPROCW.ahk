@@ -22,7 +22,6 @@ export default struct AMGETERRORTEXTPROCW {
     }
 
     /**
-     * 
      * @param {HRESULT} param0 
      * @param {PWSTR} param1 
      * @param {Integer} param2 

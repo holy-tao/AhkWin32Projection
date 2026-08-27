@@ -65,7 +65,7 @@ export default struct IRawElementProviderHostingAccessibles extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetEmbeddedAccessibles := CallbackCreate(GetMethod(implObj, "GetEmbeddedAccessibles"), flags, 2)
+        this.vtbl.GetEmbeddedAccessibles := CallbackCreate(ObjBindMethod(implObj, "GetEmbeddedAccessibles"), flags, 2)
     }
 
     Dispose() {

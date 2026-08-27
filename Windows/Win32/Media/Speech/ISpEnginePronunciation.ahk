@@ -40,7 +40,6 @@ export default struct ISpEnginePronunciation extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszWord 
      * @param {PWSTR} pszLeftContext 
      * @param {PWSTR} pszRightContext 
@@ -58,7 +57,6 @@ export default struct ISpEnginePronunciation extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszWord 
      * @param {PWSTR} pszLeftContext 
      * @param {PWSTR} pszRightContext 
@@ -84,8 +82,8 @@ export default struct ISpEnginePronunciation extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Normalize := CallbackCreate(GetMethod(implObj, "Normalize"), flags, 6)
-        this.vtbl.GetPronunciations := CallbackCreate(GetMethod(implObj, "GetPronunciations"), flags, 6)
+        this.vtbl.Normalize := CallbackCreate(ObjBindMethod(implObj, "Normalize"), flags, 6)
+        this.vtbl.GetPronunciations := CallbackCreate(ObjBindMethod(implObj, "GetPronunciations"), flags, 6)
     }
 
     Dispose() {

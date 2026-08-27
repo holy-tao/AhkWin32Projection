@@ -80,8 +80,8 @@ export default struct IVdsVolumeMF2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolumemf2-queryfilesystemformatsupport
      */
     QueryFileSystemFormatSupport(ppFileSystemSupportProps, plNumberOfFileSystems) {
-        ppFileSystemSupportPropsMarshal := ppFileSystemSupportProps is VarRef ? "ptr*" : "ptr"
-        plNumberOfFileSystemsMarshal := plNumberOfFileSystems is VarRef ? "int*" : "ptr"
+        ppFileSystemSupportPropsMarshal := ppFileSystemSupportProps is VarRef ? "ptr*" : IntPtr
+        plNumberOfFileSystemsMarshal := plNumberOfFileSystems is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, ppFileSystemSupportPropsMarshal, ppFileSystemSupportProps, plNumberOfFileSystemsMarshal, plNumberOfFileSystems, "HRESULT")
         return result
@@ -125,9 +125,9 @@ export default struct IVdsVolumeMF2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFileSystemTypeName := CallbackCreate(GetMethod(implObj, "GetFileSystemTypeName"), flags, 2)
-        this.vtbl.QueryFileSystemFormatSupport := CallbackCreate(GetMethod(implObj, "QueryFileSystemFormatSupport"), flags, 3)
-        this.vtbl.FormatEx := CallbackCreate(GetMethod(implObj, "FormatEx"), flags, 9)
+        this.vtbl.GetFileSystemTypeName := CallbackCreate(ObjBindMethod(implObj, "GetFileSystemTypeName"), flags, 2)
+        this.vtbl.QueryFileSystemFormatSupport := CallbackCreate(ObjBindMethod(implObj, "QueryFileSystemFormatSupport"), flags, 3)
+        this.vtbl.FormatEx := CallbackCreate(ObjBindMethod(implObj, "FormatEx"), flags, 9)
     }
 
     Dispose() {

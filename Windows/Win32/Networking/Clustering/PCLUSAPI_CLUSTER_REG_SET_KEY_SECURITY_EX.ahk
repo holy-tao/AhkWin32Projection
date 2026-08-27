@@ -21,7 +21,6 @@ export default struct PCLUSAPI_CLUSTER_REG_SET_KEY_SECURITY_EX {
     }
 
     /**
-     * 
      * @param {HKEY} _hKey 
      * @param {Integer} SecurityInformation 
      * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor 
@@ -31,7 +30,9 @@ export default struct PCLUSAPI_CLUSTER_REG_SET_KEY_SECURITY_EX {
     Call(_hKey, SecurityInformation, pSecurityDescriptor, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall(this.value, HKEY, _hKey, UInt32, SecurityInformation, PSECURITY_DESCRIPTOR, pSecurityDescriptor, "ptr", lpszReason, Int32)
+        lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+        result := DllCall(this.value, HKEY, _hKey, UInt32, SecurityInformation, PSECURITY_DESCRIPTOR, pSecurityDescriptor, lpszReasonMarshal, lpszReason, Int32)
         return result
     }
 

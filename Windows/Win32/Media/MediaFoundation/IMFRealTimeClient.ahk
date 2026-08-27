@@ -105,9 +105,9 @@ export default struct IMFRealTimeClient extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterThreads := CallbackCreate(GetMethod(implObj, "RegisterThreads"), flags, 3)
-        this.vtbl.UnregisterThreads := CallbackCreate(GetMethod(implObj, "UnregisterThreads"), flags, 1)
-        this.vtbl.SetWorkQueue := CallbackCreate(GetMethod(implObj, "SetWorkQueue"), flags, 2)
+        this.vtbl.RegisterThreads := CallbackCreate(ObjBindMethod(implObj, "RegisterThreads"), flags, 3)
+        this.vtbl.UnregisterThreads := CallbackCreate(ObjBindMethod(implObj, "UnregisterThreads"), flags, 1)
+        this.vtbl.SetWorkQueue := CallbackCreate(ObjBindMethod(implObj, "SetWorkQueue"), flags, 2)
     }
 
     Dispose() {

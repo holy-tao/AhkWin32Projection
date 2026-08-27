@@ -577,15 +577,15 @@ export default struct IXpsOMGeometry extends IXpsOMShareable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFigures := CallbackCreate(GetMethod(implObj, "GetFigures"), flags, 2)
-        this.vtbl.GetFillRule := CallbackCreate(GetMethod(implObj, "GetFillRule"), flags, 2)
-        this.vtbl.SetFillRule := CallbackCreate(GetMethod(implObj, "SetFillRule"), flags, 2)
-        this.vtbl.GetTransform := CallbackCreate(GetMethod(implObj, "GetTransform"), flags, 2)
-        this.vtbl.GetTransformLocal := CallbackCreate(GetMethod(implObj, "GetTransformLocal"), flags, 2)
-        this.vtbl.SetTransformLocal := CallbackCreate(GetMethod(implObj, "SetTransformLocal"), flags, 2)
-        this.vtbl.GetTransformLookup := CallbackCreate(GetMethod(implObj, "GetTransformLookup"), flags, 2)
-        this.vtbl.SetTransformLookup := CallbackCreate(GetMethod(implObj, "SetTransformLookup"), flags, 2)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.GetFigures := CallbackCreate(ObjBindMethod(implObj, "GetFigures"), flags, 2)
+        this.vtbl.GetFillRule := CallbackCreate(ObjBindMethod(implObj, "GetFillRule"), flags, 2)
+        this.vtbl.SetFillRule := CallbackCreate(ObjBindMethod(implObj, "SetFillRule"), flags, 2)
+        this.vtbl.GetTransform := CallbackCreate(ObjBindMethod(implObj, "GetTransform"), flags, 2)
+        this.vtbl.GetTransformLocal := CallbackCreate(ObjBindMethod(implObj, "GetTransformLocal"), flags, 2)
+        this.vtbl.SetTransformLocal := CallbackCreate(ObjBindMethod(implObj, "SetTransformLocal"), flags, 2)
+        this.vtbl.GetTransformLookup := CallbackCreate(ObjBindMethod(implObj, "GetTransformLookup"), flags, 2)
+        this.vtbl.SetTransformLookup := CallbackCreate(ObjBindMethod(implObj, "SetTransformLookup"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
     }
 
     Dispose() {

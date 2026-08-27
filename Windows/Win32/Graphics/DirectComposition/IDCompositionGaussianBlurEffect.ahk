@@ -94,9 +94,9 @@ export default struct IDCompositionGaussianBlurEffect extends IDCompositionFilte
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetStandardDeviation := CallbackCreate(GetMethod(implObj, "SetStandardDeviation"), flags, 2)
-        this.vtbl.SetStandardDeviation1 := CallbackCreate(GetMethod(implObj, "SetStandardDeviation1"), flags, 2)
-        this.vtbl.SetBorderMode := CallbackCreate(GetMethod(implObj, "SetBorderMode"), flags, 2)
+        this.vtbl.SetStandardDeviation := CallbackCreate(ObjBindMethod(implObj, "SetStandardDeviation"), flags, 2)
+        this.vtbl.SetStandardDeviation1 := CallbackCreate(ObjBindMethod(implObj, "SetStandardDeviation1"), flags, 2)
+        this.vtbl.SetBorderMode := CallbackCreate(ObjBindMethod(implObj, "SetBorderMode"), flags, 2)
     }
 
     Dispose() {

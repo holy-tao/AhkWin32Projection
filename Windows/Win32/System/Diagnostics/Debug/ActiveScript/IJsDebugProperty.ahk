@@ -54,7 +54,6 @@ export default struct IJsDebugProperty extends IUnknown {
     }
 
     /**
-     * 
      * @param {JS_PROPERTY_MEMBERS} members 
      * @returns {IJsEnumDebugProperty} 
      */
@@ -72,8 +71,8 @@ export default struct IJsDebugProperty extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPropertyInfo := CallbackCreate(GetMethod(implObj, "GetPropertyInfo"), flags, 3)
-        this.vtbl.GetMembers := CallbackCreate(GetMethod(implObj, "GetMembers"), flags, 3)
+        this.vtbl.GetPropertyInfo := CallbackCreate(ObjBindMethod(implObj, "GetPropertyInfo"), flags, 3)
+        this.vtbl.GetMembers := CallbackCreate(ObjBindMethod(implObj, "GetMembers"), flags, 3)
     }
 
     Dispose() {

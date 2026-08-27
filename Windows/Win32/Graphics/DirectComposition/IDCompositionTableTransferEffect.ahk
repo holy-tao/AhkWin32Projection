@@ -69,7 +69,7 @@ export default struct IDCompositionTableTransferEffect extends IDCompositionFilt
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiontabletransfereffect-setredtable
      */
     SetRedTable(tableValues, count) {
-        tableValuesMarshal := tableValues is VarRef ? "float*" : "ptr"
+        tableValuesMarshal := tableValues is VarRef ? "float*" : IntPtr
 
         result := ComCall(4, this, tableValuesMarshal, tableValues, UInt32, count, "HRESULT")
         return result
@@ -89,7 +89,7 @@ export default struct IDCompositionTableTransferEffect extends IDCompositionFilt
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiontabletransfereffect-setgreentable
      */
     SetGreenTable(tableValues, count) {
-        tableValuesMarshal := tableValues is VarRef ? "float*" : "ptr"
+        tableValuesMarshal := tableValues is VarRef ? "float*" : IntPtr
 
         result := ComCall(5, this, tableValuesMarshal, tableValues, UInt32, count, "HRESULT")
         return result
@@ -109,7 +109,7 @@ export default struct IDCompositionTableTransferEffect extends IDCompositionFilt
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiontabletransfereffect-setbluetable
      */
     SetBlueTable(tableValues, count) {
-        tableValuesMarshal := tableValues is VarRef ? "float*" : "ptr"
+        tableValuesMarshal := tableValues is VarRef ? "float*" : IntPtr
 
         result := ComCall(6, this, tableValuesMarshal, tableValues, UInt32, count, "HRESULT")
         return result
@@ -129,7 +129,7 @@ export default struct IDCompositionTableTransferEffect extends IDCompositionFilt
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiontabletransfereffect-setalphatable
      */
     SetAlphaTable(tableValues, count) {
-        tableValuesMarshal := tableValues is VarRef ? "float*" : "ptr"
+        tableValuesMarshal := tableValues is VarRef ? "float*" : IntPtr
 
         result := ComCall(7, this, tableValuesMarshal, tableValues, UInt32, count, "HRESULT")
         return result
@@ -362,23 +362,23 @@ export default struct IDCompositionTableTransferEffect extends IDCompositionFilt
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetRedTable := CallbackCreate(GetMethod(implObj, "SetRedTable"), flags, 3)
-        this.vtbl.SetGreenTable := CallbackCreate(GetMethod(implObj, "SetGreenTable"), flags, 3)
-        this.vtbl.SetBlueTable := CallbackCreate(GetMethod(implObj, "SetBlueTable"), flags, 3)
-        this.vtbl.SetAlphaTable := CallbackCreate(GetMethod(implObj, "SetAlphaTable"), flags, 3)
-        this.vtbl.SetRedDisable := CallbackCreate(GetMethod(implObj, "SetRedDisable"), flags, 2)
-        this.vtbl.SetGreenDisable := CallbackCreate(GetMethod(implObj, "SetGreenDisable"), flags, 2)
-        this.vtbl.SetBlueDisable := CallbackCreate(GetMethod(implObj, "SetBlueDisable"), flags, 2)
-        this.vtbl.SetAlphaDisable := CallbackCreate(GetMethod(implObj, "SetAlphaDisable"), flags, 2)
-        this.vtbl.SetClampOutput := CallbackCreate(GetMethod(implObj, "SetClampOutput"), flags, 2)
-        this.vtbl.SetRedTableValue := CallbackCreate(GetMethod(implObj, "SetRedTableValue"), flags, 3)
-        this.vtbl.SetRedTableValue1 := CallbackCreate(GetMethod(implObj, "SetRedTableValue1"), flags, 3)
-        this.vtbl.SetGreenTableValue := CallbackCreate(GetMethod(implObj, "SetGreenTableValue"), flags, 3)
-        this.vtbl.SetGreenTableValue1 := CallbackCreate(GetMethod(implObj, "SetGreenTableValue1"), flags, 3)
-        this.vtbl.SetBlueTableValue := CallbackCreate(GetMethod(implObj, "SetBlueTableValue"), flags, 3)
-        this.vtbl.SetBlueTableValue1 := CallbackCreate(GetMethod(implObj, "SetBlueTableValue1"), flags, 3)
-        this.vtbl.SetAlphaTableValue := CallbackCreate(GetMethod(implObj, "SetAlphaTableValue"), flags, 3)
-        this.vtbl.SetAlphaTableValue1 := CallbackCreate(GetMethod(implObj, "SetAlphaTableValue1"), flags, 3)
+        this.vtbl.SetRedTable := CallbackCreate(ObjBindMethod(implObj, "SetRedTable"), flags, 3)
+        this.vtbl.SetGreenTable := CallbackCreate(ObjBindMethod(implObj, "SetGreenTable"), flags, 3)
+        this.vtbl.SetBlueTable := CallbackCreate(ObjBindMethod(implObj, "SetBlueTable"), flags, 3)
+        this.vtbl.SetAlphaTable := CallbackCreate(ObjBindMethod(implObj, "SetAlphaTable"), flags, 3)
+        this.vtbl.SetRedDisable := CallbackCreate(ObjBindMethod(implObj, "SetRedDisable"), flags, 2)
+        this.vtbl.SetGreenDisable := CallbackCreate(ObjBindMethod(implObj, "SetGreenDisable"), flags, 2)
+        this.vtbl.SetBlueDisable := CallbackCreate(ObjBindMethod(implObj, "SetBlueDisable"), flags, 2)
+        this.vtbl.SetAlphaDisable := CallbackCreate(ObjBindMethod(implObj, "SetAlphaDisable"), flags, 2)
+        this.vtbl.SetClampOutput := CallbackCreate(ObjBindMethod(implObj, "SetClampOutput"), flags, 2)
+        this.vtbl.SetRedTableValue := CallbackCreate(ObjBindMethod(implObj, "SetRedTableValue"), flags, 3)
+        this.vtbl.SetRedTableValue1 := CallbackCreate(ObjBindMethod(implObj, "SetRedTableValue1"), flags, 3)
+        this.vtbl.SetGreenTableValue := CallbackCreate(ObjBindMethod(implObj, "SetGreenTableValue"), flags, 3)
+        this.vtbl.SetGreenTableValue1 := CallbackCreate(ObjBindMethod(implObj, "SetGreenTableValue1"), flags, 3)
+        this.vtbl.SetBlueTableValue := CallbackCreate(ObjBindMethod(implObj, "SetBlueTableValue"), flags, 3)
+        this.vtbl.SetBlueTableValue1 := CallbackCreate(ObjBindMethod(implObj, "SetBlueTableValue1"), flags, 3)
+        this.vtbl.SetAlphaTableValue := CallbackCreate(ObjBindMethod(implObj, "SetAlphaTableValue"), flags, 3)
+        this.vtbl.SetAlphaTableValue1 := CallbackCreate(ObjBindMethod(implObj, "SetAlphaTableValue1"), flags, 3)
     }
 
     Dispose() {

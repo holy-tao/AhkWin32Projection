@@ -156,15 +156,15 @@ export default struct IIsdbCAContractInformationDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetCASystemId := CallbackCreate(GetMethod(implObj, "GetCASystemId"), flags, 2)
-        this.vtbl.GetCAUnitId := CallbackCreate(GetMethod(implObj, "GetCAUnitId"), flags, 2)
-        this.vtbl.GetCountOfRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRecords"), flags, 2)
-        this.vtbl.GetRecordComponentTag := CallbackCreate(GetMethod(implObj, "GetRecordComponentTag"), flags, 3)
-        this.vtbl.GetContractVerificationInfoLength := CallbackCreate(GetMethod(implObj, "GetContractVerificationInfoLength"), flags, 2)
-        this.vtbl.GetContractVerificationInfo := CallbackCreate(GetMethod(implObj, "GetContractVerificationInfo"), flags, 3)
-        this.vtbl.GetFeeNameW := CallbackCreate(GetMethod(implObj, "GetFeeNameW"), flags, 3)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetCASystemId := CallbackCreate(ObjBindMethod(implObj, "GetCASystemId"), flags, 2)
+        this.vtbl.GetCAUnitId := CallbackCreate(ObjBindMethod(implObj, "GetCAUnitId"), flags, 2)
+        this.vtbl.GetCountOfRecords := CallbackCreate(ObjBindMethod(implObj, "GetCountOfRecords"), flags, 2)
+        this.vtbl.GetRecordComponentTag := CallbackCreate(ObjBindMethod(implObj, "GetRecordComponentTag"), flags, 3)
+        this.vtbl.GetContractVerificationInfoLength := CallbackCreate(ObjBindMethod(implObj, "GetContractVerificationInfoLength"), flags, 2)
+        this.vtbl.GetContractVerificationInfo := CallbackCreate(ObjBindMethod(implObj, "GetContractVerificationInfo"), flags, 3)
+        this.vtbl.GetFeeNameW := CallbackCreate(ObjBindMethod(implObj, "GetFeeNameW"), flags, 3)
     }
 
     Dispose() {

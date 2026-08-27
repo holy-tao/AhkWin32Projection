@@ -169,12 +169,12 @@ export default struct IAMStats extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-iamstats-getvaluebyindex
      */
     GetValueByIndex(lIndex, szName, lCount, dLast, dAverage, dStdDev, dMin, dMax) {
-        lCountMarshal := lCount is VarRef ? "int*" : "ptr"
-        dLastMarshal := dLast is VarRef ? "double*" : "ptr"
-        dAverageMarshal := dAverage is VarRef ? "double*" : "ptr"
-        dStdDevMarshal := dStdDev is VarRef ? "double*" : "ptr"
-        dMinMarshal := dMin is VarRef ? "double*" : "ptr"
-        dMaxMarshal := dMax is VarRef ? "double*" : "ptr"
+        lCountMarshal := lCount is VarRef ? "int*" : IntPtr
+        dLastMarshal := dLast is VarRef ? "double*" : IntPtr
+        dAverageMarshal := dAverage is VarRef ? "double*" : IntPtr
+        dStdDevMarshal := dStdDev is VarRef ? "double*" : IntPtr
+        dMinMarshal := dMin is VarRef ? "double*" : IntPtr
+        dMaxMarshal := dMax is VarRef ? "double*" : IntPtr
 
         result := ComCall(9, this, Int32, lIndex, BSTR.Ptr, szName, lCountMarshal, lCount, dLastMarshal, dLast, dAverageMarshal, dAverage, dStdDevMarshal, dStdDev, dMinMarshal, dMin, dMaxMarshal, dMax, "HRESULT")
         return result
@@ -236,13 +236,13 @@ export default struct IAMStats extends IDispatch {
     GetValueByName(szName, lIndex, lCount, dLast, dAverage, dStdDev, dMin, dMax) {
         szName := szName is String ? BSTR.Alloc(szName).Value : szName
 
-        lIndexMarshal := lIndex is VarRef ? "int*" : "ptr"
-        lCountMarshal := lCount is VarRef ? "int*" : "ptr"
-        dLastMarshal := dLast is VarRef ? "double*" : "ptr"
-        dAverageMarshal := dAverage is VarRef ? "double*" : "ptr"
-        dStdDevMarshal := dStdDev is VarRef ? "double*" : "ptr"
-        dMinMarshal := dMin is VarRef ? "double*" : "ptr"
-        dMaxMarshal := dMax is VarRef ? "double*" : "ptr"
+        lIndexMarshal := lIndex is VarRef ? "int*" : IntPtr
+        lCountMarshal := lCount is VarRef ? "int*" : IntPtr
+        dLastMarshal := dLast is VarRef ? "double*" : IntPtr
+        dAverageMarshal := dAverage is VarRef ? "double*" : IntPtr
+        dStdDevMarshal := dStdDev is VarRef ? "double*" : IntPtr
+        dMinMarshal := dMin is VarRef ? "double*" : IntPtr
+        dMaxMarshal := dMax is VarRef ? "double*" : IntPtr
 
         result := ComCall(10, this, BSTR, szName, lIndexMarshal, lIndex, lCountMarshal, lCount, dLastMarshal, dLast, dAverageMarshal, dAverage, dStdDevMarshal, dStdDev, dMinMarshal, dMin, dMaxMarshal, dMax, "HRESULT")
         return result
@@ -312,12 +312,12 @@ export default struct IAMStats extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.GetValueByIndex := CallbackCreate(GetMethod(implObj, "GetValueByIndex"), flags, 9)
-        this.vtbl.GetValueByName := CallbackCreate(GetMethod(implObj, "GetValueByName"), flags, 9)
-        this.vtbl.GetIndex := CallbackCreate(GetMethod(implObj, "GetIndex"), flags, 4)
-        this.vtbl.AddValue := CallbackCreate(GetMethod(implObj, "AddValue"), flags, 3)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.GetValueByIndex := CallbackCreate(ObjBindMethod(implObj, "GetValueByIndex"), flags, 9)
+        this.vtbl.GetValueByName := CallbackCreate(ObjBindMethod(implObj, "GetValueByName"), flags, 9)
+        this.vtbl.GetIndex := CallbackCreate(ObjBindMethod(implObj, "GetIndex"), flags, 4)
+        this.vtbl.AddValue := CallbackCreate(ObjBindMethod(implObj, "AddValue"), flags, 3)
     }
 
     Dispose() {

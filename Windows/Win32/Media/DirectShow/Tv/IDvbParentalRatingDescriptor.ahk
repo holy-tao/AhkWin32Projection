@@ -79,8 +79,8 @@ export default struct IDvbParentalRatingDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbparentalratingdescriptor-getrecordrating
      */
     GetRecordRating(bRecordIndex, pszCountryCode, pbVal) {
-        pszCountryCodeMarshal := pszCountryCode is VarRef ? "char*" : "ptr"
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
+        pszCountryCodeMarshal := pszCountryCode is VarRef ? "char*" : IntPtr
+        pbValMarshal := pbVal is VarRef ? "char*" : IntPtr
 
         result := ComCall(6, this, Int8, bRecordIndex, pszCountryCodeMarshal, pszCountryCode, pbValMarshal, pbVal, "HRESULT")
         return result
@@ -95,10 +95,10 @@ export default struct IDvbParentalRatingDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetCountOfRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRecords"), flags, 2)
-        this.vtbl.GetRecordRating := CallbackCreate(GetMethod(implObj, "GetRecordRating"), flags, 4)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetCountOfRecords := CallbackCreate(ObjBindMethod(implObj, "GetCountOfRecords"), flags, 2)
+        this.vtbl.GetRecordRating := CallbackCreate(ObjBindMethod(implObj, "GetRecordRating"), flags, 4)
     }
 
     Dispose() {

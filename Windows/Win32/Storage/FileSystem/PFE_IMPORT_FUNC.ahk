@@ -26,7 +26,6 @@ export default struct PFE_IMPORT_FUNC {
     }
 
     /**
-     * 
      * @param {Integer} pbData A pointer to a system-supplied buffer that will receive a block of data to be restored.
      * @param {Pointer<Void>} pvCallbackContext A pointer to an application-defined and allocated context block. The application passes this pointer to 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-writeencryptedfileraw">WriteEncryptedFileRaw</a>, and it passes this 
@@ -51,8 +50,9 @@ export default struct PFE_IMPORT_FUNC {
      *        returned by <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for the failed API.
      */
     Call(pbData, pvCallbackContext, ulLength) {
-        pvCallbackContextMarshal := pvCallbackContext is VarRef ? "ptr" : "ptr"
-        ulLengthMarshal := ulLength is VarRef ? "uint*" : "ptr"
+        pvCallbackContextMarshal := pvCallbackContext is VarRef ? "ptr" : IntPtr
+        pvCallbackContextMarshal := pvCallbackContext == 0 ? IntPtr : "ptr"
+        ulLengthMarshal := ulLength is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, IntPtr, pbData, pvCallbackContextMarshal, pvCallbackContext, ulLengthMarshal, ulLength, UInt32)
         return result

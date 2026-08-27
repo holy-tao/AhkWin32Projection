@@ -38,7 +38,6 @@ export default struct IDebugHostContextControl extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SwitchTo() {
@@ -47,7 +46,6 @@ export default struct IDebugHostContextControl extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugHostContextAlternator} 
      */
     GetContextAlternator() {
@@ -64,8 +62,8 @@ export default struct IDebugHostContextControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SwitchTo := CallbackCreate(GetMethod(implObj, "SwitchTo"), flags, 1)
-        this.vtbl.GetContextAlternator := CallbackCreate(GetMethod(implObj, "GetContextAlternator"), flags, 2)
+        this.vtbl.SwitchTo := CallbackCreate(ObjBindMethod(implObj, "SwitchTo"), flags, 1)
+        this.vtbl.GetContextAlternator := CallbackCreate(ObjBindMethod(implObj, "GetContextAlternator"), flags, 2)
     }
 
     Dispose() {

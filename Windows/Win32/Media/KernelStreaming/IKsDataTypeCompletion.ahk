@@ -38,7 +38,6 @@ export default struct IKsDataTypeCompletion extends IUnknown {
     }
 
     /**
-     * 
      * @param {HANDLE} FilterHandle 
      * @param {Integer} PinFactoryId 
      * @param {Pointer<AM_MEDIA_TYPE>} AmMediaType 
@@ -58,7 +57,7 @@ export default struct IKsDataTypeCompletion extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.KsCompleteMediaType := CallbackCreate(GetMethod(implObj, "KsCompleteMediaType"), flags, 4)
+        this.vtbl.KsCompleteMediaType := CallbackCreate(ObjBindMethod(implObj, "KsCompleteMediaType"), flags, 4)
     }
 
     Dispose() {

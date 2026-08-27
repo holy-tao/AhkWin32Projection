@@ -20,7 +20,6 @@ export default struct SPNOTIFYCALLBACK {
     }
 
     /**
-     * 
      * @param {WPARAM} _wParam 
      * @param {LPARAM} _lParam 
      * @returns {String} Nothing - always returns an empty string

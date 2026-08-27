@@ -21,7 +21,6 @@ export default struct PLSA_SET_APP_MODE_INFO {
     }
 
     /**
-     * 
      * @param {Integer} UserFunction 
      * @param {Pointer} Argument1 
      * @param {Pointer} Argument2 
@@ -30,7 +29,12 @@ export default struct PLSA_SET_APP_MODE_INFO {
      * @returns {NTSTATUS} 
      */
     Call(UserFunction, Argument1, Argument2, _UserData, ReturnToLsa) {
-        result := DllCall(this.value, UInt32, UserFunction, IntPtr, Argument1, IntPtr, Argument2, SecBuffer.Ptr, _UserData, BOOLEAN, ReturnToLsa, NTSTATUS)
+        Argument1Marshal := Argument1 == 0 ? IntPtr : IntPtr
+        Argument2Marshal := Argument2 == 0 ? IntPtr : IntPtr
+        _UserDataMarshal := _UserData == 0 ? IntPtr : SecBuffer.Ptr
+        ReturnToLsaMarshal := ReturnToLsa == 0 ? IntPtr : BOOLEAN
+
+        result := DllCall(this.value, UInt32, UserFunction, Argument1Marshal, Argument1, Argument2Marshal, Argument2, _UserDataMarshal, _UserData, ReturnToLsaMarshal, ReturnToLsa, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

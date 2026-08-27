@@ -547,14 +547,14 @@ export default struct IDiscFormat2Erase extends IDiscFormat2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_Recorder := CallbackCreate(GetMethod(implObj, "put_Recorder"), flags, 2)
-        this.vtbl.get_Recorder := CallbackCreate(GetMethod(implObj, "get_Recorder"), flags, 2)
-        this.vtbl.put_FullErase := CallbackCreate(GetMethod(implObj, "put_FullErase"), flags, 2)
-        this.vtbl.get_FullErase := CallbackCreate(GetMethod(implObj, "get_FullErase"), flags, 2)
-        this.vtbl.get_CurrentPhysicalMediaType := CallbackCreate(GetMethod(implObj, "get_CurrentPhysicalMediaType"), flags, 2)
-        this.vtbl.put_ClientName := CallbackCreate(GetMethod(implObj, "put_ClientName"), flags, 2)
-        this.vtbl.get_ClientName := CallbackCreate(GetMethod(implObj, "get_ClientName"), flags, 2)
-        this.vtbl.EraseMedia := CallbackCreate(GetMethod(implObj, "EraseMedia"), flags, 1)
+        this.vtbl.put_Recorder := CallbackCreate(ObjBindMethod(implObj, "put_Recorder"), flags, 2)
+        this.vtbl.get_Recorder := CallbackCreate(ObjBindMethod(implObj, "get_Recorder"), flags, 2)
+        this.vtbl.put_FullErase := CallbackCreate(ObjBindMethod(implObj, "put_FullErase"), flags, 2)
+        this.vtbl.get_FullErase := CallbackCreate(ObjBindMethod(implObj, "get_FullErase"), flags, 2)
+        this.vtbl.get_CurrentPhysicalMediaType := CallbackCreate(ObjBindMethod(implObj, "get_CurrentPhysicalMediaType"), flags, 2)
+        this.vtbl.put_ClientName := CallbackCreate(ObjBindMethod(implObj, "put_ClientName"), flags, 2)
+        this.vtbl.get_ClientName := CallbackCreate(ObjBindMethod(implObj, "get_ClientName"), flags, 2)
+        this.vtbl.EraseMedia := CallbackCreate(ObjBindMethod(implObj, "EraseMedia"), flags, 1)
     }
 
     Dispose() {

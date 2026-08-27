@@ -69,7 +69,6 @@ export default struct ISClusDisk extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Signature() {
@@ -78,7 +77,6 @@ export default struct ISClusDisk extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusScsiAddress} 
      */
     get_ScsiAddress() {
@@ -87,7 +85,6 @@ export default struct ISClusDisk extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DiskNumber() {
@@ -96,7 +93,6 @@ export default struct ISClusDisk extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusPartitions} 
      */
     get_Partitions() {
@@ -113,10 +109,10 @@ export default struct ISClusDisk extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Signature := CallbackCreate(GetMethod(implObj, "get_Signature"), flags, 2)
-        this.vtbl.get_ScsiAddress := CallbackCreate(GetMethod(implObj, "get_ScsiAddress"), flags, 2)
-        this.vtbl.get_DiskNumber := CallbackCreate(GetMethod(implObj, "get_DiskNumber"), flags, 2)
-        this.vtbl.get_Partitions := CallbackCreate(GetMethod(implObj, "get_Partitions"), flags, 2)
+        this.vtbl.get_Signature := CallbackCreate(ObjBindMethod(implObj, "get_Signature"), flags, 2)
+        this.vtbl.get_ScsiAddress := CallbackCreate(ObjBindMethod(implObj, "get_ScsiAddress"), flags, 2)
+        this.vtbl.get_DiskNumber := CallbackCreate(ObjBindMethod(implObj, "get_DiskNumber"), flags, 2)
+        this.vtbl.get_Partitions := CallbackCreate(ObjBindMethod(implObj, "get_Partitions"), flags, 2)
     }
 
     Dispose() {

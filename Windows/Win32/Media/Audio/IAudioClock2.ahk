@@ -108,8 +108,9 @@ export default struct IAudioClock2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclock2-getdeviceposition
      */
     GetDevicePosition(DevicePosition, QPCPosition) {
-        DevicePositionMarshal := DevicePosition is VarRef ? "uint*" : "ptr"
-        QPCPositionMarshal := QPCPosition is VarRef ? "uint*" : "ptr"
+        DevicePositionMarshal := DevicePosition is VarRef ? "uint*" : IntPtr
+        QPCPositionMarshal := QPCPosition is VarRef ? "uint*" : IntPtr
+        QPCPositionMarshal := QPCPosition == 0 ? IntPtr : "uint*"
 
         result := ComCall(3, this, DevicePositionMarshal, DevicePosition, QPCPositionMarshal, QPCPosition, "HRESULT")
         return result
@@ -124,7 +125,7 @@ export default struct IAudioClock2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDevicePosition := CallbackCreate(GetMethod(implObj, "GetDevicePosition"), flags, 3)
+        this.vtbl.GetDevicePosition := CallbackCreate(ObjBindMethod(implObj, "GetDevicePosition"), flags, 3)
     }
 
     Dispose() {

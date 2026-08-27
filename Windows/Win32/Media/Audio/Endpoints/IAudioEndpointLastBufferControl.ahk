@@ -70,8 +70,8 @@ export default struct IAudioEndpointLastBufferControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsLastBufferControlSupported := CallbackCreate(GetMethod(implObj, "IsLastBufferControlSupported"), flags, 1)
-        this.vtbl.ReleaseOutputDataPointerForLastBuffer := CallbackCreate(GetMethod(implObj, "ReleaseOutputDataPointerForLastBuffer"), flags, 2)
+        this.vtbl.IsLastBufferControlSupported := CallbackCreate(ObjBindMethod(implObj, "IsLastBufferControlSupported"), flags, 1)
+        this.vtbl.ReleaseOutputDataPointerForLastBuffer := CallbackCreate(ObjBindMethod(implObj, "ReleaseOutputDataPointerForLastBuffer"), flags, 2)
     }
 
     Dispose() {

@@ -125,11 +125,11 @@ export default struct IAppxBlockMapFile extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetBlocks := CallbackCreate(GetMethod(implObj, "GetBlocks"), flags, 2)
-        this.vtbl.GetLocalFileHeaderSize := CallbackCreate(GetMethod(implObj, "GetLocalFileHeaderSize"), flags, 2)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
-        this.vtbl.GetUncompressedSize := CallbackCreate(GetMethod(implObj, "GetUncompressedSize"), flags, 2)
-        this.vtbl.ValidateFileHash := CallbackCreate(GetMethod(implObj, "ValidateFileHash"), flags, 3)
+        this.vtbl.GetBlocks := CallbackCreate(ObjBindMethod(implObj, "GetBlocks"), flags, 2)
+        this.vtbl.GetLocalFileHeaderSize := CallbackCreate(ObjBindMethod(implObj, "GetLocalFileHeaderSize"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetUncompressedSize := CallbackCreate(ObjBindMethod(implObj, "GetUncompressedSize"), flags, 2)
+        this.vtbl.ValidateFileHash := CallbackCreate(ObjBindMethod(implObj, "ValidateFileHash"), flags, 3)
     }
 
     Dispose() {

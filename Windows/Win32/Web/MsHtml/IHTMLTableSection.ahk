@@ -84,7 +84,6 @@ export default struct IHTMLTableSection extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -96,7 +95,6 @@ export default struct IHTMLTableSection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_align() {
@@ -106,7 +104,6 @@ export default struct IHTMLTableSection extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -118,7 +115,6 @@ export default struct IHTMLTableSection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_vAlign() {
@@ -128,7 +124,6 @@ export default struct IHTMLTableSection extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -138,7 +133,6 @@ export default struct IHTMLTableSection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_bgColor() {
@@ -148,7 +142,6 @@ export default struct IHTMLTableSection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElementCollection} 
      */
     get_rows() {
@@ -157,7 +150,6 @@ export default struct IHTMLTableSection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {IDispatch} 
      */
@@ -167,7 +159,6 @@ export default struct IHTMLTableSection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {HRESULT} 
      */
@@ -185,15 +176,15 @@ export default struct IHTMLTableSection extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_align := CallbackCreate(GetMethod(implObj, "put_align"), flags, 2)
-        this.vtbl.get_align := CallbackCreate(GetMethod(implObj, "get_align"), flags, 2)
-        this.vtbl.put_vAlign := CallbackCreate(GetMethod(implObj, "put_vAlign"), flags, 2)
-        this.vtbl.get_vAlign := CallbackCreate(GetMethod(implObj, "get_vAlign"), flags, 2)
-        this.vtbl.put_bgColor := CallbackCreate(GetMethod(implObj, "put_bgColor"), flags, 2)
-        this.vtbl.get_bgColor := CallbackCreate(GetMethod(implObj, "get_bgColor"), flags, 2)
-        this.vtbl.get_rows := CallbackCreate(GetMethod(implObj, "get_rows"), flags, 2)
-        this.vtbl.insertRow := CallbackCreate(GetMethod(implObj, "insertRow"), flags, 3)
-        this.vtbl.deleteRow := CallbackCreate(GetMethod(implObj, "deleteRow"), flags, 2)
+        this.vtbl.put_align := CallbackCreate(ObjBindMethod(implObj, "put_align"), flags, 2)
+        this.vtbl.get_align := CallbackCreate(ObjBindMethod(implObj, "get_align"), flags, 2)
+        this.vtbl.put_vAlign := CallbackCreate(ObjBindMethod(implObj, "put_vAlign"), flags, 2)
+        this.vtbl.get_vAlign := CallbackCreate(ObjBindMethod(implObj, "get_vAlign"), flags, 2)
+        this.vtbl.put_bgColor := CallbackCreate(ObjBindMethod(implObj, "put_bgColor"), flags, 2)
+        this.vtbl.get_bgColor := CallbackCreate(ObjBindMethod(implObj, "get_bgColor"), flags, 2)
+        this.vtbl.get_rows := CallbackCreate(ObjBindMethod(implObj, "get_rows"), flags, 2)
+        this.vtbl.insertRow := CallbackCreate(ObjBindMethod(implObj, "insertRow"), flags, 3)
+        this.vtbl.deleteRow := CallbackCreate(ObjBindMethod(implObj, "deleteRow"), flags, 2)
     }
 
     Dispose() {

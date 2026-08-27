@@ -119,9 +119,9 @@ export default struct IConsole2 extends IConsole {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Expand := CallbackCreate(GetMethod(implObj, "Expand"), flags, 3)
-        this.vtbl.IsTaskpadViewPreferred := CallbackCreate(GetMethod(implObj, "IsTaskpadViewPreferred"), flags, 1)
-        this.vtbl.SetStatusText := CallbackCreate(GetMethod(implObj, "SetStatusText"), flags, 2)
+        this.vtbl.Expand := CallbackCreate(ObjBindMethod(implObj, "Expand"), flags, 3)
+        this.vtbl.IsTaskpadViewPreferred := CallbackCreate(ObjBindMethod(implObj, "IsTaskpadViewPreferred"), flags, 1)
+        this.vtbl.SetStatusText := CallbackCreate(ObjBindMethod(implObj, "SetStatusText"), flags, 2)
     }
 
     Dispose() {

@@ -37,7 +37,6 @@ export default struct IDebugHostField2 extends IDebugHostField {
     }
 
     /**
-     * 
      * @returns {IDebugHostType3} 
      */
     GetContainingType() {
@@ -54,7 +53,7 @@ export default struct IDebugHostField2 extends IDebugHostField {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetContainingType := CallbackCreate(GetMethod(implObj, "GetContainingType"), flags, 2)
+        this.vtbl.GetContainingType := CallbackCreate(ObjBindMethod(implObj, "GetContainingType"), flags, 2)
     }
 
     Dispose() {

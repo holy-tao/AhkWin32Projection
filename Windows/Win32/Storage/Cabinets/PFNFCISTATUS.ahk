@@ -18,7 +18,6 @@ export default struct PFNFCISTATUS {
     }
 
     /**
-     * 
      * @param {Integer} typeStatus 
      * @param {Integer} cb1 
      * @param {Integer} cb2 
@@ -26,7 +25,7 @@ export default struct PFNFCISTATUS {
      * @returns {Integer} 
      */
     Call(typeStatus, cb1, cb2, pv) {
-        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+        pvMarshal := pv is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, UInt32, typeStatus, UInt32, cb1, UInt32, cb2, pvMarshal, pv, Int32)
         return result

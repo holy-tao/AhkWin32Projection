@@ -94,7 +94,7 @@ export default struct IMFSourceOpenMonitor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnSourceEvent := CallbackCreate(GetMethod(implObj, "OnSourceEvent"), flags, 2)
+        this.vtbl.OnSourceEvent := CallbackCreate(ObjBindMethod(implObj, "OnSourceEvent"), flags, 2)
     }
 
     Dispose() {

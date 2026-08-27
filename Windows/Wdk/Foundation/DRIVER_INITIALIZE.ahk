@@ -21,7 +21,6 @@ export default struct DRIVER_INITIALIZE {
     }
 
     /**
-     * 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
      * @param {Pointer<UNICODE_STRING>} RegistryPath 
      * @returns {NTSTATUS} 

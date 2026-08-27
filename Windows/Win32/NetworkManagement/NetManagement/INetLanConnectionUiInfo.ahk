@@ -36,7 +36,6 @@ export default struct INetLanConnectionUiInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     GetDeviceGuid() {
@@ -54,7 +53,7 @@ export default struct INetLanConnectionUiInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDeviceGuid := CallbackCreate(GetMethod(implObj, "GetDeviceGuid"), flags, 2)
+        this.vtbl.GetDeviceGuid := CallbackCreate(ObjBindMethod(implObj, "GetDeviceGuid"), flags, 2)
     }
 
     Dispose() {

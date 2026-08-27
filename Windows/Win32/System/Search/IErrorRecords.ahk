@@ -44,7 +44,6 @@ export default struct IErrorRecords extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<ERRORINFO>} pErrorInfo 
      * @param {Integer} dwLookupID 
      * @param {Pointer<DISPPARAMS>} pdispparams 
@@ -53,12 +52,14 @@ export default struct IErrorRecords extends IUnknown {
      * @returns {HRESULT} 
      */
     AddErrorRecord(pErrorInfo, dwLookupID, pdispparams, punkCustomError, dwDynamicErrorID) {
-        result := ComCall(3, this, ERRORINFO.Ptr, pErrorInfo, UInt32, dwLookupID, DISPPARAMS.Ptr, pdispparams, "ptr", punkCustomError, UInt32, dwDynamicErrorID, "HRESULT")
+        pdispparamsMarshal := pdispparams == 0 ? IntPtr : DISPPARAMS.Ptr
+        punkCustomErrorMarshal := punkCustomError == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, ERRORINFO.Ptr, pErrorInfo, UInt32, dwLookupID, pdispparamsMarshal, pdispparams, punkCustomErrorMarshal, punkCustomError, UInt32, dwDynamicErrorID, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} ulRecordNum 
      * @returns {ERRORINFO} 
      */
@@ -69,7 +70,6 @@ export default struct IErrorRecords extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulRecordNum 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
@@ -96,7 +96,6 @@ export default struct IErrorRecords extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulRecordNum 
      * @returns {DISPPARAMS} 
      */
@@ -107,7 +106,6 @@ export default struct IErrorRecords extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetRecordCount() {
@@ -124,12 +122,12 @@ export default struct IErrorRecords extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddErrorRecord := CallbackCreate(GetMethod(implObj, "AddErrorRecord"), flags, 6)
-        this.vtbl.GetBasicErrorInfo := CallbackCreate(GetMethod(implObj, "GetBasicErrorInfo"), flags, 3)
-        this.vtbl.GetCustomErrorObject := CallbackCreate(GetMethod(implObj, "GetCustomErrorObject"), flags, 4)
-        this.vtbl.GetErrorInfo := CallbackCreate(GetMethod(implObj, "GetErrorInfo"), flags, 4)
-        this.vtbl.GetErrorParameters := CallbackCreate(GetMethod(implObj, "GetErrorParameters"), flags, 3)
-        this.vtbl.GetRecordCount := CallbackCreate(GetMethod(implObj, "GetRecordCount"), flags, 2)
+        this.vtbl.AddErrorRecord := CallbackCreate(ObjBindMethod(implObj, "AddErrorRecord"), flags, 6)
+        this.vtbl.GetBasicErrorInfo := CallbackCreate(ObjBindMethod(implObj, "GetBasicErrorInfo"), flags, 3)
+        this.vtbl.GetCustomErrorObject := CallbackCreate(ObjBindMethod(implObj, "GetCustomErrorObject"), flags, 4)
+        this.vtbl.GetErrorInfo := CallbackCreate(ObjBindMethod(implObj, "GetErrorInfo"), flags, 4)
+        this.vtbl.GetErrorParameters := CallbackCreate(ObjBindMethod(implObj, "GetErrorParameters"), flags, 3)
+        this.vtbl.GetRecordCount := CallbackCreate(ObjBindMethod(implObj, "GetRecordCount"), flags, 2)
     }
 
     Dispose() {

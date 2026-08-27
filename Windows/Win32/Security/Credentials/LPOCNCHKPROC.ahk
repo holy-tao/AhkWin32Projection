@@ -19,14 +19,13 @@ export default struct LPOCNCHKPROC {
     }
 
     /**
-     * 
      * @param {Pointer} param0 
      * @param {Pointer} param1 
      * @param {Pointer<Void>} param2 
      * @returns {BOOL} 
      */
     Call(param0, param1, param2) {
-        param2Marshal := param2 is VarRef ? "ptr" : "ptr"
+        param2Marshal := param2 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, IntPtr, param0, IntPtr, param1, param2Marshal, param2, BOOL)
         return result

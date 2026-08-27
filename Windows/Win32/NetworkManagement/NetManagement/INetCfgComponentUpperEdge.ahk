@@ -39,22 +39,21 @@ export default struct INetCfgComponentUpperEdge extends IUnknown {
     }
 
     /**
-     * 
      * @param {INetCfgComponent} pAdapter 
      * @param {Pointer<Integer>} pdwNumInterfaces 
      * @param {Pointer<Pointer<Guid>>} ppguidInterfaceIds 
      * @returns {HRESULT} 
      */
     GetInterfaceIdsForAdapter(pAdapter, pdwNumInterfaces, ppguidInterfaceIds) {
-        pdwNumInterfacesMarshal := pdwNumInterfaces is VarRef ? "uint*" : "ptr"
-        ppguidInterfaceIdsMarshal := ppguidInterfaceIds is VarRef ? "ptr*" : "ptr"
+        pdwNumInterfacesMarshal := pdwNumInterfaces is VarRef ? "uint*" : IntPtr
+        ppguidInterfaceIdsMarshal := ppguidInterfaceIds is VarRef ? "ptr*" : IntPtr
+        ppguidInterfaceIdsMarshal := ppguidInterfaceIds == 0 ? IntPtr : "ptr*"
 
         result := ComCall(3, this, "ptr", pAdapter, pdwNumInterfacesMarshal, pdwNumInterfaces, ppguidInterfaceIdsMarshal, ppguidInterfaceIds, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {INetCfgComponent} pAdapter 
      * @param {Integer} dwNumInterfaces 
      * @returns {HRESULT} 
@@ -65,7 +64,6 @@ export default struct INetCfgComponentUpperEdge extends IUnknown {
     }
 
     /**
-     * 
      * @param {INetCfgComponent} pAdapter 
      * @param {Integer} dwNumInterfaces 
      * @param {Pointer<Guid>} pguidInterfaceIds 
@@ -85,9 +83,9 @@ export default struct INetCfgComponentUpperEdge extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetInterfaceIdsForAdapter := CallbackCreate(GetMethod(implObj, "GetInterfaceIdsForAdapter"), flags, 4)
-        this.vtbl.AddInterfacesToAdapter := CallbackCreate(GetMethod(implObj, "AddInterfacesToAdapter"), flags, 3)
-        this.vtbl.RemoveInterfacesFromAdapter := CallbackCreate(GetMethod(implObj, "RemoveInterfacesFromAdapter"), flags, 4)
+        this.vtbl.GetInterfaceIdsForAdapter := CallbackCreate(ObjBindMethod(implObj, "GetInterfaceIdsForAdapter"), flags, 4)
+        this.vtbl.AddInterfacesToAdapter := CallbackCreate(ObjBindMethod(implObj, "AddInterfacesToAdapter"), flags, 3)
+        this.vtbl.RemoveInterfacesFromAdapter := CallbackCreate(ObjBindMethod(implObj, "RemoveInterfacesFromAdapter"), flags, 4)
     }
 
     Dispose() {

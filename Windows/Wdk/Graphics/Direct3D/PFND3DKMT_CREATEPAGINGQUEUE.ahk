@@ -20,7 +20,6 @@ export default struct PFND3DKMT_CREATEPAGINGQUEUE {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CREATEPAGINGQUEUE>} param0 
      * @returns {NTSTATUS} 
      */

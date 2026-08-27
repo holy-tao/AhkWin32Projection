@@ -141,8 +141,8 @@ export default struct IDXGIKeyedMutex extends IDXGIDeviceSubObject {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AcquireSync := CallbackCreate(GetMethod(implObj, "AcquireSync"), flags, 3)
-        this.vtbl.ReleaseSync := CallbackCreate(GetMethod(implObj, "ReleaseSync"), flags, 2)
+        this.vtbl.AcquireSync := CallbackCreate(ObjBindMethod(implObj, "AcquireSync"), flags, 3)
+        this.vtbl.ReleaseSync := CallbackCreate(ObjBindMethod(implObj, "ReleaseSync"), flags, 2)
     }
 
     Dispose() {

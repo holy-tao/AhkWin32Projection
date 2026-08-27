@@ -18,13 +18,12 @@ export default struct PFN_COMPRESS_ALLOCATE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} UserContext 
      * @param {Pointer} _Size 
      * @returns {Pointer<Void>} 
      */
     Call(UserContext, _Size) {
-        UserContextMarshal := UserContext is VarRef ? "ptr" : "ptr"
+        UserContextMarshal := UserContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, UserContextMarshal, UserContext, IntPtr, _Size, IntPtr)
         return result

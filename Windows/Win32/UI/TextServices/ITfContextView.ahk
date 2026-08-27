@@ -142,7 +142,7 @@ export default struct ITfContextView extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextview-gettextext
      */
     GetTextExt(ec, pRange, prc, pfClipped) {
-        pfClippedMarshal := pfClipped is VarRef ? "int*" : "ptr"
+        pfClippedMarshal := pfClipped is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, UInt32, ec, "ptr", pRange, RECT.Ptr, prc, pfClippedMarshal, pfClipped, "HRESULT")
         return result
@@ -183,10 +183,10 @@ export default struct ITfContextView extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRangeFromPoint := CallbackCreate(GetMethod(implObj, "GetRangeFromPoint"), flags, 5)
-        this.vtbl.GetTextExt := CallbackCreate(GetMethod(implObj, "GetTextExt"), flags, 5)
-        this.vtbl.GetScreenExt := CallbackCreate(GetMethod(implObj, "GetScreenExt"), flags, 2)
-        this.vtbl.GetWnd := CallbackCreate(GetMethod(implObj, "GetWnd"), flags, 2)
+        this.vtbl.GetRangeFromPoint := CallbackCreate(ObjBindMethod(implObj, "GetRangeFromPoint"), flags, 5)
+        this.vtbl.GetTextExt := CallbackCreate(ObjBindMethod(implObj, "GetTextExt"), flags, 5)
+        this.vtbl.GetScreenExt := CallbackCreate(ObjBindMethod(implObj, "GetScreenExt"), flags, 2)
+        this.vtbl.GetWnd := CallbackCreate(ObjBindMethod(implObj, "GetWnd"), flags, 2)
     }
 
     Dispose() {

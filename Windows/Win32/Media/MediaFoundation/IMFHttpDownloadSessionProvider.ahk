@@ -63,7 +63,7 @@ export default struct IMFHttpDownloadSessionProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateHttpDownloadSession := CallbackCreate(GetMethod(implObj, "CreateHttpDownloadSession"), flags, 3)
+        this.vtbl.CreateHttpDownloadSession := CallbackCreate(ObjBindMethod(implObj, "CreateHttpDownloadSession"), flags, 3)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct PLSA_AP_CALL_PACKAGE_UNTRUSTED {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} ClientRequest 
      * @param {Integer} ProtocolSubmitBuffer 
      * @param {Pointer<Void>} ClientBufferBase 
@@ -30,11 +29,11 @@ export default struct PLSA_AP_CALL_PACKAGE_UNTRUSTED {
      * @returns {NTSTATUS} 
      */
     Call(ClientRequest, ProtocolSubmitBuffer, ClientBufferBase, SubmitBufferLength, ProtocolReturnBuffer, ReturnBufferLength, ProtocolStatus) {
-        ClientRequestMarshal := ClientRequest is VarRef ? "ptr*" : "ptr"
-        ClientBufferBaseMarshal := ClientBufferBase is VarRef ? "ptr" : "ptr"
-        ProtocolReturnBufferMarshal := ProtocolReturnBuffer is VarRef ? "ptr*" : "ptr"
-        ReturnBufferLengthMarshal := ReturnBufferLength is VarRef ? "uint*" : "ptr"
-        ProtocolStatusMarshal := ProtocolStatus is VarRef ? "int*" : "ptr"
+        ClientRequestMarshal := ClientRequest is VarRef ? "ptr*" : IntPtr
+        ClientBufferBaseMarshal := ClientBufferBase is VarRef ? "ptr" : IntPtr
+        ProtocolReturnBufferMarshal := ProtocolReturnBuffer is VarRef ? "ptr*" : IntPtr
+        ReturnBufferLengthMarshal := ReturnBufferLength is VarRef ? "uint*" : IntPtr
+        ProtocolStatusMarshal := ProtocolStatus is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, ClientRequestMarshal, ClientRequest, IntPtr, ProtocolSubmitBuffer, ClientBufferBaseMarshal, ClientBufferBase, UInt32, SubmitBufferLength, ProtocolReturnBufferMarshal, ProtocolReturnBuffer, ReturnBufferLengthMarshal, ReturnBufferLength, ProtocolStatusMarshal, ProtocolStatus, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

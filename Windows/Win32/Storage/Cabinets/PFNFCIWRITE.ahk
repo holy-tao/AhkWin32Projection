@@ -18,7 +18,6 @@ export default struct PFNFCIWRITE {
     }
 
     /**
-     * 
      * @param {Pointer} hf 
      * @param {Pointer<Void>} memory 
      * @param {Integer} cb 
@@ -27,9 +26,9 @@ export default struct PFNFCIWRITE {
      * @returns {Integer} 
      */
     Call(hf, memory, cb, err, pv) {
-        memoryMarshal := memory is VarRef ? "ptr" : "ptr"
-        errMarshal := err is VarRef ? "int*" : "ptr"
-        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+        memoryMarshal := memory is VarRef ? "ptr" : IntPtr
+        errMarshal := err is VarRef ? "int*" : IntPtr
+        pvMarshal := pv is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, IntPtr, hf, memoryMarshal, memory, UInt32, cb, errMarshal, err, pvMarshal, pv, UInt32)
         return result

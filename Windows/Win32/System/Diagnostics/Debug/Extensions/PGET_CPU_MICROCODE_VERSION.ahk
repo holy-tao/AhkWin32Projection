@@ -21,7 +21,6 @@ export default struct PGET_CPU_MICROCODE_VERSION {
     }
 
     /**
-     * 
      * @param {IDebugClient} Client 
      * @param {Pointer<DEBUG_CPU_MICROCODE_VERSION>} pCpuMicrocodeVersion 
      * @returns {HRESULT} 

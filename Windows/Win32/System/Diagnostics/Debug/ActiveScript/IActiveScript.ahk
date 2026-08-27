@@ -54,7 +54,6 @@ export default struct IActiveScript extends IUnknown {
     }
 
     /**
-     * 
      * @param {IActiveScriptSite} pass 
      * @returns {HRESULT} 
      */
@@ -64,7 +63,6 @@ export default struct IActiveScript extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
@@ -74,7 +72,6 @@ export default struct IActiveScript extends IUnknown {
     }
 
     /**
-     * 
      * @param {SCRIPTSTATE} ss 
      * @returns {HRESULT} 
      */
@@ -84,7 +81,6 @@ export default struct IActiveScript extends IUnknown {
     }
 
     /**
-     * 
      * @returns {SCRIPTSTATE} 
      */
     GetScriptState() {
@@ -93,7 +89,6 @@ export default struct IActiveScript extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Close() {
@@ -102,7 +97,6 @@ export default struct IActiveScript extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pstrName 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
@@ -115,7 +109,6 @@ export default struct IActiveScript extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rguidTypeLib 
      * @param {Integer} dwMajor 
      * @param {Integer} dwMinor 
@@ -128,7 +121,6 @@ export default struct IActiveScript extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pstrItemName 
      * @returns {IDispatch} 
      */
@@ -140,7 +132,6 @@ export default struct IActiveScript extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentScriptThreadID() {
@@ -149,7 +140,6 @@ export default struct IActiveScript extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwWin32ThreadId 
      * @returns {Integer} 
      */
@@ -159,7 +149,6 @@ export default struct IActiveScript extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} stidThread 
      * @returns {SCRIPTTHREADSTATE} 
      */
@@ -169,7 +158,6 @@ export default struct IActiveScript extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} stidThread 
      * @param {Pointer<EXCEPINFO>} pexcepinfo 
      * @param {Integer} dwFlags 
@@ -181,7 +169,6 @@ export default struct IActiveScript extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IActiveScript} 
      */
     Clone() {
@@ -198,19 +185,19 @@ export default struct IActiveScript extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetScriptSite := CallbackCreate(GetMethod(implObj, "SetScriptSite"), flags, 2)
-        this.vtbl.GetScriptSite := CallbackCreate(GetMethod(implObj, "GetScriptSite"), flags, 3)
-        this.vtbl.SetScriptState := CallbackCreate(GetMethod(implObj, "SetScriptState"), flags, 2)
-        this.vtbl.GetScriptState := CallbackCreate(GetMethod(implObj, "GetScriptState"), flags, 2)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
-        this.vtbl.AddNamedItem := CallbackCreate(GetMethod(implObj, "AddNamedItem"), flags, 3)
-        this.vtbl.AddTypeLib := CallbackCreate(GetMethod(implObj, "AddTypeLib"), flags, 5)
-        this.vtbl.GetScriptDispatch := CallbackCreate(GetMethod(implObj, "GetScriptDispatch"), flags, 3)
-        this.vtbl.GetCurrentScriptThreadID := CallbackCreate(GetMethod(implObj, "GetCurrentScriptThreadID"), flags, 2)
-        this.vtbl.GetScriptThreadID := CallbackCreate(GetMethod(implObj, "GetScriptThreadID"), flags, 3)
-        this.vtbl.GetScriptThreadState := CallbackCreate(GetMethod(implObj, "GetScriptThreadState"), flags, 3)
-        this.vtbl.InterruptScriptThread := CallbackCreate(GetMethod(implObj, "InterruptScriptThread"), flags, 4)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.SetScriptSite := CallbackCreate(ObjBindMethod(implObj, "SetScriptSite"), flags, 2)
+        this.vtbl.GetScriptSite := CallbackCreate(ObjBindMethod(implObj, "GetScriptSite"), flags, 3)
+        this.vtbl.SetScriptState := CallbackCreate(ObjBindMethod(implObj, "SetScriptState"), flags, 2)
+        this.vtbl.GetScriptState := CallbackCreate(ObjBindMethod(implObj, "GetScriptState"), flags, 2)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
+        this.vtbl.AddNamedItem := CallbackCreate(ObjBindMethod(implObj, "AddNamedItem"), flags, 3)
+        this.vtbl.AddTypeLib := CallbackCreate(ObjBindMethod(implObj, "AddTypeLib"), flags, 5)
+        this.vtbl.GetScriptDispatch := CallbackCreate(ObjBindMethod(implObj, "GetScriptDispatch"), flags, 3)
+        this.vtbl.GetCurrentScriptThreadID := CallbackCreate(ObjBindMethod(implObj, "GetCurrentScriptThreadID"), flags, 2)
+        this.vtbl.GetScriptThreadID := CallbackCreate(ObjBindMethod(implObj, "GetScriptThreadID"), flags, 3)
+        this.vtbl.GetScriptThreadState := CallbackCreate(ObjBindMethod(implObj, "GetScriptThreadState"), flags, 3)
+        this.vtbl.InterruptScriptThread := CallbackCreate(ObjBindMethod(implObj, "InterruptScriptThread"), flags, 4)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
     }
 
     Dispose() {

@@ -65,7 +65,7 @@ export default struct IUserConsentVerifierInterop extends IInspectable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RequestVerificationForWindowAsync := CallbackCreate(GetMethod(implObj, "RequestVerificationForWindowAsync"), flags, 5)
+        this.vtbl.RequestVerificationForWindowAsync := CallbackCreate(ObjBindMethod(implObj, "RequestVerificationForWindowAsync"), flags, 5)
     }
 
     Dispose() {

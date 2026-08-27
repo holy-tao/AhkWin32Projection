@@ -19,7 +19,6 @@ export default struct PFND3DKMT_TRIMNOTIFICATIONCALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_TRIMNOTIFICATION>} param0 
      * @returns {String} Nothing - always returns an empty string
      */

@@ -53,7 +53,9 @@ export default struct IESEventService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ieseventservice-fireesevent
      */
     FireESEvent(pESEvent) {
-        result := ComCall(3, this, "ptr", pESEvent, "HRESULT")
+        pESEventMarshal := pESEvent == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pESEventMarshal, pESEvent, "HRESULT")
         return result
     }
 
@@ -66,7 +68,7 @@ export default struct IESEventService extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FireESEvent := CallbackCreate(GetMethod(implObj, "FireESEvent"), flags, 2)
+        this.vtbl.FireESEvent := CallbackCreate(ObjBindMethod(implObj, "FireESEvent"), flags, 2)
     }
 
     Dispose() {

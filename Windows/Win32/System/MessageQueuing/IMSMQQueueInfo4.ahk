@@ -244,7 +244,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_QueueGuid() {
@@ -254,7 +253,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ServiceTypeGuid() {
@@ -264,7 +262,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrGuidServiceType 
      * @returns {HRESULT} 
      */
@@ -276,7 +273,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Label() {
@@ -286,7 +282,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrLabel 
      * @returns {HRESULT} 
      */
@@ -298,7 +293,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PathName() {
@@ -308,7 +302,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPathName 
      * @returns {HRESULT} 
      */
@@ -320,7 +313,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_FormatName() {
@@ -330,7 +322,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrFormatName 
      * @returns {HRESULT} 
      */
@@ -342,7 +333,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_IsTransactional() {
@@ -351,7 +341,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PrivLevel() {
@@ -360,7 +349,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lPrivLevel 
      * @returns {HRESULT} 
      */
@@ -370,7 +358,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Journal() {
@@ -379,7 +366,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lJournal 
      * @returns {HRESULT} 
      */
@@ -389,7 +375,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Quota() {
@@ -398,7 +383,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lQuota 
      * @returns {HRESULT} 
      */
@@ -408,7 +392,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_BasePriority() {
@@ -417,7 +400,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lBasePriority 
      * @returns {HRESULT} 
      */
@@ -427,7 +409,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_CreateTime() {
@@ -437,7 +418,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ModifyTime() {
@@ -447,7 +427,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Authenticate() {
@@ -456,7 +435,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lAuthenticate 
      * @returns {HRESULT} 
      */
@@ -466,7 +444,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_JournalQuota() {
@@ -475,7 +452,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lJournalQuota 
      * @returns {HRESULT} 
      */
@@ -485,7 +461,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_IsWorldReadable() {
@@ -506,7 +481,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Delete() {
@@ -515,7 +489,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} Access 
      * @param {Integer} ShareMode 
      * @returns {IMSMQQueue4} 
@@ -526,7 +499,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Refresh() {
@@ -545,7 +517,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PathNameDNS() {
@@ -555,7 +526,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Properties() {
@@ -564,7 +534,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Security() {
@@ -574,7 +543,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varSecurity 
      * @returns {HRESULT} 
      */
@@ -584,7 +552,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsTransactional2() {
@@ -593,7 +560,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsWorldReadable2() {
@@ -602,7 +568,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_MulticastAddress() {
@@ -612,7 +577,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrMulticastAddress 
      * @returns {HRESULT} 
      */
@@ -624,7 +588,6 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ADsPath() {
@@ -642,45 +605,45 @@ export default struct IMSMQQueueInfo4 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_QueueGuid := CallbackCreate(GetMethod(implObj, "get_QueueGuid"), flags, 2)
-        this.vtbl.get_ServiceTypeGuid := CallbackCreate(GetMethod(implObj, "get_ServiceTypeGuid"), flags, 2)
-        this.vtbl.put_ServiceTypeGuid := CallbackCreate(GetMethod(implObj, "put_ServiceTypeGuid"), flags, 2)
-        this.vtbl.get_Label := CallbackCreate(GetMethod(implObj, "get_Label"), flags, 2)
-        this.vtbl.put_Label := CallbackCreate(GetMethod(implObj, "put_Label"), flags, 2)
-        this.vtbl.get_PathName := CallbackCreate(GetMethod(implObj, "get_PathName"), flags, 2)
-        this.vtbl.put_PathName := CallbackCreate(GetMethod(implObj, "put_PathName"), flags, 2)
-        this.vtbl.get_FormatName := CallbackCreate(GetMethod(implObj, "get_FormatName"), flags, 2)
-        this.vtbl.put_FormatName := CallbackCreate(GetMethod(implObj, "put_FormatName"), flags, 2)
-        this.vtbl.get_IsTransactional := CallbackCreate(GetMethod(implObj, "get_IsTransactional"), flags, 2)
-        this.vtbl.get_PrivLevel := CallbackCreate(GetMethod(implObj, "get_PrivLevel"), flags, 2)
-        this.vtbl.put_PrivLevel := CallbackCreate(GetMethod(implObj, "put_PrivLevel"), flags, 2)
-        this.vtbl.get_Journal := CallbackCreate(GetMethod(implObj, "get_Journal"), flags, 2)
-        this.vtbl.put_Journal := CallbackCreate(GetMethod(implObj, "put_Journal"), flags, 2)
-        this.vtbl.get_Quota := CallbackCreate(GetMethod(implObj, "get_Quota"), flags, 2)
-        this.vtbl.put_Quota := CallbackCreate(GetMethod(implObj, "put_Quota"), flags, 2)
-        this.vtbl.get_BasePriority := CallbackCreate(GetMethod(implObj, "get_BasePriority"), flags, 2)
-        this.vtbl.put_BasePriority := CallbackCreate(GetMethod(implObj, "put_BasePriority"), flags, 2)
-        this.vtbl.get_CreateTime := CallbackCreate(GetMethod(implObj, "get_CreateTime"), flags, 2)
-        this.vtbl.get_ModifyTime := CallbackCreate(GetMethod(implObj, "get_ModifyTime"), flags, 2)
-        this.vtbl.get_Authenticate := CallbackCreate(GetMethod(implObj, "get_Authenticate"), flags, 2)
-        this.vtbl.put_Authenticate := CallbackCreate(GetMethod(implObj, "put_Authenticate"), flags, 2)
-        this.vtbl.get_JournalQuota := CallbackCreate(GetMethod(implObj, "get_JournalQuota"), flags, 2)
-        this.vtbl.put_JournalQuota := CallbackCreate(GetMethod(implObj, "put_JournalQuota"), flags, 2)
-        this.vtbl.get_IsWorldReadable := CallbackCreate(GetMethod(implObj, "get_IsWorldReadable"), flags, 2)
-        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 3)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
-        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 4)
-        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
-        this.vtbl.Update := CallbackCreate(GetMethod(implObj, "Update"), flags, 1)
-        this.vtbl.get_PathNameDNS := CallbackCreate(GetMethod(implObj, "get_PathNameDNS"), flags, 2)
-        this.vtbl.get_Properties := CallbackCreate(GetMethod(implObj, "get_Properties"), flags, 2)
-        this.vtbl.get_Security := CallbackCreate(GetMethod(implObj, "get_Security"), flags, 2)
-        this.vtbl.put_Security := CallbackCreate(GetMethod(implObj, "put_Security"), flags, 2)
-        this.vtbl.get_IsTransactional2 := CallbackCreate(GetMethod(implObj, "get_IsTransactional2"), flags, 2)
-        this.vtbl.get_IsWorldReadable2 := CallbackCreate(GetMethod(implObj, "get_IsWorldReadable2"), flags, 2)
-        this.vtbl.get_MulticastAddress := CallbackCreate(GetMethod(implObj, "get_MulticastAddress"), flags, 2)
-        this.vtbl.put_MulticastAddress := CallbackCreate(GetMethod(implObj, "put_MulticastAddress"), flags, 2)
-        this.vtbl.get_ADsPath := CallbackCreate(GetMethod(implObj, "get_ADsPath"), flags, 2)
+        this.vtbl.get_QueueGuid := CallbackCreate(ObjBindMethod(implObj, "get_QueueGuid"), flags, 2)
+        this.vtbl.get_ServiceTypeGuid := CallbackCreate(ObjBindMethod(implObj, "get_ServiceTypeGuid"), flags, 2)
+        this.vtbl.put_ServiceTypeGuid := CallbackCreate(ObjBindMethod(implObj, "put_ServiceTypeGuid"), flags, 2)
+        this.vtbl.get_Label := CallbackCreate(ObjBindMethod(implObj, "get_Label"), flags, 2)
+        this.vtbl.put_Label := CallbackCreate(ObjBindMethod(implObj, "put_Label"), flags, 2)
+        this.vtbl.get_PathName := CallbackCreate(ObjBindMethod(implObj, "get_PathName"), flags, 2)
+        this.vtbl.put_PathName := CallbackCreate(ObjBindMethod(implObj, "put_PathName"), flags, 2)
+        this.vtbl.get_FormatName := CallbackCreate(ObjBindMethod(implObj, "get_FormatName"), flags, 2)
+        this.vtbl.put_FormatName := CallbackCreate(ObjBindMethod(implObj, "put_FormatName"), flags, 2)
+        this.vtbl.get_IsTransactional := CallbackCreate(ObjBindMethod(implObj, "get_IsTransactional"), flags, 2)
+        this.vtbl.get_PrivLevel := CallbackCreate(ObjBindMethod(implObj, "get_PrivLevel"), flags, 2)
+        this.vtbl.put_PrivLevel := CallbackCreate(ObjBindMethod(implObj, "put_PrivLevel"), flags, 2)
+        this.vtbl.get_Journal := CallbackCreate(ObjBindMethod(implObj, "get_Journal"), flags, 2)
+        this.vtbl.put_Journal := CallbackCreate(ObjBindMethod(implObj, "put_Journal"), flags, 2)
+        this.vtbl.get_Quota := CallbackCreate(ObjBindMethod(implObj, "get_Quota"), flags, 2)
+        this.vtbl.put_Quota := CallbackCreate(ObjBindMethod(implObj, "put_Quota"), flags, 2)
+        this.vtbl.get_BasePriority := CallbackCreate(ObjBindMethod(implObj, "get_BasePriority"), flags, 2)
+        this.vtbl.put_BasePriority := CallbackCreate(ObjBindMethod(implObj, "put_BasePriority"), flags, 2)
+        this.vtbl.get_CreateTime := CallbackCreate(ObjBindMethod(implObj, "get_CreateTime"), flags, 2)
+        this.vtbl.get_ModifyTime := CallbackCreate(ObjBindMethod(implObj, "get_ModifyTime"), flags, 2)
+        this.vtbl.get_Authenticate := CallbackCreate(ObjBindMethod(implObj, "get_Authenticate"), flags, 2)
+        this.vtbl.put_Authenticate := CallbackCreate(ObjBindMethod(implObj, "put_Authenticate"), flags, 2)
+        this.vtbl.get_JournalQuota := CallbackCreate(ObjBindMethod(implObj, "get_JournalQuota"), flags, 2)
+        this.vtbl.put_JournalQuota := CallbackCreate(ObjBindMethod(implObj, "put_JournalQuota"), flags, 2)
+        this.vtbl.get_IsWorldReadable := CallbackCreate(ObjBindMethod(implObj, "get_IsWorldReadable"), flags, 2)
+        this.vtbl.Create := CallbackCreate(ObjBindMethod(implObj, "Create"), flags, 3)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.Open := CallbackCreate(ObjBindMethod(implObj, "Open"), flags, 4)
+        this.vtbl.Refresh := CallbackCreate(ObjBindMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.Update := CallbackCreate(ObjBindMethod(implObj, "Update"), flags, 1)
+        this.vtbl.get_PathNameDNS := CallbackCreate(ObjBindMethod(implObj, "get_PathNameDNS"), flags, 2)
+        this.vtbl.get_Properties := CallbackCreate(ObjBindMethod(implObj, "get_Properties"), flags, 2)
+        this.vtbl.get_Security := CallbackCreate(ObjBindMethod(implObj, "get_Security"), flags, 2)
+        this.vtbl.put_Security := CallbackCreate(ObjBindMethod(implObj, "put_Security"), flags, 2)
+        this.vtbl.get_IsTransactional2 := CallbackCreate(ObjBindMethod(implObj, "get_IsTransactional2"), flags, 2)
+        this.vtbl.get_IsWorldReadable2 := CallbackCreate(ObjBindMethod(implObj, "get_IsWorldReadable2"), flags, 2)
+        this.vtbl.get_MulticastAddress := CallbackCreate(ObjBindMethod(implObj, "get_MulticastAddress"), flags, 2)
+        this.vtbl.put_MulticastAddress := CallbackCreate(ObjBindMethod(implObj, "put_MulticastAddress"), flags, 2)
+        this.vtbl.get_ADsPath := CallbackCreate(ObjBindMethod(implObj, "get_ADsPath"), flags, 2)
     }
 
     Dispose() {

@@ -19,14 +19,13 @@ export default struct PDXGK_GRAPHICSPOWER_UNREGISTER {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} DeviceHandle 
      * @param {Pointer<Void>} PrivateHandle 
      * @returns {NTSTATUS} 
      */
     Call(DeviceHandle, PrivateHandle) {
-        DeviceHandleMarshal := DeviceHandle is VarRef ? "ptr" : "ptr"
-        PrivateHandleMarshal := PrivateHandle is VarRef ? "ptr" : "ptr"
+        DeviceHandleMarshal := DeviceHandle is VarRef ? "ptr" : IntPtr
+        PrivateHandleMarshal := PrivateHandle is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, DeviceHandleMarshal, DeviceHandle, PrivateHandleMarshal, PrivateHandle, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

@@ -361,13 +361,13 @@ export default struct ICertProperty extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeFromCertificate := CallbackCreate(GetMethod(implObj, "InitializeFromCertificate"), flags, 4)
-        this.vtbl.InitializeDecode := CallbackCreate(GetMethod(implObj, "InitializeDecode"), flags, 3)
-        this.vtbl.get_PropertyId := CallbackCreate(GetMethod(implObj, "get_PropertyId"), flags, 2)
-        this.vtbl.put_PropertyId := CallbackCreate(GetMethod(implObj, "put_PropertyId"), flags, 2)
-        this.vtbl.get_RawData := CallbackCreate(GetMethod(implObj, "get_RawData"), flags, 3)
-        this.vtbl.RemoveFromCertificate := CallbackCreate(GetMethod(implObj, "RemoveFromCertificate"), flags, 4)
-        this.vtbl.SetValueOnCertificate := CallbackCreate(GetMethod(implObj, "SetValueOnCertificate"), flags, 4)
+        this.vtbl.InitializeFromCertificate := CallbackCreate(ObjBindMethod(implObj, "InitializeFromCertificate"), flags, 4)
+        this.vtbl.InitializeDecode := CallbackCreate(ObjBindMethod(implObj, "InitializeDecode"), flags, 3)
+        this.vtbl.get_PropertyId := CallbackCreate(ObjBindMethod(implObj, "get_PropertyId"), flags, 2)
+        this.vtbl.put_PropertyId := CallbackCreate(ObjBindMethod(implObj, "put_PropertyId"), flags, 2)
+        this.vtbl.get_RawData := CallbackCreate(ObjBindMethod(implObj, "get_RawData"), flags, 3)
+        this.vtbl.RemoveFromCertificate := CallbackCreate(ObjBindMethod(implObj, "RemoveFromCertificate"), flags, 4)
+        this.vtbl.SetValueOnCertificate := CallbackCreate(ObjBindMethod(implObj, "SetValueOnCertificate"), flags, 4)
     }
 
     Dispose() {

@@ -146,7 +146,9 @@ export default struct IMFSinkWriter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsinkwriter-setinputmediatype
      */
     SetInputMediaType(dwStreamIndex, pInputMediaType, pEncodingParameters) {
-        result := ComCall(4, this, UInt32, dwStreamIndex, "ptr", pInputMediaType, "ptr", pEncodingParameters, "HRESULT")
+        pEncodingParametersMarshal := pEncodingParameters == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, UInt32, dwStreamIndex, "ptr", pInputMediaType, pEncodingParametersMarshal, pEncodingParameters, "HRESULT")
         return result
     }
 
@@ -336,7 +338,7 @@ export default struct IMFSinkWriter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsinkwriter-placemarker
      */
     PlaceMarker(dwStreamIndex, pvContext) {
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(8, this, UInt32, dwStreamIndex, pvContextMarshal, pvContext, "HRESULT")
         return result
@@ -512,17 +514,17 @@ export default struct IMFSinkWriter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddStream := CallbackCreate(GetMethod(implObj, "AddStream"), flags, 3)
-        this.vtbl.SetInputMediaType := CallbackCreate(GetMethod(implObj, "SetInputMediaType"), flags, 4)
-        this.vtbl.BeginWriting := CallbackCreate(GetMethod(implObj, "BeginWriting"), flags, 1)
-        this.vtbl.WriteSample := CallbackCreate(GetMethod(implObj, "WriteSample"), flags, 3)
-        this.vtbl.SendStreamTick := CallbackCreate(GetMethod(implObj, "SendStreamTick"), flags, 3)
-        this.vtbl.PlaceMarker := CallbackCreate(GetMethod(implObj, "PlaceMarker"), flags, 3)
-        this.vtbl.NotifyEndOfSegment := CallbackCreate(GetMethod(implObj, "NotifyEndOfSegment"), flags, 2)
-        this.vtbl.Flush := CallbackCreate(GetMethod(implObj, "Flush"), flags, 2)
-        this.vtbl.Finalize := CallbackCreate(GetMethod(implObj, "Finalize"), flags, 1)
-        this.vtbl.GetServiceForStream := CallbackCreate(GetMethod(implObj, "GetServiceForStream"), flags, 5)
-        this.vtbl.GetStatistics := CallbackCreate(GetMethod(implObj, "GetStatistics"), flags, 3)
+        this.vtbl.AddStream := CallbackCreate(ObjBindMethod(implObj, "AddStream"), flags, 3)
+        this.vtbl.SetInputMediaType := CallbackCreate(ObjBindMethod(implObj, "SetInputMediaType"), flags, 4)
+        this.vtbl.BeginWriting := CallbackCreate(ObjBindMethod(implObj, "BeginWriting"), flags, 1)
+        this.vtbl.WriteSample := CallbackCreate(ObjBindMethod(implObj, "WriteSample"), flags, 3)
+        this.vtbl.SendStreamTick := CallbackCreate(ObjBindMethod(implObj, "SendStreamTick"), flags, 3)
+        this.vtbl.PlaceMarker := CallbackCreate(ObjBindMethod(implObj, "PlaceMarker"), flags, 3)
+        this.vtbl.NotifyEndOfSegment := CallbackCreate(ObjBindMethod(implObj, "NotifyEndOfSegment"), flags, 2)
+        this.vtbl.Flush := CallbackCreate(ObjBindMethod(implObj, "Flush"), flags, 2)
+        this.vtbl.Finalize := CallbackCreate(ObjBindMethod(implObj, "Finalize"), flags, 1)
+        this.vtbl.GetServiceForStream := CallbackCreate(ObjBindMethod(implObj, "GetServiceForStream"), flags, 5)
+        this.vtbl.GetStatistics := CallbackCreate(ObjBindMethod(implObj, "GetStatistics"), flags, 3)
     }
 
     Dispose() {

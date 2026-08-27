@@ -62,9 +62,9 @@ export default struct IWMProximityDetection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmproximitydetection-startdetection
      */
     StartDetection(pbRegistrationMsg, cbRegistrationMsg, pbLocalAddress, cbLocalAddress, dwExtraPortsAllowed, pCallback, pvContext) {
-        pbRegistrationMsgMarshal := pbRegistrationMsg is VarRef ? "char*" : "ptr"
-        pbLocalAddressMarshal := pbLocalAddress is VarRef ? "char*" : "ptr"
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        pbRegistrationMsgMarshal := pbRegistrationMsg is VarRef ? "char*" : IntPtr
+        pbLocalAddressMarshal := pbLocalAddress is VarRef ? "char*" : IntPtr
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, pbRegistrationMsgMarshal, pbRegistrationMsg, UInt32, cbRegistrationMsg, pbLocalAddressMarshal, pbLocalAddress, UInt32, cbLocalAddress, UInt32, dwExtraPortsAllowed, "ptr*", &ppRegistrationResponseMsg := 0, "ptr", pCallback, pvContextMarshal, pvContext, "HRESULT")
         return INSSBuffer(ppRegistrationResponseMsg)
@@ -79,7 +79,7 @@ export default struct IWMProximityDetection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StartDetection := CallbackCreate(GetMethod(implObj, "StartDetection"), flags, 9)
+        this.vtbl.StartDetection := CallbackCreate(ObjBindMethod(implObj, "StartDetection"), flags, 9)
     }
 
     Dispose() {

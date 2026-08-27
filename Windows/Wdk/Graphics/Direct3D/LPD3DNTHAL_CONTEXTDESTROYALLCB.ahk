@@ -19,7 +19,6 @@ export default struct LPD3DNTHAL_CONTEXTDESTROYALLCB {
     }
 
     /**
-     * 
      * @param {Pointer<D3DNTHAL_CONTEXTDESTROYALLDATA>} param0 
      * @returns {Integer} 
      */

@@ -56,7 +56,7 @@ export default struct IUIEventLogger extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnUIEvent := CallbackCreate(GetMethod(implObj, "OnUIEvent"), flags, 2)
+        this.vtbl.OnUIEvent := CallbackCreate(ObjBindMethod(implObj, "OnUIEvent"), flags, 2)
     }
 
     Dispose() {

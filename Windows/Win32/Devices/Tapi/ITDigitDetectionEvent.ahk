@@ -138,11 +138,11 @@ export default struct ITDigitDetectionEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Call := CallbackCreate(GetMethod(implObj, "get_Call"), flags, 2)
-        this.vtbl.get_Digit := CallbackCreate(GetMethod(implObj, "get_Digit"), flags, 2)
-        this.vtbl.get_DigitMode := CallbackCreate(GetMethod(implObj, "get_DigitMode"), flags, 2)
-        this.vtbl.get_TickCount := CallbackCreate(GetMethod(implObj, "get_TickCount"), flags, 2)
-        this.vtbl.get_CallbackInstance := CallbackCreate(GetMethod(implObj, "get_CallbackInstance"), flags, 2)
+        this.vtbl.get_Call := CallbackCreate(ObjBindMethod(implObj, "get_Call"), flags, 2)
+        this.vtbl.get_Digit := CallbackCreate(ObjBindMethod(implObj, "get_Digit"), flags, 2)
+        this.vtbl.get_DigitMode := CallbackCreate(ObjBindMethod(implObj, "get_DigitMode"), flags, 2)
+        this.vtbl.get_TickCount := CallbackCreate(ObjBindMethod(implObj, "get_TickCount"), flags, 2)
+        this.vtbl.get_CallbackInstance := CallbackCreate(ObjBindMethod(implObj, "get_CallbackInstance"), flags, 2)
     }
 
     Dispose() {

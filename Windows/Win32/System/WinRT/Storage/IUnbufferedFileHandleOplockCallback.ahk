@@ -58,7 +58,7 @@ export default struct IUnbufferedFileHandleOplockCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnBrokenCallback := CallbackCreate(GetMethod(implObj, "OnBrokenCallback"), flags, 1)
+        this.vtbl.OnBrokenCallback := CallbackCreate(ObjBindMethod(implObj, "OnBrokenCallback"), flags, 1)
     }
 
     Dispose() {

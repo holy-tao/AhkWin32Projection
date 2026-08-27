@@ -74,7 +74,7 @@ export default struct IDailyTrigger extends ITrigger {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-idailytrigger-get_daysinterval
      */
     get_DaysInterval(pDays) {
-        pDaysMarshal := pDays is VarRef ? "short*" : "ptr"
+        pDaysMarshal := pDays is VarRef ? "short*" : IntPtr
 
         result := ComCall(20, this, pDaysMarshal, pDays, "HRESULT")
         return result
@@ -132,10 +132,10 @@ export default struct IDailyTrigger extends ITrigger {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_DaysInterval := CallbackCreate(GetMethod(implObj, "get_DaysInterval"), flags, 2)
-        this.vtbl.put_DaysInterval := CallbackCreate(GetMethod(implObj, "put_DaysInterval"), flags, 2)
-        this.vtbl.get_RandomDelay := CallbackCreate(GetMethod(implObj, "get_RandomDelay"), flags, 2)
-        this.vtbl.put_RandomDelay := CallbackCreate(GetMethod(implObj, "put_RandomDelay"), flags, 2)
+        this.vtbl.get_DaysInterval := CallbackCreate(ObjBindMethod(implObj, "get_DaysInterval"), flags, 2)
+        this.vtbl.put_DaysInterval := CallbackCreate(ObjBindMethod(implObj, "put_DaysInterval"), flags, 2)
+        this.vtbl.get_RandomDelay := CallbackCreate(ObjBindMethod(implObj, "get_RandomDelay"), flags, 2)
+        this.vtbl.put_RandomDelay := CallbackCreate(ObjBindMethod(implObj, "put_RandomDelay"), flags, 2)
     }
 
     Dispose() {

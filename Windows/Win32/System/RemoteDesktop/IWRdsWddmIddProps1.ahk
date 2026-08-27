@@ -39,7 +39,6 @@ export default struct IWRdsWddmIddProps1 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pDisplayDriverHardwareId 
      * @param {Integer} Count 
      * @returns {HRESULT} 
@@ -52,7 +51,6 @@ export default struct IWRdsWddmIddProps1 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} SessionId 
      * @param {PWSTR} DeviceInstance 
      * @returns {HRESULT} 
@@ -65,7 +63,6 @@ export default struct IWRdsWddmIddProps1 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} SessionId 
      * @returns {HRESULT} 
      */
@@ -83,9 +80,9 @@ export default struct IWRdsWddmIddProps1 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetHardwareId := CallbackCreate(GetMethod(implObj, "GetHardwareId"), flags, 3)
-        this.vtbl.OnDriverLoad := CallbackCreate(GetMethod(implObj, "OnDriverLoad"), flags, 3)
-        this.vtbl.OnDriverUnload := CallbackCreate(GetMethod(implObj, "OnDriverUnload"), flags, 2)
+        this.vtbl.GetHardwareId := CallbackCreate(ObjBindMethod(implObj, "GetHardwareId"), flags, 3)
+        this.vtbl.OnDriverLoad := CallbackCreate(ObjBindMethod(implObj, "OnDriverLoad"), flags, 3)
+        this.vtbl.OnDriverUnload := CallbackCreate(ObjBindMethod(implObj, "OnDriverUnload"), flags, 2)
     }
 
     Dispose() {

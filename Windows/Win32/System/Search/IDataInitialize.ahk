@@ -44,7 +44,6 @@ export default struct IDataInitialize extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Integer} dwClsCtx 
      * @param {PWSTR} pwszInitializationString 
@@ -55,23 +54,26 @@ export default struct IDataInitialize extends IUnknown {
     GetDataSource(pUnkOuter, dwClsCtx, pwszInitializationString, riid, ppDataSource) {
         pwszInitializationString := pwszInitializationString is String ? StrPtr(pwszInitializationString) : pwszInitializationString
 
-        result := ComCall(3, this, "ptr", pUnkOuter, UInt32, dwClsCtx, "ptr", pwszInitializationString, Guid.Ptr, riid, IUnknown.Ptr, ppDataSource, "HRESULT")
+        pUnkOuterMarshal := pUnkOuter == 0 ? IntPtr : "ptr"
+        pwszInitializationStringMarshal := pwszInitializationString == 0 ? IntPtr : PWSTR
+
+        result := ComCall(3, this, pUnkOuterMarshal, pUnkOuter, UInt32, dwClsCtx, pwszInitializationStringMarshal, pwszInitializationString, Guid.Ptr, riid, IUnknown.Ptr, ppDataSource, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IUnknown} pDataSource 
      * @param {Integer} fIncludePassword 
      * @returns {PWSTR} 
      */
     GetInitializationString(pDataSource, fIncludePassword) {
-        result := ComCall(4, this, "ptr", pDataSource, Int8, fIncludePassword, PWSTR.Ptr, &ppwszInitString := 0, "HRESULT")
+        pDataSourceMarshal := pDataSource == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, pDataSourceMarshal, pDataSource, Int8, fIncludePassword, PWSTR.Ptr, &ppwszInitString := 0, "HRESULT")
         return ppwszInitString
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} clsidProvider 
      * @param {IUnknown} pUnkOuter 
      * @param {Integer} dwClsCtx 
@@ -82,12 +84,14 @@ export default struct IDataInitialize extends IUnknown {
     CreateDBInstance(clsidProvider, pUnkOuter, dwClsCtx, pwszReserved, riid) {
         pwszReserved := pwszReserved is String ? StrPtr(pwszReserved) : pwszReserved
 
-        result := ComCall(5, this, Guid.Ptr, clsidProvider, "ptr", pUnkOuter, UInt32, dwClsCtx, "ptr", pwszReserved, Guid.Ptr, riid, "ptr*", &ppDataSource := 0, "HRESULT")
+        pUnkOuterMarshal := pUnkOuter == 0 ? IntPtr : "ptr"
+        pwszReservedMarshal := pwszReserved == 0 ? IntPtr : PWSTR
+
+        result := ComCall(5, this, Guid.Ptr, clsidProvider, pUnkOuterMarshal, pUnkOuter, UInt32, dwClsCtx, pwszReservedMarshal, pwszReserved, Guid.Ptr, riid, "ptr*", &ppDataSource := 0, "HRESULT")
         return IUnknown(ppDataSource)
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} clsidProvider 
      * @param {IUnknown} pUnkOuter 
      * @param {Integer} dwClsCtx 
@@ -99,25 +103,28 @@ export default struct IDataInitialize extends IUnknown {
     CreateDBInstanceEx(clsidProvider, pUnkOuter, dwClsCtx, pwszReserved, pServerInfo, cmq) {
         pwszReserved := pwszReserved is String ? StrPtr(pwszReserved) : pwszReserved
 
+        pUnkOuterMarshal := pUnkOuter == 0 ? IntPtr : "ptr"
+        pwszReservedMarshal := pwszReserved == 0 ? IntPtr : PWSTR
+
         rgmqResults := MULTI_QI()
-        result := ComCall(6, this, Guid.Ptr, clsidProvider, "ptr", pUnkOuter, UInt32, dwClsCtx, "ptr", pwszReserved, COSERVERINFO.Ptr, pServerInfo, UInt32, cmq, MULTI_QI.Ptr, rgmqResults, "HRESULT")
+        result := ComCall(6, this, Guid.Ptr, clsidProvider, pUnkOuterMarshal, pUnkOuter, UInt32, dwClsCtx, pwszReservedMarshal, pwszReserved, COSERVERINFO.Ptr, pServerInfo, UInt32, cmq, MULTI_QI.Ptr, rgmqResults, "HRESULT")
         return rgmqResults
     }
 
     /**
-     * 
      * @param {PWSTR} pwszFileName 
      * @returns {PWSTR} 
      */
     LoadStringFromStorage(pwszFileName) {
         pwszFileName := pwszFileName is String ? StrPtr(pwszFileName) : pwszFileName
 
-        result := ComCall(7, this, "ptr", pwszFileName, PWSTR.Ptr, &ppwszInitializationString := 0, "HRESULT")
+        pwszFileNameMarshal := pwszFileName == 0 ? IntPtr : PWSTR
+
+        result := ComCall(7, this, pwszFileNameMarshal, pwszFileName, PWSTR.Ptr, &ppwszInitializationString := 0, "HRESULT")
         return ppwszInitializationString
     }
 
     /**
-     * 
      * @param {PWSTR} pwszFileName 
      * @param {PWSTR} pwszInitializationString 
      * @param {Integer} dwCreationDisposition 
@@ -127,7 +134,10 @@ export default struct IDataInitialize extends IUnknown {
         pwszFileName := pwszFileName is String ? StrPtr(pwszFileName) : pwszFileName
         pwszInitializationString := pwszInitializationString is String ? StrPtr(pwszInitializationString) : pwszInitializationString
 
-        result := ComCall(8, this, "ptr", pwszFileName, "ptr", pwszInitializationString, UInt32, dwCreationDisposition, "HRESULT")
+        pwszFileNameMarshal := pwszFileName == 0 ? IntPtr : PWSTR
+        pwszInitializationStringMarshal := pwszInitializationString == 0 ? IntPtr : PWSTR
+
+        result := ComCall(8, this, pwszFileNameMarshal, pwszFileName, pwszInitializationStringMarshal, pwszInitializationString, UInt32, dwCreationDisposition, "HRESULT")
         return result
     }
 
@@ -140,12 +150,12 @@ export default struct IDataInitialize extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDataSource := CallbackCreate(GetMethod(implObj, "GetDataSource"), flags, 6)
-        this.vtbl.GetInitializationString := CallbackCreate(GetMethod(implObj, "GetInitializationString"), flags, 4)
-        this.vtbl.CreateDBInstance := CallbackCreate(GetMethod(implObj, "CreateDBInstance"), flags, 7)
-        this.vtbl.CreateDBInstanceEx := CallbackCreate(GetMethod(implObj, "CreateDBInstanceEx"), flags, 8)
-        this.vtbl.LoadStringFromStorage := CallbackCreate(GetMethod(implObj, "LoadStringFromStorage"), flags, 3)
-        this.vtbl.WriteStringToStorage := CallbackCreate(GetMethod(implObj, "WriteStringToStorage"), flags, 4)
+        this.vtbl.GetDataSource := CallbackCreate(ObjBindMethod(implObj, "GetDataSource"), flags, 6)
+        this.vtbl.GetInitializationString := CallbackCreate(ObjBindMethod(implObj, "GetInitializationString"), flags, 4)
+        this.vtbl.CreateDBInstance := CallbackCreate(ObjBindMethod(implObj, "CreateDBInstance"), flags, 7)
+        this.vtbl.CreateDBInstanceEx := CallbackCreate(ObjBindMethod(implObj, "CreateDBInstanceEx"), flags, 8)
+        this.vtbl.LoadStringFromStorage := CallbackCreate(ObjBindMethod(implObj, "LoadStringFromStorage"), flags, 3)
+        this.vtbl.WriteStringToStorage := CallbackCreate(ObjBindMethod(implObj, "WriteStringToStorage"), flags, 4)
     }
 
     Dispose() {

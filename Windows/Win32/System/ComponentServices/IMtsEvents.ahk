@@ -127,11 +127,11 @@ export default struct IMtsEvents extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_PackageName := CallbackCreate(GetMethod(implObj, "get_PackageName"), flags, 2)
-        this.vtbl.get_PackageGuid := CallbackCreate(GetMethod(implObj, "get_PackageGuid"), flags, 2)
-        this.vtbl.PostEvent := CallbackCreate(GetMethod(implObj, "PostEvent"), flags, 2)
-        this.vtbl.get_FireEvents := CallbackCreate(GetMethod(implObj, "get_FireEvents"), flags, 2)
-        this.vtbl.GetProcessID := CallbackCreate(GetMethod(implObj, "GetProcessID"), flags, 2)
+        this.vtbl.get_PackageName := CallbackCreate(ObjBindMethod(implObj, "get_PackageName"), flags, 2)
+        this.vtbl.get_PackageGuid := CallbackCreate(ObjBindMethod(implObj, "get_PackageGuid"), flags, 2)
+        this.vtbl.PostEvent := CallbackCreate(ObjBindMethod(implObj, "PostEvent"), flags, 2)
+        this.vtbl.get_FireEvents := CallbackCreate(ObjBindMethod(implObj, "get_FireEvents"), flags, 2)
+        this.vtbl.GetProcessID := CallbackCreate(ObjBindMethod(implObj, "GetProcessID"), flags, 2)
     }
 
     Dispose() {

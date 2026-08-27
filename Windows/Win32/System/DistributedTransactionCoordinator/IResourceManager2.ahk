@@ -43,7 +43,6 @@ export default struct IResourceManager2 extends IResourceManager {
     }
 
     /**
-     * 
      * @param {ITransaction} pTransaction 
      * @param {ITransactionResourceAsync} pResAsync 
      * @param {Pointer<BOID>} pUOW 
@@ -53,14 +52,15 @@ export default struct IResourceManager2 extends IResourceManager {
      * @returns {HRESULT} 
      */
     Enlist2(pTransaction, pResAsync, pUOW, pisoLevel, pXid, ppEnlist) {
-        pisoLevelMarshal := pisoLevel is VarRef ? "int*" : "ptr"
+        pTransactionMarshal := pTransaction == 0 ? IntPtr : "ptr"
+        pResAsyncMarshal := pResAsync == 0 ? IntPtr : "ptr"
+        pisoLevelMarshal := pisoLevel is VarRef ? "int*" : IntPtr
 
-        result := ComCall(7, this, "ptr", pTransaction, "ptr", pResAsync, BOID.Ptr, pUOW, pisoLevelMarshal, pisoLevel, XID.Ptr, pXid, ITransactionEnlistmentAsync.Ptr, ppEnlist, "HRESULT")
+        result := ComCall(7, this, pTransactionMarshal, pTransaction, pResAsyncMarshal, pResAsync, BOID.Ptr, pUOW, pisoLevelMarshal, pisoLevel, XID.Ptr, pXid, ITransactionEnlistmentAsync.Ptr, ppEnlist, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<XID>} pXid 
      * @param {Integer} dwTimeout 
      * @returns {XACTSTAT} 
@@ -79,8 +79,8 @@ export default struct IResourceManager2 extends IResourceManager {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Enlist2 := CallbackCreate(GetMethod(implObj, "Enlist2"), flags, 7)
-        this.vtbl.Reenlist2 := CallbackCreate(GetMethod(implObj, "Reenlist2"), flags, 4)
+        this.vtbl.Enlist2 := CallbackCreate(ObjBindMethod(implObj, "Enlist2"), flags, 7)
+        this.vtbl.Reenlist2 := CallbackCreate(ObjBindMethod(implObj, "Reenlist2"), flags, 4)
     }
 
     Dispose() {

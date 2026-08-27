@@ -150,12 +150,12 @@ export default struct IWICMetadataReader extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMetadataFormat := CallbackCreate(GetMethod(implObj, "GetMetadataFormat"), flags, 2)
-        this.vtbl.GetMetadataHandlerInfo := CallbackCreate(GetMethod(implObj, "GetMetadataHandlerInfo"), flags, 2)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
-        this.vtbl.GetValueByIndex := CallbackCreate(GetMethod(implObj, "GetValueByIndex"), flags, 5)
-        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 4)
-        this.vtbl.GetEnumerator := CallbackCreate(GetMethod(implObj, "GetEnumerator"), flags, 2)
+        this.vtbl.GetMetadataFormat := CallbackCreate(ObjBindMethod(implObj, "GetMetadataFormat"), flags, 2)
+        this.vtbl.GetMetadataHandlerInfo := CallbackCreate(ObjBindMethod(implObj, "GetMetadataHandlerInfo"), flags, 2)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetValueByIndex := CallbackCreate(ObjBindMethod(implObj, "GetValueByIndex"), flags, 5)
+        this.vtbl.GetValue := CallbackCreate(ObjBindMethod(implObj, "GetValue"), flags, 4)
+        this.vtbl.GetEnumerator := CallbackCreate(ObjBindMethod(implObj, "GetEnumerator"), flags, 2)
     }
 
     Dispose() {

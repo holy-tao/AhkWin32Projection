@@ -40,7 +40,6 @@ export default struct ISAXErrorHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISAXLocator} pLocator 
      * @param {PWSTR} pwchErrorMessage 
      * @param {HRESULT} hrErrorCode 
@@ -54,7 +53,6 @@ export default struct ISAXErrorHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISAXLocator} pLocator 
      * @param {PWSTR} pwchErrorMessage 
      * @param {HRESULT} hrErrorCode 
@@ -68,7 +66,6 @@ export default struct ISAXErrorHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISAXLocator} pLocator 
      * @param {PWSTR} pwchErrorMessage 
      * @param {HRESULT} hrErrorCode 
@@ -90,9 +87,9 @@ export default struct ISAXErrorHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.error := CallbackCreate(GetMethod(implObj, "error"), flags, 4)
-        this.vtbl.fatalError := CallbackCreate(GetMethod(implObj, "fatalError"), flags, 4)
-        this.vtbl.ignorableWarning := CallbackCreate(GetMethod(implObj, "ignorableWarning"), flags, 4)
+        this.vtbl.error := CallbackCreate(ObjBindMethod(implObj, "error"), flags, 4)
+        this.vtbl.fatalError := CallbackCreate(ObjBindMethod(implObj, "fatalError"), flags, 4)
+        this.vtbl.ignorableWarning := CallbackCreate(ObjBindMethod(implObj, "ignorableWarning"), flags, 4)
     }
 
     Dispose() {

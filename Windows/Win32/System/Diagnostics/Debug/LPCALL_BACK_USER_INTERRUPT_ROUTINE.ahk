@@ -18,7 +18,6 @@ export default struct LPCALL_BACK_USER_INTERRUPT_ROUTINE {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Call() {

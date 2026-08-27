@@ -92,7 +92,6 @@ export default struct ISpeechAudio extends ISpeechBaseStream {
     }
 
     /**
-     * 
      * @returns {ISpeechAudioStatus} 
      */
     get_Status() {
@@ -101,7 +100,6 @@ export default struct ISpeechAudio extends ISpeechBaseStream {
     }
 
     /**
-     * 
      * @returns {ISpeechAudioBufferInfo} 
      */
     get_BufferInfo() {
@@ -110,7 +108,6 @@ export default struct ISpeechAudio extends ISpeechBaseStream {
     }
 
     /**
-     * 
      * @returns {ISpeechAudioFormat} 
      */
     get_DefaultFormat() {
@@ -119,7 +116,6 @@ export default struct ISpeechAudio extends ISpeechBaseStream {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Volume() {
@@ -128,7 +124,6 @@ export default struct ISpeechAudio extends ISpeechBaseStream {
     }
 
     /**
-     * 
      * @param {Integer} Volume 
      * @returns {HRESULT} 
      */
@@ -138,7 +133,6 @@ export default struct ISpeechAudio extends ISpeechBaseStream {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_BufferNotifySize() {
@@ -147,7 +141,6 @@ export default struct ISpeechAudio extends ISpeechBaseStream {
     }
 
     /**
-     * 
      * @param {Integer} BufferNotifySize 
      * @returns {HRESULT} 
      */
@@ -157,7 +150,6 @@ export default struct ISpeechAudio extends ISpeechBaseStream {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_EventHandle() {
@@ -166,7 +158,6 @@ export default struct ISpeechAudio extends ISpeechBaseStream {
     }
 
     /**
-     * 
      * @param {SpeechAudioState} State 
      * @returns {HRESULT} 
      */
@@ -184,15 +175,15 @@ export default struct ISpeechAudio extends ISpeechBaseStream {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
-        this.vtbl.get_BufferInfo := CallbackCreate(GetMethod(implObj, "get_BufferInfo"), flags, 2)
-        this.vtbl.get_DefaultFormat := CallbackCreate(GetMethod(implObj, "get_DefaultFormat"), flags, 2)
-        this.vtbl.get_Volume := CallbackCreate(GetMethod(implObj, "get_Volume"), flags, 2)
-        this.vtbl.put_Volume := CallbackCreate(GetMethod(implObj, "put_Volume"), flags, 2)
-        this.vtbl.get_BufferNotifySize := CallbackCreate(GetMethod(implObj, "get_BufferNotifySize"), flags, 2)
-        this.vtbl.put_BufferNotifySize := CallbackCreate(GetMethod(implObj, "put_BufferNotifySize"), flags, 2)
-        this.vtbl.get_EventHandle := CallbackCreate(GetMethod(implObj, "get_EventHandle"), flags, 2)
-        this.vtbl.SetState := CallbackCreate(GetMethod(implObj, "SetState"), flags, 2)
+        this.vtbl.get_Status := CallbackCreate(ObjBindMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.get_BufferInfo := CallbackCreate(ObjBindMethod(implObj, "get_BufferInfo"), flags, 2)
+        this.vtbl.get_DefaultFormat := CallbackCreate(ObjBindMethod(implObj, "get_DefaultFormat"), flags, 2)
+        this.vtbl.get_Volume := CallbackCreate(ObjBindMethod(implObj, "get_Volume"), flags, 2)
+        this.vtbl.put_Volume := CallbackCreate(ObjBindMethod(implObj, "put_Volume"), flags, 2)
+        this.vtbl.get_BufferNotifySize := CallbackCreate(ObjBindMethod(implObj, "get_BufferNotifySize"), flags, 2)
+        this.vtbl.put_BufferNotifySize := CallbackCreate(ObjBindMethod(implObj, "put_BufferNotifySize"), flags, 2)
+        this.vtbl.get_EventHandle := CallbackCreate(ObjBindMethod(implObj, "get_EventHandle"), flags, 2)
+        this.vtbl.SetState := CallbackCreate(ObjBindMethod(implObj, "SetState"), flags, 2)
     }
 
     Dispose() {

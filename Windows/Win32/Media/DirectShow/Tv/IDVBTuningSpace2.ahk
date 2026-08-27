@@ -78,8 +78,8 @@ export default struct IDVBTuningSpace2 extends IDVBTuningSpace {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_NetworkID := CallbackCreate(GetMethod(implObj, "get_NetworkID"), flags, 2)
-        this.vtbl.put_NetworkID := CallbackCreate(GetMethod(implObj, "put_NetworkID"), flags, 2)
+        this.vtbl.get_NetworkID := CallbackCreate(ObjBindMethod(implObj, "get_NetworkID"), flags, 2)
+        this.vtbl.put_NetworkID := CallbackCreate(ObjBindMethod(implObj, "put_NetworkID"), flags, 2)
     }
 
     Dispose() {

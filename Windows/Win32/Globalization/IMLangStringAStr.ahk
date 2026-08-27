@@ -45,7 +45,6 @@ export default struct IMLangStringAStr extends IMLangString {
     }
 
     /**
-     * 
      * @param {Integer} lDestPos 
      * @param {Integer} lDestLen 
      * @param {Integer} uCodePage 
@@ -58,15 +57,16 @@ export default struct IMLangStringAStr extends IMLangString {
     SetAStr(lDestPos, lDestLen, uCodePage, pszSrc, cchSrc, pcchActual, plActualLen) {
         pszSrc := pszSrc is String ? StrPtr(pszSrc) : pszSrc
 
-        pcchActualMarshal := pcchActual is VarRef ? "int*" : "ptr"
-        plActualLenMarshal := plActualLen is VarRef ? "int*" : "ptr"
+        pcchActualMarshal := pcchActual is VarRef ? "int*" : IntPtr
+        pcchActualMarshal := pcchActual == 0 ? IntPtr : "int*"
+        plActualLenMarshal := plActualLen is VarRef ? "int*" : IntPtr
+        plActualLenMarshal := plActualLen == 0 ? IntPtr : "int*"
 
         result := ComCall(7, this, Int32, lDestPos, Int32, lDestLen, UInt32, uCodePage, "ptr", pszSrc, Int32, cchSrc, pcchActualMarshal, pcchActual, plActualLenMarshal, plActualLen, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} lDestPos 
      * @param {Integer} lDestLen 
      * @param {Integer} uCodePage 
@@ -76,15 +76,17 @@ export default struct IMLangStringAStr extends IMLangString {
      * @returns {HRESULT} 
      */
     SetStrBufA(lDestPos, lDestLen, uCodePage, pSrcBuf, pcchActual, plActualLen) {
-        pcchActualMarshal := pcchActual is VarRef ? "int*" : "ptr"
-        plActualLenMarshal := plActualLen is VarRef ? "int*" : "ptr"
+        pSrcBufMarshal := pSrcBuf == 0 ? IntPtr : "ptr"
+        pcchActualMarshal := pcchActual is VarRef ? "int*" : IntPtr
+        pcchActualMarshal := pcchActual == 0 ? IntPtr : "int*"
+        plActualLenMarshal := plActualLen is VarRef ? "int*" : IntPtr
+        plActualLenMarshal := plActualLen == 0 ? IntPtr : "int*"
 
-        result := ComCall(8, this, Int32, lDestPos, Int32, lDestLen, UInt32, uCodePage, "ptr", pSrcBuf, pcchActualMarshal, pcchActual, plActualLenMarshal, plActualLen, "HRESULT")
+        result := ComCall(8, this, Int32, lDestPos, Int32, lDestLen, UInt32, uCodePage, pSrcBufMarshal, pSrcBuf, pcchActualMarshal, pcchActual, plActualLenMarshal, plActualLen, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} lSrcPos 
      * @param {Integer} lSrcLen 
      * @param {Integer} uCodePageIn 
@@ -99,15 +101,17 @@ export default struct IMLangStringAStr extends IMLangString {
 
         pszDest := pszDest is String ? StrPtr(pszDest) : pszDest
 
-        pcchActualMarshal := pcchActual is VarRef ? "int*" : "ptr"
-        plActualLenMarshal := plActualLen is VarRef ? "int*" : "ptr"
+        pszDestMarshal := pszDest == 0 ? IntPtr : PSTR
+        pcchActualMarshal := pcchActual is VarRef ? "int*" : IntPtr
+        pcchActualMarshal := pcchActual == 0 ? IntPtr : "int*"
+        plActualLenMarshal := plActualLen is VarRef ? "int*" : IntPtr
+        plActualLenMarshal := plActualLen == 0 ? IntPtr : "int*"
 
-        result := ComCall(9, this, Int32, lSrcPos, Int32, lSrcLen, UInt32, uCodePageIn, "uint*", puCodePageOut, "ptr", pszDest, Int32, cchDest, pcchActualMarshal, pcchActual, plActualLenMarshal, plActualLen, "HRESULT")
+        result := ComCall(9, this, Int32, lSrcPos, Int32, lSrcLen, UInt32, uCodePageIn, "uint*", puCodePageOut, pszDestMarshal, pszDest, Int32, cchDest, pcchActualMarshal, pcchActual, plActualLenMarshal, plActualLen, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} lSrcPos 
      * @param {Integer} lSrcMaxLen 
      * @param {Pointer<Integer>} puDestCodePage 
@@ -116,15 +120,16 @@ export default struct IMLangStringAStr extends IMLangString {
      * @returns {HRESULT} 
      */
     GetStrBufA(lSrcPos, lSrcMaxLen, puDestCodePage, ppDestBuf, plDestLen) {
-        puDestCodePageMarshal := puDestCodePage is VarRef ? "uint*" : "ptr"
-        plDestLenMarshal := plDestLen is VarRef ? "int*" : "ptr"
+        puDestCodePageMarshal := puDestCodePage is VarRef ? "uint*" : IntPtr
+        puDestCodePageMarshal := puDestCodePage == 0 ? IntPtr : "uint*"
+        plDestLenMarshal := plDestLen is VarRef ? "int*" : IntPtr
+        plDestLenMarshal := plDestLen == 0 ? IntPtr : "int*"
 
         result := ComCall(10, this, Int32, lSrcPos, Int32, lSrcMaxLen, puDestCodePageMarshal, puDestCodePage, IMLangStringBufA.Ptr, ppDestBuf, plDestLenMarshal, plDestLen, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} lSrcPos 
      * @param {Integer} lSrcLen 
      * @param {Integer} lFlags 
@@ -137,17 +142,20 @@ export default struct IMLangStringAStr extends IMLangString {
      * @returns {HRESULT} 
      */
     LockAStr(lSrcPos, lSrcLen, lFlags, uCodePageIn, cchRequest, puCodePageOut, ppszDest, pcchDest, plDestLen) {
-        puCodePageOutMarshal := puCodePageOut is VarRef ? "uint*" : "ptr"
-        ppszDestMarshal := ppszDest is VarRef ? "ptr*" : "ptr"
-        pcchDestMarshal := pcchDest is VarRef ? "int*" : "ptr"
-        plDestLenMarshal := plDestLen is VarRef ? "int*" : "ptr"
+        puCodePageOutMarshal := puCodePageOut is VarRef ? "uint*" : IntPtr
+        puCodePageOutMarshal := puCodePageOut == 0 ? IntPtr : "uint*"
+        ppszDestMarshal := ppszDest is VarRef ? "ptr*" : IntPtr
+        ppszDestMarshal := ppszDest == 0 ? IntPtr : PSTR.Ptr
+        pcchDestMarshal := pcchDest is VarRef ? "int*" : IntPtr
+        pcchDestMarshal := pcchDest == 0 ? IntPtr : "int*"
+        plDestLenMarshal := plDestLen is VarRef ? "int*" : IntPtr
+        plDestLenMarshal := plDestLen == 0 ? IntPtr : "int*"
 
         result := ComCall(11, this, Int32, lSrcPos, Int32, lSrcLen, Int32, lFlags, UInt32, uCodePageIn, Int32, cchRequest, puCodePageOutMarshal, puCodePageOut, ppszDestMarshal, ppszDest, pcchDestMarshal, pcchDest, plDestLenMarshal, plDestLen, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PSTR} pszSrc 
      * @param {Integer} cchSrc 
      * @param {Pointer<Integer>} pcchActual 
@@ -157,15 +165,16 @@ export default struct IMLangStringAStr extends IMLangString {
     UnlockAStr(pszSrc, cchSrc, pcchActual, plActualLen) {
         pszSrc := pszSrc is String ? StrPtr(pszSrc) : pszSrc
 
-        pcchActualMarshal := pcchActual is VarRef ? "int*" : "ptr"
-        plActualLenMarshal := plActualLen is VarRef ? "int*" : "ptr"
+        pcchActualMarshal := pcchActual is VarRef ? "int*" : IntPtr
+        pcchActualMarshal := pcchActual == 0 ? IntPtr : "int*"
+        plActualLenMarshal := plActualLen is VarRef ? "int*" : IntPtr
+        plActualLenMarshal := plActualLen == 0 ? IntPtr : "int*"
 
         result := ComCall(12, this, "ptr", pszSrc, Int32, cchSrc, pcchActualMarshal, pcchActual, plActualLenMarshal, plActualLen, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} lDestPos 
      * @param {Integer} lDestLen 
      * @param {Integer} locale 
@@ -177,7 +186,6 @@ export default struct IMLangStringAStr extends IMLangString {
     }
 
     /**
-     * 
      * @param {Integer} lSrcPos 
      * @param {Integer} lSrcMaxLen 
      * @param {Pointer<Integer>} plocale 
@@ -186,9 +194,12 @@ export default struct IMLangStringAStr extends IMLangString {
      * @returns {HRESULT} 
      */
     GetLocale(lSrcPos, lSrcMaxLen, plocale, plLocalePos, plLocaleLen) {
-        plocaleMarshal := plocale is VarRef ? "uint*" : "ptr"
-        plLocalePosMarshal := plLocalePos is VarRef ? "int*" : "ptr"
-        plLocaleLenMarshal := plLocaleLen is VarRef ? "int*" : "ptr"
+        plocaleMarshal := plocale is VarRef ? "uint*" : IntPtr
+        plocaleMarshal := plocale == 0 ? IntPtr : "uint*"
+        plLocalePosMarshal := plLocalePos is VarRef ? "int*" : IntPtr
+        plLocalePosMarshal := plLocalePos == 0 ? IntPtr : "int*"
+        plLocaleLenMarshal := plLocaleLen is VarRef ? "int*" : IntPtr
+        plLocaleLenMarshal := plLocaleLen == 0 ? IntPtr : "int*"
 
         result := ComCall(14, this, Int32, lSrcPos, Int32, lSrcMaxLen, plocaleMarshal, plocale, plLocalePosMarshal, plLocalePos, plLocaleLenMarshal, plLocaleLen, "HRESULT")
         return result
@@ -203,14 +214,14 @@ export default struct IMLangStringAStr extends IMLangString {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAStr := CallbackCreate(GetMethod(implObj, "SetAStr"), flags, 8)
-        this.vtbl.SetStrBufA := CallbackCreate(GetMethod(implObj, "SetStrBufA"), flags, 7)
-        this.vtbl.GetAStr := CallbackCreate(GetMethod(implObj, "GetAStr"), flags, 9)
-        this.vtbl.GetStrBufA := CallbackCreate(GetMethod(implObj, "GetStrBufA"), flags, 6)
-        this.vtbl.LockAStr := CallbackCreate(GetMethod(implObj, "LockAStr"), flags, 10)
-        this.vtbl.UnlockAStr := CallbackCreate(GetMethod(implObj, "UnlockAStr"), flags, 5)
-        this.vtbl.SetLocale := CallbackCreate(GetMethod(implObj, "SetLocale"), flags, 4)
-        this.vtbl.GetLocale := CallbackCreate(GetMethod(implObj, "GetLocale"), flags, 6)
+        this.vtbl.SetAStr := CallbackCreate(ObjBindMethod(implObj, "SetAStr"), flags, 8)
+        this.vtbl.SetStrBufA := CallbackCreate(ObjBindMethod(implObj, "SetStrBufA"), flags, 7)
+        this.vtbl.GetAStr := CallbackCreate(ObjBindMethod(implObj, "GetAStr"), flags, 9)
+        this.vtbl.GetStrBufA := CallbackCreate(ObjBindMethod(implObj, "GetStrBufA"), flags, 6)
+        this.vtbl.LockAStr := CallbackCreate(ObjBindMethod(implObj, "LockAStr"), flags, 10)
+        this.vtbl.UnlockAStr := CallbackCreate(ObjBindMethod(implObj, "UnlockAStr"), flags, 5)
+        this.vtbl.SetLocale := CallbackCreate(ObjBindMethod(implObj, "SetLocale"), flags, 4)
+        this.vtbl.GetLocale := CallbackCreate(ObjBindMethod(implObj, "GetLocale"), flags, 6)
     }
 
     Dispose() {

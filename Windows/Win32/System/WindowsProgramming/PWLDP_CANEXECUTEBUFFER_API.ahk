@@ -23,7 +23,6 @@ export default struct PWLDP_CANEXECUTEBUFFER_API {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} host 
      * @param {WLDP_EXECUTION_EVALUATION_OPTIONS} options 
      * @param {Pointer<Integer>} _buffer 
@@ -34,9 +33,10 @@ export default struct PWLDP_CANEXECUTEBUFFER_API {
     Call(host, options, _buffer, bufferSize, auditInfo) {
         auditInfo := auditInfo is String ? StrPtr(auditInfo) : auditInfo
 
-        _bufferMarshal := _buffer is VarRef ? "char*" : "ptr"
+        _bufferMarshal := _buffer is VarRef ? "char*" : IntPtr
+        auditInfoMarshal := auditInfo == 0 ? IntPtr : PWSTR
 
-        result := DllCall(this.value, Guid.Ptr, host, WLDP_EXECUTION_EVALUATION_OPTIONS, options, _bufferMarshal, _buffer, UInt32, bufferSize, "ptr", auditInfo, "int*", &result := 0, "HRESULT")
+        result := DllCall(this.value, Guid.Ptr, host, WLDP_EXECUTION_EVALUATION_OPTIONS, options, _bufferMarshal, _buffer, UInt32, bufferSize, auditInfoMarshal, auditInfo, "int*", &result := 0, "HRESULT")
         return result
     }
 

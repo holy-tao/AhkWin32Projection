@@ -227,19 +227,19 @@ export default struct IDCompositionDevice3 extends IDCompositionDevice2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateGaussianBlurEffect := CallbackCreate(GetMethod(implObj, "CreateGaussianBlurEffect"), flags, 2)
-        this.vtbl.CreateBrightnessEffect := CallbackCreate(GetMethod(implObj, "CreateBrightnessEffect"), flags, 2)
-        this.vtbl.CreateColorMatrixEffect := CallbackCreate(GetMethod(implObj, "CreateColorMatrixEffect"), flags, 2)
-        this.vtbl.CreateShadowEffect := CallbackCreate(GetMethod(implObj, "CreateShadowEffect"), flags, 2)
-        this.vtbl.CreateHueRotationEffect := CallbackCreate(GetMethod(implObj, "CreateHueRotationEffect"), flags, 2)
-        this.vtbl.CreateSaturationEffect := CallbackCreate(GetMethod(implObj, "CreateSaturationEffect"), flags, 2)
-        this.vtbl.CreateTurbulenceEffect := CallbackCreate(GetMethod(implObj, "CreateTurbulenceEffect"), flags, 2)
-        this.vtbl.CreateLinearTransferEffect := CallbackCreate(GetMethod(implObj, "CreateLinearTransferEffect"), flags, 2)
-        this.vtbl.CreateTableTransferEffect := CallbackCreate(GetMethod(implObj, "CreateTableTransferEffect"), flags, 2)
-        this.vtbl.CreateCompositeEffect := CallbackCreate(GetMethod(implObj, "CreateCompositeEffect"), flags, 2)
-        this.vtbl.CreateBlendEffect := CallbackCreate(GetMethod(implObj, "CreateBlendEffect"), flags, 2)
-        this.vtbl.CreateArithmeticCompositeEffect := CallbackCreate(GetMethod(implObj, "CreateArithmeticCompositeEffect"), flags, 2)
-        this.vtbl.CreateAffineTransform2DEffect := CallbackCreate(GetMethod(implObj, "CreateAffineTransform2DEffect"), flags, 2)
+        this.vtbl.CreateGaussianBlurEffect := CallbackCreate(ObjBindMethod(implObj, "CreateGaussianBlurEffect"), flags, 2)
+        this.vtbl.CreateBrightnessEffect := CallbackCreate(ObjBindMethod(implObj, "CreateBrightnessEffect"), flags, 2)
+        this.vtbl.CreateColorMatrixEffect := CallbackCreate(ObjBindMethod(implObj, "CreateColorMatrixEffect"), flags, 2)
+        this.vtbl.CreateShadowEffect := CallbackCreate(ObjBindMethod(implObj, "CreateShadowEffect"), flags, 2)
+        this.vtbl.CreateHueRotationEffect := CallbackCreate(ObjBindMethod(implObj, "CreateHueRotationEffect"), flags, 2)
+        this.vtbl.CreateSaturationEffect := CallbackCreate(ObjBindMethod(implObj, "CreateSaturationEffect"), flags, 2)
+        this.vtbl.CreateTurbulenceEffect := CallbackCreate(ObjBindMethod(implObj, "CreateTurbulenceEffect"), flags, 2)
+        this.vtbl.CreateLinearTransferEffect := CallbackCreate(ObjBindMethod(implObj, "CreateLinearTransferEffect"), flags, 2)
+        this.vtbl.CreateTableTransferEffect := CallbackCreate(ObjBindMethod(implObj, "CreateTableTransferEffect"), flags, 2)
+        this.vtbl.CreateCompositeEffect := CallbackCreate(ObjBindMethod(implObj, "CreateCompositeEffect"), flags, 2)
+        this.vtbl.CreateBlendEffect := CallbackCreate(ObjBindMethod(implObj, "CreateBlendEffect"), flags, 2)
+        this.vtbl.CreateArithmeticCompositeEffect := CallbackCreate(ObjBindMethod(implObj, "CreateArithmeticCompositeEffect"), flags, 2)
+        this.vtbl.CreateAffineTransform2DEffect := CallbackCreate(ObjBindMethod(implObj, "CreateAffineTransform2DEffect"), flags, 2)
     }
 
     Dispose() {

@@ -37,7 +37,6 @@ export default struct IBriefcaseInitiator extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMoniker} pmk 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,7 @@ export default struct IBriefcaseInitiator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsMonikerInBriefcase := CallbackCreate(GetMethod(implObj, "IsMonikerInBriefcase"), flags, 2)
+        this.vtbl.IsMonikerInBriefcase := CallbackCreate(ObjBindMethod(implObj, "IsMonikerInBriefcase"), flags, 2)
     }
 
     Dispose() {

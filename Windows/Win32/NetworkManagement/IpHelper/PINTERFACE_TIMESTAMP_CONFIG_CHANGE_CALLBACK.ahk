@@ -18,12 +18,11 @@ export default struct PINTERFACE_TIMESTAMP_CONFIG_CHANGE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} CallerContext 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(CallerContext) {
-        CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
+        CallerContextMarshal := CallerContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, CallerContextMarshal, CallerContext)
     }

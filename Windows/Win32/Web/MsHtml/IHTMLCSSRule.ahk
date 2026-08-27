@@ -77,7 +77,6 @@ export default struct IHTMLCSSRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_type() {
@@ -86,7 +85,6 @@ export default struct IHTMLCSSRule extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -98,7 +96,6 @@ export default struct IHTMLCSSRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_cssText() {
@@ -108,7 +105,6 @@ export default struct IHTMLCSSRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLCSSRule} 
      */
     get_parentRule() {
@@ -117,7 +113,6 @@ export default struct IHTMLCSSRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStyleSheet} 
      */
     get_parentStyleSheet() {
@@ -134,11 +129,11 @@ export default struct IHTMLCSSRule extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
-        this.vtbl.put_cssText := CallbackCreate(GetMethod(implObj, "put_cssText"), flags, 2)
-        this.vtbl.get_cssText := CallbackCreate(GetMethod(implObj, "get_cssText"), flags, 2)
-        this.vtbl.get_parentRule := CallbackCreate(GetMethod(implObj, "get_parentRule"), flags, 2)
-        this.vtbl.get_parentStyleSheet := CallbackCreate(GetMethod(implObj, "get_parentStyleSheet"), flags, 2)
+        this.vtbl.get_type := CallbackCreate(ObjBindMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.put_cssText := CallbackCreate(ObjBindMethod(implObj, "put_cssText"), flags, 2)
+        this.vtbl.get_cssText := CallbackCreate(ObjBindMethod(implObj, "get_cssText"), flags, 2)
+        this.vtbl.get_parentRule := CallbackCreate(ObjBindMethod(implObj, "get_parentRule"), flags, 2)
+        this.vtbl.get_parentStyleSheet := CallbackCreate(ObjBindMethod(implObj, "get_parentStyleSheet"), flags, 2)
     }
 
     Dispose() {

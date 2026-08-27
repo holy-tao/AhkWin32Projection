@@ -48,7 +48,6 @@ export default struct IADsNamespaces extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DefaultContainer() {
@@ -58,7 +57,6 @@ export default struct IADsNamespaces extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDefaultContainer 
      * @returns {HRESULT} 
      */
@@ -78,8 +76,8 @@ export default struct IADsNamespaces extends IADs {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_DefaultContainer := CallbackCreate(GetMethod(implObj, "get_DefaultContainer"), flags, 2)
-        this.vtbl.put_DefaultContainer := CallbackCreate(GetMethod(implObj, "put_DefaultContainer"), flags, 2)
+        this.vtbl.get_DefaultContainer := CallbackCreate(ObjBindMethod(implObj, "get_DefaultContainer"), flags, 2)
+        this.vtbl.put_DefaultContainer := CallbackCreate(ObjBindMethod(implObj, "put_DefaultContainer"), flags, 2)
     }
 
     Dispose() {

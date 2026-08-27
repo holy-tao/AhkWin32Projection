@@ -20,7 +20,6 @@ export default struct PFNCONTEXTCALL {
     }
 
     /**
-     * 
      * @param {Pointer<ComCallData>} pParam 
      * @returns {HRESULT} 
      */

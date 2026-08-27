@@ -21,7 +21,6 @@ export default struct PCLUSAPI_OPEN_CLUSTER_NETINTERFACE_EX {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszNetInterfaceName 
      * @param {Integer} dwDesiredAccess 
@@ -31,9 +30,11 @@ export default struct PCLUSAPI_OPEN_CLUSTER_NETINTERFACE_EX {
     Call(_hCluster, lpszNetInterfaceName, dwDesiredAccess, lpdwGrantedAccess) {
         lpszNetInterfaceName := lpszNetInterfaceName is String ? StrPtr(lpszNetInterfaceName) : lpszNetInterfaceName
 
-        lpdwGrantedAccessMarshal := lpdwGrantedAccess is VarRef ? "uint*" : "ptr"
+        lpszNetInterfaceNameMarshal := lpszNetInterfaceName == 0 ? IntPtr : PWSTR
+        lpdwGrantedAccessMarshal := lpdwGrantedAccess is VarRef ? "uint*" : IntPtr
+        lpdwGrantedAccessMarshal := lpdwGrantedAccess == 0 ? IntPtr : "uint*"
 
-        result := DllCall(this.value, HCLUSTER, _hCluster, "ptr", lpszNetInterfaceName, UInt32, dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, HNETINTERFACE)
+        result := DllCall(this.value, HCLUSTER, _hCluster, lpszNetInterfaceNameMarshal, lpszNetInterfaceName, UInt32, dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, HNETINTERFACE)
         return result
     }
 

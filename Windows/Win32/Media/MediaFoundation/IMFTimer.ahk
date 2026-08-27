@@ -97,8 +97,8 @@ export default struct IMFTimer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetTimer := CallbackCreate(GetMethod(implObj, "SetTimer"), flags, 6)
-        this.vtbl.CancelTimer := CallbackCreate(GetMethod(implObj, "CancelTimer"), flags, 2)
+        this.vtbl.SetTimer := CallbackCreate(ObjBindMethod(implObj, "SetTimer"), flags, 6)
+        this.vtbl.CancelTimer := CallbackCreate(ObjBindMethod(implObj, "CancelTimer"), flags, 2)
     }
 
     Dispose() {

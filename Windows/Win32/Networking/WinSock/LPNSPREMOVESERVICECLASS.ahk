@@ -21,7 +21,6 @@ export default struct LPNSPREMOVESERVICECLASS {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} lpProviderId A pointer to the GUID of the specific namespace provider that this service class schema is to be removed from.
      * @param {Pointer<Guid>} lpServiceClassId A pointer to the GUID for the service class to remove.
      * @returns {Integer} The function should return **NO_ERROR** (zero) if the routine succeeds. It should return **SOCKET_ERROR** (–1) if the routine fails and it must set the appropriate error code using 

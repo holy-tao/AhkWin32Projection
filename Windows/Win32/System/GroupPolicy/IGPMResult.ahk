@@ -62,7 +62,6 @@ export default struct IGPMResult extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IGPMStatusMsgCollection} 
      */
     get_Status() {
@@ -71,7 +70,6 @@ export default struct IGPMResult extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Result() {
@@ -103,9 +101,9 @@ export default struct IGPMResult extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
-        this.vtbl.get_Result := CallbackCreate(GetMethod(implObj, "get_Result"), flags, 2)
-        this.vtbl.OverallStatus := CallbackCreate(GetMethod(implObj, "OverallStatus"), flags, 1)
+        this.vtbl.get_Status := CallbackCreate(ObjBindMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.get_Result := CallbackCreate(ObjBindMethod(implObj, "get_Result"), flags, 2)
+        this.vtbl.OverallStatus := CallbackCreate(ObjBindMethod(implObj, "OverallStatus"), flags, 1)
     }
 
     Dispose() {

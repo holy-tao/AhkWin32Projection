@@ -40,7 +40,6 @@ export default struct IAppxManifestQualifiedResource extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetLanguage() {
@@ -49,7 +48,6 @@ export default struct IAppxManifestQualifiedResource extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetScale() {
@@ -58,7 +56,6 @@ export default struct IAppxManifestQualifiedResource extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DX_FEATURE_LEVEL} 
      */
     GetDXFeatureLevel() {
@@ -75,9 +72,9 @@ export default struct IAppxManifestQualifiedResource extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLanguage := CallbackCreate(GetMethod(implObj, "GetLanguage"), flags, 2)
-        this.vtbl.GetScale := CallbackCreate(GetMethod(implObj, "GetScale"), flags, 2)
-        this.vtbl.GetDXFeatureLevel := CallbackCreate(GetMethod(implObj, "GetDXFeatureLevel"), flags, 2)
+        this.vtbl.GetLanguage := CallbackCreate(ObjBindMethod(implObj, "GetLanguage"), flags, 2)
+        this.vtbl.GetScale := CallbackCreate(ObjBindMethod(implObj, "GetScale"), flags, 2)
+        this.vtbl.GetDXFeatureLevel := CallbackCreate(ObjBindMethod(implObj, "GetDXFeatureLevel"), flags, 2)
     }
 
     Dispose() {

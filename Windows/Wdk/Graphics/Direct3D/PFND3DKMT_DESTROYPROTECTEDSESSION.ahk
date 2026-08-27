@@ -20,7 +20,6 @@ export default struct PFND3DKMT_DESTROYPROTECTEDSESSION {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_DESTROYPROTECTEDSESSION>} param0 
      * @returns {NTSTATUS} 
      */

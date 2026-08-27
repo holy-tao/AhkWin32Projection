@@ -35,7 +35,6 @@ export default struct ENUMRESNAMEPROCA {
     }
 
     /**
-     * 
      * @param {HMODULE} _hModule Type: <b>HMODULE</b>
      * 
      * A handle to the module whose executable file contains the resources that are being enumerated. If this parameter is <b>NULL</b>, the function enumerates the resource names in the module used to create the current process.
@@ -56,7 +55,9 @@ export default struct ENUMRESNAMEPROCA {
         lpType := lpType is String ? StrPtr(lpType) : lpType
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
-        result := DllCall(this.value, HMODULE, _hModule, "ptr", lpType, "ptr", lpName, IntPtr, _lParam, BOOL)
+        _hModuleMarshal := _hModule == 0 ? IntPtr : HMODULE
+
+        result := DllCall(this.value, _hModuleMarshal, _hModule, "ptr", lpType, "ptr", lpName, IntPtr, _lParam, BOOL)
         return result
     }
 

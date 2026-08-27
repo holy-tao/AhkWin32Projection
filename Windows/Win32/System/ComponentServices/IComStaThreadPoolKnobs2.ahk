@@ -46,7 +46,6 @@ export default struct IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMaxCPULoad() {
@@ -55,7 +54,6 @@ export default struct IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs {
     }
 
     /**
-     * 
      * @param {Integer} pdwLoad 
      * @returns {HRESULT} 
      */
@@ -65,7 +63,6 @@ export default struct IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetCPUMetricEnabled() {
@@ -74,7 +71,6 @@ export default struct IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs {
     }
 
     /**
-     * 
      * @param {BOOL} bMetricEnabled 
      * @returns {HRESULT} 
      */
@@ -84,7 +80,6 @@ export default struct IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetCreateThreadsAggressively() {
@@ -93,7 +88,6 @@ export default struct IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs {
     }
 
     /**
-     * 
      * @param {BOOL} bMetricEnabled 
      * @returns {HRESULT} 
      */
@@ -103,7 +97,6 @@ export default struct IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMaxCSR() {
@@ -112,7 +105,6 @@ export default struct IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs {
     }
 
     /**
-     * 
      * @param {Integer} dwCSR 
      * @returns {HRESULT} 
      */
@@ -122,7 +114,6 @@ export default struct IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetWaitTimeForThreadCleanup() {
@@ -131,7 +122,6 @@ export default struct IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs {
     }
 
     /**
-     * 
      * @param {Integer} dwThreadCleanupWaitTime 
      * @returns {HRESULT} 
      */
@@ -149,16 +139,16 @@ export default struct IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMaxCPULoad := CallbackCreate(GetMethod(implObj, "GetMaxCPULoad"), flags, 2)
-        this.vtbl.SetMaxCPULoad := CallbackCreate(GetMethod(implObj, "SetMaxCPULoad"), flags, 2)
-        this.vtbl.GetCPUMetricEnabled := CallbackCreate(GetMethod(implObj, "GetCPUMetricEnabled"), flags, 2)
-        this.vtbl.SetCPUMetricEnabled := CallbackCreate(GetMethod(implObj, "SetCPUMetricEnabled"), flags, 2)
-        this.vtbl.GetCreateThreadsAggressively := CallbackCreate(GetMethod(implObj, "GetCreateThreadsAggressively"), flags, 2)
-        this.vtbl.SetCreateThreadsAggressively := CallbackCreate(GetMethod(implObj, "SetCreateThreadsAggressively"), flags, 2)
-        this.vtbl.GetMaxCSR := CallbackCreate(GetMethod(implObj, "GetMaxCSR"), flags, 2)
-        this.vtbl.SetMaxCSR := CallbackCreate(GetMethod(implObj, "SetMaxCSR"), flags, 2)
-        this.vtbl.GetWaitTimeForThreadCleanup := CallbackCreate(GetMethod(implObj, "GetWaitTimeForThreadCleanup"), flags, 2)
-        this.vtbl.SetWaitTimeForThreadCleanup := CallbackCreate(GetMethod(implObj, "SetWaitTimeForThreadCleanup"), flags, 2)
+        this.vtbl.GetMaxCPULoad := CallbackCreate(ObjBindMethod(implObj, "GetMaxCPULoad"), flags, 2)
+        this.vtbl.SetMaxCPULoad := CallbackCreate(ObjBindMethod(implObj, "SetMaxCPULoad"), flags, 2)
+        this.vtbl.GetCPUMetricEnabled := CallbackCreate(ObjBindMethod(implObj, "GetCPUMetricEnabled"), flags, 2)
+        this.vtbl.SetCPUMetricEnabled := CallbackCreate(ObjBindMethod(implObj, "SetCPUMetricEnabled"), flags, 2)
+        this.vtbl.GetCreateThreadsAggressively := CallbackCreate(ObjBindMethod(implObj, "GetCreateThreadsAggressively"), flags, 2)
+        this.vtbl.SetCreateThreadsAggressively := CallbackCreate(ObjBindMethod(implObj, "SetCreateThreadsAggressively"), flags, 2)
+        this.vtbl.GetMaxCSR := CallbackCreate(ObjBindMethod(implObj, "GetMaxCSR"), flags, 2)
+        this.vtbl.SetMaxCSR := CallbackCreate(ObjBindMethod(implObj, "SetMaxCSR"), flags, 2)
+        this.vtbl.GetWaitTimeForThreadCleanup := CallbackCreate(ObjBindMethod(implObj, "GetWaitTimeForThreadCleanup"), flags, 2)
+        this.vtbl.SetWaitTimeForThreadCleanup := CallbackCreate(ObjBindMethod(implObj, "SetWaitTimeForThreadCleanup"), flags, 2)
     }
 
     Dispose() {

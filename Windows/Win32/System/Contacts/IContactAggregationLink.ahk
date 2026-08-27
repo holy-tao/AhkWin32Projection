@@ -118,7 +118,6 @@ export default struct IContactAggregationLink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Delete() {
@@ -127,7 +126,6 @@ export default struct IContactAggregationLink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Save() {
@@ -136,7 +134,6 @@ export default struct IContactAggregationLink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_AccountId() {
@@ -145,7 +142,6 @@ export default struct IContactAggregationLink extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pAccountId 
      * @returns {HRESULT} 
      */
@@ -157,7 +153,6 @@ export default struct IContactAggregationLink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_Id() {
@@ -166,7 +161,6 @@ export default struct IContactAggregationLink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsLinkResolved() {
@@ -175,7 +169,6 @@ export default struct IContactAggregationLink extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} isLinkResolved 
      * @returns {HRESULT} 
      */
@@ -185,7 +178,6 @@ export default struct IContactAggregationLink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_NetworkSourceIdString() {
@@ -194,7 +186,6 @@ export default struct IContactAggregationLink extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pNetworkSourceId 
      * @returns {HRESULT} 
      */
@@ -206,7 +197,6 @@ export default struct IContactAggregationLink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<CONTACT_AGGREGATION_BLOB>} 
      */
     get_RemoteObjectId() {
@@ -215,7 +205,6 @@ export default struct IContactAggregationLink extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<CONTACT_AGGREGATION_BLOB>} pRemoteObjectId 
      * @returns {HRESULT} 
      */
@@ -225,7 +214,6 @@ export default struct IContactAggregationLink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_ServerPerson() {
@@ -234,7 +222,6 @@ export default struct IContactAggregationLink extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pServerPersonId 
      * @returns {HRESULT} 
      */
@@ -246,7 +233,6 @@ export default struct IContactAggregationLink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_ServerPersonBaseline() {
@@ -255,7 +241,6 @@ export default struct IContactAggregationLink extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pServerPersonId 
      * @returns {HRESULT} 
      */
@@ -267,7 +252,6 @@ export default struct IContactAggregationLink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<CONTACT_AGGREGATION_BLOB>} 
      */
     get_SyncIdentityHash() {
@@ -276,7 +260,6 @@ export default struct IContactAggregationLink extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<CONTACT_AGGREGATION_BLOB>} pSyncIdentityHash 
      * @returns {HRESULT} 
      */
@@ -294,23 +277,23 @@ export default struct IContactAggregationLink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
-        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 1)
-        this.vtbl.get_AccountId := CallbackCreate(GetMethod(implObj, "get_AccountId"), flags, 2)
-        this.vtbl.put_AccountId := CallbackCreate(GetMethod(implObj, "put_AccountId"), flags, 2)
-        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
-        this.vtbl.get_IsLinkResolved := CallbackCreate(GetMethod(implObj, "get_IsLinkResolved"), flags, 2)
-        this.vtbl.put_IsLinkResolved := CallbackCreate(GetMethod(implObj, "put_IsLinkResolved"), flags, 2)
-        this.vtbl.get_NetworkSourceIdString := CallbackCreate(GetMethod(implObj, "get_NetworkSourceIdString"), flags, 2)
-        this.vtbl.put_NetworkSourceIdString := CallbackCreate(GetMethod(implObj, "put_NetworkSourceIdString"), flags, 2)
-        this.vtbl.get_RemoteObjectId := CallbackCreate(GetMethod(implObj, "get_RemoteObjectId"), flags, 2)
-        this.vtbl.put_RemoteObjectId := CallbackCreate(GetMethod(implObj, "put_RemoteObjectId"), flags, 2)
-        this.vtbl.get_ServerPerson := CallbackCreate(GetMethod(implObj, "get_ServerPerson"), flags, 2)
-        this.vtbl.put_ServerPerson := CallbackCreate(GetMethod(implObj, "put_ServerPerson"), flags, 2)
-        this.vtbl.get_ServerPersonBaseline := CallbackCreate(GetMethod(implObj, "get_ServerPersonBaseline"), flags, 2)
-        this.vtbl.put_ServerPersonBaseline := CallbackCreate(GetMethod(implObj, "put_ServerPersonBaseline"), flags, 2)
-        this.vtbl.get_SyncIdentityHash := CallbackCreate(GetMethod(implObj, "get_SyncIdentityHash"), flags, 2)
-        this.vtbl.put_SyncIdentityHash := CallbackCreate(GetMethod(implObj, "put_SyncIdentityHash"), flags, 2)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.Save := CallbackCreate(ObjBindMethod(implObj, "Save"), flags, 1)
+        this.vtbl.get_AccountId := CallbackCreate(ObjBindMethod(implObj, "get_AccountId"), flags, 2)
+        this.vtbl.put_AccountId := CallbackCreate(ObjBindMethod(implObj, "put_AccountId"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(ObjBindMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.get_IsLinkResolved := CallbackCreate(ObjBindMethod(implObj, "get_IsLinkResolved"), flags, 2)
+        this.vtbl.put_IsLinkResolved := CallbackCreate(ObjBindMethod(implObj, "put_IsLinkResolved"), flags, 2)
+        this.vtbl.get_NetworkSourceIdString := CallbackCreate(ObjBindMethod(implObj, "get_NetworkSourceIdString"), flags, 2)
+        this.vtbl.put_NetworkSourceIdString := CallbackCreate(ObjBindMethod(implObj, "put_NetworkSourceIdString"), flags, 2)
+        this.vtbl.get_RemoteObjectId := CallbackCreate(ObjBindMethod(implObj, "get_RemoteObjectId"), flags, 2)
+        this.vtbl.put_RemoteObjectId := CallbackCreate(ObjBindMethod(implObj, "put_RemoteObjectId"), flags, 2)
+        this.vtbl.get_ServerPerson := CallbackCreate(ObjBindMethod(implObj, "get_ServerPerson"), flags, 2)
+        this.vtbl.put_ServerPerson := CallbackCreate(ObjBindMethod(implObj, "put_ServerPerson"), flags, 2)
+        this.vtbl.get_ServerPersonBaseline := CallbackCreate(ObjBindMethod(implObj, "get_ServerPersonBaseline"), flags, 2)
+        this.vtbl.put_ServerPersonBaseline := CallbackCreate(ObjBindMethod(implObj, "put_ServerPersonBaseline"), flags, 2)
+        this.vtbl.get_SyncIdentityHash := CallbackCreate(ObjBindMethod(implObj, "get_SyncIdentityHash"), flags, 2)
+        this.vtbl.put_SyncIdentityHash := CallbackCreate(ObjBindMethod(implObj, "put_SyncIdentityHash"), flags, 2)
     }
 
     Dispose() {

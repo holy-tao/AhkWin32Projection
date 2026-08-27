@@ -60,7 +60,7 @@ export default struct IMFSensorActivitiesReportCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnActivitiesReport := CallbackCreate(GetMethod(implObj, "OnActivitiesReport"), flags, 2)
+        this.vtbl.OnActivitiesReport := CallbackCreate(ObjBindMethod(implObj, "OnActivitiesReport"), flags, 2)
     }
 
     Dispose() {

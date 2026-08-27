@@ -20,7 +20,6 @@ export default struct LPMAPIRESOLVENAME {
     }
 
     /**
-     * 
      * @param {Pointer} lhSession 
      * @param {Pointer} ulUIParam 
      * @param {PSTR} lpszName 
@@ -32,7 +31,7 @@ export default struct LPMAPIRESOLVENAME {
     Call(lhSession, ulUIParam, lpszName, flFlags, ulReserved, lppRecip) {
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
-        lppRecipMarshal := lppRecip is VarRef ? "ptr*" : "ptr"
+        lppRecipMarshal := lppRecip is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, IntPtr, lhSession, IntPtr, ulUIParam, "ptr", lpszName, UInt32, flFlags, UInt32, ulReserved, lppRecipMarshal, lppRecip, UInt32)
         return result

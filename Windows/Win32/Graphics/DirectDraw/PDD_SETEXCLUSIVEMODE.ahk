@@ -25,7 +25,6 @@ export default struct PDD_SETEXCLUSIVEMODE {
     }
 
     /**
-     * 
      * @param {Pointer<DD_SETEXCLUSIVEMODEDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_setexclusivemodedata">DD_SETEXCLUSIVEMODEDATA</a> structure that contains the notification information.
      * @returns {Integer} <i>DdSetExclusiveMode</i> returns one of the following callback codes:
      */

@@ -58,7 +58,7 @@ export default struct IMSVidVideoRendererEvent2 extends IMSVidOutputDeviceEvent 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OverlayUnavailable := CallbackCreate(GetMethod(implObj, "OverlayUnavailable"), flags, 1)
+        this.vtbl.OverlayUnavailable := CallbackCreate(ObjBindMethod(implObj, "OverlayUnavailable"), flags, 1)
     }
 
     Dispose() {

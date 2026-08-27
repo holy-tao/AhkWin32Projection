@@ -20,7 +20,6 @@ export default struct PFND3DKMT_GETSHAREDPRIMARYHANDLE {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_GETSHAREDPRIMARYHANDLE>} param0 
      * @returns {NTSTATUS} 
      */

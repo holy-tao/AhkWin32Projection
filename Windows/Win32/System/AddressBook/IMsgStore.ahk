@@ -64,12 +64,13 @@ export default struct IMsgStore extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imsgstore-advise
      */
     Advise(cbEntryID, lpEntryID, ulEventMask, lpAdviseSink) {
-        result := ComCall(14, this, UInt32, cbEntryID, IntPtr, lpEntryID, UInt32, ulEventMask, "ptr", lpAdviseSink, "uint*", &lpulConnection := 0, "HRESULT")
+        lpEntryIDMarshal := lpEntryID == 0 ? IntPtr : IntPtr
+
+        result := ComCall(14, this, UInt32, cbEntryID, lpEntryIDMarshal, lpEntryID, UInt32, ulEventMask, "ptr", lpAdviseSink, "uint*", &lpulConnection := 0, "HRESULT")
         return lpulConnection
     }
 
     /**
-     * 
      * @remarks
      * The **IMsgStore::Unadvise** method cancels a registration for notification. **Unadvise** releases its pointer to the caller's advise sink, which it received in the **Advise** call used for registration. 
      *   
@@ -141,9 +142,10 @@ export default struct IMsgStore extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imsgstore-openentry
      */
     OpenEntry(cbEntryID, lpEntryID, lpInterface, ulFlags, lpulObjType, ppUnk) {
-        lpulObjTypeMarshal := lpulObjType is VarRef ? "uint*" : "ptr"
+        lpInterfaceMarshal := lpInterface == 0 ? IntPtr : Guid.Ptr
+        lpulObjTypeMarshal := lpulObjType is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(17, this, UInt32, cbEntryID, IntPtr, lpEntryID, Guid.Ptr, lpInterface, UInt32, ulFlags, lpulObjTypeMarshal, lpulObjType, IUnknown.Ptr, ppUnk, "HRESULT")
+        result := ComCall(17, this, UInt32, cbEntryID, IntPtr, lpEntryID, lpInterfaceMarshal, lpInterface, UInt32, ulFlags, lpulObjTypeMarshal, lpulObjType, IUnknown.Ptr, ppUnk, "HRESULT")
         return result
     }
 
@@ -169,7 +171,8 @@ export default struct IMsgStore extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imsgstore-setreceivefolder
      */
     SetReceiveFolder(lpszMessageClass, ulFlags, cbEntryID, lpEntryID) {
-        lpszMessageClassMarshal := lpszMessageClass is VarRef ? "char*" : "ptr"
+        lpszMessageClassMarshal := lpszMessageClass is VarRef ? "char*" : IntPtr
+        lpszMessageClassMarshal := lpszMessageClass == 0 ? IntPtr : "char*"
 
         result := ComCall(18, this, lpszMessageClassMarshal, lpszMessageClass, UInt32, ulFlags, UInt32, cbEntryID, IntPtr, lpEntryID, "HRESULT")
         return result
@@ -206,10 +209,11 @@ export default struct IMsgStore extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imsgstore-getreceivefolder
      */
     GetReceiveFolder(lpszMessageClass, ulFlags, lpcbEntryID, lppEntryID, lppszExplicitClass) {
-        lpszMessageClassMarshal := lpszMessageClass is VarRef ? "char*" : "ptr"
-        lpcbEntryIDMarshal := lpcbEntryID is VarRef ? "uint*" : "ptr"
-        lppEntryIDMarshal := lppEntryID is VarRef ? "ptr*" : "ptr"
-        lppszExplicitClassMarshal := lppszExplicitClass is VarRef ? "ptr*" : "ptr"
+        lpszMessageClassMarshal := lpszMessageClass is VarRef ? "char*" : IntPtr
+        lpszMessageClassMarshal := lpszMessageClass == 0 ? IntPtr : "char*"
+        lpcbEntryIDMarshal := lpcbEntryID is VarRef ? "uint*" : IntPtr
+        lppEntryIDMarshal := lppEntryID is VarRef ? "ptr*" : IntPtr
+        lppszExplicitClassMarshal := lppszExplicitClass is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(19, this, lpszMessageClassMarshal, lpszMessageClass, UInt32, ulFlags, lpcbEntryIDMarshal, lpcbEntryID, lppEntryIDMarshal, lppEntryID, lppszExplicitClassMarshal, lppszExplicitClass, "HRESULT")
         return result
@@ -237,7 +241,6 @@ export default struct IMsgStore extends IMAPIProp {
     }
 
     /**
-     * 
      * @remarks
      * The **IMsgStore::StoreLogoff** method exerts control over the interaction of the message store and transport providers during the logoff process. Calling **StoreLogoff** is valid only for message stores that are being used only by the caller. For example, when two clients are using the same message store and one of them calls **StoreLogoff**, the message store is immediately released and control is returned to the calling client.
      * @param {Pointer<Integer>} lpulFlags > [in, out] A bitmask of flags that controls logoff from the message store. On input, all flags set for this parameter are mutually exclusive; a caller must specify only one flag per call. The following flags are valid on input:
@@ -281,7 +284,7 @@ export default struct IMsgStore extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imsgstore-storelogoff
      */
     StoreLogoff(lpulFlags) {
-        lpulFlagsMarshal := lpulFlags is VarRef ? "uint*" : "ptr"
+        lpulFlagsMarshal := lpulFlags is VarRef ? "uint*" : IntPtr
 
         result := ComCall(21, this, lpulFlagsMarshal, lpulFlags, "HRESULT")
         return result
@@ -313,7 +316,6 @@ export default struct IMsgStore extends IMAPIProp {
     }
 
     /**
-     * 
      * @remarks
      * The **IMsgStore::GetOutgoingQueue** method provides the MAPI spooler with access to the table that shows the message store's queue of outgoing messages. Typically, messages are placed in the outgoing queue table after their [IMessage::SubmitMessage](imessage-submitmessage.md) method is called. However, because the order of submission affects the order of preprocessing and submission to the transport provider, some messages that have been marked for sending might not appear in the outgoing queue table immediately.
      * @param {Integer} ulFlags > [in] Reserved; must be zero.
@@ -326,7 +328,6 @@ export default struct IMsgStore extends IMAPIProp {
     }
 
     /**
-     * 
      * @remarks
      * The **IMsgStore::SetLockState** method locks or unlocks a message. **SetLockState** can be called only by the MAPI spooler while it is sending the message. 
      *   
@@ -373,7 +374,6 @@ export default struct IMsgStore extends IMAPIProp {
     }
 
     /**
-     * 
      * @remarks
      * The **IMsgStore::NotifyNewMail** method is called by the MAPI spooler to inform the message store that a message is ready for delivery.
      * @param {Pointer<NOTIFICATION>} lpNotification > [in] A pointer to a [NOTIFICATION](notification.md) structure that describes the new message notification.
@@ -396,19 +396,19 @@ export default struct IMsgStore extends IMAPIProp {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 6)
-        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 2)
-        this.vtbl.CompareEntryIDs := CallbackCreate(GetMethod(implObj, "CompareEntryIDs"), flags, 7)
-        this.vtbl.OpenEntry := CallbackCreate(GetMethod(implObj, "OpenEntry"), flags, 7)
-        this.vtbl.SetReceiveFolder := CallbackCreate(GetMethod(implObj, "SetReceiveFolder"), flags, 5)
-        this.vtbl.GetReceiveFolder := CallbackCreate(GetMethod(implObj, "GetReceiveFolder"), flags, 6)
-        this.vtbl.GetReceiveFolderTable := CallbackCreate(GetMethod(implObj, "GetReceiveFolderTable"), flags, 3)
-        this.vtbl.StoreLogoff := CallbackCreate(GetMethod(implObj, "StoreLogoff"), flags, 2)
-        this.vtbl.AbortSubmit := CallbackCreate(GetMethod(implObj, "AbortSubmit"), flags, 4)
-        this.vtbl.GetOutgoingQueue := CallbackCreate(GetMethod(implObj, "GetOutgoingQueue"), flags, 3)
-        this.vtbl.SetLockState := CallbackCreate(GetMethod(implObj, "SetLockState"), flags, 3)
-        this.vtbl.FinishedMsg := CallbackCreate(GetMethod(implObj, "FinishedMsg"), flags, 4)
-        this.vtbl.NotifyNewMail := CallbackCreate(GetMethod(implObj, "NotifyNewMail"), flags, 2)
+        this.vtbl.Advise := CallbackCreate(ObjBindMethod(implObj, "Advise"), flags, 6)
+        this.vtbl.Unadvise := CallbackCreate(ObjBindMethod(implObj, "Unadvise"), flags, 2)
+        this.vtbl.CompareEntryIDs := CallbackCreate(ObjBindMethod(implObj, "CompareEntryIDs"), flags, 7)
+        this.vtbl.OpenEntry := CallbackCreate(ObjBindMethod(implObj, "OpenEntry"), flags, 7)
+        this.vtbl.SetReceiveFolder := CallbackCreate(ObjBindMethod(implObj, "SetReceiveFolder"), flags, 5)
+        this.vtbl.GetReceiveFolder := CallbackCreate(ObjBindMethod(implObj, "GetReceiveFolder"), flags, 6)
+        this.vtbl.GetReceiveFolderTable := CallbackCreate(ObjBindMethod(implObj, "GetReceiveFolderTable"), flags, 3)
+        this.vtbl.StoreLogoff := CallbackCreate(ObjBindMethod(implObj, "StoreLogoff"), flags, 2)
+        this.vtbl.AbortSubmit := CallbackCreate(ObjBindMethod(implObj, "AbortSubmit"), flags, 4)
+        this.vtbl.GetOutgoingQueue := CallbackCreate(ObjBindMethod(implObj, "GetOutgoingQueue"), flags, 3)
+        this.vtbl.SetLockState := CallbackCreate(ObjBindMethod(implObj, "SetLockState"), flags, 3)
+        this.vtbl.FinishedMsg := CallbackCreate(ObjBindMethod(implObj, "FinishedMsg"), flags, 4)
+        this.vtbl.NotifyNewMail := CallbackCreate(ObjBindMethod(implObj, "NotifyNewMail"), flags, 2)
     }
 
     Dispose() {

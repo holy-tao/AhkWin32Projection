@@ -20,7 +20,6 @@ export default struct PFNCANSHAREFOLDERW {
     }
 
     /**
-     * 
      * @param {PWSTR} pszPath 
      * @returns {HRESULT} 
      */

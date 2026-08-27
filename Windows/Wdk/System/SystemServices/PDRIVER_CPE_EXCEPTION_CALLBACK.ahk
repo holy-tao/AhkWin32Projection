@@ -19,13 +19,12 @@ export default struct PDRIVER_CPE_EXCEPTION_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<MCA_EXCEPTION>} CmcLog 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Context, CmcLog) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _ContextMarshal, _Context, MCA_EXCEPTION.Ptr, CmcLog)
     }

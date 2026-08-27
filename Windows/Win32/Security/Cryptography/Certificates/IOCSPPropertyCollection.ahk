@@ -222,14 +222,14 @@ export default struct IOCSPPropertyCollection extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
-        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.get_ItemByName := CallbackCreate(GetMethod(implObj, "get_ItemByName"), flags, 3)
-        this.vtbl.CreateProperty := CallbackCreate(GetMethod(implObj, "CreateProperty"), flags, 4)
-        this.vtbl.DeleteProperty := CallbackCreate(GetMethod(implObj, "DeleteProperty"), flags, 2)
-        this.vtbl.InitializeFromProperties := CallbackCreate(GetMethod(implObj, "InitializeFromProperties"), flags, 2)
-        this.vtbl.GetAllProperties := CallbackCreate(GetMethod(implObj, "GetAllProperties"), flags, 2)
+        this.vtbl.get__NewEnum := CallbackCreate(ObjBindMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(ObjBindMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get_ItemByName := CallbackCreate(ObjBindMethod(implObj, "get_ItemByName"), flags, 3)
+        this.vtbl.CreateProperty := CallbackCreate(ObjBindMethod(implObj, "CreateProperty"), flags, 4)
+        this.vtbl.DeleteProperty := CallbackCreate(ObjBindMethod(implObj, "DeleteProperty"), flags, 2)
+        this.vtbl.InitializeFromProperties := CallbackCreate(ObjBindMethod(implObj, "InitializeFromProperties"), flags, 2)
+        this.vtbl.GetAllProperties := CallbackCreate(ObjBindMethod(implObj, "GetAllProperties"), flags, 2)
     }
 
     Dispose() {

@@ -37,7 +37,6 @@ export default struct IWinInetFileStream extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hWinInetLockHandle 
      * @param {Pointer} dwReserved 
      * @returns {HRESULT} 
@@ -48,7 +47,6 @@ export default struct IWinInetFileStream extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} dwReserved 
      * @returns {HRESULT} 
      */
@@ -66,8 +64,8 @@ export default struct IWinInetFileStream extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetHandleForUnlock := CallbackCreate(GetMethod(implObj, "SetHandleForUnlock"), flags, 3)
-        this.vtbl.SetDeleteFile := CallbackCreate(GetMethod(implObj, "SetDeleteFile"), flags, 2)
+        this.vtbl.SetHandleForUnlock := CallbackCreate(ObjBindMethod(implObj, "SetHandleForUnlock"), flags, 3)
+        this.vtbl.SetDeleteFile := CallbackCreate(ObjBindMethod(implObj, "SetDeleteFile"), flags, 2)
     }
 
     Dispose() {

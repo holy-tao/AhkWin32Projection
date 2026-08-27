@@ -64,9 +64,9 @@ export default struct ISyncMgrConflictResolveInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictresolveinfo-getiterationinfo
      */
     GetIterationInfo(pnCurrentConflict, pcConflicts, pcRemainingForApplyToAll) {
-        pnCurrentConflictMarshal := pnCurrentConflict is VarRef ? "uint*" : "ptr"
-        pcConflictsMarshal := pcConflicts is VarRef ? "uint*" : "ptr"
-        pcRemainingForApplyToAllMarshal := pcRemainingForApplyToAll is VarRef ? "uint*" : "ptr"
+        pnCurrentConflictMarshal := pnCurrentConflict is VarRef ? "uint*" : IntPtr
+        pcConflictsMarshal := pcConflicts is VarRef ? "uint*" : IntPtr
+        pcRemainingForApplyToAllMarshal := pcRemainingForApplyToAll is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pnCurrentConflictMarshal, pnCurrentConflict, pcConflictsMarshal, pcConflicts, pcRemainingForApplyToAllMarshal, pcRemainingForApplyToAll, "HRESULT")
         return result
@@ -98,8 +98,8 @@ export default struct ISyncMgrConflictResolveInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictresolveinfo-getpresenterchoice
      */
     GetPresenterChoice(pnPresenterChoice, pfApplyToAll) {
-        pnPresenterChoiceMarshal := pnPresenterChoice is VarRef ? "int*" : "ptr"
-        pfApplyToAllMarshal := pfApplyToAll is VarRef ? "int*" : "ptr"
+        pnPresenterChoiceMarshal := pnPresenterChoice is VarRef ? "int*" : IntPtr
+        pfApplyToAllMarshal := pfApplyToAll is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, pnPresenterChoiceMarshal, pnPresenterChoice, pfApplyToAllMarshal, pfApplyToAll, "HRESULT")
         return result
@@ -179,7 +179,7 @@ export default struct ISyncMgrConflictResolveInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictresolveinfo-setitemchoices
      */
     SetItemChoices(prgiConflictItemIndexes, cChoices) {
-        prgiConflictItemIndexesMarshal := prgiConflictItemIndexes is VarRef ? "uint*" : "ptr"
+        prgiConflictItemIndexesMarshal := prgiConflictItemIndexes is VarRef ? "uint*" : IntPtr
 
         result := ComCall(10, this, prgiConflictItemIndexesMarshal, prgiConflictItemIndexes, UInt32, cChoices, "HRESULT")
         return result
@@ -194,14 +194,14 @@ export default struct ISyncMgrConflictResolveInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetIterationInfo := CallbackCreate(GetMethod(implObj, "GetIterationInfo"), flags, 4)
-        this.vtbl.GetPresenterNextStep := CallbackCreate(GetMethod(implObj, "GetPresenterNextStep"), flags, 2)
-        this.vtbl.GetPresenterChoice := CallbackCreate(GetMethod(implObj, "GetPresenterChoice"), flags, 3)
-        this.vtbl.GetItemChoiceCount := CallbackCreate(GetMethod(implObj, "GetItemChoiceCount"), flags, 2)
-        this.vtbl.GetItemChoice := CallbackCreate(GetMethod(implObj, "GetItemChoice"), flags, 3)
-        this.vtbl.SetPresenterNextStep := CallbackCreate(GetMethod(implObj, "SetPresenterNextStep"), flags, 2)
-        this.vtbl.SetPresenterChoice := CallbackCreate(GetMethod(implObj, "SetPresenterChoice"), flags, 3)
-        this.vtbl.SetItemChoices := CallbackCreate(GetMethod(implObj, "SetItemChoices"), flags, 3)
+        this.vtbl.GetIterationInfo := CallbackCreate(ObjBindMethod(implObj, "GetIterationInfo"), flags, 4)
+        this.vtbl.GetPresenterNextStep := CallbackCreate(ObjBindMethod(implObj, "GetPresenterNextStep"), flags, 2)
+        this.vtbl.GetPresenterChoice := CallbackCreate(ObjBindMethod(implObj, "GetPresenterChoice"), flags, 3)
+        this.vtbl.GetItemChoiceCount := CallbackCreate(ObjBindMethod(implObj, "GetItemChoiceCount"), flags, 2)
+        this.vtbl.GetItemChoice := CallbackCreate(ObjBindMethod(implObj, "GetItemChoice"), flags, 3)
+        this.vtbl.SetPresenterNextStep := CallbackCreate(ObjBindMethod(implObj, "SetPresenterNextStep"), flags, 2)
+        this.vtbl.SetPresenterChoice := CallbackCreate(ObjBindMethod(implObj, "SetPresenterChoice"), flags, 3)
+        this.vtbl.SetItemChoices := CallbackCreate(ObjBindMethod(implObj, "SetItemChoices"), flags, 3)
     }
 
     Dispose() {

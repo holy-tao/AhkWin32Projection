@@ -68,7 +68,7 @@ export default struct IDTFilter2 extends IDTFilter {
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter2-getcurrlicenseexpdate
      */
     GetCurrLicenseExpDate(_protType) {
-        _protTypeMarshal := _protType is VarRef ? "int*" : "ptr"
+        _protTypeMarshal := _protType is VarRef ? "int*" : IntPtr
 
         result := ComCall(12, this, _protTypeMarshal, _protType, "int*", &lpDateTime := 0, "HRESULT")
         return lpDateTime
@@ -133,9 +133,9 @@ export default struct IDTFilter2 extends IDTFilter {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ChallengeUrl := CallbackCreate(GetMethod(implObj, "get_ChallengeUrl"), flags, 2)
-        this.vtbl.GetCurrLicenseExpDate := CallbackCreate(GetMethod(implObj, "GetCurrLicenseExpDate"), flags, 3)
-        this.vtbl.GetLastErrorCode := CallbackCreate(GetMethod(implObj, "GetLastErrorCode"), flags, 1)
+        this.vtbl.get_ChallengeUrl := CallbackCreate(ObjBindMethod(implObj, "get_ChallengeUrl"), flags, 2)
+        this.vtbl.GetCurrLicenseExpDate := CallbackCreate(ObjBindMethod(implObj, "GetCurrLicenseExpDate"), flags, 3)
+        this.vtbl.GetLastErrorCode := CallbackCreate(ObjBindMethod(implObj, "GetLastErrorCode"), flags, 1)
     }
 
     Dispose() {

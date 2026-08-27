@@ -77,7 +77,6 @@ export default struct IPrintAsyncNotify extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} param0 
      * @param {PrintAsyncNotifyUserFilter} param1 
      * @param {PrintAsyncNotifyConversationStyle} param2 
@@ -98,8 +97,8 @@ export default struct IPrintAsyncNotify extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreatePrintAsyncNotifyChannel := CallbackCreate(GetMethod(implObj, "CreatePrintAsyncNotifyChannel"), flags, 7)
-        this.vtbl.CreatePrintAsyncNotifyRegistration := CallbackCreate(GetMethod(implObj, "CreatePrintAsyncNotifyRegistration"), flags, 6)
+        this.vtbl.CreatePrintAsyncNotifyChannel := CallbackCreate(ObjBindMethod(implObj, "CreatePrintAsyncNotifyChannel"), flags, 7)
+        this.vtbl.CreatePrintAsyncNotifyRegistration := CallbackCreate(ObjBindMethod(implObj, "CreatePrintAsyncNotifyRegistration"), flags, 6)
     }
 
     Dispose() {

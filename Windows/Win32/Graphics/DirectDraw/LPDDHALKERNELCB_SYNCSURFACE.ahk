@@ -19,7 +19,6 @@ export default struct LPDDHALKERNELCB_SYNCSURFACE {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_SYNCSURFACEDATA>} param0 
      * @returns {Integer} 
      */

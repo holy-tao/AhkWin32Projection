@@ -18,13 +18,12 @@ export default struct PFN_CSP_REALLOC {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Address 
      * @param {Pointer} _Size 
      * @returns {Pointer<Void>} 
      */
     Call(_Address, _Size) {
-        _AddressMarshal := _Address is VarRef ? "ptr" : "ptr"
+        _AddressMarshal := _Address is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _AddressMarshal, _Address, IntPtr, _Size, IntPtr)
         return result

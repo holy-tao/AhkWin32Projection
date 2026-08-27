@@ -64,7 +64,6 @@ export default struct IHTMLCSSMediaRule extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -74,7 +73,6 @@ export default struct IHTMLCSSMediaRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_media() {
@@ -84,7 +82,6 @@ export default struct IHTMLCSSMediaRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStyleSheetRulesCollection} 
      */
     get_cssRules() {
@@ -93,7 +90,6 @@ export default struct IHTMLCSSMediaRule extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrRule 
      * @param {Integer} lIndex 
      * @returns {Integer} 
@@ -106,7 +102,6 @@ export default struct IHTMLCSSMediaRule extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lIndex 
      * @returns {HRESULT} 
      */
@@ -124,11 +119,11 @@ export default struct IHTMLCSSMediaRule extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_media := CallbackCreate(GetMethod(implObj, "put_media"), flags, 2)
-        this.vtbl.get_media := CallbackCreate(GetMethod(implObj, "get_media"), flags, 2)
-        this.vtbl.get_cssRules := CallbackCreate(GetMethod(implObj, "get_cssRules"), flags, 2)
-        this.vtbl.insertRule := CallbackCreate(GetMethod(implObj, "insertRule"), flags, 4)
-        this.vtbl.deleteRule := CallbackCreate(GetMethod(implObj, "deleteRule"), flags, 2)
+        this.vtbl.put_media := CallbackCreate(ObjBindMethod(implObj, "put_media"), flags, 2)
+        this.vtbl.get_media := CallbackCreate(ObjBindMethod(implObj, "get_media"), flags, 2)
+        this.vtbl.get_cssRules := CallbackCreate(ObjBindMethod(implObj, "get_cssRules"), flags, 2)
+        this.vtbl.insertRule := CallbackCreate(ObjBindMethod(implObj, "insertRule"), flags, 4)
+        this.vtbl.deleteRule := CallbackCreate(ObjBindMethod(implObj, "deleteRule"), flags, 2)
     }
 
     Dispose() {

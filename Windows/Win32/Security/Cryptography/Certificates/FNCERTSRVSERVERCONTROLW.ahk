@@ -20,7 +20,6 @@ export default struct FNCERTSRVSERVERCONTROLW {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszServerName 
      * @param {Integer} dwControlFlags 
      * @param {Pointer<Integer>} pcbOut 
@@ -30,8 +29,8 @@ export default struct FNCERTSRVSERVERCONTROLW {
     Call(pwszServerName, dwControlFlags, pcbOut, ppbOut) {
         pwszServerName := pwszServerName is String ? StrPtr(pwszServerName) : pwszServerName
 
-        pcbOutMarshal := pcbOut is VarRef ? "uint*" : "ptr"
-        ppbOutMarshal := ppbOut is VarRef ? "ptr*" : "ptr"
+        pcbOutMarshal := pcbOut is VarRef ? "uint*" : IntPtr
+        ppbOutMarshal := ppbOut is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, "ptr", pwszServerName, UInt32, dwControlFlags, pcbOutMarshal, pcbOut, ppbOutMarshal, ppbOut, "HRESULT")
         return result

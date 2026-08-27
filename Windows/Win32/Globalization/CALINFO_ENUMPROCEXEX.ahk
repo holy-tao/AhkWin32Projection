@@ -21,7 +21,6 @@ export default struct CALINFO_ENUMPROCEXEX {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @param {Integer} param1 
      * @param {PWSTR} param2 

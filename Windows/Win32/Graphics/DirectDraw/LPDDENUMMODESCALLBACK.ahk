@@ -24,7 +24,6 @@ export default struct LPDDENUMMODESCALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<DDSURFACEDESC>} param0 A pointer to a read-only <a href="https://docs.microsoft.com/windows/win32/api/ddraw/ns-ddraw-ddsurfacedesc">DDSURFACEDESC</a> structure that provides the monitor frequency and the mode that can be created.
      * @param {Pointer<Void>} param1 A pointer to an application-defined structure to be passed to the callback function each time that the function is called.
      * @returns {HRESULT} The callback function returns DDENUMRET_OK to continue the enumeration.
@@ -32,7 +31,7 @@ export default struct LPDDENUMMODESCALLBACK {
      * It returns DDENUMRET_CANCEL to stop the enumeration.
      */
     Call(param0, param1) {
-        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+        param1Marshal := param1 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, DDSURFACEDESC.Ptr, param0, param1Marshal, param1, "HRESULT")
         return result

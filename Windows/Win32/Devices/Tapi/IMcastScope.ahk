@@ -142,11 +142,11 @@ export default struct IMcastScope extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ScopeID := CallbackCreate(GetMethod(implObj, "get_ScopeID"), flags, 2)
-        this.vtbl.get_ServerID := CallbackCreate(GetMethod(implObj, "get_ServerID"), flags, 2)
-        this.vtbl.get_InterfaceID := CallbackCreate(GetMethod(implObj, "get_InterfaceID"), flags, 2)
-        this.vtbl.get_ScopeDescription := CallbackCreate(GetMethod(implObj, "get_ScopeDescription"), flags, 2)
-        this.vtbl.get_TTL := CallbackCreate(GetMethod(implObj, "get_TTL"), flags, 2)
+        this.vtbl.get_ScopeID := CallbackCreate(ObjBindMethod(implObj, "get_ScopeID"), flags, 2)
+        this.vtbl.get_ServerID := CallbackCreate(ObjBindMethod(implObj, "get_ServerID"), flags, 2)
+        this.vtbl.get_InterfaceID := CallbackCreate(ObjBindMethod(implObj, "get_InterfaceID"), flags, 2)
+        this.vtbl.get_ScopeDescription := CallbackCreate(ObjBindMethod(implObj, "get_ScopeDescription"), flags, 2)
+        this.vtbl.get_TTL := CallbackCreate(ObjBindMethod(implObj, "get_TTL"), flags, 2)
     }
 
     Dispose() {

@@ -67,7 +67,7 @@ export default struct IVssHardwareSnapshotProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsshardwaresnapshotprovider-arelunssupported
      */
     AreLunsSupported(lLunCount, lContext, rgwszDevices, pLunInformation) {
-        rgwszDevicesMarshal := rgwszDevices is VarRef ? "ptr*" : "ptr"
+        rgwszDevicesMarshal := rgwszDevices is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, Int32, lLunCount, Int32, lContext, rgwszDevicesMarshal, rgwszDevices, VDS_LUN_INFORMATION.Ptr, pLunInformation, BOOL.Ptr, &pbIsSupported := 0, "HRESULT")
         return pbIsSupported
@@ -105,7 +105,7 @@ export default struct IVssHardwareSnapshotProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsshardwaresnapshotprovider-fillinluninfo
      */
     FillInLunInfo(wszDeviceName, pLunInfo) {
-        wszDeviceNameMarshal := wszDeviceName is VarRef ? "ushort*" : "ptr"
+        wszDeviceNameMarshal := wszDeviceName is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(4, this, wszDeviceNameMarshal, wszDeviceName, VDS_LUN_INFORMATION.Ptr, pLunInfo, BOOL.Ptr, &pbIsSupported := 0, "HRESULT")
         return pbIsSupported
@@ -235,7 +235,7 @@ export default struct IVssHardwareSnapshotProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsshardwaresnapshotprovider-beginpreparesnapshot
      */
     BeginPrepareSnapshot(SnapshotSetId, SnapshotId, lContext, lLunCount, rgDeviceNames, rgLunInformation) {
-        rgDeviceNamesMarshal := rgDeviceNames is VarRef ? "ptr*" : "ptr"
+        rgDeviceNamesMarshal := rgDeviceNames is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, Guid, SnapshotSetId, Guid, SnapshotId, Int32, lContext, Int32, lLunCount, rgDeviceNamesMarshal, rgDeviceNames, VDS_LUN_INFORMATION.Ptr, rgLunInformation, "HRESULT")
         return result
@@ -338,7 +338,7 @@ export default struct IVssHardwareSnapshotProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsshardwaresnapshotprovider-gettargetluns
      */
     GetTargetLuns(lLunCount, rgDeviceNames, rgSourceLuns, rgDestinationLuns) {
-        rgDeviceNamesMarshal := rgDeviceNames is VarRef ? "ptr*" : "ptr"
+        rgDeviceNamesMarshal := rgDeviceNames is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(6, this, Int32, lLunCount, rgDeviceNamesMarshal, rgDeviceNames, VDS_LUN_INFORMATION.Ptr, rgSourceLuns, VDS_LUN_INFORMATION.Ptr, rgDestinationLuns, "HRESULT")
         return result
@@ -520,7 +520,7 @@ export default struct IVssHardwareSnapshotProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsshardwaresnapshotprovider-onlunempty
      */
     OnLunEmpty(wszDeviceName, pInformation) {
-        wszDeviceNameMarshal := wszDeviceName is VarRef ? "ushort*" : "ptr"
+        wszDeviceNameMarshal := wszDeviceName is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(8, this, wszDeviceNameMarshal, wszDeviceName, VDS_LUN_INFORMATION.Ptr, pInformation, "HRESULT")
         return result
@@ -535,12 +535,12 @@ export default struct IVssHardwareSnapshotProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AreLunsSupported := CallbackCreate(GetMethod(implObj, "AreLunsSupported"), flags, 6)
-        this.vtbl.FillInLunInfo := CallbackCreate(GetMethod(implObj, "FillInLunInfo"), flags, 4)
-        this.vtbl.BeginPrepareSnapshot := CallbackCreate(GetMethod(implObj, "BeginPrepareSnapshot"), flags, 7)
-        this.vtbl.GetTargetLuns := CallbackCreate(GetMethod(implObj, "GetTargetLuns"), flags, 5)
-        this.vtbl.LocateLuns := CallbackCreate(GetMethod(implObj, "LocateLuns"), flags, 3)
-        this.vtbl.OnLunEmpty := CallbackCreate(GetMethod(implObj, "OnLunEmpty"), flags, 3)
+        this.vtbl.AreLunsSupported := CallbackCreate(ObjBindMethod(implObj, "AreLunsSupported"), flags, 6)
+        this.vtbl.FillInLunInfo := CallbackCreate(ObjBindMethod(implObj, "FillInLunInfo"), flags, 4)
+        this.vtbl.BeginPrepareSnapshot := CallbackCreate(ObjBindMethod(implObj, "BeginPrepareSnapshot"), flags, 7)
+        this.vtbl.GetTargetLuns := CallbackCreate(ObjBindMethod(implObj, "GetTargetLuns"), flags, 5)
+        this.vtbl.LocateLuns := CallbackCreate(ObjBindMethod(implObj, "LocateLuns"), flags, 3)
+        this.vtbl.OnLunEmpty := CallbackCreate(ObjBindMethod(implObj, "OnLunEmpty"), flags, 3)
     }
 
     Dispose() {

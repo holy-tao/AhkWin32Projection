@@ -41,7 +41,6 @@ export default struct IInternetZoneManagerEx2 extends IInternetZoneManagerEx {
     }
 
     /**
-     * 
      * @param {Integer} dwZone 
      * @param {Pointer<ZONEATTRIBUTES>} pZoneAttributes 
      * @param {Integer} dwFlags 
@@ -53,7 +52,6 @@ export default struct IInternetZoneManagerEx2 extends IInternetZoneManagerEx {
     }
 
     /**
-     * 
      * @param {Integer} dwZoneIndex 
      * @param {BOOL} fRespectPolicy 
      * @param {Pointer<Integer>} pdwState 
@@ -61,15 +59,14 @@ export default struct IInternetZoneManagerEx2 extends IInternetZoneManagerEx {
      * @returns {HRESULT} 
      */
     GetZoneSecurityState(dwZoneIndex, fRespectPolicy, pdwState, pfPolicyEncountered) {
-        pdwStateMarshal := pdwState is VarRef ? "uint*" : "ptr"
-        pfPolicyEncounteredMarshal := pfPolicyEncountered is VarRef ? "int*" : "ptr"
+        pdwStateMarshal := pdwState is VarRef ? "uint*" : IntPtr
+        pfPolicyEncounteredMarshal := pfPolicyEncountered is VarRef ? "int*" : IntPtr
 
         result := ComCall(18, this, UInt32, dwZoneIndex, BOOL, fRespectPolicy, pdwStateMarshal, pdwState, pfPolicyEncounteredMarshal, pfPolicyEncountered, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {BOOL} fRespectPolicy 
      * @param {Pointer<Integer>} pdwState 
      * @param {Pointer<BOOL>} pfPolicyEncountered 
@@ -77,15 +74,14 @@ export default struct IInternetZoneManagerEx2 extends IInternetZoneManagerEx {
      * @returns {HRESULT} 
      */
     GetIESecurityState(fRespectPolicy, pdwState, pfPolicyEncountered, fNoCache) {
-        pdwStateMarshal := pdwState is VarRef ? "uint*" : "ptr"
-        pfPolicyEncounteredMarshal := pfPolicyEncountered is VarRef ? "int*" : "ptr"
+        pdwStateMarshal := pdwState is VarRef ? "uint*" : IntPtr
+        pfPolicyEncounteredMarshal := pfPolicyEncountered is VarRef ? "int*" : IntPtr
 
         result := ComCall(19, this, BOOL, fRespectPolicy, pdwStateMarshal, pdwState, pfPolicyEncounteredMarshal, pfPolicyEncountered, BOOL, fNoCache, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     FixUnsecureSettings() {
@@ -102,10 +98,10 @@ export default struct IInternetZoneManagerEx2 extends IInternetZoneManagerEx {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetZoneAttributesEx := CallbackCreate(GetMethod(implObj, "GetZoneAttributesEx"), flags, 4)
-        this.vtbl.GetZoneSecurityState := CallbackCreate(GetMethod(implObj, "GetZoneSecurityState"), flags, 5)
-        this.vtbl.GetIESecurityState := CallbackCreate(GetMethod(implObj, "GetIESecurityState"), flags, 5)
-        this.vtbl.FixUnsecureSettings := CallbackCreate(GetMethod(implObj, "FixUnsecureSettings"), flags, 1)
+        this.vtbl.GetZoneAttributesEx := CallbackCreate(ObjBindMethod(implObj, "GetZoneAttributesEx"), flags, 4)
+        this.vtbl.GetZoneSecurityState := CallbackCreate(ObjBindMethod(implObj, "GetZoneSecurityState"), flags, 5)
+        this.vtbl.GetIESecurityState := CallbackCreate(ObjBindMethod(implObj, "GetIESecurityState"), flags, 5)
+        this.vtbl.FixUnsecureSettings := CallbackCreate(ObjBindMethod(implObj, "FixUnsecureSettings"), flags, 1)
     }
 
     Dispose() {

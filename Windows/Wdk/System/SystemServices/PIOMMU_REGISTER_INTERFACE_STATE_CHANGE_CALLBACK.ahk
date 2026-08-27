@@ -19,7 +19,6 @@ export default struct PIOMMU_REGISTER_INTERFACE_STATE_CHANGE_CALLBACK {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

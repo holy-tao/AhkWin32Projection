@@ -21,7 +21,6 @@ export default struct PSYMBOLSERVERCALLBACKPROC {
     }
 
     /**
-     * 
      * @param {Pointer} action 
      * @param {Integer} data The format of this parameter depends on the value of the <i>action</i> parameter.
      * @param {Integer} _context The context information provided by calling <a href="https://docs.microsoft.com/previous-versions/ff797954(v=vs.85)">SymbolServerSetOptions</a> with SSRVOPT_SETCONTEXT.

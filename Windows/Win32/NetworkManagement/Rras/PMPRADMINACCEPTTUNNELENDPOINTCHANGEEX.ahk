@@ -20,7 +20,6 @@ export default struct PMPRADMINACCEPTTUNNELENDPOINTCHANGEEX {
     }
 
     /**
-     * 
      * @param {Pointer<RAS_CONNECTION_EX>} param0 
      * @returns {BOOL} 
      */

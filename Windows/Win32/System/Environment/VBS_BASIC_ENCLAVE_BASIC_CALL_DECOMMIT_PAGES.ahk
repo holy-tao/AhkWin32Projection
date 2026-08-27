@@ -18,13 +18,12 @@ export default struct VBS_BASIC_ENCLAVE_BASIC_CALL_DECOMMIT_PAGES {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} EnclaveAddress 
      * @param {Pointer} NumberOfBytes 
      * @returns {Integer} 
      */
     Call(EnclaveAddress, NumberOfBytes) {
-        EnclaveAddressMarshal := EnclaveAddress is VarRef ? "ptr" : "ptr"
+        EnclaveAddressMarshal := EnclaveAddress is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, EnclaveAddressMarshal, EnclaveAddress, IntPtr, NumberOfBytes, Int32)
         return result

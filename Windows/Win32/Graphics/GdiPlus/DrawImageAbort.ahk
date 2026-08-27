@@ -19,7 +19,6 @@ export default struct DrawImageAbort {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     Call() {

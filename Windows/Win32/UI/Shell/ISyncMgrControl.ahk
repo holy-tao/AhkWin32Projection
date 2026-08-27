@@ -133,7 +133,7 @@ export default struct ISyncMgrControl extends IUnknown {
     StartItemSync(pszHandlerID, ppszItemIDs, cItems, hwndOwner, punk, nSyncControlFlags, pResult) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
 
-        ppszItemIDsMarshal := ppszItemIDs is VarRef ? "ptr*" : "ptr"
+        ppszItemIDsMarshal := ppszItemIDs is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, "ptr", pszHandlerID, ppszItemIDsMarshal, ppszItemIDs, UInt32, cItems, HWND, hwndOwner, "ptr", punk, SYNCMGR_SYNC_CONTROL_FLAGS, nSyncControlFlags, "ptr", pResult, "HRESULT")
         return result
@@ -192,7 +192,7 @@ export default struct ISyncMgrControl extends IUnknown {
     StopItemSync(pszHandlerID, ppszItemIDs, cItems) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
 
-        ppszItemIDsMarshal := ppszItemIDs is VarRef ? "ptr*" : "ptr"
+        ppszItemIDsMarshal := ppszItemIDs is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(7, this, "ptr", pszHandlerID, ppszItemIDsMarshal, ppszItemIDs, UInt32, cItems, "HRESULT")
         return result
@@ -305,7 +305,6 @@ export default struct ISyncMgrControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszHandlerID 
      * @param {PWSTR} pszItemID 
      * @param {ISyncMgrConflict} pConflict 
@@ -455,21 +454,21 @@ export default struct ISyncMgrControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StartHandlerSync := CallbackCreate(GetMethod(implObj, "StartHandlerSync"), flags, 6)
-        this.vtbl.StartItemSync := CallbackCreate(GetMethod(implObj, "StartItemSync"), flags, 8)
-        this.vtbl.StartSyncAll := CallbackCreate(GetMethod(implObj, "StartSyncAll"), flags, 2)
-        this.vtbl.StopHandlerSync := CallbackCreate(GetMethod(implObj, "StopHandlerSync"), flags, 2)
-        this.vtbl.StopItemSync := CallbackCreate(GetMethod(implObj, "StopItemSync"), flags, 4)
-        this.vtbl.StopSyncAll := CallbackCreate(GetMethod(implObj, "StopSyncAll"), flags, 1)
-        this.vtbl.UpdateHandlerCollection := CallbackCreate(GetMethod(implObj, "UpdateHandlerCollection"), flags, 3)
-        this.vtbl.UpdateHandler := CallbackCreate(GetMethod(implObj, "UpdateHandler"), flags, 3)
-        this.vtbl.UpdateItem := CallbackCreate(GetMethod(implObj, "UpdateItem"), flags, 4)
-        this.vtbl.UpdateEvents := CallbackCreate(GetMethod(implObj, "UpdateEvents"), flags, 4)
-        this.vtbl.UpdateConflict := CallbackCreate(GetMethod(implObj, "UpdateConflict"), flags, 5)
-        this.vtbl.UpdateConflicts := CallbackCreate(GetMethod(implObj, "UpdateConflicts"), flags, 4)
-        this.vtbl.ActivateHandler := CallbackCreate(GetMethod(implObj, "ActivateHandler"), flags, 5)
-        this.vtbl.EnableHandler := CallbackCreate(GetMethod(implObj, "EnableHandler"), flags, 5)
-        this.vtbl.EnableItem := CallbackCreate(GetMethod(implObj, "EnableItem"), flags, 6)
+        this.vtbl.StartHandlerSync := CallbackCreate(ObjBindMethod(implObj, "StartHandlerSync"), flags, 6)
+        this.vtbl.StartItemSync := CallbackCreate(ObjBindMethod(implObj, "StartItemSync"), flags, 8)
+        this.vtbl.StartSyncAll := CallbackCreate(ObjBindMethod(implObj, "StartSyncAll"), flags, 2)
+        this.vtbl.StopHandlerSync := CallbackCreate(ObjBindMethod(implObj, "StopHandlerSync"), flags, 2)
+        this.vtbl.StopItemSync := CallbackCreate(ObjBindMethod(implObj, "StopItemSync"), flags, 4)
+        this.vtbl.StopSyncAll := CallbackCreate(ObjBindMethod(implObj, "StopSyncAll"), flags, 1)
+        this.vtbl.UpdateHandlerCollection := CallbackCreate(ObjBindMethod(implObj, "UpdateHandlerCollection"), flags, 3)
+        this.vtbl.UpdateHandler := CallbackCreate(ObjBindMethod(implObj, "UpdateHandler"), flags, 3)
+        this.vtbl.UpdateItem := CallbackCreate(ObjBindMethod(implObj, "UpdateItem"), flags, 4)
+        this.vtbl.UpdateEvents := CallbackCreate(ObjBindMethod(implObj, "UpdateEvents"), flags, 4)
+        this.vtbl.UpdateConflict := CallbackCreate(ObjBindMethod(implObj, "UpdateConflict"), flags, 5)
+        this.vtbl.UpdateConflicts := CallbackCreate(ObjBindMethod(implObj, "UpdateConflicts"), flags, 4)
+        this.vtbl.ActivateHandler := CallbackCreate(ObjBindMethod(implObj, "ActivateHandler"), flags, 5)
+        this.vtbl.EnableHandler := CallbackCreate(ObjBindMethod(implObj, "EnableHandler"), flags, 5)
+        this.vtbl.EnableItem := CallbackCreate(ObjBindMethod(implObj, "EnableItem"), flags, 6)
     }
 
     Dispose() {

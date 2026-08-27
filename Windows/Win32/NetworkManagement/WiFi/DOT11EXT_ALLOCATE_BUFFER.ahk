@@ -18,13 +18,12 @@ export default struct DOT11EXT_ALLOCATE_BUFFER {
     }
 
     /**
-     * 
      * @param {Integer} dwByteCount 
      * @param {Pointer<Pointer<Void>>} ppvBuffer 
      * @returns {Integer} 
      */
     Call(dwByteCount, ppvBuffer) {
-        ppvBufferMarshal := ppvBuffer is VarRef ? "ptr*" : "ptr"
+        ppvBufferMarshal := ppvBuffer is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, UInt32, dwByteCount, ppvBufferMarshal, ppvBuffer, UInt32)
         return result

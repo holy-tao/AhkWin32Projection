@@ -21,7 +21,6 @@ export default struct PDXVA2SW_VIDEOPROCESSSETRENDERTARGET {
     }
 
     /**
-     * 
      * @param {HANDLE} hDevice 
      * @param {IDirect3DSurface9} pRenderTarget 
      * @returns {HRESULT} 

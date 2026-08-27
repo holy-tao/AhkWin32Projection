@@ -20,13 +20,15 @@ export default struct DOT11EXT_ONEX_START {
     }
 
     /**
-     * 
      * @param {HANDLE} hDot11SvcHandle 
      * @param {Pointer<EAP_ATTRIBUTES>} pEapAttributes 
      * @returns {Integer} 
      */
     Call(hDot11SvcHandle, pEapAttributes) {
-        result := DllCall(this.value, HANDLE, hDot11SvcHandle, EAP_ATTRIBUTES.Ptr, pEapAttributes, UInt32)
+        hDot11SvcHandleMarshal := hDot11SvcHandle == 0 ? IntPtr : HANDLE
+        pEapAttributesMarshal := pEapAttributes == 0 ? IntPtr : EAP_ATTRIBUTES.Ptr
+
+        result := DllCall(this.value, hDot11SvcHandleMarshal, hDot11SvcHandle, pEapAttributesMarshal, pEapAttributes, UInt32)
         return result
     }
 

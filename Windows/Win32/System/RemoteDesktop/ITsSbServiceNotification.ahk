@@ -67,8 +67,8 @@ export default struct ITsSbServiceNotification extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.NotifyServiceFailure := CallbackCreate(GetMethod(implObj, "NotifyServiceFailure"), flags, 1)
-        this.vtbl.NotifyServiceSuccess := CallbackCreate(GetMethod(implObj, "NotifyServiceSuccess"), flags, 1)
+        this.vtbl.NotifyServiceFailure := CallbackCreate(ObjBindMethod(implObj, "NotifyServiceFailure"), flags, 1)
+        this.vtbl.NotifyServiceSuccess := CallbackCreate(ObjBindMethod(implObj, "NotifyServiceSuccess"), flags, 1)
     }
 
     Dispose() {

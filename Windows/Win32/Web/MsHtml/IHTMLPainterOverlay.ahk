@@ -37,7 +37,6 @@ export default struct IHTMLPainterOverlay extends IUnknown {
     }
 
     /**
-     * 
      * @param {RECT} rcDevice 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,7 @@ export default struct IHTMLPainterOverlay extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnMove := CallbackCreate(GetMethod(implObj, "OnMove"), flags, 2)
+        this.vtbl.OnMove := CallbackCreate(ObjBindMethod(implObj, "OnMove"), flags, 2)
     }
 
     Dispose() {

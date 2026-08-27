@@ -64,8 +64,8 @@ export default struct IMFBufferListNotify extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnAddSourceBuffer := CallbackCreate(GetMethod(implObj, "OnAddSourceBuffer"), flags, 1)
-        this.vtbl.OnRemoveSourceBuffer := CallbackCreate(GetMethod(implObj, "OnRemoveSourceBuffer"), flags, 1)
+        this.vtbl.OnAddSourceBuffer := CallbackCreate(ObjBindMethod(implObj, "OnAddSourceBuffer"), flags, 1)
+        this.vtbl.OnRemoveSourceBuffer := CallbackCreate(ObjBindMethod(implObj, "OnRemoveSourceBuffer"), flags, 1)
     }
 
     Dispose() {

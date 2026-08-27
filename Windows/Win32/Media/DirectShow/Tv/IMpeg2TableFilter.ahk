@@ -125,12 +125,12 @@ export default struct IMpeg2TableFilter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddPID := CallbackCreate(GetMethod(implObj, "AddPID"), flags, 2)
-        this.vtbl.AddTable := CallbackCreate(GetMethod(implObj, "AddTable"), flags, 3)
-        this.vtbl.AddExtension := CallbackCreate(GetMethod(implObj, "AddExtension"), flags, 4)
-        this.vtbl.RemovePID := CallbackCreate(GetMethod(implObj, "RemovePID"), flags, 2)
-        this.vtbl.RemoveTable := CallbackCreate(GetMethod(implObj, "RemoveTable"), flags, 3)
-        this.vtbl.RemoveExtension := CallbackCreate(GetMethod(implObj, "RemoveExtension"), flags, 4)
+        this.vtbl.AddPID := CallbackCreate(ObjBindMethod(implObj, "AddPID"), flags, 2)
+        this.vtbl.AddTable := CallbackCreate(ObjBindMethod(implObj, "AddTable"), flags, 3)
+        this.vtbl.AddExtension := CallbackCreate(ObjBindMethod(implObj, "AddExtension"), flags, 4)
+        this.vtbl.RemovePID := CallbackCreate(ObjBindMethod(implObj, "RemovePID"), flags, 2)
+        this.vtbl.RemoveTable := CallbackCreate(ObjBindMethod(implObj, "RemoveTable"), flags, 3)
+        this.vtbl.RemoveExtension := CallbackCreate(ObjBindMethod(implObj, "RemoveExtension"), flags, 4)
     }
 
     Dispose() {

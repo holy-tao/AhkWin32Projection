@@ -139,10 +139,10 @@ export default struct IMultipleViewProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetViewName := CallbackCreate(GetMethod(implObj, "GetViewName"), flags, 3)
-        this.vtbl.SetCurrentView := CallbackCreate(GetMethod(implObj, "SetCurrentView"), flags, 2)
-        this.vtbl.get_CurrentView := CallbackCreate(GetMethod(implObj, "get_CurrentView"), flags, 2)
-        this.vtbl.GetSupportedViews := CallbackCreate(GetMethod(implObj, "GetSupportedViews"), flags, 2)
+        this.vtbl.GetViewName := CallbackCreate(ObjBindMethod(implObj, "GetViewName"), flags, 3)
+        this.vtbl.SetCurrentView := CallbackCreate(ObjBindMethod(implObj, "SetCurrentView"), flags, 2)
+        this.vtbl.get_CurrentView := CallbackCreate(ObjBindMethod(implObj, "get_CurrentView"), flags, 2)
+        this.vtbl.GetSupportedViews := CallbackCreate(ObjBindMethod(implObj, "GetSupportedViews"), flags, 2)
     }
 
     Dispose() {

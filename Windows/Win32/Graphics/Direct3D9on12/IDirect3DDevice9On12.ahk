@@ -41,20 +41,18 @@ export default struct IDirect3DDevice9On12 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Pointer<Void>>} ppvDevice 
      * @returns {HRESULT} 
      */
     GetD3D12Device(riid, ppvDevice) {
-        ppvDeviceMarshal := ppvDevice is VarRef ? "ptr*" : "ptr"
+        ppvDeviceMarshal := ppvDevice is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, Guid.Ptr, riid, ppvDeviceMarshal, ppvDevice, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IDirect3DResource9} pResource 
      * @param {ID3D12CommandQueue} pCommandQueue 
      * @param {Pointer<Guid>} riid 
@@ -62,21 +60,20 @@ export default struct IDirect3DDevice9On12 extends IUnknown {
      * @returns {HRESULT} 
      */
     UnwrapUnderlyingResource(pResource, pCommandQueue, riid, ppvResource12) {
-        ppvResource12Marshal := ppvResource12 is VarRef ? "ptr*" : "ptr"
+        ppvResource12Marshal := ppvResource12 is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, "ptr", pResource, "ptr", pCommandQueue, Guid.Ptr, riid, ppvResource12Marshal, ppvResource12, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IDirect3DResource9} pResource 
      * @param {Integer} NumSync 
      * @param {Pointer<Integer>} pSignalValues 
      * @returns {ID3D12Fence} 
      */
     ReturnUnderlyingResource(pResource, NumSync, pSignalValues) {
-        pSignalValuesMarshal := pSignalValues is VarRef ? "uint*" : "ptr"
+        pSignalValuesMarshal := pSignalValues is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, "ptr", pResource, UInt32, NumSync, pSignalValuesMarshal, pSignalValues, "ptr*", &ppFences := 0, "HRESULT")
         return ID3D12Fence(ppFences)
@@ -91,9 +88,9 @@ export default struct IDirect3DDevice9On12 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetD3D12Device := CallbackCreate(GetMethod(implObj, "GetD3D12Device"), flags, 3)
-        this.vtbl.UnwrapUnderlyingResource := CallbackCreate(GetMethod(implObj, "UnwrapUnderlyingResource"), flags, 5)
-        this.vtbl.ReturnUnderlyingResource := CallbackCreate(GetMethod(implObj, "ReturnUnderlyingResource"), flags, 5)
+        this.vtbl.GetD3D12Device := CallbackCreate(ObjBindMethod(implObj, "GetD3D12Device"), flags, 3)
+        this.vtbl.UnwrapUnderlyingResource := CallbackCreate(ObjBindMethod(implObj, "UnwrapUnderlyingResource"), flags, 5)
+        this.vtbl.ReturnUnderlyingResource := CallbackCreate(ObjBindMethod(implObj, "ReturnUnderlyingResource"), flags, 5)
     }
 
     Dispose() {

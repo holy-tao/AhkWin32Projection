@@ -19,13 +19,12 @@ export default struct PKSEC_INSERT_LIST_ENTRY {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} List 
      * @param {Pointer<KSEC_LIST_ENTRY>} Entry 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(List, Entry) {
-        ListMarshal := List is VarRef ? "ptr" : "ptr"
+        ListMarshal := List is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, ListMarshal, List, KSEC_LIST_ENTRY.Ptr, Entry)
     }

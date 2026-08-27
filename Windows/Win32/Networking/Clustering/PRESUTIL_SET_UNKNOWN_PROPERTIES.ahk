@@ -20,7 +20,6 @@ export default struct PRESUTIL_SET_UNKNOWN_PROPERTIES {
     }
 
     /**
-     * 
      * @param {HKEY} hkeyClusterKey 
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable 
      * @param {Integer} pInPropertyList 

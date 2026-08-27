@@ -181,8 +181,8 @@ export default struct IStreamBuilder extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Render := CallbackCreate(GetMethod(implObj, "Render"), flags, 3)
-        this.vtbl.Backout := CallbackCreate(GetMethod(implObj, "Backout"), flags, 3)
+        this.vtbl.Render := CallbackCreate(ObjBindMethod(implObj, "Render"), flags, 3)
+        this.vtbl.Backout := CallbackCreate(ObjBindMethod(implObj, "Backout"), flags, 3)
     }
 
     Dispose() {

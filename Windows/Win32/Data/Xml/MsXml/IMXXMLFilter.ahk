@@ -79,7 +79,6 @@ export default struct IMXXMLFilter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strName 
      * @returns {VARIANT_BOOL} 
      */
@@ -91,7 +90,6 @@ export default struct IMXXMLFilter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strName 
      * @param {VARIANT_BOOL} fValue 
      * @returns {HRESULT} 
@@ -104,7 +102,6 @@ export default struct IMXXMLFilter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strName 
      * @returns {VARIANT} 
      */
@@ -117,7 +114,6 @@ export default struct IMXXMLFilter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strName 
      * @param {VARIANT} varValue 
      * @returns {HRESULT} 
@@ -130,7 +126,6 @@ export default struct IMXXMLFilter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_entityResolver() {
@@ -139,7 +134,6 @@ export default struct IMXXMLFilter extends IDispatch {
     }
 
     /**
-     * 
      * @param {IUnknown} oResolver 
      * @returns {HRESULT} 
      */
@@ -149,7 +143,6 @@ export default struct IMXXMLFilter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_contentHandler() {
@@ -158,7 +151,6 @@ export default struct IMXXMLFilter extends IDispatch {
     }
 
     /**
-     * 
      * @param {IUnknown} oHandler 
      * @returns {HRESULT} 
      */
@@ -168,7 +160,6 @@ export default struct IMXXMLFilter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_dtdHandler() {
@@ -177,7 +168,6 @@ export default struct IMXXMLFilter extends IDispatch {
     }
 
     /**
-     * 
      * @param {IUnknown} oHandler 
      * @returns {HRESULT} 
      */
@@ -187,7 +177,6 @@ export default struct IMXXMLFilter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_errorHandler() {
@@ -196,7 +185,6 @@ export default struct IMXXMLFilter extends IDispatch {
     }
 
     /**
-     * 
      * @param {IUnknown} oHandler 
      * @returns {HRESULT} 
      */
@@ -214,18 +202,18 @@ export default struct IMXXMLFilter extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.getFeature := CallbackCreate(GetMethod(implObj, "getFeature"), flags, 3)
-        this.vtbl.putFeature := CallbackCreate(GetMethod(implObj, "putFeature"), flags, 3)
-        this.vtbl.getProperty := CallbackCreate(GetMethod(implObj, "getProperty"), flags, 3)
-        this.vtbl.putProperty := CallbackCreate(GetMethod(implObj, "putProperty"), flags, 3)
-        this.vtbl.get_entityResolver := CallbackCreate(GetMethod(implObj, "get_entityResolver"), flags, 2)
-        this.vtbl.putref_entityResolver := CallbackCreate(GetMethod(implObj, "putref_entityResolver"), flags, 2)
-        this.vtbl.get_contentHandler := CallbackCreate(GetMethod(implObj, "get_contentHandler"), flags, 2)
-        this.vtbl.putref_contentHandler := CallbackCreate(GetMethod(implObj, "putref_contentHandler"), flags, 2)
-        this.vtbl.get_dtdHandler := CallbackCreate(GetMethod(implObj, "get_dtdHandler"), flags, 2)
-        this.vtbl.putref_dtdHandler := CallbackCreate(GetMethod(implObj, "putref_dtdHandler"), flags, 2)
-        this.vtbl.get_errorHandler := CallbackCreate(GetMethod(implObj, "get_errorHandler"), flags, 2)
-        this.vtbl.putref_errorHandler := CallbackCreate(GetMethod(implObj, "putref_errorHandler"), flags, 2)
+        this.vtbl.getFeature := CallbackCreate(ObjBindMethod(implObj, "getFeature"), flags, 3)
+        this.vtbl.putFeature := CallbackCreate(ObjBindMethod(implObj, "putFeature"), flags, 3)
+        this.vtbl.getProperty := CallbackCreate(ObjBindMethod(implObj, "getProperty"), flags, 3)
+        this.vtbl.putProperty := CallbackCreate(ObjBindMethod(implObj, "putProperty"), flags, 3)
+        this.vtbl.get_entityResolver := CallbackCreate(ObjBindMethod(implObj, "get_entityResolver"), flags, 2)
+        this.vtbl.putref_entityResolver := CallbackCreate(ObjBindMethod(implObj, "putref_entityResolver"), flags, 2)
+        this.vtbl.get_contentHandler := CallbackCreate(ObjBindMethod(implObj, "get_contentHandler"), flags, 2)
+        this.vtbl.putref_contentHandler := CallbackCreate(ObjBindMethod(implObj, "putref_contentHandler"), flags, 2)
+        this.vtbl.get_dtdHandler := CallbackCreate(ObjBindMethod(implObj, "get_dtdHandler"), flags, 2)
+        this.vtbl.putref_dtdHandler := CallbackCreate(ObjBindMethod(implObj, "putref_dtdHandler"), flags, 2)
+        this.vtbl.get_errorHandler := CallbackCreate(ObjBindMethod(implObj, "get_errorHandler"), flags, 2)
+        this.vtbl.putref_errorHandler := CallbackCreate(ObjBindMethod(implObj, "putref_errorHandler"), flags, 2)
     }
 
     Dispose() {

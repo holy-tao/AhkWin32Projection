@@ -86,9 +86,9 @@ export default struct IMFSensorActivitiesReport extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
-        this.vtbl.GetActivityReport := CallbackCreate(GetMethod(implObj, "GetActivityReport"), flags, 3)
-        this.vtbl.GetActivityReportByDeviceName := CallbackCreate(GetMethod(implObj, "GetActivityReportByDeviceName"), flags, 3)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetActivityReport := CallbackCreate(ObjBindMethod(implObj, "GetActivityReport"), flags, 3)
+        this.vtbl.GetActivityReportByDeviceName := CallbackCreate(ObjBindMethod(implObj, "GetActivityReportByDeviceName"), flags, 3)
     }
 
     Dispose() {

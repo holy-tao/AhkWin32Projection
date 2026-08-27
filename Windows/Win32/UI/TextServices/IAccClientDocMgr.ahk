@@ -131,10 +131,10 @@ export default struct IAccClientDocMgr extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDocuments := CallbackCreate(GetMethod(implObj, "GetDocuments"), flags, 2)
-        this.vtbl.LookupByHWND := CallbackCreate(GetMethod(implObj, "LookupByHWND"), flags, 4)
-        this.vtbl.LookupByPoint := CallbackCreate(GetMethod(implObj, "LookupByPoint"), flags, 4)
-        this.vtbl.GetFocused := CallbackCreate(GetMethod(implObj, "GetFocused"), flags, 3)
+        this.vtbl.GetDocuments := CallbackCreate(ObjBindMethod(implObj, "GetDocuments"), flags, 2)
+        this.vtbl.LookupByHWND := CallbackCreate(ObjBindMethod(implObj, "LookupByHWND"), flags, 4)
+        this.vtbl.LookupByPoint := CallbackCreate(ObjBindMethod(implObj, "LookupByPoint"), flags, 4)
+        this.vtbl.GetFocused := CallbackCreate(ObjBindMethod(implObj, "GetFocused"), flags, 3)
     }
 
     Dispose() {

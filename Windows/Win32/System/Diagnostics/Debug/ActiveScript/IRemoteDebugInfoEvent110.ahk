@@ -39,7 +39,6 @@ export default struct IRemoteDebugInfoEvent110 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DEBUG_EVENT_INFO_TYPE>} pMessageType 
      * @param {Pointer<BSTR>} pbstrMessage 
      * @param {Pointer<BSTR>} pbstrUrl 
@@ -47,7 +46,7 @@ export default struct IRemoteDebugInfoEvent110 extends IUnknown {
      * @returns {HRESULT} 
      */
     GetEventInfo(pMessageType, pbstrMessage, pbstrUrl, ppLocation) {
-        pMessageTypeMarshal := pMessageType is VarRef ? "int*" : "ptr"
+        pMessageTypeMarshal := pMessageType is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, pMessageTypeMarshal, pMessageType, BSTR.Ptr, pbstrMessage, BSTR.Ptr, pbstrUrl, IDebugDocumentContext.Ptr, ppLocation, "HRESULT")
         return result
@@ -62,7 +61,7 @@ export default struct IRemoteDebugInfoEvent110 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetEventInfo := CallbackCreate(GetMethod(implObj, "GetEventInfo"), flags, 5)
+        this.vtbl.GetEventInfo := CallbackCreate(ObjBindMethod(implObj, "GetEventInfo"), flags, 5)
     }
 
     Dispose() {

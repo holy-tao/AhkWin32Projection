@@ -176,13 +176,13 @@ export default struct IWMPPluginUI extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetCore := CallbackCreate(GetMethod(implObj, "SetCore"), flags, 2)
-        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 3)
-        this.vtbl.Destroy := CallbackCreate(GetMethod(implObj, "Destroy"), flags, 1)
-        this.vtbl.DisplayPropertyPage := CallbackCreate(GetMethod(implObj, "DisplayPropertyPage"), flags, 2)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
-        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 3)
-        this.vtbl.TranslateAccelerator := CallbackCreate(GetMethod(implObj, "TranslateAccelerator"), flags, 2)
+        this.vtbl.SetCore := CallbackCreate(ObjBindMethod(implObj, "SetCore"), flags, 2)
+        this.vtbl.Create := CallbackCreate(ObjBindMethod(implObj, "Create"), flags, 3)
+        this.vtbl.Destroy := CallbackCreate(ObjBindMethod(implObj, "Destroy"), flags, 1)
+        this.vtbl.DisplayPropertyPage := CallbackCreate(ObjBindMethod(implObj, "DisplayPropertyPage"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.SetProperty := CallbackCreate(ObjBindMethod(implObj, "SetProperty"), flags, 3)
+        this.vtbl.TranslateAccelerator := CallbackCreate(ObjBindMethod(implObj, "TranslateAccelerator"), flags, 2)
     }
 
     Dispose() {

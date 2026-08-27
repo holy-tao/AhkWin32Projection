@@ -20,7 +20,6 @@ export default struct PRESUTIL_FIND_FILETIME_PROPERTY {
     }
 
     /**
-     * 
      * @param {Integer} pPropertyList 
      * @param {Integer} cbPropertyListSize 
      * @param {PWSTR} pszPropertyName 

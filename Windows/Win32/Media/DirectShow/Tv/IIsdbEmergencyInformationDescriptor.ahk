@@ -123,8 +123,8 @@ export default struct IIsdbEmergencyInformationDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbemergencyinformationdescriptor-getareacode
      */
     GetAreaCode(bRecordIndex, ppwVal, pbNumAreaCodes) {
-        ppwValMarshal := ppwVal is VarRef ? "ptr*" : "ptr"
-        pbNumAreaCodesMarshal := pbNumAreaCodes is VarRef ? "char*" : "ptr"
+        ppwValMarshal := ppwVal is VarRef ? "ptr*" : IntPtr
+        pbNumAreaCodesMarshal := pbNumAreaCodes is VarRef ? "char*" : IntPtr
 
         result := ComCall(9, this, Int8, bRecordIndex, ppwValMarshal, ppwVal, pbNumAreaCodesMarshal, pbNumAreaCodes, "HRESULT")
         return result
@@ -139,13 +139,13 @@ export default struct IIsdbEmergencyInformationDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetCountOfRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRecords"), flags, 2)
-        this.vtbl.GetServiceId := CallbackCreate(GetMethod(implObj, "GetServiceId"), flags, 3)
-        this.vtbl.GetStartEndFlag := CallbackCreate(GetMethod(implObj, "GetStartEndFlag"), flags, 3)
-        this.vtbl.GetSignalLevel := CallbackCreate(GetMethod(implObj, "GetSignalLevel"), flags, 3)
-        this.vtbl.GetAreaCode := CallbackCreate(GetMethod(implObj, "GetAreaCode"), flags, 4)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetCountOfRecords := CallbackCreate(ObjBindMethod(implObj, "GetCountOfRecords"), flags, 2)
+        this.vtbl.GetServiceId := CallbackCreate(ObjBindMethod(implObj, "GetServiceId"), flags, 3)
+        this.vtbl.GetStartEndFlag := CallbackCreate(ObjBindMethod(implObj, "GetStartEndFlag"), flags, 3)
+        this.vtbl.GetSignalLevel := CallbackCreate(ObjBindMethod(implObj, "GetSignalLevel"), flags, 3)
+        this.vtbl.GetAreaCode := CallbackCreate(ObjBindMethod(implObj, "GetAreaCode"), flags, 4)
     }
 
     Dispose() {

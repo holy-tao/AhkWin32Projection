@@ -21,7 +21,6 @@ export default struct PSYMBOLSERVERPINGPROC {
     }
 
     /**
-     * 
      * @param {PSTR} param0 
      * @returns {BOOL} 
      */

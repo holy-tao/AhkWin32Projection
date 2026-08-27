@@ -20,7 +20,6 @@ export default struct PFND3DKMT_UPDATEGPUVIRTUALADDRESS {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_UPDATEGPUVIRTUALADDRESS>} param0 
      * @returns {NTSTATUS} 
      */

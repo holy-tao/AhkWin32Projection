@@ -22,7 +22,6 @@ export default struct VDMGETCONTEXTPROC {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @param {HANDLE} param1 
      * @param {Pointer<VDMCONTEXT>} param2 

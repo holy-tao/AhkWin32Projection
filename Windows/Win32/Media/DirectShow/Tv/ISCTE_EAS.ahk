@@ -128,7 +128,10 @@ export default struct ISCTE_EAS extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-initialize
      */
     Initialize(pSectionList, pMPEGData) {
-        result := ComCall(3, this, "ptr", pSectionList, "ptr", pMPEGData, "HRESULT")
+        pSectionListMarshal := pSectionList == 0 ? IntPtr : "ptr"
+        pMPEGDataMarshal := pMPEGData == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pSectionListMarshal, pSectionList, pMPEGDataMarshal, pMPEGData, "HRESULT")
         return result
     }
 
@@ -425,9 +428,9 @@ export default struct ISCTE_EAS extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getlocationcodes
      */
     GetLocationCodes(bIndex, pbState, pbCountySubdivision, pwCounty) {
-        pbStateMarshal := pbState is VarRef ? "char*" : "ptr"
-        pbCountySubdivisionMarshal := pbCountySubdivision is VarRef ? "char*" : "ptr"
-        pwCountyMarshal := pwCounty is VarRef ? "ushort*" : "ptr"
+        pbStateMarshal := pbState is VarRef ? "char*" : IntPtr
+        pbCountySubdivisionMarshal := pbCountySubdivision is VarRef ? "char*" : IntPtr
+        pwCountyMarshal := pwCounty is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(26, this, Int8, bIndex, pbStateMarshal, pbState, pbCountySubdivisionMarshal, pbCountySubdivision, pwCountyMarshal, pwCounty, "HRESULT")
         return result
@@ -494,9 +497,9 @@ export default struct ISCTE_EAS extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getexceptionservice
      */
     GetExceptionService(bIndex, pbIBRef, pwFirst, pwSecond) {
-        pbIBRefMarshal := pbIBRef is VarRef ? "char*" : "ptr"
-        pwFirstMarshal := pwFirst is VarRef ? "ushort*" : "ptr"
-        pwSecondMarshal := pwSecond is VarRef ? "ushort*" : "ptr"
+        pbIBRefMarshal := pbIBRef is VarRef ? "char*" : IntPtr
+        pwFirstMarshal := pwFirst is VarRef ? "ushort*" : IntPtr
+        pwSecondMarshal := pwSecond is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(28, this, Int8, bIndex, pbIBRefMarshal, pbIBRef, pwFirstMarshal, pwFirst, pwSecondMarshal, pwSecond, "HRESULT")
         return result
@@ -531,7 +534,7 @@ export default struct ISCTE_EAS extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-gettabledescriptorbytag
      */
     GetTableDescriptorByTag(bTag, pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : IntPtr
 
         result := ComCall(31, this, Int8, bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
@@ -546,35 +549,35 @@ export default struct ISCTE_EAS extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.GetVersionNumber := CallbackCreate(GetMethod(implObj, "GetVersionNumber"), flags, 2)
-        this.vtbl.GetSequencyNumber := CallbackCreate(GetMethod(implObj, "GetSequencyNumber"), flags, 2)
-        this.vtbl.GetProtocolVersion := CallbackCreate(GetMethod(implObj, "GetProtocolVersion"), flags, 2)
-        this.vtbl.GetEASEventID := CallbackCreate(GetMethod(implObj, "GetEASEventID"), flags, 2)
-        this.vtbl.GetOriginatorCode := CallbackCreate(GetMethod(implObj, "GetOriginatorCode"), flags, 2)
-        this.vtbl.GetEASEventCodeLen := CallbackCreate(GetMethod(implObj, "GetEASEventCodeLen"), flags, 2)
-        this.vtbl.GetEASEventCode := CallbackCreate(GetMethod(implObj, "GetEASEventCode"), flags, 2)
-        this.vtbl.GetRawNatureOfActivationTextLen := CallbackCreate(GetMethod(implObj, "GetRawNatureOfActivationTextLen"), flags, 2)
-        this.vtbl.GetRawNatureOfActivationText := CallbackCreate(GetMethod(implObj, "GetRawNatureOfActivationText"), flags, 2)
-        this.vtbl.GetNatureOfActivationText := CallbackCreate(GetMethod(implObj, "GetNatureOfActivationText"), flags, 3)
-        this.vtbl.GetTimeRemaining := CallbackCreate(GetMethod(implObj, "GetTimeRemaining"), flags, 2)
-        this.vtbl.GetStartTime := CallbackCreate(GetMethod(implObj, "GetStartTime"), flags, 2)
-        this.vtbl.GetDuration := CallbackCreate(GetMethod(implObj, "GetDuration"), flags, 2)
-        this.vtbl.GetAlertPriority := CallbackCreate(GetMethod(implObj, "GetAlertPriority"), flags, 2)
-        this.vtbl.GetDetailsOOBSourceID := CallbackCreate(GetMethod(implObj, "GetDetailsOOBSourceID"), flags, 2)
-        this.vtbl.GetDetailsMajor := CallbackCreate(GetMethod(implObj, "GetDetailsMajor"), flags, 2)
-        this.vtbl.GetDetailsMinor := CallbackCreate(GetMethod(implObj, "GetDetailsMinor"), flags, 2)
-        this.vtbl.GetDetailsAudioOOBSourceID := CallbackCreate(GetMethod(implObj, "GetDetailsAudioOOBSourceID"), flags, 2)
-        this.vtbl.GetAlertText := CallbackCreate(GetMethod(implObj, "GetAlertText"), flags, 3)
-        this.vtbl.GetRawAlertTextLen := CallbackCreate(GetMethod(implObj, "GetRawAlertTextLen"), flags, 2)
-        this.vtbl.GetRawAlertText := CallbackCreate(GetMethod(implObj, "GetRawAlertText"), flags, 2)
-        this.vtbl.GetLocationCount := CallbackCreate(GetMethod(implObj, "GetLocationCount"), flags, 2)
-        this.vtbl.GetLocationCodes := CallbackCreate(GetMethod(implObj, "GetLocationCodes"), flags, 5)
-        this.vtbl.GetExceptionCount := CallbackCreate(GetMethod(implObj, "GetExceptionCount"), flags, 2)
-        this.vtbl.GetExceptionService := CallbackCreate(GetMethod(implObj, "GetExceptionService"), flags, 5)
-        this.vtbl.GetCountOfTableDescriptors := CallbackCreate(GetMethod(implObj, "GetCountOfTableDescriptors"), flags, 2)
-        this.vtbl.GetTableDescriptorByIndex := CallbackCreate(GetMethod(implObj, "GetTableDescriptorByIndex"), flags, 3)
-        this.vtbl.GetTableDescriptorByTag := CallbackCreate(GetMethod(implObj, "GetTableDescriptorByTag"), flags, 4)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetVersionNumber := CallbackCreate(ObjBindMethod(implObj, "GetVersionNumber"), flags, 2)
+        this.vtbl.GetSequencyNumber := CallbackCreate(ObjBindMethod(implObj, "GetSequencyNumber"), flags, 2)
+        this.vtbl.GetProtocolVersion := CallbackCreate(ObjBindMethod(implObj, "GetProtocolVersion"), flags, 2)
+        this.vtbl.GetEASEventID := CallbackCreate(ObjBindMethod(implObj, "GetEASEventID"), flags, 2)
+        this.vtbl.GetOriginatorCode := CallbackCreate(ObjBindMethod(implObj, "GetOriginatorCode"), flags, 2)
+        this.vtbl.GetEASEventCodeLen := CallbackCreate(ObjBindMethod(implObj, "GetEASEventCodeLen"), flags, 2)
+        this.vtbl.GetEASEventCode := CallbackCreate(ObjBindMethod(implObj, "GetEASEventCode"), flags, 2)
+        this.vtbl.GetRawNatureOfActivationTextLen := CallbackCreate(ObjBindMethod(implObj, "GetRawNatureOfActivationTextLen"), flags, 2)
+        this.vtbl.GetRawNatureOfActivationText := CallbackCreate(ObjBindMethod(implObj, "GetRawNatureOfActivationText"), flags, 2)
+        this.vtbl.GetNatureOfActivationText := CallbackCreate(ObjBindMethod(implObj, "GetNatureOfActivationText"), flags, 3)
+        this.vtbl.GetTimeRemaining := CallbackCreate(ObjBindMethod(implObj, "GetTimeRemaining"), flags, 2)
+        this.vtbl.GetStartTime := CallbackCreate(ObjBindMethod(implObj, "GetStartTime"), flags, 2)
+        this.vtbl.GetDuration := CallbackCreate(ObjBindMethod(implObj, "GetDuration"), flags, 2)
+        this.vtbl.GetAlertPriority := CallbackCreate(ObjBindMethod(implObj, "GetAlertPriority"), flags, 2)
+        this.vtbl.GetDetailsOOBSourceID := CallbackCreate(ObjBindMethod(implObj, "GetDetailsOOBSourceID"), flags, 2)
+        this.vtbl.GetDetailsMajor := CallbackCreate(ObjBindMethod(implObj, "GetDetailsMajor"), flags, 2)
+        this.vtbl.GetDetailsMinor := CallbackCreate(ObjBindMethod(implObj, "GetDetailsMinor"), flags, 2)
+        this.vtbl.GetDetailsAudioOOBSourceID := CallbackCreate(ObjBindMethod(implObj, "GetDetailsAudioOOBSourceID"), flags, 2)
+        this.vtbl.GetAlertText := CallbackCreate(ObjBindMethod(implObj, "GetAlertText"), flags, 3)
+        this.vtbl.GetRawAlertTextLen := CallbackCreate(ObjBindMethod(implObj, "GetRawAlertTextLen"), flags, 2)
+        this.vtbl.GetRawAlertText := CallbackCreate(ObjBindMethod(implObj, "GetRawAlertText"), flags, 2)
+        this.vtbl.GetLocationCount := CallbackCreate(ObjBindMethod(implObj, "GetLocationCount"), flags, 2)
+        this.vtbl.GetLocationCodes := CallbackCreate(ObjBindMethod(implObj, "GetLocationCodes"), flags, 5)
+        this.vtbl.GetExceptionCount := CallbackCreate(ObjBindMethod(implObj, "GetExceptionCount"), flags, 2)
+        this.vtbl.GetExceptionService := CallbackCreate(ObjBindMethod(implObj, "GetExceptionService"), flags, 5)
+        this.vtbl.GetCountOfTableDescriptors := CallbackCreate(ObjBindMethod(implObj, "GetCountOfTableDescriptors"), flags, 2)
+        this.vtbl.GetTableDescriptorByIndex := CallbackCreate(ObjBindMethod(implObj, "GetTableDescriptorByIndex"), flags, 3)
+        this.vtbl.GetTableDescriptorByTag := CallbackCreate(ObjBindMethod(implObj, "GetTableDescriptorByTag"), flags, 4)
     }
 
     Dispose() {

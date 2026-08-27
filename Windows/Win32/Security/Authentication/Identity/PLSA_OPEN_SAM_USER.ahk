@@ -22,7 +22,6 @@ export default struct PLSA_OPEN_SAM_USER {
     }
 
     /**
-     * 
      * @param {Pointer<SECURITY_STRING>} Name 
      * @param {SECPKG_NAME_TYPE} NameType 
      * @param {Pointer<SECURITY_STRING>} Prefix 
@@ -32,7 +31,7 @@ export default struct PLSA_OPEN_SAM_USER {
      * @returns {NTSTATUS} 
      */
     Call(Name, NameType, Prefix, AllowGuest, Reserved, UserHandle) {
-        UserHandleMarshal := UserHandle is VarRef ? "ptr*" : "ptr"
+        UserHandleMarshal := UserHandle is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, SECURITY_STRING.Ptr, Name, SECPKG_NAME_TYPE, NameType, SECURITY_STRING.Ptr, Prefix, BOOLEAN, AllowGuest, UInt32, Reserved, UserHandleMarshal, UserHandle, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

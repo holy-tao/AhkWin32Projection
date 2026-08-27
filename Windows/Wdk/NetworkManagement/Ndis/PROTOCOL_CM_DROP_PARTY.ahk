@@ -18,17 +18,18 @@ export default struct PROTOCOL_CM_DROP_PARTY {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} CallMgrPartyContext 
      * @param {Pointer<Void>} CloseData 
      * @param {Integer} _Size 
      * @returns {Integer} 
      */
     Call(CallMgrPartyContext, CloseData, _Size) {
-        CallMgrPartyContextMarshal := CallMgrPartyContext is VarRef ? "ptr" : "ptr"
-        CloseDataMarshal := CloseData is VarRef ? "ptr" : "ptr"
+        CallMgrPartyContextMarshal := CallMgrPartyContext is VarRef ? "ptr" : IntPtr
+        CloseDataMarshal := CloseData is VarRef ? "ptr" : IntPtr
+        CloseDataMarshal := CloseData == 0 ? IntPtr : "ptr"
+        _SizeMarshal := _Size == 0 ? IntPtr : UInt32
 
-        result := DllCall(this.value, CallMgrPartyContextMarshal, CallMgrPartyContext, CloseDataMarshal, CloseData, UInt32, _Size, Int32)
+        result := DllCall(this.value, CallMgrPartyContextMarshal, CallMgrPartyContext, CloseDataMarshal, CloseData, _SizeMarshal, _Size, Int32)
         return result
     }
 

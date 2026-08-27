@@ -186,14 +186,14 @@ export default struct IWdsTransportSession extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Content := CallbackCreate(GetMethod(implObj, "get_Content"), flags, 2)
-        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
-        this.vtbl.get_NetworkInterfaceName := CallbackCreate(GetMethod(implObj, "get_NetworkInterfaceName"), flags, 2)
-        this.vtbl.get_NetworkInterfaceAddress := CallbackCreate(GetMethod(implObj, "get_NetworkInterfaceAddress"), flags, 2)
-        this.vtbl.get_TransferRate := CallbackCreate(GetMethod(implObj, "get_TransferRate"), flags, 2)
-        this.vtbl.get_MasterClientId := CallbackCreate(GetMethod(implObj, "get_MasterClientId"), flags, 2)
-        this.vtbl.RetrieveClients := CallbackCreate(GetMethod(implObj, "RetrieveClients"), flags, 2)
-        this.vtbl.Terminate := CallbackCreate(GetMethod(implObj, "Terminate"), flags, 1)
+        this.vtbl.get_Content := CallbackCreate(ObjBindMethod(implObj, "get_Content"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(ObjBindMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.get_NetworkInterfaceName := CallbackCreate(ObjBindMethod(implObj, "get_NetworkInterfaceName"), flags, 2)
+        this.vtbl.get_NetworkInterfaceAddress := CallbackCreate(ObjBindMethod(implObj, "get_NetworkInterfaceAddress"), flags, 2)
+        this.vtbl.get_TransferRate := CallbackCreate(ObjBindMethod(implObj, "get_TransferRate"), flags, 2)
+        this.vtbl.get_MasterClientId := CallbackCreate(ObjBindMethod(implObj, "get_MasterClientId"), flags, 2)
+        this.vtbl.RetrieveClients := CallbackCreate(ObjBindMethod(implObj, "RetrieveClients"), flags, 2)
+        this.vtbl.Terminate := CallbackCreate(ObjBindMethod(implObj, "Terminate"), flags, 1)
     }
 
     Dispose() {

@@ -53,8 +53,8 @@ export default struct IBackgroundCopyError extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyerror-geterror
      */
     GetError(pContext, pCode) {
-        pContextMarshal := pContext is VarRef ? "int*" : "ptr"
-        pCodeMarshal := pCode is VarRef ? "int*" : "ptr"
+        pContextMarshal := pContext is VarRef ? "int*" : IntPtr
+        pCodeMarshal := pCode is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, pContextMarshal, pContext, pCodeMarshal, pCode, "HRESULT")
         return result
@@ -141,11 +141,11 @@ export default struct IBackgroundCopyError extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetError := CallbackCreate(GetMethod(implObj, "GetError"), flags, 3)
-        this.vtbl.GetFile := CallbackCreate(GetMethod(implObj, "GetFile"), flags, 2)
-        this.vtbl.GetErrorDescription := CallbackCreate(GetMethod(implObj, "GetErrorDescription"), flags, 3)
-        this.vtbl.GetErrorContextDescription := CallbackCreate(GetMethod(implObj, "GetErrorContextDescription"), flags, 3)
-        this.vtbl.GetProtocol := CallbackCreate(GetMethod(implObj, "GetProtocol"), flags, 2)
+        this.vtbl.GetError := CallbackCreate(ObjBindMethod(implObj, "GetError"), flags, 3)
+        this.vtbl.GetFile := CallbackCreate(ObjBindMethod(implObj, "GetFile"), flags, 2)
+        this.vtbl.GetErrorDescription := CallbackCreate(ObjBindMethod(implObj, "GetErrorDescription"), flags, 3)
+        this.vtbl.GetErrorContextDescription := CallbackCreate(ObjBindMethod(implObj, "GetErrorContextDescription"), flags, 3)
+        this.vtbl.GetProtocol := CallbackCreate(ObjBindMethod(implObj, "GetProtocol"), flags, 2)
     }
 
     Dispose() {

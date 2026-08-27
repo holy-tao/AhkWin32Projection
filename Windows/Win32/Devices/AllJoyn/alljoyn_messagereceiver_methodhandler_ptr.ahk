@@ -21,7 +21,6 @@ export default struct alljoyn_messagereceiver_methodhandler_ptr {
     }
 
     /**
-     * 
      * @param {alljoyn_busobject} bus 
      * @param {Pointer<alljoyn_interfacedescription_member>} member 
      * @param {alljoyn_message} message 

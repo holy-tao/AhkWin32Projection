@@ -18,15 +18,14 @@ export default struct PFNFCICLOSE {
     }
 
     /**
-     * 
      * @param {Pointer} hf 
      * @param {Pointer<Integer>} err 
      * @param {Pointer<Void>} pv 
      * @returns {Integer} 
      */
     Call(hf, err, pv) {
-        errMarshal := err is VarRef ? "int*" : "ptr"
-        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+        errMarshal := err is VarRef ? "int*" : IntPtr
+        pvMarshal := pv is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, IntPtr, hf, errMarshal, err, pvMarshal, pv, Int32)
         return result

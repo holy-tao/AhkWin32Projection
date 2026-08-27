@@ -19,7 +19,6 @@ export default struct WHEA_SIGNAL_HANDLER_OVERRIDE_CALLBACK {
     }
 
     /**
-     * 
      * @returns {BOOLEAN} 
      */
     Call() {

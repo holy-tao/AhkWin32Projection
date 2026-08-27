@@ -63,7 +63,7 @@ export default struct ITfPersistentPropertyLoaderACP extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LoadProperty := CallbackCreate(GetMethod(implObj, "LoadProperty"), flags, 3)
+        this.vtbl.LoadProperty := CallbackCreate(ObjBindMethod(implObj, "LoadProperty"), flags, 3)
     }
 
     Dispose() {

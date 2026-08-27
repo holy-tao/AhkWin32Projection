@@ -37,31 +37,29 @@ export default struct IViewSort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} pcValues 
      * @param {Pointer<Pointer<Pointer>>} prgColumns 
      * @param {Pointer<Pointer<Integer>>} prgOrders 
      * @returns {HRESULT} 
      */
     GetSortOrder(pcValues, prgColumns, prgOrders) {
-        pcValuesMarshal := pcValues is VarRef ? "ptr*" : "ptr"
-        prgColumnsMarshal := prgColumns is VarRef ? "ptr*" : "ptr"
-        prgOrdersMarshal := prgOrders is VarRef ? "ptr*" : "ptr"
+        pcValuesMarshal := pcValues is VarRef ? "ptr*" : IntPtr
+        prgColumnsMarshal := prgColumns is VarRef ? "ptr*" : IntPtr
+        prgOrdersMarshal := prgOrders is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, pcValuesMarshal, pcValues, prgColumnsMarshal, prgColumns, prgOrdersMarshal, prgOrders, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} cValues 
      * @param {Pointer<Pointer>} rgColumns 
      * @param {Pointer<Integer>} rgOrders 
      * @returns {HRESULT} 
      */
     SetSortOrder(cValues, rgColumns, rgOrders) {
-        rgColumnsMarshal := rgColumns is VarRef ? "ptr*" : "ptr"
-        rgOrdersMarshal := rgOrders is VarRef ? "uint*" : "ptr"
+        rgColumnsMarshal := rgColumns is VarRef ? "ptr*" : IntPtr
+        rgOrdersMarshal := rgOrders is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, IntPtr, cValues, rgColumnsMarshal, rgColumns, rgOrdersMarshal, rgOrders, "HRESULT")
         return result
@@ -76,8 +74,8 @@ export default struct IViewSort extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSortOrder := CallbackCreate(GetMethod(implObj, "GetSortOrder"), flags, 4)
-        this.vtbl.SetSortOrder := CallbackCreate(GetMethod(implObj, "SetSortOrder"), flags, 4)
+        this.vtbl.GetSortOrder := CallbackCreate(ObjBindMethod(implObj, "GetSortOrder"), flags, 4)
+        this.vtbl.SetSortOrder := CallbackCreate(ObjBindMethod(implObj, "SetSortOrder"), flags, 4)
     }
 
     Dispose() {

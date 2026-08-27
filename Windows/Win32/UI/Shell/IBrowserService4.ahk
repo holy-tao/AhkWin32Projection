@@ -90,9 +90,9 @@ export default struct IBrowserService4 extends IBrowserService3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ActivateView := CallbackCreate(GetMethod(implObj, "ActivateView"), flags, 2)
-        this.vtbl.SaveViewState := CallbackCreate(GetMethod(implObj, "SaveViewState"), flags, 1)
-        this.vtbl._ResizeAllBorders := CallbackCreate(GetMethod(implObj, "_ResizeAllBorders"), flags, 1)
+        this.vtbl.ActivateView := CallbackCreate(ObjBindMethod(implObj, "ActivateView"), flags, 2)
+        this.vtbl.SaveViewState := CallbackCreate(ObjBindMethod(implObj, "SaveViewState"), flags, 1)
+        this.vtbl._ResizeAllBorders := CallbackCreate(ObjBindMethod(implObj, "_ResizeAllBorders"), flags, 1)
     }
 
     Dispose() {

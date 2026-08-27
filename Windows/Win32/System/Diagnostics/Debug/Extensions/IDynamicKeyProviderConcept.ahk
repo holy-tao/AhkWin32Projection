@@ -42,7 +42,6 @@ export default struct IDynamicKeyProviderConcept extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @param {PWSTR} key 
      * @param {Pointer<IModelObject>} keyValue 
@@ -53,14 +52,16 @@ export default struct IDynamicKeyProviderConcept extends IUnknown {
     GetKey(contextObject, key, keyValue, metadata, hasKey) {
         key := key is String ? StrPtr(key) : key
 
-        hasKeyMarshal := hasKey is VarRef ? "int*" : "ptr"
+        keyValueMarshal := keyValue == 0 ? IntPtr : IModelObject.Ptr
+        metadataMarshal := metadata == 0 ? IntPtr : IKeyStore.Ptr
+        hasKeyMarshal := hasKey is VarRef ? "int*" : IntPtr
+        hasKeyMarshal := hasKey == 0 ? IntPtr : "int*"
 
-        result := ComCall(3, this, "ptr", contextObject, "ptr", key, IModelObject.Ptr, keyValue, IKeyStore.Ptr, metadata, hasKeyMarshal, hasKey, "HRESULT")
+        result := ComCall(3, this, "ptr", contextObject, "ptr", key, keyValueMarshal, keyValue, metadataMarshal, metadata, hasKeyMarshal, hasKey, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @param {PWSTR} key 
      * @param {IModelObject} keyValue 
@@ -75,7 +76,6 @@ export default struct IDynamicKeyProviderConcept extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @returns {IKeyEnumerator} 
      */
@@ -93,9 +93,9 @@ export default struct IDynamicKeyProviderConcept extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetKey := CallbackCreate(GetMethod(implObj, "GetKey"), flags, 6)
-        this.vtbl.SetKey := CallbackCreate(GetMethod(implObj, "SetKey"), flags, 5)
-        this.vtbl.EnumerateKeys := CallbackCreate(GetMethod(implObj, "EnumerateKeys"), flags, 3)
+        this.vtbl.GetKey := CallbackCreate(ObjBindMethod(implObj, "GetKey"), flags, 6)
+        this.vtbl.SetKey := CallbackCreate(ObjBindMethod(implObj, "SetKey"), flags, 5)
+        this.vtbl.EnumerateKeys := CallbackCreate(ObjBindMethod(implObj, "EnumerateKeys"), flags, 3)
     }
 
     Dispose() {

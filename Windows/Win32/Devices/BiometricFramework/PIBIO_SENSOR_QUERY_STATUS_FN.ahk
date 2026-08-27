@@ -22,7 +22,6 @@ export default struct PIBIO_SENSOR_QUERY_STATUS_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/ns-winbio_adapter-winbio_pipeline">WINBIO_PIPELINE</a> structure associated with the biometric unit performing the operation.
      * @returns {Integer} Pointer to a WINBIO_SENSOR_STATUS value that receives the status information.
      */

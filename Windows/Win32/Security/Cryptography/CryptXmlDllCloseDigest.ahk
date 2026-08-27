@@ -21,14 +21,13 @@ export default struct CryptXmlDllCloseDigest {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hDigest The handle of the hash object. This handle is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nc-cryptxml-cryptxmldllcreatedigest">CryptXmlCreateDigest</a>  function. After the function has been called, the digest handle passed to this function is released and cannot be used again.
      * @returns {HRESULT} If the function succeeds, the function returns zero.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error.
      */
     Call(hDigest) {
-        hDigestMarshal := hDigest is VarRef ? "ptr" : "ptr"
+        hDigestMarshal := hDigest is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, hDigestMarshal, hDigest, "HRESULT")
         return result

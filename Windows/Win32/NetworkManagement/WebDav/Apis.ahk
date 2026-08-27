@@ -33,7 +33,10 @@ export DavAddConnection(ConnectionHandle, RemoteName, UserName, Password, Client
     UserName := UserName is String ? StrPtr(UserName) : UserName
     Password := Password is String ? StrPtr(Password) : Password
 
-    result := DllCall("NETAPI32.dll\DavAddConnection", HANDLE.Ptr, ConnectionHandle, "ptr", RemoteName, "ptr", UserName, "ptr", Password, IntPtr, ClientCert, UInt32, CertSize, UInt32)
+    UserNameMarshal := UserName == 0 ? IntPtr : PWSTR
+    PasswordMarshal := Password == 0 ? IntPtr : PWSTR
+
+    result := DllCall("NETAPI32.dll\DavAddConnection", HANDLE.Ptr, ConnectionHandle, "ptr", RemoteName, UserNameMarshal, UserName, PasswordMarshal, Password, IntPtr, ClientCert, UInt32, CertSize, UInt32)
     return result
 }
 
@@ -97,9 +100,10 @@ export DavGetUNCFromHTTPPath(Url, UncPath, lpSize) {
     Url := Url is String ? StrPtr(Url) : Url
     UncPath := UncPath is String ? StrPtr(UncPath) : UncPath
 
-    lpSizeMarshal := lpSize is VarRef ? "uint*" : "ptr"
+    UncPathMarshal := UncPath == 0 ? IntPtr : PWSTR
+    lpSizeMarshal := lpSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\DavGetUNCFromHTTPPath", "ptr", Url, "ptr", UncPath, lpSizeMarshal, lpSize, UInt32)
+    result := DllCall("NETAPI32.dll\DavGetUNCFromHTTPPath", "ptr", Url, UncPathMarshal, UncPath, lpSizeMarshal, lpSize, UInt32)
     return result
 }
 
@@ -145,9 +149,10 @@ export DavGetHTTPFromUNCPath(UncPath, Url, lpSize) {
     UncPath := UncPath is String ? StrPtr(UncPath) : UncPath
     Url := Url is String ? StrPtr(Url) : Url
 
-    lpSizeMarshal := lpSize is VarRef ? "uint*" : "ptr"
+    UrlMarshal := Url == 0 ? IntPtr : PWSTR
+    lpSizeMarshal := lpSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\DavGetHTTPFromUNCPath", "ptr", UncPath, "ptr", Url, lpSizeMarshal, lpSize, UInt32)
+    result := DllCall("NETAPI32.dll\DavGetHTTPFromUNCPath", "ptr", UncPath, UrlMarshal, Url, lpSizeMarshal, lpSize, UInt32)
     return result
 }
 
@@ -204,9 +209,10 @@ export DavGetHTTPFromUNCPath(UncPath, Url, lpSize) {
 export DavGetTheLockOwnerOfTheFile(FileName, LockOwnerName, LockOwnerNameLengthInBytes) {
     FileName := FileName is String ? StrPtr(FileName) : FileName
 
-    LockOwnerNameLengthInBytesMarshal := LockOwnerNameLengthInBytes is VarRef ? "uint*" : "ptr"
+    LockOwnerNameMarshal := LockOwnerName == 0 ? IntPtr : IntPtr
+    LockOwnerNameLengthInBytesMarshal := LockOwnerNameLengthInBytes is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("davclnt.dll\DavGetTheLockOwnerOfTheFile", "ptr", FileName, IntPtr, LockOwnerName, LockOwnerNameLengthInBytesMarshal, LockOwnerNameLengthInBytes, UInt32)
+    result := DllCall("davclnt.dll\DavGetTheLockOwnerOfTheFile", "ptr", FileName, LockOwnerNameMarshal, LockOwnerName, LockOwnerNameLengthInBytesMarshal, LockOwnerNameLengthInBytes, UInt32)
     return result
 }
 
@@ -258,8 +264,8 @@ export DavGetTheLockOwnerOfTheFile(FileName, LockOwnerName, LockOwnerNameLengthI
 export DavGetExtendedError(hFile, ExtError, ExtErrorString, cChSize) {
     ExtErrorString := ExtErrorString is String ? StrPtr(ExtErrorString) : ExtErrorString
 
-    ExtErrorMarshal := ExtError is VarRef ? "uint*" : "ptr"
-    cChSizeMarshal := cChSize is VarRef ? "uint*" : "ptr"
+    ExtErrorMarshal := ExtError is VarRef ? "uint*" : IntPtr
+    cChSizeMarshal := cChSize is VarRef ? "uint*" : IntPtr
 
     result := DllCall("NETAPI32.dll\DavGetExtendedError", HANDLE, hFile, ExtErrorMarshal, ExtError, "ptr", ExtErrorString, cChSizeMarshal, cChSize, UInt32)
     return result

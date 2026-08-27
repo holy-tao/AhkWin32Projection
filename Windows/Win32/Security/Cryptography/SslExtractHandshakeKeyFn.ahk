@@ -22,7 +22,6 @@ export default struct SslExtractHandshakeKeyFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_KEY_HANDLE} hPrivateKey 
      * @param {NCRYPT_KEY_HANDLE} hPublicKey 
@@ -32,8 +31,10 @@ export default struct SslExtractHandshakeKeyFn {
      * @returns {NCRYPT_KEY_HANDLE} 
      */
     Call(hSslProvider, hPrivateKey, hPublicKey, hEarlyKey, pParameterList, dwFlags) {
+        pParameterListMarshal := pParameterList == 0 ? IntPtr : BCryptBufferDesc.Ptr
+
         phHandshakeKey := NCRYPT_KEY_HANDLE.Owned()
-        result := DllCall(this.value, NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hPrivateKey, NCRYPT_KEY_HANDLE, hPublicKey, NCRYPT_KEY_HANDLE, hEarlyKey, NCRYPT_KEY_HANDLE.Ptr, phHandshakeKey, BCryptBufferDesc.Ptr, pParameterList, UInt32, dwFlags, "HRESULT")
+        result := DllCall(this.value, NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hPrivateKey, NCRYPT_KEY_HANDLE, hPublicKey, NCRYPT_KEY_HANDLE, hEarlyKey, NCRYPT_KEY_HANDLE.Ptr, phHandshakeKey, pParameterListMarshal, pParameterList, UInt32, dwFlags, "HRESULT")
         return phHandshakeKey
     }
 

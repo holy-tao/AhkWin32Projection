@@ -90,8 +90,8 @@ export default struct IAVIStreaming extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Begin := CallbackCreate(GetMethod(implObj, "Begin"), flags, 4)
-        this.vtbl.End := CallbackCreate(GetMethod(implObj, "End"), flags, 1)
+        this.vtbl.Begin := CallbackCreate(ObjBindMethod(implObj, "Begin"), flags, 4)
+        this.vtbl.End := CallbackCreate(ObjBindMethod(implObj, "End"), flags, 1)
     }
 
     Dispose() {

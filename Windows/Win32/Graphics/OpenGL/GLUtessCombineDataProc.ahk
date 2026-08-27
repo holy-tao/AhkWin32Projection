@@ -18,7 +18,6 @@ export default struct GLUtessCombineDataProc {
     }
 
     /**
-     * 
      * @param {Pointer<Float>} param0 
      * @param {Pointer<Pointer<Void>>} param1 
      * @param {Pointer<Float>} param2 
@@ -27,11 +26,11 @@ export default struct GLUtessCombineDataProc {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(param0, param1, param2, param3, param4) {
-        param0Marshal := param0 is VarRef ? "double*" : "ptr"
-        param1Marshal := param1 is VarRef ? "ptr*" : "ptr"
-        param2Marshal := param2 is VarRef ? "float*" : "ptr"
-        param3Marshal := param3 is VarRef ? "ptr*" : "ptr"
-        param4Marshal := param4 is VarRef ? "ptr" : "ptr"
+        param0Marshal := param0 is VarRef ? "double*" : IntPtr
+        param1Marshal := param1 is VarRef ? "ptr*" : IntPtr
+        param2Marshal := param2 is VarRef ? "float*" : IntPtr
+        param3Marshal := param3 is VarRef ? "ptr*" : IntPtr
+        param4Marshal := param4 is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, param3Marshal, param3, param4Marshal, param4)
     }

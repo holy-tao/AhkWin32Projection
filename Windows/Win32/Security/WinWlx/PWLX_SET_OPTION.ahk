@@ -29,7 +29,6 @@ export default struct PWLX_SET_OPTION {
     }
 
     /**
-     * 
      * @param {HANDLE} hWlx Specifies the Winlogon handle passed to GINA in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nf-winwlx-wlxinitialize">WlxInitialize</a> call.
      * @param {Integer} Option Specifies one of the following options:
@@ -67,7 +66,7 @@ export default struct PWLX_SET_OPTION {
      * </table>
      */
     Call(hWlx, Option, Value, OldValue) {
-        OldValueMarshal := OldValue is VarRef ? "ptr*" : "ptr"
+        OldValueMarshal := OldValue is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, HANDLE, hWlx, UInt32, Option, IntPtr, Value, OldValueMarshal, OldValue, BOOL)
         return result

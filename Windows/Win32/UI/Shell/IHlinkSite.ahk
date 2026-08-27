@@ -41,7 +41,6 @@ export default struct IHlinkSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSiteData 
      * @param {Pointer<Guid>} guidService 
      * @param {Pointer<Guid>} riid 
@@ -53,7 +52,6 @@ export default struct IHlinkSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSiteData 
      * @param {Integer} dwAssign 
      * @param {Integer} dwWhich 
@@ -65,7 +63,6 @@ export default struct IHlinkSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSiteData 
      * @param {Integer} dwReserved 
      * @returns {HRESULT} 
@@ -76,7 +73,6 @@ export default struct IHlinkSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSiteData 
      * @param {Integer} dwreserved 
      * @param {HRESULT} hrError 
@@ -99,10 +95,10 @@ export default struct IHlinkSite extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryService := CallbackCreate(GetMethod(implObj, "QueryService"), flags, 5)
-        this.vtbl.GetMoniker := CallbackCreate(GetMethod(implObj, "GetMoniker"), flags, 5)
-        this.vtbl.ReadyToNavigate := CallbackCreate(GetMethod(implObj, "ReadyToNavigate"), flags, 3)
-        this.vtbl.OnNavigationComplete := CallbackCreate(GetMethod(implObj, "OnNavigationComplete"), flags, 5)
+        this.vtbl.QueryService := CallbackCreate(ObjBindMethod(implObj, "QueryService"), flags, 5)
+        this.vtbl.GetMoniker := CallbackCreate(ObjBindMethod(implObj, "GetMoniker"), flags, 5)
+        this.vtbl.ReadyToNavigate := CallbackCreate(ObjBindMethod(implObj, "ReadyToNavigate"), flags, 3)
+        this.vtbl.OnNavigationComplete := CallbackCreate(ObjBindMethod(implObj, "OnNavigationComplete"), flags, 5)
     }
 
     Dispose() {

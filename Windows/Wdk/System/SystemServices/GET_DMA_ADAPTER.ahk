@@ -20,15 +20,15 @@ export default struct GET_DMA_ADAPTER {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<DEVICE_DESCRIPTION>} DeviceDescriptor 
      * @param {Pointer<Integer>} NumberOfMapRegisters 
      * @returns {Pointer<DMA_ADAPTER>} 
      */
     Call(_Context, DeviceDescriptor, NumberOfMapRegisters) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        NumberOfMapRegistersMarshal := NumberOfMapRegisters is VarRef ? "uint*" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
+        NumberOfMapRegistersMarshal := NumberOfMapRegisters is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, DEVICE_DESCRIPTION.Ptr, DeviceDescriptor, NumberOfMapRegistersMarshal, NumberOfMapRegisters, DMA_ADAPTER.Ptr)
         return result

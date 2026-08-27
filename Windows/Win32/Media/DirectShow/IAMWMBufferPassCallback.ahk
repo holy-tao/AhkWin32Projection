@@ -51,8 +51,8 @@ export default struct IAMWMBufferPassCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dshowasf/nf-dshowasf-iamwmbufferpasscallback-notify
      */
     Notify(pNSSBuffer3, pPin, prtStart, prtEnd) {
-        prtStartMarshal := prtStart is VarRef ? "int64*" : "ptr"
-        prtEndMarshal := prtEnd is VarRef ? "int64*" : "ptr"
+        prtStartMarshal := prtStart is VarRef ? "int64*" : IntPtr
+        prtEndMarshal := prtEnd is VarRef ? "int64*" : IntPtr
 
         result := ComCall(3, this, "ptr", pNSSBuffer3, "ptr", pPin, prtStartMarshal, prtStart, prtEndMarshal, prtEnd, "HRESULT")
         return result
@@ -67,7 +67,7 @@ export default struct IAMWMBufferPassCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Notify := CallbackCreate(GetMethod(implObj, "Notify"), flags, 5)
+        this.vtbl.Notify := CallbackCreate(ObjBindMethod(implObj, "Notify"), flags, 5)
     }
 
     Dispose() {

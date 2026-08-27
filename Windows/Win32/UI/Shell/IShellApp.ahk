@@ -160,11 +160,11 @@ export default struct IShellApp extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAppInfo := CallbackCreate(GetMethod(implObj, "GetAppInfo"), flags, 2)
-        this.vtbl.GetPossibleActions := CallbackCreate(GetMethod(implObj, "GetPossibleActions"), flags, 2)
-        this.vtbl.GetSlowAppInfo := CallbackCreate(GetMethod(implObj, "GetSlowAppInfo"), flags, 2)
-        this.vtbl.GetCachedSlowAppInfo := CallbackCreate(GetMethod(implObj, "GetCachedSlowAppInfo"), flags, 2)
-        this.vtbl.IsInstalled := CallbackCreate(GetMethod(implObj, "IsInstalled"), flags, 1)
+        this.vtbl.GetAppInfo := CallbackCreate(ObjBindMethod(implObj, "GetAppInfo"), flags, 2)
+        this.vtbl.GetPossibleActions := CallbackCreate(ObjBindMethod(implObj, "GetPossibleActions"), flags, 2)
+        this.vtbl.GetSlowAppInfo := CallbackCreate(ObjBindMethod(implObj, "GetSlowAppInfo"), flags, 2)
+        this.vtbl.GetCachedSlowAppInfo := CallbackCreate(ObjBindMethod(implObj, "GetCachedSlowAppInfo"), flags, 2)
+        this.vtbl.IsInstalled := CallbackCreate(ObjBindMethod(implObj, "IsInstalled"), flags, 1)
     }
 
     Dispose() {

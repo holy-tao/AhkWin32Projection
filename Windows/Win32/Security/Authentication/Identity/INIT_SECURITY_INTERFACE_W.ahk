@@ -20,7 +20,6 @@ export default struct INIT_SECURITY_INTERFACE_W {
     }
 
     /**
-     * 
      * @returns {Pointer<SecurityFunctionTableW>} 
      */
     Call() {

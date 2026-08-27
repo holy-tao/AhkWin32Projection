@@ -38,7 +38,6 @@ export default struct IMLOperatorKernelFactory extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMLOperatorKernelCreationContext} _context 
      * @returns {IMLOperatorKernel} 
      */
@@ -56,7 +55,7 @@ export default struct IMLOperatorKernelFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateKernel := CallbackCreate(GetMethod(implObj, "CreateKernel"), flags, 3)
+        this.vtbl.CreateKernel := CallbackCreate(ObjBindMethod(implObj, "CreateKernel"), flags, 3)
     }
 
     Dispose() {

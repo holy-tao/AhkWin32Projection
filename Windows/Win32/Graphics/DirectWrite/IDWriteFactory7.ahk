@@ -84,8 +84,8 @@ export default struct IDWriteFactory7 extends IDWriteFactory6 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSystemFontSet := CallbackCreate(GetMethod(implObj, "GetSystemFontSet"), flags, 3)
-        this.vtbl.GetSystemFontCollection := CallbackCreate(GetMethod(implObj, "GetSystemFontCollection"), flags, 4)
+        this.vtbl.GetSystemFontSet := CallbackCreate(ObjBindMethod(implObj, "GetSystemFontSet"), flags, 3)
+        this.vtbl.GetSystemFontCollection := CallbackCreate(ObjBindMethod(implObj, "GetSystemFontCollection"), flags, 4)
     }
 
     Dispose() {

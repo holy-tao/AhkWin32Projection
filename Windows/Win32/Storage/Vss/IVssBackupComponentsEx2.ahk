@@ -578,13 +578,13 @@ export default struct IVssBackupComponentsEx2 extends IVssBackupComponentsEx {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.UnexposeSnapshot := CallbackCreate(GetMethod(implObj, "UnexposeSnapshot"), flags, 2)
-        this.vtbl.SetAuthoritativeRestore := CallbackCreate(GetMethod(implObj, "SetAuthoritativeRestore"), flags, 6)
-        this.vtbl.SetRollForward := CallbackCreate(GetMethod(implObj, "SetRollForward"), flags, 7)
-        this.vtbl.SetRestoreName := CallbackCreate(GetMethod(implObj, "SetRestoreName"), flags, 6)
-        this.vtbl.BreakSnapshotSetEx := CallbackCreate(GetMethod(implObj, "BreakSnapshotSetEx"), flags, 4)
-        this.vtbl.PreFastRecovery := CallbackCreate(GetMethod(implObj, "PreFastRecovery"), flags, 4)
-        this.vtbl.FastRecovery := CallbackCreate(GetMethod(implObj, "FastRecovery"), flags, 4)
+        this.vtbl.UnexposeSnapshot := CallbackCreate(ObjBindMethod(implObj, "UnexposeSnapshot"), flags, 2)
+        this.vtbl.SetAuthoritativeRestore := CallbackCreate(ObjBindMethod(implObj, "SetAuthoritativeRestore"), flags, 6)
+        this.vtbl.SetRollForward := CallbackCreate(ObjBindMethod(implObj, "SetRollForward"), flags, 7)
+        this.vtbl.SetRestoreName := CallbackCreate(ObjBindMethod(implObj, "SetRestoreName"), flags, 6)
+        this.vtbl.BreakSnapshotSetEx := CallbackCreate(ObjBindMethod(implObj, "BreakSnapshotSetEx"), flags, 4)
+        this.vtbl.PreFastRecovery := CallbackCreate(ObjBindMethod(implObj, "PreFastRecovery"), flags, 4)
+        this.vtbl.FastRecovery := CallbackCreate(ObjBindMethod(implObj, "FastRecovery"), flags, 4)
     }
 
     Dispose() {

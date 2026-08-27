@@ -99,8 +99,8 @@ export default struct ISyncChangeUnit extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangeunit-getchangeunitid
      */
     GetChangeUnitId(pbChangeUnitId, pcbIdSize) {
-        pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : "ptr"
-        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
+        pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : IntPtr
+        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pbChangeUnitIdMarshal, pbChangeUnitId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
         return result
@@ -154,7 +154,7 @@ export default struct ISyncChangeUnit extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangeunit-getchangeunitversion
      */
     GetChangeUnitVersion(pbCurrentReplicaId, pVersion) {
-        pbCurrentReplicaIdMarshal := pbCurrentReplicaId is VarRef ? "char*" : "ptr"
+        pbCurrentReplicaIdMarshal := pbCurrentReplicaId is VarRef ? "char*" : IntPtr
 
         result := ComCall(5, this, pbCurrentReplicaIdMarshal, pbCurrentReplicaId, SYNC_VERSION.Ptr, pVersion, "HRESULT")
         return result
@@ -169,9 +169,9 @@ export default struct ISyncChangeUnit extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetItemChange := CallbackCreate(GetMethod(implObj, "GetItemChange"), flags, 2)
-        this.vtbl.GetChangeUnitId := CallbackCreate(GetMethod(implObj, "GetChangeUnitId"), flags, 3)
-        this.vtbl.GetChangeUnitVersion := CallbackCreate(GetMethod(implObj, "GetChangeUnitVersion"), flags, 3)
+        this.vtbl.GetItemChange := CallbackCreate(ObjBindMethod(implObj, "GetItemChange"), flags, 2)
+        this.vtbl.GetChangeUnitId := CallbackCreate(ObjBindMethod(implObj, "GetChangeUnitId"), flags, 3)
+        this.vtbl.GetChangeUnitVersion := CallbackCreate(ObjBindMethod(implObj, "GetChangeUnitVersion"), flags, 3)
     }
 
     Dispose() {

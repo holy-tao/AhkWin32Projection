@@ -94,7 +94,7 @@ export default struct ITfFnBalloon extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.UpdateBalloon := CallbackCreate(GetMethod(implObj, "UpdateBalloon"), flags, 4)
+        this.vtbl.UpdateBalloon := CallbackCreate(ObjBindMethod(implObj, "UpdateBalloon"), flags, 4)
     }
 
     Dispose() {

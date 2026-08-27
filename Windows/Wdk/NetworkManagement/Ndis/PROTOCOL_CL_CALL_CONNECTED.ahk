@@ -18,12 +18,11 @@ export default struct PROTOCOL_CL_CALL_CONNECTED {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} ProtocolVcContext 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(ProtocolVcContext) {
-        ProtocolVcContextMarshal := ProtocolVcContext is VarRef ? "ptr" : "ptr"
+        ProtocolVcContextMarshal := ProtocolVcContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, ProtocolVcContextMarshal, ProtocolVcContext)
     }

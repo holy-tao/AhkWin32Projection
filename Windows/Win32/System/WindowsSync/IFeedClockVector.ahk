@@ -75,7 +75,7 @@ export default struct IFeedClockVector extends IClockVector {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ifeedclockvector-getupdatecount
      */
     GetUpdateCount(pdwUpdateCount) {
-        pdwUpdateCountMarshal := pdwUpdateCount is VarRef ? "uint*" : "ptr"
+        pdwUpdateCountMarshal := pdwUpdateCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, pdwUpdateCountMarshal, pdwUpdateCount, "HRESULT")
         return result
@@ -117,7 +117,7 @@ export default struct IFeedClockVector extends IClockVector {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ifeedclockvector-isnoconflictsspecified
      */
     IsNoConflictsSpecified(pfIsNoConflictsSpecified) {
-        pfIsNoConflictsSpecifiedMarshal := pfIsNoConflictsSpecified is VarRef ? "int*" : "ptr"
+        pfIsNoConflictsSpecifiedMarshal := pfIsNoConflictsSpecified is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, pfIsNoConflictsSpecifiedMarshal, pfIsNoConflictsSpecified, "HRESULT")
         return result
@@ -132,8 +132,8 @@ export default struct IFeedClockVector extends IClockVector {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetUpdateCount := CallbackCreate(GetMethod(implObj, "GetUpdateCount"), flags, 2)
-        this.vtbl.IsNoConflictsSpecified := CallbackCreate(GetMethod(implObj, "IsNoConflictsSpecified"), flags, 2)
+        this.vtbl.GetUpdateCount := CallbackCreate(ObjBindMethod(implObj, "GetUpdateCount"), flags, 2)
+        this.vtbl.IsNoConflictsSpecified := CallbackCreate(ObjBindMethod(implObj, "IsNoConflictsSpecified"), flags, 2)
     }
 
     Dispose() {

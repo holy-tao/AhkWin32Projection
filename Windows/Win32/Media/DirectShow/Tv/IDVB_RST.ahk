@@ -215,13 +215,13 @@ export default struct IDVB_RST extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.GetCountOfRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRecords"), flags, 2)
-        this.vtbl.GetRecordTransportStreamId := CallbackCreate(GetMethod(implObj, "GetRecordTransportStreamId"), flags, 3)
-        this.vtbl.GetRecordOriginalNetworkId := CallbackCreate(GetMethod(implObj, "GetRecordOriginalNetworkId"), flags, 3)
-        this.vtbl.GetRecordServiceId := CallbackCreate(GetMethod(implObj, "GetRecordServiceId"), flags, 3)
-        this.vtbl.GetRecordEventId := CallbackCreate(GetMethod(implObj, "GetRecordEventId"), flags, 3)
-        this.vtbl.GetRecordRunningStatus := CallbackCreate(GetMethod(implObj, "GetRecordRunningStatus"), flags, 3)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.GetCountOfRecords := CallbackCreate(ObjBindMethod(implObj, "GetCountOfRecords"), flags, 2)
+        this.vtbl.GetRecordTransportStreamId := CallbackCreate(ObjBindMethod(implObj, "GetRecordTransportStreamId"), flags, 3)
+        this.vtbl.GetRecordOriginalNetworkId := CallbackCreate(ObjBindMethod(implObj, "GetRecordOriginalNetworkId"), flags, 3)
+        this.vtbl.GetRecordServiceId := CallbackCreate(ObjBindMethod(implObj, "GetRecordServiceId"), flags, 3)
+        this.vtbl.GetRecordEventId := CallbackCreate(ObjBindMethod(implObj, "GetRecordEventId"), flags, 3)
+        this.vtbl.GetRecordRunningStatus := CallbackCreate(ObjBindMethod(implObj, "GetRecordRunningStatus"), flags, 3)
     }
 
     Dispose() {

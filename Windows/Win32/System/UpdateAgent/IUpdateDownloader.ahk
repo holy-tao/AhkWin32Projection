@@ -260,17 +260,17 @@ export default struct IUpdateDownloader extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ClientApplicationID := CallbackCreate(GetMethod(implObj, "get_ClientApplicationID"), flags, 2)
-        this.vtbl.put_ClientApplicationID := CallbackCreate(GetMethod(implObj, "put_ClientApplicationID"), flags, 2)
-        this.vtbl.get_IsForced := CallbackCreate(GetMethod(implObj, "get_IsForced"), flags, 2)
-        this.vtbl.put_IsForced := CallbackCreate(GetMethod(implObj, "put_IsForced"), flags, 2)
-        this.vtbl.get_Priority := CallbackCreate(GetMethod(implObj, "get_Priority"), flags, 2)
-        this.vtbl.put_Priority := CallbackCreate(GetMethod(implObj, "put_Priority"), flags, 2)
-        this.vtbl.get_Updates := CallbackCreate(GetMethod(implObj, "get_Updates"), flags, 2)
-        this.vtbl.put_Updates := CallbackCreate(GetMethod(implObj, "put_Updates"), flags, 2)
-        this.vtbl.BeginDownload := CallbackCreate(GetMethod(implObj, "BeginDownload"), flags, 5)
-        this.vtbl.Download := CallbackCreate(GetMethod(implObj, "Download"), flags, 2)
-        this.vtbl.EndDownload := CallbackCreate(GetMethod(implObj, "EndDownload"), flags, 3)
+        this.vtbl.get_ClientApplicationID := CallbackCreate(ObjBindMethod(implObj, "get_ClientApplicationID"), flags, 2)
+        this.vtbl.put_ClientApplicationID := CallbackCreate(ObjBindMethod(implObj, "put_ClientApplicationID"), flags, 2)
+        this.vtbl.get_IsForced := CallbackCreate(ObjBindMethod(implObj, "get_IsForced"), flags, 2)
+        this.vtbl.put_IsForced := CallbackCreate(ObjBindMethod(implObj, "put_IsForced"), flags, 2)
+        this.vtbl.get_Priority := CallbackCreate(ObjBindMethod(implObj, "get_Priority"), flags, 2)
+        this.vtbl.put_Priority := CallbackCreate(ObjBindMethod(implObj, "put_Priority"), flags, 2)
+        this.vtbl.get_Updates := CallbackCreate(ObjBindMethod(implObj, "get_Updates"), flags, 2)
+        this.vtbl.put_Updates := CallbackCreate(ObjBindMethod(implObj, "put_Updates"), flags, 2)
+        this.vtbl.BeginDownload := CallbackCreate(ObjBindMethod(implObj, "BeginDownload"), flags, 5)
+        this.vtbl.Download := CallbackCreate(ObjBindMethod(implObj, "Download"), flags, 2)
+        this.vtbl.EndDownload := CallbackCreate(ObjBindMethod(implObj, "EndDownload"), flags, 3)
     }
 
     Dispose() {

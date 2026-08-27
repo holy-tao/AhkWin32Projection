@@ -85,7 +85,6 @@ export default struct IDOMStorageEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_key() {
@@ -95,7 +94,6 @@ export default struct IDOMStorageEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_oldValue() {
@@ -105,7 +103,6 @@ export default struct IDOMStorageEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_newValue() {
@@ -115,7 +112,6 @@ export default struct IDOMStorageEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_url() {
@@ -125,7 +121,6 @@ export default struct IDOMStorageEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStorage} 
      */
     get_storageArea() {
@@ -134,7 +129,6 @@ export default struct IDOMStorageEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 
@@ -165,12 +159,12 @@ export default struct IDOMStorageEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_key := CallbackCreate(GetMethod(implObj, "get_key"), flags, 2)
-        this.vtbl.get_oldValue := CallbackCreate(GetMethod(implObj, "get_oldValue"), flags, 2)
-        this.vtbl.get_newValue := CallbackCreate(GetMethod(implObj, "get_newValue"), flags, 2)
-        this.vtbl.get_url := CallbackCreate(GetMethod(implObj, "get_url"), flags, 2)
-        this.vtbl.get_storageArea := CallbackCreate(GetMethod(implObj, "get_storageArea"), flags, 2)
-        this.vtbl.initStorageEvent := CallbackCreate(GetMethod(implObj, "initStorageEvent"), flags, 9)
+        this.vtbl.get_key := CallbackCreate(ObjBindMethod(implObj, "get_key"), flags, 2)
+        this.vtbl.get_oldValue := CallbackCreate(ObjBindMethod(implObj, "get_oldValue"), flags, 2)
+        this.vtbl.get_newValue := CallbackCreate(ObjBindMethod(implObj, "get_newValue"), flags, 2)
+        this.vtbl.get_url := CallbackCreate(ObjBindMethod(implObj, "get_url"), flags, 2)
+        this.vtbl.get_storageArea := CallbackCreate(ObjBindMethod(implObj, "get_storageArea"), flags, 2)
+        this.vtbl.initStorageEvent := CallbackCreate(ObjBindMethod(implObj, "initStorageEvent"), flags, 9)
     }
 
     Dispose() {

@@ -59,7 +59,7 @@ export default struct IWMProfile2 extends IWMProfile {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProfileID := CallbackCreate(GetMethod(implObj, "GetProfileID"), flags, 2)
+        this.vtbl.GetProfileID := CallbackCreate(ObjBindMethod(implObj, "GetProfileID"), flags, 2)
     }
 
     Dispose() {

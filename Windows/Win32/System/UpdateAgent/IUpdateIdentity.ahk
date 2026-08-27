@@ -85,8 +85,8 @@ export default struct IUpdateIdentity extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_RevisionNumber := CallbackCreate(GetMethod(implObj, "get_RevisionNumber"), flags, 2)
-        this.vtbl.get_UpdateID := CallbackCreate(GetMethod(implObj, "get_UpdateID"), flags, 2)
+        this.vtbl.get_RevisionNumber := CallbackCreate(ObjBindMethod(implObj, "get_RevisionNumber"), flags, 2)
+        this.vtbl.get_UpdateID := CallbackCreate(ObjBindMethod(implObj, "get_UpdateID"), flags, 2)
     }
 
     Dispose() {

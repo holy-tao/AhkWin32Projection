@@ -95,8 +95,8 @@ export default struct ID3D12Device7 extends ID3D12Device6 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddToStateObject := CallbackCreate(GetMethod(implObj, "AddToStateObject"), flags, 5)
-        this.vtbl.CreateProtectedResourceSession1 := CallbackCreate(GetMethod(implObj, "CreateProtectedResourceSession1"), flags, 4)
+        this.vtbl.AddToStateObject := CallbackCreate(ObjBindMethod(implObj, "AddToStateObject"), flags, 5)
+        this.vtbl.CreateProtectedResourceSession1 := CallbackCreate(ObjBindMethod(implObj, "CreateProtectedResourceSession1"), flags, 4)
     }
 
     Dispose() {

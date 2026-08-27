@@ -37,7 +37,6 @@ export default struct IPrintWriteStream extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pvBuffer 
      * @param {Integer} cbBuffer 
      * @returns {Integer} 
@@ -48,7 +47,6 @@ export default struct IPrintWriteStream extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Close() {
@@ -64,8 +62,8 @@ export default struct IPrintWriteStream extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.WriteBytes := CallbackCreate(GetMethod(implObj, "WriteBytes"), flags, 4)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.WriteBytes := CallbackCreate(ObjBindMethod(implObj, "WriteBytes"), flags, 4)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
     }
 
     Dispose() {

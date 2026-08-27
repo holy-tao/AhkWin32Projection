@@ -127,9 +127,9 @@ export default struct IWiaUIExtension extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DeviceDialog := CallbackCreate(GetMethod(implObj, "DeviceDialog"), flags, 2)
-        this.vtbl.GetDeviceIcon := CallbackCreate(GetMethod(implObj, "GetDeviceIcon"), flags, 4)
-        this.vtbl.GetDeviceBitmapLogo := CallbackCreate(GetMethod(implObj, "GetDeviceBitmapLogo"), flags, 5)
+        this.vtbl.DeviceDialog := CallbackCreate(ObjBindMethod(implObj, "DeviceDialog"), flags, 2)
+        this.vtbl.GetDeviceIcon := CallbackCreate(ObjBindMethod(implObj, "GetDeviceIcon"), flags, 4)
+        this.vtbl.GetDeviceBitmapLogo := CallbackCreate(ObjBindMethod(implObj, "GetDeviceBitmapLogo"), flags, 5)
     }
 
     Dispose() {

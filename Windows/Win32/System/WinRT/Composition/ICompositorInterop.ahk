@@ -96,9 +96,9 @@ export default struct ICompositorInterop extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateCompositionSurfaceForHandle := CallbackCreate(GetMethod(implObj, "CreateCompositionSurfaceForHandle"), flags, 3)
-        this.vtbl.CreateCompositionSurfaceForSwapChain := CallbackCreate(GetMethod(implObj, "CreateCompositionSurfaceForSwapChain"), flags, 3)
-        this.vtbl.CreateGraphicsDevice := CallbackCreate(GetMethod(implObj, "CreateGraphicsDevice"), flags, 3)
+        this.vtbl.CreateCompositionSurfaceForHandle := CallbackCreate(ObjBindMethod(implObj, "CreateCompositionSurfaceForHandle"), flags, 3)
+        this.vtbl.CreateCompositionSurfaceForSwapChain := CallbackCreate(ObjBindMethod(implObj, "CreateCompositionSurfaceForSwapChain"), flags, 3)
+        this.vtbl.CreateGraphicsDevice := CallbackCreate(ObjBindMethod(implObj, "CreateGraphicsDevice"), flags, 3)
     }
 
     Dispose() {

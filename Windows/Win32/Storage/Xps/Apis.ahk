@@ -58,7 +58,11 @@ export DeviceCapabilitiesA(pDevice, pPort, fwCapability, pOutput, pDevMode) {
     pPort := pPort is String ? StrPtr(pPort) : pPort
     pOutput := pOutput is String ? StrPtr(pOutput) : pOutput
 
-    result := DllCall("winspool.drv\DeviceCapabilitiesA", "ptr", pDevice, "ptr", pPort, PRINTER_DEVICE_CAPABILITIES, fwCapability, "ptr", pOutput, DEVMODEA.Ptr, pDevMode, Int32)
+    pPortMarshal := pPort == 0 ? IntPtr : PSTR
+    pOutputMarshal := pOutput == 0 ? IntPtr : PSTR
+    pDevModeMarshal := pDevMode == 0 ? IntPtr : DEVMODEA.Ptr
+
+    result := DllCall("winspool.drv\DeviceCapabilitiesA", "ptr", pDevice, pPortMarshal, pPort, PRINTER_DEVICE_CAPABILITIES, fwCapability, pOutputMarshal, pOutput, pDevModeMarshal, pDevMode, Int32)
     return result
 }
 
@@ -102,7 +106,11 @@ export DeviceCapabilitiesW(pDevice, pPort, fwCapability, pOutput, pDevMode) {
     pPort := pPort is String ? StrPtr(pPort) : pPort
     pOutput := pOutput is String ? StrPtr(pOutput) : pOutput
 
-    result := DllCall("winspool.drv\DeviceCapabilitiesW", "ptr", pDevice, "ptr", pPort, PRINTER_DEVICE_CAPABILITIES, fwCapability, "ptr", pOutput, DEVMODEW.Ptr, pDevMode, Int32)
+    pPortMarshal := pPort == 0 ? IntPtr : PWSTR
+    pOutputMarshal := pOutput == 0 ? IntPtr : PWSTR
+    pDevModeMarshal := pDevMode == 0 ? IntPtr : DEVMODEW.Ptr
+
+    result := DllCall("winspool.drv\DeviceCapabilitiesW", "ptr", pDevice, pPortMarshal, pPort, PRINTER_DEVICE_CAPABILITIES, fwCapability, pOutputMarshal, pOutput, pDevModeMarshal, pDevMode, Int32)
     return result
 }
 
@@ -158,9 +166,11 @@ export DeviceCapabilitiesW(pDevice, pPort, fwCapability, pOutput, pDevMode) {
  * @since windows5.0
  */
 export Escape(_hdc, iEscape, cjIn, pvIn, pvOut) {
-    pvOutMarshal := pvOut is VarRef ? "ptr" : "ptr"
+    pvInMarshal := pvIn == 0 ? IntPtr : IntPtr
+    pvOutMarshal := pvOut is VarRef ? "ptr" : IntPtr
+    pvOutMarshal := pvOut == 0 ? IntPtr : "ptr"
 
-    result := DllCall("GDI32.dll\Escape", HDC, _hdc, Int32, iEscape, Int32, cjIn, IntPtr, pvIn, pvOutMarshal, pvOut, Int32)
+    result := DllCall("GDI32.dll\Escape", HDC, _hdc, Int32, iEscape, Int32, cjIn, pvInMarshal, pvIn, pvOutMarshal, pvOut, Int32)
     return result
 }
 
@@ -409,7 +419,10 @@ export Escape(_hdc, iEscape, cjIn, pvIn, pvOut) {
  * @since windows5.0
  */
 export ExtEscape(_hdc, iEscape, cjInput, lpInData, cjOutput, lpOutData) {
-    result := DllCall("GDI32.dll\ExtEscape", HDC, _hdc, Int32, iEscape, Int32, cjInput, IntPtr, lpInData, Int32, cjOutput, IntPtr, lpOutData, Int32)
+    lpInDataMarshal := lpInData == 0 ? IntPtr : IntPtr
+    lpOutDataMarshal := lpOutData == 0 ? IntPtr : IntPtr
+
+    result := DllCall("GDI32.dll\ExtEscape", HDC, _hdc, Int32, iEscape, Int32, cjInput, lpInDataMarshal, lpInData, Int32, cjOutput, lpOutDataMarshal, lpOutData, Int32)
     return result
 }
 

@@ -70,7 +70,6 @@ export default struct ISpeechLexiconWord extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_LangId() {
@@ -79,7 +78,6 @@ export default struct ISpeechLexiconWord extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechWordType} 
      */
     get_Type() {
@@ -88,7 +86,6 @@ export default struct ISpeechLexiconWord extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Word() {
@@ -98,7 +95,6 @@ export default struct ISpeechLexiconWord extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechLexiconPronunciations} 
      */
     get_Pronunciations() {
@@ -115,10 +111,10 @@ export default struct ISpeechLexiconWord extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_LangId := CallbackCreate(GetMethod(implObj, "get_LangId"), flags, 2)
-        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
-        this.vtbl.get_Word := CallbackCreate(GetMethod(implObj, "get_Word"), flags, 2)
-        this.vtbl.get_Pronunciations := CallbackCreate(GetMethod(implObj, "get_Pronunciations"), flags, 2)
+        this.vtbl.get_LangId := CallbackCreate(ObjBindMethod(implObj, "get_LangId"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(ObjBindMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_Word := CallbackCreate(ObjBindMethod(implObj, "get_Word"), flags, 2)
+        this.vtbl.get_Pronunciations := CallbackCreate(ObjBindMethod(implObj, "get_Pronunciations"), flags, 2)
     }
 
     Dispose() {

@@ -68,7 +68,7 @@ export default struct IUpdateDownloadContent2 extends IUpdateDownloadContent {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_IsDeltaCompressedContent := CallbackCreate(GetMethod(implObj, "get_IsDeltaCompressedContent"), flags, 2)
+        this.vtbl.get_IsDeltaCompressedContent := CallbackCreate(ObjBindMethod(implObj, "get_IsDeltaCompressedContent"), flags, 2)
     }
 
     Dispose() {

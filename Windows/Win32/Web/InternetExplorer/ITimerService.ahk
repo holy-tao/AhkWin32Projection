@@ -39,7 +39,6 @@ export default struct ITimerService extends IUnknown {
     }
 
     /**
-     * 
      * @param {ITimer} pReferenceTimer 
      * @returns {ITimer} 
      */
@@ -49,7 +48,6 @@ export default struct ITimerService extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rguidName 
      * @returns {ITimer} 
      */
@@ -59,7 +57,6 @@ export default struct ITimerService extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rguidName 
      * @param {ITimer} pReferenceTimer 
      * @returns {HRESULT} 
@@ -78,9 +75,9 @@ export default struct ITimerService extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateTimer := CallbackCreate(GetMethod(implObj, "CreateTimer"), flags, 3)
-        this.vtbl.GetNamedTimer := CallbackCreate(GetMethod(implObj, "GetNamedTimer"), flags, 3)
-        this.vtbl.SetNamedTimerReference := CallbackCreate(GetMethod(implObj, "SetNamedTimerReference"), flags, 3)
+        this.vtbl.CreateTimer := CallbackCreate(ObjBindMethod(implObj, "CreateTimer"), flags, 3)
+        this.vtbl.GetNamedTimer := CallbackCreate(ObjBindMethod(implObj, "GetNamedTimer"), flags, 3)
+        this.vtbl.SetNamedTimerReference := CallbackCreate(ObjBindMethod(implObj, "SetNamedTimerReference"), flags, 3)
     }
 
     Dispose() {

@@ -76,7 +76,7 @@ export default struct IMallocSpy extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imallocspy-postalloc
      */
     PostAlloc(pActual) {
-        pActualMarshal := pActual is VarRef ? "ptr" : "ptr"
+        pActualMarshal := pActual is VarRef ? "ptr" : IntPtr
 
         result := ComCall(4, this, pActualMarshal, pActual, IntPtr)
         return result
@@ -92,7 +92,7 @@ export default struct IMallocSpy extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imallocspy-prefree
      */
     PreFree(pRequest, fSpyed) {
-        pRequestMarshal := pRequest is VarRef ? "ptr" : "ptr"
+        pRequestMarshal := pRequest is VarRef ? "ptr" : IntPtr
 
         result := ComCall(5, this, pRequestMarshal, pRequest, BOOL, fSpyed, IntPtr)
         return result
@@ -124,8 +124,8 @@ export default struct IMallocSpy extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imallocspy-prerealloc
      */
     PreRealloc(pRequest, cbRequest, ppNewRequest, fSpyed) {
-        pRequestMarshal := pRequest is VarRef ? "ptr" : "ptr"
-        ppNewRequestMarshal := ppNewRequest is VarRef ? "ptr*" : "ptr"
+        pRequestMarshal := pRequest is VarRef ? "ptr" : IntPtr
+        ppNewRequestMarshal := ppNewRequest is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(7, this, pRequestMarshal, pRequest, IntPtr, cbRequest, ppNewRequestMarshal, ppNewRequest, BOOL, fSpyed, IntPtr)
         return result
@@ -141,7 +141,7 @@ export default struct IMallocSpy extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imallocspy-postrealloc
      */
     PostRealloc(pActual, fSpyed) {
-        pActualMarshal := pActual is VarRef ? "ptr" : "ptr"
+        pActualMarshal := pActual is VarRef ? "ptr" : IntPtr
 
         result := ComCall(8, this, pActualMarshal, pActual, BOOL, fSpyed, IntPtr)
         return result
@@ -162,7 +162,7 @@ export default struct IMallocSpy extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imallocspy-pregetsize
      */
     PreGetSize(pRequest, fSpyed) {
-        pRequestMarshal := pRequest is VarRef ? "ptr" : "ptr"
+        pRequestMarshal := pRequest is VarRef ? "ptr" : IntPtr
 
         result := ComCall(9, this, pRequestMarshal, pRequest, BOOL, fSpyed, IntPtr)
         return result
@@ -192,7 +192,7 @@ export default struct IMallocSpy extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imallocspy-predidalloc
      */
     PreDidAlloc(pRequest, fSpyed) {
-        pRequestMarshal := pRequest is VarRef ? "ptr" : "ptr"
+        pRequestMarshal := pRequest is VarRef ? "ptr" : IntPtr
 
         result := ComCall(11, this, pRequestMarshal, pRequest, BOOL, fSpyed, IntPtr)
         return result
@@ -211,7 +211,7 @@ export default struct IMallocSpy extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imallocspy-postdidalloc
      */
     PostDidAlloc(pRequest, fSpyed, fActual) {
-        pRequestMarshal := pRequest is VarRef ? "ptr" : "ptr"
+        pRequestMarshal := pRequest is VarRef ? "ptr" : IntPtr
 
         result := ComCall(12, this, pRequestMarshal, pRequest, BOOL, fSpyed, Int32, fActual, Int32)
         return result
@@ -248,18 +248,18 @@ export default struct IMallocSpy extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PreAlloc := CallbackCreate(GetMethod(implObj, "PreAlloc"), flags, 2)
-        this.vtbl.PostAlloc := CallbackCreate(GetMethod(implObj, "PostAlloc"), flags, 2)
-        this.vtbl.PreFree := CallbackCreate(GetMethod(implObj, "PreFree"), flags, 3)
-        this.vtbl.PostFree := CallbackCreate(GetMethod(implObj, "PostFree"), flags, 2)
-        this.vtbl.PreRealloc := CallbackCreate(GetMethod(implObj, "PreRealloc"), flags, 5)
-        this.vtbl.PostRealloc := CallbackCreate(GetMethod(implObj, "PostRealloc"), flags, 3)
-        this.vtbl.PreGetSize := CallbackCreate(GetMethod(implObj, "PreGetSize"), flags, 3)
-        this.vtbl.PostGetSize := CallbackCreate(GetMethod(implObj, "PostGetSize"), flags, 3)
-        this.vtbl.PreDidAlloc := CallbackCreate(GetMethod(implObj, "PreDidAlloc"), flags, 3)
-        this.vtbl.PostDidAlloc := CallbackCreate(GetMethod(implObj, "PostDidAlloc"), flags, 4)
-        this.vtbl.PreHeapMinimize := CallbackCreate(GetMethod(implObj, "PreHeapMinimize"), flags, 1)
-        this.vtbl.PostHeapMinimize := CallbackCreate(GetMethod(implObj, "PostHeapMinimize"), flags, 1)
+        this.vtbl.PreAlloc := CallbackCreate(ObjBindMethod(implObj, "PreAlloc"), flags, 2)
+        this.vtbl.PostAlloc := CallbackCreate(ObjBindMethod(implObj, "PostAlloc"), flags, 2)
+        this.vtbl.PreFree := CallbackCreate(ObjBindMethod(implObj, "PreFree"), flags, 3)
+        this.vtbl.PostFree := CallbackCreate(ObjBindMethod(implObj, "PostFree"), flags, 2)
+        this.vtbl.PreRealloc := CallbackCreate(ObjBindMethod(implObj, "PreRealloc"), flags, 5)
+        this.vtbl.PostRealloc := CallbackCreate(ObjBindMethod(implObj, "PostRealloc"), flags, 3)
+        this.vtbl.PreGetSize := CallbackCreate(ObjBindMethod(implObj, "PreGetSize"), flags, 3)
+        this.vtbl.PostGetSize := CallbackCreate(ObjBindMethod(implObj, "PostGetSize"), flags, 3)
+        this.vtbl.PreDidAlloc := CallbackCreate(ObjBindMethod(implObj, "PreDidAlloc"), flags, 3)
+        this.vtbl.PostDidAlloc := CallbackCreate(ObjBindMethod(implObj, "PostDidAlloc"), flags, 4)
+        this.vtbl.PreHeapMinimize := CallbackCreate(ObjBindMethod(implObj, "PreHeapMinimize"), flags, 1)
+        this.vtbl.PostHeapMinimize := CallbackCreate(ObjBindMethod(implObj, "PostHeapMinimize"), flags, 1)
     }
 
     Dispose() {

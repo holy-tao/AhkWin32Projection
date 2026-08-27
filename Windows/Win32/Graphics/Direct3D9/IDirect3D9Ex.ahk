@@ -137,7 +137,7 @@ export default struct IDirect3D9Ex extends IDirect3D9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9ex-getadapterdisplaymodeex
      */
     GetAdapterDisplayModeEx(_Adapter, pMode, pRotation) {
-        pRotationMarshal := pRotation is VarRef ? "int*" : "ptr"
+        pRotationMarshal := pRotation is VarRef ? "int*" : IntPtr
 
         result := ComCall(19, this, UInt32, _Adapter, D3DDISPLAYMODEEX.Ptr, pMode, pRotationMarshal, pRotation, "HRESULT")
         return result
@@ -207,11 +207,11 @@ export default struct IDirect3D9Ex extends IDirect3D9 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAdapterModeCountEx := CallbackCreate(GetMethod(implObj, "GetAdapterModeCountEx"), flags, 3)
-        this.vtbl.EnumAdapterModesEx := CallbackCreate(GetMethod(implObj, "EnumAdapterModesEx"), flags, 5)
-        this.vtbl.GetAdapterDisplayModeEx := CallbackCreate(GetMethod(implObj, "GetAdapterDisplayModeEx"), flags, 4)
-        this.vtbl.CreateDeviceEx := CallbackCreate(GetMethod(implObj, "CreateDeviceEx"), flags, 8)
-        this.vtbl.GetAdapterLUID := CallbackCreate(GetMethod(implObj, "GetAdapterLUID"), flags, 3)
+        this.vtbl.GetAdapterModeCountEx := CallbackCreate(ObjBindMethod(implObj, "GetAdapterModeCountEx"), flags, 3)
+        this.vtbl.EnumAdapterModesEx := CallbackCreate(ObjBindMethod(implObj, "EnumAdapterModesEx"), flags, 5)
+        this.vtbl.GetAdapterDisplayModeEx := CallbackCreate(ObjBindMethod(implObj, "GetAdapterDisplayModeEx"), flags, 4)
+        this.vtbl.CreateDeviceEx := CallbackCreate(ObjBindMethod(implObj, "CreateDeviceEx"), flags, 8)
+        this.vtbl.GetAdapterLUID := CallbackCreate(ObjBindMethod(implObj, "GetAdapterLUID"), flags, 3)
     }
 
     Dispose() {

@@ -94,7 +94,11 @@ export default struct IDirectManipulationCompositor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationcompositor-addcontent
      */
     AddContent(content, device, parentVisual, childVisual) {
-        result := ComCall(3, this, "ptr", content, "ptr", device, "ptr", parentVisual, "ptr", childVisual, "HRESULT")
+        deviceMarshal := device == 0 ? IntPtr : "ptr"
+        parentVisualMarshal := parentVisual == 0 ? IntPtr : "ptr"
+        childVisualMarshal := childVisual == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, "ptr", content, deviceMarshal, device, parentVisualMarshal, parentVisual, childVisualMarshal, childVisual, "HRESULT")
         return result
     }
 
@@ -147,10 +151,10 @@ export default struct IDirectManipulationCompositor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddContent := CallbackCreate(GetMethod(implObj, "AddContent"), flags, 5)
-        this.vtbl.RemoveContent := CallbackCreate(GetMethod(implObj, "RemoveContent"), flags, 2)
-        this.vtbl.SetUpdateManager := CallbackCreate(GetMethod(implObj, "SetUpdateManager"), flags, 2)
-        this.vtbl.Flush := CallbackCreate(GetMethod(implObj, "Flush"), flags, 1)
+        this.vtbl.AddContent := CallbackCreate(ObjBindMethod(implObj, "AddContent"), flags, 5)
+        this.vtbl.RemoveContent := CallbackCreate(ObjBindMethod(implObj, "RemoveContent"), flags, 2)
+        this.vtbl.SetUpdateManager := CallbackCreate(ObjBindMethod(implObj, "SetUpdateManager"), flags, 2)
+        this.vtbl.Flush := CallbackCreate(ObjBindMethod(implObj, "Flush"), flags, 1)
     }
 
     Dispose() {

@@ -63,7 +63,6 @@ export default struct ISpRecognizer extends ISpProperties {
     }
 
     /**
-     * 
      * @param {ISpObjectToken} pRecognizer 
      * @returns {HRESULT} 
      */
@@ -73,7 +72,6 @@ export default struct ISpRecognizer extends ISpProperties {
     }
 
     /**
-     * 
      * @returns {ISpObjectToken} 
      */
     GetRecognizer() {
@@ -82,18 +80,18 @@ export default struct ISpRecognizer extends ISpProperties {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkInput 
      * @param {BOOL} fAllowFormatChanges 
      * @returns {HRESULT} 
      */
     SetInput(pUnkInput, fAllowFormatChanges) {
-        result := ComCall(9, this, "ptr", pUnkInput, BOOL, fAllowFormatChanges, "HRESULT")
+        pUnkInputMarshal := pUnkInput == 0 ? IntPtr : "ptr"
+
+        result := ComCall(9, this, pUnkInputMarshal, pUnkInput, BOOL, fAllowFormatChanges, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {ISpObjectToken} 
      */
     GetInputObjectToken() {
@@ -102,7 +100,6 @@ export default struct ISpRecognizer extends ISpProperties {
     }
 
     /**
-     * 
      * @returns {ISpStreamFormat} 
      */
     GetInputStream() {
@@ -111,7 +108,6 @@ export default struct ISpRecognizer extends ISpProperties {
     }
 
     /**
-     * 
      * @returns {ISpRecoContext} 
      */
     CreateRecoContext() {
@@ -120,7 +116,6 @@ export default struct ISpRecognizer extends ISpProperties {
     }
 
     /**
-     * 
      * @returns {ISpObjectToken} 
      */
     GetRecoProfile() {
@@ -129,7 +124,6 @@ export default struct ISpRecognizer extends ISpProperties {
     }
 
     /**
-     * 
      * @param {ISpObjectToken} pToken 
      * @returns {HRESULT} 
      */
@@ -139,7 +133,6 @@ export default struct ISpRecognizer extends ISpProperties {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     IsSharedInstance() {
@@ -148,19 +141,17 @@ export default struct ISpRecognizer extends ISpProperties {
     }
 
     /**
-     * 
      * @param {Pointer<SPRECOSTATE>} pState 
      * @returns {HRESULT} 
      */
     GetRecoState(pState) {
-        pStateMarshal := pState is VarRef ? "int*" : "ptr"
+        pStateMarshal := pState is VarRef ? "int*" : IntPtr
 
         result := ComCall(16, this, pStateMarshal, pState, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {SPRECOSTATE} NewState 
      * @returns {HRESULT} 
      */
@@ -170,7 +161,6 @@ export default struct ISpRecognizer extends ISpProperties {
     }
 
     /**
-     * 
      * @param {Pointer<SPRECOGNIZERSTATUS>} pStatus 
      * @returns {HRESULT} 
      */
@@ -180,7 +170,6 @@ export default struct ISpRecognizer extends ISpProperties {
     }
 
     /**
-     * 
      * @param {SPSTREAMFORMATTYPE} WaveFormatType 
      * @param {Pointer<Guid>} pFormatId 
      * @returns {Pointer<WAVEFORMATEX>} 
@@ -191,7 +180,6 @@ export default struct ISpRecognizer extends ISpProperties {
     }
 
     /**
-     * 
      * @param {PWSTR} pszTypeOfUI 
      * @param {Pointer<Void>} pvExtraData 
      * @param {Integer} cbExtraData 
@@ -201,15 +189,14 @@ export default struct ISpRecognizer extends ISpProperties {
     IsUISupported(pszTypeOfUI, pvExtraData, cbExtraData, pfSupported) {
         pszTypeOfUI := pszTypeOfUI is String ? StrPtr(pszTypeOfUI) : pszTypeOfUI
 
-        pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : "ptr"
-        pfSupportedMarshal := pfSupported is VarRef ? "int*" : "ptr"
+        pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : IntPtr
+        pfSupportedMarshal := pfSupported is VarRef ? "int*" : IntPtr
 
         result := ComCall(20, this, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, UInt32, cbExtraData, pfSupportedMarshal, pfSupported, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HWND} hwndParent 
      * @param {PWSTR} pszTitle 
      * @param {PWSTR} pszTypeOfUI 
@@ -221,14 +208,14 @@ export default struct ISpRecognizer extends ISpProperties {
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
         pszTypeOfUI := pszTypeOfUI is String ? StrPtr(pszTypeOfUI) : pszTypeOfUI
 
-        pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : "ptr"
+        pszTitleMarshal := pszTitle == 0 ? IntPtr : PWSTR
+        pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : IntPtr
 
-        result := ComCall(21, this, HWND, hwndParent, "ptr", pszTitle, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, UInt32, cbExtraData, "HRESULT")
+        result := ComCall(21, this, HWND, hwndParent, pszTitleMarshal, pszTitle, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, UInt32, cbExtraData, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {ISpPhrase} pPhrase 
      * @returns {HRESULT} 
      */
@@ -246,22 +233,22 @@ export default struct ISpRecognizer extends ISpProperties {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetRecognizer := CallbackCreate(GetMethod(implObj, "SetRecognizer"), flags, 2)
-        this.vtbl.GetRecognizer := CallbackCreate(GetMethod(implObj, "GetRecognizer"), flags, 2)
-        this.vtbl.SetInput := CallbackCreate(GetMethod(implObj, "SetInput"), flags, 3)
-        this.vtbl.GetInputObjectToken := CallbackCreate(GetMethod(implObj, "GetInputObjectToken"), flags, 2)
-        this.vtbl.GetInputStream := CallbackCreate(GetMethod(implObj, "GetInputStream"), flags, 2)
-        this.vtbl.CreateRecoContext := CallbackCreate(GetMethod(implObj, "CreateRecoContext"), flags, 2)
-        this.vtbl.GetRecoProfile := CallbackCreate(GetMethod(implObj, "GetRecoProfile"), flags, 2)
-        this.vtbl.SetRecoProfile := CallbackCreate(GetMethod(implObj, "SetRecoProfile"), flags, 2)
-        this.vtbl.IsSharedInstance := CallbackCreate(GetMethod(implObj, "IsSharedInstance"), flags, 1)
-        this.vtbl.GetRecoState := CallbackCreate(GetMethod(implObj, "GetRecoState"), flags, 2)
-        this.vtbl.SetRecoState := CallbackCreate(GetMethod(implObj, "SetRecoState"), flags, 2)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
-        this.vtbl.GetFormat := CallbackCreate(GetMethod(implObj, "GetFormat"), flags, 4)
-        this.vtbl.IsUISupported := CallbackCreate(GetMethod(implObj, "IsUISupported"), flags, 5)
-        this.vtbl.DisplayUI := CallbackCreate(GetMethod(implObj, "DisplayUI"), flags, 6)
-        this.vtbl.EmulateRecognition := CallbackCreate(GetMethod(implObj, "EmulateRecognition"), flags, 2)
+        this.vtbl.SetRecognizer := CallbackCreate(ObjBindMethod(implObj, "SetRecognizer"), flags, 2)
+        this.vtbl.GetRecognizer := CallbackCreate(ObjBindMethod(implObj, "GetRecognizer"), flags, 2)
+        this.vtbl.SetInput := CallbackCreate(ObjBindMethod(implObj, "SetInput"), flags, 3)
+        this.vtbl.GetInputObjectToken := CallbackCreate(ObjBindMethod(implObj, "GetInputObjectToken"), flags, 2)
+        this.vtbl.GetInputStream := CallbackCreate(ObjBindMethod(implObj, "GetInputStream"), flags, 2)
+        this.vtbl.CreateRecoContext := CallbackCreate(ObjBindMethod(implObj, "CreateRecoContext"), flags, 2)
+        this.vtbl.GetRecoProfile := CallbackCreate(ObjBindMethod(implObj, "GetRecoProfile"), flags, 2)
+        this.vtbl.SetRecoProfile := CallbackCreate(ObjBindMethod(implObj, "SetRecoProfile"), flags, 2)
+        this.vtbl.IsSharedInstance := CallbackCreate(ObjBindMethod(implObj, "IsSharedInstance"), flags, 1)
+        this.vtbl.GetRecoState := CallbackCreate(ObjBindMethod(implObj, "GetRecoState"), flags, 2)
+        this.vtbl.SetRecoState := CallbackCreate(ObjBindMethod(implObj, "SetRecoState"), flags, 2)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.GetFormat := CallbackCreate(ObjBindMethod(implObj, "GetFormat"), flags, 4)
+        this.vtbl.IsUISupported := CallbackCreate(ObjBindMethod(implObj, "IsUISupported"), flags, 5)
+        this.vtbl.DisplayUI := CallbackCreate(ObjBindMethod(implObj, "DisplayUI"), flags, 6)
+        this.vtbl.EmulateRecognition := CallbackCreate(ObjBindMethod(implObj, "EmulateRecognition"), flags, 2)
     }
 
     Dispose() {

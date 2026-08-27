@@ -45,7 +45,6 @@ export default struct ISideShowSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} in_applicationId 
      * @param {Pointer<Guid>} in_endpointId 
      * @returns {ISideShowContentManager} 
@@ -56,7 +55,6 @@ export default struct ISideShowSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} in_applicationId 
      * @returns {ISideShowNotificationManager} 
      */
@@ -74,8 +72,8 @@ export default struct ISideShowSession extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterContent := CallbackCreate(GetMethod(implObj, "RegisterContent"), flags, 4)
-        this.vtbl.RegisterNotifications := CallbackCreate(GetMethod(implObj, "RegisterNotifications"), flags, 3)
+        this.vtbl.RegisterContent := CallbackCreate(ObjBindMethod(implObj, "RegisterContent"), flags, 4)
+        this.vtbl.RegisterNotifications := CallbackCreate(ObjBindMethod(implObj, "RegisterNotifications"), flags, 3)
     }
 
     Dispose() {

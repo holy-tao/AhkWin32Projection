@@ -21,7 +21,6 @@ export default struct pHalGetInterruptTranslator {
     }
 
     /**
-     * 
      * @param {INTERFACE_TYPE} ParentInterfaceType 
      * @param {Integer} ParentBusNumber 
      * @param {INTERFACE_TYPE} BridgeInterfaceType 
@@ -32,7 +31,7 @@ export default struct pHalGetInterruptTranslator {
      * @returns {NTSTATUS} 
      */
     Call(ParentInterfaceType, ParentBusNumber, BridgeInterfaceType, _Size, _Version, Translator, BridgeBusNumber) {
-        BridgeBusNumberMarshal := BridgeBusNumber is VarRef ? "uint*" : "ptr"
+        BridgeBusNumberMarshal := BridgeBusNumber is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, INTERFACE_TYPE, ParentInterfaceType, UInt32, ParentBusNumber, INTERFACE_TYPE, BridgeInterfaceType, UInt16, _Size, UInt16, _Version, TRANSLATOR_INTERFACE.Ptr, Translator, BridgeBusNumberMarshal, BridgeBusNumber, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

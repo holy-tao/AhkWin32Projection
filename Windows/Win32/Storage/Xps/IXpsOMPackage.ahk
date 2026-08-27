@@ -470,16 +470,16 @@ export default struct IXpsOMPackage extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDocumentSequence := CallbackCreate(GetMethod(implObj, "GetDocumentSequence"), flags, 2)
-        this.vtbl.SetDocumentSequence := CallbackCreate(GetMethod(implObj, "SetDocumentSequence"), flags, 2)
-        this.vtbl.GetCoreProperties := CallbackCreate(GetMethod(implObj, "GetCoreProperties"), flags, 2)
-        this.vtbl.SetCoreProperties := CallbackCreate(GetMethod(implObj, "SetCoreProperties"), flags, 2)
-        this.vtbl.GetDiscardControlPartName := CallbackCreate(GetMethod(implObj, "GetDiscardControlPartName"), flags, 2)
-        this.vtbl.SetDiscardControlPartName := CallbackCreate(GetMethod(implObj, "SetDiscardControlPartName"), flags, 2)
-        this.vtbl.GetThumbnailResource := CallbackCreate(GetMethod(implObj, "GetThumbnailResource"), flags, 2)
-        this.vtbl.SetThumbnailResource := CallbackCreate(GetMethod(implObj, "SetThumbnailResource"), flags, 2)
-        this.vtbl.WriteToFile := CallbackCreate(GetMethod(implObj, "WriteToFile"), flags, 5)
-        this.vtbl.WriteToStream := CallbackCreate(GetMethod(implObj, "WriteToStream"), flags, 3)
+        this.vtbl.GetDocumentSequence := CallbackCreate(ObjBindMethod(implObj, "GetDocumentSequence"), flags, 2)
+        this.vtbl.SetDocumentSequence := CallbackCreate(ObjBindMethod(implObj, "SetDocumentSequence"), flags, 2)
+        this.vtbl.GetCoreProperties := CallbackCreate(ObjBindMethod(implObj, "GetCoreProperties"), flags, 2)
+        this.vtbl.SetCoreProperties := CallbackCreate(ObjBindMethod(implObj, "SetCoreProperties"), flags, 2)
+        this.vtbl.GetDiscardControlPartName := CallbackCreate(ObjBindMethod(implObj, "GetDiscardControlPartName"), flags, 2)
+        this.vtbl.SetDiscardControlPartName := CallbackCreate(ObjBindMethod(implObj, "SetDiscardControlPartName"), flags, 2)
+        this.vtbl.GetThumbnailResource := CallbackCreate(ObjBindMethod(implObj, "GetThumbnailResource"), flags, 2)
+        this.vtbl.SetThumbnailResource := CallbackCreate(ObjBindMethod(implObj, "SetThumbnailResource"), flags, 2)
+        this.vtbl.WriteToFile := CallbackCreate(ObjBindMethod(implObj, "WriteToFile"), flags, 5)
+        this.vtbl.WriteToStream := CallbackCreate(ObjBindMethod(implObj, "WriteToStream"), flags, 3)
     }
 
     Dispose() {

@@ -47,7 +47,6 @@ export default struct AsyncIUnknown extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {HRESULT} 
      */
@@ -57,7 +56,6 @@ export default struct AsyncIUnknown extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<Void>} 
      */
     Finish_QueryInterface() {
@@ -66,7 +64,6 @@ export default struct AsyncIUnknown extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Begin_AddRef() {
@@ -75,7 +72,6 @@ export default struct AsyncIUnknown extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Finish_AddRef() {
@@ -84,7 +80,6 @@ export default struct AsyncIUnknown extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Begin_Release() {
@@ -93,7 +88,6 @@ export default struct AsyncIUnknown extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Finish_Release() {
@@ -110,12 +104,12 @@ export default struct AsyncIUnknown extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Begin_QueryInterface := CallbackCreate(GetMethod(implObj, "Begin_QueryInterface"), flags, 2)
-        this.vtbl.Finish_QueryInterface := CallbackCreate(GetMethod(implObj, "Finish_QueryInterface"), flags, 2)
-        this.vtbl.Begin_AddRef := CallbackCreate(GetMethod(implObj, "Begin_AddRef"), flags, 1)
-        this.vtbl.Finish_AddRef := CallbackCreate(GetMethod(implObj, "Finish_AddRef"), flags, 1)
-        this.vtbl.Begin_Release := CallbackCreate(GetMethod(implObj, "Begin_Release"), flags, 1)
-        this.vtbl.Finish_Release := CallbackCreate(GetMethod(implObj, "Finish_Release"), flags, 1)
+        this.vtbl.Begin_QueryInterface := CallbackCreate(ObjBindMethod(implObj, "Begin_QueryInterface"), flags, 2)
+        this.vtbl.Finish_QueryInterface := CallbackCreate(ObjBindMethod(implObj, "Finish_QueryInterface"), flags, 2)
+        this.vtbl.Begin_AddRef := CallbackCreate(ObjBindMethod(implObj, "Begin_AddRef"), flags, 1)
+        this.vtbl.Finish_AddRef := CallbackCreate(ObjBindMethod(implObj, "Finish_AddRef"), flags, 1)
+        this.vtbl.Begin_Release := CallbackCreate(ObjBindMethod(implObj, "Begin_Release"), flags, 1)
+        this.vtbl.Finish_Release := CallbackCreate(ObjBindMethod(implObj, "Finish_Release"), flags, 1)
     }
 
     Dispose() {

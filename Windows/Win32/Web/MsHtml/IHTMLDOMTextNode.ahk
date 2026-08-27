@@ -63,7 +63,6 @@ export default struct IHTMLDOMTextNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -75,7 +74,6 @@ export default struct IHTMLDOMTextNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_data() {
@@ -85,7 +83,6 @@ export default struct IHTMLDOMTextNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     toString() {
@@ -95,7 +92,6 @@ export default struct IHTMLDOMTextNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -104,7 +100,6 @@ export default struct IHTMLDOMTextNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} offset 
      * @returns {IHTMLDOMNode} 
      */
@@ -122,11 +117,11 @@ export default struct IHTMLDOMTextNode extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_data := CallbackCreate(GetMethod(implObj, "put_data"), flags, 2)
-        this.vtbl.get_data := CallbackCreate(GetMethod(implObj, "get_data"), flags, 2)
-        this.vtbl.toString := CallbackCreate(GetMethod(implObj, "toString"), flags, 2)
-        this.vtbl.get_length := CallbackCreate(GetMethod(implObj, "get_length"), flags, 2)
-        this.vtbl.splitText := CallbackCreate(GetMethod(implObj, "splitText"), flags, 3)
+        this.vtbl.put_data := CallbackCreate(ObjBindMethod(implObj, "put_data"), flags, 2)
+        this.vtbl.get_data := CallbackCreate(ObjBindMethod(implObj, "get_data"), flags, 2)
+        this.vtbl.toString := CallbackCreate(ObjBindMethod(implObj, "toString"), flags, 2)
+        this.vtbl.get_length := CallbackCreate(ObjBindMethod(implObj, "get_length"), flags, 2)
+        this.vtbl.splitText := CallbackCreate(ObjBindMethod(implObj, "splitText"), flags, 3)
     }
 
     Dispose() {

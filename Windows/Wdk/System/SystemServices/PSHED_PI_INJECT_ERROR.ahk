@@ -19,7 +19,6 @@ export default struct PSHED_PI_INJECT_ERROR {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} PluginContext 
      * @param {Integer} ErrorType 
      * @param {Integer} Parameter1 
@@ -29,7 +28,8 @@ export default struct PSHED_PI_INJECT_ERROR {
      * @returns {NTSTATUS} 
      */
     Call(PluginContext, ErrorType, Parameter1, Parameter2, Parameter3, Parameter4) {
-        PluginContextMarshal := PluginContext is VarRef ? "ptr" : "ptr"
+        PluginContextMarshal := PluginContext is VarRef ? "ptr" : IntPtr
+        PluginContextMarshal := PluginContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, PluginContextMarshal, PluginContext, Int64, ErrorType, Int64, Parameter1, Int64, Parameter2, Int64, Parameter3, Int64, Parameter4, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

@@ -18,12 +18,11 @@ export default struct PFN_CSP_FREE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Address 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Address) {
-        _AddressMarshal := _Address is VarRef ? "ptr" : "ptr"
+        _AddressMarshal := _Address is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _AddressMarshal, _Address)
     }

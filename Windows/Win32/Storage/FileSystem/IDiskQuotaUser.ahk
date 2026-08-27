@@ -60,7 +60,7 @@ export default struct IDiskQuotaUser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauser-getid
      */
     GetID(pulID) {
-        pulIDMarshal := pulID is VarRef ? "uint*" : "ptr"
+        pulIDMarshal := pulID is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pulIDMarshal, pulID, "HRESULT")
         return result
@@ -173,7 +173,7 @@ export default struct IDiskQuotaUser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauser-getsidlength
      */
     GetSidLength(pdwLength) {
-        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
+        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, pdwLengthMarshal, pdwLength, "HRESULT")
         return result
@@ -250,7 +250,7 @@ export default struct IDiskQuotaUser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauser-getsid
      */
     GetSid(pbSidBuffer, cbSidBuffer) {
-        pbSidBufferMarshal := pbSidBuffer is VarRef ? "char*" : "ptr"
+        pbSidBufferMarshal := pbSidBuffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(6, this, pbSidBufferMarshal, pbSidBuffer, UInt32, cbSidBuffer, "HRESULT")
         return result
@@ -347,7 +347,7 @@ export default struct IDiskQuotaUser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauser-getquotathreshold
      */
     GetQuotaThreshold(pllThreshold) {
-        pllThresholdMarshal := pllThreshold is VarRef ? "int64*" : "ptr"
+        pllThresholdMarshal := pllThreshold is VarRef ? "int64*" : IntPtr
 
         result := ComCall(7, this, pllThresholdMarshal, pllThreshold, "HRESULT")
         return result
@@ -542,7 +542,7 @@ export default struct IDiskQuotaUser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauser-getquotalimit
      */
     GetQuotaLimit(pllLimit) {
-        pllLimitMarshal := pllLimit is VarRef ? "int64*" : "ptr"
+        pllLimitMarshal := pllLimit is VarRef ? "int64*" : IntPtr
 
         result := ComCall(9, this, pllLimitMarshal, pllLimit, "HRESULT")
         return result
@@ -737,7 +737,7 @@ export default struct IDiskQuotaUser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauser-getquotaused
      */
     GetQuotaUsed(pllUsed) {
-        pllUsedMarshal := pllUsed is VarRef ? "int64*" : "ptr"
+        pllUsedMarshal := pllUsed is VarRef ? "int64*" : IntPtr
 
         result := ComCall(11, this, pllUsedMarshal, pllUsed, "HRESULT")
         return result
@@ -934,7 +934,7 @@ export default struct IDiskQuotaUser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauser-getquotainformation
      */
     GetQuotaInformation(pbQuotaInfo, cbQuotaInfo) {
-        pbQuotaInfoMarshal := pbQuotaInfo is VarRef ? "ptr" : "ptr"
+        pbQuotaInfoMarshal := pbQuotaInfo is VarRef ? "ptr" : IntPtr
 
         result := ComCall(13, this, pbQuotaInfoMarshal, pbQuotaInfo, UInt32, cbQuotaInfo, "HRESULT")
         return result
@@ -1188,7 +1188,7 @@ export default struct IDiskQuotaUser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauser-getaccountstatus
      */
     GetAccountStatus(pdwStatus) {
-        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
+        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : IntPtr
 
         result := ComCall(17, this, pdwStatusMarshal, pdwStatus, "HRESULT")
         return result
@@ -1203,21 +1203,21 @@ export default struct IDiskQuotaUser extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetID := CallbackCreate(GetMethod(implObj, "GetID"), flags, 2)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 7)
-        this.vtbl.GetSidLength := CallbackCreate(GetMethod(implObj, "GetSidLength"), flags, 2)
-        this.vtbl.GetSid := CallbackCreate(GetMethod(implObj, "GetSid"), flags, 3)
-        this.vtbl.GetQuotaThreshold := CallbackCreate(GetMethod(implObj, "GetQuotaThreshold"), flags, 2)
-        this.vtbl.GetQuotaThresholdText := CallbackCreate(GetMethod(implObj, "GetQuotaThresholdText"), flags, 3)
-        this.vtbl.GetQuotaLimit := CallbackCreate(GetMethod(implObj, "GetQuotaLimit"), flags, 2)
-        this.vtbl.GetQuotaLimitText := CallbackCreate(GetMethod(implObj, "GetQuotaLimitText"), flags, 3)
-        this.vtbl.GetQuotaUsed := CallbackCreate(GetMethod(implObj, "GetQuotaUsed"), flags, 2)
-        this.vtbl.GetQuotaUsedText := CallbackCreate(GetMethod(implObj, "GetQuotaUsedText"), flags, 3)
-        this.vtbl.GetQuotaInformation := CallbackCreate(GetMethod(implObj, "GetQuotaInformation"), flags, 3)
-        this.vtbl.SetQuotaThreshold := CallbackCreate(GetMethod(implObj, "SetQuotaThreshold"), flags, 3)
-        this.vtbl.SetQuotaLimit := CallbackCreate(GetMethod(implObj, "SetQuotaLimit"), flags, 3)
-        this.vtbl.Invalidate := CallbackCreate(GetMethod(implObj, "Invalidate"), flags, 1)
-        this.vtbl.GetAccountStatus := CallbackCreate(GetMethod(implObj, "GetAccountStatus"), flags, 2)
+        this.vtbl.GetID := CallbackCreate(ObjBindMethod(implObj, "GetID"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 7)
+        this.vtbl.GetSidLength := CallbackCreate(ObjBindMethod(implObj, "GetSidLength"), flags, 2)
+        this.vtbl.GetSid := CallbackCreate(ObjBindMethod(implObj, "GetSid"), flags, 3)
+        this.vtbl.GetQuotaThreshold := CallbackCreate(ObjBindMethod(implObj, "GetQuotaThreshold"), flags, 2)
+        this.vtbl.GetQuotaThresholdText := CallbackCreate(ObjBindMethod(implObj, "GetQuotaThresholdText"), flags, 3)
+        this.vtbl.GetQuotaLimit := CallbackCreate(ObjBindMethod(implObj, "GetQuotaLimit"), flags, 2)
+        this.vtbl.GetQuotaLimitText := CallbackCreate(ObjBindMethod(implObj, "GetQuotaLimitText"), flags, 3)
+        this.vtbl.GetQuotaUsed := CallbackCreate(ObjBindMethod(implObj, "GetQuotaUsed"), flags, 2)
+        this.vtbl.GetQuotaUsedText := CallbackCreate(ObjBindMethod(implObj, "GetQuotaUsedText"), flags, 3)
+        this.vtbl.GetQuotaInformation := CallbackCreate(ObjBindMethod(implObj, "GetQuotaInformation"), flags, 3)
+        this.vtbl.SetQuotaThreshold := CallbackCreate(ObjBindMethod(implObj, "SetQuotaThreshold"), flags, 3)
+        this.vtbl.SetQuotaLimit := CallbackCreate(ObjBindMethod(implObj, "SetQuotaLimit"), flags, 3)
+        this.vtbl.Invalidate := CallbackCreate(ObjBindMethod(implObj, "Invalidate"), flags, 1)
+        this.vtbl.GetAccountStatus := CallbackCreate(ObjBindMethod(implObj, "GetAccountStatus"), flags, 2)
     }
 
     Dispose() {

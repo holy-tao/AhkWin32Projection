@@ -60,7 +60,7 @@ export default struct IComUserEvent extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnUserEvent := CallbackCreate(GetMethod(implObj, "OnUserEvent"), flags, 3)
+        this.vtbl.OnUserEvent := CallbackCreate(ObjBindMethod(implObj, "OnUserEvent"), flags, 3)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct UTextAccess {
     }
 
     /**
-     * 
      * @param {Pointer<UText>} ut 
      * @param {Integer} nativeIndex 
      * @param {Integer} forward 

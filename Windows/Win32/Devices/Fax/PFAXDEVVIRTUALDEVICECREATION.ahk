@@ -21,7 +21,6 @@ export default struct PFAXDEVVIRTUALDEVICECREATION {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} DeviceCount 
      * @param {PWSTR} DeviceNamePrefix 
      * @param {Pointer<Integer>} DeviceIdPrefix 
@@ -32,8 +31,8 @@ export default struct PFAXDEVVIRTUALDEVICECREATION {
     Call(DeviceCount, DeviceNamePrefix, DeviceIdPrefix, CompletionPort, CompletionKey) {
         DeviceNamePrefix := DeviceNamePrefix is String ? StrPtr(DeviceNamePrefix) : DeviceNamePrefix
 
-        DeviceCountMarshal := DeviceCount is VarRef ? "uint*" : "ptr"
-        DeviceIdPrefixMarshal := DeviceIdPrefix is VarRef ? "uint*" : "ptr"
+        DeviceCountMarshal := DeviceCount is VarRef ? "uint*" : IntPtr
+        DeviceIdPrefixMarshal := DeviceIdPrefix is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, DeviceCountMarshal, DeviceCount, "ptr", DeviceNamePrefix, DeviceIdPrefixMarshal, DeviceIdPrefix, HANDLE, CompletionPort, IntPtr, CompletionKey, BOOL)
         return result

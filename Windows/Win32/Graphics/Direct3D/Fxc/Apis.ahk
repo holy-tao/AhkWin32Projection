@@ -112,7 +112,13 @@ export D3DCompile(pSrcData, SrcDataSize, pSourceName, pDefines, pInclude, pEntry
     pEntrypoint := pEntrypoint is String ? StrPtr(pEntrypoint) : pEntrypoint
     pTarget := pTarget is String ? StrPtr(pTarget) : pTarget
 
-    result := DllCall("D3DCOMPILER_47.dll\D3DCompile", IntPtr, pSrcData, IntPtr, SrcDataSize, "ptr", pSourceName, D3D_SHADER_MACRO.Ptr, pDefines, "ptr", pInclude, "ptr", pEntrypoint, "ptr", pTarget, UInt32, Flags1, UInt32, Flags2, ID3DBlob.Ptr, ppCode, ID3DBlob.Ptr, ppErrorMsgs, "HRESULT")
+    pSourceNameMarshal := pSourceName == 0 ? IntPtr : PSTR
+    pDefinesMarshal := pDefines == 0 ? IntPtr : D3D_SHADER_MACRO.Ptr
+    pIncludeMarshal := pInclude == 0 ? IntPtr : "ptr"
+    pEntrypointMarshal := pEntrypoint == 0 ? IntPtr : PSTR
+    ppErrorMsgsMarshal := ppErrorMsgs == 0 ? IntPtr : ID3DBlob.Ptr
+
+    result := DllCall("D3DCOMPILER_47.dll\D3DCompile", IntPtr, pSrcData, IntPtr, SrcDataSize, pSourceNameMarshal, pSourceName, pDefinesMarshal, pDefines, pIncludeMarshal, pInclude, pEntrypointMarshal, pEntrypoint, "ptr", pTarget, UInt32, Flags1, UInt32, Flags2, ID3DBlob.Ptr, ppCode, ppErrorMsgsMarshal, ppErrorMsgs, "HRESULT")
     return result
 }
 
@@ -195,7 +201,13 @@ export D3DCompile2(pSrcData, SrcDataSize, pSourceName, pDefines, pInclude, pEntr
     pEntrypoint := pEntrypoint is String ? StrPtr(pEntrypoint) : pEntrypoint
     pTarget := pTarget is String ? StrPtr(pTarget) : pTarget
 
-    result := DllCall("D3DCOMPILER_47.dll\D3DCompile2", IntPtr, pSrcData, IntPtr, SrcDataSize, "ptr", pSourceName, D3D_SHADER_MACRO.Ptr, pDefines, "ptr", pInclude, "ptr", pEntrypoint, "ptr", pTarget, UInt32, Flags1, UInt32, Flags2, UInt32, SecondaryDataFlags, IntPtr, pSecondaryData, IntPtr, SecondaryDataSize, ID3DBlob.Ptr, ppCode, ID3DBlob.Ptr, ppErrorMsgs, "HRESULT")
+    pSourceNameMarshal := pSourceName == 0 ? IntPtr : PSTR
+    pDefinesMarshal := pDefines == 0 ? IntPtr : D3D_SHADER_MACRO.Ptr
+    pIncludeMarshal := pInclude == 0 ? IntPtr : "ptr"
+    pSecondaryDataMarshal := pSecondaryData == 0 ? IntPtr : IntPtr
+    ppErrorMsgsMarshal := ppErrorMsgs == 0 ? IntPtr : ID3DBlob.Ptr
+
+    result := DllCall("D3DCOMPILER_47.dll\D3DCompile2", IntPtr, pSrcData, IntPtr, SrcDataSize, pSourceNameMarshal, pSourceName, pDefinesMarshal, pDefines, pIncludeMarshal, pInclude, "ptr", pEntrypoint, "ptr", pTarget, UInt32, Flags1, UInt32, Flags2, UInt32, SecondaryDataFlags, pSecondaryDataMarshal, pSecondaryData, IntPtr, SecondaryDataSize, ID3DBlob.Ptr, ppCode, ppErrorMsgsMarshal, ppErrorMsgs, "HRESULT")
     return result
 }
 
@@ -224,7 +236,11 @@ export D3DCompileFromFile(pFileName, pDefines, pInclude, pEntrypoint, pTarget, F
     pEntrypoint := pEntrypoint is String ? StrPtr(pEntrypoint) : pEntrypoint
     pTarget := pTarget is String ? StrPtr(pTarget) : pTarget
 
-    result := DllCall("D3DCOMPILER_47.dll\D3DCompileFromFile", "ptr", pFileName, D3D_SHADER_MACRO.Ptr, pDefines, "ptr", pInclude, "ptr", pEntrypoint, "ptr", pTarget, UInt32, Flags1, UInt32, Flags2, ID3DBlob.Ptr, ppCode, ID3DBlob.Ptr, ppErrorMsgs, "HRESULT")
+    pDefinesMarshal := pDefines == 0 ? IntPtr : D3D_SHADER_MACRO.Ptr
+    pIncludeMarshal := pInclude == 0 ? IntPtr : "ptr"
+    ppErrorMsgsMarshal := ppErrorMsgs == 0 ? IntPtr : ID3DBlob.Ptr
+
+    result := DllCall("D3DCOMPILER_47.dll\D3DCompileFromFile", "ptr", pFileName, pDefinesMarshal, pDefines, pIncludeMarshal, pInclude, "ptr", pEntrypoint, "ptr", pTarget, UInt32, Flags1, UInt32, Flags2, ID3DBlob.Ptr, ppCode, ppErrorMsgsMarshal, ppErrorMsgs, "HRESULT")
     return result
 }
 
@@ -264,7 +280,12 @@ export D3DCompileFromFile(pFileName, pDefines, pInclude, pEntrypoint, pTarget, F
 export D3DPreprocess(pSrcData, SrcDataSize, pSourceName, pDefines, pInclude, ppCodeText, ppErrorMsgs) {
     pSourceName := pSourceName is String ? StrPtr(pSourceName) : pSourceName
 
-    result := DllCall("D3DCOMPILER_47.dll\D3DPreprocess", IntPtr, pSrcData, IntPtr, SrcDataSize, "ptr", pSourceName, D3D_SHADER_MACRO.Ptr, pDefines, "ptr", pInclude, ID3DBlob.Ptr, ppCodeText, ID3DBlob.Ptr, ppErrorMsgs, "HRESULT")
+    pSourceNameMarshal := pSourceName == 0 ? IntPtr : PSTR
+    pDefinesMarshal := pDefines == 0 ? IntPtr : D3D_SHADER_MACRO.Ptr
+    pIncludeMarshal := pInclude == 0 ? IntPtr : "ptr"
+    ppErrorMsgsMarshal := ppErrorMsgs == 0 ? IntPtr : ID3DBlob.Ptr
+
+    result := DllCall("D3DCOMPILER_47.dll\D3DPreprocess", IntPtr, pSrcData, IntPtr, SrcDataSize, pSourceNameMarshal, pSourceName, pDefinesMarshal, pDefines, pIncludeMarshal, pInclude, ID3DBlob.Ptr, ppCodeText, ppErrorMsgsMarshal, ppErrorMsgs, "HRESULT")
     return result
 }
 
@@ -366,7 +387,9 @@ export D3DReflectLibrary(pSrcData, SrcDataSize, riid) {
 export D3DDisassemble(pSrcData, SrcDataSize, Flags, szComments) {
     szComments := szComments is String ? StrPtr(szComments) : szComments
 
-    result := DllCall("D3DCOMPILER_47.dll\D3DDisassemble", IntPtr, pSrcData, IntPtr, SrcDataSize, UInt32, Flags, "ptr", szComments, "ptr*", &ppDisassembly := 0, "HRESULT")
+    szCommentsMarshal := szComments == 0 ? IntPtr : PSTR
+
+    result := DllCall("D3DCOMPILER_47.dll\D3DDisassemble", IntPtr, pSrcData, IntPtr, SrcDataSize, UInt32, Flags, szCommentsMarshal, szComments, "ptr*", &ppDisassembly := 0, "HRESULT")
     return ID3DBlob(ppDisassembly)
 }
 
@@ -424,9 +447,11 @@ export D3DDisassemble(pSrcData, SrcDataSize, Flags, szComments) {
 export D3DDisassembleRegion(pSrcData, SrcDataSize, Flags, szComments, StartByteOffset, NumInsts, pFinishByteOffset, ppDisassembly) {
     szComments := szComments is String ? StrPtr(szComments) : szComments
 
-    pFinishByteOffsetMarshal := pFinishByteOffset is VarRef ? "ptr*" : "ptr"
+    szCommentsMarshal := szComments == 0 ? IntPtr : PSTR
+    pFinishByteOffsetMarshal := pFinishByteOffset is VarRef ? "ptr*" : IntPtr
+    pFinishByteOffsetMarshal := pFinishByteOffset == 0 ? IntPtr : "ptr*"
 
-    result := DllCall("D3DCOMPILER_47.dll\D3DDisassembleRegion", IntPtr, pSrcData, IntPtr, SrcDataSize, UInt32, Flags, "ptr", szComments, IntPtr, StartByteOffset, IntPtr, NumInsts, pFinishByteOffsetMarshal, pFinishByteOffset, ID3DBlob.Ptr, ppDisassembly, "HRESULT")
+    result := DllCall("D3DCOMPILER_47.dll\D3DDisassembleRegion", IntPtr, pSrcData, IntPtr, SrcDataSize, UInt32, Flags, szCommentsMarshal, szComments, IntPtr, StartByteOffset, IntPtr, NumInsts, pFinishByteOffsetMarshal, pFinishByteOffset, ID3DBlob.Ptr, ppDisassembly, "HRESULT")
     return result
 }
 
@@ -462,7 +487,7 @@ export D3DCreateLinker() {
  * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dloadmodule
  */
 export D3DLoadModule(pSrcData, cbSrcDataSize) {
-    pSrcDataMarshal := pSrcData is VarRef ? "ptr" : "ptr"
+    pSrcDataMarshal := pSrcData is VarRef ? "ptr" : IntPtr
 
     result := DllCall("D3DCOMPILER_47.dll\D3DLoadModule", pSrcDataMarshal, pSrcData, IntPtr, cbSrcDataSize, "ptr*", &ppModule := 0, "HRESULT")
     return ID3D11Module(ppModule)
@@ -515,8 +540,10 @@ export D3DCreateFunctionLinkingGraph(uFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dgettraceinstructionoffsets
  */
 export D3DGetTraceInstructionOffsets(pSrcData, SrcDataSize, Flags, StartInstIndex, NumInsts, pOffsets, pTotalInsts) {
-    pOffsetsMarshal := pOffsets is VarRef ? "ptr*" : "ptr"
-    pTotalInstsMarshal := pTotalInsts is VarRef ? "ptr*" : "ptr"
+    pOffsetsMarshal := pOffsets is VarRef ? "ptr*" : IntPtr
+    pOffsetsMarshal := pOffsets == 0 ? IntPtr : "ptr*"
+    pTotalInstsMarshal := pTotalInsts is VarRef ? "ptr*" : IntPtr
+    pTotalInstsMarshal := pTotalInsts == 0 ? IntPtr : "ptr*"
 
     result := DllCall("D3DCOMPILER_47.dll\D3DGetTraceInstructionOffsets", IntPtr, pSrcData, IntPtr, SrcDataSize, UInt32, Flags, IntPtr, StartInstIndex, IntPtr, NumInsts, pOffsetsMarshal, pOffsets, pTotalInstsMarshal, pTotalInsts, "HRESULT")
     return result
@@ -728,8 +755,10 @@ export D3DCompressShaders(uNumShaders, pShaderData, uFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3ddecompressshaders
  */
 export D3DDecompressShaders(pSrcData, SrcDataSize, uNumShaders, uStartIndex, pIndices, uFlags, ppShaders, pTotalShaders) {
-    pIndicesMarshal := pIndices is VarRef ? "uint*" : "ptr"
-    pTotalShadersMarshal := pTotalShaders is VarRef ? "uint*" : "ptr"
+    pIndicesMarshal := pIndices is VarRef ? "uint*" : IntPtr
+    pIndicesMarshal := pIndices == 0 ? IntPtr : "uint*"
+    pTotalShadersMarshal := pTotalShaders is VarRef ? "uint*" : IntPtr
+    pTotalShadersMarshal := pTotalShaders == 0 ? IntPtr : "uint*"
 
     result := DllCall("D3DCOMPILER_47.dll\D3DDecompressShaders", IntPtr, pSrcData, IntPtr, SrcDataSize, UInt32, uNumShaders, UInt32, uStartIndex, pIndicesMarshal, pIndices, UInt32, uFlags, ID3DBlob.Ptr, ppShaders, pTotalShadersMarshal, pTotalShaders, "HRESULT")
     return result

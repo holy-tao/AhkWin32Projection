@@ -37,7 +37,6 @@ export default struct INotificationTransportSync extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CompleteDelivery() {
@@ -67,8 +66,8 @@ export default struct INotificationTransportSync extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CompleteDelivery := CallbackCreate(GetMethod(implObj, "CompleteDelivery"), flags, 1)
-        this.vtbl.Flush := CallbackCreate(GetMethod(implObj, "Flush"), flags, 1)
+        this.vtbl.CompleteDelivery := CallbackCreate(ObjBindMethod(implObj, "CompleteDelivery"), flags, 1)
+        this.vtbl.Flush := CallbackCreate(ObjBindMethod(implObj, "Flush"), flags, 1)
     }
 
     Dispose() {

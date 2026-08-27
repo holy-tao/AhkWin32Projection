@@ -25,7 +25,6 @@ export default struct PDD_MOCOMPCB_CREATE {
     }
 
     /**
-     * 
      * @param {Pointer<DD_CREATEMOCOMPDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_createmocompdata">DD_CREATEMOCOMPDATA</a> structure that contains the information required to begin using motion compensation.
      * @returns {Integer} <i>DdMoCompCreate</i> returns one of the following callback codes:
      */

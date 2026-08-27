@@ -37,7 +37,6 @@ export default struct ICommandPrepare extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cExpectedRuns 
      * @returns {HRESULT} 
      */
@@ -47,7 +46,6 @@ export default struct ICommandPrepare extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Unprepare() {
@@ -64,8 +62,8 @@ export default struct ICommandPrepare extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Prepare := CallbackCreate(GetMethod(implObj, "Prepare"), flags, 2)
-        this.vtbl.Unprepare := CallbackCreate(GetMethod(implObj, "Unprepare"), flags, 1)
+        this.vtbl.Prepare := CallbackCreate(ObjBindMethod(implObj, "Prepare"), flags, 2)
+        this.vtbl.Unprepare := CallbackCreate(ObjBindMethod(implObj, "Unprepare"), flags, 1)
     }
 
     Dispose() {

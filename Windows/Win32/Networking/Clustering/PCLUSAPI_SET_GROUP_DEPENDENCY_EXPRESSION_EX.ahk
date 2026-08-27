@@ -20,7 +20,6 @@ export default struct PCLUSAPI_SET_GROUP_DEPENDENCY_EXPRESSION_EX {
     }
 
     /**
-     * 
      * @param {HGROUP} _hGroup 
      * @param {PWSTR} lpszDependencyExpression 
      * @param {PWSTR} lpszReason 
@@ -30,7 +29,9 @@ export default struct PCLUSAPI_SET_GROUP_DEPENDENCY_EXPRESSION_EX {
         lpszDependencyExpression := lpszDependencyExpression is String ? StrPtr(lpszDependencyExpression) : lpszDependencyExpression
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall(this.value, HGROUP, _hGroup, "ptr", lpszDependencyExpression, "ptr", lpszReason, UInt32)
+        lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+        result := DllCall(this.value, HGROUP, _hGroup, "ptr", lpszDependencyExpression, lpszReasonMarshal, lpszReason, UInt32)
         return result
     }
 

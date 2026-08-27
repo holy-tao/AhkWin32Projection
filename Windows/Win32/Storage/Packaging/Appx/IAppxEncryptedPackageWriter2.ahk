@@ -60,7 +60,7 @@ export default struct IAppxEncryptedPackageWriter2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddPayloadFilesEncrypted := CallbackCreate(GetMethod(implObj, "AddPayloadFilesEncrypted"), flags, 4)
+        this.vtbl.AddPayloadFilesEncrypted := CallbackCreate(ObjBindMethod(implObj, "AddPayloadFilesEncrypted"), flags, 4)
     }
 
     Dispose() {

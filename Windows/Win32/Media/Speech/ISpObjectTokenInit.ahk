@@ -38,7 +38,6 @@ export default struct ISpObjectTokenInit extends ISpObjectToken {
     }
 
     /**
-     * 
      * @param {PWSTR} pszCategoryId 
      * @param {PWSTR} pszTokenId 
      * @param {ISpDataKey} pDataKey 
@@ -48,7 +47,9 @@ export default struct ISpObjectTokenInit extends ISpObjectToken {
         pszCategoryId := pszCategoryId is String ? StrPtr(pszCategoryId) : pszCategoryId
         pszTokenId := pszTokenId is String ? StrPtr(pszTokenId) : pszTokenId
 
-        result := ComCall(25, this, "ptr", pszCategoryId, "ptr", pszTokenId, "ptr", pDataKey, "HRESULT")
+        pDataKeyMarshal := pDataKey == 0 ? IntPtr : "ptr"
+
+        result := ComCall(25, this, "ptr", pszCategoryId, "ptr", pszTokenId, pDataKeyMarshal, pDataKey, "HRESULT")
         return result
     }
 
@@ -61,7 +62,7 @@ export default struct ISpObjectTokenInit extends ISpObjectToken {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitFromDataKey := CallbackCreate(GetMethod(implObj, "InitFromDataKey"), flags, 4)
+        this.vtbl.InitFromDataKey := CallbackCreate(ObjBindMethod(implObj, "InitFromDataKey"), flags, 4)
     }
 
     Dispose() {

@@ -140,12 +140,12 @@ export default struct IWdsTransportServicePolicy2 extends IWdsTransportServicePo
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_UdpPortPolicy := CallbackCreate(GetMethod(implObj, "get_UdpPortPolicy"), flags, 2)
-        this.vtbl.put_UdpPortPolicy := CallbackCreate(GetMethod(implObj, "put_UdpPortPolicy"), flags, 2)
-        this.vtbl.get_TftpMaximumBlockSize := CallbackCreate(GetMethod(implObj, "get_TftpMaximumBlockSize"), flags, 2)
-        this.vtbl.put_TftpMaximumBlockSize := CallbackCreate(GetMethod(implObj, "put_TftpMaximumBlockSize"), flags, 2)
-        this.vtbl.get_EnableTftpVariableWindowExtension := CallbackCreate(GetMethod(implObj, "get_EnableTftpVariableWindowExtension"), flags, 2)
-        this.vtbl.put_EnableTftpVariableWindowExtension := CallbackCreate(GetMethod(implObj, "put_EnableTftpVariableWindowExtension"), flags, 2)
+        this.vtbl.get_UdpPortPolicy := CallbackCreate(ObjBindMethod(implObj, "get_UdpPortPolicy"), flags, 2)
+        this.vtbl.put_UdpPortPolicy := CallbackCreate(ObjBindMethod(implObj, "put_UdpPortPolicy"), flags, 2)
+        this.vtbl.get_TftpMaximumBlockSize := CallbackCreate(ObjBindMethod(implObj, "get_TftpMaximumBlockSize"), flags, 2)
+        this.vtbl.put_TftpMaximumBlockSize := CallbackCreate(ObjBindMethod(implObj, "put_TftpMaximumBlockSize"), flags, 2)
+        this.vtbl.get_EnableTftpVariableWindowExtension := CallbackCreate(ObjBindMethod(implObj, "get_EnableTftpVariableWindowExtension"), flags, 2)
+        this.vtbl.put_EnableTftpVariableWindowExtension := CallbackCreate(ObjBindMethod(implObj, "put_EnableTftpVariableWindowExtension"), flags, 2)
     }
 
     Dispose() {

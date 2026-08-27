@@ -58,7 +58,6 @@ export default struct IDynamicPortMappingCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -67,7 +66,6 @@ export default struct IDynamicPortMappingCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrRemoteHost 
      * @param {Integer} lExternalPort 
      * @param {BSTR} bstrProtocol 
@@ -82,7 +80,6 @@ export default struct IDynamicPortMappingCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -91,7 +88,6 @@ export default struct IDynamicPortMappingCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrRemoteHost 
      * @param {Integer} lExternalPort 
      * @param {BSTR} bstrProtocol 
@@ -106,7 +102,6 @@ export default struct IDynamicPortMappingCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrRemoteHost 
      * @param {Integer} lExternalPort 
      * @param {BSTR} bstrProtocol 
@@ -136,11 +131,11 @@ export default struct IDynamicPortMappingCollection extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
-        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 5)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 4)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 10)
+        this.vtbl.get__NewEnum := CallbackCreate(ObjBindMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(ObjBindMethod(implObj, "get_Item"), flags, 5)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 4)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 10)
     }
 
     Dispose() {

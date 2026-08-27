@@ -19,7 +19,6 @@ export default struct PFN_WEB_CORE_SHUTDOWN {
     }
 
     /**
-     * 
      * @param {Integer} fImmediate 
      * @returns {HRESULT} 
      */

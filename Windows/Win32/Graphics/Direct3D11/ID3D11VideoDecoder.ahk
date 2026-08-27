@@ -77,8 +77,8 @@ export default struct ID3D11VideoDecoder extends ID3D11DeviceChild {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCreationParameters := CallbackCreate(GetMethod(implObj, "GetCreationParameters"), flags, 3)
-        this.vtbl.GetDriverHandle := CallbackCreate(GetMethod(implObj, "GetDriverHandle"), flags, 2)
+        this.vtbl.GetCreationParameters := CallbackCreate(ObjBindMethod(implObj, "GetCreationParameters"), flags, 3)
+        this.vtbl.GetDriverHandle := CallbackCreate(ObjBindMethod(implObj, "GetDriverHandle"), flags, 2)
     }
 
     Dispose() {

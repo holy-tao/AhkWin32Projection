@@ -37,7 +37,6 @@ export default struct IAppxManifestDriverDependency extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IAppxManifestDriverConstraintsEnumerator} 
      */
     GetDriverConstraints() {
@@ -54,7 +53,7 @@ export default struct IAppxManifestDriverDependency extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDriverConstraints := CallbackCreate(GetMethod(implObj, "GetDriverConstraints"), flags, 2)
+        this.vtbl.GetDriverConstraints := CallbackCreate(ObjBindMethod(implObj, "GetDriverConstraints"), flags, 2)
     }
 
     Dispose() {

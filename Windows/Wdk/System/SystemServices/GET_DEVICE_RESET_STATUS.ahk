@@ -22,7 +22,6 @@ export default struct GET_DEVICE_RESET_STATUS {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} InterfaceContext 
      * @param {Pointer<BOOLEAN>} IsResetting 
      * @param {Pointer<DEVICE_BUS_SPECIFIC_RESET_TYPE>} ResetTypeSelected 
@@ -30,8 +29,8 @@ export default struct GET_DEVICE_RESET_STATUS {
      * @returns {NTSTATUS} 
      */
     Call(InterfaceContext, IsResetting, ResetTypeSelected, Flags) {
-        InterfaceContextMarshal := InterfaceContext is VarRef ? "ptr" : "ptr"
-        IsResettingMarshal := IsResetting is VarRef ? "char*" : "ptr"
+        InterfaceContextMarshal := InterfaceContext is VarRef ? "ptr" : IntPtr
+        IsResettingMarshal := IsResetting is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, InterfaceContextMarshal, InterfaceContext, IsResettingMarshal, IsResetting, DEVICE_BUS_SPECIFIC_RESET_TYPE.Ptr, ResetTypeSelected, DEVICE_RESET_STATUS_FLAGS.Ptr, Flags, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

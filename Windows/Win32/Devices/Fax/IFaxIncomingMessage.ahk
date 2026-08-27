@@ -297,19 +297,19 @@ export default struct IFaxIncomingMessage extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
-        this.vtbl.get_Pages := CallbackCreate(GetMethod(implObj, "get_Pages"), flags, 2)
-        this.vtbl.get_Size := CallbackCreate(GetMethod(implObj, "get_Size"), flags, 2)
-        this.vtbl.get_DeviceName := CallbackCreate(GetMethod(implObj, "get_DeviceName"), flags, 2)
-        this.vtbl.get_Retries := CallbackCreate(GetMethod(implObj, "get_Retries"), flags, 2)
-        this.vtbl.get_TransmissionStart := CallbackCreate(GetMethod(implObj, "get_TransmissionStart"), flags, 2)
-        this.vtbl.get_TransmissionEnd := CallbackCreate(GetMethod(implObj, "get_TransmissionEnd"), flags, 2)
-        this.vtbl.get_CSID := CallbackCreate(GetMethod(implObj, "get_CSID"), flags, 2)
-        this.vtbl.get_TSID := CallbackCreate(GetMethod(implObj, "get_TSID"), flags, 2)
-        this.vtbl.get_CallerId := CallbackCreate(GetMethod(implObj, "get_CallerId"), flags, 2)
-        this.vtbl.get_RoutingInformation := CallbackCreate(GetMethod(implObj, "get_RoutingInformation"), flags, 2)
-        this.vtbl.CopyTiff := CallbackCreate(GetMethod(implObj, "CopyTiff"), flags, 2)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.get_Id := CallbackCreate(ObjBindMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.get_Pages := CallbackCreate(ObjBindMethod(implObj, "get_Pages"), flags, 2)
+        this.vtbl.get_Size := CallbackCreate(ObjBindMethod(implObj, "get_Size"), flags, 2)
+        this.vtbl.get_DeviceName := CallbackCreate(ObjBindMethod(implObj, "get_DeviceName"), flags, 2)
+        this.vtbl.get_Retries := CallbackCreate(ObjBindMethod(implObj, "get_Retries"), flags, 2)
+        this.vtbl.get_TransmissionStart := CallbackCreate(ObjBindMethod(implObj, "get_TransmissionStart"), flags, 2)
+        this.vtbl.get_TransmissionEnd := CallbackCreate(ObjBindMethod(implObj, "get_TransmissionEnd"), flags, 2)
+        this.vtbl.get_CSID := CallbackCreate(ObjBindMethod(implObj, "get_CSID"), flags, 2)
+        this.vtbl.get_TSID := CallbackCreate(ObjBindMethod(implObj, "get_TSID"), flags, 2)
+        this.vtbl.get_CallerId := CallbackCreate(ObjBindMethod(implObj, "get_CallerId"), flags, 2)
+        this.vtbl.get_RoutingInformation := CallbackCreate(ObjBindMethod(implObj, "get_RoutingInformation"), flags, 2)
+        this.vtbl.CopyTiff := CallbackCreate(ObjBindMethod(implObj, "CopyTiff"), flags, 2)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 1)
     }
 
     Dispose() {

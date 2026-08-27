@@ -89,9 +89,9 @@ export default struct IItemEnumerator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Current := CallbackCreate(GetMethod(implObj, "Current"), flags, 2)
-        this.vtbl.MoveNext := CallbackCreate(GetMethod(implObj, "MoveNext"), flags, 2)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Current := CallbackCreate(ObjBindMethod(implObj, "Current"), flags, 2)
+        this.vtbl.MoveNext := CallbackCreate(ObjBindMethod(implObj, "MoveNext"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
     }
 
     Dispose() {

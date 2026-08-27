@@ -23,7 +23,6 @@ export default struct WSMAN_PLUGIN_SEND {
     }
 
     /**
-     * 
      * @param {Pointer<WSMAN_PLUGIN_REQUEST>} requestDetails A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_plugin_request">WSMAN_PLUGIN_REQUEST</a> structure that specifies the resource URI, options, locale, shutdown flag, and handle for the request.
      * @param {Integer} flags If this is the last object for the stream, this parameter is set to <b>WSMAN_FLAG_NO_MORE_DATA</b>.
      * Otherwise, it is set to zero.
@@ -36,8 +35,9 @@ export default struct WSMAN_PLUGIN_SEND {
     Call(requestDetails, flags, shellContext, commandContext, stream, inboundData) {
         stream := stream is String ? StrPtr(stream) : stream
 
-        shellContextMarshal := shellContext is VarRef ? "ptr" : "ptr"
-        commandContextMarshal := commandContext is VarRef ? "ptr" : "ptr"
+        shellContextMarshal := shellContext is VarRef ? "ptr" : IntPtr
+        commandContextMarshal := commandContext is VarRef ? "ptr" : IntPtr
+        commandContextMarshal := commandContext == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, WSMAN_PLUGIN_REQUEST.Ptr, requestDetails, UInt32, flags, shellContextMarshal, shellContext, commandContextMarshal, commandContext, "ptr", stream, WSMAN_DATA.Ptr, inboundData)
     }

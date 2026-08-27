@@ -56,7 +56,6 @@ export default struct ISWbemObjectEx extends ISWbemObject {
     }
 
     /**
-     * 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
      * @returns {HRESULT} 
@@ -67,7 +66,6 @@ export default struct ISWbemObjectEx extends ISWbemObject {
     }
 
     /**
-     * 
      * @returns {ISWbemPropertySet} 
      */
     get_SystemProperties_() {
@@ -76,7 +74,6 @@ export default struct ISWbemObjectEx extends ISWbemObject {
     }
 
     /**
-     * 
      * @param {WbemObjectTextFormatEnum} iObjectTextFormat 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
@@ -89,7 +86,6 @@ export default struct ISWbemObjectEx extends ISWbemObject {
     }
 
     /**
-     * 
      * @param {BSTR} bsText 
      * @param {WbemObjectTextFormatEnum} iObjectTextFormat 
      * @param {Integer} iFlags 
@@ -112,10 +108,10 @@ export default struct ISWbemObjectEx extends ISWbemObject {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Refresh_ := CallbackCreate(GetMethod(implObj, "Refresh_"), flags, 3)
-        this.vtbl.get_SystemProperties_ := CallbackCreate(GetMethod(implObj, "get_SystemProperties_"), flags, 2)
-        this.vtbl.GetText_ := CallbackCreate(GetMethod(implObj, "GetText_"), flags, 5)
-        this.vtbl.SetFromText_ := CallbackCreate(GetMethod(implObj, "SetFromText_"), flags, 5)
+        this.vtbl.Refresh_ := CallbackCreate(ObjBindMethod(implObj, "Refresh_"), flags, 3)
+        this.vtbl.get_SystemProperties_ := CallbackCreate(ObjBindMethod(implObj, "get_SystemProperties_"), flags, 2)
+        this.vtbl.GetText_ := CallbackCreate(ObjBindMethod(implObj, "GetText_"), flags, 5)
+        this.vtbl.SetFromText_ := CallbackCreate(ObjBindMethod(implObj, "SetFromText_"), flags, 5)
     }
 
     Dispose() {

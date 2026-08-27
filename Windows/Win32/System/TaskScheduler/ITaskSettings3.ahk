@@ -80,19 +80,17 @@ export default struct ITaskSettings3 extends ITaskSettings {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT_BOOL>} pDisallowStart 
      * @returns {HRESULT} 
      */
     get_DisallowStartOnRemoteAppSession(pDisallowStart) {
-        pDisallowStartMarshal := pDisallowStart is VarRef ? "short*" : "ptr"
+        pDisallowStartMarshal := pDisallowStart is VarRef ? "short*" : IntPtr
 
         result := ComCall(47, this, pDisallowStartMarshal, pDisallowStart, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} disallowStart 
      * @returns {HRESULT} 
      */
@@ -102,19 +100,17 @@ export default struct ITaskSettings3 extends ITaskSettings {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT_BOOL>} pUseUnifiedEngine 
      * @returns {HRESULT} 
      */
     get_UseUnifiedSchedulingEngine(pUseUnifiedEngine) {
-        pUseUnifiedEngineMarshal := pUseUnifiedEngine is VarRef ? "short*" : "ptr"
+        pUseUnifiedEngineMarshal := pUseUnifiedEngine is VarRef ? "short*" : IntPtr
 
         result := ComCall(49, this, pUseUnifiedEngineMarshal, pUseUnifiedEngine, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} useUnifiedEngine 
      * @returns {HRESULT} 
      */
@@ -163,7 +159,6 @@ export default struct ITaskSettings3 extends ITaskSettings {
     }
 
     /**
-     * 
      * @returns {IMaintenanceSettings} 
      */
     CreateMaintenanceSettings() {
@@ -178,7 +173,7 @@ export default struct ITaskSettings3 extends ITaskSettings {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings3-get_volatile
      */
     get_Volatile(pVolatile) {
-        pVolatileMarshal := pVolatile is VarRef ? "short*" : "ptr"
+        pVolatileMarshal := pVolatile is VarRef ? "short*" : IntPtr
 
         result := ComCall(54, this, pVolatileMarshal, pVolatile, "HRESULT")
         return result
@@ -204,15 +199,15 @@ export default struct ITaskSettings3 extends ITaskSettings {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_DisallowStartOnRemoteAppSession := CallbackCreate(GetMethod(implObj, "get_DisallowStartOnRemoteAppSession"), flags, 2)
-        this.vtbl.put_DisallowStartOnRemoteAppSession := CallbackCreate(GetMethod(implObj, "put_DisallowStartOnRemoteAppSession"), flags, 2)
-        this.vtbl.get_UseUnifiedSchedulingEngine := CallbackCreate(GetMethod(implObj, "get_UseUnifiedSchedulingEngine"), flags, 2)
-        this.vtbl.put_UseUnifiedSchedulingEngine := CallbackCreate(GetMethod(implObj, "put_UseUnifiedSchedulingEngine"), flags, 2)
-        this.vtbl.get_MaintenanceSettings := CallbackCreate(GetMethod(implObj, "get_MaintenanceSettings"), flags, 2)
-        this.vtbl.put_MaintenanceSettings := CallbackCreate(GetMethod(implObj, "put_MaintenanceSettings"), flags, 2)
-        this.vtbl.CreateMaintenanceSettings := CallbackCreate(GetMethod(implObj, "CreateMaintenanceSettings"), flags, 2)
-        this.vtbl.get_Volatile := CallbackCreate(GetMethod(implObj, "get_Volatile"), flags, 2)
-        this.vtbl.put_Volatile := CallbackCreate(GetMethod(implObj, "put_Volatile"), flags, 2)
+        this.vtbl.get_DisallowStartOnRemoteAppSession := CallbackCreate(ObjBindMethod(implObj, "get_DisallowStartOnRemoteAppSession"), flags, 2)
+        this.vtbl.put_DisallowStartOnRemoteAppSession := CallbackCreate(ObjBindMethod(implObj, "put_DisallowStartOnRemoteAppSession"), flags, 2)
+        this.vtbl.get_UseUnifiedSchedulingEngine := CallbackCreate(ObjBindMethod(implObj, "get_UseUnifiedSchedulingEngine"), flags, 2)
+        this.vtbl.put_UseUnifiedSchedulingEngine := CallbackCreate(ObjBindMethod(implObj, "put_UseUnifiedSchedulingEngine"), flags, 2)
+        this.vtbl.get_MaintenanceSettings := CallbackCreate(ObjBindMethod(implObj, "get_MaintenanceSettings"), flags, 2)
+        this.vtbl.put_MaintenanceSettings := CallbackCreate(ObjBindMethod(implObj, "put_MaintenanceSettings"), flags, 2)
+        this.vtbl.CreateMaintenanceSettings := CallbackCreate(ObjBindMethod(implObj, "CreateMaintenanceSettings"), flags, 2)
+        this.vtbl.get_Volatile := CallbackCreate(ObjBindMethod(implObj, "get_Volatile"), flags, 2)
+        this.vtbl.put_Volatile := CallbackCreate(ObjBindMethod(implObj, "put_Volatile"), flags, 2)
     }
 
     Dispose() {

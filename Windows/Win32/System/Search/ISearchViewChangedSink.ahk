@@ -48,8 +48,8 @@ export default struct ISearchViewChangedSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchviewchangedsink-onchange
      */
     OnChange(pdwDocID, pChange, pfInView) {
-        pdwDocIDMarshal := pdwDocID is VarRef ? "int*" : "ptr"
-        pfInViewMarshal := pfInView is VarRef ? "int*" : "ptr"
+        pdwDocIDMarshal := pdwDocID is VarRef ? "int*" : IntPtr
+        pfInViewMarshal := pfInView is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, pdwDocIDMarshal, pdwDocID, SEARCH_ITEM_CHANGE.Ptr, pChange, pfInViewMarshal, pfInView, "HRESULT")
         return result
@@ -64,7 +64,7 @@ export default struct ISearchViewChangedSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnChange := CallbackCreate(GetMethod(implObj, "OnChange"), flags, 4)
+        this.vtbl.OnChange := CallbackCreate(ObjBindMethod(implObj, "OnChange"), flags, 4)
     }
 
     Dispose() {

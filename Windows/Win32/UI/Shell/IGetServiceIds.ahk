@@ -36,14 +36,13 @@ export default struct IGetServiceIds extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} serviceIdCount 
      * @param {Pointer<Pointer<Guid>>} serviceIds 
      * @returns {HRESULT} 
      */
     GetServiceIds(serviceIdCount, serviceIds) {
-        serviceIdCountMarshal := serviceIdCount is VarRef ? "uint*" : "ptr"
-        serviceIdsMarshal := serviceIds is VarRef ? "ptr*" : "ptr"
+        serviceIdCountMarshal := serviceIdCount is VarRef ? "uint*" : IntPtr
+        serviceIdsMarshal := serviceIds is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, serviceIdCountMarshal, serviceIdCount, serviceIdsMarshal, serviceIds, "HRESULT")
         return result
@@ -58,7 +57,7 @@ export default struct IGetServiceIds extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetServiceIds := CallbackCreate(GetMethod(implObj, "GetServiceIds"), flags, 3)
+        this.vtbl.GetServiceIds := CallbackCreate(ObjBindMethod(implObj, "GetServiceIds"), flags, 3)
     }
 
     Dispose() {

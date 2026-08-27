@@ -21,7 +21,6 @@ export default struct EXT_GET_FAILURE_ANALYSIS {
     }
 
     /**
-     * 
      * @param {IDebugClient4} Client 
      * @param {Integer} Flags 
      * @returns {IDebugFailureAnalysis} 

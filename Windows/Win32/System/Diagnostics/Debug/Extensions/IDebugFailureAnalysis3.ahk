@@ -86,7 +86,6 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetFailureClass() {
@@ -95,7 +94,6 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DEBUG_FAILURE_TYPE} 
      */
     GetFailureType() {
@@ -104,7 +102,6 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetFailureCode() {
@@ -124,7 +121,6 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<FA_ENTRY>} Entry 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {DEBUG_FLR_PARAM_TYPE} TagMask 
@@ -136,7 +132,6 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {PSTR} Str 
      * @param {Integer} MaxSize 
@@ -150,7 +145,6 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {Integer} Buf 
      * @param {Integer} _Size 
@@ -162,43 +156,41 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {Pointer<Integer>} Value 
      * @returns {Pointer<FA_ENTRY>} 
      */
     GetUlong(Tag, Value) {
-        ValueMarshal := Value is VarRef ? "uint*" : "ptr"
+        ValueMarshal := Value is VarRef ? "uint*" : IntPtr
 
         result := ComCall(10, this, DEBUG_FLR_PARAM_TYPE, Tag, ValueMarshal, Value, FA_ENTRY.Ptr)
         return result
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {Pointer<Integer>} Value 
      * @returns {Pointer<FA_ENTRY>} 
      */
     GetUlong64(Tag, Value) {
-        ValueMarshal := Value is VarRef ? "uint*" : "ptr"
+        ValueMarshal := Value is VarRef ? "uint*" : IntPtr
 
         result := ComCall(11, this, DEBUG_FLR_PARAM_TYPE, Tag, ValueMarshal, Value, FA_ENTRY.Ptr)
         return result
     }
 
     /**
-     * 
      * @param {Pointer<FA_ENTRY>} Entry 
      * @returns {Pointer<FA_ENTRY>} 
      */
     NextEntry(Entry) {
-        result := ComCall(12, this, FA_ENTRY.Ptr, Entry, FA_ENTRY.Ptr)
+        EntryMarshal := Entry == 0 ? IntPtr : FA_ENTRY.Ptr
+
+        result := ComCall(12, this, EntryMarshal, Entry, FA_ENTRY.Ptr)
         return result
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {PSTR} Str 
      * @returns {Pointer<FA_ENTRY>} 
@@ -211,7 +203,6 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {PSTR} _Extension 
      * @returns {Pointer<FA_ENTRY>} 
@@ -224,7 +215,6 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {Integer} Value 
      * @returns {Pointer<FA_ENTRY>} 
@@ -235,7 +225,6 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {Integer} Value 
      * @returns {Pointer<FA_ENTRY>} 
@@ -246,7 +235,6 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {FA_ENTRY_TYPE} EntryType 
      * @param {Integer} Buf 
@@ -259,7 +247,6 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {PSTR} Str 
      * @returns {Pointer<FA_ENTRY>} 
@@ -272,7 +259,6 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {PSTR} _Extension 
      * @returns {Pointer<FA_ENTRY>} 
@@ -285,7 +271,6 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {Integer} Value 
      * @returns {Pointer<FA_ENTRY>} 
@@ -296,7 +281,6 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {Integer} Value 
      * @returns {Pointer<FA_ENTRY>} 
@@ -307,7 +291,6 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {FA_ENTRY_TYPE} EntryType 
      * @param {Integer} Buf 
@@ -320,7 +303,6 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugFAEntryTags} 
      */
     GetDebugFATagControl() {
@@ -329,7 +311,6 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IXMLDOMElement} 
      */
     GetAnalysisXml() {
@@ -338,7 +319,6 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {IDebugFailureAnalysis2} Analysis 
      * @returns {HRESULT} 
@@ -349,7 +329,6 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pDebugFailureThreadEnum 
      * @returns {HRESULT} 
      */
@@ -359,7 +338,6 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @returns {VARIANT} 
      */
@@ -370,7 +348,6 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @returns {BSTR} 
      */
@@ -381,7 +358,6 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @param {VARIANT} Value 
      * @returns {HRESULT} 
@@ -392,7 +368,6 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} Postfix 
      * @returns {HRESULT} 
      */
@@ -404,7 +379,6 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} Postfix 
      * @returns {HRESULT} 
      */
@@ -416,7 +390,6 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pThread 
      * @returns {HRESULT} 
      */
@@ -426,7 +399,6 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pThread 
      * @param {BSTR} Stitch 
      * @returns {HRESULT} 
@@ -439,7 +411,6 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Address 
      * @returns {HRESULT} 
      */
@@ -449,7 +420,6 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Address 
      * @returns {HRESULT} 
      */
@@ -459,7 +429,6 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @returns {VARIANT_BOOL} 
      */
@@ -469,7 +438,6 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @returns {HRESULT} 
      */
@@ -479,7 +447,6 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @returns {HRESULT} 
      */
@@ -489,7 +456,6 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
@@ -502,7 +468,6 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} Key 
      * @param {IUnknown} pXMLDOMElement 
      * @returns {HRESULT} 
@@ -515,7 +480,6 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} Key 
      * @returns {IUnknown} 
      */
@@ -527,7 +491,6 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} Key 
      * @returns {HRESULT} 
      */
@@ -547,46 +510,46 @@ export default struct IDebugFailureAnalysis3 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFailureClass := CallbackCreate(GetMethod(implObj, "GetFailureClass"), flags, 1)
-        this.vtbl.GetFailureType := CallbackCreate(GetMethod(implObj, "GetFailureType"), flags, 1)
-        this.vtbl.GetFailureCode := CallbackCreate(GetMethod(implObj, "GetFailureCode"), flags, 1)
-        this.vtbl.Get := CallbackCreate(GetMethod(implObj, "Get"), flags, 2)
-        this.vtbl.GetNext := CallbackCreate(GetMethod(implObj, "GetNext"), flags, 4)
-        this.vtbl.GetString := CallbackCreate(GetMethod(implObj, "GetString"), flags, 4)
-        this.vtbl.GetBuffer := CallbackCreate(GetMethod(implObj, "GetBuffer"), flags, 4)
-        this.vtbl.GetUlong := CallbackCreate(GetMethod(implObj, "GetUlong"), flags, 3)
-        this.vtbl.GetUlong64 := CallbackCreate(GetMethod(implObj, "GetUlong64"), flags, 3)
-        this.vtbl.NextEntry := CallbackCreate(GetMethod(implObj, "NextEntry"), flags, 2)
-        this.vtbl.SetString := CallbackCreate(GetMethod(implObj, "SetString"), flags, 3)
-        this.vtbl.SetExtensionCommand := CallbackCreate(GetMethod(implObj, "SetExtensionCommand"), flags, 3)
-        this.vtbl.SetUlong := CallbackCreate(GetMethod(implObj, "SetUlong"), flags, 3)
-        this.vtbl.SetUlong64 := CallbackCreate(GetMethod(implObj, "SetUlong64"), flags, 3)
-        this.vtbl.SetBuffer := CallbackCreate(GetMethod(implObj, "SetBuffer"), flags, 5)
-        this.vtbl.AddString := CallbackCreate(GetMethod(implObj, "AddString"), flags, 3)
-        this.vtbl.AddExtensionCommand := CallbackCreate(GetMethod(implObj, "AddExtensionCommand"), flags, 3)
-        this.vtbl.AddUlong := CallbackCreate(GetMethod(implObj, "AddUlong"), flags, 3)
-        this.vtbl.AddUlong64 := CallbackCreate(GetMethod(implObj, "AddUlong64"), flags, 3)
-        this.vtbl.AddBuffer := CallbackCreate(GetMethod(implObj, "AddBuffer"), flags, 5)
-        this.vtbl.GetDebugFATagControl := CallbackCreate(GetMethod(implObj, "GetDebugFATagControl"), flags, 2)
-        this.vtbl.GetAnalysisXml := CallbackCreate(GetMethod(implObj, "GetAnalysisXml"), flags, 2)
-        this.vtbl.AddStructuredAnalysisData := CallbackCreate(GetMethod(implObj, "AddStructuredAnalysisData"), flags, 3)
-        this.vtbl.AddThreads := CallbackCreate(GetMethod(implObj, "AddThreads"), flags, 2)
-        this.vtbl.AttributeGet := CallbackCreate(GetMethod(implObj, "AttributeGet"), flags, 3)
-        this.vtbl.AttributeGetName := CallbackCreate(GetMethod(implObj, "AttributeGetName"), flags, 3)
-        this.vtbl.AttributeSet := CallbackCreate(GetMethod(implObj, "AttributeSet"), flags, 3)
-        this.vtbl.BlameApplication := CallbackCreate(GetMethod(implObj, "BlameApplication"), flags, 2)
-        this.vtbl.BlameProcess := CallbackCreate(GetMethod(implObj, "BlameProcess"), flags, 2)
-        this.vtbl.BlameThread := CallbackCreate(GetMethod(implObj, "BlameThread"), flags, 2)
-        this.vtbl.BlameStitch := CallbackCreate(GetMethod(implObj, "BlameStitch"), flags, 3)
-        this.vtbl.BlameTEB := CallbackCreate(GetMethod(implObj, "BlameTEB"), flags, 2)
-        this.vtbl.BlameETHREAD := CallbackCreate(GetMethod(implObj, "BlameETHREAD"), flags, 2)
-        this.vtbl.ProblemClassIsSet := CallbackCreate(GetMethod(implObj, "ProblemClassIsSet"), flags, 3)
-        this.vtbl.ProblemClassDelete := CallbackCreate(GetMethod(implObj, "ProblemClassDelete"), flags, 2)
-        this.vtbl.ProblemClassSet := CallbackCreate(GetMethod(implObj, "ProblemClassSet"), flags, 2)
-        this.vtbl.ProblemClassSetBSTR := CallbackCreate(GetMethod(implObj, "ProblemClassSetBSTR"), flags, 3)
-        this.vtbl.SetAdditionalXML := CallbackCreate(GetMethod(implObj, "SetAdditionalXML"), flags, 3)
-        this.vtbl.GetAdditionalXML := CallbackCreate(GetMethod(implObj, "GetAdditionalXML"), flags, 3)
-        this.vtbl.DeleteAdditionalXML := CallbackCreate(GetMethod(implObj, "DeleteAdditionalXML"), flags, 2)
+        this.vtbl.GetFailureClass := CallbackCreate(ObjBindMethod(implObj, "GetFailureClass"), flags, 1)
+        this.vtbl.GetFailureType := CallbackCreate(ObjBindMethod(implObj, "GetFailureType"), flags, 1)
+        this.vtbl.GetFailureCode := CallbackCreate(ObjBindMethod(implObj, "GetFailureCode"), flags, 1)
+        this.vtbl.Get := CallbackCreate(ObjBindMethod(implObj, "Get"), flags, 2)
+        this.vtbl.GetNext := CallbackCreate(ObjBindMethod(implObj, "GetNext"), flags, 4)
+        this.vtbl.GetString := CallbackCreate(ObjBindMethod(implObj, "GetString"), flags, 4)
+        this.vtbl.GetBuffer := CallbackCreate(ObjBindMethod(implObj, "GetBuffer"), flags, 4)
+        this.vtbl.GetUlong := CallbackCreate(ObjBindMethod(implObj, "GetUlong"), flags, 3)
+        this.vtbl.GetUlong64 := CallbackCreate(ObjBindMethod(implObj, "GetUlong64"), flags, 3)
+        this.vtbl.NextEntry := CallbackCreate(ObjBindMethod(implObj, "NextEntry"), flags, 2)
+        this.vtbl.SetString := CallbackCreate(ObjBindMethod(implObj, "SetString"), flags, 3)
+        this.vtbl.SetExtensionCommand := CallbackCreate(ObjBindMethod(implObj, "SetExtensionCommand"), flags, 3)
+        this.vtbl.SetUlong := CallbackCreate(ObjBindMethod(implObj, "SetUlong"), flags, 3)
+        this.vtbl.SetUlong64 := CallbackCreate(ObjBindMethod(implObj, "SetUlong64"), flags, 3)
+        this.vtbl.SetBuffer := CallbackCreate(ObjBindMethod(implObj, "SetBuffer"), flags, 5)
+        this.vtbl.AddString := CallbackCreate(ObjBindMethod(implObj, "AddString"), flags, 3)
+        this.vtbl.AddExtensionCommand := CallbackCreate(ObjBindMethod(implObj, "AddExtensionCommand"), flags, 3)
+        this.vtbl.AddUlong := CallbackCreate(ObjBindMethod(implObj, "AddUlong"), flags, 3)
+        this.vtbl.AddUlong64 := CallbackCreate(ObjBindMethod(implObj, "AddUlong64"), flags, 3)
+        this.vtbl.AddBuffer := CallbackCreate(ObjBindMethod(implObj, "AddBuffer"), flags, 5)
+        this.vtbl.GetDebugFATagControl := CallbackCreate(ObjBindMethod(implObj, "GetDebugFATagControl"), flags, 2)
+        this.vtbl.GetAnalysisXml := CallbackCreate(ObjBindMethod(implObj, "GetAnalysisXml"), flags, 2)
+        this.vtbl.AddStructuredAnalysisData := CallbackCreate(ObjBindMethod(implObj, "AddStructuredAnalysisData"), flags, 3)
+        this.vtbl.AddThreads := CallbackCreate(ObjBindMethod(implObj, "AddThreads"), flags, 2)
+        this.vtbl.AttributeGet := CallbackCreate(ObjBindMethod(implObj, "AttributeGet"), flags, 3)
+        this.vtbl.AttributeGetName := CallbackCreate(ObjBindMethod(implObj, "AttributeGetName"), flags, 3)
+        this.vtbl.AttributeSet := CallbackCreate(ObjBindMethod(implObj, "AttributeSet"), flags, 3)
+        this.vtbl.BlameApplication := CallbackCreate(ObjBindMethod(implObj, "BlameApplication"), flags, 2)
+        this.vtbl.BlameProcess := CallbackCreate(ObjBindMethod(implObj, "BlameProcess"), flags, 2)
+        this.vtbl.BlameThread := CallbackCreate(ObjBindMethod(implObj, "BlameThread"), flags, 2)
+        this.vtbl.BlameStitch := CallbackCreate(ObjBindMethod(implObj, "BlameStitch"), flags, 3)
+        this.vtbl.BlameTEB := CallbackCreate(ObjBindMethod(implObj, "BlameTEB"), flags, 2)
+        this.vtbl.BlameETHREAD := CallbackCreate(ObjBindMethod(implObj, "BlameETHREAD"), flags, 2)
+        this.vtbl.ProblemClassIsSet := CallbackCreate(ObjBindMethod(implObj, "ProblemClassIsSet"), flags, 3)
+        this.vtbl.ProblemClassDelete := CallbackCreate(ObjBindMethod(implObj, "ProblemClassDelete"), flags, 2)
+        this.vtbl.ProblemClassSet := CallbackCreate(ObjBindMethod(implObj, "ProblemClassSet"), flags, 2)
+        this.vtbl.ProblemClassSetBSTR := CallbackCreate(ObjBindMethod(implObj, "ProblemClassSetBSTR"), flags, 3)
+        this.vtbl.SetAdditionalXML := CallbackCreate(ObjBindMethod(implObj, "SetAdditionalXML"), flags, 3)
+        this.vtbl.GetAdditionalXML := CallbackCreate(ObjBindMethod(implObj, "GetAdditionalXML"), flags, 3)
+        this.vtbl.DeleteAdditionalXML := CallbackCreate(ObjBindMethod(implObj, "DeleteAdditionalXML"), flags, 2)
     }
 
     Dispose() {

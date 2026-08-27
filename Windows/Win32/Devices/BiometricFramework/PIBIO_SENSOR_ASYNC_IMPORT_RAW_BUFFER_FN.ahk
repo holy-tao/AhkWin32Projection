@@ -20,7 +20,6 @@ export default struct PIBIO_SENSOR_ASYNC_IMPORT_RAW_BUFFER_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline 
      * @param {Integer} RawBufferAddress 
      * @param {Pointer} RawBufferSize 
@@ -29,10 +28,12 @@ export default struct PIBIO_SENSOR_ASYNC_IMPORT_RAW_BUFFER_FN {
      * @returns {HRESULT} 
      */
     Call(Pipeline, RawBufferAddress, RawBufferSize, ResultBufferAddress, ResultBufferSize) {
-        ResultBufferAddressMarshal := ResultBufferAddress is VarRef ? "ptr*" : "ptr"
-        ResultBufferSizeMarshal := ResultBufferSize is VarRef ? "ptr*" : "ptr"
+        RawBufferAddressMarshal := RawBufferAddress == 0 ? IntPtr : IntPtr
+        ResultBufferAddressMarshal := ResultBufferAddress is VarRef ? "ptr*" : IntPtr
+        ResultBufferSizeMarshal := ResultBufferSize is VarRef ? "ptr*" : IntPtr
+        ResultBufferSizeMarshal := ResultBufferSize == 0 ? IntPtr : "ptr*"
 
-        result := DllCall(this.value, WINBIO_PIPELINE.Ptr, Pipeline, IntPtr, RawBufferAddress, IntPtr, RawBufferSize, ResultBufferAddressMarshal, ResultBufferAddress, ResultBufferSizeMarshal, ResultBufferSize, "HRESULT")
+        result := DllCall(this.value, WINBIO_PIPELINE.Ptr, Pipeline, RawBufferAddressMarshal, RawBufferAddress, IntPtr, RawBufferSize, ResultBufferAddressMarshal, ResultBufferAddress, ResultBufferSizeMarshal, ResultBufferSize, "HRESULT")
         return result
     }
 

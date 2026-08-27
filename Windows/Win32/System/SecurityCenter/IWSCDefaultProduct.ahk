@@ -44,7 +44,6 @@ export default struct IWSCDefaultProduct extends IDispatch {
     }
 
     /**
-     * 
      * @param {SECURITY_PRODUCT_TYPE} eType 
      * @param {BSTR} pGuid 
      * @returns {HRESULT} 
@@ -65,7 +64,7 @@ export default struct IWSCDefaultProduct extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetDefaultProduct := CallbackCreate(GetMethod(implObj, "SetDefaultProduct"), flags, 3)
+        this.vtbl.SetDefaultProduct := CallbackCreate(ObjBindMethod(implObj, "SetDefaultProduct"), flags, 3)
     }
 
     Dispose() {

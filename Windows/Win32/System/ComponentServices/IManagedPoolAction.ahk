@@ -56,7 +56,7 @@ export default struct IManagedPoolAction extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LastRelease := CallbackCreate(GetMethod(implObj, "LastRelease"), flags, 1)
+        this.vtbl.LastRelease := CallbackCreate(ObjBindMethod(implObj, "LastRelease"), flags, 1)
     }
 
     Dispose() {

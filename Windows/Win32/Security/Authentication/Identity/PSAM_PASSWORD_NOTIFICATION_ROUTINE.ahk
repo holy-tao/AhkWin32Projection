@@ -57,7 +57,6 @@ export default struct PSAM_PASSWORD_NOTIFICATION_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<LSA_UNICODE_STRING>} UserName The account name of the user whose password changed.
      * 
      * If the values of this parameter and the <i>NewPassword</i> parameter are <b>NULL</b>, this function should return <b>STATUS_SUCCESS</b>.

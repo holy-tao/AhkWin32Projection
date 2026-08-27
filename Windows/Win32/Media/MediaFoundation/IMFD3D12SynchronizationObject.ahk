@@ -77,8 +77,8 @@ export default struct IMFD3D12SynchronizationObject extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SignalEventOnFinalResourceRelease := CallbackCreate(GetMethod(implObj, "SignalEventOnFinalResourceRelease"), flags, 2)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.SignalEventOnFinalResourceRelease := CallbackCreate(ObjBindMethod(implObj, "SignalEventOnFinalResourceRelease"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
     }
 
     Dispose() {

@@ -18,7 +18,6 @@ export default struct W_CO_DELETE_VC_HANDLER {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Call() {

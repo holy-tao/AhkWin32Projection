@@ -19,13 +19,12 @@ export default struct PCOGETCALLSTATE {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<Integer>} param1 
      * @returns {HRESULT} 
      */
     Call(param0, param1) {
-        param1Marshal := param1 is VarRef ? "uint*" : "ptr"
+        param1Marshal := param1 is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, Int32, param0, param1Marshal, param1, "HRESULT")
         return result

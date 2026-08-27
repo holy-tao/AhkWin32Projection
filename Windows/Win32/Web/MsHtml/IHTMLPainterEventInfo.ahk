@@ -41,7 +41,6 @@ export default struct IHTMLPainterEventInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetEventInfoFlags() {
@@ -50,7 +49,6 @@ export default struct IHTMLPainterEventInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<IHTMLElement>} ppElement 
      * @returns {HRESULT} 
      */
@@ -83,7 +81,6 @@ export default struct IHTMLPainterEventInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lPartID 
      * @returns {BSTR} 
      */
@@ -102,10 +99,10 @@ export default struct IHTMLPainterEventInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetEventInfoFlags := CallbackCreate(GetMethod(implObj, "GetEventInfoFlags"), flags, 2)
-        this.vtbl.GetEventTarget := CallbackCreate(GetMethod(implObj, "GetEventTarget"), flags, 2)
-        this.vtbl.SetCursor := CallbackCreate(GetMethod(implObj, "SetCursor"), flags, 2)
-        this.vtbl.StringFromPartID := CallbackCreate(GetMethod(implObj, "StringFromPartID"), flags, 3)
+        this.vtbl.GetEventInfoFlags := CallbackCreate(ObjBindMethod(implObj, "GetEventInfoFlags"), flags, 2)
+        this.vtbl.GetEventTarget := CallbackCreate(ObjBindMethod(implObj, "GetEventTarget"), flags, 2)
+        this.vtbl.SetCursor := CallbackCreate(ObjBindMethod(implObj, "SetCursor"), flags, 2)
+        this.vtbl.StringFromPartID := CallbackCreate(ObjBindMethod(implObj, "StringFromPartID"), flags, 3)
     }
 
     Dispose() {

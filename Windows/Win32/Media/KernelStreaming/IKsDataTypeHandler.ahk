@@ -44,7 +44,6 @@ export default struct IKsDataTypeHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMediaSample} Sample 
      * @param {Pointer<Void>} StreamHeader 
      * @param {KSIOOPERATION} IoOperation 
@@ -52,40 +51,37 @@ export default struct IKsDataTypeHandler extends IUnknown {
      * @returns {HRESULT} 
      */
     KsCompleteIoOperation(Sample, StreamHeader, IoOperation, Cancelled) {
-        StreamHeaderMarshal := StreamHeader is VarRef ? "ptr" : "ptr"
+        StreamHeaderMarshal := StreamHeader is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, "ptr", Sample, StreamHeaderMarshal, StreamHeader, KSIOOPERATION, IoOperation, BOOL, Cancelled, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} DataRanges 
      * @returns {HRESULT} 
      */
     KsIsMediaTypeInRanges(DataRanges) {
-        DataRangesMarshal := DataRanges is VarRef ? "ptr" : "ptr"
+        DataRangesMarshal := DataRanges is VarRef ? "ptr" : IntPtr
 
         result := ComCall(4, this, DataRangesMarshal, DataRanges, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IMediaSample} Sample 
      * @param {Pointer<Void>} StreamHeader 
      * @param {KSIOOPERATION} IoOperation 
      * @returns {HRESULT} 
      */
     KsPrepareIoOperation(Sample, StreamHeader, IoOperation) {
-        StreamHeaderMarshal := StreamHeader is VarRef ? "ptr" : "ptr"
+        StreamHeaderMarshal := StreamHeader is VarRef ? "ptr" : IntPtr
 
         result := ComCall(5, this, "ptr", Sample, StreamHeaderMarshal, StreamHeader, KSIOOPERATION, IoOperation, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     KsQueryExtendedSize() {
@@ -94,7 +90,6 @@ export default struct IKsDataTypeHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<AM_MEDIA_TYPE>} AmMediaType 
      * @returns {HRESULT} 
      */
@@ -112,11 +107,11 @@ export default struct IKsDataTypeHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.KsCompleteIoOperation := CallbackCreate(GetMethod(implObj, "KsCompleteIoOperation"), flags, 5)
-        this.vtbl.KsIsMediaTypeInRanges := CallbackCreate(GetMethod(implObj, "KsIsMediaTypeInRanges"), flags, 2)
-        this.vtbl.KsPrepareIoOperation := CallbackCreate(GetMethod(implObj, "KsPrepareIoOperation"), flags, 4)
-        this.vtbl.KsQueryExtendedSize := CallbackCreate(GetMethod(implObj, "KsQueryExtendedSize"), flags, 2)
-        this.vtbl.KsSetMediaType := CallbackCreate(GetMethod(implObj, "KsSetMediaType"), flags, 2)
+        this.vtbl.KsCompleteIoOperation := CallbackCreate(ObjBindMethod(implObj, "KsCompleteIoOperation"), flags, 5)
+        this.vtbl.KsIsMediaTypeInRanges := CallbackCreate(ObjBindMethod(implObj, "KsIsMediaTypeInRanges"), flags, 2)
+        this.vtbl.KsPrepareIoOperation := CallbackCreate(ObjBindMethod(implObj, "KsPrepareIoOperation"), flags, 4)
+        this.vtbl.KsQueryExtendedSize := CallbackCreate(ObjBindMethod(implObj, "KsQueryExtendedSize"), flags, 2)
+        this.vtbl.KsSetMediaType := CallbackCreate(ObjBindMethod(implObj, "KsSetMediaType"), flags, 2)
     }
 
     Dispose() {

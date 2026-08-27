@@ -21,7 +21,6 @@ export default struct UConverterFromUCallback {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {Pointer<UConverterFromUnicodeArgs>} args 
      * @param {Pointer<Integer>} codeUnits 
@@ -32,9 +31,9 @@ export default struct UConverterFromUCallback {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_context, args, codeUnits, length, codePoint, reason, pErrorCode) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
-        codeUnitsMarshal := codeUnits is VarRef ? "ushort*" : "ptr"
-        pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+        codeUnitsMarshal := codeUnits is VarRef ? "ushort*" : IntPtr
+        pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : IntPtr
 
         DllCall(this.value, _contextMarshal, _context, UConverterFromUnicodeArgs.Ptr, args, codeUnitsMarshal, codeUnits, Int32, length, Int32, codePoint, UConverterCallbackReason, reason, pErrorCodeMarshal, pErrorCode)
     }

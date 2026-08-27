@@ -20,12 +20,11 @@ export default struct IOMMU_DEVICE_DELETE {
     }
 
     /**
-     * 
      * @param {Pointer<IOMMU_DMA_DEVICE>} DmaDevice 
      * @returns {NTSTATUS} 
      */
     Call(DmaDevice) {
-        DmaDeviceMarshal := DmaDevice is VarRef ? "ptr*" : "ptr"
+        DmaDeviceMarshal := DmaDevice is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, DmaDeviceMarshal, DmaDevice, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

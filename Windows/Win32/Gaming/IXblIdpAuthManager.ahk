@@ -78,8 +78,8 @@ export default struct IXblIdpAuthManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xblidpauthmanager/nf-xblidpauthmanager-ixblidpauthmanager-getgameraccount
      */
     GetGamerAccount(msaAccountId, xuid) {
-        msaAccountIdMarshal := msaAccountId is VarRef ? "ptr*" : "ptr"
-        xuidMarshal := xuid is VarRef ? "ptr*" : "ptr"
+        msaAccountIdMarshal := msaAccountId is VarRef ? "ptr*" : IntPtr
+        xuidMarshal := xuid is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, msaAccountIdMarshal, msaAccountId, xuidMarshal, xuid, "HRESULT")
         return result
@@ -146,7 +146,7 @@ export default struct IXblIdpAuthManager extends IUnknown {
         uri := uri is String ? StrPtr(uri) : uri
         headers := headers is String ? StrPtr(headers) : headers
 
-        bodyMarshal := body is VarRef ? "char*" : "ptr"
+        bodyMarshal := body is VarRef ? "char*" : IntPtr
 
         result := ComCall(8, this, "ptr", msaAccountId, "ptr", appSid, "ptr", msaTarget, "ptr", msaPolicy, "ptr", httpMethod, "ptr", uri, "ptr", headers, bodyMarshal, body, UInt32, bodySize, BOOL, forceRefresh, "ptr*", &result := 0, "HRESULT")
         return IXblIdpAuthTokenResult(result)
@@ -161,12 +161,12 @@ export default struct IXblIdpAuthManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetGamerAccount := CallbackCreate(GetMethod(implObj, "SetGamerAccount"), flags, 3)
-        this.vtbl.GetGamerAccount := CallbackCreate(GetMethod(implObj, "GetGamerAccount"), flags, 3)
-        this.vtbl.SetAppViewInitialized := CallbackCreate(GetMethod(implObj, "SetAppViewInitialized"), flags, 3)
-        this.vtbl.GetEnvironment := CallbackCreate(GetMethod(implObj, "GetEnvironment"), flags, 2)
-        this.vtbl.GetSandbox := CallbackCreate(GetMethod(implObj, "GetSandbox"), flags, 2)
-        this.vtbl.GetTokenAndSignatureWithTokenResult := CallbackCreate(GetMethod(implObj, "GetTokenAndSignatureWithTokenResult"), flags, 12)
+        this.vtbl.SetGamerAccount := CallbackCreate(ObjBindMethod(implObj, "SetGamerAccount"), flags, 3)
+        this.vtbl.GetGamerAccount := CallbackCreate(ObjBindMethod(implObj, "GetGamerAccount"), flags, 3)
+        this.vtbl.SetAppViewInitialized := CallbackCreate(ObjBindMethod(implObj, "SetAppViewInitialized"), flags, 3)
+        this.vtbl.GetEnvironment := CallbackCreate(ObjBindMethod(implObj, "GetEnvironment"), flags, 2)
+        this.vtbl.GetSandbox := CallbackCreate(ObjBindMethod(implObj, "GetSandbox"), flags, 2)
+        this.vtbl.GetTokenAndSignatureWithTokenResult := CallbackCreate(ObjBindMethod(implObj, "GetTokenAndSignatureWithTokenResult"), flags, 12)
     }
 
     Dispose() {

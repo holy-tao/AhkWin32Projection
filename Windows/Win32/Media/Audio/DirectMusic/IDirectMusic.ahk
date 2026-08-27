@@ -54,7 +54,6 @@ export default struct IDirectMusic extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwIndex 
      * @param {Pointer<DMUS_PORTCAPS>} pPortCaps 
      * @returns {HRESULT} 
@@ -65,7 +64,6 @@ export default struct IDirectMusic extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DMUS_BUFFERDESC>} pBufferDesc 
      * @param {IUnknown} pUnkOuter 
      * @returns {IDirectMusicBuffer} 
@@ -76,7 +74,6 @@ export default struct IDirectMusic extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rclsidPort 
      * @param {Pointer<DMUS_PORTPARAMS8>} pPortParams 
      * @param {IUnknown} pUnkOuter 
@@ -88,7 +85,6 @@ export default struct IDirectMusic extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwIndex 
      * @param {Pointer<DMUS_CLOCKINFO8>} lpClockInfo 
      * @returns {HRESULT} 
@@ -99,7 +95,6 @@ export default struct IDirectMusic extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pguidClock 
      * @returns {IReferenceClock} 
      */
@@ -109,7 +104,6 @@ export default struct IDirectMusic extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rguidClock 
      * @returns {HRESULT} 
      */
@@ -119,7 +113,6 @@ export default struct IDirectMusic extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fEnable 
      * @returns {HRESULT} 
      */
@@ -129,7 +122,6 @@ export default struct IDirectMusic extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pguidPort 
      * @returns {HRESULT} 
      */
@@ -139,7 +131,6 @@ export default struct IDirectMusic extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDirectSound} pDirectSound 
      * @param {HWND} _hWnd 
      * @returns {HRESULT} 
@@ -158,15 +149,15 @@ export default struct IDirectMusic extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumPort := CallbackCreate(GetMethod(implObj, "EnumPort"), flags, 3)
-        this.vtbl.CreateMusicBuffer := CallbackCreate(GetMethod(implObj, "CreateMusicBuffer"), flags, 4)
-        this.vtbl.CreatePort := CallbackCreate(GetMethod(implObj, "CreatePort"), flags, 5)
-        this.vtbl.EnumMasterClock := CallbackCreate(GetMethod(implObj, "EnumMasterClock"), flags, 3)
-        this.vtbl.GetMasterClock := CallbackCreate(GetMethod(implObj, "GetMasterClock"), flags, 3)
-        this.vtbl.SetMasterClock := CallbackCreate(GetMethod(implObj, "SetMasterClock"), flags, 2)
-        this.vtbl.Activate := CallbackCreate(GetMethod(implObj, "Activate"), flags, 2)
-        this.vtbl.GetDefaultPort := CallbackCreate(GetMethod(implObj, "GetDefaultPort"), flags, 2)
-        this.vtbl.SetDirectSound := CallbackCreate(GetMethod(implObj, "SetDirectSound"), flags, 3)
+        this.vtbl.EnumPort := CallbackCreate(ObjBindMethod(implObj, "EnumPort"), flags, 3)
+        this.vtbl.CreateMusicBuffer := CallbackCreate(ObjBindMethod(implObj, "CreateMusicBuffer"), flags, 4)
+        this.vtbl.CreatePort := CallbackCreate(ObjBindMethod(implObj, "CreatePort"), flags, 5)
+        this.vtbl.EnumMasterClock := CallbackCreate(ObjBindMethod(implObj, "EnumMasterClock"), flags, 3)
+        this.vtbl.GetMasterClock := CallbackCreate(ObjBindMethod(implObj, "GetMasterClock"), flags, 3)
+        this.vtbl.SetMasterClock := CallbackCreate(ObjBindMethod(implObj, "SetMasterClock"), flags, 2)
+        this.vtbl.Activate := CallbackCreate(ObjBindMethod(implObj, "Activate"), flags, 2)
+        this.vtbl.GetDefaultPort := CallbackCreate(ObjBindMethod(implObj, "GetDefaultPort"), flags, 2)
+        this.vtbl.SetDirectSound := CallbackCreate(ObjBindMethod(implObj, "SetDirectSound"), flags, 3)
     }
 
     Dispose() {

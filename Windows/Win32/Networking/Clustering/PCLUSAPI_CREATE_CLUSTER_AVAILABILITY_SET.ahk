@@ -22,7 +22,6 @@ export default struct PCLUSAPI_CREATE_CLUSTER_AVAILABILITY_SET {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpAvailabilitySetName 
      * @param {Pointer<CLUSTER_AVAILABILITY_SET_CONFIG>} pAvailabilitySetConfig 

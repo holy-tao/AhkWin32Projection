@@ -57,7 +57,6 @@ export default struct IHostTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IHostTask} 
      */
     GetCurrentTask() {
@@ -66,14 +65,13 @@ export default struct IHostTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwStackSize 
      * @param {Pointer<LPTHREAD_START_ROUTINE>} pStartAddress 
      * @param {Pointer<Void>} pParameter 
      * @returns {IHostTask} 
      */
     CreateTask(dwStackSize, pStartAddress, pParameter) {
-        pParameterMarshal := pParameter is VarRef ? "ptr" : "ptr"
+        pParameterMarshal := pParameter is VarRef ? "ptr" : IntPtr
 
         result := ComCall(4, this, UInt32, dwStackSize, LPTHREAD_START_ROUTINE, pStartAddress, pParameterMarshal, pParameter, "ptr*", &ppTask := 0, "HRESULT")
         return IHostTask(ppTask)
@@ -119,7 +117,6 @@ export default struct IHostTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} option 
      * @returns {HRESULT} 
      */
@@ -129,7 +126,6 @@ export default struct IHostTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lcid 
      * @returns {HRESULT} 
      */
@@ -139,7 +135,6 @@ export default struct IHostTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lcid 
      * @returns {HRESULT} 
      */
@@ -149,7 +144,6 @@ export default struct IHostTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} target 
      * @returns {BOOL} 
      */
@@ -159,7 +153,6 @@ export default struct IHostTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} target 
      * @returns {HRESULT} 
      */
@@ -169,7 +162,6 @@ export default struct IHostTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     EnterRuntime() {
@@ -178,7 +170,6 @@ export default struct IHostTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ReverseLeaveRuntime() {
@@ -187,7 +178,6 @@ export default struct IHostTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ReverseEnterRuntime() {
@@ -196,7 +186,6 @@ export default struct IHostTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     BeginDelayAbort() {
@@ -205,7 +194,6 @@ export default struct IHostTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     EndDelayAbort() {
@@ -214,7 +202,6 @@ export default struct IHostTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     BeginThreadAffinity() {
@@ -223,7 +210,6 @@ export default struct IHostTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     EndThreadAffinity() {
@@ -232,7 +218,6 @@ export default struct IHostTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} guarantee 
      * @returns {HRESULT} 
      */
@@ -242,7 +227,6 @@ export default struct IHostTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetStackGuarantee() {
@@ -251,7 +235,6 @@ export default struct IHostTaskManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {ICLRTaskManager} ppManager 
      * @returns {HRESULT} 
      */
@@ -269,24 +252,24 @@ export default struct IHostTaskManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCurrentTask := CallbackCreate(GetMethod(implObj, "GetCurrentTask"), flags, 2)
-        this.vtbl.CreateTask := CallbackCreate(GetMethod(implObj, "CreateTask"), flags, 5)
-        this.vtbl.Sleep := CallbackCreate(GetMethod(implObj, "Sleep"), flags, 3)
-        this.vtbl.SwitchToTask := CallbackCreate(GetMethod(implObj, "SwitchToTask"), flags, 2)
-        this.vtbl.SetUILocale := CallbackCreate(GetMethod(implObj, "SetUILocale"), flags, 2)
-        this.vtbl.SetLocale := CallbackCreate(GetMethod(implObj, "SetLocale"), flags, 2)
-        this.vtbl.CallNeedsHostHook := CallbackCreate(GetMethod(implObj, "CallNeedsHostHook"), flags, 3)
-        this.vtbl.LeaveRuntime := CallbackCreate(GetMethod(implObj, "LeaveRuntime"), flags, 2)
-        this.vtbl.EnterRuntime := CallbackCreate(GetMethod(implObj, "EnterRuntime"), flags, 1)
-        this.vtbl.ReverseLeaveRuntime := CallbackCreate(GetMethod(implObj, "ReverseLeaveRuntime"), flags, 1)
-        this.vtbl.ReverseEnterRuntime := CallbackCreate(GetMethod(implObj, "ReverseEnterRuntime"), flags, 1)
-        this.vtbl.BeginDelayAbort := CallbackCreate(GetMethod(implObj, "BeginDelayAbort"), flags, 1)
-        this.vtbl.EndDelayAbort := CallbackCreate(GetMethod(implObj, "EndDelayAbort"), flags, 1)
-        this.vtbl.BeginThreadAffinity := CallbackCreate(GetMethod(implObj, "BeginThreadAffinity"), flags, 1)
-        this.vtbl.EndThreadAffinity := CallbackCreate(GetMethod(implObj, "EndThreadAffinity"), flags, 1)
-        this.vtbl.SetStackGuarantee := CallbackCreate(GetMethod(implObj, "SetStackGuarantee"), flags, 2)
-        this.vtbl.GetStackGuarantee := CallbackCreate(GetMethod(implObj, "GetStackGuarantee"), flags, 2)
-        this.vtbl.SetCLRTaskManager := CallbackCreate(GetMethod(implObj, "SetCLRTaskManager"), flags, 2)
+        this.vtbl.GetCurrentTask := CallbackCreate(ObjBindMethod(implObj, "GetCurrentTask"), flags, 2)
+        this.vtbl.CreateTask := CallbackCreate(ObjBindMethod(implObj, "CreateTask"), flags, 5)
+        this.vtbl.Sleep := CallbackCreate(ObjBindMethod(implObj, "Sleep"), flags, 3)
+        this.vtbl.SwitchToTask := CallbackCreate(ObjBindMethod(implObj, "SwitchToTask"), flags, 2)
+        this.vtbl.SetUILocale := CallbackCreate(ObjBindMethod(implObj, "SetUILocale"), flags, 2)
+        this.vtbl.SetLocale := CallbackCreate(ObjBindMethod(implObj, "SetLocale"), flags, 2)
+        this.vtbl.CallNeedsHostHook := CallbackCreate(ObjBindMethod(implObj, "CallNeedsHostHook"), flags, 3)
+        this.vtbl.LeaveRuntime := CallbackCreate(ObjBindMethod(implObj, "LeaveRuntime"), flags, 2)
+        this.vtbl.EnterRuntime := CallbackCreate(ObjBindMethod(implObj, "EnterRuntime"), flags, 1)
+        this.vtbl.ReverseLeaveRuntime := CallbackCreate(ObjBindMethod(implObj, "ReverseLeaveRuntime"), flags, 1)
+        this.vtbl.ReverseEnterRuntime := CallbackCreate(ObjBindMethod(implObj, "ReverseEnterRuntime"), flags, 1)
+        this.vtbl.BeginDelayAbort := CallbackCreate(ObjBindMethod(implObj, "BeginDelayAbort"), flags, 1)
+        this.vtbl.EndDelayAbort := CallbackCreate(ObjBindMethod(implObj, "EndDelayAbort"), flags, 1)
+        this.vtbl.BeginThreadAffinity := CallbackCreate(ObjBindMethod(implObj, "BeginThreadAffinity"), flags, 1)
+        this.vtbl.EndThreadAffinity := CallbackCreate(ObjBindMethod(implObj, "EndThreadAffinity"), flags, 1)
+        this.vtbl.SetStackGuarantee := CallbackCreate(ObjBindMethod(implObj, "SetStackGuarantee"), flags, 2)
+        this.vtbl.GetStackGuarantee := CallbackCreate(ObjBindMethod(implObj, "GetStackGuarantee"), flags, 2)
+        this.vtbl.SetCLRTaskManager := CallbackCreate(ObjBindMethod(implObj, "SetCLRTaskManager"), flags, 2)
     }
 
     Dispose() {

@@ -36,7 +36,6 @@ export default struct IRowsetBookmark extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hChapter 
      * @param {Pointer} cbBookmark 
      * @param {Integer} pBookmark 
@@ -56,7 +55,7 @@ export default struct IRowsetBookmark extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PositionOnBookmark := CallbackCreate(GetMethod(implObj, "PositionOnBookmark"), flags, 4)
+        this.vtbl.PositionOnBookmark := CallbackCreate(ObjBindMethod(implObj, "PositionOnBookmark"), flags, 4)
     }
 
     Dispose() {

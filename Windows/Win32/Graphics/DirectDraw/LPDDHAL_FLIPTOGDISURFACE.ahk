@@ -19,7 +19,6 @@ export default struct LPDDHAL_FLIPTOGDISURFACE {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_FLIPTOGDISURFACEDATA>} param0 
      * @returns {Integer} 
      */

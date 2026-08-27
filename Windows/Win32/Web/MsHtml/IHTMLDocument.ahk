@@ -49,7 +49,6 @@ export default struct IHTMLDocument extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Script() {
@@ -66,7 +65,7 @@ export default struct IHTMLDocument extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Script := CallbackCreate(GetMethod(implObj, "get_Script"), flags, 2)
+        this.vtbl.get_Script := CallbackCreate(ObjBindMethod(implObj, "get_Script"), flags, 2)
     }
 
     Dispose() {

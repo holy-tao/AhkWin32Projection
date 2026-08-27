@@ -36,14 +36,13 @@ export default struct IHttpNegotiate3 extends IHttpNegotiate2 {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Integer>>} ppbCert 
      * @param {Pointer<Integer>} pcbCert 
      * @returns {HRESULT} 
      */
     GetSerializedClientCertContext(ppbCert, pcbCert) {
-        ppbCertMarshal := ppbCert is VarRef ? "ptr*" : "ptr"
-        pcbCertMarshal := pcbCert is VarRef ? "uint*" : "ptr"
+        ppbCertMarshal := ppbCert is VarRef ? "ptr*" : IntPtr
+        pcbCertMarshal := pcbCert is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, ppbCertMarshal, ppbCert, pcbCertMarshal, pcbCert, "HRESULT")
         return result
@@ -58,7 +57,7 @@ export default struct IHttpNegotiate3 extends IHttpNegotiate2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSerializedClientCertContext := CallbackCreate(GetMethod(implObj, "GetSerializedClientCertContext"), flags, 3)
+        this.vtbl.GetSerializedClientCertContext := CallbackCreate(ObjBindMethod(implObj, "GetSerializedClientCertContext"), flags, 3)
     }
 
     Dispose() {

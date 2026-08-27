@@ -186,7 +186,7 @@ export default struct IXpsOMGlyphs extends IXpsOMVisual {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-getglyphindices
      */
     GetGlyphIndices(indexCount, glyphIndices) {
-        indexCountMarshal := indexCount is VarRef ? "uint*" : "ptr"
+        indexCountMarshal := indexCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(32, this, indexCountMarshal, indexCount, XPS_GLYPH_INDEX.Ptr, glyphIndices, "HRESULT")
         return result
@@ -254,7 +254,7 @@ export default struct IXpsOMGlyphs extends IXpsOMVisual {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-getglyphmappings
      */
     GetGlyphMappings(glyphMappingCount, glyphMappings) {
-        glyphMappingCountMarshal := glyphMappingCount is VarRef ? "uint*" : "ptr"
+        glyphMappingCountMarshal := glyphMappingCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(34, this, glyphMappingCountMarshal, glyphMappingCount, XPS_GLYPH_MAPPING.Ptr, glyphMappings, "HRESULT")
         return result
@@ -288,7 +288,7 @@ export default struct IXpsOMGlyphs extends IXpsOMVisual {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-getprohibitedcaretstops
      */
     GetProhibitedCaretStops(prohibitedCaretStopCount) {
-        prohibitedCaretStopCountMarshal := prohibitedCaretStopCount is VarRef ? "uint*" : "ptr"
+        prohibitedCaretStopCountMarshal := prohibitedCaretStopCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(36, this, prohibitedCaretStopCountMarshal, prohibitedCaretStopCount, "uint*", &prohibitedCaretStops := 0, "HRESULT")
         return prohibitedCaretStops
@@ -1134,33 +1134,33 @@ export default struct IXpsOMGlyphs extends IXpsOMVisual {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetUnicodeString := CallbackCreate(GetMethod(implObj, "GetUnicodeString"), flags, 2)
-        this.vtbl.GetGlyphIndexCount := CallbackCreate(GetMethod(implObj, "GetGlyphIndexCount"), flags, 2)
-        this.vtbl.GetGlyphIndices := CallbackCreate(GetMethod(implObj, "GetGlyphIndices"), flags, 3)
-        this.vtbl.GetGlyphMappingCount := CallbackCreate(GetMethod(implObj, "GetGlyphMappingCount"), flags, 2)
-        this.vtbl.GetGlyphMappings := CallbackCreate(GetMethod(implObj, "GetGlyphMappings"), flags, 3)
-        this.vtbl.GetProhibitedCaretStopCount := CallbackCreate(GetMethod(implObj, "GetProhibitedCaretStopCount"), flags, 2)
-        this.vtbl.GetProhibitedCaretStops := CallbackCreate(GetMethod(implObj, "GetProhibitedCaretStops"), flags, 3)
-        this.vtbl.GetBidiLevel := CallbackCreate(GetMethod(implObj, "GetBidiLevel"), flags, 2)
-        this.vtbl.GetIsSideways := CallbackCreate(GetMethod(implObj, "GetIsSideways"), flags, 2)
-        this.vtbl.GetDeviceFontName := CallbackCreate(GetMethod(implObj, "GetDeviceFontName"), flags, 2)
-        this.vtbl.GetStyleSimulations := CallbackCreate(GetMethod(implObj, "GetStyleSimulations"), flags, 2)
-        this.vtbl.SetStyleSimulations := CallbackCreate(GetMethod(implObj, "SetStyleSimulations"), flags, 2)
-        this.vtbl.GetOrigin := CallbackCreate(GetMethod(implObj, "GetOrigin"), flags, 2)
-        this.vtbl.SetOrigin := CallbackCreate(GetMethod(implObj, "SetOrigin"), flags, 2)
-        this.vtbl.GetFontRenderingEmSize := CallbackCreate(GetMethod(implObj, "GetFontRenderingEmSize"), flags, 2)
-        this.vtbl.SetFontRenderingEmSize := CallbackCreate(GetMethod(implObj, "SetFontRenderingEmSize"), flags, 2)
-        this.vtbl.GetFontResource := CallbackCreate(GetMethod(implObj, "GetFontResource"), flags, 2)
-        this.vtbl.SetFontResource := CallbackCreate(GetMethod(implObj, "SetFontResource"), flags, 2)
-        this.vtbl.GetFontFaceIndex := CallbackCreate(GetMethod(implObj, "GetFontFaceIndex"), flags, 2)
-        this.vtbl.SetFontFaceIndex := CallbackCreate(GetMethod(implObj, "SetFontFaceIndex"), flags, 2)
-        this.vtbl.GetFillBrush := CallbackCreate(GetMethod(implObj, "GetFillBrush"), flags, 2)
-        this.vtbl.GetFillBrushLocal := CallbackCreate(GetMethod(implObj, "GetFillBrushLocal"), flags, 2)
-        this.vtbl.SetFillBrushLocal := CallbackCreate(GetMethod(implObj, "SetFillBrushLocal"), flags, 2)
-        this.vtbl.GetFillBrushLookup := CallbackCreate(GetMethod(implObj, "GetFillBrushLookup"), flags, 2)
-        this.vtbl.SetFillBrushLookup := CallbackCreate(GetMethod(implObj, "SetFillBrushLookup"), flags, 2)
-        this.vtbl.GetGlyphsEditor := CallbackCreate(GetMethod(implObj, "GetGlyphsEditor"), flags, 2)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.GetUnicodeString := CallbackCreate(ObjBindMethod(implObj, "GetUnicodeString"), flags, 2)
+        this.vtbl.GetGlyphIndexCount := CallbackCreate(ObjBindMethod(implObj, "GetGlyphIndexCount"), flags, 2)
+        this.vtbl.GetGlyphIndices := CallbackCreate(ObjBindMethod(implObj, "GetGlyphIndices"), flags, 3)
+        this.vtbl.GetGlyphMappingCount := CallbackCreate(ObjBindMethod(implObj, "GetGlyphMappingCount"), flags, 2)
+        this.vtbl.GetGlyphMappings := CallbackCreate(ObjBindMethod(implObj, "GetGlyphMappings"), flags, 3)
+        this.vtbl.GetProhibitedCaretStopCount := CallbackCreate(ObjBindMethod(implObj, "GetProhibitedCaretStopCount"), flags, 2)
+        this.vtbl.GetProhibitedCaretStops := CallbackCreate(ObjBindMethod(implObj, "GetProhibitedCaretStops"), flags, 3)
+        this.vtbl.GetBidiLevel := CallbackCreate(ObjBindMethod(implObj, "GetBidiLevel"), flags, 2)
+        this.vtbl.GetIsSideways := CallbackCreate(ObjBindMethod(implObj, "GetIsSideways"), flags, 2)
+        this.vtbl.GetDeviceFontName := CallbackCreate(ObjBindMethod(implObj, "GetDeviceFontName"), flags, 2)
+        this.vtbl.GetStyleSimulations := CallbackCreate(ObjBindMethod(implObj, "GetStyleSimulations"), flags, 2)
+        this.vtbl.SetStyleSimulations := CallbackCreate(ObjBindMethod(implObj, "SetStyleSimulations"), flags, 2)
+        this.vtbl.GetOrigin := CallbackCreate(ObjBindMethod(implObj, "GetOrigin"), flags, 2)
+        this.vtbl.SetOrigin := CallbackCreate(ObjBindMethod(implObj, "SetOrigin"), flags, 2)
+        this.vtbl.GetFontRenderingEmSize := CallbackCreate(ObjBindMethod(implObj, "GetFontRenderingEmSize"), flags, 2)
+        this.vtbl.SetFontRenderingEmSize := CallbackCreate(ObjBindMethod(implObj, "SetFontRenderingEmSize"), flags, 2)
+        this.vtbl.GetFontResource := CallbackCreate(ObjBindMethod(implObj, "GetFontResource"), flags, 2)
+        this.vtbl.SetFontResource := CallbackCreate(ObjBindMethod(implObj, "SetFontResource"), flags, 2)
+        this.vtbl.GetFontFaceIndex := CallbackCreate(ObjBindMethod(implObj, "GetFontFaceIndex"), flags, 2)
+        this.vtbl.SetFontFaceIndex := CallbackCreate(ObjBindMethod(implObj, "SetFontFaceIndex"), flags, 2)
+        this.vtbl.GetFillBrush := CallbackCreate(ObjBindMethod(implObj, "GetFillBrush"), flags, 2)
+        this.vtbl.GetFillBrushLocal := CallbackCreate(ObjBindMethod(implObj, "GetFillBrushLocal"), flags, 2)
+        this.vtbl.SetFillBrushLocal := CallbackCreate(ObjBindMethod(implObj, "SetFillBrushLocal"), flags, 2)
+        this.vtbl.GetFillBrushLookup := CallbackCreate(ObjBindMethod(implObj, "GetFillBrushLookup"), flags, 2)
+        this.vtbl.SetFillBrushLookup := CallbackCreate(ObjBindMethod(implObj, "SetFillBrushLookup"), flags, 2)
+        this.vtbl.GetGlyphsEditor := CallbackCreate(ObjBindMethod(implObj, "GetGlyphsEditor"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
     }
 
     Dispose() {

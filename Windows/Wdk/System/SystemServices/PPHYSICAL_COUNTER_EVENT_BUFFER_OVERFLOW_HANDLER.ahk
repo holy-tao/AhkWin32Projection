@@ -19,7 +19,6 @@ export default struct PPHYSICAL_COUNTER_EVENT_BUFFER_OVERFLOW_HANDLER {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} EventBuffer 
      * @param {Pointer} EntrySize 
      * @param {Pointer} NumberOfEntries 
@@ -27,7 +26,7 @@ export default struct PPHYSICAL_COUNTER_EVENT_BUFFER_OVERFLOW_HANDLER {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(EventBuffer, EntrySize, NumberOfEntries, OwningHandle) {
-        EventBufferMarshal := EventBuffer is VarRef ? "ptr" : "ptr"
+        EventBufferMarshal := EventBuffer is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, EventBufferMarshal, EventBuffer, IntPtr, EntrySize, IntPtr, NumberOfEntries, HANDLE, OwningHandle)
     }

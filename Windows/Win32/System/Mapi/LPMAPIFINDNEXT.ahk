@@ -19,7 +19,6 @@ export default struct LPMAPIFINDNEXT {
     }
 
     /**
-     * 
      * @param {Pointer} lhSession 
      * @param {Pointer} ulUIParam 
      * @param {PSTR} lpszMessageType 

@@ -135,14 +135,14 @@ export default struct IMSVidAudioRendererEvent2 extends IMSVidAudioRendererEvent
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AVDecAudioDualMono := CallbackCreate(GetMethod(implObj, "AVDecAudioDualMono"), flags, 1)
-        this.vtbl.AVAudioSampleRate := CallbackCreate(GetMethod(implObj, "AVAudioSampleRate"), flags, 1)
-        this.vtbl.AVAudioChannelConfig := CallbackCreate(GetMethod(implObj, "AVAudioChannelConfig"), flags, 1)
-        this.vtbl.AVAudioChannelCount := CallbackCreate(GetMethod(implObj, "AVAudioChannelCount"), flags, 1)
-        this.vtbl.AVDecCommonMeanBitRate := CallbackCreate(GetMethod(implObj, "AVDecCommonMeanBitRate"), flags, 1)
-        this.vtbl.AVDDSurroundMode := CallbackCreate(GetMethod(implObj, "AVDDSurroundMode"), flags, 1)
-        this.vtbl.AVDecCommonInputFormat := CallbackCreate(GetMethod(implObj, "AVDecCommonInputFormat"), flags, 1)
-        this.vtbl.AVDecCommonOutputFormat := CallbackCreate(GetMethod(implObj, "AVDecCommonOutputFormat"), flags, 1)
+        this.vtbl.AVDecAudioDualMono := CallbackCreate(ObjBindMethod(implObj, "AVDecAudioDualMono"), flags, 1)
+        this.vtbl.AVAudioSampleRate := CallbackCreate(ObjBindMethod(implObj, "AVAudioSampleRate"), flags, 1)
+        this.vtbl.AVAudioChannelConfig := CallbackCreate(ObjBindMethod(implObj, "AVAudioChannelConfig"), flags, 1)
+        this.vtbl.AVAudioChannelCount := CallbackCreate(ObjBindMethod(implObj, "AVAudioChannelCount"), flags, 1)
+        this.vtbl.AVDecCommonMeanBitRate := CallbackCreate(ObjBindMethod(implObj, "AVDecCommonMeanBitRate"), flags, 1)
+        this.vtbl.AVDDSurroundMode := CallbackCreate(ObjBindMethod(implObj, "AVDDSurroundMode"), flags, 1)
+        this.vtbl.AVDecCommonInputFormat := CallbackCreate(ObjBindMethod(implObj, "AVDecCommonInputFormat"), flags, 1)
+        this.vtbl.AVDecCommonOutputFormat := CallbackCreate(ObjBindMethod(implObj, "AVDecCommonOutputFormat"), flags, 1)
     }
 
     Dispose() {

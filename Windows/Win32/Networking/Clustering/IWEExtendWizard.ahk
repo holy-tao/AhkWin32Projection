@@ -174,7 +174,7 @@ export default struct IWEExtendWizard extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateWizardPages := CallbackCreate(GetMethod(implObj, "CreateWizardPages"), flags, 3)
+        this.vtbl.CreateWizardPages := CallbackCreate(ObjBindMethod(implObj, "CreateWizardPages"), flags, 3)
     }
 
     Dispose() {

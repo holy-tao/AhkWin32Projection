@@ -28,7 +28,6 @@ export default struct SpSaveCredentialsFn {
     }
 
     /**
-     * 
      * @param {Pointer} CredentialHandle A handle to the credential to save.
      * @param {Pointer<SecBuffer>} Credentials Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secbuffer">SecBuffer</a> structure containing the credential information to be saved.

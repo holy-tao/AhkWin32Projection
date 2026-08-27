@@ -19,7 +19,6 @@ export default struct LPD3DHAL_TEXTURESWAPCB {
     }
 
     /**
-     * 
      * @param {Pointer<D3DHAL_TEXTURESWAPDATA>} param0 
      * @returns {Integer} 
      */

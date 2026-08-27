@@ -168,11 +168,11 @@ export default struct IXDSCodec extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ixdscodec-getcontentadvisoryrating
      */
     GetContentAdvisoryRating(pRat, pPktSeqID, pCallSeqID, pTimeStart, pTimeEnd) {
-        pRatMarshal := pRat is VarRef ? "int*" : "ptr"
-        pPktSeqIDMarshal := pPktSeqID is VarRef ? "int*" : "ptr"
-        pCallSeqIDMarshal := pCallSeqID is VarRef ? "int*" : "ptr"
-        pTimeStartMarshal := pTimeStart is VarRef ? "int64*" : "ptr"
-        pTimeEndMarshal := pTimeEnd is VarRef ? "int64*" : "ptr"
+        pRatMarshal := pRat is VarRef ? "int*" : IntPtr
+        pPktSeqIDMarshal := pPktSeqID is VarRef ? "int*" : IntPtr
+        pCallSeqIDMarshal := pCallSeqID is VarRef ? "int*" : IntPtr
+        pTimeStartMarshal := pTimeStart is VarRef ? "int64*" : IntPtr
+        pTimeEndMarshal := pTimeEnd is VarRef ? "int64*" : IntPtr
 
         result := ComCall(6, this, pRatMarshal, pRat, pPktSeqIDMarshal, pPktSeqID, pCallSeqIDMarshal, pCallSeqID, pTimeStartMarshal, pTimeStart, pTimeEndMarshal, pTimeEnd, "HRESULT")
         return result
@@ -222,12 +222,12 @@ export default struct IXDSCodec extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ixdscodec-getxdspacket
      */
     GetXDSPacket(pXDSClassPkt, pXDSTypePkt, pBstrXDSPkt, pPktSeqID, pCallSeqID, pTimeStart, pTimeEnd) {
-        pXDSClassPktMarshal := pXDSClassPkt is VarRef ? "int*" : "ptr"
-        pXDSTypePktMarshal := pXDSTypePkt is VarRef ? "int*" : "ptr"
-        pPktSeqIDMarshal := pPktSeqID is VarRef ? "int*" : "ptr"
-        pCallSeqIDMarshal := pCallSeqID is VarRef ? "int*" : "ptr"
-        pTimeStartMarshal := pTimeStart is VarRef ? "int64*" : "ptr"
-        pTimeEndMarshal := pTimeEnd is VarRef ? "int64*" : "ptr"
+        pXDSClassPktMarshal := pXDSClassPkt is VarRef ? "int*" : IntPtr
+        pXDSTypePktMarshal := pXDSTypePkt is VarRef ? "int*" : IntPtr
+        pPktSeqIDMarshal := pPktSeqID is VarRef ? "int*" : IntPtr
+        pCallSeqIDMarshal := pCallSeqID is VarRef ? "int*" : IntPtr
+        pTimeStartMarshal := pTimeStart is VarRef ? "int64*" : IntPtr
+        pTimeEndMarshal := pTimeEnd is VarRef ? "int64*" : IntPtr
 
         result := ComCall(7, this, pXDSClassPktMarshal, pXDSClassPkt, pXDSTypePktMarshal, pXDSTypePkt, BSTR.Ptr, pBstrXDSPkt, pPktSeqIDMarshal, pPktSeqID, pCallSeqIDMarshal, pCallSeqID, pTimeStartMarshal, pTimeStart, pTimeEndMarshal, pTimeEnd, "HRESULT")
         return result
@@ -240,7 +240,7 @@ export default struct IXDSCodec extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ixdscodec-getcurrlicenseexpdate
      */
     GetCurrLicenseExpDate(_protType) {
-        _protTypeMarshal := _protType is VarRef ? "int*" : "ptr"
+        _protTypeMarshal := _protType is VarRef ? "int*" : IntPtr
 
         result := ComCall(8, this, _protTypeMarshal, _protType, "int*", &lpDateTime := 0, "HRESULT")
         return lpDateTime
@@ -265,13 +265,13 @@ export default struct IXDSCodec extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_XDSToRatObjOK := CallbackCreate(GetMethod(implObj, "get_XDSToRatObjOK"), flags, 2)
-        this.vtbl.put_CCSubstreamService := CallbackCreate(GetMethod(implObj, "put_CCSubstreamService"), flags, 2)
-        this.vtbl.get_CCSubstreamService := CallbackCreate(GetMethod(implObj, "get_CCSubstreamService"), flags, 2)
-        this.vtbl.GetContentAdvisoryRating := CallbackCreate(GetMethod(implObj, "GetContentAdvisoryRating"), flags, 6)
-        this.vtbl.GetXDSPacket := CallbackCreate(GetMethod(implObj, "GetXDSPacket"), flags, 8)
-        this.vtbl.GetCurrLicenseExpDate := CallbackCreate(GetMethod(implObj, "GetCurrLicenseExpDate"), flags, 3)
-        this.vtbl.GetLastErrorCode := CallbackCreate(GetMethod(implObj, "GetLastErrorCode"), flags, 1)
+        this.vtbl.get_XDSToRatObjOK := CallbackCreate(ObjBindMethod(implObj, "get_XDSToRatObjOK"), flags, 2)
+        this.vtbl.put_CCSubstreamService := CallbackCreate(ObjBindMethod(implObj, "put_CCSubstreamService"), flags, 2)
+        this.vtbl.get_CCSubstreamService := CallbackCreate(ObjBindMethod(implObj, "get_CCSubstreamService"), flags, 2)
+        this.vtbl.GetContentAdvisoryRating := CallbackCreate(ObjBindMethod(implObj, "GetContentAdvisoryRating"), flags, 6)
+        this.vtbl.GetXDSPacket := CallbackCreate(ObjBindMethod(implObj, "GetXDSPacket"), flags, 8)
+        this.vtbl.GetCurrLicenseExpDate := CallbackCreate(ObjBindMethod(implObj, "GetCurrLicenseExpDate"), flags, 3)
+        this.vtbl.GetLastErrorCode := CallbackCreate(ObjBindMethod(implObj, "GetLastErrorCode"), flags, 1)
     }
 
     Dispose() {

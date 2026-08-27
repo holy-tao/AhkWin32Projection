@@ -108,9 +108,9 @@ export default struct ITCallInfoChangeEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Call := CallbackCreate(GetMethod(implObj, "get_Call"), flags, 2)
-        this.vtbl.get_Cause := CallbackCreate(GetMethod(implObj, "get_Cause"), flags, 2)
-        this.vtbl.get_CallbackInstance := CallbackCreate(GetMethod(implObj, "get_CallbackInstance"), flags, 2)
+        this.vtbl.get_Call := CallbackCreate(ObjBindMethod(implObj, "get_Call"), flags, 2)
+        this.vtbl.get_Cause := CallbackCreate(ObjBindMethod(implObj, "get_Cause"), flags, 2)
+        this.vtbl.get_CallbackInstance := CallbackCreate(ObjBindMethod(implObj, "get_CallbackInstance"), flags, 2)
     }
 
     Dispose() {

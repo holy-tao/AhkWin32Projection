@@ -78,8 +78,8 @@ export default struct IDCompositionSaturationEffect extends IDCompositionFilterE
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetSaturation := CallbackCreate(GetMethod(implObj, "SetSaturation"), flags, 2)
-        this.vtbl.SetSaturation1 := CallbackCreate(GetMethod(implObj, "SetSaturation1"), flags, 2)
+        this.vtbl.SetSaturation := CallbackCreate(ObjBindMethod(implObj, "SetSaturation"), flags, 2)
+        this.vtbl.SetSaturation1 := CallbackCreate(ObjBindMethod(implObj, "SetSaturation1"), flags, 2)
     }
 
     Dispose() {

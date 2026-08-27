@@ -108,11 +108,11 @@ export default struct IESEvent extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetEventId := CallbackCreate(GetMethod(implObj, "GetEventId"), flags, 2)
-        this.vtbl.GetEventType := CallbackCreate(GetMethod(implObj, "GetEventType"), flags, 2)
-        this.vtbl.SetCompletionStatus := CallbackCreate(GetMethod(implObj, "SetCompletionStatus"), flags, 2)
-        this.vtbl.GetData := CallbackCreate(GetMethod(implObj, "GetData"), flags, 2)
-        this.vtbl.GetStringData := CallbackCreate(GetMethod(implObj, "GetStringData"), flags, 2)
+        this.vtbl.GetEventId := CallbackCreate(ObjBindMethod(implObj, "GetEventId"), flags, 2)
+        this.vtbl.GetEventType := CallbackCreate(ObjBindMethod(implObj, "GetEventType"), flags, 2)
+        this.vtbl.SetCompletionStatus := CallbackCreate(ObjBindMethod(implObj, "SetCompletionStatus"), flags, 2)
+        this.vtbl.GetData := CallbackCreate(ObjBindMethod(implObj, "GetData"), flags, 2)
+        this.vtbl.GetStringData := CallbackCreate(ObjBindMethod(implObj, "GetStringData"), flags, 2)
     }
 
     Dispose() {

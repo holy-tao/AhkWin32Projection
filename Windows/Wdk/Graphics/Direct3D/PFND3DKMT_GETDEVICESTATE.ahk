@@ -20,7 +20,6 @@ export default struct PFND3DKMT_GETDEVICESTATE {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_GETDEVICESTATE>} param0 
      * @returns {NTSTATUS} 
      */

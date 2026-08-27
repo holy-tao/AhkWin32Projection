@@ -38,7 +38,6 @@ export default struct ISpPhoneticAlphabetSelection extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsAlphabetUPS() {
@@ -47,7 +46,6 @@ export default struct ISpPhoneticAlphabetSelection extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fForceUPS 
      * @returns {HRESULT} 
      */
@@ -65,8 +63,8 @@ export default struct ISpPhoneticAlphabetSelection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsAlphabetUPS := CallbackCreate(GetMethod(implObj, "IsAlphabetUPS"), flags, 2)
-        this.vtbl.SetAlphabetToUPS := CallbackCreate(GetMethod(implObj, "SetAlphabetToUPS"), flags, 2)
+        this.vtbl.IsAlphabetUPS := CallbackCreate(ObjBindMethod(implObj, "IsAlphabetUPS"), flags, 2)
+        this.vtbl.SetAlphabetToUPS := CallbackCreate(ObjBindMethod(implObj, "SetAlphabetToUPS"), flags, 2)
     }
 
     Dispose() {

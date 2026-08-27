@@ -18,7 +18,6 @@ export default struct PFNSNMPEXTENSIONCLOSE {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

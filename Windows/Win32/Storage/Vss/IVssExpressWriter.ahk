@@ -212,10 +212,10 @@ export default struct IVssExpressWriter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateMetadata := CallbackCreate(GetMethod(implObj, "CreateMetadata"), flags, 8)
-        this.vtbl.LoadMetadata := CallbackCreate(GetMethod(implObj, "LoadMetadata"), flags, 3)
-        this.vtbl.Register := CallbackCreate(GetMethod(implObj, "Register"), flags, 1)
-        this.vtbl.Unregister := CallbackCreate(GetMethod(implObj, "Unregister"), flags, 2)
+        this.vtbl.CreateMetadata := CallbackCreate(ObjBindMethod(implObj, "CreateMetadata"), flags, 8)
+        this.vtbl.LoadMetadata := CallbackCreate(ObjBindMethod(implObj, "LoadMetadata"), flags, 3)
+        this.vtbl.Register := CallbackCreate(ObjBindMethod(implObj, "Register"), flags, 1)
+        this.vtbl.Unregister := CallbackCreate(ObjBindMethod(implObj, "Unregister"), flags, 2)
     }
 
     Dispose() {

@@ -62,7 +62,7 @@ export default struct IMSVidTunerEvent extends IMSVidInputDeviceEvent {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.TuneChanged := CallbackCreate(GetMethod(implObj, "TuneChanged"), flags, 2)
+        this.vtbl.TuneChanged := CallbackCreate(ObjBindMethod(implObj, "TuneChanged"), flags, 2)
     }
 
     Dispose() {

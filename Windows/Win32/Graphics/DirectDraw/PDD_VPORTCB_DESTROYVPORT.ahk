@@ -25,7 +25,6 @@ export default struct PDD_VPORTCB_DESTROYVPORT {
     }
 
     /**
-     * 
      * @param {Pointer<DD_DESTROYVPORTDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_destroyvportdata">DD_DESTROYVPORTDATA</a> structure that contains the information required for the driver to clean up.
      * @returns {Integer} <b>DdVideoPortDestroy</b> returns one of the following callback codes:
      */

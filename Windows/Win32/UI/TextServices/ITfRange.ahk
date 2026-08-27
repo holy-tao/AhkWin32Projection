@@ -1007,8 +1007,8 @@ export default struct ITfRange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-getgravity
      */
     GetGravity(pgStart, pgEnd) {
-        pgStartMarshal := pgStart is VarRef ? "int*" : "ptr"
-        pgEndMarshal := pgEnd is VarRef ? "int*" : "ptr"
+        pgStartMarshal := pgStart is VarRef ? "int*" : IntPtr
+        pgEndMarshal := pgEnd is VarRef ? "int*" : IntPtr
 
         result := ComCall(21, this, pgStartMarshal, pgStart, pgEndMarshal, pgEnd, "HRESULT")
         return result
@@ -1100,28 +1100,28 @@ export default struct ITfRange extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetText := CallbackCreate(GetMethod(implObj, "GetText"), flags, 6)
-        this.vtbl.SetText := CallbackCreate(GetMethod(implObj, "SetText"), flags, 5)
-        this.vtbl.GetFormattedText := CallbackCreate(GetMethod(implObj, "GetFormattedText"), flags, 3)
-        this.vtbl.GetEmbedded := CallbackCreate(GetMethod(implObj, "GetEmbedded"), flags, 5)
-        this.vtbl.InsertEmbedded := CallbackCreate(GetMethod(implObj, "InsertEmbedded"), flags, 4)
-        this.vtbl.ShiftStart := CallbackCreate(GetMethod(implObj, "ShiftStart"), flags, 5)
-        this.vtbl.ShiftEnd := CallbackCreate(GetMethod(implObj, "ShiftEnd"), flags, 5)
-        this.vtbl.ShiftStartToRange := CallbackCreate(GetMethod(implObj, "ShiftStartToRange"), flags, 4)
-        this.vtbl.ShiftEndToRange := CallbackCreate(GetMethod(implObj, "ShiftEndToRange"), flags, 4)
-        this.vtbl.ShiftStartRegion := CallbackCreate(GetMethod(implObj, "ShiftStartRegion"), flags, 4)
-        this.vtbl.ShiftEndRegion := CallbackCreate(GetMethod(implObj, "ShiftEndRegion"), flags, 4)
-        this.vtbl.IsEmpty := CallbackCreate(GetMethod(implObj, "IsEmpty"), flags, 3)
-        this.vtbl.Collapse := CallbackCreate(GetMethod(implObj, "Collapse"), flags, 3)
-        this.vtbl.IsEqualStart := CallbackCreate(GetMethod(implObj, "IsEqualStart"), flags, 5)
-        this.vtbl.IsEqualEnd := CallbackCreate(GetMethod(implObj, "IsEqualEnd"), flags, 5)
-        this.vtbl.CompareStart := CallbackCreate(GetMethod(implObj, "CompareStart"), flags, 5)
-        this.vtbl.CompareEnd := CallbackCreate(GetMethod(implObj, "CompareEnd"), flags, 5)
-        this.vtbl.AdjustForInsert := CallbackCreate(GetMethod(implObj, "AdjustForInsert"), flags, 4)
-        this.vtbl.GetGravity := CallbackCreate(GetMethod(implObj, "GetGravity"), flags, 3)
-        this.vtbl.SetGravity := CallbackCreate(GetMethod(implObj, "SetGravity"), flags, 4)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
-        this.vtbl.GetContext := CallbackCreate(GetMethod(implObj, "GetContext"), flags, 2)
+        this.vtbl.GetText := CallbackCreate(ObjBindMethod(implObj, "GetText"), flags, 6)
+        this.vtbl.SetText := CallbackCreate(ObjBindMethod(implObj, "SetText"), flags, 5)
+        this.vtbl.GetFormattedText := CallbackCreate(ObjBindMethod(implObj, "GetFormattedText"), flags, 3)
+        this.vtbl.GetEmbedded := CallbackCreate(ObjBindMethod(implObj, "GetEmbedded"), flags, 5)
+        this.vtbl.InsertEmbedded := CallbackCreate(ObjBindMethod(implObj, "InsertEmbedded"), flags, 4)
+        this.vtbl.ShiftStart := CallbackCreate(ObjBindMethod(implObj, "ShiftStart"), flags, 5)
+        this.vtbl.ShiftEnd := CallbackCreate(ObjBindMethod(implObj, "ShiftEnd"), flags, 5)
+        this.vtbl.ShiftStartToRange := CallbackCreate(ObjBindMethod(implObj, "ShiftStartToRange"), flags, 4)
+        this.vtbl.ShiftEndToRange := CallbackCreate(ObjBindMethod(implObj, "ShiftEndToRange"), flags, 4)
+        this.vtbl.ShiftStartRegion := CallbackCreate(ObjBindMethod(implObj, "ShiftStartRegion"), flags, 4)
+        this.vtbl.ShiftEndRegion := CallbackCreate(ObjBindMethod(implObj, "ShiftEndRegion"), flags, 4)
+        this.vtbl.IsEmpty := CallbackCreate(ObjBindMethod(implObj, "IsEmpty"), flags, 3)
+        this.vtbl.Collapse := CallbackCreate(ObjBindMethod(implObj, "Collapse"), flags, 3)
+        this.vtbl.IsEqualStart := CallbackCreate(ObjBindMethod(implObj, "IsEqualStart"), flags, 5)
+        this.vtbl.IsEqualEnd := CallbackCreate(ObjBindMethod(implObj, "IsEqualEnd"), flags, 5)
+        this.vtbl.CompareStart := CallbackCreate(ObjBindMethod(implObj, "CompareStart"), flags, 5)
+        this.vtbl.CompareEnd := CallbackCreate(ObjBindMethod(implObj, "CompareEnd"), flags, 5)
+        this.vtbl.AdjustForInsert := CallbackCreate(ObjBindMethod(implObj, "AdjustForInsert"), flags, 4)
+        this.vtbl.GetGravity := CallbackCreate(ObjBindMethod(implObj, "GetGravity"), flags, 3)
+        this.vtbl.SetGravity := CallbackCreate(ObjBindMethod(implObj, "SetGravity"), flags, 4)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.GetContext := CallbackCreate(ObjBindMethod(implObj, "GetContext"), flags, 2)
     }
 
     Dispose() {

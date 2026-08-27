@@ -38,7 +38,6 @@ export default struct IScrollableContextMenu extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} itemText 
      * @param {Integer} cmdID 
      * @returns {HRESULT} 
@@ -51,7 +50,6 @@ export default struct IScrollableContextMenu extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {Integer} 
@@ -70,8 +68,8 @@ export default struct IScrollableContextMenu extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddItem := CallbackCreate(GetMethod(implObj, "AddItem"), flags, 3)
-        this.vtbl.ShowModal := CallbackCreate(GetMethod(implObj, "ShowModal"), flags, 4)
+        this.vtbl.AddItem := CallbackCreate(ObjBindMethod(implObj, "AddItem"), flags, 3)
+        this.vtbl.ShowModal := CallbackCreate(ObjBindMethod(implObj, "ShowModal"), flags, 4)
     }
 
     Dispose() {

@@ -63,7 +63,6 @@ export default struct ISpeechMMSysAudio extends ISpeechAudio {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DeviceId() {
@@ -72,7 +71,6 @@ export default struct ISpeechMMSysAudio extends ISpeechAudio {
     }
 
     /**
-     * 
      * @param {Integer} DeviceId 
      * @returns {HRESULT} 
      */
@@ -82,7 +80,6 @@ export default struct ISpeechMMSysAudio extends ISpeechAudio {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_LineId() {
@@ -91,7 +88,6 @@ export default struct ISpeechMMSysAudio extends ISpeechAudio {
     }
 
     /**
-     * 
      * @param {Integer} LineId 
      * @returns {HRESULT} 
      */
@@ -101,7 +97,6 @@ export default struct ISpeechMMSysAudio extends ISpeechAudio {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MMHandle() {
@@ -118,11 +113,11 @@ export default struct ISpeechMMSysAudio extends ISpeechAudio {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_DeviceId := CallbackCreate(GetMethod(implObj, "get_DeviceId"), flags, 2)
-        this.vtbl.put_DeviceId := CallbackCreate(GetMethod(implObj, "put_DeviceId"), flags, 2)
-        this.vtbl.get_LineId := CallbackCreate(GetMethod(implObj, "get_LineId"), flags, 2)
-        this.vtbl.put_LineId := CallbackCreate(GetMethod(implObj, "put_LineId"), flags, 2)
-        this.vtbl.get_MMHandle := CallbackCreate(GetMethod(implObj, "get_MMHandle"), flags, 2)
+        this.vtbl.get_DeviceId := CallbackCreate(ObjBindMethod(implObj, "get_DeviceId"), flags, 2)
+        this.vtbl.put_DeviceId := CallbackCreate(ObjBindMethod(implObj, "put_DeviceId"), flags, 2)
+        this.vtbl.get_LineId := CallbackCreate(ObjBindMethod(implObj, "get_LineId"), flags, 2)
+        this.vtbl.put_LineId := CallbackCreate(ObjBindMethod(implObj, "put_LineId"), flags, 2)
+        this.vtbl.get_MMHandle := CallbackCreate(ObjBindMethod(implObj, "get_MMHandle"), flags, 2)
     }
 
     Dispose() {

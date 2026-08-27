@@ -122,12 +122,12 @@ export default struct ITAllocatorProperties extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAllocatorProperties := CallbackCreate(GetMethod(implObj, "SetAllocatorProperties"), flags, 2)
-        this.vtbl.GetAllocatorProperties := CallbackCreate(GetMethod(implObj, "GetAllocatorProperties"), flags, 2)
-        this.vtbl.SetAllocateBuffers := CallbackCreate(GetMethod(implObj, "SetAllocateBuffers"), flags, 2)
-        this.vtbl.GetAllocateBuffers := CallbackCreate(GetMethod(implObj, "GetAllocateBuffers"), flags, 2)
-        this.vtbl.SetBufferSize := CallbackCreate(GetMethod(implObj, "SetBufferSize"), flags, 2)
-        this.vtbl.GetBufferSize := CallbackCreate(GetMethod(implObj, "GetBufferSize"), flags, 2)
+        this.vtbl.SetAllocatorProperties := CallbackCreate(ObjBindMethod(implObj, "SetAllocatorProperties"), flags, 2)
+        this.vtbl.GetAllocatorProperties := CallbackCreate(ObjBindMethod(implObj, "GetAllocatorProperties"), flags, 2)
+        this.vtbl.SetAllocateBuffers := CallbackCreate(ObjBindMethod(implObj, "SetAllocateBuffers"), flags, 2)
+        this.vtbl.GetAllocateBuffers := CallbackCreate(ObjBindMethod(implObj, "GetAllocateBuffers"), flags, 2)
+        this.vtbl.SetBufferSize := CallbackCreate(ObjBindMethod(implObj, "SetBufferSize"), flags, 2)
+        this.vtbl.GetBufferSize := CallbackCreate(ObjBindMethod(implObj, "GetBufferSize"), flags, 2)
     }
 
     Dispose() {

@@ -50,7 +50,9 @@ export default struct IShellService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ishellservice-setowner
      */
     SetOwner(punkOwner) {
-        result := ComCall(3, this, "ptr", punkOwner, "HRESULT")
+        punkOwnerMarshal := punkOwner == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, punkOwnerMarshal, punkOwner, "HRESULT")
         return result
     }
 
@@ -63,7 +65,7 @@ export default struct IShellService extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetOwner := CallbackCreate(GetMethod(implObj, "SetOwner"), flags, 2)
+        this.vtbl.SetOwner := CallbackCreate(ObjBindMethod(implObj, "SetOwner"), flags, 2)
     }
 
     Dispose() {

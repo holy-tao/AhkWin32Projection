@@ -66,8 +66,8 @@ export default struct IOfflineFilesPinInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilespininfo-ispinnedforuser
      */
     IsPinnedForUser(pbPinnedForUser, pbInherit) {
-        pbPinnedForUserMarshal := pbPinnedForUser is VarRef ? "int*" : "ptr"
-        pbInheritMarshal := pbInherit is VarRef ? "int*" : "ptr"
+        pbPinnedForUserMarshal := pbPinnedForUser is VarRef ? "int*" : IntPtr
+        pbInheritMarshal := pbInherit is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, pbPinnedForUserMarshal, pbPinnedForUser, pbInheritMarshal, pbInherit, "HRESULT")
         return result
@@ -85,8 +85,8 @@ export default struct IOfflineFilesPinInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilespininfo-ispinnedforuserbypolicy
      */
     IsPinnedForUserByPolicy(pbPinnedForUser, pbInherit) {
-        pbPinnedForUserMarshal := pbPinnedForUser is VarRef ? "int*" : "ptr"
-        pbInheritMarshal := pbInherit is VarRef ? "int*" : "ptr"
+        pbPinnedForUserMarshal := pbPinnedForUser is VarRef ? "int*" : IntPtr
+        pbInheritMarshal := pbInherit is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, pbPinnedForUserMarshal, pbPinnedForUser, pbInheritMarshal, pbInherit, "HRESULT")
         return result
@@ -104,8 +104,8 @@ export default struct IOfflineFilesPinInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilespininfo-ispinnedforcomputer
      */
     IsPinnedForComputer(pbPinnedForComputer, pbInherit) {
-        pbPinnedForComputerMarshal := pbPinnedForComputer is VarRef ? "int*" : "ptr"
-        pbInheritMarshal := pbInherit is VarRef ? "int*" : "ptr"
+        pbPinnedForComputerMarshal := pbPinnedForComputer is VarRef ? "int*" : IntPtr
+        pbInheritMarshal := pbInherit is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, pbPinnedForComputerMarshal, pbPinnedForComputer, pbInheritMarshal, pbInherit, "HRESULT")
         return result
@@ -123,8 +123,8 @@ export default struct IOfflineFilesPinInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilespininfo-ispinnedforfolderredirection
      */
     IsPinnedForFolderRedirection(pbPinnedForFolderRedirection, pbInherit) {
-        pbPinnedForFolderRedirectionMarshal := pbPinnedForFolderRedirection is VarRef ? "int*" : "ptr"
-        pbInheritMarshal := pbInherit is VarRef ? "int*" : "ptr"
+        pbPinnedForFolderRedirectionMarshal := pbPinnedForFolderRedirection is VarRef ? "int*" : IntPtr
+        pbInheritMarshal := pbInherit is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, pbPinnedForFolderRedirectionMarshal, pbPinnedForFolderRedirection, pbInheritMarshal, pbInherit, "HRESULT")
         return result
@@ -139,11 +139,11 @@ export default struct IOfflineFilesPinInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsPinned := CallbackCreate(GetMethod(implObj, "IsPinned"), flags, 2)
-        this.vtbl.IsPinnedForUser := CallbackCreate(GetMethod(implObj, "IsPinnedForUser"), flags, 3)
-        this.vtbl.IsPinnedForUserByPolicy := CallbackCreate(GetMethod(implObj, "IsPinnedForUserByPolicy"), flags, 3)
-        this.vtbl.IsPinnedForComputer := CallbackCreate(GetMethod(implObj, "IsPinnedForComputer"), flags, 3)
-        this.vtbl.IsPinnedForFolderRedirection := CallbackCreate(GetMethod(implObj, "IsPinnedForFolderRedirection"), flags, 3)
+        this.vtbl.IsPinned := CallbackCreate(ObjBindMethod(implObj, "IsPinned"), flags, 2)
+        this.vtbl.IsPinnedForUser := CallbackCreate(ObjBindMethod(implObj, "IsPinnedForUser"), flags, 3)
+        this.vtbl.IsPinnedForUserByPolicy := CallbackCreate(ObjBindMethod(implObj, "IsPinnedForUserByPolicy"), flags, 3)
+        this.vtbl.IsPinnedForComputer := CallbackCreate(ObjBindMethod(implObj, "IsPinnedForComputer"), flags, 3)
+        this.vtbl.IsPinnedForFolderRedirection := CallbackCreate(ObjBindMethod(implObj, "IsPinnedForFolderRedirection"), flags, 3)
     }
 
     Dispose() {

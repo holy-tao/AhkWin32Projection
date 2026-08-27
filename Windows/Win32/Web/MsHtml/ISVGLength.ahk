@@ -84,7 +84,6 @@ export default struct ISVGLength extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -94,7 +93,6 @@ export default struct ISVGLength extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_unitType() {
@@ -103,7 +101,6 @@ export default struct ISVGLength extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -113,7 +110,6 @@ export default struct ISVGLength extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_value() {
@@ -122,7 +118,6 @@ export default struct ISVGLength extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -132,7 +127,6 @@ export default struct ISVGLength extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_valueInSpecifiedUnits() {
@@ -141,7 +135,6 @@ export default struct ISVGLength extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -153,7 +146,6 @@ export default struct ISVGLength extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_valueAsString() {
@@ -163,7 +155,6 @@ export default struct ISVGLength extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} unitType 
      * @param {Float} valueInSpecifiedUnits 
      * @returns {HRESULT} 
@@ -174,7 +165,6 @@ export default struct ISVGLength extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} unitType 
      * @returns {HRESULT} 
      */
@@ -192,16 +182,16 @@ export default struct ISVGLength extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_unitType := CallbackCreate(GetMethod(implObj, "put_unitType"), flags, 2)
-        this.vtbl.get_unitType := CallbackCreate(GetMethod(implObj, "get_unitType"), flags, 2)
-        this.vtbl.put_value := CallbackCreate(GetMethod(implObj, "put_value"), flags, 2)
-        this.vtbl.get_value := CallbackCreate(GetMethod(implObj, "get_value"), flags, 2)
-        this.vtbl.put_valueInSpecifiedUnits := CallbackCreate(GetMethod(implObj, "put_valueInSpecifiedUnits"), flags, 2)
-        this.vtbl.get_valueInSpecifiedUnits := CallbackCreate(GetMethod(implObj, "get_valueInSpecifiedUnits"), flags, 2)
-        this.vtbl.put_valueAsString := CallbackCreate(GetMethod(implObj, "put_valueAsString"), flags, 2)
-        this.vtbl.get_valueAsString := CallbackCreate(GetMethod(implObj, "get_valueAsString"), flags, 2)
-        this.vtbl.newValueSpecifiedUnits := CallbackCreate(GetMethod(implObj, "newValueSpecifiedUnits"), flags, 3)
-        this.vtbl.convertToSpecifiedUnits := CallbackCreate(GetMethod(implObj, "convertToSpecifiedUnits"), flags, 2)
+        this.vtbl.put_unitType := CallbackCreate(ObjBindMethod(implObj, "put_unitType"), flags, 2)
+        this.vtbl.get_unitType := CallbackCreate(ObjBindMethod(implObj, "get_unitType"), flags, 2)
+        this.vtbl.put_value := CallbackCreate(ObjBindMethod(implObj, "put_value"), flags, 2)
+        this.vtbl.get_value := CallbackCreate(ObjBindMethod(implObj, "get_value"), flags, 2)
+        this.vtbl.put_valueInSpecifiedUnits := CallbackCreate(ObjBindMethod(implObj, "put_valueInSpecifiedUnits"), flags, 2)
+        this.vtbl.get_valueInSpecifiedUnits := CallbackCreate(ObjBindMethod(implObj, "get_valueInSpecifiedUnits"), flags, 2)
+        this.vtbl.put_valueAsString := CallbackCreate(ObjBindMethod(implObj, "put_valueAsString"), flags, 2)
+        this.vtbl.get_valueAsString := CallbackCreate(ObjBindMethod(implObj, "get_valueAsString"), flags, 2)
+        this.vtbl.newValueSpecifiedUnits := CallbackCreate(ObjBindMethod(implObj, "newValueSpecifiedUnits"), flags, 3)
+        this.vtbl.convertToSpecifiedUnits := CallbackCreate(ObjBindMethod(implObj, "convertToSpecifiedUnits"), flags, 2)
     }
 
     Dispose() {

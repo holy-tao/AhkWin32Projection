@@ -84,9 +84,9 @@ export default struct ICallIndirect extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallindirect-callindirect
      */
     CallIndirect(phrReturn, iMethod, pvArgs, cbArgs) {
-        phrReturnMarshal := phrReturn is VarRef ? "int*" : "ptr"
-        pvArgsMarshal := pvArgs is VarRef ? "ptr" : "ptr"
-        cbArgsMarshal := cbArgs is VarRef ? "uint*" : "ptr"
+        phrReturnMarshal := phrReturn is VarRef ? "int*" : IntPtr
+        pvArgsMarshal := pvArgs is VarRef ? "ptr" : IntPtr
+        cbArgsMarshal := cbArgs is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, phrReturnMarshal, phrReturn, UInt32, iMethod, pvArgsMarshal, pvArgs, cbArgsMarshal, cbArgs, "HRESULT")
         return result
@@ -132,7 +132,7 @@ export default struct ICallIndirect extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallindirect-getmethodinfo
      */
     GetMethodInfo(iMethod, pInfo, pwszMethod) {
-        pwszMethodMarshal := pwszMethod is VarRef ? "ptr*" : "ptr"
+        pwszMethodMarshal := pwszMethod is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, UInt32, iMethod, CALLFRAMEINFO.Ptr, pInfo, pwszMethodMarshal, pwszMethod, "HRESULT")
         return result
@@ -188,11 +188,14 @@ export default struct ICallIndirect extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallindirect-getiid
      */
     GetIID(piid, pfDerivesFromIDispatch, pcMethod, pwszInterface) {
-        pfDerivesFromIDispatchMarshal := pfDerivesFromIDispatch is VarRef ? "int*" : "ptr"
-        pcMethodMarshal := pcMethod is VarRef ? "uint*" : "ptr"
-        pwszInterfaceMarshal := pwszInterface is VarRef ? "ptr*" : "ptr"
+        piidMarshal := piid == 0 ? IntPtr : Guid.Ptr
+        pfDerivesFromIDispatchMarshal := pfDerivesFromIDispatch is VarRef ? "int*" : IntPtr
+        pfDerivesFromIDispatchMarshal := pfDerivesFromIDispatch == 0 ? IntPtr : BOOL.Ptr
+        pcMethodMarshal := pcMethod is VarRef ? "uint*" : IntPtr
+        pcMethodMarshal := pcMethod == 0 ? IntPtr : "uint*"
+        pwszInterfaceMarshal := pwszInterface is VarRef ? "ptr*" : IntPtr
 
-        result := ComCall(6, this, Guid.Ptr, piid, pfDerivesFromIDispatchMarshal, pfDerivesFromIDispatch, pcMethodMarshal, pcMethod, pwszInterfaceMarshal, pwszInterface, "HRESULT")
+        result := ComCall(6, this, piidMarshal, piid, pfDerivesFromIDispatchMarshal, pfDerivesFromIDispatch, pcMethodMarshal, pcMethod, pwszInterfaceMarshal, pwszInterface, "HRESULT")
         return result
     }
 
@@ -205,10 +208,10 @@ export default struct ICallIndirect extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CallIndirect := CallbackCreate(GetMethod(implObj, "CallIndirect"), flags, 5)
-        this.vtbl.GetMethodInfo := CallbackCreate(GetMethod(implObj, "GetMethodInfo"), flags, 4)
-        this.vtbl.GetStackSize := CallbackCreate(GetMethod(implObj, "GetStackSize"), flags, 3)
-        this.vtbl.GetIID := CallbackCreate(GetMethod(implObj, "GetIID"), flags, 5)
+        this.vtbl.CallIndirect := CallbackCreate(ObjBindMethod(implObj, "CallIndirect"), flags, 5)
+        this.vtbl.GetMethodInfo := CallbackCreate(ObjBindMethod(implObj, "GetMethodInfo"), flags, 4)
+        this.vtbl.GetStackSize := CallbackCreate(ObjBindMethod(implObj, "GetStackSize"), flags, 3)
+        this.vtbl.GetIID := CallbackCreate(ObjBindMethod(implObj, "GetIID"), flags, 5)
     }
 
     Dispose() {

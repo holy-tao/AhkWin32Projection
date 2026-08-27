@@ -56,7 +56,7 @@ export default struct ITfDisplayAttributeNotifySink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnUpdateInfo := CallbackCreate(GetMethod(implObj, "OnUpdateInfo"), flags, 1)
+        this.vtbl.OnUpdateInfo := CallbackCreate(ObjBindMethod(implObj, "OnUpdateInfo"), flags, 1)
     }
 
     Dispose() {

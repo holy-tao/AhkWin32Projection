@@ -22,7 +22,7 @@
  * @since windows6.0.6000
  */
 export OfflineFilesEnable(bEnable, pbRebootRequired) {
-    pbRebootRequiredMarshal := pbRebootRequired is VarRef ? "int*" : "ptr"
+    pbRebootRequiredMarshal := pbRebootRequired is VarRef ? "int*" : IntPtr
 
     result := DllCall("CSCAPI.dll\OfflineFilesEnable", BOOL, bEnable, pbRebootRequiredMarshal, pbRebootRequired, UInt32)
     return result
@@ -50,8 +50,10 @@ export OfflineFilesStart() {
  * @since windows6.0.6000
  */
 export OfflineFilesQueryStatus(pbActive, pbEnabled) {
-    pbActiveMarshal := pbActive is VarRef ? "int*" : "ptr"
-    pbEnabledMarshal := pbEnabled is VarRef ? "int*" : "ptr"
+    pbActiveMarshal := pbActive is VarRef ? "int*" : IntPtr
+    pbActiveMarshal := pbActive == 0 ? IntPtr : BOOL.Ptr
+    pbEnabledMarshal := pbEnabled is VarRef ? "int*" : IntPtr
+    pbEnabledMarshal := pbEnabled == 0 ? IntPtr : BOOL.Ptr
 
     result := DllCall("CSCAPI.dll\OfflineFilesQueryStatus", pbActiveMarshal, pbActive, pbEnabledMarshal, pbEnabled, UInt32)
     return result
@@ -69,9 +71,12 @@ export OfflineFilesQueryStatus(pbActive, pbEnabled) {
  * @since windows8.0
  */
 export OfflineFilesQueryStatusEx(pbActive, pbEnabled, pbAvailable) {
-    pbActiveMarshal := pbActive is VarRef ? "int*" : "ptr"
-    pbEnabledMarshal := pbEnabled is VarRef ? "int*" : "ptr"
-    pbAvailableMarshal := pbAvailable is VarRef ? "int*" : "ptr"
+    pbActiveMarshal := pbActive is VarRef ? "int*" : IntPtr
+    pbActiveMarshal := pbActive == 0 ? IntPtr : BOOL.Ptr
+    pbEnabledMarshal := pbEnabled is VarRef ? "int*" : IntPtr
+    pbEnabledMarshal := pbEnabled == 0 ? IntPtr : BOOL.Ptr
+    pbAvailableMarshal := pbAvailable is VarRef ? "int*" : IntPtr
+    pbAvailableMarshal := pbAvailable == 0 ? IntPtr : BOOL.Ptr
 
     result := DllCall("CSCAPI.dll\OfflineFilesQueryStatusEx", pbActiveMarshal, pbActive, pbEnabledMarshal, pbEnabled, pbAvailableMarshal, pbAvailable, UInt32)
     return result

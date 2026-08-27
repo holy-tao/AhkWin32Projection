@@ -134,9 +134,9 @@ export default struct IGlobalInterfaceTable extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterInterfaceInGlobal := CallbackCreate(GetMethod(implObj, "RegisterInterfaceInGlobal"), flags, 4)
-        this.vtbl.RevokeInterfaceFromGlobal := CallbackCreate(GetMethod(implObj, "RevokeInterfaceFromGlobal"), flags, 2)
-        this.vtbl.GetInterfaceFromGlobal := CallbackCreate(GetMethod(implObj, "GetInterfaceFromGlobal"), flags, 4)
+        this.vtbl.RegisterInterfaceInGlobal := CallbackCreate(ObjBindMethod(implObj, "RegisterInterfaceInGlobal"), flags, 4)
+        this.vtbl.RevokeInterfaceFromGlobal := CallbackCreate(ObjBindMethod(implObj, "RevokeInterfaceFromGlobal"), flags, 2)
+        this.vtbl.GetInterfaceFromGlobal := CallbackCreate(ObjBindMethod(implObj, "GetInterfaceFromGlobal"), flags, 4)
     }
 
     Dispose() {

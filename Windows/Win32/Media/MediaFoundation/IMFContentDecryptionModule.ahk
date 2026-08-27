@@ -110,7 +110,7 @@ export default struct IMFContentDecryptionModule extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nf-mfcontentdecryptionmodule-imfcontentdecryptionmodule-setservercertificate
      */
     SetServerCertificate(certificate, certificateSize) {
-        certificateMarshal := certificate is VarRef ? "char*" : "ptr"
+        certificateMarshal := certificate is VarRef ? "char*" : IntPtr
 
         result := ComCall(7, this, certificateMarshal, certificate, UInt32, certificateSize, "HRESULT")
         return result
@@ -134,7 +134,7 @@ export default struct IMFContentDecryptionModule extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nf-mfcontentdecryptionmodule-imfcontentdecryptionmodule-createtrustedinput
      */
     CreateTrustedInput(contentInitData, contentInitDataSize) {
-        contentInitDataMarshal := contentInitData is VarRef ? "char*" : "ptr"
+        contentInitDataMarshal := contentInitData is VarRef ? "char*" : IntPtr
 
         result := ComCall(8, this, contentInitDataMarshal, contentInitData, UInt32, contentInitDataSize, "ptr*", &trustedInput := 0, "HRESULT")
         return IMFTrustedInput(trustedInput)
@@ -152,8 +152,8 @@ export default struct IMFContentDecryptionModule extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nf-mfcontentdecryptionmodule-imfcontentdecryptionmodule-getprotectionsystemids
      */
     GetProtectionSystemIds(systemIds, count) {
-        systemIdsMarshal := systemIds is VarRef ? "ptr*" : "ptr"
-        countMarshal := count is VarRef ? "uint*" : "ptr"
+        systemIdsMarshal := systemIds is VarRef ? "ptr*" : IntPtr
+        countMarshal := count is VarRef ? "uint*" : IntPtr
 
         result := ComCall(9, this, systemIdsMarshal, systemIds, countMarshal, count, "HRESULT")
         return result
@@ -168,13 +168,13 @@ export default struct IMFContentDecryptionModule extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetContentEnabler := CallbackCreate(GetMethod(implObj, "SetContentEnabler"), flags, 3)
-        this.vtbl.GetSuspendNotify := CallbackCreate(GetMethod(implObj, "GetSuspendNotify"), flags, 2)
-        this.vtbl.SetPMPHostApp := CallbackCreate(GetMethod(implObj, "SetPMPHostApp"), flags, 2)
-        this.vtbl.CreateSession := CallbackCreate(GetMethod(implObj, "CreateSession"), flags, 4)
-        this.vtbl.SetServerCertificate := CallbackCreate(GetMethod(implObj, "SetServerCertificate"), flags, 3)
-        this.vtbl.CreateTrustedInput := CallbackCreate(GetMethod(implObj, "CreateTrustedInput"), flags, 4)
-        this.vtbl.GetProtectionSystemIds := CallbackCreate(GetMethod(implObj, "GetProtectionSystemIds"), flags, 3)
+        this.vtbl.SetContentEnabler := CallbackCreate(ObjBindMethod(implObj, "SetContentEnabler"), flags, 3)
+        this.vtbl.GetSuspendNotify := CallbackCreate(ObjBindMethod(implObj, "GetSuspendNotify"), flags, 2)
+        this.vtbl.SetPMPHostApp := CallbackCreate(ObjBindMethod(implObj, "SetPMPHostApp"), flags, 2)
+        this.vtbl.CreateSession := CallbackCreate(ObjBindMethod(implObj, "CreateSession"), flags, 4)
+        this.vtbl.SetServerCertificate := CallbackCreate(ObjBindMethod(implObj, "SetServerCertificate"), flags, 3)
+        this.vtbl.CreateTrustedInput := CallbackCreate(ObjBindMethod(implObj, "CreateTrustedInput"), flags, 4)
+        this.vtbl.GetProtectionSystemIds := CallbackCreate(ObjBindMethod(implObj, "GetProtectionSystemIds"), flags, 3)
     }
 
     Dispose() {

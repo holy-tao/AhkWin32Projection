@@ -19,7 +19,6 @@ export default struct LPDDHAL_SETMODE {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_SETMODEDATA>} param0 
      * @returns {Integer} 
      */

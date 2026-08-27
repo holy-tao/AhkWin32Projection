@@ -21,15 +21,14 @@ export default struct AVRF_HEAPALLOCATION_ENUMERATE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<AVRF_HEAP_ALLOCATION>} HeapAllocation A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/avrfsdk/ns-avrfsdk-avrf_heap_allocation">AVRF_HEAP_ALLOCATION</a> structure containing information about the heap to be enumerated.
      * @param {Pointer<Void>} EnumerationContext A pointer to user-defined information in the context of the enumeration that is passed in when the <a href="https://docs.microsoft.com/windows/desktop/api/avrfsdk/nf-avrfsdk-verifierenumerateresource">VerifierEnumerateResource</a> function is invoked.
      * @param {Pointer<Integer>} EnumerationLevel A pointer to a value that informs the <a href="https://docs.microsoft.com/windows/desktop/api/avrfsdk/nf-avrfsdk-verifierenumerateresource">VerifierEnumerateResource</a> function to either continue or stop the enumeration operation. These values are defined in the <a href="https://docs.microsoft.com/windows/desktop/api/avrfsdk/ne-avrfsdk-eheapenumerationlevel">eHeapEnumerationLevel</a> enum.
      * @returns {Integer} This function returns error codes or other values defined by the application.
      */
     Call(HeapAllocation, EnumerationContext, EnumerationLevel) {
-        EnumerationContextMarshal := EnumerationContext is VarRef ? "ptr" : "ptr"
-        EnumerationLevelMarshal := EnumerationLevel is VarRef ? "uint*" : "ptr"
+        EnumerationContextMarshal := EnumerationContext is VarRef ? "ptr" : IntPtr
+        EnumerationLevelMarshal := EnumerationLevel is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, AVRF_HEAP_ALLOCATION.Ptr, HeapAllocation, EnumerationContextMarshal, EnumerationContext, EnumerationLevelMarshal, EnumerationLevel, UInt32)
         return result

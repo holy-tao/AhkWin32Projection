@@ -19,7 +19,6 @@ export default struct LPDDHALVPORTCB_GETFIELD {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_GETVPORTFIELDDATA>} param0 
      * @returns {Integer} 
      */

@@ -87,7 +87,7 @@ export default struct IISDB_EMM extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_emm-getdatabytes
      */
     GetDataBytes(pwBufferLength) {
-        pwBufferLengthMarshal := pwBufferLength is VarRef ? "ushort*" : "ptr"
+        pwBufferLengthMarshal := pwBufferLength is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(6, this, pwBufferLengthMarshal, pwBufferLength, "char*", &pbBuffer := 0, "HRESULT")
         return pbBuffer
@@ -102,8 +102,8 @@ export default struct IISDB_EMM extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_emm-getsharedemmmessage
      */
     GetSharedEmmMessage(pwLength, ppbMessage) {
-        pwLengthMarshal := pwLength is VarRef ? "ushort*" : "ptr"
-        ppbMessageMarshal := ppbMessage is VarRef ? "ptr*" : "ptr"
+        pwLengthMarshal := pwLength is VarRef ? "ushort*" : IntPtr
+        ppbMessageMarshal := ppbMessage is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(7, this, pwLengthMarshal, pwLength, ppbMessageMarshal, ppbMessage, "HRESULT")
         return result
@@ -119,8 +119,8 @@ export default struct IISDB_EMM extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_emm-getindividualemmmessage
      */
     GetIndividualEmmMessage(pUnknown, pwLength, ppbMessage) {
-        pwLengthMarshal := pwLength is VarRef ? "ushort*" : "ptr"
-        ppbMessageMarshal := ppbMessage is VarRef ? "ptr*" : "ptr"
+        pwLengthMarshal := pwLength is VarRef ? "ushort*" : IntPtr
+        ppbMessageMarshal := ppbMessage is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(8, this, "ptr", pUnknown, pwLengthMarshal, pwLength, ppbMessageMarshal, ppbMessage, "HRESULT")
         return result
@@ -145,13 +145,13 @@ export default struct IISDB_EMM extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.GetVersionNumber := CallbackCreate(GetMethod(implObj, "GetVersionNumber"), flags, 2)
-        this.vtbl.GetTableIdExtension := CallbackCreate(GetMethod(implObj, "GetTableIdExtension"), flags, 2)
-        this.vtbl.GetDataBytes := CallbackCreate(GetMethod(implObj, "GetDataBytes"), flags, 3)
-        this.vtbl.GetSharedEmmMessage := CallbackCreate(GetMethod(implObj, "GetSharedEmmMessage"), flags, 3)
-        this.vtbl.GetIndividualEmmMessage := CallbackCreate(GetMethod(implObj, "GetIndividualEmmMessage"), flags, 4)
-        this.vtbl.GetVersionHash := CallbackCreate(GetMethod(implObj, "GetVersionHash"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetVersionNumber := CallbackCreate(ObjBindMethod(implObj, "GetVersionNumber"), flags, 2)
+        this.vtbl.GetTableIdExtension := CallbackCreate(ObjBindMethod(implObj, "GetTableIdExtension"), flags, 2)
+        this.vtbl.GetDataBytes := CallbackCreate(ObjBindMethod(implObj, "GetDataBytes"), flags, 3)
+        this.vtbl.GetSharedEmmMessage := CallbackCreate(ObjBindMethod(implObj, "GetSharedEmmMessage"), flags, 3)
+        this.vtbl.GetIndividualEmmMessage := CallbackCreate(ObjBindMethod(implObj, "GetIndividualEmmMessage"), flags, 4)
+        this.vtbl.GetVersionHash := CallbackCreate(ObjBindMethod(implObj, "GetVersionHash"), flags, 2)
     }
 
     Dispose() {

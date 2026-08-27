@@ -37,7 +37,6 @@ export default struct ID3D12RuntimeValidationControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} bDisable 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -46,7 +45,6 @@ export default struct ID3D12RuntimeValidationControl extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     FailuresFromStricterValidationInAppLocalRuntimeDisabled() {
@@ -63,8 +61,8 @@ export default struct ID3D12RuntimeValidationControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DisableFailuresFromStricterValidationInAppLocalRuntime := CallbackCreate(GetMethod(implObj, "DisableFailuresFromStricterValidationInAppLocalRuntime"), flags, 2)
-        this.vtbl.FailuresFromStricterValidationInAppLocalRuntimeDisabled := CallbackCreate(GetMethod(implObj, "FailuresFromStricterValidationInAppLocalRuntimeDisabled"), flags, 1)
+        this.vtbl.DisableFailuresFromStricterValidationInAppLocalRuntime := CallbackCreate(ObjBindMethod(implObj, "DisableFailuresFromStricterValidationInAppLocalRuntime"), flags, 2)
+        this.vtbl.FailuresFromStricterValidationInAppLocalRuntimeDisabled := CallbackCreate(ObjBindMethod(implObj, "FailuresFromStricterValidationInAppLocalRuntimeDisabled"), flags, 1)
     }
 
     Dispose() {

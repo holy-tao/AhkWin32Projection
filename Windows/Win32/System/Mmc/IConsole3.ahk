@@ -59,7 +59,7 @@ export default struct IConsole3 extends IConsole2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RenameScopeItem := CallbackCreate(GetMethod(implObj, "RenameScopeItem"), flags, 2)
+        this.vtbl.RenameScopeItem := CallbackCreate(ObjBindMethod(implObj, "RenameScopeItem"), flags, 2)
     }
 
     Dispose() {

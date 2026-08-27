@@ -18,7 +18,6 @@ export default struct PKBUGCHECK_REASON_CALLBACK_ROUTINE {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

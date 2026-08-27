@@ -43,7 +43,6 @@ export default struct IDebugHostMemory extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @param {Location} _location 
      * @param {Integer} _buffer 
@@ -56,7 +55,6 @@ export default struct IDebugHostMemory extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @param {Location} _location 
      * @param {Integer} _buffer 
@@ -69,7 +67,6 @@ export default struct IDebugHostMemory extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @param {Location} _location 
      * @param {Integer} count 
@@ -81,7 +78,6 @@ export default struct IDebugHostMemory extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @param {Location} _location 
      * @param {Integer} count 
@@ -89,14 +85,13 @@ export default struct IDebugHostMemory extends IUnknown {
      * @returns {HRESULT} 
      */
     WritePointers(_context, _location, count, pointers) {
-        pointersMarshal := pointers is VarRef ? "uint*" : "ptr"
+        pointersMarshal := pointers is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, "ptr", _context, Location, _location, Int64, count, pointersMarshal, pointers, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @param {Location} _location 
      * @param {Integer} verbose 
@@ -117,11 +112,11 @@ export default struct IDebugHostMemory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ReadBytes := CallbackCreate(GetMethod(implObj, "ReadBytes"), flags, 6)
-        this.vtbl.WriteBytes := CallbackCreate(GetMethod(implObj, "WriteBytes"), flags, 6)
-        this.vtbl.ReadPointers := CallbackCreate(GetMethod(implObj, "ReadPointers"), flags, 5)
-        this.vtbl.WritePointers := CallbackCreate(GetMethod(implObj, "WritePointers"), flags, 5)
-        this.vtbl.GetDisplayStringForLocation := CallbackCreate(GetMethod(implObj, "GetDisplayStringForLocation"), flags, 5)
+        this.vtbl.ReadBytes := CallbackCreate(ObjBindMethod(implObj, "ReadBytes"), flags, 6)
+        this.vtbl.WriteBytes := CallbackCreate(ObjBindMethod(implObj, "WriteBytes"), flags, 6)
+        this.vtbl.ReadPointers := CallbackCreate(ObjBindMethod(implObj, "ReadPointers"), flags, 5)
+        this.vtbl.WritePointers := CallbackCreate(ObjBindMethod(implObj, "WritePointers"), flags, 5)
+        this.vtbl.GetDisplayStringForLocation := CallbackCreate(ObjBindMethod(implObj, "GetDisplayStringForLocation"), flags, 5)
     }
 
     Dispose() {

@@ -65,7 +65,7 @@ export default struct ID2D1RoundedRectangleGeometry extends ID2D1Geometry {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRoundedRect := CallbackCreate(GetMethod(implObj, "GetRoundedRect"), flags, 2)
+        this.vtbl.GetRoundedRect := CallbackCreate(ObjBindMethod(implObj, "GetRoundedRect"), flags, 2)
     }
 
     Dispose() {

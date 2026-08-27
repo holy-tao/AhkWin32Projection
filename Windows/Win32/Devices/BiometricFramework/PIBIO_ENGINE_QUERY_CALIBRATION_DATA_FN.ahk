@@ -53,7 +53,6 @@ export default struct PIBIO_ENGINE_QUERY_CALIBRATION_DATA_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/ns-winbio_adapter-winbio_pipeline">WINBIO_PIPELINE</a> structure associated with the biometric unit performing the operation.
      * @param {Pointer<BOOLEAN>} DiscardAndRepeatCapture Address of a Boolean value that must be set by the <b>EngineAdapterQueryCalibrationData</b> method. This value indicates what the biometric service should do with the current sample after calibration is complete.
      * 
@@ -93,8 +92,8 @@ export default struct PIBIO_ENGINE_QUERY_CALIBRATION_DATA_FN {
      * </table>
      */
     Call(Pipeline, DiscardAndRepeatCapture, CalibrationBuffer, CalibrationBufferSize, MaxBufferSize) {
-        DiscardAndRepeatCaptureMarshal := DiscardAndRepeatCapture is VarRef ? "char*" : "ptr"
-        CalibrationBufferSizeMarshal := CalibrationBufferSize is VarRef ? "ptr*" : "ptr"
+        DiscardAndRepeatCaptureMarshal := DiscardAndRepeatCapture is VarRef ? "char*" : IntPtr
+        CalibrationBufferSizeMarshal := CalibrationBufferSize is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, WINBIO_PIPELINE.Ptr, Pipeline, DiscardAndRepeatCaptureMarshal, DiscardAndRepeatCapture, IntPtr, CalibrationBuffer, CalibrationBufferSizeMarshal, CalibrationBufferSize, IntPtr, MaxBufferSize, "HRESULT")
         return result

@@ -22,7 +22,6 @@ export default struct PFN_DrvAssociateSharedSurface {
     }
 
     /**
-     * 
      * @param {Pointer<SURFOBJ>} param0 
      * @param {HANDLE} param1 
      * @param {HANDLE} param2 

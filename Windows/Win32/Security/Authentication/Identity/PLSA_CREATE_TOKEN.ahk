@@ -27,7 +27,6 @@ export default struct PLSA_CREATE_TOKEN {
     }
 
     /**
-     * 
      * @param {Pointer<LUID>} LogonId 
      * @param {Pointer<TOKEN_SOURCE>} TokenSource 
      * @param {SECURITY_LOGON_TYPE} LogonType 
@@ -44,10 +43,13 @@ export default struct PLSA_CREATE_TOKEN {
      * @returns {NTSTATUS} 
      */
     Call(LogonId, TokenSource, LogonType, ImpersonationLevel, TokenInformationType, TokenInformation, TokenGroups, AccountName, AuthorityName, Workstation, ProfilePath, Token, SubStatus) {
-        TokenInformationMarshal := TokenInformation is VarRef ? "ptr" : "ptr"
-        SubStatusMarshal := SubStatus is VarRef ? "int*" : "ptr"
+        TokenInformationMarshal := TokenInformation is VarRef ? "ptr" : IntPtr
+        TokenGroupsMarshal := TokenGroups == 0 ? IntPtr : TOKEN_GROUPS.Ptr
+        WorkstationMarshal := Workstation == 0 ? IntPtr : LSA_UNICODE_STRING.Ptr
+        ProfilePathMarshal := ProfilePath == 0 ? IntPtr : LSA_UNICODE_STRING.Ptr
+        SubStatusMarshal := SubStatus is VarRef ? "int*" : IntPtr
 
-        result := DllCall(this.value, LUID.Ptr, LogonId, TOKEN_SOURCE.Ptr, TokenSource, SECURITY_LOGON_TYPE, LogonType, SECURITY_IMPERSONATION_LEVEL, ImpersonationLevel, LSA_TOKEN_INFORMATION_TYPE, TokenInformationType, TokenInformationMarshal, TokenInformation, TOKEN_GROUPS.Ptr, TokenGroups, LSA_UNICODE_STRING.Ptr, AccountName, LSA_UNICODE_STRING.Ptr, AuthorityName, LSA_UNICODE_STRING.Ptr, Workstation, LSA_UNICODE_STRING.Ptr, ProfilePath, HANDLE.Ptr, Token, SubStatusMarshal, SubStatus, NTSTATUS)
+        result := DllCall(this.value, LUID.Ptr, LogonId, TOKEN_SOURCE.Ptr, TokenSource, SECURITY_LOGON_TYPE, LogonType, SECURITY_IMPERSONATION_LEVEL, ImpersonationLevel, LSA_TOKEN_INFORMATION_TYPE, TokenInformationType, TokenInformationMarshal, TokenInformation, TokenGroupsMarshal, TokenGroups, LSA_UNICODE_STRING.Ptr, AccountName, LSA_UNICODE_STRING.Ptr, AuthorityName, WorkstationMarshal, Workstation, ProfilePathMarshal, ProfilePath, HANDLE.Ptr, Token, SubStatusMarshal, SubStatus, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

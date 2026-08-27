@@ -21,7 +21,6 @@ export default struct PRESUTIL_ENUM_RESOURCES {
     }
 
     /**
-     * 
      * @param {HRESOURCE} hSelf 
      * @param {PWSTR} lpszResTypeName 
      * @param {Pointer<LPRESOURCE_CALLBACK>} pResCallBack 
@@ -31,7 +30,7 @@ export default struct PRESUTIL_ENUM_RESOURCES {
     Call(hSelf, lpszResTypeName, pResCallBack, pParameter) {
         lpszResTypeName := lpszResTypeName is String ? StrPtr(lpszResTypeName) : lpszResTypeName
 
-        pParameterMarshal := pParameter is VarRef ? "ptr" : "ptr"
+        pParameterMarshal := pParameter is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, HRESOURCE, hSelf, "ptr", lpszResTypeName, LPRESOURCE_CALLBACK, pResCallBack, pParameterMarshal, pParameter, UInt32)
         return result

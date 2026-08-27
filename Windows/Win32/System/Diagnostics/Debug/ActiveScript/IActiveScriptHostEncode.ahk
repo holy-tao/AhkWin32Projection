@@ -37,7 +37,6 @@ export default struct IActiveScriptHostEncode extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrInFile 
      * @param {Pointer<BSTR>} pbstrOutFile 
      * @param {Integer} cFlags 
@@ -61,7 +60,7 @@ export default struct IActiveScriptHostEncode extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EncodeScriptHostFile := CallbackCreate(GetMethod(implObj, "EncodeScriptHostFile"), flags, 5)
+        this.vtbl.EncodeScriptHostFile := CallbackCreate(ObjBindMethod(implObj, "EncodeScriptHostFile"), flags, 5)
     }
 
     Dispose() {

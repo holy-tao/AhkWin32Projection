@@ -105,10 +105,10 @@ export default struct ICertEncodeBitString extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Decode := CallbackCreate(GetMethod(implObj, "Decode"), flags, 2)
-        this.vtbl.GetBitCount := CallbackCreate(GetMethod(implObj, "GetBitCount"), flags, 2)
-        this.vtbl.GetBitString := CallbackCreate(GetMethod(implObj, "GetBitString"), flags, 2)
-        this.vtbl.Encode := CallbackCreate(GetMethod(implObj, "Encode"), flags, 4)
+        this.vtbl.Decode := CallbackCreate(ObjBindMethod(implObj, "Decode"), flags, 2)
+        this.vtbl.GetBitCount := CallbackCreate(ObjBindMethod(implObj, "GetBitCount"), flags, 2)
+        this.vtbl.GetBitString := CallbackCreate(ObjBindMethod(implObj, "GetBitString"), flags, 2)
+        this.vtbl.Encode := CallbackCreate(ObjBindMethod(implObj, "Encode"), flags, 4)
     }
 
     Dispose() {

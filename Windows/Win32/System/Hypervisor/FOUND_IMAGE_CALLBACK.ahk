@@ -20,13 +20,12 @@ export default struct FOUND_IMAGE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<DOS_IMAGE_INFO>} _ImageInfo 
      * @returns {BOOL} 
      */
     Call(_Context, _ImageInfo) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, DOS_IMAGE_INFO.Ptr, _ImageInfo, BOOL)
         return result

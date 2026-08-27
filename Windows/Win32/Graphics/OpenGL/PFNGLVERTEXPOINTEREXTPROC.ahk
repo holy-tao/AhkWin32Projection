@@ -18,7 +18,6 @@ export default struct PFNGLVERTEXPOINTEREXTPROC {
     }
 
     /**
-     * 
      * @param {Integer} _size 
      * @param {Integer} type 
      * @param {Integer} stride 
@@ -27,7 +26,7 @@ export default struct PFNGLVERTEXPOINTEREXTPROC {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_size, type, stride, count, pointer) {
-        pointerMarshal := pointer is VarRef ? "ptr" : "ptr"
+        pointerMarshal := pointer is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, Int32, _size, UInt32, type, Int32, stride, Int32, count, pointerMarshal, pointer)
     }

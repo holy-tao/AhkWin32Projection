@@ -58,7 +58,7 @@ export default struct IWiaNotifyDevMgr extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.NewDeviceArrival := CallbackCreate(GetMethod(implObj, "NewDeviceArrival"), flags, 1)
+        this.vtbl.NewDeviceArrival := CallbackCreate(ObjBindMethod(implObj, "NewDeviceArrival"), flags, 1)
     }
 
     Dispose() {

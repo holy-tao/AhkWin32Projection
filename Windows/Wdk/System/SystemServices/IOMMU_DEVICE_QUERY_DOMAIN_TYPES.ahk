@@ -19,14 +19,13 @@ export default struct IOMMU_DEVICE_QUERY_DOMAIN_TYPES {
     }
 
     /**
-     * 
      * @param {Pointer<IOMMU_DMA_DEVICE>} DmaDevice 
      * @param {Pointer<Integer>} AvailableDomains 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(DmaDevice, AvailableDomains) {
-        DmaDeviceMarshal := DmaDevice is VarRef ? "ptr*" : "ptr"
-        AvailableDomainsMarshal := AvailableDomains is VarRef ? "uint*" : "ptr"
+        DmaDeviceMarshal := DmaDevice is VarRef ? "ptr*" : IntPtr
+        AvailableDomainsMarshal := AvailableDomains is VarRef ? "uint*" : IntPtr
 
         DllCall(this.value, DmaDeviceMarshal, DmaDevice, AvailableDomainsMarshal, AvailableDomains)
     }

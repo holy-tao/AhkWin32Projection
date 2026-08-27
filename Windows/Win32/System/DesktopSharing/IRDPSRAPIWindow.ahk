@@ -169,13 +169,13 @@ export default struct IRDPSRAPIWindow extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
-        this.vtbl.get_Application := CallbackCreate(GetMethod(implObj, "get_Application"), flags, 2)
-        this.vtbl.get_Shared := CallbackCreate(GetMethod(implObj, "get_Shared"), flags, 2)
-        this.vtbl.put_Shared := CallbackCreate(GetMethod(implObj, "put_Shared"), flags, 2)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.Show := CallbackCreate(GetMethod(implObj, "Show"), flags, 1)
-        this.vtbl.get_Flags := CallbackCreate(GetMethod(implObj, "get_Flags"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(ObjBindMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.get_Application := CallbackCreate(ObjBindMethod(implObj, "get_Application"), flags, 2)
+        this.vtbl.get_Shared := CallbackCreate(ObjBindMethod(implObj, "get_Shared"), flags, 2)
+        this.vtbl.put_Shared := CallbackCreate(ObjBindMethod(implObj, "put_Shared"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.Show := CallbackCreate(ObjBindMethod(implObj, "Show"), flags, 1)
+        this.vtbl.get_Flags := CallbackCreate(ObjBindMethod(implObj, "get_Flags"), flags, 2)
     }
 
     Dispose() {

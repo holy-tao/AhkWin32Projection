@@ -117,10 +117,10 @@ export default struct ID2D1SvgPointCollection extends ID2D1SvgAttribute {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RemovePointsAtEnd := CallbackCreate(GetMethod(implObj, "RemovePointsAtEnd"), flags, 2)
-        this.vtbl.UpdatePoints := CallbackCreate(GetMethod(implObj, "UpdatePoints"), flags, 4)
-        this.vtbl.GetPoints := CallbackCreate(GetMethod(implObj, "GetPoints"), flags, 4)
-        this.vtbl.GetPointsCount := CallbackCreate(GetMethod(implObj, "GetPointsCount"), flags, 1)
+        this.vtbl.RemovePointsAtEnd := CallbackCreate(ObjBindMethod(implObj, "RemovePointsAtEnd"), flags, 2)
+        this.vtbl.UpdatePoints := CallbackCreate(ObjBindMethod(implObj, "UpdatePoints"), flags, 4)
+        this.vtbl.GetPoints := CallbackCreate(ObjBindMethod(implObj, "GetPoints"), flags, 4)
+        this.vtbl.GetPointsCount := CallbackCreate(ObjBindMethod(implObj, "GetPointsCount"), flags, 1)
     }
 
     Dispose() {

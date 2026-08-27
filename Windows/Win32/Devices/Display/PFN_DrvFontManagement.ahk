@@ -20,7 +20,6 @@ export default struct PFN_DrvFontManagement {
     }
 
     /**
-     * 
      * @param {Pointer<SURFOBJ>} param0 
      * @param {Pointer<FONTOBJ>} param1 
      * @param {Integer} param2 
@@ -31,8 +30,8 @@ export default struct PFN_DrvFontManagement {
      * @returns {Integer} 
      */
     Call(param0, param1, param2, param3, param4, param5, param6) {
-        param4Marshal := param4 is VarRef ? "ptr" : "ptr"
-        param6Marshal := param6 is VarRef ? "ptr" : "ptr"
+        param4Marshal := param4 is VarRef ? "ptr" : IntPtr
+        param6Marshal := param6 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, SURFOBJ.Ptr, param0, FONTOBJ.Ptr, param1, UInt32, param2, UInt32, param3, param4Marshal, param4, UInt32, param5, param6Marshal, param6, UInt32)
         return result

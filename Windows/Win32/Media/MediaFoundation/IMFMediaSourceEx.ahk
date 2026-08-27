@@ -117,9 +117,9 @@ export default struct IMFMediaSourceEx extends IMFMediaSource {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSourceAttributes := CallbackCreate(GetMethod(implObj, "GetSourceAttributes"), flags, 2)
-        this.vtbl.GetStreamAttributes := CallbackCreate(GetMethod(implObj, "GetStreamAttributes"), flags, 3)
-        this.vtbl.SetD3DManager := CallbackCreate(GetMethod(implObj, "SetD3DManager"), flags, 2)
+        this.vtbl.GetSourceAttributes := CallbackCreate(ObjBindMethod(implObj, "GetSourceAttributes"), flags, 2)
+        this.vtbl.GetStreamAttributes := CallbackCreate(ObjBindMethod(implObj, "GetStreamAttributes"), flags, 3)
+        this.vtbl.SetD3DManager := CallbackCreate(ObjBindMethod(implObj, "SetD3DManager"), flags, 2)
     }
 
     Dispose() {

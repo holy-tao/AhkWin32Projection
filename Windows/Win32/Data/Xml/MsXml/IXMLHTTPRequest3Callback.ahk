@@ -79,7 +79,7 @@ export default struct IXMLHTTPRequest3Callback extends IXMLHTTPRequest2Callback 
      * @see https://learn.microsoft.com/windows/win32/api/msxml6/nf-msxml6-ixmlhttprequest3callback-onclientcertificaterequested
      */
     OnClientCertificateRequested(pXHR, cIssuerList, rgpwszIssuerList) {
-        rgpwszIssuerListMarshal := rgpwszIssuerList is VarRef ? "ptr*" : "ptr"
+        rgpwszIssuerListMarshal := rgpwszIssuerList is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(9, this, "ptr", pXHR, UInt32, cIssuerList, rgpwszIssuerListMarshal, rgpwszIssuerList, "HRESULT")
         return result
@@ -94,8 +94,8 @@ export default struct IXMLHTTPRequest3Callback extends IXMLHTTPRequest2Callback 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnServerCertificateReceived := CallbackCreate(GetMethod(implObj, "OnServerCertificateReceived"), flags, 5)
-        this.vtbl.OnClientCertificateRequested := CallbackCreate(GetMethod(implObj, "OnClientCertificateRequested"), flags, 4)
+        this.vtbl.OnServerCertificateReceived := CallbackCreate(ObjBindMethod(implObj, "OnServerCertificateReceived"), flags, 5)
+        this.vtbl.OnClientCertificateRequested := CallbackCreate(ObjBindMethod(implObj, "OnClientCertificateRequested"), flags, 4)
     }
 
     Dispose() {

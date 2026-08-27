@@ -55,7 +55,6 @@ export default struct IHTMLStyleSheetRulesAppliedCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {IHTMLStyleSheetRule} 
      */
@@ -65,7 +64,6 @@ export default struct IHTMLStyleSheetRulesAppliedCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -74,7 +72,6 @@ export default struct IHTMLStyleSheetRulesAppliedCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {IHTMLStyleSheetRule} 
      */
@@ -86,7 +83,6 @@ export default struct IHTMLStyleSheetRulesAppliedCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @param {Integer} index 
      * @returns {IHTMLStyleSheetRule} 
@@ -99,7 +95,6 @@ export default struct IHTMLStyleSheetRulesAppliedCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {Integer} 
      */
@@ -119,11 +114,11 @@ export default struct IHTMLStyleSheetRulesAppliedCollection extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.item := CallbackCreate(GetMethod(implObj, "item"), flags, 3)
-        this.vtbl.get_length := CallbackCreate(GetMethod(implObj, "get_length"), flags, 2)
-        this.vtbl.propertyAppliedBy := CallbackCreate(GetMethod(implObj, "propertyAppliedBy"), flags, 3)
-        this.vtbl.propertyAppliedTrace := CallbackCreate(GetMethod(implObj, "propertyAppliedTrace"), flags, 4)
-        this.vtbl.propertyAppliedTraceLength := CallbackCreate(GetMethod(implObj, "propertyAppliedTraceLength"), flags, 3)
+        this.vtbl.item := CallbackCreate(ObjBindMethod(implObj, "item"), flags, 3)
+        this.vtbl.get_length := CallbackCreate(ObjBindMethod(implObj, "get_length"), flags, 2)
+        this.vtbl.propertyAppliedBy := CallbackCreate(ObjBindMethod(implObj, "propertyAppliedBy"), flags, 3)
+        this.vtbl.propertyAppliedTrace := CallbackCreate(ObjBindMethod(implObj, "propertyAppliedTrace"), flags, 4)
+        this.vtbl.propertyAppliedTraceLength := CallbackCreate(ObjBindMethod(implObj, "propertyAppliedTraceLength"), flags, 3)
     }
 
     Dispose() {

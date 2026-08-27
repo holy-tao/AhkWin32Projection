@@ -19,7 +19,6 @@ export default struct LPDDHAL_DESTROYDRIVER {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_DESTROYDRIVERDATA>} param0 
      * @returns {Integer} 
      */

@@ -135,10 +135,10 @@ export default struct IFsrmActionReport extends IFsrmAction {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ReportTypes := CallbackCreate(GetMethod(implObj, "get_ReportTypes"), flags, 2)
-        this.vtbl.put_ReportTypes := CallbackCreate(GetMethod(implObj, "put_ReportTypes"), flags, 2)
-        this.vtbl.get_MailTo := CallbackCreate(GetMethod(implObj, "get_MailTo"), flags, 2)
-        this.vtbl.put_MailTo := CallbackCreate(GetMethod(implObj, "put_MailTo"), flags, 2)
+        this.vtbl.get_ReportTypes := CallbackCreate(ObjBindMethod(implObj, "get_ReportTypes"), flags, 2)
+        this.vtbl.put_ReportTypes := CallbackCreate(ObjBindMethod(implObj, "put_ReportTypes"), flags, 2)
+        this.vtbl.get_MailTo := CallbackCreate(ObjBindMethod(implObj, "get_MailTo"), flags, 2)
+        this.vtbl.put_MailTo := CallbackCreate(ObjBindMethod(implObj, "put_MailTo"), flags, 2)
     }
 
     Dispose() {

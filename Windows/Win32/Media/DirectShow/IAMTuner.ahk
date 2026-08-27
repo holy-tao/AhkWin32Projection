@@ -136,9 +136,9 @@ export default struct IAMTuner extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtuner-get_channel
      */
     get_Channel(plChannel, plVideoSubChannel, plAudioSubChannel) {
-        plChannelMarshal := plChannel is VarRef ? "int*" : "ptr"
-        plVideoSubChannelMarshal := plVideoSubChannel is VarRef ? "int*" : "ptr"
-        plAudioSubChannelMarshal := plAudioSubChannel is VarRef ? "int*" : "ptr"
+        plChannelMarshal := plChannel is VarRef ? "int*" : IntPtr
+        plVideoSubChannelMarshal := plVideoSubChannel is VarRef ? "int*" : IntPtr
+        plAudioSubChannelMarshal := plAudioSubChannel is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, plChannelMarshal, plChannel, plVideoSubChannelMarshal, plVideoSubChannel, plAudioSubChannelMarshal, plAudioSubChannel, "HRESULT")
         return result
@@ -181,8 +181,8 @@ export default struct IAMTuner extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtuner-channelminmax
      */
     ChannelMinMax(lChannelMin, lChannelMax) {
-        lChannelMinMarshal := lChannelMin is VarRef ? "int*" : "ptr"
-        lChannelMaxMarshal := lChannelMax is VarRef ? "int*" : "ptr"
+        lChannelMinMarshal := lChannelMin is VarRef ? "int*" : IntPtr
+        lChannelMaxMarshal := lChannelMax is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, lChannelMinMarshal, lChannelMin, lChannelMaxMarshal, lChannelMax, "HRESULT")
         return result
@@ -340,21 +340,21 @@ export default struct IAMTuner extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_Channel := CallbackCreate(GetMethod(implObj, "put_Channel"), flags, 4)
-        this.vtbl.get_Channel := CallbackCreate(GetMethod(implObj, "get_Channel"), flags, 4)
-        this.vtbl.ChannelMinMax := CallbackCreate(GetMethod(implObj, "ChannelMinMax"), flags, 3)
-        this.vtbl.put_CountryCode := CallbackCreate(GetMethod(implObj, "put_CountryCode"), flags, 2)
-        this.vtbl.get_CountryCode := CallbackCreate(GetMethod(implObj, "get_CountryCode"), flags, 2)
-        this.vtbl.put_TuningSpace := CallbackCreate(GetMethod(implObj, "put_TuningSpace"), flags, 2)
-        this.vtbl.get_TuningSpace := CallbackCreate(GetMethod(implObj, "get_TuningSpace"), flags, 2)
-        this.vtbl.Logon := CallbackCreate(GetMethod(implObj, "Logon"), flags, 2)
-        this.vtbl.Logout := CallbackCreate(GetMethod(implObj, "Logout"), flags, 1)
-        this.vtbl.SignalPresent := CallbackCreate(GetMethod(implObj, "SignalPresent"), flags, 2)
-        this.vtbl.put_Mode := CallbackCreate(GetMethod(implObj, "put_Mode"), flags, 2)
-        this.vtbl.get_Mode := CallbackCreate(GetMethod(implObj, "get_Mode"), flags, 2)
-        this.vtbl.GetAvailableModes := CallbackCreate(GetMethod(implObj, "GetAvailableModes"), flags, 2)
-        this.vtbl.RegisterNotificationCallBack := CallbackCreate(GetMethod(implObj, "RegisterNotificationCallBack"), flags, 3)
-        this.vtbl.UnRegisterNotificationCallBack := CallbackCreate(GetMethod(implObj, "UnRegisterNotificationCallBack"), flags, 2)
+        this.vtbl.put_Channel := CallbackCreate(ObjBindMethod(implObj, "put_Channel"), flags, 4)
+        this.vtbl.get_Channel := CallbackCreate(ObjBindMethod(implObj, "get_Channel"), flags, 4)
+        this.vtbl.ChannelMinMax := CallbackCreate(ObjBindMethod(implObj, "ChannelMinMax"), flags, 3)
+        this.vtbl.put_CountryCode := CallbackCreate(ObjBindMethod(implObj, "put_CountryCode"), flags, 2)
+        this.vtbl.get_CountryCode := CallbackCreate(ObjBindMethod(implObj, "get_CountryCode"), flags, 2)
+        this.vtbl.put_TuningSpace := CallbackCreate(ObjBindMethod(implObj, "put_TuningSpace"), flags, 2)
+        this.vtbl.get_TuningSpace := CallbackCreate(ObjBindMethod(implObj, "get_TuningSpace"), flags, 2)
+        this.vtbl.Logon := CallbackCreate(ObjBindMethod(implObj, "Logon"), flags, 2)
+        this.vtbl.Logout := CallbackCreate(ObjBindMethod(implObj, "Logout"), flags, 1)
+        this.vtbl.SignalPresent := CallbackCreate(ObjBindMethod(implObj, "SignalPresent"), flags, 2)
+        this.vtbl.put_Mode := CallbackCreate(ObjBindMethod(implObj, "put_Mode"), flags, 2)
+        this.vtbl.get_Mode := CallbackCreate(ObjBindMethod(implObj, "get_Mode"), flags, 2)
+        this.vtbl.GetAvailableModes := CallbackCreate(ObjBindMethod(implObj, "GetAvailableModes"), flags, 2)
+        this.vtbl.RegisterNotificationCallBack := CallbackCreate(ObjBindMethod(implObj, "RegisterNotificationCallBack"), flags, 3)
+        this.vtbl.UnRegisterNotificationCallBack := CallbackCreate(ObjBindMethod(implObj, "UnRegisterNotificationCallBack"), flags, 2)
     }
 
     Dispose() {

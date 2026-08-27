@@ -214,17 +214,17 @@ export default struct IDCompositionShadowEffect extends IDCompositionFilterEffec
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetStandardDeviation := CallbackCreate(GetMethod(implObj, "SetStandardDeviation"), flags, 2)
-        this.vtbl.SetStandardDeviation1 := CallbackCreate(GetMethod(implObj, "SetStandardDeviation1"), flags, 2)
-        this.vtbl.SetColor := CallbackCreate(GetMethod(implObj, "SetColor"), flags, 2)
-        this.vtbl.SetRed := CallbackCreate(GetMethod(implObj, "SetRed"), flags, 2)
-        this.vtbl.SetRed1 := CallbackCreate(GetMethod(implObj, "SetRed1"), flags, 2)
-        this.vtbl.SetGreen := CallbackCreate(GetMethod(implObj, "SetGreen"), flags, 2)
-        this.vtbl.SetGreen1 := CallbackCreate(GetMethod(implObj, "SetGreen1"), flags, 2)
-        this.vtbl.SetBlue := CallbackCreate(GetMethod(implObj, "SetBlue"), flags, 2)
-        this.vtbl.SetBlue1 := CallbackCreate(GetMethod(implObj, "SetBlue1"), flags, 2)
-        this.vtbl.SetAlpha := CallbackCreate(GetMethod(implObj, "SetAlpha"), flags, 2)
-        this.vtbl.SetAlpha1 := CallbackCreate(GetMethod(implObj, "SetAlpha1"), flags, 2)
+        this.vtbl.SetStandardDeviation := CallbackCreate(ObjBindMethod(implObj, "SetStandardDeviation"), flags, 2)
+        this.vtbl.SetStandardDeviation1 := CallbackCreate(ObjBindMethod(implObj, "SetStandardDeviation1"), flags, 2)
+        this.vtbl.SetColor := CallbackCreate(ObjBindMethod(implObj, "SetColor"), flags, 2)
+        this.vtbl.SetRed := CallbackCreate(ObjBindMethod(implObj, "SetRed"), flags, 2)
+        this.vtbl.SetRed1 := CallbackCreate(ObjBindMethod(implObj, "SetRed1"), flags, 2)
+        this.vtbl.SetGreen := CallbackCreate(ObjBindMethod(implObj, "SetGreen"), flags, 2)
+        this.vtbl.SetGreen1 := CallbackCreate(ObjBindMethod(implObj, "SetGreen1"), flags, 2)
+        this.vtbl.SetBlue := CallbackCreate(ObjBindMethod(implObj, "SetBlue"), flags, 2)
+        this.vtbl.SetBlue1 := CallbackCreate(ObjBindMethod(implObj, "SetBlue1"), flags, 2)
+        this.vtbl.SetAlpha := CallbackCreate(ObjBindMethod(implObj, "SetAlpha"), flags, 2)
+        this.vtbl.SetAlpha1 := CallbackCreate(ObjBindMethod(implObj, "SetAlpha1"), flags, 2)
     }
 
     Dispose() {

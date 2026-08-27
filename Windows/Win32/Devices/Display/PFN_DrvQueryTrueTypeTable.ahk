@@ -18,7 +18,6 @@ export default struct PFN_DrvQueryTrueTypeTable {
     }
 
     /**
-     * 
      * @param {Pointer} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
@@ -30,9 +29,9 @@ export default struct PFN_DrvQueryTrueTypeTable {
      * @returns {Integer} 
      */
     Call(param0, param1, param2, param3, param4, param5, param6, param7) {
-        param5Marshal := param5 is VarRef ? "char*" : "ptr"
-        param6Marshal := param6 is VarRef ? "ptr*" : "ptr"
-        param7Marshal := param7 is VarRef ? "uint*" : "ptr"
+        param5Marshal := param5 is VarRef ? "char*" : IntPtr
+        param6Marshal := param6 is VarRef ? "ptr*" : IntPtr
+        param7Marshal := param7 is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, IntPtr, param0, UInt32, param1, UInt32, param2, Int32, param3, UInt32, param4, param5Marshal, param5, param6Marshal, param6, param7Marshal, param7, Int32)
         return result

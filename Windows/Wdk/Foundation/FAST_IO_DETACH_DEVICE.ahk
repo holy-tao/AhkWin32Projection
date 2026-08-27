@@ -19,7 +19,6 @@ export default struct FAST_IO_DETACH_DEVICE {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} SourceDevice 
      * @param {Pointer<DEVICE_OBJECT>} TargetDevice 
      * @returns {String} Nothing - always returns an empty string

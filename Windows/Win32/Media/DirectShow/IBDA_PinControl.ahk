@@ -48,7 +48,7 @@ export default struct IBDA_PinControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_pincontrol-getpinid
      */
     GetPinID(pulPinID) {
-        pulPinIDMarshal := pulPinID is VarRef ? "uint*" : "ptr"
+        pulPinIDMarshal := pulPinID is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pulPinIDMarshal, pulPinID, "HRESULT")
         return result
@@ -61,7 +61,7 @@ export default struct IBDA_PinControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_pincontrol-getpintype
      */
     GetPinType(pulPinType) {
-        pulPinTypeMarshal := pulPinType is VarRef ? "uint*" : "ptr"
+        pulPinTypeMarshal := pulPinType is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pulPinTypeMarshal, pulPinType, "HRESULT")
         return result
@@ -76,7 +76,7 @@ export default struct IBDA_PinControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_pincontrol-registrationcontext
      */
     RegistrationContext(pulRegistrationCtx) {
-        pulRegistrationCtxMarshal := pulRegistrationCtx is VarRef ? "uint*" : "ptr"
+        pulRegistrationCtxMarshal := pulRegistrationCtx is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, pulRegistrationCtxMarshal, pulRegistrationCtx, "HRESULT")
         return result
@@ -91,9 +91,9 @@ export default struct IBDA_PinControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPinID := CallbackCreate(GetMethod(implObj, "GetPinID"), flags, 2)
-        this.vtbl.GetPinType := CallbackCreate(GetMethod(implObj, "GetPinType"), flags, 2)
-        this.vtbl.RegistrationContext := CallbackCreate(GetMethod(implObj, "RegistrationContext"), flags, 2)
+        this.vtbl.GetPinID := CallbackCreate(ObjBindMethod(implObj, "GetPinID"), flags, 2)
+        this.vtbl.GetPinType := CallbackCreate(ObjBindMethod(implObj, "GetPinType"), flags, 2)
+        this.vtbl.RegistrationContext := CallbackCreate(ObjBindMethod(implObj, "RegistrationContext"), flags, 2)
     }
 
     Dispose() {

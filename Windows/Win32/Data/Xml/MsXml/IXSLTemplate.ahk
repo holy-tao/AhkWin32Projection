@@ -47,7 +47,6 @@ export default struct IXSLTemplate extends IDispatch {
     }
 
     /**
-     * 
      * @param {IXMLDOMNode} stylesheet 
      * @returns {HRESULT} 
      */
@@ -57,7 +56,6 @@ export default struct IXSLTemplate extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLDOMNode} 
      */
     get_stylesheet() {
@@ -66,7 +64,6 @@ export default struct IXSLTemplate extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXSLProcessor} 
      */
     createProcessor() {
@@ -83,9 +80,9 @@ export default struct IXSLTemplate extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.putref_stylesheet := CallbackCreate(GetMethod(implObj, "putref_stylesheet"), flags, 2)
-        this.vtbl.get_stylesheet := CallbackCreate(GetMethod(implObj, "get_stylesheet"), flags, 2)
-        this.vtbl.createProcessor := CallbackCreate(GetMethod(implObj, "createProcessor"), flags, 2)
+        this.vtbl.putref_stylesheet := CallbackCreate(ObjBindMethod(implObj, "putref_stylesheet"), flags, 2)
+        this.vtbl.get_stylesheet := CallbackCreate(ObjBindMethod(implObj, "get_stylesheet"), flags, 2)
+        this.vtbl.createProcessor := CallbackCreate(ObjBindMethod(implObj, "createProcessor"), flags, 2)
     }
 
     Dispose() {

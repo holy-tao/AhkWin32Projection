@@ -49,7 +49,7 @@ export default struct IUPnPEventSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/upnphost/nf-upnphost-iupnpeventsink-onstatechanged
      */
     OnStateChanged(cChanges, rgdispidChanges) {
-        rgdispidChangesMarshal := rgdispidChanges is VarRef ? "int*" : "ptr"
+        rgdispidChangesMarshal := rgdispidChanges is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, UInt32, cChanges, rgdispidChangesMarshal, rgdispidChanges, "HRESULT")
         return result
@@ -75,8 +75,8 @@ export default struct IUPnPEventSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnStateChanged := CallbackCreate(GetMethod(implObj, "OnStateChanged"), flags, 3)
-        this.vtbl.OnStateChangedSafe := CallbackCreate(GetMethod(implObj, "OnStateChangedSafe"), flags, 2)
+        this.vtbl.OnStateChanged := CallbackCreate(ObjBindMethod(implObj, "OnStateChanged"), flags, 3)
+        this.vtbl.OnStateChangedSafe := CallbackCreate(ObjBindMethod(implObj, "OnStateChangedSafe"), flags, 2)
     }
 
     Dispose() {

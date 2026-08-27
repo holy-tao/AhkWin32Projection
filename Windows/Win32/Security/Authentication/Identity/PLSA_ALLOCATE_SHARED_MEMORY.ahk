@@ -18,13 +18,12 @@ export default struct PLSA_ALLOCATE_SHARED_MEMORY {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} SharedMem 
      * @param {Integer} _Size 
      * @returns {Pointer<Void>} 
      */
     Call(SharedMem, _Size) {
-        SharedMemMarshal := SharedMem is VarRef ? "ptr" : "ptr"
+        SharedMemMarshal := SharedMem is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, SharedMemMarshal, SharedMem, UInt32, _Size, IntPtr)
         return result

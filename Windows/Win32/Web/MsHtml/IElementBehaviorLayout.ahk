@@ -42,7 +42,6 @@ export default struct IElementBehaviorLayout extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @param {SIZE} sizeContent 
      * @param {Pointer<POINT>} pptTranslateBy 
@@ -56,7 +55,6 @@ export default struct IElementBehaviorLayout extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetLayoutInfo() {
@@ -65,7 +63,6 @@ export default struct IElementBehaviorLayout extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lFlags 
      * @param {Pointer<POINT>} pptTopLeft 
      * @returns {HRESULT} 
@@ -76,7 +73,6 @@ export default struct IElementBehaviorLayout extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SIZE>} psizeIn 
      * @returns {RECT} 
      */
@@ -95,10 +91,10 @@ export default struct IElementBehaviorLayout extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSize := CallbackCreate(GetMethod(implObj, "GetSize"), flags, 6)
-        this.vtbl.GetLayoutInfo := CallbackCreate(GetMethod(implObj, "GetLayoutInfo"), flags, 2)
-        this.vtbl.GetPosition := CallbackCreate(GetMethod(implObj, "GetPosition"), flags, 3)
-        this.vtbl.MapSize := CallbackCreate(GetMethod(implObj, "MapSize"), flags, 3)
+        this.vtbl.GetSize := CallbackCreate(ObjBindMethod(implObj, "GetSize"), flags, 6)
+        this.vtbl.GetLayoutInfo := CallbackCreate(ObjBindMethod(implObj, "GetLayoutInfo"), flags, 2)
+        this.vtbl.GetPosition := CallbackCreate(ObjBindMethod(implObj, "GetPosition"), flags, 3)
+        this.vtbl.MapSize := CallbackCreate(ObjBindMethod(implObj, "MapSize"), flags, 3)
     }
 
     Dispose() {

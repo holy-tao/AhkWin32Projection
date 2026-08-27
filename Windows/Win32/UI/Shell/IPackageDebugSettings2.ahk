@@ -37,7 +37,6 @@ export default struct IPackageDebugSettings2 extends IPackageDebugSettings {
     }
 
     /**
-     * 
      * @param {PWSTR} packageFullName 
      * @param {Pointer<Integer>} appCount 
      * @param {Pointer<Pointer<PWSTR>>} appUserModelIds 
@@ -47,9 +46,9 @@ export default struct IPackageDebugSettings2 extends IPackageDebugSettings {
     EnumerateApps(packageFullName, appCount, appUserModelIds, appDisplayNames) {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
 
-        appCountMarshal := appCount is VarRef ? "uint*" : "ptr"
-        appUserModelIdsMarshal := appUserModelIds is VarRef ? "ptr*" : "ptr"
-        appDisplayNamesMarshal := appDisplayNames is VarRef ? "ptr*" : "ptr"
+        appCountMarshal := appCount is VarRef ? "uint*" : IntPtr
+        appUserModelIdsMarshal := appUserModelIds is VarRef ? "ptr*" : IntPtr
+        appDisplayNamesMarshal := appDisplayNames is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(18, this, "ptr", packageFullName, appCountMarshal, appCount, appUserModelIdsMarshal, appUserModelIds, appDisplayNamesMarshal, appDisplayNames, "HRESULT")
         return result
@@ -64,7 +63,7 @@ export default struct IPackageDebugSettings2 extends IPackageDebugSettings {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumerateApps := CallbackCreate(GetMethod(implObj, "EnumerateApps"), flags, 5)
+        this.vtbl.EnumerateApps := CallbackCreate(ObjBindMethod(implObj, "EnumerateApps"), flags, 5)
     }
 
     Dispose() {

@@ -36,7 +36,6 @@ export default struct ID3D12DeviceRemovedExtendedDataSettings1 extends ID3D12Dev
     }
 
     /**
-     * 
      * @param {D3D12_DRED_ENABLEMENT} Enablement 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -53,7 +52,7 @@ export default struct ID3D12DeviceRemovedExtendedDataSettings1 extends ID3D12Dev
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetBreadcrumbContextEnablement := CallbackCreate(GetMethod(implObj, "SetBreadcrumbContextEnablement"), flags, 2)
+        this.vtbl.SetBreadcrumbContextEnablement := CallbackCreate(ObjBindMethod(implObj, "SetBreadcrumbContextEnablement"), flags, 2)
     }
 
     Dispose() {

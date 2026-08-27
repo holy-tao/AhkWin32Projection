@@ -58,7 +58,7 @@ export default struct IMFVideoSampleAllocatorNotifyEx extends IMFVideoSampleAllo
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.NotifyPrune := CallbackCreate(GetMethod(implObj, "NotifyPrune"), flags, 2)
+        this.vtbl.NotifyPrune := CallbackCreate(ObjBindMethod(implObj, "NotifyPrune"), flags, 2)
     }
 
     Dispose() {

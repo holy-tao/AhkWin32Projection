@@ -106,9 +106,9 @@ export default struct IX509AttributeArchiveKeyHash extends IX509Attribute {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeEncodeFromEncryptedKeyBlob := CallbackCreate(GetMethod(implObj, "InitializeEncodeFromEncryptedKeyBlob"), flags, 3)
-        this.vtbl.InitializeDecode := CallbackCreate(GetMethod(implObj, "InitializeDecode"), flags, 3)
-        this.vtbl.get_EncryptedKeyHashBlob := CallbackCreate(GetMethod(implObj, "get_EncryptedKeyHashBlob"), flags, 3)
+        this.vtbl.InitializeEncodeFromEncryptedKeyBlob := CallbackCreate(ObjBindMethod(implObj, "InitializeEncodeFromEncryptedKeyBlob"), flags, 3)
+        this.vtbl.InitializeDecode := CallbackCreate(ObjBindMethod(implObj, "InitializeDecode"), flags, 3)
+        this.vtbl.get_EncryptedKeyHashBlob := CallbackCreate(ObjBindMethod(implObj, "get_EncryptedKeyHashBlob"), flags, 3)
     }
 
     Dispose() {

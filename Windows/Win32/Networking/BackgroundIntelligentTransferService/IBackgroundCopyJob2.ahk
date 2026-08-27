@@ -150,8 +150,8 @@ export default struct IBackgroundCopyJob2 extends IBackgroundCopyJob {
      * @see https://learn.microsoft.com/windows/win32/api/bits1_5/nf-bits1_5-ibackgroundcopyjob2-getnotifycmdline
      */
     GetNotifyCmdLine(pProgram, pParameters) {
-        pProgramMarshal := pProgram is VarRef ? "ptr*" : "ptr"
-        pParametersMarshal := pParameters is VarRef ? "ptr*" : "ptr"
+        pProgramMarshal := pProgram is VarRef ? "ptr*" : IntPtr
+        pParametersMarshal := pParameters is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(36, this, pProgramMarshal, pProgram, pParametersMarshal, pParameters, "HRESULT")
         return result
@@ -227,7 +227,7 @@ export default struct IBackgroundCopyJob2 extends IBackgroundCopyJob {
      * @see https://learn.microsoft.com/windows/win32/api/bits1_5/nf-bits1_5-ibackgroundcopyjob2-getreplydata
      */
     GetReplyData(pLength) {
-        pLengthMarshal := pLength is VarRef ? "uint*" : "ptr"
+        pLengthMarshal := pLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(38, this, "ptr*", &ppBuffer := 0, pLengthMarshal, pLength, "HRESULT")
         return ppBuffer
@@ -501,14 +501,14 @@ export default struct IBackgroundCopyJob2 extends IBackgroundCopyJob {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetNotifyCmdLine := CallbackCreate(GetMethod(implObj, "SetNotifyCmdLine"), flags, 3)
-        this.vtbl.GetNotifyCmdLine := CallbackCreate(GetMethod(implObj, "GetNotifyCmdLine"), flags, 3)
-        this.vtbl.GetReplyProgress := CallbackCreate(GetMethod(implObj, "GetReplyProgress"), flags, 2)
-        this.vtbl.GetReplyData := CallbackCreate(GetMethod(implObj, "GetReplyData"), flags, 3)
-        this.vtbl.SetReplyFileName := CallbackCreate(GetMethod(implObj, "SetReplyFileName"), flags, 2)
-        this.vtbl.GetReplyFileName := CallbackCreate(GetMethod(implObj, "GetReplyFileName"), flags, 2)
-        this.vtbl.SetCredentials := CallbackCreate(GetMethod(implObj, "SetCredentials"), flags, 2)
-        this.vtbl.RemoveCredentials := CallbackCreate(GetMethod(implObj, "RemoveCredentials"), flags, 3)
+        this.vtbl.SetNotifyCmdLine := CallbackCreate(ObjBindMethod(implObj, "SetNotifyCmdLine"), flags, 3)
+        this.vtbl.GetNotifyCmdLine := CallbackCreate(ObjBindMethod(implObj, "GetNotifyCmdLine"), flags, 3)
+        this.vtbl.GetReplyProgress := CallbackCreate(ObjBindMethod(implObj, "GetReplyProgress"), flags, 2)
+        this.vtbl.GetReplyData := CallbackCreate(ObjBindMethod(implObj, "GetReplyData"), flags, 3)
+        this.vtbl.SetReplyFileName := CallbackCreate(ObjBindMethod(implObj, "SetReplyFileName"), flags, 2)
+        this.vtbl.GetReplyFileName := CallbackCreate(ObjBindMethod(implObj, "GetReplyFileName"), flags, 2)
+        this.vtbl.SetCredentials := CallbackCreate(ObjBindMethod(implObj, "SetCredentials"), flags, 2)
+        this.vtbl.RemoveCredentials := CallbackCreate(ObjBindMethod(implObj, "RemoveCredentials"), flags, 3)
     }
 
     Dispose() {

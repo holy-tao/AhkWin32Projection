@@ -26,7 +26,6 @@ export default struct PIBIO_ENGINE_QUERY_PREFERRED_FORMAT_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/ns-winbio_adapter-winbio_pipeline">WINBIO_PIPELINE</a> structure associated with the biometric unit performing the operation.
      * @param {Pointer<WINBIO_REGISTERED_FORMAT>} StandardFormat Pointer to a <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-registered-format">WINBIO_REGISTERED_FORMAT</a> structure that specifies the format of the data in the <b>StandardDataBlock</b> member of the <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-bir">WINBIO_BIR</a> object. The format is an IBIA-registered name/value pair.
      * @param {Pointer<Guid>} VendorFormat Pointer to a GUID that receives the vendor-defined format of the data in the <b>VendorDataBlock</b> member of the <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-bir">WINBIO_BIR</a> object.

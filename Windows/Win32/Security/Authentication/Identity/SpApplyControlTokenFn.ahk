@@ -28,7 +28,6 @@ export default struct SpApplyControlTokenFn {
     }
 
     /**
-     * 
      * @param {Pointer} ContextHandle A handle to the security context to be modified based on the <i>ControlToken</i> parameter.
      * @param {Pointer<SecBufferDesc>} ControlToken Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secbufferdesc">SecBufferDesc</a> structure containing the token to apply to the context.

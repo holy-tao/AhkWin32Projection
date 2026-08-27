@@ -37,7 +37,6 @@ export default struct IMFMediaEngineEMENotify extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pbInitData 
      * @param {Integer} cb 
      * @param {BSTR} bstrInitDataType 
@@ -46,11 +45,12 @@ export default struct IMFMediaEngineEMENotify extends IUnknown {
     Encrypted(pbInitData, cb, bstrInitDataType) {
         bstrInitDataType := bstrInitDataType is String ? BSTR.Alloc(bstrInitDataType).Value : bstrInitDataType
 
-        ComCall(3, this, IntPtr, pbInitData, UInt32, cb, BSTR, bstrInitDataType)
+        pbInitDataMarshal := pbInitData == 0 ? IntPtr : IntPtr
+
+        ComCall(3, this, pbInitDataMarshal, pbInitData, UInt32, cb, BSTR, bstrInitDataType)
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     WaitingForKey() {
@@ -66,8 +66,8 @@ export default struct IMFMediaEngineEMENotify extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Encrypted := CallbackCreate(GetMethod(implObj, "Encrypted"), flags, 4)
-        this.vtbl.WaitingForKey := CallbackCreate(GetMethod(implObj, "WaitingForKey"), flags, 1)
+        this.vtbl.Encrypted := CallbackCreate(ObjBindMethod(implObj, "Encrypted"), flags, 4)
+        this.vtbl.WaitingForKey := CallbackCreate(ObjBindMethod(implObj, "WaitingForKey"), flags, 1)
     }
 
     Dispose() {

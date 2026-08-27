@@ -30,7 +30,6 @@ export default struct EVT_SUBSCRIBE_CALLBACK {
     }
 
     /**
-     * 
      * @param {EVT_SUBSCRIBE_NOTIFY_ACTION} Action Determines whether the <i>Event</i> parameter contains an event or an error code. For possible notify action values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_subscribe_notify_action">EVT_SUBSCRIBE_NOTIFY_ACTION</a> enumeration.
      * @param {Pointer<Void>} UserContext The context that the subscriber passed to the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtsubscribe">EvtSubscribe</a> function.
      * @param {EVT_HANDLE} Event A handle to the event. The event handle is only valid for the duration of the callback function.  You can use this handle with any event log function that takes an event handle (for example, <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtrender">EvtRender</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtformatmessage">EvtFormatMessage</a>). 
@@ -41,7 +40,8 @@ export default struct EVT_SUBSCRIBE_CALLBACK {
      * @returns {Integer} The service ignores the return code that you return.
      */
     Call(Action, UserContext, Event) {
-        UserContextMarshal := UserContext is VarRef ? "ptr" : "ptr"
+        UserContextMarshal := UserContext is VarRef ? "ptr" : IntPtr
+        UserContextMarshal := UserContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, EVT_SUBSCRIBE_NOTIFY_ACTION, Action, UserContextMarshal, UserContext, EVT_HANDLE, Event, UInt32)
         return result

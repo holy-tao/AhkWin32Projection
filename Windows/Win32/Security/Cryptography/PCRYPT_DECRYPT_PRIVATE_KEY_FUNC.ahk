@@ -23,7 +23,6 @@ export default struct PCRYPT_DECRYPT_PRIVATE_KEY_FUNC {
     }
 
     /**
-     * 
      * @param {CRYPT_ALGORITHM_IDENTIFIER} Algorithm A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure that identifies the algorithm used to encrypt the PrivateKeyInfo ASN.1 type found in the PKCS #8 standard.
      * @param {CRYPT_INTEGER_BLOB} EncryptedPrivateKey A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_DATA_BLOB</a>  value that identifies the encrypted private key  <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a>.
      * @param {Integer} pbClearTextKey A pointer to a <b>BYTE</b> buffer to receive the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">plaintext</a>. This parameter can be <b>NULL</b>. For more information, see 
@@ -36,10 +35,11 @@ export default struct PCRYPT_DECRYPT_PRIVATE_KEY_FUNC {
      * If the function fails, it returns zero (<b>FALSE</b>).
      */
     Call(Algorithm, EncryptedPrivateKey, pbClearTextKey, pcbClearTextKey, pVoidDecryptFunc) {
-        pcbClearTextKeyMarshal := pcbClearTextKey is VarRef ? "uint*" : "ptr"
-        pVoidDecryptFuncMarshal := pVoidDecryptFunc is VarRef ? "ptr" : "ptr"
+        pbClearTextKeyMarshal := pbClearTextKey == 0 ? IntPtr : IntPtr
+        pcbClearTextKeyMarshal := pcbClearTextKey is VarRef ? "uint*" : IntPtr
+        pVoidDecryptFuncMarshal := pVoidDecryptFunc is VarRef ? "ptr" : IntPtr
 
-        result := DllCall(this.value, CRYPT_ALGORITHM_IDENTIFIER, Algorithm, CRYPT_INTEGER_BLOB, EncryptedPrivateKey, IntPtr, pbClearTextKey, pcbClearTextKeyMarshal, pcbClearTextKey, pVoidDecryptFuncMarshal, pVoidDecryptFunc, BOOL)
+        result := DllCall(this.value, CRYPT_ALGORITHM_IDENTIFIER, Algorithm, CRYPT_INTEGER_BLOB, EncryptedPrivateKey, pbClearTextKeyMarshal, pbClearTextKey, pcbClearTextKeyMarshal, pcbClearTextKey, pVoidDecryptFuncMarshal, pVoidDecryptFunc, BOOL)
         return result
     }
 

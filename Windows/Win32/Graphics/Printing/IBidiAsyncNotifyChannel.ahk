@@ -43,7 +43,6 @@ export default struct IBidiAsyncNotifyChannel extends IPrintAsyncNotifyChannel {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CreateNotificationChannel() {
@@ -52,7 +51,6 @@ export default struct IBidiAsyncNotifyChannel extends IPrintAsyncNotifyChannel {
     }
 
     /**
-     * 
      * @param {Pointer<IPrintAsyncNotifyDataObject>} param0 
      * @returns {HRESULT} 
      */
@@ -62,7 +60,6 @@ export default struct IBidiAsyncNotifyChannel extends IPrintAsyncNotifyChannel {
     }
 
     /**
-     * 
      * @param {Pointer<IPrintAsyncNotifyDataObject>} param0 
      * @returns {HRESULT} 
      */
@@ -72,7 +69,6 @@ export default struct IBidiAsyncNotifyChannel extends IPrintAsyncNotifyChannel {
     }
 
     /**
-     * 
      * @param {IPrintAsyncNotifyDataObject} param0 
      * @param {IAsyncGetSendNotificationCookie} param1 
      * @returns {HRESULT} 
@@ -83,7 +79,6 @@ export default struct IBidiAsyncNotifyChannel extends IPrintAsyncNotifyChannel {
     }
 
     /**
-     * 
      * @param {IPrintAsyncNotifyDataObject} param0 
      * @param {IPrintAsyncCookie} param1 
      * @returns {HRESULT} 
@@ -102,11 +97,11 @@ export default struct IBidiAsyncNotifyChannel extends IPrintAsyncNotifyChannel {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateNotificationChannel := CallbackCreate(GetMethod(implObj, "CreateNotificationChannel"), flags, 1)
-        this.vtbl.GetPrintName := CallbackCreate(GetMethod(implObj, "GetPrintName"), flags, 2)
-        this.vtbl.GetChannelNotificationType := CallbackCreate(GetMethod(implObj, "GetChannelNotificationType"), flags, 2)
-        this.vtbl.AsyncGetNotificationSendResponse := CallbackCreate(GetMethod(implObj, "AsyncGetNotificationSendResponse"), flags, 3)
-        this.vtbl.AsyncCloseChannel := CallbackCreate(GetMethod(implObj, "AsyncCloseChannel"), flags, 3)
+        this.vtbl.CreateNotificationChannel := CallbackCreate(ObjBindMethod(implObj, "CreateNotificationChannel"), flags, 1)
+        this.vtbl.GetPrintName := CallbackCreate(ObjBindMethod(implObj, "GetPrintName"), flags, 2)
+        this.vtbl.GetChannelNotificationType := CallbackCreate(ObjBindMethod(implObj, "GetChannelNotificationType"), flags, 2)
+        this.vtbl.AsyncGetNotificationSendResponse := CallbackCreate(ObjBindMethod(implObj, "AsyncGetNotificationSendResponse"), flags, 3)
+        this.vtbl.AsyncCloseChannel := CallbackCreate(ObjBindMethod(implObj, "AsyncCloseChannel"), flags, 3)
     }
 
     Dispose() {

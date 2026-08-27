@@ -36,7 +36,6 @@ export default struct ITipPullSink extends IUnknown {
     }
 
     /**
-     * 
      * @param {HRESULT} i_hrPull 
      * @returns {HRESULT} 
      */
@@ -54,7 +53,7 @@ export default struct ITipPullSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PullComplete := CallbackCreate(GetMethod(implObj, "PullComplete"), flags, 2)
+        this.vtbl.PullComplete := CallbackCreate(ObjBindMethod(implObj, "PullComplete"), flags, 2)
     }
 
     Dispose() {

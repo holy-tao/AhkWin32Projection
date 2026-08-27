@@ -141,11 +141,11 @@ export default struct ITaskbarList extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.HrInit := CallbackCreate(GetMethod(implObj, "HrInit"), flags, 1)
-        this.vtbl.AddTab := CallbackCreate(GetMethod(implObj, "AddTab"), flags, 2)
-        this.vtbl.DeleteTab := CallbackCreate(GetMethod(implObj, "DeleteTab"), flags, 2)
-        this.vtbl.ActivateTab := CallbackCreate(GetMethod(implObj, "ActivateTab"), flags, 2)
-        this.vtbl.SetActiveAlt := CallbackCreate(GetMethod(implObj, "SetActiveAlt"), flags, 2)
+        this.vtbl.HrInit := CallbackCreate(ObjBindMethod(implObj, "HrInit"), flags, 1)
+        this.vtbl.AddTab := CallbackCreate(ObjBindMethod(implObj, "AddTab"), flags, 2)
+        this.vtbl.DeleteTab := CallbackCreate(ObjBindMethod(implObj, "DeleteTab"), flags, 2)
+        this.vtbl.ActivateTab := CallbackCreate(ObjBindMethod(implObj, "ActivateTab"), flags, 2)
+        this.vtbl.SetActiveAlt := CallbackCreate(ObjBindMethod(implObj, "SetActiveAlt"), flags, 2)
     }
 
     Dispose() {

@@ -114,9 +114,9 @@ export default struct IProvideWinSATAssessmentInfo extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Score := CallbackCreate(GetMethod(implObj, "get_Score"), flags, 2)
-        this.vtbl.get_Title := CallbackCreate(GetMethod(implObj, "get_Title"), flags, 2)
-        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.get_Score := CallbackCreate(ObjBindMethod(implObj, "get_Score"), flags, 2)
+        this.vtbl.get_Title := CallbackCreate(ObjBindMethod(implObj, "get_Title"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(ObjBindMethod(implObj, "get_Description"), flags, 2)
     }
 
     Dispose() {

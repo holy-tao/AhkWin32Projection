@@ -40,7 +40,6 @@ export default struct IHostDialogHelper extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} hwndParent 
      * @param {IMoniker} pMk 
      * @param {Pointer<VARIANT>} pvarArgIn 
@@ -65,7 +64,7 @@ export default struct IHostDialogHelper extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ShowHTMLDialog := CallbackCreate(GetMethod(implObj, "ShowHTMLDialog"), flags, 7)
+        this.vtbl.ShowHTMLDialog := CallbackCreate(ObjBindMethod(implObj, "ShowHTMLDialog"), flags, 7)
     }
 
     Dispose() {

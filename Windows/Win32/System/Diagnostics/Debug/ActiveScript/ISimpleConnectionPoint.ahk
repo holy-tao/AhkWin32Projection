@@ -41,7 +41,6 @@ export default struct ISimpleConnectionPoint extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetEventCount() {
@@ -50,7 +49,6 @@ export default struct ISimpleConnectionPoint extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iEvent 
      * @param {Integer} cEvents 
      * @param {Pointer<Integer>} prgid 
@@ -59,15 +57,14 @@ export default struct ISimpleConnectionPoint extends IUnknown {
      * @returns {HRESULT} 
      */
     DescribeEvents(iEvent, cEvents, prgid, prgbstr, pcEventsFetched) {
-        prgidMarshal := prgid is VarRef ? "int*" : "ptr"
-        pcEventsFetchedMarshal := pcEventsFetched is VarRef ? "uint*" : "ptr"
+        prgidMarshal := prgid is VarRef ? "int*" : IntPtr
+        pcEventsFetchedMarshal := pcEventsFetched is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, UInt32, iEvent, UInt32, cEvents, prgidMarshal, prgid, BSTR.Ptr, prgbstr, pcEventsFetchedMarshal, pcEventsFetched, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IDispatch} pdisp 
      * @returns {Integer} 
      */
@@ -77,7 +74,6 @@ export default struct ISimpleConnectionPoint extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwCookie 
      * @returns {HRESULT} 
      */
@@ -95,10 +91,10 @@ export default struct ISimpleConnectionPoint extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetEventCount := CallbackCreate(GetMethod(implObj, "GetEventCount"), flags, 2)
-        this.vtbl.DescribeEvents := CallbackCreate(GetMethod(implObj, "DescribeEvents"), flags, 6)
-        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 3)
-        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 2)
+        this.vtbl.GetEventCount := CallbackCreate(ObjBindMethod(implObj, "GetEventCount"), flags, 2)
+        this.vtbl.DescribeEvents := CallbackCreate(ObjBindMethod(implObj, "DescribeEvents"), flags, 6)
+        this.vtbl.Advise := CallbackCreate(ObjBindMethod(implObj, "Advise"), flags, 3)
+        this.vtbl.Unadvise := CallbackCreate(ObjBindMethod(implObj, "Unadvise"), flags, 2)
     }
 
     Dispose() {

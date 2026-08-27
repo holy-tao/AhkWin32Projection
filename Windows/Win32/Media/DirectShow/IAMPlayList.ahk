@@ -42,7 +42,6 @@ export default struct IAMPlayList extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetFlags() {
@@ -51,7 +50,6 @@ export default struct IAMPlayList extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetItemCount() {
@@ -60,7 +58,6 @@ export default struct IAMPlayList extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwItemIndex 
      * @returns {IAMPlayListItem} 
      */
@@ -70,7 +67,6 @@ export default struct IAMPlayList extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszEventName 
      * @param {Integer} dwItemIndex 
      * @param {Pointer<IAMPlayListItem>} ppItem 
@@ -80,23 +76,22 @@ export default struct IAMPlayList extends IUnknown {
     GetNamedEvent(pwszEventName, dwItemIndex, ppItem, pdwFlags) {
         pwszEventName := pwszEventName is String ? StrPtr(pwszEventName) : pwszEventName
 
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, "ptr", pwszEventName, UInt32, dwItemIndex, IAMPlayListItem.Ptr, ppItem, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwRepeatCount 
      * @param {Pointer<Integer>} pdwRepeatStart 
      * @param {Pointer<Integer>} pdwRepeatEnd 
      * @returns {HRESULT} 
      */
     GetRepeatInfo(pdwRepeatCount, pdwRepeatStart, pdwRepeatEnd) {
-        pdwRepeatCountMarshal := pdwRepeatCount is VarRef ? "uint*" : "ptr"
-        pdwRepeatStartMarshal := pdwRepeatStart is VarRef ? "uint*" : "ptr"
-        pdwRepeatEndMarshal := pdwRepeatEnd is VarRef ? "uint*" : "ptr"
+        pdwRepeatCountMarshal := pdwRepeatCount is VarRef ? "uint*" : IntPtr
+        pdwRepeatStartMarshal := pdwRepeatStart is VarRef ? "uint*" : IntPtr
+        pdwRepeatEndMarshal := pdwRepeatEnd is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, pdwRepeatCountMarshal, pdwRepeatCount, pdwRepeatStartMarshal, pdwRepeatStart, pdwRepeatEndMarshal, pdwRepeatEnd, "HRESULT")
         return result
@@ -111,11 +106,11 @@ export default struct IAMPlayList extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
-        this.vtbl.GetItemCount := CallbackCreate(GetMethod(implObj, "GetItemCount"), flags, 2)
-        this.vtbl.GetItem := CallbackCreate(GetMethod(implObj, "GetItem"), flags, 3)
-        this.vtbl.GetNamedEvent := CallbackCreate(GetMethod(implObj, "GetNamedEvent"), flags, 5)
-        this.vtbl.GetRepeatInfo := CallbackCreate(GetMethod(implObj, "GetRepeatInfo"), flags, 4)
+        this.vtbl.GetFlags := CallbackCreate(ObjBindMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.GetItemCount := CallbackCreate(ObjBindMethod(implObj, "GetItemCount"), flags, 2)
+        this.vtbl.GetItem := CallbackCreate(ObjBindMethod(implObj, "GetItem"), flags, 3)
+        this.vtbl.GetNamedEvent := CallbackCreate(ObjBindMethod(implObj, "GetNamedEvent"), flags, 5)
+        this.vtbl.GetRepeatInfo := CallbackCreate(ObjBindMethod(implObj, "GetRepeatInfo"), flags, 4)
     }
 
     Dispose() {

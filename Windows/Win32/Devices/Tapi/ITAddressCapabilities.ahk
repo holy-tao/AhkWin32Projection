@@ -187,14 +187,14 @@ export default struct ITAddressCapabilities extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_AddressCapability := CallbackCreate(GetMethod(implObj, "get_AddressCapability"), flags, 3)
-        this.vtbl.get_AddressCapabilityString := CallbackCreate(GetMethod(implObj, "get_AddressCapabilityString"), flags, 3)
-        this.vtbl.get_CallTreatments := CallbackCreate(GetMethod(implObj, "get_CallTreatments"), flags, 2)
-        this.vtbl.EnumerateCallTreatments := CallbackCreate(GetMethod(implObj, "EnumerateCallTreatments"), flags, 2)
-        this.vtbl.get_CompletionMessages := CallbackCreate(GetMethod(implObj, "get_CompletionMessages"), flags, 2)
-        this.vtbl.EnumerateCompletionMessages := CallbackCreate(GetMethod(implObj, "EnumerateCompletionMessages"), flags, 2)
-        this.vtbl.get_DeviceClasses := CallbackCreate(GetMethod(implObj, "get_DeviceClasses"), flags, 2)
-        this.vtbl.EnumerateDeviceClasses := CallbackCreate(GetMethod(implObj, "EnumerateDeviceClasses"), flags, 2)
+        this.vtbl.get_AddressCapability := CallbackCreate(ObjBindMethod(implObj, "get_AddressCapability"), flags, 3)
+        this.vtbl.get_AddressCapabilityString := CallbackCreate(ObjBindMethod(implObj, "get_AddressCapabilityString"), flags, 3)
+        this.vtbl.get_CallTreatments := CallbackCreate(ObjBindMethod(implObj, "get_CallTreatments"), flags, 2)
+        this.vtbl.EnumerateCallTreatments := CallbackCreate(ObjBindMethod(implObj, "EnumerateCallTreatments"), flags, 2)
+        this.vtbl.get_CompletionMessages := CallbackCreate(ObjBindMethod(implObj, "get_CompletionMessages"), flags, 2)
+        this.vtbl.EnumerateCompletionMessages := CallbackCreate(ObjBindMethod(implObj, "EnumerateCompletionMessages"), flags, 2)
+        this.vtbl.get_DeviceClasses := CallbackCreate(ObjBindMethod(implObj, "get_DeviceClasses"), flags, 2)
+        this.vtbl.EnumerateDeviceClasses := CallbackCreate(ObjBindMethod(implObj, "EnumerateDeviceClasses"), flags, 2)
     }
 
     Dispose() {

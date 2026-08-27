@@ -20,7 +20,6 @@ export default struct alljoyn_about_announced_ptr {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {PSTR} busName 
      * @param {Integer} _version 
@@ -32,7 +31,7 @@ export default struct alljoyn_about_announced_ptr {
     Call(_context, busName, _version, port, objectDescriptionArg, aboutDataArg) {
         busName := busName is String ? StrPtr(busName) : busName
 
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _contextMarshal, _context, "ptr", busName, UInt16, _version, UInt16, port, alljoyn_msgarg, objectDescriptionArg, alljoyn_msgarg, aboutDataArg)
     }

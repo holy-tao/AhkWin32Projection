@@ -68,8 +68,8 @@ export default struct IFileSinkFilter2 extends IFileSinkFilter {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetMode := CallbackCreate(GetMethod(implObj, "SetMode"), flags, 2)
-        this.vtbl.GetMode := CallbackCreate(GetMethod(implObj, "GetMode"), flags, 2)
+        this.vtbl.SetMode := CallbackCreate(ObjBindMethod(implObj, "SetMode"), flags, 2)
+        this.vtbl.GetMode := CallbackCreate(ObjBindMethod(implObj, "GetMode"), flags, 2)
     }
 
     Dispose() {

@@ -72,7 +72,7 @@ export default struct IProvideTaskPage extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPage := CallbackCreate(GetMethod(implObj, "GetPage"), flags, 4)
+        this.vtbl.GetPage := CallbackCreate(ObjBindMethod(implObj, "GetPage"), flags, 4)
     }
 
     Dispose() {

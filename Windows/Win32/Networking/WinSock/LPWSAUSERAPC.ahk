@@ -18,7 +18,6 @@ export default struct LPWSAUSERAPC {
     }
 
     /**
-     * 
      * @param {Pointer} dwContext 
      * @returns {String} Nothing - always returns an empty string
      */

@@ -54,22 +54,21 @@ export default struct ISideShowContent extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISideShowCapabilities} in_pICapabilities 
      * @param {Pointer<Integer>} out_pdwSize 
      * @param {Pointer<Pointer<Integer>>} out_ppbData 
      * @returns {HRESULT} 
      */
     GetContent(in_pICapabilities, out_pdwSize, out_ppbData) {
-        out_pdwSizeMarshal := out_pdwSize is VarRef ? "uint*" : "ptr"
-        out_ppbDataMarshal := out_ppbData is VarRef ? "ptr*" : "ptr"
+        in_pICapabilitiesMarshal := in_pICapabilities == 0 ? IntPtr : "ptr"
+        out_pdwSizeMarshal := out_pdwSize is VarRef ? "uint*" : IntPtr
+        out_ppbDataMarshal := out_ppbData is VarRef ? "ptr*" : IntPtr
 
-        result := ComCall(3, this, "ptr", in_pICapabilities, out_pdwSizeMarshal, out_pdwSize, out_ppbDataMarshal, out_ppbData, "HRESULT")
+        result := ComCall(3, this, in_pICapabilitiesMarshal, in_pICapabilities, out_pdwSizeMarshal, out_pdwSize, out_ppbDataMarshal, out_ppbData, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ContentId() {
@@ -78,7 +77,6 @@ export default struct ISideShowContent extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_DifferentiateContent() {
@@ -95,9 +93,9 @@ export default struct ISideShowContent extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetContent := CallbackCreate(GetMethod(implObj, "GetContent"), flags, 4)
-        this.vtbl.get_ContentId := CallbackCreate(GetMethod(implObj, "get_ContentId"), flags, 2)
-        this.vtbl.get_DifferentiateContent := CallbackCreate(GetMethod(implObj, "get_DifferentiateContent"), flags, 2)
+        this.vtbl.GetContent := CallbackCreate(ObjBindMethod(implObj, "GetContent"), flags, 4)
+        this.vtbl.get_ContentId := CallbackCreate(ObjBindMethod(implObj, "get_ContentId"), flags, 2)
+        this.vtbl.get_DifferentiateContent := CallbackCreate(ObjBindMethod(implObj, "get_DifferentiateContent"), flags, 2)
     }
 
     Dispose() {

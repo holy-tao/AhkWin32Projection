@@ -23,7 +23,6 @@ export default struct PDXVAHDSW_GetVideoProcessStreamStatePrivate {
     }
 
     /**
-     * 
      * @param {HANDLE} hVideoProcessor A handle to the software DXVA-HD video processor.
      * @param {Integer} StreamNumber The zero-based index of the input stream.
      * @param {Pointer<DXVAHD_STREAM_STATE_PRIVATE_DATA>} pData A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_stream_state_private_data">DXVAHD_STREAM_STATE_PRIVATE_DATA</a> structure. On input, the <b>Guid</b> member specifies the private state to query. On output, the structure contains the state information.

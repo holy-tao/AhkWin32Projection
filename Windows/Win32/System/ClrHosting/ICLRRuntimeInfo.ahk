@@ -52,7 +52,6 @@ export default struct ICLRRuntimeInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzBuffer 
      * @param {Pointer<Integer>} pcchBuffer 
      * @returns {HRESULT} 
@@ -60,14 +59,14 @@ export default struct ICLRRuntimeInfo extends IUnknown {
     GetVersionString(pwzBuffer, pcchBuffer) {
         pwzBuffer := pwzBuffer is String ? StrPtr(pwzBuffer) : pwzBuffer
 
-        pcchBufferMarshal := pcchBuffer is VarRef ? "uint*" : "ptr"
+        pwzBufferMarshal := pwzBuffer == 0 ? IntPtr : PWSTR
+        pcchBufferMarshal := pcchBuffer is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(3, this, "ptr", pwzBuffer, pcchBufferMarshal, pcchBuffer, "HRESULT")
+        result := ComCall(3, this, pwzBufferMarshal, pwzBuffer, pcchBufferMarshal, pcchBuffer, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwzBuffer 
      * @param {Pointer<Integer>} pcchBuffer 
      * @returns {HRESULT} 
@@ -75,14 +74,13 @@ export default struct ICLRRuntimeInfo extends IUnknown {
     GetRuntimeDirectory(pwzBuffer, pcchBuffer) {
         pwzBuffer := pwzBuffer is String ? StrPtr(pwzBuffer) : pwzBuffer
 
-        pcchBufferMarshal := pcchBuffer is VarRef ? "uint*" : "ptr"
+        pcchBufferMarshal := pcchBuffer is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, "ptr", pwzBuffer, pcchBufferMarshal, pcchBuffer, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HANDLE} hndProcess 
      * @returns {BOOL} 
      */
@@ -92,7 +90,6 @@ export default struct ICLRRuntimeInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iResourceID 
      * @param {PWSTR} pwzBuffer 
      * @param {Pointer<Integer>} pcchBuffer 
@@ -102,7 +99,7 @@ export default struct ICLRRuntimeInfo extends IUnknown {
     LoadErrorString(iResourceID, pwzBuffer, pcchBuffer, iLocaleID) {
         pwzBuffer := pwzBuffer is String ? StrPtr(pwzBuffer) : pwzBuffer
 
-        pcchBufferMarshal := pcchBuffer is VarRef ? "uint*" : "ptr"
+        pcchBufferMarshal := pcchBuffer is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, UInt32, iResourceID, "ptr", pwzBuffer, pcchBufferMarshal, pcchBuffer, Int32, iLocaleID, "HRESULT")
         return result
@@ -297,7 +294,6 @@ export default struct ICLRRuntimeInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsLoadable() {
@@ -306,7 +302,6 @@ export default struct ICLRRuntimeInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwStartupFlags 
      * @param {PWSTR} pwzHostConfigFile 
      * @returns {HRESULT} 
@@ -319,7 +314,6 @@ export default struct ICLRRuntimeInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzHostConfigFile 
      * @param {Pointer<Integer>} pcchHostConfigFile 
      * @returns {Integer} 
@@ -327,14 +321,14 @@ export default struct ICLRRuntimeInfo extends IUnknown {
     GetDefaultStartupFlags(pwzHostConfigFile, pcchHostConfigFile) {
         pwzHostConfigFile := pwzHostConfigFile is String ? StrPtr(pwzHostConfigFile) : pwzHostConfigFile
 
-        pcchHostConfigFileMarshal := pcchHostConfigFile is VarRef ? "uint*" : "ptr"
+        pwzHostConfigFileMarshal := pwzHostConfigFile == 0 ? IntPtr : PWSTR
+        pcchHostConfigFileMarshal := pcchHostConfigFile is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(12, this, "uint*", &pdwStartupFlags := 0, "ptr", pwzHostConfigFile, pcchHostConfigFileMarshal, pcchHostConfigFile, "HRESULT")
+        result := ComCall(12, this, "uint*", &pdwStartupFlags := 0, pwzHostConfigFileMarshal, pwzHostConfigFile, pcchHostConfigFileMarshal, pcchHostConfigFile, "HRESULT")
         return pdwStartupFlags
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     BindAsLegacyV2Runtime() {
@@ -343,14 +337,13 @@ export default struct ICLRRuntimeInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BOOL>} pbStarted 
      * @param {Pointer<Integer>} pdwStartupFlags 
      * @returns {HRESULT} 
      */
     IsStarted(pbStarted, pdwStartupFlags) {
-        pbStartedMarshal := pbStarted is VarRef ? "int*" : "ptr"
-        pdwStartupFlagsMarshal := pdwStartupFlags is VarRef ? "uint*" : "ptr"
+        pbStartedMarshal := pbStarted is VarRef ? "int*" : IntPtr
+        pdwStartupFlagsMarshal := pdwStartupFlags is VarRef ? "uint*" : IntPtr
 
         result := ComCall(14, this, pbStartedMarshal, pbStarted, pdwStartupFlagsMarshal, pdwStartupFlags, "HRESULT")
         return result
@@ -365,18 +358,18 @@ export default struct ICLRRuntimeInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetVersionString := CallbackCreate(GetMethod(implObj, "GetVersionString"), flags, 3)
-        this.vtbl.GetRuntimeDirectory := CallbackCreate(GetMethod(implObj, "GetRuntimeDirectory"), flags, 3)
-        this.vtbl.IsLoaded := CallbackCreate(GetMethod(implObj, "IsLoaded"), flags, 3)
-        this.vtbl.LoadErrorString := CallbackCreate(GetMethod(implObj, "LoadErrorString"), flags, 5)
-        this.vtbl.LoadLibraryA := CallbackCreate(GetMethod(implObj, "LoadLibraryA"), flags, 3)
-        this.vtbl.GetProcAddress := CallbackCreate(GetMethod(implObj, "GetProcAddress"), flags, 3)
-        this.vtbl.GetInterface := CallbackCreate(GetMethod(implObj, "GetInterface"), flags, 4)
-        this.vtbl.IsLoadable := CallbackCreate(GetMethod(implObj, "IsLoadable"), flags, 2)
-        this.vtbl.SetDefaultStartupFlags := CallbackCreate(GetMethod(implObj, "SetDefaultStartupFlags"), flags, 3)
-        this.vtbl.GetDefaultStartupFlags := CallbackCreate(GetMethod(implObj, "GetDefaultStartupFlags"), flags, 4)
-        this.vtbl.BindAsLegacyV2Runtime := CallbackCreate(GetMethod(implObj, "BindAsLegacyV2Runtime"), flags, 1)
-        this.vtbl.IsStarted := CallbackCreate(GetMethod(implObj, "IsStarted"), flags, 3)
+        this.vtbl.GetVersionString := CallbackCreate(ObjBindMethod(implObj, "GetVersionString"), flags, 3)
+        this.vtbl.GetRuntimeDirectory := CallbackCreate(ObjBindMethod(implObj, "GetRuntimeDirectory"), flags, 3)
+        this.vtbl.IsLoaded := CallbackCreate(ObjBindMethod(implObj, "IsLoaded"), flags, 3)
+        this.vtbl.LoadErrorString := CallbackCreate(ObjBindMethod(implObj, "LoadErrorString"), flags, 5)
+        this.vtbl.LoadLibraryA := CallbackCreate(ObjBindMethod(implObj, "LoadLibraryA"), flags, 3)
+        this.vtbl.GetProcAddress := CallbackCreate(ObjBindMethod(implObj, "GetProcAddress"), flags, 3)
+        this.vtbl.GetInterface := CallbackCreate(ObjBindMethod(implObj, "GetInterface"), flags, 4)
+        this.vtbl.IsLoadable := CallbackCreate(ObjBindMethod(implObj, "IsLoadable"), flags, 2)
+        this.vtbl.SetDefaultStartupFlags := CallbackCreate(ObjBindMethod(implObj, "SetDefaultStartupFlags"), flags, 3)
+        this.vtbl.GetDefaultStartupFlags := CallbackCreate(ObjBindMethod(implObj, "GetDefaultStartupFlags"), flags, 4)
+        this.vtbl.BindAsLegacyV2Runtime := CallbackCreate(ObjBindMethod(implObj, "BindAsLegacyV2Runtime"), flags, 1)
+        this.vtbl.IsStarted := CallbackCreate(ObjBindMethod(implObj, "IsStarted"), flags, 3)
     }
 
     Dispose() {

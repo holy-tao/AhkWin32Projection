@@ -19,7 +19,6 @@ export default struct PIOMMU_UNMAP_IDENTITY_RANGE {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

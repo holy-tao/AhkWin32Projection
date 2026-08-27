@@ -111,8 +111,8 @@ export default struct IMultiMediaStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-imultimediastream-getinformation
      */
     GetInformation(pdwFlags, pStreamType) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
-        pStreamTypeMarshal := pStreamType is VarRef ? "int*" : "ptr"
+        pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : IntPtr
+        pStreamTypeMarshal := pStreamType is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, pdwFlagsMarshal, pdwFlags, pStreamTypeMarshal, pStreamType, "HRESULT")
         return result
@@ -278,15 +278,15 @@ export default struct IMultiMediaStream extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetInformation := CallbackCreate(GetMethod(implObj, "GetInformation"), flags, 3)
-        this.vtbl.GetMediaStream := CallbackCreate(GetMethod(implObj, "GetMediaStream"), flags, 3)
-        this.vtbl.EnumMediaStreams := CallbackCreate(GetMethod(implObj, "EnumMediaStreams"), flags, 3)
-        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 2)
-        this.vtbl.SetState := CallbackCreate(GetMethod(implObj, "SetState"), flags, 2)
-        this.vtbl.GetTime := CallbackCreate(GetMethod(implObj, "GetTime"), flags, 2)
-        this.vtbl.GetDuration := CallbackCreate(GetMethod(implObj, "GetDuration"), flags, 2)
-        this.vtbl.Seek := CallbackCreate(GetMethod(implObj, "Seek"), flags, 2)
-        this.vtbl.GetEndOfStreamEventHandle := CallbackCreate(GetMethod(implObj, "GetEndOfStreamEventHandle"), flags, 2)
+        this.vtbl.GetInformation := CallbackCreate(ObjBindMethod(implObj, "GetInformation"), flags, 3)
+        this.vtbl.GetMediaStream := CallbackCreate(ObjBindMethod(implObj, "GetMediaStream"), flags, 3)
+        this.vtbl.EnumMediaStreams := CallbackCreate(ObjBindMethod(implObj, "EnumMediaStreams"), flags, 3)
+        this.vtbl.GetState := CallbackCreate(ObjBindMethod(implObj, "GetState"), flags, 2)
+        this.vtbl.SetState := CallbackCreate(ObjBindMethod(implObj, "SetState"), flags, 2)
+        this.vtbl.GetTime := CallbackCreate(ObjBindMethod(implObj, "GetTime"), flags, 2)
+        this.vtbl.GetDuration := CallbackCreate(ObjBindMethod(implObj, "GetDuration"), flags, 2)
+        this.vtbl.Seek := CallbackCreate(ObjBindMethod(implObj, "Seek"), flags, 2)
+        this.vtbl.GetEndOfStreamEventHandle := CallbackCreate(ObjBindMethod(implObj, "GetEndOfStreamEventHandle"), flags, 2)
     }
 
     Dispose() {

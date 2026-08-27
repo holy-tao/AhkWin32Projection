@@ -44,7 +44,6 @@ export default struct IMSMQEvent2 extends IMSMQEvent {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Properties() {
@@ -61,7 +60,7 @@ export default struct IMSMQEvent2 extends IMSMQEvent {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Properties := CallbackCreate(GetMethod(implObj, "get_Properties"), flags, 2)
+        this.vtbl.get_Properties := CallbackCreate(ObjBindMethod(implObj, "get_Properties"), flags, 2)
     }
 
     Dispose() {

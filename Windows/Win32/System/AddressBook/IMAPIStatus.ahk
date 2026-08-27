@@ -111,12 +111,13 @@ export default struct IMAPIStatus extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapistatus-validatestate
      */
     ValidateState(ulUIParam, ulFlags) {
-        result := ComCall(14, this, IntPtr, ulUIParam, UInt32, ulFlags, "HRESULT")
+        ulUIParamMarshal := ulUIParam == 0 ? IntPtr : IntPtr
+
+        result := ComCall(14, this, ulUIParamMarshal, ulUIParam, UInt32, ulFlags, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @remarks
      * The **IMAPIStatus::SettingsDialog** method displays a configuration property sheet. All service providers should support the **SettingsDialog** method, but it is not required. Service providers can implement their own property sheets or use the implementation supplied in the support object's [IMAPISupport::DoConfigPropsheet](imapisupport-doconfigpropsheet.md) method. **DoConfigPropsheet** builds a read/write property sheet.
      * @param {Pointer} ulUIParam > [in] A handle to the parent window of the configuration property sheet.
@@ -135,12 +136,13 @@ export default struct IMAPIStatus extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapistatus-settingsdialog
      */
     SettingsDialog(ulUIParam, ulFlags) {
-        result := ComCall(15, this, IntPtr, ulUIParam, UInt32, ulFlags, "HRESULT")
+        ulUIParamMarshal := ulUIParam == 0 ? IntPtr : IntPtr
+
+        result := ComCall(15, this, ulUIParamMarshal, ulUIParam, UInt32, ulFlags, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @remarks
      * Not all status objects support the **IMAPIStatus::ChangePassword** method. It is supported only by service providers that require clients to enter a password. None of the status objects that MAPI implements support the password change operation. 
      *   
@@ -166,15 +168,14 @@ export default struct IMAPIStatus extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapistatus-changepassword
      */
     ChangePassword(lpOldPass, lpNewPass, ulFlags) {
-        lpOldPassMarshal := lpOldPass is VarRef ? "char*" : "ptr"
-        lpNewPassMarshal := lpNewPass is VarRef ? "char*" : "ptr"
+        lpOldPassMarshal := lpOldPass is VarRef ? "char*" : IntPtr
+        lpNewPassMarshal := lpNewPass is VarRef ? "char*" : IntPtr
 
         result := ComCall(16, this, lpOldPassMarshal, lpOldPass, lpNewPassMarshal, lpNewPass, UInt32, ulFlags, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @remarks
      * The **IMAPIStatus::FlushQueues** method requests that the MAPI spooler or a transport provider immediately send all messages in the outgoing queue or receive all messages from the incoming queue. **FlushQueues** is implemented only by the MAPI spooler status object and by status objects that transport providers supply. 
      *   
@@ -219,7 +220,10 @@ export default struct IMAPIStatus extends IMAPIProp {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapistatus-flushqueues
      */
     FlushQueues(ulUIParam, cbTargetTransport, lpTargetTransport, ulFlags) {
-        result := ComCall(17, this, IntPtr, ulUIParam, UInt32, cbTargetTransport, ENTRYID.Ptr, lpTargetTransport, UInt32, ulFlags, "HRESULT")
+        ulUIParamMarshal := ulUIParam == 0 ? IntPtr : IntPtr
+        lpTargetTransportMarshal := lpTargetTransport == 0 ? IntPtr : ENTRYID.Ptr
+
+        result := ComCall(17, this, ulUIParamMarshal, ulUIParam, UInt32, cbTargetTransport, lpTargetTransportMarshal, lpTargetTransport, UInt32, ulFlags, "HRESULT")
         return result
     }
 
@@ -232,10 +236,10 @@ export default struct IMAPIStatus extends IMAPIProp {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ValidateState := CallbackCreate(GetMethod(implObj, "ValidateState"), flags, 3)
-        this.vtbl.SettingsDialog := CallbackCreate(GetMethod(implObj, "SettingsDialog"), flags, 3)
-        this.vtbl.ChangePassword := CallbackCreate(GetMethod(implObj, "ChangePassword"), flags, 4)
-        this.vtbl.FlushQueues := CallbackCreate(GetMethod(implObj, "FlushQueues"), flags, 5)
+        this.vtbl.ValidateState := CallbackCreate(ObjBindMethod(implObj, "ValidateState"), flags, 3)
+        this.vtbl.SettingsDialog := CallbackCreate(ObjBindMethod(implObj, "SettingsDialog"), flags, 3)
+        this.vtbl.ChangePassword := CallbackCreate(ObjBindMethod(implObj, "ChangePassword"), flags, 4)
+        this.vtbl.FlushQueues := CallbackCreate(ObjBindMethod(implObj, "FlushQueues"), flags, 5)
     }
 
     Dispose() {

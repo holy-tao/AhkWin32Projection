@@ -36,13 +36,14 @@ export default struct IDBCreateCommand extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
      */
     CreateCommand(pUnkOuter, riid) {
-        result := ComCall(3, this, "ptr", pUnkOuter, Guid.Ptr, riid, "ptr*", &ppCommand := 0, "HRESULT")
+        pUnkOuterMarshal := pUnkOuter == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pUnkOuterMarshal, pUnkOuter, Guid.Ptr, riid, "ptr*", &ppCommand := 0, "HRESULT")
         return IUnknown(ppCommand)
     }
 
@@ -55,7 +56,7 @@ export default struct IDBCreateCommand extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateCommand := CallbackCreate(GetMethod(implObj, "CreateCommand"), flags, 4)
+        this.vtbl.CreateCommand := CallbackCreate(ObjBindMethod(implObj, "CreateCommand"), flags, 4)
     }
 
     Dispose() {

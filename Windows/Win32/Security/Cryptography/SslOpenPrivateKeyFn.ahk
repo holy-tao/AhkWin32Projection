@@ -22,7 +22,6 @@ export default struct SslOpenPrivateKeyFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {Pointer<CERT_CONTEXT>} pCertContext 
      * @param {Integer} dwFlags 

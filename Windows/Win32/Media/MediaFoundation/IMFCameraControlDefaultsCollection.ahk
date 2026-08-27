@@ -133,12 +133,12 @@ export default struct IMFCameraControlDefaultsCollection extends IMFAttributes {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetControlCount := CallbackCreate(GetMethod(implObj, "GetControlCount"), flags, 1)
-        this.vtbl.GetControl := CallbackCreate(GetMethod(implObj, "GetControl"), flags, 3)
-        this.vtbl.GetOrAddExtendedControl := CallbackCreate(GetMethod(implObj, "GetOrAddExtendedControl"), flags, 6)
-        this.vtbl.GetOrAddControl := CallbackCreate(GetMethod(implObj, "GetOrAddControl"), flags, 7)
-        this.vtbl.RemoveControl := CallbackCreate(GetMethod(implObj, "RemoveControl"), flags, 3)
-        this.vtbl.RemoveAllControls := CallbackCreate(GetMethod(implObj, "RemoveAllControls"), flags, 1)
+        this.vtbl.GetControlCount := CallbackCreate(ObjBindMethod(implObj, "GetControlCount"), flags, 1)
+        this.vtbl.GetControl := CallbackCreate(ObjBindMethod(implObj, "GetControl"), flags, 3)
+        this.vtbl.GetOrAddExtendedControl := CallbackCreate(ObjBindMethod(implObj, "GetOrAddExtendedControl"), flags, 6)
+        this.vtbl.GetOrAddControl := CallbackCreate(ObjBindMethod(implObj, "GetOrAddControl"), flags, 7)
+        this.vtbl.RemoveControl := CallbackCreate(ObjBindMethod(implObj, "RemoveControl"), flags, 3)
+        this.vtbl.RemoveAllControls := CallbackCreate(ObjBindMethod(implObj, "RemoveAllControls"), flags, 1)
     }
 
     Dispose() {

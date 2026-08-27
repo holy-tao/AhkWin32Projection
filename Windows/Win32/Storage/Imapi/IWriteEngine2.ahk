@@ -808,19 +808,19 @@ export default struct IWriteEngine2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.WriteSection := CallbackCreate(GetMethod(implObj, "WriteSection"), flags, 4)
-        this.vtbl.CancelWrite := CallbackCreate(GetMethod(implObj, "CancelWrite"), flags, 1)
-        this.vtbl.put_Recorder := CallbackCreate(GetMethod(implObj, "put_Recorder"), flags, 2)
-        this.vtbl.get_Recorder := CallbackCreate(GetMethod(implObj, "get_Recorder"), flags, 2)
-        this.vtbl.put_UseStreamingWrite12 := CallbackCreate(GetMethod(implObj, "put_UseStreamingWrite12"), flags, 2)
-        this.vtbl.get_UseStreamingWrite12 := CallbackCreate(GetMethod(implObj, "get_UseStreamingWrite12"), flags, 2)
-        this.vtbl.put_StartingSectorsPerSecond := CallbackCreate(GetMethod(implObj, "put_StartingSectorsPerSecond"), flags, 2)
-        this.vtbl.get_StartingSectorsPerSecond := CallbackCreate(GetMethod(implObj, "get_StartingSectorsPerSecond"), flags, 2)
-        this.vtbl.put_EndingSectorsPerSecond := CallbackCreate(GetMethod(implObj, "put_EndingSectorsPerSecond"), flags, 2)
-        this.vtbl.get_EndingSectorsPerSecond := CallbackCreate(GetMethod(implObj, "get_EndingSectorsPerSecond"), flags, 2)
-        this.vtbl.put_BytesPerSector := CallbackCreate(GetMethod(implObj, "put_BytesPerSector"), flags, 2)
-        this.vtbl.get_BytesPerSector := CallbackCreate(GetMethod(implObj, "get_BytesPerSector"), flags, 2)
-        this.vtbl.get_WriteInProgress := CallbackCreate(GetMethod(implObj, "get_WriteInProgress"), flags, 2)
+        this.vtbl.WriteSection := CallbackCreate(ObjBindMethod(implObj, "WriteSection"), flags, 4)
+        this.vtbl.CancelWrite := CallbackCreate(ObjBindMethod(implObj, "CancelWrite"), flags, 1)
+        this.vtbl.put_Recorder := CallbackCreate(ObjBindMethod(implObj, "put_Recorder"), flags, 2)
+        this.vtbl.get_Recorder := CallbackCreate(ObjBindMethod(implObj, "get_Recorder"), flags, 2)
+        this.vtbl.put_UseStreamingWrite12 := CallbackCreate(ObjBindMethod(implObj, "put_UseStreamingWrite12"), flags, 2)
+        this.vtbl.get_UseStreamingWrite12 := CallbackCreate(ObjBindMethod(implObj, "get_UseStreamingWrite12"), flags, 2)
+        this.vtbl.put_StartingSectorsPerSecond := CallbackCreate(ObjBindMethod(implObj, "put_StartingSectorsPerSecond"), flags, 2)
+        this.vtbl.get_StartingSectorsPerSecond := CallbackCreate(ObjBindMethod(implObj, "get_StartingSectorsPerSecond"), flags, 2)
+        this.vtbl.put_EndingSectorsPerSecond := CallbackCreate(ObjBindMethod(implObj, "put_EndingSectorsPerSecond"), flags, 2)
+        this.vtbl.get_EndingSectorsPerSecond := CallbackCreate(ObjBindMethod(implObj, "get_EndingSectorsPerSecond"), flags, 2)
+        this.vtbl.put_BytesPerSector := CallbackCreate(ObjBindMethod(implObj, "put_BytesPerSector"), flags, 2)
+        this.vtbl.get_BytesPerSector := CallbackCreate(ObjBindMethod(implObj, "get_BytesPerSector"), flags, 2)
+        this.vtbl.get_WriteInProgress := CallbackCreate(ObjBindMethod(implObj, "get_WriteInProgress"), flags, 2)
     }
 
     Dispose() {

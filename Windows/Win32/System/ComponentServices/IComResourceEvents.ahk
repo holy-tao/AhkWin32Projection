@@ -139,11 +139,11 @@ export default struct IComResourceEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnResourceCreate := CallbackCreate(GetMethod(implObj, "OnResourceCreate"), flags, 6)
-        this.vtbl.OnResourceAllocate := CallbackCreate(GetMethod(implObj, "OnResourceAllocate"), flags, 8)
-        this.vtbl.OnResourceRecycle := CallbackCreate(GetMethod(implObj, "OnResourceRecycle"), flags, 5)
-        this.vtbl.OnResourceDestroy := CallbackCreate(GetMethod(implObj, "OnResourceDestroy"), flags, 6)
-        this.vtbl.OnResourceTrack := CallbackCreate(GetMethod(implObj, "OnResourceTrack"), flags, 6)
+        this.vtbl.OnResourceCreate := CallbackCreate(ObjBindMethod(implObj, "OnResourceCreate"), flags, 6)
+        this.vtbl.OnResourceAllocate := CallbackCreate(ObjBindMethod(implObj, "OnResourceAllocate"), flags, 8)
+        this.vtbl.OnResourceRecycle := CallbackCreate(ObjBindMethod(implObj, "OnResourceRecycle"), flags, 5)
+        this.vtbl.OnResourceDestroy := CallbackCreate(ObjBindMethod(implObj, "OnResourceDestroy"), flags, 6)
+        this.vtbl.OnResourceTrack := CallbackCreate(ObjBindMethod(implObj, "OnResourceTrack"), flags, 6)
     }
 
     Dispose() {

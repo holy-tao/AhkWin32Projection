@@ -52,7 +52,6 @@ export default struct IMediaTypeInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Type() {
@@ -62,7 +61,6 @@ export default struct IMediaTypeInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Subtype() {
@@ -80,8 +78,8 @@ export default struct IMediaTypeInfo extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
-        this.vtbl.get_Subtype := CallbackCreate(GetMethod(implObj, "get_Subtype"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(ObjBindMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_Subtype := CallbackCreate(ObjBindMethod(implObj, "get_Subtype"), flags, 2)
     }
 
     Dispose() {

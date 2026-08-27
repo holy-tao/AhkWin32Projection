@@ -135,13 +135,20 @@ export default struct IAMStreamSelect extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamstreamselect-info
      */
     Info(lIndex, ppmt, pdwFlags, plcid, pdwGroup, ppszName, ppObject, ppUnk) {
-        ppmtMarshal := ppmt is VarRef ? "ptr*" : "ptr"
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-        plcidMarshal := plcid is VarRef ? "uint*" : "ptr"
-        pdwGroupMarshal := pdwGroup is VarRef ? "uint*" : "ptr"
-        ppszNameMarshal := ppszName is VarRef ? "ptr*" : "ptr"
+        ppmtMarshal := ppmt is VarRef ? "ptr*" : IntPtr
+        ppmtMarshal := ppmt == 0 ? IntPtr : "ptr*"
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : IntPtr
+        pdwFlagsMarshal := pdwFlags == 0 ? IntPtr : "uint*"
+        plcidMarshal := plcid is VarRef ? "uint*" : IntPtr
+        plcidMarshal := plcid == 0 ? IntPtr : "uint*"
+        pdwGroupMarshal := pdwGroup is VarRef ? "uint*" : IntPtr
+        pdwGroupMarshal := pdwGroup == 0 ? IntPtr : "uint*"
+        ppszNameMarshal := ppszName is VarRef ? "ptr*" : IntPtr
+        ppszNameMarshal := ppszName == 0 ? IntPtr : PWSTR.Ptr
+        ppObjectMarshal := ppObject == 0 ? IntPtr : IUnknown.Ptr
+        ppUnkMarshal := ppUnk == 0 ? IntPtr : IUnknown.Ptr
 
-        result := ComCall(4, this, Int32, lIndex, ppmtMarshal, ppmt, pdwFlagsMarshal, pdwFlags, plcidMarshal, plcid, pdwGroupMarshal, pdwGroup, ppszNameMarshal, ppszName, IUnknown.Ptr, ppObject, IUnknown.Ptr, ppUnk, "HRESULT")
+        result := ComCall(4, this, Int32, lIndex, ppmtMarshal, ppmt, pdwFlagsMarshal, pdwFlags, plcidMarshal, plcid, pdwGroupMarshal, pdwGroup, ppszNameMarshal, ppszName, ppObjectMarshal, ppObject, ppUnkMarshal, ppUnk, "HRESULT")
         return result
     }
 
@@ -228,9 +235,9 @@ export default struct IAMStreamSelect extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Count := CallbackCreate(GetMethod(implObj, "Count"), flags, 2)
-        this.vtbl.Info := CallbackCreate(GetMethod(implObj, "Info"), flags, 9)
-        this.vtbl.Enable := CallbackCreate(GetMethod(implObj, "Enable"), flags, 3)
+        this.vtbl.Count := CallbackCreate(ObjBindMethod(implObj, "Count"), flags, 2)
+        this.vtbl.Info := CallbackCreate(ObjBindMethod(implObj, "Info"), flags, 9)
+        this.vtbl.Enable := CallbackCreate(ObjBindMethod(implObj, "Enable"), flags, 3)
     }
 
     Dispose() {

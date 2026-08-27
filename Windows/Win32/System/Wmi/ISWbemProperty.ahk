@@ -104,7 +104,6 @@ export default struct ISWbemProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Value() {
@@ -114,7 +113,6 @@ export default struct ISWbemProperty extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} varValue 
      * @returns {HRESULT} 
      */
@@ -124,7 +122,6 @@ export default struct ISWbemProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -134,7 +131,6 @@ export default struct ISWbemProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsLocal() {
@@ -143,7 +139,6 @@ export default struct ISWbemProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Origin() {
@@ -153,7 +148,6 @@ export default struct ISWbemProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {WbemCimtypeEnum} 
      */
     get_CIMType() {
@@ -162,7 +156,6 @@ export default struct ISWbemProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemQualifierSet} 
      */
     get_Qualifiers_() {
@@ -171,7 +164,6 @@ export default struct ISWbemProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsArray() {
@@ -188,14 +180,14 @@ export default struct ISWbemProperty extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Value := CallbackCreate(GetMethod(implObj, "get_Value"), flags, 2)
-        this.vtbl.put_Value := CallbackCreate(GetMethod(implObj, "put_Value"), flags, 2)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_IsLocal := CallbackCreate(GetMethod(implObj, "get_IsLocal"), flags, 2)
-        this.vtbl.get_Origin := CallbackCreate(GetMethod(implObj, "get_Origin"), flags, 2)
-        this.vtbl.get_CIMType := CallbackCreate(GetMethod(implObj, "get_CIMType"), flags, 2)
-        this.vtbl.get_Qualifiers_ := CallbackCreate(GetMethod(implObj, "get_Qualifiers_"), flags, 2)
-        this.vtbl.get_IsArray := CallbackCreate(GetMethod(implObj, "get_IsArray"), flags, 2)
+        this.vtbl.get_Value := CallbackCreate(ObjBindMethod(implObj, "get_Value"), flags, 2)
+        this.vtbl.put_Value := CallbackCreate(ObjBindMethod(implObj, "put_Value"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_IsLocal := CallbackCreate(ObjBindMethod(implObj, "get_IsLocal"), flags, 2)
+        this.vtbl.get_Origin := CallbackCreate(ObjBindMethod(implObj, "get_Origin"), flags, 2)
+        this.vtbl.get_CIMType := CallbackCreate(ObjBindMethod(implObj, "get_CIMType"), flags, 2)
+        this.vtbl.get_Qualifiers_ := CallbackCreate(ObjBindMethod(implObj, "get_Qualifiers_"), flags, 2)
+        this.vtbl.get_IsArray := CallbackCreate(ObjBindMethod(implObj, "get_IsArray"), flags, 2)
     }
 
     Dispose() {

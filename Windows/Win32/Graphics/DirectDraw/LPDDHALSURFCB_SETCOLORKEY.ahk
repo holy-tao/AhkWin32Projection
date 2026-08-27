@@ -19,7 +19,6 @@ export default struct LPDDHALSURFCB_SETCOLORKEY {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_SETCOLORKEYDATA>} param0 
      * @returns {Integer} 
      */

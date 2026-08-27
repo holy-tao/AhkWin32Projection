@@ -83,7 +83,9 @@ export default struct IMFMediaEngineClassFactoryEx extends IMFMediaEngineClassFa
         keySystem := keySystem is String ? BSTR.Alloc(keySystem).Value : keySystem
         cdmStorePath := cdmStorePath is String ? BSTR.Alloc(cdmStorePath).Value : cdmStorePath
 
-        result := ComCall(7, this, BSTR, keySystem, BSTR, cdmStorePath, "ptr*", &ppKeys := 0, "HRESULT")
+        cdmStorePathMarshal := cdmStorePath == 0 ? IntPtr : BSTR
+
+        result := ComCall(7, this, BSTR, keySystem, cdmStorePathMarshal, cdmStorePath, "ptr*", &ppKeys := 0, "HRESULT")
         return IMFMediaKeys(ppKeys)
     }
 
@@ -98,7 +100,9 @@ export default struct IMFMediaEngineClassFactoryEx extends IMFMediaEngineClassFa
         type := type is String ? BSTR.Alloc(type).Value : type
         keySystem := keySystem is String ? BSTR.Alloc(keySystem).Value : keySystem
 
-        result := ComCall(8, this, BSTR, type, BSTR, keySystem, BOOL.Ptr, &isSupported := 0, "HRESULT")
+        typeMarshal := type == 0 ? IntPtr : BSTR
+
+        result := ComCall(8, this, typeMarshal, type, BSTR, keySystem, BOOL.Ptr, &isSupported := 0, "HRESULT")
         return isSupported
     }
 
@@ -111,9 +115,9 @@ export default struct IMFMediaEngineClassFactoryEx extends IMFMediaEngineClassFa
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateMediaSourceExtension := CallbackCreate(GetMethod(implObj, "CreateMediaSourceExtension"), flags, 4)
-        this.vtbl.CreateMediaKeys := CallbackCreate(GetMethod(implObj, "CreateMediaKeys"), flags, 4)
-        this.vtbl.IsTypeSupported := CallbackCreate(GetMethod(implObj, "IsTypeSupported"), flags, 4)
+        this.vtbl.CreateMediaSourceExtension := CallbackCreate(ObjBindMethod(implObj, "CreateMediaSourceExtension"), flags, 4)
+        this.vtbl.CreateMediaKeys := CallbackCreate(ObjBindMethod(implObj, "CreateMediaKeys"), flags, 4)
+        this.vtbl.IsTypeSupported := CallbackCreate(ObjBindMethod(implObj, "IsTypeSupported"), flags, 4)
     }
 
     Dispose() {

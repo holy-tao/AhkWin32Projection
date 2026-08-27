@@ -20,7 +20,6 @@ export default struct PFND3DKMT_GETDWMVERTICALBLANKEVENT {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_GETVERTICALBLANKEVENT>} param0 
      * @returns {NTSTATUS} 
      */

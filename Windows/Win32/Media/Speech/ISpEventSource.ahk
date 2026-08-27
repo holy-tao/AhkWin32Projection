@@ -40,7 +40,6 @@ export default struct ISpEventSource extends ISpNotifySource {
     }
 
     /**
-     * 
      * @param {Integer} ullEventInterest 
      * @param {Integer} ullQueuedInterest 
      * @returns {HRESULT} 
@@ -51,21 +50,19 @@ export default struct ISpEventSource extends ISpNotifySource {
     }
 
     /**
-     * 
      * @param {Integer} ulCount 
      * @param {Pointer<SPEVENT>} pEventArray 
      * @param {Pointer<Integer>} pulFetched 
      * @returns {HRESULT} 
      */
     GetEvents(ulCount, pEventArray, pulFetched) {
-        pulFetchedMarshal := pulFetched is VarRef ? "uint*" : "ptr"
+        pulFetchedMarshal := pulFetched is VarRef ? "uint*" : IntPtr
 
         result := ComCall(11, this, UInt32, ulCount, SPEVENT.Ptr, pEventArray, pulFetchedMarshal, pulFetched, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<SPEVENTSOURCEINFO>} pInfo 
      * @returns {HRESULT} 
      */
@@ -83,9 +80,9 @@ export default struct ISpEventSource extends ISpNotifySource {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetInterest := CallbackCreate(GetMethod(implObj, "SetInterest"), flags, 3)
-        this.vtbl.GetEvents := CallbackCreate(GetMethod(implObj, "GetEvents"), flags, 4)
-        this.vtbl.GetInfo := CallbackCreate(GetMethod(implObj, "GetInfo"), flags, 2)
+        this.vtbl.SetInterest := CallbackCreate(ObjBindMethod(implObj, "SetInterest"), flags, 3)
+        this.vtbl.GetEvents := CallbackCreate(ObjBindMethod(implObj, "GetEvents"), flags, 4)
+        this.vtbl.GetInfo := CallbackCreate(ObjBindMethod(implObj, "GetInfo"), flags, 2)
     }
 
     Dispose() {

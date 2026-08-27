@@ -19,7 +19,6 @@ export default struct PLA_CABEXTRACT_CALLBACK {
     }
 
     /**
-     * 
      * @param {PWSTR} FileName 
      * @param {Pointer<Void>} _Context 
      * @returns {String} Nothing - always returns an empty string
@@ -27,7 +26,7 @@ export default struct PLA_CABEXTRACT_CALLBACK {
     Call(FileName, _Context) {
         FileName := FileName is String ? StrPtr(FileName) : FileName
 
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, "ptr", FileName, _ContextMarshal, _Context)
     }

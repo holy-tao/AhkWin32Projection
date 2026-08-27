@@ -40,7 +40,6 @@ export default struct ICorProfilerInfo9 extends ICorProfilerInfo8 {
     }
 
     /**
-     * 
      * @param {Pointer} functionID 
      * @param {Pointer} reJitId 
      * @param {Integer} cCodeStartAddresses 
@@ -49,15 +48,14 @@ export default struct ICorProfilerInfo9 extends ICorProfilerInfo8 {
      * @returns {HRESULT} 
      */
     GetNativeCodeStartAddresses(functionID, reJitId, cCodeStartAddresses, pcCodeStartAddresses, codeStartAddresses) {
-        pcCodeStartAddressesMarshal := pcCodeStartAddresses is VarRef ? "uint*" : "ptr"
-        codeStartAddressesMarshal := codeStartAddresses is VarRef ? "ptr*" : "ptr"
+        pcCodeStartAddressesMarshal := pcCodeStartAddresses is VarRef ? "uint*" : IntPtr
+        codeStartAddressesMarshal := codeStartAddresses is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(90, this, IntPtr, functionID, IntPtr, reJitId, UInt32, cCodeStartAddresses, pcCodeStartAddressesMarshal, pcCodeStartAddresses, codeStartAddressesMarshal, codeStartAddresses, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} pNativeCodeStartAddress 
      * @param {Integer} cMap 
      * @param {Pointer<Integer>} pcMap 
@@ -65,14 +63,13 @@ export default struct ICorProfilerInfo9 extends ICorProfilerInfo8 {
      * @returns {HRESULT} 
      */
     GetILToNativeMapping3(pNativeCodeStartAddress, cMap, pcMap, _map) {
-        pcMapMarshal := pcMap is VarRef ? "uint*" : "ptr"
+        pcMapMarshal := pcMap is VarRef ? "uint*" : IntPtr
 
         result := ComCall(91, this, IntPtr, pNativeCodeStartAddress, UInt32, cMap, pcMapMarshal, pcMap, COR_DEBUG_IL_TO_NATIVE_MAP.Ptr, _map, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} pNativeCodeStartAddress 
      * @param {Integer} cCodeInfos 
      * @param {Pointer<Integer>} pcCodeInfos 
@@ -80,7 +77,7 @@ export default struct ICorProfilerInfo9 extends ICorProfilerInfo8 {
      * @returns {HRESULT} 
      */
     GetCodeInfo4(pNativeCodeStartAddress, cCodeInfos, pcCodeInfos, codeInfos) {
-        pcCodeInfosMarshal := pcCodeInfos is VarRef ? "uint*" : "ptr"
+        pcCodeInfosMarshal := pcCodeInfos is VarRef ? "uint*" : IntPtr
 
         result := ComCall(92, this, IntPtr, pNativeCodeStartAddress, UInt32, cCodeInfos, pcCodeInfosMarshal, pcCodeInfos, COR_PRF_CODE_INFO.Ptr, codeInfos, "HRESULT")
         return result
@@ -95,9 +92,9 @@ export default struct ICorProfilerInfo9 extends ICorProfilerInfo8 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNativeCodeStartAddresses := CallbackCreate(GetMethod(implObj, "GetNativeCodeStartAddresses"), flags, 6)
-        this.vtbl.GetILToNativeMapping3 := CallbackCreate(GetMethod(implObj, "GetILToNativeMapping3"), flags, 5)
-        this.vtbl.GetCodeInfo4 := CallbackCreate(GetMethod(implObj, "GetCodeInfo4"), flags, 5)
+        this.vtbl.GetNativeCodeStartAddresses := CallbackCreate(ObjBindMethod(implObj, "GetNativeCodeStartAddresses"), flags, 6)
+        this.vtbl.GetILToNativeMapping3 := CallbackCreate(ObjBindMethod(implObj, "GetILToNativeMapping3"), flags, 5)
+        this.vtbl.GetCodeInfo4 := CallbackCreate(ObjBindMethod(implObj, "GetCodeInfo4"), flags, 5)
     }
 
     Dispose() {

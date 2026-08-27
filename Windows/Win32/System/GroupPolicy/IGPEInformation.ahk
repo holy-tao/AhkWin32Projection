@@ -153,7 +153,7 @@ export default struct IGPEInformation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-igpeinformation-getoptions
      */
     GetOptions(dwOptions) {
-        dwOptionsMarshal := dwOptions is VarRef ? "uint*" : "ptr"
+        dwOptionsMarshal := dwOptions is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, dwOptionsMarshal, dwOptions, "HRESULT")
         return result
@@ -166,7 +166,7 @@ export default struct IGPEInformation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-igpeinformation-gettype
      */
     GetType(gpoType) {
-        gpoTypeMarshal := gpoType is VarRef ? "int*" : "ptr"
+        gpoTypeMarshal := gpoType is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, gpoTypeMarshal, gpoType, "HRESULT")
         return result
@@ -189,7 +189,7 @@ export default struct IGPEInformation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-igpeinformation-gethint
      */
     GetHint(gpHint) {
-        gpHintMarshal := gpHint is VarRef ? "int*" : "ptr"
+        gpHintMarshal := gpHint is VarRef ? "int*" : IntPtr
 
         result := ComCall(10, this, gpHintMarshal, gpHint, "HRESULT")
         return result
@@ -242,15 +242,15 @@ export default struct IGPEInformation extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 3)
-        this.vtbl.GetDisplayName := CallbackCreate(GetMethod(implObj, "GetDisplayName"), flags, 3)
-        this.vtbl.GetRegistryKey := CallbackCreate(GetMethod(implObj, "GetRegistryKey"), flags, 3)
-        this.vtbl.GetDSPath := CallbackCreate(GetMethod(implObj, "GetDSPath"), flags, 4)
-        this.vtbl.GetFileSysPath := CallbackCreate(GetMethod(implObj, "GetFileSysPath"), flags, 4)
-        this.vtbl.GetOptions := CallbackCreate(GetMethod(implObj, "GetOptions"), flags, 2)
-        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
-        this.vtbl.GetHint := CallbackCreate(GetMethod(implObj, "GetHint"), flags, 2)
-        this.vtbl.PolicyChanged := CallbackCreate(GetMethod(implObj, "PolicyChanged"), flags, 5)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 3)
+        this.vtbl.GetDisplayName := CallbackCreate(ObjBindMethod(implObj, "GetDisplayName"), flags, 3)
+        this.vtbl.GetRegistryKey := CallbackCreate(ObjBindMethod(implObj, "GetRegistryKey"), flags, 3)
+        this.vtbl.GetDSPath := CallbackCreate(ObjBindMethod(implObj, "GetDSPath"), flags, 4)
+        this.vtbl.GetFileSysPath := CallbackCreate(ObjBindMethod(implObj, "GetFileSysPath"), flags, 4)
+        this.vtbl.GetOptions := CallbackCreate(ObjBindMethod(implObj, "GetOptions"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(ObjBindMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.GetHint := CallbackCreate(ObjBindMethod(implObj, "GetHint"), flags, 2)
+        this.vtbl.PolicyChanged := CallbackCreate(ObjBindMethod(implObj, "PolicyChanged"), flags, 5)
     }
 
     Dispose() {

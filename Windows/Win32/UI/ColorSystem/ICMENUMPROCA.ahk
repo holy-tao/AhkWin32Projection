@@ -26,7 +26,6 @@ export default struct ICMENUMPROCA {
     }
 
     /**
-     * 
      * @param {PSTR} param0 
      * @param {LPARAM} param1 
      * @returns {Integer} This function must return a positive value to continue enumeration, or zero to stop enumeration. It may not return a negative value.

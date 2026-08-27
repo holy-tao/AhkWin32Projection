@@ -20,7 +20,6 @@ export default struct PFND3DKMT_REGISTERBUDGETCHANGENOTIFICATION {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_REGISTERBUDGETCHANGENOTIFICATION>} param0 
      * @returns {NTSTATUS} 
      */

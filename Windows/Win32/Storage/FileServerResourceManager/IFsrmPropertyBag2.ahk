@@ -58,7 +58,6 @@ export default struct IFsrmPropertyBag2 extends IFsrmPropertyBag {
     }
 
     /**
-     * 
      * @returns {IFsrmCollection} 
      */
     GetUntrustedInFileProperties() {
@@ -75,8 +74,8 @@ export default struct IFsrmPropertyBag2 extends IFsrmPropertyBag {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFieldValue := CallbackCreate(GetMethod(implObj, "GetFieldValue"), flags, 3)
-        this.vtbl.GetUntrustedInFileProperties := CallbackCreate(GetMethod(implObj, "GetUntrustedInFileProperties"), flags, 2)
+        this.vtbl.GetFieldValue := CallbackCreate(ObjBindMethod(implObj, "GetFieldValue"), flags, 3)
+        this.vtbl.GetUntrustedInFileProperties := CallbackCreate(ObjBindMethod(implObj, "GetUntrustedInFileProperties"), flags, 2)
     }
 
     Dispose() {

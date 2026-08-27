@@ -27,15 +27,14 @@ export default struct RPC_INTERFACE_GROUP_IDLE_CALLBACK_FN {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} IfGroup A <b>RPC_INTERFACE_GROUP</b> from <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcserverinterfacegroupcreate">RpcServerInterfaceGroupCreate</a> that defines the interface group for which the idle state has changed.
      * @param {Pointer<Void>} IdleCallbackContext A user-defined context provided at interface group creation.
      * @param {Integer} IsGroupIdle <b>TRUE</b> if the interface group has just become idle.  <b>FALSE</b> if the interface group was previously idle but has since received new activity.
      * @returns {String} Nothing - always returns an empty string
      */
     Call(IfGroup, IdleCallbackContext, IsGroupIdle) {
-        IfGroupMarshal := IfGroup is VarRef ? "ptr" : "ptr"
-        IdleCallbackContextMarshal := IdleCallbackContext is VarRef ? "ptr" : "ptr"
+        IfGroupMarshal := IfGroup is VarRef ? "ptr" : IntPtr
+        IdleCallbackContextMarshal := IdleCallbackContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, IfGroupMarshal, IfGroup, IdleCallbackContextMarshal, IdleCallbackContext, UInt32, IsGroupIdle)
     }

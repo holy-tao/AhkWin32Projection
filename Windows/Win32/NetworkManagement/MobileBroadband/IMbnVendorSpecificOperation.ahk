@@ -68,7 +68,7 @@ export default struct IMbnVendorSpecificOperation extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetVendorSpecific := CallbackCreate(GetMethod(implObj, "SetVendorSpecific"), flags, 3)
+        this.vtbl.SetVendorSpecific := CallbackCreate(ObjBindMethod(implObj, "SetVendorSpecific"), flags, 3)
     }
 
     Dispose() {

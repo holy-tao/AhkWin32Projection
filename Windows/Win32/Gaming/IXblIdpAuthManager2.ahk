@@ -39,7 +39,6 @@ export default struct IXblIdpAuthManager2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} appSid 
      * @param {PWSTR} msaTarget 
      * @param {PWSTR} msaPolicy 
@@ -59,7 +58,7 @@ export default struct IXblIdpAuthManager2 extends IUnknown {
         uri := uri is String ? StrPtr(uri) : uri
         headers := headers is String ? StrPtr(headers) : headers
 
-        bodyMarshal := body is VarRef ? "char*" : "ptr"
+        bodyMarshal := body is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, "ptr", appSid, "ptr", msaTarget, "ptr", msaPolicy, "ptr", httpMethod, "ptr", uri, "ptr", headers, bodyMarshal, body, UInt32, bodySize, BOOL, forceRefresh, "ptr*", &result := 0, "HRESULT")
         return IXblIdpAuthTokenResult(result)
@@ -74,7 +73,7 @@ export default struct IXblIdpAuthManager2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetUserlessTokenAndSignatureWithTokenResult := CallbackCreate(GetMethod(implObj, "GetUserlessTokenAndSignatureWithTokenResult"), flags, 11)
+        this.vtbl.GetUserlessTokenAndSignatureWithTokenResult := CallbackCreate(ObjBindMethod(implObj, "GetUserlessTokenAndSignatureWithTokenResult"), flags, 11)
     }
 
     Dispose() {

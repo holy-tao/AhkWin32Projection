@@ -64,7 +64,7 @@ export default struct IUIAutomationActiveTextPositionChangedEventHandler extends
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.HandleActiveTextPositionChangedEvent := CallbackCreate(GetMethod(implObj, "HandleActiveTextPositionChangedEvent"), flags, 3)
+        this.vtbl.HandleActiveTextPositionChangedEvent := CallbackCreate(ObjBindMethod(implObj, "HandleActiveTextPositionChangedEvent"), flags, 3)
     }
 
     Dispose() {

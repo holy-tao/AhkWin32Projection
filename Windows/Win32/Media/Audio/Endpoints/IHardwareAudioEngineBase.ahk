@@ -68,7 +68,7 @@ export default struct IHardwareAudioEngineBase extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-ihardwareaudioenginebase-getengineformat
      */
     GetEngineFormat(pDevice, _bRequestDeviceFormat, _ppwfxFormat) {
-        _ppwfxFormatMarshal := _ppwfxFormat is VarRef ? "ptr*" : "ptr"
+        _ppwfxFormatMarshal := _ppwfxFormat is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, "ptr", pDevice, BOOL, _bRequestDeviceFormat, _ppwfxFormatMarshal, _ppwfxFormat, "HRESULT")
         return result
@@ -118,11 +118,11 @@ export default struct IHardwareAudioEngineBase extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAvailableOffloadConnectorCount := CallbackCreate(GetMethod(implObj, "GetAvailableOffloadConnectorCount"), flags, 4)
-        this.vtbl.GetEngineFormat := CallbackCreate(GetMethod(implObj, "GetEngineFormat"), flags, 4)
-        this.vtbl.SetEngineDeviceFormat := CallbackCreate(GetMethod(implObj, "SetEngineDeviceFormat"), flags, 3)
-        this.vtbl.SetGfxState := CallbackCreate(GetMethod(implObj, "SetGfxState"), flags, 3)
-        this.vtbl.GetGfxState := CallbackCreate(GetMethod(implObj, "GetGfxState"), flags, 3)
+        this.vtbl.GetAvailableOffloadConnectorCount := CallbackCreate(ObjBindMethod(implObj, "GetAvailableOffloadConnectorCount"), flags, 4)
+        this.vtbl.GetEngineFormat := CallbackCreate(ObjBindMethod(implObj, "GetEngineFormat"), flags, 4)
+        this.vtbl.SetEngineDeviceFormat := CallbackCreate(ObjBindMethod(implObj, "SetEngineDeviceFormat"), flags, 3)
+        this.vtbl.SetGfxState := CallbackCreate(ObjBindMethod(implObj, "SetGfxState"), flags, 3)
+        this.vtbl.GetGfxState := CallbackCreate(ObjBindMethod(implObj, "GetGfxState"), flags, 3)
     }
 
     Dispose() {

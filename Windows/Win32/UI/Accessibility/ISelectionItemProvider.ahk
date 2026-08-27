@@ -141,11 +141,11 @@ export default struct ISelectionItemProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Select := CallbackCreate(GetMethod(implObj, "Select"), flags, 1)
-        this.vtbl.AddToSelection := CallbackCreate(GetMethod(implObj, "AddToSelection"), flags, 1)
-        this.vtbl.RemoveFromSelection := CallbackCreate(GetMethod(implObj, "RemoveFromSelection"), flags, 1)
-        this.vtbl.get_IsSelected := CallbackCreate(GetMethod(implObj, "get_IsSelected"), flags, 2)
-        this.vtbl.get_SelectionContainer := CallbackCreate(GetMethod(implObj, "get_SelectionContainer"), flags, 2)
+        this.vtbl.Select := CallbackCreate(ObjBindMethod(implObj, "Select"), flags, 1)
+        this.vtbl.AddToSelection := CallbackCreate(ObjBindMethod(implObj, "AddToSelection"), flags, 1)
+        this.vtbl.RemoveFromSelection := CallbackCreate(ObjBindMethod(implObj, "RemoveFromSelection"), flags, 1)
+        this.vtbl.get_IsSelected := CallbackCreate(ObjBindMethod(implObj, "get_IsSelected"), flags, 2)
+        this.vtbl.get_SelectionContainer := CallbackCreate(ObjBindMethod(implObj, "get_SelectionContainer"), flags, 2)
     }
 
     Dispose() {

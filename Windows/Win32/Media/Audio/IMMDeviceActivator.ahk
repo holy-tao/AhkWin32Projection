@@ -38,14 +38,15 @@ export default struct IMMDeviceActivator extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} iid 
      * @param {IMMDevice} pDevice 
      * @param {Pointer<PROPVARIANT>} pActivationParams 
      * @returns {Pointer<Void>} 
      */
     Activate(iid, pDevice, pActivationParams) {
-        result := ComCall(3, this, Guid.Ptr, iid, "ptr", pDevice, PROPVARIANT.Ptr, pActivationParams, "ptr*", &ppInterface := 0, "HRESULT")
+        pActivationParamsMarshal := pActivationParams == 0 ? IntPtr : PROPVARIANT.Ptr
+
+        result := ComCall(3, this, Guid.Ptr, iid, "ptr", pDevice, pActivationParamsMarshal, pActivationParams, "ptr*", &ppInterface := 0, "HRESULT")
         return ppInterface
     }
 
@@ -58,7 +59,7 @@ export default struct IMMDeviceActivator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Activate := CallbackCreate(GetMethod(implObj, "Activate"), flags, 5)
+        this.vtbl.Activate := CallbackCreate(ObjBindMethod(implObj, "Activate"), flags, 5)
     }
 
     Dispose() {

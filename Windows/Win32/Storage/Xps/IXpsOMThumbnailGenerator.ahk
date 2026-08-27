@@ -106,7 +106,7 @@ export default struct IXpsOMThumbnailGenerator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GenerateThumbnail := CallbackCreate(GetMethod(implObj, "GenerateThumbnail"), flags, 6)
+        this.vtbl.GenerateThumbnail := CallbackCreate(ObjBindMethod(implObj, "GenerateThumbnail"), flags, 6)
     }
 
     Dispose() {

@@ -21,7 +21,6 @@ export default struct PCLUSAPI_CLUSTER_REG_ENUM_KEY {
     }
 
     /**
-     * 
      * @param {HKEY} _hKey 
      * @param {Integer} dwIndex 
      * @param {PWSTR} lpszName 
@@ -32,7 +31,7 @@ export default struct PCLUSAPI_CLUSTER_REG_ENUM_KEY {
     Call(_hKey, dwIndex, lpszName, lpcchName, lpftLastWriteTime) {
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
-        lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
+        lpcchNameMarshal := lpcchName is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HKEY, _hKey, UInt32, dwIndex, "ptr", lpszName, lpcchNameMarshal, lpcchName, FILETIME.Ptr, lpftLastWriteTime, Int32)
         return result

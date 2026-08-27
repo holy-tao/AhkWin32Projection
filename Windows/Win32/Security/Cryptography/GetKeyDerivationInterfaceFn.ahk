@@ -21,7 +21,6 @@ export default struct GetKeyDerivationInterfaceFn {
     }
 
     /**
-     * 
      * @param {PWSTR} pszProviderName 
      * @param {PWSTR} pszAlgId 
      * @param {Pointer<Pointer<BCRYPT_KEY_DERIVATION_FUNCTION_TABLE>>} ppFunctionTable 
@@ -32,7 +31,7 @@ export default struct GetKeyDerivationInterfaceFn {
         pszProviderName := pszProviderName is String ? StrPtr(pszProviderName) : pszProviderName
         pszAlgId := pszAlgId is String ? StrPtr(pszAlgId) : pszAlgId
 
-        ppFunctionTableMarshal := ppFunctionTable is VarRef ? "ptr*" : "ptr"
+        ppFunctionTableMarshal := ppFunctionTable is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, "ptr", pszProviderName, "ptr", pszAlgId, ppFunctionTableMarshal, ppFunctionTable, UInt32, dwFlags, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

@@ -46,7 +46,6 @@ export default struct IResourceManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {ITransaction} pTransaction 
      * @param {ITransactionResourceAsync} pRes 
      * @param {Pointer<BOID>} pUOW 
@@ -55,28 +54,28 @@ export default struct IResourceManager extends IUnknown {
      * @returns {HRESULT} 
      */
     Enlist(pTransaction, pRes, pUOW, pisoLevel, ppEnlist) {
-        pisoLevelMarshal := pisoLevel is VarRef ? "int*" : "ptr"
+        pTransactionMarshal := pTransaction == 0 ? IntPtr : "ptr"
+        pResMarshal := pRes == 0 ? IntPtr : "ptr"
+        pisoLevelMarshal := pisoLevel is VarRef ? "int*" : IntPtr
 
-        result := ComCall(3, this, "ptr", pTransaction, "ptr", pRes, BOID.Ptr, pUOW, pisoLevelMarshal, pisoLevel, ITransactionEnlistmentAsync.Ptr, ppEnlist, "HRESULT")
+        result := ComCall(3, this, pTransactionMarshal, pTransaction, pResMarshal, pRes, BOID.Ptr, pUOW, pisoLevelMarshal, pisoLevel, ITransactionEnlistmentAsync.Ptr, ppEnlist, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pPrepInfo 
      * @param {Integer} cbPrepInfo 
      * @param {Integer} lTimeout 
      * @returns {XACTSTAT} 
      */
     Reenlist(pPrepInfo, cbPrepInfo, lTimeout) {
-        pPrepInfoMarshal := pPrepInfo is VarRef ? "char*" : "ptr"
+        pPrepInfoMarshal := pPrepInfo is VarRef ? "char*" : IntPtr
 
         result := ComCall(4, this, pPrepInfoMarshal, pPrepInfo, UInt32, cbPrepInfo, UInt32, lTimeout, "int*", &pXactStat := 0, "HRESULT")
         return pXactStat
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ReenlistmentComplete() {
@@ -85,7 +84,6 @@ export default struct IResourceManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} iid 
      * @returns {Pointer<Void>} 
      */
@@ -103,10 +101,10 @@ export default struct IResourceManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Enlist := CallbackCreate(GetMethod(implObj, "Enlist"), flags, 6)
-        this.vtbl.Reenlist := CallbackCreate(GetMethod(implObj, "Reenlist"), flags, 5)
-        this.vtbl.ReenlistmentComplete := CallbackCreate(GetMethod(implObj, "ReenlistmentComplete"), flags, 1)
-        this.vtbl.GetDistributedTransactionManager := CallbackCreate(GetMethod(implObj, "GetDistributedTransactionManager"), flags, 3)
+        this.vtbl.Enlist := CallbackCreate(ObjBindMethod(implObj, "Enlist"), flags, 6)
+        this.vtbl.Reenlist := CallbackCreate(ObjBindMethod(implObj, "Reenlist"), flags, 5)
+        this.vtbl.ReenlistmentComplete := CallbackCreate(ObjBindMethod(implObj, "ReenlistmentComplete"), flags, 1)
+        this.vtbl.GetDistributedTransactionManager := CallbackCreate(ObjBindMethod(implObj, "GetDistributedTransactionManager"), flags, 3)
     }
 
     Dispose() {

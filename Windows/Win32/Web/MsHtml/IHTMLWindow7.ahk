@@ -655,7 +655,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLSelection} 
      */
     getSelection() {
@@ -664,7 +663,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMNode} varArgIn 
      * @param {BSTR} bstrPseudoElt 
      * @returns {IHTMLCSSStyleDeclaration} 
@@ -677,7 +675,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStyleMedia} 
      */
     get_styleMedia() {
@@ -686,7 +683,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -696,7 +692,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_performance() {
@@ -706,7 +701,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_innerWidth() {
@@ -715,7 +709,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_innerHeight() {
@@ -724,7 +717,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_pageXOffset() {
@@ -733,7 +725,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_pageYOffset() {
@@ -742,7 +733,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_screenX() {
@@ -751,7 +741,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_screenY() {
@@ -760,7 +749,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_outerWidth() {
@@ -769,7 +757,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_outerHeight() {
@@ -778,7 +765,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -788,7 +774,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onabort() {
@@ -798,7 +783,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -808,7 +792,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_oncanplay() {
@@ -818,7 +801,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -828,7 +810,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_oncanplaythrough() {
@@ -838,7 +819,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -848,7 +828,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onchange() {
@@ -858,7 +837,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -868,7 +846,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onclick() {
@@ -878,7 +855,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -888,7 +864,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_oncontextmenu() {
@@ -898,7 +873,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -908,7 +882,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondblclick() {
@@ -918,7 +891,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -928,7 +900,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondrag() {
@@ -938,7 +909,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -948,7 +918,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondragend() {
@@ -958,7 +927,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -968,7 +936,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondragenter() {
@@ -978,7 +945,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -988,7 +954,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondragleave() {
@@ -998,7 +963,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1008,7 +972,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondragover() {
@@ -1018,7 +981,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1028,7 +990,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondragstart() {
@@ -1038,7 +999,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1048,7 +1008,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondrop() {
@@ -1058,7 +1017,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1068,7 +1026,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondurationchange() {
@@ -1078,7 +1035,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1088,7 +1044,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onfocusin() {
@@ -1098,7 +1053,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1108,7 +1062,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onfocusout() {
@@ -1118,7 +1071,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1128,7 +1080,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_oninput() {
@@ -1138,7 +1089,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1148,7 +1098,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onemptied() {
@@ -1158,7 +1107,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1168,7 +1116,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onended() {
@@ -1178,7 +1125,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1188,7 +1134,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onkeydown() {
@@ -1198,7 +1143,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1208,7 +1152,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onkeypress() {
@@ -1218,7 +1161,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1228,7 +1170,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onkeyup() {
@@ -1238,7 +1179,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1248,7 +1188,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onloadeddata() {
@@ -1258,7 +1197,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1268,7 +1206,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onloadedmetadata() {
@@ -1278,7 +1215,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1288,7 +1224,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onloadstart() {
@@ -1298,7 +1233,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1308,7 +1242,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmousedown() {
@@ -1318,7 +1251,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1328,7 +1260,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmouseenter() {
@@ -1338,7 +1269,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1348,7 +1278,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmouseleave() {
@@ -1358,7 +1287,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1368,7 +1296,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmousemove() {
@@ -1378,7 +1305,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1388,7 +1314,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmouseout() {
@@ -1398,7 +1323,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1408,7 +1332,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmouseover() {
@@ -1418,7 +1341,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1428,7 +1350,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmouseup() {
@@ -1438,7 +1359,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1448,7 +1368,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmousewheel() {
@@ -1458,7 +1377,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1468,7 +1386,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onoffline() {
@@ -1478,7 +1395,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1488,7 +1404,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ononline() {
@@ -1498,7 +1413,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1508,7 +1422,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onprogress() {
@@ -1518,7 +1431,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1528,7 +1440,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onratechange() {
@@ -1538,7 +1449,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1548,7 +1458,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onreadystatechange() {
@@ -1558,7 +1467,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1568,7 +1476,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onreset() {
@@ -1578,7 +1485,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1588,7 +1494,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onseeked() {
@@ -1598,7 +1503,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1608,7 +1512,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onseeking() {
@@ -1618,7 +1521,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1628,7 +1530,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onselect() {
@@ -1638,7 +1539,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1648,7 +1548,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onstalled() {
@@ -1658,7 +1557,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1668,7 +1566,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onstorage() {
@@ -1678,7 +1575,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1688,7 +1584,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onsubmit() {
@@ -1698,7 +1593,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1708,7 +1602,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onsuspend() {
@@ -1718,7 +1611,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1728,7 +1620,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ontimeupdate() {
@@ -1738,7 +1629,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1748,7 +1638,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onpause() {
@@ -1758,7 +1647,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1768,7 +1656,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onplay() {
@@ -1778,7 +1665,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1788,7 +1674,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onplaying() {
@@ -1798,7 +1683,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1808,7 +1692,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onvolumechange() {
@@ -1818,7 +1701,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1828,7 +1710,6 @@ export default struct IHTMLWindow7 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onwaiting() {
@@ -1846,125 +1727,125 @@ export default struct IHTMLWindow7 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.getSelection := CallbackCreate(GetMethod(implObj, "getSelection"), flags, 2)
-        this.vtbl.getComputedStyle := CallbackCreate(GetMethod(implObj, "getComputedStyle"), flags, 4)
-        this.vtbl.get_styleMedia := CallbackCreate(GetMethod(implObj, "get_styleMedia"), flags, 2)
-        this.vtbl.put_performance := CallbackCreate(GetMethod(implObj, "put_performance"), flags, 2)
-        this.vtbl.get_performance := CallbackCreate(GetMethod(implObj, "get_performance"), flags, 2)
-        this.vtbl.get_innerWidth := CallbackCreate(GetMethod(implObj, "get_innerWidth"), flags, 2)
-        this.vtbl.get_innerHeight := CallbackCreate(GetMethod(implObj, "get_innerHeight"), flags, 2)
-        this.vtbl.get_pageXOffset := CallbackCreate(GetMethod(implObj, "get_pageXOffset"), flags, 2)
-        this.vtbl.get_pageYOffset := CallbackCreate(GetMethod(implObj, "get_pageYOffset"), flags, 2)
-        this.vtbl.get_screenX := CallbackCreate(GetMethod(implObj, "get_screenX"), flags, 2)
-        this.vtbl.get_screenY := CallbackCreate(GetMethod(implObj, "get_screenY"), flags, 2)
-        this.vtbl.get_outerWidth := CallbackCreate(GetMethod(implObj, "get_outerWidth"), flags, 2)
-        this.vtbl.get_outerHeight := CallbackCreate(GetMethod(implObj, "get_outerHeight"), flags, 2)
-        this.vtbl.put_onabort := CallbackCreate(GetMethod(implObj, "put_onabort"), flags, 2)
-        this.vtbl.get_onabort := CallbackCreate(GetMethod(implObj, "get_onabort"), flags, 2)
-        this.vtbl.put_oncanplay := CallbackCreate(GetMethod(implObj, "put_oncanplay"), flags, 2)
-        this.vtbl.get_oncanplay := CallbackCreate(GetMethod(implObj, "get_oncanplay"), flags, 2)
-        this.vtbl.put_oncanplaythrough := CallbackCreate(GetMethod(implObj, "put_oncanplaythrough"), flags, 2)
-        this.vtbl.get_oncanplaythrough := CallbackCreate(GetMethod(implObj, "get_oncanplaythrough"), flags, 2)
-        this.vtbl.put_onchange := CallbackCreate(GetMethod(implObj, "put_onchange"), flags, 2)
-        this.vtbl.get_onchange := CallbackCreate(GetMethod(implObj, "get_onchange"), flags, 2)
-        this.vtbl.put_onclick := CallbackCreate(GetMethod(implObj, "put_onclick"), flags, 2)
-        this.vtbl.get_onclick := CallbackCreate(GetMethod(implObj, "get_onclick"), flags, 2)
-        this.vtbl.put_oncontextmenu := CallbackCreate(GetMethod(implObj, "put_oncontextmenu"), flags, 2)
-        this.vtbl.get_oncontextmenu := CallbackCreate(GetMethod(implObj, "get_oncontextmenu"), flags, 2)
-        this.vtbl.put_ondblclick := CallbackCreate(GetMethod(implObj, "put_ondblclick"), flags, 2)
-        this.vtbl.get_ondblclick := CallbackCreate(GetMethod(implObj, "get_ondblclick"), flags, 2)
-        this.vtbl.put_ondrag := CallbackCreate(GetMethod(implObj, "put_ondrag"), flags, 2)
-        this.vtbl.get_ondrag := CallbackCreate(GetMethod(implObj, "get_ondrag"), flags, 2)
-        this.vtbl.put_ondragend := CallbackCreate(GetMethod(implObj, "put_ondragend"), flags, 2)
-        this.vtbl.get_ondragend := CallbackCreate(GetMethod(implObj, "get_ondragend"), flags, 2)
-        this.vtbl.put_ondragenter := CallbackCreate(GetMethod(implObj, "put_ondragenter"), flags, 2)
-        this.vtbl.get_ondragenter := CallbackCreate(GetMethod(implObj, "get_ondragenter"), flags, 2)
-        this.vtbl.put_ondragleave := CallbackCreate(GetMethod(implObj, "put_ondragleave"), flags, 2)
-        this.vtbl.get_ondragleave := CallbackCreate(GetMethod(implObj, "get_ondragleave"), flags, 2)
-        this.vtbl.put_ondragover := CallbackCreate(GetMethod(implObj, "put_ondragover"), flags, 2)
-        this.vtbl.get_ondragover := CallbackCreate(GetMethod(implObj, "get_ondragover"), flags, 2)
-        this.vtbl.put_ondragstart := CallbackCreate(GetMethod(implObj, "put_ondragstart"), flags, 2)
-        this.vtbl.get_ondragstart := CallbackCreate(GetMethod(implObj, "get_ondragstart"), flags, 2)
-        this.vtbl.put_ondrop := CallbackCreate(GetMethod(implObj, "put_ondrop"), flags, 2)
-        this.vtbl.get_ondrop := CallbackCreate(GetMethod(implObj, "get_ondrop"), flags, 2)
-        this.vtbl.put_ondurationchange := CallbackCreate(GetMethod(implObj, "put_ondurationchange"), flags, 2)
-        this.vtbl.get_ondurationchange := CallbackCreate(GetMethod(implObj, "get_ondurationchange"), flags, 2)
-        this.vtbl.put_onfocusin := CallbackCreate(GetMethod(implObj, "put_onfocusin"), flags, 2)
-        this.vtbl.get_onfocusin := CallbackCreate(GetMethod(implObj, "get_onfocusin"), flags, 2)
-        this.vtbl.put_onfocusout := CallbackCreate(GetMethod(implObj, "put_onfocusout"), flags, 2)
-        this.vtbl.get_onfocusout := CallbackCreate(GetMethod(implObj, "get_onfocusout"), flags, 2)
-        this.vtbl.put_oninput := CallbackCreate(GetMethod(implObj, "put_oninput"), flags, 2)
-        this.vtbl.get_oninput := CallbackCreate(GetMethod(implObj, "get_oninput"), flags, 2)
-        this.vtbl.put_onemptied := CallbackCreate(GetMethod(implObj, "put_onemptied"), flags, 2)
-        this.vtbl.get_onemptied := CallbackCreate(GetMethod(implObj, "get_onemptied"), flags, 2)
-        this.vtbl.put_onended := CallbackCreate(GetMethod(implObj, "put_onended"), flags, 2)
-        this.vtbl.get_onended := CallbackCreate(GetMethod(implObj, "get_onended"), flags, 2)
-        this.vtbl.put_onkeydown := CallbackCreate(GetMethod(implObj, "put_onkeydown"), flags, 2)
-        this.vtbl.get_onkeydown := CallbackCreate(GetMethod(implObj, "get_onkeydown"), flags, 2)
-        this.vtbl.put_onkeypress := CallbackCreate(GetMethod(implObj, "put_onkeypress"), flags, 2)
-        this.vtbl.get_onkeypress := CallbackCreate(GetMethod(implObj, "get_onkeypress"), flags, 2)
-        this.vtbl.put_onkeyup := CallbackCreate(GetMethod(implObj, "put_onkeyup"), flags, 2)
-        this.vtbl.get_onkeyup := CallbackCreate(GetMethod(implObj, "get_onkeyup"), flags, 2)
-        this.vtbl.put_onloadeddata := CallbackCreate(GetMethod(implObj, "put_onloadeddata"), flags, 2)
-        this.vtbl.get_onloadeddata := CallbackCreate(GetMethod(implObj, "get_onloadeddata"), flags, 2)
-        this.vtbl.put_onloadedmetadata := CallbackCreate(GetMethod(implObj, "put_onloadedmetadata"), flags, 2)
-        this.vtbl.get_onloadedmetadata := CallbackCreate(GetMethod(implObj, "get_onloadedmetadata"), flags, 2)
-        this.vtbl.put_onloadstart := CallbackCreate(GetMethod(implObj, "put_onloadstart"), flags, 2)
-        this.vtbl.get_onloadstart := CallbackCreate(GetMethod(implObj, "get_onloadstart"), flags, 2)
-        this.vtbl.put_onmousedown := CallbackCreate(GetMethod(implObj, "put_onmousedown"), flags, 2)
-        this.vtbl.get_onmousedown := CallbackCreate(GetMethod(implObj, "get_onmousedown"), flags, 2)
-        this.vtbl.put_onmouseenter := CallbackCreate(GetMethod(implObj, "put_onmouseenter"), flags, 2)
-        this.vtbl.get_onmouseenter := CallbackCreate(GetMethod(implObj, "get_onmouseenter"), flags, 2)
-        this.vtbl.put_onmouseleave := CallbackCreate(GetMethod(implObj, "put_onmouseleave"), flags, 2)
-        this.vtbl.get_onmouseleave := CallbackCreate(GetMethod(implObj, "get_onmouseleave"), flags, 2)
-        this.vtbl.put_onmousemove := CallbackCreate(GetMethod(implObj, "put_onmousemove"), flags, 2)
-        this.vtbl.get_onmousemove := CallbackCreate(GetMethod(implObj, "get_onmousemove"), flags, 2)
-        this.vtbl.put_onmouseout := CallbackCreate(GetMethod(implObj, "put_onmouseout"), flags, 2)
-        this.vtbl.get_onmouseout := CallbackCreate(GetMethod(implObj, "get_onmouseout"), flags, 2)
-        this.vtbl.put_onmouseover := CallbackCreate(GetMethod(implObj, "put_onmouseover"), flags, 2)
-        this.vtbl.get_onmouseover := CallbackCreate(GetMethod(implObj, "get_onmouseover"), flags, 2)
-        this.vtbl.put_onmouseup := CallbackCreate(GetMethod(implObj, "put_onmouseup"), flags, 2)
-        this.vtbl.get_onmouseup := CallbackCreate(GetMethod(implObj, "get_onmouseup"), flags, 2)
-        this.vtbl.put_onmousewheel := CallbackCreate(GetMethod(implObj, "put_onmousewheel"), flags, 2)
-        this.vtbl.get_onmousewheel := CallbackCreate(GetMethod(implObj, "get_onmousewheel"), flags, 2)
-        this.vtbl.put_onoffline := CallbackCreate(GetMethod(implObj, "put_onoffline"), flags, 2)
-        this.vtbl.get_onoffline := CallbackCreate(GetMethod(implObj, "get_onoffline"), flags, 2)
-        this.vtbl.put_ononline := CallbackCreate(GetMethod(implObj, "put_ononline"), flags, 2)
-        this.vtbl.get_ononline := CallbackCreate(GetMethod(implObj, "get_ononline"), flags, 2)
-        this.vtbl.put_onprogress := CallbackCreate(GetMethod(implObj, "put_onprogress"), flags, 2)
-        this.vtbl.get_onprogress := CallbackCreate(GetMethod(implObj, "get_onprogress"), flags, 2)
-        this.vtbl.put_onratechange := CallbackCreate(GetMethod(implObj, "put_onratechange"), flags, 2)
-        this.vtbl.get_onratechange := CallbackCreate(GetMethod(implObj, "get_onratechange"), flags, 2)
-        this.vtbl.put_onreadystatechange := CallbackCreate(GetMethod(implObj, "put_onreadystatechange"), flags, 2)
-        this.vtbl.get_onreadystatechange := CallbackCreate(GetMethod(implObj, "get_onreadystatechange"), flags, 2)
-        this.vtbl.put_onreset := CallbackCreate(GetMethod(implObj, "put_onreset"), flags, 2)
-        this.vtbl.get_onreset := CallbackCreate(GetMethod(implObj, "get_onreset"), flags, 2)
-        this.vtbl.put_onseeked := CallbackCreate(GetMethod(implObj, "put_onseeked"), flags, 2)
-        this.vtbl.get_onseeked := CallbackCreate(GetMethod(implObj, "get_onseeked"), flags, 2)
-        this.vtbl.put_onseeking := CallbackCreate(GetMethod(implObj, "put_onseeking"), flags, 2)
-        this.vtbl.get_onseeking := CallbackCreate(GetMethod(implObj, "get_onseeking"), flags, 2)
-        this.vtbl.put_onselect := CallbackCreate(GetMethod(implObj, "put_onselect"), flags, 2)
-        this.vtbl.get_onselect := CallbackCreate(GetMethod(implObj, "get_onselect"), flags, 2)
-        this.vtbl.put_onstalled := CallbackCreate(GetMethod(implObj, "put_onstalled"), flags, 2)
-        this.vtbl.get_onstalled := CallbackCreate(GetMethod(implObj, "get_onstalled"), flags, 2)
-        this.vtbl.put_onstorage := CallbackCreate(GetMethod(implObj, "put_onstorage"), flags, 2)
-        this.vtbl.get_onstorage := CallbackCreate(GetMethod(implObj, "get_onstorage"), flags, 2)
-        this.vtbl.put_onsubmit := CallbackCreate(GetMethod(implObj, "put_onsubmit"), flags, 2)
-        this.vtbl.get_onsubmit := CallbackCreate(GetMethod(implObj, "get_onsubmit"), flags, 2)
-        this.vtbl.put_onsuspend := CallbackCreate(GetMethod(implObj, "put_onsuspend"), flags, 2)
-        this.vtbl.get_onsuspend := CallbackCreate(GetMethod(implObj, "get_onsuspend"), flags, 2)
-        this.vtbl.put_ontimeupdate := CallbackCreate(GetMethod(implObj, "put_ontimeupdate"), flags, 2)
-        this.vtbl.get_ontimeupdate := CallbackCreate(GetMethod(implObj, "get_ontimeupdate"), flags, 2)
-        this.vtbl.put_onpause := CallbackCreate(GetMethod(implObj, "put_onpause"), flags, 2)
-        this.vtbl.get_onpause := CallbackCreate(GetMethod(implObj, "get_onpause"), flags, 2)
-        this.vtbl.put_onplay := CallbackCreate(GetMethod(implObj, "put_onplay"), flags, 2)
-        this.vtbl.get_onplay := CallbackCreate(GetMethod(implObj, "get_onplay"), flags, 2)
-        this.vtbl.put_onplaying := CallbackCreate(GetMethod(implObj, "put_onplaying"), flags, 2)
-        this.vtbl.get_onplaying := CallbackCreate(GetMethod(implObj, "get_onplaying"), flags, 2)
-        this.vtbl.put_onvolumechange := CallbackCreate(GetMethod(implObj, "put_onvolumechange"), flags, 2)
-        this.vtbl.get_onvolumechange := CallbackCreate(GetMethod(implObj, "get_onvolumechange"), flags, 2)
-        this.vtbl.put_onwaiting := CallbackCreate(GetMethod(implObj, "put_onwaiting"), flags, 2)
-        this.vtbl.get_onwaiting := CallbackCreate(GetMethod(implObj, "get_onwaiting"), flags, 2)
+        this.vtbl.getSelection := CallbackCreate(ObjBindMethod(implObj, "getSelection"), flags, 2)
+        this.vtbl.getComputedStyle := CallbackCreate(ObjBindMethod(implObj, "getComputedStyle"), flags, 4)
+        this.vtbl.get_styleMedia := CallbackCreate(ObjBindMethod(implObj, "get_styleMedia"), flags, 2)
+        this.vtbl.put_performance := CallbackCreate(ObjBindMethod(implObj, "put_performance"), flags, 2)
+        this.vtbl.get_performance := CallbackCreate(ObjBindMethod(implObj, "get_performance"), flags, 2)
+        this.vtbl.get_innerWidth := CallbackCreate(ObjBindMethod(implObj, "get_innerWidth"), flags, 2)
+        this.vtbl.get_innerHeight := CallbackCreate(ObjBindMethod(implObj, "get_innerHeight"), flags, 2)
+        this.vtbl.get_pageXOffset := CallbackCreate(ObjBindMethod(implObj, "get_pageXOffset"), flags, 2)
+        this.vtbl.get_pageYOffset := CallbackCreate(ObjBindMethod(implObj, "get_pageYOffset"), flags, 2)
+        this.vtbl.get_screenX := CallbackCreate(ObjBindMethod(implObj, "get_screenX"), flags, 2)
+        this.vtbl.get_screenY := CallbackCreate(ObjBindMethod(implObj, "get_screenY"), flags, 2)
+        this.vtbl.get_outerWidth := CallbackCreate(ObjBindMethod(implObj, "get_outerWidth"), flags, 2)
+        this.vtbl.get_outerHeight := CallbackCreate(ObjBindMethod(implObj, "get_outerHeight"), flags, 2)
+        this.vtbl.put_onabort := CallbackCreate(ObjBindMethod(implObj, "put_onabort"), flags, 2)
+        this.vtbl.get_onabort := CallbackCreate(ObjBindMethod(implObj, "get_onabort"), flags, 2)
+        this.vtbl.put_oncanplay := CallbackCreate(ObjBindMethod(implObj, "put_oncanplay"), flags, 2)
+        this.vtbl.get_oncanplay := CallbackCreate(ObjBindMethod(implObj, "get_oncanplay"), flags, 2)
+        this.vtbl.put_oncanplaythrough := CallbackCreate(ObjBindMethod(implObj, "put_oncanplaythrough"), flags, 2)
+        this.vtbl.get_oncanplaythrough := CallbackCreate(ObjBindMethod(implObj, "get_oncanplaythrough"), flags, 2)
+        this.vtbl.put_onchange := CallbackCreate(ObjBindMethod(implObj, "put_onchange"), flags, 2)
+        this.vtbl.get_onchange := CallbackCreate(ObjBindMethod(implObj, "get_onchange"), flags, 2)
+        this.vtbl.put_onclick := CallbackCreate(ObjBindMethod(implObj, "put_onclick"), flags, 2)
+        this.vtbl.get_onclick := CallbackCreate(ObjBindMethod(implObj, "get_onclick"), flags, 2)
+        this.vtbl.put_oncontextmenu := CallbackCreate(ObjBindMethod(implObj, "put_oncontextmenu"), flags, 2)
+        this.vtbl.get_oncontextmenu := CallbackCreate(ObjBindMethod(implObj, "get_oncontextmenu"), flags, 2)
+        this.vtbl.put_ondblclick := CallbackCreate(ObjBindMethod(implObj, "put_ondblclick"), flags, 2)
+        this.vtbl.get_ondblclick := CallbackCreate(ObjBindMethod(implObj, "get_ondblclick"), flags, 2)
+        this.vtbl.put_ondrag := CallbackCreate(ObjBindMethod(implObj, "put_ondrag"), flags, 2)
+        this.vtbl.get_ondrag := CallbackCreate(ObjBindMethod(implObj, "get_ondrag"), flags, 2)
+        this.vtbl.put_ondragend := CallbackCreate(ObjBindMethod(implObj, "put_ondragend"), flags, 2)
+        this.vtbl.get_ondragend := CallbackCreate(ObjBindMethod(implObj, "get_ondragend"), flags, 2)
+        this.vtbl.put_ondragenter := CallbackCreate(ObjBindMethod(implObj, "put_ondragenter"), flags, 2)
+        this.vtbl.get_ondragenter := CallbackCreate(ObjBindMethod(implObj, "get_ondragenter"), flags, 2)
+        this.vtbl.put_ondragleave := CallbackCreate(ObjBindMethod(implObj, "put_ondragleave"), flags, 2)
+        this.vtbl.get_ondragleave := CallbackCreate(ObjBindMethod(implObj, "get_ondragleave"), flags, 2)
+        this.vtbl.put_ondragover := CallbackCreate(ObjBindMethod(implObj, "put_ondragover"), flags, 2)
+        this.vtbl.get_ondragover := CallbackCreate(ObjBindMethod(implObj, "get_ondragover"), flags, 2)
+        this.vtbl.put_ondragstart := CallbackCreate(ObjBindMethod(implObj, "put_ondragstart"), flags, 2)
+        this.vtbl.get_ondragstart := CallbackCreate(ObjBindMethod(implObj, "get_ondragstart"), flags, 2)
+        this.vtbl.put_ondrop := CallbackCreate(ObjBindMethod(implObj, "put_ondrop"), flags, 2)
+        this.vtbl.get_ondrop := CallbackCreate(ObjBindMethod(implObj, "get_ondrop"), flags, 2)
+        this.vtbl.put_ondurationchange := CallbackCreate(ObjBindMethod(implObj, "put_ondurationchange"), flags, 2)
+        this.vtbl.get_ondurationchange := CallbackCreate(ObjBindMethod(implObj, "get_ondurationchange"), flags, 2)
+        this.vtbl.put_onfocusin := CallbackCreate(ObjBindMethod(implObj, "put_onfocusin"), flags, 2)
+        this.vtbl.get_onfocusin := CallbackCreate(ObjBindMethod(implObj, "get_onfocusin"), flags, 2)
+        this.vtbl.put_onfocusout := CallbackCreate(ObjBindMethod(implObj, "put_onfocusout"), flags, 2)
+        this.vtbl.get_onfocusout := CallbackCreate(ObjBindMethod(implObj, "get_onfocusout"), flags, 2)
+        this.vtbl.put_oninput := CallbackCreate(ObjBindMethod(implObj, "put_oninput"), flags, 2)
+        this.vtbl.get_oninput := CallbackCreate(ObjBindMethod(implObj, "get_oninput"), flags, 2)
+        this.vtbl.put_onemptied := CallbackCreate(ObjBindMethod(implObj, "put_onemptied"), flags, 2)
+        this.vtbl.get_onemptied := CallbackCreate(ObjBindMethod(implObj, "get_onemptied"), flags, 2)
+        this.vtbl.put_onended := CallbackCreate(ObjBindMethod(implObj, "put_onended"), flags, 2)
+        this.vtbl.get_onended := CallbackCreate(ObjBindMethod(implObj, "get_onended"), flags, 2)
+        this.vtbl.put_onkeydown := CallbackCreate(ObjBindMethod(implObj, "put_onkeydown"), flags, 2)
+        this.vtbl.get_onkeydown := CallbackCreate(ObjBindMethod(implObj, "get_onkeydown"), flags, 2)
+        this.vtbl.put_onkeypress := CallbackCreate(ObjBindMethod(implObj, "put_onkeypress"), flags, 2)
+        this.vtbl.get_onkeypress := CallbackCreate(ObjBindMethod(implObj, "get_onkeypress"), flags, 2)
+        this.vtbl.put_onkeyup := CallbackCreate(ObjBindMethod(implObj, "put_onkeyup"), flags, 2)
+        this.vtbl.get_onkeyup := CallbackCreate(ObjBindMethod(implObj, "get_onkeyup"), flags, 2)
+        this.vtbl.put_onloadeddata := CallbackCreate(ObjBindMethod(implObj, "put_onloadeddata"), flags, 2)
+        this.vtbl.get_onloadeddata := CallbackCreate(ObjBindMethod(implObj, "get_onloadeddata"), flags, 2)
+        this.vtbl.put_onloadedmetadata := CallbackCreate(ObjBindMethod(implObj, "put_onloadedmetadata"), flags, 2)
+        this.vtbl.get_onloadedmetadata := CallbackCreate(ObjBindMethod(implObj, "get_onloadedmetadata"), flags, 2)
+        this.vtbl.put_onloadstart := CallbackCreate(ObjBindMethod(implObj, "put_onloadstart"), flags, 2)
+        this.vtbl.get_onloadstart := CallbackCreate(ObjBindMethod(implObj, "get_onloadstart"), flags, 2)
+        this.vtbl.put_onmousedown := CallbackCreate(ObjBindMethod(implObj, "put_onmousedown"), flags, 2)
+        this.vtbl.get_onmousedown := CallbackCreate(ObjBindMethod(implObj, "get_onmousedown"), flags, 2)
+        this.vtbl.put_onmouseenter := CallbackCreate(ObjBindMethod(implObj, "put_onmouseenter"), flags, 2)
+        this.vtbl.get_onmouseenter := CallbackCreate(ObjBindMethod(implObj, "get_onmouseenter"), flags, 2)
+        this.vtbl.put_onmouseleave := CallbackCreate(ObjBindMethod(implObj, "put_onmouseleave"), flags, 2)
+        this.vtbl.get_onmouseleave := CallbackCreate(ObjBindMethod(implObj, "get_onmouseleave"), flags, 2)
+        this.vtbl.put_onmousemove := CallbackCreate(ObjBindMethod(implObj, "put_onmousemove"), flags, 2)
+        this.vtbl.get_onmousemove := CallbackCreate(ObjBindMethod(implObj, "get_onmousemove"), flags, 2)
+        this.vtbl.put_onmouseout := CallbackCreate(ObjBindMethod(implObj, "put_onmouseout"), flags, 2)
+        this.vtbl.get_onmouseout := CallbackCreate(ObjBindMethod(implObj, "get_onmouseout"), flags, 2)
+        this.vtbl.put_onmouseover := CallbackCreate(ObjBindMethod(implObj, "put_onmouseover"), flags, 2)
+        this.vtbl.get_onmouseover := CallbackCreate(ObjBindMethod(implObj, "get_onmouseover"), flags, 2)
+        this.vtbl.put_onmouseup := CallbackCreate(ObjBindMethod(implObj, "put_onmouseup"), flags, 2)
+        this.vtbl.get_onmouseup := CallbackCreate(ObjBindMethod(implObj, "get_onmouseup"), flags, 2)
+        this.vtbl.put_onmousewheel := CallbackCreate(ObjBindMethod(implObj, "put_onmousewheel"), flags, 2)
+        this.vtbl.get_onmousewheel := CallbackCreate(ObjBindMethod(implObj, "get_onmousewheel"), flags, 2)
+        this.vtbl.put_onoffline := CallbackCreate(ObjBindMethod(implObj, "put_onoffline"), flags, 2)
+        this.vtbl.get_onoffline := CallbackCreate(ObjBindMethod(implObj, "get_onoffline"), flags, 2)
+        this.vtbl.put_ononline := CallbackCreate(ObjBindMethod(implObj, "put_ononline"), flags, 2)
+        this.vtbl.get_ononline := CallbackCreate(ObjBindMethod(implObj, "get_ononline"), flags, 2)
+        this.vtbl.put_onprogress := CallbackCreate(ObjBindMethod(implObj, "put_onprogress"), flags, 2)
+        this.vtbl.get_onprogress := CallbackCreate(ObjBindMethod(implObj, "get_onprogress"), flags, 2)
+        this.vtbl.put_onratechange := CallbackCreate(ObjBindMethod(implObj, "put_onratechange"), flags, 2)
+        this.vtbl.get_onratechange := CallbackCreate(ObjBindMethod(implObj, "get_onratechange"), flags, 2)
+        this.vtbl.put_onreadystatechange := CallbackCreate(ObjBindMethod(implObj, "put_onreadystatechange"), flags, 2)
+        this.vtbl.get_onreadystatechange := CallbackCreate(ObjBindMethod(implObj, "get_onreadystatechange"), flags, 2)
+        this.vtbl.put_onreset := CallbackCreate(ObjBindMethod(implObj, "put_onreset"), flags, 2)
+        this.vtbl.get_onreset := CallbackCreate(ObjBindMethod(implObj, "get_onreset"), flags, 2)
+        this.vtbl.put_onseeked := CallbackCreate(ObjBindMethod(implObj, "put_onseeked"), flags, 2)
+        this.vtbl.get_onseeked := CallbackCreate(ObjBindMethod(implObj, "get_onseeked"), flags, 2)
+        this.vtbl.put_onseeking := CallbackCreate(ObjBindMethod(implObj, "put_onseeking"), flags, 2)
+        this.vtbl.get_onseeking := CallbackCreate(ObjBindMethod(implObj, "get_onseeking"), flags, 2)
+        this.vtbl.put_onselect := CallbackCreate(ObjBindMethod(implObj, "put_onselect"), flags, 2)
+        this.vtbl.get_onselect := CallbackCreate(ObjBindMethod(implObj, "get_onselect"), flags, 2)
+        this.vtbl.put_onstalled := CallbackCreate(ObjBindMethod(implObj, "put_onstalled"), flags, 2)
+        this.vtbl.get_onstalled := CallbackCreate(ObjBindMethod(implObj, "get_onstalled"), flags, 2)
+        this.vtbl.put_onstorage := CallbackCreate(ObjBindMethod(implObj, "put_onstorage"), flags, 2)
+        this.vtbl.get_onstorage := CallbackCreate(ObjBindMethod(implObj, "get_onstorage"), flags, 2)
+        this.vtbl.put_onsubmit := CallbackCreate(ObjBindMethod(implObj, "put_onsubmit"), flags, 2)
+        this.vtbl.get_onsubmit := CallbackCreate(ObjBindMethod(implObj, "get_onsubmit"), flags, 2)
+        this.vtbl.put_onsuspend := CallbackCreate(ObjBindMethod(implObj, "put_onsuspend"), flags, 2)
+        this.vtbl.get_onsuspend := CallbackCreate(ObjBindMethod(implObj, "get_onsuspend"), flags, 2)
+        this.vtbl.put_ontimeupdate := CallbackCreate(ObjBindMethod(implObj, "put_ontimeupdate"), flags, 2)
+        this.vtbl.get_ontimeupdate := CallbackCreate(ObjBindMethod(implObj, "get_ontimeupdate"), flags, 2)
+        this.vtbl.put_onpause := CallbackCreate(ObjBindMethod(implObj, "put_onpause"), flags, 2)
+        this.vtbl.get_onpause := CallbackCreate(ObjBindMethod(implObj, "get_onpause"), flags, 2)
+        this.vtbl.put_onplay := CallbackCreate(ObjBindMethod(implObj, "put_onplay"), flags, 2)
+        this.vtbl.get_onplay := CallbackCreate(ObjBindMethod(implObj, "get_onplay"), flags, 2)
+        this.vtbl.put_onplaying := CallbackCreate(ObjBindMethod(implObj, "put_onplaying"), flags, 2)
+        this.vtbl.get_onplaying := CallbackCreate(ObjBindMethod(implObj, "get_onplaying"), flags, 2)
+        this.vtbl.put_onvolumechange := CallbackCreate(ObjBindMethod(implObj, "put_onvolumechange"), flags, 2)
+        this.vtbl.get_onvolumechange := CallbackCreate(ObjBindMethod(implObj, "get_onvolumechange"), flags, 2)
+        this.vtbl.put_onwaiting := CallbackCreate(ObjBindMethod(implObj, "put_onwaiting"), flags, 2)
+        this.vtbl.get_onwaiting := CallbackCreate(ObjBindMethod(implObj, "get_onwaiting"), flags, 2)
     }
 
     Dispose() {

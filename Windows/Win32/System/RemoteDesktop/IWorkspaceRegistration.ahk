@@ -70,8 +70,8 @@ export default struct IWorkspaceRegistration extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddResource := CallbackCreate(GetMethod(implObj, "AddResource"), flags, 3)
-        this.vtbl.RemoveResource := CallbackCreate(GetMethod(implObj, "RemoveResource"), flags, 2)
+        this.vtbl.AddResource := CallbackCreate(ObjBindMethod(implObj, "AddResource"), flags, 3)
+        this.vtbl.RemoveResource := CallbackCreate(ObjBindMethod(implObj, "RemoveResource"), flags, 2)
     }
 
     Dispose() {

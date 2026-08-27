@@ -38,7 +38,6 @@ export default struct IElementNamespaceFactoryCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrNamespace 
      * @param {BSTR} bstrTagName 
      * @param {BSTR} bstrAttrs 
@@ -63,7 +62,7 @@ export default struct IElementNamespaceFactoryCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Resolve := CallbackCreate(GetMethod(implObj, "Resolve"), flags, 5)
+        this.vtbl.Resolve := CallbackCreate(ObjBindMethod(implObj, "Resolve"), flags, 5)
     }
 
     Dispose() {

@@ -159,10 +159,10 @@ export default struct IMbnSmsReadMsgPdu extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Index := CallbackCreate(GetMethod(implObj, "get_Index"), flags, 2)
-        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
-        this.vtbl.get_PduData := CallbackCreate(GetMethod(implObj, "get_PduData"), flags, 2)
-        this.vtbl.get_Message := CallbackCreate(GetMethod(implObj, "get_Message"), flags, 2)
+        this.vtbl.get_Index := CallbackCreate(ObjBindMethod(implObj, "get_Index"), flags, 2)
+        this.vtbl.get_Status := CallbackCreate(ObjBindMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.get_PduData := CallbackCreate(ObjBindMethod(implObj, "get_PduData"), flags, 2)
+        this.vtbl.get_Message := CallbackCreate(ObjBindMethod(implObj, "get_Message"), flags, 2)
     }
 
     Dispose() {

@@ -51,8 +51,8 @@ export default struct IFunctionDiscoveryProviderQuery extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryproviderquery-isinstancequery
      */
     IsInstanceQuery(pisInstanceQuery, ppszConstraintValue) {
-        pisInstanceQueryMarshal := pisInstanceQuery is VarRef ? "int*" : "ptr"
-        ppszConstraintValueMarshal := ppszConstraintValue is VarRef ? "ptr*" : "ptr"
+        pisInstanceQueryMarshal := pisInstanceQuery is VarRef ? "int*" : IntPtr
+        ppszConstraintValueMarshal := ppszConstraintValue is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, pisInstanceQueryMarshal, pisInstanceQuery, ppszConstraintValueMarshal, ppszConstraintValue, "HRESULT")
         return result
@@ -68,8 +68,8 @@ export default struct IFunctionDiscoveryProviderQuery extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryproviderquery-issubcategoryquery
      */
     IsSubcategoryQuery(pisSubcategoryQuery, ppszConstraintValue) {
-        pisSubcategoryQueryMarshal := pisSubcategoryQuery is VarRef ? "int*" : "ptr"
-        ppszConstraintValueMarshal := ppszConstraintValue is VarRef ? "ptr*" : "ptr"
+        pisSubcategoryQueryMarshal := pisSubcategoryQuery is VarRef ? "int*" : IntPtr
+        ppszConstraintValueMarshal := ppszConstraintValue is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, pisSubcategoryQueryMarshal, pisSubcategoryQuery, ppszConstraintValueMarshal, ppszConstraintValue, "HRESULT")
         return result
@@ -112,10 +112,10 @@ export default struct IFunctionDiscoveryProviderQuery extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsInstanceQuery := CallbackCreate(GetMethod(implObj, "IsInstanceQuery"), flags, 3)
-        this.vtbl.IsSubcategoryQuery := CallbackCreate(GetMethod(implObj, "IsSubcategoryQuery"), flags, 3)
-        this.vtbl.GetQueryConstraints := CallbackCreate(GetMethod(implObj, "GetQueryConstraints"), flags, 2)
-        this.vtbl.GetPropertyConstraints := CallbackCreate(GetMethod(implObj, "GetPropertyConstraints"), flags, 2)
+        this.vtbl.IsInstanceQuery := CallbackCreate(ObjBindMethod(implObj, "IsInstanceQuery"), flags, 3)
+        this.vtbl.IsSubcategoryQuery := CallbackCreate(ObjBindMethod(implObj, "IsSubcategoryQuery"), flags, 3)
+        this.vtbl.GetQueryConstraints := CallbackCreate(ObjBindMethod(implObj, "GetQueryConstraints"), flags, 2)
+        this.vtbl.GetPropertyConstraints := CallbackCreate(ObjBindMethod(implObj, "GetPropertyConstraints"), flags, 2)
     }
 
     Dispose() {

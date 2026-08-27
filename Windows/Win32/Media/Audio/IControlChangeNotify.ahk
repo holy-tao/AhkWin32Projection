@@ -47,7 +47,9 @@ export default struct IControlChangeNotify extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-icontrolchangenotify-onnotify
      */
     OnNotify(dwSenderProcessId, pguidEventContext) {
-        result := ComCall(3, this, UInt32, dwSenderProcessId, Guid.Ptr, pguidEventContext, "HRESULT")
+        pguidEventContextMarshal := pguidEventContext == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(3, this, UInt32, dwSenderProcessId, pguidEventContextMarshal, pguidEventContext, "HRESULT")
         return result
     }
 
@@ -60,7 +62,7 @@ export default struct IControlChangeNotify extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnNotify := CallbackCreate(GetMethod(implObj, "OnNotify"), flags, 3)
+        this.vtbl.OnNotify := CallbackCreate(ObjBindMethod(implObj, "OnNotify"), flags, 3)
     }
 
     Dispose() {

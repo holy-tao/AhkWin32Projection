@@ -37,7 +37,6 @@ export default struct IPhotoProgressActionCB extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} hWndParent 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,7 @@ export default struct IPhotoProgressActionCB extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DoAction := CallbackCreate(GetMethod(implObj, "DoAction"), flags, 2)
+        this.vtbl.DoAction := CallbackCreate(ObjBindMethod(implObj, "DoAction"), flags, 2)
     }
 
     Dispose() {

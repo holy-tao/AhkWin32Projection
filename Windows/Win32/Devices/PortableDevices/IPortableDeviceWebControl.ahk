@@ -112,7 +112,9 @@ export default struct IPortableDeviceWebControl extends IDispatch {
     GetDeviceFromIdAsync(deviceId, pCompletionHandler, pErrorHandler) {
         deviceId := deviceId is String ? BSTR.Alloc(deviceId).Value : deviceId
 
-        result := ComCall(8, this, BSTR, deviceId, "ptr", pCompletionHandler, "ptr", pErrorHandler, "HRESULT")
+        pErrorHandlerMarshal := pErrorHandler == 0 ? IntPtr : "ptr"
+
+        result := ComCall(8, this, BSTR, deviceId, "ptr", pCompletionHandler, pErrorHandlerMarshal, pErrorHandler, "HRESULT")
         return result
     }
 
@@ -125,8 +127,8 @@ export default struct IPortableDeviceWebControl extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDeviceFromId := CallbackCreate(GetMethod(implObj, "GetDeviceFromId"), flags, 3)
-        this.vtbl.GetDeviceFromIdAsync := CallbackCreate(GetMethod(implObj, "GetDeviceFromIdAsync"), flags, 4)
+        this.vtbl.GetDeviceFromId := CallbackCreate(ObjBindMethod(implObj, "GetDeviceFromId"), flags, 3)
+        this.vtbl.GetDeviceFromIdAsync := CallbackCreate(ObjBindMethod(implObj, "GetDeviceFromIdAsync"), flags, 4)
     }
 
     Dispose() {

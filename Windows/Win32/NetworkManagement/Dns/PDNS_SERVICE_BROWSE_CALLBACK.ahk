@@ -19,14 +19,13 @@ export default struct PDNS_SERVICE_BROWSE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Integer} _Status 
      * @param {Pointer<Void>} pQueryContext 
      * @param {Pointer<DNS_RECORDW>} pDnsRecord 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Status, pQueryContext, pDnsRecord) {
-        pQueryContextMarshal := pQueryContext is VarRef ? "ptr" : "ptr"
+        pQueryContextMarshal := pQueryContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, UInt32, _Status, pQueryContextMarshal, pQueryContext, DNS_RECORDW.Ptr, pDnsRecord)
     }

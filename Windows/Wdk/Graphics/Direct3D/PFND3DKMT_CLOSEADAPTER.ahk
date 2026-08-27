@@ -20,7 +20,6 @@ export default struct PFND3DKMT_CLOSEADAPTER {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CLOSEADAPTER>} param0 
      * @returns {NTSTATUS} 
      */

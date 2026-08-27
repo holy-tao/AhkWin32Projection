@@ -40,7 +40,6 @@ export default struct ISyncChangeBatch2 extends ISyncChangeBatch {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbOwnerReplicaId 
      * @param {Pointer<Integer>} pbWinnerItemId 
      * @param {Pointer<Integer>} pbItemId 
@@ -50,16 +49,15 @@ export default struct ISyncChangeBatch2 extends ISyncChangeBatch {
      * @returns {ISyncChangeBuilder} 
      */
     AddMergeTombstoneMetadataToGroup(pbOwnerReplicaId, pbWinnerItemId, pbItemId, pChangeVersion, pCreationVersion, dwWorkForChange) {
-        pbOwnerReplicaIdMarshal := pbOwnerReplicaId is VarRef ? "char*" : "ptr"
-        pbWinnerItemIdMarshal := pbWinnerItemId is VarRef ? "char*" : "ptr"
-        pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
+        pbOwnerReplicaIdMarshal := pbOwnerReplicaId is VarRef ? "char*" : IntPtr
+        pbWinnerItemIdMarshal := pbWinnerItemId is VarRef ? "char*" : IntPtr
+        pbItemIdMarshal := pbItemId is VarRef ? "char*" : IntPtr
 
         result := ComCall(20, this, pbOwnerReplicaIdMarshal, pbOwnerReplicaId, pbWinnerItemIdMarshal, pbWinnerItemId, pbItemIdMarshal, pbItemId, SYNC_VERSION.Ptr, pChangeVersion, SYNC_VERSION.Ptr, pCreationVersion, UInt32, dwWorkForChange, "ptr*", &ppChangeBuilder := 0, "HRESULT")
         return ISyncChangeBuilder(ppChangeBuilder)
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbOwnerReplicaId 
      * @param {Pointer<Integer>} pbWinnerItemId 
      * @param {Pointer<Integer>} pbItemId 
@@ -70,9 +68,9 @@ export default struct ISyncChangeBatch2 extends ISyncChangeBatch {
      * @returns {ISyncChangeBuilder} 
      */
     AddMergeTombstoneLoggedConflict(pbOwnerReplicaId, pbWinnerItemId, pbItemId, pChangeVersion, pCreationVersion, dwWorkForChange, pConflictKnowledge) {
-        pbOwnerReplicaIdMarshal := pbOwnerReplicaId is VarRef ? "char*" : "ptr"
-        pbWinnerItemIdMarshal := pbWinnerItemId is VarRef ? "char*" : "ptr"
-        pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
+        pbOwnerReplicaIdMarshal := pbOwnerReplicaId is VarRef ? "char*" : IntPtr
+        pbWinnerItemIdMarshal := pbWinnerItemId is VarRef ? "char*" : IntPtr
+        pbItemIdMarshal := pbItemId is VarRef ? "char*" : IntPtr
 
         result := ComCall(21, this, pbOwnerReplicaIdMarshal, pbOwnerReplicaId, pbWinnerItemIdMarshal, pbWinnerItemId, pbItemIdMarshal, pbItemId, SYNC_VERSION.Ptr, pChangeVersion, SYNC_VERSION.Ptr, pCreationVersion, UInt32, dwWorkForChange, "ptr", pConflictKnowledge, "ptr*", &ppChangeBuilder := 0, "HRESULT")
         return ISyncChangeBuilder(ppChangeBuilder)
@@ -87,8 +85,8 @@ export default struct ISyncChangeBatch2 extends ISyncChangeBatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddMergeTombstoneMetadataToGroup := CallbackCreate(GetMethod(implObj, "AddMergeTombstoneMetadataToGroup"), flags, 8)
-        this.vtbl.AddMergeTombstoneLoggedConflict := CallbackCreate(GetMethod(implObj, "AddMergeTombstoneLoggedConflict"), flags, 9)
+        this.vtbl.AddMergeTombstoneMetadataToGroup := CallbackCreate(ObjBindMethod(implObj, "AddMergeTombstoneMetadataToGroup"), flags, 8)
+        this.vtbl.AddMergeTombstoneLoggedConflict := CallbackCreate(ObjBindMethod(implObj, "AddMergeTombstoneLoggedConflict"), flags, 9)
     }
 
     Dispose() {

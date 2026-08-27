@@ -58,7 +58,7 @@ export default struct IProvideClassInfo2 extends IProvideClassInfo {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetGUID := CallbackCreate(GetMethod(implObj, "GetGUID"), flags, 3)
+        this.vtbl.GetGUID := CallbackCreate(ObjBindMethod(implObj, "GetGUID"), flags, 3)
     }
 
     Dispose() {

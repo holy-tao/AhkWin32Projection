@@ -37,7 +37,6 @@ export default struct IKsAggregateControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} AggregateClass 
      * @returns {HRESULT} 
      */
@@ -47,7 +46,6 @@ export default struct IKsAggregateControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} AggregateClass 
      * @returns {HRESULT} 
      */
@@ -65,8 +63,8 @@ export default struct IKsAggregateControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.KsAddAggregate := CallbackCreate(GetMethod(implObj, "KsAddAggregate"), flags, 2)
-        this.vtbl.KsRemoveAggregate := CallbackCreate(GetMethod(implObj, "KsRemoveAggregate"), flags, 2)
+        this.vtbl.KsAddAggregate := CallbackCreate(ObjBindMethod(implObj, "KsAddAggregate"), flags, 2)
+        this.vtbl.KsRemoveAggregate := CallbackCreate(ObjBindMethod(implObj, "KsRemoveAggregate"), flags, 2)
     }
 
     Dispose() {

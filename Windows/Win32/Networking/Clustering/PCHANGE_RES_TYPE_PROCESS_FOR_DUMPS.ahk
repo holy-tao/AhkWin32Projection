@@ -20,7 +20,6 @@ export default struct PCHANGE_RES_TYPE_PROCESS_FOR_DUMPS {
     }
 
     /**
-     * 
      * @param {PWSTR} resourceTypeName 
      * @param {PWSTR} processName 
      * @param {Integer} processId 

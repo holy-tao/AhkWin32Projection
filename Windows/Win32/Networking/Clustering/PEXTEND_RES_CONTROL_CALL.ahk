@@ -20,7 +20,6 @@ export default struct PEXTEND_RES_CONTROL_CALL {
     }
 
     /**
-     * 
      * @param {Integer} _context The context to the resource control code that was called.
      * @param {Integer} newTimeoutInMs The new timeout, in milliseconds.
      * @returns {Integer} <b>ERROR_SUCCESS</b> if the operation is successful; otherwise, a system error code.

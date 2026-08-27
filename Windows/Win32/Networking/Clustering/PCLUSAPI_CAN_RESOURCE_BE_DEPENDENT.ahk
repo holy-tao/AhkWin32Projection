@@ -20,7 +20,6 @@ export default struct PCLUSAPI_CAN_RESOURCE_BE_DEPENDENT {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {HRESOURCE} hResourceDependent 
      * @returns {BOOL} 

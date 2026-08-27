@@ -39,7 +39,6 @@ export default struct IApplicationDebuggerUI extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugDocumentText} pddt 
      * @returns {HRESULT} 
      */
@@ -49,7 +48,6 @@ export default struct IApplicationDebuggerUI extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugDocumentContext} pddc 
      * @returns {HRESULT} 
      */
@@ -67,8 +65,8 @@ export default struct IApplicationDebuggerUI extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BringDocumentToTop := CallbackCreate(GetMethod(implObj, "BringDocumentToTop"), flags, 2)
-        this.vtbl.BringDocumentContextToTop := CallbackCreate(GetMethod(implObj, "BringDocumentContextToTop"), flags, 2)
+        this.vtbl.BringDocumentToTop := CallbackCreate(ObjBindMethod(implObj, "BringDocumentToTop"), flags, 2)
+        this.vtbl.BringDocumentContextToTop := CallbackCreate(ObjBindMethod(implObj, "BringDocumentContextToTop"), flags, 2)
     }
 
     Dispose() {

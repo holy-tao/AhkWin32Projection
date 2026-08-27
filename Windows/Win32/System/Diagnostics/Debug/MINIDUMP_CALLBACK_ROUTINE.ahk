@@ -23,7 +23,6 @@ export default struct MINIDUMP_CALLBACK_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} CallbackParam An application-defined parameter value.
      * @param {Pointer<MINIDUMP_CALLBACK_INPUT>} CallbackInput A pointer to a 
      * <a href="https://docs.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_callback_input">MINIDUMP_CALLBACK_INPUT</a> structure that specifies extended minidump information.
@@ -32,7 +31,7 @@ export default struct MINIDUMP_CALLBACK_ROUTINE {
      * @returns {BOOL} If the function succeeds, return <b>TRUE</b>; otherwise, return <b>FALSE</b>.
      */
     Call(CallbackParam, CallbackInput, CallbackOutput) {
-        CallbackParamMarshal := CallbackParam is VarRef ? "ptr" : "ptr"
+        CallbackParamMarshal := CallbackParam is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, CallbackParamMarshal, CallbackParam, MINIDUMP_CALLBACK_INPUT.Ptr, CallbackInput, MINIDUMP_CALLBACK_OUTPUT.Ptr, CallbackOutput, BOOL)
         return result

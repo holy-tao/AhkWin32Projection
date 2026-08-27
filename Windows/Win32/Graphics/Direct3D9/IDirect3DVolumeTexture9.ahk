@@ -177,11 +177,11 @@ export default struct IDirect3DVolumeTexture9 extends IDirect3DBaseTexture9 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLevelDesc := CallbackCreate(GetMethod(implObj, "GetLevelDesc"), flags, 3)
-        this.vtbl.GetVolumeLevel := CallbackCreate(GetMethod(implObj, "GetVolumeLevel"), flags, 3)
-        this.vtbl.LockBox := CallbackCreate(GetMethod(implObj, "LockBox"), flags, 5)
-        this.vtbl.UnlockBox := CallbackCreate(GetMethod(implObj, "UnlockBox"), flags, 2)
-        this.vtbl.AddDirtyBox := CallbackCreate(GetMethod(implObj, "AddDirtyBox"), flags, 2)
+        this.vtbl.GetLevelDesc := CallbackCreate(ObjBindMethod(implObj, "GetLevelDesc"), flags, 3)
+        this.vtbl.GetVolumeLevel := CallbackCreate(ObjBindMethod(implObj, "GetVolumeLevel"), flags, 3)
+        this.vtbl.LockBox := CallbackCreate(ObjBindMethod(implObj, "LockBox"), flags, 5)
+        this.vtbl.UnlockBox := CallbackCreate(ObjBindMethod(implObj, "UnlockBox"), flags, 2)
+        this.vtbl.AddDirtyBox := CallbackCreate(ObjBindMethod(implObj, "AddDirtyBox"), flags, 2)
     }
 
     Dispose() {

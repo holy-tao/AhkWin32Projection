@@ -651,8 +651,10 @@ export default struct IMFMediaEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-getnativevideosize
      */
     GetNativeVideoSize(cx, _cy) {
-        cxMarshal := cx is VarRef ? "uint*" : "ptr"
-        _cyMarshal := _cy is VarRef ? "uint*" : "ptr"
+        cxMarshal := cx is VarRef ? "uint*" : IntPtr
+        cxMarshal := cx == 0 ? IntPtr : "uint*"
+        _cyMarshal := _cy is VarRef ? "uint*" : IntPtr
+        _cyMarshal := _cy == 0 ? IntPtr : "uint*"
 
         result := ComCall(40, this, cxMarshal, cx, _cyMarshal, _cy, "HRESULT")
         return result
@@ -668,8 +670,10 @@ export default struct IMFMediaEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-getvideoaspectratio
      */
     GetVideoAspectRatio(cx, _cy) {
-        cxMarshal := cx is VarRef ? "uint*" : "ptr"
-        _cyMarshal := _cy is VarRef ? "uint*" : "ptr"
+        cxMarshal := cx is VarRef ? "uint*" : IntPtr
+        cxMarshal := cx == 0 ? IntPtr : "uint*"
+        _cyMarshal := _cy is VarRef ? "uint*" : IntPtr
+        _cyMarshal := _cy == 0 ? IntPtr : "uint*"
 
         result := ComCall(41, this, cxMarshal, cx, _cyMarshal, _cy, "HRESULT")
         return result
@@ -701,7 +705,10 @@ export default struct IMFMediaEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-transfervideoframe
      */
     TransferVideoFrame(pDstSurf, pSrc, pDst, pBorderClr) {
-        result := ComCall(43, this, "ptr", pDstSurf, MFVideoNormalizedRect.Ptr, pSrc, RECT.Ptr, pDst, MFARGB.Ptr, pBorderClr, "HRESULT")
+        pSrcMarshal := pSrc == 0 ? IntPtr : MFVideoNormalizedRect.Ptr
+        pBorderClrMarshal := pBorderClr == 0 ? IntPtr : MFARGB.Ptr
+
+        result := ComCall(43, this, "ptr", pDstSurf, pSrcMarshal, pSrc, RECT.Ptr, pDst, pBorderClrMarshal, pBorderClr, "HRESULT")
         return result
     }
 
@@ -728,48 +735,48 @@ export default struct IMFMediaEngine extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetError := CallbackCreate(GetMethod(implObj, "GetError"), flags, 2)
-        this.vtbl.SetErrorCode := CallbackCreate(GetMethod(implObj, "SetErrorCode"), flags, 2)
-        this.vtbl.SetSourceElements := CallbackCreate(GetMethod(implObj, "SetSourceElements"), flags, 2)
-        this.vtbl.SetSource := CallbackCreate(GetMethod(implObj, "SetSource"), flags, 2)
-        this.vtbl.GetCurrentSource := CallbackCreate(GetMethod(implObj, "GetCurrentSource"), flags, 2)
-        this.vtbl.GetNetworkState := CallbackCreate(GetMethod(implObj, "GetNetworkState"), flags, 1)
-        this.vtbl.GetPreload := CallbackCreate(GetMethod(implObj, "GetPreload"), flags, 1)
-        this.vtbl.SetPreload := CallbackCreate(GetMethod(implObj, "SetPreload"), flags, 2)
-        this.vtbl.GetBuffered := CallbackCreate(GetMethod(implObj, "GetBuffered"), flags, 2)
-        this.vtbl.Load := CallbackCreate(GetMethod(implObj, "Load"), flags, 1)
-        this.vtbl.CanPlayType := CallbackCreate(GetMethod(implObj, "CanPlayType"), flags, 3)
-        this.vtbl.GetReadyState := CallbackCreate(GetMethod(implObj, "GetReadyState"), flags, 1)
-        this.vtbl.IsSeeking := CallbackCreate(GetMethod(implObj, "IsSeeking"), flags, 1)
-        this.vtbl.GetCurrentTime := CallbackCreate(GetMethod(implObj, "GetCurrentTime"), flags, 1)
-        this.vtbl.SetCurrentTime := CallbackCreate(GetMethod(implObj, "SetCurrentTime"), flags, 2)
-        this.vtbl.GetStartTime := CallbackCreate(GetMethod(implObj, "GetStartTime"), flags, 1)
-        this.vtbl.GetDuration := CallbackCreate(GetMethod(implObj, "GetDuration"), flags, 1)
-        this.vtbl.IsPaused := CallbackCreate(GetMethod(implObj, "IsPaused"), flags, 1)
-        this.vtbl.GetDefaultPlaybackRate := CallbackCreate(GetMethod(implObj, "GetDefaultPlaybackRate"), flags, 1)
-        this.vtbl.SetDefaultPlaybackRate := CallbackCreate(GetMethod(implObj, "SetDefaultPlaybackRate"), flags, 2)
-        this.vtbl.GetPlaybackRate := CallbackCreate(GetMethod(implObj, "GetPlaybackRate"), flags, 1)
-        this.vtbl.SetPlaybackRate := CallbackCreate(GetMethod(implObj, "SetPlaybackRate"), flags, 2)
-        this.vtbl.GetPlayed := CallbackCreate(GetMethod(implObj, "GetPlayed"), flags, 2)
-        this.vtbl.GetSeekable := CallbackCreate(GetMethod(implObj, "GetSeekable"), flags, 2)
-        this.vtbl.IsEnded := CallbackCreate(GetMethod(implObj, "IsEnded"), flags, 1)
-        this.vtbl.GetAutoPlay := CallbackCreate(GetMethod(implObj, "GetAutoPlay"), flags, 1)
-        this.vtbl.SetAutoPlay := CallbackCreate(GetMethod(implObj, "SetAutoPlay"), flags, 2)
-        this.vtbl.GetLoop := CallbackCreate(GetMethod(implObj, "GetLoop"), flags, 1)
-        this.vtbl.SetLoop := CallbackCreate(GetMethod(implObj, "SetLoop"), flags, 2)
-        this.vtbl.Play := CallbackCreate(GetMethod(implObj, "Play"), flags, 1)
-        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
-        this.vtbl.GetMuted := CallbackCreate(GetMethod(implObj, "GetMuted"), flags, 1)
-        this.vtbl.SetMuted := CallbackCreate(GetMethod(implObj, "SetMuted"), flags, 2)
-        this.vtbl.GetVolume := CallbackCreate(GetMethod(implObj, "GetVolume"), flags, 1)
-        this.vtbl.SetVolume := CallbackCreate(GetMethod(implObj, "SetVolume"), flags, 2)
-        this.vtbl.HasVideo := CallbackCreate(GetMethod(implObj, "HasVideo"), flags, 1)
-        this.vtbl.HasAudio := CallbackCreate(GetMethod(implObj, "HasAudio"), flags, 1)
-        this.vtbl.GetNativeVideoSize := CallbackCreate(GetMethod(implObj, "GetNativeVideoSize"), flags, 3)
-        this.vtbl.GetVideoAspectRatio := CallbackCreate(GetMethod(implObj, "GetVideoAspectRatio"), flags, 3)
-        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 1)
-        this.vtbl.TransferVideoFrame := CallbackCreate(GetMethod(implObj, "TransferVideoFrame"), flags, 5)
-        this.vtbl.OnVideoStreamTick := CallbackCreate(GetMethod(implObj, "OnVideoStreamTick"), flags, 2)
+        this.vtbl.GetError := CallbackCreate(ObjBindMethod(implObj, "GetError"), flags, 2)
+        this.vtbl.SetErrorCode := CallbackCreate(ObjBindMethod(implObj, "SetErrorCode"), flags, 2)
+        this.vtbl.SetSourceElements := CallbackCreate(ObjBindMethod(implObj, "SetSourceElements"), flags, 2)
+        this.vtbl.SetSource := CallbackCreate(ObjBindMethod(implObj, "SetSource"), flags, 2)
+        this.vtbl.GetCurrentSource := CallbackCreate(ObjBindMethod(implObj, "GetCurrentSource"), flags, 2)
+        this.vtbl.GetNetworkState := CallbackCreate(ObjBindMethod(implObj, "GetNetworkState"), flags, 1)
+        this.vtbl.GetPreload := CallbackCreate(ObjBindMethod(implObj, "GetPreload"), flags, 1)
+        this.vtbl.SetPreload := CallbackCreate(ObjBindMethod(implObj, "SetPreload"), flags, 2)
+        this.vtbl.GetBuffered := CallbackCreate(ObjBindMethod(implObj, "GetBuffered"), flags, 2)
+        this.vtbl.Load := CallbackCreate(ObjBindMethod(implObj, "Load"), flags, 1)
+        this.vtbl.CanPlayType := CallbackCreate(ObjBindMethod(implObj, "CanPlayType"), flags, 3)
+        this.vtbl.GetReadyState := CallbackCreate(ObjBindMethod(implObj, "GetReadyState"), flags, 1)
+        this.vtbl.IsSeeking := CallbackCreate(ObjBindMethod(implObj, "IsSeeking"), flags, 1)
+        this.vtbl.GetCurrentTime := CallbackCreate(ObjBindMethod(implObj, "GetCurrentTime"), flags, 1)
+        this.vtbl.SetCurrentTime := CallbackCreate(ObjBindMethod(implObj, "SetCurrentTime"), flags, 2)
+        this.vtbl.GetStartTime := CallbackCreate(ObjBindMethod(implObj, "GetStartTime"), flags, 1)
+        this.vtbl.GetDuration := CallbackCreate(ObjBindMethod(implObj, "GetDuration"), flags, 1)
+        this.vtbl.IsPaused := CallbackCreate(ObjBindMethod(implObj, "IsPaused"), flags, 1)
+        this.vtbl.GetDefaultPlaybackRate := CallbackCreate(ObjBindMethod(implObj, "GetDefaultPlaybackRate"), flags, 1)
+        this.vtbl.SetDefaultPlaybackRate := CallbackCreate(ObjBindMethod(implObj, "SetDefaultPlaybackRate"), flags, 2)
+        this.vtbl.GetPlaybackRate := CallbackCreate(ObjBindMethod(implObj, "GetPlaybackRate"), flags, 1)
+        this.vtbl.SetPlaybackRate := CallbackCreate(ObjBindMethod(implObj, "SetPlaybackRate"), flags, 2)
+        this.vtbl.GetPlayed := CallbackCreate(ObjBindMethod(implObj, "GetPlayed"), flags, 2)
+        this.vtbl.GetSeekable := CallbackCreate(ObjBindMethod(implObj, "GetSeekable"), flags, 2)
+        this.vtbl.IsEnded := CallbackCreate(ObjBindMethod(implObj, "IsEnded"), flags, 1)
+        this.vtbl.GetAutoPlay := CallbackCreate(ObjBindMethod(implObj, "GetAutoPlay"), flags, 1)
+        this.vtbl.SetAutoPlay := CallbackCreate(ObjBindMethod(implObj, "SetAutoPlay"), flags, 2)
+        this.vtbl.GetLoop := CallbackCreate(ObjBindMethod(implObj, "GetLoop"), flags, 1)
+        this.vtbl.SetLoop := CallbackCreate(ObjBindMethod(implObj, "SetLoop"), flags, 2)
+        this.vtbl.Play := CallbackCreate(ObjBindMethod(implObj, "Play"), flags, 1)
+        this.vtbl.Pause := CallbackCreate(ObjBindMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.GetMuted := CallbackCreate(ObjBindMethod(implObj, "GetMuted"), flags, 1)
+        this.vtbl.SetMuted := CallbackCreate(ObjBindMethod(implObj, "SetMuted"), flags, 2)
+        this.vtbl.GetVolume := CallbackCreate(ObjBindMethod(implObj, "GetVolume"), flags, 1)
+        this.vtbl.SetVolume := CallbackCreate(ObjBindMethod(implObj, "SetVolume"), flags, 2)
+        this.vtbl.HasVideo := CallbackCreate(ObjBindMethod(implObj, "HasVideo"), flags, 1)
+        this.vtbl.HasAudio := CallbackCreate(ObjBindMethod(implObj, "HasAudio"), flags, 1)
+        this.vtbl.GetNativeVideoSize := CallbackCreate(ObjBindMethod(implObj, "GetNativeVideoSize"), flags, 3)
+        this.vtbl.GetVideoAspectRatio := CallbackCreate(ObjBindMethod(implObj, "GetVideoAspectRatio"), flags, 3)
+        this.vtbl.Shutdown := CallbackCreate(ObjBindMethod(implObj, "Shutdown"), flags, 1)
+        this.vtbl.TransferVideoFrame := CallbackCreate(ObjBindMethod(implObj, "TransferVideoFrame"), flags, 5)
+        this.vtbl.OnVideoStreamTick := CallbackCreate(ObjBindMethod(implObj, "OnVideoStreamTick"), flags, 2)
     }
 
     Dispose() {

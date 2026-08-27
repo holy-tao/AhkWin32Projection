@@ -37,7 +37,6 @@ export default struct IFtpLogProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<LOGGING_PARAMETERS>} pLoggingParameters 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,7 @@ export default struct IFtpLogProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Log := CallbackCreate(GetMethod(implObj, "Log"), flags, 2)
+        this.vtbl.Log := CallbackCreate(ObjBindMethod(implObj, "Log"), flags, 2)
     }
 
     Dispose() {

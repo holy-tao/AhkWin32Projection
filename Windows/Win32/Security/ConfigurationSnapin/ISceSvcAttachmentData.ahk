@@ -64,9 +64,9 @@ export default struct ISceSvcAttachmentData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/scesvc/nf-scesvc-iscesvcattachmentdata-getdata
      */
     GetData(scesvcHandle, sceType, ppvData, psceEnumHandle) {
-        scesvcHandleMarshal := scesvcHandle is VarRef ? "ptr" : "ptr"
-        ppvDataMarshal := ppvData is VarRef ? "ptr*" : "ptr"
-        psceEnumHandleMarshal := psceEnumHandle is VarRef ? "uint*" : "ptr"
+        scesvcHandleMarshal := scesvcHandle is VarRef ? "ptr" : IntPtr
+        ppvDataMarshal := ppvData is VarRef ? "ptr*" : IntPtr
+        psceEnumHandleMarshal := psceEnumHandle is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, scesvcHandleMarshal, scesvcHandle, SCESVC_INFO_TYPE, sceType, ppvDataMarshal, ppvData, psceEnumHandleMarshal, psceEnumHandle, "HRESULT")
         return result
@@ -85,9 +85,9 @@ export default struct ISceSvcAttachmentData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/scesvc/nf-scesvc-iscesvcattachmentdata-initialize
      */
     Initialize(lpServiceName, lpTemplateName, lpSceSvcPersistInfo, pscesvcHandle) {
-        lpServiceNameMarshal := lpServiceName is VarRef ? "char*" : "ptr"
-        lpTemplateNameMarshal := lpTemplateName is VarRef ? "char*" : "ptr"
-        pscesvcHandleMarshal := pscesvcHandle is VarRef ? "ptr*" : "ptr"
+        lpServiceNameMarshal := lpServiceName is VarRef ? "char*" : IntPtr
+        lpTemplateNameMarshal := lpTemplateName is VarRef ? "char*" : IntPtr
+        pscesvcHandleMarshal := pscesvcHandle is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, lpServiceNameMarshal, lpServiceName, lpTemplateNameMarshal, lpTemplateName, "ptr", lpSceSvcPersistInfo, pscesvcHandleMarshal, pscesvcHandle, "HRESULT")
         return result
@@ -103,7 +103,7 @@ export default struct ISceSvcAttachmentData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/scesvc/nf-scesvc-iscesvcattachmentdata-freebuffer
      */
     FreeBuffer(pvData) {
-        pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
+        pvDataMarshal := pvData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(5, this, pvDataMarshal, pvData, "HRESULT")
         return result
@@ -120,7 +120,7 @@ export default struct ISceSvcAttachmentData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/scesvc/nf-scesvc-iscesvcattachmentdata-closehandle
      */
     CloseHandle(scesvcHandle) {
-        scesvcHandleMarshal := scesvcHandle is VarRef ? "ptr" : "ptr"
+        scesvcHandleMarshal := scesvcHandle is VarRef ? "ptr" : IntPtr
 
         result := ComCall(6, this, scesvcHandleMarshal, scesvcHandle, "HRESULT")
         return result
@@ -135,10 +135,10 @@ export default struct ISceSvcAttachmentData extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetData := CallbackCreate(GetMethod(implObj, "GetData"), flags, 5)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 5)
-        this.vtbl.FreeBuffer := CallbackCreate(GetMethod(implObj, "FreeBuffer"), flags, 2)
-        this.vtbl.CloseHandle := CallbackCreate(GetMethod(implObj, "CloseHandle"), flags, 2)
+        this.vtbl.GetData := CallbackCreate(ObjBindMethod(implObj, "GetData"), flags, 5)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 5)
+        this.vtbl.FreeBuffer := CallbackCreate(ObjBindMethod(implObj, "FreeBuffer"), flags, 2)
+        this.vtbl.CloseHandle := CallbackCreate(ObjBindMethod(implObj, "CloseHandle"), flags, 2)
     }
 
     Dispose() {

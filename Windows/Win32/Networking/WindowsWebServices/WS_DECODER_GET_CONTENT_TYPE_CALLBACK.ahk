@@ -43,7 +43,6 @@ export default struct WS_DECODER_GET_CONTENT_TYPE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} decoderContext The encoder instance returned by the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_create_decoder_callback">WS_CREATE_DECODER_CALLBACK</a>.
      * @param {Pointer<WS_STRING>} contentType The content type of the encoded message.
      * @param {Pointer<WS_STRING>} contentEncoding The content encoding for the encoded message.
@@ -90,10 +89,12 @@ export default struct WS_DECODER_GET_CONTENT_TYPE_CALLBACK {
      * </table>
      */
     Call(decoderContext, contentType, contentEncoding, newContentType, _error) {
-        decoderContextMarshal := decoderContext is VarRef ? "ptr" : "ptr"
-        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
+        decoderContextMarshal := decoderContext is VarRef ? "ptr" : IntPtr
+        contentEncodingMarshal := contentEncoding == 0 ? IntPtr : WS_STRING.Ptr
+        _errorMarshal := _error is VarRef ? "ptr*" : IntPtr
+        _errorMarshal := _error == 0 ? IntPtr : WS_ERROR.Ptr
 
-        result := DllCall(this.value, decoderContextMarshal, decoderContext, WS_STRING.Ptr, contentType, WS_STRING.Ptr, contentEncoding, WS_STRING.Ptr, newContentType, _errorMarshal, _error, "HRESULT")
+        result := DllCall(this.value, decoderContextMarshal, decoderContext, WS_STRING.Ptr, contentType, contentEncodingMarshal, contentEncoding, WS_STRING.Ptr, newContentType, _errorMarshal, _error, "HRESULT")
         return result
     }
 

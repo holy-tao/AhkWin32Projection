@@ -382,18 +382,18 @@ export default struct IWMProfile3 extends IWMProfile2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStorageFormat := CallbackCreate(GetMethod(implObj, "GetStorageFormat"), flags, 2)
-        this.vtbl.SetStorageFormat := CallbackCreate(GetMethod(implObj, "SetStorageFormat"), flags, 2)
-        this.vtbl.GetBandwidthSharingCount := CallbackCreate(GetMethod(implObj, "GetBandwidthSharingCount"), flags, 2)
-        this.vtbl.GetBandwidthSharing := CallbackCreate(GetMethod(implObj, "GetBandwidthSharing"), flags, 3)
-        this.vtbl.RemoveBandwidthSharing := CallbackCreate(GetMethod(implObj, "RemoveBandwidthSharing"), flags, 2)
-        this.vtbl.AddBandwidthSharing := CallbackCreate(GetMethod(implObj, "AddBandwidthSharing"), flags, 2)
-        this.vtbl.CreateNewBandwidthSharing := CallbackCreate(GetMethod(implObj, "CreateNewBandwidthSharing"), flags, 2)
-        this.vtbl.GetStreamPrioritization := CallbackCreate(GetMethod(implObj, "GetStreamPrioritization"), flags, 2)
-        this.vtbl.SetStreamPrioritization := CallbackCreate(GetMethod(implObj, "SetStreamPrioritization"), flags, 2)
-        this.vtbl.RemoveStreamPrioritization := CallbackCreate(GetMethod(implObj, "RemoveStreamPrioritization"), flags, 1)
-        this.vtbl.CreateNewStreamPrioritization := CallbackCreate(GetMethod(implObj, "CreateNewStreamPrioritization"), flags, 2)
-        this.vtbl.GetExpectedPacketCount := CallbackCreate(GetMethod(implObj, "GetExpectedPacketCount"), flags, 3)
+        this.vtbl.GetStorageFormat := CallbackCreate(ObjBindMethod(implObj, "GetStorageFormat"), flags, 2)
+        this.vtbl.SetStorageFormat := CallbackCreate(ObjBindMethod(implObj, "SetStorageFormat"), flags, 2)
+        this.vtbl.GetBandwidthSharingCount := CallbackCreate(ObjBindMethod(implObj, "GetBandwidthSharingCount"), flags, 2)
+        this.vtbl.GetBandwidthSharing := CallbackCreate(ObjBindMethod(implObj, "GetBandwidthSharing"), flags, 3)
+        this.vtbl.RemoveBandwidthSharing := CallbackCreate(ObjBindMethod(implObj, "RemoveBandwidthSharing"), flags, 2)
+        this.vtbl.AddBandwidthSharing := CallbackCreate(ObjBindMethod(implObj, "AddBandwidthSharing"), flags, 2)
+        this.vtbl.CreateNewBandwidthSharing := CallbackCreate(ObjBindMethod(implObj, "CreateNewBandwidthSharing"), flags, 2)
+        this.vtbl.GetStreamPrioritization := CallbackCreate(ObjBindMethod(implObj, "GetStreamPrioritization"), flags, 2)
+        this.vtbl.SetStreamPrioritization := CallbackCreate(ObjBindMethod(implObj, "SetStreamPrioritization"), flags, 2)
+        this.vtbl.RemoveStreamPrioritization := CallbackCreate(ObjBindMethod(implObj, "RemoveStreamPrioritization"), flags, 1)
+        this.vtbl.CreateNewStreamPrioritization := CallbackCreate(ObjBindMethod(implObj, "CreateNewStreamPrioritization"), flags, 2)
+        this.vtbl.GetExpectedPacketCount := CallbackCreate(ObjBindMethod(implObj, "GetExpectedPacketCount"), flags, 3)
     }
 
     Dispose() {

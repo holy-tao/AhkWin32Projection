@@ -21,13 +21,12 @@ export default struct LPFNDIRECTSOUNDDEVICEENUMERATECALLBACKW {
     }
 
     /**
-     * 
      * @param {Pointer<DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_W_DATA>} param0 
      * @param {Pointer<Void>} param1 
      * @returns {BOOL} 
      */
     Call(param0, param1) {
-        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+        param1Marshal := param1 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, DSPROPERTY_DIRECTSOUNDDEVICE_DESCRIPTION_W_DATA.Ptr, param0, param1Marshal, param1, BOOL)
         return result

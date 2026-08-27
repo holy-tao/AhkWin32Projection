@@ -43,7 +43,6 @@ export default struct IDataModelScriptDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetId() {
@@ -124,7 +123,6 @@ export default struct IDataModelScriptDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Remove() {
@@ -132,14 +130,16 @@ export default struct IDataModelScriptDebugBreakpoint extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<ScriptDebugPosition>} position 
      * @param {Pointer<ScriptDebugPosition>} positionSpanEnd 
      * @param {Pointer<BSTR>} lineText 
      * @returns {HRESULT} 
      */
     GetPosition(position, positionSpanEnd, lineText) {
-        result := ComCall(8, this, ScriptDebugPosition.Ptr, position, ScriptDebugPosition.Ptr, positionSpanEnd, BSTR.Ptr, lineText, "HRESULT")
+        positionSpanEndMarshal := positionSpanEnd == 0 ? IntPtr : ScriptDebugPosition.Ptr
+        lineTextMarshal := lineText == 0 ? IntPtr : BSTR.Ptr
+
+        result := ComCall(8, this, ScriptDebugPosition.Ptr, position, positionSpanEndMarshal, positionSpanEnd, lineTextMarshal, lineText, "HRESULT")
         return result
     }
 
@@ -152,12 +152,12 @@ export default struct IDataModelScriptDebugBreakpoint extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetId := CallbackCreate(GetMethod(implObj, "GetId"), flags, 1)
-        this.vtbl.IsEnabled := CallbackCreate(GetMethod(implObj, "IsEnabled"), flags, 1)
-        this.vtbl.Enable := CallbackCreate(GetMethod(implObj, "Enable"), flags, 1)
-        this.vtbl.Disable := CallbackCreate(GetMethod(implObj, "Disable"), flags, 1)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 1)
-        this.vtbl.GetPosition := CallbackCreate(GetMethod(implObj, "GetPosition"), flags, 4)
+        this.vtbl.GetId := CallbackCreate(ObjBindMethod(implObj, "GetId"), flags, 1)
+        this.vtbl.IsEnabled := CallbackCreate(ObjBindMethod(implObj, "IsEnabled"), flags, 1)
+        this.vtbl.Enable := CallbackCreate(ObjBindMethod(implObj, "Enable"), flags, 1)
+        this.vtbl.Disable := CallbackCreate(ObjBindMethod(implObj, "Disable"), flags, 1)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 1)
+        this.vtbl.GetPosition := CallbackCreate(ObjBindMethod(implObj, "GetPosition"), flags, 4)
     }
 
     Dispose() {

@@ -22,7 +22,6 @@ export default struct UConverterToUCallback {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {Pointer<UConverterToUnicodeArgs>} args 
      * @param {PSTR} codeUnits 
@@ -34,8 +33,8 @@ export default struct UConverterToUCallback {
     Call(_context, args, codeUnits, length, reason, pErrorCode) {
         codeUnits := codeUnits is String ? StrPtr(codeUnits) : codeUnits
 
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
-        pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+        pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : IntPtr
 
         DllCall(this.value, _contextMarshal, _context, UConverterToUnicodeArgs.Ptr, args, "ptr", codeUnits, Int32, length, UConverterCallbackReason, reason, pErrorCodeMarshal, pErrorCode)
     }

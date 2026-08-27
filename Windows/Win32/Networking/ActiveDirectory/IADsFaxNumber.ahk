@@ -59,7 +59,6 @@ export default struct IADsFaxNumber extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_TelephoneNumber() {
@@ -69,7 +68,6 @@ export default struct IADsFaxNumber extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrTelephoneNumber 
      * @returns {HRESULT} 
      */
@@ -81,7 +79,6 @@ export default struct IADsFaxNumber extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Parameters() {
@@ -91,7 +88,6 @@ export default struct IADsFaxNumber extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} vParameters 
      * @returns {HRESULT} 
      */
@@ -109,10 +105,10 @@ export default struct IADsFaxNumber extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_TelephoneNumber := CallbackCreate(GetMethod(implObj, "get_TelephoneNumber"), flags, 2)
-        this.vtbl.put_TelephoneNumber := CallbackCreate(GetMethod(implObj, "put_TelephoneNumber"), flags, 2)
-        this.vtbl.get_Parameters := CallbackCreate(GetMethod(implObj, "get_Parameters"), flags, 2)
-        this.vtbl.put_Parameters := CallbackCreate(GetMethod(implObj, "put_Parameters"), flags, 2)
+        this.vtbl.get_TelephoneNumber := CallbackCreate(ObjBindMethod(implObj, "get_TelephoneNumber"), flags, 2)
+        this.vtbl.put_TelephoneNumber := CallbackCreate(ObjBindMethod(implObj, "put_TelephoneNumber"), flags, 2)
+        this.vtbl.get_Parameters := CallbackCreate(ObjBindMethod(implObj, "get_Parameters"), flags, 2)
+        this.vtbl.put_Parameters := CallbackCreate(ObjBindMethod(implObj, "put_Parameters"), flags, 2)
     }
 
     Dispose() {

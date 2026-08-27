@@ -100,7 +100,6 @@ export default struct _Application extends IDispatch {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Help() {
@@ -108,7 +107,6 @@ export default struct _Application extends IDispatch {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Quit() {
@@ -116,7 +114,6 @@ export default struct _Application extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Document} 
      */
     get_Document() {
@@ -203,7 +200,6 @@ export default struct _Application extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Frame} 
      */
     get_Frame() {
@@ -212,7 +208,6 @@ export default struct _Application extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_Visible() {
@@ -221,7 +216,6 @@ export default struct _Application extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Show() {
@@ -254,7 +248,6 @@ export default struct _Application extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_UserControl() {
@@ -263,7 +256,6 @@ export default struct _Application extends IDispatch {
     }
 
     /**
-     * 
      * @param {BOOL} UserControl 
      * @returns {HRESULT} 
      */
@@ -273,7 +265,6 @@ export default struct _Application extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_VersionMajor() {
@@ -282,7 +273,6 @@ export default struct _Application extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_VersionMinor() {
@@ -299,18 +289,18 @@ export default struct _Application extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Help := CallbackCreate(GetMethod(implObj, "Help"), flags, 1)
-        this.vtbl.Quit := CallbackCreate(GetMethod(implObj, "Quit"), flags, 1)
-        this.vtbl.get_Document := CallbackCreate(GetMethod(implObj, "get_Document"), flags, 2)
-        this.vtbl.Load := CallbackCreate(GetMethod(implObj, "Load"), flags, 2)
-        this.vtbl.get_Frame := CallbackCreate(GetMethod(implObj, "get_Frame"), flags, 2)
-        this.vtbl.get_Visible := CallbackCreate(GetMethod(implObj, "get_Visible"), flags, 2)
-        this.vtbl.Show := CallbackCreate(GetMethod(implObj, "Show"), flags, 1)
-        this.vtbl.Hide := CallbackCreate(GetMethod(implObj, "Hide"), flags, 1)
-        this.vtbl.get_UserControl := CallbackCreate(GetMethod(implObj, "get_UserControl"), flags, 2)
-        this.vtbl.put_UserControl := CallbackCreate(GetMethod(implObj, "put_UserControl"), flags, 2)
-        this.vtbl.get_VersionMajor := CallbackCreate(GetMethod(implObj, "get_VersionMajor"), flags, 2)
-        this.vtbl.get_VersionMinor := CallbackCreate(GetMethod(implObj, "get_VersionMinor"), flags, 2)
+        this.vtbl.Help := CallbackCreate(ObjBindMethod(implObj, "Help"), flags, 1)
+        this.vtbl.Quit := CallbackCreate(ObjBindMethod(implObj, "Quit"), flags, 1)
+        this.vtbl.get_Document := CallbackCreate(ObjBindMethod(implObj, "get_Document"), flags, 2)
+        this.vtbl.Load := CallbackCreate(ObjBindMethod(implObj, "Load"), flags, 2)
+        this.vtbl.get_Frame := CallbackCreate(ObjBindMethod(implObj, "get_Frame"), flags, 2)
+        this.vtbl.get_Visible := CallbackCreate(ObjBindMethod(implObj, "get_Visible"), flags, 2)
+        this.vtbl.Show := CallbackCreate(ObjBindMethod(implObj, "Show"), flags, 1)
+        this.vtbl.Hide := CallbackCreate(ObjBindMethod(implObj, "Hide"), flags, 1)
+        this.vtbl.get_UserControl := CallbackCreate(ObjBindMethod(implObj, "get_UserControl"), flags, 2)
+        this.vtbl.put_UserControl := CallbackCreate(ObjBindMethod(implObj, "put_UserControl"), flags, 2)
+        this.vtbl.get_VersionMajor := CallbackCreate(ObjBindMethod(implObj, "get_VersionMajor"), flags, 2)
+        this.vtbl.get_VersionMinor := CallbackCreate(ObjBindMethod(implObj, "get_VersionMinor"), flags, 2)
     }
 
     Dispose() {

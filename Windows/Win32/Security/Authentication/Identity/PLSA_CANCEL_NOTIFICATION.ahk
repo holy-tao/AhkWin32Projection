@@ -20,7 +20,6 @@ export default struct PLSA_CANCEL_NOTIFICATION {
     }
 
     /**
-     * 
      * @param {HANDLE} NotifyHandle 
      * @returns {NTSTATUS} 
      */

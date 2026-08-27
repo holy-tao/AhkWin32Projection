@@ -106,7 +106,6 @@ export default struct IGPMBackup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ID() {
@@ -116,7 +115,6 @@ export default struct IGPMBackup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_GPOID() {
@@ -126,7 +124,6 @@ export default struct IGPMBackup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_GPODomain() {
@@ -136,7 +133,6 @@ export default struct IGPMBackup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_GPODisplayName() {
@@ -146,7 +142,6 @@ export default struct IGPMBackup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_Timestamp() {
@@ -155,7 +150,6 @@ export default struct IGPMBackup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Comment() {
@@ -165,7 +159,6 @@ export default struct IGPMBackup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_BackupDir() {
@@ -227,16 +220,16 @@ export default struct IGPMBackup extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ID := CallbackCreate(GetMethod(implObj, "get_ID"), flags, 2)
-        this.vtbl.get_GPOID := CallbackCreate(GetMethod(implObj, "get_GPOID"), flags, 2)
-        this.vtbl.get_GPODomain := CallbackCreate(GetMethod(implObj, "get_GPODomain"), flags, 2)
-        this.vtbl.get_GPODisplayName := CallbackCreate(GetMethod(implObj, "get_GPODisplayName"), flags, 2)
-        this.vtbl.get_Timestamp := CallbackCreate(GetMethod(implObj, "get_Timestamp"), flags, 2)
-        this.vtbl.get_Comment := CallbackCreate(GetMethod(implObj, "get_Comment"), flags, 2)
-        this.vtbl.get_BackupDir := CallbackCreate(GetMethod(implObj, "get_BackupDir"), flags, 2)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
-        this.vtbl.GenerateReport := CallbackCreate(GetMethod(implObj, "GenerateReport"), flags, 5)
-        this.vtbl.GenerateReportToFile := CallbackCreate(GetMethod(implObj, "GenerateReportToFile"), flags, 4)
+        this.vtbl.get_ID := CallbackCreate(ObjBindMethod(implObj, "get_ID"), flags, 2)
+        this.vtbl.get_GPOID := CallbackCreate(ObjBindMethod(implObj, "get_GPOID"), flags, 2)
+        this.vtbl.get_GPODomain := CallbackCreate(ObjBindMethod(implObj, "get_GPODomain"), flags, 2)
+        this.vtbl.get_GPODisplayName := CallbackCreate(ObjBindMethod(implObj, "get_GPODisplayName"), flags, 2)
+        this.vtbl.get_Timestamp := CallbackCreate(ObjBindMethod(implObj, "get_Timestamp"), flags, 2)
+        this.vtbl.get_Comment := CallbackCreate(ObjBindMethod(implObj, "get_Comment"), flags, 2)
+        this.vtbl.get_BackupDir := CallbackCreate(ObjBindMethod(implObj, "get_BackupDir"), flags, 2)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.GenerateReport := CallbackCreate(ObjBindMethod(implObj, "GenerateReport"), flags, 5)
+        this.vtbl.GenerateReportToFile := CallbackCreate(ObjBindMethod(implObj, "GenerateReportToFile"), flags, 4)
     }
 
     Dispose() {

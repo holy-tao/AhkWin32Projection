@@ -151,7 +151,8 @@ export default struct IISDB_CDT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_cdt-gettabledescriptorbytag
      */
     GetTableDescriptorByTag(bTag, pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : IntPtr
+        pdwCookieMarshal := pdwCookie == 0 ? IntPtr : "uint*"
 
         result := ComCall(11, this, Int8, bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
@@ -197,18 +198,18 @@ export default struct IISDB_CDT extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
-        this.vtbl.GetVersionNumber := CallbackCreate(GetMethod(implObj, "GetVersionNumber"), flags, 2)
-        this.vtbl.GetDownloadDataId := CallbackCreate(GetMethod(implObj, "GetDownloadDataId"), flags, 2)
-        this.vtbl.GetSectionNumber := CallbackCreate(GetMethod(implObj, "GetSectionNumber"), flags, 2)
-        this.vtbl.GetOriginalNetworkId := CallbackCreate(GetMethod(implObj, "GetOriginalNetworkId"), flags, 2)
-        this.vtbl.GetDataType := CallbackCreate(GetMethod(implObj, "GetDataType"), flags, 2)
-        this.vtbl.GetCountOfTableDescriptors := CallbackCreate(GetMethod(implObj, "GetCountOfTableDescriptors"), flags, 2)
-        this.vtbl.GetTableDescriptorByIndex := CallbackCreate(GetMethod(implObj, "GetTableDescriptorByIndex"), flags, 3)
-        this.vtbl.GetTableDescriptorByTag := CallbackCreate(GetMethod(implObj, "GetTableDescriptorByTag"), flags, 4)
-        this.vtbl.GetSizeOfDataModule := CallbackCreate(GetMethod(implObj, "GetSizeOfDataModule"), flags, 2)
-        this.vtbl.GetDataModule := CallbackCreate(GetMethod(implObj, "GetDataModule"), flags, 2)
-        this.vtbl.GetVersionHash := CallbackCreate(GetMethod(implObj, "GetVersionHash"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 4)
+        this.vtbl.GetVersionNumber := CallbackCreate(ObjBindMethod(implObj, "GetVersionNumber"), flags, 2)
+        this.vtbl.GetDownloadDataId := CallbackCreate(ObjBindMethod(implObj, "GetDownloadDataId"), flags, 2)
+        this.vtbl.GetSectionNumber := CallbackCreate(ObjBindMethod(implObj, "GetSectionNumber"), flags, 2)
+        this.vtbl.GetOriginalNetworkId := CallbackCreate(ObjBindMethod(implObj, "GetOriginalNetworkId"), flags, 2)
+        this.vtbl.GetDataType := CallbackCreate(ObjBindMethod(implObj, "GetDataType"), flags, 2)
+        this.vtbl.GetCountOfTableDescriptors := CallbackCreate(ObjBindMethod(implObj, "GetCountOfTableDescriptors"), flags, 2)
+        this.vtbl.GetTableDescriptorByIndex := CallbackCreate(ObjBindMethod(implObj, "GetTableDescriptorByIndex"), flags, 3)
+        this.vtbl.GetTableDescriptorByTag := CallbackCreate(ObjBindMethod(implObj, "GetTableDescriptorByTag"), flags, 4)
+        this.vtbl.GetSizeOfDataModule := CallbackCreate(ObjBindMethod(implObj, "GetSizeOfDataModule"), flags, 2)
+        this.vtbl.GetDataModule := CallbackCreate(ObjBindMethod(implObj, "GetDataModule"), flags, 2)
+        this.vtbl.GetVersionHash := CallbackCreate(ObjBindMethod(implObj, "GetVersionHash"), flags, 2)
     }
 
     Dispose() {

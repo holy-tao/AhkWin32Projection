@@ -409,17 +409,17 @@ export default struct IOleLink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetUpdateOptions := CallbackCreate(GetMethod(implObj, "SetUpdateOptions"), flags, 2)
-        this.vtbl.GetUpdateOptions := CallbackCreate(GetMethod(implObj, "GetUpdateOptions"), flags, 2)
-        this.vtbl.SetSourceMoniker := CallbackCreate(GetMethod(implObj, "SetSourceMoniker"), flags, 3)
-        this.vtbl.GetSourceMoniker := CallbackCreate(GetMethod(implObj, "GetSourceMoniker"), flags, 2)
-        this.vtbl.SetSourceDisplayName := CallbackCreate(GetMethod(implObj, "SetSourceDisplayName"), flags, 2)
-        this.vtbl.GetSourceDisplayName := CallbackCreate(GetMethod(implObj, "GetSourceDisplayName"), flags, 2)
-        this.vtbl.BindToSource := CallbackCreate(GetMethod(implObj, "BindToSource"), flags, 3)
-        this.vtbl.BindIfRunning := CallbackCreate(GetMethod(implObj, "BindIfRunning"), flags, 1)
-        this.vtbl.GetBoundSource := CallbackCreate(GetMethod(implObj, "GetBoundSource"), flags, 2)
-        this.vtbl.UnbindSource := CallbackCreate(GetMethod(implObj, "UnbindSource"), flags, 1)
-        this.vtbl.Update := CallbackCreate(GetMethod(implObj, "Update"), flags, 2)
+        this.vtbl.SetUpdateOptions := CallbackCreate(ObjBindMethod(implObj, "SetUpdateOptions"), flags, 2)
+        this.vtbl.GetUpdateOptions := CallbackCreate(ObjBindMethod(implObj, "GetUpdateOptions"), flags, 2)
+        this.vtbl.SetSourceMoniker := CallbackCreate(ObjBindMethod(implObj, "SetSourceMoniker"), flags, 3)
+        this.vtbl.GetSourceMoniker := CallbackCreate(ObjBindMethod(implObj, "GetSourceMoniker"), flags, 2)
+        this.vtbl.SetSourceDisplayName := CallbackCreate(ObjBindMethod(implObj, "SetSourceDisplayName"), flags, 2)
+        this.vtbl.GetSourceDisplayName := CallbackCreate(ObjBindMethod(implObj, "GetSourceDisplayName"), flags, 2)
+        this.vtbl.BindToSource := CallbackCreate(ObjBindMethod(implObj, "BindToSource"), flags, 3)
+        this.vtbl.BindIfRunning := CallbackCreate(ObjBindMethod(implObj, "BindIfRunning"), flags, 1)
+        this.vtbl.GetBoundSource := CallbackCreate(ObjBindMethod(implObj, "GetBoundSource"), flags, 2)
+        this.vtbl.UnbindSource := CallbackCreate(ObjBindMethod(implObj, "UnbindSource"), flags, 1)
+        this.vtbl.Update := CallbackCreate(ObjBindMethod(implObj, "Update"), flags, 2)
     }
 
     Dispose() {

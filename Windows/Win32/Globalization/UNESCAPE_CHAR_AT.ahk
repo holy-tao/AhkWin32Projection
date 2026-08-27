@@ -18,13 +18,12 @@ export default struct UNESCAPE_CHAR_AT {
     }
 
     /**
-     * 
      * @param {Integer} offset 
      * @param {Pointer<Void>} _context 
      * @returns {Integer} 
      */
     Call(offset, _context) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, Int32, offset, _contextMarshal, _context, UInt16)
         return result

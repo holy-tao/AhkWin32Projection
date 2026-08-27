@@ -47,7 +47,6 @@ export default struct IDebugCallbackNotificationHandler extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     RequestedCallbackTypes() {
@@ -56,7 +55,6 @@ export default struct IDebugCallbackNotificationHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pEvent 
      * @returns {HRESULT} 
      */
@@ -66,7 +64,6 @@ export default struct IDebugCallbackNotificationHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pEvent 
      * @param {Integer} propagationStatus 
      * @returns {HRESULT} 
@@ -77,7 +74,6 @@ export default struct IDebugCallbackNotificationHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pEvent 
      * @param {IScriptEventHandler} pCallback 
      * @param {DOM_EVENT_PHASE} eStage 
@@ -90,7 +86,6 @@ export default struct IDebugCallbackNotificationHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pEvent 
      * @param {IScriptEventHandler} pCallback 
      * @param {DOM_EVENT_PHASE} eStage 
@@ -103,7 +98,6 @@ export default struct IDebugCallbackNotificationHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {SCRIPT_TIMER_TYPE} eCallbackType 
      * @param {Integer} callbackCookie 
      * @param {IDispatch} pDispHandler 
@@ -118,12 +112,14 @@ export default struct IDebugCallbackNotificationHandler extends IUnknown {
     BeforeInvokeCallback(eCallbackType, callbackCookie, pDispHandler, ullHandlerCookie, functionName, line, _column, cchLength, pDebugDocumentContext) {
         functionName := functionName is String ? BSTR.Alloc(functionName).Value : functionName
 
-        result := ComCall(8, this, SCRIPT_TIMER_TYPE, eCallbackType, UInt32, callbackCookie, "ptr", pDispHandler, Int64, ullHandlerCookie, BSTR, functionName, UInt32, line, UInt32, _column, UInt32, cchLength, "ptr", pDebugDocumentContext, "HRESULT")
+        functionNameMarshal := functionName == 0 ? IntPtr : BSTR
+        pDebugDocumentContextMarshal := pDebugDocumentContext == 0 ? IntPtr : "ptr"
+
+        result := ComCall(8, this, SCRIPT_TIMER_TYPE, eCallbackType, UInt32, callbackCookie, "ptr", pDispHandler, Int64, ullHandlerCookie, functionNameMarshal, functionName, UInt32, line, UInt32, _column, UInt32, cchLength, pDebugDocumentContextMarshal, pDebugDocumentContext, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {SCRIPT_TIMER_TYPE} eCallbackType 
      * @param {Integer} callbackCookie 
      * @param {IDispatch} pDispHandler 
@@ -138,7 +134,10 @@ export default struct IDebugCallbackNotificationHandler extends IUnknown {
     InvokeCallbackComplete(eCallbackType, callbackCookie, pDispHandler, ullHandlerCookie, functionName, line, _column, cchLength, pDebugDocumentContext) {
         functionName := functionName is String ? BSTR.Alloc(functionName).Value : functionName
 
-        result := ComCall(9, this, SCRIPT_TIMER_TYPE, eCallbackType, UInt32, callbackCookie, "ptr", pDispHandler, Int64, ullHandlerCookie, BSTR, functionName, UInt32, line, UInt32, _column, UInt32, cchLength, "ptr", pDebugDocumentContext, "HRESULT")
+        functionNameMarshal := functionName == 0 ? IntPtr : BSTR
+        pDebugDocumentContextMarshal := pDebugDocumentContext == 0 ? IntPtr : "ptr"
+
+        result := ComCall(9, this, SCRIPT_TIMER_TYPE, eCallbackType, UInt32, callbackCookie, "ptr", pDispHandler, Int64, ullHandlerCookie, functionNameMarshal, functionName, UInt32, line, UInt32, _column, UInt32, cchLength, pDebugDocumentContextMarshal, pDebugDocumentContext, "HRESULT")
         return result
     }
 
@@ -151,13 +150,13 @@ export default struct IDebugCallbackNotificationHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RequestedCallbackTypes := CallbackCreate(GetMethod(implObj, "RequestedCallbackTypes"), flags, 2)
-        this.vtbl.BeforeDispatchEvent := CallbackCreate(GetMethod(implObj, "BeforeDispatchEvent"), flags, 2)
-        this.vtbl.DispatchEventComplete := CallbackCreate(GetMethod(implObj, "DispatchEventComplete"), flags, 3)
-        this.vtbl.BeforeInvokeDomCallback := CallbackCreate(GetMethod(implObj, "BeforeInvokeDomCallback"), flags, 5)
-        this.vtbl.InvokeDomCallbackComplete := CallbackCreate(GetMethod(implObj, "InvokeDomCallbackComplete"), flags, 5)
-        this.vtbl.BeforeInvokeCallback := CallbackCreate(GetMethod(implObj, "BeforeInvokeCallback"), flags, 10)
-        this.vtbl.InvokeCallbackComplete := CallbackCreate(GetMethod(implObj, "InvokeCallbackComplete"), flags, 10)
+        this.vtbl.RequestedCallbackTypes := CallbackCreate(ObjBindMethod(implObj, "RequestedCallbackTypes"), flags, 2)
+        this.vtbl.BeforeDispatchEvent := CallbackCreate(ObjBindMethod(implObj, "BeforeDispatchEvent"), flags, 2)
+        this.vtbl.DispatchEventComplete := CallbackCreate(ObjBindMethod(implObj, "DispatchEventComplete"), flags, 3)
+        this.vtbl.BeforeInvokeDomCallback := CallbackCreate(ObjBindMethod(implObj, "BeforeInvokeDomCallback"), flags, 5)
+        this.vtbl.InvokeDomCallbackComplete := CallbackCreate(ObjBindMethod(implObj, "InvokeDomCallbackComplete"), flags, 5)
+        this.vtbl.BeforeInvokeCallback := CallbackCreate(ObjBindMethod(implObj, "BeforeInvokeCallback"), flags, 10)
+        this.vtbl.InvokeCallbackComplete := CallbackCreate(ObjBindMethod(implObj, "InvokeCallbackComplete"), flags, 10)
     }
 
     Dispose() {

@@ -93,8 +93,8 @@ export default struct IAzPrincipalLocator extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_NameResolver := CallbackCreate(GetMethod(implObj, "get_NameResolver"), flags, 2)
-        this.vtbl.get_ObjectPicker := CallbackCreate(GetMethod(implObj, "get_ObjectPicker"), flags, 2)
+        this.vtbl.get_NameResolver := CallbackCreate(ObjBindMethod(implObj, "get_NameResolver"), flags, 2)
+        this.vtbl.get_ObjectPicker := CallbackCreate(ObjBindMethod(implObj, "get_ObjectPicker"), flags, 2)
     }
 
     Dispose() {

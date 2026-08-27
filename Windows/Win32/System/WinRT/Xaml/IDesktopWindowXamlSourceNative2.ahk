@@ -55,7 +55,7 @@ export default struct IDesktopWindowXamlSourceNative2 extends IDesktopWindowXaml
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.hosting.desktopwindowxamlsource/nf-windows-ui-xaml-hosting-desktopwindowxamlsource-idesktopwindowxamlsourcenative2-pretranslatemessage
      */
     PreTranslateMessage(message, result) {
-        resultMarshal := result is VarRef ? "int*" : "ptr"
+        resultMarshal := result is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, MSG.Ptr, message, resultMarshal, result, "HRESULT")
         return result
@@ -70,7 +70,7 @@ export default struct IDesktopWindowXamlSourceNative2 extends IDesktopWindowXaml
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PreTranslateMessage := CallbackCreate(GetMethod(implObj, "PreTranslateMessage"), flags, 3)
+        this.vtbl.PreTranslateMessage := CallbackCreate(ObjBindMethod(implObj, "PreTranslateMessage"), flags, 3)
     }
 
     Dispose() {

@@ -51,7 +51,6 @@ export default struct PM_COLLECT_PROC {
     }
 
     /**
-     * 
      * @param {PWSTR} pValueName 
      * @param {Integer} ppData 
      * @param {Pointer<Integer>} pcbTotalBytes 
@@ -66,10 +65,11 @@ export default struct PM_COLLECT_PROC {
     Call(pValueName, ppData, pcbTotalBytes, pNumObjectTypes) {
         pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
 
-        pcbTotalBytesMarshal := pcbTotalBytes is VarRef ? "uint*" : "ptr"
-        pNumObjectTypesMarshal := pNumObjectTypes is VarRef ? "uint*" : "ptr"
+        pValueNameMarshal := pValueName == 0 ? IntPtr : PWSTR
+        pcbTotalBytesMarshal := pcbTotalBytes is VarRef ? "uint*" : IntPtr
+        pNumObjectTypesMarshal := pNumObjectTypes is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, "ptr", pValueName, IntPtr, ppData, pcbTotalBytesMarshal, pcbTotalBytes, pNumObjectTypesMarshal, pNumObjectTypes, UInt32)
+        result := DllCall(this.value, pValueNameMarshal, pValueName, IntPtr, ppData, pcbTotalBytesMarshal, pcbTotalBytes, pNumObjectTypesMarshal, pNumObjectTypes, UInt32)
         return result
     }
 

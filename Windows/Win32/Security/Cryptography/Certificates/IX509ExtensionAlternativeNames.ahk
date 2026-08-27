@@ -87,7 +87,9 @@ export default struct IX509ExtensionAlternativeNames extends IX509Extension {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extensionalternativenames-initializeencode
      */
     InitializeEncode(pValue) {
-        result := ComCall(12, this, "ptr", pValue, "HRESULT")
+        pValueMarshal := pValue == 0 ? IntPtr : "ptr"
+
+        result := ComCall(12, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -157,9 +159,9 @@ export default struct IX509ExtensionAlternativeNames extends IX509Extension {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeEncode := CallbackCreate(GetMethod(implObj, "InitializeEncode"), flags, 2)
-        this.vtbl.InitializeDecode := CallbackCreate(GetMethod(implObj, "InitializeDecode"), flags, 3)
-        this.vtbl.get_AlternativeNames := CallbackCreate(GetMethod(implObj, "get_AlternativeNames"), flags, 2)
+        this.vtbl.InitializeEncode := CallbackCreate(ObjBindMethod(implObj, "InitializeEncode"), flags, 2)
+        this.vtbl.InitializeDecode := CallbackCreate(ObjBindMethod(implObj, "InitializeDecode"), flags, 3)
+        this.vtbl.get_AlternativeNames := CallbackCreate(ObjBindMethod(implObj, "get_AlternativeNames"), flags, 2)
     }
 
     Dispose() {

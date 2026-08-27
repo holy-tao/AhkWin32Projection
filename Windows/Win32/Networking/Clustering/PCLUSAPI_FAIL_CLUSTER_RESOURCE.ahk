@@ -19,7 +19,6 @@ export default struct PCLUSAPI_FAIL_CLUSTER_RESOURCE {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @returns {Integer} 
      */

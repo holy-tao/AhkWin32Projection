@@ -37,7 +37,6 @@ export default struct IPrintReadStreamFactory extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IPrintReadStream} 
      */
     GetStream() {
@@ -54,7 +53,7 @@ export default struct IPrintReadStreamFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStream := CallbackCreate(GetMethod(implObj, "GetStream"), flags, 2)
+        this.vtbl.GetStream := CallbackCreate(ObjBindMethod(implObj, "GetStream"), flags, 2)
     }
 
     Dispose() {

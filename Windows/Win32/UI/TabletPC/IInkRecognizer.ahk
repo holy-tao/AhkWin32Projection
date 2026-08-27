@@ -199,13 +199,13 @@ export default struct IInkRecognizer extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_Vendor := CallbackCreate(GetMethod(implObj, "get_Vendor"), flags, 2)
-        this.vtbl.get_Capabilities := CallbackCreate(GetMethod(implObj, "get_Capabilities"), flags, 2)
-        this.vtbl.get_Languages := CallbackCreate(GetMethod(implObj, "get_Languages"), flags, 2)
-        this.vtbl.get_SupportedProperties := CallbackCreate(GetMethod(implObj, "get_SupportedProperties"), flags, 2)
-        this.vtbl.get_PreferredPacketDescription := CallbackCreate(GetMethod(implObj, "get_PreferredPacketDescription"), flags, 2)
-        this.vtbl.CreateRecognizerContext := CallbackCreate(GetMethod(implObj, "CreateRecognizerContext"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Vendor := CallbackCreate(ObjBindMethod(implObj, "get_Vendor"), flags, 2)
+        this.vtbl.get_Capabilities := CallbackCreate(ObjBindMethod(implObj, "get_Capabilities"), flags, 2)
+        this.vtbl.get_Languages := CallbackCreate(ObjBindMethod(implObj, "get_Languages"), flags, 2)
+        this.vtbl.get_SupportedProperties := CallbackCreate(ObjBindMethod(implObj, "get_SupportedProperties"), flags, 2)
+        this.vtbl.get_PreferredPacketDescription := CallbackCreate(ObjBindMethod(implObj, "get_PreferredPacketDescription"), flags, 2)
+        this.vtbl.CreateRecognizerContext := CallbackCreate(ObjBindMethod(implObj, "CreateRecognizerContext"), flags, 2)
     }
 
     Dispose() {

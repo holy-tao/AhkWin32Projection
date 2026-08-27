@@ -95,8 +95,8 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_exposure
      */
     get_Exposure(pValue, pFlags) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "int*" : IntPtr
+        pFlagsMarshal := pFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
@@ -125,11 +125,11 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-getrange_exposure
      */
     getRange_Exposure(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
-        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
-        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
-        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
-        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+        pMinMarshal := pMin is VarRef ? "int*" : IntPtr
+        pMaxMarshal := pMax is VarRef ? "int*" : IntPtr
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : IntPtr
+        pDefaultMarshal := pDefault is VarRef ? "int*" : IntPtr
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
@@ -143,8 +143,8 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_focus
      */
     get_Focus(pValue, pFlags) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "int*" : IntPtr
+        pFlagsMarshal := pFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
@@ -173,11 +173,11 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-getrange_focus
      */
     getRange_Focus(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
-        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
-        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
-        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
-        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+        pMinMarshal := pMin is VarRef ? "int*" : IntPtr
+        pMaxMarshal := pMax is VarRef ? "int*" : IntPtr
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : IntPtr
+        pDefaultMarshal := pDefault is VarRef ? "int*" : IntPtr
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : IntPtr
 
         result := ComCall(8, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
@@ -191,8 +191,8 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_iris
      */
     get_Iris(pValue, pFlags) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "int*" : IntPtr
+        pFlagsMarshal := pFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
@@ -221,11 +221,11 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-getrange_iris
      */
     getRange_Iris(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
-        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
-        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
-        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
-        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+        pMinMarshal := pMin is VarRef ? "int*" : IntPtr
+        pMaxMarshal := pMax is VarRef ? "int*" : IntPtr
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : IntPtr
+        pDefaultMarshal := pDefault is VarRef ? "int*" : IntPtr
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : IntPtr
 
         result := ComCall(11, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
@@ -241,8 +241,8 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_zoom
      */
     get_Zoom(pValue, pFlags) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "int*" : IntPtr
+        pFlagsMarshal := pFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(12, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
@@ -273,11 +273,11 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-getrange_zoom
      */
     getRange_Zoom(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
-        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
-        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
-        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
-        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+        pMinMarshal := pMin is VarRef ? "int*" : IntPtr
+        pMaxMarshal := pMax is VarRef ? "int*" : IntPtr
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : IntPtr
+        pDefaultMarshal := pDefault is VarRef ? "int*" : IntPtr
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : IntPtr
 
         result := ComCall(14, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
@@ -325,9 +325,9 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_focallengths
      */
     get_FocalLengths(plOcularFocalLength, plObjectiveFocalLengthMin, plObjectiveFocalLengthMax) {
-        plOcularFocalLengthMarshal := plOcularFocalLength is VarRef ? "int*" : "ptr"
-        plObjectiveFocalLengthMinMarshal := plObjectiveFocalLengthMin is VarRef ? "int*" : "ptr"
-        plObjectiveFocalLengthMaxMarshal := plObjectiveFocalLengthMax is VarRef ? "int*" : "ptr"
+        plOcularFocalLengthMarshal := plOcularFocalLength is VarRef ? "int*" : IntPtr
+        plObjectiveFocalLengthMinMarshal := plObjectiveFocalLengthMin is VarRef ? "int*" : IntPtr
+        plObjectiveFocalLengthMaxMarshal := plObjectiveFocalLengthMax is VarRef ? "int*" : IntPtr
 
         result := ComCall(15, this, plOcularFocalLengthMarshal, plOcularFocalLength, plObjectiveFocalLengthMinMarshal, plObjectiveFocalLengthMin, plObjectiveFocalLengthMaxMarshal, plObjectiveFocalLengthMax, "HRESULT")
         return result
@@ -341,8 +341,8 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_pan
      */
     get_Pan(pValue, pFlags) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "int*" : IntPtr
+        pFlagsMarshal := pFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(16, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
@@ -371,11 +371,11 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-getrange_pan
      */
     getRange_Pan(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
-        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
-        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
-        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
-        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+        pMinMarshal := pMin is VarRef ? "int*" : IntPtr
+        pMaxMarshal := pMax is VarRef ? "int*" : IntPtr
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : IntPtr
+        pDefaultMarshal := pDefault is VarRef ? "int*" : IntPtr
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : IntPtr
 
         result := ComCall(18, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
@@ -389,8 +389,8 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_tilt
      */
     get_Tilt(pValue, pFlags) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "int*" : IntPtr
+        pFlagsMarshal := pFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(19, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
@@ -419,11 +419,11 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-getrange_tilt
      */
     getRange_Tilt(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
-        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
-        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
-        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
-        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+        pMinMarshal := pMin is VarRef ? "int*" : IntPtr
+        pMaxMarshal := pMax is VarRef ? "int*" : IntPtr
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : IntPtr
+        pDefaultMarshal := pDefault is VarRef ? "int*" : IntPtr
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : IntPtr
 
         result := ComCall(21, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
@@ -438,9 +438,9 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_pantilt
      */
     get_PanTilt(pPanValue, pTiltValue, pFlags) {
-        pPanValueMarshal := pPanValue is VarRef ? "int*" : "ptr"
-        pTiltValueMarshal := pTiltValue is VarRef ? "int*" : "ptr"
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+        pPanValueMarshal := pPanValue is VarRef ? "int*" : IntPtr
+        pTiltValueMarshal := pTiltValue is VarRef ? "int*" : IntPtr
+        pFlagsMarshal := pFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(22, this, pPanValueMarshal, pPanValue, pTiltValueMarshal, pTiltValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
@@ -467,8 +467,8 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_roll
      */
     get_Roll(pValue, pFlags) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "int*" : IntPtr
+        pFlagsMarshal := pFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(24, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
@@ -497,11 +497,11 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-getrange_roll
      */
     getRange_Roll(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
-        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
-        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
-        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
-        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+        pMinMarshal := pMin is VarRef ? "int*" : IntPtr
+        pMaxMarshal := pMax is VarRef ? "int*" : IntPtr
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : IntPtr
+        pDefaultMarshal := pDefault is VarRef ? "int*" : IntPtr
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : IntPtr
 
         result := ComCall(26, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
@@ -536,8 +536,8 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_exposurerelative
      */
     get_ExposureRelative(pValue, pFlags) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "int*" : IntPtr
+        pFlagsMarshal := pFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(27, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
@@ -587,11 +587,11 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-getrange_exposurerelative
      */
     getRange_ExposureRelative(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
-        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
-        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
-        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
-        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+        pMinMarshal := pMin is VarRef ? "int*" : IntPtr
+        pMaxMarshal := pMax is VarRef ? "int*" : IntPtr
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : IntPtr
+        pDefaultMarshal := pDefault is VarRef ? "int*" : IntPtr
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : IntPtr
 
         result := ComCall(29, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
@@ -626,8 +626,8 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_focusrelative
      */
     get_FocusRelative(pValue, pFlags) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "int*" : IntPtr
+        pFlagsMarshal := pFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(30, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
@@ -677,11 +677,11 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-getrange_focusrelative
      */
     getRange_FocusRelative(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
-        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
-        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
-        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
-        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+        pMinMarshal := pMin is VarRef ? "int*" : IntPtr
+        pMaxMarshal := pMax is VarRef ? "int*" : IntPtr
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : IntPtr
+        pDefaultMarshal := pDefault is VarRef ? "int*" : IntPtr
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : IntPtr
 
         result := ComCall(32, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
@@ -716,8 +716,8 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_irisrelative
      */
     get_IrisRelative(pValue, pFlags) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "int*" : IntPtr
+        pFlagsMarshal := pFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(33, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
@@ -767,11 +767,11 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-getrange_irisrelative
      */
     getRange_IrisRelative(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
-        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
-        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
-        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
-        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+        pMinMarshal := pMin is VarRef ? "int*" : IntPtr
+        pMaxMarshal := pMax is VarRef ? "int*" : IntPtr
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : IntPtr
+        pDefaultMarshal := pDefault is VarRef ? "int*" : IntPtr
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : IntPtr
 
         result := ComCall(35, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
@@ -806,8 +806,8 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_zoomrelative
      */
     get_ZoomRelative(pValue, pFlags) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "int*" : IntPtr
+        pFlagsMarshal := pFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(36, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
@@ -857,11 +857,11 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-getrange_zoomrelative
      */
     getRange_ZoomRelative(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
-        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
-        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
-        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
-        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+        pMinMarshal := pMin is VarRef ? "int*" : IntPtr
+        pMaxMarshal := pMax is VarRef ? "int*" : IntPtr
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : IntPtr
+        pDefaultMarshal := pDefault is VarRef ? "int*" : IntPtr
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : IntPtr
 
         result := ComCall(38, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
@@ -896,8 +896,8 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_panrelative
      */
     get_PanRelative(pValue, pFlags) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "int*" : IntPtr
+        pFlagsMarshal := pFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(39, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
@@ -965,8 +965,8 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_tiltrelative
      */
     get_TiltRelative(pValue, pFlags) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "int*" : IntPtr
+        pFlagsMarshal := pFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(41, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
@@ -1016,11 +1016,11 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-getrange_tiltrelative
      */
     getRange_TiltRelative(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
-        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
-        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
-        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
-        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+        pMinMarshal := pMin is VarRef ? "int*" : IntPtr
+        pMaxMarshal := pMax is VarRef ? "int*" : IntPtr
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : IntPtr
+        pDefaultMarshal := pDefault is VarRef ? "int*" : IntPtr
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : IntPtr
 
         result := ComCall(43, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
@@ -1035,9 +1035,9 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_pantiltrelative
      */
     get_PanTiltRelative(pPanValue, pTiltValue, pFlags) {
-        pPanValueMarshal := pPanValue is VarRef ? "int*" : "ptr"
-        pTiltValueMarshal := pTiltValue is VarRef ? "int*" : "ptr"
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+        pPanValueMarshal := pPanValue is VarRef ? "int*" : IntPtr
+        pTiltValueMarshal := pTiltValue is VarRef ? "int*" : IntPtr
+        pFlagsMarshal := pFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(44, this, pPanValueMarshal, pPanValue, pTiltValueMarshal, pTiltValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
@@ -1067,11 +1067,11 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-getrange_panrelative
      */
     getRange_PanRelative(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
-        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
-        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
-        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
-        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+        pMinMarshal := pMin is VarRef ? "int*" : IntPtr
+        pMaxMarshal := pMax is VarRef ? "int*" : IntPtr
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : IntPtr
+        pDefaultMarshal := pDefault is VarRef ? "int*" : IntPtr
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : IntPtr
 
         result := ComCall(46, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
@@ -1106,8 +1106,8 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_rollrelative
      */
     get_RollRelative(pValue, pFlags) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "int*" : IntPtr
+        pFlagsMarshal := pFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(47, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
@@ -1157,11 +1157,11 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-getrange_rollrelative
      */
     getRange_RollRelative(pMin, pMax, pSteppingDelta, pDefault, pCapsFlag) {
-        pMinMarshal := pMin is VarRef ? "int*" : "ptr"
-        pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
-        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
-        pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
-        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : "ptr"
+        pMinMarshal := pMin is VarRef ? "int*" : IntPtr
+        pMaxMarshal := pMax is VarRef ? "int*" : IntPtr
+        pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : IntPtr
+        pDefaultMarshal := pDefault is VarRef ? "int*" : IntPtr
+        pCapsFlagMarshal := pCapsFlag is VarRef ? "int*" : IntPtr
 
         result := ComCall(49, this, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagMarshal, pCapsFlag, "HRESULT")
         return result
@@ -1175,8 +1175,8 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_scanmode
      */
     get_ScanMode(pValue, pFlags) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "int*" : IntPtr
+        pFlagsMarshal := pFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(50, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
@@ -1202,8 +1202,8 @@ export default struct ICameraControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-icameracontrol-get_privacymode
      */
     get_PrivacyMode(pValue, pFlags) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "int*" : IntPtr
+        pFlagsMarshal := pFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(52, this, pValueMarshal, pValue, pFlagsMarshal, pFlags, "HRESULT")
         return result
@@ -1230,57 +1230,57 @@ export default struct ICameraControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Exposure := CallbackCreate(GetMethod(implObj, "get_Exposure"), flags, 3)
-        this.vtbl.put_Exposure := CallbackCreate(GetMethod(implObj, "put_Exposure"), flags, 3)
-        this.vtbl.getRange_Exposure := CallbackCreate(GetMethod(implObj, "getRange_Exposure"), flags, 6)
-        this.vtbl.get_Focus := CallbackCreate(GetMethod(implObj, "get_Focus"), flags, 3)
-        this.vtbl.put_Focus := CallbackCreate(GetMethod(implObj, "put_Focus"), flags, 3)
-        this.vtbl.getRange_Focus := CallbackCreate(GetMethod(implObj, "getRange_Focus"), flags, 6)
-        this.vtbl.get_Iris := CallbackCreate(GetMethod(implObj, "get_Iris"), flags, 3)
-        this.vtbl.put_Iris := CallbackCreate(GetMethod(implObj, "put_Iris"), flags, 3)
-        this.vtbl.getRange_Iris := CallbackCreate(GetMethod(implObj, "getRange_Iris"), flags, 6)
-        this.vtbl.get_Zoom := CallbackCreate(GetMethod(implObj, "get_Zoom"), flags, 3)
-        this.vtbl.put_Zoom := CallbackCreate(GetMethod(implObj, "put_Zoom"), flags, 3)
-        this.vtbl.getRange_Zoom := CallbackCreate(GetMethod(implObj, "getRange_Zoom"), flags, 6)
-        this.vtbl.get_FocalLengths := CallbackCreate(GetMethod(implObj, "get_FocalLengths"), flags, 4)
-        this.vtbl.get_Pan := CallbackCreate(GetMethod(implObj, "get_Pan"), flags, 3)
-        this.vtbl.put_Pan := CallbackCreate(GetMethod(implObj, "put_Pan"), flags, 3)
-        this.vtbl.getRange_Pan := CallbackCreate(GetMethod(implObj, "getRange_Pan"), flags, 6)
-        this.vtbl.get_Tilt := CallbackCreate(GetMethod(implObj, "get_Tilt"), flags, 3)
-        this.vtbl.put_Tilt := CallbackCreate(GetMethod(implObj, "put_Tilt"), flags, 3)
-        this.vtbl.getRange_Tilt := CallbackCreate(GetMethod(implObj, "getRange_Tilt"), flags, 6)
-        this.vtbl.get_PanTilt := CallbackCreate(GetMethod(implObj, "get_PanTilt"), flags, 4)
-        this.vtbl.put_PanTilt := CallbackCreate(GetMethod(implObj, "put_PanTilt"), flags, 4)
-        this.vtbl.get_Roll := CallbackCreate(GetMethod(implObj, "get_Roll"), flags, 3)
-        this.vtbl.put_Roll := CallbackCreate(GetMethod(implObj, "put_Roll"), flags, 3)
-        this.vtbl.getRange_Roll := CallbackCreate(GetMethod(implObj, "getRange_Roll"), flags, 6)
-        this.vtbl.get_ExposureRelative := CallbackCreate(GetMethod(implObj, "get_ExposureRelative"), flags, 3)
-        this.vtbl.put_ExposureRelative := CallbackCreate(GetMethod(implObj, "put_ExposureRelative"), flags, 3)
-        this.vtbl.getRange_ExposureRelative := CallbackCreate(GetMethod(implObj, "getRange_ExposureRelative"), flags, 6)
-        this.vtbl.get_FocusRelative := CallbackCreate(GetMethod(implObj, "get_FocusRelative"), flags, 3)
-        this.vtbl.put_FocusRelative := CallbackCreate(GetMethod(implObj, "put_FocusRelative"), flags, 3)
-        this.vtbl.getRange_FocusRelative := CallbackCreate(GetMethod(implObj, "getRange_FocusRelative"), flags, 6)
-        this.vtbl.get_IrisRelative := CallbackCreate(GetMethod(implObj, "get_IrisRelative"), flags, 3)
-        this.vtbl.put_IrisRelative := CallbackCreate(GetMethod(implObj, "put_IrisRelative"), flags, 3)
-        this.vtbl.getRange_IrisRelative := CallbackCreate(GetMethod(implObj, "getRange_IrisRelative"), flags, 6)
-        this.vtbl.get_ZoomRelative := CallbackCreate(GetMethod(implObj, "get_ZoomRelative"), flags, 3)
-        this.vtbl.put_ZoomRelative := CallbackCreate(GetMethod(implObj, "put_ZoomRelative"), flags, 3)
-        this.vtbl.getRange_ZoomRelative := CallbackCreate(GetMethod(implObj, "getRange_ZoomRelative"), flags, 6)
-        this.vtbl.get_PanRelative := CallbackCreate(GetMethod(implObj, "get_PanRelative"), flags, 3)
-        this.vtbl.put_PanRelative := CallbackCreate(GetMethod(implObj, "put_PanRelative"), flags, 3)
-        this.vtbl.get_TiltRelative := CallbackCreate(GetMethod(implObj, "get_TiltRelative"), flags, 3)
-        this.vtbl.put_TiltRelative := CallbackCreate(GetMethod(implObj, "put_TiltRelative"), flags, 3)
-        this.vtbl.getRange_TiltRelative := CallbackCreate(GetMethod(implObj, "getRange_TiltRelative"), flags, 6)
-        this.vtbl.get_PanTiltRelative := CallbackCreate(GetMethod(implObj, "get_PanTiltRelative"), flags, 4)
-        this.vtbl.put_PanTiltRelative := CallbackCreate(GetMethod(implObj, "put_PanTiltRelative"), flags, 4)
-        this.vtbl.getRange_PanRelative := CallbackCreate(GetMethod(implObj, "getRange_PanRelative"), flags, 6)
-        this.vtbl.get_RollRelative := CallbackCreate(GetMethod(implObj, "get_RollRelative"), flags, 3)
-        this.vtbl.put_RollRelative := CallbackCreate(GetMethod(implObj, "put_RollRelative"), flags, 3)
-        this.vtbl.getRange_RollRelative := CallbackCreate(GetMethod(implObj, "getRange_RollRelative"), flags, 6)
-        this.vtbl.get_ScanMode := CallbackCreate(GetMethod(implObj, "get_ScanMode"), flags, 3)
-        this.vtbl.put_ScanMode := CallbackCreate(GetMethod(implObj, "put_ScanMode"), flags, 3)
-        this.vtbl.get_PrivacyMode := CallbackCreate(GetMethod(implObj, "get_PrivacyMode"), flags, 3)
-        this.vtbl.put_PrivacyMode := CallbackCreate(GetMethod(implObj, "put_PrivacyMode"), flags, 3)
+        this.vtbl.get_Exposure := CallbackCreate(ObjBindMethod(implObj, "get_Exposure"), flags, 3)
+        this.vtbl.put_Exposure := CallbackCreate(ObjBindMethod(implObj, "put_Exposure"), flags, 3)
+        this.vtbl.getRange_Exposure := CallbackCreate(ObjBindMethod(implObj, "getRange_Exposure"), flags, 6)
+        this.vtbl.get_Focus := CallbackCreate(ObjBindMethod(implObj, "get_Focus"), flags, 3)
+        this.vtbl.put_Focus := CallbackCreate(ObjBindMethod(implObj, "put_Focus"), flags, 3)
+        this.vtbl.getRange_Focus := CallbackCreate(ObjBindMethod(implObj, "getRange_Focus"), flags, 6)
+        this.vtbl.get_Iris := CallbackCreate(ObjBindMethod(implObj, "get_Iris"), flags, 3)
+        this.vtbl.put_Iris := CallbackCreate(ObjBindMethod(implObj, "put_Iris"), flags, 3)
+        this.vtbl.getRange_Iris := CallbackCreate(ObjBindMethod(implObj, "getRange_Iris"), flags, 6)
+        this.vtbl.get_Zoom := CallbackCreate(ObjBindMethod(implObj, "get_Zoom"), flags, 3)
+        this.vtbl.put_Zoom := CallbackCreate(ObjBindMethod(implObj, "put_Zoom"), flags, 3)
+        this.vtbl.getRange_Zoom := CallbackCreate(ObjBindMethod(implObj, "getRange_Zoom"), flags, 6)
+        this.vtbl.get_FocalLengths := CallbackCreate(ObjBindMethod(implObj, "get_FocalLengths"), flags, 4)
+        this.vtbl.get_Pan := CallbackCreate(ObjBindMethod(implObj, "get_Pan"), flags, 3)
+        this.vtbl.put_Pan := CallbackCreate(ObjBindMethod(implObj, "put_Pan"), flags, 3)
+        this.vtbl.getRange_Pan := CallbackCreate(ObjBindMethod(implObj, "getRange_Pan"), flags, 6)
+        this.vtbl.get_Tilt := CallbackCreate(ObjBindMethod(implObj, "get_Tilt"), flags, 3)
+        this.vtbl.put_Tilt := CallbackCreate(ObjBindMethod(implObj, "put_Tilt"), flags, 3)
+        this.vtbl.getRange_Tilt := CallbackCreate(ObjBindMethod(implObj, "getRange_Tilt"), flags, 6)
+        this.vtbl.get_PanTilt := CallbackCreate(ObjBindMethod(implObj, "get_PanTilt"), flags, 4)
+        this.vtbl.put_PanTilt := CallbackCreate(ObjBindMethod(implObj, "put_PanTilt"), flags, 4)
+        this.vtbl.get_Roll := CallbackCreate(ObjBindMethod(implObj, "get_Roll"), flags, 3)
+        this.vtbl.put_Roll := CallbackCreate(ObjBindMethod(implObj, "put_Roll"), flags, 3)
+        this.vtbl.getRange_Roll := CallbackCreate(ObjBindMethod(implObj, "getRange_Roll"), flags, 6)
+        this.vtbl.get_ExposureRelative := CallbackCreate(ObjBindMethod(implObj, "get_ExposureRelative"), flags, 3)
+        this.vtbl.put_ExposureRelative := CallbackCreate(ObjBindMethod(implObj, "put_ExposureRelative"), flags, 3)
+        this.vtbl.getRange_ExposureRelative := CallbackCreate(ObjBindMethod(implObj, "getRange_ExposureRelative"), flags, 6)
+        this.vtbl.get_FocusRelative := CallbackCreate(ObjBindMethod(implObj, "get_FocusRelative"), flags, 3)
+        this.vtbl.put_FocusRelative := CallbackCreate(ObjBindMethod(implObj, "put_FocusRelative"), flags, 3)
+        this.vtbl.getRange_FocusRelative := CallbackCreate(ObjBindMethod(implObj, "getRange_FocusRelative"), flags, 6)
+        this.vtbl.get_IrisRelative := CallbackCreate(ObjBindMethod(implObj, "get_IrisRelative"), flags, 3)
+        this.vtbl.put_IrisRelative := CallbackCreate(ObjBindMethod(implObj, "put_IrisRelative"), flags, 3)
+        this.vtbl.getRange_IrisRelative := CallbackCreate(ObjBindMethod(implObj, "getRange_IrisRelative"), flags, 6)
+        this.vtbl.get_ZoomRelative := CallbackCreate(ObjBindMethod(implObj, "get_ZoomRelative"), flags, 3)
+        this.vtbl.put_ZoomRelative := CallbackCreate(ObjBindMethod(implObj, "put_ZoomRelative"), flags, 3)
+        this.vtbl.getRange_ZoomRelative := CallbackCreate(ObjBindMethod(implObj, "getRange_ZoomRelative"), flags, 6)
+        this.vtbl.get_PanRelative := CallbackCreate(ObjBindMethod(implObj, "get_PanRelative"), flags, 3)
+        this.vtbl.put_PanRelative := CallbackCreate(ObjBindMethod(implObj, "put_PanRelative"), flags, 3)
+        this.vtbl.get_TiltRelative := CallbackCreate(ObjBindMethod(implObj, "get_TiltRelative"), flags, 3)
+        this.vtbl.put_TiltRelative := CallbackCreate(ObjBindMethod(implObj, "put_TiltRelative"), flags, 3)
+        this.vtbl.getRange_TiltRelative := CallbackCreate(ObjBindMethod(implObj, "getRange_TiltRelative"), flags, 6)
+        this.vtbl.get_PanTiltRelative := CallbackCreate(ObjBindMethod(implObj, "get_PanTiltRelative"), flags, 4)
+        this.vtbl.put_PanTiltRelative := CallbackCreate(ObjBindMethod(implObj, "put_PanTiltRelative"), flags, 4)
+        this.vtbl.getRange_PanRelative := CallbackCreate(ObjBindMethod(implObj, "getRange_PanRelative"), flags, 6)
+        this.vtbl.get_RollRelative := CallbackCreate(ObjBindMethod(implObj, "get_RollRelative"), flags, 3)
+        this.vtbl.put_RollRelative := CallbackCreate(ObjBindMethod(implObj, "put_RollRelative"), flags, 3)
+        this.vtbl.getRange_RollRelative := CallbackCreate(ObjBindMethod(implObj, "getRange_RollRelative"), flags, 6)
+        this.vtbl.get_ScanMode := CallbackCreate(ObjBindMethod(implObj, "get_ScanMode"), flags, 3)
+        this.vtbl.put_ScanMode := CallbackCreate(ObjBindMethod(implObj, "put_ScanMode"), flags, 3)
+        this.vtbl.get_PrivacyMode := CallbackCreate(ObjBindMethod(implObj, "get_PrivacyMode"), flags, 3)
+        this.vtbl.put_PrivacyMode := CallbackCreate(ObjBindMethod(implObj, "put_PrivacyMode"), flags, 3)
     }
 
     Dispose() {

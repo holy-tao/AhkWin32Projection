@@ -19,7 +19,6 @@ export default struct alljoyn_interfacedescription_translation_callback_ptr {
     }
 
     /**
-     * 
      * @param {PSTR} sourceLanguage 
      * @param {PSTR} targetLanguage 
      * @param {PSTR} sourceText 

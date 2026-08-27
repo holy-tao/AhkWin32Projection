@@ -20,13 +20,13 @@ export default struct PSHED_PI_SET_ERROR_SOURCE_INFO {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} PluginContext 
      * @param {Pointer<WHEA_ERROR_SOURCE_DESCRIPTOR>} ErrorSource 
      * @returns {NTSTATUS} 
      */
     Call(PluginContext, ErrorSource) {
-        PluginContextMarshal := PluginContext is VarRef ? "ptr" : "ptr"
+        PluginContextMarshal := PluginContext is VarRef ? "ptr" : IntPtr
+        PluginContextMarshal := PluginContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, PluginContextMarshal, PluginContext, WHEA_ERROR_SOURCE_DESCRIPTOR.Ptr, ErrorSource, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

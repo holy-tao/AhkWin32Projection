@@ -145,7 +145,7 @@ export default struct IMDSPStorageGlobals extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorageglobals-getserialnumber
      */
     GetSerialNumber(abMac) {
-        abMacMarshal := abMac is VarRef ? "char*" : "ptr"
+        abMacMarshal := abMac is VarRef ? "char*" : IntPtr
 
         pSerialNum := WMDMID()
         result := ComCall(4, this, WMDMID.Ptr, pSerialNum, abMacMarshal, abMac, "HRESULT")
@@ -169,8 +169,8 @@ export default struct IMDSPStorageGlobals extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorageglobals-gettotalsize
      */
     GetTotalSize(pdwTotalSizeLow, pdwTotalSizeHigh) {
-        pdwTotalSizeLowMarshal := pdwTotalSizeLow is VarRef ? "uint*" : "ptr"
-        pdwTotalSizeHighMarshal := pdwTotalSizeHigh is VarRef ? "uint*" : "ptr"
+        pdwTotalSizeLowMarshal := pdwTotalSizeLow is VarRef ? "uint*" : IntPtr
+        pdwTotalSizeHighMarshal := pdwTotalSizeHigh is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, pdwTotalSizeLowMarshal, pdwTotalSizeLow, pdwTotalSizeHighMarshal, pdwTotalSizeHigh, "HRESULT")
         return result
@@ -195,8 +195,8 @@ export default struct IMDSPStorageGlobals extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorageglobals-gettotalfree
      */
     GetTotalFree(pdwFreeLow, pdwFreeHigh) {
-        pdwFreeLowMarshal := pdwFreeLow is VarRef ? "uint*" : "ptr"
-        pdwFreeHighMarshal := pdwFreeHigh is VarRef ? "uint*" : "ptr"
+        pdwFreeLowMarshal := pdwFreeLow is VarRef ? "uint*" : IntPtr
+        pdwFreeHighMarshal := pdwFreeHigh is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, pdwFreeLowMarshal, pdwFreeLow, pdwFreeHighMarshal, pdwFreeHigh, "HRESULT")
         return result
@@ -221,8 +221,8 @@ export default struct IMDSPStorageGlobals extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorageglobals-gettotalbad
      */
     GetTotalBad(pdwBadLow, pdwBadHigh) {
-        pdwBadLowMarshal := pdwBadLow is VarRef ? "uint*" : "ptr"
-        pdwBadHighMarshal := pdwBadHigh is VarRef ? "uint*" : "ptr"
+        pdwBadLowMarshal := pdwBadLow is VarRef ? "uint*" : IntPtr
+        pdwBadHighMarshal := pdwBadHigh is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, pdwBadLowMarshal, pdwBadLow, pdwBadHighMarshal, pdwBadHigh, "HRESULT")
         return result
@@ -313,7 +313,9 @@ export default struct IMDSPStorageGlobals extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorageglobals-initialize
      */
     Initialize(fuMode, pProgress) {
-        result := ComCall(9, this, UInt32, fuMode, "ptr", pProgress, "HRESULT")
+        pProgressMarshal := pProgress == 0 ? IntPtr : "ptr"
+
+        result := ComCall(9, this, UInt32, fuMode, pProgressMarshal, pProgress, "HRESULT")
         return result
     }
 
@@ -350,15 +352,15 @@ export default struct IMDSPStorageGlobals extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCapabilities := CallbackCreate(GetMethod(implObj, "GetCapabilities"), flags, 2)
-        this.vtbl.GetSerialNumber := CallbackCreate(GetMethod(implObj, "GetSerialNumber"), flags, 3)
-        this.vtbl.GetTotalSize := CallbackCreate(GetMethod(implObj, "GetTotalSize"), flags, 3)
-        this.vtbl.GetTotalFree := CallbackCreate(GetMethod(implObj, "GetTotalFree"), flags, 3)
-        this.vtbl.GetTotalBad := CallbackCreate(GetMethod(implObj, "GetTotalBad"), flags, 3)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.GetDevice := CallbackCreate(GetMethod(implObj, "GetDevice"), flags, 2)
-        this.vtbl.GetRootStorage := CallbackCreate(GetMethod(implObj, "GetRootStorage"), flags, 2)
+        this.vtbl.GetCapabilities := CallbackCreate(ObjBindMethod(implObj, "GetCapabilities"), flags, 2)
+        this.vtbl.GetSerialNumber := CallbackCreate(ObjBindMethod(implObj, "GetSerialNumber"), flags, 3)
+        this.vtbl.GetTotalSize := CallbackCreate(ObjBindMethod(implObj, "GetTotalSize"), flags, 3)
+        this.vtbl.GetTotalFree := CallbackCreate(ObjBindMethod(implObj, "GetTotalFree"), flags, 3)
+        this.vtbl.GetTotalBad := CallbackCreate(ObjBindMethod(implObj, "GetTotalBad"), flags, 3)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetDevice := CallbackCreate(ObjBindMethod(implObj, "GetDevice"), flags, 2)
+        this.vtbl.GetRootStorage := CallbackCreate(ObjBindMethod(implObj, "GetRootStorage"), flags, 2)
     }
 
     Dispose() {

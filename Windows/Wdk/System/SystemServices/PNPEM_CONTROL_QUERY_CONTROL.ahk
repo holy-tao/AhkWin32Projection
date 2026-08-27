@@ -18,7 +18,6 @@ export default struct PNPEM_CONTROL_QUERY_CONTROL {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Call() {

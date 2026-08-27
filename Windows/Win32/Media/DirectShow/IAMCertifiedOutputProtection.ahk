@@ -108,8 +108,8 @@ export default struct IAMCertifiedOutputProtection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamcertifiedoutputprotection-keyexchange
      */
     KeyExchange(pRandom, VarLenCertGH, pdwLengthCertGH) {
-        VarLenCertGHMarshal := VarLenCertGH is VarRef ? "ptr*" : "ptr"
-        pdwLengthCertGHMarshal := pdwLengthCertGH is VarRef ? "uint*" : "ptr"
+        VarLenCertGHMarshal := VarLenCertGH is VarRef ? "ptr*" : IntPtr
+        pdwLengthCertGHMarshal := pdwLengthCertGH is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, Guid.Ptr, pRandom, VarLenCertGHMarshal, VarLenCertGH, pdwLengthCertGHMarshal, pdwLengthCertGH, "HRESULT")
         return result
@@ -248,10 +248,10 @@ export default struct IAMCertifiedOutputProtection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.KeyExchange := CallbackCreate(GetMethod(implObj, "KeyExchange"), flags, 4)
-        this.vtbl.SessionSequenceStart := CallbackCreate(GetMethod(implObj, "SessionSequenceStart"), flags, 2)
-        this.vtbl.ProtectionCommand := CallbackCreate(GetMethod(implObj, "ProtectionCommand"), flags, 2)
-        this.vtbl.ProtectionStatus := CallbackCreate(GetMethod(implObj, "ProtectionStatus"), flags, 3)
+        this.vtbl.KeyExchange := CallbackCreate(ObjBindMethod(implObj, "KeyExchange"), flags, 4)
+        this.vtbl.SessionSequenceStart := CallbackCreate(ObjBindMethod(implObj, "SessionSequenceStart"), flags, 2)
+        this.vtbl.ProtectionCommand := CallbackCreate(ObjBindMethod(implObj, "ProtectionCommand"), flags, 2)
+        this.vtbl.ProtectionStatus := CallbackCreate(ObjBindMethod(implObj, "ProtectionStatus"), flags, 3)
     }
 
     Dispose() {

@@ -30,7 +30,6 @@ export default struct LPDHCP_HANDLE_OPTIONS {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} Packet Buffer for the packet being processed.
      * @param {Integer} PacketSize Size of the <i>Packet</i> parameter, in bytes.
      * @param {Pointer<Void>} Reserved Reserve for future use.
@@ -40,9 +39,9 @@ export default struct LPDHCP_HANDLE_OPTIONS {
      * @returns {Integer} Return values are defined by the application providing the callback.
      */
     Call(Packet, PacketSize, Reserved, PktContext, ServerOptions) {
-        PacketMarshal := Packet is VarRef ? "char*" : "ptr"
-        ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
-        PktContextMarshal := PktContext is VarRef ? "ptr" : "ptr"
+        PacketMarshal := Packet is VarRef ? "char*" : IntPtr
+        ReservedMarshal := Reserved is VarRef ? "ptr" : IntPtr
+        PktContextMarshal := PktContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, PacketMarshal, Packet, UInt32, PacketSize, ReservedMarshal, Reserved, PktContextMarshal, PktContext, DHCP_SERVER_OPTIONS.Ptr, ServerOptions, UInt32)
         return result

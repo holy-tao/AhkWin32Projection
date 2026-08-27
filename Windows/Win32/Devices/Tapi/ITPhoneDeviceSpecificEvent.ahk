@@ -119,10 +119,10 @@ export default struct ITPhoneDeviceSpecificEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Phone := CallbackCreate(GetMethod(implObj, "get_Phone"), flags, 2)
-        this.vtbl.get_lParam1 := CallbackCreate(GetMethod(implObj, "get_lParam1"), flags, 2)
-        this.vtbl.get_lParam2 := CallbackCreate(GetMethod(implObj, "get_lParam2"), flags, 2)
-        this.vtbl.get_lParam3 := CallbackCreate(GetMethod(implObj, "get_lParam3"), flags, 2)
+        this.vtbl.get_Phone := CallbackCreate(ObjBindMethod(implObj, "get_Phone"), flags, 2)
+        this.vtbl.get_lParam1 := CallbackCreate(ObjBindMethod(implObj, "get_lParam1"), flags, 2)
+        this.vtbl.get_lParam2 := CallbackCreate(ObjBindMethod(implObj, "get_lParam2"), flags, 2)
+        this.vtbl.get_lParam3 := CallbackCreate(ObjBindMethod(implObj, "get_lParam3"), flags, 2)
     }
 
     Dispose() {

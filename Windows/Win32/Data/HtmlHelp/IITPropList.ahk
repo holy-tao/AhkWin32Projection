@@ -305,7 +305,7 @@ export default struct IITPropList extends IPersistStreamInit {
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitproplist-set(propid_lpvoid_dword_dword)
      */
     Set1(PropID, lpvData, cbData, dwOperation) {
-        lpvDataMarshal := lpvData is VarRef ? "ptr" : "ptr"
+        lpvDataMarshal := lpvData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(10, this, UInt32, PropID, lpvDataMarshal, lpvData, UInt32, cbData, UInt32, dwOperation, "HRESULT")
         return result
@@ -436,7 +436,6 @@ export default struct IITPropList extends IPersistStreamInit {
     }
 
     /**
-     * 
      * @param {Pointer<CProperty>} Prop 
      * @returns {HRESULT} 
      */
@@ -656,7 +655,6 @@ export default struct IITPropList extends IPersistStreamInit {
     }
 
     /**
-     * 
      * @param {Pointer<CProperty>} _Property 
      * @returns {HRESULT} 
      */
@@ -666,12 +664,11 @@ export default struct IITPropList extends IPersistStreamInit {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} cProp 
      * @returns {HRESULT} 
      */
     GetPropCount(cProp) {
-        cPropMarshal := cProp is VarRef ? "int*" : "ptr"
+        cPropMarshal := cProp is VarRef ? "int*" : IntPtr
 
         result := ComCall(19, this, cPropMarshal, cProp, "HRESULT")
         return result
@@ -707,7 +704,7 @@ export default struct IITPropList extends IPersistStreamInit {
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitproplist-saveheader
      */
     SaveHeader(lpvData, dwHdrSize) {
-        lpvDataMarshal := lpvData is VarRef ? "ptr" : "ptr"
+        lpvDataMarshal := lpvData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(20, this, lpvDataMarshal, lpvData, UInt32, dwHdrSize, "HRESULT")
         return result
@@ -745,8 +742,8 @@ export default struct IITPropList extends IPersistStreamInit {
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitproplist-savedata
      */
     SaveData(lpvHeader, dwHdrSize, lpvData, dwBufSize) {
-        lpvHeaderMarshal := lpvHeader is VarRef ? "ptr" : "ptr"
-        lpvDataMarshal := lpvData is VarRef ? "ptr" : "ptr"
+        lpvHeaderMarshal := lpvHeader is VarRef ? "ptr" : IntPtr
+        lpvDataMarshal := lpvData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(21, this, lpvHeaderMarshal, lpvHeader, UInt32, dwHdrSize, lpvDataMarshal, lpvData, UInt32, dwBufSize, "HRESULT")
         return result
@@ -777,7 +774,7 @@ export default struct IITPropList extends IPersistStreamInit {
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitproplist-getheadersize
      */
     GetHeaderSize(dwHdrSize) {
-        dwHdrSizeMarshal := dwHdrSize is VarRef ? "uint*" : "ptr"
+        dwHdrSizeMarshal := dwHdrSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(22, this, dwHdrSizeMarshal, dwHdrSize, "HRESULT")
         return result
@@ -832,48 +829,45 @@ export default struct IITPropList extends IPersistStreamInit {
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitproplist-getdatasize
      */
     GetDataSize(lpvHeader, dwHdrSize, dwDataSize) {
-        lpvHeaderMarshal := lpvHeader is VarRef ? "ptr" : "ptr"
-        dwDataSizeMarshal := dwDataSize is VarRef ? "uint*" : "ptr"
+        lpvHeaderMarshal := lpvHeader is VarRef ? "ptr" : IntPtr
+        dwDataSizeMarshal := dwDataSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(23, this, lpvHeaderMarshal, lpvHeader, UInt32, dwHdrSize, dwDataSizeMarshal, dwDataSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} lpvHeader 
      * @param {Integer} dwHdrSize 
      * @param {IStream} pStream 
      * @returns {HRESULT} 
      */
     SaveDataToStream(lpvHeader, dwHdrSize, pStream) {
-        lpvHeaderMarshal := lpvHeader is VarRef ? "ptr" : "ptr"
+        lpvHeaderMarshal := lpvHeader is VarRef ? "ptr" : IntPtr
 
         result := ComCall(24, this, lpvHeaderMarshal, lpvHeader, UInt32, dwHdrSize, "ptr", pStream, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} lpvData 
      * @param {Integer} dwBufSize 
      * @returns {HRESULT} 
      */
     LoadFromMem(lpvData, dwBufSize) {
-        lpvDataMarshal := lpvData is VarRef ? "ptr" : "ptr"
+        lpvDataMarshal := lpvData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(25, this, lpvDataMarshal, lpvData, UInt32, dwBufSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} lpvData 
      * @param {Integer} dwBufSize 
      * @returns {HRESULT} 
      */
     SaveToMem(lpvData, dwBufSize) {
-        lpvDataMarshal := lpvData is VarRef ? "ptr" : "ptr"
+        lpvDataMarshal := lpvData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(26, this, lpvDataMarshal, lpvData, UInt32, dwBufSize, "HRESULT")
         return result
@@ -888,24 +882,24 @@ export default struct IITPropList extends IPersistStreamInit {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Set := CallbackCreate(GetMethod(implObj, "Set"), flags, 4)
-        this.vtbl.Set1 := CallbackCreate(GetMethod(implObj, "Set1"), flags, 5)
-        this.vtbl.Set2 := CallbackCreate(GetMethod(implObj, "Set2"), flags, 4)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
-        this.vtbl.Get := CallbackCreate(GetMethod(implObj, "Get"), flags, 3)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
-        this.vtbl.SetPersist := CallbackCreate(GetMethod(implObj, "SetPersist"), flags, 2)
-        this.vtbl.SetPersist1 := CallbackCreate(GetMethod(implObj, "SetPersist1"), flags, 3)
-        this.vtbl.GetFirst := CallbackCreate(GetMethod(implObj, "GetFirst"), flags, 2)
-        this.vtbl.GetNext := CallbackCreate(GetMethod(implObj, "GetNext"), flags, 2)
-        this.vtbl.GetPropCount := CallbackCreate(GetMethod(implObj, "GetPropCount"), flags, 2)
-        this.vtbl.SaveHeader := CallbackCreate(GetMethod(implObj, "SaveHeader"), flags, 3)
-        this.vtbl.SaveData := CallbackCreate(GetMethod(implObj, "SaveData"), flags, 5)
-        this.vtbl.GetHeaderSize := CallbackCreate(GetMethod(implObj, "GetHeaderSize"), flags, 2)
-        this.vtbl.GetDataSize := CallbackCreate(GetMethod(implObj, "GetDataSize"), flags, 4)
-        this.vtbl.SaveDataToStream := CallbackCreate(GetMethod(implObj, "SaveDataToStream"), flags, 4)
-        this.vtbl.LoadFromMem := CallbackCreate(GetMethod(implObj, "LoadFromMem"), flags, 3)
-        this.vtbl.SaveToMem := CallbackCreate(GetMethod(implObj, "SaveToMem"), flags, 3)
+        this.vtbl.Set := CallbackCreate(ObjBindMethod(implObj, "Set"), flags, 4)
+        this.vtbl.Set1 := CallbackCreate(ObjBindMethod(implObj, "Set1"), flags, 5)
+        this.vtbl.Set2 := CallbackCreate(ObjBindMethod(implObj, "Set2"), flags, 4)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Get := CallbackCreate(ObjBindMethod(implObj, "Get"), flags, 3)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.SetPersist := CallbackCreate(ObjBindMethod(implObj, "SetPersist"), flags, 2)
+        this.vtbl.SetPersist1 := CallbackCreate(ObjBindMethod(implObj, "SetPersist1"), flags, 3)
+        this.vtbl.GetFirst := CallbackCreate(ObjBindMethod(implObj, "GetFirst"), flags, 2)
+        this.vtbl.GetNext := CallbackCreate(ObjBindMethod(implObj, "GetNext"), flags, 2)
+        this.vtbl.GetPropCount := CallbackCreate(ObjBindMethod(implObj, "GetPropCount"), flags, 2)
+        this.vtbl.SaveHeader := CallbackCreate(ObjBindMethod(implObj, "SaveHeader"), flags, 3)
+        this.vtbl.SaveData := CallbackCreate(ObjBindMethod(implObj, "SaveData"), flags, 5)
+        this.vtbl.GetHeaderSize := CallbackCreate(ObjBindMethod(implObj, "GetHeaderSize"), flags, 2)
+        this.vtbl.GetDataSize := CallbackCreate(ObjBindMethod(implObj, "GetDataSize"), flags, 4)
+        this.vtbl.SaveDataToStream := CallbackCreate(ObjBindMethod(implObj, "SaveDataToStream"), flags, 4)
+        this.vtbl.LoadFromMem := CallbackCreate(ObjBindMethod(implObj, "LoadFromMem"), flags, 3)
+        this.vtbl.SaveToMem := CallbackCreate(ObjBindMethod(implObj, "SaveToMem"), flags, 3)
     }
 
     Dispose() {

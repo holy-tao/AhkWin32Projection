@@ -148,7 +148,7 @@ export default struct IVssDifferentialSoftwareSnapshotMgmt3 extends IVssDifferen
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt3-setvolumeprotectlevel
      */
     SetVolumeProtectLevel(pwszVolumeName, protectionLevel) {
-        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
+        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(13, this, pwszVolumeNameMarshal, pwszVolumeName, VSS_PROTECTION_LEVEL, protectionLevel, "HRESULT")
         return result
@@ -174,7 +174,7 @@ export default struct IVssDifferentialSoftwareSnapshotMgmt3 extends IVssDifferen
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt3-getvolumeprotectlevel
      */
     GetVolumeProtectLevel(pwszVolumeName) {
-        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
+        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : IntPtr
 
         protectionLevel := VSS_VOLUME_PROTECTION_INFO()
         result := ComCall(14, this, pwszVolumeNameMarshal, pwszVolumeName, VSS_VOLUME_PROTECTION_INFO.Ptr, protectionLevel, "HRESULT")
@@ -277,7 +277,7 @@ export default struct IVssDifferentialSoftwareSnapshotMgmt3 extends IVssDifferen
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt3-clearvolumeprotectfault
      */
     ClearVolumeProtectFault(pwszVolumeName) {
-        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
+        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(15, this, pwszVolumeNameMarshal, pwszVolumeName, "HRESULT")
         return result
@@ -379,7 +379,7 @@ export default struct IVssDifferentialSoftwareSnapshotMgmt3 extends IVssDifferen
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt3-deleteunuseddiffareas
      */
     DeleteUnusedDiffAreas(pwszDiffAreaVolumeName) {
-        pwszDiffAreaVolumeNameMarshal := pwszDiffAreaVolumeName is VarRef ? "ushort*" : "ptr"
+        pwszDiffAreaVolumeNameMarshal := pwszDiffAreaVolumeName is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(16, this, pwszDiffAreaVolumeNameMarshal, pwszDiffAreaVolumeName, "HRESULT")
         return result
@@ -396,9 +396,9 @@ export default struct IVssDifferentialSoftwareSnapshotMgmt3 extends IVssDifferen
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt3-querysnapshotdeltabitmap
      */
     QuerySnapshotDeltaBitmap(idSnapshotOlder, idSnapshotYounger, pcBlockSizePerBit, pcBitmapLength, ppbBitmap) {
-        pcBlockSizePerBitMarshal := pcBlockSizePerBit is VarRef ? "uint*" : "ptr"
-        pcBitmapLengthMarshal := pcBitmapLength is VarRef ? "uint*" : "ptr"
-        ppbBitmapMarshal := ppbBitmap is VarRef ? "ptr*" : "ptr"
+        pcBlockSizePerBitMarshal := pcBlockSizePerBit is VarRef ? "uint*" : IntPtr
+        pcBitmapLengthMarshal := pcBitmapLength is VarRef ? "uint*" : IntPtr
+        ppbBitmapMarshal := ppbBitmap is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(17, this, Guid, idSnapshotOlder, Guid, idSnapshotYounger, pcBlockSizePerBitMarshal, pcBlockSizePerBit, pcBitmapLengthMarshal, pcBitmapLength, ppbBitmapMarshal, ppbBitmap, "HRESULT")
         return result
@@ -413,11 +413,11 @@ export default struct IVssDifferentialSoftwareSnapshotMgmt3 extends IVssDifferen
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetVolumeProtectLevel := CallbackCreate(GetMethod(implObj, "SetVolumeProtectLevel"), flags, 3)
-        this.vtbl.GetVolumeProtectLevel := CallbackCreate(GetMethod(implObj, "GetVolumeProtectLevel"), flags, 3)
-        this.vtbl.ClearVolumeProtectFault := CallbackCreate(GetMethod(implObj, "ClearVolumeProtectFault"), flags, 2)
-        this.vtbl.DeleteUnusedDiffAreas := CallbackCreate(GetMethod(implObj, "DeleteUnusedDiffAreas"), flags, 2)
-        this.vtbl.QuerySnapshotDeltaBitmap := CallbackCreate(GetMethod(implObj, "QuerySnapshotDeltaBitmap"), flags, 6)
+        this.vtbl.SetVolumeProtectLevel := CallbackCreate(ObjBindMethod(implObj, "SetVolumeProtectLevel"), flags, 3)
+        this.vtbl.GetVolumeProtectLevel := CallbackCreate(ObjBindMethod(implObj, "GetVolumeProtectLevel"), flags, 3)
+        this.vtbl.ClearVolumeProtectFault := CallbackCreate(ObjBindMethod(implObj, "ClearVolumeProtectFault"), flags, 2)
+        this.vtbl.DeleteUnusedDiffAreas := CallbackCreate(ObjBindMethod(implObj, "DeleteUnusedDiffAreas"), flags, 2)
+        this.vtbl.QuerySnapshotDeltaBitmap := CallbackCreate(ObjBindMethod(implObj, "QuerySnapshotDeltaBitmap"), flags, 6)
     }
 
     Dispose() {

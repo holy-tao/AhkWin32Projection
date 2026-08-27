@@ -95,7 +95,7 @@ export default struct ID2D1DCRenderTarget extends ID2D1RenderTarget {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BindDC := CallbackCreate(GetMethod(implObj, "BindDC"), flags, 3)
+        this.vtbl.BindDC := CallbackCreate(ObjBindMethod(implObj, "BindDC"), flags, 3)
     }
 
     Dispose() {

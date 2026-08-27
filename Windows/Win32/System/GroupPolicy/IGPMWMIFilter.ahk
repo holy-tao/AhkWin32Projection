@@ -81,7 +81,6 @@ export default struct IGPMWMIFilter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Path() {
@@ -91,7 +90,6 @@ export default struct IGPMWMIFilter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} newVal 
      * @returns {HRESULT} 
      */
@@ -103,7 +101,6 @@ export default struct IGPMWMIFilter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -113,7 +110,6 @@ export default struct IGPMWMIFilter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} newVal 
      * @returns {HRESULT} 
      */
@@ -125,7 +121,6 @@ export default struct IGPMWMIFilter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Description() {
@@ -188,14 +183,14 @@ export default struct IGPMWMIFilter extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Path := CallbackCreate(GetMethod(implObj, "get_Path"), flags, 2)
-        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
-        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
-        this.vtbl.GetQueryList := CallbackCreate(GetMethod(implObj, "GetQueryList"), flags, 2)
-        this.vtbl.GetSecurityInfo := CallbackCreate(GetMethod(implObj, "GetSecurityInfo"), flags, 2)
-        this.vtbl.SetSecurityInfo := CallbackCreate(GetMethod(implObj, "SetSecurityInfo"), flags, 2)
+        this.vtbl.get_Path := CallbackCreate(ObjBindMethod(implObj, "get_Path"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(ObjBindMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(ObjBindMethod(implObj, "put_Description"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(ObjBindMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.GetQueryList := CallbackCreate(ObjBindMethod(implObj, "GetQueryList"), flags, 2)
+        this.vtbl.GetSecurityInfo := CallbackCreate(ObjBindMethod(implObj, "GetSecurityInfo"), flags, 2)
+        this.vtbl.SetSecurityInfo := CallbackCreate(ObjBindMethod(implObj, "SetSecurityInfo"), flags, 2)
     }
 
     Dispose() {

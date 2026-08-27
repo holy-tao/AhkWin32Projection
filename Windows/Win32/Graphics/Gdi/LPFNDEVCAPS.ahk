@@ -20,7 +20,6 @@ export default struct LPFNDEVCAPS {
     }
 
     /**
-     * 
      * @param {PSTR} param0 
      * @param {PSTR} param1 
      * @param {Integer} param2 

@@ -58,7 +58,6 @@ export default struct IADsNetAddress extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AddressType() {
@@ -67,7 +66,6 @@ export default struct IADsNetAddress extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnAddressType 
      * @returns {HRESULT} 
      */
@@ -77,7 +75,6 @@ export default struct IADsNetAddress extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Address() {
@@ -87,7 +84,6 @@ export default struct IADsNetAddress extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} vAddress 
      * @returns {HRESULT} 
      */
@@ -105,10 +101,10 @@ export default struct IADsNetAddress extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_AddressType := CallbackCreate(GetMethod(implObj, "get_AddressType"), flags, 2)
-        this.vtbl.put_AddressType := CallbackCreate(GetMethod(implObj, "put_AddressType"), flags, 2)
-        this.vtbl.get_Address := CallbackCreate(GetMethod(implObj, "get_Address"), flags, 2)
-        this.vtbl.put_Address := CallbackCreate(GetMethod(implObj, "put_Address"), flags, 2)
+        this.vtbl.get_AddressType := CallbackCreate(ObjBindMethod(implObj, "get_AddressType"), flags, 2)
+        this.vtbl.put_AddressType := CallbackCreate(ObjBindMethod(implObj, "put_AddressType"), flags, 2)
+        this.vtbl.get_Address := CallbackCreate(ObjBindMethod(implObj, "get_Address"), flags, 2)
+        this.vtbl.put_Address := CallbackCreate(ObjBindMethod(implObj, "put_Address"), flags, 2)
     }
 
     Dispose() {

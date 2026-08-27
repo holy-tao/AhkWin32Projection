@@ -38,7 +38,6 @@ export default struct IRTCUserSearchResult extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_USER_SEARCH_COLUMN} enColumn 
      * @returns {BSTR} 
      */
@@ -57,7 +56,7 @@ export default struct IRTCUserSearchResult extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Value := CallbackCreate(GetMethod(implObj, "get_Value"), flags, 3)
+        this.vtbl.get_Value := CallbackCreate(ObjBindMethod(implObj, "get_Value"), flags, 3)
     }
 
     Dispose() {

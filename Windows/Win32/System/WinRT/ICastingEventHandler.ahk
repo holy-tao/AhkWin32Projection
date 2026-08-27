@@ -40,7 +40,6 @@ export default struct ICastingEventHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {CASTING_CONNECTION_STATE} newState 
      * @returns {HRESULT} 
      */
@@ -50,7 +49,6 @@ export default struct ICastingEventHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {CASTING_CONNECTION_ERROR_STATUS} errorStatus 
      * @param {PWSTR} errorMessage 
      * @returns {HRESULT} 
@@ -71,8 +69,8 @@ export default struct ICastingEventHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnStateChanged := CallbackCreate(GetMethod(implObj, "OnStateChanged"), flags, 2)
-        this.vtbl.OnError := CallbackCreate(GetMethod(implObj, "OnError"), flags, 3)
+        this.vtbl.OnStateChanged := CallbackCreate(ObjBindMethod(implObj, "OnStateChanged"), flags, 2)
+        this.vtbl.OnError := CallbackCreate(ObjBindMethod(implObj, "OnError"), flags, 3)
     }
 
     Dispose() {

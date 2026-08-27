@@ -18,14 +18,13 @@ export default struct VBS_BASIC_ENCLAVE_BASIC_CALL_GENERATE_RANDOM_DATA {
     }
 
     /**
-     * 
      * @param {Integer} _Buffer 
      * @param {Integer} NumberOfBytes 
      * @param {Pointer<Integer>} Generation 
      * @returns {Integer} 
      */
     Call(_Buffer, NumberOfBytes, Generation) {
-        GenerationMarshal := Generation is VarRef ? "uint*" : "ptr"
+        GenerationMarshal := Generation is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, IntPtr, _Buffer, UInt32, NumberOfBytes, GenerationMarshal, Generation, Int32)
         return result

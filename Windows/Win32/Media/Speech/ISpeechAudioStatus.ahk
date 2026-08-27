@@ -77,7 +77,6 @@ export default struct ISpeechAudioStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_FreeBufferSpace() {
@@ -86,7 +85,6 @@ export default struct ISpeechAudioStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_NonBlockingIO() {
@@ -95,7 +93,6 @@ export default struct ISpeechAudioStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechAudioState} 
      */
     get_State() {
@@ -104,7 +101,6 @@ export default struct ISpeechAudioStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_CurrentSeekPosition() {
@@ -114,7 +110,6 @@ export default struct ISpeechAudioStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_CurrentDevicePosition() {
@@ -132,11 +127,11 @@ export default struct ISpeechAudioStatus extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_FreeBufferSpace := CallbackCreate(GetMethod(implObj, "get_FreeBufferSpace"), flags, 2)
-        this.vtbl.get_NonBlockingIO := CallbackCreate(GetMethod(implObj, "get_NonBlockingIO"), flags, 2)
-        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
-        this.vtbl.get_CurrentSeekPosition := CallbackCreate(GetMethod(implObj, "get_CurrentSeekPosition"), flags, 2)
-        this.vtbl.get_CurrentDevicePosition := CallbackCreate(GetMethod(implObj, "get_CurrentDevicePosition"), flags, 2)
+        this.vtbl.get_FreeBufferSpace := CallbackCreate(ObjBindMethod(implObj, "get_FreeBufferSpace"), flags, 2)
+        this.vtbl.get_NonBlockingIO := CallbackCreate(ObjBindMethod(implObj, "get_NonBlockingIO"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(ObjBindMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.get_CurrentSeekPosition := CallbackCreate(ObjBindMethod(implObj, "get_CurrentSeekPosition"), flags, 2)
+        this.vtbl.get_CurrentDevicePosition := CallbackCreate(ObjBindMethod(implObj, "get_CurrentDevicePosition"), flags, 2)
     }
 
     Dispose() {

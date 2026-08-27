@@ -22,7 +22,6 @@ export default struct DEVICE_BUS_SPECIFIC_RESET_HANDLER {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} InterfaceContext 
      * @param {Pointer<Guid>} BusType 
      * @param {DEVICE_BUS_SPECIFIC_RESET_TYPE} ResetTypeSelected 
@@ -31,8 +30,8 @@ export default struct DEVICE_BUS_SPECIFIC_RESET_HANDLER {
      * @returns {NTSTATUS} 
      */
     Call(InterfaceContext, BusType, ResetTypeSelected, Flags, ResetParameters) {
-        InterfaceContextMarshal := InterfaceContext is VarRef ? "ptr" : "ptr"
-        ResetParametersMarshal := ResetParameters is VarRef ? "ptr" : "ptr"
+        InterfaceContextMarshal := InterfaceContext is VarRef ? "ptr" : IntPtr
+        ResetParametersMarshal := ResetParameters is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, InterfaceContextMarshal, InterfaceContext, Guid.Ptr, BusType, DEVICE_BUS_SPECIFIC_RESET_TYPE, ResetTypeSelected, BUS_SPECIFIC_RESET_FLAGS.Ptr, Flags, ResetParametersMarshal, ResetParameters, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

@@ -26,7 +26,6 @@
 
 ;@region Functions
 /**
- * 
  * @param {Integer} dwTabThreadID 
  * @param {Integer} dwAssociatedThreadID 
  * @returns {HRESULT} 
@@ -37,7 +36,6 @@ export IEAssociateThreadWithTab(dwTabThreadID, dwAssociatedThreadID) {
 }
 
 /**
- * 
  * @param {Integer} dwTabThreadID 
  * @param {Integer} dwAssociatedThreadID 
  * @returns {HRESULT} 
@@ -48,7 +46,6 @@ export IEDisassociateThreadWithTab(dwTabThreadID, dwAssociatedThreadID) {
 }
 
 /**
- * 
  * @returns {BOOL} 
  */
 export IEIsInPrivateBrowsing() {
@@ -57,7 +54,6 @@ export IEIsInPrivateBrowsing() {
 }
 
 /**
- * 
  * @returns {BOOL} 
  */
 export IEInPrivateFilteringEnabled() {
@@ -66,7 +62,6 @@ export IEInPrivateFilteringEnabled() {
 }
 
 /**
- * 
  * @returns {BOOL} 
  */
 export IETrackingProtectionEnabled() {
@@ -75,7 +70,6 @@ export IETrackingProtectionEnabled() {
 }
 
 /**
- * 
  * @param {HANDLE} hState 
  * @param {PWSTR} lpwstrSourceFile 
  * @returns {HRESULT} 
@@ -88,7 +82,6 @@ export IESaveFile(hState, lpwstrSourceFile) {
 }
 
 /**
- * 
  * @param {HANDLE} hState 
  * @returns {HRESULT} 
  */
@@ -98,7 +91,6 @@ export IECancelSaveFile(hState) {
 }
 
 /**
- * 
  * @param {HWND} _hwnd 
  * @param {PWSTR} lpwstrInitialFileName 
  * @param {PWSTR} lpwstrInitialDir 
@@ -116,14 +108,16 @@ export IEShowSaveFileDialog(_hwnd, lpwstrInitialFileName, lpwstrInitialDir, lpws
     lpwstrFilter := lpwstrFilter is String ? StrPtr(lpwstrFilter) : lpwstrFilter
     lpwstrDefExt := lpwstrDefExt is String ? StrPtr(lpwstrDefExt) : lpwstrDefExt
 
-    lppwstrDestinationFilePathMarshal := lppwstrDestinationFilePath is VarRef ? "ptr*" : "ptr"
+    lpwstrInitialDirMarshal := lpwstrInitialDir == 0 ? IntPtr : PWSTR
+    lpwstrFilterMarshal := lpwstrFilter == 0 ? IntPtr : PWSTR
+    lpwstrDefExtMarshal := lpwstrDefExt == 0 ? IntPtr : PWSTR
+    lppwstrDestinationFilePathMarshal := lppwstrDestinationFilePath is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("Ieframe.dll\IEShowSaveFileDialog", HWND, _hwnd, "ptr", lpwstrInitialFileName, "ptr", lpwstrInitialDir, "ptr", lpwstrFilter, "ptr", lpwstrDefExt, UInt32, dwFilterIndex, UInt32, dwFlags, lppwstrDestinationFilePathMarshal, lppwstrDestinationFilePath, HANDLE.Ptr, phState, "HRESULT")
+    result := DllCall("Ieframe.dll\IEShowSaveFileDialog", HWND, _hwnd, "ptr", lpwstrInitialFileName, lpwstrInitialDirMarshal, lpwstrInitialDir, lpwstrFilterMarshal, lpwstrFilter, lpwstrDefExtMarshal, lpwstrDefExt, UInt32, dwFilterIndex, UInt32, dwFlags, lppwstrDestinationFilePathMarshal, lppwstrDestinationFilePath, HANDLE.Ptr, phState, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {HWND} _hwnd 
  * @param {PWSTR} lpwstrFileName 
  * @param {Integer} cchMaxFileName 
@@ -140,13 +134,16 @@ export IEShowOpenFileDialog(_hwnd, lpwstrFileName, cchMaxFileName, lpwstrInitial
     lpwstrFilter := lpwstrFilter is String ? StrPtr(lpwstrFilter) : lpwstrFilter
     lpwstrDefExt := lpwstrDefExt is String ? StrPtr(lpwstrDefExt) : lpwstrDefExt
 
+    lpwstrInitialDirMarshal := lpwstrInitialDir == 0 ? IntPtr : PWSTR
+    lpwstrFilterMarshal := lpwstrFilter == 0 ? IntPtr : PWSTR
+    lpwstrDefExtMarshal := lpwstrDefExt == 0 ? IntPtr : PWSTR
+
     phFile := HANDLE.Owned()
-    result := DllCall("Ieframe.dll\IEShowOpenFileDialog", HWND, _hwnd, "ptr", lpwstrFileName, UInt32, cchMaxFileName, "ptr", lpwstrInitialDir, "ptr", lpwstrFilter, "ptr", lpwstrDefExt, UInt32, dwFilterIndex, UInt32, dwFlags, HANDLE.Ptr, phFile, "HRESULT")
+    result := DllCall("Ieframe.dll\IEShowOpenFileDialog", HWND, _hwnd, "ptr", lpwstrFileName, UInt32, cchMaxFileName, lpwstrInitialDirMarshal, lpwstrInitialDir, lpwstrFilterMarshal, lpwstrFilter, lpwstrDefExtMarshal, lpwstrDefExt, UInt32, dwFilterIndex, UInt32, dwFlags, HANDLE.Ptr, phFile, "HRESULT")
     return phFile
 }
 
 /**
- * 
  * @returns {HKEY} 
  */
 export IEGetWriteableLowHKCU() {
@@ -156,7 +153,6 @@ export IEGetWriteableLowHKCU() {
 }
 
 /**
- * 
  * @param {Pointer<Guid>} clsidFolderID 
  * @returns {PWSTR} 
  */
@@ -166,7 +162,6 @@ export IEGetWriteableFolderPath(clsidFolderID) {
 }
 
 /**
- * 
  * @returns {BOOL} 
  */
 export IEIsProtectedModeProcess() {
@@ -175,7 +170,6 @@ export IEIsProtectedModeProcess() {
 }
 
 /**
- * 
  * @param {PWSTR} lpwstrUrl 
  * @returns {HRESULT} 
  */
@@ -187,7 +181,6 @@ export IEIsProtectedModeURL(lpwstrUrl) {
 }
 
 /**
- * 
  * @param {PWSTR} lpwstrUrl 
  * @param {Pointer<PROCESS_INFORMATION>} lpProcInfo 
  * @param {Pointer<Void>} lpInfo 
@@ -196,14 +189,14 @@ export IEIsProtectedModeURL(lpwstrUrl) {
 export IELaunchURL(lpwstrUrl, lpProcInfo, lpInfo) {
     lpwstrUrl := lpwstrUrl is String ? StrPtr(lpwstrUrl) : lpwstrUrl
 
-    lpInfoMarshal := lpInfo is VarRef ? "ptr" : "ptr"
+    lpInfoMarshal := lpInfo is VarRef ? "ptr" : IntPtr
+    lpInfoMarshal := lpInfo == 0 ? IntPtr : "ptr"
 
     result := DllCall("Ieframe.dll\IELaunchURL", "ptr", lpwstrUrl, PROCESS_INFORMATION.Ptr, lpProcInfo, lpInfoMarshal, lpInfo, "HRESULT")
     return result
 }
 
 /**
- * 
  * @returns {HRESULT} 
  */
 export IERefreshElevationPolicy() {
@@ -212,7 +205,6 @@ export IERefreshElevationPolicy() {
 }
 
 /**
- * 
  * @param {PWSTR} lpszURL 
  * @param {PWSTR} lpszCookieName 
  * @param {PWSTR} lpszCookieData 
@@ -225,14 +217,13 @@ export IEGetProtectedModeCookie(lpszURL, lpszCookieName, lpszCookieData, pcchCoo
     lpszCookieName := lpszCookieName is String ? StrPtr(lpszCookieName) : lpszCookieName
     lpszCookieData := lpszCookieData is String ? StrPtr(lpszCookieData) : lpszCookieData
 
-    pcchCookieDataMarshal := pcchCookieData is VarRef ? "uint*" : "ptr"
+    pcchCookieDataMarshal := pcchCookieData is VarRef ? "uint*" : IntPtr
 
     result := DllCall("Ieframe.dll\IEGetProtectedModeCookie", "ptr", lpszURL, "ptr", lpszCookieName, "ptr", lpszCookieData, pcchCookieDataMarshal, pcchCookieData, UInt32, dwFlags, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {PWSTR} lpszURL 
  * @param {PWSTR} lpszCookieName 
  * @param {PWSTR} lpszCookieData 
@@ -249,7 +240,6 @@ export IESetProtectedModeCookie(lpszURL, lpszCookieName, lpszCookieData, dwFlags
 }
 
 /**
- * 
  * @param {Guid} guid 
  * @param {PWSTR} lpSubkey 
  * @param {BOOL} fSubkeyAllowed 
@@ -263,7 +253,6 @@ export IERegisterWritableRegistryKey(guid, lpSubkey, fSubkeyAllowed) {
 }
 
 /**
- * 
  * @param {Guid} guid 
  * @param {PWSTR} lpPath 
  * @param {PWSTR} lpValueName 
@@ -276,12 +265,13 @@ export IERegisterWritableRegistryValue(guid, lpPath, lpValueName, dwType, lpData
     lpPath := lpPath is String ? StrPtr(lpPath) : lpPath
     lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
 
-    result := DllCall("Ieframe.dll\IERegisterWritableRegistryValue", Guid, guid, "ptr", lpPath, "ptr", lpValueName, UInt32, dwType, IntPtr, lpData, UInt32, cbMaxData, "HRESULT")
+    lpDataMarshal := lpData == 0 ? IntPtr : IntPtr
+
+    result := DllCall("Ieframe.dll\IERegisterWritableRegistryValue", Guid, guid, "ptr", lpPath, "ptr", lpValueName, UInt32, dwType, lpDataMarshal, lpData, UInt32, cbMaxData, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {Guid} guid 
  * @returns {HRESULT} 
  */
@@ -291,7 +281,6 @@ export IEUnregisterWritableRegistry(guid) {
 }
 
 /**
- * 
  * @param {PWSTR} lpSubKey 
  * @param {Integer} Reserved 
  * @param {PWSTR} lpClass 
@@ -306,14 +295,15 @@ export IERegCreateKeyEx(lpSubKey, Reserved, lpClass, dwOptions, samDesired, lpSe
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
     lpClass := lpClass is String ? StrPtr(lpClass) : lpClass
 
-    lpdwDispositionMarshal := lpdwDisposition is VarRef ? "uint*" : "ptr"
+    lpClassMarshal := lpClass == 0 ? IntPtr : PWSTR
+    lpSecurityAttributesMarshal := lpSecurityAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpdwDispositionMarshal := lpdwDisposition is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("Ieframe.dll\IERegCreateKeyEx", "ptr", lpSubKey, UInt32, Reserved, "ptr", lpClass, UInt32, dwOptions, UInt32, samDesired, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, HKEY.Ptr, phkResult, lpdwDispositionMarshal, lpdwDisposition, "HRESULT")
+    result := DllCall("Ieframe.dll\IERegCreateKeyEx", "ptr", lpSubKey, UInt32, Reserved, lpClassMarshal, lpClass, UInt32, dwOptions, UInt32, samDesired, lpSecurityAttributesMarshal, lpSecurityAttributes, HKEY.Ptr, phkResult, lpdwDispositionMarshal, lpdwDisposition, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {PWSTR} lpSubKey 
  * @param {PWSTR} lpValueName 
  * @param {Integer} Reserved 
@@ -331,7 +321,6 @@ export IERegSetValueEx(lpSubKey, lpValueName, Reserved, dwType, lpData, cbData) 
 }
 
 /**
- * 
  * @param {PWSTR} lpFileName 
  * @param {Integer} dwDesiredAccess 
  * @param {Integer} dwShareMode 
@@ -344,12 +333,13 @@ export IERegSetValueEx(lpSubKey, lpValueName, Reserved, dwType, lpData, cbData) 
 export IECreateFile(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile) {
     lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-    result := DllCall("Ieframe.dll\IECreateFile", "ptr", lpFileName, UInt32, dwDesiredAccess, UInt32, dwShareMode, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, UInt32, dwCreationDisposition, UInt32, dwFlagsAndAttributes, HANDLE, hTemplateFile, HANDLE.Owned)
+    hTemplateFileMarshal := hTemplateFile == 0 ? IntPtr : HANDLE
+
+    result := DllCall("Ieframe.dll\IECreateFile", "ptr", lpFileName, UInt32, dwDesiredAccess, UInt32, dwShareMode, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, UInt32, dwCreationDisposition, UInt32, dwFlagsAndAttributes, hTemplateFileMarshal, hTemplateFile, HANDLE.Owned)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} lpFileName 
  * @returns {BOOL} 
  */
@@ -361,7 +351,6 @@ export IEDeleteFile(lpFileName) {
 }
 
 /**
- * 
  * @param {PWSTR} lpPathName 
  * @returns {BOOL} 
  */
@@ -373,7 +362,6 @@ export IERemoveDirectory(lpPathName) {
 }
 
 /**
- * 
  * @param {PWSTR} lpExistingFileName 
  * @param {PWSTR} lpNewFileName 
  * @param {Integer} dwFlags 
@@ -388,7 +376,6 @@ export IEMoveFileEx(lpExistingFileName, lpNewFileName, dwFlags) {
 }
 
 /**
- * 
  * @param {PWSTR} lpPathName 
  * @param {Pointer<SECURITY_ATTRIBUTES>} lpSecurityAttributes 
  * @returns {BOOL} 
@@ -401,7 +388,6 @@ export IECreateDirectory(lpPathName, lpSecurityAttributes) {
 }
 
 /**
- * 
  * @param {PWSTR} lpFileName 
  * @param {GET_FILEEX_INFO_LEVELS} fInfoLevelId 
  * @param {Pointer<Void>} lpFileInformation 
@@ -410,14 +396,13 @@ export IECreateDirectory(lpPathName, lpSecurityAttributes) {
 export IEGetFileAttributesEx(lpFileName, fInfoLevelId, lpFileInformation) {
     lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-    lpFileInformationMarshal := lpFileInformation is VarRef ? "ptr" : "ptr"
+    lpFileInformationMarshal := lpFileInformation is VarRef ? "ptr" : IntPtr
 
     result := DllCall("Ieframe.dll\IEGetFileAttributesEx", "ptr", lpFileName, GET_FILEEX_INFO_LEVELS, fInfoLevelId, lpFileInformationMarshal, lpFileInformation, BOOL)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} lpFileName 
  * @param {Pointer<WIN32_FIND_DATAA>} lpFindFileData 
  * @returns {HANDLE} 
@@ -430,7 +415,6 @@ export IEFindFirstFile(lpFileName, lpFindFileData) {
 }
 
 /**
- * 
  * @param {HWND} hwndParent 
  * @param {PSTR} pszUsername 
  * @param {BOOL} fEnable 
@@ -444,7 +428,6 @@ export RatingEnable(hwndParent, pszUsername, fEnable) {
 }
 
 /**
- * 
  * @param {HWND} hwndParent 
  * @param {PWSTR} pszUsername 
  * @param {BOOL} fEnable 
@@ -458,7 +441,6 @@ export RatingEnableW(hwndParent, pszUsername, fEnable) {
 }
 
 /**
- * 
  * @param {PSTR} pszUsername 
  * @param {PSTR} pszURL 
  * @param {PSTR} pszRatingInfo 
@@ -471,12 +453,16 @@ export RatingCheckUserAccess(pszUsername, pszURL, pszRatingInfo, pData, cbData) 
     pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
     pszRatingInfo := pszRatingInfo is String ? StrPtr(pszRatingInfo) : pszRatingInfo
 
-    result := DllCall("MSRATING.dll\RatingCheckUserAccess", "ptr", pszUsername, "ptr", pszURL, "ptr", pszRatingInfo, IntPtr, pData, UInt32, cbData, "ptr*", &ppRatingDetails := 0, "HRESULT")
+    pszUsernameMarshal := pszUsername == 0 ? IntPtr : PSTR
+    pszURLMarshal := pszURL == 0 ? IntPtr : PSTR
+    pszRatingInfoMarshal := pszRatingInfo == 0 ? IntPtr : PSTR
+    pDataMarshal := pData == 0 ? IntPtr : IntPtr
+
+    result := DllCall("MSRATING.dll\RatingCheckUserAccess", pszUsernameMarshal, pszUsername, pszURLMarshal, pszURL, pszRatingInfoMarshal, pszRatingInfo, pDataMarshal, pData, UInt32, cbData, "ptr*", &ppRatingDetails := 0, "HRESULT")
     return ppRatingDetails
 }
 
 /**
- * 
  * @param {PWSTR} pszUsername 
  * @param {PWSTR} pszURL 
  * @param {PWSTR} pszRatingInfo 
@@ -489,12 +475,16 @@ export RatingCheckUserAccessW(pszUsername, pszURL, pszRatingInfo, pData, cbData)
     pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
     pszRatingInfo := pszRatingInfo is String ? StrPtr(pszRatingInfo) : pszRatingInfo
 
-    result := DllCall("MSRATING.dll\RatingCheckUserAccessW", "ptr", pszUsername, "ptr", pszURL, "ptr", pszRatingInfo, IntPtr, pData, UInt32, cbData, "ptr*", &ppRatingDetails := 0, "HRESULT")
+    pszUsernameMarshal := pszUsername == 0 ? IntPtr : PWSTR
+    pszURLMarshal := pszURL == 0 ? IntPtr : PWSTR
+    pszRatingInfoMarshal := pszRatingInfo == 0 ? IntPtr : PWSTR
+    pDataMarshal := pData == 0 ? IntPtr : IntPtr
+
+    result := DllCall("MSRATING.dll\RatingCheckUserAccessW", pszUsernameMarshal, pszUsername, pszURLMarshal, pszURL, pszRatingInfoMarshal, pszRatingInfo, pDataMarshal, pData, UInt32, cbData, "ptr*", &ppRatingDetails := 0, "HRESULT")
     return ppRatingDetails
 }
 
 /**
- * 
  * @param {HWND} hDlg 
  * @param {PSTR} pszUsername 
  * @param {PSTR} pszContentDescription 
@@ -504,12 +494,13 @@ export RatingAccessDeniedDialog(hDlg, pszUsername, pszContentDescription) {
     pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
     pszContentDescription := pszContentDescription is String ? StrPtr(pszContentDescription) : pszContentDescription
 
-    result := DllCall("MSRATING.dll\RatingAccessDeniedDialog", HWND, hDlg, "ptr", pszUsername, "ptr", pszContentDescription, "ptr", &pRatingDetails := 0, "HRESULT")
+    pszUsernameMarshal := pszUsername == 0 ? IntPtr : PSTR
+
+    result := DllCall("MSRATING.dll\RatingAccessDeniedDialog", HWND, hDlg, pszUsernameMarshal, pszUsername, "ptr", pszContentDescription, "ptr", &pRatingDetails := 0, "HRESULT")
     return pRatingDetails
 }
 
 /**
- * 
  * @param {HWND} hDlg 
  * @param {PWSTR} pszUsername 
  * @param {PWSTR} pszContentDescription 
@@ -519,12 +510,13 @@ export RatingAccessDeniedDialogW(hDlg, pszUsername, pszContentDescription) {
     pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
     pszContentDescription := pszContentDescription is String ? StrPtr(pszContentDescription) : pszContentDescription
 
-    result := DllCall("MSRATING.dll\RatingAccessDeniedDialogW", HWND, hDlg, "ptr", pszUsername, "ptr", pszContentDescription, "ptr", &pRatingDetails := 0, "HRESULT")
+    pszUsernameMarshal := pszUsername == 0 ? IntPtr : PWSTR
+
+    result := DllCall("MSRATING.dll\RatingAccessDeniedDialogW", HWND, hDlg, pszUsernameMarshal, pszUsername, "ptr", pszContentDescription, "ptr", &pRatingDetails := 0, "HRESULT")
     return pRatingDetails
 }
 
 /**
- * 
  * @param {HWND} hDlg 
  * @param {PSTR} pszUsername 
  * @returns {Void} 
@@ -532,12 +524,13 @@ export RatingAccessDeniedDialogW(hDlg, pszUsername, pszContentDescription) {
 export RatingAccessDeniedDialog2(hDlg, pszUsername) {
     pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
 
-    result := DllCall("MSRATING.dll\RatingAccessDeniedDialog2", HWND, hDlg, "ptr", pszUsername, "ptr", &pRatingDetails := 0, "HRESULT")
+    pszUsernameMarshal := pszUsername == 0 ? IntPtr : PSTR
+
+    result := DllCall("MSRATING.dll\RatingAccessDeniedDialog2", HWND, hDlg, pszUsernameMarshal, pszUsername, "ptr", &pRatingDetails := 0, "HRESULT")
     return pRatingDetails
 }
 
 /**
- * 
  * @param {HWND} hDlg 
  * @param {PWSTR} pszUsername 
  * @returns {Void} 
@@ -545,24 +538,25 @@ export RatingAccessDeniedDialog2(hDlg, pszUsername) {
 export RatingAccessDeniedDialog2W(hDlg, pszUsername) {
     pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
 
-    result := DllCall("MSRATING.dll\RatingAccessDeniedDialog2W", HWND, hDlg, "ptr", pszUsername, "ptr", &pRatingDetails := 0, "HRESULT")
+    pszUsernameMarshal := pszUsername == 0 ? IntPtr : PWSTR
+
+    result := DllCall("MSRATING.dll\RatingAccessDeniedDialog2W", HWND, hDlg, pszUsernameMarshal, pszUsername, "ptr", &pRatingDetails := 0, "HRESULT")
     return pRatingDetails
 }
 
 /**
- * 
  * @param {Pointer<Void>} pRatingDetails 
  * @returns {HRESULT} 
  */
 export RatingFreeDetails(pRatingDetails) {
-    pRatingDetailsMarshal := pRatingDetails is VarRef ? "ptr" : "ptr"
+    pRatingDetailsMarshal := pRatingDetails is VarRef ? "ptr" : IntPtr
+    pRatingDetailsMarshal := pRatingDetails == 0 ? IntPtr : "ptr"
 
     result := DllCall("MSRATING.dll\RatingFreeDetails", pRatingDetailsMarshal, pRatingDetails, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {HANDLE} hRatingObtainQuery 
  * @returns {HRESULT} 
  */
@@ -572,7 +566,6 @@ export RatingObtainCancel(hRatingObtainQuery) {
 }
 
 /**
- * 
  * @param {PSTR} pszTargetUrl 
  * @param {Integer} dwUserData 
  * @param {Pointer} fCallback 
@@ -587,7 +580,6 @@ export RatingObtainQuery(pszTargetUrl, dwUserData, fCallback) {
 }
 
 /**
- * 
  * @param {PWSTR} pszTargetUrl 
  * @param {Integer} dwUserData 
  * @param {Pointer} fCallback 
@@ -602,7 +594,6 @@ export RatingObtainQueryW(pszTargetUrl, dwUserData, fCallback) {
 }
 
 /**
- * 
  * @param {HWND} hDlg 
  * @param {PSTR} pszUsername 
  * @returns {HRESULT} 
@@ -615,7 +606,6 @@ export RatingSetupUI(hDlg, pszUsername) {
 }
 
 /**
- * 
  * @param {HWND} hDlg 
  * @param {PWSTR} pszUsername 
  * @returns {HRESULT} 
@@ -628,7 +618,6 @@ export RatingSetupUIW(hDlg, pszUsername) {
 }
 
 /**
- * 
  * @param {HWND} hDlg 
  * @param {Integer} cbPasswordBlob 
  * @param {Integer} pbPasswordBlob 
@@ -646,7 +635,6 @@ export RatingAddToApprovedSites(hDlg, cbPasswordBlob, pbPasswordBlob, lpszUrl, f
 }
 
 /**
- * 
  * @param {HWND} hWndOwner 
  * @param {HINSTANCE} param1 
  * @param {PSTR} lpszFileName 
@@ -661,7 +649,6 @@ export RatingClickedOnPRFInternal(hWndOwner, param1, lpszFileName, nShow) {
 }
 
 /**
- * 
  * @param {HWND} hWndOwner 
  * @param {HINSTANCE} param1 
  * @param {PSTR} lpszFileName 
@@ -676,7 +663,6 @@ export RatingClickedOnRATInternal(hWndOwner, param1, lpszFileName, nShow) {
 }
 
 /**
- * 
  * @returns {HRESULT} 
  */
 export RatingEnabledQuery() {
@@ -685,7 +671,6 @@ export RatingEnabledQuery() {
 }
 
 /**
- * 
  * @returns {HRESULT} 
  */
 export RatingInit() {
@@ -694,7 +679,6 @@ export RatingInit() {
 }
 
 /**
- * 
  * @returns {IMapMIMEToCLSID} 
  */
 export CreateMIMEMap() {
@@ -703,7 +687,6 @@ export CreateMIMEMap() {
 }
 
 /**
- * 
  * @param {IStream} pStream 
  * @param {IMapMIMEToCLSID} pMap 
  * @param {IUnknown} pEventSink 
@@ -715,47 +698,43 @@ export DecodeImage(pStream, pMap, pEventSink) {
 }
 
 /**
- * 
  * @param {IStream} pInStream 
  * @param {Pointer<Integer>} pnFormat 
  * @returns {IStream} 
  */
 export SniffStream(pInStream, pnFormat) {
-    pnFormatMarshal := pnFormat is VarRef ? "uint*" : "ptr"
+    pnFormatMarshal := pnFormat is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ImgUtil.dll\SniffStream", "ptr", pInStream, pnFormatMarshal, pnFormat, "ptr*", &ppOutStream := 0, "HRESULT")
     return IStream(ppOutStream)
 }
 
 /**
- * 
  * @param {Pointer<Integer>} pnMaxBytes 
  * @returns {HRESULT} 
  */
 export GetMaxMIMEIDBytes(pnMaxBytes) {
-    pnMaxBytesMarshal := pnMaxBytes is VarRef ? "uint*" : "ptr"
+    pnMaxBytesMarshal := pnMaxBytes is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ImgUtil.dll\GetMaxMIMEIDBytes", pnMaxBytesMarshal, pnMaxBytes, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} pbBytes 
  * @param {Integer} nBytes 
  * @param {Pointer<Integer>} pnFormat 
  * @returns {HRESULT} 
  */
 export IdentifyMIMEType(pbBytes, nBytes, pnFormat) {
-    pbBytesMarshal := pbBytes is VarRef ? "char*" : "ptr"
-    pnFormatMarshal := pnFormat is VarRef ? "uint*" : "ptr"
+    pbBytesMarshal := pbBytes is VarRef ? "char*" : IntPtr
+    pnFormatMarshal := pnFormat is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ImgUtil.dll\IdentifyMIMEType", pbBytesMarshal, pbBytes, UInt32, nBytes, pnFormatMarshal, pnFormat, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {Pointer<RGBQUAD>} pRGBColors 
  * @param {Integer} nColors 
  * @param {Pointer<Integer>} pInvTable 
@@ -763,14 +742,13 @@ export IdentifyMIMEType(pbBytes, nBytes, pnFormat) {
  * @returns {HRESULT} 
  */
 export ComputeInvCMAP(pRGBColors, nColors, pInvTable, cbTable) {
-    pInvTableMarshal := pInvTable is VarRef ? "char*" : "ptr"
+    pInvTableMarshal := pInvTable is VarRef ? "char*" : IntPtr
 
     result := DllCall("ImgUtil.dll\ComputeInvCMAP", RGBQUAD.Ptr, pRGBColors, UInt32, nColors, pInvTableMarshal, pInvTable, UInt32, cbTable, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} pDestBits 
  * @param {Integer} nDestPitch 
  * @param {Pointer<Integer>} pSrcBits 
@@ -788,16 +766,15 @@ export ComputeInvCMAP(pRGBColors, nColors, pInvTable, cbTable) {
  * @returns {HRESULT} 
  */
 export DitherTo8(pDestBits, nDestPitch, pSrcBits, nSrcPitch, bfidSrc, prgbDestColors, prgbSrcColors, pbDestInvMap, x, y, cx, _cy, lDestTrans, lSrcTrans) {
-    pDestBitsMarshal := pDestBits is VarRef ? "char*" : "ptr"
-    pSrcBitsMarshal := pSrcBits is VarRef ? "char*" : "ptr"
-    pbDestInvMapMarshal := pbDestInvMap is VarRef ? "char*" : "ptr"
+    pDestBitsMarshal := pDestBits is VarRef ? "char*" : IntPtr
+    pSrcBitsMarshal := pSrcBits is VarRef ? "char*" : IntPtr
+    pbDestInvMapMarshal := pbDestInvMap is VarRef ? "char*" : IntPtr
 
     result := DllCall("ImgUtil.dll\DitherTo8", pDestBitsMarshal, pDestBits, Int32, nDestPitch, pSrcBitsMarshal, pSrcBits, Int32, nSrcPitch, Guid.Ptr, bfidSrc, RGBQUAD.Ptr, prgbDestColors, RGBQUAD.Ptr, prgbSrcColors, pbDestInvMapMarshal, pbDestInvMap, Int32, x, Int32, y, Int32, cx, Int32, _cy, Int32, lDestTrans, Int32, lSrcTrans, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {HBITMAP} hbmDib 
  * @returns {IDirectDrawSurface} 
  */
@@ -807,7 +784,6 @@ export CreateDDrawSurfaceOnDIB(hbmDib) {
 }
 
 /**
- * 
  * @param {IStream} pStream 
  * @param {IMapMIMEToCLSID} pMap 
  * @param {IUnknown} pEventSink 

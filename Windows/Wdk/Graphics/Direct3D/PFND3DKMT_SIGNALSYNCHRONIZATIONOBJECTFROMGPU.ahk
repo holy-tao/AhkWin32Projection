@@ -20,7 +20,6 @@ export default struct PFND3DKMT_SIGNALSYNCHRONIZATIONOBJECTFROMGPU {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SIGNALSYNCHRONIZATIONOBJECTFROMGPU>} param0 
      * @returns {NTSTATUS} 
      */

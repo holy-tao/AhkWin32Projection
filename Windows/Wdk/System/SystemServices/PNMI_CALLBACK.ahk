@@ -19,7 +19,6 @@ export default struct PNMI_CALLBACK {
     }
 
     /**
-     * 
      * @returns {BOOLEAN} 
      */
     Call() {

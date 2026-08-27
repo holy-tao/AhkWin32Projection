@@ -29,7 +29,6 @@ export default struct PDD_SURFCB_BLT {
     }
 
     /**
-     * 
      * @param {Pointer<DD_BLTDATA>} param0 Points to the <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_bltdata">DD_BLTDATA</a> structure that contains the information required for the driver to perform the blit.
      * @returns {Integer} <i>DdBlt</i> returns one of the following callback codes:
      */

@@ -37,7 +37,6 @@ export default struct ITargetEmbedding extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ITargetFrame} 
      */
     GetTargetFrame() {
@@ -54,7 +53,7 @@ export default struct ITargetEmbedding extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTargetFrame := CallbackCreate(GetMethod(implObj, "GetTargetFrame"), flags, 2)
+        this.vtbl.GetTargetFrame := CallbackCreate(ObjBindMethod(implObj, "GetTargetFrame"), flags, 2)
     }
 
     Dispose() {

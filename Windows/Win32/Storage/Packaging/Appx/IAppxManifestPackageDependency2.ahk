@@ -60,7 +60,7 @@ export default struct IAppxManifestPackageDependency2 extends IAppxManifestPacka
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMaxMajorVersionTested := CallbackCreate(GetMethod(implObj, "GetMaxMajorVersionTested"), flags, 2)
+        this.vtbl.GetMaxMajorVersionTested := CallbackCreate(ObjBindMethod(implObj, "GetMaxMajorVersionTested"), flags, 2)
     }
 
     Dispose() {

@@ -104,8 +104,8 @@ export default struct IOleContainer extends IParseDisplayName {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumObjects := CallbackCreate(GetMethod(implObj, "EnumObjects"), flags, 3)
-        this.vtbl.LockContainer := CallbackCreate(GetMethod(implObj, "LockContainer"), flags, 2)
+        this.vtbl.EnumObjects := CallbackCreate(ObjBindMethod(implObj, "EnumObjects"), flags, 3)
+        this.vtbl.LockContainer := CallbackCreate(ObjBindMethod(implObj, "LockContainer"), flags, 2)
     }
 
     Dispose() {

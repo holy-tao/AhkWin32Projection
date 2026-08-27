@@ -20,7 +20,6 @@ export default struct DOT11EXTIHV_PERFORM_POST_ASSOCIATE {
     }
 
     /**
-     * 
      * @param {HANDLE} hIhvExtAdapter 
      * @param {HANDLE} hSecuritySessionID 
      * @param {Pointer<DOT11_PORT_STATE>} pPortState 
@@ -29,7 +28,10 @@ export default struct DOT11EXTIHV_PERFORM_POST_ASSOCIATE {
      * @returns {Integer} 
      */
     Call(hIhvExtAdapter, hSecuritySessionID, pPortState, uDot11AssocParamsBytes, pDot11AssocParams) {
-        result := DllCall(this.value, HANDLE, hIhvExtAdapter, HANDLE, hSecuritySessionID, DOT11_PORT_STATE.Ptr, pPortState, UInt32, uDot11AssocParamsBytes, IntPtr, pDot11AssocParams, UInt32)
+        hIhvExtAdapterMarshal := hIhvExtAdapter == 0 ? IntPtr : HANDLE
+        hSecuritySessionIDMarshal := hSecuritySessionID == 0 ? IntPtr : HANDLE
+
+        result := DllCall(this.value, hIhvExtAdapterMarshal, hIhvExtAdapter, hSecuritySessionIDMarshal, hSecuritySessionID, DOT11_PORT_STATE.Ptr, pPortState, UInt32, uDot11AssocParamsBytes, IntPtr, pDot11AssocParams, UInt32)
         return result
     }
 

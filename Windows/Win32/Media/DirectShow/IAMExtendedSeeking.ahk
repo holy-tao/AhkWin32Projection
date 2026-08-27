@@ -116,7 +116,7 @@ export default struct IAMExtendedSeeking extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamextendedseeking-get_exseekcapabilities
      */
     get_ExSeekCapabilities(pExCapabilities) {
-        pExCapabilitiesMarshal := pExCapabilities is VarRef ? "int*" : "ptr"
+        pExCapabilitiesMarshal := pExCapabilities is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, pExCapabilitiesMarshal, pExCapabilities, "HRESULT")
         return result
@@ -129,7 +129,7 @@ export default struct IAMExtendedSeeking extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamextendedseeking-get_markercount
      */
     get_MarkerCount(pMarkerCount) {
-        pMarkerCountMarshal := pMarkerCount is VarRef ? "int*" : "ptr"
+        pMarkerCountMarshal := pMarkerCount is VarRef ? "int*" : IntPtr
 
         result := ComCall(8, this, pMarkerCountMarshal, pMarkerCount, "HRESULT")
         return result
@@ -142,7 +142,7 @@ export default struct IAMExtendedSeeking extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamextendedseeking-get_currentmarker
      */
     get_CurrentMarker(pCurrentMarker) {
-        pCurrentMarkerMarshal := pCurrentMarker is VarRef ? "int*" : "ptr"
+        pCurrentMarkerMarshal := pCurrentMarker is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, pCurrentMarkerMarshal, pCurrentMarker, "HRESULT")
         return result
@@ -156,7 +156,7 @@ export default struct IAMExtendedSeeking extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamextendedseeking-getmarkertime
      */
     GetMarkerTime(MarkerNum, pMarkerTime) {
-        pMarkerTimeMarshal := pMarkerTime is VarRef ? "double*" : "ptr"
+        pMarkerTimeMarshal := pMarkerTime is VarRef ? "double*" : IntPtr
 
         result := ComCall(10, this, Int32, MarkerNum, pMarkerTimeMarshal, pMarkerTime, "HRESULT")
         return result
@@ -194,7 +194,7 @@ export default struct IAMExtendedSeeking extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamextendedseeking-get_playbackspeed
      */
     get_PlaybackSpeed(pSpeed) {
-        pSpeedMarshal := pSpeed is VarRef ? "double*" : "ptr"
+        pSpeedMarshal := pSpeed is VarRef ? "double*" : IntPtr
 
         result := ComCall(13, this, pSpeedMarshal, pSpeed, "HRESULT")
         return result
@@ -209,13 +209,13 @@ export default struct IAMExtendedSeeking extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ExSeekCapabilities := CallbackCreate(GetMethod(implObj, "get_ExSeekCapabilities"), flags, 2)
-        this.vtbl.get_MarkerCount := CallbackCreate(GetMethod(implObj, "get_MarkerCount"), flags, 2)
-        this.vtbl.get_CurrentMarker := CallbackCreate(GetMethod(implObj, "get_CurrentMarker"), flags, 2)
-        this.vtbl.GetMarkerTime := CallbackCreate(GetMethod(implObj, "GetMarkerTime"), flags, 3)
-        this.vtbl.GetMarkerName := CallbackCreate(GetMethod(implObj, "GetMarkerName"), flags, 3)
-        this.vtbl.put_PlaybackSpeed := CallbackCreate(GetMethod(implObj, "put_PlaybackSpeed"), flags, 2)
-        this.vtbl.get_PlaybackSpeed := CallbackCreate(GetMethod(implObj, "get_PlaybackSpeed"), flags, 2)
+        this.vtbl.get_ExSeekCapabilities := CallbackCreate(ObjBindMethod(implObj, "get_ExSeekCapabilities"), flags, 2)
+        this.vtbl.get_MarkerCount := CallbackCreate(ObjBindMethod(implObj, "get_MarkerCount"), flags, 2)
+        this.vtbl.get_CurrentMarker := CallbackCreate(ObjBindMethod(implObj, "get_CurrentMarker"), flags, 2)
+        this.vtbl.GetMarkerTime := CallbackCreate(ObjBindMethod(implObj, "GetMarkerTime"), flags, 3)
+        this.vtbl.GetMarkerName := CallbackCreate(ObjBindMethod(implObj, "GetMarkerName"), flags, 3)
+        this.vtbl.put_PlaybackSpeed := CallbackCreate(ObjBindMethod(implObj, "put_PlaybackSpeed"), flags, 2)
+        this.vtbl.get_PlaybackSpeed := CallbackCreate(ObjBindMethod(implObj, "get_PlaybackSpeed"), flags, 2)
     }
 
     Dispose() {

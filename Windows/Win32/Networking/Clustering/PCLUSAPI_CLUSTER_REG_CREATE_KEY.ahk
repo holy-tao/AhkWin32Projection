@@ -21,7 +21,6 @@ export default struct PCLUSAPI_CLUSTER_REG_CREATE_KEY {
     }
 
     /**
-     * 
      * @param {HKEY} _hKey 
      * @param {PWSTR} lpszSubKey 
      * @param {Integer} dwOptions 
@@ -34,9 +33,11 @@ export default struct PCLUSAPI_CLUSTER_REG_CREATE_KEY {
     Call(_hKey, lpszSubKey, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition) {
         lpszSubKey := lpszSubKey is String ? StrPtr(lpszSubKey) : lpszSubKey
 
-        lpdwDispositionMarshal := lpdwDisposition is VarRef ? "uint*" : "ptr"
+        lpSecurityAttributesMarshal := lpSecurityAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+        lpdwDispositionMarshal := lpdwDisposition is VarRef ? "uint*" : IntPtr
+        lpdwDispositionMarshal := lpdwDisposition == 0 ? IntPtr : "uint*"
 
-        result := DllCall(this.value, HKEY, _hKey, "ptr", lpszSubKey, UInt32, dwOptions, UInt32, samDesired, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, HKEY.Ptr, phkResult, lpdwDispositionMarshal, lpdwDisposition, Int32)
+        result := DllCall(this.value, HKEY, _hKey, "ptr", lpszSubKey, UInt32, dwOptions, UInt32, samDesired, lpSecurityAttributesMarshal, lpSecurityAttributes, HKEY.Ptr, phkResult, lpdwDispositionMarshal, lpdwDisposition, Int32)
         return result
     }
 

@@ -68,7 +68,7 @@ export default struct IFileSystemImageResult2 extends IFileSystemImageResult {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ModifiedBlocks := CallbackCreate(GetMethod(implObj, "get_ModifiedBlocks"), flags, 2)
+        this.vtbl.get_ModifiedBlocks := CallbackCreate(ObjBindMethod(implObj, "get_ModifiedBlocks"), flags, 2)
     }
 
     Dispose() {

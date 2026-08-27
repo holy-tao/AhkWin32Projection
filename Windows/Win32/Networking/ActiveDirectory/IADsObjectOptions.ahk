@@ -72,8 +72,8 @@ export default struct IADsObjectOptions extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOption := CallbackCreate(GetMethod(implObj, "GetOption"), flags, 3)
-        this.vtbl.SetOption := CallbackCreate(GetMethod(implObj, "SetOption"), flags, 3)
+        this.vtbl.GetOption := CallbackCreate(ObjBindMethod(implObj, "GetOption"), flags, 3)
+        this.vtbl.SetOption := CallbackCreate(ObjBindMethod(implObj, "SetOption"), flags, 3)
     }
 
     Dispose() {

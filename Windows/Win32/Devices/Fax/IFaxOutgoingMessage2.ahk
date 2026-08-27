@@ -193,13 +193,13 @@ export default struct IFaxOutgoingMessage2 extends IFaxOutgoingMessage {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_HasCoverPage := CallbackCreate(GetMethod(implObj, "get_HasCoverPage"), flags, 2)
-        this.vtbl.get_ReceiptType := CallbackCreate(GetMethod(implObj, "get_ReceiptType"), flags, 2)
-        this.vtbl.get_ReceiptAddress := CallbackCreate(GetMethod(implObj, "get_ReceiptAddress"), flags, 2)
-        this.vtbl.get_Read := CallbackCreate(GetMethod(implObj, "get_Read"), flags, 2)
-        this.vtbl.put_Read := CallbackCreate(GetMethod(implObj, "put_Read"), flags, 2)
-        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 1)
-        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.get_HasCoverPage := CallbackCreate(ObjBindMethod(implObj, "get_HasCoverPage"), flags, 2)
+        this.vtbl.get_ReceiptType := CallbackCreate(ObjBindMethod(implObj, "get_ReceiptType"), flags, 2)
+        this.vtbl.get_ReceiptAddress := CallbackCreate(ObjBindMethod(implObj, "get_ReceiptAddress"), flags, 2)
+        this.vtbl.get_Read := CallbackCreate(ObjBindMethod(implObj, "get_Read"), flags, 2)
+        this.vtbl.put_Read := CallbackCreate(ObjBindMethod(implObj, "put_Read"), flags, 2)
+        this.vtbl.Save := CallbackCreate(ObjBindMethod(implObj, "Save"), flags, 1)
+        this.vtbl.Refresh := CallbackCreate(ObjBindMethod(implObj, "Refresh"), flags, 1)
     }
 
     Dispose() {

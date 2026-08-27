@@ -83,7 +83,7 @@ export default struct IImageRecompress extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RecompressImage := CallbackCreate(GetMethod(implObj, "RecompressImage"), flags, 7)
+        this.vtbl.RecompressImage := CallbackCreate(ObjBindMethod(implObj, "RecompressImage"), flags, 7)
     }
 
     Dispose() {

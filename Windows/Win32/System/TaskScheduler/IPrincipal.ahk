@@ -223,7 +223,7 @@ export default struct IPrincipal extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iprincipal-get_logontype
      */
     get_LogonType(pLogon) {
-        pLogonMarshal := pLogon is VarRef ? "int*" : "ptr"
+        pLogonMarshal := pLogon is VarRef ? "int*" : IntPtr
 
         result := ComCall(13, this, pLogonMarshal, pLogon, "HRESULT")
         return result
@@ -298,7 +298,7 @@ export default struct IPrincipal extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iprincipal-get_runlevel
      */
     get_RunLevel(pRunLevel) {
-        pRunLevelMarshal := pRunLevel is VarRef ? "int*" : "ptr"
+        pRunLevelMarshal := pRunLevel is VarRef ? "int*" : IntPtr
 
         result := ComCall(17, this, pRunLevelMarshal, pRunLevel, "HRESULT")
         return result
@@ -328,18 +328,18 @@ export default struct IPrincipal extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
-        this.vtbl.put_Id := CallbackCreate(GetMethod(implObj, "put_Id"), flags, 2)
-        this.vtbl.get_DisplayName := CallbackCreate(GetMethod(implObj, "get_DisplayName"), flags, 2)
-        this.vtbl.put_DisplayName := CallbackCreate(GetMethod(implObj, "put_DisplayName"), flags, 2)
-        this.vtbl.get_UserId := CallbackCreate(GetMethod(implObj, "get_UserId"), flags, 2)
-        this.vtbl.put_UserId := CallbackCreate(GetMethod(implObj, "put_UserId"), flags, 2)
-        this.vtbl.get_LogonType := CallbackCreate(GetMethod(implObj, "get_LogonType"), flags, 2)
-        this.vtbl.put_LogonType := CallbackCreate(GetMethod(implObj, "put_LogonType"), flags, 2)
-        this.vtbl.get_GroupId := CallbackCreate(GetMethod(implObj, "get_GroupId"), flags, 2)
-        this.vtbl.put_GroupId := CallbackCreate(GetMethod(implObj, "put_GroupId"), flags, 2)
-        this.vtbl.get_RunLevel := CallbackCreate(GetMethod(implObj, "get_RunLevel"), flags, 2)
-        this.vtbl.put_RunLevel := CallbackCreate(GetMethod(implObj, "put_RunLevel"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(ObjBindMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.put_Id := CallbackCreate(ObjBindMethod(implObj, "put_Id"), flags, 2)
+        this.vtbl.get_DisplayName := CallbackCreate(ObjBindMethod(implObj, "get_DisplayName"), flags, 2)
+        this.vtbl.put_DisplayName := CallbackCreate(ObjBindMethod(implObj, "put_DisplayName"), flags, 2)
+        this.vtbl.get_UserId := CallbackCreate(ObjBindMethod(implObj, "get_UserId"), flags, 2)
+        this.vtbl.put_UserId := CallbackCreate(ObjBindMethod(implObj, "put_UserId"), flags, 2)
+        this.vtbl.get_LogonType := CallbackCreate(ObjBindMethod(implObj, "get_LogonType"), flags, 2)
+        this.vtbl.put_LogonType := CallbackCreate(ObjBindMethod(implObj, "put_LogonType"), flags, 2)
+        this.vtbl.get_GroupId := CallbackCreate(ObjBindMethod(implObj, "get_GroupId"), flags, 2)
+        this.vtbl.put_GroupId := CallbackCreate(ObjBindMethod(implObj, "put_GroupId"), flags, 2)
+        this.vtbl.get_RunLevel := CallbackCreate(ObjBindMethod(implObj, "get_RunLevel"), flags, 2)
+        this.vtbl.put_RunLevel := CallbackCreate(ObjBindMethod(implObj, "put_RunLevel"), flags, 2)
     }
 
     Dispose() {

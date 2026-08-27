@@ -21,7 +21,6 @@ export default struct PDEBUG_STACK_PROVIDER_RECONSTRUCTSTACK {
     }
 
     /**
-     * 
      * @param {Integer} SystemThreadId 
      * @param {Pointer<DEBUG_STACK_FRAME_EX>} NativeFrames 
      * @param {Integer} CountNativeFrames 
@@ -30,8 +29,8 @@ export default struct PDEBUG_STACK_PROVIDER_RECONSTRUCTSTACK {
      * @returns {HRESULT} 
      */
     Call(SystemThreadId, NativeFrames, CountNativeFrames, StackSymFrames, StackSymFramesFilled) {
-        StackSymFramesMarshal := StackSymFrames is VarRef ? "ptr*" : "ptr"
-        StackSymFramesFilledMarshal := StackSymFramesFilled is VarRef ? "uint*" : "ptr"
+        StackSymFramesMarshal := StackSymFrames is VarRef ? "ptr*" : IntPtr
+        StackSymFramesFilledMarshal := StackSymFramesFilled is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, UInt32, SystemThreadId, DEBUG_STACK_FRAME_EX.Ptr, NativeFrames, UInt32, CountNativeFrames, StackSymFramesMarshal, StackSymFrames, StackSymFramesFilledMarshal, StackSymFramesFilled, "HRESULT")
         return result

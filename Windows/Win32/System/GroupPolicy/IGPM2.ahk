@@ -82,8 +82,8 @@ export default struct IGPM2 extends IGPM {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetBackupDirEx := CallbackCreate(GetMethod(implObj, "GetBackupDirEx"), flags, 4)
-        this.vtbl.InitializeReportingEx := CallbackCreate(GetMethod(implObj, "InitializeReportingEx"), flags, 3)
+        this.vtbl.GetBackupDirEx := CallbackCreate(ObjBindMethod(implObj, "GetBackupDirEx"), flags, 4)
+        this.vtbl.InitializeReportingEx := CallbackCreate(ObjBindMethod(implObj, "InitializeReportingEx"), flags, 3)
     }
 
     Dispose() {

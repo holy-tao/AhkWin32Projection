@@ -44,7 +44,6 @@ export default struct IPrintWorkflowXpsObjectModelTargetPackageNative extends IU
     }
 
     /**
-     * 
      * @returns {IXpsDocumentPackageTarget} 
      */
     get_DocumentPackageTarget() {
@@ -61,7 +60,7 @@ export default struct IPrintWorkflowXpsObjectModelTargetPackageNative extends IU
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_DocumentPackageTarget := CallbackCreate(GetMethod(implObj, "get_DocumentPackageTarget"), flags, 2)
+        this.vtbl.get_DocumentPackageTarget := CallbackCreate(ObjBindMethod(implObj, "get_DocumentPackageTarget"), flags, 2)
     }
 
     Dispose() {

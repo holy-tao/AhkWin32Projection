@@ -20,15 +20,14 @@ export default struct PREGISTER_FOR_DEVICE_NOTIFICATIONS2 {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<PDEVICE_NOTIFY_CALLBACK2>} _NotificationHandler 
      * @param {Pointer<Void>} NotificationContext 
      * @returns {NTSTATUS} 
      */
     Call(_Context, _NotificationHandler, NotificationContext) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        NotificationContextMarshal := NotificationContext is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        NotificationContextMarshal := NotificationContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, PDEVICE_NOTIFY_CALLBACK2, _NotificationHandler, NotificationContextMarshal, NotificationContext, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

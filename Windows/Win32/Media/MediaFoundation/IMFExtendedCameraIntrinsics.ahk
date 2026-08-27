@@ -42,7 +42,6 @@ export default struct IMFExtendedCameraIntrinsics extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pbBuffer 
      * @param {Integer} dwBufferSize 
      * @returns {HRESULT} 
@@ -53,7 +52,6 @@ export default struct IMFExtendedCameraIntrinsics extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetBufferSize() {
@@ -62,20 +60,18 @@ export default struct IMFExtendedCameraIntrinsics extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pbBuffer 
      * @param {Pointer<Integer>} pdwBufferSize 
      * @returns {HRESULT} 
      */
     SerializeToBuffer(pbBuffer, pdwBufferSize) {
-        pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : "ptr"
+        pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, IntPtr, pbBuffer, pdwBufferSizeMarshal, pdwBufferSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetIntrinsicModelCount() {
@@ -84,7 +80,6 @@ export default struct IMFExtendedCameraIntrinsics extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwIndex 
      * @returns {IMFExtendedCameraIntrinsicModel} 
      */
@@ -94,7 +89,6 @@ export default struct IMFExtendedCameraIntrinsics extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMFExtendedCameraIntrinsicModel} pIntrinsicModel 
      * @returns {HRESULT} 
      */
@@ -112,12 +106,12 @@ export default struct IMFExtendedCameraIntrinsics extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeFromBuffer := CallbackCreate(GetMethod(implObj, "InitializeFromBuffer"), flags, 3)
-        this.vtbl.GetBufferSize := CallbackCreate(GetMethod(implObj, "GetBufferSize"), flags, 2)
-        this.vtbl.SerializeToBuffer := CallbackCreate(GetMethod(implObj, "SerializeToBuffer"), flags, 3)
-        this.vtbl.GetIntrinsicModelCount := CallbackCreate(GetMethod(implObj, "GetIntrinsicModelCount"), flags, 2)
-        this.vtbl.GetIntrinsicModelByIndex := CallbackCreate(GetMethod(implObj, "GetIntrinsicModelByIndex"), flags, 3)
-        this.vtbl.AddIntrinsicModel := CallbackCreate(GetMethod(implObj, "AddIntrinsicModel"), flags, 2)
+        this.vtbl.InitializeFromBuffer := CallbackCreate(ObjBindMethod(implObj, "InitializeFromBuffer"), flags, 3)
+        this.vtbl.GetBufferSize := CallbackCreate(ObjBindMethod(implObj, "GetBufferSize"), flags, 2)
+        this.vtbl.SerializeToBuffer := CallbackCreate(ObjBindMethod(implObj, "SerializeToBuffer"), flags, 3)
+        this.vtbl.GetIntrinsicModelCount := CallbackCreate(ObjBindMethod(implObj, "GetIntrinsicModelCount"), flags, 2)
+        this.vtbl.GetIntrinsicModelByIndex := CallbackCreate(ObjBindMethod(implObj, "GetIntrinsicModelByIndex"), flags, 3)
+        this.vtbl.AddIntrinsicModel := CallbackCreate(ObjBindMethod(implObj, "AddIntrinsicModel"), flags, 2)
     }
 
     Dispose() {

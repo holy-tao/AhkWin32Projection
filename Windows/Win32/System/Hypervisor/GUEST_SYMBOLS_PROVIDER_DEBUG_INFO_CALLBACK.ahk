@@ -19,7 +19,6 @@ export default struct GUEST_SYMBOLS_PROVIDER_DEBUG_INFO_CALLBACK {
     }
 
     /**
-     * 
      * @param {PSTR} InfoMessage 
      * @returns {String} Nothing - always returns an empty string
      */

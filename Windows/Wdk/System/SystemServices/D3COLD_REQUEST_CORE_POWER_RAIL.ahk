@@ -19,13 +19,13 @@ export default struct D3COLD_REQUEST_CORE_POWER_RAIL {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {BOOLEAN} CorePowerRailNeeded 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Context, CorePowerRailNeeded) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, _ContextMarshal, _Context, BOOLEAN, CorePowerRailNeeded)
     }

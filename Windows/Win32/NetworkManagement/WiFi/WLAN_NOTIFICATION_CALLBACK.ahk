@@ -44,7 +44,6 @@ export default struct WLAN_NOTIFICATION_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<L2_NOTIFICATION_DATA>} param0 A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms706902(v=vs.85)">WLAN_NOTIFICATION_DATA</a> structure that contains the notification information.
      * 
      * <b>Windows XP with SP3 and Wireless LAN API for Windows XP with SP2:  </b>Only the wlan_notification_acm_connection_complete and wlan_notification_acm_disconnected notifications are available.
@@ -52,7 +51,7 @@ export default struct WLAN_NOTIFICATION_CALLBACK {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(param0, param1) {
-        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+        param1Marshal := param1 is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, L2_NOTIFICATION_DATA.Ptr, param0, param1Marshal, param1)
     }

@@ -81,8 +81,8 @@ export default struct IVdsVolumeMF3 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolumemf3-queryvolumeguidpathnames
      */
     QueryVolumeGuidPathnames(pwszPathArray, pulNumberOfPaths) {
-        pwszPathArrayMarshal := pwszPathArray is VarRef ? "ptr*" : "ptr"
-        pulNumberOfPathsMarshal := pulNumberOfPaths is VarRef ? "uint*" : "ptr"
+        pwszPathArrayMarshal := pwszPathArray is VarRef ? "ptr*" : IntPtr
+        pulNumberOfPathsMarshal := pulNumberOfPaths is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pwszPathArrayMarshal, pwszPathArray, pulNumberOfPathsMarshal, pulNumberOfPaths, "HRESULT")
         return result
@@ -154,9 +154,9 @@ export default struct IVdsVolumeMF3 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryVolumeGuidPathnames := CallbackCreate(GetMethod(implObj, "QueryVolumeGuidPathnames"), flags, 3)
-        this.vtbl.FormatEx2 := CallbackCreate(GetMethod(implObj, "FormatEx2"), flags, 7)
-        this.vtbl.OfflineVolume := CallbackCreate(GetMethod(implObj, "OfflineVolume"), flags, 1)
+        this.vtbl.QueryVolumeGuidPathnames := CallbackCreate(ObjBindMethod(implObj, "QueryVolumeGuidPathnames"), flags, 3)
+        this.vtbl.FormatEx2 := CallbackCreate(ObjBindMethod(implObj, "FormatEx2"), flags, 7)
+        this.vtbl.OfflineVolume := CallbackCreate(ObjBindMethod(implObj, "OfflineVolume"), flags, 1)
     }
 
     Dispose() {

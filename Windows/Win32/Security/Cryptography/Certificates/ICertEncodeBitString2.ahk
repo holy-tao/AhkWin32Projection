@@ -40,7 +40,6 @@ export default struct ICertEncodeBitString2 extends ICertEncodeBitString {
     }
 
     /**
-     * 
      * @param {BSTR} strEncodedData 
      * @param {EncodingType} Encoding 
      * @returns {HRESULT} 
@@ -53,7 +52,6 @@ export default struct ICertEncodeBitString2 extends ICertEncodeBitString {
     }
 
     /**
-     * 
      * @param {Integer} BitCount 
      * @param {BSTR} strBitString 
      * @param {EncodingType} EncodingIn 
@@ -69,7 +67,6 @@ export default struct ICertEncodeBitString2 extends ICertEncodeBitString {
     }
 
     /**
-     * 
      * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      */
@@ -88,9 +85,9 @@ export default struct ICertEncodeBitString2 extends ICertEncodeBitString {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DecodeBlob := CallbackCreate(GetMethod(implObj, "DecodeBlob"), flags, 3)
-        this.vtbl.EncodeBlob := CallbackCreate(GetMethod(implObj, "EncodeBlob"), flags, 6)
-        this.vtbl.GetBitStringBlob := CallbackCreate(GetMethod(implObj, "GetBitStringBlob"), flags, 3)
+        this.vtbl.DecodeBlob := CallbackCreate(ObjBindMethod(implObj, "DecodeBlob"), flags, 3)
+        this.vtbl.EncodeBlob := CallbackCreate(ObjBindMethod(implObj, "EncodeBlob"), flags, 6)
+        this.vtbl.GetBitStringBlob := CallbackCreate(ObjBindMethod(implObj, "GetBitStringBlob"), flags, 3)
     }
 
     Dispose() {

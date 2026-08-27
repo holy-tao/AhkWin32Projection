@@ -56,7 +56,7 @@ export default struct IDirect3DCryptoSession9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dcryptosession9-getcertificatesize
      */
     GetCertificateSize(pCertificateSize) {
-        pCertificateSizeMarshal := pCertificateSize is VarRef ? "uint*" : "ptr"
+        pCertificateSizeMarshal := pCertificateSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pCertificateSizeMarshal, pCertificateSize, "HRESULT")
         return result
@@ -74,7 +74,7 @@ export default struct IDirect3DCryptoSession9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dcryptosession9-getcertificate
      */
     GetCertificate(CertifacteSize, ppCertificate) {
-        ppCertificateMarshal := ppCertificate is VarRef ? "char*" : "ptr"
+        ppCertificateMarshal := ppCertificate is VarRef ? "char*" : IntPtr
 
         result := ComCall(4, this, UInt32, CertifacteSize, ppCertificateMarshal, ppCertificate, "HRESULT")
         return result
@@ -94,7 +94,7 @@ export default struct IDirect3DCryptoSession9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dcryptosession9-negotiatekeyexchange
      */
     NegotiateKeyExchange(DataSize, pData) {
-        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+        pDataMarshal := pData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(5, this, UInt32, DataSize, pDataMarshal, pData, "HRESULT")
         return result
@@ -140,7 +140,7 @@ export default struct IDirect3DCryptoSession9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dcryptosession9-encryptionblt
      */
     EncryptionBlt(pSrcSurface, pDstSurface, DstSurfaceSize, pIV) {
-        pIVMarshal := pIV is VarRef ? "ptr" : "ptr"
+        pIVMarshal := pIV is VarRef ? "ptr" : IntPtr
 
         result := ComCall(6, this, "ptr", pSrcSurface, "ptr", pDstSurface, UInt32, DstSurfaceSize, pIVMarshal, pIV, "HRESULT")
         return result
@@ -187,8 +187,8 @@ export default struct IDirect3DCryptoSession9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dcryptosession9-decryptionblt
      */
     DecryptionBlt(pSrcSurface, pDstSurface, SrcSurfaceSize, pEncryptedBlockInfo, pContentKey, pIV) {
-        pContentKeyMarshal := pContentKey is VarRef ? "ptr" : "ptr"
-        pIVMarshal := pIV is VarRef ? "ptr" : "ptr"
+        pContentKeyMarshal := pContentKey is VarRef ? "ptr" : IntPtr
+        pIVMarshal := pIV is VarRef ? "ptr" : IntPtr
 
         result := ComCall(7, this, "ptr", pSrcSurface, "ptr", pDstSurface, UInt32, SrcSurfaceSize, D3DENCRYPTED_BLOCK_INFO.Ptr, pEncryptedBlockInfo, pContentKeyMarshal, pContentKey, pIVMarshal, pIV, "HRESULT")
         return result
@@ -204,7 +204,7 @@ export default struct IDirect3DCryptoSession9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dcryptosession9-getsurfacepitch
      */
     GetSurfacePitch(pSrcSurface, pSurfacePitch) {
-        pSurfacePitchMarshal := pSurfacePitch is VarRef ? "uint*" : "ptr"
+        pSurfacePitchMarshal := pSurfacePitch is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, "ptr", pSrcSurface, pSurfacePitchMarshal, pSurfacePitch, "HRESULT")
         return result
@@ -222,7 +222,7 @@ export default struct IDirect3DCryptoSession9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dcryptosession9-startsessionkeyrefresh
      */
     StartSessionKeyRefresh(pRandomNumber, RandomNumberSize) {
-        pRandomNumberMarshal := pRandomNumber is VarRef ? "ptr" : "ptr"
+        pRandomNumberMarshal := pRandomNumber is VarRef ? "ptr" : IntPtr
 
         result := ComCall(9, this, pRandomNumberMarshal, pRandomNumber, UInt32, RandomNumberSize, "HRESULT")
         return result
@@ -252,7 +252,7 @@ export default struct IDirect3DCryptoSession9 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dcryptosession9-getencryptionbltkey
      */
     GetEncryptionBltKey(pReadbackKey, KeySize) {
-        pReadbackKeyMarshal := pReadbackKey is VarRef ? "ptr" : "ptr"
+        pReadbackKeyMarshal := pReadbackKey is VarRef ? "ptr" : IntPtr
 
         result := ComCall(11, this, pReadbackKeyMarshal, pReadbackKey, UInt32, KeySize, "HRESULT")
         return result
@@ -267,15 +267,15 @@ export default struct IDirect3DCryptoSession9 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCertificateSize := CallbackCreate(GetMethod(implObj, "GetCertificateSize"), flags, 2)
-        this.vtbl.GetCertificate := CallbackCreate(GetMethod(implObj, "GetCertificate"), flags, 3)
-        this.vtbl.NegotiateKeyExchange := CallbackCreate(GetMethod(implObj, "NegotiateKeyExchange"), flags, 3)
-        this.vtbl.EncryptionBlt := CallbackCreate(GetMethod(implObj, "EncryptionBlt"), flags, 5)
-        this.vtbl.DecryptionBlt := CallbackCreate(GetMethod(implObj, "DecryptionBlt"), flags, 7)
-        this.vtbl.GetSurfacePitch := CallbackCreate(GetMethod(implObj, "GetSurfacePitch"), flags, 3)
-        this.vtbl.StartSessionKeyRefresh := CallbackCreate(GetMethod(implObj, "StartSessionKeyRefresh"), flags, 3)
-        this.vtbl.FinishSessionKeyRefresh := CallbackCreate(GetMethod(implObj, "FinishSessionKeyRefresh"), flags, 1)
-        this.vtbl.GetEncryptionBltKey := CallbackCreate(GetMethod(implObj, "GetEncryptionBltKey"), flags, 3)
+        this.vtbl.GetCertificateSize := CallbackCreate(ObjBindMethod(implObj, "GetCertificateSize"), flags, 2)
+        this.vtbl.GetCertificate := CallbackCreate(ObjBindMethod(implObj, "GetCertificate"), flags, 3)
+        this.vtbl.NegotiateKeyExchange := CallbackCreate(ObjBindMethod(implObj, "NegotiateKeyExchange"), flags, 3)
+        this.vtbl.EncryptionBlt := CallbackCreate(ObjBindMethod(implObj, "EncryptionBlt"), flags, 5)
+        this.vtbl.DecryptionBlt := CallbackCreate(ObjBindMethod(implObj, "DecryptionBlt"), flags, 7)
+        this.vtbl.GetSurfacePitch := CallbackCreate(ObjBindMethod(implObj, "GetSurfacePitch"), flags, 3)
+        this.vtbl.StartSessionKeyRefresh := CallbackCreate(ObjBindMethod(implObj, "StartSessionKeyRefresh"), flags, 3)
+        this.vtbl.FinishSessionKeyRefresh := CallbackCreate(ObjBindMethod(implObj, "FinishSessionKeyRefresh"), flags, 1)
+        this.vtbl.GetEncryptionBltKey := CallbackCreate(ObjBindMethod(implObj, "GetEncryptionBltKey"), flags, 3)
     }
 
     Dispose() {

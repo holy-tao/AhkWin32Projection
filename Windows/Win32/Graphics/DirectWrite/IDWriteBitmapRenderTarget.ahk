@@ -261,7 +261,9 @@ export default struct IDWriteBitmapRenderTarget extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritebitmaprendertarget-setcurrenttransform
      */
     SetCurrentTransform(transform) {
-        result := ComCall(8, this, DWRITE_MATRIX.Ptr, transform, "HRESULT")
+        transformMarshal := transform == 0 ? IntPtr : DWRITE_MATRIX.Ptr
+
+        result := ComCall(8, this, transformMarshal, transform, "HRESULT")
         return result
     }
 
@@ -305,14 +307,14 @@ export default struct IDWriteBitmapRenderTarget extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DrawGlyphRun := CallbackCreate(GetMethod(implObj, "DrawGlyphRun"), flags, 8)
-        this.vtbl.GetMemoryDC := CallbackCreate(GetMethod(implObj, "GetMemoryDC"), flags, 1)
-        this.vtbl.GetPixelsPerDip := CallbackCreate(GetMethod(implObj, "GetPixelsPerDip"), flags, 1)
-        this.vtbl.SetPixelsPerDip := CallbackCreate(GetMethod(implObj, "SetPixelsPerDip"), flags, 2)
-        this.vtbl.GetCurrentTransform := CallbackCreate(GetMethod(implObj, "GetCurrentTransform"), flags, 2)
-        this.vtbl.SetCurrentTransform := CallbackCreate(GetMethod(implObj, "SetCurrentTransform"), flags, 2)
-        this.vtbl.GetSize := CallbackCreate(GetMethod(implObj, "GetSize"), flags, 2)
-        this.vtbl.Resize := CallbackCreate(GetMethod(implObj, "Resize"), flags, 3)
+        this.vtbl.DrawGlyphRun := CallbackCreate(ObjBindMethod(implObj, "DrawGlyphRun"), flags, 8)
+        this.vtbl.GetMemoryDC := CallbackCreate(ObjBindMethod(implObj, "GetMemoryDC"), flags, 1)
+        this.vtbl.GetPixelsPerDip := CallbackCreate(ObjBindMethod(implObj, "GetPixelsPerDip"), flags, 1)
+        this.vtbl.SetPixelsPerDip := CallbackCreate(ObjBindMethod(implObj, "SetPixelsPerDip"), flags, 2)
+        this.vtbl.GetCurrentTransform := CallbackCreate(ObjBindMethod(implObj, "GetCurrentTransform"), flags, 2)
+        this.vtbl.SetCurrentTransform := CallbackCreate(ObjBindMethod(implObj, "SetCurrentTransform"), flags, 2)
+        this.vtbl.GetSize := CallbackCreate(ObjBindMethod(implObj, "GetSize"), flags, 2)
+        this.vtbl.Resize := CallbackCreate(ObjBindMethod(implObj, "Resize"), flags, 3)
     }
 
     Dispose() {

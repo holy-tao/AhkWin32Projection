@@ -19,7 +19,6 @@ export default struct PDEVICE_RESET_HANDLER {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

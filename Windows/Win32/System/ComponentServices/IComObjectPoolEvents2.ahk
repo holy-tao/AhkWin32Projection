@@ -126,11 +126,11 @@ export default struct IComObjectPoolEvents2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnObjPoolCreateObject := CallbackCreate(GetMethod(implObj, "OnObjPoolCreateObject"), flags, 5)
-        this.vtbl.OnObjPoolDestroyObject := CallbackCreate(GetMethod(implObj, "OnObjPoolDestroyObject"), flags, 5)
-        this.vtbl.OnObjPoolCreateDecision := CallbackCreate(GetMethod(implObj, "OnObjPoolCreateDecision"), flags, 7)
-        this.vtbl.OnObjPoolTimeout := CallbackCreate(GetMethod(implObj, "OnObjPoolTimeout"), flags, 5)
-        this.vtbl.OnObjPoolCreatePool := CallbackCreate(GetMethod(implObj, "OnObjPoolCreatePool"), flags, 6)
+        this.vtbl.OnObjPoolCreateObject := CallbackCreate(ObjBindMethod(implObj, "OnObjPoolCreateObject"), flags, 5)
+        this.vtbl.OnObjPoolDestroyObject := CallbackCreate(ObjBindMethod(implObj, "OnObjPoolDestroyObject"), flags, 5)
+        this.vtbl.OnObjPoolCreateDecision := CallbackCreate(ObjBindMethod(implObj, "OnObjPoolCreateDecision"), flags, 7)
+        this.vtbl.OnObjPoolTimeout := CallbackCreate(ObjBindMethod(implObj, "OnObjPoolTimeout"), flags, 5)
+        this.vtbl.OnObjPoolCreatePool := CallbackCreate(ObjBindMethod(implObj, "OnObjPoolCreatePool"), flags, 6)
     }
 
     Dispose() {

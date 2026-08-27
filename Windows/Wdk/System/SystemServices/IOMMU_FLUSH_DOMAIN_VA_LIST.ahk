@@ -21,7 +21,6 @@ export default struct IOMMU_FLUSH_DOMAIN_VA_LIST {
     }
 
     /**
-     * 
      * @param {Pointer<IOMMU_DMA_DOMAIN>} Domain 
      * @param {BOOLEAN} LastLevel 
      * @param {Integer} _Number 
@@ -29,8 +28,8 @@ export default struct IOMMU_FLUSH_DOMAIN_VA_LIST {
      * @returns {NTSTATUS} 
      */
     Call(Domain, LastLevel, _Number, VaList) {
-        DomainMarshal := Domain is VarRef ? "ptr*" : "ptr"
-        VaListMarshal := VaList is VarRef ? "ptr" : "ptr"
+        DomainMarshal := Domain is VarRef ? "ptr*" : IntPtr
+        VaListMarshal := VaList is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, DomainMarshal, Domain, BOOLEAN, LastLevel, UInt32, _Number, VaListMarshal, VaList, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

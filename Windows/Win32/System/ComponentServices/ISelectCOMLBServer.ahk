@@ -68,8 +68,8 @@ export default struct ISelectCOMLBServer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 1)
-        this.vtbl.GetLBServer := CallbackCreate(GetMethod(implObj, "GetLBServer"), flags, 2)
+        this.vtbl.Init := CallbackCreate(ObjBindMethod(implObj, "Init"), flags, 1)
+        this.vtbl.GetLBServer := CallbackCreate(ObjBindMethod(implObj, "GetLBServer"), flags, 2)
     }
 
     Dispose() {

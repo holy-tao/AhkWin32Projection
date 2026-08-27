@@ -26,7 +26,6 @@ export default struct PFTASKDIALOGCALLBACK {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * Handle to the TaskDialog window. Do not continue sending messages to hwnd after the callback procedure returns from having been called with <a href="https://docs.microsoft.com/windows/desktop/Controls/tdn-destroyed">TDN_DESTROYED</a>.

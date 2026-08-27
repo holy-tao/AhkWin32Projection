@@ -20,7 +20,6 @@ export default struct PFND3DKMT_SETVIDPNSOURCEOWNER {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SETVIDPNSOURCEOWNER>} param0 
      * @returns {NTSTATUS} 
      */

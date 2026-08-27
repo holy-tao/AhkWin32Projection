@@ -36,7 +36,6 @@ export default struct IRowsetIdentity extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hThisRow 
      * @param {Pointer} hThatRow 
      * @returns {HRESULT} 
@@ -55,7 +54,7 @@ export default struct IRowsetIdentity extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsSameRow := CallbackCreate(GetMethod(implObj, "IsSameRow"), flags, 3)
+        this.vtbl.IsSameRow := CallbackCreate(ObjBindMethod(implObj, "IsSameRow"), flags, 3)
     }
 
     Dispose() {

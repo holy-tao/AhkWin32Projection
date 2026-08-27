@@ -20,7 +20,6 @@ export default struct PFND3DKMT_UPDATEOVERLAY {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_UPDATEOVERLAY>} param0 
      * @returns {NTSTATUS} 
      */

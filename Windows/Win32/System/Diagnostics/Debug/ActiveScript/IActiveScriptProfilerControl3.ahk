@@ -37,7 +37,6 @@ export default struct IActiveScriptProfilerControl3 extends IActiveScriptProfile
     }
 
     /**
-     * 
      * @returns {IActiveScriptProfilerHeapEnum} 
      */
     EnumHeap() {
@@ -54,7 +53,7 @@ export default struct IActiveScriptProfilerControl3 extends IActiveScriptProfile
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumHeap := CallbackCreate(GetMethod(implObj, "EnumHeap"), flags, 2)
+        this.vtbl.EnumHeap := CallbackCreate(ObjBindMethod(implObj, "EnumHeap"), flags, 2)
     }
 
     Dispose() {

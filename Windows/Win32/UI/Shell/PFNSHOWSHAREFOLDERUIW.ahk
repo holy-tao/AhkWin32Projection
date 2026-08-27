@@ -21,7 +21,6 @@ export default struct PFNSHOWSHAREFOLDERUIW {
     }
 
     /**
-     * 
      * @param {HWND} hwndParent 
      * @param {PWSTR} pszPath 
      * @returns {HRESULT} 
@@ -29,7 +28,9 @@ export default struct PFNSHOWSHAREFOLDERUIW {
     Call(hwndParent, pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall(this.value, HWND, hwndParent, "ptr", pszPath, "HRESULT")
+        hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+
+        result := DllCall(this.value, hwndParentMarshal, hwndParent, "ptr", pszPath, "HRESULT")
         return result
     }
 

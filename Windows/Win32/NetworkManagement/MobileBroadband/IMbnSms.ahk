@@ -251,14 +251,14 @@ export default struct IMbnSms extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSmsConfiguration := CallbackCreate(GetMethod(implObj, "GetSmsConfiguration"), flags, 2)
-        this.vtbl.SetSmsConfiguration := CallbackCreate(GetMethod(implObj, "SetSmsConfiguration"), flags, 3)
-        this.vtbl.SmsSendPdu := CallbackCreate(GetMethod(implObj, "SmsSendPdu"), flags, 4)
-        this.vtbl.SmsSendCdma := CallbackCreate(GetMethod(implObj, "SmsSendCdma"), flags, 7)
-        this.vtbl.SmsSendCdmaPdu := CallbackCreate(GetMethod(implObj, "SmsSendCdmaPdu"), flags, 3)
-        this.vtbl.SmsRead := CallbackCreate(GetMethod(implObj, "SmsRead"), flags, 4)
-        this.vtbl.SmsDelete := CallbackCreate(GetMethod(implObj, "SmsDelete"), flags, 3)
-        this.vtbl.GetSmsStatus := CallbackCreate(GetMethod(implObj, "GetSmsStatus"), flags, 2)
+        this.vtbl.GetSmsConfiguration := CallbackCreate(ObjBindMethod(implObj, "GetSmsConfiguration"), flags, 2)
+        this.vtbl.SetSmsConfiguration := CallbackCreate(ObjBindMethod(implObj, "SetSmsConfiguration"), flags, 3)
+        this.vtbl.SmsSendPdu := CallbackCreate(ObjBindMethod(implObj, "SmsSendPdu"), flags, 4)
+        this.vtbl.SmsSendCdma := CallbackCreate(ObjBindMethod(implObj, "SmsSendCdma"), flags, 7)
+        this.vtbl.SmsSendCdmaPdu := CallbackCreate(ObjBindMethod(implObj, "SmsSendCdmaPdu"), flags, 3)
+        this.vtbl.SmsRead := CallbackCreate(ObjBindMethod(implObj, "SmsRead"), flags, 4)
+        this.vtbl.SmsDelete := CallbackCreate(ObjBindMethod(implObj, "SmsDelete"), flags, 3)
+        this.vtbl.GetSmsStatus := CallbackCreate(ObjBindMethod(implObj, "GetSmsStatus"), flags, 2)
     }
 
     Dispose() {

@@ -32,7 +32,6 @@ export default struct SpAcceptLsaModeContextFn {
     }
 
     /**
-     * 
      * @param {Pointer} CredentialHandle Optional. Handle to the credentials to use for the context.
      * @param {Pointer} ContextHandle Optional. Handle to the current context.
      * @param {Pointer<SecBufferDesc>} InputBuffer Pointer to a 
@@ -206,12 +205,14 @@ export default struct SpAcceptLsaModeContextFn {
      * If the function fails to create the security context for any other reason, return an NTSTATUS code indicating the reason.
      */
     Call(CredentialHandle, ContextHandle, InputBuffer, ContextRequirements, TargetDataRep, NewContextHandle, OutputBuffer, ContextAttributes, ExpirationTime, MappedContext, ContextData) {
-        NewContextHandleMarshal := NewContextHandle is VarRef ? "ptr*" : "ptr"
-        ContextAttributesMarshal := ContextAttributes is VarRef ? "uint*" : "ptr"
-        ExpirationTimeMarshal := ExpirationTime is VarRef ? "int64*" : "ptr"
-        MappedContextMarshal := MappedContext is VarRef ? "char*" : "ptr"
+        CredentialHandleMarshal := CredentialHandle == 0 ? IntPtr : IntPtr
+        ContextHandleMarshal := ContextHandle == 0 ? IntPtr : IntPtr
+        NewContextHandleMarshal := NewContextHandle is VarRef ? "ptr*" : IntPtr
+        ContextAttributesMarshal := ContextAttributes is VarRef ? "uint*" : IntPtr
+        ExpirationTimeMarshal := ExpirationTime is VarRef ? "int64*" : IntPtr
+        MappedContextMarshal := MappedContext is VarRef ? "char*" : IntPtr
 
-        result := DllCall(this.value, IntPtr, CredentialHandle, IntPtr, ContextHandle, SecBufferDesc.Ptr, InputBuffer, UInt32, ContextRequirements, UInt32, TargetDataRep, NewContextHandleMarshal, NewContextHandle, SecBufferDesc.Ptr, OutputBuffer, ContextAttributesMarshal, ContextAttributes, ExpirationTimeMarshal, ExpirationTime, MappedContextMarshal, MappedContext, SecBuffer.Ptr, ContextData, NTSTATUS)
+        result := DllCall(this.value, CredentialHandleMarshal, CredentialHandle, ContextHandleMarshal, ContextHandle, SecBufferDesc.Ptr, InputBuffer, UInt32, ContextRequirements, UInt32, TargetDataRep, NewContextHandleMarshal, NewContextHandle, SecBufferDesc.Ptr, OutputBuffer, ContextAttributesMarshal, ContextAttributes, ExpirationTimeMarshal, ExpirationTime, MappedContextMarshal, MappedContext, SecBuffer.Ptr, ContextData, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

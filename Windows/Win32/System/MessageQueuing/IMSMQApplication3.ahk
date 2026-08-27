@@ -91,7 +91,6 @@ export default struct IMSMQApplication3 extends IMSMQApplication2 {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ActiveQueues() {
@@ -101,7 +100,6 @@ export default struct IMSMQApplication3 extends IMSMQApplication2 {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_PrivateQueues() {
@@ -111,7 +109,6 @@ export default struct IMSMQApplication3 extends IMSMQApplication2 {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DirectoryServiceServer() {
@@ -121,7 +118,6 @@ export default struct IMSMQApplication3 extends IMSMQApplication2 {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsConnected() {
@@ -130,7 +126,6 @@ export default struct IMSMQApplication3 extends IMSMQApplication2 {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_BytesInAllQueues() {
@@ -140,7 +135,6 @@ export default struct IMSMQApplication3 extends IMSMQApplication2 {
     }
 
     /**
-     * 
      * @param {BSTR} bstrMachine 
      * @returns {HRESULT} 
      */
@@ -152,7 +146,6 @@ export default struct IMSMQApplication3 extends IMSMQApplication2 {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Machine() {
@@ -162,7 +155,6 @@ export default struct IMSMQApplication3 extends IMSMQApplication2 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Connect() {
@@ -183,7 +175,6 @@ export default struct IMSMQApplication3 extends IMSMQApplication2 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Tidy() {
@@ -200,16 +191,16 @@ export default struct IMSMQApplication3 extends IMSMQApplication2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ActiveQueues := CallbackCreate(GetMethod(implObj, "get_ActiveQueues"), flags, 2)
-        this.vtbl.get_PrivateQueues := CallbackCreate(GetMethod(implObj, "get_PrivateQueues"), flags, 2)
-        this.vtbl.get_DirectoryServiceServer := CallbackCreate(GetMethod(implObj, "get_DirectoryServiceServer"), flags, 2)
-        this.vtbl.get_IsConnected := CallbackCreate(GetMethod(implObj, "get_IsConnected"), flags, 2)
-        this.vtbl.get_BytesInAllQueues := CallbackCreate(GetMethod(implObj, "get_BytesInAllQueues"), flags, 2)
-        this.vtbl.put_Machine := CallbackCreate(GetMethod(implObj, "put_Machine"), flags, 2)
-        this.vtbl.get_Machine := CallbackCreate(GetMethod(implObj, "get_Machine"), flags, 2)
-        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 1)
-        this.vtbl.Disconnect := CallbackCreate(GetMethod(implObj, "Disconnect"), flags, 1)
-        this.vtbl.Tidy := CallbackCreate(GetMethod(implObj, "Tidy"), flags, 1)
+        this.vtbl.get_ActiveQueues := CallbackCreate(ObjBindMethod(implObj, "get_ActiveQueues"), flags, 2)
+        this.vtbl.get_PrivateQueues := CallbackCreate(ObjBindMethod(implObj, "get_PrivateQueues"), flags, 2)
+        this.vtbl.get_DirectoryServiceServer := CallbackCreate(ObjBindMethod(implObj, "get_DirectoryServiceServer"), flags, 2)
+        this.vtbl.get_IsConnected := CallbackCreate(ObjBindMethod(implObj, "get_IsConnected"), flags, 2)
+        this.vtbl.get_BytesInAllQueues := CallbackCreate(ObjBindMethod(implObj, "get_BytesInAllQueues"), flags, 2)
+        this.vtbl.put_Machine := CallbackCreate(ObjBindMethod(implObj, "put_Machine"), flags, 2)
+        this.vtbl.get_Machine := CallbackCreate(ObjBindMethod(implObj, "get_Machine"), flags, 2)
+        this.vtbl.Connect := CallbackCreate(ObjBindMethod(implObj, "Connect"), flags, 1)
+        this.vtbl.Disconnect := CallbackCreate(ObjBindMethod(implObj, "Disconnect"), flags, 1)
+        this.vtbl.Tidy := CallbackCreate(ObjBindMethod(implObj, "Tidy"), flags, 1)
     }
 
     Dispose() {

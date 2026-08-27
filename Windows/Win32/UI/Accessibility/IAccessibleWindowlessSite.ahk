@@ -121,10 +121,10 @@ export default struct IAccessibleWindowlessSite extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AcquireObjectIdRange := CallbackCreate(GetMethod(implObj, "AcquireObjectIdRange"), flags, 4)
-        this.vtbl.ReleaseObjectIdRange := CallbackCreate(GetMethod(implObj, "ReleaseObjectIdRange"), flags, 3)
-        this.vtbl.QueryObjectIdRanges := CallbackCreate(GetMethod(implObj, "QueryObjectIdRanges"), flags, 3)
-        this.vtbl.GetParentAccessible := CallbackCreate(GetMethod(implObj, "GetParentAccessible"), flags, 2)
+        this.vtbl.AcquireObjectIdRange := CallbackCreate(ObjBindMethod(implObj, "AcquireObjectIdRange"), flags, 4)
+        this.vtbl.ReleaseObjectIdRange := CallbackCreate(ObjBindMethod(implObj, "ReleaseObjectIdRange"), flags, 3)
+        this.vtbl.QueryObjectIdRanges := CallbackCreate(ObjBindMethod(implObj, "QueryObjectIdRanges"), flags, 3)
+        this.vtbl.GetParentAccessible := CallbackCreate(ObjBindMethod(implObj, "GetParentAccessible"), flags, 2)
     }
 
     Dispose() {

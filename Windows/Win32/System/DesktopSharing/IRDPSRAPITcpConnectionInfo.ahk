@@ -144,11 +144,11 @@ export default struct IRDPSRAPITcpConnectionInfo extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Protocol := CallbackCreate(GetMethod(implObj, "get_Protocol"), flags, 2)
-        this.vtbl.get_LocalPort := CallbackCreate(GetMethod(implObj, "get_LocalPort"), flags, 2)
-        this.vtbl.get_LocalIP := CallbackCreate(GetMethod(implObj, "get_LocalIP"), flags, 2)
-        this.vtbl.get_PeerPort := CallbackCreate(GetMethod(implObj, "get_PeerPort"), flags, 2)
-        this.vtbl.get_PeerIP := CallbackCreate(GetMethod(implObj, "get_PeerIP"), flags, 2)
+        this.vtbl.get_Protocol := CallbackCreate(ObjBindMethod(implObj, "get_Protocol"), flags, 2)
+        this.vtbl.get_LocalPort := CallbackCreate(ObjBindMethod(implObj, "get_LocalPort"), flags, 2)
+        this.vtbl.get_LocalIP := CallbackCreate(ObjBindMethod(implObj, "get_LocalIP"), flags, 2)
+        this.vtbl.get_PeerPort := CallbackCreate(ObjBindMethod(implObj, "get_PeerPort"), flags, 2)
+        this.vtbl.get_PeerIP := CallbackCreate(ObjBindMethod(implObj, "get_PeerIP"), flags, 2)
     }
 
     Dispose() {

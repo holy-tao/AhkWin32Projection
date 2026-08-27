@@ -97,9 +97,9 @@ export default struct IAccountsSettingsPaneInterop extends IInspectable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetForWindow := CallbackCreate(GetMethod(implObj, "GetForWindow"), flags, 4)
-        this.vtbl.ShowManageAccountsForWindowAsync := CallbackCreate(GetMethod(implObj, "ShowManageAccountsForWindowAsync"), flags, 4)
-        this.vtbl.ShowAddAccountForWindowAsync := CallbackCreate(GetMethod(implObj, "ShowAddAccountForWindowAsync"), flags, 4)
+        this.vtbl.GetForWindow := CallbackCreate(ObjBindMethod(implObj, "GetForWindow"), flags, 4)
+        this.vtbl.ShowManageAccountsForWindowAsync := CallbackCreate(ObjBindMethod(implObj, "ShowManageAccountsForWindowAsync"), flags, 4)
+        this.vtbl.ShowAddAccountForWindowAsync := CallbackCreate(ObjBindMethod(implObj, "ShowAddAccountForWindowAsync"), flags, 4)
     }
 
     Dispose() {

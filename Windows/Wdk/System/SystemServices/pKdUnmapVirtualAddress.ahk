@@ -19,14 +19,13 @@ export default struct pKdUnmapVirtualAddress {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} VirtualAddress 
      * @param {Integer} NumberPages 
      * @param {BOOLEAN} FlushCurrentTLB 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(VirtualAddress, NumberPages, FlushCurrentTLB) {
-        VirtualAddressMarshal := VirtualAddress is VarRef ? "ptr" : "ptr"
+        VirtualAddressMarshal := VirtualAddress is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, VirtualAddressMarshal, VirtualAddress, UInt32, NumberPages, BOOLEAN, FlushCurrentTLB)
     }

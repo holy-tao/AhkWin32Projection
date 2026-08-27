@@ -61,7 +61,7 @@ export default struct ITfCompartmentEventSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnChange := CallbackCreate(GetMethod(implObj, "OnChange"), flags, 2)
+        this.vtbl.OnChange := CallbackCreate(ObjBindMethod(implObj, "OnChange"), flags, 2)
     }
 
     Dispose() {

@@ -20,14 +20,15 @@ export default struct DOT11EXTIHV_INIT_ADAPTER {
     }
 
     /**
-     * 
      * @param {Pointer<DOT11_ADAPTER>} pDot11Adapter 
      * @param {HANDLE} hDot11SvcHandle 
      * @param {Pointer<HANDLE>} phIhvExtAdapter 
      * @returns {Integer} 
      */
     Call(pDot11Adapter, hDot11SvcHandle, phIhvExtAdapter) {
-        result := DllCall(this.value, DOT11_ADAPTER.Ptr, pDot11Adapter, HANDLE, hDot11SvcHandle, HANDLE.Ptr, phIhvExtAdapter, UInt32)
+        hDot11SvcHandleMarshal := hDot11SvcHandle == 0 ? IntPtr : HANDLE
+
+        result := DllCall(this.value, DOT11_ADAPTER.Ptr, pDot11Adapter, hDot11SvcHandleMarshal, hDot11SvcHandle, HANDLE.Ptr, phIhvExtAdapter, UInt32)
         return result
     }
 

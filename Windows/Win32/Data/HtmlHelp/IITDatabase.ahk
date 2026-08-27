@@ -186,7 +186,7 @@ export default struct IITDatabase extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitdatabase-createobject
      */
     CreateObject(rclsid, pdwObjInstance) {
-        pdwObjInstanceMarshal := pdwObjInstance is VarRef ? "uint*" : "ptr"
+        pdwObjInstanceMarshal := pdwObjInstance is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, Guid.Ptr, rclsid, pdwObjInstanceMarshal, pdwObjInstance, "HRESULT")
         return result
@@ -256,14 +256,13 @@ export default struct IITDatabase extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitdatabase-getobject
      */
     GetObject(dwObjInstance, riid, ppvObj) {
-        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(6, this, UInt32, dwObjInstance, Guid.Ptr, riid, ppvObjMarshal, ppvObj, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} lpwszObject 
      * @param {Integer} dwObjInstance 
      * @param {Pointer<Pointer<Void>>} ppvPersistence 
@@ -273,7 +272,7 @@ export default struct IITDatabase extends IUnknown {
     GetObjectPersistence(lpwszObject, dwObjInstance, ppvPersistence, fStream) {
         lpwszObject := lpwszObject is String ? StrPtr(lpwszObject) : lpwszObject
 
-        ppvPersistenceMarshal := ppvPersistence is VarRef ? "ptr*" : "ptr"
+        ppvPersistenceMarshal := ppvPersistence is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(7, this, "ptr", lpwszObject, UInt32, dwObjInstance, ppvPersistenceMarshal, ppvPersistence, BOOL, fStream, "HRESULT")
         return result
@@ -288,11 +287,11 @@ export default struct IITDatabase extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 4)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
-        this.vtbl.CreateObject := CallbackCreate(GetMethod(implObj, "CreateObject"), flags, 3)
-        this.vtbl.GetObject := CallbackCreate(GetMethod(implObj, "GetObject"), flags, 4)
-        this.vtbl.GetObjectPersistence := CallbackCreate(GetMethod(implObj, "GetObjectPersistence"), flags, 5)
+        this.vtbl.Open := CallbackCreate(ObjBindMethod(implObj, "Open"), flags, 4)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
+        this.vtbl.CreateObject := CallbackCreate(ObjBindMethod(implObj, "CreateObject"), flags, 3)
+        this.vtbl.GetObject := CallbackCreate(ObjBindMethod(implObj, "GetObject"), flags, 4)
+        this.vtbl.GetObjectPersistence := CallbackCreate(ObjBindMethod(implObj, "GetObjectPersistence"), flags, 5)
     }
 
     Dispose() {

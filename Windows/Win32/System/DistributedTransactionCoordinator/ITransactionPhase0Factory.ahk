@@ -44,7 +44,9 @@ export default struct ITransactionPhase0Factory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/Msi/create-time-date-summary
      */
     Create(pPhase0Notify) {
-        result := ComCall(3, this, "ptr", pPhase0Notify, "ptr*", &ppPhase0Enlistment := 0, "HRESULT")
+        pPhase0NotifyMarshal := pPhase0Notify == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pPhase0NotifyMarshal, pPhase0Notify, "ptr*", &ppPhase0Enlistment := 0, "HRESULT")
         return ITransactionPhase0EnlistmentAsync(ppPhase0Enlistment)
     }
 
@@ -57,7 +59,7 @@ export default struct ITransactionPhase0Factory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 3)
+        this.vtbl.Create := CallbackCreate(ObjBindMethod(implObj, "Create"), flags, 3)
     }
 
     Dispose() {

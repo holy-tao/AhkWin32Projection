@@ -119,7 +119,6 @@ export default struct IMXWriter extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varDestination 
      * @returns {HRESULT} 
      */
@@ -129,7 +128,6 @@ export default struct IMXWriter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_output() {
@@ -139,7 +137,6 @@ export default struct IMXWriter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strEncoding 
      * @returns {HRESULT} 
      */
@@ -151,7 +148,6 @@ export default struct IMXWriter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_encoding() {
@@ -161,7 +157,6 @@ export default struct IMXWriter extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fWriteByteOrderMark 
      * @returns {HRESULT} 
      */
@@ -171,7 +166,6 @@ export default struct IMXWriter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_byteOrderMark() {
@@ -180,7 +174,6 @@ export default struct IMXWriter extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fIndentMode 
      * @returns {HRESULT} 
      */
@@ -190,7 +183,6 @@ export default struct IMXWriter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_indent() {
@@ -199,7 +191,6 @@ export default struct IMXWriter extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fValue 
      * @returns {HRESULT} 
      */
@@ -209,7 +200,6 @@ export default struct IMXWriter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_standalone() {
@@ -218,7 +208,6 @@ export default struct IMXWriter extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fValue 
      * @returns {HRESULT} 
      */
@@ -228,7 +217,6 @@ export default struct IMXWriter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_omitXMLDeclaration() {
@@ -237,7 +225,6 @@ export default struct IMXWriter extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strVersion 
      * @returns {HRESULT} 
      */
@@ -249,7 +236,6 @@ export default struct IMXWriter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_version() {
@@ -259,7 +245,6 @@ export default struct IMXWriter extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fValue 
      * @returns {HRESULT} 
      */
@@ -269,7 +254,6 @@ export default struct IMXWriter extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_disableOutputEscaping() {
@@ -296,23 +280,23 @@ export default struct IMXWriter extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_output := CallbackCreate(GetMethod(implObj, "put_output"), flags, 2)
-        this.vtbl.get_output := CallbackCreate(GetMethod(implObj, "get_output"), flags, 2)
-        this.vtbl.put_encoding := CallbackCreate(GetMethod(implObj, "put_encoding"), flags, 2)
-        this.vtbl.get_encoding := CallbackCreate(GetMethod(implObj, "get_encoding"), flags, 2)
-        this.vtbl.put_byteOrderMark := CallbackCreate(GetMethod(implObj, "put_byteOrderMark"), flags, 2)
-        this.vtbl.get_byteOrderMark := CallbackCreate(GetMethod(implObj, "get_byteOrderMark"), flags, 2)
-        this.vtbl.put_indent := CallbackCreate(GetMethod(implObj, "put_indent"), flags, 2)
-        this.vtbl.get_indent := CallbackCreate(GetMethod(implObj, "get_indent"), flags, 2)
-        this.vtbl.put_standalone := CallbackCreate(GetMethod(implObj, "put_standalone"), flags, 2)
-        this.vtbl.get_standalone := CallbackCreate(GetMethod(implObj, "get_standalone"), flags, 2)
-        this.vtbl.put_omitXMLDeclaration := CallbackCreate(GetMethod(implObj, "put_omitXMLDeclaration"), flags, 2)
-        this.vtbl.get_omitXMLDeclaration := CallbackCreate(GetMethod(implObj, "get_omitXMLDeclaration"), flags, 2)
-        this.vtbl.put_version := CallbackCreate(GetMethod(implObj, "put_version"), flags, 2)
-        this.vtbl.get_version := CallbackCreate(GetMethod(implObj, "get_version"), flags, 2)
-        this.vtbl.put_disableOutputEscaping := CallbackCreate(GetMethod(implObj, "put_disableOutputEscaping"), flags, 2)
-        this.vtbl.get_disableOutputEscaping := CallbackCreate(GetMethod(implObj, "get_disableOutputEscaping"), flags, 2)
-        this.vtbl.flush := CallbackCreate(GetMethod(implObj, "flush"), flags, 1)
+        this.vtbl.put_output := CallbackCreate(ObjBindMethod(implObj, "put_output"), flags, 2)
+        this.vtbl.get_output := CallbackCreate(ObjBindMethod(implObj, "get_output"), flags, 2)
+        this.vtbl.put_encoding := CallbackCreate(ObjBindMethod(implObj, "put_encoding"), flags, 2)
+        this.vtbl.get_encoding := CallbackCreate(ObjBindMethod(implObj, "get_encoding"), flags, 2)
+        this.vtbl.put_byteOrderMark := CallbackCreate(ObjBindMethod(implObj, "put_byteOrderMark"), flags, 2)
+        this.vtbl.get_byteOrderMark := CallbackCreate(ObjBindMethod(implObj, "get_byteOrderMark"), flags, 2)
+        this.vtbl.put_indent := CallbackCreate(ObjBindMethod(implObj, "put_indent"), flags, 2)
+        this.vtbl.get_indent := CallbackCreate(ObjBindMethod(implObj, "get_indent"), flags, 2)
+        this.vtbl.put_standalone := CallbackCreate(ObjBindMethod(implObj, "put_standalone"), flags, 2)
+        this.vtbl.get_standalone := CallbackCreate(ObjBindMethod(implObj, "get_standalone"), flags, 2)
+        this.vtbl.put_omitXMLDeclaration := CallbackCreate(ObjBindMethod(implObj, "put_omitXMLDeclaration"), flags, 2)
+        this.vtbl.get_omitXMLDeclaration := CallbackCreate(ObjBindMethod(implObj, "get_omitXMLDeclaration"), flags, 2)
+        this.vtbl.put_version := CallbackCreate(ObjBindMethod(implObj, "put_version"), flags, 2)
+        this.vtbl.get_version := CallbackCreate(ObjBindMethod(implObj, "get_version"), flags, 2)
+        this.vtbl.put_disableOutputEscaping := CallbackCreate(ObjBindMethod(implObj, "put_disableOutputEscaping"), flags, 2)
+        this.vtbl.get_disableOutputEscaping := CallbackCreate(ObjBindMethod(implObj, "get_disableOutputEscaping"), flags, 2)
+        this.vtbl.flush := CallbackCreate(ObjBindMethod(implObj, "flush"), flags, 1)
     }
 
     Dispose() {

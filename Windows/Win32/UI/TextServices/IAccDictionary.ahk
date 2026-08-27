@@ -71,7 +71,7 @@ export default struct IAccDictionary extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iaccdictionary-getlocalizedstring
      */
     GetLocalizedString(Term, lcid, pResult, plcid) {
-        plcidMarshal := plcid is VarRef ? "uint*" : "ptr"
+        plcidMarshal := plcid is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, Guid.Ptr, Term, UInt32, lcid, BSTR.Ptr, pResult, plcidMarshal, plcid, "HRESULT")
         return result
@@ -158,7 +158,7 @@ export default struct IAccDictionary extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iaccdictionary-convertvaluetostring
      */
     ConvertValueToString(Term, lcid, varValue, pbstrResult, plcid) {
-        plcidMarshal := plcid is VarRef ? "uint*" : "ptr"
+        plcidMarshal := plcid is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, Guid.Ptr, Term, UInt32, lcid, VARIANT, varValue, BSTR.Ptr, pbstrResult, plcidMarshal, plcid, "HRESULT")
         return result
@@ -173,11 +173,11 @@ export default struct IAccDictionary extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLocalizedString := CallbackCreate(GetMethod(implObj, "GetLocalizedString"), flags, 5)
-        this.vtbl.GetParentTerm := CallbackCreate(GetMethod(implObj, "GetParentTerm"), flags, 3)
-        this.vtbl.GetMnemonicString := CallbackCreate(GetMethod(implObj, "GetMnemonicString"), flags, 3)
-        this.vtbl.LookupMnemonicTerm := CallbackCreate(GetMethod(implObj, "LookupMnemonicTerm"), flags, 3)
-        this.vtbl.ConvertValueToString := CallbackCreate(GetMethod(implObj, "ConvertValueToString"), flags, 6)
+        this.vtbl.GetLocalizedString := CallbackCreate(ObjBindMethod(implObj, "GetLocalizedString"), flags, 5)
+        this.vtbl.GetParentTerm := CallbackCreate(ObjBindMethod(implObj, "GetParentTerm"), flags, 3)
+        this.vtbl.GetMnemonicString := CallbackCreate(ObjBindMethod(implObj, "GetMnemonicString"), flags, 3)
+        this.vtbl.LookupMnemonicTerm := CallbackCreate(ObjBindMethod(implObj, "LookupMnemonicTerm"), flags, 3)
+        this.vtbl.ConvertValueToString := CallbackCreate(ObjBindMethod(implObj, "ConvertValueToString"), flags, 6)
     }
 
     Dispose() {

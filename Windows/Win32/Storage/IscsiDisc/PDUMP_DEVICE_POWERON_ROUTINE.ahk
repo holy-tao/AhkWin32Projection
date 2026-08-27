@@ -18,12 +18,11 @@ export default struct PDUMP_DEVICE_POWERON_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @returns {Integer} 
      */
     Call(_Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, Int32)
         return result

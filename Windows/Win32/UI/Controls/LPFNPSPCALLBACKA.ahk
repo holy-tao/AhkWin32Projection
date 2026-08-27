@@ -36,7 +36,6 @@ export default struct LPFNPSPCALLBACKA {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * Reserved; must be <b>NULL</b>.

@@ -21,7 +21,6 @@ export default struct DRIVER_CONTROL {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<Void>} MapRegisterBase 
@@ -29,8 +28,8 @@ export default struct DRIVER_CONTROL {
      * @returns {IO_ALLOCATION_ACTION} 
      */
     Call(DeviceObject, _Irp, MapRegisterBase, _Context) {
-        MapRegisterBaseMarshal := MapRegisterBase is VarRef ? "ptr" : "ptr"
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        MapRegisterBaseMarshal := MapRegisterBase is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, DEVICE_OBJECT.Ptr, DeviceObject, IRP.Ptr, _Irp, MapRegisterBaseMarshal, MapRegisterBase, _ContextMarshal, _Context, IO_ALLOCATION_ACTION)
         return result

@@ -212,10 +212,10 @@ export default struct ICertPolicy extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.VerifyRequest := CallbackCreate(GetMethod(implObj, "VerifyRequest"), flags, 6)
-        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 2)
-        this.vtbl.ShutDown := CallbackCreate(GetMethod(implObj, "ShutDown"), flags, 1)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.VerifyRequest := CallbackCreate(ObjBindMethod(implObj, "VerifyRequest"), flags, 6)
+        this.vtbl.GetDescription := CallbackCreate(ObjBindMethod(implObj, "GetDescription"), flags, 2)
+        this.vtbl.ShutDown := CallbackCreate(ObjBindMethod(implObj, "ShutDown"), flags, 1)
     }
 
     Dispose() {

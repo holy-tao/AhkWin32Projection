@@ -18,7 +18,6 @@ export default struct PDEVICE_CHANGE_COMPLETE_CALLBACK {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

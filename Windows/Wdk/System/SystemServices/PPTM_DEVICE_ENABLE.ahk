@@ -19,7 +19,6 @@ export default struct PPTM_DEVICE_ENABLE {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

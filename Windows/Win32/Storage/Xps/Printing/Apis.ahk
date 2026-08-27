@@ -206,7 +206,7 @@ export StartXpsPrintJob(printerName, jobName, outputFileName, progressEvent, com
     jobName := jobName is String ? StrPtr(jobName) : jobName
     outputFileName := outputFileName is String ? StrPtr(outputFileName) : outputFileName
 
-    printablePagesOnMarshal := printablePagesOn is VarRef ? "char*" : "ptr"
+    printablePagesOnMarshal := printablePagesOn is VarRef ? "char*" : IntPtr
 
     result := DllCall("XPSPRINT.dll\StartXpsPrintJob", "ptr", printerName, "ptr", jobName, "ptr", outputFileName, HANDLE, progressEvent, HANDLE, completionEvent, printablePagesOnMarshal, printablePagesOn, UInt32, printablePagesOnCount, IXpsPrintJob.Ptr, xpsPrintJob, IXpsPrintJobStream.Ptr, documentStream, IXpsPrintJobStream.Ptr, printTicketStream, "HRESULT")
     return result

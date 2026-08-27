@@ -174,17 +174,17 @@ export default struct IDvbTerrestrialDeliverySystemDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetCentreFrequency := CallbackCreate(GetMethod(implObj, "GetCentreFrequency"), flags, 2)
-        this.vtbl.GetBandwidth := CallbackCreate(GetMethod(implObj, "GetBandwidth"), flags, 2)
-        this.vtbl.GetConstellation := CallbackCreate(GetMethod(implObj, "GetConstellation"), flags, 2)
-        this.vtbl.GetHierarchyInformation := CallbackCreate(GetMethod(implObj, "GetHierarchyInformation"), flags, 2)
-        this.vtbl.GetCodeRateHPStream := CallbackCreate(GetMethod(implObj, "GetCodeRateHPStream"), flags, 2)
-        this.vtbl.GetCodeRateLPStream := CallbackCreate(GetMethod(implObj, "GetCodeRateLPStream"), flags, 2)
-        this.vtbl.GetGuardInterval := CallbackCreate(GetMethod(implObj, "GetGuardInterval"), flags, 2)
-        this.vtbl.GetTransmissionMode := CallbackCreate(GetMethod(implObj, "GetTransmissionMode"), flags, 2)
-        this.vtbl.GetOtherFrequencyFlag := CallbackCreate(GetMethod(implObj, "GetOtherFrequencyFlag"), flags, 2)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetCentreFrequency := CallbackCreate(ObjBindMethod(implObj, "GetCentreFrequency"), flags, 2)
+        this.vtbl.GetBandwidth := CallbackCreate(ObjBindMethod(implObj, "GetBandwidth"), flags, 2)
+        this.vtbl.GetConstellation := CallbackCreate(ObjBindMethod(implObj, "GetConstellation"), flags, 2)
+        this.vtbl.GetHierarchyInformation := CallbackCreate(ObjBindMethod(implObj, "GetHierarchyInformation"), flags, 2)
+        this.vtbl.GetCodeRateHPStream := CallbackCreate(ObjBindMethod(implObj, "GetCodeRateHPStream"), flags, 2)
+        this.vtbl.GetCodeRateLPStream := CallbackCreate(ObjBindMethod(implObj, "GetCodeRateLPStream"), flags, 2)
+        this.vtbl.GetGuardInterval := CallbackCreate(ObjBindMethod(implObj, "GetGuardInterval"), flags, 2)
+        this.vtbl.GetTransmissionMode := CallbackCreate(ObjBindMethod(implObj, "GetTransmissionMode"), flags, 2)
+        this.vtbl.GetOtherFrequencyFlag := CallbackCreate(ObjBindMethod(implObj, "GetOtherFrequencyFlag"), flags, 2)
     }
 
     Dispose() {

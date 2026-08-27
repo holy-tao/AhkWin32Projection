@@ -20,7 +20,6 @@ export default struct PLSA_DUPLICATE_HANDLE {
     }
 
     /**
-     * 
      * @param {HANDLE} SourceHandle 
      * @param {Pointer<HANDLE>} DestionationHandle 
      * @returns {NTSTATUS} 

@@ -67,7 +67,7 @@ export default struct ITraceRelogger extends IUnknown {
     AddLogfileTraceStream(LogfileName, UserContext) {
         LogfileName := LogfileName is String ? BSTR.Alloc(LogfileName).Value : LogfileName
 
-        UserContextMarshal := UserContext is VarRef ? "ptr" : "ptr"
+        UserContextMarshal := UserContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, BSTR, LogfileName, UserContextMarshal, UserContext, "uint*", &TraceStreamId := 0, "HRESULT")
         return TraceStreamId
@@ -89,7 +89,7 @@ export default struct ITraceRelogger extends IUnknown {
     AddRealtimeTraceStream(LoggerName, UserContext) {
         LoggerName := LoggerName is String ? BSTR.Alloc(LoggerName).Value : LoggerName
 
-        UserContextMarshal := UserContext is VarRef ? "ptr" : "ptr"
+        UserContextMarshal := UserContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(4, this, BSTR, LoggerName, UserContextMarshal, UserContext, "uint*", &TraceStreamId := 0, "HRESULT")
         return TraceStreamId
@@ -223,15 +223,15 @@ export default struct ITraceRelogger extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddLogfileTraceStream := CallbackCreate(GetMethod(implObj, "AddLogfileTraceStream"), flags, 4)
-        this.vtbl.AddRealtimeTraceStream := CallbackCreate(GetMethod(implObj, "AddRealtimeTraceStream"), flags, 4)
-        this.vtbl.RegisterCallback := CallbackCreate(GetMethod(implObj, "RegisterCallback"), flags, 2)
-        this.vtbl.Inject := CallbackCreate(GetMethod(implObj, "Inject"), flags, 2)
-        this.vtbl.CreateEventInstance := CallbackCreate(GetMethod(implObj, "CreateEventInstance"), flags, 4)
-        this.vtbl.ProcessTrace := CallbackCreate(GetMethod(implObj, "ProcessTrace"), flags, 1)
-        this.vtbl.SetOutputFilename := CallbackCreate(GetMethod(implObj, "SetOutputFilename"), flags, 2)
-        this.vtbl.SetCompressionMode := CallbackCreate(GetMethod(implObj, "SetCompressionMode"), flags, 2)
-        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.AddLogfileTraceStream := CallbackCreate(ObjBindMethod(implObj, "AddLogfileTraceStream"), flags, 4)
+        this.vtbl.AddRealtimeTraceStream := CallbackCreate(ObjBindMethod(implObj, "AddRealtimeTraceStream"), flags, 4)
+        this.vtbl.RegisterCallback := CallbackCreate(ObjBindMethod(implObj, "RegisterCallback"), flags, 2)
+        this.vtbl.Inject := CallbackCreate(ObjBindMethod(implObj, "Inject"), flags, 2)
+        this.vtbl.CreateEventInstance := CallbackCreate(ObjBindMethod(implObj, "CreateEventInstance"), flags, 4)
+        this.vtbl.ProcessTrace := CallbackCreate(ObjBindMethod(implObj, "ProcessTrace"), flags, 1)
+        this.vtbl.SetOutputFilename := CallbackCreate(ObjBindMethod(implObj, "SetOutputFilename"), flags, 2)
+        this.vtbl.SetCompressionMode := CallbackCreate(ObjBindMethod(implObj, "SetCompressionMode"), flags, 2)
+        this.vtbl.Cancel := CallbackCreate(ObjBindMethod(implObj, "Cancel"), flags, 1)
     }
 
     Dispose() {

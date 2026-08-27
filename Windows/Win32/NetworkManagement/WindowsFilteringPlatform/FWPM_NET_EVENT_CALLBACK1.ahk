@@ -23,7 +23,6 @@ export default struct FWPM_NET_EVENT_CALLBACK1 {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context Type: <b>void*</b>
      * 
      * Optional context pointer. It contains the value of the <i>context</i> parameter of the <a href="https://docs.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmneteventsubscribe1">FwpmNetEventSubscribe1</a> function.
@@ -33,7 +32,7 @@ export default struct FWPM_NET_EVENT_CALLBACK1 {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_context, event) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _contextMarshal, _context, FWPM_NET_EVENT2.Ptr, event)
     }

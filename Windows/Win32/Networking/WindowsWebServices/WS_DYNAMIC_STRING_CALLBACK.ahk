@@ -24,7 +24,6 @@ export default struct WS_DYNAMIC_STRING_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} callbackState User-defined state that was passed to the function that accepted the <i>WS_DYNAMIC_STRING_CALLBACK</i>.
      * @param {Pointer<WS_XML_STRING>} _string The string to look up in the dynamic dictionary.
      * @param {Pointer<BOOL>} found Whether or not the string was found in the dynamic dictionary is returned here.
@@ -33,10 +32,12 @@ export default struct WS_DYNAMIC_STRING_CALLBACK {
      * @returns {HRESULT} This callback function does not return a value.
      */
     Call(callbackState, _string, found, id, _error) {
-        callbackStateMarshal := callbackState is VarRef ? "ptr" : "ptr"
-        foundMarshal := found is VarRef ? "int*" : "ptr"
-        idMarshal := id is VarRef ? "uint*" : "ptr"
-        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
+        callbackStateMarshal := callbackState is VarRef ? "ptr" : IntPtr
+        callbackStateMarshal := callbackState == 0 ? IntPtr : "ptr"
+        foundMarshal := found is VarRef ? "int*" : IntPtr
+        idMarshal := id is VarRef ? "uint*" : IntPtr
+        _errorMarshal := _error is VarRef ? "ptr*" : IntPtr
+        _errorMarshal := _error == 0 ? IntPtr : WS_ERROR.Ptr
 
         result := DllCall(this.value, callbackStateMarshal, callbackState, WS_XML_STRING.Ptr, _string, foundMarshal, found, idMarshal, id, _errorMarshal, _error, "HRESULT")
         return result

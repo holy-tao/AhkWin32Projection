@@ -92,8 +92,8 @@ export default struct IDXGIFactory4 extends IDXGIFactory3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumAdapterByLuid := CallbackCreate(GetMethod(implObj, "EnumAdapterByLuid"), flags, 4)
-        this.vtbl.EnumWarpAdapter := CallbackCreate(GetMethod(implObj, "EnumWarpAdapter"), flags, 3)
+        this.vtbl.EnumAdapterByLuid := CallbackCreate(ObjBindMethod(implObj, "EnumAdapterByLuid"), flags, 4)
+        this.vtbl.EnumWarpAdapter := CallbackCreate(ObjBindMethod(implObj, "EnumWarpAdapter"), flags, 3)
     }
 
     Dispose() {

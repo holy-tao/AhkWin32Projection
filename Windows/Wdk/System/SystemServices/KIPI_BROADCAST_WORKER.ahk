@@ -18,7 +18,6 @@ export default struct KIPI_BROADCAST_WORKER {
     }
 
     /**
-     * 
      * @param {Pointer} Argument 
      * @returns {Pointer} 
      */

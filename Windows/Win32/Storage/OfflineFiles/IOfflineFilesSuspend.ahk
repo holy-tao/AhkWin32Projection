@@ -60,7 +60,7 @@ export default struct IOfflineFilesSuspend extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SuspendRoot := CallbackCreate(GetMethod(implObj, "SuspendRoot"), flags, 2)
+        this.vtbl.SuspendRoot := CallbackCreate(ObjBindMethod(implObj, "SuspendRoot"), flags, 2)
     }
 
     Dispose() {

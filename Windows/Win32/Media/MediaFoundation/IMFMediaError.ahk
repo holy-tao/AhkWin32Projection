@@ -96,10 +96,10 @@ export default struct IMFMediaError extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetErrorCode := CallbackCreate(GetMethod(implObj, "GetErrorCode"), flags, 1)
-        this.vtbl.GetExtendedErrorCode := CallbackCreate(GetMethod(implObj, "GetExtendedErrorCode"), flags, 1)
-        this.vtbl.SetErrorCode := CallbackCreate(GetMethod(implObj, "SetErrorCode"), flags, 2)
-        this.vtbl.SetExtendedErrorCode := CallbackCreate(GetMethod(implObj, "SetExtendedErrorCode"), flags, 2)
+        this.vtbl.GetErrorCode := CallbackCreate(ObjBindMethod(implObj, "GetErrorCode"), flags, 1)
+        this.vtbl.GetExtendedErrorCode := CallbackCreate(ObjBindMethod(implObj, "GetExtendedErrorCode"), flags, 1)
+        this.vtbl.SetErrorCode := CallbackCreate(ObjBindMethod(implObj, "SetErrorCode"), flags, 2)
+        this.vtbl.SetExtendedErrorCode := CallbackCreate(ObjBindMethod(implObj, "SetExtendedErrorCode"), flags, 2)
     }
 
     Dispose() {

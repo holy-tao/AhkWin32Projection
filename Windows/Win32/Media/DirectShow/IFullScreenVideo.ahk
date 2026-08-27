@@ -54,7 +54,6 @@ export default struct IFullScreenVideo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     CountModes() {
@@ -63,7 +62,6 @@ export default struct IFullScreenVideo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Mode 
      * @param {Pointer<Integer>} pWidth 
      * @param {Pointer<Integer>} pHeight 
@@ -71,16 +69,15 @@ export default struct IFullScreenVideo extends IUnknown {
      * @returns {HRESULT} 
      */
     GetModeInfo(_Mode, pWidth, pHeight, pDepth) {
-        pWidthMarshal := pWidth is VarRef ? "int*" : "ptr"
-        pHeightMarshal := pHeight is VarRef ? "int*" : "ptr"
-        pDepthMarshal := pDepth is VarRef ? "int*" : "ptr"
+        pWidthMarshal := pWidth is VarRef ? "int*" : IntPtr
+        pHeightMarshal := pHeight is VarRef ? "int*" : IntPtr
+        pDepthMarshal := pDepth is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, Int32, _Mode, pWidthMarshal, pWidth, pHeightMarshal, pHeight, pDepthMarshal, pDepth, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentMode() {
@@ -89,7 +86,6 @@ export default struct IFullScreenVideo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Mode 
      * @returns {HRESULT} 
      */
@@ -99,7 +95,6 @@ export default struct IFullScreenVideo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Mode 
      * @returns {HRESULT} 
      */
@@ -109,7 +104,6 @@ export default struct IFullScreenVideo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Mode 
      * @param {Integer} bEnabled 
      * @returns {HRESULT} 
@@ -120,7 +114,6 @@ export default struct IFullScreenVideo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetClipFactor() {
@@ -129,7 +122,6 @@ export default struct IFullScreenVideo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ClipFactor 
      * @returns {HRESULT} 
      */
@@ -139,7 +131,6 @@ export default struct IFullScreenVideo extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @returns {HRESULT} 
      */
@@ -149,7 +140,6 @@ export default struct IFullScreenVideo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HWND} 
      */
     GetMessageDrain() {
@@ -159,7 +149,6 @@ export default struct IFullScreenVideo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Monitor 
      * @returns {HRESULT} 
      */
@@ -169,7 +158,6 @@ export default struct IFullScreenVideo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMonitor() {
@@ -178,7 +166,6 @@ export default struct IFullScreenVideo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Hide 
      * @returns {HRESULT} 
      */
@@ -188,7 +175,6 @@ export default struct IFullScreenVideo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     IsHideOnDeactivate() {
@@ -197,7 +183,6 @@ export default struct IFullScreenVideo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} strCaption 
      * @returns {HRESULT} 
      */
@@ -209,7 +194,6 @@ export default struct IFullScreenVideo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetCaption() {
@@ -219,7 +203,6 @@ export default struct IFullScreenVideo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SetDefault() {
@@ -236,23 +219,23 @@ export default struct IFullScreenVideo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CountModes := CallbackCreate(GetMethod(implObj, "CountModes"), flags, 2)
-        this.vtbl.GetModeInfo := CallbackCreate(GetMethod(implObj, "GetModeInfo"), flags, 5)
-        this.vtbl.GetCurrentMode := CallbackCreate(GetMethod(implObj, "GetCurrentMode"), flags, 2)
-        this.vtbl.IsModeAvailable := CallbackCreate(GetMethod(implObj, "IsModeAvailable"), flags, 2)
-        this.vtbl.IsModeEnabled := CallbackCreate(GetMethod(implObj, "IsModeEnabled"), flags, 2)
-        this.vtbl.SetEnabled := CallbackCreate(GetMethod(implObj, "SetEnabled"), flags, 3)
-        this.vtbl.GetClipFactor := CallbackCreate(GetMethod(implObj, "GetClipFactor"), flags, 2)
-        this.vtbl.SetClipFactor := CallbackCreate(GetMethod(implObj, "SetClipFactor"), flags, 2)
-        this.vtbl.SetMessageDrain := CallbackCreate(GetMethod(implObj, "SetMessageDrain"), flags, 2)
-        this.vtbl.GetMessageDrain := CallbackCreate(GetMethod(implObj, "GetMessageDrain"), flags, 2)
-        this.vtbl.SetMonitor := CallbackCreate(GetMethod(implObj, "SetMonitor"), flags, 2)
-        this.vtbl.GetMonitor := CallbackCreate(GetMethod(implObj, "GetMonitor"), flags, 2)
-        this.vtbl.HideOnDeactivate := CallbackCreate(GetMethod(implObj, "HideOnDeactivate"), flags, 2)
-        this.vtbl.IsHideOnDeactivate := CallbackCreate(GetMethod(implObj, "IsHideOnDeactivate"), flags, 1)
-        this.vtbl.SetCaption := CallbackCreate(GetMethod(implObj, "SetCaption"), flags, 2)
-        this.vtbl.GetCaption := CallbackCreate(GetMethod(implObj, "GetCaption"), flags, 2)
-        this.vtbl.SetDefault := CallbackCreate(GetMethod(implObj, "SetDefault"), flags, 1)
+        this.vtbl.CountModes := CallbackCreate(ObjBindMethod(implObj, "CountModes"), flags, 2)
+        this.vtbl.GetModeInfo := CallbackCreate(ObjBindMethod(implObj, "GetModeInfo"), flags, 5)
+        this.vtbl.GetCurrentMode := CallbackCreate(ObjBindMethod(implObj, "GetCurrentMode"), flags, 2)
+        this.vtbl.IsModeAvailable := CallbackCreate(ObjBindMethod(implObj, "IsModeAvailable"), flags, 2)
+        this.vtbl.IsModeEnabled := CallbackCreate(ObjBindMethod(implObj, "IsModeEnabled"), flags, 2)
+        this.vtbl.SetEnabled := CallbackCreate(ObjBindMethod(implObj, "SetEnabled"), flags, 3)
+        this.vtbl.GetClipFactor := CallbackCreate(ObjBindMethod(implObj, "GetClipFactor"), flags, 2)
+        this.vtbl.SetClipFactor := CallbackCreate(ObjBindMethod(implObj, "SetClipFactor"), flags, 2)
+        this.vtbl.SetMessageDrain := CallbackCreate(ObjBindMethod(implObj, "SetMessageDrain"), flags, 2)
+        this.vtbl.GetMessageDrain := CallbackCreate(ObjBindMethod(implObj, "GetMessageDrain"), flags, 2)
+        this.vtbl.SetMonitor := CallbackCreate(ObjBindMethod(implObj, "SetMonitor"), flags, 2)
+        this.vtbl.GetMonitor := CallbackCreate(ObjBindMethod(implObj, "GetMonitor"), flags, 2)
+        this.vtbl.HideOnDeactivate := CallbackCreate(ObjBindMethod(implObj, "HideOnDeactivate"), flags, 2)
+        this.vtbl.IsHideOnDeactivate := CallbackCreate(ObjBindMethod(implObj, "IsHideOnDeactivate"), flags, 1)
+        this.vtbl.SetCaption := CallbackCreate(ObjBindMethod(implObj, "SetCaption"), flags, 2)
+        this.vtbl.GetCaption := CallbackCreate(ObjBindMethod(implObj, "GetCaption"), flags, 2)
+        this.vtbl.SetDefault := CallbackCreate(ObjBindMethod(implObj, "SetDefault"), flags, 1)
     }
 
     Dispose() {

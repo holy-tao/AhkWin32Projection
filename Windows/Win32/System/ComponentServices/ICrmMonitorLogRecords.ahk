@@ -192,11 +192,11 @@ export default struct ICrmMonitorLogRecords extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.get_TransactionState := CallbackCreate(GetMethod(implObj, "get_TransactionState"), flags, 2)
-        this.vtbl.get_StructuredRecords := CallbackCreate(GetMethod(implObj, "get_StructuredRecords"), flags, 2)
-        this.vtbl.GetLogRecord := CallbackCreate(GetMethod(implObj, "GetLogRecord"), flags, 3)
-        this.vtbl.GetLogRecordVariants := CallbackCreate(GetMethod(implObj, "GetLogRecordVariants"), flags, 3)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get_TransactionState := CallbackCreate(ObjBindMethod(implObj, "get_TransactionState"), flags, 2)
+        this.vtbl.get_StructuredRecords := CallbackCreate(ObjBindMethod(implObj, "get_StructuredRecords"), flags, 2)
+        this.vtbl.GetLogRecord := CallbackCreate(ObjBindMethod(implObj, "GetLogRecord"), flags, 3)
+        this.vtbl.GetLogRecordVariants := CallbackCreate(ObjBindMethod(implObj, "GetLogRecordVariants"), flags, 3)
     }
 
     Dispose() {

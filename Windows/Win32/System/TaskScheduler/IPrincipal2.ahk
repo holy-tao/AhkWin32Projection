@@ -66,7 +66,7 @@ export default struct IPrincipal2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iprincipal2-get_processtokensidtype
      */
     get_ProcessTokenSidType(pProcessTokenSidType) {
-        pProcessTokenSidTypeMarshal := pProcessTokenSidType is VarRef ? "int*" : "ptr"
+        pProcessTokenSidTypeMarshal := pProcessTokenSidType is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, pProcessTokenSidTypeMarshal, pProcessTokenSidType, "HRESULT")
         return result
@@ -90,7 +90,7 @@ export default struct IPrincipal2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iprincipal2-get_requiredprivilegecount
      */
     get_RequiredPrivilegeCount(pCount) {
-        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
+        pCountMarshal := pCount is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, pCountMarshal, pCount, "HRESULT")
         return result
@@ -130,11 +130,11 @@ export default struct IPrincipal2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ProcessTokenSidType := CallbackCreate(GetMethod(implObj, "get_ProcessTokenSidType"), flags, 2)
-        this.vtbl.put_ProcessTokenSidType := CallbackCreate(GetMethod(implObj, "put_ProcessTokenSidType"), flags, 2)
-        this.vtbl.get_RequiredPrivilegeCount := CallbackCreate(GetMethod(implObj, "get_RequiredPrivilegeCount"), flags, 2)
-        this.vtbl.get_RequiredPrivilege := CallbackCreate(GetMethod(implObj, "get_RequiredPrivilege"), flags, 3)
-        this.vtbl.AddRequiredPrivilege := CallbackCreate(GetMethod(implObj, "AddRequiredPrivilege"), flags, 2)
+        this.vtbl.get_ProcessTokenSidType := CallbackCreate(ObjBindMethod(implObj, "get_ProcessTokenSidType"), flags, 2)
+        this.vtbl.put_ProcessTokenSidType := CallbackCreate(ObjBindMethod(implObj, "put_ProcessTokenSidType"), flags, 2)
+        this.vtbl.get_RequiredPrivilegeCount := CallbackCreate(ObjBindMethod(implObj, "get_RequiredPrivilegeCount"), flags, 2)
+        this.vtbl.get_RequiredPrivilege := CallbackCreate(ObjBindMethod(implObj, "get_RequiredPrivilege"), flags, 3)
+        this.vtbl.AddRequiredPrivilege := CallbackCreate(ObjBindMethod(implObj, "AddRequiredPrivilege"), flags, 2)
     }
 
     Dispose() {

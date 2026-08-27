@@ -81,7 +81,7 @@ export default struct IMFSampleGrabberSinkCallback2 extends IMFSampleGrabberSink
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnProcessSampleEx := CallbackCreate(GetMethod(implObj, "OnProcessSampleEx"), flags, 8)
+        this.vtbl.OnProcessSampleEx := CallbackCreate(ObjBindMethod(implObj, "OnProcessSampleEx"), flags, 8)
     }
 
     Dispose() {

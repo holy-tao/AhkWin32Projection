@@ -155,13 +155,13 @@ export default struct IWorkspaceScriptable extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DisconnectWorkspace := CallbackCreate(GetMethod(implObj, "DisconnectWorkspace"), flags, 2)
-        this.vtbl.StartWorkspace := CallbackCreate(GetMethod(implObj, "StartWorkspace"), flags, 7)
-        this.vtbl.IsWorkspaceCredentialSpecified := CallbackCreate(GetMethod(implObj, "IsWorkspaceCredentialSpecified"), flags, 4)
-        this.vtbl.IsWorkspaceSSOEnabled := CallbackCreate(GetMethod(implObj, "IsWorkspaceSSOEnabled"), flags, 2)
-        this.vtbl.ClearWorkspaceCredential := CallbackCreate(GetMethod(implObj, "ClearWorkspaceCredential"), flags, 2)
-        this.vtbl.OnAuthenticated := CallbackCreate(GetMethod(implObj, "OnAuthenticated"), flags, 3)
-        this.vtbl.DisconnectWorkspaceByFriendlyName := CallbackCreate(GetMethod(implObj, "DisconnectWorkspaceByFriendlyName"), flags, 2)
+        this.vtbl.DisconnectWorkspace := CallbackCreate(ObjBindMethod(implObj, "DisconnectWorkspace"), flags, 2)
+        this.vtbl.StartWorkspace := CallbackCreate(ObjBindMethod(implObj, "StartWorkspace"), flags, 7)
+        this.vtbl.IsWorkspaceCredentialSpecified := CallbackCreate(ObjBindMethod(implObj, "IsWorkspaceCredentialSpecified"), flags, 4)
+        this.vtbl.IsWorkspaceSSOEnabled := CallbackCreate(ObjBindMethod(implObj, "IsWorkspaceSSOEnabled"), flags, 2)
+        this.vtbl.ClearWorkspaceCredential := CallbackCreate(ObjBindMethod(implObj, "ClearWorkspaceCredential"), flags, 2)
+        this.vtbl.OnAuthenticated := CallbackCreate(ObjBindMethod(implObj, "OnAuthenticated"), flags, 3)
+        this.vtbl.DisconnectWorkspaceByFriendlyName := CallbackCreate(ObjBindMethod(implObj, "DisconnectWorkspaceByFriendlyName"), flags, 2)
     }
 
     Dispose() {

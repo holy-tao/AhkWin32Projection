@@ -173,10 +173,10 @@ export default struct IIsdbDigitalCopyControlDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdigitalcopycontroldescriptor-getcopycontrol
      */
     GetCopyControl(pbDigitalRecordingControlData, pbCopyControlType, pbAPSControlData, pbMaximumBitrate) {
-        pbDigitalRecordingControlDataMarshal := pbDigitalRecordingControlData is VarRef ? "char*" : "ptr"
-        pbCopyControlTypeMarshal := pbCopyControlType is VarRef ? "char*" : "ptr"
-        pbAPSControlDataMarshal := pbAPSControlData is VarRef ? "char*" : "ptr"
-        pbMaximumBitrateMarshal := pbMaximumBitrate is VarRef ? "char*" : "ptr"
+        pbDigitalRecordingControlDataMarshal := pbDigitalRecordingControlData is VarRef ? "char*" : IntPtr
+        pbCopyControlTypeMarshal := pbCopyControlType is VarRef ? "char*" : IntPtr
+        pbAPSControlDataMarshal := pbAPSControlData is VarRef ? "char*" : IntPtr
+        pbMaximumBitrateMarshal := pbMaximumBitrate is VarRef ? "char*" : IntPtr
 
         result := ComCall(5, this, pbDigitalRecordingControlDataMarshal, pbDigitalRecordingControlData, pbCopyControlTypeMarshal, pbCopyControlType, pbAPSControlDataMarshal, pbAPSControlData, pbMaximumBitrateMarshal, pbMaximumBitrate, "HRESULT")
         return result
@@ -308,11 +308,11 @@ export default struct IIsdbDigitalCopyControlDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdigitalcopycontroldescriptor-getrecordcopycontrol
      */
     GetRecordCopyControl(bRecordIndex, pbComponentTag, pbDigitalRecordingControlData, pbCopyControlType, pbAPSControlData, pbMaximumBitrate) {
-        pbComponentTagMarshal := pbComponentTag is VarRef ? "char*" : "ptr"
-        pbDigitalRecordingControlDataMarshal := pbDigitalRecordingControlData is VarRef ? "char*" : "ptr"
-        pbCopyControlTypeMarshal := pbCopyControlType is VarRef ? "char*" : "ptr"
-        pbAPSControlDataMarshal := pbAPSControlData is VarRef ? "char*" : "ptr"
-        pbMaximumBitrateMarshal := pbMaximumBitrate is VarRef ? "char*" : "ptr"
+        pbComponentTagMarshal := pbComponentTag is VarRef ? "char*" : IntPtr
+        pbDigitalRecordingControlDataMarshal := pbDigitalRecordingControlData is VarRef ? "char*" : IntPtr
+        pbCopyControlTypeMarshal := pbCopyControlType is VarRef ? "char*" : IntPtr
+        pbAPSControlDataMarshal := pbAPSControlData is VarRef ? "char*" : IntPtr
+        pbMaximumBitrateMarshal := pbMaximumBitrate is VarRef ? "char*" : IntPtr
 
         result := ComCall(7, this, Int8, bRecordIndex, pbComponentTagMarshal, pbComponentTag, pbDigitalRecordingControlDataMarshal, pbDigitalRecordingControlData, pbCopyControlTypeMarshal, pbCopyControlType, pbAPSControlDataMarshal, pbAPSControlData, pbMaximumBitrateMarshal, pbMaximumBitrate, "HRESULT")
         return result
@@ -327,11 +327,11 @@ export default struct IIsdbDigitalCopyControlDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetCopyControl := CallbackCreate(GetMethod(implObj, "GetCopyControl"), flags, 5)
-        this.vtbl.GetCountOfRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRecords"), flags, 2)
-        this.vtbl.GetRecordCopyControl := CallbackCreate(GetMethod(implObj, "GetRecordCopyControl"), flags, 7)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetCopyControl := CallbackCreate(ObjBindMethod(implObj, "GetCopyControl"), flags, 5)
+        this.vtbl.GetCountOfRecords := CallbackCreate(ObjBindMethod(implObj, "GetCountOfRecords"), flags, 2)
+        this.vtbl.GetRecordCopyControl := CallbackCreate(ObjBindMethod(implObj, "GetRecordCopyControl"), flags, 7)
     }
 
     Dispose() {

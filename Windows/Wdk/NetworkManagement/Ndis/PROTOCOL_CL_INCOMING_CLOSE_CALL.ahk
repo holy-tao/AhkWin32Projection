@@ -18,7 +18,6 @@ export default struct PROTOCOL_CL_INCOMING_CLOSE_CALL {
     }
 
     /**
-     * 
      * @param {Integer} CloseStatus 
      * @param {Pointer<Void>} ProtocolVcContext 
      * @param {Pointer<Void>} CloseData 
@@ -26,10 +25,12 @@ export default struct PROTOCOL_CL_INCOMING_CLOSE_CALL {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(CloseStatus, ProtocolVcContext, CloseData, _Size) {
-        ProtocolVcContextMarshal := ProtocolVcContext is VarRef ? "ptr" : "ptr"
-        CloseDataMarshal := CloseData is VarRef ? "ptr" : "ptr"
+        ProtocolVcContextMarshal := ProtocolVcContext is VarRef ? "ptr" : IntPtr
+        CloseDataMarshal := CloseData is VarRef ? "ptr" : IntPtr
+        CloseDataMarshal := CloseData == 0 ? IntPtr : "ptr"
+        _SizeMarshal := _Size == 0 ? IntPtr : UInt32
 
-        DllCall(this.value, Int32, CloseStatus, ProtocolVcContextMarshal, ProtocolVcContext, CloseDataMarshal, CloseData, UInt32, _Size)
+        DllCall(this.value, Int32, CloseStatus, ProtocolVcContextMarshal, ProtocolVcContext, CloseDataMarshal, CloseData, _SizeMarshal, _Size)
     }
 
     /**

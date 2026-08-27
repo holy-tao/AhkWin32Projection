@@ -315,7 +315,7 @@
  * @since windows5.1.2600
  */
 export WinHttpSetStatusCallback(hInternet, lpfnInternetCallback, dwNotificationFlags, dwReserved) {
-    hInternetMarshal := hInternet is VarRef ? "ptr" : "ptr"
+    hInternetMarshal := hInternet is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -619,11 +619,12 @@ export WinHttpCrackUrl(pwszUrl, dwUrlLength, dwFlags, lpUrlComponents) {
 export WinHttpCreateUrl(lpUrlComponents, dwFlags, pwszUrl, pdwUrlLength) {
     pwszUrl := pwszUrl is String ? StrPtr(pwszUrl) : pwszUrl
 
-    pdwUrlLengthMarshal := pdwUrlLength is VarRef ? "uint*" : "ptr"
+    pwszUrlMarshal := pwszUrl == 0 ? IntPtr : PWSTR
+    pdwUrlLengthMarshal := pdwUrlLength is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("WINHTTP.dll\WinHttpCreateUrl", URL_COMPONENTS.Ptr, lpUrlComponents, WIN_HTTP_CREATE_URL_FLAGS, dwFlags, "ptr", pwszUrl, pdwUrlLengthMarshal, pdwUrlLength, BOOL)
+    result := DllCall("WINHTTP.dll\WinHttpCreateUrl", URL_COMPONENTS.Ptr, lpUrlComponents, WIN_HTTP_CREATE_URL_FLAGS, dwFlags, pwszUrlMarshal, pwszUrl, pdwUrlLengthMarshal, pdwUrlLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -900,9 +901,13 @@ export WinHttpOpen(pszAgentW, dwAccessType, pszProxyW, pszProxyBypassW, dwFlags)
     pszProxyW := pszProxyW is String ? StrPtr(pszProxyW) : pszProxyW
     pszProxyBypassW := pszProxyBypassW is String ? StrPtr(pszProxyBypassW) : pszProxyBypassW
 
+    pszAgentWMarshal := pszAgentW == 0 ? IntPtr : PWSTR
+    pszProxyWMarshal := pszProxyW == 0 ? IntPtr : PWSTR
+    pszProxyBypassWMarshal := pszProxyBypassW == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("WINHTTP.dll\WinHttpOpen", "ptr", pszAgentW, WINHTTP_ACCESS_TYPE, dwAccessType, "ptr", pszProxyW, "ptr", pszProxyBypassW, UInt32, dwFlags, IntPtr)
+    result := DllCall("WINHTTP.dll\WinHttpOpen", pszAgentWMarshal, pszAgentW, WINHTTP_ACCESS_TYPE, dwAccessType, pszProxyWMarshal, pszProxyW, pszProxyBypassWMarshal, pszProxyBypassW, UInt32, dwFlags, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -993,7 +998,7 @@ export WinHttpOpen(pszAgentW, dwAccessType, pszProxyW, pszProxyBypassW, dwFlags)
  * @since windows5.1.2600
  */
 export WinHttpCloseHandle(hInternet) {
-    hInternetMarshal := hInternet is VarRef ? "ptr" : "ptr"
+    hInternetMarshal := hInternet is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -1120,7 +1125,7 @@ export WinHttpCloseHandle(hInternet) {
 export WinHttpConnect(hSession, pswzServerName, nServerPort, dwReserved) {
     pswzServerName := pswzServerName is String ? StrPtr(pswzServerName) : pswzServerName
 
-    hSessionMarshal := hSession is VarRef ? "ptr" : "ptr"
+    hSessionMarshal := hSession is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -1283,8 +1288,8 @@ export WinHttpConnect(hSession, pswzServerName, nServerPort, dwReserved) {
  * @since windows5.1.2600
  */
 export WinHttpReadData(hRequest, lpBuffer, dwNumberOfBytesToRead, lpdwNumberOfBytesRead) {
-    hRequestMarshal := hRequest is VarRef ? "ptr" : "ptr"
-    lpdwNumberOfBytesReadMarshal := lpdwNumberOfBytesRead is VarRef ? "uint*" : "ptr"
+    hRequestMarshal := hRequest is VarRef ? "ptr" : IntPtr
+    lpdwNumberOfBytesReadMarshal := lpdwNumberOfBytesRead is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -1423,10 +1428,11 @@ export WinHttpReadData(hRequest, lpBuffer, dwNumberOfBytesToRead, lpdwNumberOfBy
  * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpreaddataex
  */
 export WinHttpReadDataEx(hRequest, lpBuffer, dwNumberOfBytesToRead, lpdwNumberOfBytesRead, ullFlags, cbProperty, pvProperty) {
-    hRequestMarshal := hRequest is VarRef ? "ptr" : "ptr"
-    lpdwNumberOfBytesReadMarshal := lpdwNumberOfBytesRead is VarRef ? "uint*" : "ptr"
+    hRequestMarshal := hRequest is VarRef ? "ptr" : IntPtr
+    lpdwNumberOfBytesReadMarshal := lpdwNumberOfBytesRead is VarRef ? "uint*" : IntPtr
+    pvPropertyMarshal := pvProperty == 0 ? IntPtr : IntPtr
 
-    result := DllCall("WINHTTP.dll\WinHttpReadDataEx", hRequestMarshal, hRequest, IntPtr, lpBuffer, UInt32, dwNumberOfBytesToRead, lpdwNumberOfBytesReadMarshal, lpdwNumberOfBytesRead, Int64, ullFlags, UInt32, cbProperty, IntPtr, pvProperty, UInt32)
+    result := DllCall("WINHTTP.dll\WinHttpReadDataEx", hRequestMarshal, hRequest, IntPtr, lpBuffer, UInt32, dwNumberOfBytesToRead, lpdwNumberOfBytesReadMarshal, lpdwNumberOfBytesRead, Int64, ullFlags, UInt32, cbProperty, pvPropertyMarshal, pvProperty, UInt32)
     return result
 }
 
@@ -1560,12 +1566,13 @@ export WinHttpReadDataEx(hRequest, lpBuffer, dwNumberOfBytesToRead, lpdwNumberOf
  * @since windows5.1.2600
  */
 export WinHttpWriteData(hRequest, lpBuffer, dwNumberOfBytesToWrite, lpdwNumberOfBytesWritten) {
-    hRequestMarshal := hRequest is VarRef ? "ptr" : "ptr"
-    lpdwNumberOfBytesWrittenMarshal := lpdwNumberOfBytesWritten is VarRef ? "uint*" : "ptr"
+    hRequestMarshal := hRequest is VarRef ? "ptr" : IntPtr
+    lpBufferMarshal := lpBuffer == 0 ? IntPtr : IntPtr
+    lpdwNumberOfBytesWrittenMarshal := lpdwNumberOfBytesWritten is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("WINHTTP.dll\WinHttpWriteData", hRequestMarshal, hRequest, IntPtr, lpBuffer, UInt32, dwNumberOfBytesToWrite, lpdwNumberOfBytesWrittenMarshal, lpdwNumberOfBytesWritten, BOOL)
+    result := DllCall("WINHTTP.dll\WinHttpWriteData", hRequestMarshal, hRequest, lpBufferMarshal, lpBuffer, UInt32, dwNumberOfBytesToWrite, lpdwNumberOfBytesWrittenMarshal, lpdwNumberOfBytesWritten, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1702,8 +1709,8 @@ export WinHttpWriteData(hRequest, lpBuffer, dwNumberOfBytesToWrite, lpdwNumberOf
  * @since windows5.1.2600
  */
 export WinHttpQueryDataAvailable(hRequest, lpdwNumberOfBytesAvailable) {
-    hRequestMarshal := hRequest is VarRef ? "ptr" : "ptr"
-    lpdwNumberOfBytesAvailableMarshal := lpdwNumberOfBytesAvailable is VarRef ? "uint*" : "ptr"
+    hRequestMarshal := hRequest is VarRef ? "ptr" : IntPtr
+    lpdwNumberOfBytesAvailableMarshal := lpdwNumberOfBytesAvailable is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -1806,12 +1813,13 @@ export WinHttpQueryDataAvailable(hRequest, lpdwNumberOfBytesAvailable) {
  * @since windows5.1.2600
  */
 export WinHttpQueryOption(hInternet, dwOption, lpBuffer, lpdwBufferLength) {
-    hInternetMarshal := hInternet is VarRef ? "ptr" : "ptr"
-    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
+    hInternetMarshal := hInternet is VarRef ? "ptr" : IntPtr
+    lpBufferMarshal := lpBuffer == 0 ? IntPtr : IntPtr
+    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("WINHTTP.dll\WinHttpQueryOption", hInternetMarshal, hInternet, UInt32, dwOption, IntPtr, lpBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, BOOL)
+    result := DllCall("WINHTTP.dll\WinHttpQueryOption", hInternetMarshal, hInternet, UInt32, dwOption, lpBufferMarshal, lpBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1949,8 +1957,10 @@ export WinHttpQueryOption(hInternet, dwOption, lpBuffer, lpdwBufferLength) {
  * @since windows5.1.2600
  */
 export WinHttpSetOption(hInternet, dwOption, lpBuffer, dwBufferLength) {
-    hInternetMarshal := hInternet is VarRef ? "ptr" : "ptr"
-    lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
+    hInternetMarshal := hInternet is VarRef ? "ptr" : IntPtr
+    hInternetMarshal := hInternet == 0 ? IntPtr : "ptr"
+    lpBufferMarshal := lpBuffer is VarRef ? "ptr" : IntPtr
+    lpBufferMarshal := lpBuffer == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -2052,7 +2062,7 @@ export WinHttpSetOption(hInternet, dwOption, lpBuffer, dwBufferLength) {
  * @since windows5.1.2600
  */
 export WinHttpSetTimeouts(hInternet, nResolveTimeout, nConnectTimeout, nSendTimeout, nReceiveTimeout) {
-    hInternetMarshal := hInternet is VarRef ? "ptr" : "ptr"
+    hInternetMarshal := hInternet is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -2180,8 +2190,8 @@ export WinHttpOpenRequest(hConnect, pwszVerb, pwszObjectName, pwszVersion, pwszR
     pwszVersion := pwszVersion is String ? StrPtr(pwszVersion) : pwszVersion
     pwszReferrer := pwszReferrer is String ? StrPtr(pwszReferrer) : pwszReferrer
 
-    hConnectMarshal := hConnect is VarRef ? "ptr" : "ptr"
-    ppwszAcceptTypesMarshal := ppwszAcceptTypes is VarRef ? "ptr*" : "ptr"
+    hConnectMarshal := hConnect is VarRef ? "ptr" : IntPtr
+    ppwszAcceptTypesMarshal := ppwszAcceptTypes is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -2353,7 +2363,7 @@ export WinHttpOpenRequest(hConnect, pwszVerb, pwszObjectName, pwszVersion, pwszR
 export WinHttpAddRequestHeaders(hRequest, lpszHeaders, dwHeadersLength, dwModifiers) {
     lpszHeaders := lpszHeaders is String ? StrPtr(lpszHeaders) : lpszHeaders
 
-    hRequestMarshal := hRequest is VarRef ? "ptr" : "ptr"
+    hRequestMarshal := hRequest is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -2508,7 +2518,7 @@ export WinHttpAddRequestHeaders(hRequest, lpszHeaders, dwHeadersLength, dwModifi
  * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpaddrequestheadersex
  */
 export WinHttpAddRequestHeadersEx(hRequest, dwModifiers, ullFlags, ullExtra, cHeaders, pHeaders) {
-    hRequestMarshal := hRequest is VarRef ? "ptr" : "ptr"
+    hRequestMarshal := hRequest is VarRef ? "ptr" : IntPtr
 
     result := DllCall("WINHTTP.dll\WinHttpAddRequestHeadersEx", hRequestMarshal, hRequest, UInt32, dwModifiers, Int64, ullFlags, Int64, ullExtra, UInt32, cHeaders, WINHTTP_EXTENDED_HEADER.Ptr, pHeaders, UInt32)
     return result
@@ -2838,11 +2848,13 @@ export WinHttpAddRequestHeadersEx(hRequest, dwModifiers, ullFlags, ullExtra, cHe
 export WinHttpSendRequest(hRequest, lpszHeaders, dwHeadersLength, lpOptional, dwOptionalLength, dwTotalLength, dwContext) {
     lpszHeaders := lpszHeaders is String ? StrPtr(lpszHeaders) : lpszHeaders
 
-    hRequestMarshal := hRequest is VarRef ? "ptr" : "ptr"
+    hRequestMarshal := hRequest is VarRef ? "ptr" : IntPtr
+    lpszHeadersMarshal := lpszHeaders == 0 ? IntPtr : PWSTR
+    lpOptionalMarshal := lpOptional == 0 ? IntPtr : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("WINHTTP.dll\WinHttpSendRequest", hRequestMarshal, hRequest, "ptr", lpszHeaders, UInt32, dwHeadersLength, IntPtr, lpOptional, UInt32, dwOptionalLength, UInt32, dwTotalLength, IntPtr, dwContext, BOOL)
+    result := DllCall("WINHTTP.dll\WinHttpSendRequest", hRequestMarshal, hRequest, lpszHeadersMarshal, lpszHeaders, UInt32, dwHeadersLength, lpOptionalMarshal, lpOptional, UInt32, dwOptionalLength, UInt32, dwTotalLength, IntPtr, dwContext, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3017,8 +3029,8 @@ export WinHttpSetCredentials(hRequest, AuthTargets, AuthScheme, pwszUserName, pw
     pwszUserName := pwszUserName is String ? StrPtr(pwszUserName) : pwszUserName
     pwszPassword := pwszPassword is String ? StrPtr(pwszPassword) : pwszPassword
 
-    hRequestMarshal := hRequest is VarRef ? "ptr" : "ptr"
-    pAuthParamsMarshal := pAuthParams is VarRef ? "ptr" : "ptr"
+    hRequestMarshal := hRequest is VarRef ? "ptr" : IntPtr
+    pAuthParamsMarshal := pAuthParams is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -3234,10 +3246,10 @@ export WinHttpSetCredentials(hRequest, AuthTargets, AuthScheme, pwszUserName, pw
  * @since windows5.1.2600
  */
 export WinHttpQueryAuthSchemes(hRequest, lpdwSupportedSchemes, lpdwFirstScheme, pdwAuthTarget) {
-    hRequestMarshal := hRequest is VarRef ? "ptr" : "ptr"
-    lpdwSupportedSchemesMarshal := lpdwSupportedSchemes is VarRef ? "uint*" : "ptr"
-    lpdwFirstSchemeMarshal := lpdwFirstScheme is VarRef ? "uint*" : "ptr"
-    pdwAuthTargetMarshal := pdwAuthTarget is VarRef ? "uint*" : "ptr"
+    hRequestMarshal := hRequest is VarRef ? "ptr" : IntPtr
+    lpdwSupportedSchemesMarshal := lpdwSupportedSchemes is VarRef ? "uint*" : IntPtr
+    lpdwFirstSchemeMarshal := lpdwFirstScheme is VarRef ? "uint*" : IntPtr
+    pdwAuthTargetMarshal := pdwAuthTarget is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -3524,8 +3536,8 @@ export WinHttpQueryAuthSchemes(hRequest, lpdwSupportedSchemes, lpdwFirstScheme, 
  * @since windows5.1.2600
  */
 export WinHttpReceiveResponse(hRequest, lpReserved) {
-    hRequestMarshal := hRequest is VarRef ? "ptr" : "ptr"
-    lpReservedMarshal := lpReserved is VarRef ? "ptr" : "ptr"
+    hRequestMarshal := hRequest is VarRef ? "ptr" : IntPtr
+    lpReservedMarshal := lpReserved is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -3668,13 +3680,14 @@ export WinHttpReceiveResponse(hRequest, lpReserved) {
 export WinHttpQueryHeaders(hRequest, dwInfoLevel, pwszName, lpBuffer, lpdwBufferLength, lpdwIndex) {
     pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-    hRequestMarshal := hRequest is VarRef ? "ptr" : "ptr"
-    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
-    lpdwIndexMarshal := lpdwIndex is VarRef ? "uint*" : "ptr"
+    hRequestMarshal := hRequest is VarRef ? "ptr" : IntPtr
+    lpBufferMarshal := lpBuffer == 0 ? IntPtr : IntPtr
+    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : IntPtr
+    lpdwIndexMarshal := lpdwIndex is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("WINHTTP.dll\WinHttpQueryHeaders", hRequestMarshal, hRequest, UInt32, dwInfoLevel, "ptr", pwszName, IntPtr, lpBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, lpdwIndexMarshal, lpdwIndex, BOOL)
+    result := DllCall("WINHTTP.dll\WinHttpQueryHeaders", hRequestMarshal, hRequest, UInt32, dwInfoLevel, "ptr", pwszName, lpBufferMarshal, lpBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, lpdwIndexMarshal, lpdwIndex, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3796,13 +3809,17 @@ export WinHttpQueryHeaders(hRequest, dwInfoLevel, pwszName, lpBuffer, lpdwBuffer
  * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpqueryheadersex
  */
 export WinHttpQueryHeadersEx(hRequest, dwInfoLevel, ullFlags, uiCodePage, pdwIndex, pHeaderName, pBuffer, pdwBufferLength, ppHeaders, pdwHeadersCount) {
-    hRequestMarshal := hRequest is VarRef ? "ptr" : "ptr"
-    pdwIndexMarshal := pdwIndex is VarRef ? "uint*" : "ptr"
-    pdwBufferLengthMarshal := pdwBufferLength is VarRef ? "uint*" : "ptr"
-    ppHeadersMarshal := ppHeaders is VarRef ? "ptr*" : "ptr"
-    pdwHeadersCountMarshal := pdwHeadersCount is VarRef ? "uint*" : "ptr"
+    hRequestMarshal := hRequest is VarRef ? "ptr" : IntPtr
+    pdwIndexMarshal := pdwIndex is VarRef ? "uint*" : IntPtr
+    pdwIndexMarshal := pdwIndex == 0 ? IntPtr : "uint*"
+    pHeaderNameMarshal := pHeaderName == 0 ? IntPtr : WINHTTP_HEADER_NAME.Ptr
+    pBufferMarshal := pBuffer == 0 ? IntPtr : IntPtr
+    pdwBufferLengthMarshal := pdwBufferLength is VarRef ? "uint*" : IntPtr
+    ppHeadersMarshal := ppHeaders is VarRef ? "ptr*" : IntPtr
+    ppHeadersMarshal := ppHeaders == 0 ? IntPtr : "ptr*"
+    pdwHeadersCountMarshal := pdwHeadersCount is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("WINHTTP.dll\WinHttpQueryHeadersEx", hRequestMarshal, hRequest, UInt32, dwInfoLevel, Int64, ullFlags, UInt32, uiCodePage, pdwIndexMarshal, pdwIndex, WINHTTP_HEADER_NAME.Ptr, pHeaderName, IntPtr, pBuffer, pdwBufferLengthMarshal, pdwBufferLength, ppHeadersMarshal, ppHeaders, pdwHeadersCountMarshal, pdwHeadersCount, UInt32)
+    result := DllCall("WINHTTP.dll\WinHttpQueryHeadersEx", hRequestMarshal, hRequest, UInt32, dwInfoLevel, Int64, ullFlags, UInt32, uiCodePage, pdwIndexMarshal, pdwIndex, pHeaderNameMarshal, pHeaderName, pBufferMarshal, pBuffer, pdwBufferLengthMarshal, pdwBufferLength, ppHeadersMarshal, ppHeaders, pdwHeadersCountMarshal, pdwHeadersCount, UInt32)
     return result
 }
 
@@ -3828,10 +3845,11 @@ export WinHttpQueryHeadersEx(hRequest, dwInfoLevel, ullFlags, uiCodePage, pdwInd
  * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpqueryconnectiongroup
  */
 export WinHttpQueryConnectionGroup(hInternet, pGuidConnection, ullFlags, ppResult) {
-    hInternetMarshal := hInternet is VarRef ? "ptr" : "ptr"
-    ppResultMarshal := ppResult is VarRef ? "ptr*" : "ptr"
+    hInternetMarshal := hInternet is VarRef ? "ptr" : IntPtr
+    pGuidConnectionMarshal := pGuidConnection == 0 ? IntPtr : Guid.Ptr
+    ppResultMarshal := ppResult is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("WINHTTP.dll\WinHttpQueryConnectionGroup", hInternetMarshal, hInternet, Guid.Ptr, pGuidConnection, Int64, ullFlags, ppResultMarshal, ppResult, UInt32)
+    result := DllCall("WINHTTP.dll\WinHttpQueryConnectionGroup", hInternetMarshal, hInternet, pGuidConnectionMarshal, pGuidConnection, Int64, ullFlags, ppResultMarshal, ppResult, UInt32)
     return result
 }
 
@@ -3928,7 +3946,7 @@ export WinHttpFreeQueryConnectionGroupResult(pResult) {
  * @since windows5.1.2600
  */
 export WinHttpDetectAutoProxyConfigUrl(dwAutoDetectFlags, ppwstrAutoConfigUrl) {
-    ppwstrAutoConfigUrlMarshal := ppwstrAutoConfigUrl is VarRef ? "ptr*" : "ptr"
+    ppwstrAutoConfigUrlMarshal := ppwstrAutoConfigUrl is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -4085,7 +4103,7 @@ export WinHttpDetectAutoProxyConfigUrl(dwAutoDetectFlags, ppwstrAutoConfigUrl) {
 export WinHttpGetProxyForUrl(hSession, lpcwszUrl, pAutoProxyOptions, pProxyInfo) {
     lpcwszUrl := lpcwszUrl is String ? StrPtr(lpcwszUrl) : lpcwszUrl
 
-    hSessionMarshal := hSession is VarRef ? "ptr" : "ptr"
+    hSessionMarshal := hSession is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -4147,8 +4165,8 @@ export WinHttpGetProxyForUrl(hSession, lpcwszUrl, pAutoProxyOptions, pProxyInfo)
  * @since windows8.0
  */
 export WinHttpCreateProxyResolver(hSession, phResolver) {
-    hSessionMarshal := hSession is VarRef ? "ptr" : "ptr"
-    phResolverMarshal := phResolver is VarRef ? "ptr*" : "ptr"
+    hSessionMarshal := hSession is VarRef ? "ptr" : IntPtr
+    phResolverMarshal := phResolver is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("WINHTTP.dll\WinHttpCreateProxyResolver", hSessionMarshal, hSession, phResolverMarshal, phResolver, UInt32)
     return result
@@ -4295,14 +4313,14 @@ export WinHttpCreateProxyResolver(hSession, phResolver) {
 export WinHttpGetProxyForUrlEx(hResolver, pcwszUrl, pAutoProxyOptions, pContext) {
     pcwszUrl := pcwszUrl is String ? StrPtr(pcwszUrl) : pcwszUrl
 
-    hResolverMarshal := hResolver is VarRef ? "ptr" : "ptr"
+    hResolverMarshal := hResolver is VarRef ? "ptr" : IntPtr
+    pContextMarshal := pContext == 0 ? IntPtr : IntPtr
 
-    result := DllCall("WINHTTP.dll\WinHttpGetProxyForUrlEx", hResolverMarshal, hResolver, "ptr", pcwszUrl, WINHTTP_AUTOPROXY_OPTIONS.Ptr, pAutoProxyOptions, IntPtr, pContext, UInt32)
+    result := DllCall("WINHTTP.dll\WinHttpGetProxyForUrlEx", hResolverMarshal, hResolver, "ptr", pcwszUrl, WINHTTP_AUTOPROXY_OPTIONS.Ptr, pAutoProxyOptions, pContextMarshal, pContext, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} hResolver 
  * @param {PWSTR} pcwszUrl 
  * @param {Pointer<WINHTTP_AUTOPROXY_OPTIONS>} pAutoProxyOptions 
@@ -4314,9 +4332,11 @@ export WinHttpGetProxyForUrlEx(hResolver, pcwszUrl, pAutoProxyOptions, pContext)
 export WinHttpGetProxyForUrlEx2(hResolver, pcwszUrl, pAutoProxyOptions, cbInterfaceSelectionContext, pInterfaceSelectionContext, pContext) {
     pcwszUrl := pcwszUrl is String ? StrPtr(pcwszUrl) : pcwszUrl
 
-    hResolverMarshal := hResolver is VarRef ? "ptr" : "ptr"
+    hResolverMarshal := hResolver is VarRef ? "ptr" : IntPtr
+    pInterfaceSelectionContextMarshal := pInterfaceSelectionContext == 0 ? IntPtr : IntPtr
+    pContextMarshal := pContext == 0 ? IntPtr : IntPtr
 
-    result := DllCall("WINHTTP.dll\WinHttpGetProxyForUrlEx2", hResolverMarshal, hResolver, "ptr", pcwszUrl, WINHTTP_AUTOPROXY_OPTIONS.Ptr, pAutoProxyOptions, UInt32, cbInterfaceSelectionContext, IntPtr, pInterfaceSelectionContext, IntPtr, pContext, UInt32)
+    result := DllCall("WINHTTP.dll\WinHttpGetProxyForUrlEx2", hResolverMarshal, hResolver, "ptr", pcwszUrl, WINHTTP_AUTOPROXY_OPTIONS.Ptr, pAutoProxyOptions, UInt32, cbInterfaceSelectionContext, pInterfaceSelectionContextMarshal, pInterfaceSelectionContext, pContextMarshal, pContext, UInt32)
     return result
 }
 
@@ -4358,20 +4378,19 @@ export WinHttpGetProxyForUrlEx2(hResolver, pcwszUrl, pAutoProxyOptions, cbInterf
  * @since windows8.0
  */
 export WinHttpGetProxyResult(hResolver, pProxyResult) {
-    hResolverMarshal := hResolver is VarRef ? "ptr" : "ptr"
+    hResolverMarshal := hResolver is VarRef ? "ptr" : IntPtr
 
     result := DllCall("WINHTTP.dll\WinHttpGetProxyResult", hResolverMarshal, hResolver, WINHTTP_PROXY_RESULT.Ptr, pProxyResult, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} hResolver 
  * @param {Pointer<WINHTTP_PROXY_RESULT_EX>} pProxyResultEx 
  * @returns {Integer} 
  */
 export WinHttpGetProxyResultEx(hResolver, pProxyResultEx) {
-    hResolverMarshal := hResolver is VarRef ? "ptr" : "ptr"
+    hResolverMarshal := hResolver is VarRef ? "ptr" : IntPtr
 
     result := DllCall("WINHTTP.dll\WinHttpGetProxyResultEx", hResolverMarshal, hResolver, WINHTTP_PROXY_RESULT_EX.Ptr, pProxyResultEx, UInt32)
     return result
@@ -4391,7 +4410,6 @@ export WinHttpFreeProxyResult(pProxyResult) {
 }
 
 /**
- * 
  * @param {Pointer<WINHTTP_PROXY_RESULT_EX>} pProxyResultEx 
  * @returns {String} Nothing - always returns an empty string
  */
@@ -4553,7 +4571,7 @@ export WinHttpFreeProxyResultEx(pProxyResultEx) {
  * @since windows8.0
  */
 export WinHttpResetAutoProxy(hSession, dwFlags) {
-    hSessionMarshal := hSession is VarRef ? "ptr" : "ptr"
+    hSessionMarshal := hSession is VarRef ? "ptr" : IntPtr
 
     result := DllCall("WINHTTP.dll\WinHttpResetAutoProxy", hSessionMarshal, hSession, UInt32, dwFlags, UInt32)
     return result
@@ -4627,21 +4645,19 @@ export WinHttpGetIEProxyConfigForCurrentUser(pProxyConfig) {
 }
 
 /**
- * 
  * @param {Pointer<Void>} hSession 
  * @param {BOOL} fForceUpdate 
  * @param {Pointer<WINHTTP_PROXY_SETTINGS>} pWinHttpProxySettings 
  * @returns {Integer} 
  */
 export WinHttpWriteProxySettings(hSession, fForceUpdate, pWinHttpProxySettings) {
-    hSessionMarshal := hSession is VarRef ? "ptr" : "ptr"
+    hSessionMarshal := hSession is VarRef ? "ptr" : IntPtr
 
     result := DllCall("WINHTTP.dll\WinHttpWriteProxySettings", hSessionMarshal, hSession, BOOL, fForceUpdate, WINHTTP_PROXY_SETTINGS.Ptr, pWinHttpProxySettings, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} hSession 
  * @param {PWSTR} pcwszConnectionName 
  * @param {BOOL} fFallBackToDefaultSettings 
@@ -4654,16 +4670,16 @@ export WinHttpWriteProxySettings(hSession, fForceUpdate, pWinHttpProxySettings) 
 export WinHttpReadProxySettings(hSession, pcwszConnectionName, fFallBackToDefaultSettings, fSetAutoDiscoverForDefaultSettings, pdwSettingsVersion, pfDefaultSettingsAreReturned, pWinHttpProxySettings) {
     pcwszConnectionName := pcwszConnectionName is String ? StrPtr(pcwszConnectionName) : pcwszConnectionName
 
-    hSessionMarshal := hSession is VarRef ? "ptr" : "ptr"
-    pdwSettingsVersionMarshal := pdwSettingsVersion is VarRef ? "uint*" : "ptr"
-    pfDefaultSettingsAreReturnedMarshal := pfDefaultSettingsAreReturned is VarRef ? "int*" : "ptr"
+    hSessionMarshal := hSession is VarRef ? "ptr" : IntPtr
+    pcwszConnectionNameMarshal := pcwszConnectionName == 0 ? IntPtr : PWSTR
+    pdwSettingsVersionMarshal := pdwSettingsVersion is VarRef ? "uint*" : IntPtr
+    pfDefaultSettingsAreReturnedMarshal := pfDefaultSettingsAreReturned is VarRef ? "int*" : IntPtr
 
-    result := DllCall("WINHTTP.dll\WinHttpReadProxySettings", hSessionMarshal, hSession, "ptr", pcwszConnectionName, BOOL, fFallBackToDefaultSettings, BOOL, fSetAutoDiscoverForDefaultSettings, pdwSettingsVersionMarshal, pdwSettingsVersion, pfDefaultSettingsAreReturnedMarshal, pfDefaultSettingsAreReturned, WINHTTP_PROXY_SETTINGS.Ptr, pWinHttpProxySettings, UInt32)
+    result := DllCall("WINHTTP.dll\WinHttpReadProxySettings", hSessionMarshal, hSession, pcwszConnectionNameMarshal, pcwszConnectionName, BOOL, fFallBackToDefaultSettings, BOOL, fSetAutoDiscoverForDefaultSettings, pdwSettingsVersionMarshal, pdwSettingsVersion, pfDefaultSettingsAreReturnedMarshal, pfDefaultSettingsAreReturned, WINHTTP_PROXY_SETTINGS.Ptr, pWinHttpProxySettings, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<WINHTTP_PROXY_SETTINGS>} pWinHttpProxySettings 
  * @returns {String} Nothing - always returns an empty string
  */
@@ -4672,21 +4688,19 @@ export WinHttpFreeProxySettings(pWinHttpProxySettings) {
 }
 
 /**
- * 
  * @param {Pointer<Void>} hSession 
  * @param {Pointer<Integer>} pdwProxySettingsVersion 
  * @returns {Integer} 
  */
 export WinHttpGetProxySettingsVersion(hSession, pdwProxySettingsVersion) {
-    hSessionMarshal := hSession is VarRef ? "ptr" : "ptr"
-    pdwProxySettingsVersionMarshal := pdwProxySettingsVersion is VarRef ? "uint*" : "ptr"
+    hSessionMarshal := hSession is VarRef ? "ptr" : IntPtr
+    pdwProxySettingsVersionMarshal := pdwProxySettingsVersion is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WINHTTP.dll\WinHttpGetProxySettingsVersion", hSessionMarshal, hSession, pdwProxySettingsVersionMarshal, pdwProxySettingsVersion, UInt32)
     return result
 }
 
 /**
- * 
  * @param {BOOL} fProxySettingsPerUser 
  * @returns {Integer} 
  */
@@ -4716,11 +4730,12 @@ export WinHttpSetProxySettingsPerUser(fProxySettingsPerUser) {
  * @since windows8.0
  */
 export WinHttpWebSocketCompleteUpgrade(hRequest, pContext) {
-    hRequestMarshal := hRequest is VarRef ? "ptr" : "ptr"
+    hRequestMarshal := hRequest is VarRef ? "ptr" : IntPtr
+    pContextMarshal := pContext == 0 ? IntPtr : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("WINHTTP.dll\WinHttpWebSocketCompleteUpgrade", hRequestMarshal, hRequest, IntPtr, pContext, IntPtr)
+    result := DllCall("WINHTTP.dll\WinHttpWebSocketCompleteUpgrade", hRequestMarshal, hRequest, pContextMarshal, pContext, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4779,8 +4794,9 @@ export WinHttpWebSocketCompleteUpgrade(hRequest, pContext) {
  * @since windows8.0
  */
 export WinHttpWebSocketSend(hWebSocket, eBufferType, pvBuffer, dwBufferLength) {
-    hWebSocketMarshal := hWebSocket is VarRef ? "ptr" : "ptr"
-    pvBufferMarshal := pvBuffer is VarRef ? "ptr" : "ptr"
+    hWebSocketMarshal := hWebSocket is VarRef ? "ptr" : IntPtr
+    pvBufferMarshal := pvBuffer is VarRef ? "ptr" : IntPtr
+    pvBufferMarshal := pvBuffer == 0 ? IntPtr : "ptr"
 
     result := DllCall("WINHTTP.dll\WinHttpWebSocketSend", hWebSocketMarshal, hWebSocket, WINHTTP_WEB_SOCKET_BUFFER_TYPE, eBufferType, pvBufferMarshal, pvBuffer, UInt32, dwBufferLength, UInt32)
     return result
@@ -4861,9 +4877,9 @@ export WinHttpWebSocketSend(hWebSocket, eBufferType, pvBuffer, dwBufferLength) {
  * @since windows8.0
  */
 export WinHttpWebSocketReceive(hWebSocket, pvBuffer, dwBufferLength, pdwBytesRead, peBufferType) {
-    hWebSocketMarshal := hWebSocket is VarRef ? "ptr" : "ptr"
-    pdwBytesReadMarshal := pdwBytesRead is VarRef ? "uint*" : "ptr"
-    peBufferTypeMarshal := peBufferType is VarRef ? "int*" : "ptr"
+    hWebSocketMarshal := hWebSocket is VarRef ? "ptr" : IntPtr
+    pdwBytesReadMarshal := pdwBytesRead is VarRef ? "uint*" : IntPtr
+    peBufferTypeMarshal := peBufferType is VarRef ? "int*" : IntPtr
 
     result := DllCall("WINHTTP.dll\WinHttpWebSocketReceive", hWebSocketMarshal, hWebSocket, IntPtr, pvBuffer, UInt32, dwBufferLength, pdwBytesReadMarshal, pdwBytesRead, peBufferTypeMarshal, peBufferType, UInt32)
     return result
@@ -4917,9 +4933,10 @@ export WinHttpWebSocketReceive(hWebSocket, pvBuffer, dwBufferLength, pdwBytesRea
  * @since windows8.0
  */
 export WinHttpWebSocketShutdown(hWebSocket, usStatus, pvReason, dwReasonLength) {
-    hWebSocketMarshal := hWebSocket is VarRef ? "ptr" : "ptr"
+    hWebSocketMarshal := hWebSocket is VarRef ? "ptr" : IntPtr
+    pvReasonMarshal := pvReason == 0 ? IntPtr : IntPtr
 
-    result := DllCall("WINHTTP.dll\WinHttpWebSocketShutdown", hWebSocketMarshal, hWebSocket, UInt16, usStatus, IntPtr, pvReason, UInt32, dwReasonLength, UInt32)
+    result := DllCall("WINHTTP.dll\WinHttpWebSocketShutdown", hWebSocketMarshal, hWebSocket, UInt16, usStatus, pvReasonMarshal, pvReason, UInt32, dwReasonLength, UInt32)
     return result
 }
 
@@ -4995,9 +5012,10 @@ export WinHttpWebSocketShutdown(hWebSocket, usStatus, pvReason, dwReasonLength) 
  * @since windows8.0
  */
 export WinHttpWebSocketClose(hWebSocket, usStatus, pvReason, dwReasonLength) {
-    hWebSocketMarshal := hWebSocket is VarRef ? "ptr" : "ptr"
+    hWebSocketMarshal := hWebSocket is VarRef ? "ptr" : IntPtr
+    pvReasonMarshal := pvReason == 0 ? IntPtr : IntPtr
 
-    result := DllCall("WINHTTP.dll\WinHttpWebSocketClose", hWebSocketMarshal, hWebSocket, UInt16, usStatus, IntPtr, pvReason, UInt32, dwReasonLength, UInt32)
+    result := DllCall("WINHTTP.dll\WinHttpWebSocketClose", hWebSocketMarshal, hWebSocket, UInt16, usStatus, pvReasonMarshal, pvReason, UInt32, dwReasonLength, UInt32)
     return result
 }
 
@@ -5069,29 +5087,29 @@ export WinHttpWebSocketClose(hWebSocket, usStatus, pvReason, dwReasonLength) {
  * @since windows8.0
  */
 export WinHttpWebSocketQueryCloseStatus(hWebSocket, pusStatus, pvReason, dwReasonLength, pdwReasonLengthConsumed) {
-    hWebSocketMarshal := hWebSocket is VarRef ? "ptr" : "ptr"
-    pusStatusMarshal := pusStatus is VarRef ? "ushort*" : "ptr"
-    pdwReasonLengthConsumedMarshal := pdwReasonLengthConsumed is VarRef ? "uint*" : "ptr"
+    hWebSocketMarshal := hWebSocket is VarRef ? "ptr" : IntPtr
+    pusStatusMarshal := pusStatus is VarRef ? "ushort*" : IntPtr
+    pvReasonMarshal := pvReason == 0 ? IntPtr : IntPtr
+    pdwReasonLengthConsumedMarshal := pdwReasonLengthConsumed is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("WINHTTP.dll\WinHttpWebSocketQueryCloseStatus", hWebSocketMarshal, hWebSocket, pusStatusMarshal, pusStatus, IntPtr, pvReason, UInt32, dwReasonLength, pdwReasonLengthConsumedMarshal, pdwReasonLengthConsumed, UInt32)
+    result := DllCall("WINHTTP.dll\WinHttpWebSocketQueryCloseStatus", hWebSocketMarshal, hWebSocket, pusStatusMarshal, pusStatus, pvReasonMarshal, pvReason, UInt32, dwReasonLength, pdwReasonLengthConsumedMarshal, pdwReasonLengthConsumed, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} hRequest 
  * @param {Pointer} dwContext 
  * @returns {Pointer<Void>} 
  */
 export WinHttpProtocolCompleteUpgrade(hRequest, dwContext) {
-    hRequestMarshal := hRequest is VarRef ? "ptr" : "ptr"
+    hRequestMarshal := hRequest is VarRef ? "ptr" : IntPtr
+    dwContextMarshal := dwContext == 0 ? IntPtr : IntPtr
 
-    result := DllCall("WINHTTP.dll\WinHttpProtocolCompleteUpgrade", hRequestMarshal, hRequest, IntPtr, dwContext, IntPtr)
+    result := DllCall("WINHTTP.dll\WinHttpProtocolCompleteUpgrade", hRequestMarshal, hRequest, dwContextMarshal, dwContext, IntPtr)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} ProtocolHandle 
  * @param {Integer} Flags 
  * @param {Pointer<Void>} pvBuffer 
@@ -5099,15 +5117,15 @@ export WinHttpProtocolCompleteUpgrade(hRequest, dwContext) {
  * @returns {Integer} 
  */
 export WinHttpProtocolSend(ProtocolHandle, Flags, pvBuffer, dwBufferLength) {
-    ProtocolHandleMarshal := ProtocolHandle is VarRef ? "ptr" : "ptr"
-    pvBufferMarshal := pvBuffer is VarRef ? "ptr" : "ptr"
+    ProtocolHandleMarshal := ProtocolHandle is VarRef ? "ptr" : IntPtr
+    pvBufferMarshal := pvBuffer is VarRef ? "ptr" : IntPtr
+    pvBufferMarshal := pvBuffer == 0 ? IntPtr : "ptr"
 
     result := DllCall("WINHTTP.dll\WinHttpProtocolSend", ProtocolHandleMarshal, ProtocolHandle, Int64, Flags, pvBufferMarshal, pvBuffer, UInt32, dwBufferLength, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} ProtocolHandle 
  * @param {Integer} Flags 
  * @param {Integer} pvBuffer 
@@ -5116,8 +5134,8 @@ export WinHttpProtocolSend(ProtocolHandle, Flags, pvBuffer, dwBufferLength) {
  * @returns {Integer} 
  */
 export WinHttpProtocolReceive(ProtocolHandle, Flags, pvBuffer, dwBufferLength, pdwBytesRead) {
-    ProtocolHandleMarshal := ProtocolHandle is VarRef ? "ptr" : "ptr"
-    pdwBytesReadMarshal := pdwBytesRead is VarRef ? "uint*" : "ptr"
+    ProtocolHandleMarshal := ProtocolHandle is VarRef ? "ptr" : IntPtr
+    pdwBytesReadMarshal := pdwBytesRead is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WINHTTP.dll\WinHttpProtocolReceive", ProtocolHandleMarshal, ProtocolHandle, Int64, Flags, IntPtr, pvBuffer, UInt32, dwBufferLength, pdwBytesReadMarshal, pdwBytesRead, UInt32)
     return result
@@ -5145,8 +5163,8 @@ export WinHttpProtocolReceive(ProtocolHandle, Flags, pvBuffer, dwBufferLength, p
  * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpregisterproxychangenotification
  */
 export WinHttpRegisterProxyChangeNotification(ullFlags, _pfnCallback, pvContext, hRegistration) {
-    pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
-    hRegistrationMarshal := hRegistration is VarRef ? "ptr*" : "ptr"
+    pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
+    hRegistrationMarshal := hRegistration is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("WINHTTP.dll\WinHttpRegisterProxyChangeNotification", Int64, ullFlags, WINHTTP_PROXY_CHANGE_CALLBACK, _pfnCallback, pvContextMarshal, pvContext, hRegistrationMarshal, hRegistration, UInt32)
     return result
@@ -5161,7 +5179,7 @@ export WinHttpRegisterProxyChangeNotification(ullFlags, _pfnCallback, pvContext,
  * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpunregisterproxychangenotification
  */
 export WinHttpUnregisterProxyChangeNotification(hRegistration) {
-    hRegistrationMarshal := hRegistration is VarRef ? "ptr" : "ptr"
+    hRegistrationMarshal := hRegistration is VarRef ? "ptr" : IntPtr
 
     result := DllCall("WINHTTP.dll\WinHttpUnregisterProxyChangeNotification", hRegistrationMarshal, hRegistration, UInt32)
     return result
@@ -5189,9 +5207,11 @@ export WinHttpUnregisterProxyChangeNotification(hRegistration) {
  * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpgetproxysettingsex
  */
 export WinHttpGetProxySettingsEx(hResolver, ProxySettingsType, pProxySettingsParam, pContext) {
-    hResolverMarshal := hResolver is VarRef ? "ptr" : "ptr"
+    hResolverMarshal := hResolver is VarRef ? "ptr" : IntPtr
+    pProxySettingsParamMarshal := pProxySettingsParam == 0 ? IntPtr : WINHTTP_PROXY_SETTINGS_PARAM.Ptr
+    pContextMarshal := pContext == 0 ? IntPtr : IntPtr
 
-    result := DllCall("WINHTTP.dll\WinHttpGetProxySettingsEx", hResolverMarshal, hResolver, WINHTTP_PROXY_SETTINGS_TYPE, ProxySettingsType, WINHTTP_PROXY_SETTINGS_PARAM.Ptr, pProxySettingsParam, IntPtr, pContext, UInt32)
+    result := DllCall("WINHTTP.dll\WinHttpGetProxySettingsEx", hResolverMarshal, hResolver, WINHTTP_PROXY_SETTINGS_TYPE, ProxySettingsType, pProxySettingsParamMarshal, pProxySettingsParam, pContextMarshal, pContext, UInt32)
     return result
 }
 
@@ -5205,8 +5225,8 @@ export WinHttpGetProxySettingsEx(hResolver, ProxySettingsType, pProxySettingsPar
  * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpgetproxysettingsresultex
  */
 export WinHttpGetProxySettingsResultEx(hResolver, pProxySettingsEx) {
-    hResolverMarshal := hResolver is VarRef ? "ptr" : "ptr"
-    pProxySettingsExMarshal := pProxySettingsEx is VarRef ? "ptr" : "ptr"
+    hResolverMarshal := hResolver is VarRef ? "ptr" : IntPtr
+    pProxySettingsExMarshal := pProxySettingsEx is VarRef ? "ptr" : IntPtr
 
     result := DllCall("WINHTTP.dll\WinHttpGetProxySettingsResultEx", hResolverMarshal, hResolver, pProxySettingsExMarshal, pProxySettingsEx, UInt32)
     return result
@@ -5224,7 +5244,7 @@ export WinHttpGetProxySettingsResultEx(hResolver, pProxySettingsEx) {
  * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpfreeproxysettingsex
  */
 export WinHttpFreeProxySettingsEx(ProxySettingsType, pProxySettingsEx) {
-    pProxySettingsExMarshal := pProxySettingsEx is VarRef ? "ptr" : "ptr"
+    pProxySettingsExMarshal := pProxySettingsEx is VarRef ? "ptr" : IntPtr
 
     result := DllCall("WINHTTP.dll\WinHttpFreeProxySettingsEx", WINHTTP_PROXY_SETTINGS_TYPE, ProxySettingsType, pProxySettingsExMarshal, pProxySettingsEx, UInt32)
     return result

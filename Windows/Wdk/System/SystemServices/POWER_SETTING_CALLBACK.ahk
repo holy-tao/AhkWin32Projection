@@ -20,7 +20,6 @@ export default struct POWER_SETTING_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} SettingGuid 
      * @param {Integer} Value 
      * @param {Integer} ValueLength 
@@ -28,7 +27,8 @@ export default struct POWER_SETTING_CALLBACK {
      * @returns {NTSTATUS} 
      */
     Call(SettingGuid, Value, ValueLength, _Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, Guid.Ptr, SettingGuid, IntPtr, Value, UInt32, ValueLength, _ContextMarshal, _Context, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

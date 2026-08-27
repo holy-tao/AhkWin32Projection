@@ -144,11 +144,11 @@ export default struct IFhReassociation extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ValidateTarget := CallbackCreate(GetMethod(implObj, "ValidateTarget"), flags, 3)
-        this.vtbl.ScanTargetForConfigurations := CallbackCreate(GetMethod(implObj, "ScanTargetForConfigurations"), flags, 2)
-        this.vtbl.GetConfigurationDetails := CallbackCreate(GetMethod(implObj, "GetConfigurationDetails"), flags, 5)
-        this.vtbl.SelectConfiguration := CallbackCreate(GetMethod(implObj, "SelectConfiguration"), flags, 2)
-        this.vtbl.PerformReassociation := CallbackCreate(GetMethod(implObj, "PerformReassociation"), flags, 2)
+        this.vtbl.ValidateTarget := CallbackCreate(ObjBindMethod(implObj, "ValidateTarget"), flags, 3)
+        this.vtbl.ScanTargetForConfigurations := CallbackCreate(ObjBindMethod(implObj, "ScanTargetForConfigurations"), flags, 2)
+        this.vtbl.GetConfigurationDetails := CallbackCreate(ObjBindMethod(implObj, "GetConfigurationDetails"), flags, 5)
+        this.vtbl.SelectConfiguration := CallbackCreate(ObjBindMethod(implObj, "SelectConfiguration"), flags, 2)
+        this.vtbl.PerformReassociation := CallbackCreate(ObjBindMethod(implObj, "PerformReassociation"), flags, 2)
     }
 
     Dispose() {

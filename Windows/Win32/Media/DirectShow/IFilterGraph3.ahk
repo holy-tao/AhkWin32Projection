@@ -94,7 +94,7 @@ export default struct IFilterGraph3 extends IFilterGraph2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetSyncSourceEx := CallbackCreate(GetMethod(implObj, "SetSyncSourceEx"), flags, 4)
+        this.vtbl.SetSyncSourceEx := CallbackCreate(ObjBindMethod(implObj, "SetSyncSourceEx"), flags, 4)
     }
 
     Dispose() {

@@ -38,7 +38,6 @@ export default struct IMFExtendedCameraIntrinsicsDistortionModelArcTan extends I
     }
 
     /**
-     * 
      * @returns {MFCameraIntrinsic_DistortionModelArcTan} 
      */
     GetDistortionModel() {
@@ -48,7 +47,6 @@ export default struct IMFExtendedCameraIntrinsicsDistortionModelArcTan extends I
     }
 
     /**
-     * 
      * @param {Pointer<MFCameraIntrinsic_DistortionModelArcTan>} pDistortionModel 
      * @returns {HRESULT} 
      */
@@ -66,8 +64,8 @@ export default struct IMFExtendedCameraIntrinsicsDistortionModelArcTan extends I
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDistortionModel := CallbackCreate(GetMethod(implObj, "GetDistortionModel"), flags, 2)
-        this.vtbl.SetDistortionModel := CallbackCreate(GetMethod(implObj, "SetDistortionModel"), flags, 2)
+        this.vtbl.GetDistortionModel := CallbackCreate(ObjBindMethod(implObj, "GetDistortionModel"), flags, 2)
+        this.vtbl.SetDistortionModel := CallbackCreate(ObjBindMethod(implObj, "SetDistortionModel"), flags, 2)
     }
 
     Dispose() {

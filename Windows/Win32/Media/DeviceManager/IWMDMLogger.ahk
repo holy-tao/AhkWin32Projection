@@ -207,8 +207,8 @@ export default struct IWMDMLogger extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmdmlog/nf-wmdmlog-iwmdmlogger-getsizeparams
      */
     GetSizeParams(pdwMaxSize, pdwShrinkToSize) {
-        pdwMaxSizeMarshal := pdwMaxSize is VarRef ? "uint*" : "ptr"
-        pdwShrinkToSizeMarshal := pdwShrinkToSize is VarRef ? "uint*" : "ptr"
+        pdwMaxSizeMarshal := pdwMaxSize is VarRef ? "uint*" : IntPtr
+        pdwShrinkToSizeMarshal := pdwShrinkToSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(10, this, pdwMaxSizeMarshal, pdwMaxSize, pdwShrinkToSizeMarshal, pdwShrinkToSize, "HRESULT")
         return result
@@ -244,15 +244,15 @@ export default struct IWMDMLogger extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsEnabled := CallbackCreate(GetMethod(implObj, "IsEnabled"), flags, 2)
-        this.vtbl.Enable := CallbackCreate(GetMethod(implObj, "Enable"), flags, 2)
-        this.vtbl.GetLogFileName := CallbackCreate(GetMethod(implObj, "GetLogFileName"), flags, 3)
-        this.vtbl.SetLogFileName := CallbackCreate(GetMethod(implObj, "SetLogFileName"), flags, 2)
-        this.vtbl.LogString := CallbackCreate(GetMethod(implObj, "LogString"), flags, 4)
-        this.vtbl.LogDword := CallbackCreate(GetMethod(implObj, "LogDword"), flags, 5)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.GetSizeParams := CallbackCreate(GetMethod(implObj, "GetSizeParams"), flags, 3)
-        this.vtbl.SetSizeParams := CallbackCreate(GetMethod(implObj, "SetSizeParams"), flags, 3)
+        this.vtbl.IsEnabled := CallbackCreate(ObjBindMethod(implObj, "IsEnabled"), flags, 2)
+        this.vtbl.Enable := CallbackCreate(ObjBindMethod(implObj, "Enable"), flags, 2)
+        this.vtbl.GetLogFileName := CallbackCreate(ObjBindMethod(implObj, "GetLogFileName"), flags, 3)
+        this.vtbl.SetLogFileName := CallbackCreate(ObjBindMethod(implObj, "SetLogFileName"), flags, 2)
+        this.vtbl.LogString := CallbackCreate(ObjBindMethod(implObj, "LogString"), flags, 4)
+        this.vtbl.LogDword := CallbackCreate(ObjBindMethod(implObj, "LogDword"), flags, 5)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.GetSizeParams := CallbackCreate(ObjBindMethod(implObj, "GetSizeParams"), flags, 3)
+        this.vtbl.SetSizeParams := CallbackCreate(ObjBindMethod(implObj, "SetSizeParams"), flags, 3)
     }
 
     Dispose() {

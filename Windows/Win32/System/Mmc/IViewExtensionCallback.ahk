@@ -60,7 +60,7 @@ export default struct IViewExtensionCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddView := CallbackCreate(GetMethod(implObj, "AddView"), flags, 2)
+        this.vtbl.AddView := CallbackCreate(ObjBindMethod(implObj, "AddView"), flags, 2)
     }
 
     Dispose() {

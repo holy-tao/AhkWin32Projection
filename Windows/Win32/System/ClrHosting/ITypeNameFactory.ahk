@@ -46,7 +46,6 @@ export default struct ITypeNameFactory extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} szName 
      * @param {Pointer<Integer>} pError 
      * @returns {ITypeName} 
@@ -54,14 +53,13 @@ export default struct ITypeNameFactory extends IUnknown {
     ParseTypeName(szName, pError) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        pErrorMarshal := pError is VarRef ? "uint*" : "ptr"
+        pErrorMarshal := pError is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, "ptr", szName, pErrorMarshal, pError, "ptr*", &ppTypeName := 0, "HRESULT")
         return ITypeName(ppTypeName)
     }
 
     /**
-     * 
      * @returns {ITypeNameBuilder} 
      */
     GetTypeNameBuilder() {
@@ -78,8 +76,8 @@ export default struct ITypeNameFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ParseTypeName := CallbackCreate(GetMethod(implObj, "ParseTypeName"), flags, 4)
-        this.vtbl.GetTypeNameBuilder := CallbackCreate(GetMethod(implObj, "GetTypeNameBuilder"), flags, 2)
+        this.vtbl.ParseTypeName := CallbackCreate(ObjBindMethod(implObj, "ParseTypeName"), flags, 4)
+        this.vtbl.GetTypeNameBuilder := CallbackCreate(ObjBindMethod(implObj, "GetTypeNameBuilder"), flags, 2)
     }
 
     Dispose() {

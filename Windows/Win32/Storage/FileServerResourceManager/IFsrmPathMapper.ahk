@@ -75,7 +75,7 @@ export default struct IFsrmPathMapper extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSharePathsForLocalPath := CallbackCreate(GetMethod(implObj, "GetSharePathsForLocalPath"), flags, 3)
+        this.vtbl.GetSharePathsForLocalPath := CallbackCreate(ObjBindMethod(implObj, "GetSharePathsForLocalPath"), flags, 3)
     }
 
     Dispose() {

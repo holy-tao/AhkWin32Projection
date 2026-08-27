@@ -38,7 +38,6 @@ export default struct ISpeechPhraseInfoBuilder extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} PhraseInMemory 
      * @returns {ISpeechPhraseInfo} 
      */
@@ -56,7 +55,7 @@ export default struct ISpeechPhraseInfoBuilder extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RestorePhraseFromMemory := CallbackCreate(GetMethod(implObj, "RestorePhraseFromMemory"), flags, 3)
+        this.vtbl.RestorePhraseFromMemory := CallbackCreate(ObjBindMethod(implObj, "RestorePhraseFromMemory"), flags, 3)
     }
 
     Dispose() {

@@ -51,7 +51,6 @@ export default struct ISpAudio extends ISpStreamFormat {
     }
 
     /**
-     * 
      * @param {SPAUDIOSTATE} NewState 
      * @param {Integer} ullReserved 
      * @returns {HRESULT} 
@@ -62,7 +61,6 @@ export default struct ISpAudio extends ISpStreamFormat {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rguidFmtId 
      * @param {Pointer<WAVEFORMATEX>} pWaveFormatEx 
      * @returns {HRESULT} 
@@ -73,7 +71,6 @@ export default struct ISpAudio extends ISpStreamFormat {
     }
 
     /**
-     * 
      * @param {Pointer<SPAUDIOSTATUS>} pStatus 
      * @returns {HRESULT} 
      */
@@ -83,7 +80,6 @@ export default struct ISpAudio extends ISpStreamFormat {
     }
 
     /**
-     * 
      * @param {Pointer<SPAUDIOBUFFERINFO>} pBuffInfo 
      * @returns {HRESULT} 
      */
@@ -93,7 +89,6 @@ export default struct ISpAudio extends ISpStreamFormat {
     }
 
     /**
-     * 
      * @param {Pointer<SPAUDIOBUFFERINFO>} pBuffInfo 
      * @returns {HRESULT} 
      */
@@ -103,20 +98,18 @@ export default struct ISpAudio extends ISpStreamFormat {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pFormatId 
      * @param {Pointer<Pointer<WAVEFORMATEX>>} ppCoMemWaveFormatEx 
      * @returns {HRESULT} 
      */
     GetDefaultFormat(pFormatId, ppCoMemWaveFormatEx) {
-        ppCoMemWaveFormatExMarshal := ppCoMemWaveFormatEx is VarRef ? "ptr*" : "ptr"
+        ppCoMemWaveFormatExMarshal := ppCoMemWaveFormatEx is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(20, this, Guid.Ptr, pFormatId, ppCoMemWaveFormatExMarshal, ppCoMemWaveFormatEx, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HANDLE} 
      */
     EventHandle() {
@@ -125,19 +118,17 @@ export default struct ISpAudio extends ISpStreamFormat {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pLevel 
      * @returns {HRESULT} 
      */
     GetVolumeLevel(pLevel) {
-        pLevelMarshal := pLevel is VarRef ? "uint*" : "ptr"
+        pLevelMarshal := pLevel is VarRef ? "uint*" : IntPtr
 
         result := ComCall(22, this, pLevelMarshal, pLevel, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Level 
      * @returns {HRESULT} 
      */
@@ -147,19 +138,17 @@ export default struct ISpAudio extends ISpStreamFormat {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcbSize 
      * @returns {HRESULT} 
      */
     GetBufferNotifySize(pcbSize) {
-        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(24, this, pcbSizeMarshal, pcbSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} cbSize 
      * @returns {HRESULT} 
      */
@@ -177,17 +166,17 @@ export default struct ISpAudio extends ISpStreamFormat {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetState := CallbackCreate(GetMethod(implObj, "SetState"), flags, 3)
-        this.vtbl.SetFormat := CallbackCreate(GetMethod(implObj, "SetFormat"), flags, 3)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
-        this.vtbl.SetBufferInfo := CallbackCreate(GetMethod(implObj, "SetBufferInfo"), flags, 2)
-        this.vtbl.GetBufferInfo := CallbackCreate(GetMethod(implObj, "GetBufferInfo"), flags, 2)
-        this.vtbl.GetDefaultFormat := CallbackCreate(GetMethod(implObj, "GetDefaultFormat"), flags, 3)
-        this.vtbl.EventHandle := CallbackCreate(GetMethod(implObj, "EventHandle"), flags, 1)
-        this.vtbl.GetVolumeLevel := CallbackCreate(GetMethod(implObj, "GetVolumeLevel"), flags, 2)
-        this.vtbl.SetVolumeLevel := CallbackCreate(GetMethod(implObj, "SetVolumeLevel"), flags, 2)
-        this.vtbl.GetBufferNotifySize := CallbackCreate(GetMethod(implObj, "GetBufferNotifySize"), flags, 2)
-        this.vtbl.SetBufferNotifySize := CallbackCreate(GetMethod(implObj, "SetBufferNotifySize"), flags, 2)
+        this.vtbl.SetState := CallbackCreate(ObjBindMethod(implObj, "SetState"), flags, 3)
+        this.vtbl.SetFormat := CallbackCreate(ObjBindMethod(implObj, "SetFormat"), flags, 3)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.SetBufferInfo := CallbackCreate(ObjBindMethod(implObj, "SetBufferInfo"), flags, 2)
+        this.vtbl.GetBufferInfo := CallbackCreate(ObjBindMethod(implObj, "GetBufferInfo"), flags, 2)
+        this.vtbl.GetDefaultFormat := CallbackCreate(ObjBindMethod(implObj, "GetDefaultFormat"), flags, 3)
+        this.vtbl.EventHandle := CallbackCreate(ObjBindMethod(implObj, "EventHandle"), flags, 1)
+        this.vtbl.GetVolumeLevel := CallbackCreate(ObjBindMethod(implObj, "GetVolumeLevel"), flags, 2)
+        this.vtbl.SetVolumeLevel := CallbackCreate(ObjBindMethod(implObj, "SetVolumeLevel"), flags, 2)
+        this.vtbl.GetBufferNotifySize := CallbackCreate(ObjBindMethod(implObj, "GetBufferNotifySize"), flags, 2)
+        this.vtbl.SetBufferNotifySize := CallbackCreate(ObjBindMethod(implObj, "SetBufferNotifySize"), flags, 2)
     }
 
     Dispose() {

@@ -50,7 +50,6 @@ export default struct IContactAggregationServerPersonCollection extends IUnknown
     }
 
     /**
-     * 
      * @returns {IContactAggregationServerPerson} 
      */
     FindFirst() {
@@ -59,7 +58,6 @@ export default struct IContactAggregationServerPersonCollection extends IUnknown
     }
 
     /**
-     * 
      * @param {PWSTR} pServerId 
      * @returns {IContactAggregationServerPerson} 
      */
@@ -71,7 +69,6 @@ export default struct IContactAggregationServerPersonCollection extends IUnknown
     }
 
     /**
-     * 
      * @param {PWSTR} pAggregateId 
      * @returns {IContactAggregationServerPerson} 
      */
@@ -83,7 +80,6 @@ export default struct IContactAggregationServerPersonCollection extends IUnknown
     }
 
     /**
-     * 
      * @param {PWSTR} pAggregateId 
      * @returns {IContactAggregationServerPerson} 
      */
@@ -95,7 +91,6 @@ export default struct IContactAggregationServerPersonCollection extends IUnknown
     }
 
     /**
-     * 
      * @returns {IContactAggregationServerPerson} 
      */
     FindNext() {
@@ -104,7 +99,6 @@ export default struct IContactAggregationServerPersonCollection extends IUnknown
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -121,12 +115,12 @@ export default struct IContactAggregationServerPersonCollection extends IUnknown
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FindFirst := CallbackCreate(GetMethod(implObj, "FindFirst"), flags, 2)
-        this.vtbl.FindFirstByServerId := CallbackCreate(GetMethod(implObj, "FindFirstByServerId"), flags, 3)
-        this.vtbl.FindFirstByAggregateId := CallbackCreate(GetMethod(implObj, "FindFirstByAggregateId"), flags, 3)
-        this.vtbl.FindFirstByLinkedAggregateId := CallbackCreate(GetMethod(implObj, "FindFirstByLinkedAggregateId"), flags, 3)
-        this.vtbl.FindNext := CallbackCreate(GetMethod(implObj, "FindNext"), flags, 2)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.FindFirst := CallbackCreate(ObjBindMethod(implObj, "FindFirst"), flags, 2)
+        this.vtbl.FindFirstByServerId := CallbackCreate(ObjBindMethod(implObj, "FindFirstByServerId"), flags, 3)
+        this.vtbl.FindFirstByAggregateId := CallbackCreate(ObjBindMethod(implObj, "FindFirstByAggregateId"), flags, 3)
+        this.vtbl.FindFirstByLinkedAggregateId := CallbackCreate(ObjBindMethod(implObj, "FindFirstByLinkedAggregateId"), flags, 3)
+        this.vtbl.FindNext := CallbackCreate(ObjBindMethod(implObj, "FindNext"), flags, 2)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
     }
 
     Dispose() {

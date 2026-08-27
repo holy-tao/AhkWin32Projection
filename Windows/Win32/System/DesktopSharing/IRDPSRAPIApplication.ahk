@@ -158,12 +158,12 @@ export default struct IRDPSRAPIApplication extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Windows := CallbackCreate(GetMethod(implObj, "get_Windows"), flags, 2)
-        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
-        this.vtbl.get_Shared := CallbackCreate(GetMethod(implObj, "get_Shared"), flags, 2)
-        this.vtbl.put_Shared := CallbackCreate(GetMethod(implObj, "put_Shared"), flags, 2)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_Flags := CallbackCreate(GetMethod(implObj, "get_Flags"), flags, 2)
+        this.vtbl.get_Windows := CallbackCreate(ObjBindMethod(implObj, "get_Windows"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(ObjBindMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.get_Shared := CallbackCreate(ObjBindMethod(implObj, "get_Shared"), flags, 2)
+        this.vtbl.put_Shared := CallbackCreate(ObjBindMethod(implObj, "put_Shared"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Flags := CallbackCreate(ObjBindMethod(implObj, "get_Flags"), flags, 2)
     }
 
     Dispose() {

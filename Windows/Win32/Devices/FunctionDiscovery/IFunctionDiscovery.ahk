@@ -121,7 +121,7 @@ export default struct IFunctionDiscovery extends IUnknown {
         pszCategory := pszCategory is String ? StrPtr(pszCategory) : pszCategory
         pszSubCategory := pszSubCategory is String ? StrPtr(pszSubCategory) : pszSubCategory
 
-        pfdqcQueryContextMarshal := pfdqcQueryContext is VarRef ? "uint*" : "ptr"
+        pfdqcQueryContextMarshal := pfdqcQueryContext is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, "ptr", pszCategory, "ptr", pszSubCategory, BOOL, fIncludeAllSubCategories, "ptr", pIFunctionDiscoveryNotification, pfdqcQueryContextMarshal, pfdqcQueryContext, "ptr*", &ppIFunctionInstanceCollectionQuery := 0, "HRESULT")
         return IFunctionInstanceCollectionQuery(ppIFunctionInstanceCollectionQuery)
@@ -142,7 +142,7 @@ export default struct IFunctionDiscovery extends IUnknown {
     CreateInstanceQuery(pszFunctionInstanceIdentity, pIFunctionDiscoveryNotification, pfdqcQueryContext) {
         pszFunctionInstanceIdentity := pszFunctionInstanceIdentity is String ? StrPtr(pszFunctionInstanceIdentity) : pszFunctionInstanceIdentity
 
-        pfdqcQueryContextMarshal := pfdqcQueryContext is VarRef ? "uint*" : "ptr"
+        pfdqcQueryContextMarshal := pfdqcQueryContext is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, "ptr", pszFunctionInstanceIdentity, "ptr", pIFunctionDiscoveryNotification, pfdqcQueryContextMarshal, pfdqcQueryContext, "ptr*", &ppIFunctionInstanceQuery := 0, "HRESULT")
         return IFunctionInstanceQuery(ppIFunctionInstanceQuery)
@@ -276,12 +276,12 @@ export default struct IFunctionDiscovery extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetInstanceCollection := CallbackCreate(GetMethod(implObj, "GetInstanceCollection"), flags, 5)
-        this.vtbl.GetInstance := CallbackCreate(GetMethod(implObj, "GetInstance"), flags, 3)
-        this.vtbl.CreateInstanceCollectionQuery := CallbackCreate(GetMethod(implObj, "CreateInstanceCollectionQuery"), flags, 7)
-        this.vtbl.CreateInstanceQuery := CallbackCreate(GetMethod(implObj, "CreateInstanceQuery"), flags, 5)
-        this.vtbl.AddInstance := CallbackCreate(GetMethod(implObj, "AddInstance"), flags, 6)
-        this.vtbl.RemoveInstance := CallbackCreate(GetMethod(implObj, "RemoveInstance"), flags, 5)
+        this.vtbl.GetInstanceCollection := CallbackCreate(ObjBindMethod(implObj, "GetInstanceCollection"), flags, 5)
+        this.vtbl.GetInstance := CallbackCreate(ObjBindMethod(implObj, "GetInstance"), flags, 3)
+        this.vtbl.CreateInstanceCollectionQuery := CallbackCreate(ObjBindMethod(implObj, "CreateInstanceCollectionQuery"), flags, 7)
+        this.vtbl.CreateInstanceQuery := CallbackCreate(ObjBindMethod(implObj, "CreateInstanceQuery"), flags, 5)
+        this.vtbl.AddInstance := CallbackCreate(ObjBindMethod(implObj, "AddInstance"), flags, 6)
+        this.vtbl.RemoveInstance := CallbackCreate(ObjBindMethod(implObj, "RemoveInstance"), flags, 5)
     }
 
     Dispose() {

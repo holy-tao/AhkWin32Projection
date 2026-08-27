@@ -44,7 +44,7 @@ export default struct IDtcLuRecoveryFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/Msi/create-time-date-summary
      */
     Create(pucLuPair, cbLuPair) {
-        pucLuPairMarshal := pucLuPair is VarRef ? "char*" : "ptr"
+        pucLuPairMarshal := pucLuPair is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, pucLuPairMarshal, pucLuPair, UInt32, cbLuPair, "ptr*", &ppRecovery := 0, "HRESULT")
         return IDtcLuRecovery(ppRecovery)
@@ -59,7 +59,7 @@ export default struct IDtcLuRecoveryFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 4)
+        this.vtbl.Create := CallbackCreate(ObjBindMethod(implObj, "Create"), flags, 4)
     }
 
     Dispose() {

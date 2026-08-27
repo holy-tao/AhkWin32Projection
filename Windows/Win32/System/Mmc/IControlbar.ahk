@@ -96,9 +96,9 @@ export default struct IControlbar extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 4)
-        this.vtbl.Attach := CallbackCreate(GetMethod(implObj, "Attach"), flags, 3)
-        this.vtbl.Detach := CallbackCreate(GetMethod(implObj, "Detach"), flags, 2)
+        this.vtbl.Create := CallbackCreate(ObjBindMethod(implObj, "Create"), flags, 4)
+        this.vtbl.Attach := CallbackCreate(ObjBindMethod(implObj, "Attach"), flags, 3)
+        this.vtbl.Detach := CallbackCreate(ObjBindMethod(implObj, "Detach"), flags, 2)
     }
 
     Dispose() {

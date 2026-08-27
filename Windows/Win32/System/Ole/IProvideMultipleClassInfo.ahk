@@ -63,8 +63,8 @@ export default struct IProvideMultipleClassInfo extends IProvideClassInfo2 {
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iprovidemultipleclassinfo-getinfoofindex
      */
     GetInfoOfIndex(iti, dwFlags, pptiCoClass, pdwTIFlags, pcdispidReserved, piidPrimary, piidSource) {
-        pdwTIFlagsMarshal := pdwTIFlags is VarRef ? "uint*" : "ptr"
-        pcdispidReservedMarshal := pcdispidReserved is VarRef ? "uint*" : "ptr"
+        pdwTIFlagsMarshal := pdwTIFlags is VarRef ? "uint*" : IntPtr
+        pcdispidReservedMarshal := pcdispidReserved is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, UInt32, iti, MULTICLASSINFO_FLAGS, dwFlags, ITypeInfo.Ptr, pptiCoClass, pdwTIFlagsMarshal, pdwTIFlags, pcdispidReservedMarshal, pcdispidReserved, Guid.Ptr, piidPrimary, Guid.Ptr, piidSource, "HRESULT")
         return result
@@ -79,8 +79,8 @@ export default struct IProvideMultipleClassInfo extends IProvideClassInfo2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMultiTypeInfoCount := CallbackCreate(GetMethod(implObj, "GetMultiTypeInfoCount"), flags, 2)
-        this.vtbl.GetInfoOfIndex := CallbackCreate(GetMethod(implObj, "GetInfoOfIndex"), flags, 8)
+        this.vtbl.GetMultiTypeInfoCount := CallbackCreate(ObjBindMethod(implObj, "GetMultiTypeInfoCount"), flags, 2)
+        this.vtbl.GetInfoOfIndex := CallbackCreate(ObjBindMethod(implObj, "GetInfoOfIndex"), flags, 8)
     }
 
     Dispose() {

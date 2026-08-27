@@ -58,7 +58,7 @@ export default struct IMemAllocatorNotifyCallbackTemp extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.NotifyRelease := CallbackCreate(GetMethod(implObj, "NotifyRelease"), flags, 1)
+        this.vtbl.NotifyRelease := CallbackCreate(ObjBindMethod(implObj, "NotifyRelease"), flags, 1)
     }
 
     Dispose() {

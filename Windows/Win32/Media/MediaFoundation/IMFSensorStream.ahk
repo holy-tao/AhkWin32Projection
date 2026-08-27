@@ -80,9 +80,9 @@ export default struct IMFSensorStream extends IMFAttributes {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMediaTypeCount := CallbackCreate(GetMethod(implObj, "GetMediaTypeCount"), flags, 2)
-        this.vtbl.GetMediaType := CallbackCreate(GetMethod(implObj, "GetMediaType"), flags, 3)
-        this.vtbl.CloneSensorStream := CallbackCreate(GetMethod(implObj, "CloneSensorStream"), flags, 2)
+        this.vtbl.GetMediaTypeCount := CallbackCreate(ObjBindMethod(implObj, "GetMediaTypeCount"), flags, 2)
+        this.vtbl.GetMediaType := CallbackCreate(ObjBindMethod(implObj, "GetMediaType"), flags, 3)
+        this.vtbl.CloneSensorStream := CallbackCreate(ObjBindMethod(implObj, "CloneSensorStream"), flags, 2)
     }
 
     Dispose() {

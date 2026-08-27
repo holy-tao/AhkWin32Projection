@@ -42,7 +42,6 @@ export default struct ISpPhrase2 extends ISpPhrase {
     }
 
     /**
-     * 
      * @param {SPXMLRESULTOPTIONS} Options 
      * @returns {PWSTR} 
      */
@@ -52,7 +51,6 @@ export default struct ISpPhrase2 extends ISpPhrase {
     }
 
     /**
-     * 
      * @param {Pointer<SPSEMANTICERRORINFO>} pSemanticErrorInfo 
      * @returns {HRESULT} 
      */
@@ -62,7 +60,6 @@ export default struct ISpPhrase2 extends ISpPhrase {
     }
 
     /**
-     * 
      * @param {Integer} ulStartElement 
      * @param {Integer} cElements 
      * @returns {ISpStreamFormat} 
@@ -81,9 +78,9 @@ export default struct ISpPhrase2 extends ISpPhrase {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetXMLResult := CallbackCreate(GetMethod(implObj, "GetXMLResult"), flags, 3)
-        this.vtbl.GetXMLErrorInfo := CallbackCreate(GetMethod(implObj, "GetXMLErrorInfo"), flags, 2)
-        this.vtbl.GetAudio := CallbackCreate(GetMethod(implObj, "GetAudio"), flags, 4)
+        this.vtbl.GetXMLResult := CallbackCreate(ObjBindMethod(implObj, "GetXMLResult"), flags, 3)
+        this.vtbl.GetXMLErrorInfo := CallbackCreate(ObjBindMethod(implObj, "GetXMLErrorInfo"), flags, 2)
+        this.vtbl.GetAudio := CallbackCreate(ObjBindMethod(implObj, "GetAudio"), flags, 4)
     }
 
     Dispose() {

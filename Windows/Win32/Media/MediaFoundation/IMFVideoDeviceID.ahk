@@ -59,7 +59,7 @@ export default struct IMFVideoDeviceID extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDeviceID := CallbackCreate(GetMethod(implObj, "GetDeviceID"), flags, 2)
+        this.vtbl.GetDeviceID := CallbackCreate(ObjBindMethod(implObj, "GetDeviceID"), flags, 2)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct I_RpcProxyFilterIfFn {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<Guid>} IfUuid 
      * @param {Integer} IfMajorVersion 
@@ -28,8 +27,8 @@ export default struct I_RpcProxyFilterIfFn {
      * @returns {RPC_STATUS} 
      */
     Call(_Context, IfUuid, IfMajorVersion, fAllow) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        fAllowMarshal := fAllow is VarRef ? "int*" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        fAllowMarshal := fAllow is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, Guid.Ptr, IfUuid, UInt16, IfMajorVersion, fAllowMarshal, fAllow, RPC_STATUS)
         return result

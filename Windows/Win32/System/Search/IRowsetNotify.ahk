@@ -40,7 +40,6 @@ export default struct IRowsetNotify extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRowset} pRowset 
      * @param {Pointer} hRow 
      * @param {Pointer} cColumns 
@@ -51,14 +50,13 @@ export default struct IRowsetNotify extends IUnknown {
      * @returns {HRESULT} 
      */
     OnFieldChange(pRowset, hRow, cColumns, rgColumns, eReason, ePhase, fCantDeny) {
-        rgColumnsMarshal := rgColumns is VarRef ? "ptr*" : "ptr"
+        rgColumnsMarshal := rgColumns is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, "ptr", pRowset, IntPtr, hRow, IntPtr, cColumns, rgColumnsMarshal, rgColumns, UInt32, eReason, UInt32, ePhase, BOOL, fCantDeny, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IRowset} pRowset 
      * @param {Pointer} cRows 
      * @param {Pointer<Pointer>} rghRows 
@@ -68,14 +66,13 @@ export default struct IRowsetNotify extends IUnknown {
      * @returns {HRESULT} 
      */
     OnRowChange(pRowset, cRows, rghRows, eReason, ePhase, fCantDeny) {
-        rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
+        rghRowsMarshal := rghRows is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, "ptr", pRowset, IntPtr, cRows, rghRowsMarshal, rghRows, UInt32, eReason, UInt32, ePhase, BOOL, fCantDeny, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IRowset} pRowset 
      * @param {Integer} eReason 
      * @param {Integer} ePhase 
@@ -96,9 +93,9 @@ export default struct IRowsetNotify extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnFieldChange := CallbackCreate(GetMethod(implObj, "OnFieldChange"), flags, 8)
-        this.vtbl.OnRowChange := CallbackCreate(GetMethod(implObj, "OnRowChange"), flags, 7)
-        this.vtbl.OnRowsetChange := CallbackCreate(GetMethod(implObj, "OnRowsetChange"), flags, 5)
+        this.vtbl.OnFieldChange := CallbackCreate(ObjBindMethod(implObj, "OnFieldChange"), flags, 8)
+        this.vtbl.OnRowChange := CallbackCreate(ObjBindMethod(implObj, "OnRowChange"), flags, 7)
+        this.vtbl.OnRowsetChange := CallbackCreate(ObjBindMethod(implObj, "OnRowsetChange"), flags, 5)
     }
 
     Dispose() {

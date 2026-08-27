@@ -90,7 +90,6 @@ export default struct IHTMLWindow3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_screenLeft() {
@@ -99,7 +98,6 @@ export default struct IHTMLWindow3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_screenTop() {
@@ -108,7 +106,6 @@ export default struct IHTMLWindow3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} event 
      * @param {IDispatch} pDisp 
      * @returns {VARIANT_BOOL} 
@@ -121,7 +118,6 @@ export default struct IHTMLWindow3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} event 
      * @param {IDispatch} pDisp 
      * @returns {HRESULT} 
@@ -134,7 +130,6 @@ export default struct IHTMLWindow3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} expression 
      * @param {Integer} msec 
      * @param {Pointer<VARIANT>} language 
@@ -146,7 +141,6 @@ export default struct IHTMLWindow3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} expression 
      * @param {Integer} msec 
      * @param {Pointer<VARIANT>} language 
@@ -158,7 +152,6 @@ export default struct IHTMLWindow3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     print() {
@@ -167,7 +160,6 @@ export default struct IHTMLWindow3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -177,7 +169,6 @@ export default struct IHTMLWindow3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onbeforeprint() {
@@ -187,7 +178,6 @@ export default struct IHTMLWindow3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -197,7 +187,6 @@ export default struct IHTMLWindow3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onafterprint() {
@@ -207,7 +196,6 @@ export default struct IHTMLWindow3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDataTransfer} 
      */
     get_clipboardData() {
@@ -216,7 +204,6 @@ export default struct IHTMLWindow3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} url 
      * @param {Pointer<VARIANT>} varArgIn 
      * @param {Pointer<VARIANT>} options 
@@ -238,19 +225,19 @@ export default struct IHTMLWindow3 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_screenLeft := CallbackCreate(GetMethod(implObj, "get_screenLeft"), flags, 2)
-        this.vtbl.get_screenTop := CallbackCreate(GetMethod(implObj, "get_screenTop"), flags, 2)
-        this.vtbl.attachEvent := CallbackCreate(GetMethod(implObj, "attachEvent"), flags, 4)
-        this.vtbl.detachEvent := CallbackCreate(GetMethod(implObj, "detachEvent"), flags, 3)
-        this.vtbl.setTimeout := CallbackCreate(GetMethod(implObj, "setTimeout"), flags, 5)
-        this.vtbl.setInterval := CallbackCreate(GetMethod(implObj, "setInterval"), flags, 5)
-        this.vtbl.print := CallbackCreate(GetMethod(implObj, "print"), flags, 1)
-        this.vtbl.put_onbeforeprint := CallbackCreate(GetMethod(implObj, "put_onbeforeprint"), flags, 2)
-        this.vtbl.get_onbeforeprint := CallbackCreate(GetMethod(implObj, "get_onbeforeprint"), flags, 2)
-        this.vtbl.put_onafterprint := CallbackCreate(GetMethod(implObj, "put_onafterprint"), flags, 2)
-        this.vtbl.get_onafterprint := CallbackCreate(GetMethod(implObj, "get_onafterprint"), flags, 2)
-        this.vtbl.get_clipboardData := CallbackCreate(GetMethod(implObj, "get_clipboardData"), flags, 2)
-        this.vtbl.showModelessDialog := CallbackCreate(GetMethod(implObj, "showModelessDialog"), flags, 5)
+        this.vtbl.get_screenLeft := CallbackCreate(ObjBindMethod(implObj, "get_screenLeft"), flags, 2)
+        this.vtbl.get_screenTop := CallbackCreate(ObjBindMethod(implObj, "get_screenTop"), flags, 2)
+        this.vtbl.attachEvent := CallbackCreate(ObjBindMethod(implObj, "attachEvent"), flags, 4)
+        this.vtbl.detachEvent := CallbackCreate(ObjBindMethod(implObj, "detachEvent"), flags, 3)
+        this.vtbl.setTimeout := CallbackCreate(ObjBindMethod(implObj, "setTimeout"), flags, 5)
+        this.vtbl.setInterval := CallbackCreate(ObjBindMethod(implObj, "setInterval"), flags, 5)
+        this.vtbl.print := CallbackCreate(ObjBindMethod(implObj, "print"), flags, 1)
+        this.vtbl.put_onbeforeprint := CallbackCreate(ObjBindMethod(implObj, "put_onbeforeprint"), flags, 2)
+        this.vtbl.get_onbeforeprint := CallbackCreate(ObjBindMethod(implObj, "get_onbeforeprint"), flags, 2)
+        this.vtbl.put_onafterprint := CallbackCreate(ObjBindMethod(implObj, "put_onafterprint"), flags, 2)
+        this.vtbl.get_onafterprint := CallbackCreate(ObjBindMethod(implObj, "get_onafterprint"), flags, 2)
+        this.vtbl.get_clipboardData := CallbackCreate(ObjBindMethod(implObj, "get_clipboardData"), flags, 2)
+        this.vtbl.showModelessDialog := CallbackCreate(ObjBindMethod(implObj, "showModelessDialog"), flags, 5)
     }
 
     Dispose() {

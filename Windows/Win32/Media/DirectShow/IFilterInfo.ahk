@@ -88,7 +88,6 @@ export default struct IFilterInfo extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strPinID 
      * @returns {IDispatch} 
      */
@@ -100,7 +99,6 @@ export default struct IFilterInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -110,7 +108,6 @@ export default struct IFilterInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_VendorInfo() {
@@ -120,7 +117,6 @@ export default struct IFilterInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_Filter() {
@@ -129,7 +125,6 @@ export default struct IFilterInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Pins() {
@@ -138,7 +133,6 @@ export default struct IFilterInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_IsFileSource() {
@@ -147,7 +141,6 @@ export default struct IFilterInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Filename() {
@@ -157,7 +150,6 @@ export default struct IFilterInfo extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strFilename 
      * @returns {HRESULT} 
      */
@@ -177,14 +169,14 @@ export default struct IFilterInfo extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FindPin := CallbackCreate(GetMethod(implObj, "FindPin"), flags, 3)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_VendorInfo := CallbackCreate(GetMethod(implObj, "get_VendorInfo"), flags, 2)
-        this.vtbl.get_Filter := CallbackCreate(GetMethod(implObj, "get_Filter"), flags, 2)
-        this.vtbl.get_Pins := CallbackCreate(GetMethod(implObj, "get_Pins"), flags, 2)
-        this.vtbl.get_IsFileSource := CallbackCreate(GetMethod(implObj, "get_IsFileSource"), flags, 2)
-        this.vtbl.get_Filename := CallbackCreate(GetMethod(implObj, "get_Filename"), flags, 2)
-        this.vtbl.put_Filename := CallbackCreate(GetMethod(implObj, "put_Filename"), flags, 2)
+        this.vtbl.FindPin := CallbackCreate(ObjBindMethod(implObj, "FindPin"), flags, 3)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_VendorInfo := CallbackCreate(ObjBindMethod(implObj, "get_VendorInfo"), flags, 2)
+        this.vtbl.get_Filter := CallbackCreate(ObjBindMethod(implObj, "get_Filter"), flags, 2)
+        this.vtbl.get_Pins := CallbackCreate(ObjBindMethod(implObj, "get_Pins"), flags, 2)
+        this.vtbl.get_IsFileSource := CallbackCreate(ObjBindMethod(implObj, "get_IsFileSource"), flags, 2)
+        this.vtbl.get_Filename := CallbackCreate(ObjBindMethod(implObj, "get_Filename"), flags, 2)
+        this.vtbl.put_Filename := CallbackCreate(ObjBindMethod(implObj, "put_Filename"), flags, 2)
     }
 
     Dispose() {

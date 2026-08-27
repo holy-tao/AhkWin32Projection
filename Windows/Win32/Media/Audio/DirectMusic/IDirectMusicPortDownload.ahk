@@ -42,7 +42,6 @@ export default struct IDirectMusicPortDownload extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwDLId 
      * @returns {IDirectMusicDownload} 
      */
@@ -52,7 +51,6 @@ export default struct IDirectMusicPortDownload extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSize 
      * @returns {IDirectMusicDownload} 
      */
@@ -62,32 +60,29 @@ export default struct IDirectMusicPortDownload extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwStartDLId 
      * @param {Integer} dwCount 
      * @returns {HRESULT} 
      */
     GetDLId(pdwStartDLId, dwCount) {
-        pdwStartDLIdMarshal := pdwStartDLId is VarRef ? "uint*" : "ptr"
+        pdwStartDLIdMarshal := pdwStartDLId is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, pdwStartDLIdMarshal, pdwStartDLId, UInt32, dwCount, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwAppend 
      * @returns {HRESULT} 
      */
     GetAppend(pdwAppend) {
-        pdwAppendMarshal := pdwAppend is VarRef ? "uint*" : "ptr"
+        pdwAppendMarshal := pdwAppend is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, pdwAppendMarshal, pdwAppend, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IDirectMusicDownload} pIDMDownload 
      * @returns {HRESULT} 
      */
@@ -97,7 +92,6 @@ export default struct IDirectMusicPortDownload extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDirectMusicDownload} pIDMDownload 
      * @returns {HRESULT} 
      */
@@ -115,12 +109,12 @@ export default struct IDirectMusicPortDownload extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetBuffer := CallbackCreate(GetMethod(implObj, "GetBuffer"), flags, 3)
-        this.vtbl.AllocateBuffer := CallbackCreate(GetMethod(implObj, "AllocateBuffer"), flags, 3)
-        this.vtbl.GetDLId := CallbackCreate(GetMethod(implObj, "GetDLId"), flags, 3)
-        this.vtbl.GetAppend := CallbackCreate(GetMethod(implObj, "GetAppend"), flags, 2)
-        this.vtbl.Download := CallbackCreate(GetMethod(implObj, "Download"), flags, 2)
-        this.vtbl.Unload := CallbackCreate(GetMethod(implObj, "Unload"), flags, 2)
+        this.vtbl.GetBuffer := CallbackCreate(ObjBindMethod(implObj, "GetBuffer"), flags, 3)
+        this.vtbl.AllocateBuffer := CallbackCreate(ObjBindMethod(implObj, "AllocateBuffer"), flags, 3)
+        this.vtbl.GetDLId := CallbackCreate(ObjBindMethod(implObj, "GetDLId"), flags, 3)
+        this.vtbl.GetAppend := CallbackCreate(ObjBindMethod(implObj, "GetAppend"), flags, 2)
+        this.vtbl.Download := CallbackCreate(ObjBindMethod(implObj, "Download"), flags, 2)
+        this.vtbl.Unload := CallbackCreate(ObjBindMethod(implObj, "Unload"), flags, 2)
     }
 
     Dispose() {

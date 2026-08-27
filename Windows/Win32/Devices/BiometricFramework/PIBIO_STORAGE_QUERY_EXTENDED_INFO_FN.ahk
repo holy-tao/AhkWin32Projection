@@ -26,7 +26,6 @@ export default struct PIBIO_STORAGE_QUERY_EXTENDED_INFO_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/ns-winbio_adapter-winbio_pipeline">WINBIO_PIPELINE</a> structure associated with the biometric unit performing the operation.
      * @param {Integer} StorageInfo Pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-extended-storage-info">WINBIO_EXTENDED_STORAGE_INFO</a> structure that contains the storage information returned by this function.
      * @param {Pointer} StorageInfoSize The specified size of the storage information.

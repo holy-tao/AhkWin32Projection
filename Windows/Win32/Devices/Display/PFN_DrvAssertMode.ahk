@@ -20,7 +20,6 @@ export default struct PFN_DrvAssertMode {
     }
 
     /**
-     * 
      * @param {DHPDEV} param0 
      * @param {BOOL} param1 
      * @returns {BOOL} 

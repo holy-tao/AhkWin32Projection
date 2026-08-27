@@ -69,7 +69,6 @@ export default struct IADsAcl extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ProtectedAttrName() {
@@ -79,7 +78,6 @@ export default struct IADsAcl extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrProtectedAttrName 
      * @returns {HRESULT} 
      */
@@ -91,7 +89,6 @@ export default struct IADsAcl extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_SubjectName() {
@@ -101,7 +98,6 @@ export default struct IADsAcl extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrSubjectName 
      * @returns {HRESULT} 
      */
@@ -113,7 +109,6 @@ export default struct IADsAcl extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Privileges() {
@@ -122,7 +117,6 @@ export default struct IADsAcl extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnPrivileges 
      * @returns {HRESULT} 
      */
@@ -150,13 +144,13 @@ export default struct IADsAcl extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ProtectedAttrName := CallbackCreate(GetMethod(implObj, "get_ProtectedAttrName"), flags, 2)
-        this.vtbl.put_ProtectedAttrName := CallbackCreate(GetMethod(implObj, "put_ProtectedAttrName"), flags, 2)
-        this.vtbl.get_SubjectName := CallbackCreate(GetMethod(implObj, "get_SubjectName"), flags, 2)
-        this.vtbl.put_SubjectName := CallbackCreate(GetMethod(implObj, "put_SubjectName"), flags, 2)
-        this.vtbl.get_Privileges := CallbackCreate(GetMethod(implObj, "get_Privileges"), flags, 2)
-        this.vtbl.put_Privileges := CallbackCreate(GetMethod(implObj, "put_Privileges"), flags, 2)
-        this.vtbl.CopyAcl := CallbackCreate(GetMethod(implObj, "CopyAcl"), flags, 2)
+        this.vtbl.get_ProtectedAttrName := CallbackCreate(ObjBindMethod(implObj, "get_ProtectedAttrName"), flags, 2)
+        this.vtbl.put_ProtectedAttrName := CallbackCreate(ObjBindMethod(implObj, "put_ProtectedAttrName"), flags, 2)
+        this.vtbl.get_SubjectName := CallbackCreate(ObjBindMethod(implObj, "get_SubjectName"), flags, 2)
+        this.vtbl.put_SubjectName := CallbackCreate(ObjBindMethod(implObj, "put_SubjectName"), flags, 2)
+        this.vtbl.get_Privileges := CallbackCreate(ObjBindMethod(implObj, "get_Privileges"), flags, 2)
+        this.vtbl.put_Privileges := CallbackCreate(ObjBindMethod(implObj, "put_Privileges"), flags, 2)
+        this.vtbl.CopyAcl := CallbackCreate(ObjBindMethod(implObj, "CopyAcl"), flags, 2)
     }
 
     Dispose() {

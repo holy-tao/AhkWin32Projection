@@ -78,7 +78,6 @@ export default struct ISWbemPrivilege extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsEnabled() {
@@ -87,7 +86,6 @@ export default struct ISWbemPrivilege extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bIsEnabled 
      * @returns {HRESULT} 
      */
@@ -97,7 +95,6 @@ export default struct ISWbemPrivilege extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -107,7 +104,6 @@ export default struct ISWbemPrivilege extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DisplayName() {
@@ -117,7 +113,6 @@ export default struct ISWbemPrivilege extends IDispatch {
     }
 
     /**
-     * 
      * @returns {WbemPrivilegeEnum} 
      */
     get_Identifier() {
@@ -134,11 +129,11 @@ export default struct ISWbemPrivilege extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_IsEnabled := CallbackCreate(GetMethod(implObj, "get_IsEnabled"), flags, 2)
-        this.vtbl.put_IsEnabled := CallbackCreate(GetMethod(implObj, "put_IsEnabled"), flags, 2)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_DisplayName := CallbackCreate(GetMethod(implObj, "get_DisplayName"), flags, 2)
-        this.vtbl.get_Identifier := CallbackCreate(GetMethod(implObj, "get_Identifier"), flags, 2)
+        this.vtbl.get_IsEnabled := CallbackCreate(ObjBindMethod(implObj, "get_IsEnabled"), flags, 2)
+        this.vtbl.put_IsEnabled := CallbackCreate(ObjBindMethod(implObj, "put_IsEnabled"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_DisplayName := CallbackCreate(ObjBindMethod(implObj, "get_DisplayName"), flags, 2)
+        this.vtbl.get_Identifier := CallbackCreate(ObjBindMethod(implObj, "get_Identifier"), flags, 2)
     }
 
     Dispose() {

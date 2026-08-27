@@ -34,7 +34,6 @@ export default struct PCMSCALLBACKA {
     }
 
     /**
-     * 
      * @param {Pointer<COLORMATCHSETUPA>} param0 Pointer to a [**COLORMATCHSETUPW**](/windows/win32/api/icm/ns-icm-colormatchsetupw) structure that contains WCS configuration data.
      * @param {LPARAM} param1 Contains a value supplied by the application.
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.

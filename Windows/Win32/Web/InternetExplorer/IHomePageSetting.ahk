@@ -47,7 +47,6 @@ export default struct IHomePageSetting extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {PWSTR} homePageUri 
      * @param {PWSTR} brandingMessage 
@@ -62,7 +61,6 @@ export default struct IHomePageSetting extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} uri 
      * @returns {BOOL} 
      */
@@ -74,7 +72,6 @@ export default struct IHomePageSetting extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SetHomePageToBrowserDefault() {
@@ -91,9 +88,9 @@ export default struct IHomePageSetting extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetHomePage := CallbackCreate(GetMethod(implObj, "SetHomePage"), flags, 4)
-        this.vtbl.IsHomePage := CallbackCreate(GetMethod(implObj, "IsHomePage"), flags, 3)
-        this.vtbl.SetHomePageToBrowserDefault := CallbackCreate(GetMethod(implObj, "SetHomePageToBrowserDefault"), flags, 1)
+        this.vtbl.SetHomePage := CallbackCreate(ObjBindMethod(implObj, "SetHomePage"), flags, 4)
+        this.vtbl.IsHomePage := CallbackCreate(ObjBindMethod(implObj, "IsHomePage"), flags, 3)
+        this.vtbl.SetHomePageToBrowserDefault := CallbackCreate(ObjBindMethod(implObj, "SetHomePageToBrowserDefault"), flags, 1)
     }
 
     Dispose() {

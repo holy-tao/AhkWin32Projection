@@ -91,7 +91,7 @@ export default struct IShellView3 extends IShellView2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateViewWindow3 := CallbackCreate(GetMethod(implObj, "CreateViewWindow3"), flags, 10)
+        this.vtbl.CreateViewWindow3 := CallbackCreate(ObjBindMethod(implObj, "CreateViewWindow3"), flags, 10)
     }
 
     Dispose() {

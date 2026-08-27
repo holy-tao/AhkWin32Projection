@@ -18,7 +18,6 @@ export default struct HANDLER_FUNCTION {
     }
 
     /**
-     * 
      * @param {Integer} dwControl 
      * @returns {String} Nothing - always returns an empty string
      */

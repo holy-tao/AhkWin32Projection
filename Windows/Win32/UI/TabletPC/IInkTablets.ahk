@@ -79,7 +79,6 @@ export default struct IInkTablets extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -155,11 +154,11 @@ export default struct IInkTablets extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
-        this.vtbl.get_DefaultTablet := CallbackCreate(GetMethod(implObj, "get_DefaultTablet"), flags, 2)
-        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 3)
-        this.vtbl.IsPacketPropertySupported := CallbackCreate(GetMethod(implObj, "IsPacketPropertySupported"), flags, 3)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get__NewEnum := CallbackCreate(ObjBindMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_DefaultTablet := CallbackCreate(ObjBindMethod(implObj, "get_DefaultTablet"), flags, 2)
+        this.vtbl.Item := CallbackCreate(ObjBindMethod(implObj, "Item"), flags, 3)
+        this.vtbl.IsPacketPropertySupported := CallbackCreate(ObjBindMethod(implObj, "IsPacketPropertySupported"), flags, 3)
     }
 
     Dispose() {

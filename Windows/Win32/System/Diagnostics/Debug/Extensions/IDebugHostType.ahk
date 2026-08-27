@@ -59,7 +59,6 @@ export default struct IDebugHostType extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @returns {TypeKind} 
      */
     GetTypeKind() {
@@ -68,7 +67,6 @@ export default struct IDebugHostType extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetSize() {
@@ -77,7 +75,6 @@ export default struct IDebugHostType extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @returns {IDebugHostType} 
      */
     GetBaseType() {
@@ -86,7 +83,6 @@ export default struct IDebugHostType extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetHashCode() {
@@ -95,35 +91,34 @@ export default struct IDebugHostType extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @param {Pointer<IntrinsicKind>} _intrinsicKind 
      * @param {Pointer<Integer>} carrierType 
      * @returns {HRESULT} 
      */
     GetIntrinsicType(_intrinsicKind, carrierType) {
-        _intrinsicKindMarshal := _intrinsicKind is VarRef ? "int*" : "ptr"
-        carrierTypeMarshal := carrierType is VarRef ? "ushort*" : "ptr"
+        _intrinsicKindMarshal := _intrinsicKind is VarRef ? "int*" : IntPtr
+        _intrinsicKindMarshal := _intrinsicKind == 0 ? IntPtr : "int*"
+        carrierTypeMarshal := carrierType is VarRef ? "ushort*" : IntPtr
+        carrierTypeMarshal := carrierType == 0 ? IntPtr : "ushort*"
 
         result := ComCall(14, this, _intrinsicKindMarshal, _intrinsicKind, carrierTypeMarshal, carrierType, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} lsbOfField 
      * @param {Pointer<Integer>} lengthOfField 
      * @returns {HRESULT} 
      */
     GetBitField(lsbOfField, lengthOfField) {
-        lsbOfFieldMarshal := lsbOfField is VarRef ? "uint*" : "ptr"
-        lengthOfFieldMarshal := lengthOfField is VarRef ? "uint*" : "ptr"
+        lsbOfFieldMarshal := lsbOfField is VarRef ? "uint*" : IntPtr
+        lengthOfFieldMarshal := lengthOfField is VarRef ? "uint*" : IntPtr
 
         result := ComCall(15, this, lsbOfFieldMarshal, lsbOfField, lengthOfFieldMarshal, lengthOfField, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {PointerKind} 
      */
     GetPointerKind() {
@@ -132,7 +127,6 @@ export default struct IDebugHostType extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @returns {IDebugHostType} 
      */
     GetMemberType() {
@@ -141,7 +135,6 @@ export default struct IDebugHostType extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @param {PointerKind} kind 
      * @returns {IDebugHostType} 
      */
@@ -151,7 +144,6 @@ export default struct IDebugHostType extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetArrayDimensionality() {
@@ -160,7 +152,6 @@ export default struct IDebugHostType extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @param {Integer} dimensions 
      * @returns {ArrayDimension} 
      */
@@ -171,7 +162,6 @@ export default struct IDebugHostType extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @param {Integer} dimensions 
      * @param {Pointer<ArrayDimension>} pDimensions 
      * @returns {IDebugHostType} 
@@ -182,7 +172,6 @@ export default struct IDebugHostType extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @returns {CallingConventionKind} 
      */
     GetFunctionCallingConvention() {
@@ -191,7 +180,6 @@ export default struct IDebugHostType extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @returns {IDebugHostType} 
      */
     GetFunctionReturnType() {
@@ -200,7 +188,6 @@ export default struct IDebugHostType extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetFunctionParameterTypeCount() {
@@ -209,7 +196,6 @@ export default struct IDebugHostType extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @param {Integer} i 
      * @returns {IDebugHostType} 
      */
@@ -219,7 +205,6 @@ export default struct IDebugHostType extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @returns {Boolean} 
      */
     IsGeneric() {
@@ -228,7 +213,6 @@ export default struct IDebugHostType extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetGenericArgumentCount() {
@@ -237,7 +221,6 @@ export default struct IDebugHostType extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @param {Integer} i 
      * @returns {IDebugHostSymbol} 
      */
@@ -255,25 +238,25 @@ export default struct IDebugHostType extends IDebugHostSymbol {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTypeKind := CallbackCreate(GetMethod(implObj, "GetTypeKind"), flags, 2)
-        this.vtbl.GetSize := CallbackCreate(GetMethod(implObj, "GetSize"), flags, 2)
-        this.vtbl.GetBaseType := CallbackCreate(GetMethod(implObj, "GetBaseType"), flags, 2)
-        this.vtbl.GetHashCode := CallbackCreate(GetMethod(implObj, "GetHashCode"), flags, 2)
-        this.vtbl.GetIntrinsicType := CallbackCreate(GetMethod(implObj, "GetIntrinsicType"), flags, 3)
-        this.vtbl.GetBitField := CallbackCreate(GetMethod(implObj, "GetBitField"), flags, 3)
-        this.vtbl.GetPointerKind := CallbackCreate(GetMethod(implObj, "GetPointerKind"), flags, 2)
-        this.vtbl.GetMemberType := CallbackCreate(GetMethod(implObj, "GetMemberType"), flags, 2)
-        this.vtbl.CreatePointerTo := CallbackCreate(GetMethod(implObj, "CreatePointerTo"), flags, 3)
-        this.vtbl.GetArrayDimensionality := CallbackCreate(GetMethod(implObj, "GetArrayDimensionality"), flags, 2)
-        this.vtbl.GetArrayDimensions := CallbackCreate(GetMethod(implObj, "GetArrayDimensions"), flags, 3)
-        this.vtbl.CreateArrayOf := CallbackCreate(GetMethod(implObj, "CreateArrayOf"), flags, 4)
-        this.vtbl.GetFunctionCallingConvention := CallbackCreate(GetMethod(implObj, "GetFunctionCallingConvention"), flags, 2)
-        this.vtbl.GetFunctionReturnType := CallbackCreate(GetMethod(implObj, "GetFunctionReturnType"), flags, 2)
-        this.vtbl.GetFunctionParameterTypeCount := CallbackCreate(GetMethod(implObj, "GetFunctionParameterTypeCount"), flags, 2)
-        this.vtbl.GetFunctionParameterTypeAt := CallbackCreate(GetMethod(implObj, "GetFunctionParameterTypeAt"), flags, 3)
-        this.vtbl.IsGeneric := CallbackCreate(GetMethod(implObj, "IsGeneric"), flags, 2)
-        this.vtbl.GetGenericArgumentCount := CallbackCreate(GetMethod(implObj, "GetGenericArgumentCount"), flags, 2)
-        this.vtbl.GetGenericArgumentAt := CallbackCreate(GetMethod(implObj, "GetGenericArgumentAt"), flags, 3)
+        this.vtbl.GetTypeKind := CallbackCreate(ObjBindMethod(implObj, "GetTypeKind"), flags, 2)
+        this.vtbl.GetSize := CallbackCreate(ObjBindMethod(implObj, "GetSize"), flags, 2)
+        this.vtbl.GetBaseType := CallbackCreate(ObjBindMethod(implObj, "GetBaseType"), flags, 2)
+        this.vtbl.GetHashCode := CallbackCreate(ObjBindMethod(implObj, "GetHashCode"), flags, 2)
+        this.vtbl.GetIntrinsicType := CallbackCreate(ObjBindMethod(implObj, "GetIntrinsicType"), flags, 3)
+        this.vtbl.GetBitField := CallbackCreate(ObjBindMethod(implObj, "GetBitField"), flags, 3)
+        this.vtbl.GetPointerKind := CallbackCreate(ObjBindMethod(implObj, "GetPointerKind"), flags, 2)
+        this.vtbl.GetMemberType := CallbackCreate(ObjBindMethod(implObj, "GetMemberType"), flags, 2)
+        this.vtbl.CreatePointerTo := CallbackCreate(ObjBindMethod(implObj, "CreatePointerTo"), flags, 3)
+        this.vtbl.GetArrayDimensionality := CallbackCreate(ObjBindMethod(implObj, "GetArrayDimensionality"), flags, 2)
+        this.vtbl.GetArrayDimensions := CallbackCreate(ObjBindMethod(implObj, "GetArrayDimensions"), flags, 3)
+        this.vtbl.CreateArrayOf := CallbackCreate(ObjBindMethod(implObj, "CreateArrayOf"), flags, 4)
+        this.vtbl.GetFunctionCallingConvention := CallbackCreate(ObjBindMethod(implObj, "GetFunctionCallingConvention"), flags, 2)
+        this.vtbl.GetFunctionReturnType := CallbackCreate(ObjBindMethod(implObj, "GetFunctionReturnType"), flags, 2)
+        this.vtbl.GetFunctionParameterTypeCount := CallbackCreate(ObjBindMethod(implObj, "GetFunctionParameterTypeCount"), flags, 2)
+        this.vtbl.GetFunctionParameterTypeAt := CallbackCreate(ObjBindMethod(implObj, "GetFunctionParameterTypeAt"), flags, 3)
+        this.vtbl.IsGeneric := CallbackCreate(ObjBindMethod(implObj, "IsGeneric"), flags, 2)
+        this.vtbl.GetGenericArgumentCount := CallbackCreate(ObjBindMethod(implObj, "GetGenericArgumentCount"), flags, 2)
+        this.vtbl.GetGenericArgumentAt := CallbackCreate(ObjBindMethod(implObj, "GetGenericArgumentAt"), flags, 3)
     }
 
     Dispose() {

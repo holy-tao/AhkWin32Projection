@@ -103,7 +103,9 @@ export default struct IInkDivider extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut15/nf-msinkaut15-iinkdivider-putref_strokes
      */
     putref_Strokes(Strokes) {
-        result := ComCall(8, this, "ptr", Strokes, "HRESULT")
+        StrokesMarshal := Strokes == 0 ? IntPtr : "ptr"
+
+        result := ComCall(8, this, StrokesMarshal, Strokes, "HRESULT")
         return result
     }
 
@@ -150,7 +152,9 @@ export default struct IInkDivider extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut15/nf-msinkaut15-iinkdivider-putref_recognizercontext
      */
     putref_RecognizerContext(RecognizerContext) {
-        result := ComCall(10, this, "ptr", RecognizerContext, "HRESULT")
+        RecognizerContextMarshal := RecognizerContext == 0 ? IntPtr : "ptr"
+
+        result := ComCall(10, this, RecognizerContextMarshal, RecognizerContext, "HRESULT")
         return result
     }
 
@@ -208,13 +212,13 @@ export default struct IInkDivider extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Strokes := CallbackCreate(GetMethod(implObj, "get_Strokes"), flags, 2)
-        this.vtbl.putref_Strokes := CallbackCreate(GetMethod(implObj, "putref_Strokes"), flags, 2)
-        this.vtbl.get_RecognizerContext := CallbackCreate(GetMethod(implObj, "get_RecognizerContext"), flags, 2)
-        this.vtbl.putref_RecognizerContext := CallbackCreate(GetMethod(implObj, "putref_RecognizerContext"), flags, 2)
-        this.vtbl.get_LineHeight := CallbackCreate(GetMethod(implObj, "get_LineHeight"), flags, 2)
-        this.vtbl.put_LineHeight := CallbackCreate(GetMethod(implObj, "put_LineHeight"), flags, 2)
-        this.vtbl.Divide := CallbackCreate(GetMethod(implObj, "Divide"), flags, 2)
+        this.vtbl.get_Strokes := CallbackCreate(ObjBindMethod(implObj, "get_Strokes"), flags, 2)
+        this.vtbl.putref_Strokes := CallbackCreate(ObjBindMethod(implObj, "putref_Strokes"), flags, 2)
+        this.vtbl.get_RecognizerContext := CallbackCreate(ObjBindMethod(implObj, "get_RecognizerContext"), flags, 2)
+        this.vtbl.putref_RecognizerContext := CallbackCreate(ObjBindMethod(implObj, "putref_RecognizerContext"), flags, 2)
+        this.vtbl.get_LineHeight := CallbackCreate(ObjBindMethod(implObj, "get_LineHeight"), flags, 2)
+        this.vtbl.put_LineHeight := CallbackCreate(ObjBindMethod(implObj, "put_LineHeight"), flags, 2)
+        this.vtbl.Divide := CallbackCreate(ObjBindMethod(implObj, "Divide"), flags, 2)
     }
 
     Dispose() {

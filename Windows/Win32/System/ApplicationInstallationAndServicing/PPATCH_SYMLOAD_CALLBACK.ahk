@@ -20,7 +20,6 @@ export default struct PPATCH_SYMLOAD_CALLBACK {
     }
 
     /**
-     * 
      * @param {Integer} WhichFile 
      * @param {PSTR} SymbolFileName 
      * @param {Integer} SymType 
@@ -34,7 +33,7 @@ export default struct PPATCH_SYMLOAD_CALLBACK {
     Call(WhichFile, SymbolFileName, SymType, SymbolFileCheckSum, SymbolFileTimeDate, ImageFileCheckSum, ImageFileTimeDate, CallbackContext) {
         SymbolFileName := SymbolFileName is String ? StrPtr(SymbolFileName) : SymbolFileName
 
-        CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
+        CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, UInt32, WhichFile, "ptr", SymbolFileName, UInt32, SymType, UInt32, SymbolFileCheckSum, UInt32, SymbolFileTimeDate, UInt32, ImageFileCheckSum, UInt32, ImageFileTimeDate, CallbackContextMarshal, CallbackContext, BOOL)
         return result

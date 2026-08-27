@@ -20,16 +20,16 @@ export default struct PIPFORWARD_CHANGE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} CallerContext 
      * @param {Pointer<MIB_IPFORWARD_ROW2>} Row 
      * @param {MIB_NOTIFICATION_TYPE} NotificationType 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(CallerContext, Row, NotificationType) {
-        CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
+        CallerContextMarshal := CallerContext is VarRef ? "ptr" : IntPtr
+        RowMarshal := Row == 0 ? IntPtr : MIB_IPFORWARD_ROW2.Ptr
 
-        DllCall(this.value, CallerContextMarshal, CallerContext, MIB_IPFORWARD_ROW2.Ptr, Row, MIB_NOTIFICATION_TYPE, NotificationType)
+        DllCall(this.value, CallerContextMarshal, CallerContext, RowMarshal, Row, MIB_NOTIFICATION_TYPE, NotificationType)
     }
 
     /**

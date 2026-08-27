@@ -144,7 +144,8 @@ export default struct IDXCoreAdapterFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapterfactory-registereventnotification
      */
     RegisterEventNotification(dxCoreObject, notificationType, callbackFunction, callbackContext) {
-        callbackContextMarshal := callbackContext is VarRef ? "ptr" : "ptr"
+        callbackContextMarshal := callbackContext is VarRef ? "ptr" : IntPtr
+        callbackContextMarshal := callbackContext == 0 ? IntPtr : "ptr"
 
         result := ComCall(6, this, "ptr", dxCoreObject, DXCoreNotificationType, notificationType, PFN_DXCORE_NOTIFICATION_CALLBACK, callbackFunction, callbackContextMarshal, callbackContext, "uint*", &eventCookie := 0, "HRESULT")
         return eventCookie
@@ -185,11 +186,11 @@ export default struct IDXCoreAdapterFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateAdapterList := CallbackCreate(GetMethod(implObj, "CreateAdapterList"), flags, 5)
-        this.vtbl.GetAdapterByLuid := CallbackCreate(GetMethod(implObj, "GetAdapterByLuid"), flags, 4)
-        this.vtbl.IsNotificationTypeSupported := CallbackCreate(GetMethod(implObj, "IsNotificationTypeSupported"), flags, 2)
-        this.vtbl.RegisterEventNotification := CallbackCreate(GetMethod(implObj, "RegisterEventNotification"), flags, 6)
-        this.vtbl.UnregisterEventNotification := CallbackCreate(GetMethod(implObj, "UnregisterEventNotification"), flags, 2)
+        this.vtbl.CreateAdapterList := CallbackCreate(ObjBindMethod(implObj, "CreateAdapterList"), flags, 5)
+        this.vtbl.GetAdapterByLuid := CallbackCreate(ObjBindMethod(implObj, "GetAdapterByLuid"), flags, 4)
+        this.vtbl.IsNotificationTypeSupported := CallbackCreate(ObjBindMethod(implObj, "IsNotificationTypeSupported"), flags, 2)
+        this.vtbl.RegisterEventNotification := CallbackCreate(ObjBindMethod(implObj, "RegisterEventNotification"), flags, 6)
+        this.vtbl.UnregisterEventNotification := CallbackCreate(ObjBindMethod(implObj, "UnregisterEventNotification"), flags, 2)
     }
 
     Dispose() {

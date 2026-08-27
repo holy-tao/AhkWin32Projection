@@ -39,7 +39,6 @@ export default struct IHTMLElementRender extends IUnknown {
     }
 
     /**
-     * 
      * @param {HDC} _hDC 
      * @returns {HRESULT} 
      */
@@ -49,7 +48,6 @@ export default struct IHTMLElementRender extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPrinterName 
      * @param {HDC} _hDC 
      * @returns {HRESULT} 
@@ -70,8 +68,8 @@ export default struct IHTMLElementRender extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DrawToDC := CallbackCreate(GetMethod(implObj, "DrawToDC"), flags, 2)
-        this.vtbl.SetDocumentPrinter := CallbackCreate(GetMethod(implObj, "SetDocumentPrinter"), flags, 3)
+        this.vtbl.DrawToDC := CallbackCreate(ObjBindMethod(implObj, "DrawToDC"), flags, 2)
+        this.vtbl.SetDocumentPrinter := CallbackCreate(ObjBindMethod(implObj, "SetDocumentPrinter"), flags, 3)
     }
 
     Dispose() {

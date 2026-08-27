@@ -55,7 +55,7 @@ export default struct IWMDRMTranscryptionManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateTranscryptor := CallbackCreate(GetMethod(implObj, "CreateTranscryptor"), flags, 2)
+        this.vtbl.CreateTranscryptor := CallbackCreate(ObjBindMethod(implObj, "CreateTranscryptor"), flags, 2)
     }
 
     Dispose() {

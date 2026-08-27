@@ -18,7 +18,6 @@ export default struct PRTL_GENERIC_ALLOCATE_ROUTINE {
     }
 
     /**
-     * 
      * @returns {Pointer<Void>} 
      */
     Call() {

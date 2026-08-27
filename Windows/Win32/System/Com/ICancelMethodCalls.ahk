@@ -128,8 +128,8 @@ export default struct ICancelMethodCalls extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 2)
-        this.vtbl.TestCancel := CallbackCreate(GetMethod(implObj, "TestCancel"), flags, 1)
+        this.vtbl.Cancel := CallbackCreate(ObjBindMethod(implObj, "Cancel"), flags, 2)
+        this.vtbl.TestCancel := CallbackCreate(ObjBindMethod(implObj, "TestCancel"), flags, 1)
     }
 
     Dispose() {

@@ -18,7 +18,6 @@ export default struct VBS_BASIC_ENCLAVE_BASIC_CALL_VERIFY_REPORT {
     }
 
     /**
-     * 
      * @param {Integer} Report 
      * @param {Integer} ReportSize 
      * @returns {Integer} 

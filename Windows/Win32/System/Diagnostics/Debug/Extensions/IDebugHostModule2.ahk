@@ -37,14 +37,13 @@ export default struct IDebugHostModule2 extends IDebugHostModule {
     }
 
     /**
-     * 
      * @param {Integer} rva 
      * @param {Pointer<IDebugHostSymbol>} symbol 
      * @param {Pointer<Integer>} offset 
      * @returns {HRESULT} 
      */
     FindContainingSymbolByRVA(rva, symbol, offset) {
-        offsetMarshal := offset is VarRef ? "uint*" : "ptr"
+        offsetMarshal := offset is VarRef ? "uint*" : IntPtr
 
         result := ComCall(16, this, Int64, rva, IDebugHostSymbol.Ptr, symbol, offsetMarshal, offset, "HRESULT")
         return result
@@ -59,7 +58,7 @@ export default struct IDebugHostModule2 extends IDebugHostModule {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FindContainingSymbolByRVA := CallbackCreate(GetMethod(implObj, "FindContainingSymbolByRVA"), flags, 4)
+        this.vtbl.FindContainingSymbolByRVA := CallbackCreate(ObjBindMethod(implObj, "FindContainingSymbolByRVA"), flags, 4)
     }
 
     Dispose() {

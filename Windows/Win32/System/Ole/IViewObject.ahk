@@ -156,9 +156,14 @@ export default struct IViewObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iviewobject-draw
      */
     Draw(dwDrawAspect, lindex, pvAspect, ptd, hdcTargetDev, hdcDraw, lprcBounds, lprcWBounds, pfnContinue, dwContinue) {
-        pvAspectMarshal := pvAspect is VarRef ? "ptr" : "ptr"
+        pvAspectMarshal := pvAspect is VarRef ? "ptr" : IntPtr
+        ptdMarshal := ptd == 0 ? IntPtr : DVTARGETDEVICE.Ptr
+        hdcTargetDevMarshal := hdcTargetDev == 0 ? IntPtr : HDC
+        lprcBoundsMarshal := lprcBounds == 0 ? IntPtr : RECTL.Ptr
+        lprcWBoundsMarshal := lprcWBounds == 0 ? IntPtr : RECTL.Ptr
+        pfnContinueMarshal := pfnContinue == 0 ? IntPtr : IntPtr
 
-        result := ComCall(3, this, DVASPECT, dwDrawAspect, Int32, lindex, pvAspectMarshal, pvAspect, DVTARGETDEVICE.Ptr, ptd, HDC, hdcTargetDev, HDC, hdcDraw, RECTL.Ptr, lprcBounds, RECTL.Ptr, lprcWBounds, IntPtr, pfnContinue, IntPtr, dwContinue, "HRESULT")
+        result := ComCall(3, this, DVASPECT, dwDrawAspect, Int32, lindex, pvAspectMarshal, pvAspect, ptdMarshal, ptd, hdcTargetDevMarshal, hdcTargetDev, HDC, hdcDraw, lprcBoundsMarshal, lprcBounds, lprcWBoundsMarshal, lprcWBounds, pfnContinueMarshal, pfnContinue, IntPtr, dwContinue, "HRESULT")
         return result
     }
 
@@ -177,9 +182,11 @@ export default struct IViewObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iviewobject-getcolorset
      */
     GetColorSet(dwDrawAspect, lindex, pvAspect, ptd, hicTargetDev) {
-        pvAspectMarshal := pvAspect is VarRef ? "ptr" : "ptr"
+        pvAspectMarshal := pvAspect is VarRef ? "ptr" : IntPtr
+        ptdMarshal := ptd == 0 ? IntPtr : DVTARGETDEVICE.Ptr
+        hicTargetDevMarshal := hicTargetDev == 0 ? IntPtr : HDC
 
-        result := ComCall(4, this, DVASPECT, dwDrawAspect, Int32, lindex, pvAspectMarshal, pvAspect, DVTARGETDEVICE.Ptr, ptd, HDC, hicTargetDev, "ptr*", &ppColorSet := 0, "HRESULT")
+        result := ComCall(4, this, DVASPECT, dwDrawAspect, Int32, lindex, pvAspectMarshal, pvAspect, ptdMarshal, ptd, hicTargetDevMarshal, hicTargetDev, "ptr*", &ppColorSet := 0, "HRESULT")
         return ppColorSet
     }
 
@@ -200,7 +207,7 @@ export default struct IViewObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iviewobject-freeze
      */
     Freeze(dwDrawAspect, lindex, pvAspect) {
-        pvAspectMarshal := pvAspect is VarRef ? "ptr" : "ptr"
+        pvAspectMarshal := pvAspect is VarRef ? "ptr" : IntPtr
 
         result := ComCall(5, this, DVASPECT, dwDrawAspect, Int32, lindex, pvAspectMarshal, pvAspect, "uint*", &pdwFreeze := 0, "HRESULT")
         return pdwFreeze
@@ -347,8 +354,10 @@ export default struct IViewObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iviewobject-getadvise
      */
     GetAdvise(pAspects, pAdvf, ppAdvSink) {
-        pAspectsMarshal := pAspects is VarRef ? "uint*" : "ptr"
-        pAdvfMarshal := pAdvf is VarRef ? "uint*" : "ptr"
+        pAspectsMarshal := pAspects is VarRef ? "uint*" : IntPtr
+        pAspectsMarshal := pAspects == 0 ? IntPtr : "uint*"
+        pAdvfMarshal := pAdvf is VarRef ? "uint*" : IntPtr
+        pAdvfMarshal := pAdvf == 0 ? IntPtr : "uint*"
 
         result := ComCall(8, this, pAspectsMarshal, pAspects, pAdvfMarshal, pAdvf, IAdviseSink.Ptr, ppAdvSink, "HRESULT")
         return result
@@ -363,12 +372,12 @@ export default struct IViewObject extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Draw := CallbackCreate(GetMethod(implObj, "Draw"), flags, 11)
-        this.vtbl.GetColorSet := CallbackCreate(GetMethod(implObj, "GetColorSet"), flags, 7)
-        this.vtbl.Freeze := CallbackCreate(GetMethod(implObj, "Freeze"), flags, 5)
-        this.vtbl.Unfreeze := CallbackCreate(GetMethod(implObj, "Unfreeze"), flags, 2)
-        this.vtbl.SetAdvise := CallbackCreate(GetMethod(implObj, "SetAdvise"), flags, 4)
-        this.vtbl.GetAdvise := CallbackCreate(GetMethod(implObj, "GetAdvise"), flags, 4)
+        this.vtbl.Draw := CallbackCreate(ObjBindMethod(implObj, "Draw"), flags, 11)
+        this.vtbl.GetColorSet := CallbackCreate(ObjBindMethod(implObj, "GetColorSet"), flags, 7)
+        this.vtbl.Freeze := CallbackCreate(ObjBindMethod(implObj, "Freeze"), flags, 5)
+        this.vtbl.Unfreeze := CallbackCreate(ObjBindMethod(implObj, "Unfreeze"), flags, 2)
+        this.vtbl.SetAdvise := CallbackCreate(ObjBindMethod(implObj, "SetAdvise"), flags, 4)
+        this.vtbl.GetAdvise := CallbackCreate(ObjBindMethod(implObj, "GetAdvise"), flags, 4)
     }
 
     Dispose() {

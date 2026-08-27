@@ -55,7 +55,6 @@ export default struct ID3D11VideoDevice2 extends ID3D11VideoDevice1 {
     }
 
     /**
-     * 
      * @param {ID3D11CryptoSession} pCryptoSession 
      * @param {D3D11_CRYPTO_SESSION_KEY_EXCHANGE_FLAGS} flags 
      * @param {Integer} DataSize 
@@ -76,8 +75,8 @@ export default struct ID3D11VideoDevice2 extends ID3D11VideoDevice1 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CheckFeatureSupport := CallbackCreate(GetMethod(implObj, "CheckFeatureSupport"), flags, 4)
-        this.vtbl.NegotiateCryptoSessionKeyExchangeMT := CallbackCreate(GetMethod(implObj, "NegotiateCryptoSessionKeyExchangeMT"), flags, 5)
+        this.vtbl.CheckFeatureSupport := CallbackCreate(ObjBindMethod(implObj, "CheckFeatureSupport"), flags, 4)
+        this.vtbl.NegotiateCryptoSessionKeyExchangeMT := CallbackCreate(ObjBindMethod(implObj, "NegotiateCryptoSessionKeyExchangeMT"), flags, 5)
     }
 
     Dispose() {

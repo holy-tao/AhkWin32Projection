@@ -21,7 +21,6 @@ export default struct SET_CREDENTIALS_ATTRIBUTES_FN_W {
     }
 
     /**
-     * 
      * @param {Pointer<SecHandle>} param0 
      * @param {Integer} param1 
      * @param {Pointer<Void>} param2 
@@ -29,7 +28,7 @@ export default struct SET_CREDENTIALS_ATTRIBUTES_FN_W {
      * @returns {HRESULT} 
      */
     Call(param0, param1, param2, param3) {
-        param2Marshal := param2 is VarRef ? "ptr" : "ptr"
+        param2Marshal := param2 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, SecHandle.Ptr, param0, UInt32, param1, param2Marshal, param2, UInt32, param3, "HRESULT")
         return result

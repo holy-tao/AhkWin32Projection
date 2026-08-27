@@ -164,9 +164,9 @@ export default struct ITfSpeechUIServer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 1)
-        this.vtbl.ShowUI := CallbackCreate(GetMethod(implObj, "ShowUI"), flags, 2)
-        this.vtbl.UpdateBalloon := CallbackCreate(GetMethod(implObj, "UpdateBalloon"), flags, 4)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 1)
+        this.vtbl.ShowUI := CallbackCreate(ObjBindMethod(implObj, "ShowUI"), flags, 2)
+        this.vtbl.UpdateBalloon := CallbackCreate(ObjBindMethod(implObj, "UpdateBalloon"), flags, 4)
     }
 
     Dispose() {

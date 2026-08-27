@@ -92,8 +92,8 @@ export default struct IInspectable extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/inspectable/nf-inspectable-iinspectable-getiids
      */
     GetIids(iidCount, iids) {
-        iidCountMarshal := iidCount is VarRef ? "uint*" : "ptr"
-        iidsMarshal := iids is VarRef ? "ptr*" : "ptr"
+        iidCountMarshal := iidCount is VarRef ? "uint*" : IntPtr
+        iidsMarshal := iids is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, iidCountMarshal, iidCount, iidsMarshal, iids, "HRESULT")
         return result
@@ -170,9 +170,9 @@ export default struct IInspectable extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetIids := CallbackCreate(GetMethod(implObj, "GetIids"), flags, 3)
-        this.vtbl.GetRuntimeClassName := CallbackCreate(GetMethod(implObj, "GetRuntimeClassName"), flags, 2)
-        this.vtbl.GetTrustLevel := CallbackCreate(GetMethod(implObj, "GetTrustLevel"), flags, 2)
+        this.vtbl.GetIids := CallbackCreate(ObjBindMethod(implObj, "GetIids"), flags, 3)
+        this.vtbl.GetRuntimeClassName := CallbackCreate(ObjBindMethod(implObj, "GetRuntimeClassName"), flags, 2)
+        this.vtbl.GetTrustLevel := CallbackCreate(ObjBindMethod(implObj, "GetTrustLevel"), flags, 2)
     }
 
     Dispose() {

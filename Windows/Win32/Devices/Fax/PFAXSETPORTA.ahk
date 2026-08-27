@@ -22,7 +22,6 @@ export default struct PFAXSETPORTA {
     }
 
     /**
-     * 
      * @param {HANDLE} FaxPortHandle 
      * @param {Pointer<FAX_PORT_INFOA>} PortInfo 
      * @returns {BOOL} 

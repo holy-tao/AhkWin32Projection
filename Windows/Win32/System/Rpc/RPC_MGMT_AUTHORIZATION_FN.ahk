@@ -23,7 +23,6 @@ export default struct RPC_MGMT_AUTHORIZATION_FN {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} ClientBinding Client/server binding handle.
      * @param {Integer} RequestedMgmtOperation The value for <i>RequestedMgmtOperation</i> depends on the remote function requested, as shown in the following table. 
      * 
@@ -92,8 +91,8 @@ export default struct RPC_MGMT_AUTHORIZATION_FN {
      * @returns {Integer} Returns <b>TRUE</b> if the calling client is allowed access to the requested management function. If the authorization function returns <b>FALSE</b>, the management function cannot execute. In this case, the function returns a <i>Status</i> value to the client:
      */
     Call(ClientBinding, RequestedMgmtOperation, _Status) {
-        ClientBindingMarshal := ClientBinding is VarRef ? "ptr" : "ptr"
-        _StatusMarshal := _Status is VarRef ? "int*" : "ptr"
+        ClientBindingMarshal := ClientBinding is VarRef ? "ptr" : IntPtr
+        _StatusMarshal := _Status is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, ClientBindingMarshal, ClientBinding, UInt32, RequestedMgmtOperation, _StatusMarshal, _Status, Int32)
         return result

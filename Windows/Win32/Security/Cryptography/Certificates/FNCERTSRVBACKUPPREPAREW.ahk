@@ -20,7 +20,6 @@ export default struct FNCERTSRVBACKUPPREPAREW {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszServerName 
      * @param {Integer} grbitJet 
      * @param {Integer} dwBackupFlags 
@@ -30,7 +29,7 @@ export default struct FNCERTSRVBACKUPPREPAREW {
     Call(pwszServerName, grbitJet, dwBackupFlags, phbc) {
         pwszServerName := pwszServerName is String ? StrPtr(pwszServerName) : pwszServerName
 
-        phbcMarshal := phbc is VarRef ? "ptr*" : "ptr"
+        phbcMarshal := phbc is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, "ptr", pwszServerName, UInt32, grbitJet, UInt32, dwBackupFlags, phbcMarshal, phbc, "HRESULT")
         return result

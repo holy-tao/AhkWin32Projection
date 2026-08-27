@@ -68,8 +68,8 @@ export default struct IMFSourceBufferList extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 1)
-        this.vtbl.GetSourceBuffer := CallbackCreate(GetMethod(implObj, "GetSourceBuffer"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 1)
+        this.vtbl.GetSourceBuffer := CallbackCreate(ObjBindMethod(implObj, "GetSourceBuffer"), flags, 2)
     }
 
     Dispose() {

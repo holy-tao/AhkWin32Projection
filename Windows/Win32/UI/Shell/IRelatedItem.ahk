@@ -77,8 +77,8 @@ export default struct IRelatedItem extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetItemIDList := CallbackCreate(GetMethod(implObj, "GetItemIDList"), flags, 2)
-        this.vtbl.GetItem := CallbackCreate(GetMethod(implObj, "GetItem"), flags, 2)
+        this.vtbl.GetItemIDList := CallbackCreate(ObjBindMethod(implObj, "GetItemIDList"), flags, 2)
+        this.vtbl.GetItem := CallbackCreate(ObjBindMethod(implObj, "GetItem"), flags, 2)
     }
 
     Dispose() {

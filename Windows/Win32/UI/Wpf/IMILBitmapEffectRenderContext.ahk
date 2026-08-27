@@ -152,8 +152,8 @@ export default struct IMILBitmapEffectRenderContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectrendercontext-getoutputdpi
      */
     GetOutputDPI(pdblDpiX, pdblDpiY) {
-        pdblDpiXMarshal := pdblDpiX is VarRef ? "double*" : "ptr"
-        pdblDpiYMarshal := pdblDpiY is VarRef ? "double*" : "ptr"
+        pdblDpiXMarshal := pdblDpiX is VarRef ? "double*" : IntPtr
+        pdblDpiYMarshal := pdblDpiY is VarRef ? "double*" : IntPtr
 
         result := ComCall(9, this, pdblDpiXMarshal, pdblDpiX, pdblDpiYMarshal, pdblDpiY, "HRESULT")
         return result
@@ -183,14 +183,14 @@ export default struct IMILBitmapEffectRenderContext extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetOutputPixelFormat := CallbackCreate(GetMethod(implObj, "SetOutputPixelFormat"), flags, 2)
-        this.vtbl.GetOutputPixelFormat := CallbackCreate(GetMethod(implObj, "GetOutputPixelFormat"), flags, 2)
-        this.vtbl.SetUseSoftwareRenderer := CallbackCreate(GetMethod(implObj, "SetUseSoftwareRenderer"), flags, 2)
-        this.vtbl.SetInitialTransform := CallbackCreate(GetMethod(implObj, "SetInitialTransform"), flags, 2)
-        this.vtbl.GetFinalTransform := CallbackCreate(GetMethod(implObj, "GetFinalTransform"), flags, 2)
-        this.vtbl.SetOutputDPI := CallbackCreate(GetMethod(implObj, "SetOutputDPI"), flags, 3)
-        this.vtbl.GetOutputDPI := CallbackCreate(GetMethod(implObj, "GetOutputDPI"), flags, 3)
-        this.vtbl.SetRegionOfInterest := CallbackCreate(GetMethod(implObj, "SetRegionOfInterest"), flags, 2)
+        this.vtbl.SetOutputPixelFormat := CallbackCreate(ObjBindMethod(implObj, "SetOutputPixelFormat"), flags, 2)
+        this.vtbl.GetOutputPixelFormat := CallbackCreate(ObjBindMethod(implObj, "GetOutputPixelFormat"), flags, 2)
+        this.vtbl.SetUseSoftwareRenderer := CallbackCreate(ObjBindMethod(implObj, "SetUseSoftwareRenderer"), flags, 2)
+        this.vtbl.SetInitialTransform := CallbackCreate(ObjBindMethod(implObj, "SetInitialTransform"), flags, 2)
+        this.vtbl.GetFinalTransform := CallbackCreate(ObjBindMethod(implObj, "GetFinalTransform"), flags, 2)
+        this.vtbl.SetOutputDPI := CallbackCreate(ObjBindMethod(implObj, "SetOutputDPI"), flags, 3)
+        this.vtbl.GetOutputDPI := CallbackCreate(ObjBindMethod(implObj, "GetOutputDPI"), flags, 3)
+        this.vtbl.SetRegionOfInterest := CallbackCreate(ObjBindMethod(implObj, "SetRegionOfInterest"), flags, 2)
     }
 
     Dispose() {

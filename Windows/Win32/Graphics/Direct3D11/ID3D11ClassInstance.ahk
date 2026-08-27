@@ -120,9 +120,10 @@ export default struct ID3D11ClassInstance extends ID3D11DeviceChild {
     GetInstanceName(pInstanceName, pBufferLength) {
         pInstanceName := pInstanceName is String ? StrPtr(pInstanceName) : pInstanceName
 
-        pBufferLengthMarshal := pBufferLength is VarRef ? "ptr*" : "ptr"
+        pInstanceNameMarshal := pInstanceName == 0 ? IntPtr : PSTR
+        pBufferLengthMarshal := pBufferLength is VarRef ? "ptr*" : IntPtr
 
-        ComCall(9, this, "ptr", pInstanceName, pBufferLengthMarshal, pBufferLength)
+        ComCall(9, this, pInstanceNameMarshal, pInstanceName, pBufferLengthMarshal, pBufferLength)
     }
 
     /**
@@ -148,9 +149,10 @@ export default struct ID3D11ClassInstance extends ID3D11DeviceChild {
     GetTypeName(pTypeName, pBufferLength) {
         pTypeName := pTypeName is String ? StrPtr(pTypeName) : pTypeName
 
-        pBufferLengthMarshal := pBufferLength is VarRef ? "ptr*" : "ptr"
+        pTypeNameMarshal := pTypeName == 0 ? IntPtr : PSTR
+        pBufferLengthMarshal := pBufferLength is VarRef ? "ptr*" : IntPtr
 
-        ComCall(10, this, "ptr", pTypeName, pBufferLengthMarshal, pBufferLength)
+        ComCall(10, this, pTypeNameMarshal, pTypeName, pBufferLengthMarshal, pBufferLength)
     }
 
     _Query(iid) {
@@ -162,10 +164,10 @@ export default struct ID3D11ClassInstance extends ID3D11DeviceChild {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetClassLinkage := CallbackCreate(GetMethod(implObj, "GetClassLinkage"), flags, 2)
-        this.vtbl.GetDesc := CallbackCreate(GetMethod(implObj, "GetDesc"), flags, 2)
-        this.vtbl.GetInstanceName := CallbackCreate(GetMethod(implObj, "GetInstanceName"), flags, 3)
-        this.vtbl.GetTypeName := CallbackCreate(GetMethod(implObj, "GetTypeName"), flags, 3)
+        this.vtbl.GetClassLinkage := CallbackCreate(ObjBindMethod(implObj, "GetClassLinkage"), flags, 2)
+        this.vtbl.GetDesc := CallbackCreate(ObjBindMethod(implObj, "GetDesc"), flags, 2)
+        this.vtbl.GetInstanceName := CallbackCreate(ObjBindMethod(implObj, "GetInstanceName"), flags, 3)
+        this.vtbl.GetTypeName := CallbackCreate(ObjBindMethod(implObj, "GetTypeName"), flags, 3)
     }
 
     Dispose() {

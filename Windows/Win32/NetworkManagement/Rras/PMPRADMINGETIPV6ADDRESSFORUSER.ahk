@@ -21,7 +21,6 @@ export default struct PMPRADMINGETIPV6ADDRESSFORUSER {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @param {PWSTR} param1 
      * @param {Pointer<IN6_ADDR>} param2 
@@ -32,7 +31,7 @@ export default struct PMPRADMINGETIPV6ADDRESSFORUSER {
         param0 := param0 is String ? StrPtr(param0) : param0
         param1 := param1 is String ? StrPtr(param1) : param1
 
-        param3Marshal := param3 is VarRef ? "int*" : "ptr"
+        param3Marshal := param3 is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, "ptr", param0, "ptr", param1, IN6_ADDR.Ptr, param2, param3Marshal, param3, UInt32)
         return result

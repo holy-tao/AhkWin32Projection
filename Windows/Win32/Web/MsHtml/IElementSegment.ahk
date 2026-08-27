@@ -40,7 +40,6 @@ export default struct IElementSegment extends ISegment {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     GetElement() {
@@ -49,7 +48,6 @@ export default struct IElementSegment extends ISegment {
     }
 
     /**
-     * 
      * @param {BOOL} fPrimary 
      * @returns {HRESULT} 
      */
@@ -59,7 +57,6 @@ export default struct IElementSegment extends ISegment {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsPrimary() {
@@ -76,9 +73,9 @@ export default struct IElementSegment extends ISegment {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetElement := CallbackCreate(GetMethod(implObj, "GetElement"), flags, 2)
-        this.vtbl.SetPrimary := CallbackCreate(GetMethod(implObj, "SetPrimary"), flags, 2)
-        this.vtbl.IsPrimary := CallbackCreate(GetMethod(implObj, "IsPrimary"), flags, 2)
+        this.vtbl.GetElement := CallbackCreate(ObjBindMethod(implObj, "GetElement"), flags, 2)
+        this.vtbl.SetPrimary := CallbackCreate(ObjBindMethod(implObj, "SetPrimary"), flags, 2)
+        this.vtbl.IsPrimary := CallbackCreate(ObjBindMethod(implObj, "IsPrimary"), flags, 2)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct PSHED_PI_RETRIEVE_ERROR_INFO {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} PluginContext 
      * @param {Pointer<WHEA_ERROR_SOURCE_DESCRIPTOR>} ErrorSource 
      * @param {Integer} BufferLength 
@@ -28,7 +27,8 @@ export default struct PSHED_PI_RETRIEVE_ERROR_INFO {
      * @returns {NTSTATUS} 
      */
     Call(PluginContext, ErrorSource, BufferLength, Packet) {
-        PluginContextMarshal := PluginContext is VarRef ? "ptr" : "ptr"
+        PluginContextMarshal := PluginContext is VarRef ? "ptr" : IntPtr
+        PluginContextMarshal := PluginContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, PluginContextMarshal, PluginContext, WHEA_ERROR_SOURCE_DESCRIPTOR.Ptr, ErrorSource, Int64, BufferLength, IntPtr, Packet, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

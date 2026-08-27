@@ -22,7 +22,6 @@ export default struct LPWPUPOSTMESSAGE {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {Integer} _Msg 
      * @param {WPARAM} _wParam 

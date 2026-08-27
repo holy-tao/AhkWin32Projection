@@ -93,7 +93,7 @@ export default struct IWMInputMediaProps extends IWMMediaProps {
     GetConnectionName(pwszName, pcchName) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        pcchNameMarshal := pcchName is VarRef ? "ushort*" : "ptr"
+        pcchNameMarshal := pcchName is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(6, this, "ptr", pwszName, pcchNameMarshal, pcchName, "HRESULT")
         return result
@@ -149,7 +149,7 @@ export default struct IWMInputMediaProps extends IWMMediaProps {
     GetGroupName(pwszName, pcchName) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        pcchNameMarshal := pcchName is VarRef ? "ushort*" : "ptr"
+        pcchNameMarshal := pcchName is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(7, this, "ptr", pwszName, pcchNameMarshal, pcchName, "HRESULT")
         return result
@@ -164,8 +164,8 @@ export default struct IWMInputMediaProps extends IWMMediaProps {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetConnectionName := CallbackCreate(GetMethod(implObj, "GetConnectionName"), flags, 3)
-        this.vtbl.GetGroupName := CallbackCreate(GetMethod(implObj, "GetGroupName"), flags, 3)
+        this.vtbl.GetConnectionName := CallbackCreate(ObjBindMethod(implObj, "GetConnectionName"), flags, 3)
+        this.vtbl.GetGroupName := CallbackCreate(ObjBindMethod(implObj, "GetGroupName"), flags, 3)
     }
 
     Dispose() {

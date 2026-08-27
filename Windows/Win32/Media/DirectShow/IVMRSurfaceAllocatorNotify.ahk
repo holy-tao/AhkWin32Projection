@@ -135,12 +135,12 @@ export default struct IVMRSurfaceAllocatorNotify extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AdviseSurfaceAllocator := CallbackCreate(GetMethod(implObj, "AdviseSurfaceAllocator"), flags, 3)
-        this.vtbl.SetDDrawDevice := CallbackCreate(GetMethod(implObj, "SetDDrawDevice"), flags, 3)
-        this.vtbl.ChangeDDrawDevice := CallbackCreate(GetMethod(implObj, "ChangeDDrawDevice"), flags, 3)
-        this.vtbl.RestoreDDrawSurfaces := CallbackCreate(GetMethod(implObj, "RestoreDDrawSurfaces"), flags, 1)
-        this.vtbl.NotifyEvent := CallbackCreate(GetMethod(implObj, "NotifyEvent"), flags, 4)
-        this.vtbl.SetBorderColor := CallbackCreate(GetMethod(implObj, "SetBorderColor"), flags, 2)
+        this.vtbl.AdviseSurfaceAllocator := CallbackCreate(ObjBindMethod(implObj, "AdviseSurfaceAllocator"), flags, 3)
+        this.vtbl.SetDDrawDevice := CallbackCreate(ObjBindMethod(implObj, "SetDDrawDevice"), flags, 3)
+        this.vtbl.ChangeDDrawDevice := CallbackCreate(ObjBindMethod(implObj, "ChangeDDrawDevice"), flags, 3)
+        this.vtbl.RestoreDDrawSurfaces := CallbackCreate(ObjBindMethod(implObj, "RestoreDDrawSurfaces"), flags, 1)
+        this.vtbl.NotifyEvent := CallbackCreate(ObjBindMethod(implObj, "NotifyEvent"), flags, 4)
+        this.vtbl.SetBorderColor := CallbackCreate(ObjBindMethod(implObj, "SetBorderColor"), flags, 2)
     }
 
     Dispose() {

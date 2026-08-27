@@ -53,7 +53,6 @@ export default struct ISchemaAttributeGroup extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {ISchemaAny} 
      */
     get_anyAttribute() {
@@ -62,7 +61,6 @@ export default struct ISchemaAttributeGroup extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {ISchemaItemCollection} 
      */
     get_attributes() {
@@ -79,8 +77,8 @@ export default struct ISchemaAttributeGroup extends ISchemaItem {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_anyAttribute := CallbackCreate(GetMethod(implObj, "get_anyAttribute"), flags, 2)
-        this.vtbl.get_attributes := CallbackCreate(GetMethod(implObj, "get_attributes"), flags, 2)
+        this.vtbl.get_anyAttribute := CallbackCreate(ObjBindMethod(implObj, "get_anyAttribute"), flags, 2)
+        this.vtbl.get_attributes := CallbackCreate(ObjBindMethod(implObj, "get_attributes"), flags, 2)
     }
 
     Dispose() {

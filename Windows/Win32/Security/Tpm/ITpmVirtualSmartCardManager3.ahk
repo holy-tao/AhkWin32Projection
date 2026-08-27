@@ -40,7 +40,6 @@ export default struct ITpmVirtualSmartCardManager3 extends ITpmVirtualSmartCardM
     }
 
     /**
-     * 
      * @param {PWSTR} pszFriendlyName 
      * @param {Integer} bAdminAlgId 
      * @param {Pointer<Integer>} pbAdminKey 
@@ -61,11 +60,11 @@ export default struct ITpmVirtualSmartCardManager3 extends ITpmVirtualSmartCardM
     CreateVirtualSmartCardWithAttestation(pszFriendlyName, bAdminAlgId, pbAdminKey, cbAdminKey, pbAdminKcv, cbAdminKcv, pbPuk, cbPuk, pbPin, cbPin, pbPinPolicy, cbPinPolicy, attestationType, fGenerate, pStatusCallback) {
         pszFriendlyName := pszFriendlyName is String ? StrPtr(pszFriendlyName) : pszFriendlyName
 
-        pbAdminKeyMarshal := pbAdminKey is VarRef ? "char*" : "ptr"
-        pbAdminKcvMarshal := pbAdminKcv is VarRef ? "char*" : "ptr"
-        pbPukMarshal := pbPuk is VarRef ? "char*" : "ptr"
-        pbPinMarshal := pbPin is VarRef ? "char*" : "ptr"
-        pbPinPolicyMarshal := pbPinPolicy is VarRef ? "char*" : "ptr"
+        pbAdminKeyMarshal := pbAdminKey is VarRef ? "char*" : IntPtr
+        pbAdminKcvMarshal := pbAdminKcv is VarRef ? "char*" : IntPtr
+        pbPukMarshal := pbPuk is VarRef ? "char*" : IntPtr
+        pbPinMarshal := pbPin is VarRef ? "char*" : IntPtr
+        pbPinPolicyMarshal := pbPinPolicy is VarRef ? "char*" : IntPtr
 
         result := ComCall(6, this, "ptr", pszFriendlyName, Int8, bAdminAlgId, pbAdminKeyMarshal, pbAdminKey, UInt32, cbAdminKey, pbAdminKcvMarshal, pbAdminKcv, UInt32, cbAdminKcv, pbPukMarshal, pbPuk, UInt32, cbPuk, pbPinMarshal, pbPin, UInt32, cbPin, pbPinPolicyMarshal, pbPinPolicy, UInt32, cbPinPolicy, TPMVSC_ATTESTATION_TYPE, attestationType, BOOL, fGenerate, "ptr", pStatusCallback, PWSTR.Ptr, &ppszInstanceId := 0, "HRESULT")
         return ppszInstanceId
@@ -80,7 +79,7 @@ export default struct ITpmVirtualSmartCardManager3 extends ITpmVirtualSmartCardM
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateVirtualSmartCardWithAttestation := CallbackCreate(GetMethod(implObj, "CreateVirtualSmartCardWithAttestation"), flags, 17)
+        this.vtbl.CreateVirtualSmartCardWithAttestation := CallbackCreate(ObjBindMethod(implObj, "CreateVirtualSmartCardWithAttestation"), flags, 17)
     }
 
     Dispose() {

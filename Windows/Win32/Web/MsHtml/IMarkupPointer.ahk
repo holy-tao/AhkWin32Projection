@@ -65,7 +65,6 @@ export default struct IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IHTMLDocument2} 
      */
     OwningDoc() {
@@ -74,7 +73,6 @@ export default struct IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {POINTER_GRAVITY} 
      */
     Gravity() {
@@ -83,7 +81,6 @@ export default struct IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {POINTER_GRAVITY} Gravity 
      * @returns {HRESULT} 
      */
@@ -93,7 +90,6 @@ export default struct IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     Cling() {
@@ -102,7 +98,6 @@ export default struct IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fCLing 
      * @returns {HRESULT} 
      */
@@ -112,7 +107,6 @@ export default struct IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Unposition() {
@@ -121,7 +115,6 @@ export default struct IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsPositioned() {
@@ -130,7 +123,6 @@ export default struct IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IMarkupContainer} 
      */
     GetContainer() {
@@ -139,7 +131,6 @@ export default struct IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHTMLElement} pElement 
      * @param {ELEMENT_ADJACENCY} eAdj 
      * @returns {HRESULT} 
@@ -150,7 +141,6 @@ export default struct IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pPointer 
      * @returns {HRESULT} 
      */
@@ -160,7 +150,6 @@ export default struct IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupContainer} pContainer 
      * @param {BOOL} fAtStart 
      * @returns {HRESULT} 
@@ -171,7 +160,6 @@ export default struct IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fMove 
      * @param {Pointer<MARKUP_CONTEXT_TYPE>} pContext 
      * @param {Pointer<IHTMLElement>} ppElement 
@@ -182,15 +170,14 @@ export default struct IMarkupPointer extends IUnknown {
     Left(fMove, pContext, ppElement, pcch, pchText) {
         pchText := pchText is String ? StrPtr(pchText) : pchText
 
-        pContextMarshal := pContext is VarRef ? "int*" : "ptr"
-        pcchMarshal := pcch is VarRef ? "int*" : "ptr"
+        pContextMarshal := pContext is VarRef ? "int*" : IntPtr
+        pcchMarshal := pcch is VarRef ? "int*" : IntPtr
 
         result := ComCall(14, this, BOOL, fMove, pContextMarshal, pContext, IHTMLElement.Ptr, ppElement, pcchMarshal, pcch, "ptr", pchText, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {BOOL} fMove 
      * @param {Pointer<MARKUP_CONTEXT_TYPE>} pContext 
      * @param {Pointer<IHTMLElement>} ppElement 
@@ -201,15 +188,14 @@ export default struct IMarkupPointer extends IUnknown {
     Right(fMove, pContext, ppElement, pcch, pchText) {
         pchText := pchText is String ? StrPtr(pchText) : pchText
 
-        pContextMarshal := pContext is VarRef ? "int*" : "ptr"
-        pcchMarshal := pcch is VarRef ? "int*" : "ptr"
+        pContextMarshal := pContext is VarRef ? "int*" : IntPtr
+        pcchMarshal := pcch is VarRef ? "int*" : IntPtr
 
         result := ComCall(15, this, BOOL, fMove, pContextMarshal, pContext, IHTMLElement.Ptr, ppElement, pcchMarshal, pcch, "ptr", pchText, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     CurrentScope() {
@@ -218,7 +204,6 @@ export default struct IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pPointerThat 
      * @returns {BOOL} 
      */
@@ -228,7 +213,6 @@ export default struct IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pPointerThat 
      * @returns {BOOL} 
      */
@@ -238,7 +222,6 @@ export default struct IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pPointerThat 
      * @returns {BOOL} 
      */
@@ -248,7 +231,6 @@ export default struct IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pPointerThat 
      * @returns {BOOL} 
      */
@@ -258,7 +240,6 @@ export default struct IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pPointerThat 
      * @returns {BOOL} 
      */
@@ -268,7 +249,6 @@ export default struct IMarkupPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {MOVEUNIT_ACTION} muAction 
      * @returns {HRESULT} 
      */
@@ -316,27 +296,27 @@ export default struct IMarkupPointer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OwningDoc := CallbackCreate(GetMethod(implObj, "OwningDoc"), flags, 2)
-        this.vtbl.Gravity := CallbackCreate(GetMethod(implObj, "Gravity"), flags, 2)
-        this.vtbl.SetGravity := CallbackCreate(GetMethod(implObj, "SetGravity"), flags, 2)
-        this.vtbl.Cling := CallbackCreate(GetMethod(implObj, "Cling"), flags, 2)
-        this.vtbl.SetCling := CallbackCreate(GetMethod(implObj, "SetCling"), flags, 2)
-        this.vtbl.Unposition := CallbackCreate(GetMethod(implObj, "Unposition"), flags, 1)
-        this.vtbl.IsPositioned := CallbackCreate(GetMethod(implObj, "IsPositioned"), flags, 2)
-        this.vtbl.GetContainer := CallbackCreate(GetMethod(implObj, "GetContainer"), flags, 2)
-        this.vtbl.MoveAdjacentToElement := CallbackCreate(GetMethod(implObj, "MoveAdjacentToElement"), flags, 3)
-        this.vtbl.MoveToPointer := CallbackCreate(GetMethod(implObj, "MoveToPointer"), flags, 2)
-        this.vtbl.MoveToContainer := CallbackCreate(GetMethod(implObj, "MoveToContainer"), flags, 3)
-        this.vtbl.Left := CallbackCreate(GetMethod(implObj, "Left"), flags, 6)
-        this.vtbl.Right := CallbackCreate(GetMethod(implObj, "Right"), flags, 6)
-        this.vtbl.CurrentScope := CallbackCreate(GetMethod(implObj, "CurrentScope"), flags, 2)
-        this.vtbl.IsLeftOf := CallbackCreate(GetMethod(implObj, "IsLeftOf"), flags, 3)
-        this.vtbl.IsLeftOfOrEqualTo := CallbackCreate(GetMethod(implObj, "IsLeftOfOrEqualTo"), flags, 3)
-        this.vtbl.IsRightOf := CallbackCreate(GetMethod(implObj, "IsRightOf"), flags, 3)
-        this.vtbl.IsRightOfOrEqualTo := CallbackCreate(GetMethod(implObj, "IsRightOfOrEqualTo"), flags, 3)
-        this.vtbl.IsEqualTo := CallbackCreate(GetMethod(implObj, "IsEqualTo"), flags, 3)
-        this.vtbl.MoveUnit := CallbackCreate(GetMethod(implObj, "MoveUnit"), flags, 2)
-        this.vtbl.FindText := CallbackCreate(GetMethod(implObj, "FindText"), flags, 5)
+        this.vtbl.OwningDoc := CallbackCreate(ObjBindMethod(implObj, "OwningDoc"), flags, 2)
+        this.vtbl.Gravity := CallbackCreate(ObjBindMethod(implObj, "Gravity"), flags, 2)
+        this.vtbl.SetGravity := CallbackCreate(ObjBindMethod(implObj, "SetGravity"), flags, 2)
+        this.vtbl.Cling := CallbackCreate(ObjBindMethod(implObj, "Cling"), flags, 2)
+        this.vtbl.SetCling := CallbackCreate(ObjBindMethod(implObj, "SetCling"), flags, 2)
+        this.vtbl.Unposition := CallbackCreate(ObjBindMethod(implObj, "Unposition"), flags, 1)
+        this.vtbl.IsPositioned := CallbackCreate(ObjBindMethod(implObj, "IsPositioned"), flags, 2)
+        this.vtbl.GetContainer := CallbackCreate(ObjBindMethod(implObj, "GetContainer"), flags, 2)
+        this.vtbl.MoveAdjacentToElement := CallbackCreate(ObjBindMethod(implObj, "MoveAdjacentToElement"), flags, 3)
+        this.vtbl.MoveToPointer := CallbackCreate(ObjBindMethod(implObj, "MoveToPointer"), flags, 2)
+        this.vtbl.MoveToContainer := CallbackCreate(ObjBindMethod(implObj, "MoveToContainer"), flags, 3)
+        this.vtbl.Left := CallbackCreate(ObjBindMethod(implObj, "Left"), flags, 6)
+        this.vtbl.Right := CallbackCreate(ObjBindMethod(implObj, "Right"), flags, 6)
+        this.vtbl.CurrentScope := CallbackCreate(ObjBindMethod(implObj, "CurrentScope"), flags, 2)
+        this.vtbl.IsLeftOf := CallbackCreate(ObjBindMethod(implObj, "IsLeftOf"), flags, 3)
+        this.vtbl.IsLeftOfOrEqualTo := CallbackCreate(ObjBindMethod(implObj, "IsLeftOfOrEqualTo"), flags, 3)
+        this.vtbl.IsRightOf := CallbackCreate(ObjBindMethod(implObj, "IsRightOf"), flags, 3)
+        this.vtbl.IsRightOfOrEqualTo := CallbackCreate(ObjBindMethod(implObj, "IsRightOfOrEqualTo"), flags, 3)
+        this.vtbl.IsEqualTo := CallbackCreate(ObjBindMethod(implObj, "IsEqualTo"), flags, 3)
+        this.vtbl.MoveUnit := CallbackCreate(ObjBindMethod(implObj, "MoveUnit"), flags, 2)
+        this.vtbl.FindText := CallbackCreate(ObjBindMethod(implObj, "FindText"), flags, 5)
     }
 
     Dispose() {

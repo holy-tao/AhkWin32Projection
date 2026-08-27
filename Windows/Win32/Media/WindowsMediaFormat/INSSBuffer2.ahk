@@ -57,7 +57,7 @@ export default struct INSSBuffer2 extends INSSBuffer {
      * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nn-wmsbuffer-inssbuffer2
      */
     SetSampleProperties(cbProperties, pbProperties) {
-        pbPropertiesMarshal := pbProperties is VarRef ? "char*" : "ptr"
+        pbPropertiesMarshal := pbProperties is VarRef ? "char*" : IntPtr
 
         result := ComCall(9, this, UInt32, cbProperties, pbPropertiesMarshal, pbProperties, "HRESULT")
         return result
@@ -72,8 +72,8 @@ export default struct INSSBuffer2 extends INSSBuffer {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSampleProperties := CallbackCreate(GetMethod(implObj, "GetSampleProperties"), flags, 3)
-        this.vtbl.SetSampleProperties := CallbackCreate(GetMethod(implObj, "SetSampleProperties"), flags, 3)
+        this.vtbl.GetSampleProperties := CallbackCreate(ObjBindMethod(implObj, "GetSampleProperties"), flags, 3)
+        this.vtbl.SetSampleProperties := CallbackCreate(ObjBindMethod(implObj, "SetSampleProperties"), flags, 3)
     }
 
     Dispose() {

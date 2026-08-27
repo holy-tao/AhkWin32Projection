@@ -39,7 +39,6 @@ export default struct IActiveXUIHandlerSite extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IScrollableContextMenu} 
      */
     CreateScrollableContextMenu() {
@@ -48,13 +47,14 @@ export default struct IActiveXUIHandlerSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} filePicker 
      * @param {BOOL} allowMultipleSelections 
      * @returns {IUnknown} 
      */
     PickFileAndGetResult(filePicker, allowMultipleSelections) {
-        result := ComCall(4, this, "ptr", filePicker, BOOL, allowMultipleSelections, "ptr*", &result := 0, "HRESULT")
+        filePickerMarshal := filePicker == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, filePickerMarshal, filePicker, BOOL, allowMultipleSelections, "ptr*", &result := 0, "HRESULT")
         return IUnknown(result)
     }
 
@@ -67,8 +67,8 @@ export default struct IActiveXUIHandlerSite extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateScrollableContextMenu := CallbackCreate(GetMethod(implObj, "CreateScrollableContextMenu"), flags, 2)
-        this.vtbl.PickFileAndGetResult := CallbackCreate(GetMethod(implObj, "PickFileAndGetResult"), flags, 4)
+        this.vtbl.CreateScrollableContextMenu := CallbackCreate(ObjBindMethod(implObj, "CreateScrollableContextMenu"), flags, 2)
+        this.vtbl.PickFileAndGetResult := CallbackCreate(ObjBindMethod(implObj, "PickFileAndGetResult"), flags, 4)
     }
 
     Dispose() {

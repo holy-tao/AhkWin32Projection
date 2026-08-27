@@ -135,10 +135,12 @@ export default struct IDWriteFontFace2 extends IDWriteFontFace1 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritefontface2-getrecommendedrenderingmode
      */
     GetRecommendedRenderingMode(fontEmSize, dpiX, dpiY, transform, isSideways, outlineThreshold, measuringMode, renderingParams, renderingMode, gridFitMode) {
-        renderingModeMarshal := renderingMode is VarRef ? "int*" : "ptr"
-        gridFitModeMarshal := gridFitMode is VarRef ? "int*" : "ptr"
+        transformMarshal := transform == 0 ? IntPtr : DWRITE_MATRIX.Ptr
+        renderingParamsMarshal := renderingParams == 0 ? IntPtr : "ptr"
+        renderingModeMarshal := renderingMode is VarRef ? "int*" : IntPtr
+        gridFitModeMarshal := gridFitMode is VarRef ? "int*" : IntPtr
 
-        result := ComCall(34, this, Float32, fontEmSize, Float32, dpiX, Float32, dpiY, DWRITE_MATRIX.Ptr, transform, BOOL, isSideways, DWRITE_OUTLINE_THRESHOLD, outlineThreshold, DWRITE_MEASURING_MODE, measuringMode, "ptr", renderingParams, renderingModeMarshal, renderingMode, gridFitModeMarshal, gridFitMode, "HRESULT")
+        result := ComCall(34, this, Float32, fontEmSize, Float32, dpiX, Float32, dpiY, transformMarshal, transform, BOOL, isSideways, DWRITE_OUTLINE_THRESHOLD, outlineThreshold, DWRITE_MEASURING_MODE, measuringMode, renderingParamsMarshal, renderingParams, renderingModeMarshal, renderingMode, gridFitModeMarshal, gridFitMode, "HRESULT")
         return result
     }
 
@@ -151,11 +153,11 @@ export default struct IDWriteFontFace2 extends IDWriteFontFace1 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsColorFont := CallbackCreate(GetMethod(implObj, "IsColorFont"), flags, 1)
-        this.vtbl.GetColorPaletteCount := CallbackCreate(GetMethod(implObj, "GetColorPaletteCount"), flags, 1)
-        this.vtbl.GetPaletteEntryCount := CallbackCreate(GetMethod(implObj, "GetPaletteEntryCount"), flags, 1)
-        this.vtbl.GetPaletteEntries := CallbackCreate(GetMethod(implObj, "GetPaletteEntries"), flags, 5)
-        this.vtbl.GetRecommendedRenderingMode := CallbackCreate(GetMethod(implObj, "GetRecommendedRenderingMode"), flags, 11)
+        this.vtbl.IsColorFont := CallbackCreate(ObjBindMethod(implObj, "IsColorFont"), flags, 1)
+        this.vtbl.GetColorPaletteCount := CallbackCreate(ObjBindMethod(implObj, "GetColorPaletteCount"), flags, 1)
+        this.vtbl.GetPaletteEntryCount := CallbackCreate(ObjBindMethod(implObj, "GetPaletteEntryCount"), flags, 1)
+        this.vtbl.GetPaletteEntries := CallbackCreate(ObjBindMethod(implObj, "GetPaletteEntries"), flags, 5)
+        this.vtbl.GetRecommendedRenderingMode := CallbackCreate(ObjBindMethod(implObj, "GetRecommendedRenderingMode"), flags, 11)
     }
 
     Dispose() {

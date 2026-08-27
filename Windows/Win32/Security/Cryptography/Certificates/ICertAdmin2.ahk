@@ -916,17 +916,17 @@ export default struct ICertAdmin2 extends ICertAdmin {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PublishCRLs := CallbackCreate(GetMethod(implObj, "PublishCRLs"), flags, 4)
-        this.vtbl.GetCAProperty := CallbackCreate(GetMethod(implObj, "GetCAProperty"), flags, 7)
-        this.vtbl.SetCAProperty := CallbackCreate(GetMethod(implObj, "SetCAProperty"), flags, 6)
-        this.vtbl.GetCAPropertyFlags := CallbackCreate(GetMethod(implObj, "GetCAPropertyFlags"), flags, 4)
-        this.vtbl.GetCAPropertyDisplayName := CallbackCreate(GetMethod(implObj, "GetCAPropertyDisplayName"), flags, 4)
-        this.vtbl.GetArchivedKey := CallbackCreate(GetMethod(implObj, "GetArchivedKey"), flags, 5)
-        this.vtbl.GetConfigEntry := CallbackCreate(GetMethod(implObj, "GetConfigEntry"), flags, 5)
-        this.vtbl.SetConfigEntry := CallbackCreate(GetMethod(implObj, "SetConfigEntry"), flags, 5)
-        this.vtbl.ImportKey := CallbackCreate(GetMethod(implObj, "ImportKey"), flags, 6)
-        this.vtbl.GetMyRoles := CallbackCreate(GetMethod(implObj, "GetMyRoles"), flags, 3)
-        this.vtbl.DeleteRow := CallbackCreate(GetMethod(implObj, "DeleteRow"), flags, 7)
+        this.vtbl.PublishCRLs := CallbackCreate(ObjBindMethod(implObj, "PublishCRLs"), flags, 4)
+        this.vtbl.GetCAProperty := CallbackCreate(ObjBindMethod(implObj, "GetCAProperty"), flags, 7)
+        this.vtbl.SetCAProperty := CallbackCreate(ObjBindMethod(implObj, "SetCAProperty"), flags, 6)
+        this.vtbl.GetCAPropertyFlags := CallbackCreate(ObjBindMethod(implObj, "GetCAPropertyFlags"), flags, 4)
+        this.vtbl.GetCAPropertyDisplayName := CallbackCreate(ObjBindMethod(implObj, "GetCAPropertyDisplayName"), flags, 4)
+        this.vtbl.GetArchivedKey := CallbackCreate(ObjBindMethod(implObj, "GetArchivedKey"), flags, 5)
+        this.vtbl.GetConfigEntry := CallbackCreate(ObjBindMethod(implObj, "GetConfigEntry"), flags, 5)
+        this.vtbl.SetConfigEntry := CallbackCreate(ObjBindMethod(implObj, "SetConfigEntry"), flags, 5)
+        this.vtbl.ImportKey := CallbackCreate(ObjBindMethod(implObj, "ImportKey"), flags, 6)
+        this.vtbl.GetMyRoles := CallbackCreate(ObjBindMethod(implObj, "GetMyRoles"), flags, 3)
+        this.vtbl.DeleteRow := CallbackCreate(ObjBindMethod(implObj, "DeleteRow"), flags, 7)
     }
 
     Dispose() {

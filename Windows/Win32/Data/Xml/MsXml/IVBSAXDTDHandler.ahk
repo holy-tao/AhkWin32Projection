@@ -38,7 +38,6 @@ export default struct IVBSAXDTDHandler extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} strName 
      * @param {Pointer<BSTR>} strPublicId 
      * @param {Pointer<BSTR>} strSystemId 
@@ -50,7 +49,6 @@ export default struct IVBSAXDTDHandler extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} strName 
      * @param {Pointer<BSTR>} strPublicId 
      * @param {Pointer<BSTR>} strSystemId 
@@ -71,8 +69,8 @@ export default struct IVBSAXDTDHandler extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.notationDecl := CallbackCreate(GetMethod(implObj, "notationDecl"), flags, 4)
-        this.vtbl.unparsedEntityDecl := CallbackCreate(GetMethod(implObj, "unparsedEntityDecl"), flags, 5)
+        this.vtbl.notationDecl := CallbackCreate(ObjBindMethod(implObj, "notationDecl"), flags, 4)
+        this.vtbl.unparsedEntityDecl := CallbackCreate(ObjBindMethod(implObj, "unparsedEntityDecl"), flags, 5)
     }
 
     Dispose() {

@@ -18,13 +18,12 @@ export default struct LPWSCWRITEPROVIDERORDER {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} lpwdCatalogEntryId 
      * @param {Integer} dwNumberOfEntries 
      * @returns {Integer} 
      */
     Call(lpwdCatalogEntryId, dwNumberOfEntries) {
-        lpwdCatalogEntryIdMarshal := lpwdCatalogEntryId is VarRef ? "uint*" : "ptr"
+        lpwdCatalogEntryIdMarshal := lpwdCatalogEntryId is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, lpwdCatalogEntryIdMarshal, lpwdCatalogEntryId, UInt32, dwNumberOfEntries, Int32)
         return result

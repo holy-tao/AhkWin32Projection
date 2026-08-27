@@ -100,11 +100,12 @@ export default struct IVssBackupComponentsEx4 extends IVssBackupComponentsEx3 {
      * @see https://learn.microsoft.com/windows/win32/api/vsbackup/nf-vsbackup-ivssbackupcomponentsex4-getrootandlogicalprefixpaths
      */
     GetRootAndLogicalPrefixPaths(pwszFilePath, ppwszRootPath, ppwszLogicalPrefix, bNormalizeFQDNforRootPath) {
-        pwszFilePathMarshal := pwszFilePath is VarRef ? "ushort*" : "ptr"
-        ppwszRootPathMarshal := ppwszRootPath is VarRef ? "ptr*" : "ptr"
-        ppwszLogicalPrefixMarshal := ppwszLogicalPrefix is VarRef ? "ptr*" : "ptr"
+        pwszFilePathMarshal := pwszFilePath is VarRef ? "ushort*" : IntPtr
+        ppwszRootPathMarshal := ppwszRootPath is VarRef ? "ptr*" : IntPtr
+        ppwszLogicalPrefixMarshal := ppwszLogicalPrefix is VarRef ? "ptr*" : IntPtr
+        bNormalizeFQDNforRootPathMarshal := bNormalizeFQDNforRootPath == 0 ? IntPtr : BOOL
 
-        result := ComCall(64, this, pwszFilePathMarshal, pwszFilePath, ppwszRootPathMarshal, ppwszRootPath, ppwszLogicalPrefixMarshal, ppwszLogicalPrefix, BOOL, bNormalizeFQDNforRootPath, "HRESULT")
+        result := ComCall(64, this, pwszFilePathMarshal, pwszFilePath, ppwszRootPathMarshal, ppwszRootPath, ppwszLogicalPrefixMarshal, ppwszLogicalPrefix, bNormalizeFQDNforRootPathMarshal, bNormalizeFQDNforRootPath, "HRESULT")
         return result
     }
 
@@ -117,7 +118,7 @@ export default struct IVssBackupComponentsEx4 extends IVssBackupComponentsEx3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRootAndLogicalPrefixPaths := CallbackCreate(GetMethod(implObj, "GetRootAndLogicalPrefixPaths"), flags, 5)
+        this.vtbl.GetRootAndLogicalPrefixPaths := CallbackCreate(ObjBindMethod(implObj, "GetRootAndLogicalPrefixPaths"), flags, 5)
     }
 
     Dispose() {

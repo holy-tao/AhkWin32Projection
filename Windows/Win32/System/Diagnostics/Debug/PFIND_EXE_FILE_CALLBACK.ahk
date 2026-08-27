@@ -24,7 +24,6 @@ export default struct PFIND_EXE_FILE_CALLBACK {
     }
 
     /**
-     * 
      * @param {HANDLE} FileHandle A handle to the executable file.
      * @param {PSTR} FileName The name of the executable file.
      * @param {Pointer<Void>} CallerData Optional user-defined data. This parameter can be <b>NULL</b>.
@@ -33,7 +32,8 @@ export default struct PFIND_EXE_FILE_CALLBACK {
     Call(FileHandle, FileName, CallerData) {
         FileName := FileName is String ? StrPtr(FileName) : FileName
 
-        CallerDataMarshal := CallerData is VarRef ? "ptr" : "ptr"
+        CallerDataMarshal := CallerData is VarRef ? "ptr" : IntPtr
+        CallerDataMarshal := CallerData == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, HANDLE, FileHandle, "ptr", FileName, CallerDataMarshal, CallerData, BOOL)
         return result

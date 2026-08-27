@@ -40,7 +40,6 @@ export default struct IUIAutomationClientInfoSource extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUIAutomationClientConnectionCallback} callback 
      * @returns {Integer} 
      */
@@ -50,7 +49,6 @@ export default struct IUIAutomationClientInfoSource extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _handle 
      * @returns {HRESULT} 
      */
@@ -60,7 +58,6 @@ export default struct IUIAutomationClientInfoSource extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<SAFEARRAY>} 
      */
     GetConnectedClients() {
@@ -77,9 +74,9 @@ export default struct IUIAutomationClientInfoSource extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterClientConnectionCallback := CallbackCreate(GetMethod(implObj, "RegisterClientConnectionCallback"), flags, 3)
-        this.vtbl.UnregisterClientConnectionCallback := CallbackCreate(GetMethod(implObj, "UnregisterClientConnectionCallback"), flags, 2)
-        this.vtbl.GetConnectedClients := CallbackCreate(GetMethod(implObj, "GetConnectedClients"), flags, 2)
+        this.vtbl.RegisterClientConnectionCallback := CallbackCreate(ObjBindMethod(implObj, "RegisterClientConnectionCallback"), flags, 3)
+        this.vtbl.UnregisterClientConnectionCallback := CallbackCreate(ObjBindMethod(implObj, "UnregisterClientConnectionCallback"), flags, 2)
+        this.vtbl.GetConnectedClients := CallbackCreate(ObjBindMethod(implObj, "GetConnectedClients"), flags, 2)
     }
 
     Dispose() {

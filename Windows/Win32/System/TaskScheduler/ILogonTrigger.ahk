@@ -130,10 +130,10 @@ export default struct ILogonTrigger extends ITrigger {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Delay := CallbackCreate(GetMethod(implObj, "get_Delay"), flags, 2)
-        this.vtbl.put_Delay := CallbackCreate(GetMethod(implObj, "put_Delay"), flags, 2)
-        this.vtbl.get_UserId := CallbackCreate(GetMethod(implObj, "get_UserId"), flags, 2)
-        this.vtbl.put_UserId := CallbackCreate(GetMethod(implObj, "put_UserId"), flags, 2)
+        this.vtbl.get_Delay := CallbackCreate(ObjBindMethod(implObj, "get_Delay"), flags, 2)
+        this.vtbl.put_Delay := CallbackCreate(ObjBindMethod(implObj, "put_Delay"), flags, 2)
+        this.vtbl.get_UserId := CallbackCreate(ObjBindMethod(implObj, "get_UserId"), flags, 2)
+        this.vtbl.put_UserId := CallbackCreate(ObjBindMethod(implObj, "put_UserId"), flags, 2)
     }
 
     Dispose() {

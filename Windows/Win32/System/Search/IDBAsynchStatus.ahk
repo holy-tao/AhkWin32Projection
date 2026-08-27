@@ -38,7 +38,6 @@ export default struct IDBAsynchStatus extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hChapter 
      * @param {Integer} eOperation 
      * @returns {HRESULT} 
@@ -49,7 +48,6 @@ export default struct IDBAsynchStatus extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hChapter 
      * @param {Integer} eOperation 
      * @param {Pointer<Pointer>} pulProgress 
@@ -59,10 +57,13 @@ export default struct IDBAsynchStatus extends IUnknown {
      * @returns {HRESULT} 
      */
     GetStatus(hChapter, eOperation, pulProgress, pulProgressMax, peAsynchPhase, ppwszStatusText) {
-        pulProgressMarshal := pulProgress is VarRef ? "ptr*" : "ptr"
-        pulProgressMaxMarshal := pulProgressMax is VarRef ? "ptr*" : "ptr"
-        peAsynchPhaseMarshal := peAsynchPhase is VarRef ? "uint*" : "ptr"
-        ppwszStatusTextMarshal := ppwszStatusText is VarRef ? "ptr*" : "ptr"
+        pulProgressMarshal := pulProgress is VarRef ? "ptr*" : IntPtr
+        pulProgressMarshal := pulProgress == 0 ? IntPtr : "ptr*"
+        pulProgressMaxMarshal := pulProgressMax is VarRef ? "ptr*" : IntPtr
+        pulProgressMaxMarshal := pulProgressMax == 0 ? IntPtr : "ptr*"
+        peAsynchPhaseMarshal := peAsynchPhase is VarRef ? "uint*" : IntPtr
+        ppwszStatusTextMarshal := ppwszStatusText is VarRef ? "ptr*" : IntPtr
+        ppwszStatusTextMarshal := ppwszStatusText == 0 ? IntPtr : PWSTR.Ptr
 
         result := ComCall(4, this, IntPtr, hChapter, UInt32, eOperation, pulProgressMarshal, pulProgress, pulProgressMaxMarshal, pulProgressMax, peAsynchPhaseMarshal, peAsynchPhase, ppwszStatusTextMarshal, ppwszStatusText, "HRESULT")
         return result
@@ -77,8 +78,8 @@ export default struct IDBAsynchStatus extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Abort := CallbackCreate(GetMethod(implObj, "Abort"), flags, 3)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 7)
+        this.vtbl.Abort := CallbackCreate(ObjBindMethod(implObj, "Abort"), flags, 3)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 7)
     }
 
     Dispose() {

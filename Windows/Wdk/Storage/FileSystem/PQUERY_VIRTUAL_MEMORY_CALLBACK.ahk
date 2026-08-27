@@ -19,7 +19,6 @@ export default struct PQUERY_VIRTUAL_MEMORY_CALLBACK {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

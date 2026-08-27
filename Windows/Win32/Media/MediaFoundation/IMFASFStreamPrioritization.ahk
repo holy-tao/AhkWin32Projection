@@ -89,8 +89,8 @@ export default struct IMFASFStreamPrioritization extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamprioritization-getstream
      */
     GetStream(dwStreamIndex, pwStreamNumber, pwStreamFlags) {
-        pwStreamNumberMarshal := pwStreamNumber is VarRef ? "ushort*" : "ptr"
-        pwStreamFlagsMarshal := pwStreamFlags is VarRef ? "ushort*" : "ptr"
+        pwStreamNumberMarshal := pwStreamNumber is VarRef ? "ushort*" : IntPtr
+        pwStreamFlagsMarshal := pwStreamFlags is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(4, this, UInt32, dwStreamIndex, pwStreamNumberMarshal, pwStreamNumber, pwStreamFlagsMarshal, pwStreamFlags, "HRESULT")
         return result
@@ -191,11 +191,11 @@ export default struct IMFASFStreamPrioritization extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStreamCount := CallbackCreate(GetMethod(implObj, "GetStreamCount"), flags, 2)
-        this.vtbl.GetStream := CallbackCreate(GetMethod(implObj, "GetStream"), flags, 4)
-        this.vtbl.AddStream := CallbackCreate(GetMethod(implObj, "AddStream"), flags, 3)
-        this.vtbl.RemoveStream := CallbackCreate(GetMethod(implObj, "RemoveStream"), flags, 2)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.GetStreamCount := CallbackCreate(ObjBindMethod(implObj, "GetStreamCount"), flags, 2)
+        this.vtbl.GetStream := CallbackCreate(ObjBindMethod(implObj, "GetStream"), flags, 4)
+        this.vtbl.AddStream := CallbackCreate(ObjBindMethod(implObj, "AddStream"), flags, 3)
+        this.vtbl.RemoveStream := CallbackCreate(ObjBindMethod(implObj, "RemoveStream"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
     }
 
     Dispose() {

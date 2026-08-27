@@ -20,7 +20,6 @@ export default struct PWLDP_GETAPPLICATIONSETTINGSTRINGSET_API {
     }
 
     /**
-     * 
      * @param {PWSTR} id 
      * @param {PWSTR} setting 
      * @param {Pointer} dataCount 
@@ -32,7 +31,9 @@ export default struct PWLDP_GETAPPLICATIONSETTINGSTRINGSET_API {
         setting := setting is String ? StrPtr(setting) : setting
         result := result is String ? StrPtr(result) : result
 
-        result := DllCall(this.value, "ptr", id, "ptr", setting, IntPtr, dataCount, "ptr*", &requiredCount := 0, "ptr", result, "HRESULT")
+        resultMarshal := result == 0 ? IntPtr : PWSTR
+
+        result := DllCall(this.value, "ptr", id, "ptr", setting, IntPtr, dataCount, "ptr*", &requiredCount := 0, resultMarshal, result, "HRESULT")
         return requiredCount
     }
 

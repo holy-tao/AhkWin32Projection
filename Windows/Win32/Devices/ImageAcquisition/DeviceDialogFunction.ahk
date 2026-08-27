@@ -20,7 +20,6 @@ export default struct DeviceDialogFunction {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICEDIALOGDATA>} param0 
      * @returns {HRESULT} 
      */

@@ -77,7 +77,7 @@ export default struct IAttributeSet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dsattrib/nf-dsattrib-iattributeset-setattrib
      */
     SetAttrib(_guidAttribute, pbAttribute, dwAttributeLength) {
-        pbAttributeMarshal := pbAttribute is VarRef ? "char*" : "ptr"
+        pbAttributeMarshal := pbAttribute is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, Guid, _guidAttribute, pbAttributeMarshal, pbAttribute, UInt32, dwAttributeLength, "HRESULT")
         return result
@@ -92,7 +92,7 @@ export default struct IAttributeSet extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAttrib := CallbackCreate(GetMethod(implObj, "SetAttrib"), flags, 4)
+        this.vtbl.SetAttrib := CallbackCreate(ObjBindMethod(implObj, "SetAttrib"), flags, 4)
     }
 
     Dispose() {

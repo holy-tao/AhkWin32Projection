@@ -72,7 +72,7 @@ export default struct IWaaSAssessor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOSUpdateAssessment := CallbackCreate(GetMethod(implObj, "GetOSUpdateAssessment"), flags, 2)
+        this.vtbl.GetOSUpdateAssessment := CallbackCreate(ObjBindMethod(implObj, "GetOSUpdateAssessment"), flags, 2)
     }
 
     Dispose() {

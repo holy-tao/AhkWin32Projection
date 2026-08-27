@@ -129,10 +129,14 @@ export default struct ID3D11Device2 extends ID3D11Device1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_2/nf-d3d11_2-id3d11device2-getresourcetiling
      */
     GetResourceTiling(pTiledResource, pNumTilesForEntireResource, pPackedMipDesc, pStandardTileShapeForNonPackedMips, pNumSubresourceTilings, FirstSubresourceTilingToGet, pSubresourceTilingsForNonPackedMips) {
-        pNumTilesForEntireResourceMarshal := pNumTilesForEntireResource is VarRef ? "uint*" : "ptr"
-        pNumSubresourceTilingsMarshal := pNumSubresourceTilings is VarRef ? "uint*" : "ptr"
+        pNumTilesForEntireResourceMarshal := pNumTilesForEntireResource is VarRef ? "uint*" : IntPtr
+        pNumTilesForEntireResourceMarshal := pNumTilesForEntireResource == 0 ? IntPtr : "uint*"
+        pPackedMipDescMarshal := pPackedMipDesc == 0 ? IntPtr : D3D11_PACKED_MIP_DESC.Ptr
+        pStandardTileShapeForNonPackedMipsMarshal := pStandardTileShapeForNonPackedMips == 0 ? IntPtr : D3D11_TILE_SHAPE.Ptr
+        pNumSubresourceTilingsMarshal := pNumSubresourceTilings is VarRef ? "uint*" : IntPtr
+        pNumSubresourceTilingsMarshal := pNumSubresourceTilings == 0 ? IntPtr : "uint*"
 
-        ComCall(52, this, "ptr", pTiledResource, pNumTilesForEntireResourceMarshal, pNumTilesForEntireResource, D3D11_PACKED_MIP_DESC.Ptr, pPackedMipDesc, D3D11_TILE_SHAPE.Ptr, pStandardTileShapeForNonPackedMips, pNumSubresourceTilingsMarshal, pNumSubresourceTilings, UInt32, FirstSubresourceTilingToGet, D3D11_SUBRESOURCE_TILING.Ptr, pSubresourceTilingsForNonPackedMips)
+        ComCall(52, this, "ptr", pTiledResource, pNumTilesForEntireResourceMarshal, pNumTilesForEntireResource, pPackedMipDescMarshal, pPackedMipDesc, pStandardTileShapeForNonPackedMipsMarshal, pStandardTileShapeForNonPackedMips, pNumSubresourceTilingsMarshal, pNumSubresourceTilings, UInt32, FirstSubresourceTilingToGet, D3D11_SUBRESOURCE_TILING.Ptr, pSubresourceTilingsForNonPackedMips)
     }
 
     /**
@@ -176,10 +180,10 @@ export default struct ID3D11Device2 extends ID3D11Device1 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetImmediateContext2 := CallbackCreate(GetMethod(implObj, "GetImmediateContext2"), flags, 2)
-        this.vtbl.CreateDeferredContext2 := CallbackCreate(GetMethod(implObj, "CreateDeferredContext2"), flags, 3)
-        this.vtbl.GetResourceTiling := CallbackCreate(GetMethod(implObj, "GetResourceTiling"), flags, 8)
-        this.vtbl.CheckMultisampleQualityLevels1 := CallbackCreate(GetMethod(implObj, "CheckMultisampleQualityLevels1"), flags, 5)
+        this.vtbl.GetImmediateContext2 := CallbackCreate(ObjBindMethod(implObj, "GetImmediateContext2"), flags, 2)
+        this.vtbl.CreateDeferredContext2 := CallbackCreate(ObjBindMethod(implObj, "CreateDeferredContext2"), flags, 3)
+        this.vtbl.GetResourceTiling := CallbackCreate(ObjBindMethod(implObj, "GetResourceTiling"), flags, 8)
+        this.vtbl.CheckMultisampleQualityLevels1 := CallbackCreate(ObjBindMethod(implObj, "CheckMultisampleQualityLevels1"), flags, 5)
     }
 
     Dispose() {

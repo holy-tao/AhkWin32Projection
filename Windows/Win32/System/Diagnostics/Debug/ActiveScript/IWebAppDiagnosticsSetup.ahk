@@ -38,7 +38,6 @@ export default struct IWebAppDiagnosticsSetup extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     DiagnosticsSupported() {
@@ -47,7 +46,6 @@ export default struct IWebAppDiagnosticsSetup extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rclsid 
      * @param {Integer} dwClsContext 
      * @param {Pointer<Guid>} riid 
@@ -68,8 +66,8 @@ export default struct IWebAppDiagnosticsSetup extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DiagnosticsSupported := CallbackCreate(GetMethod(implObj, "DiagnosticsSupported"), flags, 2)
-        this.vtbl.CreateObjectWithSiteAtWebApp := CallbackCreate(GetMethod(implObj, "CreateObjectWithSiteAtWebApp"), flags, 5)
+        this.vtbl.DiagnosticsSupported := CallbackCreate(ObjBindMethod(implObj, "DiagnosticsSupported"), flags, 2)
+        this.vtbl.CreateObjectWithSiteAtWebApp := CallbackCreate(ObjBindMethod(implObj, "CreateObjectWithSiteAtWebApp"), flags, 5)
     }
 
     Dispose() {

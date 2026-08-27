@@ -121,7 +121,7 @@ export default struct IWMPCdromBurn extends IUnknown {
     isAvailable(bstrItem, pIsAvailable) {
         bstrItem := bstrItem is String ? BSTR.Alloc(bstrItem).Value : bstrItem
 
-        pIsAvailableMarshal := pIsAvailable is VarRef ? "short*" : "ptr"
+        pIsAvailableMarshal := pIsAvailable is VarRef ? "short*" : IntPtr
 
         result := ComCall(3, this, BSTR, bstrItem, pIsAvailableMarshal, pIsAvailable, "HRESULT")
         return result
@@ -254,7 +254,7 @@ export default struct IWMPCdromBurn extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcdromburn-get_burnformat
      */
     get_burnFormat(pwmpbf) {
-        pwmpbfMarshal := pwmpbf is VarRef ? "int*" : "ptr"
+        pwmpbfMarshal := pwmpbf is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, pwmpbfMarshal, pwmpbf, "HRESULT")
         return result
@@ -395,7 +395,7 @@ export default struct IWMPCdromBurn extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcdromburn-get_burnstate
      */
     get_burnState(pwmpbs) {
-        pwmpbsMarshal := pwmpbs is VarRef ? "int*" : "ptr"
+        pwmpbsMarshal := pwmpbs is VarRef ? "int*" : IntPtr
 
         result := ComCall(12, this, pwmpbsMarshal, pwmpbs, "HRESULT")
         return result
@@ -430,7 +430,7 @@ export default struct IWMPCdromBurn extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcdromburn-get_burnprogress
      */
     get_burnProgress(plProgress) {
-        plProgressMarshal := plProgress is VarRef ? "int*" : "ptr"
+        plProgressMarshal := plProgress is VarRef ? "int*" : IntPtr
 
         result := ComCall(13, this, plProgressMarshal, plProgress, "HRESULT")
         return result
@@ -541,20 +541,20 @@ export default struct IWMPCdromBurn extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.isAvailable := CallbackCreate(GetMethod(implObj, "isAvailable"), flags, 3)
-        this.vtbl.getItemInfo := CallbackCreate(GetMethod(implObj, "getItemInfo"), flags, 3)
-        this.vtbl.get_label := CallbackCreate(GetMethod(implObj, "get_label"), flags, 2)
-        this.vtbl.put_label := CallbackCreate(GetMethod(implObj, "put_label"), flags, 2)
-        this.vtbl.get_burnFormat := CallbackCreate(GetMethod(implObj, "get_burnFormat"), flags, 2)
-        this.vtbl.put_burnFormat := CallbackCreate(GetMethod(implObj, "put_burnFormat"), flags, 2)
-        this.vtbl.get_burnPlaylist := CallbackCreate(GetMethod(implObj, "get_burnPlaylist"), flags, 2)
-        this.vtbl.put_burnPlaylist := CallbackCreate(GetMethod(implObj, "put_burnPlaylist"), flags, 2)
-        this.vtbl.refreshStatus := CallbackCreate(GetMethod(implObj, "refreshStatus"), flags, 1)
-        this.vtbl.get_burnState := CallbackCreate(GetMethod(implObj, "get_burnState"), flags, 2)
-        this.vtbl.get_burnProgress := CallbackCreate(GetMethod(implObj, "get_burnProgress"), flags, 2)
-        this.vtbl.startBurn := CallbackCreate(GetMethod(implObj, "startBurn"), flags, 1)
-        this.vtbl.stopBurn := CallbackCreate(GetMethod(implObj, "stopBurn"), flags, 1)
-        this.vtbl.erase := CallbackCreate(GetMethod(implObj, "erase"), flags, 1)
+        this.vtbl.isAvailable := CallbackCreate(ObjBindMethod(implObj, "isAvailable"), flags, 3)
+        this.vtbl.getItemInfo := CallbackCreate(ObjBindMethod(implObj, "getItemInfo"), flags, 3)
+        this.vtbl.get_label := CallbackCreate(ObjBindMethod(implObj, "get_label"), flags, 2)
+        this.vtbl.put_label := CallbackCreate(ObjBindMethod(implObj, "put_label"), flags, 2)
+        this.vtbl.get_burnFormat := CallbackCreate(ObjBindMethod(implObj, "get_burnFormat"), flags, 2)
+        this.vtbl.put_burnFormat := CallbackCreate(ObjBindMethod(implObj, "put_burnFormat"), flags, 2)
+        this.vtbl.get_burnPlaylist := CallbackCreate(ObjBindMethod(implObj, "get_burnPlaylist"), flags, 2)
+        this.vtbl.put_burnPlaylist := CallbackCreate(ObjBindMethod(implObj, "put_burnPlaylist"), flags, 2)
+        this.vtbl.refreshStatus := CallbackCreate(ObjBindMethod(implObj, "refreshStatus"), flags, 1)
+        this.vtbl.get_burnState := CallbackCreate(ObjBindMethod(implObj, "get_burnState"), flags, 2)
+        this.vtbl.get_burnProgress := CallbackCreate(ObjBindMethod(implObj, "get_burnProgress"), flags, 2)
+        this.vtbl.startBurn := CallbackCreate(ObjBindMethod(implObj, "startBurn"), flags, 1)
+        this.vtbl.stopBurn := CallbackCreate(ObjBindMethod(implObj, "stopBurn"), flags, 1)
+        this.vtbl.erase := CallbackCreate(ObjBindMethod(implObj, "erase"), flags, 1)
     }
 
     Dispose() {

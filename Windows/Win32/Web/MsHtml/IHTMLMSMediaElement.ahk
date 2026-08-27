@@ -56,7 +56,6 @@ export default struct IHTMLMSMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -66,7 +65,6 @@ export default struct IHTMLMSMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_msPlayToDisabled() {
@@ -75,7 +73,6 @@ export default struct IHTMLMSMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -85,7 +82,6 @@ export default struct IHTMLMSMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_msPlayToPrimary() {
@@ -102,10 +98,10 @@ export default struct IHTMLMSMediaElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_msPlayToDisabled := CallbackCreate(GetMethod(implObj, "put_msPlayToDisabled"), flags, 2)
-        this.vtbl.get_msPlayToDisabled := CallbackCreate(GetMethod(implObj, "get_msPlayToDisabled"), flags, 2)
-        this.vtbl.put_msPlayToPrimary := CallbackCreate(GetMethod(implObj, "put_msPlayToPrimary"), flags, 2)
-        this.vtbl.get_msPlayToPrimary := CallbackCreate(GetMethod(implObj, "get_msPlayToPrimary"), flags, 2)
+        this.vtbl.put_msPlayToDisabled := CallbackCreate(ObjBindMethod(implObj, "put_msPlayToDisabled"), flags, 2)
+        this.vtbl.get_msPlayToDisabled := CallbackCreate(ObjBindMethod(implObj, "get_msPlayToDisabled"), flags, 2)
+        this.vtbl.put_msPlayToPrimary := CallbackCreate(ObjBindMethod(implObj, "put_msPlayToPrimary"), flags, 2)
+        this.vtbl.get_msPlayToPrimary := CallbackCreate(ObjBindMethod(implObj, "get_msPlayToPrimary"), flags, 2)
     }
 
     Dispose() {

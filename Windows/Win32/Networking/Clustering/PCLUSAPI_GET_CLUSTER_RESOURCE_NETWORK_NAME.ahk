@@ -21,7 +21,6 @@ export default struct PCLUSAPI_GET_CLUSTER_RESOURCE_NETWORK_NAME {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {PWSTR} lpBuffer 
      * @param {Pointer<Integer>} nSize 
@@ -30,7 +29,7 @@ export default struct PCLUSAPI_GET_CLUSTER_RESOURCE_NETWORK_NAME {
     Call(_hResource, lpBuffer, nSize) {
         lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
-        nSizeMarshal := nSize is VarRef ? "uint*" : "ptr"
+        nSizeMarshal := nSize is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HRESOURCE, _hResource, "ptr", lpBuffer, nSizeMarshal, nSize, BOOL)
         return result

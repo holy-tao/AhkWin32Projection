@@ -44,7 +44,6 @@ export default struct IMFVideoProcessorControl3 extends IMFVideoProcessorControl
     }
 
     /**
-     * 
      * @returns {IMFMediaType} 
      */
     GetNaturalOutputType() {
@@ -53,7 +52,6 @@ export default struct IMFVideoProcessorControl3 extends IMFVideoProcessorControl
     }
 
     /**
-     * 
      * @param {BOOL} fEnable 
      * @param {MFVideoSphericalFormat} eFormat 
      * @param {MFVideoSphericalProjectionMode} eProjectionMode 
@@ -65,7 +63,6 @@ export default struct IMFVideoProcessorControl3 extends IMFVideoProcessorControl
     }
 
     /**
-     * 
      * @param {Float} X 
      * @param {Float} Y 
      * @param {Float} Z 
@@ -79,7 +76,6 @@ export default struct IMFVideoProcessorControl3 extends IMFVideoProcessorControl
     }
 
     /**
-     * 
      * @param {IUnknown} pOutputDevice 
      * @returns {HRESULT} 
      */
@@ -97,10 +93,10 @@ export default struct IMFVideoProcessorControl3 extends IMFVideoProcessorControl
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNaturalOutputType := CallbackCreate(GetMethod(implObj, "GetNaturalOutputType"), flags, 2)
-        this.vtbl.EnableSphericalVideoProcessing := CallbackCreate(GetMethod(implObj, "EnableSphericalVideoProcessing"), flags, 4)
-        this.vtbl.SetSphericalVideoProperties := CallbackCreate(GetMethod(implObj, "SetSphericalVideoProperties"), flags, 6)
-        this.vtbl.SetOutputDevice := CallbackCreate(GetMethod(implObj, "SetOutputDevice"), flags, 2)
+        this.vtbl.GetNaturalOutputType := CallbackCreate(ObjBindMethod(implObj, "GetNaturalOutputType"), flags, 2)
+        this.vtbl.EnableSphericalVideoProcessing := CallbackCreate(ObjBindMethod(implObj, "EnableSphericalVideoProcessing"), flags, 4)
+        this.vtbl.SetSphericalVideoProperties := CallbackCreate(ObjBindMethod(implObj, "SetSphericalVideoProperties"), flags, 6)
+        this.vtbl.SetOutputDevice := CallbackCreate(ObjBindMethod(implObj, "SetOutputDevice"), flags, 2)
     }
 
     Dispose() {

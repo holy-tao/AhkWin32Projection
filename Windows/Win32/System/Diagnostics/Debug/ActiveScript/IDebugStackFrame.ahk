@@ -45,7 +45,6 @@ export default struct IDebugStackFrame extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugCodeContext} 
      */
     GetCodeContext() {
@@ -54,7 +53,6 @@ export default struct IDebugStackFrame extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fLong 
      * @returns {BSTR} 
      */
@@ -65,7 +63,6 @@ export default struct IDebugStackFrame extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fLong 
      * @returns {BSTR} 
      */
@@ -76,7 +73,6 @@ export default struct IDebugStackFrame extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugApplicationThread} 
      */
     GetThread() {
@@ -85,7 +81,6 @@ export default struct IDebugStackFrame extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugProperty} 
      */
     GetDebugProperty() {
@@ -102,11 +97,11 @@ export default struct IDebugStackFrame extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCodeContext := CallbackCreate(GetMethod(implObj, "GetCodeContext"), flags, 2)
-        this.vtbl.GetDescriptionString := CallbackCreate(GetMethod(implObj, "GetDescriptionString"), flags, 3)
-        this.vtbl.GetLanguageString := CallbackCreate(GetMethod(implObj, "GetLanguageString"), flags, 3)
-        this.vtbl.GetThread := CallbackCreate(GetMethod(implObj, "GetThread"), flags, 2)
-        this.vtbl.GetDebugProperty := CallbackCreate(GetMethod(implObj, "GetDebugProperty"), flags, 2)
+        this.vtbl.GetCodeContext := CallbackCreate(ObjBindMethod(implObj, "GetCodeContext"), flags, 2)
+        this.vtbl.GetDescriptionString := CallbackCreate(ObjBindMethod(implObj, "GetDescriptionString"), flags, 3)
+        this.vtbl.GetLanguageString := CallbackCreate(ObjBindMethod(implObj, "GetLanguageString"), flags, 3)
+        this.vtbl.GetThread := CallbackCreate(ObjBindMethod(implObj, "GetThread"), flags, 2)
+        this.vtbl.GetDebugProperty := CallbackCreate(ObjBindMethod(implObj, "GetDebugProperty"), flags, 2)
     }
 
     Dispose() {

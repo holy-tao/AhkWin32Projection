@@ -175,8 +175,8 @@ export default struct IWMPQuery extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.addCondition := CallbackCreate(GetMethod(implObj, "addCondition"), flags, 4)
-        this.vtbl.beginNextGroup := CallbackCreate(GetMethod(implObj, "beginNextGroup"), flags, 1)
+        this.vtbl.addCondition := CallbackCreate(ObjBindMethod(implObj, "addCondition"), flags, 4)
+        this.vtbl.beginNextGroup := CallbackCreate(ObjBindMethod(implObj, "beginNextGroup"), flags, 1)
     }
 
     Dispose() {

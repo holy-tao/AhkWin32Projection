@@ -61,7 +61,7 @@ export default struct IUIAnimationLoopIterationChangeHandler2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnLoopIterationChanged := CallbackCreate(GetMethod(implObj, "OnLoopIterationChanged"), flags, 5)
+        this.vtbl.OnLoopIterationChanged := CallbackCreate(ObjBindMethod(implObj, "OnLoopIterationChanged"), flags, 5)
     }
 
     Dispose() {

@@ -18,14 +18,13 @@ export default struct PO_FX_COMPONENT_IDLE_STATE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Integer} _Component 
      * @param {Integer} State 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Context, _Component, State) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _ContextMarshal, _Context, UInt32, _Component, UInt32, State)
     }

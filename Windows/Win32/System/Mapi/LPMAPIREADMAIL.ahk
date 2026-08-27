@@ -20,7 +20,6 @@ export default struct LPMAPIREADMAIL {
     }
 
     /**
-     * 
      * @param {Pointer} lhSession 
      * @param {Pointer} ulUIParam 
      * @param {PSTR} lpszMessageID 
@@ -32,7 +31,7 @@ export default struct LPMAPIREADMAIL {
     Call(lhSession, ulUIParam, lpszMessageID, flFlags, ulReserved, lppMessage) {
         lpszMessageID := lpszMessageID is String ? StrPtr(lpszMessageID) : lpszMessageID
 
-        lppMessageMarshal := lppMessage is VarRef ? "ptr*" : "ptr"
+        lppMessageMarshal := lppMessage is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, IntPtr, lhSession, IntPtr, ulUIParam, "ptr", lpszMessageID, UInt32, flFlags, UInt32, ulReserved, lppMessageMarshal, lppMessage, UInt32)
         return result

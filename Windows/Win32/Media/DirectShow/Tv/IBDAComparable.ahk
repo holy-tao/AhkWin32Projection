@@ -151,12 +151,12 @@ export default struct IBDAComparable extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CompareExact := CallbackCreate(GetMethod(implObj, "CompareExact"), flags, 3)
-        this.vtbl.CompareEquivalent := CallbackCreate(GetMethod(implObj, "CompareEquivalent"), flags, 4)
-        this.vtbl.HashExact := CallbackCreate(GetMethod(implObj, "HashExact"), flags, 2)
-        this.vtbl.HashExactIncremental := CallbackCreate(GetMethod(implObj, "HashExactIncremental"), flags, 3)
-        this.vtbl.HashEquivalent := CallbackCreate(GetMethod(implObj, "HashEquivalent"), flags, 3)
-        this.vtbl.HashEquivalentIncremental := CallbackCreate(GetMethod(implObj, "HashEquivalentIncremental"), flags, 4)
+        this.vtbl.CompareExact := CallbackCreate(ObjBindMethod(implObj, "CompareExact"), flags, 3)
+        this.vtbl.CompareEquivalent := CallbackCreate(ObjBindMethod(implObj, "CompareEquivalent"), flags, 4)
+        this.vtbl.HashExact := CallbackCreate(ObjBindMethod(implObj, "HashExact"), flags, 2)
+        this.vtbl.HashExactIncremental := CallbackCreate(ObjBindMethod(implObj, "HashExactIncremental"), flags, 3)
+        this.vtbl.HashEquivalent := CallbackCreate(ObjBindMethod(implObj, "HashEquivalent"), flags, 3)
+        this.vtbl.HashEquivalentIncremental := CallbackCreate(ObjBindMethod(implObj, "HashEquivalentIncremental"), flags, 4)
     }
 
     Dispose() {

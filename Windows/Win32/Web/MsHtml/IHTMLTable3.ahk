@@ -46,7 +46,6 @@ export default struct IHTMLTable3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -58,7 +57,6 @@ export default struct IHTMLTable3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_summary() {
@@ -76,8 +74,8 @@ export default struct IHTMLTable3 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_summary := CallbackCreate(GetMethod(implObj, "put_summary"), flags, 2)
-        this.vtbl.get_summary := CallbackCreate(GetMethod(implObj, "get_summary"), flags, 2)
+        this.vtbl.put_summary := CallbackCreate(ObjBindMethod(implObj, "put_summary"), flags, 2)
+        this.vtbl.get_summary := CallbackCreate(ObjBindMethod(implObj, "get_summary"), flags, 2)
     }
 
     Dispose() {

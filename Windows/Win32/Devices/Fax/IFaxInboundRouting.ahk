@@ -87,8 +87,8 @@ export default struct IFaxInboundRouting extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetExtensions := CallbackCreate(GetMethod(implObj, "GetExtensions"), flags, 2)
-        this.vtbl.GetMethods := CallbackCreate(GetMethod(implObj, "GetMethods"), flags, 2)
+        this.vtbl.GetExtensions := CallbackCreate(ObjBindMethod(implObj, "GetExtensions"), flags, 2)
+        this.vtbl.GetMethods := CallbackCreate(ObjBindMethod(implObj, "GetMethods"), flags, 2)
     }
 
     Dispose() {

@@ -63,7 +63,7 @@ export default struct ICertConfig2 extends ICertConfig {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetSharedFolder := CallbackCreate(GetMethod(implObj, "SetSharedFolder"), flags, 2)
+        this.vtbl.SetSharedFolder := CallbackCreate(ObjBindMethod(implObj, "SetSharedFolder"), flags, 2)
     }
 
     Dispose() {

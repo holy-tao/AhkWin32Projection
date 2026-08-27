@@ -44,7 +44,6 @@ export default struct ISVGExternalResourcesRequired extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedBoolean} 
      */
     get_externalResourcesRequired() {
@@ -61,7 +60,7 @@ export default struct ISVGExternalResourcesRequired extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_externalResourcesRequired := CallbackCreate(GetMethod(implObj, "get_externalResourcesRequired"), flags, 2)
+        this.vtbl.get_externalResourcesRequired := CallbackCreate(ObjBindMethod(implObj, "get_externalResourcesRequired"), flags, 2)
     }
 
     Dispose() {

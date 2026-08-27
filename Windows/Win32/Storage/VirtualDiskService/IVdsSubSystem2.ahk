@@ -199,10 +199,10 @@ export default struct IVdsSubSystem2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProperties2 := CallbackCreate(GetMethod(implObj, "GetProperties2"), flags, 2)
-        this.vtbl.GetDrive2 := CallbackCreate(GetMethod(implObj, "GetDrive2"), flags, 5)
-        this.vtbl.CreateLun2 := CallbackCreate(GetMethod(implObj, "CreateLun2"), flags, 8)
-        this.vtbl.QueryMaxLunCreateSize2 := CallbackCreate(GetMethod(implObj, "QueryMaxLunCreateSize2"), flags, 6)
+        this.vtbl.GetProperties2 := CallbackCreate(ObjBindMethod(implObj, "GetProperties2"), flags, 2)
+        this.vtbl.GetDrive2 := CallbackCreate(ObjBindMethod(implObj, "GetDrive2"), flags, 5)
+        this.vtbl.CreateLun2 := CallbackCreate(ObjBindMethod(implObj, "CreateLun2"), flags, 8)
+        this.vtbl.QueryMaxLunCreateSize2 := CallbackCreate(ObjBindMethod(implObj, "QueryMaxLunCreateSize2"), flags, 6)
     }
 
     Dispose() {

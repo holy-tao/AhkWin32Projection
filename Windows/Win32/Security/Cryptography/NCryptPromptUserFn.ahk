@@ -22,7 +22,6 @@ export default struct NCryptPromptUserFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} _hProvider 
      * @param {NCRYPT_KEY_HANDLE} _hKey 
      * @param {PWSTR} pszOperation 
@@ -32,7 +31,9 @@ export default struct NCryptPromptUserFn {
     Call(_hProvider, _hKey, pszOperation, dwFlags) {
         pszOperation := pszOperation is String ? StrPtr(pszOperation) : pszOperation
 
-        result := DllCall(this.value, NCRYPT_PROV_HANDLE, _hProvider, NCRYPT_KEY_HANDLE, _hKey, "ptr", pszOperation, UInt32, dwFlags, "HRESULT")
+        _hKeyMarshal := _hKey == 0 ? IntPtr : NCRYPT_KEY_HANDLE
+
+        result := DllCall(this.value, NCRYPT_PROV_HANDLE, _hProvider, _hKeyMarshal, _hKey, "ptr", pszOperation, UInt32, dwFlags, "HRESULT")
         return result
     }
 

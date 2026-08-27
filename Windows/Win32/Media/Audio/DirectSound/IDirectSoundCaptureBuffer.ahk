@@ -47,7 +47,6 @@ export default struct IDirectSoundCaptureBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DSCBCAPS} 
      */
     GetCaps() {
@@ -57,32 +56,33 @@ export default struct IDirectSoundCaptureBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwCapturePosition 
      * @param {Pointer<Integer>} pdwReadPosition 
      * @returns {HRESULT} 
      */
     GetCurrentPosition(pdwCapturePosition, pdwReadPosition) {
-        pdwCapturePositionMarshal := pdwCapturePosition is VarRef ? "uint*" : "ptr"
-        pdwReadPositionMarshal := pdwReadPosition is VarRef ? "uint*" : "ptr"
+        pdwCapturePositionMarshal := pdwCapturePosition is VarRef ? "uint*" : IntPtr
+        pdwCapturePositionMarshal := pdwCapturePosition == 0 ? IntPtr : "uint*"
+        pdwReadPositionMarshal := pdwReadPosition is VarRef ? "uint*" : IntPtr
+        pdwReadPositionMarshal := pdwReadPosition == 0 ? IntPtr : "uint*"
 
         result := ComCall(4, this, pdwCapturePositionMarshal, pdwCapturePosition, pdwReadPositionMarshal, pdwReadPosition, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} pwfxFormat 
      * @param {Integer} dwSizeAllocated 
      * @returns {Integer} 
      */
     GetFormat(pwfxFormat, dwSizeAllocated) {
-        result := ComCall(5, this, IntPtr, pwfxFormat, UInt32, dwSizeAllocated, "uint*", &pdwSizeWritten := 0, "HRESULT")
+        pwfxFormatMarshal := pwfxFormat == 0 ? IntPtr : IntPtr
+
+        result := ComCall(5, this, pwfxFormatMarshal, pwfxFormat, UInt32, dwSizeAllocated, "uint*", &pdwSizeWritten := 0, "HRESULT")
         return pdwSizeWritten
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetStatus() {
@@ -152,17 +152,18 @@ export default struct IDirectSoundCaptureBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/SecProv/lock-win32-encryptablevolume
      */
     Lock(dwOffset, dwBytes, ppvAudioPtr1, pdwAudioBytes1, ppvAudioPtr2, pdwAudioBytes2, dwFlags) {
-        ppvAudioPtr1Marshal := ppvAudioPtr1 is VarRef ? "ptr*" : "ptr"
-        pdwAudioBytes1Marshal := pdwAudioBytes1 is VarRef ? "uint*" : "ptr"
-        ppvAudioPtr2Marshal := ppvAudioPtr2 is VarRef ? "ptr*" : "ptr"
-        pdwAudioBytes2Marshal := pdwAudioBytes2 is VarRef ? "uint*" : "ptr"
+        ppvAudioPtr1Marshal := ppvAudioPtr1 is VarRef ? "ptr*" : IntPtr
+        pdwAudioBytes1Marshal := pdwAudioBytes1 is VarRef ? "uint*" : IntPtr
+        ppvAudioPtr2Marshal := ppvAudioPtr2 is VarRef ? "ptr*" : IntPtr
+        ppvAudioPtr2Marshal := ppvAudioPtr2 == 0 ? IntPtr : "ptr*"
+        pdwAudioBytes2Marshal := pdwAudioBytes2 is VarRef ? "uint*" : IntPtr
+        pdwAudioBytes2Marshal := pdwAudioBytes2 == 0 ? IntPtr : "uint*"
 
         result := ComCall(8, this, UInt32, dwOffset, UInt32, dwBytes, ppvAudioPtr1Marshal, ppvAudioPtr1, pdwAudioBytes1Marshal, pdwAudioBytes1, ppvAudioPtr2Marshal, ppvAudioPtr2, pdwAudioBytes2Marshal, pdwAudioBytes2, UInt32, dwFlags, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
@@ -172,7 +173,6 @@ export default struct IDirectSoundCaptureBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Stop() {
@@ -181,7 +181,6 @@ export default struct IDirectSoundCaptureBuffer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pvAudioPtr1 
      * @param {Integer} dwAudioBytes1 
      * @param {Integer} pvAudioPtr2 
@@ -189,7 +188,9 @@ export default struct IDirectSoundCaptureBuffer extends IUnknown {
      * @returns {HRESULT} 
      */
     Unlock(pvAudioPtr1, dwAudioBytes1, pvAudioPtr2, dwAudioBytes2) {
-        result := ComCall(11, this, IntPtr, pvAudioPtr1, UInt32, dwAudioBytes1, IntPtr, pvAudioPtr2, UInt32, dwAudioBytes2, "HRESULT")
+        pvAudioPtr2Marshal := pvAudioPtr2 == 0 ? IntPtr : IntPtr
+
+        result := ComCall(11, this, IntPtr, pvAudioPtr1, UInt32, dwAudioBytes1, pvAudioPtr2Marshal, pvAudioPtr2, UInt32, dwAudioBytes2, "HRESULT")
         return result
     }
 
@@ -202,15 +203,15 @@ export default struct IDirectSoundCaptureBuffer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCaps := CallbackCreate(GetMethod(implObj, "GetCaps"), flags, 2)
-        this.vtbl.GetCurrentPosition := CallbackCreate(GetMethod(implObj, "GetCurrentPosition"), flags, 3)
-        this.vtbl.GetFormat := CallbackCreate(GetMethod(implObj, "GetFormat"), flags, 4)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.Lock := CallbackCreate(GetMethod(implObj, "Lock"), flags, 8)
-        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 2)
-        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
-        this.vtbl.Unlock := CallbackCreate(GetMethod(implObj, "Unlock"), flags, 5)
+        this.vtbl.GetCaps := CallbackCreate(ObjBindMethod(implObj, "GetCaps"), flags, 2)
+        this.vtbl.GetCurrentPosition := CallbackCreate(ObjBindMethod(implObj, "GetCurrentPosition"), flags, 3)
+        this.vtbl.GetFormat := CallbackCreate(ObjBindMethod(implObj, "GetFormat"), flags, 4)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.Lock := CallbackCreate(ObjBindMethod(implObj, "Lock"), flags, 8)
+        this.vtbl.Start := CallbackCreate(ObjBindMethod(implObj, "Start"), flags, 2)
+        this.vtbl.Stop := CallbackCreate(ObjBindMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.Unlock := CallbackCreate(ObjBindMethod(implObj, "Unlock"), flags, 5)
     }
 
     Dispose() {

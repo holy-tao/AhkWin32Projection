@@ -40,7 +40,6 @@ export default struct IBanneredBar extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iIcon 
      * @returns {HRESULT} 
      */
@@ -50,7 +49,6 @@ export default struct IBanneredBar extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetIconSize() {
@@ -59,7 +57,6 @@ export default struct IBanneredBar extends IUnknown {
     }
 
     /**
-     * 
      * @param {HBITMAP} _hBitmap 
      * @returns {HRESULT} 
      */
@@ -69,7 +66,6 @@ export default struct IBanneredBar extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HBITMAP} 
      */
     GetBitmap() {
@@ -87,10 +83,10 @@ export default struct IBanneredBar extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetIconSize := CallbackCreate(GetMethod(implObj, "SetIconSize"), flags, 2)
-        this.vtbl.GetIconSize := CallbackCreate(GetMethod(implObj, "GetIconSize"), flags, 2)
-        this.vtbl.SetBitmap := CallbackCreate(GetMethod(implObj, "SetBitmap"), flags, 2)
-        this.vtbl.GetBitmap := CallbackCreate(GetMethod(implObj, "GetBitmap"), flags, 2)
+        this.vtbl.SetIconSize := CallbackCreate(ObjBindMethod(implObj, "SetIconSize"), flags, 2)
+        this.vtbl.GetIconSize := CallbackCreate(ObjBindMethod(implObj, "GetIconSize"), flags, 2)
+        this.vtbl.SetBitmap := CallbackCreate(ObjBindMethod(implObj, "SetBitmap"), flags, 2)
+        this.vtbl.GetBitmap := CallbackCreate(ObjBindMethod(implObj, "GetBitmap"), flags, 2)
     }
 
     Dispose() {

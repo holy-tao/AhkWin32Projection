@@ -22,7 +22,6 @@ export default struct NCryptVerifyClaimFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hProv 
      * @param {NCRYPT_KEY_HANDLE} hSubjectKey 
      * @param {NCRYPT_KEY_HANDLE} hAuthorityKey 
@@ -35,7 +34,10 @@ export default struct NCryptVerifyClaimFn {
      * @returns {HRESULT} 
      */
     Call(hProv, hSubjectKey, hAuthorityKey, dwClaimType, pParameterList, pbClaimBlob, cbClaimBlob, pOutput, dwFlags) {
-        result := DllCall(this.value, NCRYPT_PROV_HANDLE, hProv, NCRYPT_KEY_HANDLE, hSubjectKey, NCRYPT_KEY_HANDLE, hAuthorityKey, UInt32, dwClaimType, BCryptBufferDesc.Ptr, pParameterList, IntPtr, pbClaimBlob, UInt32, cbClaimBlob, BCryptBufferDesc.Ptr, pOutput, UInt32, dwFlags, "HRESULT")
+        hAuthorityKeyMarshal := hAuthorityKey == 0 ? IntPtr : NCRYPT_KEY_HANDLE
+        pParameterListMarshal := pParameterList == 0 ? IntPtr : BCryptBufferDesc.Ptr
+
+        result := DllCall(this.value, NCRYPT_PROV_HANDLE, hProv, NCRYPT_KEY_HANDLE, hSubjectKey, hAuthorityKeyMarshal, hAuthorityKey, UInt32, dwClaimType, pParameterListMarshal, pParameterList, IntPtr, pbClaimBlob, UInt32, cbClaimBlob, BCryptBufferDesc.Ptr, pOutput, UInt32, dwFlags, "HRESULT")
         return result
     }
 

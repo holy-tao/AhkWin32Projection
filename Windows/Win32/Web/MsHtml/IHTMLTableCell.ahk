@@ -172,7 +172,6 @@ export default struct IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -182,7 +181,6 @@ export default struct IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_rowSpan() {
@@ -191,7 +189,6 @@ export default struct IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -201,7 +198,6 @@ export default struct IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_colSpan() {
@@ -210,7 +206,6 @@ export default struct IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -222,7 +217,6 @@ export default struct IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_align() {
@@ -232,7 +226,6 @@ export default struct IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -244,7 +237,6 @@ export default struct IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_vAlign() {
@@ -254,7 +246,6 @@ export default struct IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -264,7 +255,6 @@ export default struct IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_bgColor() {
@@ -274,7 +264,6 @@ export default struct IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -284,7 +273,6 @@ export default struct IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_noWrap() {
@@ -293,7 +281,6 @@ export default struct IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -305,7 +292,6 @@ export default struct IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_background() {
@@ -315,7 +301,6 @@ export default struct IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -325,7 +310,6 @@ export default struct IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_borderColor() {
@@ -335,7 +319,6 @@ export default struct IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -345,7 +328,6 @@ export default struct IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_borderColorLight() {
@@ -355,7 +337,6 @@ export default struct IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -365,7 +346,6 @@ export default struct IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_borderColorDark() {
@@ -375,7 +355,6 @@ export default struct IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -385,7 +364,6 @@ export default struct IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_width() {
@@ -395,7 +373,6 @@ export default struct IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -405,7 +382,6 @@ export default struct IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_height() {
@@ -415,7 +391,6 @@ export default struct IHTMLTableCell extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_cellIndex() {
@@ -432,31 +407,31 @@ export default struct IHTMLTableCell extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_rowSpan := CallbackCreate(GetMethod(implObj, "put_rowSpan"), flags, 2)
-        this.vtbl.get_rowSpan := CallbackCreate(GetMethod(implObj, "get_rowSpan"), flags, 2)
-        this.vtbl.put_colSpan := CallbackCreate(GetMethod(implObj, "put_colSpan"), flags, 2)
-        this.vtbl.get_colSpan := CallbackCreate(GetMethod(implObj, "get_colSpan"), flags, 2)
-        this.vtbl.put_align := CallbackCreate(GetMethod(implObj, "put_align"), flags, 2)
-        this.vtbl.get_align := CallbackCreate(GetMethod(implObj, "get_align"), flags, 2)
-        this.vtbl.put_vAlign := CallbackCreate(GetMethod(implObj, "put_vAlign"), flags, 2)
-        this.vtbl.get_vAlign := CallbackCreate(GetMethod(implObj, "get_vAlign"), flags, 2)
-        this.vtbl.put_bgColor := CallbackCreate(GetMethod(implObj, "put_bgColor"), flags, 2)
-        this.vtbl.get_bgColor := CallbackCreate(GetMethod(implObj, "get_bgColor"), flags, 2)
-        this.vtbl.put_noWrap := CallbackCreate(GetMethod(implObj, "put_noWrap"), flags, 2)
-        this.vtbl.get_noWrap := CallbackCreate(GetMethod(implObj, "get_noWrap"), flags, 2)
-        this.vtbl.put_background := CallbackCreate(GetMethod(implObj, "put_background"), flags, 2)
-        this.vtbl.get_background := CallbackCreate(GetMethod(implObj, "get_background"), flags, 2)
-        this.vtbl.put_borderColor := CallbackCreate(GetMethod(implObj, "put_borderColor"), flags, 2)
-        this.vtbl.get_borderColor := CallbackCreate(GetMethod(implObj, "get_borderColor"), flags, 2)
-        this.vtbl.put_borderColorLight := CallbackCreate(GetMethod(implObj, "put_borderColorLight"), flags, 2)
-        this.vtbl.get_borderColorLight := CallbackCreate(GetMethod(implObj, "get_borderColorLight"), flags, 2)
-        this.vtbl.put_borderColorDark := CallbackCreate(GetMethod(implObj, "put_borderColorDark"), flags, 2)
-        this.vtbl.get_borderColorDark := CallbackCreate(GetMethod(implObj, "get_borderColorDark"), flags, 2)
-        this.vtbl.put_width := CallbackCreate(GetMethod(implObj, "put_width"), flags, 2)
-        this.vtbl.get_width := CallbackCreate(GetMethod(implObj, "get_width"), flags, 2)
-        this.vtbl.put_height := CallbackCreate(GetMethod(implObj, "put_height"), flags, 2)
-        this.vtbl.get_height := CallbackCreate(GetMethod(implObj, "get_height"), flags, 2)
-        this.vtbl.get_cellIndex := CallbackCreate(GetMethod(implObj, "get_cellIndex"), flags, 2)
+        this.vtbl.put_rowSpan := CallbackCreate(ObjBindMethod(implObj, "put_rowSpan"), flags, 2)
+        this.vtbl.get_rowSpan := CallbackCreate(ObjBindMethod(implObj, "get_rowSpan"), flags, 2)
+        this.vtbl.put_colSpan := CallbackCreate(ObjBindMethod(implObj, "put_colSpan"), flags, 2)
+        this.vtbl.get_colSpan := CallbackCreate(ObjBindMethod(implObj, "get_colSpan"), flags, 2)
+        this.vtbl.put_align := CallbackCreate(ObjBindMethod(implObj, "put_align"), flags, 2)
+        this.vtbl.get_align := CallbackCreate(ObjBindMethod(implObj, "get_align"), flags, 2)
+        this.vtbl.put_vAlign := CallbackCreate(ObjBindMethod(implObj, "put_vAlign"), flags, 2)
+        this.vtbl.get_vAlign := CallbackCreate(ObjBindMethod(implObj, "get_vAlign"), flags, 2)
+        this.vtbl.put_bgColor := CallbackCreate(ObjBindMethod(implObj, "put_bgColor"), flags, 2)
+        this.vtbl.get_bgColor := CallbackCreate(ObjBindMethod(implObj, "get_bgColor"), flags, 2)
+        this.vtbl.put_noWrap := CallbackCreate(ObjBindMethod(implObj, "put_noWrap"), flags, 2)
+        this.vtbl.get_noWrap := CallbackCreate(ObjBindMethod(implObj, "get_noWrap"), flags, 2)
+        this.vtbl.put_background := CallbackCreate(ObjBindMethod(implObj, "put_background"), flags, 2)
+        this.vtbl.get_background := CallbackCreate(ObjBindMethod(implObj, "get_background"), flags, 2)
+        this.vtbl.put_borderColor := CallbackCreate(ObjBindMethod(implObj, "put_borderColor"), flags, 2)
+        this.vtbl.get_borderColor := CallbackCreate(ObjBindMethod(implObj, "get_borderColor"), flags, 2)
+        this.vtbl.put_borderColorLight := CallbackCreate(ObjBindMethod(implObj, "put_borderColorLight"), flags, 2)
+        this.vtbl.get_borderColorLight := CallbackCreate(ObjBindMethod(implObj, "get_borderColorLight"), flags, 2)
+        this.vtbl.put_borderColorDark := CallbackCreate(ObjBindMethod(implObj, "put_borderColorDark"), flags, 2)
+        this.vtbl.get_borderColorDark := CallbackCreate(ObjBindMethod(implObj, "get_borderColorDark"), flags, 2)
+        this.vtbl.put_width := CallbackCreate(ObjBindMethod(implObj, "put_width"), flags, 2)
+        this.vtbl.get_width := CallbackCreate(ObjBindMethod(implObj, "get_width"), flags, 2)
+        this.vtbl.put_height := CallbackCreate(ObjBindMethod(implObj, "put_height"), flags, 2)
+        this.vtbl.get_height := CallbackCreate(ObjBindMethod(implObj, "get_height"), flags, 2)
+        this.vtbl.get_cellIndex := CallbackCreate(ObjBindMethod(implObj, "get_cellIndex"), flags, 2)
     }
 
     Dispose() {

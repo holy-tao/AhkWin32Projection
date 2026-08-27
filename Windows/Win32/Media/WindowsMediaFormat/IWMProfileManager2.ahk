@@ -48,7 +48,7 @@ export default struct IWMProfileManager2 extends IWMProfileManager {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofilemanager2-getsystemprofileversion
      */
     GetSystemProfileVersion(pdwVersion) {
-        pdwVersionMarshal := pdwVersion is VarRef ? "int*" : "ptr"
+        pdwVersionMarshal := pdwVersion is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, pdwVersionMarshal, pdwVersion, "HRESULT")
         return result
@@ -78,8 +78,8 @@ export default struct IWMProfileManager2 extends IWMProfileManager {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSystemProfileVersion := CallbackCreate(GetMethod(implObj, "GetSystemProfileVersion"), flags, 2)
-        this.vtbl.SetSystemProfileVersion := CallbackCreate(GetMethod(implObj, "SetSystemProfileVersion"), flags, 2)
+        this.vtbl.GetSystemProfileVersion := CallbackCreate(ObjBindMethod(implObj, "GetSystemProfileVersion"), flags, 2)
+        this.vtbl.SetSystemProfileVersion := CallbackCreate(ObjBindMethod(implObj, "SetSystemProfileVersion"), flags, 2)
     }
 
     Dispose() {

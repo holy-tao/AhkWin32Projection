@@ -20,7 +20,6 @@ export default struct PFAXREGISTERSERVICEPROVIDERW {
     }
 
     /**
-     * 
      * @param {PWSTR} DeviceProvider 
      * @param {PWSTR} FriendlyName 
      * @param {PWSTR} ImageName 

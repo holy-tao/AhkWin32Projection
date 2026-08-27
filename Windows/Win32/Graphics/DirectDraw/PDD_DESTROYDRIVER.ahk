@@ -19,7 +19,6 @@ export default struct PDD_DESTROYDRIVER {
     }
 
     /**
-     * 
      * @param {PDD_DESTROYDRIVERDATA} param0 
      * @returns {Integer} 
      */

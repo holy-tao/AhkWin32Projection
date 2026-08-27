@@ -20,7 +20,6 @@ export default struct PIBIO_SENSOR_QUERY_PRIVATE_SENSOR_TYPE_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline 
      * @param {Integer} TypeInfoBufferAddress 
      * @param {Pointer} TypeInfoBufferSize 

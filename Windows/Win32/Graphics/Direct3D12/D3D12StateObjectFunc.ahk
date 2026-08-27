@@ -19,7 +19,6 @@ export default struct D3D12StateObjectFunc {
     }
 
     /**
-     * 
      * @param {Integer} pKey 
      * @param {Integer} KeySize 
      * @param {Integer} _Version 
@@ -30,7 +29,8 @@ export default struct D3D12StateObjectFunc {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(pKey, KeySize, _Version, pDesc, pParentKey, ParentKeySize, pContext) {
-        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+        pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
+        pContextMarshal := pContext == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, IntPtr, pKey, UInt32, KeySize, UInt32, _Version, D3D12_STATE_OBJECT_DESC.Ptr, pDesc, IntPtr, pParentKey, UInt32, ParentKeySize, pContextMarshal, pContext)
     }

@@ -78,7 +78,6 @@ export default struct ISWbemRefresher extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -103,7 +102,6 @@ export default struct ISWbemRefresher extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -112,7 +110,6 @@ export default struct ISWbemRefresher extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISWbemServicesEx} objWbemServices 
      * @param {BSTR} bsInstancePath 
      * @param {Integer} iFlags 
@@ -127,7 +124,6 @@ export default struct ISWbemRefresher extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISWbemServicesEx} objWbemServices 
      * @param {BSTR} bsClassName 
      * @param {Integer} iFlags 
@@ -142,7 +138,6 @@ export default struct ISWbemRefresher extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iIndex 
      * @param {Integer} iFlags 
      * @returns {HRESULT} 
@@ -153,7 +148,6 @@ export default struct ISWbemRefresher extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iFlags 
      * @returns {HRESULT} 
      */
@@ -163,7 +157,6 @@ export default struct ISWbemRefresher extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_AutoReconnect() {
@@ -172,7 +165,6 @@ export default struct ISWbemRefresher extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bCount 
      * @returns {HRESULT} 
      */
@@ -182,7 +174,6 @@ export default struct ISWbemRefresher extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DeleteAll() {
@@ -199,16 +190,16 @@ export default struct ISWbemRefresher extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
-        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 3)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 6)
-        this.vtbl.AddEnum := CallbackCreate(GetMethod(implObj, "AddEnum"), flags, 6)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 3)
-        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 2)
-        this.vtbl.get_AutoReconnect := CallbackCreate(GetMethod(implObj, "get_AutoReconnect"), flags, 2)
-        this.vtbl.put_AutoReconnect := CallbackCreate(GetMethod(implObj, "put_AutoReconnect"), flags, 2)
-        this.vtbl.DeleteAll := CallbackCreate(GetMethod(implObj, "DeleteAll"), flags, 1)
+        this.vtbl.get__NewEnum := CallbackCreate(ObjBindMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.Item := CallbackCreate(ObjBindMethod(implObj, "Item"), flags, 3)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 6)
+        this.vtbl.AddEnum := CallbackCreate(ObjBindMethod(implObj, "AddEnum"), flags, 6)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 3)
+        this.vtbl.Refresh := CallbackCreate(ObjBindMethod(implObj, "Refresh"), flags, 2)
+        this.vtbl.get_AutoReconnect := CallbackCreate(ObjBindMethod(implObj, "get_AutoReconnect"), flags, 2)
+        this.vtbl.put_AutoReconnect := CallbackCreate(ObjBindMethod(implObj, "put_AutoReconnect"), flags, 2)
+        this.vtbl.DeleteAll := CallbackCreate(ObjBindMethod(implObj, "DeleteAll"), flags, 1)
     }
 
     Dispose() {

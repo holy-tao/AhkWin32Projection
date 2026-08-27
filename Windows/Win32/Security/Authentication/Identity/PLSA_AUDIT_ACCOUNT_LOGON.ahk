@@ -21,7 +21,6 @@ export default struct PLSA_AUDIT_ACCOUNT_LOGON {
     }
 
     /**
-     * 
      * @param {Integer} AuditId 
      * @param {BOOLEAN} Success 
      * @param {Pointer<LSA_UNICODE_STRING>} Source 
@@ -31,7 +30,11 @@ export default struct PLSA_AUDIT_ACCOUNT_LOGON {
      * @returns {NTSTATUS} 
      */
     Call(AuditId, Success, Source, ClientName, MappedName, _Status) {
-        result := DllCall(this.value, UInt32, AuditId, BOOLEAN, Success, LSA_UNICODE_STRING.Ptr, Source, LSA_UNICODE_STRING.Ptr, ClientName, LSA_UNICODE_STRING.Ptr, MappedName, NTSTATUS, _Status, NTSTATUS)
+        SourceMarshal := Source == 0 ? IntPtr : LSA_UNICODE_STRING.Ptr
+        ClientNameMarshal := ClientName == 0 ? IntPtr : LSA_UNICODE_STRING.Ptr
+        MappedNameMarshal := MappedName == 0 ? IntPtr : LSA_UNICODE_STRING.Ptr
+
+        result := DllCall(this.value, UInt32, AuditId, BOOLEAN, Success, SourceMarshal, Source, ClientNameMarshal, ClientName, MappedNameMarshal, MappedName, NTSTATUS, _Status, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

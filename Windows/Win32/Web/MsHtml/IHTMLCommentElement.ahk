@@ -62,7 +62,6 @@ export default struct IHTMLCommentElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -74,7 +73,6 @@ export default struct IHTMLCommentElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_text() {
@@ -84,7 +82,6 @@ export default struct IHTMLCommentElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -94,7 +91,6 @@ export default struct IHTMLCommentElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_atomic() {
@@ -111,10 +107,10 @@ export default struct IHTMLCommentElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_text := CallbackCreate(GetMethod(implObj, "put_text"), flags, 2)
-        this.vtbl.get_text := CallbackCreate(GetMethod(implObj, "get_text"), flags, 2)
-        this.vtbl.put_atomic := CallbackCreate(GetMethod(implObj, "put_atomic"), flags, 2)
-        this.vtbl.get_atomic := CallbackCreate(GetMethod(implObj, "get_atomic"), flags, 2)
+        this.vtbl.put_text := CallbackCreate(ObjBindMethod(implObj, "put_text"), flags, 2)
+        this.vtbl.get_text := CallbackCreate(ObjBindMethod(implObj, "get_text"), flags, 2)
+        this.vtbl.put_atomic := CallbackCreate(ObjBindMethod(implObj, "put_atomic"), flags, 2)
+        this.vtbl.get_atomic := CallbackCreate(ObjBindMethod(implObj, "get_atomic"), flags, 2)
     }
 
     Dispose() {

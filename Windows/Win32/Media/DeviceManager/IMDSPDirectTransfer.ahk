@@ -65,7 +65,13 @@ export default struct IMDSPDirectTransfer extends IUnknown {
         pwszSourceFilePath := pwszSourceFilePath is String ? StrPtr(pwszSourceFilePath) : pwszSourceFilePath
         pwszDestinationName := pwszDestinationName is String ? StrPtr(pwszDestinationName) : pwszDestinationName
 
-        result := ComCall(3, this, "ptr", pwszSourceFilePath, "ptr", pSourceOperation, UInt32, fuFlags, "ptr", pwszDestinationName, "ptr", pSourceMetaData, "ptr", pTransferProgress, "ptr*", &ppNewObject := 0, "HRESULT")
+        pwszSourceFilePathMarshal := pwszSourceFilePath == 0 ? IntPtr : PWSTR
+        pSourceOperationMarshal := pSourceOperation == 0 ? IntPtr : "ptr"
+        pwszDestinationNameMarshal := pwszDestinationName == 0 ? IntPtr : PWSTR
+        pSourceMetaDataMarshal := pSourceMetaData == 0 ? IntPtr : "ptr"
+        pTransferProgressMarshal := pTransferProgress == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pwszSourceFilePathMarshal, pwszSourceFilePath, pSourceOperationMarshal, pSourceOperation, UInt32, fuFlags, pwszDestinationNameMarshal, pwszDestinationName, pSourceMetaDataMarshal, pSourceMetaData, pTransferProgressMarshal, pTransferProgress, "ptr*", &ppNewObject := 0, "HRESULT")
         return IMDSPStorage(ppNewObject)
     }
 
@@ -78,7 +84,7 @@ export default struct IMDSPDirectTransfer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.TransferToDevice := CallbackCreate(GetMethod(implObj, "TransferToDevice"), flags, 8)
+        this.vtbl.TransferToDevice := CallbackCreate(ObjBindMethod(implObj, "TransferToDevice"), flags, 8)
     }
 
     Dispose() {

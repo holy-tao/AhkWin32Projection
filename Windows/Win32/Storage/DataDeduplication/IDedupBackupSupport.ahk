@@ -91,7 +91,7 @@ export default struct IDedupBackupSupport extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RestoreFiles := CallbackCreate(GetMethod(implObj, "RestoreFiles"), flags, 6)
+        this.vtbl.RestoreFiles := CallbackCreate(ObjBindMethod(implObj, "RestoreFiles"), flags, 6)
     }
 
     Dispose() {

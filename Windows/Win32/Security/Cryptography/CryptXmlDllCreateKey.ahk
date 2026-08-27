@@ -23,7 +23,6 @@ export default struct CryptXmlDllCreateKey {
     }
 
     /**
-     * 
      * @param {Pointer<CRYPT_XML_BLOB>} pEncoded A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_blob">CRYPT_XML_BLOB</a> structure that contains the <b>KeyValue</b> element.
      * @returns {BCRYPT_KEY_HANDLE} A pointer to a <b>BCRYPT_KEY_HANDLE</b> variable that receives the handle of the key used to verify the signature.
      * 

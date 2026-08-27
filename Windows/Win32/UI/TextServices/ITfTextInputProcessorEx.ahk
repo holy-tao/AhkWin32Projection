@@ -107,7 +107,7 @@ export default struct ITfTextInputProcessorEx extends ITfTextInputProcessor {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ActivateEx := CallbackCreate(GetMethod(implObj, "ActivateEx"), flags, 4)
+        this.vtbl.ActivateEx := CallbackCreate(ObjBindMethod(implObj, "ActivateEx"), flags, 4)
     }
 
     Dispose() {

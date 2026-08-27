@@ -159,10 +159,10 @@ export default struct IAppPublisher extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNumberOfCategories := CallbackCreate(GetMethod(implObj, "GetNumberOfCategories"), flags, 2)
-        this.vtbl.GetCategories := CallbackCreate(GetMethod(implObj, "GetCategories"), flags, 2)
-        this.vtbl.GetNumberOfApps := CallbackCreate(GetMethod(implObj, "GetNumberOfApps"), flags, 2)
-        this.vtbl.EnumApps := CallbackCreate(GetMethod(implObj, "EnumApps"), flags, 3)
+        this.vtbl.GetNumberOfCategories := CallbackCreate(ObjBindMethod(implObj, "GetNumberOfCategories"), flags, 2)
+        this.vtbl.GetCategories := CallbackCreate(ObjBindMethod(implObj, "GetCategories"), flags, 2)
+        this.vtbl.GetNumberOfApps := CallbackCreate(ObjBindMethod(implObj, "GetNumberOfApps"), flags, 2)
+        this.vtbl.EnumApps := CallbackCreate(ObjBindMethod(implObj, "EnumApps"), flags, 3)
     }
 
     Dispose() {

@@ -69,7 +69,6 @@ export default struct IDOMMessageEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_data() {
@@ -79,7 +78,6 @@ export default struct IDOMMessageEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_origin() {
@@ -89,7 +87,6 @@ export default struct IDOMMessageEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLWindow2} 
      */
     get_source() {
@@ -98,7 +95,6 @@ export default struct IDOMMessageEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 
@@ -127,10 +123,10 @@ export default struct IDOMMessageEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_data := CallbackCreate(GetMethod(implObj, "get_data"), flags, 2)
-        this.vtbl.get_origin := CallbackCreate(GetMethod(implObj, "get_origin"), flags, 2)
-        this.vtbl.get_source := CallbackCreate(GetMethod(implObj, "get_source"), flags, 2)
-        this.vtbl.initMessageEvent := CallbackCreate(GetMethod(implObj, "initMessageEvent"), flags, 8)
+        this.vtbl.get_data := CallbackCreate(ObjBindMethod(implObj, "get_data"), flags, 2)
+        this.vtbl.get_origin := CallbackCreate(ObjBindMethod(implObj, "get_origin"), flags, 2)
+        this.vtbl.get_source := CallbackCreate(ObjBindMethod(implObj, "get_source"), flags, 2)
+        this.vtbl.initMessageEvent := CallbackCreate(ObjBindMethod(implObj, "initMessageEvent"), flags, 8)
     }
 
     Dispose() {

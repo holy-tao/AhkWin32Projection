@@ -19,7 +19,6 @@ export default struct LPDDHALVPORTCB_GETOUTPUTFORMATS {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_GETVPORTOUTPUTFORMATDATA>} param0 
      * @returns {Integer} 
      */

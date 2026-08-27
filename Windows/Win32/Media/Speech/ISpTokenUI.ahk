@@ -41,7 +41,6 @@ export default struct ISpTokenUI extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszTypeOfUI 
      * @param {Pointer<Void>} pvExtraData 
      * @param {Integer} cbExtraData 
@@ -51,14 +50,13 @@ export default struct ISpTokenUI extends IUnknown {
     IsUISupported(pszTypeOfUI, pvExtraData, cbExtraData, punkObject) {
         pszTypeOfUI := pszTypeOfUI is String ? StrPtr(pszTypeOfUI) : pszTypeOfUI
 
-        pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : "ptr"
+        pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, UInt32, cbExtraData, "ptr", punkObject, BOOL.Ptr, &pfSupported := 0, "HRESULT")
         return pfSupported
     }
 
     /**
-     * 
      * @param {HWND} hwndParent 
      * @param {PWSTR} pszTitle 
      * @param {PWSTR} pszTypeOfUI 
@@ -72,9 +70,10 @@ export default struct ISpTokenUI extends IUnknown {
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
         pszTypeOfUI := pszTypeOfUI is String ? StrPtr(pszTypeOfUI) : pszTypeOfUI
 
-        pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : "ptr"
+        pszTitleMarshal := pszTitle == 0 ? IntPtr : PWSTR
+        pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : IntPtr
 
-        result := ComCall(4, this, HWND, hwndParent, "ptr", pszTitle, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, UInt32, cbExtraData, "ptr", pToken, "ptr", punkObject, "HRESULT")
+        result := ComCall(4, this, HWND, hwndParent, pszTitleMarshal, pszTitle, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, UInt32, cbExtraData, "ptr", pToken, "ptr", punkObject, "HRESULT")
         return result
     }
 
@@ -87,8 +86,8 @@ export default struct ISpTokenUI extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsUISupported := CallbackCreate(GetMethod(implObj, "IsUISupported"), flags, 6)
-        this.vtbl.DisplayUI := CallbackCreate(GetMethod(implObj, "DisplayUI"), flags, 8)
+        this.vtbl.IsUISupported := CallbackCreate(ObjBindMethod(implObj, "IsUISupported"), flags, 6)
+        this.vtbl.DisplayUI := CallbackCreate(ObjBindMethod(implObj, "DisplayUI"), flags, 8)
     }
 
     Dispose() {

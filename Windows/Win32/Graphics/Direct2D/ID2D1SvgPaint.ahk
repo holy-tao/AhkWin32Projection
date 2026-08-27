@@ -152,13 +152,13 @@ export default struct ID2D1SvgPaint extends ID2D1SvgAttribute {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetPaintType := CallbackCreate(GetMethod(implObj, "SetPaintType"), flags, 2)
-        this.vtbl.GetPaintType := CallbackCreate(GetMethod(implObj, "GetPaintType"), flags, 1)
-        this.vtbl.SetColor := CallbackCreate(GetMethod(implObj, "SetColor"), flags, 2)
-        this.vtbl.GetColor := CallbackCreate(GetMethod(implObj, "GetColor"), flags, 2)
-        this.vtbl.SetId := CallbackCreate(GetMethod(implObj, "SetId"), flags, 2)
-        this.vtbl.GetId := CallbackCreate(GetMethod(implObj, "GetId"), flags, 3)
-        this.vtbl.GetIdLength := CallbackCreate(GetMethod(implObj, "GetIdLength"), flags, 1)
+        this.vtbl.SetPaintType := CallbackCreate(ObjBindMethod(implObj, "SetPaintType"), flags, 2)
+        this.vtbl.GetPaintType := CallbackCreate(ObjBindMethod(implObj, "GetPaintType"), flags, 1)
+        this.vtbl.SetColor := CallbackCreate(ObjBindMethod(implObj, "SetColor"), flags, 2)
+        this.vtbl.GetColor := CallbackCreate(ObjBindMethod(implObj, "GetColor"), flags, 2)
+        this.vtbl.SetId := CallbackCreate(ObjBindMethod(implObj, "SetId"), flags, 2)
+        this.vtbl.GetId := CallbackCreate(ObjBindMethod(implObj, "GetId"), flags, 3)
+        this.vtbl.GetIdLength := CallbackCreate(ObjBindMethod(implObj, "GetIdLength"), flags, 1)
     }
 
     Dispose() {

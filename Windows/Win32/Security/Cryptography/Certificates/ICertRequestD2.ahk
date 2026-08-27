@@ -41,7 +41,6 @@ export default struct ICertRequestD2 extends ICertRequestD {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszAuthority 
      * @param {Integer} dwFlags 
      * @param {PWSTR} pwszSerialNumber 
@@ -59,15 +58,17 @@ export default struct ICertRequestD2 extends ICertRequestD {
         pwszSerialNumber := pwszSerialNumber is String ? StrPtr(pwszSerialNumber) : pwszSerialNumber
         pwszAttributes := pwszAttributes is String ? StrPtr(pwszAttributes) : pwszAttributes
 
-        pdwRequestIdMarshal := pdwRequestId is VarRef ? "uint*" : "ptr"
-        pdwDispositionMarshal := pdwDisposition is VarRef ? "uint*" : "ptr"
+        pwszAuthorityMarshal := pwszAuthority == 0 ? IntPtr : PWSTR
+        pwszSerialNumberMarshal := pwszSerialNumber == 0 ? IntPtr : PWSTR
+        pdwRequestIdMarshal := pdwRequestId is VarRef ? "uint*" : IntPtr
+        pdwDispositionMarshal := pdwDisposition is VarRef ? "uint*" : IntPtr
+        pwszAttributesMarshal := pwszAttributes == 0 ? IntPtr : PWSTR
 
-        result := ComCall(6, this, "ptr", pwszAuthority, UInt32, dwFlags, "ptr", pwszSerialNumber, pdwRequestIdMarshal, pdwRequestId, pdwDispositionMarshal, pdwDisposition, "ptr", pwszAttributes, CERTTRANSBLOB.Ptr, pctbRequest, CERTTRANSBLOB.Ptr, pctbFullResponse, CERTTRANSBLOB.Ptr, pctbEncodedCert, CERTTRANSBLOB.Ptr, pctbDispositionMessage, "HRESULT")
+        result := ComCall(6, this, pwszAuthorityMarshal, pwszAuthority, UInt32, dwFlags, pwszSerialNumberMarshal, pwszSerialNumber, pdwRequestIdMarshal, pdwRequestId, pdwDispositionMarshal, pdwDisposition, pwszAttributesMarshal, pwszAttributes, CERTTRANSBLOB.Ptr, pctbRequest, CERTTRANSBLOB.Ptr, pctbFullResponse, CERTTRANSBLOB.Ptr, pctbEncodedCert, CERTTRANSBLOB.Ptr, pctbDispositionMessage, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwszAuthority 
      * @param {Integer} PropId 
      * @param {Integer} PropIndex 
@@ -77,13 +78,14 @@ export default struct ICertRequestD2 extends ICertRequestD {
     GetCAProperty(pwszAuthority, PropId, PropIndex, PropType) {
         pwszAuthority := pwszAuthority is String ? StrPtr(pwszAuthority) : pwszAuthority
 
+        pwszAuthorityMarshal := pwszAuthority == 0 ? IntPtr : PWSTR
+
         pctbPropertyValue := CERTTRANSBLOB()
-        result := ComCall(7, this, "ptr", pwszAuthority, Int32, PropId, Int32, PropIndex, Int32, PropType, CERTTRANSBLOB.Ptr, pctbPropertyValue, "HRESULT")
+        result := ComCall(7, this, pwszAuthorityMarshal, pwszAuthority, Int32, PropId, Int32, PropIndex, Int32, PropType, CERTTRANSBLOB.Ptr, pctbPropertyValue, "HRESULT")
         return pctbPropertyValue
     }
 
     /**
-     * 
      * @param {PWSTR} pwszAuthority 
      * @param {Pointer<Integer>} pcProperty 
      * @param {Pointer<CERTTRANSBLOB>} pctbPropInfo 
@@ -92,21 +94,23 @@ export default struct ICertRequestD2 extends ICertRequestD {
     GetCAPropertyInfo(pwszAuthority, pcProperty, pctbPropInfo) {
         pwszAuthority := pwszAuthority is String ? StrPtr(pwszAuthority) : pwszAuthority
 
-        pcPropertyMarshal := pcProperty is VarRef ? "int*" : "ptr"
+        pwszAuthorityMarshal := pwszAuthority == 0 ? IntPtr : PWSTR
+        pcPropertyMarshal := pcProperty is VarRef ? "int*" : IntPtr
 
-        result := ComCall(8, this, "ptr", pwszAuthority, pcPropertyMarshal, pcProperty, CERTTRANSBLOB.Ptr, pctbPropInfo, "HRESULT")
+        result := ComCall(8, this, pwszAuthorityMarshal, pwszAuthority, pcPropertyMarshal, pcProperty, CERTTRANSBLOB.Ptr, pctbPropInfo, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwszAuthority 
      * @returns {HRESULT} 
      */
     Ping2(pwszAuthority) {
         pwszAuthority := pwszAuthority is String ? StrPtr(pwszAuthority) : pwszAuthority
 
-        result := ComCall(9, this, "ptr", pwszAuthority, "HRESULT")
+        pwszAuthorityMarshal := pwszAuthority == 0 ? IntPtr : PWSTR
+
+        result := ComCall(9, this, pwszAuthorityMarshal, pwszAuthority, "HRESULT")
         return result
     }
 
@@ -119,10 +123,10 @@ export default struct ICertRequestD2 extends ICertRequestD {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Request2 := CallbackCreate(GetMethod(implObj, "Request2"), flags, 11)
-        this.vtbl.GetCAProperty := CallbackCreate(GetMethod(implObj, "GetCAProperty"), flags, 6)
-        this.vtbl.GetCAPropertyInfo := CallbackCreate(GetMethod(implObj, "GetCAPropertyInfo"), flags, 4)
-        this.vtbl.Ping2 := CallbackCreate(GetMethod(implObj, "Ping2"), flags, 2)
+        this.vtbl.Request2 := CallbackCreate(ObjBindMethod(implObj, "Request2"), flags, 11)
+        this.vtbl.GetCAProperty := CallbackCreate(ObjBindMethod(implObj, "GetCAProperty"), flags, 6)
+        this.vtbl.GetCAPropertyInfo := CallbackCreate(ObjBindMethod(implObj, "GetCAPropertyInfo"), flags, 4)
+        this.vtbl.Ping2 := CallbackCreate(ObjBindMethod(implObj, "Ping2"), flags, 2)
     }
 
     Dispose() {

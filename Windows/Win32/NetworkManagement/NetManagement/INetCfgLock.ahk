@@ -39,7 +39,6 @@ export default struct INetCfgLock extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cmsTimeout 
      * @param {PWSTR} pszwClientDescription 
      * @returns {PWSTR} 
@@ -52,7 +51,6 @@ export default struct INetCfgLock extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ReleaseWriteLock() {
@@ -61,7 +59,6 @@ export default struct INetCfgLock extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     IsWriteLocked() {
@@ -78,9 +75,9 @@ export default struct INetCfgLock extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AcquireWriteLock := CallbackCreate(GetMethod(implObj, "AcquireWriteLock"), flags, 4)
-        this.vtbl.ReleaseWriteLock := CallbackCreate(GetMethod(implObj, "ReleaseWriteLock"), flags, 1)
-        this.vtbl.IsWriteLocked := CallbackCreate(GetMethod(implObj, "IsWriteLocked"), flags, 2)
+        this.vtbl.AcquireWriteLock := CallbackCreate(ObjBindMethod(implObj, "AcquireWriteLock"), flags, 4)
+        this.vtbl.ReleaseWriteLock := CallbackCreate(ObjBindMethod(implObj, "ReleaseWriteLock"), flags, 1)
+        this.vtbl.IsWriteLocked := CallbackCreate(ObjBindMethod(implObj, "IsWriteLocked"), flags, 2)
     }
 
     Dispose() {

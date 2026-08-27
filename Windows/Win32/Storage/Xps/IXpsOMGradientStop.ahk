@@ -287,12 +287,12 @@ export default struct IXpsOMGradientStop extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOwner := CallbackCreate(GetMethod(implObj, "GetOwner"), flags, 2)
-        this.vtbl.GetOffset := CallbackCreate(GetMethod(implObj, "GetOffset"), flags, 2)
-        this.vtbl.SetOffset := CallbackCreate(GetMethod(implObj, "SetOffset"), flags, 2)
-        this.vtbl.GetColor := CallbackCreate(GetMethod(implObj, "GetColor"), flags, 3)
-        this.vtbl.SetColor := CallbackCreate(GetMethod(implObj, "SetColor"), flags, 3)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.GetOwner := CallbackCreate(ObjBindMethod(implObj, "GetOwner"), flags, 2)
+        this.vtbl.GetOffset := CallbackCreate(ObjBindMethod(implObj, "GetOffset"), flags, 2)
+        this.vtbl.SetOffset := CallbackCreate(ObjBindMethod(implObj, "SetOffset"), flags, 2)
+        this.vtbl.GetColor := CallbackCreate(ObjBindMethod(implObj, "GetColor"), flags, 3)
+        this.vtbl.SetColor := CallbackCreate(ObjBindMethod(implObj, "SetColor"), flags, 3)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
     }
 
     Dispose() {

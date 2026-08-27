@@ -21,7 +21,6 @@ export default struct PFLT_INSTANCE_SETUP_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_RELATED_OBJECTS>} FltObjects 
      * @param {Integer} Flags 
      * @param {Integer} VolumeDeviceType 

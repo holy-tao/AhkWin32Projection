@@ -74,7 +74,7 @@ export default struct IBackgroundCopyCallback3 extends IBackgroundCopyCallback2 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FileRangesTransferred := CallbackCreate(GetMethod(implObj, "FileRangesTransferred"), flags, 5)
+        this.vtbl.FileRangesTransferred := CallbackCreate(ObjBindMethod(implObj, "FileRangesTransferred"), flags, 5)
     }
 
     Dispose() {

@@ -100,9 +100,9 @@ export default struct ITableProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRowHeaders := CallbackCreate(GetMethod(implObj, "GetRowHeaders"), flags, 2)
-        this.vtbl.GetColumnHeaders := CallbackCreate(GetMethod(implObj, "GetColumnHeaders"), flags, 2)
-        this.vtbl.get_RowOrColumnMajor := CallbackCreate(GetMethod(implObj, "get_RowOrColumnMajor"), flags, 2)
+        this.vtbl.GetRowHeaders := CallbackCreate(ObjBindMethod(implObj, "GetRowHeaders"), flags, 2)
+        this.vtbl.GetColumnHeaders := CallbackCreate(ObjBindMethod(implObj, "GetColumnHeaders"), flags, 2)
+        this.vtbl.get_RowOrColumnMajor := CallbackCreate(ObjBindMethod(implObj, "get_RowOrColumnMajor"), flags, 2)
     }
 
     Dispose() {

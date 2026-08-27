@@ -46,7 +46,6 @@ export default struct IMLangFontLink2 extends IMLangCodePages {
     }
 
     /**
-     * 
      * @param {HDC} _hDC 
      * @param {HFONT} _hFont 
      * @returns {Integer} 
@@ -57,7 +56,6 @@ export default struct IMLangFontLink2 extends IMLangCodePages {
     }
 
     /**
-     * 
      * @param {HFONT} _hFont 
      * @returns {HRESULT} 
      */
@@ -67,7 +65,6 @@ export default struct IMLangFontLink2 extends IMLangCodePages {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ResetFontMapping() {
@@ -76,7 +73,6 @@ export default struct IMLangFontLink2 extends IMLangCodePages {
     }
 
     /**
-     * 
      * @param {HDC} _hDC 
      * @param {Integer} dwCodePages 
      * @param {Integer} chSrc 
@@ -96,7 +92,7 @@ export default struct IMLangFontLink2 extends IMLangCodePages {
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getfontunicoderanges
      */
     GetFontUnicodeRanges(_hDC, puiRanges) {
-        puiRangesMarshal := puiRanges is VarRef ? "uint*" : "ptr"
+        puiRangesMarshal := puiRanges is VarRef ? "uint*" : IntPtr
 
         pUranges := UNICODERANGE()
         result := ComCall(11, this, HDC, _hDC, puiRangesMarshal, puiRanges, UNICODERANGE.Ptr, pUranges, "HRESULT")
@@ -104,14 +100,13 @@ export default struct IMLangFontLink2 extends IMLangCodePages {
     }
 
     /**
-     * 
      * @param {Integer} _sid 
      * @param {Integer} dwFlags 
      * @param {Pointer<Integer>} puiFonts 
      * @returns {SCRIPTFONTINFO} 
      */
     GetScriptFontInfo(_sid, dwFlags, puiFonts) {
-        puiFontsMarshal := puiFonts is VarRef ? "uint*" : "ptr"
+        puiFontsMarshal := puiFonts is VarRef ? "uint*" : IntPtr
 
         pScriptFont := SCRIPTFONTINFO()
         result := ComCall(12, this, Int8, _sid, UInt32, dwFlags, puiFontsMarshal, puiFonts, SCRIPTFONTINFO.Ptr, pScriptFont, "HRESULT")
@@ -119,7 +114,6 @@ export default struct IMLangFontLink2 extends IMLangCodePages {
     }
 
     /**
-     * 
      * @param {Integer} uiCodePage 
      * @returns {Integer} 
      */
@@ -137,13 +131,13 @@ export default struct IMLangFontLink2 extends IMLangCodePages {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFontCodePages := CallbackCreate(GetMethod(implObj, "GetFontCodePages"), flags, 4)
-        this.vtbl.ReleaseFont := CallbackCreate(GetMethod(implObj, "ReleaseFont"), flags, 2)
-        this.vtbl.ResetFontMapping := CallbackCreate(GetMethod(implObj, "ResetFontMapping"), flags, 1)
-        this.vtbl.MapFont := CallbackCreate(GetMethod(implObj, "MapFont"), flags, 5)
-        this.vtbl.GetFontUnicodeRanges := CallbackCreate(GetMethod(implObj, "GetFontUnicodeRanges"), flags, 4)
-        this.vtbl.GetScriptFontInfo := CallbackCreate(GetMethod(implObj, "GetScriptFontInfo"), flags, 5)
-        this.vtbl.CodePageToScriptID := CallbackCreate(GetMethod(implObj, "CodePageToScriptID"), flags, 3)
+        this.vtbl.GetFontCodePages := CallbackCreate(ObjBindMethod(implObj, "GetFontCodePages"), flags, 4)
+        this.vtbl.ReleaseFont := CallbackCreate(ObjBindMethod(implObj, "ReleaseFont"), flags, 2)
+        this.vtbl.ResetFontMapping := CallbackCreate(ObjBindMethod(implObj, "ResetFontMapping"), flags, 1)
+        this.vtbl.MapFont := CallbackCreate(ObjBindMethod(implObj, "MapFont"), flags, 5)
+        this.vtbl.GetFontUnicodeRanges := CallbackCreate(ObjBindMethod(implObj, "GetFontUnicodeRanges"), flags, 4)
+        this.vtbl.GetScriptFontInfo := CallbackCreate(ObjBindMethod(implObj, "GetScriptFontInfo"), flags, 5)
+        this.vtbl.CodePageToScriptID := CallbackCreate(ObjBindMethod(implObj, "CodePageToScriptID"), flags, 3)
     }
 
     Dispose() {

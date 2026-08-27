@@ -188,12 +188,12 @@ export default struct IApplicationAssociationRegistration extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryCurrentDefault := CallbackCreate(GetMethod(implObj, "QueryCurrentDefault"), flags, 5)
-        this.vtbl.QueryAppIsDefault := CallbackCreate(GetMethod(implObj, "QueryAppIsDefault"), flags, 6)
-        this.vtbl.QueryAppIsDefaultAll := CallbackCreate(GetMethod(implObj, "QueryAppIsDefaultAll"), flags, 4)
-        this.vtbl.SetAppAsDefault := CallbackCreate(GetMethod(implObj, "SetAppAsDefault"), flags, 4)
-        this.vtbl.SetAppAsDefaultAll := CallbackCreate(GetMethod(implObj, "SetAppAsDefaultAll"), flags, 2)
-        this.vtbl.ClearUserAssociations := CallbackCreate(GetMethod(implObj, "ClearUserAssociations"), flags, 1)
+        this.vtbl.QueryCurrentDefault := CallbackCreate(ObjBindMethod(implObj, "QueryCurrentDefault"), flags, 5)
+        this.vtbl.QueryAppIsDefault := CallbackCreate(ObjBindMethod(implObj, "QueryAppIsDefault"), flags, 6)
+        this.vtbl.QueryAppIsDefaultAll := CallbackCreate(ObjBindMethod(implObj, "QueryAppIsDefaultAll"), flags, 4)
+        this.vtbl.SetAppAsDefault := CallbackCreate(ObjBindMethod(implObj, "SetAppAsDefault"), flags, 4)
+        this.vtbl.SetAppAsDefaultAll := CallbackCreate(ObjBindMethod(implObj, "SetAppAsDefaultAll"), flags, 2)
+        this.vtbl.ClearUserAssociations := CallbackCreate(ObjBindMethod(implObj, "ClearUserAssociations"), flags, 1)
     }
 
     Dispose() {

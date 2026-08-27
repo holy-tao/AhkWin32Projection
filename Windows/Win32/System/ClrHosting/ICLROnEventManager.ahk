@@ -39,7 +39,6 @@ export default struct ICLROnEventManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {EClrEvent} event 
      * @param {IActionOnCLREvent} pAction 
      * @returns {HRESULT} 
@@ -50,7 +49,6 @@ export default struct ICLROnEventManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {EClrEvent} event 
      * @param {IActionOnCLREvent} pAction 
      * @returns {HRESULT} 
@@ -69,8 +67,8 @@ export default struct ICLROnEventManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterActionOnEvent := CallbackCreate(GetMethod(implObj, "RegisterActionOnEvent"), flags, 3)
-        this.vtbl.UnregisterActionOnEvent := CallbackCreate(GetMethod(implObj, "UnregisterActionOnEvent"), flags, 3)
+        this.vtbl.RegisterActionOnEvent := CallbackCreate(ObjBindMethod(implObj, "RegisterActionOnEvent"), flags, 3)
+        this.vtbl.UnregisterActionOnEvent := CallbackCreate(ObjBindMethod(implObj, "UnregisterActionOnEvent"), flags, 3)
     }
 
     Dispose() {

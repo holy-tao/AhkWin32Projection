@@ -19,13 +19,12 @@ export default struct PSTABLE_UNICAST_IPADDRESS_TABLE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} CallerContext 
      * @param {Pointer<MIB_UNICASTIPADDRESS_TABLE>} AddressTable 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(CallerContext, AddressTable) {
-        CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
+        CallerContextMarshal := CallerContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, CallerContextMarshal, CallerContext, MIB_UNICASTIPADDRESS_TABLE.Ptr, AddressTable)
     }

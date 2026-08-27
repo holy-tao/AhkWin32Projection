@@ -40,16 +40,15 @@ export default struct IDebugHostSymbolsTargetComposition extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<IDebugServiceManager>} pServiceManager 
      * @param {Pointer<ISvcModule>} pModule 
      * @param {Pointer<ISvcSymbolType>} pType 
      * @returns {IDebugHostType} 
      */
     GetTypeForServiceType(pServiceManager, pModule, pType) {
-        pServiceManagerMarshal := pServiceManager is VarRef ? "ptr*" : "ptr"
-        pModuleMarshal := pModule is VarRef ? "ptr*" : "ptr"
-        pTypeMarshal := pType is VarRef ? "ptr*" : "ptr"
+        pServiceManagerMarshal := pServiceManager is VarRef ? "ptr*" : IntPtr
+        pModuleMarshal := pModule is VarRef ? "ptr*" : IntPtr
+        pTypeMarshal := pType is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, pServiceManagerMarshal, pServiceManager, pModuleMarshal, pModule, pTypeMarshal, pType, "ptr*", &ppHostType := 0, "HRESULT")
         return IDebugHostType(ppHostType)
@@ -64,7 +63,7 @@ export default struct IDebugHostSymbolsTargetComposition extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTypeForServiceType := CallbackCreate(GetMethod(implObj, "GetTypeForServiceType"), flags, 5)
+        this.vtbl.GetTypeForServiceType := CallbackCreate(ObjBindMethod(implObj, "GetTypeForServiceType"), flags, 5)
     }
 
     Dispose() {

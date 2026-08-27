@@ -214,12 +214,13 @@ export default struct IInkStrokeDisp extends IDispatch {
     }
 
     /**
-     * 
      * @param {IInkDrawingAttributes} DrawAttrs 
      * @returns {HRESULT} 
      */
     putref_DrawingAttributes(DrawAttrs) {
-        result := ComCall(10, this, "ptr", DrawAttrs, "HRESULT")
+        DrawAttrsMarshal := DrawAttrs == 0 ? IntPtr : "ptr"
+
+        result := ComCall(10, this, DrawAttrsMarshal, DrawAttrs, "HRESULT")
         return result
     }
 
@@ -381,8 +382,10 @@ export default struct IInkStrokeDisp extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-findintersections
      */
     FindIntersections(Strokes) {
+        StrokesMarshal := Strokes == 0 ? IntPtr : "ptr"
+
         Intersections := VARIANT()
-        result := ComCall(21, this, "ptr", Strokes, VARIANT.Ptr, Intersections, "HRESULT")
+        result := ComCall(21, this, StrokesMarshal, Strokes, VARIANT.Ptr, Intersections, "HRESULT")
         return Intersections
     }
 
@@ -399,8 +402,10 @@ export default struct IInkStrokeDisp extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-getrectangleintersections
      */
     GetRectangleIntersections(Rectangle) {
+        RectangleMarshal := Rectangle == 0 ? IntPtr : "ptr"
+
         Intersections := VARIANT()
-        result := ComCall(22, this, "ptr", Rectangle, VARIANT.Ptr, Intersections, "HRESULT")
+        result := ComCall(22, this, RectangleMarshal, Rectangle, VARIANT.Ptr, Intersections, "HRESULT")
         return Intersections
     }
 
@@ -492,7 +497,9 @@ export default struct IInkStrokeDisp extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-clip
      */
     Clip(Rectangle) {
-        result := ComCall(23, this, "ptr", Rectangle, "HRESULT")
+        RectangleMarshal := Rectangle == 0 ? IntPtr : "ptr"
+
+        result := ComCall(23, this, RectangleMarshal, Rectangle, "HRESULT")
         return result
     }
 
@@ -522,7 +529,7 @@ export default struct IInkStrokeDisp extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-nearestpoint
      */
     NearestPoint(X, Y, Distance) {
-        DistanceMarshal := Distance is VarRef ? "float*" : "ptr"
+        DistanceMarshal := Distance is VarRef ? "float*" : IntPtr
 
         result := ComCall(25, this, Int32, X, Int32, Y, DistanceMarshal, Distance, "float*", &_Point := 0, "HRESULT")
         return _Point
@@ -634,10 +641,10 @@ export default struct IInkStrokeDisp extends IDispatch {
     GetPacketDescriptionPropertyMetrics(PropertyName, Minimum, Maximum, Units, Resolution) {
         PropertyName := PropertyName is String ? BSTR.Alloc(PropertyName).Value : PropertyName
 
-        MinimumMarshal := Minimum is VarRef ? "int*" : "ptr"
-        MaximumMarshal := Maximum is VarRef ? "int*" : "ptr"
-        UnitsMarshal := Units is VarRef ? "int*" : "ptr"
-        ResolutionMarshal := Resolution is VarRef ? "float*" : "ptr"
+        MinimumMarshal := Minimum is VarRef ? "int*" : IntPtr
+        MaximumMarshal := Maximum is VarRef ? "int*" : IntPtr
+        UnitsMarshal := Units is VarRef ? "int*" : IntPtr
+        ResolutionMarshal := Resolution is VarRef ? "float*" : IntPtr
 
         result := ComCall(27, this, BSTR, PropertyName, MinimumMarshal, Minimum, MaximumMarshal, Maximum, UnitsMarshal, Units, ResolutionMarshal, Resolution, "HRESULT")
         return result
@@ -824,7 +831,9 @@ export default struct IInkStrokeDisp extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-transform
      */
     Transform(Transform, ApplyOnPenWidth) {
-        result := ComCall(34, this, "ptr", Transform, VARIANT_BOOL, ApplyOnPenWidth, "HRESULT")
+        TransformMarshal := Transform == 0 ? IntPtr : "ptr"
+
+        result := ComCall(34, this, TransformMarshal, Transform, VARIANT_BOOL, ApplyOnPenWidth, "HRESULT")
         return result
     }
 
@@ -875,7 +884,9 @@ export default struct IInkStrokeDisp extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokedisp-scaletorectangle
      */
     ScaleToRectangle(Rectangle) {
-        result := ComCall(35, this, "ptr", Rectangle, "HRESULT")
+        RectangleMarshal := Rectangle == 0 ? IntPtr : "ptr"
+
+        result := ComCall(35, this, RectangleMarshal, Rectangle, "HRESULT")
         return result
     }
 
@@ -1032,39 +1043,39 @@ export default struct IInkStrokeDisp extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ID := CallbackCreate(GetMethod(implObj, "get_ID"), flags, 2)
-        this.vtbl.get_BezierPoints := CallbackCreate(GetMethod(implObj, "get_BezierPoints"), flags, 2)
-        this.vtbl.get_DrawingAttributes := CallbackCreate(GetMethod(implObj, "get_DrawingAttributes"), flags, 2)
-        this.vtbl.putref_DrawingAttributes := CallbackCreate(GetMethod(implObj, "putref_DrawingAttributes"), flags, 2)
-        this.vtbl.get_Ink := CallbackCreate(GetMethod(implObj, "get_Ink"), flags, 2)
-        this.vtbl.get_ExtendedProperties := CallbackCreate(GetMethod(implObj, "get_ExtendedProperties"), flags, 2)
-        this.vtbl.get_PolylineCusps := CallbackCreate(GetMethod(implObj, "get_PolylineCusps"), flags, 2)
-        this.vtbl.get_BezierCusps := CallbackCreate(GetMethod(implObj, "get_BezierCusps"), flags, 2)
-        this.vtbl.get_SelfIntersections := CallbackCreate(GetMethod(implObj, "get_SelfIntersections"), flags, 2)
-        this.vtbl.get_PacketCount := CallbackCreate(GetMethod(implObj, "get_PacketCount"), flags, 2)
-        this.vtbl.get_PacketSize := CallbackCreate(GetMethod(implObj, "get_PacketSize"), flags, 2)
-        this.vtbl.get_PacketDescription := CallbackCreate(GetMethod(implObj, "get_PacketDescription"), flags, 2)
-        this.vtbl.get_Deleted := CallbackCreate(GetMethod(implObj, "get_Deleted"), flags, 2)
-        this.vtbl.GetBoundingBox := CallbackCreate(GetMethod(implObj, "GetBoundingBox"), flags, 3)
-        this.vtbl.FindIntersections := CallbackCreate(GetMethod(implObj, "FindIntersections"), flags, 3)
-        this.vtbl.GetRectangleIntersections := CallbackCreate(GetMethod(implObj, "GetRectangleIntersections"), flags, 3)
-        this.vtbl.Clip := CallbackCreate(GetMethod(implObj, "Clip"), flags, 2)
-        this.vtbl.HitTestCircle := CallbackCreate(GetMethod(implObj, "HitTestCircle"), flags, 5)
-        this.vtbl.NearestPoint := CallbackCreate(GetMethod(implObj, "NearestPoint"), flags, 5)
-        this.vtbl.Split := CallbackCreate(GetMethod(implObj, "Split"), flags, 3)
-        this.vtbl.GetPacketDescriptionPropertyMetrics := CallbackCreate(GetMethod(implObj, "GetPacketDescriptionPropertyMetrics"), flags, 6)
-        this.vtbl.GetPoints := CallbackCreate(GetMethod(implObj, "GetPoints"), flags, 4)
-        this.vtbl.SetPoints := CallbackCreate(GetMethod(implObj, "SetPoints"), flags, 5)
-        this.vtbl.GetPacketData := CallbackCreate(GetMethod(implObj, "GetPacketData"), flags, 4)
-        this.vtbl.GetPacketValuesByProperty := CallbackCreate(GetMethod(implObj, "GetPacketValuesByProperty"), flags, 5)
-        this.vtbl.SetPacketValuesByProperty := CallbackCreate(GetMethod(implObj, "SetPacketValuesByProperty"), flags, 6)
-        this.vtbl.GetFlattenedBezierPoints := CallbackCreate(GetMethod(implObj, "GetFlattenedBezierPoints"), flags, 3)
-        this.vtbl.Transform := CallbackCreate(GetMethod(implObj, "Transform"), flags, 3)
-        this.vtbl.ScaleToRectangle := CallbackCreate(GetMethod(implObj, "ScaleToRectangle"), flags, 2)
-        this.vtbl.Move := CallbackCreate(GetMethod(implObj, "Move"), flags, 3)
-        this.vtbl.Rotate := CallbackCreate(GetMethod(implObj, "Rotate"), flags, 4)
-        this.vtbl.Shear := CallbackCreate(GetMethod(implObj, "Shear"), flags, 3)
-        this.vtbl.ScaleTransform := CallbackCreate(GetMethod(implObj, "ScaleTransform"), flags, 3)
+        this.vtbl.get_ID := CallbackCreate(ObjBindMethod(implObj, "get_ID"), flags, 2)
+        this.vtbl.get_BezierPoints := CallbackCreate(ObjBindMethod(implObj, "get_BezierPoints"), flags, 2)
+        this.vtbl.get_DrawingAttributes := CallbackCreate(ObjBindMethod(implObj, "get_DrawingAttributes"), flags, 2)
+        this.vtbl.putref_DrawingAttributes := CallbackCreate(ObjBindMethod(implObj, "putref_DrawingAttributes"), flags, 2)
+        this.vtbl.get_Ink := CallbackCreate(ObjBindMethod(implObj, "get_Ink"), flags, 2)
+        this.vtbl.get_ExtendedProperties := CallbackCreate(ObjBindMethod(implObj, "get_ExtendedProperties"), flags, 2)
+        this.vtbl.get_PolylineCusps := CallbackCreate(ObjBindMethod(implObj, "get_PolylineCusps"), flags, 2)
+        this.vtbl.get_BezierCusps := CallbackCreate(ObjBindMethod(implObj, "get_BezierCusps"), flags, 2)
+        this.vtbl.get_SelfIntersections := CallbackCreate(ObjBindMethod(implObj, "get_SelfIntersections"), flags, 2)
+        this.vtbl.get_PacketCount := CallbackCreate(ObjBindMethod(implObj, "get_PacketCount"), flags, 2)
+        this.vtbl.get_PacketSize := CallbackCreate(ObjBindMethod(implObj, "get_PacketSize"), flags, 2)
+        this.vtbl.get_PacketDescription := CallbackCreate(ObjBindMethod(implObj, "get_PacketDescription"), flags, 2)
+        this.vtbl.get_Deleted := CallbackCreate(ObjBindMethod(implObj, "get_Deleted"), flags, 2)
+        this.vtbl.GetBoundingBox := CallbackCreate(ObjBindMethod(implObj, "GetBoundingBox"), flags, 3)
+        this.vtbl.FindIntersections := CallbackCreate(ObjBindMethod(implObj, "FindIntersections"), flags, 3)
+        this.vtbl.GetRectangleIntersections := CallbackCreate(ObjBindMethod(implObj, "GetRectangleIntersections"), flags, 3)
+        this.vtbl.Clip := CallbackCreate(ObjBindMethod(implObj, "Clip"), flags, 2)
+        this.vtbl.HitTestCircle := CallbackCreate(ObjBindMethod(implObj, "HitTestCircle"), flags, 5)
+        this.vtbl.NearestPoint := CallbackCreate(ObjBindMethod(implObj, "NearestPoint"), flags, 5)
+        this.vtbl.Split := CallbackCreate(ObjBindMethod(implObj, "Split"), flags, 3)
+        this.vtbl.GetPacketDescriptionPropertyMetrics := CallbackCreate(ObjBindMethod(implObj, "GetPacketDescriptionPropertyMetrics"), flags, 6)
+        this.vtbl.GetPoints := CallbackCreate(ObjBindMethod(implObj, "GetPoints"), flags, 4)
+        this.vtbl.SetPoints := CallbackCreate(ObjBindMethod(implObj, "SetPoints"), flags, 5)
+        this.vtbl.GetPacketData := CallbackCreate(ObjBindMethod(implObj, "GetPacketData"), flags, 4)
+        this.vtbl.GetPacketValuesByProperty := CallbackCreate(ObjBindMethod(implObj, "GetPacketValuesByProperty"), flags, 5)
+        this.vtbl.SetPacketValuesByProperty := CallbackCreate(ObjBindMethod(implObj, "SetPacketValuesByProperty"), flags, 6)
+        this.vtbl.GetFlattenedBezierPoints := CallbackCreate(ObjBindMethod(implObj, "GetFlattenedBezierPoints"), flags, 3)
+        this.vtbl.Transform := CallbackCreate(ObjBindMethod(implObj, "Transform"), flags, 3)
+        this.vtbl.ScaleToRectangle := CallbackCreate(ObjBindMethod(implObj, "ScaleToRectangle"), flags, 2)
+        this.vtbl.Move := CallbackCreate(ObjBindMethod(implObj, "Move"), flags, 3)
+        this.vtbl.Rotate := CallbackCreate(ObjBindMethod(implObj, "Rotate"), flags, 4)
+        this.vtbl.Shear := CallbackCreate(ObjBindMethod(implObj, "Shear"), flags, 3)
+        this.vtbl.ScaleTransform := CallbackCreate(ObjBindMethod(implObj, "ScaleTransform"), flags, 3)
     }
 
     Dispose() {

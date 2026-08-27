@@ -100,8 +100,8 @@ export default struct IHomeGroup extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsMember := CallbackCreate(GetMethod(implObj, "IsMember"), flags, 2)
-        this.vtbl.ShowSharingWizard := CallbackCreate(GetMethod(implObj, "ShowSharingWizard"), flags, 3)
+        this.vtbl.IsMember := CallbackCreate(ObjBindMethod(implObj, "IsMember"), flags, 2)
+        this.vtbl.ShowSharingWizard := CallbackCreate(ObjBindMethod(implObj, "ShowSharingWizard"), flags, 3)
     }
 
     Dispose() {

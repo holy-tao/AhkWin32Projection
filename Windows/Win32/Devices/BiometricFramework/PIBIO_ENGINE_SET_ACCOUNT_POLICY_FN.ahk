@@ -31,7 +31,6 @@ export default struct PIBIO_ENGINE_SET_ACCOUNT_POLICY_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/ns-winbio_adapter-winbio_pipeline">WINBIO_PIPELINE</a> structure associated with the biometric unit performing the operation.
      * @param {Pointer<WINBIO_ACCOUNT_POLICY>} PolicyItemArray Address of an array of <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-account-policy">WINBIO_ACCOUNT_POLICY</a> structures, which the routine should use to update the policies it is applying to any identities it detects.
      * @param {Pointer} PolicyItemCount The number of elements in the array pointed to by the <i>PolicyItemArray</i> parameter.

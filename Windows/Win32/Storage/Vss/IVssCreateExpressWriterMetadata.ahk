@@ -303,7 +303,7 @@ export default struct IVssCreateExpressWriterMetadata extends IUnknown {
         wszComponentName := wszComponentName is String ? StrPtr(wszComponentName) : wszComponentName
         wszCaption := wszCaption is String ? StrPtr(wszCaption) : wszCaption
 
-        pbIconMarshal := pbIcon is VarRef ? "char*" : "ptr"
+        pbIconMarshal := pbIcon is VarRef ? "char*" : IntPtr
 
         result := ComCall(4, this, VSS_COMPONENT_TYPE, ct, "ptr", wszLogicalPath, "ptr", wszComponentName, "ptr", wszCaption, pbIconMarshal, pbIcon, UInt32, cbIcon, Int8, bRestoreMetadata, Int8, bNotifyOnBackupComplete, Int8, bSelectable, Int8, bSelectableForRestore, UInt32, dwComponentFlags, "HRESULT")
         return result
@@ -730,13 +730,13 @@ export default struct IVssCreateExpressWriterMetadata extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddExcludeFiles := CallbackCreate(GetMethod(implObj, "AddExcludeFiles"), flags, 4)
-        this.vtbl.AddComponent := CallbackCreate(GetMethod(implObj, "AddComponent"), flags, 12)
-        this.vtbl.AddFilesToFileGroup := CallbackCreate(GetMethod(implObj, "AddFilesToFileGroup"), flags, 8)
-        this.vtbl.SetRestoreMethod := CallbackCreate(GetMethod(implObj, "SetRestoreMethod"), flags, 6)
-        this.vtbl.AddComponentDependency := CallbackCreate(GetMethod(implObj, "AddComponentDependency"), flags, 6)
-        this.vtbl.SetBackupSchema := CallbackCreate(GetMethod(implObj, "SetBackupSchema"), flags, 2)
-        this.vtbl.SaveAsXML := CallbackCreate(GetMethod(implObj, "SaveAsXML"), flags, 2)
+        this.vtbl.AddExcludeFiles := CallbackCreate(ObjBindMethod(implObj, "AddExcludeFiles"), flags, 4)
+        this.vtbl.AddComponent := CallbackCreate(ObjBindMethod(implObj, "AddComponent"), flags, 12)
+        this.vtbl.AddFilesToFileGroup := CallbackCreate(ObjBindMethod(implObj, "AddFilesToFileGroup"), flags, 8)
+        this.vtbl.SetRestoreMethod := CallbackCreate(ObjBindMethod(implObj, "SetRestoreMethod"), flags, 6)
+        this.vtbl.AddComponentDependency := CallbackCreate(ObjBindMethod(implObj, "AddComponentDependency"), flags, 6)
+        this.vtbl.SetBackupSchema := CallbackCreate(ObjBindMethod(implObj, "SetBackupSchema"), flags, 2)
+        this.vtbl.SaveAsXML := CallbackCreate(ObjBindMethod(implObj, "SaveAsXML"), flags, 2)
     }
 
     Dispose() {

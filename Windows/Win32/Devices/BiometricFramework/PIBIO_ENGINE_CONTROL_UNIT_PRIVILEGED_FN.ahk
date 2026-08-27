@@ -26,7 +26,6 @@ export default struct PIBIO_ENGINE_CONTROL_UNIT_PRIVILEGED_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/ns-winbio_adapter-winbio_pipeline">WINBIO_PIPELINE</a> structure associated with the biometric unit performing the operation.
      * @param {Integer} ControlCode A <b>ULONG</b> value that specifies the vendor-defined operation to perform.
      * @param {Integer} SendBuffer Pointer to a buffer that contains the control information sent to the engine adapter. The format and content of the buffer is vendor-defined.
@@ -113,8 +112,8 @@ export default struct PIBIO_ENGINE_CONTROL_UNIT_PRIVILEGED_FN {
      * </table>
      */
     Call(Pipeline, ControlCode, SendBuffer, SendBufferSize, ReceiveBuffer, ReceiveBufferSize, ReceiveDataSize, OperationStatus) {
-        ReceiveDataSizeMarshal := ReceiveDataSize is VarRef ? "ptr*" : "ptr"
-        OperationStatusMarshal := OperationStatus is VarRef ? "uint*" : "ptr"
+        ReceiveDataSizeMarshal := ReceiveDataSize is VarRef ? "ptr*" : IntPtr
+        OperationStatusMarshal := OperationStatus is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, WINBIO_PIPELINE.Ptr, Pipeline, UInt32, ControlCode, IntPtr, SendBuffer, IntPtr, SendBufferSize, IntPtr, ReceiveBuffer, IntPtr, ReceiveBufferSize, ReceiveDataSizeMarshal, ReceiveDataSize, OperationStatusMarshal, OperationStatus, "HRESULT")
         return result

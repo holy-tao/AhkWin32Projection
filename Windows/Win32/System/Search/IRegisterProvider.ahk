@@ -39,7 +39,6 @@ export default struct IRegisterProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszURL 
      * @param {Pointer} dwReserved 
      * @returns {Guid} 
@@ -53,7 +52,6 @@ export default struct IRegisterProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszURL 
      * @param {Pointer} dwReserved 
      * @param {Pointer<Guid>} rclsidProvider 
@@ -67,7 +65,6 @@ export default struct IRegisterProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszURL 
      * @param {Pointer} dwReserved 
      * @param {Pointer<Guid>} rclsidProvider 
@@ -89,9 +86,9 @@ export default struct IRegisterProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetURLMapping := CallbackCreate(GetMethod(implObj, "GetURLMapping"), flags, 4)
-        this.vtbl.SetURLMapping := CallbackCreate(GetMethod(implObj, "SetURLMapping"), flags, 4)
-        this.vtbl.UnregisterProvider := CallbackCreate(GetMethod(implObj, "UnregisterProvider"), flags, 4)
+        this.vtbl.GetURLMapping := CallbackCreate(ObjBindMethod(implObj, "GetURLMapping"), flags, 4)
+        this.vtbl.SetURLMapping := CallbackCreate(ObjBindMethod(implObj, "SetURLMapping"), flags, 4)
+        this.vtbl.UnregisterProvider := CallbackCreate(ObjBindMethod(implObj, "UnregisterProvider"), flags, 4)
     }
 
     Dispose() {

@@ -39,7 +39,6 @@ export default struct ICertEncodeCRLDistInfo2 extends ICertEncodeCRLDistInfo {
     }
 
     /**
-     * 
      * @param {BSTR} strEncodedData 
      * @param {EncodingType} Encoding 
      * @returns {HRESULT} 
@@ -52,7 +51,6 @@ export default struct ICertEncodeCRLDistInfo2 extends ICertEncodeCRLDistInfo {
     }
 
     /**
-     * 
      * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      */
@@ -71,8 +69,8 @@ export default struct ICertEncodeCRLDistInfo2 extends ICertEncodeCRLDistInfo {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DecodeBlob := CallbackCreate(GetMethod(implObj, "DecodeBlob"), flags, 3)
-        this.vtbl.EncodeBlob := CallbackCreate(GetMethod(implObj, "EncodeBlob"), flags, 3)
+        this.vtbl.DecodeBlob := CallbackCreate(ObjBindMethod(implObj, "DecodeBlob"), flags, 3)
+        this.vtbl.EncodeBlob := CallbackCreate(ObjBindMethod(implObj, "EncodeBlob"), flags, 3)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct PLSA_COPY_FROM_CLIENT_BUFFER {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} ClientRequest 
      * @param {Integer} Length 
      * @param {Integer} BufferToCopy 
@@ -27,7 +26,7 @@ export default struct PLSA_COPY_FROM_CLIENT_BUFFER {
      * @returns {NTSTATUS} 
      */
     Call(ClientRequest, Length, BufferToCopy, ClientBaseAddress) {
-        ClientRequestMarshal := ClientRequest is VarRef ? "ptr*" : "ptr"
+        ClientRequestMarshal := ClientRequest is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, ClientRequestMarshal, ClientRequest, UInt32, Length, IntPtr, BufferToCopy, IntPtr, ClientBaseAddress, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

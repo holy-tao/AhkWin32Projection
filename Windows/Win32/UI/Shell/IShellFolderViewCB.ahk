@@ -281,7 +281,7 @@ export default struct IShellFolderViewCB extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.MessageSFVCB := CallbackCreate(GetMethod(implObj, "MessageSFVCB"), flags, 4)
+        this.vtbl.MessageSFVCB := CallbackCreate(ObjBindMethod(implObj, "MessageSFVCB"), flags, 4)
     }
 
     Dispose() {

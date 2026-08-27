@@ -37,29 +37,27 @@ export default struct ISpSerializeState extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Integer>>} ppbData 
      * @param {Pointer<Integer>} pulSize 
      * @param {Integer} dwReserved 
      * @returns {HRESULT} 
      */
     GetSerializedState(ppbData, pulSize, dwReserved) {
-        ppbDataMarshal := ppbData is VarRef ? "ptr*" : "ptr"
-        pulSizeMarshal := pulSize is VarRef ? "uint*" : "ptr"
+        ppbDataMarshal := ppbData is VarRef ? "ptr*" : IntPtr
+        pulSizeMarshal := pulSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, ppbDataMarshal, ppbData, pulSizeMarshal, pulSize, UInt32, dwReserved, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbData 
      * @param {Integer} ulSize 
      * @param {Integer} dwReserved 
      * @returns {HRESULT} 
      */
     SetSerializedState(pbData, ulSize, dwReserved) {
-        pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
+        pbDataMarshal := pbData is VarRef ? "char*" : IntPtr
 
         result := ComCall(4, this, pbDataMarshal, pbData, UInt32, ulSize, UInt32, dwReserved, "HRESULT")
         return result
@@ -74,8 +72,8 @@ export default struct ISpSerializeState extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSerializedState := CallbackCreate(GetMethod(implObj, "GetSerializedState"), flags, 4)
-        this.vtbl.SetSerializedState := CallbackCreate(GetMethod(implObj, "SetSerializedState"), flags, 4)
+        this.vtbl.GetSerializedState := CallbackCreate(ObjBindMethod(implObj, "GetSerializedState"), flags, 4)
+        this.vtbl.SetSerializedState := CallbackCreate(ObjBindMethod(implObj, "SetSerializedState"), flags, 4)
     }
 
     Dispose() {

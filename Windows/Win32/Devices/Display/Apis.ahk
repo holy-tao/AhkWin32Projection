@@ -75,7 +75,7 @@
  * @since windows6.0.6000
  */
 export GetNumberOfPhysicalMonitorsFromHMONITOR(_hMonitor, pdwNumberOfPhysicalMonitors) {
-    pdwNumberOfPhysicalMonitorsMarshal := pdwNumberOfPhysicalMonitors is VarRef ? "uint*" : "ptr"
+    pdwNumberOfPhysicalMonitorsMarshal := pdwNumberOfPhysicalMonitors is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -197,9 +197,11 @@ export DestroyPhysicalMonitors(dwPhysicalMonitorArraySize, pPhysicalMonitorArray
  * @since windows6.0.6000
  */
 export GetVCPFeatureAndVCPFeatureReply(_hMonitor, bVCPCode, pvct, pdwCurrentValue, pdwMaximumValue) {
-    pvctMarshal := pvct is VarRef ? "int*" : "ptr"
-    pdwCurrentValueMarshal := pdwCurrentValue is VarRef ? "uint*" : "ptr"
-    pdwMaximumValueMarshal := pdwMaximumValue is VarRef ? "uint*" : "ptr"
+    pvctMarshal := pvct is VarRef ? "int*" : IntPtr
+    pvctMarshal := pvct == 0 ? IntPtr : "int*"
+    pdwCurrentValueMarshal := pdwCurrentValue is VarRef ? "uint*" : IntPtr
+    pdwMaximumValueMarshal := pdwMaximumValue is VarRef ? "uint*" : IntPtr
+    pdwMaximumValueMarshal := pdwMaximumValue == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
@@ -267,7 +269,7 @@ export SaveCurrentSettings(_hMonitor) {
  * @since windows6.0.6000
  */
 export GetCapabilitiesStringLength(_hMonitor, pdwCapabilitiesStringLengthInCharacters) {
-    pdwCapabilitiesStringLengthInCharactersMarshal := pdwCapabilitiesStringLengthInCharacters is VarRef ? "uint*" : "ptr"
+    pdwCapabilitiesStringLengthInCharactersMarshal := pdwCapabilitiesStringLengthInCharacters is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -464,8 +466,8 @@ export GetTimingReport(_hMonitor, pmtrMonitorTimingReport) {
  * @since windows6.0.6000
  */
 export GetMonitorCapabilities(_hMonitor, pdwMonitorCapabilities, pdwSupportedColorTemperatures) {
-    pdwMonitorCapabilitiesMarshal := pdwMonitorCapabilities is VarRef ? "uint*" : "ptr"
-    pdwSupportedColorTemperaturesMarshal := pdwSupportedColorTemperatures is VarRef ? "uint*" : "ptr"
+    pdwMonitorCapabilitiesMarshal := pdwMonitorCapabilities is VarRef ? "uint*" : IntPtr
+    pdwSupportedColorTemperaturesMarshal := pdwSupportedColorTemperatures is VarRef ? "uint*" : IntPtr
 
     result := DllCall("dxva2.dll\GetMonitorCapabilities", HANDLE, _hMonitor, pdwMonitorCapabilitiesMarshal, pdwMonitorCapabilities, pdwSupportedColorTemperaturesMarshal, pdwSupportedColorTemperatures, Int32)
     return result
@@ -508,7 +510,7 @@ export SaveCurrentMonitorSettings(_hMonitor) {
  * @since windows6.0.6000
  */
 export GetMonitorTechnologyType(_hMonitor, pdtyDisplayTechnologyType) {
-    pdtyDisplayTechnologyTypeMarshal := pdtyDisplayTechnologyType is VarRef ? "int*" : "ptr"
+    pdtyDisplayTechnologyTypeMarshal := pdtyDisplayTechnologyType is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
@@ -539,9 +541,9 @@ export GetMonitorTechnologyType(_hMonitor, pdtyDisplayTechnologyType) {
  * @since windows6.0.6000
  */
 export GetMonitorBrightness(_hMonitor, pdwMinimumBrightness, pdwCurrentBrightness, pdwMaximumBrightness) {
-    pdwMinimumBrightnessMarshal := pdwMinimumBrightness is VarRef ? "uint*" : "ptr"
-    pdwCurrentBrightnessMarshal := pdwCurrentBrightness is VarRef ? "uint*" : "ptr"
-    pdwMaximumBrightnessMarshal := pdwMaximumBrightness is VarRef ? "uint*" : "ptr"
+    pdwMinimumBrightnessMarshal := pdwMinimumBrightness is VarRef ? "uint*" : IntPtr
+    pdwCurrentBrightnessMarshal := pdwCurrentBrightness is VarRef ? "uint*" : IntPtr
+    pdwMaximumBrightnessMarshal := pdwMaximumBrightness is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -572,9 +574,9 @@ export GetMonitorBrightness(_hMonitor, pdwMinimumBrightness, pdwCurrentBrightnes
  * @since windows6.0.6000
  */
 export GetMonitorContrast(_hMonitor, pdwMinimumContrast, pdwCurrentContrast, pdwMaximumContrast) {
-    pdwMinimumContrastMarshal := pdwMinimumContrast is VarRef ? "uint*" : "ptr"
-    pdwCurrentContrastMarshal := pdwCurrentContrast is VarRef ? "uint*" : "ptr"
-    pdwMaximumContrastMarshal := pdwMaximumContrast is VarRef ? "uint*" : "ptr"
+    pdwMinimumContrastMarshal := pdwMinimumContrast is VarRef ? "uint*" : IntPtr
+    pdwCurrentContrastMarshal := pdwCurrentContrast is VarRef ? "uint*" : IntPtr
+    pdwMaximumContrastMarshal := pdwMaximumContrast is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -600,7 +602,7 @@ export GetMonitorContrast(_hMonitor, pdwMinimumContrast, pdwCurrentContrast, pdw
  * @since windows6.0.6000
  */
 export GetMonitorColorTemperature(_hMonitor, pctCurrentColorTemperature) {
-    pctCurrentColorTemperatureMarshal := pctCurrentColorTemperature is VarRef ? "int*" : "ptr"
+    pctCurrentColorTemperatureMarshal := pctCurrentColorTemperature is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
@@ -632,9 +634,9 @@ export GetMonitorColorTemperature(_hMonitor, pctCurrentColorTemperature) {
  * @since windows6.0.6000
  */
 export GetMonitorRedGreenOrBlueDrive(_hMonitor, dtDriveType, pdwMinimumDrive, pdwCurrentDrive, pdwMaximumDrive) {
-    pdwMinimumDriveMarshal := pdwMinimumDrive is VarRef ? "uint*" : "ptr"
-    pdwCurrentDriveMarshal := pdwCurrentDrive is VarRef ? "uint*" : "ptr"
-    pdwMaximumDriveMarshal := pdwMaximumDrive is VarRef ? "uint*" : "ptr"
+    pdwMinimumDriveMarshal := pdwMinimumDrive is VarRef ? "uint*" : IntPtr
+    pdwCurrentDriveMarshal := pdwCurrentDrive is VarRef ? "uint*" : IntPtr
+    pdwMaximumDriveMarshal := pdwMaximumDrive is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -669,9 +671,9 @@ export GetMonitorRedGreenOrBlueDrive(_hMonitor, dtDriveType, pdwMinimumDrive, pd
  * @since windows6.0.6000
  */
 export GetMonitorRedGreenOrBlueGain(_hMonitor, gtGainType, pdwMinimumGain, pdwCurrentGain, pdwMaximumGain) {
-    pdwMinimumGainMarshal := pdwMinimumGain is VarRef ? "uint*" : "ptr"
-    pdwCurrentGainMarshal := pdwCurrentGain is VarRef ? "uint*" : "ptr"
-    pdwMaximumGainMarshal := pdwMaximumGain is VarRef ? "uint*" : "ptr"
+    pdwMinimumGainMarshal := pdwMinimumGain is VarRef ? "uint*" : IntPtr
+    pdwCurrentGainMarshal := pdwCurrentGain is VarRef ? "uint*" : IntPtr
+    pdwMaximumGainMarshal := pdwMaximumGain is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -866,9 +868,9 @@ export DegaussMonitor(_hMonitor) {
  * @since windows6.0.6000
  */
 export GetMonitorDisplayAreaSize(_hMonitor, stSizeType, pdwMinimumWidthOrHeight, pdwCurrentWidthOrHeight, pdwMaximumWidthOrHeight) {
-    pdwMinimumWidthOrHeightMarshal := pdwMinimumWidthOrHeight is VarRef ? "uint*" : "ptr"
-    pdwCurrentWidthOrHeightMarshal := pdwCurrentWidthOrHeight is VarRef ? "uint*" : "ptr"
-    pdwMaximumWidthOrHeightMarshal := pdwMaximumWidthOrHeight is VarRef ? "uint*" : "ptr"
+    pdwMinimumWidthOrHeightMarshal := pdwMinimumWidthOrHeight is VarRef ? "uint*" : IntPtr
+    pdwCurrentWidthOrHeightMarshal := pdwCurrentWidthOrHeight is VarRef ? "uint*" : IntPtr
+    pdwMaximumWidthOrHeightMarshal := pdwMaximumWidthOrHeight is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -900,9 +902,9 @@ export GetMonitorDisplayAreaSize(_hMonitor, stSizeType, pdwMinimumWidthOrHeight,
  * @since windows6.0.6000
  */
 export GetMonitorDisplayAreaPosition(_hMonitor, ptPositionType, pdwMinimumPosition, pdwCurrentPosition, pdwMaximumPosition) {
-    pdwMinimumPositionMarshal := pdwMinimumPosition is VarRef ? "uint*" : "ptr"
-    pdwCurrentPositionMarshal := pdwCurrentPosition is VarRef ? "uint*" : "ptr"
-    pdwMaximumPositionMarshal := pdwMaximumPosition is VarRef ? "uint*" : "ptr"
+    pdwMinimumPositionMarshal := pdwMinimumPosition is VarRef ? "uint*" : IntPtr
+    pdwCurrentPositionMarshal := pdwCurrentPosition is VarRef ? "uint*" : IntPtr
+    pdwMaximumPositionMarshal := pdwMaximumPosition is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -1203,7 +1205,7 @@ export CLIPOBJ_cEnumStart(pco, bAll, iType, iDirection, cLimit) {
  * @since windows5.0
  */
 export CLIPOBJ_bEnum(pco, cj, pul) {
-    pulMarshal := pul is VarRef ? "uint*" : "ptr"
+    pulMarshal := pul is VarRef ? "uint*" : IntPtr
 
     result := DllCall("GDI32.dll\CLIPOBJ_bEnum", CLIPOBJ.Ptr, pco, UInt32, cj, pulMarshal, pul, BOOL)
     return result
@@ -1240,7 +1242,7 @@ export CLIPOBJ_ppoGetPath(pco) {
  * @since windows5.0
  */
 export FONTOBJ_cGetAllGlyphHandles(pfo, phg) {
-    phgMarshal := phg is VarRef ? "uint*" : "ptr"
+    phgMarshal := phg is VarRef ? "uint*" : IntPtr
 
     result := DllCall("GDI32.dll\FONTOBJ_cGetAllGlyphHandles", FONTOBJ.Ptr, pfo, phgMarshal, phg, UInt32)
     return result
@@ -1273,8 +1275,8 @@ export FONTOBJ_vGetInfo(pfo, cjSize, pfi) {
  * @since windows5.0
  */
 export FONTOBJ_cGetGlyphs(pfo, iMode, cGlyph, phg, ppvGlyph) {
-    phgMarshal := phg is VarRef ? "uint*" : "ptr"
-    ppvGlyphMarshal := ppvGlyph is VarRef ? "ptr*" : "ptr"
+    phgMarshal := phg is VarRef ? "uint*" : IntPtr
+    ppvGlyphMarshal := ppvGlyph is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("GDI32.dll\FONTOBJ_cGetGlyphs", FONTOBJ.Ptr, pfo, UInt32, iMode, UInt32, cGlyph, phgMarshal, phg, ppvGlyphMarshal, ppvGlyph, UInt32)
     return result
@@ -1337,7 +1339,7 @@ export FONTOBJ_pfdg(pfo) {
  * @since windows5.0
  */
 export FONTOBJ_pvTrueTypeFontFile(pfo, pcjFile) {
-    pcjFileMarshal := pcjFile is VarRef ? "uint*" : "ptr"
+    pcjFileMarshal := pcjFile is VarRef ? "uint*" : IntPtr
 
     result := DllCall("GDI32.dll\FONTOBJ_pvTrueTypeFontFile", FONTOBJ.Ptr, pfo, pcjFileMarshal, pcjFile, IntPtr)
     return result
@@ -1498,8 +1500,8 @@ export STROBJ_vEnumStart(pstro) {
  * @since windows5.0
  */
 export STROBJ_bEnum(pstro, pc, ppgpos) {
-    pcMarshal := pc is VarRef ? "uint*" : "ptr"
-    ppgposMarshal := ppgpos is VarRef ? "ptr*" : "ptr"
+    pcMarshal := pc is VarRef ? "uint*" : IntPtr
+    ppgposMarshal := ppgpos is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("GDI32.dll\STROBJ_bEnum", STROBJ.Ptr, pstro, pcMarshal, pc, ppgposMarshal, ppgpos, BOOL)
     return result
@@ -1539,8 +1541,8 @@ export STROBJ_bEnum(pstro, pc, ppgpos) {
  * @since windows5.0
  */
 export STROBJ_bEnumPositionsOnly(pstro, pc, ppgpos) {
-    pcMarshal := pc is VarRef ? "uint*" : "ptr"
-    ppgposMarshal := ppgpos is VarRef ? "ptr*" : "ptr"
+    pcMarshal := pc is VarRef ? "uint*" : IntPtr
+    ppgposMarshal := ppgpos is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("GDI32.dll\STROBJ_bEnumPositionsOnly", STROBJ.Ptr, pstro, pcMarshal, pc, ppgposMarshal, ppgpos, BOOL)
     return result
@@ -1637,7 +1639,9 @@ export STROBJ_bGetAdvanceWidths(pso, iFirst, c, pptqD) {
  * @since windows5.0
  */
 export XFORMOBJ_iGetXform(pxo, pxform) {
-    result := DllCall("GDI32.dll\XFORMOBJ_iGetXform", XFORMOBJ.Ptr, pxo, XFORML.Ptr, pxform, UInt32)
+    pxformMarshal := pxform == 0 ? IntPtr : XFORML.Ptr
+
+    result := DllCall("GDI32.dll\XFORMOBJ_iGetXform", XFORMOBJ.Ptr, pxo, pxformMarshal, pxform, UInt32)
     return result
 }
 
@@ -1700,8 +1704,8 @@ export XFORMOBJ_iGetXform(pxo, pxform) {
  * @since windows5.0
  */
 export XFORMOBJ_bApplyXform(pxo, iMode, cPoints, pvIn, pvOut) {
-    pvInMarshal := pvIn is VarRef ? "ptr" : "ptr"
-    pvOutMarshal := pvOut is VarRef ? "ptr" : "ptr"
+    pvInMarshal := pvIn is VarRef ? "ptr" : IntPtr
+    pvOutMarshal := pvOut is VarRef ? "ptr" : IntPtr
 
     result := DllCall("GDI32.dll\XFORMOBJ_bApplyXform", XFORMOBJ.Ptr, pxo, UInt32, iMode, UInt32, cPoints, pvInMarshal, pvIn, pvOutMarshal, pvOut, BOOL)
     return result
@@ -1749,7 +1753,7 @@ export XLATEOBJ_piVector(pxlo) {
  * @since windows5.0
  */
 export XLATEOBJ_cGetPalette(pxlo, iPal, cPal, pPal) {
-    pPalMarshal := pPal is VarRef ? "uint*" : "ptr"
+    pPalMarshal := pPal is VarRef ? "uint*" : IntPtr
 
     result := DllCall("GDI32.dll\XLATEOBJ_cGetPalette", XLATEOBJ.Ptr, pxlo, UInt32, iPal, UInt32, cPal, pPalMarshal, pPal, UInt32)
     return result
@@ -1793,7 +1797,7 @@ export XLATEOBJ_hGetColorTransform(pxlo) {
  * @since windows5.0
  */
 export EngCreateBitmap(sizl, lWidth, iFormat, fl, pvBits) {
-    pvBitsMarshal := pvBits is VarRef ? "ptr" : "ptr"
+    pvBitsMarshal := pvBits is VarRef ? "ptr" : IntPtr
 
     result := DllCall("GDI32.dll\EngCreateBitmap", SIZE, sizl, Int32, lWidth, UInt32, iFormat, UInt32, fl, pvBitsMarshal, pvBits, HBITMAP.Owned)
     return result
@@ -1972,7 +1976,7 @@ export EngDeletePath(ppo) {
  * @since windows5.0
  */
 export EngCreatePalette(iMode, cColors, pulColors, flRed, flGreen, flBlue) {
-    pulColorsMarshal := pulColors is VarRef ? "uint*" : "ptr"
+    pulColorsMarshal := pulColors is VarRef ? "uint*" : IntPtr
 
     result := DllCall("GDI32.dll\EngCreatePalette", UInt32, iMode, UInt32, cColors, pulColorsMarshal, pulColors, UInt32, flRed, UInt32, flGreen, UInt32, flBlue, HPALETTE.Owned)
     return result
@@ -2011,7 +2015,9 @@ export EngCreateClip() {
  * @since windows5.0
  */
 export EngDeleteClip(pco) {
-    DllCall("GDI32.dll\EngDeleteClip", CLIPOBJ.Ptr, pco)
+    pcoMarshal := pco == 0 ? IntPtr : CLIPOBJ.Ptr
+
+    DllCall("GDI32.dll\EngDeleteClip", pcoMarshal, pco)
 }
 
 /**
@@ -2361,7 +2367,7 @@ export EngAlphaBlend(psoDest, psoSrc, pco, pxlo, prclDest, prclSrc, pBlendObj) {
  * @since windows5.0
  */
 export EngGradientFill(psoDest, pco, pxlo, pVertex, nVertex, pMesh, nMesh, prclExtents, pptlDitherOrg, ulMode) {
-    pMeshMarshal := pMesh is VarRef ? "ptr" : "ptr"
+    pMeshMarshal := pMesh is VarRef ? "ptr" : IntPtr
 
     result := DllCall("GDI32.dll\EngGradientFill", SURFOBJ.Ptr, psoDest, CLIPOBJ.Ptr, pco, XLATEOBJ.Ptr, pxlo, TRIVERTEX.Ptr, pVertex, UInt32, nVertex, pMeshMarshal, pMesh, UInt32, nMesh, RECTL.Ptr, prclExtents, POINTL.Ptr, pptlDitherOrg, UInt32, ulMode, BOOL)
     return result
@@ -2394,7 +2400,10 @@ export EngGradientFill(psoDest, pco, pxlo, pVertex, nVertex, pMesh, nMesh, prclE
  * @since windows5.0
  */
 export EngTransparentBlt(psoDst, psoSrc, pco, pxlo, prclDst, prclSrc, TransColor, bCalledFromBitBlt) {
-    result := DllCall("GDI32.dll\EngTransparentBlt", SURFOBJ.Ptr, psoDst, SURFOBJ.Ptr, psoSrc, CLIPOBJ.Ptr, pco, XLATEOBJ.Ptr, pxlo, RECTL.Ptr, prclDst, RECTL.Ptr, prclSrc, UInt32, TransColor, UInt32, bCalledFromBitBlt, BOOL)
+    pcoMarshal := pco == 0 ? IntPtr : CLIPOBJ.Ptr
+    pxloMarshal := pxlo == 0 ? IntPtr : XLATEOBJ.Ptr
+
+    result := DllCall("GDI32.dll\EngTransparentBlt", SURFOBJ.Ptr, psoDst, SURFOBJ.Ptr, psoSrc, pcoMarshal, pco, pxloMarshal, pxlo, RECTL.Ptr, prclDst, RECTL.Ptr, prclSrc, UInt32, TransColor, UInt32, bCalledFromBitBlt, BOOL)
     return result
 }
 
@@ -2607,7 +2616,9 @@ export EngPlgBlt(psoTrg, psoSrc, psoMsk, pco, pxlo, pca, pptlBrushOrg, pptfx, pr
  * @since windows5.0
  */
 export HT_Get8BPPFormatPalette(pPaletteEntry, RedGamma, GreenGamma, BlueGamma) {
-    result := DllCall("GDI32.dll\HT_Get8BPPFormatPalette", PALETTEENTRY.Ptr, pPaletteEntry, UInt16, RedGamma, UInt16, GreenGamma, UInt16, BlueGamma, Int32)
+    pPaletteEntryMarshal := pPaletteEntry == 0 ? IntPtr : PALETTEENTRY.Ptr
+
+    result := DllCall("GDI32.dll\HT_Get8BPPFormatPalette", pPaletteEntryMarshal, pPaletteEntry, UInt16, RedGamma, UInt16, GreenGamma, UInt16, BlueGamma, Int32)
     return result
 }
 
@@ -2642,7 +2653,9 @@ export HT_Get8BPPFormatPalette(pPaletteEntry, RedGamma, GreenGamma, BlueGamma) {
  * @since windows5.0
  */
 export HT_Get8BPPMaskPalette(pPaletteEntry, Use8BPPMaskPal, CMYMask, RedGamma, GreenGamma, BlueGamma) {
-    result := DllCall("GDI32.dll\HT_Get8BPPMaskPalette", PALETTEENTRY.Ptr, pPaletteEntry, BOOL, Use8BPPMaskPal, Int8, CMYMask, UInt16, RedGamma, UInt16, GreenGamma, UInt16, BlueGamma, Int32)
+    pPaletteEntryMarshal := pPaletteEntry == 0 ? IntPtr : PALETTEENTRY.Ptr
+
+    result := DllCall("GDI32.dll\HT_Get8BPPMaskPalette", pPaletteEntryMarshal, pPaletteEntry, BOOL, Use8BPPMaskPal, Int8, CMYMask, UInt16, RedGamma, UInt16, GreenGamma, UInt16, BlueGamma, Int32)
     return result
 }
 
@@ -2703,7 +2716,7 @@ export EngLoadModule(pwsz) {
  * @since windows5.0
  */
 export EngFindResource(h, iName, iType, pulSize) {
-    pulSizeMarshal := pulSize is VarRef ? "uint*" : "ptr"
+    pulSizeMarshal := pulSize is VarRef ? "uint*" : IntPtr
 
     result := DllCall("GDI32.dll\EngFindResource", HANDLE, h, Int32, iName, Int32, iType, pulSizeMarshal, pulSize, IntPtr)
     return result
@@ -2799,7 +2812,8 @@ export EngDeleteSemaphore(hsem) {
  * @since windows5.0
  */
 export EngMultiByteToUnicodeN(UnicodeString, MaxBytesInUnicodeString, BytesInUnicodeString, MultiByteString, BytesInMultiByteString) {
-    BytesInUnicodeStringMarshal := BytesInUnicodeString is VarRef ? "uint*" : "ptr"
+    BytesInUnicodeStringMarshal := BytesInUnicodeString is VarRef ? "uint*" : IntPtr
+    BytesInUnicodeStringMarshal := BytesInUnicodeString == 0 ? IntPtr : "uint*"
 
     DllCall("GDI32.dll\EngMultiByteToUnicodeN", IntPtr, UnicodeString, UInt32, MaxBytesInUnicodeString, BytesInUnicodeStringMarshal, BytesInUnicodeString, IntPtr, MultiByteString, UInt32, BytesInMultiByteString)
 }
@@ -2816,7 +2830,8 @@ export EngMultiByteToUnicodeN(UnicodeString, MaxBytesInUnicodeString, BytesInUni
  * @since windows5.0
  */
 export EngUnicodeToMultiByteN(MultiByteString, MaxBytesInMultiByteString, BytesInMultiByteString, UnicodeString, BytesInUnicodeString) {
-    BytesInMultiByteStringMarshal := BytesInMultiByteString is VarRef ? "uint*" : "ptr"
+    BytesInMultiByteStringMarshal := BytesInMultiByteString is VarRef ? "uint*" : IntPtr
+    BytesInMultiByteStringMarshal := BytesInMultiByteString == 0 ? IntPtr : "uint*"
 
     DllCall("GDI32.dll\EngUnicodeToMultiByteN", IntPtr, MultiByteString, UInt32, MaxBytesInMultiByteString, BytesInMultiByteStringMarshal, BytesInMultiByteString, IntPtr, UnicodeString, UInt32, BytesInUnicodeString)
 }
@@ -2864,7 +2879,10 @@ export EngComputeGlyphSet(nCodePage, nFirstChar, cChars) {
  * @since windows5.0
  */
 export EngMultiByteToWideChar(CodePage, WideCharString, BytesInWideCharString, MultiByteString, BytesInMultiByteString) {
-    result := DllCall("GDI32.dll\EngMultiByteToWideChar", UInt32, CodePage, IntPtr, WideCharString, Int32, BytesInWideCharString, IntPtr, MultiByteString, Int32, BytesInMultiByteString, Int32)
+    WideCharStringMarshal := WideCharString == 0 ? IntPtr : IntPtr
+    MultiByteStringMarshal := MultiByteString == 0 ? IntPtr : IntPtr
+
+    result := DllCall("GDI32.dll\EngMultiByteToWideChar", UInt32, CodePage, WideCharStringMarshal, WideCharString, Int32, BytesInWideCharString, MultiByteStringMarshal, MultiByteString, Int32, BytesInMultiByteString, Int32)
     return result
 }
 
@@ -2880,7 +2898,10 @@ export EngMultiByteToWideChar(CodePage, WideCharString, BytesInWideCharString, M
  * @since windows5.0
  */
 export EngWideCharToMultiByte(CodePage, WideCharString, BytesInWideCharString, MultiByteString, BytesInMultiByteString) {
-    result := DllCall("GDI32.dll\EngWideCharToMultiByte", UInt32, CodePage, IntPtr, WideCharString, Int32, BytesInWideCharString, IntPtr, MultiByteString, Int32, BytesInMultiByteString, Int32)
+    WideCharStringMarshal := WideCharString == 0 ? IntPtr : IntPtr
+    MultiByteStringMarshal := MultiByteString == 0 ? IntPtr : IntPtr
+
+    result := DllCall("GDI32.dll\EngWideCharToMultiByte", UInt32, CodePage, WideCharStringMarshal, WideCharString, Int32, BytesInWideCharString, MultiByteStringMarshal, MultiByteString, Int32, BytesInMultiByteString, Int32)
     return result
 }
 
@@ -2895,14 +2916,13 @@ export EngWideCharToMultiByte(CodePage, WideCharString, BytesInWideCharString, M
  * @since windows5.0
  */
 export EngGetCurrentCodePage(OemCodePage, AnsiCodePage) {
-    OemCodePageMarshal := OemCodePage is VarRef ? "ushort*" : "ptr"
-    AnsiCodePageMarshal := AnsiCodePage is VarRef ? "ushort*" : "ptr"
+    OemCodePageMarshal := OemCodePage is VarRef ? "ushort*" : IntPtr
+    AnsiCodePageMarshal := AnsiCodePage is VarRef ? "ushort*" : IntPtr
 
     DllCall("GDI32.dll\EngGetCurrentCodePage", OemCodePageMarshal, OemCodePage, AnsiCodePageMarshal, AnsiCodePage)
 }
 
 /**
- * 
  * @param {HDEV} _hdev 
  * @param {Pointer<EMFINFO>} pEMFInfo 
  * @returns {BOOL} 
@@ -2990,8 +3010,8 @@ export EngQueryEMFInfo(_hdev, pEMFInfo) {
  * @since windows6.0.6000
  */
 export GetDisplayConfigBufferSizes(flags, numPathArrayElements, numModeInfoArrayElements) {
-    numPathArrayElementsMarshal := numPathArrayElements is VarRef ? "uint*" : "ptr"
-    numModeInfoArrayElementsMarshal := numModeInfoArrayElements is VarRef ? "uint*" : "ptr"
+    numPathArrayElementsMarshal := numPathArrayElements is VarRef ? "uint*" : IntPtr
+    numModeInfoArrayElementsMarshal := numModeInfoArrayElements is VarRef ? "uint*" : IntPtr
 
     result := DllCall("USER32.dll\GetDisplayConfigBufferSizes", QUERY_DISPLAY_CONFIG_FLAGS, flags, numPathArrayElementsMarshal, numPathArrayElements, numModeInfoArrayElementsMarshal, numModeInfoArrayElements, WIN32_ERROR)
     return result
@@ -3195,7 +3215,10 @@ export GetDisplayConfigBufferSizes(flags, numPathArrayElements, numModeInfoArray
  * @since windows6.1
  */
 export SetDisplayConfig(numPathArrayElements, pathArray, numModeInfoArrayElements, modeInfoArray, flags) {
-    result := DllCall("USER32.dll\SetDisplayConfig", UInt32, numPathArrayElements, DISPLAYCONFIG_PATH_INFO.Ptr, pathArray, UInt32, numModeInfoArrayElements, DISPLAYCONFIG_MODE_INFO.Ptr, modeInfoArray, SET_DISPLAY_CONFIG_FLAGS, flags, Int32)
+    pathArrayMarshal := pathArray == 0 ? IntPtr : DISPLAYCONFIG_PATH_INFO.Ptr
+    modeInfoArrayMarshal := modeInfoArray == 0 ? IntPtr : DISPLAYCONFIG_MODE_INFO.Ptr
+
+    result := DllCall("USER32.dll\SetDisplayConfig", UInt32, numPathArrayElements, pathArrayMarshal, pathArray, UInt32, numModeInfoArrayElements, modeInfoArrayMarshal, modeInfoArray, SET_DISPLAY_CONFIG_FLAGS, flags, Int32)
     return result
 }
 
@@ -3307,9 +3330,10 @@ export SetDisplayConfig(numPathArrayElements, pathArray, numModeInfoArrayElement
  * @since windows6.1
  */
 export QueryDisplayConfig(flags, numPathArrayElements, pathArray, numModeInfoArrayElements, modeInfoArray, currentTopologyId) {
-    numPathArrayElementsMarshal := numPathArrayElements is VarRef ? "uint*" : "ptr"
-    numModeInfoArrayElementsMarshal := numModeInfoArrayElements is VarRef ? "uint*" : "ptr"
-    currentTopologyIdMarshal := currentTopologyId is VarRef ? "int*" : "ptr"
+    numPathArrayElementsMarshal := numPathArrayElements is VarRef ? "uint*" : IntPtr
+    numModeInfoArrayElementsMarshal := numModeInfoArrayElements is VarRef ? "uint*" : IntPtr
+    currentTopologyIdMarshal := currentTopologyId is VarRef ? "int*" : IntPtr
+    currentTopologyIdMarshal := currentTopologyId == 0 ? IntPtr : "int*"
 
     result := DllCall("USER32.dll\QueryDisplayConfig", QUERY_DISPLAY_CONFIG_FLAGS, flags, numPathArrayElementsMarshal, numPathArrayElements, DISPLAYCONFIG_PATH_INFO.Ptr, pathArray, numModeInfoArrayElementsMarshal, numModeInfoArrayElements, DISPLAYCONFIG_MODE_INFO.Ptr, modeInfoArray, currentTopologyIdMarshal, currentTopologyId, WIN32_ERROR)
     return result
@@ -3502,7 +3526,7 @@ export DisplayConfigSetDeviceInfo(setPacket) {
  * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getautorotationstate
  */
 export GetAutoRotationState(pState) {
-    pStateMarshal := pState is VarRef ? "int*" : "ptr"
+    pStateMarshal := pState is VarRef ? "int*" : IntPtr
 
     result := DllCall("USER32.dll\GetAutoRotationState", pStateMarshal, pState, BOOL)
     return result
@@ -3515,7 +3539,7 @@ export GetAutoRotationState(pState) {
  * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getdisplayautorotationpreferences
  */
 export GetDisplayAutoRotationPreferences(pOrientation) {
-    pOrientationMarshal := pOrientation is VarRef ? "int*" : "ptr"
+    pOrientationMarshal := pOrientation is VarRef ? "int*" : IntPtr
 
     result := DllCall("USER32.dll\GetDisplayAutoRotationPreferences", pOrientationMarshal, pOrientation, BOOL)
     return result

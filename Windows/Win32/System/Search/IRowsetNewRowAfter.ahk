@@ -37,7 +37,6 @@ export default struct IRowsetNewRowAfter extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hChapter 
      * @param {Integer} cbbmPrevious 
      * @param {Pointer<Integer>} pbmPrevious 
@@ -46,8 +45,8 @@ export default struct IRowsetNewRowAfter extends IUnknown {
      * @returns {Pointer} 
      */
     SetNewDataAfter(hChapter, cbbmPrevious, pbmPrevious, _hAccessor, pData) {
-        pbmPreviousMarshal := pbmPrevious is VarRef ? "char*" : "ptr"
-        pDataMarshal := pData is VarRef ? "char*" : "ptr"
+        pbmPreviousMarshal := pbmPrevious is VarRef ? "char*" : IntPtr
+        pDataMarshal := pData is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, IntPtr, hChapter, UInt32, cbbmPrevious, pbmPreviousMarshal, pbmPrevious, HACCESSOR, _hAccessor, pDataMarshal, pData, "ptr*", &phRow := 0, "HRESULT")
         return phRow
@@ -62,7 +61,7 @@ export default struct IRowsetNewRowAfter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetNewDataAfter := CallbackCreate(GetMethod(implObj, "SetNewDataAfter"), flags, 7)
+        this.vtbl.SetNewDataAfter := CallbackCreate(ObjBindMethod(implObj, "SetNewDataAfter"), flags, 7)
     }
 
     Dispose() {

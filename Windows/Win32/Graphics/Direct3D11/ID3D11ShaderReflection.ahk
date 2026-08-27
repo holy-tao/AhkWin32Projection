@@ -394,9 +394,12 @@ export default struct ID3D11ShaderReflection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getthreadgroupsize
      */
     GetThreadGroupSize(pSizeX, pSizeY, pSizeZ) {
-        pSizeXMarshal := pSizeX is VarRef ? "uint*" : "ptr"
-        pSizeYMarshal := pSizeY is VarRef ? "uint*" : "ptr"
-        pSizeZMarshal := pSizeZ is VarRef ? "uint*" : "ptr"
+        pSizeXMarshal := pSizeX is VarRef ? "uint*" : IntPtr
+        pSizeXMarshal := pSizeX == 0 ? IntPtr : "uint*"
+        pSizeYMarshal := pSizeY is VarRef ? "uint*" : IntPtr
+        pSizeYMarshal := pSizeY == 0 ? IntPtr : "uint*"
+        pSizeZMarshal := pSizeZ is VarRef ? "uint*" : IntPtr
+        pSizeZMarshal := pSizeZ == 0 ? IntPtr : "uint*"
 
         result := ComCall(20, this, pSizeXMarshal, pSizeX, pSizeYMarshal, pSizeY, pSizeZMarshal, pSizeZ, UInt32)
         return result
@@ -471,25 +474,25 @@ export default struct ID3D11ShaderReflection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDesc := CallbackCreate(GetMethod(implObj, "GetDesc"), flags, 2)
-        this.vtbl.GetConstantBufferByIndex := CallbackCreate(GetMethod(implObj, "GetConstantBufferByIndex"), flags, 2)
-        this.vtbl.GetConstantBufferByName := CallbackCreate(GetMethod(implObj, "GetConstantBufferByName"), flags, 2)
-        this.vtbl.GetResourceBindingDesc := CallbackCreate(GetMethod(implObj, "GetResourceBindingDesc"), flags, 3)
-        this.vtbl.GetInputParameterDesc := CallbackCreate(GetMethod(implObj, "GetInputParameterDesc"), flags, 3)
-        this.vtbl.GetOutputParameterDesc := CallbackCreate(GetMethod(implObj, "GetOutputParameterDesc"), flags, 3)
-        this.vtbl.GetPatchConstantParameterDesc := CallbackCreate(GetMethod(implObj, "GetPatchConstantParameterDesc"), flags, 3)
-        this.vtbl.GetVariableByName := CallbackCreate(GetMethod(implObj, "GetVariableByName"), flags, 2)
-        this.vtbl.GetResourceBindingDescByName := CallbackCreate(GetMethod(implObj, "GetResourceBindingDescByName"), flags, 3)
-        this.vtbl.GetMovInstructionCount := CallbackCreate(GetMethod(implObj, "GetMovInstructionCount"), flags, 1)
-        this.vtbl.GetMovcInstructionCount := CallbackCreate(GetMethod(implObj, "GetMovcInstructionCount"), flags, 1)
-        this.vtbl.GetConversionInstructionCount := CallbackCreate(GetMethod(implObj, "GetConversionInstructionCount"), flags, 1)
-        this.vtbl.GetBitwiseInstructionCount := CallbackCreate(GetMethod(implObj, "GetBitwiseInstructionCount"), flags, 1)
-        this.vtbl.GetGSInputPrimitive := CallbackCreate(GetMethod(implObj, "GetGSInputPrimitive"), flags, 1)
-        this.vtbl.IsSampleFrequencyShader := CallbackCreate(GetMethod(implObj, "IsSampleFrequencyShader"), flags, 1)
-        this.vtbl.GetNumInterfaceSlots := CallbackCreate(GetMethod(implObj, "GetNumInterfaceSlots"), flags, 1)
-        this.vtbl.GetMinFeatureLevel := CallbackCreate(GetMethod(implObj, "GetMinFeatureLevel"), flags, 2)
-        this.vtbl.GetThreadGroupSize := CallbackCreate(GetMethod(implObj, "GetThreadGroupSize"), flags, 4)
-        this.vtbl.GetRequiresFlags := CallbackCreate(GetMethod(implObj, "GetRequiresFlags"), flags, 1)
+        this.vtbl.GetDesc := CallbackCreate(ObjBindMethod(implObj, "GetDesc"), flags, 2)
+        this.vtbl.GetConstantBufferByIndex := CallbackCreate(ObjBindMethod(implObj, "GetConstantBufferByIndex"), flags, 2)
+        this.vtbl.GetConstantBufferByName := CallbackCreate(ObjBindMethod(implObj, "GetConstantBufferByName"), flags, 2)
+        this.vtbl.GetResourceBindingDesc := CallbackCreate(ObjBindMethod(implObj, "GetResourceBindingDesc"), flags, 3)
+        this.vtbl.GetInputParameterDesc := CallbackCreate(ObjBindMethod(implObj, "GetInputParameterDesc"), flags, 3)
+        this.vtbl.GetOutputParameterDesc := CallbackCreate(ObjBindMethod(implObj, "GetOutputParameterDesc"), flags, 3)
+        this.vtbl.GetPatchConstantParameterDesc := CallbackCreate(ObjBindMethod(implObj, "GetPatchConstantParameterDesc"), flags, 3)
+        this.vtbl.GetVariableByName := CallbackCreate(ObjBindMethod(implObj, "GetVariableByName"), flags, 2)
+        this.vtbl.GetResourceBindingDescByName := CallbackCreate(ObjBindMethod(implObj, "GetResourceBindingDescByName"), flags, 3)
+        this.vtbl.GetMovInstructionCount := CallbackCreate(ObjBindMethod(implObj, "GetMovInstructionCount"), flags, 1)
+        this.vtbl.GetMovcInstructionCount := CallbackCreate(ObjBindMethod(implObj, "GetMovcInstructionCount"), flags, 1)
+        this.vtbl.GetConversionInstructionCount := CallbackCreate(ObjBindMethod(implObj, "GetConversionInstructionCount"), flags, 1)
+        this.vtbl.GetBitwiseInstructionCount := CallbackCreate(ObjBindMethod(implObj, "GetBitwiseInstructionCount"), flags, 1)
+        this.vtbl.GetGSInputPrimitive := CallbackCreate(ObjBindMethod(implObj, "GetGSInputPrimitive"), flags, 1)
+        this.vtbl.IsSampleFrequencyShader := CallbackCreate(ObjBindMethod(implObj, "IsSampleFrequencyShader"), flags, 1)
+        this.vtbl.GetNumInterfaceSlots := CallbackCreate(ObjBindMethod(implObj, "GetNumInterfaceSlots"), flags, 1)
+        this.vtbl.GetMinFeatureLevel := CallbackCreate(ObjBindMethod(implObj, "GetMinFeatureLevel"), flags, 2)
+        this.vtbl.GetThreadGroupSize := CallbackCreate(ObjBindMethod(implObj, "GetThreadGroupSize"), flags, 4)
+        this.vtbl.GetRequiresFlags := CallbackCreate(ObjBindMethod(implObj, "GetRequiresFlags"), flags, 1)
     }
 
     Dispose() {

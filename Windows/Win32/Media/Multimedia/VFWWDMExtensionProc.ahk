@@ -20,14 +20,13 @@ export default struct VFWWDMExtensionProc {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pfnDeviceIoControl 
      * @param {Pointer<LPFNSVADDPROPSHEETPAGE>} pfnAddPropertyPage 
      * @param {LPARAM} _lParam 
      * @returns {Integer} 
      */
     Call(pfnDeviceIoControl, pfnAddPropertyPage, _lParam) {
-        pfnDeviceIoControlMarshal := pfnDeviceIoControl is VarRef ? "ptr" : "ptr"
+        pfnDeviceIoControlMarshal := pfnDeviceIoControl is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, pfnDeviceIoControlMarshal, pfnDeviceIoControl, LPFNSVADDPROPSHEETPAGE, pfnAddPropertyPage, LPARAM, _lParam, UInt32)
         return result

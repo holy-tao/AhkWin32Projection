@@ -295,19 +295,19 @@ export default struct IWSManResourceLocator extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_ResourceURI := CallbackCreate(GetMethod(implObj, "put_ResourceURI"), flags, 2)
-        this.vtbl.get_ResourceURI := CallbackCreate(GetMethod(implObj, "get_ResourceURI"), flags, 2)
-        this.vtbl.AddSelector := CallbackCreate(GetMethod(implObj, "AddSelector"), flags, 3)
-        this.vtbl.ClearSelectors := CallbackCreate(GetMethod(implObj, "ClearSelectors"), flags, 1)
-        this.vtbl.get_FragmentPath := CallbackCreate(GetMethod(implObj, "get_FragmentPath"), flags, 2)
-        this.vtbl.put_FragmentPath := CallbackCreate(GetMethod(implObj, "put_FragmentPath"), flags, 2)
-        this.vtbl.get_FragmentDialect := CallbackCreate(GetMethod(implObj, "get_FragmentDialect"), flags, 2)
-        this.vtbl.put_FragmentDialect := CallbackCreate(GetMethod(implObj, "put_FragmentDialect"), flags, 2)
-        this.vtbl.AddOption := CallbackCreate(GetMethod(implObj, "AddOption"), flags, 4)
-        this.vtbl.put_MustUnderstandOptions := CallbackCreate(GetMethod(implObj, "put_MustUnderstandOptions"), flags, 2)
-        this.vtbl.get_MustUnderstandOptions := CallbackCreate(GetMethod(implObj, "get_MustUnderstandOptions"), flags, 2)
-        this.vtbl.ClearOptions := CallbackCreate(GetMethod(implObj, "ClearOptions"), flags, 1)
-        this.vtbl.get_Error := CallbackCreate(GetMethod(implObj, "get_Error"), flags, 2)
+        this.vtbl.put_ResourceURI := CallbackCreate(ObjBindMethod(implObj, "put_ResourceURI"), flags, 2)
+        this.vtbl.get_ResourceURI := CallbackCreate(ObjBindMethod(implObj, "get_ResourceURI"), flags, 2)
+        this.vtbl.AddSelector := CallbackCreate(ObjBindMethod(implObj, "AddSelector"), flags, 3)
+        this.vtbl.ClearSelectors := CallbackCreate(ObjBindMethod(implObj, "ClearSelectors"), flags, 1)
+        this.vtbl.get_FragmentPath := CallbackCreate(ObjBindMethod(implObj, "get_FragmentPath"), flags, 2)
+        this.vtbl.put_FragmentPath := CallbackCreate(ObjBindMethod(implObj, "put_FragmentPath"), flags, 2)
+        this.vtbl.get_FragmentDialect := CallbackCreate(ObjBindMethod(implObj, "get_FragmentDialect"), flags, 2)
+        this.vtbl.put_FragmentDialect := CallbackCreate(ObjBindMethod(implObj, "put_FragmentDialect"), flags, 2)
+        this.vtbl.AddOption := CallbackCreate(ObjBindMethod(implObj, "AddOption"), flags, 4)
+        this.vtbl.put_MustUnderstandOptions := CallbackCreate(ObjBindMethod(implObj, "put_MustUnderstandOptions"), flags, 2)
+        this.vtbl.get_MustUnderstandOptions := CallbackCreate(ObjBindMethod(implObj, "get_MustUnderstandOptions"), flags, 2)
+        this.vtbl.ClearOptions := CallbackCreate(ObjBindMethod(implObj, "ClearOptions"), flags, 1)
+        this.vtbl.get_Error := CallbackCreate(ObjBindMethod(implObj, "get_Error"), flags, 2)
     }
 
     Dispose() {

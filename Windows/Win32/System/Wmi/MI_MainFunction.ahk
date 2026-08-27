@@ -20,7 +20,6 @@ export default struct MI_MainFunction {
     }
 
     /**
-     * 
      * @param {Pointer<MI_Server>} server 
      * @returns {Pointer<MI_Module>} 
      */

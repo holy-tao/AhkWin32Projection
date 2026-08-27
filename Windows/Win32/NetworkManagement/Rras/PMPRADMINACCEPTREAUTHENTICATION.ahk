@@ -23,7 +23,6 @@ export default struct PMPRADMINACCEPTREAUTHENTICATION {
     }
 
     /**
-     * 
      * @param {Pointer<RAS_CONNECTION_0>} param0 
      * @param {Pointer<RAS_CONNECTION_1>} param1 
      * @param {Pointer<RAS_CONNECTION_2>} param2 

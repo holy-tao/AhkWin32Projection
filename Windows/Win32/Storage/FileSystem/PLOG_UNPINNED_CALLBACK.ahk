@@ -21,13 +21,12 @@ export default struct PLOG_UNPINNED_CALLBACK {
     }
 
     /**
-     * 
      * @param {HANDLE} hLogFile The handle to the log.
      * @param {Pointer<Void>} pvClientContext A pointer to the client context. This is the same context specified when registering the client, which is a member of <a href="https://docs.microsoft.com/windows/desktop/api/clfsmgmtw32/ns-clfsmgmtw32-log_management_callbacks">LOG_MANAGEMENT_CALLBACKS</a>.
      * @returns {String} Nothing - always returns an empty string
      */
     Call(hLogFile, pvClientContext) {
-        pvClientContextMarshal := pvClientContext is VarRef ? "ptr" : "ptr"
+        pvClientContextMarshal := pvClientContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, HANDLE, hLogFile, pvClientContextMarshal, pvClientContext)
     }

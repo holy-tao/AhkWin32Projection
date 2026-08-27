@@ -20,7 +20,6 @@ export default struct PRESUTIL_GET_QWORD_VALUE {
     }
 
     /**
-     * 
      * @param {HKEY} hkeyClusterKey 
      * @param {PWSTR} pszValueName 
      * @param {Pointer<Integer>} pqwOutValue 
@@ -30,7 +29,7 @@ export default struct PRESUTIL_GET_QWORD_VALUE {
     Call(hkeyClusterKey, pszValueName, pqwOutValue, qwDefaultValue) {
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
-        pqwOutValueMarshal := pqwOutValue is VarRef ? "uint*" : "ptr"
+        pqwOutValueMarshal := pqwOutValue is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HKEY, hkeyClusterKey, "ptr", pszValueName, pqwOutValueMarshal, pqwOutValue, Int64, qwDefaultValue, UInt32)
         return result

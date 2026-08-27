@@ -41,14 +41,16 @@ export default struct IDataModelConcept extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} modelObject 
      * @param {IDebugHostTypeSignature} matchingTypeSignature 
      * @param {IDebugHostSymbolEnumerator} wildcardMatches 
      * @returns {HRESULT} 
      */
     InitializeObject(modelObject, matchingTypeSignature, wildcardMatches) {
-        result := ComCall(3, this, "ptr", modelObject, "ptr", matchingTypeSignature, "ptr", wildcardMatches, "HRESULT")
+        matchingTypeSignatureMarshal := matchingTypeSignature == 0 ? IntPtr : "ptr"
+        wildcardMatchesMarshal := wildcardMatches == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, "ptr", modelObject, matchingTypeSignatureMarshal, matchingTypeSignature, wildcardMatchesMarshal, wildcardMatches, "HRESULT")
         return result
     }
 
@@ -72,8 +74,8 @@ export default struct IDataModelConcept extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeObject := CallbackCreate(GetMethod(implObj, "InitializeObject"), flags, 4)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.InitializeObject := CallbackCreate(ObjBindMethod(implObj, "InitializeObject"), flags, 4)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 2)
     }
 
     Dispose() {

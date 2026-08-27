@@ -195,14 +195,14 @@ export default struct IDvbLogicalChannel2Descriptor extends IDvbLogicalChannelDe
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCountOfLists := CallbackCreate(GetMethod(implObj, "GetCountOfLists"), flags, 2)
-        this.vtbl.GetListId := CallbackCreate(GetMethod(implObj, "GetListId"), flags, 3)
-        this.vtbl.GetListNameW := CallbackCreate(GetMethod(implObj, "GetListNameW"), flags, 4)
-        this.vtbl.GetListCountryCode := CallbackCreate(GetMethod(implObj, "GetListCountryCode"), flags, 3)
-        this.vtbl.GetListCountOfRecords := CallbackCreate(GetMethod(implObj, "GetListCountOfRecords"), flags, 3)
-        this.vtbl.GetListRecordServiceId := CallbackCreate(GetMethod(implObj, "GetListRecordServiceId"), flags, 4)
-        this.vtbl.GetListRecordLogicalChannelNumber := CallbackCreate(GetMethod(implObj, "GetListRecordLogicalChannelNumber"), flags, 4)
-        this.vtbl.GetListRecordLogicalChannelAndVisibility := CallbackCreate(GetMethod(implObj, "GetListRecordLogicalChannelAndVisibility"), flags, 4)
+        this.vtbl.GetCountOfLists := CallbackCreate(ObjBindMethod(implObj, "GetCountOfLists"), flags, 2)
+        this.vtbl.GetListId := CallbackCreate(ObjBindMethod(implObj, "GetListId"), flags, 3)
+        this.vtbl.GetListNameW := CallbackCreate(ObjBindMethod(implObj, "GetListNameW"), flags, 4)
+        this.vtbl.GetListCountryCode := CallbackCreate(ObjBindMethod(implObj, "GetListCountryCode"), flags, 3)
+        this.vtbl.GetListCountOfRecords := CallbackCreate(ObjBindMethod(implObj, "GetListCountOfRecords"), flags, 3)
+        this.vtbl.GetListRecordServiceId := CallbackCreate(ObjBindMethod(implObj, "GetListRecordServiceId"), flags, 4)
+        this.vtbl.GetListRecordLogicalChannelNumber := CallbackCreate(ObjBindMethod(implObj, "GetListRecordLogicalChannelNumber"), flags, 4)
+        this.vtbl.GetListRecordLogicalChannelAndVisibility := CallbackCreate(ObjBindMethod(implObj, "GetListRecordLogicalChannelAndVisibility"), flags, 4)
     }
 
     Dispose() {

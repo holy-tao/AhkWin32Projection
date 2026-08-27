@@ -161,7 +161,6 @@ export default struct ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechVoiceStatus} 
      */
     get_Status() {
@@ -170,7 +169,6 @@ export default struct ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechObjectToken} 
      */
     get_Voice() {
@@ -179,17 +177,17 @@ export default struct ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISpeechObjectToken} Voice 
      * @returns {HRESULT} 
      */
     putref_Voice(Voice) {
-        result := ComCall(9, this, "ptr", Voice, "HRESULT")
+        VoiceMarshal := Voice == 0 ? IntPtr : "ptr"
+
+        result := ComCall(9, this, VoiceMarshal, Voice, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {ISpeechObjectToken} 
      */
     get_AudioOutput() {
@@ -198,17 +196,17 @@ export default struct ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISpeechObjectToken} AudioOutput 
      * @returns {HRESULT} 
      */
     putref_AudioOutput(AudioOutput) {
-        result := ComCall(11, this, "ptr", AudioOutput, "HRESULT")
+        AudioOutputMarshal := AudioOutput == 0 ? IntPtr : "ptr"
+
+        result := ComCall(11, this, AudioOutputMarshal, AudioOutput, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {ISpeechBaseStream} 
      */
     get_AudioOutputStream() {
@@ -217,17 +215,17 @@ export default struct ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISpeechBaseStream} AudioOutputStream 
      * @returns {HRESULT} 
      */
     putref_AudioOutputStream(AudioOutputStream) {
-        result := ComCall(13, this, "ptr", AudioOutputStream, "HRESULT")
+        AudioOutputStreamMarshal := AudioOutputStream == 0 ? IntPtr : "ptr"
+
+        result := ComCall(13, this, AudioOutputStreamMarshal, AudioOutputStream, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Rate() {
@@ -236,7 +234,6 @@ export default struct ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} Rate 
      * @returns {HRESULT} 
      */
@@ -246,7 +243,6 @@ export default struct ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Volume() {
@@ -255,7 +251,6 @@ export default struct ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} Volume 
      * @returns {HRESULT} 
      */
@@ -265,7 +260,6 @@ export default struct ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} Allow 
      * @returns {HRESULT} 
      */
@@ -275,7 +269,6 @@ export default struct ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_AllowAudioOutputFormatChangesOnNextSet() {
@@ -284,7 +277,6 @@ export default struct ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechVoiceEvents} 
      */
     get_EventInterests() {
@@ -293,7 +285,6 @@ export default struct ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @param {SpeechVoiceEvents} EventInterestFlags 
      * @returns {HRESULT} 
      */
@@ -303,7 +294,6 @@ export default struct ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @param {SpeechVoicePriority} _Priority 
      * @returns {HRESULT} 
      */
@@ -313,7 +303,6 @@ export default struct ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechVoicePriority} 
      */
     get_Priority() {
@@ -322,7 +311,6 @@ export default struct ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @param {SpeechVoiceEvents} Boundary 
      * @returns {HRESULT} 
      */
@@ -332,7 +320,6 @@ export default struct ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechVoiceEvents} 
      */
     get_AlertBoundary() {
@@ -341,7 +328,6 @@ export default struct ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} msTimeout 
      * @returns {HRESULT} 
      */
@@ -351,7 +337,6 @@ export default struct ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_SynchronousSpeakTimeout() {
@@ -360,7 +345,6 @@ export default struct ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Text 
      * @param {SpeechVoiceSpeakFlags} Flags 
      * @returns {Integer} 
@@ -373,13 +357,14 @@ export default struct ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISpeechBaseStream} Stream 
      * @param {SpeechVoiceSpeakFlags} Flags 
      * @returns {Integer} 
      */
     SpeakStream(Stream, Flags) {
-        result := ComCall(29, this, "ptr", Stream, SpeechVoiceSpeakFlags, Flags, "int*", &StreamNumber := 0, "HRESULT")
+        StreamMarshal := Stream == 0 ? IntPtr : "ptr"
+
+        result := ComCall(29, this, StreamMarshal, Stream, SpeechVoiceSpeakFlags, Flags, "int*", &StreamNumber := 0, "HRESULT")
         return StreamNumber
     }
 
@@ -406,7 +391,6 @@ export default struct ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} Type 
      * @param {Integer} NumItems 
      * @returns {Integer} 
@@ -419,7 +403,6 @@ export default struct ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} RequiredAttributes 
      * @param {BSTR} OptionalAttributes 
      * @returns {ISpeechObjectTokens} 
@@ -433,7 +416,6 @@ export default struct ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} RequiredAttributes 
      * @param {BSTR} OptionalAttributes 
      * @returns {ISpeechObjectTokens} 
@@ -447,7 +429,6 @@ export default struct ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} msTimeout 
      * @returns {VARIANT_BOOL} 
      */
@@ -457,7 +438,6 @@ export default struct ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     SpeakCompleteEvent() {
@@ -466,7 +446,6 @@ export default struct ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} TypeOfUI 
      * @param {Pointer<VARIANT>} ExtraData 
      * @returns {VARIANT_BOOL} 
@@ -479,7 +458,6 @@ export default struct ISpeechVoice extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} hWndParent 
      * @param {BSTR} Title 
      * @param {BSTR} TypeOfUI 
@@ -503,38 +481,38 @@ export default struct ISpeechVoice extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
-        this.vtbl.get_Voice := CallbackCreate(GetMethod(implObj, "get_Voice"), flags, 2)
-        this.vtbl.putref_Voice := CallbackCreate(GetMethod(implObj, "putref_Voice"), flags, 2)
-        this.vtbl.get_AudioOutput := CallbackCreate(GetMethod(implObj, "get_AudioOutput"), flags, 2)
-        this.vtbl.putref_AudioOutput := CallbackCreate(GetMethod(implObj, "putref_AudioOutput"), flags, 2)
-        this.vtbl.get_AudioOutputStream := CallbackCreate(GetMethod(implObj, "get_AudioOutputStream"), flags, 2)
-        this.vtbl.putref_AudioOutputStream := CallbackCreate(GetMethod(implObj, "putref_AudioOutputStream"), flags, 2)
-        this.vtbl.get_Rate := CallbackCreate(GetMethod(implObj, "get_Rate"), flags, 2)
-        this.vtbl.put_Rate := CallbackCreate(GetMethod(implObj, "put_Rate"), flags, 2)
-        this.vtbl.get_Volume := CallbackCreate(GetMethod(implObj, "get_Volume"), flags, 2)
-        this.vtbl.put_Volume := CallbackCreate(GetMethod(implObj, "put_Volume"), flags, 2)
-        this.vtbl.put_AllowAudioOutputFormatChangesOnNextSet := CallbackCreate(GetMethod(implObj, "put_AllowAudioOutputFormatChangesOnNextSet"), flags, 2)
-        this.vtbl.get_AllowAudioOutputFormatChangesOnNextSet := CallbackCreate(GetMethod(implObj, "get_AllowAudioOutputFormatChangesOnNextSet"), flags, 2)
-        this.vtbl.get_EventInterests := CallbackCreate(GetMethod(implObj, "get_EventInterests"), flags, 2)
-        this.vtbl.put_EventInterests := CallbackCreate(GetMethod(implObj, "put_EventInterests"), flags, 2)
-        this.vtbl.put_Priority := CallbackCreate(GetMethod(implObj, "put_Priority"), flags, 2)
-        this.vtbl.get_Priority := CallbackCreate(GetMethod(implObj, "get_Priority"), flags, 2)
-        this.vtbl.put_AlertBoundary := CallbackCreate(GetMethod(implObj, "put_AlertBoundary"), flags, 2)
-        this.vtbl.get_AlertBoundary := CallbackCreate(GetMethod(implObj, "get_AlertBoundary"), flags, 2)
-        this.vtbl.put_SynchronousSpeakTimeout := CallbackCreate(GetMethod(implObj, "put_SynchronousSpeakTimeout"), flags, 2)
-        this.vtbl.get_SynchronousSpeakTimeout := CallbackCreate(GetMethod(implObj, "get_SynchronousSpeakTimeout"), flags, 2)
-        this.vtbl.Speak := CallbackCreate(GetMethod(implObj, "Speak"), flags, 4)
-        this.vtbl.SpeakStream := CallbackCreate(GetMethod(implObj, "SpeakStream"), flags, 4)
-        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
-        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 1)
-        this.vtbl.Skip := CallbackCreate(GetMethod(implObj, "Skip"), flags, 4)
-        this.vtbl.GetVoices := CallbackCreate(GetMethod(implObj, "GetVoices"), flags, 4)
-        this.vtbl.GetAudioOutputs := CallbackCreate(GetMethod(implObj, "GetAudioOutputs"), flags, 4)
-        this.vtbl.WaitUntilDone := CallbackCreate(GetMethod(implObj, "WaitUntilDone"), flags, 3)
-        this.vtbl.SpeakCompleteEvent := CallbackCreate(GetMethod(implObj, "SpeakCompleteEvent"), flags, 2)
-        this.vtbl.IsUISupported := CallbackCreate(GetMethod(implObj, "IsUISupported"), flags, 4)
-        this.vtbl.DisplayUI := CallbackCreate(GetMethod(implObj, "DisplayUI"), flags, 5)
+        this.vtbl.get_Status := CallbackCreate(ObjBindMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.get_Voice := CallbackCreate(ObjBindMethod(implObj, "get_Voice"), flags, 2)
+        this.vtbl.putref_Voice := CallbackCreate(ObjBindMethod(implObj, "putref_Voice"), flags, 2)
+        this.vtbl.get_AudioOutput := CallbackCreate(ObjBindMethod(implObj, "get_AudioOutput"), flags, 2)
+        this.vtbl.putref_AudioOutput := CallbackCreate(ObjBindMethod(implObj, "putref_AudioOutput"), flags, 2)
+        this.vtbl.get_AudioOutputStream := CallbackCreate(ObjBindMethod(implObj, "get_AudioOutputStream"), flags, 2)
+        this.vtbl.putref_AudioOutputStream := CallbackCreate(ObjBindMethod(implObj, "putref_AudioOutputStream"), flags, 2)
+        this.vtbl.get_Rate := CallbackCreate(ObjBindMethod(implObj, "get_Rate"), flags, 2)
+        this.vtbl.put_Rate := CallbackCreate(ObjBindMethod(implObj, "put_Rate"), flags, 2)
+        this.vtbl.get_Volume := CallbackCreate(ObjBindMethod(implObj, "get_Volume"), flags, 2)
+        this.vtbl.put_Volume := CallbackCreate(ObjBindMethod(implObj, "put_Volume"), flags, 2)
+        this.vtbl.put_AllowAudioOutputFormatChangesOnNextSet := CallbackCreate(ObjBindMethod(implObj, "put_AllowAudioOutputFormatChangesOnNextSet"), flags, 2)
+        this.vtbl.get_AllowAudioOutputFormatChangesOnNextSet := CallbackCreate(ObjBindMethod(implObj, "get_AllowAudioOutputFormatChangesOnNextSet"), flags, 2)
+        this.vtbl.get_EventInterests := CallbackCreate(ObjBindMethod(implObj, "get_EventInterests"), flags, 2)
+        this.vtbl.put_EventInterests := CallbackCreate(ObjBindMethod(implObj, "put_EventInterests"), flags, 2)
+        this.vtbl.put_Priority := CallbackCreate(ObjBindMethod(implObj, "put_Priority"), flags, 2)
+        this.vtbl.get_Priority := CallbackCreate(ObjBindMethod(implObj, "get_Priority"), flags, 2)
+        this.vtbl.put_AlertBoundary := CallbackCreate(ObjBindMethod(implObj, "put_AlertBoundary"), flags, 2)
+        this.vtbl.get_AlertBoundary := CallbackCreate(ObjBindMethod(implObj, "get_AlertBoundary"), flags, 2)
+        this.vtbl.put_SynchronousSpeakTimeout := CallbackCreate(ObjBindMethod(implObj, "put_SynchronousSpeakTimeout"), flags, 2)
+        this.vtbl.get_SynchronousSpeakTimeout := CallbackCreate(ObjBindMethod(implObj, "get_SynchronousSpeakTimeout"), flags, 2)
+        this.vtbl.Speak := CallbackCreate(ObjBindMethod(implObj, "Speak"), flags, 4)
+        this.vtbl.SpeakStream := CallbackCreate(ObjBindMethod(implObj, "SpeakStream"), flags, 4)
+        this.vtbl.Pause := CallbackCreate(ObjBindMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Resume := CallbackCreate(ObjBindMethod(implObj, "Resume"), flags, 1)
+        this.vtbl.Skip := CallbackCreate(ObjBindMethod(implObj, "Skip"), flags, 4)
+        this.vtbl.GetVoices := CallbackCreate(ObjBindMethod(implObj, "GetVoices"), flags, 4)
+        this.vtbl.GetAudioOutputs := CallbackCreate(ObjBindMethod(implObj, "GetAudioOutputs"), flags, 4)
+        this.vtbl.WaitUntilDone := CallbackCreate(ObjBindMethod(implObj, "WaitUntilDone"), flags, 3)
+        this.vtbl.SpeakCompleteEvent := CallbackCreate(ObjBindMethod(implObj, "SpeakCompleteEvent"), flags, 2)
+        this.vtbl.IsUISupported := CallbackCreate(ObjBindMethod(implObj, "IsUISupported"), flags, 4)
+        this.vtbl.DisplayUI := CallbackCreate(ObjBindMethod(implObj, "DisplayUI"), flags, 5)
     }
 
     Dispose() {

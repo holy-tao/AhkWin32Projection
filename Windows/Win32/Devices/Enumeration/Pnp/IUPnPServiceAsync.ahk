@@ -460,15 +460,15 @@ export default struct IUPnPServiceAsync extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BeginInvokeAction := CallbackCreate(GetMethod(implObj, "BeginInvokeAction"), flags, 5)
-        this.vtbl.EndInvokeAction := CallbackCreate(GetMethod(implObj, "EndInvokeAction"), flags, 4)
-        this.vtbl.BeginQueryStateVariable := CallbackCreate(GetMethod(implObj, "BeginQueryStateVariable"), flags, 4)
-        this.vtbl.EndQueryStateVariable := CallbackCreate(GetMethod(implObj, "EndQueryStateVariable"), flags, 3)
-        this.vtbl.BeginSubscribeToEvents := CallbackCreate(GetMethod(implObj, "BeginSubscribeToEvents"), flags, 4)
-        this.vtbl.EndSubscribeToEvents := CallbackCreate(GetMethod(implObj, "EndSubscribeToEvents"), flags, 2)
-        this.vtbl.BeginSCPDDownload := CallbackCreate(GetMethod(implObj, "BeginSCPDDownload"), flags, 3)
-        this.vtbl.EndSCPDDownload := CallbackCreate(GetMethod(implObj, "EndSCPDDownload"), flags, 3)
-        this.vtbl.CancelAsyncOperation := CallbackCreate(GetMethod(implObj, "CancelAsyncOperation"), flags, 2)
+        this.vtbl.BeginInvokeAction := CallbackCreate(ObjBindMethod(implObj, "BeginInvokeAction"), flags, 5)
+        this.vtbl.EndInvokeAction := CallbackCreate(ObjBindMethod(implObj, "EndInvokeAction"), flags, 4)
+        this.vtbl.BeginQueryStateVariable := CallbackCreate(ObjBindMethod(implObj, "BeginQueryStateVariable"), flags, 4)
+        this.vtbl.EndQueryStateVariable := CallbackCreate(ObjBindMethod(implObj, "EndQueryStateVariable"), flags, 3)
+        this.vtbl.BeginSubscribeToEvents := CallbackCreate(ObjBindMethod(implObj, "BeginSubscribeToEvents"), flags, 4)
+        this.vtbl.EndSubscribeToEvents := CallbackCreate(ObjBindMethod(implObj, "EndSubscribeToEvents"), flags, 2)
+        this.vtbl.BeginSCPDDownload := CallbackCreate(ObjBindMethod(implObj, "BeginSCPDDownload"), flags, 3)
+        this.vtbl.EndSCPDDownload := CallbackCreate(ObjBindMethod(implObj, "EndSCPDDownload"), flags, 3)
+        this.vtbl.CancelAsyncOperation := CallbackCreate(ObjBindMethod(implObj, "CancelAsyncOperation"), flags, 2)
     }
 
     Dispose() {

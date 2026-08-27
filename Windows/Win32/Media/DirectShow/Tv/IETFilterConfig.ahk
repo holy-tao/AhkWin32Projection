@@ -72,8 +72,8 @@ export default struct IETFilterConfig extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitLicense := CallbackCreate(GetMethod(implObj, "InitLicense"), flags, 2)
-        this.vtbl.GetSecureChannelObject := CallbackCreate(GetMethod(implObj, "GetSecureChannelObject"), flags, 2)
+        this.vtbl.InitLicense := CallbackCreate(ObjBindMethod(implObj, "InitLicense"), flags, 2)
+        this.vtbl.GetSecureChannelObject := CallbackCreate(ObjBindMethod(implObj, "GetSecureChannelObject"), flags, 2)
     }
 
     Dispose() {

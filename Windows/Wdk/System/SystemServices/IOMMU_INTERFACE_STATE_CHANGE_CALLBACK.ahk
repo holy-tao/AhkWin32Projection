@@ -19,13 +19,13 @@ export default struct IOMMU_INTERFACE_STATE_CHANGE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<IOMMU_INTERFACE_STATE_CHANGE>} StateChange 
      * @param {Pointer<Void>} _Context 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(StateChange, _Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, IOMMU_INTERFACE_STATE_CHANGE.Ptr, StateChange, _ContextMarshal, _Context)
     }

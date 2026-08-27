@@ -63,7 +63,7 @@ export default struct IDtcToXaHelperFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 5)
+        this.vtbl.Create := CallbackCreate(ObjBindMethod(implObj, "Create"), flags, 5)
     }
 
     Dispose() {

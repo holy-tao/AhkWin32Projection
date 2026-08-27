@@ -41,7 +41,6 @@ export default struct IActiveIMMMessagePumpOwner extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Start() {
@@ -50,7 +49,6 @@ export default struct IActiveIMMMessagePumpOwner extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     End() {
@@ -59,7 +57,6 @@ export default struct IActiveIMMMessagePumpOwner extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<MSG>} pMsg 
      * @returns {HRESULT} 
      */
@@ -100,11 +97,11 @@ export default struct IActiveIMMMessagePumpOwner extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 1)
-        this.vtbl.End := CallbackCreate(GetMethod(implObj, "End"), flags, 1)
-        this.vtbl.OnTranslateMessage := CallbackCreate(GetMethod(implObj, "OnTranslateMessage"), flags, 2)
-        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 2)
-        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 2)
+        this.vtbl.Start := CallbackCreate(ObjBindMethod(implObj, "Start"), flags, 1)
+        this.vtbl.End := CallbackCreate(ObjBindMethod(implObj, "End"), flags, 1)
+        this.vtbl.OnTranslateMessage := CallbackCreate(ObjBindMethod(implObj, "OnTranslateMessage"), flags, 2)
+        this.vtbl.Pause := CallbackCreate(ObjBindMethod(implObj, "Pause"), flags, 2)
+        this.vtbl.Resume := CallbackCreate(ObjBindMethod(implObj, "Resume"), flags, 2)
     }
 
     Dispose() {

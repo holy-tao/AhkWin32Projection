@@ -51,7 +51,6 @@ export default struct ISVGClipPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedEnumeration} v 
      * @returns {HRESULT} 
      */
@@ -61,7 +60,6 @@ export default struct ISVGClipPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedEnumeration} 
      */
     get_clipPathUnits() {
@@ -78,8 +76,8 @@ export default struct ISVGClipPathElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.putref_clipPathUnits := CallbackCreate(GetMethod(implObj, "putref_clipPathUnits"), flags, 2)
-        this.vtbl.get_clipPathUnits := CallbackCreate(GetMethod(implObj, "get_clipPathUnits"), flags, 2)
+        this.vtbl.putref_clipPathUnits := CallbackCreate(ObjBindMethod(implObj, "putref_clipPathUnits"), flags, 2)
+        this.vtbl.get_clipPathUnits := CallbackCreate(ObjBindMethod(implObj, "get_clipPathUnits"), flags, 2)
     }
 
     Dispose() {

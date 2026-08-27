@@ -67,7 +67,6 @@ export default struct IAccStore extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} punk 
      * @returns {HRESULT} 
      */
@@ -77,7 +76,6 @@ export default struct IAccStore extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumUnknown} 
      */
     GetDocuments() {
@@ -86,7 +84,6 @@ export default struct IAccStore extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
@@ -97,7 +94,6 @@ export default struct IAccStore extends IUnknown {
     }
 
     /**
-     * 
      * @param {POINT} pt 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
@@ -108,7 +104,6 @@ export default struct IAccStore extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} punk 
      * @returns {HRESULT} 
      */
@@ -118,7 +113,6 @@ export default struct IAccStore extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
      */
@@ -136,13 +130,13 @@ export default struct IAccStore extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Register := CallbackCreate(GetMethod(implObj, "Register"), flags, 3)
-        this.vtbl.Unregister := CallbackCreate(GetMethod(implObj, "Unregister"), flags, 2)
-        this.vtbl.GetDocuments := CallbackCreate(GetMethod(implObj, "GetDocuments"), flags, 2)
-        this.vtbl.LookupByHWND := CallbackCreate(GetMethod(implObj, "LookupByHWND"), flags, 4)
-        this.vtbl.LookupByPoint := CallbackCreate(GetMethod(implObj, "LookupByPoint"), flags, 4)
-        this.vtbl.OnDocumentFocus := CallbackCreate(GetMethod(implObj, "OnDocumentFocus"), flags, 2)
-        this.vtbl.GetFocused := CallbackCreate(GetMethod(implObj, "GetFocused"), flags, 3)
+        this.vtbl.Register := CallbackCreate(ObjBindMethod(implObj, "Register"), flags, 3)
+        this.vtbl.Unregister := CallbackCreate(ObjBindMethod(implObj, "Unregister"), flags, 2)
+        this.vtbl.GetDocuments := CallbackCreate(ObjBindMethod(implObj, "GetDocuments"), flags, 2)
+        this.vtbl.LookupByHWND := CallbackCreate(ObjBindMethod(implObj, "LookupByHWND"), flags, 4)
+        this.vtbl.LookupByPoint := CallbackCreate(ObjBindMethod(implObj, "LookupByPoint"), flags, 4)
+        this.vtbl.OnDocumentFocus := CallbackCreate(ObjBindMethod(implObj, "OnDocumentFocus"), flags, 2)
+        this.vtbl.GetFocused := CallbackCreate(ObjBindMethod(implObj, "GetFocused"), flags, 3)
     }
 
     Dispose() {

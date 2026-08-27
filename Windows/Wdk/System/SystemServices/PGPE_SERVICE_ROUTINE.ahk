@@ -19,14 +19,13 @@ export default struct PGPE_SERVICE_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} param0 
      * @param {Pointer<Void>} param1 
      * @returns {BOOLEAN} 
      */
     Call(param0, param1) {
-        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
-        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+        param0Marshal := param0 is VarRef ? "ptr" : IntPtr
+        param1Marshal := param1 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, param0Marshal, param0, param1Marshal, param1, BOOLEAN)
         return result

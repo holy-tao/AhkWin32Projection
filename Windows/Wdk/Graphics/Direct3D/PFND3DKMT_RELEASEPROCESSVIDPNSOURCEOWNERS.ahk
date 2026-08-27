@@ -20,7 +20,6 @@ export default struct PFND3DKMT_RELEASEPROCESSVIDPNSOURCEOWNERS {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @returns {NTSTATUS} 
      */

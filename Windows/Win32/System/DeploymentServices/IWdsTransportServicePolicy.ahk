@@ -245,18 +245,18 @@ export default struct IWdsTransportServicePolicy extends IWdsTransportCacheable 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_IpAddressSource := CallbackCreate(GetMethod(implObj, "get_IpAddressSource"), flags, 3)
-        this.vtbl.put_IpAddressSource := CallbackCreate(GetMethod(implObj, "put_IpAddressSource"), flags, 3)
-        this.vtbl.get_StartIpAddress := CallbackCreate(GetMethod(implObj, "get_StartIpAddress"), flags, 3)
-        this.vtbl.put_StartIpAddress := CallbackCreate(GetMethod(implObj, "put_StartIpAddress"), flags, 3)
-        this.vtbl.get_EndIpAddress := CallbackCreate(GetMethod(implObj, "get_EndIpAddress"), flags, 3)
-        this.vtbl.put_EndIpAddress := CallbackCreate(GetMethod(implObj, "put_EndIpAddress"), flags, 3)
-        this.vtbl.get_StartPort := CallbackCreate(GetMethod(implObj, "get_StartPort"), flags, 2)
-        this.vtbl.put_StartPort := CallbackCreate(GetMethod(implObj, "put_StartPort"), flags, 2)
-        this.vtbl.get_EndPort := CallbackCreate(GetMethod(implObj, "get_EndPort"), flags, 2)
-        this.vtbl.put_EndPort := CallbackCreate(GetMethod(implObj, "put_EndPort"), flags, 2)
-        this.vtbl.get_NetworkProfile := CallbackCreate(GetMethod(implObj, "get_NetworkProfile"), flags, 2)
-        this.vtbl.put_NetworkProfile := CallbackCreate(GetMethod(implObj, "put_NetworkProfile"), flags, 2)
+        this.vtbl.get_IpAddressSource := CallbackCreate(ObjBindMethod(implObj, "get_IpAddressSource"), flags, 3)
+        this.vtbl.put_IpAddressSource := CallbackCreate(ObjBindMethod(implObj, "put_IpAddressSource"), flags, 3)
+        this.vtbl.get_StartIpAddress := CallbackCreate(ObjBindMethod(implObj, "get_StartIpAddress"), flags, 3)
+        this.vtbl.put_StartIpAddress := CallbackCreate(ObjBindMethod(implObj, "put_StartIpAddress"), flags, 3)
+        this.vtbl.get_EndIpAddress := CallbackCreate(ObjBindMethod(implObj, "get_EndIpAddress"), flags, 3)
+        this.vtbl.put_EndIpAddress := CallbackCreate(ObjBindMethod(implObj, "put_EndIpAddress"), flags, 3)
+        this.vtbl.get_StartPort := CallbackCreate(ObjBindMethod(implObj, "get_StartPort"), flags, 2)
+        this.vtbl.put_StartPort := CallbackCreate(ObjBindMethod(implObj, "put_StartPort"), flags, 2)
+        this.vtbl.get_EndPort := CallbackCreate(ObjBindMethod(implObj, "get_EndPort"), flags, 2)
+        this.vtbl.put_EndPort := CallbackCreate(ObjBindMethod(implObj, "put_EndPort"), flags, 2)
+        this.vtbl.get_NetworkProfile := CallbackCreate(ObjBindMethod(implObj, "get_NetworkProfile"), flags, 2)
+        this.vtbl.put_NetworkProfile := CallbackCreate(ObjBindMethod(implObj, "put_NetworkProfile"), flags, 2)
     }
 
     Dispose() {

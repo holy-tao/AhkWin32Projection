@@ -18,13 +18,12 @@ export default struct PFLT_CONTEXT_FREE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Pool 
      * @param {Integer} ContextType 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(Pool, ContextType) {
-        PoolMarshal := Pool is VarRef ? "ptr" : "ptr"
+        PoolMarshal := Pool is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, PoolMarshal, Pool, UInt16, ContextType)
     }

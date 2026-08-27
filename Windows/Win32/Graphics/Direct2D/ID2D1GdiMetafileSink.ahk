@@ -54,7 +54,8 @@ export default struct ID2D1GdiMetafileSink extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1gdimetafilesink-processrecord
      */
     ProcessRecord(recordType, recordData, recordDataSize) {
-        recordDataMarshal := recordData is VarRef ? "ptr" : "ptr"
+        recordDataMarshal := recordData is VarRef ? "ptr" : IntPtr
+        recordDataMarshal := recordData == 0 ? IntPtr : "ptr"
 
         result := ComCall(3, this, UInt32, recordType, recordDataMarshal, recordData, UInt32, recordDataSize, "HRESULT")
         return result
@@ -69,7 +70,7 @@ export default struct ID2D1GdiMetafileSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ProcessRecord := CallbackCreate(GetMethod(implObj, "ProcessRecord"), flags, 4)
+        this.vtbl.ProcessRecord := CallbackCreate(ObjBindMethod(implObj, "ProcessRecord"), flags, 4)
     }
 
     Dispose() {

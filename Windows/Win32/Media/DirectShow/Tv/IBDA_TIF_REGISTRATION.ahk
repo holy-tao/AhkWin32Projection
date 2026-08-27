@@ -51,7 +51,7 @@ export default struct IBDA_TIF_REGISTRATION extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-ibda_tif_registration-registertifex
      */
     RegisterTIFEx(pTIFInputPin, ppvRegistrationContext, ppMpeg2DataControl) {
-        ppvRegistrationContextMarshal := ppvRegistrationContext is VarRef ? "uint*" : "ptr"
+        ppvRegistrationContextMarshal := ppvRegistrationContext is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, "ptr", pTIFInputPin, ppvRegistrationContextMarshal, ppvRegistrationContext, IUnknown.Ptr, ppMpeg2DataControl, "HRESULT")
         return result
@@ -77,8 +77,8 @@ export default struct IBDA_TIF_REGISTRATION extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterTIFEx := CallbackCreate(GetMethod(implObj, "RegisterTIFEx"), flags, 4)
-        this.vtbl.UnregisterTIF := CallbackCreate(GetMethod(implObj, "UnregisterTIF"), flags, 2)
+        this.vtbl.RegisterTIFEx := CallbackCreate(ObjBindMethod(implObj, "RegisterTIFEx"), flags, 4)
+        this.vtbl.UnregisterTIF := CallbackCreate(ObjBindMethod(implObj, "UnregisterTIF"), flags, 2)
     }
 
     Dispose() {

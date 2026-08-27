@@ -75,8 +75,8 @@ export default struct IRdcSimilarityGenerator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnableSimilarity := CallbackCreate(GetMethod(implObj, "EnableSimilarity"), flags, 1)
-        this.vtbl.Results := CallbackCreate(GetMethod(implObj, "Results"), flags, 2)
+        this.vtbl.EnableSimilarity := CallbackCreate(ObjBindMethod(implObj, "EnableSimilarity"), flags, 1)
+        this.vtbl.Results := CallbackCreate(ObjBindMethod(implObj, "Results"), flags, 2)
     }
 
     Dispose() {

@@ -105,9 +105,9 @@ export default struct IAppxFactory3 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreatePackageReader2 := CallbackCreate(GetMethod(implObj, "CreatePackageReader2"), flags, 4)
-        this.vtbl.CreateManifestReader2 := CallbackCreate(GetMethod(implObj, "CreateManifestReader2"), flags, 4)
-        this.vtbl.CreateAppInstallerReader := CallbackCreate(GetMethod(implObj, "CreateAppInstallerReader"), flags, 4)
+        this.vtbl.CreatePackageReader2 := CallbackCreate(ObjBindMethod(implObj, "CreatePackageReader2"), flags, 4)
+        this.vtbl.CreateManifestReader2 := CallbackCreate(ObjBindMethod(implObj, "CreateManifestReader2"), flags, 4)
+        this.vtbl.CreateAppInstallerReader := CallbackCreate(ObjBindMethod(implObj, "CreateAppInstallerReader"), flags, 4)
     }
 
     Dispose() {

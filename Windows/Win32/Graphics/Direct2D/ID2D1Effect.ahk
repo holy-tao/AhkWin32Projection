@@ -62,7 +62,9 @@ export default struct ID2D1Effect extends ID2D1Properties {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1effect-setinput
      */
     SetInput(index, _input, invalidate) {
-        ComCall(14, this, UInt32, index, "ptr", _input, BOOL, invalidate)
+        _inputMarshal := _input == 0 ? IntPtr : "ptr"
+
+        ComCall(14, this, UInt32, index, _inputMarshal, _input, BOOL, invalidate)
     }
 
     /**
@@ -163,11 +165,11 @@ export default struct ID2D1Effect extends ID2D1Properties {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetInput := CallbackCreate(GetMethod(implObj, "SetInput"), flags, 4)
-        this.vtbl.SetInputCount := CallbackCreate(GetMethod(implObj, "SetInputCount"), flags, 2)
-        this.vtbl.GetInput := CallbackCreate(GetMethod(implObj, "GetInput"), flags, 3)
-        this.vtbl.GetInputCount := CallbackCreate(GetMethod(implObj, "GetInputCount"), flags, 1)
-        this.vtbl.GetOutput := CallbackCreate(GetMethod(implObj, "GetOutput"), flags, 2)
+        this.vtbl.SetInput := CallbackCreate(ObjBindMethod(implObj, "SetInput"), flags, 4)
+        this.vtbl.SetInputCount := CallbackCreate(ObjBindMethod(implObj, "SetInputCount"), flags, 2)
+        this.vtbl.GetInput := CallbackCreate(ObjBindMethod(implObj, "GetInput"), flags, 3)
+        this.vtbl.GetInputCount := CallbackCreate(ObjBindMethod(implObj, "GetInputCount"), flags, 1)
+        this.vtbl.GetOutput := CallbackCreate(ObjBindMethod(implObj, "GetOutput"), flags, 2)
     }
 
     Dispose() {

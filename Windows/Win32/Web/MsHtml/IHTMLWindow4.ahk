@@ -46,7 +46,6 @@ export default struct IHTMLWindow4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} varArgIn 
      * @returns {IDispatch} 
      */
@@ -56,7 +55,6 @@ export default struct IHTMLWindow4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLFrameBase} 
      */
     get_frameElement() {
@@ -73,8 +71,8 @@ export default struct IHTMLWindow4 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.createPopup := CallbackCreate(GetMethod(implObj, "createPopup"), flags, 3)
-        this.vtbl.get_frameElement := CallbackCreate(GetMethod(implObj, "get_frameElement"), flags, 2)
+        this.vtbl.createPopup := CallbackCreate(ObjBindMethod(implObj, "createPopup"), flags, 3)
+        this.vtbl.get_frameElement := CallbackCreate(ObjBindMethod(implObj, "get_frameElement"), flags, 2)
     }
 
     Dispose() {

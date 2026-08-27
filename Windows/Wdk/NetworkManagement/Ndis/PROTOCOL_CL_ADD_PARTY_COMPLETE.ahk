@@ -19,7 +19,6 @@ export default struct PROTOCOL_CL_ADD_PARTY_COMPLETE {
     }
 
     /**
-     * 
      * @param {Integer} _Status 
      * @param {Pointer<Void>} ProtocolPartyContext 
      * @param {Pointer<Void>} NdisPartyHandle 
@@ -27,9 +26,9 @@ export default struct PROTOCOL_CL_ADD_PARTY_COMPLETE {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Status, ProtocolPartyContext, NdisPartyHandle, CallParameters) {
-        ProtocolPartyContextMarshal := ProtocolPartyContext is VarRef ? "ptr" : "ptr"
-        NdisPartyHandleMarshal := NdisPartyHandle is VarRef ? "ptr" : "ptr"
-        CallParametersMarshal := CallParameters is VarRef ? "ptr*" : "ptr"
+        ProtocolPartyContextMarshal := ProtocolPartyContext is VarRef ? "ptr" : IntPtr
+        NdisPartyHandleMarshal := NdisPartyHandle is VarRef ? "ptr" : IntPtr
+        CallParametersMarshal := CallParameters is VarRef ? "ptr*" : IntPtr
 
         DllCall(this.value, Int32, _Status, ProtocolPartyContextMarshal, ProtocolPartyContext, NdisPartyHandleMarshal, NdisPartyHandle, CallParametersMarshal, CallParameters)
     }

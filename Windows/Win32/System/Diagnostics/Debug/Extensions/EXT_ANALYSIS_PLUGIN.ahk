@@ -22,7 +22,6 @@ export default struct EXT_ANALYSIS_PLUGIN {
     }
 
     /**
-     * 
      * @param {IDebugClient4} Client 
      * @param {FA_EXTENSION_PLUGIN_PHASE} CallPhase 
      * @param {IDebugFailureAnalysis2} pAnalysis 

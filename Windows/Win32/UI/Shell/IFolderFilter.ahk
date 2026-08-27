@@ -118,7 +118,7 @@ export default struct IFolderFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderfilter-getenumflags
      */
     GetEnumFlags(psf, pidlFolder, pgrfFlags) {
-        pgrfFlagsMarshal := pgrfFlags is VarRef ? "uint*" : "ptr"
+        pgrfFlagsMarshal := pgrfFlags is VarRef ? "uint*" : IntPtr
 
         phwnd := HWND()
         result := ComCall(4, this, "ptr", psf, ITEMIDLIST.Ptr, pidlFolder, HWND.Ptr, phwnd, pgrfFlagsMarshal, pgrfFlags, "HRESULT")
@@ -134,8 +134,8 @@ export default struct IFolderFilter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ShouldShow := CallbackCreate(GetMethod(implObj, "ShouldShow"), flags, 4)
-        this.vtbl.GetEnumFlags := CallbackCreate(GetMethod(implObj, "GetEnumFlags"), flags, 5)
+        this.vtbl.ShouldShow := CallbackCreate(ObjBindMethod(implObj, "ShouldShow"), flags, 4)
+        this.vtbl.GetEnumFlags := CallbackCreate(ObjBindMethod(implObj, "GetEnumFlags"), flags, 5)
     }
 
     Dispose() {

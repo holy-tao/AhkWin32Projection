@@ -86,7 +86,6 @@ export default struct ISpeechRecognizerStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechAudioStatus} 
      */
     get_AudioStatus() {
@@ -95,7 +94,6 @@ export default struct ISpeechRecognizerStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_CurrentStreamPosition() {
@@ -105,7 +103,6 @@ export default struct ISpeechRecognizerStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_CurrentStreamNumber() {
@@ -114,7 +111,6 @@ export default struct ISpeechRecognizerStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_NumberOfActiveRules() {
@@ -123,7 +119,6 @@ export default struct ISpeechRecognizerStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ClsidEngine() {
@@ -133,7 +128,6 @@ export default struct ISpeechRecognizerStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_SupportedLanguages() {
@@ -151,12 +145,12 @@ export default struct ISpeechRecognizerStatus extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_AudioStatus := CallbackCreate(GetMethod(implObj, "get_AudioStatus"), flags, 2)
-        this.vtbl.get_CurrentStreamPosition := CallbackCreate(GetMethod(implObj, "get_CurrentStreamPosition"), flags, 2)
-        this.vtbl.get_CurrentStreamNumber := CallbackCreate(GetMethod(implObj, "get_CurrentStreamNumber"), flags, 2)
-        this.vtbl.get_NumberOfActiveRules := CallbackCreate(GetMethod(implObj, "get_NumberOfActiveRules"), flags, 2)
-        this.vtbl.get_ClsidEngine := CallbackCreate(GetMethod(implObj, "get_ClsidEngine"), flags, 2)
-        this.vtbl.get_SupportedLanguages := CallbackCreate(GetMethod(implObj, "get_SupportedLanguages"), flags, 2)
+        this.vtbl.get_AudioStatus := CallbackCreate(ObjBindMethod(implObj, "get_AudioStatus"), flags, 2)
+        this.vtbl.get_CurrentStreamPosition := CallbackCreate(ObjBindMethod(implObj, "get_CurrentStreamPosition"), flags, 2)
+        this.vtbl.get_CurrentStreamNumber := CallbackCreate(ObjBindMethod(implObj, "get_CurrentStreamNumber"), flags, 2)
+        this.vtbl.get_NumberOfActiveRules := CallbackCreate(ObjBindMethod(implObj, "get_NumberOfActiveRules"), flags, 2)
+        this.vtbl.get_ClsidEngine := CallbackCreate(ObjBindMethod(implObj, "get_ClsidEngine"), flags, 2)
+        this.vtbl.get_SupportedLanguages := CallbackCreate(ObjBindMethod(implObj, "get_SupportedLanguages"), flags, 2)
     }
 
     Dispose() {

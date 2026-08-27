@@ -23,13 +23,12 @@ export default struct PWORKER_START_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<CLUS_WORKER>} pWorker A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-clus_worker">CLUS_WORKER</a> structure that represents the worker thread.
      * @param {Pointer<Void>} lpThreadParameter A pointer to the callback routine to use to initialize the worker thread.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (0), if the operation succeeds; otherwise returns a system error code.
      */
     Call(pWorker, lpThreadParameter) {
-        lpThreadParameterMarshal := lpThreadParameter is VarRef ? "ptr" : "ptr"
+        lpThreadParameterMarshal := lpThreadParameter is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, CLUS_WORKER.Ptr, pWorker, lpThreadParameterMarshal, lpThreadParameter, UInt32)
         return result

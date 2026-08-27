@@ -233,7 +233,7 @@ export default struct IWMDRMReader extends IUnknown {
     SetDRMProperty(pwstrName, dwType, pValue, cbLength) {
         pwstrName := pwstrName is String ? StrPtr(pwstrName) : pwstrName
 
-        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "char*" : IntPtr
 
         result := ComCall(9, this, "ptr", pwstrName, WMT_ATTR_DATATYPE, dwType, pValueMarshal, pValue, UInt16, cbLength, "HRESULT")
         return result
@@ -414,9 +414,9 @@ export default struct IWMDRMReader extends IUnknown {
     GetDRMProperty(pwstrName, pdwType, pValue, pcbLength) {
         pwstrName := pwstrName is String ? StrPtr(pwstrName) : pwstrName
 
-        pdwTypeMarshal := pdwType is VarRef ? "int*" : "ptr"
-        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
-        pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : "ptr"
+        pdwTypeMarshal := pdwType is VarRef ? "int*" : IntPtr
+        pValueMarshal := pValue is VarRef ? "char*" : IntPtr
+        pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(10, this, "ptr", pwstrName, pdwTypeMarshal, pdwType, pValueMarshal, pValue, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
@@ -431,14 +431,14 @@ export default struct IWMDRMReader extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AcquireLicense := CallbackCreate(GetMethod(implObj, "AcquireLicense"), flags, 2)
-        this.vtbl.CancelLicenseAcquisition := CallbackCreate(GetMethod(implObj, "CancelLicenseAcquisition"), flags, 1)
-        this.vtbl.Individualize := CallbackCreate(GetMethod(implObj, "Individualize"), flags, 2)
-        this.vtbl.CancelIndividualization := CallbackCreate(GetMethod(implObj, "CancelIndividualization"), flags, 1)
-        this.vtbl.MonitorLicenseAcquisition := CallbackCreate(GetMethod(implObj, "MonitorLicenseAcquisition"), flags, 1)
-        this.vtbl.CancelMonitorLicenseAcquisition := CallbackCreate(GetMethod(implObj, "CancelMonitorLicenseAcquisition"), flags, 1)
-        this.vtbl.SetDRMProperty := CallbackCreate(GetMethod(implObj, "SetDRMProperty"), flags, 5)
-        this.vtbl.GetDRMProperty := CallbackCreate(GetMethod(implObj, "GetDRMProperty"), flags, 5)
+        this.vtbl.AcquireLicense := CallbackCreate(ObjBindMethod(implObj, "AcquireLicense"), flags, 2)
+        this.vtbl.CancelLicenseAcquisition := CallbackCreate(ObjBindMethod(implObj, "CancelLicenseAcquisition"), flags, 1)
+        this.vtbl.Individualize := CallbackCreate(ObjBindMethod(implObj, "Individualize"), flags, 2)
+        this.vtbl.CancelIndividualization := CallbackCreate(ObjBindMethod(implObj, "CancelIndividualization"), flags, 1)
+        this.vtbl.MonitorLicenseAcquisition := CallbackCreate(ObjBindMethod(implObj, "MonitorLicenseAcquisition"), flags, 1)
+        this.vtbl.CancelMonitorLicenseAcquisition := CallbackCreate(ObjBindMethod(implObj, "CancelMonitorLicenseAcquisition"), flags, 1)
+        this.vtbl.SetDRMProperty := CallbackCreate(ObjBindMethod(implObj, "SetDRMProperty"), flags, 5)
+        this.vtbl.GetDRMProperty := CallbackCreate(ObjBindMethod(implObj, "GetDRMProperty"), flags, 5)
     }
 
     Dispose() {

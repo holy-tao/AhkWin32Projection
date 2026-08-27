@@ -20,7 +20,6 @@ export default struct PFND3DKMT_QUERYREMOTEVIDPNSOURCEFROMGDIDISPLAYNAME {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_QUERYREMOTEVIDPNSOURCEFROMGDIDISPLAYNAME>} param0 
      * @returns {NTSTATUS} 
      */

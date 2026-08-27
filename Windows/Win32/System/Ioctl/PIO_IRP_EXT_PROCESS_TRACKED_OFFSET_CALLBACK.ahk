@@ -19,7 +19,6 @@ export default struct PIO_IRP_EXT_PROCESS_TRACKED_OFFSET_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<IO_IRP_EXT_TRACK_OFFSET_HEADER>} SourceContext 
      * @param {Pointer<IO_IRP_EXT_TRACK_OFFSET_HEADER>} TargetContext 
      * @param {Integer} RelativeOffset 

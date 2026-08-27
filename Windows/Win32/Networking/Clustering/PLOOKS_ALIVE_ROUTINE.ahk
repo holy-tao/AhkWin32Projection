@@ -25,7 +25,6 @@ export default struct PLOOKS_ALIVE_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Resource Resource identifier for the resource to poll.
      * @returns {BOOL} <table>
      * <tr>
@@ -59,7 +58,7 @@ export default struct PLOOKS_ALIVE_ROUTINE {
      * </table>
      */
     Call(Resource) {
-        ResourceMarshal := Resource is VarRef ? "ptr" : "ptr"
+        ResourceMarshal := Resource is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, ResourceMarshal, Resource, BOOL)
         return result

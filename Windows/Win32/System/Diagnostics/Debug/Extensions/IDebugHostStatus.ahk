@@ -36,7 +36,6 @@ export default struct IDebugHostStatus extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Boolean} 
      */
     PollUserInterrupt() {
@@ -53,7 +52,7 @@ export default struct IDebugHostStatus extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PollUserInterrupt := CallbackCreate(GetMethod(implObj, "PollUserInterrupt"), flags, 2)
+        this.vtbl.PollUserInterrupt := CallbackCreate(ObjBindMethod(implObj, "PollUserInterrupt"), flags, 2)
     }
 
     Dispose() {

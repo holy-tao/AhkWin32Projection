@@ -147,8 +147,8 @@ export default struct IDropSource extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryContinueDrag := CallbackCreate(GetMethod(implObj, "QueryContinueDrag"), flags, 3)
-        this.vtbl.GiveFeedback := CallbackCreate(GetMethod(implObj, "GiveFeedback"), flags, 2)
+        this.vtbl.QueryContinueDrag := CallbackCreate(ObjBindMethod(implObj, "QueryContinueDrag"), flags, 3)
+        this.vtbl.GiveFeedback := CallbackCreate(ObjBindMethod(implObj, "GiveFeedback"), flags, 2)
     }
 
     Dispose() {

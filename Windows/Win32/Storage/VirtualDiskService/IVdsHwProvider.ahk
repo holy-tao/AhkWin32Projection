@@ -218,9 +218,9 @@ export default struct IVdsHwProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QuerySubSystems := CallbackCreate(GetMethod(implObj, "QuerySubSystems"), flags, 2)
-        this.vtbl.Reenumerate := CallbackCreate(GetMethod(implObj, "Reenumerate"), flags, 1)
-        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.QuerySubSystems := CallbackCreate(ObjBindMethod(implObj, "QuerySubSystems"), flags, 2)
+        this.vtbl.Reenumerate := CallbackCreate(ObjBindMethod(implObj, "Reenumerate"), flags, 1)
+        this.vtbl.Refresh := CallbackCreate(ObjBindMethod(implObj, "Refresh"), flags, 1)
     }
 
     Dispose() {

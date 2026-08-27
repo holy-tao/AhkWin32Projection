@@ -68,7 +68,7 @@ export default struct ITaskSettings2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings2-get_disallowstartonremoteappsession
      */
     get_DisallowStartOnRemoteAppSession(pDisallowStart) {
-        pDisallowStartMarshal := pDisallowStart is VarRef ? "short*" : "ptr"
+        pDisallowStartMarshal := pDisallowStart is VarRef ? "short*" : IntPtr
 
         result := ComCall(7, this, pDisallowStartMarshal, pDisallowStart, "HRESULT")
         return result
@@ -96,7 +96,7 @@ export default struct ITaskSettings2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings2-get_useunifiedschedulingengine
      */
     get_UseUnifiedSchedulingEngine(pUseUnifiedEngine) {
-        pUseUnifiedEngineMarshal := pUseUnifiedEngine is VarRef ? "short*" : "ptr"
+        pUseUnifiedEngineMarshal := pUseUnifiedEngine is VarRef ? "short*" : IntPtr
 
         result := ComCall(9, this, pUseUnifiedEngineMarshal, pUseUnifiedEngine, "HRESULT")
         return result
@@ -124,10 +124,10 @@ export default struct ITaskSettings2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_DisallowStartOnRemoteAppSession := CallbackCreate(GetMethod(implObj, "get_DisallowStartOnRemoteAppSession"), flags, 2)
-        this.vtbl.put_DisallowStartOnRemoteAppSession := CallbackCreate(GetMethod(implObj, "put_DisallowStartOnRemoteAppSession"), flags, 2)
-        this.vtbl.get_UseUnifiedSchedulingEngine := CallbackCreate(GetMethod(implObj, "get_UseUnifiedSchedulingEngine"), flags, 2)
-        this.vtbl.put_UseUnifiedSchedulingEngine := CallbackCreate(GetMethod(implObj, "put_UseUnifiedSchedulingEngine"), flags, 2)
+        this.vtbl.get_DisallowStartOnRemoteAppSession := CallbackCreate(ObjBindMethod(implObj, "get_DisallowStartOnRemoteAppSession"), flags, 2)
+        this.vtbl.put_DisallowStartOnRemoteAppSession := CallbackCreate(ObjBindMethod(implObj, "put_DisallowStartOnRemoteAppSession"), flags, 2)
+        this.vtbl.get_UseUnifiedSchedulingEngine := CallbackCreate(ObjBindMethod(implObj, "get_UseUnifiedSchedulingEngine"), flags, 2)
+        this.vtbl.put_UseUnifiedSchedulingEngine := CallbackCreate(ObjBindMethod(implObj, "put_UseUnifiedSchedulingEngine"), flags, 2)
     }
 
     Dispose() {

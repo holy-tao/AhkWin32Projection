@@ -39,7 +39,6 @@ export default struct IDebugDocumentContext extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugDocument} 
      */
     GetDocument() {
@@ -48,7 +47,6 @@ export default struct IDebugDocumentContext extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumDebugCodeContexts} 
      */
     EnumCodeContexts() {
@@ -65,8 +63,8 @@ export default struct IDebugDocumentContext extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDocument := CallbackCreate(GetMethod(implObj, "GetDocument"), flags, 2)
-        this.vtbl.EnumCodeContexts := CallbackCreate(GetMethod(implObj, "EnumCodeContexts"), flags, 2)
+        this.vtbl.GetDocument := CallbackCreate(ObjBindMethod(implObj, "GetDocument"), flags, 2)
+        this.vtbl.EnumCodeContexts := CallbackCreate(ObjBindMethod(implObj, "EnumCodeContexts"), flags, 2)
     }
 
     Dispose() {

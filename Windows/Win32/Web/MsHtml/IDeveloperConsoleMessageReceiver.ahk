@@ -41,7 +41,6 @@ export default struct IDeveloperConsoleMessageReceiver extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} source 
      * @param {DEV_CONSOLE_MESSAGE_LEVEL} level 
      * @param {Integer} messageId 
@@ -57,7 +56,6 @@ export default struct IDeveloperConsoleMessageReceiver extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} source 
      * @param {DEV_CONSOLE_MESSAGE_LEVEL} level 
      * @param {Integer} messageId 
@@ -75,7 +73,6 @@ export default struct IDeveloperConsoleMessageReceiver extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} source 
      * @param {DEV_CONSOLE_MESSAGE_LEVEL} level 
      * @param {Integer} messageId 
@@ -94,7 +91,6 @@ export default struct IDeveloperConsoleMessageReceiver extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} source 
      * @param {DEV_CONSOLE_MESSAGE_LEVEL} level 
      * @param {Integer} messageId 
@@ -122,10 +118,10 @@ export default struct IDeveloperConsoleMessageReceiver extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Write := CallbackCreate(GetMethod(implObj, "Write"), flags, 5)
-        this.vtbl.WriteWithUrl := CallbackCreate(GetMethod(implObj, "WriteWithUrl"), flags, 6)
-        this.vtbl.WriteWithUrlAndLine := CallbackCreate(GetMethod(implObj, "WriteWithUrlAndLine"), flags, 7)
-        this.vtbl.WriteWithUrlLineAndColumn := CallbackCreate(GetMethod(implObj, "WriteWithUrlLineAndColumn"), flags, 8)
+        this.vtbl.Write := CallbackCreate(ObjBindMethod(implObj, "Write"), flags, 5)
+        this.vtbl.WriteWithUrl := CallbackCreate(ObjBindMethod(implObj, "WriteWithUrl"), flags, 6)
+        this.vtbl.WriteWithUrlAndLine := CallbackCreate(ObjBindMethod(implObj, "WriteWithUrlAndLine"), flags, 7)
+        this.vtbl.WriteWithUrlLineAndColumn := CallbackCreate(ObjBindMethod(implObj, "WriteWithUrlLineAndColumn"), flags, 8)
     }
 
     Dispose() {

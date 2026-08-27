@@ -77,7 +77,7 @@ export default struct IProxyProviderWinEventHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RespondToWinEvent := CallbackCreate(GetMethod(implObj, "RespondToWinEvent"), flags, 6)
+        this.vtbl.RespondToWinEvent := CallbackCreate(ObjBindMethod(implObj, "RespondToWinEvent"), flags, 6)
     }
 
     Dispose() {

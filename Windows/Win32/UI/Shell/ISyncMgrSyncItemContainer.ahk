@@ -98,9 +98,9 @@ export default struct ISyncMgrSyncItemContainer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSyncItem := CallbackCreate(GetMethod(implObj, "GetSyncItem"), flags, 3)
-        this.vtbl.GetSyncItemEnumerator := CallbackCreate(GetMethod(implObj, "GetSyncItemEnumerator"), flags, 2)
-        this.vtbl.GetSyncItemCount := CallbackCreate(GetMethod(implObj, "GetSyncItemCount"), flags, 2)
+        this.vtbl.GetSyncItem := CallbackCreate(ObjBindMethod(implObj, "GetSyncItem"), flags, 3)
+        this.vtbl.GetSyncItemEnumerator := CallbackCreate(ObjBindMethod(implObj, "GetSyncItemEnumerator"), flags, 2)
+        this.vtbl.GetSyncItemCount := CallbackCreate(ObjBindMethod(implObj, "GetSyncItemCount"), flags, 2)
     }
 
     Dispose() {

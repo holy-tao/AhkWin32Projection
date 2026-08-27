@@ -103,8 +103,8 @@ export default struct IXpsOMBrush extends IXpsOMShareable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOpacity := CallbackCreate(GetMethod(implObj, "GetOpacity"), flags, 2)
-        this.vtbl.SetOpacity := CallbackCreate(GetMethod(implObj, "SetOpacity"), flags, 2)
+        this.vtbl.GetOpacity := CallbackCreate(ObjBindMethod(implObj, "GetOpacity"), flags, 2)
+        this.vtbl.SetOpacity := CallbackCreate(ObjBindMethod(implObj, "SetOpacity"), flags, 2)
     }
 
     Dispose() {

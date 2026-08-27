@@ -20,7 +20,6 @@ export default struct I_RpcProxyGetClientSessionAndResourceUUID {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<Integer>} SessionIdPresent 
      * @param {Pointer<Guid>} SessionId 
@@ -29,11 +28,13 @@ export default struct I_RpcProxyGetClientSessionAndResourceUUID {
      * @returns {RPC_STATUS} 
      */
     Call(_Context, SessionIdPresent, SessionId, ResourceIdPresent, ResourceId) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        SessionIdPresentMarshal := SessionIdPresent is VarRef ? "int*" : "ptr"
-        ResourceIdPresentMarshal := ResourceIdPresent is VarRef ? "int*" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        SessionIdPresentMarshal := SessionIdPresent is VarRef ? "int*" : IntPtr
+        SessionIdPresentMarshal := SessionIdPresent == 0 ? IntPtr : "int*"
+        SessionIdMarshal := SessionId == 0 ? IntPtr : Guid.Ptr
+        ResourceIdPresentMarshal := ResourceIdPresent is VarRef ? "int*" : IntPtr
 
-        result := DllCall(this.value, _ContextMarshal, _Context, SessionIdPresentMarshal, SessionIdPresent, Guid.Ptr, SessionId, ResourceIdPresentMarshal, ResourceIdPresent, Guid.Ptr, ResourceId, RPC_STATUS)
+        result := DllCall(this.value, _ContextMarshal, _Context, SessionIdPresentMarshal, SessionIdPresent, SessionIdMarshal, SessionId, ResourceIdPresentMarshal, ResourceIdPresent, Guid.Ptr, ResourceId, RPC_STATUS)
         return result
     }
 

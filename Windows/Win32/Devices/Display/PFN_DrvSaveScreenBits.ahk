@@ -20,7 +20,6 @@ export default struct PFN_DrvSaveScreenBits {
     }
 
     /**
-     * 
      * @param {Pointer<SURFOBJ>} param0 
      * @param {Integer} param1 
      * @param {Pointer} param2 

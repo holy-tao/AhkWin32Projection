@@ -261,7 +261,7 @@ export default struct IUIAnimationVariable2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-setlowerboundvector
      */
     SetLowerBoundVector(bound, cDimension) {
-        boundMarshal := bound is VarRef ? "double*" : "ptr"
+        boundMarshal := bound is VarRef ? "double*" : IntPtr
 
         result := ComCall(20, this, boundMarshal, bound, UInt32, cDimension, "HRESULT")
         return result
@@ -286,7 +286,7 @@ export default struct IUIAnimationVariable2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-setupperboundvector
      */
     SetUpperBoundVector(bound, cDimension) {
-        boundMarshal := bound is VarRef ? "double*" : "ptr"
+        boundMarshal := bound is VarRef ? "double*" : IntPtr
 
         result := ComCall(22, this, boundMarshal, bound, UInt32, cDimension, "HRESULT")
         return result
@@ -317,7 +317,9 @@ export default struct IUIAnimationVariable2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-settag
      */
     SetTag(_object, id) {
-        result := ComCall(24, this, "ptr", _object, UInt32, id, "HRESULT")
+        _objectMarshal := _object == 0 ? IntPtr : "ptr"
+
+        result := ComCall(24, this, _objectMarshal, _object, UInt32, id, "HRESULT")
         return result
     }
 
@@ -333,9 +335,11 @@ export default struct IUIAnimationVariable2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-gettag
      */
     GetTag(_object, id) {
-        idMarshal := id is VarRef ? "uint*" : "ptr"
+        _objectMarshal := _object == 0 ? IntPtr : IUnknown.Ptr
+        idMarshal := id is VarRef ? "uint*" : IntPtr
+        idMarshal := id == 0 ? IntPtr : "uint*"
 
-        result := ComCall(25, this, IUnknown.Ptr, _object, idMarshal, id, "HRESULT")
+        result := ComCall(25, this, _objectMarshal, _object, idMarshal, id, "HRESULT")
         return result
     }
 
@@ -349,7 +353,9 @@ export default struct IUIAnimationVariable2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-setvariablechangehandler
      */
     SetVariableChangeHandler(handler, fRegisterForNextAnimationEvent) {
-        result := ComCall(26, this, "ptr", handler, BOOL, fRegisterForNextAnimationEvent, "HRESULT")
+        handlerMarshal := handler == 0 ? IntPtr : "ptr"
+
+        result := ComCall(26, this, handlerMarshal, handler, BOOL, fRegisterForNextAnimationEvent, "HRESULT")
         return result
     }
 
@@ -366,7 +372,9 @@ export default struct IUIAnimationVariable2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-setvariableintegerchangehandler
      */
     SetVariableIntegerChangeHandler(handler, fRegisterForNextAnimationEvent) {
-        result := ComCall(27, this, "ptr", handler, BOOL, fRegisterForNextAnimationEvent, "HRESULT")
+        handlerMarshal := handler == 0 ? IntPtr : "ptr"
+
+        result := ComCall(27, this, handlerMarshal, handler, BOOL, fRegisterForNextAnimationEvent, "HRESULT")
         return result
     }
 
@@ -377,7 +385,9 @@ export default struct IUIAnimationVariable2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-setvariablecurvechangehandler
      */
     SetVariableCurveChangeHandler(handler) {
-        result := ComCall(28, this, "ptr", handler, "HRESULT")
+        handlerMarshal := handler == 0 ? IntPtr : "ptr"
+
+        result := ComCall(28, this, handlerMarshal, handler, "HRESULT")
         return result
     }
 
@@ -390,32 +400,32 @@ export default struct IUIAnimationVariable2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDimension := CallbackCreate(GetMethod(implObj, "GetDimension"), flags, 2)
-        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 2)
-        this.vtbl.GetVectorValue := CallbackCreate(GetMethod(implObj, "GetVectorValue"), flags, 3)
-        this.vtbl.GetCurve := CallbackCreate(GetMethod(implObj, "GetCurve"), flags, 2)
-        this.vtbl.GetVectorCurve := CallbackCreate(GetMethod(implObj, "GetVectorCurve"), flags, 3)
-        this.vtbl.GetFinalValue := CallbackCreate(GetMethod(implObj, "GetFinalValue"), flags, 2)
-        this.vtbl.GetFinalVectorValue := CallbackCreate(GetMethod(implObj, "GetFinalVectorValue"), flags, 3)
-        this.vtbl.GetPreviousValue := CallbackCreate(GetMethod(implObj, "GetPreviousValue"), flags, 2)
-        this.vtbl.GetPreviousVectorValue := CallbackCreate(GetMethod(implObj, "GetPreviousVectorValue"), flags, 3)
-        this.vtbl.GetIntegerValue := CallbackCreate(GetMethod(implObj, "GetIntegerValue"), flags, 2)
-        this.vtbl.GetIntegerVectorValue := CallbackCreate(GetMethod(implObj, "GetIntegerVectorValue"), flags, 3)
-        this.vtbl.GetFinalIntegerValue := CallbackCreate(GetMethod(implObj, "GetFinalIntegerValue"), flags, 2)
-        this.vtbl.GetFinalIntegerVectorValue := CallbackCreate(GetMethod(implObj, "GetFinalIntegerVectorValue"), flags, 3)
-        this.vtbl.GetPreviousIntegerValue := CallbackCreate(GetMethod(implObj, "GetPreviousIntegerValue"), flags, 2)
-        this.vtbl.GetPreviousIntegerVectorValue := CallbackCreate(GetMethod(implObj, "GetPreviousIntegerVectorValue"), flags, 3)
-        this.vtbl.GetCurrentStoryboard := CallbackCreate(GetMethod(implObj, "GetCurrentStoryboard"), flags, 2)
-        this.vtbl.SetLowerBound := CallbackCreate(GetMethod(implObj, "SetLowerBound"), flags, 2)
-        this.vtbl.SetLowerBoundVector := CallbackCreate(GetMethod(implObj, "SetLowerBoundVector"), flags, 3)
-        this.vtbl.SetUpperBound := CallbackCreate(GetMethod(implObj, "SetUpperBound"), flags, 2)
-        this.vtbl.SetUpperBoundVector := CallbackCreate(GetMethod(implObj, "SetUpperBoundVector"), flags, 3)
-        this.vtbl.SetRoundingMode := CallbackCreate(GetMethod(implObj, "SetRoundingMode"), flags, 2)
-        this.vtbl.SetTag := CallbackCreate(GetMethod(implObj, "SetTag"), flags, 3)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 3)
-        this.vtbl.SetVariableChangeHandler := CallbackCreate(GetMethod(implObj, "SetVariableChangeHandler"), flags, 3)
-        this.vtbl.SetVariableIntegerChangeHandler := CallbackCreate(GetMethod(implObj, "SetVariableIntegerChangeHandler"), flags, 3)
-        this.vtbl.SetVariableCurveChangeHandler := CallbackCreate(GetMethod(implObj, "SetVariableCurveChangeHandler"), flags, 2)
+        this.vtbl.GetDimension := CallbackCreate(ObjBindMethod(implObj, "GetDimension"), flags, 2)
+        this.vtbl.GetValue := CallbackCreate(ObjBindMethod(implObj, "GetValue"), flags, 2)
+        this.vtbl.GetVectorValue := CallbackCreate(ObjBindMethod(implObj, "GetVectorValue"), flags, 3)
+        this.vtbl.GetCurve := CallbackCreate(ObjBindMethod(implObj, "GetCurve"), flags, 2)
+        this.vtbl.GetVectorCurve := CallbackCreate(ObjBindMethod(implObj, "GetVectorCurve"), flags, 3)
+        this.vtbl.GetFinalValue := CallbackCreate(ObjBindMethod(implObj, "GetFinalValue"), flags, 2)
+        this.vtbl.GetFinalVectorValue := CallbackCreate(ObjBindMethod(implObj, "GetFinalVectorValue"), flags, 3)
+        this.vtbl.GetPreviousValue := CallbackCreate(ObjBindMethod(implObj, "GetPreviousValue"), flags, 2)
+        this.vtbl.GetPreviousVectorValue := CallbackCreate(ObjBindMethod(implObj, "GetPreviousVectorValue"), flags, 3)
+        this.vtbl.GetIntegerValue := CallbackCreate(ObjBindMethod(implObj, "GetIntegerValue"), flags, 2)
+        this.vtbl.GetIntegerVectorValue := CallbackCreate(ObjBindMethod(implObj, "GetIntegerVectorValue"), flags, 3)
+        this.vtbl.GetFinalIntegerValue := CallbackCreate(ObjBindMethod(implObj, "GetFinalIntegerValue"), flags, 2)
+        this.vtbl.GetFinalIntegerVectorValue := CallbackCreate(ObjBindMethod(implObj, "GetFinalIntegerVectorValue"), flags, 3)
+        this.vtbl.GetPreviousIntegerValue := CallbackCreate(ObjBindMethod(implObj, "GetPreviousIntegerValue"), flags, 2)
+        this.vtbl.GetPreviousIntegerVectorValue := CallbackCreate(ObjBindMethod(implObj, "GetPreviousIntegerVectorValue"), flags, 3)
+        this.vtbl.GetCurrentStoryboard := CallbackCreate(ObjBindMethod(implObj, "GetCurrentStoryboard"), flags, 2)
+        this.vtbl.SetLowerBound := CallbackCreate(ObjBindMethod(implObj, "SetLowerBound"), flags, 2)
+        this.vtbl.SetLowerBoundVector := CallbackCreate(ObjBindMethod(implObj, "SetLowerBoundVector"), flags, 3)
+        this.vtbl.SetUpperBound := CallbackCreate(ObjBindMethod(implObj, "SetUpperBound"), flags, 2)
+        this.vtbl.SetUpperBoundVector := CallbackCreate(ObjBindMethod(implObj, "SetUpperBoundVector"), flags, 3)
+        this.vtbl.SetRoundingMode := CallbackCreate(ObjBindMethod(implObj, "SetRoundingMode"), flags, 2)
+        this.vtbl.SetTag := CallbackCreate(ObjBindMethod(implObj, "SetTag"), flags, 3)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 3)
+        this.vtbl.SetVariableChangeHandler := CallbackCreate(ObjBindMethod(implObj, "SetVariableChangeHandler"), flags, 3)
+        this.vtbl.SetVariableIntegerChangeHandler := CallbackCreate(ObjBindMethod(implObj, "SetVariableIntegerChangeHandler"), flags, 3)
+        this.vtbl.SetVariableCurveChangeHandler := CallbackCreate(ObjBindMethod(implObj, "SetVariableCurveChangeHandler"), flags, 2)
     }
 
     Dispose() {

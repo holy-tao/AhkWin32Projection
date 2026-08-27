@@ -26,7 +26,6 @@ export default struct PFNCryptStreamOutputCallback {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvCallbackCtxt Pointer to data that you can use to keep track of your application. The data is not modified by the data protection API. 
      * 
      * <div class="alert"><b>Note</b>  You can set a pointer to your context data in the <b>pvCallbackCtxt</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/ns-ncryptprotect-ncrypt_protect_stream_info">NCRYPT_PROTECT_STREAM_INFO</a> structure before passing a pointer to that structure in the <i>pStreamInfo</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nf-ncryptprotect-ncryptstreamopentoprotect">NCryptStreamOpenToProtect</a> or  <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nf-ncryptprotect-ncryptstreamopentounprotect">NCryptStreamOpenToUnprotect</a> functions.</div>
@@ -56,7 +55,7 @@ export default struct PFNCryptStreamOutputCallback {
      * </table>
      */
     Call(pvCallbackCtxt, pbData, cbData, fFinal) {
-        pvCallbackCtxtMarshal := pvCallbackCtxt is VarRef ? "ptr" : "ptr"
+        pvCallbackCtxtMarshal := pvCallbackCtxt is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, pvCallbackCtxtMarshal, pvCallbackCtxt, IntPtr, pbData, IntPtr, cbData, BOOL, fFinal, "HRESULT")
         return result

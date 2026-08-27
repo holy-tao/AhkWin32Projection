@@ -49,7 +49,6 @@ export default struct ISClusApplication extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISDomainNames} 
      */
     get_DomainNames() {
@@ -58,7 +57,6 @@ export default struct ISClusApplication extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDomainName 
      * @returns {ISClusterNames} 
      */
@@ -106,9 +104,9 @@ export default struct ISClusApplication extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_DomainNames := CallbackCreate(GetMethod(implObj, "get_DomainNames"), flags, 2)
-        this.vtbl.get_ClusterNames := CallbackCreate(GetMethod(implObj, "get_ClusterNames"), flags, 3)
-        this.vtbl.OpenCluster := CallbackCreate(GetMethod(implObj, "OpenCluster"), flags, 3)
+        this.vtbl.get_DomainNames := CallbackCreate(ObjBindMethod(implObj, "get_DomainNames"), flags, 2)
+        this.vtbl.get_ClusterNames := CallbackCreate(ObjBindMethod(implObj, "get_ClusterNames"), flags, 3)
+        this.vtbl.OpenCluster := CallbackCreate(ObjBindMethod(implObj, "OpenCluster"), flags, 3)
     }
 
     Dispose() {

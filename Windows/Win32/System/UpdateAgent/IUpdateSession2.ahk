@@ -92,8 +92,8 @@ export default struct IUpdateSession2 extends IUpdateSession {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_UserLocale := CallbackCreate(GetMethod(implObj, "get_UserLocale"), flags, 2)
-        this.vtbl.put_UserLocale := CallbackCreate(GetMethod(implObj, "put_UserLocale"), flags, 2)
+        this.vtbl.get_UserLocale := CallbackCreate(ObjBindMethod(implObj, "get_UserLocale"), flags, 2)
+        this.vtbl.put_UserLocale := CallbackCreate(ObjBindMethod(implObj, "put_UserLocale"), flags, 2)
     }
 
     Dispose() {

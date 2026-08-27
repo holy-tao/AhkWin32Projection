@@ -37,7 +37,6 @@ export default struct IDCompositionDevice5 extends IDCompositionDevice4 {
     }
 
     /**
-     * 
      * @returns {IDCompositionDynamicTexture} 
      */
     CreateDynamicTexture() {
@@ -54,7 +53,7 @@ export default struct IDCompositionDevice5 extends IDCompositionDevice4 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateDynamicTexture := CallbackCreate(GetMethod(implObj, "CreateDynamicTexture"), flags, 2)
+        this.vtbl.CreateDynamicTexture := CallbackCreate(ObjBindMethod(implObj, "CreateDynamicTexture"), flags, 2)
     }
 
     Dispose() {

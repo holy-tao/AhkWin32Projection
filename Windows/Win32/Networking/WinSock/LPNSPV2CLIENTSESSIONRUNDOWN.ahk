@@ -34,13 +34,12 @@ export default struct LPNSPV2CLIENTSESSIONRUNDOWN {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} lpProviderId A pointer to the GUID of the specific namespace provider to notify.
      * @param {Pointer<Void>} pvClientSessionArg A pointer to the client session that is terminating.
      * @returns {String} Nothing - always returns an empty string
      */
     Call(lpProviderId, pvClientSessionArg) {
-        pvClientSessionArgMarshal := pvClientSessionArg is VarRef ? "ptr" : "ptr"
+        pvClientSessionArgMarshal := pvClientSessionArg is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, Guid.Ptr, lpProviderId, pvClientSessionArgMarshal, pvClientSessionArg)
     }

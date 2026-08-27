@@ -63,7 +63,7 @@ export default struct IAzTask2 extends IAzTask {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RoleAssignments := CallbackCreate(GetMethod(implObj, "RoleAssignments"), flags, 4)
+        this.vtbl.RoleAssignments := CallbackCreate(ObjBindMethod(implObj, "RoleAssignments"), flags, 4)
     }
 
     Dispose() {

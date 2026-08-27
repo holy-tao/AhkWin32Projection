@@ -105,7 +105,6 @@ export default struct IInkStrokes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -255,7 +254,9 @@ export default struct IInkStrokes extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokes-add
      */
     Add(InkStroke) {
-        result := ComCall(13, this, "ptr", InkStroke, "HRESULT")
+        InkStrokeMarshal := InkStroke == 0 ? IntPtr : "ptr"
+
+        result := ComCall(13, this, InkStrokeMarshal, InkStroke, "HRESULT")
         return result
     }
 
@@ -353,7 +354,9 @@ export default struct IInkStrokes extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokes-addstrokes
      */
     AddStrokes(_InkStrokes) {
-        result := ComCall(14, this, "ptr", _InkStrokes, "HRESULT")
+        _InkStrokesMarshal := _InkStrokes == 0 ? IntPtr : "ptr"
+
+        result := ComCall(14, this, _InkStrokesMarshal, _InkStrokes, "HRESULT")
         return result
     }
 
@@ -452,7 +455,9 @@ export default struct IInkStrokes extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokes-remove
      */
     Remove(InkStroke) {
-        result := ComCall(15, this, "ptr", InkStroke, "HRESULT")
+        InkStrokeMarshal := InkStroke == 0 ? IntPtr : "ptr"
+
+        result := ComCall(15, this, InkStrokeMarshal, InkStroke, "HRESULT")
         return result
     }
 
@@ -547,7 +552,9 @@ export default struct IInkStrokes extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokes-removestrokes
      */
     RemoveStrokes(_InkStrokes) {
-        result := ComCall(16, this, "ptr", _InkStrokes, "HRESULT")
+        _InkStrokesMarshal := _InkStrokes == 0 ? IntPtr : "ptr"
+
+        result := ComCall(16, this, _InkStrokesMarshal, _InkStrokes, "HRESULT")
         return result
     }
 
@@ -609,7 +616,9 @@ export default struct IInkStrokes extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokes-modifydrawingattributes
      */
     ModifyDrawingAttributes(DrawAttrs) {
-        result := ComCall(17, this, "ptr", DrawAttrs, "HRESULT")
+        DrawAttrsMarshal := DrawAttrs == 0 ? IntPtr : "ptr"
+
+        result := ComCall(17, this, DrawAttrsMarshal, DrawAttrs, "HRESULT")
         return result
     }
 
@@ -706,7 +715,9 @@ export default struct IInkStrokes extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokes-transform
      */
     Transform(Transform, ApplyOnPenWidth) {
-        result := ComCall(19, this, "ptr", Transform, VARIANT_BOOL, ApplyOnPenWidth, "HRESULT")
+        TransformMarshal := Transform == 0 ? IntPtr : "ptr"
+
+        result := ComCall(19, this, TransformMarshal, Transform, VARIANT_BOOL, ApplyOnPenWidth, "HRESULT")
         return result
     }
 
@@ -757,7 +768,9 @@ export default struct IInkStrokes extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokes-scaletorectangle
      */
     ScaleToRectangle(Rectangle) {
-        result := ComCall(20, this, "ptr", Rectangle, "HRESULT")
+        RectangleMarshal := Rectangle == 0 ? IntPtr : "ptr"
+
+        result := ComCall(20, this, RectangleMarshal, Rectangle, "HRESULT")
         return result
     }
 
@@ -993,7 +1006,9 @@ export default struct IInkStrokes extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokes-clip
      */
     Clip(Rectangle) {
-        result := ComCall(25, this, "ptr", Rectangle, "HRESULT")
+        RectangleMarshal := Rectangle == 0 ? IntPtr : "ptr"
+
+        result := ComCall(25, this, RectangleMarshal, Rectangle, "HRESULT")
         return result
     }
 
@@ -1047,26 +1062,26 @@ export default struct IInkStrokes extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
-        this.vtbl.get_Ink := CallbackCreate(GetMethod(implObj, "get_Ink"), flags, 2)
-        this.vtbl.get_RecognitionResult := CallbackCreate(GetMethod(implObj, "get_RecognitionResult"), flags, 2)
-        this.vtbl.ToString := CallbackCreate(GetMethod(implObj, "ToString"), flags, 2)
-        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 3)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
-        this.vtbl.AddStrokes := CallbackCreate(GetMethod(implObj, "AddStrokes"), flags, 2)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
-        this.vtbl.RemoveStrokes := CallbackCreate(GetMethod(implObj, "RemoveStrokes"), flags, 2)
-        this.vtbl.ModifyDrawingAttributes := CallbackCreate(GetMethod(implObj, "ModifyDrawingAttributes"), flags, 2)
-        this.vtbl.GetBoundingBox := CallbackCreate(GetMethod(implObj, "GetBoundingBox"), flags, 3)
-        this.vtbl.Transform := CallbackCreate(GetMethod(implObj, "Transform"), flags, 3)
-        this.vtbl.ScaleToRectangle := CallbackCreate(GetMethod(implObj, "ScaleToRectangle"), flags, 2)
-        this.vtbl.Move := CallbackCreate(GetMethod(implObj, "Move"), flags, 3)
-        this.vtbl.Rotate := CallbackCreate(GetMethod(implObj, "Rotate"), flags, 4)
-        this.vtbl.Shear := CallbackCreate(GetMethod(implObj, "Shear"), flags, 3)
-        this.vtbl.ScaleTransform := CallbackCreate(GetMethod(implObj, "ScaleTransform"), flags, 3)
-        this.vtbl.Clip := CallbackCreate(GetMethod(implObj, "Clip"), flags, 2)
-        this.vtbl.RemoveRecognitionResult := CallbackCreate(GetMethod(implObj, "RemoveRecognitionResult"), flags, 1)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get__NewEnum := CallbackCreate(ObjBindMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Ink := CallbackCreate(ObjBindMethod(implObj, "get_Ink"), flags, 2)
+        this.vtbl.get_RecognitionResult := CallbackCreate(ObjBindMethod(implObj, "get_RecognitionResult"), flags, 2)
+        this.vtbl.ToString := CallbackCreate(ObjBindMethod(implObj, "ToString"), flags, 2)
+        this.vtbl.Item := CallbackCreate(ObjBindMethod(implObj, "Item"), flags, 3)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 2)
+        this.vtbl.AddStrokes := CallbackCreate(ObjBindMethod(implObj, "AddStrokes"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.RemoveStrokes := CallbackCreate(ObjBindMethod(implObj, "RemoveStrokes"), flags, 2)
+        this.vtbl.ModifyDrawingAttributes := CallbackCreate(ObjBindMethod(implObj, "ModifyDrawingAttributes"), flags, 2)
+        this.vtbl.GetBoundingBox := CallbackCreate(ObjBindMethod(implObj, "GetBoundingBox"), flags, 3)
+        this.vtbl.Transform := CallbackCreate(ObjBindMethod(implObj, "Transform"), flags, 3)
+        this.vtbl.ScaleToRectangle := CallbackCreate(ObjBindMethod(implObj, "ScaleToRectangle"), flags, 2)
+        this.vtbl.Move := CallbackCreate(ObjBindMethod(implObj, "Move"), flags, 3)
+        this.vtbl.Rotate := CallbackCreate(ObjBindMethod(implObj, "Rotate"), flags, 4)
+        this.vtbl.Shear := CallbackCreate(ObjBindMethod(implObj, "Shear"), flags, 3)
+        this.vtbl.ScaleTransform := CallbackCreate(ObjBindMethod(implObj, "ScaleTransform"), flags, 3)
+        this.vtbl.Clip := CallbackCreate(ObjBindMethod(implObj, "Clip"), flags, 2)
+        this.vtbl.RemoveRecognitionResult := CallbackCreate(ObjBindMethod(implObj, "RemoveRecognitionResult"), flags, 1)
     }
 
     Dispose() {

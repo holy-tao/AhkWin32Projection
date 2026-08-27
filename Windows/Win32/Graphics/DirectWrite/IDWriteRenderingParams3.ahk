@@ -58,7 +58,7 @@ export default struct IDWriteRenderingParams3 extends IDWriteRenderingParams2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRenderingMode1 := CallbackCreate(GetMethod(implObj, "GetRenderingMode1"), flags, 1)
+        this.vtbl.GetRenderingMode1 := CallbackCreate(ObjBindMethod(implObj, "GetRenderingMode1"), flags, 1)
     }
 
     Dispose() {

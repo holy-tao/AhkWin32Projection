@@ -20,7 +20,6 @@ export default struct LPWPUCOMPLETEOVERLAPPEDREQUEST {
     }
 
     /**
-     * 
      * @param {SOCKET} s 
      * @param {Pointer<OVERLAPPED>} lpOverlapped 
      * @param {Integer} dwError 
@@ -29,7 +28,7 @@ export default struct LPWPUCOMPLETEOVERLAPPEDREQUEST {
      * @returns {Integer} 
      */
     Call(s, lpOverlapped, dwError, cbTransferred, lpErrno) {
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, SOCKET, s, OVERLAPPED.Ptr, lpOverlapped, UInt32, dwError, UInt32, cbTransferred, lpErrnoMarshal, lpErrno, Int32)
         return result

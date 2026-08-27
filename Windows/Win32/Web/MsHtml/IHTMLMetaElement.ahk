@@ -92,7 +92,6 @@ export default struct IHTMLMetaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -104,7 +103,6 @@ export default struct IHTMLMetaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_httpEquiv() {
@@ -114,7 +112,6 @@ export default struct IHTMLMetaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -126,7 +123,6 @@ export default struct IHTMLMetaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_content() {
@@ -136,7 +132,6 @@ export default struct IHTMLMetaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -148,7 +143,6 @@ export default struct IHTMLMetaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -158,7 +152,6 @@ export default struct IHTMLMetaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -170,7 +163,6 @@ export default struct IHTMLMetaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_url() {
@@ -180,7 +172,6 @@ export default struct IHTMLMetaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -192,7 +183,6 @@ export default struct IHTMLMetaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_charset() {
@@ -210,16 +200,16 @@ export default struct IHTMLMetaElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_httpEquiv := CallbackCreate(GetMethod(implObj, "put_httpEquiv"), flags, 2)
-        this.vtbl.get_httpEquiv := CallbackCreate(GetMethod(implObj, "get_httpEquiv"), flags, 2)
-        this.vtbl.put_content := CallbackCreate(GetMethod(implObj, "put_content"), flags, 2)
-        this.vtbl.get_content := CallbackCreate(GetMethod(implObj, "get_content"), flags, 2)
-        this.vtbl.put_name := CallbackCreate(GetMethod(implObj, "put_name"), flags, 2)
-        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
-        this.vtbl.put_url := CallbackCreate(GetMethod(implObj, "put_url"), flags, 2)
-        this.vtbl.get_url := CallbackCreate(GetMethod(implObj, "get_url"), flags, 2)
-        this.vtbl.put_charset := CallbackCreate(GetMethod(implObj, "put_charset"), flags, 2)
-        this.vtbl.get_charset := CallbackCreate(GetMethod(implObj, "get_charset"), flags, 2)
+        this.vtbl.put_httpEquiv := CallbackCreate(ObjBindMethod(implObj, "put_httpEquiv"), flags, 2)
+        this.vtbl.get_httpEquiv := CallbackCreate(ObjBindMethod(implObj, "get_httpEquiv"), flags, 2)
+        this.vtbl.put_content := CallbackCreate(ObjBindMethod(implObj, "put_content"), flags, 2)
+        this.vtbl.get_content := CallbackCreate(ObjBindMethod(implObj, "get_content"), flags, 2)
+        this.vtbl.put_name := CallbackCreate(ObjBindMethod(implObj, "put_name"), flags, 2)
+        this.vtbl.get_name := CallbackCreate(ObjBindMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.put_url := CallbackCreate(ObjBindMethod(implObj, "put_url"), flags, 2)
+        this.vtbl.get_url := CallbackCreate(ObjBindMethod(implObj, "get_url"), flags, 2)
+        this.vtbl.put_charset := CallbackCreate(ObjBindMethod(implObj, "put_charset"), flags, 2)
+        this.vtbl.get_charset := CallbackCreate(ObjBindMethod(implObj, "get_charset"), flags, 2)
     }
 
     Dispose() {

@@ -20,14 +20,14 @@ export default struct PGET_LOCATION_STRING {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<PWSTR>} LocationStrings 
      * @returns {NTSTATUS} 
      */
     Call(_Context, LocationStrings) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        LocationStringsMarshal := LocationStrings is VarRef ? "ptr*" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
+        LocationStringsMarshal := LocationStrings is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, LocationStringsMarshal, LocationStrings, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

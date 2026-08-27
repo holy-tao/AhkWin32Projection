@@ -98,7 +98,9 @@ export default struct IDCompositionEffectGroup extends IDCompositionEffect {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositioneffectgroup-settransform3d
      */
     SetTransform3D(transform3D) {
-        result := ComCall(5, this, "ptr", transform3D, "HRESULT")
+        transform3DMarshal := transform3D == 0 ? IntPtr : "ptr"
+
+        result := ComCall(5, this, transform3DMarshal, transform3D, "HRESULT")
         return result
     }
 
@@ -111,9 +113,9 @@ export default struct IDCompositionEffectGroup extends IDCompositionEffect {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetOpacity := CallbackCreate(GetMethod(implObj, "SetOpacity"), flags, 2)
-        this.vtbl.SetOpacity1 := CallbackCreate(GetMethod(implObj, "SetOpacity1"), flags, 2)
-        this.vtbl.SetTransform3D := CallbackCreate(GetMethod(implObj, "SetTransform3D"), flags, 2)
+        this.vtbl.SetOpacity := CallbackCreate(ObjBindMethod(implObj, "SetOpacity"), flags, 2)
+        this.vtbl.SetOpacity1 := CallbackCreate(ObjBindMethod(implObj, "SetOpacity1"), flags, 2)
+        this.vtbl.SetTransform3D := CallbackCreate(ObjBindMethod(implObj, "SetTransform3D"), flags, 2)
     }
 
     Dispose() {

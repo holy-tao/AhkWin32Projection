@@ -19,14 +19,13 @@ export default struct alljoyn_sessionlistener_sessionlost_ptr {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {Integer} sessionId 
      * @param {alljoyn_sessionlostreason} reason 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_context, sessionId, reason) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _contextMarshal, _context, UInt32, sessionId, alljoyn_sessionlostreason, reason)
     }

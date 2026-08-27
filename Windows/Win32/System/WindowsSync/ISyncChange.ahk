@@ -97,8 +97,8 @@ export default struct ISyncChange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchange-getownerreplicaid
      */
     GetOwnerReplicaId(pbReplicaId, pcbIdSize) {
-        pbReplicaIdMarshal := pbReplicaId is VarRef ? "char*" : "ptr"
-        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
+        pbReplicaIdMarshal := pbReplicaId is VarRef ? "char*" : IntPtr
+        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pbReplicaIdMarshal, pbReplicaId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
         return result
@@ -152,8 +152,8 @@ export default struct ISyncChange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchange-getrootitemid
      */
     GetRootItemId(pbRootItemId, pcbIdSize) {
-        pbRootItemIdMarshal := pbRootItemId is VarRef ? "char*" : "ptr"
-        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
+        pbRootItemIdMarshal := pbRootItemId is VarRef ? "char*" : IntPtr
+        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pbRootItemIdMarshal, pbRootItemId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
         return result
@@ -241,7 +241,7 @@ export default struct ISyncChange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchange-getchangeversion
      */
     GetChangeVersion(pbCurrentReplicaId, pVersion) {
-        pbCurrentReplicaIdMarshal := pbCurrentReplicaId is VarRef ? "char*" : "ptr"
+        pbCurrentReplicaIdMarshal := pbCurrentReplicaId is VarRef ? "char*" : IntPtr
 
         result := ComCall(5, this, pbCurrentReplicaIdMarshal, pbCurrentReplicaId, SYNC_VERSION.Ptr, pVersion, "HRESULT")
         return result
@@ -307,7 +307,7 @@ export default struct ISyncChange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchange-getcreationversion
      */
     GetCreationVersion(pbCurrentReplicaId, pVersion) {
-        pbCurrentReplicaIdMarshal := pbCurrentReplicaId is VarRef ? "char*" : "ptr"
+        pbCurrentReplicaIdMarshal := pbCurrentReplicaId is VarRef ? "char*" : IntPtr
 
         result := ComCall(6, this, pbCurrentReplicaIdMarshal, pbCurrentReplicaId, SYNC_VERSION.Ptr, pVersion, "HRESULT")
         return result
@@ -374,7 +374,7 @@ export default struct ISyncChange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchange-getflags
      */
     GetFlags(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
@@ -420,7 +420,7 @@ export default struct ISyncChange extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchange-getworkestimate
      */
     GetWorkEstimate(pdwWork) {
-        pdwWorkMarshal := pdwWork is VarRef ? "uint*" : "ptr"
+        pdwWorkMarshal := pdwWork is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, pdwWorkMarshal, pdwWork, "HRESULT")
         return result
@@ -500,16 +500,16 @@ export default struct ISyncChange extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOwnerReplicaId := CallbackCreate(GetMethod(implObj, "GetOwnerReplicaId"), flags, 3)
-        this.vtbl.GetRootItemId := CallbackCreate(GetMethod(implObj, "GetRootItemId"), flags, 3)
-        this.vtbl.GetChangeVersion := CallbackCreate(GetMethod(implObj, "GetChangeVersion"), flags, 3)
-        this.vtbl.GetCreationVersion := CallbackCreate(GetMethod(implObj, "GetCreationVersion"), flags, 3)
-        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
-        this.vtbl.GetWorkEstimate := CallbackCreate(GetMethod(implObj, "GetWorkEstimate"), flags, 2)
-        this.vtbl.GetChangeUnits := CallbackCreate(GetMethod(implObj, "GetChangeUnits"), flags, 2)
-        this.vtbl.GetMadeWithKnowledge := CallbackCreate(GetMethod(implObj, "GetMadeWithKnowledge"), flags, 2)
-        this.vtbl.GetLearnedKnowledge := CallbackCreate(GetMethod(implObj, "GetLearnedKnowledge"), flags, 2)
-        this.vtbl.SetWorkEstimate := CallbackCreate(GetMethod(implObj, "SetWorkEstimate"), flags, 2)
+        this.vtbl.GetOwnerReplicaId := CallbackCreate(ObjBindMethod(implObj, "GetOwnerReplicaId"), flags, 3)
+        this.vtbl.GetRootItemId := CallbackCreate(ObjBindMethod(implObj, "GetRootItemId"), flags, 3)
+        this.vtbl.GetChangeVersion := CallbackCreate(ObjBindMethod(implObj, "GetChangeVersion"), flags, 3)
+        this.vtbl.GetCreationVersion := CallbackCreate(ObjBindMethod(implObj, "GetCreationVersion"), flags, 3)
+        this.vtbl.GetFlags := CallbackCreate(ObjBindMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.GetWorkEstimate := CallbackCreate(ObjBindMethod(implObj, "GetWorkEstimate"), flags, 2)
+        this.vtbl.GetChangeUnits := CallbackCreate(ObjBindMethod(implObj, "GetChangeUnits"), flags, 2)
+        this.vtbl.GetMadeWithKnowledge := CallbackCreate(ObjBindMethod(implObj, "GetMadeWithKnowledge"), flags, 2)
+        this.vtbl.GetLearnedKnowledge := CallbackCreate(ObjBindMethod(implObj, "GetLearnedKnowledge"), flags, 2)
+        this.vtbl.SetWorkEstimate := CallbackCreate(ObjBindMethod(implObj, "SetWorkEstimate"), flags, 2)
     }
 
     Dispose() {

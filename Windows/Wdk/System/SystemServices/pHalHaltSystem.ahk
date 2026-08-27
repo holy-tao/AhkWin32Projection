@@ -18,7 +18,6 @@ export default struct pHalHaltSystem {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

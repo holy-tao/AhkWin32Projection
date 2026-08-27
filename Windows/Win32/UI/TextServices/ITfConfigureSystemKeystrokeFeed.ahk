@@ -122,8 +122,8 @@ export default struct ITfConfigureSystemKeystrokeFeed extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DisableSystemKeystrokeFeed := CallbackCreate(GetMethod(implObj, "DisableSystemKeystrokeFeed"), flags, 1)
-        this.vtbl.EnableSystemKeystrokeFeed := CallbackCreate(GetMethod(implObj, "EnableSystemKeystrokeFeed"), flags, 1)
+        this.vtbl.DisableSystemKeystrokeFeed := CallbackCreate(ObjBindMethod(implObj, "DisableSystemKeystrokeFeed"), flags, 1)
+        this.vtbl.EnableSystemKeystrokeFeed := CallbackCreate(ObjBindMethod(implObj, "EnableSystemKeystrokeFeed"), flags, 1)
     }
 
     Dispose() {

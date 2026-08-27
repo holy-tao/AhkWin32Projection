@@ -76,8 +76,8 @@ export default struct ISystemAppEventData extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Startup := CallbackCreate(GetMethod(implObj, "Startup"), flags, 1)
-        this.vtbl.OnDataChanged := CallbackCreate(GetMethod(implObj, "OnDataChanged"), flags, 7)
+        this.vtbl.Startup := CallbackCreate(ObjBindMethod(implObj, "Startup"), flags, 1)
+        this.vtbl.OnDataChanged := CallbackCreate(ObjBindMethod(implObj, "OnDataChanged"), flags, 7)
     }
 
     Dispose() {

@@ -49,7 +49,7 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/openimsgsession
  */
 export OpenIMsgSession(lpMalloc, ulFlags, lppMsgSess) {
-    lppMsgSessMarshal := lppMsgSess is VarRef ? "ptr*" : "ptr"
+    lppMsgSessMarshal := lppMsgSess is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("MAPI32.dll\OpenIMsgSession", "ptr", lpMalloc, UInt32, ulFlags, lppMsgSessMarshal, lppMsgSess, Int32)
     return result
@@ -101,8 +101,8 @@ export CloseIMsgSession(_lpMsgSess) {
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/openimsgonistg
  */
 export OpenIMsgOnIStg(_lpMsgSess, _lpAllocateBuffer, _lpAllocateMore, _lpFreeBuffer, lpMalloc, lpMapiSup, lpStg, lpfMsgCallRelease, ulCallerData, ulFlags, lppMsg) {
-    lpMapiSupMarshal := lpMapiSup is VarRef ? "ptr" : "ptr"
-    lpfMsgCallReleaseMarshal := lpfMsgCallRelease is VarRef ? "ptr*" : "ptr"
+    lpMapiSupMarshal := lpMapiSup is VarRef ? "ptr" : IntPtr
+    lpfMsgCallReleaseMarshal := lpfMsgCallRelease is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("MAPI32.dll\OpenIMsgOnIStg", LPMSGSESS, _lpMsgSess, LPALLOCATEBUFFER, _lpAllocateBuffer, LPALLOCATEMORE, _lpAllocateMore, LPFREEBUFFER, _lpFreeBuffer, "ptr", lpMalloc, lpMapiSupMarshal, lpMapiSup, "ptr", lpStg, lpfMsgCallReleaseMarshal, lpfMsgCallRelease, UInt32, ulCallerData, UInt32, ulFlags, IMessage.Ptr, lppMsg, Int32)
     return result
@@ -130,8 +130,8 @@ export OpenIMsgOnIStg(_lpMsgSess, _lpAllocateBuffer, _lpAllocateMore, _lpFreeBuf
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/getattribimsgonistg
  */
 export GetAttribIMsgOnIStg(lpObject, lpPropTagArray, lppPropAttrArray) {
-    lpObjectMarshal := lpObject is VarRef ? "ptr" : "ptr"
-    lppPropAttrArrayMarshal := lppPropAttrArray is VarRef ? "ptr*" : "ptr"
+    lpObjectMarshal := lpObject is VarRef ? "ptr" : IntPtr
+    lppPropAttrArrayMarshal := lppPropAttrArray is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("MAPI32.dll\GetAttribIMsgOnIStg", lpObjectMarshal, lpObject, SPropTagArray.Ptr, lpPropTagArray, lppPropAttrArrayMarshal, lppPropAttrArray, "HRESULT")
     return result
@@ -161,8 +161,8 @@ export GetAttribIMsgOnIStg(lpObject, lpPropTagArray, lppPropAttrArray) {
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/setattribimsgonistg
  */
 export SetAttribIMsgOnIStg(lpObject, lpPropTags, lpPropAttrs, lppPropProblems) {
-    lpObjectMarshal := lpObject is VarRef ? "ptr" : "ptr"
-    lppPropProblemsMarshal := lppPropProblems is VarRef ? "ptr*" : "ptr"
+    lpObjectMarshal := lpObject is VarRef ? "ptr" : IntPtr
+    lppPropProblemsMarshal := lppPropProblems is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("MAPI32.dll\SetAttribIMsgOnIStg", lpObjectMarshal, lpObject, SPropTagArray.Ptr, lpPropTags, SPropAttrArray.Ptr, lpPropAttrs, lppPropProblemsMarshal, lppPropProblems, "HRESULT")
     return result

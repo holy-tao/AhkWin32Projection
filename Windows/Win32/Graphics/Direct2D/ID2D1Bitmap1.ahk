@@ -167,11 +167,11 @@ export default struct ID2D1Bitmap1 extends ID2D1Bitmap {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetColorContext := CallbackCreate(GetMethod(implObj, "GetColorContext"), flags, 2)
-        this.vtbl.GetOptions := CallbackCreate(GetMethod(implObj, "GetOptions"), flags, 1)
-        this.vtbl.GetSurface := CallbackCreate(GetMethod(implObj, "GetSurface"), flags, 2)
-        this.vtbl.Map := CallbackCreate(GetMethod(implObj, "Map"), flags, 3)
-        this.vtbl.Unmap := CallbackCreate(GetMethod(implObj, "Unmap"), flags, 1)
+        this.vtbl.GetColorContext := CallbackCreate(ObjBindMethod(implObj, "GetColorContext"), flags, 2)
+        this.vtbl.GetOptions := CallbackCreate(ObjBindMethod(implObj, "GetOptions"), flags, 1)
+        this.vtbl.GetSurface := CallbackCreate(ObjBindMethod(implObj, "GetSurface"), flags, 2)
+        this.vtbl.Map := CallbackCreate(ObjBindMethod(implObj, "Map"), flags, 3)
+        this.vtbl.Unmap := CallbackCreate(ObjBindMethod(implObj, "Unmap"), flags, 1)
     }
 
     Dispose() {

@@ -47,7 +47,6 @@ export default struct IHTMLTable2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     firstPage() {
@@ -56,7 +55,6 @@ export default struct IHTMLTable2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     lastPage() {
@@ -65,7 +63,6 @@ export default struct IHTMLTable2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElementCollection} 
      */
     get_cells() {
@@ -74,7 +71,6 @@ export default struct IHTMLTable2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} indexFrom 
      * @param {Integer} indexTo 
      * @returns {IDispatch} 
@@ -93,10 +89,10 @@ export default struct IHTMLTable2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.firstPage := CallbackCreate(GetMethod(implObj, "firstPage"), flags, 1)
-        this.vtbl.lastPage := CallbackCreate(GetMethod(implObj, "lastPage"), flags, 1)
-        this.vtbl.get_cells := CallbackCreate(GetMethod(implObj, "get_cells"), flags, 2)
-        this.vtbl.moveRow := CallbackCreate(GetMethod(implObj, "moveRow"), flags, 4)
+        this.vtbl.firstPage := CallbackCreate(ObjBindMethod(implObj, "firstPage"), flags, 1)
+        this.vtbl.lastPage := CallbackCreate(ObjBindMethod(implObj, "lastPage"), flags, 1)
+        this.vtbl.get_cells := CallbackCreate(ObjBindMethod(implObj, "get_cells"), flags, 2)
+        this.vtbl.moveRow := CallbackCreate(ObjBindMethod(implObj, "moveRow"), flags, 4)
     }
 
     Dispose() {

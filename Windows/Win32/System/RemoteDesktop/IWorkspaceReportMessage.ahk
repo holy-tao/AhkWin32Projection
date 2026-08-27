@@ -97,9 +97,9 @@ export default struct IWorkspaceReportMessage extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterErrorLogMessage := CallbackCreate(GetMethod(implObj, "RegisterErrorLogMessage"), flags, 2)
-        this.vtbl.IsErrorMessageRegistered := CallbackCreate(GetMethod(implObj, "IsErrorMessageRegistered"), flags, 6)
-        this.vtbl.RegisterErrorEvent := CallbackCreate(GetMethod(implObj, "RegisterErrorEvent"), flags, 5)
+        this.vtbl.RegisterErrorLogMessage := CallbackCreate(ObjBindMethod(implObj, "RegisterErrorLogMessage"), flags, 2)
+        this.vtbl.IsErrorMessageRegistered := CallbackCreate(ObjBindMethod(implObj, "IsErrorMessageRegistered"), flags, 6)
+        this.vtbl.RegisterErrorEvent := CallbackCreate(ObjBindMethod(implObj, "RegisterErrorEvent"), flags, 5)
     }
 
     Dispose() {

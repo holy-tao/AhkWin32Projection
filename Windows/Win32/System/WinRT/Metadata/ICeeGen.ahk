@@ -53,7 +53,6 @@ export default struct ICeeGen extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} lpString 
      * @param {Pointer<Integer>} RVA 
      * @returns {HRESULT} 
@@ -61,14 +60,13 @@ export default struct ICeeGen extends IUnknown {
     EmitString(lpString, RVA) {
         lpString := lpString is String ? StrPtr(lpString) : lpString
 
-        RVAMarshal := RVA is VarRef ? "uint*" : "ptr"
+        RVAMarshal := RVA is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, "ptr", lpString, RVAMarshal, RVA, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} RVA 
      * @returns {PWSTR} 
      */
@@ -78,35 +76,32 @@ export default struct ICeeGen extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cchBuffer 
      * @param {Pointer<Pointer<Integer>>} lpBuffer 
      * @param {Pointer<Integer>} RVA 
      * @returns {HRESULT} 
      */
     AllocateMethodBuffer(cchBuffer, lpBuffer, RVA) {
-        lpBufferMarshal := lpBuffer is VarRef ? "ptr*" : "ptr"
-        RVAMarshal := RVA is VarRef ? "uint*" : "ptr"
+        lpBufferMarshal := lpBuffer is VarRef ? "ptr*" : IntPtr
+        RVAMarshal := RVA is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, UInt32, cchBuffer, lpBufferMarshal, lpBuffer, RVAMarshal, RVA, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} RVA 
      * @param {Pointer<Pointer<Integer>>} lpBuffer 
      * @returns {HRESULT} 
      */
     GetMethodBuffer(RVA, lpBuffer) {
-        lpBufferMarshal := lpBuffer is VarRef ? "ptr*" : "ptr"
+        lpBufferMarshal := lpBuffer is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(6, this, UInt32, RVA, lpBufferMarshal, lpBuffer, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     GetIMapTokenIface() {
@@ -115,7 +110,6 @@ export default struct ICeeGen extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     GenerateCeeFile() {
@@ -124,31 +118,28 @@ export default struct ICeeGen extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _section 
      * @returns {HRESULT} 
      */
     GetIlSection(_section) {
-        _sectionMarshal := _section is VarRef ? "ptr*" : "ptr"
+        _sectionMarshal := _section is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(9, this, _sectionMarshal, _section, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} _section 
      * @returns {HRESULT} 
      */
     GetStringSection(_section) {
-        _sectionMarshal := _section is VarRef ? "ptr*" : "ptr"
+        _sectionMarshal := _section is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(10, this, _sectionMarshal, _section, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _section 
      * @param {Integer} offset 
      * @param {Pointer<Void>} relativeTo 
@@ -156,15 +147,14 @@ export default struct ICeeGen extends IUnknown {
      * @returns {HRESULT} 
      */
     AddSectionReloc(_section, offset, relativeTo, relocType) {
-        _sectionMarshal := _section is VarRef ? "ptr" : "ptr"
-        relativeToMarshal := relativeTo is VarRef ? "ptr" : "ptr"
+        _sectionMarshal := _section is VarRef ? "ptr" : IntPtr
+        relativeToMarshal := relativeTo is VarRef ? "ptr" : IntPtr
 
         result := ComCall(11, this, _sectionMarshal, _section, UInt32, offset, relativeToMarshal, relativeTo, CeeSectionRelocType, relocType, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PSTR} name 
      * @param {Integer} flags 
      * @param {Pointer<Pointer<Void>>} _section 
@@ -173,28 +163,26 @@ export default struct ICeeGen extends IUnknown {
     GetSectionCreate(name, flags, _section) {
         name := name is String ? StrPtr(name) : name
 
-        _sectionMarshal := _section is VarRef ? "ptr*" : "ptr"
+        _sectionMarshal := _section is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(12, this, "ptr", name, UInt32, flags, _sectionMarshal, _section, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _section 
      * @param {Pointer<Integer>} dataLen 
      * @returns {HRESULT} 
      */
     GetSectionDataLen(_section, dataLen) {
-        _sectionMarshal := _section is VarRef ? "ptr" : "ptr"
-        dataLenMarshal := dataLen is VarRef ? "uint*" : "ptr"
+        _sectionMarshal := _section is VarRef ? "ptr" : IntPtr
+        dataLenMarshal := dataLen is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, _sectionMarshal, _section, dataLenMarshal, dataLen, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _section 
      * @param {Integer} len 
      * @param {Integer} align 
@@ -202,48 +190,45 @@ export default struct ICeeGen extends IUnknown {
      * @returns {HRESULT} 
      */
     GetSectionBlock(_section, len, align, ppBytes) {
-        _sectionMarshal := _section is VarRef ? "ptr" : "ptr"
-        ppBytesMarshal := ppBytes is VarRef ? "ptr*" : "ptr"
+        _sectionMarshal := _section is VarRef ? "ptr" : IntPtr
+        ppBytesMarshal := ppBytes is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(14, this, _sectionMarshal, _section, UInt32, len, UInt32, align, ppBytesMarshal, ppBytes, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _section 
      * @param {Integer} len 
      * @returns {HRESULT} 
      */
     TruncateSection(_section, len) {
-        _sectionMarshal := _section is VarRef ? "ptr" : "ptr"
+        _sectionMarshal := _section is VarRef ? "ptr" : IntPtr
 
         result := ComCall(15, this, _sectionMarshal, _section, UInt32, len, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} ppImage 
      * @returns {HRESULT} 
      */
     GenerateCeeMemoryImage(ppImage) {
-        ppImageMarshal := ppImage is VarRef ? "ptr*" : "ptr"
+        ppImageMarshal := ppImage is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(16, this, ppImageMarshal, ppImage, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _section 
      * @param {Integer} RVA 
      * @param {Pointer<Pointer<Integer>>} lpBuffer 
      * @returns {HRESULT} 
      */
     ComputePointer(_section, RVA, lpBuffer) {
-        _sectionMarshal := _section is VarRef ? "ptr" : "ptr"
-        lpBufferMarshal := lpBuffer is VarRef ? "ptr*" : "ptr"
+        _sectionMarshal := _section is VarRef ? "ptr" : IntPtr
+        lpBufferMarshal := lpBuffer is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(17, this, _sectionMarshal, _section, UInt32, RVA, lpBufferMarshal, lpBuffer, "HRESULT")
         return result
@@ -258,21 +243,21 @@ export default struct ICeeGen extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EmitString := CallbackCreate(GetMethod(implObj, "EmitString"), flags, 3)
-        this.vtbl.GetString := CallbackCreate(GetMethod(implObj, "GetString"), flags, 3)
-        this.vtbl.AllocateMethodBuffer := CallbackCreate(GetMethod(implObj, "AllocateMethodBuffer"), flags, 4)
-        this.vtbl.GetMethodBuffer := CallbackCreate(GetMethod(implObj, "GetMethodBuffer"), flags, 3)
-        this.vtbl.GetIMapTokenIface := CallbackCreate(GetMethod(implObj, "GetIMapTokenIface"), flags, 2)
-        this.vtbl.GenerateCeeFile := CallbackCreate(GetMethod(implObj, "GenerateCeeFile"), flags, 1)
-        this.vtbl.GetIlSection := CallbackCreate(GetMethod(implObj, "GetIlSection"), flags, 2)
-        this.vtbl.GetStringSection := CallbackCreate(GetMethod(implObj, "GetStringSection"), flags, 2)
-        this.vtbl.AddSectionReloc := CallbackCreate(GetMethod(implObj, "AddSectionReloc"), flags, 5)
-        this.vtbl.GetSectionCreate := CallbackCreate(GetMethod(implObj, "GetSectionCreate"), flags, 4)
-        this.vtbl.GetSectionDataLen := CallbackCreate(GetMethod(implObj, "GetSectionDataLen"), flags, 3)
-        this.vtbl.GetSectionBlock := CallbackCreate(GetMethod(implObj, "GetSectionBlock"), flags, 5)
-        this.vtbl.TruncateSection := CallbackCreate(GetMethod(implObj, "TruncateSection"), flags, 3)
-        this.vtbl.GenerateCeeMemoryImage := CallbackCreate(GetMethod(implObj, "GenerateCeeMemoryImage"), flags, 2)
-        this.vtbl.ComputePointer := CallbackCreate(GetMethod(implObj, "ComputePointer"), flags, 4)
+        this.vtbl.EmitString := CallbackCreate(ObjBindMethod(implObj, "EmitString"), flags, 3)
+        this.vtbl.GetString := CallbackCreate(ObjBindMethod(implObj, "GetString"), flags, 3)
+        this.vtbl.AllocateMethodBuffer := CallbackCreate(ObjBindMethod(implObj, "AllocateMethodBuffer"), flags, 4)
+        this.vtbl.GetMethodBuffer := CallbackCreate(ObjBindMethod(implObj, "GetMethodBuffer"), flags, 3)
+        this.vtbl.GetIMapTokenIface := CallbackCreate(ObjBindMethod(implObj, "GetIMapTokenIface"), flags, 2)
+        this.vtbl.GenerateCeeFile := CallbackCreate(ObjBindMethod(implObj, "GenerateCeeFile"), flags, 1)
+        this.vtbl.GetIlSection := CallbackCreate(ObjBindMethod(implObj, "GetIlSection"), flags, 2)
+        this.vtbl.GetStringSection := CallbackCreate(ObjBindMethod(implObj, "GetStringSection"), flags, 2)
+        this.vtbl.AddSectionReloc := CallbackCreate(ObjBindMethod(implObj, "AddSectionReloc"), flags, 5)
+        this.vtbl.GetSectionCreate := CallbackCreate(ObjBindMethod(implObj, "GetSectionCreate"), flags, 4)
+        this.vtbl.GetSectionDataLen := CallbackCreate(ObjBindMethod(implObj, "GetSectionDataLen"), flags, 3)
+        this.vtbl.GetSectionBlock := CallbackCreate(ObjBindMethod(implObj, "GetSectionBlock"), flags, 5)
+        this.vtbl.TruncateSection := CallbackCreate(ObjBindMethod(implObj, "TruncateSection"), flags, 3)
+        this.vtbl.GenerateCeeMemoryImage := CallbackCreate(ObjBindMethod(implObj, "GenerateCeeMemoryImage"), flags, 2)
+        this.vtbl.ComputePointer := CallbackCreate(ObjBindMethod(implObj, "ComputePointer"), flags, 4)
     }
 
     Dispose() {

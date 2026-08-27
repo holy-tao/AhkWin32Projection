@@ -197,8 +197,8 @@ export default struct IVBFormat extends IUnknown {
     Format(vData, bstrFormat, lpBuffer, cb, lcid, sFirstDayOfWeek, sFirstWeekOfYear, rcb) {
         bstrFormat := bstrFormat is String ? BSTR.Alloc(bstrFormat).Value : bstrFormat
 
-        lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
-        rcbMarshal := rcb is VarRef ? "ushort*" : "ptr"
+        lpBufferMarshal := lpBuffer is VarRef ? "ptr" : IntPtr
+        rcbMarshal := rcb is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(3, this, VARIANT.Ptr, vData, BSTR, bstrFormat, lpBufferMarshal, lpBuffer, UInt16, cb, Int32, lcid, Int16, sFirstDayOfWeek, UInt16, sFirstWeekOfYear, rcbMarshal, rcb, "HRESULT")
         return result
@@ -213,7 +213,7 @@ export default struct IVBFormat extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Format := CallbackCreate(GetMethod(implObj, "Format"), flags, 9)
+        this.vtbl.Format := CallbackCreate(ObjBindMethod(implObj, "Format"), flags, 9)
     }
 
     Dispose() {

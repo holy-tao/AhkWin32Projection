@@ -175,11 +175,11 @@ export default struct IConnectionPoint extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetConnectionInterface := CallbackCreate(GetMethod(implObj, "GetConnectionInterface"), flags, 2)
-        this.vtbl.GetConnectionPointContainer := CallbackCreate(GetMethod(implObj, "GetConnectionPointContainer"), flags, 2)
-        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 3)
-        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 2)
-        this.vtbl.EnumConnections := CallbackCreate(GetMethod(implObj, "EnumConnections"), flags, 2)
+        this.vtbl.GetConnectionInterface := CallbackCreate(ObjBindMethod(implObj, "GetConnectionInterface"), flags, 2)
+        this.vtbl.GetConnectionPointContainer := CallbackCreate(ObjBindMethod(implObj, "GetConnectionPointContainer"), flags, 2)
+        this.vtbl.Advise := CallbackCreate(ObjBindMethod(implObj, "Advise"), flags, 3)
+        this.vtbl.Unadvise := CallbackCreate(ObjBindMethod(implObj, "Unadvise"), flags, 2)
+        this.vtbl.EnumConnections := CallbackCreate(ObjBindMethod(implObj, "EnumConnections"), flags, 2)
     }
 
     Dispose() {

@@ -85,9 +85,9 @@ export default struct IRDPSRAPITransportStreamEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnWriteCompleted := CallbackCreate(GetMethod(implObj, "OnWriteCompleted"), flags, 2)
-        this.vtbl.OnReadCompleted := CallbackCreate(GetMethod(implObj, "OnReadCompleted"), flags, 2)
-        this.vtbl.OnStreamClosed := CallbackCreate(GetMethod(implObj, "OnStreamClosed"), flags, 2)
+        this.vtbl.OnWriteCompleted := CallbackCreate(ObjBindMethod(implObj, "OnWriteCompleted"), flags, 2)
+        this.vtbl.OnReadCompleted := CallbackCreate(ObjBindMethod(implObj, "OnReadCompleted"), flags, 2)
+        this.vtbl.OnStreamClosed := CallbackCreate(ObjBindMethod(implObj, "OnStreamClosed"), flags, 2)
     }
 
     Dispose() {

@@ -40,7 +40,6 @@ export default struct IElementBehavior extends IUnknown {
     }
 
     /**
-     * 
      * @param {IElementBehaviorSite} pBehaviorSite 
      * @returns {HRESULT} 
      */
@@ -50,7 +49,6 @@ export default struct IElementBehavior extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lEvent 
      * @param {Pointer<VARIANT>} pVar 
      * @returns {HRESULT} 
@@ -61,7 +59,6 @@ export default struct IElementBehavior extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Detach() {
@@ -78,9 +75,9 @@ export default struct IElementBehavior extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 2)
-        this.vtbl.Notify := CallbackCreate(GetMethod(implObj, "Notify"), flags, 3)
-        this.vtbl.Detach := CallbackCreate(GetMethod(implObj, "Detach"), flags, 1)
+        this.vtbl.Init := CallbackCreate(ObjBindMethod(implObj, "Init"), flags, 2)
+        this.vtbl.Notify := CallbackCreate(ObjBindMethod(implObj, "Notify"), flags, 3)
+        this.vtbl.Detach := CallbackCreate(ObjBindMethod(implObj, "Detach"), flags, 1)
     }
 
     Dispose() {

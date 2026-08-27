@@ -108,7 +108,7 @@ export default struct IDirectDrawClipper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawclipper-getcliplist
      */
     GetClipList(param0, param1, param2) {
-        param2Marshal := param2 is VarRef ? "uint*" : "ptr"
+        param2Marshal := param2 is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, RECT.Ptr, param0, RGNDATA.Ptr, param1, param2Marshal, param2, "HRESULT")
         return result
@@ -171,7 +171,7 @@ export default struct IDirectDrawClipper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawclipper-iscliplistchanged
      */
     IsClipListChanged(param0) {
-        param0Marshal := param0 is VarRef ? "int*" : "ptr"
+        param0Marshal := param0 is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, param0Marshal, param0, "HRESULT")
         return result
@@ -237,12 +237,12 @@ export default struct IDirectDrawClipper extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetClipList := CallbackCreate(GetMethod(implObj, "GetClipList"), flags, 4)
-        this.vtbl.GetHWnd := CallbackCreate(GetMethod(implObj, "GetHWnd"), flags, 2)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.IsClipListChanged := CallbackCreate(GetMethod(implObj, "IsClipListChanged"), flags, 2)
-        this.vtbl.SetClipList := CallbackCreate(GetMethod(implObj, "SetClipList"), flags, 3)
-        this.vtbl.SetHWnd := CallbackCreate(GetMethod(implObj, "SetHWnd"), flags, 3)
+        this.vtbl.GetClipList := CallbackCreate(ObjBindMethod(implObj, "GetClipList"), flags, 4)
+        this.vtbl.GetHWnd := CallbackCreate(ObjBindMethod(implObj, "GetHWnd"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.IsClipListChanged := CallbackCreate(ObjBindMethod(implObj, "IsClipListChanged"), flags, 2)
+        this.vtbl.SetClipList := CallbackCreate(ObjBindMethod(implObj, "SetClipList"), flags, 3)
+        this.vtbl.SetHWnd := CallbackCreate(ObjBindMethod(implObj, "SetHWnd"), flags, 3)
     }
 
     Dispose() {

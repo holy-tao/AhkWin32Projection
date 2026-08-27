@@ -21,14 +21,16 @@ export default struct DOT11EXTIHV_ONEX_INDICATE_RESULT {
     }
 
     /**
-     * 
      * @param {HANDLE} hIhvExtAdapter 
      * @param {DOT11_MSONEX_RESULT} msOneXResult 
      * @param {Pointer<DOT11_MSONEX_RESULT_PARAMS>} pDot11MsOneXResultParams 
      * @returns {Integer} 
      */
     Call(hIhvExtAdapter, msOneXResult, pDot11MsOneXResultParams) {
-        result := DllCall(this.value, HANDLE, hIhvExtAdapter, DOT11_MSONEX_RESULT, msOneXResult, DOT11_MSONEX_RESULT_PARAMS.Ptr, pDot11MsOneXResultParams, UInt32)
+        hIhvExtAdapterMarshal := hIhvExtAdapter == 0 ? IntPtr : HANDLE
+        pDot11MsOneXResultParamsMarshal := pDot11MsOneXResultParams == 0 ? IntPtr : DOT11_MSONEX_RESULT_PARAMS.Ptr
+
+        result := DllCall(this.value, hIhvExtAdapterMarshal, hIhvExtAdapter, DOT11_MSONEX_RESULT, msOneXResult, pDot11MsOneXResultParamsMarshal, pDot11MsOneXResultParams, UInt32)
         return result
     }
 

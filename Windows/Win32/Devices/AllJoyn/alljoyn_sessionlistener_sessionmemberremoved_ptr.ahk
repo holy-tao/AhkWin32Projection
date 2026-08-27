@@ -19,7 +19,6 @@ export default struct alljoyn_sessionlistener_sessionmemberremoved_ptr {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {Integer} sessionId 
      * @param {PSTR} uniqueName 
@@ -28,7 +27,7 @@ export default struct alljoyn_sessionlistener_sessionmemberremoved_ptr {
     Call(_context, sessionId, uniqueName) {
         uniqueName := uniqueName is String ? StrPtr(uniqueName) : uniqueName
 
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _contextMarshal, _context, UInt32, sessionId, "ptr", uniqueName)
     }

@@ -18,12 +18,11 @@ export default struct PTLS_CALLBACK_FUNCTION {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} __MIDL____MIDL_itf_mscoree_0000_00040005 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(__MIDL____MIDL_itf_mscoree_0000_00040005) {
-        __MIDL____MIDL_itf_mscoree_0000_00040005Marshal := __MIDL____MIDL_itf_mscoree_0000_00040005 is VarRef ? "ptr" : "ptr"
+        __MIDL____MIDL_itf_mscoree_0000_00040005Marshal := __MIDL____MIDL_itf_mscoree_0000_00040005 is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, __MIDL____MIDL_itf_mscoree_0000_00040005Marshal, __MIDL____MIDL_itf_mscoree_0000_00040005)
     }

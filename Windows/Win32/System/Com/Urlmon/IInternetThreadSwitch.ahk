@@ -37,7 +37,6 @@ export default struct IInternetThreadSwitch extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Prepare() {
@@ -46,7 +45,6 @@ export default struct IInternetThreadSwitch extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Continue() {
@@ -63,8 +61,8 @@ export default struct IInternetThreadSwitch extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Prepare := CallbackCreate(GetMethod(implObj, "Prepare"), flags, 1)
-        this.vtbl.Continue := CallbackCreate(GetMethod(implObj, "Continue"), flags, 1)
+        this.vtbl.Prepare := CallbackCreate(ObjBindMethod(implObj, "Prepare"), flags, 1)
+        this.vtbl.Continue := CallbackCreate(ObjBindMethod(implObj, "Continue"), flags, 1)
     }
 
     Dispose() {

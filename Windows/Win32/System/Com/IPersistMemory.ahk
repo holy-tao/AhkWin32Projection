@@ -41,7 +41,6 @@ export default struct IPersistMemory extends IPersist {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     IsDirty() {
@@ -122,14 +121,13 @@ export default struct IPersistMemory extends IPersist {
      * @see https://learn.microsoft.com/windows/win32/direct3dhlsl/dx-graphics-hlsl-to-load
      */
     Load(pMem, cbSize) {
-        pMemMarshal := pMem is VarRef ? "ptr" : "ptr"
+        pMemMarshal := pMem is VarRef ? "ptr" : IntPtr
 
         result := ComCall(5, this, pMemMarshal, pMem, UInt32, cbSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {BOOL} fClearDirty 
      * @param {Integer} cbSize 
      * @returns {Void} 
@@ -140,7 +138,6 @@ export default struct IPersistMemory extends IPersist {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetSizeMax() {
@@ -149,7 +146,6 @@ export default struct IPersistMemory extends IPersist {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     InitNew() {
@@ -166,11 +162,11 @@ export default struct IPersistMemory extends IPersist {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsDirty := CallbackCreate(GetMethod(implObj, "IsDirty"), flags, 1)
-        this.vtbl.Load := CallbackCreate(GetMethod(implObj, "Load"), flags, 3)
-        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 4)
-        this.vtbl.GetSizeMax := CallbackCreate(GetMethod(implObj, "GetSizeMax"), flags, 2)
-        this.vtbl.InitNew := CallbackCreate(GetMethod(implObj, "InitNew"), flags, 1)
+        this.vtbl.IsDirty := CallbackCreate(ObjBindMethod(implObj, "IsDirty"), flags, 1)
+        this.vtbl.Load := CallbackCreate(ObjBindMethod(implObj, "Load"), flags, 3)
+        this.vtbl.Save := CallbackCreate(ObjBindMethod(implObj, "Save"), flags, 4)
+        this.vtbl.GetSizeMax := CallbackCreate(ObjBindMethod(implObj, "GetSizeMax"), flags, 2)
+        this.vtbl.InitNew := CallbackCreate(ObjBindMethod(implObj, "InitNew"), flags, 1)
     }
 
     Dispose() {

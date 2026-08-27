@@ -326,8 +326,8 @@ export default struct ISearchCrawlScopeManager extends IUnknown {
     IncludedInCrawlScopeEx(pszURL, pfIsIncluded, pReason) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        pfIsIncludedMarshal := pfIsIncluded is VarRef ? "int*" : "ptr"
-        pReasonMarshal := pReason is VarRef ? "int*" : "ptr"
+        pfIsIncludedMarshal := pfIsIncluded is VarRef ? "int*" : IntPtr
+        pReasonMarshal := pReason is VarRef ? "int*" : IntPtr
 
         result := ComCall(14, this, "ptr", pszURL, pfIsIncludedMarshal, pfIsIncluded, pReasonMarshal, pReason, "HRESULT")
         return result
@@ -416,22 +416,22 @@ export default struct ISearchCrawlScopeManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddDefaultScopeRule := CallbackCreate(GetMethod(implObj, "AddDefaultScopeRule"), flags, 4)
-        this.vtbl.AddRoot := CallbackCreate(GetMethod(implObj, "AddRoot"), flags, 2)
-        this.vtbl.RemoveRoot := CallbackCreate(GetMethod(implObj, "RemoveRoot"), flags, 2)
-        this.vtbl.EnumerateRoots := CallbackCreate(GetMethod(implObj, "EnumerateRoots"), flags, 2)
-        this.vtbl.AddHierarchicalScope := CallbackCreate(GetMethod(implObj, "AddHierarchicalScope"), flags, 5)
-        this.vtbl.AddUserScopeRule := CallbackCreate(GetMethod(implObj, "AddUserScopeRule"), flags, 5)
-        this.vtbl.RemoveScopeRule := CallbackCreate(GetMethod(implObj, "RemoveScopeRule"), flags, 2)
-        this.vtbl.EnumerateScopeRules := CallbackCreate(GetMethod(implObj, "EnumerateScopeRules"), flags, 2)
-        this.vtbl.HasParentScopeRule := CallbackCreate(GetMethod(implObj, "HasParentScopeRule"), flags, 3)
-        this.vtbl.HasChildScopeRule := CallbackCreate(GetMethod(implObj, "HasChildScopeRule"), flags, 3)
-        this.vtbl.IncludedInCrawlScope := CallbackCreate(GetMethod(implObj, "IncludedInCrawlScope"), flags, 3)
-        this.vtbl.IncludedInCrawlScopeEx := CallbackCreate(GetMethod(implObj, "IncludedInCrawlScopeEx"), flags, 4)
-        this.vtbl.RevertToDefaultScopes := CallbackCreate(GetMethod(implObj, "RevertToDefaultScopes"), flags, 1)
-        this.vtbl.SaveAll := CallbackCreate(GetMethod(implObj, "SaveAll"), flags, 1)
-        this.vtbl.GetParentScopeVersionId := CallbackCreate(GetMethod(implObj, "GetParentScopeVersionId"), flags, 3)
-        this.vtbl.RemoveDefaultScopeRule := CallbackCreate(GetMethod(implObj, "RemoveDefaultScopeRule"), flags, 2)
+        this.vtbl.AddDefaultScopeRule := CallbackCreate(ObjBindMethod(implObj, "AddDefaultScopeRule"), flags, 4)
+        this.vtbl.AddRoot := CallbackCreate(ObjBindMethod(implObj, "AddRoot"), flags, 2)
+        this.vtbl.RemoveRoot := CallbackCreate(ObjBindMethod(implObj, "RemoveRoot"), flags, 2)
+        this.vtbl.EnumerateRoots := CallbackCreate(ObjBindMethod(implObj, "EnumerateRoots"), flags, 2)
+        this.vtbl.AddHierarchicalScope := CallbackCreate(ObjBindMethod(implObj, "AddHierarchicalScope"), flags, 5)
+        this.vtbl.AddUserScopeRule := CallbackCreate(ObjBindMethod(implObj, "AddUserScopeRule"), flags, 5)
+        this.vtbl.RemoveScopeRule := CallbackCreate(ObjBindMethod(implObj, "RemoveScopeRule"), flags, 2)
+        this.vtbl.EnumerateScopeRules := CallbackCreate(ObjBindMethod(implObj, "EnumerateScopeRules"), flags, 2)
+        this.vtbl.HasParentScopeRule := CallbackCreate(ObjBindMethod(implObj, "HasParentScopeRule"), flags, 3)
+        this.vtbl.HasChildScopeRule := CallbackCreate(ObjBindMethod(implObj, "HasChildScopeRule"), flags, 3)
+        this.vtbl.IncludedInCrawlScope := CallbackCreate(ObjBindMethod(implObj, "IncludedInCrawlScope"), flags, 3)
+        this.vtbl.IncludedInCrawlScopeEx := CallbackCreate(ObjBindMethod(implObj, "IncludedInCrawlScopeEx"), flags, 4)
+        this.vtbl.RevertToDefaultScopes := CallbackCreate(ObjBindMethod(implObj, "RevertToDefaultScopes"), flags, 1)
+        this.vtbl.SaveAll := CallbackCreate(ObjBindMethod(implObj, "SaveAll"), flags, 1)
+        this.vtbl.GetParentScopeVersionId := CallbackCreate(ObjBindMethod(implObj, "GetParentScopeVersionId"), flags, 3)
+        this.vtbl.RemoveDefaultScopeRule := CallbackCreate(ObjBindMethod(implObj, "RemoveDefaultScopeRule"), flags, 2)
     }
 
     Dispose() {

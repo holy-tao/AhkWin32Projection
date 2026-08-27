@@ -49,7 +49,6 @@ export default struct IPrintCoreHelper extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pDevmode 
      * @param {Integer} cbSize 
      * @param {PSTR} pszFeatureRequested 
@@ -58,12 +57,13 @@ export default struct IPrintCoreHelper extends IUnknown {
     GetOption(pDevmode, cbSize, pszFeatureRequested) {
         pszFeatureRequested := pszFeatureRequested is String ? StrPtr(pszFeatureRequested) : pszFeatureRequested
 
-        result := ComCall(3, this, IntPtr, pDevmode, UInt32, cbSize, "ptr", pszFeatureRequested, PSTR.Ptr, &ppszOption := 0, "HRESULT")
+        pDevmodeMarshal := pDevmode == 0 ? IntPtr : IntPtr
+
+        result := ComCall(3, this, pDevmodeMarshal, pDevmode, UInt32, cbSize, "ptr", pszFeatureRequested, PSTR.Ptr, &ppszOption := 0, "HRESULT")
         return ppszOption
     }
 
     /**
-     * 
      * @param {Pointer<DEVMODEA>} pDevmode 
      * @param {Integer} cbSize 
      * @param {BOOL} bResolveConflicts 
@@ -74,15 +74,14 @@ export default struct IPrintCoreHelper extends IUnknown {
      * @returns {HRESULT} 
      */
     SetOptions(pDevmode, cbSize, bResolveConflicts, pFOPairs, cPairs, pcPairsWritten, pdwResult) {
-        pcPairsWrittenMarshal := pcPairsWritten is VarRef ? "uint*" : "ptr"
-        pdwResultMarshal := pdwResult is VarRef ? "uint*" : "ptr"
+        pcPairsWrittenMarshal := pcPairsWritten is VarRef ? "uint*" : IntPtr
+        pdwResultMarshal := pdwResult is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, DEVMODEA.Ptr, pDevmode, UInt32, cbSize, BOOL, bResolveConflicts, PRINT_FEATURE_OPTION.Ptr, pFOPairs, UInt32, cPairs, pcPairsWrittenMarshal, pcPairsWritten, pdwResultMarshal, pdwResult, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<DEVMODEA>} pDevmode 
      * @param {Integer} cbSize 
      * @param {PSTR} pszFeatureKeyword 
@@ -93,15 +92,14 @@ export default struct IPrintCoreHelper extends IUnknown {
     EnumConstrainedOptions(pDevmode, cbSize, pszFeatureKeyword, pConstrainedOptionList, pdwNumOptions) {
         pszFeatureKeyword := pszFeatureKeyword is String ? StrPtr(pszFeatureKeyword) : pszFeatureKeyword
 
-        pConstrainedOptionListMarshal := pConstrainedOptionList is VarRef ? "ptr*" : "ptr"
-        pdwNumOptionsMarshal := pdwNumOptions is VarRef ? "uint*" : "ptr"
+        pConstrainedOptionListMarshal := pConstrainedOptionList is VarRef ? "ptr*" : IntPtr
+        pdwNumOptionsMarshal := pdwNumOptions is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, DEVMODEA.Ptr, pDevmode, UInt32, cbSize, "ptr", pszFeatureKeyword, pConstrainedOptionListMarshal, pConstrainedOptionList, pdwNumOptionsMarshal, pdwNumOptions, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} pDevmode 
      * @param {Integer} cbSize 
      * @param {PSTR} pszFeatureKeyword 
@@ -114,29 +112,28 @@ export default struct IPrintCoreHelper extends IUnknown {
         pszFeatureKeyword := pszFeatureKeyword is String ? StrPtr(pszFeatureKeyword) : pszFeatureKeyword
         pszOptionKeyword := pszOptionKeyword is String ? StrPtr(pszOptionKeyword) : pszOptionKeyword
 
-        ppFOConstraintsMarshal := ppFOConstraints is VarRef ? "ptr*" : "ptr"
-        pdwNumOptionsMarshal := pdwNumOptions is VarRef ? "uint*" : "ptr"
+        pDevmodeMarshal := pDevmode == 0 ? IntPtr : IntPtr
+        ppFOConstraintsMarshal := ppFOConstraints is VarRef ? "ptr*" : IntPtr
+        pdwNumOptionsMarshal := pdwNumOptions is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(6, this, IntPtr, pDevmode, UInt32, cbSize, "ptr", pszFeatureKeyword, "ptr", pszOptionKeyword, ppFOConstraintsMarshal, ppFOConstraints, pdwNumOptionsMarshal, pdwNumOptions, "HRESULT")
+        result := ComCall(6, this, pDevmodeMarshal, pDevmode, UInt32, cbSize, "ptr", pszFeatureKeyword, "ptr", pszOptionKeyword, ppFOConstraintsMarshal, ppFOConstraints, pdwNumOptionsMarshal, pdwNumOptions, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Pointer<PSTR>>>} pFeatureList 
      * @param {Pointer<Integer>} pdwNumFeatures 
      * @returns {HRESULT} 
      */
     EnumFeatures(pFeatureList, pdwNumFeatures) {
-        pFeatureListMarshal := pFeatureList is VarRef ? "ptr*" : "ptr"
-        pdwNumFeaturesMarshal := pdwNumFeatures is VarRef ? "uint*" : "ptr"
+        pFeatureListMarshal := pFeatureList is VarRef ? "ptr*" : IntPtr
+        pdwNumFeaturesMarshal := pdwNumFeatures is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, pFeatureListMarshal, pFeatureList, pdwNumFeaturesMarshal, pdwNumFeatures, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PSTR} pszFeatureKeyword 
      * @param {Pointer<Pointer<Pointer<PSTR>>>} pOptionList 
      * @param {Pointer<Integer>} pdwNumOptions 
@@ -145,15 +142,14 @@ export default struct IPrintCoreHelper extends IUnknown {
     EnumOptions(pszFeatureKeyword, pOptionList, pdwNumOptions) {
         pszFeatureKeyword := pszFeatureKeyword is String ? StrPtr(pszFeatureKeyword) : pszFeatureKeyword
 
-        pOptionListMarshal := pOptionList is VarRef ? "ptr*" : "ptr"
-        pdwNumOptionsMarshal := pdwNumOptions is VarRef ? "uint*" : "ptr"
+        pOptionListMarshal := pOptionList is VarRef ? "ptr*" : IntPtr
+        pdwNumOptionsMarshal := pdwNumOptions is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, "ptr", pszFeatureKeyword, pOptionListMarshal, pOptionList, pdwNumOptionsMarshal, pdwNumOptions, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pszTrueTypeFontName 
      * @param {Pointer<PWSTR>} ppszDevFontName 
      * @returns {HRESULT} 
@@ -161,14 +157,13 @@ export default struct IPrintCoreHelper extends IUnknown {
     GetFontSubstitution(pszTrueTypeFontName, ppszDevFontName) {
         pszTrueTypeFontName := pszTrueTypeFontName is String ? StrPtr(pszTrueTypeFontName) : pszTrueTypeFontName
 
-        ppszDevFontNameMarshal := ppszDevFontName is VarRef ? "ptr*" : "ptr"
+        ppszDevFontNameMarshal := ppszDevFontName is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(9, this, "ptr", pszTrueTypeFontName, ppszDevFontNameMarshal, ppszDevFontName, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pszTrueTypeFontName 
      * @param {PWSTR} pszDevFontName 
      * @returns {HRESULT} 
@@ -182,7 +177,6 @@ export default struct IPrintCoreHelper extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rclsid 
      * @param {IUnknown} pUnkOuter 
      * @param {Integer} dwClsContext 
@@ -191,7 +185,7 @@ export default struct IPrintCoreHelper extends IUnknown {
      * @returns {HRESULT} 
      */
     CreateInstanceOfMSXMLObject(rclsid, pUnkOuter, dwClsContext, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+        ppvMarshal := ppv is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(11, this, Guid.Ptr, rclsid, "ptr", pUnkOuter, UInt32, dwClsContext, Guid.Ptr, riid, ppvMarshal, ppv, "HRESULT")
         return result
@@ -206,15 +200,15 @@ export default struct IPrintCoreHelper extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOption := CallbackCreate(GetMethod(implObj, "GetOption"), flags, 5)
-        this.vtbl.SetOptions := CallbackCreate(GetMethod(implObj, "SetOptions"), flags, 8)
-        this.vtbl.EnumConstrainedOptions := CallbackCreate(GetMethod(implObj, "EnumConstrainedOptions"), flags, 6)
-        this.vtbl.WhyConstrained := CallbackCreate(GetMethod(implObj, "WhyConstrained"), flags, 7)
-        this.vtbl.EnumFeatures := CallbackCreate(GetMethod(implObj, "EnumFeatures"), flags, 3)
-        this.vtbl.EnumOptions := CallbackCreate(GetMethod(implObj, "EnumOptions"), flags, 4)
-        this.vtbl.GetFontSubstitution := CallbackCreate(GetMethod(implObj, "GetFontSubstitution"), flags, 3)
-        this.vtbl.SetFontSubstitution := CallbackCreate(GetMethod(implObj, "SetFontSubstitution"), flags, 3)
-        this.vtbl.CreateInstanceOfMSXMLObject := CallbackCreate(GetMethod(implObj, "CreateInstanceOfMSXMLObject"), flags, 6)
+        this.vtbl.GetOption := CallbackCreate(ObjBindMethod(implObj, "GetOption"), flags, 5)
+        this.vtbl.SetOptions := CallbackCreate(ObjBindMethod(implObj, "SetOptions"), flags, 8)
+        this.vtbl.EnumConstrainedOptions := CallbackCreate(ObjBindMethod(implObj, "EnumConstrainedOptions"), flags, 6)
+        this.vtbl.WhyConstrained := CallbackCreate(ObjBindMethod(implObj, "WhyConstrained"), flags, 7)
+        this.vtbl.EnumFeatures := CallbackCreate(ObjBindMethod(implObj, "EnumFeatures"), flags, 3)
+        this.vtbl.EnumOptions := CallbackCreate(ObjBindMethod(implObj, "EnumOptions"), flags, 4)
+        this.vtbl.GetFontSubstitution := CallbackCreate(ObjBindMethod(implObj, "GetFontSubstitution"), flags, 3)
+        this.vtbl.SetFontSubstitution := CallbackCreate(ObjBindMethod(implObj, "SetFontSubstitution"), flags, 3)
+        this.vtbl.CreateInstanceOfMSXMLObject := CallbackCreate(ObjBindMethod(implObj, "CreateInstanceOfMSXMLObject"), flags, 6)
     }
 
     Dispose() {

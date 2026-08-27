@@ -119,8 +119,8 @@ export default struct IHolographicCameraRenderingParametersInterop extends IInsp
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CommitDirect3D12Resource := CallbackCreate(GetMethod(implObj, "CommitDirect3D12Resource"), flags, 4)
-        this.vtbl.CommitDirect3D12ResourceWithDepthData := CallbackCreate(GetMethod(implObj, "CommitDirect3D12ResourceWithDepthData"), flags, 7)
+        this.vtbl.CommitDirect3D12Resource := CallbackCreate(ObjBindMethod(implObj, "CommitDirect3D12Resource"), flags, 4)
+        this.vtbl.CommitDirect3D12ResourceWithDepthData := CallbackCreate(ObjBindMethod(implObj, "CommitDirect3D12ResourceWithDepthData"), flags, 7)
     }
 
     Dispose() {

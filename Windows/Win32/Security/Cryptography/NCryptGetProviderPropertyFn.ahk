@@ -21,7 +21,6 @@ export default struct NCryptGetProviderPropertyFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} _hProvider 
      * @param {PWSTR} pszProperty 
      * @param {Integer} pbOutput 
@@ -32,7 +31,9 @@ export default struct NCryptGetProviderPropertyFn {
     Call(_hProvider, pszProperty, pbOutput, cbOutput, dwFlags) {
         pszProperty := pszProperty is String ? StrPtr(pszProperty) : pszProperty
 
-        result := DllCall(this.value, NCRYPT_PROV_HANDLE, _hProvider, "ptr", pszProperty, IntPtr, pbOutput, UInt32, cbOutput, "uint*", &pcbResult := 0, UInt32, dwFlags, "HRESULT")
+        pbOutputMarshal := pbOutput == 0 ? IntPtr : IntPtr
+
+        result := DllCall(this.value, NCRYPT_PROV_HANDLE, _hProvider, "ptr", pszProperty, pbOutputMarshal, pbOutput, UInt32, cbOutput, "uint*", &pcbResult := 0, UInt32, dwFlags, "HRESULT")
         return pcbResult
     }
 

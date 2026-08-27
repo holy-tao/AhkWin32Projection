@@ -19,7 +19,6 @@ export default struct PDEBUG_PRINT_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<STRING>} Output 
      * @param {Integer} ComponentId 
      * @param {Integer} Level 

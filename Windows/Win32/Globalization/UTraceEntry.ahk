@@ -18,13 +18,12 @@ export default struct UTraceEntry {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {Integer} fnNumber 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_context, fnNumber) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _contextMarshal, _context, Int32, fnNumber)
     }

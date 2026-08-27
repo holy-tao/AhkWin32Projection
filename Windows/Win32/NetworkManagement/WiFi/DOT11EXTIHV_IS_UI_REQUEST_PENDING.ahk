@@ -20,13 +20,12 @@ export default struct DOT11EXTIHV_IS_UI_REQUEST_PENDING {
     }
 
     /**
-     * 
      * @param {Guid} guidUIRequest 
      * @param {Pointer<BOOL>} pbIsRequestPending 
      * @returns {Integer} 
      */
     Call(guidUIRequest, pbIsRequestPending) {
-        pbIsRequestPendingMarshal := pbIsRequestPending is VarRef ? "int*" : "ptr"
+        pbIsRequestPendingMarshal := pbIsRequestPending is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, Guid, guidUIRequest, pbIsRequestPendingMarshal, pbIsRequestPending, UInt32)
         return result

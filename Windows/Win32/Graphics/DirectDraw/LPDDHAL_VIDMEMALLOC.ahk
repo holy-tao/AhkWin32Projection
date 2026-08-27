@@ -19,7 +19,6 @@ export default struct LPDDHAL_VIDMEMALLOC {
     }
 
     /**
-     * 
      * @param {Pointer<DDRAWI_DIRECTDRAW_GBL>} lpDD 
      * @param {Integer} heap 
      * @param {Integer} dwWidth 

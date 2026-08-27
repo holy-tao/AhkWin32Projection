@@ -93,10 +93,10 @@ export default struct IDvbNetworkNameDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetNetworkName := CallbackCreate(GetMethod(implObj, "GetNetworkName"), flags, 2)
-        this.vtbl.GetNetworkNameW := CallbackCreate(GetMethod(implObj, "GetNetworkNameW"), flags, 3)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetNetworkName := CallbackCreate(ObjBindMethod(implObj, "GetNetworkName"), flags, 2)
+        this.vtbl.GetNetworkNameW := CallbackCreate(ObjBindMethod(implObj, "GetNetworkNameW"), flags, 3)
     }
 
     Dispose() {

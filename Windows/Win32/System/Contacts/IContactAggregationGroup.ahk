@@ -77,7 +77,6 @@ export default struct IContactAggregationGroup extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Delete() {
@@ -86,7 +85,6 @@ export default struct IContactAggregationGroup extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Save() {
@@ -95,7 +93,6 @@ export default struct IContactAggregationGroup extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pAggregateId 
      * @returns {HRESULT} 
      */
@@ -107,7 +104,6 @@ export default struct IContactAggregationGroup extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pAggregateId 
      * @returns {HRESULT} 
      */
@@ -119,7 +115,6 @@ export default struct IContactAggregationGroup extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IContactAggregationAggregateCollection} 
      */
     get_Members() {
@@ -128,7 +123,6 @@ export default struct IContactAggregationGroup extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     get_GlobalObjectId() {
@@ -138,7 +132,6 @@ export default struct IContactAggregationGroup extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pGlobalObjectId 
      * @returns {HRESULT} 
      */
@@ -148,7 +141,6 @@ export default struct IContactAggregationGroup extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_Id() {
@@ -157,7 +149,6 @@ export default struct IContactAggregationGroup extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     get_Name() {
@@ -166,7 +157,6 @@ export default struct IContactAggregationGroup extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pName 
      * @returns {HRESULT} 
      */
@@ -186,16 +176,16 @@ export default struct IContactAggregationGroup extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
-        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 1)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
-        this.vtbl.get_Members := CallbackCreate(GetMethod(implObj, "get_Members"), flags, 2)
-        this.vtbl.get_GlobalObjectId := CallbackCreate(GetMethod(implObj, "get_GlobalObjectId"), flags, 2)
-        this.vtbl.put_GlobalObjectId := CallbackCreate(GetMethod(implObj, "put_GlobalObjectId"), flags, 2)
-        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.Save := CallbackCreate(ObjBindMethod(implObj, "Save"), flags, 1)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.get_Members := CallbackCreate(ObjBindMethod(implObj, "get_Members"), flags, 2)
+        this.vtbl.get_GlobalObjectId := CallbackCreate(ObjBindMethod(implObj, "get_GlobalObjectId"), flags, 2)
+        this.vtbl.put_GlobalObjectId := CallbackCreate(ObjBindMethod(implObj, "put_GlobalObjectId"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(ObjBindMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(ObjBindMethod(implObj, "put_Name"), flags, 2)
     }
 
     Dispose() {

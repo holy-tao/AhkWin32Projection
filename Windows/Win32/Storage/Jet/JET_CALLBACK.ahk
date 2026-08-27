@@ -23,7 +23,6 @@ export default struct JET_CALLBACK {
     }
 
     /**
-     * 
      * @param {JET_SESID} sesid 
      * @param {Integer} _dbid 
      * @param {JET_TABLEID} tableid 
@@ -35,9 +34,12 @@ export default struct JET_CALLBACK {
      * @returns {Integer} 
      */
     Call(sesid, _dbid, tableid, cbtyp, pvArg1, pvArg2, pvContext, ulUnused) {
-        pvArg1Marshal := pvArg1 is VarRef ? "ptr" : "ptr"
-        pvArg2Marshal := pvArg2 is VarRef ? "ptr" : "ptr"
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        pvArg1Marshal := pvArg1 is VarRef ? "ptr" : IntPtr
+        pvArg1Marshal := pvArg1 == 0 ? IntPtr : "ptr"
+        pvArg2Marshal := pvArg2 is VarRef ? "ptr" : IntPtr
+        pvArg2Marshal := pvArg2 == 0 ? IntPtr : "ptr"
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
+        pvContextMarshal := pvContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, JET_SESID, sesid, UInt32, _dbid, JET_TABLEID, tableid, UInt32, cbtyp, pvArg1Marshal, pvArg1, pvArg2Marshal, pvArg2, pvContextMarshal, pvContext, JET_API_PTR, ulUnused, Int32)
         return result

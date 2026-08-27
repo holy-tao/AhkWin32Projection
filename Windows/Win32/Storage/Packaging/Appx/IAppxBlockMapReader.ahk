@@ -119,10 +119,10 @@ export default struct IAppxBlockMapReader extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFile := CallbackCreate(GetMethod(implObj, "GetFile"), flags, 3)
-        this.vtbl.GetFiles := CallbackCreate(GetMethod(implObj, "GetFiles"), flags, 2)
-        this.vtbl.GetHashMethod := CallbackCreate(GetMethod(implObj, "GetHashMethod"), flags, 2)
-        this.vtbl.GetStream := CallbackCreate(GetMethod(implObj, "GetStream"), flags, 2)
+        this.vtbl.GetFile := CallbackCreate(ObjBindMethod(implObj, "GetFile"), flags, 3)
+        this.vtbl.GetFiles := CallbackCreate(ObjBindMethod(implObj, "GetFiles"), flags, 2)
+        this.vtbl.GetHashMethod := CallbackCreate(ObjBindMethod(implObj, "GetHashMethod"), flags, 2)
+        this.vtbl.GetStream := CallbackCreate(ObjBindMethod(implObj, "GetStream"), flags, 2)
     }
 
     Dispose() {

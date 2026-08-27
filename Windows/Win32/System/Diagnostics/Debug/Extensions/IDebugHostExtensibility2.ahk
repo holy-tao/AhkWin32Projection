@@ -39,7 +39,6 @@ export default struct IDebugHostExtensibility2 extends IDebugHostExtensibility {
     }
 
     /**
-     * 
      * @param {PWSTR} aliasName 
      * @param {IModelObject} functionObject 
      * @param {IKeyStore} metadata 
@@ -48,7 +47,9 @@ export default struct IDebugHostExtensibility2 extends IDebugHostExtensibility {
     CreateFunctionAliasWithMetadata(aliasName, functionObject, metadata) {
         aliasName := aliasName is String ? StrPtr(aliasName) : aliasName
 
-        result := ComCall(5, this, "ptr", aliasName, "ptr", functionObject, "ptr", metadata, "HRESULT")
+        metadataMarshal := metadata == 0 ? IntPtr : "ptr"
+
+        result := ComCall(5, this, "ptr", aliasName, "ptr", functionObject, metadataMarshal, metadata, "HRESULT")
         return result
     }
 
@@ -61,7 +62,7 @@ export default struct IDebugHostExtensibility2 extends IDebugHostExtensibility {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateFunctionAliasWithMetadata := CallbackCreate(GetMethod(implObj, "CreateFunctionAliasWithMetadata"), flags, 4)
+        this.vtbl.CreateFunctionAliasWithMetadata := CallbackCreate(ObjBindMethod(implObj, "CreateFunctionAliasWithMetadata"), flags, 4)
     }
 
     Dispose() {

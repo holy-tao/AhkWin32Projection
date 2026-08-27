@@ -98,7 +98,9 @@ export default struct ITaskService extends IDispatch {
     GetFolder(_path) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(7, this, BSTR, _path, "ptr*", &ppFolder := 0, "HRESULT")
+        _pathMarshal := _path == 0 ? IntPtr : BSTR
+
+        result := ComCall(7, this, _pathMarshal, _path, "ptr*", &ppFolder := 0, "HRESULT")
         return ITaskFolder(ppFolder)
     }
 
@@ -304,15 +306,15 @@ export default struct ITaskService extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFolder := CallbackCreate(GetMethod(implObj, "GetFolder"), flags, 3)
-        this.vtbl.GetRunningTasks := CallbackCreate(GetMethod(implObj, "GetRunningTasks"), flags, 3)
-        this.vtbl.NewTask := CallbackCreate(GetMethod(implObj, "NewTask"), flags, 3)
-        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 5)
-        this.vtbl.get_Connected := CallbackCreate(GetMethod(implObj, "get_Connected"), flags, 2)
-        this.vtbl.get_TargetServer := CallbackCreate(GetMethod(implObj, "get_TargetServer"), flags, 2)
-        this.vtbl.get_ConnectedUser := CallbackCreate(GetMethod(implObj, "get_ConnectedUser"), flags, 2)
-        this.vtbl.get_ConnectedDomain := CallbackCreate(GetMethod(implObj, "get_ConnectedDomain"), flags, 2)
-        this.vtbl.get_HighestVersion := CallbackCreate(GetMethod(implObj, "get_HighestVersion"), flags, 2)
+        this.vtbl.GetFolder := CallbackCreate(ObjBindMethod(implObj, "GetFolder"), flags, 3)
+        this.vtbl.GetRunningTasks := CallbackCreate(ObjBindMethod(implObj, "GetRunningTasks"), flags, 3)
+        this.vtbl.NewTask := CallbackCreate(ObjBindMethod(implObj, "NewTask"), flags, 3)
+        this.vtbl.Connect := CallbackCreate(ObjBindMethod(implObj, "Connect"), flags, 5)
+        this.vtbl.get_Connected := CallbackCreate(ObjBindMethod(implObj, "get_Connected"), flags, 2)
+        this.vtbl.get_TargetServer := CallbackCreate(ObjBindMethod(implObj, "get_TargetServer"), flags, 2)
+        this.vtbl.get_ConnectedUser := CallbackCreate(ObjBindMethod(implObj, "get_ConnectedUser"), flags, 2)
+        this.vtbl.get_ConnectedDomain := CallbackCreate(ObjBindMethod(implObj, "get_ConnectedDomain"), flags, 2)
+        this.vtbl.get_HighestVersion := CallbackCreate(ObjBindMethod(implObj, "get_HighestVersion"), flags, 2)
     }
 
     Dispose() {

@@ -65,7 +65,7 @@ export default struct IInvalidProductLicenseException extends IUpdateException {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Product := CallbackCreate(GetMethod(implObj, "get_Product"), flags, 2)
+        this.vtbl.get_Product := CallbackCreate(ObjBindMethod(implObj, "get_Product"), flags, 2)
     }
 
     Dispose() {

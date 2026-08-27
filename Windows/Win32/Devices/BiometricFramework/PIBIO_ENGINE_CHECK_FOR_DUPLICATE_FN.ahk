@@ -33,7 +33,6 @@ export default struct PIBIO_ENGINE_CHECK_FOR_DUPLICATE_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/ns-winbio_adapter-winbio_pipeline">WINBIO_PIPELINE</a> structure associated with the biometric unit performing the operation.
      * @param {Pointer<WINBIO_IDENTITY>} Identity Pointer to a  <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-identity">WINBIO_IDENTITY</a> structure that receives the GUID or SID of the duplicate template stored in the database.
      * @param {Pointer<Integer>} SubFactor Pointer to a  <b>WINBIO_BIOMETRIC_SUBTYPE</b> variable that receives the sub-factor associated with the duplicate template in the database.
@@ -68,8 +67,8 @@ export default struct PIBIO_ENGINE_CHECK_FOR_DUPLICATE_FN {
      * </table>
      */
     Call(Pipeline, Identity, SubFactor, Duplicate) {
-        SubFactorMarshal := SubFactor is VarRef ? "char*" : "ptr"
-        DuplicateMarshal := Duplicate is VarRef ? "char*" : "ptr"
+        SubFactorMarshal := SubFactor is VarRef ? "char*" : IntPtr
+        DuplicateMarshal := Duplicate is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, WINBIO_PIPELINE.Ptr, Pipeline, WINBIO_IDENTITY.Ptr, Identity, SubFactorMarshal, SubFactor, DuplicateMarshal, Duplicate, "HRESULT")
         return result

@@ -38,19 +38,19 @@ export default struct ICoreWindowComponentInterop extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} hostViewInstanceId 
      * @param {HWND} hwndHost 
      * @param {IUnknown} inputSourceVisual 
      * @returns {HRESULT} 
      */
     ConfigureComponentInput(hostViewInstanceId, hwndHost, inputSourceVisual) {
-        result := ComCall(3, this, UInt32, hostViewInstanceId, HWND, hwndHost, "ptr", inputSourceVisual, "HRESULT")
+        inputSourceVisualMarshal := inputSourceVisual == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, UInt32, hostViewInstanceId, HWND, hwndHost, inputSourceVisualMarshal, inputSourceVisual, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetViewInstanceId() {
@@ -67,8 +67,8 @@ export default struct ICoreWindowComponentInterop extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ConfigureComponentInput := CallbackCreate(GetMethod(implObj, "ConfigureComponentInput"), flags, 4)
-        this.vtbl.GetViewInstanceId := CallbackCreate(GetMethod(implObj, "GetViewInstanceId"), flags, 2)
+        this.vtbl.ConfigureComponentInput := CallbackCreate(ObjBindMethod(implObj, "ConfigureComponentInput"), flags, 4)
+        this.vtbl.GetViewInstanceId := CallbackCreate(ObjBindMethod(implObj, "GetViewInstanceId"), flags, 2)
     }
 
     Dispose() {

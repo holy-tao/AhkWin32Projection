@@ -37,7 +37,6 @@ export default struct IWICImagingFactory3 extends IWICImagingFactory2 {
     }
 
     /**
-     * 
      * @returns {IWICBitmapToneMapper} 
      */
     CreateBitmapToneMapper() {
@@ -54,7 +53,7 @@ export default struct IWICImagingFactory3 extends IWICImagingFactory2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateBitmapToneMapper := CallbackCreate(GetMethod(implObj, "CreateBitmapToneMapper"), flags, 2)
+        this.vtbl.CreateBitmapToneMapper := CallbackCreate(ObjBindMethod(implObj, "CreateBitmapToneMapper"), flags, 2)
     }
 
     Dispose() {

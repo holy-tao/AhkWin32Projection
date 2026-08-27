@@ -45,7 +45,6 @@ export default struct AsyncIFtpPreprocessProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PRE_PROCESS_PARAMETERS>} pPreProcessParameters 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,6 @@ export default struct AsyncIFtpPreprocessProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {FTP_PROCESS_STATUS} 
      */
     Finish_HandlePreprocess() {
@@ -72,8 +70,8 @@ export default struct AsyncIFtpPreprocessProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Begin_HandlePreprocess := CallbackCreate(GetMethod(implObj, "Begin_HandlePreprocess"), flags, 2)
-        this.vtbl.Finish_HandlePreprocess := CallbackCreate(GetMethod(implObj, "Finish_HandlePreprocess"), flags, 2)
+        this.vtbl.Begin_HandlePreprocess := CallbackCreate(ObjBindMethod(implObj, "Begin_HandlePreprocess"), flags, 2)
+        this.vtbl.Finish_HandlePreprocess := CallbackCreate(ObjBindMethod(implObj, "Finish_HandlePreprocess"), flags, 2)
     }
 
     Dispose() {

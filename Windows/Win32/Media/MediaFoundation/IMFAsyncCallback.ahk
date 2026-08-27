@@ -178,8 +178,8 @@ export default struct IMFAsyncCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfasynccallback-getparameters
      */
     GetParameters(pdwFlags, pdwQueue) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-        pdwQueueMarshal := pdwQueue is VarRef ? "uint*" : "ptr"
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : IntPtr
+        pdwQueueMarshal := pdwQueue is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pdwFlagsMarshal, pdwFlags, pdwQueueMarshal, pdwQueue, "HRESULT")
         return result
@@ -232,8 +232,8 @@ export default struct IMFAsyncCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetParameters := CallbackCreate(GetMethod(implObj, "GetParameters"), flags, 3)
-        this.vtbl.Invoke := CallbackCreate(GetMethod(implObj, "Invoke"), flags, 2)
+        this.vtbl.GetParameters := CallbackCreate(ObjBindMethod(implObj, "GetParameters"), flags, 3)
+        this.vtbl.Invoke := CallbackCreate(ObjBindMethod(implObj, "Invoke"), flags, 2)
     }
 
     Dispose() {

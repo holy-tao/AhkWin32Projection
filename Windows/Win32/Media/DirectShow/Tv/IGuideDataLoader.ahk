@@ -38,7 +38,6 @@ export default struct IGuideDataLoader extends IUnknown {
     }
 
     /**
-     * 
      * @param {IGuideData} pGuideStore 
      * @returns {HRESULT} 
      */
@@ -48,7 +47,6 @@ export default struct IGuideDataLoader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Terminate() {
@@ -65,8 +63,8 @@ export default struct IGuideDataLoader extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 2)
-        this.vtbl.Terminate := CallbackCreate(GetMethod(implObj, "Terminate"), flags, 1)
+        this.vtbl.Init := CallbackCreate(ObjBindMethod(implObj, "Init"), flags, 2)
+        this.vtbl.Terminate := CallbackCreate(ObjBindMethod(implObj, "Terminate"), flags, 1)
     }
 
     Dispose() {

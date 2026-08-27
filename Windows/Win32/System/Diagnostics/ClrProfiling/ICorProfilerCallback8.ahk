@@ -38,7 +38,6 @@ export default struct ICorProfilerCallback8 extends ICorProfilerCallback7 {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {BOOL} fIsSafeToBlock 
      * @param {Pointer<Integer>} pILHeader 
@@ -46,14 +45,13 @@ export default struct ICorProfilerCallback8 extends ICorProfilerCallback7 {
      * @returns {HRESULT} 
      */
     DynamicMethodJITCompilationStarted(functionId, fIsSafeToBlock, pILHeader, cbILHeader) {
-        pILHeaderMarshal := pILHeader is VarRef ? "char*" : "ptr"
+        pILHeaderMarshal := pILHeader is VarRef ? "char*" : IntPtr
 
         result := ComCall(92, this, IntPtr, functionId, BOOL, fIsSafeToBlock, pILHeaderMarshal, pILHeader, UInt32, cbILHeader, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {HRESULT} hrStatus 
      * @param {BOOL} fIsSafeToBlock 
@@ -73,8 +71,8 @@ export default struct ICorProfilerCallback8 extends ICorProfilerCallback7 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DynamicMethodJITCompilationStarted := CallbackCreate(GetMethod(implObj, "DynamicMethodJITCompilationStarted"), flags, 5)
-        this.vtbl.DynamicMethodJITCompilationFinished := CallbackCreate(GetMethod(implObj, "DynamicMethodJITCompilationFinished"), flags, 4)
+        this.vtbl.DynamicMethodJITCompilationStarted := CallbackCreate(ObjBindMethod(implObj, "DynamicMethodJITCompilationStarted"), flags, 5)
+        this.vtbl.DynamicMethodJITCompilationFinished := CallbackCreate(ObjBindMethod(implObj, "DynamicMethodJITCompilationFinished"), flags, 4)
     }
 
     Dispose() {

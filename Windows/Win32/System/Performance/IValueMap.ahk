@@ -256,7 +256,9 @@ export default struct IValueMap extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemap-addrange
      */
     AddRange(_map) {
-        result := ComCall(19, this, "ptr", _map, "HRESULT")
+        _mapMarshal := _map == 0 ? IntPtr : "ptr"
+
+        result := ComCall(19, this, _mapMarshal, _map, "HRESULT")
         return result
     }
 
@@ -279,20 +281,20 @@ export default struct IValueMap extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
-        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
-        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
-        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
-        this.vtbl.get_Value := CallbackCreate(GetMethod(implObj, "get_Value"), flags, 2)
-        this.vtbl.put_Value := CallbackCreate(GetMethod(implObj, "put_Value"), flags, 2)
-        this.vtbl.get_ValueMapType := CallbackCreate(GetMethod(implObj, "get_ValueMapType"), flags, 2)
-        this.vtbl.put_ValueMapType := CallbackCreate(GetMethod(implObj, "put_ValueMapType"), flags, 2)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
-        this.vtbl.AddRange := CallbackCreate(GetMethod(implObj, "AddRange"), flags, 2)
-        this.vtbl.CreateValueMapItem := CallbackCreate(GetMethod(implObj, "CreateValueMapItem"), flags, 2)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(ObjBindMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.get__NewEnum := CallbackCreate(ObjBindMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(ObjBindMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(ObjBindMethod(implObj, "put_Description"), flags, 2)
+        this.vtbl.get_Value := CallbackCreate(ObjBindMethod(implObj, "get_Value"), flags, 2)
+        this.vtbl.put_Value := CallbackCreate(ObjBindMethod(implObj, "put_Value"), flags, 2)
+        this.vtbl.get_ValueMapType := CallbackCreate(ObjBindMethod(implObj, "get_ValueMapType"), flags, 2)
+        this.vtbl.put_ValueMapType := CallbackCreate(ObjBindMethod(implObj, "put_ValueMapType"), flags, 2)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.AddRange := CallbackCreate(ObjBindMethod(implObj, "AddRange"), flags, 2)
+        this.vtbl.CreateValueMapItem := CallbackCreate(ObjBindMethod(implObj, "CreateValueMapItem"), flags, 2)
     }
 
     Dispose() {

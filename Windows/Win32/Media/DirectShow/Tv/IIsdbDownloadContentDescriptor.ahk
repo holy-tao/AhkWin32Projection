@@ -87,11 +87,11 @@ export default struct IIsdbDownloadContentDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-getflags
      */
     GetFlags(pfReboot, pfAddOn, pfCompatibility, pfModuleInfo, pfTextInfo) {
-        pfRebootMarshal := pfReboot is VarRef ? "int*" : "ptr"
-        pfAddOnMarshal := pfAddOn is VarRef ? "int*" : "ptr"
-        pfCompatibilityMarshal := pfCompatibility is VarRef ? "int*" : "ptr"
-        pfModuleInfoMarshal := pfModuleInfo is VarRef ? "int*" : "ptr"
-        pfTextInfoMarshal := pfTextInfo is VarRef ? "int*" : "ptr"
+        pfRebootMarshal := pfReboot is VarRef ? "int*" : IntPtr
+        pfAddOnMarshal := pfAddOn is VarRef ? "int*" : IntPtr
+        pfCompatibilityMarshal := pfCompatibility is VarRef ? "int*" : IntPtr
+        pfModuleInfoMarshal := pfModuleInfo is VarRef ? "int*" : IntPtr
+        pfTextInfoMarshal := pfTextInfo is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, pfRebootMarshal, pfReboot, pfAddOnMarshal, pfAddOn, pfCompatibilityMarshal, pfCompatibility, pfModuleInfoMarshal, pfModuleInfo, pfTextInfoMarshal, pfTextInfo, "HRESULT")
         return result
@@ -256,23 +256,23 @@ export default struct IIsdbDownloadContentDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 6)
-        this.vtbl.GetComponentSize := CallbackCreate(GetMethod(implObj, "GetComponentSize"), flags, 2)
-        this.vtbl.GetDownloadId := CallbackCreate(GetMethod(implObj, "GetDownloadId"), flags, 2)
-        this.vtbl.GetTimeOutValueDII := CallbackCreate(GetMethod(implObj, "GetTimeOutValueDII"), flags, 2)
-        this.vtbl.GetLeakRate := CallbackCreate(GetMethod(implObj, "GetLeakRate"), flags, 2)
-        this.vtbl.GetComponentTag := CallbackCreate(GetMethod(implObj, "GetComponentTag"), flags, 2)
-        this.vtbl.GetCompatiblityDescriptorLength := CallbackCreate(GetMethod(implObj, "GetCompatiblityDescriptorLength"), flags, 2)
-        this.vtbl.GetCompatiblityDescriptor := CallbackCreate(GetMethod(implObj, "GetCompatiblityDescriptor"), flags, 2)
-        this.vtbl.GetCountOfRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRecords"), flags, 2)
-        this.vtbl.GetRecordModuleId := CallbackCreate(GetMethod(implObj, "GetRecordModuleId"), flags, 3)
-        this.vtbl.GetRecordModuleSize := CallbackCreate(GetMethod(implObj, "GetRecordModuleSize"), flags, 3)
-        this.vtbl.GetRecordModuleInfoLength := CallbackCreate(GetMethod(implObj, "GetRecordModuleInfoLength"), flags, 3)
-        this.vtbl.GetRecordModuleInfo := CallbackCreate(GetMethod(implObj, "GetRecordModuleInfo"), flags, 3)
-        this.vtbl.GetTextLanguageCode := CallbackCreate(GetMethod(implObj, "GetTextLanguageCode"), flags, 2)
-        this.vtbl.GetTextW := CallbackCreate(GetMethod(implObj, "GetTextW"), flags, 3)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetFlags := CallbackCreate(ObjBindMethod(implObj, "GetFlags"), flags, 6)
+        this.vtbl.GetComponentSize := CallbackCreate(ObjBindMethod(implObj, "GetComponentSize"), flags, 2)
+        this.vtbl.GetDownloadId := CallbackCreate(ObjBindMethod(implObj, "GetDownloadId"), flags, 2)
+        this.vtbl.GetTimeOutValueDII := CallbackCreate(ObjBindMethod(implObj, "GetTimeOutValueDII"), flags, 2)
+        this.vtbl.GetLeakRate := CallbackCreate(ObjBindMethod(implObj, "GetLeakRate"), flags, 2)
+        this.vtbl.GetComponentTag := CallbackCreate(ObjBindMethod(implObj, "GetComponentTag"), flags, 2)
+        this.vtbl.GetCompatiblityDescriptorLength := CallbackCreate(ObjBindMethod(implObj, "GetCompatiblityDescriptorLength"), flags, 2)
+        this.vtbl.GetCompatiblityDescriptor := CallbackCreate(ObjBindMethod(implObj, "GetCompatiblityDescriptor"), flags, 2)
+        this.vtbl.GetCountOfRecords := CallbackCreate(ObjBindMethod(implObj, "GetCountOfRecords"), flags, 2)
+        this.vtbl.GetRecordModuleId := CallbackCreate(ObjBindMethod(implObj, "GetRecordModuleId"), flags, 3)
+        this.vtbl.GetRecordModuleSize := CallbackCreate(ObjBindMethod(implObj, "GetRecordModuleSize"), flags, 3)
+        this.vtbl.GetRecordModuleInfoLength := CallbackCreate(ObjBindMethod(implObj, "GetRecordModuleInfoLength"), flags, 3)
+        this.vtbl.GetRecordModuleInfo := CallbackCreate(ObjBindMethod(implObj, "GetRecordModuleInfo"), flags, 3)
+        this.vtbl.GetTextLanguageCode := CallbackCreate(ObjBindMethod(implObj, "GetTextLanguageCode"), flags, 2)
+        this.vtbl.GetTextW := CallbackCreate(ObjBindMethod(implObj, "GetTextW"), flags, 3)
     }
 
     Dispose() {

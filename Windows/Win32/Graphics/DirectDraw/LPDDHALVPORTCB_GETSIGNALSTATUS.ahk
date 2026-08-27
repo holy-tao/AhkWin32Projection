@@ -19,7 +19,6 @@ export default struct LPDDHALVPORTCB_GETSIGNALSTATUS {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_GETVPORTSIGNALDATA>} param0 
      * @returns {Integer} 
      */

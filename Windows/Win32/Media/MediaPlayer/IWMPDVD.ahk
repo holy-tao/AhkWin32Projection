@@ -84,7 +84,7 @@ export default struct IWMPDVD extends IDispatch {
     get_isAvailable(bstrItem, pIsAvailable) {
         bstrItem := bstrItem is String ? BSTR.Alloc(bstrItem).Value : bstrItem
 
-        pIsAvailableMarshal := pIsAvailable is VarRef ? "short*" : "ptr"
+        pIsAvailableMarshal := pIsAvailable is VarRef ? "short*" : IntPtr
 
         result := ComCall(7, this, BSTR, bstrItem, pIsAvailableMarshal, pIsAvailable, "HRESULT")
         return result
@@ -258,12 +258,12 @@ export default struct IWMPDVD extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_isAvailable := CallbackCreate(GetMethod(implObj, "get_isAvailable"), flags, 3)
-        this.vtbl.get_domain := CallbackCreate(GetMethod(implObj, "get_domain"), flags, 2)
-        this.vtbl.topMenu := CallbackCreate(GetMethod(implObj, "topMenu"), flags, 1)
-        this.vtbl.titleMenu := CallbackCreate(GetMethod(implObj, "titleMenu"), flags, 1)
-        this.vtbl.back := CallbackCreate(GetMethod(implObj, "back"), flags, 1)
-        this.vtbl.resume := CallbackCreate(GetMethod(implObj, "resume"), flags, 1)
+        this.vtbl.get_isAvailable := CallbackCreate(ObjBindMethod(implObj, "get_isAvailable"), flags, 3)
+        this.vtbl.get_domain := CallbackCreate(ObjBindMethod(implObj, "get_domain"), flags, 2)
+        this.vtbl.topMenu := CallbackCreate(ObjBindMethod(implObj, "topMenu"), flags, 1)
+        this.vtbl.titleMenu := CallbackCreate(ObjBindMethod(implObj, "titleMenu"), flags, 1)
+        this.vtbl.back := CallbackCreate(ObjBindMethod(implObj, "back"), flags, 1)
+        this.vtbl.resume := CallbackCreate(ObjBindMethod(implObj, "resume"), flags, 1)
     }
 
     Dispose() {

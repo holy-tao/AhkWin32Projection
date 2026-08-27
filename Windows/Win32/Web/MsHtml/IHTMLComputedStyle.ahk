@@ -181,7 +181,6 @@ export default struct IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_bold() {
@@ -190,7 +189,6 @@ export default struct IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_italic() {
@@ -199,7 +197,6 @@ export default struct IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_underline() {
@@ -208,7 +205,6 @@ export default struct IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_overline() {
@@ -217,7 +213,6 @@ export default struct IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_strikeOut() {
@@ -226,7 +221,6 @@ export default struct IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_subScript() {
@@ -235,7 +229,6 @@ export default struct IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_superScript() {
@@ -244,7 +237,6 @@ export default struct IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_explicitFace() {
@@ -253,7 +245,6 @@ export default struct IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_fontWeight() {
@@ -262,7 +253,6 @@ export default struct IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_fontSize() {
@@ -271,7 +261,6 @@ export default struct IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_fontName() {
@@ -280,7 +269,6 @@ export default struct IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_hasBgColor() {
@@ -289,7 +277,6 @@ export default struct IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_textColor() {
@@ -298,7 +285,6 @@ export default struct IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_backgroundColor() {
@@ -307,7 +293,6 @@ export default struct IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_preFormatted() {
@@ -316,7 +301,6 @@ export default struct IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_direction() {
@@ -325,7 +309,6 @@ export default struct IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_blockDirection() {
@@ -334,7 +317,6 @@ export default struct IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_OL() {
@@ -343,7 +325,6 @@ export default struct IHTMLComputedStyle extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHTMLComputedStyle} pComputedStyle 
      * @returns {VARIANT_BOOL} 
      */
@@ -361,25 +342,25 @@ export default struct IHTMLComputedStyle extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_bold := CallbackCreate(GetMethod(implObj, "get_bold"), flags, 2)
-        this.vtbl.get_italic := CallbackCreate(GetMethod(implObj, "get_italic"), flags, 2)
-        this.vtbl.get_underline := CallbackCreate(GetMethod(implObj, "get_underline"), flags, 2)
-        this.vtbl.get_overline := CallbackCreate(GetMethod(implObj, "get_overline"), flags, 2)
-        this.vtbl.get_strikeOut := CallbackCreate(GetMethod(implObj, "get_strikeOut"), flags, 2)
-        this.vtbl.get_subScript := CallbackCreate(GetMethod(implObj, "get_subScript"), flags, 2)
-        this.vtbl.get_superScript := CallbackCreate(GetMethod(implObj, "get_superScript"), flags, 2)
-        this.vtbl.get_explicitFace := CallbackCreate(GetMethod(implObj, "get_explicitFace"), flags, 2)
-        this.vtbl.get_fontWeight := CallbackCreate(GetMethod(implObj, "get_fontWeight"), flags, 2)
-        this.vtbl.get_fontSize := CallbackCreate(GetMethod(implObj, "get_fontSize"), flags, 2)
-        this.vtbl.get_fontName := CallbackCreate(GetMethod(implObj, "get_fontName"), flags, 2)
-        this.vtbl.get_hasBgColor := CallbackCreate(GetMethod(implObj, "get_hasBgColor"), flags, 2)
-        this.vtbl.get_textColor := CallbackCreate(GetMethod(implObj, "get_textColor"), flags, 2)
-        this.vtbl.get_backgroundColor := CallbackCreate(GetMethod(implObj, "get_backgroundColor"), flags, 2)
-        this.vtbl.get_preFormatted := CallbackCreate(GetMethod(implObj, "get_preFormatted"), flags, 2)
-        this.vtbl.get_direction := CallbackCreate(GetMethod(implObj, "get_direction"), flags, 2)
-        this.vtbl.get_blockDirection := CallbackCreate(GetMethod(implObj, "get_blockDirection"), flags, 2)
-        this.vtbl.get_OL := CallbackCreate(GetMethod(implObj, "get_OL"), flags, 2)
-        this.vtbl.IsEqual := CallbackCreate(GetMethod(implObj, "IsEqual"), flags, 3)
+        this.vtbl.get_bold := CallbackCreate(ObjBindMethod(implObj, "get_bold"), flags, 2)
+        this.vtbl.get_italic := CallbackCreate(ObjBindMethod(implObj, "get_italic"), flags, 2)
+        this.vtbl.get_underline := CallbackCreate(ObjBindMethod(implObj, "get_underline"), flags, 2)
+        this.vtbl.get_overline := CallbackCreate(ObjBindMethod(implObj, "get_overline"), flags, 2)
+        this.vtbl.get_strikeOut := CallbackCreate(ObjBindMethod(implObj, "get_strikeOut"), flags, 2)
+        this.vtbl.get_subScript := CallbackCreate(ObjBindMethod(implObj, "get_subScript"), flags, 2)
+        this.vtbl.get_superScript := CallbackCreate(ObjBindMethod(implObj, "get_superScript"), flags, 2)
+        this.vtbl.get_explicitFace := CallbackCreate(ObjBindMethod(implObj, "get_explicitFace"), flags, 2)
+        this.vtbl.get_fontWeight := CallbackCreate(ObjBindMethod(implObj, "get_fontWeight"), flags, 2)
+        this.vtbl.get_fontSize := CallbackCreate(ObjBindMethod(implObj, "get_fontSize"), flags, 2)
+        this.vtbl.get_fontName := CallbackCreate(ObjBindMethod(implObj, "get_fontName"), flags, 2)
+        this.vtbl.get_hasBgColor := CallbackCreate(ObjBindMethod(implObj, "get_hasBgColor"), flags, 2)
+        this.vtbl.get_textColor := CallbackCreate(ObjBindMethod(implObj, "get_textColor"), flags, 2)
+        this.vtbl.get_backgroundColor := CallbackCreate(ObjBindMethod(implObj, "get_backgroundColor"), flags, 2)
+        this.vtbl.get_preFormatted := CallbackCreate(ObjBindMethod(implObj, "get_preFormatted"), flags, 2)
+        this.vtbl.get_direction := CallbackCreate(ObjBindMethod(implObj, "get_direction"), flags, 2)
+        this.vtbl.get_blockDirection := CallbackCreate(ObjBindMethod(implObj, "get_blockDirection"), flags, 2)
+        this.vtbl.get_OL := CallbackCreate(ObjBindMethod(implObj, "get_OL"), flags, 2)
+        this.vtbl.IsEqual := CallbackCreate(ObjBindMethod(implObj, "IsEqual"), flags, 3)
     }
 
     Dispose() {

@@ -81,12 +81,13 @@
  * @since windows5.0
  */
 export CoRegisterMessageFilter(lpMessageFilter) {
-    result := DllCall("OLE32.dll\CoRegisterMessageFilter", "ptr", lpMessageFilter, "ptr*", &lplpMessageFilter := 0, "HRESULT")
+    lpMessageFilterMarshal := lpMessageFilter == 0 ? IntPtr : "ptr"
+
+    result := DllCall("OLE32.dll\CoRegisterMessageFilter", lpMessageFilterMarshal, lpMessageFilter, "ptr*", &lplpMessageFilter := 0, "HRESULT")
     return IMessageFilter(lplpMessageFilter)
 }
 
 /**
- * 
  * @param {PSTR} pszSound 
  * @param {Integer} fuSound 
  * @returns {BOOL} 
@@ -94,12 +95,13 @@ export CoRegisterMessageFilter(lpMessageFilter) {
 export sndPlaySoundA(pszSound, fuSound) {
     pszSound := pszSound is String ? StrPtr(pszSound) : pszSound
 
-    result := DllCall("WINMM.dll\sndPlaySoundA", "ptr", pszSound, UInt32, fuSound, BOOL)
+    pszSoundMarshal := pszSound == 0 ? IntPtr : PSTR
+
+    result := DllCall("WINMM.dll\sndPlaySoundA", pszSoundMarshal, pszSound, UInt32, fuSound, BOOL)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} pszSound 
  * @param {Integer} fuSound 
  * @returns {BOOL} 
@@ -107,12 +109,13 @@ export sndPlaySoundA(pszSound, fuSound) {
 export sndPlaySoundW(pszSound, fuSound) {
     pszSound := pszSound is String ? StrPtr(pszSound) : pszSound
 
-    result := DllCall("WINMM.dll\sndPlaySoundW", "ptr", pszSound, UInt32, fuSound, BOOL)
+    pszSoundMarshal := pszSound == 0 ? IntPtr : PWSTR
+
+    result := DllCall("WINMM.dll\sndPlaySoundW", pszSoundMarshal, pszSound, UInt32, fuSound, BOOL)
     return result
 }
 
 /**
- * 
  * @param {PSTR} pszSound 
  * @param {HMODULE} hmod 
  * @param {SND_FLAGS} fdwSound 
@@ -121,12 +124,14 @@ export sndPlaySoundW(pszSound, fuSound) {
 export PlaySoundA(pszSound, hmod, fdwSound) {
     pszSound := pszSound is String ? StrPtr(pszSound) : pszSound
 
-    result := DllCall("WINMM.dll\PlaySoundA", "ptr", pszSound, HMODULE, hmod, SND_FLAGS, fdwSound, BOOL)
+    pszSoundMarshal := pszSound == 0 ? IntPtr : PSTR
+    hmodMarshal := hmod == 0 ? IntPtr : HMODULE
+
+    result := DllCall("WINMM.dll\PlaySoundA", pszSoundMarshal, pszSound, hmodMarshal, hmod, SND_FLAGS, fdwSound, BOOL)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} pszSound 
  * @param {HMODULE} hmod 
  * @param {SND_FLAGS} fdwSound 
@@ -135,7 +140,10 @@ export PlaySoundA(pszSound, hmod, fdwSound) {
 export PlaySoundW(pszSound, hmod, fdwSound) {
     pszSound := pszSound is String ? StrPtr(pszSound) : pszSound
 
-    result := DllCall("WINMM.dll\PlaySoundW", "ptr", pszSound, HMODULE, hmod, SND_FLAGS, fdwSound, BOOL)
+    pszSoundMarshal := pszSound == 0 ? IntPtr : PWSTR
+    hmodMarshal := hmod == 0 ? IntPtr : HMODULE
+
+    result := DllCall("WINMM.dll\PlaySoundW", pszSoundMarshal, pszSound, hmodMarshal, hmod, SND_FLAGS, fdwSound, BOOL)
     return result
 }
 
@@ -151,7 +159,6 @@ export waveOutGetNumDevs() {
 }
 
 /**
- * 
  * @param {Pointer} uDeviceID 
  * @param {Pointer<WAVEOUTCAPSA>} pwoc 
  * @param {Integer} cbwoc 
@@ -163,7 +170,6 @@ export waveOutGetDevCapsA(uDeviceID, pwoc, cbwoc) {
 }
 
 /**
- * 
  * @param {Pointer} uDeviceID 
  * @param {Pointer<WAVEOUTCAPSW>} pwoc 
  * @param {Integer} cbwoc 
@@ -246,9 +252,10 @@ export waveOutGetDevCapsW(uDeviceID, pwoc, cbwoc) {
  * @since windows5.0
  */
 export waveOutGetVolume(hwo, pdwVolume) {
-    pdwVolumeMarshal := pdwVolume is VarRef ? "uint*" : "ptr"
+    hwoMarshal := hwo == 0 ? IntPtr : HWAVEOUT
+    pdwVolumeMarshal := pdwVolume is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("WINMM.dll\waveOutGetVolume", HWAVEOUT, hwo, pdwVolumeMarshal, pdwVolume, UInt32)
+    result := DllCall("WINMM.dll\waveOutGetVolume", hwoMarshal, hwo, pdwVolumeMarshal, pdwVolume, UInt32)
     return result
 }
 
@@ -322,12 +329,13 @@ export waveOutGetVolume(hwo, pdwVolume) {
  * @since windows5.0
  */
 export waveOutSetVolume(hwo, dwVolume) {
-    result := DllCall("WINMM.dll\waveOutSetVolume", HWAVEOUT, hwo, UInt32, dwVolume, UInt32)
+    hwoMarshal := hwo == 0 ? IntPtr : HWAVEOUT
+
+    result := DllCall("WINMM.dll\waveOutSetVolume", hwoMarshal, hwo, UInt32, dwVolume, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Integer} mmrError 
  * @param {PSTR} pszText 
  * @param {Integer} cchText 
@@ -341,7 +349,6 @@ export waveOutGetErrorTextA(mmrError, pszText, cchText) {
 }
 
 /**
- * 
  * @param {Integer} mmrError 
  * @param {PWSTR} pszText 
  * @param {Integer} cchText 
@@ -562,7 +569,11 @@ export waveOutGetErrorTextW(mmrError, pszText, cchText) {
  * @since windows5.0
  */
 export waveOutOpen(phwo, uDeviceID, pwfx, dwCallback, dwInstance, fdwOpen) {
-    result := DllCall("WINMM.dll\waveOutOpen", HWAVEOUT.Ptr, phwo, UInt32, uDeviceID, WAVEFORMATEX.Ptr, pwfx, IntPtr, dwCallback, IntPtr, dwInstance, MIDI_WAVE_OPEN_TYPE, fdwOpen, UInt32)
+    phwoMarshal := phwo == 0 ? IntPtr : HWAVEOUT.Ptr
+    dwCallbackMarshal := dwCallback == 0 ? IntPtr : IntPtr
+    dwInstanceMarshal := dwInstance == 0 ? IntPtr : IntPtr
+
+    result := DllCall("WINMM.dll\waveOutOpen", phwoMarshal, phwo, UInt32, uDeviceID, WAVEFORMATEX.Ptr, pwfx, dwCallbackMarshal, dwCallback, dwInstanceMarshal, dwInstance, MIDI_WAVE_OPEN_TYPE, fdwOpen, UInt32)
     return result
 }
 
@@ -1204,7 +1215,7 @@ export waveOutGetPosition(hwo, pmmt, cbmmt) {
  * @since windows5.0
  */
 export waveOutGetPitch(hwo, pdwPitch) {
-    pdwPitchMarshal := pdwPitch is VarRef ? "uint*" : "ptr"
+    pdwPitchMarshal := pdwPitch is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WINMM.dll\waveOutGetPitch", HWAVEOUT, hwo, pdwPitchMarshal, pdwPitch, UInt32)
     return result
@@ -1342,7 +1353,7 @@ export waveOutSetPitch(hwo, dwPitch) {
  * @since windows5.0
  */
 export waveOutGetPlaybackRate(hwo, pdwRate) {
-    pdwRateMarshal := pdwRate is VarRef ? "uint*" : "ptr"
+    pdwRateMarshal := pdwRate is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WINMM.dll\waveOutGetPlaybackRate", HWAVEOUT, hwo, pdwRateMarshal, pdwRate, UInt32)
     return result
@@ -1465,7 +1476,7 @@ export waveOutSetPlaybackRate(hwo, dwRate) {
  * @since windows5.0
  */
 export waveOutGetID(hwo, puDeviceID) {
-    puDeviceIDMarshal := puDeviceID is VarRef ? "uint*" : "ptr"
+    puDeviceIDMarshal := puDeviceID is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WINMM.dll\waveOutGetID", HWAVEOUT, hwo, puDeviceIDMarshal, puDeviceID, UInt32)
     return result
@@ -1568,7 +1579,9 @@ export waveOutGetID(hwo, puDeviceID) {
  * @since windows5.0
  */
 export waveOutMessage(hwo, uMsg, dw1, dw2) {
-    result := DllCall("WINMM.dll\waveOutMessage", HWAVEOUT, hwo, UInt32, uMsg, IntPtr, dw1, IntPtr, dw2, UInt32)
+    hwoMarshal := hwo == 0 ? IntPtr : HWAVEOUT
+
+    result := DllCall("WINMM.dll\waveOutMessage", hwoMarshal, hwo, UInt32, uMsg, IntPtr, dw1, IntPtr, dw2, UInt32)
     return result
 }
 
@@ -1584,7 +1597,6 @@ export waveInGetNumDevs() {
 }
 
 /**
- * 
  * @param {Pointer} uDeviceID 
  * @param {Integer} pwic 
  * @param {Integer} cbwic 
@@ -1596,7 +1608,6 @@ export waveInGetDevCapsA(uDeviceID, pwic, cbwic) {
 }
 
 /**
- * 
  * @param {Pointer} uDeviceID 
  * @param {Integer} pwic 
  * @param {Integer} cbwic 
@@ -1608,7 +1619,6 @@ export waveInGetDevCapsW(uDeviceID, pwic, cbwic) {
 }
 
 /**
- * 
  * @param {Integer} mmrError 
  * @param {PSTR} pszText 
  * @param {Integer} cchText 
@@ -1622,7 +1632,6 @@ export waveInGetErrorTextA(mmrError, pszText, cchText) {
 }
 
 /**
- * 
  * @param {Integer} mmrError 
  * @param {PWSTR} pszText 
  * @param {Integer} cchText 
@@ -1785,7 +1794,11 @@ export waveInGetErrorTextW(mmrError, pszText, cchText) {
  * @since windows5.0
  */
 export waveInOpen(phwi, uDeviceID, pwfx, dwCallback, dwInstance, fdwOpen) {
-    result := DllCall("WINMM.dll\waveInOpen", HWAVEIN.Ptr, phwi, UInt32, uDeviceID, WAVEFORMATEX.Ptr, pwfx, IntPtr, dwCallback, IntPtr, dwInstance, MIDI_WAVE_OPEN_TYPE, fdwOpen, UInt32)
+    phwiMarshal := phwi == 0 ? IntPtr : HWAVEIN.Ptr
+    dwCallbackMarshal := dwCallback == 0 ? IntPtr : IntPtr
+    dwInstanceMarshal := dwInstance == 0 ? IntPtr : IntPtr
+
+    result := DllCall("WINMM.dll\waveInOpen", phwiMarshal, phwi, UInt32, uDeviceID, WAVEFORMATEX.Ptr, pwfx, dwCallbackMarshal, dwCallback, dwInstanceMarshal, dwInstance, MIDI_WAVE_OPEN_TYPE, fdwOpen, UInt32)
     return result
 }
 
@@ -2320,7 +2333,7 @@ export waveInGetPosition(hwi, pmmt, cbmmt) {
  * @since windows5.0
  */
 export waveInGetID(hwi, puDeviceID) {
-    puDeviceIDMarshal := puDeviceID is VarRef ? "uint*" : "ptr"
+    puDeviceIDMarshal := puDeviceID is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WINMM.dll\waveInGetID", HWAVEIN, hwi, puDeviceIDMarshal, puDeviceID, UInt32)
     return result
@@ -2423,7 +2436,11 @@ export waveInGetID(hwi, puDeviceID) {
  * @since windows5.0
  */
 export waveInMessage(hwi, uMsg, dw1, dw2) {
-    result := DllCall("WINMM.dll\waveInMessage", HWAVEIN, hwi, UInt32, uMsg, IntPtr, dw1, IntPtr, dw2, UInt32)
+    hwiMarshal := hwi == 0 ? IntPtr : HWAVEIN
+    dw1Marshal := dw1 == 0 ? IntPtr : IntPtr
+    dw2Marshal := dw2 == 0 ? IntPtr : IntPtr
+
+    result := DllCall("WINMM.dll\waveInMessage", hwiMarshal, hwi, UInt32, uMsg, dw1Marshal, dw1, dw2Marshal, dw2, UInt32)
     return result
 }
 
@@ -2520,9 +2537,11 @@ export midiOutGetNumDevs() {
  * @since windows5.0
  */
 export midiStreamOpen(phms, puDeviceID, cMidi, dwCallback, dwInstance, fdwOpen) {
-    puDeviceIDMarshal := puDeviceID is VarRef ? "uint*" : "ptr"
+    puDeviceIDMarshal := puDeviceID is VarRef ? "uint*" : IntPtr
+    dwCallbackMarshal := dwCallback == 0 ? IntPtr : IntPtr
+    dwInstanceMarshal := dwInstance == 0 ? IntPtr : IntPtr
 
-    result := DllCall("WINMM.dll\midiStreamOpen", HMIDISTRM.Ptr, phms, puDeviceIDMarshal, puDeviceID, UInt32, cMidi, IntPtr, dwCallback, IntPtr, dwInstance, UInt32, fdwOpen, UInt32)
+    result := DllCall("WINMM.dll\midiStreamOpen", HMIDISTRM.Ptr, phms, puDeviceIDMarshal, puDeviceID, UInt32, cMidi, dwCallbackMarshal, dwCallback, dwInstanceMarshal, dwInstance, UInt32, fdwOpen, UInt32)
     return result
 }
 
@@ -2622,7 +2641,7 @@ export midiStreamClose(hms) {
  * @since windows5.0
  */
 export midiStreamProperty(hms, lppropdata, dwProperty) {
-    lppropdataMarshal := lppropdata is VarRef ? "char*" : "ptr"
+    lppropdataMarshal := lppropdata is VarRef ? "char*" : IntPtr
 
     result := DllCall("WINMM.dll\midiStreamProperty", HMIDISTRM, hms, lppropdataMarshal, lppropdata, UInt32, dwProperty, UInt32)
     return result
@@ -2902,7 +2921,8 @@ export midiStreamStop(hms) {
  * @since windows5.0
  */
 export midiConnect(hmi, hmo, pReserved) {
-    pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
+    pReservedMarshal := pReserved is VarRef ? "ptr" : IntPtr
+    pReservedMarshal := pReserved == 0 ? IntPtr : "ptr"
 
     result := DllCall("WINMM.dll\midiConnect", HMIDI, hmi, HMIDIOUT, hmo, pReservedMarshal, pReserved, UInt32)
     return result
@@ -2938,7 +2958,8 @@ export midiConnect(hmi, hmo, pReserved) {
  * @since windows5.0
  */
 export midiDisconnect(hmi, hmo, pReserved) {
-    pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
+    pReservedMarshal := pReserved is VarRef ? "ptr" : IntPtr
+    pReservedMarshal := pReserved == 0 ? IntPtr : "ptr"
 
     result := DllCall("WINMM.dll\midiDisconnect", HMIDI, hmi, HMIDIOUT, hmo, pReservedMarshal, pReserved, UInt32)
     return result
@@ -3166,9 +3187,10 @@ export midiOutGetDevCapsW(uDeviceID, pmoc, cbmoc) {
  * @since windows5.0
  */
 export midiOutGetVolume(hmo, pdwVolume) {
-    pdwVolumeMarshal := pdwVolume is VarRef ? "uint*" : "ptr"
+    hmoMarshal := hmo == 0 ? IntPtr : HMIDIOUT
+    pdwVolumeMarshal := pdwVolume is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("WINMM.dll\midiOutGetVolume", HMIDIOUT, hmo, pdwVolumeMarshal, pdwVolume, UInt32)
+    result := DllCall("WINMM.dll\midiOutGetVolume", hmoMarshal, hmo, pdwVolumeMarshal, pdwVolume, UInt32)
     return result
 }
 
@@ -3233,7 +3255,9 @@ export midiOutGetVolume(hmo, pdwVolume) {
  * @since windows5.0
  */
 export midiOutSetVolume(hmo, dwVolume) {
-    result := DllCall("WINMM.dll\midiOutSetVolume", HMIDIOUT, hmo, UInt32, dwVolume, UInt32)
+    hmoMarshal := hmo == 0 ? IntPtr : HMIDIOUT
+
+    result := DllCall("WINMM.dll\midiOutSetVolume", hmoMarshal, hmo, UInt32, dwVolume, UInt32)
     return result
 }
 
@@ -3454,7 +3478,10 @@ export midiOutGetErrorTextW(mmrError, pszText, cchText) {
  * @since windows5.0
  */
 export midiOutOpen(phmo, uDeviceID, dwCallback, dwInstance, fdwOpen) {
-    result := DllCall("WINMM.dll\midiOutOpen", HMIDIOUT.Ptr, phmo, UInt32, uDeviceID, IntPtr, dwCallback, IntPtr, dwInstance, MIDI_WAVE_OPEN_TYPE, fdwOpen, UInt32)
+    dwCallbackMarshal := dwCallback == 0 ? IntPtr : IntPtr
+    dwInstanceMarshal := dwInstance == 0 ? IntPtr : IntPtr
+
+    result := DllCall("WINMM.dll\midiOutOpen", HMIDIOUT.Ptr, phmo, UInt32, uDeviceID, dwCallbackMarshal, dwCallback, dwInstanceMarshal, dwInstance, MIDI_WAVE_OPEN_TYPE, fdwOpen, UInt32)
     return result
 }
 
@@ -3965,7 +3992,7 @@ export midiOutReset(hmo) {
  * @since windows5.0
  */
 export midiOutCachePatches(hmo, uBank, pwpa, fuCache) {
-    pwpaMarshal := pwpa is VarRef ? "ushort*" : "ptr"
+    pwpaMarshal := pwpa is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("WINMM.dll\midiOutCachePatches", HMIDIOUT, hmo, UInt32, uBank, pwpaMarshal, pwpa, UInt32, fuCache, UInt32)
     return result
@@ -4075,7 +4102,7 @@ export midiOutCachePatches(hmo, uBank, pwpa, fuCache) {
  * @since windows5.0
  */
 export midiOutCacheDrumPatches(hmo, uPatch, pwkya, fuCache) {
-    pwkyaMarshal := pwkya is VarRef ? "ushort*" : "ptr"
+    pwkyaMarshal := pwkya is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("WINMM.dll\midiOutCacheDrumPatches", HMIDIOUT, hmo, UInt32, uPatch, pwkyaMarshal, pwkya, UInt32, fuCache, UInt32)
     return result
@@ -4130,7 +4157,7 @@ export midiOutCacheDrumPatches(hmo, uPatch, pwkya, fuCache) {
  * @since windows5.0
  */
 export midiOutGetID(hmo, puDeviceID) {
-    puDeviceIDMarshal := puDeviceID is VarRef ? "uint*" : "ptr"
+    puDeviceIDMarshal := puDeviceID is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WINMM.dll\midiOutGetID", HMIDIOUT, hmo, puDeviceIDMarshal, puDeviceID, UInt32)
     return result
@@ -4233,7 +4260,11 @@ export midiOutGetID(hmo, puDeviceID) {
  * @since windows5.0
  */
 export midiOutMessage(hmo, uMsg, dw1, dw2) {
-    result := DllCall("WINMM.dll\midiOutMessage", HMIDIOUT, hmo, UInt32, uMsg, IntPtr, dw1, IntPtr, dw2, UInt32)
+    hmoMarshal := hmo == 0 ? IntPtr : HMIDIOUT
+    dw1Marshal := dw1 == 0 ? IntPtr : IntPtr
+    dw2Marshal := dw2 == 0 ? IntPtr : IntPtr
+
+    result := DllCall("WINMM.dll\midiOutMessage", hmoMarshal, hmo, UInt32, uMsg, dw1Marshal, dw1, dw2Marshal, dw2, UInt32)
     return result
 }
 
@@ -4638,7 +4669,10 @@ export midiInGetErrorTextW(mmrError, pszText, cchText) {
  * @since windows5.0
  */
 export midiInOpen(phmi, uDeviceID, dwCallback, dwInstance, fdwOpen) {
-    result := DllCall("WINMM.dll\midiInOpen", HMIDIIN.Ptr, phmi, UInt32, uDeviceID, IntPtr, dwCallback, IntPtr, dwInstance, MIDI_WAVE_OPEN_TYPE, fdwOpen, UInt32)
+    dwCallbackMarshal := dwCallback == 0 ? IntPtr : IntPtr
+    dwInstanceMarshal := dwInstance == 0 ? IntPtr : IntPtr
+
+    result := DllCall("WINMM.dll\midiInOpen", HMIDIIN.Ptr, phmi, UInt32, uDeviceID, dwCallbackMarshal, dwCallback, dwInstanceMarshal, dwInstance, MIDI_WAVE_OPEN_TYPE, fdwOpen, UInt32)
     return result
 }
 
@@ -5047,7 +5081,7 @@ export midiInReset(hmi) {
  * @since windows5.0
  */
 export midiInGetID(hmi, puDeviceID) {
-    puDeviceIDMarshal := puDeviceID is VarRef ? "uint*" : "ptr"
+    puDeviceIDMarshal := puDeviceID is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WINMM.dll\midiInGetID", HMIDIIN, hmi, puDeviceIDMarshal, puDeviceID, UInt32)
     return result
@@ -5152,7 +5186,11 @@ export midiInGetID(hmi, puDeviceID) {
  * @since windows5.0
  */
 export midiInMessage(hmi, uMsg, dw1, dw2) {
-    result := DllCall("WINMM.dll\midiInMessage", HMIDIIN, hmi, UInt32, uMsg, IntPtr, dw1, IntPtr, dw2, UInt32)
+    hmiMarshal := hmi == 0 ? IntPtr : HMIDIIN
+    dw1Marshal := dw1 == 0 ? IntPtr : IntPtr
+    dw2Marshal := dw2 == 0 ? IntPtr : IntPtr
+
+    result := DllCall("WINMM.dll\midiInMessage", hmiMarshal, hmi, UInt32, uMsg, dw1Marshal, dw1, dw2Marshal, dw2, UInt32)
     return result
 }
 
@@ -5351,7 +5389,7 @@ export auxSetVolume(uDeviceID, dwVolume) {
  * @since windows5.0
  */
 export auxGetVolume(uDeviceID, pdwVolume) {
-    pdwVolumeMarshal := pdwVolume is VarRef ? "uint*" : "ptr"
+    pdwVolumeMarshal := pdwVolume is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WINMM.dll\auxGetVolume", UInt32, uDeviceID, pdwVolumeMarshal, pdwVolume, UInt32)
     return result
@@ -5454,7 +5492,10 @@ export auxGetVolume(uDeviceID, pdwVolume) {
  * @since windows5.0
  */
 export auxOutMessage(uDeviceID, uMsg, dw1, dw2) {
-    result := DllCall("WINMM.dll\auxOutMessage", UInt32, uDeviceID, UInt32, uMsg, IntPtr, dw1, IntPtr, dw2, UInt32)
+    dw1Marshal := dw1 == 0 ? IntPtr : IntPtr
+    dw2Marshal := dw2 == 0 ? IntPtr : IntPtr
+
+    result := DllCall("WINMM.dll\auxOutMessage", UInt32, uDeviceID, UInt32, uMsg, dw1Marshal, dw1, dw2Marshal, dw2, UInt32)
     return result
 }
 
@@ -5764,7 +5805,11 @@ export mixerGetDevCapsW(uMxId, pmxcaps, cbmxcaps) {
  * @since windows5.0
  */
 export mixerOpen(phmx, uMxId, dwCallback, dwInstance, fdwOpen) {
-    result := DllCall("WINMM.dll\mixerOpen", HMIXER.Ptr, phmx, UInt32, uMxId, IntPtr, dwCallback, IntPtr, dwInstance, UInt32, fdwOpen, UInt32)
+    phmxMarshal := phmx == 0 ? IntPtr : HMIXER.Ptr
+    dwCallbackMarshal := dwCallback == 0 ? IntPtr : IntPtr
+    dwInstanceMarshal := dwInstance == 0 ? IntPtr : IntPtr
+
+    result := DllCall("WINMM.dll\mixerOpen", phmxMarshal, phmx, UInt32, uMxId, dwCallbackMarshal, dwCallback, dwInstanceMarshal, dwInstance, UInt32, fdwOpen, UInt32)
     return result
 }
 
@@ -5948,7 +5993,11 @@ export mixerClose(hmx) {
  * @since windows5.0
  */
 export mixerMessage(hmx, uMsg, dwParam1, dwParam2) {
-    result := DllCall("WINMM.dll\mixerMessage", HMIXER, hmx, UInt32, uMsg, IntPtr, dwParam1, IntPtr, dwParam2, UInt32)
+    hmxMarshal := hmx == 0 ? IntPtr : HMIXER
+    dwParam1Marshal := dwParam1 == 0 ? IntPtr : IntPtr
+    dwParam2Marshal := dwParam2 == 0 ? IntPtr : IntPtr
+
+    result := DllCall("WINMM.dll\mixerMessage", hmxMarshal, hmx, UInt32, uMsg, dwParam1Marshal, dwParam1, dwParam2Marshal, dwParam2, UInt32)
     return result
 }
 
@@ -6118,7 +6167,9 @@ export mixerMessage(hmx, uMsg, dwParam1, dwParam2) {
  * @since windows5.0
  */
 export mixerGetLineInfoA(hmxobj, pmxl, fdwInfo) {
-    result := DllCall("WINMM.dll\mixerGetLineInfoA", HMIXEROBJ, hmxobj, MIXERLINEA.Ptr, pmxl, UInt32, fdwInfo, UInt32)
+    hmxobjMarshal := hmxobj == 0 ? IntPtr : HMIXEROBJ
+
+    result := DllCall("WINMM.dll\mixerGetLineInfoA", hmxobjMarshal, hmxobj, MIXERLINEA.Ptr, pmxl, UInt32, fdwInfo, UInt32)
     return result
 }
 
@@ -6288,7 +6339,9 @@ export mixerGetLineInfoA(hmxobj, pmxl, fdwInfo) {
  * @since windows5.0
  */
 export mixerGetLineInfoW(hmxobj, pmxl, fdwInfo) {
-    result := DllCall("WINMM.dll\mixerGetLineInfoW", HMIXEROBJ, hmxobj, MIXERLINEW.Ptr, pmxl, UInt32, fdwInfo, UInt32)
+    hmxobjMarshal := hmxobj == 0 ? IntPtr : HMIXEROBJ
+
+    result := DllCall("WINMM.dll\mixerGetLineInfoW", hmxobjMarshal, hmxobj, MIXERLINEW.Ptr, pmxl, UInt32, fdwInfo, UInt32)
     return result
 }
 
@@ -6417,9 +6470,10 @@ export mixerGetLineInfoW(hmxobj, pmxl, fdwInfo) {
  * @since windows5.0
  */
 export mixerGetID(hmxobj, puMxId, fdwId) {
-    puMxIdMarshal := puMxId is VarRef ? "uint*" : "ptr"
+    hmxobjMarshal := hmxobj == 0 ? IntPtr : HMIXEROBJ
+    puMxIdMarshal := puMxId is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("WINMM.dll\mixerGetID", HMIXEROBJ, hmxobj, puMxIdMarshal, puMxId, UInt32, fdwId, UInt32)
+    result := DllCall("WINMM.dll\mixerGetID", hmxobjMarshal, hmxobj, puMxIdMarshal, puMxId, UInt32, fdwId, UInt32)
     return result
 }
 
@@ -6587,7 +6641,9 @@ export mixerGetID(hmxobj, puMxId, fdwId) {
  * @since windows5.0
  */
 export mixerGetLineControlsA(hmxobj, pmxlc, fdwControls) {
-    result := DllCall("WINMM.dll\mixerGetLineControlsA", HMIXEROBJ, hmxobj, MIXERLINECONTROLSA.Ptr, pmxlc, UInt32, fdwControls, UInt32)
+    hmxobjMarshal := hmxobj == 0 ? IntPtr : HMIXEROBJ
+
+    result := DllCall("WINMM.dll\mixerGetLineControlsA", hmxobjMarshal, hmxobj, MIXERLINECONTROLSA.Ptr, pmxlc, UInt32, fdwControls, UInt32)
     return result
 }
 
@@ -6755,7 +6811,9 @@ export mixerGetLineControlsA(hmxobj, pmxlc, fdwControls) {
  * @since windows5.0
  */
 export mixerGetLineControlsW(hmxobj, pmxlc, fdwControls) {
-    result := DllCall("WINMM.dll\mixerGetLineControlsW", HMIXEROBJ, hmxobj, MIXERLINECONTROLSW.Ptr, pmxlc, UInt32, fdwControls, UInt32)
+    hmxobjMarshal := hmxobj == 0 ? IntPtr : HMIXEROBJ
+
+    result := DllCall("WINMM.dll\mixerGetLineControlsW", hmxobjMarshal, hmxobj, MIXERLINECONTROLSW.Ptr, pmxlc, UInt32, fdwControls, UInt32)
     return result
 }
 
@@ -6912,7 +6970,9 @@ export mixerGetLineControlsW(hmxobj, pmxlc, fdwControls) {
  * @since windows5.0
  */
 export mixerGetControlDetailsA(hmxobj, pmxcd, fdwDetails) {
-    result := DllCall("WINMM.dll\mixerGetControlDetailsA", HMIXEROBJ, hmxobj, MIXERCONTROLDETAILS.Ptr, pmxcd, UInt32, fdwDetails, UInt32)
+    hmxobjMarshal := hmxobj == 0 ? IntPtr : HMIXEROBJ
+
+    result := DllCall("WINMM.dll\mixerGetControlDetailsA", hmxobjMarshal, hmxobj, MIXERCONTROLDETAILS.Ptr, pmxcd, UInt32, fdwDetails, UInt32)
     return result
 }
 
@@ -7069,7 +7129,9 @@ export mixerGetControlDetailsA(hmxobj, pmxcd, fdwDetails) {
  * @since windows5.0
  */
 export mixerGetControlDetailsW(hmxobj, pmxcd, fdwDetails) {
-    result := DllCall("WINMM.dll\mixerGetControlDetailsW", HMIXEROBJ, hmxobj, MIXERCONTROLDETAILS.Ptr, pmxcd, UInt32, fdwDetails, UInt32)
+    hmxobjMarshal := hmxobj == 0 ? IntPtr : HMIXEROBJ
+
+    result := DllCall("WINMM.dll\mixerGetControlDetailsW", hmxobjMarshal, hmxobj, MIXERCONTROLDETAILS.Ptr, pmxcd, UInt32, fdwDetails, UInt32)
     return result
 }
 
@@ -7221,7 +7283,9 @@ export mixerGetControlDetailsW(hmxobj, pmxcd, fdwDetails) {
  * @since windows5.0
  */
 export mixerSetControlDetails(hmxobj, pmxcd, fdwDetails) {
-    result := DllCall("WINMM.dll\mixerSetControlDetails", HMIXEROBJ, hmxobj, MIXERCONTROLDETAILS.Ptr, pmxcd, UInt32, fdwDetails, UInt32)
+    hmxobjMarshal := hmxobj == 0 ? IntPtr : HMIXEROBJ
+
+    result := DllCall("WINMM.dll\mixerSetControlDetails", hmxobjMarshal, hmxobj, MIXERCONTROLDETAILS.Ptr, pmxcd, UInt32, fdwDetails, UInt32)
     return result
 }
 
@@ -7266,12 +7330,13 @@ export mixerSetControlDetails(hmxobj, pmxcd, fdwDetails) {
 export ActivateAudioInterfaceAsync(deviceInterfacePath, riid, activationParams, completionHandler) {
     deviceInterfacePath := deviceInterfacePath is String ? StrPtr(deviceInterfacePath) : deviceInterfacePath
 
-    result := DllCall("MMDevAPI.dll\ActivateAudioInterfaceAsync", "ptr", deviceInterfacePath, Guid.Ptr, riid, PROPVARIANT.Ptr, activationParams, "ptr", completionHandler, "ptr*", &activationOperation := 0, "HRESULT")
+    activationParamsMarshal := activationParams == 0 ? IntPtr : PROPVARIANT.Ptr
+
+    result := DllCall("MMDevAPI.dll\ActivateAudioInterfaceAsync", "ptr", deviceInterfacePath, Guid.Ptr, riid, activationParamsMarshal, activationParams, "ptr", completionHandler, "ptr*", &activationOperation := 0, "HRESULT")
     return IActivateAudioInterfaceAsyncOperation(activationOperation)
 }
 
 /**
- * 
  * @returns {IAudioStateMonitor} 
  */
 export CreateRenderAudioStateMonitor() {
@@ -7280,7 +7345,6 @@ export CreateRenderAudioStateMonitor() {
 }
 
 /**
- * 
  * @param {AUDIO_STREAM_CATEGORY} category 
  * @returns {IAudioStateMonitor} 
  */
@@ -7290,7 +7354,6 @@ export CreateRenderAudioStateMonitorForCategory(category) {
 }
 
 /**
- * 
  * @param {AUDIO_STREAM_CATEGORY} category 
  * @param {ERole} role 
  * @returns {IAudioStateMonitor} 
@@ -7301,7 +7364,6 @@ export CreateRenderAudioStateMonitorForCategoryAndDeviceRole(category, role) {
 }
 
 /**
- * 
  * @param {AUDIO_STREAM_CATEGORY} category 
  * @param {PWSTR} deviceId 
  * @returns {IAudioStateMonitor} 
@@ -7314,7 +7376,6 @@ export CreateRenderAudioStateMonitorForCategoryAndDeviceId(category, deviceId) {
 }
 
 /**
- * 
  * @returns {IAudioStateMonitor} 
  */
 export CreateCaptureAudioStateMonitor() {
@@ -7323,7 +7384,6 @@ export CreateCaptureAudioStateMonitor() {
 }
 
 /**
- * 
  * @param {AUDIO_STREAM_CATEGORY} category 
  * @returns {IAudioStateMonitor} 
  */
@@ -7333,7 +7393,6 @@ export CreateCaptureAudioStateMonitorForCategory(category) {
 }
 
 /**
- * 
  * @param {AUDIO_STREAM_CATEGORY} category 
  * @param {ERole} role 
  * @returns {IAudioStateMonitor} 
@@ -7344,7 +7403,6 @@ export CreateCaptureAudioStateMonitorForCategoryAndDeviceRole(category, role) {
 }
 
 /**
- * 
  * @param {AUDIO_STREAM_CATEGORY} category 
  * @param {PWSTR} deviceId 
  * @returns {IAudioStateMonitor} 
@@ -7523,7 +7581,7 @@ export acmGetVersion() {
  * @since windows5.0
  */
 export acmMetrics(hao, uMetric, pMetric) {
-    pMetricMarshal := pMetric is VarRef ? "ptr" : "ptr"
+    pMetricMarshal := pMetric is VarRef ? "ptr" : IntPtr
 
     result := DllCall("MSACM32.dll\acmMetrics", HACMOBJ, hao, UInt32, uMetric, pMetricMarshal, pMetric, UInt32)
     return result
@@ -10374,7 +10432,7 @@ export acmStreamClose(has, fdwClose) {
  * @since windows5.0
  */
 export acmStreamSize(has, cbInput, pdwOutputBytes, fdwSize) {
-    pdwOutputBytesMarshal := pdwOutputBytes is VarRef ? "uint*" : "ptr"
+    pdwOutputBytesMarshal := pdwOutputBytes is VarRef ? "uint*" : IntPtr
 
     result := DllCall("MSACM32.dll\acmStreamSize", HACMSTREAM, has, UInt32, cbInput, pdwOutputBytesMarshal, pdwOutputBytes, UInt32, fdwSize, UInt32)
     return result

@@ -133,7 +133,6 @@ export default struct ISpeechVoiceStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_CurrentStreamNumber() {
@@ -142,7 +141,6 @@ export default struct ISpeechVoiceStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_LastStreamNumberQueued() {
@@ -151,7 +149,6 @@ export default struct ISpeechVoiceStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_LastHResult() {
@@ -160,7 +157,6 @@ export default struct ISpeechVoiceStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechRunState} 
      */
     get_RunningState() {
@@ -169,7 +165,6 @@ export default struct ISpeechVoiceStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_InputWordPosition() {
@@ -178,7 +173,6 @@ export default struct ISpeechVoiceStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_InputWordLength() {
@@ -187,7 +181,6 @@ export default struct ISpeechVoiceStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_InputSentencePosition() {
@@ -196,7 +189,6 @@ export default struct ISpeechVoiceStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_InputSentenceLength() {
@@ -205,7 +197,6 @@ export default struct ISpeechVoiceStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LastBookmark() {
@@ -215,7 +206,6 @@ export default struct ISpeechVoiceStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_LastBookmarkId() {
@@ -224,7 +214,6 @@ export default struct ISpeechVoiceStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PhonemeId() {
@@ -233,7 +222,6 @@ export default struct ISpeechVoiceStatus extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_VisemeId() {
@@ -250,18 +238,18 @@ export default struct ISpeechVoiceStatus extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_CurrentStreamNumber := CallbackCreate(GetMethod(implObj, "get_CurrentStreamNumber"), flags, 2)
-        this.vtbl.get_LastStreamNumberQueued := CallbackCreate(GetMethod(implObj, "get_LastStreamNumberQueued"), flags, 2)
-        this.vtbl.get_LastHResult := CallbackCreate(GetMethod(implObj, "get_LastHResult"), flags, 2)
-        this.vtbl.get_RunningState := CallbackCreate(GetMethod(implObj, "get_RunningState"), flags, 2)
-        this.vtbl.get_InputWordPosition := CallbackCreate(GetMethod(implObj, "get_InputWordPosition"), flags, 2)
-        this.vtbl.get_InputWordLength := CallbackCreate(GetMethod(implObj, "get_InputWordLength"), flags, 2)
-        this.vtbl.get_InputSentencePosition := CallbackCreate(GetMethod(implObj, "get_InputSentencePosition"), flags, 2)
-        this.vtbl.get_InputSentenceLength := CallbackCreate(GetMethod(implObj, "get_InputSentenceLength"), flags, 2)
-        this.vtbl.get_LastBookmark := CallbackCreate(GetMethod(implObj, "get_LastBookmark"), flags, 2)
-        this.vtbl.get_LastBookmarkId := CallbackCreate(GetMethod(implObj, "get_LastBookmarkId"), flags, 2)
-        this.vtbl.get_PhonemeId := CallbackCreate(GetMethod(implObj, "get_PhonemeId"), flags, 2)
-        this.vtbl.get_VisemeId := CallbackCreate(GetMethod(implObj, "get_VisemeId"), flags, 2)
+        this.vtbl.get_CurrentStreamNumber := CallbackCreate(ObjBindMethod(implObj, "get_CurrentStreamNumber"), flags, 2)
+        this.vtbl.get_LastStreamNumberQueued := CallbackCreate(ObjBindMethod(implObj, "get_LastStreamNumberQueued"), flags, 2)
+        this.vtbl.get_LastHResult := CallbackCreate(ObjBindMethod(implObj, "get_LastHResult"), flags, 2)
+        this.vtbl.get_RunningState := CallbackCreate(ObjBindMethod(implObj, "get_RunningState"), flags, 2)
+        this.vtbl.get_InputWordPosition := CallbackCreate(ObjBindMethod(implObj, "get_InputWordPosition"), flags, 2)
+        this.vtbl.get_InputWordLength := CallbackCreate(ObjBindMethod(implObj, "get_InputWordLength"), flags, 2)
+        this.vtbl.get_InputSentencePosition := CallbackCreate(ObjBindMethod(implObj, "get_InputSentencePosition"), flags, 2)
+        this.vtbl.get_InputSentenceLength := CallbackCreate(ObjBindMethod(implObj, "get_InputSentenceLength"), flags, 2)
+        this.vtbl.get_LastBookmark := CallbackCreate(ObjBindMethod(implObj, "get_LastBookmark"), flags, 2)
+        this.vtbl.get_LastBookmarkId := CallbackCreate(ObjBindMethod(implObj, "get_LastBookmarkId"), flags, 2)
+        this.vtbl.get_PhonemeId := CallbackCreate(ObjBindMethod(implObj, "get_PhonemeId"), flags, 2)
+        this.vtbl.get_VisemeId := CallbackCreate(ObjBindMethod(implObj, "get_VisemeId"), flags, 2)
     }
 
     Dispose() {

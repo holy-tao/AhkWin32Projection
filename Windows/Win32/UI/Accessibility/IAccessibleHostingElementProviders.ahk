@@ -80,8 +80,8 @@ export default struct IAccessibleHostingElementProviders extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetEmbeddedFragmentRoots := CallbackCreate(GetMethod(implObj, "GetEmbeddedFragmentRoots"), flags, 2)
-        this.vtbl.GetObjectIdForProvider := CallbackCreate(GetMethod(implObj, "GetObjectIdForProvider"), flags, 3)
+        this.vtbl.GetEmbeddedFragmentRoots := CallbackCreate(ObjBindMethod(implObj, "GetEmbeddedFragmentRoots"), flags, 2)
+        this.vtbl.GetObjectIdForProvider := CallbackCreate(ObjBindMethod(implObj, "GetObjectIdForProvider"), flags, 3)
     }
 
     Dispose() {

@@ -18,7 +18,6 @@ export default struct PNTFS_DEREF_EXPORTED_SECURITY_DESCRIPTOR {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

@@ -99,10 +99,10 @@ export default struct IWMVideoMediaProps extends IWMMediaProps {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMaxKeyFrameSpacing := CallbackCreate(GetMethod(implObj, "GetMaxKeyFrameSpacing"), flags, 2)
-        this.vtbl.SetMaxKeyFrameSpacing := CallbackCreate(GetMethod(implObj, "SetMaxKeyFrameSpacing"), flags, 2)
-        this.vtbl.GetQuality := CallbackCreate(GetMethod(implObj, "GetQuality"), flags, 2)
-        this.vtbl.SetQuality := CallbackCreate(GetMethod(implObj, "SetQuality"), flags, 2)
+        this.vtbl.GetMaxKeyFrameSpacing := CallbackCreate(ObjBindMethod(implObj, "GetMaxKeyFrameSpacing"), flags, 2)
+        this.vtbl.SetMaxKeyFrameSpacing := CallbackCreate(ObjBindMethod(implObj, "SetMaxKeyFrameSpacing"), flags, 2)
+        this.vtbl.GetQuality := CallbackCreate(ObjBindMethod(implObj, "GetQuality"), flags, 2)
+        this.vtbl.SetQuality := CallbackCreate(ObjBindMethod(implObj, "SetQuality"), flags, 2)
     }
 
     Dispose() {

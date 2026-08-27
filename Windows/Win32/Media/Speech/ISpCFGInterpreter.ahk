@@ -40,7 +40,6 @@ export default struct ISpCFGInterpreter extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszGrammarName 
      * @param {Pointer<Pointer<Void>>} pvGrammarData 
      * @returns {HRESULT} 
@@ -48,14 +47,13 @@ export default struct ISpCFGInterpreter extends IUnknown {
     InitGrammar(pszGrammarName, pvGrammarData) {
         pszGrammarName := pszGrammarName is String ? StrPtr(pszGrammarName) : pszGrammarName
 
-        pvGrammarDataMarshal := pvGrammarData is VarRef ? "ptr*" : "ptr"
+        pvGrammarDataMarshal := pvGrammarData is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, "ptr", pszGrammarName, pvGrammarDataMarshal, pvGrammarData, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {ISpPhraseBuilder} pPhrase 
      * @param {Integer} ulFirstElement 
      * @param {Integer} ulCountOfElements 
@@ -76,8 +74,8 @@ export default struct ISpCFGInterpreter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitGrammar := CallbackCreate(GetMethod(implObj, "InitGrammar"), flags, 3)
-        this.vtbl.Interpret := CallbackCreate(GetMethod(implObj, "Interpret"), flags, 5)
+        this.vtbl.InitGrammar := CallbackCreate(ObjBindMethod(implObj, "InitGrammar"), flags, 3)
+        this.vtbl.Interpret := CallbackCreate(ObjBindMethod(implObj, "Interpret"), flags, 5)
     }
 
     Dispose() {

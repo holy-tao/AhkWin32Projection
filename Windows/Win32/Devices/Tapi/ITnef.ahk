@@ -86,14 +86,13 @@ export default struct ITnef extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/itnef-addprops
      */
     AddProps(ulFlags, ulElemID, lpvData, lpPropList) {
-        lpvDataMarshal := lpvData is VarRef ? "ptr" : "ptr"
+        lpvDataMarshal := lpvData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, UInt32, ulFlags, UInt32, ulElemID, lpvDataMarshal, lpvData, SPropTagArray.Ptr, lpPropList, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @remarks
      * Transport providers, message store providers, and gateways call the **ITnef::ExtractProps** method to extract (that is, decode) properties from the encapsulation of a message or an attachment that was passed to the [OpenTnefStream](opentnefstream.md) function. The calling provider or gateway can specify a list of properties to decode. Providers and gateways can also use **ExtractProps** to provide information about any special handling for attachments.
      *   
@@ -132,7 +131,7 @@ export default struct ITnef extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/itnef-extractprops
      */
     ExtractProps(ulFlags, lpPropList, lpProblems) {
-        lpProblemsMarshal := lpProblems is VarRef ? "ptr*" : "ptr"
+        lpProblemsMarshal := lpProblems is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, UInt32, ulFlags, SPropTagArray.Ptr, lpPropList, lpProblemsMarshal, lpProblems, "HRESULT")
         return result
@@ -159,15 +158,14 @@ export default struct ITnef extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/itnef-finish
      */
     Finish(ulFlags, lpKey, lpProblems) {
-        lpKeyMarshal := lpKey is VarRef ? "ushort*" : "ptr"
-        lpProblemsMarshal := lpProblems is VarRef ? "ptr*" : "ptr"
+        lpKeyMarshal := lpKey is VarRef ? "ushort*" : IntPtr
+        lpProblemsMarshal := lpProblems is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, UInt32, ulFlags, lpKeyMarshal, lpKey, lpProblemsMarshal, lpProblems, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @remarks
      * Transport providers, message store providers, and gateways call the **ITnef::OpenTaggedBody** method to open a stream interface on the text of an encapsulated message (that is, on a TNEF object). 
      *   
@@ -199,7 +197,6 @@ export default struct ITnef extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * Transport providers, message store providers, and gateways call the **ITnef::SetProps** method to set properties to include in the encapsulation of a message or an attachment without modifying the original message or attachment. Any properties set with this call override existing properties in the encapsulated message. 
      *   
@@ -226,7 +223,6 @@ export default struct ITnef extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * Transport providers, message store providers, and gateways call the **ITnef::EncodeRecips** method to perform TNEF encoding for a particular recipient table view. TNEF encoding is useful, for example, if a provider or gateway requires a particular column set, sort order, or restriction for the recipient table. 
      *   
@@ -248,7 +244,6 @@ export default struct ITnef extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * Transport providers, message store providers, and gateways call the **ITnef::FinishComponent** method to perform TNEF processing for one component, either a message or an attachment, as indicated by the flag set in the _ulFlags_ parameter.
      *   
@@ -281,7 +276,7 @@ export default struct ITnef extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/itnef-finishcomponent
      */
     FinishComponent(ulFlags, ulComponentID, lpCustomPropList, lpCustomProps, lpPropList, lpProblems) {
-        lpProblemsMarshal := lpProblems is VarRef ? "ptr*" : "ptr"
+        lpProblemsMarshal := lpProblems is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(9, this, UInt32, ulFlags, UInt32, ulComponentID, SPropTagArray.Ptr, lpCustomPropList, SPropValue.Ptr, lpCustomProps, SPropTagArray.Ptr, lpPropList, lpProblemsMarshal, lpProblems, "HRESULT")
         return result
@@ -296,13 +291,13 @@ export default struct ITnef extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddProps := CallbackCreate(GetMethod(implObj, "AddProps"), flags, 5)
-        this.vtbl.ExtractProps := CallbackCreate(GetMethod(implObj, "ExtractProps"), flags, 4)
-        this.vtbl.Finish := CallbackCreate(GetMethod(implObj, "Finish"), flags, 4)
-        this.vtbl.OpenTaggedBody := CallbackCreate(GetMethod(implObj, "OpenTaggedBody"), flags, 4)
-        this.vtbl.SetProps := CallbackCreate(GetMethod(implObj, "SetProps"), flags, 5)
-        this.vtbl.EncodeRecips := CallbackCreate(GetMethod(implObj, "EncodeRecips"), flags, 3)
-        this.vtbl.FinishComponent := CallbackCreate(GetMethod(implObj, "FinishComponent"), flags, 7)
+        this.vtbl.AddProps := CallbackCreate(ObjBindMethod(implObj, "AddProps"), flags, 5)
+        this.vtbl.ExtractProps := CallbackCreate(ObjBindMethod(implObj, "ExtractProps"), flags, 4)
+        this.vtbl.Finish := CallbackCreate(ObjBindMethod(implObj, "Finish"), flags, 4)
+        this.vtbl.OpenTaggedBody := CallbackCreate(ObjBindMethod(implObj, "OpenTaggedBody"), flags, 4)
+        this.vtbl.SetProps := CallbackCreate(ObjBindMethod(implObj, "SetProps"), flags, 5)
+        this.vtbl.EncodeRecips := CallbackCreate(ObjBindMethod(implObj, "EncodeRecips"), flags, 3)
+        this.vtbl.FinishComponent := CallbackCreate(ObjBindMethod(implObj, "FinishComponent"), flags, 7)
     }
 
     Dispose() {

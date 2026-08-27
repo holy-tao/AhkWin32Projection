@@ -91,8 +91,8 @@ export default struct ISearchBoxInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCondition := CallbackCreate(GetMethod(implObj, "GetCondition"), flags, 3)
-        this.vtbl.GetText := CallbackCreate(GetMethod(implObj, "GetText"), flags, 2)
+        this.vtbl.GetCondition := CallbackCreate(ObjBindMethod(implObj, "GetCondition"), flags, 3)
+        this.vtbl.GetText := CallbackCreate(ObjBindMethod(implObj, "GetText"), flags, 2)
     }
 
     Dispose() {

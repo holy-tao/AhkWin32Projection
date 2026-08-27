@@ -48,7 +48,7 @@ export default struct IBackgroundCopyFile2 extends IBackgroundCopyFile {
      * @see https://learn.microsoft.com/windows/win32/api/bits2_0/nf-bits2_0-ibackgroundcopyfile2-getfileranges
      */
     GetFileRanges(RangeCount) {
-        RangeCountMarshal := RangeCount is VarRef ? "uint*" : "ptr"
+        RangeCountMarshal := RangeCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, RangeCountMarshal, RangeCount, "ptr*", &Ranges := 0, Int32)
         if(result != 0) {
@@ -159,8 +159,8 @@ export default struct IBackgroundCopyFile2 extends IBackgroundCopyFile {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFileRanges := CallbackCreate(GetMethod(implObj, "GetFileRanges"), flags, 3)
-        this.vtbl.SetRemoteName := CallbackCreate(GetMethod(implObj, "SetRemoteName"), flags, 2)
+        this.vtbl.GetFileRanges := CallbackCreate(ObjBindMethod(implObj, "GetFileRanges"), flags, 3)
+        this.vtbl.SetRemoteName := CallbackCreate(ObjBindMethod(implObj, "SetRemoteName"), flags, 2)
     }
 
     Dispose() {

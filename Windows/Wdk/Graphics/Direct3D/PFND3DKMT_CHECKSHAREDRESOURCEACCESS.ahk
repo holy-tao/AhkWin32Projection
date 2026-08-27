@@ -20,7 +20,6 @@ export default struct PFND3DKMT_CHECKSHAREDRESOURCEACCESS {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CHECKSHAREDRESOURCEACCESS>} param0 
      * @returns {NTSTATUS} 
      */

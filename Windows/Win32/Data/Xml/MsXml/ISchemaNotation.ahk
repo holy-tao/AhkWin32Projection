@@ -52,7 +52,6 @@ export default struct ISchemaNotation extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_systemIdentifier() {
@@ -62,7 +61,6 @@ export default struct ISchemaNotation extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_publicIdentifier() {
@@ -80,8 +78,8 @@ export default struct ISchemaNotation extends ISchemaItem {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_systemIdentifier := CallbackCreate(GetMethod(implObj, "get_systemIdentifier"), flags, 2)
-        this.vtbl.get_publicIdentifier := CallbackCreate(GetMethod(implObj, "get_publicIdentifier"), flags, 2)
+        this.vtbl.get_systemIdentifier := CallbackCreate(ObjBindMethod(implObj, "get_systemIdentifier"), flags, 2)
+        this.vtbl.get_publicIdentifier := CallbackCreate(ObjBindMethod(implObj, "get_publicIdentifier"), flags, 2)
     }
 
     Dispose() {

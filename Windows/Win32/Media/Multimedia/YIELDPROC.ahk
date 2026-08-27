@@ -18,7 +18,6 @@ export default struct YIELDPROC {
     }
 
     /**
-     * 
      * @param {Integer} mciId 
      * @param {Integer} dwYieldData 
      * @returns {Integer} 

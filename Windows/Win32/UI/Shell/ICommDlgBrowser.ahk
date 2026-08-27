@@ -123,9 +123,9 @@ export default struct ICommDlgBrowser extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnDefaultCommand := CallbackCreate(GetMethod(implObj, "OnDefaultCommand"), flags, 2)
-        this.vtbl.OnStateChange := CallbackCreate(GetMethod(implObj, "OnStateChange"), flags, 3)
-        this.vtbl.IncludeObject := CallbackCreate(GetMethod(implObj, "IncludeObject"), flags, 3)
+        this.vtbl.OnDefaultCommand := CallbackCreate(ObjBindMethod(implObj, "OnDefaultCommand"), flags, 2)
+        this.vtbl.OnStateChange := CallbackCreate(ObjBindMethod(implObj, "OnStateChange"), flags, 3)
+        this.vtbl.IncludeObject := CallbackCreate(ObjBindMethod(implObj, "IncludeObject"), flags, 3)
     }
 
     Dispose() {

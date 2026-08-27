@@ -40,7 +40,6 @@ export default struct IActiveScriptDebug32 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pstrCode 
      * @param {Integer} uNumCodeChars 
      * @param {PWSTR} pstrDelimiter 
@@ -52,14 +51,13 @@ export default struct IActiveScriptDebug32 extends IUnknown {
         pstrCode := pstrCode is String ? StrPtr(pstrCode) : pstrCode
         pstrDelimiter := pstrDelimiter is String ? StrPtr(pstrDelimiter) : pstrDelimiter
 
-        pattrMarshal := pattr is VarRef ? "ushort*" : "ptr"
+        pattrMarshal := pattr is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(3, this, "ptr", pstrCode, UInt32, uNumCodeChars, "ptr", pstrDelimiter, UInt32, dwFlags, pattrMarshal, pattr, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pstrCode 
      * @param {Integer} uNumCodeChars 
      * @param {PWSTR} pstrDelimiter 
@@ -71,14 +69,13 @@ export default struct IActiveScriptDebug32 extends IUnknown {
         pstrCode := pstrCode is String ? StrPtr(pstrCode) : pstrCode
         pstrDelimiter := pstrDelimiter is String ? StrPtr(pstrDelimiter) : pstrDelimiter
 
-        pattrMarshal := pattr is VarRef ? "ushort*" : "ptr"
+        pattrMarshal := pattr is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(4, this, "ptr", pstrCode, UInt32, uNumCodeChars, "ptr", pstrDelimiter, UInt32, dwFlags, pattrMarshal, pattr, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwSourceContext 
      * @param {Integer} uCharacterOffset 
      * @param {Integer} uNumChars 
@@ -98,9 +95,9 @@ export default struct IActiveScriptDebug32 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetScriptTextAttributes := CallbackCreate(GetMethod(implObj, "GetScriptTextAttributes"), flags, 6)
-        this.vtbl.GetScriptletTextAttributes := CallbackCreate(GetMethod(implObj, "GetScriptletTextAttributes"), flags, 6)
-        this.vtbl.EnumCodeContextsOfPosition := CallbackCreate(GetMethod(implObj, "EnumCodeContextsOfPosition"), flags, 5)
+        this.vtbl.GetScriptTextAttributes := CallbackCreate(ObjBindMethod(implObj, "GetScriptTextAttributes"), flags, 6)
+        this.vtbl.GetScriptletTextAttributes := CallbackCreate(ObjBindMethod(implObj, "GetScriptletTextAttributes"), flags, 6)
+        this.vtbl.EnumCodeContextsOfPosition := CallbackCreate(ObjBindMethod(implObj, "EnumCodeContextsOfPosition"), flags, 5)
     }
 
     Dispose() {

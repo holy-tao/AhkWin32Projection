@@ -122,12 +122,14 @@ export default struct ISCPSecureQuery3 extends ISCPSecureQuery2 {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsecurequery3-getrightsonclearchannel
      */
     GetRightsOnClearChannel(pData, dwSize, pbSPSessionKey, dwSessionKeyLen, pStgGlobals, pProgressCallback, ppRights, pnRightsCount) {
-        pDataMarshal := pData is VarRef ? "char*" : "ptr"
-        pbSPSessionKeyMarshal := pbSPSessionKey is VarRef ? "char*" : "ptr"
-        ppRightsMarshal := ppRights is VarRef ? "ptr*" : "ptr"
-        pnRightsCountMarshal := pnRightsCount is VarRef ? "uint*" : "ptr"
+        pDataMarshal := pData is VarRef ? "char*" : IntPtr
+        pbSPSessionKeyMarshal := pbSPSessionKey is VarRef ? "char*" : IntPtr
+        pStgGlobalsMarshal := pStgGlobals == 0 ? IntPtr : "ptr"
+        pProgressCallbackMarshal := pProgressCallback == 0 ? IntPtr : "ptr"
+        ppRightsMarshal := ppRights is VarRef ? "ptr*" : IntPtr
+        pnRightsCountMarshal := pnRightsCount is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(8, this, pDataMarshal, pData, UInt32, dwSize, pbSPSessionKeyMarshal, pbSPSessionKey, UInt32, dwSessionKeyLen, "ptr", pStgGlobals, "ptr", pProgressCallback, ppRightsMarshal, ppRights, pnRightsCountMarshal, pnRightsCount, "HRESULT")
+        result := ComCall(8, this, pDataMarshal, pData, UInt32, dwSize, pbSPSessionKeyMarshal, pbSPSessionKey, UInt32, dwSessionKeyLen, pStgGlobalsMarshal, pStgGlobals, pProgressCallbackMarshal, pProgressCallback, ppRightsMarshal, ppRights, pnRightsCountMarshal, pnRightsCount, "HRESULT")
         return result
     }
 
@@ -276,16 +278,20 @@ export default struct ISCPSecureQuery3 extends ISCPSecureQuery2 {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsecurequery3-makedecisiononclearchannel
      */
     MakeDecisionOnClearChannel(fuFlags, pData, dwSize, dwAppSec, pbSPSessionKey, dwSessionKeyLen, pStorageGlobals, pProgressCallback, pAppCertApp, dwAppCertAppLen, pAppCertSP, dwAppCertSPLen, pszRevocationURL, pdwRevocationURLLen, pdwRevocationBitFlag, pqwFileSize, pUnknown, ppExchange) {
-        pDataMarshal := pData is VarRef ? "char*" : "ptr"
-        pbSPSessionKeyMarshal := pbSPSessionKey is VarRef ? "char*" : "ptr"
-        pAppCertAppMarshal := pAppCertApp is VarRef ? "char*" : "ptr"
-        pAppCertSPMarshal := pAppCertSP is VarRef ? "char*" : "ptr"
-        pszRevocationURLMarshal := pszRevocationURL is VarRef ? "ptr*" : "ptr"
-        pdwRevocationURLLenMarshal := pdwRevocationURLLen is VarRef ? "uint*" : "ptr"
-        pdwRevocationBitFlagMarshal := pdwRevocationBitFlag is VarRef ? "uint*" : "ptr"
-        pqwFileSizeMarshal := pqwFileSize is VarRef ? "uint*" : "ptr"
+        pDataMarshal := pData is VarRef ? "char*" : IntPtr
+        pbSPSessionKeyMarshal := pbSPSessionKey is VarRef ? "char*" : IntPtr
+        pStorageGlobalsMarshal := pStorageGlobals == 0 ? IntPtr : "ptr"
+        pProgressCallbackMarshal := pProgressCallback == 0 ? IntPtr : "ptr"
+        pAppCertAppMarshal := pAppCertApp is VarRef ? "char*" : IntPtr
+        pAppCertSPMarshal := pAppCertSP is VarRef ? "char*" : IntPtr
+        pszRevocationURLMarshal := pszRevocationURL is VarRef ? "ptr*" : IntPtr
+        pdwRevocationURLLenMarshal := pdwRevocationURLLen is VarRef ? "uint*" : IntPtr
+        pdwRevocationBitFlagMarshal := pdwRevocationBitFlag is VarRef ? "uint*" : IntPtr
+        pqwFileSizeMarshal := pqwFileSize is VarRef ? "uint*" : IntPtr
+        pqwFileSizeMarshal := pqwFileSize == 0 ? IntPtr : "uint*"
+        pUnknownMarshal := pUnknown == 0 ? IntPtr : "ptr"
 
-        result := ComCall(9, this, UInt32, fuFlags, pDataMarshal, pData, UInt32, dwSize, UInt32, dwAppSec, pbSPSessionKeyMarshal, pbSPSessionKey, UInt32, dwSessionKeyLen, "ptr", pStorageGlobals, "ptr", pProgressCallback, pAppCertAppMarshal, pAppCertApp, UInt32, dwAppCertAppLen, pAppCertSPMarshal, pAppCertSP, UInt32, dwAppCertSPLen, pszRevocationURLMarshal, pszRevocationURL, pdwRevocationURLLenMarshal, pdwRevocationURLLen, pdwRevocationBitFlagMarshal, pdwRevocationBitFlag, pqwFileSizeMarshal, pqwFileSize, "ptr", pUnknown, ISCPSecureExchange.Ptr, ppExchange, "HRESULT")
+        result := ComCall(9, this, UInt32, fuFlags, pDataMarshal, pData, UInt32, dwSize, UInt32, dwAppSec, pbSPSessionKeyMarshal, pbSPSessionKey, UInt32, dwSessionKeyLen, pStorageGlobalsMarshal, pStorageGlobals, pProgressCallbackMarshal, pProgressCallback, pAppCertAppMarshal, pAppCertApp, UInt32, dwAppCertAppLen, pAppCertSPMarshal, pAppCertSP, UInt32, dwAppCertSPLen, pszRevocationURLMarshal, pszRevocationURL, pdwRevocationURLLenMarshal, pdwRevocationURLLen, pdwRevocationBitFlagMarshal, pdwRevocationBitFlag, pqwFileSizeMarshal, pqwFileSize, pUnknownMarshal, pUnknown, ISCPSecureExchange.Ptr, ppExchange, "HRESULT")
         return result
     }
 
@@ -298,8 +304,8 @@ export default struct ISCPSecureQuery3 extends ISCPSecureQuery2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRightsOnClearChannel := CallbackCreate(GetMethod(implObj, "GetRightsOnClearChannel"), flags, 9)
-        this.vtbl.MakeDecisionOnClearChannel := CallbackCreate(GetMethod(implObj, "MakeDecisionOnClearChannel"), flags, 19)
+        this.vtbl.GetRightsOnClearChannel := CallbackCreate(ObjBindMethod(implObj, "GetRightsOnClearChannel"), flags, 9)
+        this.vtbl.MakeDecisionOnClearChannel := CallbackCreate(ObjBindMethod(implObj, "MakeDecisionOnClearChannel"), flags, 19)
     }
 
     Dispose() {

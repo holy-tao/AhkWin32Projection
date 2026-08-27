@@ -43,7 +43,6 @@ export default struct ID3D12GBVDiagnostics extends IUnknown {
     }
 
     /**
-     * 
      * @param {ID3D12Resource} pResource 
      * @param {Integer} pData 
      * @param {Integer} DataSize 
@@ -55,7 +54,6 @@ export default struct ID3D12GBVDiagnostics extends IUnknown {
     }
 
     /**
-     * 
      * @param {ID3D12Resource} pResource 
      * @param {Integer} Subresource 
      * @returns {Integer} 
@@ -66,7 +64,6 @@ export default struct ID3D12GBVDiagnostics extends IUnknown {
     }
 
     /**
-     * 
      * @param {ID3D12Resource} pResource 
      * @returns {Integer} 
      */
@@ -76,7 +73,6 @@ export default struct ID3D12GBVDiagnostics extends IUnknown {
     }
 
     /**
-     * 
      * @param {ID3D12Resource} pResource 
      * @param {Pointer<D3D12_RESOURCE_DESC>} pResourceDesc 
      * @param {Pointer<Integer>} pResourceHash 
@@ -84,15 +80,17 @@ export default struct ID3D12GBVDiagnostics extends IUnknown {
      * @returns {HRESULT} 
      */
     GetGBVResourceInfo(pResource, pResourceDesc, pResourceHash, pSubresourceStatesByteOffset) {
-        pResourceHashMarshal := pResourceHash is VarRef ? "uint*" : "ptr"
-        pSubresourceStatesByteOffsetMarshal := pSubresourceStatesByteOffset is VarRef ? "uint*" : "ptr"
+        pResourceDescMarshal := pResourceDesc == 0 ? IntPtr : D3D12_RESOURCE_DESC.Ptr
+        pResourceHashMarshal := pResourceHash is VarRef ? "uint*" : IntPtr
+        pResourceHashMarshal := pResourceHash == 0 ? IntPtr : "uint*"
+        pSubresourceStatesByteOffsetMarshal := pSubresourceStatesByteOffset is VarRef ? "uint*" : IntPtr
+        pSubresourceStatesByteOffsetMarshal := pSubresourceStatesByteOffset == 0 ? IntPtr : "uint*"
 
-        result := ComCall(6, this, "ptr", pResource, D3D12_RESOURCE_DESC.Ptr, pResourceDesc, pResourceHashMarshal, pResourceHash, pSubresourceStatesByteOffsetMarshal, pSubresourceStatesByteOffset, "HRESULT")
+        result := ComCall(6, this, "ptr", pResource, pResourceDescMarshal, pResourceDesc, pResourceHashMarshal, pResourceHash, pSubresourceStatesByteOffsetMarshal, pSubresourceStatesByteOffset, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     GBVReserved0() {
@@ -100,7 +98,6 @@ export default struct ID3D12GBVDiagnostics extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     GBVReserved1() {
@@ -116,12 +113,12 @@ export default struct ID3D12GBVDiagnostics extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetGBVEntireSubresourceStatesData := CallbackCreate(GetMethod(implObj, "GetGBVEntireSubresourceStatesData"), flags, 4)
-        this.vtbl.GetGBVSubresourceState := CallbackCreate(GetMethod(implObj, "GetGBVSubresourceState"), flags, 4)
-        this.vtbl.GetGBVResourceUniformState := CallbackCreate(GetMethod(implObj, "GetGBVResourceUniformState"), flags, 3)
-        this.vtbl.GetGBVResourceInfo := CallbackCreate(GetMethod(implObj, "GetGBVResourceInfo"), flags, 5)
-        this.vtbl.GBVReserved0 := CallbackCreate(GetMethod(implObj, "GBVReserved0"), flags, 1)
-        this.vtbl.GBVReserved1 := CallbackCreate(GetMethod(implObj, "GBVReserved1"), flags, 1)
+        this.vtbl.GetGBVEntireSubresourceStatesData := CallbackCreate(ObjBindMethod(implObj, "GetGBVEntireSubresourceStatesData"), flags, 4)
+        this.vtbl.GetGBVSubresourceState := CallbackCreate(ObjBindMethod(implObj, "GetGBVSubresourceState"), flags, 4)
+        this.vtbl.GetGBVResourceUniformState := CallbackCreate(ObjBindMethod(implObj, "GetGBVResourceUniformState"), flags, 3)
+        this.vtbl.GetGBVResourceInfo := CallbackCreate(ObjBindMethod(implObj, "GetGBVResourceInfo"), flags, 5)
+        this.vtbl.GBVReserved0 := CallbackCreate(ObjBindMethod(implObj, "GBVReserved0"), flags, 1)
+        this.vtbl.GBVReserved1 := CallbackCreate(ObjBindMethod(implObj, "GBVReserved1"), flags, 1)
     }
 
     Dispose() {

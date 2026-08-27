@@ -19,7 +19,6 @@ export default struct SILO_MONITOR_TERMINATE_CALLBACK {
     }
 
     /**
-     * 
      * @param {PESILO} Silo 
      * @returns {String} Nothing - always returns an empty string
      */

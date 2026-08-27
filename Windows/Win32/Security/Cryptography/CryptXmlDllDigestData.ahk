@@ -21,7 +21,6 @@ export default struct CryptXmlDllDigestData {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hDigest The handle of the hash object used to put data into the digest. This handle is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nc-cryptxml-cryptxmldllcreatedigest">CryptXmlDllCreateDigest</a>  function.
      * @param {Integer} pbData A pointer to a block of data to be processed.
      * @param {Integer} cbData The size, in bytes, of the block of data pointed to by the <i>pbData</i> parameter.
@@ -30,7 +29,7 @@ export default struct CryptXmlDllDigestData {
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error.
      */
     Call(hDigest, pbData, cbData) {
-        hDigestMarshal := hDigest is VarRef ? "ptr" : "ptr"
+        hDigestMarshal := hDigest is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, hDigestMarshal, hDigest, IntPtr, pbData, UInt32, cbData, "HRESULT")
         return result

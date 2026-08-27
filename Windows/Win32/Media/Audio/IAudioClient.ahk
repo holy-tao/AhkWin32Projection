@@ -390,7 +390,9 @@ export default struct IAudioClient extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclient-initialize
      */
     Initialize(ShareMode, StreamFlags, hnsBufferDuration, hnsPeriodicity, pFormat, AudioSessionGuid) {
-        result := ComCall(3, this, AUDCLNT_SHAREMODE, ShareMode, UInt32, StreamFlags, Int64, hnsBufferDuration, Int64, hnsPeriodicity, WAVEFORMATEX.Ptr, pFormat, Guid.Ptr, AudioSessionGuid, "HRESULT")
+        AudioSessionGuidMarshal := AudioSessionGuid == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(3, this, AUDCLNT_SHAREMODE, ShareMode, UInt32, StreamFlags, Int64, hnsBufferDuration, Int64, hnsPeriodicity, WAVEFORMATEX.Ptr, pFormat, AudioSessionGuidMarshal, AudioSessionGuid, "HRESULT")
         return result
     }
 
@@ -596,8 +598,10 @@ export default struct IAudioClient extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclient-getdeviceperiod
      */
     GetDevicePeriod(phnsDefaultDevicePeriod, phnsMinimumDevicePeriod) {
-        phnsDefaultDevicePeriodMarshal := phnsDefaultDevicePeriod is VarRef ? "int64*" : "ptr"
-        phnsMinimumDevicePeriodMarshal := phnsMinimumDevicePeriod is VarRef ? "int64*" : "ptr"
+        phnsDefaultDevicePeriodMarshal := phnsDefaultDevicePeriod is VarRef ? "int64*" : IntPtr
+        phnsDefaultDevicePeriodMarshal := phnsDefaultDevicePeriod == 0 ? IntPtr : "int64*"
+        phnsMinimumDevicePeriodMarshal := phnsMinimumDevicePeriod is VarRef ? "int64*" : IntPtr
+        phnsMinimumDevicePeriodMarshal := phnsMinimumDevicePeriod == 0 ? IntPtr : "int64*"
 
         result := ComCall(9, this, phnsDefaultDevicePeriodMarshal, phnsDefaultDevicePeriod, phnsMinimumDevicePeriodMarshal, phnsMinimumDevicePeriod, "HRESULT")
         return result
@@ -1003,18 +1007,18 @@ export default struct IAudioClient extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 7)
-        this.vtbl.GetBufferSize := CallbackCreate(GetMethod(implObj, "GetBufferSize"), flags, 2)
-        this.vtbl.GetStreamLatency := CallbackCreate(GetMethod(implObj, "GetStreamLatency"), flags, 2)
-        this.vtbl.GetCurrentPadding := CallbackCreate(GetMethod(implObj, "GetCurrentPadding"), flags, 2)
-        this.vtbl.IsFormatSupported := CallbackCreate(GetMethod(implObj, "IsFormatSupported"), flags, 4)
-        this.vtbl.GetMixFormat := CallbackCreate(GetMethod(implObj, "GetMixFormat"), flags, 2)
-        this.vtbl.GetDevicePeriod := CallbackCreate(GetMethod(implObj, "GetDevicePeriod"), flags, 3)
-        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 1)
-        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.SetEventHandle := CallbackCreate(GetMethod(implObj, "SetEventHandle"), flags, 2)
-        this.vtbl.GetService := CallbackCreate(GetMethod(implObj, "GetService"), flags, 3)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 7)
+        this.vtbl.GetBufferSize := CallbackCreate(ObjBindMethod(implObj, "GetBufferSize"), flags, 2)
+        this.vtbl.GetStreamLatency := CallbackCreate(ObjBindMethod(implObj, "GetStreamLatency"), flags, 2)
+        this.vtbl.GetCurrentPadding := CallbackCreate(ObjBindMethod(implObj, "GetCurrentPadding"), flags, 2)
+        this.vtbl.IsFormatSupported := CallbackCreate(ObjBindMethod(implObj, "IsFormatSupported"), flags, 4)
+        this.vtbl.GetMixFormat := CallbackCreate(ObjBindMethod(implObj, "GetMixFormat"), flags, 2)
+        this.vtbl.GetDevicePeriod := CallbackCreate(ObjBindMethod(implObj, "GetDevicePeriod"), flags, 3)
+        this.vtbl.Start := CallbackCreate(ObjBindMethod(implObj, "Start"), flags, 1)
+        this.vtbl.Stop := CallbackCreate(ObjBindMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.SetEventHandle := CallbackCreate(ObjBindMethod(implObj, "SetEventHandle"), flags, 2)
+        this.vtbl.GetService := CallbackCreate(ObjBindMethod(implObj, "GetService"), flags, 3)
     }
 
     Dispose() {

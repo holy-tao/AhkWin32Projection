@@ -62,7 +62,7 @@ export default struct IObjectWithCancelEvent extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCancelEvent := CallbackCreate(GetMethod(implObj, "GetCancelEvent"), flags, 2)
+        this.vtbl.GetCancelEvent := CallbackCreate(ObjBindMethod(implObj, "GetCancelEvent"), flags, 2)
     }
 
     Dispose() {

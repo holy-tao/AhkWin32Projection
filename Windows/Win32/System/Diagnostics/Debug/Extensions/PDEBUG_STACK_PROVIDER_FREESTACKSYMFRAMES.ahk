@@ -20,12 +20,13 @@ export default struct PDEBUG_STACK_PROVIDER_FREESTACKSYMFRAMES {
     }
 
     /**
-     * 
      * @param {Pointer<STACK_SYM_FRAME_INFO>} StackSymFrames 
      * @returns {HRESULT} 
      */
     Call(StackSymFrames) {
-        result := DllCall(this.value, STACK_SYM_FRAME_INFO.Ptr, StackSymFrames, "HRESULT")
+        StackSymFramesMarshal := StackSymFrames == 0 ? IntPtr : STACK_SYM_FRAME_INFO.Ptr
+
+        result := DllCall(this.value, StackSymFramesMarshal, StackSymFrames, "HRESULT")
         return result
     }
 

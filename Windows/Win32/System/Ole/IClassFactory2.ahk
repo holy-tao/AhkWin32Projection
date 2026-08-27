@@ -123,7 +123,9 @@ export default struct IClassFactory2 extends IClassFactory {
 
         bstrKey := bstrKey is String ? BSTR.Alloc(bstrKey).Value : bstrKey
 
-        result := ComCall(7, this, "ptr", pUnkOuter, "ptr", pUnkReserved, Guid.Ptr, riid, BSTR, bstrKey, "ptr*", &ppvObj := 0, "HRESULT")
+        pUnkOuterMarshal := pUnkOuter == 0 ? IntPtr : "ptr"
+
+        result := ComCall(7, this, pUnkOuterMarshal, pUnkOuter, "ptr", pUnkReserved, Guid.Ptr, riid, BSTR, bstrKey, "ptr*", &ppvObj := 0, "HRESULT")
         return ppvObj
     }
 
@@ -136,9 +138,9 @@ export default struct IClassFactory2 extends IClassFactory {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLicInfo := CallbackCreate(GetMethod(implObj, "GetLicInfo"), flags, 2)
-        this.vtbl.RequestLicKey := CallbackCreate(GetMethod(implObj, "RequestLicKey"), flags, 3)
-        this.vtbl.CreateInstanceLic := CallbackCreate(GetMethod(implObj, "CreateInstanceLic"), flags, 6)
+        this.vtbl.GetLicInfo := CallbackCreate(ObjBindMethod(implObj, "GetLicInfo"), flags, 2)
+        this.vtbl.RequestLicKey := CallbackCreate(ObjBindMethod(implObj, "RequestLicKey"), flags, 3)
+        this.vtbl.CreateInstanceLic := CallbackCreate(ObjBindMethod(implObj, "CreateInstanceLic"), flags, 6)
     }
 
     Dispose() {

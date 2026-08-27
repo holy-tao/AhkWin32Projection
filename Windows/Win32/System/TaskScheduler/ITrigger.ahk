@@ -155,7 +155,7 @@ export default struct ITrigger extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itrigger-get_type
      */
     get_Type(pType) {
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        pTypeMarshal := pType is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, pTypeMarshal, pType, "HRESULT")
         return result
@@ -319,7 +319,7 @@ export default struct ITrigger extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itrigger-get_enabled
      */
     get_Enabled(pEnabled) {
-        pEnabledMarshal := pEnabled is VarRef ? "short*" : "ptr"
+        pEnabledMarshal := pEnabled is VarRef ? "short*" : IntPtr
 
         result := ComCall(18, this, pEnabledMarshal, pEnabled, "HRESULT")
         return result
@@ -347,19 +347,19 @@ export default struct ITrigger extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
-        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
-        this.vtbl.put_Id := CallbackCreate(GetMethod(implObj, "put_Id"), flags, 2)
-        this.vtbl.get_Repetition := CallbackCreate(GetMethod(implObj, "get_Repetition"), flags, 2)
-        this.vtbl.put_Repetition := CallbackCreate(GetMethod(implObj, "put_Repetition"), flags, 2)
-        this.vtbl.get_ExecutionTimeLimit := CallbackCreate(GetMethod(implObj, "get_ExecutionTimeLimit"), flags, 2)
-        this.vtbl.put_ExecutionTimeLimit := CallbackCreate(GetMethod(implObj, "put_ExecutionTimeLimit"), flags, 2)
-        this.vtbl.get_StartBoundary := CallbackCreate(GetMethod(implObj, "get_StartBoundary"), flags, 2)
-        this.vtbl.put_StartBoundary := CallbackCreate(GetMethod(implObj, "put_StartBoundary"), flags, 2)
-        this.vtbl.get_EndBoundary := CallbackCreate(GetMethod(implObj, "get_EndBoundary"), flags, 2)
-        this.vtbl.put_EndBoundary := CallbackCreate(GetMethod(implObj, "put_EndBoundary"), flags, 2)
-        this.vtbl.get_Enabled := CallbackCreate(GetMethod(implObj, "get_Enabled"), flags, 2)
-        this.vtbl.put_Enabled := CallbackCreate(GetMethod(implObj, "put_Enabled"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(ObjBindMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(ObjBindMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.put_Id := CallbackCreate(ObjBindMethod(implObj, "put_Id"), flags, 2)
+        this.vtbl.get_Repetition := CallbackCreate(ObjBindMethod(implObj, "get_Repetition"), flags, 2)
+        this.vtbl.put_Repetition := CallbackCreate(ObjBindMethod(implObj, "put_Repetition"), flags, 2)
+        this.vtbl.get_ExecutionTimeLimit := CallbackCreate(ObjBindMethod(implObj, "get_ExecutionTimeLimit"), flags, 2)
+        this.vtbl.put_ExecutionTimeLimit := CallbackCreate(ObjBindMethod(implObj, "put_ExecutionTimeLimit"), flags, 2)
+        this.vtbl.get_StartBoundary := CallbackCreate(ObjBindMethod(implObj, "get_StartBoundary"), flags, 2)
+        this.vtbl.put_StartBoundary := CallbackCreate(ObjBindMethod(implObj, "put_StartBoundary"), flags, 2)
+        this.vtbl.get_EndBoundary := CallbackCreate(ObjBindMethod(implObj, "get_EndBoundary"), flags, 2)
+        this.vtbl.put_EndBoundary := CallbackCreate(ObjBindMethod(implObj, "put_EndBoundary"), flags, 2)
+        this.vtbl.get_Enabled := CallbackCreate(ObjBindMethod(implObj, "get_Enabled"), flags, 2)
+        this.vtbl.put_Enabled := CallbackCreate(ObjBindMethod(implObj, "put_Enabled"), flags, 2)
     }
 
     Dispose() {

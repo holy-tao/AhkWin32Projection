@@ -89,8 +89,8 @@ export default struct IMbnVendorSpecificEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnEventNotification := CallbackCreate(GetMethod(implObj, "OnEventNotification"), flags, 3)
-        this.vtbl.OnSetVendorSpecificComplete := CallbackCreate(GetMethod(implObj, "OnSetVendorSpecificComplete"), flags, 4)
+        this.vtbl.OnEventNotification := CallbackCreate(ObjBindMethod(implObj, "OnEventNotification"), flags, 3)
+        this.vtbl.OnSetVendorSpecificComplete := CallbackCreate(ObjBindMethod(implObj, "OnSetVendorSpecificComplete"), flags, 4)
     }
 
     Dispose() {

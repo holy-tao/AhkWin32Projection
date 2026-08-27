@@ -24,7 +24,6 @@ export default struct IPSEC_KEY_MANAGER_DICTATE_KEY0 {
     }
 
     /**
-     * 
      * @param {Pointer<IPSEC_SA_DETAILS1>} inboundSaDetails Type: [IPSEC_SA_DETAILS1](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_sa_details1)*</b>
      * 
      * Information about the inbound SA.
@@ -80,7 +79,7 @@ export default struct IPSEC_KEY_MANAGER_DICTATE_KEY0 {
      * </table>
      */
     Call(inboundSaDetails, outboundSaDetails, keyingModuleGenKey) {
-        keyingModuleGenKeyMarshal := keyingModuleGenKey is VarRef ? "int*" : "ptr"
+        keyingModuleGenKeyMarshal := keyingModuleGenKey is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, IPSEC_SA_DETAILS1.Ptr, inboundSaDetails, IPSEC_SA_DETAILS1.Ptr, outboundSaDetails, keyingModuleGenKeyMarshal, keyingModuleGenKey, UInt32)
         return result

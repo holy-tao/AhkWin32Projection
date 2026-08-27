@@ -21,15 +21,14 @@ export default struct PFN_WdsTransportClientSessionStart {
     }
 
     /**
-     * 
      * @param {HANDLE} hSessionKey The handle belonging to the session that is being started.
      * @param {Pointer<Void>} pCallerData Pointer to the caller specific data for this session.  This data was specified in the call to WdsTransportClientStartSession.
      * @param {Pointer<Integer>} ullFileSize 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(hSessionKey, pCallerData, ullFileSize) {
-        pCallerDataMarshal := pCallerData is VarRef ? "ptr" : "ptr"
-        ullFileSizeMarshal := ullFileSize is VarRef ? "uint*" : "ptr"
+        pCallerDataMarshal := pCallerData is VarRef ? "ptr" : IntPtr
+        ullFileSizeMarshal := ullFileSize is VarRef ? "uint*" : IntPtr
 
         DllCall(this.value, HANDLE, hSessionKey, pCallerDataMarshal, pCallerData, ullFileSizeMarshal, ullFileSize)
     }

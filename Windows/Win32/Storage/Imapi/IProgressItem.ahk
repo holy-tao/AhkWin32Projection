@@ -127,10 +127,10 @@ export default struct IProgressItem extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
-        this.vtbl.get_FirstBlock := CallbackCreate(GetMethod(implObj, "get_FirstBlock"), flags, 2)
-        this.vtbl.get_LastBlock := CallbackCreate(GetMethod(implObj, "get_LastBlock"), flags, 2)
-        this.vtbl.get_BlockCount := CallbackCreate(GetMethod(implObj, "get_BlockCount"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(ObjBindMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.get_FirstBlock := CallbackCreate(ObjBindMethod(implObj, "get_FirstBlock"), flags, 2)
+        this.vtbl.get_LastBlock := CallbackCreate(ObjBindMethod(implObj, "get_LastBlock"), flags, 2)
+        this.vtbl.get_BlockCount := CallbackCreate(ObjBindMethod(implObj, "get_BlockCount"), flags, 2)
     }
 
     Dispose() {

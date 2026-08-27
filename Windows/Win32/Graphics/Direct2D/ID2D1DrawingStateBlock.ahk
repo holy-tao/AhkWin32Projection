@@ -77,7 +77,9 @@ export default struct ID2D1DrawingStateBlock extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1drawingstateblock-settextrenderingparams
      */
     SetTextRenderingParams(textRenderingParams) {
-        ComCall(6, this, "ptr", textRenderingParams)
+        textRenderingParamsMarshal := textRenderingParams == 0 ? IntPtr : "ptr"
+
+        ComCall(6, this, textRenderingParamsMarshal, textRenderingParams)
     }
 
     /**
@@ -101,10 +103,10 @@ export default struct ID2D1DrawingStateBlock extends ID2D1Resource {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 2)
-        this.vtbl.SetDescription := CallbackCreate(GetMethod(implObj, "SetDescription"), flags, 2)
-        this.vtbl.SetTextRenderingParams := CallbackCreate(GetMethod(implObj, "SetTextRenderingParams"), flags, 2)
-        this.vtbl.GetTextRenderingParams := CallbackCreate(GetMethod(implObj, "GetTextRenderingParams"), flags, 2)
+        this.vtbl.GetDescription := CallbackCreate(ObjBindMethod(implObj, "GetDescription"), flags, 2)
+        this.vtbl.SetDescription := CallbackCreate(ObjBindMethod(implObj, "SetDescription"), flags, 2)
+        this.vtbl.SetTextRenderingParams := CallbackCreate(ObjBindMethod(implObj, "SetTextRenderingParams"), flags, 2)
+        this.vtbl.GetTextRenderingParams := CallbackCreate(ObjBindMethod(implObj, "GetTextRenderingParams"), flags, 2)
     }
 
     Dispose() {

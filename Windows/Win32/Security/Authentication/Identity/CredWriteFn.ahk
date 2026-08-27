@@ -27,7 +27,6 @@ export default struct CredWriteFn {
     }
 
     /**
-     * 
      * @param {Pointer<LUID>} LogonId The logon ID for which to read credentials.
      * @param {Integer} CredFlags Flags that determine the behavior of this function. The following flags are defined.
      * 

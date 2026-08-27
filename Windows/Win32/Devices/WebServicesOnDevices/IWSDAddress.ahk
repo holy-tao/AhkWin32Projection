@@ -157,8 +157,8 @@ export default struct IWSDAddress extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Serialize := CallbackCreate(GetMethod(implObj, "Serialize"), flags, 4)
-        this.vtbl.Deserialize := CallbackCreate(GetMethod(implObj, "Deserialize"), flags, 2)
+        this.vtbl.Serialize := CallbackCreate(ObjBindMethod(implObj, "Serialize"), flags, 4)
+        this.vtbl.Deserialize := CallbackCreate(ObjBindMethod(implObj, "Deserialize"), flags, 2)
     }
 
     Dispose() {

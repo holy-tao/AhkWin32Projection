@@ -136,7 +136,7 @@ export default struct ITfFnGetPreferredTouchKeyboardLayout extends ITfFunction {
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffngetpreferredtouchkeyboardlayout-getlayout
      */
     GetLayout(pwPreferredLayoutId) {
-        pwPreferredLayoutIdMarshal := pwPreferredLayoutId is VarRef ? "ushort*" : "ptr"
+        pwPreferredLayoutIdMarshal := pwPreferredLayoutId is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(4, this, "int*", &pTKBLayoutType := 0, pwPreferredLayoutIdMarshal, pwPreferredLayoutId, "HRESULT")
         return pTKBLayoutType
@@ -151,7 +151,7 @@ export default struct ITfFnGetPreferredTouchKeyboardLayout extends ITfFunction {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLayout := CallbackCreate(GetMethod(implObj, "GetLayout"), flags, 3)
+        this.vtbl.GetLayout := CallbackCreate(ObjBindMethod(implObj, "GetLayout"), flags, 3)
     }
 
     Dispose() {

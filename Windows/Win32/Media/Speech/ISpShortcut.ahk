@@ -53,7 +53,6 @@ export default struct ISpShortcut extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszDisplay 
      * @param {Integer} LangID 
      * @param {PWSTR} pszSpoken 
@@ -69,7 +68,6 @@ export default struct ISpShortcut extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszDisplay 
      * @param {Integer} LangID 
      * @param {PWSTR} pszSpoken 
@@ -85,7 +83,6 @@ export default struct ISpShortcut extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} LangID 
      * @param {Pointer<SPSHORTCUTPAIRLIST>} pShortcutpairList 
      * @returns {HRESULT} 
@@ -96,7 +93,6 @@ export default struct ISpShortcut extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetGeneration() {
@@ -105,56 +101,52 @@ export default struct ISpShortcut extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwGeneration 
      * @param {Pointer<SPWORDLIST>} pWordList 
      * @returns {HRESULT} 
      */
     GetWordsFromGenerationChange(pdwGeneration, pWordList) {
-        pdwGenerationMarshal := pdwGeneration is VarRef ? "uint*" : "ptr"
+        pdwGenerationMarshal := pdwGeneration is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, pdwGenerationMarshal, pdwGeneration, SPWORDLIST.Ptr, pWordList, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwGeneration 
      * @param {Pointer<Integer>} pdwCookie 
      * @param {Pointer<SPWORDLIST>} pWordList 
      * @returns {HRESULT} 
      */
     GetWords(pdwGeneration, pdwCookie, pWordList) {
-        pdwGenerationMarshal := pdwGeneration is VarRef ? "uint*" : "ptr"
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+        pdwGenerationMarshal := pdwGeneration is VarRef ? "uint*" : IntPtr
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, pdwGenerationMarshal, pdwGeneration, pdwCookieMarshal, pdwCookie, SPWORDLIST.Ptr, pWordList, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwGeneration 
      * @param {Pointer<Integer>} pdwCookie 
      * @param {Pointer<SPSHORTCUTPAIRLIST>} pShortcutpairList 
      * @returns {HRESULT} 
      */
     GetShortcutsForGeneration(pdwGeneration, pdwCookie, pShortcutpairList) {
-        pdwGenerationMarshal := pdwGeneration is VarRef ? "uint*" : "ptr"
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+        pdwGenerationMarshal := pdwGeneration is VarRef ? "uint*" : IntPtr
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : IntPtr
 
         result := ComCall(9, this, pdwGenerationMarshal, pdwGeneration, pdwCookieMarshal, pdwCookie, SPSHORTCUTPAIRLIST.Ptr, pShortcutpairList, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwGeneration 
      * @param {Pointer<SPSHORTCUTPAIRLIST>} pShortcutpairList 
      * @returns {HRESULT} 
      */
     GetGenerationChange(pdwGeneration, pShortcutpairList) {
-        pdwGenerationMarshal := pdwGeneration is VarRef ? "uint*" : "ptr"
+        pdwGenerationMarshal := pdwGeneration is VarRef ? "uint*" : IntPtr
 
         result := ComCall(10, this, pdwGenerationMarshal, pdwGeneration, SPSHORTCUTPAIRLIST.Ptr, pShortcutpairList, "HRESULT")
         return result
@@ -169,14 +161,14 @@ export default struct ISpShortcut extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddShortcut := CallbackCreate(GetMethod(implObj, "AddShortcut"), flags, 5)
-        this.vtbl.RemoveShortcut := CallbackCreate(GetMethod(implObj, "RemoveShortcut"), flags, 5)
-        this.vtbl.GetShortcuts := CallbackCreate(GetMethod(implObj, "GetShortcuts"), flags, 3)
-        this.vtbl.GetGeneration := CallbackCreate(GetMethod(implObj, "GetGeneration"), flags, 2)
-        this.vtbl.GetWordsFromGenerationChange := CallbackCreate(GetMethod(implObj, "GetWordsFromGenerationChange"), flags, 3)
-        this.vtbl.GetWords := CallbackCreate(GetMethod(implObj, "GetWords"), flags, 4)
-        this.vtbl.GetShortcutsForGeneration := CallbackCreate(GetMethod(implObj, "GetShortcutsForGeneration"), flags, 4)
-        this.vtbl.GetGenerationChange := CallbackCreate(GetMethod(implObj, "GetGenerationChange"), flags, 3)
+        this.vtbl.AddShortcut := CallbackCreate(ObjBindMethod(implObj, "AddShortcut"), flags, 5)
+        this.vtbl.RemoveShortcut := CallbackCreate(ObjBindMethod(implObj, "RemoveShortcut"), flags, 5)
+        this.vtbl.GetShortcuts := CallbackCreate(ObjBindMethod(implObj, "GetShortcuts"), flags, 3)
+        this.vtbl.GetGeneration := CallbackCreate(ObjBindMethod(implObj, "GetGeneration"), flags, 2)
+        this.vtbl.GetWordsFromGenerationChange := CallbackCreate(ObjBindMethod(implObj, "GetWordsFromGenerationChange"), flags, 3)
+        this.vtbl.GetWords := CallbackCreate(ObjBindMethod(implObj, "GetWords"), flags, 4)
+        this.vtbl.GetShortcutsForGeneration := CallbackCreate(ObjBindMethod(implObj, "GetShortcutsForGeneration"), flags, 4)
+        this.vtbl.GetGenerationChange := CallbackCreate(ObjBindMethod(implObj, "GetGenerationChange"), flags, 3)
     }
 
     Dispose() {

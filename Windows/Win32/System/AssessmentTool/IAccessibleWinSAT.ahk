@@ -37,7 +37,6 @@ export default struct IAccessibleWinSAT extends IAccessible {
     }
 
     /**
-     * 
      * @param {PWSTR} wsName 
      * @param {PWSTR} wsValue 
      * @param {PWSTR} wsDesc 
@@ -61,7 +60,7 @@ export default struct IAccessibleWinSAT extends IAccessible {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAccessiblityData := CallbackCreate(GetMethod(implObj, "SetAccessiblityData"), flags, 4)
+        this.vtbl.SetAccessiblityData := CallbackCreate(ObjBindMethod(implObj, "SetAccessiblityData"), flags, 4)
     }
 
     Dispose() {

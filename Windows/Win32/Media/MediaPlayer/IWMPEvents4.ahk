@@ -39,7 +39,6 @@ export default struct IWMPEvents4 extends IWMPEvents3 {
     }
 
     /**
-     * 
      * @param {IWMPSyncDevice} pDevice 
      * @param {HRESULT} hrResult 
      * @param {Integer} qwEstimatedUsedSpace 
@@ -59,7 +58,7 @@ export default struct IWMPEvents4 extends IWMPEvents3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DeviceEstimation := CallbackCreate(GetMethod(implObj, "DeviceEstimation"), flags, 5)
+        this.vtbl.DeviceEstimation := CallbackCreate(ObjBindMethod(implObj, "DeviceEstimation"), flags, 5)
     }
 
     Dispose() {

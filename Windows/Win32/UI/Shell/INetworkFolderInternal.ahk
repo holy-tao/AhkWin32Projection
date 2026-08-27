@@ -40,7 +40,6 @@ export default struct INetworkFolderInternal extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetResourceDisplayType() {
@@ -49,7 +48,6 @@ export default struct INetworkFolderInternal extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<ITEMIDLIST>} 
      */
     GetIDList() {
@@ -58,7 +56,6 @@ export default struct INetworkFolderInternal extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} itemIdCount 
      * @param {Pointer<Pointer<ITEMIDLIST>>} itemIds 
      * @param {Integer} providerMaxLength 
@@ -68,7 +65,7 @@ export default struct INetworkFolderInternal extends IUnknown {
     GetProvider(itemIdCount, itemIds, providerMaxLength, provider) {
         provider := provider is String ? StrPtr(provider) : provider
 
-        itemIdsMarshal := itemIds is VarRef ? "ptr*" : "ptr"
+        itemIdsMarshal := itemIds is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, UInt32, itemIdCount, itemIdsMarshal, itemIds, UInt32, providerMaxLength, "ptr", provider, "HRESULT")
         return result
@@ -83,9 +80,9 @@ export default struct INetworkFolderInternal extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetResourceDisplayType := CallbackCreate(GetMethod(implObj, "GetResourceDisplayType"), flags, 2)
-        this.vtbl.GetIDList := CallbackCreate(GetMethod(implObj, "GetIDList"), flags, 2)
-        this.vtbl.GetProvider := CallbackCreate(GetMethod(implObj, "GetProvider"), flags, 5)
+        this.vtbl.GetResourceDisplayType := CallbackCreate(ObjBindMethod(implObj, "GetResourceDisplayType"), flags, 2)
+        this.vtbl.GetIDList := CallbackCreate(ObjBindMethod(implObj, "GetIDList"), flags, 2)
+        this.vtbl.GetProvider := CallbackCreate(ObjBindMethod(implObj, "GetProvider"), flags, 5)
     }
 
     Dispose() {

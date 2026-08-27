@@ -70,7 +70,6 @@ export default struct IImePadApplet extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<IMEAPPLETCFG>} lpAppletCfg 
      * @returns {HRESULT} 
      */
@@ -155,11 +154,11 @@ export default struct IImePadApplet extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.Terminate := CallbackCreate(GetMethod(implObj, "Terminate"), flags, 1)
-        this.vtbl.GetAppletConfig := CallbackCreate(GetMethod(implObj, "GetAppletConfig"), flags, 2)
-        this.vtbl.CreateUI := CallbackCreate(GetMethod(implObj, "CreateUI"), flags, 3)
-        this.vtbl.Notify := CallbackCreate(GetMethod(implObj, "Notify"), flags, 5)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.Terminate := CallbackCreate(ObjBindMethod(implObj, "Terminate"), flags, 1)
+        this.vtbl.GetAppletConfig := CallbackCreate(ObjBindMethod(implObj, "GetAppletConfig"), flags, 2)
+        this.vtbl.CreateUI := CallbackCreate(ObjBindMethod(implObj, "CreateUI"), flags, 3)
+        this.vtbl.Notify := CallbackCreate(ObjBindMethod(implObj, "Notify"), flags, 5)
     }
 
     Dispose() {

@@ -43,7 +43,6 @@ export default struct IHTCAttachBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} evt 
      * @returns {HRESULT} 
      */
@@ -53,7 +52,6 @@ export default struct IHTCAttachBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     detachEvent() {
@@ -70,8 +68,8 @@ export default struct IHTCAttachBehavior extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.fireEvent := CallbackCreate(GetMethod(implObj, "fireEvent"), flags, 2)
-        this.vtbl.detachEvent := CallbackCreate(GetMethod(implObj, "detachEvent"), flags, 1)
+        this.vtbl.fireEvent := CallbackCreate(ObjBindMethod(implObj, "fireEvent"), flags, 2)
+        this.vtbl.detachEvent := CallbackCreate(ObjBindMethod(implObj, "detachEvent"), flags, 1)
     }
 
     Dispose() {

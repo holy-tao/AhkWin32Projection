@@ -41,7 +41,6 @@ export default struct IMLangLineBreakConsole extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMLangString} pSrcMLStr 
      * @param {Integer} lSrcPos 
      * @param {Integer} lSrcLen 
@@ -52,15 +51,16 @@ export default struct IMLangLineBreakConsole extends IUnknown {
      * @returns {HRESULT} 
      */
     BreakLineML(pSrcMLStr, lSrcPos, lSrcLen, cMinColumns, cMaxColumns, plLineLen, plSkipLen) {
-        plLineLenMarshal := plLineLen is VarRef ? "int*" : "ptr"
-        plSkipLenMarshal := plSkipLen is VarRef ? "int*" : "ptr"
+        plLineLenMarshal := plLineLen is VarRef ? "int*" : IntPtr
+        plLineLenMarshal := plLineLen == 0 ? IntPtr : "int*"
+        plSkipLenMarshal := plSkipLen is VarRef ? "int*" : IntPtr
+        plSkipLenMarshal := plSkipLen == 0 ? IntPtr : "int*"
 
         result := ComCall(3, this, "ptr", pSrcMLStr, Int32, lSrcPos, Int32, lSrcLen, Int32, cMinColumns, Int32, cMaxColumns, plLineLenMarshal, plLineLen, plSkipLenMarshal, plSkipLen, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} locale 
      * @param {PWSTR} pszSrc 
      * @param {Integer} cchSrc 
@@ -72,15 +72,16 @@ export default struct IMLangLineBreakConsole extends IUnknown {
     BreakLineW(locale, pszSrc, cchSrc, cMaxColumns, pcchLine, pcchSkip) {
         pszSrc := pszSrc is String ? StrPtr(pszSrc) : pszSrc
 
-        pcchLineMarshal := pcchLine is VarRef ? "int*" : "ptr"
-        pcchSkipMarshal := pcchSkip is VarRef ? "int*" : "ptr"
+        pcchLineMarshal := pcchLine is VarRef ? "int*" : IntPtr
+        pcchLineMarshal := pcchLine == 0 ? IntPtr : "int*"
+        pcchSkipMarshal := pcchSkip is VarRef ? "int*" : IntPtr
+        pcchSkipMarshal := pcchSkip == 0 ? IntPtr : "int*"
 
         result := ComCall(4, this, UInt32, locale, "ptr", pszSrc, Int32, cchSrc, Int32, cMaxColumns, pcchLineMarshal, pcchLine, pcchSkipMarshal, pcchSkip, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} locale 
      * @param {Integer} uCodePage 
      * @param {PSTR} pszSrc 
@@ -93,8 +94,10 @@ export default struct IMLangLineBreakConsole extends IUnknown {
     BreakLineA(locale, uCodePage, pszSrc, cchSrc, cMaxColumns, pcchLine, pcchSkip) {
         pszSrc := pszSrc is String ? StrPtr(pszSrc) : pszSrc
 
-        pcchLineMarshal := pcchLine is VarRef ? "int*" : "ptr"
-        pcchSkipMarshal := pcchSkip is VarRef ? "int*" : "ptr"
+        pcchLineMarshal := pcchLine is VarRef ? "int*" : IntPtr
+        pcchLineMarshal := pcchLine == 0 ? IntPtr : "int*"
+        pcchSkipMarshal := pcchSkip is VarRef ? "int*" : IntPtr
+        pcchSkipMarshal := pcchSkip == 0 ? IntPtr : "int*"
 
         result := ComCall(5, this, UInt32, locale, UInt32, uCodePage, "ptr", pszSrc, Int32, cchSrc, Int32, cMaxColumns, pcchLineMarshal, pcchLine, pcchSkipMarshal, pcchSkip, "HRESULT")
         return result
@@ -109,9 +112,9 @@ export default struct IMLangLineBreakConsole extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BreakLineML := CallbackCreate(GetMethod(implObj, "BreakLineML"), flags, 8)
-        this.vtbl.BreakLineW := CallbackCreate(GetMethod(implObj, "BreakLineW"), flags, 7)
-        this.vtbl.BreakLineA := CallbackCreate(GetMethod(implObj, "BreakLineA"), flags, 8)
+        this.vtbl.BreakLineML := CallbackCreate(ObjBindMethod(implObj, "BreakLineML"), flags, 8)
+        this.vtbl.BreakLineW := CallbackCreate(ObjBindMethod(implObj, "BreakLineW"), flags, 7)
+        this.vtbl.BreakLineA := CallbackCreate(ObjBindMethod(implObj, "BreakLineA"), flags, 8)
     }
 
     Dispose() {

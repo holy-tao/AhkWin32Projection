@@ -77,8 +77,8 @@ export default struct ITSGPolicyEngine extends IUnknown {
         clientMachineIP := clientMachineIP is String ? BSTR.Alloc(clientMachineIP).Value : clientMachineIP
         clientMachineName := clientMachineName is String ? BSTR.Alloc(clientMachineName).Value : clientMachineName
 
-        sohDataMarshal := sohData is VarRef ? "char*" : "ptr"
-        cookieDataMarshal := cookieData is VarRef ? "char*" : "ptr"
+        sohDataMarshal := sohData is VarRef ? "char*" : IntPtr
+        cookieDataMarshal := cookieData is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, Guid, mainSessionId, BSTR, username, AAAuthSchemes, authType, BSTR, clientMachineIP, BSTR, clientMachineName, sohDataMarshal, sohData, UInt32, numSOHBytes, cookieDataMarshal, cookieData, UInt32, numCookieBytes, HANDLE_PTR, userToken, "ptr", pSink, "HRESULT")
         return result
@@ -116,7 +116,7 @@ export default struct ITSGPolicyEngine extends IUnknown {
         username := username is String ? BSTR.Alloc(username).Value : username
         operation := operation is String ? BSTR.Alloc(operation).Value : operation
 
-        cookieMarshal := cookie is VarRef ? "char*" : "ptr"
+        cookieMarshal := cookie is VarRef ? "char*" : IntPtr
 
         result := ComCall(4, this, Guid, mainSessionId, Int32, subSessionId, BSTR, username, BSTR.Ptr, resourceNames, UInt32, numResources, BSTR.Ptr, alternateResourceNames, UInt32, numAlternateResourceName, UInt32, portNumber, BSTR, operation, cookieMarshal, cookie, UInt32, numBytesInCookie, "ptr", pSink, "HRESULT")
         return result
@@ -151,10 +151,10 @@ export default struct ITSGPolicyEngine extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AuthorizeConnection := CallbackCreate(GetMethod(implObj, "AuthorizeConnection"), flags, 12)
-        this.vtbl.AuthorizeResource := CallbackCreate(GetMethod(implObj, "AuthorizeResource"), flags, 13)
-        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
-        this.vtbl.IsQuarantineEnabled := CallbackCreate(GetMethod(implObj, "IsQuarantineEnabled"), flags, 2)
+        this.vtbl.AuthorizeConnection := CallbackCreate(ObjBindMethod(implObj, "AuthorizeConnection"), flags, 12)
+        this.vtbl.AuthorizeResource := CallbackCreate(ObjBindMethod(implObj, "AuthorizeResource"), flags, 13)
+        this.vtbl.Refresh := CallbackCreate(ObjBindMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.IsQuarantineEnabled := CallbackCreate(ObjBindMethod(implObj, "IsQuarantineEnabled"), flags, 2)
     }
 
     Dispose() {

@@ -92,8 +92,8 @@ export default struct IDockProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetDockPosition := CallbackCreate(GetMethod(implObj, "SetDockPosition"), flags, 2)
-        this.vtbl.get_DockPosition := CallbackCreate(GetMethod(implObj, "get_DockPosition"), flags, 2)
+        this.vtbl.SetDockPosition := CallbackCreate(ObjBindMethod(implObj, "SetDockPosition"), flags, 2)
+        this.vtbl.get_DockPosition := CallbackCreate(ObjBindMethod(implObj, "get_DockPosition"), flags, 2)
     }
 
     Dispose() {

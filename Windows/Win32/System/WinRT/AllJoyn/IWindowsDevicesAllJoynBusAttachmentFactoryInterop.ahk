@@ -38,7 +38,6 @@ export default struct IWindowsDevicesAllJoynBusAttachmentFactoryInterop extends 
     }
 
     /**
-     * 
      * @param {Integer} win32handle 
      * @param {Integer} enableAboutData 
      * @param {Pointer<Guid>} riid 
@@ -58,7 +57,7 @@ export default struct IWindowsDevicesAllJoynBusAttachmentFactoryInterop extends 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateFromWin32Handle := CallbackCreate(GetMethod(implObj, "CreateFromWin32Handle"), flags, 5)
+        this.vtbl.CreateFromWin32Handle := CallbackCreate(ObjBindMethod(implObj, "CreateFromWin32Handle"), flags, 5)
     }
 
     Dispose() {

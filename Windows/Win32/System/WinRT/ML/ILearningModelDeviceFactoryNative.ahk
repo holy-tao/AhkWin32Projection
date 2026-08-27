@@ -37,7 +37,6 @@ export default struct ILearningModelDeviceFactoryNative extends IUnknown {
     }
 
     /**
-     * 
      * @param {ID3D12CommandQueue} value 
      * @returns {IUnknown} 
      */
@@ -55,7 +54,7 @@ export default struct ILearningModelDeviceFactoryNative extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateFromD3D12CommandQueue := CallbackCreate(GetMethod(implObj, "CreateFromD3D12CommandQueue"), flags, 3)
+        this.vtbl.CreateFromD3D12CommandQueue := CallbackCreate(ObjBindMethod(implObj, "CreateFromD3D12CommandQueue"), flags, 3)
     }
 
     Dispose() {

@@ -21,7 +21,6 @@ export default struct HDV_PCI_DEVICE_START {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} deviceContext 
      * @returns {HRESULT} |Parameter|Description|
      * |---|---|---|---|---|---|---|---|
@@ -36,7 +35,8 @@ export default struct HDV_PCI_DEVICE_START {
      * |     |     |
      */
     Call(deviceContext) {
-        deviceContextMarshal := deviceContext is VarRef ? "ptr" : "ptr"
+        deviceContextMarshal := deviceContext is VarRef ? "ptr" : IntPtr
+        deviceContextMarshal := deviceContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, deviceContextMarshal, deviceContext, "HRESULT")
         return result

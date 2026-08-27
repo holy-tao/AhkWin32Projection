@@ -19,7 +19,6 @@ export default struct PNS_HELPER_START_FN {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pguidParent 
      * @param {Integer} dwVersion 
      * @returns {Integer} 

@@ -19,14 +19,13 @@ export default struct PROTOCOL_CM_MODIFY_QOS_CALL {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} CallMgrVcContext 
      * @param {Pointer<CO_CALL_PARAMETERS>} CallParameters 
      * @returns {Integer} 
      */
     Call(CallMgrVcContext, CallParameters) {
-        CallMgrVcContextMarshal := CallMgrVcContext is VarRef ? "ptr" : "ptr"
-        CallParametersMarshal := CallParameters is VarRef ? "ptr*" : "ptr"
+        CallMgrVcContextMarshal := CallMgrVcContext is VarRef ? "ptr" : IntPtr
+        CallParametersMarshal := CallParameters is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, CallMgrVcContextMarshal, CallMgrVcContext, CallParametersMarshal, CallParameters, Int32)
         return result

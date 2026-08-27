@@ -21,7 +21,6 @@ export default struct PFN_PRINTING_XCVOPENPORT {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @param {Integer} param1 
      * @param {Pointer<HANDLE>} param2 

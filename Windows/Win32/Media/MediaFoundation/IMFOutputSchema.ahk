@@ -84,9 +84,9 @@ export default struct IMFOutputSchema extends IMFAttributes {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSchemaType := CallbackCreate(GetMethod(implObj, "GetSchemaType"), flags, 2)
-        this.vtbl.GetConfigurationData := CallbackCreate(GetMethod(implObj, "GetConfigurationData"), flags, 2)
-        this.vtbl.GetOriginatorID := CallbackCreate(GetMethod(implObj, "GetOriginatorID"), flags, 2)
+        this.vtbl.GetSchemaType := CallbackCreate(ObjBindMethod(implObj, "GetSchemaType"), flags, 2)
+        this.vtbl.GetConfigurationData := CallbackCreate(ObjBindMethod(implObj, "GetConfigurationData"), flags, 2)
+        this.vtbl.GetOriginatorID := CallbackCreate(ObjBindMethod(implObj, "GetOriginatorID"), flags, 2)
     }
 
     Dispose() {

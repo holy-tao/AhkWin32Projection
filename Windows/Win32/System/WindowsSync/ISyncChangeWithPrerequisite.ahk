@@ -71,8 +71,8 @@ export default struct ISyncChangeWithPrerequisite extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPrerequisiteKnowledge := CallbackCreate(GetMethod(implObj, "GetPrerequisiteKnowledge"), flags, 2)
-        this.vtbl.GetLearnedKnowledgeWithPrerequisite := CallbackCreate(GetMethod(implObj, "GetLearnedKnowledgeWithPrerequisite"), flags, 3)
+        this.vtbl.GetPrerequisiteKnowledge := CallbackCreate(ObjBindMethod(implObj, "GetPrerequisiteKnowledge"), flags, 2)
+        this.vtbl.GetLearnedKnowledgeWithPrerequisite := CallbackCreate(ObjBindMethod(implObj, "GetLearnedKnowledgeWithPrerequisite"), flags, 3)
     }
 
     Dispose() {

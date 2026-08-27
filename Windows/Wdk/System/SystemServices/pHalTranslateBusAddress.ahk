@@ -20,7 +20,6 @@ export default struct pHalTranslateBusAddress {
     }
 
     /**
-     * 
      * @param {INTERFACE_TYPE} InterfaceType 
      * @param {Integer} BusNumber 
      * @param {Integer} BusAddress 
@@ -29,8 +28,8 @@ export default struct pHalTranslateBusAddress {
      * @returns {BOOLEAN} 
      */
     Call(InterfaceType, BusNumber, BusAddress, AddressSpace, TranslatedAddress) {
-        AddressSpaceMarshal := AddressSpace is VarRef ? "uint*" : "ptr"
-        TranslatedAddressMarshal := TranslatedAddress is VarRef ? "int64*" : "ptr"
+        AddressSpaceMarshal := AddressSpace is VarRef ? "uint*" : IntPtr
+        TranslatedAddressMarshal := TranslatedAddress is VarRef ? "int64*" : IntPtr
 
         result := DllCall(this.value, INTERFACE_TYPE, InterfaceType, UInt32, BusNumber, Int64, BusAddress, AddressSpaceMarshal, AddressSpace, TranslatedAddressMarshal, TranslatedAddress, BOOLEAN)
         return result

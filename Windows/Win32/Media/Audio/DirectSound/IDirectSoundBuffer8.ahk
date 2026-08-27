@@ -39,18 +39,18 @@ export default struct IDirectSoundBuffer8 extends IDirectSoundBuffer {
     }
 
     /**
-     * 
      * @param {Integer} dwEffectsCount 
      * @param {Pointer<DSEFFECTDESC>} pDSFXDesc 
      * @returns {Integer} 
      */
     SetFX(dwEffectsCount, pDSFXDesc) {
-        result := ComCall(21, this, UInt32, dwEffectsCount, DSEFFECTDESC.Ptr, pDSFXDesc, "uint*", &pdwResultCodes := 0, "HRESULT")
+        pDSFXDescMarshal := pDSFXDesc == 0 ? IntPtr : DSEFFECTDESC.Ptr
+
+        result := ComCall(21, this, UInt32, dwEffectsCount, pDSFXDescMarshal, pDSFXDesc, "uint*", &pdwResultCodes := 0, "HRESULT")
         return pdwResultCodes
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @param {Integer} dwEffectsCount 
      * @returns {Integer} 
@@ -61,7 +61,6 @@ export default struct IDirectSoundBuffer8 extends IDirectSoundBuffer {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rguidObject 
      * @param {Integer} dwIndex 
      * @param {Pointer<Guid>} rguidInterface 
@@ -81,9 +80,9 @@ export default struct IDirectSoundBuffer8 extends IDirectSoundBuffer {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetFX := CallbackCreate(GetMethod(implObj, "SetFX"), flags, 4)
-        this.vtbl.AcquireResources := CallbackCreate(GetMethod(implObj, "AcquireResources"), flags, 4)
-        this.vtbl.GetObjectInPath := CallbackCreate(GetMethod(implObj, "GetObjectInPath"), flags, 5)
+        this.vtbl.SetFX := CallbackCreate(ObjBindMethod(implObj, "SetFX"), flags, 4)
+        this.vtbl.AcquireResources := CallbackCreate(ObjBindMethod(implObj, "AcquireResources"), flags, 4)
+        this.vtbl.GetObjectInPath := CallbackCreate(ObjBindMethod(implObj, "GetObjectInPath"), flags, 5)
     }
 
     Dispose() {

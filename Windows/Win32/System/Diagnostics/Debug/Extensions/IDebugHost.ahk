@@ -40,7 +40,6 @@ export default struct IDebugHost extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     GetHostDefinedInterface() {
@@ -49,7 +48,6 @@ export default struct IDebugHost extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugHostContext} 
      */
     GetCurrentContext() {
@@ -58,7 +56,6 @@ export default struct IDebugHost extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IKeyStore} 
      */
     GetDefaultMetadata() {
@@ -75,9 +72,9 @@ export default struct IDebugHost extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetHostDefinedInterface := CallbackCreate(GetMethod(implObj, "GetHostDefinedInterface"), flags, 2)
-        this.vtbl.GetCurrentContext := CallbackCreate(GetMethod(implObj, "GetCurrentContext"), flags, 2)
-        this.vtbl.GetDefaultMetadata := CallbackCreate(GetMethod(implObj, "GetDefaultMetadata"), flags, 2)
+        this.vtbl.GetHostDefinedInterface := CallbackCreate(ObjBindMethod(implObj, "GetHostDefinedInterface"), flags, 2)
+        this.vtbl.GetCurrentContext := CallbackCreate(ObjBindMethod(implObj, "GetCurrentContext"), flags, 2)
+        this.vtbl.GetDefaultMetadata := CallbackCreate(ObjBindMethod(implObj, "GetDefaultMetadata"), flags, 2)
     }
 
     Dispose() {

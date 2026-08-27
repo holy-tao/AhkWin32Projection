@@ -100,9 +100,9 @@ export default struct IWICDdsEncoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicddsencoder-createnewframe
      */
     CreateNewFrame(ppIFrameEncode, pArrayIndex, pMipLevel, pSliceIndex) {
-        pArrayIndexMarshal := pArrayIndex is VarRef ? "uint*" : "ptr"
-        pMipLevelMarshal := pMipLevel is VarRef ? "uint*" : "ptr"
-        pSliceIndexMarshal := pSliceIndex is VarRef ? "uint*" : "ptr"
+        pArrayIndexMarshal := pArrayIndex is VarRef ? "uint*" : IntPtr
+        pMipLevelMarshal := pMipLevel is VarRef ? "uint*" : IntPtr
+        pSliceIndexMarshal := pSliceIndex is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, IWICBitmapFrameEncode.Ptr, ppIFrameEncode, pArrayIndexMarshal, pArrayIndex, pMipLevelMarshal, pMipLevel, pSliceIndexMarshal, pSliceIndex, "HRESULT")
         return result
@@ -117,9 +117,9 @@ export default struct IWICDdsEncoder extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetParameters := CallbackCreate(GetMethod(implObj, "SetParameters"), flags, 2)
-        this.vtbl.GetParameters := CallbackCreate(GetMethod(implObj, "GetParameters"), flags, 2)
-        this.vtbl.CreateNewFrame := CallbackCreate(GetMethod(implObj, "CreateNewFrame"), flags, 5)
+        this.vtbl.SetParameters := CallbackCreate(ObjBindMethod(implObj, "SetParameters"), flags, 2)
+        this.vtbl.GetParameters := CallbackCreate(ObjBindMethod(implObj, "GetParameters"), flags, 2)
+        this.vtbl.CreateNewFrame := CallbackCreate(ObjBindMethod(implObj, "CreateNewFrame"), flags, 5)
     }
 
     Dispose() {

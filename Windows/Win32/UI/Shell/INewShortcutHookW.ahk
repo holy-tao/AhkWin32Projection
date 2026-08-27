@@ -71,7 +71,9 @@ export default struct INewShortcutHookW extends IUnknown {
     SetReferent(pcszReferent, _hwnd) {
         pcszReferent := pcszReferent is String ? StrPtr(pcszReferent) : pcszReferent
 
-        result := ComCall(3, this, "ptr", pcszReferent, HWND, _hwnd, "HRESULT")
+        _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+
+        result := ComCall(3, this, "ptr", pcszReferent, _hwndMarshal, _hwnd, "HRESULT")
         return result
     }
 
@@ -181,12 +183,12 @@ export default struct INewShortcutHookW extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetReferent := CallbackCreate(GetMethod(implObj, "SetReferent"), flags, 3)
-        this.vtbl.GetReferent := CallbackCreate(GetMethod(implObj, "GetReferent"), flags, 3)
-        this.vtbl.SetFolder := CallbackCreate(GetMethod(implObj, "SetFolder"), flags, 2)
-        this.vtbl.GetFolder := CallbackCreate(GetMethod(implObj, "GetFolder"), flags, 3)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 3)
-        this.vtbl.GetExtension := CallbackCreate(GetMethod(implObj, "GetExtension"), flags, 3)
+        this.vtbl.SetReferent := CallbackCreate(ObjBindMethod(implObj, "SetReferent"), flags, 3)
+        this.vtbl.GetReferent := CallbackCreate(ObjBindMethod(implObj, "GetReferent"), flags, 3)
+        this.vtbl.SetFolder := CallbackCreate(ObjBindMethod(implObj, "SetFolder"), flags, 2)
+        this.vtbl.GetFolder := CallbackCreate(ObjBindMethod(implObj, "GetFolder"), flags, 3)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 3)
+        this.vtbl.GetExtension := CallbackCreate(ObjBindMethod(implObj, "GetExtension"), flags, 3)
     }
 
     Dispose() {

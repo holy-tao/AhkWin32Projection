@@ -19,7 +19,6 @@ export default struct PCLUSAPI_CLUSTER_GET_ENUM_COUNT_EX {
     }
 
     /**
-     * 
      * @param {HCLUSENUMEX} hClusterEnum 
      * @returns {Integer} 
      */

@@ -92,10 +92,10 @@ export default struct IESIsdbCasResponseEvent extends IESEvent {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRequestId := CallbackCreate(GetMethod(implObj, "GetRequestId"), flags, 2)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
-        this.vtbl.GetDataLength := CallbackCreate(GetMethod(implObj, "GetDataLength"), flags, 2)
-        this.vtbl.GetResponseData := CallbackCreate(GetMethod(implObj, "GetResponseData"), flags, 2)
+        this.vtbl.GetRequestId := CallbackCreate(ObjBindMethod(implObj, "GetRequestId"), flags, 2)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.GetDataLength := CallbackCreate(ObjBindMethod(implObj, "GetDataLength"), flags, 2)
+        this.vtbl.GetResponseData := CallbackCreate(ObjBindMethod(implObj, "GetResponseData"), flags, 2)
     }
 
     Dispose() {

@@ -78,8 +78,8 @@ export default struct IDXGISwapChainMedia extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgiswapchainmedia-checkpresentdurationsupport
      */
     CheckPresentDurationSupport(DesiredPresentDuration, pClosestSmallerPresentDuration, pClosestLargerPresentDuration) {
-        pClosestSmallerPresentDurationMarshal := pClosestSmallerPresentDuration is VarRef ? "uint*" : "ptr"
-        pClosestLargerPresentDurationMarshal := pClosestLargerPresentDuration is VarRef ? "uint*" : "ptr"
+        pClosestSmallerPresentDurationMarshal := pClosestSmallerPresentDuration is VarRef ? "uint*" : IntPtr
+        pClosestLargerPresentDurationMarshal := pClosestLargerPresentDuration is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, UInt32, DesiredPresentDuration, pClosestSmallerPresentDurationMarshal, pClosestSmallerPresentDuration, pClosestLargerPresentDurationMarshal, pClosestLargerPresentDuration, "HRESULT")
         return result
@@ -94,9 +94,9 @@ export default struct IDXGISwapChainMedia extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFrameStatisticsMedia := CallbackCreate(GetMethod(implObj, "GetFrameStatisticsMedia"), flags, 2)
-        this.vtbl.SetPresentDuration := CallbackCreate(GetMethod(implObj, "SetPresentDuration"), flags, 2)
-        this.vtbl.CheckPresentDurationSupport := CallbackCreate(GetMethod(implObj, "CheckPresentDurationSupport"), flags, 4)
+        this.vtbl.GetFrameStatisticsMedia := CallbackCreate(ObjBindMethod(implObj, "GetFrameStatisticsMedia"), flags, 2)
+        this.vtbl.SetPresentDuration := CallbackCreate(ObjBindMethod(implObj, "SetPresentDuration"), flags, 2)
+        this.vtbl.CheckPresentDurationSupport := CallbackCreate(ObjBindMethod(implObj, "CheckPresentDurationSupport"), flags, 4)
     }
 
     Dispose() {

@@ -87,7 +87,7 @@ export default struct IStrokeBuilder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istrokebuilder-createstroke
      */
     CreateStroke(cPktBuffLength, pPackets, cPacketProperties, pPacketProperties, fInkToDeviceScaleX, fInkToDeviceScaleY, ppIInkStroke) {
-        pPacketsMarshal := pPackets is VarRef ? "int*" : "ptr"
+        pPacketsMarshal := pPackets is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, UInt32, cPktBuffLength, pPacketsMarshal, pPackets, UInt32, cPacketProperties, PACKET_PROPERTY.Ptr, pPacketProperties, Float32, fInkToDeviceScaleX, Float32, fInkToDeviceScaleY, IInkStrokeDisp.Ptr, ppIInkStroke, "HRESULT")
         return result
@@ -109,9 +109,10 @@ export default struct IStrokeBuilder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istrokebuilder-beginstroke
      */
     BeginStroke(tcid, _sid, pPacket, cPacketProperties, pPacketProperties, fInkToDeviceScaleX, fInkToDeviceScaleY, ppIInkStroke) {
-        pPacketMarshal := pPacket is VarRef ? "int*" : "ptr"
+        pPacketMarshal := pPacket is VarRef ? "int*" : IntPtr
+        ppIInkStrokeMarshal := ppIInkStroke == 0 ? IntPtr : IInkStrokeDisp.Ptr
 
-        result := ComCall(4, this, UInt32, tcid, UInt32, _sid, pPacketMarshal, pPacket, UInt32, cPacketProperties, PACKET_PROPERTY.Ptr, pPacketProperties, Float32, fInkToDeviceScaleX, Float32, fInkToDeviceScaleY, IInkStrokeDisp.Ptr, ppIInkStroke, "HRESULT")
+        result := ComCall(4, this, UInt32, tcid, UInt32, _sid, pPacketMarshal, pPacket, UInt32, cPacketProperties, PACKET_PROPERTY.Ptr, pPacketProperties, Float32, fInkToDeviceScaleX, Float32, fInkToDeviceScaleY, ppIInkStrokeMarshal, ppIInkStroke, "HRESULT")
         return result
     }
 
@@ -130,7 +131,7 @@ export default struct IStrokeBuilder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istrokebuilder-appendpackets
      */
     AppendPackets(tcid, _sid, cPktBuffLength, pPackets) {
-        pPacketsMarshal := pPackets is VarRef ? "int*" : "ptr"
+        pPacketsMarshal := pPackets is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, UInt32, tcid, UInt32, _sid, UInt32, cPktBuffLength, pPacketsMarshal, pPackets, "HRESULT")
         return result
@@ -163,12 +164,13 @@ export default struct IStrokeBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {IInkDisp} piInkObj 
      * @returns {HRESULT} 
      */
     putref_Ink(piInkObj) {
-        result := ComCall(8, this, "ptr", piInkObj, "HRESULT")
+        piInkObjMarshal := piInkObj == 0 ? IntPtr : "ptr"
+
+        result := ComCall(8, this, piInkObjMarshal, piInkObj, "HRESULT")
         return result
     }
 
@@ -181,12 +183,12 @@ export default struct IStrokeBuilder extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateStroke := CallbackCreate(GetMethod(implObj, "CreateStroke"), flags, 8)
-        this.vtbl.BeginStroke := CallbackCreate(GetMethod(implObj, "BeginStroke"), flags, 9)
-        this.vtbl.AppendPackets := CallbackCreate(GetMethod(implObj, "AppendPackets"), flags, 5)
-        this.vtbl.EndStroke := CallbackCreate(GetMethod(implObj, "EndStroke"), flags, 5)
-        this.vtbl.get_Ink := CallbackCreate(GetMethod(implObj, "get_Ink"), flags, 2)
-        this.vtbl.putref_Ink := CallbackCreate(GetMethod(implObj, "putref_Ink"), flags, 2)
+        this.vtbl.CreateStroke := CallbackCreate(ObjBindMethod(implObj, "CreateStroke"), flags, 8)
+        this.vtbl.BeginStroke := CallbackCreate(ObjBindMethod(implObj, "BeginStroke"), flags, 9)
+        this.vtbl.AppendPackets := CallbackCreate(ObjBindMethod(implObj, "AppendPackets"), flags, 5)
+        this.vtbl.EndStroke := CallbackCreate(ObjBindMethod(implObj, "EndStroke"), flags, 5)
+        this.vtbl.get_Ink := CallbackCreate(ObjBindMethod(implObj, "get_Ink"), flags, 2)
+        this.vtbl.putref_Ink := CallbackCreate(ObjBindMethod(implObj, "putref_Ink"), flags, 2)
     }
 
     Dispose() {

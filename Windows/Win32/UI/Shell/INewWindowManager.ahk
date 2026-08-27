@@ -131,7 +131,7 @@ export default struct INewWindowManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EvaluateNewWindow := CallbackCreate(GetMethod(implObj, "EvaluateNewWindow"), flags, 8)
+        this.vtbl.EvaluateNewWindow := CallbackCreate(ObjBindMethod(implObj, "EvaluateNewWindow"), flags, 8)
     }
 
     Dispose() {

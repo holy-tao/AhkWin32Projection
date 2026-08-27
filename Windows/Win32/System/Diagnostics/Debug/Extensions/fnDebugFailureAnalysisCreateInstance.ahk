@@ -22,7 +22,6 @@ export default struct fnDebugFailureAnalysisCreateInstance {
     }
 
     /**
-     * 
      * @param {IDebugClient} Client 
      * @param {PWSTR} Args 
      * @param {Integer} Flags 
@@ -33,7 +32,11 @@ export default struct fnDebugFailureAnalysisCreateInstance {
     Call(Client, Args, Flags, rclsid, riid) {
         Args := Args is String ? StrPtr(Args) : Args
 
-        result := DllCall(this.value, "ptr", Client, "ptr", Args, UInt32, Flags, Guid.Ptr, rclsid, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        ArgsMarshal := Args == 0 ? IntPtr : PWSTR
+        FlagsMarshal := Flags == 0 ? IntPtr : UInt32
+        rclsidMarshal := rclsid == 0 ? IntPtr : Guid.Ptr
+
+        result := DllCall(this.value, "ptr", Client, ArgsMarshal, Args, FlagsMarshal, Flags, rclsidMarshal, rclsid, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 

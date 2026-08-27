@@ -36,7 +36,6 @@ export default struct ILearningModelSessionOptionsNative extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} intraOpNumThreads 
      * @returns {HRESULT} 
      */
@@ -54,7 +53,7 @@ export default struct ILearningModelSessionOptionsNative extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetIntraOpNumThreadsOverride := CallbackCreate(GetMethod(implObj, "SetIntraOpNumThreadsOverride"), flags, 2)
+        this.vtbl.SetIntraOpNumThreadsOverride := CallbackCreate(ObjBindMethod(implObj, "SetIntraOpNumThreadsOverride"), flags, 2)
     }
 
     Dispose() {

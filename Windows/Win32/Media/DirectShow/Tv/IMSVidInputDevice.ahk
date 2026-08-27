@@ -81,8 +81,8 @@ export default struct IMSVidInputDevice extends IMSVidDevice {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsViewable := CallbackCreate(GetMethod(implObj, "IsViewable"), flags, 3)
-        this.vtbl.View := CallbackCreate(GetMethod(implObj, "View"), flags, 2)
+        this.vtbl.IsViewable := CallbackCreate(ObjBindMethod(implObj, "IsViewable"), flags, 3)
+        this.vtbl.View := CallbackCreate(ObjBindMethod(implObj, "View"), flags, 2)
     }
 
     Dispose() {

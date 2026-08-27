@@ -45,7 +45,6 @@ export default struct IDataModelScriptManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDataModelNameBinder} 
      */
     GetDefaultNameBinder() {
@@ -54,7 +53,6 @@ export default struct IDataModelScriptManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDataModelScriptProvider} provider 
      * @returns {HRESULT} 
      */
@@ -64,7 +62,6 @@ export default struct IDataModelScriptManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDataModelScriptProvider} provider 
      * @returns {HRESULT} 
      */
@@ -74,7 +71,6 @@ export default struct IDataModelScriptManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} scriptType 
      * @returns {IDataModelScriptProvider} 
      */
@@ -86,7 +82,6 @@ export default struct IDataModelScriptManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} scriptExtension 
      * @returns {IDataModelScriptProvider} 
      */
@@ -98,7 +93,6 @@ export default struct IDataModelScriptManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDataModelScriptProviderEnumerator} 
      */
     EnumerateScriptProviders() {
@@ -115,12 +109,12 @@ export default struct IDataModelScriptManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDefaultNameBinder := CallbackCreate(GetMethod(implObj, "GetDefaultNameBinder"), flags, 2)
-        this.vtbl.RegisterScriptProvider := CallbackCreate(GetMethod(implObj, "RegisterScriptProvider"), flags, 2)
-        this.vtbl.UnregisterScriptProvider := CallbackCreate(GetMethod(implObj, "UnregisterScriptProvider"), flags, 2)
-        this.vtbl.FindProviderForScriptType := CallbackCreate(GetMethod(implObj, "FindProviderForScriptType"), flags, 3)
-        this.vtbl.FindProviderForScriptExtension := CallbackCreate(GetMethod(implObj, "FindProviderForScriptExtension"), flags, 3)
-        this.vtbl.EnumerateScriptProviders := CallbackCreate(GetMethod(implObj, "EnumerateScriptProviders"), flags, 2)
+        this.vtbl.GetDefaultNameBinder := CallbackCreate(ObjBindMethod(implObj, "GetDefaultNameBinder"), flags, 2)
+        this.vtbl.RegisterScriptProvider := CallbackCreate(ObjBindMethod(implObj, "RegisterScriptProvider"), flags, 2)
+        this.vtbl.UnregisterScriptProvider := CallbackCreate(ObjBindMethod(implObj, "UnregisterScriptProvider"), flags, 2)
+        this.vtbl.FindProviderForScriptType := CallbackCreate(ObjBindMethod(implObj, "FindProviderForScriptType"), flags, 3)
+        this.vtbl.FindProviderForScriptExtension := CallbackCreate(ObjBindMethod(implObj, "FindProviderForScriptExtension"), flags, 3)
+        this.vtbl.EnumerateScriptProviders := CallbackCreate(ObjBindMethod(implObj, "EnumerateScriptProviders"), flags, 2)
     }
 
     Dispose() {

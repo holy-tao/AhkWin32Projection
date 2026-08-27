@@ -55,9 +55,9 @@ export default struct IWMClientConnections2 extends IWMClientConnections {
         pwszPort := pwszPort is String ? StrPtr(pwszPort) : pwszPort
         pwszDNSName := pwszDNSName is String ? StrPtr(pwszDNSName) : pwszDNSName
 
-        pcchNetworkAddressMarshal := pcchNetworkAddress is VarRef ? "uint*" : "ptr"
-        pcchPortMarshal := pcchPort is VarRef ? "uint*" : "ptr"
-        pcchDNSNameMarshal := pcchDNSName is VarRef ? "uint*" : "ptr"
+        pcchNetworkAddressMarshal := pcchNetworkAddress is VarRef ? "uint*" : IntPtr
+        pcchPortMarshal := pcchPort is VarRef ? "uint*" : IntPtr
+        pcchDNSNameMarshal := pcchDNSName is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, UInt32, dwClientNum, "ptr", pwszNetworkAddress, pcchNetworkAddressMarshal, pcchNetworkAddress, "ptr", pwszPort, pcchPortMarshal, pcchPort, "ptr", pwszDNSName, pcchDNSNameMarshal, pcchDNSName, "HRESULT")
         return result
@@ -72,7 +72,7 @@ export default struct IWMClientConnections2 extends IWMClientConnections {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetClientInfo := CallbackCreate(GetMethod(implObj, "GetClientInfo"), flags, 8)
+        this.vtbl.GetClientInfo := CallbackCreate(ObjBindMethod(implObj, "GetClientInfo"), flags, 8)
     }
 
     Dispose() {

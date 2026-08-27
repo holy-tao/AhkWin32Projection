@@ -20,13 +20,13 @@ export default struct PFLT_COMPLETE_LOCK_CALLBACK_DATA_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @returns {NTSTATUS} 
      */
     Call(_Context, CallbackData) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, FLT_CALLBACK_DATA.Ptr, CallbackData, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

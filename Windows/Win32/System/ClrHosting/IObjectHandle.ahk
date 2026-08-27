@@ -37,7 +37,6 @@ export default struct IObjectHandle extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     Unwrap() {
@@ -55,7 +54,7 @@ export default struct IObjectHandle extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Unwrap := CallbackCreate(GetMethod(implObj, "Unwrap"), flags, 2)
+        this.vtbl.Unwrap := CallbackCreate(ObjBindMethod(implObj, "Unwrap"), flags, 2)
     }
 
     Dispose() {

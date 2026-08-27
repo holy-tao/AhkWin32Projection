@@ -39,7 +39,6 @@ export default struct IDBSchemaRowset extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<Guid>} rguidSchema 
      * @param {Integer} cRestrictions 
@@ -50,21 +49,24 @@ export default struct IDBSchemaRowset extends IUnknown {
      * @returns {IUnknown} 
      */
     GetRowset(pUnkOuter, rguidSchema, cRestrictions, rgRestrictions, riid, cPropertySets, rgPropertySets) {
-        result := ComCall(3, this, "ptr", pUnkOuter, Guid.Ptr, rguidSchema, UInt32, cRestrictions, VARIANT.Ptr, rgRestrictions, Guid.Ptr, riid, UInt32, cPropertySets, DBPROPSET.Ptr, rgPropertySets, "ptr*", &ppRowset := 0, "HRESULT")
+        pUnkOuterMarshal := pUnkOuter == 0 ? IntPtr : "ptr"
+        rgRestrictionsMarshal := rgRestrictions == 0 ? IntPtr : VARIANT.Ptr
+        rgPropertySetsMarshal := rgPropertySets == 0 ? IntPtr : DBPROPSET.Ptr
+
+        result := ComCall(3, this, pUnkOuterMarshal, pUnkOuter, Guid.Ptr, rguidSchema, UInt32, cRestrictions, rgRestrictionsMarshal, rgRestrictions, Guid.Ptr, riid, UInt32, cPropertySets, rgPropertySetsMarshal, rgPropertySets, "ptr*", &ppRowset := 0, "HRESULT")
         return IUnknown(ppRowset)
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcSchemas 
      * @param {Pointer<Pointer<Guid>>} prgSchemas 
      * @param {Pointer<Pointer<Integer>>} prgRestrictionSupport 
      * @returns {HRESULT} 
      */
     GetSchemas(pcSchemas, prgSchemas, prgRestrictionSupport) {
-        pcSchemasMarshal := pcSchemas is VarRef ? "uint*" : "ptr"
-        prgSchemasMarshal := prgSchemas is VarRef ? "ptr*" : "ptr"
-        prgRestrictionSupportMarshal := prgRestrictionSupport is VarRef ? "ptr*" : "ptr"
+        pcSchemasMarshal := pcSchemas is VarRef ? "uint*" : IntPtr
+        prgSchemasMarshal := prgSchemas is VarRef ? "ptr*" : IntPtr
+        prgRestrictionSupportMarshal := prgRestrictionSupport is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, pcSchemasMarshal, pcSchemas, prgSchemasMarshal, prgSchemas, prgRestrictionSupportMarshal, prgRestrictionSupport, "HRESULT")
         return result
@@ -79,8 +81,8 @@ export default struct IDBSchemaRowset extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRowset := CallbackCreate(GetMethod(implObj, "GetRowset"), flags, 9)
-        this.vtbl.GetSchemas := CallbackCreate(GetMethod(implObj, "GetSchemas"), flags, 4)
+        this.vtbl.GetRowset := CallbackCreate(ObjBindMethod(implObj, "GetRowset"), flags, 9)
+        this.vtbl.GetSchemas := CallbackCreate(ObjBindMethod(implObj, "GetSchemas"), flags, 4)
     }
 
     Dispose() {

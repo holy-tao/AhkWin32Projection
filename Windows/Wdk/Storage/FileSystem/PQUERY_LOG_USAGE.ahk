@@ -18,14 +18,13 @@ export default struct PQUERY_LOG_USAGE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} LogHandle 
      * @param {Pointer<Integer>} PercentageFull 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(LogHandle, PercentageFull) {
-        LogHandleMarshal := LogHandle is VarRef ? "ptr" : "ptr"
-        PercentageFullMarshal := PercentageFull is VarRef ? "ushort*" : "ptr"
+        LogHandleMarshal := LogHandle is VarRef ? "ptr" : IntPtr
+        PercentageFullMarshal := PercentageFull is VarRef ? "ushort*" : IntPtr
 
         DllCall(this.value, LogHandleMarshal, LogHandle, PercentageFullMarshal, PercentageFull)
     }

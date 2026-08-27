@@ -19,16 +19,15 @@ export default struct FNCERTSRVRESTOREGETDATABASELOCATIONSW {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hbc 
      * @param {Pointer<Pointer<Integer>>} ppwszzDatabaseLocationList 
      * @param {Pointer<Integer>} pcbSize 
      * @returns {HRESULT} 
      */
     Call(hbc, ppwszzDatabaseLocationList, pcbSize) {
-        hbcMarshal := hbc is VarRef ? "ptr" : "ptr"
-        ppwszzDatabaseLocationListMarshal := ppwszzDatabaseLocationList is VarRef ? "ptr*" : "ptr"
-        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+        hbcMarshal := hbc is VarRef ? "ptr" : IntPtr
+        ppwszzDatabaseLocationListMarshal := ppwszzDatabaseLocationList is VarRef ? "ptr*" : IntPtr
+        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, hbcMarshal, hbc, ppwszzDatabaseLocationListMarshal, ppwszzDatabaseLocationList, pcbSizeMarshal, pcbSize, "HRESULT")
         return result

@@ -19,7 +19,6 @@ export default struct BOUND_CALLBACK {
     }
 
     /**
-     * 
      * @returns {BOUND_CALLBACK_STATUS} 
      */
     Call() {

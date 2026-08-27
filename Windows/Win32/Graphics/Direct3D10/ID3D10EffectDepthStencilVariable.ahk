@@ -87,8 +87,8 @@ export default struct ID3D10EffectDepthStencilVariable extends ID3D10EffectVaria
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDepthStencilState := CallbackCreate(GetMethod(implObj, "GetDepthStencilState"), flags, 3)
-        this.vtbl.GetBackingStore := CallbackCreate(GetMethod(implObj, "GetBackingStore"), flags, 3)
+        this.vtbl.GetDepthStencilState := CallbackCreate(ObjBindMethod(implObj, "GetDepthStencilState"), flags, 3)
+        this.vtbl.GetBackingStore := CallbackCreate(ObjBindMethod(implObj, "GetBackingStore"), flags, 3)
     }
 
     Dispose() {

@@ -19,14 +19,13 @@ export default struct LPWPUCREATESOCKETHANDLE {
     }
 
     /**
-     * 
      * @param {Integer} dwCatalogEntryId 
      * @param {Pointer} dwContext 
      * @param {Pointer<Integer>} lpErrno 
      * @returns {SOCKET} 
      */
     Call(dwCatalogEntryId, dwContext, lpErrno) {
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, UInt32, dwCatalogEntryId, IntPtr, dwContext, lpErrnoMarshal, lpErrno, SOCKET.Owned)
         return result

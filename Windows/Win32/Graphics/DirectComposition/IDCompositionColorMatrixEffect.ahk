@@ -142,11 +142,11 @@ export default struct IDCompositionColorMatrixEffect extends IDCompositionFilter
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetMatrix := CallbackCreate(GetMethod(implObj, "SetMatrix"), flags, 2)
-        this.vtbl.SetMatrixElement := CallbackCreate(GetMethod(implObj, "SetMatrixElement"), flags, 4)
-        this.vtbl.SetMatrixElement1 := CallbackCreate(GetMethod(implObj, "SetMatrixElement1"), flags, 4)
-        this.vtbl.SetAlphaMode := CallbackCreate(GetMethod(implObj, "SetAlphaMode"), flags, 2)
-        this.vtbl.SetClampOutput := CallbackCreate(GetMethod(implObj, "SetClampOutput"), flags, 2)
+        this.vtbl.SetMatrix := CallbackCreate(ObjBindMethod(implObj, "SetMatrix"), flags, 2)
+        this.vtbl.SetMatrixElement := CallbackCreate(ObjBindMethod(implObj, "SetMatrixElement"), flags, 4)
+        this.vtbl.SetMatrixElement1 := CallbackCreate(ObjBindMethod(implObj, "SetMatrixElement1"), flags, 4)
+        this.vtbl.SetAlphaMode := CallbackCreate(ObjBindMethod(implObj, "SetAlphaMode"), flags, 2)
+        this.vtbl.SetClampOutput := CallbackCreate(ObjBindMethod(implObj, "SetClampOutput"), flags, 2)
     }
 
     Dispose() {

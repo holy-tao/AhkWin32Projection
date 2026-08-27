@@ -89,8 +89,8 @@ export default struct IFileSyncMergeHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Merge := CallbackCreate(GetMethod(implObj, "Merge"), flags, 4)
-        this.vtbl.ShowResolveConflictUIAsync := CallbackCreate(GetMethod(implObj, "ShowResolveConflictUIAsync"), flags, 3)
+        this.vtbl.Merge := CallbackCreate(ObjBindMethod(implObj, "Merge"), flags, 4)
+        this.vtbl.ShowResolveConflictUIAsync := CallbackCreate(ObjBindMethod(implObj, "ShowResolveConflictUIAsync"), flags, 3)
     }
 
     Dispose() {

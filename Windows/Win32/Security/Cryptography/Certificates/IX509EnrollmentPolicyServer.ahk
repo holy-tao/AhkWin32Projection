@@ -209,7 +209,9 @@ export default struct IX509EnrollmentPolicyServer extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentpolicyserver-getcasfortemplate
      */
     GetCAsForTemplate(pTemplate) {
-        result := ComCall(10, this, "ptr", pTemplate, "ptr*", &ppCAs := 0, "HRESULT")
+        pTemplateMarshal := pTemplate == 0 ? IntPtr : "ptr"
+
+        result := ComCall(10, this, pTemplateMarshal, pTemplate, "ptr*", &ppCAs := 0, "HRESULT")
         return ICertificationAuthorities(ppCAs)
     }
 
@@ -577,30 +579,30 @@ export default struct IX509EnrollmentPolicyServer extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 6)
-        this.vtbl.LoadPolicy := CallbackCreate(GetMethod(implObj, "LoadPolicy"), flags, 2)
-        this.vtbl.GetTemplates := CallbackCreate(GetMethod(implObj, "GetTemplates"), flags, 2)
-        this.vtbl.GetCAsForTemplate := CallbackCreate(GetMethod(implObj, "GetCAsForTemplate"), flags, 3)
-        this.vtbl.GetCAs := CallbackCreate(GetMethod(implObj, "GetCAs"), flags, 2)
-        this.vtbl.Validate := CallbackCreate(GetMethod(implObj, "Validate"), flags, 1)
-        this.vtbl.GetCustomOids := CallbackCreate(GetMethod(implObj, "GetCustomOids"), flags, 2)
-        this.vtbl.GetNextUpdateTime := CallbackCreate(GetMethod(implObj, "GetNextUpdateTime"), flags, 2)
-        this.vtbl.GetLastUpdateTime := CallbackCreate(GetMethod(implObj, "GetLastUpdateTime"), flags, 2)
-        this.vtbl.GetPolicyServerUrl := CallbackCreate(GetMethod(implObj, "GetPolicyServerUrl"), flags, 2)
-        this.vtbl.GetPolicyServerId := CallbackCreate(GetMethod(implObj, "GetPolicyServerId"), flags, 2)
-        this.vtbl.GetFriendlyName := CallbackCreate(GetMethod(implObj, "GetFriendlyName"), flags, 2)
-        this.vtbl.GetIsDefaultCEP := CallbackCreate(GetMethod(implObj, "GetIsDefaultCEP"), flags, 2)
-        this.vtbl.GetUseClientId := CallbackCreate(GetMethod(implObj, "GetUseClientId"), flags, 2)
-        this.vtbl.GetAllowUnTrustedCA := CallbackCreate(GetMethod(implObj, "GetAllowUnTrustedCA"), flags, 2)
-        this.vtbl.GetCachePath := CallbackCreate(GetMethod(implObj, "GetCachePath"), flags, 2)
-        this.vtbl.GetCacheDir := CallbackCreate(GetMethod(implObj, "GetCacheDir"), flags, 2)
-        this.vtbl.GetAuthFlags := CallbackCreate(GetMethod(implObj, "GetAuthFlags"), flags, 2)
-        this.vtbl.SetCredential := CallbackCreate(GetMethod(implObj, "SetCredential"), flags, 5)
-        this.vtbl.QueryChanges := CallbackCreate(GetMethod(implObj, "QueryChanges"), flags, 2)
-        this.vtbl.InitializeImport := CallbackCreate(GetMethod(implObj, "InitializeImport"), flags, 2)
-        this.vtbl.Export := CallbackCreate(GetMethod(implObj, "Export"), flags, 3)
-        this.vtbl.get_Cost := CallbackCreate(GetMethod(implObj, "get_Cost"), flags, 2)
-        this.vtbl.put_Cost := CallbackCreate(GetMethod(implObj, "put_Cost"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 6)
+        this.vtbl.LoadPolicy := CallbackCreate(ObjBindMethod(implObj, "LoadPolicy"), flags, 2)
+        this.vtbl.GetTemplates := CallbackCreate(ObjBindMethod(implObj, "GetTemplates"), flags, 2)
+        this.vtbl.GetCAsForTemplate := CallbackCreate(ObjBindMethod(implObj, "GetCAsForTemplate"), flags, 3)
+        this.vtbl.GetCAs := CallbackCreate(ObjBindMethod(implObj, "GetCAs"), flags, 2)
+        this.vtbl.Validate := CallbackCreate(ObjBindMethod(implObj, "Validate"), flags, 1)
+        this.vtbl.GetCustomOids := CallbackCreate(ObjBindMethod(implObj, "GetCustomOids"), flags, 2)
+        this.vtbl.GetNextUpdateTime := CallbackCreate(ObjBindMethod(implObj, "GetNextUpdateTime"), flags, 2)
+        this.vtbl.GetLastUpdateTime := CallbackCreate(ObjBindMethod(implObj, "GetLastUpdateTime"), flags, 2)
+        this.vtbl.GetPolicyServerUrl := CallbackCreate(ObjBindMethod(implObj, "GetPolicyServerUrl"), flags, 2)
+        this.vtbl.GetPolicyServerId := CallbackCreate(ObjBindMethod(implObj, "GetPolicyServerId"), flags, 2)
+        this.vtbl.GetFriendlyName := CallbackCreate(ObjBindMethod(implObj, "GetFriendlyName"), flags, 2)
+        this.vtbl.GetIsDefaultCEP := CallbackCreate(ObjBindMethod(implObj, "GetIsDefaultCEP"), flags, 2)
+        this.vtbl.GetUseClientId := CallbackCreate(ObjBindMethod(implObj, "GetUseClientId"), flags, 2)
+        this.vtbl.GetAllowUnTrustedCA := CallbackCreate(ObjBindMethod(implObj, "GetAllowUnTrustedCA"), flags, 2)
+        this.vtbl.GetCachePath := CallbackCreate(ObjBindMethod(implObj, "GetCachePath"), flags, 2)
+        this.vtbl.GetCacheDir := CallbackCreate(ObjBindMethod(implObj, "GetCacheDir"), flags, 2)
+        this.vtbl.GetAuthFlags := CallbackCreate(ObjBindMethod(implObj, "GetAuthFlags"), flags, 2)
+        this.vtbl.SetCredential := CallbackCreate(ObjBindMethod(implObj, "SetCredential"), flags, 5)
+        this.vtbl.QueryChanges := CallbackCreate(ObjBindMethod(implObj, "QueryChanges"), flags, 2)
+        this.vtbl.InitializeImport := CallbackCreate(ObjBindMethod(implObj, "InitializeImport"), flags, 2)
+        this.vtbl.Export := CallbackCreate(ObjBindMethod(implObj, "Export"), flags, 3)
+        this.vtbl.get_Cost := CallbackCreate(ObjBindMethod(implObj, "get_Cost"), flags, 2)
+        this.vtbl.put_Cost := CallbackCreate(ObjBindMethod(implObj, "put_Cost"), flags, 2)
     }
 
     Dispose() {

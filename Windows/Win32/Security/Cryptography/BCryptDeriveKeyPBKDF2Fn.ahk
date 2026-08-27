@@ -20,7 +20,6 @@ export default struct BCryptDeriveKeyPBKDF2Fn {
     }
 
     /**
-     * 
      * @param {BCRYPT_ALG_HANDLE} hPrf 
      * @param {Integer} pbPassword 
      * @param {Integer} cbPassword 
@@ -33,7 +32,9 @@ export default struct BCryptDeriveKeyPBKDF2Fn {
      * @returns {NTSTATUS} 
      */
     Call(hPrf, pbPassword, cbPassword, pbSalt, cbSalt, cIterations, pbDerivedKey, cbDerivedKey, dwFlags) {
-        result := DllCall(this.value, BCRYPT_ALG_HANDLE, hPrf, IntPtr, pbPassword, UInt32, cbPassword, IntPtr, pbSalt, UInt32, cbSalt, Int64, cIterations, IntPtr, pbDerivedKey, UInt32, cbDerivedKey, UInt32, dwFlags, NTSTATUS)
+        pbSaltMarshal := pbSalt == 0 ? IntPtr : IntPtr
+
+        result := DllCall(this.value, BCRYPT_ALG_HANDLE, hPrf, IntPtr, pbPassword, UInt32, cbPassword, pbSaltMarshal, pbSalt, UInt32, cbSalt, Int64, cIterations, IntPtr, pbDerivedKey, UInt32, cbDerivedKey, UInt32, dwFlags, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

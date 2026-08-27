@@ -21,7 +21,6 @@ export default struct PFNBLUETOOTH_GATT_EVENT_CALLBACK {
     }
 
     /**
-     * 
      * @param {BTH_LE_GATT_EVENT_TYPE} EventType The type of GATT event.
      * @param {Pointer<Void>} EventOutParameter Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/bthledef/ns-bthledef-bluetooth_gatt_value_changed_event">BLUETOOTH_GATT_VALUE_CHANGED_EVENT</a> structure.
      * @param {Pointer<Void>} _Context The context specified by the profile driver in the <i>CallbackContext</i> parameter of 
@@ -30,8 +29,9 @@ export default struct PFNBLUETOOTH_GATT_EVENT_CALLBACK {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(EventType, EventOutParameter, _Context) {
-        EventOutParameterMarshal := EventOutParameter is VarRef ? "ptr" : "ptr"
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        EventOutParameterMarshal := EventOutParameter is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, BTH_LE_GATT_EVENT_TYPE, EventType, EventOutParameterMarshal, EventOutParameter, _ContextMarshal, _Context)
     }

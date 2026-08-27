@@ -19,7 +19,6 @@ export default struct PIO_COMPLETION_ROUTINE {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

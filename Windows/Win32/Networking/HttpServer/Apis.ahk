@@ -326,7 +326,11 @@ export HttpCreateHttpHandle(RequestQueueHandle) {
 export HttpCreateRequestQueue(_Version, Name, SecurityAttributes, Flags, RequestQueueHandle) {
     Name := Name is String ? StrPtr(Name) : Name
 
-    result := DllCall("HTTPAPI.dll\HttpCreateRequestQueue", HTTPAPI_VERSION, _Version, "ptr", Name, SECURITY_ATTRIBUTES.Ptr, SecurityAttributes, UInt32, Flags, HTTP_REQUEST_QUEUE_HANDLE.Ptr, RequestQueueHandle, UInt32)
+    NameMarshal := Name == 0 ? IntPtr : PWSTR
+    SecurityAttributesMarshal := SecurityAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    FlagsMarshal := Flags == 0 ? IntPtr : UInt32
+
+    result := DllCall("HTTPAPI.dll\HttpCreateRequestQueue", HTTPAPI_VERSION, _Version, NameMarshal, Name, SecurityAttributesMarshal, SecurityAttributes, FlagsMarshal, Flags, HTTP_REQUEST_QUEUE_HANDLE.Ptr, RequestQueueHandle, UInt32)
     return result
 }
 
@@ -605,9 +609,11 @@ export HttpSetRequestQueueProperty(RequestQueueHandle, _Property, PropertyInform
 export HttpQueryRequestQueueProperty(RequestQueueHandle, _Property, PropertyInformation, PropertyInformationLength, ReturnLength) {
     static Reserved1 := 0, Reserved2 := 0 ;Reserved parameters must always be NULL
 
-    ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
+    PropertyInformationMarshal := PropertyInformation == 0 ? IntPtr : IntPtr
+    ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : IntPtr
+    ReturnLengthMarshal := ReturnLength == 0 ? IntPtr : "uint*"
 
-    result := DllCall("HTTPAPI.dll\HttpQueryRequestQueueProperty", HANDLE, RequestQueueHandle, HTTP_SERVER_PROPERTY, _Property, IntPtr, PropertyInformation, UInt32, PropertyInformationLength, UInt32, Reserved1, ReturnLengthMarshal, ReturnLength, "ptr", Reserved2, UInt32)
+    result := DllCall("HTTPAPI.dll\HttpQueryRequestQueueProperty", HANDLE, RequestQueueHandle, HTTP_SERVER_PROPERTY, _Property, PropertyInformationMarshal, PropertyInformation, UInt32, PropertyInformationLength, UInt32, Reserved1, ReturnLengthMarshal, ReturnLength, "ptr", Reserved2, UInt32)
     return result
 }
 
@@ -635,12 +641,13 @@ export HttpQueryRequestQueueProperty(RequestQueueHandle, _Property, PropertyInfo
  * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpsetrequestproperty
  */
 export HttpSetRequestProperty(RequestQueueHandle, Id, PropertyId, _Input, InputPropertySize, _Overlapped) {
-    result := DllCall("HTTPAPI.dll\HttpSetRequestProperty", HANDLE, RequestQueueHandle, Int64, Id, HTTP_REQUEST_PROPERTY, PropertyId, IntPtr, _Input, UInt32, InputPropertySize, OVERLAPPED.Ptr, _Overlapped, UInt32)
+    _InputMarshal := _Input == 0 ? IntPtr : IntPtr
+
+    result := DllCall("HTTPAPI.dll\HttpSetRequestProperty", HANDLE, RequestQueueHandle, Int64, Id, HTTP_REQUEST_PROPERTY, PropertyId, _InputMarshal, _Input, UInt32, InputPropertySize, OVERLAPPED.Ptr, _Overlapped, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HANDLE} RequestQueueHandle 
  * @param {Integer} Id 
  * @param {HTTP_REQUEST_PROPERTY} PropertyId 
@@ -653,9 +660,13 @@ export HttpSetRequestProperty(RequestQueueHandle, Id, PropertyId, _Input, InputP
  * @returns {Integer} 
  */
 export HttpQueryRequestProperty(RequestQueueHandle, Id, PropertyId, Qualifier, QualifierSize, Output, OutputBufferSize, BytesReturned, _Overlapped) {
-    BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
+    QualifierMarshal := Qualifier == 0 ? IntPtr : IntPtr
+    OutputMarshal := Output == 0 ? IntPtr : IntPtr
+    BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : IntPtr
+    BytesReturnedMarshal := BytesReturned == 0 ? IntPtr : "uint*"
+    _OverlappedMarshal := _Overlapped == 0 ? IntPtr : OVERLAPPED.Ptr
 
-    result := DllCall("HTTPAPI.dll\HttpQueryRequestProperty", HANDLE, RequestQueueHandle, Int64, Id, HTTP_REQUEST_PROPERTY, PropertyId, IntPtr, Qualifier, UInt32, QualifierSize, IntPtr, Output, UInt32, OutputBufferSize, BytesReturnedMarshal, BytesReturned, OVERLAPPED.Ptr, _Overlapped, UInt32)
+    result := DllCall("HTTPAPI.dll\HttpQueryRequestProperty", HANDLE, RequestQueueHandle, Int64, Id, HTTP_REQUEST_PROPERTY, PropertyId, QualifierMarshal, Qualifier, UInt32, QualifierSize, OutputMarshal, Output, UInt32, OutputBufferSize, BytesReturnedMarshal, BytesReturned, _OverlappedMarshal, _Overlapped, UInt32)
     return result
 }
 
@@ -864,9 +875,11 @@ export HttpShutdownRequestQueue(RequestQueueHandle) {
  * @since windows6.0.6000
  */
 export HttpReceiveClientCertificate(RequestQueueHandle, ConnectionId, Flags, SslClientCertInfo, SslClientCertInfoSize, BytesReceived, _Overlapped) {
-    BytesReceivedMarshal := BytesReceived is VarRef ? "uint*" : "ptr"
+    BytesReceivedMarshal := BytesReceived is VarRef ? "uint*" : IntPtr
+    BytesReceivedMarshal := BytesReceived == 0 ? IntPtr : "uint*"
+    _OverlappedMarshal := _Overlapped == 0 ? IntPtr : OVERLAPPED.Ptr
 
-    result := DllCall("HTTPAPI.dll\HttpReceiveClientCertificate", HANDLE, RequestQueueHandle, Int64, ConnectionId, UInt32, Flags, IntPtr, SslClientCertInfo, UInt32, SslClientCertInfoSize, BytesReceivedMarshal, BytesReceived, OVERLAPPED.Ptr, _Overlapped, UInt32)
+    result := DllCall("HTTPAPI.dll\HttpReceiveClientCertificate", HANDLE, RequestQueueHandle, Int64, ConnectionId, UInt32, Flags, IntPtr, SslClientCertInfo, UInt32, SslClientCertInfoSize, BytesReceivedMarshal, BytesReceived, _OverlappedMarshal, _Overlapped, UInt32)
     return result
 }
 
@@ -920,7 +933,7 @@ export HttpReceiveClientCertificate(RequestQueueHandle, ConnectionId, Flags, Ssl
 export HttpCreateServerSession(_Version, ServerSessionId) {
     static Reserved := 0 ;Reserved parameters must always be NULL
 
-    ServerSessionIdMarshal := ServerSessionId is VarRef ? "uint*" : "ptr"
+    ServerSessionIdMarshal := ServerSessionId is VarRef ? "uint*" : IntPtr
 
     result := DllCall("HTTPAPI.dll\HttpCreateServerSession", HTTPAPI_VERSION, _Version, ServerSessionIdMarshal, ServerSessionId, UInt32, Reserved, UInt32)
     return result
@@ -1115,9 +1128,11 @@ export HttpCloseServerSession(ServerSessionId) {
  * @since windows6.0.6000
  */
 export HttpQueryServerSessionProperty(ServerSessionId, _Property, PropertyInformation, PropertyInformationLength, ReturnLength) {
-    ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
+    PropertyInformationMarshal := PropertyInformation == 0 ? IntPtr : IntPtr
+    ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : IntPtr
+    ReturnLengthMarshal := ReturnLength == 0 ? IntPtr : "uint*"
 
-    result := DllCall("HTTPAPI.dll\HttpQueryServerSessionProperty", Int64, ServerSessionId, HTTP_SERVER_PROPERTY, _Property, IntPtr, PropertyInformation, UInt32, PropertyInformationLength, ReturnLengthMarshal, ReturnLength, UInt32)
+    result := DllCall("HTTPAPI.dll\HttpQueryServerSessionProperty", Int64, ServerSessionId, HTTP_SERVER_PROPERTY, _Property, PropertyInformationMarshal, PropertyInformation, UInt32, PropertyInformationLength, ReturnLengthMarshal, ReturnLength, UInt32)
     return result
 }
 
@@ -1545,7 +1560,7 @@ export HttpRemoveUrl(RequestQueueHandle, FullyQualifiedUrl) {
 export HttpCreateUrlGroup(ServerSessionId, pUrlGroupId) {
     static Reserved := 0 ;Reserved parameters must always be NULL
 
-    pUrlGroupIdMarshal := pUrlGroupId is VarRef ? "uint*" : "ptr"
+    pUrlGroupIdMarshal := pUrlGroupId is VarRef ? "uint*" : IntPtr
 
     result := DllCall("HTTPAPI.dll\HttpCreateUrlGroup", Int64, ServerSessionId, pUrlGroupIdMarshal, pUrlGroupId, UInt32, Reserved, UInt32)
     return result
@@ -2078,9 +2093,11 @@ export HttpSetUrlGroupProperty(UrlGroupId, _Property, PropertyInformation, Prope
  * @since windows6.0.6000
  */
 export HttpQueryUrlGroupProperty(UrlGroupId, _Property, PropertyInformation, PropertyInformationLength, ReturnLength) {
-    ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
+    PropertyInformationMarshal := PropertyInformation == 0 ? IntPtr : IntPtr
+    ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : IntPtr
+    ReturnLengthMarshal := ReturnLength == 0 ? IntPtr : "uint*"
 
-    result := DllCall("HTTPAPI.dll\HttpQueryUrlGroupProperty", Int64, UrlGroupId, HTTP_SERVER_PROPERTY, _Property, IntPtr, PropertyInformation, UInt32, PropertyInformationLength, ReturnLengthMarshal, ReturnLength, UInt32)
+    result := DllCall("HTTPAPI.dll\HttpQueryUrlGroupProperty", Int64, UrlGroupId, HTTP_SERVER_PROPERTY, _Property, PropertyInformationMarshal, PropertyInformation, UInt32, PropertyInformationLength, ReturnLengthMarshal, ReturnLength, UInt32)
     return result
 }
 
@@ -2102,7 +2119,7 @@ export HttpPrepareUrl(Url, PreparedUrl) {
 
     Url := Url is String ? StrPtr(Url) : Url
 
-    PreparedUrlMarshal := PreparedUrl is VarRef ? "ptr*" : "ptr"
+    PreparedUrlMarshal := PreparedUrl is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("HTTPAPI.dll\HttpPrepareUrl", "ptr", Reserved, UInt32, Flags, "ptr", Url, PreparedUrlMarshal, PreparedUrl, UInt32)
     return result
@@ -2224,9 +2241,11 @@ export HttpPrepareUrl(Url, PreparedUrl) {
  * @since windows6.0.6000
  */
 export HttpReceiveHttpRequest(RequestQueueHandle, RequestId, Flags, RequestBuffer, RequestBufferLength, BytesReturned, _Overlapped) {
-    BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
+    BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : IntPtr
+    BytesReturnedMarshal := BytesReturned == 0 ? IntPtr : "uint*"
+    _OverlappedMarshal := _Overlapped == 0 ? IntPtr : OVERLAPPED.Ptr
 
-    result := DllCall("HTTPAPI.dll\HttpReceiveHttpRequest", HANDLE, RequestQueueHandle, Int64, RequestId, HTTP_RECEIVE_HTTP_REQUEST_FLAGS, Flags, IntPtr, RequestBuffer, UInt32, RequestBufferLength, BytesReturnedMarshal, BytesReturned, OVERLAPPED.Ptr, _Overlapped, UInt32)
+    result := DllCall("HTTPAPI.dll\HttpReceiveHttpRequest", HANDLE, RequestQueueHandle, Int64, RequestId, HTTP_RECEIVE_HTTP_REQUEST_FLAGS, Flags, IntPtr, RequestBuffer, UInt32, RequestBufferLength, BytesReturnedMarshal, BytesReturned, _OverlappedMarshal, _Overlapped, UInt32)
     return result
 }
 
@@ -2340,9 +2359,11 @@ export HttpReceiveHttpRequest(RequestQueueHandle, RequestId, Flags, RequestBuffe
  * @since windows6.0.6000
  */
 export HttpReceiveRequestEntityBody(RequestQueueHandle, RequestId, Flags, EntityBuffer, EntityBufferLength, BytesReturned, _Overlapped) {
-    BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
+    BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : IntPtr
+    BytesReturnedMarshal := BytesReturned == 0 ? IntPtr : "uint*"
+    _OverlappedMarshal := _Overlapped == 0 ? IntPtr : OVERLAPPED.Ptr
 
-    result := DllCall("HTTPAPI.dll\HttpReceiveRequestEntityBody", HANDLE, RequestQueueHandle, Int64, RequestId, UInt32, Flags, IntPtr, EntityBuffer, UInt32, EntityBufferLength, BytesReturnedMarshal, BytesReturned, OVERLAPPED.Ptr, _Overlapped, UInt32)
+    result := DllCall("HTTPAPI.dll\HttpReceiveRequestEntityBody", HANDLE, RequestQueueHandle, Int64, RequestId, UInt32, Flags, IntPtr, EntityBuffer, UInt32, EntityBufferLength, BytesReturnedMarshal, BytesReturned, _OverlappedMarshal, _Overlapped, UInt32)
     return result
 }
 
@@ -2522,9 +2543,13 @@ export HttpReceiveRequestEntityBody(RequestQueueHandle, RequestId, Flags, Entity
 export HttpSendHttpResponse(RequestQueueHandle, RequestId, Flags, HttpResponse, CachePolicy, BytesSent, _Overlapped, LogData) {
     static Reserved1 := 0, Reserved2 := 0 ;Reserved parameters must always be NULL
 
-    BytesSentMarshal := BytesSent is VarRef ? "uint*" : "ptr"
+    CachePolicyMarshal := CachePolicy == 0 ? IntPtr : HTTP_CACHE_POLICY.Ptr
+    BytesSentMarshal := BytesSent is VarRef ? "uint*" : IntPtr
+    BytesSentMarshal := BytesSent == 0 ? IntPtr : "uint*"
+    _OverlappedMarshal := _Overlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+    LogDataMarshal := LogData == 0 ? IntPtr : HTTP_LOG_DATA.Ptr
 
-    result := DllCall("HTTPAPI.dll\HttpSendHttpResponse", HANDLE, RequestQueueHandle, Int64, RequestId, UInt32, Flags, HTTP_RESPONSE_V2.Ptr, HttpResponse, HTTP_CACHE_POLICY.Ptr, CachePolicy, BytesSentMarshal, BytesSent, "ptr", Reserved1, UInt32, Reserved2, OVERLAPPED.Ptr, _Overlapped, HTTP_LOG_DATA.Ptr, LogData, UInt32)
+    result := DllCall("HTTPAPI.dll\HttpSendHttpResponse", HANDLE, RequestQueueHandle, Int64, RequestId, UInt32, Flags, HTTP_RESPONSE_V2.Ptr, HttpResponse, CachePolicyMarshal, CachePolicy, BytesSentMarshal, BytesSent, "ptr", Reserved1, UInt32, Reserved2, _OverlappedMarshal, _Overlapped, LogDataMarshal, LogData, UInt32)
     return result
 }
 
@@ -2707,9 +2732,14 @@ export HttpSendHttpResponse(RequestQueueHandle, RequestId, Flags, HttpResponse, 
 export HttpSendResponseEntityBody(RequestQueueHandle, RequestId, Flags, EntityChunkCount, EntityChunks, BytesSent, _Overlapped, LogData) {
     static Reserved1 := 0, Reserved2 := 0 ;Reserved parameters must always be NULL
 
-    BytesSentMarshal := BytesSent is VarRef ? "uint*" : "ptr"
+    EntityChunkCountMarshal := EntityChunkCount == 0 ? IntPtr : UInt16
+    EntityChunksMarshal := EntityChunks == 0 ? IntPtr : HTTP_DATA_CHUNK.Ptr
+    BytesSentMarshal := BytesSent is VarRef ? "uint*" : IntPtr
+    BytesSentMarshal := BytesSent == 0 ? IntPtr : "uint*"
+    _OverlappedMarshal := _Overlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+    LogDataMarshal := LogData == 0 ? IntPtr : HTTP_LOG_DATA.Ptr
 
-    result := DllCall("HTTPAPI.dll\HttpSendResponseEntityBody", HANDLE, RequestQueueHandle, Int64, RequestId, UInt32, Flags, UInt16, EntityChunkCount, HTTP_DATA_CHUNK.Ptr, EntityChunks, BytesSentMarshal, BytesSent, "ptr", Reserved1, UInt32, Reserved2, OVERLAPPED.Ptr, _Overlapped, HTTP_LOG_DATA.Ptr, LogData, UInt32)
+    result := DllCall("HTTPAPI.dll\HttpSendResponseEntityBody", HANDLE, RequestQueueHandle, Int64, RequestId, UInt32, Flags, EntityChunkCountMarshal, EntityChunkCount, EntityChunksMarshal, EntityChunks, BytesSentMarshal, BytesSent, "ptr", Reserved1, UInt32, Reserved2, _OverlappedMarshal, _Overlapped, LogDataMarshal, LogData, UInt32)
     return result
 }
 
@@ -2738,7 +2768,10 @@ export HttpDeclarePush(RequestQueueHandle, RequestId, Verb, _Path, Query, Header
     _Path := _Path is String ? StrPtr(_Path) : _Path
     Query := Query is String ? StrPtr(Query) : Query
 
-    result := DllCall("HTTPAPI.dll\HttpDeclarePush", HANDLE, RequestQueueHandle, Int64, RequestId, HTTP_VERB, Verb, "ptr", _Path, "ptr", Query, HTTP_REQUEST_HEADERS.Ptr, Headers, UInt32)
+    QueryMarshal := Query == 0 ? IntPtr : PSTR
+    HeadersMarshal := Headers == 0 ? IntPtr : HTTP_REQUEST_HEADERS.Ptr
+
+    result := DllCall("HTTPAPI.dll\HttpDeclarePush", HANDLE, RequestQueueHandle, Int64, RequestId, HTTP_VERB, Verb, "ptr", _Path, QueryMarshal, Query, HeadersMarshal, Headers, UInt32)
     return result
 }
 
@@ -2798,7 +2831,9 @@ export HttpDeclarePush(RequestQueueHandle, RequestId, Verb, _Path, Query, Header
  * @since windows6.0.6000
  */
 export HttpWaitForDisconnect(RequestQueueHandle, ConnectionId, _Overlapped) {
-    result := DllCall("HTTPAPI.dll\HttpWaitForDisconnect", HANDLE, RequestQueueHandle, Int64, ConnectionId, OVERLAPPED.Ptr, _Overlapped, UInt32)
+    _OverlappedMarshal := _Overlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+
+    result := DllCall("HTTPAPI.dll\HttpWaitForDisconnect", HANDLE, RequestQueueHandle, Int64, ConnectionId, _OverlappedMarshal, _Overlapped, UInt32)
     return result
 }
 
@@ -2813,7 +2848,9 @@ export HttpWaitForDisconnect(RequestQueueHandle, ConnectionId, _Overlapped) {
 export HttpWaitForDisconnectEx(RequestQueueHandle, ConnectionId, _Overlapped) {
     static Reserved := 0 ;Reserved parameters must always be NULL
 
-    result := DllCall("HTTPAPI.dll\HttpWaitForDisconnectEx", HANDLE, RequestQueueHandle, Int64, ConnectionId, UInt32, Reserved, OVERLAPPED.Ptr, _Overlapped, UInt32)
+    _OverlappedMarshal := _Overlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+
+    result := DllCall("HTTPAPI.dll\HttpWaitForDisconnectEx", HANDLE, RequestQueueHandle, Int64, ConnectionId, UInt32, Reserved, _OverlappedMarshal, _Overlapped, UInt32)
     return result
 }
 
@@ -2829,7 +2866,9 @@ export HttpWaitForDisconnectEx(RequestQueueHandle, ConnectionId, _Overlapped) {
  * @since windows6.0.6000
  */
 export HttpCancelHttpRequest(RequestQueueHandle, RequestId, _Overlapped) {
-    result := DllCall("HTTPAPI.dll\HttpCancelHttpRequest", HANDLE, RequestQueueHandle, Int64, RequestId, OVERLAPPED.Ptr, _Overlapped, UInt32)
+    _OverlappedMarshal := _Overlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+
+    result := DllCall("HTTPAPI.dll\HttpCancelHttpRequest", HANDLE, RequestQueueHandle, Int64, RequestId, _OverlappedMarshal, _Overlapped, UInt32)
     return result
 }
 
@@ -2913,7 +2952,9 @@ export HttpCancelHttpRequest(RequestQueueHandle, RequestId, _Overlapped) {
  * @since windows6.0.6000
  */
 export HttpWaitForDemandStart(RequestQueueHandle, _Overlapped) {
-    result := DllCall("HTTPAPI.dll\HttpWaitForDemandStart", HANDLE, RequestQueueHandle, OVERLAPPED.Ptr, _Overlapped, UInt32)
+    _OverlappedMarshal := _Overlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+
+    result := DllCall("HTTPAPI.dll\HttpWaitForDemandStart", HANDLE, RequestQueueHandle, _OverlappedMarshal, _Overlapped, UInt32)
     return result
 }
 
@@ -2975,7 +3016,7 @@ export HttpDelegateRequestEx(RequestQueueHandle, DelegateQueueHandle, RequestId,
 export HttpFindUrlGroupId(FullyQualifiedUrl, RequestQueueHandle, UrlGroupId) {
     FullyQualifiedUrl := FullyQualifiedUrl is String ? StrPtr(FullyQualifiedUrl) : FullyQualifiedUrl
 
-    UrlGroupIdMarshal := UrlGroupId is VarRef ? "uint*" : "ptr"
+    UrlGroupIdMarshal := UrlGroupId is VarRef ? "uint*" : IntPtr
 
     result := DllCall("HTTPAPI.dll\HttpFindUrlGroupId", "ptr", FullyQualifiedUrl, HANDLE, RequestQueueHandle, UrlGroupIdMarshal, UrlGroupId, UInt32)
     return result
@@ -3039,7 +3080,9 @@ export HttpFindUrlGroupId(FullyQualifiedUrl, RequestQueueHandle, UrlGroupId) {
 export HttpFlushResponseCache(RequestQueueHandle, UrlPrefix, Flags, _Overlapped) {
     UrlPrefix := UrlPrefix is String ? StrPtr(UrlPrefix) : UrlPrefix
 
-    result := DllCall("HTTPAPI.dll\HttpFlushResponseCache", HANDLE, RequestQueueHandle, "ptr", UrlPrefix, UInt32, Flags, OVERLAPPED.Ptr, _Overlapped, UInt32)
+    _OverlappedMarshal := _Overlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+
+    result := DllCall("HTTPAPI.dll\HttpFlushResponseCache", HANDLE, RequestQueueHandle, "ptr", UrlPrefix, UInt32, Flags, _OverlappedMarshal, _Overlapped, UInt32)
     return result
 }
 
@@ -3106,7 +3149,9 @@ export HttpFlushResponseCache(RequestQueueHandle, UrlPrefix, Flags, _Overlapped)
 export HttpAddFragmentToCache(RequestQueueHandle, UrlPrefix, DataChunk, CachePolicy, _Overlapped) {
     UrlPrefix := UrlPrefix is String ? StrPtr(UrlPrefix) : UrlPrefix
 
-    result := DllCall("HTTPAPI.dll\HttpAddFragmentToCache", HANDLE, RequestQueueHandle, "ptr", UrlPrefix, HTTP_DATA_CHUNK.Ptr, DataChunk, HTTP_CACHE_POLICY.Ptr, CachePolicy, OVERLAPPED.Ptr, _Overlapped, UInt32)
+    _OverlappedMarshal := _Overlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+
+    result := DllCall("HTTPAPI.dll\HttpAddFragmentToCache", HANDLE, RequestQueueHandle, "ptr", UrlPrefix, HTTP_DATA_CHUNK.Ptr, DataChunk, HTTP_CACHE_POLICY.Ptr, CachePolicy, _OverlappedMarshal, _Overlapped, UInt32)
     return result
 }
 
@@ -3188,9 +3233,12 @@ export HttpAddFragmentToCache(RequestQueueHandle, UrlPrefix, DataChunk, CachePol
 export HttpReadFragmentFromCache(RequestQueueHandle, UrlPrefix, ByteRange, _Buffer, BufferLength, BytesRead, _Overlapped) {
     UrlPrefix := UrlPrefix is String ? StrPtr(UrlPrefix) : UrlPrefix
 
-    BytesReadMarshal := BytesRead is VarRef ? "uint*" : "ptr"
+    ByteRangeMarshal := ByteRange == 0 ? IntPtr : HTTP_BYTE_RANGE.Ptr
+    BytesReadMarshal := BytesRead is VarRef ? "uint*" : IntPtr
+    BytesReadMarshal := BytesRead == 0 ? IntPtr : "uint*"
+    _OverlappedMarshal := _Overlapped == 0 ? IntPtr : OVERLAPPED.Ptr
 
-    result := DllCall("HTTPAPI.dll\HttpReadFragmentFromCache", HANDLE, RequestQueueHandle, "ptr", UrlPrefix, HTTP_BYTE_RANGE.Ptr, ByteRange, IntPtr, _Buffer, UInt32, BufferLength, BytesReadMarshal, BytesRead, OVERLAPPED.Ptr, _Overlapped, UInt32)
+    result := DllCall("HTTPAPI.dll\HttpReadFragmentFromCache", HANDLE, RequestQueueHandle, "ptr", UrlPrefix, ByteRangeMarshal, ByteRange, IntPtr, _Buffer, UInt32, BufferLength, BytesReadMarshal, BytesRead, _OverlappedMarshal, _Overlapped, UInt32)
     return result
 }
 
@@ -3977,14 +4025,16 @@ export HttpDeleteServiceConfiguration(ConfigId, pConfigInformation, ConfigInform
 export HttpQueryServiceConfiguration(ConfigId, pInput, InputLength, pOutput, OutputLength, pReturnLength) {
     static ServiceHandle := 0, pOverlapped := 0 ;Reserved parameters must always be NULL
 
-    pReturnLengthMarshal := pReturnLength is VarRef ? "uint*" : "ptr"
+    pInputMarshal := pInput == 0 ? IntPtr : IntPtr
+    pOutputMarshal := pOutput == 0 ? IntPtr : IntPtr
+    pReturnLengthMarshal := pReturnLength is VarRef ? "uint*" : IntPtr
+    pReturnLengthMarshal := pReturnLength == 0 ? IntPtr : "uint*"
 
-    result := DllCall("HTTPAPI.dll\HttpQueryServiceConfiguration", HANDLE, ServiceHandle, HTTP_SERVICE_CONFIG_ID, ConfigId, IntPtr, pInput, UInt32, InputLength, IntPtr, pOutput, UInt32, OutputLength, pReturnLengthMarshal, pReturnLength, OVERLAPPED.Ptr, pOverlapped, UInt32)
+    result := DllCall("HTTPAPI.dll\HttpQueryServiceConfiguration", HANDLE, ServiceHandle, HTTP_SERVICE_CONFIG_ID, ConfigId, pInputMarshal, pInput, UInt32, InputLength, pOutputMarshal, pOutput, UInt32, OutputLength, pReturnLengthMarshal, pReturnLength, OVERLAPPED.Ptr, pOverlapped, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HTTPAPI_VERSION} _Version 
  * @param {Integer} _Extension 
  * @param {Pointer<Void>} _Buffer 
@@ -3992,7 +4042,7 @@ export HttpQueryServiceConfiguration(ConfigId, pInput, InputLength, pOutput, Out
  * @returns {Integer} 
  */
 export HttpGetExtension(_Version, _Extension, _Buffer, BufferSize) {
-    _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
+    _BufferMarshal := _Buffer is VarRef ? "ptr" : IntPtr
 
     result := DllCall("HTTPAPI.dll\HttpGetExtension", HTTPAPI_VERSION, _Version, UInt32, _Extension, _BufferMarshal, _Buffer, UInt32, BufferSize, UInt32)
     return result

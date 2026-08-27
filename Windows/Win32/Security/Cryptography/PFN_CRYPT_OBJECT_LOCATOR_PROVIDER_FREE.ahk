@@ -22,14 +22,14 @@ export default struct PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pPluginContext Pointer to an optional buffer defined by this provider and returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pfn_crypt_object_locator_provider_initialize">PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_INITIALIZE</a> function. The buffer is not modified by the caller. Your provider can use the data to help it determine what actions to perform or to maintain additional information.
      * @param {Pointer<Integer>} pbData Pointer to the buffer to release.
      * @returns {String} Nothing - always returns an empty string
      */
     Call(pPluginContext, pbData) {
-        pPluginContextMarshal := pPluginContext is VarRef ? "ptr" : "ptr"
-        pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
+        pPluginContextMarshal := pPluginContext is VarRef ? "ptr" : IntPtr
+        pPluginContextMarshal := pPluginContext == 0 ? IntPtr : "ptr"
+        pbDataMarshal := pbData is VarRef ? "char*" : IntPtr
 
         DllCall(this.value, pPluginContextMarshal, pPluginContext, pbDataMarshal, pbData)
     }

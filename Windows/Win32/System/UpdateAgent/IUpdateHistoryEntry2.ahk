@@ -72,7 +72,7 @@ export default struct IUpdateHistoryEntry2 extends IUpdateHistoryEntry {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Categories := CallbackCreate(GetMethod(implObj, "get_Categories"), flags, 2)
+        this.vtbl.get_Categories := CallbackCreate(ObjBindMethod(implObj, "get_Categories"), flags, 2)
     }
 
     Dispose() {

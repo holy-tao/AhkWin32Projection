@@ -44,7 +44,6 @@ export default struct IActiveScriptSiteDebug64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSourceContext 
      * @param {Integer} uCharacterOffset 
      * @param {Integer} uNumChars 
@@ -56,7 +55,6 @@ export default struct IActiveScriptSiteDebug64 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugApplication64} 
      */
     GetApplication() {
@@ -65,7 +63,6 @@ export default struct IActiveScriptSiteDebug64 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugApplicationNode} 
      */
     GetRootApplicationNode() {
@@ -74,15 +71,14 @@ export default struct IActiveScriptSiteDebug64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IActiveScriptErrorDebug} pErrorDebug 
      * @param {Pointer<BOOL>} pfEnterDebugger 
      * @param {Pointer<BOOL>} pfCallOnScriptErrorWhenContinuing 
      * @returns {HRESULT} 
      */
     OnScriptErrorDebug(pErrorDebug, pfEnterDebugger, pfCallOnScriptErrorWhenContinuing) {
-        pfEnterDebuggerMarshal := pfEnterDebugger is VarRef ? "int*" : "ptr"
-        pfCallOnScriptErrorWhenContinuingMarshal := pfCallOnScriptErrorWhenContinuing is VarRef ? "int*" : "ptr"
+        pfEnterDebuggerMarshal := pfEnterDebugger is VarRef ? "int*" : IntPtr
+        pfCallOnScriptErrorWhenContinuingMarshal := pfCallOnScriptErrorWhenContinuing is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, "ptr", pErrorDebug, pfEnterDebuggerMarshal, pfEnterDebugger, pfCallOnScriptErrorWhenContinuingMarshal, pfCallOnScriptErrorWhenContinuing, "HRESULT")
         return result
@@ -97,10 +93,10 @@ export default struct IActiveScriptSiteDebug64 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDocumentContextFromPosition := CallbackCreate(GetMethod(implObj, "GetDocumentContextFromPosition"), flags, 5)
-        this.vtbl.GetApplication := CallbackCreate(GetMethod(implObj, "GetApplication"), flags, 2)
-        this.vtbl.GetRootApplicationNode := CallbackCreate(GetMethod(implObj, "GetRootApplicationNode"), flags, 2)
-        this.vtbl.OnScriptErrorDebug := CallbackCreate(GetMethod(implObj, "OnScriptErrorDebug"), flags, 4)
+        this.vtbl.GetDocumentContextFromPosition := CallbackCreate(ObjBindMethod(implObj, "GetDocumentContextFromPosition"), flags, 5)
+        this.vtbl.GetApplication := CallbackCreate(ObjBindMethod(implObj, "GetApplication"), flags, 2)
+        this.vtbl.GetRootApplicationNode := CallbackCreate(ObjBindMethod(implObj, "GetRootApplicationNode"), flags, 2)
+        this.vtbl.OnScriptErrorDebug := CallbackCreate(ObjBindMethod(implObj, "OnScriptErrorDebug"), flags, 4)
     }
 
     Dispose() {

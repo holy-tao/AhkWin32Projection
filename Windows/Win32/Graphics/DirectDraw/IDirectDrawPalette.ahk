@@ -95,7 +95,7 @@ export default struct IDirectDrawPalette extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawpalette-getcaps
      */
     GetCaps(param0) {
-        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+        param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, param0Marshal, param0, "HRESULT")
         return result
@@ -175,10 +175,10 @@ export default struct IDirectDrawPalette extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCaps := CallbackCreate(GetMethod(implObj, "GetCaps"), flags, 2)
-        this.vtbl.GetEntries := CallbackCreate(GetMethod(implObj, "GetEntries"), flags, 5)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
-        this.vtbl.SetEntries := CallbackCreate(GetMethod(implObj, "SetEntries"), flags, 5)
+        this.vtbl.GetCaps := CallbackCreate(ObjBindMethod(implObj, "GetCaps"), flags, 2)
+        this.vtbl.GetEntries := CallbackCreate(ObjBindMethod(implObj, "GetEntries"), flags, 5)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 4)
+        this.vtbl.SetEntries := CallbackCreate(ObjBindMethod(implObj, "SetEntries"), flags, 5)
     }
 
     Dispose() {

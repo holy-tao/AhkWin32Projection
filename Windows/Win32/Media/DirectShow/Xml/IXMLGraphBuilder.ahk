@@ -109,9 +109,9 @@ export default struct IXMLGraphBuilder extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BuildFromXML := CallbackCreate(GetMethod(implObj, "BuildFromXML"), flags, 3)
-        this.vtbl.SaveToXML := CallbackCreate(GetMethod(implObj, "SaveToXML"), flags, 3)
-        this.vtbl.BuildFromXMLFile := CallbackCreate(GetMethod(implObj, "BuildFromXMLFile"), flags, 4)
+        this.vtbl.BuildFromXML := CallbackCreate(ObjBindMethod(implObj, "BuildFromXML"), flags, 3)
+        this.vtbl.SaveToXML := CallbackCreate(ObjBindMethod(implObj, "SaveToXML"), flags, 3)
+        this.vtbl.BuildFromXMLFile := CallbackCreate(ObjBindMethod(implObj, "BuildFromXMLFile"), flags, 4)
     }
 
     Dispose() {

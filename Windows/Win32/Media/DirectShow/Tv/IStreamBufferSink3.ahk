@@ -68,7 +68,7 @@ export default struct IStreamBufferSink3 extends IStreamBufferSink2 {
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambuffersink3-setavailablefilter
      */
     SetAvailableFilter(prtMin) {
-        prtMinMarshal := prtMin is VarRef ? "int64*" : "ptr"
+        prtMinMarshal := prtMin is VarRef ? "int64*" : IntPtr
 
         result := ComCall(7, this, prtMinMarshal, prtMin, "HRESULT")
         return result
@@ -83,7 +83,7 @@ export default struct IStreamBufferSink3 extends IStreamBufferSink2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAvailableFilter := CallbackCreate(GetMethod(implObj, "SetAvailableFilter"), flags, 2)
+        this.vtbl.SetAvailableFilter := CallbackCreate(ObjBindMethod(implObj, "SetAvailableFilter"), flags, 2)
     }
 
     Dispose() {

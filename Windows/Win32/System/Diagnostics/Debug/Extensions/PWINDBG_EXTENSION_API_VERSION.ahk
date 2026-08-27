@@ -19,7 +19,6 @@ export default struct PWINDBG_EXTENSION_API_VERSION {
     }
 
     /**
-     * 
      * @returns {Pointer<EXT_API_VERSION>} 
      */
     Call() {

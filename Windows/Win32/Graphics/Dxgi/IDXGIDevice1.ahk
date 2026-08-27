@@ -117,8 +117,8 @@ export default struct IDXGIDevice1 extends IDXGIDevice {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetMaximumFrameLatency := CallbackCreate(GetMethod(implObj, "SetMaximumFrameLatency"), flags, 2)
-        this.vtbl.GetMaximumFrameLatency := CallbackCreate(GetMethod(implObj, "GetMaximumFrameLatency"), flags, 2)
+        this.vtbl.SetMaximumFrameLatency := CallbackCreate(ObjBindMethod(implObj, "SetMaximumFrameLatency"), flags, 2)
+        this.vtbl.GetMaximumFrameLatency := CallbackCreate(ObjBindMethod(implObj, "GetMaximumFrameLatency"), flags, 2)
     }
 
     Dispose() {

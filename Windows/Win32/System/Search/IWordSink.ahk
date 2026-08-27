@@ -174,11 +174,11 @@ export default struct IWordSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PutWord := CallbackCreate(GetMethod(implObj, "PutWord"), flags, 5)
-        this.vtbl.PutAltWord := CallbackCreate(GetMethod(implObj, "PutAltWord"), flags, 5)
-        this.vtbl.StartAltPhrase := CallbackCreate(GetMethod(implObj, "StartAltPhrase"), flags, 1)
-        this.vtbl.EndAltPhrase := CallbackCreate(GetMethod(implObj, "EndAltPhrase"), flags, 1)
-        this.vtbl.PutBreak := CallbackCreate(GetMethod(implObj, "PutBreak"), flags, 2)
+        this.vtbl.PutWord := CallbackCreate(ObjBindMethod(implObj, "PutWord"), flags, 5)
+        this.vtbl.PutAltWord := CallbackCreate(ObjBindMethod(implObj, "PutAltWord"), flags, 5)
+        this.vtbl.StartAltPhrase := CallbackCreate(ObjBindMethod(implObj, "StartAltPhrase"), flags, 1)
+        this.vtbl.EndAltPhrase := CallbackCreate(ObjBindMethod(implObj, "EndAltPhrase"), flags, 1)
+        this.vtbl.PutBreak := CallbackCreate(ObjBindMethod(implObj, "PutBreak"), flags, 2)
     }
 
     Dispose() {

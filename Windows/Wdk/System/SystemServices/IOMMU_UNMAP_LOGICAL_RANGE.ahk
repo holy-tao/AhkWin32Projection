@@ -20,14 +20,13 @@ export default struct IOMMU_UNMAP_LOGICAL_RANGE {
     }
 
     /**
-     * 
      * @param {Pointer<IOMMU_DMA_DOMAIN>} Domain 
      * @param {Integer} LogicalAddress 
      * @param {Integer} NumberOfPages 
      * @returns {NTSTATUS} 
      */
     Call(Domain, LogicalAddress, NumberOfPages) {
-        DomainMarshal := Domain is VarRef ? "ptr*" : "ptr"
+        DomainMarshal := Domain is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, DomainMarshal, Domain, Int64, LogicalAddress, Int64, NumberOfPages, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

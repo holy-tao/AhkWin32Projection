@@ -19,7 +19,6 @@ export default struct LPDDHAL_GETAVAILDRIVERMEMORY {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_GETAVAILDRIVERMEMORYDATA>} param0 
      * @returns {Integer} 
      */

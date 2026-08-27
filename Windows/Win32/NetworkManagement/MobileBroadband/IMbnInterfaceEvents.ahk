@@ -241,14 +241,14 @@ export default struct IMbnInterfaceEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnInterfaceCapabilityAvailable := CallbackCreate(GetMethod(implObj, "OnInterfaceCapabilityAvailable"), flags, 2)
-        this.vtbl.OnSubscriberInformationChange := CallbackCreate(GetMethod(implObj, "OnSubscriberInformationChange"), flags, 2)
-        this.vtbl.OnReadyStateChange := CallbackCreate(GetMethod(implObj, "OnReadyStateChange"), flags, 2)
-        this.vtbl.OnEmergencyModeChange := CallbackCreate(GetMethod(implObj, "OnEmergencyModeChange"), flags, 2)
-        this.vtbl.OnHomeProviderAvailable := CallbackCreate(GetMethod(implObj, "OnHomeProviderAvailable"), flags, 2)
-        this.vtbl.OnPreferredProvidersChange := CallbackCreate(GetMethod(implObj, "OnPreferredProvidersChange"), flags, 2)
-        this.vtbl.OnSetPreferredProvidersComplete := CallbackCreate(GetMethod(implObj, "OnSetPreferredProvidersComplete"), flags, 4)
-        this.vtbl.OnScanNetworkComplete := CallbackCreate(GetMethod(implObj, "OnScanNetworkComplete"), flags, 4)
+        this.vtbl.OnInterfaceCapabilityAvailable := CallbackCreate(ObjBindMethod(implObj, "OnInterfaceCapabilityAvailable"), flags, 2)
+        this.vtbl.OnSubscriberInformationChange := CallbackCreate(ObjBindMethod(implObj, "OnSubscriberInformationChange"), flags, 2)
+        this.vtbl.OnReadyStateChange := CallbackCreate(ObjBindMethod(implObj, "OnReadyStateChange"), flags, 2)
+        this.vtbl.OnEmergencyModeChange := CallbackCreate(ObjBindMethod(implObj, "OnEmergencyModeChange"), flags, 2)
+        this.vtbl.OnHomeProviderAvailable := CallbackCreate(ObjBindMethod(implObj, "OnHomeProviderAvailable"), flags, 2)
+        this.vtbl.OnPreferredProvidersChange := CallbackCreate(ObjBindMethod(implObj, "OnPreferredProvidersChange"), flags, 2)
+        this.vtbl.OnSetPreferredProvidersComplete := CallbackCreate(ObjBindMethod(implObj, "OnSetPreferredProvidersComplete"), flags, 4)
+        this.vtbl.OnScanNetworkComplete := CallbackCreate(ObjBindMethod(implObj, "OnScanNetworkComplete"), flags, 4)
     }
 
     Dispose() {

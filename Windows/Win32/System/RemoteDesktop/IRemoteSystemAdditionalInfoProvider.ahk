@@ -37,14 +37,13 @@ export default struct IRemoteSystemAdditionalInfoProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<HSTRING>} deduplicationId 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Pointer<Void>>} mapView 
      * @returns {HRESULT} 
      */
     GetAdditionalInfo(deduplicationId, riid, mapView) {
-        mapViewMarshal := mapView is VarRef ? "ptr*" : "ptr"
+        mapViewMarshal := mapView is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, HSTRING.Ptr, deduplicationId, Guid.Ptr, riid, mapViewMarshal, mapView, "HRESULT")
         return result
@@ -59,7 +58,7 @@ export default struct IRemoteSystemAdditionalInfoProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAdditionalInfo := CallbackCreate(GetMethod(implObj, "GetAdditionalInfo"), flags, 4)
+        this.vtbl.GetAdditionalInfo := CallbackCreate(ObjBindMethod(implObj, "GetAdditionalInfo"), flags, 4)
     }
 
     Dispose() {

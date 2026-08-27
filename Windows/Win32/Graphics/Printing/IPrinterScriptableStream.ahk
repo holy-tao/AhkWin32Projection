@@ -39,7 +39,6 @@ export default struct IPrinterScriptableStream extends IPrinterScriptableSequent
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Commit() {
@@ -48,7 +47,6 @@ export default struct IPrinterScriptableStream extends IPrinterScriptableSequent
     }
 
     /**
-     * 
      * @param {Integer} lOffset 
      * @param {STREAM_SEEK} streamSeek 
      * @returns {Integer} 
@@ -59,7 +57,6 @@ export default struct IPrinterScriptableStream extends IPrinterScriptableSequent
     }
 
     /**
-     * 
      * @param {Integer} lSize 
      * @returns {HRESULT} 
      */
@@ -77,9 +74,9 @@ export default struct IPrinterScriptableStream extends IPrinterScriptableSequent
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 1)
-        this.vtbl.Seek := CallbackCreate(GetMethod(implObj, "Seek"), flags, 4)
-        this.vtbl.SetSize := CallbackCreate(GetMethod(implObj, "SetSize"), flags, 2)
+        this.vtbl.Commit := CallbackCreate(ObjBindMethod(implObj, "Commit"), flags, 1)
+        this.vtbl.Seek := CallbackCreate(ObjBindMethod(implObj, "Seek"), flags, 4)
+        this.vtbl.SetSize := CallbackCreate(ObjBindMethod(implObj, "SetSize"), flags, 2)
     }
 
     Dispose() {

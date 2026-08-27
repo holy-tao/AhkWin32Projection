@@ -90,9 +90,9 @@ export default struct IPortableDevicePropertiesBulkCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnStart := CallbackCreate(GetMethod(implObj, "OnStart"), flags, 2)
-        this.vtbl.OnProgress := CallbackCreate(GetMethod(implObj, "OnProgress"), flags, 3)
-        this.vtbl.OnEnd := CallbackCreate(GetMethod(implObj, "OnEnd"), flags, 3)
+        this.vtbl.OnStart := CallbackCreate(ObjBindMethod(implObj, "OnStart"), flags, 2)
+        this.vtbl.OnProgress := CallbackCreate(ObjBindMethod(implObj, "OnProgress"), flags, 3)
+        this.vtbl.OnEnd := CallbackCreate(ObjBindMethod(implObj, "OnEnd"), flags, 3)
     }
 
     Dispose() {

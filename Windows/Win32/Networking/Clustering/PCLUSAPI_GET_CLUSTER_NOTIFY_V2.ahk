@@ -21,7 +21,6 @@ export default struct PCLUSAPI_GET_CLUSTER_NOTIFY_V2 {
     }
 
     /**
-     * 
      * @param {HCHANGE} _hChange 
      * @param {Pointer<Pointer>} lpdwNotifyKey 
      * @param {Pointer<NOTIFY_FILTER_AND_TYPE>} pFilterAndType 
@@ -44,15 +43,27 @@ export default struct PCLUSAPI_GET_CLUSTER_NOTIFY_V2 {
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
         lpszType := lpszType is String ? StrPtr(lpszType) : lpszType
 
-        lpdwNotifyKeyMarshal := lpdwNotifyKey is VarRef ? "ptr*" : "ptr"
-        _bufferMarshal := _buffer is VarRef ? "char*" : "ptr"
-        lpcchBufferSizeMarshal := lpcchBufferSize is VarRef ? "uint*" : "ptr"
-        lpcchObjectIdMarshal := lpcchObjectId is VarRef ? "uint*" : "ptr"
-        lpcchParentIdMarshal := lpcchParentId is VarRef ? "uint*" : "ptr"
-        lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
-        lpcchTypeMarshal := lpcchType is VarRef ? "uint*" : "ptr"
+        lpdwNotifyKeyMarshal := lpdwNotifyKey is VarRef ? "ptr*" : IntPtr
+        pFilterAndTypeMarshal := pFilterAndType == 0 ? IntPtr : NOTIFY_FILTER_AND_TYPE.Ptr
+        _bufferMarshal := _buffer is VarRef ? "char*" : IntPtr
+        _bufferMarshal := _buffer == 0 ? IntPtr : "char*"
+        lpcchBufferSizeMarshal := lpcchBufferSize is VarRef ? "uint*" : IntPtr
+        lpcchBufferSizeMarshal := lpcchBufferSize == 0 ? IntPtr : "uint*"
+        lpszObjectIdMarshal := lpszObjectId == 0 ? IntPtr : PWSTR
+        lpcchObjectIdMarshal := lpcchObjectId is VarRef ? "uint*" : IntPtr
+        lpcchObjectIdMarshal := lpcchObjectId == 0 ? IntPtr : "uint*"
+        lpszParentIdMarshal := lpszParentId == 0 ? IntPtr : PWSTR
+        lpcchParentIdMarshal := lpcchParentId is VarRef ? "uint*" : IntPtr
+        lpcchParentIdMarshal := lpcchParentId == 0 ? IntPtr : "uint*"
+        lpszNameMarshal := lpszName == 0 ? IntPtr : PWSTR
+        lpcchNameMarshal := lpcchName is VarRef ? "uint*" : IntPtr
+        lpcchNameMarshal := lpcchName == 0 ? IntPtr : "uint*"
+        lpszTypeMarshal := lpszType == 0 ? IntPtr : PWSTR
+        lpcchTypeMarshal := lpcchType is VarRef ? "uint*" : IntPtr
+        lpcchTypeMarshal := lpcchType == 0 ? IntPtr : "uint*"
+        dwMillisecondsMarshal := dwMilliseconds == 0 ? IntPtr : UInt32
 
-        result := DllCall(this.value, HCHANGE, _hChange, lpdwNotifyKeyMarshal, lpdwNotifyKey, NOTIFY_FILTER_AND_TYPE.Ptr, pFilterAndType, _bufferMarshal, _buffer, lpcchBufferSizeMarshal, lpcchBufferSize, "ptr", lpszObjectId, lpcchObjectIdMarshal, lpcchObjectId, "ptr", lpszParentId, lpcchParentIdMarshal, lpcchParentId, "ptr", lpszName, lpcchNameMarshal, lpcchName, "ptr", lpszType, lpcchTypeMarshal, lpcchType, UInt32, dwMilliseconds, UInt32)
+        result := DllCall(this.value, HCHANGE, _hChange, lpdwNotifyKeyMarshal, lpdwNotifyKey, pFilterAndTypeMarshal, pFilterAndType, _bufferMarshal, _buffer, lpcchBufferSizeMarshal, lpcchBufferSize, lpszObjectIdMarshal, lpszObjectId, lpcchObjectIdMarshal, lpcchObjectId, lpszParentIdMarshal, lpszParentId, lpcchParentIdMarshal, lpcchParentId, lpszNameMarshal, lpszName, lpcchNameMarshal, lpcchName, lpszTypeMarshal, lpszType, lpcchTypeMarshal, lpcchType, dwMillisecondsMarshal, dwMilliseconds, UInt32)
         return result
     }
 

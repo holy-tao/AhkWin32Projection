@@ -18,7 +18,6 @@ export default struct CL_INCOMING_CLOSE_CALL_HANDLER {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

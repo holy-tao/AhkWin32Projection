@@ -27,7 +27,6 @@ export default struct PFN_CERT_DLL_OPEN_STORE_PROV_FUNC {
     }
 
     /**
-     * 
      * @param {PSTR} lpszStoreProvider A pointer to a null-terminated ANSI string that contains the store provider type. 
      * 
      * The following values  represent the predefined store types. The store provider type determines the contents of the <i>pvPara</i> parameter and the use and meaning of the high word of the <i>dwFlags</i> parameter. Additional store providers can be installed or registered by using 
@@ -364,9 +363,11 @@ export default struct PFN_CERT_DLL_OPEN_STORE_PROV_FUNC {
     Call(lpszStoreProvider, dwEncodingType, hCryptProv, dwFlags, pvPara, _hCertStore, pStoreProvInfo) {
         lpszStoreProvider := lpszStoreProvider is String ? StrPtr(lpszStoreProvider) : lpszStoreProvider
 
-        pvParaMarshal := pvPara is VarRef ? "ptr" : "ptr"
+        hCryptProvMarshal := hCryptProv == 0 ? IntPtr : HCRYPTPROV_LEGACY
+        pvParaMarshal := pvPara is VarRef ? "ptr" : IntPtr
+        pvParaMarshal := pvPara == 0 ? IntPtr : "ptr"
 
-        result := DllCall(this.value, "ptr", lpszStoreProvider, CERT_QUERY_ENCODING_TYPE, dwEncodingType, HCRYPTPROV_LEGACY, hCryptProv, CERT_OPEN_STORE_FLAGS, dwFlags, pvParaMarshal, pvPara, HCERTSTORE, _hCertStore, CERT_STORE_PROV_INFO.Ptr, pStoreProvInfo, BOOL)
+        result := DllCall(this.value, "ptr", lpszStoreProvider, CERT_QUERY_ENCODING_TYPE, dwEncodingType, hCryptProvMarshal, hCryptProv, CERT_OPEN_STORE_FLAGS, dwFlags, pvParaMarshal, pvPara, HCERTSTORE, _hCertStore, CERT_STORE_PROV_INFO.Ptr, pStoreProvInfo, BOOL)
         return result
     }
 

@@ -38,7 +38,6 @@ export default struct IVBSAXEntityResolver extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} strPublicId 
      * @param {Pointer<BSTR>} strSystemId 
      * @returns {VARIANT} 
@@ -58,7 +57,7 @@ export default struct IVBSAXEntityResolver extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.resolveEntity := CallbackCreate(GetMethod(implObj, "resolveEntity"), flags, 4)
+        this.vtbl.resolveEntity := CallbackCreate(ObjBindMethod(implObj, "resolveEntity"), flags, 4)
     }
 
     Dispose() {

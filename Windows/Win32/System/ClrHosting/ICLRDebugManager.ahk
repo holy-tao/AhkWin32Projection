@@ -47,7 +47,6 @@ export default struct ICLRDebugManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwConnectionId 
      * @param {PWSTR} szConnectionName 
      * @returns {HRESULT} 
@@ -60,7 +59,6 @@ export default struct ICLRDebugManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} id 
      * @param {Integer} dwCount 
      * @param {Pointer<ICLRTask>} ppCLRTask 
@@ -72,7 +70,6 @@ export default struct ICLRDebugManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwConnectionId 
      * @returns {HRESULT} 
      */
@@ -82,7 +79,6 @@ export default struct ICLRDebugManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<ACL>} pacl 
      * @returns {HRESULT} 
      */
@@ -92,7 +88,6 @@ export default struct ICLRDebugManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<ACL>} 
      */
     GetDacl() {
@@ -101,7 +96,6 @@ export default struct ICLRDebugManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsDebuggerAttached() {
@@ -110,7 +104,6 @@ export default struct ICLRDebugManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {ESymbolReadingPolicy} policy 
      * @returns {HRESULT} 
      */
@@ -128,13 +121,13 @@ export default struct ICLRDebugManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BeginConnection := CallbackCreate(GetMethod(implObj, "BeginConnection"), flags, 3)
-        this.vtbl.SetConnectionTasks := CallbackCreate(GetMethod(implObj, "SetConnectionTasks"), flags, 4)
-        this.vtbl.EndConnection := CallbackCreate(GetMethod(implObj, "EndConnection"), flags, 2)
-        this.vtbl.SetDacl := CallbackCreate(GetMethod(implObj, "SetDacl"), flags, 2)
-        this.vtbl.GetDacl := CallbackCreate(GetMethod(implObj, "GetDacl"), flags, 2)
-        this.vtbl.IsDebuggerAttached := CallbackCreate(GetMethod(implObj, "IsDebuggerAttached"), flags, 2)
-        this.vtbl.SetSymbolReadingPolicy := CallbackCreate(GetMethod(implObj, "SetSymbolReadingPolicy"), flags, 2)
+        this.vtbl.BeginConnection := CallbackCreate(ObjBindMethod(implObj, "BeginConnection"), flags, 3)
+        this.vtbl.SetConnectionTasks := CallbackCreate(ObjBindMethod(implObj, "SetConnectionTasks"), flags, 4)
+        this.vtbl.EndConnection := CallbackCreate(ObjBindMethod(implObj, "EndConnection"), flags, 2)
+        this.vtbl.SetDacl := CallbackCreate(ObjBindMethod(implObj, "SetDacl"), flags, 2)
+        this.vtbl.GetDacl := CallbackCreate(ObjBindMethod(implObj, "GetDacl"), flags, 2)
+        this.vtbl.IsDebuggerAttached := CallbackCreate(ObjBindMethod(implObj, "IsDebuggerAttached"), flags, 2)
+        this.vtbl.SetSymbolReadingPolicy := CallbackCreate(ObjBindMethod(implObj, "SetSymbolReadingPolicy"), flags, 2)
     }
 
     Dispose() {

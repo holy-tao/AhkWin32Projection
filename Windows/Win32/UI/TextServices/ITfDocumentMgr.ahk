@@ -108,7 +108,7 @@ export default struct ITfDocumentMgr extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfdocumentmgr-createcontext
      */
     CreateContext(tidOwner, dwFlags, punk, ppic, pecTextStore) {
-        pecTextStoreMarshal := pecTextStore is VarRef ? "uint*" : "ptr"
+        pecTextStoreMarshal := pecTextStore is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, UInt32, tidOwner, UInt32, dwFlags, "ptr", punk, ITfContext.Ptr, ppic, pecTextStoreMarshal, pecTextStore, "HRESULT")
         return result
@@ -292,12 +292,12 @@ export default struct ITfDocumentMgr extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateContext := CallbackCreate(GetMethod(implObj, "CreateContext"), flags, 6)
-        this.vtbl.Push := CallbackCreate(GetMethod(implObj, "Push"), flags, 2)
-        this.vtbl.Pop := CallbackCreate(GetMethod(implObj, "Pop"), flags, 2)
-        this.vtbl.GetTop := CallbackCreate(GetMethod(implObj, "GetTop"), flags, 2)
-        this.vtbl.GetBase := CallbackCreate(GetMethod(implObj, "GetBase"), flags, 2)
-        this.vtbl.EnumContexts := CallbackCreate(GetMethod(implObj, "EnumContexts"), flags, 2)
+        this.vtbl.CreateContext := CallbackCreate(ObjBindMethod(implObj, "CreateContext"), flags, 6)
+        this.vtbl.Push := CallbackCreate(ObjBindMethod(implObj, "Push"), flags, 2)
+        this.vtbl.Pop := CallbackCreate(ObjBindMethod(implObj, "Pop"), flags, 2)
+        this.vtbl.GetTop := CallbackCreate(ObjBindMethod(implObj, "GetTop"), flags, 2)
+        this.vtbl.GetBase := CallbackCreate(ObjBindMethod(implObj, "GetBase"), flags, 2)
+        this.vtbl.EnumContexts := CallbackCreate(ObjBindMethod(implObj, "EnumContexts"), flags, 2)
     }
 
     Dispose() {

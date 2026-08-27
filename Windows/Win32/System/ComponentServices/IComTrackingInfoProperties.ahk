@@ -69,8 +69,8 @@ export default struct IComTrackingInfoProperties extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PropCount := CallbackCreate(GetMethod(implObj, "PropCount"), flags, 2)
-        this.vtbl.GetPropName := CallbackCreate(GetMethod(implObj, "GetPropName"), flags, 3)
+        this.vtbl.PropCount := CallbackCreate(ObjBindMethod(implObj, "PropCount"), flags, 2)
+        this.vtbl.GetPropName := CallbackCreate(ObjBindMethod(implObj, "GetPropName"), flags, 3)
     }
 
     Dispose() {

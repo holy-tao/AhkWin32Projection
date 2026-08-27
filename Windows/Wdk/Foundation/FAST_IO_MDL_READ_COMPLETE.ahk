@@ -22,7 +22,6 @@ export default struct FAST_IO_MDL_READ_COMPLETE {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<MDL>} MdlChain 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 

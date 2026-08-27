@@ -19,16 +19,15 @@ export default struct RTL_HEAP_COMMIT_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Base 
      * @param {Pointer<Pointer<Void>>} CommitAddress 
      * @param {Pointer<Pointer>} CommitSize 
      * @returns {NTSTATUS} 
      */
     Call(Base, CommitAddress, CommitSize) {
-        BaseMarshal := Base is VarRef ? "ptr" : "ptr"
-        CommitAddressMarshal := CommitAddress is VarRef ? "ptr*" : "ptr"
-        CommitSizeMarshal := CommitSize is VarRef ? "ptr*" : "ptr"
+        BaseMarshal := Base is VarRef ? "ptr" : IntPtr
+        CommitAddressMarshal := CommitAddress is VarRef ? "ptr*" : IntPtr
+        CommitSizeMarshal := CommitSize is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, BaseMarshal, Base, CommitAddressMarshal, CommitAddress, CommitSizeMarshal, CommitSize, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

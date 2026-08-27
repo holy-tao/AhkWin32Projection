@@ -69,8 +69,8 @@ export default struct IAMVideoDecimationProperties extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryDecimationUsage := CallbackCreate(GetMethod(implObj, "QueryDecimationUsage"), flags, 2)
-        this.vtbl.SetDecimationUsage := CallbackCreate(GetMethod(implObj, "SetDecimationUsage"), flags, 2)
+        this.vtbl.QueryDecimationUsage := CallbackCreate(ObjBindMethod(implObj, "QueryDecimationUsage"), flags, 2)
+        this.vtbl.SetDecimationUsage := CallbackCreate(ObjBindMethod(implObj, "SetDecimationUsage"), flags, 2)
     }
 
     Dispose() {

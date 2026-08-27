@@ -19,7 +19,6 @@ export default struct DOT11EXTIHV_PROCESS_SESSION_CHANGE {
     }
 
     /**
-     * 
      * @param {Integer} uEventType 
      * @param {Pointer<WTSSESSION_NOTIFICATION>} pSessionNotification 
      * @returns {Integer} 

@@ -87,7 +87,7 @@ export default struct IDynamicHWHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDynamicInfo := CallbackCreate(GetMethod(implObj, "GetDynamicInfo"), flags, 4)
+        this.vtbl.GetDynamicInfo := CallbackCreate(ObjBindMethod(implObj, "GetDynamicInfo"), flags, 4)
     }
 
     Dispose() {

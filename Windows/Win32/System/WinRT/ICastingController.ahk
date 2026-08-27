@@ -76,7 +76,6 @@ export default struct ICastingController extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Connect() {
@@ -97,7 +96,6 @@ export default struct ICastingController extends IUnknown {
     }
 
     /**
-     * 
      * @param {ICastingEventHandler} eventHandler 
      * @returns {Integer} 
      */
@@ -107,7 +105,6 @@ export default struct ICastingController extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cookie 
      * @returns {HRESULT} 
      */
@@ -125,11 +122,11 @@ export default struct ICastingController extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 1)
-        this.vtbl.Disconnect := CallbackCreate(GetMethod(implObj, "Disconnect"), flags, 1)
-        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 3)
-        this.vtbl.UnAdvise := CallbackCreate(GetMethod(implObj, "UnAdvise"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.Connect := CallbackCreate(ObjBindMethod(implObj, "Connect"), flags, 1)
+        this.vtbl.Disconnect := CallbackCreate(ObjBindMethod(implObj, "Disconnect"), flags, 1)
+        this.vtbl.Advise := CallbackCreate(ObjBindMethod(implObj, "Advise"), flags, 3)
+        this.vtbl.UnAdvise := CallbackCreate(ObjBindMethod(implObj, "UnAdvise"), flags, 2)
     }
 
     Dispose() {

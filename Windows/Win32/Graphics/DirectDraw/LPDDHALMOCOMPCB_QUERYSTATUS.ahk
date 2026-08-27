@@ -19,7 +19,6 @@ export default struct LPDDHALMOCOMPCB_QUERYSTATUS {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_QUERYMOCOMPSTATUSDATA>} param0 
      * @returns {Integer} 
      */

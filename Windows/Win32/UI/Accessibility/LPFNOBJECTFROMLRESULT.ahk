@@ -22,7 +22,6 @@ export default struct LPFNOBJECTFROMLRESULT {
     }
 
     /**
-     * 
      * @param {LRESULT} _lResult 
      * @param {Pointer<Guid>} riid 
      * @param {WPARAM} _wParam 
@@ -30,7 +29,7 @@ export default struct LPFNOBJECTFROMLRESULT {
      * @returns {HRESULT} 
      */
     Call(_lResult, riid, _wParam, ppvObject) {
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, LRESULT, _lResult, Guid.Ptr, riid, WPARAM, _wParam, ppvObjectMarshal, ppvObject, "HRESULT")
         return result

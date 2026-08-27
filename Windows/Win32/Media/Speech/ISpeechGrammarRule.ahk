@@ -73,7 +73,6 @@ export default struct ISpeechGrammarRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechRuleAttributes} 
      */
     get_Attributes() {
@@ -82,7 +81,6 @@ export default struct ISpeechGrammarRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechGrammarRuleState} 
      */
     get_InitialState() {
@@ -91,7 +89,6 @@ export default struct ISpeechGrammarRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -101,7 +98,6 @@ export default struct ISpeechGrammarRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Id() {
@@ -138,7 +134,6 @@ export default struct ISpeechGrammarRule extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} ResourceName 
      * @param {BSTR} ResourceValue 
      * @returns {HRESULT} 
@@ -152,7 +147,6 @@ export default struct ISpeechGrammarRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechGrammarRuleState} 
      */
     AddState() {
@@ -169,13 +163,13 @@ export default struct ISpeechGrammarRule extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Attributes := CallbackCreate(GetMethod(implObj, "get_Attributes"), flags, 2)
-        this.vtbl.get_InitialState := CallbackCreate(GetMethod(implObj, "get_InitialState"), flags, 2)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
-        this.vtbl.AddResource := CallbackCreate(GetMethod(implObj, "AddResource"), flags, 3)
-        this.vtbl.AddState := CallbackCreate(GetMethod(implObj, "AddState"), flags, 2)
+        this.vtbl.get_Attributes := CallbackCreate(ObjBindMethod(implObj, "get_Attributes"), flags, 2)
+        this.vtbl.get_InitialState := CallbackCreate(ObjBindMethod(implObj, "get_InitialState"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(ObjBindMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.AddResource := CallbackCreate(ObjBindMethod(implObj, "AddResource"), flags, 3)
+        this.vtbl.AddState := CallbackCreate(ObjBindMethod(implObj, "AddState"), flags, 2)
     }
 
     Dispose() {

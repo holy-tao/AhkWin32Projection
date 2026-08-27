@@ -215,11 +215,11 @@ export default struct IIsoImageManager extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Path := CallbackCreate(GetMethod(implObj, "get_Path"), flags, 2)
-        this.vtbl.get_Stream := CallbackCreate(GetMethod(implObj, "get_Stream"), flags, 2)
-        this.vtbl.SetPath := CallbackCreate(GetMethod(implObj, "SetPath"), flags, 2)
-        this.vtbl.SetStream := CallbackCreate(GetMethod(implObj, "SetStream"), flags, 2)
-        this.vtbl.Validate := CallbackCreate(GetMethod(implObj, "Validate"), flags, 1)
+        this.vtbl.get_Path := CallbackCreate(ObjBindMethod(implObj, "get_Path"), flags, 2)
+        this.vtbl.get_Stream := CallbackCreate(ObjBindMethod(implObj, "get_Stream"), flags, 2)
+        this.vtbl.SetPath := CallbackCreate(ObjBindMethod(implObj, "SetPath"), flags, 2)
+        this.vtbl.SetStream := CallbackCreate(ObjBindMethod(implObj, "SetStream"), flags, 2)
+        this.vtbl.Validate := CallbackCreate(ObjBindMethod(implObj, "Validate"), flags, 1)
     }
 
     Dispose() {

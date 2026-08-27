@@ -21,7 +21,6 @@ export default struct PIBIO_STORAGE_UPDATE_RECORD_COMMIT_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline 
      * @param {Pointer<WINBIO_STORAGE_RECORD>} RecordContents 
      * @returns {HRESULT} 

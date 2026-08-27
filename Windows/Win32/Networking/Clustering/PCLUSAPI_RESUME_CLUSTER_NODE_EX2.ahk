@@ -21,7 +21,6 @@ export default struct PCLUSAPI_RESUME_CLUSTER_NODE_EX2 {
     }
 
     /**
-     * 
      * @param {HNODE} _hNode 
      * @param {CLUSTER_NODE_RESUME_FAILBACK_TYPE} eResumeFailbackType 
      * @param {Integer} dwResumeFlagsReserved 
@@ -31,7 +30,9 @@ export default struct PCLUSAPI_RESUME_CLUSTER_NODE_EX2 {
     Call(_hNode, eResumeFailbackType, dwResumeFlagsReserved, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall(this.value, HNODE, _hNode, CLUSTER_NODE_RESUME_FAILBACK_TYPE, eResumeFailbackType, UInt32, dwResumeFlagsReserved, "ptr", lpszReason, UInt32)
+        lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+        result := DllCall(this.value, HNODE, _hNode, CLUSTER_NODE_RESUME_FAILBACK_TYPE, eResumeFailbackType, UInt32, dwResumeFlagsReserved, lpszReasonMarshal, lpszReason, UInt32)
         return result
     }
 

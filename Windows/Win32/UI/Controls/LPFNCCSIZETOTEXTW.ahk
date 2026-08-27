@@ -21,7 +21,6 @@ export default struct LPFNCCSIZETOTEXTW {
     }
 
     /**
-     * 
      * @param {Integer} flStyle 
      * @param {Integer} flExtStyle 
      * @param {HFONT} _hfont 

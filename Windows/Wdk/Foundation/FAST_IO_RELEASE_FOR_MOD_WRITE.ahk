@@ -22,7 +22,6 @@ export default struct FAST_IO_RELEASE_FOR_MOD_WRITE {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<ERESOURCE>} ResourceToRelease 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 

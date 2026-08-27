@@ -18,7 +18,6 @@ export default struct PVIRTUALCHANNELWRITE {
     }
 
     /**
-     * 
      * @param {Integer} openHandle 
      * @param {Pointer<Void>} pData 
      * @param {Integer} dataLength 
@@ -26,8 +25,8 @@ export default struct PVIRTUALCHANNELWRITE {
      * @returns {Integer} 
      */
     Call(openHandle, pData, dataLength, pUserData) {
-        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
-        pUserDataMarshal := pUserData is VarRef ? "ptr" : "ptr"
+        pDataMarshal := pData is VarRef ? "ptr" : IntPtr
+        pUserDataMarshal := pUserData is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, UInt32, openHandle, pDataMarshal, pData, UInt32, dataLength, pUserDataMarshal, pUserData, UInt32)
         return result

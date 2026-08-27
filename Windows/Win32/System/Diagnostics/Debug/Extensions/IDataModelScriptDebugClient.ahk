@@ -40,7 +40,6 @@ export default struct IDataModelScriptDebugClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<ScriptDebugEventInformation>} pEventInfo 
      * @param {IDataModelScript} pScript 
      * @param {IModelObject} pEventDataObject 
@@ -48,9 +47,10 @@ export default struct IDataModelScriptDebugClient extends IUnknown {
      * @returns {HRESULT} 
      */
     NotifyDebugEvent(pEventInfo, pScript, pEventDataObject, resumeEventKind) {
-        resumeEventKindMarshal := resumeEventKind is VarRef ? "int*" : "ptr"
+        pEventDataObjectMarshal := pEventDataObject == 0 ? IntPtr : "ptr"
+        resumeEventKindMarshal := resumeEventKind is VarRef ? "int*" : IntPtr
 
-        result := ComCall(3, this, ScriptDebugEventInformation.Ptr, pEventInfo, "ptr", pScript, "ptr", pEventDataObject, resumeEventKindMarshal, resumeEventKind, "HRESULT")
+        result := ComCall(3, this, ScriptDebugEventInformation.Ptr, pEventInfo, "ptr", pScript, pEventDataObjectMarshal, pEventDataObject, resumeEventKindMarshal, resumeEventKind, "HRESULT")
         return result
     }
 
@@ -63,7 +63,7 @@ export default struct IDataModelScriptDebugClient extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.NotifyDebugEvent := CallbackCreate(GetMethod(implObj, "NotifyDebugEvent"), flags, 5)
+        this.vtbl.NotifyDebugEvent := CallbackCreate(ObjBindMethod(implObj, "NotifyDebugEvent"), flags, 5)
     }
 
     Dispose() {

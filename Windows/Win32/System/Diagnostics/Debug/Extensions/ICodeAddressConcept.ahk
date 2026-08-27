@@ -38,7 +38,6 @@ export default struct ICodeAddressConcept extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} pContextObject 
      * @returns {IDebugHostSymbol} 
      */
@@ -56,7 +55,7 @@ export default struct ICodeAddressConcept extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetContainingSymbol := CallbackCreate(GetMethod(implObj, "GetContainingSymbol"), flags, 3)
+        this.vtbl.GetContainingSymbol := CallbackCreate(ObjBindMethod(implObj, "GetContainingSymbol"), flags, 3)
     }
 
     Dispose() {

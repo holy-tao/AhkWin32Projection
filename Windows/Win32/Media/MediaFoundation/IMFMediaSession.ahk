@@ -659,16 +659,16 @@ export default struct IMFMediaSession extends IMFMediaEventGenerator {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetTopology := CallbackCreate(GetMethod(implObj, "SetTopology"), flags, 3)
-        this.vtbl.ClearTopologies := CallbackCreate(GetMethod(implObj, "ClearTopologies"), flags, 1)
-        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 3)
-        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
-        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
-        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 1)
-        this.vtbl.GetClock := CallbackCreate(GetMethod(implObj, "GetClock"), flags, 2)
-        this.vtbl.GetSessionCapabilities := CallbackCreate(GetMethod(implObj, "GetSessionCapabilities"), flags, 2)
-        this.vtbl.GetFullTopology := CallbackCreate(GetMethod(implObj, "GetFullTopology"), flags, 4)
+        this.vtbl.SetTopology := CallbackCreate(ObjBindMethod(implObj, "SetTopology"), flags, 3)
+        this.vtbl.ClearTopologies := CallbackCreate(ObjBindMethod(implObj, "ClearTopologies"), flags, 1)
+        this.vtbl.Start := CallbackCreate(ObjBindMethod(implObj, "Start"), flags, 3)
+        this.vtbl.Pause := CallbackCreate(ObjBindMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Stop := CallbackCreate(ObjBindMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
+        this.vtbl.Shutdown := CallbackCreate(ObjBindMethod(implObj, "Shutdown"), flags, 1)
+        this.vtbl.GetClock := CallbackCreate(ObjBindMethod(implObj, "GetClock"), flags, 2)
+        this.vtbl.GetSessionCapabilities := CallbackCreate(ObjBindMethod(implObj, "GetSessionCapabilities"), flags, 2)
+        this.vtbl.GetFullTopology := CallbackCreate(ObjBindMethod(implObj, "GetFullTopology"), flags, 4)
     }
 
     Dispose() {

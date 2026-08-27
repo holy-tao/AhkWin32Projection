@@ -61,7 +61,6 @@ export default struct IDOMUIEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLWindow2} 
      */
     get_view() {
@@ -70,7 +69,6 @@ export default struct IDOMUIEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_detail() {
@@ -79,7 +77,6 @@ export default struct IDOMUIEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 
@@ -103,9 +100,9 @@ export default struct IDOMUIEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_view := CallbackCreate(GetMethod(implObj, "get_view"), flags, 2)
-        this.vtbl.get_detail := CallbackCreate(GetMethod(implObj, "get_detail"), flags, 2)
-        this.vtbl.initUIEvent := CallbackCreate(GetMethod(implObj, "initUIEvent"), flags, 6)
+        this.vtbl.get_view := CallbackCreate(ObjBindMethod(implObj, "get_view"), flags, 2)
+        this.vtbl.get_detail := CallbackCreate(ObjBindMethod(implObj, "get_detail"), flags, 2)
+        this.vtbl.initUIEvent := CallbackCreate(ObjBindMethod(implObj, "initUIEvent"), flags, 6)
     }
 
     Dispose() {

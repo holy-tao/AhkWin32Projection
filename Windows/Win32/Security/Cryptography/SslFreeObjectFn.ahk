@@ -20,7 +20,6 @@ export default struct SslFreeObjectFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_HANDLE} hObject 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 

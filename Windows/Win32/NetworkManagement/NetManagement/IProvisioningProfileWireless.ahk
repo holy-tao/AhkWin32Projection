@@ -63,7 +63,7 @@ export default struct IProvisioningProfileWireless extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateProfile := CallbackCreate(GetMethod(implObj, "CreateProfile"), flags, 5)
+        this.vtbl.CreateProfile := CallbackCreate(ObjBindMethod(implObj, "CreateProfile"), flags, 5)
     }
 
     Dispose() {

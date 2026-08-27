@@ -36,7 +36,6 @@ export default struct ID3D12PipelineState1 extends ID3D12PipelineState {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
@@ -54,7 +53,7 @@ export default struct ID3D12PipelineState1 extends ID3D12PipelineState {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRootSignature := CallbackCreate(GetMethod(implObj, "GetRootSignature"), flags, 3)
+        this.vtbl.GetRootSignature := CallbackCreate(ObjBindMethod(implObj, "GetRootSignature"), flags, 3)
     }
 
     Dispose() {

@@ -19,13 +19,12 @@ export default struct SERVICE_MAIN_FUNCTIONA {
     }
 
     /**
-     * 
      * @param {Integer} dwNumServicesArgs 
      * @param {Pointer<Pointer<Integer>>} lpServiceArgVectors 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(dwNumServicesArgs, lpServiceArgVectors) {
-        lpServiceArgVectorsMarshal := lpServiceArgVectors is VarRef ? "ptr*" : "ptr"
+        lpServiceArgVectorsMarshal := lpServiceArgVectors is VarRef ? "ptr*" : IntPtr
 
         DllCall(this.value, UInt32, dwNumServicesArgs, lpServiceArgVectorsMarshal, lpServiceArgVectors)
     }

@@ -81,7 +81,7 @@ export default struct IContextMenuSite extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DoContextMenuPopup := CallbackCreate(GetMethod(implObj, "DoContextMenuPopup"), flags, 4)
+        this.vtbl.DoContextMenuPopup := CallbackCreate(ObjBindMethod(implObj, "DoContextMenuPopup"), flags, 4)
     }
 
     Dispose() {

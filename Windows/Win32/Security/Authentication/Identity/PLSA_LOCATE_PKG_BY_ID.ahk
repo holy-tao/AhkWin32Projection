@@ -18,7 +18,6 @@ export default struct PLSA_LOCATE_PKG_BY_ID {
     }
 
     /**
-     * 
      * @param {Integer} PackgeId 
      * @returns {Pointer<Void>} 
      */

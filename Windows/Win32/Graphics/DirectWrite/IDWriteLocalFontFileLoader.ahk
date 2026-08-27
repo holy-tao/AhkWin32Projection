@@ -113,9 +113,9 @@ export default struct IDWriteLocalFontFileLoader extends IDWriteFontFileLoader {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFilePathLengthFromKey := CallbackCreate(GetMethod(implObj, "GetFilePathLengthFromKey"), flags, 4)
-        this.vtbl.GetFilePathFromKey := CallbackCreate(GetMethod(implObj, "GetFilePathFromKey"), flags, 5)
-        this.vtbl.GetLastWriteTimeFromKey := CallbackCreate(GetMethod(implObj, "GetLastWriteTimeFromKey"), flags, 4)
+        this.vtbl.GetFilePathLengthFromKey := CallbackCreate(ObjBindMethod(implObj, "GetFilePathLengthFromKey"), flags, 4)
+        this.vtbl.GetFilePathFromKey := CallbackCreate(ObjBindMethod(implObj, "GetFilePathFromKey"), flags, 5)
+        this.vtbl.GetLastWriteTimeFromKey := CallbackCreate(ObjBindMethod(implObj, "GetLastWriteTimeFromKey"), flags, 4)
     }
 
     Dispose() {

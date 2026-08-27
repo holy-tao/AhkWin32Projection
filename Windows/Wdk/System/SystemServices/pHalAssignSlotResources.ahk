@@ -24,7 +24,6 @@ export default struct pHalAssignSlotResources {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} RegistryPath 
      * @param {Pointer<UNICODE_STRING>} DriverClassName 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
@@ -36,7 +35,7 @@ export default struct pHalAssignSlotResources {
      * @returns {NTSTATUS} 
      */
     Call(RegistryPath, DriverClassName, DriverObject, DeviceObject, BusType, BusNumber, SlotNumber, AllocatedResources) {
-        AllocatedResourcesMarshal := AllocatedResources is VarRef ? "ptr*" : "ptr"
+        AllocatedResourcesMarshal := AllocatedResources is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, UNICODE_STRING.Ptr, RegistryPath, UNICODE_STRING.Ptr, DriverClassName, DRIVER_OBJECT.Ptr, DriverObject, DEVICE_OBJECT.Ptr, DeviceObject, INTERFACE_TYPE, BusType, UInt32, BusNumber, UInt32, SlotNumber, AllocatedResourcesMarshal, AllocatedResources, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

@@ -93,8 +93,8 @@ export default struct IBackgroundCopyFile6 extends IBackgroundCopyFile5 {
      * @see https://learn.microsoft.com/windows/win32/api/bits10_1/nf-bits10_1-ibackgroundcopyfile6-getfilledfileranges
      */
     GetFilledFileRanges(rangeCount, ranges) {
-        rangeCountMarshal := rangeCount is VarRef ? "uint*" : "ptr"
-        rangesMarshal := ranges is VarRef ? "ptr*" : "ptr"
+        rangeCountMarshal := rangeCount is VarRef ? "uint*" : IntPtr
+        rangesMarshal := ranges is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(17, this, rangeCountMarshal, rangeCount, rangesMarshal, ranges, "HRESULT")
         return result
@@ -109,9 +109,9 @@ export default struct IBackgroundCopyFile6 extends IBackgroundCopyFile5 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.UpdateDownloadPosition := CallbackCreate(GetMethod(implObj, "UpdateDownloadPosition"), flags, 2)
-        this.vtbl.RequestFileRanges := CallbackCreate(GetMethod(implObj, "RequestFileRanges"), flags, 3)
-        this.vtbl.GetFilledFileRanges := CallbackCreate(GetMethod(implObj, "GetFilledFileRanges"), flags, 3)
+        this.vtbl.UpdateDownloadPosition := CallbackCreate(ObjBindMethod(implObj, "UpdateDownloadPosition"), flags, 2)
+        this.vtbl.RequestFileRanges := CallbackCreate(ObjBindMethod(implObj, "RequestFileRanges"), flags, 3)
+        this.vtbl.GetFilledFileRanges := CallbackCreate(ObjBindMethod(implObj, "GetFilledFileRanges"), flags, 3)
     }
 
     Dispose() {

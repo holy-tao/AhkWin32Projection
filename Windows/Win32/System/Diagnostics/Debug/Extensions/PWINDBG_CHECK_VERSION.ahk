@@ -18,7 +18,6 @@ export default struct PWINDBG_CHECK_VERSION {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Call() {

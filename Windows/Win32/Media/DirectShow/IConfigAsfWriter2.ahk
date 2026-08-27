@@ -76,8 +76,8 @@ export default struct IConfigAsfWriter2 extends IConfigAsfWriter {
      * @see https://learn.microsoft.com/windows/win32/api/dshowasf/nf-dshowasf-iconfigasfwriter2-getparam
      */
     GetParam(dwParam, pdwParam1, pdwParam2) {
-        pdwParam1Marshal := pdwParam1 is VarRef ? "uint*" : "ptr"
-        pdwParam2Marshal := pdwParam2 is VarRef ? "uint*" : "ptr"
+        pdwParam1Marshal := pdwParam1 is VarRef ? "uint*" : IntPtr
+        pdwParam2Marshal := pdwParam2 is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, UInt32, dwParam, pdwParam1Marshal, pdwParam1, pdwParam2Marshal, pdwParam2, "HRESULT")
         return result
@@ -133,10 +133,10 @@ export default struct IConfigAsfWriter2 extends IConfigAsfWriter {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StreamNumFromPin := CallbackCreate(GetMethod(implObj, "StreamNumFromPin"), flags, 3)
-        this.vtbl.SetParam := CallbackCreate(GetMethod(implObj, "SetParam"), flags, 4)
-        this.vtbl.GetParam := CallbackCreate(GetMethod(implObj, "GetParam"), flags, 4)
-        this.vtbl.ResetMultiPassState := CallbackCreate(GetMethod(implObj, "ResetMultiPassState"), flags, 1)
+        this.vtbl.StreamNumFromPin := CallbackCreate(ObjBindMethod(implObj, "StreamNumFromPin"), flags, 3)
+        this.vtbl.SetParam := CallbackCreate(ObjBindMethod(implObj, "SetParam"), flags, 4)
+        this.vtbl.GetParam := CallbackCreate(ObjBindMethod(implObj, "GetParam"), flags, 4)
+        this.vtbl.ResetMultiPassState := CallbackCreate(ObjBindMethod(implObj, "ResetMultiPassState"), flags, 1)
     }
 
     Dispose() {

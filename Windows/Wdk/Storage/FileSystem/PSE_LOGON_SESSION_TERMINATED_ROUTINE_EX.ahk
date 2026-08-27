@@ -19,7 +19,6 @@ export default struct PSE_LOGON_SESSION_TERMINATED_ROUTINE_EX {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

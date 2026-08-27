@@ -21,7 +21,6 @@ export default struct PPUT_SCATTER_GATHER_LIST {
     }
 
     /**
-     * 
      * @param {Pointer<DMA_ADAPTER>} DmaAdapter 
      * @param {Pointer<SCATTER_GATHER_LIST>} ScatterGather 
      * @param {BOOLEAN} WriteToDevice 

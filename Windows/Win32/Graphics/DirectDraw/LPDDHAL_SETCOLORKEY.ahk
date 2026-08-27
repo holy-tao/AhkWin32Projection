@@ -19,7 +19,6 @@ export default struct LPDDHAL_SETCOLORKEY {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_DRVSETCOLORKEYDATA>} param0 
      * @returns {Integer} 
      */

@@ -37,13 +37,12 @@ export default struct ISyncFilterDeserializer extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbSyncFilter 
      * @param {Integer} dwCbSyncFilter 
      * @returns {ISyncFilter} 
      */
     DeserializeSyncFilter(pbSyncFilter, dwCbSyncFilter) {
-        pbSyncFilterMarshal := pbSyncFilter is VarRef ? "char*" : "ptr"
+        pbSyncFilterMarshal := pbSyncFilter is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, pbSyncFilterMarshal, pbSyncFilter, UInt32, dwCbSyncFilter, "ptr*", &ppISyncFilter := 0, "HRESULT")
         return ISyncFilter(ppISyncFilter)
@@ -58,7 +57,7 @@ export default struct ISyncFilterDeserializer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DeserializeSyncFilter := CallbackCreate(GetMethod(implObj, "DeserializeSyncFilter"), flags, 4)
+        this.vtbl.DeserializeSyncFilter := CallbackCreate(ObjBindMethod(implObj, "DeserializeSyncFilter"), flags, 4)
     }
 
     Dispose() {

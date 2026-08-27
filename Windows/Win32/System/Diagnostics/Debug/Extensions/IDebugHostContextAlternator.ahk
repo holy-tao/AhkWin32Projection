@@ -37,7 +37,6 @@ export default struct IDebugHostContextAlternator extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} fullSwitch 
      * @returns {HRESULT} 
      */
@@ -47,7 +46,6 @@ export default struct IDebugHostContextAlternator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SwitchBack() {
@@ -64,8 +62,8 @@ export default struct IDebugHostContextAlternator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SwitchTo := CallbackCreate(GetMethod(implObj, "SwitchTo"), flags, 2)
-        this.vtbl.SwitchBack := CallbackCreate(GetMethod(implObj, "SwitchBack"), flags, 1)
+        this.vtbl.SwitchTo := CallbackCreate(ObjBindMethod(implObj, "SwitchTo"), flags, 2)
+        this.vtbl.SwitchBack := CallbackCreate(ObjBindMethod(implObj, "SwitchBack"), flags, 1)
     }
 
     Dispose() {

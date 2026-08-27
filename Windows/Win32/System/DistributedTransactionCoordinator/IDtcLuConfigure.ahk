@@ -37,26 +37,24 @@ export default struct IDtcLuConfigure extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pucLuPair 
      * @param {Integer} cbLuPair 
      * @returns {HRESULT} 
      */
     Add(pucLuPair, cbLuPair) {
-        pucLuPairMarshal := pucLuPair is VarRef ? "char*" : "ptr"
+        pucLuPairMarshal := pucLuPair is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, pucLuPairMarshal, pucLuPair, UInt32, cbLuPair, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pucLuPair 
      * @param {Integer} cbLuPair 
      * @returns {HRESULT} 
      */
     Delete(pucLuPair, cbLuPair) {
-        pucLuPairMarshal := pucLuPair is VarRef ? "char*" : "ptr"
+        pucLuPairMarshal := pucLuPair is VarRef ? "char*" : IntPtr
 
         result := ComCall(4, this, pucLuPairMarshal, pucLuPair, UInt32, cbLuPair, "HRESULT")
         return result
@@ -71,8 +69,8 @@ export default struct IDtcLuConfigure extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 3)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 3)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 3)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 3)
     }
 
     Dispose() {

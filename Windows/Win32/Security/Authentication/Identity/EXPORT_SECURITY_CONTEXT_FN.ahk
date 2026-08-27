@@ -21,7 +21,6 @@ export default struct EXPORT_SECURITY_CONTEXT_FN {
     }
 
     /**
-     * 
      * @param {Pointer<SecHandle>} param0 
      * @param {Integer} param1 
      * @param {Pointer<SecBuffer>} param2 
@@ -29,7 +28,7 @@ export default struct EXPORT_SECURITY_CONTEXT_FN {
      * @returns {HRESULT} 
      */
     Call(param0, param1, param2, param3) {
-        param3Marshal := param3 is VarRef ? "ptr*" : "ptr"
+        param3Marshal := param3 is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, SecHandle.Ptr, param0, UInt32, param1, SecBuffer.Ptr, param2, param3Marshal, param3, "HRESULT")
         return result

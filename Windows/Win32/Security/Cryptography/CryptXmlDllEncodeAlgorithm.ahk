@@ -24,7 +24,6 @@ export default struct CryptXmlDllEncodeAlgorithm {
     }
 
     /**
-     * 
      * @param {Pointer<CRYPT_XML_ALGORITHM_INFO>} pAlgInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_algorithm_info">CRYPT_XML_ALGORITHM_INFO</a> structure.
      * @param {CRYPT_XML_CHARSET} dwCharset A <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ne-cryptxml-crypt_xml_charset">CRYPT_XML_CHARSET</a> value that specifies the character set of the encoded XML.
      * @param {Pointer<Void>} pvCallbackState A pointer to an argument that is passed to the callback function pointed to by the <i>pfnWrite</i> parameter.
@@ -34,7 +33,7 @@ export default struct CryptXmlDllEncodeAlgorithm {
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error.
      */
     Call(pAlgInfo, dwCharset, pvCallbackState, _pfnWrite) {
-        pvCallbackStateMarshal := pvCallbackState is VarRef ? "ptr" : "ptr"
+        pvCallbackStateMarshal := pvCallbackState is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, CRYPT_XML_ALGORITHM_INFO.Ptr, pAlgInfo, CRYPT_XML_CHARSET, dwCharset, pvCallbackStateMarshal, pvCallbackState, PFN_CRYPT_XML_WRITE_CALLBACK, _pfnWrite, "HRESULT")
         return result

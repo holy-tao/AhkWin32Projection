@@ -98,9 +98,9 @@ export default struct IBDA_NameValueService extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetValueNameByIndex := CallbackCreate(GetMethod(implObj, "GetValueNameByIndex"), flags, 3)
-        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 4)
-        this.vtbl.SetValue := CallbackCreate(GetMethod(implObj, "SetValue"), flags, 6)
+        this.vtbl.GetValueNameByIndex := CallbackCreate(ObjBindMethod(implObj, "GetValueNameByIndex"), flags, 3)
+        this.vtbl.GetValue := CallbackCreate(ObjBindMethod(implObj, "GetValue"), flags, 4)
+        this.vtbl.SetValue := CallbackCreate(ObjBindMethod(implObj, "SetValue"), flags, 6)
     }
 
     Dispose() {

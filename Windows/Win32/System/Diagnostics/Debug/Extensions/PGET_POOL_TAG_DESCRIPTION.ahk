@@ -20,7 +20,6 @@ export default struct PGET_POOL_TAG_DESCRIPTION {
     }
 
     /**
-     * 
      * @param {Integer} PoolTag 
      * @param {Pointer<DEBUG_POOLTAG_DESCRIPTION>} pDescription 
      * @returns {HRESULT} 

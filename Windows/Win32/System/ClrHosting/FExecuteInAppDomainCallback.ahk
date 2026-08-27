@@ -19,12 +19,11 @@ export default struct FExecuteInAppDomainCallback {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} cookie 
      * @returns {HRESULT} 
      */
     Call(cookie) {
-        cookieMarshal := cookie is VarRef ? "ptr" : "ptr"
+        cookieMarshal := cookie is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, cookieMarshal, cookie, "HRESULT")
         return result

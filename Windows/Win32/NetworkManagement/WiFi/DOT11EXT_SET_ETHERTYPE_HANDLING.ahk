@@ -20,7 +20,6 @@ export default struct DOT11EXT_SET_ETHERTYPE_HANDLING {
     }
 
     /**
-     * 
      * @param {HANDLE} hDot11SvcHandle 
      * @param {Integer} uMaxBackLog 
      * @param {Integer} uNumOfExemption 
@@ -30,9 +29,12 @@ export default struct DOT11EXT_SET_ETHERTYPE_HANDLING {
      * @returns {Integer} 
      */
     Call(hDot11SvcHandle, uMaxBackLog, uNumOfExemption, pExemption, uNumOfRegistration, pusRegistration) {
-        pusRegistrationMarshal := pusRegistration is VarRef ? "ushort*" : "ptr"
+        hDot11SvcHandleMarshal := hDot11SvcHandle == 0 ? IntPtr : HANDLE
+        pExemptionMarshal := pExemption == 0 ? IntPtr : DOT11_PRIVACY_EXEMPTION.Ptr
+        pusRegistrationMarshal := pusRegistration is VarRef ? "ushort*" : IntPtr
+        pusRegistrationMarshal := pusRegistration == 0 ? IntPtr : "ushort*"
 
-        result := DllCall(this.value, HANDLE, hDot11SvcHandle, UInt32, uMaxBackLog, UInt32, uNumOfExemption, DOT11_PRIVACY_EXEMPTION.Ptr, pExemption, UInt32, uNumOfRegistration, pusRegistrationMarshal, pusRegistration, UInt32)
+        result := DllCall(this.value, hDot11SvcHandleMarshal, hDot11SvcHandle, UInt32, uMaxBackLog, UInt32, uNumOfExemption, pExemptionMarshal, pExemption, UInt32, uNumOfRegistration, pusRegistrationMarshal, pusRegistration, UInt32)
         return result
     }
 

@@ -161,8 +161,8 @@ export default struct IDXGIDecodeSwapChain extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgidecodeswapchain-getdestsize
      */
     GetDestSize(pWidth, pHeight) {
-        pWidthMarshal := pWidth is VarRef ? "uint*" : "ptr"
-        pHeightMarshal := pHeight is VarRef ? "uint*" : "ptr"
+        pWidthMarshal := pWidth is VarRef ? "uint*" : IntPtr
+        pHeightMarshal := pHeight is VarRef ? "uint*" : IntPtr
 
         result := ComCall(9, this, pWidthMarshal, pWidth, pHeightMarshal, pHeight, "HRESULT")
         return result
@@ -198,15 +198,15 @@ export default struct IDXGIDecodeSwapChain extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PresentBuffer := CallbackCreate(GetMethod(implObj, "PresentBuffer"), flags, 4)
-        this.vtbl.SetSourceRect := CallbackCreate(GetMethod(implObj, "SetSourceRect"), flags, 2)
-        this.vtbl.SetTargetRect := CallbackCreate(GetMethod(implObj, "SetTargetRect"), flags, 2)
-        this.vtbl.SetDestSize := CallbackCreate(GetMethod(implObj, "SetDestSize"), flags, 3)
-        this.vtbl.GetSourceRect := CallbackCreate(GetMethod(implObj, "GetSourceRect"), flags, 2)
-        this.vtbl.GetTargetRect := CallbackCreate(GetMethod(implObj, "GetTargetRect"), flags, 2)
-        this.vtbl.GetDestSize := CallbackCreate(GetMethod(implObj, "GetDestSize"), flags, 3)
-        this.vtbl.SetColorSpace := CallbackCreate(GetMethod(implObj, "SetColorSpace"), flags, 2)
-        this.vtbl.GetColorSpace := CallbackCreate(GetMethod(implObj, "GetColorSpace"), flags, 1)
+        this.vtbl.PresentBuffer := CallbackCreate(ObjBindMethod(implObj, "PresentBuffer"), flags, 4)
+        this.vtbl.SetSourceRect := CallbackCreate(ObjBindMethod(implObj, "SetSourceRect"), flags, 2)
+        this.vtbl.SetTargetRect := CallbackCreate(ObjBindMethod(implObj, "SetTargetRect"), flags, 2)
+        this.vtbl.SetDestSize := CallbackCreate(ObjBindMethod(implObj, "SetDestSize"), flags, 3)
+        this.vtbl.GetSourceRect := CallbackCreate(ObjBindMethod(implObj, "GetSourceRect"), flags, 2)
+        this.vtbl.GetTargetRect := CallbackCreate(ObjBindMethod(implObj, "GetTargetRect"), flags, 2)
+        this.vtbl.GetDestSize := CallbackCreate(ObjBindMethod(implObj, "GetDestSize"), flags, 3)
+        this.vtbl.SetColorSpace := CallbackCreate(ObjBindMethod(implObj, "SetColorSpace"), flags, 2)
+        this.vtbl.GetColorSpace := CallbackCreate(ObjBindMethod(implObj, "GetColorSpace"), flags, 1)
     }
 
     Dispose() {

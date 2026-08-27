@@ -40,7 +40,6 @@ export default struct IWMFrameInterpProps extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lFrameRate 
      * @param {Integer} lScale 
      * @returns {HRESULT} 
@@ -51,7 +50,6 @@ export default struct IWMFrameInterpProps extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lFrameRate 
      * @param {Integer} lScale 
      * @returns {HRESULT} 
@@ -62,7 +60,6 @@ export default struct IWMFrameInterpProps extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} bFIEnabled 
      * @returns {HRESULT} 
      */
@@ -72,7 +69,6 @@ export default struct IWMFrameInterpProps extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iComplexity 
      * @returns {HRESULT} 
      */
@@ -90,10 +86,10 @@ export default struct IWMFrameInterpProps extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetFrameRateIn := CallbackCreate(GetMethod(implObj, "SetFrameRateIn"), flags, 3)
-        this.vtbl.SetFrameRateOut := CallbackCreate(GetMethod(implObj, "SetFrameRateOut"), flags, 3)
-        this.vtbl.SetFrameInterpEnabled := CallbackCreate(GetMethod(implObj, "SetFrameInterpEnabled"), flags, 2)
-        this.vtbl.SetComplexityLevel := CallbackCreate(GetMethod(implObj, "SetComplexityLevel"), flags, 2)
+        this.vtbl.SetFrameRateIn := CallbackCreate(ObjBindMethod(implObj, "SetFrameRateIn"), flags, 3)
+        this.vtbl.SetFrameRateOut := CallbackCreate(ObjBindMethod(implObj, "SetFrameRateOut"), flags, 3)
+        this.vtbl.SetFrameInterpEnabled := CallbackCreate(ObjBindMethod(implObj, "SetFrameInterpEnabled"), flags, 2)
+        this.vtbl.SetComplexityLevel := CallbackCreate(ObjBindMethod(implObj, "SetComplexityLevel"), flags, 2)
     }
 
     Dispose() {

@@ -119,7 +119,7 @@ export default struct ISyncKnowledge2 extends ISyncKnowledge {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge2-projectontocolumnset
      */
     ProjectOntoColumnSet(ppColumns, count) {
-        ppColumnsMarshal := ppColumns is VarRef ? "ptr*" : "ptr"
+        ppColumnsMarshal := ppColumns is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(28, this, ppColumnsMarshal, ppColumns, UInt32, count, "ptr*", &ppiKnowledgeOut := 0, "HRESULT")
         return ISyncKnowledge2(ppiKnowledgeOut)
@@ -196,8 +196,8 @@ export default struct ISyncKnowledge2 extends ISyncKnowledge {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge2-serializewithoptions
      */
     SerializeWithOptions(targetFormatVersion, dwFlags, pbBuffer, pdwSerializedSize) {
-        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
-        pdwSerializedSizeMarshal := pdwSerializedSize is VarRef ? "uint*" : "ptr"
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : IntPtr
+        pdwSerializedSizeMarshal := pdwSerializedSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(29, this, SYNC_SERIALIZATION_VERSION, targetFormatVersion, UInt32, dwFlags, pbBufferMarshal, pbBuffer, pdwSerializedSizeMarshal, pdwSerializedSize, "HRESULT")
         return result
@@ -274,8 +274,8 @@ export default struct ISyncKnowledge2 extends ISyncKnowledge {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge2-getlowestuncontainedid
      */
     GetLowestUncontainedId(piSyncKnowledge, pbItemId, pcbItemIdSize) {
-        pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
-        pcbItemIdSizeMarshal := pcbItemIdSize is VarRef ? "uint*" : "ptr"
+        pbItemIdMarshal := pbItemId is VarRef ? "char*" : IntPtr
+        pcbItemIdSizeMarshal := pcbItemIdSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(30, this, "ptr", piSyncKnowledge, pbItemIdMarshal, pbItemId, pcbItemIdSizeMarshal, pcbItemIdSize, "HRESULT")
         return result
@@ -329,7 +329,7 @@ export default struct ISyncKnowledge2 extends ISyncKnowledge {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge2-getinspector
      */
     GetInspector(riid, ppiInspector) {
-        ppiInspectorMarshal := ppiInspector is VarRef ? "ptr*" : "ptr"
+        ppiInspectorMarshal := ppiInspector is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(31, this, Guid.Ptr, riid, ppiInspectorMarshal, ppiInspector, "HRESULT")
         return result
@@ -377,7 +377,7 @@ export default struct ISyncKnowledge2 extends ISyncKnowledge {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge2-getminimumsupportedversion
      */
     GetMinimumSupportedVersion(pVersion) {
-        pVersionMarshal := pVersion is VarRef ? "int*" : "ptr"
+        pVersionMarshal := pVersion is VarRef ? "int*" : IntPtr
 
         result := ComCall(32, this, pVersionMarshal, pVersion, "HRESULT")
         return result
@@ -432,7 +432,7 @@ export default struct ISyncKnowledge2 extends ISyncKnowledge {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge2-getstatistics
      */
     GetStatistics(which, pValue) {
-        pValueMarshal := pValue is VarRef ? "uint*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "uint*" : IntPtr
 
         result := ComCall(33, this, SYNC_STATISTICS, which, pValueMarshal, pValue, "HRESULT")
         return result
@@ -500,7 +500,7 @@ export default struct ISyncKnowledge2 extends ISyncKnowledge {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge2-containsknowledgeforitem
      */
     ContainsKnowledgeForItem(pKnowledge, pbItemId) {
-        pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
+        pbItemIdMarshal := pbItemId is VarRef ? "char*" : IntPtr
 
         result := ComCall(34, this, "ptr", pKnowledge, pbItemIdMarshal, pbItemId, "HRESULT")
         return result
@@ -571,8 +571,8 @@ export default struct ISyncKnowledge2 extends ISyncKnowledge {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge2-containsknowledgeforchangeunit
      */
     ContainsKnowledgeForChangeUnit(pKnowledge, pbItemId, pbChangeUnitId) {
-        pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
-        pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : "ptr"
+        pbItemIdMarshal := pbItemId is VarRef ? "char*" : IntPtr
+        pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : IntPtr
 
         result := ComCall(35, this, "ptr", pKnowledge, pbItemIdMarshal, pbItemId, pbChangeUnitIdMarshal, pbChangeUnitId, "HRESULT")
         return result
@@ -708,7 +708,7 @@ export default struct ISyncKnowledge2 extends ISyncKnowledge {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge2-comparetoknowledgecookie
      */
     CompareToKnowledgeCookie(pKnowledgeCookie, pResult) {
-        pResultMarshal := pResult is VarRef ? "int*" : "ptr"
+        pResultMarshal := pResult is VarRef ? "int*" : IntPtr
 
         result := ComCall(40, this, "ptr", pKnowledgeCookie, pResultMarshal, pResult, "HRESULT")
         return result
@@ -723,20 +723,20 @@ export default struct ISyncKnowledge2 extends ISyncKnowledge {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetIdParameters := CallbackCreate(GetMethod(implObj, "GetIdParameters"), flags, 2)
-        this.vtbl.ProjectOntoColumnSet := CallbackCreate(GetMethod(implObj, "ProjectOntoColumnSet"), flags, 4)
-        this.vtbl.SerializeWithOptions := CallbackCreate(GetMethod(implObj, "SerializeWithOptions"), flags, 5)
-        this.vtbl.GetLowestUncontainedId := CallbackCreate(GetMethod(implObj, "GetLowestUncontainedId"), flags, 4)
-        this.vtbl.GetInspector := CallbackCreate(GetMethod(implObj, "GetInspector"), flags, 3)
-        this.vtbl.GetMinimumSupportedVersion := CallbackCreate(GetMethod(implObj, "GetMinimumSupportedVersion"), flags, 2)
-        this.vtbl.GetStatistics := CallbackCreate(GetMethod(implObj, "GetStatistics"), flags, 3)
-        this.vtbl.ContainsKnowledgeForItem := CallbackCreate(GetMethod(implObj, "ContainsKnowledgeForItem"), flags, 3)
-        this.vtbl.ContainsKnowledgeForChangeUnit := CallbackCreate(GetMethod(implObj, "ContainsKnowledgeForChangeUnit"), flags, 4)
-        this.vtbl.ProjectOntoKnowledgeWithPrerequisite := CallbackCreate(GetMethod(implObj, "ProjectOntoKnowledgeWithPrerequisite"), flags, 4)
-        this.vtbl.Complement := CallbackCreate(GetMethod(implObj, "Complement"), flags, 3)
-        this.vtbl.IntersectsWithKnowledge := CallbackCreate(GetMethod(implObj, "IntersectsWithKnowledge"), flags, 2)
-        this.vtbl.GetKnowledgeCookie := CallbackCreate(GetMethod(implObj, "GetKnowledgeCookie"), flags, 2)
-        this.vtbl.CompareToKnowledgeCookie := CallbackCreate(GetMethod(implObj, "CompareToKnowledgeCookie"), flags, 3)
+        this.vtbl.GetIdParameters := CallbackCreate(ObjBindMethod(implObj, "GetIdParameters"), flags, 2)
+        this.vtbl.ProjectOntoColumnSet := CallbackCreate(ObjBindMethod(implObj, "ProjectOntoColumnSet"), flags, 4)
+        this.vtbl.SerializeWithOptions := CallbackCreate(ObjBindMethod(implObj, "SerializeWithOptions"), flags, 5)
+        this.vtbl.GetLowestUncontainedId := CallbackCreate(ObjBindMethod(implObj, "GetLowestUncontainedId"), flags, 4)
+        this.vtbl.GetInspector := CallbackCreate(ObjBindMethod(implObj, "GetInspector"), flags, 3)
+        this.vtbl.GetMinimumSupportedVersion := CallbackCreate(ObjBindMethod(implObj, "GetMinimumSupportedVersion"), flags, 2)
+        this.vtbl.GetStatistics := CallbackCreate(ObjBindMethod(implObj, "GetStatistics"), flags, 3)
+        this.vtbl.ContainsKnowledgeForItem := CallbackCreate(ObjBindMethod(implObj, "ContainsKnowledgeForItem"), flags, 3)
+        this.vtbl.ContainsKnowledgeForChangeUnit := CallbackCreate(ObjBindMethod(implObj, "ContainsKnowledgeForChangeUnit"), flags, 4)
+        this.vtbl.ProjectOntoKnowledgeWithPrerequisite := CallbackCreate(ObjBindMethod(implObj, "ProjectOntoKnowledgeWithPrerequisite"), flags, 4)
+        this.vtbl.Complement := CallbackCreate(ObjBindMethod(implObj, "Complement"), flags, 3)
+        this.vtbl.IntersectsWithKnowledge := CallbackCreate(ObjBindMethod(implObj, "IntersectsWithKnowledge"), flags, 2)
+        this.vtbl.GetKnowledgeCookie := CallbackCreate(ObjBindMethod(implObj, "GetKnowledgeCookie"), flags, 2)
+        this.vtbl.CompareToKnowledgeCookie := CallbackCreate(ObjBindMethod(implObj, "CompareToKnowledgeCookie"), flags, 3)
     }
 
     Dispose() {

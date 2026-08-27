@@ -22,7 +22,6 @@ export default struct PIBIO_STORAGE_UPDATE_RECORD_BEGIN_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline 
      * @param {Pointer<WINBIO_IDENTITY>} Identity 
      * @param {Integer} SubFactor 

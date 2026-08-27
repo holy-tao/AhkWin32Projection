@@ -188,14 +188,14 @@ export default struct IAzClientContext3 extends IAzClientContext2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AccessCheck2 := CallbackCreate(GetMethod(implObj, "AccessCheck2"), flags, 5)
-        this.vtbl.IsInRoleAssignment := CallbackCreate(GetMethod(implObj, "IsInRoleAssignment"), flags, 4)
-        this.vtbl.GetOperations := CallbackCreate(GetMethod(implObj, "GetOperations"), flags, 3)
-        this.vtbl.GetTasks := CallbackCreate(GetMethod(implObj, "GetTasks"), flags, 3)
-        this.vtbl.get_BizRuleParameters := CallbackCreate(GetMethod(implObj, "get_BizRuleParameters"), flags, 2)
-        this.vtbl.get_BizRuleInterfaces := CallbackCreate(GetMethod(implObj, "get_BizRuleInterfaces"), flags, 2)
-        this.vtbl.GetGroups := CallbackCreate(GetMethod(implObj, "GetGroups"), flags, 4)
-        this.vtbl.get_Sids := CallbackCreate(GetMethod(implObj, "get_Sids"), flags, 2)
+        this.vtbl.AccessCheck2 := CallbackCreate(ObjBindMethod(implObj, "AccessCheck2"), flags, 5)
+        this.vtbl.IsInRoleAssignment := CallbackCreate(ObjBindMethod(implObj, "IsInRoleAssignment"), flags, 4)
+        this.vtbl.GetOperations := CallbackCreate(ObjBindMethod(implObj, "GetOperations"), flags, 3)
+        this.vtbl.GetTasks := CallbackCreate(ObjBindMethod(implObj, "GetTasks"), flags, 3)
+        this.vtbl.get_BizRuleParameters := CallbackCreate(ObjBindMethod(implObj, "get_BizRuleParameters"), flags, 2)
+        this.vtbl.get_BizRuleInterfaces := CallbackCreate(ObjBindMethod(implObj, "get_BizRuleInterfaces"), flags, 2)
+        this.vtbl.GetGroups := CallbackCreate(ObjBindMethod(implObj, "GetGroups"), flags, 4)
+        this.vtbl.get_Sids := CallbackCreate(ObjBindMethod(implObj, "get_Sids"), flags, 2)
     }
 
     Dispose() {

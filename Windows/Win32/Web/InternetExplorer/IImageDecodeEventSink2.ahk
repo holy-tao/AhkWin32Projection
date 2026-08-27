@@ -37,7 +37,6 @@ export default struct IImageDecodeEventSink2 extends IImageDecodeEventSink {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsAlphaPremultRequired() {
@@ -54,7 +53,7 @@ export default struct IImageDecodeEventSink2 extends IImageDecodeEventSink {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsAlphaPremultRequired := CallbackCreate(GetMethod(implObj, "IsAlphaPremultRequired"), flags, 2)
+        this.vtbl.IsAlphaPremultRequired := CallbackCreate(ObjBindMethod(implObj, "IsAlphaPremultRequired"), flags, 2)
     }
 
     Dispose() {

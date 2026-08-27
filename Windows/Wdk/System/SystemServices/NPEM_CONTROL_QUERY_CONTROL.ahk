@@ -18,12 +18,12 @@ export default struct NPEM_CONTROL_QUERY_CONTROL {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @returns {Integer} 
      */
     Call(_Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, UInt32)
         return result

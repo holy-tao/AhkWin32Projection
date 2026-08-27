@@ -117,7 +117,6 @@ export default struct ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
      * @returns {ISWbemObjectPath} 
@@ -128,7 +127,6 @@ export default struct ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} objWbemSink 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
@@ -141,7 +139,6 @@ export default struct ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
      * @returns {HRESULT} 
@@ -152,7 +149,6 @@ export default struct ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} objWbemSink 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
@@ -165,7 +161,6 @@ export default struct ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
      * @returns {ISWbemObjectSet} 
@@ -176,7 +171,6 @@ export default struct ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} objWbemSink 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
@@ -189,7 +183,6 @@ export default struct ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
      * @returns {ISWbemObjectSet} 
@@ -200,7 +193,6 @@ export default struct ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} objWbemSink 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
@@ -213,7 +205,6 @@ export default struct ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strAssocClass 
      * @param {BSTR} strResultClass 
      * @param {BSTR} strResultRole 
@@ -239,7 +230,6 @@ export default struct ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} objWbemSink 
      * @param {BSTR} strAssocClass 
      * @param {BSTR} strResultClass 
@@ -267,7 +257,6 @@ export default struct ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strResultClass 
      * @param {BSTR} strRole 
      * @param {VARIANT_BOOL} bClassesOnly 
@@ -287,7 +276,6 @@ export default struct ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} objWbemSink 
      * @param {BSTR} strResultClass 
      * @param {BSTR} strRole 
@@ -309,7 +297,6 @@ export default struct ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strMethodName 
      * @param {IDispatch} objWbemInParameters 
      * @param {Integer} iFlags 
@@ -324,7 +311,6 @@ export default struct ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} objWbemSink 
      * @param {BSTR} strMethodName 
      * @param {IDispatch} objWbemInParameters 
@@ -341,7 +327,6 @@ export default struct ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemObject} 
      */
     Clone_() {
@@ -350,7 +335,6 @@ export default struct ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iFlags 
      * @returns {BSTR} 
      */
@@ -361,7 +345,6 @@ export default struct ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iFlags 
      * @returns {ISWbemObject} 
      */
@@ -371,7 +354,6 @@ export default struct ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iFlags 
      * @returns {ISWbemObject} 
      */
@@ -381,7 +363,6 @@ export default struct ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} objWbemObject 
      * @param {Integer} iFlags 
      * @returns {VARIANT_BOOL} 
@@ -392,7 +373,6 @@ export default struct ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemQualifierSet} 
      */
     get_Qualifiers_() {
@@ -401,7 +381,6 @@ export default struct ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemPropertySet} 
      */
     get_Properties_() {
@@ -410,7 +389,6 @@ export default struct ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemMethodSet} 
      */
     get_Methods_() {
@@ -419,7 +397,6 @@ export default struct ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Derivation_() {
@@ -429,7 +406,6 @@ export default struct ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemObjectPath} 
      */
     get_Path_() {
@@ -438,7 +414,6 @@ export default struct ISWbemObject extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemSecurity} 
      */
     get_Security_() {
@@ -455,31 +430,31 @@ export default struct ISWbemObject extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Put_ := CallbackCreate(GetMethod(implObj, "Put_"), flags, 4)
-        this.vtbl.PutAsync_ := CallbackCreate(GetMethod(implObj, "PutAsync_"), flags, 5)
-        this.vtbl.Delete_ := CallbackCreate(GetMethod(implObj, "Delete_"), flags, 3)
-        this.vtbl.DeleteAsync_ := CallbackCreate(GetMethod(implObj, "DeleteAsync_"), flags, 5)
-        this.vtbl.Instances_ := CallbackCreate(GetMethod(implObj, "Instances_"), flags, 4)
-        this.vtbl.InstancesAsync_ := CallbackCreate(GetMethod(implObj, "InstancesAsync_"), flags, 5)
-        this.vtbl.Subclasses_ := CallbackCreate(GetMethod(implObj, "Subclasses_"), flags, 4)
-        this.vtbl.SubclassesAsync_ := CallbackCreate(GetMethod(implObj, "SubclassesAsync_"), flags, 5)
-        this.vtbl.Associators_ := CallbackCreate(GetMethod(implObj, "Associators_"), flags, 12)
-        this.vtbl.AssociatorsAsync_ := CallbackCreate(GetMethod(implObj, "AssociatorsAsync_"), flags, 13)
-        this.vtbl.References_ := CallbackCreate(GetMethod(implObj, "References_"), flags, 9)
-        this.vtbl.ReferencesAsync_ := CallbackCreate(GetMethod(implObj, "ReferencesAsync_"), flags, 10)
-        this.vtbl.ExecMethod_ := CallbackCreate(GetMethod(implObj, "ExecMethod_"), flags, 6)
-        this.vtbl.ExecMethodAsync_ := CallbackCreate(GetMethod(implObj, "ExecMethodAsync_"), flags, 7)
-        this.vtbl.Clone_ := CallbackCreate(GetMethod(implObj, "Clone_"), flags, 2)
-        this.vtbl.GetObjectText_ := CallbackCreate(GetMethod(implObj, "GetObjectText_"), flags, 3)
-        this.vtbl.SpawnDerivedClass_ := CallbackCreate(GetMethod(implObj, "SpawnDerivedClass_"), flags, 3)
-        this.vtbl.SpawnInstance_ := CallbackCreate(GetMethod(implObj, "SpawnInstance_"), flags, 3)
-        this.vtbl.CompareTo_ := CallbackCreate(GetMethod(implObj, "CompareTo_"), flags, 4)
-        this.vtbl.get_Qualifiers_ := CallbackCreate(GetMethod(implObj, "get_Qualifiers_"), flags, 2)
-        this.vtbl.get_Properties_ := CallbackCreate(GetMethod(implObj, "get_Properties_"), flags, 2)
-        this.vtbl.get_Methods_ := CallbackCreate(GetMethod(implObj, "get_Methods_"), flags, 2)
-        this.vtbl.get_Derivation_ := CallbackCreate(GetMethod(implObj, "get_Derivation_"), flags, 2)
-        this.vtbl.get_Path_ := CallbackCreate(GetMethod(implObj, "get_Path_"), flags, 2)
-        this.vtbl.get_Security_ := CallbackCreate(GetMethod(implObj, "get_Security_"), flags, 2)
+        this.vtbl.Put_ := CallbackCreate(ObjBindMethod(implObj, "Put_"), flags, 4)
+        this.vtbl.PutAsync_ := CallbackCreate(ObjBindMethod(implObj, "PutAsync_"), flags, 5)
+        this.vtbl.Delete_ := CallbackCreate(ObjBindMethod(implObj, "Delete_"), flags, 3)
+        this.vtbl.DeleteAsync_ := CallbackCreate(ObjBindMethod(implObj, "DeleteAsync_"), flags, 5)
+        this.vtbl.Instances_ := CallbackCreate(ObjBindMethod(implObj, "Instances_"), flags, 4)
+        this.vtbl.InstancesAsync_ := CallbackCreate(ObjBindMethod(implObj, "InstancesAsync_"), flags, 5)
+        this.vtbl.Subclasses_ := CallbackCreate(ObjBindMethod(implObj, "Subclasses_"), flags, 4)
+        this.vtbl.SubclassesAsync_ := CallbackCreate(ObjBindMethod(implObj, "SubclassesAsync_"), flags, 5)
+        this.vtbl.Associators_ := CallbackCreate(ObjBindMethod(implObj, "Associators_"), flags, 12)
+        this.vtbl.AssociatorsAsync_ := CallbackCreate(ObjBindMethod(implObj, "AssociatorsAsync_"), flags, 13)
+        this.vtbl.References_ := CallbackCreate(ObjBindMethod(implObj, "References_"), flags, 9)
+        this.vtbl.ReferencesAsync_ := CallbackCreate(ObjBindMethod(implObj, "ReferencesAsync_"), flags, 10)
+        this.vtbl.ExecMethod_ := CallbackCreate(ObjBindMethod(implObj, "ExecMethod_"), flags, 6)
+        this.vtbl.ExecMethodAsync_ := CallbackCreate(ObjBindMethod(implObj, "ExecMethodAsync_"), flags, 7)
+        this.vtbl.Clone_ := CallbackCreate(ObjBindMethod(implObj, "Clone_"), flags, 2)
+        this.vtbl.GetObjectText_ := CallbackCreate(ObjBindMethod(implObj, "GetObjectText_"), flags, 3)
+        this.vtbl.SpawnDerivedClass_ := CallbackCreate(ObjBindMethod(implObj, "SpawnDerivedClass_"), flags, 3)
+        this.vtbl.SpawnInstance_ := CallbackCreate(ObjBindMethod(implObj, "SpawnInstance_"), flags, 3)
+        this.vtbl.CompareTo_ := CallbackCreate(ObjBindMethod(implObj, "CompareTo_"), flags, 4)
+        this.vtbl.get_Qualifiers_ := CallbackCreate(ObjBindMethod(implObj, "get_Qualifiers_"), flags, 2)
+        this.vtbl.get_Properties_ := CallbackCreate(ObjBindMethod(implObj, "get_Properties_"), flags, 2)
+        this.vtbl.get_Methods_ := CallbackCreate(ObjBindMethod(implObj, "get_Methods_"), flags, 2)
+        this.vtbl.get_Derivation_ := CallbackCreate(ObjBindMethod(implObj, "get_Derivation_"), flags, 2)
+        this.vtbl.get_Path_ := CallbackCreate(ObjBindMethod(implObj, "get_Path_"), flags, 2)
+        this.vtbl.get_Security_ := CallbackCreate(ObjBindMethod(implObj, "get_Security_"), flags, 2)
     }
 
     Dispose() {

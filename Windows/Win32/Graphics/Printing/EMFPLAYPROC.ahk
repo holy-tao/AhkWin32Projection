@@ -20,7 +20,6 @@ export default struct EMFPLAYPROC {
     }
 
     /**
-     * 
      * @param {HDC} param0 
      * @param {Integer} param1 
      * @param {HANDLE} param2 

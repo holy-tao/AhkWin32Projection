@@ -46,7 +46,6 @@ export default struct ILBEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrServerName 
      * @param {BSTR} bstrClsidEng 
      * @returns {HRESULT} 
@@ -60,7 +59,6 @@ export default struct ILBEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrServerName 
      * @param {BSTR} bstrClsidEng 
      * @returns {HRESULT} 
@@ -74,7 +72,6 @@ export default struct ILBEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPropName 
      * @param {Pointer<VARIANT>} varPropValue 
      * @param {BSTR} bstrClsidEng 
@@ -97,9 +94,9 @@ export default struct ILBEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.TargetUp := CallbackCreate(GetMethod(implObj, "TargetUp"), flags, 3)
-        this.vtbl.TargetDown := CallbackCreate(GetMethod(implObj, "TargetDown"), flags, 3)
-        this.vtbl.EngineDefined := CallbackCreate(GetMethod(implObj, "EngineDefined"), flags, 4)
+        this.vtbl.TargetUp := CallbackCreate(ObjBindMethod(implObj, "TargetUp"), flags, 3)
+        this.vtbl.TargetDown := CallbackCreate(ObjBindMethod(implObj, "TargetDown"), flags, 3)
+        this.vtbl.EngineDefined := CallbackCreate(ObjBindMethod(implObj, "EngineDefined"), flags, 4)
     }
 
     Dispose() {

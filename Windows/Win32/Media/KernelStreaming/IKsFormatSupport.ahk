@@ -71,8 +71,8 @@ export default struct IKsFormatSupport extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsFormatSupported := CallbackCreate(GetMethod(implObj, "IsFormatSupported"), flags, 4)
-        this.vtbl.GetDevicePreferredFormat := CallbackCreate(GetMethod(implObj, "GetDevicePreferredFormat"), flags, 2)
+        this.vtbl.IsFormatSupported := CallbackCreate(ObjBindMethod(implObj, "IsFormatSupported"), flags, 4)
+        this.vtbl.GetDevicePreferredFormat := CallbackCreate(ObjBindMethod(implObj, "GetDevicePreferredFormat"), flags, 2)
     }
 
     Dispose() {

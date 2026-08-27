@@ -347,7 +347,7 @@ export SnmpUtilVarBindListFree(pVbl) {
  * @since windows5.0
  */
 export SnmpUtilMemFree(pMem) {
-    pMemMarshal := pMem is VarRef ? "ptr" : "ptr"
+    pMemMarshal := pMem is VarRef ? "ptr" : IntPtr
 
     DllCall("snmpapi.dll\SnmpUtilMemFree", pMemMarshal, pMem)
 }
@@ -385,7 +385,7 @@ export SnmpUtilMemAlloc(nBytes) {
  * @since windows5.0
  */
 export SnmpUtilMemReAlloc(pMem, nBytes) {
-    pMemMarshal := pMem is VarRef ? "ptr" : "ptr"
+    pMemMarshal := pMem is VarRef ? "ptr" : IntPtr
 
     result := DllCall("snmpapi.dll\SnmpUtilMemReAlloc", pMemMarshal, pMem, UInt32, nBytes, IntPtr)
     return result
@@ -443,7 +443,7 @@ export SnmpUtilOidToA(Oid) {
  * @since windows5.0
  */
 export SnmpUtilIdsToA(Ids, IdLength) {
-    IdsMarshal := Ids is VarRef ? "uint*" : "ptr"
+    IdsMarshal := Ids is VarRef ? "uint*" : IntPtr
 
     result := DllCall("snmpapi.dll\SnmpUtilIdsToA", IdsMarshal, Ids, UInt32, IdLength, PSTR)
     return result
@@ -611,9 +611,12 @@ export SnmpMgrOpen(lpAgentAddress, lpAgentCommunity, nTimeOut, nRetries) {
     lpAgentAddress := lpAgentAddress is String ? StrPtr(lpAgentAddress) : lpAgentAddress
     lpAgentCommunity := lpAgentCommunity is String ? StrPtr(lpAgentCommunity) : lpAgentCommunity
 
+    lpAgentAddressMarshal := lpAgentAddress == 0 ? IntPtr : PSTR
+    lpAgentCommunityMarshal := lpAgentCommunity == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("mgmtapi.dll\SnmpMgrOpen", "ptr", lpAgentAddress, "ptr", lpAgentCommunity, Int32, nTimeOut, Int32, nRetries, IntPtr)
+    result := DllCall("mgmtapi.dll\SnmpMgrOpen", lpAgentAddressMarshal, lpAgentAddress, lpAgentCommunityMarshal, lpAgentCommunity, Int32, nTimeOut, Int32, nRetries, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -693,10 +696,10 @@ export SnmpMgrOpen(lpAgentAddress, lpAgentCommunity, nTimeOut, nRetries) {
  * @since windows5.0
  */
 export SnmpMgrCtl(session, dwCtlCode, lpvInBuffer, cbInBuffer, lpvOUTBuffer, cbOUTBuffer, lpcbBytesReturned) {
-    sessionMarshal := session is VarRef ? "ptr" : "ptr"
-    lpvInBufferMarshal := lpvInBuffer is VarRef ? "ptr" : "ptr"
-    lpvOUTBufferMarshal := lpvOUTBuffer is VarRef ? "ptr" : "ptr"
-    lpcbBytesReturnedMarshal := lpcbBytesReturned is VarRef ? "uint*" : "ptr"
+    sessionMarshal := session is VarRef ? "ptr" : IntPtr
+    lpvInBufferMarshal := lpvInBuffer is VarRef ? "ptr" : IntPtr
+    lpvOUTBufferMarshal := lpvOUTBuffer is VarRef ? "ptr" : IntPtr
+    lpcbBytesReturnedMarshal := lpcbBytesReturned is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -736,7 +739,7 @@ export SnmpMgrCtl(session, dwCtlCode, lpvInBuffer, cbInBuffer, lpvOUTBuffer, cbO
  * @since windows5.0
  */
 export SnmpMgrClose(session) {
-    sessionMarshal := session is VarRef ? "ptr" : "ptr"
+    sessionMarshal := session is VarRef ? "ptr" : IntPtr
 
     result := DllCall("mgmtapi.dll\SnmpMgrClose", sessionMarshal, session, BOOL)
     return result
@@ -801,9 +804,9 @@ export SnmpMgrClose(session) {
  * @since windows5.0
  */
 export SnmpMgrRequest(session, requestType, variableBindings, errorStatus, errorIndex) {
-    sessionMarshal := session is VarRef ? "ptr" : "ptr"
-    errorStatusMarshal := errorStatus is VarRef ? "uint*" : "ptr"
-    errorIndexMarshal := errorIndex is VarRef ? "int*" : "ptr"
+    sessionMarshal := session is VarRef ? "ptr" : IntPtr
+    errorStatusMarshal := errorStatus is VarRef ? "uint*" : IntPtr
+    errorIndexMarshal := errorIndex is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
@@ -838,7 +841,9 @@ export SnmpMgrRequest(session, requestType, variableBindings, errorStatus, error
 export SnmpMgrStrToOid(_string, oid) {
     _string := _string is String ? StrPtr(_string) : _string
 
-    result := DllCall("mgmtapi.dll\SnmpMgrStrToOid", "ptr", _string, AsnObjectIdentifier.Ptr, oid, BOOL)
+    _stringMarshal := _string == 0 ? IntPtr : PSTR
+
+    result := DllCall("mgmtapi.dll\SnmpMgrStrToOid", _stringMarshal, _string, AsnObjectIdentifier.Ptr, oid, BOOL)
     return result
 }
 
@@ -856,7 +861,8 @@ export SnmpMgrStrToOid(_string, oid) {
  * @since windows5.0
  */
 export SnmpMgrOidToStr(oid, _string) {
-    _stringMarshal := _string is VarRef ? "ptr*" : "ptr"
+    _stringMarshal := _string is VarRef ? "ptr*" : IntPtr
+    _stringMarshal := _string == 0 ? IntPtr : PSTR.Ptr
 
     result := DllCall("mgmtapi.dll\SnmpMgrOidToStr", AsnObjectIdentifier.Ptr, oid, _stringMarshal, _string, BOOL)
     return result
@@ -1011,9 +1017,9 @@ export SnmpMgrTrapListen(phTrapAvailable) {
  * @since windows5.0
  */
 export SnmpMgrGetTrap(enterprise, IPAddress, genericTrap, specificTrap, _timeStamp, variableBindings) {
-    genericTrapMarshal := genericTrap is VarRef ? "uint*" : "ptr"
-    specificTrapMarshal := specificTrap is VarRef ? "int*" : "ptr"
-    _timeStampMarshal := _timeStamp is VarRef ? "uint*" : "ptr"
+    genericTrapMarshal := genericTrap is VarRef ? "uint*" : IntPtr
+    specificTrapMarshal := specificTrap is VarRef ? "int*" : IntPtr
+    _timeStampMarshal := _timeStamp is VarRef ? "uint*" : IntPtr
 
     result := DllCall("mgmtapi.dll\SnmpMgrGetTrap", AsnObjectIdentifier.Ptr, enterprise, AsnOctetString.Ptr, IPAddress, genericTrapMarshal, genericTrap, specificTrapMarshal, specificTrap, _timeStampMarshal, _timeStamp, SnmpVarBindList.Ptr, variableBindings, BOOL)
     return result
@@ -1089,9 +1095,9 @@ export SnmpMgrGetTrap(enterprise, IPAddress, genericTrap, specificTrap, _timeSta
  * @since windows5.0
  */
 export SnmpMgrGetTrapEx(enterprise, agentAddress, sourceAddress, genericTrap, specificTrap, community, _timeStamp, variableBindings) {
-    genericTrapMarshal := genericTrap is VarRef ? "uint*" : "ptr"
-    specificTrapMarshal := specificTrap is VarRef ? "int*" : "ptr"
-    _timeStampMarshal := _timeStamp is VarRef ? "uint*" : "ptr"
+    genericTrapMarshal := genericTrap is VarRef ? "uint*" : IntPtr
+    specificTrapMarshal := specificTrap is VarRef ? "int*" : IntPtr
+    _timeStampMarshal := _timeStamp is VarRef ? "uint*" : IntPtr
 
     result := DllCall("mgmtapi.dll\SnmpMgrGetTrapEx", AsnObjectIdentifier.Ptr, enterprise, AsnOctetString.Ptr, agentAddress, AsnOctetString.Ptr, sourceAddress, genericTrapMarshal, genericTrap, specificTrapMarshal, specificTrap, AsnOctetString.Ptr, community, _timeStampMarshal, _timeStamp, SnmpVarBindList.Ptr, variableBindings, BOOL)
     return result
@@ -1158,7 +1164,7 @@ export SnmpMgrGetTrapEx(enterprise, agentAddress, sourceAddress, genericTrap, sp
  * @since windows5.0
  */
 export SnmpGetTranslateMode(nTranslateMode) {
-    nTranslateModeMarshal := nTranslateMode is VarRef ? "uint*" : "ptr"
+    nTranslateModeMarshal := nTranslateMode is VarRef ? "uint*" : IntPtr
 
     result := DllCall("wsnmp32.dll\SnmpGetTranslateMode", nTranslateModeMarshal, nTranslateMode, UInt32)
     return result
@@ -1301,7 +1307,7 @@ export SnmpSetTranslateMode(nTranslateMode) {
  * @since windows5.0
  */
 export SnmpGetRetransmitMode(nRetransmitMode) {
-    nRetransmitModeMarshal := nRetransmitMode is VarRef ? "uint*" : "ptr"
+    nRetransmitModeMarshal := nRetransmitMode is VarRef ? "uint*" : IntPtr
 
     result := DllCall("wsnmp32.dll\SnmpGetRetransmitMode", nRetransmitModeMarshal, nRetransmitMode, UInt32)
     return result
@@ -1483,8 +1489,8 @@ export SnmpSetRetransmitMode(nRetransmitMode) {
  * @since windows5.0
  */
 export SnmpGetTimeout(hEntity, nPolicyTimeout, nActualTimeout) {
-    nPolicyTimeoutMarshal := nPolicyTimeout is VarRef ? "uint*" : "ptr"
-    nActualTimeoutMarshal := nActualTimeout is VarRef ? "uint*" : "ptr"
+    nPolicyTimeoutMarshal := nPolicyTimeout is VarRef ? "uint*" : IntPtr
+    nActualTimeoutMarshal := nActualTimeout is VarRef ? "uint*" : IntPtr
 
     result := DllCall("wsnmp32.dll\SnmpGetTimeout", IntPtr, hEntity, nPolicyTimeoutMarshal, nPolicyTimeout, nActualTimeoutMarshal, nActualTimeout, UInt32)
     return result
@@ -1658,8 +1664,8 @@ export SnmpSetTimeout(hEntity, nPolicyTimeout) {
  * @since windows5.0
  */
 export SnmpGetRetry(hEntity, nPolicyRetry, nActualRetry) {
-    nPolicyRetryMarshal := nPolicyRetry is VarRef ? "uint*" : "ptr"
-    nActualRetryMarshal := nActualRetry is VarRef ? "uint*" : "ptr"
+    nPolicyRetryMarshal := nPolicyRetry is VarRef ? "uint*" : IntPtr
+    nActualRetryMarshal := nActualRetry is VarRef ? "uint*" : IntPtr
 
     result := DllCall("wsnmp32.dll\SnmpGetRetry", IntPtr, hEntity, nPolicyRetryMarshal, nPolicyRetry, nActualRetryMarshal, nActualRetry, UInt32)
     return result
@@ -1896,11 +1902,11 @@ export SnmpGetVendorInfo(vendorInfo) {
  * @since windows5.0
  */
 export SnmpStartup(nMajorVersion, nMinorVersion, nLevel, nTranslateMode, nRetransmitMode) {
-    nMajorVersionMarshal := nMajorVersion is VarRef ? "uint*" : "ptr"
-    nMinorVersionMarshal := nMinorVersion is VarRef ? "uint*" : "ptr"
-    nLevelMarshal := nLevel is VarRef ? "uint*" : "ptr"
-    nTranslateModeMarshal := nTranslateMode is VarRef ? "uint*" : "ptr"
-    nRetransmitModeMarshal := nRetransmitMode is VarRef ? "uint*" : "ptr"
+    nMajorVersionMarshal := nMajorVersion is VarRef ? "uint*" : IntPtr
+    nMinorVersionMarshal := nMinorVersion is VarRef ? "uint*" : IntPtr
+    nLevelMarshal := nLevel is VarRef ? "uint*" : IntPtr
+    nTranslateModeMarshal := nTranslateMode is VarRef ? "uint*" : IntPtr
+    nRetransmitModeMarshal := nRetransmitMode is VarRef ? "uint*" : IntPtr
 
     result := DllCall("wsnmp32.dll\SnmpStartup", nMajorVersionMarshal, nMajorVersion, nMinorVersionMarshal, nMinorVersion, nLevelMarshal, nLevel, nTranslateModeMarshal, nTranslateMode, nRetransmitModeMarshal, nRetransmitMode, UInt32)
     return result
@@ -2591,10 +2597,10 @@ export SnmpSendMsg(session, srcEntity, dstEntity, _context, PDU) {
  * @since windows5.0
  */
 export SnmpRecvMsg(session, srcEntity, dstEntity, _context, PDU) {
-    srcEntityMarshal := srcEntity is VarRef ? "ptr*" : "ptr"
-    dstEntityMarshal := dstEntity is VarRef ? "ptr*" : "ptr"
-    _contextMarshal := _context is VarRef ? "ptr*" : "ptr"
-    PDUMarshal := PDU is VarRef ? "ptr*" : "ptr"
+    srcEntityMarshal := srcEntity is VarRef ? "ptr*" : IntPtr
+    dstEntityMarshal := dstEntity is VarRef ? "ptr*" : IntPtr
+    _contextMarshal := _context is VarRef ? "ptr*" : IntPtr
+    PDUMarshal := PDU is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("wsnmp32.dll\SnmpRecvMsg", IntPtr, session, srcEntityMarshal, srcEntity, dstEntityMarshal, dstEntity, _contextMarshal, _context, PDUMarshal, PDU, UInt32)
     return result
@@ -2932,7 +2938,7 @@ export SnmpRegister(session, srcEntity, dstEntity, _context, _notification, stat
  * @since windows5.0
  */
 export SnmpCreateSession(_hWnd, wMsg, fCallBack, lpClientData) {
-    lpClientDataMarshal := lpClientData is VarRef ? "ptr" : "ptr"
+    lpClientDataMarshal := lpClientData is VarRef ? "ptr" : IntPtr
 
     result := DllCall("wsnmp32.dll\SnmpCreateSession", HWND, _hWnd, UInt32, wMsg, SNMPAPI_CALLBACK, fCallBack, lpClientDataMarshal, lpClientData, IntPtr)
     return result
@@ -3072,7 +3078,6 @@ export SnmpListen(hEntity, lStatus) {
 }
 
 /**
- * 
  * @param {Pointer} hEntity 
  * @param {Integer} lStatus 
  * @param {Integer} nUseEntityAddr 
@@ -3276,11 +3281,11 @@ export SnmpCancelMsg(session, reqId) {
  * @since windows5.0
  */
 export SnmpStartupEx(nMajorVersion, nMinorVersion, nLevel, nTranslateMode, nRetransmitMode) {
-    nMajorVersionMarshal := nMajorVersion is VarRef ? "uint*" : "ptr"
-    nMinorVersionMarshal := nMinorVersion is VarRef ? "uint*" : "ptr"
-    nLevelMarshal := nLevel is VarRef ? "uint*" : "ptr"
-    nTranslateModeMarshal := nTranslateMode is VarRef ? "uint*" : "ptr"
-    nRetransmitModeMarshal := nRetransmitMode is VarRef ? "uint*" : "ptr"
+    nMajorVersionMarshal := nMajorVersion is VarRef ? "uint*" : IntPtr
+    nMinorVersionMarshal := nMinorVersion is VarRef ? "uint*" : IntPtr
+    nLevelMarshal := nLevel is VarRef ? "uint*" : IntPtr
+    nTranslateModeMarshal := nTranslateMode is VarRef ? "uint*" : IntPtr
+    nRetransmitModeMarshal := nRetransmitMode is VarRef ? "uint*" : IntPtr
 
     result := DllCall("wsnmp32.dll\SnmpStartupEx", nMajorVersionMarshal, nMajorVersion, nMinorVersionMarshal, nMinorVersion, nLevelMarshal, nLevel, nTranslateModeMarshal, nTranslateMode, nRetransmitModeMarshal, nRetransmitMode, UInt32)
     return result
@@ -4324,11 +4329,11 @@ export SnmpCreatePdu(session, PDU_type, request_id, error_status, error_index, v
  * @since windows5.0
  */
 export SnmpGetPduData(PDU, PDU_type, request_id, error_status, error_index, varbindlist) {
-    PDU_typeMarshal := PDU_type is VarRef ? "uint*" : "ptr"
-    request_idMarshal := request_id is VarRef ? "int*" : "ptr"
-    error_statusMarshal := error_status is VarRef ? "uint*" : "ptr"
-    error_indexMarshal := error_index is VarRef ? "int*" : "ptr"
-    varbindlistMarshal := varbindlist is VarRef ? "ptr*" : "ptr"
+    PDU_typeMarshal := PDU_type is VarRef ? "uint*" : IntPtr
+    request_idMarshal := request_id is VarRef ? "int*" : IntPtr
+    error_statusMarshal := error_status is VarRef ? "uint*" : IntPtr
+    error_indexMarshal := error_index is VarRef ? "int*" : IntPtr
+    varbindlistMarshal := varbindlist is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("wsnmp32.dll\SnmpGetPduData", IntPtr, PDU, PDU_typeMarshal, PDU_type, request_idMarshal, request_id, error_statusMarshal, error_status, error_indexMarshal, error_index, varbindlistMarshal, varbindlist, UInt32)
     return result
@@ -4437,11 +4442,11 @@ export SnmpGetPduData(PDU, PDU_type, request_id, error_status, error_index, varb
  * @since windows5.0
  */
 export SnmpSetPduData(PDU, PDU_type, request_id, non_repeaters, max_repetitions, varbindlist) {
-    PDU_typeMarshal := PDU_type is VarRef ? "int*" : "ptr"
-    request_idMarshal := request_id is VarRef ? "int*" : "ptr"
-    non_repeatersMarshal := non_repeaters is VarRef ? "int*" : "ptr"
-    max_repetitionsMarshal := max_repetitions is VarRef ? "int*" : "ptr"
-    varbindlistMarshal := varbindlist is VarRef ? "ptr*" : "ptr"
+    PDU_typeMarshal := PDU_type is VarRef ? "int*" : IntPtr
+    request_idMarshal := request_id is VarRef ? "int*" : IntPtr
+    non_repeatersMarshal := non_repeaters is VarRef ? "int*" : IntPtr
+    max_repetitionsMarshal := max_repetitions is VarRef ? "int*" : IntPtr
+    varbindlistMarshal := varbindlist is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("wsnmp32.dll\SnmpSetPduData", IntPtr, PDU, PDU_typeMarshal, PDU_type, request_idMarshal, request_id, non_repeatersMarshal, non_repeaters, max_repetitionsMarshal, max_repetitions, varbindlistMarshal, varbindlist, UInt32)
     return result
@@ -5947,7 +5952,7 @@ export SnmpOidCopy(srcOID, dstOID) {
  * @since windows5.0
  */
 export SnmpOidCompare(xOID, yOID, maxlen, result) {
-    resultMarshal := result is VarRef ? "int*" : "ptr"
+    resultMarshal := result is VarRef ? "int*" : IntPtr
 
     result := DllCall("wsnmp32.dll\SnmpOidCompare", smiOID.Ptr, xOID, smiOID.Ptr, yOID, UInt32, maxlen, resultMarshal, result, UInt32)
     return result
@@ -6211,10 +6216,10 @@ export SnmpEncodeMsg(session, srcEntity, dstEntity, _context, pdu, msgBufDesc) {
  * @since windows5.0
  */
 export SnmpDecodeMsg(session, srcEntity, dstEntity, _context, pdu, msgBufDesc) {
-    srcEntityMarshal := srcEntity is VarRef ? "ptr*" : "ptr"
-    dstEntityMarshal := dstEntity is VarRef ? "ptr*" : "ptr"
-    _contextMarshal := _context is VarRef ? "ptr*" : "ptr"
-    pduMarshal := pdu is VarRef ? "ptr*" : "ptr"
+    srcEntityMarshal := srcEntity is VarRef ? "ptr*" : IntPtr
+    dstEntityMarshal := dstEntity is VarRef ? "ptr*" : IntPtr
+    _contextMarshal := _context is VarRef ? "ptr*" : IntPtr
+    pduMarshal := pdu is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("wsnmp32.dll\SnmpDecodeMsg", IntPtr, session, srcEntityMarshal, srcEntity, dstEntityMarshal, dstEntity, _contextMarshal, _context, pduMarshal, pdu, smiOCTETS.Ptr, msgBufDesc, UInt32)
     return result

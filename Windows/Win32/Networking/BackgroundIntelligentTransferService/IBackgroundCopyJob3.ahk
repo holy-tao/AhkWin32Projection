@@ -497,10 +497,10 @@ export default struct IBackgroundCopyJob3 extends IBackgroundCopyJob2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ReplaceRemotePrefix := CallbackCreate(GetMethod(implObj, "ReplaceRemotePrefix"), flags, 3)
-        this.vtbl.AddFileWithRanges := CallbackCreate(GetMethod(implObj, "AddFileWithRanges"), flags, 5)
-        this.vtbl.SetFileACLFlags := CallbackCreate(GetMethod(implObj, "SetFileACLFlags"), flags, 2)
-        this.vtbl.GetFileACLFlags := CallbackCreate(GetMethod(implObj, "GetFileACLFlags"), flags, 2)
+        this.vtbl.ReplaceRemotePrefix := CallbackCreate(ObjBindMethod(implObj, "ReplaceRemotePrefix"), flags, 3)
+        this.vtbl.AddFileWithRanges := CallbackCreate(ObjBindMethod(implObj, "AddFileWithRanges"), flags, 5)
+        this.vtbl.SetFileACLFlags := CallbackCreate(ObjBindMethod(implObj, "SetFileACLFlags"), flags, 2)
+        this.vtbl.GetFileACLFlags := CallbackCreate(ObjBindMethod(implObj, "GetFileACLFlags"), flags, 2)
     }
 
     Dispose() {

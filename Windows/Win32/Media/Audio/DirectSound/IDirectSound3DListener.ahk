@@ -52,7 +52,6 @@ export default struct IDirectSound3DListener extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DS3DLISTENER} 
      */
     GetAllParameters() {
@@ -62,7 +61,6 @@ export default struct IDirectSound3DListener extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     GetDistanceFactor() {
@@ -71,7 +69,6 @@ export default struct IDirectSound3DListener extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     GetDopplerFactor() {
@@ -80,7 +77,6 @@ export default struct IDirectSound3DListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<D3DVECTOR>} pvOrientFront 
      * @param {Pointer<D3DVECTOR>} pvOrientTop 
      * @returns {HRESULT} 
@@ -91,7 +87,6 @@ export default struct IDirectSound3DListener extends IUnknown {
     }
 
     /**
-     * 
      * @returns {D3DVECTOR} 
      */
     GetPosition() {
@@ -101,7 +96,6 @@ export default struct IDirectSound3DListener extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     GetRolloffFactor() {
@@ -110,7 +104,6 @@ export default struct IDirectSound3DListener extends IUnknown {
     }
 
     /**
-     * 
      * @returns {D3DVECTOR} 
      */
     GetVelocity() {
@@ -120,7 +113,6 @@ export default struct IDirectSound3DListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DS3DLISTENER>} pcListener 
      * @param {Integer} dwApply 
      * @returns {HRESULT} 
@@ -131,7 +123,6 @@ export default struct IDirectSound3DListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} flDistanceFactor 
      * @param {Integer} dwApply 
      * @returns {HRESULT} 
@@ -142,7 +133,6 @@ export default struct IDirectSound3DListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} flDopplerFactor 
      * @param {Integer} dwApply 
      * @returns {HRESULT} 
@@ -153,7 +143,6 @@ export default struct IDirectSound3DListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} xFront 
      * @param {Float} yFront 
      * @param {Float} zFront 
@@ -169,7 +158,6 @@ export default struct IDirectSound3DListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} z 
@@ -182,7 +170,6 @@ export default struct IDirectSound3DListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} flRolloffFactor 
      * @param {Integer} dwApply 
      * @returns {HRESULT} 
@@ -193,7 +180,6 @@ export default struct IDirectSound3DListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} z 
@@ -206,7 +192,6 @@ export default struct IDirectSound3DListener extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CommitDeferredSettings() {
@@ -223,21 +208,21 @@ export default struct IDirectSound3DListener extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAllParameters := CallbackCreate(GetMethod(implObj, "GetAllParameters"), flags, 2)
-        this.vtbl.GetDistanceFactor := CallbackCreate(GetMethod(implObj, "GetDistanceFactor"), flags, 2)
-        this.vtbl.GetDopplerFactor := CallbackCreate(GetMethod(implObj, "GetDopplerFactor"), flags, 2)
-        this.vtbl.GetOrientation := CallbackCreate(GetMethod(implObj, "GetOrientation"), flags, 3)
-        this.vtbl.GetPosition := CallbackCreate(GetMethod(implObj, "GetPosition"), flags, 2)
-        this.vtbl.GetRolloffFactor := CallbackCreate(GetMethod(implObj, "GetRolloffFactor"), flags, 2)
-        this.vtbl.GetVelocity := CallbackCreate(GetMethod(implObj, "GetVelocity"), flags, 2)
-        this.vtbl.SetAllParameters := CallbackCreate(GetMethod(implObj, "SetAllParameters"), flags, 3)
-        this.vtbl.SetDistanceFactor := CallbackCreate(GetMethod(implObj, "SetDistanceFactor"), flags, 3)
-        this.vtbl.SetDopplerFactor := CallbackCreate(GetMethod(implObj, "SetDopplerFactor"), flags, 3)
-        this.vtbl.SetOrientation := CallbackCreate(GetMethod(implObj, "SetOrientation"), flags, 8)
-        this.vtbl.SetPosition := CallbackCreate(GetMethod(implObj, "SetPosition"), flags, 5)
-        this.vtbl.SetRolloffFactor := CallbackCreate(GetMethod(implObj, "SetRolloffFactor"), flags, 3)
-        this.vtbl.SetVelocity := CallbackCreate(GetMethod(implObj, "SetVelocity"), flags, 5)
-        this.vtbl.CommitDeferredSettings := CallbackCreate(GetMethod(implObj, "CommitDeferredSettings"), flags, 1)
+        this.vtbl.GetAllParameters := CallbackCreate(ObjBindMethod(implObj, "GetAllParameters"), flags, 2)
+        this.vtbl.GetDistanceFactor := CallbackCreate(ObjBindMethod(implObj, "GetDistanceFactor"), flags, 2)
+        this.vtbl.GetDopplerFactor := CallbackCreate(ObjBindMethod(implObj, "GetDopplerFactor"), flags, 2)
+        this.vtbl.GetOrientation := CallbackCreate(ObjBindMethod(implObj, "GetOrientation"), flags, 3)
+        this.vtbl.GetPosition := CallbackCreate(ObjBindMethod(implObj, "GetPosition"), flags, 2)
+        this.vtbl.GetRolloffFactor := CallbackCreate(ObjBindMethod(implObj, "GetRolloffFactor"), flags, 2)
+        this.vtbl.GetVelocity := CallbackCreate(ObjBindMethod(implObj, "GetVelocity"), flags, 2)
+        this.vtbl.SetAllParameters := CallbackCreate(ObjBindMethod(implObj, "SetAllParameters"), flags, 3)
+        this.vtbl.SetDistanceFactor := CallbackCreate(ObjBindMethod(implObj, "SetDistanceFactor"), flags, 3)
+        this.vtbl.SetDopplerFactor := CallbackCreate(ObjBindMethod(implObj, "SetDopplerFactor"), flags, 3)
+        this.vtbl.SetOrientation := CallbackCreate(ObjBindMethod(implObj, "SetOrientation"), flags, 8)
+        this.vtbl.SetPosition := CallbackCreate(ObjBindMethod(implObj, "SetPosition"), flags, 5)
+        this.vtbl.SetRolloffFactor := CallbackCreate(ObjBindMethod(implObj, "SetRolloffFactor"), flags, 3)
+        this.vtbl.SetVelocity := CallbackCreate(ObjBindMethod(implObj, "SetVelocity"), flags, 5)
+        this.vtbl.CommitDeferredSettings := CallbackCreate(ObjBindMethod(implObj, "CommitDeferredSettings"), flags, 1)
     }
 
     Dispose() {

@@ -123,9 +123,9 @@ export default struct ID3D11On12Device extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateWrappedResource := CallbackCreate(GetMethod(implObj, "CreateWrappedResource"), flags, 7)
-        this.vtbl.ReleaseWrappedResources := CallbackCreate(GetMethod(implObj, "ReleaseWrappedResources"), flags, 3)
-        this.vtbl.AcquireWrappedResources := CallbackCreate(GetMethod(implObj, "AcquireWrappedResources"), flags, 3)
+        this.vtbl.CreateWrappedResource := CallbackCreate(ObjBindMethod(implObj, "CreateWrappedResource"), flags, 7)
+        this.vtbl.ReleaseWrappedResources := CallbackCreate(ObjBindMethod(implObj, "ReleaseWrappedResources"), flags, 3)
+        this.vtbl.AcquireWrappedResources := CallbackCreate(ObjBindMethod(implObj, "AcquireWrappedResources"), flags, 3)
     }
 
     Dispose() {

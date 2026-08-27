@@ -91,8 +91,8 @@ export default struct IObjectWithAppUserModelID extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAppID := CallbackCreate(GetMethod(implObj, "SetAppID"), flags, 2)
-        this.vtbl.GetAppID := CallbackCreate(GetMethod(implObj, "GetAppID"), flags, 2)
+        this.vtbl.SetAppID := CallbackCreate(ObjBindMethod(implObj, "SetAppID"), flags, 2)
+        this.vtbl.GetAppID := CallbackCreate(ObjBindMethod(implObj, "GetAppID"), flags, 2)
     }
 
     Dispose() {

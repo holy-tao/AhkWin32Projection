@@ -47,7 +47,6 @@ export default struct WMIDPREQUEST {
     }
 
     /**
-     * 
      * @param {WMIDPREQUESTCODE} RequestCode 
      * @param {Pointer<Void>} RequestContext Provider-defined context. The provider uses the _RequestContext_ parameter of  
      * [RegisterTraceGuids](/windows/win32/api/evntrace/nf-evntrace-registertraceguidsa)
@@ -65,9 +64,9 @@ export default struct WMIDPREQUEST {
      * callback if the registration was successful.
      */
     Call(RequestCode, RequestContext, BufferSize, _Buffer) {
-        RequestContextMarshal := RequestContext is VarRef ? "ptr" : "ptr"
-        BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
-        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
+        RequestContextMarshal := RequestContext is VarRef ? "ptr" : IntPtr
+        BufferSizeMarshal := BufferSize is VarRef ? "uint*" : IntPtr
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, WMIDPREQUESTCODE, RequestCode, RequestContextMarshal, RequestContext, BufferSizeMarshal, BufferSize, _BufferMarshal, _Buffer, UInt32)
         return result

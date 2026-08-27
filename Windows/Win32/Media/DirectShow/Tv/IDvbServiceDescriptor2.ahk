@@ -73,8 +73,8 @@ export default struct IDvbServiceDescriptor2 extends IDvbServiceDescriptor {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetServiceProviderNameW := CallbackCreate(GetMethod(implObj, "GetServiceProviderNameW"), flags, 3)
-        this.vtbl.GetServiceNameW := CallbackCreate(GetMethod(implObj, "GetServiceNameW"), flags, 3)
+        this.vtbl.GetServiceProviderNameW := CallbackCreate(ObjBindMethod(implObj, "GetServiceProviderNameW"), flags, 3)
+        this.vtbl.GetServiceNameW := CallbackCreate(ObjBindMethod(implObj, "GetServiceNameW"), flags, 3)
     }
 
     Dispose() {

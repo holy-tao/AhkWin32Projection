@@ -82,7 +82,9 @@ export default struct ID3D12Device6 extends ID3D12Device5 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device6-setbackgroundprocessingmode
      */
     SetBackgroundProcessingMode(_Mode, MeasurementsAction, hEventToSignalUponCompletion) {
-        result := ComCall(65, this, D3D12_BACKGROUND_PROCESSING_MODE, _Mode, D3D12_MEASUREMENTS_ACTION, MeasurementsAction, HANDLE, hEventToSignalUponCompletion, BOOL.Ptr, &pbFurtherMeasurementsDesired := 0, "HRESULT")
+        hEventToSignalUponCompletionMarshal := hEventToSignalUponCompletion == 0 ? IntPtr : HANDLE
+
+        result := ComCall(65, this, D3D12_BACKGROUND_PROCESSING_MODE, _Mode, D3D12_MEASUREMENTS_ACTION, MeasurementsAction, hEventToSignalUponCompletionMarshal, hEventToSignalUponCompletion, BOOL.Ptr, &pbFurtherMeasurementsDesired := 0, "HRESULT")
         return pbFurtherMeasurementsDesired
     }
 
@@ -95,7 +97,7 @@ export default struct ID3D12Device6 extends ID3D12Device5 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetBackgroundProcessingMode := CallbackCreate(GetMethod(implObj, "SetBackgroundProcessingMode"), flags, 5)
+        this.vtbl.SetBackgroundProcessingMode := CallbackCreate(ObjBindMethod(implObj, "SetBackgroundProcessingMode"), flags, 5)
     }
 
     Dispose() {

@@ -236,14 +236,22 @@ export default struct IAMVideoCompression extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocompression-getinfo
      */
     GetInfo(pszVersion, pcbVersion, pszDescription, pcbDescription, pDefaultKeyFrameRate, pDefaultPFramesPerKey, pDefaultQuality, pCapabilities) {
-        pcbVersionMarshal := pcbVersion is VarRef ? "int*" : "ptr"
-        pcbDescriptionMarshal := pcbDescription is VarRef ? "int*" : "ptr"
-        pDefaultKeyFrameRateMarshal := pDefaultKeyFrameRate is VarRef ? "int*" : "ptr"
-        pDefaultPFramesPerKeyMarshal := pDefaultPFramesPerKey is VarRef ? "int*" : "ptr"
-        pDefaultQualityMarshal := pDefaultQuality is VarRef ? "double*" : "ptr"
-        pCapabilitiesMarshal := pCapabilities is VarRef ? "int*" : "ptr"
+        pszVersionMarshal := pszVersion == 0 ? IntPtr : IntPtr
+        pcbVersionMarshal := pcbVersion is VarRef ? "int*" : IntPtr
+        pcbVersionMarshal := pcbVersion == 0 ? IntPtr : "int*"
+        pszDescriptionMarshal := pszDescription == 0 ? IntPtr : IntPtr
+        pcbDescriptionMarshal := pcbDescription is VarRef ? "int*" : IntPtr
+        pcbDescriptionMarshal := pcbDescription == 0 ? IntPtr : "int*"
+        pDefaultKeyFrameRateMarshal := pDefaultKeyFrameRate is VarRef ? "int*" : IntPtr
+        pDefaultKeyFrameRateMarshal := pDefaultKeyFrameRate == 0 ? IntPtr : "int*"
+        pDefaultPFramesPerKeyMarshal := pDefaultPFramesPerKey is VarRef ? "int*" : IntPtr
+        pDefaultPFramesPerKeyMarshal := pDefaultPFramesPerKey == 0 ? IntPtr : "int*"
+        pDefaultQualityMarshal := pDefaultQuality is VarRef ? "double*" : IntPtr
+        pDefaultQualityMarshal := pDefaultQuality == 0 ? IntPtr : "double*"
+        pCapabilitiesMarshal := pCapabilities is VarRef ? "int*" : IntPtr
+        pCapabilitiesMarshal := pCapabilities == 0 ? IntPtr : "int*"
 
-        result := ComCall(11, this, IntPtr, pszVersion, pcbVersionMarshal, pcbVersion, IntPtr, pszDescription, pcbDescriptionMarshal, pcbDescription, pDefaultKeyFrameRateMarshal, pDefaultKeyFrameRate, pDefaultPFramesPerKeyMarshal, pDefaultPFramesPerKey, pDefaultQualityMarshal, pDefaultQuality, pCapabilitiesMarshal, pCapabilities, "HRESULT")
+        result := ComCall(11, this, pszVersionMarshal, pszVersion, pcbVersionMarshal, pcbVersion, pszDescriptionMarshal, pszDescription, pcbDescriptionMarshal, pcbDescription, pDefaultKeyFrameRateMarshal, pDefaultKeyFrameRate, pDefaultPFramesPerKeyMarshal, pDefaultPFramesPerKey, pDefaultQualityMarshal, pDefaultQuality, pCapabilitiesMarshal, pCapabilities, "HRESULT")
         return result
     }
 
@@ -341,17 +349,17 @@ export default struct IAMVideoCompression extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_KeyFrameRate := CallbackCreate(GetMethod(implObj, "put_KeyFrameRate"), flags, 2)
-        this.vtbl.get_KeyFrameRate := CallbackCreate(GetMethod(implObj, "get_KeyFrameRate"), flags, 2)
-        this.vtbl.put_PFramesPerKeyFrame := CallbackCreate(GetMethod(implObj, "put_PFramesPerKeyFrame"), flags, 2)
-        this.vtbl.get_PFramesPerKeyFrame := CallbackCreate(GetMethod(implObj, "get_PFramesPerKeyFrame"), flags, 2)
-        this.vtbl.put_Quality := CallbackCreate(GetMethod(implObj, "put_Quality"), flags, 2)
-        this.vtbl.get_Quality := CallbackCreate(GetMethod(implObj, "get_Quality"), flags, 2)
-        this.vtbl.put_WindowSize := CallbackCreate(GetMethod(implObj, "put_WindowSize"), flags, 2)
-        this.vtbl.get_WindowSize := CallbackCreate(GetMethod(implObj, "get_WindowSize"), flags, 2)
-        this.vtbl.GetInfo := CallbackCreate(GetMethod(implObj, "GetInfo"), flags, 9)
-        this.vtbl.OverrideKeyFrame := CallbackCreate(GetMethod(implObj, "OverrideKeyFrame"), flags, 2)
-        this.vtbl.OverrideFrameSize := CallbackCreate(GetMethod(implObj, "OverrideFrameSize"), flags, 3)
+        this.vtbl.put_KeyFrameRate := CallbackCreate(ObjBindMethod(implObj, "put_KeyFrameRate"), flags, 2)
+        this.vtbl.get_KeyFrameRate := CallbackCreate(ObjBindMethod(implObj, "get_KeyFrameRate"), flags, 2)
+        this.vtbl.put_PFramesPerKeyFrame := CallbackCreate(ObjBindMethod(implObj, "put_PFramesPerKeyFrame"), flags, 2)
+        this.vtbl.get_PFramesPerKeyFrame := CallbackCreate(ObjBindMethod(implObj, "get_PFramesPerKeyFrame"), flags, 2)
+        this.vtbl.put_Quality := CallbackCreate(ObjBindMethod(implObj, "put_Quality"), flags, 2)
+        this.vtbl.get_Quality := CallbackCreate(ObjBindMethod(implObj, "get_Quality"), flags, 2)
+        this.vtbl.put_WindowSize := CallbackCreate(ObjBindMethod(implObj, "put_WindowSize"), flags, 2)
+        this.vtbl.get_WindowSize := CallbackCreate(ObjBindMethod(implObj, "get_WindowSize"), flags, 2)
+        this.vtbl.GetInfo := CallbackCreate(ObjBindMethod(implObj, "GetInfo"), flags, 9)
+        this.vtbl.OverrideKeyFrame := CallbackCreate(ObjBindMethod(implObj, "OverrideKeyFrame"), flags, 2)
+        this.vtbl.OverrideFrameSize := CallbackCreate(ObjBindMethod(implObj, "OverrideFrameSize"), flags, 3)
     }
 
     Dispose() {

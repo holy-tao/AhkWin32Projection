@@ -214,16 +214,16 @@ export default struct IDVBSLocator extends IDigitalLocator {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_SignalPolarisation := CallbackCreate(GetMethod(implObj, "get_SignalPolarisation"), flags, 2)
-        this.vtbl.put_SignalPolarisation := CallbackCreate(GetMethod(implObj, "put_SignalPolarisation"), flags, 2)
-        this.vtbl.get_WestPosition := CallbackCreate(GetMethod(implObj, "get_WestPosition"), flags, 2)
-        this.vtbl.put_WestPosition := CallbackCreate(GetMethod(implObj, "put_WestPosition"), flags, 2)
-        this.vtbl.get_OrbitalPosition := CallbackCreate(GetMethod(implObj, "get_OrbitalPosition"), flags, 2)
-        this.vtbl.put_OrbitalPosition := CallbackCreate(GetMethod(implObj, "put_OrbitalPosition"), flags, 2)
-        this.vtbl.get_Azimuth := CallbackCreate(GetMethod(implObj, "get_Azimuth"), flags, 2)
-        this.vtbl.put_Azimuth := CallbackCreate(GetMethod(implObj, "put_Azimuth"), flags, 2)
-        this.vtbl.get_Elevation := CallbackCreate(GetMethod(implObj, "get_Elevation"), flags, 2)
-        this.vtbl.put_Elevation := CallbackCreate(GetMethod(implObj, "put_Elevation"), flags, 2)
+        this.vtbl.get_SignalPolarisation := CallbackCreate(ObjBindMethod(implObj, "get_SignalPolarisation"), flags, 2)
+        this.vtbl.put_SignalPolarisation := CallbackCreate(ObjBindMethod(implObj, "put_SignalPolarisation"), flags, 2)
+        this.vtbl.get_WestPosition := CallbackCreate(ObjBindMethod(implObj, "get_WestPosition"), flags, 2)
+        this.vtbl.put_WestPosition := CallbackCreate(ObjBindMethod(implObj, "put_WestPosition"), flags, 2)
+        this.vtbl.get_OrbitalPosition := CallbackCreate(ObjBindMethod(implObj, "get_OrbitalPosition"), flags, 2)
+        this.vtbl.put_OrbitalPosition := CallbackCreate(ObjBindMethod(implObj, "put_OrbitalPosition"), flags, 2)
+        this.vtbl.get_Azimuth := CallbackCreate(ObjBindMethod(implObj, "get_Azimuth"), flags, 2)
+        this.vtbl.put_Azimuth := CallbackCreate(ObjBindMethod(implObj, "put_Azimuth"), flags, 2)
+        this.vtbl.get_Elevation := CallbackCreate(ObjBindMethod(implObj, "get_Elevation"), flags, 2)
+        this.vtbl.put_Elevation := CallbackCreate(ObjBindMethod(implObj, "put_Elevation"), flags, 2)
     }
 
     Dispose() {

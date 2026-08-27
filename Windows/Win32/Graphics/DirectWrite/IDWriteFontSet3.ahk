@@ -103,9 +103,9 @@ export default struct IDWriteFontSet3 extends IDWriteFontSet2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFontSourceType := CallbackCreate(GetMethod(implObj, "GetFontSourceType"), flags, 2)
-        this.vtbl.GetFontSourceNameLength := CallbackCreate(GetMethod(implObj, "GetFontSourceNameLength"), flags, 2)
-        this.vtbl.GetFontSourceName := CallbackCreate(GetMethod(implObj, "GetFontSourceName"), flags, 4)
+        this.vtbl.GetFontSourceType := CallbackCreate(ObjBindMethod(implObj, "GetFontSourceType"), flags, 2)
+        this.vtbl.GetFontSourceNameLength := CallbackCreate(ObjBindMethod(implObj, "GetFontSourceNameLength"), flags, 2)
+        this.vtbl.GetFontSourceName := CallbackCreate(ObjBindMethod(implObj, "GetFontSourceName"), flags, 4)
     }
 
     Dispose() {

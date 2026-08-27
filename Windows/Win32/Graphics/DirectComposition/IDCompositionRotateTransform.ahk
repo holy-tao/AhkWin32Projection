@@ -178,12 +178,12 @@ export default struct IDCompositionRotateTransform extends IDCompositionTransfor
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAngle := CallbackCreate(GetMethod(implObj, "SetAngle"), flags, 2)
-        this.vtbl.SetAngle1 := CallbackCreate(GetMethod(implObj, "SetAngle1"), flags, 2)
-        this.vtbl.SetCenterX := CallbackCreate(GetMethod(implObj, "SetCenterX"), flags, 2)
-        this.vtbl.SetCenterX1 := CallbackCreate(GetMethod(implObj, "SetCenterX1"), flags, 2)
-        this.vtbl.SetCenterY := CallbackCreate(GetMethod(implObj, "SetCenterY"), flags, 2)
-        this.vtbl.SetCenterY1 := CallbackCreate(GetMethod(implObj, "SetCenterY1"), flags, 2)
+        this.vtbl.SetAngle := CallbackCreate(ObjBindMethod(implObj, "SetAngle"), flags, 2)
+        this.vtbl.SetAngle1 := CallbackCreate(ObjBindMethod(implObj, "SetAngle1"), flags, 2)
+        this.vtbl.SetCenterX := CallbackCreate(ObjBindMethod(implObj, "SetCenterX"), flags, 2)
+        this.vtbl.SetCenterX1 := CallbackCreate(ObjBindMethod(implObj, "SetCenterX1"), flags, 2)
+        this.vtbl.SetCenterY := CallbackCreate(ObjBindMethod(implObj, "SetCenterY"), flags, 2)
+        this.vtbl.SetCenterY1 := CallbackCreate(ObjBindMethod(implObj, "SetCenterY1"), flags, 2)
     }
 
     Dispose() {

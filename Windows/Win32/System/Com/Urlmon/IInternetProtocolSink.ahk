@@ -41,7 +41,6 @@ export default struct IInternetProtocolSink extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PROTOCOLDATA>} pProtocolData 
      * @returns {HRESULT} 
      */
@@ -51,7 +50,6 @@ export default struct IInternetProtocolSink extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulStatusCode 
      * @param {PWSTR} szStatusText 
      * @returns {HRESULT} 
@@ -64,7 +62,6 @@ export default struct IInternetProtocolSink extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} grfBSCF 
      * @param {Integer} ulProgress 
      * @param {Integer} ulProgressMax 
@@ -76,7 +73,6 @@ export default struct IInternetProtocolSink extends IUnknown {
     }
 
     /**
-     * 
      * @param {HRESULT} hrResult 
      * @param {Integer} dwError 
      * @param {PWSTR} szResult 
@@ -98,10 +94,10 @@ export default struct IInternetProtocolSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Switch := CallbackCreate(GetMethod(implObj, "Switch"), flags, 2)
-        this.vtbl.ReportProgress := CallbackCreate(GetMethod(implObj, "ReportProgress"), flags, 3)
-        this.vtbl.ReportData := CallbackCreate(GetMethod(implObj, "ReportData"), flags, 4)
-        this.vtbl.ReportResult := CallbackCreate(GetMethod(implObj, "ReportResult"), flags, 4)
+        this.vtbl.Switch := CallbackCreate(ObjBindMethod(implObj, "Switch"), flags, 2)
+        this.vtbl.ReportProgress := CallbackCreate(ObjBindMethod(implObj, "ReportProgress"), flags, 3)
+        this.vtbl.ReportData := CallbackCreate(ObjBindMethod(implObj, "ReportData"), flags, 4)
+        this.vtbl.ReportResult := CallbackCreate(ObjBindMethod(implObj, "ReportResult"), flags, 4)
     }
 
     Dispose() {

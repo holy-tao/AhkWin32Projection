@@ -97,7 +97,7 @@ export default struct IWICPalette extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpalette-initializecustom
      */
     InitializeCustom(pColors, cCount) {
-        pColorsMarshal := pColors is VarRef ? "uint*" : "ptr"
+        pColorsMarshal := pColors is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pColorsMarshal, pColors, UInt32, cCount, "HRESULT")
         return result
@@ -184,8 +184,8 @@ export default struct IWICPalette extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpalette-getcolors
      */
     GetColors(cCount, pColors, pcActualColors) {
-        pColorsMarshal := pColors is VarRef ? "uint*" : "ptr"
-        pcActualColorsMarshal := pcActualColors is VarRef ? "uint*" : "ptr"
+        pColorsMarshal := pColors is VarRef ? "uint*" : IntPtr
+        pcActualColorsMarshal := pcActualColors is VarRef ? "uint*" : IntPtr
 
         result := ComCall(9, this, UInt32, cCount, pColorsMarshal, pColors, pcActualColorsMarshal, pcActualColors, "HRESULT")
         return result
@@ -242,16 +242,16 @@ export default struct IWICPalette extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializePredefined := CallbackCreate(GetMethod(implObj, "InitializePredefined"), flags, 3)
-        this.vtbl.InitializeCustom := CallbackCreate(GetMethod(implObj, "InitializeCustom"), flags, 3)
-        this.vtbl.InitializeFromBitmap := CallbackCreate(GetMethod(implObj, "InitializeFromBitmap"), flags, 4)
-        this.vtbl.InitializeFromPalette := CallbackCreate(GetMethod(implObj, "InitializeFromPalette"), flags, 2)
-        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
-        this.vtbl.GetColorCount := CallbackCreate(GetMethod(implObj, "GetColorCount"), flags, 2)
-        this.vtbl.GetColors := CallbackCreate(GetMethod(implObj, "GetColors"), flags, 4)
-        this.vtbl.IsBlackWhite := CallbackCreate(GetMethod(implObj, "IsBlackWhite"), flags, 2)
-        this.vtbl.IsGrayscale := CallbackCreate(GetMethod(implObj, "IsGrayscale"), flags, 2)
-        this.vtbl.HasAlpha := CallbackCreate(GetMethod(implObj, "HasAlpha"), flags, 2)
+        this.vtbl.InitializePredefined := CallbackCreate(ObjBindMethod(implObj, "InitializePredefined"), flags, 3)
+        this.vtbl.InitializeCustom := CallbackCreate(ObjBindMethod(implObj, "InitializeCustom"), flags, 3)
+        this.vtbl.InitializeFromBitmap := CallbackCreate(ObjBindMethod(implObj, "InitializeFromBitmap"), flags, 4)
+        this.vtbl.InitializeFromPalette := CallbackCreate(ObjBindMethod(implObj, "InitializeFromPalette"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(ObjBindMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.GetColorCount := CallbackCreate(ObjBindMethod(implObj, "GetColorCount"), flags, 2)
+        this.vtbl.GetColors := CallbackCreate(ObjBindMethod(implObj, "GetColors"), flags, 4)
+        this.vtbl.IsBlackWhite := CallbackCreate(ObjBindMethod(implObj, "IsBlackWhite"), flags, 2)
+        this.vtbl.IsGrayscale := CallbackCreate(ObjBindMethod(implObj, "IsGrayscale"), flags, 2)
+        this.vtbl.HasAlpha := CallbackCreate(ObjBindMethod(implObj, "HasAlpha"), flags, 2)
     }
 
     Dispose() {

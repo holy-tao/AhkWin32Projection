@@ -61,7 +61,7 @@ export default struct IComponentData2 extends IComponentData {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryDispatch := CallbackCreate(GetMethod(implObj, "QueryDispatch"), flags, 4)
+        this.vtbl.QueryDispatch := CallbackCreate(ObjBindMethod(implObj, "QueryDispatch"), flags, 4)
     }
 
     Dispose() {

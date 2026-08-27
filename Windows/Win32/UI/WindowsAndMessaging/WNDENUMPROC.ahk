@@ -21,7 +21,6 @@ export default struct WNDENUMPROC {
     }
 
     /**
-     * 
      * @param {HWND} param0 
      * @param {LPARAM} param1 
      * @returns {BOOL} 

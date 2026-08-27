@@ -231,7 +231,6 @@ export default struct IHTMLObjectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_object() {
@@ -240,7 +239,6 @@ export default struct IHTMLObjectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_classid() {
@@ -250,7 +248,6 @@ export default struct IHTMLObjectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_data() {
@@ -260,7 +257,6 @@ export default struct IHTMLObjectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} v 
      * @returns {HRESULT} 
      */
@@ -270,7 +266,6 @@ export default struct IHTMLObjectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_recordset() {
@@ -279,7 +274,6 @@ export default struct IHTMLObjectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -291,7 +285,6 @@ export default struct IHTMLObjectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_align() {
@@ -301,7 +294,6 @@ export default struct IHTMLObjectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -313,7 +305,6 @@ export default struct IHTMLObjectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -323,7 +314,6 @@ export default struct IHTMLObjectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -335,7 +325,6 @@ export default struct IHTMLObjectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_codeBase() {
@@ -345,7 +334,6 @@ export default struct IHTMLObjectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -357,7 +345,6 @@ export default struct IHTMLObjectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_codeType() {
@@ -367,7 +354,6 @@ export default struct IHTMLObjectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -379,7 +365,6 @@ export default struct IHTMLObjectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_code() {
@@ -389,7 +374,6 @@ export default struct IHTMLObjectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_BaseHref() {
@@ -399,7 +383,6 @@ export default struct IHTMLObjectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -411,7 +394,6 @@ export default struct IHTMLObjectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -421,7 +403,6 @@ export default struct IHTMLObjectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLFormElement} 
      */
     get_form() {
@@ -430,7 +411,6 @@ export default struct IHTMLObjectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -440,7 +420,6 @@ export default struct IHTMLObjectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_width() {
@@ -450,7 +429,6 @@ export default struct IHTMLObjectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -460,7 +438,6 @@ export default struct IHTMLObjectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_height() {
@@ -470,7 +447,6 @@ export default struct IHTMLObjectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_readyState() {
@@ -479,7 +455,6 @@ export default struct IHTMLObjectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -489,7 +464,6 @@ export default struct IHTMLObjectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onreadystatechange() {
@@ -499,7 +473,6 @@ export default struct IHTMLObjectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -509,7 +482,6 @@ export default struct IHTMLObjectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onerror() {
@@ -519,7 +491,6 @@ export default struct IHTMLObjectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -531,7 +502,6 @@ export default struct IHTMLObjectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_altHtml() {
@@ -541,7 +511,6 @@ export default struct IHTMLObjectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -551,7 +520,6 @@ export default struct IHTMLObjectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_vspace() {
@@ -560,7 +528,6 @@ export default struct IHTMLObjectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -570,7 +537,6 @@ export default struct IHTMLObjectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_hspace() {
@@ -587,40 +553,40 @@ export default struct IHTMLObjectElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_object := CallbackCreate(GetMethod(implObj, "get_object"), flags, 2)
-        this.vtbl.get_classid := CallbackCreate(GetMethod(implObj, "get_classid"), flags, 2)
-        this.vtbl.get_data := CallbackCreate(GetMethod(implObj, "get_data"), flags, 2)
-        this.vtbl.putref_recordset := CallbackCreate(GetMethod(implObj, "putref_recordset"), flags, 2)
-        this.vtbl.get_recordset := CallbackCreate(GetMethod(implObj, "get_recordset"), flags, 2)
-        this.vtbl.put_align := CallbackCreate(GetMethod(implObj, "put_align"), flags, 2)
-        this.vtbl.get_align := CallbackCreate(GetMethod(implObj, "get_align"), flags, 2)
-        this.vtbl.put_name := CallbackCreate(GetMethod(implObj, "put_name"), flags, 2)
-        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
-        this.vtbl.put_codeBase := CallbackCreate(GetMethod(implObj, "put_codeBase"), flags, 2)
-        this.vtbl.get_codeBase := CallbackCreate(GetMethod(implObj, "get_codeBase"), flags, 2)
-        this.vtbl.put_codeType := CallbackCreate(GetMethod(implObj, "put_codeType"), flags, 2)
-        this.vtbl.get_codeType := CallbackCreate(GetMethod(implObj, "get_codeType"), flags, 2)
-        this.vtbl.put_code := CallbackCreate(GetMethod(implObj, "put_code"), flags, 2)
-        this.vtbl.get_code := CallbackCreate(GetMethod(implObj, "get_code"), flags, 2)
-        this.vtbl.get_BaseHref := CallbackCreate(GetMethod(implObj, "get_BaseHref"), flags, 2)
-        this.vtbl.put_type := CallbackCreate(GetMethod(implObj, "put_type"), flags, 2)
-        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
-        this.vtbl.get_form := CallbackCreate(GetMethod(implObj, "get_form"), flags, 2)
-        this.vtbl.put_width := CallbackCreate(GetMethod(implObj, "put_width"), flags, 2)
-        this.vtbl.get_width := CallbackCreate(GetMethod(implObj, "get_width"), flags, 2)
-        this.vtbl.put_height := CallbackCreate(GetMethod(implObj, "put_height"), flags, 2)
-        this.vtbl.get_height := CallbackCreate(GetMethod(implObj, "get_height"), flags, 2)
-        this.vtbl.get_readyState := CallbackCreate(GetMethod(implObj, "get_readyState"), flags, 2)
-        this.vtbl.put_onreadystatechange := CallbackCreate(GetMethod(implObj, "put_onreadystatechange"), flags, 2)
-        this.vtbl.get_onreadystatechange := CallbackCreate(GetMethod(implObj, "get_onreadystatechange"), flags, 2)
-        this.vtbl.put_onerror := CallbackCreate(GetMethod(implObj, "put_onerror"), flags, 2)
-        this.vtbl.get_onerror := CallbackCreate(GetMethod(implObj, "get_onerror"), flags, 2)
-        this.vtbl.put_altHtml := CallbackCreate(GetMethod(implObj, "put_altHtml"), flags, 2)
-        this.vtbl.get_altHtml := CallbackCreate(GetMethod(implObj, "get_altHtml"), flags, 2)
-        this.vtbl.put_vspace := CallbackCreate(GetMethod(implObj, "put_vspace"), flags, 2)
-        this.vtbl.get_vspace := CallbackCreate(GetMethod(implObj, "get_vspace"), flags, 2)
-        this.vtbl.put_hspace := CallbackCreate(GetMethod(implObj, "put_hspace"), flags, 2)
-        this.vtbl.get_hspace := CallbackCreate(GetMethod(implObj, "get_hspace"), flags, 2)
+        this.vtbl.get_object := CallbackCreate(ObjBindMethod(implObj, "get_object"), flags, 2)
+        this.vtbl.get_classid := CallbackCreate(ObjBindMethod(implObj, "get_classid"), flags, 2)
+        this.vtbl.get_data := CallbackCreate(ObjBindMethod(implObj, "get_data"), flags, 2)
+        this.vtbl.putref_recordset := CallbackCreate(ObjBindMethod(implObj, "putref_recordset"), flags, 2)
+        this.vtbl.get_recordset := CallbackCreate(ObjBindMethod(implObj, "get_recordset"), flags, 2)
+        this.vtbl.put_align := CallbackCreate(ObjBindMethod(implObj, "put_align"), flags, 2)
+        this.vtbl.get_align := CallbackCreate(ObjBindMethod(implObj, "get_align"), flags, 2)
+        this.vtbl.put_name := CallbackCreate(ObjBindMethod(implObj, "put_name"), flags, 2)
+        this.vtbl.get_name := CallbackCreate(ObjBindMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.put_codeBase := CallbackCreate(ObjBindMethod(implObj, "put_codeBase"), flags, 2)
+        this.vtbl.get_codeBase := CallbackCreate(ObjBindMethod(implObj, "get_codeBase"), flags, 2)
+        this.vtbl.put_codeType := CallbackCreate(ObjBindMethod(implObj, "put_codeType"), flags, 2)
+        this.vtbl.get_codeType := CallbackCreate(ObjBindMethod(implObj, "get_codeType"), flags, 2)
+        this.vtbl.put_code := CallbackCreate(ObjBindMethod(implObj, "put_code"), flags, 2)
+        this.vtbl.get_code := CallbackCreate(ObjBindMethod(implObj, "get_code"), flags, 2)
+        this.vtbl.get_BaseHref := CallbackCreate(ObjBindMethod(implObj, "get_BaseHref"), flags, 2)
+        this.vtbl.put_type := CallbackCreate(ObjBindMethod(implObj, "put_type"), flags, 2)
+        this.vtbl.get_type := CallbackCreate(ObjBindMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.get_form := CallbackCreate(ObjBindMethod(implObj, "get_form"), flags, 2)
+        this.vtbl.put_width := CallbackCreate(ObjBindMethod(implObj, "put_width"), flags, 2)
+        this.vtbl.get_width := CallbackCreate(ObjBindMethod(implObj, "get_width"), flags, 2)
+        this.vtbl.put_height := CallbackCreate(ObjBindMethod(implObj, "put_height"), flags, 2)
+        this.vtbl.get_height := CallbackCreate(ObjBindMethod(implObj, "get_height"), flags, 2)
+        this.vtbl.get_readyState := CallbackCreate(ObjBindMethod(implObj, "get_readyState"), flags, 2)
+        this.vtbl.put_onreadystatechange := CallbackCreate(ObjBindMethod(implObj, "put_onreadystatechange"), flags, 2)
+        this.vtbl.get_onreadystatechange := CallbackCreate(ObjBindMethod(implObj, "get_onreadystatechange"), flags, 2)
+        this.vtbl.put_onerror := CallbackCreate(ObjBindMethod(implObj, "put_onerror"), flags, 2)
+        this.vtbl.get_onerror := CallbackCreate(ObjBindMethod(implObj, "get_onerror"), flags, 2)
+        this.vtbl.put_altHtml := CallbackCreate(ObjBindMethod(implObj, "put_altHtml"), flags, 2)
+        this.vtbl.get_altHtml := CallbackCreate(ObjBindMethod(implObj, "get_altHtml"), flags, 2)
+        this.vtbl.put_vspace := CallbackCreate(ObjBindMethod(implObj, "put_vspace"), flags, 2)
+        this.vtbl.get_vspace := CallbackCreate(ObjBindMethod(implObj, "get_vspace"), flags, 2)
+        this.vtbl.put_hspace := CallbackCreate(ObjBindMethod(implObj, "put_hspace"), flags, 2)
+        this.vtbl.get_hspace := CallbackCreate(ObjBindMethod(implObj, "get_hspace"), flags, 2)
     }
 
     Dispose() {

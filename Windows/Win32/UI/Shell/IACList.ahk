@@ -93,7 +93,7 @@ export default struct IACList extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Expand := CallbackCreate(GetMethod(implObj, "Expand"), flags, 2)
+        this.vtbl.Expand := CallbackCreate(ObjBindMethod(implObj, "Expand"), flags, 2)
     }
 
     Dispose() {

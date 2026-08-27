@@ -37,12 +37,13 @@ export default struct ISQLGetDiagField extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<KAGGETDIAG>} pDiagInfo 
      * @returns {HRESULT} 
      */
     GetDiagField(pDiagInfo) {
-        result := ComCall(3, this, KAGGETDIAG.Ptr, pDiagInfo, "HRESULT")
+        pDiagInfoMarshal := pDiagInfo == 0 ? IntPtr : KAGGETDIAG.Ptr
+
+        result := ComCall(3, this, pDiagInfoMarshal, pDiagInfo, "HRESULT")
         return result
     }
 
@@ -55,7 +56,7 @@ export default struct ISQLGetDiagField extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDiagField := CallbackCreate(GetMethod(implObj, "GetDiagField"), flags, 2)
+        this.vtbl.GetDiagField := CallbackCreate(ObjBindMethod(implObj, "GetDiagField"), flags, 2)
     }
 
     Dispose() {

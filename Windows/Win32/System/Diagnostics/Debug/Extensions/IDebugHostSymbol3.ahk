@@ -38,15 +38,15 @@ export default struct IDebugHostSymbol3 extends IDebugHostSymbol2 {
     }
 
     /**
-     * 
      * @param {Pointer<KnownCompiler>} pCompilerId 
      * @param {Pointer<BSTR>} pCompilerString 
      * @returns {HRESULT} 
      */
     GetCompilerInformation(pCompilerId, pCompilerString) {
-        pCompilerIdMarshal := pCompilerId is VarRef ? "int*" : "ptr"
+        pCompilerIdMarshal := pCompilerId is VarRef ? "int*" : IntPtr
+        pCompilerStringMarshal := pCompilerString == 0 ? IntPtr : BSTR.Ptr
 
-        result := ComCall(11, this, pCompilerIdMarshal, pCompilerId, BSTR.Ptr, pCompilerString, "HRESULT")
+        result := ComCall(11, this, pCompilerIdMarshal, pCompilerId, pCompilerStringMarshal, pCompilerString, "HRESULT")
         return result
     }
 
@@ -59,7 +59,7 @@ export default struct IDebugHostSymbol3 extends IDebugHostSymbol2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCompilerInformation := CallbackCreate(GetMethod(implObj, "GetCompilerInformation"), flags, 3)
+        this.vtbl.GetCompilerInformation := CallbackCreate(ObjBindMethod(implObj, "GetCompilerInformation"), flags, 3)
     }
 
     Dispose() {

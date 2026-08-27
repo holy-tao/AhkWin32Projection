@@ -128,8 +128,8 @@ export default struct ID2D1Factory extends IUnknown {
      * @deprecated Deprecated. Use DisplayInformation::LogicalDpi for Windows Store Apps or GetDpiForWindow for desktop apps.
      */
     GetDesktopDpi(dpiX, dpiY) {
-        dpiXMarshal := dpiX is VarRef ? "float*" : "ptr"
-        dpiYMarshal := dpiY is VarRef ? "float*" : "ptr"
+        dpiXMarshal := dpiX is VarRef ? "float*" : IntPtr
+        dpiYMarshal := dpiY is VarRef ? "float*" : IntPtr
 
         ComCall(4, this, dpiXMarshal, dpiX, dpiYMarshal, dpiY)
     }
@@ -227,7 +227,8 @@ export default struct ID2D1Factory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1factory-createstrokestyle
      */
     CreateStrokeStyle(strokeStyleProperties, dashes, dashesCount) {
-        dashesMarshal := dashes is VarRef ? "float*" : "ptr"
+        dashesMarshal := dashes is VarRef ? "float*" : IntPtr
+        dashesMarshal := dashes == 0 ? IntPtr : "float*"
 
         result := ComCall(11, this, D2D1_STROKE_STYLE_PROPERTIES.Ptr, strokeStyleProperties, dashesMarshal, dashes, UInt32, dashesCount, "ptr*", &strokeStyle := 0, "HRESULT")
         return ID2D1StrokeStyle(strokeStyle)
@@ -241,7 +242,10 @@ export default struct ID2D1Factory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1factory-createdrawingstateblock
      */
     CreateDrawingStateBlock(drawingStateDescription, textRenderingParams) {
-        result := ComCall(12, this, D2D1_DRAWING_STATE_DESCRIPTION.Ptr, drawingStateDescription, "ptr", textRenderingParams, "ptr*", &drawingStateBlock := 0, "HRESULT")
+        drawingStateDescriptionMarshal := drawingStateDescription == 0 ? IntPtr : D2D1_DRAWING_STATE_DESCRIPTION.Ptr
+        textRenderingParamsMarshal := textRenderingParams == 0 ? IntPtr : "ptr"
+
+        result := ComCall(12, this, drawingStateDescriptionMarshal, drawingStateDescription, textRenderingParamsMarshal, textRenderingParams, "ptr*", &drawingStateBlock := 0, "HRESULT")
         return ID2D1DrawingStateBlock(drawingStateBlock)
     }
 
@@ -337,20 +341,20 @@ export default struct ID2D1Factory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ReloadSystemMetrics := CallbackCreate(GetMethod(implObj, "ReloadSystemMetrics"), flags, 1)
-        this.vtbl.GetDesktopDpi := CallbackCreate(GetMethod(implObj, "GetDesktopDpi"), flags, 3)
-        this.vtbl.CreateRectangleGeometry := CallbackCreate(GetMethod(implObj, "CreateRectangleGeometry"), flags, 3)
-        this.vtbl.CreateRoundedRectangleGeometry := CallbackCreate(GetMethod(implObj, "CreateRoundedRectangleGeometry"), flags, 3)
-        this.vtbl.CreateEllipseGeometry := CallbackCreate(GetMethod(implObj, "CreateEllipseGeometry"), flags, 3)
-        this.vtbl.CreateGeometryGroup := CallbackCreate(GetMethod(implObj, "CreateGeometryGroup"), flags, 5)
-        this.vtbl.CreateTransformedGeometry := CallbackCreate(GetMethod(implObj, "CreateTransformedGeometry"), flags, 4)
-        this.vtbl.CreatePathGeometry := CallbackCreate(GetMethod(implObj, "CreatePathGeometry"), flags, 2)
-        this.vtbl.CreateStrokeStyle := CallbackCreate(GetMethod(implObj, "CreateStrokeStyle"), flags, 5)
-        this.vtbl.CreateDrawingStateBlock := CallbackCreate(GetMethod(implObj, "CreateDrawingStateBlock"), flags, 4)
-        this.vtbl.CreateWicBitmapRenderTarget := CallbackCreate(GetMethod(implObj, "CreateWicBitmapRenderTarget"), flags, 4)
-        this.vtbl.CreateHwndRenderTarget := CallbackCreate(GetMethod(implObj, "CreateHwndRenderTarget"), flags, 4)
-        this.vtbl.CreateDxgiSurfaceRenderTarget := CallbackCreate(GetMethod(implObj, "CreateDxgiSurfaceRenderTarget"), flags, 4)
-        this.vtbl.CreateDCRenderTarget := CallbackCreate(GetMethod(implObj, "CreateDCRenderTarget"), flags, 3)
+        this.vtbl.ReloadSystemMetrics := CallbackCreate(ObjBindMethod(implObj, "ReloadSystemMetrics"), flags, 1)
+        this.vtbl.GetDesktopDpi := CallbackCreate(ObjBindMethod(implObj, "GetDesktopDpi"), flags, 3)
+        this.vtbl.CreateRectangleGeometry := CallbackCreate(ObjBindMethod(implObj, "CreateRectangleGeometry"), flags, 3)
+        this.vtbl.CreateRoundedRectangleGeometry := CallbackCreate(ObjBindMethod(implObj, "CreateRoundedRectangleGeometry"), flags, 3)
+        this.vtbl.CreateEllipseGeometry := CallbackCreate(ObjBindMethod(implObj, "CreateEllipseGeometry"), flags, 3)
+        this.vtbl.CreateGeometryGroup := CallbackCreate(ObjBindMethod(implObj, "CreateGeometryGroup"), flags, 5)
+        this.vtbl.CreateTransformedGeometry := CallbackCreate(ObjBindMethod(implObj, "CreateTransformedGeometry"), flags, 4)
+        this.vtbl.CreatePathGeometry := CallbackCreate(ObjBindMethod(implObj, "CreatePathGeometry"), flags, 2)
+        this.vtbl.CreateStrokeStyle := CallbackCreate(ObjBindMethod(implObj, "CreateStrokeStyle"), flags, 5)
+        this.vtbl.CreateDrawingStateBlock := CallbackCreate(ObjBindMethod(implObj, "CreateDrawingStateBlock"), flags, 4)
+        this.vtbl.CreateWicBitmapRenderTarget := CallbackCreate(ObjBindMethod(implObj, "CreateWicBitmapRenderTarget"), flags, 4)
+        this.vtbl.CreateHwndRenderTarget := CallbackCreate(ObjBindMethod(implObj, "CreateHwndRenderTarget"), flags, 4)
+        this.vtbl.CreateDxgiSurfaceRenderTarget := CallbackCreate(ObjBindMethod(implObj, "CreateDxgiSurfaceRenderTarget"), flags, 4)
+        this.vtbl.CreateDCRenderTarget := CallbackCreate(ObjBindMethod(implObj, "CreateDCRenderTarget"), flags, 3)
     }
 
     Dispose() {

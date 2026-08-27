@@ -37,7 +37,6 @@ export default struct ICommandValidate extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ValidateCompletely() {
@@ -46,7 +45,6 @@ export default struct ICommandValidate extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ValidateSyntax() {
@@ -63,8 +61,8 @@ export default struct ICommandValidate extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ValidateCompletely := CallbackCreate(GetMethod(implObj, "ValidateCompletely"), flags, 1)
-        this.vtbl.ValidateSyntax := CallbackCreate(GetMethod(implObj, "ValidateSyntax"), flags, 1)
+        this.vtbl.ValidateCompletely := CallbackCreate(ObjBindMethod(implObj, "ValidateCompletely"), flags, 1)
+        this.vtbl.ValidateSyntax := CallbackCreate(ObjBindMethod(implObj, "ValidateSyntax"), flags, 1)
     }
 
     Dispose() {

@@ -60,7 +60,7 @@ export default struct IDirectManipulationInteractionEventHandler extends IUnknow
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnInteraction := CallbackCreate(GetMethod(implObj, "OnInteraction"), flags, 3)
+        this.vtbl.OnInteraction := CallbackCreate(ObjBindMethod(implObj, "OnInteraction"), flags, 3)
     }
 
     Dispose() {

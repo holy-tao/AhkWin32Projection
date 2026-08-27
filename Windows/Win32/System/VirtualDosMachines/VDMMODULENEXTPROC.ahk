@@ -22,7 +22,6 @@ export default struct VDMMODULENEXTPROC {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @param {HANDLE} param1 
      * @param {Pointer<MODULEENTRY>} param2 
@@ -31,7 +30,7 @@ export default struct VDMMODULENEXTPROC {
      * @returns {BOOL} 
      */
     Call(param0, param1, param2, param3, param4) {
-        param4Marshal := param4 is VarRef ? "ptr" : "ptr"
+        param4Marshal := param4 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, HANDLE, param0, HANDLE, param1, MODULEENTRY.Ptr, param2, DEBUGEVENTPROC, param3, param4Marshal, param4, BOOL)
         return result

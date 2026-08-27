@@ -22,7 +22,6 @@ export default struct PFN_CERT_IS_WEAK_HASH {
     }
 
     /**
-     * 
      * @param {Integer} dwHashUseType 
      * @param {PWSTR} pwszCNGHashAlgid 
      * @param {Integer} dwChainFlags 
@@ -35,7 +34,11 @@ export default struct PFN_CERT_IS_WEAK_HASH {
         pwszCNGHashAlgid := pwszCNGHashAlgid is String ? StrPtr(pwszCNGHashAlgid) : pwszCNGHashAlgid
         pwszFileName := pwszFileName is String ? StrPtr(pwszFileName) : pwszFileName
 
-        result := DllCall(this.value, UInt32, dwHashUseType, "ptr", pwszCNGHashAlgid, UInt32, dwChainFlags, CERT_CHAIN_CONTEXT.Ptr, pSignerChainContext, FILETIME.Ptr, pTimeStamp, "ptr", pwszFileName, BOOL)
+        pSignerChainContextMarshal := pSignerChainContext == 0 ? IntPtr : CERT_CHAIN_CONTEXT.Ptr
+        pTimeStampMarshal := pTimeStamp == 0 ? IntPtr : FILETIME.Ptr
+        pwszFileNameMarshal := pwszFileName == 0 ? IntPtr : PWSTR
+
+        result := DllCall(this.value, UInt32, dwHashUseType, "ptr", pwszCNGHashAlgid, UInt32, dwChainFlags, pSignerChainContextMarshal, pSignerChainContext, pTimeStampMarshal, pTimeStamp, pwszFileNameMarshal, pwszFileName, BOOL)
         return result
     }
 

@@ -18,12 +18,11 @@ export default struct PFN_AUTHZ_FREE_CENTRAL_ACCESS_POLICY {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pCentralAccessPolicy 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(pCentralAccessPolicy) {
-        pCentralAccessPolicyMarshal := pCentralAccessPolicy is VarRef ? "ptr" : "ptr"
+        pCentralAccessPolicyMarshal := pCentralAccessPolicy is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, pCentralAccessPolicyMarshal, pCentralAccessPolicy)
     }

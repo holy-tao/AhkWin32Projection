@@ -128,8 +128,8 @@ export default struct ITypeChangeEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RequestTypeChange := CallbackCreate(GetMethod(implObj, "RequestTypeChange"), flags, 5)
-        this.vtbl.AfterTypeChange := CallbackCreate(GetMethod(implObj, "AfterTypeChange"), flags, 4)
+        this.vtbl.RequestTypeChange := CallbackCreate(ObjBindMethod(implObj, "RequestTypeChange"), flags, 5)
+        this.vtbl.AfterTypeChange := CallbackCreate(ObjBindMethod(implObj, "AfterTypeChange"), flags, 4)
     }
 
     Dispose() {

@@ -42,7 +42,6 @@ export default struct IKsAllocator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HANDLE} 
      */
     KsGetAllocatorHandle() {
@@ -51,7 +50,6 @@ export default struct IKsAllocator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {KSALLOCATORMODE} 
      */
     KsGetAllocatorMode() {
@@ -60,7 +58,6 @@ export default struct IKsAllocator extends IUnknown {
     }
 
     /**
-     * 
      * @returns {KSSTREAMALLOCATOR_STATUS} 
      */
     KsGetAllocatorStatus() {
@@ -70,7 +67,6 @@ export default struct IKsAllocator extends IUnknown {
     }
 
     /**
-     * 
      * @param {KSALLOCATORMODE} _Mode 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -87,10 +83,10 @@ export default struct IKsAllocator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.KsGetAllocatorHandle := CallbackCreate(GetMethod(implObj, "KsGetAllocatorHandle"), flags, 1)
-        this.vtbl.KsGetAllocatorMode := CallbackCreate(GetMethod(implObj, "KsGetAllocatorMode"), flags, 1)
-        this.vtbl.KsGetAllocatorStatus := CallbackCreate(GetMethod(implObj, "KsGetAllocatorStatus"), flags, 2)
-        this.vtbl.KsSetAllocatorMode := CallbackCreate(GetMethod(implObj, "KsSetAllocatorMode"), flags, 2)
+        this.vtbl.KsGetAllocatorHandle := CallbackCreate(ObjBindMethod(implObj, "KsGetAllocatorHandle"), flags, 1)
+        this.vtbl.KsGetAllocatorMode := CallbackCreate(ObjBindMethod(implObj, "KsGetAllocatorMode"), flags, 1)
+        this.vtbl.KsGetAllocatorStatus := CallbackCreate(ObjBindMethod(implObj, "KsGetAllocatorStatus"), flags, 2)
+        this.vtbl.KsSetAllocatorMode := CallbackCreate(ObjBindMethod(implObj, "KsSetAllocatorMode"), flags, 2)
     }
 
     Dispose() {

@@ -169,8 +169,8 @@ export default struct IDWriteLocalizedStrings extends IUnknown {
     FindLocaleName(localeName, index, exists) {
         localeName := localeName is String ? StrPtr(localeName) : localeName
 
-        indexMarshal := index is VarRef ? "uint*" : "ptr"
-        existsMarshal := exists is VarRef ? "int*" : "ptr"
+        indexMarshal := index is VarRef ? "uint*" : IntPtr
+        existsMarshal := exists is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, "ptr", localeName, indexMarshal, index, existsMarshal, exists, "HRESULT")
         return result
@@ -317,12 +317,12 @@ export default struct IDWriteLocalizedStrings extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 1)
-        this.vtbl.FindLocaleName := CallbackCreate(GetMethod(implObj, "FindLocaleName"), flags, 4)
-        this.vtbl.GetLocaleNameLength := CallbackCreate(GetMethod(implObj, "GetLocaleNameLength"), flags, 3)
-        this.vtbl.GetLocaleName := CallbackCreate(GetMethod(implObj, "GetLocaleName"), flags, 4)
-        this.vtbl.GetStringLength := CallbackCreate(GetMethod(implObj, "GetStringLength"), flags, 3)
-        this.vtbl.GetString := CallbackCreate(GetMethod(implObj, "GetString"), flags, 4)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 1)
+        this.vtbl.FindLocaleName := CallbackCreate(ObjBindMethod(implObj, "FindLocaleName"), flags, 4)
+        this.vtbl.GetLocaleNameLength := CallbackCreate(ObjBindMethod(implObj, "GetLocaleNameLength"), flags, 3)
+        this.vtbl.GetLocaleName := CallbackCreate(ObjBindMethod(implObj, "GetLocaleName"), flags, 4)
+        this.vtbl.GetStringLength := CallbackCreate(ObjBindMethod(implObj, "GetStringLength"), flags, 3)
+        this.vtbl.GetString := CallbackCreate(ObjBindMethod(implObj, "GetString"), flags, 4)
     }
 
     Dispose() {

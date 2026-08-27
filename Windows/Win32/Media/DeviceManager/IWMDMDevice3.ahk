@@ -128,8 +128,8 @@ export default struct IWMDMDevice3 extends IWMDMDevice2 {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmdevice3-deviceiocontrol
      */
     DeviceIoControl(dwIoControlCode, lpInBuffer, nInBufferSize, pnOutBufferSize) {
-        lpInBufferMarshal := lpInBuffer is VarRef ? "char*" : "ptr"
-        pnOutBufferSizeMarshal := pnOutBufferSize is VarRef ? "uint*" : "ptr"
+        lpInBufferMarshal := lpInBuffer is VarRef ? "char*" : IntPtr
+        pnOutBufferSizeMarshal := pnOutBufferSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(21, this, UInt32, dwIoControlCode, lpInBufferMarshal, lpInBuffer, UInt32, nInBufferSize, "char*", &lpOutBuffer := 0, pnOutBufferSizeMarshal, pnOutBufferSize, "HRESULT")
         return lpOutBuffer
@@ -162,11 +162,11 @@ export default struct IWMDMDevice3 extends IWMDMDevice2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
-        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 3)
-        this.vtbl.GetFormatCapability := CallbackCreate(GetMethod(implObj, "GetFormatCapability"), flags, 3)
-        this.vtbl.DeviceIoControl := CallbackCreate(GetMethod(implObj, "DeviceIoControl"), flags, 6)
-        this.vtbl.FindStorage := CallbackCreate(GetMethod(implObj, "FindStorage"), flags, 4)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.SetProperty := CallbackCreate(ObjBindMethod(implObj, "SetProperty"), flags, 3)
+        this.vtbl.GetFormatCapability := CallbackCreate(ObjBindMethod(implObj, "GetFormatCapability"), flags, 3)
+        this.vtbl.DeviceIoControl := CallbackCreate(ObjBindMethod(implObj, "DeviceIoControl"), flags, 6)
+        this.vtbl.FindStorage := CallbackCreate(ObjBindMethod(implObj, "FindStorage"), flags, 4)
     }
 
     Dispose() {

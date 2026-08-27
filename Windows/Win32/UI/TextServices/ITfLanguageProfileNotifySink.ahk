@@ -69,8 +69,8 @@ export default struct ITfLanguageProfileNotifySink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnLanguageChange := CallbackCreate(GetMethod(implObj, "OnLanguageChange"), flags, 3)
-        this.vtbl.OnLanguageChanged := CallbackCreate(GetMethod(implObj, "OnLanguageChanged"), flags, 1)
+        this.vtbl.OnLanguageChange := CallbackCreate(ObjBindMethod(implObj, "OnLanguageChange"), flags, 3)
+        this.vtbl.OnLanguageChanged := CallbackCreate(ObjBindMethod(implObj, "OnLanguageChanged"), flags, 1)
     }
 
     Dispose() {

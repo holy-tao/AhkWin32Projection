@@ -75,7 +75,6 @@ export default struct IRTCClientProvisioning extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRTCProfile} pProfile 
      * @param {Integer} lRegisterFlags 
      * @returns {HRESULT} 
@@ -86,7 +85,6 @@ export default struct IRTCClientProvisioning extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRTCProfile} pProfile 
      * @returns {HRESULT} 
      */
@@ -96,7 +94,6 @@ export default struct IRTCClientProvisioning extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRTCEnumProfiles} 
      */
     EnumerateProfiles() {
@@ -105,7 +102,6 @@ export default struct IRTCClientProvisioning extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRTCCollection} 
      */
     get_Profiles() {
@@ -114,7 +110,6 @@ export default struct IRTCClientProvisioning extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrUserAccount 
      * @param {BSTR} bstrUserPassword 
      * @param {BSTR} bstrUserURI 
@@ -134,7 +129,6 @@ export default struct IRTCClientProvisioning extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_SessionCapabilities() {
@@ -151,13 +145,13 @@ export default struct IRTCClientProvisioning extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateProfile := CallbackCreate(GetMethod(implObj, "CreateProfile"), flags, 3)
-        this.vtbl.EnableProfile := CallbackCreate(GetMethod(implObj, "EnableProfile"), flags, 3)
-        this.vtbl.DisableProfile := CallbackCreate(GetMethod(implObj, "DisableProfile"), flags, 2)
-        this.vtbl.EnumerateProfiles := CallbackCreate(GetMethod(implObj, "EnumerateProfiles"), flags, 2)
-        this.vtbl.get_Profiles := CallbackCreate(GetMethod(implObj, "get_Profiles"), flags, 2)
-        this.vtbl.GetProfile := CallbackCreate(GetMethod(implObj, "GetProfile"), flags, 7)
-        this.vtbl.get_SessionCapabilities := CallbackCreate(GetMethod(implObj, "get_SessionCapabilities"), flags, 2)
+        this.vtbl.CreateProfile := CallbackCreate(ObjBindMethod(implObj, "CreateProfile"), flags, 3)
+        this.vtbl.EnableProfile := CallbackCreate(ObjBindMethod(implObj, "EnableProfile"), flags, 3)
+        this.vtbl.DisableProfile := CallbackCreate(ObjBindMethod(implObj, "DisableProfile"), flags, 2)
+        this.vtbl.EnumerateProfiles := CallbackCreate(ObjBindMethod(implObj, "EnumerateProfiles"), flags, 2)
+        this.vtbl.get_Profiles := CallbackCreate(ObjBindMethod(implObj, "get_Profiles"), flags, 2)
+        this.vtbl.GetProfile := CallbackCreate(ObjBindMethod(implObj, "GetProfile"), flags, 7)
+        this.vtbl.get_SessionCapabilities := CallbackCreate(ObjBindMethod(implObj, "get_SessionCapabilities"), flags, 2)
     }
 
     Dispose() {

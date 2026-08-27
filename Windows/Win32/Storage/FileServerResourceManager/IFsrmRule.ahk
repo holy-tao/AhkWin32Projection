@@ -291,18 +291,18 @@ export default struct IFsrmRule extends IFsrmObject {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
-        this.vtbl.get_RuleType := CallbackCreate(GetMethod(implObj, "get_RuleType"), flags, 2)
-        this.vtbl.get_ModuleDefinitionName := CallbackCreate(GetMethod(implObj, "get_ModuleDefinitionName"), flags, 2)
-        this.vtbl.put_ModuleDefinitionName := CallbackCreate(GetMethod(implObj, "put_ModuleDefinitionName"), flags, 2)
-        this.vtbl.get_NamespaceRoots := CallbackCreate(GetMethod(implObj, "get_NamespaceRoots"), flags, 2)
-        this.vtbl.put_NamespaceRoots := CallbackCreate(GetMethod(implObj, "put_NamespaceRoots"), flags, 2)
-        this.vtbl.get_RuleFlags := CallbackCreate(GetMethod(implObj, "get_RuleFlags"), flags, 2)
-        this.vtbl.put_RuleFlags := CallbackCreate(GetMethod(implObj, "put_RuleFlags"), flags, 2)
-        this.vtbl.get_Parameters := CallbackCreate(GetMethod(implObj, "get_Parameters"), flags, 2)
-        this.vtbl.put_Parameters := CallbackCreate(GetMethod(implObj, "put_Parameters"), flags, 2)
-        this.vtbl.get_LastModified := CallbackCreate(GetMethod(implObj, "get_LastModified"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(ObjBindMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.get_RuleType := CallbackCreate(ObjBindMethod(implObj, "get_RuleType"), flags, 2)
+        this.vtbl.get_ModuleDefinitionName := CallbackCreate(ObjBindMethod(implObj, "get_ModuleDefinitionName"), flags, 2)
+        this.vtbl.put_ModuleDefinitionName := CallbackCreate(ObjBindMethod(implObj, "put_ModuleDefinitionName"), flags, 2)
+        this.vtbl.get_NamespaceRoots := CallbackCreate(ObjBindMethod(implObj, "get_NamespaceRoots"), flags, 2)
+        this.vtbl.put_NamespaceRoots := CallbackCreate(ObjBindMethod(implObj, "put_NamespaceRoots"), flags, 2)
+        this.vtbl.get_RuleFlags := CallbackCreate(ObjBindMethod(implObj, "get_RuleFlags"), flags, 2)
+        this.vtbl.put_RuleFlags := CallbackCreate(ObjBindMethod(implObj, "put_RuleFlags"), flags, 2)
+        this.vtbl.get_Parameters := CallbackCreate(ObjBindMethod(implObj, "get_Parameters"), flags, 2)
+        this.vtbl.put_Parameters := CallbackCreate(ObjBindMethod(implObj, "put_Parameters"), flags, 2)
+        this.vtbl.get_LastModified := CallbackCreate(ObjBindMethod(implObj, "get_LastModified"), flags, 2)
     }
 
     Dispose() {

@@ -188,7 +188,9 @@ export default struct IWSDServiceProxy extends IWSDMetadataExchange {
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdserviceproxy-seteventingstatuscallback
      */
     SetEventingStatusCallback(pStatus) {
-        result := ComCall(9, this, "ptr", pStatus, "HRESULT")
+        pStatusMarshal := pStatus == 0 ? IntPtr : "ptr"
+
+        result := ComCall(9, this, pStatusMarshal, pStatus, "HRESULT")
         return result
     }
 
@@ -213,13 +215,13 @@ export default struct IWSDServiceProxy extends IWSDMetadataExchange {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BeginGetMetadata := CallbackCreate(GetMethod(implObj, "BeginGetMetadata"), flags, 2)
-        this.vtbl.EndGetMetadata := CallbackCreate(GetMethod(implObj, "EndGetMetadata"), flags, 3)
-        this.vtbl.GetServiceMetadata := CallbackCreate(GetMethod(implObj, "GetServiceMetadata"), flags, 2)
-        this.vtbl.SubscribeToOperation := CallbackCreate(GetMethod(implObj, "SubscribeToOperation"), flags, 5)
-        this.vtbl.UnsubscribeToOperation := CallbackCreate(GetMethod(implObj, "UnsubscribeToOperation"), flags, 2)
-        this.vtbl.SetEventingStatusCallback := CallbackCreate(GetMethod(implObj, "SetEventingStatusCallback"), flags, 2)
-        this.vtbl.GetEndpointProxy := CallbackCreate(GetMethod(implObj, "GetEndpointProxy"), flags, 2)
+        this.vtbl.BeginGetMetadata := CallbackCreate(ObjBindMethod(implObj, "BeginGetMetadata"), flags, 2)
+        this.vtbl.EndGetMetadata := CallbackCreate(ObjBindMethod(implObj, "EndGetMetadata"), flags, 3)
+        this.vtbl.GetServiceMetadata := CallbackCreate(ObjBindMethod(implObj, "GetServiceMetadata"), flags, 2)
+        this.vtbl.SubscribeToOperation := CallbackCreate(ObjBindMethod(implObj, "SubscribeToOperation"), flags, 5)
+        this.vtbl.UnsubscribeToOperation := CallbackCreate(ObjBindMethod(implObj, "UnsubscribeToOperation"), flags, 2)
+        this.vtbl.SetEventingStatusCallback := CallbackCreate(ObjBindMethod(implObj, "SetEventingStatusCallback"), flags, 2)
+        this.vtbl.GetEndpointProxy := CallbackCreate(ObjBindMethod(implObj, "GetEndpointProxy"), flags, 2)
     }
 
     Dispose() {

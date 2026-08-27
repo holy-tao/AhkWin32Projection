@@ -39,7 +39,6 @@ export default struct IDebugHostModule4 extends IDebugHostModule3 {
     }
 
     /**
-     * 
      * @param {IDebugHostSymbol} pEnclosingSymbol 
      * @param {PWSTR} typeName 
      * @returns {IDebugHostType} 
@@ -47,7 +46,9 @@ export default struct IDebugHostModule4 extends IDebugHostModule3 {
     FindTypeByName2(pEnclosingSymbol, typeName) {
         typeName := typeName is String ? StrPtr(typeName) : typeName
 
-        result := ComCall(18, this, "ptr", pEnclosingSymbol, "ptr", typeName, "ptr*", &type := 0, "HRESULT")
+        pEnclosingSymbolMarshal := pEnclosingSymbol == 0 ? IntPtr : "ptr"
+
+        result := ComCall(18, this, pEnclosingSymbolMarshal, pEnclosingSymbol, "ptr", typeName, "ptr*", &type := 0, "HRESULT")
         return IDebugHostType(type)
     }
 
@@ -60,7 +61,7 @@ export default struct IDebugHostModule4 extends IDebugHostModule3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FindTypeByName2 := CallbackCreate(GetMethod(implObj, "FindTypeByName2"), flags, 4)
+        this.vtbl.FindTypeByName2 := CallbackCreate(ObjBindMethod(implObj, "FindTypeByName2"), flags, 4)
     }
 
     Dispose() {

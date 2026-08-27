@@ -67,21 +67,22 @@ export DestroyInteractionContext(interactionContext) {
  * @since windows8.0
  */
 export RegisterOutputCallbackInteractionContext(interactionContext, outputCallback, clientData) {
-    clientDataMarshal := clientData is VarRef ? "ptr" : "ptr"
+    clientDataMarshal := clientData is VarRef ? "ptr" : IntPtr
+    clientDataMarshal := clientData == 0 ? IntPtr : "ptr"
 
     result := DllCall("NInput.dll\RegisterOutputCallbackInteractionContext", HINTERACTIONCONTEXT, interactionContext, INTERACTION_CONTEXT_OUTPUT_CALLBACK, outputCallback, clientDataMarshal, clientData, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {HINTERACTIONCONTEXT} interactionContext 
  * @param {Pointer<INTERACTION_CONTEXT_OUTPUT_CALLBACK2>} outputCallback 
  * @param {Pointer<Void>} clientData 
  * @returns {HRESULT} 
  */
 export RegisterOutputCallbackInteractionContext2(interactionContext, outputCallback, clientData) {
-    clientDataMarshal := clientData is VarRef ? "ptr" : "ptr"
+    clientDataMarshal := clientData is VarRef ? "ptr" : IntPtr
+    clientDataMarshal := clientData == 0 ? IntPtr : "ptr"
 
     result := DllCall("NInput.dll\RegisterOutputCallbackInteractionContext2", HINTERACTIONCONTEXT, interactionContext, INTERACTION_CONTEXT_OUTPUT_CALLBACK2, outputCallback, clientDataMarshal, clientData, "HRESULT")
     return result
@@ -326,7 +327,6 @@ export GetCrossSlideParameterInteractionContext(interactionContext, threshold) {
 }
 
 /**
- * 
  * @param {HINTERACTIONCONTEXT} interactionContext 
  * @param {TAP_PARAMETER} parameter 
  * @param {Float} value 
@@ -338,7 +338,6 @@ export SetTapParameterInteractionContext(interactionContext, parameter, value) {
 }
 
 /**
- * 
  * @param {HINTERACTIONCONTEXT} interactionContext 
  * @param {TAP_PARAMETER} parameter 
  * @returns {Float} 
@@ -349,7 +348,6 @@ export GetTapParameterInteractionContext(interactionContext, parameter) {
 }
 
 /**
- * 
  * @param {HINTERACTIONCONTEXT} interactionContext 
  * @param {HOLD_PARAMETER} parameter 
  * @param {Float} value 
@@ -361,7 +359,6 @@ export SetHoldParameterInteractionContext(interactionContext, parameter, value) 
 }
 
 /**
- * 
  * @param {HINTERACTIONCONTEXT} interactionContext 
  * @param {HOLD_PARAMETER} parameter 
  * @returns {Float} 
@@ -372,7 +369,6 @@ export GetHoldParameterInteractionContext(interactionContext, parameter) {
 }
 
 /**
- * 
  * @param {HINTERACTIONCONTEXT} interactionContext 
  * @param {TRANSLATION_PARAMETER} parameter 
  * @param {Float} value 
@@ -384,7 +380,6 @@ export SetTranslationParameterInteractionContext(interactionContext, parameter, 
 }
 
 /**
- * 
  * @param {HINTERACTIONCONTEXT} interactionContext 
  * @param {TRANSLATION_PARAMETER} parameter 
  * @returns {Float} 
@@ -452,7 +447,9 @@ export ResetInteractionContext(interactionContext) {
  * @since windows8.0
  */
 export GetStateInteractionContext(interactionContext, pointerInfo) {
-    result := DllCall("NInput.dll\GetStateInteractionContext", HINTERACTIONCONTEXT, interactionContext, POINTER_INFO.Ptr, pointerInfo, "int*", &state := 0, "HRESULT")
+    pointerInfoMarshal := pointerInfo == 0 ? IntPtr : POINTER_INFO.Ptr
+
+    result := DllCall("NInput.dll\GetStateInteractionContext", HINTERACTIONCONTEXT, interactionContext, pointerInfoMarshal, pointerInfo, "int*", &state := 0, "HRESULT")
     return state
 }
 

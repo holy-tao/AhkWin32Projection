@@ -151,7 +151,7 @@ export default struct IDDrawExclModeVideo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iddrawexclmodevideo-getddrawobject
      */
     GetDDrawObject(ppDDrawObject, pbUsingExternal) {
-        pbUsingExternalMarshal := pbUsingExternal is VarRef ? "int*" : "ptr"
+        pbUsingExternalMarshal := pbUsingExternal is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, IDirectDraw.Ptr, ppDDrawObject, pbUsingExternalMarshal, pbUsingExternal, "HRESULT")
         return result
@@ -262,7 +262,7 @@ export default struct IDDrawExclModeVideo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iddrawexclmodevideo-getddrawsurface
      */
     GetDDrawSurface(ppDDrawSurface, pbUsingExternal) {
-        pbUsingExternalMarshal := pbUsingExternal is VarRef ? "int*" : "ptr"
+        pbUsingExternalMarshal := pbUsingExternal is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, IDirectDrawSurface.Ptr, ppDDrawSurface, pbUsingExternalMarshal, pbUsingExternal, "HRESULT")
         return result
@@ -321,10 +321,10 @@ export default struct IDDrawExclModeVideo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iddrawexclmodevideo-getnativevideoprops
      */
     GetNativeVideoProps(pdwVideoWidth, pdwVideoHeight, pdwPictAspectRatioX, pdwPictAspectRatioY) {
-        pdwVideoWidthMarshal := pdwVideoWidth is VarRef ? "uint*" : "ptr"
-        pdwVideoHeightMarshal := pdwVideoHeight is VarRef ? "uint*" : "ptr"
-        pdwPictAspectRatioXMarshal := pdwPictAspectRatioX is VarRef ? "uint*" : "ptr"
-        pdwPictAspectRatioYMarshal := pdwPictAspectRatioY is VarRef ? "uint*" : "ptr"
+        pdwVideoWidthMarshal := pdwVideoWidth is VarRef ? "uint*" : IntPtr
+        pdwVideoHeightMarshal := pdwVideoHeight is VarRef ? "uint*" : IntPtr
+        pdwPictAspectRatioXMarshal := pdwPictAspectRatioX is VarRef ? "uint*" : IntPtr
+        pdwPictAspectRatioYMarshal := pdwPictAspectRatioY is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, pdwVideoWidthMarshal, pdwVideoWidth, pdwVideoHeightMarshal, pdwVideoHeight, pdwPictAspectRatioXMarshal, pdwPictAspectRatioX, pdwPictAspectRatioYMarshal, pdwPictAspectRatioY, "HRESULT")
         return result
@@ -382,13 +382,13 @@ export default struct IDDrawExclModeVideo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetDDrawObject := CallbackCreate(GetMethod(implObj, "SetDDrawObject"), flags, 2)
-        this.vtbl.GetDDrawObject := CallbackCreate(GetMethod(implObj, "GetDDrawObject"), flags, 3)
-        this.vtbl.SetDDrawSurface := CallbackCreate(GetMethod(implObj, "SetDDrawSurface"), flags, 2)
-        this.vtbl.GetDDrawSurface := CallbackCreate(GetMethod(implObj, "GetDDrawSurface"), flags, 3)
-        this.vtbl.SetDrawParameters := CallbackCreate(GetMethod(implObj, "SetDrawParameters"), flags, 3)
-        this.vtbl.GetNativeVideoProps := CallbackCreate(GetMethod(implObj, "GetNativeVideoProps"), flags, 5)
-        this.vtbl.SetCallbackInterface := CallbackCreate(GetMethod(implObj, "SetCallbackInterface"), flags, 3)
+        this.vtbl.SetDDrawObject := CallbackCreate(ObjBindMethod(implObj, "SetDDrawObject"), flags, 2)
+        this.vtbl.GetDDrawObject := CallbackCreate(ObjBindMethod(implObj, "GetDDrawObject"), flags, 3)
+        this.vtbl.SetDDrawSurface := CallbackCreate(ObjBindMethod(implObj, "SetDDrawSurface"), flags, 2)
+        this.vtbl.GetDDrawSurface := CallbackCreate(ObjBindMethod(implObj, "GetDDrawSurface"), flags, 3)
+        this.vtbl.SetDrawParameters := CallbackCreate(ObjBindMethod(implObj, "SetDrawParameters"), flags, 3)
+        this.vtbl.GetNativeVideoProps := CallbackCreate(ObjBindMethod(implObj, "GetNativeVideoProps"), flags, 5)
+        this.vtbl.SetCallbackInterface := CallbackCreate(ObjBindMethod(implObj, "SetCallbackInterface"), flags, 3)
     }
 
     Dispose() {

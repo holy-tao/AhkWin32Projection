@@ -177,12 +177,12 @@ export default struct IRawElementProviderFragment extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Navigate := CallbackCreate(GetMethod(implObj, "Navigate"), flags, 3)
-        this.vtbl.GetRuntimeId := CallbackCreate(GetMethod(implObj, "GetRuntimeId"), flags, 2)
-        this.vtbl.get_BoundingRectangle := CallbackCreate(GetMethod(implObj, "get_BoundingRectangle"), flags, 2)
-        this.vtbl.GetEmbeddedFragmentRoots := CallbackCreate(GetMethod(implObj, "GetEmbeddedFragmentRoots"), flags, 2)
-        this.vtbl.SetFocus := CallbackCreate(GetMethod(implObj, "SetFocus"), flags, 1)
-        this.vtbl.get_FragmentRoot := CallbackCreate(GetMethod(implObj, "get_FragmentRoot"), flags, 2)
+        this.vtbl.Navigate := CallbackCreate(ObjBindMethod(implObj, "Navigate"), flags, 3)
+        this.vtbl.GetRuntimeId := CallbackCreate(ObjBindMethod(implObj, "GetRuntimeId"), flags, 2)
+        this.vtbl.get_BoundingRectangle := CallbackCreate(ObjBindMethod(implObj, "get_BoundingRectangle"), flags, 2)
+        this.vtbl.GetEmbeddedFragmentRoots := CallbackCreate(ObjBindMethod(implObj, "GetEmbeddedFragmentRoots"), flags, 2)
+        this.vtbl.SetFocus := CallbackCreate(ObjBindMethod(implObj, "SetFocus"), flags, 1)
+        this.vtbl.get_FragmentRoot := CallbackCreate(ObjBindMethod(implObj, "get_FragmentRoot"), flags, 2)
     }
 
     Dispose() {

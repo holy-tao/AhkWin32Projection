@@ -19,13 +19,12 @@ export default struct UBiDiClassCallback {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {Integer} c 
      * @returns {UCharDirection} 
      */
     Call(_context, c) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _contextMarshal, _context, Int32, c, UCharDirection)
         return result

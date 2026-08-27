@@ -126,10 +126,10 @@ export default struct IUIAnimationTransition extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetInitialValue := CallbackCreate(GetMethod(implObj, "SetInitialValue"), flags, 2)
-        this.vtbl.SetInitialVelocity := CallbackCreate(GetMethod(implObj, "SetInitialVelocity"), flags, 2)
-        this.vtbl.IsDurationKnown := CallbackCreate(GetMethod(implObj, "IsDurationKnown"), flags, 1)
-        this.vtbl.GetDuration := CallbackCreate(GetMethod(implObj, "GetDuration"), flags, 2)
+        this.vtbl.SetInitialValue := CallbackCreate(ObjBindMethod(implObj, "SetInitialValue"), flags, 2)
+        this.vtbl.SetInitialVelocity := CallbackCreate(ObjBindMethod(implObj, "SetInitialVelocity"), flags, 2)
+        this.vtbl.IsDurationKnown := CallbackCreate(ObjBindMethod(implObj, "IsDurationKnown"), flags, 1)
+        this.vtbl.GetDuration := CallbackCreate(ObjBindMethod(implObj, "GetDuration"), flags, 2)
     }
 
     Dispose() {

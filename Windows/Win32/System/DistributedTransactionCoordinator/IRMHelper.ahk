@@ -40,7 +40,6 @@ export default struct IRMHelper extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwcTotalNumberOfRMs 
      * @returns {HRESULT} 
      */
@@ -50,7 +49,6 @@ export default struct IRMHelper extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<xa_switch_t>} pXa_Switch 
      * @param {BOOL} fCDeclCallingConv 
      * @param {PSTR} pszOpenString 
@@ -75,8 +73,8 @@ export default struct IRMHelper extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RMCount := CallbackCreate(GetMethod(implObj, "RMCount"), flags, 2)
-        this.vtbl.RMInfo := CallbackCreate(GetMethod(implObj, "RMInfo"), flags, 6)
+        this.vtbl.RMCount := CallbackCreate(ObjBindMethod(implObj, "RMCount"), flags, 2)
+        this.vtbl.RMInfo := CallbackCreate(ObjBindMethod(implObj, "RMInfo"), flags, 6)
     }
 
     Dispose() {

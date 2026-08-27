@@ -126,10 +126,10 @@ export default struct IDigitalCableTuneRequest extends IATSCChannelTuneRequest {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_MajorChannel := CallbackCreate(GetMethod(implObj, "get_MajorChannel"), flags, 2)
-        this.vtbl.put_MajorChannel := CallbackCreate(GetMethod(implObj, "put_MajorChannel"), flags, 2)
-        this.vtbl.get_SourceID := CallbackCreate(GetMethod(implObj, "get_SourceID"), flags, 2)
-        this.vtbl.put_SourceID := CallbackCreate(GetMethod(implObj, "put_SourceID"), flags, 2)
+        this.vtbl.get_MajorChannel := CallbackCreate(ObjBindMethod(implObj, "get_MajorChannel"), flags, 2)
+        this.vtbl.put_MajorChannel := CallbackCreate(ObjBindMethod(implObj, "put_MajorChannel"), flags, 2)
+        this.vtbl.get_SourceID := CallbackCreate(ObjBindMethod(implObj, "get_SourceID"), flags, 2)
+        this.vtbl.put_SourceID := CallbackCreate(ObjBindMethod(implObj, "put_SourceID"), flags, 2)
     }
 
     Dispose() {

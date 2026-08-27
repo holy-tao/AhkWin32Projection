@@ -21,14 +21,13 @@ export default struct PCANCEL_ADAPTER_CHANNEL {
     }
 
     /**
-     * 
      * @param {Pointer<DMA_ADAPTER>} DmaAdapter 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<Void>} DmaTransferContext 
      * @returns {BOOLEAN} 
      */
     Call(DmaAdapter, DeviceObject, DmaTransferContext) {
-        DmaTransferContextMarshal := DmaTransferContext is VarRef ? "ptr" : "ptr"
+        DmaTransferContextMarshal := DmaTransferContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, DEVICE_OBJECT.Ptr, DeviceObject, DmaTransferContextMarshal, DmaTransferContext, BOOLEAN)
         return result

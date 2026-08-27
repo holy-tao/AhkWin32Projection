@@ -260,13 +260,13 @@ export default struct IVMRFilterConfig extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetImageCompositor := CallbackCreate(GetMethod(implObj, "SetImageCompositor"), flags, 2)
-        this.vtbl.SetNumberOfStreams := CallbackCreate(GetMethod(implObj, "SetNumberOfStreams"), flags, 2)
-        this.vtbl.GetNumberOfStreams := CallbackCreate(GetMethod(implObj, "GetNumberOfStreams"), flags, 2)
-        this.vtbl.SetRenderingPrefs := CallbackCreate(GetMethod(implObj, "SetRenderingPrefs"), flags, 2)
-        this.vtbl.GetRenderingPrefs := CallbackCreate(GetMethod(implObj, "GetRenderingPrefs"), flags, 2)
-        this.vtbl.SetRenderingMode := CallbackCreate(GetMethod(implObj, "SetRenderingMode"), flags, 2)
-        this.vtbl.GetRenderingMode := CallbackCreate(GetMethod(implObj, "GetRenderingMode"), flags, 2)
+        this.vtbl.SetImageCompositor := CallbackCreate(ObjBindMethod(implObj, "SetImageCompositor"), flags, 2)
+        this.vtbl.SetNumberOfStreams := CallbackCreate(ObjBindMethod(implObj, "SetNumberOfStreams"), flags, 2)
+        this.vtbl.GetNumberOfStreams := CallbackCreate(ObjBindMethod(implObj, "GetNumberOfStreams"), flags, 2)
+        this.vtbl.SetRenderingPrefs := CallbackCreate(ObjBindMethod(implObj, "SetRenderingPrefs"), flags, 2)
+        this.vtbl.GetRenderingPrefs := CallbackCreate(ObjBindMethod(implObj, "GetRenderingPrefs"), flags, 2)
+        this.vtbl.SetRenderingMode := CallbackCreate(ObjBindMethod(implObj, "SetRenderingMode"), flags, 2)
+        this.vtbl.GetRenderingMode := CallbackCreate(ObjBindMethod(implObj, "GetRenderingMode"), flags, 2)
     }
 
     Dispose() {

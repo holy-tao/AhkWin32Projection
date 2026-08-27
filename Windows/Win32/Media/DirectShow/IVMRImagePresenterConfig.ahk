@@ -68,8 +68,8 @@ export default struct IVMRImagePresenterConfig extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetRenderingPrefs := CallbackCreate(GetMethod(implObj, "SetRenderingPrefs"), flags, 2)
-        this.vtbl.GetRenderingPrefs := CallbackCreate(GetMethod(implObj, "GetRenderingPrefs"), flags, 2)
+        this.vtbl.SetRenderingPrefs := CallbackCreate(ObjBindMethod(implObj, "SetRenderingPrefs"), flags, 2)
+        this.vtbl.GetRenderingPrefs := CallbackCreate(ObjBindMethod(implObj, "GetRenderingPrefs"), flags, 2)
     }
 
     Dispose() {

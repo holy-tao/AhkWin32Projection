@@ -238,7 +238,9 @@ export default struct IVssBackupComponents extends IUnknown {
     InitializeForBackup(bstrXML) {
         bstrXML := bstrXML is String ? BSTR.Alloc(bstrXML).Value : bstrXML
 
-        result := ComCall(5, this, BSTR, bstrXML, "HRESULT")
+        bstrXMLMarshal := bstrXML == 0 ? IntPtr : BSTR
+
+        result := ComCall(5, this, bstrXMLMarshal, bstrXML, "HRESULT")
         return result
     }
 
@@ -1291,8 +1293,8 @@ export default struct IVssBackupComponents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsbackup/nf-vsbackup-ivssbackupcomponents-getwriterstatus
      */
     GetWriterStatus(iWriter, pidInstance, pidWriter, pbstrWriter, pnStatus, phResultFailure) {
-        pnStatusMarshal := pnStatus is VarRef ? "int*" : "ptr"
-        phResultFailureMarshal := phResultFailure is VarRef ? "int*" : "ptr"
+        pnStatusMarshal := pnStatus is VarRef ? "int*" : IntPtr
+        phResultFailureMarshal := phResultFailure is VarRef ? "int*" : IntPtr
 
         result := ComCall(19, this, UInt32, iWriter, Guid.Ptr, pidInstance, Guid.Ptr, pidWriter, BSTR.Ptr, pbstrWriter, pnStatusMarshal, pnStatus, phResultFailureMarshal, phResultFailure, "HRESULT")
         return result
@@ -3214,7 +3216,7 @@ export default struct IVssBackupComponents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsbackup/nf-vsbackup-ivssbackupcomponents-addtosnapshotset
      */
     AddToSnapshotSet(pwszVolumeName, ProviderId) {
-        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
+        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : IntPtr
 
         pidSnapshot := Guid()
         result := ComCall(37, this, pwszVolumeNameMarshal, pwszVolumeName, Guid, ProviderId, Guid.Ptr, pidSnapshot, "HRESULT")
@@ -3380,7 +3382,7 @@ export default struct IVssBackupComponents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsbackup/nf-vsbackup-ivssbackupcomponents-deletesnapshots
      */
     DeleteSnapshots(SourceObjectId, eSourceObjectType, bForceDelete, plDeletedSnapshots, pNondeletedSnapshotID) {
-        plDeletedSnapshotsMarshal := plDeletedSnapshots is VarRef ? "int*" : "ptr"
+        plDeletedSnapshotsMarshal := plDeletedSnapshots is VarRef ? "int*" : IntPtr
 
         result := ComCall(39, this, Guid, SourceObjectId, VSS_OBJECT_TYPE, eSourceObjectType, BOOL, bForceDelete, plDeletedSnapshotsMarshal, plDeletedSnapshots, Guid.Ptr, pNondeletedSnapshotID, "HRESULT")
         return result
@@ -3820,8 +3822,8 @@ export default struct IVssBackupComponents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsbackup/nf-vsbackup-ivssbackupcomponents-isvolumesupported
      */
     IsVolumeSupported(ProviderId, pwszVolumeName, pbSupportedByThisProvider) {
-        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
-        pbSupportedByThisProviderMarshal := pbSupportedByThisProvider is VarRef ? "int*" : "ptr"
+        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : IntPtr
+        pbSupportedByThisProviderMarshal := pbSupportedByThisProvider is VarRef ? "int*" : IntPtr
 
         result := ComCall(44, this, Guid, ProviderId, pwszVolumeNameMarshal, pwszVolumeName, pbSupportedByThisProviderMarshal, pbSupportedByThisProvider, "HRESULT")
         return result
@@ -4131,8 +4133,8 @@ export default struct IVssBackupComponents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsbackup/nf-vsbackup-ivssbackupcomponents-exposesnapshot
      */
     ExposeSnapshot(SnapshotId, wszPathFromRoot, lAttributes, wszExpose) {
-        wszPathFromRootMarshal := wszPathFromRoot is VarRef ? "ushort*" : "ptr"
-        wszExposeMarshal := wszExpose is VarRef ? "ushort*" : "ptr"
+        wszPathFromRootMarshal := wszPathFromRoot is VarRef ? "ushort*" : IntPtr
+        wszExposeMarshal := wszExpose is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(48, this, Guid, SnapshotId, wszPathFromRootMarshal, wszPathFromRoot, Int32, lAttributes, wszExposeMarshal, wszExpose, "ptr*", &pwszExposed := 0, "HRESULT")
         return pwszExposed
@@ -4316,7 +4318,7 @@ export default struct IVssBackupComponents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsbackup/nf-vsbackup-ivssbackupcomponents-queryrevertstatus
      */
     QueryRevertStatus(pwszVolume) {
-        pwszVolumeMarshal := pwszVolume is VarRef ? "ushort*" : "ptr"
+        pwszVolumeMarshal := pwszVolume is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(50, this, pwszVolumeMarshal, pwszVolume, "ptr*", &ppAsync := 0, "HRESULT")
         return IVssAsync(ppAsync)
@@ -4331,54 +4333,54 @@ export default struct IVssBackupComponents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetWriterComponentsCount := CallbackCreate(GetMethod(implObj, "GetWriterComponentsCount"), flags, 2)
-        this.vtbl.GetWriterComponents := CallbackCreate(GetMethod(implObj, "GetWriterComponents"), flags, 3)
-        this.vtbl.InitializeForBackup := CallbackCreate(GetMethod(implObj, "InitializeForBackup"), flags, 2)
-        this.vtbl.SetBackupState := CallbackCreate(GetMethod(implObj, "SetBackupState"), flags, 5)
-        this.vtbl.InitializeForRestore := CallbackCreate(GetMethod(implObj, "InitializeForRestore"), flags, 2)
-        this.vtbl.SetRestoreState := CallbackCreate(GetMethod(implObj, "SetRestoreState"), flags, 2)
-        this.vtbl.GatherWriterMetadata := CallbackCreate(GetMethod(implObj, "GatherWriterMetadata"), flags, 2)
-        this.vtbl.GetWriterMetadataCount := CallbackCreate(GetMethod(implObj, "GetWriterMetadataCount"), flags, 2)
-        this.vtbl.GetWriterMetadata := CallbackCreate(GetMethod(implObj, "GetWriterMetadata"), flags, 4)
-        this.vtbl.FreeWriterMetadata := CallbackCreate(GetMethod(implObj, "FreeWriterMetadata"), flags, 1)
-        this.vtbl.AddComponent := CallbackCreate(GetMethod(implObj, "AddComponent"), flags, 6)
-        this.vtbl.PrepareForBackup := CallbackCreate(GetMethod(implObj, "PrepareForBackup"), flags, 2)
-        this.vtbl.AbortBackup := CallbackCreate(GetMethod(implObj, "AbortBackup"), flags, 1)
-        this.vtbl.GatherWriterStatus := CallbackCreate(GetMethod(implObj, "GatherWriterStatus"), flags, 2)
-        this.vtbl.GetWriterStatusCount := CallbackCreate(GetMethod(implObj, "GetWriterStatusCount"), flags, 2)
-        this.vtbl.FreeWriterStatus := CallbackCreate(GetMethod(implObj, "FreeWriterStatus"), flags, 1)
-        this.vtbl.GetWriterStatus := CallbackCreate(GetMethod(implObj, "GetWriterStatus"), flags, 7)
-        this.vtbl.SetBackupSucceeded := CallbackCreate(GetMethod(implObj, "SetBackupSucceeded"), flags, 7)
-        this.vtbl.SetBackupOptions := CallbackCreate(GetMethod(implObj, "SetBackupOptions"), flags, 6)
-        this.vtbl.SetSelectedForRestore := CallbackCreate(GetMethod(implObj, "SetSelectedForRestore"), flags, 6)
-        this.vtbl.SetRestoreOptions := CallbackCreate(GetMethod(implObj, "SetRestoreOptions"), flags, 6)
-        this.vtbl.SetAdditionalRestores := CallbackCreate(GetMethod(implObj, "SetAdditionalRestores"), flags, 6)
-        this.vtbl.SetPreviousBackupStamp := CallbackCreate(GetMethod(implObj, "SetPreviousBackupStamp"), flags, 6)
-        this.vtbl.SaveAsXML := CallbackCreate(GetMethod(implObj, "SaveAsXML"), flags, 2)
-        this.vtbl.BackupComplete := CallbackCreate(GetMethod(implObj, "BackupComplete"), flags, 2)
-        this.vtbl.AddAlternativeLocationMapping := CallbackCreate(GetMethod(implObj, "AddAlternativeLocationMapping"), flags, 9)
-        this.vtbl.AddRestoreSubcomponent := CallbackCreate(GetMethod(implObj, "AddRestoreSubcomponent"), flags, 8)
-        this.vtbl.SetFileRestoreStatus := CallbackCreate(GetMethod(implObj, "SetFileRestoreStatus"), flags, 6)
-        this.vtbl.AddNewTarget := CallbackCreate(GetMethod(implObj, "AddNewTarget"), flags, 9)
-        this.vtbl.SetRangesFilePath := CallbackCreate(GetMethod(implObj, "SetRangesFilePath"), flags, 7)
-        this.vtbl.PreRestore := CallbackCreate(GetMethod(implObj, "PreRestore"), flags, 2)
-        this.vtbl.PostRestore := CallbackCreate(GetMethod(implObj, "PostRestore"), flags, 2)
-        this.vtbl.SetContext := CallbackCreate(GetMethod(implObj, "SetContext"), flags, 2)
-        this.vtbl.StartSnapshotSet := CallbackCreate(GetMethod(implObj, "StartSnapshotSet"), flags, 2)
-        this.vtbl.AddToSnapshotSet := CallbackCreate(GetMethod(implObj, "AddToSnapshotSet"), flags, 4)
-        this.vtbl.DoSnapshotSet := CallbackCreate(GetMethod(implObj, "DoSnapshotSet"), flags, 2)
-        this.vtbl.DeleteSnapshots := CallbackCreate(GetMethod(implObj, "DeleteSnapshots"), flags, 6)
-        this.vtbl.ImportSnapshots := CallbackCreate(GetMethod(implObj, "ImportSnapshots"), flags, 2)
-        this.vtbl.BreakSnapshotSet := CallbackCreate(GetMethod(implObj, "BreakSnapshotSet"), flags, 2)
-        this.vtbl.GetSnapshotProperties := CallbackCreate(GetMethod(implObj, "GetSnapshotProperties"), flags, 3)
-        this.vtbl.Query := CallbackCreate(GetMethod(implObj, "Query"), flags, 5)
-        this.vtbl.IsVolumeSupported := CallbackCreate(GetMethod(implObj, "IsVolumeSupported"), flags, 4)
-        this.vtbl.DisableWriterClasses := CallbackCreate(GetMethod(implObj, "DisableWriterClasses"), flags, 3)
-        this.vtbl.EnableWriterClasses := CallbackCreate(GetMethod(implObj, "EnableWriterClasses"), flags, 3)
-        this.vtbl.DisableWriterInstances := CallbackCreate(GetMethod(implObj, "DisableWriterInstances"), flags, 3)
-        this.vtbl.ExposeSnapshot := CallbackCreate(GetMethod(implObj, "ExposeSnapshot"), flags, 6)
-        this.vtbl.RevertToSnapshot := CallbackCreate(GetMethod(implObj, "RevertToSnapshot"), flags, 3)
-        this.vtbl.QueryRevertStatus := CallbackCreate(GetMethod(implObj, "QueryRevertStatus"), flags, 3)
+        this.vtbl.GetWriterComponentsCount := CallbackCreate(ObjBindMethod(implObj, "GetWriterComponentsCount"), flags, 2)
+        this.vtbl.GetWriterComponents := CallbackCreate(ObjBindMethod(implObj, "GetWriterComponents"), flags, 3)
+        this.vtbl.InitializeForBackup := CallbackCreate(ObjBindMethod(implObj, "InitializeForBackup"), flags, 2)
+        this.vtbl.SetBackupState := CallbackCreate(ObjBindMethod(implObj, "SetBackupState"), flags, 5)
+        this.vtbl.InitializeForRestore := CallbackCreate(ObjBindMethod(implObj, "InitializeForRestore"), flags, 2)
+        this.vtbl.SetRestoreState := CallbackCreate(ObjBindMethod(implObj, "SetRestoreState"), flags, 2)
+        this.vtbl.GatherWriterMetadata := CallbackCreate(ObjBindMethod(implObj, "GatherWriterMetadata"), flags, 2)
+        this.vtbl.GetWriterMetadataCount := CallbackCreate(ObjBindMethod(implObj, "GetWriterMetadataCount"), flags, 2)
+        this.vtbl.GetWriterMetadata := CallbackCreate(ObjBindMethod(implObj, "GetWriterMetadata"), flags, 4)
+        this.vtbl.FreeWriterMetadata := CallbackCreate(ObjBindMethod(implObj, "FreeWriterMetadata"), flags, 1)
+        this.vtbl.AddComponent := CallbackCreate(ObjBindMethod(implObj, "AddComponent"), flags, 6)
+        this.vtbl.PrepareForBackup := CallbackCreate(ObjBindMethod(implObj, "PrepareForBackup"), flags, 2)
+        this.vtbl.AbortBackup := CallbackCreate(ObjBindMethod(implObj, "AbortBackup"), flags, 1)
+        this.vtbl.GatherWriterStatus := CallbackCreate(ObjBindMethod(implObj, "GatherWriterStatus"), flags, 2)
+        this.vtbl.GetWriterStatusCount := CallbackCreate(ObjBindMethod(implObj, "GetWriterStatusCount"), flags, 2)
+        this.vtbl.FreeWriterStatus := CallbackCreate(ObjBindMethod(implObj, "FreeWriterStatus"), flags, 1)
+        this.vtbl.GetWriterStatus := CallbackCreate(ObjBindMethod(implObj, "GetWriterStatus"), flags, 7)
+        this.vtbl.SetBackupSucceeded := CallbackCreate(ObjBindMethod(implObj, "SetBackupSucceeded"), flags, 7)
+        this.vtbl.SetBackupOptions := CallbackCreate(ObjBindMethod(implObj, "SetBackupOptions"), flags, 6)
+        this.vtbl.SetSelectedForRestore := CallbackCreate(ObjBindMethod(implObj, "SetSelectedForRestore"), flags, 6)
+        this.vtbl.SetRestoreOptions := CallbackCreate(ObjBindMethod(implObj, "SetRestoreOptions"), flags, 6)
+        this.vtbl.SetAdditionalRestores := CallbackCreate(ObjBindMethod(implObj, "SetAdditionalRestores"), flags, 6)
+        this.vtbl.SetPreviousBackupStamp := CallbackCreate(ObjBindMethod(implObj, "SetPreviousBackupStamp"), flags, 6)
+        this.vtbl.SaveAsXML := CallbackCreate(ObjBindMethod(implObj, "SaveAsXML"), flags, 2)
+        this.vtbl.BackupComplete := CallbackCreate(ObjBindMethod(implObj, "BackupComplete"), flags, 2)
+        this.vtbl.AddAlternativeLocationMapping := CallbackCreate(ObjBindMethod(implObj, "AddAlternativeLocationMapping"), flags, 9)
+        this.vtbl.AddRestoreSubcomponent := CallbackCreate(ObjBindMethod(implObj, "AddRestoreSubcomponent"), flags, 8)
+        this.vtbl.SetFileRestoreStatus := CallbackCreate(ObjBindMethod(implObj, "SetFileRestoreStatus"), flags, 6)
+        this.vtbl.AddNewTarget := CallbackCreate(ObjBindMethod(implObj, "AddNewTarget"), flags, 9)
+        this.vtbl.SetRangesFilePath := CallbackCreate(ObjBindMethod(implObj, "SetRangesFilePath"), flags, 7)
+        this.vtbl.PreRestore := CallbackCreate(ObjBindMethod(implObj, "PreRestore"), flags, 2)
+        this.vtbl.PostRestore := CallbackCreate(ObjBindMethod(implObj, "PostRestore"), flags, 2)
+        this.vtbl.SetContext := CallbackCreate(ObjBindMethod(implObj, "SetContext"), flags, 2)
+        this.vtbl.StartSnapshotSet := CallbackCreate(ObjBindMethod(implObj, "StartSnapshotSet"), flags, 2)
+        this.vtbl.AddToSnapshotSet := CallbackCreate(ObjBindMethod(implObj, "AddToSnapshotSet"), flags, 4)
+        this.vtbl.DoSnapshotSet := CallbackCreate(ObjBindMethod(implObj, "DoSnapshotSet"), flags, 2)
+        this.vtbl.DeleteSnapshots := CallbackCreate(ObjBindMethod(implObj, "DeleteSnapshots"), flags, 6)
+        this.vtbl.ImportSnapshots := CallbackCreate(ObjBindMethod(implObj, "ImportSnapshots"), flags, 2)
+        this.vtbl.BreakSnapshotSet := CallbackCreate(ObjBindMethod(implObj, "BreakSnapshotSet"), flags, 2)
+        this.vtbl.GetSnapshotProperties := CallbackCreate(ObjBindMethod(implObj, "GetSnapshotProperties"), flags, 3)
+        this.vtbl.Query := CallbackCreate(ObjBindMethod(implObj, "Query"), flags, 5)
+        this.vtbl.IsVolumeSupported := CallbackCreate(ObjBindMethod(implObj, "IsVolumeSupported"), flags, 4)
+        this.vtbl.DisableWriterClasses := CallbackCreate(ObjBindMethod(implObj, "DisableWriterClasses"), flags, 3)
+        this.vtbl.EnableWriterClasses := CallbackCreate(ObjBindMethod(implObj, "EnableWriterClasses"), flags, 3)
+        this.vtbl.DisableWriterInstances := CallbackCreate(ObjBindMethod(implObj, "DisableWriterInstances"), flags, 3)
+        this.vtbl.ExposeSnapshot := CallbackCreate(ObjBindMethod(implObj, "ExposeSnapshot"), flags, 6)
+        this.vtbl.RevertToSnapshot := CallbackCreate(ObjBindMethod(implObj, "RevertToSnapshot"), flags, 3)
+        this.vtbl.QueryRevertStatus := CallbackCreate(ObjBindMethod(implObj, "QueryRevertStatus"), flags, 3)
     }
 
     Dispose() {

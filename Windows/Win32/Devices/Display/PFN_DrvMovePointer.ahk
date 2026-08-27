@@ -20,7 +20,6 @@ export default struct PFN_DrvMovePointer {
     }
 
     /**
-     * 
      * @param {Pointer<SURFOBJ>} pso 
      * @param {Integer} x 
      * @param {Integer} y 

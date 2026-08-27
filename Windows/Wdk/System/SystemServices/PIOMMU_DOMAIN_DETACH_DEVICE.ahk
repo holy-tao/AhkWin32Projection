@@ -19,7 +19,6 @@ export default struct PIOMMU_DOMAIN_DETACH_DEVICE {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

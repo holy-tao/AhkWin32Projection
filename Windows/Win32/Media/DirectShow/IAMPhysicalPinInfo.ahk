@@ -46,8 +46,8 @@ export default struct IAMPhysicalPinInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamphysicalpininfo-getphysicaltype
      */
     GetPhysicalType(pType, ppszType) {
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-        ppszTypeMarshal := ppszType is VarRef ? "ptr*" : "ptr"
+        pTypeMarshal := pType is VarRef ? "int*" : IntPtr
+        ppszTypeMarshal := ppszType is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, pTypeMarshal, pType, ppszTypeMarshal, ppszType, "HRESULT")
         return result
@@ -62,7 +62,7 @@ export default struct IAMPhysicalPinInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPhysicalType := CallbackCreate(GetMethod(implObj, "GetPhysicalType"), flags, 3)
+        this.vtbl.GetPhysicalType := CallbackCreate(ObjBindMethod(implObj, "GetPhysicalType"), flags, 3)
     }
 
     Dispose() {

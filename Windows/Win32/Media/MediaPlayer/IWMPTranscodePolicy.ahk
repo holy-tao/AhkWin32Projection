@@ -64,7 +64,7 @@ export default struct IWMPTranscodePolicy extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nf-wmpservices-iwmptranscodepolicy-allowtranscode
      */
     allowTranscode(pvbAllow) {
-        pvbAllowMarshal := pvbAllow is VarRef ? "short*" : "ptr"
+        pvbAllowMarshal := pvbAllow is VarRef ? "short*" : IntPtr
 
         result := ComCall(3, this, pvbAllowMarshal, pvbAllow, "HRESULT")
         return result
@@ -79,7 +79,7 @@ export default struct IWMPTranscodePolicy extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.allowTranscode := CallbackCreate(GetMethod(implObj, "allowTranscode"), flags, 2)
+        this.vtbl.allowTranscode := CallbackCreate(ObjBindMethod(implObj, "allowTranscode"), flags, 2)
     }
 
     Dispose() {

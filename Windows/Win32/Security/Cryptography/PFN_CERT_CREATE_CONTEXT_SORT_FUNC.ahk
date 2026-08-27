@@ -21,7 +21,6 @@ export default struct PFN_CERT_CREATE_CONTEXT_SORT_FUNC {
     }
 
     /**
-     * 
      * @param {Integer} cbTotalEncoded The total number of bytes of the encoded entries.
      * @param {Integer} cbRemainEncoded The number of bytes remaining to be encoded.
      * @param {Integer} cEntry The current number of sorted entries.
@@ -29,7 +28,8 @@ export default struct PFN_CERT_CREATE_CONTEXT_SORT_FUNC {
      * @returns {BOOL} Return <b>TRUE</b> to continue the sort or <b>FALSE</b> to stop the sort. If <b>FALSE</b> is returned, <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certcreatecontext">CertCreateContext</a> will fail and set the last error code to <b>ERROR_CANCELLED</b>.
      */
     Call(cbTotalEncoded, cbRemainEncoded, cEntry, pvSort) {
-        pvSortMarshal := pvSort is VarRef ? "ptr" : "ptr"
+        pvSortMarshal := pvSort is VarRef ? "ptr" : IntPtr
+        pvSortMarshal := pvSort == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, UInt32, cbTotalEncoded, UInt32, cbRemainEncoded, UInt32, cEntry, pvSortMarshal, pvSort, BOOL)
         return result

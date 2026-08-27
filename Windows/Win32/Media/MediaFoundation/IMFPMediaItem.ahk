@@ -148,7 +148,12 @@ export default struct IMFPMediaItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaitem-getstartstopposition
      */
     GetStartStopPosition(pguidStartPositionType, pvStartValue, pguidStopPositionType, pvStopValue) {
-        result := ComCall(8, this, Guid.Ptr, pguidStartPositionType, PROPVARIANT.Ptr, pvStartValue, Guid.Ptr, pguidStopPositionType, PROPVARIANT.Ptr, pvStopValue, "HRESULT")
+        pguidStartPositionTypeMarshal := pguidStartPositionType == 0 ? IntPtr : Guid.Ptr
+        pvStartValueMarshal := pvStartValue == 0 ? IntPtr : PROPVARIANT.Ptr
+        pguidStopPositionTypeMarshal := pguidStopPositionType == 0 ? IntPtr : Guid.Ptr
+        pvStopValueMarshal := pvStopValue == 0 ? IntPtr : PROPVARIANT.Ptr
+
+        result := ComCall(8, this, pguidStartPositionTypeMarshal, pguidStartPositionType, pvStartValueMarshal, pvStartValue, pguidStopPositionTypeMarshal, pguidStopPositionType, pvStopValueMarshal, pvStopValue, "HRESULT")
         return result
     }
 
@@ -235,7 +240,12 @@ export default struct IMFPMediaItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaitem-setstartstopposition
      */
     SetStartStopPosition(pguidStartPositionType, pvStartValue, pguidStopPositionType, pvStopValue) {
-        result := ComCall(9, this, Guid.Ptr, pguidStartPositionType, PROPVARIANT.Ptr, pvStartValue, Guid.Ptr, pguidStopPositionType, PROPVARIANT.Ptr, pvStopValue, "HRESULT")
+        pguidStartPositionTypeMarshal := pguidStartPositionType == 0 ? IntPtr : Guid.Ptr
+        pvStartValueMarshal := pvStartValue == 0 ? IntPtr : PROPVARIANT.Ptr
+        pguidStopPositionTypeMarshal := pguidStopPositionType == 0 ? IntPtr : Guid.Ptr
+        pvStopValueMarshal := pvStopValue == 0 ? IntPtr : PROPVARIANT.Ptr
+
+        result := ComCall(9, this, pguidStartPositionTypeMarshal, pguidStartPositionType, pvStartValueMarshal, pvStartValue, pguidStopPositionTypeMarshal, pguidStopPositionType, pvStopValueMarshal, pvStopValue, "HRESULT")
         return result
     }
 
@@ -249,8 +259,10 @@ export default struct IMFPMediaItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaitem-hasvideo
      */
     HasVideo(pfHasVideo, pfSelected) {
-        pfHasVideoMarshal := pfHasVideo is VarRef ? "int*" : "ptr"
-        pfSelectedMarshal := pfSelected is VarRef ? "int*" : "ptr"
+        pfHasVideoMarshal := pfHasVideo is VarRef ? "int*" : IntPtr
+        pfHasVideoMarshal := pfHasVideo == 0 ? IntPtr : BOOL.Ptr
+        pfSelectedMarshal := pfSelected is VarRef ? "int*" : IntPtr
+        pfSelectedMarshal := pfSelected == 0 ? IntPtr : BOOL.Ptr
 
         result := ComCall(10, this, pfHasVideoMarshal, pfHasVideo, pfSelectedMarshal, pfSelected, "HRESULT")
         return result
@@ -266,8 +278,10 @@ export default struct IMFPMediaItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaitem-hasaudio
      */
     HasAudio(pfHasAudio, pfSelected) {
-        pfHasAudioMarshal := pfHasAudio is VarRef ? "int*" : "ptr"
-        pfSelectedMarshal := pfSelected is VarRef ? "int*" : "ptr"
+        pfHasAudioMarshal := pfHasAudio is VarRef ? "int*" : IntPtr
+        pfHasAudioMarshal := pfHasAudio == 0 ? IntPtr : BOOL.Ptr
+        pfSelectedMarshal := pfSelected is VarRef ? "int*" : IntPtr
+        pfSelectedMarshal := pfSelected == 0 ? IntPtr : BOOL.Ptr
 
         result := ComCall(11, this, pfHasAudioMarshal, pfHasAudio, pfSelectedMarshal, pfSelected, "HRESULT")
         return result
@@ -485,7 +499,9 @@ export default struct IMFPMediaItem extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaitem-setstreamsink
      */
     SetStreamSink(dwStreamIndex, pMediaSink) {
-        result := ComCall(20, this, UInt32, dwStreamIndex, "ptr", pMediaSink, "HRESULT")
+        pMediaSinkMarshal := pMediaSink == 0 ? IntPtr : "ptr"
+
+        result := ComCall(20, this, UInt32, dwStreamIndex, pMediaSinkMarshal, pMediaSink, "HRESULT")
         return result
     }
 
@@ -508,25 +524,25 @@ export default struct IMFPMediaItem extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMediaPlayer := CallbackCreate(GetMethod(implObj, "GetMediaPlayer"), flags, 2)
-        this.vtbl.GetURL := CallbackCreate(GetMethod(implObj, "GetURL"), flags, 2)
-        this.vtbl.GetObject := CallbackCreate(GetMethod(implObj, "GetObject"), flags, 2)
-        this.vtbl.GetUserData := CallbackCreate(GetMethod(implObj, "GetUserData"), flags, 2)
-        this.vtbl.SetUserData := CallbackCreate(GetMethod(implObj, "SetUserData"), flags, 2)
-        this.vtbl.GetStartStopPosition := CallbackCreate(GetMethod(implObj, "GetStartStopPosition"), flags, 5)
-        this.vtbl.SetStartStopPosition := CallbackCreate(GetMethod(implObj, "SetStartStopPosition"), flags, 5)
-        this.vtbl.HasVideo := CallbackCreate(GetMethod(implObj, "HasVideo"), flags, 3)
-        this.vtbl.HasAudio := CallbackCreate(GetMethod(implObj, "HasAudio"), flags, 3)
-        this.vtbl.IsProtected := CallbackCreate(GetMethod(implObj, "IsProtected"), flags, 2)
-        this.vtbl.GetDuration := CallbackCreate(GetMethod(implObj, "GetDuration"), flags, 3)
-        this.vtbl.GetNumberOfStreams := CallbackCreate(GetMethod(implObj, "GetNumberOfStreams"), flags, 2)
-        this.vtbl.GetStreamSelection := CallbackCreate(GetMethod(implObj, "GetStreamSelection"), flags, 3)
-        this.vtbl.SetStreamSelection := CallbackCreate(GetMethod(implObj, "SetStreamSelection"), flags, 3)
-        this.vtbl.GetStreamAttribute := CallbackCreate(GetMethod(implObj, "GetStreamAttribute"), flags, 4)
-        this.vtbl.GetPresentationAttribute := CallbackCreate(GetMethod(implObj, "GetPresentationAttribute"), flags, 3)
-        this.vtbl.GetCharacteristics := CallbackCreate(GetMethod(implObj, "GetCharacteristics"), flags, 2)
-        this.vtbl.SetStreamSink := CallbackCreate(GetMethod(implObj, "SetStreamSink"), flags, 3)
-        this.vtbl.GetMetadata := CallbackCreate(GetMethod(implObj, "GetMetadata"), flags, 2)
+        this.vtbl.GetMediaPlayer := CallbackCreate(ObjBindMethod(implObj, "GetMediaPlayer"), flags, 2)
+        this.vtbl.GetURL := CallbackCreate(ObjBindMethod(implObj, "GetURL"), flags, 2)
+        this.vtbl.GetObject := CallbackCreate(ObjBindMethod(implObj, "GetObject"), flags, 2)
+        this.vtbl.GetUserData := CallbackCreate(ObjBindMethod(implObj, "GetUserData"), flags, 2)
+        this.vtbl.SetUserData := CallbackCreate(ObjBindMethod(implObj, "SetUserData"), flags, 2)
+        this.vtbl.GetStartStopPosition := CallbackCreate(ObjBindMethod(implObj, "GetStartStopPosition"), flags, 5)
+        this.vtbl.SetStartStopPosition := CallbackCreate(ObjBindMethod(implObj, "SetStartStopPosition"), flags, 5)
+        this.vtbl.HasVideo := CallbackCreate(ObjBindMethod(implObj, "HasVideo"), flags, 3)
+        this.vtbl.HasAudio := CallbackCreate(ObjBindMethod(implObj, "HasAudio"), flags, 3)
+        this.vtbl.IsProtected := CallbackCreate(ObjBindMethod(implObj, "IsProtected"), flags, 2)
+        this.vtbl.GetDuration := CallbackCreate(ObjBindMethod(implObj, "GetDuration"), flags, 3)
+        this.vtbl.GetNumberOfStreams := CallbackCreate(ObjBindMethod(implObj, "GetNumberOfStreams"), flags, 2)
+        this.vtbl.GetStreamSelection := CallbackCreate(ObjBindMethod(implObj, "GetStreamSelection"), flags, 3)
+        this.vtbl.SetStreamSelection := CallbackCreate(ObjBindMethod(implObj, "SetStreamSelection"), flags, 3)
+        this.vtbl.GetStreamAttribute := CallbackCreate(ObjBindMethod(implObj, "GetStreamAttribute"), flags, 4)
+        this.vtbl.GetPresentationAttribute := CallbackCreate(ObjBindMethod(implObj, "GetPresentationAttribute"), flags, 3)
+        this.vtbl.GetCharacteristics := CallbackCreate(ObjBindMethod(implObj, "GetCharacteristics"), flags, 2)
+        this.vtbl.SetStreamSink := CallbackCreate(ObjBindMethod(implObj, "SetStreamSink"), flags, 3)
+        this.vtbl.GetMetadata := CallbackCreate(ObjBindMethod(implObj, "GetMetadata"), flags, 2)
     }
 
     Dispose() {

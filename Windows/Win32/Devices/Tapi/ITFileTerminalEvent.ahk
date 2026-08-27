@@ -163,12 +163,12 @@ export default struct ITFileTerminalEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Terminal := CallbackCreate(GetMethod(implObj, "get_Terminal"), flags, 2)
-        this.vtbl.get_Track := CallbackCreate(GetMethod(implObj, "get_Track"), flags, 2)
-        this.vtbl.get_Call := CallbackCreate(GetMethod(implObj, "get_Call"), flags, 2)
-        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
-        this.vtbl.get_Cause := CallbackCreate(GetMethod(implObj, "get_Cause"), flags, 2)
-        this.vtbl.get_Error := CallbackCreate(GetMethod(implObj, "get_Error"), flags, 2)
+        this.vtbl.get_Terminal := CallbackCreate(ObjBindMethod(implObj, "get_Terminal"), flags, 2)
+        this.vtbl.get_Track := CallbackCreate(ObjBindMethod(implObj, "get_Track"), flags, 2)
+        this.vtbl.get_Call := CallbackCreate(ObjBindMethod(implObj, "get_Call"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(ObjBindMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.get_Cause := CallbackCreate(ObjBindMethod(implObj, "get_Cause"), flags, 2)
+        this.vtbl.get_Error := CallbackCreate(ObjBindMethod(implObj, "get_Error"), flags, 2)
     }
 
     Dispose() {

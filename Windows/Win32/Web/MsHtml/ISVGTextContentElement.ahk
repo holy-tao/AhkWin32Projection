@@ -72,7 +72,6 @@ export default struct ISVGTextContentElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -82,7 +81,6 @@ export default struct ISVGTextContentElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_textLength() {
@@ -91,7 +89,6 @@ export default struct ISVGTextContentElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedEnumeration} v 
      * @returns {HRESULT} 
      */
@@ -101,7 +98,6 @@ export default struct ISVGTextContentElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedEnumeration} 
      */
     get_lengthAdjust() {
@@ -110,7 +106,6 @@ export default struct ISVGTextContentElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     getNumberOfChars() {
@@ -119,7 +114,6 @@ export default struct ISVGTextContentElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     getComputedTextLength() {
@@ -128,7 +122,6 @@ export default struct ISVGTextContentElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} charnum 
      * @param {Integer} nchars 
      * @returns {Float} 
@@ -139,7 +132,6 @@ export default struct ISVGTextContentElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} charnum 
      * @returns {ISVGPoint} 
      */
@@ -149,7 +141,6 @@ export default struct ISVGTextContentElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} charnum 
      * @returns {ISVGPoint} 
      */
@@ -159,7 +150,6 @@ export default struct ISVGTextContentElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} charnum 
      * @returns {ISVGRect} 
      */
@@ -169,7 +159,6 @@ export default struct ISVGTextContentElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} charnum 
      * @returns {Float} 
      */
@@ -179,7 +168,6 @@ export default struct ISVGTextContentElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGPoint} _point 
      * @returns {Integer} 
      */
@@ -189,7 +177,6 @@ export default struct ISVGTextContentElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} charnum 
      * @param {Integer} nchars 
      * @returns {HRESULT} 
@@ -208,19 +195,19 @@ export default struct ISVGTextContentElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.putref_textLength := CallbackCreate(GetMethod(implObj, "putref_textLength"), flags, 2)
-        this.vtbl.get_textLength := CallbackCreate(GetMethod(implObj, "get_textLength"), flags, 2)
-        this.vtbl.putref_lengthAdjust := CallbackCreate(GetMethod(implObj, "putref_lengthAdjust"), flags, 2)
-        this.vtbl.get_lengthAdjust := CallbackCreate(GetMethod(implObj, "get_lengthAdjust"), flags, 2)
-        this.vtbl.getNumberOfChars := CallbackCreate(GetMethod(implObj, "getNumberOfChars"), flags, 2)
-        this.vtbl.getComputedTextLength := CallbackCreate(GetMethod(implObj, "getComputedTextLength"), flags, 2)
-        this.vtbl.getSubStringLength := CallbackCreate(GetMethod(implObj, "getSubStringLength"), flags, 4)
-        this.vtbl.getStartPositionOfChar := CallbackCreate(GetMethod(implObj, "getStartPositionOfChar"), flags, 3)
-        this.vtbl.getEndPositionOfChar := CallbackCreate(GetMethod(implObj, "getEndPositionOfChar"), flags, 3)
-        this.vtbl.getExtentOfChar := CallbackCreate(GetMethod(implObj, "getExtentOfChar"), flags, 3)
-        this.vtbl.getRotationOfChar := CallbackCreate(GetMethod(implObj, "getRotationOfChar"), flags, 3)
-        this.vtbl.getCharNumAtPosition := CallbackCreate(GetMethod(implObj, "getCharNumAtPosition"), flags, 3)
-        this.vtbl.selectSubString := CallbackCreate(GetMethod(implObj, "selectSubString"), flags, 3)
+        this.vtbl.putref_textLength := CallbackCreate(ObjBindMethod(implObj, "putref_textLength"), flags, 2)
+        this.vtbl.get_textLength := CallbackCreate(ObjBindMethod(implObj, "get_textLength"), flags, 2)
+        this.vtbl.putref_lengthAdjust := CallbackCreate(ObjBindMethod(implObj, "putref_lengthAdjust"), flags, 2)
+        this.vtbl.get_lengthAdjust := CallbackCreate(ObjBindMethod(implObj, "get_lengthAdjust"), flags, 2)
+        this.vtbl.getNumberOfChars := CallbackCreate(ObjBindMethod(implObj, "getNumberOfChars"), flags, 2)
+        this.vtbl.getComputedTextLength := CallbackCreate(ObjBindMethod(implObj, "getComputedTextLength"), flags, 2)
+        this.vtbl.getSubStringLength := CallbackCreate(ObjBindMethod(implObj, "getSubStringLength"), flags, 4)
+        this.vtbl.getStartPositionOfChar := CallbackCreate(ObjBindMethod(implObj, "getStartPositionOfChar"), flags, 3)
+        this.vtbl.getEndPositionOfChar := CallbackCreate(ObjBindMethod(implObj, "getEndPositionOfChar"), flags, 3)
+        this.vtbl.getExtentOfChar := CallbackCreate(ObjBindMethod(implObj, "getExtentOfChar"), flags, 3)
+        this.vtbl.getRotationOfChar := CallbackCreate(ObjBindMethod(implObj, "getRotationOfChar"), flags, 3)
+        this.vtbl.getCharNumAtPosition := CallbackCreate(ObjBindMethod(implObj, "getCharNumAtPosition"), flags, 3)
+        this.vtbl.selectSubString := CallbackCreate(ObjBindMethod(implObj, "selectSubString"), flags, 3)
     }
 
     Dispose() {

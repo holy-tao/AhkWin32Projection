@@ -36,7 +36,6 @@ export default struct IActiveScriptSIPInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     GetSIPOID() {
@@ -54,7 +53,7 @@ export default struct IActiveScriptSIPInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSIPOID := CallbackCreate(GetMethod(implObj, "GetSIPOID"), flags, 2)
+        this.vtbl.GetSIPOID := CallbackCreate(ObjBindMethod(implObj, "GetSIPOID"), flags, 2)
     }
 
     Dispose() {

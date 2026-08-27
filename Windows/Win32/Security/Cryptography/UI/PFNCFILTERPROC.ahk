@@ -22,15 +22,14 @@ export default struct PFNCFILTERPROC {
     }
 
     /**
-     * 
      * @param {Pointer<CERT_CONTEXT>} pCertContext A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure that contains the certificate to filter.
      * @param {Pointer<BOOL>} pfInitialSelectedCert A Boolean value that specifies whether  the certificate contained in the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure pointed to by the <i>pCertContext</i> parameter should be initially selected in the dialog box. This parameter is used only if the filter process returns <b>TRUE</b>.
      * @param {Pointer<Void>} pvCallbackData A pointer to user-defined data.
      * @returns {BOOL} A Boolean value that specifies whether the certificate contained in the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure pointed to by the <i>pCertContext</i> parameter should be displayed in the digital signature wizard.
      */
     Call(pCertContext, pfInitialSelectedCert, pvCallbackData) {
-        pfInitialSelectedCertMarshal := pfInitialSelectedCert is VarRef ? "int*" : "ptr"
-        pvCallbackDataMarshal := pvCallbackData is VarRef ? "ptr" : "ptr"
+        pfInitialSelectedCertMarshal := pfInitialSelectedCert is VarRef ? "int*" : IntPtr
+        pvCallbackDataMarshal := pvCallbackData is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, CERT_CONTEXT.Ptr, pCertContext, pfInitialSelectedCertMarshal, pfInitialSelectedCert, pvCallbackDataMarshal, pvCallbackData, BOOL)
         return result

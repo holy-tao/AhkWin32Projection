@@ -20,7 +20,6 @@ export default struct KspSealMessageFn {
     }
 
     /**
-     * 
      * @param {Pointer} ContextId 
      * @param {Integer} fQOP 
      * @param {Pointer<SecBufferDesc>} Message 

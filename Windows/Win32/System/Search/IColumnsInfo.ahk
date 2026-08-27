@@ -39,29 +39,31 @@ export default struct IColumnsInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} pcColumns 
      * @param {Pointer<Pointer<DBCOLUMNINFO>>} prgInfo 
      * @param {Pointer<Pointer<Integer>>} ppStringsBuffer 
      * @returns {HRESULT} 
      */
     GetColumnInfo(pcColumns, prgInfo, ppStringsBuffer) {
-        pcColumnsMarshal := pcColumns is VarRef ? "ptr*" : "ptr"
-        prgInfoMarshal := prgInfo is VarRef ? "ptr*" : "ptr"
-        ppStringsBufferMarshal := ppStringsBuffer is VarRef ? "ptr*" : "ptr"
+        pcColumnsMarshal := pcColumns is VarRef ? "ptr*" : IntPtr
+        pcColumnsMarshal := pcColumns == 0 ? IntPtr : "ptr*"
+        prgInfoMarshal := prgInfo is VarRef ? "ptr*" : IntPtr
+        ppStringsBufferMarshal := ppStringsBuffer is VarRef ? "ptr*" : IntPtr
+        ppStringsBufferMarshal := ppStringsBuffer == 0 ? IntPtr : "ptr*"
 
         result := ComCall(3, this, pcColumnsMarshal, pcColumns, prgInfoMarshal, prgInfo, ppStringsBufferMarshal, ppStringsBuffer, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} cColumnIDs 
      * @param {Pointer<DBID>} rgColumnIDs 
      * @returns {Pointer} 
      */
     MapColumnIDs(cColumnIDs, rgColumnIDs) {
-        result := ComCall(4, this, IntPtr, cColumnIDs, DBID.Ptr, rgColumnIDs, "ptr*", &rgColumns := 0, "HRESULT")
+        rgColumnIDsMarshal := rgColumnIDs == 0 ? IntPtr : DBID.Ptr
+
+        result := ComCall(4, this, IntPtr, cColumnIDs, rgColumnIDsMarshal, rgColumnIDs, "ptr*", &rgColumns := 0, "HRESULT")
         return rgColumns
     }
 
@@ -74,8 +76,8 @@ export default struct IColumnsInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetColumnInfo := CallbackCreate(GetMethod(implObj, "GetColumnInfo"), flags, 4)
-        this.vtbl.MapColumnIDs := CallbackCreate(GetMethod(implObj, "MapColumnIDs"), flags, 4)
+        this.vtbl.GetColumnInfo := CallbackCreate(ObjBindMethod(implObj, "GetColumnInfo"), flags, 4)
+        this.vtbl.MapColumnIDs := CallbackCreate(ObjBindMethod(implObj, "MapColumnIDs"), flags, 4)
     }
 
     Dispose() {

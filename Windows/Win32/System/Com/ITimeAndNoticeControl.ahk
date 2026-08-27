@@ -36,7 +36,6 @@ export default struct ITimeAndNoticeControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} res1 
      * @param {Integer} res2 
      * @returns {HRESULT} 
@@ -55,7 +54,7 @@ export default struct ITimeAndNoticeControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SuppressChanges := CallbackCreate(GetMethod(implObj, "SuppressChanges"), flags, 3)
+        this.vtbl.SuppressChanges := CallbackCreate(ObjBindMethod(implObj, "SuppressChanges"), flags, 3)
     }
 
     Dispose() {

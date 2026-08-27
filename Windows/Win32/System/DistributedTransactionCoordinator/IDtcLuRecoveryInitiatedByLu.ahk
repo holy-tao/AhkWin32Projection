@@ -37,7 +37,6 @@ export default struct IDtcLuRecoveryInitiatedByLu extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDtcLuRecoveryInitiatedByLuWork} 
      */
     GetObjectToHandleWorkFromLu() {
@@ -54,7 +53,7 @@ export default struct IDtcLuRecoveryInitiatedByLu extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetObjectToHandleWorkFromLu := CallbackCreate(GetMethod(implObj, "GetObjectToHandleWorkFromLu"), flags, 2)
+        this.vtbl.GetObjectToHandleWorkFromLu := CallbackCreate(ObjBindMethod(implObj, "GetObjectToHandleWorkFromLu"), flags, 2)
     }
 
     Dispose() {

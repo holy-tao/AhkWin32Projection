@@ -101,7 +101,7 @@ export default struct IStreamPseudoRandomBased extends IStream {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-istreampseudorandombased-put_extendedseed
      */
     put_ExtendedSeed(values, eCount) {
-        valuesMarshal := values is VarRef ? "uint*" : "ptr"
+        valuesMarshal := values is VarRef ? "uint*" : IntPtr
 
         result := ComCall(16, this, valuesMarshal, values, UInt32, eCount, "HRESULT")
         return result
@@ -135,8 +135,8 @@ export default struct IStreamPseudoRandomBased extends IStream {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-istreampseudorandombased-get_extendedseed
      */
     get_ExtendedSeed(values, eCount) {
-        valuesMarshal := values is VarRef ? "ptr*" : "ptr"
-        eCountMarshal := eCount is VarRef ? "uint*" : "ptr"
+        valuesMarshal := values is VarRef ? "ptr*" : IntPtr
+        eCountMarshal := eCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(17, this, valuesMarshal, values, eCountMarshal, eCount, "HRESULT")
         return result
@@ -151,10 +151,10 @@ export default struct IStreamPseudoRandomBased extends IStream {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_Seed := CallbackCreate(GetMethod(implObj, "put_Seed"), flags, 2)
-        this.vtbl.get_Seed := CallbackCreate(GetMethod(implObj, "get_Seed"), flags, 2)
-        this.vtbl.put_ExtendedSeed := CallbackCreate(GetMethod(implObj, "put_ExtendedSeed"), flags, 3)
-        this.vtbl.get_ExtendedSeed := CallbackCreate(GetMethod(implObj, "get_ExtendedSeed"), flags, 3)
+        this.vtbl.put_Seed := CallbackCreate(ObjBindMethod(implObj, "put_Seed"), flags, 2)
+        this.vtbl.get_Seed := CallbackCreate(ObjBindMethod(implObj, "get_Seed"), flags, 2)
+        this.vtbl.put_ExtendedSeed := CallbackCreate(ObjBindMethod(implObj, "put_ExtendedSeed"), flags, 3)
+        this.vtbl.get_ExtendedSeed := CallbackCreate(ObjBindMethod(implObj, "get_ExtendedSeed"), flags, 3)
     }
 
     Dispose() {

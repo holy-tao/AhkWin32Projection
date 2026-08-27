@@ -18,7 +18,6 @@ export default struct PWINDBG_WRITE_PROCESS_MEMORY_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer} offset 
      * @param {Pointer<Void>} lpBuffer 
      * @param {Integer} cb 
@@ -26,8 +25,8 @@ export default struct PWINDBG_WRITE_PROCESS_MEMORY_ROUTINE {
      * @returns {Integer} 
      */
     Call(offset, lpBuffer, cb, lpcbBytesWritten) {
-        lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
-        lpcbBytesWrittenMarshal := lpcbBytesWritten is VarRef ? "uint*" : "ptr"
+        lpBufferMarshal := lpBuffer is VarRef ? "ptr" : IntPtr
+        lpcbBytesWrittenMarshal := lpcbBytesWritten is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, IntPtr, offset, lpBufferMarshal, lpBuffer, UInt32, cb, lpcbBytesWrittenMarshal, lpcbBytesWritten, UInt32)
         return result

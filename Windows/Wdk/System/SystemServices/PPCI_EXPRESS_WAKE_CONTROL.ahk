@@ -18,7 +18,6 @@ export default struct PPCI_EXPRESS_WAKE_CONTROL {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

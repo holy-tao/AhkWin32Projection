@@ -25,7 +25,6 @@ export default struct CLAIMMEDIALABEL {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pBuffer Pointer to a buffer that contains the media label.
      * @param {Integer} nBufferSize Size of the buffer, in bytes.
      * @param {Pointer<MediaLabelInfo>} pLabelInfo Pointer to a 
@@ -63,7 +62,7 @@ export default struct CLAIMMEDIALABEL {
      * </table>
      */
     Call(pBuffer, nBufferSize, pLabelInfo) {
-        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, pBufferMarshal, pBuffer, UInt32, nBufferSize, MediaLabelInfo.Ptr, pLabelInfo, UInt32)
         return result

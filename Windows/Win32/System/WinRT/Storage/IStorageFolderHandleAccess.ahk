@@ -58,8 +58,10 @@ export default struct IStorageFolderHandleAccess extends IUnknown {
     Create(fileName, creationOptions, accessOptions, sharingOptions, options, oplockBreakingHandler) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
 
+        oplockBreakingHandlerMarshal := oplockBreakingHandler == 0 ? IntPtr : "ptr"
+
         interopHandle := HANDLE.Owned()
-        result := ComCall(3, this, "ptr", fileName, HANDLE_CREATION_OPTIONS, creationOptions, HANDLE_ACCESS_OPTIONS, accessOptions, HANDLE_SHARING_OPTIONS, sharingOptions, HANDLE_OPTIONS, options, "ptr", oplockBreakingHandler, HANDLE.Ptr, interopHandle, "HRESULT")
+        result := ComCall(3, this, "ptr", fileName, HANDLE_CREATION_OPTIONS, creationOptions, HANDLE_ACCESS_OPTIONS, accessOptions, HANDLE_SHARING_OPTIONS, sharingOptions, HANDLE_OPTIONS, options, oplockBreakingHandlerMarshal, oplockBreakingHandler, HANDLE.Ptr, interopHandle, "HRESULT")
         return interopHandle
     }
 
@@ -72,7 +74,7 @@ export default struct IStorageFolderHandleAccess extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 8)
+        this.vtbl.Create := CallbackCreate(ObjBindMethod(implObj, "Create"), flags, 8)
     }
 
     Dispose() {

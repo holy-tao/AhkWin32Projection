@@ -112,8 +112,8 @@ export default struct IResourceConsumer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AcquireResource := CallbackCreate(GetMethod(implObj, "AcquireResource"), flags, 2)
-        this.vtbl.ReleaseResource := CallbackCreate(GetMethod(implObj, "ReleaseResource"), flags, 2)
+        this.vtbl.AcquireResource := CallbackCreate(ObjBindMethod(implObj, "AcquireResource"), flags, 2)
+        this.vtbl.ReleaseResource := CallbackCreate(ObjBindMethod(implObj, "ReleaseResource"), flags, 2)
     }
 
     Dispose() {

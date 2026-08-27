@@ -131,7 +131,7 @@
 export SaferGetPolicyInformation(dwScopeId, SaferPolicyInfoClass, InfoBufferSize, InfoBuffer, InfoBufferRetSize) {
     static lpReserved := 0 ;Reserved parameters must always be NULL
 
-    InfoBufferRetSizeMarshal := InfoBufferRetSize is VarRef ? "uint*" : "ptr"
+    InfoBufferRetSizeMarshal := InfoBufferRetSize is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -437,11 +437,13 @@ export SaferCloseLevel(hLevelHandle) {
  * @since windows5.1.2600
  */
 export SaferIdentifyLevel(dwNumProperties, pCodeProperties, pLevelHandle, lpReserved) {
-    lpReservedMarshal := lpReserved is VarRef ? "ptr" : "ptr"
+    pCodePropertiesMarshal := pCodeProperties == 0 ? IntPtr : SAFER_CODE_PROPERTIES_V2.Ptr
+    lpReservedMarshal := lpReserved is VarRef ? "ptr" : IntPtr
+    lpReservedMarshal := lpReserved == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\SaferIdentifyLevel", UInt32, dwNumProperties, SAFER_CODE_PROPERTIES_V2.Ptr, pCodeProperties, SAFER_LEVEL_HANDLE.Ptr, pLevelHandle, lpReservedMarshal, lpReserved, BOOL)
+    result := DllCall("ADVAPI32.dll\SaferIdentifyLevel", UInt32, dwNumProperties, pCodePropertiesMarshal, pCodeProperties, SAFER_LEVEL_HANDLE.Ptr, pLevelHandle, lpReservedMarshal, lpReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -463,11 +465,13 @@ export SaferIdentifyLevel(dwNumProperties, pCodeProperties, pLevelHandle, lpRese
  * @since windows5.1.2600
  */
 export SaferComputeTokenFromLevel(LevelHandle, InAccessToken, OutAccessToken, dwFlags, lpReserved) {
-    lpReservedMarshal := lpReserved is VarRef ? "ptr" : "ptr"
+    InAccessTokenMarshal := InAccessToken == 0 ? IntPtr : HANDLE
+    lpReservedMarshal := lpReserved is VarRef ? "ptr" : IntPtr
+    lpReservedMarshal := lpReserved == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\SaferComputeTokenFromLevel", SAFER_LEVEL_HANDLE, LevelHandle, HANDLE, InAccessToken, HANDLE.Ptr, OutAccessToken, SAFER_COMPUTE_TOKEN_FROM_LEVEL_FLAGS, dwFlags, lpReservedMarshal, lpReserved, BOOL)
+    result := DllCall("ADVAPI32.dll\SaferComputeTokenFromLevel", SAFER_LEVEL_HANDLE, LevelHandle, InAccessTokenMarshal, InAccessToken, HANDLE.Ptr, OutAccessToken, SAFER_COMPUTE_TOKEN_FROM_LEVEL_FLAGS, dwFlags, lpReservedMarshal, lpReserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -547,11 +551,12 @@ export SaferComputeTokenFromLevel(LevelHandle, InAccessToken, OutAccessToken, dw
  * @since windows5.1.2600
  */
 export SaferGetLevelInformation(LevelHandle, dwInfoType, lpQueryBuffer, dwInBufferSize, lpdwOutBufferSize) {
-    lpdwOutBufferSizeMarshal := lpdwOutBufferSize is VarRef ? "uint*" : "ptr"
+    lpQueryBufferMarshal := lpQueryBuffer == 0 ? IntPtr : IntPtr
+    lpdwOutBufferSizeMarshal := lpdwOutBufferSize is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\SaferGetLevelInformation", SAFER_LEVEL_HANDLE, LevelHandle, SAFER_OBJECT_INFO_CLASS, dwInfoType, IntPtr, lpQueryBuffer, UInt32, dwInBufferSize, lpdwOutBufferSizeMarshal, lpdwOutBufferSize, BOOL)
+    result := DllCall("ADVAPI32.dll\SaferGetLevelInformation", SAFER_LEVEL_HANDLE, LevelHandle, SAFER_OBJECT_INFO_CLASS, dwInfoType, lpQueryBufferMarshal, lpQueryBuffer, UInt32, dwInBufferSize, lpdwOutBufferSizeMarshal, lpdwOutBufferSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }

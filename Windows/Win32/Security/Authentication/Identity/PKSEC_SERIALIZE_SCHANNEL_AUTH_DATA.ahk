@@ -19,16 +19,15 @@ export default struct PKSEC_SERIALIZE_SCHANNEL_AUTH_DATA {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvAuthData 
      * @param {Pointer<Integer>} _Size 
      * @param {Pointer<Pointer<Void>>} SerializedData 
      * @returns {NTSTATUS} 
      */
     Call(pvAuthData, _Size, SerializedData) {
-        pvAuthDataMarshal := pvAuthData is VarRef ? "ptr" : "ptr"
-        _SizeMarshal := _Size is VarRef ? "uint*" : "ptr"
-        SerializedDataMarshal := SerializedData is VarRef ? "ptr*" : "ptr"
+        pvAuthDataMarshal := pvAuthData is VarRef ? "ptr" : IntPtr
+        _SizeMarshal := _Size is VarRef ? "uint*" : IntPtr
+        SerializedDataMarshal := SerializedData is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, pvAuthDataMarshal, pvAuthData, _SizeMarshal, _Size, SerializedDataMarshal, SerializedData, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

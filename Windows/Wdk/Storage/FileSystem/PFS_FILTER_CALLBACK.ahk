@@ -20,13 +20,12 @@ export default struct PFS_FILTER_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<FS_FILTER_CALLBACK_DATA>} Data 
      * @param {Pointer<Pointer<Void>>} CompletionContext 
      * @returns {NTSTATUS} 
      */
     Call(Data, CompletionContext) {
-        CompletionContextMarshal := CompletionContext is VarRef ? "ptr*" : "ptr"
+        CompletionContextMarshal := CompletionContext is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, FS_FILTER_CALLBACK_DATA.Ptr, Data, CompletionContextMarshal, CompletionContext, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

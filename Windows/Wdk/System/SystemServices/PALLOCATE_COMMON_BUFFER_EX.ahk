@@ -20,7 +20,6 @@ export default struct PALLOCATE_COMMON_BUFFER_EX {
     }
 
     /**
-     * 
      * @param {Pointer<DMA_ADAPTER>} DmaAdapter 
      * @param {Pointer<Integer>} MaximumAddress 
      * @param {Integer} Length 
@@ -30,8 +29,9 @@ export default struct PALLOCATE_COMMON_BUFFER_EX {
      * @returns {Pointer<Void>} 
      */
     Call(DmaAdapter, MaximumAddress, Length, LogicalAddress, CacheEnabled, PreferredNode) {
-        MaximumAddressMarshal := MaximumAddress is VarRef ? "int64*" : "ptr"
-        LogicalAddressMarshal := LogicalAddress is VarRef ? "int64*" : "ptr"
+        MaximumAddressMarshal := MaximumAddress is VarRef ? "int64*" : IntPtr
+        MaximumAddressMarshal := MaximumAddress == 0 ? IntPtr : "int64*"
+        LogicalAddressMarshal := LogicalAddress is VarRef ? "int64*" : IntPtr
 
         result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, MaximumAddressMarshal, MaximumAddress, UInt32, Length, LogicalAddressMarshal, LogicalAddress, BOOLEAN, CacheEnabled, UInt32, PreferredNode, IntPtr)
         return result

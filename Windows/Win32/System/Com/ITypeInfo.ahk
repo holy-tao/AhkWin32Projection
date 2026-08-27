@@ -207,7 +207,7 @@ export default struct ITypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-getnames
      */
     GetNames(memid, rgBstrNames, cMaxNames, pcNames) {
-        pcNamesMarshal := pcNames is VarRef ? "uint*" : "ptr"
+        pcNamesMarshal := pcNames is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, Int32, memid, BSTR.Ptr, rgBstrNames, UInt32, cMaxNames, pcNamesMarshal, pcNames, "HRESULT")
         return result
@@ -253,7 +253,7 @@ export default struct ITypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-getidsofnames
      */
     GetIDsOfNames(rgszNames, cNames) {
-        rgszNamesMarshal := rgszNames is VarRef ? "ptr*" : "ptr"
+        rgszNamesMarshal := rgszNames is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(10, this, rgszNamesMarshal, rgszNames, UInt32, cNames, "int*", &pMemId := 0, "HRESULT")
         return pMemId
@@ -381,8 +381,8 @@ export default struct ITypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-invoke
      */
     Invoke(pvInstance, memid, wFlags, pDispParams, pVarResult, pExcepInfo, puArgErr) {
-        pvInstanceMarshal := pvInstance is VarRef ? "ptr" : "ptr"
-        puArgErrMarshal := puArgErr is VarRef ? "uint*" : "ptr"
+        pvInstanceMarshal := pvInstance is VarRef ? "ptr" : IntPtr
+        puArgErrMarshal := puArgErr is VarRef ? "uint*" : IntPtr
 
         result := ComCall(11, this, pvInstanceMarshal, pvInstance, Int32, memid, DISPATCH_FLAGS, wFlags, DISPPARAMS.Ptr, pDispParams, VARIANT.Ptr, pVarResult, EXCEPINFO.Ptr, pExcepInfo, puArgErrMarshal, puArgErr, "HRESULT")
         return result
@@ -452,9 +452,12 @@ export default struct ITypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-getdocumentation
      */
     GetDocumentation(memid, pBstrName, pBstrDocString, pdwHelpContext, pBstrHelpFile) {
-        pdwHelpContextMarshal := pdwHelpContext is VarRef ? "uint*" : "ptr"
+        pBstrNameMarshal := pBstrName == 0 ? IntPtr : BSTR.Ptr
+        pBstrDocStringMarshal := pBstrDocString == 0 ? IntPtr : BSTR.Ptr
+        pdwHelpContextMarshal := pdwHelpContext is VarRef ? "uint*" : IntPtr
+        pBstrHelpFileMarshal := pBstrHelpFile == 0 ? IntPtr : BSTR.Ptr
 
-        result := ComCall(12, this, Int32, memid, BSTR.Ptr, pBstrName, BSTR.Ptr, pBstrDocString, pdwHelpContextMarshal, pdwHelpContext, BSTR.Ptr, pBstrHelpFile, "HRESULT")
+        result := ComCall(12, this, Int32, memid, pBstrNameMarshal, pBstrName, pBstrDocStringMarshal, pBstrDocString, pdwHelpContextMarshal, pdwHelpContext, pBstrHelpFileMarshal, pBstrHelpFile, "HRESULT")
         return result
     }
 
@@ -522,9 +525,11 @@ export default struct ITypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-getdllentry
      */
     GetDllEntry(memid, invKind, pBstrDllName, pBstrName, pwOrdinal) {
-        pwOrdinalMarshal := pwOrdinal is VarRef ? "ushort*" : "ptr"
+        pBstrDllNameMarshal := pBstrDllName == 0 ? IntPtr : BSTR.Ptr
+        pBstrNameMarshal := pBstrName == 0 ? IntPtr : BSTR.Ptr
+        pwOrdinalMarshal := pwOrdinal is VarRef ? "ushort*" : IntPtr
 
-        result := ComCall(13, this, Int32, memid, INVOKEKIND, invKind, BSTR.Ptr, pBstrDllName, BSTR.Ptr, pBstrName, pwOrdinalMarshal, pwOrdinal, "HRESULT")
+        result := ComCall(13, this, Int32, memid, INVOKEKIND, invKind, pBstrDllNameMarshal, pBstrDllName, pBstrNameMarshal, pBstrName, pwOrdinalMarshal, pwOrdinal, "HRESULT")
         return result
     }
 
@@ -651,7 +656,7 @@ export default struct ITypeInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-getcontainingtypelib
      */
     GetContainingTypeLib(ppTLib, pIndex) {
-        pIndexMarshal := pIndex is VarRef ? "uint*" : "ptr"
+        pIndexMarshal := pIndex is VarRef ? "uint*" : IntPtr
 
         result := ComCall(18, this, ITypeLib.Ptr, ppTLib, pIndexMarshal, pIndex, "HRESULT")
         return result
@@ -696,25 +701,25 @@ export default struct ITypeInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTypeAttr := CallbackCreate(GetMethod(implObj, "GetTypeAttr"), flags, 2)
-        this.vtbl.GetTypeComp := CallbackCreate(GetMethod(implObj, "GetTypeComp"), flags, 2)
-        this.vtbl.GetFuncDesc := CallbackCreate(GetMethod(implObj, "GetFuncDesc"), flags, 3)
-        this.vtbl.GetVarDesc := CallbackCreate(GetMethod(implObj, "GetVarDesc"), flags, 3)
-        this.vtbl.GetNames := CallbackCreate(GetMethod(implObj, "GetNames"), flags, 5)
-        this.vtbl.GetRefTypeOfImplType := CallbackCreate(GetMethod(implObj, "GetRefTypeOfImplType"), flags, 3)
-        this.vtbl.GetImplTypeFlags := CallbackCreate(GetMethod(implObj, "GetImplTypeFlags"), flags, 3)
-        this.vtbl.GetIDsOfNames := CallbackCreate(GetMethod(implObj, "GetIDsOfNames"), flags, 4)
-        this.vtbl.Invoke := CallbackCreate(GetMethod(implObj, "Invoke"), flags, 8)
-        this.vtbl.GetDocumentation := CallbackCreate(GetMethod(implObj, "GetDocumentation"), flags, 6)
-        this.vtbl.GetDllEntry := CallbackCreate(GetMethod(implObj, "GetDllEntry"), flags, 6)
-        this.vtbl.GetRefTypeInfo := CallbackCreate(GetMethod(implObj, "GetRefTypeInfo"), flags, 3)
-        this.vtbl.AddressOfMember := CallbackCreate(GetMethod(implObj, "AddressOfMember"), flags, 4)
-        this.vtbl.CreateInstance := CallbackCreate(GetMethod(implObj, "CreateInstance"), flags, 4)
-        this.vtbl.GetMops := CallbackCreate(GetMethod(implObj, "GetMops"), flags, 3)
-        this.vtbl.GetContainingTypeLib := CallbackCreate(GetMethod(implObj, "GetContainingTypeLib"), flags, 3)
-        this.vtbl.ReleaseTypeAttr := CallbackCreate(GetMethod(implObj, "ReleaseTypeAttr"), flags, 2)
-        this.vtbl.ReleaseFuncDesc := CallbackCreate(GetMethod(implObj, "ReleaseFuncDesc"), flags, 2)
-        this.vtbl.ReleaseVarDesc := CallbackCreate(GetMethod(implObj, "ReleaseVarDesc"), flags, 2)
+        this.vtbl.GetTypeAttr := CallbackCreate(ObjBindMethod(implObj, "GetTypeAttr"), flags, 2)
+        this.vtbl.GetTypeComp := CallbackCreate(ObjBindMethod(implObj, "GetTypeComp"), flags, 2)
+        this.vtbl.GetFuncDesc := CallbackCreate(ObjBindMethod(implObj, "GetFuncDesc"), flags, 3)
+        this.vtbl.GetVarDesc := CallbackCreate(ObjBindMethod(implObj, "GetVarDesc"), flags, 3)
+        this.vtbl.GetNames := CallbackCreate(ObjBindMethod(implObj, "GetNames"), flags, 5)
+        this.vtbl.GetRefTypeOfImplType := CallbackCreate(ObjBindMethod(implObj, "GetRefTypeOfImplType"), flags, 3)
+        this.vtbl.GetImplTypeFlags := CallbackCreate(ObjBindMethod(implObj, "GetImplTypeFlags"), flags, 3)
+        this.vtbl.GetIDsOfNames := CallbackCreate(ObjBindMethod(implObj, "GetIDsOfNames"), flags, 4)
+        this.vtbl.Invoke := CallbackCreate(ObjBindMethod(implObj, "Invoke"), flags, 8)
+        this.vtbl.GetDocumentation := CallbackCreate(ObjBindMethod(implObj, "GetDocumentation"), flags, 6)
+        this.vtbl.GetDllEntry := CallbackCreate(ObjBindMethod(implObj, "GetDllEntry"), flags, 6)
+        this.vtbl.GetRefTypeInfo := CallbackCreate(ObjBindMethod(implObj, "GetRefTypeInfo"), flags, 3)
+        this.vtbl.AddressOfMember := CallbackCreate(ObjBindMethod(implObj, "AddressOfMember"), flags, 4)
+        this.vtbl.CreateInstance := CallbackCreate(ObjBindMethod(implObj, "CreateInstance"), flags, 4)
+        this.vtbl.GetMops := CallbackCreate(ObjBindMethod(implObj, "GetMops"), flags, 3)
+        this.vtbl.GetContainingTypeLib := CallbackCreate(ObjBindMethod(implObj, "GetContainingTypeLib"), flags, 3)
+        this.vtbl.ReleaseTypeAttr := CallbackCreate(ObjBindMethod(implObj, "ReleaseTypeAttr"), flags, 2)
+        this.vtbl.ReleaseFuncDesc := CallbackCreate(ObjBindMethod(implObj, "ReleaseFuncDesc"), flags, 2)
+        this.vtbl.ReleaseVarDesc := CallbackCreate(ObjBindMethod(implObj, "ReleaseVarDesc"), flags, 2)
     }
 
     Dispose() {

@@ -38,7 +38,6 @@ export default struct IFtpAuthorizationProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszSessionId 
      * @param {PWSTR} pszSiteName 
      * @param {PWSTR} pszVirtualPath 
@@ -64,7 +63,7 @@ export default struct IFtpAuthorizationProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetUserAccessPermission := CallbackCreate(GetMethod(implObj, "GetUserAccessPermission"), flags, 6)
+        this.vtbl.GetUserAccessPermission := CallbackCreate(ObjBindMethod(implObj, "GetUserAccessPermission"), flags, 6)
     }
 
     Dispose() {

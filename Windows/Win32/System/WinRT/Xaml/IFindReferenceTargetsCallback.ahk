@@ -39,7 +39,6 @@ export default struct IFindReferenceTargetsCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {IReferenceTrackerTarget} target 
      * @returns {HRESULT} 
      */
@@ -57,7 +56,7 @@ export default struct IFindReferenceTargetsCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FoundTrackerTarget := CallbackCreate(GetMethod(implObj, "FoundTrackerTarget"), flags, 2)
+        this.vtbl.FoundTrackerTarget := CallbackCreate(ObjBindMethod(implObj, "FoundTrackerTarget"), flags, 2)
     }
 
     Dispose() {

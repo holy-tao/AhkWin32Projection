@@ -20,12 +20,11 @@ export default struct WSMAN_PLUGIN_RELEASE_SHELL_CONTEXT {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} shellContext Specifies the context that was received when the shell was created.
      * @returns {String} Nothing - always returns an empty string
      */
     Call(shellContext) {
-        shellContextMarshal := shellContext is VarRef ? "ptr" : "ptr"
+        shellContextMarshal := shellContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, shellContextMarshal, shellContext)
     }

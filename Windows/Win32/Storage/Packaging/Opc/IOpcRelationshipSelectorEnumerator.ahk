@@ -168,10 +168,10 @@ export default struct IOpcRelationshipSelectorEnumerator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.MoveNext := CallbackCreate(GetMethod(implObj, "MoveNext"), flags, 2)
-        this.vtbl.MovePrevious := CallbackCreate(GetMethod(implObj, "MovePrevious"), flags, 2)
-        this.vtbl.GetCurrent := CallbackCreate(GetMethod(implObj, "GetCurrent"), flags, 2)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.MoveNext := CallbackCreate(ObjBindMethod(implObj, "MoveNext"), flags, 2)
+        this.vtbl.MovePrevious := CallbackCreate(ObjBindMethod(implObj, "MovePrevious"), flags, 2)
+        this.vtbl.GetCurrent := CallbackCreate(ObjBindMethod(implObj, "GetCurrent"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
     }
 
     Dispose() {

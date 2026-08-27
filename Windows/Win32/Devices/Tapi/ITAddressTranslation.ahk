@@ -321,12 +321,12 @@ export default struct ITAddressTranslation extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.TranslateAddress := CallbackCreate(GetMethod(implObj, "TranslateAddress"), flags, 5)
-        this.vtbl.TranslateDialog := CallbackCreate(GetMethod(implObj, "TranslateDialog"), flags, 3)
-        this.vtbl.EnumerateLocations := CallbackCreate(GetMethod(implObj, "EnumerateLocations"), flags, 2)
-        this.vtbl.get_Locations := CallbackCreate(GetMethod(implObj, "get_Locations"), flags, 2)
-        this.vtbl.EnumerateCallingCards := CallbackCreate(GetMethod(implObj, "EnumerateCallingCards"), flags, 2)
-        this.vtbl.get_CallingCards := CallbackCreate(GetMethod(implObj, "get_CallingCards"), flags, 2)
+        this.vtbl.TranslateAddress := CallbackCreate(ObjBindMethod(implObj, "TranslateAddress"), flags, 5)
+        this.vtbl.TranslateDialog := CallbackCreate(ObjBindMethod(implObj, "TranslateDialog"), flags, 3)
+        this.vtbl.EnumerateLocations := CallbackCreate(ObjBindMethod(implObj, "EnumerateLocations"), flags, 2)
+        this.vtbl.get_Locations := CallbackCreate(ObjBindMethod(implObj, "get_Locations"), flags, 2)
+        this.vtbl.EnumerateCallingCards := CallbackCreate(ObjBindMethod(implObj, "EnumerateCallingCards"), flags, 2)
+        this.vtbl.get_CallingCards := CallbackCreate(ObjBindMethod(implObj, "get_CallingCards"), flags, 2)
     }
 
     Dispose() {

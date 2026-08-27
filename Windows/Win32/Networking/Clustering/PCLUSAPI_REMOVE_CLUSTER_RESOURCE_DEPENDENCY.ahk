@@ -19,7 +19,6 @@ export default struct PCLUSAPI_REMOVE_CLUSTER_RESOURCE_DEPENDENCY {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {HRESOURCE} hDependsOn 
      * @returns {Integer} 

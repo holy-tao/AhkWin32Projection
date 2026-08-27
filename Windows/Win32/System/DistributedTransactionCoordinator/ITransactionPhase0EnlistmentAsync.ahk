@@ -57,7 +57,6 @@ export default struct ITransactionPhase0EnlistmentAsync extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     WaitForEnlistment() {
@@ -66,7 +65,6 @@ export default struct ITransactionPhase0EnlistmentAsync extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Phase0Done() {
@@ -75,7 +73,6 @@ export default struct ITransactionPhase0EnlistmentAsync extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Unenlist() {
@@ -84,7 +81,6 @@ export default struct ITransactionPhase0EnlistmentAsync extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ITransaction} 
      */
     GetTransaction() {
@@ -101,11 +97,11 @@ export default struct ITransactionPhase0EnlistmentAsync extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Enable := CallbackCreate(GetMethod(implObj, "Enable"), flags, 1)
-        this.vtbl.WaitForEnlistment := CallbackCreate(GetMethod(implObj, "WaitForEnlistment"), flags, 1)
-        this.vtbl.Phase0Done := CallbackCreate(GetMethod(implObj, "Phase0Done"), flags, 1)
-        this.vtbl.Unenlist := CallbackCreate(GetMethod(implObj, "Unenlist"), flags, 1)
-        this.vtbl.GetTransaction := CallbackCreate(GetMethod(implObj, "GetTransaction"), flags, 2)
+        this.vtbl.Enable := CallbackCreate(ObjBindMethod(implObj, "Enable"), flags, 1)
+        this.vtbl.WaitForEnlistment := CallbackCreate(ObjBindMethod(implObj, "WaitForEnlistment"), flags, 1)
+        this.vtbl.Phase0Done := CallbackCreate(ObjBindMethod(implObj, "Phase0Done"), flags, 1)
+        this.vtbl.Unenlist := CallbackCreate(ObjBindMethod(implObj, "Unenlist"), flags, 1)
+        this.vtbl.GetTransaction := CallbackCreate(ObjBindMethod(implObj, "GetTransaction"), flags, 2)
     }
 
     Dispose() {

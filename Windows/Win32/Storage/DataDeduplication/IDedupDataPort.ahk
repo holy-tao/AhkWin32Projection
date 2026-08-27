@@ -61,21 +61,19 @@ export default struct IDedupDataPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DedupDataPortVolumeStatus>} pStatus 
      * @param {Pointer<Integer>} pDataHeadroomMb 
      * @returns {HRESULT} 
      */
     GetStatus(pStatus, pDataHeadroomMb) {
-        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
-        pDataHeadroomMbMarshal := pDataHeadroomMb is VarRef ? "uint*" : "ptr"
+        pStatusMarshal := pStatus is VarRef ? "int*" : IntPtr
+        pDataHeadroomMbMarshal := pDataHeadroomMb is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pStatusMarshal, pStatus, pDataHeadroomMbMarshal, pDataHeadroomMb, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Count 
      * @param {Pointer<DedupHash>} pHashes 
      * @returns {Guid} 
@@ -87,7 +85,6 @@ export default struct IDedupDataPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ChunkCount 
      * @param {Pointer<DedupChunk>} pChunkMetadata 
      * @param {Integer} DataByteCount 
@@ -95,7 +92,7 @@ export default struct IDedupDataPort extends IUnknown {
      * @returns {Guid} 
      */
     InsertChunks(ChunkCount, pChunkMetadata, DataByteCount, pChunkData) {
-        pChunkDataMarshal := pChunkData is VarRef ? "char*" : "ptr"
+        pChunkDataMarshal := pChunkData is VarRef ? "char*" : IntPtr
 
         pRequestId := Guid()
         result := ComCall(5, this, UInt32, ChunkCount, DedupChunk.Ptr, pChunkMetadata, UInt32, DataByteCount, pChunkDataMarshal, pChunkData, Guid.Ptr, pRequestId, "HRESULT")
@@ -103,7 +100,6 @@ export default struct IDedupDataPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ChunkCount 
      * @param {Pointer<DedupChunk>} pChunkMetadata 
      * @param {Integer} DataByteCount 
@@ -117,7 +113,6 @@ export default struct IDedupDataPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} StreamCount 
      * @param {Pointer<DedupStream>} pStreams 
      * @param {Integer} EntryCount 
@@ -131,7 +126,6 @@ export default struct IDedupDataPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} StreamCount 
      * @param {Pointer<DedupStream>} pStreams 
      * @param {Integer} EntryCount 
@@ -145,7 +139,6 @@ export default struct IDedupDataPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} StreamCount 
      * @param {Pointer<BSTR>} pStreamPaths 
      * @returns {Guid} 
@@ -157,7 +150,6 @@ export default struct IDedupDataPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} RequestId 
      * @param {Integer} MaxWaitMs 
      * @param {Integer} StreamEntryIndex 
@@ -170,19 +162,18 @@ export default struct IDedupDataPort extends IUnknown {
      * @returns {HRESULT} 
      */
     GetStreamsResults(RequestId, MaxWaitMs, StreamEntryIndex, pStreamCount, ppStreams, pEntryCount, ppEntries, pStatus, ppItemResults) {
-        pStreamCountMarshal := pStreamCount is VarRef ? "uint*" : "ptr"
-        ppStreamsMarshal := ppStreams is VarRef ? "ptr*" : "ptr"
-        pEntryCountMarshal := pEntryCount is VarRef ? "uint*" : "ptr"
-        ppEntriesMarshal := ppEntries is VarRef ? "ptr*" : "ptr"
-        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
-        ppItemResultsMarshal := ppItemResults is VarRef ? "ptr*" : "ptr"
+        pStreamCountMarshal := pStreamCount is VarRef ? "uint*" : IntPtr
+        ppStreamsMarshal := ppStreams is VarRef ? "ptr*" : IntPtr
+        pEntryCountMarshal := pEntryCount is VarRef ? "uint*" : IntPtr
+        ppEntriesMarshal := ppEntries is VarRef ? "ptr*" : IntPtr
+        pStatusMarshal := pStatus is VarRef ? "int*" : IntPtr
+        ppItemResultsMarshal := ppItemResults is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(10, this, Guid, RequestId, UInt32, MaxWaitMs, UInt32, StreamEntryIndex, pStreamCountMarshal, pStreamCount, ppStreamsMarshal, ppStreams, pEntryCountMarshal, pEntryCount, ppEntriesMarshal, ppEntries, pStatusMarshal, pStatus, ppItemResultsMarshal, ppItemResults, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Count 
      * @param {Pointer<DedupHash>} pHashes 
      * @returns {Guid} 
@@ -194,7 +185,6 @@ export default struct IDedupDataPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} RequestId 
      * @param {Integer} MaxWaitMs 
      * @param {Integer} ChunkIndex 
@@ -207,19 +197,18 @@ export default struct IDedupDataPort extends IUnknown {
      * @returns {HRESULT} 
      */
     GetChunksResults(RequestId, MaxWaitMs, ChunkIndex, pChunkCount, ppChunkMetadata, pDataByteCount, ppChunkData, pStatus, ppItemResults) {
-        pChunkCountMarshal := pChunkCount is VarRef ? "uint*" : "ptr"
-        ppChunkMetadataMarshal := ppChunkMetadata is VarRef ? "ptr*" : "ptr"
-        pDataByteCountMarshal := pDataByteCount is VarRef ? "uint*" : "ptr"
-        ppChunkDataMarshal := ppChunkData is VarRef ? "ptr*" : "ptr"
-        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
-        ppItemResultsMarshal := ppItemResults is VarRef ? "ptr*" : "ptr"
+        pChunkCountMarshal := pChunkCount is VarRef ? "uint*" : IntPtr
+        ppChunkMetadataMarshal := ppChunkMetadata is VarRef ? "ptr*" : IntPtr
+        pDataByteCountMarshal := pDataByteCount is VarRef ? "uint*" : IntPtr
+        ppChunkDataMarshal := ppChunkData is VarRef ? "ptr*" : IntPtr
+        pStatusMarshal := pStatus is VarRef ? "int*" : IntPtr
+        ppItemResultsMarshal := ppItemResults is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(12, this, Guid, RequestId, UInt32, MaxWaitMs, UInt32, ChunkIndex, pChunkCountMarshal, pChunkCount, ppChunkMetadataMarshal, ppChunkMetadata, pDataByteCountMarshal, pDataByteCount, ppChunkDataMarshal, ppChunkData, pStatusMarshal, pStatus, ppItemResultsMarshal, ppItemResults, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Guid} RequestId 
      * @returns {DedupDataPortRequestStatus} 
      */
@@ -229,7 +218,6 @@ export default struct IDedupDataPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} RequestId 
      * @param {Integer} MaxWaitMs 
      * @param {Pointer<HRESULT>} pBatchResult 
@@ -239,10 +227,10 @@ export default struct IDedupDataPort extends IUnknown {
      * @returns {HRESULT} 
      */
     GetRequestResults(RequestId, MaxWaitMs, pBatchResult, pBatchCount, pStatus, ppItemResults) {
-        pBatchResultMarshal := pBatchResult is VarRef ? "int*" : "ptr"
-        pBatchCountMarshal := pBatchCount is VarRef ? "uint*" : "ptr"
-        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
-        ppItemResultsMarshal := ppItemResults is VarRef ? "ptr*" : "ptr"
+        pBatchResultMarshal := pBatchResult is VarRef ? "int*" : IntPtr
+        pBatchCountMarshal := pBatchCount is VarRef ? "uint*" : IntPtr
+        pStatusMarshal := pStatus is VarRef ? "int*" : IntPtr
+        ppItemResultsMarshal := ppItemResults is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(14, this, Guid, RequestId, UInt32, MaxWaitMs, pBatchResultMarshal, pBatchResult, pBatchCountMarshal, pBatchCount, pStatusMarshal, pStatus, ppItemResultsMarshal, ppItemResults, "HRESULT")
         return result
@@ -257,18 +245,18 @@ export default struct IDedupDataPort extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 3)
-        this.vtbl.LookupChunks := CallbackCreate(GetMethod(implObj, "LookupChunks"), flags, 4)
-        this.vtbl.InsertChunks := CallbackCreate(GetMethod(implObj, "InsertChunks"), flags, 6)
-        this.vtbl.InsertChunksWithStream := CallbackCreate(GetMethod(implObj, "InsertChunksWithStream"), flags, 6)
-        this.vtbl.CommitStreams := CallbackCreate(GetMethod(implObj, "CommitStreams"), flags, 6)
-        this.vtbl.CommitStreamsWithStream := CallbackCreate(GetMethod(implObj, "CommitStreamsWithStream"), flags, 6)
-        this.vtbl.GetStreams := CallbackCreate(GetMethod(implObj, "GetStreams"), flags, 4)
-        this.vtbl.GetStreamsResults := CallbackCreate(GetMethod(implObj, "GetStreamsResults"), flags, 10)
-        this.vtbl.GetChunks := CallbackCreate(GetMethod(implObj, "GetChunks"), flags, 4)
-        this.vtbl.GetChunksResults := CallbackCreate(GetMethod(implObj, "GetChunksResults"), flags, 10)
-        this.vtbl.GetRequestStatus := CallbackCreate(GetMethod(implObj, "GetRequestStatus"), flags, 3)
-        this.vtbl.GetRequestResults := CallbackCreate(GetMethod(implObj, "GetRequestResults"), flags, 7)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 3)
+        this.vtbl.LookupChunks := CallbackCreate(ObjBindMethod(implObj, "LookupChunks"), flags, 4)
+        this.vtbl.InsertChunks := CallbackCreate(ObjBindMethod(implObj, "InsertChunks"), flags, 6)
+        this.vtbl.InsertChunksWithStream := CallbackCreate(ObjBindMethod(implObj, "InsertChunksWithStream"), flags, 6)
+        this.vtbl.CommitStreams := CallbackCreate(ObjBindMethod(implObj, "CommitStreams"), flags, 6)
+        this.vtbl.CommitStreamsWithStream := CallbackCreate(ObjBindMethod(implObj, "CommitStreamsWithStream"), flags, 6)
+        this.vtbl.GetStreams := CallbackCreate(ObjBindMethod(implObj, "GetStreams"), flags, 4)
+        this.vtbl.GetStreamsResults := CallbackCreate(ObjBindMethod(implObj, "GetStreamsResults"), flags, 10)
+        this.vtbl.GetChunks := CallbackCreate(ObjBindMethod(implObj, "GetChunks"), flags, 4)
+        this.vtbl.GetChunksResults := CallbackCreate(ObjBindMethod(implObj, "GetChunksResults"), flags, 10)
+        this.vtbl.GetRequestStatus := CallbackCreate(ObjBindMethod(implObj, "GetRequestStatus"), flags, 3)
+        this.vtbl.GetRequestResults := CallbackCreate(ObjBindMethod(implObj, "GetRequestResults"), flags, 7)
     }
 
     Dispose() {

@@ -49,7 +49,7 @@ export default struct ILanguageExceptionStackBackTrace extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/restrictederrorinfo/nf-restrictederrorinfo-ilanguageexceptionstackbacktrace-getstackbacktrace
      */
     GetStackBackTrace(maxFramesToCapture, stackBackTrace) {
-        stackBackTraceMarshal := stackBackTrace is VarRef ? "ptr*" : "ptr"
+        stackBackTraceMarshal := stackBackTrace is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, UInt32, maxFramesToCapture, stackBackTraceMarshal, stackBackTrace, "uint*", &framesCaptured := 0, "HRESULT")
         return framesCaptured
@@ -64,7 +64,7 @@ export default struct ILanguageExceptionStackBackTrace extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStackBackTrace := CallbackCreate(GetMethod(implObj, "GetStackBackTrace"), flags, 4)
+        this.vtbl.GetStackBackTrace := CallbackCreate(ObjBindMethod(implObj, "GetStackBackTrace"), flags, 4)
     }
 
     Dispose() {

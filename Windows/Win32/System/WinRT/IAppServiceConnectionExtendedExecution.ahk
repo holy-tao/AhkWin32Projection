@@ -36,7 +36,6 @@ export default struct IAppServiceConnectionExtendedExecution extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
@@ -54,7 +53,7 @@ export default struct IAppServiceConnectionExtendedExecution extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OpenForExtendedExecutionAsync := CallbackCreate(GetMethod(implObj, "OpenForExtendedExecutionAsync"), flags, 3)
+        this.vtbl.OpenForExtendedExecutionAsync := CallbackCreate(ObjBindMethod(implObj, "OpenForExtendedExecutionAsync"), flags, 3)
     }
 
     Dispose() {

@@ -268,7 +268,11 @@ export default struct IXAudio2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2-createsourcevoice
      */
     CreateSourceVoice(pSourceFormat, Flags, MaxFrequencyRatio, pCallback, pSendList, pEffectChain) {
-        result := ComCall(5, this, "ptr*", &ppSourceVoice := 0, WAVEFORMATEX.Ptr, pSourceFormat, UInt32, Flags, Float32, MaxFrequencyRatio, "ptr", pCallback, XAUDIO2_VOICE_SENDS.Ptr, pSendList, XAUDIO2_EFFECT_CHAIN.Ptr, pEffectChain, "HRESULT")
+        pCallbackMarshal := pCallback == 0 ? IntPtr : "ptr"
+        pSendListMarshal := pSendList == 0 ? IntPtr : XAUDIO2_VOICE_SENDS.Ptr
+        pEffectChainMarshal := pEffectChain == 0 ? IntPtr : XAUDIO2_EFFECT_CHAIN.Ptr
+
+        result := ComCall(5, this, "ptr*", &ppSourceVoice := 0, WAVEFORMATEX.Ptr, pSourceFormat, UInt32, Flags, Float32, MaxFrequencyRatio, pCallbackMarshal, pCallback, pSendListMarshal, pSendList, pEffectChainMarshal, pEffectChain, "HRESULT")
         return IXAudio2SourceVoice(ppSourceVoice)
     }
 
@@ -325,7 +329,10 @@ export default struct IXAudio2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2-createsubmixvoice
      */
     CreateSubmixVoice(InputChannels, InputSampleRate, Flags, ProcessingStage, pSendList, pEffectChain) {
-        result := ComCall(6, this, "ptr*", &ppSubmixVoice := 0, UInt32, InputChannels, UInt32, InputSampleRate, UInt32, Flags, UInt32, ProcessingStage, XAUDIO2_VOICE_SENDS.Ptr, pSendList, XAUDIO2_EFFECT_CHAIN.Ptr, pEffectChain, "HRESULT")
+        pSendListMarshal := pSendList == 0 ? IntPtr : XAUDIO2_VOICE_SENDS.Ptr
+        pEffectChainMarshal := pEffectChain == 0 ? IntPtr : XAUDIO2_EFFECT_CHAIN.Ptr
+
+        result := ComCall(6, this, "ptr*", &ppSubmixVoice := 0, UInt32, InputChannels, UInt32, InputSampleRate, UInt32, Flags, UInt32, ProcessingStage, pSendListMarshal, pSendList, pEffectChainMarshal, pEffectChain, "HRESULT")
         return IXAudio2SubmixVoice(ppSubmixVoice)
     }
 
@@ -401,7 +408,10 @@ export default struct IXAudio2 extends IUnknown {
     CreateMasteringVoice(InputChannels, InputSampleRate, Flags, szDeviceId, pEffectChain, StreamCategory) {
         szDeviceId := szDeviceId is String ? StrPtr(szDeviceId) : szDeviceId
 
-        result := ComCall(7, this, "ptr*", &ppMasteringVoice := 0, UInt32, InputChannels, UInt32, InputSampleRate, UInt32, Flags, "ptr", szDeviceId, XAUDIO2_EFFECT_CHAIN.Ptr, pEffectChain, AUDIO_STREAM_CATEGORY, StreamCategory, "HRESULT")
+        szDeviceIdMarshal := szDeviceId == 0 ? IntPtr : PWSTR
+        pEffectChainMarshal := pEffectChain == 0 ? IntPtr : XAUDIO2_EFFECT_CHAIN.Ptr
+
+        result := ComCall(7, this, "ptr*", &ppMasteringVoice := 0, UInt32, InputChannels, UInt32, InputSampleRate, UInt32, Flags, szDeviceIdMarshal, szDeviceId, pEffectChainMarshal, pEffectChain, AUDIO_STREAM_CATEGORY, StreamCategory, "HRESULT")
         return IXAudio2MasteringVoice(ppMasteringVoice)
     }
 
@@ -497,7 +507,9 @@ export default struct IXAudio2 extends IUnknown {
     SetDebugConfiguration(pDebugConfiguration) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
-        ComCall(12, this, XAUDIO2_DEBUG_CONFIGURATION.Ptr, pDebugConfiguration, "ptr", pReserved)
+        pDebugConfigurationMarshal := pDebugConfiguration == 0 ? IntPtr : XAUDIO2_DEBUG_CONFIGURATION.Ptr
+
+        ComCall(12, this, pDebugConfigurationMarshal, pDebugConfiguration, "ptr", pReserved)
     }
 
     _Query(iid) {
@@ -509,16 +521,16 @@ export default struct IXAudio2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterForCallbacks := CallbackCreate(GetMethod(implObj, "RegisterForCallbacks"), flags, 2)
-        this.vtbl.UnregisterForCallbacks := CallbackCreate(GetMethod(implObj, "UnregisterForCallbacks"), flags, 2)
-        this.vtbl.CreateSourceVoice := CallbackCreate(GetMethod(implObj, "CreateSourceVoice"), flags, 8)
-        this.vtbl.CreateSubmixVoice := CallbackCreate(GetMethod(implObj, "CreateSubmixVoice"), flags, 8)
-        this.vtbl.CreateMasteringVoice := CallbackCreate(GetMethod(implObj, "CreateMasteringVoice"), flags, 8)
-        this.vtbl.StartEngine := CallbackCreate(GetMethod(implObj, "StartEngine"), flags, 1)
-        this.vtbl.StopEngine := CallbackCreate(GetMethod(implObj, "StopEngine"), flags, 1)
-        this.vtbl.CommitChanges := CallbackCreate(GetMethod(implObj, "CommitChanges"), flags, 2)
-        this.vtbl.GetPerformanceData := CallbackCreate(GetMethod(implObj, "GetPerformanceData"), flags, 2)
-        this.vtbl.SetDebugConfiguration := CallbackCreate(GetMethod(implObj, "SetDebugConfiguration"), flags, 3)
+        this.vtbl.RegisterForCallbacks := CallbackCreate(ObjBindMethod(implObj, "RegisterForCallbacks"), flags, 2)
+        this.vtbl.UnregisterForCallbacks := CallbackCreate(ObjBindMethod(implObj, "UnregisterForCallbacks"), flags, 2)
+        this.vtbl.CreateSourceVoice := CallbackCreate(ObjBindMethod(implObj, "CreateSourceVoice"), flags, 8)
+        this.vtbl.CreateSubmixVoice := CallbackCreate(ObjBindMethod(implObj, "CreateSubmixVoice"), flags, 8)
+        this.vtbl.CreateMasteringVoice := CallbackCreate(ObjBindMethod(implObj, "CreateMasteringVoice"), flags, 8)
+        this.vtbl.StartEngine := CallbackCreate(ObjBindMethod(implObj, "StartEngine"), flags, 1)
+        this.vtbl.StopEngine := CallbackCreate(ObjBindMethod(implObj, "StopEngine"), flags, 1)
+        this.vtbl.CommitChanges := CallbackCreate(ObjBindMethod(implObj, "CommitChanges"), flags, 2)
+        this.vtbl.GetPerformanceData := CallbackCreate(ObjBindMethod(implObj, "GetPerformanceData"), flags, 2)
+        this.vtbl.SetDebugConfiguration := CallbackCreate(ObjBindMethod(implObj, "SetDebugConfiguration"), flags, 3)
     }
 
     Dispose() {

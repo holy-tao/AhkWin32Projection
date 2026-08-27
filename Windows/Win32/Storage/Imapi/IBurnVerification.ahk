@@ -86,8 +86,8 @@ export default struct IBurnVerification extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_BurnVerificationLevel := CallbackCreate(GetMethod(implObj, "put_BurnVerificationLevel"), flags, 2)
-        this.vtbl.get_BurnVerificationLevel := CallbackCreate(GetMethod(implObj, "get_BurnVerificationLevel"), flags, 2)
+        this.vtbl.put_BurnVerificationLevel := CallbackCreate(ObjBindMethod(implObj, "put_BurnVerificationLevel"), flags, 2)
+        this.vtbl.get_BurnVerificationLevel := CallbackCreate(ObjBindMethod(implObj, "get_BurnVerificationLevel"), flags, 2)
     }
 
     Dispose() {

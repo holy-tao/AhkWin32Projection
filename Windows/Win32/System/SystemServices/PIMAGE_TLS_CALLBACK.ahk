@@ -18,15 +18,14 @@ export default struct PIMAGE_TLS_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} DllHandle 
      * @param {Integer} Reason 
      * @param {Pointer<Void>} Reserved 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(DllHandle, Reason, Reserved) {
-        DllHandleMarshal := DllHandle is VarRef ? "ptr" : "ptr"
-        ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
+        DllHandleMarshal := DllHandle is VarRef ? "ptr" : IntPtr
+        ReservedMarshal := Reserved is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, DllHandleMarshal, DllHandle, UInt32, Reason, ReservedMarshal, Reserved)
     }

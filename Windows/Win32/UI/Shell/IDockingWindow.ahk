@@ -144,9 +144,9 @@ export default struct IDockingWindow extends IOleWindow {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ShowDW := CallbackCreate(GetMethod(implObj, "ShowDW"), flags, 2)
-        this.vtbl.CloseDW := CallbackCreate(GetMethod(implObj, "CloseDW"), flags, 2)
-        this.vtbl.ResizeBorderDW := CallbackCreate(GetMethod(implObj, "ResizeBorderDW"), flags, 4)
+        this.vtbl.ShowDW := CallbackCreate(ObjBindMethod(implObj, "ShowDW"), flags, 2)
+        this.vtbl.CloseDW := CallbackCreate(ObjBindMethod(implObj, "CloseDW"), flags, 2)
+        this.vtbl.ResizeBorderDW := CallbackCreate(ObjBindMethod(implObj, "ResizeBorderDW"), flags, 4)
     }
 
     Dispose() {

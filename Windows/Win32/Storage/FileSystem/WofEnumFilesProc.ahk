@@ -22,7 +22,6 @@ export default struct WofEnumFilesProc {
     }
 
     /**
-     * 
      * @param {PWSTR} FilePath Specifies the path to the file which is backed by an external data source.
      * @param {Pointer<Void>} ExternalFileInfo Points to a buffer containing information about the data source backing the file.  The type of this buffer depends on the provider; data structures for each provider are:
      * 
@@ -42,8 +41,9 @@ export default struct WofEnumFilesProc {
     Call(FilePath, ExternalFileInfo, _UserData) {
         FilePath := FilePath is String ? StrPtr(FilePath) : FilePath
 
-        ExternalFileInfoMarshal := ExternalFileInfo is VarRef ? "ptr" : "ptr"
-        _UserDataMarshal := _UserData is VarRef ? "ptr" : "ptr"
+        ExternalFileInfoMarshal := ExternalFileInfo is VarRef ? "ptr" : IntPtr
+        _UserDataMarshal := _UserData is VarRef ? "ptr" : IntPtr
+        _UserDataMarshal := _UserData == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, "ptr", FilePath, ExternalFileInfoMarshal, ExternalFileInfo, _UserDataMarshal, _UserData, BOOL)
         return result

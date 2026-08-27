@@ -39,7 +39,6 @@ export default struct ID3D12Device12 extends ID3D12Device11 {
     }
 
     /**
-     * 
      * @param {Integer} visibleMask 
      * @param {Integer} numResourceDescs 
      * @param {Pointer<D3D12_RESOURCE_DESC1>} pResourceDescs 
@@ -49,10 +48,13 @@ export default struct ID3D12Device12 extends ID3D12Device11 {
      * @returns {D3D12_RESOURCE_ALLOCATION_INFO} 
      */
     GetResourceAllocationInfo3(visibleMask, numResourceDescs, pResourceDescs, pNumCastableFormats, ppCastableFormats, pResourceAllocationInfo1) {
-        pNumCastableFormatsMarshal := pNumCastableFormats is VarRef ? "uint*" : "ptr"
-        ppCastableFormatsMarshal := ppCastableFormats is VarRef ? "ptr*" : "ptr"
+        pNumCastableFormatsMarshal := pNumCastableFormats is VarRef ? "uint*" : IntPtr
+        pNumCastableFormatsMarshal := pNumCastableFormats == 0 ? IntPtr : "uint*"
+        ppCastableFormatsMarshal := ppCastableFormats is VarRef ? "ptr*" : IntPtr
+        ppCastableFormatsMarshal := ppCastableFormats == 0 ? IntPtr : "ptr*"
+        pResourceAllocationInfo1Marshal := pResourceAllocationInfo1 == 0 ? IntPtr : D3D12_RESOURCE_ALLOCATION_INFO1.Ptr
 
-        result := ComCall(80, this, UInt32, visibleMask, UInt32, numResourceDescs, D3D12_RESOURCE_DESC1.Ptr, pResourceDescs, pNumCastableFormatsMarshal, pNumCastableFormats, ppCastableFormatsMarshal, ppCastableFormats, D3D12_RESOURCE_ALLOCATION_INFO1.Ptr, pResourceAllocationInfo1, D3D12_RESOURCE_ALLOCATION_INFO)
+        result := ComCall(80, this, UInt32, visibleMask, UInt32, numResourceDescs, D3D12_RESOURCE_DESC1.Ptr, pResourceDescs, pNumCastableFormatsMarshal, pNumCastableFormats, ppCastableFormatsMarshal, ppCastableFormats, pResourceAllocationInfo1Marshal, pResourceAllocationInfo1, D3D12_RESOURCE_ALLOCATION_INFO)
         return result
     }
 
@@ -65,7 +67,7 @@ export default struct ID3D12Device12 extends ID3D12Device11 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetResourceAllocationInfo3 := CallbackCreate(GetMethod(implObj, "GetResourceAllocationInfo3"), flags, 7)
+        this.vtbl.GetResourceAllocationInfo3 := CallbackCreate(ObjBindMethod(implObj, "GetResourceAllocationInfo3"), flags, 7)
     }
 
     Dispose() {

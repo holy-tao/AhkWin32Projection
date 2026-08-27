@@ -22,7 +22,6 @@ export default struct LPD3DENUMDEVICESCALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} lpGuid 
      * @param {PSTR} lpDeviceDescription 
      * @param {PSTR} lpDeviceName 
@@ -35,7 +34,7 @@ export default struct LPD3DENUMDEVICESCALLBACK {
         lpDeviceDescription := lpDeviceDescription is String ? StrPtr(lpDeviceDescription) : lpDeviceDescription
         lpDeviceName := lpDeviceName is String ? StrPtr(lpDeviceName) : lpDeviceName
 
-        param5Marshal := param5 is VarRef ? "ptr" : "ptr"
+        param5Marshal := param5 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, Guid.Ptr, lpGuid, "ptr", lpDeviceDescription, "ptr", lpDeviceName, D3DDEVICEDESC.Ptr, param3, D3DDEVICEDESC.Ptr, param4, param5Marshal, param5, "HRESULT")
         return result

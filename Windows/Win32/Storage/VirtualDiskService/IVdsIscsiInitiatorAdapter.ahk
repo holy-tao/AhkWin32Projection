@@ -125,10 +125,10 @@ export default struct IVdsIscsiInitiatorAdapter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
-        this.vtbl.QueryInitiatorPortals := CallbackCreate(GetMethod(implObj, "QueryInitiatorPortals"), flags, 2)
-        this.vtbl.LoginToTarget := CallbackCreate(GetMethod(implObj, "LoginToTarget"), flags, 10)
-        this.vtbl.LogoutFromTarget := CallbackCreate(GetMethod(implObj, "LogoutFromTarget"), flags, 3)
+        this.vtbl.GetProperties := CallbackCreate(ObjBindMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.QueryInitiatorPortals := CallbackCreate(ObjBindMethod(implObj, "QueryInitiatorPortals"), flags, 2)
+        this.vtbl.LoginToTarget := CallbackCreate(ObjBindMethod(implObj, "LoginToTarget"), flags, 10)
+        this.vtbl.LogoutFromTarget := CallbackCreate(ObjBindMethod(implObj, "LogoutFromTarget"), flags, 3)
     }
 
     Dispose() {

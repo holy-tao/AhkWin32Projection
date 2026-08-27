@@ -19,7 +19,6 @@ export default struct PIOMMU_DEVICE_DELETE {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

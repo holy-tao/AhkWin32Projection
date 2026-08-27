@@ -25,7 +25,6 @@ export default struct PHONECALLBACK {
     }
 
     /**
-     * 
      * @param {Integer} hDevice Handle to a phone device associated with the callback.
      * @param {Integer} dwMessage 
      * @param {Pointer} dwInstance 

@@ -102,7 +102,7 @@ export default struct IWMCodecLeakyBucket extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmcodecleakybucket-getbuffersizebits
      */
     GetBufferSizeBits(pulBufferSize) {
-        pulBufferSizeMarshal := pulBufferSize is VarRef ? "uint*" : "ptr"
+        pulBufferSizeMarshal := pulBufferSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pulBufferSizeMarshal, pulBufferSize, "HRESULT")
         return result
@@ -126,7 +126,7 @@ export default struct IWMCodecLeakyBucket extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmcodecleakybucket-getbufferfullnessbits
      */
     GetBufferFullnessBits(pulBufferFullness) {
-        pulBufferFullnessMarshal := pulBufferFullness is VarRef ? "uint*" : "ptr"
+        pulBufferFullnessMarshal := pulBufferFullness is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, pulBufferFullnessMarshal, pulBufferFullness, "HRESULT")
         return result
@@ -141,10 +141,10 @@ export default struct IWMCodecLeakyBucket extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetBufferSizeBits := CallbackCreate(GetMethod(implObj, "SetBufferSizeBits"), flags, 2)
-        this.vtbl.GetBufferSizeBits := CallbackCreate(GetMethod(implObj, "GetBufferSizeBits"), flags, 2)
-        this.vtbl.SetBufferFullnessBits := CallbackCreate(GetMethod(implObj, "SetBufferFullnessBits"), flags, 2)
-        this.vtbl.GetBufferFullnessBits := CallbackCreate(GetMethod(implObj, "GetBufferFullnessBits"), flags, 2)
+        this.vtbl.SetBufferSizeBits := CallbackCreate(ObjBindMethod(implObj, "SetBufferSizeBits"), flags, 2)
+        this.vtbl.GetBufferSizeBits := CallbackCreate(ObjBindMethod(implObj, "GetBufferSizeBits"), flags, 2)
+        this.vtbl.SetBufferFullnessBits := CallbackCreate(ObjBindMethod(implObj, "SetBufferFullnessBits"), flags, 2)
+        this.vtbl.GetBufferFullnessBits := CallbackCreate(ObjBindMethod(implObj, "GetBufferFullnessBits"), flags, 2)
     }
 
     Dispose() {

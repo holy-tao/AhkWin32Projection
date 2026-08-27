@@ -187,7 +187,6 @@ export default struct IUIAutomationStylesPattern extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_CurrentFillPatternStyle() {
@@ -229,14 +228,13 @@ export default struct IUIAutomationStylesPattern extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<ExtendedProperty>>} propertyArray 
      * @param {Pointer<Integer>} propertyCount 
      * @returns {HRESULT} 
      */
     GetCurrentExtendedPropertiesAsArray(propertyArray, propertyCount) {
-        propertyArrayMarshal := propertyArray is VarRef ? "ptr*" : "ptr"
-        propertyCountMarshal := propertyCount is VarRef ? "int*" : "ptr"
+        propertyArrayMarshal := propertyArray is VarRef ? "ptr*" : IntPtr
+        propertyCountMarshal := propertyCount is VarRef ? "int*" : IntPtr
 
         result := ComCall(10, this, propertyArrayMarshal, propertyArray, propertyCountMarshal, propertyCount, "HRESULT")
         return result
@@ -276,7 +274,6 @@ export default struct IUIAutomationStylesPattern extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_CachedFillPatternStyle() {
@@ -318,14 +315,13 @@ export default struct IUIAutomationStylesPattern extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<ExtendedProperty>>} propertyArray 
      * @param {Pointer<Integer>} propertyCount 
      * @returns {HRESULT} 
      */
     GetCachedExtendedPropertiesAsArray(propertyArray, propertyCount) {
-        propertyArrayMarshal := propertyArray is VarRef ? "ptr*" : "ptr"
-        propertyCountMarshal := propertyCount is VarRef ? "int*" : "ptr"
+        propertyArrayMarshal := propertyArray is VarRef ? "ptr*" : IntPtr
+        propertyCountMarshal := propertyCount is VarRef ? "int*" : IntPtr
 
         result := ComCall(18, this, propertyArrayMarshal, propertyArray, propertyCountMarshal, propertyCount, "HRESULT")
         return result
@@ -340,22 +336,22 @@ export default struct IUIAutomationStylesPattern extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_CurrentStyleId := CallbackCreate(GetMethod(implObj, "get_CurrentStyleId"), flags, 2)
-        this.vtbl.get_CurrentStyleName := CallbackCreate(GetMethod(implObj, "get_CurrentStyleName"), flags, 2)
-        this.vtbl.get_CurrentFillColor := CallbackCreate(GetMethod(implObj, "get_CurrentFillColor"), flags, 2)
-        this.vtbl.get_CurrentFillPatternStyle := CallbackCreate(GetMethod(implObj, "get_CurrentFillPatternStyle"), flags, 2)
-        this.vtbl.get_CurrentShape := CallbackCreate(GetMethod(implObj, "get_CurrentShape"), flags, 2)
-        this.vtbl.get_CurrentFillPatternColor := CallbackCreate(GetMethod(implObj, "get_CurrentFillPatternColor"), flags, 2)
-        this.vtbl.get_CurrentExtendedProperties := CallbackCreate(GetMethod(implObj, "get_CurrentExtendedProperties"), flags, 2)
-        this.vtbl.GetCurrentExtendedPropertiesAsArray := CallbackCreate(GetMethod(implObj, "GetCurrentExtendedPropertiesAsArray"), flags, 3)
-        this.vtbl.get_CachedStyleId := CallbackCreate(GetMethod(implObj, "get_CachedStyleId"), flags, 2)
-        this.vtbl.get_CachedStyleName := CallbackCreate(GetMethod(implObj, "get_CachedStyleName"), flags, 2)
-        this.vtbl.get_CachedFillColor := CallbackCreate(GetMethod(implObj, "get_CachedFillColor"), flags, 2)
-        this.vtbl.get_CachedFillPatternStyle := CallbackCreate(GetMethod(implObj, "get_CachedFillPatternStyle"), flags, 2)
-        this.vtbl.get_CachedShape := CallbackCreate(GetMethod(implObj, "get_CachedShape"), flags, 2)
-        this.vtbl.get_CachedFillPatternColor := CallbackCreate(GetMethod(implObj, "get_CachedFillPatternColor"), flags, 2)
-        this.vtbl.get_CachedExtendedProperties := CallbackCreate(GetMethod(implObj, "get_CachedExtendedProperties"), flags, 2)
-        this.vtbl.GetCachedExtendedPropertiesAsArray := CallbackCreate(GetMethod(implObj, "GetCachedExtendedPropertiesAsArray"), flags, 3)
+        this.vtbl.get_CurrentStyleId := CallbackCreate(ObjBindMethod(implObj, "get_CurrentStyleId"), flags, 2)
+        this.vtbl.get_CurrentStyleName := CallbackCreate(ObjBindMethod(implObj, "get_CurrentStyleName"), flags, 2)
+        this.vtbl.get_CurrentFillColor := CallbackCreate(ObjBindMethod(implObj, "get_CurrentFillColor"), flags, 2)
+        this.vtbl.get_CurrentFillPatternStyle := CallbackCreate(ObjBindMethod(implObj, "get_CurrentFillPatternStyle"), flags, 2)
+        this.vtbl.get_CurrentShape := CallbackCreate(ObjBindMethod(implObj, "get_CurrentShape"), flags, 2)
+        this.vtbl.get_CurrentFillPatternColor := CallbackCreate(ObjBindMethod(implObj, "get_CurrentFillPatternColor"), flags, 2)
+        this.vtbl.get_CurrentExtendedProperties := CallbackCreate(ObjBindMethod(implObj, "get_CurrentExtendedProperties"), flags, 2)
+        this.vtbl.GetCurrentExtendedPropertiesAsArray := CallbackCreate(ObjBindMethod(implObj, "GetCurrentExtendedPropertiesAsArray"), flags, 3)
+        this.vtbl.get_CachedStyleId := CallbackCreate(ObjBindMethod(implObj, "get_CachedStyleId"), flags, 2)
+        this.vtbl.get_CachedStyleName := CallbackCreate(ObjBindMethod(implObj, "get_CachedStyleName"), flags, 2)
+        this.vtbl.get_CachedFillColor := CallbackCreate(ObjBindMethod(implObj, "get_CachedFillColor"), flags, 2)
+        this.vtbl.get_CachedFillPatternStyle := CallbackCreate(ObjBindMethod(implObj, "get_CachedFillPatternStyle"), flags, 2)
+        this.vtbl.get_CachedShape := CallbackCreate(ObjBindMethod(implObj, "get_CachedShape"), flags, 2)
+        this.vtbl.get_CachedFillPatternColor := CallbackCreate(ObjBindMethod(implObj, "get_CachedFillPatternColor"), flags, 2)
+        this.vtbl.get_CachedExtendedProperties := CallbackCreate(ObjBindMethod(implObj, "get_CachedExtendedProperties"), flags, 2)
+        this.vtbl.GetCachedExtendedPropertiesAsArray := CallbackCreate(ObjBindMethod(implObj, "GetCachedExtendedPropertiesAsArray"), flags, 3)
     }
 
     Dispose() {

@@ -98,7 +98,6 @@ export default struct IHTMLStyleSheet4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -108,7 +107,6 @@ export default struct IHTMLStyleSheet4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_href() {
@@ -118,7 +116,6 @@ export default struct IHTMLStyleSheet4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_title() {
@@ -128,7 +125,6 @@ export default struct IHTMLStyleSheet4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_ownerNode() {
@@ -137,7 +133,6 @@ export default struct IHTMLStyleSheet4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLCSSRule} 
      */
     get_ownerRule() {
@@ -146,7 +141,6 @@ export default struct IHTMLStyleSheet4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStyleSheetRulesCollection} 
      */
     get_cssRules() {
@@ -155,7 +149,6 @@ export default struct IHTMLStyleSheet4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_media() {
@@ -165,7 +158,6 @@ export default struct IHTMLStyleSheet4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrRule 
      * @param {Integer} lIndex 
      * @returns {Integer} 
@@ -178,7 +170,6 @@ export default struct IHTMLStyleSheet4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lIndex 
      * @returns {HRESULT} 
      */
@@ -196,15 +187,15 @@ export default struct IHTMLStyleSheet4 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
-        this.vtbl.get_href := CallbackCreate(GetMethod(implObj, "get_href"), flags, 2)
-        this.vtbl.get_title := CallbackCreate(GetMethod(implObj, "get_title"), flags, 2)
-        this.vtbl.get_ownerNode := CallbackCreate(GetMethod(implObj, "get_ownerNode"), flags, 2)
-        this.vtbl.get_ownerRule := CallbackCreate(GetMethod(implObj, "get_ownerRule"), flags, 2)
-        this.vtbl.get_cssRules := CallbackCreate(GetMethod(implObj, "get_cssRules"), flags, 2)
-        this.vtbl.get_media := CallbackCreate(GetMethod(implObj, "get_media"), flags, 2)
-        this.vtbl.insertRule := CallbackCreate(GetMethod(implObj, "insertRule"), flags, 4)
-        this.vtbl.deleteRule := CallbackCreate(GetMethod(implObj, "deleteRule"), flags, 2)
+        this.vtbl.get_type := CallbackCreate(ObjBindMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.get_href := CallbackCreate(ObjBindMethod(implObj, "get_href"), flags, 2)
+        this.vtbl.get_title := CallbackCreate(ObjBindMethod(implObj, "get_title"), flags, 2)
+        this.vtbl.get_ownerNode := CallbackCreate(ObjBindMethod(implObj, "get_ownerNode"), flags, 2)
+        this.vtbl.get_ownerRule := CallbackCreate(ObjBindMethod(implObj, "get_ownerRule"), flags, 2)
+        this.vtbl.get_cssRules := CallbackCreate(ObjBindMethod(implObj, "get_cssRules"), flags, 2)
+        this.vtbl.get_media := CallbackCreate(ObjBindMethod(implObj, "get_media"), flags, 2)
+        this.vtbl.insertRule := CallbackCreate(ObjBindMethod(implObj, "insertRule"), flags, 4)
+        this.vtbl.deleteRule := CallbackCreate(ObjBindMethod(implObj, "deleteRule"), flags, 2)
     }
 
     Dispose() {

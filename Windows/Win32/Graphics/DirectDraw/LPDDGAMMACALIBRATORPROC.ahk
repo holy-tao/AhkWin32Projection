@@ -20,13 +20,12 @@ export default struct LPDDGAMMACALIBRATORPROC {
     }
 
     /**
-     * 
      * @param {Pointer<DDGAMMARAMP>} param0 
      * @param {Pointer<Integer>} param1 
      * @returns {HRESULT} 
      */
     Call(param0, param1) {
-        param1Marshal := param1 is VarRef ? "char*" : "ptr"
+        param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, DDGAMMARAMP.Ptr, param0, param1Marshal, param1, "HRESULT")
         return result

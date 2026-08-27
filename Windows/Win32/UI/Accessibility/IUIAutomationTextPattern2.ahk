@@ -71,7 +71,7 @@ export default struct IUIAutomationTextPattern2 extends IUIAutomationTextPattern
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextpattern2-getcaretrange
      */
     GetCaretRange(isActive) {
-        isActiveMarshal := isActive is VarRef ? "int*" : "ptr"
+        isActiveMarshal := isActive is VarRef ? "int*" : IntPtr
 
         result := ComCall(10, this, isActiveMarshal, isActive, "ptr*", &range := 0, "HRESULT")
         return IUIAutomationTextRange(range)
@@ -86,8 +86,8 @@ export default struct IUIAutomationTextPattern2 extends IUIAutomationTextPattern
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RangeFromAnnotation := CallbackCreate(GetMethod(implObj, "RangeFromAnnotation"), flags, 3)
-        this.vtbl.GetCaretRange := CallbackCreate(GetMethod(implObj, "GetCaretRange"), flags, 3)
+        this.vtbl.RangeFromAnnotation := CallbackCreate(ObjBindMethod(implObj, "RangeFromAnnotation"), flags, 3)
+        this.vtbl.GetCaretRange := CallbackCreate(ObjBindMethod(implObj, "GetCaretRange"), flags, 3)
     }
 
     Dispose() {

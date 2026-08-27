@@ -37,7 +37,6 @@ export default struct IDocHostUIHandler2 extends IDocHostUIHandler {
     }
 
     /**
-     * 
      * @param {Integer} dw 
      * @returns {PWSTR} 
      */
@@ -55,7 +54,7 @@ export default struct IDocHostUIHandler2 extends IDocHostUIHandler {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOverrideKeyPath := CallbackCreate(GetMethod(implObj, "GetOverrideKeyPath"), flags, 3)
+        this.vtbl.GetOverrideKeyPath := CallbackCreate(ObjBindMethod(implObj, "GetOverrideKeyPath"), flags, 3)
     }
 
     Dispose() {

@@ -103,7 +103,7 @@ export default struct IProviderPropertyConstraintCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderpropertyconstraintcollection-get
      */
     Get(Key, pPropVar, pdwPropertyConstraint) {
-        pdwPropertyConstraintMarshal := pdwPropertyConstraint is VarRef ? "uint*" : "ptr"
+        pdwPropertyConstraintMarshal := pdwPropertyConstraint is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, PROPERTYKEY.Ptr, Key, PROPVARIANT.Ptr, pPropVar, pdwPropertyConstraintMarshal, pdwPropertyConstraint, "HRESULT")
         return result
@@ -148,7 +148,7 @@ export default struct IProviderPropertyConstraintCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderpropertyconstraintcollection-item
      */
     Item(dwIndex, pKey, pPropVar, pdwPropertyConstraint) {
-        pdwPropertyConstraintMarshal := pdwPropertyConstraint is VarRef ? "uint*" : "ptr"
+        pdwPropertyConstraintMarshal := pdwPropertyConstraint is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, UInt32, dwIndex, PROPERTYKEY.Ptr, pKey, PROPVARIANT.Ptr, pPropVar, pdwPropertyConstraintMarshal, pdwPropertyConstraint, "HRESULT")
         return result
@@ -192,7 +192,7 @@ export default struct IProviderPropertyConstraintCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderpropertyconstraintcollection-next
      */
     Next(pKey, pPropVar, pdwPropertyConstraint) {
-        pdwPropertyConstraintMarshal := pdwPropertyConstraint is VarRef ? "uint*" : "ptr"
+        pdwPropertyConstraintMarshal := pdwPropertyConstraint is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, PROPERTYKEY.Ptr, pKey, PROPVARIANT.Ptr, pPropVar, pdwPropertyConstraintMarshal, pdwPropertyConstraint, "HRESULT")
         return result
@@ -227,12 +227,12 @@ export default struct IProviderPropertyConstraintCollection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
-        this.vtbl.Get := CallbackCreate(GetMethod(implObj, "Get"), flags, 4)
-        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 5)
-        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 4)
-        this.vtbl.Skip := CallbackCreate(GetMethod(implObj, "Skip"), flags, 1)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.Get := CallbackCreate(ObjBindMethod(implObj, "Get"), flags, 4)
+        this.vtbl.Item := CallbackCreate(ObjBindMethod(implObj, "Item"), flags, 5)
+        this.vtbl.Next := CallbackCreate(ObjBindMethod(implObj, "Next"), flags, 4)
+        this.vtbl.Skip := CallbackCreate(ObjBindMethod(implObj, "Skip"), flags, 1)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
     }
 
     Dispose() {

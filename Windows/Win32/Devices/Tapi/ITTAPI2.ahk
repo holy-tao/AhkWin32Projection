@@ -101,9 +101,9 @@ export default struct ITTAPI2 extends ITTAPI {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Phones := CallbackCreate(GetMethod(implObj, "get_Phones"), flags, 2)
-        this.vtbl.EnumeratePhones := CallbackCreate(GetMethod(implObj, "EnumeratePhones"), flags, 2)
-        this.vtbl.CreateEmptyCollectionObject := CallbackCreate(GetMethod(implObj, "CreateEmptyCollectionObject"), flags, 2)
+        this.vtbl.get_Phones := CallbackCreate(ObjBindMethod(implObj, "get_Phones"), flags, 2)
+        this.vtbl.EnumeratePhones := CallbackCreate(ObjBindMethod(implObj, "EnumeratePhones"), flags, 2)
+        this.vtbl.CreateEmptyCollectionObject := CallbackCreate(ObjBindMethod(implObj, "CreateEmptyCollectionObject"), flags, 2)
     }
 
     Dispose() {

@@ -68,7 +68,9 @@ export default struct ICompositionDrawingSurfaceInterop2 extends ICompositionDra
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.composition.interop/nf-windows-ui-composition-interop-icompositiondrawingsurfaceinterop2-copysurface
      */
     CopySurface(destinationResource, destinationOffsetX, destinationOffsetY, sourceRectangle) {
-        result := ComCall(9, this, "ptr", destinationResource, Int32, destinationOffsetX, Int32, destinationOffsetY, RECT.Ptr, sourceRectangle, "HRESULT")
+        sourceRectangleMarshal := sourceRectangle == 0 ? IntPtr : RECT.Ptr
+
+        result := ComCall(9, this, "ptr", destinationResource, Int32, destinationOffsetX, Int32, destinationOffsetY, sourceRectangleMarshal, sourceRectangle, "HRESULT")
         return result
     }
 
@@ -81,7 +83,7 @@ export default struct ICompositionDrawingSurfaceInterop2 extends ICompositionDra
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CopySurface := CallbackCreate(GetMethod(implObj, "CopySurface"), flags, 5)
+        this.vtbl.CopySurface := CallbackCreate(ObjBindMethod(implObj, "CopySurface"), flags, 5)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct alljoyn_busattachment_joinsessioncb_ptr {
     }
 
     /**
-     * 
      * @param {QStatus} _status 
      * @param {Integer} sessionId 
      * @param {alljoyn_sessionopts} opts 
@@ -28,7 +27,7 @@ export default struct alljoyn_busattachment_joinsessioncb_ptr {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_status, sessionId, opts, _context) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, QStatus, _status, UInt32, sessionId, alljoyn_sessionopts, opts, _contextMarshal, _context)
     }

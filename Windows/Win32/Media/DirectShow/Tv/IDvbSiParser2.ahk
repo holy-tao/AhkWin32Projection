@@ -59,8 +59,10 @@ export default struct IDvbSiParser2 extends IDvbSiParser {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsiparser2-geteit2
      */
     GetEIT2(tableId, pwServiceId, pbSegment) {
-        pwServiceIdMarshal := pwServiceId is VarRef ? "ushort*" : "ptr"
-        pbSegmentMarshal := pbSegment is VarRef ? "char*" : "ptr"
+        pwServiceIdMarshal := pwServiceId is VarRef ? "ushort*" : IntPtr
+        pwServiceIdMarshal := pwServiceId == 0 ? IntPtr : "ushort*"
+        pbSegmentMarshal := pbSegment is VarRef ? "char*" : IntPtr
+        pbSegmentMarshal := pbSegment == 0 ? IntPtr : "char*"
 
         result := ComCall(18, this, Int8, tableId, pwServiceIdMarshal, pwServiceId, pbSegmentMarshal, pbSegment, "ptr*", &ppEIT := 0, "HRESULT")
         return IDVB_EIT2(ppEIT)
@@ -75,7 +77,7 @@ export default struct IDvbSiParser2 extends IDvbSiParser {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetEIT2 := CallbackCreate(GetMethod(implObj, "GetEIT2"), flags, 5)
+        this.vtbl.GetEIT2 := CallbackCreate(ObjBindMethod(implObj, "GetEIT2"), flags, 5)
     }
 
     Dispose() {

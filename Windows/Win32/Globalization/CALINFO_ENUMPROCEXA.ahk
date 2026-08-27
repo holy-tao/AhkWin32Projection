@@ -21,7 +21,6 @@ export default struct CALINFO_ENUMPROCEXA {
     }
 
     /**
-     * 
      * @param {PSTR} param0 
      * @param {Integer} param1 
      * @returns {BOOL} 

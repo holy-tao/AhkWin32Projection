@@ -59,7 +59,7 @@ export default struct IWindowForBindingUI extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetWindow := CallbackCreate(GetMethod(implObj, "GetWindow"), flags, 3)
+        this.vtbl.GetWindow := CallbackCreate(ObjBindMethod(implObj, "GetWindow"), flags, 3)
     }
 
     Dispose() {

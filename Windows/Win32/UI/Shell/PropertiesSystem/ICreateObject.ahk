@@ -69,7 +69,7 @@ export default struct ICreateObject extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateObject := CallbackCreate(GetMethod(implObj, "CreateObject"), flags, 5)
+        this.vtbl.CreateObject := CallbackCreate(ObjBindMethod(implObj, "CreateObject"), flags, 5)
     }
 
     Dispose() {

@@ -25,7 +25,6 @@ export default struct DLGPROC {
     }
 
     /**
-     * 
      * @param {HWND} param0 Type: <b>HWND</b>
      * 
      * A handle to the dialog box.

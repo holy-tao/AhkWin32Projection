@@ -20,7 +20,6 @@ export default struct PGET_TARGET_ATTRIBUTE_VALUE64 {
     }
 
     /**
-     * 
      * @param {HANDLE} hProcess 
      * @param {Integer} Attribute 
      * @param {Integer} AttributeData 
@@ -28,7 +27,7 @@ export default struct PGET_TARGET_ATTRIBUTE_VALUE64 {
      * @returns {BOOL} 
      */
     Call(hProcess, Attribute, AttributeData, AttributeValue) {
-        AttributeValueMarshal := AttributeValue is VarRef ? "uint*" : "ptr"
+        AttributeValueMarshal := AttributeValue is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HANDLE, hProcess, UInt32, Attribute, Int64, AttributeData, AttributeValueMarshal, AttributeValue, BOOL)
         return result

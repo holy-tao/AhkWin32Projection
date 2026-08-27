@@ -19,7 +19,6 @@ export default struct VDMDETECTWOWPROC {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     Call() {

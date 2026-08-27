@@ -94,8 +94,8 @@ export default struct IWMReaderAdvanced2 extends IWMReaderAdvanced {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced2-getbufferprogress
      */
     GetBufferProgress(pdwPercent, pcnsBuffering) {
-        pdwPercentMarshal := pdwPercent is VarRef ? "uint*" : "ptr"
-        pcnsBufferingMarshal := pcnsBuffering is VarRef ? "uint*" : "ptr"
+        pdwPercentMarshal := pdwPercent is VarRef ? "uint*" : IntPtr
+        pcnsBufferingMarshal := pcnsBuffering is VarRef ? "uint*" : IntPtr
 
         result := ComCall(25, this, pdwPercentMarshal, pdwPercent, pcnsBufferingMarshal, pcnsBuffering, "HRESULT")
         return result
@@ -118,9 +118,9 @@ export default struct IWMReaderAdvanced2 extends IWMReaderAdvanced {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced2-getdownloadprogress
      */
     GetDownloadProgress(pdwPercent, pqwBytesDownloaded, pcnsDownload) {
-        pdwPercentMarshal := pdwPercent is VarRef ? "uint*" : "ptr"
-        pqwBytesDownloadedMarshal := pqwBytesDownloaded is VarRef ? "uint*" : "ptr"
-        pcnsDownloadMarshal := pcnsDownload is VarRef ? "uint*" : "ptr"
+        pdwPercentMarshal := pdwPercent is VarRef ? "uint*" : IntPtr
+        pqwBytesDownloadedMarshal := pqwBytesDownloaded is VarRef ? "uint*" : IntPtr
+        pcnsDownloadMarshal := pcnsDownload is VarRef ? "uint*" : IntPtr
 
         result := ComCall(26, this, pdwPercentMarshal, pdwPercent, pqwBytesDownloadedMarshal, pqwBytesDownloaded, pcnsDownloadMarshal, pcnsDownload, "HRESULT")
         return result
@@ -304,7 +304,7 @@ export default struct IWMReaderAdvanced2 extends IWMReaderAdvanced {
     GetProtocolName(pwszProtocol, pcchProtocol) {
         pwszProtocol := pwszProtocol is String ? StrPtr(pwszProtocol) : pwszProtocol
 
-        pcchProtocolMarshal := pcchProtocol is VarRef ? "uint*" : "ptr"
+        pcchProtocolMarshal := pcchProtocol is VarRef ? "uint*" : IntPtr
 
         result := ComCall(29, this, "ptr", pwszProtocol, pcchProtocolMarshal, pcchProtocol, "HRESULT")
         return result
@@ -373,7 +373,7 @@ export default struct IWMReaderAdvanced2 extends IWMReaderAdvanced {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced2-startatmarker
      */
     StartAtMarker(wMarkerIndex, cnsDuration, fRate, pvContext) {
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(30, this, UInt16, wMarkerIndex, Int64, cnsDuration, Float32, fRate, pvContextMarshal, pvContext, "HRESULT")
         return result
@@ -394,9 +394,9 @@ export default struct IWMReaderAdvanced2 extends IWMReaderAdvanced {
     GetOutputSetting(dwOutputNum, pszName, pType, pValue, pcbLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
-        pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : "ptr"
+        pTypeMarshal := pType is VarRef ? "int*" : IntPtr
+        pValueMarshal := pValue is VarRef ? "char*" : IntPtr
+        pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(31, this, UInt32, dwOutputNum, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
@@ -415,7 +415,7 @@ export default struct IWMReaderAdvanced2 extends IWMReaderAdvanced {
     SetOutputSetting(dwOutputNum, pszName, Type, pValue, cbLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "char*" : IntPtr
 
         result := ComCall(32, this, UInt32, dwOutputNum, "ptr", pszName, WMT_ATTR_DATATYPE, Type, pValueMarshal, pValue, UInt16, cbLength, "HRESULT")
         return result
@@ -546,7 +546,7 @@ export default struct IWMReaderAdvanced2 extends IWMReaderAdvanced {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced2-openstream
      */
     OpenStream(pStream, pCallback, pvContext) {
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(37, this, "ptr", pStream, "ptr", pCallback, pvContextMarshal, pvContext, "HRESULT")
         return result
@@ -561,21 +561,21 @@ export default struct IWMReaderAdvanced2 extends IWMReaderAdvanced {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetPlayMode := CallbackCreate(GetMethod(implObj, "SetPlayMode"), flags, 2)
-        this.vtbl.GetPlayMode := CallbackCreate(GetMethod(implObj, "GetPlayMode"), flags, 2)
-        this.vtbl.GetBufferProgress := CallbackCreate(GetMethod(implObj, "GetBufferProgress"), flags, 3)
-        this.vtbl.GetDownloadProgress := CallbackCreate(GetMethod(implObj, "GetDownloadProgress"), flags, 4)
-        this.vtbl.GetSaveAsProgress := CallbackCreate(GetMethod(implObj, "GetSaveAsProgress"), flags, 2)
-        this.vtbl.SaveFileAs := CallbackCreate(GetMethod(implObj, "SaveFileAs"), flags, 2)
-        this.vtbl.GetProtocolName := CallbackCreate(GetMethod(implObj, "GetProtocolName"), flags, 3)
-        this.vtbl.StartAtMarker := CallbackCreate(GetMethod(implObj, "StartAtMarker"), flags, 5)
-        this.vtbl.GetOutputSetting := CallbackCreate(GetMethod(implObj, "GetOutputSetting"), flags, 6)
-        this.vtbl.SetOutputSetting := CallbackCreate(GetMethod(implObj, "SetOutputSetting"), flags, 6)
-        this.vtbl.Preroll := CallbackCreate(GetMethod(implObj, "Preroll"), flags, 4)
-        this.vtbl.SetLogClientID := CallbackCreate(GetMethod(implObj, "SetLogClientID"), flags, 2)
-        this.vtbl.GetLogClientID := CallbackCreate(GetMethod(implObj, "GetLogClientID"), flags, 2)
-        this.vtbl.StopBuffering := CallbackCreate(GetMethod(implObj, "StopBuffering"), flags, 1)
-        this.vtbl.OpenStream := CallbackCreate(GetMethod(implObj, "OpenStream"), flags, 4)
+        this.vtbl.SetPlayMode := CallbackCreate(ObjBindMethod(implObj, "SetPlayMode"), flags, 2)
+        this.vtbl.GetPlayMode := CallbackCreate(ObjBindMethod(implObj, "GetPlayMode"), flags, 2)
+        this.vtbl.GetBufferProgress := CallbackCreate(ObjBindMethod(implObj, "GetBufferProgress"), flags, 3)
+        this.vtbl.GetDownloadProgress := CallbackCreate(ObjBindMethod(implObj, "GetDownloadProgress"), flags, 4)
+        this.vtbl.GetSaveAsProgress := CallbackCreate(ObjBindMethod(implObj, "GetSaveAsProgress"), flags, 2)
+        this.vtbl.SaveFileAs := CallbackCreate(ObjBindMethod(implObj, "SaveFileAs"), flags, 2)
+        this.vtbl.GetProtocolName := CallbackCreate(ObjBindMethod(implObj, "GetProtocolName"), flags, 3)
+        this.vtbl.StartAtMarker := CallbackCreate(ObjBindMethod(implObj, "StartAtMarker"), flags, 5)
+        this.vtbl.GetOutputSetting := CallbackCreate(ObjBindMethod(implObj, "GetOutputSetting"), flags, 6)
+        this.vtbl.SetOutputSetting := CallbackCreate(ObjBindMethod(implObj, "SetOutputSetting"), flags, 6)
+        this.vtbl.Preroll := CallbackCreate(ObjBindMethod(implObj, "Preroll"), flags, 4)
+        this.vtbl.SetLogClientID := CallbackCreate(ObjBindMethod(implObj, "SetLogClientID"), flags, 2)
+        this.vtbl.GetLogClientID := CallbackCreate(ObjBindMethod(implObj, "GetLogClientID"), flags, 2)
+        this.vtbl.StopBuffering := CallbackCreate(ObjBindMethod(implObj, "StopBuffering"), flags, 1)
+        this.vtbl.OpenStream := CallbackCreate(ObjBindMethod(implObj, "OpenStream"), flags, 4)
     }
 
     Dispose() {

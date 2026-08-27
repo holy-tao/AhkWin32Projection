@@ -217,12 +217,12 @@ export default struct IFsrmExportImport extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ExportFileGroups := CallbackCreate(GetMethod(implObj, "ExportFileGroups"), flags, 4)
-        this.vtbl.ImportFileGroups := CallbackCreate(GetMethod(implObj, "ImportFileGroups"), flags, 5)
-        this.vtbl.ExportFileScreenTemplates := CallbackCreate(GetMethod(implObj, "ExportFileScreenTemplates"), flags, 4)
-        this.vtbl.ImportFileScreenTemplates := CallbackCreate(GetMethod(implObj, "ImportFileScreenTemplates"), flags, 5)
-        this.vtbl.ExportQuotaTemplates := CallbackCreate(GetMethod(implObj, "ExportQuotaTemplates"), flags, 4)
-        this.vtbl.ImportQuotaTemplates := CallbackCreate(GetMethod(implObj, "ImportQuotaTemplates"), flags, 5)
+        this.vtbl.ExportFileGroups := CallbackCreate(ObjBindMethod(implObj, "ExportFileGroups"), flags, 4)
+        this.vtbl.ImportFileGroups := CallbackCreate(ObjBindMethod(implObj, "ImportFileGroups"), flags, 5)
+        this.vtbl.ExportFileScreenTemplates := CallbackCreate(ObjBindMethod(implObj, "ExportFileScreenTemplates"), flags, 4)
+        this.vtbl.ImportFileScreenTemplates := CallbackCreate(ObjBindMethod(implObj, "ImportFileScreenTemplates"), flags, 5)
+        this.vtbl.ExportQuotaTemplates := CallbackCreate(ObjBindMethod(implObj, "ExportQuotaTemplates"), flags, 4)
+        this.vtbl.ImportQuotaTemplates := CallbackCreate(ObjBindMethod(implObj, "ImportQuotaTemplates"), flags, 5)
     }
 
     Dispose() {

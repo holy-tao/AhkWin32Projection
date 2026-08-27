@@ -46,7 +46,6 @@ export default struct IHTMLBodyElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -56,7 +55,6 @@ export default struct IHTMLBodyElement5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onpopstate() {
@@ -74,8 +72,8 @@ export default struct IHTMLBodyElement5 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_onpopstate := CallbackCreate(GetMethod(implObj, "put_onpopstate"), flags, 2)
-        this.vtbl.get_onpopstate := CallbackCreate(GetMethod(implObj, "get_onpopstate"), flags, 2)
+        this.vtbl.put_onpopstate := CallbackCreate(ObjBindMethod(implObj, "put_onpopstate"), flags, 2)
+        this.vtbl.get_onpopstate := CallbackCreate(ObjBindMethod(implObj, "get_onpopstate"), flags, 2)
     }
 
     Dispose() {

@@ -21,7 +21,6 @@ export default struct MFPERIODICCALLBACK {
     }
 
     /**
-     * 
      * @param {IUnknown} pContext Pointer to the <b>IUnknown</b> interface, or <b>NULL</b>. This pointer is specified by the caller in the <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfaddperiodiccallback">MFAddPeriodicCallback</a> function.
      * @returns {String} Nothing - always returns an empty string
      */

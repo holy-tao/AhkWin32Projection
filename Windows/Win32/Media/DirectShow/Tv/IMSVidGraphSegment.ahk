@@ -84,7 +84,6 @@ export default struct IMSVidGraphSegment extends IPersist {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_Init() {
@@ -93,7 +92,6 @@ export default struct IMSVidGraphSegment extends IPersist {
     }
 
     /**
-     * 
      * @param {IUnknown} pInit 
      * @returns {HRESULT} 
      */
@@ -103,7 +101,6 @@ export default struct IMSVidGraphSegment extends IPersist {
     }
 
     /**
-     * 
      * @returns {IEnumFilters} 
      */
     EnumFilters() {
@@ -112,7 +109,6 @@ export default struct IMSVidGraphSegment extends IPersist {
     }
 
     /**
-     * 
      * @returns {IMSVidGraphSegmentContainer} 
      */
     get_Container() {
@@ -121,7 +117,6 @@ export default struct IMSVidGraphSegment extends IPersist {
     }
 
     /**
-     * 
      * @param {IMSVidGraphSegmentContainer} pCtl 
      * @returns {HRESULT} 
      */
@@ -131,7 +126,6 @@ export default struct IMSVidGraphSegment extends IPersist {
     }
 
     /**
-     * 
      * @returns {MSVidSegmentType} 
      */
     get_Type() {
@@ -140,7 +134,6 @@ export default struct IMSVidGraphSegment extends IPersist {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     get_Category() {
@@ -150,7 +143,6 @@ export default struct IMSVidGraphSegment extends IPersist {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Build() {
@@ -159,7 +151,6 @@ export default struct IMSVidGraphSegment extends IPersist {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     PostBuild() {
@@ -168,7 +159,6 @@ export default struct IMSVidGraphSegment extends IPersist {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     PreRun() {
@@ -177,7 +167,6 @@ export default struct IMSVidGraphSegment extends IPersist {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     PostRun() {
@@ -186,7 +175,6 @@ export default struct IMSVidGraphSegment extends IPersist {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     PreStop() {
@@ -195,7 +183,6 @@ export default struct IMSVidGraphSegment extends IPersist {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     PostStop() {
@@ -204,7 +191,6 @@ export default struct IMSVidGraphSegment extends IPersist {
     }
 
     /**
-     * 
      * @param {Integer} lEventCode 
      * @param {Pointer} lEventParm1 
      * @param {Pointer} lEventParm2 
@@ -216,7 +202,6 @@ export default struct IMSVidGraphSegment extends IPersist {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Decompose() {
@@ -233,21 +218,21 @@ export default struct IMSVidGraphSegment extends IPersist {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Init := CallbackCreate(GetMethod(implObj, "get_Init"), flags, 2)
-        this.vtbl.put_Init := CallbackCreate(GetMethod(implObj, "put_Init"), flags, 2)
-        this.vtbl.EnumFilters := CallbackCreate(GetMethod(implObj, "EnumFilters"), flags, 2)
-        this.vtbl.get_Container := CallbackCreate(GetMethod(implObj, "get_Container"), flags, 2)
-        this.vtbl.put_Container := CallbackCreate(GetMethod(implObj, "put_Container"), flags, 2)
-        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
-        this.vtbl.get_Category := CallbackCreate(GetMethod(implObj, "get_Category"), flags, 2)
-        this.vtbl.Build := CallbackCreate(GetMethod(implObj, "Build"), flags, 1)
-        this.vtbl.PostBuild := CallbackCreate(GetMethod(implObj, "PostBuild"), flags, 1)
-        this.vtbl.PreRun := CallbackCreate(GetMethod(implObj, "PreRun"), flags, 1)
-        this.vtbl.PostRun := CallbackCreate(GetMethod(implObj, "PostRun"), flags, 1)
-        this.vtbl.PreStop := CallbackCreate(GetMethod(implObj, "PreStop"), flags, 1)
-        this.vtbl.PostStop := CallbackCreate(GetMethod(implObj, "PostStop"), flags, 1)
-        this.vtbl.OnEventNotify := CallbackCreate(GetMethod(implObj, "OnEventNotify"), flags, 4)
-        this.vtbl.Decompose := CallbackCreate(GetMethod(implObj, "Decompose"), flags, 1)
+        this.vtbl.get_Init := CallbackCreate(ObjBindMethod(implObj, "get_Init"), flags, 2)
+        this.vtbl.put_Init := CallbackCreate(ObjBindMethod(implObj, "put_Init"), flags, 2)
+        this.vtbl.EnumFilters := CallbackCreate(ObjBindMethod(implObj, "EnumFilters"), flags, 2)
+        this.vtbl.get_Container := CallbackCreate(ObjBindMethod(implObj, "get_Container"), flags, 2)
+        this.vtbl.put_Container := CallbackCreate(ObjBindMethod(implObj, "put_Container"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(ObjBindMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_Category := CallbackCreate(ObjBindMethod(implObj, "get_Category"), flags, 2)
+        this.vtbl.Build := CallbackCreate(ObjBindMethod(implObj, "Build"), flags, 1)
+        this.vtbl.PostBuild := CallbackCreate(ObjBindMethod(implObj, "PostBuild"), flags, 1)
+        this.vtbl.PreRun := CallbackCreate(ObjBindMethod(implObj, "PreRun"), flags, 1)
+        this.vtbl.PostRun := CallbackCreate(ObjBindMethod(implObj, "PostRun"), flags, 1)
+        this.vtbl.PreStop := CallbackCreate(ObjBindMethod(implObj, "PreStop"), flags, 1)
+        this.vtbl.PostStop := CallbackCreate(ObjBindMethod(implObj, "PostStop"), flags, 1)
+        this.vtbl.OnEventNotify := CallbackCreate(ObjBindMethod(implObj, "OnEventNotify"), flags, 4)
+        this.vtbl.Decompose := CallbackCreate(ObjBindMethod(implObj, "Decompose"), flags, 1)
     }
 
     Dispose() {

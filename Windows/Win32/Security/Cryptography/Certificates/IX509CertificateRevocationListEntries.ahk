@@ -61,7 +61,6 @@ export default struct IX509CertificateRevocationListEntries extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {IX509CertificateRevocationListEntry} 
      */
@@ -71,7 +70,6 @@ export default struct IX509CertificateRevocationListEntries extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -80,7 +78,6 @@ export default struct IX509CertificateRevocationListEntries extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -89,17 +86,17 @@ export default struct IX509CertificateRevocationListEntries extends IDispatch {
     }
 
     /**
-     * 
      * @param {IX509CertificateRevocationListEntry} pVal 
      * @returns {HRESULT} 
      */
     Add(pVal) {
-        result := ComCall(10, this, "ptr", pVal, "HRESULT")
+        pValMarshal := pVal == 0 ? IntPtr : "ptr"
+
+        result := ComCall(10, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {HRESULT} 
      */
@@ -137,7 +134,6 @@ export default struct IX509CertificateRevocationListEntries extends IDispatch {
     }
 
     /**
-     * 
      * @param {EncodingType} Encoding 
      * @param {BSTR} SerialNumber 
      * @returns {Integer} 
@@ -150,12 +146,13 @@ export default struct IX509CertificateRevocationListEntries extends IDispatch {
     }
 
     /**
-     * 
      * @param {IX509CertificateRevocationListEntries} pValue 
      * @returns {HRESULT} 
      */
     AddRange(pValue) {
-        result := ComCall(14, this, "ptr", pValue, "HRESULT")
+        pValueMarshal := pValue == 0 ? IntPtr : "ptr"
+
+        result := ComCall(14, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -168,14 +165,14 @@ export default struct IX509CertificateRevocationListEntries extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ItemByIndex := CallbackCreate(GetMethod(implObj, "get_ItemByIndex"), flags, 3)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
-        this.vtbl.get_IndexBySerialNumber := CallbackCreate(GetMethod(implObj, "get_IndexBySerialNumber"), flags, 4)
-        this.vtbl.AddRange := CallbackCreate(GetMethod(implObj, "AddRange"), flags, 2)
+        this.vtbl.get_ItemByIndex := CallbackCreate(ObjBindMethod(implObj, "get_ItemByIndex"), flags, 3)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get__NewEnum := CallbackCreate(ObjBindMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.get_IndexBySerialNumber := CallbackCreate(ObjBindMethod(implObj, "get_IndexBySerialNumber"), flags, 4)
+        this.vtbl.AddRange := CallbackCreate(ObjBindMethod(implObj, "AddRange"), flags, 2)
     }
 
     Dispose() {

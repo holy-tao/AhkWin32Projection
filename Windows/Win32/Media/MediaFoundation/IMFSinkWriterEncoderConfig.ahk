@@ -54,7 +54,9 @@ export default struct IMFSinkWriterEncoderConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsinkwriterencoderconfig-settargetmediatype
      */
     SetTargetMediaType(dwStreamIndex, pTargetMediaType, pEncodingParameters) {
-        result := ComCall(3, this, UInt32, dwStreamIndex, "ptr", pTargetMediaType, "ptr", pEncodingParameters, "HRESULT")
+        pEncodingParametersMarshal := pEncodingParameters == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, UInt32, dwStreamIndex, "ptr", pTargetMediaType, pEncodingParametersMarshal, pEncodingParameters, "HRESULT")
         return result
     }
 
@@ -81,8 +83,8 @@ export default struct IMFSinkWriterEncoderConfig extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetTargetMediaType := CallbackCreate(GetMethod(implObj, "SetTargetMediaType"), flags, 4)
-        this.vtbl.PlaceEncodingParameters := CallbackCreate(GetMethod(implObj, "PlaceEncodingParameters"), flags, 3)
+        this.vtbl.SetTargetMediaType := CallbackCreate(ObjBindMethod(implObj, "SetTargetMediaType"), flags, 4)
+        this.vtbl.PlaceEncodingParameters := CallbackCreate(ObjBindMethod(implObj, "PlaceEncodingParameters"), flags, 3)
     }
 
     Dispose() {

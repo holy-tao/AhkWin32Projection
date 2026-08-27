@@ -19,7 +19,6 @@ export default struct FunctionEnter2 {
     }
 
     /**
-     * 
      * @param {Pointer} funcId 
      * @param {Pointer} clientData 
      * @param {Pointer} _func 

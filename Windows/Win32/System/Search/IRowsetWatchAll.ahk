@@ -38,7 +38,6 @@ export default struct IRowsetWatchAll extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Acknowledge() {
@@ -47,7 +46,6 @@ export default struct IRowsetWatchAll extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Start() {
@@ -56,7 +54,6 @@ export default struct IRowsetWatchAll extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     StopWatching() {
@@ -73,9 +70,9 @@ export default struct IRowsetWatchAll extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Acknowledge := CallbackCreate(GetMethod(implObj, "Acknowledge"), flags, 1)
-        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 1)
-        this.vtbl.StopWatching := CallbackCreate(GetMethod(implObj, "StopWatching"), flags, 1)
+        this.vtbl.Acknowledge := CallbackCreate(ObjBindMethod(implObj, "Acknowledge"), flags, 1)
+        this.vtbl.Start := CallbackCreate(ObjBindMethod(implObj, "Start"), flags, 1)
+        this.vtbl.StopWatching := CallbackCreate(ObjBindMethod(implObj, "StopWatching"), flags, 1)
     }
 
     Dispose() {

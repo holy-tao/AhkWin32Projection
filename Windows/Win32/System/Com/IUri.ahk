@@ -63,7 +63,6 @@ export default struct IUri extends IUnknown {
     }
 
     /**
-     * 
      * @param {Uri_PROPERTY} uriProp 
      * @param {Integer} dwFlags 
      * @returns {BSTR} 
@@ -75,7 +74,6 @@ export default struct IUri extends IUnknown {
     }
 
     /**
-     * 
      * @param {Uri_PROPERTY} uriProp 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
@@ -86,7 +84,6 @@ export default struct IUri extends IUnknown {
     }
 
     /**
-     * 
      * @param {Uri_PROPERTY} uriProp 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
@@ -97,7 +94,6 @@ export default struct IUri extends IUnknown {
     }
 
     /**
-     * 
      * @param {Uri_PROPERTY} uriProp 
      * @returns {BOOL} 
      */
@@ -107,7 +103,6 @@ export default struct IUri extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetAbsoluteUri() {
@@ -117,7 +112,6 @@ export default struct IUri extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetAuthority() {
@@ -127,7 +121,6 @@ export default struct IUri extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetDisplayUri() {
@@ -137,7 +130,6 @@ export default struct IUri extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetDomain() {
@@ -147,7 +139,6 @@ export default struct IUri extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetExtension() {
@@ -157,7 +148,6 @@ export default struct IUri extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetFragment() {
@@ -167,7 +157,6 @@ export default struct IUri extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetHost() {
@@ -177,7 +166,6 @@ export default struct IUri extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetPassword() {
@@ -204,7 +192,6 @@ export default struct IUri extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetPathAndQuery() {
@@ -214,7 +201,6 @@ export default struct IUri extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetQuery() {
@@ -224,7 +210,6 @@ export default struct IUri extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetRawUri() {
@@ -234,7 +219,6 @@ export default struct IUri extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetSchemeName() {
@@ -244,7 +228,6 @@ export default struct IUri extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetUserInfo() {
@@ -270,7 +253,6 @@ export default struct IUri extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetHostType() {
@@ -279,7 +261,6 @@ export default struct IUri extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetPort() {
@@ -288,7 +269,6 @@ export default struct IUri extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetScheme() {
@@ -297,7 +277,6 @@ export default struct IUri extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetZone() {
@@ -306,7 +285,6 @@ export default struct IUri extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetProperties() {
@@ -315,7 +293,6 @@ export default struct IUri extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUri} pUri 
      * @returns {BOOL} 
      */
@@ -333,31 +310,31 @@ export default struct IUri extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPropertyBSTR := CallbackCreate(GetMethod(implObj, "GetPropertyBSTR"), flags, 4)
-        this.vtbl.GetPropertyLength := CallbackCreate(GetMethod(implObj, "GetPropertyLength"), flags, 4)
-        this.vtbl.GetPropertyDWORD := CallbackCreate(GetMethod(implObj, "GetPropertyDWORD"), flags, 4)
-        this.vtbl.HasProperty := CallbackCreate(GetMethod(implObj, "HasProperty"), flags, 3)
-        this.vtbl.GetAbsoluteUri := CallbackCreate(GetMethod(implObj, "GetAbsoluteUri"), flags, 2)
-        this.vtbl.GetAuthority := CallbackCreate(GetMethod(implObj, "GetAuthority"), flags, 2)
-        this.vtbl.GetDisplayUri := CallbackCreate(GetMethod(implObj, "GetDisplayUri"), flags, 2)
-        this.vtbl.GetDomain := CallbackCreate(GetMethod(implObj, "GetDomain"), flags, 2)
-        this.vtbl.GetExtension := CallbackCreate(GetMethod(implObj, "GetExtension"), flags, 2)
-        this.vtbl.GetFragment := CallbackCreate(GetMethod(implObj, "GetFragment"), flags, 2)
-        this.vtbl.GetHost := CallbackCreate(GetMethod(implObj, "GetHost"), flags, 2)
-        this.vtbl.GetPassword := CallbackCreate(GetMethod(implObj, "GetPassword"), flags, 2)
-        this.vtbl.GetPath := CallbackCreate(GetMethod(implObj, "GetPath"), flags, 2)
-        this.vtbl.GetPathAndQuery := CallbackCreate(GetMethod(implObj, "GetPathAndQuery"), flags, 2)
-        this.vtbl.GetQuery := CallbackCreate(GetMethod(implObj, "GetQuery"), flags, 2)
-        this.vtbl.GetRawUri := CallbackCreate(GetMethod(implObj, "GetRawUri"), flags, 2)
-        this.vtbl.GetSchemeName := CallbackCreate(GetMethod(implObj, "GetSchemeName"), flags, 2)
-        this.vtbl.GetUserInfo := CallbackCreate(GetMethod(implObj, "GetUserInfo"), flags, 2)
-        this.vtbl.GetUserName := CallbackCreate(GetMethod(implObj, "GetUserName"), flags, 2)
-        this.vtbl.GetHostType := CallbackCreate(GetMethod(implObj, "GetHostType"), flags, 2)
-        this.vtbl.GetPort := CallbackCreate(GetMethod(implObj, "GetPort"), flags, 2)
-        this.vtbl.GetScheme := CallbackCreate(GetMethod(implObj, "GetScheme"), flags, 2)
-        this.vtbl.GetZone := CallbackCreate(GetMethod(implObj, "GetZone"), flags, 2)
-        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
-        this.vtbl.IsEqual := CallbackCreate(GetMethod(implObj, "IsEqual"), flags, 3)
+        this.vtbl.GetPropertyBSTR := CallbackCreate(ObjBindMethod(implObj, "GetPropertyBSTR"), flags, 4)
+        this.vtbl.GetPropertyLength := CallbackCreate(ObjBindMethod(implObj, "GetPropertyLength"), flags, 4)
+        this.vtbl.GetPropertyDWORD := CallbackCreate(ObjBindMethod(implObj, "GetPropertyDWORD"), flags, 4)
+        this.vtbl.HasProperty := CallbackCreate(ObjBindMethod(implObj, "HasProperty"), flags, 3)
+        this.vtbl.GetAbsoluteUri := CallbackCreate(ObjBindMethod(implObj, "GetAbsoluteUri"), flags, 2)
+        this.vtbl.GetAuthority := CallbackCreate(ObjBindMethod(implObj, "GetAuthority"), flags, 2)
+        this.vtbl.GetDisplayUri := CallbackCreate(ObjBindMethod(implObj, "GetDisplayUri"), flags, 2)
+        this.vtbl.GetDomain := CallbackCreate(ObjBindMethod(implObj, "GetDomain"), flags, 2)
+        this.vtbl.GetExtension := CallbackCreate(ObjBindMethod(implObj, "GetExtension"), flags, 2)
+        this.vtbl.GetFragment := CallbackCreate(ObjBindMethod(implObj, "GetFragment"), flags, 2)
+        this.vtbl.GetHost := CallbackCreate(ObjBindMethod(implObj, "GetHost"), flags, 2)
+        this.vtbl.GetPassword := CallbackCreate(ObjBindMethod(implObj, "GetPassword"), flags, 2)
+        this.vtbl.GetPath := CallbackCreate(ObjBindMethod(implObj, "GetPath"), flags, 2)
+        this.vtbl.GetPathAndQuery := CallbackCreate(ObjBindMethod(implObj, "GetPathAndQuery"), flags, 2)
+        this.vtbl.GetQuery := CallbackCreate(ObjBindMethod(implObj, "GetQuery"), flags, 2)
+        this.vtbl.GetRawUri := CallbackCreate(ObjBindMethod(implObj, "GetRawUri"), flags, 2)
+        this.vtbl.GetSchemeName := CallbackCreate(ObjBindMethod(implObj, "GetSchemeName"), flags, 2)
+        this.vtbl.GetUserInfo := CallbackCreate(ObjBindMethod(implObj, "GetUserInfo"), flags, 2)
+        this.vtbl.GetUserName := CallbackCreate(ObjBindMethod(implObj, "GetUserName"), flags, 2)
+        this.vtbl.GetHostType := CallbackCreate(ObjBindMethod(implObj, "GetHostType"), flags, 2)
+        this.vtbl.GetPort := CallbackCreate(ObjBindMethod(implObj, "GetPort"), flags, 2)
+        this.vtbl.GetScheme := CallbackCreate(ObjBindMethod(implObj, "GetScheme"), flags, 2)
+        this.vtbl.GetZone := CallbackCreate(ObjBindMethod(implObj, "GetZone"), flags, 2)
+        this.vtbl.GetProperties := CallbackCreate(ObjBindMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.IsEqual := CallbackCreate(ObjBindMethod(implObj, "IsEqual"), flags, 3)
     }
 
     Dispose() {

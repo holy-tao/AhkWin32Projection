@@ -21,7 +21,6 @@ export default struct PFN_MD_ENCRYPT_DATA {
     }
 
     /**
-     * 
      * @param {Pointer<CARD_DATA>} pCardData 
      * @param {Pointer} _hKey 
      * @param {PWSTR} pwszSecureFunction 
@@ -35,8 +34,8 @@ export default struct PFN_MD_ENCRYPT_DATA {
     Call(pCardData, _hKey, pwszSecureFunction, pbInput, cbInput, dwFlags, ppEncryptedData, pcEncryptedData) {
         pwszSecureFunction := pwszSecureFunction is String ? StrPtr(pwszSecureFunction) : pwszSecureFunction
 
-        ppEncryptedDataMarshal := ppEncryptedData is VarRef ? "ptr*" : "ptr"
-        pcEncryptedDataMarshal := pcEncryptedData is VarRef ? "uint*" : "ptr"
+        ppEncryptedDataMarshal := ppEncryptedData is VarRef ? "ptr*" : IntPtr
+        pcEncryptedDataMarshal := pcEncryptedData is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, CARD_DATA.Ptr, pCardData, IntPtr, _hKey, "ptr", pwszSecureFunction, IntPtr, pbInput, UInt32, cbInput, UInt32, dwFlags, ppEncryptedDataMarshal, ppEncryptedData, pcEncryptedDataMarshal, pcEncryptedData, UInt32)
         return result

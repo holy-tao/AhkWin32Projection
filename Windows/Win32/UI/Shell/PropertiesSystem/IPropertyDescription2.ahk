@@ -72,7 +72,7 @@ export default struct IPropertyDescription2 extends IPropertyDescription {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetImageReferenceForValue := CallbackCreate(GetMethod(implObj, "GetImageReferenceForValue"), flags, 3)
+        this.vtbl.GetImageReferenceForValue := CallbackCreate(ObjBindMethod(implObj, "GetImageReferenceForValue"), flags, 3)
     }
 
     Dispose() {

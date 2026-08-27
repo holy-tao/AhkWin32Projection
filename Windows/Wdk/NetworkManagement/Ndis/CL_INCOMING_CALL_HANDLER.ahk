@@ -18,7 +18,6 @@ export default struct CL_INCOMING_CALL_HANDLER {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Call() {

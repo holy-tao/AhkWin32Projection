@@ -36,7 +36,6 @@ export default struct IMAPIControl extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * Service providers implement the **IMAPIControl::GetLastError** method to supply information about a prior method call that failed. MAPI can give users detailed information about the error by displaying the data from the **MAPIERROR** structure in a message or dialog box.
      * @param {HRESULT} _hResult > [in] A handle to the error value generated in the previous method call.
@@ -54,7 +53,6 @@ export default struct IMAPIControl extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The **IMAPIControl::Activate** method performs tasks following a user's click of the button control. After the click occurs, as part of the processing of the display table, MAPI makes a call to **Activate** after first calling [IMAPIControl::GetState](imapicontrol-getstate.md) to determine whether the button is enabled. 
      *   
@@ -67,12 +65,13 @@ export default struct IMAPIControl extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapicontrol-activate
      */
     Activate(ulFlags, ulUIParam) {
-        result := ComCall(4, this, UInt32, ulFlags, IntPtr, ulUIParam, "HRESULT")
+        ulUIParamMarshal := ulUIParam == 0 ? IntPtr : IntPtr
+
+        result := ComCall(4, this, UInt32, ulFlags, ulUIParamMarshal, ulUIParam, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @remarks
      * Service providers implement the **IMAPIControl::GetState** method to provide MAPI with the state of a button control. If the button is enabled, it can respond to a mouse click or key press. If it is disabled, the button appears dimmed and does not respond to a mouse click or key press. 
      *   
@@ -93,7 +92,7 @@ export default struct IMAPIControl extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapicontrol-getstate
      */
     GetState(ulFlags, lpulState) {
-        lpulStateMarshal := lpulState is VarRef ? "uint*" : "ptr"
+        lpulStateMarshal := lpulState is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, UInt32, ulFlags, lpulStateMarshal, lpulState, "HRESULT")
         return result
@@ -108,9 +107,9 @@ export default struct IMAPIControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLastError := CallbackCreate(GetMethod(implObj, "GetLastError"), flags, 4)
-        this.vtbl.Activate := CallbackCreate(GetMethod(implObj, "Activate"), flags, 3)
-        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 3)
+        this.vtbl.GetLastError := CallbackCreate(ObjBindMethod(implObj, "GetLastError"), flags, 4)
+        this.vtbl.Activate := CallbackCreate(ObjBindMethod(implObj, "Activate"), flags, 3)
+        this.vtbl.GetState := CallbackCreate(ObjBindMethod(implObj, "GetState"), flags, 3)
     }
 
     Dispose() {

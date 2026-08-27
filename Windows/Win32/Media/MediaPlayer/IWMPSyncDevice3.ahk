@@ -136,8 +136,8 @@ export default struct IWMPSyncDevice3 extends IWMPSyncDevice2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.estimateSyncSize := CallbackCreate(GetMethod(implObj, "estimateSyncSize"), flags, 3)
-        this.vtbl.cancelEstimation := CallbackCreate(GetMethod(implObj, "cancelEstimation"), flags, 1)
+        this.vtbl.estimateSyncSize := CallbackCreate(ObjBindMethod(implObj, "estimateSyncSize"), flags, 3)
+        this.vtbl.cancelEstimation := CallbackCreate(ObjBindMethod(implObj, "cancelEstimation"), flags, 1)
     }
 
     Dispose() {

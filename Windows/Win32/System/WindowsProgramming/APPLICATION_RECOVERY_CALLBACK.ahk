@@ -18,12 +18,11 @@ export default struct APPLICATION_RECOVERY_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvParameter 
      * @returns {Integer} 
      */
     Call(pvParameter) {
-        pvParameterMarshal := pvParameter is VarRef ? "ptr" : "ptr"
+        pvParameterMarshal := pvParameter is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, pvParameterMarshal, pvParameter, UInt32)
         return result

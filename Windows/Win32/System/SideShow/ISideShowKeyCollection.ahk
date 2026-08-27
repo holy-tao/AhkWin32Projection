@@ -47,7 +47,6 @@ export default struct ISideShowKeyCollection extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PROPERTYKEY>} Key 
      * @returns {HRESULT} 
      */
@@ -85,7 +84,6 @@ export default struct ISideShowKeyCollection extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwIndex 
      * @param {Pointer<PROPERTYKEY>} pKey 
      * @returns {HRESULT} 
@@ -96,19 +94,17 @@ export default struct ISideShowKeyCollection extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcElems 
      * @returns {HRESULT} 
      */
     GetCount(pcElems) {
-        pcElemsMarshal := pcElems is VarRef ? "uint*" : "ptr"
+        pcElemsMarshal := pcElems is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, pcElemsMarshal, pcElems, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwIndex 
      * @returns {HRESULT} 
      */
@@ -126,11 +122,11 @@ export default struct ISideShowKeyCollection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
-        this.vtbl.GetAt := CallbackCreate(GetMethod(implObj, "GetAt"), flags, 3)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
-        this.vtbl.RemoveAt := CallbackCreate(GetMethod(implObj, "RemoveAt"), flags, 2)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.GetAt := CallbackCreate(ObjBindMethod(implObj, "GetAt"), flags, 3)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.RemoveAt := CallbackCreate(ObjBindMethod(implObj, "RemoveAt"), flags, 2)
     }
 
     Dispose() {

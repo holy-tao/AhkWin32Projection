@@ -41,7 +41,6 @@ export default struct IRowset extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} cRows 
      * @param {Pointer<Pointer>} rghRows 
      * @param {Pointer<Integer>} rgRefCounts 
@@ -49,16 +48,15 @@ export default struct IRowset extends IUnknown {
      * @returns {HRESULT} 
      */
     AddRefRows(cRows, rghRows, rgRefCounts, rgRowStatus) {
-        rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
-        rgRefCountsMarshal := rgRefCounts is VarRef ? "uint*" : "ptr"
-        rgRowStatusMarshal := rgRowStatus is VarRef ? "uint*" : "ptr"
+        rghRowsMarshal := rghRows is VarRef ? "ptr*" : IntPtr
+        rgRefCountsMarshal := rgRefCounts is VarRef ? "uint*" : IntPtr
+        rgRowStatusMarshal := rgRowStatus is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, IntPtr, cRows, rghRowsMarshal, rghRows, rgRefCountsMarshal, rgRefCounts, rgRowStatusMarshal, rgRowStatus, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} hRow 
      * @param {HACCESSOR} _hAccessor 
      * @returns {Void} 
@@ -69,7 +67,6 @@ export default struct IRowset extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hReserved 
      * @param {Pointer} lRowsOffset 
      * @param {Pointer} cRows 
@@ -78,15 +75,14 @@ export default struct IRowset extends IUnknown {
      * @returns {HRESULT} 
      */
     GetNextRows(hReserved, lRowsOffset, cRows, pcRowsObtained, prghRows) {
-        pcRowsObtainedMarshal := pcRowsObtained is VarRef ? "ptr*" : "ptr"
-        prghRowsMarshal := prghRows is VarRef ? "ptr*" : "ptr"
+        pcRowsObtainedMarshal := pcRowsObtained is VarRef ? "ptr*" : IntPtr
+        prghRowsMarshal := prghRows is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, IntPtr, hReserved, IntPtr, lRowsOffset, IntPtr, cRows, pcRowsObtainedMarshal, pcRowsObtained, prghRowsMarshal, prghRows, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} cRows 
      * @param {Pointer<Pointer>} rghRows 
      * @param {Pointer<Integer>} rgRowOptions 
@@ -95,17 +91,16 @@ export default struct IRowset extends IUnknown {
      * @returns {HRESULT} 
      */
     ReleaseRows(cRows, rghRows, rgRowOptions, rgRefCounts, rgRowStatus) {
-        rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
-        rgRowOptionsMarshal := rgRowOptions is VarRef ? "uint*" : "ptr"
-        rgRefCountsMarshal := rgRefCounts is VarRef ? "uint*" : "ptr"
-        rgRowStatusMarshal := rgRowStatus is VarRef ? "uint*" : "ptr"
+        rghRowsMarshal := rghRows is VarRef ? "ptr*" : IntPtr
+        rgRowOptionsMarshal := rgRowOptions is VarRef ? "uint*" : IntPtr
+        rgRefCountsMarshal := rgRefCounts is VarRef ? "uint*" : IntPtr
+        rgRowStatusMarshal := rgRowStatus is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, IntPtr, cRows, rghRowsMarshal, rghRows, rgRowOptionsMarshal, rgRowOptions, rgRefCountsMarshal, rgRefCounts, rgRowStatusMarshal, rgRowStatus, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} hReserved 
      * @returns {HRESULT} 
      */
@@ -123,11 +118,11 @@ export default struct IRowset extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddRefRows := CallbackCreate(GetMethod(implObj, "AddRefRows"), flags, 5)
-        this.vtbl.GetData := CallbackCreate(GetMethod(implObj, "GetData"), flags, 4)
-        this.vtbl.GetNextRows := CallbackCreate(GetMethod(implObj, "GetNextRows"), flags, 6)
-        this.vtbl.ReleaseRows := CallbackCreate(GetMethod(implObj, "ReleaseRows"), flags, 6)
-        this.vtbl.RestartPosition := CallbackCreate(GetMethod(implObj, "RestartPosition"), flags, 2)
+        this.vtbl.AddRefRows := CallbackCreate(ObjBindMethod(implObj, "AddRefRows"), flags, 5)
+        this.vtbl.GetData := CallbackCreate(ObjBindMethod(implObj, "GetData"), flags, 4)
+        this.vtbl.GetNextRows := CallbackCreate(ObjBindMethod(implObj, "GetNextRows"), flags, 6)
+        this.vtbl.ReleaseRows := CallbackCreate(ObjBindMethod(implObj, "ReleaseRows"), flags, 6)
+        this.vtbl.RestartPosition := CallbackCreate(ObjBindMethod(implObj, "RestartPosition"), flags, 2)
     }
 
     Dispose() {

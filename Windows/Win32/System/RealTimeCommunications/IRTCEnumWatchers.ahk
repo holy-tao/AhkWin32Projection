@@ -40,20 +40,19 @@ export default struct IRTCEnumWatchers extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} celt 
      * @param {Pointer<Integer>} pceltFetched 
      * @returns {IRTCWatcher} 
      */
     Next(celt, pceltFetched) {
-        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
+        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : IntPtr
+        pceltFetchedMarshal := pceltFetched == 0 ? IntPtr : "uint*"
 
         result := ComCall(3, this, UInt32, celt, "ptr*", &ppElements := 0, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return IRTCWatcher(ppElements)
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -62,7 +61,6 @@ export default struct IRTCEnumWatchers extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} celt 
      * @returns {HRESULT} 
      */
@@ -72,7 +70,6 @@ export default struct IRTCEnumWatchers extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRTCEnumWatchers} 
      */
     Clone() {
@@ -89,10 +86,10 @@ export default struct IRTCEnumWatchers extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 4)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.Skip := CallbackCreate(GetMethod(implObj, "Skip"), flags, 2)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.Next := CallbackCreate(ObjBindMethod(implObj, "Next"), flags, 4)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Skip := CallbackCreate(ObjBindMethod(implObj, "Skip"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
     }
 
     Dispose() {

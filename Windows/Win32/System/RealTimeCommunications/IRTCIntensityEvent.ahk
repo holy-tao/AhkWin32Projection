@@ -68,7 +68,6 @@ export default struct IRTCIntensityEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Level() {
@@ -77,7 +76,6 @@ export default struct IRTCIntensityEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Min() {
@@ -86,7 +84,6 @@ export default struct IRTCIntensityEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Max() {
@@ -95,7 +92,6 @@ export default struct IRTCIntensityEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {RTC_AUDIO_DEVICE} 
      */
     get_Direction() {
@@ -112,10 +108,10 @@ export default struct IRTCIntensityEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Level := CallbackCreate(GetMethod(implObj, "get_Level"), flags, 2)
-        this.vtbl.get_Min := CallbackCreate(GetMethod(implObj, "get_Min"), flags, 2)
-        this.vtbl.get_Max := CallbackCreate(GetMethod(implObj, "get_Max"), flags, 2)
-        this.vtbl.get_Direction := CallbackCreate(GetMethod(implObj, "get_Direction"), flags, 2)
+        this.vtbl.get_Level := CallbackCreate(ObjBindMethod(implObj, "get_Level"), flags, 2)
+        this.vtbl.get_Min := CallbackCreate(ObjBindMethod(implObj, "get_Min"), flags, 2)
+        this.vtbl.get_Max := CallbackCreate(ObjBindMethod(implObj, "get_Max"), flags, 2)
+        this.vtbl.get_Direction := CallbackCreate(ObjBindMethod(implObj, "get_Direction"), flags, 2)
     }
 
     Dispose() {

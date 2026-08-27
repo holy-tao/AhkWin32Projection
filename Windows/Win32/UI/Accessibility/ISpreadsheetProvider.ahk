@@ -67,7 +67,7 @@ export default struct ISpreadsheetProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetItemByName := CallbackCreate(GetMethod(implObj, "GetItemByName"), flags, 3)
+        this.vtbl.GetItemByName := CallbackCreate(ObjBindMethod(implObj, "GetItemByName"), flags, 3)
     }
 
     Dispose() {

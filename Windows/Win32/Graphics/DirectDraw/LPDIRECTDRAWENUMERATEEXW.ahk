@@ -21,14 +21,13 @@ export default struct LPDIRECTDRAWENUMERATEEXW {
     }
 
     /**
-     * 
      * @param {Pointer<LPDDENUMCALLBACKEXW>} lpCallback 
      * @param {Pointer<Void>} lpContext 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
     Call(lpCallback, lpContext, dwFlags) {
-        lpContextMarshal := lpContext is VarRef ? "ptr" : "ptr"
+        lpContextMarshal := lpContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, LPDDENUMCALLBACKEXW, lpCallback, lpContextMarshal, lpContext, UInt32, dwFlags, "HRESULT")
         return result

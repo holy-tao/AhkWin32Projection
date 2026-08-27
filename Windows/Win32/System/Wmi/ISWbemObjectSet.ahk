@@ -71,7 +71,6 @@ export default struct ISWbemObjectSet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__NewEnum() {
@@ -99,7 +98,6 @@ export default struct ISWbemObjectSet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -108,7 +106,6 @@ export default struct ISWbemObjectSet extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemSecurity} 
      */
     get_Security_() {
@@ -117,7 +114,6 @@ export default struct ISWbemObjectSet extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lIndex 
      * @returns {ISWbemObject} 
      */
@@ -135,11 +131,11 @@ export default struct ISWbemObjectSet extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
-        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 4)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.get_Security_ := CallbackCreate(GetMethod(implObj, "get_Security_"), flags, 2)
-        this.vtbl.ItemIndex := CallbackCreate(GetMethod(implObj, "ItemIndex"), flags, 3)
+        this.vtbl.get__NewEnum := CallbackCreate(ObjBindMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.Item := CallbackCreate(ObjBindMethod(implObj, "Item"), flags, 4)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get_Security_ := CallbackCreate(ObjBindMethod(implObj, "get_Security_"), flags, 2)
+        this.vtbl.ItemIndex := CallbackCreate(ObjBindMethod(implObj, "ItemIndex"), flags, 3)
     }
 
     Dispose() {

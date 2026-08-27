@@ -77,8 +77,8 @@ export default struct IUpdateInstaller3 extends IUpdateInstaller2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_AttemptCloseAppsIfNecessary := CallbackCreate(GetMethod(implObj, "get_AttemptCloseAppsIfNecessary"), flags, 2)
-        this.vtbl.put_AttemptCloseAppsIfNecessary := CallbackCreate(GetMethod(implObj, "put_AttemptCloseAppsIfNecessary"), flags, 2)
+        this.vtbl.get_AttemptCloseAppsIfNecessary := CallbackCreate(ObjBindMethod(implObj, "get_AttemptCloseAppsIfNecessary"), flags, 2)
+        this.vtbl.put_AttemptCloseAppsIfNecessary := CallbackCreate(ObjBindMethod(implObj, "put_AttemptCloseAppsIfNecessary"), flags, 2)
     }
 
     Dispose() {

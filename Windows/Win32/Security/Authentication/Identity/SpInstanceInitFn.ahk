@@ -30,7 +30,6 @@ export default struct SpInstanceInitFn {
     }
 
     /**
-     * 
      * @param {Integer} _Version The version of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">Local Security Authority</a> (LSA).
      * @param {Pointer<SECPKG_DLL_FUNCTIONS>} FunctionTable Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecpkg/ns-ntsecpkg-secpkg_dll_functions">SECPKG_DLL_FUNCTIONS</a> structure containing the support functions that the security package can use in user-mode.
@@ -40,7 +39,7 @@ export default struct SpInstanceInitFn {
      * If the function fails, return an <b>NTSTATUS</b> code that indicates the reason it failed.
      */
     Call(_Version, FunctionTable, UserFunctions) {
-        UserFunctionsMarshal := UserFunctions is VarRef ? "ptr*" : "ptr"
+        UserFunctionsMarshal := UserFunctions is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, UInt32, _Version, SECPKG_DLL_FUNCTIONS.Ptr, FunctionTable, UserFunctionsMarshal, UserFunctions, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

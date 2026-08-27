@@ -72,11 +72,13 @@ export ClearCommBreak(hFile) {
  * @since windows5.1.2600
  */
 export ClearCommError(hFile, lpErrors, lpStat) {
-    lpErrorsMarshal := lpErrors is VarRef ? "uint*" : "ptr"
+    lpErrorsMarshal := lpErrors is VarRef ? "uint*" : IntPtr
+    lpErrorsMarshal := lpErrors == 0 ? IntPtr : "uint*"
+    lpStatMarshal := lpStat == 0 ? IntPtr : COMSTAT.Ptr
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\ClearCommError", HANDLE, hFile, lpErrorsMarshal, lpErrors, COMSTAT.Ptr, lpStat, BOOL)
+    result := DllCall("KERNEL32.dll\ClearCommError", HANDLE, hFile, lpErrorsMarshal, lpErrors, lpStatMarshal, lpStat, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -154,11 +156,12 @@ export EscapeCommFunction(hFile, dwFunc) {
  * @since windows5.1.2600
  */
 export GetCommConfig(hCommDev, lpCC, lpdwSize) {
-    lpdwSizeMarshal := lpdwSize is VarRef ? "uint*" : "ptr"
+    lpCCMarshal := lpCC == 0 ? IntPtr : IntPtr
+    lpdwSizeMarshal := lpdwSize is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetCommConfig", HANDLE, hCommDev, IntPtr, lpCC, lpdwSizeMarshal, lpdwSize, BOOL)
+    result := DllCall("KERNEL32.dll\GetCommConfig", HANDLE, hCommDev, lpCCMarshal, lpCC, lpdwSizeMarshal, lpdwSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -184,7 +187,7 @@ export GetCommConfig(hCommDev, lpCC, lpdwSize) {
  * @since windows5.1.2600
  */
 export GetCommMask(hFile, lpEvtMask) {
-    lpEvtMaskMarshal := lpEvtMask is VarRef ? "uint*" : "ptr"
+    lpEvtMaskMarshal := lpEvtMask is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -247,7 +250,7 @@ export GetCommProperties(hFile, lpCommProp) {
  * @since windows5.1.2600
  */
 export GetCommModemStatus(hFile, lpModemStat) {
-    lpModemStatMarshal := lpModemStat is VarRef ? "uint*" : "ptr"
+    lpModemStatMarshal := lpModemStat is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -555,11 +558,12 @@ export TransmitCommChar(hFile, cChar) {
  * @since windows5.1.2600
  */
 export WaitCommEvent(hFile, lpEvtMask, lpOverlapped) {
-    lpEvtMaskMarshal := lpEvtMask is VarRef ? "uint*" : "ptr"
+    lpEvtMaskMarshal := lpEvtMask is VarRef ? "uint*" : IntPtr
+    lpOverlappedMarshal := lpOverlapped == 0 ? IntPtr : OVERLAPPED.Ptr
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\WaitCommEvent", HANDLE, hFile, lpEvtMaskMarshal, lpEvtMask, OVERLAPPED.Ptr, lpOverlapped, BOOL)
+    result := DllCall("KERNEL32.dll\WaitCommEvent", HANDLE, hFile, lpEvtMaskMarshal, lpEvtMask, lpOverlappedMarshal, lpOverlapped, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -659,8 +663,8 @@ export OpenCommPort(uPortNumber, dwDesiredAccess, dwFlagsAndAttributes) {
  * @since windows10.0.17134
  */
 export GetCommPorts(lpPortNumbers, uPortNumbersCount, puPortNumbersFound) {
-    lpPortNumbersMarshal := lpPortNumbers is VarRef ? "uint*" : "ptr"
-    puPortNumbersFoundMarshal := puPortNumbersFound is VarRef ? "uint*" : "ptr"
+    lpPortNumbersMarshal := lpPortNumbers is VarRef ? "uint*" : IntPtr
+    puPortNumbersFoundMarshal := puPortNumbersFound is VarRef ? "uint*" : IntPtr
 
     result := DllCall("api-ms-win-core-comm-l1-1-2.dll\GetCommPorts", lpPortNumbersMarshal, lpPortNumbers, UInt32, uPortNumbersCount, puPortNumbersFoundMarshal, puPortNumbersFound, UInt32)
     return result
@@ -1042,9 +1046,11 @@ export BuildCommDCBAndTimeoutsW(lpDef, lpDCB, lpCommTimeouts) {
 export CommConfigDialogA(lpszName, _hWnd, lpCC) {
     lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CommConfigDialogA", "ptr", lpszName, HWND, _hWnd, COMMCONFIG.Ptr, lpCC, BOOL)
+    result := DllCall("KERNEL32.dll\CommConfigDialogA", "ptr", lpszName, _hWndMarshal, _hWnd, COMMCONFIG.Ptr, lpCC, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1078,9 +1084,11 @@ export CommConfigDialogA(lpszName, _hWnd, lpCC) {
 export CommConfigDialogW(lpszName, _hWnd, lpCC) {
     lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CommConfigDialogW", "ptr", lpszName, HWND, _hWnd, COMMCONFIG.Ptr, lpCC, BOOL)
+    result := DllCall("KERNEL32.dll\CommConfigDialogW", "ptr", lpszName, _hWndMarshal, _hWnd, COMMCONFIG.Ptr, lpCC, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1107,7 +1115,7 @@ export CommConfigDialogW(lpszName, _hWnd, lpCC) {
 export GetDefaultCommConfigA(lpszName, lpCC, lpdwSize) {
     lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
-    lpdwSizeMarshal := lpdwSize is VarRef ? "uint*" : "ptr"
+    lpdwSizeMarshal := lpdwSize is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -1138,7 +1146,7 @@ export GetDefaultCommConfigA(lpszName, lpCC, lpdwSize) {
 export GetDefaultCommConfigW(lpszName, lpCC, lpdwSize) {
     lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
-    lpdwSizeMarshal := lpdwSize is VarRef ? "uint*" : "ptr"
+    lpdwSizeMarshal := lpdwSize is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 

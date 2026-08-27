@@ -210,7 +210,6 @@ export default struct LPWSPDUPLICATESOCKET {
     }
 
     /**
-     * 
      * @param {SOCKET} s Local socket descriptor.
      * @param {Integer} dwProcessId Identifier of the target process for which the shared socket will be used.
      * @param {Pointer<WSAPROTOCOL_INFOW>} lpProtocolInfo Pointer to a buffer allocated by the client that is large enough to contain a <b><a href="https://docs.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsaprotocol_infoa?redirectedfrom=MSDN">WSAPROTOCOL_INFO</a></b> structure. The service provider copies the protocol information structure contents to this buffer.
@@ -291,7 +290,7 @@ export default struct LPWSPDUPLICATESOCKET {
      * </table>
      */
     Call(s, dwProcessId, lpProtocolInfo, lpErrno) {
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, SOCKET, s, UInt32, dwProcessId, WSAPROTOCOL_INFOW.Ptr, lpProtocolInfo, lpErrnoMarshal, lpErrno, Int32)
         return result

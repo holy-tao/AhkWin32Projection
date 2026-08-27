@@ -112,7 +112,7 @@ export default struct IWICPixelFormatInfo extends IWICComponentInfo {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpixelformatinfo-getchannelmask
      */
     GetChannelMask(uiChannelIndex, cbMaskBuffer, pbMaskBuffer) {
-        pbMaskBufferMarshal := pbMaskBuffer is VarRef ? "char*" : "ptr"
+        pbMaskBufferMarshal := pbMaskBuffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(15, this, UInt32, uiChannelIndex, UInt32, cbMaskBuffer, pbMaskBufferMarshal, pbMaskBuffer, "uint*", &pcbActual := 0, "HRESULT")
         return pcbActual
@@ -127,11 +127,11 @@ export default struct IWICPixelFormatInfo extends IWICComponentInfo {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFormatGUID := CallbackCreate(GetMethod(implObj, "GetFormatGUID"), flags, 2)
-        this.vtbl.GetColorContext := CallbackCreate(GetMethod(implObj, "GetColorContext"), flags, 2)
-        this.vtbl.GetBitsPerPixel := CallbackCreate(GetMethod(implObj, "GetBitsPerPixel"), flags, 2)
-        this.vtbl.GetChannelCount := CallbackCreate(GetMethod(implObj, "GetChannelCount"), flags, 2)
-        this.vtbl.GetChannelMask := CallbackCreate(GetMethod(implObj, "GetChannelMask"), flags, 5)
+        this.vtbl.GetFormatGUID := CallbackCreate(ObjBindMethod(implObj, "GetFormatGUID"), flags, 2)
+        this.vtbl.GetColorContext := CallbackCreate(ObjBindMethod(implObj, "GetColorContext"), flags, 2)
+        this.vtbl.GetBitsPerPixel := CallbackCreate(ObjBindMethod(implObj, "GetBitsPerPixel"), flags, 2)
+        this.vtbl.GetChannelCount := CallbackCreate(ObjBindMethod(implObj, "GetChannelCount"), flags, 2)
+        this.vtbl.GetChannelMask := CallbackCreate(ObjBindMethod(implObj, "GetChannelMask"), flags, 5)
     }
 
     Dispose() {

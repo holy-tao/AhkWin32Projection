@@ -44,7 +44,6 @@ export default struct ICorrelationVectorSource extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HSTRING} 
      */
     get_CorrelationVector() {
@@ -62,7 +61,7 @@ export default struct ICorrelationVectorSource extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_CorrelationVector := CallbackCreate(GetMethod(implObj, "get_CorrelationVector"), flags, 2)
+        this.vtbl.get_CorrelationVector := CallbackCreate(ObjBindMethod(implObj, "get_CorrelationVector"), flags, 2)
     }
 
     Dispose() {

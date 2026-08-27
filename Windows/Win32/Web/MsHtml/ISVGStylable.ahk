@@ -44,7 +44,6 @@ export default struct ISVGStylable extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedString} 
      */
     get_className() {
@@ -61,7 +60,7 @@ export default struct ISVGStylable extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_className := CallbackCreate(GetMethod(implObj, "get_className"), flags, 2)
+        this.vtbl.get_className := CallbackCreate(ObjBindMethod(implObj, "get_className"), flags, 2)
     }
 
     Dispose() {

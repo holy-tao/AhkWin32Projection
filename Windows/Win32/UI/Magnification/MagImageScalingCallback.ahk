@@ -25,7 +25,6 @@ export default struct MagImageScalingCallback {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * The magnification window.
@@ -55,8 +54,8 @@ export default struct MagImageScalingCallback {
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
      */
     Call(_hwnd, srcdata, srcheader, destdata, destheader, unclipped, clipped, dirty) {
-        srcdataMarshal := srcdata is VarRef ? "ptr" : "ptr"
-        destdataMarshal := destdata is VarRef ? "ptr" : "ptr"
+        srcdataMarshal := srcdata is VarRef ? "ptr" : IntPtr
+        destdataMarshal := destdata is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, HWND, _hwnd, srcdataMarshal, srcdata, MAGIMAGEHEADER, srcheader, destdataMarshal, destdata, MAGIMAGEHEADER, destheader, RECT, unclipped, RECT, clipped, HRGN, dirty, BOOL)
         return result

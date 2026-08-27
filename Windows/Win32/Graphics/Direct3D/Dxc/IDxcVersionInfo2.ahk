@@ -36,14 +36,13 @@ export default struct IDxcVersionInfo2 extends IDxcVersionInfo {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pCommitCount 
      * @param {Pointer<Pointer<Integer>>} pCommitHash 
      * @returns {HRESULT} 
      */
     GetCommitInfo(pCommitCount, pCommitHash) {
-        pCommitCountMarshal := pCommitCount is VarRef ? "uint*" : "ptr"
-        pCommitHashMarshal := pCommitHash is VarRef ? "ptr*" : "ptr"
+        pCommitCountMarshal := pCommitCount is VarRef ? "uint*" : IntPtr
+        pCommitHashMarshal := pCommitHash is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, pCommitCountMarshal, pCommitCount, pCommitHashMarshal, pCommitHash, "HRESULT")
         return result
@@ -58,7 +57,7 @@ export default struct IDxcVersionInfo2 extends IDxcVersionInfo {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCommitInfo := CallbackCreate(GetMethod(implObj, "GetCommitInfo"), flags, 3)
+        this.vtbl.GetCommitInfo := CallbackCreate(ObjBindMethod(implObj, "GetCommitInfo"), flags, 3)
     }
 
     Dispose() {

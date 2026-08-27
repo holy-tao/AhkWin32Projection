@@ -41,7 +41,6 @@ export default struct IDebugHostContextExtensibility extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} blobId 
      * @returns {Boolean} 
      */
@@ -51,7 +50,6 @@ export default struct IDebugHostContextExtensibility extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} blobId 
      * @param {Integer} bufferSize 
      * @returns {Void} 
@@ -62,7 +60,6 @@ export default struct IDebugHostContextExtensibility extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugHostContextExtension} 
      */
     CloneContextForModification() {
@@ -71,14 +68,13 @@ export default struct IDebugHostContextExtensibility extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} blobId 
      * @param {Integer} dataSize 
      * @param {Pointer<Void>} data 
      * @returns {IDebugHostContext} 
      */
     CloneContextWithModification(blobId, dataSize, data) {
-        dataMarshal := data is VarRef ? "ptr" : "ptr"
+        dataMarshal := data is VarRef ? "ptr" : IntPtr
 
         result := ComCall(6, this, UInt32, blobId, UInt32, dataSize, dataMarshal, data, "ptr*", &clonedContext := 0, "HRESULT")
         return IDebugHostContext(clonedContext)
@@ -93,10 +89,10 @@ export default struct IDebugHostContextExtensibility extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.HasExtensionData := CallbackCreate(GetMethod(implObj, "HasExtensionData"), flags, 2)
-        this.vtbl.ReadExtensionData := CallbackCreate(GetMethod(implObj, "ReadExtensionData"), flags, 4)
-        this.vtbl.CloneContextForModification := CallbackCreate(GetMethod(implObj, "CloneContextForModification"), flags, 2)
-        this.vtbl.CloneContextWithModification := CallbackCreate(GetMethod(implObj, "CloneContextWithModification"), flags, 5)
+        this.vtbl.HasExtensionData := CallbackCreate(ObjBindMethod(implObj, "HasExtensionData"), flags, 2)
+        this.vtbl.ReadExtensionData := CallbackCreate(ObjBindMethod(implObj, "ReadExtensionData"), flags, 4)
+        this.vtbl.CloneContextForModification := CallbackCreate(ObjBindMethod(implObj, "CloneContextForModification"), flags, 2)
+        this.vtbl.CloneContextWithModification := CallbackCreate(ObjBindMethod(implObj, "CloneContextWithModification"), flags, 5)
     }
 
     Dispose() {

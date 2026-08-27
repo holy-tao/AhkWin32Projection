@@ -163,8 +163,8 @@ export default struct IMbnInterfaceManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetInterface := CallbackCreate(GetMethod(implObj, "GetInterface"), flags, 3)
-        this.vtbl.GetInterfaces := CallbackCreate(GetMethod(implObj, "GetInterfaces"), flags, 2)
+        this.vtbl.GetInterface := CallbackCreate(ObjBindMethod(implObj, "GetInterface"), flags, 3)
+        this.vtbl.GetInterfaces := CallbackCreate(ObjBindMethod(implObj, "GetInterfaces"), flags, 2)
     }
 
     Dispose() {

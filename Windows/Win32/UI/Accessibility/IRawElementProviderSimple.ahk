@@ -173,10 +173,10 @@ export default struct IRawElementProviderSimple extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ProviderOptions := CallbackCreate(GetMethod(implObj, "get_ProviderOptions"), flags, 2)
-        this.vtbl.GetPatternProvider := CallbackCreate(GetMethod(implObj, "GetPatternProvider"), flags, 3)
-        this.vtbl.GetPropertyValue := CallbackCreate(GetMethod(implObj, "GetPropertyValue"), flags, 3)
-        this.vtbl.get_HostRawElementProvider := CallbackCreate(GetMethod(implObj, "get_HostRawElementProvider"), flags, 2)
+        this.vtbl.get_ProviderOptions := CallbackCreate(ObjBindMethod(implObj, "get_ProviderOptions"), flags, 2)
+        this.vtbl.GetPatternProvider := CallbackCreate(ObjBindMethod(implObj, "GetPatternProvider"), flags, 3)
+        this.vtbl.GetPropertyValue := CallbackCreate(ObjBindMethod(implObj, "GetPropertyValue"), flags, 3)
+        this.vtbl.get_HostRawElementProvider := CallbackCreate(ObjBindMethod(implObj, "get_HostRawElementProvider"), flags, 2)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct PCLUSAPI_CREATE_CLUSTER_RESOURCE_TYPE {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszResourceTypeName 
      * @param {PWSTR} lpszDisplayName 

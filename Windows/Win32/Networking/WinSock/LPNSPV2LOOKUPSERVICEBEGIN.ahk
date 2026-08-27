@@ -142,7 +142,6 @@ export default struct LPNSPV2LOOKUPSERVICEBEGIN {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} lpProviderId A pointer to the identifier for the namespace service provider to query.
      * @param {Pointer<WSAQUERYSET2W>} lpqsRestrictions A pointer to the search criteria. See Remarks.
      * @param {Integer} dwControlFlags 
@@ -206,7 +205,7 @@ export default struct LPNSPV2LOOKUPSERVICEBEGIN {
      * </table>
      */
     Call(lpProviderId, lpqsRestrictions, dwControlFlags, lpvClientSessionArg, lphLookup) {
-        lpvClientSessionArgMarshal := lpvClientSessionArg is VarRef ? "ptr" : "ptr"
+        lpvClientSessionArgMarshal := lpvClientSessionArg is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, Guid.Ptr, lpProviderId, WSAQUERYSET2W.Ptr, lpqsRestrictions, UInt32, dwControlFlags, lpvClientSessionArgMarshal, lpvClientSessionArg, HANDLE.Ptr, lphLookup, Int32)
         return result

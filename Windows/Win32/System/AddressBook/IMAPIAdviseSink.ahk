@@ -80,7 +80,7 @@ export default struct IMAPIAdviseSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnNotify := CallbackCreate(GetMethod(implObj, "OnNotify"), flags, 3)
+        this.vtbl.OnNotify := CallbackCreate(ObjBindMethod(implObj, "OnNotify"), flags, 3)
     }
 
     Dispose() {

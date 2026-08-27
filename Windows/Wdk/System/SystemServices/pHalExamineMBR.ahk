@@ -19,7 +19,6 @@ export default struct pHalExamineMBR {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Integer} SectorSize 
      * @param {Integer} MBRTypeIdentifier 
@@ -27,7 +26,7 @@ export default struct pHalExamineMBR {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(DeviceObject, SectorSize, MBRTypeIdentifier, _Buffer) {
-        _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr*" : IntPtr
 
         DllCall(this.value, DEVICE_OBJECT.Ptr, DeviceObject, UInt32, SectorSize, UInt32, MBRTypeIdentifier, _BufferMarshal, _Buffer)
     }

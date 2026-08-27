@@ -40,7 +40,6 @@ export default struct IDebugOutputCallbacks2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Mask 
      * @param {PSTR} Text 
      * @returns {HRESULT} 
@@ -53,7 +52,6 @@ export default struct IDebugOutputCallbacks2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetInterestMask() {
@@ -62,7 +60,6 @@ export default struct IDebugOutputCallbacks2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Which 
      * @param {Integer} Flags 
      * @param {Integer} Arg 
@@ -72,7 +69,9 @@ export default struct IDebugOutputCallbacks2 extends IUnknown {
     Output2(Which, Flags, Arg, Text) {
         Text := Text is String ? StrPtr(Text) : Text
 
-        result := ComCall(5, this, UInt32, Which, UInt32, Flags, Int64, Arg, "ptr", Text, "HRESULT")
+        TextMarshal := Text == 0 ? IntPtr : PWSTR
+
+        result := ComCall(5, this, UInt32, Which, UInt32, Flags, Int64, Arg, TextMarshal, Text, "HRESULT")
         return result
     }
 
@@ -85,9 +84,9 @@ export default struct IDebugOutputCallbacks2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Output := CallbackCreate(GetMethod(implObj, "Output"), flags, 3)
-        this.vtbl.GetInterestMask := CallbackCreate(GetMethod(implObj, "GetInterestMask"), flags, 2)
-        this.vtbl.Output2 := CallbackCreate(GetMethod(implObj, "Output2"), flags, 5)
+        this.vtbl.Output := CallbackCreate(ObjBindMethod(implObj, "Output"), flags, 3)
+        this.vtbl.GetInterestMask := CallbackCreate(ObjBindMethod(implObj, "GetInterestMask"), flags, 2)
+        this.vtbl.Output2 := CallbackCreate(ObjBindMethod(implObj, "Output2"), flags, 5)
     }
 
     Dispose() {

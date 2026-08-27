@@ -37,12 +37,13 @@ export default struct IXAObtainRMInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRMHelper} pIRMHelper 
      * @returns {HRESULT} 
      */
     ObtainRMInfo(pIRMHelper) {
-        result := ComCall(3, this, "ptr", pIRMHelper, "HRESULT")
+        pIRMHelperMarshal := pIRMHelper == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pIRMHelperMarshal, pIRMHelper, "HRESULT")
         return result
     }
 
@@ -55,7 +56,7 @@ export default struct IXAObtainRMInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ObtainRMInfo := CallbackCreate(GetMethod(implObj, "ObtainRMInfo"), flags, 2)
+        this.vtbl.ObtainRMInfo := CallbackCreate(ObjBindMethod(implObj, "ObtainRMInfo"), flags, 2)
     }
 
     Dispose() {

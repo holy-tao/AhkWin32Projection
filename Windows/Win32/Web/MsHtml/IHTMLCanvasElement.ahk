@@ -66,7 +66,6 @@ export default struct IHTMLCanvasElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -76,7 +75,6 @@ export default struct IHTMLCanvasElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_width() {
@@ -85,7 +83,6 @@ export default struct IHTMLCanvasElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -95,7 +92,6 @@ export default struct IHTMLCanvasElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_height() {
@@ -104,7 +100,6 @@ export default struct IHTMLCanvasElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} contextId 
      * @returns {ICanvasRenderingContext2D} 
      */
@@ -116,7 +111,6 @@ export default struct IHTMLCanvasElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} type 
      * @param {VARIANT} jpegquality 
      * @returns {BSTR} 
@@ -138,12 +132,12 @@ export default struct IHTMLCanvasElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_width := CallbackCreate(GetMethod(implObj, "put_width"), flags, 2)
-        this.vtbl.get_width := CallbackCreate(GetMethod(implObj, "get_width"), flags, 2)
-        this.vtbl.put_height := CallbackCreate(GetMethod(implObj, "put_height"), flags, 2)
-        this.vtbl.get_height := CallbackCreate(GetMethod(implObj, "get_height"), flags, 2)
-        this.vtbl.getContext := CallbackCreate(GetMethod(implObj, "getContext"), flags, 3)
-        this.vtbl.toDataURL := CallbackCreate(GetMethod(implObj, "toDataURL"), flags, 4)
+        this.vtbl.put_width := CallbackCreate(ObjBindMethod(implObj, "put_width"), flags, 2)
+        this.vtbl.get_width := CallbackCreate(ObjBindMethod(implObj, "get_width"), flags, 2)
+        this.vtbl.put_height := CallbackCreate(ObjBindMethod(implObj, "put_height"), flags, 2)
+        this.vtbl.get_height := CallbackCreate(ObjBindMethod(implObj, "get_height"), flags, 2)
+        this.vtbl.getContext := CallbackCreate(ObjBindMethod(implObj, "getContext"), flags, 3)
+        this.vtbl.toDataURL := CallbackCreate(ObjBindMethod(implObj, "toDataURL"), flags, 4)
     }
 
     Dispose() {

@@ -61,7 +61,8 @@ export default struct IWMDMMetaData extends IUnknown {
     AddItem(Type, pwszTagName, pValue, iLength) {
         pwszTagName := pwszTagName is String ? StrPtr(pwszTagName) : pwszTagName
 
-        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "char*" : IntPtr
+        pValueMarshal := pValue == 0 ? IntPtr : "char*"
 
         result := ComCall(3, this, WMDM_TAG_DATATYPE, Type, "ptr", pwszTagName, pValueMarshal, pValue, UInt32, iLength, "HRESULT")
         return result
@@ -86,9 +87,9 @@ export default struct IWMDMMetaData extends IUnknown {
     QueryByName(pwszTagName, pType, pValue, pcbLength) {
         pwszTagName := pwszTagName is String ? StrPtr(pwszTagName) : pwszTagName
 
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-        pValueMarshal := pValue is VarRef ? "ptr*" : "ptr"
-        pcbLengthMarshal := pcbLength is VarRef ? "uint*" : "ptr"
+        pTypeMarshal := pType is VarRef ? "int*" : IntPtr
+        pValueMarshal := pValue is VarRef ? "ptr*" : IntPtr
+        pcbLengthMarshal := pcbLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, "ptr", pwszTagName, pTypeMarshal, pType, pValueMarshal, pValue, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
@@ -112,10 +113,10 @@ export default struct IWMDMMetaData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmmetadata-querybyindex
      */
     QueryByIndex(iIndex, ppwszName, pType, ppValue, pcbLength) {
-        ppwszNameMarshal := ppwszName is VarRef ? "ptr*" : "ptr"
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-        ppValueMarshal := ppValue is VarRef ? "ptr*" : "ptr"
-        pcbLengthMarshal := pcbLength is VarRef ? "uint*" : "ptr"
+        ppwszNameMarshal := ppwszName is VarRef ? "ptr*" : IntPtr
+        pTypeMarshal := pType is VarRef ? "int*" : IntPtr
+        ppValueMarshal := ppValue is VarRef ? "ptr*" : IntPtr
+        pcbLengthMarshal := pcbLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, UInt32, iIndex, ppwszNameMarshal, ppwszName, pTypeMarshal, pType, ppValueMarshal, ppValue, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
@@ -142,10 +143,10 @@ export default struct IWMDMMetaData extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddItem := CallbackCreate(GetMethod(implObj, "AddItem"), flags, 5)
-        this.vtbl.QueryByName := CallbackCreate(GetMethod(implObj, "QueryByName"), flags, 5)
-        this.vtbl.QueryByIndex := CallbackCreate(GetMethod(implObj, "QueryByIndex"), flags, 6)
-        this.vtbl.GetItemCount := CallbackCreate(GetMethod(implObj, "GetItemCount"), flags, 2)
+        this.vtbl.AddItem := CallbackCreate(ObjBindMethod(implObj, "AddItem"), flags, 5)
+        this.vtbl.QueryByName := CallbackCreate(ObjBindMethod(implObj, "QueryByName"), flags, 5)
+        this.vtbl.QueryByIndex := CallbackCreate(ObjBindMethod(implObj, "QueryByIndex"), flags, 6)
+        this.vtbl.GetItemCount := CallbackCreate(ObjBindMethod(implObj, "GetItemCount"), flags, 2)
     }
 
     Dispose() {

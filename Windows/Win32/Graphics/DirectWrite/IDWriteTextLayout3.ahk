@@ -88,9 +88,10 @@ export default struct IDWriteTextLayout3 extends IDWriteTextLayout2 {
      * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritetextlayout3-getlinemetrics
      */
     GetLineMetrics(lineMetrics, maxLineCount, actualLineCount) {
-        actualLineCountMarshal := actualLineCount is VarRef ? "uint*" : "ptr"
+        lineMetricsMarshal := lineMetrics == 0 ? IntPtr : DWRITE_LINE_METRICS1.Ptr
+        actualLineCountMarshal := actualLineCount is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(83, this, DWRITE_LINE_METRICS1.Ptr, lineMetrics, UInt32, maxLineCount, actualLineCountMarshal, actualLineCount, "HRESULT")
+        result := ComCall(83, this, lineMetricsMarshal, lineMetrics, UInt32, maxLineCount, actualLineCountMarshal, actualLineCount, "HRESULT")
         return result
     }
 
@@ -103,10 +104,10 @@ export default struct IDWriteTextLayout3 extends IDWriteTextLayout2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InvalidateLayout := CallbackCreate(GetMethod(implObj, "InvalidateLayout"), flags, 1)
-        this.vtbl.SetLineSpacing := CallbackCreate(GetMethod(implObj, "SetLineSpacing"), flags, 2)
-        this.vtbl.GetLineSpacing := CallbackCreate(GetMethod(implObj, "GetLineSpacing"), flags, 2)
-        this.vtbl.GetLineMetrics := CallbackCreate(GetMethod(implObj, "GetLineMetrics"), flags, 4)
+        this.vtbl.InvalidateLayout := CallbackCreate(ObjBindMethod(implObj, "InvalidateLayout"), flags, 1)
+        this.vtbl.SetLineSpacing := CallbackCreate(ObjBindMethod(implObj, "SetLineSpacing"), flags, 2)
+        this.vtbl.GetLineSpacing := CallbackCreate(ObjBindMethod(implObj, "GetLineSpacing"), flags, 2)
+        this.vtbl.GetLineMetrics := CallbackCreate(ObjBindMethod(implObj, "GetLineMetrics"), flags, 4)
     }
 
     Dispose() {

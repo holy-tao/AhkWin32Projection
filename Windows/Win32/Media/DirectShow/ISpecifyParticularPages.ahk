@@ -37,7 +37,6 @@ export default struct ISpecifyParticularPages extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} guidWhatPages 
      * @returns {CAUUID} 
      */
@@ -56,7 +55,7 @@ export default struct ISpecifyParticularPages extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPages := CallbackCreate(GetMethod(implObj, "GetPages"), flags, 3)
+        this.vtbl.GetPages := CallbackCreate(ObjBindMethod(implObj, "GetPages"), flags, 3)
     }
 
     Dispose() {

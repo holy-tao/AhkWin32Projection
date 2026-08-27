@@ -60,7 +60,6 @@ export default struct IDxcUtils extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDxcBlob} pBlob 
      * @param {Integer} offset 
      * @param {Integer} length 
@@ -72,7 +71,6 @@ export default struct IDxcUtils extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pData 
      * @param {Integer} _size 
      * @param {DXC_CP} codePage 
@@ -84,7 +82,6 @@ export default struct IDxcUtils extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pData 
      * @param {IMalloc} pIMalloc 
      * @param {Integer} _size 
@@ -110,7 +107,6 @@ export default struct IDxcUtils extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pFileName 
      * @param {Pointer<DXC_CP>} pCodePage 
      * @returns {IDxcBlobEncoding} 
@@ -118,14 +114,14 @@ export default struct IDxcUtils extends IUnknown {
     LoadFile(pFileName, pCodePage) {
         pFileName := pFileName is String ? StrPtr(pFileName) : pFileName
 
-        pCodePageMarshal := pCodePage is VarRef ? "uint*" : "ptr"
+        pCodePageMarshal := pCodePage is VarRef ? "uint*" : IntPtr
+        pCodePageMarshal := pCodePage == 0 ? IntPtr : "uint*"
 
         result := ComCall(7, this, "ptr", pFileName, pCodePageMarshal, pCodePage, "ptr*", &ppBlobEncoding := 0, "HRESULT")
         return IDxcBlobEncoding(ppBlobEncoding)
     }
 
     /**
-     * 
      * @param {IDxcBlob} pBlob 
      * @returns {IStream} 
      */
@@ -135,7 +131,6 @@ export default struct IDxcUtils extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDxcIncludeHandler} 
      */
     CreateDefaultIncludeHandler() {
@@ -144,7 +139,6 @@ export default struct IDxcUtils extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDxcBlob} pBlob 
      * @returns {IDxcBlobUtf8} 
      */
@@ -154,7 +148,6 @@ export default struct IDxcUtils extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDxcBlob} pBlob 
      * @returns {IDxcBlobUtf16} 
      */
@@ -164,7 +157,6 @@ export default struct IDxcUtils extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DxcBuffer>} pShader 
      * @param {Integer} DxcPart 
      * @param {Pointer<Pointer<Void>>} ppPartData 
@@ -172,29 +164,27 @@ export default struct IDxcUtils extends IUnknown {
      * @returns {HRESULT} 
      */
     GetDxilContainerPart(pShader, DxcPart, ppPartData, pPartSizeInBytes) {
-        ppPartDataMarshal := ppPartData is VarRef ? "ptr*" : "ptr"
-        pPartSizeInBytesMarshal := pPartSizeInBytes is VarRef ? "uint*" : "ptr"
+        ppPartDataMarshal := ppPartData is VarRef ? "ptr*" : IntPtr
+        pPartSizeInBytesMarshal := pPartSizeInBytes is VarRef ? "uint*" : IntPtr
 
         result := ComCall(12, this, DxcBuffer.Ptr, pShader, UInt32, DxcPart, ppPartDataMarshal, ppPartData, pPartSizeInBytesMarshal, pPartSizeInBytes, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<DxcBuffer>} pData 
      * @param {Pointer<Guid>} iid 
      * @param {Pointer<Pointer<Void>>} ppvReflection 
      * @returns {HRESULT} 
      */
     CreateReflection(pData, iid, ppvReflection) {
-        ppvReflectionMarshal := ppvReflection is VarRef ? "ptr*" : "ptr"
+        ppvReflectionMarshal := ppvReflection is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(13, this, DxcBuffer.Ptr, pData, Guid.Ptr, iid, ppvReflectionMarshal, ppvReflection, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pSourceName 
      * @param {PWSTR} pEntryPoint 
      * @param {PWSTR} pTargetProfile 
@@ -209,14 +199,16 @@ export default struct IDxcUtils extends IUnknown {
         pEntryPoint := pEntryPoint is String ? StrPtr(pEntryPoint) : pEntryPoint
         pTargetProfile := pTargetProfile is String ? StrPtr(pTargetProfile) : pTargetProfile
 
-        pArgumentsMarshal := pArguments is VarRef ? "ptr*" : "ptr"
+        pSourceNameMarshal := pSourceName == 0 ? IntPtr : PWSTR
+        pEntryPointMarshal := pEntryPoint == 0 ? IntPtr : PWSTR
+        pArgumentsMarshal := pArguments is VarRef ? "ptr*" : IntPtr
+        pArgumentsMarshal := pArguments == 0 ? IntPtr : PWSTR.Ptr
 
-        result := ComCall(14, this, "ptr", pSourceName, "ptr", pEntryPoint, "ptr", pTargetProfile, pArgumentsMarshal, pArguments, UInt32, argCount, DxcDefine.Ptr, pDefines, UInt32, defineCount, "ptr*", &ppArgs := 0, "HRESULT")
+        result := ComCall(14, this, pSourceNameMarshal, pSourceName, pEntryPointMarshal, pEntryPoint, "ptr", pTargetProfile, pArgumentsMarshal, pArguments, UInt32, argCount, DxcDefine.Ptr, pDefines, UInt32, defineCount, "ptr*", &ppArgs := 0, "HRESULT")
         return IDxcCompilerArgs(ppArgs)
     }
 
     /**
-     * 
      * @param {IDxcBlob} pPDBBlob 
      * @param {Pointer<IDxcBlob>} ppHash 
      * @param {Pointer<IDxcBlob>} ppContainer 
@@ -236,19 +228,19 @@ export default struct IDxcUtils extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateBlobFromBlob := CallbackCreate(GetMethod(implObj, "CreateBlobFromBlob"), flags, 5)
-        this.vtbl.CreateBlobFromPinned := CallbackCreate(GetMethod(implObj, "CreateBlobFromPinned"), flags, 5)
-        this.vtbl.MoveToBlob := CallbackCreate(GetMethod(implObj, "MoveToBlob"), flags, 6)
-        this.vtbl.CreateBlob := CallbackCreate(GetMethod(implObj, "CreateBlob"), flags, 5)
-        this.vtbl.LoadFile := CallbackCreate(GetMethod(implObj, "LoadFile"), flags, 4)
-        this.vtbl.CreateReadOnlyStreamFromBlob := CallbackCreate(GetMethod(implObj, "CreateReadOnlyStreamFromBlob"), flags, 3)
-        this.vtbl.CreateDefaultIncludeHandler := CallbackCreate(GetMethod(implObj, "CreateDefaultIncludeHandler"), flags, 2)
-        this.vtbl.GetBlobAsUtf8 := CallbackCreate(GetMethod(implObj, "GetBlobAsUtf8"), flags, 3)
-        this.vtbl.GetBlobAsWide := CallbackCreate(GetMethod(implObj, "GetBlobAsWide"), flags, 3)
-        this.vtbl.GetDxilContainerPart := CallbackCreate(GetMethod(implObj, "GetDxilContainerPart"), flags, 5)
-        this.vtbl.CreateReflection := CallbackCreate(GetMethod(implObj, "CreateReflection"), flags, 4)
-        this.vtbl.BuildArguments := CallbackCreate(GetMethod(implObj, "BuildArguments"), flags, 9)
-        this.vtbl.GetPDBContents := CallbackCreate(GetMethod(implObj, "GetPDBContents"), flags, 4)
+        this.vtbl.CreateBlobFromBlob := CallbackCreate(ObjBindMethod(implObj, "CreateBlobFromBlob"), flags, 5)
+        this.vtbl.CreateBlobFromPinned := CallbackCreate(ObjBindMethod(implObj, "CreateBlobFromPinned"), flags, 5)
+        this.vtbl.MoveToBlob := CallbackCreate(ObjBindMethod(implObj, "MoveToBlob"), flags, 6)
+        this.vtbl.CreateBlob := CallbackCreate(ObjBindMethod(implObj, "CreateBlob"), flags, 5)
+        this.vtbl.LoadFile := CallbackCreate(ObjBindMethod(implObj, "LoadFile"), flags, 4)
+        this.vtbl.CreateReadOnlyStreamFromBlob := CallbackCreate(ObjBindMethod(implObj, "CreateReadOnlyStreamFromBlob"), flags, 3)
+        this.vtbl.CreateDefaultIncludeHandler := CallbackCreate(ObjBindMethod(implObj, "CreateDefaultIncludeHandler"), flags, 2)
+        this.vtbl.GetBlobAsUtf8 := CallbackCreate(ObjBindMethod(implObj, "GetBlobAsUtf8"), flags, 3)
+        this.vtbl.GetBlobAsWide := CallbackCreate(ObjBindMethod(implObj, "GetBlobAsWide"), flags, 3)
+        this.vtbl.GetDxilContainerPart := CallbackCreate(ObjBindMethod(implObj, "GetDxilContainerPart"), flags, 5)
+        this.vtbl.CreateReflection := CallbackCreate(ObjBindMethod(implObj, "CreateReflection"), flags, 4)
+        this.vtbl.BuildArguments := CallbackCreate(ObjBindMethod(implObj, "BuildArguments"), flags, 9)
+        this.vtbl.GetPDBContents := CallbackCreate(ObjBindMethod(implObj, "GetPDBContents"), flags, 4)
     }
 
     Dispose() {

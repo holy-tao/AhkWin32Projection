@@ -80,8 +80,8 @@ export default struct IPrinting3DManagerInterop extends IInspectable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetForWindow := CallbackCreate(GetMethod(implObj, "GetForWindow"), flags, 4)
-        this.vtbl.ShowPrintUIForWindowAsync := CallbackCreate(GetMethod(implObj, "ShowPrintUIForWindowAsync"), flags, 4)
+        this.vtbl.GetForWindow := CallbackCreate(ObjBindMethod(implObj, "GetForWindow"), flags, 4)
+        this.vtbl.ShowPrintUIForWindowAsync := CallbackCreate(ObjBindMethod(implObj, "ShowPrintUIForWindowAsync"), flags, 4)
     }
 
     Dispose() {

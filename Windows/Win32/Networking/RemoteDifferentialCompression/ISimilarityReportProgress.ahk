@@ -69,7 +69,7 @@ export default struct ISimilarityReportProgress extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ReportProgress := CallbackCreate(GetMethod(implObj, "ReportProgress"), flags, 2)
+        this.vtbl.ReportProgress := CallbackCreate(ObjBindMethod(implObj, "ReportProgress"), flags, 2)
     }
 
     Dispose() {

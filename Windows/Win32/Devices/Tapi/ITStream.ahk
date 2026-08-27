@@ -520,16 +520,16 @@ export default struct ITStream extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_MediaType := CallbackCreate(GetMethod(implObj, "get_MediaType"), flags, 2)
-        this.vtbl.get_Direction := CallbackCreate(GetMethod(implObj, "get_Direction"), flags, 2)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.StartStream := CallbackCreate(GetMethod(implObj, "StartStream"), flags, 1)
-        this.vtbl.PauseStream := CallbackCreate(GetMethod(implObj, "PauseStream"), flags, 1)
-        this.vtbl.StopStream := CallbackCreate(GetMethod(implObj, "StopStream"), flags, 1)
-        this.vtbl.SelectTerminal := CallbackCreate(GetMethod(implObj, "SelectTerminal"), flags, 2)
-        this.vtbl.UnselectTerminal := CallbackCreate(GetMethod(implObj, "UnselectTerminal"), flags, 2)
-        this.vtbl.EnumerateTerminals := CallbackCreate(GetMethod(implObj, "EnumerateTerminals"), flags, 2)
-        this.vtbl.get_Terminals := CallbackCreate(GetMethod(implObj, "get_Terminals"), flags, 2)
+        this.vtbl.get_MediaType := CallbackCreate(ObjBindMethod(implObj, "get_MediaType"), flags, 2)
+        this.vtbl.get_Direction := CallbackCreate(ObjBindMethod(implObj, "get_Direction"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.StartStream := CallbackCreate(ObjBindMethod(implObj, "StartStream"), flags, 1)
+        this.vtbl.PauseStream := CallbackCreate(ObjBindMethod(implObj, "PauseStream"), flags, 1)
+        this.vtbl.StopStream := CallbackCreate(ObjBindMethod(implObj, "StopStream"), flags, 1)
+        this.vtbl.SelectTerminal := CallbackCreate(ObjBindMethod(implObj, "SelectTerminal"), flags, 2)
+        this.vtbl.UnselectTerminal := CallbackCreate(ObjBindMethod(implObj, "UnselectTerminal"), flags, 2)
+        this.vtbl.EnumerateTerminals := CallbackCreate(ObjBindMethod(implObj, "EnumerateTerminals"), flags, 2)
+        this.vtbl.get_Terminals := CallbackCreate(ObjBindMethod(implObj, "get_Terminals"), flags, 2)
     }
 
     Dispose() {

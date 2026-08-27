@@ -45,7 +45,6 @@ export default struct IWMPNodeRealEstate extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SIZE>} pSize 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,6 @@ export default struct IWMPNodeRealEstate extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<RECT>} pSrc 
      * @param {Pointer<RECT>} pDest 
      * @param {Pointer<RECT>} pClip 
@@ -67,7 +65,6 @@ export default struct IWMPNodeRealEstate extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<RECT>} pSrc 
      * @param {Pointer<RECT>} pDest 
      * @param {Pointer<RECT>} pClip 
@@ -79,7 +76,6 @@ export default struct IWMPNodeRealEstate extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fWindowless 
      * @returns {HRESULT} 
      */
@@ -89,19 +85,17 @@ export default struct IWMPNodeRealEstate extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BOOL>} pfWindowless 
      * @returns {HRESULT} 
      */
     GetWindowless(pfWindowless) {
-        pfWindowlessMarshal := pfWindowless is VarRef ? "int*" : "ptr"
+        pfWindowlessMarshal := pfWindowless is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, pfWindowlessMarshal, pfWindowless, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {BOOL} fFullScreen 
      * @returns {HRESULT} 
      */
@@ -111,12 +105,11 @@ export default struct IWMPNodeRealEstate extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BOOL>} pfFullScreen 
      * @returns {HRESULT} 
      */
     GetFullScreen(pfFullScreen) {
-        pfFullScreenMarshal := pfFullScreen is VarRef ? "int*" : "ptr"
+        pfFullScreenMarshal := pfFullScreen is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, pfFullScreenMarshal, pfFullScreen, "HRESULT")
         return result
@@ -131,13 +124,13 @@ export default struct IWMPNodeRealEstate extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDesiredSize := CallbackCreate(GetMethod(implObj, "GetDesiredSize"), flags, 2)
-        this.vtbl.SetRects := CallbackCreate(GetMethod(implObj, "SetRects"), flags, 4)
-        this.vtbl.GetRects := CallbackCreate(GetMethod(implObj, "GetRects"), flags, 4)
-        this.vtbl.SetWindowless := CallbackCreate(GetMethod(implObj, "SetWindowless"), flags, 2)
-        this.vtbl.GetWindowless := CallbackCreate(GetMethod(implObj, "GetWindowless"), flags, 2)
-        this.vtbl.SetFullScreen := CallbackCreate(GetMethod(implObj, "SetFullScreen"), flags, 2)
-        this.vtbl.GetFullScreen := CallbackCreate(GetMethod(implObj, "GetFullScreen"), flags, 2)
+        this.vtbl.GetDesiredSize := CallbackCreate(ObjBindMethod(implObj, "GetDesiredSize"), flags, 2)
+        this.vtbl.SetRects := CallbackCreate(ObjBindMethod(implObj, "SetRects"), flags, 4)
+        this.vtbl.GetRects := CallbackCreate(ObjBindMethod(implObj, "GetRects"), flags, 4)
+        this.vtbl.SetWindowless := CallbackCreate(ObjBindMethod(implObj, "SetWindowless"), flags, 2)
+        this.vtbl.GetWindowless := CallbackCreate(ObjBindMethod(implObj, "GetWindowless"), flags, 2)
+        this.vtbl.SetFullScreen := CallbackCreate(ObjBindMethod(implObj, "SetFullScreen"), flags, 2)
+        this.vtbl.GetFullScreen := CallbackCreate(ObjBindMethod(implObj, "GetFullScreen"), flags, 2)
     }
 
     Dispose() {

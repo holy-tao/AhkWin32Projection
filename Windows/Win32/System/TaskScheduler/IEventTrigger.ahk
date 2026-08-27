@@ -276,12 +276,12 @@ export default struct IEventTrigger extends ITrigger {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Subscription := CallbackCreate(GetMethod(implObj, "get_Subscription"), flags, 2)
-        this.vtbl.put_Subscription := CallbackCreate(GetMethod(implObj, "put_Subscription"), flags, 2)
-        this.vtbl.get_Delay := CallbackCreate(GetMethod(implObj, "get_Delay"), flags, 2)
-        this.vtbl.put_Delay := CallbackCreate(GetMethod(implObj, "put_Delay"), flags, 2)
-        this.vtbl.get_ValueQueries := CallbackCreate(GetMethod(implObj, "get_ValueQueries"), flags, 2)
-        this.vtbl.put_ValueQueries := CallbackCreate(GetMethod(implObj, "put_ValueQueries"), flags, 2)
+        this.vtbl.get_Subscription := CallbackCreate(ObjBindMethod(implObj, "get_Subscription"), flags, 2)
+        this.vtbl.put_Subscription := CallbackCreate(ObjBindMethod(implObj, "put_Subscription"), flags, 2)
+        this.vtbl.get_Delay := CallbackCreate(ObjBindMethod(implObj, "get_Delay"), flags, 2)
+        this.vtbl.put_Delay := CallbackCreate(ObjBindMethod(implObj, "put_Delay"), flags, 2)
+        this.vtbl.get_ValueQueries := CallbackCreate(ObjBindMethod(implObj, "get_ValueQueries"), flags, 2)
+        this.vtbl.put_ValueQueries := CallbackCreate(ObjBindMethod(implObj, "put_ValueQueries"), flags, 2)
     }
 
     Dispose() {

@@ -172,8 +172,8 @@ export default struct IMbnSignal extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSignalStrength := CallbackCreate(GetMethod(implObj, "GetSignalStrength"), flags, 2)
-        this.vtbl.GetSignalError := CallbackCreate(GetMethod(implObj, "GetSignalError"), flags, 2)
+        this.vtbl.GetSignalStrength := CallbackCreate(ObjBindMethod(implObj, "GetSignalStrength"), flags, 2)
+        this.vtbl.GetSignalError := CallbackCreate(ObjBindMethod(implObj, "GetSignalError"), flags, 2)
     }
 
     Dispose() {

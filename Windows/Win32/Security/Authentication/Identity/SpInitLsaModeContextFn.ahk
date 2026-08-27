@@ -34,7 +34,6 @@ export default struct SpInitLsaModeContextFn {
     }
 
     /**
-     * 
      * @param {Pointer} CredentialHandle Optional. Handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">credentials</a> to use for the context. <i>CredentialHandle</i> can be <b>NULL</b> if the <i>ContextHandle</i> parameter is not <b>NULL</b>.
      * @param {Pointer} ContextHandle Optional. Handle to the context to use as the basis for this context. <i>ContextHandle</i> can be <b>NULL</b> if the <i>CredentialHandle</i> parameter is not <b>NULL</b>.
      * @param {Pointer<LSA_UNICODE_STRING>} TargetName Optional. Pointer to a 
@@ -217,12 +216,15 @@ export default struct SpInitLsaModeContextFn {
      * If the function fails to create the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security context</a> for any other reason, it should return an NTSTATUS code indicating the reason it failed.
      */
     Call(CredentialHandle, ContextHandle, TargetName, ContextRequirements, TargetDataRep, InputBuffers, NewContextHandle, OutputBuffers, ContextAttributes, ExpirationTime, MappedContext, ContextData) {
-        NewContextHandleMarshal := NewContextHandle is VarRef ? "ptr*" : "ptr"
-        ContextAttributesMarshal := ContextAttributes is VarRef ? "uint*" : "ptr"
-        ExpirationTimeMarshal := ExpirationTime is VarRef ? "int64*" : "ptr"
-        MappedContextMarshal := MappedContext is VarRef ? "char*" : "ptr"
+        CredentialHandleMarshal := CredentialHandle == 0 ? IntPtr : IntPtr
+        ContextHandleMarshal := ContextHandle == 0 ? IntPtr : IntPtr
+        TargetNameMarshal := TargetName == 0 ? IntPtr : LSA_UNICODE_STRING.Ptr
+        NewContextHandleMarshal := NewContextHandle is VarRef ? "ptr*" : IntPtr
+        ContextAttributesMarshal := ContextAttributes is VarRef ? "uint*" : IntPtr
+        ExpirationTimeMarshal := ExpirationTime is VarRef ? "int64*" : IntPtr
+        MappedContextMarshal := MappedContext is VarRef ? "char*" : IntPtr
 
-        result := DllCall(this.value, IntPtr, CredentialHandle, IntPtr, ContextHandle, LSA_UNICODE_STRING.Ptr, TargetName, UInt32, ContextRequirements, UInt32, TargetDataRep, SecBufferDesc.Ptr, InputBuffers, NewContextHandleMarshal, NewContextHandle, SecBufferDesc.Ptr, OutputBuffers, ContextAttributesMarshal, ContextAttributes, ExpirationTimeMarshal, ExpirationTime, MappedContextMarshal, MappedContext, SecBuffer.Ptr, ContextData, NTSTATUS)
+        result := DllCall(this.value, CredentialHandleMarshal, CredentialHandle, ContextHandleMarshal, ContextHandle, TargetNameMarshal, TargetName, UInt32, ContextRequirements, UInt32, TargetDataRep, SecBufferDesc.Ptr, InputBuffers, NewContextHandleMarshal, NewContextHandle, SecBufferDesc.Ptr, OutputBuffers, ContextAttributesMarshal, ContextAttributes, ExpirationTimeMarshal, ExpirationTime, MappedContextMarshal, MappedContext, SecBuffer.Ptr, ContextData, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

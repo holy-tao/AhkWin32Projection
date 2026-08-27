@@ -118,8 +118,8 @@ export default struct IVdsDisk3 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsdisk3-queryfreeextents
      */
     QueryFreeExtents(ulAlign, ppFreeExtentArray, plNumberOfFreeExtents) {
-        ppFreeExtentArrayMarshal := ppFreeExtentArray is VarRef ? "ptr*" : "ptr"
-        plNumberOfFreeExtentsMarshal := plNumberOfFreeExtents is VarRef ? "int*" : "ptr"
+        ppFreeExtentArrayMarshal := ppFreeExtentArray is VarRef ? "ptr*" : IntPtr
+        plNumberOfFreeExtentsMarshal := plNumberOfFreeExtents is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, UInt32, ulAlign, ppFreeExtentArrayMarshal, ppFreeExtentArray, plNumberOfFreeExtentsMarshal, plNumberOfFreeExtents, "HRESULT")
         return result
@@ -134,8 +134,8 @@ export default struct IVdsDisk3 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProperties2 := CallbackCreate(GetMethod(implObj, "GetProperties2"), flags, 2)
-        this.vtbl.QueryFreeExtents := CallbackCreate(GetMethod(implObj, "QueryFreeExtents"), flags, 4)
+        this.vtbl.GetProperties2 := CallbackCreate(ObjBindMethod(implObj, "GetProperties2"), flags, 2)
+        this.vtbl.QueryFreeExtents := CallbackCreate(ObjBindMethod(implObj, "QueryFreeExtents"), flags, 4)
     }
 
     Dispose() {

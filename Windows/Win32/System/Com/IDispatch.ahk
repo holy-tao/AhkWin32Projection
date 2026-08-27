@@ -95,7 +95,7 @@ export default struct IDispatch extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-idispatch-getidsofnames
      */
     GetIDsOfNames(riid, rgszNames, cNames, lcid) {
-        rgszNamesMarshal := rgszNames is VarRef ? "ptr*" : "ptr"
+        rgszNamesMarshal := rgszNames is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, Guid.Ptr, riid, rgszNamesMarshal, rgszNames, UInt32, cNames, UInt32, lcid, "int*", &rgDispId := 0, "HRESULT")
         return rgDispId
@@ -333,9 +333,12 @@ export default struct IDispatch extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-idispatch-invoke
      */
     Invoke(dispIdMember, riid, lcid, wFlags, pDispParams, pVarResult, pExcepInfo, puArgErr) {
-        puArgErrMarshal := puArgErr is VarRef ? "uint*" : "ptr"
+        pVarResultMarshal := pVarResult == 0 ? IntPtr : VARIANT.Ptr
+        pExcepInfoMarshal := pExcepInfo == 0 ? IntPtr : EXCEPINFO.Ptr
+        puArgErrMarshal := puArgErr is VarRef ? "uint*" : IntPtr
+        puArgErrMarshal := puArgErr == 0 ? IntPtr : "uint*"
 
-        result := ComCall(6, this, Int32, dispIdMember, Guid.Ptr, riid, UInt32, lcid, DISPATCH_FLAGS, wFlags, DISPPARAMS.Ptr, pDispParams, VARIANT.Ptr, pVarResult, EXCEPINFO.Ptr, pExcepInfo, puArgErrMarshal, puArgErr, "HRESULT")
+        result := ComCall(6, this, Int32, dispIdMember, Guid.Ptr, riid, UInt32, lcid, DISPATCH_FLAGS, wFlags, DISPPARAMS.Ptr, pDispParams, pVarResultMarshal, pVarResult, pExcepInfoMarshal, pExcepInfo, puArgErrMarshal, puArgErr, "HRESULT")
         return result
     }
 
@@ -348,10 +351,10 @@ export default struct IDispatch extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTypeInfoCount := CallbackCreate(GetMethod(implObj, "GetTypeInfoCount"), flags, 2)
-        this.vtbl.GetTypeInfo := CallbackCreate(GetMethod(implObj, "GetTypeInfo"), flags, 4)
-        this.vtbl.GetIDsOfNames := CallbackCreate(GetMethod(implObj, "GetIDsOfNames"), flags, 6)
-        this.vtbl.Invoke := CallbackCreate(GetMethod(implObj, "Invoke"), flags, 9)
+        this.vtbl.GetTypeInfoCount := CallbackCreate(ObjBindMethod(implObj, "GetTypeInfoCount"), flags, 2)
+        this.vtbl.GetTypeInfo := CallbackCreate(ObjBindMethod(implObj, "GetTypeInfo"), flags, 4)
+        this.vtbl.GetIDsOfNames := CallbackCreate(ObjBindMethod(implObj, "GetIDsOfNames"), flags, 6)
+        this.vtbl.Invoke := CallbackCreate(ObjBindMethod(implObj, "Invoke"), flags, 9)
     }
 
     Dispose() {

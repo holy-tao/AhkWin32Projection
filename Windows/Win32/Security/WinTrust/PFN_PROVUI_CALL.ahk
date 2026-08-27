@@ -21,7 +21,6 @@ export default struct PFN_PROVUI_CALL {
     }
 
     /**
-     * 
      * @param {HWND} hWndSecurityDialog 
      * @param {Pointer<CRYPT_PROVIDER_DATA>} pProvData 
      * @returns {BOOL} 

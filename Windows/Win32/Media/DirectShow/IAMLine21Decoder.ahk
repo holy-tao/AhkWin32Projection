@@ -94,7 +94,7 @@ export default struct IAMLine21Decoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/il21dec/nf-il21dec-iamline21decoder-getdecoderlevel
      */
     GetDecoderLevel(lpLevel) {
-        lpLevelMarshal := lpLevel is VarRef ? "int*" : "ptr"
+        lpLevelMarshal := lpLevel is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, lpLevelMarshal, lpLevel, "HRESULT")
         return result
@@ -136,7 +136,7 @@ export default struct IAMLine21Decoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/il21dec/nf-il21dec-iamline21decoder-getcurrentservice
      */
     GetCurrentService(lpService) {
-        lpServiceMarshal := lpService is VarRef ? "int*" : "ptr"
+        lpServiceMarshal := lpService is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, lpServiceMarshal, lpService, "HRESULT")
         return result
@@ -210,7 +210,7 @@ export default struct IAMLine21Decoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/il21dec/nf-il21dec-iamline21decoder-getservicestate
      */
     GetServiceState(lpState) {
-        lpStateMarshal := lpState is VarRef ? "int*" : "ptr"
+        lpStateMarshal := lpState is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, lpStateMarshal, lpState, "HRESULT")
         return result
@@ -354,7 +354,7 @@ export default struct IAMLine21Decoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/il21dec/nf-il21dec-iamline21decoder-getbackgroundcolor
      */
     GetBackgroundColor(pdwPhysColor) {
-        pdwPhysColorMarshal := pdwPhysColor is VarRef ? "uint*" : "ptr"
+        pdwPhysColorMarshal := pdwPhysColor is VarRef ? "uint*" : IntPtr
 
         result := ComCall(10, this, pdwPhysColorMarshal, pdwPhysColor, "HRESULT")
         return result
@@ -407,7 +407,7 @@ export default struct IAMLine21Decoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/il21dec/nf-il21dec-iamline21decoder-getredrawalways
      */
     GetRedrawAlways(lpbOption) {
-        lpbOptionMarshal := lpbOption is VarRef ? "int*" : "ptr"
+        lpbOptionMarshal := lpbOption is VarRef ? "int*" : IntPtr
 
         result := ComCall(12, this, lpbOptionMarshal, lpbOption, "HRESULT")
         return result
@@ -462,7 +462,7 @@ export default struct IAMLine21Decoder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/il21dec/nf-il21dec-iamline21decoder-getdrawbackgroundmode
      */
     GetDrawBackgroundMode(lpMode) {
-        lpModeMarshal := lpMode is VarRef ? "int*" : "ptr"
+        lpModeMarshal := lpMode is VarRef ? "int*" : IntPtr
 
         result := ComCall(14, this, lpModeMarshal, lpMode, "HRESULT")
         return result
@@ -517,19 +517,19 @@ export default struct IAMLine21Decoder extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDecoderLevel := CallbackCreate(GetMethod(implObj, "GetDecoderLevel"), flags, 2)
-        this.vtbl.GetCurrentService := CallbackCreate(GetMethod(implObj, "GetCurrentService"), flags, 2)
-        this.vtbl.SetCurrentService := CallbackCreate(GetMethod(implObj, "SetCurrentService"), flags, 2)
-        this.vtbl.GetServiceState := CallbackCreate(GetMethod(implObj, "GetServiceState"), flags, 2)
-        this.vtbl.SetServiceState := CallbackCreate(GetMethod(implObj, "SetServiceState"), flags, 2)
-        this.vtbl.GetOutputFormat := CallbackCreate(GetMethod(implObj, "GetOutputFormat"), flags, 2)
-        this.vtbl.SetOutputFormat := CallbackCreate(GetMethod(implObj, "SetOutputFormat"), flags, 2)
-        this.vtbl.GetBackgroundColor := CallbackCreate(GetMethod(implObj, "GetBackgroundColor"), flags, 2)
-        this.vtbl.SetBackgroundColor := CallbackCreate(GetMethod(implObj, "SetBackgroundColor"), flags, 2)
-        this.vtbl.GetRedrawAlways := CallbackCreate(GetMethod(implObj, "GetRedrawAlways"), flags, 2)
-        this.vtbl.SetRedrawAlways := CallbackCreate(GetMethod(implObj, "SetRedrawAlways"), flags, 2)
-        this.vtbl.GetDrawBackgroundMode := CallbackCreate(GetMethod(implObj, "GetDrawBackgroundMode"), flags, 2)
-        this.vtbl.SetDrawBackgroundMode := CallbackCreate(GetMethod(implObj, "SetDrawBackgroundMode"), flags, 2)
+        this.vtbl.GetDecoderLevel := CallbackCreate(ObjBindMethod(implObj, "GetDecoderLevel"), flags, 2)
+        this.vtbl.GetCurrentService := CallbackCreate(ObjBindMethod(implObj, "GetCurrentService"), flags, 2)
+        this.vtbl.SetCurrentService := CallbackCreate(ObjBindMethod(implObj, "SetCurrentService"), flags, 2)
+        this.vtbl.GetServiceState := CallbackCreate(ObjBindMethod(implObj, "GetServiceState"), flags, 2)
+        this.vtbl.SetServiceState := CallbackCreate(ObjBindMethod(implObj, "SetServiceState"), flags, 2)
+        this.vtbl.GetOutputFormat := CallbackCreate(ObjBindMethod(implObj, "GetOutputFormat"), flags, 2)
+        this.vtbl.SetOutputFormat := CallbackCreate(ObjBindMethod(implObj, "SetOutputFormat"), flags, 2)
+        this.vtbl.GetBackgroundColor := CallbackCreate(ObjBindMethod(implObj, "GetBackgroundColor"), flags, 2)
+        this.vtbl.SetBackgroundColor := CallbackCreate(ObjBindMethod(implObj, "SetBackgroundColor"), flags, 2)
+        this.vtbl.GetRedrawAlways := CallbackCreate(ObjBindMethod(implObj, "GetRedrawAlways"), flags, 2)
+        this.vtbl.SetRedrawAlways := CallbackCreate(ObjBindMethod(implObj, "SetRedrawAlways"), flags, 2)
+        this.vtbl.GetDrawBackgroundMode := CallbackCreate(ObjBindMethod(implObj, "GetDrawBackgroundMode"), flags, 2)
+        this.vtbl.SetDrawBackgroundMode := CallbackCreate(ObjBindMethod(implObj, "SetDrawBackgroundMode"), flags, 2)
     }
 
     Dispose() {

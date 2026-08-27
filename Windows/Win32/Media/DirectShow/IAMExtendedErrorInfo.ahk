@@ -72,7 +72,7 @@ export default struct IAMExtendedErrorInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamextendederrorinfo-get_haserror
      */
     get_HasError(pHasError) {
-        pHasErrorMarshal := pHasError is VarRef ? "short*" : "ptr"
+        pHasErrorMarshal := pHasError is VarRef ? "short*" : IntPtr
 
         result := ComCall(7, this, pHasErrorMarshal, pHasError, "HRESULT")
         return result
@@ -98,7 +98,7 @@ export default struct IAMExtendedErrorInfo extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamextendederrorinfo-get_errorcode
      */
     get_ErrorCode(pErrorCode) {
-        pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
+        pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, pErrorCodeMarshal, pErrorCode, "HRESULT")
         return result
@@ -113,9 +113,9 @@ export default struct IAMExtendedErrorInfo extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_HasError := CallbackCreate(GetMethod(implObj, "get_HasError"), flags, 2)
-        this.vtbl.get_ErrorDescription := CallbackCreate(GetMethod(implObj, "get_ErrorDescription"), flags, 2)
-        this.vtbl.get_ErrorCode := CallbackCreate(GetMethod(implObj, "get_ErrorCode"), flags, 2)
+        this.vtbl.get_HasError := CallbackCreate(ObjBindMethod(implObj, "get_HasError"), flags, 2)
+        this.vtbl.get_ErrorDescription := CallbackCreate(ObjBindMethod(implObj, "get_ErrorDescription"), flags, 2)
+        this.vtbl.get_ErrorCode := CallbackCreate(ObjBindMethod(implObj, "get_ErrorCode"), flags, 2)
     }
 
     Dispose() {

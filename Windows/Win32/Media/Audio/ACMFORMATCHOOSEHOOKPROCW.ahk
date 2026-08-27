@@ -22,7 +22,6 @@ export default struct ACMFORMATCHOOSEHOOKPROCW {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {Integer} uMsg 
      * @param {WPARAM} _wParam 

@@ -185,14 +185,14 @@ export default struct IATSCTuningSpace extends IAnalogTVTuningSpace {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_MinMinorChannel := CallbackCreate(GetMethod(implObj, "get_MinMinorChannel"), flags, 2)
-        this.vtbl.put_MinMinorChannel := CallbackCreate(GetMethod(implObj, "put_MinMinorChannel"), flags, 2)
-        this.vtbl.get_MaxMinorChannel := CallbackCreate(GetMethod(implObj, "get_MaxMinorChannel"), flags, 2)
-        this.vtbl.put_MaxMinorChannel := CallbackCreate(GetMethod(implObj, "put_MaxMinorChannel"), flags, 2)
-        this.vtbl.get_MinPhysicalChannel := CallbackCreate(GetMethod(implObj, "get_MinPhysicalChannel"), flags, 2)
-        this.vtbl.put_MinPhysicalChannel := CallbackCreate(GetMethod(implObj, "put_MinPhysicalChannel"), flags, 2)
-        this.vtbl.get_MaxPhysicalChannel := CallbackCreate(GetMethod(implObj, "get_MaxPhysicalChannel"), flags, 2)
-        this.vtbl.put_MaxPhysicalChannel := CallbackCreate(GetMethod(implObj, "put_MaxPhysicalChannel"), flags, 2)
+        this.vtbl.get_MinMinorChannel := CallbackCreate(ObjBindMethod(implObj, "get_MinMinorChannel"), flags, 2)
+        this.vtbl.put_MinMinorChannel := CallbackCreate(ObjBindMethod(implObj, "put_MinMinorChannel"), flags, 2)
+        this.vtbl.get_MaxMinorChannel := CallbackCreate(ObjBindMethod(implObj, "get_MaxMinorChannel"), flags, 2)
+        this.vtbl.put_MaxMinorChannel := CallbackCreate(ObjBindMethod(implObj, "put_MaxMinorChannel"), flags, 2)
+        this.vtbl.get_MinPhysicalChannel := CallbackCreate(ObjBindMethod(implObj, "get_MinPhysicalChannel"), flags, 2)
+        this.vtbl.put_MinPhysicalChannel := CallbackCreate(ObjBindMethod(implObj, "put_MinPhysicalChannel"), flags, 2)
+        this.vtbl.get_MaxPhysicalChannel := CallbackCreate(ObjBindMethod(implObj, "get_MaxPhysicalChannel"), flags, 2)
+        this.vtbl.put_MaxPhysicalChannel := CallbackCreate(ObjBindMethod(implObj, "put_MaxPhysicalChannel"), flags, 2)
     }
 
     Dispose() {

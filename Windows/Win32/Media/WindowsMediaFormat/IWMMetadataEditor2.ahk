@@ -118,7 +118,7 @@ export default struct IWMMetadataEditor2 extends IWMMetadataEditor {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OpenEx := CallbackCreate(GetMethod(implObj, "OpenEx"), flags, 4)
+        this.vtbl.OpenEx := CallbackCreate(ObjBindMethod(implObj, "OpenEx"), flags, 4)
     }
 
     Dispose() {

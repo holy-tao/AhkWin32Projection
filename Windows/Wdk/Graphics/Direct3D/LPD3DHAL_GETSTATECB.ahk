@@ -19,7 +19,6 @@ export default struct LPD3DHAL_GETSTATECB {
     }
 
     /**
-     * 
      * @param {Pointer<D3DHAL_GETSTATEDATA>} param0 
      * @returns {Integer} 
      */

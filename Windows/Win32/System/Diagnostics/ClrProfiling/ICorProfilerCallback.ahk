@@ -155,7 +155,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} appDomainId 
      * @returns {HRESULT} 
      */
@@ -165,7 +164,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} appDomainId 
      * @param {HRESULT} hrStatus 
      * @returns {HRESULT} 
@@ -176,7 +174,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} appDomainId 
      * @returns {HRESULT} 
      */
@@ -186,7 +183,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} appDomainId 
      * @param {HRESULT} hrStatus 
      * @returns {HRESULT} 
@@ -197,7 +193,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} assemblyId 
      * @returns {HRESULT} 
      */
@@ -207,7 +202,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} assemblyId 
      * @param {HRESULT} hrStatus 
      * @returns {HRESULT} 
@@ -218,7 +212,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} assemblyId 
      * @returns {HRESULT} 
      */
@@ -228,7 +221,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} assemblyId 
      * @param {HRESULT} hrStatus 
      * @returns {HRESULT} 
@@ -239,7 +231,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @returns {HRESULT} 
      */
@@ -249,7 +240,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @param {HRESULT} hrStatus 
      * @returns {HRESULT} 
@@ -260,7 +250,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @returns {HRESULT} 
      */
@@ -270,7 +259,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @param {HRESULT} hrStatus 
      * @returns {HRESULT} 
@@ -281,7 +269,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} moduleId 
      * @param {Pointer} AssemblyId 
      * @returns {HRESULT} 
@@ -292,7 +279,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} classId 
      * @returns {HRESULT} 
      */
@@ -302,7 +288,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} classId 
      * @param {HRESULT} hrStatus 
      * @returns {HRESULT} 
@@ -313,7 +298,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} classId 
      * @returns {HRESULT} 
      */
@@ -323,7 +307,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} classId 
      * @param {HRESULT} hrStatus 
      * @returns {HRESULT} 
@@ -334,7 +317,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @returns {HRESULT} 
      */
@@ -344,7 +326,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {BOOL} fIsSafeToBlock 
      * @returns {HRESULT} 
@@ -355,7 +336,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {HRESULT} hrStatus 
      * @param {BOOL} fIsSafeToBlock 
@@ -367,7 +347,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @returns {BOOL} 
      */
@@ -377,7 +356,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {COR_PRF_JIT_CACHE} result 
      * @returns {HRESULT} 
@@ -388,7 +366,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @returns {HRESULT} 
      */
@@ -398,7 +375,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} callerId 
      * @param {Pointer} calleeId 
      * @returns {BOOL} 
@@ -409,7 +385,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} threadId 
      * @returns {HRESULT} 
      */
@@ -419,7 +394,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} threadId 
      * @returns {HRESULT} 
      */
@@ -429,7 +403,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} managedThreadId 
      * @param {Integer} osThreadId 
      * @returns {HRESULT} 
@@ -440,7 +413,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RemotingClientInvocationStarted() {
@@ -449,7 +421,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pCookie 
      * @param {BOOL} fIsAsync 
      * @returns {HRESULT} 
@@ -460,7 +431,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pCookie 
      * @param {BOOL} fIsAsync 
      * @returns {HRESULT} 
@@ -471,7 +441,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RemotingClientInvocationFinished() {
@@ -480,7 +449,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pCookie 
      * @param {BOOL} fIsAsync 
      * @returns {HRESULT} 
@@ -491,7 +459,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RemotingServerInvocationStarted() {
@@ -500,7 +467,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RemotingServerInvocationReturned() {
@@ -509,7 +475,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pCookie 
      * @param {BOOL} fIsAsync 
      * @returns {HRESULT} 
@@ -520,7 +485,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {COR_PRF_TRANSITION_REASON} reason 
      * @returns {HRESULT} 
@@ -531,7 +495,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {COR_PRF_TRANSITION_REASON} reason 
      * @returns {HRESULT} 
@@ -542,7 +505,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {COR_PRF_SUSPEND_REASON} suspendReason 
      * @returns {HRESULT} 
      */
@@ -552,7 +514,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RuntimeSuspendFinished() {
@@ -561,7 +522,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RuntimeSuspendAborted() {
@@ -570,7 +530,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RuntimeResumeStarted() {
@@ -579,7 +538,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RuntimeResumeFinished() {
@@ -588,7 +546,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} threadId 
      * @returns {HRESULT} 
      */
@@ -598,7 +555,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} threadId 
      * @returns {HRESULT} 
      */
@@ -608,7 +564,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cMovedObjectIDRanges 
      * @param {Pointer<Pointer>} oldObjectIDRangeStart 
      * @param {Pointer<Pointer>} newObjectIDRangeStart 
@@ -616,16 +571,15 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     MovedReferences(cMovedObjectIDRanges, oldObjectIDRangeStart, newObjectIDRangeStart, cObjectIDRangeLength) {
-        oldObjectIDRangeStartMarshal := oldObjectIDRangeStart is VarRef ? "ptr*" : "ptr"
-        newObjectIDRangeStartMarshal := newObjectIDRangeStart is VarRef ? "ptr*" : "ptr"
-        cObjectIDRangeLengthMarshal := cObjectIDRangeLength is VarRef ? "uint*" : "ptr"
+        oldObjectIDRangeStartMarshal := oldObjectIDRangeStart is VarRef ? "ptr*" : IntPtr
+        newObjectIDRangeStartMarshal := newObjectIDRangeStart is VarRef ? "ptr*" : IntPtr
+        cObjectIDRangeLengthMarshal := cObjectIDRangeLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(49, this, UInt32, cMovedObjectIDRanges, oldObjectIDRangeStartMarshal, oldObjectIDRangeStart, newObjectIDRangeStartMarshal, newObjectIDRangeStart, cObjectIDRangeLengthMarshal, cObjectIDRangeLength, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} _objectId 
      * @param {Pointer} classId 
      * @returns {HRESULT} 
@@ -636,22 +590,20 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cClassCount 
      * @param {Pointer<Pointer>} classIds 
      * @param {Pointer<Integer>} cObjects 
      * @returns {HRESULT} 
      */
     ObjectsAllocatedByClass(cClassCount, classIds, cObjects) {
-        classIdsMarshal := classIds is VarRef ? "ptr*" : "ptr"
-        cObjectsMarshal := cObjects is VarRef ? "uint*" : "ptr"
+        classIdsMarshal := classIds is VarRef ? "ptr*" : IntPtr
+        cObjectsMarshal := cObjects is VarRef ? "uint*" : IntPtr
 
         result := ComCall(51, this, UInt32, cClassCount, classIdsMarshal, classIds, cObjectsMarshal, cObjects, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} _objectId 
      * @param {Pointer} classId 
      * @param {Integer} cObjectRefs 
@@ -659,27 +611,25 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     ObjectReferences(_objectId, classId, cObjectRefs, objectRefIds) {
-        objectRefIdsMarshal := objectRefIds is VarRef ? "ptr*" : "ptr"
+        objectRefIdsMarshal := objectRefIds is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(52, this, IntPtr, _objectId, IntPtr, classId, UInt32, cObjectRefs, objectRefIdsMarshal, objectRefIds, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} cRootRefs 
      * @param {Pointer<Pointer>} rootRefIds 
      * @returns {HRESULT} 
      */
     RootReferences(cRootRefs, rootRefIds) {
-        rootRefIdsMarshal := rootRefIds is VarRef ? "ptr*" : "ptr"
+        rootRefIdsMarshal := rootRefIds is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(53, this, UInt32, cRootRefs, rootRefIdsMarshal, rootRefIds, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} thrownObjectId 
      * @returns {HRESULT} 
      */
@@ -689,7 +639,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @returns {HRESULT} 
      */
@@ -699,7 +648,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ExceptionSearchFunctionLeave() {
@@ -708,7 +656,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @returns {HRESULT} 
      */
@@ -718,7 +665,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ExceptionSearchFilterLeave() {
@@ -727,7 +673,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @returns {HRESULT} 
      */
@@ -737,7 +682,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} __unused 
      * @returns {HRESULT} 
      */
@@ -747,7 +691,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} __unused 
      * @returns {HRESULT} 
      */
@@ -757,7 +700,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @returns {HRESULT} 
      */
@@ -767,7 +709,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ExceptionUnwindFunctionLeave() {
@@ -776,7 +717,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @returns {HRESULT} 
      */
@@ -786,7 +726,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ExceptionUnwindFinallyLeave() {
@@ -795,7 +734,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {Pointer} _objectId 
      * @returns {HRESULT} 
@@ -806,7 +744,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ExceptionCatcherLeave() {
@@ -815,7 +752,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} wrappedClassId 
      * @param {Pointer<Guid>} implementedIID 
      * @param {Pointer<Void>} pVTable 
@@ -823,28 +759,26 @@ export default struct ICorProfilerCallback extends IUnknown {
      * @returns {HRESULT} 
      */
     COMClassicVTableCreated(wrappedClassId, implementedIID, pVTable, cSlots) {
-        pVTableMarshal := pVTable is VarRef ? "ptr" : "ptr"
+        pVTableMarshal := pVTable is VarRef ? "ptr" : IntPtr
 
         result := ComCall(68, this, IntPtr, wrappedClassId, Guid.Ptr, implementedIID, pVTableMarshal, pVTable, UInt32, cSlots, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} wrappedClassId 
      * @param {Pointer<Guid>} implementedIID 
      * @param {Pointer<Void>} pVTable 
      * @returns {HRESULT} 
      */
     COMClassicVTableDestroyed(wrappedClassId, implementedIID, pVTable) {
-        pVTableMarshal := pVTable is VarRef ? "ptr" : "ptr"
+        pVTableMarshal := pVTable is VarRef ? "ptr" : IntPtr
 
         result := ComCall(69, this, IntPtr, wrappedClassId, Guid.Ptr, implementedIID, pVTableMarshal, pVTable, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ExceptionCLRCatcherFound() {
@@ -853,7 +787,6 @@ export default struct ICorProfilerCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ExceptionCLRCatcherExecute() {
@@ -870,75 +803,75 @@ export default struct ICorProfilerCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 1)
-        this.vtbl.AppDomainCreationStarted := CallbackCreate(GetMethod(implObj, "AppDomainCreationStarted"), flags, 2)
-        this.vtbl.AppDomainCreationFinished := CallbackCreate(GetMethod(implObj, "AppDomainCreationFinished"), flags, 3)
-        this.vtbl.AppDomainShutdownStarted := CallbackCreate(GetMethod(implObj, "AppDomainShutdownStarted"), flags, 2)
-        this.vtbl.AppDomainShutdownFinished := CallbackCreate(GetMethod(implObj, "AppDomainShutdownFinished"), flags, 3)
-        this.vtbl.AssemblyLoadStarted := CallbackCreate(GetMethod(implObj, "AssemblyLoadStarted"), flags, 2)
-        this.vtbl.AssemblyLoadFinished := CallbackCreate(GetMethod(implObj, "AssemblyLoadFinished"), flags, 3)
-        this.vtbl.AssemblyUnloadStarted := CallbackCreate(GetMethod(implObj, "AssemblyUnloadStarted"), flags, 2)
-        this.vtbl.AssemblyUnloadFinished := CallbackCreate(GetMethod(implObj, "AssemblyUnloadFinished"), flags, 3)
-        this.vtbl.ModuleLoadStarted := CallbackCreate(GetMethod(implObj, "ModuleLoadStarted"), flags, 2)
-        this.vtbl.ModuleLoadFinished := CallbackCreate(GetMethod(implObj, "ModuleLoadFinished"), flags, 3)
-        this.vtbl.ModuleUnloadStarted := CallbackCreate(GetMethod(implObj, "ModuleUnloadStarted"), flags, 2)
-        this.vtbl.ModuleUnloadFinished := CallbackCreate(GetMethod(implObj, "ModuleUnloadFinished"), flags, 3)
-        this.vtbl.ModuleAttachedToAssembly := CallbackCreate(GetMethod(implObj, "ModuleAttachedToAssembly"), flags, 3)
-        this.vtbl.ClassLoadStarted := CallbackCreate(GetMethod(implObj, "ClassLoadStarted"), flags, 2)
-        this.vtbl.ClassLoadFinished := CallbackCreate(GetMethod(implObj, "ClassLoadFinished"), flags, 3)
-        this.vtbl.ClassUnloadStarted := CallbackCreate(GetMethod(implObj, "ClassUnloadStarted"), flags, 2)
-        this.vtbl.ClassUnloadFinished := CallbackCreate(GetMethod(implObj, "ClassUnloadFinished"), flags, 3)
-        this.vtbl.FunctionUnloadStarted := CallbackCreate(GetMethod(implObj, "FunctionUnloadStarted"), flags, 2)
-        this.vtbl.JITCompilationStarted := CallbackCreate(GetMethod(implObj, "JITCompilationStarted"), flags, 3)
-        this.vtbl.JITCompilationFinished := CallbackCreate(GetMethod(implObj, "JITCompilationFinished"), flags, 4)
-        this.vtbl.JITCachedFunctionSearchStarted := CallbackCreate(GetMethod(implObj, "JITCachedFunctionSearchStarted"), flags, 3)
-        this.vtbl.JITCachedFunctionSearchFinished := CallbackCreate(GetMethod(implObj, "JITCachedFunctionSearchFinished"), flags, 3)
-        this.vtbl.JITFunctionPitched := CallbackCreate(GetMethod(implObj, "JITFunctionPitched"), flags, 2)
-        this.vtbl.JITInlining := CallbackCreate(GetMethod(implObj, "JITInlining"), flags, 4)
-        this.vtbl.ThreadCreated := CallbackCreate(GetMethod(implObj, "ThreadCreated"), flags, 2)
-        this.vtbl.ThreadDestroyed := CallbackCreate(GetMethod(implObj, "ThreadDestroyed"), flags, 2)
-        this.vtbl.ThreadAssignedToOSThread := CallbackCreate(GetMethod(implObj, "ThreadAssignedToOSThread"), flags, 3)
-        this.vtbl.RemotingClientInvocationStarted := CallbackCreate(GetMethod(implObj, "RemotingClientInvocationStarted"), flags, 1)
-        this.vtbl.RemotingClientSendingMessage := CallbackCreate(GetMethod(implObj, "RemotingClientSendingMessage"), flags, 3)
-        this.vtbl.RemotingClientReceivingReply := CallbackCreate(GetMethod(implObj, "RemotingClientReceivingReply"), flags, 3)
-        this.vtbl.RemotingClientInvocationFinished := CallbackCreate(GetMethod(implObj, "RemotingClientInvocationFinished"), flags, 1)
-        this.vtbl.RemotingServerReceivingMessage := CallbackCreate(GetMethod(implObj, "RemotingServerReceivingMessage"), flags, 3)
-        this.vtbl.RemotingServerInvocationStarted := CallbackCreate(GetMethod(implObj, "RemotingServerInvocationStarted"), flags, 1)
-        this.vtbl.RemotingServerInvocationReturned := CallbackCreate(GetMethod(implObj, "RemotingServerInvocationReturned"), flags, 1)
-        this.vtbl.RemotingServerSendingReply := CallbackCreate(GetMethod(implObj, "RemotingServerSendingReply"), flags, 3)
-        this.vtbl.UnmanagedToManagedTransition := CallbackCreate(GetMethod(implObj, "UnmanagedToManagedTransition"), flags, 3)
-        this.vtbl.ManagedToUnmanagedTransition := CallbackCreate(GetMethod(implObj, "ManagedToUnmanagedTransition"), flags, 3)
-        this.vtbl.RuntimeSuspendStarted := CallbackCreate(GetMethod(implObj, "RuntimeSuspendStarted"), flags, 2)
-        this.vtbl.RuntimeSuspendFinished := CallbackCreate(GetMethod(implObj, "RuntimeSuspendFinished"), flags, 1)
-        this.vtbl.RuntimeSuspendAborted := CallbackCreate(GetMethod(implObj, "RuntimeSuspendAborted"), flags, 1)
-        this.vtbl.RuntimeResumeStarted := CallbackCreate(GetMethod(implObj, "RuntimeResumeStarted"), flags, 1)
-        this.vtbl.RuntimeResumeFinished := CallbackCreate(GetMethod(implObj, "RuntimeResumeFinished"), flags, 1)
-        this.vtbl.RuntimeThreadSuspended := CallbackCreate(GetMethod(implObj, "RuntimeThreadSuspended"), flags, 2)
-        this.vtbl.RuntimeThreadResumed := CallbackCreate(GetMethod(implObj, "RuntimeThreadResumed"), flags, 2)
-        this.vtbl.MovedReferences := CallbackCreate(GetMethod(implObj, "MovedReferences"), flags, 5)
-        this.vtbl.ObjectAllocated := CallbackCreate(GetMethod(implObj, "ObjectAllocated"), flags, 3)
-        this.vtbl.ObjectsAllocatedByClass := CallbackCreate(GetMethod(implObj, "ObjectsAllocatedByClass"), flags, 4)
-        this.vtbl.ObjectReferences := CallbackCreate(GetMethod(implObj, "ObjectReferences"), flags, 5)
-        this.vtbl.RootReferences := CallbackCreate(GetMethod(implObj, "RootReferences"), flags, 3)
-        this.vtbl.ExceptionThrown := CallbackCreate(GetMethod(implObj, "ExceptionThrown"), flags, 2)
-        this.vtbl.ExceptionSearchFunctionEnter := CallbackCreate(GetMethod(implObj, "ExceptionSearchFunctionEnter"), flags, 2)
-        this.vtbl.ExceptionSearchFunctionLeave := CallbackCreate(GetMethod(implObj, "ExceptionSearchFunctionLeave"), flags, 1)
-        this.vtbl.ExceptionSearchFilterEnter := CallbackCreate(GetMethod(implObj, "ExceptionSearchFilterEnter"), flags, 2)
-        this.vtbl.ExceptionSearchFilterLeave := CallbackCreate(GetMethod(implObj, "ExceptionSearchFilterLeave"), flags, 1)
-        this.vtbl.ExceptionSearchCatcherFound := CallbackCreate(GetMethod(implObj, "ExceptionSearchCatcherFound"), flags, 2)
-        this.vtbl.ExceptionOSHandlerEnter := CallbackCreate(GetMethod(implObj, "ExceptionOSHandlerEnter"), flags, 2)
-        this.vtbl.ExceptionOSHandlerLeave := CallbackCreate(GetMethod(implObj, "ExceptionOSHandlerLeave"), flags, 2)
-        this.vtbl.ExceptionUnwindFunctionEnter := CallbackCreate(GetMethod(implObj, "ExceptionUnwindFunctionEnter"), flags, 2)
-        this.vtbl.ExceptionUnwindFunctionLeave := CallbackCreate(GetMethod(implObj, "ExceptionUnwindFunctionLeave"), flags, 1)
-        this.vtbl.ExceptionUnwindFinallyEnter := CallbackCreate(GetMethod(implObj, "ExceptionUnwindFinallyEnter"), flags, 2)
-        this.vtbl.ExceptionUnwindFinallyLeave := CallbackCreate(GetMethod(implObj, "ExceptionUnwindFinallyLeave"), flags, 1)
-        this.vtbl.ExceptionCatcherEnter := CallbackCreate(GetMethod(implObj, "ExceptionCatcherEnter"), flags, 3)
-        this.vtbl.ExceptionCatcherLeave := CallbackCreate(GetMethod(implObj, "ExceptionCatcherLeave"), flags, 1)
-        this.vtbl.COMClassicVTableCreated := CallbackCreate(GetMethod(implObj, "COMClassicVTableCreated"), flags, 5)
-        this.vtbl.COMClassicVTableDestroyed := CallbackCreate(GetMethod(implObj, "COMClassicVTableDestroyed"), flags, 4)
-        this.vtbl.ExceptionCLRCatcherFound := CallbackCreate(GetMethod(implObj, "ExceptionCLRCatcherFound"), flags, 1)
-        this.vtbl.ExceptionCLRCatcherExecute := CallbackCreate(GetMethod(implObj, "ExceptionCLRCatcherExecute"), flags, 1)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.Shutdown := CallbackCreate(ObjBindMethod(implObj, "Shutdown"), flags, 1)
+        this.vtbl.AppDomainCreationStarted := CallbackCreate(ObjBindMethod(implObj, "AppDomainCreationStarted"), flags, 2)
+        this.vtbl.AppDomainCreationFinished := CallbackCreate(ObjBindMethod(implObj, "AppDomainCreationFinished"), flags, 3)
+        this.vtbl.AppDomainShutdownStarted := CallbackCreate(ObjBindMethod(implObj, "AppDomainShutdownStarted"), flags, 2)
+        this.vtbl.AppDomainShutdownFinished := CallbackCreate(ObjBindMethod(implObj, "AppDomainShutdownFinished"), flags, 3)
+        this.vtbl.AssemblyLoadStarted := CallbackCreate(ObjBindMethod(implObj, "AssemblyLoadStarted"), flags, 2)
+        this.vtbl.AssemblyLoadFinished := CallbackCreate(ObjBindMethod(implObj, "AssemblyLoadFinished"), flags, 3)
+        this.vtbl.AssemblyUnloadStarted := CallbackCreate(ObjBindMethod(implObj, "AssemblyUnloadStarted"), flags, 2)
+        this.vtbl.AssemblyUnloadFinished := CallbackCreate(ObjBindMethod(implObj, "AssemblyUnloadFinished"), flags, 3)
+        this.vtbl.ModuleLoadStarted := CallbackCreate(ObjBindMethod(implObj, "ModuleLoadStarted"), flags, 2)
+        this.vtbl.ModuleLoadFinished := CallbackCreate(ObjBindMethod(implObj, "ModuleLoadFinished"), flags, 3)
+        this.vtbl.ModuleUnloadStarted := CallbackCreate(ObjBindMethod(implObj, "ModuleUnloadStarted"), flags, 2)
+        this.vtbl.ModuleUnloadFinished := CallbackCreate(ObjBindMethod(implObj, "ModuleUnloadFinished"), flags, 3)
+        this.vtbl.ModuleAttachedToAssembly := CallbackCreate(ObjBindMethod(implObj, "ModuleAttachedToAssembly"), flags, 3)
+        this.vtbl.ClassLoadStarted := CallbackCreate(ObjBindMethod(implObj, "ClassLoadStarted"), flags, 2)
+        this.vtbl.ClassLoadFinished := CallbackCreate(ObjBindMethod(implObj, "ClassLoadFinished"), flags, 3)
+        this.vtbl.ClassUnloadStarted := CallbackCreate(ObjBindMethod(implObj, "ClassUnloadStarted"), flags, 2)
+        this.vtbl.ClassUnloadFinished := CallbackCreate(ObjBindMethod(implObj, "ClassUnloadFinished"), flags, 3)
+        this.vtbl.FunctionUnloadStarted := CallbackCreate(ObjBindMethod(implObj, "FunctionUnloadStarted"), flags, 2)
+        this.vtbl.JITCompilationStarted := CallbackCreate(ObjBindMethod(implObj, "JITCompilationStarted"), flags, 3)
+        this.vtbl.JITCompilationFinished := CallbackCreate(ObjBindMethod(implObj, "JITCompilationFinished"), flags, 4)
+        this.vtbl.JITCachedFunctionSearchStarted := CallbackCreate(ObjBindMethod(implObj, "JITCachedFunctionSearchStarted"), flags, 3)
+        this.vtbl.JITCachedFunctionSearchFinished := CallbackCreate(ObjBindMethod(implObj, "JITCachedFunctionSearchFinished"), flags, 3)
+        this.vtbl.JITFunctionPitched := CallbackCreate(ObjBindMethod(implObj, "JITFunctionPitched"), flags, 2)
+        this.vtbl.JITInlining := CallbackCreate(ObjBindMethod(implObj, "JITInlining"), flags, 4)
+        this.vtbl.ThreadCreated := CallbackCreate(ObjBindMethod(implObj, "ThreadCreated"), flags, 2)
+        this.vtbl.ThreadDestroyed := CallbackCreate(ObjBindMethod(implObj, "ThreadDestroyed"), flags, 2)
+        this.vtbl.ThreadAssignedToOSThread := CallbackCreate(ObjBindMethod(implObj, "ThreadAssignedToOSThread"), flags, 3)
+        this.vtbl.RemotingClientInvocationStarted := CallbackCreate(ObjBindMethod(implObj, "RemotingClientInvocationStarted"), flags, 1)
+        this.vtbl.RemotingClientSendingMessage := CallbackCreate(ObjBindMethod(implObj, "RemotingClientSendingMessage"), flags, 3)
+        this.vtbl.RemotingClientReceivingReply := CallbackCreate(ObjBindMethod(implObj, "RemotingClientReceivingReply"), flags, 3)
+        this.vtbl.RemotingClientInvocationFinished := CallbackCreate(ObjBindMethod(implObj, "RemotingClientInvocationFinished"), flags, 1)
+        this.vtbl.RemotingServerReceivingMessage := CallbackCreate(ObjBindMethod(implObj, "RemotingServerReceivingMessage"), flags, 3)
+        this.vtbl.RemotingServerInvocationStarted := CallbackCreate(ObjBindMethod(implObj, "RemotingServerInvocationStarted"), flags, 1)
+        this.vtbl.RemotingServerInvocationReturned := CallbackCreate(ObjBindMethod(implObj, "RemotingServerInvocationReturned"), flags, 1)
+        this.vtbl.RemotingServerSendingReply := CallbackCreate(ObjBindMethod(implObj, "RemotingServerSendingReply"), flags, 3)
+        this.vtbl.UnmanagedToManagedTransition := CallbackCreate(ObjBindMethod(implObj, "UnmanagedToManagedTransition"), flags, 3)
+        this.vtbl.ManagedToUnmanagedTransition := CallbackCreate(ObjBindMethod(implObj, "ManagedToUnmanagedTransition"), flags, 3)
+        this.vtbl.RuntimeSuspendStarted := CallbackCreate(ObjBindMethod(implObj, "RuntimeSuspendStarted"), flags, 2)
+        this.vtbl.RuntimeSuspendFinished := CallbackCreate(ObjBindMethod(implObj, "RuntimeSuspendFinished"), flags, 1)
+        this.vtbl.RuntimeSuspendAborted := CallbackCreate(ObjBindMethod(implObj, "RuntimeSuspendAborted"), flags, 1)
+        this.vtbl.RuntimeResumeStarted := CallbackCreate(ObjBindMethod(implObj, "RuntimeResumeStarted"), flags, 1)
+        this.vtbl.RuntimeResumeFinished := CallbackCreate(ObjBindMethod(implObj, "RuntimeResumeFinished"), flags, 1)
+        this.vtbl.RuntimeThreadSuspended := CallbackCreate(ObjBindMethod(implObj, "RuntimeThreadSuspended"), flags, 2)
+        this.vtbl.RuntimeThreadResumed := CallbackCreate(ObjBindMethod(implObj, "RuntimeThreadResumed"), flags, 2)
+        this.vtbl.MovedReferences := CallbackCreate(ObjBindMethod(implObj, "MovedReferences"), flags, 5)
+        this.vtbl.ObjectAllocated := CallbackCreate(ObjBindMethod(implObj, "ObjectAllocated"), flags, 3)
+        this.vtbl.ObjectsAllocatedByClass := CallbackCreate(ObjBindMethod(implObj, "ObjectsAllocatedByClass"), flags, 4)
+        this.vtbl.ObjectReferences := CallbackCreate(ObjBindMethod(implObj, "ObjectReferences"), flags, 5)
+        this.vtbl.RootReferences := CallbackCreate(ObjBindMethod(implObj, "RootReferences"), flags, 3)
+        this.vtbl.ExceptionThrown := CallbackCreate(ObjBindMethod(implObj, "ExceptionThrown"), flags, 2)
+        this.vtbl.ExceptionSearchFunctionEnter := CallbackCreate(ObjBindMethod(implObj, "ExceptionSearchFunctionEnter"), flags, 2)
+        this.vtbl.ExceptionSearchFunctionLeave := CallbackCreate(ObjBindMethod(implObj, "ExceptionSearchFunctionLeave"), flags, 1)
+        this.vtbl.ExceptionSearchFilterEnter := CallbackCreate(ObjBindMethod(implObj, "ExceptionSearchFilterEnter"), flags, 2)
+        this.vtbl.ExceptionSearchFilterLeave := CallbackCreate(ObjBindMethod(implObj, "ExceptionSearchFilterLeave"), flags, 1)
+        this.vtbl.ExceptionSearchCatcherFound := CallbackCreate(ObjBindMethod(implObj, "ExceptionSearchCatcherFound"), flags, 2)
+        this.vtbl.ExceptionOSHandlerEnter := CallbackCreate(ObjBindMethod(implObj, "ExceptionOSHandlerEnter"), flags, 2)
+        this.vtbl.ExceptionOSHandlerLeave := CallbackCreate(ObjBindMethod(implObj, "ExceptionOSHandlerLeave"), flags, 2)
+        this.vtbl.ExceptionUnwindFunctionEnter := CallbackCreate(ObjBindMethod(implObj, "ExceptionUnwindFunctionEnter"), flags, 2)
+        this.vtbl.ExceptionUnwindFunctionLeave := CallbackCreate(ObjBindMethod(implObj, "ExceptionUnwindFunctionLeave"), flags, 1)
+        this.vtbl.ExceptionUnwindFinallyEnter := CallbackCreate(ObjBindMethod(implObj, "ExceptionUnwindFinallyEnter"), flags, 2)
+        this.vtbl.ExceptionUnwindFinallyLeave := CallbackCreate(ObjBindMethod(implObj, "ExceptionUnwindFinallyLeave"), flags, 1)
+        this.vtbl.ExceptionCatcherEnter := CallbackCreate(ObjBindMethod(implObj, "ExceptionCatcherEnter"), flags, 3)
+        this.vtbl.ExceptionCatcherLeave := CallbackCreate(ObjBindMethod(implObj, "ExceptionCatcherLeave"), flags, 1)
+        this.vtbl.COMClassicVTableCreated := CallbackCreate(ObjBindMethod(implObj, "COMClassicVTableCreated"), flags, 5)
+        this.vtbl.COMClassicVTableDestroyed := CallbackCreate(ObjBindMethod(implObj, "COMClassicVTableDestroyed"), flags, 4)
+        this.vtbl.ExceptionCLRCatcherFound := CallbackCreate(ObjBindMethod(implObj, "ExceptionCLRCatcherFound"), flags, 1)
+        this.vtbl.ExceptionCLRCatcherExecute := CallbackCreate(ObjBindMethod(implObj, "ExceptionCLRCatcherExecute"), flags, 1)
     }
 
     Dispose() {

@@ -40,7 +40,6 @@ export default struct PFN_CMSG_CNG_IMPORT_KEY_TRANS {
     }
 
     /**
-     * 
      * @param {Pointer<CMSG_CNG_CONTENT_DECRYPT_INFO>} pCNGContentDecryptInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cmsg_cng_content_decrypt_info">CMSG_CNG_CONTENT_DECRYPT_INFO</a> structure to be updated with the decrypted CEK bytes. This parameter contains the key used to decrypt the CEK.
      * The following <i>pKeyTransDecryptPara</i> parameter contains the 	CEK bytes to be decrypted.
      * @param {Pointer<CMSG_CTRL_KEY_TRANS_DECRYPT_PARA>} pKeyTransDecryptPara A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cmsg_ctrl_key_trans_decrypt_para">CMSG_CTRL_KEY_TRANS_DECRYPT_PARA</a> structure that contains the key transport information passed to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmsgcontrol">CryptMsgControl</a> function in the <b>CMSG_CTRL_DECRYPT</b> or <b>CMSG_CTRL_KEY_TRANS_DECRYPT</b> cases. For the <b>CMSG_CTRL_DECRYPT</b> case, <b>CryptMsgControl</b> converts the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cmsg_ctrl_decrypt_para">CMSG_CTRL_DECRYPT_PARA</a> structure to a <b>CMSG_CTRL_KEY_TRANS_DECRYPT_PARA</b> structure. 

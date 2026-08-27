@@ -39,7 +39,6 @@ export default struct ISchemaLock extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DBID>} pTableID 
      * @param {Integer} lmMode 
      * @param {Pointer<HANDLE>} phLockHandle 
@@ -47,14 +46,13 @@ export default struct ISchemaLock extends IUnknown {
      * @returns {HRESULT} 
      */
     GetSchemaLock(pTableID, lmMode, phLockHandle, pTableVersion) {
-        pTableVersionMarshal := pTableVersion is VarRef ? "uint*" : "ptr"
+        pTableVersionMarshal := pTableVersion is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, DBID.Ptr, pTableID, UInt32, lmMode, HANDLE.Ptr, phLockHandle, pTableVersionMarshal, pTableVersion, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HANDLE} hLockHandle 
      * @returns {HRESULT} 
      */
@@ -72,8 +70,8 @@ export default struct ISchemaLock extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSchemaLock := CallbackCreate(GetMethod(implObj, "GetSchemaLock"), flags, 5)
-        this.vtbl.ReleaseSchemaLock := CallbackCreate(GetMethod(implObj, "ReleaseSchemaLock"), flags, 2)
+        this.vtbl.GetSchemaLock := CallbackCreate(ObjBindMethod(implObj, "GetSchemaLock"), flags, 5)
+        this.vtbl.ReleaseSchemaLock := CallbackCreate(ObjBindMethod(implObj, "ReleaseSchemaLock"), flags, 2)
     }
 
     Dispose() {

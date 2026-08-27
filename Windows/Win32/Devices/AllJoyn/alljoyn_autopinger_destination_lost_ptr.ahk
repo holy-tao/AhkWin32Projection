@@ -19,7 +19,6 @@ export default struct alljoyn_autopinger_destination_lost_ptr {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {PSTR} group 
      * @param {PSTR} destination 
@@ -29,7 +28,7 @@ export default struct alljoyn_autopinger_destination_lost_ptr {
         group := group is String ? StrPtr(group) : group
         destination := destination is String ? StrPtr(destination) : destination
 
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _contextMarshal, _context, "ptr", group, "ptr", destination)
     }

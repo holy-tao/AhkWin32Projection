@@ -101,9 +101,9 @@ export default struct IWorkspace extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetWorkspaceNames := CallbackCreate(GetMethod(implObj, "GetWorkspaceNames"), flags, 2)
-        this.vtbl.StartRemoteApplication := CallbackCreate(GetMethod(implObj, "StartRemoteApplication"), flags, 3)
-        this.vtbl.GetProcessId := CallbackCreate(GetMethod(implObj, "GetProcessId"), flags, 2)
+        this.vtbl.GetWorkspaceNames := CallbackCreate(ObjBindMethod(implObj, "GetWorkspaceNames"), flags, 2)
+        this.vtbl.StartRemoteApplication := CallbackCreate(ObjBindMethod(implObj, "StartRemoteApplication"), flags, 3)
+        this.vtbl.GetProcessId := CallbackCreate(ObjBindMethod(implObj, "GetProcessId"), flags, 2)
     }
 
     Dispose() {

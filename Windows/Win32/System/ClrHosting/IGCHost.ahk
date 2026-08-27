@@ -42,7 +42,6 @@ export default struct IGCHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} SegmentSize 
      * @param {Integer} MaxGen0Size 
      * @returns {HRESULT} 
@@ -53,7 +52,6 @@ export default struct IGCHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Generation 
      * @returns {HRESULT} 
      */
@@ -63,7 +61,6 @@ export default struct IGCHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<COR_GC_STATS>} pStats 
      * @returns {HRESULT} 
      */
@@ -73,20 +70,18 @@ export default struct IGCHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pFiberCookie 
      * @param {Pointer<COR_GC_THREAD_STATS>} pStats 
      * @returns {HRESULT} 
      */
     GetThreadStats(pFiberCookie, pStats) {
-        pFiberCookieMarshal := pFiberCookie is VarRef ? "uint*" : "ptr"
+        pFiberCookieMarshal := pFiberCookie is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, pFiberCookieMarshal, pFiberCookie, COR_GC_THREAD_STATS.Ptr, pStats, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} sztMaxVirtualMemMB 
      * @returns {HRESULT} 
      */
@@ -104,11 +99,11 @@ export default struct IGCHost extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetGCStartupLimits := CallbackCreate(GetMethod(implObj, "SetGCStartupLimits"), flags, 3)
-        this.vtbl.Collect := CallbackCreate(GetMethod(implObj, "Collect"), flags, 2)
-        this.vtbl.GetStats := CallbackCreate(GetMethod(implObj, "GetStats"), flags, 2)
-        this.vtbl.GetThreadStats := CallbackCreate(GetMethod(implObj, "GetThreadStats"), flags, 3)
-        this.vtbl.SetVirtualMemLimit := CallbackCreate(GetMethod(implObj, "SetVirtualMemLimit"), flags, 2)
+        this.vtbl.SetGCStartupLimits := CallbackCreate(ObjBindMethod(implObj, "SetGCStartupLimits"), flags, 3)
+        this.vtbl.Collect := CallbackCreate(ObjBindMethod(implObj, "Collect"), flags, 2)
+        this.vtbl.GetStats := CallbackCreate(ObjBindMethod(implObj, "GetStats"), flags, 2)
+        this.vtbl.GetThreadStats := CallbackCreate(ObjBindMethod(implObj, "GetThreadStats"), flags, 3)
+        this.vtbl.SetVirtualMemLimit := CallbackCreate(ObjBindMethod(implObj, "SetVirtualMemLimit"), flags, 2)
     }
 
     Dispose() {

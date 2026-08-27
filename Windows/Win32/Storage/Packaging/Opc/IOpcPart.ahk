@@ -180,11 +180,11 @@ export default struct IOpcPart extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRelationshipSet := CallbackCreate(GetMethod(implObj, "GetRelationshipSet"), flags, 2)
-        this.vtbl.GetContentStream := CallbackCreate(GetMethod(implObj, "GetContentStream"), flags, 2)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
-        this.vtbl.GetContentType := CallbackCreate(GetMethod(implObj, "GetContentType"), flags, 2)
-        this.vtbl.GetCompressionOptions := CallbackCreate(GetMethod(implObj, "GetCompressionOptions"), flags, 2)
+        this.vtbl.GetRelationshipSet := CallbackCreate(ObjBindMethod(implObj, "GetRelationshipSet"), flags, 2)
+        this.vtbl.GetContentStream := CallbackCreate(ObjBindMethod(implObj, "GetContentStream"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetContentType := CallbackCreate(ObjBindMethod(implObj, "GetContentType"), flags, 2)
+        this.vtbl.GetCompressionOptions := CallbackCreate(ObjBindMethod(implObj, "GetCompressionOptions"), flags, 2)
     }
 
     Dispose() {

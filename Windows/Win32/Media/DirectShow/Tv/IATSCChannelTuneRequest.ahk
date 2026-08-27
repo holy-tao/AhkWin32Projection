@@ -106,8 +106,8 @@ export default struct IATSCChannelTuneRequest extends IChannelTuneRequest {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_MinorChannel := CallbackCreate(GetMethod(implObj, "get_MinorChannel"), flags, 2)
-        this.vtbl.put_MinorChannel := CallbackCreate(GetMethod(implObj, "put_MinorChannel"), flags, 2)
+        this.vtbl.get_MinorChannel := CallbackCreate(ObjBindMethod(implObj, "get_MinorChannel"), flags, 2)
+        this.vtbl.put_MinorChannel := CallbackCreate(ObjBindMethod(implObj, "put_MinorChannel"), flags, 2)
     }
 
     Dispose() {

@@ -99,8 +99,8 @@ export default struct IExternalConnection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddConnection := CallbackCreate(GetMethod(implObj, "AddConnection"), flags, 3)
-        this.vtbl.ReleaseConnection := CallbackCreate(GetMethod(implObj, "ReleaseConnection"), flags, 4)
+        this.vtbl.AddConnection := CallbackCreate(ObjBindMethod(implObj, "AddConnection"), flags, 3)
+        this.vtbl.ReleaseConnection := CallbackCreate(ObjBindMethod(implObj, "ReleaseConnection"), flags, 4)
     }
 
     Dispose() {

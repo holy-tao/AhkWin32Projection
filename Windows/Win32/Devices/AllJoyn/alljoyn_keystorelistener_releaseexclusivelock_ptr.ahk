@@ -19,13 +19,12 @@ export default struct alljoyn_keystorelistener_releaseexclusivelock_ptr {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {alljoyn_keystorelistener} listener 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_context, listener) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _contextMarshal, _context, alljoyn_keystorelistener, listener)
     }

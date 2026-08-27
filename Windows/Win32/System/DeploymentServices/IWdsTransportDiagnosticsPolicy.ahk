@@ -114,10 +114,10 @@ export default struct IWdsTransportDiagnosticsPolicy extends IWdsTransportCachea
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Enabled := CallbackCreate(GetMethod(implObj, "get_Enabled"), flags, 2)
-        this.vtbl.put_Enabled := CallbackCreate(GetMethod(implObj, "put_Enabled"), flags, 2)
-        this.vtbl.get_Components := CallbackCreate(GetMethod(implObj, "get_Components"), flags, 2)
-        this.vtbl.put_Components := CallbackCreate(GetMethod(implObj, "put_Components"), flags, 2)
+        this.vtbl.get_Enabled := CallbackCreate(ObjBindMethod(implObj, "get_Enabled"), flags, 2)
+        this.vtbl.put_Enabled := CallbackCreate(ObjBindMethod(implObj, "put_Enabled"), flags, 2)
+        this.vtbl.get_Components := CallbackCreate(ObjBindMethod(implObj, "get_Components"), flags, 2)
+        this.vtbl.put_Components := CallbackCreate(ObjBindMethod(implObj, "put_Components"), flags, 2)
     }
 
     Dispose() {

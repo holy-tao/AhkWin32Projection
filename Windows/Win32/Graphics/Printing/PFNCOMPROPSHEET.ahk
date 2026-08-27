@@ -20,7 +20,6 @@ export default struct PFNCOMPROPSHEET {
     }
 
     /**
-     * 
      * @param {HANDLE} hComPropSheet 
      * @param {Integer} Function 
      * @param {LPARAM} lParam1 

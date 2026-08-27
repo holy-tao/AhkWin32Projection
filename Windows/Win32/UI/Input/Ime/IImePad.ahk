@@ -222,7 +222,7 @@ export default struct IImePad extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Request := CallbackCreate(GetMethod(implObj, "Request"), flags, 5)
+        this.vtbl.Request := CallbackCreate(ObjBindMethod(implObj, "Request"), flags, 5)
     }
 
     Dispose() {

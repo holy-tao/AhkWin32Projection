@@ -56,7 +56,9 @@ export SrpCloseThreadNetworkContext(threadNetworkContext) {
 export SrpSetTokenEnterpriseId(tokenHandle, enterpriseId) {
     enterpriseId := enterpriseId is String ? StrPtr(enterpriseId) : enterpriseId
 
-    result := DllCall("srpapi.dll\SrpSetTokenEnterpriseId", HANDLE, tokenHandle, "ptr", enterpriseId, "HRESULT")
+    enterpriseIdMarshal := enterpriseId == 0 ? IntPtr : PWSTR
+
+    result := DllCall("srpapi.dll\SrpSetTokenEnterpriseId", HANDLE, tokenHandle, enterpriseIdMarshal, enterpriseId, "HRESULT")
     return result
 }
 
@@ -70,9 +72,11 @@ export SrpSetTokenEnterpriseId(tokenHandle, enterpriseId) {
  * @since windows10.0.10240
  */
 export SrpGetEnterpriseIds(tokenHandle, numberOfBytes, enterpriseIds) {
-    numberOfBytesMarshal := numberOfBytes is VarRef ? "uint*" : "ptr"
+    numberOfBytesMarshal := numberOfBytes is VarRef ? "uint*" : IntPtr
+    numberOfBytesMarshal := numberOfBytes == 0 ? IntPtr : "uint*"
+    enterpriseIdsMarshal := enterpriseIds == 0 ? IntPtr : IntPtr
 
-    result := DllCall("srpapi.dll\SrpGetEnterpriseIds", HANDLE, tokenHandle, numberOfBytesMarshal, numberOfBytes, IntPtr, enterpriseIds, "uint*", &enterpriseIdCount := 0, "HRESULT")
+    result := DllCall("srpapi.dll\SrpGetEnterpriseIds", HANDLE, tokenHandle, numberOfBytesMarshal, numberOfBytes, enterpriseIdsMarshal, enterpriseIds, "uint*", &enterpriseIdCount := 0, "HRESULT")
     return enterpriseIdCount
 }
 
@@ -88,7 +92,9 @@ export SrpGetEnterpriseIds(tokenHandle, numberOfBytes, enterpriseIds) {
 export SrpEnablePermissiveModeFileEncryption(enterpriseId) {
     enterpriseId := enterpriseId is String ? StrPtr(enterpriseId) : enterpriseId
 
-    result := DllCall("srpapi.dll\SrpEnablePermissiveModeFileEncryption", "ptr", enterpriseId, "HRESULT")
+    enterpriseIdMarshal := enterpriseId == 0 ? IntPtr : PWSTR
+
+    result := DllCall("srpapi.dll\SrpEnablePermissiveModeFileEncryption", enterpriseIdMarshal, enterpriseId, "HRESULT")
     return result
 }
 
@@ -126,7 +132,7 @@ export SrpGetEnterprisePolicy(tokenHandle) {
  * @since windows10.0.10240
  */
 export SrpIsTokenService(TokenHandle, IsTokenService) {
-    IsTokenServiceMarshal := IsTokenService is VarRef ? "char*" : "ptr"
+    IsTokenServiceMarshal := IsTokenService is VarRef ? "char*" : IntPtr
 
     result := DllCall("srpapi.dll\SrpIsTokenService", HANDLE, TokenHandle, IsTokenServiceMarshal, IsTokenService, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -146,12 +152,11 @@ export SrpDoesPolicyAllowAppExecution(packageId) {
 }
 
 /**
- * 
  * @param {Pointer<_SRP_REQUEST>} FileInfo 
  * @returns {NTSTATUS} 
  */
 export SrpIsAllowed(FileInfo) {
-    FileInfoMarshal := FileInfo is VarRef ? "ptr*" : "ptr"
+    FileInfoMarshal := FileInfo is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("srpapi.dll\SrpIsAllowed", FileInfoMarshal, FileInfo, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -159,7 +164,6 @@ export SrpIsAllowed(FileInfo) {
 }
 
 /**
- * 
  * @param {SRPHOSTING_VERSION} _Version 
  * @param {SRPHOSTING_TYPE} Type 
  * @param {Pointer<Void>} pvData 
@@ -167,14 +171,13 @@ export SrpIsAllowed(FileInfo) {
  * @returns {HRESULT} 
  */
 export SrpHostingInitialize(_Version, Type, pvData, cbData) {
-    pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
+    pvDataMarshal := pvData is VarRef ? "ptr" : IntPtr
 
     result := DllCall("srpapi.dll\SrpHostingInitialize", SRPHOSTING_VERSION, _Version, SRPHOSTING_TYPE, Type, pvDataMarshal, pvData, UInt32, cbData, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {SRPHOSTING_TYPE} Type 
  * @returns {String} Nothing - always returns an empty string
  */
@@ -199,7 +202,6 @@ export ProtectFileToEnterpriseIdentity(fileOrFolderPath, identity) {
 }
 
 /**
- * 
  * @param {PWSTR} fileOrFolderPath 
  * @param {Pointer<FILE_UNPROTECT_OPTIONS>} options 
  * @returns {HRESULT} 
@@ -207,7 +209,9 @@ export ProtectFileToEnterpriseIdentity(fileOrFolderPath, identity) {
 export UnprotectFile(fileOrFolderPath, options) {
     fileOrFolderPath := fileOrFolderPath is String ? StrPtr(fileOrFolderPath) : fileOrFolderPath
 
-    result := DllCall("efswrt.dll\UnprotectFile", "ptr", fileOrFolderPath, FILE_UNPROTECT_OPTIONS.Ptr, options, "HRESULT")
+    optionsMarshal := options == 0 ? IntPtr : FILE_UNPROTECT_OPTIONS.Ptr
+
+    result := DllCall("efswrt.dll\UnprotectFile", "ptr", fileOrFolderPath, optionsMarshal, options, "HRESULT")
     return result
 }
 

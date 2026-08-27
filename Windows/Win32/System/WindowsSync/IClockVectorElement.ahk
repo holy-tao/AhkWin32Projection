@@ -76,7 +76,7 @@ export default struct IClockVectorElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-iclockvectorelement-getreplicakey
      */
     GetReplicaKey(pdwReplicaKey) {
-        pdwReplicaKeyMarshal := pdwReplicaKey is VarRef ? "uint*" : "ptr"
+        pdwReplicaKeyMarshal := pdwReplicaKey is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pdwReplicaKeyMarshal, pdwReplicaKey, "HRESULT")
         return result
@@ -118,7 +118,7 @@ export default struct IClockVectorElement extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-iclockvectorelement-gettickcount
      */
     GetTickCount(pullTickCount) {
-        pullTickCountMarshal := pullTickCount is VarRef ? "uint*" : "ptr"
+        pullTickCountMarshal := pullTickCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pullTickCountMarshal, pullTickCount, "HRESULT")
         return result
@@ -133,8 +133,8 @@ export default struct IClockVectorElement extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetReplicaKey := CallbackCreate(GetMethod(implObj, "GetReplicaKey"), flags, 2)
-        this.vtbl.GetTickCount := CallbackCreate(GetMethod(implObj, "GetTickCount"), flags, 2)
+        this.vtbl.GetReplicaKey := CallbackCreate(ObjBindMethod(implObj, "GetReplicaKey"), flags, 2)
+        this.vtbl.GetTickCount := CallbackCreate(ObjBindMethod(implObj, "GetTickCount"), flags, 2)
     }
 
     Dispose() {

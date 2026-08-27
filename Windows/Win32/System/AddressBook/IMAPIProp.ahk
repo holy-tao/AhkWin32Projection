@@ -69,7 +69,6 @@ export default struct IMAPIProp extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The **IMAPIProp::GetLastError** method supplies information about a prior method call that failed. Clients can provide their users with detailed information about the error by including the data from the **MAPIERROR** structure in a dialog box. 
      *   
@@ -91,14 +90,13 @@ export default struct IMAPIProp extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapiprop-getlasterror
      */
     GetLastError(_hResult, ulFlags, lppMAPIError) {
-        lppMAPIErrorMarshal := lppMAPIError is VarRef ? "ptr*" : "ptr"
+        lppMAPIErrorMarshal := lppMAPIError is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, "int", _hResult, UInt32, ulFlags, lppMAPIErrorMarshal, lppMAPIError, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @remarks
      * The **IMAPIProp::SaveChanges** method makes property changes permanent for objects that support the transaction model of processing, such as messages, attachments, address book containers, and messaging user objects. Objects that do not support transactions, such as folders, message stores, and profile sections, make changes permanent immediately. No call to **SaveChanges** is required.
      *   
@@ -202,8 +200,8 @@ export default struct IMAPIProp extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapiprop-getprops
      */
     GetProps(lpPropTagArray, ulFlags, lpcValues, lppPropArray) {
-        lpcValuesMarshal := lpcValues is VarRef ? "uint*" : "ptr"
-        lppPropArrayMarshal := lppPropArray is VarRef ? "ptr*" : "ptr"
+        lpcValuesMarshal := lpcValues is VarRef ? "uint*" : IntPtr
+        lppPropArrayMarshal := lppPropArray is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, SPropTagArray.Ptr, lpPropTagArray, UInt32, ulFlags, lpcValuesMarshal, lpcValues, lppPropArrayMarshal, lppPropArray, "HRESULT")
         return result
@@ -233,7 +231,7 @@ export default struct IMAPIProp extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapiprop-getproplist
      */
     GetPropList(ulFlags, lppPropTagArray) {
-        lppPropTagArrayMarshal := lppPropTagArray is VarRef ? "ptr*" : "ptr"
+        lppPropTagArrayMarshal := lppPropTagArray is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(6, this, UInt32, ulFlags, lppPropTagArrayMarshal, lppPropTagArray, "HRESULT")
         return result
@@ -308,7 +306,7 @@ export default struct IMAPIProp extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapiprop-setprops
      */
     SetProps(cValues, lpPropArray, lppProblems) {
-        lppProblemsMarshal := lppProblems is VarRef ? "ptr*" : "ptr"
+        lppProblemsMarshal := lppProblems is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(8, this, UInt32, cValues, SPropValue.Ptr, lpPropArray, lppProblemsMarshal, lppProblems, "HRESULT")
         return result
@@ -330,7 +328,7 @@ export default struct IMAPIProp extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapiprop-deleteprops
      */
     DeleteProps(lpPropTagArray, lppProblems) {
-        lppProblemsMarshal := lppProblems is VarRef ? "ptr*" : "ptr"
+        lppProblemsMarshal := lppProblems is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(9, this, SPropTagArray.Ptr, lpPropTagArray, lppProblemsMarshal, lppProblems, "HRESULT")
         return result
@@ -411,8 +409,8 @@ export default struct IMAPIProp extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapiprop-copyto
      */
     CopyTo(ciidExclude, rgiidExclude, lpExcludeProps, ulUIParam, lpProgress, lpInterface, lpDestObj, ulFlags, lppProblems) {
-        lpDestObjMarshal := lpDestObj is VarRef ? "ptr" : "ptr"
-        lppProblemsMarshal := lppProblems is VarRef ? "ptr*" : "ptr"
+        lpDestObjMarshal := lpDestObj is VarRef ? "ptr" : IntPtr
+        lppProblemsMarshal := lppProblems is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(10, this, UInt32, ciidExclude, Guid.Ptr, rgiidExclude, SPropTagArray.Ptr, lpExcludeProps, IntPtr, ulUIParam, "ptr", lpProgress, Guid.Ptr, lpInterface, lpDestObjMarshal, lpDestObj, UInt32, ulFlags, lppProblemsMarshal, lppProblems, "HRESULT")
         return result
@@ -491,8 +489,8 @@ export default struct IMAPIProp extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapiprop-copyprops
      */
     CopyProps(lpIncludeProps, ulUIParam, lpProgress, lpInterface, lpDestObj, ulFlags, lppProblems) {
-        lpDestObjMarshal := lpDestObj is VarRef ? "ptr" : "ptr"
-        lppProblemsMarshal := lppProblems is VarRef ? "ptr*" : "ptr"
+        lpDestObjMarshal := lpDestObj is VarRef ? "ptr" : IntPtr
+        lppProblemsMarshal := lppProblems is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(11, this, SPropTagArray.Ptr, lpIncludeProps, IntPtr, ulUIParam, "ptr", lpProgress, Guid.Ptr, lpInterface, lpDestObjMarshal, lpDestObj, UInt32, ulFlags, lppProblemsMarshal, lppProblems, "HRESULT")
         return result
@@ -557,9 +555,9 @@ export default struct IMAPIProp extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapiprop-getnamesfromids
      */
     GetNamesFromIDs(lppPropTags, lpPropSetGuid, ulFlags, lpcPropNames, lpppPropNames) {
-        lppPropTagsMarshal := lppPropTags is VarRef ? "ptr*" : "ptr"
-        lpcPropNamesMarshal := lpcPropNames is VarRef ? "uint*" : "ptr"
-        lpppPropNamesMarshal := lpppPropNames is VarRef ? "ptr*" : "ptr"
+        lppPropTagsMarshal := lppPropTags is VarRef ? "ptr*" : IntPtr
+        lpcPropNamesMarshal := lpcPropNames is VarRef ? "uint*" : IntPtr
+        lpppPropNamesMarshal := lpppPropNames is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(12, this, lppPropTagsMarshal, lppPropTags, Guid.Ptr, lpPropSetGuid, UInt32, ulFlags, lpcPropNamesMarshal, lpcPropNames, lpppPropNamesMarshal, lpppPropNames, "HRESULT")
         return result
@@ -611,8 +609,8 @@ export default struct IMAPIProp extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapiprop-getidsfromnames
      */
     GetIDsFromNames(cPropNames, lppPropNames, ulFlags, lppPropTags) {
-        lppPropNamesMarshal := lppPropNames is VarRef ? "ptr*" : "ptr"
-        lppPropTagsMarshal := lppPropTags is VarRef ? "ptr*" : "ptr"
+        lppPropNamesMarshal := lppPropNames is VarRef ? "ptr*" : IntPtr
+        lppPropTagsMarshal := lppPropTags is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(13, this, UInt32, cPropNames, lppPropNamesMarshal, lppPropNames, UInt32, ulFlags, lppPropTagsMarshal, lppPropTags, "HRESULT")
         return result
@@ -627,17 +625,17 @@ export default struct IMAPIProp extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLastError := CallbackCreate(GetMethod(implObj, "GetLastError"), flags, 4)
-        this.vtbl.SaveChanges := CallbackCreate(GetMethod(implObj, "SaveChanges"), flags, 2)
-        this.vtbl.GetProps := CallbackCreate(GetMethod(implObj, "GetProps"), flags, 5)
-        this.vtbl.GetPropList := CallbackCreate(GetMethod(implObj, "GetPropList"), flags, 3)
-        this.vtbl.OpenProperty := CallbackCreate(GetMethod(implObj, "OpenProperty"), flags, 6)
-        this.vtbl.SetProps := CallbackCreate(GetMethod(implObj, "SetProps"), flags, 4)
-        this.vtbl.DeleteProps := CallbackCreate(GetMethod(implObj, "DeleteProps"), flags, 3)
-        this.vtbl.CopyTo := CallbackCreate(GetMethod(implObj, "CopyTo"), flags, 10)
-        this.vtbl.CopyProps := CallbackCreate(GetMethod(implObj, "CopyProps"), flags, 8)
-        this.vtbl.GetNamesFromIDs := CallbackCreate(GetMethod(implObj, "GetNamesFromIDs"), flags, 6)
-        this.vtbl.GetIDsFromNames := CallbackCreate(GetMethod(implObj, "GetIDsFromNames"), flags, 5)
+        this.vtbl.GetLastError := CallbackCreate(ObjBindMethod(implObj, "GetLastError"), flags, 4)
+        this.vtbl.SaveChanges := CallbackCreate(ObjBindMethod(implObj, "SaveChanges"), flags, 2)
+        this.vtbl.GetProps := CallbackCreate(ObjBindMethod(implObj, "GetProps"), flags, 5)
+        this.vtbl.GetPropList := CallbackCreate(ObjBindMethod(implObj, "GetPropList"), flags, 3)
+        this.vtbl.OpenProperty := CallbackCreate(ObjBindMethod(implObj, "OpenProperty"), flags, 6)
+        this.vtbl.SetProps := CallbackCreate(ObjBindMethod(implObj, "SetProps"), flags, 4)
+        this.vtbl.DeleteProps := CallbackCreate(ObjBindMethod(implObj, "DeleteProps"), flags, 3)
+        this.vtbl.CopyTo := CallbackCreate(ObjBindMethod(implObj, "CopyTo"), flags, 10)
+        this.vtbl.CopyProps := CallbackCreate(ObjBindMethod(implObj, "CopyProps"), flags, 8)
+        this.vtbl.GetNamesFromIDs := CallbackCreate(ObjBindMethod(implObj, "GetNamesFromIDs"), flags, 6)
+        this.vtbl.GetIDsFromNames := CallbackCreate(ObjBindMethod(implObj, "GetIDsFromNames"), flags, 5)
     }
 
     Dispose() {

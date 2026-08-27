@@ -37,7 +37,6 @@ export default struct IElementBehaviorFocus extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<RECT>} pRect 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,7 @@ export default struct IElementBehaviorFocus extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFocusRect := CallbackCreate(GetMethod(implObj, "GetFocusRect"), flags, 2)
+        this.vtbl.GetFocusRect := CallbackCreate(ObjBindMethod(implObj, "GetFocusRect"), flags, 2)
     }
 
     Dispose() {

@@ -180,9 +180,11 @@ export default struct IPhotoAcquireDeviceSelectionDialog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiredeviceselectiondialog-domodal
      */
     DoModal(hWndParent, dwDeviceFlags, pbstrDeviceId, pnDeviceType) {
-        pnDeviceTypeMarshal := pnDeviceType is VarRef ? "int*" : "ptr"
+        pbstrDeviceIdMarshal := pbstrDeviceId == 0 ? IntPtr : BSTR.Ptr
+        pnDeviceTypeMarshal := pnDeviceType is VarRef ? "int*" : IntPtr
+        pnDeviceTypeMarshal := pnDeviceType == 0 ? IntPtr : "int*"
 
-        result := ComCall(5, this, HWND, hWndParent, UInt32, dwDeviceFlags, BSTR.Ptr, pbstrDeviceId, pnDeviceTypeMarshal, pnDeviceType, "HRESULT")
+        result := ComCall(5, this, HWND, hWndParent, UInt32, dwDeviceFlags, pbstrDeviceIdMarshal, pbstrDeviceId, pnDeviceTypeMarshal, pnDeviceType, "HRESULT")
         return result
     }
 
@@ -195,9 +197,9 @@ export default struct IPhotoAcquireDeviceSelectionDialog extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetTitle := CallbackCreate(GetMethod(implObj, "SetTitle"), flags, 2)
-        this.vtbl.SetSubmitButtonText := CallbackCreate(GetMethod(implObj, "SetSubmitButtonText"), flags, 2)
-        this.vtbl.DoModal := CallbackCreate(GetMethod(implObj, "DoModal"), flags, 5)
+        this.vtbl.SetTitle := CallbackCreate(ObjBindMethod(implObj, "SetTitle"), flags, 2)
+        this.vtbl.SetSubmitButtonText := CallbackCreate(ObjBindMethod(implObj, "SetSubmitButtonText"), flags, 2)
+        this.vtbl.DoModal := CallbackCreate(ObjBindMethod(implObj, "DoModal"), flags, 5)
     }
 
     Dispose() {

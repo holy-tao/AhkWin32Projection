@@ -50,7 +50,6 @@ export default struct OLEDBSimpleProviderListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} _iRow 
      * @param {Pointer} iColumn 
      * @returns {HRESULT} 
@@ -61,7 +60,6 @@ export default struct OLEDBSimpleProviderListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} _iRow 
      * @param {Pointer} iColumn 
      * @returns {HRESULT} 
@@ -72,7 +70,6 @@ export default struct OLEDBSimpleProviderListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} _iRow 
      * @param {Pointer} cRows 
      * @returns {HRESULT} 
@@ -83,7 +80,6 @@ export default struct OLEDBSimpleProviderListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} _iRow 
      * @param {Pointer} cRows 
      * @returns {HRESULT} 
@@ -94,7 +90,6 @@ export default struct OLEDBSimpleProviderListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} _iRow 
      * @param {Pointer} cRows 
      * @returns {HRESULT} 
@@ -105,7 +100,6 @@ export default struct OLEDBSimpleProviderListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} _iRow 
      * @param {Pointer} cRows 
      * @returns {HRESULT} 
@@ -116,7 +110,6 @@ export default struct OLEDBSimpleProviderListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} _iRow 
      * @param {Pointer} cRows 
      * @returns {HRESULT} 
@@ -127,7 +120,6 @@ export default struct OLEDBSimpleProviderListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {OSPXFER} xfer 
      * @returns {HRESULT} 
      */
@@ -145,14 +137,14 @@ export default struct OLEDBSimpleProviderListener extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.aboutToChangeCell := CallbackCreate(GetMethod(implObj, "aboutToChangeCell"), flags, 3)
-        this.vtbl.cellChanged := CallbackCreate(GetMethod(implObj, "cellChanged"), flags, 3)
-        this.vtbl.aboutToDeleteRows := CallbackCreate(GetMethod(implObj, "aboutToDeleteRows"), flags, 3)
-        this.vtbl.deletedRows := CallbackCreate(GetMethod(implObj, "deletedRows"), flags, 3)
-        this.vtbl.aboutToInsertRows := CallbackCreate(GetMethod(implObj, "aboutToInsertRows"), flags, 3)
-        this.vtbl.insertedRows := CallbackCreate(GetMethod(implObj, "insertedRows"), flags, 3)
-        this.vtbl.rowsAvailable := CallbackCreate(GetMethod(implObj, "rowsAvailable"), flags, 3)
-        this.vtbl.transferComplete := CallbackCreate(GetMethod(implObj, "transferComplete"), flags, 2)
+        this.vtbl.aboutToChangeCell := CallbackCreate(ObjBindMethod(implObj, "aboutToChangeCell"), flags, 3)
+        this.vtbl.cellChanged := CallbackCreate(ObjBindMethod(implObj, "cellChanged"), flags, 3)
+        this.vtbl.aboutToDeleteRows := CallbackCreate(ObjBindMethod(implObj, "aboutToDeleteRows"), flags, 3)
+        this.vtbl.deletedRows := CallbackCreate(ObjBindMethod(implObj, "deletedRows"), flags, 3)
+        this.vtbl.aboutToInsertRows := CallbackCreate(ObjBindMethod(implObj, "aboutToInsertRows"), flags, 3)
+        this.vtbl.insertedRows := CallbackCreate(ObjBindMethod(implObj, "insertedRows"), flags, 3)
+        this.vtbl.rowsAvailable := CallbackCreate(ObjBindMethod(implObj, "rowsAvailable"), flags, 3)
+        this.vtbl.transferComplete := CallbackCreate(ObjBindMethod(implObj, "transferComplete"), flags, 2)
     }
 
     Dispose() {

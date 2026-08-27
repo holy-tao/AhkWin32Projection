@@ -320,19 +320,19 @@ export default struct IFsrmSetting extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_SmtpServer := CallbackCreate(GetMethod(implObj, "get_SmtpServer"), flags, 2)
-        this.vtbl.put_SmtpServer := CallbackCreate(GetMethod(implObj, "put_SmtpServer"), flags, 2)
-        this.vtbl.get_MailFrom := CallbackCreate(GetMethod(implObj, "get_MailFrom"), flags, 2)
-        this.vtbl.put_MailFrom := CallbackCreate(GetMethod(implObj, "put_MailFrom"), flags, 2)
-        this.vtbl.get_AdminEmail := CallbackCreate(GetMethod(implObj, "get_AdminEmail"), flags, 2)
-        this.vtbl.put_AdminEmail := CallbackCreate(GetMethod(implObj, "put_AdminEmail"), flags, 2)
-        this.vtbl.get_DisableCommandLine := CallbackCreate(GetMethod(implObj, "get_DisableCommandLine"), flags, 2)
-        this.vtbl.put_DisableCommandLine := CallbackCreate(GetMethod(implObj, "put_DisableCommandLine"), flags, 2)
-        this.vtbl.get_EnableScreeningAudit := CallbackCreate(GetMethod(implObj, "get_EnableScreeningAudit"), flags, 2)
-        this.vtbl.put_EnableScreeningAudit := CallbackCreate(GetMethod(implObj, "put_EnableScreeningAudit"), flags, 2)
-        this.vtbl.EmailTest := CallbackCreate(GetMethod(implObj, "EmailTest"), flags, 2)
-        this.vtbl.SetActionRunLimitInterval := CallbackCreate(GetMethod(implObj, "SetActionRunLimitInterval"), flags, 3)
-        this.vtbl.GetActionRunLimitInterval := CallbackCreate(GetMethod(implObj, "GetActionRunLimitInterval"), flags, 3)
+        this.vtbl.get_SmtpServer := CallbackCreate(ObjBindMethod(implObj, "get_SmtpServer"), flags, 2)
+        this.vtbl.put_SmtpServer := CallbackCreate(ObjBindMethod(implObj, "put_SmtpServer"), flags, 2)
+        this.vtbl.get_MailFrom := CallbackCreate(ObjBindMethod(implObj, "get_MailFrom"), flags, 2)
+        this.vtbl.put_MailFrom := CallbackCreate(ObjBindMethod(implObj, "put_MailFrom"), flags, 2)
+        this.vtbl.get_AdminEmail := CallbackCreate(ObjBindMethod(implObj, "get_AdminEmail"), flags, 2)
+        this.vtbl.put_AdminEmail := CallbackCreate(ObjBindMethod(implObj, "put_AdminEmail"), flags, 2)
+        this.vtbl.get_DisableCommandLine := CallbackCreate(ObjBindMethod(implObj, "get_DisableCommandLine"), flags, 2)
+        this.vtbl.put_DisableCommandLine := CallbackCreate(ObjBindMethod(implObj, "put_DisableCommandLine"), flags, 2)
+        this.vtbl.get_EnableScreeningAudit := CallbackCreate(ObjBindMethod(implObj, "get_EnableScreeningAudit"), flags, 2)
+        this.vtbl.put_EnableScreeningAudit := CallbackCreate(ObjBindMethod(implObj, "put_EnableScreeningAudit"), flags, 2)
+        this.vtbl.EmailTest := CallbackCreate(ObjBindMethod(implObj, "EmailTest"), flags, 2)
+        this.vtbl.SetActionRunLimitInterval := CallbackCreate(ObjBindMethod(implObj, "SetActionRunLimitInterval"), flags, 3)
+        this.vtbl.GetActionRunLimitInterval := CallbackCreate(ObjBindMethod(implObj, "GetActionRunLimitInterval"), flags, 3)
     }
 
     Dispose() {

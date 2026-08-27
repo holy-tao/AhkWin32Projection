@@ -123,8 +123,8 @@ export default struct IDisplayDeviceInterop extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateSharedHandle := CallbackCreate(GetMethod(implObj, "CreateSharedHandle"), flags, 6)
-        this.vtbl.OpenSharedHandle := CallbackCreate(GetMethod(implObj, "OpenSharedHandle"), flags, 4)
+        this.vtbl.CreateSharedHandle := CallbackCreate(ObjBindMethod(implObj, "CreateSharedHandle"), flags, 6)
+        this.vtbl.OpenSharedHandle := CallbackCreate(ObjBindMethod(implObj, "OpenSharedHandle"), flags, 4)
     }
 
     Dispose() {

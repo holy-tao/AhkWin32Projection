@@ -49,7 +49,6 @@ export default struct IDWritePaintReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} glyphIndex 
      * @param {Integer} paintElement 
      * @param {Integer} structSize 
@@ -58,7 +57,8 @@ export default struct IDWritePaintReader extends IUnknown {
      * @returns {HRESULT} 
      */
     SetCurrentGlyph(glyphIndex, paintElement, structSize, clipBox, glyphAttributes) {
-        glyphAttributesMarshal := glyphAttributes is VarRef ? "int*" : "ptr"
+        glyphAttributesMarshal := glyphAttributes is VarRef ? "int*" : IntPtr
+        glyphAttributesMarshal := glyphAttributes == 0 ? IntPtr : "int*"
 
         result := ComCall(3, this, UInt32, glyphIndex, IntPtr, paintElement, UInt32, structSize, D2D_RECT_F.Ptr, clipBox, glyphAttributesMarshal, glyphAttributes, "HRESULT")
         return result
@@ -80,7 +80,6 @@ export default struct IDWritePaintReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} colorPaletteIndex 
      * @returns {HRESULT} 
      */
@@ -90,7 +89,6 @@ export default struct IDWritePaintReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DWRITE_COLOR_F>} paletteEntries 
      * @param {Integer} paletteEntryCount 
      * @returns {HRESULT} 
@@ -101,7 +99,6 @@ export default struct IDWritePaintReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} paintElement 
      * @param {Integer} structSize 
      * @returns {HRESULT} 
@@ -112,7 +109,6 @@ export default struct IDWritePaintReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} paintElement 
      * @param {Integer} structSize 
      * @returns {HRESULT} 
@@ -123,7 +119,6 @@ export default struct IDWritePaintReader extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     MoveToParent() {
@@ -132,7 +127,6 @@ export default struct IDWritePaintReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} firstGradientStopIndex 
      * @param {Integer} gradientStopCount 
      * @returns {D2D1_GRADIENT_STOP} 
@@ -144,7 +138,6 @@ export default struct IDWritePaintReader extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} firstGradientStopIndex 
      * @param {Integer} gradientStopCount 
      * @returns {DWRITE_PAINT_COLOR} 
@@ -164,15 +157,15 @@ export default struct IDWritePaintReader extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetCurrentGlyph := CallbackCreate(GetMethod(implObj, "SetCurrentGlyph"), flags, 6)
-        this.vtbl.SetTextColor := CallbackCreate(GetMethod(implObj, "SetTextColor"), flags, 2)
-        this.vtbl.SetColorPaletteIndex := CallbackCreate(GetMethod(implObj, "SetColorPaletteIndex"), flags, 2)
-        this.vtbl.SetCustomColorPalette := CallbackCreate(GetMethod(implObj, "SetCustomColorPalette"), flags, 3)
-        this.vtbl.MoveToFirstChild := CallbackCreate(GetMethod(implObj, "MoveToFirstChild"), flags, 3)
-        this.vtbl.MoveToNextSibling := CallbackCreate(GetMethod(implObj, "MoveToNextSibling"), flags, 3)
-        this.vtbl.MoveToParent := CallbackCreate(GetMethod(implObj, "MoveToParent"), flags, 1)
-        this.vtbl.GetGradientStops := CallbackCreate(GetMethod(implObj, "GetGradientStops"), flags, 4)
-        this.vtbl.GetGradientStopColors := CallbackCreate(GetMethod(implObj, "GetGradientStopColors"), flags, 4)
+        this.vtbl.SetCurrentGlyph := CallbackCreate(ObjBindMethod(implObj, "SetCurrentGlyph"), flags, 6)
+        this.vtbl.SetTextColor := CallbackCreate(ObjBindMethod(implObj, "SetTextColor"), flags, 2)
+        this.vtbl.SetColorPaletteIndex := CallbackCreate(ObjBindMethod(implObj, "SetColorPaletteIndex"), flags, 2)
+        this.vtbl.SetCustomColorPalette := CallbackCreate(ObjBindMethod(implObj, "SetCustomColorPalette"), flags, 3)
+        this.vtbl.MoveToFirstChild := CallbackCreate(ObjBindMethod(implObj, "MoveToFirstChild"), flags, 3)
+        this.vtbl.MoveToNextSibling := CallbackCreate(ObjBindMethod(implObj, "MoveToNextSibling"), flags, 3)
+        this.vtbl.MoveToParent := CallbackCreate(ObjBindMethod(implObj, "MoveToParent"), flags, 1)
+        this.vtbl.GetGradientStops := CallbackCreate(ObjBindMethod(implObj, "GetGradientStops"), flags, 4)
+        this.vtbl.GetGradientStopColors := CallbackCreate(ObjBindMethod(implObj, "GetGradientStopColors"), flags, 4)
     }
 
     Dispose() {

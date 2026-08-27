@@ -46,7 +46,6 @@ export default struct IHTMLAppBehavior3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -58,7 +57,6 @@ export default struct IHTMLAppBehavior3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_navigable() {
@@ -76,8 +74,8 @@ export default struct IHTMLAppBehavior3 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_navigable := CallbackCreate(GetMethod(implObj, "put_navigable"), flags, 2)
-        this.vtbl.get_navigable := CallbackCreate(GetMethod(implObj, "get_navigable"), flags, 2)
+        this.vtbl.put_navigable := CallbackCreate(ObjBindMethod(implObj, "put_navigable"), flags, 2)
+        this.vtbl.get_navigable := CallbackCreate(ObjBindMethod(implObj, "get_navigable"), flags, 2)
     }
 
     Dispose() {

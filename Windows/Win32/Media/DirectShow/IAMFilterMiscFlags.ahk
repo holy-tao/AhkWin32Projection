@@ -55,7 +55,7 @@ export default struct IAMFilterMiscFlags extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMiscFlags := CallbackCreate(GetMethod(implObj, "GetMiscFlags"), flags, 1)
+        this.vtbl.GetMiscFlags := CallbackCreate(ObjBindMethod(implObj, "GetMiscFlags"), flags, 1)
     }
 
     Dispose() {

@@ -441,8 +441,8 @@ export default struct ISpatialAudioObjectRenderStreamBase extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioobjectrenderstreambase-beginupdatingaudioobjects
      */
     BeginUpdatingAudioObjects(availableDynamicObjectCount, frameCountPerBuffer) {
-        availableDynamicObjectCountMarshal := availableDynamicObjectCount is VarRef ? "uint*" : "ptr"
-        frameCountPerBufferMarshal := frameCountPerBuffer is VarRef ? "uint*" : "ptr"
+        availableDynamicObjectCountMarshal := availableDynamicObjectCount is VarRef ? "uint*" : IntPtr
+        frameCountPerBufferMarshal := frameCountPerBuffer is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, availableDynamicObjectCountMarshal, availableDynamicObjectCount, frameCountPerBufferMarshal, frameCountPerBuffer, "HRESULT")
         return result
@@ -552,13 +552,13 @@ export default struct ISpatialAudioObjectRenderStreamBase extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAvailableDynamicObjectCount := CallbackCreate(GetMethod(implObj, "GetAvailableDynamicObjectCount"), flags, 2)
-        this.vtbl.GetService := CallbackCreate(GetMethod(implObj, "GetService"), flags, 3)
-        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 1)
-        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.BeginUpdatingAudioObjects := CallbackCreate(GetMethod(implObj, "BeginUpdatingAudioObjects"), flags, 3)
-        this.vtbl.EndUpdatingAudioObjects := CallbackCreate(GetMethod(implObj, "EndUpdatingAudioObjects"), flags, 1)
+        this.vtbl.GetAvailableDynamicObjectCount := CallbackCreate(ObjBindMethod(implObj, "GetAvailableDynamicObjectCount"), flags, 2)
+        this.vtbl.GetService := CallbackCreate(ObjBindMethod(implObj, "GetService"), flags, 3)
+        this.vtbl.Start := CallbackCreate(ObjBindMethod(implObj, "Start"), flags, 1)
+        this.vtbl.Stop := CallbackCreate(ObjBindMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.BeginUpdatingAudioObjects := CallbackCreate(ObjBindMethod(implObj, "BeginUpdatingAudioObjects"), flags, 3)
+        this.vtbl.EndUpdatingAudioObjects := CallbackCreate(ObjBindMethod(implObj, "EndUpdatingAudioObjects"), flags, 1)
     }
 
     Dispose() {

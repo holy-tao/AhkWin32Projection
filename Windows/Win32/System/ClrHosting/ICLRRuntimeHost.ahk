@@ -55,7 +55,6 @@ export default struct ICLRRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Start() {
@@ -64,7 +63,6 @@ export default struct ICLRRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Stop() {
@@ -73,7 +71,6 @@ export default struct ICLRRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHostControl} pHostControl 
      * @returns {HRESULT} 
      */
@@ -83,7 +80,6 @@ export default struct ICLRRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ICLRControl} 
      */
     GetCLRControl() {
@@ -92,7 +88,6 @@ export default struct ICLRRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwAppDomainId 
      * @param {BOOL} fWaitUntilDone 
      * @returns {HRESULT} 
@@ -103,21 +98,19 @@ export default struct ICLRRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwAppDomainId 
      * @param {Pointer<FExecuteInAppDomainCallback>} pCallback 
      * @param {Pointer<Void>} cookie 
      * @returns {HRESULT} 
      */
     ExecuteInAppDomain(dwAppDomainId, pCallback, cookie) {
-        cookieMarshal := cookie is VarRef ? "ptr" : "ptr"
+        cookieMarshal := cookie is VarRef ? "ptr" : IntPtr
 
         result := ComCall(8, this, UInt32, dwAppDomainId, FExecuteInAppDomainCallback, pCallback, cookieMarshal, cookie, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCurrentAppDomainId() {
@@ -126,7 +119,6 @@ export default struct ICLRRuntimeHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzAppFullName 
      * @param {Integer} dwManifestPaths 
      * @param {Pointer<PWSTR>} ppwzManifestPaths 
@@ -137,15 +129,14 @@ export default struct ICLRRuntimeHost extends IUnknown {
     ExecuteApplication(pwzAppFullName, dwManifestPaths, ppwzManifestPaths, dwActivationData, ppwzActivationData) {
         pwzAppFullName := pwzAppFullName is String ? StrPtr(pwzAppFullName) : pwzAppFullName
 
-        ppwzManifestPathsMarshal := ppwzManifestPaths is VarRef ? "ptr*" : "ptr"
-        ppwzActivationDataMarshal := ppwzActivationData is VarRef ? "ptr*" : "ptr"
+        ppwzManifestPathsMarshal := ppwzManifestPaths is VarRef ? "ptr*" : IntPtr
+        ppwzActivationDataMarshal := ppwzActivationData is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(10, this, "ptr", pwzAppFullName, UInt32, dwManifestPaths, ppwzManifestPathsMarshal, ppwzManifestPaths, UInt32, dwActivationData, ppwzActivationDataMarshal, ppwzActivationData, "int*", &pReturnValue := 0, "HRESULT")
         return pReturnValue
     }
 
     /**
-     * 
      * @param {PWSTR} pwzAssemblyPath 
      * @param {PWSTR} pwzTypeName 
      * @param {PWSTR} pwzMethodName 
@@ -171,15 +162,15 @@ export default struct ICLRRuntimeHost extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 1)
-        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
-        this.vtbl.SetHostControl := CallbackCreate(GetMethod(implObj, "SetHostControl"), flags, 2)
-        this.vtbl.GetCLRControl := CallbackCreate(GetMethod(implObj, "GetCLRControl"), flags, 2)
-        this.vtbl.UnloadAppDomain := CallbackCreate(GetMethod(implObj, "UnloadAppDomain"), flags, 3)
-        this.vtbl.ExecuteInAppDomain := CallbackCreate(GetMethod(implObj, "ExecuteInAppDomain"), flags, 4)
-        this.vtbl.GetCurrentAppDomainId := CallbackCreate(GetMethod(implObj, "GetCurrentAppDomainId"), flags, 2)
-        this.vtbl.ExecuteApplication := CallbackCreate(GetMethod(implObj, "ExecuteApplication"), flags, 7)
-        this.vtbl.ExecuteInDefaultAppDomain := CallbackCreate(GetMethod(implObj, "ExecuteInDefaultAppDomain"), flags, 6)
+        this.vtbl.Start := CallbackCreate(ObjBindMethod(implObj, "Start"), flags, 1)
+        this.vtbl.Stop := CallbackCreate(ObjBindMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.SetHostControl := CallbackCreate(ObjBindMethod(implObj, "SetHostControl"), flags, 2)
+        this.vtbl.GetCLRControl := CallbackCreate(ObjBindMethod(implObj, "GetCLRControl"), flags, 2)
+        this.vtbl.UnloadAppDomain := CallbackCreate(ObjBindMethod(implObj, "UnloadAppDomain"), flags, 3)
+        this.vtbl.ExecuteInAppDomain := CallbackCreate(ObjBindMethod(implObj, "ExecuteInAppDomain"), flags, 4)
+        this.vtbl.GetCurrentAppDomainId := CallbackCreate(ObjBindMethod(implObj, "GetCurrentAppDomainId"), flags, 2)
+        this.vtbl.ExecuteApplication := CallbackCreate(ObjBindMethod(implObj, "ExecuteApplication"), flags, 7)
+        this.vtbl.ExecuteInDefaultAppDomain := CallbackCreate(ObjBindMethod(implObj, "ExecuteInDefaultAppDomain"), flags, 6)
     }
 
     Dispose() {

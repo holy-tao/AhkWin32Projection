@@ -179,13 +179,13 @@ export default struct IAudioSystemEffectsPropertyStore extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OpenDefaultPropertyStore := CallbackCreate(GetMethod(implObj, "OpenDefaultPropertyStore"), flags, 3)
-        this.vtbl.OpenUserPropertyStore := CallbackCreate(GetMethod(implObj, "OpenUserPropertyStore"), flags, 3)
-        this.vtbl.OpenVolatilePropertyStore := CallbackCreate(GetMethod(implObj, "OpenVolatilePropertyStore"), flags, 3)
-        this.vtbl.ResetUserPropertyStore := CallbackCreate(GetMethod(implObj, "ResetUserPropertyStore"), flags, 1)
-        this.vtbl.ResetVolatilePropertyStore := CallbackCreate(GetMethod(implObj, "ResetVolatilePropertyStore"), flags, 1)
-        this.vtbl.RegisterPropertyChangeNotification := CallbackCreate(GetMethod(implObj, "RegisterPropertyChangeNotification"), flags, 2)
-        this.vtbl.UnregisterPropertyChangeNotification := CallbackCreate(GetMethod(implObj, "UnregisterPropertyChangeNotification"), flags, 2)
+        this.vtbl.OpenDefaultPropertyStore := CallbackCreate(ObjBindMethod(implObj, "OpenDefaultPropertyStore"), flags, 3)
+        this.vtbl.OpenUserPropertyStore := CallbackCreate(ObjBindMethod(implObj, "OpenUserPropertyStore"), flags, 3)
+        this.vtbl.OpenVolatilePropertyStore := CallbackCreate(ObjBindMethod(implObj, "OpenVolatilePropertyStore"), flags, 3)
+        this.vtbl.ResetUserPropertyStore := CallbackCreate(ObjBindMethod(implObj, "ResetUserPropertyStore"), flags, 1)
+        this.vtbl.ResetVolatilePropertyStore := CallbackCreate(ObjBindMethod(implObj, "ResetVolatilePropertyStore"), flags, 1)
+        this.vtbl.RegisterPropertyChangeNotification := CallbackCreate(ObjBindMethod(implObj, "RegisterPropertyChangeNotification"), flags, 2)
+        this.vtbl.UnregisterPropertyChangeNotification := CallbackCreate(ObjBindMethod(implObj, "UnregisterPropertyChangeNotification"), flags, 2)
     }
 
     Dispose() {

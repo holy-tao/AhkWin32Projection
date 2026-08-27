@@ -20,7 +20,6 @@ export default struct PCLUSAPI_CREATE_CLUSTER_NOTIFY_PORT {
     }
 
     /**
-     * 
      * @param {HCHANGE} _hChange 
      * @param {HCLUSTER} _hCluster 
      * @param {Integer} dwFilter 

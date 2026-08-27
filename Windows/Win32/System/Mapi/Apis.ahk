@@ -24,7 +24,7 @@
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/mapifreebuffer
  */
 export MAPIFreeBuffer(pv) {
-    pvMarshal := pv is VarRef ? "ptr" : "ptr"
+    pvMarshal := pv is VarRef ? "ptr" : IntPtr
 
     result := DllCall("MAPI32.dll\MAPIFreeBuffer", pvMarshal, pv, UInt32)
     return result

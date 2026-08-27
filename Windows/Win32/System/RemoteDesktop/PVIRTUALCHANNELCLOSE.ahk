@@ -18,7 +18,6 @@ export default struct PVIRTUALCHANNELCLOSE {
     }
 
     /**
-     * 
      * @param {Integer} openHandle 
      * @returns {Integer} 
      */

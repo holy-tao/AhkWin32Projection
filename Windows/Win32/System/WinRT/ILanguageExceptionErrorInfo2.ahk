@@ -93,9 +93,9 @@ export default struct ILanguageExceptionErrorInfo2 extends ILanguageExceptionErr
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPreviousLanguageExceptionErrorInfo := CallbackCreate(GetMethod(implObj, "GetPreviousLanguageExceptionErrorInfo"), flags, 2)
-        this.vtbl.CapturePropagationContext := CallbackCreate(GetMethod(implObj, "CapturePropagationContext"), flags, 2)
-        this.vtbl.GetPropagationContextHead := CallbackCreate(GetMethod(implObj, "GetPropagationContextHead"), flags, 2)
+        this.vtbl.GetPreviousLanguageExceptionErrorInfo := CallbackCreate(ObjBindMethod(implObj, "GetPreviousLanguageExceptionErrorInfo"), flags, 2)
+        this.vtbl.CapturePropagationContext := CallbackCreate(ObjBindMethod(implObj, "CapturePropagationContext"), flags, 2)
+        this.vtbl.GetPropagationContextHead := CallbackCreate(ObjBindMethod(implObj, "GetPropagationContextHead"), flags, 2)
     }
 
     Dispose() {

@@ -56,7 +56,6 @@ export default struct IShellUIHelper4 extends IShellUIHelper3 {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     msIsSiteMode() {
@@ -65,7 +64,6 @@ export default struct IShellUIHelper4 extends IShellUIHelper3 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     msSiteModeShowThumbBar() {
@@ -74,7 +72,6 @@ export default struct IShellUIHelper4 extends IShellUIHelper3 {
     }
 
     /**
-     * 
      * @param {BSTR} bstrIconURL 
      * @param {BSTR} bstrTooltip 
      * @returns {VARIANT} 
@@ -89,7 +86,6 @@ export default struct IShellUIHelper4 extends IShellUIHelper3 {
     }
 
     /**
-     * 
      * @param {VARIANT} ButtonID 
      * @param {VARIANT_BOOL} fEnabled 
      * @param {VARIANT_BOOL} fVisible 
@@ -101,7 +97,6 @@ export default struct IShellUIHelper4 extends IShellUIHelper3 {
     }
 
     /**
-     * 
      * @param {BSTR} IconUrl 
      * @param {Pointer<VARIANT>} pvarDescription 
      * @returns {HRESULT} 
@@ -114,7 +109,6 @@ export default struct IShellUIHelper4 extends IShellUIHelper3 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     msSiteModeClearIconOverlay() {
@@ -123,7 +117,6 @@ export default struct IShellUIHelper4 extends IShellUIHelper3 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     msAddSiteMode() {
@@ -132,7 +125,6 @@ export default struct IShellUIHelper4 extends IShellUIHelper3 {
     }
 
     /**
-     * 
      * @param {BSTR} bstrHeader 
      * @returns {HRESULT} 
      */
@@ -144,7 +136,6 @@ export default struct IShellUIHelper4 extends IShellUIHelper3 {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrActionUri 
      * @param {BSTR} bstrIconUri 
@@ -161,7 +152,6 @@ export default struct IShellUIHelper4 extends IShellUIHelper3 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     msSiteModeClearJumpList() {
@@ -170,7 +160,6 @@ export default struct IShellUIHelper4 extends IShellUIHelper3 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     msSiteModeShowJumpList() {
@@ -179,7 +168,6 @@ export default struct IShellUIHelper4 extends IShellUIHelper3 {
     }
 
     /**
-     * 
      * @param {VARIANT} uiButtonID 
      * @param {BSTR} bstrIconUrl 
      * @param {BSTR} bstrTooltip 
@@ -195,7 +183,6 @@ export default struct IShellUIHelper4 extends IShellUIHelper3 {
     }
 
     /**
-     * 
      * @param {VARIANT} uiButtonID 
      * @param {VARIANT} uiStyleID 
      * @returns {HRESULT} 
@@ -206,7 +193,6 @@ export default struct IShellUIHelper4 extends IShellUIHelper3 {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     msSiteModeActivate() {
@@ -215,7 +201,6 @@ export default struct IShellUIHelper4 extends IShellUIHelper3 {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fPreserveState 
      * @returns {VARIANT} 
      */
@@ -226,7 +211,6 @@ export default struct IShellUIHelper4 extends IShellUIHelper3 {
     }
 
     /**
-     * 
      * @param {BSTR} URL 
      * @param {BSTR} bstrFilterName 
      * @returns {HRESULT} 
@@ -240,7 +224,6 @@ export default struct IShellUIHelper4 extends IShellUIHelper3 {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     msTrackingProtectionEnabled() {
@@ -249,7 +232,6 @@ export default struct IShellUIHelper4 extends IShellUIHelper3 {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     msActiveXFilteringEnabled() {
@@ -266,24 +248,24 @@ export default struct IShellUIHelper4 extends IShellUIHelper3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.msIsSiteMode := CallbackCreate(GetMethod(implObj, "msIsSiteMode"), flags, 2)
-        this.vtbl.msSiteModeShowThumbBar := CallbackCreate(GetMethod(implObj, "msSiteModeShowThumbBar"), flags, 1)
-        this.vtbl.msSiteModeAddThumbBarButton := CallbackCreate(GetMethod(implObj, "msSiteModeAddThumbBarButton"), flags, 4)
-        this.vtbl.msSiteModeUpdateThumbBarButton := CallbackCreate(GetMethod(implObj, "msSiteModeUpdateThumbBarButton"), flags, 4)
-        this.vtbl.msSiteModeSetIconOverlay := CallbackCreate(GetMethod(implObj, "msSiteModeSetIconOverlay"), flags, 3)
-        this.vtbl.msSiteModeClearIconOverlay := CallbackCreate(GetMethod(implObj, "msSiteModeClearIconOverlay"), flags, 1)
-        this.vtbl.msAddSiteMode := CallbackCreate(GetMethod(implObj, "msAddSiteMode"), flags, 1)
-        this.vtbl.msSiteModeCreateJumpList := CallbackCreate(GetMethod(implObj, "msSiteModeCreateJumpList"), flags, 2)
-        this.vtbl.msSiteModeAddJumpListItem := CallbackCreate(GetMethod(implObj, "msSiteModeAddJumpListItem"), flags, 5)
-        this.vtbl.msSiteModeClearJumpList := CallbackCreate(GetMethod(implObj, "msSiteModeClearJumpList"), flags, 1)
-        this.vtbl.msSiteModeShowJumpList := CallbackCreate(GetMethod(implObj, "msSiteModeShowJumpList"), flags, 1)
-        this.vtbl.msSiteModeAddButtonStyle := CallbackCreate(GetMethod(implObj, "msSiteModeAddButtonStyle"), flags, 5)
-        this.vtbl.msSiteModeShowButtonStyle := CallbackCreate(GetMethod(implObj, "msSiteModeShowButtonStyle"), flags, 3)
-        this.vtbl.msSiteModeActivate := CallbackCreate(GetMethod(implObj, "msSiteModeActivate"), flags, 1)
-        this.vtbl.msIsSiteModeFirstRun := CallbackCreate(GetMethod(implObj, "msIsSiteModeFirstRun"), flags, 3)
-        this.vtbl.msAddTrackingProtectionList := CallbackCreate(GetMethod(implObj, "msAddTrackingProtectionList"), flags, 3)
-        this.vtbl.msTrackingProtectionEnabled := CallbackCreate(GetMethod(implObj, "msTrackingProtectionEnabled"), flags, 2)
-        this.vtbl.msActiveXFilteringEnabled := CallbackCreate(GetMethod(implObj, "msActiveXFilteringEnabled"), flags, 2)
+        this.vtbl.msIsSiteMode := CallbackCreate(ObjBindMethod(implObj, "msIsSiteMode"), flags, 2)
+        this.vtbl.msSiteModeShowThumbBar := CallbackCreate(ObjBindMethod(implObj, "msSiteModeShowThumbBar"), flags, 1)
+        this.vtbl.msSiteModeAddThumbBarButton := CallbackCreate(ObjBindMethod(implObj, "msSiteModeAddThumbBarButton"), flags, 4)
+        this.vtbl.msSiteModeUpdateThumbBarButton := CallbackCreate(ObjBindMethod(implObj, "msSiteModeUpdateThumbBarButton"), flags, 4)
+        this.vtbl.msSiteModeSetIconOverlay := CallbackCreate(ObjBindMethod(implObj, "msSiteModeSetIconOverlay"), flags, 3)
+        this.vtbl.msSiteModeClearIconOverlay := CallbackCreate(ObjBindMethod(implObj, "msSiteModeClearIconOverlay"), flags, 1)
+        this.vtbl.msAddSiteMode := CallbackCreate(ObjBindMethod(implObj, "msAddSiteMode"), flags, 1)
+        this.vtbl.msSiteModeCreateJumpList := CallbackCreate(ObjBindMethod(implObj, "msSiteModeCreateJumpList"), flags, 2)
+        this.vtbl.msSiteModeAddJumpListItem := CallbackCreate(ObjBindMethod(implObj, "msSiteModeAddJumpListItem"), flags, 5)
+        this.vtbl.msSiteModeClearJumpList := CallbackCreate(ObjBindMethod(implObj, "msSiteModeClearJumpList"), flags, 1)
+        this.vtbl.msSiteModeShowJumpList := CallbackCreate(ObjBindMethod(implObj, "msSiteModeShowJumpList"), flags, 1)
+        this.vtbl.msSiteModeAddButtonStyle := CallbackCreate(ObjBindMethod(implObj, "msSiteModeAddButtonStyle"), flags, 5)
+        this.vtbl.msSiteModeShowButtonStyle := CallbackCreate(ObjBindMethod(implObj, "msSiteModeShowButtonStyle"), flags, 3)
+        this.vtbl.msSiteModeActivate := CallbackCreate(ObjBindMethod(implObj, "msSiteModeActivate"), flags, 1)
+        this.vtbl.msIsSiteModeFirstRun := CallbackCreate(ObjBindMethod(implObj, "msIsSiteModeFirstRun"), flags, 3)
+        this.vtbl.msAddTrackingProtectionList := CallbackCreate(ObjBindMethod(implObj, "msAddTrackingProtectionList"), flags, 3)
+        this.vtbl.msTrackingProtectionEnabled := CallbackCreate(ObjBindMethod(implObj, "msTrackingProtectionEnabled"), flags, 2)
+        this.vtbl.msActiveXFilteringEnabled := CallbackCreate(ObjBindMethod(implObj, "msActiveXFilteringEnabled"), flags, 2)
     }
 
     Dispose() {

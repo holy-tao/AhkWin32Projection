@@ -22,14 +22,13 @@ export default struct PFN_WdsTransportClientSessionStartEx {
     }
 
     /**
-     * 
      * @param {HANDLE} hSessionKey The handle belonging to the session that is being started.
      * @param {Pointer<Void>} pCallerData Pointer to the caller specific data for this session.  This data was specified in the call to WdsTransportClientStartSession.
      * @param {Pointer<TRANSPORTCLIENT_SESSION_INFO>} Info This parameter receives a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wdstci/ns-wdstci-transportclient_session_info">TRANSPORTCLIENT_SESSION_INFO</a> structure.
      * @returns {String} Nothing - always returns an empty string
      */
     Call(hSessionKey, pCallerData, Info) {
-        pCallerDataMarshal := pCallerData is VarRef ? "ptr" : "ptr"
+        pCallerDataMarshal := pCallerData is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, HANDLE, hSessionKey, pCallerDataMarshal, pCallerData, TRANSPORTCLIENT_SESSION_INFO.Ptr, Info)
     }

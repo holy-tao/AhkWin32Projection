@@ -254,12 +254,12 @@ export default struct IBackgroundCopyJob4 extends IBackgroundCopyJob3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetPeerCachingFlags := CallbackCreate(GetMethod(implObj, "SetPeerCachingFlags"), flags, 2)
-        this.vtbl.GetPeerCachingFlags := CallbackCreate(GetMethod(implObj, "GetPeerCachingFlags"), flags, 2)
-        this.vtbl.GetOwnerIntegrityLevel := CallbackCreate(GetMethod(implObj, "GetOwnerIntegrityLevel"), flags, 2)
-        this.vtbl.GetOwnerElevationState := CallbackCreate(GetMethod(implObj, "GetOwnerElevationState"), flags, 2)
-        this.vtbl.SetMaximumDownloadTime := CallbackCreate(GetMethod(implObj, "SetMaximumDownloadTime"), flags, 2)
-        this.vtbl.GetMaximumDownloadTime := CallbackCreate(GetMethod(implObj, "GetMaximumDownloadTime"), flags, 2)
+        this.vtbl.SetPeerCachingFlags := CallbackCreate(ObjBindMethod(implObj, "SetPeerCachingFlags"), flags, 2)
+        this.vtbl.GetPeerCachingFlags := CallbackCreate(ObjBindMethod(implObj, "GetPeerCachingFlags"), flags, 2)
+        this.vtbl.GetOwnerIntegrityLevel := CallbackCreate(ObjBindMethod(implObj, "GetOwnerIntegrityLevel"), flags, 2)
+        this.vtbl.GetOwnerElevationState := CallbackCreate(ObjBindMethod(implObj, "GetOwnerElevationState"), flags, 2)
+        this.vtbl.SetMaximumDownloadTime := CallbackCreate(ObjBindMethod(implObj, "SetMaximumDownloadTime"), flags, 2)
+        this.vtbl.GetMaximumDownloadTime := CallbackCreate(ObjBindMethod(implObj, "GetMaximumDownloadTime"), flags, 2)
     }
 
     Dispose() {

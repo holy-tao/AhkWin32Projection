@@ -23,7 +23,6 @@ export default struct PDD_FLIPTOGDISURFACE {
     }
 
     /**
-     * 
      * @param {Pointer<DD_FLIPTOGDISURFACEDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_fliptogdisurfacedata">DD_FLIPTOGDISURFACEDATA</a> structure that contains the notification information.
      * @returns {Integer} <i>DdFlipToGDISurface</i> returns one of the following callback codes:
      */

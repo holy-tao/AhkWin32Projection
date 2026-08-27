@@ -41,7 +41,6 @@ export default struct ICloneViewHelper extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} wszAdaptorName 
      * @param {Pointer<Integer>} pulCount 
      * @param {Pointer<Integer>} pulID 
@@ -51,15 +50,14 @@ export default struct ICloneViewHelper extends IUnknown {
     GetConnectedIDs(wszAdaptorName, pulCount, pulID, ulFlags) {
         wszAdaptorName := wszAdaptorName is String ? StrPtr(wszAdaptorName) : wszAdaptorName
 
-        pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"
-        pulIDMarshal := pulID is VarRef ? "uint*" : "ptr"
+        pulCountMarshal := pulCount is VarRef ? "uint*" : IntPtr
+        pulIDMarshal := pulID is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, "ptr", wszAdaptorName, pulCountMarshal, pulCount, pulIDMarshal, pulID, UInt32, ulFlags, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} wszAdaptorName 
      * @param {Integer} ulSourceID 
      * @param {Pointer<Integer>} pulCount 
@@ -69,15 +67,14 @@ export default struct ICloneViewHelper extends IUnknown {
     GetActiveTopology(wszAdaptorName, ulSourceID, pulCount, pulTargetID) {
         wszAdaptorName := wszAdaptorName is String ? StrPtr(wszAdaptorName) : wszAdaptorName
 
-        pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"
-        pulTargetIDMarshal := pulTargetID is VarRef ? "uint*" : "ptr"
+        pulCountMarshal := pulCount is VarRef ? "uint*" : IntPtr
+        pulTargetIDMarshal := pulTargetID is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, "ptr", wszAdaptorName, UInt32, ulSourceID, pulCountMarshal, pulCount, pulTargetIDMarshal, pulTargetID, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} wszAdaptorName 
      * @param {Integer} ulSourceID 
      * @param {Integer} ulCount 
@@ -87,14 +84,13 @@ export default struct ICloneViewHelper extends IUnknown {
     SetActiveTopology(wszAdaptorName, ulSourceID, ulCount, pulTargetID) {
         wszAdaptorName := wszAdaptorName is String ? StrPtr(wszAdaptorName) : wszAdaptorName
 
-        pulTargetIDMarshal := pulTargetID is VarRef ? "uint*" : "ptr"
+        pulTargetIDMarshal := pulTargetID is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, "ptr", wszAdaptorName, UInt32, ulSourceID, UInt32, ulCount, pulTargetIDMarshal, pulTargetID, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {BOOL} fFinalCall 
      * @returns {HRESULT} 
      */
@@ -112,10 +108,10 @@ export default struct ICloneViewHelper extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetConnectedIDs := CallbackCreate(GetMethod(implObj, "GetConnectedIDs"), flags, 5)
-        this.vtbl.GetActiveTopology := CallbackCreate(GetMethod(implObj, "GetActiveTopology"), flags, 5)
-        this.vtbl.SetActiveTopology := CallbackCreate(GetMethod(implObj, "SetActiveTopology"), flags, 5)
-        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 2)
+        this.vtbl.GetConnectedIDs := CallbackCreate(ObjBindMethod(implObj, "GetConnectedIDs"), flags, 5)
+        this.vtbl.GetActiveTopology := CallbackCreate(ObjBindMethod(implObj, "GetActiveTopology"), flags, 5)
+        this.vtbl.SetActiveTopology := CallbackCreate(ObjBindMethod(implObj, "SetActiveTopology"), flags, 5)
+        this.vtbl.Commit := CallbackCreate(ObjBindMethod(implObj, "Commit"), flags, 2)
     }
 
     Dispose() {

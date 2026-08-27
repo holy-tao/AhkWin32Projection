@@ -62,8 +62,8 @@ export default struct IWMDRMTranscryptor extends IUnknown {
     Initialize(bstrFileName, pbLicenseRequestMsg, cbLicenseRequestMsg, pCallback, pvContext) {
         bstrFileName := bstrFileName is String ? BSTR.Alloc(bstrFileName).Value : bstrFileName
 
-        pbLicenseRequestMsgMarshal := pbLicenseRequestMsg is VarRef ? "char*" : "ptr"
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        pbLicenseRequestMsgMarshal := pbLicenseRequestMsg is VarRef ? "char*" : IntPtr
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, BSTR, bstrFileName, pbLicenseRequestMsgMarshal, pbLicenseRequestMsg, UInt32, cbLicenseRequestMsg, "ptr*", &ppLicenseResponseMsg := 0, "ptr", pCallback, pvContextMarshal, pvContext, "HRESULT")
         return INSSBuffer(ppLicenseResponseMsg)
@@ -162,8 +162,8 @@ export default struct IWMDRMTranscryptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdrmtranscryptor-read
      */
     Read(pbData, pcbData) {
-        pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
-        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+        pbDataMarshal := pbData is VarRef ? "char*" : IntPtr
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, pbDataMarshal, pbData, pcbDataMarshal, pcbData, "HRESULT")
         return result
@@ -208,10 +208,10 @@ export default struct IWMDRMTranscryptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 7)
-        this.vtbl.Seek := CallbackCreate(GetMethod(implObj, "Seek"), flags, 2)
-        this.vtbl.Read := CallbackCreate(GetMethod(implObj, "Read"), flags, 3)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 7)
+        this.vtbl.Seek := CallbackCreate(ObjBindMethod(implObj, "Seek"), flags, 2)
+        this.vtbl.Read := CallbackCreate(ObjBindMethod(implObj, "Read"), flags, 3)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct BCryptCloseAlgorithmProviderFn {
     }
 
     /**
-     * 
      * @param {BCRYPT_ALG_HANDLE} hAlgorithm 
      * @param {Integer} dwFlags 
      * @returns {NTSTATUS} 

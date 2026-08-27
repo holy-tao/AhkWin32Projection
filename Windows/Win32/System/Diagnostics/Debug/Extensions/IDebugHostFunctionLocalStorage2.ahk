@@ -36,7 +36,6 @@ export default struct IDebugHostFunctionLocalStorage2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} registerId 
      * @param {Pointer<Integer>} offset 
      * @param {Pointer<Boolean>} isIndirectAccess 
@@ -44,10 +43,10 @@ export default struct IDebugHostFunctionLocalStorage2 extends IUnknown {
      * @returns {HRESULT} 
      */
     GetExtendedRegisterAddressInfo(registerId, offset, isIndirectAccess, indirectOffset) {
-        registerIdMarshal := registerId is VarRef ? "uint*" : "ptr"
-        offsetMarshal := offset is VarRef ? "int64*" : "ptr"
-        isIndirectAccessMarshal := isIndirectAccess is VarRef ? "int*" : "ptr"
-        indirectOffsetMarshal := indirectOffset is VarRef ? "int*" : "ptr"
+        registerIdMarshal := registerId is VarRef ? "uint*" : IntPtr
+        offsetMarshal := offset is VarRef ? "int64*" : IntPtr
+        isIndirectAccessMarshal := isIndirectAccess is VarRef ? "int*" : IntPtr
+        indirectOffsetMarshal := indirectOffset is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, registerIdMarshal, registerId, offsetMarshal, offset, isIndirectAccessMarshal, isIndirectAccess, indirectOffsetMarshal, indirectOffset, "HRESULT")
         return result
@@ -62,7 +61,7 @@ export default struct IDebugHostFunctionLocalStorage2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetExtendedRegisterAddressInfo := CallbackCreate(GetMethod(implObj, "GetExtendedRegisterAddressInfo"), flags, 5)
+        this.vtbl.GetExtendedRegisterAddressInfo := CallbackCreate(ObjBindMethod(implObj, "GetExtendedRegisterAddressInfo"), flags, 5)
     }
 
     Dispose() {

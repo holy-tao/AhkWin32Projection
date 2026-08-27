@@ -30,7 +30,6 @@ export default struct PSYM_ENUMSYMBOLS_CALLBACK64 {
     }
 
     /**
-     * 
      * @param {PSTR} SymbolName The name of the symbol. The name can be undecorated if the SYMOPT_UNDNAME option is used with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-symsetoptions">SymSetOptions</a> function.
      * @param {Integer} SymbolAddress The virtual address for the beginning of the symbol.
@@ -44,7 +43,8 @@ export default struct PSYM_ENUMSYMBOLS_CALLBACK64 {
     Call(SymbolName, SymbolAddress, SymbolSize, UserContext) {
         SymbolName := SymbolName is String ? StrPtr(SymbolName) : SymbolName
 
-        UserContextMarshal := UserContext is VarRef ? "ptr" : "ptr"
+        UserContextMarshal := UserContext is VarRef ? "ptr" : IntPtr
+        UserContextMarshal := UserContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, "ptr", SymbolName, Int64, SymbolAddress, UInt32, SymbolSize, UserContextMarshal, UserContext, BOOL)
         return result

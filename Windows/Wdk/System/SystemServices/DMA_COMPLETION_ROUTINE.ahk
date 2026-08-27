@@ -21,7 +21,6 @@ export default struct DMA_COMPLETION_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<DMA_ADAPTER>} DmaAdapter 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Pointer<Void>} CompletionContext 
@@ -29,7 +28,7 @@ export default struct DMA_COMPLETION_ROUTINE {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(DmaAdapter, DeviceObject, CompletionContext, _Status) {
-        CompletionContextMarshal := CompletionContext is VarRef ? "ptr" : "ptr"
+        CompletionContextMarshal := CompletionContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, DEVICE_OBJECT.Ptr, DeviceObject, CompletionContextMarshal, CompletionContext, DMA_COMPLETION_STATUS, _Status)
     }

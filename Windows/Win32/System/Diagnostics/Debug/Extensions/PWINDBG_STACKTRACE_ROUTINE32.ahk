@@ -19,7 +19,6 @@ export default struct PWINDBG_STACKTRACE_ROUTINE32 {
     }
 
     /**
-     * 
      * @param {Integer} FramePointer 
      * @param {Integer} StackPointer 
      * @param {Integer} ProgramCounter 

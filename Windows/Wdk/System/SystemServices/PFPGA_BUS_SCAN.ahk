@@ -18,7 +18,6 @@ export default struct PFPGA_BUS_SCAN {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

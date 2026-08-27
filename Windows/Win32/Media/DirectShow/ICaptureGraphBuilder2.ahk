@@ -210,7 +210,9 @@ export default struct ICaptureGraphBuilder2 extends IUnknown {
     SetOutputFileName(pType, lpstrFile, ppf, ppSink) {
         lpstrFile := lpstrFile is String ? StrPtr(lpstrFile) : lpstrFile
 
-        result := ComCall(5, this, Guid.Ptr, pType, "ptr", lpstrFile, IBaseFilter.Ptr, ppf, IFileSinkFilter.Ptr, ppSink, "HRESULT")
+        ppSinkMarshal := ppSink == 0 ? IntPtr : IFileSinkFilter.Ptr
+
+        result := ComCall(5, this, Guid.Ptr, pType, "ptr", lpstrFile, IBaseFilter.Ptr, ppf, ppSinkMarshal, ppSink, "HRESULT")
         return result
     }
 
@@ -259,7 +261,10 @@ export default struct ICaptureGraphBuilder2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icapturegraphbuilder2-findinterface
      */
     FindInterface(pCategory, pType, pf, riid) {
-        result := ComCall(6, this, Guid.Ptr, pCategory, Guid.Ptr, pType, "ptr", pf, Guid.Ptr, riid, "ptr*", &ppint := 0, "HRESULT")
+        pCategoryMarshal := pCategory == 0 ? IntPtr : Guid.Ptr
+        pTypeMarshal := pType == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(6, this, pCategoryMarshal, pCategory, pTypeMarshal, pType, "ptr", pf, Guid.Ptr, riid, "ptr*", &ppint := 0, "HRESULT")
         return ppint
     }
 
@@ -437,7 +442,9 @@ export default struct ICaptureGraphBuilder2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icapturegraphbuilder2-renderstream
      */
     RenderStream(pCategory, pType, pSource, pfCompressor, pfRenderer) {
-        result := ComCall(7, this, Guid.Ptr, pCategory, Guid.Ptr, pType, "ptr", pSource, "ptr", pfCompressor, "ptr", pfRenderer, "HRESULT")
+        pCategoryMarshal := pCategory == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(7, this, pCategoryMarshal, pCategory, Guid.Ptr, pType, "ptr", pSource, "ptr", pfCompressor, "ptr", pfRenderer, "HRESULT")
         return result
     }
 
@@ -525,8 +532,10 @@ export default struct ICaptureGraphBuilder2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icapturegraphbuilder2-controlstream
      */
     ControlStream(pCategory, pType, pFilter, pstart, pstop, wStartCookie, wStopCookie) {
-        pstartMarshal := pstart is VarRef ? "int64*" : "ptr"
-        pstopMarshal := pstop is VarRef ? "int64*" : "ptr"
+        pstartMarshal := pstart is VarRef ? "int64*" : IntPtr
+        pstartMarshal := pstart == 0 ? IntPtr : "int64*"
+        pstopMarshal := pstop is VarRef ? "int64*" : IntPtr
+        pstopMarshal := pstop == 0 ? IntPtr : "int64*"
 
         result := ComCall(8, this, Guid.Ptr, pCategory, Guid.Ptr, pType, "ptr", pFilter, pstartMarshal, pstart, pstopMarshal, pstop, UInt16, wStartCookie, UInt16, wStopCookie, "HRESULT")
         return result
@@ -668,7 +677,10 @@ export default struct ICaptureGraphBuilder2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icapturegraphbuilder2-findpin
      */
     FindPin(pSource, pindir, pCategory, pType, fUnconnected, num) {
-        result := ComCall(11, this, "ptr", pSource, PIN_DIRECTION, pindir, Guid.Ptr, pCategory, Guid.Ptr, pType, BOOL, fUnconnected, Int32, num, "ptr*", &ppPin := 0, "HRESULT")
+        pCategoryMarshal := pCategory == 0 ? IntPtr : Guid.Ptr
+        pTypeMarshal := pType == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(11, this, "ptr", pSource, PIN_DIRECTION, pindir, pCategoryMarshal, pCategory, pTypeMarshal, pType, BOOL, fUnconnected, Int32, num, "ptr*", &ppPin := 0, "HRESULT")
         return IPin(ppPin)
     }
 
@@ -681,15 +693,15 @@ export default struct ICaptureGraphBuilder2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetFiltergraph := CallbackCreate(GetMethod(implObj, "SetFiltergraph"), flags, 2)
-        this.vtbl.GetFiltergraph := CallbackCreate(GetMethod(implObj, "GetFiltergraph"), flags, 2)
-        this.vtbl.SetOutputFileName := CallbackCreate(GetMethod(implObj, "SetOutputFileName"), flags, 5)
-        this.vtbl.FindInterface := CallbackCreate(GetMethod(implObj, "FindInterface"), flags, 6)
-        this.vtbl.RenderStream := CallbackCreate(GetMethod(implObj, "RenderStream"), flags, 6)
-        this.vtbl.ControlStream := CallbackCreate(GetMethod(implObj, "ControlStream"), flags, 8)
-        this.vtbl.AllocCapFile := CallbackCreate(GetMethod(implObj, "AllocCapFile"), flags, 3)
-        this.vtbl.CopyCaptureFile := CallbackCreate(GetMethod(implObj, "CopyCaptureFile"), flags, 5)
-        this.vtbl.FindPin := CallbackCreate(GetMethod(implObj, "FindPin"), flags, 8)
+        this.vtbl.SetFiltergraph := CallbackCreate(ObjBindMethod(implObj, "SetFiltergraph"), flags, 2)
+        this.vtbl.GetFiltergraph := CallbackCreate(ObjBindMethod(implObj, "GetFiltergraph"), flags, 2)
+        this.vtbl.SetOutputFileName := CallbackCreate(ObjBindMethod(implObj, "SetOutputFileName"), flags, 5)
+        this.vtbl.FindInterface := CallbackCreate(ObjBindMethod(implObj, "FindInterface"), flags, 6)
+        this.vtbl.RenderStream := CallbackCreate(ObjBindMethod(implObj, "RenderStream"), flags, 6)
+        this.vtbl.ControlStream := CallbackCreate(ObjBindMethod(implObj, "ControlStream"), flags, 8)
+        this.vtbl.AllocCapFile := CallbackCreate(ObjBindMethod(implObj, "AllocCapFile"), flags, 3)
+        this.vtbl.CopyCaptureFile := CallbackCreate(ObjBindMethod(implObj, "CopyCaptureFile"), flags, 5)
+        this.vtbl.FindPin := CallbackCreate(ObjBindMethod(implObj, "FindPin"), flags, 8)
     }
 
     Dispose() {

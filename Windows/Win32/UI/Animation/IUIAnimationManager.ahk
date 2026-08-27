@@ -176,7 +176,9 @@ export default struct IUIAnimationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager-getvariablefromtag
      */
     GetVariableFromTag(_object, id) {
-        result := ComCall(9, this, "ptr", _object, UInt32, id, "ptr*", &variable := 0, "HRESULT")
+        _objectMarshal := _object == 0 ? IntPtr : "ptr"
+
+        result := ComCall(9, this, _objectMarshal, _object, UInt32, id, "ptr*", &variable := 0, "HRESULT")
         return IUIAnimationVariable(variable)
     }
 
@@ -193,7 +195,9 @@ export default struct IUIAnimationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager-getstoryboardfromtag
      */
     GetStoryboardFromTag(_object, id) {
-        result := ComCall(10, this, "ptr", _object, UInt32, id, "ptr*", &storyboard := 0, "HRESULT")
+        _objectMarshal := _object == 0 ? IntPtr : "ptr"
+
+        result := ComCall(10, this, _objectMarshal, _object, UInt32, id, "ptr*", &storyboard := 0, "HRESULT")
         return IUIAnimationStoryboard(storyboard)
     }
 
@@ -257,7 +261,9 @@ export default struct IUIAnimationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager-setmanagereventhandler
      */
     SetManagerEventHandler(handler) {
-        result := ComCall(15, this, "ptr", handler, "HRESULT")
+        handlerMarshal := handler == 0 ? IntPtr : "ptr"
+
+        result := ComCall(15, this, handlerMarshal, handler, "HRESULT")
         return result
     }
 
@@ -279,7 +285,9 @@ export default struct IUIAnimationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager-setcancelprioritycomparison
      */
     SetCancelPriorityComparison(comparison) {
-        result := ComCall(16, this, "ptr", comparison, "HRESULT")
+        comparisonMarshal := comparison == 0 ? IntPtr : "ptr"
+
+        result := ComCall(16, this, comparisonMarshal, comparison, "HRESULT")
         return result
     }
 
@@ -300,7 +308,9 @@ export default struct IUIAnimationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager-settrimprioritycomparison
      */
     SetTrimPriorityComparison(comparison) {
-        result := ComCall(17, this, "ptr", comparison, "HRESULT")
+        comparisonMarshal := comparison == 0 ? IntPtr : "ptr"
+
+        result := ComCall(17, this, comparisonMarshal, comparison, "HRESULT")
         return result
     }
 
@@ -319,7 +329,9 @@ export default struct IUIAnimationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager-setcompressprioritycomparison
      */
     SetCompressPriorityComparison(comparison) {
-        result := ComCall(18, this, "ptr", comparison, "HRESULT")
+        comparisonMarshal := comparison == 0 ? IntPtr : "ptr"
+
+        result := ComCall(18, this, comparisonMarshal, comparison, "HRESULT")
         return result
     }
 
@@ -337,7 +349,9 @@ export default struct IUIAnimationManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager-setconcludeprioritycomparison
      */
     SetConcludePriorityComparison(comparison) {
-        result := ComCall(19, this, "ptr", comparison, "HRESULT")
+        comparisonMarshal := comparison == 0 ? IntPtr : "ptr"
+
+        result := ComCall(19, this, comparisonMarshal, comparison, "HRESULT")
         return result
     }
 
@@ -377,25 +391,25 @@ export default struct IUIAnimationManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateAnimationVariable := CallbackCreate(GetMethod(implObj, "CreateAnimationVariable"), flags, 3)
-        this.vtbl.ScheduleTransition := CallbackCreate(GetMethod(implObj, "ScheduleTransition"), flags, 4)
-        this.vtbl.CreateStoryboard := CallbackCreate(GetMethod(implObj, "CreateStoryboard"), flags, 2)
-        this.vtbl.FinishAllStoryboards := CallbackCreate(GetMethod(implObj, "FinishAllStoryboards"), flags, 2)
-        this.vtbl.AbandonAllStoryboards := CallbackCreate(GetMethod(implObj, "AbandonAllStoryboards"), flags, 1)
-        this.vtbl.Update := CallbackCreate(GetMethod(implObj, "Update"), flags, 3)
-        this.vtbl.GetVariableFromTag := CallbackCreate(GetMethod(implObj, "GetVariableFromTag"), flags, 4)
-        this.vtbl.GetStoryboardFromTag := CallbackCreate(GetMethod(implObj, "GetStoryboardFromTag"), flags, 4)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
-        this.vtbl.SetAnimationMode := CallbackCreate(GetMethod(implObj, "SetAnimationMode"), flags, 2)
-        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
-        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 1)
-        this.vtbl.SetManagerEventHandler := CallbackCreate(GetMethod(implObj, "SetManagerEventHandler"), flags, 2)
-        this.vtbl.SetCancelPriorityComparison := CallbackCreate(GetMethod(implObj, "SetCancelPriorityComparison"), flags, 2)
-        this.vtbl.SetTrimPriorityComparison := CallbackCreate(GetMethod(implObj, "SetTrimPriorityComparison"), flags, 2)
-        this.vtbl.SetCompressPriorityComparison := CallbackCreate(GetMethod(implObj, "SetCompressPriorityComparison"), flags, 2)
-        this.vtbl.SetConcludePriorityComparison := CallbackCreate(GetMethod(implObj, "SetConcludePriorityComparison"), flags, 2)
-        this.vtbl.SetDefaultLongestAcceptableDelay := CallbackCreate(GetMethod(implObj, "SetDefaultLongestAcceptableDelay"), flags, 2)
-        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 1)
+        this.vtbl.CreateAnimationVariable := CallbackCreate(ObjBindMethod(implObj, "CreateAnimationVariable"), flags, 3)
+        this.vtbl.ScheduleTransition := CallbackCreate(ObjBindMethod(implObj, "ScheduleTransition"), flags, 4)
+        this.vtbl.CreateStoryboard := CallbackCreate(ObjBindMethod(implObj, "CreateStoryboard"), flags, 2)
+        this.vtbl.FinishAllStoryboards := CallbackCreate(ObjBindMethod(implObj, "FinishAllStoryboards"), flags, 2)
+        this.vtbl.AbandonAllStoryboards := CallbackCreate(ObjBindMethod(implObj, "AbandonAllStoryboards"), flags, 1)
+        this.vtbl.Update := CallbackCreate(ObjBindMethod(implObj, "Update"), flags, 3)
+        this.vtbl.GetVariableFromTag := CallbackCreate(ObjBindMethod(implObj, "GetVariableFromTag"), flags, 4)
+        this.vtbl.GetStoryboardFromTag := CallbackCreate(ObjBindMethod(implObj, "GetStoryboardFromTag"), flags, 4)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.SetAnimationMode := CallbackCreate(ObjBindMethod(implObj, "SetAnimationMode"), flags, 2)
+        this.vtbl.Pause := CallbackCreate(ObjBindMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Resume := CallbackCreate(ObjBindMethod(implObj, "Resume"), flags, 1)
+        this.vtbl.SetManagerEventHandler := CallbackCreate(ObjBindMethod(implObj, "SetManagerEventHandler"), flags, 2)
+        this.vtbl.SetCancelPriorityComparison := CallbackCreate(ObjBindMethod(implObj, "SetCancelPriorityComparison"), flags, 2)
+        this.vtbl.SetTrimPriorityComparison := CallbackCreate(ObjBindMethod(implObj, "SetTrimPriorityComparison"), flags, 2)
+        this.vtbl.SetCompressPriorityComparison := CallbackCreate(ObjBindMethod(implObj, "SetCompressPriorityComparison"), flags, 2)
+        this.vtbl.SetConcludePriorityComparison := CallbackCreate(ObjBindMethod(implObj, "SetConcludePriorityComparison"), flags, 2)
+        this.vtbl.SetDefaultLongestAcceptableDelay := CallbackCreate(ObjBindMethod(implObj, "SetDefaultLongestAcceptableDelay"), flags, 2)
+        this.vtbl.Shutdown := CallbackCreate(ObjBindMethod(implObj, "Shutdown"), flags, 1)
     }
 
     Dispose() {

@@ -80,7 +80,7 @@ export default struct ID2D1CommandSink3 extends ID2D1CommandSink2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DrawSpriteBatch := CallbackCreate(GetMethod(implObj, "DrawSpriteBatch"), flags, 7)
+        this.vtbl.DrawSpriteBatch := CallbackCreate(ObjBindMethod(implObj, "DrawSpriteBatch"), flags, 7)
     }
 
     Dispose() {

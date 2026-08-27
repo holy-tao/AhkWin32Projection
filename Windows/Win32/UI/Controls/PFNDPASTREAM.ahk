@@ -23,7 +23,6 @@ export default struct PFNDPASTREAM {
     }
 
     /**
-     * 
      * @param {Pointer<DPASTREAMINFO>} pinfo Type: <b>DPASTREAMINFO*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dpa_dsa/ns-dpa_dsa-dpastreaminfo">DPASTREAMINFO</a> structure.
@@ -38,7 +37,8 @@ export default struct PFNDPASTREAM {
      * If this callback function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      */
     Call(pinfo, pstream, pvInstData) {
-        pvInstDataMarshal := pvInstData is VarRef ? "ptr" : "ptr"
+        pvInstDataMarshal := pvInstData is VarRef ? "ptr" : IntPtr
+        pvInstDataMarshal := pvInstData == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, DPASTREAMINFO.Ptr, pinfo, "ptr", pstream, pvInstDataMarshal, pvInstData, "HRESULT")
         return result

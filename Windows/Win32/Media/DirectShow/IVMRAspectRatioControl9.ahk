@@ -97,8 +97,8 @@ export default struct IVMRAspectRatioControl9 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAspectRatioMode := CallbackCreate(GetMethod(implObj, "GetAspectRatioMode"), flags, 2)
-        this.vtbl.SetAspectRatioMode := CallbackCreate(GetMethod(implObj, "SetAspectRatioMode"), flags, 2)
+        this.vtbl.GetAspectRatioMode := CallbackCreate(ObjBindMethod(implObj, "GetAspectRatioMode"), flags, 2)
+        this.vtbl.SetAspectRatioMode := CallbackCreate(ObjBindMethod(implObj, "SetAspectRatioMode"), flags, 2)
     }
 
     Dispose() {

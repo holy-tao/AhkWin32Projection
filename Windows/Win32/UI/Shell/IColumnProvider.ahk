@@ -136,9 +136,9 @@ export default struct IColumnProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.GetColumnInfo := CallbackCreate(GetMethod(implObj, "GetColumnInfo"), flags, 3)
-        this.vtbl.GetItemData := CallbackCreate(GetMethod(implObj, "GetItemData"), flags, 4)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.GetColumnInfo := CallbackCreate(ObjBindMethod(implObj, "GetColumnInfo"), flags, 3)
+        this.vtbl.GetItemData := CallbackCreate(ObjBindMethod(implObj, "GetItemData"), flags, 4)
     }
 
     Dispose() {

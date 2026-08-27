@@ -37,7 +37,6 @@ export default struct IInternetExplorerManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwConfig 
      * @param {PWSTR} pszURL 
      * @param {Pointer<Guid>} riid 
@@ -59,7 +58,7 @@ export default struct IInternetExplorerManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateObject := CallbackCreate(GetMethod(implObj, "CreateObject"), flags, 5)
+        this.vtbl.CreateObject := CallbackCreate(ObjBindMethod(implObj, "CreateObject"), flags, 5)
     }
 
     Dispose() {

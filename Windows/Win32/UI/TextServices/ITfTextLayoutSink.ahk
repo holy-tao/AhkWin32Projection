@@ -66,7 +66,7 @@ export default struct ITfTextLayoutSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnLayoutChange := CallbackCreate(GetMethod(implObj, "OnLayoutChange"), flags, 4)
+        this.vtbl.OnLayoutChange := CallbackCreate(ObjBindMethod(implObj, "OnLayoutChange"), flags, 4)
     }
 
     Dispose() {

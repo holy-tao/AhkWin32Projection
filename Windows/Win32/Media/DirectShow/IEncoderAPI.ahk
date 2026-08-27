@@ -262,8 +262,8 @@ export default struct IEncoderAPI extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iencoderapi-getparametervalues
      */
     GetParameterValues(Api, Values, ValuesCount) {
-        ValuesMarshal := Values is VarRef ? "ptr*" : "ptr"
-        ValuesCountMarshal := ValuesCount is VarRef ? "uint*" : "ptr"
+        ValuesMarshal := Values is VarRef ? "ptr*" : IntPtr
+        ValuesCountMarshal := ValuesCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, Guid.Ptr, Api, ValuesMarshal, Values, ValuesCountMarshal, ValuesCount, "HRESULT")
         return result
@@ -314,13 +314,13 @@ export default struct IEncoderAPI extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsSupported := CallbackCreate(GetMethod(implObj, "IsSupported"), flags, 2)
-        this.vtbl.IsAvailable := CallbackCreate(GetMethod(implObj, "IsAvailable"), flags, 2)
-        this.vtbl.GetParameterRange := CallbackCreate(GetMethod(implObj, "GetParameterRange"), flags, 5)
-        this.vtbl.GetParameterValues := CallbackCreate(GetMethod(implObj, "GetParameterValues"), flags, 4)
-        this.vtbl.GetDefaultValue := CallbackCreate(GetMethod(implObj, "GetDefaultValue"), flags, 3)
-        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 3)
-        this.vtbl.SetValue := CallbackCreate(GetMethod(implObj, "SetValue"), flags, 3)
+        this.vtbl.IsSupported := CallbackCreate(ObjBindMethod(implObj, "IsSupported"), flags, 2)
+        this.vtbl.IsAvailable := CallbackCreate(ObjBindMethod(implObj, "IsAvailable"), flags, 2)
+        this.vtbl.GetParameterRange := CallbackCreate(ObjBindMethod(implObj, "GetParameterRange"), flags, 5)
+        this.vtbl.GetParameterValues := CallbackCreate(ObjBindMethod(implObj, "GetParameterValues"), flags, 4)
+        this.vtbl.GetDefaultValue := CallbackCreate(ObjBindMethod(implObj, "GetDefaultValue"), flags, 3)
+        this.vtbl.GetValue := CallbackCreate(ObjBindMethod(implObj, "GetValue"), flags, 3)
+        this.vtbl.SetValue := CallbackCreate(ObjBindMethod(implObj, "SetValue"), flags, 3)
     }
 
     Dispose() {

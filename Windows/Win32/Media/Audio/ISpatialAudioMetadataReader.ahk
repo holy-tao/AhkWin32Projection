@@ -135,8 +135,8 @@ export default struct ISpatialAudioMetadataReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatareader-readnextitem
      */
     ReadNextItem(commandCount, frameOffset) {
-        commandCountMarshal := commandCount is VarRef ? "char*" : "ptr"
-        frameOffsetMarshal := frameOffset is VarRef ? "ushort*" : "ptr"
+        commandCountMarshal := commandCount is VarRef ? "char*" : IntPtr
+        frameOffsetMarshal := frameOffset is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(4, this, commandCountMarshal, commandCount, frameOffsetMarshal, frameOffset, "HRESULT")
         return result
@@ -188,8 +188,8 @@ export default struct ISpatialAudioMetadataReader extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatareader-readnextitemcommand
      */
     ReadNextItemCommand(commandID, valueBuffer, maxValueBufferLength, valueBufferLength) {
-        commandIDMarshal := commandID is VarRef ? "char*" : "ptr"
-        valueBufferLengthMarshal := valueBufferLength is VarRef ? "uint*" : "ptr"
+        commandIDMarshal := commandID is VarRef ? "char*" : IntPtr
+        valueBufferLengthMarshal := valueBufferLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, commandIDMarshal, commandID, IntPtr, valueBuffer, UInt32, maxValueBufferLength, valueBufferLengthMarshal, valueBufferLength, "HRESULT")
         return result
@@ -232,10 +232,10 @@ export default struct ISpatialAudioMetadataReader extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 2)
-        this.vtbl.ReadNextItem := CallbackCreate(GetMethod(implObj, "ReadNextItem"), flags, 3)
-        this.vtbl.ReadNextItemCommand := CallbackCreate(GetMethod(implObj, "ReadNextItemCommand"), flags, 5)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.Open := CallbackCreate(ObjBindMethod(implObj, "Open"), flags, 2)
+        this.vtbl.ReadNextItem := CallbackCreate(ObjBindMethod(implObj, "ReadNextItem"), flags, 3)
+        this.vtbl.ReadNextItemCommand := CallbackCreate(ObjBindMethod(implObj, "ReadNextItemCommand"), flags, 5)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
     }
 
     Dispose() {

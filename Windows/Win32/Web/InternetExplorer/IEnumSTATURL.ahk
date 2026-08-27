@@ -42,21 +42,19 @@ export default struct IEnumSTATURL extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} celt 
      * @param {Pointer<STATURL>} rgelt 
      * @param {Pointer<Integer>} pceltFetched 
      * @returns {HRESULT} 
      */
     Next(celt, rgelt, pceltFetched) {
-        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
+        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, UInt32, celt, STATURL.Ptr, rgelt, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} celt 
      * @returns {HRESULT} 
      */
@@ -66,7 +64,6 @@ export default struct IEnumSTATURL extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -75,7 +72,6 @@ export default struct IEnumSTATURL extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumSTATURL} 
      */
     Clone() {
@@ -84,7 +80,6 @@ export default struct IEnumSTATURL extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} poszFilter 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
@@ -105,11 +100,11 @@ export default struct IEnumSTATURL extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 4)
-        this.vtbl.Skip := CallbackCreate(GetMethod(implObj, "Skip"), flags, 2)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
-        this.vtbl.SetFilter := CallbackCreate(GetMethod(implObj, "SetFilter"), flags, 3)
+        this.vtbl.Next := CallbackCreate(ObjBindMethod(implObj, "Next"), flags, 4)
+        this.vtbl.Skip := CallbackCreate(ObjBindMethod(implObj, "Skip"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.SetFilter := CallbackCreate(ObjBindMethod(implObj, "SetFilter"), flags, 3)
     }
 
     Dispose() {

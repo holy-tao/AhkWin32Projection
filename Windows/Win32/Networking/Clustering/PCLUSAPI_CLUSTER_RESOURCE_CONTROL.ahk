@@ -20,7 +20,6 @@ export default struct PCLUSAPI_CLUSTER_RESOURCE_CONTROL {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {HNODE} hHostNode 
      * @param {Integer} dwControlCode 
@@ -32,9 +31,13 @@ export default struct PCLUSAPI_CLUSTER_RESOURCE_CONTROL {
      * @returns {Integer} 
      */
     Call(_hResource, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned) {
-        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+        hHostNodeMarshal := hHostNode == 0 ? IntPtr : HNODE
+        lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+        lpOutBufferMarshal := lpOutBuffer == 0 ? IntPtr : IntPtr
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : IntPtr
+        lpBytesReturnedMarshal := lpBytesReturned == 0 ? IntPtr : "uint*"
 
-        result := DllCall(this.value, HRESOURCE, _hResource, HNODE, hHostNode, UInt32, dwControlCode, IntPtr, lpInBuffer, UInt32, cbInBufferSize, IntPtr, lpOutBuffer, UInt32, cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, UInt32)
+        result := DllCall(this.value, HRESOURCE, _hResource, hHostNodeMarshal, hHostNode, UInt32, dwControlCode, lpInBufferMarshal, lpInBuffer, UInt32, cbInBufferSize, lpOutBufferMarshal, lpOutBuffer, UInt32, cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, UInt32)
         return result
     }
 

@@ -20,7 +20,6 @@ export default struct PFND3DKMT_SHAREDPRIMARYLOCKNOTIFICATION {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SHAREDPRIMARYLOCKNOTIFICATION>} param0 
      * @returns {NTSTATUS} 
      */

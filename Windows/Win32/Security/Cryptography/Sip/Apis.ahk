@@ -99,9 +99,9 @@
  * @since windows5.1.2600
  */
 export CryptSIPGetSignedDataMsg(pSubjectInfo, pdwEncodingType, dwIndex, pcbSignedDataMsg, pbSignedDataMsg) {
-    pdwEncodingTypeMarshal := pdwEncodingType is VarRef ? "uint*" : "ptr"
-    pcbSignedDataMsgMarshal := pcbSignedDataMsg is VarRef ? "uint*" : "ptr"
-    pbSignedDataMsgMarshal := pbSignedDataMsg is VarRef ? "char*" : "ptr"
+    pdwEncodingTypeMarshal := pdwEncodingType is VarRef ? "uint*" : IntPtr
+    pcbSignedDataMsgMarshal := pcbSignedDataMsg is VarRef ? "uint*" : IntPtr
+    pbSignedDataMsgMarshal := pbSignedDataMsg is VarRef ? "char*" : IntPtr
 
     A_LastError := 0
 
@@ -179,8 +179,8 @@ export CryptSIPGetSignedDataMsg(pSubjectInfo, pdwEncodingType, dwIndex, pcbSigne
  * @since windows5.1.2600
  */
 export CryptSIPPutSignedDataMsg(pSubjectInfo, dwEncodingType, pdwIndex, cbSignedDataMsg, pbSignedDataMsg) {
-    pdwIndexMarshal := pdwIndex is VarRef ? "uint*" : "ptr"
-    pbSignedDataMsgMarshal := pbSignedDataMsg is VarRef ? "char*" : "ptr"
+    pdwIndexMarshal := pdwIndex is VarRef ? "uint*" : IntPtr
+    pbSignedDataMsgMarshal := pbSignedDataMsg is VarRef ? "char*" : IntPtr
 
     A_LastError := 0
 
@@ -272,7 +272,7 @@ export CryptSIPPutSignedDataMsg(pSubjectInfo, dwEncodingType, pdwIndex, cbSigned
  * @since windows5.1.2600
  */
 export CryptSIPCreateIndirectData(pSubjectInfo, pcbIndirectData, pIndirectData) {
-    pcbIndirectDataMarshal := pcbIndirectData is VarRef ? "uint*" : "ptr"
+    pcbIndirectDataMarshal := pcbIndirectData is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -511,7 +511,6 @@ export CryptSIPGetCaps(pSubjInfo, pCaps) {
 }
 
 /**
- * 
  * @param {Pointer<SIP_SUBJECTINFO>} pSubjectInfo 
  * @param {Pointer<Integer>} pSig 
  * @param {Integer} dwSig 
@@ -520,9 +519,11 @@ export CryptSIPGetCaps(pSubjInfo, pCaps) {
  * @returns {BOOL} 
  */
 export CryptSIPGetSealedDigest(pSubjectInfo, pSig, dwSig, pbDigest, pcbDigest) {
-    pSigMarshal := pSig is VarRef ? "char*" : "ptr"
-    pbDigestMarshal := pbDigest is VarRef ? "char*" : "ptr"
-    pcbDigestMarshal := pcbDigest is VarRef ? "uint*" : "ptr"
+    pSigMarshal := pSig is VarRef ? "char*" : IntPtr
+    pSigMarshal := pSig == 0 ? IntPtr : "char*"
+    pbDigestMarshal := pbDigest is VarRef ? "char*" : IntPtr
+    pbDigestMarshal := pbDigest == 0 ? IntPtr : "char*"
+    pcbDigestMarshal := pcbDigest is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WINTRUST.dll\CryptSIPGetSealedDigest", SIP_SUBJECTINFO.Ptr, pSubjectInfo, pSigMarshal, pSig, UInt32, dwSig, pbDigestMarshal, pbDigest, pcbDigestMarshal, pcbDigest, BOOL)
     return result

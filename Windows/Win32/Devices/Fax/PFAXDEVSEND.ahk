@@ -22,7 +22,6 @@ export default struct PFAXDEVSEND {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @param {Pointer<FAX_SEND>} param1 
      * @param {Pointer<PFAX_SEND_CALLBACK>} param2 

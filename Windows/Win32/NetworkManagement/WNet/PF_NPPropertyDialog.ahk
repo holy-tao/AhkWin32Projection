@@ -20,7 +20,6 @@ export default struct PF_NPPropertyDialog {
     }
 
     /**
-     * 
      * @param {HWND} hwndParent 
      * @param {Integer} iButtonDlg 
      * @param {Integer} nPropSel 

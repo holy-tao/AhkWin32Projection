@@ -237,7 +237,6 @@ export default struct IPhotoProgressDialog extends IUnknown {
     }
 
     /**
-     * 
      * @param {PROGRESS_DIALOG_CHECKBOX_ID} nCheckboxId 
      * @param {BOOL} fChecked 
      * @returns {HRESULT} 
@@ -399,7 +398,10 @@ export default struct IPhotoProgressDialog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-setimage
      */
     SetImage(nImageType, _hIcon, _hBitmap) {
-        result := ComCall(13, this, PROGRESS_DIALOG_IMAGE_TYPE, nImageType, HICON, _hIcon, HBITMAP, _hBitmap, "HRESULT")
+        _hIconMarshal := _hIcon == 0 ? IntPtr : HICON
+        _hBitmapMarshal := _hBitmap == 0 ? IntPtr : HBITMAP
+
+        result := ComCall(13, this, PROGRESS_DIALOG_IMAGE_TYPE, nImageType, _hIconMarshal, _hIcon, _hBitmapMarshal, _hBitmap, "HRESULT")
         return result
     }
 
@@ -466,17 +468,17 @@ export default struct IPhotoProgressDialog extends IUnknown {
     }
 
     /**
-     * 
      * @param {IPhotoProgressActionCB} pPhotoProgressActionCB 
      * @returns {HRESULT} 
      */
     SetActionLinkCallback(pPhotoProgressActionCB) {
-        result := ComCall(16, this, "ptr", pPhotoProgressActionCB, "HRESULT")
+        pPhotoProgressActionCBMarshal := pPhotoProgressActionCB == 0 ? IntPtr : "ptr"
+
+        result := ComCall(16, this, pPhotoProgressActionCBMarshal, pPhotoProgressActionCB, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pszCaption 
      * @returns {HRESULT} 
      */
@@ -488,7 +490,6 @@ export default struct IPhotoProgressDialog extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fShow 
      * @returns {HRESULT} 
      */
@@ -518,8 +519,11 @@ export default struct IPhotoProgressDialog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-getuserinput
      */
     GetUserInput(riidType, pUnknown, pPropVarDefault) {
+        pUnknownMarshal := pUnknown == 0 ? IntPtr : "ptr"
+        pPropVarDefaultMarshal := pPropVarDefault == 0 ? IntPtr : PROPVARIANT.Ptr
+
         pPropVarResult := PROPVARIANT()
-        result := ComCall(20, this, Guid.Ptr, riidType, "ptr", pUnknown, PROPVARIANT.Ptr, pPropVarResult, PROPVARIANT.Ptr, pPropVarDefault, "HRESULT")
+        result := ComCall(20, this, Guid.Ptr, riidType, pUnknownMarshal, pUnknown, PROPVARIANT.Ptr, pPropVarResult, pPropVarDefaultMarshal, pPropVarDefault, "HRESULT")
         return pPropVarResult
     }
 
@@ -532,24 +536,24 @@ export default struct IPhotoProgressDialog extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 2)
-        this.vtbl.GetWindow := CallbackCreate(GetMethod(implObj, "GetWindow"), flags, 2)
-        this.vtbl.Destroy := CallbackCreate(GetMethod(implObj, "Destroy"), flags, 1)
-        this.vtbl.SetTitle := CallbackCreate(GetMethod(implObj, "SetTitle"), flags, 2)
-        this.vtbl.ShowCheckbox := CallbackCreate(GetMethod(implObj, "ShowCheckbox"), flags, 3)
-        this.vtbl.SetCheckboxText := CallbackCreate(GetMethod(implObj, "SetCheckboxText"), flags, 3)
-        this.vtbl.SetCheckboxCheck := CallbackCreate(GetMethod(implObj, "SetCheckboxCheck"), flags, 3)
-        this.vtbl.SetCheckboxTooltip := CallbackCreate(GetMethod(implObj, "SetCheckboxTooltip"), flags, 3)
-        this.vtbl.IsCheckboxChecked := CallbackCreate(GetMethod(implObj, "IsCheckboxChecked"), flags, 3)
-        this.vtbl.SetCaption := CallbackCreate(GetMethod(implObj, "SetCaption"), flags, 2)
-        this.vtbl.SetImage := CallbackCreate(GetMethod(implObj, "SetImage"), flags, 4)
-        this.vtbl.SetPercentComplete := CallbackCreate(GetMethod(implObj, "SetPercentComplete"), flags, 2)
-        this.vtbl.SetProgressText := CallbackCreate(GetMethod(implObj, "SetProgressText"), flags, 2)
-        this.vtbl.SetActionLinkCallback := CallbackCreate(GetMethod(implObj, "SetActionLinkCallback"), flags, 2)
-        this.vtbl.SetActionLinkText := CallbackCreate(GetMethod(implObj, "SetActionLinkText"), flags, 2)
-        this.vtbl.ShowActionLink := CallbackCreate(GetMethod(implObj, "ShowActionLink"), flags, 2)
-        this.vtbl.IsCancelled := CallbackCreate(GetMethod(implObj, "IsCancelled"), flags, 2)
-        this.vtbl.GetUserInput := CallbackCreate(GetMethod(implObj, "GetUserInput"), flags, 5)
+        this.vtbl.Create := CallbackCreate(ObjBindMethod(implObj, "Create"), flags, 2)
+        this.vtbl.GetWindow := CallbackCreate(ObjBindMethod(implObj, "GetWindow"), flags, 2)
+        this.vtbl.Destroy := CallbackCreate(ObjBindMethod(implObj, "Destroy"), flags, 1)
+        this.vtbl.SetTitle := CallbackCreate(ObjBindMethod(implObj, "SetTitle"), flags, 2)
+        this.vtbl.ShowCheckbox := CallbackCreate(ObjBindMethod(implObj, "ShowCheckbox"), flags, 3)
+        this.vtbl.SetCheckboxText := CallbackCreate(ObjBindMethod(implObj, "SetCheckboxText"), flags, 3)
+        this.vtbl.SetCheckboxCheck := CallbackCreate(ObjBindMethod(implObj, "SetCheckboxCheck"), flags, 3)
+        this.vtbl.SetCheckboxTooltip := CallbackCreate(ObjBindMethod(implObj, "SetCheckboxTooltip"), flags, 3)
+        this.vtbl.IsCheckboxChecked := CallbackCreate(ObjBindMethod(implObj, "IsCheckboxChecked"), flags, 3)
+        this.vtbl.SetCaption := CallbackCreate(ObjBindMethod(implObj, "SetCaption"), flags, 2)
+        this.vtbl.SetImage := CallbackCreate(ObjBindMethod(implObj, "SetImage"), flags, 4)
+        this.vtbl.SetPercentComplete := CallbackCreate(ObjBindMethod(implObj, "SetPercentComplete"), flags, 2)
+        this.vtbl.SetProgressText := CallbackCreate(ObjBindMethod(implObj, "SetProgressText"), flags, 2)
+        this.vtbl.SetActionLinkCallback := CallbackCreate(ObjBindMethod(implObj, "SetActionLinkCallback"), flags, 2)
+        this.vtbl.SetActionLinkText := CallbackCreate(ObjBindMethod(implObj, "SetActionLinkText"), flags, 2)
+        this.vtbl.ShowActionLink := CallbackCreate(ObjBindMethod(implObj, "ShowActionLink"), flags, 2)
+        this.vtbl.IsCancelled := CallbackCreate(ObjBindMethod(implObj, "IsCancelled"), flags, 2)
+        this.vtbl.GetUserInput := CallbackCreate(ObjBindMethod(implObj, "GetUserInput"), flags, 5)
     }
 
     Dispose() {

@@ -37,13 +37,14 @@ export default struct ITransactionVoterBallotAsync2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {HRESULT} hr 
      * @param {Pointer<BOID>} pboidReason 
      * @returns {HRESULT} 
      */
     VoteRequestDone(hr, pboidReason) {
-        result := ComCall(3, this, "int", hr, BOID.Ptr, pboidReason, "HRESULT")
+        pboidReasonMarshal := pboidReason == 0 ? IntPtr : BOID.Ptr
+
+        result := ComCall(3, this, "int", hr, pboidReasonMarshal, pboidReason, "HRESULT")
         return result
     }
 
@@ -56,7 +57,7 @@ export default struct ITransactionVoterBallotAsync2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.VoteRequestDone := CallbackCreate(GetMethod(implObj, "VoteRequestDone"), flags, 3)
+        this.vtbl.VoteRequestDone := CallbackCreate(ObjBindMethod(implObj, "VoteRequestDone"), flags, 3)
     }
 
     Dispose() {

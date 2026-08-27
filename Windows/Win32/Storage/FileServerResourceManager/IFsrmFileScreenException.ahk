@@ -100,9 +100,9 @@ export default struct IFsrmFileScreenException extends IFsrmObject {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Path := CallbackCreate(GetMethod(implObj, "get_Path"), flags, 2)
-        this.vtbl.get_AllowedFileGroups := CallbackCreate(GetMethod(implObj, "get_AllowedFileGroups"), flags, 2)
-        this.vtbl.put_AllowedFileGroups := CallbackCreate(GetMethod(implObj, "put_AllowedFileGroups"), flags, 2)
+        this.vtbl.get_Path := CallbackCreate(ObjBindMethod(implObj, "get_Path"), flags, 2)
+        this.vtbl.get_AllowedFileGroups := CallbackCreate(ObjBindMethod(implObj, "get_AllowedFileGroups"), flags, 2)
+        this.vtbl.put_AllowedFileGroups := CallbackCreate(ObjBindMethod(implObj, "put_AllowedFileGroups"), flags, 2)
     }
 
     Dispose() {

@@ -67,7 +67,7 @@ export default struct IAutomaticUpdates2 extends IAutomaticUpdates {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Results := CallbackCreate(GetMethod(implObj, "get_Results"), flags, 2)
+        this.vtbl.get_Results := CallbackCreate(ObjBindMethod(implObj, "get_Results"), flags, 2)
     }
 
     Dispose() {

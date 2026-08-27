@@ -21,7 +21,6 @@ export default struct LANGUAGEGROUP_ENUMPROCA {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {PSTR} param1 
      * @param {PSTR} param2 

@@ -66,7 +66,7 @@ export default struct ISyncMgrSessionCreator extends IUnknown {
     CreateSession(pszHandlerID, ppszItemIDs, cItems) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
 
-        ppszItemIDsMarshal := ppszItemIDs is VarRef ? "ptr*" : "ptr"
+        ppszItemIDsMarshal := ppszItemIDs is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, "ptr", pszHandlerID, ppszItemIDsMarshal, ppszItemIDs, UInt32, cItems, "ptr*", &ppCallback := 0, "HRESULT")
         return ISyncMgrSyncCallback(ppCallback)
@@ -81,7 +81,7 @@ export default struct ISyncMgrSessionCreator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateSession := CallbackCreate(GetMethod(implObj, "CreateSession"), flags, 5)
+        this.vtbl.CreateSession := CallbackCreate(ObjBindMethod(implObj, "CreateSession"), flags, 5)
     }
 
     Dispose() {

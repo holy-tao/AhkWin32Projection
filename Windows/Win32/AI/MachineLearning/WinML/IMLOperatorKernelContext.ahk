@@ -41,7 +41,6 @@ export default struct IMLOperatorKernelContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} inputIndex 
      * @returns {IMLOperatorTensor} 
      */
@@ -51,21 +50,19 @@ export default struct IMLOperatorKernelContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} outputIndex 
      * @param {Integer} dimensionCount 
      * @param {Pointer<Integer>} dimensionSizes 
      * @returns {IMLOperatorTensor} 
      */
     GetOutputTensor(outputIndex, dimensionCount, dimensionSizes) {
-        dimensionSizesMarshal := dimensionSizes is VarRef ? "uint*" : "ptr"
+        dimensionSizesMarshal := dimensionSizes is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, UInt32, outputIndex, UInt32, dimensionCount, dimensionSizesMarshal, dimensionSizes, "ptr*", &tensor := 0, "HRESULT")
         return IMLOperatorTensor(tensor)
     }
 
     /**
-     * 
      * @param {Integer} outputIndex 
      * @returns {IMLOperatorTensor} 
      */
@@ -75,7 +72,6 @@ export default struct IMLOperatorKernelContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} _size 
      * @returns {IUnknown} 
      */
@@ -85,7 +81,6 @@ export default struct IMLOperatorKernelContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<IUnknown>} executionObject 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -102,11 +97,11 @@ export default struct IMLOperatorKernelContext extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetInputTensor := CallbackCreate(GetMethod(implObj, "GetInputTensor"), flags, 3)
-        this.vtbl.GetOutputTensor := CallbackCreate(GetMethod(implObj, "GetOutputTensor"), flags, 5)
-        this.vtbl.GetOutputTensor1 := CallbackCreate(GetMethod(implObj, "GetOutputTensor1"), flags, 3)
-        this.vtbl.AllocateTemporaryData := CallbackCreate(GetMethod(implObj, "AllocateTemporaryData"), flags, 3)
-        this.vtbl.GetExecutionInterface := CallbackCreate(GetMethod(implObj, "GetExecutionInterface"), flags, 2)
+        this.vtbl.GetInputTensor := CallbackCreate(ObjBindMethod(implObj, "GetInputTensor"), flags, 3)
+        this.vtbl.GetOutputTensor := CallbackCreate(ObjBindMethod(implObj, "GetOutputTensor"), flags, 5)
+        this.vtbl.GetOutputTensor1 := CallbackCreate(ObjBindMethod(implObj, "GetOutputTensor1"), flags, 3)
+        this.vtbl.AllocateTemporaryData := CallbackCreate(ObjBindMethod(implObj, "AllocateTemporaryData"), flags, 3)
+        this.vtbl.GetExecutionInterface := CallbackCreate(ObjBindMethod(implObj, "GetExecutionInterface"), flags, 2)
     }
 
     Dispose() {

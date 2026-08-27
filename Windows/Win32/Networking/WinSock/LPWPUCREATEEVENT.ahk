@@ -19,12 +19,11 @@ export default struct LPWPUCREATEEVENT {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} lpErrno 
      * @returns {WSAEVENT} 
      */
     Call(lpErrno) {
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, lpErrnoMarshal, lpErrno, WSAEVENT.Owned)
         return result

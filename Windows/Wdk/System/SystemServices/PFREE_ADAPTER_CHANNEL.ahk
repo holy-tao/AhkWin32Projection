@@ -19,7 +19,6 @@ export default struct PFREE_ADAPTER_CHANNEL {
     }
 
     /**
-     * 
      * @param {Pointer<DMA_ADAPTER>} DmaAdapter 
      * @returns {String} Nothing - always returns an empty string
      */

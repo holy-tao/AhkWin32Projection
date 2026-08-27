@@ -21,7 +21,6 @@ export default struct PFIND_MATCHING_THREAD {
     }
 
     /**
-     * 
      * @param {IDebugClient} Client 
      * @param {Pointer<KDEXT_THREAD_FIND_PARAMS>} ThreadInfo 
      * @returns {HRESULT} 

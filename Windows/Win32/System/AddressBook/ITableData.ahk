@@ -53,7 +53,6 @@ export default struct ITableData extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The **ITableData::HrGetView** method creates a read-only view of the data in the table, sorted in the order pointed to by the  _lpSSortOrderSet_ parameter. The cursor is placed at the beginning of the first row in the view. An **IMAPITable** interface implementation for accessing the view is returned. 
      *   
@@ -67,14 +66,13 @@ export default struct ITableData extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/itabledata-hrgetview
      */
     HrGetView(lpSSortOrderSet, lpfCallerRelease, ulCallerData) {
-        lpfCallerReleaseMarshal := lpfCallerRelease is VarRef ? "ptr*" : "ptr"
+        lpfCallerReleaseMarshal := lpfCallerRelease is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, SSortOrderSet.Ptr, lpSSortOrderSet, lpfCallerReleaseMarshal, lpfCallerRelease, UInt32, ulCallerData, "ptr*", &lppMAPITable := 0, "HRESULT")
         return IMAPITable(lppMAPITable)
     }
 
     /**
-     * 
      * @remarks
      * The **ITableData::HrModifyRow** method inserts the row described by the **SRow** structure pointed to by the  _lpSRow_ parameter. If a row that has the same value for its index column as the row that  _lpSRow_ points to already exists in the table, the existing row is replaced. If no row exists that matches the one included in the **SRow** structure, **HrModifyRow** adds the row to the end of the table. 
      *   
@@ -99,7 +97,6 @@ export default struct ITableData extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The **ITableData::HrDeleteRow** method removes the table row that contains the column that matches the property pointed to by the  _lpSPropValue_ parameter. The data for the row is deleted and the row is removed from all open views. 
      *   
@@ -122,7 +119,6 @@ export default struct ITableData extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The **ITableData::HrQueryRow** method retrieves all of the properties for the row that has an index column that matches the value of the index column included in the property structure pointed to by  _lpSPropValue_. **HrQueryRow** also returns the row number, if the caller requests it, that identifies the row's position in the table. 
      *   
@@ -140,15 +136,14 @@ export default struct ITableData extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/itabledata-hrqueryrow
      */
     HrQueryRow(lpsPropValue, lppSRow, lpuliRow) {
-        lppSRowMarshal := lppSRow is VarRef ? "ptr*" : "ptr"
-        lpuliRowMarshal := lpuliRow is VarRef ? "uint*" : "ptr"
+        lppSRowMarshal := lppSRow is VarRef ? "ptr*" : IntPtr
+        lpuliRowMarshal := lpuliRow is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, SPropValue.Ptr, lpsPropValue, lppSRowMarshal, lppSRow, lpuliRowMarshal, lpuliRow, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @remarks
      * The **ITableData::HrEnumRow** method retrieves a row based on a sequential number. This number represents the order of insertion (0 indicates the first row, and the number of rows minus 1 indicates the last row). MAPI maintains this chronological order of row insertion for the lifetime of the table data object. 
      *   
@@ -165,14 +160,13 @@ export default struct ITableData extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/itabledata-hrenumrow
      */
     HrEnumRow(ulRowNumber, lppSRow) {
-        lppSRowMarshal := lppSRow is VarRef ? "ptr*" : "ptr"
+        lppSRowMarshal := lppSRow is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(7, this, UInt32, ulRowNumber, lppSRowMarshal, lppSRow, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @remarks
      * The **ITableData::HrNotify** method sends a TABLE_ROW_MODIFIED notification for the row that matches the row described by the properties pointed to by the  _lpSPropValue_ parameter. **HrNotify** sends the notification regardless of whether changes have occurred to the row. All clients and service providers that have views of the table and have called [IMAPITable::Advise](imapitable-advise.md) to register for notifications on their views receive this notification.
      * @param {Integer} ulFlags > [in] Reserved; must be zero.
@@ -189,7 +183,6 @@ export default struct ITableData extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The **ITableData::HrInsertRow** method inserts a row into a table at a particular position. The new row is inserted after the row that is in the position specified by the  _uliRow_ parameter. 
      *   
@@ -217,7 +210,6 @@ export default struct ITableData extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The **ITableData::HrModifyRows** method inserts the rows described by the [SRowSet](srowset.md) structure pointed to by the  _lpSRowSet_ parameter. If the index column value of a row in the row set matches the value for an existing row in the table, the existing row is replaced. If no row exists that matches the one included in the **SRowSet** structure, **HrModifyRows** adds the row to the end of the table. 
      *   
@@ -243,7 +235,6 @@ export default struct ITableData extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The **ITableData::HrDeleteRows** method locates and removes the table rows that contain the columns that match the property pointed to by the **lpProps** member of each **aRow** entry in the row set. An index column is used to identify each row; this column must have the same property tag as the property tag passed in the _ulPropTagIndexColumn_ parameter in the call to the [CreateTable](createtable.md) function. 
      *   
@@ -265,7 +256,7 @@ export default struct ITableData extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/itabledata-hrdeleterows
      */
     HrDeleteRows(ulFlags, lprowsetToDelete, cRowsDeleted) {
-        cRowsDeletedMarshal := cRowsDeleted is VarRef ? "uint*" : "ptr"
+        cRowsDeletedMarshal := cRowsDeleted is VarRef ? "uint*" : IntPtr
 
         result := ComCall(11, this, UInt32, ulFlags, SRowSet.Ptr, lprowsetToDelete, cRowsDeletedMarshal, cRowsDeleted, "HRESULT")
         return result
@@ -280,15 +271,15 @@ export default struct ITableData extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.HrGetView := CallbackCreate(GetMethod(implObj, "HrGetView"), flags, 5)
-        this.vtbl.HrModifyRow := CallbackCreate(GetMethod(implObj, "HrModifyRow"), flags, 2)
-        this.vtbl.HrDeleteRow := CallbackCreate(GetMethod(implObj, "HrDeleteRow"), flags, 2)
-        this.vtbl.HrQueryRow := CallbackCreate(GetMethod(implObj, "HrQueryRow"), flags, 4)
-        this.vtbl.HrEnumRow := CallbackCreate(GetMethod(implObj, "HrEnumRow"), flags, 3)
-        this.vtbl.HrNotify := CallbackCreate(GetMethod(implObj, "HrNotify"), flags, 4)
-        this.vtbl.HrInsertRow := CallbackCreate(GetMethod(implObj, "HrInsertRow"), flags, 3)
-        this.vtbl.HrModifyRows := CallbackCreate(GetMethod(implObj, "HrModifyRows"), flags, 3)
-        this.vtbl.HrDeleteRows := CallbackCreate(GetMethod(implObj, "HrDeleteRows"), flags, 4)
+        this.vtbl.HrGetView := CallbackCreate(ObjBindMethod(implObj, "HrGetView"), flags, 5)
+        this.vtbl.HrModifyRow := CallbackCreate(ObjBindMethod(implObj, "HrModifyRow"), flags, 2)
+        this.vtbl.HrDeleteRow := CallbackCreate(ObjBindMethod(implObj, "HrDeleteRow"), flags, 2)
+        this.vtbl.HrQueryRow := CallbackCreate(ObjBindMethod(implObj, "HrQueryRow"), flags, 4)
+        this.vtbl.HrEnumRow := CallbackCreate(ObjBindMethod(implObj, "HrEnumRow"), flags, 3)
+        this.vtbl.HrNotify := CallbackCreate(ObjBindMethod(implObj, "HrNotify"), flags, 4)
+        this.vtbl.HrInsertRow := CallbackCreate(ObjBindMethod(implObj, "HrInsertRow"), flags, 3)
+        this.vtbl.HrModifyRows := CallbackCreate(ObjBindMethod(implObj, "HrModifyRows"), flags, 3)
+        this.vtbl.HrDeleteRows := CallbackCreate(ObjBindMethod(implObj, "HrDeleteRows"), flags, 4)
     }
 
     Dispose() {

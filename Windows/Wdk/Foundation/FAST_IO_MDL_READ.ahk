@@ -23,7 +23,6 @@ export default struct FAST_IO_MDL_READ {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
@@ -34,8 +33,8 @@ export default struct FAST_IO_MDL_READ {
      * @returns {BOOLEAN} 
      */
     Call(FileObject, FileOffset, Length, LockKey, MdlChain, IoStatus, DeviceObject) {
-        FileOffsetMarshal := FileOffset is VarRef ? "int64*" : "ptr"
-        MdlChainMarshal := MdlChain is VarRef ? "ptr*" : "ptr"
+        FileOffsetMarshal := FileOffset is VarRef ? "int64*" : IntPtr
+        MdlChainMarshal := MdlChain is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, FILE_OBJECT.Ptr, FileObject, FileOffsetMarshal, FileOffset, UInt32, Length, UInt32, LockKey, MdlChainMarshal, MdlChain, IO_STATUS_BLOCK.Ptr, IoStatus, DEVICE_OBJECT.Ptr, DeviceObject, BOOLEAN)
         return result

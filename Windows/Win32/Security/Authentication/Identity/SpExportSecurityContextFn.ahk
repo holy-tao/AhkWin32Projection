@@ -32,7 +32,6 @@ export default struct SpExportSecurityContextFn {
     }
 
     /**
-     * 
      * @param {Pointer} phContext A handle to the security context to export.
      * @param {Integer} fFlags Optional. Specifies context duplication options. The following table lists the valid values which are defined in Sspi.h. 
      * 
@@ -77,7 +76,9 @@ export default struct SpExportSecurityContextFn {
      * If the function fails, return an <b>NTSTATUS</b> code that indicates the reason it failed.
      */
     Call(phContext, fFlags, pPackedContext, pToken) {
-        result := DllCall(this.value, IntPtr, phContext, UInt32, fFlags, SecBuffer.Ptr, pPackedContext, HANDLE.Ptr, pToken, NTSTATUS)
+        pTokenMarshal := pToken == 0 ? IntPtr : HANDLE.Ptr
+
+        result := DllCall(this.value, IntPtr, phContext, UInt32, fFlags, SecBuffer.Ptr, pPackedContext, pTokenMarshal, pToken, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

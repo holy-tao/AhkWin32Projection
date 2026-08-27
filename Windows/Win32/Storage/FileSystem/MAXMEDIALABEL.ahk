@@ -23,7 +23,6 @@ export default struct MAXMEDIALABEL {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pMaxSize Pointer to a buffer that receives the maximum size of the buffer sent to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntmsmli/nc-ntmsmli-claimmedialabel">ClaimMediaLabel</a> function.
      * @returns {Integer} This function returns the following value.
@@ -47,7 +46,7 @@ export default struct MAXMEDIALABEL {
      * </table>
      */
     Call(pMaxSize) {
-        pMaxSizeMarshal := pMaxSize is VarRef ? "uint*" : "ptr"
+        pMaxSizeMarshal := pMaxSize is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, pMaxSizeMarshal, pMaxSize, UInt32)
         return result

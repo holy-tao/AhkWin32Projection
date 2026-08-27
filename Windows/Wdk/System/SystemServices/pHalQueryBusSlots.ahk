@@ -20,7 +20,6 @@ export default struct pHalQueryBusSlots {
     }
 
     /**
-     * 
      * @param {PBUS_HANDLER} BusHandler 
      * @param {Integer} BufferSize 
      * @param {Pointer<Integer>} SlotNumbers 
@@ -28,8 +27,8 @@ export default struct pHalQueryBusSlots {
      * @returns {NTSTATUS} 
      */
     Call(BusHandler, BufferSize, SlotNumbers, ReturnedLength) {
-        SlotNumbersMarshal := SlotNumbers is VarRef ? "uint*" : "ptr"
-        ReturnedLengthMarshal := ReturnedLength is VarRef ? "uint*" : "ptr"
+        SlotNumbersMarshal := SlotNumbers is VarRef ? "uint*" : IntPtr
+        ReturnedLengthMarshal := ReturnedLength is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, PBUS_HANDLER, BusHandler, UInt32, BufferSize, SlotNumbersMarshal, SlotNumbers, ReturnedLengthMarshal, ReturnedLength, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

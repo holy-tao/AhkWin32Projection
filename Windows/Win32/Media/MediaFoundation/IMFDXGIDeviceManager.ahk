@@ -261,13 +261,13 @@ export default struct IMFDXGIDeviceManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CloseDeviceHandle := CallbackCreate(GetMethod(implObj, "CloseDeviceHandle"), flags, 2)
-        this.vtbl.GetVideoService := CallbackCreate(GetMethod(implObj, "GetVideoService"), flags, 4)
-        this.vtbl.LockDevice := CallbackCreate(GetMethod(implObj, "LockDevice"), flags, 5)
-        this.vtbl.OpenDeviceHandle := CallbackCreate(GetMethod(implObj, "OpenDeviceHandle"), flags, 2)
-        this.vtbl.ResetDevice := CallbackCreate(GetMethod(implObj, "ResetDevice"), flags, 3)
-        this.vtbl.TestDevice := CallbackCreate(GetMethod(implObj, "TestDevice"), flags, 2)
-        this.vtbl.UnlockDevice := CallbackCreate(GetMethod(implObj, "UnlockDevice"), flags, 3)
+        this.vtbl.CloseDeviceHandle := CallbackCreate(ObjBindMethod(implObj, "CloseDeviceHandle"), flags, 2)
+        this.vtbl.GetVideoService := CallbackCreate(ObjBindMethod(implObj, "GetVideoService"), flags, 4)
+        this.vtbl.LockDevice := CallbackCreate(ObjBindMethod(implObj, "LockDevice"), flags, 5)
+        this.vtbl.OpenDeviceHandle := CallbackCreate(ObjBindMethod(implObj, "OpenDeviceHandle"), flags, 2)
+        this.vtbl.ResetDevice := CallbackCreate(ObjBindMethod(implObj, "ResetDevice"), flags, 3)
+        this.vtbl.TestDevice := CallbackCreate(ObjBindMethod(implObj, "TestDevice"), flags, 2)
+        this.vtbl.UnlockDevice := CallbackCreate(ObjBindMethod(implObj, "UnlockDevice"), flags, 3)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct PWLDP_QUERYWINDOWSLOCKDOWNRESTRICTION_API {
     }
 
     /**
-     * 
      * @returns {WLDP_WINDOWS_LOCKDOWN_RESTRICTION} 
      */
     Call() {

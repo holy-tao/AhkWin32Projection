@@ -20,7 +20,6 @@ export default struct PFND3DKMT_PRESENTMULTIPLANEOVERLAY2 {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_PRESENT_MULTIPLANE_OVERLAY2>} param0 
      * @returns {NTSTATUS} 
      */

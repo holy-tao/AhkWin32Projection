@@ -111,10 +111,10 @@ export default struct IReferenceClock extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTime := CallbackCreate(GetMethod(implObj, "GetTime"), flags, 2)
-        this.vtbl.AdviseTime := CallbackCreate(GetMethod(implObj, "AdviseTime"), flags, 5)
-        this.vtbl.AdvisePeriodic := CallbackCreate(GetMethod(implObj, "AdvisePeriodic"), flags, 5)
-        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 2)
+        this.vtbl.GetTime := CallbackCreate(ObjBindMethod(implObj, "GetTime"), flags, 2)
+        this.vtbl.AdviseTime := CallbackCreate(ObjBindMethod(implObj, "AdviseTime"), flags, 5)
+        this.vtbl.AdvisePeriodic := CallbackCreate(ObjBindMethod(implObj, "AdvisePeriodic"), flags, 5)
+        this.vtbl.Unadvise := CallbackCreate(ObjBindMethod(implObj, "Unadvise"), flags, 2)
     }
 
     Dispose() {

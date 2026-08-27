@@ -72,7 +72,6 @@ export default struct IRTCClientPresence2 extends IRTCClientPresence {
     }
 
     /**
-     * 
      * @param {IRTCProfile} pProfile 
      * @param {VARIANT} varStorage 
      * @param {Integer} lFlags 
@@ -84,7 +83,6 @@ export default struct IRTCClientPresence2 extends IRTCClientPresence {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DisablePresence() {
@@ -93,7 +91,6 @@ export default struct IRTCClientPresence2 extends IRTCClientPresence {
     }
 
     /**
-     * 
      * @param {BSTR} bstrGroupName 
      * @param {BSTR} bstrData 
      * @param {IRTCProfile} pProfile 
@@ -109,7 +106,6 @@ export default struct IRTCClientPresence2 extends IRTCClientPresence {
     }
 
     /**
-     * 
      * @param {IRTCBuddyGroup} pGroup 
      * @returns {HRESULT} 
      */
@@ -119,7 +115,6 @@ export default struct IRTCClientPresence2 extends IRTCClientPresence {
     }
 
     /**
-     * 
      * @returns {IRTCEnumGroups} 
      */
     EnumerateGroups() {
@@ -128,7 +123,6 @@ export default struct IRTCClientPresence2 extends IRTCClientPresence {
     }
 
     /**
-     * 
      * @returns {IRTCCollection} 
      */
     get_Groups() {
@@ -137,7 +131,6 @@ export default struct IRTCClientPresence2 extends IRTCClientPresence {
     }
 
     /**
-     * 
      * @param {BSTR} bstrGroupName 
      * @returns {IRTCBuddyGroup} 
      */
@@ -149,7 +142,6 @@ export default struct IRTCClientPresence2 extends IRTCClientPresence {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPresentityURI 
      * @param {BSTR} bstrUserName 
      * @param {BSTR} bstrData 
@@ -170,7 +162,6 @@ export default struct IRTCClientPresence2 extends IRTCClientPresence {
     }
 
     /**
-     * 
      * @param {RTC_WATCHER_MATCH_MODE} enMode 
      * @param {BSTR} bstrPresentityURI 
      * @returns {IRTCWatcher2} 
@@ -183,7 +174,6 @@ export default struct IRTCClientPresence2 extends IRTCClientPresence {
     }
 
     /**
-     * 
      * @param {RTC_PRESENCE_PROPERTY} enProperty 
      * @param {BSTR} bstrProperty 
      * @returns {HRESULT} 
@@ -196,7 +186,6 @@ export default struct IRTCClientPresence2 extends IRTCClientPresence {
     }
 
     /**
-     * 
      * @param {RTC_PRESENCE_PROPERTY} enProperty 
      * @returns {BSTR} 
      */
@@ -207,7 +196,6 @@ export default struct IRTCClientPresence2 extends IRTCClientPresence {
     }
 
     /**
-     * 
      * @param {BSTR} bstrNamespace 
      * @param {BSTR} bstrData 
      * @returns {HRESULT} 
@@ -221,7 +209,6 @@ export default struct IRTCClientPresence2 extends IRTCClientPresence {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrNamespace 
      * @param {Pointer<BSTR>} pbstrData 
      * @returns {HRESULT} 
@@ -232,20 +219,18 @@ export default struct IRTCClientPresence2 extends IRTCClientPresence {
     }
 
     /**
-     * 
      * @param {Pointer<RTC_PRESENCE_STATUS>} penStatus 
      * @param {Pointer<BSTR>} pbstrNotes 
      * @returns {HRESULT} 
      */
     GetLocalPresenceInfo(penStatus, pbstrNotes) {
-        penStatusMarshal := penStatus is VarRef ? "int*" : "ptr"
+        penStatusMarshal := penStatus is VarRef ? "int*" : IntPtr
 
         result := ComCall(34, this, penStatusMarshal, penStatus, BSTR.Ptr, pbstrNotes, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {BSTR} bstrPresentityURI 
      * @param {BSTR} bstrUserName 
      * @param {BSTR} bstrData 
@@ -273,21 +258,21 @@ export default struct IRTCClientPresence2 extends IRTCClientPresence {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnablePresenceEx := CallbackCreate(GetMethod(implObj, "EnablePresenceEx"), flags, 4)
-        this.vtbl.DisablePresence := CallbackCreate(GetMethod(implObj, "DisablePresence"), flags, 1)
-        this.vtbl.AddGroup := CallbackCreate(GetMethod(implObj, "AddGroup"), flags, 6)
-        this.vtbl.RemoveGroup := CallbackCreate(GetMethod(implObj, "RemoveGroup"), flags, 2)
-        this.vtbl.EnumerateGroups := CallbackCreate(GetMethod(implObj, "EnumerateGroups"), flags, 2)
-        this.vtbl.get_Groups := CallbackCreate(GetMethod(implObj, "get_Groups"), flags, 2)
-        this.vtbl.get_Group := CallbackCreate(GetMethod(implObj, "get_Group"), flags, 3)
-        this.vtbl.AddWatcherEx := CallbackCreate(GetMethod(implObj, "AddWatcherEx"), flags, 10)
-        this.vtbl.get_WatcherEx := CallbackCreate(GetMethod(implObj, "get_WatcherEx"), flags, 4)
-        this.vtbl.put_PresenceProperty := CallbackCreate(GetMethod(implObj, "put_PresenceProperty"), flags, 3)
-        this.vtbl.get_PresenceProperty := CallbackCreate(GetMethod(implObj, "get_PresenceProperty"), flags, 3)
-        this.vtbl.SetPresenceData := CallbackCreate(GetMethod(implObj, "SetPresenceData"), flags, 3)
-        this.vtbl.GetPresenceData := CallbackCreate(GetMethod(implObj, "GetPresenceData"), flags, 3)
-        this.vtbl.GetLocalPresenceInfo := CallbackCreate(GetMethod(implObj, "GetLocalPresenceInfo"), flags, 3)
-        this.vtbl.AddBuddyEx := CallbackCreate(GetMethod(implObj, "AddBuddyEx"), flags, 9)
+        this.vtbl.EnablePresenceEx := CallbackCreate(ObjBindMethod(implObj, "EnablePresenceEx"), flags, 4)
+        this.vtbl.DisablePresence := CallbackCreate(ObjBindMethod(implObj, "DisablePresence"), flags, 1)
+        this.vtbl.AddGroup := CallbackCreate(ObjBindMethod(implObj, "AddGroup"), flags, 6)
+        this.vtbl.RemoveGroup := CallbackCreate(ObjBindMethod(implObj, "RemoveGroup"), flags, 2)
+        this.vtbl.EnumerateGroups := CallbackCreate(ObjBindMethod(implObj, "EnumerateGroups"), flags, 2)
+        this.vtbl.get_Groups := CallbackCreate(ObjBindMethod(implObj, "get_Groups"), flags, 2)
+        this.vtbl.get_Group := CallbackCreate(ObjBindMethod(implObj, "get_Group"), flags, 3)
+        this.vtbl.AddWatcherEx := CallbackCreate(ObjBindMethod(implObj, "AddWatcherEx"), flags, 10)
+        this.vtbl.get_WatcherEx := CallbackCreate(ObjBindMethod(implObj, "get_WatcherEx"), flags, 4)
+        this.vtbl.put_PresenceProperty := CallbackCreate(ObjBindMethod(implObj, "put_PresenceProperty"), flags, 3)
+        this.vtbl.get_PresenceProperty := CallbackCreate(ObjBindMethod(implObj, "get_PresenceProperty"), flags, 3)
+        this.vtbl.SetPresenceData := CallbackCreate(ObjBindMethod(implObj, "SetPresenceData"), flags, 3)
+        this.vtbl.GetPresenceData := CallbackCreate(ObjBindMethod(implObj, "GetPresenceData"), flags, 3)
+        this.vtbl.GetLocalPresenceInfo := CallbackCreate(ObjBindMethod(implObj, "GetLocalPresenceInfo"), flags, 3)
+        this.vtbl.AddBuddyEx := CallbackCreate(ObjBindMethod(implObj, "AddBuddyEx"), flags, 9)
     }
 
     Dispose() {

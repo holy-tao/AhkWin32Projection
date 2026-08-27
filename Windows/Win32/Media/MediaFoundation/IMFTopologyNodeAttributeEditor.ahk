@@ -82,7 +82,7 @@ export default struct IMFTopologyNodeAttributeEditor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.UpdateNodeAttributes := CallbackCreate(GetMethod(implObj, "UpdateNodeAttributes"), flags, 4)
+        this.vtbl.UpdateNodeAttributes := CallbackCreate(ObjBindMethod(implObj, "UpdateNodeAttributes"), flags, 4)
     }
 
     Dispose() {

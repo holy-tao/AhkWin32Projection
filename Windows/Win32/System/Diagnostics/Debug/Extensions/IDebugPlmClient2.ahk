@@ -38,7 +38,6 @@ export default struct IDebugPlmClient2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {Integer} Timeout 
      * @param {PWSTR} PackageFullName 
@@ -53,15 +52,15 @@ export default struct IDebugPlmClient2 extends IUnknown {
         AppName := AppName is String ? StrPtr(AppName) : AppName
         Arguments := Arguments is String ? StrPtr(Arguments) : Arguments
 
-        ProcessIdMarshal := ProcessId is VarRef ? "uint*" : "ptr"
-        ThreadIdMarshal := ThreadId is VarRef ? "uint*" : "ptr"
+        ArgumentsMarshal := Arguments == 0 ? IntPtr : PWSTR
+        ProcessIdMarshal := ProcessId is VarRef ? "uint*" : IntPtr
+        ThreadIdMarshal := ThreadId is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(3, this, Int64, Server, UInt32, Timeout, "ptr", PackageFullName, "ptr", AppName, "ptr", Arguments, ProcessIdMarshal, ProcessId, ThreadIdMarshal, ThreadId, "HRESULT")
+        result := ComCall(3, this, Int64, Server, UInt32, Timeout, "ptr", PackageFullName, "ptr", AppName, ArgumentsMarshal, Arguments, ProcessIdMarshal, ProcessId, ThreadIdMarshal, ThreadId, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {Integer} Timeout 
      * @param {PWSTR} PackageFullName 
@@ -74,8 +73,8 @@ export default struct IDebugPlmClient2 extends IUnknown {
         PackageFullName := PackageFullName is String ? StrPtr(PackageFullName) : PackageFullName
         BackgroundTaskId := BackgroundTaskId is String ? StrPtr(BackgroundTaskId) : BackgroundTaskId
 
-        ProcessIdMarshal := ProcessId is VarRef ? "uint*" : "ptr"
-        ThreadIdMarshal := ThreadId is VarRef ? "uint*" : "ptr"
+        ProcessIdMarshal := ProcessId is VarRef ? "uint*" : IntPtr
+        ThreadIdMarshal := ThreadId is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, Int64, Server, UInt32, Timeout, "ptr", PackageFullName, "ptr", BackgroundTaskId, ProcessIdMarshal, ProcessId, ThreadIdMarshal, ThreadId, "HRESULT")
         return result
@@ -90,8 +89,8 @@ export default struct IDebugPlmClient2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LaunchPlmPackageForDebugWide := CallbackCreate(GetMethod(implObj, "LaunchPlmPackageForDebugWide"), flags, 8)
-        this.vtbl.LaunchPlmBgTaskForDebugWide := CallbackCreate(GetMethod(implObj, "LaunchPlmBgTaskForDebugWide"), flags, 7)
+        this.vtbl.LaunchPlmPackageForDebugWide := CallbackCreate(ObjBindMethod(implObj, "LaunchPlmPackageForDebugWide"), flags, 8)
+        this.vtbl.LaunchPlmBgTaskForDebugWide := CallbackCreate(ObjBindMethod(implObj, "LaunchPlmBgTaskForDebugWide"), flags, 7)
     }
 
     Dispose() {

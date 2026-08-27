@@ -278,7 +278,9 @@ export default struct IInkWordList extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkwordlist-merge
      */
     Merge(MergeWordList) {
-        result := ComCall(9, this, "ptr", MergeWordList, "HRESULT")
+        MergeWordListMarshal := MergeWordList == 0 ? IntPtr : "ptr"
+
+        result := ComCall(9, this, MergeWordListMarshal, MergeWordList, "HRESULT")
         return result
     }
 
@@ -291,9 +293,9 @@ export default struct IInkWordList extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddWord := CallbackCreate(GetMethod(implObj, "AddWord"), flags, 2)
-        this.vtbl.RemoveWord := CallbackCreate(GetMethod(implObj, "RemoveWord"), flags, 2)
-        this.vtbl.Merge := CallbackCreate(GetMethod(implObj, "Merge"), flags, 2)
+        this.vtbl.AddWord := CallbackCreate(ObjBindMethod(implObj, "AddWord"), flags, 2)
+        this.vtbl.RemoveWord := CallbackCreate(ObjBindMethod(implObj, "RemoveWord"), flags, 2)
+        this.vtbl.Merge := CallbackCreate(ObjBindMethod(implObj, "Merge"), flags, 2)
     }
 
     Dispose() {

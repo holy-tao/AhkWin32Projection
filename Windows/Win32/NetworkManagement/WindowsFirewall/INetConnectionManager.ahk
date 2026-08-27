@@ -38,7 +38,6 @@ export default struct INetConnectionManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {NETCONMGR_ENUM_FLAGS} Flags 
      * @returns {IEnumNetConnection} 
      */
@@ -56,7 +55,7 @@ export default struct INetConnectionManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumConnections := CallbackCreate(GetMethod(implObj, "EnumConnections"), flags, 3)
+        this.vtbl.EnumConnections := CallbackCreate(ObjBindMethod(implObj, "EnumConnections"), flags, 3)
     }
 
     Dispose() {

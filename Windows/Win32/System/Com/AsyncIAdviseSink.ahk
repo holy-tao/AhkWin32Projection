@@ -53,7 +53,6 @@ export default struct AsyncIAdviseSink extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<FORMATETC>} pFormatetc 
      * @param {Pointer<STGMEDIUM>} pStgmed 
      * @returns {String} Nothing - always returns an empty string
@@ -63,7 +62,6 @@ export default struct AsyncIAdviseSink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Finish_OnDataChange() {
@@ -71,7 +69,6 @@ export default struct AsyncIAdviseSink extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwAspect 
      * @param {Integer} lindex 
      * @returns {String} Nothing - always returns an empty string
@@ -81,7 +78,6 @@ export default struct AsyncIAdviseSink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Finish_OnViewChange() {
@@ -89,7 +85,6 @@ export default struct AsyncIAdviseSink extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMoniker} pmk 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -98,7 +93,6 @@ export default struct AsyncIAdviseSink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Finish_OnRename() {
@@ -106,7 +100,6 @@ export default struct AsyncIAdviseSink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Begin_OnSave() {
@@ -114,7 +107,6 @@ export default struct AsyncIAdviseSink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Finish_OnSave() {
@@ -122,7 +114,6 @@ export default struct AsyncIAdviseSink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Begin_OnClose() {
@@ -130,7 +121,6 @@ export default struct AsyncIAdviseSink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Finish_OnClose() {
@@ -146,16 +136,16 @@ export default struct AsyncIAdviseSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Begin_OnDataChange := CallbackCreate(GetMethod(implObj, "Begin_OnDataChange"), flags, 3)
-        this.vtbl.Finish_OnDataChange := CallbackCreate(GetMethod(implObj, "Finish_OnDataChange"), flags, 1)
-        this.vtbl.Begin_OnViewChange := CallbackCreate(GetMethod(implObj, "Begin_OnViewChange"), flags, 3)
-        this.vtbl.Finish_OnViewChange := CallbackCreate(GetMethod(implObj, "Finish_OnViewChange"), flags, 1)
-        this.vtbl.Begin_OnRename := CallbackCreate(GetMethod(implObj, "Begin_OnRename"), flags, 2)
-        this.vtbl.Finish_OnRename := CallbackCreate(GetMethod(implObj, "Finish_OnRename"), flags, 1)
-        this.vtbl.Begin_OnSave := CallbackCreate(GetMethod(implObj, "Begin_OnSave"), flags, 1)
-        this.vtbl.Finish_OnSave := CallbackCreate(GetMethod(implObj, "Finish_OnSave"), flags, 1)
-        this.vtbl.Begin_OnClose := CallbackCreate(GetMethod(implObj, "Begin_OnClose"), flags, 1)
-        this.vtbl.Finish_OnClose := CallbackCreate(GetMethod(implObj, "Finish_OnClose"), flags, 1)
+        this.vtbl.Begin_OnDataChange := CallbackCreate(ObjBindMethod(implObj, "Begin_OnDataChange"), flags, 3)
+        this.vtbl.Finish_OnDataChange := CallbackCreate(ObjBindMethod(implObj, "Finish_OnDataChange"), flags, 1)
+        this.vtbl.Begin_OnViewChange := CallbackCreate(ObjBindMethod(implObj, "Begin_OnViewChange"), flags, 3)
+        this.vtbl.Finish_OnViewChange := CallbackCreate(ObjBindMethod(implObj, "Finish_OnViewChange"), flags, 1)
+        this.vtbl.Begin_OnRename := CallbackCreate(ObjBindMethod(implObj, "Begin_OnRename"), flags, 2)
+        this.vtbl.Finish_OnRename := CallbackCreate(ObjBindMethod(implObj, "Finish_OnRename"), flags, 1)
+        this.vtbl.Begin_OnSave := CallbackCreate(ObjBindMethod(implObj, "Begin_OnSave"), flags, 1)
+        this.vtbl.Finish_OnSave := CallbackCreate(ObjBindMethod(implObj, "Finish_OnSave"), flags, 1)
+        this.vtbl.Begin_OnClose := CallbackCreate(ObjBindMethod(implObj, "Begin_OnClose"), flags, 1)
+        this.vtbl.Finish_OnClose := CallbackCreate(ObjBindMethod(implObj, "Finish_OnClose"), flags, 1)
     }
 
     Dispose() {

@@ -253,7 +253,9 @@ export default struct IRealTimeStylus extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-addstylussyncplugin
      */
     AddStylusSyncPlugin(iIndex, piPlugin) {
-        result := ComCall(9, this, UInt32, iIndex, "ptr", piPlugin, "HRESULT")
+        piPluginMarshal := piPlugin == 0 ? IntPtr : "ptr"
+
+        result := ComCall(9, this, UInt32, iIndex, piPluginMarshal, piPlugin, "HRESULT")
         return result
     }
 
@@ -314,7 +316,9 @@ export default struct IRealTimeStylus extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-addstylusasyncplugin
      */
     AddStylusAsyncPlugin(iIndex, piPlugin) {
-        result := ComCall(14, this, UInt32, iIndex, "ptr", piPlugin, "HRESULT")
+        piPluginMarshal := piPlugin == 0 ? IntPtr : "ptr"
+
+        result := ComCall(14, this, UInt32, iIndex, piPluginMarshal, piPlugin, "HRESULT")
         return result
     }
 
@@ -386,12 +390,13 @@ export default struct IRealTimeStylus extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRealTimeStylus} piRTS 
      * @returns {HRESULT} 
      */
     putref_ChildRealTimeStylusPlugin(piRTS) {
-        result := ComCall(20, this, "ptr", piRTS, "HRESULT")
+        piRTSMarshal := piRTS == 0 ? IntPtr : "ptr"
+
+        result := ComCall(20, this, piRTSMarshal, piRTS, "HRESULT")
         return result
     }
 
@@ -420,7 +425,8 @@ export default struct IRealTimeStylus extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-addcustomstylusdatatoqueue
      */
     AddCustomStylusDataToQueue(sq, pGuidId, cbData, pbData) {
-        pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
+        pbDataMarshal := pbData is VarRef ? "char*" : IntPtr
+        pbDataMarshal := pbData == 0 ? IntPtr : "char*"
 
         result := ComCall(21, this, StylusQueue, sq, Guid.Ptr, pGuidId, UInt32, cbData, pbDataMarshal, pbData, "HRESULT")
         return result
@@ -471,7 +477,9 @@ export default struct IRealTimeStylus extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-setsingletabletmode
      */
     SetSingleTabletMode(piTablet) {
-        result := ComCall(24, this, "ptr", piTablet, "HRESULT")
+        piTabletMarshal := piTablet == 0 ? IntPtr : "ptr"
+
+        result := ComCall(24, this, piTabletMarshal, piTablet, "HRESULT")
         return result
     }
 
@@ -498,7 +506,9 @@ export default struct IRealTimeStylus extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-gettabletcontextidfromtablet
      */
     GetTabletContextIdFromTablet(piTablet) {
-        result := ComCall(26, this, "ptr", piTablet, "uint*", &ptcid := 0, "HRESULT")
+        piTabletMarshal := piTablet == 0 ? IntPtr : "ptr"
+
+        result := ComCall(26, this, piTabletMarshal, piTablet, "uint*", &ptcid := 0, "HRESULT")
         return ptcid
     }
 
@@ -528,7 +538,7 @@ export default struct IRealTimeStylus extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-getalltabletcontextids
      */
     GetAllTabletContextIds(pcTcidCount) {
-        pcTcidCountMarshal := pcTcidCount is VarRef ? "uint*" : "ptr"
+        pcTcidCountMarshal := pcTcidCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(28, this, pcTcidCountMarshal, pcTcidCount, "ptr*", &ppTcids := 0, "HRESULT")
         return ppTcids
@@ -648,7 +658,7 @@ export default struct IRealTimeStylus extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-getdesiredpacketdescription
      */
     GetDesiredPacketDescription(pcProperties) {
-        pcPropertiesMarshal := pcProperties is VarRef ? "uint*" : "ptr"
+        pcPropertiesMarshal := pcProperties is VarRef ? "uint*" : IntPtr
 
         result := ComCall(32, this, pcPropertiesMarshal, pcProperties, "ptr*", &ppPropertyGuids := 0, "HRESULT")
         return ppPropertyGuids
@@ -670,9 +680,11 @@ export default struct IRealTimeStylus extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-getpacketdescriptiondata
      */
     GetPacketDescriptionData(tcid, pfInkToDeviceScaleX, pfInkToDeviceScaleY, pcPacketProperties) {
-        pfInkToDeviceScaleXMarshal := pfInkToDeviceScaleX is VarRef ? "float*" : "ptr"
-        pfInkToDeviceScaleYMarshal := pfInkToDeviceScaleY is VarRef ? "float*" : "ptr"
-        pcPacketPropertiesMarshal := pcPacketProperties is VarRef ? "uint*" : "ptr"
+        pfInkToDeviceScaleXMarshal := pfInkToDeviceScaleX is VarRef ? "float*" : IntPtr
+        pfInkToDeviceScaleXMarshal := pfInkToDeviceScaleX == 0 ? IntPtr : "float*"
+        pfInkToDeviceScaleYMarshal := pfInkToDeviceScaleY is VarRef ? "float*" : IntPtr
+        pfInkToDeviceScaleYMarshal := pfInkToDeviceScaleY == 0 ? IntPtr : "float*"
+        pcPacketPropertiesMarshal := pcPacketProperties is VarRef ? "uint*" : IntPtr
 
         result := ComCall(33, this, UInt32, tcid, pfInkToDeviceScaleXMarshal, pfInkToDeviceScaleX, pfInkToDeviceScaleYMarshal, pfInkToDeviceScaleY, pcPacketPropertiesMarshal, pcPacketProperties, "ptr*", &ppPacketProperties := 0, "HRESULT")
         return ppPacketProperties
@@ -687,37 +699,37 @@ export default struct IRealTimeStylus extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Enabled := CallbackCreate(GetMethod(implObj, "get_Enabled"), flags, 2)
-        this.vtbl.put_Enabled := CallbackCreate(GetMethod(implObj, "put_Enabled"), flags, 2)
-        this.vtbl.get_HWND := CallbackCreate(GetMethod(implObj, "get_HWND"), flags, 2)
-        this.vtbl.put_HWND := CallbackCreate(GetMethod(implObj, "put_HWND"), flags, 2)
-        this.vtbl.get_WindowInputRectangle := CallbackCreate(GetMethod(implObj, "get_WindowInputRectangle"), flags, 2)
-        this.vtbl.put_WindowInputRectangle := CallbackCreate(GetMethod(implObj, "put_WindowInputRectangle"), flags, 2)
-        this.vtbl.AddStylusSyncPlugin := CallbackCreate(GetMethod(implObj, "AddStylusSyncPlugin"), flags, 3)
-        this.vtbl.RemoveStylusSyncPlugin := CallbackCreate(GetMethod(implObj, "RemoveStylusSyncPlugin"), flags, 3)
-        this.vtbl.RemoveAllStylusSyncPlugins := CallbackCreate(GetMethod(implObj, "RemoveAllStylusSyncPlugins"), flags, 1)
-        this.vtbl.GetStylusSyncPlugin := CallbackCreate(GetMethod(implObj, "GetStylusSyncPlugin"), flags, 3)
-        this.vtbl.GetStylusSyncPluginCount := CallbackCreate(GetMethod(implObj, "GetStylusSyncPluginCount"), flags, 2)
-        this.vtbl.AddStylusAsyncPlugin := CallbackCreate(GetMethod(implObj, "AddStylusAsyncPlugin"), flags, 3)
-        this.vtbl.RemoveStylusAsyncPlugin := CallbackCreate(GetMethod(implObj, "RemoveStylusAsyncPlugin"), flags, 3)
-        this.vtbl.RemoveAllStylusAsyncPlugins := CallbackCreate(GetMethod(implObj, "RemoveAllStylusAsyncPlugins"), flags, 1)
-        this.vtbl.GetStylusAsyncPlugin := CallbackCreate(GetMethod(implObj, "GetStylusAsyncPlugin"), flags, 3)
-        this.vtbl.GetStylusAsyncPluginCount := CallbackCreate(GetMethod(implObj, "GetStylusAsyncPluginCount"), flags, 2)
-        this.vtbl.get_ChildRealTimeStylusPlugin := CallbackCreate(GetMethod(implObj, "get_ChildRealTimeStylusPlugin"), flags, 2)
-        this.vtbl.putref_ChildRealTimeStylusPlugin := CallbackCreate(GetMethod(implObj, "putref_ChildRealTimeStylusPlugin"), flags, 2)
-        this.vtbl.AddCustomStylusDataToQueue := CallbackCreate(GetMethod(implObj, "AddCustomStylusDataToQueue"), flags, 5)
-        this.vtbl.ClearStylusQueues := CallbackCreate(GetMethod(implObj, "ClearStylusQueues"), flags, 1)
-        this.vtbl.SetAllTabletsMode := CallbackCreate(GetMethod(implObj, "SetAllTabletsMode"), flags, 2)
-        this.vtbl.SetSingleTabletMode := CallbackCreate(GetMethod(implObj, "SetSingleTabletMode"), flags, 2)
-        this.vtbl.GetTablet := CallbackCreate(GetMethod(implObj, "GetTablet"), flags, 2)
-        this.vtbl.GetTabletContextIdFromTablet := CallbackCreate(GetMethod(implObj, "GetTabletContextIdFromTablet"), flags, 3)
-        this.vtbl.GetTabletFromTabletContextId := CallbackCreate(GetMethod(implObj, "GetTabletFromTabletContextId"), flags, 3)
-        this.vtbl.GetAllTabletContextIds := CallbackCreate(GetMethod(implObj, "GetAllTabletContextIds"), flags, 3)
-        this.vtbl.GetStyluses := CallbackCreate(GetMethod(implObj, "GetStyluses"), flags, 2)
-        this.vtbl.GetStylusForId := CallbackCreate(GetMethod(implObj, "GetStylusForId"), flags, 3)
-        this.vtbl.SetDesiredPacketDescription := CallbackCreate(GetMethod(implObj, "SetDesiredPacketDescription"), flags, 3)
-        this.vtbl.GetDesiredPacketDescription := CallbackCreate(GetMethod(implObj, "GetDesiredPacketDescription"), flags, 3)
-        this.vtbl.GetPacketDescriptionData := CallbackCreate(GetMethod(implObj, "GetPacketDescriptionData"), flags, 6)
+        this.vtbl.get_Enabled := CallbackCreate(ObjBindMethod(implObj, "get_Enabled"), flags, 2)
+        this.vtbl.put_Enabled := CallbackCreate(ObjBindMethod(implObj, "put_Enabled"), flags, 2)
+        this.vtbl.get_HWND := CallbackCreate(ObjBindMethod(implObj, "get_HWND"), flags, 2)
+        this.vtbl.put_HWND := CallbackCreate(ObjBindMethod(implObj, "put_HWND"), flags, 2)
+        this.vtbl.get_WindowInputRectangle := CallbackCreate(ObjBindMethod(implObj, "get_WindowInputRectangle"), flags, 2)
+        this.vtbl.put_WindowInputRectangle := CallbackCreate(ObjBindMethod(implObj, "put_WindowInputRectangle"), flags, 2)
+        this.vtbl.AddStylusSyncPlugin := CallbackCreate(ObjBindMethod(implObj, "AddStylusSyncPlugin"), flags, 3)
+        this.vtbl.RemoveStylusSyncPlugin := CallbackCreate(ObjBindMethod(implObj, "RemoveStylusSyncPlugin"), flags, 3)
+        this.vtbl.RemoveAllStylusSyncPlugins := CallbackCreate(ObjBindMethod(implObj, "RemoveAllStylusSyncPlugins"), flags, 1)
+        this.vtbl.GetStylusSyncPlugin := CallbackCreate(ObjBindMethod(implObj, "GetStylusSyncPlugin"), flags, 3)
+        this.vtbl.GetStylusSyncPluginCount := CallbackCreate(ObjBindMethod(implObj, "GetStylusSyncPluginCount"), flags, 2)
+        this.vtbl.AddStylusAsyncPlugin := CallbackCreate(ObjBindMethod(implObj, "AddStylusAsyncPlugin"), flags, 3)
+        this.vtbl.RemoveStylusAsyncPlugin := CallbackCreate(ObjBindMethod(implObj, "RemoveStylusAsyncPlugin"), flags, 3)
+        this.vtbl.RemoveAllStylusAsyncPlugins := CallbackCreate(ObjBindMethod(implObj, "RemoveAllStylusAsyncPlugins"), flags, 1)
+        this.vtbl.GetStylusAsyncPlugin := CallbackCreate(ObjBindMethod(implObj, "GetStylusAsyncPlugin"), flags, 3)
+        this.vtbl.GetStylusAsyncPluginCount := CallbackCreate(ObjBindMethod(implObj, "GetStylusAsyncPluginCount"), flags, 2)
+        this.vtbl.get_ChildRealTimeStylusPlugin := CallbackCreate(ObjBindMethod(implObj, "get_ChildRealTimeStylusPlugin"), flags, 2)
+        this.vtbl.putref_ChildRealTimeStylusPlugin := CallbackCreate(ObjBindMethod(implObj, "putref_ChildRealTimeStylusPlugin"), flags, 2)
+        this.vtbl.AddCustomStylusDataToQueue := CallbackCreate(ObjBindMethod(implObj, "AddCustomStylusDataToQueue"), flags, 5)
+        this.vtbl.ClearStylusQueues := CallbackCreate(ObjBindMethod(implObj, "ClearStylusQueues"), flags, 1)
+        this.vtbl.SetAllTabletsMode := CallbackCreate(ObjBindMethod(implObj, "SetAllTabletsMode"), flags, 2)
+        this.vtbl.SetSingleTabletMode := CallbackCreate(ObjBindMethod(implObj, "SetSingleTabletMode"), flags, 2)
+        this.vtbl.GetTablet := CallbackCreate(ObjBindMethod(implObj, "GetTablet"), flags, 2)
+        this.vtbl.GetTabletContextIdFromTablet := CallbackCreate(ObjBindMethod(implObj, "GetTabletContextIdFromTablet"), flags, 3)
+        this.vtbl.GetTabletFromTabletContextId := CallbackCreate(ObjBindMethod(implObj, "GetTabletFromTabletContextId"), flags, 3)
+        this.vtbl.GetAllTabletContextIds := CallbackCreate(ObjBindMethod(implObj, "GetAllTabletContextIds"), flags, 3)
+        this.vtbl.GetStyluses := CallbackCreate(ObjBindMethod(implObj, "GetStyluses"), flags, 2)
+        this.vtbl.GetStylusForId := CallbackCreate(ObjBindMethod(implObj, "GetStylusForId"), flags, 3)
+        this.vtbl.SetDesiredPacketDescription := CallbackCreate(ObjBindMethod(implObj, "SetDesiredPacketDescription"), flags, 3)
+        this.vtbl.GetDesiredPacketDescription := CallbackCreate(ObjBindMethod(implObj, "GetDesiredPacketDescription"), flags, 3)
+        this.vtbl.GetPacketDescriptionData := CallbackCreate(ObjBindMethod(implObj, "GetPacketDescriptionData"), flags, 6)
     }
 
     Dispose() {

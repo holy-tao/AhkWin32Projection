@@ -69,7 +69,7 @@ export default struct IMFSinkWriterCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsinkwritercallback-onmarker
      */
     OnMarker(dwStreamIndex, pvContext) {
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(4, this, UInt32, dwStreamIndex, pvContextMarshal, pvContext, "HRESULT")
         return result
@@ -84,8 +84,8 @@ export default struct IMFSinkWriterCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnFinalize := CallbackCreate(GetMethod(implObj, "OnFinalize"), flags, 2)
-        this.vtbl.OnMarker := CallbackCreate(GetMethod(implObj, "OnMarker"), flags, 3)
+        this.vtbl.OnFinalize := CallbackCreate(ObjBindMethod(implObj, "OnFinalize"), flags, 2)
+        this.vtbl.OnMarker := CallbackCreate(ObjBindMethod(implObj, "OnMarker"), flags, 3)
     }
 
     Dispose() {

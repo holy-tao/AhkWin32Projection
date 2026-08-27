@@ -21,7 +21,6 @@ export default struct PCLUSAPI_OPEN_CLUSTER_NODE {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszNodeName 
      * @returns {HNODE} 

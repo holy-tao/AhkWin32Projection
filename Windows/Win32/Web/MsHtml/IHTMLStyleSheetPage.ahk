@@ -58,7 +58,6 @@ export default struct IHTMLStyleSheetPage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_selector() {
@@ -68,7 +67,6 @@ export default struct IHTMLStyleSheetPage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_pseudoClass() {
@@ -86,8 +84,8 @@ export default struct IHTMLStyleSheetPage extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_selector := CallbackCreate(GetMethod(implObj, "get_selector"), flags, 2)
-        this.vtbl.get_pseudoClass := CallbackCreate(GetMethod(implObj, "get_pseudoClass"), flags, 2)
+        this.vtbl.get_selector := CallbackCreate(ObjBindMethod(implObj, "get_selector"), flags, 2)
+        this.vtbl.get_pseudoClass := CallbackCreate(ObjBindMethod(implObj, "get_pseudoClass"), flags, 2)
     }
 
     Dispose() {

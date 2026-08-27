@@ -66,7 +66,7 @@ export default struct IDXGIOutput5 extends IDXGIOutput4 {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_5/nf-dxgi1_5-idxgioutput5-duplicateoutput1
      */
     DuplicateOutput1(pDevice, Flags, SupportedFormatsCount, pSupportedFormats) {
-        pSupportedFormatsMarshal := pSupportedFormats is VarRef ? "int*" : "ptr"
+        pSupportedFormatsMarshal := pSupportedFormats is VarRef ? "int*" : IntPtr
 
         result := ComCall(26, this, "ptr", pDevice, UInt32, Flags, UInt32, SupportedFormatsCount, pSupportedFormatsMarshal, pSupportedFormats, "ptr*", &ppOutputDuplication := 0, "HRESULT")
         return IDXGIOutputDuplication(ppOutputDuplication)
@@ -81,7 +81,7 @@ export default struct IDXGIOutput5 extends IDXGIOutput4 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DuplicateOutput1 := CallbackCreate(GetMethod(implObj, "DuplicateOutput1"), flags, 6)
+        this.vtbl.DuplicateOutput1 := CallbackCreate(ObjBindMethod(implObj, "DuplicateOutput1"), flags, 6)
     }
 
     Dispose() {

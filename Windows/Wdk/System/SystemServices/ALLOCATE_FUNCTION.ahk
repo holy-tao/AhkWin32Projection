@@ -19,7 +19,6 @@ export default struct ALLOCATE_FUNCTION {
     }
 
     /**
-     * 
      * @param {POOL_TYPE} PoolType 
      * @param {Pointer} NumberOfBytes 
      * @param {Integer} Tag 

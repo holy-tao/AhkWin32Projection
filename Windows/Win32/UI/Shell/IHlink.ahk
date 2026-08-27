@@ -55,7 +55,6 @@ export default struct IHlink extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHlinkSite} pihlSite 
      * @param {Integer} dwSiteData 
      * @returns {HRESULT} 
@@ -66,20 +65,18 @@ export default struct IHlink extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<IHlinkSite>} ppihlSite 
      * @param {Pointer<Integer>} pdwSiteData 
      * @returns {HRESULT} 
      */
     GetHlinkSite(ppihlSite, pdwSiteData) {
-        pdwSiteDataMarshal := pdwSiteData is VarRef ? "uint*" : "ptr"
+        pdwSiteDataMarshal := pdwSiteData is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, IHlinkSite.Ptr, ppihlSite, pdwSiteDataMarshal, pdwSiteData, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} grfHLSETF 
      * @param {IMoniker} pimkTarget 
      * @param {PWSTR} pwzLocation 
@@ -93,21 +90,21 @@ export default struct IHlink extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwWhichRef 
      * @param {Pointer<IMoniker>} ppimkTarget 
      * @param {Pointer<PWSTR>} ppwzLocation 
      * @returns {HRESULT} 
      */
     GetMonikerReference(dwWhichRef, ppimkTarget, ppwzLocation) {
-        ppwzLocationMarshal := ppwzLocation is VarRef ? "ptr*" : "ptr"
+        ppimkTargetMarshal := ppimkTarget == 0 ? IntPtr : IMoniker.Ptr
+        ppwzLocationMarshal := ppwzLocation is VarRef ? "ptr*" : IntPtr
+        ppwzLocationMarshal := ppwzLocation == 0 ? IntPtr : PWSTR.Ptr
 
-        result := ComCall(6, this, UInt32, dwWhichRef, IMoniker.Ptr, ppimkTarget, ppwzLocationMarshal, ppwzLocation, "HRESULT")
+        result := ComCall(6, this, UInt32, dwWhichRef, ppimkTargetMarshal, ppimkTarget, ppwzLocationMarshal, ppwzLocation, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} grfHLSETF 
      * @param {PWSTR} pwzTarget 
      * @param {PWSTR} pwzLocation 
@@ -122,22 +119,22 @@ export default struct IHlink extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwWhichRef 
      * @param {Pointer<PWSTR>} ppwzTarget 
      * @param {Pointer<PWSTR>} ppwzLocation 
      * @returns {HRESULT} 
      */
     GetStringReference(dwWhichRef, ppwzTarget, ppwzLocation) {
-        ppwzTargetMarshal := ppwzTarget is VarRef ? "ptr*" : "ptr"
-        ppwzLocationMarshal := ppwzLocation is VarRef ? "ptr*" : "ptr"
+        ppwzTargetMarshal := ppwzTarget is VarRef ? "ptr*" : IntPtr
+        ppwzTargetMarshal := ppwzTarget == 0 ? IntPtr : PWSTR.Ptr
+        ppwzLocationMarshal := ppwzLocation is VarRef ? "ptr*" : IntPtr
+        ppwzLocationMarshal := ppwzLocation == 0 ? IntPtr : PWSTR.Ptr
 
         result := ComCall(8, this, UInt32, dwWhichRef, ppwzTargetMarshal, ppwzTarget, ppwzLocationMarshal, ppwzLocation, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwzFriendlyName 
      * @returns {HRESULT} 
      */
@@ -149,7 +146,6 @@ export default struct IHlink extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} grfHLFNAMEF 
      * @returns {PWSTR} 
      */
@@ -159,7 +155,6 @@ export default struct IHlink extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzTargetFrameName 
      * @returns {HRESULT} 
      */
@@ -171,7 +166,6 @@ export default struct IHlink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetTargetFrameName() {
@@ -180,7 +174,6 @@ export default struct IHlink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetMiscStatus() {
@@ -203,7 +196,6 @@ export default struct IHlink extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzAdditionalParams 
      * @returns {HRESULT} 
      */
@@ -215,7 +207,6 @@ export default struct IHlink extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetAdditionalParams() {
@@ -232,20 +223,20 @@ export default struct IHlink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetHlinkSite := CallbackCreate(GetMethod(implObj, "SetHlinkSite"), flags, 3)
-        this.vtbl.GetHlinkSite := CallbackCreate(GetMethod(implObj, "GetHlinkSite"), flags, 3)
-        this.vtbl.SetMonikerReference := CallbackCreate(GetMethod(implObj, "SetMonikerReference"), flags, 4)
-        this.vtbl.GetMonikerReference := CallbackCreate(GetMethod(implObj, "GetMonikerReference"), flags, 4)
-        this.vtbl.SetStringReference := CallbackCreate(GetMethod(implObj, "SetStringReference"), flags, 4)
-        this.vtbl.GetStringReference := CallbackCreate(GetMethod(implObj, "GetStringReference"), flags, 4)
-        this.vtbl.SetFriendlyName := CallbackCreate(GetMethod(implObj, "SetFriendlyName"), flags, 2)
-        this.vtbl.GetFriendlyName := CallbackCreate(GetMethod(implObj, "GetFriendlyName"), flags, 3)
-        this.vtbl.SetTargetFrameName := CallbackCreate(GetMethod(implObj, "SetTargetFrameName"), flags, 2)
-        this.vtbl.GetTargetFrameName := CallbackCreate(GetMethod(implObj, "GetTargetFrameName"), flags, 2)
-        this.vtbl.GetMiscStatus := CallbackCreate(GetMethod(implObj, "GetMiscStatus"), flags, 2)
-        this.vtbl.Navigate := CallbackCreate(GetMethod(implObj, "Navigate"), flags, 5)
-        this.vtbl.SetAdditionalParams := CallbackCreate(GetMethod(implObj, "SetAdditionalParams"), flags, 2)
-        this.vtbl.GetAdditionalParams := CallbackCreate(GetMethod(implObj, "GetAdditionalParams"), flags, 2)
+        this.vtbl.SetHlinkSite := CallbackCreate(ObjBindMethod(implObj, "SetHlinkSite"), flags, 3)
+        this.vtbl.GetHlinkSite := CallbackCreate(ObjBindMethod(implObj, "GetHlinkSite"), flags, 3)
+        this.vtbl.SetMonikerReference := CallbackCreate(ObjBindMethod(implObj, "SetMonikerReference"), flags, 4)
+        this.vtbl.GetMonikerReference := CallbackCreate(ObjBindMethod(implObj, "GetMonikerReference"), flags, 4)
+        this.vtbl.SetStringReference := CallbackCreate(ObjBindMethod(implObj, "SetStringReference"), flags, 4)
+        this.vtbl.GetStringReference := CallbackCreate(ObjBindMethod(implObj, "GetStringReference"), flags, 4)
+        this.vtbl.SetFriendlyName := CallbackCreate(ObjBindMethod(implObj, "SetFriendlyName"), flags, 2)
+        this.vtbl.GetFriendlyName := CallbackCreate(ObjBindMethod(implObj, "GetFriendlyName"), flags, 3)
+        this.vtbl.SetTargetFrameName := CallbackCreate(ObjBindMethod(implObj, "SetTargetFrameName"), flags, 2)
+        this.vtbl.GetTargetFrameName := CallbackCreate(ObjBindMethod(implObj, "GetTargetFrameName"), flags, 2)
+        this.vtbl.GetMiscStatus := CallbackCreate(ObjBindMethod(implObj, "GetMiscStatus"), flags, 2)
+        this.vtbl.Navigate := CallbackCreate(ObjBindMethod(implObj, "Navigate"), flags, 5)
+        this.vtbl.SetAdditionalParams := CallbackCreate(ObjBindMethod(implObj, "SetAdditionalParams"), flags, 2)
+        this.vtbl.GetAdditionalParams := CallbackCreate(ObjBindMethod(implObj, "GetAdditionalParams"), flags, 2)
     }
 
     Dispose() {

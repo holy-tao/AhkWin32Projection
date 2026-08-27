@@ -179,13 +179,13 @@ export default struct IWriteEngine2EventArgs extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_StartLba := CallbackCreate(GetMethod(implObj, "get_StartLba"), flags, 2)
-        this.vtbl.get_SectorCount := CallbackCreate(GetMethod(implObj, "get_SectorCount"), flags, 2)
-        this.vtbl.get_LastReadLba := CallbackCreate(GetMethod(implObj, "get_LastReadLba"), flags, 2)
-        this.vtbl.get_LastWrittenLba := CallbackCreate(GetMethod(implObj, "get_LastWrittenLba"), flags, 2)
-        this.vtbl.get_TotalSystemBuffer := CallbackCreate(GetMethod(implObj, "get_TotalSystemBuffer"), flags, 2)
-        this.vtbl.get_UsedSystemBuffer := CallbackCreate(GetMethod(implObj, "get_UsedSystemBuffer"), flags, 2)
-        this.vtbl.get_FreeSystemBuffer := CallbackCreate(GetMethod(implObj, "get_FreeSystemBuffer"), flags, 2)
+        this.vtbl.get_StartLba := CallbackCreate(ObjBindMethod(implObj, "get_StartLba"), flags, 2)
+        this.vtbl.get_SectorCount := CallbackCreate(ObjBindMethod(implObj, "get_SectorCount"), flags, 2)
+        this.vtbl.get_LastReadLba := CallbackCreate(ObjBindMethod(implObj, "get_LastReadLba"), flags, 2)
+        this.vtbl.get_LastWrittenLba := CallbackCreate(ObjBindMethod(implObj, "get_LastWrittenLba"), flags, 2)
+        this.vtbl.get_TotalSystemBuffer := CallbackCreate(ObjBindMethod(implObj, "get_TotalSystemBuffer"), flags, 2)
+        this.vtbl.get_UsedSystemBuffer := CallbackCreate(ObjBindMethod(implObj, "get_UsedSystemBuffer"), flags, 2)
+        this.vtbl.get_FreeSystemBuffer := CallbackCreate(ObjBindMethod(implObj, "get_FreeSystemBuffer"), flags, 2)
     }
 
     Dispose() {

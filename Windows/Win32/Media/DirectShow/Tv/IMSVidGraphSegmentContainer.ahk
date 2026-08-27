@@ -125,7 +125,6 @@ export default struct IMSVidGraphSegmentContainer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IMSVidGraphSegment} 
      */
     get_Input() {
@@ -134,7 +133,6 @@ export default struct IMSVidGraphSegmentContainer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumMSVidGraphSegment} 
      */
     get_Outputs() {
@@ -143,7 +141,6 @@ export default struct IMSVidGraphSegmentContainer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IMSVidGraphSegment} 
      */
     get_VideoRenderer() {
@@ -152,7 +149,6 @@ export default struct IMSVidGraphSegmentContainer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IMSVidGraphSegment} 
      */
     get_AudioRenderer() {
@@ -161,7 +157,6 @@ export default struct IMSVidGraphSegmentContainer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumMSVidGraphSegment} 
      */
     get_Features() {
@@ -170,7 +165,6 @@ export default struct IMSVidGraphSegmentContainer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumMSVidGraphSegment} 
      */
     get_Composites() {
@@ -179,7 +173,6 @@ export default struct IMSVidGraphSegmentContainer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_ParentContainer() {
@@ -188,17 +181,17 @@ export default struct IMSVidGraphSegmentContainer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMSVidGraphSegment} pSegment 
      * @returns {HRESULT} 
      */
     Decompose(pSegment) {
-        result := ComCall(11, this, "ptr", pSegment, "HRESULT")
+        pSegmentMarshal := pSegment == 0 ? IntPtr : "ptr"
+
+        result := ComCall(11, this, pSegmentMarshal, pSegment, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     IsWindowless() {
@@ -234,17 +227,17 @@ export default struct IMSVidGraphSegmentContainer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Graph := CallbackCreate(GetMethod(implObj, "get_Graph"), flags, 2)
-        this.vtbl.get_Input := CallbackCreate(GetMethod(implObj, "get_Input"), flags, 2)
-        this.vtbl.get_Outputs := CallbackCreate(GetMethod(implObj, "get_Outputs"), flags, 2)
-        this.vtbl.get_VideoRenderer := CallbackCreate(GetMethod(implObj, "get_VideoRenderer"), flags, 2)
-        this.vtbl.get_AudioRenderer := CallbackCreate(GetMethod(implObj, "get_AudioRenderer"), flags, 2)
-        this.vtbl.get_Features := CallbackCreate(GetMethod(implObj, "get_Features"), flags, 2)
-        this.vtbl.get_Composites := CallbackCreate(GetMethod(implObj, "get_Composites"), flags, 2)
-        this.vtbl.get_ParentContainer := CallbackCreate(GetMethod(implObj, "get_ParentContainer"), flags, 2)
-        this.vtbl.Decompose := CallbackCreate(GetMethod(implObj, "Decompose"), flags, 2)
-        this.vtbl.IsWindowless := CallbackCreate(GetMethod(implObj, "IsWindowless"), flags, 1)
-        this.vtbl.GetFocus := CallbackCreate(GetMethod(implObj, "GetFocus"), flags, 1)
+        this.vtbl.get_Graph := CallbackCreate(ObjBindMethod(implObj, "get_Graph"), flags, 2)
+        this.vtbl.get_Input := CallbackCreate(ObjBindMethod(implObj, "get_Input"), flags, 2)
+        this.vtbl.get_Outputs := CallbackCreate(ObjBindMethod(implObj, "get_Outputs"), flags, 2)
+        this.vtbl.get_VideoRenderer := CallbackCreate(ObjBindMethod(implObj, "get_VideoRenderer"), flags, 2)
+        this.vtbl.get_AudioRenderer := CallbackCreate(ObjBindMethod(implObj, "get_AudioRenderer"), flags, 2)
+        this.vtbl.get_Features := CallbackCreate(ObjBindMethod(implObj, "get_Features"), flags, 2)
+        this.vtbl.get_Composites := CallbackCreate(ObjBindMethod(implObj, "get_Composites"), flags, 2)
+        this.vtbl.get_ParentContainer := CallbackCreate(ObjBindMethod(implObj, "get_ParentContainer"), flags, 2)
+        this.vtbl.Decompose := CallbackCreate(ObjBindMethod(implObj, "Decompose"), flags, 2)
+        this.vtbl.IsWindowless := CallbackCreate(ObjBindMethod(implObj, "IsWindowless"), flags, 1)
+        this.vtbl.GetFocus := CallbackCreate(ObjBindMethod(implObj, "GetFocus"), flags, 1)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct PCLUSAPI_ONLINE_CLUSTER_RESOURCE {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @returns {Integer} 
      */

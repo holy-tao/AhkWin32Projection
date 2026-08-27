@@ -48,9 +48,10 @@
  * @since windows5.1.2600
  */
 export GetRawInputData(_hRawInput, uiCommand, pData, pcbSize, cbSizeHeader) {
-    pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+    pDataMarshal := pData == 0 ? IntPtr : IntPtr
+    pcbSizeMarshal := pcbSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("USER32.dll\GetRawInputData", HRAWINPUT, _hRawInput, RAW_INPUT_DATA_COMMAND_FLAGS, uiCommand, IntPtr, pData, pcbSizeMarshal, pcbSize, UInt32, cbSizeHeader, UInt32)
+    result := DllCall("USER32.dll\GetRawInputData", HRAWINPUT, _hRawInput, RAW_INPUT_DATA_COMMAND_FLAGS, uiCommand, pDataMarshal, pData, pcbSizeMarshal, pcbSize, UInt32, cbSizeHeader, UInt32)
     return result
 }
 
@@ -82,11 +83,13 @@ export GetRawInputData(_hRawInput, uiCommand, pData, pcbSize, cbSizeHeader) {
  * @since windows5.1.2600
  */
 export GetRawInputDeviceInfoA(hDevice, uiCommand, pData, pcbSize) {
-    pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+    hDeviceMarshal := hDevice == 0 ? IntPtr : HANDLE
+    pDataMarshal := pData == 0 ? IntPtr : IntPtr
+    pcbSizeMarshal := pcbSize is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetRawInputDeviceInfoA", HANDLE, hDevice, RAW_INPUT_DEVICE_INFO_COMMAND, uiCommand, IntPtr, pData, pcbSizeMarshal, pcbSize, UInt32)
+    result := DllCall("USER32.dll\GetRawInputDeviceInfoA", hDeviceMarshal, hDevice, RAW_INPUT_DEVICE_INFO_COMMAND, uiCommand, pDataMarshal, pData, pcbSizeMarshal, pcbSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -122,11 +125,13 @@ export GetRawInputDeviceInfoA(hDevice, uiCommand, pData, pcbSize) {
  * @since windows5.1.2600
  */
 export GetRawInputDeviceInfoW(hDevice, uiCommand, pData, pcbSize) {
-    pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+    hDeviceMarshal := hDevice == 0 ? IntPtr : HANDLE
+    pDataMarshal := pData == 0 ? IntPtr : IntPtr
+    pcbSizeMarshal := pcbSize is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetRawInputDeviceInfoW", HANDLE, hDevice, RAW_INPUT_DEVICE_INFO_COMMAND, uiCommand, IntPtr, pData, pcbSizeMarshal, pcbSize, UInt32)
+    result := DllCall("USER32.dll\GetRawInputDeviceInfoW", hDeviceMarshal, hDevice, RAW_INPUT_DEVICE_INFO_COMMAND, uiCommand, pDataMarshal, pData, pcbSizeMarshal, pcbSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -185,11 +190,12 @@ export GetRawInputDeviceInfoW(hDevice, uiCommand, pData, pcbSize) {
  * @since windows5.1.2600
  */
 export GetRawInputBuffer(pData, pcbSize, cbSizeHeader) {
-    pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+    pDataMarshal := pData == 0 ? IntPtr : IntPtr
+    pcbSizeMarshal := pcbSize is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetRawInputBuffer", IntPtr, pData, pcbSizeMarshal, pcbSize, UInt32, cbSizeHeader, UInt32)
+    result := DllCall("USER32.dll\GetRawInputBuffer", pDataMarshal, pData, pcbSizeMarshal, pcbSize, UInt32, cbSizeHeader, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -255,11 +261,12 @@ export RegisterRawInputDevices(pRawInputDevices, uiNumDevices, cbSize) {
  * @since windows5.1.2600
  */
 export GetRegisteredRawInputDevices(pRawInputDevices, puiNumDevices, cbSize) {
-    puiNumDevicesMarshal := puiNumDevices is VarRef ? "uint*" : "ptr"
+    pRawInputDevicesMarshal := pRawInputDevices == 0 ? IntPtr : RAWINPUTDEVICE.Ptr
+    puiNumDevicesMarshal := puiNumDevices is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetRegisteredRawInputDevices", RAWINPUTDEVICE.Ptr, pRawInputDevices, puiNumDevicesMarshal, puiNumDevices, UInt32, cbSize, UInt32)
+    result := DllCall("USER32.dll\GetRegisteredRawInputDevices", pRawInputDevicesMarshal, pRawInputDevices, puiNumDevicesMarshal, puiNumDevices, UInt32, cbSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -294,11 +301,12 @@ export GetRegisteredRawInputDevices(pRawInputDevices, puiNumDevices, cbSize) {
  * @since windows5.1.2600
  */
 export GetRawInputDeviceList(pRawInputDeviceList, puiNumDevices, cbSize) {
-    puiNumDevicesMarshal := puiNumDevices is VarRef ? "uint*" : "ptr"
+    pRawInputDeviceListMarshal := pRawInputDeviceList == 0 ? IntPtr : RAWINPUTDEVICELIST.Ptr
+    puiNumDevicesMarshal := puiNumDevices is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetRawInputDeviceList", RAWINPUTDEVICELIST.Ptr, pRawInputDeviceList, puiNumDevicesMarshal, puiNumDevices, UInt32, cbSize, UInt32)
+    result := DllCall("USER32.dll\GetRawInputDeviceList", pRawInputDeviceListMarshal, pRawInputDeviceList, puiNumDevicesMarshal, puiNumDevices, UInt32, cbSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -324,7 +332,7 @@ export GetRawInputDeviceList(pRawInputDeviceList, puiNumDevices, cbSize) {
  * @since windows5.1.2600
  */
 export DefRawInputProc(paRawInput, nInput, cbSizeHeader) {
-    paRawInputMarshal := paRawInput is VarRef ? "ptr*" : "ptr"
+    paRawInputMarshal := paRawInput is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("USER32.dll\DefRawInputProc", paRawInputMarshal, paRawInput, Int32, nInput, UInt32, cbSizeHeader, LRESULT)
     return result

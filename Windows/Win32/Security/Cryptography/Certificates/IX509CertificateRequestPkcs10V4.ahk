@@ -57,7 +57,6 @@ export default struct IX509CertificateRequestPkcs10V4 extends IX509CertificateRe
     }
 
     /**
-     * 
      * @returns {KeyAttestationClaimType} 
      */
     get_ClaimType() {
@@ -66,7 +65,6 @@ export default struct IX509CertificateRequestPkcs10V4 extends IX509CertificateRe
     }
 
     /**
-     * 
      * @param {KeyAttestationClaimType} Value 
      * @returns {HRESULT} 
      */
@@ -76,7 +74,6 @@ export default struct IX509CertificateRequestPkcs10V4 extends IX509CertificateRe
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_AttestPrivateKeyPreferred() {
@@ -85,7 +82,6 @@ export default struct IX509CertificateRequestPkcs10V4 extends IX509CertificateRe
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} Value 
      * @returns {HRESULT} 
      */
@@ -103,10 +99,10 @@ export default struct IX509CertificateRequestPkcs10V4 extends IX509CertificateRe
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ClaimType := CallbackCreate(GetMethod(implObj, "get_ClaimType"), flags, 2)
-        this.vtbl.put_ClaimType := CallbackCreate(GetMethod(implObj, "put_ClaimType"), flags, 2)
-        this.vtbl.get_AttestPrivateKeyPreferred := CallbackCreate(GetMethod(implObj, "get_AttestPrivateKeyPreferred"), flags, 2)
-        this.vtbl.put_AttestPrivateKeyPreferred := CallbackCreate(GetMethod(implObj, "put_AttestPrivateKeyPreferred"), flags, 2)
+        this.vtbl.get_ClaimType := CallbackCreate(ObjBindMethod(implObj, "get_ClaimType"), flags, 2)
+        this.vtbl.put_ClaimType := CallbackCreate(ObjBindMethod(implObj, "put_ClaimType"), flags, 2)
+        this.vtbl.get_AttestPrivateKeyPreferred := CallbackCreate(ObjBindMethod(implObj, "get_AttestPrivateKeyPreferred"), flags, 2)
+        this.vtbl.put_AttestPrivateKeyPreferred := CallbackCreate(ObjBindMethod(implObj, "put_AttestPrivateKeyPreferred"), flags, 2)
     }
 
     Dispose() {

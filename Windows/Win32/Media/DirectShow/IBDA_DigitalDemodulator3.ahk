@@ -56,7 +56,6 @@ export default struct IBDA_DigitalDemodulator3 extends IBDA_DigitalDemodulator2 
     }
 
     /**
-     * 
      * @param {Pointer<BDA_SIGNAL_TIMEOUTS>} pSignalTimeouts 
      * @returns {HRESULT} 
      */
@@ -66,7 +65,6 @@ export default struct IBDA_DigitalDemodulator3 extends IBDA_DigitalDemodulator2 
     }
 
     /**
-     * 
      * @param {Pointer<BDA_SIGNAL_TIMEOUTS>} pSignalTimeouts 
      * @returns {HRESULT} 
      */
@@ -76,24 +74,22 @@ export default struct IBDA_DigitalDemodulator3 extends IBDA_DigitalDemodulator2 
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pPLPNumber 
      * @returns {HRESULT} 
      */
     put_PLPNumber(pPLPNumber) {
-        pPLPNumberMarshal := pPLPNumber is VarRef ? "uint*" : "ptr"
+        pPLPNumberMarshal := pPLPNumber is VarRef ? "uint*" : IntPtr
 
         result := ComCall(27, this, pPLPNumberMarshal, pPLPNumber, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pPLPNumber 
      * @returns {HRESULT} 
      */
     get_PLPNumber(pPLPNumber) {
-        pPLPNumberMarshal := pPLPNumber is VarRef ? "uint*" : "ptr"
+        pPLPNumberMarshal := pPLPNumber is VarRef ? "uint*" : IntPtr
 
         result := ComCall(28, this, pPLPNumberMarshal, pPLPNumber, "HRESULT")
         return result
@@ -108,10 +104,10 @@ export default struct IBDA_DigitalDemodulator3 extends IBDA_DigitalDemodulator2 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_SignalTimeouts := CallbackCreate(GetMethod(implObj, "put_SignalTimeouts"), flags, 2)
-        this.vtbl.get_SignalTimeouts := CallbackCreate(GetMethod(implObj, "get_SignalTimeouts"), flags, 2)
-        this.vtbl.put_PLPNumber := CallbackCreate(GetMethod(implObj, "put_PLPNumber"), flags, 2)
-        this.vtbl.get_PLPNumber := CallbackCreate(GetMethod(implObj, "get_PLPNumber"), flags, 2)
+        this.vtbl.put_SignalTimeouts := CallbackCreate(ObjBindMethod(implObj, "put_SignalTimeouts"), flags, 2)
+        this.vtbl.get_SignalTimeouts := CallbackCreate(ObjBindMethod(implObj, "get_SignalTimeouts"), flags, 2)
+        this.vtbl.put_PLPNumber := CallbackCreate(ObjBindMethod(implObj, "put_PLPNumber"), flags, 2)
+        this.vtbl.get_PLPNumber := CallbackCreate(ObjBindMethod(implObj, "get_PLPNumber"), flags, 2)
     }
 
     Dispose() {

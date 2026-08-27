@@ -84,7 +84,7 @@ export default struct IResolveShellLink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ResolveShellLink := CallbackCreate(GetMethod(implObj, "ResolveShellLink"), flags, 4)
+        this.vtbl.ResolveShellLink := CallbackCreate(ObjBindMethod(implObj, "ResolveShellLink"), flags, 4)
     }
 
     Dispose() {

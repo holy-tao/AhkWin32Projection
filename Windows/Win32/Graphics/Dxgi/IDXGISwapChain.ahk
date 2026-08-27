@@ -184,7 +184,9 @@ export default struct IDXGISwapChain extends IDXGIDeviceSubObject {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiswapchain-setfullscreenstate
      */
     SetFullscreenState(Fullscreen, pTarget) {
-        result := ComCall(10, this, BOOL, Fullscreen, "ptr", pTarget, "HRESULT")
+        pTargetMarshal := pTarget == 0 ? IntPtr : "ptr"
+
+        result := ComCall(10, this, BOOL, Fullscreen, pTargetMarshal, pTarget, "HRESULT")
         return result
     }
 
@@ -210,9 +212,11 @@ export default struct IDXGISwapChain extends IDXGIDeviceSubObject {
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiswapchain-getfullscreenstate
      */
     GetFullscreenState(pFullscreen, ppTarget) {
-        pFullscreenMarshal := pFullscreen is VarRef ? "int*" : "ptr"
+        pFullscreenMarshal := pFullscreen is VarRef ? "int*" : IntPtr
+        pFullscreenMarshal := pFullscreen == 0 ? IntPtr : BOOL.Ptr
+        ppTargetMarshal := ppTarget == 0 ? IntPtr : IDXGIOutput.Ptr
 
-        result := ComCall(11, this, pFullscreenMarshal, pFullscreen, IDXGIOutput.Ptr, ppTarget, "HRESULT")
+        result := ComCall(11, this, pFullscreenMarshal, pFullscreen, ppTargetMarshal, ppTarget, "HRESULT")
         return result
     }
 
@@ -394,16 +398,16 @@ export default struct IDXGISwapChain extends IDXGIDeviceSubObject {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Present := CallbackCreate(GetMethod(implObj, "Present"), flags, 3)
-        this.vtbl.GetBuffer := CallbackCreate(GetMethod(implObj, "GetBuffer"), flags, 4)
-        this.vtbl.SetFullscreenState := CallbackCreate(GetMethod(implObj, "SetFullscreenState"), flags, 3)
-        this.vtbl.GetFullscreenState := CallbackCreate(GetMethod(implObj, "GetFullscreenState"), flags, 3)
-        this.vtbl.GetDesc := CallbackCreate(GetMethod(implObj, "GetDesc"), flags, 2)
-        this.vtbl.ResizeBuffers := CallbackCreate(GetMethod(implObj, "ResizeBuffers"), flags, 6)
-        this.vtbl.ResizeTarget := CallbackCreate(GetMethod(implObj, "ResizeTarget"), flags, 2)
-        this.vtbl.GetContainingOutput := CallbackCreate(GetMethod(implObj, "GetContainingOutput"), flags, 2)
-        this.vtbl.GetFrameStatistics := CallbackCreate(GetMethod(implObj, "GetFrameStatistics"), flags, 2)
-        this.vtbl.GetLastPresentCount := CallbackCreate(GetMethod(implObj, "GetLastPresentCount"), flags, 2)
+        this.vtbl.Present := CallbackCreate(ObjBindMethod(implObj, "Present"), flags, 3)
+        this.vtbl.GetBuffer := CallbackCreate(ObjBindMethod(implObj, "GetBuffer"), flags, 4)
+        this.vtbl.SetFullscreenState := CallbackCreate(ObjBindMethod(implObj, "SetFullscreenState"), flags, 3)
+        this.vtbl.GetFullscreenState := CallbackCreate(ObjBindMethod(implObj, "GetFullscreenState"), flags, 3)
+        this.vtbl.GetDesc := CallbackCreate(ObjBindMethod(implObj, "GetDesc"), flags, 2)
+        this.vtbl.ResizeBuffers := CallbackCreate(ObjBindMethod(implObj, "ResizeBuffers"), flags, 6)
+        this.vtbl.ResizeTarget := CallbackCreate(ObjBindMethod(implObj, "ResizeTarget"), flags, 2)
+        this.vtbl.GetContainingOutput := CallbackCreate(ObjBindMethod(implObj, "GetContainingOutput"), flags, 2)
+        this.vtbl.GetFrameStatistics := CallbackCreate(ObjBindMethod(implObj, "GetFrameStatistics"), flags, 2)
+        this.vtbl.GetLastPresentCount := CallbackCreate(ObjBindMethod(implObj, "GetLastPresentCount"), flags, 2)
     }
 
     Dispose() {

@@ -78,9 +78,9 @@ export default struct ID3D12DeviceRemovedExtendedDataSettings extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAutoBreadcrumbsEnablement := CallbackCreate(GetMethod(implObj, "SetAutoBreadcrumbsEnablement"), flags, 2)
-        this.vtbl.SetPageFaultEnablement := CallbackCreate(GetMethod(implObj, "SetPageFaultEnablement"), flags, 2)
-        this.vtbl.SetWatsonDumpEnablement := CallbackCreate(GetMethod(implObj, "SetWatsonDumpEnablement"), flags, 2)
+        this.vtbl.SetAutoBreadcrumbsEnablement := CallbackCreate(ObjBindMethod(implObj, "SetAutoBreadcrumbsEnablement"), flags, 2)
+        this.vtbl.SetPageFaultEnablement := CallbackCreate(ObjBindMethod(implObj, "SetPageFaultEnablement"), flags, 2)
+        this.vtbl.SetWatsonDumpEnablement := CallbackCreate(ObjBindMethod(implObj, "SetWatsonDumpEnablement"), flags, 2)
     }
 
     Dispose() {

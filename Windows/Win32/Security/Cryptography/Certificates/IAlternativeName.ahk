@@ -233,7 +233,9 @@ export default struct IAlternativeName extends IDispatch {
     InitializeFromOtherName(pObjectId, Encoding, strRawData, ToBeWrapped) {
         strRawData := strRawData is String ? BSTR.Alloc(strRawData).Value : strRawData
 
-        result := ComCall(9, this, "ptr", pObjectId, EncodingType, Encoding, BSTR, strRawData, VARIANT_BOOL, ToBeWrapped, "HRESULT")
+        pObjectIdMarshal := pObjectId == 0 ? IntPtr : "ptr"
+
+        result := ComCall(9, this, pObjectIdMarshal, pObjectId, EncodingType, Encoding, BSTR, strRawData, VARIANT_BOOL, ToBeWrapped, "HRESULT")
         return result
     }
 
@@ -377,13 +379,13 @@ export default struct IAlternativeName extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeFromString := CallbackCreate(GetMethod(implObj, "InitializeFromString"), flags, 3)
-        this.vtbl.InitializeFromRawData := CallbackCreate(GetMethod(implObj, "InitializeFromRawData"), flags, 4)
-        this.vtbl.InitializeFromOtherName := CallbackCreate(GetMethod(implObj, "InitializeFromOtherName"), flags, 5)
-        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
-        this.vtbl.get_StrValue := CallbackCreate(GetMethod(implObj, "get_StrValue"), flags, 2)
-        this.vtbl.get_ObjectId := CallbackCreate(GetMethod(implObj, "get_ObjectId"), flags, 2)
-        this.vtbl.get_RawData := CallbackCreate(GetMethod(implObj, "get_RawData"), flags, 3)
+        this.vtbl.InitializeFromString := CallbackCreate(ObjBindMethod(implObj, "InitializeFromString"), flags, 3)
+        this.vtbl.InitializeFromRawData := CallbackCreate(ObjBindMethod(implObj, "InitializeFromRawData"), flags, 4)
+        this.vtbl.InitializeFromOtherName := CallbackCreate(ObjBindMethod(implObj, "InitializeFromOtherName"), flags, 5)
+        this.vtbl.get_Type := CallbackCreate(ObjBindMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_StrValue := CallbackCreate(ObjBindMethod(implObj, "get_StrValue"), flags, 2)
+        this.vtbl.get_ObjectId := CallbackCreate(ObjBindMethod(implObj, "get_ObjectId"), flags, 2)
+        this.vtbl.get_RawData := CallbackCreate(ObjBindMethod(implObj, "get_RawData"), flags, 3)
     }
 
     Dispose() {

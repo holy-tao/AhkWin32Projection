@@ -68,7 +68,7 @@ export default struct IFsrmClassificationManager2 extends IFsrmClassificationMan
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ClassifyFiles := CallbackCreate(GetMethod(implObj, "ClassifyFiles"), flags, 5)
+        this.vtbl.ClassifyFiles := CallbackCreate(ObjBindMethod(implObj, "ClassifyFiles"), flags, 5)
     }
 
     Dispose() {

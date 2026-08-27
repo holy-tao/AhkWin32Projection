@@ -95,8 +95,8 @@ export default struct IInkDivisionResult extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Strokes := CallbackCreate(GetMethod(implObj, "get_Strokes"), flags, 2)
-        this.vtbl.ResultByType := CallbackCreate(GetMethod(implObj, "ResultByType"), flags, 3)
+        this.vtbl.get_Strokes := CallbackCreate(ObjBindMethod(implObj, "get_Strokes"), flags, 2)
+        this.vtbl.ResultByType := CallbackCreate(ObjBindMethod(implObj, "ResultByType"), flags, 3)
     }
 
     Dispose() {

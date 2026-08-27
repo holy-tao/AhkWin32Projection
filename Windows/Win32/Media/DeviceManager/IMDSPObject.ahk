@@ -98,8 +98,8 @@ export default struct IMDSPObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspobject-read
      */
     Read(pdwSize, abMac) {
-        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
-        abMacMarshal := abMac is VarRef ? "char*" : "ptr"
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : IntPtr
+        abMacMarshal := abMac is VarRef ? "char*" : IntPtr
 
         result := ComCall(4, this, "char*", &pData := 0, pdwSizeMarshal, pdwSize, abMacMarshal, abMac, "HRESULT")
         return pData
@@ -125,9 +125,9 @@ export default struct IMDSPObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspobject-write
      */
     Write(pData, pdwSize, abMac) {
-        pDataMarshal := pData is VarRef ? "char*" : "ptr"
-        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
-        abMacMarshal := abMac is VarRef ? "char*" : "ptr"
+        pDataMarshal := pData is VarRef ? "char*" : IntPtr
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : IntPtr
+        abMacMarshal := abMac is VarRef ? "char*" : IntPtr
 
         result := ComCall(5, this, pDataMarshal, pData, pdwSizeMarshal, pdwSize, abMacMarshal, abMac, "HRESULT")
         return result
@@ -154,7 +154,9 @@ export default struct IMDSPObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspobject-delete
      */
     Delete(fuMode, pProgress) {
-        result := ComCall(6, this, UInt32, fuMode, "ptr", pProgress, "HRESULT")
+        pProgressMarshal := pProgress == 0 ? IntPtr : "ptr"
+
+        result := ComCall(6, this, UInt32, fuMode, pProgressMarshal, pProgress, "HRESULT")
         return result
     }
 
@@ -219,7 +221,9 @@ export default struct IMDSPObject extends IUnknown {
     Rename(pwszNewName, pProgress) {
         pwszNewName := pwszNewName is String ? StrPtr(pwszNewName) : pwszNewName
 
-        result := ComCall(8, this, "ptr", pwszNewName, "ptr", pProgress, "HRESULT")
+        pProgressMarshal := pProgress == 0 ? IntPtr : "ptr"
+
+        result := ComCall(8, this, "ptr", pwszNewName, pProgressMarshal, pProgress, "HRESULT")
         return result
     }
 
@@ -284,7 +288,10 @@ export default struct IMDSPObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspobject-move
      */
     Move(fuMode, pProgress, pTarget) {
-        result := ComCall(9, this, UInt32, fuMode, "ptr", pProgress, "ptr", pTarget, "HRESULT")
+        pProgressMarshal := pProgress == 0 ? IntPtr : "ptr"
+        pTargetMarshal := pTarget == 0 ? IntPtr : "ptr"
+
+        result := ComCall(9, this, UInt32, fuMode, pProgressMarshal, pProgress, pTargetMarshal, pTarget, "HRESULT")
         return result
     }
 
@@ -316,14 +323,14 @@ export default struct IMDSPObject extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 2)
-        this.vtbl.Read := CallbackCreate(GetMethod(implObj, "Read"), flags, 4)
-        this.vtbl.Write := CallbackCreate(GetMethod(implObj, "Write"), flags, 4)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 3)
-        this.vtbl.Seek := CallbackCreate(GetMethod(implObj, "Seek"), flags, 3)
-        this.vtbl.Rename := CallbackCreate(GetMethod(implObj, "Rename"), flags, 3)
-        this.vtbl.Move := CallbackCreate(GetMethod(implObj, "Move"), flags, 4)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.Open := CallbackCreate(ObjBindMethod(implObj, "Open"), flags, 2)
+        this.vtbl.Read := CallbackCreate(ObjBindMethod(implObj, "Read"), flags, 4)
+        this.vtbl.Write := CallbackCreate(ObjBindMethod(implObj, "Write"), flags, 4)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 3)
+        this.vtbl.Seek := CallbackCreate(ObjBindMethod(implObj, "Seek"), flags, 3)
+        this.vtbl.Rename := CallbackCreate(ObjBindMethod(implObj, "Rename"), flags, 3)
+        this.vtbl.Move := CallbackCreate(ObjBindMethod(implObj, "Move"), flags, 4)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
     }
 
     Dispose() {

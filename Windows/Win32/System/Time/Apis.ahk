@@ -42,9 +42,11 @@
  * @since windows5.0
  */
 export SystemTimeToTzSpecificLocalTime(lpTimeZoneInformation, lpUniversalTime, lpLocalTime) {
+    lpTimeZoneInformationMarshal := lpTimeZoneInformation == 0 ? IntPtr : TIME_ZONE_INFORMATION.Ptr
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SystemTimeToTzSpecificLocalTime", TIME_ZONE_INFORMATION.Ptr, lpTimeZoneInformation, SYSTEMTIME.Ptr, lpUniversalTime, SYSTEMTIME.Ptr, lpLocalTime, BOOL)
+    result := DllCall("KERNEL32.dll\SystemTimeToTzSpecificLocalTime", lpTimeZoneInformationMarshal, lpTimeZoneInformation, SYSTEMTIME.Ptr, lpUniversalTime, SYSTEMTIME.Ptr, lpLocalTime, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -73,9 +75,11 @@ export SystemTimeToTzSpecificLocalTime(lpTimeZoneInformation, lpUniversalTime, l
  * @since windows5.1.2600
  */
 export TzSpecificLocalTimeToSystemTime(lpTimeZoneInformation, lpLocalTime, lpUniversalTime) {
+    lpTimeZoneInformationMarshal := lpTimeZoneInformation == 0 ? IntPtr : TIME_ZONE_INFORMATION.Ptr
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\TzSpecificLocalTimeToSystemTime", TIME_ZONE_INFORMATION.Ptr, lpTimeZoneInformation, SYSTEMTIME.Ptr, lpLocalTime, SYSTEMTIME.Ptr, lpUniversalTime, BOOL)
+    result := DllCall("KERNEL32.dll\TzSpecificLocalTimeToSystemTime", lpTimeZoneInformationMarshal, lpTimeZoneInformation, SYSTEMTIME.Ptr, lpLocalTime, SYSTEMTIME.Ptr, lpUniversalTime, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -381,9 +385,11 @@ export GetDynamicTimeZoneInformation(pTimeZoneInformation) {
  * @since windows6.0.6000
  */
 export GetTimeZoneInformationForYear(wYear, pdtzi, ptzi) {
+    pdtziMarshal := pdtzi == 0 ? IntPtr : DYNAMIC_TIME_ZONE_INFORMATION.Ptr
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetTimeZoneInformationForYear", UInt16, wYear, DYNAMIC_TIME_ZONE_INFORMATION.Ptr, pdtzi, TIME_ZONE_INFORMATION.Ptr, ptzi, BOOL)
+    result := DllCall("KERNEL32.dll\GetTimeZoneInformationForYear", UInt16, wYear, pdtziMarshal, pdtzi, TIME_ZONE_INFORMATION.Ptr, ptzi, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -489,8 +495,8 @@ export EnumDynamicTimeZoneInformation(dwIndex, lpTimeZoneInformation) {
  * @since windows8.0
  */
 export GetDynamicTimeZoneInformationEffectiveYears(lpTimeZoneInformation, FirstYear, LastYear) {
-    FirstYearMarshal := FirstYear is VarRef ? "uint*" : "ptr"
-    LastYearMarshal := LastYear is VarRef ? "uint*" : "ptr"
+    FirstYearMarshal := FirstYear is VarRef ? "uint*" : IntPtr
+    LastYearMarshal := LastYear is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ADVAPI32.dll\GetDynamicTimeZoneInformationEffectiveYears", DYNAMIC_TIME_ZONE_INFORMATION.Ptr, lpTimeZoneInformation, FirstYearMarshal, FirstYear, LastYearMarshal, LastYear, UInt32)
     return result
@@ -509,9 +515,11 @@ export GetDynamicTimeZoneInformationEffectiveYears(lpTimeZoneInformation, FirstY
  * @since windows6.1
  */
 export SystemTimeToTzSpecificLocalTimeEx(lpTimeZoneInformation, lpUniversalTime, lpLocalTime) {
+    lpTimeZoneInformationMarshal := lpTimeZoneInformation == 0 ? IntPtr : DYNAMIC_TIME_ZONE_INFORMATION.Ptr
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SystemTimeToTzSpecificLocalTimeEx", DYNAMIC_TIME_ZONE_INFORMATION.Ptr, lpTimeZoneInformation, SYSTEMTIME.Ptr, lpUniversalTime, SYSTEMTIME.Ptr, lpLocalTime, BOOL)
+    result := DllCall("KERNEL32.dll\SystemTimeToTzSpecificLocalTimeEx", lpTimeZoneInformationMarshal, lpTimeZoneInformation, SYSTEMTIME.Ptr, lpUniversalTime, SYSTEMTIME.Ptr, lpLocalTime, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -532,9 +540,11 @@ export SystemTimeToTzSpecificLocalTimeEx(lpTimeZoneInformation, lpUniversalTime,
  * @since windows6.1
  */
 export TzSpecificLocalTimeToSystemTimeEx(lpTimeZoneInformation, lpLocalTime, lpUniversalTime) {
+    lpTimeZoneInformationMarshal := lpTimeZoneInformation == 0 ? IntPtr : DYNAMIC_TIME_ZONE_INFORMATION.Ptr
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\TzSpecificLocalTimeToSystemTimeEx", DYNAMIC_TIME_ZONE_INFORMATION.Ptr, lpTimeZoneInformation, SYSTEMTIME.Ptr, lpLocalTime, SYSTEMTIME.Ptr, lpUniversalTime, BOOL)
+    result := DllCall("KERNEL32.dll\TzSpecificLocalTimeToSystemTimeEx", lpTimeZoneInformationMarshal, lpTimeZoneInformation, SYSTEMTIME.Ptr, lpLocalTime, SYSTEMTIME.Ptr, lpUniversalTime, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -543,26 +553,28 @@ export TzSpecificLocalTimeToSystemTimeEx(lpTimeZoneInformation, lpLocalTime, lpU
 }
 
 /**
- * 
  * @param {Pointer<TIME_ZONE_INFORMATION>} timeZoneInformation 
  * @param {Pointer<FILETIME>} localFileTime 
  * @param {Pointer<SYSTEMTIME>} localSystemTime 
  * @returns {BOOL} 
  */
 export LocalFileTimeToLocalSystemTime(timeZoneInformation, localFileTime, localSystemTime) {
-    result := DllCall("KERNEL32.dll\LocalFileTimeToLocalSystemTime", TIME_ZONE_INFORMATION.Ptr, timeZoneInformation, FILETIME.Ptr, localFileTime, SYSTEMTIME.Ptr, localSystemTime, BOOL)
+    timeZoneInformationMarshal := timeZoneInformation == 0 ? IntPtr : TIME_ZONE_INFORMATION.Ptr
+
+    result := DllCall("KERNEL32.dll\LocalFileTimeToLocalSystemTime", timeZoneInformationMarshal, timeZoneInformation, FILETIME.Ptr, localFileTime, SYSTEMTIME.Ptr, localSystemTime, BOOL)
     return result
 }
 
 /**
- * 
  * @param {Pointer<TIME_ZONE_INFORMATION>} timeZoneInformation 
  * @param {Pointer<SYSTEMTIME>} localSystemTime 
  * @param {Pointer<FILETIME>} localFileTime 
  * @returns {BOOL} 
  */
 export LocalSystemTimeToLocalFileTime(timeZoneInformation, localSystemTime, localFileTime) {
-    result := DllCall("KERNEL32.dll\LocalSystemTimeToLocalFileTime", TIME_ZONE_INFORMATION.Ptr, timeZoneInformation, SYSTEMTIME.Ptr, localSystemTime, FILETIME.Ptr, localFileTime, BOOL)
+    timeZoneInformationMarshal := timeZoneInformation == 0 ? IntPtr : TIME_ZONE_INFORMATION.Ptr
+
+    result := DllCall("KERNEL32.dll\LocalSystemTimeToLocalFileTime", timeZoneInformationMarshal, timeZoneInformation, SYSTEMTIME.Ptr, localSystemTime, FILETIME.Ptr, localFileTime, BOOL)
     return result
 }
 

@@ -22,7 +22,6 @@ export default struct PDXVAHDSW_DestroyDevice {
     }
 
     /**
-     * 
      * @param {HANDLE} hDevice A handle to the plug-in DXVA-HD device.
      * @returns {HRESULT} If this callback function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      */

@@ -209,11 +209,11 @@ export default struct IPolicyQualifier extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeEncode := CallbackCreate(GetMethod(implObj, "InitializeEncode"), flags, 3)
-        this.vtbl.get_ObjectId := CallbackCreate(GetMethod(implObj, "get_ObjectId"), flags, 2)
-        this.vtbl.get_Qualifier := CallbackCreate(GetMethod(implObj, "get_Qualifier"), flags, 2)
-        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
-        this.vtbl.get_RawData := CallbackCreate(GetMethod(implObj, "get_RawData"), flags, 3)
+        this.vtbl.InitializeEncode := CallbackCreate(ObjBindMethod(implObj, "InitializeEncode"), flags, 3)
+        this.vtbl.get_ObjectId := CallbackCreate(ObjBindMethod(implObj, "get_ObjectId"), flags, 2)
+        this.vtbl.get_Qualifier := CallbackCreate(ObjBindMethod(implObj, "get_Qualifier"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(ObjBindMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_RawData := CallbackCreate(ObjBindMethod(implObj, "get_RawData"), flags, 3)
     }
 
     Dispose() {

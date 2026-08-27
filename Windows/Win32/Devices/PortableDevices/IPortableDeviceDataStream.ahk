@@ -90,8 +90,8 @@ export default struct IPortableDeviceDataStream extends IStream {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetObjectID := CallbackCreate(GetMethod(implObj, "GetObjectID"), flags, 2)
-        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.GetObjectID := CallbackCreate(ObjBindMethod(implObj, "GetObjectID"), flags, 2)
+        this.vtbl.Cancel := CallbackCreate(ObjBindMethod(implObj, "Cancel"), flags, 1)
     }
 
     Dispose() {

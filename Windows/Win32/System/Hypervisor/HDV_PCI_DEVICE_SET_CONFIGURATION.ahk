@@ -22,7 +22,6 @@ export default struct HDV_PCI_DEVICE_SET_CONFIGURATION {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} deviceContext 
      * @param {Integer} configurationValueCount 
      * @param {Pointer<PWSTR>} configurationValues 
@@ -41,8 +40,9 @@ export default struct HDV_PCI_DEVICE_SET_CONFIGURATION {
      * |     |     |
      */
     Call(deviceContext, configurationValueCount, configurationValues) {
-        deviceContextMarshal := deviceContext is VarRef ? "ptr" : "ptr"
-        configurationValuesMarshal := configurationValues is VarRef ? "ptr*" : "ptr"
+        deviceContextMarshal := deviceContext is VarRef ? "ptr" : IntPtr
+        deviceContextMarshal := deviceContext == 0 ? IntPtr : "ptr"
+        configurationValuesMarshal := configurationValues is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, deviceContextMarshal, deviceContext, UInt32, configurationValueCount, configurationValuesMarshal, configurationValues, "HRESULT")
         return result

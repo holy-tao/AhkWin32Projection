@@ -19,7 +19,6 @@ export default struct PNPEM_CONTROL_SET_STANDARD_CONTROL {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

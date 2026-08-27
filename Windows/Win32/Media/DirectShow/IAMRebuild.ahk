@@ -36,7 +36,6 @@ export default struct IAMRebuild extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RebuildNow() {
@@ -53,7 +52,7 @@ export default struct IAMRebuild extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RebuildNow := CallbackCreate(GetMethod(implObj, "RebuildNow"), flags, 1)
+        this.vtbl.RebuildNow := CallbackCreate(ObjBindMethod(implObj, "RebuildNow"), flags, 1)
     }
 
     Dispose() {

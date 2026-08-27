@@ -23,7 +23,6 @@ export default struct PFN_CERT_ENUM_PHYSICAL_STORE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvSystemStore If CERT_SYSTEM_STORE_RELOCATE_FLAG is set in <i>dwFlags</i>, <i>pvSystemStore</i> points to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_system_store_relocate_para">CERT_SYSTEM_STORE_RELOCATE_PARA</a> structure that indicates both the name and the location of the system store to be enumerated. Otherwise, <i>pvSystemStore</i> is a pointer to a Unicode string that names the system store whose physical stores are to be enumerated. For information about prefixing the name of a service or computer to the system store name, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certregistersystemstore">CertRegisterSystemStore</a>.
@@ -50,8 +49,9 @@ export default struct PFN_CERT_ENUM_PHYSICAL_STORE {
 
         pwszStoreName := pwszStoreName is String ? StrPtr(pwszStoreName) : pwszStoreName
 
-        pvSystemStoreMarshal := pvSystemStore is VarRef ? "ptr" : "ptr"
-        pvArgMarshal := pvArg is VarRef ? "ptr" : "ptr"
+        pvSystemStoreMarshal := pvSystemStore is VarRef ? "ptr" : IntPtr
+        pvArgMarshal := pvArg is VarRef ? "ptr" : IntPtr
+        pvArgMarshal := pvArg == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, pvSystemStoreMarshal, pvSystemStore, UInt32, dwFlags, "ptr", pwszStoreName, CERT_PHYSICAL_STORE_INFO.Ptr, pStoreInfo, "ptr", pvReserved, pvArgMarshal, pvArg, BOOL)
         return result

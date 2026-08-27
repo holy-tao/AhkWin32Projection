@@ -21,7 +21,6 @@ export default struct PFLT_GET_OPERATION_STATUS_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_RELATED_OBJECTS>} FltObjects 
      * @param {Pointer<FLT_IO_PARAMETER_BLOCK>} IopbSnapshot 
      * @param {NTSTATUS} OperationStatus 
@@ -29,7 +28,8 @@ export default struct PFLT_GET_OPERATION_STATUS_CALLBACK {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(FltObjects, IopbSnapshot, OperationStatus, RequesterContext) {
-        RequesterContextMarshal := RequesterContext is VarRef ? "ptr" : "ptr"
+        RequesterContextMarshal := RequesterContext is VarRef ? "ptr" : IntPtr
+        RequesterContextMarshal := RequesterContext == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, FLT_RELATED_OBJECTS.Ptr, FltObjects, FLT_IO_PARAMETER_BLOCK.Ptr, IopbSnapshot, NTSTATUS, OperationStatus, RequesterContextMarshal, RequesterContext)
     }

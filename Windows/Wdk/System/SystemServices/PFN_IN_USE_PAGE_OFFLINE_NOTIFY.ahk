@@ -19,7 +19,6 @@ export default struct PFN_IN_USE_PAGE_OFFLINE_NOTIFY {
     }
 
     /**
-     * 
      * @param {Integer} Page 
      * @param {BOOLEAN} Flags 
      * @param {BOOLEAN} Poisoned 
@@ -27,7 +26,7 @@ export default struct PFN_IN_USE_PAGE_OFFLINE_NOTIFY {
      * @returns {BOOLEAN} 
      */
     Call(Page, Flags, Poisoned, _Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, UInt32, Page, BOOLEAN, Flags, BOOLEAN, Poisoned, _ContextMarshal, _Context, BOOLEAN)
         return result

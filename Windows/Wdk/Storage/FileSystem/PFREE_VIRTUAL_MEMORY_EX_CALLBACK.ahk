@@ -19,7 +19,6 @@ export default struct PFREE_VIRTUAL_MEMORY_EX_CALLBACK {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

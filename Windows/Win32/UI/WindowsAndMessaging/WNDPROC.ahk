@@ -49,7 +49,6 @@ export default struct WNDPROC {
     }
 
     /**
-     * 
      * @param {HWND} param0 Type: **[HWND](/windows/win32/winprog/windows-data-types)**
      * 
      * A handle to the window. This parameter is typically named *hWnd*.

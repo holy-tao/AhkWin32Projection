@@ -137,10 +137,10 @@ export default struct IUpdateServiceManager2 extends IUpdateServiceManager {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ClientApplicationID := CallbackCreate(GetMethod(implObj, "get_ClientApplicationID"), flags, 2)
-        this.vtbl.put_ClientApplicationID := CallbackCreate(GetMethod(implObj, "put_ClientApplicationID"), flags, 2)
-        this.vtbl.QueryServiceRegistration := CallbackCreate(GetMethod(implObj, "QueryServiceRegistration"), flags, 3)
-        this.vtbl.AddService2 := CallbackCreate(GetMethod(implObj, "AddService2"), flags, 5)
+        this.vtbl.get_ClientApplicationID := CallbackCreate(ObjBindMethod(implObj, "get_ClientApplicationID"), flags, 2)
+        this.vtbl.put_ClientApplicationID := CallbackCreate(ObjBindMethod(implObj, "put_ClientApplicationID"), flags, 2)
+        this.vtbl.QueryServiceRegistration := CallbackCreate(ObjBindMethod(implObj, "QueryServiceRegistration"), flags, 3)
+        this.vtbl.AddService2 := CallbackCreate(ObjBindMethod(implObj, "AddService2"), flags, 5)
     }
 
     Dispose() {

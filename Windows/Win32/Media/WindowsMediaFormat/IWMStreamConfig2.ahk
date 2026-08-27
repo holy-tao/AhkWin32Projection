@@ -120,7 +120,7 @@ export default struct IWMStreamConfig2 extends IWMStreamConfig {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamconfig2-adddataunitextension
      */
     AddDataUnitExtension(guidExtensionSystemID, cbExtensionDataSize, pbExtensionSystemInfo, cbExtensionSystemInfo) {
-        pbExtensionSystemInfoMarshal := pbExtensionSystemInfo is VarRef ? "char*" : "ptr"
+        pbExtensionSystemInfoMarshal := pbExtensionSystemInfo is VarRef ? "char*" : IntPtr
 
         result := ComCall(16, this, Guid, guidExtensionSystemID, UInt16, cbExtensionDataSize, pbExtensionSystemInfoMarshal, pbExtensionSystemInfo, UInt32, cbExtensionSystemInfo, "HRESULT")
         return result
@@ -184,9 +184,9 @@ export default struct IWMStreamConfig2 extends IWMStreamConfig {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamconfig2-getdataunitextension
      */
     GetDataUnitExtension(wDataUnitExtensionNumber, pguidExtensionSystemID, pcbExtensionDataSize, pbExtensionSystemInfo, pcbExtensionSystemInfo) {
-        pcbExtensionDataSizeMarshal := pcbExtensionDataSize is VarRef ? "ushort*" : "ptr"
-        pbExtensionSystemInfoMarshal := pbExtensionSystemInfo is VarRef ? "char*" : "ptr"
-        pcbExtensionSystemInfoMarshal := pcbExtensionSystemInfo is VarRef ? "uint*" : "ptr"
+        pcbExtensionDataSizeMarshal := pcbExtensionDataSize is VarRef ? "ushort*" : IntPtr
+        pbExtensionSystemInfoMarshal := pbExtensionSystemInfo is VarRef ? "char*" : IntPtr
+        pcbExtensionSystemInfoMarshal := pcbExtensionSystemInfo is VarRef ? "uint*" : IntPtr
 
         result := ComCall(18, this, UInt16, wDataUnitExtensionNumber, Guid.Ptr, pguidExtensionSystemID, pcbExtensionDataSizeMarshal, pcbExtensionDataSize, pbExtensionSystemInfoMarshal, pbExtensionSystemInfo, pcbExtensionSystemInfoMarshal, pcbExtensionSystemInfo, "HRESULT")
         return result
@@ -213,12 +213,12 @@ export default struct IWMStreamConfig2 extends IWMStreamConfig {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTransportType := CallbackCreate(GetMethod(implObj, "GetTransportType"), flags, 2)
-        this.vtbl.SetTransportType := CallbackCreate(GetMethod(implObj, "SetTransportType"), flags, 2)
-        this.vtbl.AddDataUnitExtension := CallbackCreate(GetMethod(implObj, "AddDataUnitExtension"), flags, 5)
-        this.vtbl.GetDataUnitExtensionCount := CallbackCreate(GetMethod(implObj, "GetDataUnitExtensionCount"), flags, 2)
-        this.vtbl.GetDataUnitExtension := CallbackCreate(GetMethod(implObj, "GetDataUnitExtension"), flags, 6)
-        this.vtbl.RemoveAllDataUnitExtensions := CallbackCreate(GetMethod(implObj, "RemoveAllDataUnitExtensions"), flags, 1)
+        this.vtbl.GetTransportType := CallbackCreate(ObjBindMethod(implObj, "GetTransportType"), flags, 2)
+        this.vtbl.SetTransportType := CallbackCreate(ObjBindMethod(implObj, "SetTransportType"), flags, 2)
+        this.vtbl.AddDataUnitExtension := CallbackCreate(ObjBindMethod(implObj, "AddDataUnitExtension"), flags, 5)
+        this.vtbl.GetDataUnitExtensionCount := CallbackCreate(ObjBindMethod(implObj, "GetDataUnitExtensionCount"), flags, 2)
+        this.vtbl.GetDataUnitExtension := CallbackCreate(ObjBindMethod(implObj, "GetDataUnitExtension"), flags, 6)
+        this.vtbl.RemoveAllDataUnitExtensions := CallbackCreate(ObjBindMethod(implObj, "RemoveAllDataUnitExtensions"), flags, 1)
     }
 
     Dispose() {

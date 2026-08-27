@@ -97,7 +97,7 @@ export default struct IGetClusterNetInterfaceInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetNetInterfaceHandle := CallbackCreate(GetMethod(implObj, "GetNetInterfaceHandle"), flags, 2)
+        this.vtbl.GetNetInterfaceHandle := CallbackCreate(ObjBindMethod(implObj, "GetNetInterfaceHandle"), flags, 2)
     }
 
     Dispose() {

@@ -40,7 +40,6 @@ export default struct ITargetFramePriv2 extends ITargetFramePriv {
     }
 
     /**
-     * 
      * @param {Integer} grfHLNF 
      * @param {IBindCtx} pbc 
      * @param {IBindStatusCallback} pibsc 
@@ -66,7 +65,7 @@ export default struct ITargetFramePriv2 extends ITargetFramePriv {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AggregatedNavigation2 := CallbackCreate(GetMethod(implObj, "AggregatedNavigation2"), flags, 7)
+        this.vtbl.AggregatedNavigation2 := CallbackCreate(ObjBindMethod(implObj, "AggregatedNavigation2"), flags, 7)
     }
 
     Dispose() {

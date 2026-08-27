@@ -84,7 +84,10 @@ export default struct IPhotoAcquirePlugin extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireplugin-initialize
      */
     Initialize(pPhotoAcquireSource, pPhotoAcquireProgressCB) {
-        result := ComCall(3, this, "ptr", pPhotoAcquireSource, "ptr", pPhotoAcquireProgressCB, "HRESULT")
+        pPhotoAcquireSourceMarshal := pPhotoAcquireSource == 0 ? IntPtr : "ptr"
+        pPhotoAcquireProgressCBMarshal := pPhotoAcquireProgressCB == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pPhotoAcquireSourceMarshal, pPhotoAcquireSource, pPhotoAcquireProgressCBMarshal, pPhotoAcquireProgressCB, "HRESULT")
         return result
     }
 
@@ -151,7 +154,11 @@ export default struct IPhotoAcquirePlugin extends IUnknown {
     ProcessItem(dwAcquireStage, pPhotoAcquireItem, pOriginalItemStream, pszFinalFilename, pPropertyStore) {
         pszFinalFilename := pszFinalFilename is String ? StrPtr(pszFinalFilename) : pszFinalFilename
 
-        result := ComCall(4, this, UInt32, dwAcquireStage, "ptr", pPhotoAcquireItem, "ptr", pOriginalItemStream, "ptr", pszFinalFilename, "ptr", pPropertyStore, "HRESULT")
+        pPhotoAcquireItemMarshal := pPhotoAcquireItem == 0 ? IntPtr : "ptr"
+        pOriginalItemStreamMarshal := pOriginalItemStream == 0 ? IntPtr : "ptr"
+        pPropertyStoreMarshal := pPropertyStore == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, UInt32, dwAcquireStage, pPhotoAcquireItemMarshal, pPhotoAcquireItem, pOriginalItemStreamMarshal, pOriginalItemStream, "ptr", pszFinalFilename, pPropertyStoreMarshal, pPropertyStore, "HRESULT")
         return result
     }
 
@@ -244,10 +251,10 @@ export default struct IPhotoAcquirePlugin extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.ProcessItem := CallbackCreate(GetMethod(implObj, "ProcessItem"), flags, 6)
-        this.vtbl.TransferComplete := CallbackCreate(GetMethod(implObj, "TransferComplete"), flags, 2)
-        this.vtbl.DisplayConfigureDialog := CallbackCreate(GetMethod(implObj, "DisplayConfigureDialog"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.ProcessItem := CallbackCreate(ObjBindMethod(implObj, "ProcessItem"), flags, 6)
+        this.vtbl.TransferComplete := CallbackCreate(ObjBindMethod(implObj, "TransferComplete"), flags, 2)
+        this.vtbl.DisplayConfigureDialog := CallbackCreate(ObjBindMethod(implObj, "DisplayConfigureDialog"), flags, 2)
     }
 
     Dispose() {

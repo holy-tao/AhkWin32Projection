@@ -224,15 +224,15 @@ export default struct IWindowProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetVisualState := CallbackCreate(GetMethod(implObj, "SetVisualState"), flags, 2)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
-        this.vtbl.WaitForInputIdle := CallbackCreate(GetMethod(implObj, "WaitForInputIdle"), flags, 3)
-        this.vtbl.get_CanMaximize := CallbackCreate(GetMethod(implObj, "get_CanMaximize"), flags, 2)
-        this.vtbl.get_CanMinimize := CallbackCreate(GetMethod(implObj, "get_CanMinimize"), flags, 2)
-        this.vtbl.get_IsModal := CallbackCreate(GetMethod(implObj, "get_IsModal"), flags, 2)
-        this.vtbl.get_WindowVisualState := CallbackCreate(GetMethod(implObj, "get_WindowVisualState"), flags, 2)
-        this.vtbl.get_WindowInteractionState := CallbackCreate(GetMethod(implObj, "get_WindowInteractionState"), flags, 2)
-        this.vtbl.get_IsTopmost := CallbackCreate(GetMethod(implObj, "get_IsTopmost"), flags, 2)
+        this.vtbl.SetVisualState := CallbackCreate(ObjBindMethod(implObj, "SetVisualState"), flags, 2)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
+        this.vtbl.WaitForInputIdle := CallbackCreate(ObjBindMethod(implObj, "WaitForInputIdle"), flags, 3)
+        this.vtbl.get_CanMaximize := CallbackCreate(ObjBindMethod(implObj, "get_CanMaximize"), flags, 2)
+        this.vtbl.get_CanMinimize := CallbackCreate(ObjBindMethod(implObj, "get_CanMinimize"), flags, 2)
+        this.vtbl.get_IsModal := CallbackCreate(ObjBindMethod(implObj, "get_IsModal"), flags, 2)
+        this.vtbl.get_WindowVisualState := CallbackCreate(ObjBindMethod(implObj, "get_WindowVisualState"), flags, 2)
+        this.vtbl.get_WindowInteractionState := CallbackCreate(ObjBindMethod(implObj, "get_WindowInteractionState"), flags, 2)
+        this.vtbl.get_IsTopmost := CallbackCreate(ObjBindMethod(implObj, "get_IsTopmost"), flags, 2)
     }
 
     Dispose() {

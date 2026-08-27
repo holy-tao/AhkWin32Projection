@@ -97,9 +97,9 @@ export default struct IDirectManipulationViewportEventHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnViewportStatusChanged := CallbackCreate(GetMethod(implObj, "OnViewportStatusChanged"), flags, 4)
-        this.vtbl.OnViewportUpdated := CallbackCreate(GetMethod(implObj, "OnViewportUpdated"), flags, 2)
-        this.vtbl.OnContentUpdated := CallbackCreate(GetMethod(implObj, "OnContentUpdated"), flags, 3)
+        this.vtbl.OnViewportStatusChanged := CallbackCreate(ObjBindMethod(implObj, "OnViewportStatusChanged"), flags, 4)
+        this.vtbl.OnViewportUpdated := CallbackCreate(ObjBindMethod(implObj, "OnViewportUpdated"), flags, 2)
+        this.vtbl.OnContentUpdated := CallbackCreate(ObjBindMethod(implObj, "OnContentUpdated"), flags, 3)
     }
 
     Dispose() {

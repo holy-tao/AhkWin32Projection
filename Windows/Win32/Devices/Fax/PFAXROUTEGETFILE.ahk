@@ -29,7 +29,6 @@ export default struct PFAXROUTEGETFILE {
     }
 
     /**
-     * 
      * @param {Integer} JobId Type: <b>DWORD</b>
      * 
      * Specifies a unique number that identifies the fax job that received the fax document.
@@ -49,9 +48,10 @@ export default struct PFAXROUTEGETFILE {
      * If the function fails, the return value is zero. To get extended error information, the fax service calls <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, described in MSDN.
      */
     Call(JobId, Index, FileNameBuffer, RequiredSize) {
-        RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+        FileNameBufferMarshal := FileNameBuffer == 0 ? IntPtr : IntPtr
+        RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, UInt32, JobId, UInt32, Index, IntPtr, FileNameBuffer, RequiredSizeMarshal, RequiredSize, BOOL)
+        result := DllCall(this.value, UInt32, JobId, UInt32, Index, FileNameBufferMarshal, FileNameBuffer, RequiredSizeMarshal, RequiredSize, BOOL)
         return result
     }
 

@@ -101,8 +101,8 @@ export default struct IConnectionPointContainer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumConnectionPoints := CallbackCreate(GetMethod(implObj, "EnumConnectionPoints"), flags, 2)
-        this.vtbl.FindConnectionPoint := CallbackCreate(GetMethod(implObj, "FindConnectionPoint"), flags, 3)
+        this.vtbl.EnumConnectionPoints := CallbackCreate(ObjBindMethod(implObj, "EnumConnectionPoints"), flags, 2)
+        this.vtbl.FindConnectionPoint := CallbackCreate(ObjBindMethod(implObj, "FindConnectionPoint"), flags, 3)
     }
 
     Dispose() {

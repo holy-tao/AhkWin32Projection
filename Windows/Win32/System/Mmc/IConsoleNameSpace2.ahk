@@ -100,8 +100,8 @@ export default struct IConsoleNameSpace2 extends IConsoleNameSpace {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Expand := CallbackCreate(GetMethod(implObj, "Expand"), flags, 2)
-        this.vtbl.AddExtension := CallbackCreate(GetMethod(implObj, "AddExtension"), flags, 3)
+        this.vtbl.Expand := CallbackCreate(ObjBindMethod(implObj, "Expand"), flags, 2)
+        this.vtbl.AddExtension := CallbackCreate(ObjBindMethod(implObj, "AddExtension"), flags, 3)
     }
 
     Dispose() {

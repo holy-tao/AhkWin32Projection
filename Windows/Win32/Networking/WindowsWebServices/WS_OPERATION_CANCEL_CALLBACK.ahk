@@ -23,13 +23,13 @@ export default struct WS_OPERATION_CANCEL_CALLBACK {
     }
 
     /**
-     * 
      * @param {WS_SERVICE_CANCEL_REASON} reason Specifies the reason for which the call back is called.
      * @param {Pointer<Void>} state A reference to the application defined state registered with the callback.
      * @returns {String} Nothing - always returns an empty string
      */
     Call(reason, state) {
-        stateMarshal := state is VarRef ? "ptr" : "ptr"
+        stateMarshal := state is VarRef ? "ptr" : IntPtr
+        stateMarshal := state == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, WS_SERVICE_CANCEL_REASON, reason, stateMarshal, state)
     }

@@ -91,8 +91,8 @@ export default struct ID3D11Device5 extends ID3D11Device4 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OpenSharedFence := CallbackCreate(GetMethod(implObj, "OpenSharedFence"), flags, 4)
-        this.vtbl.CreateFence := CallbackCreate(GetMethod(implObj, "CreateFence"), flags, 5)
+        this.vtbl.OpenSharedFence := CallbackCreate(ObjBindMethod(implObj, "OpenSharedFence"), flags, 4)
+        this.vtbl.CreateFence := CallbackCreate(ObjBindMethod(implObj, "CreateFence"), flags, 5)
     }
 
     Dispose() {

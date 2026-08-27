@@ -21,14 +21,13 @@ export default struct IOMMU_DOMAIN_DETACH_DEVICE {
     }
 
     /**
-     * 
      * @param {Pointer<IOMMU_DMA_DOMAIN>} Domain 
      * @param {Pointer<DEVICE_OBJECT>} PhysicalDeviceObject 
      * @param {Integer} InputMappingId 
      * @returns {NTSTATUS} 
      */
     Call(Domain, PhysicalDeviceObject, InputMappingId) {
-        DomainMarshal := Domain is VarRef ? "ptr*" : "ptr"
+        DomainMarshal := Domain is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, DomainMarshal, Domain, DEVICE_OBJECT.Ptr, PhysicalDeviceObject, UInt32, InputMappingId, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

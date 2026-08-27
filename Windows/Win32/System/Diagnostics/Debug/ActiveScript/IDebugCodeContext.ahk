@@ -39,7 +39,6 @@ export default struct IDebugCodeContext extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugDocumentContext} 
      */
     GetDocumentContext() {
@@ -48,7 +47,6 @@ export default struct IDebugCodeContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {BREAKPOINT_STATE} bps 
      * @returns {HRESULT} 
      */
@@ -66,8 +64,8 @@ export default struct IDebugCodeContext extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDocumentContext := CallbackCreate(GetMethod(implObj, "GetDocumentContext"), flags, 2)
-        this.vtbl.SetBreakPoint := CallbackCreate(GetMethod(implObj, "SetBreakPoint"), flags, 2)
+        this.vtbl.GetDocumentContext := CallbackCreate(ObjBindMethod(implObj, "GetDocumentContext"), flags, 2)
+        this.vtbl.SetBreakPoint := CallbackCreate(ObjBindMethod(implObj, "SetBreakPoint"), flags, 2)
     }
 
     Dispose() {

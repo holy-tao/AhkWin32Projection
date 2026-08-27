@@ -57,7 +57,7 @@ export default struct ID3D12GraphicsCommandList7 extends ID3D12GraphicsCommandLi
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Barrier := CallbackCreate(GetMethod(implObj, "Barrier"), flags, 3)
+        this.vtbl.Barrier := CallbackCreate(ObjBindMethod(implObj, "Barrier"), flags, 3)
     }
 
     Dispose() {

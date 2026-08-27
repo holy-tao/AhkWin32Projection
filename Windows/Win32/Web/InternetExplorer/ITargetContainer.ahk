@@ -39,7 +39,6 @@ export default struct ITargetContainer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetFrameUrl() {
@@ -48,7 +47,6 @@ export default struct ITargetContainer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IOleContainer} 
      */
     GetFramesContainer() {
@@ -65,8 +63,8 @@ export default struct ITargetContainer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFrameUrl := CallbackCreate(GetMethod(implObj, "GetFrameUrl"), flags, 2)
-        this.vtbl.GetFramesContainer := CallbackCreate(GetMethod(implObj, "GetFramesContainer"), flags, 2)
+        this.vtbl.GetFrameUrl := CallbackCreate(ObjBindMethod(implObj, "GetFrameUrl"), flags, 2)
+        this.vtbl.GetFramesContainer := CallbackCreate(ObjBindMethod(implObj, "GetFramesContainer"), flags, 2)
     }
 
     Dispose() {

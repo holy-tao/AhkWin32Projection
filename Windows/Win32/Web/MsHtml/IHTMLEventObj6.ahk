@@ -52,7 +52,6 @@ export default struct IHTMLEventObj6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_actionURL() {
@@ -62,7 +61,6 @@ export default struct IHTMLEventObj6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_buttonID() {
@@ -79,8 +77,8 @@ export default struct IHTMLEventObj6 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_actionURL := CallbackCreate(GetMethod(implObj, "get_actionURL"), flags, 2)
-        this.vtbl.get_buttonID := CallbackCreate(GetMethod(implObj, "get_buttonID"), flags, 2)
+        this.vtbl.get_actionURL := CallbackCreate(ObjBindMethod(implObj, "get_actionURL"), flags, 2)
+        this.vtbl.get_buttonID := CallbackCreate(ObjBindMethod(implObj, "get_buttonID"), flags, 2)
     }
 
     Dispose() {

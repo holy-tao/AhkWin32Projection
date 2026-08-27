@@ -85,7 +85,7 @@ export default struct IDirectDrawSurfaceKernel extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ddkernel/nf-ddkernel-idirectdrawsurfacekernel-getkernelhandle
      */
     GetKernelHandle(param0) {
-        param0Marshal := param0 is VarRef ? "ptr*" : "ptr"
+        param0Marshal := param0 is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, param0Marshal, param0, "HRESULT")
         return result
@@ -150,8 +150,8 @@ export default struct IDirectDrawSurfaceKernel extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetKernelHandle := CallbackCreate(GetMethod(implObj, "GetKernelHandle"), flags, 2)
-        this.vtbl.ReleaseKernelHandle := CallbackCreate(GetMethod(implObj, "ReleaseKernelHandle"), flags, 1)
+        this.vtbl.GetKernelHandle := CallbackCreate(ObjBindMethod(implObj, "GetKernelHandle"), flags, 2)
+        this.vtbl.ReleaseKernelHandle := CallbackCreate(ObjBindMethod(implObj, "ReleaseKernelHandle"), flags, 1)
     }
 
     Dispose() {

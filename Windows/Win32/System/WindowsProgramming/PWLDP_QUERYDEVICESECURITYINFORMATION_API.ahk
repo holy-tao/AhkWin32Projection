@@ -20,13 +20,14 @@ export default struct PWLDP_QUERYDEVICESECURITYINFORMATION_API {
     }
 
     /**
-     * 
      * @param {Pointer<WLDP_DEVICE_SECURITY_INFORMATION>} information 
      * @param {Integer} informationLength 
      * @returns {Integer} 
      */
     Call(information, informationLength) {
-        result := DllCall(this.value, WLDP_DEVICE_SECURITY_INFORMATION.Ptr, information, UInt32, informationLength, "uint*", &returnLength := 0, "HRESULT")
+        informationMarshal := information == 0 ? IntPtr : WLDP_DEVICE_SECURITY_INFORMATION.Ptr
+
+        result := DllCall(this.value, informationMarshal, information, UInt32, informationLength, "uint*", &returnLength := 0, "HRESULT")
         return returnLength
     }
 

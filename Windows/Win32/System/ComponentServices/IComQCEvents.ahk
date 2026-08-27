@@ -158,13 +158,13 @@ export default struct IComQCEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnQCRecord := CallbackCreate(GetMethod(implObj, "OnQCRecord"), flags, 7)
-        this.vtbl.OnQCQueueOpen := CallbackCreate(GetMethod(implObj, "OnQCQueueOpen"), flags, 5)
-        this.vtbl.OnQCReceive := CallbackCreate(GetMethod(implObj, "OnQCReceive"), flags, 6)
-        this.vtbl.OnQCReceiveFail := CallbackCreate(GetMethod(implObj, "OnQCReceiveFail"), flags, 4)
-        this.vtbl.OnQCMoveToReTryQueue := CallbackCreate(GetMethod(implObj, "OnQCMoveToReTryQueue"), flags, 5)
-        this.vtbl.OnQCMoveToDeadQueue := CallbackCreate(GetMethod(implObj, "OnQCMoveToDeadQueue"), flags, 4)
-        this.vtbl.OnQCPlayback := CallbackCreate(GetMethod(implObj, "OnQCPlayback"), flags, 6)
+        this.vtbl.OnQCRecord := CallbackCreate(ObjBindMethod(implObj, "OnQCRecord"), flags, 7)
+        this.vtbl.OnQCQueueOpen := CallbackCreate(ObjBindMethod(implObj, "OnQCQueueOpen"), flags, 5)
+        this.vtbl.OnQCReceive := CallbackCreate(ObjBindMethod(implObj, "OnQCReceive"), flags, 6)
+        this.vtbl.OnQCReceiveFail := CallbackCreate(ObjBindMethod(implObj, "OnQCReceiveFail"), flags, 4)
+        this.vtbl.OnQCMoveToReTryQueue := CallbackCreate(ObjBindMethod(implObj, "OnQCMoveToReTryQueue"), flags, 5)
+        this.vtbl.OnQCMoveToDeadQueue := CallbackCreate(ObjBindMethod(implObj, "OnQCMoveToDeadQueue"), flags, 4)
+        this.vtbl.OnQCPlayback := CallbackCreate(ObjBindMethod(implObj, "OnQCPlayback"), flags, 6)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct PFND3DKMT_CREATEDEVICE {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CREATEDEVICE>} param0 
      * @returns {NTSTATUS} 
      */

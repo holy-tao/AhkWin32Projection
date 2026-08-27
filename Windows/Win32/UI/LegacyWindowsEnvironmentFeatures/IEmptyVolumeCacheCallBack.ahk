@@ -161,8 +161,8 @@ export default struct IEmptyVolumeCacheCallBack extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ScanProgress := CallbackCreate(GetMethod(implObj, "ScanProgress"), flags, 4)
-        this.vtbl.PurgeProgress := CallbackCreate(GetMethod(implObj, "PurgeProgress"), flags, 5)
+        this.vtbl.ScanProgress := CallbackCreate(ObjBindMethod(implObj, "ScanProgress"), flags, 4)
+        this.vtbl.PurgeProgress := CallbackCreate(ObjBindMethod(implObj, "PurgeProgress"), flags, 5)
     }
 
     Dispose() {

@@ -48,7 +48,6 @@ export default struct IHTMLPersistDataOM extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_XMLDocument() {
@@ -57,7 +56,6 @@ export default struct IHTMLPersistDataOM extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {VARIANT} 
      */
@@ -70,7 +68,6 @@ export default struct IHTMLPersistDataOM extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @param {VARIANT} value 
      * @returns {HRESULT} 
@@ -83,7 +80,6 @@ export default struct IHTMLPersistDataOM extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {HRESULT} 
      */
@@ -103,10 +99,10 @@ export default struct IHTMLPersistDataOM extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_XMLDocument := CallbackCreate(GetMethod(implObj, "get_XMLDocument"), flags, 2)
-        this.vtbl.getAttribute := CallbackCreate(GetMethod(implObj, "getAttribute"), flags, 3)
-        this.vtbl.setAttribute := CallbackCreate(GetMethod(implObj, "setAttribute"), flags, 3)
-        this.vtbl.removeAttribute := CallbackCreate(GetMethod(implObj, "removeAttribute"), flags, 2)
+        this.vtbl.get_XMLDocument := CallbackCreate(ObjBindMethod(implObj, "get_XMLDocument"), flags, 2)
+        this.vtbl.getAttribute := CallbackCreate(ObjBindMethod(implObj, "getAttribute"), flags, 3)
+        this.vtbl.setAttribute := CallbackCreate(ObjBindMethod(implObj, "setAttribute"), flags, 3)
+        this.vtbl.removeAttribute := CallbackCreate(ObjBindMethod(implObj, "removeAttribute"), flags, 2)
     }
 
     Dispose() {

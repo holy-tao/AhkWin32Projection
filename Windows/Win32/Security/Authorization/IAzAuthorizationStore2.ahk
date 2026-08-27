@@ -82,8 +82,8 @@ export default struct IAzAuthorizationStore2 extends IAzAuthorizationStore {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OpenApplication2 := CallbackCreate(GetMethod(implObj, "OpenApplication2"), flags, 4)
-        this.vtbl.CreateApplication2 := CallbackCreate(GetMethod(implObj, "CreateApplication2"), flags, 4)
+        this.vtbl.OpenApplication2 := CallbackCreate(ObjBindMethod(implObj, "OpenApplication2"), flags, 4)
+        this.vtbl.CreateApplication2 := CallbackCreate(ObjBindMethod(implObj, "CreateApplication2"), flags, 4)
     }
 
     Dispose() {

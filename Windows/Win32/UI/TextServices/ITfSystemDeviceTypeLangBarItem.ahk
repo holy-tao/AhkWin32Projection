@@ -100,8 +100,8 @@ export default struct ITfSystemDeviceTypeLangBarItem extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetIconMode := CallbackCreate(GetMethod(implObj, "SetIconMode"), flags, 2)
-        this.vtbl.GetIconMode := CallbackCreate(GetMethod(implObj, "GetIconMode"), flags, 2)
+        this.vtbl.SetIconMode := CallbackCreate(ObjBindMethod(implObj, "SetIconMode"), flags, 2)
+        this.vtbl.GetIconMode := CallbackCreate(ObjBindMethod(implObj, "GetIconMode"), flags, 2)
     }
 
     Dispose() {

@@ -41,7 +41,6 @@ export default struct IHighlightRenderingServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDisplayPointer} pDispPointerStart 
      * @param {IDisplayPointer} pDispPointerEnd 
      * @param {IHTMLRenderStyle} pIRenderStyle 
@@ -53,7 +52,6 @@ export default struct IHighlightRenderingServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHighlightSegment} pISegment 
      * @param {IDisplayPointer} pDispPointerStart 
      * @param {IDisplayPointer} pDispPointerEnd 
@@ -65,7 +63,6 @@ export default struct IHighlightRenderingServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHighlightSegment} pISegment 
      * @returns {HRESULT} 
      */
@@ -83,9 +80,9 @@ export default struct IHighlightRenderingServices extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddSegment := CallbackCreate(GetMethod(implObj, "AddSegment"), flags, 5)
-        this.vtbl.MoveSegmentToPointers := CallbackCreate(GetMethod(implObj, "MoveSegmentToPointers"), flags, 4)
-        this.vtbl.RemoveSegment := CallbackCreate(GetMethod(implObj, "RemoveSegment"), flags, 2)
+        this.vtbl.AddSegment := CallbackCreate(ObjBindMethod(implObj, "AddSegment"), flags, 5)
+        this.vtbl.MoveSegmentToPointers := CallbackCreate(ObjBindMethod(implObj, "MoveSegmentToPointers"), flags, 4)
+        this.vtbl.RemoveSegment := CallbackCreate(ObjBindMethod(implObj, "RemoveSegment"), flags, 2)
     }
 
     Dispose() {

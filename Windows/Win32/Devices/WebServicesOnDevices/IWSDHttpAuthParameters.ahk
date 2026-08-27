@@ -98,8 +98,8 @@ export default struct IWSDHttpAuthParameters extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetClientAccessToken := CallbackCreate(GetMethod(implObj, "GetClientAccessToken"), flags, 2)
-        this.vtbl.GetAuthType := CallbackCreate(GetMethod(implObj, "GetAuthType"), flags, 2)
+        this.vtbl.GetClientAccessToken := CallbackCreate(ObjBindMethod(implObj, "GetClientAccessToken"), flags, 2)
+        this.vtbl.GetAuthType := CallbackCreate(ObjBindMethod(implObj, "GetAuthType"), flags, 2)
     }
 
     Dispose() {

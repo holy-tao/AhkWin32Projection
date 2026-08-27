@@ -49,7 +49,6 @@ export default struct ISAXAttributes extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     getLength() {
@@ -58,52 +57,48 @@ export default struct ISAXAttributes extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @param {Pointer<Pointer<Integer>>} ppwchUri 
      * @param {Pointer<Integer>} pcchUri 
      * @returns {HRESULT} 
      */
     getURI(nIndex, ppwchUri, pcchUri) {
-        ppwchUriMarshal := ppwchUri is VarRef ? "ptr*" : "ptr"
-        pcchUriMarshal := pcchUri is VarRef ? "int*" : "ptr"
+        ppwchUriMarshal := ppwchUri is VarRef ? "ptr*" : IntPtr
+        pcchUriMarshal := pcchUri is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, Int32, nIndex, ppwchUriMarshal, ppwchUri, pcchUriMarshal, pcchUri, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @param {Pointer<Pointer<Integer>>} ppwchLocalName 
      * @param {Pointer<Integer>} pcchLocalName 
      * @returns {HRESULT} 
      */
     getLocalName(nIndex, ppwchLocalName, pcchLocalName) {
-        ppwchLocalNameMarshal := ppwchLocalName is VarRef ? "ptr*" : "ptr"
-        pcchLocalNameMarshal := pcchLocalName is VarRef ? "int*" : "ptr"
+        ppwchLocalNameMarshal := ppwchLocalName is VarRef ? "ptr*" : IntPtr
+        pcchLocalNameMarshal := pcchLocalName is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, Int32, nIndex, ppwchLocalNameMarshal, ppwchLocalName, pcchLocalNameMarshal, pcchLocalName, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @param {Pointer<Pointer<Integer>>} ppwchQName 
      * @param {Pointer<Integer>} pcchQName 
      * @returns {HRESULT} 
      */
     getQName(nIndex, ppwchQName, pcchQName) {
-        ppwchQNameMarshal := ppwchQName is VarRef ? "ptr*" : "ptr"
-        pcchQNameMarshal := pcchQName is VarRef ? "int*" : "ptr"
+        ppwchQNameMarshal := ppwchQName is VarRef ? "ptr*" : IntPtr
+        pcchQNameMarshal := pcchQName is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, Int32, nIndex, ppwchQNameMarshal, ppwchQName, pcchQNameMarshal, pcchQName, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @param {Pointer<Pointer<Integer>>} ppwchUri 
      * @param {Pointer<Integer>} pcchUri 
@@ -114,19 +109,18 @@ export default struct ISAXAttributes extends IUnknown {
      * @returns {HRESULT} 
      */
     getName(nIndex, ppwchUri, pcchUri, ppwchLocalName, pcchLocalName, ppwchQName, pcchQName) {
-        ppwchUriMarshal := ppwchUri is VarRef ? "ptr*" : "ptr"
-        pcchUriMarshal := pcchUri is VarRef ? "int*" : "ptr"
-        ppwchLocalNameMarshal := ppwchLocalName is VarRef ? "ptr*" : "ptr"
-        pcchLocalNameMarshal := pcchLocalName is VarRef ? "int*" : "ptr"
-        ppwchQNameMarshal := ppwchQName is VarRef ? "ptr*" : "ptr"
-        pcchQNameMarshal := pcchQName is VarRef ? "int*" : "ptr"
+        ppwchUriMarshal := ppwchUri is VarRef ? "ptr*" : IntPtr
+        pcchUriMarshal := pcchUri is VarRef ? "int*" : IntPtr
+        ppwchLocalNameMarshal := ppwchLocalName is VarRef ? "ptr*" : IntPtr
+        pcchLocalNameMarshal := pcchLocalName is VarRef ? "int*" : IntPtr
+        ppwchQNameMarshal := ppwchQName is VarRef ? "ptr*" : IntPtr
+        pcchQNameMarshal := pcchQName is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, Int32, nIndex, ppwchUriMarshal, ppwchUri, pcchUriMarshal, pcchUri, ppwchLocalNameMarshal, ppwchLocalName, pcchLocalNameMarshal, pcchLocalName, ppwchQNameMarshal, ppwchQName, pcchQNameMarshal, pcchQName, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwchUri 
      * @param {Integer} cchUri 
      * @param {PWSTR} pwchLocalName 
@@ -142,7 +136,6 @@ export default struct ISAXAttributes extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchQName 
      * @param {Integer} cchQName 
      * @returns {Integer} 
@@ -155,22 +148,20 @@ export default struct ISAXAttributes extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @param {Pointer<Pointer<Integer>>} ppwchType 
      * @param {Pointer<Integer>} pcchType 
      * @returns {HRESULT} 
      */
     getType(nIndex, ppwchType, pcchType) {
-        ppwchTypeMarshal := ppwchType is VarRef ? "ptr*" : "ptr"
-        pcchTypeMarshal := pcchType is VarRef ? "int*" : "ptr"
+        ppwchTypeMarshal := ppwchType is VarRef ? "ptr*" : IntPtr
+        pcchTypeMarshal := pcchType is VarRef ? "int*" : IntPtr
 
         result := ComCall(10, this, Int32, nIndex, ppwchTypeMarshal, ppwchType, pcchTypeMarshal, pcchType, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwchUri 
      * @param {Integer} cchUri 
      * @param {PWSTR} pwchLocalName 
@@ -183,15 +174,14 @@ export default struct ISAXAttributes extends IUnknown {
         pwchUri := pwchUri is String ? StrPtr(pwchUri) : pwchUri
         pwchLocalName := pwchLocalName is String ? StrPtr(pwchLocalName) : pwchLocalName
 
-        ppwchTypeMarshal := ppwchType is VarRef ? "ptr*" : "ptr"
-        pcchTypeMarshal := pcchType is VarRef ? "int*" : "ptr"
+        ppwchTypeMarshal := ppwchType is VarRef ? "ptr*" : IntPtr
+        pcchTypeMarshal := pcchType is VarRef ? "int*" : IntPtr
 
         result := ComCall(11, this, "ptr", pwchUri, Int32, cchUri, "ptr", pwchLocalName, Int32, cchLocalName, ppwchTypeMarshal, ppwchType, pcchTypeMarshal, pcchType, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwchQName 
      * @param {Integer} cchQName 
      * @param {Pointer<Pointer<Integer>>} ppwchType 
@@ -201,30 +191,28 @@ export default struct ISAXAttributes extends IUnknown {
     getTypeFromQName(pwchQName, cchQName, ppwchType, pcchType) {
         pwchQName := pwchQName is String ? StrPtr(pwchQName) : pwchQName
 
-        ppwchTypeMarshal := ppwchType is VarRef ? "ptr*" : "ptr"
-        pcchTypeMarshal := pcchType is VarRef ? "int*" : "ptr"
+        ppwchTypeMarshal := ppwchType is VarRef ? "ptr*" : IntPtr
+        pcchTypeMarshal := pcchType is VarRef ? "int*" : IntPtr
 
         result := ComCall(12, this, "ptr", pwchQName, Int32, cchQName, ppwchTypeMarshal, ppwchType, pcchTypeMarshal, pcchType, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} nIndex 
      * @param {Pointer<Pointer<Integer>>} ppwchValue 
      * @param {Pointer<Integer>} pcchValue 
      * @returns {HRESULT} 
      */
     getValue(nIndex, ppwchValue, pcchValue) {
-        ppwchValueMarshal := ppwchValue is VarRef ? "ptr*" : "ptr"
-        pcchValueMarshal := pcchValue is VarRef ? "int*" : "ptr"
+        ppwchValueMarshal := ppwchValue is VarRef ? "ptr*" : IntPtr
+        pcchValueMarshal := pcchValue is VarRef ? "int*" : IntPtr
 
         result := ComCall(13, this, Int32, nIndex, ppwchValueMarshal, ppwchValue, pcchValueMarshal, pcchValue, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwchUri 
      * @param {Integer} cchUri 
      * @param {PWSTR} pwchLocalName 
@@ -237,15 +225,14 @@ export default struct ISAXAttributes extends IUnknown {
         pwchUri := pwchUri is String ? StrPtr(pwchUri) : pwchUri
         pwchLocalName := pwchLocalName is String ? StrPtr(pwchLocalName) : pwchLocalName
 
-        ppwchValueMarshal := ppwchValue is VarRef ? "ptr*" : "ptr"
-        pcchValueMarshal := pcchValue is VarRef ? "int*" : "ptr"
+        ppwchValueMarshal := ppwchValue is VarRef ? "ptr*" : IntPtr
+        pcchValueMarshal := pcchValue is VarRef ? "int*" : IntPtr
 
         result := ComCall(14, this, "ptr", pwchUri, Int32, cchUri, "ptr", pwchLocalName, Int32, cchLocalName, ppwchValueMarshal, ppwchValue, pcchValueMarshal, pcchValue, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwchQName 
      * @param {Integer} cchQName 
      * @param {Pointer<Pointer<Integer>>} ppwchValue 
@@ -255,8 +242,8 @@ export default struct ISAXAttributes extends IUnknown {
     getValueFromQName(pwchQName, cchQName, ppwchValue, pcchValue) {
         pwchQName := pwchQName is String ? StrPtr(pwchQName) : pwchQName
 
-        ppwchValueMarshal := ppwchValue is VarRef ? "ptr*" : "ptr"
-        pcchValueMarshal := pcchValue is VarRef ? "int*" : "ptr"
+        ppwchValueMarshal := ppwchValue is VarRef ? "ptr*" : IntPtr
+        pcchValueMarshal := pcchValue is VarRef ? "int*" : IntPtr
 
         result := ComCall(15, this, "ptr", pwchQName, Int32, cchQName, ppwchValueMarshal, ppwchValue, pcchValueMarshal, pcchValue, "HRESULT")
         return result
@@ -271,19 +258,19 @@ export default struct ISAXAttributes extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.getLength := CallbackCreate(GetMethod(implObj, "getLength"), flags, 2)
-        this.vtbl.getURI := CallbackCreate(GetMethod(implObj, "getURI"), flags, 4)
-        this.vtbl.getLocalName := CallbackCreate(GetMethod(implObj, "getLocalName"), flags, 4)
-        this.vtbl.getQName := CallbackCreate(GetMethod(implObj, "getQName"), flags, 4)
-        this.vtbl.getName := CallbackCreate(GetMethod(implObj, "getName"), flags, 8)
-        this.vtbl.getIndexFromName := CallbackCreate(GetMethod(implObj, "getIndexFromName"), flags, 6)
-        this.vtbl.getIndexFromQName := CallbackCreate(GetMethod(implObj, "getIndexFromQName"), flags, 4)
-        this.vtbl.getType := CallbackCreate(GetMethod(implObj, "getType"), flags, 4)
-        this.vtbl.getTypeFromName := CallbackCreate(GetMethod(implObj, "getTypeFromName"), flags, 7)
-        this.vtbl.getTypeFromQName := CallbackCreate(GetMethod(implObj, "getTypeFromQName"), flags, 5)
-        this.vtbl.getValue := CallbackCreate(GetMethod(implObj, "getValue"), flags, 4)
-        this.vtbl.getValueFromName := CallbackCreate(GetMethod(implObj, "getValueFromName"), flags, 7)
-        this.vtbl.getValueFromQName := CallbackCreate(GetMethod(implObj, "getValueFromQName"), flags, 5)
+        this.vtbl.getLength := CallbackCreate(ObjBindMethod(implObj, "getLength"), flags, 2)
+        this.vtbl.getURI := CallbackCreate(ObjBindMethod(implObj, "getURI"), flags, 4)
+        this.vtbl.getLocalName := CallbackCreate(ObjBindMethod(implObj, "getLocalName"), flags, 4)
+        this.vtbl.getQName := CallbackCreate(ObjBindMethod(implObj, "getQName"), flags, 4)
+        this.vtbl.getName := CallbackCreate(ObjBindMethod(implObj, "getName"), flags, 8)
+        this.vtbl.getIndexFromName := CallbackCreate(ObjBindMethod(implObj, "getIndexFromName"), flags, 6)
+        this.vtbl.getIndexFromQName := CallbackCreate(ObjBindMethod(implObj, "getIndexFromQName"), flags, 4)
+        this.vtbl.getType := CallbackCreate(ObjBindMethod(implObj, "getType"), flags, 4)
+        this.vtbl.getTypeFromName := CallbackCreate(ObjBindMethod(implObj, "getTypeFromName"), flags, 7)
+        this.vtbl.getTypeFromQName := CallbackCreate(ObjBindMethod(implObj, "getTypeFromQName"), flags, 5)
+        this.vtbl.getValue := CallbackCreate(ObjBindMethod(implObj, "getValue"), flags, 4)
+        this.vtbl.getValueFromName := CallbackCreate(ObjBindMethod(implObj, "getValueFromName"), flags, 7)
+        this.vtbl.getValueFromQName := CallbackCreate(ObjBindMethod(implObj, "getValueFromQName"), flags, 5)
     }
 
     Dispose() {

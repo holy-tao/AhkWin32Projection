@@ -113,8 +113,8 @@ export default struct INamespaceWalkCB extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacewalkcb-initializeprogressdialog
      */
     InitializeProgressDialog(ppszTitle, ppszCancel) {
-        ppszTitleMarshal := ppszTitle is VarRef ? "ptr*" : "ptr"
-        ppszCancelMarshal := ppszCancel is VarRef ? "ptr*" : "ptr"
+        ppszTitleMarshal := ppszTitle is VarRef ? "ptr*" : IntPtr
+        ppszCancelMarshal := ppszCancel is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(6, this, ppszTitleMarshal, ppszTitle, ppszCancelMarshal, ppszCancel, "HRESULT")
         return result
@@ -129,10 +129,10 @@ export default struct INamespaceWalkCB extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FoundItem := CallbackCreate(GetMethod(implObj, "FoundItem"), flags, 3)
-        this.vtbl.EnterFolder := CallbackCreate(GetMethod(implObj, "EnterFolder"), flags, 3)
-        this.vtbl.LeaveFolder := CallbackCreate(GetMethod(implObj, "LeaveFolder"), flags, 3)
-        this.vtbl.InitializeProgressDialog := CallbackCreate(GetMethod(implObj, "InitializeProgressDialog"), flags, 3)
+        this.vtbl.FoundItem := CallbackCreate(ObjBindMethod(implObj, "FoundItem"), flags, 3)
+        this.vtbl.EnterFolder := CallbackCreate(ObjBindMethod(implObj, "EnterFolder"), flags, 3)
+        this.vtbl.LeaveFolder := CallbackCreate(ObjBindMethod(implObj, "LeaveFolder"), flags, 3)
+        this.vtbl.InitializeProgressDialog := CallbackCreate(ObjBindMethod(implObj, "InitializeProgressDialog"), flags, 3)
     }
 
     Dispose() {

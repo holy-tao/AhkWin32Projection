@@ -18,7 +18,6 @@ export default struct HANDLER_FUNCTION_EX {
     }
 
     /**
-     * 
      * @param {Integer} dwControl 
      * @param {Integer} dwEventType 
      * @param {Pointer<Void>} lpEventData 
@@ -26,8 +25,8 @@ export default struct HANDLER_FUNCTION_EX {
      * @returns {Integer} 
      */
     Call(dwControl, dwEventType, lpEventData, lpContext) {
-        lpEventDataMarshal := lpEventData is VarRef ? "ptr" : "ptr"
-        lpContextMarshal := lpContext is VarRef ? "ptr" : "ptr"
+        lpEventDataMarshal := lpEventData is VarRef ? "ptr" : IntPtr
+        lpContextMarshal := lpContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, UInt32, dwControl, UInt32, dwEventType, lpEventDataMarshal, lpEventData, lpContextMarshal, lpContext, UInt32)
         return result

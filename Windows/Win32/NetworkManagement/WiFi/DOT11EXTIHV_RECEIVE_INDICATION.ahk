@@ -20,7 +20,6 @@ export default struct DOT11EXTIHV_RECEIVE_INDICATION {
     }
 
     /**
-     * 
      * @param {HANDLE} hIhvExtAdapter 
      * @param {DOT11EXT_IHV_INDICATION_TYPE} indicationType 
      * @param {Integer} uBufferLength 
@@ -28,7 +27,10 @@ export default struct DOT11EXTIHV_RECEIVE_INDICATION {
      * @returns {Integer} 
      */
     Call(hIhvExtAdapter, indicationType, uBufferLength, pvBuffer) {
-        result := DllCall(this.value, HANDLE, hIhvExtAdapter, DOT11EXT_IHV_INDICATION_TYPE, indicationType, UInt32, uBufferLength, IntPtr, pvBuffer, UInt32)
+        hIhvExtAdapterMarshal := hIhvExtAdapter == 0 ? IntPtr : HANDLE
+        pvBufferMarshal := pvBuffer == 0 ? IntPtr : IntPtr
+
+        result := DllCall(this.value, hIhvExtAdapterMarshal, hIhvExtAdapter, DOT11EXT_IHV_INDICATION_TYPE, indicationType, UInt32, uBufferLength, pvBufferMarshal, pvBuffer, UInt32)
         return result
     }
 

@@ -70,7 +70,7 @@ export default struct IWbemPathKeyList extends IUnknown {
     SetKey(wszName, uFlags, uCimType, pKeyVal) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
 
-        pKeyValMarshal := pKeyVal is VarRef ? "ptr" : "ptr"
+        pKeyValMarshal := pKeyVal is VarRef ? "ptr" : IntPtr
 
         result := ComCall(4, this, "ptr", wszName, UInt32, uFlags, UInt32, uCimType, pKeyValMarshal, pKeyVal, "HRESULT")
         return result
@@ -108,11 +108,12 @@ export default struct IWbemPathKeyList extends IUnknown {
     GetKey(uKeyIx, uFlags, puNameBufSize, pszKeyName, puKeyValBufSize, pKeyVal) {
         pszKeyName := pszKeyName is String ? StrPtr(pszKeyName) : pszKeyName
 
-        puNameBufSizeMarshal := puNameBufSize is VarRef ? "uint*" : "ptr"
-        puKeyValBufSizeMarshal := puKeyValBufSize is VarRef ? "uint*" : "ptr"
-        pKeyValMarshal := pKeyVal is VarRef ? "ptr" : "ptr"
+        puNameBufSizeMarshal := puNameBufSize is VarRef ? "uint*" : IntPtr
+        pszKeyNameMarshal := pszKeyName == 0 ? IntPtr : PWSTR
+        puKeyValBufSizeMarshal := puKeyValBufSize is VarRef ? "uint*" : IntPtr
+        pKeyValMarshal := pKeyVal is VarRef ? "ptr" : IntPtr
 
-        result := ComCall(6, this, UInt32, uKeyIx, UInt32, uFlags, puNameBufSizeMarshal, puNameBufSize, "ptr", pszKeyName, puKeyValBufSizeMarshal, puKeyValBufSize, pKeyValMarshal, pKeyVal, "uint*", &puApparentCimType := 0, "HRESULT")
+        result := ComCall(6, this, UInt32, uKeyIx, UInt32, uFlags, puNameBufSizeMarshal, puNameBufSize, pszKeyNameMarshal, pszKeyName, puKeyValBufSizeMarshal, puKeyValBufSize, pKeyValMarshal, pKeyVal, "uint*", &puApparentCimType := 0, "HRESULT")
         return puApparentCimType
     }
 
@@ -131,9 +132,10 @@ export default struct IWbemPathKeyList extends IUnknown {
     GetKey2(uKeyIx, uFlags, puNameBufSize, pszKeyName, pKeyValue) {
         pszKeyName := pszKeyName is String ? StrPtr(pszKeyName) : pszKeyName
 
-        puNameBufSizeMarshal := puNameBufSize is VarRef ? "uint*" : "ptr"
+        puNameBufSizeMarshal := puNameBufSize is VarRef ? "uint*" : IntPtr
+        pszKeyNameMarshal := pszKeyName == 0 ? IntPtr : PWSTR
 
-        result := ComCall(7, this, UInt32, uKeyIx, UInt32, uFlags, puNameBufSizeMarshal, puNameBufSize, "ptr", pszKeyName, VARIANT.Ptr, pKeyValue, "uint*", &puApparentCimType := 0, "HRESULT")
+        result := ComCall(7, this, UInt32, uKeyIx, UInt32, uFlags, puNameBufSizeMarshal, puNameBufSize, pszKeyNameMarshal, pszKeyName, VARIANT.Ptr, pKeyValue, "uint*", &puApparentCimType := 0, "HRESULT")
         return puApparentCimType
     }
 
@@ -197,7 +199,7 @@ export default struct IWbemPathKeyList extends IUnknown {
     GetText(lFlags, puBuffLength, pszText) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
 
-        puBuffLengthMarshal := puBuffLength is VarRef ? "uint*" : "ptr"
+        puBuffLengthMarshal := puBuffLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(12, this, Int32, lFlags, puBuffLengthMarshal, puBuffLength, "ptr", pszText, "HRESULT")
         return result
@@ -212,16 +214,16 @@ export default struct IWbemPathKeyList extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
-        this.vtbl.SetKey := CallbackCreate(GetMethod(implObj, "SetKey"), flags, 5)
-        this.vtbl.SetKey2 := CallbackCreate(GetMethod(implObj, "SetKey2"), flags, 5)
-        this.vtbl.GetKey := CallbackCreate(GetMethod(implObj, "GetKey"), flags, 8)
-        this.vtbl.GetKey2 := CallbackCreate(GetMethod(implObj, "GetKey2"), flags, 7)
-        this.vtbl.RemoveKey := CallbackCreate(GetMethod(implObj, "RemoveKey"), flags, 3)
-        this.vtbl.RemoveAllKeys := CallbackCreate(GetMethod(implObj, "RemoveAllKeys"), flags, 2)
-        this.vtbl.MakeSingleton := CallbackCreate(GetMethod(implObj, "MakeSingleton"), flags, 2)
-        this.vtbl.GetInfo := CallbackCreate(GetMethod(implObj, "GetInfo"), flags, 3)
-        this.vtbl.GetText := CallbackCreate(GetMethod(implObj, "GetText"), flags, 4)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.SetKey := CallbackCreate(ObjBindMethod(implObj, "SetKey"), flags, 5)
+        this.vtbl.SetKey2 := CallbackCreate(ObjBindMethod(implObj, "SetKey2"), flags, 5)
+        this.vtbl.GetKey := CallbackCreate(ObjBindMethod(implObj, "GetKey"), flags, 8)
+        this.vtbl.GetKey2 := CallbackCreate(ObjBindMethod(implObj, "GetKey2"), flags, 7)
+        this.vtbl.RemoveKey := CallbackCreate(ObjBindMethod(implObj, "RemoveKey"), flags, 3)
+        this.vtbl.RemoveAllKeys := CallbackCreate(ObjBindMethod(implObj, "RemoveAllKeys"), flags, 2)
+        this.vtbl.MakeSingleton := CallbackCreate(ObjBindMethod(implObj, "MakeSingleton"), flags, 2)
+        this.vtbl.GetInfo := CallbackCreate(ObjBindMethod(implObj, "GetInfo"), flags, 3)
+        this.vtbl.GetText := CallbackCreate(ObjBindMethod(implObj, "GetText"), flags, 4)
     }
 
     Dispose() {

@@ -93,9 +93,9 @@ export default struct ISearchProtocolThreadContext extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ThreadInit := CallbackCreate(GetMethod(implObj, "ThreadInit"), flags, 1)
-        this.vtbl.ThreadShutdown := CallbackCreate(GetMethod(implObj, "ThreadShutdown"), flags, 1)
-        this.vtbl.ThreadIdle := CallbackCreate(GetMethod(implObj, "ThreadIdle"), flags, 2)
+        this.vtbl.ThreadInit := CallbackCreate(ObjBindMethod(implObj, "ThreadInit"), flags, 1)
+        this.vtbl.ThreadShutdown := CallbackCreate(ObjBindMethod(implObj, "ThreadShutdown"), flags, 1)
+        this.vtbl.ThreadIdle := CallbackCreate(ObjBindMethod(implObj, "ThreadIdle"), flags, 2)
     }
 
     Dispose() {

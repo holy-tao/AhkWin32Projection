@@ -21,7 +21,6 @@ export default struct PIBIO_SENSOR_ASYNC_IMPORT_SECURE_BUFFER_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline 
      * @param {Guid} SecureBufferIdentifier 
      * @param {Integer} MetadataBufferAddress 
@@ -31,10 +30,12 @@ export default struct PIBIO_SENSOR_ASYNC_IMPORT_SECURE_BUFFER_FN {
      * @returns {HRESULT} 
      */
     Call(Pipeline, SecureBufferIdentifier, MetadataBufferAddress, MetadataBufferSize, ResultBufferAddress, ResultBufferSize) {
-        ResultBufferAddressMarshal := ResultBufferAddress is VarRef ? "ptr*" : "ptr"
-        ResultBufferSizeMarshal := ResultBufferSize is VarRef ? "ptr*" : "ptr"
+        MetadataBufferAddressMarshal := MetadataBufferAddress == 0 ? IntPtr : IntPtr
+        ResultBufferAddressMarshal := ResultBufferAddress is VarRef ? "ptr*" : IntPtr
+        ResultBufferSizeMarshal := ResultBufferSize is VarRef ? "ptr*" : IntPtr
+        ResultBufferSizeMarshal := ResultBufferSize == 0 ? IntPtr : "ptr*"
 
-        result := DllCall(this.value, WINBIO_PIPELINE.Ptr, Pipeline, Guid, SecureBufferIdentifier, IntPtr, MetadataBufferAddress, IntPtr, MetadataBufferSize, ResultBufferAddressMarshal, ResultBufferAddress, ResultBufferSizeMarshal, ResultBufferSize, "HRESULT")
+        result := DllCall(this.value, WINBIO_PIPELINE.Ptr, Pipeline, Guid, SecureBufferIdentifier, MetadataBufferAddressMarshal, MetadataBufferAddress, IntPtr, MetadataBufferSize, ResultBufferAddressMarshal, ResultBufferAddress, ResultBufferSizeMarshal, ResultBufferSize, "HRESULT")
         return result
     }
 

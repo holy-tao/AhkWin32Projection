@@ -75,8 +75,8 @@ export default struct IWbemObjectAccess extends IWbemClassObject {
     GetPropertyHandle(wszPropertyName, pType, plHandle) {
         wszPropertyName := wszPropertyName is String ? StrPtr(wszPropertyName) : wszPropertyName
 
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-        plHandleMarshal := plHandle is VarRef ? "int*" : "ptr"
+        pTypeMarshal := pType is VarRef ? "int*" : IntPtr
+        plHandleMarshal := plHandle is VarRef ? "int*" : IntPtr
 
         result := ComCall(27, this, "ptr", wszPropertyName, pTypeMarshal, pType, plHandleMarshal, plHandle, "HRESULT")
         return result
@@ -91,7 +91,7 @@ export default struct IWbemObjectAccess extends IWbemClassObject {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemobjectaccess-writepropertyvalue
      */
     WritePropertyValue(lHandle, lNumBytes, aData) {
-        aDataMarshal := aData is VarRef ? "char*" : "ptr"
+        aDataMarshal := aData is VarRef ? "char*" : IntPtr
 
         result := ComCall(28, this, Int32, lHandle, Int32, lNumBytes, aDataMarshal, aData, "HRESULT")
         return result
@@ -109,8 +109,8 @@ export default struct IWbemObjectAccess extends IWbemClassObject {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemobjectaccess-readpropertyvalue
      */
     ReadPropertyValue(lHandle, lBufferSize, plNumBytes, aData) {
-        plNumBytesMarshal := plNumBytes is VarRef ? "int*" : "ptr"
-        aDataMarshal := aData is VarRef ? "char*" : "ptr"
+        plNumBytesMarshal := plNumBytes is VarRef ? "int*" : IntPtr
+        aDataMarshal := aData is VarRef ? "char*" : IntPtr
 
         result := ComCall(29, this, Int32, lHandle, Int32, lBufferSize, plNumBytesMarshal, plNumBytes, aDataMarshal, aData, "HRESULT")
         return result
@@ -171,7 +171,7 @@ export default struct IWbemObjectAccess extends IWbemClassObject {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemobjectaccess-getpropertyinfobyhandle
      */
     GetPropertyInfoByHandle(lHandle, pstrName, pType) {
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        pTypeMarshal := pType is VarRef ? "int*" : IntPtr
 
         result := ComCall(34, this, Int32, lHandle, BSTR.Ptr, pstrName, pTypeMarshal, pType, "HRESULT")
         return result
@@ -208,16 +208,16 @@ export default struct IWbemObjectAccess extends IWbemClassObject {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPropertyHandle := CallbackCreate(GetMethod(implObj, "GetPropertyHandle"), flags, 4)
-        this.vtbl.WritePropertyValue := CallbackCreate(GetMethod(implObj, "WritePropertyValue"), flags, 4)
-        this.vtbl.ReadPropertyValue := CallbackCreate(GetMethod(implObj, "ReadPropertyValue"), flags, 5)
-        this.vtbl.ReadDWORD := CallbackCreate(GetMethod(implObj, "ReadDWORD"), flags, 3)
-        this.vtbl.WriteDWORD := CallbackCreate(GetMethod(implObj, "WriteDWORD"), flags, 3)
-        this.vtbl.ReadQWORD := CallbackCreate(GetMethod(implObj, "ReadQWORD"), flags, 3)
-        this.vtbl.WriteQWORD := CallbackCreate(GetMethod(implObj, "WriteQWORD"), flags, 3)
-        this.vtbl.GetPropertyInfoByHandle := CallbackCreate(GetMethod(implObj, "GetPropertyInfoByHandle"), flags, 4)
-        this.vtbl.Lock := CallbackCreate(GetMethod(implObj, "Lock"), flags, 2)
-        this.vtbl.Unlock := CallbackCreate(GetMethod(implObj, "Unlock"), flags, 2)
+        this.vtbl.GetPropertyHandle := CallbackCreate(ObjBindMethod(implObj, "GetPropertyHandle"), flags, 4)
+        this.vtbl.WritePropertyValue := CallbackCreate(ObjBindMethod(implObj, "WritePropertyValue"), flags, 4)
+        this.vtbl.ReadPropertyValue := CallbackCreate(ObjBindMethod(implObj, "ReadPropertyValue"), flags, 5)
+        this.vtbl.ReadDWORD := CallbackCreate(ObjBindMethod(implObj, "ReadDWORD"), flags, 3)
+        this.vtbl.WriteDWORD := CallbackCreate(ObjBindMethod(implObj, "WriteDWORD"), flags, 3)
+        this.vtbl.ReadQWORD := CallbackCreate(ObjBindMethod(implObj, "ReadQWORD"), flags, 3)
+        this.vtbl.WriteQWORD := CallbackCreate(ObjBindMethod(implObj, "WriteQWORD"), flags, 3)
+        this.vtbl.GetPropertyInfoByHandle := CallbackCreate(ObjBindMethod(implObj, "GetPropertyInfoByHandle"), flags, 4)
+        this.vtbl.Lock := CallbackCreate(ObjBindMethod(implObj, "Lock"), flags, 2)
+        this.vtbl.Unlock := CallbackCreate(ObjBindMethod(implObj, "Unlock"), flags, 2)
     }
 
     Dispose() {

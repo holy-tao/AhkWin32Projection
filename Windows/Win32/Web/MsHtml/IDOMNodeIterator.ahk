@@ -71,7 +71,6 @@ export default struct IDOMNodeIterator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_root() {
@@ -80,7 +79,6 @@ export default struct IDOMNodeIterator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_whatToShow() {
@@ -89,7 +87,6 @@ export default struct IDOMNodeIterator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_filter() {
@@ -98,7 +95,6 @@ export default struct IDOMNodeIterator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_expandEntityReferences() {
@@ -107,7 +103,6 @@ export default struct IDOMNodeIterator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     nextNode() {
@@ -116,7 +111,6 @@ export default struct IDOMNodeIterator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     previousNode() {
@@ -125,7 +119,6 @@ export default struct IDOMNodeIterator extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     detach() {
@@ -142,13 +135,13 @@ export default struct IDOMNodeIterator extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_root := CallbackCreate(GetMethod(implObj, "get_root"), flags, 2)
-        this.vtbl.get_whatToShow := CallbackCreate(GetMethod(implObj, "get_whatToShow"), flags, 2)
-        this.vtbl.get_filter := CallbackCreate(GetMethod(implObj, "get_filter"), flags, 2)
-        this.vtbl.get_expandEntityReferences := CallbackCreate(GetMethod(implObj, "get_expandEntityReferences"), flags, 2)
-        this.vtbl.nextNode := CallbackCreate(GetMethod(implObj, "nextNode"), flags, 2)
-        this.vtbl.previousNode := CallbackCreate(GetMethod(implObj, "previousNode"), flags, 2)
-        this.vtbl.detach := CallbackCreate(GetMethod(implObj, "detach"), flags, 1)
+        this.vtbl.get_root := CallbackCreate(ObjBindMethod(implObj, "get_root"), flags, 2)
+        this.vtbl.get_whatToShow := CallbackCreate(ObjBindMethod(implObj, "get_whatToShow"), flags, 2)
+        this.vtbl.get_filter := CallbackCreate(ObjBindMethod(implObj, "get_filter"), flags, 2)
+        this.vtbl.get_expandEntityReferences := CallbackCreate(ObjBindMethod(implObj, "get_expandEntityReferences"), flags, 2)
+        this.vtbl.nextNode := CallbackCreate(ObjBindMethod(implObj, "nextNode"), flags, 2)
+        this.vtbl.previousNode := CallbackCreate(ObjBindMethod(implObj, "previousNode"), flags, 2)
+        this.vtbl.detach := CallbackCreate(ObjBindMethod(implObj, "detach"), flags, 1)
     }
 
     Dispose() {

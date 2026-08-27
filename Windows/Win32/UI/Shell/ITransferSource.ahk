@@ -368,7 +368,9 @@ export default struct ITransferSource extends IUnknown {
     LinkItem(psiSource, psiParentDest, pszNewName, flags) {
         pszNewName := pszNewName is String ? StrPtr(pszNewName) : pszNewName
 
-        result := ComCall(11, this, "ptr", psiSource, "ptr", psiParentDest, "ptr", pszNewName, UInt32, flags, "ptr*", &ppsiNewDest := 0, "HRESULT")
+        pszNewNameMarshal := pszNewName == 0 ? IntPtr : PWSTR
+
+        result := ComCall(11, this, "ptr", psiSource, "ptr", psiParentDest, pszNewNameMarshal, pszNewName, UInt32, flags, "ptr*", &ppsiNewDest := 0, "HRESULT")
         return IShellItem(ppsiNewDest)
     }
 
@@ -450,19 +452,19 @@ export default struct ITransferSource extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 3)
-        this.vtbl.Unadvise := CallbackCreate(GetMethod(implObj, "Unadvise"), flags, 2)
-        this.vtbl.SetProperties := CallbackCreate(GetMethod(implObj, "SetProperties"), flags, 2)
-        this.vtbl.OpenItem := CallbackCreate(GetMethod(implObj, "OpenItem"), flags, 5)
-        this.vtbl.MoveItem := CallbackCreate(GetMethod(implObj, "MoveItem"), flags, 6)
-        this.vtbl.RecycleItem := CallbackCreate(GetMethod(implObj, "RecycleItem"), flags, 5)
-        this.vtbl.RemoveItem := CallbackCreate(GetMethod(implObj, "RemoveItem"), flags, 3)
-        this.vtbl.RenameItem := CallbackCreate(GetMethod(implObj, "RenameItem"), flags, 5)
-        this.vtbl.LinkItem := CallbackCreate(GetMethod(implObj, "LinkItem"), flags, 6)
-        this.vtbl.ApplyPropertiesToItem := CallbackCreate(GetMethod(implObj, "ApplyPropertiesToItem"), flags, 3)
-        this.vtbl.GetDefaultDestinationName := CallbackCreate(GetMethod(implObj, "GetDefaultDestinationName"), flags, 4)
-        this.vtbl.EnterFolder := CallbackCreate(GetMethod(implObj, "EnterFolder"), flags, 2)
-        this.vtbl.LeaveFolder := CallbackCreate(GetMethod(implObj, "LeaveFolder"), flags, 2)
+        this.vtbl.Advise := CallbackCreate(ObjBindMethod(implObj, "Advise"), flags, 3)
+        this.vtbl.Unadvise := CallbackCreate(ObjBindMethod(implObj, "Unadvise"), flags, 2)
+        this.vtbl.SetProperties := CallbackCreate(ObjBindMethod(implObj, "SetProperties"), flags, 2)
+        this.vtbl.OpenItem := CallbackCreate(ObjBindMethod(implObj, "OpenItem"), flags, 5)
+        this.vtbl.MoveItem := CallbackCreate(ObjBindMethod(implObj, "MoveItem"), flags, 6)
+        this.vtbl.RecycleItem := CallbackCreate(ObjBindMethod(implObj, "RecycleItem"), flags, 5)
+        this.vtbl.RemoveItem := CallbackCreate(ObjBindMethod(implObj, "RemoveItem"), flags, 3)
+        this.vtbl.RenameItem := CallbackCreate(ObjBindMethod(implObj, "RenameItem"), flags, 5)
+        this.vtbl.LinkItem := CallbackCreate(ObjBindMethod(implObj, "LinkItem"), flags, 6)
+        this.vtbl.ApplyPropertiesToItem := CallbackCreate(ObjBindMethod(implObj, "ApplyPropertiesToItem"), flags, 3)
+        this.vtbl.GetDefaultDestinationName := CallbackCreate(ObjBindMethod(implObj, "GetDefaultDestinationName"), flags, 4)
+        this.vtbl.EnterFolder := CallbackCreate(ObjBindMethod(implObj, "EnterFolder"), flags, 2)
+        this.vtbl.LeaveFolder := CallbackCreate(ObjBindMethod(implObj, "LeaveFolder"), flags, 2)
     }
 
     Dispose() {

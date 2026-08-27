@@ -19,14 +19,15 @@ export default struct DOT11EXT_REQUEST_VIRTUAL_STATION {
     }
 
     /**
-     * 
      * @param {HANDLE} hDot11PrimaryHandle 
      * @returns {Integer} 
      */
     Call(hDot11PrimaryHandle) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall(this.value, HANDLE, hDot11PrimaryHandle, "ptr", pvReserved, UInt32)
+        hDot11PrimaryHandleMarshal := hDot11PrimaryHandle == 0 ? IntPtr : HANDLE
+
+        result := DllCall(this.value, hDot11PrimaryHandleMarshal, hDot11PrimaryHandle, "ptr", pvReserved, UInt32)
         return result
     }
 

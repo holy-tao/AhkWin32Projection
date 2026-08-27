@@ -70,7 +70,6 @@ export default struct IHTMLCSSImportRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_href() {
@@ -80,7 +79,6 @@ export default struct IHTMLCSSImportRule extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -90,7 +88,6 @@ export default struct IHTMLCSSImportRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_media() {
@@ -100,7 +97,6 @@ export default struct IHTMLCSSImportRule extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStyleSheet} 
      */
     get_styleSheet() {
@@ -117,10 +113,10 @@ export default struct IHTMLCSSImportRule extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_href := CallbackCreate(GetMethod(implObj, "get_href"), flags, 2)
-        this.vtbl.put_media := CallbackCreate(GetMethod(implObj, "put_media"), flags, 2)
-        this.vtbl.get_media := CallbackCreate(GetMethod(implObj, "get_media"), flags, 2)
-        this.vtbl.get_styleSheet := CallbackCreate(GetMethod(implObj, "get_styleSheet"), flags, 2)
+        this.vtbl.get_href := CallbackCreate(ObjBindMethod(implObj, "get_href"), flags, 2)
+        this.vtbl.put_media := CallbackCreate(ObjBindMethod(implObj, "put_media"), flags, 2)
+        this.vtbl.get_media := CallbackCreate(ObjBindMethod(implObj, "get_media"), flags, 2)
+        this.vtbl.get_styleSheet := CallbackCreate(ObjBindMethod(implObj, "get_styleSheet"), flags, 2)
     }
 
     Dispose() {

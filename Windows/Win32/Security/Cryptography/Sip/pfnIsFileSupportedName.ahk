@@ -29,7 +29,6 @@ export default struct pfnIsFileSupportedName {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszFileName A pointer to a <b>null</b>-terminated string that contains the absolute path to the file to be processed by the SIP.
      * @param {Pointer<Guid>} pgSubject The GUID identifying the SIP that handles the file type.
      * @returns {BOOL} The return value is <b>TRUE</b> if the function succeeds; <b>FALSE</b> if the function fails. If the function fails, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to determine the reason for failure.

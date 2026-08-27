@@ -154,13 +154,13 @@ export default struct IDeviceTopology extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetConnectorCount := CallbackCreate(GetMethod(implObj, "GetConnectorCount"), flags, 2)
-        this.vtbl.GetConnector := CallbackCreate(GetMethod(implObj, "GetConnector"), flags, 3)
-        this.vtbl.GetSubunitCount := CallbackCreate(GetMethod(implObj, "GetSubunitCount"), flags, 2)
-        this.vtbl.GetSubunit := CallbackCreate(GetMethod(implObj, "GetSubunit"), flags, 3)
-        this.vtbl.GetPartById := CallbackCreate(GetMethod(implObj, "GetPartById"), flags, 3)
-        this.vtbl.GetDeviceId := CallbackCreate(GetMethod(implObj, "GetDeviceId"), flags, 2)
-        this.vtbl.GetSignalPath := CallbackCreate(GetMethod(implObj, "GetSignalPath"), flags, 5)
+        this.vtbl.GetConnectorCount := CallbackCreate(ObjBindMethod(implObj, "GetConnectorCount"), flags, 2)
+        this.vtbl.GetConnector := CallbackCreate(ObjBindMethod(implObj, "GetConnector"), flags, 3)
+        this.vtbl.GetSubunitCount := CallbackCreate(ObjBindMethod(implObj, "GetSubunitCount"), flags, 2)
+        this.vtbl.GetSubunit := CallbackCreate(ObjBindMethod(implObj, "GetSubunit"), flags, 3)
+        this.vtbl.GetPartById := CallbackCreate(ObjBindMethod(implObj, "GetPartById"), flags, 3)
+        this.vtbl.GetDeviceId := CallbackCreate(ObjBindMethod(implObj, "GetDeviceId"), flags, 2)
+        this.vtbl.GetSignalPath := CallbackCreate(ObjBindMethod(implObj, "GetSignalPath"), flags, 5)
     }
 
     Dispose() {

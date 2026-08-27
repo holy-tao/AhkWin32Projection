@@ -38,7 +38,6 @@ export default struct ID2D1Factory8 extends ID2D1Factory7 {
     }
 
     /**
-     * 
      * @param {IDXGIDevice} dxgiDevice 
      * @returns {ID2D1Device7} 
      */
@@ -56,7 +55,7 @@ export default struct ID2D1Factory8 extends ID2D1Factory7 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateDevice := CallbackCreate(GetMethod(implObj, "CreateDevice"), flags, 3)
+        this.vtbl.CreateDevice := CallbackCreate(ObjBindMethod(implObj, "CreateDevice"), flags, 3)
     }
 
     Dispose() {

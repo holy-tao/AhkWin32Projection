@@ -134,10 +134,10 @@ export default struct IShowMessageAction extends IAction {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Title := CallbackCreate(GetMethod(implObj, "get_Title"), flags, 2)
-        this.vtbl.put_Title := CallbackCreate(GetMethod(implObj, "put_Title"), flags, 2)
-        this.vtbl.get_MessageBody := CallbackCreate(GetMethod(implObj, "get_MessageBody"), flags, 2)
-        this.vtbl.put_MessageBody := CallbackCreate(GetMethod(implObj, "put_MessageBody"), flags, 2)
+        this.vtbl.get_Title := CallbackCreate(ObjBindMethod(implObj, "get_Title"), flags, 2)
+        this.vtbl.put_Title := CallbackCreate(ObjBindMethod(implObj, "put_Title"), flags, 2)
+        this.vtbl.get_MessageBody := CallbackCreate(ObjBindMethod(implObj, "get_MessageBody"), flags, 2)
+        this.vtbl.put_MessageBody := CallbackCreate(ObjBindMethod(implObj, "put_MessageBody"), flags, 2)
     }
 
     Dispose() {

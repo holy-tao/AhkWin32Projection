@@ -21,7 +21,6 @@ export default struct PLSA_GET_APP_MODE_INFO {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} UserFunction 
      * @param {Pointer<Pointer>} Argument1 
      * @param {Pointer<Pointer>} Argument2 
@@ -30,12 +29,17 @@ export default struct PLSA_GET_APP_MODE_INFO {
      * @returns {NTSTATUS} 
      */
     Call(UserFunction, Argument1, Argument2, _UserData, ReturnToLsa) {
-        UserFunctionMarshal := UserFunction is VarRef ? "uint*" : "ptr"
-        Argument1Marshal := Argument1 is VarRef ? "ptr*" : "ptr"
-        Argument2Marshal := Argument2 is VarRef ? "ptr*" : "ptr"
-        ReturnToLsaMarshal := ReturnToLsa is VarRef ? "char*" : "ptr"
+        UserFunctionMarshal := UserFunction is VarRef ? "uint*" : IntPtr
+        UserFunctionMarshal := UserFunction == 0 ? IntPtr : "uint*"
+        Argument1Marshal := Argument1 is VarRef ? "ptr*" : IntPtr
+        Argument1Marshal := Argument1 == 0 ? IntPtr : "ptr*"
+        Argument2Marshal := Argument2 is VarRef ? "ptr*" : IntPtr
+        Argument2Marshal := Argument2 == 0 ? IntPtr : "ptr*"
+        _UserDataMarshal := _UserData == 0 ? IntPtr : SecBuffer.Ptr
+        ReturnToLsaMarshal := ReturnToLsa is VarRef ? "char*" : IntPtr
+        ReturnToLsaMarshal := ReturnToLsa == 0 ? IntPtr : BOOLEAN.Ptr
 
-        result := DllCall(this.value, UserFunctionMarshal, UserFunction, Argument1Marshal, Argument1, Argument2Marshal, Argument2, SecBuffer.Ptr, _UserData, ReturnToLsaMarshal, ReturnToLsa, NTSTATUS)
+        result := DllCall(this.value, UserFunctionMarshal, UserFunction, Argument1Marshal, Argument1, Argument2Marshal, Argument2, _UserDataMarshal, _UserData, ReturnToLsaMarshal, ReturnToLsa, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

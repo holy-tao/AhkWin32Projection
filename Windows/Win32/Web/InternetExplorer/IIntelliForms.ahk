@@ -46,7 +46,6 @@ export default struct IIntelliForms extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_enabled() {
@@ -55,7 +54,6 @@ export default struct IIntelliForms extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bVal 
      * @returns {HRESULT} 
      */
@@ -73,8 +71,8 @@ export default struct IIntelliForms extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_enabled := CallbackCreate(GetMethod(implObj, "get_enabled"), flags, 2)
-        this.vtbl.put_enabled := CallbackCreate(GetMethod(implObj, "put_enabled"), flags, 2)
+        this.vtbl.get_enabled := CallbackCreate(ObjBindMethod(implObj, "get_enabled"), flags, 2)
+        this.vtbl.put_enabled := CallbackCreate(ObjBindMethod(implObj, "put_enabled"), flags, 2)
     }
 
     Dispose() {

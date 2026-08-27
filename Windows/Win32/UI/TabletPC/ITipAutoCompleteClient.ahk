@@ -50,29 +50,30 @@ export default struct ITipAutoCompleteClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} hWndField 
      * @param {ITipAutoCompleteProvider} pIProvider 
      * @returns {HRESULT} 
      */
     AdviseProvider(hWndField, pIProvider) {
-        result := ComCall(3, this, HWND, hWndField, "ptr", pIProvider, "HRESULT")
+        pIProviderMarshal := pIProvider == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, HWND, hWndField, pIProviderMarshal, pIProvider, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HWND} hWndField 
      * @param {ITipAutoCompleteProvider} pIProvider 
      * @returns {HRESULT} 
      */
     UnadviseProvider(hWndField, pIProvider) {
-        result := ComCall(4, this, HWND, hWndField, "ptr", pIProvider, "HRESULT")
+        pIProviderMarshal := pIProvider == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, HWND, hWndField, pIProviderMarshal, pIProvider, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     UserSelection() {
@@ -81,7 +82,6 @@ export default struct ITipAutoCompleteClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<RECT>} prcACList 
      * @param {Pointer<RECT>} prcField 
      * @param {Pointer<RECT>} prcModifiedACList 
@@ -89,14 +89,13 @@ export default struct ITipAutoCompleteClient extends IUnknown {
      * @returns {HRESULT} 
      */
     PreferredRects(prcACList, prcField, prcModifiedACList, pfShownAboveTip) {
-        pfShownAboveTipMarshal := pfShownAboveTip is VarRef ? "int*" : "ptr"
+        pfShownAboveTipMarshal := pfShownAboveTip is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, RECT.Ptr, prcACList, RECT.Ptr, prcField, RECT.Ptr, prcModifiedACList, pfShownAboveTipMarshal, pfShownAboveTip, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HWND} hWndList 
      * @returns {BOOL} 
      */
@@ -114,11 +113,11 @@ export default struct ITipAutoCompleteClient extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AdviseProvider := CallbackCreate(GetMethod(implObj, "AdviseProvider"), flags, 3)
-        this.vtbl.UnadviseProvider := CallbackCreate(GetMethod(implObj, "UnadviseProvider"), flags, 3)
-        this.vtbl.UserSelection := CallbackCreate(GetMethod(implObj, "UserSelection"), flags, 1)
-        this.vtbl.PreferredRects := CallbackCreate(GetMethod(implObj, "PreferredRects"), flags, 5)
-        this.vtbl.RequestShowUI := CallbackCreate(GetMethod(implObj, "RequestShowUI"), flags, 3)
+        this.vtbl.AdviseProvider := CallbackCreate(ObjBindMethod(implObj, "AdviseProvider"), flags, 3)
+        this.vtbl.UnadviseProvider := CallbackCreate(ObjBindMethod(implObj, "UnadviseProvider"), flags, 3)
+        this.vtbl.UserSelection := CallbackCreate(ObjBindMethod(implObj, "UserSelection"), flags, 1)
+        this.vtbl.PreferredRects := CallbackCreate(ObjBindMethod(implObj, "PreferredRects"), flags, 5)
+        this.vtbl.RequestShowUI := CallbackCreate(ObjBindMethod(implObj, "RequestShowUI"), flags, 3)
     }
 
     Dispose() {

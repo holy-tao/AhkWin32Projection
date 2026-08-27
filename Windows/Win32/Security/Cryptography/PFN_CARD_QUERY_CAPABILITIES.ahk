@@ -20,7 +20,6 @@ export default struct PFN_CARD_QUERY_CAPABILITIES {
     }
 
     /**
-     * 
      * @param {Pointer<CARD_DATA>} pCardData 
      * @param {Pointer<CARD_CAPABILITIES>} pCardCapabilities 
      * @returns {Integer} 

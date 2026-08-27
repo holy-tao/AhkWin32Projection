@@ -19,7 +19,6 @@ export default struct PCLUSTER_PREPARE_SHARED_VOLUME_FOR_BACKUP {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszFileName 
      * @param {PWSTR} lpszVolumePathName 
      * @param {Pointer<Integer>} lpcchVolumePathName 
@@ -32,8 +31,8 @@ export default struct PCLUSTER_PREPARE_SHARED_VOLUME_FOR_BACKUP {
         lpszVolumePathName := lpszVolumePathName is String ? StrPtr(lpszVolumePathName) : lpszVolumePathName
         lpszVolumeName := lpszVolumeName is String ? StrPtr(lpszVolumeName) : lpszVolumeName
 
-        lpcchVolumePathNameMarshal := lpcchVolumePathName is VarRef ? "uint*" : "ptr"
-        lpcchVolumeNameMarshal := lpcchVolumeName is VarRef ? "uint*" : "ptr"
+        lpcchVolumePathNameMarshal := lpcchVolumePathName is VarRef ? "uint*" : IntPtr
+        lpcchVolumeNameMarshal := lpcchVolumeName is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, "ptr", lpszFileName, "ptr", lpszVolumePathName, lpcchVolumePathNameMarshal, lpcchVolumePathName, "ptr", lpszVolumeName, lpcchVolumeNameMarshal, lpcchVolumeName, UInt32)
         return result

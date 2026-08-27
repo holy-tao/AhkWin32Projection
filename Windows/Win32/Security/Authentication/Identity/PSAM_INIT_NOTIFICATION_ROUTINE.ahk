@@ -54,7 +54,6 @@ export default struct PSAM_INIT_NOTIFICATION_ROUTINE {
     }
 
     /**
-     * 
      * @returns {BOOLEAN} <table>
      * <tr>
      * <th>Return code</th>

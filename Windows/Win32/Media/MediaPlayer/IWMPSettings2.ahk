@@ -80,7 +80,7 @@ export default struct IWMPSettings2 extends IWMPSettings {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsettings2-get_defaultaudiolanguage
      */
     get_defaultAudioLanguage(plLangID) {
-        plLangIDMarshal := plLangID is VarRef ? "int*" : "ptr"
+        plLangIDMarshal := plLangID is VarRef ? "int*" : IntPtr
 
         result := ComCall(30, this, plLangIDMarshal, plLangID, "HRESULT")
         return result
@@ -155,7 +155,7 @@ export default struct IWMPSettings2 extends IWMPSettings {
     requestMediaAccessRights(bstrDesiredAccess, pvbAccepted) {
         bstrDesiredAccess := bstrDesiredAccess is String ? BSTR.Alloc(bstrDesiredAccess).Value : bstrDesiredAccess
 
-        pvbAcceptedMarshal := pvbAccepted is VarRef ? "short*" : "ptr"
+        pvbAcceptedMarshal := pvbAccepted is VarRef ? "short*" : IntPtr
 
         result := ComCall(32, this, BSTR, bstrDesiredAccess, pvbAcceptedMarshal, pvbAccepted, "HRESULT")
         return result
@@ -170,9 +170,9 @@ export default struct IWMPSettings2 extends IWMPSettings {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_defaultAudioLanguage := CallbackCreate(GetMethod(implObj, "get_defaultAudioLanguage"), flags, 2)
-        this.vtbl.get_mediaAccessRights := CallbackCreate(GetMethod(implObj, "get_mediaAccessRights"), flags, 2)
-        this.vtbl.requestMediaAccessRights := CallbackCreate(GetMethod(implObj, "requestMediaAccessRights"), flags, 3)
+        this.vtbl.get_defaultAudioLanguage := CallbackCreate(ObjBindMethod(implObj, "get_defaultAudioLanguage"), flags, 2)
+        this.vtbl.get_mediaAccessRights := CallbackCreate(ObjBindMethod(implObj, "get_mediaAccessRights"), flags, 2)
+        this.vtbl.requestMediaAccessRights := CallbackCreate(ObjBindMethod(implObj, "requestMediaAccessRights"), flags, 3)
     }
 
     Dispose() {

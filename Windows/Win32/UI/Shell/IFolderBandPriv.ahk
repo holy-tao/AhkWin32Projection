@@ -110,10 +110,10 @@ export default struct IFolderBandPriv extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetCascade := CallbackCreate(GetMethod(implObj, "SetCascade"), flags, 2)
-        this.vtbl.SetAccelerators := CallbackCreate(GetMethod(implObj, "SetAccelerators"), flags, 2)
-        this.vtbl.SetNoIcons := CallbackCreate(GetMethod(implObj, "SetNoIcons"), flags, 2)
-        this.vtbl.SetNoText := CallbackCreate(GetMethod(implObj, "SetNoText"), flags, 2)
+        this.vtbl.SetCascade := CallbackCreate(ObjBindMethod(implObj, "SetCascade"), flags, 2)
+        this.vtbl.SetAccelerators := CallbackCreate(ObjBindMethod(implObj, "SetAccelerators"), flags, 2)
+        this.vtbl.SetNoIcons := CallbackCreate(ObjBindMethod(implObj, "SetNoIcons"), flags, 2)
+        this.vtbl.SetNoText := CallbackCreate(ObjBindMethod(implObj, "SetNoText"), flags, 2)
     }
 
     Dispose() {

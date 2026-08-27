@@ -89,7 +89,9 @@ export default struct ID3DX11SegmentedScan extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/nf-d3dcsx-id3dx11segmentedscan-segscan
      */
     SegScan(ElementType, OpCode, ElementScanSize, pSrc, pSrcElementFlags, pDst) {
-        result := ComCall(4, this, D3DX11_SCAN_DATA_TYPE, ElementType, D3DX11_SCAN_OPCODE, OpCode, UInt32, ElementScanSize, "ptr", pSrc, "ptr", pSrcElementFlags, "ptr", pDst, "HRESULT")
+        pSrcMarshal := pSrc == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, D3DX11_SCAN_DATA_TYPE, ElementType, D3DX11_SCAN_OPCODE, OpCode, UInt32, ElementScanSize, pSrcMarshal, pSrc, "ptr", pSrcElementFlags, "ptr", pDst, "HRESULT")
         return result
     }
 
@@ -102,8 +104,8 @@ export default struct ID3DX11SegmentedScan extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetScanDirection := CallbackCreate(GetMethod(implObj, "SetScanDirection"), flags, 2)
-        this.vtbl.SegScan := CallbackCreate(GetMethod(implObj, "SegScan"), flags, 7)
+        this.vtbl.SetScanDirection := CallbackCreate(ObjBindMethod(implObj, "SetScanDirection"), flags, 2)
+        this.vtbl.SegScan := CallbackCreate(ObjBindMethod(implObj, "SegScan"), flags, 7)
     }
 
     Dispose() {

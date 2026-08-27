@@ -36,7 +36,6 @@ export default struct IHTMLEditHost2 extends IHTMLEditHost {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     PreDrag() {
@@ -53,7 +52,7 @@ export default struct IHTMLEditHost2 extends IHTMLEditHost {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PreDrag := CallbackCreate(GetMethod(implObj, "PreDrag"), flags, 1)
+        this.vtbl.PreDrag := CallbackCreate(ObjBindMethod(implObj, "PreDrag"), flags, 1)
     }
 
     Dispose() {

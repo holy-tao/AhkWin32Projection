@@ -36,13 +36,14 @@ export default struct ID3D12ManualWriteTrackingResource extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Subresource 
      * @param {Pointer<D3D12_RANGE>} pWrittenRange 
      * @returns {String} Nothing - always returns an empty string
      */
     TrackWrite(Subresource, pWrittenRange) {
-        ComCall(3, this, UInt32, Subresource, D3D12_RANGE.Ptr, pWrittenRange)
+        pWrittenRangeMarshal := pWrittenRange == 0 ? IntPtr : D3D12_RANGE.Ptr
+
+        ComCall(3, this, UInt32, Subresource, pWrittenRangeMarshal, pWrittenRange)
     }
 
     _Query(iid) {
@@ -54,7 +55,7 @@ export default struct ID3D12ManualWriteTrackingResource extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.TrackWrite := CallbackCreate(GetMethod(implObj, "TrackWrite"), flags, 3)
+        this.vtbl.TrackWrite := CallbackCreate(ObjBindMethod(implObj, "TrackWrite"), flags, 3)
     }
 
     Dispose() {

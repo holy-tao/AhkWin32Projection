@@ -22,15 +22,14 @@ export default struct PFAXENUMJOBSA {
     }
 
     /**
-     * 
      * @param {HANDLE} FaxHandle 
      * @param {Pointer<Pointer<FAX_JOB_ENTRYA>>} JobEntry 
      * @param {Pointer<Integer>} JobsReturned 
      * @returns {BOOL} 
      */
     Call(FaxHandle, JobEntry, JobsReturned) {
-        JobEntryMarshal := JobEntry is VarRef ? "ptr*" : "ptr"
-        JobsReturnedMarshal := JobsReturned is VarRef ? "uint*" : "ptr"
+        JobEntryMarshal := JobEntry is VarRef ? "ptr*" : IntPtr
+        JobsReturnedMarshal := JobsReturned is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HANDLE, FaxHandle, JobEntryMarshal, JobEntry, JobsReturnedMarshal, JobsReturned, BOOL)
         return result

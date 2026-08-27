@@ -89,8 +89,8 @@ export default struct IDCompositionVisual2 extends IDCompositionVisual {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetOpacityMode := CallbackCreate(GetMethod(implObj, "SetOpacityMode"), flags, 2)
-        this.vtbl.SetBackFaceVisibility := CallbackCreate(GetMethod(implObj, "SetBackFaceVisibility"), flags, 2)
+        this.vtbl.SetOpacityMode := CallbackCreate(ObjBindMethod(implObj, "SetOpacityMode"), flags, 2)
+        this.vtbl.SetBackFaceVisibility := CallbackCreate(ObjBindMethod(implObj, "SetBackFaceVisibility"), flags, 2)
     }
 
     Dispose() {

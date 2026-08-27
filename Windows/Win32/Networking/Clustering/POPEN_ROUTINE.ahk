@@ -35,7 +35,6 @@ export default struct POPEN_ROUTINE {
     }
 
     /**
-     * 
      * @param {PWSTR} ResourceName Name of the resource to open.
      * @param {HKEY} ResourceKey <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">Cluster database</a> key for the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a> that includes the resource represented by 

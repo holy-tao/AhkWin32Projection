@@ -20,7 +20,6 @@ export default struct HTTP_POLICY_EXTENSION_INIT {
     }
 
     /**
-     * 
      * @param {HTTP_POLICY_EXTENSION_VERSION} _Version 
      * @param {HTTP_POLICY_EXTENSION_TYPE} Type 
      * @param {Pointer<Void>} pvData 
@@ -28,7 +27,7 @@ export default struct HTTP_POLICY_EXTENSION_INIT {
      * @returns {Integer} 
      */
     Call(_Version, Type, pvData, cbData) {
-        pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
+        pvDataMarshal := pvData is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, HTTP_POLICY_EXTENSION_VERSION, _Version, HTTP_POLICY_EXTENSION_TYPE, Type, pvDataMarshal, pvData, UInt32, cbData, UInt32)
         return result

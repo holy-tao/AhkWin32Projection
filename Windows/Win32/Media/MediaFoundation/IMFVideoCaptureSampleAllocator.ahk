@@ -64,7 +64,9 @@ export default struct IMFVideoCaptureSampleAllocator extends IMFVideoSampleAlloc
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfvideocapturesampleallocator-initializecapturesampleallocator
      */
     InitializeCaptureSampleAllocator(cbSampleSize, cbCaptureMetadataSize, cbAlignment, cMinimumSamples, pAttributes, pMediaType) {
-        result := ComCall(7, this, UInt32, cbSampleSize, UInt32, cbCaptureMetadataSize, UInt32, cbAlignment, UInt32, cMinimumSamples, "ptr", pAttributes, "ptr", pMediaType, "HRESULT")
+        pAttributesMarshal := pAttributes == 0 ? IntPtr : "ptr"
+
+        result := ComCall(7, this, UInt32, cbSampleSize, UInt32, cbCaptureMetadataSize, UInt32, cbAlignment, UInt32, cMinimumSamples, pAttributesMarshal, pAttributes, "ptr", pMediaType, "HRESULT")
         return result
     }
 
@@ -77,7 +79,7 @@ export default struct IMFVideoCaptureSampleAllocator extends IMFVideoSampleAlloc
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeCaptureSampleAllocator := CallbackCreate(GetMethod(implObj, "InitializeCaptureSampleAllocator"), flags, 7)
+        this.vtbl.InitializeCaptureSampleAllocator := CallbackCreate(ObjBindMethod(implObj, "InitializeCaptureSampleAllocator"), flags, 7)
     }
 
     Dispose() {

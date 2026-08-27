@@ -102,9 +102,9 @@ export default struct IDiscFormat2RawCDEventArgs extends IWriteEngine2EventArgs 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_CurrentAction := CallbackCreate(GetMethod(implObj, "get_CurrentAction"), flags, 2)
-        this.vtbl.get_ElapsedTime := CallbackCreate(GetMethod(implObj, "get_ElapsedTime"), flags, 2)
-        this.vtbl.get_RemainingTime := CallbackCreate(GetMethod(implObj, "get_RemainingTime"), flags, 2)
+        this.vtbl.get_CurrentAction := CallbackCreate(ObjBindMethod(implObj, "get_CurrentAction"), flags, 2)
+        this.vtbl.get_ElapsedTime := CallbackCreate(ObjBindMethod(implObj, "get_ElapsedTime"), flags, 2)
+        this.vtbl.get_RemainingTime := CallbackCreate(ObjBindMethod(implObj, "get_RemainingTime"), flags, 2)
     }
 
     Dispose() {

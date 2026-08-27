@@ -20,7 +20,6 @@ export default struct PFND3DKMT_PRESENT {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_PRESENT>} param0 
      * @returns {NTSTATUS} 
      */

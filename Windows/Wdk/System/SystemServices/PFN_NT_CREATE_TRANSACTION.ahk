@@ -23,7 +23,6 @@ export default struct PFN_NT_CREATE_TRANSACTION {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} TransactionHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
@@ -37,9 +36,17 @@ export default struct PFN_NT_CREATE_TRANSACTION {
      * @returns {NTSTATUS} 
      */
     Call(TransactionHandle, DesiredAccess, ObjectAttributes, Uow, TmHandle, CreateOptions, _IsolationLevel, IsolationFlags, Timeout, Description) {
-        TimeoutMarshal := Timeout is VarRef ? "int64*" : "ptr"
+        ObjectAttributesMarshal := ObjectAttributes == 0 ? IntPtr : OBJECT_ATTRIBUTES.Ptr
+        UowMarshal := Uow == 0 ? IntPtr : Guid.Ptr
+        TmHandleMarshal := TmHandle == 0 ? IntPtr : HANDLE
+        CreateOptionsMarshal := CreateOptions == 0 ? IntPtr : UInt32
+        _IsolationLevelMarshal := _IsolationLevel == 0 ? IntPtr : UInt32
+        IsolationFlagsMarshal := IsolationFlags == 0 ? IntPtr : UInt32
+        TimeoutMarshal := Timeout is VarRef ? "int64*" : IntPtr
+        TimeoutMarshal := Timeout == 0 ? IntPtr : "int64*"
+        DescriptionMarshal := Description == 0 ? IntPtr : UNICODE_STRING.Ptr
 
-        result := DllCall(this.value, HANDLE.Ptr, TransactionHandle, UInt32, DesiredAccess, OBJECT_ATTRIBUTES.Ptr, ObjectAttributes, Guid.Ptr, Uow, HANDLE, TmHandle, UInt32, CreateOptions, UInt32, _IsolationLevel, UInt32, IsolationFlags, TimeoutMarshal, Timeout, UNICODE_STRING.Ptr, Description, NTSTATUS)
+        result := DllCall(this.value, HANDLE.Ptr, TransactionHandle, UInt32, DesiredAccess, ObjectAttributesMarshal, ObjectAttributes, UowMarshal, Uow, TmHandleMarshal, TmHandle, CreateOptionsMarshal, CreateOptions, _IsolationLevelMarshal, _IsolationLevel, IsolationFlagsMarshal, IsolationFlags, TimeoutMarshal, Timeout, DescriptionMarshal, Description, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

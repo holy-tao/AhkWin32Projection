@@ -26,7 +26,6 @@ export default struct PFN_DrvEnablePDEV {
     }
 
     /**
-     * 
      * @param {Pointer<DEVMODEW>} param0 
      * @param {PWSTR} param1 
      * @param {Integer} param2 

@@ -88,65 +88,60 @@ export default struct IStiDeviceControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} lpBuffer 
      * @param {Pointer<Integer>} lpdwNumberOfBytes 
      * @param {Pointer<OVERLAPPED>} lpOverlapped 
      * @returns {HRESULT} 
      */
     RawReadData(lpBuffer, lpdwNumberOfBytes, lpOverlapped) {
-        lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
-        lpdwNumberOfBytesMarshal := lpdwNumberOfBytes is VarRef ? "uint*" : "ptr"
+        lpBufferMarshal := lpBuffer is VarRef ? "ptr" : IntPtr
+        lpdwNumberOfBytesMarshal := lpdwNumberOfBytes is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, lpBufferMarshal, lpBuffer, lpdwNumberOfBytesMarshal, lpdwNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} lpBuffer 
      * @param {Integer} nNumberOfBytes 
      * @param {Pointer<OVERLAPPED>} lpOverlapped 
      * @returns {HRESULT} 
      */
     RawWriteData(lpBuffer, nNumberOfBytes, lpOverlapped) {
-        lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
+        lpBufferMarshal := lpBuffer is VarRef ? "ptr" : IntPtr
 
         result := ComCall(5, this, lpBufferMarshal, lpBuffer, UInt32, nNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} lpBuffer 
      * @param {Pointer<Integer>} lpdwNumberOfBytes 
      * @param {Pointer<OVERLAPPED>} lpOverlapped 
      * @returns {HRESULT} 
      */
     RawReadCommand(lpBuffer, lpdwNumberOfBytes, lpOverlapped) {
-        lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
-        lpdwNumberOfBytesMarshal := lpdwNumberOfBytes is VarRef ? "uint*" : "ptr"
+        lpBufferMarshal := lpBuffer is VarRef ? "ptr" : IntPtr
+        lpdwNumberOfBytesMarshal := lpdwNumberOfBytes is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, lpBufferMarshal, lpBuffer, lpdwNumberOfBytesMarshal, lpdwNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} lpBuffer 
      * @param {Integer} nNumberOfBytes 
      * @param {Pointer<OVERLAPPED>} lpOverlapped 
      * @returns {HRESULT} 
      */
     RawWriteCommand(lpBuffer, nNumberOfBytes, lpOverlapped) {
-        lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
+        lpBufferMarshal := lpBuffer is VarRef ? "ptr" : IntPtr
 
         result := ComCall(7, this, lpBufferMarshal, lpBuffer, UInt32, nNumberOfBytes, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} EscapeFunction 
      * @param {Pointer<Void>} lpInData 
      * @param {Integer} cbInDataSize 
@@ -156,9 +151,9 @@ export default struct IStiDeviceControl extends IUnknown {
      * @returns {HRESULT} 
      */
     RawDeviceControl(EscapeFunction, lpInData, cbInDataSize, pOutData, dwOutDataSize, pdwActualData) {
-        lpInDataMarshal := lpInData is VarRef ? "ptr" : "ptr"
-        pOutDataMarshal := pOutData is VarRef ? "ptr" : "ptr"
-        pdwActualDataMarshal := pdwActualData is VarRef ? "uint*" : "ptr"
+        lpInDataMarshal := lpInData is VarRef ? "ptr" : IntPtr
+        pOutDataMarshal := pOutData is VarRef ? "ptr" : IntPtr
+        pdwActualDataMarshal := pdwActualData is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, UInt32, EscapeFunction, lpInDataMarshal, lpInData, UInt32, cbInDataSize, pOutDataMarshal, pOutData, UInt32, dwOutDataSize, pdwActualDataMarshal, pdwActualData, "HRESULT")
         return result
@@ -189,14 +184,13 @@ export default struct IStiDeviceControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror
      */
     GetLastError(lpdwLastError) {
-        lpdwLastErrorMarshal := lpdwLastError is VarRef ? "uint*" : "ptr"
+        lpdwLastErrorMarshal := lpdwLastError is VarRef ? "uint*" : IntPtr
 
         result := ComCall(9, this, lpdwLastErrorMarshal, lpdwLastError, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} lpszDevicePath 
      * @param {Integer} cwDevicePathSize 
      * @returns {HRESULT} 
@@ -209,7 +203,6 @@ export default struct IStiDeviceControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<HANDLE>} lph 
      * @returns {HRESULT} 
      */
@@ -219,19 +212,17 @@ export default struct IStiDeviceControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwOpenMode 
      * @returns {HRESULT} 
      */
     GetMyDeviceOpenMode(pdwOpenMode) {
-        pdwOpenModeMarshal := pdwOpenMode is VarRef ? "uint*" : "ptr"
+        pdwOpenModeMarshal := pdwOpenMode is VarRef ? "uint*" : IntPtr
 
         result := ComCall(12, this, pdwOpenModeMarshal, pdwOpenMode, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwMessageType 
      * @param {PWSTR} pszMessage 
      * @param {Integer} dwErrorCode 
@@ -253,17 +244,17 @@ export default struct IStiDeviceControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 5)
-        this.vtbl.RawReadData := CallbackCreate(GetMethod(implObj, "RawReadData"), flags, 4)
-        this.vtbl.RawWriteData := CallbackCreate(GetMethod(implObj, "RawWriteData"), flags, 4)
-        this.vtbl.RawReadCommand := CallbackCreate(GetMethod(implObj, "RawReadCommand"), flags, 4)
-        this.vtbl.RawWriteCommand := CallbackCreate(GetMethod(implObj, "RawWriteCommand"), flags, 4)
-        this.vtbl.RawDeviceControl := CallbackCreate(GetMethod(implObj, "RawDeviceControl"), flags, 7)
-        this.vtbl.GetLastError := CallbackCreate(GetMethod(implObj, "GetLastError"), flags, 2)
-        this.vtbl.GetMyDevicePortName := CallbackCreate(GetMethod(implObj, "GetMyDevicePortName"), flags, 3)
-        this.vtbl.GetMyDeviceHandle := CallbackCreate(GetMethod(implObj, "GetMyDeviceHandle"), flags, 2)
-        this.vtbl.GetMyDeviceOpenMode := CallbackCreate(GetMethod(implObj, "GetMyDeviceOpenMode"), flags, 2)
-        this.vtbl.WriteToErrorLog := CallbackCreate(GetMethod(implObj, "WriteToErrorLog"), flags, 4)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 5)
+        this.vtbl.RawReadData := CallbackCreate(ObjBindMethod(implObj, "RawReadData"), flags, 4)
+        this.vtbl.RawWriteData := CallbackCreate(ObjBindMethod(implObj, "RawWriteData"), flags, 4)
+        this.vtbl.RawReadCommand := CallbackCreate(ObjBindMethod(implObj, "RawReadCommand"), flags, 4)
+        this.vtbl.RawWriteCommand := CallbackCreate(ObjBindMethod(implObj, "RawWriteCommand"), flags, 4)
+        this.vtbl.RawDeviceControl := CallbackCreate(ObjBindMethod(implObj, "RawDeviceControl"), flags, 7)
+        this.vtbl.GetLastError := CallbackCreate(ObjBindMethod(implObj, "GetLastError"), flags, 2)
+        this.vtbl.GetMyDevicePortName := CallbackCreate(ObjBindMethod(implObj, "GetMyDevicePortName"), flags, 3)
+        this.vtbl.GetMyDeviceHandle := CallbackCreate(ObjBindMethod(implObj, "GetMyDeviceHandle"), flags, 2)
+        this.vtbl.GetMyDeviceOpenMode := CallbackCreate(ObjBindMethod(implObj, "GetMyDeviceOpenMode"), flags, 2)
+        this.vtbl.WriteToErrorLog := CallbackCreate(ObjBindMethod(implObj, "WriteToErrorLog"), flags, 4)
     }
 
     Dispose() {

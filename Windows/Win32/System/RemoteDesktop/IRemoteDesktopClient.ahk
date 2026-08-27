@@ -168,7 +168,9 @@ export default struct IRemoteDesktopClient extends IDispatch {
     attachEvent(eventName, callback) {
         eventName := eventName is String ? BSTR.Alloc(eventName).Value : eventName
 
-        result := ComCall(15, this, BSTR, eventName, "ptr", callback, "HRESULT")
+        callbackMarshal := callback == 0 ? IntPtr : "ptr"
+
+        result := ComCall(15, this, BSTR, eventName, callbackMarshal, callback, "HRESULT")
         return result
     }
 
@@ -182,7 +184,9 @@ export default struct IRemoteDesktopClient extends IDispatch {
     detachEvent(eventName, callback) {
         eventName := eventName is String ? BSTR.Alloc(eventName).Value : eventName
 
-        result := ComCall(16, this, BSTR, eventName, "ptr", callback, "HRESULT")
+        callbackMarshal := callback == 0 ? IntPtr : "ptr"
+
+        result := ComCall(16, this, BSTR, eventName, callbackMarshal, callback, "HRESULT")
         return result
     }
 
@@ -195,16 +199,16 @@ export default struct IRemoteDesktopClient extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 1)
-        this.vtbl.Disconnect := CallbackCreate(GetMethod(implObj, "Disconnect"), flags, 1)
-        this.vtbl.Reconnect := CallbackCreate(GetMethod(implObj, "Reconnect"), flags, 3)
-        this.vtbl.get_Settings := CallbackCreate(GetMethod(implObj, "get_Settings"), flags, 2)
-        this.vtbl.get_Actions := CallbackCreate(GetMethod(implObj, "get_Actions"), flags, 2)
-        this.vtbl.get_TouchPointer := CallbackCreate(GetMethod(implObj, "get_TouchPointer"), flags, 2)
-        this.vtbl.DeleteSavedCredentials := CallbackCreate(GetMethod(implObj, "DeleteSavedCredentials"), flags, 2)
-        this.vtbl.UpdateSessionDisplaySettings := CallbackCreate(GetMethod(implObj, "UpdateSessionDisplaySettings"), flags, 3)
-        this.vtbl.attachEvent := CallbackCreate(GetMethod(implObj, "attachEvent"), flags, 3)
-        this.vtbl.detachEvent := CallbackCreate(GetMethod(implObj, "detachEvent"), flags, 3)
+        this.vtbl.Connect := CallbackCreate(ObjBindMethod(implObj, "Connect"), flags, 1)
+        this.vtbl.Disconnect := CallbackCreate(ObjBindMethod(implObj, "Disconnect"), flags, 1)
+        this.vtbl.Reconnect := CallbackCreate(ObjBindMethod(implObj, "Reconnect"), flags, 3)
+        this.vtbl.get_Settings := CallbackCreate(ObjBindMethod(implObj, "get_Settings"), flags, 2)
+        this.vtbl.get_Actions := CallbackCreate(ObjBindMethod(implObj, "get_Actions"), flags, 2)
+        this.vtbl.get_TouchPointer := CallbackCreate(ObjBindMethod(implObj, "get_TouchPointer"), flags, 2)
+        this.vtbl.DeleteSavedCredentials := CallbackCreate(ObjBindMethod(implObj, "DeleteSavedCredentials"), flags, 2)
+        this.vtbl.UpdateSessionDisplaySettings := CallbackCreate(ObjBindMethod(implObj, "UpdateSessionDisplaySettings"), flags, 3)
+        this.vtbl.attachEvent := CallbackCreate(ObjBindMethod(implObj, "attachEvent"), flags, 3)
+        this.vtbl.detachEvent := CallbackCreate(ObjBindMethod(implObj, "detachEvent"), flags, 3)
     }
 
     Dispose() {

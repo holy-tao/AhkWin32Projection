@@ -206,9 +206,12 @@ export default struct ITypeLib extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypelib-getdocumentation
      */
     GetDocumentation(index, pBstrName, pBstrDocString, pdwHelpContext, pBstrHelpFile) {
-        pdwHelpContextMarshal := pdwHelpContext is VarRef ? "uint*" : "ptr"
+        pBstrNameMarshal := pBstrName == 0 ? IntPtr : BSTR.Ptr
+        pBstrDocStringMarshal := pBstrDocString == 0 ? IntPtr : BSTR.Ptr
+        pdwHelpContextMarshal := pdwHelpContext is VarRef ? "uint*" : IntPtr
+        pBstrHelpFileMarshal := pBstrHelpFile == 0 ? IntPtr : BSTR.Ptr
 
-        result := ComCall(9, this, Int32, index, BSTR.Ptr, pBstrName, BSTR.Ptr, pBstrDocString, pdwHelpContextMarshal, pdwHelpContext, BSTR.Ptr, pBstrHelpFile, "HRESULT")
+        result := ComCall(9, this, Int32, index, pBstrNameMarshal, pBstrName, pBstrDocStringMarshal, pBstrDocString, pdwHelpContextMarshal, pdwHelpContext, pBstrHelpFileMarshal, pBstrHelpFile, "HRESULT")
         return result
     }
 
@@ -286,8 +289,8 @@ export default struct ITypeLib extends IUnknown {
     FindName(szNameBuf, lHashVal, ppTInfo, rgMemId, pcFound) {
         szNameBuf := szNameBuf is String ? StrPtr(szNameBuf) : szNameBuf
 
-        rgMemIdMarshal := rgMemId is VarRef ? "int*" : "ptr"
-        pcFoundMarshal := pcFound is VarRef ? "ushort*" : "ptr"
+        rgMemIdMarshal := rgMemId is VarRef ? "int*" : IntPtr
+        pcFoundMarshal := pcFound is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(11, this, "ptr", szNameBuf, UInt32, lHashVal, ITypeInfo.Ptr, ppTInfo, rgMemIdMarshal, rgMemId, pcFoundMarshal, pcFound, "HRESULT")
         return result
@@ -312,16 +315,16 @@ export default struct ITypeLib extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTypeInfoCount := CallbackCreate(GetMethod(implObj, "GetTypeInfoCount"), flags, 1)
-        this.vtbl.GetTypeInfo := CallbackCreate(GetMethod(implObj, "GetTypeInfo"), flags, 3)
-        this.vtbl.GetTypeInfoType := CallbackCreate(GetMethod(implObj, "GetTypeInfoType"), flags, 3)
-        this.vtbl.GetTypeInfoOfGuid := CallbackCreate(GetMethod(implObj, "GetTypeInfoOfGuid"), flags, 3)
-        this.vtbl.GetLibAttr := CallbackCreate(GetMethod(implObj, "GetLibAttr"), flags, 2)
-        this.vtbl.GetTypeComp := CallbackCreate(GetMethod(implObj, "GetTypeComp"), flags, 2)
-        this.vtbl.GetDocumentation := CallbackCreate(GetMethod(implObj, "GetDocumentation"), flags, 6)
-        this.vtbl.IsName := CallbackCreate(GetMethod(implObj, "IsName"), flags, 4)
-        this.vtbl.FindName := CallbackCreate(GetMethod(implObj, "FindName"), flags, 6)
-        this.vtbl.ReleaseTLibAttr := CallbackCreate(GetMethod(implObj, "ReleaseTLibAttr"), flags, 2)
+        this.vtbl.GetTypeInfoCount := CallbackCreate(ObjBindMethod(implObj, "GetTypeInfoCount"), flags, 1)
+        this.vtbl.GetTypeInfo := CallbackCreate(ObjBindMethod(implObj, "GetTypeInfo"), flags, 3)
+        this.vtbl.GetTypeInfoType := CallbackCreate(ObjBindMethod(implObj, "GetTypeInfoType"), flags, 3)
+        this.vtbl.GetTypeInfoOfGuid := CallbackCreate(ObjBindMethod(implObj, "GetTypeInfoOfGuid"), flags, 3)
+        this.vtbl.GetLibAttr := CallbackCreate(ObjBindMethod(implObj, "GetLibAttr"), flags, 2)
+        this.vtbl.GetTypeComp := CallbackCreate(ObjBindMethod(implObj, "GetTypeComp"), flags, 2)
+        this.vtbl.GetDocumentation := CallbackCreate(ObjBindMethod(implObj, "GetDocumentation"), flags, 6)
+        this.vtbl.IsName := CallbackCreate(ObjBindMethod(implObj, "IsName"), flags, 4)
+        this.vtbl.FindName := CallbackCreate(ObjBindMethod(implObj, "FindName"), flags, 6)
+        this.vtbl.ReleaseTLibAttr := CallbackCreate(ObjBindMethod(implObj, "ReleaseTLibAttr"), flags, 2)
     }
 
     Dispose() {

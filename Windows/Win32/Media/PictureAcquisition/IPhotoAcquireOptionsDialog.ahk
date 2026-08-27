@@ -80,7 +80,9 @@ export default struct IPhotoAcquireOptionsDialog extends IUnknown {
     Initialize(pszRegistryRoot) {
         pszRegistryRoot := pszRegistryRoot is String ? StrPtr(pszRegistryRoot) : pszRegistryRoot
 
-        result := ComCall(3, this, "ptr", pszRegistryRoot, "HRESULT")
+        pszRegistryRootMarshal := pszRegistryRoot == 0 ? IntPtr : PWSTR
+
+        result := ComCall(3, this, pszRegistryRootMarshal, pszRegistryRoot, "HRESULT")
         return result
     }
 
@@ -158,7 +160,8 @@ export default struct IPhotoAcquireOptionsDialog extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireoptionsdialog-domodal
      */
     DoModal(hWndParent, ppnReturnCode) {
-        ppnReturnCodeMarshal := ppnReturnCode is VarRef ? "ptr*" : "ptr"
+        ppnReturnCodeMarshal := ppnReturnCode is VarRef ? "ptr*" : IntPtr
+        ppnReturnCodeMarshal := ppnReturnCode == 0 ? IntPtr : "ptr*"
 
         result := ComCall(6, this, HWND, hWndParent, ppnReturnCodeMarshal, ppnReturnCode, "HRESULT")
         return result
@@ -201,11 +204,11 @@ export default struct IPhotoAcquireOptionsDialog extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 3)
-        this.vtbl.Destroy := CallbackCreate(GetMethod(implObj, "Destroy"), flags, 1)
-        this.vtbl.DoModal := CallbackCreate(GetMethod(implObj, "DoModal"), flags, 3)
-        this.vtbl.SaveData := CallbackCreate(GetMethod(implObj, "SaveData"), flags, 1)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.Create := CallbackCreate(ObjBindMethod(implObj, "Create"), flags, 3)
+        this.vtbl.Destroy := CallbackCreate(ObjBindMethod(implObj, "Destroy"), flags, 1)
+        this.vtbl.DoModal := CallbackCreate(ObjBindMethod(implObj, "DoModal"), flags, 3)
+        this.vtbl.SaveData := CallbackCreate(ObjBindMethod(implObj, "SaveData"), flags, 1)
     }
 
     Dispose() {

@@ -37,7 +37,6 @@ export default struct IMSAdminBase3W extends IMSAdminBase2W {
     }
 
     /**
-     * 
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
      * @param {Integer} cchMDBufferSize 
@@ -49,9 +48,12 @@ export default struct IMSAdminBase3W extends IMSAdminBase2W {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
         pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
 
-        pcchMDRequiredBufferSizeMarshal := pcchMDRequiredBufferSize is VarRef ? "uint*" : "ptr"
+        pszMDPathMarshal := pszMDPath == 0 ? IntPtr : PWSTR
+        pszBufferMarshal := pszBuffer == 0 ? IntPtr : PWSTR
+        pcchMDRequiredBufferSizeMarshal := pcchMDRequiredBufferSize is VarRef ? "uint*" : IntPtr
+        pcchMDRequiredBufferSizeMarshal := pcchMDRequiredBufferSize == 0 ? IntPtr : "uint*"
 
-        result := ComCall(40, this, UInt32, hMDHandle, "ptr", pszMDPath, UInt32, cchMDBufferSize, "ptr", pszBuffer, pcchMDRequiredBufferSizeMarshal, pcchMDRequiredBufferSize, "HRESULT")
+        result := ComCall(40, this, UInt32, hMDHandle, pszMDPathMarshal, pszMDPath, UInt32, cchMDBufferSize, pszBufferMarshal, pszBuffer, pcchMDRequiredBufferSizeMarshal, pcchMDRequiredBufferSize, "HRESULT")
         return result
     }
 
@@ -64,7 +66,7 @@ export default struct IMSAdminBase3W extends IMSAdminBase2W {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetChildPaths := CallbackCreate(GetMethod(implObj, "GetChildPaths"), flags, 6)
+        this.vtbl.GetChildPaths := CallbackCreate(ObjBindMethod(implObj, "GetChildPaths"), flags, 6)
     }
 
     Dispose() {

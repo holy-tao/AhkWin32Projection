@@ -58,7 +58,7 @@ export default struct IBDA_AutoDemodulate extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_AutoDemodulate := CallbackCreate(GetMethod(implObj, "put_AutoDemodulate"), flags, 1)
+        this.vtbl.put_AutoDemodulate := CallbackCreate(ObjBindMethod(implObj, "put_AutoDemodulate"), flags, 1)
     }
 
     Dispose() {

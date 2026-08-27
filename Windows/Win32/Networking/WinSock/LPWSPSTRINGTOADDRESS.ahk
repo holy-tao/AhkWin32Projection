@@ -40,7 +40,6 @@ export default struct LPWSPSTRINGTOADDRESS {
     }
 
     /**
-     * 
      * @param {PWSTR} AddressString Pointer to the zero-terminated, human-readable string to convert.
      * @param {Integer} AddressFamily Address family to which the string belongs, or AF_UNSPEC if it is unknown.
      * @param {Pointer<WSAPROTOCOL_INFOW>} lpProtocolInfo (required) Provider's 
@@ -90,10 +89,11 @@ export default struct LPWSPSTRINGTOADDRESS {
     Call(AddressString, AddressFamily, lpProtocolInfo, lpAddress, lpAddressLength, lpErrno) {
         AddressString := AddressString is String ? StrPtr(AddressString) : AddressString
 
-        lpAddressLengthMarshal := lpAddressLength is VarRef ? "int*" : "ptr"
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        lpProtocolInfoMarshal := lpProtocolInfo == 0 ? IntPtr : WSAPROTOCOL_INFOW.Ptr
+        lpAddressLengthMarshal := lpAddressLength is VarRef ? "int*" : IntPtr
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
-        result := DllCall(this.value, "ptr", AddressString, Int32, AddressFamily, WSAPROTOCOL_INFOW.Ptr, lpProtocolInfo, IntPtr, lpAddress, lpAddressLengthMarshal, lpAddressLength, lpErrnoMarshal, lpErrno, Int32)
+        result := DllCall(this.value, "ptr", AddressString, Int32, AddressFamily, lpProtocolInfoMarshal, lpProtocolInfo, IntPtr, lpAddress, lpAddressLengthMarshal, lpAddressLength, lpErrnoMarshal, lpErrno, Int32)
         return result
     }
 

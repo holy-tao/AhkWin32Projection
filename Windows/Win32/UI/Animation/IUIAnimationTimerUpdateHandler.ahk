@@ -89,9 +89,9 @@ export default struct IUIAnimationTimerUpdateHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnUpdate := CallbackCreate(GetMethod(implObj, "OnUpdate"), flags, 3)
-        this.vtbl.SetTimerClientEventHandler := CallbackCreate(GetMethod(implObj, "SetTimerClientEventHandler"), flags, 2)
-        this.vtbl.ClearTimerClientEventHandler := CallbackCreate(GetMethod(implObj, "ClearTimerClientEventHandler"), flags, 1)
+        this.vtbl.OnUpdate := CallbackCreate(ObjBindMethod(implObj, "OnUpdate"), flags, 3)
+        this.vtbl.SetTimerClientEventHandler := CallbackCreate(ObjBindMethod(implObj, "SetTimerClientEventHandler"), flags, 2)
+        this.vtbl.ClearTimerClientEventHandler := CallbackCreate(ObjBindMethod(implObj, "ClearTimerClientEventHandler"), flags, 1)
     }
 
     Dispose() {

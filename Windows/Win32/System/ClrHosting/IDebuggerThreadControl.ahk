@@ -38,7 +38,6 @@ export default struct IDebuggerThreadControl extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ThreadIsBlockingForDebugger() {
@@ -47,7 +46,6 @@ export default struct IDebuggerThreadControl extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ReleaseAllRuntimeThreads() {
@@ -56,7 +54,6 @@ export default struct IDebuggerThreadControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwUnused 
      * @returns {HRESULT} 
      */
@@ -74,9 +71,9 @@ export default struct IDebuggerThreadControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ThreadIsBlockingForDebugger := CallbackCreate(GetMethod(implObj, "ThreadIsBlockingForDebugger"), flags, 1)
-        this.vtbl.ReleaseAllRuntimeThreads := CallbackCreate(GetMethod(implObj, "ReleaseAllRuntimeThreads"), flags, 1)
-        this.vtbl.StartBlockingForDebugger := CallbackCreate(GetMethod(implObj, "StartBlockingForDebugger"), flags, 2)
+        this.vtbl.ThreadIsBlockingForDebugger := CallbackCreate(ObjBindMethod(implObj, "ThreadIsBlockingForDebugger"), flags, 1)
+        this.vtbl.ReleaseAllRuntimeThreads := CallbackCreate(ObjBindMethod(implObj, "ReleaseAllRuntimeThreads"), flags, 1)
+        this.vtbl.StartBlockingForDebugger := CallbackCreate(ObjBindMethod(implObj, "StartBlockingForDebugger"), flags, 2)
     }
 
     Dispose() {

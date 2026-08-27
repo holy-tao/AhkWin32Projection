@@ -56,7 +56,7 @@ export default struct IOplockBreakingHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OplockBreaking := CallbackCreate(GetMethod(implObj, "OplockBreaking"), flags, 1)
+        this.vtbl.OplockBreaking := CallbackCreate(ObjBindMethod(implObj, "OplockBreaking"), flags, 1)
     }
 
     Dispose() {

@@ -23,7 +23,6 @@ export default struct PFN_DrvEnableDirectDraw {
     }
 
     /**
-     * 
      * @param {DHPDEV} param0 
      * @param {Pointer<DD_CALLBACKS>} param1 
      * @param {Pointer<DD_SURFACECALLBACKS>} param2 

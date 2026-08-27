@@ -26,7 +26,6 @@ export default struct PIBIO_ENGINE_QUERY_EXTENDED_ENROLLMENT_STATUS_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/ns-winbio_adapter-winbio_pipeline">WINBIO_PIPELINE</a> structure associated with the biometric unit performing the operation.
      * @param {Integer} EnrollmentStatus Pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-extended-enrollment-status">WINBIO_EXTENDED_ENROLLMENT_STATUS</a> structure that contains the extended enrollment status information returned by this function.
      * @param {Pointer} EnrollmentStatusSize The specified size in bytes of the extended enrollment status information.

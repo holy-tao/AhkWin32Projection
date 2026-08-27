@@ -60,7 +60,6 @@ export default struct IDOMMSAnimationEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_animationName() {
@@ -70,7 +69,6 @@ export default struct IDOMMSAnimationEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_elapsedTime() {
@@ -79,7 +77,6 @@ export default struct IDOMMSAnimationEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 
@@ -104,9 +101,9 @@ export default struct IDOMMSAnimationEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_animationName := CallbackCreate(GetMethod(implObj, "get_animationName"), flags, 2)
-        this.vtbl.get_elapsedTime := CallbackCreate(GetMethod(implObj, "get_elapsedTime"), flags, 2)
-        this.vtbl.initMSAnimationEvent := CallbackCreate(GetMethod(implObj, "initMSAnimationEvent"), flags, 6)
+        this.vtbl.get_animationName := CallbackCreate(ObjBindMethod(implObj, "get_animationName"), flags, 2)
+        this.vtbl.get_elapsedTime := CallbackCreate(ObjBindMethod(implObj, "get_elapsedTime"), flags, 2)
+        this.vtbl.initMSAnimationEvent := CallbackCreate(ObjBindMethod(implObj, "initMSAnimationEvent"), flags, 6)
     }
 
     Dispose() {

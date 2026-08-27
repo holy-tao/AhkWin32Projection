@@ -321,7 +321,9 @@ export default struct IWSDiscoveryProvider extends IUnknown {
         pszId := pszId is String ? StrPtr(pszId) : pszId
         pszTag := pszTag is String ? StrPtr(pszTag) : pszTag
 
-        result := ComCall(6, this, "ptr", pszId, "ptr", pszTag, "HRESULT")
+        pszTagMarshal := pszTag == 0 ? IntPtr : PWSTR
+
+        result := ComCall(6, this, "ptr", pszId, pszTagMarshal, pszTag, "HRESULT")
         return result
     }
 
@@ -393,7 +395,9 @@ export default struct IWSDiscoveryProvider extends IUnknown {
         pszAddress := pszAddress is String ? StrPtr(pszAddress) : pszAddress
         pszTag := pszTag is String ? StrPtr(pszTag) : pszTag
 
-        result := ComCall(7, this, "ptr", pszAddress, "ptr", pszTag, "HRESULT")
+        pszTagMarshal := pszTag == 0 ? IntPtr : PWSTR
+
+        result := ComCall(7, this, "ptr", pszAddress, pszTagMarshal, pszTag, "HRESULT")
         return result
     }
 
@@ -469,7 +473,12 @@ export default struct IWSDiscoveryProvider extends IUnknown {
         pszMatchBy := pszMatchBy is String ? StrPtr(pszMatchBy) : pszMatchBy
         pszTag := pszTag is String ? StrPtr(pszTag) : pszTag
 
-        result := ComCall(8, this, WSD_NAME_LIST.Ptr, pTypesList, WSD_URI_LIST.Ptr, pScopesList, "ptr", pszMatchBy, "ptr", pszTag, "HRESULT")
+        pTypesListMarshal := pTypesList == 0 ? IntPtr : WSD_NAME_LIST.Ptr
+        pScopesListMarshal := pScopesList == 0 ? IntPtr : WSD_URI_LIST.Ptr
+        pszMatchByMarshal := pszMatchBy == 0 ? IntPtr : PWSTR
+        pszTagMarshal := pszTag == 0 ? IntPtr : PWSTR
+
+        result := ComCall(8, this, pTypesListMarshal, pTypesList, pScopesListMarshal, pScopesList, pszMatchByMarshal, pszMatchBy, pszTagMarshal, pszTag, "HRESULT")
         return result
     }
 
@@ -497,13 +506,13 @@ export default struct IWSDiscoveryProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAddressFamily := CallbackCreate(GetMethod(implObj, "SetAddressFamily"), flags, 2)
-        this.vtbl.Attach := CallbackCreate(GetMethod(implObj, "Attach"), flags, 2)
-        this.vtbl.Detach := CallbackCreate(GetMethod(implObj, "Detach"), flags, 1)
-        this.vtbl.SearchById := CallbackCreate(GetMethod(implObj, "SearchById"), flags, 3)
-        this.vtbl.SearchByAddress := CallbackCreate(GetMethod(implObj, "SearchByAddress"), flags, 3)
-        this.vtbl.SearchByType := CallbackCreate(GetMethod(implObj, "SearchByType"), flags, 5)
-        this.vtbl.GetXMLContext := CallbackCreate(GetMethod(implObj, "GetXMLContext"), flags, 2)
+        this.vtbl.SetAddressFamily := CallbackCreate(ObjBindMethod(implObj, "SetAddressFamily"), flags, 2)
+        this.vtbl.Attach := CallbackCreate(ObjBindMethod(implObj, "Attach"), flags, 2)
+        this.vtbl.Detach := CallbackCreate(ObjBindMethod(implObj, "Detach"), flags, 1)
+        this.vtbl.SearchById := CallbackCreate(ObjBindMethod(implObj, "SearchById"), flags, 3)
+        this.vtbl.SearchByAddress := CallbackCreate(ObjBindMethod(implObj, "SearchByAddress"), flags, 3)
+        this.vtbl.SearchByType := CallbackCreate(ObjBindMethod(implObj, "SearchByType"), flags, 5)
+        this.vtbl.GetXMLContext := CallbackCreate(ObjBindMethod(implObj, "GetXMLContext"), flags, 2)
     }
 
     Dispose() {

@@ -37,7 +37,6 @@ export default struct IGpnvsCommonBase extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetValueUpdateName() {
@@ -55,7 +54,7 @@ export default struct IGpnvsCommonBase extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetValueUpdateName := CallbackCreate(GetMethod(implObj, "GetValueUpdateName"), flags, 2)
+        this.vtbl.GetValueUpdateName := CallbackCreate(ObjBindMethod(implObj, "GetValueUpdateName"), flags, 2)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct PFREE_ADAPTER_OBJECT {
     }
 
     /**
-     * 
      * @param {Pointer<DMA_ADAPTER>} DmaAdapter 
      * @param {IO_ALLOCATION_ACTION} AllocationAction 
      * @returns {String} Nothing - always returns an empty string

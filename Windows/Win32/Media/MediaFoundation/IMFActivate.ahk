@@ -155,9 +155,9 @@ export default struct IMFActivate extends IMFAttributes {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ActivateObject := CallbackCreate(GetMethod(implObj, "ActivateObject"), flags, 3)
-        this.vtbl.ShutdownObject := CallbackCreate(GetMethod(implObj, "ShutdownObject"), flags, 1)
-        this.vtbl.DetachObject := CallbackCreate(GetMethod(implObj, "DetachObject"), flags, 1)
+        this.vtbl.ActivateObject := CallbackCreate(ObjBindMethod(implObj, "ActivateObject"), flags, 3)
+        this.vtbl.ShutdownObject := CallbackCreate(ObjBindMethod(implObj, "ShutdownObject"), flags, 1)
+        this.vtbl.DetachObject := CallbackCreate(ObjBindMethod(implObj, "DetachObject"), flags, 1)
     }
 
     Dispose() {

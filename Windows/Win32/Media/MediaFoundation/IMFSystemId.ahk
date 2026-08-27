@@ -64,8 +64,8 @@ export default struct IMFSystemId extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsystemid-getdata
      */
     GetData(_size, data) {
-        _sizeMarshal := _size is VarRef ? "uint*" : "ptr"
-        dataMarshal := data is VarRef ? "ptr*" : "ptr"
+        _sizeMarshal := _size is VarRef ? "uint*" : IntPtr
+        dataMarshal := data is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, _sizeMarshal, _size, dataMarshal, data, "HRESULT")
         return result
@@ -82,8 +82,8 @@ export default struct IMFSystemId extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsystemid-setup
      */
     Setup(stage, cbIn, pbIn, pcbOut, ppbOut) {
-        pcbOutMarshal := pcbOut is VarRef ? "uint*" : "ptr"
-        ppbOutMarshal := ppbOut is VarRef ? "ptr*" : "ptr"
+        pcbOutMarshal := pcbOut is VarRef ? "uint*" : IntPtr
+        ppbOutMarshal := ppbOut is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, UInt32, stage, UInt32, cbIn, IntPtr, pbIn, pcbOutMarshal, pcbOut, ppbOutMarshal, ppbOut, "HRESULT")
         return result
@@ -98,8 +98,8 @@ export default struct IMFSystemId extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetData := CallbackCreate(GetMethod(implObj, "GetData"), flags, 3)
-        this.vtbl.Setup := CallbackCreate(GetMethod(implObj, "Setup"), flags, 6)
+        this.vtbl.GetData := CallbackCreate(ObjBindMethod(implObj, "GetData"), flags, 3)
+        this.vtbl.Setup := CallbackCreate(ObjBindMethod(implObj, "Setup"), flags, 6)
     }
 
     Dispose() {

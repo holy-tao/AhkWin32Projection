@@ -37,7 +37,6 @@ export default struct ID3D12DeviceStatistics extends IUnknown {
     }
 
     /**
-     * 
      * @returns {D3D12_STATE_OBJECT_STATISTICS} 
      */
     GetStateObjectStatistics() {
@@ -55,7 +54,7 @@ export default struct ID3D12DeviceStatistics extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStateObjectStatistics := CallbackCreate(GetMethod(implObj, "GetStateObjectStatistics"), flags, 2)
+        this.vtbl.GetStateObjectStatistics := CallbackCreate(ObjBindMethod(implObj, "GetStateObjectStatistics"), flags, 2)
     }
 
     Dispose() {

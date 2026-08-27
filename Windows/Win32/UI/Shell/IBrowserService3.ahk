@@ -96,8 +96,8 @@ export default struct IBrowserService3 extends IBrowserService2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl._PositionViewWindow := CallbackCreate(GetMethod(implObj, "_PositionViewWindow"), flags, 3)
-        this.vtbl.IEParseDisplayNameEx := CallbackCreate(GetMethod(implObj, "IEParseDisplayNameEx"), flags, 5)
+        this.vtbl._PositionViewWindow := CallbackCreate(ObjBindMethod(implObj, "_PositionViewWindow"), flags, 3)
+        this.vtbl.IEParseDisplayNameEx := CallbackCreate(ObjBindMethod(implObj, "IEParseDisplayNameEx"), flags, 5)
     }
 
     Dispose() {

@@ -165,9 +165,9 @@ export default struct IContextMenu extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryContextMenu := CallbackCreate(GetMethod(implObj, "QueryContextMenu"), flags, 6)
-        this.vtbl.InvokeCommand := CallbackCreate(GetMethod(implObj, "InvokeCommand"), flags, 2)
-        this.vtbl.GetCommandString := CallbackCreate(GetMethod(implObj, "GetCommandString"), flags, 6)
+        this.vtbl.QueryContextMenu := CallbackCreate(ObjBindMethod(implObj, "QueryContextMenu"), flags, 6)
+        this.vtbl.InvokeCommand := CallbackCreate(ObjBindMethod(implObj, "InvokeCommand"), flags, 2)
+        this.vtbl.GetCommandString := CallbackCreate(ObjBindMethod(implObj, "GetCommandString"), flags, 6)
     }
 
     Dispose() {

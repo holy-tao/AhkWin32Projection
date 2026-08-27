@@ -183,14 +183,14 @@ export default struct IDigitalCableTuningSpace extends IATSCTuningSpace {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_MinMajorChannel := CallbackCreate(GetMethod(implObj, "get_MinMajorChannel"), flags, 2)
-        this.vtbl.put_MinMajorChannel := CallbackCreate(GetMethod(implObj, "put_MinMajorChannel"), flags, 2)
-        this.vtbl.get_MaxMajorChannel := CallbackCreate(GetMethod(implObj, "get_MaxMajorChannel"), flags, 2)
-        this.vtbl.put_MaxMajorChannel := CallbackCreate(GetMethod(implObj, "put_MaxMajorChannel"), flags, 2)
-        this.vtbl.get_MinSourceID := CallbackCreate(GetMethod(implObj, "get_MinSourceID"), flags, 2)
-        this.vtbl.put_MinSourceID := CallbackCreate(GetMethod(implObj, "put_MinSourceID"), flags, 2)
-        this.vtbl.get_MaxSourceID := CallbackCreate(GetMethod(implObj, "get_MaxSourceID"), flags, 2)
-        this.vtbl.put_MaxSourceID := CallbackCreate(GetMethod(implObj, "put_MaxSourceID"), flags, 2)
+        this.vtbl.get_MinMajorChannel := CallbackCreate(ObjBindMethod(implObj, "get_MinMajorChannel"), flags, 2)
+        this.vtbl.put_MinMajorChannel := CallbackCreate(ObjBindMethod(implObj, "put_MinMajorChannel"), flags, 2)
+        this.vtbl.get_MaxMajorChannel := CallbackCreate(ObjBindMethod(implObj, "get_MaxMajorChannel"), flags, 2)
+        this.vtbl.put_MaxMajorChannel := CallbackCreate(ObjBindMethod(implObj, "put_MaxMajorChannel"), flags, 2)
+        this.vtbl.get_MinSourceID := CallbackCreate(ObjBindMethod(implObj, "get_MinSourceID"), flags, 2)
+        this.vtbl.put_MinSourceID := CallbackCreate(ObjBindMethod(implObj, "put_MinSourceID"), flags, 2)
+        this.vtbl.get_MaxSourceID := CallbackCreate(ObjBindMethod(implObj, "get_MaxSourceID"), flags, 2)
+        this.vtbl.put_MaxSourceID := CallbackCreate(ObjBindMethod(implObj, "put_MaxSourceID"), flags, 2)
     }
 
     Dispose() {

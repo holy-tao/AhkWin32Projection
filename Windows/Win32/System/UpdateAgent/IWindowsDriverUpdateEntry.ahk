@@ -197,14 +197,14 @@ export default struct IWindowsDriverUpdateEntry extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_DriverClass := CallbackCreate(GetMethod(implObj, "get_DriverClass"), flags, 2)
-        this.vtbl.get_DriverHardwareID := CallbackCreate(GetMethod(implObj, "get_DriverHardwareID"), flags, 2)
-        this.vtbl.get_DriverManufacturer := CallbackCreate(GetMethod(implObj, "get_DriverManufacturer"), flags, 2)
-        this.vtbl.get_DriverModel := CallbackCreate(GetMethod(implObj, "get_DriverModel"), flags, 2)
-        this.vtbl.get_DriverProvider := CallbackCreate(GetMethod(implObj, "get_DriverProvider"), flags, 2)
-        this.vtbl.get_DriverVerDate := CallbackCreate(GetMethod(implObj, "get_DriverVerDate"), flags, 2)
-        this.vtbl.get_DeviceProblemNumber := CallbackCreate(GetMethod(implObj, "get_DeviceProblemNumber"), flags, 2)
-        this.vtbl.get_DeviceStatus := CallbackCreate(GetMethod(implObj, "get_DeviceStatus"), flags, 2)
+        this.vtbl.get_DriverClass := CallbackCreate(ObjBindMethod(implObj, "get_DriverClass"), flags, 2)
+        this.vtbl.get_DriverHardwareID := CallbackCreate(ObjBindMethod(implObj, "get_DriverHardwareID"), flags, 2)
+        this.vtbl.get_DriverManufacturer := CallbackCreate(ObjBindMethod(implObj, "get_DriverManufacturer"), flags, 2)
+        this.vtbl.get_DriverModel := CallbackCreate(ObjBindMethod(implObj, "get_DriverModel"), flags, 2)
+        this.vtbl.get_DriverProvider := CallbackCreate(ObjBindMethod(implObj, "get_DriverProvider"), flags, 2)
+        this.vtbl.get_DriverVerDate := CallbackCreate(ObjBindMethod(implObj, "get_DriverVerDate"), flags, 2)
+        this.vtbl.get_DeviceProblemNumber := CallbackCreate(ObjBindMethod(implObj, "get_DeviceProblemNumber"), flags, 2)
+        this.vtbl.get_DeviceStatus := CallbackCreate(ObjBindMethod(implObj, "get_DeviceStatus"), flags, 2)
     }
 
     Dispose() {

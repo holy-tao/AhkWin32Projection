@@ -41,7 +41,6 @@ export default struct IDebugHostEvaluator extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @param {PWSTR} expression 
      * @param {IModelObject} bindingContext 
@@ -52,12 +51,14 @@ export default struct IDebugHostEvaluator extends IUnknown {
     EvaluateExpression(_context, expression, bindingContext, result, metadata) {
         expression := expression is String ? StrPtr(expression) : expression
 
-        result := ComCall(3, this, "ptr", _context, "ptr", expression, "ptr", bindingContext, IModelObject.Ptr, result, IKeyStore.Ptr, metadata, "HRESULT")
+        bindingContextMarshal := bindingContext == 0 ? IntPtr : "ptr"
+        metadataMarshal := metadata == 0 ? IntPtr : IKeyStore.Ptr
+
+        result := ComCall(3, this, "ptr", _context, "ptr", expression, bindingContextMarshal, bindingContext, IModelObject.Ptr, result, metadataMarshal, metadata, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @param {PWSTR} expression 
      * @param {IModelObject} bindingContext 
@@ -68,7 +69,10 @@ export default struct IDebugHostEvaluator extends IUnknown {
     EvaluateExtendedExpression(_context, expression, bindingContext, result, metadata) {
         expression := expression is String ? StrPtr(expression) : expression
 
-        result := ComCall(4, this, "ptr", _context, "ptr", expression, "ptr", bindingContext, IModelObject.Ptr, result, IKeyStore.Ptr, metadata, "HRESULT")
+        bindingContextMarshal := bindingContext == 0 ? IntPtr : "ptr"
+        metadataMarshal := metadata == 0 ? IntPtr : IKeyStore.Ptr
+
+        result := ComCall(4, this, "ptr", _context, "ptr", expression, bindingContextMarshal, bindingContext, IModelObject.Ptr, result, metadataMarshal, metadata, "HRESULT")
         return result
     }
 
@@ -81,8 +85,8 @@ export default struct IDebugHostEvaluator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EvaluateExpression := CallbackCreate(GetMethod(implObj, "EvaluateExpression"), flags, 6)
-        this.vtbl.EvaluateExtendedExpression := CallbackCreate(GetMethod(implObj, "EvaluateExtendedExpression"), flags, 6)
+        this.vtbl.EvaluateExpression := CallbackCreate(ObjBindMethod(implObj, "EvaluateExpression"), flags, 6)
+        this.vtbl.EvaluateExtendedExpression := CallbackCreate(ObjBindMethod(implObj, "EvaluateExtendedExpression"), flags, 6)
     }
 
     Dispose() {

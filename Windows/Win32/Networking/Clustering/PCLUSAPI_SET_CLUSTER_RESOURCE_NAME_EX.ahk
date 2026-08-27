@@ -20,7 +20,6 @@ export default struct PCLUSAPI_SET_CLUSTER_RESOURCE_NAME_EX {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {PWSTR} lpszResourceName 
      * @param {PWSTR} lpszReason 
@@ -30,7 +29,9 @@ export default struct PCLUSAPI_SET_CLUSTER_RESOURCE_NAME_EX {
         lpszResourceName := lpszResourceName is String ? StrPtr(lpszResourceName) : lpszResourceName
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall(this.value, HRESOURCE, _hResource, "ptr", lpszResourceName, "ptr", lpszReason, UInt32)
+        lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+        result := DllCall(this.value, HRESOURCE, _hResource, "ptr", lpszResourceName, lpszReasonMarshal, lpszReason, UInt32)
         return result
     }
 

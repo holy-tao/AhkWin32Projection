@@ -56,7 +56,7 @@ export default struct IAMLatency extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLatency := CallbackCreate(GetMethod(implObj, "GetLatency"), flags, 2)
+        this.vtbl.GetLatency := CallbackCreate(ObjBindMethod(implObj, "GetLatency"), flags, 2)
     }
 
     Dispose() {

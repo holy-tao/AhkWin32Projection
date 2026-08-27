@@ -116,11 +116,11 @@ export default struct IXpsSignatureBlock extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRequests := CallbackCreate(GetMethod(implObj, "GetRequests"), flags, 2)
-        this.vtbl.GetPartName := CallbackCreate(GetMethod(implObj, "GetPartName"), flags, 2)
-        this.vtbl.GetDocumentIndex := CallbackCreate(GetMethod(implObj, "GetDocumentIndex"), flags, 2)
-        this.vtbl.GetDocumentName := CallbackCreate(GetMethod(implObj, "GetDocumentName"), flags, 2)
-        this.vtbl.CreateRequest := CallbackCreate(GetMethod(implObj, "CreateRequest"), flags, 3)
+        this.vtbl.GetRequests := CallbackCreate(ObjBindMethod(implObj, "GetRequests"), flags, 2)
+        this.vtbl.GetPartName := CallbackCreate(ObjBindMethod(implObj, "GetPartName"), flags, 2)
+        this.vtbl.GetDocumentIndex := CallbackCreate(ObjBindMethod(implObj, "GetDocumentIndex"), flags, 2)
+        this.vtbl.GetDocumentName := CallbackCreate(ObjBindMethod(implObj, "GetDocumentName"), flags, 2)
+        this.vtbl.CreateRequest := CallbackCreate(ObjBindMethod(implObj, "CreateRequest"), flags, 3)
     }
 
     Dispose() {

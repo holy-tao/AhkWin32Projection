@@ -215,16 +215,16 @@ export default struct IShellItemResources extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAttributes := CallbackCreate(GetMethod(implObj, "GetAttributes"), flags, 2)
-        this.vtbl.GetSize := CallbackCreate(GetMethod(implObj, "GetSize"), flags, 2)
-        this.vtbl.GetTimes := CallbackCreate(GetMethod(implObj, "GetTimes"), flags, 4)
-        this.vtbl.SetTimes := CallbackCreate(GetMethod(implObj, "SetTimes"), flags, 4)
-        this.vtbl.GetResourceDescription := CallbackCreate(GetMethod(implObj, "GetResourceDescription"), flags, 3)
-        this.vtbl.EnumResources := CallbackCreate(GetMethod(implObj, "EnumResources"), flags, 2)
-        this.vtbl.SupportsResource := CallbackCreate(GetMethod(implObj, "SupportsResource"), flags, 2)
-        this.vtbl.OpenResource := CallbackCreate(GetMethod(implObj, "OpenResource"), flags, 4)
-        this.vtbl.CreateResource := CallbackCreate(GetMethod(implObj, "CreateResource"), flags, 4)
-        this.vtbl.MarkForDelete := CallbackCreate(GetMethod(implObj, "MarkForDelete"), flags, 1)
+        this.vtbl.GetAttributes := CallbackCreate(ObjBindMethod(implObj, "GetAttributes"), flags, 2)
+        this.vtbl.GetSize := CallbackCreate(ObjBindMethod(implObj, "GetSize"), flags, 2)
+        this.vtbl.GetTimes := CallbackCreate(ObjBindMethod(implObj, "GetTimes"), flags, 4)
+        this.vtbl.SetTimes := CallbackCreate(ObjBindMethod(implObj, "SetTimes"), flags, 4)
+        this.vtbl.GetResourceDescription := CallbackCreate(ObjBindMethod(implObj, "GetResourceDescription"), flags, 3)
+        this.vtbl.EnumResources := CallbackCreate(ObjBindMethod(implObj, "EnumResources"), flags, 2)
+        this.vtbl.SupportsResource := CallbackCreate(ObjBindMethod(implObj, "SupportsResource"), flags, 2)
+        this.vtbl.OpenResource := CallbackCreate(ObjBindMethod(implObj, "OpenResource"), flags, 4)
+        this.vtbl.CreateResource := CallbackCreate(ObjBindMethod(implObj, "CreateResource"), flags, 4)
+        this.vtbl.MarkForDelete := CallbackCreate(ObjBindMethod(implObj, "MarkForDelete"), flags, 1)
     }
 
     Dispose() {

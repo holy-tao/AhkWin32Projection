@@ -651,7 +651,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_BadLoginAddress() {
@@ -661,7 +660,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_BadLoginCount() {
@@ -670,7 +668,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_LastLogin() {
@@ -679,7 +676,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_LastLogoff() {
@@ -688,7 +684,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_LastFailedLogin() {
@@ -697,7 +692,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_PasswordLastChanged() {
@@ -706,7 +700,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Description() {
@@ -716,7 +709,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDescription 
      * @returns {HRESULT} 
      */
@@ -728,7 +720,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Division() {
@@ -738,7 +729,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDivision 
      * @returns {HRESULT} 
      */
@@ -750,7 +740,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Department() {
@@ -760,7 +749,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDepartment 
      * @returns {HRESULT} 
      */
@@ -772,7 +760,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_EmployeeID() {
@@ -782,7 +769,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrEmployeeID 
      * @returns {HRESULT} 
      */
@@ -794,7 +780,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_FullName() {
@@ -804,7 +789,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrFullName 
      * @returns {HRESULT} 
      */
@@ -816,7 +800,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_FirstName() {
@@ -826,7 +809,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrFirstName 
      * @returns {HRESULT} 
      */
@@ -838,7 +820,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LastName() {
@@ -848,7 +829,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrLastName 
      * @returns {HRESULT} 
      */
@@ -860,7 +840,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_OtherName() {
@@ -870,7 +849,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrOtherName 
      * @returns {HRESULT} 
      */
@@ -882,7 +860,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_NamePrefix() {
@@ -892,7 +869,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrNamePrefix 
      * @returns {HRESULT} 
      */
@@ -904,7 +880,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_NameSuffix() {
@@ -914,7 +889,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrNameSuffix 
      * @returns {HRESULT} 
      */
@@ -926,7 +900,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Title() {
@@ -936,7 +909,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrTitle 
      * @returns {HRESULT} 
      */
@@ -948,7 +920,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Manager() {
@@ -958,7 +929,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrManager 
      * @returns {HRESULT} 
      */
@@ -970,7 +940,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_TelephoneHome() {
@@ -980,7 +949,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vTelephoneHome 
      * @returns {HRESULT} 
      */
@@ -990,7 +958,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_TelephoneMobile() {
@@ -1000,7 +967,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vTelephoneMobile 
      * @returns {HRESULT} 
      */
@@ -1010,7 +976,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_TelephoneNumber() {
@@ -1020,7 +985,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vTelephoneNumber 
      * @returns {HRESULT} 
      */
@@ -1030,7 +994,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_TelephonePager() {
@@ -1040,7 +1003,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vTelephonePager 
      * @returns {HRESULT} 
      */
@@ -1050,7 +1012,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_FaxNumber() {
@@ -1060,7 +1021,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vFaxNumber 
      * @returns {HRESULT} 
      */
@@ -1070,7 +1030,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_OfficeLocations() {
@@ -1080,7 +1039,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vOfficeLocations 
      * @returns {HRESULT} 
      */
@@ -1090,7 +1048,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_PostalAddresses() {
@@ -1100,7 +1057,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vPostalAddresses 
      * @returns {HRESULT} 
      */
@@ -1110,7 +1066,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_PostalCodes() {
@@ -1120,7 +1075,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vPostalCodes 
      * @returns {HRESULT} 
      */
@@ -1130,7 +1084,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_SeeAlso() {
@@ -1140,7 +1093,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vSeeAlso 
      * @returns {HRESULT} 
      */
@@ -1150,7 +1102,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_AccountDisabled() {
@@ -1159,7 +1110,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fAccountDisabled 
      * @returns {HRESULT} 
      */
@@ -1169,7 +1119,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_AccountExpirationDate() {
@@ -1178,7 +1127,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {Float} daAccountExpirationDate 
      * @returns {HRESULT} 
      */
@@ -1188,7 +1136,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_GraceLoginsAllowed() {
@@ -1197,7 +1144,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnGraceLoginsAllowed 
      * @returns {HRESULT} 
      */
@@ -1207,7 +1153,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_GraceLoginsRemaining() {
@@ -1216,7 +1161,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnGraceLoginsRemaining 
      * @returns {HRESULT} 
      */
@@ -1226,7 +1170,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsAccountLocked() {
@@ -1235,7 +1178,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fIsAccountLocked 
      * @returns {HRESULT} 
      */
@@ -1245,7 +1187,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_LoginHours() {
@@ -1255,7 +1196,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vLoginHours 
      * @returns {HRESULT} 
      */
@@ -1265,7 +1205,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_LoginWorkstations() {
@@ -1275,7 +1214,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vLoginWorkstations 
      * @returns {HRESULT} 
      */
@@ -1285,7 +1223,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MaxLogins() {
@@ -1294,7 +1231,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnMaxLogins 
      * @returns {HRESULT} 
      */
@@ -1304,7 +1240,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MaxStorage() {
@@ -1313,7 +1248,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnMaxStorage 
      * @returns {HRESULT} 
      */
@@ -1323,7 +1257,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_PasswordExpirationDate() {
@@ -1332,7 +1265,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {Float} daPasswordExpirationDate 
      * @returns {HRESULT} 
      */
@@ -1342,7 +1274,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PasswordMinimumLength() {
@@ -1351,7 +1282,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnPasswordMinimumLength 
      * @returns {HRESULT} 
      */
@@ -1361,7 +1291,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_PasswordRequired() {
@@ -1370,7 +1299,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fPasswordRequired 
      * @returns {HRESULT} 
      */
@@ -1380,7 +1308,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_RequireUniquePassword() {
@@ -1389,7 +1316,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fRequireUniquePassword 
      * @returns {HRESULT} 
      */
@@ -1399,7 +1325,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_EmailAddress() {
@@ -1409,7 +1334,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrEmailAddress 
      * @returns {HRESULT} 
      */
@@ -1421,7 +1345,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_HomeDirectory() {
@@ -1431,7 +1354,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrHomeDirectory 
      * @returns {HRESULT} 
      */
@@ -1443,7 +1365,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Languages() {
@@ -1453,7 +1374,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vLanguages 
      * @returns {HRESULT} 
      */
@@ -1463,7 +1383,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Profile() {
@@ -1473,7 +1392,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrProfile 
      * @returns {HRESULT} 
      */
@@ -1485,7 +1403,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_LoginScript() {
@@ -1495,7 +1412,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrLoginScript 
      * @returns {HRESULT} 
      */
@@ -1507,7 +1423,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Picture() {
@@ -1517,7 +1432,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vPicture 
      * @returns {HRESULT} 
      */
@@ -1527,7 +1441,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_HomePage() {
@@ -1537,7 +1450,6 @@ export default struct IADsUser extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrHomePage 
      * @returns {HRESULT} 
      */
@@ -1608,97 +1520,97 @@ export default struct IADsUser extends IADs {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_BadLoginAddress := CallbackCreate(GetMethod(implObj, "get_BadLoginAddress"), flags, 2)
-        this.vtbl.get_BadLoginCount := CallbackCreate(GetMethod(implObj, "get_BadLoginCount"), flags, 2)
-        this.vtbl.get_LastLogin := CallbackCreate(GetMethod(implObj, "get_LastLogin"), flags, 2)
-        this.vtbl.get_LastLogoff := CallbackCreate(GetMethod(implObj, "get_LastLogoff"), flags, 2)
-        this.vtbl.get_LastFailedLogin := CallbackCreate(GetMethod(implObj, "get_LastFailedLogin"), flags, 2)
-        this.vtbl.get_PasswordLastChanged := CallbackCreate(GetMethod(implObj, "get_PasswordLastChanged"), flags, 2)
-        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
-        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
-        this.vtbl.get_Division := CallbackCreate(GetMethod(implObj, "get_Division"), flags, 2)
-        this.vtbl.put_Division := CallbackCreate(GetMethod(implObj, "put_Division"), flags, 2)
-        this.vtbl.get_Department := CallbackCreate(GetMethod(implObj, "get_Department"), flags, 2)
-        this.vtbl.put_Department := CallbackCreate(GetMethod(implObj, "put_Department"), flags, 2)
-        this.vtbl.get_EmployeeID := CallbackCreate(GetMethod(implObj, "get_EmployeeID"), flags, 2)
-        this.vtbl.put_EmployeeID := CallbackCreate(GetMethod(implObj, "put_EmployeeID"), flags, 2)
-        this.vtbl.get_FullName := CallbackCreate(GetMethod(implObj, "get_FullName"), flags, 2)
-        this.vtbl.put_FullName := CallbackCreate(GetMethod(implObj, "put_FullName"), flags, 2)
-        this.vtbl.get_FirstName := CallbackCreate(GetMethod(implObj, "get_FirstName"), flags, 2)
-        this.vtbl.put_FirstName := CallbackCreate(GetMethod(implObj, "put_FirstName"), flags, 2)
-        this.vtbl.get_LastName := CallbackCreate(GetMethod(implObj, "get_LastName"), flags, 2)
-        this.vtbl.put_LastName := CallbackCreate(GetMethod(implObj, "put_LastName"), flags, 2)
-        this.vtbl.get_OtherName := CallbackCreate(GetMethod(implObj, "get_OtherName"), flags, 2)
-        this.vtbl.put_OtherName := CallbackCreate(GetMethod(implObj, "put_OtherName"), flags, 2)
-        this.vtbl.get_NamePrefix := CallbackCreate(GetMethod(implObj, "get_NamePrefix"), flags, 2)
-        this.vtbl.put_NamePrefix := CallbackCreate(GetMethod(implObj, "put_NamePrefix"), flags, 2)
-        this.vtbl.get_NameSuffix := CallbackCreate(GetMethod(implObj, "get_NameSuffix"), flags, 2)
-        this.vtbl.put_NameSuffix := CallbackCreate(GetMethod(implObj, "put_NameSuffix"), flags, 2)
-        this.vtbl.get_Title := CallbackCreate(GetMethod(implObj, "get_Title"), flags, 2)
-        this.vtbl.put_Title := CallbackCreate(GetMethod(implObj, "put_Title"), flags, 2)
-        this.vtbl.get_Manager := CallbackCreate(GetMethod(implObj, "get_Manager"), flags, 2)
-        this.vtbl.put_Manager := CallbackCreate(GetMethod(implObj, "put_Manager"), flags, 2)
-        this.vtbl.get_TelephoneHome := CallbackCreate(GetMethod(implObj, "get_TelephoneHome"), flags, 2)
-        this.vtbl.put_TelephoneHome := CallbackCreate(GetMethod(implObj, "put_TelephoneHome"), flags, 2)
-        this.vtbl.get_TelephoneMobile := CallbackCreate(GetMethod(implObj, "get_TelephoneMobile"), flags, 2)
-        this.vtbl.put_TelephoneMobile := CallbackCreate(GetMethod(implObj, "put_TelephoneMobile"), flags, 2)
-        this.vtbl.get_TelephoneNumber := CallbackCreate(GetMethod(implObj, "get_TelephoneNumber"), flags, 2)
-        this.vtbl.put_TelephoneNumber := CallbackCreate(GetMethod(implObj, "put_TelephoneNumber"), flags, 2)
-        this.vtbl.get_TelephonePager := CallbackCreate(GetMethod(implObj, "get_TelephonePager"), flags, 2)
-        this.vtbl.put_TelephonePager := CallbackCreate(GetMethod(implObj, "put_TelephonePager"), flags, 2)
-        this.vtbl.get_FaxNumber := CallbackCreate(GetMethod(implObj, "get_FaxNumber"), flags, 2)
-        this.vtbl.put_FaxNumber := CallbackCreate(GetMethod(implObj, "put_FaxNumber"), flags, 2)
-        this.vtbl.get_OfficeLocations := CallbackCreate(GetMethod(implObj, "get_OfficeLocations"), flags, 2)
-        this.vtbl.put_OfficeLocations := CallbackCreate(GetMethod(implObj, "put_OfficeLocations"), flags, 2)
-        this.vtbl.get_PostalAddresses := CallbackCreate(GetMethod(implObj, "get_PostalAddresses"), flags, 2)
-        this.vtbl.put_PostalAddresses := CallbackCreate(GetMethod(implObj, "put_PostalAddresses"), flags, 2)
-        this.vtbl.get_PostalCodes := CallbackCreate(GetMethod(implObj, "get_PostalCodes"), flags, 2)
-        this.vtbl.put_PostalCodes := CallbackCreate(GetMethod(implObj, "put_PostalCodes"), flags, 2)
-        this.vtbl.get_SeeAlso := CallbackCreate(GetMethod(implObj, "get_SeeAlso"), flags, 2)
-        this.vtbl.put_SeeAlso := CallbackCreate(GetMethod(implObj, "put_SeeAlso"), flags, 2)
-        this.vtbl.get_AccountDisabled := CallbackCreate(GetMethod(implObj, "get_AccountDisabled"), flags, 2)
-        this.vtbl.put_AccountDisabled := CallbackCreate(GetMethod(implObj, "put_AccountDisabled"), flags, 2)
-        this.vtbl.get_AccountExpirationDate := CallbackCreate(GetMethod(implObj, "get_AccountExpirationDate"), flags, 2)
-        this.vtbl.put_AccountExpirationDate := CallbackCreate(GetMethod(implObj, "put_AccountExpirationDate"), flags, 2)
-        this.vtbl.get_GraceLoginsAllowed := CallbackCreate(GetMethod(implObj, "get_GraceLoginsAllowed"), flags, 2)
-        this.vtbl.put_GraceLoginsAllowed := CallbackCreate(GetMethod(implObj, "put_GraceLoginsAllowed"), flags, 2)
-        this.vtbl.get_GraceLoginsRemaining := CallbackCreate(GetMethod(implObj, "get_GraceLoginsRemaining"), flags, 2)
-        this.vtbl.put_GraceLoginsRemaining := CallbackCreate(GetMethod(implObj, "put_GraceLoginsRemaining"), flags, 2)
-        this.vtbl.get_IsAccountLocked := CallbackCreate(GetMethod(implObj, "get_IsAccountLocked"), flags, 2)
-        this.vtbl.put_IsAccountLocked := CallbackCreate(GetMethod(implObj, "put_IsAccountLocked"), flags, 2)
-        this.vtbl.get_LoginHours := CallbackCreate(GetMethod(implObj, "get_LoginHours"), flags, 2)
-        this.vtbl.put_LoginHours := CallbackCreate(GetMethod(implObj, "put_LoginHours"), flags, 2)
-        this.vtbl.get_LoginWorkstations := CallbackCreate(GetMethod(implObj, "get_LoginWorkstations"), flags, 2)
-        this.vtbl.put_LoginWorkstations := CallbackCreate(GetMethod(implObj, "put_LoginWorkstations"), flags, 2)
-        this.vtbl.get_MaxLogins := CallbackCreate(GetMethod(implObj, "get_MaxLogins"), flags, 2)
-        this.vtbl.put_MaxLogins := CallbackCreate(GetMethod(implObj, "put_MaxLogins"), flags, 2)
-        this.vtbl.get_MaxStorage := CallbackCreate(GetMethod(implObj, "get_MaxStorage"), flags, 2)
-        this.vtbl.put_MaxStorage := CallbackCreate(GetMethod(implObj, "put_MaxStorage"), flags, 2)
-        this.vtbl.get_PasswordExpirationDate := CallbackCreate(GetMethod(implObj, "get_PasswordExpirationDate"), flags, 2)
-        this.vtbl.put_PasswordExpirationDate := CallbackCreate(GetMethod(implObj, "put_PasswordExpirationDate"), flags, 2)
-        this.vtbl.get_PasswordMinimumLength := CallbackCreate(GetMethod(implObj, "get_PasswordMinimumLength"), flags, 2)
-        this.vtbl.put_PasswordMinimumLength := CallbackCreate(GetMethod(implObj, "put_PasswordMinimumLength"), flags, 2)
-        this.vtbl.get_PasswordRequired := CallbackCreate(GetMethod(implObj, "get_PasswordRequired"), flags, 2)
-        this.vtbl.put_PasswordRequired := CallbackCreate(GetMethod(implObj, "put_PasswordRequired"), flags, 2)
-        this.vtbl.get_RequireUniquePassword := CallbackCreate(GetMethod(implObj, "get_RequireUniquePassword"), flags, 2)
-        this.vtbl.put_RequireUniquePassword := CallbackCreate(GetMethod(implObj, "put_RequireUniquePassword"), flags, 2)
-        this.vtbl.get_EmailAddress := CallbackCreate(GetMethod(implObj, "get_EmailAddress"), flags, 2)
-        this.vtbl.put_EmailAddress := CallbackCreate(GetMethod(implObj, "put_EmailAddress"), flags, 2)
-        this.vtbl.get_HomeDirectory := CallbackCreate(GetMethod(implObj, "get_HomeDirectory"), flags, 2)
-        this.vtbl.put_HomeDirectory := CallbackCreate(GetMethod(implObj, "put_HomeDirectory"), flags, 2)
-        this.vtbl.get_Languages := CallbackCreate(GetMethod(implObj, "get_Languages"), flags, 2)
-        this.vtbl.put_Languages := CallbackCreate(GetMethod(implObj, "put_Languages"), flags, 2)
-        this.vtbl.get_Profile := CallbackCreate(GetMethod(implObj, "get_Profile"), flags, 2)
-        this.vtbl.put_Profile := CallbackCreate(GetMethod(implObj, "put_Profile"), flags, 2)
-        this.vtbl.get_LoginScript := CallbackCreate(GetMethod(implObj, "get_LoginScript"), flags, 2)
-        this.vtbl.put_LoginScript := CallbackCreate(GetMethod(implObj, "put_LoginScript"), flags, 2)
-        this.vtbl.get_Picture := CallbackCreate(GetMethod(implObj, "get_Picture"), flags, 2)
-        this.vtbl.put_Picture := CallbackCreate(GetMethod(implObj, "put_Picture"), flags, 2)
-        this.vtbl.get_HomePage := CallbackCreate(GetMethod(implObj, "get_HomePage"), flags, 2)
-        this.vtbl.put_HomePage := CallbackCreate(GetMethod(implObj, "put_HomePage"), flags, 2)
-        this.vtbl.Groups := CallbackCreate(GetMethod(implObj, "Groups"), flags, 2)
-        this.vtbl.SetPassword := CallbackCreate(GetMethod(implObj, "SetPassword"), flags, 2)
-        this.vtbl.ChangePassword := CallbackCreate(GetMethod(implObj, "ChangePassword"), flags, 3)
+        this.vtbl.get_BadLoginAddress := CallbackCreate(ObjBindMethod(implObj, "get_BadLoginAddress"), flags, 2)
+        this.vtbl.get_BadLoginCount := CallbackCreate(ObjBindMethod(implObj, "get_BadLoginCount"), flags, 2)
+        this.vtbl.get_LastLogin := CallbackCreate(ObjBindMethod(implObj, "get_LastLogin"), flags, 2)
+        this.vtbl.get_LastLogoff := CallbackCreate(ObjBindMethod(implObj, "get_LastLogoff"), flags, 2)
+        this.vtbl.get_LastFailedLogin := CallbackCreate(ObjBindMethod(implObj, "get_LastFailedLogin"), flags, 2)
+        this.vtbl.get_PasswordLastChanged := CallbackCreate(ObjBindMethod(implObj, "get_PasswordLastChanged"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(ObjBindMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(ObjBindMethod(implObj, "put_Description"), flags, 2)
+        this.vtbl.get_Division := CallbackCreate(ObjBindMethod(implObj, "get_Division"), flags, 2)
+        this.vtbl.put_Division := CallbackCreate(ObjBindMethod(implObj, "put_Division"), flags, 2)
+        this.vtbl.get_Department := CallbackCreate(ObjBindMethod(implObj, "get_Department"), flags, 2)
+        this.vtbl.put_Department := CallbackCreate(ObjBindMethod(implObj, "put_Department"), flags, 2)
+        this.vtbl.get_EmployeeID := CallbackCreate(ObjBindMethod(implObj, "get_EmployeeID"), flags, 2)
+        this.vtbl.put_EmployeeID := CallbackCreate(ObjBindMethod(implObj, "put_EmployeeID"), flags, 2)
+        this.vtbl.get_FullName := CallbackCreate(ObjBindMethod(implObj, "get_FullName"), flags, 2)
+        this.vtbl.put_FullName := CallbackCreate(ObjBindMethod(implObj, "put_FullName"), flags, 2)
+        this.vtbl.get_FirstName := CallbackCreate(ObjBindMethod(implObj, "get_FirstName"), flags, 2)
+        this.vtbl.put_FirstName := CallbackCreate(ObjBindMethod(implObj, "put_FirstName"), flags, 2)
+        this.vtbl.get_LastName := CallbackCreate(ObjBindMethod(implObj, "get_LastName"), flags, 2)
+        this.vtbl.put_LastName := CallbackCreate(ObjBindMethod(implObj, "put_LastName"), flags, 2)
+        this.vtbl.get_OtherName := CallbackCreate(ObjBindMethod(implObj, "get_OtherName"), flags, 2)
+        this.vtbl.put_OtherName := CallbackCreate(ObjBindMethod(implObj, "put_OtherName"), flags, 2)
+        this.vtbl.get_NamePrefix := CallbackCreate(ObjBindMethod(implObj, "get_NamePrefix"), flags, 2)
+        this.vtbl.put_NamePrefix := CallbackCreate(ObjBindMethod(implObj, "put_NamePrefix"), flags, 2)
+        this.vtbl.get_NameSuffix := CallbackCreate(ObjBindMethod(implObj, "get_NameSuffix"), flags, 2)
+        this.vtbl.put_NameSuffix := CallbackCreate(ObjBindMethod(implObj, "put_NameSuffix"), flags, 2)
+        this.vtbl.get_Title := CallbackCreate(ObjBindMethod(implObj, "get_Title"), flags, 2)
+        this.vtbl.put_Title := CallbackCreate(ObjBindMethod(implObj, "put_Title"), flags, 2)
+        this.vtbl.get_Manager := CallbackCreate(ObjBindMethod(implObj, "get_Manager"), flags, 2)
+        this.vtbl.put_Manager := CallbackCreate(ObjBindMethod(implObj, "put_Manager"), flags, 2)
+        this.vtbl.get_TelephoneHome := CallbackCreate(ObjBindMethod(implObj, "get_TelephoneHome"), flags, 2)
+        this.vtbl.put_TelephoneHome := CallbackCreate(ObjBindMethod(implObj, "put_TelephoneHome"), flags, 2)
+        this.vtbl.get_TelephoneMobile := CallbackCreate(ObjBindMethod(implObj, "get_TelephoneMobile"), flags, 2)
+        this.vtbl.put_TelephoneMobile := CallbackCreate(ObjBindMethod(implObj, "put_TelephoneMobile"), flags, 2)
+        this.vtbl.get_TelephoneNumber := CallbackCreate(ObjBindMethod(implObj, "get_TelephoneNumber"), flags, 2)
+        this.vtbl.put_TelephoneNumber := CallbackCreate(ObjBindMethod(implObj, "put_TelephoneNumber"), flags, 2)
+        this.vtbl.get_TelephonePager := CallbackCreate(ObjBindMethod(implObj, "get_TelephonePager"), flags, 2)
+        this.vtbl.put_TelephonePager := CallbackCreate(ObjBindMethod(implObj, "put_TelephonePager"), flags, 2)
+        this.vtbl.get_FaxNumber := CallbackCreate(ObjBindMethod(implObj, "get_FaxNumber"), flags, 2)
+        this.vtbl.put_FaxNumber := CallbackCreate(ObjBindMethod(implObj, "put_FaxNumber"), flags, 2)
+        this.vtbl.get_OfficeLocations := CallbackCreate(ObjBindMethod(implObj, "get_OfficeLocations"), flags, 2)
+        this.vtbl.put_OfficeLocations := CallbackCreate(ObjBindMethod(implObj, "put_OfficeLocations"), flags, 2)
+        this.vtbl.get_PostalAddresses := CallbackCreate(ObjBindMethod(implObj, "get_PostalAddresses"), flags, 2)
+        this.vtbl.put_PostalAddresses := CallbackCreate(ObjBindMethod(implObj, "put_PostalAddresses"), flags, 2)
+        this.vtbl.get_PostalCodes := CallbackCreate(ObjBindMethod(implObj, "get_PostalCodes"), flags, 2)
+        this.vtbl.put_PostalCodes := CallbackCreate(ObjBindMethod(implObj, "put_PostalCodes"), flags, 2)
+        this.vtbl.get_SeeAlso := CallbackCreate(ObjBindMethod(implObj, "get_SeeAlso"), flags, 2)
+        this.vtbl.put_SeeAlso := CallbackCreate(ObjBindMethod(implObj, "put_SeeAlso"), flags, 2)
+        this.vtbl.get_AccountDisabled := CallbackCreate(ObjBindMethod(implObj, "get_AccountDisabled"), flags, 2)
+        this.vtbl.put_AccountDisabled := CallbackCreate(ObjBindMethod(implObj, "put_AccountDisabled"), flags, 2)
+        this.vtbl.get_AccountExpirationDate := CallbackCreate(ObjBindMethod(implObj, "get_AccountExpirationDate"), flags, 2)
+        this.vtbl.put_AccountExpirationDate := CallbackCreate(ObjBindMethod(implObj, "put_AccountExpirationDate"), flags, 2)
+        this.vtbl.get_GraceLoginsAllowed := CallbackCreate(ObjBindMethod(implObj, "get_GraceLoginsAllowed"), flags, 2)
+        this.vtbl.put_GraceLoginsAllowed := CallbackCreate(ObjBindMethod(implObj, "put_GraceLoginsAllowed"), flags, 2)
+        this.vtbl.get_GraceLoginsRemaining := CallbackCreate(ObjBindMethod(implObj, "get_GraceLoginsRemaining"), flags, 2)
+        this.vtbl.put_GraceLoginsRemaining := CallbackCreate(ObjBindMethod(implObj, "put_GraceLoginsRemaining"), flags, 2)
+        this.vtbl.get_IsAccountLocked := CallbackCreate(ObjBindMethod(implObj, "get_IsAccountLocked"), flags, 2)
+        this.vtbl.put_IsAccountLocked := CallbackCreate(ObjBindMethod(implObj, "put_IsAccountLocked"), flags, 2)
+        this.vtbl.get_LoginHours := CallbackCreate(ObjBindMethod(implObj, "get_LoginHours"), flags, 2)
+        this.vtbl.put_LoginHours := CallbackCreate(ObjBindMethod(implObj, "put_LoginHours"), flags, 2)
+        this.vtbl.get_LoginWorkstations := CallbackCreate(ObjBindMethod(implObj, "get_LoginWorkstations"), flags, 2)
+        this.vtbl.put_LoginWorkstations := CallbackCreate(ObjBindMethod(implObj, "put_LoginWorkstations"), flags, 2)
+        this.vtbl.get_MaxLogins := CallbackCreate(ObjBindMethod(implObj, "get_MaxLogins"), flags, 2)
+        this.vtbl.put_MaxLogins := CallbackCreate(ObjBindMethod(implObj, "put_MaxLogins"), flags, 2)
+        this.vtbl.get_MaxStorage := CallbackCreate(ObjBindMethod(implObj, "get_MaxStorage"), flags, 2)
+        this.vtbl.put_MaxStorage := CallbackCreate(ObjBindMethod(implObj, "put_MaxStorage"), flags, 2)
+        this.vtbl.get_PasswordExpirationDate := CallbackCreate(ObjBindMethod(implObj, "get_PasswordExpirationDate"), flags, 2)
+        this.vtbl.put_PasswordExpirationDate := CallbackCreate(ObjBindMethod(implObj, "put_PasswordExpirationDate"), flags, 2)
+        this.vtbl.get_PasswordMinimumLength := CallbackCreate(ObjBindMethod(implObj, "get_PasswordMinimumLength"), flags, 2)
+        this.vtbl.put_PasswordMinimumLength := CallbackCreate(ObjBindMethod(implObj, "put_PasswordMinimumLength"), flags, 2)
+        this.vtbl.get_PasswordRequired := CallbackCreate(ObjBindMethod(implObj, "get_PasswordRequired"), flags, 2)
+        this.vtbl.put_PasswordRequired := CallbackCreate(ObjBindMethod(implObj, "put_PasswordRequired"), flags, 2)
+        this.vtbl.get_RequireUniquePassword := CallbackCreate(ObjBindMethod(implObj, "get_RequireUniquePassword"), flags, 2)
+        this.vtbl.put_RequireUniquePassword := CallbackCreate(ObjBindMethod(implObj, "put_RequireUniquePassword"), flags, 2)
+        this.vtbl.get_EmailAddress := CallbackCreate(ObjBindMethod(implObj, "get_EmailAddress"), flags, 2)
+        this.vtbl.put_EmailAddress := CallbackCreate(ObjBindMethod(implObj, "put_EmailAddress"), flags, 2)
+        this.vtbl.get_HomeDirectory := CallbackCreate(ObjBindMethod(implObj, "get_HomeDirectory"), flags, 2)
+        this.vtbl.put_HomeDirectory := CallbackCreate(ObjBindMethod(implObj, "put_HomeDirectory"), flags, 2)
+        this.vtbl.get_Languages := CallbackCreate(ObjBindMethod(implObj, "get_Languages"), flags, 2)
+        this.vtbl.put_Languages := CallbackCreate(ObjBindMethod(implObj, "put_Languages"), flags, 2)
+        this.vtbl.get_Profile := CallbackCreate(ObjBindMethod(implObj, "get_Profile"), flags, 2)
+        this.vtbl.put_Profile := CallbackCreate(ObjBindMethod(implObj, "put_Profile"), flags, 2)
+        this.vtbl.get_LoginScript := CallbackCreate(ObjBindMethod(implObj, "get_LoginScript"), flags, 2)
+        this.vtbl.put_LoginScript := CallbackCreate(ObjBindMethod(implObj, "put_LoginScript"), flags, 2)
+        this.vtbl.get_Picture := CallbackCreate(ObjBindMethod(implObj, "get_Picture"), flags, 2)
+        this.vtbl.put_Picture := CallbackCreate(ObjBindMethod(implObj, "put_Picture"), flags, 2)
+        this.vtbl.get_HomePage := CallbackCreate(ObjBindMethod(implObj, "get_HomePage"), flags, 2)
+        this.vtbl.put_HomePage := CallbackCreate(ObjBindMethod(implObj, "put_HomePage"), flags, 2)
+        this.vtbl.Groups := CallbackCreate(ObjBindMethod(implObj, "Groups"), flags, 2)
+        this.vtbl.SetPassword := CallbackCreate(ObjBindMethod(implObj, "SetPassword"), flags, 2)
+        this.vtbl.ChangePassword := CallbackCreate(ObjBindMethod(implObj, "ChangePassword"), flags, 3)
     }
 
     Dispose() {

@@ -21,7 +21,6 @@ export default struct PFN_D3D12_COMPILER_CREATE_FACTORY {
     }
 
     /**
-     * 
      * @param {PWSTR} pPluginCompilerDllPath 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 

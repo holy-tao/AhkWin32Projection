@@ -126,13 +126,13 @@ export default struct IIsdbLogoTransmissionDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetLogoTransmissionType := CallbackCreate(GetMethod(implObj, "GetLogoTransmissionType"), flags, 2)
-        this.vtbl.GetLogoId := CallbackCreate(GetMethod(implObj, "GetLogoId"), flags, 2)
-        this.vtbl.GetLogoVersion := CallbackCreate(GetMethod(implObj, "GetLogoVersion"), flags, 2)
-        this.vtbl.GetDownloadDataId := CallbackCreate(GetMethod(implObj, "GetDownloadDataId"), flags, 2)
-        this.vtbl.GetLogoCharW := CallbackCreate(GetMethod(implObj, "GetLogoCharW"), flags, 3)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetLogoTransmissionType := CallbackCreate(ObjBindMethod(implObj, "GetLogoTransmissionType"), flags, 2)
+        this.vtbl.GetLogoId := CallbackCreate(ObjBindMethod(implObj, "GetLogoId"), flags, 2)
+        this.vtbl.GetLogoVersion := CallbackCreate(ObjBindMethod(implObj, "GetLogoVersion"), flags, 2)
+        this.vtbl.GetDownloadDataId := CallbackCreate(ObjBindMethod(implObj, "GetDownloadDataId"), flags, 2)
+        this.vtbl.GetLogoCharW := CallbackCreate(ObjBindMethod(implObj, "GetLogoCharW"), flags, 3)
     }
 
     Dispose() {

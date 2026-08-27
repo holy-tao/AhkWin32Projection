@@ -138,8 +138,8 @@ export default struct IQualityControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Notify := CallbackCreate(GetMethod(implObj, "Notify"), flags, 3)
-        this.vtbl.SetSink := CallbackCreate(GetMethod(implObj, "SetSink"), flags, 2)
+        this.vtbl.Notify := CallbackCreate(ObjBindMethod(implObj, "Notify"), flags, 3)
+        this.vtbl.SetSink := CallbackCreate(ObjBindMethod(implObj, "SetSink"), flags, 2)
     }
 
     Dispose() {

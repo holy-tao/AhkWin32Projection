@@ -37,7 +37,6 @@ export default struct ISearchCatalogManager3 extends ISearchCatalogManager2 {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsContainsSemanticSupported() {
@@ -54,7 +53,7 @@ export default struct ISearchCatalogManager3 extends ISearchCatalogManager2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsContainsSemanticSupported := CallbackCreate(GetMethod(implObj, "IsContainsSemanticSupported"), flags, 2)
+        this.vtbl.IsContainsSemanticSupported := CallbackCreate(ObjBindMethod(implObj, "IsContainsSemanticSupported"), flags, 2)
     }
 
     Dispose() {

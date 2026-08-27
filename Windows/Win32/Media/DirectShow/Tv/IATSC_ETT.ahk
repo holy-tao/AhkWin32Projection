@@ -91,7 +91,10 @@ export default struct IATSC_ETT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_ett-initialize
      */
     Initialize(pSectionList, pMPEGData) {
-        result := ComCall(3, this, "ptr", pSectionList, "ptr", pMPEGData, "HRESULT")
+        pSectionListMarshal := pSectionList == 0 ? IntPtr : "ptr"
+        pMPEGDataMarshal := pMPEGData == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pSectionListMarshal, pSectionList, pMPEGDataMarshal, pMPEGData, "HRESULT")
         return result
     }
 
@@ -184,8 +187,8 @@ export default struct IATSC_ETT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_ett-getextendedmessagetext
      */
     GetExtendedMessageText(pdwLength, ppText) {
-        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
-        ppTextMarshal := ppText is VarRef ? "ptr*" : "ptr"
+        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : IntPtr
+        ppTextMarshal := ppText is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(7, this, pdwLengthMarshal, pdwLength, ppTextMarshal, ppText, "HRESULT")
         return result
@@ -200,11 +203,11 @@ export default struct IATSC_ETT extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.GetVersionNumber := CallbackCreate(GetMethod(implObj, "GetVersionNumber"), flags, 2)
-        this.vtbl.GetProtocolVersion := CallbackCreate(GetMethod(implObj, "GetProtocolVersion"), flags, 2)
-        this.vtbl.GetEtmId := CallbackCreate(GetMethod(implObj, "GetEtmId"), flags, 2)
-        this.vtbl.GetExtendedMessageText := CallbackCreate(GetMethod(implObj, "GetExtendedMessageText"), flags, 3)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetVersionNumber := CallbackCreate(ObjBindMethod(implObj, "GetVersionNumber"), flags, 2)
+        this.vtbl.GetProtocolVersion := CallbackCreate(ObjBindMethod(implObj, "GetProtocolVersion"), flags, 2)
+        this.vtbl.GetEtmId := CallbackCreate(ObjBindMethod(implObj, "GetEtmId"), flags, 2)
+        this.vtbl.GetExtendedMessageText := CallbackCreate(ObjBindMethod(implObj, "GetExtendedMessageText"), flags, 3)
     }
 
     Dispose() {

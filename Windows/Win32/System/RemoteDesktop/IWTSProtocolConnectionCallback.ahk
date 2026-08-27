@@ -141,11 +141,11 @@ export default struct IWTSProtocolConnectionCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnReady := CallbackCreate(GetMethod(implObj, "OnReady"), flags, 1)
-        this.vtbl.BrokenConnection := CallbackCreate(GetMethod(implObj, "BrokenConnection"), flags, 3)
-        this.vtbl.StopScreenUpdates := CallbackCreate(GetMethod(implObj, "StopScreenUpdates"), flags, 1)
-        this.vtbl.RedrawWindow := CallbackCreate(GetMethod(implObj, "RedrawWindow"), flags, 2)
-        this.vtbl.DisplayIOCtl := CallbackCreate(GetMethod(implObj, "DisplayIOCtl"), flags, 2)
+        this.vtbl.OnReady := CallbackCreate(ObjBindMethod(implObj, "OnReady"), flags, 1)
+        this.vtbl.BrokenConnection := CallbackCreate(ObjBindMethod(implObj, "BrokenConnection"), flags, 3)
+        this.vtbl.StopScreenUpdates := CallbackCreate(ObjBindMethod(implObj, "StopScreenUpdates"), flags, 1)
+        this.vtbl.RedrawWindow := CallbackCreate(ObjBindMethod(implObj, "RedrawWindow"), flags, 2)
+        this.vtbl.DisplayIOCtl := CallbackCreate(ObjBindMethod(implObj, "DisplayIOCtl"), flags, 2)
     }
 
     Dispose() {

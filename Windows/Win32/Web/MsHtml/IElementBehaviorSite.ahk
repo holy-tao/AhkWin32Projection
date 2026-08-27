@@ -38,7 +38,6 @@ export default struct IElementBehaviorSite extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     GetElement() {
@@ -47,7 +46,6 @@ export default struct IElementBehaviorSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lEvent 
      * @returns {HRESULT} 
      */
@@ -65,8 +63,8 @@ export default struct IElementBehaviorSite extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetElement := CallbackCreate(GetMethod(implObj, "GetElement"), flags, 2)
-        this.vtbl.RegisterNotification := CallbackCreate(GetMethod(implObj, "RegisterNotification"), flags, 2)
+        this.vtbl.GetElement := CallbackCreate(ObjBindMethod(implObj, "GetElement"), flags, 2)
+        this.vtbl.RegisterNotification := CallbackCreate(ObjBindMethod(implObj, "RegisterNotification"), flags, 2)
     }
 
     Dispose() {

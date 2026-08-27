@@ -23,7 +23,6 @@ export default struct PDXVAHDSW_GetVideoProcessBltStatePrivate {
     }
 
     /**
-     * 
      * @param {HANDLE} hVideoProcessor A handle to the software DXVA-HD video processor.
      * @param {Pointer<DXVAHD_BLT_STATE_PRIVATE_DATA>} pData A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_blt_state_private_data">DXVAHD_BLT_STATE_PRIVATE_DATA</a> structure. On input, the <b>Guid</b> member specifies the private state to query. On output, the structure contains the state information.
      * @returns {HRESULT} If this callback function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

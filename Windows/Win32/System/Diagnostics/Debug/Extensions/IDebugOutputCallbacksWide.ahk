@@ -37,7 +37,6 @@ export default struct IDebugOutputCallbacksWide extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Mask 
      * @param {PWSTR} Text 
      * @returns {HRESULT} 
@@ -58,7 +57,7 @@ export default struct IDebugOutputCallbacksWide extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Output := CallbackCreate(GetMethod(implObj, "Output"), flags, 3)
+        this.vtbl.Output := CallbackCreate(ObjBindMethod(implObj, "Output"), flags, 3)
     }
 
     Dispose() {

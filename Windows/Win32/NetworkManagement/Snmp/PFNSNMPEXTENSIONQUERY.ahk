@@ -20,7 +20,6 @@ export default struct PFNSNMPEXTENSIONQUERY {
     }
 
     /**
-     * 
      * @param {Integer} bPduType 
      * @param {Pointer<SnmpVarBindList>} pVarBindList 
      * @param {Pointer<Integer>} pErrorStatus 
@@ -28,8 +27,8 @@ export default struct PFNSNMPEXTENSIONQUERY {
      * @returns {BOOL} 
      */
     Call(bPduType, pVarBindList, pErrorStatus, pErrorIndex) {
-        pErrorStatusMarshal := pErrorStatus is VarRef ? "int*" : "ptr"
-        pErrorIndexMarshal := pErrorIndex is VarRef ? "int*" : "ptr"
+        pErrorStatusMarshal := pErrorStatus is VarRef ? "int*" : IntPtr
+        pErrorIndexMarshal := pErrorIndex is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, Int8, bPduType, SnmpVarBindList.Ptr, pVarBindList, pErrorStatusMarshal, pErrorStatus, pErrorIndexMarshal, pErrorIndex, BOOL)
         return result

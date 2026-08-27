@@ -71,7 +71,7 @@ export default struct ISettingsContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingscontext-deserialize
      */
     Deserialize(pStream, pTarget, pppResults) {
-        pppResultsMarshal := pppResults is VarRef ? "ptr*" : "ptr"
+        pppResultsMarshal := pppResults is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, "ptr", pStream, "ptr", pTarget, pppResultsMarshal, pppResults, "ptr*", &pcResultCount := 0, "HRESULT")
         return pcResultCount
@@ -84,7 +84,7 @@ export default struct ISettingsContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingscontext-setuserdata
      */
     SetUserData(pUserData) {
-        pUserDataMarshal := pUserData is VarRef ? "ptr" : "ptr"
+        pUserDataMarshal := pUserData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(5, this, pUserDataMarshal, pUserData, "HRESULT")
         return result
@@ -154,13 +154,13 @@ export default struct ISettingsContext extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Serialize := CallbackCreate(GetMethod(implObj, "Serialize"), flags, 3)
-        this.vtbl.Deserialize := CallbackCreate(GetMethod(implObj, "Deserialize"), flags, 5)
-        this.vtbl.SetUserData := CallbackCreate(GetMethod(implObj, "SetUserData"), flags, 2)
-        this.vtbl.GetUserData := CallbackCreate(GetMethod(implObj, "GetUserData"), flags, 2)
-        this.vtbl.GetNamespaces := CallbackCreate(GetMethod(implObj, "GetNamespaces"), flags, 2)
-        this.vtbl.GetStoredSettings := CallbackCreate(GetMethod(implObj, "GetStoredSettings"), flags, 5)
-        this.vtbl.RevertSetting := CallbackCreate(GetMethod(implObj, "RevertSetting"), flags, 3)
+        this.vtbl.Serialize := CallbackCreate(ObjBindMethod(implObj, "Serialize"), flags, 3)
+        this.vtbl.Deserialize := CallbackCreate(ObjBindMethod(implObj, "Deserialize"), flags, 5)
+        this.vtbl.SetUserData := CallbackCreate(ObjBindMethod(implObj, "SetUserData"), flags, 2)
+        this.vtbl.GetUserData := CallbackCreate(ObjBindMethod(implObj, "GetUserData"), flags, 2)
+        this.vtbl.GetNamespaces := CallbackCreate(ObjBindMethod(implObj, "GetNamespaces"), flags, 2)
+        this.vtbl.GetStoredSettings := CallbackCreate(ObjBindMethod(implObj, "GetStoredSettings"), flags, 5)
+        this.vtbl.RevertSetting := CallbackCreate(ObjBindMethod(implObj, "RevertSetting"), flags, 3)
     }
 
     Dispose() {

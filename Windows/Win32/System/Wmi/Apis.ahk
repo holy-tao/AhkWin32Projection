@@ -41,8 +41,10 @@
  * @since windows8.0
  */
 export MI_Application_InitializeV1(flags, applicationID, extendedError, _application) {
-    applicationIDMarshal := applicationID is VarRef ? "ushort*" : "ptr"
-    extendedErrorMarshal := extendedError is VarRef ? "ptr*" : "ptr"
+    applicationIDMarshal := applicationID is VarRef ? "ushort*" : IntPtr
+    applicationIDMarshal := applicationID == 0 ? IntPtr : "ushort*"
+    extendedErrorMarshal := extendedError is VarRef ? "ptr*" : IntPtr
+    extendedErrorMarshal := extendedError == 0 ? IntPtr : "ptr*"
 
     result := DllCall("mi.dll\MI_Application_InitializeV1", UInt32, flags, applicationIDMarshal, applicationID, extendedErrorMarshal, extendedError, MI_Application.Ptr, _application, MI_Result)
     return result

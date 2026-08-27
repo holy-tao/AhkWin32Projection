@@ -23,7 +23,6 @@ export default struct PMAP_TRANSFER_EX {
     }
 
     /**
-     * 
      * @param {Pointer<DMA_ADAPTER>} DmaAdapter 
      * @param {Pointer<MDL>} _Mdl 
      * @param {Pointer<Void>} MapRegisterBase 
@@ -38,11 +37,14 @@ export default struct PMAP_TRANSFER_EX {
      * @returns {NTSTATUS} 
      */
     Call(DmaAdapter, _Mdl, MapRegisterBase, Offset, DeviceOffset, Length, WriteToDevice, ScatterGatherBuffer, ScatterGatherBufferLength, DmaCompletionRoutine, CompletionContext) {
-        MapRegisterBaseMarshal := MapRegisterBase is VarRef ? "ptr" : "ptr"
-        LengthMarshal := Length is VarRef ? "uint*" : "ptr"
-        CompletionContextMarshal := CompletionContext is VarRef ? "ptr" : "ptr"
+        MapRegisterBaseMarshal := MapRegisterBase is VarRef ? "ptr" : IntPtr
+        LengthMarshal := Length is VarRef ? "uint*" : IntPtr
+        ScatterGatherBufferMarshal := ScatterGatherBuffer == 0 ? IntPtr : IntPtr
+        DmaCompletionRoutineMarshal := DmaCompletionRoutine == 0 ? IntPtr : PDMA_COMPLETION_ROUTINE
+        CompletionContextMarshal := CompletionContext is VarRef ? "ptr" : IntPtr
+        CompletionContextMarshal := CompletionContext == 0 ? IntPtr : "ptr"
 
-        result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, MDL.Ptr, _Mdl, MapRegisterBaseMarshal, MapRegisterBase, Int64, Offset, UInt32, DeviceOffset, LengthMarshal, Length, BOOLEAN, WriteToDevice, IntPtr, ScatterGatherBuffer, UInt32, ScatterGatherBufferLength, PDMA_COMPLETION_ROUTINE, DmaCompletionRoutine, CompletionContextMarshal, CompletionContext, NTSTATUS)
+        result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, MDL.Ptr, _Mdl, MapRegisterBaseMarshal, MapRegisterBase, Int64, Offset, UInt32, DeviceOffset, LengthMarshal, Length, BOOLEAN, WriteToDevice, ScatterGatherBufferMarshal, ScatterGatherBuffer, UInt32, ScatterGatherBufferLength, DmaCompletionRoutineMarshal, DmaCompletionRoutine, CompletionContextMarshal, CompletionContext, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

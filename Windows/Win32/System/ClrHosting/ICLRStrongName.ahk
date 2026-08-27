@@ -64,7 +64,6 @@ export default struct ICLRStrongName extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} pszFilePath 
      * @param {Pointer<Integer>} piHashAlg 
      * @param {Pointer<Integer>} pbHash 
@@ -75,16 +74,15 @@ export default struct ICLRStrongName extends IUnknown {
     GetHashFromAssemblyFile(pszFilePath, piHashAlg, pbHash, cchHash, pchHash) {
         pszFilePath := pszFilePath is String ? StrPtr(pszFilePath) : pszFilePath
 
-        piHashAlgMarshal := piHashAlg is VarRef ? "uint*" : "ptr"
-        pbHashMarshal := pbHash is VarRef ? "char*" : "ptr"
-        pchHashMarshal := pchHash is VarRef ? "uint*" : "ptr"
+        piHashAlgMarshal := piHashAlg is VarRef ? "uint*" : IntPtr
+        pbHashMarshal := pbHash is VarRef ? "char*" : IntPtr
+        pchHashMarshal := pchHash is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, "ptr", pszFilePath, piHashAlgMarshal, piHashAlg, pbHashMarshal, pbHash, UInt32, cchHash, pchHashMarshal, pchHash, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwzFilePath 
      * @param {Pointer<Integer>} piHashAlg 
      * @param {Pointer<Integer>} pbHash 
@@ -95,16 +93,15 @@ export default struct ICLRStrongName extends IUnknown {
     GetHashFromAssemblyFileW(pwzFilePath, piHashAlg, pbHash, cchHash, pchHash) {
         pwzFilePath := pwzFilePath is String ? StrPtr(pwzFilePath) : pwzFilePath
 
-        piHashAlgMarshal := piHashAlg is VarRef ? "uint*" : "ptr"
-        pbHashMarshal := pbHash is VarRef ? "char*" : "ptr"
-        pchHashMarshal := pchHash is VarRef ? "uint*" : "ptr"
+        piHashAlgMarshal := piHashAlg is VarRef ? "uint*" : IntPtr
+        pbHashMarshal := pbHash is VarRef ? "char*" : IntPtr
+        pchHashMarshal := pchHash is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, "ptr", pwzFilePath, piHashAlgMarshal, piHashAlg, pbHashMarshal, pbHash, UInt32, cchHash, pchHashMarshal, pchHash, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbBlob 
      * @param {Integer} cchBlob 
      * @param {Pointer<Integer>} piHashAlg 
@@ -114,17 +111,16 @@ export default struct ICLRStrongName extends IUnknown {
      * @returns {HRESULT} 
      */
     GetHashFromBlob(pbBlob, cchBlob, piHashAlg, pbHash, cchHash, pchHash) {
-        pbBlobMarshal := pbBlob is VarRef ? "char*" : "ptr"
-        piHashAlgMarshal := piHashAlg is VarRef ? "uint*" : "ptr"
-        pbHashMarshal := pbHash is VarRef ? "char*" : "ptr"
-        pchHashMarshal := pchHash is VarRef ? "uint*" : "ptr"
+        pbBlobMarshal := pbBlob is VarRef ? "char*" : IntPtr
+        piHashAlgMarshal := piHashAlg is VarRef ? "uint*" : IntPtr
+        pbHashMarshal := pbHash is VarRef ? "char*" : IntPtr
+        pchHashMarshal := pchHash is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, pbBlobMarshal, pbBlob, UInt32, cchBlob, piHashAlgMarshal, piHashAlg, pbHashMarshal, pbHash, UInt32, cchHash, pchHashMarshal, pchHash, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PSTR} pszFilePath 
      * @param {Pointer<Integer>} piHashAlg 
      * @param {Pointer<Integer>} pbHash 
@@ -135,16 +131,15 @@ export default struct ICLRStrongName extends IUnknown {
     GetHashFromFile(pszFilePath, piHashAlg, pbHash, cchHash, pchHash) {
         pszFilePath := pszFilePath is String ? StrPtr(pszFilePath) : pszFilePath
 
-        piHashAlgMarshal := piHashAlg is VarRef ? "uint*" : "ptr"
-        pbHashMarshal := pbHash is VarRef ? "char*" : "ptr"
-        pchHashMarshal := pchHash is VarRef ? "uint*" : "ptr"
+        piHashAlgMarshal := piHashAlg is VarRef ? "uint*" : IntPtr
+        pbHashMarshal := pbHash is VarRef ? "char*" : IntPtr
+        pchHashMarshal := pchHash is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, "ptr", pszFilePath, piHashAlgMarshal, piHashAlg, pbHashMarshal, pbHash, UInt32, cchHash, pchHashMarshal, pchHash, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwzFilePath 
      * @param {Pointer<Integer>} piHashAlg 
      * @param {Pointer<Integer>} pbHash 
@@ -155,16 +150,15 @@ export default struct ICLRStrongName extends IUnknown {
     GetHashFromFileW(pwzFilePath, piHashAlg, pbHash, cchHash, pchHash) {
         pwzFilePath := pwzFilePath is String ? StrPtr(pwzFilePath) : pwzFilePath
 
-        piHashAlgMarshal := piHashAlg is VarRef ? "uint*" : "ptr"
-        pbHashMarshal := pbHash is VarRef ? "char*" : "ptr"
-        pchHashMarshal := pchHash is VarRef ? "uint*" : "ptr"
+        piHashAlgMarshal := piHashAlg is VarRef ? "uint*" : IntPtr
+        pbHashMarshal := pbHash is VarRef ? "char*" : IntPtr
+        pchHashMarshal := pchHash is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, "ptr", pwzFilePath, piHashAlgMarshal, piHashAlg, pbHashMarshal, pbHash, UInt32, cchHash, pchHashMarshal, pchHash, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HANDLE} hFile 
      * @param {Pointer<Integer>} piHashAlg 
      * @param {Pointer<Integer>} pbHash 
@@ -173,16 +167,15 @@ export default struct ICLRStrongName extends IUnknown {
      * @returns {HRESULT} 
      */
     GetHashFromHandle(hFile, piHashAlg, pbHash, cchHash, pchHash) {
-        piHashAlgMarshal := piHashAlg is VarRef ? "uint*" : "ptr"
-        pbHashMarshal := pbHash is VarRef ? "char*" : "ptr"
-        pchHashMarshal := pchHash is VarRef ? "uint*" : "ptr"
+        piHashAlgMarshal := piHashAlg is VarRef ? "uint*" : IntPtr
+        pbHashMarshal := pbHash is VarRef ? "char*" : IntPtr
+        pchHashMarshal := pchHash is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, HANDLE, hFile, piHashAlgMarshal, piHashAlg, pbHashMarshal, pbHash, UInt32, cchHash, pchHashMarshal, pchHash, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwzAssembly1 
      * @param {PWSTR} pwzAssembly2 
      * @returns {Integer} 
@@ -196,19 +189,17 @@ export default struct ICLRStrongName extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbMemory 
      * @returns {HRESULT} 
      */
     StrongNameFreeBuffer(pbMemory) {
-        pbMemoryMarshal := pbMemory is VarRef ? "char*" : "ptr"
+        pbMemoryMarshal := pbMemory is VarRef ? "char*" : IntPtr
 
         result := ComCall(10, this, pbMemoryMarshal, pbMemory, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwzFilePath 
      * @param {Pointer<Integer>} pbBlob 
      * @param {Pointer<Integer>} pcbBlob 
@@ -217,30 +208,28 @@ export default struct ICLRStrongName extends IUnknown {
     StrongNameGetBlob(pwzFilePath, pbBlob, pcbBlob) {
         pwzFilePath := pwzFilePath is String ? StrPtr(pwzFilePath) : pwzFilePath
 
-        pbBlobMarshal := pbBlob is VarRef ? "char*" : "ptr"
-        pcbBlobMarshal := pcbBlob is VarRef ? "uint*" : "ptr"
+        pbBlobMarshal := pbBlob is VarRef ? "char*" : IntPtr
+        pcbBlobMarshal := pcbBlob is VarRef ? "uint*" : IntPtr
 
         result := ComCall(11, this, "ptr", pwzFilePath, pbBlobMarshal, pbBlob, pcbBlobMarshal, pcbBlob, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbBase 
      * @param {Integer} dwLength 
      * @param {Pointer<Integer>} pcbBlob 
      * @returns {Integer} 
      */
     StrongNameGetBlobFromImage(pbBase, dwLength, pcbBlob) {
-        pbBaseMarshal := pbBase is VarRef ? "char*" : "ptr"
-        pcbBlobMarshal := pcbBlob is VarRef ? "uint*" : "ptr"
+        pbBaseMarshal := pbBase is VarRef ? "char*" : IntPtr
+        pcbBlobMarshal := pcbBlob is VarRef ? "uint*" : IntPtr
 
         result := ComCall(12, this, pbBaseMarshal, pbBase, UInt32, dwLength, "char*", &pbBlob := 0, pcbBlobMarshal, pcbBlob, "HRESULT")
         return pbBlob
     }
 
     /**
-     * 
      * @param {PWSTR} pwzKeyContainer 
      * @param {Pointer<Integer>} pbKeyBlob 
      * @param {Integer} cbKeyBlob 
@@ -251,16 +240,15 @@ export default struct ICLRStrongName extends IUnknown {
     StrongNameGetPublicKey(pwzKeyContainer, pbKeyBlob, cbKeyBlob, ppbPublicKeyBlob, pcbPublicKeyBlob) {
         pwzKeyContainer := pwzKeyContainer is String ? StrPtr(pwzKeyContainer) : pwzKeyContainer
 
-        pbKeyBlobMarshal := pbKeyBlob is VarRef ? "char*" : "ptr"
-        ppbPublicKeyBlobMarshal := ppbPublicKeyBlob is VarRef ? "ptr*" : "ptr"
-        pcbPublicKeyBlobMarshal := pcbPublicKeyBlob is VarRef ? "uint*" : "ptr"
+        pbKeyBlobMarshal := pbKeyBlob is VarRef ? "char*" : IntPtr
+        ppbPublicKeyBlobMarshal := ppbPublicKeyBlob is VarRef ? "ptr*" : IntPtr
+        pcbPublicKeyBlobMarshal := pcbPublicKeyBlob is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, "ptr", pwzKeyContainer, pbKeyBlobMarshal, pbKeyBlob, UInt32, cbKeyBlob, ppbPublicKeyBlobMarshal, ppbPublicKeyBlob, pcbPublicKeyBlobMarshal, pcbPublicKeyBlob, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} ulHashAlg 
      * @returns {Integer} 
      */
@@ -270,7 +258,6 @@ export default struct ICLRStrongName extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzKeyContainer 
      * @returns {HRESULT} 
      */
@@ -282,7 +269,6 @@ export default struct ICLRStrongName extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzKeyContainer 
      * @param {Integer} dwFlags 
      * @param {Pointer<Pointer<Integer>>} ppbKeyBlob 
@@ -292,15 +278,14 @@ export default struct ICLRStrongName extends IUnknown {
     StrongNameKeyGen(pwzKeyContainer, dwFlags, ppbKeyBlob, pcbKeyBlob) {
         pwzKeyContainer := pwzKeyContainer is String ? StrPtr(pwzKeyContainer) : pwzKeyContainer
 
-        ppbKeyBlobMarshal := ppbKeyBlob is VarRef ? "ptr*" : "ptr"
-        pcbKeyBlobMarshal := pcbKeyBlob is VarRef ? "uint*" : "ptr"
+        ppbKeyBlobMarshal := ppbKeyBlob is VarRef ? "ptr*" : IntPtr
+        pcbKeyBlobMarshal := pcbKeyBlob is VarRef ? "uint*" : IntPtr
 
         result := ComCall(16, this, "ptr", pwzKeyContainer, UInt32, dwFlags, ppbKeyBlobMarshal, ppbKeyBlob, pcbKeyBlobMarshal, pcbKeyBlob, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwzKeyContainer 
      * @param {Integer} dwFlags 
      * @param {Integer} dwKeySize 
@@ -311,15 +296,14 @@ export default struct ICLRStrongName extends IUnknown {
     StrongNameKeyGenEx(pwzKeyContainer, dwFlags, dwKeySize, ppbKeyBlob, pcbKeyBlob) {
         pwzKeyContainer := pwzKeyContainer is String ? StrPtr(pwzKeyContainer) : pwzKeyContainer
 
-        ppbKeyBlobMarshal := ppbKeyBlob is VarRef ? "ptr*" : "ptr"
-        pcbKeyBlobMarshal := pcbKeyBlob is VarRef ? "uint*" : "ptr"
+        ppbKeyBlobMarshal := ppbKeyBlob is VarRef ? "ptr*" : IntPtr
+        pcbKeyBlobMarshal := pcbKeyBlob is VarRef ? "uint*" : IntPtr
 
         result := ComCall(17, this, "ptr", pwzKeyContainer, UInt32, dwFlags, UInt32, dwKeySize, ppbKeyBlobMarshal, ppbKeyBlob, pcbKeyBlobMarshal, pcbKeyBlob, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwzKeyContainer 
      * @param {Pointer<Integer>} pbKeyBlob 
      * @param {Integer} cbKeyBlob 
@@ -328,14 +312,13 @@ export default struct ICLRStrongName extends IUnknown {
     StrongNameKeyInstall(pwzKeyContainer, pbKeyBlob, cbKeyBlob) {
         pwzKeyContainer := pwzKeyContainer is String ? StrPtr(pwzKeyContainer) : pwzKeyContainer
 
-        pbKeyBlobMarshal := pbKeyBlob is VarRef ? "char*" : "ptr"
+        pbKeyBlobMarshal := pbKeyBlob is VarRef ? "char*" : IntPtr
 
         result := ComCall(18, this, "ptr", pwzKeyContainer, pbKeyBlobMarshal, pbKeyBlob, UInt32, cbKeyBlob, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwzFilePath 
      * @param {PWSTR} pwzKeyContainer 
      * @param {Pointer<Integer>} pbKeyBlob 
@@ -348,16 +331,15 @@ export default struct ICLRStrongName extends IUnknown {
         pwzFilePath := pwzFilePath is String ? StrPtr(pwzFilePath) : pwzFilePath
         pwzKeyContainer := pwzKeyContainer is String ? StrPtr(pwzKeyContainer) : pwzKeyContainer
 
-        pbKeyBlobMarshal := pbKeyBlob is VarRef ? "char*" : "ptr"
-        ppbSignatureBlobMarshal := ppbSignatureBlob is VarRef ? "ptr*" : "ptr"
-        pcbSignatureBlobMarshal := pcbSignatureBlob is VarRef ? "uint*" : "ptr"
+        pbKeyBlobMarshal := pbKeyBlob is VarRef ? "char*" : IntPtr
+        ppbSignatureBlobMarshal := ppbSignatureBlob is VarRef ? "ptr*" : IntPtr
+        pcbSignatureBlobMarshal := pcbSignatureBlob is VarRef ? "uint*" : IntPtr
 
         result := ComCall(19, this, "ptr", pwzFilePath, "ptr", pwzKeyContainer, pbKeyBlobMarshal, pbKeyBlob, UInt32, cbKeyBlob, ppbSignatureBlobMarshal, ppbSignatureBlob, pcbSignatureBlobMarshal, pcbSignatureBlob, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} wszFilePath 
      * @param {PWSTR} wszKeyContainer 
      * @param {Pointer<Integer>} pbKeyBlob 
@@ -371,31 +353,29 @@ export default struct ICLRStrongName extends IUnknown {
         wszFilePath := wszFilePath is String ? StrPtr(wszFilePath) : wszFilePath
         wszKeyContainer := wszKeyContainer is String ? StrPtr(wszKeyContainer) : wszKeyContainer
 
-        pbKeyBlobMarshal := pbKeyBlob is VarRef ? "char*" : "ptr"
-        ppbSignatureBlobMarshal := ppbSignatureBlob is VarRef ? "ptr*" : "ptr"
-        pcbSignatureBlobMarshal := pcbSignatureBlob is VarRef ? "uint*" : "ptr"
+        pbKeyBlobMarshal := pbKeyBlob is VarRef ? "char*" : IntPtr
+        ppbSignatureBlobMarshal := ppbSignatureBlob is VarRef ? "ptr*" : IntPtr
+        pcbSignatureBlobMarshal := pcbSignatureBlob is VarRef ? "uint*" : IntPtr
 
         result := ComCall(20, this, "ptr", wszFilePath, "ptr", wszKeyContainer, pbKeyBlobMarshal, pbKeyBlob, UInt32, cbKeyBlob, ppbSignatureBlobMarshal, ppbSignatureBlob, pcbSignatureBlobMarshal, pcbSignatureBlob, UInt32, dwFlags, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbPublicKeyBlob 
      * @param {Integer} cbPublicKeyBlob 
      * @param {Pointer<Integer>} pcbSize 
      * @returns {HRESULT} 
      */
     StrongNameSignatureSize(pbPublicKeyBlob, cbPublicKeyBlob, pcbSize) {
-        pbPublicKeyBlobMarshal := pbPublicKeyBlob is VarRef ? "char*" : "ptr"
-        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+        pbPublicKeyBlobMarshal := pbPublicKeyBlob is VarRef ? "char*" : IntPtr
+        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(21, this, pbPublicKeyBlobMarshal, pbPublicKeyBlob, UInt32, cbPublicKeyBlob, pcbSizeMarshal, pcbSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwzFilePath 
      * @param {Integer} dwInFlags 
      * @returns {Integer} 
@@ -408,7 +388,6 @@ export default struct ICLRStrongName extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzFilePath 
      * @param {BOOLEAN} fForceVerification 
      * @returns {Integer} 
@@ -421,21 +400,19 @@ export default struct ICLRStrongName extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbBase 
      * @param {Integer} dwLength 
      * @param {Integer} dwInFlags 
      * @returns {Integer} 
      */
     StrongNameSignatureVerificationFromImage(pbBase, dwLength, dwInFlags) {
-        pbBaseMarshal := pbBase is VarRef ? "char*" : "ptr"
+        pbBaseMarshal := pbBase is VarRef ? "char*" : IntPtr
 
         result := ComCall(24, this, pbBaseMarshal, pbBase, UInt32, dwLength, UInt32, dwInFlags, "uint*", &pdwOutFlags := 0, "HRESULT")
         return pdwOutFlags
     }
 
     /**
-     * 
      * @param {PWSTR} pwzFilePath 
      * @param {Pointer<Pointer<Integer>>} ppbStrongNameToken 
      * @param {Pointer<Integer>} pcbStrongNameToken 
@@ -444,15 +421,14 @@ export default struct ICLRStrongName extends IUnknown {
     StrongNameTokenFromAssembly(pwzFilePath, ppbStrongNameToken, pcbStrongNameToken) {
         pwzFilePath := pwzFilePath is String ? StrPtr(pwzFilePath) : pwzFilePath
 
-        ppbStrongNameTokenMarshal := ppbStrongNameToken is VarRef ? "ptr*" : "ptr"
-        pcbStrongNameTokenMarshal := pcbStrongNameToken is VarRef ? "uint*" : "ptr"
+        ppbStrongNameTokenMarshal := ppbStrongNameToken is VarRef ? "ptr*" : IntPtr
+        pcbStrongNameTokenMarshal := pcbStrongNameToken is VarRef ? "uint*" : IntPtr
 
         result := ComCall(25, this, "ptr", pwzFilePath, ppbStrongNameTokenMarshal, ppbStrongNameToken, pcbStrongNameTokenMarshal, pcbStrongNameToken, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pwzFilePath 
      * @param {Pointer<Pointer<Integer>>} ppbStrongNameToken 
      * @param {Pointer<Integer>} pcbStrongNameToken 
@@ -463,17 +439,16 @@ export default struct ICLRStrongName extends IUnknown {
     StrongNameTokenFromAssemblyEx(pwzFilePath, ppbStrongNameToken, pcbStrongNameToken, ppbPublicKeyBlob, pcbPublicKeyBlob) {
         pwzFilePath := pwzFilePath is String ? StrPtr(pwzFilePath) : pwzFilePath
 
-        ppbStrongNameTokenMarshal := ppbStrongNameToken is VarRef ? "ptr*" : "ptr"
-        pcbStrongNameTokenMarshal := pcbStrongNameToken is VarRef ? "uint*" : "ptr"
-        ppbPublicKeyBlobMarshal := ppbPublicKeyBlob is VarRef ? "ptr*" : "ptr"
-        pcbPublicKeyBlobMarshal := pcbPublicKeyBlob is VarRef ? "uint*" : "ptr"
+        ppbStrongNameTokenMarshal := ppbStrongNameToken is VarRef ? "ptr*" : IntPtr
+        pcbStrongNameTokenMarshal := pcbStrongNameToken is VarRef ? "uint*" : IntPtr
+        ppbPublicKeyBlobMarshal := ppbPublicKeyBlob is VarRef ? "ptr*" : IntPtr
+        pcbPublicKeyBlobMarshal := pcbPublicKeyBlob is VarRef ? "uint*" : IntPtr
 
         result := ComCall(26, this, "ptr", pwzFilePath, ppbStrongNameTokenMarshal, ppbStrongNameToken, pcbStrongNameTokenMarshal, pcbStrongNameToken, ppbPublicKeyBlobMarshal, ppbPublicKeyBlob, pcbPublicKeyBlobMarshal, pcbPublicKeyBlob, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbPublicKeyBlob 
      * @param {Integer} cbPublicKeyBlob 
      * @param {Pointer<Pointer<Integer>>} ppbStrongNameToken 
@@ -481,9 +456,9 @@ export default struct ICLRStrongName extends IUnknown {
      * @returns {HRESULT} 
      */
     StrongNameTokenFromPublicKey(pbPublicKeyBlob, cbPublicKeyBlob, ppbStrongNameToken, pcbStrongNameToken) {
-        pbPublicKeyBlobMarshal := pbPublicKeyBlob is VarRef ? "char*" : "ptr"
-        ppbStrongNameTokenMarshal := ppbStrongNameToken is VarRef ? "ptr*" : "ptr"
-        pcbStrongNameTokenMarshal := pcbStrongNameToken is VarRef ? "uint*" : "ptr"
+        pbPublicKeyBlobMarshal := pbPublicKeyBlob is VarRef ? "char*" : IntPtr
+        ppbStrongNameTokenMarshal := ppbStrongNameToken is VarRef ? "ptr*" : IntPtr
+        pcbStrongNameTokenMarshal := pcbStrongNameToken is VarRef ? "uint*" : IntPtr
 
         result := ComCall(27, this, pbPublicKeyBlobMarshal, pbPublicKeyBlob, UInt32, cbPublicKeyBlob, ppbStrongNameTokenMarshal, ppbStrongNameToken, pcbStrongNameTokenMarshal, pcbStrongNameToken, "HRESULT")
         return result
@@ -498,31 +473,31 @@ export default struct ICLRStrongName extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetHashFromAssemblyFile := CallbackCreate(GetMethod(implObj, "GetHashFromAssemblyFile"), flags, 6)
-        this.vtbl.GetHashFromAssemblyFileW := CallbackCreate(GetMethod(implObj, "GetHashFromAssemblyFileW"), flags, 6)
-        this.vtbl.GetHashFromBlob := CallbackCreate(GetMethod(implObj, "GetHashFromBlob"), flags, 7)
-        this.vtbl.GetHashFromFile := CallbackCreate(GetMethod(implObj, "GetHashFromFile"), flags, 6)
-        this.vtbl.GetHashFromFileW := CallbackCreate(GetMethod(implObj, "GetHashFromFileW"), flags, 6)
-        this.vtbl.GetHashFromHandle := CallbackCreate(GetMethod(implObj, "GetHashFromHandle"), flags, 6)
-        this.vtbl.StrongNameCompareAssemblies := CallbackCreate(GetMethod(implObj, "StrongNameCompareAssemblies"), flags, 4)
-        this.vtbl.StrongNameFreeBuffer := CallbackCreate(GetMethod(implObj, "StrongNameFreeBuffer"), flags, 2)
-        this.vtbl.StrongNameGetBlob := CallbackCreate(GetMethod(implObj, "StrongNameGetBlob"), flags, 4)
-        this.vtbl.StrongNameGetBlobFromImage := CallbackCreate(GetMethod(implObj, "StrongNameGetBlobFromImage"), flags, 5)
-        this.vtbl.StrongNameGetPublicKey := CallbackCreate(GetMethod(implObj, "StrongNameGetPublicKey"), flags, 6)
-        this.vtbl.StrongNameHashSize := CallbackCreate(GetMethod(implObj, "StrongNameHashSize"), flags, 3)
-        this.vtbl.StrongNameKeyDelete := CallbackCreate(GetMethod(implObj, "StrongNameKeyDelete"), flags, 2)
-        this.vtbl.StrongNameKeyGen := CallbackCreate(GetMethod(implObj, "StrongNameKeyGen"), flags, 5)
-        this.vtbl.StrongNameKeyGenEx := CallbackCreate(GetMethod(implObj, "StrongNameKeyGenEx"), flags, 6)
-        this.vtbl.StrongNameKeyInstall := CallbackCreate(GetMethod(implObj, "StrongNameKeyInstall"), flags, 4)
-        this.vtbl.StrongNameSignatureGeneration := CallbackCreate(GetMethod(implObj, "StrongNameSignatureGeneration"), flags, 7)
-        this.vtbl.StrongNameSignatureGenerationEx := CallbackCreate(GetMethod(implObj, "StrongNameSignatureGenerationEx"), flags, 8)
-        this.vtbl.StrongNameSignatureSize := CallbackCreate(GetMethod(implObj, "StrongNameSignatureSize"), flags, 4)
-        this.vtbl.StrongNameSignatureVerification := CallbackCreate(GetMethod(implObj, "StrongNameSignatureVerification"), flags, 4)
-        this.vtbl.StrongNameSignatureVerificationEx := CallbackCreate(GetMethod(implObj, "StrongNameSignatureVerificationEx"), flags, 4)
-        this.vtbl.StrongNameSignatureVerificationFromImage := CallbackCreate(GetMethod(implObj, "StrongNameSignatureVerificationFromImage"), flags, 5)
-        this.vtbl.StrongNameTokenFromAssembly := CallbackCreate(GetMethod(implObj, "StrongNameTokenFromAssembly"), flags, 4)
-        this.vtbl.StrongNameTokenFromAssemblyEx := CallbackCreate(GetMethod(implObj, "StrongNameTokenFromAssemblyEx"), flags, 6)
-        this.vtbl.StrongNameTokenFromPublicKey := CallbackCreate(GetMethod(implObj, "StrongNameTokenFromPublicKey"), flags, 5)
+        this.vtbl.GetHashFromAssemblyFile := CallbackCreate(ObjBindMethod(implObj, "GetHashFromAssemblyFile"), flags, 6)
+        this.vtbl.GetHashFromAssemblyFileW := CallbackCreate(ObjBindMethod(implObj, "GetHashFromAssemblyFileW"), flags, 6)
+        this.vtbl.GetHashFromBlob := CallbackCreate(ObjBindMethod(implObj, "GetHashFromBlob"), flags, 7)
+        this.vtbl.GetHashFromFile := CallbackCreate(ObjBindMethod(implObj, "GetHashFromFile"), flags, 6)
+        this.vtbl.GetHashFromFileW := CallbackCreate(ObjBindMethod(implObj, "GetHashFromFileW"), flags, 6)
+        this.vtbl.GetHashFromHandle := CallbackCreate(ObjBindMethod(implObj, "GetHashFromHandle"), flags, 6)
+        this.vtbl.StrongNameCompareAssemblies := CallbackCreate(ObjBindMethod(implObj, "StrongNameCompareAssemblies"), flags, 4)
+        this.vtbl.StrongNameFreeBuffer := CallbackCreate(ObjBindMethod(implObj, "StrongNameFreeBuffer"), flags, 2)
+        this.vtbl.StrongNameGetBlob := CallbackCreate(ObjBindMethod(implObj, "StrongNameGetBlob"), flags, 4)
+        this.vtbl.StrongNameGetBlobFromImage := CallbackCreate(ObjBindMethod(implObj, "StrongNameGetBlobFromImage"), flags, 5)
+        this.vtbl.StrongNameGetPublicKey := CallbackCreate(ObjBindMethod(implObj, "StrongNameGetPublicKey"), flags, 6)
+        this.vtbl.StrongNameHashSize := CallbackCreate(ObjBindMethod(implObj, "StrongNameHashSize"), flags, 3)
+        this.vtbl.StrongNameKeyDelete := CallbackCreate(ObjBindMethod(implObj, "StrongNameKeyDelete"), flags, 2)
+        this.vtbl.StrongNameKeyGen := CallbackCreate(ObjBindMethod(implObj, "StrongNameKeyGen"), flags, 5)
+        this.vtbl.StrongNameKeyGenEx := CallbackCreate(ObjBindMethod(implObj, "StrongNameKeyGenEx"), flags, 6)
+        this.vtbl.StrongNameKeyInstall := CallbackCreate(ObjBindMethod(implObj, "StrongNameKeyInstall"), flags, 4)
+        this.vtbl.StrongNameSignatureGeneration := CallbackCreate(ObjBindMethod(implObj, "StrongNameSignatureGeneration"), flags, 7)
+        this.vtbl.StrongNameSignatureGenerationEx := CallbackCreate(ObjBindMethod(implObj, "StrongNameSignatureGenerationEx"), flags, 8)
+        this.vtbl.StrongNameSignatureSize := CallbackCreate(ObjBindMethod(implObj, "StrongNameSignatureSize"), flags, 4)
+        this.vtbl.StrongNameSignatureVerification := CallbackCreate(ObjBindMethod(implObj, "StrongNameSignatureVerification"), flags, 4)
+        this.vtbl.StrongNameSignatureVerificationEx := CallbackCreate(ObjBindMethod(implObj, "StrongNameSignatureVerificationEx"), flags, 4)
+        this.vtbl.StrongNameSignatureVerificationFromImage := CallbackCreate(ObjBindMethod(implObj, "StrongNameSignatureVerificationFromImage"), flags, 5)
+        this.vtbl.StrongNameTokenFromAssembly := CallbackCreate(ObjBindMethod(implObj, "StrongNameTokenFromAssembly"), flags, 4)
+        this.vtbl.StrongNameTokenFromAssemblyEx := CallbackCreate(ObjBindMethod(implObj, "StrongNameTokenFromAssemblyEx"), flags, 6)
+        this.vtbl.StrongNameTokenFromPublicKey := CallbackCreate(ObjBindMethod(implObj, "StrongNameTokenFromPublicKey"), flags, 5)
     }
 
     Dispose() {

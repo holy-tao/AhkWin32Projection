@@ -46,7 +46,6 @@ export default struct IShellLinkDual2 extends IShellLinkDual {
     }
 
     /**
-     * 
      * @returns {FolderItem} 
      */
     get_Target() {
@@ -63,7 +62,7 @@ export default struct IShellLinkDual2 extends IShellLinkDual {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Target := CallbackCreate(GetMethod(implObj, "get_Target"), flags, 2)
+        this.vtbl.get_Target := CallbackCreate(ObjBindMethod(implObj, "get_Target"), flags, 2)
     }
 
     Dispose() {

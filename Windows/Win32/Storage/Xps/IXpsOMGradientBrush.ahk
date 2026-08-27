@@ -586,16 +586,16 @@ export default struct IXpsOMGradientBrush extends IXpsOMBrush {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetGradientStops := CallbackCreate(GetMethod(implObj, "GetGradientStops"), flags, 2)
-        this.vtbl.GetTransform := CallbackCreate(GetMethod(implObj, "GetTransform"), flags, 2)
-        this.vtbl.GetTransformLocal := CallbackCreate(GetMethod(implObj, "GetTransformLocal"), flags, 2)
-        this.vtbl.SetTransformLocal := CallbackCreate(GetMethod(implObj, "SetTransformLocal"), flags, 2)
-        this.vtbl.GetTransformLookup := CallbackCreate(GetMethod(implObj, "GetTransformLookup"), flags, 2)
-        this.vtbl.SetTransformLookup := CallbackCreate(GetMethod(implObj, "SetTransformLookup"), flags, 2)
-        this.vtbl.GetSpreadMethod := CallbackCreate(GetMethod(implObj, "GetSpreadMethod"), flags, 2)
-        this.vtbl.SetSpreadMethod := CallbackCreate(GetMethod(implObj, "SetSpreadMethod"), flags, 2)
-        this.vtbl.GetColorInterpolationMode := CallbackCreate(GetMethod(implObj, "GetColorInterpolationMode"), flags, 2)
-        this.vtbl.SetColorInterpolationMode := CallbackCreate(GetMethod(implObj, "SetColorInterpolationMode"), flags, 2)
+        this.vtbl.GetGradientStops := CallbackCreate(ObjBindMethod(implObj, "GetGradientStops"), flags, 2)
+        this.vtbl.GetTransform := CallbackCreate(ObjBindMethod(implObj, "GetTransform"), flags, 2)
+        this.vtbl.GetTransformLocal := CallbackCreate(ObjBindMethod(implObj, "GetTransformLocal"), flags, 2)
+        this.vtbl.SetTransformLocal := CallbackCreate(ObjBindMethod(implObj, "SetTransformLocal"), flags, 2)
+        this.vtbl.GetTransformLookup := CallbackCreate(ObjBindMethod(implObj, "GetTransformLookup"), flags, 2)
+        this.vtbl.SetTransformLookup := CallbackCreate(ObjBindMethod(implObj, "SetTransformLookup"), flags, 2)
+        this.vtbl.GetSpreadMethod := CallbackCreate(ObjBindMethod(implObj, "GetSpreadMethod"), flags, 2)
+        this.vtbl.SetSpreadMethod := CallbackCreate(ObjBindMethod(implObj, "SetSpreadMethod"), flags, 2)
+        this.vtbl.GetColorInterpolationMode := CallbackCreate(ObjBindMethod(implObj, "GetColorInterpolationMode"), flags, 2)
+        this.vtbl.SetColorInterpolationMode := CallbackCreate(ObjBindMethod(implObj, "SetColorInterpolationMode"), flags, 2)
     }
 
     Dispose() {

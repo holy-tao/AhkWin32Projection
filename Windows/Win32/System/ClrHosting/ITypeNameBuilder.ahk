@@ -49,7 +49,6 @@ export default struct ITypeNameBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     OpenGenericArguments() {
@@ -58,7 +57,6 @@ export default struct ITypeNameBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CloseGenericArguments() {
@@ -67,7 +65,6 @@ export default struct ITypeNameBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     OpenGenericArgument() {
@@ -76,7 +73,6 @@ export default struct ITypeNameBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CloseGenericArgument() {
@@ -85,7 +81,6 @@ export default struct ITypeNameBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} szName 
      * @returns {HRESULT} 
      */
@@ -97,7 +92,6 @@ export default struct ITypeNameBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     AddPointer() {
@@ -106,7 +100,6 @@ export default struct ITypeNameBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     AddByRef() {
@@ -115,7 +108,6 @@ export default struct ITypeNameBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     AddSzArray() {
@@ -124,7 +116,6 @@ export default struct ITypeNameBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} rank 
      * @returns {HRESULT} 
      */
@@ -134,7 +125,6 @@ export default struct ITypeNameBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} szAssemblySpec 
      * @returns {HRESULT} 
      */
@@ -146,7 +136,6 @@ export default struct ITypeNameBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     ToString() {
@@ -192,18 +181,18 @@ export default struct ITypeNameBuilder extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OpenGenericArguments := CallbackCreate(GetMethod(implObj, "OpenGenericArguments"), flags, 1)
-        this.vtbl.CloseGenericArguments := CallbackCreate(GetMethod(implObj, "CloseGenericArguments"), flags, 1)
-        this.vtbl.OpenGenericArgument := CallbackCreate(GetMethod(implObj, "OpenGenericArgument"), flags, 1)
-        this.vtbl.CloseGenericArgument := CallbackCreate(GetMethod(implObj, "CloseGenericArgument"), flags, 1)
-        this.vtbl.AddName := CallbackCreate(GetMethod(implObj, "AddName"), flags, 2)
-        this.vtbl.AddPointer := CallbackCreate(GetMethod(implObj, "AddPointer"), flags, 1)
-        this.vtbl.AddByRef := CallbackCreate(GetMethod(implObj, "AddByRef"), flags, 1)
-        this.vtbl.AddSzArray := CallbackCreate(GetMethod(implObj, "AddSzArray"), flags, 1)
-        this.vtbl.AddArray := CallbackCreate(GetMethod(implObj, "AddArray"), flags, 2)
-        this.vtbl.AddAssemblySpec := CallbackCreate(GetMethod(implObj, "AddAssemblySpec"), flags, 2)
-        this.vtbl.ToString := CallbackCreate(GetMethod(implObj, "ToString"), flags, 2)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.OpenGenericArguments := CallbackCreate(ObjBindMethod(implObj, "OpenGenericArguments"), flags, 1)
+        this.vtbl.CloseGenericArguments := CallbackCreate(ObjBindMethod(implObj, "CloseGenericArguments"), flags, 1)
+        this.vtbl.OpenGenericArgument := CallbackCreate(ObjBindMethod(implObj, "OpenGenericArgument"), flags, 1)
+        this.vtbl.CloseGenericArgument := CallbackCreate(ObjBindMethod(implObj, "CloseGenericArgument"), flags, 1)
+        this.vtbl.AddName := CallbackCreate(ObjBindMethod(implObj, "AddName"), flags, 2)
+        this.vtbl.AddPointer := CallbackCreate(ObjBindMethod(implObj, "AddPointer"), flags, 1)
+        this.vtbl.AddByRef := CallbackCreate(ObjBindMethod(implObj, "AddByRef"), flags, 1)
+        this.vtbl.AddSzArray := CallbackCreate(ObjBindMethod(implObj, "AddSzArray"), flags, 1)
+        this.vtbl.AddArray := CallbackCreate(ObjBindMethod(implObj, "AddArray"), flags, 2)
+        this.vtbl.AddAssemblySpec := CallbackCreate(ObjBindMethod(implObj, "AddAssemblySpec"), flags, 2)
+        this.vtbl.ToString := CallbackCreate(ObjBindMethod(implObj, "ToString"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
     }
 
     Dispose() {

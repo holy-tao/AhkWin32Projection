@@ -122,7 +122,7 @@ export default struct IDot11AdHocNetwork extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocnetwork-getstatus
      */
     GetStatus(eStatus) {
-        eStatusMarshal := eStatus is VarRef ? "int*" : "ptr"
+        eStatusMarshal := eStatus is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, eStatusMarshal, eStatus, "HRESULT")
         return result
@@ -209,7 +209,7 @@ export default struct IDot11AdHocNetwork extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocnetwork-hasprofile
      */
     HasProfile(pf11d) {
-        pf11dMarshal := pf11d is VarRef ? "char*" : "ptr"
+        pf11dMarshal := pf11d is VarRef ? "char*" : IntPtr
 
         result := ComCall(5, this, pf11dMarshal, pf11d, "HRESULT")
         return result
@@ -349,8 +349,8 @@ export default struct IDot11AdHocNetwork extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocnetwork-getsignalquality
      */
     GetSignalQuality(puStrengthValue, puStrengthMax) {
-        puStrengthValueMarshal := puStrengthValue is VarRef ? "uint*" : "ptr"
-        puStrengthMaxMarshal := puStrengthMax is VarRef ? "uint*" : "ptr"
+        puStrengthValueMarshal := puStrengthValue is VarRef ? "uint*" : IntPtr
+        puStrengthMaxMarshal := puStrengthMax is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, puStrengthValueMarshal, puStrengthValue, puStrengthMaxMarshal, puStrengthMax, "HRESULT")
         return result
@@ -693,18 +693,18 @@ export default struct IDot11AdHocNetwork extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
-        this.vtbl.GetSSID := CallbackCreate(GetMethod(implObj, "GetSSID"), flags, 2)
-        this.vtbl.HasProfile := CallbackCreate(GetMethod(implObj, "HasProfile"), flags, 2)
-        this.vtbl.GetProfileName := CallbackCreate(GetMethod(implObj, "GetProfileName"), flags, 2)
-        this.vtbl.DeleteProfile := CallbackCreate(GetMethod(implObj, "DeleteProfile"), flags, 1)
-        this.vtbl.GetSignalQuality := CallbackCreate(GetMethod(implObj, "GetSignalQuality"), flags, 3)
-        this.vtbl.GetSecuritySetting := CallbackCreate(GetMethod(implObj, "GetSecuritySetting"), flags, 2)
-        this.vtbl.GetContextGuid := CallbackCreate(GetMethod(implObj, "GetContextGuid"), flags, 2)
-        this.vtbl.GetSignature := CallbackCreate(GetMethod(implObj, "GetSignature"), flags, 2)
-        this.vtbl.GetInterface := CallbackCreate(GetMethod(implObj, "GetInterface"), flags, 2)
-        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 5)
-        this.vtbl.Disconnect := CallbackCreate(GetMethod(implObj, "Disconnect"), flags, 1)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.GetSSID := CallbackCreate(ObjBindMethod(implObj, "GetSSID"), flags, 2)
+        this.vtbl.HasProfile := CallbackCreate(ObjBindMethod(implObj, "HasProfile"), flags, 2)
+        this.vtbl.GetProfileName := CallbackCreate(ObjBindMethod(implObj, "GetProfileName"), flags, 2)
+        this.vtbl.DeleteProfile := CallbackCreate(ObjBindMethod(implObj, "DeleteProfile"), flags, 1)
+        this.vtbl.GetSignalQuality := CallbackCreate(ObjBindMethod(implObj, "GetSignalQuality"), flags, 3)
+        this.vtbl.GetSecuritySetting := CallbackCreate(ObjBindMethod(implObj, "GetSecuritySetting"), flags, 2)
+        this.vtbl.GetContextGuid := CallbackCreate(ObjBindMethod(implObj, "GetContextGuid"), flags, 2)
+        this.vtbl.GetSignature := CallbackCreate(ObjBindMethod(implObj, "GetSignature"), flags, 2)
+        this.vtbl.GetInterface := CallbackCreate(ObjBindMethod(implObj, "GetInterface"), flags, 2)
+        this.vtbl.Connect := CallbackCreate(ObjBindMethod(implObj, "Connect"), flags, 5)
+        this.vtbl.Disconnect := CallbackCreate(ObjBindMethod(implObj, "Disconnect"), flags, 1)
     }
 
     Dispose() {

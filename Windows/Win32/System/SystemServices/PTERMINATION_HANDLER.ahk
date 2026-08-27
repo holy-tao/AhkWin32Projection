@@ -20,13 +20,12 @@ export default struct PTERMINATION_HANDLER {
     }
 
     /**
-     * 
      * @param {BOOLEAN} _abnormal_termination 
      * @param {Pointer<Void>} EstablisherFrame 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_abnormal_termination, EstablisherFrame) {
-        EstablisherFrameMarshal := EstablisherFrame is VarRef ? "ptr" : "ptr"
+        EstablisherFrameMarshal := EstablisherFrame is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, BOOLEAN, _abnormal_termination, EstablisherFrameMarshal, EstablisherFrame)
     }

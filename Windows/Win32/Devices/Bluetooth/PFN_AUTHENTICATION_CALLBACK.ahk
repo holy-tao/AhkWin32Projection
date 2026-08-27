@@ -24,13 +24,12 @@ export default struct PFN_AUTHENTICATION_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvParam Optional. A context pointer previously passed into the <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nf-bluetoothapis-bluetoothregisterforauthentication">BluetoothRegisterForAuthentication</a> function.
      * @param {Pointer<BLUETOOTH_DEVICE_INFO>} pDevice A remote Bluetooth device requesting authentication. The remote address is the same address used to register the callback during the previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nf-bluetoothapis-bluetoothregisterforauthentication">BluetoothRegisterForAuthentication</a> function.
      * @returns {BOOL} The return value from this function is ignored by the system.
      */
     Call(pvParam, pDevice) {
-        pvParamMarshal := pvParam is VarRef ? "ptr" : "ptr"
+        pvParamMarshal := pvParam is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, pvParamMarshal, pvParam, BLUETOOTH_DEVICE_INFO.Ptr, pDevice, BOOL)
         return result

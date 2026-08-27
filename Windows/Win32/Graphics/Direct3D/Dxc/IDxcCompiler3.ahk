@@ -40,7 +40,6 @@ export default struct IDxcCompiler3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DxcBuffer>} pSource 
      * @param {Pointer<PWSTR>} pArguments 
      * @param {Integer} argCount 
@@ -49,14 +48,15 @@ export default struct IDxcCompiler3 extends IUnknown {
      * @returns {Pointer<Void>} 
      */
     Compile(pSource, pArguments, argCount, pIncludeHandler, riid) {
-        pArgumentsMarshal := pArguments is VarRef ? "ptr*" : "ptr"
+        pArgumentsMarshal := pArguments is VarRef ? "ptr*" : IntPtr
+        pArgumentsMarshal := pArguments == 0 ? IntPtr : PWSTR.Ptr
+        pIncludeHandlerMarshal := pIncludeHandler == 0 ? IntPtr : "ptr"
 
-        result := ComCall(3, this, DxcBuffer.Ptr, pSource, pArgumentsMarshal, pArguments, UInt32, argCount, "ptr", pIncludeHandler, Guid.Ptr, riid, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(3, this, DxcBuffer.Ptr, pSource, pArgumentsMarshal, pArguments, UInt32, argCount, pIncludeHandlerMarshal, pIncludeHandler, Guid.Ptr, riid, "ptr*", &ppResult := 0, "HRESULT")
         return ppResult
     }
 
     /**
-     * 
      * @param {Pointer<DxcBuffer>} pObject 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -75,8 +75,8 @@ export default struct IDxcCompiler3 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Compile := CallbackCreate(GetMethod(implObj, "Compile"), flags, 7)
-        this.vtbl.Disassemble := CallbackCreate(GetMethod(implObj, "Disassemble"), flags, 4)
+        this.vtbl.Compile := CallbackCreate(ObjBindMethod(implObj, "Compile"), flags, 7)
+        this.vtbl.Disassemble := CallbackCreate(ObjBindMethod(implObj, "Disassemble"), flags, 4)
     }
 
     Dispose() {

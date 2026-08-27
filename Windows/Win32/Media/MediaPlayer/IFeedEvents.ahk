@@ -55,7 +55,6 @@ export default struct IFeedEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _path 
      * @returns {HRESULT} 
      */
@@ -67,7 +66,6 @@ export default struct IFeedEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _path 
      * @param {BSTR} oldPath 
      * @returns {HRESULT} 
@@ -81,7 +79,6 @@ export default struct IFeedEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _path 
      * @returns {HRESULT} 
      */
@@ -93,7 +90,6 @@ export default struct IFeedEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _path 
      * @param {BSTR} oldPath 
      * @returns {HRESULT} 
@@ -107,7 +103,6 @@ export default struct IFeedEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _path 
      * @returns {HRESULT} 
      */
@@ -119,7 +114,6 @@ export default struct IFeedEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _path 
      * @param {FEEDS_DOWNLOAD_ERROR} _error 
      * @returns {HRESULT} 
@@ -132,7 +126,6 @@ export default struct IFeedEvents extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _path 
      * @param {Integer} itemCountType 
      * @returns {HRESULT} 
@@ -153,14 +146,14 @@ export default struct IFeedEvents extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Error := CallbackCreate(GetMethod(implObj, "Error"), flags, 1)
-        this.vtbl.FeedDeleted := CallbackCreate(GetMethod(implObj, "FeedDeleted"), flags, 2)
-        this.vtbl.FeedRenamed := CallbackCreate(GetMethod(implObj, "FeedRenamed"), flags, 3)
-        this.vtbl.FeedUrlChanged := CallbackCreate(GetMethod(implObj, "FeedUrlChanged"), flags, 2)
-        this.vtbl.FeedMoved := CallbackCreate(GetMethod(implObj, "FeedMoved"), flags, 3)
-        this.vtbl.FeedDownloading := CallbackCreate(GetMethod(implObj, "FeedDownloading"), flags, 2)
-        this.vtbl.FeedDownloadCompleted := CallbackCreate(GetMethod(implObj, "FeedDownloadCompleted"), flags, 3)
-        this.vtbl.FeedItemCountChanged := CallbackCreate(GetMethod(implObj, "FeedItemCountChanged"), flags, 3)
+        this.vtbl.Error := CallbackCreate(ObjBindMethod(implObj, "Error"), flags, 1)
+        this.vtbl.FeedDeleted := CallbackCreate(ObjBindMethod(implObj, "FeedDeleted"), flags, 2)
+        this.vtbl.FeedRenamed := CallbackCreate(ObjBindMethod(implObj, "FeedRenamed"), flags, 3)
+        this.vtbl.FeedUrlChanged := CallbackCreate(ObjBindMethod(implObj, "FeedUrlChanged"), flags, 2)
+        this.vtbl.FeedMoved := CallbackCreate(ObjBindMethod(implObj, "FeedMoved"), flags, 3)
+        this.vtbl.FeedDownloading := CallbackCreate(ObjBindMethod(implObj, "FeedDownloading"), flags, 2)
+        this.vtbl.FeedDownloadCompleted := CallbackCreate(ObjBindMethod(implObj, "FeedDownloadCompleted"), flags, 3)
+        this.vtbl.FeedItemCountChanged := CallbackCreate(ObjBindMethod(implObj, "FeedItemCountChanged"), flags, 3)
     }
 
     Dispose() {

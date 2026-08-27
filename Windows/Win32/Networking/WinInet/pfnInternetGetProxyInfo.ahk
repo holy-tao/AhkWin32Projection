@@ -20,7 +20,6 @@ export default struct pfnInternetGetProxyInfo {
     }
 
     /**
-     * 
      * @param {PSTR} lpszUrl 
      * @param {Integer} dwUrlLength 
      * @param {PSTR} lpszUrlHostName 
@@ -33,8 +32,8 @@ export default struct pfnInternetGetProxyInfo {
         lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
         lpszUrlHostName := lpszUrlHostName is String ? StrPtr(lpszUrlHostName) : lpszUrlHostName
 
-        lplpszProxyHostNameMarshal := lplpszProxyHostName is VarRef ? "ptr*" : "ptr"
-        lpdwProxyHostNameLengthMarshal := lpdwProxyHostNameLength is VarRef ? "uint*" : "ptr"
+        lplpszProxyHostNameMarshal := lplpszProxyHostName is VarRef ? "ptr*" : IntPtr
+        lpdwProxyHostNameLengthMarshal := lpdwProxyHostNameLength is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, "ptr", lpszUrl, UInt32, dwUrlLength, "ptr", lpszUrlHostName, UInt32, dwUrlHostNameLength, lplpszProxyHostNameMarshal, lplpszProxyHostName, lpdwProxyHostNameLengthMarshal, lpdwProxyHostNameLength, BOOL)
         return result

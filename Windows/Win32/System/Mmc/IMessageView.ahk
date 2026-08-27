@@ -112,10 +112,10 @@ export default struct IMessageView extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetTitleText := CallbackCreate(GetMethod(implObj, "SetTitleText"), flags, 2)
-        this.vtbl.SetBodyText := CallbackCreate(GetMethod(implObj, "SetBodyText"), flags, 2)
-        this.vtbl.SetIcon := CallbackCreate(GetMethod(implObj, "SetIcon"), flags, 2)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.SetTitleText := CallbackCreate(ObjBindMethod(implObj, "SetTitleText"), flags, 2)
+        this.vtbl.SetBodyText := CallbackCreate(ObjBindMethod(implObj, "SetBodyText"), flags, 2)
+        this.vtbl.SetIcon := CallbackCreate(ObjBindMethod(implObj, "SetIcon"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
     }
 
     Dispose() {

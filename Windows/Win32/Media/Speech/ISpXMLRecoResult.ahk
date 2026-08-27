@@ -40,7 +40,6 @@ export default struct ISpXMLRecoResult extends ISpRecoResult {
     }
 
     /**
-     * 
      * @param {SPXMLRESULTOPTIONS} Options 
      * @returns {PWSTR} 
      */
@@ -50,7 +49,6 @@ export default struct ISpXMLRecoResult extends ISpRecoResult {
     }
 
     /**
-     * 
      * @param {Pointer<SPSEMANTICERRORINFO>} pSemanticErrorInfo 
      * @returns {HRESULT} 
      */
@@ -68,8 +66,8 @@ export default struct ISpXMLRecoResult extends ISpRecoResult {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetXMLResult := CallbackCreate(GetMethod(implObj, "GetXMLResult"), flags, 3)
-        this.vtbl.GetXMLErrorInfo := CallbackCreate(GetMethod(implObj, "GetXMLErrorInfo"), flags, 2)
+        this.vtbl.GetXMLResult := CallbackCreate(ObjBindMethod(implObj, "GetXMLResult"), flags, 3)
+        this.vtbl.GetXMLErrorInfo := CallbackCreate(ObjBindMethod(implObj, "GetXMLErrorInfo"), flags, 2)
     }
 
     Dispose() {

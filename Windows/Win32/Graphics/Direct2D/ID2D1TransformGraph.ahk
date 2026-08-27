@@ -316,15 +316,15 @@ export default struct ID2D1TransformGraph extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetInputCount := CallbackCreate(GetMethod(implObj, "GetInputCount"), flags, 1)
-        this.vtbl.SetSingleTransformNode := CallbackCreate(GetMethod(implObj, "SetSingleTransformNode"), flags, 2)
-        this.vtbl.AddNode := CallbackCreate(GetMethod(implObj, "AddNode"), flags, 2)
-        this.vtbl.RemoveNode := CallbackCreate(GetMethod(implObj, "RemoveNode"), flags, 2)
-        this.vtbl.SetOutputNode := CallbackCreate(GetMethod(implObj, "SetOutputNode"), flags, 2)
-        this.vtbl.ConnectNode := CallbackCreate(GetMethod(implObj, "ConnectNode"), flags, 4)
-        this.vtbl.ConnectToEffectInput := CallbackCreate(GetMethod(implObj, "ConnectToEffectInput"), flags, 4)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
-        this.vtbl.SetPassthroughGraph := CallbackCreate(GetMethod(implObj, "SetPassthroughGraph"), flags, 2)
+        this.vtbl.GetInputCount := CallbackCreate(ObjBindMethod(implObj, "GetInputCount"), flags, 1)
+        this.vtbl.SetSingleTransformNode := CallbackCreate(ObjBindMethod(implObj, "SetSingleTransformNode"), flags, 2)
+        this.vtbl.AddNode := CallbackCreate(ObjBindMethod(implObj, "AddNode"), flags, 2)
+        this.vtbl.RemoveNode := CallbackCreate(ObjBindMethod(implObj, "RemoveNode"), flags, 2)
+        this.vtbl.SetOutputNode := CallbackCreate(ObjBindMethod(implObj, "SetOutputNode"), flags, 2)
+        this.vtbl.ConnectNode := CallbackCreate(ObjBindMethod(implObj, "ConnectNode"), flags, 4)
+        this.vtbl.ConnectToEffectInput := CallbackCreate(ObjBindMethod(implObj, "ConnectToEffectInput"), flags, 4)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.SetPassthroughGraph := CallbackCreate(ObjBindMethod(implObj, "SetPassthroughGraph"), flags, 2)
     }
 
     Dispose() {

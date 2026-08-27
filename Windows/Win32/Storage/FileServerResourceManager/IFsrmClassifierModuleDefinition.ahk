@@ -156,12 +156,12 @@ export default struct IFsrmClassifierModuleDefinition extends IFsrmPipelineModul
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_PropertiesAffected := CallbackCreate(GetMethod(implObj, "get_PropertiesAffected"), flags, 2)
-        this.vtbl.put_PropertiesAffected := CallbackCreate(GetMethod(implObj, "put_PropertiesAffected"), flags, 2)
-        this.vtbl.get_PropertiesUsed := CallbackCreate(GetMethod(implObj, "get_PropertiesUsed"), flags, 2)
-        this.vtbl.put_PropertiesUsed := CallbackCreate(GetMethod(implObj, "put_PropertiesUsed"), flags, 2)
-        this.vtbl.get_NeedsExplicitValue := CallbackCreate(GetMethod(implObj, "get_NeedsExplicitValue"), flags, 2)
-        this.vtbl.put_NeedsExplicitValue := CallbackCreate(GetMethod(implObj, "put_NeedsExplicitValue"), flags, 2)
+        this.vtbl.get_PropertiesAffected := CallbackCreate(ObjBindMethod(implObj, "get_PropertiesAffected"), flags, 2)
+        this.vtbl.put_PropertiesAffected := CallbackCreate(ObjBindMethod(implObj, "put_PropertiesAffected"), flags, 2)
+        this.vtbl.get_PropertiesUsed := CallbackCreate(ObjBindMethod(implObj, "get_PropertiesUsed"), flags, 2)
+        this.vtbl.put_PropertiesUsed := CallbackCreate(ObjBindMethod(implObj, "put_PropertiesUsed"), flags, 2)
+        this.vtbl.get_NeedsExplicitValue := CallbackCreate(ObjBindMethod(implObj, "get_NeedsExplicitValue"), flags, 2)
+        this.vtbl.put_NeedsExplicitValue := CallbackCreate(ObjBindMethod(implObj, "put_NeedsExplicitValue"), flags, 2)
     }
 
     Dispose() {

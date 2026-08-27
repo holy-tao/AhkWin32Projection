@@ -160,13 +160,13 @@ export default struct IUIAutomationSelectionItemPattern extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Select := CallbackCreate(GetMethod(implObj, "Select"), flags, 1)
-        this.vtbl.AddToSelection := CallbackCreate(GetMethod(implObj, "AddToSelection"), flags, 1)
-        this.vtbl.RemoveFromSelection := CallbackCreate(GetMethod(implObj, "RemoveFromSelection"), flags, 1)
-        this.vtbl.get_CurrentIsSelected := CallbackCreate(GetMethod(implObj, "get_CurrentIsSelected"), flags, 2)
-        this.vtbl.get_CurrentSelectionContainer := CallbackCreate(GetMethod(implObj, "get_CurrentSelectionContainer"), flags, 2)
-        this.vtbl.get_CachedIsSelected := CallbackCreate(GetMethod(implObj, "get_CachedIsSelected"), flags, 2)
-        this.vtbl.get_CachedSelectionContainer := CallbackCreate(GetMethod(implObj, "get_CachedSelectionContainer"), flags, 2)
+        this.vtbl.Select := CallbackCreate(ObjBindMethod(implObj, "Select"), flags, 1)
+        this.vtbl.AddToSelection := CallbackCreate(ObjBindMethod(implObj, "AddToSelection"), flags, 1)
+        this.vtbl.RemoveFromSelection := CallbackCreate(ObjBindMethod(implObj, "RemoveFromSelection"), flags, 1)
+        this.vtbl.get_CurrentIsSelected := CallbackCreate(ObjBindMethod(implObj, "get_CurrentIsSelected"), flags, 2)
+        this.vtbl.get_CurrentSelectionContainer := CallbackCreate(ObjBindMethod(implObj, "get_CurrentSelectionContainer"), flags, 2)
+        this.vtbl.get_CachedIsSelected := CallbackCreate(ObjBindMethod(implObj, "get_CachedIsSelected"), flags, 2)
+        this.vtbl.get_CachedSelectionContainer := CallbackCreate(ObjBindMethod(implObj, "get_CachedSelectionContainer"), flags, 2)
     }
 
     Dispose() {

@@ -143,14 +143,14 @@ export default struct IWSManConnectionOptionsEx2 extends IWSManConnectionOptions
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetProxy := CallbackCreate(GetMethod(implObj, "SetProxy"), flags, 5)
-        this.vtbl.ProxyIEConfig := CallbackCreate(GetMethod(implObj, "ProxyIEConfig"), flags, 2)
-        this.vtbl.ProxyWinHttpConfig := CallbackCreate(GetMethod(implObj, "ProxyWinHttpConfig"), flags, 2)
-        this.vtbl.ProxyAutoDetect := CallbackCreate(GetMethod(implObj, "ProxyAutoDetect"), flags, 2)
-        this.vtbl.ProxyNoProxyServer := CallbackCreate(GetMethod(implObj, "ProxyNoProxyServer"), flags, 2)
-        this.vtbl.ProxyAuthenticationUseNegotiate := CallbackCreate(GetMethod(implObj, "ProxyAuthenticationUseNegotiate"), flags, 2)
-        this.vtbl.ProxyAuthenticationUseBasic := CallbackCreate(GetMethod(implObj, "ProxyAuthenticationUseBasic"), flags, 2)
-        this.vtbl.ProxyAuthenticationUseDigest := CallbackCreate(GetMethod(implObj, "ProxyAuthenticationUseDigest"), flags, 2)
+        this.vtbl.SetProxy := CallbackCreate(ObjBindMethod(implObj, "SetProxy"), flags, 5)
+        this.vtbl.ProxyIEConfig := CallbackCreate(ObjBindMethod(implObj, "ProxyIEConfig"), flags, 2)
+        this.vtbl.ProxyWinHttpConfig := CallbackCreate(ObjBindMethod(implObj, "ProxyWinHttpConfig"), flags, 2)
+        this.vtbl.ProxyAutoDetect := CallbackCreate(ObjBindMethod(implObj, "ProxyAutoDetect"), flags, 2)
+        this.vtbl.ProxyNoProxyServer := CallbackCreate(ObjBindMethod(implObj, "ProxyNoProxyServer"), flags, 2)
+        this.vtbl.ProxyAuthenticationUseNegotiate := CallbackCreate(ObjBindMethod(implObj, "ProxyAuthenticationUseNegotiate"), flags, 2)
+        this.vtbl.ProxyAuthenticationUseBasic := CallbackCreate(ObjBindMethod(implObj, "ProxyAuthenticationUseBasic"), flags, 2)
+        this.vtbl.ProxyAuthenticationUseDigest := CallbackCreate(ObjBindMethod(implObj, "ProxyAuthenticationUseDigest"), flags, 2)
     }
 
     Dispose() {

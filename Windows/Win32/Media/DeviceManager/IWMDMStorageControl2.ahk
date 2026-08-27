@@ -147,7 +147,14 @@ export default struct IWMDMStorageControl2 extends IWMDMStorageControl {
         pwszFileSource := pwszFileSource is String ? StrPtr(pwszFileSource) : pwszFileSource
         pwszFileDest := pwszFileDest is String ? StrPtr(pwszFileDest) : pwszFileDest
 
-        result := ComCall(8, this, UInt32, fuMode, "ptr", pwszFileSource, "ptr", pwszFileDest, "ptr", pOperation, "ptr", pProgress, "ptr", pUnknown, IWMDMStorage.Ptr, ppNewObject, "HRESULT")
+        pwszFileSourceMarshal := pwszFileSource == 0 ? IntPtr : PWSTR
+        pwszFileDestMarshal := pwszFileDest == 0 ? IntPtr : PWSTR
+        pOperationMarshal := pOperation == 0 ? IntPtr : "ptr"
+        pProgressMarshal := pProgress == 0 ? IntPtr : "ptr"
+        pUnknownMarshal := pUnknown == 0 ? IntPtr : "ptr"
+        ppNewObjectMarshal := ppNewObject == 0 ? IntPtr : IWMDMStorage.Ptr
+
+        result := ComCall(8, this, UInt32, fuMode, pwszFileSourceMarshal, pwszFileSource, pwszFileDestMarshal, pwszFileDest, pOperationMarshal, pOperation, pProgressMarshal, pProgress, pUnknownMarshal, pUnknown, ppNewObjectMarshal, ppNewObject, "HRESULT")
         return result
     }
 
@@ -160,7 +167,7 @@ export default struct IWMDMStorageControl2 extends IWMDMStorageControl {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Insert2 := CallbackCreate(GetMethod(implObj, "Insert2"), flags, 8)
+        this.vtbl.Insert2 := CallbackCreate(ObjBindMethod(implObj, "Insert2"), flags, 8)
     }
 
     Dispose() {

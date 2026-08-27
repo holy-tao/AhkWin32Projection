@@ -11,7 +11,6 @@
 
 ;@region Functions
 /**
- * 
  * @param {PWSTR} licenseKey 
  * @param {Integer} validityInDays 
  * @returns {LicenseProtectionStatus} 
@@ -24,7 +23,6 @@ export RegisterLicenseKeyWithExpiration(licenseKey, validityInDays) {
 }
 
 /**
- * 
  * @param {PWSTR} licenseKey 
  * @param {Pointer<FILETIME>} notValidBefore 
  * @param {Pointer<FILETIME>} notValidAfter 

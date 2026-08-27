@@ -68,7 +68,6 @@ export default struct IDocHostShowUI extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @param {PWSTR} pszHelpFile 
      * @param {Integer} uCommand 
@@ -93,8 +92,8 @@ export default struct IDocHostShowUI extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ShowMessage := CallbackCreate(GetMethod(implObj, "ShowMessage"), flags, 8)
-        this.vtbl.ShowHelp := CallbackCreate(GetMethod(implObj, "ShowHelp"), flags, 7)
+        this.vtbl.ShowMessage := CallbackCreate(ObjBindMethod(implObj, "ShowMessage"), flags, 8)
+        this.vtbl.ShowHelp := CallbackCreate(ObjBindMethod(implObj, "ShowHelp"), flags, 7)
     }
 
     Dispose() {

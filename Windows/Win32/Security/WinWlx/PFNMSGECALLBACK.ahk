@@ -20,7 +20,6 @@ export default struct PFNMSGECALLBACK {
     }
 
     /**
-     * 
      * @param {BOOL} bVerbose 
      * @param {PWSTR} lpMessage 
      * @returns {Integer} 

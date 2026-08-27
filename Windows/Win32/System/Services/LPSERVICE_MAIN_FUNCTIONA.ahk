@@ -50,7 +50,6 @@ export default struct LPSERVICE_MAIN_FUNCTIONA {
     }
 
     /**
-     * 
      * @param {Integer} dwNumServicesArgs The number of arguments in the <i>lpServiceArgVectors</i> array.
      * @param {Pointer<PSTR>} lpServiceArgVectors The null-terminated argument strings passed to the service by the call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-startservicea">StartService</a> function that started the service. If there are no arguments, this parameter can be NULL. Otherwise, the first argument (lpServiceArgVectors[0]) is the name of the service, followed by any additional arguments (lpServiceArgVectors[1] through lpServiceArgVectors[dwNumServicesArgs-1]).
@@ -59,7 +58,7 @@ export default struct LPSERVICE_MAIN_FUNCTIONA {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(dwNumServicesArgs, lpServiceArgVectors) {
-        lpServiceArgVectorsMarshal := lpServiceArgVectors is VarRef ? "ptr*" : "ptr"
+        lpServiceArgVectorsMarshal := lpServiceArgVectors is VarRef ? "ptr*" : IntPtr
 
         DllCall(this.value, UInt32, dwNumServicesArgs, lpServiceArgVectorsMarshal, lpServiceArgVectors)
     }

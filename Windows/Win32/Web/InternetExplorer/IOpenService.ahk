@@ -51,7 +51,6 @@ export default struct IOpenService extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fDefault 
      * @param {HWND} _hwnd 
      * @returns {HRESULT} 
@@ -62,7 +61,6 @@ export default struct IOpenService extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetID() {
@@ -80,9 +78,9 @@ export default struct IOpenService extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsDefault := CallbackCreate(GetMethod(implObj, "IsDefault"), flags, 2)
-        this.vtbl.SetDefault := CallbackCreate(GetMethod(implObj, "SetDefault"), flags, 3)
-        this.vtbl.GetID := CallbackCreate(GetMethod(implObj, "GetID"), flags, 2)
+        this.vtbl.IsDefault := CallbackCreate(ObjBindMethod(implObj, "IsDefault"), flags, 2)
+        this.vtbl.SetDefault := CallbackCreate(ObjBindMethod(implObj, "SetDefault"), flags, 3)
+        this.vtbl.GetID := CallbackCreate(ObjBindMethod(implObj, "GetID"), flags, 2)
     }
 
     Dispose() {

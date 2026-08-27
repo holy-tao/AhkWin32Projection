@@ -128,7 +128,6 @@ export default struct IADsDomain extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsWorkgroup() {
@@ -137,7 +136,6 @@ export default struct IADsDomain extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MinPasswordLength() {
@@ -146,7 +144,6 @@ export default struct IADsDomain extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnMinPasswordLength 
      * @returns {HRESULT} 
      */
@@ -156,7 +153,6 @@ export default struct IADsDomain extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MinPasswordAge() {
@@ -165,7 +161,6 @@ export default struct IADsDomain extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnMinPasswordAge 
      * @returns {HRESULT} 
      */
@@ -175,7 +170,6 @@ export default struct IADsDomain extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MaxPasswordAge() {
@@ -184,7 +178,6 @@ export default struct IADsDomain extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnMaxPasswordAge 
      * @returns {HRESULT} 
      */
@@ -194,7 +187,6 @@ export default struct IADsDomain extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MaxBadPasswordsAllowed() {
@@ -203,7 +195,6 @@ export default struct IADsDomain extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnMaxBadPasswordsAllowed 
      * @returns {HRESULT} 
      */
@@ -213,7 +204,6 @@ export default struct IADsDomain extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PasswordHistoryLength() {
@@ -222,7 +212,6 @@ export default struct IADsDomain extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnPasswordHistoryLength 
      * @returns {HRESULT} 
      */
@@ -232,7 +221,6 @@ export default struct IADsDomain extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PasswordAttributes() {
@@ -241,7 +229,6 @@ export default struct IADsDomain extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnPasswordAttributes 
      * @returns {HRESULT} 
      */
@@ -251,7 +238,6 @@ export default struct IADsDomain extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AutoUnlockInterval() {
@@ -260,7 +246,6 @@ export default struct IADsDomain extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnAutoUnlockInterval 
      * @returns {HRESULT} 
      */
@@ -270,7 +255,6 @@ export default struct IADsDomain extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_LockoutObservationInterval() {
@@ -279,7 +263,6 @@ export default struct IADsDomain extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnLockoutObservationInterval 
      * @returns {HRESULT} 
      */
@@ -297,23 +280,23 @@ export default struct IADsDomain extends IADs {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_IsWorkgroup := CallbackCreate(GetMethod(implObj, "get_IsWorkgroup"), flags, 2)
-        this.vtbl.get_MinPasswordLength := CallbackCreate(GetMethod(implObj, "get_MinPasswordLength"), flags, 2)
-        this.vtbl.put_MinPasswordLength := CallbackCreate(GetMethod(implObj, "put_MinPasswordLength"), flags, 2)
-        this.vtbl.get_MinPasswordAge := CallbackCreate(GetMethod(implObj, "get_MinPasswordAge"), flags, 2)
-        this.vtbl.put_MinPasswordAge := CallbackCreate(GetMethod(implObj, "put_MinPasswordAge"), flags, 2)
-        this.vtbl.get_MaxPasswordAge := CallbackCreate(GetMethod(implObj, "get_MaxPasswordAge"), flags, 2)
-        this.vtbl.put_MaxPasswordAge := CallbackCreate(GetMethod(implObj, "put_MaxPasswordAge"), flags, 2)
-        this.vtbl.get_MaxBadPasswordsAllowed := CallbackCreate(GetMethod(implObj, "get_MaxBadPasswordsAllowed"), flags, 2)
-        this.vtbl.put_MaxBadPasswordsAllowed := CallbackCreate(GetMethod(implObj, "put_MaxBadPasswordsAllowed"), flags, 2)
-        this.vtbl.get_PasswordHistoryLength := CallbackCreate(GetMethod(implObj, "get_PasswordHistoryLength"), flags, 2)
-        this.vtbl.put_PasswordHistoryLength := CallbackCreate(GetMethod(implObj, "put_PasswordHistoryLength"), flags, 2)
-        this.vtbl.get_PasswordAttributes := CallbackCreate(GetMethod(implObj, "get_PasswordAttributes"), flags, 2)
-        this.vtbl.put_PasswordAttributes := CallbackCreate(GetMethod(implObj, "put_PasswordAttributes"), flags, 2)
-        this.vtbl.get_AutoUnlockInterval := CallbackCreate(GetMethod(implObj, "get_AutoUnlockInterval"), flags, 2)
-        this.vtbl.put_AutoUnlockInterval := CallbackCreate(GetMethod(implObj, "put_AutoUnlockInterval"), flags, 2)
-        this.vtbl.get_LockoutObservationInterval := CallbackCreate(GetMethod(implObj, "get_LockoutObservationInterval"), flags, 2)
-        this.vtbl.put_LockoutObservationInterval := CallbackCreate(GetMethod(implObj, "put_LockoutObservationInterval"), flags, 2)
+        this.vtbl.get_IsWorkgroup := CallbackCreate(ObjBindMethod(implObj, "get_IsWorkgroup"), flags, 2)
+        this.vtbl.get_MinPasswordLength := CallbackCreate(ObjBindMethod(implObj, "get_MinPasswordLength"), flags, 2)
+        this.vtbl.put_MinPasswordLength := CallbackCreate(ObjBindMethod(implObj, "put_MinPasswordLength"), flags, 2)
+        this.vtbl.get_MinPasswordAge := CallbackCreate(ObjBindMethod(implObj, "get_MinPasswordAge"), flags, 2)
+        this.vtbl.put_MinPasswordAge := CallbackCreate(ObjBindMethod(implObj, "put_MinPasswordAge"), flags, 2)
+        this.vtbl.get_MaxPasswordAge := CallbackCreate(ObjBindMethod(implObj, "get_MaxPasswordAge"), flags, 2)
+        this.vtbl.put_MaxPasswordAge := CallbackCreate(ObjBindMethod(implObj, "put_MaxPasswordAge"), flags, 2)
+        this.vtbl.get_MaxBadPasswordsAllowed := CallbackCreate(ObjBindMethod(implObj, "get_MaxBadPasswordsAllowed"), flags, 2)
+        this.vtbl.put_MaxBadPasswordsAllowed := CallbackCreate(ObjBindMethod(implObj, "put_MaxBadPasswordsAllowed"), flags, 2)
+        this.vtbl.get_PasswordHistoryLength := CallbackCreate(ObjBindMethod(implObj, "get_PasswordHistoryLength"), flags, 2)
+        this.vtbl.put_PasswordHistoryLength := CallbackCreate(ObjBindMethod(implObj, "put_PasswordHistoryLength"), flags, 2)
+        this.vtbl.get_PasswordAttributes := CallbackCreate(ObjBindMethod(implObj, "get_PasswordAttributes"), flags, 2)
+        this.vtbl.put_PasswordAttributes := CallbackCreate(ObjBindMethod(implObj, "put_PasswordAttributes"), flags, 2)
+        this.vtbl.get_AutoUnlockInterval := CallbackCreate(ObjBindMethod(implObj, "get_AutoUnlockInterval"), flags, 2)
+        this.vtbl.put_AutoUnlockInterval := CallbackCreate(ObjBindMethod(implObj, "put_AutoUnlockInterval"), flags, 2)
+        this.vtbl.get_LockoutObservationInterval := CallbackCreate(ObjBindMethod(implObj, "get_LockoutObservationInterval"), flags, 2)
+        this.vtbl.put_LockoutObservationInterval := CallbackCreate(ObjBindMethod(implObj, "put_LockoutObservationInterval"), flags, 2)
     }
 
     Dispose() {

@@ -259,10 +259,10 @@ export default struct IStreamConcatenate extends IStream {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.Initialize2 := CallbackCreate(GetMethod(implObj, "Initialize2"), flags, 3)
-        this.vtbl.Append := CallbackCreate(GetMethod(implObj, "Append"), flags, 2)
-        this.vtbl.Append2 := CallbackCreate(GetMethod(implObj, "Append2"), flags, 3)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.Initialize2 := CallbackCreate(ObjBindMethod(implObj, "Initialize2"), flags, 3)
+        this.vtbl.Append := CallbackCreate(ObjBindMethod(implObj, "Append"), flags, 2)
+        this.vtbl.Append2 := CallbackCreate(ObjBindMethod(implObj, "Append2"), flags, 3)
     }
 
     Dispose() {

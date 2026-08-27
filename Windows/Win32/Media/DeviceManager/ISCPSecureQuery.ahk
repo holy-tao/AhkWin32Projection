@@ -142,11 +142,11 @@ export default struct ISCPSecureQuery extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsecurequery-getdatademands
      */
     GetDataDemands(pfuFlags, pdwMinRightsData, pdwMinExamineData, pdwMinDecideData, abMac) {
-        pfuFlagsMarshal := pfuFlags is VarRef ? "uint*" : "ptr"
-        pdwMinRightsDataMarshal := pdwMinRightsData is VarRef ? "uint*" : "ptr"
-        pdwMinExamineDataMarshal := pdwMinExamineData is VarRef ? "uint*" : "ptr"
-        pdwMinDecideDataMarshal := pdwMinDecideData is VarRef ? "uint*" : "ptr"
-        abMacMarshal := abMac is VarRef ? "char*" : "ptr"
+        pfuFlagsMarshal := pfuFlags is VarRef ? "uint*" : IntPtr
+        pdwMinRightsDataMarshal := pdwMinRightsData is VarRef ? "uint*" : IntPtr
+        pdwMinExamineDataMarshal := pdwMinExamineData is VarRef ? "uint*" : IntPtr
+        pdwMinDecideDataMarshal := pdwMinDecideData is VarRef ? "uint*" : IntPtr
+        abMacMarshal := abMac is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, pfuFlagsMarshal, pfuFlags, pdwMinRightsDataMarshal, pdwMinRightsData, pdwMinExamineDataMarshal, pdwMinExamineData, pdwMinDecideDataMarshal, pdwMinDecideData, abMacMarshal, abMac, "HRESULT")
         return result
@@ -268,10 +268,11 @@ export default struct ISCPSecureQuery extends IUnknown {
     ExamineData(fuFlags, pwszExtension, pData, dwSize, abMac) {
         pwszExtension := pwszExtension is String ? StrPtr(pwszExtension) : pwszExtension
 
-        pDataMarshal := pData is VarRef ? "char*" : "ptr"
-        abMacMarshal := abMac is VarRef ? "char*" : "ptr"
+        pwszExtensionMarshal := pwszExtension == 0 ? IntPtr : PWSTR
+        pDataMarshal := pData is VarRef ? "char*" : IntPtr
+        abMacMarshal := abMac is VarRef ? "char*" : IntPtr
 
-        result := ComCall(4, this, UInt32, fuFlags, "ptr", pwszExtension, pDataMarshal, pData, UInt32, dwSize, abMacMarshal, abMac, "HRESULT")
+        result := ComCall(4, this, UInt32, fuFlags, pwszExtensionMarshal, pwszExtension, pDataMarshal, pData, UInt32, dwSize, abMacMarshal, abMac, "HRESULT")
         return result
     }
 
@@ -312,11 +313,12 @@ export default struct ISCPSecureQuery extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsecurequery-makedecision
      */
     MakeDecision(fuFlags, pData, dwSize, dwAppSec, pbSPSessionKey, dwSessionKeyLen, pStorageGlobals, abMac) {
-        pDataMarshal := pData is VarRef ? "char*" : "ptr"
-        pbSPSessionKeyMarshal := pbSPSessionKey is VarRef ? "char*" : "ptr"
-        abMacMarshal := abMac is VarRef ? "char*" : "ptr"
+        pDataMarshal := pData is VarRef ? "char*" : IntPtr
+        pbSPSessionKeyMarshal := pbSPSessionKey is VarRef ? "char*" : IntPtr
+        pStorageGlobalsMarshal := pStorageGlobals == 0 ? IntPtr : "ptr"
+        abMacMarshal := abMac is VarRef ? "char*" : IntPtr
 
-        result := ComCall(5, this, UInt32, fuFlags, pDataMarshal, pData, UInt32, dwSize, UInt32, dwAppSec, pbSPSessionKeyMarshal, pbSPSessionKey, UInt32, dwSessionKeyLen, "ptr", pStorageGlobals, "ptr*", &ppExchange := 0, abMacMarshal, abMac, "HRESULT")
+        result := ComCall(5, this, UInt32, fuFlags, pDataMarshal, pData, UInt32, dwSize, UInt32, dwAppSec, pbSPSessionKeyMarshal, pbSPSessionKey, UInt32, dwSessionKeyLen, pStorageGlobalsMarshal, pStorageGlobals, "ptr*", &ppExchange := 0, abMacMarshal, abMac, "HRESULT")
         return ISCPSecureExchange(ppExchange)
     }
 
@@ -398,13 +400,14 @@ export default struct ISCPSecureQuery extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsecurequery-getrights
      */
     GetRights(pData, dwSize, pbSPSessionKey, dwSessionKeyLen, pStgGlobals, ppRights, pnRightsCount, abMac) {
-        pDataMarshal := pData is VarRef ? "char*" : "ptr"
-        pbSPSessionKeyMarshal := pbSPSessionKey is VarRef ? "char*" : "ptr"
-        ppRightsMarshal := ppRights is VarRef ? "ptr*" : "ptr"
-        pnRightsCountMarshal := pnRightsCount is VarRef ? "uint*" : "ptr"
-        abMacMarshal := abMac is VarRef ? "char*" : "ptr"
+        pDataMarshal := pData is VarRef ? "char*" : IntPtr
+        pbSPSessionKeyMarshal := pbSPSessionKey is VarRef ? "char*" : IntPtr
+        pStgGlobalsMarshal := pStgGlobals == 0 ? IntPtr : "ptr"
+        ppRightsMarshal := ppRights is VarRef ? "ptr*" : IntPtr
+        pnRightsCountMarshal := pnRightsCount is VarRef ? "uint*" : IntPtr
+        abMacMarshal := abMac is VarRef ? "char*" : IntPtr
 
-        result := ComCall(6, this, pDataMarshal, pData, UInt32, dwSize, pbSPSessionKeyMarshal, pbSPSessionKey, UInt32, dwSessionKeyLen, "ptr", pStgGlobals, ppRightsMarshal, ppRights, pnRightsCountMarshal, pnRightsCount, abMacMarshal, abMac, "HRESULT")
+        result := ComCall(6, this, pDataMarshal, pData, UInt32, dwSize, pbSPSessionKeyMarshal, pbSPSessionKey, UInt32, dwSessionKeyLen, pStgGlobalsMarshal, pStgGlobals, ppRightsMarshal, ppRights, pnRightsCountMarshal, pnRightsCount, abMacMarshal, abMac, "HRESULT")
         return result
     }
 
@@ -417,10 +420,10 @@ export default struct ISCPSecureQuery extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDataDemands := CallbackCreate(GetMethod(implObj, "GetDataDemands"), flags, 6)
-        this.vtbl.ExamineData := CallbackCreate(GetMethod(implObj, "ExamineData"), flags, 6)
-        this.vtbl.MakeDecision := CallbackCreate(GetMethod(implObj, "MakeDecision"), flags, 10)
-        this.vtbl.GetRights := CallbackCreate(GetMethod(implObj, "GetRights"), flags, 9)
+        this.vtbl.GetDataDemands := CallbackCreate(ObjBindMethod(implObj, "GetDataDemands"), flags, 6)
+        this.vtbl.ExamineData := CallbackCreate(ObjBindMethod(implObj, "ExamineData"), flags, 6)
+        this.vtbl.MakeDecision := CallbackCreate(ObjBindMethod(implObj, "MakeDecision"), flags, 10)
+        this.vtbl.GetRights := CallbackCreate(ObjBindMethod(implObj, "GetRights"), flags, 9)
     }
 
     Dispose() {

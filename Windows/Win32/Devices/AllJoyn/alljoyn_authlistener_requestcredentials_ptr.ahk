@@ -20,7 +20,6 @@ export default struct alljoyn_authlistener_requestcredentials_ptr {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {PSTR} authMechanism 
      * @param {PSTR} peerName 
@@ -35,7 +34,7 @@ export default struct alljoyn_authlistener_requestcredentials_ptr {
         peerName := peerName is String ? StrPtr(peerName) : peerName
         userName := userName is String ? StrPtr(userName) : userName
 
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _contextMarshal, _context, "ptr", authMechanism, "ptr", peerName, UInt16, authCount, "ptr", userName, UInt16, credMask, alljoyn_credentials, credentials, Int32)
         return result

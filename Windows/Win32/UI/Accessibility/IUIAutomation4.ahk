@@ -70,7 +70,7 @@ export default struct IUIAutomation4 extends IUIAutomation3 {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation4-addchangeseventhandler
      */
     AddChangesEventHandler(element, scope, changeTypes, changesCount, pCacheRequest, handler) {
-        changeTypesMarshal := changeTypes is VarRef ? "int*" : "ptr"
+        changeTypesMarshal := changeTypes is VarRef ? "int*" : IntPtr
 
         result := ComCall(66, this, "ptr", element, TreeScope, scope, changeTypesMarshal, changeTypes, Int32, changesCount, "ptr", pCacheRequest, "ptr", handler, "HRESULT")
         return result
@@ -103,8 +103,8 @@ export default struct IUIAutomation4 extends IUIAutomation3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddChangesEventHandler := CallbackCreate(GetMethod(implObj, "AddChangesEventHandler"), flags, 7)
-        this.vtbl.RemoveChangesEventHandler := CallbackCreate(GetMethod(implObj, "RemoveChangesEventHandler"), flags, 3)
+        this.vtbl.AddChangesEventHandler := CallbackCreate(ObjBindMethod(implObj, "AddChangesEventHandler"), flags, 7)
+        this.vtbl.RemoveChangesEventHandler := CallbackCreate(ObjBindMethod(implObj, "RemoveChangesEventHandler"), flags, 3)
     }
 
     Dispose() {

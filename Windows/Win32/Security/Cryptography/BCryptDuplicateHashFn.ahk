@@ -20,7 +20,6 @@ export default struct BCryptDuplicateHashFn {
     }
 
     /**
-     * 
      * @param {BCRYPT_HASH_HANDLE} hHash 
      * @param {Pointer<BCRYPT_HASH_HANDLE>} phNewHash 
      * @param {Integer} pbHashObject 

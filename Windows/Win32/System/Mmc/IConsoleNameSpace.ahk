@@ -108,8 +108,8 @@ export default struct IConsoleNameSpace extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsolenamespace-getchilditem
      */
     GetChildItem(item, pItemChild, pCookie) {
-        pItemChildMarshal := pItemChild is VarRef ? "ptr*" : "ptr"
-        pCookieMarshal := pCookie is VarRef ? "ptr*" : "ptr"
+        pItemChildMarshal := pItemChild is VarRef ? "ptr*" : IntPtr
+        pCookieMarshal := pCookie is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(7, this, IntPtr, item, pItemChildMarshal, pItemChild, pCookieMarshal, pCookie, "HRESULT")
         return result
@@ -126,8 +126,8 @@ export default struct IConsoleNameSpace extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsolenamespace-getnextitem
      */
     GetNextItem(item, pItemNext, pCookie) {
-        pItemNextMarshal := pItemNext is VarRef ? "ptr*" : "ptr"
-        pCookieMarshal := pCookie is VarRef ? "ptr*" : "ptr"
+        pItemNextMarshal := pItemNext is VarRef ? "ptr*" : IntPtr
+        pCookieMarshal := pCookie is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(8, this, IntPtr, item, pItemNextMarshal, pItemNext, pCookieMarshal, pCookie, "HRESULT")
         return result
@@ -144,8 +144,8 @@ export default struct IConsoleNameSpace extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsolenamespace-getparentitem
      */
     GetParentItem(item, pItemParent, pCookie) {
-        pItemParentMarshal := pItemParent is VarRef ? "ptr*" : "ptr"
-        pCookieMarshal := pCookie is VarRef ? "ptr*" : "ptr"
+        pItemParentMarshal := pItemParent is VarRef ? "ptr*" : IntPtr
+        pCookieMarshal := pCookie is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(9, this, IntPtr, item, pItemParentMarshal, pItemParent, pCookieMarshal, pCookie, "HRESULT")
         return result
@@ -160,13 +160,13 @@ export default struct IConsoleNameSpace extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InsertItem := CallbackCreate(GetMethod(implObj, "InsertItem"), flags, 2)
-        this.vtbl.DeleteItem := CallbackCreate(GetMethod(implObj, "DeleteItem"), flags, 3)
-        this.vtbl.SetItem := CallbackCreate(GetMethod(implObj, "SetItem"), flags, 2)
-        this.vtbl.GetItem := CallbackCreate(GetMethod(implObj, "GetItem"), flags, 2)
-        this.vtbl.GetChildItem := CallbackCreate(GetMethod(implObj, "GetChildItem"), flags, 4)
-        this.vtbl.GetNextItem := CallbackCreate(GetMethod(implObj, "GetNextItem"), flags, 4)
-        this.vtbl.GetParentItem := CallbackCreate(GetMethod(implObj, "GetParentItem"), flags, 4)
+        this.vtbl.InsertItem := CallbackCreate(ObjBindMethod(implObj, "InsertItem"), flags, 2)
+        this.vtbl.DeleteItem := CallbackCreate(ObjBindMethod(implObj, "DeleteItem"), flags, 3)
+        this.vtbl.SetItem := CallbackCreate(ObjBindMethod(implObj, "SetItem"), flags, 2)
+        this.vtbl.GetItem := CallbackCreate(ObjBindMethod(implObj, "GetItem"), flags, 2)
+        this.vtbl.GetChildItem := CallbackCreate(ObjBindMethod(implObj, "GetChildItem"), flags, 4)
+        this.vtbl.GetNextItem := CallbackCreate(ObjBindMethod(implObj, "GetNextItem"), flags, 4)
+        this.vtbl.GetParentItem := CallbackCreate(ObjBindMethod(implObj, "GetParentItem"), flags, 4)
     }
 
     Dispose() {

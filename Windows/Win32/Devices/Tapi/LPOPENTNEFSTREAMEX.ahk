@@ -23,7 +23,6 @@ export default struct LPOPENTNEFSTREAMEX {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} lpvSupport 
      * @param {IStream} lpStream 
      * @param {Pointer<Integer>} lpszStreamName 
@@ -34,8 +33,8 @@ export default struct LPOPENTNEFSTREAMEX {
      * @returns {ITnef} 
      */
     Call(lpvSupport, lpStream, lpszStreamName, ulFlags, lpMessage, wKeyVal, lpAdressBook) {
-        lpvSupportMarshal := lpvSupport is VarRef ? "ptr" : "ptr"
-        lpszStreamNameMarshal := lpszStreamName is VarRef ? "char*" : "ptr"
+        lpvSupportMarshal := lpvSupport is VarRef ? "ptr" : IntPtr
+        lpszStreamNameMarshal := lpszStreamName is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, lpvSupportMarshal, lpvSupport, "ptr", lpStream, lpszStreamNameMarshal, lpszStreamName, UInt32, ulFlags, "ptr", lpMessage, UInt16, wKeyVal, "ptr", lpAdressBook, "ptr*", &lppTNEF := 0, "HRESULT")
         return ITnef(lppTNEF)

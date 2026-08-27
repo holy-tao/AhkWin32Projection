@@ -18,7 +18,6 @@ export default struct PDEBUG_EXTENSION_UNLOAD {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

@@ -180,8 +180,8 @@ export default struct IControlInterface extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
-        this.vtbl.GetIID := CallbackCreate(GetMethod(implObj, "GetIID"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetIID := CallbackCreate(ObjBindMethod(implObj, "GetIID"), flags, 2)
     }
 
     Dispose() {

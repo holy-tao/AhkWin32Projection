@@ -107,7 +107,7 @@ export default struct IBDA_SignalStatistics extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_signalstatistics-get_signalstrength
      */
     get_SignalStrength(plDbStrength) {
-        plDbStrengthMarshal := plDbStrength is VarRef ? "int*" : "ptr"
+        plDbStrengthMarshal := plDbStrength is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, plDbStrengthMarshal, plDbStrength, "HRESULT")
         return result
@@ -131,7 +131,7 @@ export default struct IBDA_SignalStatistics extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_signalstatistics-get_signalquality
      */
     get_SignalQuality(plPercentQuality) {
-        plPercentQualityMarshal := plPercentQuality is VarRef ? "int*" : "ptr"
+        plPercentQualityMarshal := plPercentQuality is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, plPercentQualityMarshal, plPercentQuality, "HRESULT")
         return result
@@ -155,7 +155,7 @@ export default struct IBDA_SignalStatistics extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_signalstatistics-get_signalpresent
      */
     get_SignalPresent(pfPresent) {
-        pfPresentMarshal := pfPresent is VarRef ? "char*" : "ptr"
+        pfPresentMarshal := pfPresent is VarRef ? "char*" : IntPtr
 
         result := ComCall(8, this, pfPresentMarshal, pfPresent, "HRESULT")
         return result
@@ -179,7 +179,7 @@ export default struct IBDA_SignalStatistics extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_signalstatistics-get_signallocked
      */
     get_SignalLocked(pfLocked) {
-        pfLockedMarshal := pfLocked is VarRef ? "char*" : "ptr"
+        pfLockedMarshal := pfLocked is VarRef ? "char*" : IntPtr
 
         result := ComCall(10, this, pfLockedMarshal, pfLocked, "HRESULT")
         return result
@@ -203,7 +203,7 @@ export default struct IBDA_SignalStatistics extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_signalstatistics-get_sampletime
      */
     get_SampleTime(plmsSampleTime) {
-        plmsSampleTimeMarshal := plmsSampleTime is VarRef ? "int*" : "ptr"
+        plmsSampleTimeMarshal := plmsSampleTime is VarRef ? "int*" : IntPtr
 
         result := ComCall(12, this, plmsSampleTimeMarshal, plmsSampleTime, "HRESULT")
         return result
@@ -218,16 +218,16 @@ export default struct IBDA_SignalStatistics extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_SignalStrength := CallbackCreate(GetMethod(implObj, "put_SignalStrength"), flags, 2)
-        this.vtbl.get_SignalStrength := CallbackCreate(GetMethod(implObj, "get_SignalStrength"), flags, 2)
-        this.vtbl.put_SignalQuality := CallbackCreate(GetMethod(implObj, "put_SignalQuality"), flags, 2)
-        this.vtbl.get_SignalQuality := CallbackCreate(GetMethod(implObj, "get_SignalQuality"), flags, 2)
-        this.vtbl.put_SignalPresent := CallbackCreate(GetMethod(implObj, "put_SignalPresent"), flags, 2)
-        this.vtbl.get_SignalPresent := CallbackCreate(GetMethod(implObj, "get_SignalPresent"), flags, 2)
-        this.vtbl.put_SignalLocked := CallbackCreate(GetMethod(implObj, "put_SignalLocked"), flags, 2)
-        this.vtbl.get_SignalLocked := CallbackCreate(GetMethod(implObj, "get_SignalLocked"), flags, 2)
-        this.vtbl.put_SampleTime := CallbackCreate(GetMethod(implObj, "put_SampleTime"), flags, 2)
-        this.vtbl.get_SampleTime := CallbackCreate(GetMethod(implObj, "get_SampleTime"), flags, 2)
+        this.vtbl.put_SignalStrength := CallbackCreate(ObjBindMethod(implObj, "put_SignalStrength"), flags, 2)
+        this.vtbl.get_SignalStrength := CallbackCreate(ObjBindMethod(implObj, "get_SignalStrength"), flags, 2)
+        this.vtbl.put_SignalQuality := CallbackCreate(ObjBindMethod(implObj, "put_SignalQuality"), flags, 2)
+        this.vtbl.get_SignalQuality := CallbackCreate(ObjBindMethod(implObj, "get_SignalQuality"), flags, 2)
+        this.vtbl.put_SignalPresent := CallbackCreate(ObjBindMethod(implObj, "put_SignalPresent"), flags, 2)
+        this.vtbl.get_SignalPresent := CallbackCreate(ObjBindMethod(implObj, "get_SignalPresent"), flags, 2)
+        this.vtbl.put_SignalLocked := CallbackCreate(ObjBindMethod(implObj, "put_SignalLocked"), flags, 2)
+        this.vtbl.get_SignalLocked := CallbackCreate(ObjBindMethod(implObj, "get_SignalLocked"), flags, 2)
+        this.vtbl.put_SampleTime := CallbackCreate(ObjBindMethod(implObj, "put_SampleTime"), flags, 2)
+        this.vtbl.get_SampleTime := CallbackCreate(ObjBindMethod(implObj, "get_SampleTime"), flags, 2)
     }
 
     Dispose() {

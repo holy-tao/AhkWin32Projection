@@ -27,7 +27,6 @@ export default struct DRIVERPROC {
     }
 
     /**
-     * 
      * @param {Pointer} param0 Identifier of the installable driver.
      * @param {HDRVR} param1 Handle of the installable driver instance. Each instance of the installable driver has a unique handle.
      * @param {Integer} param2 Driver message value. It can be a custom value or one of these standard values:

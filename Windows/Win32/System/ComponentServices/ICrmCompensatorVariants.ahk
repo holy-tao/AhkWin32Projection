@@ -60,7 +60,9 @@ export default struct ICrmCompensatorVariants extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmcompensatorvariants-setlogcontrolvariants
      */
     SetLogControlVariants(pLogControl) {
-        result := ComCall(3, this, "ptr", pLogControl, "HRESULT")
+        pLogControlMarshal := pLogControl == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pLogControlMarshal, pLogControl, "HRESULT")
         return result
     }
 
@@ -188,16 +190,16 @@ export default struct ICrmCompensatorVariants extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetLogControlVariants := CallbackCreate(GetMethod(implObj, "SetLogControlVariants"), flags, 2)
-        this.vtbl.BeginPrepareVariants := CallbackCreate(GetMethod(implObj, "BeginPrepareVariants"), flags, 1)
-        this.vtbl.PrepareRecordVariants := CallbackCreate(GetMethod(implObj, "PrepareRecordVariants"), flags, 3)
-        this.vtbl.EndPrepareVariants := CallbackCreate(GetMethod(implObj, "EndPrepareVariants"), flags, 2)
-        this.vtbl.BeginCommitVariants := CallbackCreate(GetMethod(implObj, "BeginCommitVariants"), flags, 2)
-        this.vtbl.CommitRecordVariants := CallbackCreate(GetMethod(implObj, "CommitRecordVariants"), flags, 3)
-        this.vtbl.EndCommitVariants := CallbackCreate(GetMethod(implObj, "EndCommitVariants"), flags, 1)
-        this.vtbl.BeginAbortVariants := CallbackCreate(GetMethod(implObj, "BeginAbortVariants"), flags, 2)
-        this.vtbl.AbortRecordVariants := CallbackCreate(GetMethod(implObj, "AbortRecordVariants"), flags, 3)
-        this.vtbl.EndAbortVariants := CallbackCreate(GetMethod(implObj, "EndAbortVariants"), flags, 1)
+        this.vtbl.SetLogControlVariants := CallbackCreate(ObjBindMethod(implObj, "SetLogControlVariants"), flags, 2)
+        this.vtbl.BeginPrepareVariants := CallbackCreate(ObjBindMethod(implObj, "BeginPrepareVariants"), flags, 1)
+        this.vtbl.PrepareRecordVariants := CallbackCreate(ObjBindMethod(implObj, "PrepareRecordVariants"), flags, 3)
+        this.vtbl.EndPrepareVariants := CallbackCreate(ObjBindMethod(implObj, "EndPrepareVariants"), flags, 2)
+        this.vtbl.BeginCommitVariants := CallbackCreate(ObjBindMethod(implObj, "BeginCommitVariants"), flags, 2)
+        this.vtbl.CommitRecordVariants := CallbackCreate(ObjBindMethod(implObj, "CommitRecordVariants"), flags, 3)
+        this.vtbl.EndCommitVariants := CallbackCreate(ObjBindMethod(implObj, "EndCommitVariants"), flags, 1)
+        this.vtbl.BeginAbortVariants := CallbackCreate(ObjBindMethod(implObj, "BeginAbortVariants"), flags, 2)
+        this.vtbl.AbortRecordVariants := CallbackCreate(ObjBindMethod(implObj, "AbortRecordVariants"), flags, 3)
+        this.vtbl.EndAbortVariants := CallbackCreate(ObjBindMethod(implObj, "EndAbortVariants"), flags, 1)
     }
 
     Dispose() {

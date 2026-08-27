@@ -123,13 +123,13 @@ export default struct IIsdbTerrestrialDeliverySystemDescriptor extends IUnknown 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetAreaCode := CallbackCreate(GetMethod(implObj, "GetAreaCode"), flags, 2)
-        this.vtbl.GetGuardInterval := CallbackCreate(GetMethod(implObj, "GetGuardInterval"), flags, 2)
-        this.vtbl.GetTransmissionMode := CallbackCreate(GetMethod(implObj, "GetTransmissionMode"), flags, 2)
-        this.vtbl.GetCountOfRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRecords"), flags, 2)
-        this.vtbl.GetRecordFrequency := CallbackCreate(GetMethod(implObj, "GetRecordFrequency"), flags, 3)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetAreaCode := CallbackCreate(ObjBindMethod(implObj, "GetAreaCode"), flags, 2)
+        this.vtbl.GetGuardInterval := CallbackCreate(ObjBindMethod(implObj, "GetGuardInterval"), flags, 2)
+        this.vtbl.GetTransmissionMode := CallbackCreate(ObjBindMethod(implObj, "GetTransmissionMode"), flags, 2)
+        this.vtbl.GetCountOfRecords := CallbackCreate(ObjBindMethod(implObj, "GetCountOfRecords"), flags, 2)
+        this.vtbl.GetRecordFrequency := CallbackCreate(ObjBindMethod(implObj, "GetRecordFrequency"), flags, 3)
     }
 
     Dispose() {

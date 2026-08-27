@@ -45,14 +45,13 @@ export default struct IJsDebugFrame extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pStart 
      * @param {Pointer<Integer>} pEnd 
      * @returns {HRESULT} 
      */
     GetStackRange(pStart, pEnd) {
-        pStartMarshal := pStart is VarRef ? "uint*" : "ptr"
-        pEndMarshal := pEnd is VarRef ? "uint*" : "ptr"
+        pStartMarshal := pStart is VarRef ? "uint*" : IntPtr
+        pEndMarshal := pEnd is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pStartMarshal, pStart, pEndMarshal, pEnd, "HRESULT")
         return result
@@ -70,38 +69,35 @@ export default struct IJsDebugFrame extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pDocumentId 
      * @param {Pointer<Integer>} pCharacterOffset 
      * @param {Pointer<Integer>} pStatementCharCount 
      * @returns {HRESULT} 
      */
     GetDocumentPositionWithId(pDocumentId, pCharacterOffset, pStatementCharCount) {
-        pDocumentIdMarshal := pDocumentId is VarRef ? "uint*" : "ptr"
-        pCharacterOffsetMarshal := pCharacterOffset is VarRef ? "uint*" : "ptr"
-        pStatementCharCountMarshal := pStatementCharCount is VarRef ? "uint*" : "ptr"
+        pDocumentIdMarshal := pDocumentId is VarRef ? "uint*" : IntPtr
+        pCharacterOffsetMarshal := pCharacterOffset is VarRef ? "uint*" : IntPtr
+        pStatementCharCountMarshal := pStatementCharCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, pDocumentIdMarshal, pDocumentId, pCharacterOffsetMarshal, pCharacterOffset, pStatementCharCountMarshal, pStatementCharCount, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pDocumentName 
      * @param {Pointer<Integer>} pLine 
      * @param {Pointer<Integer>} pColumn 
      * @returns {HRESULT} 
      */
     GetDocumentPositionWithName(pDocumentName, pLine, pColumn) {
-        pLineMarshal := pLine is VarRef ? "uint*" : "ptr"
-        pColumnMarshal := pColumn is VarRef ? "uint*" : "ptr"
+        pLineMarshal := pLine is VarRef ? "uint*" : IntPtr
+        pColumnMarshal := pColumn is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, BSTR.Ptr, pDocumentName, pLineMarshal, pLine, pColumnMarshal, pColumn, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {IJsDebugProperty} 
      */
     GetDebugProperty() {
@@ -110,7 +106,6 @@ export default struct IJsDebugFrame extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetReturnAddress() {
@@ -119,7 +114,6 @@ export default struct IJsDebugFrame extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pExpressionText 
      * @param {Pointer<IJsDebugProperty>} ppDebugProperty 
      * @param {Pointer<BSTR>} pError 
@@ -141,13 +135,13 @@ export default struct IJsDebugFrame extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStackRange := CallbackCreate(GetMethod(implObj, "GetStackRange"), flags, 3)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
-        this.vtbl.GetDocumentPositionWithId := CallbackCreate(GetMethod(implObj, "GetDocumentPositionWithId"), flags, 4)
-        this.vtbl.GetDocumentPositionWithName := CallbackCreate(GetMethod(implObj, "GetDocumentPositionWithName"), flags, 4)
-        this.vtbl.GetDebugProperty := CallbackCreate(GetMethod(implObj, "GetDebugProperty"), flags, 2)
-        this.vtbl.GetReturnAddress := CallbackCreate(GetMethod(implObj, "GetReturnAddress"), flags, 2)
-        this.vtbl.Evaluate := CallbackCreate(GetMethod(implObj, "Evaluate"), flags, 4)
+        this.vtbl.GetStackRange := CallbackCreate(ObjBindMethod(implObj, "GetStackRange"), flags, 3)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetDocumentPositionWithId := CallbackCreate(ObjBindMethod(implObj, "GetDocumentPositionWithId"), flags, 4)
+        this.vtbl.GetDocumentPositionWithName := CallbackCreate(ObjBindMethod(implObj, "GetDocumentPositionWithName"), flags, 4)
+        this.vtbl.GetDebugProperty := CallbackCreate(ObjBindMethod(implObj, "GetDebugProperty"), flags, 2)
+        this.vtbl.GetReturnAddress := CallbackCreate(ObjBindMethod(implObj, "GetReturnAddress"), flags, 2)
+        this.vtbl.Evaluate := CallbackCreate(ObjBindMethod(implObj, "Evaluate"), flags, 4)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct PFN_DrvGetModes {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @param {Integer} param1 
      * @param {Pointer<DEVMODEW>} param2 

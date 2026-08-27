@@ -19,7 +19,6 @@ export default struct LPDDHALMOCOMPCB_GETINTERNALINFO {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_GETINTERNALMOCOMPDATA>} param0 
      * @returns {Integer} 
      */

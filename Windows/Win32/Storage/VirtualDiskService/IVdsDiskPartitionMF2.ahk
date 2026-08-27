@@ -67,7 +67,7 @@ export default struct IVdsDiskPartitionMF2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FormatPartitionEx2 := CallbackCreate(GetMethod(implObj, "FormatPartitionEx2"), flags, 8)
+        this.vtbl.FormatPartitionEx2 := CallbackCreate(ObjBindMethod(implObj, "FormatPartitionEx2"), flags, 8)
     }
 
     Dispose() {

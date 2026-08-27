@@ -80,7 +80,7 @@ export default struct IWMVideoForceKeyFrame extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetKeyFrame := CallbackCreate(GetMethod(implObj, "SetKeyFrame"), flags, 1)
+        this.vtbl.SetKeyFrame := CallbackCreate(ObjBindMethod(implObj, "SetKeyFrame"), flags, 1)
     }
 
     Dispose() {

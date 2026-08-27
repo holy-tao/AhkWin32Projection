@@ -193,10 +193,10 @@ export default struct ICredentialProviderUser extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSid := CallbackCreate(GetMethod(implObj, "GetSid"), flags, 2)
-        this.vtbl.GetProviderID := CallbackCreate(GetMethod(implObj, "GetProviderID"), flags, 2)
-        this.vtbl.GetStringValue := CallbackCreate(GetMethod(implObj, "GetStringValue"), flags, 3)
-        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 3)
+        this.vtbl.GetSid := CallbackCreate(ObjBindMethod(implObj, "GetSid"), flags, 2)
+        this.vtbl.GetProviderID := CallbackCreate(ObjBindMethod(implObj, "GetProviderID"), flags, 2)
+        this.vtbl.GetStringValue := CallbackCreate(ObjBindMethod(implObj, "GetStringValue"), flags, 3)
+        this.vtbl.GetValue := CallbackCreate(ObjBindMethod(implObj, "GetValue"), flags, 3)
     }
 
     Dispose() {

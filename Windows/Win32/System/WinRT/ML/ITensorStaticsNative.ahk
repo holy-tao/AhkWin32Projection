@@ -37,14 +37,13 @@ export default struct ITensorStaticsNative extends IUnknown {
     }
 
     /**
-     * 
      * @param {ID3D12Resource} value 
      * @param {Pointer<Integer>} shape 
      * @param {Integer} shapeCount 
      * @returns {IUnknown} 
      */
     CreateFromD3D12Resource(value, shape, shapeCount) {
-        shapeMarshal := shape is VarRef ? "int64*" : "ptr"
+        shapeMarshal := shape is VarRef ? "int64*" : IntPtr
 
         result := ComCall(3, this, "ptr", value, shapeMarshal, shape, Int32, shapeCount, "ptr*", &result := 0, "HRESULT")
         return IUnknown(result)
@@ -59,7 +58,7 @@ export default struct ITensorStaticsNative extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateFromD3D12Resource := CallbackCreate(GetMethod(implObj, "CreateFromD3D12Resource"), flags, 5)
+        this.vtbl.CreateFromD3D12Resource := CallbackCreate(ObjBindMethod(implObj, "CreateFromD3D12Resource"), flags, 5)
     }
 
     Dispose() {

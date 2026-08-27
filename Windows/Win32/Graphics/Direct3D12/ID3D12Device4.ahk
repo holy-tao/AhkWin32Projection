@@ -145,7 +145,10 @@ export default struct ID3D12Device4 extends ID3D12Device3 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device4-createcommittedresource1
      */
     CreateCommittedResource1(pHeapProperties, HeapFlags, pDesc, InitialResourceState, pOptimizedClearValue, pProtectedSession, riidResource) {
-        result := ComCall(53, this, D3D12_HEAP_PROPERTIES.Ptr, pHeapProperties, D3D12_HEAP_FLAGS, HeapFlags, D3D12_RESOURCE_DESC.Ptr, pDesc, D3D12_RESOURCE_STATES, InitialResourceState, D3D12_CLEAR_VALUE.Ptr, pOptimizedClearValue, "ptr", pProtectedSession, Guid.Ptr, riidResource, "ptr*", &ppvResource := 0, "HRESULT")
+        pOptimizedClearValueMarshal := pOptimizedClearValue == 0 ? IntPtr : D3D12_CLEAR_VALUE.Ptr
+        pProtectedSessionMarshal := pProtectedSession == 0 ? IntPtr : "ptr"
+
+        result := ComCall(53, this, D3D12_HEAP_PROPERTIES.Ptr, pHeapProperties, D3D12_HEAP_FLAGS, HeapFlags, D3D12_RESOURCE_DESC.Ptr, pDesc, D3D12_RESOURCE_STATES, InitialResourceState, pOptimizedClearValueMarshal, pOptimizedClearValue, pProtectedSessionMarshal, pProtectedSession, Guid.Ptr, riidResource, "ptr*", &ppvResource := 0, "HRESULT")
         return ppvResource
     }
 
@@ -178,7 +181,9 @@ export default struct ID3D12Device4 extends ID3D12Device3 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device4-createheap1
      */
     CreateHeap1(pDesc, pProtectedSession, riid) {
-        result := ComCall(54, this, D3D12_HEAP_DESC.Ptr, pDesc, "ptr", pProtectedSession, Guid.Ptr, riid, "ptr*", &ppvHeap := 0, "HRESULT")
+        pProtectedSessionMarshal := pProtectedSession == 0 ? IntPtr : "ptr"
+
+        result := ComCall(54, this, D3D12_HEAP_DESC.Ptr, pDesc, pProtectedSessionMarshal, pProtectedSession, Guid.Ptr, riid, "ptr*", &ppvHeap := 0, "HRESULT")
         return ppvHeap
     }
 
@@ -219,7 +224,10 @@ export default struct ID3D12Device4 extends ID3D12Device3 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device4-createreservedresource1
      */
     CreateReservedResource1(pDesc, InitialState, pOptimizedClearValue, pProtectedSession, riid) {
-        result := ComCall(55, this, D3D12_RESOURCE_DESC.Ptr, pDesc, D3D12_RESOURCE_STATES, InitialState, D3D12_CLEAR_VALUE.Ptr, pOptimizedClearValue, "ptr", pProtectedSession, Guid.Ptr, riid, "ptr*", &ppvResource := 0, "HRESULT")
+        pOptimizedClearValueMarshal := pOptimizedClearValue == 0 ? IntPtr : D3D12_CLEAR_VALUE.Ptr
+        pProtectedSessionMarshal := pProtectedSession == 0 ? IntPtr : "ptr"
+
+        result := ComCall(55, this, D3D12_RESOURCE_DESC.Ptr, pDesc, D3D12_RESOURCE_STATES, InitialState, pOptimizedClearValueMarshal, pOptimizedClearValue, pProtectedSessionMarshal, pProtectedSession, Guid.Ptr, riid, "ptr*", &ppvResource := 0, "HRESULT")
         return ppvResource
     }
 
@@ -253,7 +261,9 @@ export default struct ID3D12Device4 extends ID3D12Device3 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device4-getresourceallocationinfo1
      */
     GetResourceAllocationInfo1(visibleMask, numResourceDescs, pResourceDescs, pResourceAllocationInfo1) {
-        result := ComCall(56, this, UInt32, visibleMask, UInt32, numResourceDescs, D3D12_RESOURCE_DESC.Ptr, pResourceDescs, D3D12_RESOURCE_ALLOCATION_INFO1.Ptr, pResourceAllocationInfo1, D3D12_RESOURCE_ALLOCATION_INFO)
+        pResourceAllocationInfo1Marshal := pResourceAllocationInfo1 == 0 ? IntPtr : D3D12_RESOURCE_ALLOCATION_INFO1.Ptr
+
+        result := ComCall(56, this, UInt32, visibleMask, UInt32, numResourceDescs, D3D12_RESOURCE_DESC.Ptr, pResourceDescs, pResourceAllocationInfo1Marshal, pResourceAllocationInfo1, D3D12_RESOURCE_ALLOCATION_INFO)
         return result
     }
 
@@ -266,12 +276,12 @@ export default struct ID3D12Device4 extends ID3D12Device3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateCommandList1 := CallbackCreate(GetMethod(implObj, "CreateCommandList1"), flags, 6)
-        this.vtbl.CreateProtectedResourceSession := CallbackCreate(GetMethod(implObj, "CreateProtectedResourceSession"), flags, 4)
-        this.vtbl.CreateCommittedResource1 := CallbackCreate(GetMethod(implObj, "CreateCommittedResource1"), flags, 9)
-        this.vtbl.CreateHeap1 := CallbackCreate(GetMethod(implObj, "CreateHeap1"), flags, 5)
-        this.vtbl.CreateReservedResource1 := CallbackCreate(GetMethod(implObj, "CreateReservedResource1"), flags, 7)
-        this.vtbl.GetResourceAllocationInfo1 := CallbackCreate(GetMethod(implObj, "GetResourceAllocationInfo1"), flags, 5)
+        this.vtbl.CreateCommandList1 := CallbackCreate(ObjBindMethod(implObj, "CreateCommandList1"), flags, 6)
+        this.vtbl.CreateProtectedResourceSession := CallbackCreate(ObjBindMethod(implObj, "CreateProtectedResourceSession"), flags, 4)
+        this.vtbl.CreateCommittedResource1 := CallbackCreate(ObjBindMethod(implObj, "CreateCommittedResource1"), flags, 9)
+        this.vtbl.CreateHeap1 := CallbackCreate(ObjBindMethod(implObj, "CreateHeap1"), flags, 5)
+        this.vtbl.CreateReservedResource1 := CallbackCreate(ObjBindMethod(implObj, "CreateReservedResource1"), flags, 7)
+        this.vtbl.GetResourceAllocationInfo1 := CallbackCreate(ObjBindMethod(implObj, "GetResourceAllocationInfo1"), flags, 5)
     }
 
     Dispose() {

@@ -20,13 +20,12 @@ export default struct PREPLACE_ENABLE_DISABLE_HARDWARE_QUIESCE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {BOOLEAN} Enable 
      * @returns {NTSTATUS} 
      */
     Call(_Context, Enable) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, BOOLEAN, Enable, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

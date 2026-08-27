@@ -60,7 +60,7 @@ export default struct IWMPlayerHook extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PreDecode := CallbackCreate(GetMethod(implObj, "PreDecode"), flags, 1)
+        this.vtbl.PreDecode := CallbackCreate(ObjBindMethod(implObj, "PreDecode"), flags, 1)
     }
 
     Dispose() {

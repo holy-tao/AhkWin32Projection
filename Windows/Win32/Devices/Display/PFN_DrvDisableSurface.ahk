@@ -19,7 +19,6 @@ export default struct PFN_DrvDisableSurface {
     }
 
     /**
-     * 
      * @param {DHPDEV} param0 
      * @returns {String} Nothing - always returns an empty string
      */

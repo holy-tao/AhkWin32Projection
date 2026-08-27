@@ -59,7 +59,7 @@ export default struct IMSVidStreamBufferSinkEvent3 extends IMSVidStreamBufferSin
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LicenseChange := CallbackCreate(GetMethod(implObj, "LicenseChange"), flags, 2)
+        this.vtbl.LicenseChange := CallbackCreate(ObjBindMethod(implObj, "LicenseChange"), flags, 2)
     }
 
     Dispose() {

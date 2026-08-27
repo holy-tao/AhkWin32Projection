@@ -19,7 +19,6 @@ export default struct DOT11EXT_SEND_PACKET {
     }
 
     /**
-     * 
      * @param {HANDLE} hDot11SvcHandle 
      * @param {Integer} uPacketLen 
      * @param {Integer} pvPacket 
@@ -27,7 +26,10 @@ export default struct DOT11EXT_SEND_PACKET {
      * @returns {Integer} 
      */
     Call(hDot11SvcHandle, uPacketLen, pvPacket, hSendCompletion) {
-        result := DllCall(this.value, HANDLE, hDot11SvcHandle, UInt32, uPacketLen, IntPtr, pvPacket, HANDLE, hSendCompletion, UInt32)
+        hDot11SvcHandleMarshal := hDot11SvcHandle == 0 ? IntPtr : HANDLE
+        hSendCompletionMarshal := hSendCompletion == 0 ? IntPtr : HANDLE
+
+        result := DllCall(this.value, hDot11SvcHandleMarshal, hDot11SvcHandle, UInt32, uPacketLen, IntPtr, pvPacket, hSendCompletionMarshal, hSendCompletion, UInt32)
         return result
     }
 

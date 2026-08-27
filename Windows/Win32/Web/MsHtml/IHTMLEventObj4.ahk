@@ -43,7 +43,6 @@ export default struct IHTMLEventObj4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_wheelDelta() {
@@ -60,7 +59,7 @@ export default struct IHTMLEventObj4 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_wheelDelta := CallbackCreate(GetMethod(implObj, "get_wheelDelta"), flags, 2)
+        this.vtbl.get_wheelDelta := CallbackCreate(ObjBindMethod(implObj, "get_wheelDelta"), flags, 2)
     }
 
     Dispose() {

@@ -55,8 +55,8 @@ export default struct IMMCVersionInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-immcversioninfo-getmmcversion
      */
     GetMMCVersion(pVersionMajor, pVersionMinor) {
-        pVersionMajorMarshal := pVersionMajor is VarRef ? "int*" : "ptr"
-        pVersionMinorMarshal := pVersionMinor is VarRef ? "int*" : "ptr"
+        pVersionMajorMarshal := pVersionMajor is VarRef ? "int*" : IntPtr
+        pVersionMinorMarshal := pVersionMinor is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, pVersionMajorMarshal, pVersionMajor, pVersionMinorMarshal, pVersionMinor, "HRESULT")
         return result
@@ -71,7 +71,7 @@ export default struct IMMCVersionInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMMCVersion := CallbackCreate(GetMethod(implObj, "GetMMCVersion"), flags, 3)
+        this.vtbl.GetMMCVersion := CallbackCreate(ObjBindMethod(implObj, "GetMMCVersion"), flags, 3)
     }
 
     Dispose() {

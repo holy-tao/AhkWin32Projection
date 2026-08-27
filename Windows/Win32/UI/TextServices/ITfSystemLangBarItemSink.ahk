@@ -130,8 +130,8 @@ export default struct ITfSystemLangBarItemSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitMenu := CallbackCreate(GetMethod(implObj, "InitMenu"), flags, 2)
-        this.vtbl.OnMenuSelect := CallbackCreate(GetMethod(implObj, "OnMenuSelect"), flags, 2)
+        this.vtbl.InitMenu := CallbackCreate(ObjBindMethod(implObj, "InitMenu"), flags, 2)
+        this.vtbl.OnMenuSelect := CallbackCreate(ObjBindMethod(implObj, "OnMenuSelect"), flags, 2)
     }
 
     Dispose() {

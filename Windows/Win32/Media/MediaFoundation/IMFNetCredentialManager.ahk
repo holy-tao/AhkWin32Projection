@@ -125,9 +125,9 @@ export default struct IMFNetCredentialManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BeginGetCredentials := CallbackCreate(GetMethod(implObj, "BeginGetCredentials"), flags, 4)
-        this.vtbl.EndGetCredentials := CallbackCreate(GetMethod(implObj, "EndGetCredentials"), flags, 3)
-        this.vtbl.SetGood := CallbackCreate(GetMethod(implObj, "SetGood"), flags, 3)
+        this.vtbl.BeginGetCredentials := CallbackCreate(ObjBindMethod(implObj, "BeginGetCredentials"), flags, 4)
+        this.vtbl.EndGetCredentials := CallbackCreate(ObjBindMethod(implObj, "EndGetCredentials"), flags, 3)
+        this.vtbl.SetGood := CallbackCreate(ObjBindMethod(implObj, "SetGood"), flags, 3)
     }
 
     Dispose() {

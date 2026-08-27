@@ -74,7 +74,7 @@ export default struct IPropertyDescriptionRelatedPropertyInfo extends IPropertyD
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRelatedProperty := CallbackCreate(GetMethod(implObj, "GetRelatedProperty"), flags, 4)
+        this.vtbl.GetRelatedProperty := CallbackCreate(ObjBindMethod(implObj, "GetRelatedProperty"), flags, 4)
     }
 
     Dispose() {

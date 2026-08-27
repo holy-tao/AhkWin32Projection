@@ -50,9 +50,9 @@ export default struct IDVEnc extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvenc-get_iformatresolution
      */
     get_IFormatResolution(VideoFormat, DVFormat, Resolution, fDVInfo, sDVInfo) {
-        VideoFormatMarshal := VideoFormat is VarRef ? "int*" : "ptr"
-        DVFormatMarshal := DVFormat is VarRef ? "int*" : "ptr"
-        ResolutionMarshal := Resolution is VarRef ? "int*" : "ptr"
+        VideoFormatMarshal := VideoFormat is VarRef ? "int*" : IntPtr
+        DVFormatMarshal := DVFormat is VarRef ? "int*" : IntPtr
+        ResolutionMarshal := Resolution is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, VideoFormatMarshal, VideoFormat, DVFormatMarshal, DVFormat, ResolutionMarshal, Resolution, Int8, fDVInfo, DVINFO.Ptr, sDVInfo, "HRESULT")
         return result
@@ -82,8 +82,8 @@ export default struct IDVEnc extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_IFormatResolution := CallbackCreate(GetMethod(implObj, "get_IFormatResolution"), flags, 6)
-        this.vtbl.put_IFormatResolution := CallbackCreate(GetMethod(implObj, "put_IFormatResolution"), flags, 6)
+        this.vtbl.get_IFormatResolution := CallbackCreate(ObjBindMethod(implObj, "get_IFormatResolution"), flags, 6)
+        this.vtbl.put_IFormatResolution := CallbackCreate(ObjBindMethod(implObj, "put_IFormatResolution"), flags, 6)
     }
 
     Dispose() {

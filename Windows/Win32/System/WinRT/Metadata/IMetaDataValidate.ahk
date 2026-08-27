@@ -37,7 +37,6 @@ export default struct IMetaDataValidate extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwModuleType 
      * @param {IUnknown} pUnk 
      * @returns {HRESULT} 
@@ -48,7 +47,6 @@ export default struct IMetaDataValidate extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ValidateMetaData() {
@@ -65,8 +63,8 @@ export default struct IMetaDataValidate extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ValidatorInit := CallbackCreate(GetMethod(implObj, "ValidatorInit"), flags, 3)
-        this.vtbl.ValidateMetaData := CallbackCreate(GetMethod(implObj, "ValidateMetaData"), flags, 1)
+        this.vtbl.ValidatorInit := CallbackCreate(ObjBindMethod(implObj, "ValidatorInit"), flags, 3)
+        this.vtbl.ValidateMetaData := CallbackCreate(ObjBindMethod(implObj, "ValidateMetaData"), flags, 1)
     }
 
     Dispose() {

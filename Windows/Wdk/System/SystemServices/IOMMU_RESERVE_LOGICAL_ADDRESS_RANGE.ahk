@@ -21,7 +21,6 @@ export default struct IOMMU_RESERVE_LOGICAL_ADDRESS_RANGE {
     }
 
     /**
-     * 
      * @param {Pointer<IOMMU_DMA_DOMAIN>} Domain 
      * @param {Pointer} _Size 
      * @param {Pointer<Integer>} ExplicitLogicalAddress 
@@ -31,11 +30,14 @@ export default struct IOMMU_RESERVE_LOGICAL_ADDRESS_RANGE {
      * @returns {NTSTATUS} 
      */
     Call(Domain, _Size, ExplicitLogicalAddress, MinLogicalAddress, MaxLogicalAddress, LogicalAddressToken) {
-        DomainMarshal := Domain is VarRef ? "ptr*" : "ptr"
-        ExplicitLogicalAddressMarshal := ExplicitLogicalAddress is VarRef ? "uint*" : "ptr"
-        MinLogicalAddressMarshal := MinLogicalAddress is VarRef ? "uint*" : "ptr"
-        MaxLogicalAddressMarshal := MaxLogicalAddress is VarRef ? "uint*" : "ptr"
-        LogicalAddressTokenMarshal := LogicalAddressToken is VarRef ? "ptr*" : "ptr"
+        DomainMarshal := Domain is VarRef ? "ptr*" : IntPtr
+        ExplicitLogicalAddressMarshal := ExplicitLogicalAddress is VarRef ? "uint*" : IntPtr
+        ExplicitLogicalAddressMarshal := ExplicitLogicalAddress == 0 ? IntPtr : "uint*"
+        MinLogicalAddressMarshal := MinLogicalAddress is VarRef ? "uint*" : IntPtr
+        MinLogicalAddressMarshal := MinLogicalAddress == 0 ? IntPtr : "uint*"
+        MaxLogicalAddressMarshal := MaxLogicalAddress is VarRef ? "uint*" : IntPtr
+        MaxLogicalAddressMarshal := MaxLogicalAddress == 0 ? IntPtr : "uint*"
+        LogicalAddressTokenMarshal := LogicalAddressToken is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, DomainMarshal, Domain, IntPtr, _Size, ExplicitLogicalAddressMarshal, ExplicitLogicalAddress, MinLogicalAddressMarshal, MinLogicalAddress, MaxLogicalAddressMarshal, MaxLogicalAddress, LogicalAddressTokenMarshal, LogicalAddressToken, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

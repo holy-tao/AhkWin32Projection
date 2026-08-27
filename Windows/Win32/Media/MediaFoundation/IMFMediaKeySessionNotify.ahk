@@ -50,7 +50,9 @@ export default struct IMFMediaKeySessionNotify extends IUnknown {
     KeyMessage(destinationURL, message, cb) {
         destinationURL := destinationURL is String ? BSTR.Alloc(destinationURL).Value : destinationURL
 
-        ComCall(3, this, BSTR, destinationURL, IntPtr, message, UInt32, cb)
+        destinationURLMarshal := destinationURL == 0 ? IntPtr : BSTR
+
+        ComCall(3, this, destinationURLMarshal, destinationURL, IntPtr, message, UInt32, cb)
     }
 
     /**
@@ -84,9 +86,9 @@ export default struct IMFMediaKeySessionNotify extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.KeyMessage := CallbackCreate(GetMethod(implObj, "KeyMessage"), flags, 4)
-        this.vtbl.KeyAdded := CallbackCreate(GetMethod(implObj, "KeyAdded"), flags, 1)
-        this.vtbl.KeyError := CallbackCreate(GetMethod(implObj, "KeyError"), flags, 3)
+        this.vtbl.KeyMessage := CallbackCreate(ObjBindMethod(implObj, "KeyMessage"), flags, 4)
+        this.vtbl.KeyAdded := CallbackCreate(ObjBindMethod(implObj, "KeyAdded"), flags, 1)
+        this.vtbl.KeyError := CallbackCreate(ObjBindMethod(implObj, "KeyError"), flags, 3)
     }
 
     Dispose() {

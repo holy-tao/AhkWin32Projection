@@ -95,8 +95,11 @@ export default struct ID3D11Fence extends ID3D11DeviceChild {
     CreateSharedHandle(pAttributes, dwAccess, lpName) {
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
+        pAttributesMarshal := pAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+        lpNameMarshal := lpName == 0 ? IntPtr : PWSTR
+
         pHandle := HANDLE.Owned()
-        result := ComCall(7, this, SECURITY_ATTRIBUTES.Ptr, pAttributes, UInt32, dwAccess, "ptr", lpName, HANDLE.Ptr, pHandle, "HRESULT")
+        result := ComCall(7, this, pAttributesMarshal, pAttributes, UInt32, dwAccess, lpNameMarshal, lpName, HANDLE.Ptr, pHandle, "HRESULT")
         return pHandle
     }
 
@@ -139,9 +142,9 @@ export default struct ID3D11Fence extends ID3D11DeviceChild {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateSharedHandle := CallbackCreate(GetMethod(implObj, "CreateSharedHandle"), flags, 5)
-        this.vtbl.GetCompletedValue := CallbackCreate(GetMethod(implObj, "GetCompletedValue"), flags, 1)
-        this.vtbl.SetEventOnCompletion := CallbackCreate(GetMethod(implObj, "SetEventOnCompletion"), flags, 3)
+        this.vtbl.CreateSharedHandle := CallbackCreate(ObjBindMethod(implObj, "CreateSharedHandle"), flags, 5)
+        this.vtbl.GetCompletedValue := CallbackCreate(ObjBindMethod(implObj, "GetCompletedValue"), flags, 1)
+        this.vtbl.SetEventOnCompletion := CallbackCreate(ObjBindMethod(implObj, "SetEventOnCompletion"), flags, 3)
     }
 
     Dispose() {

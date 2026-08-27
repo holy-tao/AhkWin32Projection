@@ -79,7 +79,6 @@ export default struct ITemplatePrinter2 extends ITemplatePrinter {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -89,7 +88,6 @@ export default struct ITemplatePrinter2 extends ITemplatePrinter {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_selectionEnabled() {
@@ -98,7 +96,6 @@ export default struct ITemplatePrinter2 extends ITemplatePrinter {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -108,7 +105,6 @@ export default struct ITemplatePrinter2 extends ITemplatePrinter {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_frameActiveEnabled() {
@@ -117,7 +113,6 @@ export default struct ITemplatePrinter2 extends ITemplatePrinter {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -129,7 +124,6 @@ export default struct ITemplatePrinter2 extends ITemplatePrinter {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_orientation() {
@@ -139,7 +133,6 @@ export default struct ITemplatePrinter2 extends ITemplatePrinter {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -149,7 +142,6 @@ export default struct ITemplatePrinter2 extends ITemplatePrinter {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_usePrinterCopyCollate() {
@@ -158,7 +150,6 @@ export default struct ITemplatePrinter2 extends ITemplatePrinter {
     }
 
     /**
-     * 
      * @param {BSTR} bstrProperty 
      * @returns {VARIANT} 
      */
@@ -179,15 +170,15 @@ export default struct ITemplatePrinter2 extends ITemplatePrinter {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_selectionEnabled := CallbackCreate(GetMethod(implObj, "put_selectionEnabled"), flags, 2)
-        this.vtbl.get_selectionEnabled := CallbackCreate(GetMethod(implObj, "get_selectionEnabled"), flags, 2)
-        this.vtbl.put_frameActiveEnabled := CallbackCreate(GetMethod(implObj, "put_frameActiveEnabled"), flags, 2)
-        this.vtbl.get_frameActiveEnabled := CallbackCreate(GetMethod(implObj, "get_frameActiveEnabled"), flags, 2)
-        this.vtbl.put_orientation := CallbackCreate(GetMethod(implObj, "put_orientation"), flags, 2)
-        this.vtbl.get_orientation := CallbackCreate(GetMethod(implObj, "get_orientation"), flags, 2)
-        this.vtbl.put_usePrinterCopyCollate := CallbackCreate(GetMethod(implObj, "put_usePrinterCopyCollate"), flags, 2)
-        this.vtbl.get_usePrinterCopyCollate := CallbackCreate(GetMethod(implObj, "get_usePrinterCopyCollate"), flags, 2)
-        this.vtbl.deviceSupports := CallbackCreate(GetMethod(implObj, "deviceSupports"), flags, 3)
+        this.vtbl.put_selectionEnabled := CallbackCreate(ObjBindMethod(implObj, "put_selectionEnabled"), flags, 2)
+        this.vtbl.get_selectionEnabled := CallbackCreate(ObjBindMethod(implObj, "get_selectionEnabled"), flags, 2)
+        this.vtbl.put_frameActiveEnabled := CallbackCreate(ObjBindMethod(implObj, "put_frameActiveEnabled"), flags, 2)
+        this.vtbl.get_frameActiveEnabled := CallbackCreate(ObjBindMethod(implObj, "get_frameActiveEnabled"), flags, 2)
+        this.vtbl.put_orientation := CallbackCreate(ObjBindMethod(implObj, "put_orientation"), flags, 2)
+        this.vtbl.get_orientation := CallbackCreate(ObjBindMethod(implObj, "get_orientation"), flags, 2)
+        this.vtbl.put_usePrinterCopyCollate := CallbackCreate(ObjBindMethod(implObj, "put_usePrinterCopyCollate"), flags, 2)
+        this.vtbl.get_usePrinterCopyCollate := CallbackCreate(ObjBindMethod(implObj, "get_usePrinterCopyCollate"), flags, 2)
+        this.vtbl.deviceSupports := CallbackCreate(ObjBindMethod(implObj, "deviceSupports"), flags, 3)
     }
 
     Dispose() {

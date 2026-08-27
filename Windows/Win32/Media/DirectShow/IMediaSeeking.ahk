@@ -195,7 +195,7 @@ export default struct IMediaSeeking extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediaseeking-checkcapabilities
      */
     CheckCapabilities(pCapabilities) {
-        pCapabilitiesMarshal := pCapabilities is VarRef ? "uint*" : "ptr"
+        pCapabilitiesMarshal := pCapabilities is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pCapabilitiesMarshal, pCapabilities, "HRESULT")
         return result
@@ -487,7 +487,10 @@ export default struct IMediaSeeking extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediaseeking-converttimeformat
      */
     ConvertTimeFormat(pTargetFormat, Source, pSourceFormat) {
-        result := ComCall(13, this, "int64*", &pTarget := 0, Guid.Ptr, pTargetFormat, Int64, Source, Guid.Ptr, pSourceFormat, "HRESULT")
+        pTargetFormatMarshal := pTargetFormat == 0 ? IntPtr : Guid.Ptr
+        pSourceFormatMarshal := pSourceFormat == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(13, this, "int64*", &pTarget := 0, pTargetFormatMarshal, pTargetFormat, Int64, Source, pSourceFormatMarshal, pSourceFormat, "HRESULT")
         return pTarget
     }
 
@@ -657,8 +660,10 @@ export default struct IMediaSeeking extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediaseeking-setpositions
      */
     SetPositions(pCurrent, dwCurrentFlags, pStop, dwStopFlags) {
-        pCurrentMarshal := pCurrent is VarRef ? "int64*" : "ptr"
-        pStopMarshal := pStop is VarRef ? "int64*" : "ptr"
+        pCurrentMarshal := pCurrent is VarRef ? "int64*" : IntPtr
+        pCurrentMarshal := pCurrent == 0 ? IntPtr : "int64*"
+        pStopMarshal := pStop is VarRef ? "int64*" : IntPtr
+        pStopMarshal := pStop == 0 ? IntPtr : "int64*"
 
         result := ComCall(14, this, pCurrentMarshal, pCurrent, UInt32, dwCurrentFlags, pStopMarshal, pStop, UInt32, dwStopFlags, "HRESULT")
         return result
@@ -716,8 +721,10 @@ export default struct IMediaSeeking extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediaseeking-getpositions
      */
     GetPositions(pCurrent, pStop) {
-        pCurrentMarshal := pCurrent is VarRef ? "int64*" : "ptr"
-        pStopMarshal := pStop is VarRef ? "int64*" : "ptr"
+        pCurrentMarshal := pCurrent is VarRef ? "int64*" : IntPtr
+        pCurrentMarshal := pCurrent == 0 ? IntPtr : "int64*"
+        pStopMarshal := pStop is VarRef ? "int64*" : IntPtr
+        pStopMarshal := pStop == 0 ? IntPtr : "int64*"
 
         result := ComCall(15, this, pCurrentMarshal, pCurrent, pStopMarshal, pStop, "HRESULT")
         return result
@@ -775,8 +782,10 @@ export default struct IMediaSeeking extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediaseeking-getavailable
      */
     GetAvailable(pEarliest, pLatest) {
-        pEarliestMarshal := pEarliest is VarRef ? "int64*" : "ptr"
-        pLatestMarshal := pLatest is VarRef ? "int64*" : "ptr"
+        pEarliestMarshal := pEarliest is VarRef ? "int64*" : IntPtr
+        pEarliestMarshal := pEarliest == 0 ? IntPtr : "int64*"
+        pLatestMarshal := pLatest is VarRef ? "int64*" : IntPtr
+        pLatestMarshal := pLatest == 0 ? IntPtr : "int64*"
 
         result := ComCall(16, this, pEarliestMarshal, pEarliest, pLatestMarshal, pLatest, "HRESULT")
         return result
@@ -913,23 +922,23 @@ export default struct IMediaSeeking extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCapabilities := CallbackCreate(GetMethod(implObj, "GetCapabilities"), flags, 2)
-        this.vtbl.CheckCapabilities := CallbackCreate(GetMethod(implObj, "CheckCapabilities"), flags, 2)
-        this.vtbl.IsFormatSupported := CallbackCreate(GetMethod(implObj, "IsFormatSupported"), flags, 2)
-        this.vtbl.QueryPreferredFormat := CallbackCreate(GetMethod(implObj, "QueryPreferredFormat"), flags, 2)
-        this.vtbl.GetTimeFormat := CallbackCreate(GetMethod(implObj, "GetTimeFormat"), flags, 2)
-        this.vtbl.IsUsingTimeFormat := CallbackCreate(GetMethod(implObj, "IsUsingTimeFormat"), flags, 2)
-        this.vtbl.SetTimeFormat := CallbackCreate(GetMethod(implObj, "SetTimeFormat"), flags, 2)
-        this.vtbl.GetDuration := CallbackCreate(GetMethod(implObj, "GetDuration"), flags, 2)
-        this.vtbl.GetStopPosition := CallbackCreate(GetMethod(implObj, "GetStopPosition"), flags, 2)
-        this.vtbl.GetCurrentPosition := CallbackCreate(GetMethod(implObj, "GetCurrentPosition"), flags, 2)
-        this.vtbl.ConvertTimeFormat := CallbackCreate(GetMethod(implObj, "ConvertTimeFormat"), flags, 5)
-        this.vtbl.SetPositions := CallbackCreate(GetMethod(implObj, "SetPositions"), flags, 5)
-        this.vtbl.GetPositions := CallbackCreate(GetMethod(implObj, "GetPositions"), flags, 3)
-        this.vtbl.GetAvailable := CallbackCreate(GetMethod(implObj, "GetAvailable"), flags, 3)
-        this.vtbl.SetRate := CallbackCreate(GetMethod(implObj, "SetRate"), flags, 2)
-        this.vtbl.GetRate := CallbackCreate(GetMethod(implObj, "GetRate"), flags, 2)
-        this.vtbl.GetPreroll := CallbackCreate(GetMethod(implObj, "GetPreroll"), flags, 2)
+        this.vtbl.GetCapabilities := CallbackCreate(ObjBindMethod(implObj, "GetCapabilities"), flags, 2)
+        this.vtbl.CheckCapabilities := CallbackCreate(ObjBindMethod(implObj, "CheckCapabilities"), flags, 2)
+        this.vtbl.IsFormatSupported := CallbackCreate(ObjBindMethod(implObj, "IsFormatSupported"), flags, 2)
+        this.vtbl.QueryPreferredFormat := CallbackCreate(ObjBindMethod(implObj, "QueryPreferredFormat"), flags, 2)
+        this.vtbl.GetTimeFormat := CallbackCreate(ObjBindMethod(implObj, "GetTimeFormat"), flags, 2)
+        this.vtbl.IsUsingTimeFormat := CallbackCreate(ObjBindMethod(implObj, "IsUsingTimeFormat"), flags, 2)
+        this.vtbl.SetTimeFormat := CallbackCreate(ObjBindMethod(implObj, "SetTimeFormat"), flags, 2)
+        this.vtbl.GetDuration := CallbackCreate(ObjBindMethod(implObj, "GetDuration"), flags, 2)
+        this.vtbl.GetStopPosition := CallbackCreate(ObjBindMethod(implObj, "GetStopPosition"), flags, 2)
+        this.vtbl.GetCurrentPosition := CallbackCreate(ObjBindMethod(implObj, "GetCurrentPosition"), flags, 2)
+        this.vtbl.ConvertTimeFormat := CallbackCreate(ObjBindMethod(implObj, "ConvertTimeFormat"), flags, 5)
+        this.vtbl.SetPositions := CallbackCreate(ObjBindMethod(implObj, "SetPositions"), flags, 5)
+        this.vtbl.GetPositions := CallbackCreate(ObjBindMethod(implObj, "GetPositions"), flags, 3)
+        this.vtbl.GetAvailable := CallbackCreate(ObjBindMethod(implObj, "GetAvailable"), flags, 3)
+        this.vtbl.SetRate := CallbackCreate(ObjBindMethod(implObj, "SetRate"), flags, 2)
+        this.vtbl.GetRate := CallbackCreate(ObjBindMethod(implObj, "GetRate"), flags, 2)
+        this.vtbl.GetPreroll := CallbackCreate(ObjBindMethod(implObj, "GetPreroll"), flags, 2)
     }
 
     Dispose() {

@@ -18,12 +18,11 @@ export default struct SILO_CONTEXT_CLEANUP_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} SiloContext 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(SiloContext) {
-        SiloContextMarshal := SiloContext is VarRef ? "ptr" : "ptr"
+        SiloContextMarshal := SiloContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, SiloContextMarshal, SiloContext)
     }

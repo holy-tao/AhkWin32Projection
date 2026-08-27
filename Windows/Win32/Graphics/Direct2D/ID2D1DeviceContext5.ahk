@@ -60,7 +60,9 @@ export default struct ID2D1DeviceContext5 extends ID2D1DeviceContext4 {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext5-createsvgdocument
      */
     CreateSvgDocument(inputXmlStream, viewportSize) {
-        result := ComCall(115, this, "ptr", inputXmlStream, D2D_SIZE_F, viewportSize, "ptr*", &svgDocument := 0, "HRESULT")
+        inputXmlStreamMarshal := inputXmlStream == 0 ? IntPtr : "ptr"
+
+        result := ComCall(115, this, inputXmlStreamMarshal, inputXmlStream, D2D_SIZE_F, viewportSize, "ptr*", &svgDocument := 0, "HRESULT")
         return ID2D1SvgDocument(svgDocument)
     }
 
@@ -115,10 +117,10 @@ export default struct ID2D1DeviceContext5 extends ID2D1DeviceContext4 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateSvgDocument := CallbackCreate(GetMethod(implObj, "CreateSvgDocument"), flags, 4)
-        this.vtbl.DrawSvgDocument := CallbackCreate(GetMethod(implObj, "DrawSvgDocument"), flags, 2)
-        this.vtbl.CreateColorContextFromDxgiColorSpace := CallbackCreate(GetMethod(implObj, "CreateColorContextFromDxgiColorSpace"), flags, 3)
-        this.vtbl.CreateColorContextFromSimpleColorProfile := CallbackCreate(GetMethod(implObj, "CreateColorContextFromSimpleColorProfile"), flags, 3)
+        this.vtbl.CreateSvgDocument := CallbackCreate(ObjBindMethod(implObj, "CreateSvgDocument"), flags, 4)
+        this.vtbl.DrawSvgDocument := CallbackCreate(ObjBindMethod(implObj, "DrawSvgDocument"), flags, 2)
+        this.vtbl.CreateColorContextFromDxgiColorSpace := CallbackCreate(ObjBindMethod(implObj, "CreateColorContextFromDxgiColorSpace"), flags, 3)
+        this.vtbl.CreateColorContextFromSimpleColorProfile := CallbackCreate(ObjBindMethod(implObj, "CreateColorContextFromSimpleColorProfile"), flags, 3)
     }
 
     Dispose() {

@@ -21,7 +21,6 @@ export default struct SslGetProviderPropertyFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {PWSTR} pszProperty 
      * @param {Pointer<Pointer<Integer>>} ppbOutput 
@@ -33,9 +32,10 @@ export default struct SslGetProviderPropertyFn {
     Call(hSslProvider, pszProperty, ppbOutput, pcbOutput, ppEnumState, dwFlags) {
         pszProperty := pszProperty is String ? StrPtr(pszProperty) : pszProperty
 
-        ppbOutputMarshal := ppbOutput is VarRef ? "ptr*" : "ptr"
-        pcbOutputMarshal := pcbOutput is VarRef ? "uint*" : "ptr"
-        ppEnumStateMarshal := ppEnumState is VarRef ? "ptr*" : "ptr"
+        ppbOutputMarshal := ppbOutput is VarRef ? "ptr*" : IntPtr
+        pcbOutputMarshal := pcbOutput is VarRef ? "uint*" : IntPtr
+        ppEnumStateMarshal := ppEnumState is VarRef ? "ptr*" : IntPtr
+        ppEnumStateMarshal := ppEnumState == 0 ? IntPtr : "ptr*"
 
         result := DllCall(this.value, NCRYPT_PROV_HANDLE, hSslProvider, "ptr", pszProperty, ppbOutputMarshal, ppbOutput, pcbOutputMarshal, pcbOutput, ppEnumStateMarshal, ppEnumState, UInt32, dwFlags, "HRESULT")
         return result

@@ -58,7 +58,7 @@ export default struct ID3D12LifetimeOwner extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LifetimeStateUpdated := CallbackCreate(GetMethod(implObj, "LifetimeStateUpdated"), flags, 2)
+        this.vtbl.LifetimeStateUpdated := CallbackCreate(ObjBindMethod(implObj, "LifetimeStateUpdated"), flags, 2)
     }
 
     Dispose() {

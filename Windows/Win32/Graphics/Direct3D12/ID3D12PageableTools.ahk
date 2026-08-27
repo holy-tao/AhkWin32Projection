@@ -37,7 +37,6 @@ export default struct ID3D12PageableTools extends IUnknown {
     }
 
     /**
-     * 
      * @returns {D3D12_GPU_VIRTUAL_ADDRESS_RANGE} 
      */
     GetAllocation() {
@@ -55,7 +54,7 @@ export default struct ID3D12PageableTools extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAllocation := CallbackCreate(GetMethod(implObj, "GetAllocation"), flags, 2)
+        this.vtbl.GetAllocation := CallbackCreate(ObjBindMethod(implObj, "GetAllocation"), flags, 2)
     }
 
     Dispose() {

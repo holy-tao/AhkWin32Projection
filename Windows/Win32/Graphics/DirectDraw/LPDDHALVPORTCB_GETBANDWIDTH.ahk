@@ -19,7 +19,6 @@ export default struct LPDDHALVPORTCB_GETBANDWIDTH {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_GETVPORTBANDWIDTHDATA>} param0 
      * @returns {Integer} 
      */

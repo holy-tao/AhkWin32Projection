@@ -86,7 +86,7 @@ export default struct IWMDRMMessageParser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdrmmessageparser-parseregistrationreqmsg
      */
     ParseRegistrationReqMsg(pbRegistrationReqMsg, cbRegistrationReqMsg, ppDeviceCert, pDeviceSerialNumber) {
-        pbRegistrationReqMsgMarshal := pbRegistrationReqMsg is VarRef ? "char*" : "ptr"
+        pbRegistrationReqMsgMarshal := pbRegistrationReqMsg is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, pbRegistrationReqMsgMarshal, pbRegistrationReqMsg, UInt32, cbRegistrationReqMsg, INSSBuffer.Ptr, ppDeviceCert, DRM_VAL16.Ptr, pDeviceSerialNumber, "HRESULT")
         return result
@@ -134,7 +134,7 @@ export default struct IWMDRMMessageParser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdrmmessageparser-parselicenserequestmsg
      */
     ParseLicenseRequestMsg(pbLicenseRequestMsg, cbLicenseRequestMsg, ppDeviceCert, pDeviceSerialNumber, pbstrAction) {
-        pbLicenseRequestMsgMarshal := pbLicenseRequestMsg is VarRef ? "char*" : "ptr"
+        pbLicenseRequestMsgMarshal := pbLicenseRequestMsg is VarRef ? "char*" : IntPtr
 
         result := ComCall(4, this, pbLicenseRequestMsgMarshal, pbLicenseRequestMsg, UInt32, cbLicenseRequestMsg, INSSBuffer.Ptr, ppDeviceCert, DRM_VAL16.Ptr, pDeviceSerialNumber, BSTR.Ptr, pbstrAction, "HRESULT")
         return result
@@ -149,8 +149,8 @@ export default struct IWMDRMMessageParser extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ParseRegistrationReqMsg := CallbackCreate(GetMethod(implObj, "ParseRegistrationReqMsg"), flags, 5)
-        this.vtbl.ParseLicenseRequestMsg := CallbackCreate(GetMethod(implObj, "ParseLicenseRequestMsg"), flags, 6)
+        this.vtbl.ParseRegistrationReqMsg := CallbackCreate(ObjBindMethod(implObj, "ParseRegistrationReqMsg"), flags, 5)
+        this.vtbl.ParseLicenseRequestMsg := CallbackCreate(ObjBindMethod(implObj, "ParseLicenseRequestMsg"), flags, 6)
     }
 
     Dispose() {

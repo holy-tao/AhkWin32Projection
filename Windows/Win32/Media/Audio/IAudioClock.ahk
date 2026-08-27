@@ -133,8 +133,9 @@ export default struct IAudioClock extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclock-getposition
      */
     GetPosition(pu64Position, pu64QPCPosition) {
-        pu64PositionMarshal := pu64Position is VarRef ? "uint*" : "ptr"
-        pu64QPCPositionMarshal := pu64QPCPosition is VarRef ? "uint*" : "ptr"
+        pu64PositionMarshal := pu64Position is VarRef ? "uint*" : IntPtr
+        pu64QPCPositionMarshal := pu64QPCPosition is VarRef ? "uint*" : IntPtr
+        pu64QPCPositionMarshal := pu64QPCPosition == 0 ? IntPtr : "uint*"
 
         result := ComCall(4, this, pu64PositionMarshal, pu64Position, pu64QPCPositionMarshal, pu64QPCPosition, "HRESULT")
         return result
@@ -159,9 +160,9 @@ export default struct IAudioClock extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFrequency := CallbackCreate(GetMethod(implObj, "GetFrequency"), flags, 2)
-        this.vtbl.GetPosition := CallbackCreate(GetMethod(implObj, "GetPosition"), flags, 3)
-        this.vtbl.GetCharacteristics := CallbackCreate(GetMethod(implObj, "GetCharacteristics"), flags, 2)
+        this.vtbl.GetFrequency := CallbackCreate(ObjBindMethod(implObj, "GetFrequency"), flags, 2)
+        this.vtbl.GetPosition := CallbackCreate(ObjBindMethod(implObj, "GetPosition"), flags, 3)
+        this.vtbl.GetCharacteristics := CallbackCreate(ObjBindMethod(implObj, "GetCharacteristics"), flags, 2)
     }
 
     Dispose() {

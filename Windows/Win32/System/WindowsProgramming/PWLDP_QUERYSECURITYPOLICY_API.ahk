@@ -21,7 +21,6 @@ export default struct PWLDP_QUERYSECURITYPOLICY_API {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} providerName 
      * @param {Pointer<UNICODE_STRING>} keyName 
      * @param {Pointer<UNICODE_STRING>} _valueName 
@@ -30,9 +29,10 @@ export default struct PWLDP_QUERYSECURITYPOLICY_API {
      * @returns {WLDP_SECURE_SETTING_VALUE_TYPE} 
      */
     Call(providerName, keyName, _valueName, valueAddress, valueSize) {
-        valueSizeMarshal := valueSize is VarRef ? "uint*" : "ptr"
+        valueAddressMarshal := valueAddress == 0 ? IntPtr : IntPtr
+        valueSizeMarshal := valueSize is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, UNICODE_STRING.Ptr, providerName, UNICODE_STRING.Ptr, keyName, UNICODE_STRING.Ptr, _valueName, "int*", &valueType := 0, IntPtr, valueAddress, valueSizeMarshal, valueSize, "HRESULT")
+        result := DllCall(this.value, UNICODE_STRING.Ptr, providerName, UNICODE_STRING.Ptr, keyName, UNICODE_STRING.Ptr, _valueName, "int*", &valueType := 0, valueAddressMarshal, valueAddress, valueSizeMarshal, valueSize, "HRESULT")
         return valueType
     }
 

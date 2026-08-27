@@ -401,7 +401,7 @@ export default struct ITextStoreAnchor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchor-getselection
      */
     GetSelection(ulIndex, ulCount, pSelection, pcFetched) {
-        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, UInt32, ulIndex, UInt32, ulCount, TS_SELECTION_ANCHOR.Ptr, pSelection, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
@@ -999,8 +999,8 @@ export default struct ITextStoreAnchor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchor-findnextattrtransition
      */
     FindNextAttrTransition(paStart, paHalt, cFilterAttrs, paFilterAttrs, dwFlags, pfFound, plFoundOffset) {
-        pfFoundMarshal := pfFound is VarRef ? "int*" : "ptr"
-        plFoundOffsetMarshal := plFoundOffset is VarRef ? "int*" : "ptr"
+        pfFoundMarshal := pfFound is VarRef ? "int*" : IntPtr
+        plFoundOffsetMarshal := plFoundOffset is VarRef ? "int*" : IntPtr
 
         result := ComCall(18, this, "ptr", paStart, "ptr", paHalt, UInt32, cFilterAttrs, Guid.Ptr, paFilterAttrs, UInt32, dwFlags, pfFoundMarshal, pfFound, plFoundOffsetMarshal, plFoundOffset, "HRESULT")
         return result
@@ -1033,7 +1033,7 @@ export default struct ITextStoreAnchor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchor-retrieverequestedattrs
      */
     RetrieveRequestedAttrs(ulCount, paAttrVals, pcFetched) {
-        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : IntPtr
 
         result := ComCall(19, this, UInt32, ulCount, TS_ATTRVAL.Ptr, paAttrVals, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
@@ -1217,7 +1217,7 @@ export default struct ITextStoreAnchor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchor-gettextext
      */
     GetTextExt(vcView, paStart, paEnd, prc, pfClipped) {
-        pfClippedMarshal := pfClipped is VarRef ? "int*" : "ptr"
+        pfClippedMarshal := pfClipped is VarRef ? "int*" : IntPtr
 
         result := ComCall(24, this, UInt32, vcView, "ptr", paStart, "ptr", paEnd, RECT.Ptr, prc, pfClippedMarshal, pfClipped, "HRESULT")
         return result
@@ -1480,33 +1480,33 @@ export default struct ITextStoreAnchor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AdviseSink := CallbackCreate(GetMethod(implObj, "AdviseSink"), flags, 4)
-        this.vtbl.UnadviseSink := CallbackCreate(GetMethod(implObj, "UnadviseSink"), flags, 2)
-        this.vtbl.RequestLock := CallbackCreate(GetMethod(implObj, "RequestLock"), flags, 3)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
-        this.vtbl.QueryInsert := CallbackCreate(GetMethod(implObj, "QueryInsert"), flags, 6)
-        this.vtbl.GetSelection := CallbackCreate(GetMethod(implObj, "GetSelection"), flags, 5)
-        this.vtbl.SetSelection := CallbackCreate(GetMethod(implObj, "SetSelection"), flags, 3)
-        this.vtbl.GetText := CallbackCreate(GetMethod(implObj, "GetText"), flags, 8)
-        this.vtbl.SetText := CallbackCreate(GetMethod(implObj, "SetText"), flags, 6)
-        this.vtbl.GetFormattedText := CallbackCreate(GetMethod(implObj, "GetFormattedText"), flags, 4)
-        this.vtbl.GetEmbedded := CallbackCreate(GetMethod(implObj, "GetEmbedded"), flags, 6)
-        this.vtbl.InsertEmbedded := CallbackCreate(GetMethod(implObj, "InsertEmbedded"), flags, 5)
-        this.vtbl.RequestSupportedAttrs := CallbackCreate(GetMethod(implObj, "RequestSupportedAttrs"), flags, 4)
-        this.vtbl.RequestAttrsAtPosition := CallbackCreate(GetMethod(implObj, "RequestAttrsAtPosition"), flags, 5)
-        this.vtbl.RequestAttrsTransitioningAtPosition := CallbackCreate(GetMethod(implObj, "RequestAttrsTransitioningAtPosition"), flags, 5)
-        this.vtbl.FindNextAttrTransition := CallbackCreate(GetMethod(implObj, "FindNextAttrTransition"), flags, 8)
-        this.vtbl.RetrieveRequestedAttrs := CallbackCreate(GetMethod(implObj, "RetrieveRequestedAttrs"), flags, 4)
-        this.vtbl.GetStart := CallbackCreate(GetMethod(implObj, "GetStart"), flags, 2)
-        this.vtbl.GetEnd := CallbackCreate(GetMethod(implObj, "GetEnd"), flags, 2)
-        this.vtbl.GetActiveView := CallbackCreate(GetMethod(implObj, "GetActiveView"), flags, 2)
-        this.vtbl.GetAnchorFromPoint := CallbackCreate(GetMethod(implObj, "GetAnchorFromPoint"), flags, 5)
-        this.vtbl.GetTextExt := CallbackCreate(GetMethod(implObj, "GetTextExt"), flags, 6)
-        this.vtbl.GetScreenExt := CallbackCreate(GetMethod(implObj, "GetScreenExt"), flags, 3)
-        this.vtbl.GetWnd := CallbackCreate(GetMethod(implObj, "GetWnd"), flags, 3)
-        this.vtbl.QueryInsertEmbedded := CallbackCreate(GetMethod(implObj, "QueryInsertEmbedded"), flags, 4)
-        this.vtbl.InsertTextAtSelection := CallbackCreate(GetMethod(implObj, "InsertTextAtSelection"), flags, 6)
-        this.vtbl.InsertEmbeddedAtSelection := CallbackCreate(GetMethod(implObj, "InsertEmbeddedAtSelection"), flags, 5)
+        this.vtbl.AdviseSink := CallbackCreate(ObjBindMethod(implObj, "AdviseSink"), flags, 4)
+        this.vtbl.UnadviseSink := CallbackCreate(ObjBindMethod(implObj, "UnadviseSink"), flags, 2)
+        this.vtbl.RequestLock := CallbackCreate(ObjBindMethod(implObj, "RequestLock"), flags, 3)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.QueryInsert := CallbackCreate(ObjBindMethod(implObj, "QueryInsert"), flags, 6)
+        this.vtbl.GetSelection := CallbackCreate(ObjBindMethod(implObj, "GetSelection"), flags, 5)
+        this.vtbl.SetSelection := CallbackCreate(ObjBindMethod(implObj, "SetSelection"), flags, 3)
+        this.vtbl.GetText := CallbackCreate(ObjBindMethod(implObj, "GetText"), flags, 8)
+        this.vtbl.SetText := CallbackCreate(ObjBindMethod(implObj, "SetText"), flags, 6)
+        this.vtbl.GetFormattedText := CallbackCreate(ObjBindMethod(implObj, "GetFormattedText"), flags, 4)
+        this.vtbl.GetEmbedded := CallbackCreate(ObjBindMethod(implObj, "GetEmbedded"), flags, 6)
+        this.vtbl.InsertEmbedded := CallbackCreate(ObjBindMethod(implObj, "InsertEmbedded"), flags, 5)
+        this.vtbl.RequestSupportedAttrs := CallbackCreate(ObjBindMethod(implObj, "RequestSupportedAttrs"), flags, 4)
+        this.vtbl.RequestAttrsAtPosition := CallbackCreate(ObjBindMethod(implObj, "RequestAttrsAtPosition"), flags, 5)
+        this.vtbl.RequestAttrsTransitioningAtPosition := CallbackCreate(ObjBindMethod(implObj, "RequestAttrsTransitioningAtPosition"), flags, 5)
+        this.vtbl.FindNextAttrTransition := CallbackCreate(ObjBindMethod(implObj, "FindNextAttrTransition"), flags, 8)
+        this.vtbl.RetrieveRequestedAttrs := CallbackCreate(ObjBindMethod(implObj, "RetrieveRequestedAttrs"), flags, 4)
+        this.vtbl.GetStart := CallbackCreate(ObjBindMethod(implObj, "GetStart"), flags, 2)
+        this.vtbl.GetEnd := CallbackCreate(ObjBindMethod(implObj, "GetEnd"), flags, 2)
+        this.vtbl.GetActiveView := CallbackCreate(ObjBindMethod(implObj, "GetActiveView"), flags, 2)
+        this.vtbl.GetAnchorFromPoint := CallbackCreate(ObjBindMethod(implObj, "GetAnchorFromPoint"), flags, 5)
+        this.vtbl.GetTextExt := CallbackCreate(ObjBindMethod(implObj, "GetTextExt"), flags, 6)
+        this.vtbl.GetScreenExt := CallbackCreate(ObjBindMethod(implObj, "GetScreenExt"), flags, 3)
+        this.vtbl.GetWnd := CallbackCreate(ObjBindMethod(implObj, "GetWnd"), flags, 3)
+        this.vtbl.QueryInsertEmbedded := CallbackCreate(ObjBindMethod(implObj, "QueryInsertEmbedded"), flags, 4)
+        this.vtbl.InsertTextAtSelection := CallbackCreate(ObjBindMethod(implObj, "InsertTextAtSelection"), flags, 6)
+        this.vtbl.InsertEmbeddedAtSelection := CallbackCreate(ObjBindMethod(implObj, "InsertEmbeddedAtSelection"), flags, 5)
     }
 
     Dispose() {

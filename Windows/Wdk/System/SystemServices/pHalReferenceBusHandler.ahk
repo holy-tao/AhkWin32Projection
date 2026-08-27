@@ -19,7 +19,6 @@ export default struct pHalReferenceBusHandler {
     }
 
     /**
-     * 
      * @param {PBUS_HANDLER} BusHandler 
      * @returns {String} Nothing - always returns an empty string
      */

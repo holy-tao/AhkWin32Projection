@@ -114,12 +114,14 @@
  * @since windows5.1.2600
  */
 export SetupGetInfInformationA(InfSpec, SearchControl, ReturnBuffer, ReturnBufferSize, RequiredSize) {
-    InfSpecMarshal := InfSpec is VarRef ? "ptr" : "ptr"
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    InfSpecMarshal := InfSpec is VarRef ? "ptr" : IntPtr
+    ReturnBufferMarshal := ReturnBuffer == 0 ? IntPtr : IntPtr
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupGetInfInformationA", InfSpecMarshal, InfSpec, UInt32, SearchControl, IntPtr, ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupGetInfInformationA", InfSpecMarshal, InfSpec, UInt32, SearchControl, ReturnBufferMarshal, ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -158,12 +160,14 @@ export SetupGetInfInformationA(InfSpec, SearchControl, ReturnBuffer, ReturnBuffe
  * @since windows5.1.2600
  */
 export SetupGetInfInformationW(InfSpec, SearchControl, ReturnBuffer, ReturnBufferSize, RequiredSize) {
-    InfSpecMarshal := InfSpec is VarRef ? "ptr" : "ptr"
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    InfSpecMarshal := InfSpec is VarRef ? "ptr" : IntPtr
+    ReturnBufferMarshal := ReturnBuffer == 0 ? IntPtr : IntPtr
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupGetInfInformationW", InfSpecMarshal, InfSpec, UInt32, SearchControl, IntPtr, ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupGetInfInformationW", InfSpecMarshal, InfSpec, UInt32, SearchControl, ReturnBufferMarshal, ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -200,11 +204,13 @@ export SetupGetInfInformationW(InfSpec, SearchControl, ReturnBuffer, ReturnBuffe
 export SetupQueryInfFileInformationA(InfInformation, InfIndex, ReturnBuffer, ReturnBufferSize, RequiredSize) {
     ReturnBuffer := ReturnBuffer is String ? StrPtr(ReturnBuffer) : ReturnBuffer
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    ReturnBufferMarshal := ReturnBuffer == 0 ? IntPtr : PSTR
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupQueryInfFileInformationA", SP_INF_INFORMATION.Ptr, InfInformation, UInt32, InfIndex, "ptr", ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupQueryInfFileInformationA", SP_INF_INFORMATION.Ptr, InfInformation, UInt32, InfIndex, ReturnBufferMarshal, ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -241,11 +247,13 @@ export SetupQueryInfFileInformationA(InfInformation, InfIndex, ReturnBuffer, Ret
 export SetupQueryInfFileInformationW(InfInformation, InfIndex, ReturnBuffer, ReturnBufferSize, RequiredSize) {
     ReturnBuffer := ReturnBuffer is String ? StrPtr(ReturnBuffer) : ReturnBuffer
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    ReturnBufferMarshal := ReturnBuffer == 0 ? IntPtr : PWSTR
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupQueryInfFileInformationW", SP_INF_INFORMATION.Ptr, InfInformation, UInt32, InfIndex, "ptr", ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupQueryInfFileInformationW", SP_INF_INFORMATION.Ptr, InfInformation, UInt32, InfIndex, ReturnBufferMarshal, ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -276,9 +284,11 @@ export SetupQueryInfFileInformationW(InfInformation, InfIndex, ReturnBuffer, Ret
  * @since windows5.1.2600
  */
 export SetupQueryInfOriginalFileInformationA(InfInformation, InfIndex, AlternatePlatformInfo, OriginalFileInfo) {
+    AlternatePlatformInfoMarshal := AlternatePlatformInfo == 0 ? IntPtr : SP_ALTPLATFORM_INFO_V2.Ptr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupQueryInfOriginalFileInformationA", SP_INF_INFORMATION.Ptr, InfInformation, UInt32, InfIndex, SP_ALTPLATFORM_INFO_V2.Ptr, AlternatePlatformInfo, SP_ORIGINAL_FILE_INFO_A.Ptr, OriginalFileInfo, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupQueryInfOriginalFileInformationA", SP_INF_INFORMATION.Ptr, InfInformation, UInt32, InfIndex, AlternatePlatformInfoMarshal, AlternatePlatformInfo, SP_ORIGINAL_FILE_INFO_A.Ptr, OriginalFileInfo, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -309,9 +319,11 @@ export SetupQueryInfOriginalFileInformationA(InfInformation, InfIndex, Alternate
  * @since windows5.1.2600
  */
 export SetupQueryInfOriginalFileInformationW(InfInformation, InfIndex, AlternatePlatformInfo, OriginalFileInfo) {
+    AlternatePlatformInfoMarshal := AlternatePlatformInfo == 0 ? IntPtr : SP_ALTPLATFORM_INFO_V2.Ptr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupQueryInfOriginalFileInformationW", SP_INF_INFORMATION.Ptr, InfInformation, UInt32, InfIndex, SP_ALTPLATFORM_INFO_V2.Ptr, AlternatePlatformInfo, SP_ORIGINAL_FILE_INFO_W.Ptr, OriginalFileInfo, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupQueryInfOriginalFileInformationW", SP_INF_INFORMATION.Ptr, InfInformation, UInt32, InfIndex, AlternatePlatformInfoMarshal, AlternatePlatformInfo, SP_ORIGINAL_FILE_INFO_W.Ptr, OriginalFileInfo, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -414,11 +426,14 @@ export SetupQueryInfVersionInformationA(InfInformation, InfIndex, Key, ReturnBuf
     Key := Key is String ? StrPtr(Key) : Key
     ReturnBuffer := ReturnBuffer is String ? StrPtr(ReturnBuffer) : ReturnBuffer
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    KeyMarshal := Key == 0 ? IntPtr : PSTR
+    ReturnBufferMarshal := ReturnBuffer == 0 ? IntPtr : PSTR
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupQueryInfVersionInformationA", SP_INF_INFORMATION.Ptr, InfInformation, UInt32, InfIndex, "ptr", Key, "ptr", ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupQueryInfVersionInformationA", SP_INF_INFORMATION.Ptr, InfInformation, UInt32, InfIndex, KeyMarshal, Key, ReturnBufferMarshal, ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -521,11 +536,14 @@ export SetupQueryInfVersionInformationW(InfInformation, InfIndex, Key, ReturnBuf
     Key := Key is String ? StrPtr(Key) : Key
     ReturnBuffer := ReturnBuffer is String ? StrPtr(ReturnBuffer) : ReturnBuffer
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    KeyMarshal := Key == 0 ? IntPtr : PWSTR
+    ReturnBufferMarshal := ReturnBuffer == 0 ? IntPtr : PWSTR
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupQueryInfVersionInformationW", SP_INF_INFORMATION.Ptr, InfInformation, UInt32, InfIndex, "ptr", Key, "ptr", ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupQueryInfVersionInformationW", SP_INF_INFORMATION.Ptr, InfInformation, UInt32, InfIndex, KeyMarshal, Key, ReturnBufferMarshal, ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -585,11 +603,14 @@ export SetupGetInfDriverStoreLocationA(FileName, AlternatePlatformInfo, LocaleNa
     LocaleName := LocaleName is String ? StrPtr(LocaleName) : LocaleName
     ReturnBuffer := ReturnBuffer is String ? StrPtr(ReturnBuffer) : ReturnBuffer
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    AlternatePlatformInfoMarshal := AlternatePlatformInfo == 0 ? IntPtr : SP_ALTPLATFORM_INFO_V2.Ptr
+    LocaleNameMarshal := LocaleName == 0 ? IntPtr : PSTR
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupGetInfDriverStoreLocationA", "ptr", FileName, SP_ALTPLATFORM_INFO_V2.Ptr, AlternatePlatformInfo, "ptr", LocaleName, "ptr", ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupGetInfDriverStoreLocationA", "ptr", FileName, AlternatePlatformInfoMarshal, AlternatePlatformInfo, LocaleNameMarshal, LocaleName, "ptr", ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -649,11 +670,14 @@ export SetupGetInfDriverStoreLocationW(FileName, AlternatePlatformInfo, LocaleNa
     LocaleName := LocaleName is String ? StrPtr(LocaleName) : LocaleName
     ReturnBuffer := ReturnBuffer is String ? StrPtr(ReturnBuffer) : ReturnBuffer
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    AlternatePlatformInfoMarshal := AlternatePlatformInfo == 0 ? IntPtr : SP_ALTPLATFORM_INFO_V2.Ptr
+    LocaleNameMarshal := LocaleName == 0 ? IntPtr : PWSTR
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupGetInfDriverStoreLocationW", "ptr", FileName, SP_ALTPLATFORM_INFO_V2.Ptr, AlternatePlatformInfo, "ptr", LocaleName, "ptr", ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupGetInfDriverStoreLocationW", "ptr", FileName, AlternatePlatformInfoMarshal, AlternatePlatformInfo, LocaleNameMarshal, LocaleName, "ptr", ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -692,7 +716,8 @@ export SetupGetInfPublishedNameA(DriverStoreLocation, ReturnBuffer, ReturnBuffer
     DriverStoreLocation := DriverStoreLocation is String ? StrPtr(DriverStoreLocation) : DriverStoreLocation
     ReturnBuffer := ReturnBuffer is String ? StrPtr(ReturnBuffer) : ReturnBuffer
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
@@ -735,7 +760,8 @@ export SetupGetInfPublishedNameW(DriverStoreLocation, ReturnBuffer, ReturnBuffer
     DriverStoreLocation := DriverStoreLocation is String ? StrPtr(DriverStoreLocation) : DriverStoreLocation
     ReturnBuffer := ReturnBuffer is String ? StrPtr(ReturnBuffer) : ReturnBuffer
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
@@ -777,11 +803,14 @@ export SetupGetInfFileListA(DirectoryPath, InfStyle, ReturnBuffer, ReturnBufferS
     DirectoryPath := DirectoryPath is String ? StrPtr(DirectoryPath) : DirectoryPath
     ReturnBuffer := ReturnBuffer is String ? StrPtr(ReturnBuffer) : ReturnBuffer
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    DirectoryPathMarshal := DirectoryPath == 0 ? IntPtr : PSTR
+    ReturnBufferMarshal := ReturnBuffer == 0 ? IntPtr : PSTR
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupGetInfFileListA", "ptr", DirectoryPath, INF_STYLE, InfStyle, "ptr", ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupGetInfFileListA", DirectoryPathMarshal, DirectoryPath, INF_STYLE, InfStyle, ReturnBufferMarshal, ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -819,11 +848,13 @@ export SetupGetInfFileListW(DirectoryPath, InfStyle, ReturnBuffer, ReturnBufferS
     DirectoryPath := DirectoryPath is String ? StrPtr(DirectoryPath) : DirectoryPath
     ReturnBuffer := ReturnBuffer is String ? StrPtr(ReturnBuffer) : ReturnBuffer
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    DirectoryPathMarshal := DirectoryPath == 0 ? IntPtr : PWSTR
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupGetInfFileListW", "ptr", DirectoryPath, INF_STYLE, InfStyle, "ptr", ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupGetInfFileListW", DirectoryPathMarshal, DirectoryPath, INF_STYLE, InfStyle, "ptr", ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -865,11 +896,13 @@ export SetupOpenInfFileW(FileName, InfClass, InfStyle, ErrorLine) {
     FileName := FileName is String ? StrPtr(FileName) : FileName
     InfClass := InfClass is String ? StrPtr(InfClass) : InfClass
 
-    ErrorLineMarshal := ErrorLine is VarRef ? "uint*" : "ptr"
+    InfClassMarshal := InfClass == 0 ? IntPtr : PWSTR
+    ErrorLineMarshal := ErrorLine is VarRef ? "uint*" : IntPtr
+    ErrorLineMarshal := ErrorLine == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupOpenInfFileW", "ptr", FileName, "ptr", InfClass, INF_STYLE, InfStyle, ErrorLineMarshal, ErrorLine, IntPtr)
+    result := DllCall("SETUPAPI.dll\SetupOpenInfFileW", "ptr", FileName, InfClassMarshal, InfClass, INF_STYLE, InfStyle, ErrorLineMarshal, ErrorLine, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -911,11 +944,13 @@ export SetupOpenInfFileA(FileName, InfClass, InfStyle, ErrorLine) {
     FileName := FileName is String ? StrPtr(FileName) : FileName
     InfClass := InfClass is String ? StrPtr(InfClass) : InfClass
 
-    ErrorLineMarshal := ErrorLine is VarRef ? "uint*" : "ptr"
+    InfClassMarshal := InfClass == 0 ? IntPtr : PSTR
+    ErrorLineMarshal := ErrorLine is VarRef ? "uint*" : IntPtr
+    ErrorLineMarshal := ErrorLine == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupOpenInfFileA", "ptr", FileName, "ptr", InfClass, INF_STYLE, InfStyle, ErrorLineMarshal, ErrorLine, IntPtr)
+    result := DllCall("SETUPAPI.dll\SetupOpenInfFileA", "ptr", FileName, InfClassMarshal, InfClass, INF_STYLE, InfStyle, ErrorLineMarshal, ErrorLine, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -973,12 +1008,14 @@ export SetupOpenMasterInf() {
 export SetupOpenAppendInfFileW(FileName, InfHandle, ErrorLine) {
     FileName := FileName is String ? StrPtr(FileName) : FileName
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    ErrorLineMarshal := ErrorLine is VarRef ? "uint*" : "ptr"
+    FileNameMarshal := FileName == 0 ? IntPtr : PWSTR
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    ErrorLineMarshal := ErrorLine is VarRef ? "uint*" : IntPtr
+    ErrorLineMarshal := ErrorLine == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupOpenAppendInfFileW", "ptr", FileName, InfHandleMarshal, InfHandle, ErrorLineMarshal, ErrorLine, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupOpenAppendInfFileW", FileNameMarshal, FileName, InfHandleMarshal, InfHandle, ErrorLineMarshal, ErrorLine, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1017,12 +1054,14 @@ export SetupOpenAppendInfFileW(FileName, InfHandle, ErrorLine) {
 export SetupOpenAppendInfFileA(FileName, InfHandle, ErrorLine) {
     FileName := FileName is String ? StrPtr(FileName) : FileName
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    ErrorLineMarshal := ErrorLine is VarRef ? "uint*" : "ptr"
+    FileNameMarshal := FileName == 0 ? IntPtr : PSTR
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    ErrorLineMarshal := ErrorLine is VarRef ? "uint*" : IntPtr
+    ErrorLineMarshal := ErrorLine == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupOpenAppendInfFileA", "ptr", FileName, InfHandleMarshal, InfHandle, ErrorLineMarshal, ErrorLine, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupOpenAppendInfFileA", FileNameMarshal, FileName, InfHandleMarshal, InfHandle, ErrorLineMarshal, ErrorLine, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1038,7 +1077,7 @@ export SetupOpenAppendInfFileA(FileName, InfHandle, ErrorLine) {
  * @since windows5.1.2600
  */
 export SetupCloseInfFile(InfHandle) {
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
 
     DllCall("SETUPAPI.dll\SetupCloseInfFile", InfHandleMarshal, InfHandle)
 }
@@ -1069,11 +1108,12 @@ export SetupFindFirstLineA(InfHandle, _Section, Key, _Context) {
     _Section := _Section is String ? StrPtr(_Section) : _Section
     Key := Key is String ? StrPtr(Key) : Key
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    KeyMarshal := Key == 0 ? IntPtr : PSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupFindFirstLineA", InfHandleMarshal, InfHandle, "ptr", _Section, "ptr", Key, INFCONTEXT.Ptr, _Context, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupFindFirstLineA", InfHandleMarshal, InfHandle, "ptr", _Section, KeyMarshal, Key, INFCONTEXT.Ptr, _Context, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1107,11 +1147,12 @@ export SetupFindFirstLineW(InfHandle, _Section, Key, _Context) {
     _Section := _Section is String ? StrPtr(_Section) : _Section
     Key := Key is String ? StrPtr(Key) : Key
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    KeyMarshal := Key == 0 ? IntPtr : PWSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupFindFirstLineW", InfHandleMarshal, InfHandle, "ptr", _Section, "ptr", Key, INFCONTEXT.Ptr, _Context, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupFindFirstLineW", InfHandleMarshal, InfHandle, "ptr", _Section, KeyMarshal, Key, INFCONTEXT.Ptr, _Context, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1170,9 +1211,11 @@ export SetupFindNextLine(ContextIn, ContextOut) {
 export SetupFindNextMatchLineA(ContextIn, Key, ContextOut) {
     Key := Key is String ? StrPtr(Key) : Key
 
+    KeyMarshal := Key == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupFindNextMatchLineA", INFCONTEXT.Ptr, ContextIn, "ptr", Key, INFCONTEXT.Ptr, ContextOut, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupFindNextMatchLineA", INFCONTEXT.Ptr, ContextIn, KeyMarshal, Key, INFCONTEXT.Ptr, ContextOut, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1207,9 +1250,11 @@ export SetupFindNextMatchLineA(ContextIn, Key, ContextOut) {
 export SetupFindNextMatchLineW(ContextIn, Key, ContextOut) {
     Key := Key is String ? StrPtr(Key) : Key
 
+    KeyMarshal := Key == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupFindNextMatchLineW", INFCONTEXT.Ptr, ContextIn, "ptr", Key, INFCONTEXT.Ptr, ContextOut, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupFindNextMatchLineW", INFCONTEXT.Ptr, ContextIn, KeyMarshal, Key, INFCONTEXT.Ptr, ContextOut, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1244,7 +1289,7 @@ export SetupFindNextMatchLineW(ContextIn, Key, ContextOut) {
 export SetupGetLineByIndexA(InfHandle, _Section, Index, _Context) {
     _Section := _Section is String ? StrPtr(_Section) : _Section
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -1283,7 +1328,7 @@ export SetupGetLineByIndexA(InfHandle, _Section, Index, _Context) {
 export SetupGetLineByIndexW(InfHandle, _Section, Index, _Context) {
     _Section := _Section is String ? StrPtr(_Section) : _Section
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -1313,7 +1358,7 @@ export SetupGetLineByIndexW(InfHandle, _Section, Index, _Context) {
 export SetupGetLineCountA(InfHandle, _Section) {
     _Section := _Section is String ? StrPtr(_Section) : _Section
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -1343,7 +1388,7 @@ export SetupGetLineCountA(InfHandle, _Section) {
 export SetupGetLineCountW(InfHandle, _Section) {
     _Section := _Section is String ? StrPtr(_Section) : _Section
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -1402,12 +1447,18 @@ export SetupGetLineTextA(_Context, InfHandle, _Section, Key, ReturnBuffer, Retur
     Key := Key is String ? StrPtr(Key) : Key
     ReturnBuffer := ReturnBuffer is String ? StrPtr(ReturnBuffer) : ReturnBuffer
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    _ContextMarshal := _Context == 0 ? IntPtr : INFCONTEXT.Ptr
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    InfHandleMarshal := InfHandle == 0 ? IntPtr : "ptr"
+    _SectionMarshal := _Section == 0 ? IntPtr : PSTR
+    KeyMarshal := Key == 0 ? IntPtr : PSTR
+    ReturnBufferMarshal := ReturnBuffer == 0 ? IntPtr : PSTR
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupGetLineTextA", INFCONTEXT.Ptr, _Context, InfHandleMarshal, InfHandle, "ptr", _Section, "ptr", Key, "ptr", ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupGetLineTextA", _ContextMarshal, _Context, InfHandleMarshal, InfHandle, _SectionMarshal, _Section, KeyMarshal, Key, ReturnBufferMarshal, ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1462,12 +1513,18 @@ export SetupGetLineTextW(_Context, InfHandle, _Section, Key, ReturnBuffer, Retur
     Key := Key is String ? StrPtr(Key) : Key
     ReturnBuffer := ReturnBuffer is String ? StrPtr(ReturnBuffer) : ReturnBuffer
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    _ContextMarshal := _Context == 0 ? IntPtr : INFCONTEXT.Ptr
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    InfHandleMarshal := InfHandle == 0 ? IntPtr : "ptr"
+    _SectionMarshal := _Section == 0 ? IntPtr : PWSTR
+    KeyMarshal := Key == 0 ? IntPtr : PWSTR
+    ReturnBufferMarshal := ReturnBuffer == 0 ? IntPtr : PWSTR
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupGetLineTextW", INFCONTEXT.Ptr, _Context, InfHandleMarshal, InfHandle, "ptr", _Section, "ptr", Key, "ptr", ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupGetLineTextW", _ContextMarshal, _Context, InfHandleMarshal, InfHandle, _SectionMarshal, _Section, KeyMarshal, Key, ReturnBufferMarshal, ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1526,11 +1583,13 @@ export SetupGetFieldCount(_Context) {
 export SetupGetStringFieldA(_Context, FieldIndex, ReturnBuffer, ReturnBufferSize, RequiredSize) {
     ReturnBuffer := ReturnBuffer is String ? StrPtr(ReturnBuffer) : ReturnBuffer
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    ReturnBufferMarshal := ReturnBuffer == 0 ? IntPtr : PSTR
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupGetStringFieldA", INFCONTEXT.Ptr, _Context, UInt32, FieldIndex, "ptr", ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupGetStringFieldA", INFCONTEXT.Ptr, _Context, UInt32, FieldIndex, ReturnBufferMarshal, ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1570,11 +1629,13 @@ export SetupGetStringFieldA(_Context, FieldIndex, ReturnBuffer, ReturnBufferSize
 export SetupGetStringFieldW(_Context, FieldIndex, ReturnBuffer, ReturnBufferSize, RequiredSize) {
     ReturnBuffer := ReturnBuffer is String ? StrPtr(ReturnBuffer) : ReturnBuffer
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    ReturnBufferMarshal := ReturnBuffer == 0 ? IntPtr : PWSTR
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupGetStringFieldW", INFCONTEXT.Ptr, _Context, UInt32, FieldIndex, "ptr", ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupGetStringFieldW", INFCONTEXT.Ptr, _Context, UInt32, FieldIndex, ReturnBufferMarshal, ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1604,7 +1665,7 @@ export SetupGetStringFieldW(_Context, FieldIndex, ReturnBuffer, ReturnBufferSize
  * @since windows5.1.2600
  */
 export SetupGetIntField(_Context, FieldIndex, IntegerValue) {
-    IntegerValueMarshal := IntegerValue is VarRef ? "int*" : "ptr"
+    IntegerValueMarshal := IntegerValue is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
@@ -1647,11 +1708,13 @@ export SetupGetIntField(_Context, FieldIndex, IntegerValue) {
 export SetupGetMultiSzFieldA(_Context, FieldIndex, ReturnBuffer, ReturnBufferSize, RequiredSize) {
     ReturnBuffer := ReturnBuffer is String ? StrPtr(ReturnBuffer) : ReturnBuffer
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    ReturnBufferMarshal := ReturnBuffer == 0 ? IntPtr : PSTR
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupGetMultiSzFieldA", INFCONTEXT.Ptr, _Context, UInt32, FieldIndex, "ptr", ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupGetMultiSzFieldA", INFCONTEXT.Ptr, _Context, UInt32, FieldIndex, ReturnBufferMarshal, ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1690,11 +1753,13 @@ export SetupGetMultiSzFieldA(_Context, FieldIndex, ReturnBuffer, ReturnBufferSiz
 export SetupGetMultiSzFieldW(_Context, FieldIndex, ReturnBuffer, ReturnBufferSize, RequiredSize) {
     ReturnBuffer := ReturnBuffer is String ? StrPtr(ReturnBuffer) : ReturnBuffer
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    ReturnBufferMarshal := ReturnBuffer == 0 ? IntPtr : PWSTR
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupGetMultiSzFieldW", INFCONTEXT.Ptr, _Context, UInt32, FieldIndex, "ptr", ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupGetMultiSzFieldW", INFCONTEXT.Ptr, _Context, UInt32, FieldIndex, ReturnBufferMarshal, ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1741,11 +1806,13 @@ export SetupGetMultiSzFieldW(_Context, FieldIndex, ReturnBuffer, ReturnBufferSiz
  * @since windows5.1.2600
  */
 export SetupGetBinaryField(_Context, FieldIndex, ReturnBuffer, ReturnBufferSize, RequiredSize) {
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    ReturnBufferMarshal := ReturnBuffer == 0 ? IntPtr : IntPtr
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupGetBinaryField", INFCONTEXT.Ptr, _Context, UInt32, FieldIndex, IntPtr, ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupGetBinaryField", INFCONTEXT.Ptr, _Context, UInt32, FieldIndex, ReturnBufferMarshal, ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1807,10 +1874,10 @@ export SetupGetBinaryField(_Context, FieldIndex, ReturnBuffer, ReturnBufferSize,
 export SetupGetFileCompressionInfoA(SourceFileName, ActualSourceFileName, SourceFileSize, TargetFileSize, CompressionType) {
     SourceFileName := SourceFileName is String ? StrPtr(SourceFileName) : SourceFileName
 
-    ActualSourceFileNameMarshal := ActualSourceFileName is VarRef ? "ptr*" : "ptr"
-    SourceFileSizeMarshal := SourceFileSize is VarRef ? "uint*" : "ptr"
-    TargetFileSizeMarshal := TargetFileSize is VarRef ? "uint*" : "ptr"
-    CompressionTypeMarshal := CompressionType is VarRef ? "uint*" : "ptr"
+    ActualSourceFileNameMarshal := ActualSourceFileName is VarRef ? "ptr*" : IntPtr
+    SourceFileSizeMarshal := SourceFileSize is VarRef ? "uint*" : IntPtr
+    TargetFileSizeMarshal := TargetFileSize is VarRef ? "uint*" : IntPtr
+    CompressionTypeMarshal := CompressionType is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -1876,10 +1943,10 @@ export SetupGetFileCompressionInfoA(SourceFileName, ActualSourceFileName, Source
 export SetupGetFileCompressionInfoW(SourceFileName, ActualSourceFileName, SourceFileSize, TargetFileSize, CompressionType) {
     SourceFileName := SourceFileName is String ? StrPtr(SourceFileName) : SourceFileName
 
-    ActualSourceFileNameMarshal := ActualSourceFileName is VarRef ? "ptr*" : "ptr"
-    SourceFileSizeMarshal := SourceFileSize is VarRef ? "uint*" : "ptr"
-    TargetFileSizeMarshal := TargetFileSize is VarRef ? "uint*" : "ptr"
-    CompressionTypeMarshal := CompressionType is VarRef ? "uint*" : "ptr"
+    ActualSourceFileNameMarshal := ActualSourceFileName is VarRef ? "ptr*" : IntPtr
+    SourceFileSizeMarshal := SourceFileSize is VarRef ? "uint*" : IntPtr
+    TargetFileSizeMarshal := TargetFileSize is VarRef ? "uint*" : IntPtr
+    CompressionTypeMarshal := CompressionType is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -1924,14 +1991,16 @@ export SetupGetFileCompressionInfoExA(SourceFileName, ActualSourceFileNameBuffer
     SourceFileName := SourceFileName is String ? StrPtr(SourceFileName) : SourceFileName
     ActualSourceFileNameBuffer := ActualSourceFileNameBuffer is String ? StrPtr(ActualSourceFileNameBuffer) : ActualSourceFileNameBuffer
 
-    RequiredBufferLenMarshal := RequiredBufferLen is VarRef ? "uint*" : "ptr"
-    SourceFileSizeMarshal := SourceFileSize is VarRef ? "uint*" : "ptr"
-    TargetFileSizeMarshal := TargetFileSize is VarRef ? "uint*" : "ptr"
-    CompressionTypeMarshal := CompressionType is VarRef ? "uint*" : "ptr"
+    ActualSourceFileNameBufferMarshal := ActualSourceFileNameBuffer == 0 ? IntPtr : PSTR
+    RequiredBufferLenMarshal := RequiredBufferLen is VarRef ? "uint*" : IntPtr
+    RequiredBufferLenMarshal := RequiredBufferLen == 0 ? IntPtr : "uint*"
+    SourceFileSizeMarshal := SourceFileSize is VarRef ? "uint*" : IntPtr
+    TargetFileSizeMarshal := TargetFileSize is VarRef ? "uint*" : IntPtr
+    CompressionTypeMarshal := CompressionType is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupGetFileCompressionInfoExA", "ptr", SourceFileName, "ptr", ActualSourceFileNameBuffer, UInt32, ActualSourceFileNameBufferLen, RequiredBufferLenMarshal, RequiredBufferLen, SourceFileSizeMarshal, SourceFileSize, TargetFileSizeMarshal, TargetFileSize, CompressionTypeMarshal, CompressionType, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupGetFileCompressionInfoExA", "ptr", SourceFileName, ActualSourceFileNameBufferMarshal, ActualSourceFileNameBuffer, UInt32, ActualSourceFileNameBufferLen, RequiredBufferLenMarshal, RequiredBufferLen, SourceFileSizeMarshal, SourceFileSize, TargetFileSizeMarshal, TargetFileSize, CompressionTypeMarshal, CompressionType, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1972,14 +2041,16 @@ export SetupGetFileCompressionInfoExW(SourceFileName, ActualSourceFileNameBuffer
     SourceFileName := SourceFileName is String ? StrPtr(SourceFileName) : SourceFileName
     ActualSourceFileNameBuffer := ActualSourceFileNameBuffer is String ? StrPtr(ActualSourceFileNameBuffer) : ActualSourceFileNameBuffer
 
-    RequiredBufferLenMarshal := RequiredBufferLen is VarRef ? "uint*" : "ptr"
-    SourceFileSizeMarshal := SourceFileSize is VarRef ? "uint*" : "ptr"
-    TargetFileSizeMarshal := TargetFileSize is VarRef ? "uint*" : "ptr"
-    CompressionTypeMarshal := CompressionType is VarRef ? "uint*" : "ptr"
+    ActualSourceFileNameBufferMarshal := ActualSourceFileNameBuffer == 0 ? IntPtr : PWSTR
+    RequiredBufferLenMarshal := RequiredBufferLen is VarRef ? "uint*" : IntPtr
+    RequiredBufferLenMarshal := RequiredBufferLen == 0 ? IntPtr : "uint*"
+    SourceFileSizeMarshal := SourceFileSize is VarRef ? "uint*" : IntPtr
+    TargetFileSizeMarshal := TargetFileSize is VarRef ? "uint*" : IntPtr
+    CompressionTypeMarshal := CompressionType is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupGetFileCompressionInfoExW", "ptr", SourceFileName, "ptr", ActualSourceFileNameBuffer, UInt32, ActualSourceFileNameBufferLen, RequiredBufferLenMarshal, RequiredBufferLen, SourceFileSizeMarshal, SourceFileSize, TargetFileSizeMarshal, TargetFileSize, CompressionTypeMarshal, CompressionType, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupGetFileCompressionInfoExW", "ptr", SourceFileName, ActualSourceFileNameBufferMarshal, ActualSourceFileNameBuffer, UInt32, ActualSourceFileNameBufferLen, RequiredBufferLenMarshal, RequiredBufferLen, SourceFileSizeMarshal, SourceFileSize, TargetFileSizeMarshal, TargetFileSize, CompressionTypeMarshal, CompressionType, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2009,7 +2080,8 @@ export SetupDecompressOrCopyFileA(SourceFileName, TargetFileName, CompressionTyp
     SourceFileName := SourceFileName is String ? StrPtr(SourceFileName) : SourceFileName
     TargetFileName := TargetFileName is String ? StrPtr(TargetFileName) : TargetFileName
 
-    CompressionTypeMarshal := CompressionType is VarRef ? "uint*" : "ptr"
+    CompressionTypeMarshal := CompressionType is VarRef ? "uint*" : IntPtr
+    CompressionTypeMarshal := CompressionType == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
@@ -2043,7 +2115,8 @@ export SetupDecompressOrCopyFileW(SourceFileName, TargetFileName, CompressionTyp
     SourceFileName := SourceFileName is String ? StrPtr(SourceFileName) : SourceFileName
     TargetFileName := TargetFileName is String ? StrPtr(TargetFileName) : TargetFileName
 
-    CompressionTypeMarshal := CompressionType is VarRef ? "uint*" : "ptr"
+    CompressionTypeMarshal := CompressionType is VarRef ? "uint*" : IntPtr
+    CompressionTypeMarshal := CompressionType == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
@@ -2084,13 +2157,17 @@ export SetupGetSourceFileLocationA(InfHandle, _InfContext, FileName, SourceId, R
     FileName := FileName is String ? StrPtr(FileName) : FileName
     ReturnBuffer := ReturnBuffer is String ? StrPtr(ReturnBuffer) : ReturnBuffer
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    SourceIdMarshal := SourceId is VarRef ? "uint*" : "ptr"
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    _InfContextMarshal := _InfContext == 0 ? IntPtr : INFCONTEXT.Ptr
+    FileNameMarshal := FileName == 0 ? IntPtr : PSTR
+    SourceIdMarshal := SourceId is VarRef ? "uint*" : IntPtr
+    ReturnBufferMarshal := ReturnBuffer == 0 ? IntPtr : PSTR
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupGetSourceFileLocationA", InfHandleMarshal, InfHandle, INFCONTEXT.Ptr, _InfContext, "ptr", FileName, SourceIdMarshal, SourceId, "ptr", ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupGetSourceFileLocationA", InfHandleMarshal, InfHandle, _InfContextMarshal, _InfContext, FileNameMarshal, FileName, SourceIdMarshal, SourceId, ReturnBufferMarshal, ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2127,13 +2204,17 @@ export SetupGetSourceFileLocationW(InfHandle, _InfContext, FileName, SourceId, R
     FileName := FileName is String ? StrPtr(FileName) : FileName
     ReturnBuffer := ReturnBuffer is String ? StrPtr(ReturnBuffer) : ReturnBuffer
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    SourceIdMarshal := SourceId is VarRef ? "uint*" : "ptr"
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    _InfContextMarshal := _InfContext == 0 ? IntPtr : INFCONTEXT.Ptr
+    FileNameMarshal := FileName == 0 ? IntPtr : PWSTR
+    SourceIdMarshal := SourceId is VarRef ? "uint*" : IntPtr
+    ReturnBufferMarshal := ReturnBuffer == 0 ? IntPtr : PWSTR
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupGetSourceFileLocationW", InfHandleMarshal, InfHandle, INFCONTEXT.Ptr, _InfContext, "ptr", FileName, SourceIdMarshal, SourceId, "ptr", ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupGetSourceFileLocationW", InfHandleMarshal, InfHandle, _InfContextMarshal, _InfContext, FileNameMarshal, FileName, SourceIdMarshal, SourceId, ReturnBufferMarshal, ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2169,12 +2250,15 @@ export SetupGetSourceFileSizeA(InfHandle, _InfContext, FileName, _Section, FileS
     FileName := FileName is String ? StrPtr(FileName) : FileName
     _Section := _Section is String ? StrPtr(_Section) : _Section
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    FileSizeMarshal := FileSize is VarRef ? "uint*" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    _InfContextMarshal := _InfContext == 0 ? IntPtr : INFCONTEXT.Ptr
+    FileNameMarshal := FileName == 0 ? IntPtr : PSTR
+    _SectionMarshal := _Section == 0 ? IntPtr : PSTR
+    FileSizeMarshal := FileSize is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupGetSourceFileSizeA", InfHandleMarshal, InfHandle, INFCONTEXT.Ptr, _InfContext, "ptr", FileName, "ptr", _Section, FileSizeMarshal, FileSize, UInt32, RoundingFactor, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupGetSourceFileSizeA", InfHandleMarshal, InfHandle, _InfContextMarshal, _InfContext, FileNameMarshal, FileName, _SectionMarshal, _Section, FileSizeMarshal, FileSize, UInt32, RoundingFactor, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2210,12 +2294,15 @@ export SetupGetSourceFileSizeW(InfHandle, _InfContext, FileName, _Section, FileS
     FileName := FileName is String ? StrPtr(FileName) : FileName
     _Section := _Section is String ? StrPtr(_Section) : _Section
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    FileSizeMarshal := FileSize is VarRef ? "uint*" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    _InfContextMarshal := _InfContext == 0 ? IntPtr : INFCONTEXT.Ptr
+    FileNameMarshal := FileName == 0 ? IntPtr : PWSTR
+    _SectionMarshal := _Section == 0 ? IntPtr : PWSTR
+    FileSizeMarshal := FileSize is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupGetSourceFileSizeW", InfHandleMarshal, InfHandle, INFCONTEXT.Ptr, _InfContext, "ptr", FileName, "ptr", _Section, FileSizeMarshal, FileSize, UInt32, RoundingFactor, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupGetSourceFileSizeW", InfHandleMarshal, InfHandle, _InfContextMarshal, _InfContext, FileNameMarshal, FileName, _SectionMarshal, _Section, FileSizeMarshal, FileSize, UInt32, RoundingFactor, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2252,12 +2339,16 @@ export SetupGetTargetPathA(InfHandle, _InfContext, _Section, ReturnBuffer, Retur
     _Section := _Section is String ? StrPtr(_Section) : _Section
     ReturnBuffer := ReturnBuffer is String ? StrPtr(ReturnBuffer) : ReturnBuffer
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    _InfContextMarshal := _InfContext == 0 ? IntPtr : INFCONTEXT.Ptr
+    _SectionMarshal := _Section == 0 ? IntPtr : PSTR
+    ReturnBufferMarshal := ReturnBuffer == 0 ? IntPtr : PSTR
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupGetTargetPathA", InfHandleMarshal, InfHandle, INFCONTEXT.Ptr, _InfContext, "ptr", _Section, "ptr", ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupGetTargetPathA", InfHandleMarshal, InfHandle, _InfContextMarshal, _InfContext, _SectionMarshal, _Section, ReturnBufferMarshal, ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2294,12 +2385,16 @@ export SetupGetTargetPathW(InfHandle, _InfContext, _Section, ReturnBuffer, Retur
     _Section := _Section is String ? StrPtr(_Section) : _Section
     ReturnBuffer := ReturnBuffer is String ? StrPtr(ReturnBuffer) : ReturnBuffer
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    _InfContextMarshal := _InfContext == 0 ? IntPtr : INFCONTEXT.Ptr
+    _SectionMarshal := _Section == 0 ? IntPtr : PWSTR
+    ReturnBufferMarshal := ReturnBuffer == 0 ? IntPtr : PWSTR
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupGetTargetPathW", InfHandleMarshal, InfHandle, INFCONTEXT.Ptr, _InfContext, "ptr", _Section, "ptr", ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupGetTargetPathW", InfHandleMarshal, InfHandle, _InfContextMarshal, _InfContext, _SectionMarshal, _Section, ReturnBufferMarshal, ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2323,7 +2418,7 @@ export SetupGetTargetPathW(InfHandle, _InfContext, _Section, ReturnBuffer, Retur
  * @since windows5.1.2600
  */
 export SetupSetSourceListA(Flags, SourceList, SourceCount) {
-    SourceListMarshal := SourceList is VarRef ? "ptr*" : "ptr"
+    SourceListMarshal := SourceList is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -2351,7 +2446,7 @@ export SetupSetSourceListA(Flags, SourceList, SourceCount) {
  * @since windows5.1.2600
  */
 export SetupSetSourceListW(Flags, SourceList, SourceCount) {
-    SourceListMarshal := SourceList is VarRef ? "ptr*" : "ptr"
+    SourceListMarshal := SourceList is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -2506,8 +2601,8 @@ export SetupRemoveFromSourceListW(Flags, Source) {
  * @since windows5.1.2600
  */
 export SetupQuerySourceListA(Flags, List, Count) {
-    ListMarshal := List is VarRef ? "ptr*" : "ptr"
-    CountMarshal := Count is VarRef ? "uint*" : "ptr"
+    ListMarshal := List is VarRef ? "ptr*" : IntPtr
+    CountMarshal := Count is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -2536,8 +2631,8 @@ export SetupQuerySourceListA(Flags, List, Count) {
  * @since windows5.1.2600
  */
 export SetupQuerySourceListW(Flags, List, Count) {
-    ListMarshal := List is VarRef ? "ptr*" : "ptr"
-    CountMarshal := Count is VarRef ? "uint*" : "ptr"
+    ListMarshal := List is VarRef ? "ptr*" : IntPtr
+    CountMarshal := Count is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -2565,7 +2660,7 @@ export SetupQuerySourceListW(Flags, List, Count) {
  * @since windows5.1.2600
  */
 export SetupFreeSourceListA(List, Count) {
-    ListMarshal := List is VarRef ? "ptr*" : "ptr"
+    ListMarshal := List is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -2593,7 +2688,7 @@ export SetupFreeSourceListA(List, Count) {
  * @since windows5.1.2600
  */
 export SetupFreeSourceListW(List, Count) {
-    ListMarshal := List is VarRef ? "ptr*" : "ptr"
+    ListMarshal := List is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -2651,11 +2746,17 @@ export SetupPromptForDiskA(hwndParent, DialogTitle, DiskName, PathToSource, File
     TagFile := TagFile is String ? StrPtr(TagFile) : TagFile
     PathBuffer := PathBuffer is String ? StrPtr(PathBuffer) : PathBuffer
 
-    PathRequiredSizeMarshal := PathRequiredSize is VarRef ? "uint*" : "ptr"
+    DialogTitleMarshal := DialogTitle == 0 ? IntPtr : PSTR
+    DiskNameMarshal := DiskName == 0 ? IntPtr : PSTR
+    PathToSourceMarshal := PathToSource == 0 ? IntPtr : PSTR
+    TagFileMarshal := TagFile == 0 ? IntPtr : PSTR
+    PathBufferMarshal := PathBuffer == 0 ? IntPtr : PSTR
+    PathRequiredSizeMarshal := PathRequiredSize is VarRef ? "uint*" : IntPtr
+    PathRequiredSizeMarshal := PathRequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupPromptForDiskA", HWND, hwndParent, "ptr", DialogTitle, "ptr", DiskName, "ptr", PathToSource, "ptr", FileSought, "ptr", TagFile, UInt32, DiskPromptStyle, "ptr", PathBuffer, UInt32, PathBufferSize, PathRequiredSizeMarshal, PathRequiredSize, UInt32)
+    result := DllCall("SETUPAPI.dll\SetupPromptForDiskA", HWND, hwndParent, DialogTitleMarshal, DialogTitle, DiskNameMarshal, DiskName, PathToSourceMarshal, PathToSource, "ptr", FileSought, TagFileMarshal, TagFile, UInt32, DiskPromptStyle, PathBufferMarshal, PathBuffer, UInt32, PathBufferSize, PathRequiredSizeMarshal, PathRequiredSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2709,11 +2810,17 @@ export SetupPromptForDiskW(hwndParent, DialogTitle, DiskName, PathToSource, File
     TagFile := TagFile is String ? StrPtr(TagFile) : TagFile
     PathBuffer := PathBuffer is String ? StrPtr(PathBuffer) : PathBuffer
 
-    PathRequiredSizeMarshal := PathRequiredSize is VarRef ? "uint*" : "ptr"
+    DialogTitleMarshal := DialogTitle == 0 ? IntPtr : PWSTR
+    DiskNameMarshal := DiskName == 0 ? IntPtr : PWSTR
+    PathToSourceMarshal := PathToSource == 0 ? IntPtr : PWSTR
+    TagFileMarshal := TagFile == 0 ? IntPtr : PWSTR
+    PathBufferMarshal := PathBuffer == 0 ? IntPtr : PWSTR
+    PathRequiredSizeMarshal := PathRequiredSize is VarRef ? "uint*" : IntPtr
+    PathRequiredSizeMarshal := PathRequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupPromptForDiskW", HWND, hwndParent, "ptr", DialogTitle, "ptr", DiskName, "ptr", PathToSource, "ptr", FileSought, "ptr", TagFile, UInt32, DiskPromptStyle, "ptr", PathBuffer, UInt32, PathBufferSize, PathRequiredSizeMarshal, PathRequiredSize, UInt32)
+    result := DllCall("SETUPAPI.dll\SetupPromptForDiskW", HWND, hwndParent, DialogTitleMarshal, DialogTitle, DiskNameMarshal, DiskName, PathToSourceMarshal, PathToSource, "ptr", FileSought, TagFileMarshal, TagFile, UInt32, DiskPromptStyle, PathBufferMarshal, PathBuffer, UInt32, PathBufferSize, PathRequiredSizeMarshal, PathRequiredSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2781,11 +2888,16 @@ export SetupCopyErrorA(hwndParent, DialogTitle, DiskName, PathToSource, _SourceF
     TargetPathFile := TargetPathFile is String ? StrPtr(TargetPathFile) : TargetPathFile
     PathBuffer := PathBuffer is String ? StrPtr(PathBuffer) : PathBuffer
 
-    PathRequiredSizeMarshal := PathRequiredSize is VarRef ? "uint*" : "ptr"
+    DialogTitleMarshal := DialogTitle == 0 ? IntPtr : PSTR
+    DiskNameMarshal := DiskName == 0 ? IntPtr : PSTR
+    TargetPathFileMarshal := TargetPathFile == 0 ? IntPtr : PSTR
+    PathBufferMarshal := PathBuffer == 0 ? IntPtr : PSTR
+    PathRequiredSizeMarshal := PathRequiredSize is VarRef ? "uint*" : IntPtr
+    PathRequiredSizeMarshal := PathRequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupCopyErrorA", HWND, hwndParent, "ptr", DialogTitle, "ptr", DiskName, "ptr", PathToSource, "ptr", _SourceFile, "ptr", TargetPathFile, UInt32, Win32ErrorCode, UInt32, Style, "ptr", PathBuffer, UInt32, PathBufferSize, PathRequiredSizeMarshal, PathRequiredSize, UInt32)
+    result := DllCall("SETUPAPI.dll\SetupCopyErrorA", HWND, hwndParent, DialogTitleMarshal, DialogTitle, DiskNameMarshal, DiskName, "ptr", PathToSource, "ptr", _SourceFile, TargetPathFileMarshal, TargetPathFile, UInt32, Win32ErrorCode, UInt32, Style, PathBufferMarshal, PathBuffer, UInt32, PathBufferSize, PathRequiredSizeMarshal, PathRequiredSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2853,11 +2965,16 @@ export SetupCopyErrorW(hwndParent, DialogTitle, DiskName, PathToSource, _SourceF
     TargetPathFile := TargetPathFile is String ? StrPtr(TargetPathFile) : TargetPathFile
     PathBuffer := PathBuffer is String ? StrPtr(PathBuffer) : PathBuffer
 
-    PathRequiredSizeMarshal := PathRequiredSize is VarRef ? "uint*" : "ptr"
+    DialogTitleMarshal := DialogTitle == 0 ? IntPtr : PWSTR
+    DiskNameMarshal := DiskName == 0 ? IntPtr : PWSTR
+    TargetPathFileMarshal := TargetPathFile == 0 ? IntPtr : PWSTR
+    PathBufferMarshal := PathBuffer == 0 ? IntPtr : PWSTR
+    PathRequiredSizeMarshal := PathRequiredSize is VarRef ? "uint*" : IntPtr
+    PathRequiredSizeMarshal := PathRequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupCopyErrorW", HWND, hwndParent, "ptr", DialogTitle, "ptr", DiskName, "ptr", PathToSource, "ptr", _SourceFile, "ptr", TargetPathFile, UInt32, Win32ErrorCode, UInt32, Style, "ptr", PathBuffer, UInt32, PathBufferSize, PathRequiredSizeMarshal, PathRequiredSize, UInt32)
+    result := DllCall("SETUPAPI.dll\SetupCopyErrorW", HWND, hwndParent, DialogTitleMarshal, DialogTitle, DiskNameMarshal, DiskName, "ptr", PathToSource, "ptr", _SourceFile, TargetPathFileMarshal, TargetPathFile, UInt32, Win32ErrorCode, UInt32, Style, PathBufferMarshal, PathBuffer, UInt32, PathBufferSize, PathRequiredSizeMarshal, PathRequiredSize, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2888,9 +3005,11 @@ export SetupRenameErrorA(hwndParent, DialogTitle, _SourceFile, TargetFile, Win32
     _SourceFile := _SourceFile is String ? StrPtr(_SourceFile) : _SourceFile
     TargetFile := TargetFile is String ? StrPtr(TargetFile) : TargetFile
 
+    DialogTitleMarshal := DialogTitle == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupRenameErrorA", HWND, hwndParent, "ptr", DialogTitle, "ptr", _SourceFile, "ptr", TargetFile, UInt32, Win32ErrorCode, UInt32, Style, UInt32)
+    result := DllCall("SETUPAPI.dll\SetupRenameErrorA", HWND, hwndParent, DialogTitleMarshal, DialogTitle, "ptr", _SourceFile, "ptr", TargetFile, UInt32, Win32ErrorCode, UInt32, Style, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2921,9 +3040,11 @@ export SetupRenameErrorW(hwndParent, DialogTitle, _SourceFile, TargetFile, Win32
     _SourceFile := _SourceFile is String ? StrPtr(_SourceFile) : _SourceFile
     TargetFile := TargetFile is String ? StrPtr(TargetFile) : TargetFile
 
+    DialogTitleMarshal := DialogTitle == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupRenameErrorW", HWND, hwndParent, "ptr", DialogTitle, "ptr", _SourceFile, "ptr", TargetFile, UInt32, Win32ErrorCode, UInt32, Style, UInt32)
+    result := DllCall("SETUPAPI.dll\SetupRenameErrorW", HWND, hwndParent, DialogTitleMarshal, DialogTitle, "ptr", _SourceFile, "ptr", TargetFile, UInt32, Win32ErrorCode, UInt32, Style, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2952,9 +3073,11 @@ export SetupDeleteErrorA(hwndParent, DialogTitle, _File, Win32ErrorCode, Style) 
     DialogTitle := DialogTitle is String ? StrPtr(DialogTitle) : DialogTitle
     _File := _File is String ? StrPtr(_File) : _File
 
+    DialogTitleMarshal := DialogTitle == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDeleteErrorA", HWND, hwndParent, "ptr", DialogTitle, "ptr", _File, UInt32, Win32ErrorCode, UInt32, Style, UInt32)
+    result := DllCall("SETUPAPI.dll\SetupDeleteErrorA", HWND, hwndParent, DialogTitleMarshal, DialogTitle, "ptr", _File, UInt32, Win32ErrorCode, UInt32, Style, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2983,9 +3106,11 @@ export SetupDeleteErrorW(hwndParent, DialogTitle, _File, Win32ErrorCode, Style) 
     DialogTitle := DialogTitle is String ? StrPtr(DialogTitle) : DialogTitle
     _File := _File is String ? StrPtr(_File) : _File
 
+    DialogTitleMarshal := DialogTitle == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDeleteErrorW", HWND, hwndParent, "ptr", DialogTitle, "ptr", _File, UInt32, Win32ErrorCode, UInt32, Style, UInt32)
+    result := DllCall("SETUPAPI.dll\SetupDeleteErrorW", HWND, hwndParent, DialogTitleMarshal, DialogTitle, "ptr", _File, UInt32, Win32ErrorCode, UInt32, Style, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3016,9 +3141,12 @@ export SetupBackupErrorA(hwndParent, DialogTitle, _SourceFile, TargetFile, Win32
     _SourceFile := _SourceFile is String ? StrPtr(_SourceFile) : _SourceFile
     TargetFile := TargetFile is String ? StrPtr(TargetFile) : TargetFile
 
+    DialogTitleMarshal := DialogTitle == 0 ? IntPtr : PSTR
+    TargetFileMarshal := TargetFile == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupBackupErrorA", HWND, hwndParent, "ptr", DialogTitle, "ptr", _SourceFile, "ptr", TargetFile, UInt32, Win32ErrorCode, UInt32, Style, UInt32)
+    result := DllCall("SETUPAPI.dll\SetupBackupErrorA", HWND, hwndParent, DialogTitleMarshal, DialogTitle, "ptr", _SourceFile, TargetFileMarshal, TargetFile, UInt32, Win32ErrorCode, UInt32, Style, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3049,9 +3177,12 @@ export SetupBackupErrorW(hwndParent, DialogTitle, _SourceFile, TargetFile, Win32
     _SourceFile := _SourceFile is String ? StrPtr(_SourceFile) : _SourceFile
     TargetFile := TargetFile is String ? StrPtr(TargetFile) : TargetFile
 
+    DialogTitleMarshal := DialogTitle == 0 ? IntPtr : PWSTR
+    TargetFileMarshal := TargetFile == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupBackupErrorW", HWND, hwndParent, "ptr", DialogTitle, "ptr", _SourceFile, "ptr", TargetFile, UInt32, Win32ErrorCode, UInt32, Style, UInt32)
+    result := DllCall("SETUPAPI.dll\SetupBackupErrorW", HWND, hwndParent, DialogTitleMarshal, DialogTitle, "ptr", _SourceFile, TargetFileMarshal, TargetFile, UInt32, Win32ErrorCode, UInt32, Style, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3088,11 +3219,12 @@ export SetupBackupErrorW(hwndParent, DialogTitle, _SourceFile, TargetFile, Win32
 export SetupSetDirectoryIdA(InfHandle, Id, Directory) {
     Directory := Directory is String ? StrPtr(Directory) : Directory
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    DirectoryMarshal := Directory == 0 ? IntPtr : PSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupSetDirectoryIdA", InfHandleMarshal, InfHandle, UInt32, Id, "ptr", Directory, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupSetDirectoryIdA", InfHandleMarshal, InfHandle, UInt32, Id, DirectoryMarshal, Directory, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3129,11 +3261,12 @@ export SetupSetDirectoryIdA(InfHandle, Id, Directory) {
 export SetupSetDirectoryIdW(InfHandle, Id, Directory) {
     Directory := Directory is String ? StrPtr(Directory) : Directory
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    DirectoryMarshal := Directory == 0 ? IntPtr : PWSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupSetDirectoryIdW", InfHandleMarshal, InfHandle, UInt32, Id, "ptr", Directory, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupSetDirectoryIdW", InfHandleMarshal, InfHandle, UInt32, Id, DirectoryMarshal, Directory, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3173,11 +3306,12 @@ export SetupSetDirectoryIdExA(InfHandle, Id, Directory, Flags) {
 
     Directory := Directory is String ? StrPtr(Directory) : Directory
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    DirectoryMarshal := Directory == 0 ? IntPtr : PSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupSetDirectoryIdExA", InfHandleMarshal, InfHandle, UInt32, Id, "ptr", Directory, UInt32, Flags, UInt32, Reserved1, "ptr", Reserved2, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupSetDirectoryIdExA", InfHandleMarshal, InfHandle, UInt32, Id, DirectoryMarshal, Directory, UInt32, Flags, UInt32, Reserved1, "ptr", Reserved2, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3217,11 +3351,12 @@ export SetupSetDirectoryIdExW(InfHandle, Id, Directory, Flags) {
 
     Directory := Directory is String ? StrPtr(Directory) : Directory
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    DirectoryMarshal := Directory == 0 ? IntPtr : PWSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupSetDirectoryIdExW", InfHandleMarshal, InfHandle, UInt32, Id, "ptr", Directory, UInt32, Flags, UInt32, Reserved1, "ptr", Reserved2, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupSetDirectoryIdExW", InfHandleMarshal, InfHandle, UInt32, Id, DirectoryMarshal, Directory, UInt32, Flags, UInt32, Reserved1, "ptr", Reserved2, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3257,12 +3392,14 @@ export SetupSetDirectoryIdExW(InfHandle, Id, Directory, Flags) {
 export SetupGetSourceInfoA(InfHandle, SourceId, InfoDesired, ReturnBuffer, ReturnBufferSize, RequiredSize) {
     ReturnBuffer := ReturnBuffer is String ? StrPtr(ReturnBuffer) : ReturnBuffer
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    ReturnBufferMarshal := ReturnBuffer == 0 ? IntPtr : PSTR
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupGetSourceInfoA", InfHandleMarshal, InfHandle, UInt32, SourceId, UInt32, InfoDesired, "ptr", ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupGetSourceInfoA", InfHandleMarshal, InfHandle, UInt32, SourceId, UInt32, InfoDesired, ReturnBufferMarshal, ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3298,12 +3435,14 @@ export SetupGetSourceInfoA(InfHandle, SourceId, InfoDesired, ReturnBuffer, Retur
 export SetupGetSourceInfoW(InfHandle, SourceId, InfoDesired, ReturnBuffer, ReturnBufferSize, RequiredSize) {
     ReturnBuffer := ReturnBuffer is String ? StrPtr(ReturnBuffer) : ReturnBuffer
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    ReturnBufferMarshal := ReturnBuffer == 0 ? IntPtr : PWSTR
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupGetSourceInfoW", InfHandleMarshal, InfHandle, UInt32, SourceId, UInt32, InfoDesired, "ptr", ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupGetSourceInfoW", InfHandleMarshal, InfHandle, UInt32, SourceId, UInt32, InfoDesired, ReturnBufferMarshal, ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3345,12 +3484,19 @@ export SetupInstallFileA(InfHandle, _InfContext, _SourceFile, SourcePathRoot, De
     SourcePathRoot := SourcePathRoot is String ? StrPtr(SourcePathRoot) : SourcePathRoot
     DestinationName := DestinationName is String ? StrPtr(DestinationName) : DestinationName
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    InfHandleMarshal := InfHandle == 0 ? IntPtr : "ptr"
+    _InfContextMarshal := _InfContext == 0 ? IntPtr : INFCONTEXT.Ptr
+    _SourceFileMarshal := _SourceFile == 0 ? IntPtr : PSTR
+    SourcePathRootMarshal := SourcePathRoot == 0 ? IntPtr : PSTR
+    DestinationNameMarshal := DestinationName == 0 ? IntPtr : PSTR
+    CopyMsgHandlerMarshal := CopyMsgHandler == 0 ? IntPtr : PSP_FILE_CALLBACK_A
+    _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+    _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupInstallFileA", InfHandleMarshal, InfHandle, INFCONTEXT.Ptr, _InfContext, "ptr", _SourceFile, "ptr", SourcePathRoot, "ptr", DestinationName, SP_COPY_STYLE, CopyStyle, PSP_FILE_CALLBACK_A, CopyMsgHandler, _ContextMarshal, _Context, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupInstallFileA", InfHandleMarshal, InfHandle, _InfContextMarshal, _InfContext, _SourceFileMarshal, _SourceFile, SourcePathRootMarshal, SourcePathRoot, DestinationNameMarshal, DestinationName, SP_COPY_STYLE, CopyStyle, CopyMsgHandlerMarshal, CopyMsgHandler, _ContextMarshal, _Context, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3392,12 +3538,19 @@ export SetupInstallFileW(InfHandle, _InfContext, _SourceFile, SourcePathRoot, De
     SourcePathRoot := SourcePathRoot is String ? StrPtr(SourcePathRoot) : SourcePathRoot
     DestinationName := DestinationName is String ? StrPtr(DestinationName) : DestinationName
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    InfHandleMarshal := InfHandle == 0 ? IntPtr : "ptr"
+    _InfContextMarshal := _InfContext == 0 ? IntPtr : INFCONTEXT.Ptr
+    _SourceFileMarshal := _SourceFile == 0 ? IntPtr : PWSTR
+    SourcePathRootMarshal := SourcePathRoot == 0 ? IntPtr : PWSTR
+    DestinationNameMarshal := DestinationName == 0 ? IntPtr : PWSTR
+    CopyMsgHandlerMarshal := CopyMsgHandler == 0 ? IntPtr : PSP_FILE_CALLBACK_W
+    _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+    _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupInstallFileW", InfHandleMarshal, InfHandle, INFCONTEXT.Ptr, _InfContext, "ptr", _SourceFile, "ptr", SourcePathRoot, "ptr", DestinationName, SP_COPY_STYLE, CopyStyle, PSP_FILE_CALLBACK_W, CopyMsgHandler, _ContextMarshal, _Context, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupInstallFileW", InfHandleMarshal, InfHandle, _InfContextMarshal, _InfContext, _SourceFileMarshal, _SourceFile, SourcePathRootMarshal, SourcePathRoot, DestinationNameMarshal, DestinationName, SP_COPY_STYLE, CopyStyle, CopyMsgHandlerMarshal, CopyMsgHandler, _ContextMarshal, _Context, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3442,13 +3595,20 @@ export SetupInstallFileExA(InfHandle, _InfContext, _SourceFile, SourcePathRoot, 
     SourcePathRoot := SourcePathRoot is String ? StrPtr(SourcePathRoot) : SourcePathRoot
     DestinationName := DestinationName is String ? StrPtr(DestinationName) : DestinationName
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-    FileWasInUseMarshal := FileWasInUse is VarRef ? "int*" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    InfHandleMarshal := InfHandle == 0 ? IntPtr : "ptr"
+    _InfContextMarshal := _InfContext == 0 ? IntPtr : INFCONTEXT.Ptr
+    _SourceFileMarshal := _SourceFile == 0 ? IntPtr : PSTR
+    SourcePathRootMarshal := SourcePathRoot == 0 ? IntPtr : PSTR
+    DestinationNameMarshal := DestinationName == 0 ? IntPtr : PSTR
+    CopyMsgHandlerMarshal := CopyMsgHandler == 0 ? IntPtr : PSP_FILE_CALLBACK_A
+    _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+    _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
+    FileWasInUseMarshal := FileWasInUse is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupInstallFileExA", InfHandleMarshal, InfHandle, INFCONTEXT.Ptr, _InfContext, "ptr", _SourceFile, "ptr", SourcePathRoot, "ptr", DestinationName, SP_COPY_STYLE, CopyStyle, PSP_FILE_CALLBACK_A, CopyMsgHandler, _ContextMarshal, _Context, FileWasInUseMarshal, FileWasInUse, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupInstallFileExA", InfHandleMarshal, InfHandle, _InfContextMarshal, _InfContext, _SourceFileMarshal, _SourceFile, SourcePathRootMarshal, SourcePathRoot, DestinationNameMarshal, DestinationName, SP_COPY_STYLE, CopyStyle, CopyMsgHandlerMarshal, CopyMsgHandler, _ContextMarshal, _Context, FileWasInUseMarshal, FileWasInUse, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3493,13 +3653,20 @@ export SetupInstallFileExW(InfHandle, _InfContext, _SourceFile, SourcePathRoot, 
     SourcePathRoot := SourcePathRoot is String ? StrPtr(SourcePathRoot) : SourcePathRoot
     DestinationName := DestinationName is String ? StrPtr(DestinationName) : DestinationName
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-    FileWasInUseMarshal := FileWasInUse is VarRef ? "int*" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    InfHandleMarshal := InfHandle == 0 ? IntPtr : "ptr"
+    _InfContextMarshal := _InfContext == 0 ? IntPtr : INFCONTEXT.Ptr
+    _SourceFileMarshal := _SourceFile == 0 ? IntPtr : PWSTR
+    SourcePathRootMarshal := SourcePathRoot == 0 ? IntPtr : PWSTR
+    DestinationNameMarshal := DestinationName == 0 ? IntPtr : PWSTR
+    CopyMsgHandlerMarshal := CopyMsgHandler == 0 ? IntPtr : PSP_FILE_CALLBACK_W
+    _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+    _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
+    FileWasInUseMarshal := FileWasInUse is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupInstallFileExW", InfHandleMarshal, InfHandle, INFCONTEXT.Ptr, _InfContext, "ptr", _SourceFile, "ptr", SourcePathRoot, "ptr", DestinationName, SP_COPY_STYLE, CopyStyle, PSP_FILE_CALLBACK_W, CopyMsgHandler, _ContextMarshal, _Context, FileWasInUseMarshal, FileWasInUse, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupInstallFileExW", InfHandleMarshal, InfHandle, _InfContextMarshal, _InfContext, _SourceFileMarshal, _SourceFile, SourcePathRootMarshal, SourcePathRoot, DestinationNameMarshal, DestinationName, SP_COPY_STYLE, CopyStyle, CopyMsgHandlerMarshal, CopyMsgHandler, _ContextMarshal, _Context, FileWasInUseMarshal, FileWasInUse, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3541,7 +3708,7 @@ export SetupOpenFileQueue() {
  * @since windows5.1.2600
  */
 export SetupCloseFileQueue(QueueHandle) {
-    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : "ptr"
+    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : IntPtr
 
     result := DllCall("SETUPAPI.dll\SetupCloseFileQueue", QueueHandleMarshal, QueueHandle, BOOL)
     return result
@@ -3565,11 +3732,13 @@ export SetupCloseFileQueue(QueueHandle) {
 export SetupSetFileQueueAlternatePlatformA(QueueHandle, AlternatePlatformInfo, AlternateDefaultCatalogFile) {
     AlternateDefaultCatalogFile := AlternateDefaultCatalogFile is String ? StrPtr(AlternateDefaultCatalogFile) : AlternateDefaultCatalogFile
 
-    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : "ptr"
+    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : IntPtr
+    AlternatePlatformInfoMarshal := AlternatePlatformInfo == 0 ? IntPtr : SP_ALTPLATFORM_INFO_V2.Ptr
+    AlternateDefaultCatalogFileMarshal := AlternateDefaultCatalogFile == 0 ? IntPtr : PSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupSetFileQueueAlternatePlatformA", QueueHandleMarshal, QueueHandle, SP_ALTPLATFORM_INFO_V2.Ptr, AlternatePlatformInfo, "ptr", AlternateDefaultCatalogFile, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupSetFileQueueAlternatePlatformA", QueueHandleMarshal, QueueHandle, AlternatePlatformInfoMarshal, AlternatePlatformInfo, AlternateDefaultCatalogFileMarshal, AlternateDefaultCatalogFile, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3595,11 +3764,13 @@ export SetupSetFileQueueAlternatePlatformA(QueueHandle, AlternatePlatformInfo, A
 export SetupSetFileQueueAlternatePlatformW(QueueHandle, AlternatePlatformInfo, AlternateDefaultCatalogFile) {
     AlternateDefaultCatalogFile := AlternateDefaultCatalogFile is String ? StrPtr(AlternateDefaultCatalogFile) : AlternateDefaultCatalogFile
 
-    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : "ptr"
+    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : IntPtr
+    AlternatePlatformInfoMarshal := AlternatePlatformInfo == 0 ? IntPtr : SP_ALTPLATFORM_INFO_V2.Ptr
+    AlternateDefaultCatalogFileMarshal := AlternateDefaultCatalogFile == 0 ? IntPtr : PWSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupSetFileQueueAlternatePlatformW", QueueHandleMarshal, QueueHandle, SP_ALTPLATFORM_INFO_V2.Ptr, AlternatePlatformInfo, "ptr", AlternateDefaultCatalogFile, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupSetFileQueueAlternatePlatformW", QueueHandleMarshal, QueueHandle, AlternatePlatformInfoMarshal, AlternatePlatformInfo, AlternateDefaultCatalogFileMarshal, AlternateDefaultCatalogFile, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3637,9 +3808,11 @@ export SetupSetFileQueueAlternatePlatformW(QueueHandle, AlternatePlatformInfo, A
 export SetupSetPlatformPathOverrideA(Override) {
     Override := Override is String ? StrPtr(Override) : Override
 
+    OverrideMarshal := Override == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupSetPlatformPathOverrideA", "ptr", Override, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupSetPlatformPathOverrideA", OverrideMarshal, Override, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3677,9 +3850,11 @@ export SetupSetPlatformPathOverrideA(Override) {
 export SetupSetPlatformPathOverrideW(Override) {
     Override := Override is String ? StrPtr(Override) : Override
 
+    OverrideMarshal := Override == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupSetPlatformPathOverrideW", "ptr", Override, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupSetPlatformPathOverrideW", OverrideMarshal, Override, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3724,11 +3899,16 @@ export SetupQueueCopyA(QueueHandle, SourceRootPath, SourcePath, SourceFilename, 
     TargetDirectory := TargetDirectory is String ? StrPtr(TargetDirectory) : TargetDirectory
     TargetFilename := TargetFilename is String ? StrPtr(TargetFilename) : TargetFilename
 
-    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : "ptr"
+    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : IntPtr
+    SourceRootPathMarshal := SourceRootPath == 0 ? IntPtr : PSTR
+    SourcePathMarshal := SourcePath == 0 ? IntPtr : PSTR
+    SourceDescriptionMarshal := SourceDescription == 0 ? IntPtr : PSTR
+    SourceTagfileMarshal := SourceTagfile == 0 ? IntPtr : PSTR
+    TargetFilenameMarshal := TargetFilename == 0 ? IntPtr : PSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupQueueCopyA", QueueHandleMarshal, QueueHandle, "ptr", SourceRootPath, "ptr", SourcePath, "ptr", SourceFilename, "ptr", SourceDescription, "ptr", SourceTagfile, "ptr", TargetDirectory, "ptr", TargetFilename, UInt32, CopyStyle, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupQueueCopyA", QueueHandleMarshal, QueueHandle, SourceRootPathMarshal, SourceRootPath, SourcePathMarshal, SourcePath, "ptr", SourceFilename, SourceDescriptionMarshal, SourceDescription, SourceTagfileMarshal, SourceTagfile, "ptr", TargetDirectory, TargetFilenameMarshal, TargetFilename, UInt32, CopyStyle, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3773,11 +3953,16 @@ export SetupQueueCopyW(QueueHandle, SourceRootPath, SourcePath, SourceFilename, 
     TargetDirectory := TargetDirectory is String ? StrPtr(TargetDirectory) : TargetDirectory
     TargetFilename := TargetFilename is String ? StrPtr(TargetFilename) : TargetFilename
 
-    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : "ptr"
+    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : IntPtr
+    SourceRootPathMarshal := SourceRootPath == 0 ? IntPtr : PWSTR
+    SourcePathMarshal := SourcePath == 0 ? IntPtr : PWSTR
+    SourceDescriptionMarshal := SourceDescription == 0 ? IntPtr : PWSTR
+    SourceTagfileMarshal := SourceTagfile == 0 ? IntPtr : PWSTR
+    TargetFilenameMarshal := TargetFilename == 0 ? IntPtr : PWSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupQueueCopyW", QueueHandleMarshal, QueueHandle, "ptr", SourceRootPath, "ptr", SourcePath, "ptr", SourceFilename, "ptr", SourceDescription, "ptr", SourceTagfile, "ptr", TargetDirectory, "ptr", TargetFilename, UInt32, CopyStyle, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupQueueCopyW", QueueHandleMarshal, QueueHandle, SourceRootPathMarshal, SourceRootPath, SourcePathMarshal, SourcePath, "ptr", SourceFilename, SourceDescriptionMarshal, SourceDescription, SourceTagfileMarshal, SourceTagfile, "ptr", TargetDirectory, TargetFilenameMarshal, TargetFilename, UInt32, CopyStyle, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3879,12 +4064,14 @@ export SetupQueueDefaultCopyA(QueueHandle, InfHandle, SourceRootPath, SourceFile
     SourceFilename := SourceFilename is String ? StrPtr(SourceFilename) : SourceFilename
     TargetFilename := TargetFilename is String ? StrPtr(TargetFilename) : TargetFilename
 
-    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : "ptr"
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
+    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : IntPtr
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    SourceRootPathMarshal := SourceRootPath == 0 ? IntPtr : PSTR
+    TargetFilenameMarshal := TargetFilename == 0 ? IntPtr : PSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupQueueDefaultCopyA", QueueHandleMarshal, QueueHandle, InfHandleMarshal, InfHandle, "ptr", SourceRootPath, "ptr", SourceFilename, "ptr", TargetFilename, UInt32, CopyStyle, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupQueueDefaultCopyA", QueueHandleMarshal, QueueHandle, InfHandleMarshal, InfHandle, SourceRootPathMarshal, SourceRootPath, "ptr", SourceFilename, TargetFilenameMarshal, TargetFilename, UInt32, CopyStyle, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3926,12 +4113,14 @@ export SetupQueueDefaultCopyW(QueueHandle, InfHandle, SourceRootPath, SourceFile
     SourceFilename := SourceFilename is String ? StrPtr(SourceFilename) : SourceFilename
     TargetFilename := TargetFilename is String ? StrPtr(TargetFilename) : TargetFilename
 
-    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : "ptr"
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
+    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : IntPtr
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    SourceRootPathMarshal := SourceRootPath == 0 ? IntPtr : PWSTR
+    TargetFilenameMarshal := TargetFilename == 0 ? IntPtr : PWSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupQueueDefaultCopyW", QueueHandleMarshal, QueueHandle, InfHandleMarshal, InfHandle, "ptr", SourceRootPath, "ptr", SourceFilename, "ptr", TargetFilename, UInt32, CopyStyle, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupQueueDefaultCopyW", QueueHandleMarshal, QueueHandle, InfHandleMarshal, InfHandle, SourceRootPathMarshal, SourceRootPath, "ptr", SourceFilename, TargetFilenameMarshal, TargetFilename, UInt32, CopyStyle, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3970,13 +4159,15 @@ export SetupQueueCopySectionA(QueueHandle, SourceRootPath, InfHandle, ListInfHan
     SourceRootPath := SourceRootPath is String ? StrPtr(SourceRootPath) : SourceRootPath
     _Section := _Section is String ? StrPtr(_Section) : _Section
 
-    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : "ptr"
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    ListInfHandleMarshal := ListInfHandle is VarRef ? "ptr" : "ptr"
+    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : IntPtr
+    SourceRootPathMarshal := SourceRootPath == 0 ? IntPtr : PSTR
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    ListInfHandleMarshal := ListInfHandle is VarRef ? "ptr" : IntPtr
+    ListInfHandleMarshal := ListInfHandle == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupQueueCopySectionA", QueueHandleMarshal, QueueHandle, "ptr", SourceRootPath, InfHandleMarshal, InfHandle, ListInfHandleMarshal, ListInfHandle, "ptr", _Section, UInt32, CopyStyle, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupQueueCopySectionA", QueueHandleMarshal, QueueHandle, SourceRootPathMarshal, SourceRootPath, InfHandleMarshal, InfHandle, ListInfHandleMarshal, ListInfHandle, "ptr", _Section, UInt32, CopyStyle, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4015,13 +4206,15 @@ export SetupQueueCopySectionW(QueueHandle, SourceRootPath, InfHandle, ListInfHan
     SourceRootPath := SourceRootPath is String ? StrPtr(SourceRootPath) : SourceRootPath
     _Section := _Section is String ? StrPtr(_Section) : _Section
 
-    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : "ptr"
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    ListInfHandleMarshal := ListInfHandle is VarRef ? "ptr" : "ptr"
+    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : IntPtr
+    SourceRootPathMarshal := SourceRootPath == 0 ? IntPtr : PWSTR
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    ListInfHandleMarshal := ListInfHandle is VarRef ? "ptr" : IntPtr
+    ListInfHandleMarshal := ListInfHandle == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupQueueCopySectionW", QueueHandleMarshal, QueueHandle, "ptr", SourceRootPath, InfHandleMarshal, InfHandle, ListInfHandleMarshal, ListInfHandle, "ptr", _Section, UInt32, CopyStyle, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupQueueCopySectionW", QueueHandleMarshal, QueueHandle, SourceRootPathMarshal, SourceRootPath, InfHandleMarshal, InfHandle, ListInfHandleMarshal, ListInfHandle, "ptr", _Section, UInt32, CopyStyle, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4055,11 +4248,12 @@ export SetupQueueDeleteA(QueueHandle, PathPart1, PathPart2) {
     PathPart1 := PathPart1 is String ? StrPtr(PathPart1) : PathPart1
     PathPart2 := PathPart2 is String ? StrPtr(PathPart2) : PathPart2
 
-    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : "ptr"
+    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : IntPtr
+    PathPart2Marshal := PathPart2 == 0 ? IntPtr : PSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupQueueDeleteA", QueueHandleMarshal, QueueHandle, "ptr", PathPart1, "ptr", PathPart2, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupQueueDeleteA", QueueHandleMarshal, QueueHandle, "ptr", PathPart1, PathPart2Marshal, PathPart2, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4093,11 +4287,12 @@ export SetupQueueDeleteW(QueueHandle, PathPart1, PathPart2) {
     PathPart1 := PathPart1 is String ? StrPtr(PathPart1) : PathPart1
     PathPart2 := PathPart2 is String ? StrPtr(PathPart2) : PathPart2
 
-    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : "ptr"
+    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : IntPtr
+    PathPart2Marshal := PathPart2 == 0 ? IntPtr : PWSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupQueueDeleteW", QueueHandleMarshal, QueueHandle, "ptr", PathPart1, "ptr", PathPart2, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupQueueDeleteW", QueueHandleMarshal, QueueHandle, "ptr", PathPart1, PathPart2Marshal, PathPart2, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4131,9 +4326,10 @@ export SetupQueueDeleteW(QueueHandle, PathPart1, PathPart2) {
 export SetupQueueDeleteSectionA(QueueHandle, InfHandle, ListInfHandle, _Section) {
     _Section := _Section is String ? StrPtr(_Section) : _Section
 
-    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : "ptr"
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    ListInfHandleMarshal := ListInfHandle is VarRef ? "ptr" : "ptr"
+    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : IntPtr
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    ListInfHandleMarshal := ListInfHandle is VarRef ? "ptr" : IntPtr
+    ListInfHandleMarshal := ListInfHandle == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -4171,9 +4367,10 @@ export SetupQueueDeleteSectionA(QueueHandle, InfHandle, ListInfHandle, _Section)
 export SetupQueueDeleteSectionW(QueueHandle, InfHandle, ListInfHandle, _Section) {
     _Section := _Section is String ? StrPtr(_Section) : _Section
 
-    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : "ptr"
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    ListInfHandleMarshal := ListInfHandle is VarRef ? "ptr" : "ptr"
+    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : IntPtr
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    ListInfHandleMarshal := ListInfHandle is VarRef ? "ptr" : IntPtr
+    ListInfHandleMarshal := ListInfHandle == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -4215,11 +4412,13 @@ export SetupQueueRenameA(QueueHandle, SourcePath, SourceFilename, TargetPath, Ta
     TargetPath := TargetPath is String ? StrPtr(TargetPath) : TargetPath
     TargetFilename := TargetFilename is String ? StrPtr(TargetFilename) : TargetFilename
 
-    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : "ptr"
+    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : IntPtr
+    SourceFilenameMarshal := SourceFilename == 0 ? IntPtr : PSTR
+    TargetPathMarshal := TargetPath == 0 ? IntPtr : PSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupQueueRenameA", QueueHandleMarshal, QueueHandle, "ptr", SourcePath, "ptr", SourceFilename, "ptr", TargetPath, "ptr", TargetFilename, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupQueueRenameA", QueueHandleMarshal, QueueHandle, "ptr", SourcePath, SourceFilenameMarshal, SourceFilename, TargetPathMarshal, TargetPath, "ptr", TargetFilename, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4257,11 +4456,13 @@ export SetupQueueRenameW(QueueHandle, SourcePath, SourceFilename, TargetPath, Ta
     TargetPath := TargetPath is String ? StrPtr(TargetPath) : TargetPath
     TargetFilename := TargetFilename is String ? StrPtr(TargetFilename) : TargetFilename
 
-    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : "ptr"
+    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : IntPtr
+    SourceFilenameMarshal := SourceFilename == 0 ? IntPtr : PWSTR
+    TargetPathMarshal := TargetPath == 0 ? IntPtr : PWSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupQueueRenameW", QueueHandleMarshal, QueueHandle, "ptr", SourcePath, "ptr", SourceFilename, "ptr", TargetPath, "ptr", TargetFilename, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupQueueRenameW", QueueHandleMarshal, QueueHandle, "ptr", SourcePath, SourceFilenameMarshal, SourceFilename, TargetPathMarshal, TargetPath, "ptr", TargetFilename, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4298,9 +4499,10 @@ export SetupQueueRenameW(QueueHandle, SourcePath, SourceFilename, TargetPath, Ta
 export SetupQueueRenameSectionA(QueueHandle, InfHandle, ListInfHandle, _Section) {
     _Section := _Section is String ? StrPtr(_Section) : _Section
 
-    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : "ptr"
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    ListInfHandleMarshal := ListInfHandle is VarRef ? "ptr" : "ptr"
+    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : IntPtr
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    ListInfHandleMarshal := ListInfHandle is VarRef ? "ptr" : IntPtr
+    ListInfHandleMarshal := ListInfHandle == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -4341,9 +4543,10 @@ export SetupQueueRenameSectionA(QueueHandle, InfHandle, ListInfHandle, _Section)
 export SetupQueueRenameSectionW(QueueHandle, InfHandle, ListInfHandle, _Section) {
     _Section := _Section is String ? StrPtr(_Section) : _Section
 
-    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : "ptr"
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    ListInfHandleMarshal := ListInfHandle is VarRef ? "ptr" : "ptr"
+    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : IntPtr
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    ListInfHandleMarshal := ListInfHandle is VarRef ? "ptr" : IntPtr
+    ListInfHandleMarshal := ListInfHandle == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -4387,12 +4590,13 @@ export SetupQueueRenameSectionW(QueueHandle, InfHandle, ListInfHandle, _Section)
  * @since windows5.1.2600
  */
 export SetupCommitFileQueueA(Owner, QueueHandle, MsgHandler, _Context) {
-    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : "ptr"
-    _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+    OwnerMarshal := Owner == 0 ? IntPtr : HWND
+    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : IntPtr
+    _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupCommitFileQueueA", HWND, Owner, QueueHandleMarshal, QueueHandle, PSP_FILE_CALLBACK_A, MsgHandler, _ContextMarshal, _Context, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupCommitFileQueueA", OwnerMarshal, Owner, QueueHandleMarshal, QueueHandle, PSP_FILE_CALLBACK_A, MsgHandler, _ContextMarshal, _Context, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4432,12 +4636,13 @@ export SetupCommitFileQueueA(Owner, QueueHandle, MsgHandler, _Context) {
  * @since windows5.1.2600
  */
 export SetupCommitFileQueueW(Owner, QueueHandle, MsgHandler, _Context) {
-    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : "ptr"
-    _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+    OwnerMarshal := Owner == 0 ? IntPtr : HWND
+    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : IntPtr
+    _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupCommitFileQueueW", HWND, Owner, QueueHandleMarshal, QueueHandle, PSP_FILE_CALLBACK_W, MsgHandler, _ContextMarshal, _Context, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupCommitFileQueueW", OwnerMarshal, Owner, QueueHandleMarshal, QueueHandle, PSP_FILE_CALLBACK_W, MsgHandler, _ContextMarshal, _Context, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4612,13 +4817,16 @@ export SetupCommitFileQueueW(Owner, QueueHandle, MsgHandler, _Context) {
  * @since windows5.1.2600
  */
 export SetupScanFileQueueA(FileQueue, Flags, Window, CallbackRoutine, CallbackContext, Result) {
-    FileQueueMarshal := FileQueue is VarRef ? "ptr" : "ptr"
-    CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
-    ResultMarshal := Result is VarRef ? "uint*" : "ptr"
+    FileQueueMarshal := FileQueue is VarRef ? "ptr" : IntPtr
+    WindowMarshal := Window == 0 ? IntPtr : HWND
+    CallbackRoutineMarshal := CallbackRoutine == 0 ? IntPtr : PSP_FILE_CALLBACK_A
+    CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : IntPtr
+    CallbackContextMarshal := CallbackContext == 0 ? IntPtr : "ptr"
+    ResultMarshal := Result is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupScanFileQueueA", FileQueueMarshal, FileQueue, SETUPSCANFILEQUEUE_FLAGS, Flags, HWND, Window, PSP_FILE_CALLBACK_A, CallbackRoutine, CallbackContextMarshal, CallbackContext, ResultMarshal, Result, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupScanFileQueueA", FileQueueMarshal, FileQueue, SETUPSCANFILEQUEUE_FLAGS, Flags, WindowMarshal, Window, CallbackRoutineMarshal, CallbackRoutine, CallbackContextMarshal, CallbackContext, ResultMarshal, Result, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4793,13 +5001,16 @@ export SetupScanFileQueueA(FileQueue, Flags, Window, CallbackRoutine, CallbackCo
  * @since windows5.1.2600
  */
 export SetupScanFileQueueW(FileQueue, Flags, Window, CallbackRoutine, CallbackContext, Result) {
-    FileQueueMarshal := FileQueue is VarRef ? "ptr" : "ptr"
-    CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
-    ResultMarshal := Result is VarRef ? "uint*" : "ptr"
+    FileQueueMarshal := FileQueue is VarRef ? "ptr" : IntPtr
+    WindowMarshal := Window == 0 ? IntPtr : HWND
+    CallbackRoutineMarshal := CallbackRoutine == 0 ? IntPtr : PSP_FILE_CALLBACK_W
+    CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : IntPtr
+    CallbackContextMarshal := CallbackContext == 0 ? IntPtr : "ptr"
+    ResultMarshal := Result is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupScanFileQueueW", FileQueueMarshal, FileQueue, SETUPSCANFILEQUEUE_FLAGS, Flags, HWND, Window, PSP_FILE_CALLBACK_W, CallbackRoutine, CallbackContextMarshal, CallbackContext, ResultMarshal, Result, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupScanFileQueueW", FileQueueMarshal, FileQueue, SETUPSCANFILEQUEUE_FLAGS, Flags, WindowMarshal, Window, CallbackRoutineMarshal, CallbackRoutine, CallbackContextMarshal, CallbackContext, ResultMarshal, Result, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4869,8 +5080,8 @@ export SetupScanFileQueueW(FileQueue, Flags, Window, CallbackRoutine, CallbackCo
  * @since windows5.1.2600
  */
 export SetupGetFileQueueCount(FileQueue, SubQueueFileOp, NumOperations) {
-    FileQueueMarshal := FileQueue is VarRef ? "ptr" : "ptr"
-    NumOperationsMarshal := NumOperations is VarRef ? "uint*" : "ptr"
+    FileQueueMarshal := FileQueue is VarRef ? "ptr" : IntPtr
+    NumOperationsMarshal := NumOperations is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -4928,8 +5139,8 @@ export SetupGetFileQueueCount(FileQueue, SubQueueFileOp, NumOperations) {
  * @since windows5.1.2600
  */
 export SetupGetFileQueueFlags(FileQueue, Flags) {
-    FileQueueMarshal := FileQueue is VarRef ? "ptr" : "ptr"
-    FlagsMarshal := Flags is VarRef ? "uint*" : "ptr"
+    FileQueueMarshal := FileQueue is VarRef ? "ptr" : IntPtr
+    FlagsMarshal := Flags is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -5008,7 +5219,7 @@ export SetupGetFileQueueFlags(FileQueue, Flags) {
  * @since windows5.1.2600
  */
 export SetupSetFileQueueFlags(FileQueue, FlagMask, Flags) {
-    FileQueueMarshal := FileQueue is VarRef ? "ptr" : "ptr"
+    FileQueueMarshal := FileQueue is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -5112,12 +5323,16 @@ export SetupCopyOEMInfA(SourceInfFileName, OEMSourceMediaLocation, OEMSourceMedi
     OEMSourceMediaLocation := OEMSourceMediaLocation is String ? StrPtr(OEMSourceMediaLocation) : OEMSourceMediaLocation
     DestinationInfFileName := DestinationInfFileName is String ? StrPtr(DestinationInfFileName) : DestinationInfFileName
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
-    DestinationInfFileNameComponentMarshal := DestinationInfFileNameComponent is VarRef ? "ptr*" : "ptr"
+    OEMSourceMediaLocationMarshal := OEMSourceMediaLocation == 0 ? IntPtr : PSTR
+    DestinationInfFileNameMarshal := DestinationInfFileName == 0 ? IntPtr : PSTR
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
+    DestinationInfFileNameComponentMarshal := DestinationInfFileNameComponent is VarRef ? "ptr*" : IntPtr
+    DestinationInfFileNameComponentMarshal := DestinationInfFileNameComponent == 0 ? IntPtr : PSTR.Ptr
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupCopyOEMInfA", "ptr", SourceInfFileName, "ptr", OEMSourceMediaLocation, OEM_SOURCE_MEDIA_TYPE, OEMSourceMediaType, SP_COPY_STYLE, CopyStyle, "ptr", DestinationInfFileName, UInt32, DestinationInfFileNameSize, RequiredSizeMarshal, RequiredSize, DestinationInfFileNameComponentMarshal, DestinationInfFileNameComponent, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupCopyOEMInfA", "ptr", SourceInfFileName, OEMSourceMediaLocationMarshal, OEMSourceMediaLocation, OEM_SOURCE_MEDIA_TYPE, OEMSourceMediaType, SP_COPY_STYLE, CopyStyle, DestinationInfFileNameMarshal, DestinationInfFileName, UInt32, DestinationInfFileNameSize, RequiredSizeMarshal, RequiredSize, DestinationInfFileNameComponentMarshal, DestinationInfFileNameComponent, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5217,12 +5432,16 @@ export SetupCopyOEMInfW(SourceInfFileName, OEMSourceMediaLocation, OEMSourceMedi
     OEMSourceMediaLocation := OEMSourceMediaLocation is String ? StrPtr(OEMSourceMediaLocation) : OEMSourceMediaLocation
     DestinationInfFileName := DestinationInfFileName is String ? StrPtr(DestinationInfFileName) : DestinationInfFileName
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
-    DestinationInfFileNameComponentMarshal := DestinationInfFileNameComponent is VarRef ? "ptr*" : "ptr"
+    OEMSourceMediaLocationMarshal := OEMSourceMediaLocation == 0 ? IntPtr : PWSTR
+    DestinationInfFileNameMarshal := DestinationInfFileName == 0 ? IntPtr : PWSTR
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
+    DestinationInfFileNameComponentMarshal := DestinationInfFileNameComponent is VarRef ? "ptr*" : IntPtr
+    DestinationInfFileNameComponentMarshal := DestinationInfFileNameComponent == 0 ? IntPtr : PWSTR.Ptr
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupCopyOEMInfW", "ptr", SourceInfFileName, "ptr", OEMSourceMediaLocation, OEM_SOURCE_MEDIA_TYPE, OEMSourceMediaType, SP_COPY_STYLE, CopyStyle, "ptr", DestinationInfFileName, UInt32, DestinationInfFileNameSize, RequiredSizeMarshal, RequiredSize, DestinationInfFileNameComponentMarshal, DestinationInfFileNameComponent, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupCopyOEMInfW", "ptr", SourceInfFileName, OEMSourceMediaLocationMarshal, OEMSourceMediaLocation, OEM_SOURCE_MEDIA_TYPE, OEMSourceMediaType, SP_COPY_STYLE, CopyStyle, DestinationInfFileNameMarshal, DestinationInfFileName, UInt32, DestinationInfFileNameSize, RequiredSizeMarshal, RequiredSize, DestinationInfFileNameComponentMarshal, DestinationInfFileNameComponent, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5342,7 +5561,7 @@ export SetupUninstallOEMInfW(InfFileName, Flags) {
 export SetupUninstallNewlyCopiedInfs(FileQueue, Flags) {
     static Reserved := 0 ;Reserved parameters must always be NULL
 
-    FileQueueMarshal := FileQueue is VarRef ? "ptr" : "ptr"
+    FileQueueMarshal := FileQueue is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -5423,7 +5642,7 @@ export SetupCreateDiskSpaceListW(Flags) {
 export SetupDuplicateDiskSpaceListA(DiskSpace, Flags) {
     static Reserved1 := 0, Reserved2 := 0 ;Reserved parameters must always be NULL
 
-    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : "ptr"
+    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -5452,7 +5671,7 @@ export SetupDuplicateDiskSpaceListA(DiskSpace, Flags) {
 export SetupDuplicateDiskSpaceListW(DiskSpace, Flags) {
     static Reserved1 := 0, Reserved2 := 0 ;Reserved parameters must always be NULL
 
-    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : "ptr"
+    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -5475,7 +5694,7 @@ export SetupDuplicateDiskSpaceListW(DiskSpace, Flags) {
  * @since windows5.1.2600
  */
 export SetupDestroyDiskSpaceList(DiskSpace) {
-    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : "ptr"
+    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -5510,12 +5729,14 @@ export SetupDestroyDiskSpaceList(DiskSpace) {
 export SetupQueryDrivesInDiskSpaceListA(DiskSpace, ReturnBuffer, ReturnBufferSize, RequiredSize) {
     ReturnBuffer := ReturnBuffer is String ? StrPtr(ReturnBuffer) : ReturnBuffer
 
-    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : "ptr"
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : IntPtr
+    ReturnBufferMarshal := ReturnBuffer == 0 ? IntPtr : PSTR
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupQueryDrivesInDiskSpaceListA", DiskSpaceMarshal, DiskSpace, "ptr", ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupQueryDrivesInDiskSpaceListA", DiskSpaceMarshal, DiskSpace, ReturnBufferMarshal, ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5546,12 +5767,14 @@ export SetupQueryDrivesInDiskSpaceListA(DiskSpace, ReturnBuffer, ReturnBufferSiz
 export SetupQueryDrivesInDiskSpaceListW(DiskSpace, ReturnBuffer, ReturnBufferSize, RequiredSize) {
     ReturnBuffer := ReturnBuffer is String ? StrPtr(ReturnBuffer) : ReturnBuffer
 
-    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : "ptr"
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : IntPtr
+    ReturnBufferMarshal := ReturnBuffer == 0 ? IntPtr : PWSTR
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupQueryDrivesInDiskSpaceListW", DiskSpaceMarshal, DiskSpace, "ptr", ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupQueryDrivesInDiskSpaceListW", DiskSpaceMarshal, DiskSpace, ReturnBufferMarshal, ReturnBuffer, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5638,8 +5861,8 @@ export SetupQuerySpaceRequiredOnDriveA(DiskSpace, DriveSpec, SpaceRequired) {
 
     DriveSpec := DriveSpec is String ? StrPtr(DriveSpec) : DriveSpec
 
-    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : "ptr"
-    SpaceRequiredMarshal := SpaceRequired is VarRef ? "int64*" : "ptr"
+    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : IntPtr
+    SpaceRequiredMarshal := SpaceRequired is VarRef ? "int64*" : IntPtr
 
     A_LastError := 0
 
@@ -5730,8 +5953,8 @@ export SetupQuerySpaceRequiredOnDriveW(DiskSpace, DriveSpec, SpaceRequired) {
 
     DriveSpec := DriveSpec is String ? StrPtr(DriveSpec) : DriveSpec
 
-    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : "ptr"
-    SpaceRequiredMarshal := SpaceRequired is VarRef ? "int64*" : "ptr"
+    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : IntPtr
+    SpaceRequiredMarshal := SpaceRequired is VarRef ? "int64*" : IntPtr
 
     A_LastError := 0
 
@@ -5763,7 +5986,7 @@ export SetupAdjustDiskSpaceListA(DiskSpace, DriveRoot, Amount) {
 
     DriveRoot := DriveRoot is String ? StrPtr(DriveRoot) : DriveRoot
 
-    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : "ptr"
+    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -5795,7 +6018,7 @@ export SetupAdjustDiskSpaceListW(DiskSpace, DriveRoot, Amount) {
 
     DriveRoot := DriveRoot is String ? StrPtr(DriveRoot) : DriveRoot
 
-    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : "ptr"
+    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -5829,7 +6052,7 @@ export SetupAddToDiskSpaceListA(DiskSpace, TargetFilespec, FileSize, Operation) 
 
     TargetFilespec := TargetFilespec is String ? StrPtr(TargetFilespec) : TargetFilespec
 
-    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : "ptr"
+    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -5863,7 +6086,7 @@ export SetupAddToDiskSpaceListW(DiskSpace, TargetFilespec, FileSize, Operation) 
 
     TargetFilespec := TargetFilespec is String ? StrPtr(TargetFilespec) : TargetFilespec
 
-    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : "ptr"
+    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -5903,9 +6126,10 @@ export SetupAddSectionToDiskSpaceListA(DiskSpace, InfHandle, ListInfHandle, Sect
 
     SectionName := SectionName is String ? StrPtr(SectionName) : SectionName
 
-    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : "ptr"
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    ListInfHandleMarshal := ListInfHandle is VarRef ? "ptr" : "ptr"
+    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : IntPtr
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    ListInfHandleMarshal := ListInfHandle is VarRef ? "ptr" : IntPtr
+    ListInfHandleMarshal := ListInfHandle == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -5945,9 +6169,10 @@ export SetupAddSectionToDiskSpaceListW(DiskSpace, InfHandle, ListInfHandle, Sect
 
     SectionName := SectionName is String ? StrPtr(SectionName) : SectionName
 
-    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : "ptr"
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    ListInfHandleMarshal := ListInfHandle is VarRef ? "ptr" : "ptr"
+    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : IntPtr
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    ListInfHandleMarshal := ListInfHandle is VarRef ? "ptr" : IntPtr
+    ListInfHandleMarshal := ListInfHandle == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -5986,9 +6211,10 @@ export SetupAddInstallSectionToDiskSpaceListA(DiskSpace, InfHandle, LayoutInfHan
 
     SectionName := SectionName is String ? StrPtr(SectionName) : SectionName
 
-    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : "ptr"
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    LayoutInfHandleMarshal := LayoutInfHandle is VarRef ? "ptr" : "ptr"
+    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : IntPtr
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    LayoutInfHandleMarshal := LayoutInfHandle is VarRef ? "ptr" : IntPtr
+    LayoutInfHandleMarshal := LayoutInfHandle == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -6027,9 +6253,10 @@ export SetupAddInstallSectionToDiskSpaceListW(DiskSpace, InfHandle, LayoutInfHan
 
     SectionName := SectionName is String ? StrPtr(SectionName) : SectionName
 
-    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : "ptr"
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    LayoutInfHandleMarshal := LayoutInfHandle is VarRef ? "ptr" : "ptr"
+    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : IntPtr
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    LayoutInfHandleMarshal := LayoutInfHandle is VarRef ? "ptr" : IntPtr
+    LayoutInfHandleMarshal := LayoutInfHandle == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -6064,7 +6291,7 @@ export SetupRemoveFromDiskSpaceListA(DiskSpace, TargetFilespec, Operation) {
 
     TargetFilespec := TargetFilespec is String ? StrPtr(TargetFilespec) : TargetFilespec
 
-    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : "ptr"
+    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -6099,7 +6326,7 @@ export SetupRemoveFromDiskSpaceListW(DiskSpace, TargetFilespec, Operation) {
 
     TargetFilespec := TargetFilespec is String ? StrPtr(TargetFilespec) : TargetFilespec
 
-    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : "ptr"
+    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -6144,9 +6371,10 @@ export SetupRemoveSectionFromDiskSpaceListA(DiskSpace, InfHandle, ListInfHandle,
 
     SectionName := SectionName is String ? StrPtr(SectionName) : SectionName
 
-    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : "ptr"
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    ListInfHandleMarshal := ListInfHandle is VarRef ? "ptr" : "ptr"
+    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : IntPtr
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    ListInfHandleMarshal := ListInfHandle is VarRef ? "ptr" : IntPtr
+    ListInfHandleMarshal := ListInfHandle == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -6191,9 +6419,10 @@ export SetupRemoveSectionFromDiskSpaceListW(DiskSpace, InfHandle, ListInfHandle,
 
     SectionName := SectionName is String ? StrPtr(SectionName) : SectionName
 
-    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : "ptr"
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    ListInfHandleMarshal := ListInfHandle is VarRef ? "ptr" : "ptr"
+    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : IntPtr
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    ListInfHandleMarshal := ListInfHandle is VarRef ? "ptr" : IntPtr
+    ListInfHandleMarshal := ListInfHandle == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -6232,9 +6461,10 @@ export SetupRemoveInstallSectionFromDiskSpaceListA(DiskSpace, InfHandle, LayoutI
 
     SectionName := SectionName is String ? StrPtr(SectionName) : SectionName
 
-    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : "ptr"
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    LayoutInfHandleMarshal := LayoutInfHandle is VarRef ? "ptr" : "ptr"
+    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : IntPtr
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    LayoutInfHandleMarshal := LayoutInfHandle is VarRef ? "ptr" : IntPtr
+    LayoutInfHandleMarshal := LayoutInfHandle == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -6273,9 +6503,10 @@ export SetupRemoveInstallSectionFromDiskSpaceListW(DiskSpace, InfHandle, LayoutI
 
     SectionName := SectionName is String ? StrPtr(SectionName) : SectionName
 
-    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : "ptr"
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    LayoutInfHandleMarshal := LayoutInfHandle is VarRef ? "ptr" : "ptr"
+    DiskSpaceMarshal := DiskSpace is VarRef ? "ptr" : IntPtr
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    LayoutInfHandleMarshal := LayoutInfHandle is VarRef ? "ptr" : IntPtr
+    LayoutInfHandleMarshal := LayoutInfHandle == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -6308,7 +6539,7 @@ export SetupIterateCabinetA(CabinetFile, MsgHandler, _Context) {
 
     CabinetFile := CabinetFile is String ? StrPtr(CabinetFile) : CabinetFile
 
-    _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+    _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -6341,7 +6572,7 @@ export SetupIterateCabinetW(CabinetFile, MsgHandler, _Context) {
 
     CabinetFile := CabinetFile is String ? StrPtr(CabinetFile) : CabinetFile
 
-    _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+    _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -6375,11 +6606,13 @@ export SetupIterateCabinetW(CabinetFile, MsgHandler, _Context) {
  * @since windows5.1.2600
  */
 export SetupPromptReboot(FileQueue, Owner, ScanOnly) {
-    FileQueueMarshal := FileQueue is VarRef ? "ptr" : "ptr"
+    FileQueueMarshal := FileQueue is VarRef ? "ptr" : IntPtr
+    FileQueueMarshal := FileQueue == 0 ? IntPtr : "ptr"
+    OwnerMarshal := Owner == 0 ? IntPtr : HWND
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupPromptReboot", FileQueueMarshal, FileQueue, HWND, Owner, BOOL, ScanOnly, Int32)
+    result := DllCall("SETUPAPI.dll\SetupPromptReboot", FileQueueMarshal, FileQueue, OwnerMarshal, Owner, BOOL, ScanOnly, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6407,9 +6640,11 @@ export SetupPromptReboot(FileQueue, Owner, ScanOnly) {
  * @since windows5.1.2600
  */
 export SetupInitDefaultQueueCallback(OwnerWindow) {
+    OwnerWindowMarshal := OwnerWindow == 0 ? IntPtr : HWND
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupInitDefaultQueueCallback", HWND, OwnerWindow, IntPtr)
+    result := DllCall("SETUPAPI.dll\SetupInitDefaultQueueCallback", OwnerWindowMarshal, OwnerWindow, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6441,7 +6676,10 @@ export SetupInitDefaultQueueCallback(OwnerWindow) {
 export SetupInitDefaultQueueCallbackEx(OwnerWindow, AlternateProgressWindow, ProgressMessage) {
     static Reserved1 := 0, Reserved2 := 0 ;Reserved parameters must always be NULL
 
-    result := DllCall("SETUPAPI.dll\SetupInitDefaultQueueCallbackEx", HWND, OwnerWindow, HWND, AlternateProgressWindow, UInt32, ProgressMessage, UInt32, Reserved1, "ptr", Reserved2, IntPtr)
+    OwnerWindowMarshal := OwnerWindow == 0 ? IntPtr : HWND
+    AlternateProgressWindowMarshal := AlternateProgressWindow == 0 ? IntPtr : HWND
+
+    result := DllCall("SETUPAPI.dll\SetupInitDefaultQueueCallbackEx", OwnerWindowMarshal, OwnerWindow, AlternateProgressWindowMarshal, AlternateProgressWindow, UInt32, ProgressMessage, UInt32, Reserved1, "ptr", Reserved2, IntPtr)
     return result
 }
 
@@ -6459,7 +6697,7 @@ export SetupInitDefaultQueueCallbackEx(OwnerWindow, AlternateProgressWindow, Pro
  * @since windows5.1.2600
  */
 export SetupTermDefaultQueueCallback(_Context) {
-    _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+    _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -6743,7 +6981,7 @@ export SetupTermDefaultQueueCallback(_Context) {
  * @since windows5.1.2600
  */
 export SetupDefaultQueueCallbackA(_Context, _Notification, Param1, Param2) {
-    _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+    _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -7028,7 +7266,7 @@ export SetupDefaultQueueCallbackA(_Context, _Notification, Param1, Param2) {
  * @since windows5.1.2600
  */
 export SetupDefaultQueueCallbackW(_Context, _Notification, Param1, Param2) {
-    _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+    _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -7114,12 +7352,19 @@ export SetupInstallFromInfSectionA(Owner, InfHandle, SectionName, Flags, Relativ
     SectionName := SectionName is String ? StrPtr(SectionName) : SectionName
     SourceRootPath := SourceRootPath is String ? StrPtr(SourceRootPath) : SourceRootPath
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+    OwnerMarshal := Owner == 0 ? IntPtr : HWND
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    RelativeKeyRootMarshal := RelativeKeyRoot == 0 ? IntPtr : HKEY
+    SourceRootPathMarshal := SourceRootPath == 0 ? IntPtr : PSTR
+    MsgHandlerMarshal := MsgHandler == 0 ? IntPtr : PSP_FILE_CALLBACK_A
+    _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+    _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
+    DeviceInfoSetMarshal := DeviceInfoSet == 0 ? IntPtr : HDEVINFO
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupInstallFromInfSectionA", HWND, Owner, InfHandleMarshal, InfHandle, "ptr", SectionName, UInt32, Flags, HKEY, RelativeKeyRoot, "ptr", SourceRootPath, UInt32, CopyFlags, PSP_FILE_CALLBACK_A, MsgHandler, _ContextMarshal, _Context, HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupInstallFromInfSectionA", OwnerMarshal, Owner, InfHandleMarshal, InfHandle, "ptr", SectionName, UInt32, Flags, RelativeKeyRootMarshal, RelativeKeyRoot, SourceRootPathMarshal, SourceRootPath, UInt32, CopyFlags, MsgHandlerMarshal, MsgHandler, _ContextMarshal, _Context, DeviceInfoSetMarshal, DeviceInfoSet, DeviceInfoDataMarshal, DeviceInfoData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7201,12 +7446,19 @@ export SetupInstallFromInfSectionW(Owner, InfHandle, SectionName, Flags, Relativ
     SectionName := SectionName is String ? StrPtr(SectionName) : SectionName
     SourceRootPath := SourceRootPath is String ? StrPtr(SourceRootPath) : SourceRootPath
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+    OwnerMarshal := Owner == 0 ? IntPtr : HWND
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    RelativeKeyRootMarshal := RelativeKeyRoot == 0 ? IntPtr : HKEY
+    SourceRootPathMarshal := SourceRootPath == 0 ? IntPtr : PWSTR
+    MsgHandlerMarshal := MsgHandler == 0 ? IntPtr : PSP_FILE_CALLBACK_W
+    _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+    _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
+    DeviceInfoSetMarshal := DeviceInfoSet == 0 ? IntPtr : HDEVINFO
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupInstallFromInfSectionW", HWND, Owner, InfHandleMarshal, InfHandle, "ptr", SectionName, UInt32, Flags, HKEY, RelativeKeyRoot, "ptr", SourceRootPath, UInt32, CopyFlags, PSP_FILE_CALLBACK_W, MsgHandler, _ContextMarshal, _Context, HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupInstallFromInfSectionW", OwnerMarshal, Owner, InfHandleMarshal, InfHandle, "ptr", SectionName, UInt32, Flags, RelativeKeyRootMarshal, RelativeKeyRoot, SourceRootPathMarshal, SourceRootPath, UInt32, CopyFlags, MsgHandlerMarshal, MsgHandler, _ContextMarshal, _Context, DeviceInfoSetMarshal, DeviceInfoSet, DeviceInfoDataMarshal, DeviceInfoData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7252,13 +7504,15 @@ export SetupInstallFilesFromInfSectionA(InfHandle, LayoutInfHandle, FileQueue, S
     SectionName := SectionName is String ? StrPtr(SectionName) : SectionName
     SourceRootPath := SourceRootPath is String ? StrPtr(SourceRootPath) : SourceRootPath
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    LayoutInfHandleMarshal := LayoutInfHandle is VarRef ? "ptr" : "ptr"
-    FileQueueMarshal := FileQueue is VarRef ? "ptr" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    LayoutInfHandleMarshal := LayoutInfHandle is VarRef ? "ptr" : IntPtr
+    LayoutInfHandleMarshal := LayoutInfHandle == 0 ? IntPtr : "ptr"
+    FileQueueMarshal := FileQueue is VarRef ? "ptr" : IntPtr
+    SourceRootPathMarshal := SourceRootPath == 0 ? IntPtr : PSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupInstallFilesFromInfSectionA", InfHandleMarshal, InfHandle, LayoutInfHandleMarshal, LayoutInfHandle, FileQueueMarshal, FileQueue, "ptr", SectionName, "ptr", SourceRootPath, UInt32, CopyFlags, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupInstallFilesFromInfSectionA", InfHandleMarshal, InfHandle, LayoutInfHandleMarshal, LayoutInfHandle, FileQueueMarshal, FileQueue, "ptr", SectionName, SourceRootPathMarshal, SourceRootPath, UInt32, CopyFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7304,13 +7558,15 @@ export SetupInstallFilesFromInfSectionW(InfHandle, LayoutInfHandle, FileQueue, S
     SectionName := SectionName is String ? StrPtr(SectionName) : SectionName
     SourceRootPath := SourceRootPath is String ? StrPtr(SourceRootPath) : SourceRootPath
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    LayoutInfHandleMarshal := LayoutInfHandle is VarRef ? "ptr" : "ptr"
-    FileQueueMarshal := FileQueue is VarRef ? "ptr" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    LayoutInfHandleMarshal := LayoutInfHandle is VarRef ? "ptr" : IntPtr
+    LayoutInfHandleMarshal := LayoutInfHandle == 0 ? IntPtr : "ptr"
+    FileQueueMarshal := FileQueue is VarRef ? "ptr" : IntPtr
+    SourceRootPathMarshal := SourceRootPath == 0 ? IntPtr : PWSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupInstallFilesFromInfSectionW", InfHandleMarshal, InfHandle, LayoutInfHandleMarshal, LayoutInfHandle, FileQueueMarshal, FileQueue, "ptr", SectionName, "ptr", SourceRootPath, UInt32, CopyFlags, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupInstallFilesFromInfSectionW", InfHandleMarshal, InfHandle, LayoutInfHandleMarshal, LayoutInfHandle, FileQueueMarshal, FileQueue, "ptr", SectionName, SourceRootPathMarshal, SourceRootPath, UInt32, CopyFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7489,7 +7745,7 @@ export SetupInstallFilesFromInfSectionW(InfHandle, LayoutInfHandle, FileQueue, S
 export SetupInstallServicesFromInfSectionA(InfHandle, SectionName, Flags) {
     SectionName := SectionName is String ? StrPtr(SectionName) : SectionName
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -7672,7 +7928,7 @@ export SetupInstallServicesFromInfSectionA(InfHandle, SectionName, Flags) {
 export SetupInstallServicesFromInfSectionW(InfHandle, SectionName, Flags) {
     SectionName := SectionName is String ? StrPtr(SectionName) : SectionName
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -7868,11 +8124,13 @@ export SetupInstallServicesFromInfSectionExA(InfHandle, SectionName, Flags, Devi
 
     SectionName := SectionName is String ? StrPtr(SectionName) : SectionName
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    DeviceInfoSetMarshal := DeviceInfoSet == 0 ? IntPtr : HDEVINFO
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupInstallServicesFromInfSectionExA", InfHandleMarshal, InfHandle, "ptr", SectionName, SPSVCINST_FLAGS, Flags, HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, "ptr", Reserved1, "ptr", Reserved2, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupInstallServicesFromInfSectionExA", InfHandleMarshal, InfHandle, "ptr", SectionName, SPSVCINST_FLAGS, Flags, DeviceInfoSetMarshal, DeviceInfoSet, DeviceInfoDataMarshal, DeviceInfoData, "ptr", Reserved1, "ptr", Reserved2, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8064,11 +8322,13 @@ export SetupInstallServicesFromInfSectionExW(InfHandle, SectionName, Flags, Devi
 
     SectionName := SectionName is String ? StrPtr(SectionName) : SectionName
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    DeviceInfoSetMarshal := DeviceInfoSet == 0 ? IntPtr : HDEVINFO
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupInstallServicesFromInfSectionExW", InfHandleMarshal, InfHandle, "ptr", SectionName, SPSVCINST_FLAGS, Flags, HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, "ptr", Reserved1, "ptr", Reserved2, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupInstallServicesFromInfSectionExW", InfHandleMarshal, InfHandle, "ptr", SectionName, SPSVCINST_FLAGS, Flags, DeviceInfoSetMarshal, DeviceInfoSet, DeviceInfoDataMarshal, DeviceInfoData, "ptr", Reserved1, "ptr", Reserved2, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8279,9 +8539,11 @@ export InstallHinfSectionW(Window, ModuleHandle, CommandLine, ShowCommand) {
 export SetupInitializeFileLogA(LogFileName, Flags) {
     LogFileName := LogFileName is String ? StrPtr(LogFileName) : LogFileName
 
+    LogFileNameMarshal := LogFileName == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupInitializeFileLogA", "ptr", LogFileName, UInt32, Flags, IntPtr)
+    result := DllCall("SETUPAPI.dll\SetupInitializeFileLogA", LogFileNameMarshal, LogFileName, UInt32, Flags, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8304,9 +8566,11 @@ export SetupInitializeFileLogA(LogFileName, Flags) {
 export SetupInitializeFileLogW(LogFileName, Flags) {
     LogFileName := LogFileName is String ? StrPtr(LogFileName) : LogFileName
 
+    LogFileNameMarshal := LogFileName == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupInitializeFileLogW", "ptr", LogFileName, UInt32, Flags, IntPtr)
+    result := DllCall("SETUPAPI.dll\SetupInitializeFileLogW", LogFileNameMarshal, LogFileName, UInt32, Flags, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8326,7 +8590,7 @@ export SetupInitializeFileLogW(LogFileName, Flags) {
  * @since windows5.1.2600
  */
 export SetupTerminateFileLog(FileLogHandle) {
-    FileLogHandleMarshal := FileLogHandle is VarRef ? "ptr" : "ptr"
+    FileLogHandleMarshal := FileLogHandle is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -8368,11 +8632,15 @@ export SetupLogFileA(FileLogHandle, LogSectionName, SourceFilename, TargetFilena
     DiskDescription := DiskDescription is String ? StrPtr(DiskDescription) : DiskDescription
     OtherInfo := OtherInfo is String ? StrPtr(OtherInfo) : OtherInfo
 
-    FileLogHandleMarshal := FileLogHandle is VarRef ? "ptr" : "ptr"
+    FileLogHandleMarshal := FileLogHandle is VarRef ? "ptr" : IntPtr
+    LogSectionNameMarshal := LogSectionName == 0 ? IntPtr : PSTR
+    DiskTagfileMarshal := DiskTagfile == 0 ? IntPtr : PSTR
+    DiskDescriptionMarshal := DiskDescription == 0 ? IntPtr : PSTR
+    OtherInfoMarshal := OtherInfo == 0 ? IntPtr : PSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupLogFileA", FileLogHandleMarshal, FileLogHandle, "ptr", LogSectionName, "ptr", SourceFilename, "ptr", TargetFilename, UInt32, Checksum, "ptr", DiskTagfile, "ptr", DiskDescription, "ptr", OtherInfo, UInt32, Flags, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupLogFileA", FileLogHandleMarshal, FileLogHandle, LogSectionNameMarshal, LogSectionName, "ptr", SourceFilename, "ptr", TargetFilename, UInt32, Checksum, DiskTagfileMarshal, DiskTagfile, DiskDescriptionMarshal, DiskDescription, OtherInfoMarshal, OtherInfo, UInt32, Flags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8410,11 +8678,15 @@ export SetupLogFileW(FileLogHandle, LogSectionName, SourceFilename, TargetFilena
     DiskDescription := DiskDescription is String ? StrPtr(DiskDescription) : DiskDescription
     OtherInfo := OtherInfo is String ? StrPtr(OtherInfo) : OtherInfo
 
-    FileLogHandleMarshal := FileLogHandle is VarRef ? "ptr" : "ptr"
+    FileLogHandleMarshal := FileLogHandle is VarRef ? "ptr" : IntPtr
+    LogSectionNameMarshal := LogSectionName == 0 ? IntPtr : PWSTR
+    DiskTagfileMarshal := DiskTagfile == 0 ? IntPtr : PWSTR
+    DiskDescriptionMarshal := DiskDescription == 0 ? IntPtr : PWSTR
+    OtherInfoMarshal := OtherInfo == 0 ? IntPtr : PWSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupLogFileW", FileLogHandleMarshal, FileLogHandle, "ptr", LogSectionName, "ptr", SourceFilename, "ptr", TargetFilename, UInt32, Checksum, "ptr", DiskTagfile, "ptr", DiskDescription, "ptr", OtherInfo, UInt32, Flags, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupLogFileW", FileLogHandleMarshal, FileLogHandle, LogSectionNameMarshal, LogSectionName, "ptr", SourceFilename, "ptr", TargetFilename, UInt32, Checksum, DiskTagfileMarshal, DiskTagfile, DiskDescriptionMarshal, DiskDescription, OtherInfoMarshal, OtherInfo, UInt32, Flags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8442,11 +8714,13 @@ export SetupRemoveFileLogEntryA(FileLogHandle, LogSectionName, TargetFilename) {
     LogSectionName := LogSectionName is String ? StrPtr(LogSectionName) : LogSectionName
     TargetFilename := TargetFilename is String ? StrPtr(TargetFilename) : TargetFilename
 
-    FileLogHandleMarshal := FileLogHandle is VarRef ? "ptr" : "ptr"
+    FileLogHandleMarshal := FileLogHandle is VarRef ? "ptr" : IntPtr
+    LogSectionNameMarshal := LogSectionName == 0 ? IntPtr : PSTR
+    TargetFilenameMarshal := TargetFilename == 0 ? IntPtr : PSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupRemoveFileLogEntryA", FileLogHandleMarshal, FileLogHandle, "ptr", LogSectionName, "ptr", TargetFilename, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupRemoveFileLogEntryA", FileLogHandleMarshal, FileLogHandle, LogSectionNameMarshal, LogSectionName, TargetFilenameMarshal, TargetFilename, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8474,11 +8748,13 @@ export SetupRemoveFileLogEntryW(FileLogHandle, LogSectionName, TargetFilename) {
     LogSectionName := LogSectionName is String ? StrPtr(LogSectionName) : LogSectionName
     TargetFilename := TargetFilename is String ? StrPtr(TargetFilename) : TargetFilename
 
-    FileLogHandleMarshal := FileLogHandle is VarRef ? "ptr" : "ptr"
+    FileLogHandleMarshal := FileLogHandle is VarRef ? "ptr" : IntPtr
+    LogSectionNameMarshal := LogSectionName == 0 ? IntPtr : PWSTR
+    TargetFilenameMarshal := TargetFilename == 0 ? IntPtr : PWSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupRemoveFileLogEntryW", FileLogHandleMarshal, FileLogHandle, "ptr", LogSectionName, "ptr", TargetFilename, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupRemoveFileLogEntryW", FileLogHandleMarshal, FileLogHandle, LogSectionNameMarshal, LogSectionName, TargetFilenameMarshal, TargetFilename, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8581,12 +8857,15 @@ export SetupQueryFileLogA(FileLogHandle, LogSectionName, TargetFilename, Desired
     TargetFilename := TargetFilename is String ? StrPtr(TargetFilename) : TargetFilename
     DataOut := DataOut is String ? StrPtr(DataOut) : DataOut
 
-    FileLogHandleMarshal := FileLogHandle is VarRef ? "ptr" : "ptr"
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    FileLogHandleMarshal := FileLogHandle is VarRef ? "ptr" : IntPtr
+    LogSectionNameMarshal := LogSectionName == 0 ? IntPtr : PSTR
+    DataOutMarshal := DataOut == 0 ? IntPtr : PSTR
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupQueryFileLogA", FileLogHandleMarshal, FileLogHandle, "ptr", LogSectionName, "ptr", TargetFilename, SetupFileLogInfo, DesiredInfo, "ptr", DataOut, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupQueryFileLogA", FileLogHandleMarshal, FileLogHandle, LogSectionNameMarshal, LogSectionName, "ptr", TargetFilename, SetupFileLogInfo, DesiredInfo, DataOutMarshal, DataOut, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8689,12 +8968,15 @@ export SetupQueryFileLogW(FileLogHandle, LogSectionName, TargetFilename, Desired
     TargetFilename := TargetFilename is String ? StrPtr(TargetFilename) : TargetFilename
     DataOut := DataOut is String ? StrPtr(DataOut) : DataOut
 
-    FileLogHandleMarshal := FileLogHandle is VarRef ? "ptr" : "ptr"
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    FileLogHandleMarshal := FileLogHandle is VarRef ? "ptr" : IntPtr
+    LogSectionNameMarshal := LogSectionName == 0 ? IntPtr : PWSTR
+    DataOutMarshal := DataOut == 0 ? IntPtr : PWSTR
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupQueryFileLogW", FileLogHandleMarshal, FileLogHandle, "ptr", LogSectionName, "ptr", TargetFilename, SetupFileLogInfo, DesiredInfo, "ptr", DataOut, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupQueryFileLogW", FileLogHandleMarshal, FileLogHandle, LogSectionNameMarshal, LogSectionName, "ptr", TargetFilename, SetupFileLogInfo, DesiredInfo, DataOutMarshal, DataOut, UInt32, ReturnBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9087,39 +9369,36 @@ export SetupWriteTextLogError(LogToken, Category, LogFlags, _Error, MessageStr, 
  * @since windows6.0.6000
  */
 export SetupWriteTextLogInfLine(LogToken, Flags, InfHandle, _Context) {
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
 
     DllCall("SETUPAPI.dll\SetupWriteTextLogInfLine", Int64, LogToken, UInt32, Flags, InfHandleMarshal, InfHandle, INFCONTEXT.Ptr, _Context)
 }
 
 /**
- * 
  * @param {Pointer<Void>} QueueHandle 
  * @param {Pointer<SP_BACKUP_QUEUE_PARAMS_V2_A>} BackupParams 
  * @returns {BOOL} 
  */
 export SetupGetBackupInformationA(QueueHandle, BackupParams) {
-    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : "ptr"
+    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : IntPtr
 
     result := DllCall("SETUPAPI.dll\SetupGetBackupInformationA", QueueHandleMarshal, QueueHandle, SP_BACKUP_QUEUE_PARAMS_V2_A.Ptr, BackupParams, BOOL)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} QueueHandle 
  * @param {Pointer<SP_BACKUP_QUEUE_PARAMS_V2_W>} BackupParams 
  * @returns {BOOL} 
  */
 export SetupGetBackupInformationW(QueueHandle, BackupParams) {
-    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : "ptr"
+    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : IntPtr
 
     result := DllCall("SETUPAPI.dll\SetupGetBackupInformationW", QueueHandleMarshal, QueueHandle, SP_BACKUP_QUEUE_PARAMS_V2_W.Ptr, BackupParams, BOOL)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} QueueHandle 
  * @param {PSTR} BackupPath 
  * @param {Integer} RestoreFlags 
@@ -9128,14 +9407,13 @@ export SetupGetBackupInformationW(QueueHandle, BackupParams) {
 export SetupPrepareQueueForRestoreA(QueueHandle, BackupPath, RestoreFlags) {
     BackupPath := BackupPath is String ? StrPtr(BackupPath) : BackupPath
 
-    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : "ptr"
+    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : IntPtr
 
     result := DllCall("SETUPAPI.dll\SetupPrepareQueueForRestoreA", QueueHandleMarshal, QueueHandle, "ptr", BackupPath, UInt32, RestoreFlags, BOOL)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} QueueHandle 
  * @param {PWSTR} BackupPath 
  * @param {Integer} RestoreFlags 
@@ -9144,7 +9422,7 @@ export SetupPrepareQueueForRestoreA(QueueHandle, BackupPath, RestoreFlags) {
 export SetupPrepareQueueForRestoreW(QueueHandle, BackupPath, RestoreFlags) {
     BackupPath := BackupPath is String ? StrPtr(BackupPath) : BackupPath
 
-    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : "ptr"
+    QueueHandleMarshal := QueueHandle is VarRef ? "ptr" : IntPtr
 
     result := DllCall("SETUPAPI.dll\SetupPrepareQueueForRestoreW", QueueHandleMarshal, QueueHandle, "ptr", BackupPath, UInt32, RestoreFlags, BOOL)
     return result
@@ -9194,9 +9472,12 @@ export SetupGetNonInteractiveMode() {
  * @since windows5.0
  */
 export SetupDiCreateDeviceInfoList(ClassGuid, hwndParent) {
+    ClassGuidMarshal := ClassGuid == 0 ? IntPtr : Guid.Ptr
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiCreateDeviceInfoList", Guid.Ptr, ClassGuid, HWND, hwndParent, HDEVINFO.Owned)
+    result := DllCall("SETUPAPI.dll\SetupDiCreateDeviceInfoList", ClassGuidMarshal, ClassGuid, hwndParentMarshal, hwndParent, HDEVINFO.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9232,9 +9513,13 @@ export SetupDiCreateDeviceInfoListExA(ClassGuid, hwndParent, MachineName) {
 
     MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
 
+    ClassGuidMarshal := ClassGuid == 0 ? IntPtr : Guid.Ptr
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+    MachineNameMarshal := MachineName == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiCreateDeviceInfoListExA", Guid.Ptr, ClassGuid, HWND, hwndParent, "ptr", MachineName, "ptr", Reserved, HDEVINFO.Owned)
+    result := DllCall("SETUPAPI.dll\SetupDiCreateDeviceInfoListExA", ClassGuidMarshal, ClassGuid, hwndParentMarshal, hwndParent, MachineNameMarshal, MachineName, "ptr", Reserved, HDEVINFO.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9270,9 +9555,13 @@ export SetupDiCreateDeviceInfoListExW(ClassGuid, hwndParent, MachineName) {
 
     MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
 
+    ClassGuidMarshal := ClassGuid == 0 ? IntPtr : Guid.Ptr
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+    MachineNameMarshal := MachineName == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiCreateDeviceInfoListExW", Guid.Ptr, ClassGuid, HWND, hwndParent, "ptr", MachineName, "ptr", Reserved, HDEVINFO.Owned)
+    result := DllCall("SETUPAPI.dll\SetupDiCreateDeviceInfoListExW", ClassGuidMarshal, ClassGuid, hwndParentMarshal, hwndParent, MachineNameMarshal, MachineName, "ptr", Reserved, HDEVINFO.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9409,9 +9698,13 @@ export SetupDiCreateDeviceInfoA(DeviceInfoSet, DeviceName, ClassGuid, DeviceDesc
     DeviceName := DeviceName is String ? StrPtr(DeviceName) : DeviceName
     DeviceDescription := DeviceDescription is String ? StrPtr(DeviceDescription) : DeviceDescription
 
+    DeviceDescriptionMarshal := DeviceDescription == 0 ? IntPtr : PSTR
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiCreateDeviceInfoA", HDEVINFO, DeviceInfoSet, "ptr", DeviceName, Guid.Ptr, ClassGuid, "ptr", DeviceDescription, HWND, hwndParent, SETUP_DI_DEVICE_CREATION_FLAGS, CreationFlags, SP_DEVINFO_DATA.Ptr, DeviceInfoData, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiCreateDeviceInfoA", HDEVINFO, DeviceInfoSet, "ptr", DeviceName, Guid.Ptr, ClassGuid, DeviceDescriptionMarshal, DeviceDescription, hwndParentMarshal, hwndParent, SETUP_DI_DEVICE_CREATION_FLAGS, CreationFlags, DeviceInfoDataMarshal, DeviceInfoData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9453,9 +9746,13 @@ export SetupDiCreateDeviceInfoW(DeviceInfoSet, DeviceName, ClassGuid, DeviceDesc
     DeviceName := DeviceName is String ? StrPtr(DeviceName) : DeviceName
     DeviceDescription := DeviceDescription is String ? StrPtr(DeviceDescription) : DeviceDescription
 
+    DeviceDescriptionMarshal := DeviceDescription == 0 ? IntPtr : PWSTR
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiCreateDeviceInfoW", HDEVINFO, DeviceInfoSet, "ptr", DeviceName, Guid.Ptr, ClassGuid, "ptr", DeviceDescription, HWND, hwndParent, SETUP_DI_DEVICE_CREATION_FLAGS, CreationFlags, SP_DEVINFO_DATA.Ptr, DeviceInfoData, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiCreateDeviceInfoW", HDEVINFO, DeviceInfoSet, "ptr", DeviceName, Guid.Ptr, ClassGuid, DeviceDescriptionMarshal, DeviceDescription, hwndParentMarshal, hwndParent, SETUP_DI_DEVICE_CREATION_FLAGS, CreationFlags, DeviceInfoDataMarshal, DeviceInfoData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9488,9 +9785,12 @@ export SetupDiCreateDeviceInfoW(DeviceInfoSet, DeviceName, ClassGuid, DeviceDesc
 export SetupDiOpenDeviceInfoA(DeviceInfoSet, DeviceInstanceId, hwndParent, OpenFlags, DeviceInfoData) {
     DeviceInstanceId := DeviceInstanceId is String ? StrPtr(DeviceInstanceId) : DeviceInstanceId
 
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiOpenDeviceInfoA", HDEVINFO, DeviceInfoSet, "ptr", DeviceInstanceId, HWND, hwndParent, UInt32, OpenFlags, SP_DEVINFO_DATA.Ptr, DeviceInfoData, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiOpenDeviceInfoA", HDEVINFO, DeviceInfoSet, "ptr", DeviceInstanceId, hwndParentMarshal, hwndParent, UInt32, OpenFlags, DeviceInfoDataMarshal, DeviceInfoData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9523,9 +9823,12 @@ export SetupDiOpenDeviceInfoA(DeviceInfoSet, DeviceInstanceId, hwndParent, OpenF
 export SetupDiOpenDeviceInfoW(DeviceInfoSet, DeviceInstanceId, hwndParent, OpenFlags, DeviceInfoData) {
     DeviceInstanceId := DeviceInstanceId is String ? StrPtr(DeviceInstanceId) : DeviceInstanceId
 
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiOpenDeviceInfoW", HDEVINFO, DeviceInfoSet, "ptr", DeviceInstanceId, HWND, hwndParent, UInt32, OpenFlags, SP_DEVINFO_DATA.Ptr, DeviceInfoData, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiOpenDeviceInfoW", HDEVINFO, DeviceInfoSet, "ptr", DeviceInstanceId, hwndParentMarshal, hwndParent, UInt32, OpenFlags, DeviceInfoDataMarshal, DeviceInfoData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9550,11 +9853,13 @@ export SetupDiOpenDeviceInfoW(DeviceInfoSet, DeviceInstanceId, hwndParent, OpenF
 export SetupDiGetDeviceInstanceIdA(DeviceInfoSet, DeviceInfoData, DeviceInstanceId, DeviceInstanceIdSize, RequiredSize) {
     DeviceInstanceId := DeviceInstanceId is String ? StrPtr(DeviceInstanceId) : DeviceInstanceId
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    DeviceInstanceIdMarshal := DeviceInstanceId == 0 ? IntPtr : PSTR
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetDeviceInstanceIdA", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, "ptr", DeviceInstanceId, UInt32, DeviceInstanceIdSize, RequiredSizeMarshal, RequiredSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetDeviceInstanceIdA", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, DeviceInstanceIdMarshal, DeviceInstanceId, UInt32, DeviceInstanceIdSize, RequiredSizeMarshal, RequiredSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9579,11 +9884,13 @@ export SetupDiGetDeviceInstanceIdA(DeviceInfoSet, DeviceInfoData, DeviceInstance
 export SetupDiGetDeviceInstanceIdW(DeviceInfoSet, DeviceInfoData, DeviceInstanceId, DeviceInstanceIdSize, RequiredSize) {
     DeviceInstanceId := DeviceInstanceId is String ? StrPtr(DeviceInstanceId) : DeviceInstanceId
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    DeviceInstanceIdMarshal := DeviceInstanceId == 0 ? IntPtr : PWSTR
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetDeviceInstanceIdW", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, "ptr", DeviceInstanceId, UInt32, DeviceInstanceIdSize, RequiredSizeMarshal, RequiredSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetDeviceInstanceIdW", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, DeviceInstanceIdMarshal, DeviceInstanceId, UInt32, DeviceInstanceIdSize, RequiredSizeMarshal, RequiredSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9676,9 +9983,11 @@ export SetupDiDestroyDeviceInfoList(DeviceInfoSet) {
  * @since windows5.0
  */
 export SetupDiEnumDeviceInterfaces(DeviceInfoSet, DeviceInfoData, InterfaceClassGuid, MemberIndex, DeviceInterfaceData) {
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiEnumDeviceInterfaces", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, Guid.Ptr, InterfaceClassGuid, UInt32, MemberIndex, SP_DEVICE_INTERFACE_DATA.Ptr, DeviceInterfaceData, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiEnumDeviceInterfaces", HDEVINFO, DeviceInfoSet, DeviceInfoDataMarshal, DeviceInfoData, Guid.Ptr, InterfaceClassGuid, UInt32, MemberIndex, SP_DEVICE_INTERFACE_DATA.Ptr, DeviceInterfaceData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9720,9 +10029,12 @@ export SetupDiEnumDeviceInterfaces(DeviceInfoSet, DeviceInfoData, InterfaceClass
 export SetupDiCreateDeviceInterfaceA(DeviceInfoSet, DeviceInfoData, InterfaceClassGuid, ReferenceString, CreationFlags, DeviceInterfaceData) {
     ReferenceString := ReferenceString is String ? StrPtr(ReferenceString) : ReferenceString
 
+    ReferenceStringMarshal := ReferenceString == 0 ? IntPtr : PSTR
+    DeviceInterfaceDataMarshal := DeviceInterfaceData == 0 ? IntPtr : SP_DEVICE_INTERFACE_DATA.Ptr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiCreateDeviceInterfaceA", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, Guid.Ptr, InterfaceClassGuid, "ptr", ReferenceString, UInt32, CreationFlags, SP_DEVICE_INTERFACE_DATA.Ptr, DeviceInterfaceData, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiCreateDeviceInterfaceA", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, Guid.Ptr, InterfaceClassGuid, ReferenceStringMarshal, ReferenceString, UInt32, CreationFlags, DeviceInterfaceDataMarshal, DeviceInterfaceData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9764,9 +10076,12 @@ export SetupDiCreateDeviceInterfaceA(DeviceInfoSet, DeviceInfoData, InterfaceCla
 export SetupDiCreateDeviceInterfaceW(DeviceInfoSet, DeviceInfoData, InterfaceClassGuid, ReferenceString, CreationFlags, DeviceInterfaceData) {
     ReferenceString := ReferenceString is String ? StrPtr(ReferenceString) : ReferenceString
 
+    ReferenceStringMarshal := ReferenceString == 0 ? IntPtr : PWSTR
+    DeviceInterfaceDataMarshal := DeviceInterfaceData == 0 ? IntPtr : SP_DEVICE_INTERFACE_DATA.Ptr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiCreateDeviceInterfaceW", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, Guid.Ptr, InterfaceClassGuid, "ptr", ReferenceString, UInt32, CreationFlags, SP_DEVICE_INTERFACE_DATA.Ptr, DeviceInterfaceData, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiCreateDeviceInterfaceW", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, Guid.Ptr, InterfaceClassGuid, ReferenceStringMarshal, ReferenceString, UInt32, CreationFlags, DeviceInterfaceDataMarshal, DeviceInterfaceData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9807,9 +10122,11 @@ export SetupDiCreateDeviceInterfaceW(DeviceInfoSet, DeviceInfoData, InterfaceCla
 export SetupDiOpenDeviceInterfaceA(DeviceInfoSet, DevicePath, OpenFlags, DeviceInterfaceData) {
     DevicePath := DevicePath is String ? StrPtr(DevicePath) : DevicePath
 
+    DeviceInterfaceDataMarshal := DeviceInterfaceData == 0 ? IntPtr : SP_DEVICE_INTERFACE_DATA.Ptr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiOpenDeviceInterfaceA", HDEVINFO, DeviceInfoSet, "ptr", DevicePath, UInt32, OpenFlags, SP_DEVICE_INTERFACE_DATA.Ptr, DeviceInterfaceData, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiOpenDeviceInterfaceA", HDEVINFO, DeviceInfoSet, "ptr", DevicePath, UInt32, OpenFlags, DeviceInterfaceDataMarshal, DeviceInterfaceData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9850,9 +10167,11 @@ export SetupDiOpenDeviceInterfaceA(DeviceInfoSet, DevicePath, OpenFlags, DeviceI
 export SetupDiOpenDeviceInterfaceW(DeviceInfoSet, DevicePath, OpenFlags, DeviceInterfaceData) {
     DevicePath := DevicePath is String ? StrPtr(DevicePath) : DevicePath
 
+    DeviceInterfaceDataMarshal := DeviceInterfaceData == 0 ? IntPtr : SP_DEVICE_INTERFACE_DATA.Ptr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiOpenDeviceInterfaceW", HDEVINFO, DeviceInfoSet, "ptr", DevicePath, UInt32, OpenFlags, SP_DEVICE_INTERFACE_DATA.Ptr, DeviceInterfaceData, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiOpenDeviceInterfaceW", HDEVINFO, DeviceInfoSet, "ptr", DevicePath, UInt32, OpenFlags, DeviceInterfaceDataMarshal, DeviceInterfaceData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10020,11 +10339,14 @@ export SetupDiRemoveDeviceInterface(DeviceInfoSet, DeviceInterfaceData) {
  * @since windows5.0
  */
 export SetupDiGetDeviceInterfaceDetailA(DeviceInfoSet, DeviceInterfaceData, DeviceInterfaceDetailData, DeviceInterfaceDetailDataSize, RequiredSize, DeviceInfoData) {
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    DeviceInterfaceDetailDataMarshal := DeviceInterfaceDetailData == 0 ? IntPtr : IntPtr
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetDeviceInterfaceDetailA", HDEVINFO, DeviceInfoSet, SP_DEVICE_INTERFACE_DATA.Ptr, DeviceInterfaceData, IntPtr, DeviceInterfaceDetailData, UInt32, DeviceInterfaceDetailDataSize, RequiredSizeMarshal, RequiredSize, SP_DEVINFO_DATA.Ptr, DeviceInfoData, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetDeviceInterfaceDetailA", HDEVINFO, DeviceInfoSet, SP_DEVICE_INTERFACE_DATA.Ptr, DeviceInterfaceData, DeviceInterfaceDetailDataMarshal, DeviceInterfaceDetailData, UInt32, DeviceInterfaceDetailDataSize, RequiredSizeMarshal, RequiredSize, DeviceInfoDataMarshal, DeviceInfoData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10070,11 +10392,14 @@ export SetupDiGetDeviceInterfaceDetailA(DeviceInfoSet, DeviceInterfaceData, Devi
  * @since windows5.0
  */
 export SetupDiGetDeviceInterfaceDetailW(DeviceInfoSet, DeviceInterfaceData, DeviceInterfaceDetailData, DeviceInterfaceDetailDataSize, RequiredSize, DeviceInfoData) {
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    DeviceInterfaceDetailDataMarshal := DeviceInterfaceDetailData == 0 ? IntPtr : IntPtr
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetDeviceInterfaceDetailW", HDEVINFO, DeviceInfoSet, SP_DEVICE_INTERFACE_DATA.Ptr, DeviceInterfaceData, IntPtr, DeviceInterfaceDetailData, UInt32, DeviceInterfaceDetailDataSize, RequiredSizeMarshal, RequiredSize, SP_DEVINFO_DATA.Ptr, DeviceInfoData, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetDeviceInterfaceDetailW", HDEVINFO, DeviceInfoSet, SP_DEVICE_INTERFACE_DATA.Ptr, DeviceInterfaceData, DeviceInterfaceDetailDataMarshal, DeviceInterfaceDetailData, UInt32, DeviceInterfaceDetailDataSize, RequiredSizeMarshal, RequiredSize, DeviceInfoDataMarshal, DeviceInfoData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10200,11 +10525,14 @@ export SetupDiSetDeviceInterfaceDefault(DeviceInfoSet, DeviceInterfaceData, Flag
  * @since windows5.0
  */
 export SetupDiRegisterDeviceInfo(DeviceInfoSet, DeviceInfoData, Flags, CompareProc, CompareContext, DupDeviceInfoData) {
-    CompareContextMarshal := CompareContext is VarRef ? "ptr" : "ptr"
+    CompareProcMarshal := CompareProc == 0 ? IntPtr : PSP_DETSIG_CMPPROC
+    CompareContextMarshal := CompareContext is VarRef ? "ptr" : IntPtr
+    CompareContextMarshal := CompareContext == 0 ? IntPtr : "ptr"
+    DupDeviceInfoDataMarshal := DupDeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiRegisterDeviceInfo", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, UInt32, Flags, PSP_DETSIG_CMPPROC, CompareProc, CompareContextMarshal, CompareContext, SP_DEVINFO_DATA.Ptr, DupDeviceInfoData, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiRegisterDeviceInfo", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, UInt32, Flags, CompareProcMarshal, CompareProc, CompareContextMarshal, CompareContext, DupDeviceInfoDataMarshal, DupDeviceInfoData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10240,9 +10568,11 @@ export SetupDiRegisterDeviceInfo(DeviceInfoSet, DeviceInfoData, Flags, ComparePr
  * @since windows5.0
  */
 export SetupDiBuildDriverInfoList(DeviceInfoSet, DeviceInfoData, DriverType) {
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiBuildDriverInfoList", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, SETUP_DI_DRIVER_TYPE, DriverType, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiBuildDriverInfoList", HDEVINFO, DeviceInfoSet, DeviceInfoDataMarshal, DeviceInfoData, SETUP_DI_DRIVER_TYPE, DriverType, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10295,9 +10625,11 @@ export SetupDiCancelDriverInfoSearch(DeviceInfoSet) {
  * @since windows5.0
  */
 export SetupDiEnumDriverInfoA(DeviceInfoSet, DeviceInfoData, DriverType, MemberIndex, DriverInfoData) {
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiEnumDriverInfoA", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, SETUP_DI_DRIVER_TYPE, DriverType, UInt32, MemberIndex, SP_DRVINFO_DATA_V2_A.Ptr, DriverInfoData, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiEnumDriverInfoA", HDEVINFO, DeviceInfoSet, DeviceInfoDataMarshal, DeviceInfoData, SETUP_DI_DRIVER_TYPE, DriverType, UInt32, MemberIndex, SP_DRVINFO_DATA_V2_A.Ptr, DriverInfoData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10330,9 +10662,11 @@ export SetupDiEnumDriverInfoA(DeviceInfoSet, DeviceInfoData, DriverType, MemberI
  * @since windows5.0
  */
 export SetupDiEnumDriverInfoW(DeviceInfoSet, DeviceInfoData, DriverType, MemberIndex, DriverInfoData) {
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiEnumDriverInfoW", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, SETUP_DI_DRIVER_TYPE, DriverType, UInt32, MemberIndex, SP_DRVINFO_DATA_V2_W.Ptr, DriverInfoData, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiEnumDriverInfoW", HDEVINFO, DeviceInfoSet, DeviceInfoDataMarshal, DeviceInfoData, SETUP_DI_DRIVER_TYPE, DriverType, UInt32, MemberIndex, SP_DRVINFO_DATA_V2_W.Ptr, DriverInfoData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10353,9 +10687,11 @@ export SetupDiEnumDriverInfoW(DeviceInfoSet, DeviceInfoData, DriverType, MemberI
  * @since windows5.0
  */
 export SetupDiGetSelectedDriverA(DeviceInfoSet, DeviceInfoData, DriverInfoData) {
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetSelectedDriverA", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, SP_DRVINFO_DATA_V2_A.Ptr, DriverInfoData, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetSelectedDriverA", HDEVINFO, DeviceInfoSet, DeviceInfoDataMarshal, DeviceInfoData, SP_DRVINFO_DATA_V2_A.Ptr, DriverInfoData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10376,9 +10712,11 @@ export SetupDiGetSelectedDriverA(DeviceInfoSet, DeviceInfoData, DriverInfoData) 
  * @since windows5.0
  */
 export SetupDiGetSelectedDriverW(DeviceInfoSet, DeviceInfoData, DriverInfoData) {
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetSelectedDriverW", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, SP_DRVINFO_DATA_V2_W.Ptr, DriverInfoData, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetSelectedDriverW", HDEVINFO, DeviceInfoSet, DeviceInfoDataMarshal, DeviceInfoData, SP_DRVINFO_DATA_V2_W.Ptr, DriverInfoData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10409,9 +10747,12 @@ export SetupDiGetSelectedDriverW(DeviceInfoSet, DeviceInfoData, DriverInfoData) 
  * @since windows5.0
  */
 export SetupDiSetSelectedDriverA(DeviceInfoSet, DeviceInfoData, DriverInfoData) {
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
+    DriverInfoDataMarshal := DriverInfoData == 0 ? IntPtr : SP_DRVINFO_DATA_V2_A.Ptr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiSetSelectedDriverA", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, SP_DRVINFO_DATA_V2_A.Ptr, DriverInfoData, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiSetSelectedDriverA", HDEVINFO, DeviceInfoSet, DeviceInfoDataMarshal, DeviceInfoData, DriverInfoDataMarshal, DriverInfoData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10442,9 +10783,12 @@ export SetupDiSetSelectedDriverA(DeviceInfoSet, DeviceInfoData, DriverInfoData) 
  * @since windows5.0
  */
 export SetupDiSetSelectedDriverW(DeviceInfoSet, DeviceInfoData, DriverInfoData) {
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
+    DriverInfoDataMarshal := DriverInfoData == 0 ? IntPtr : SP_DRVINFO_DATA_V2_W.Ptr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiSetSelectedDriverW", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, SP_DRVINFO_DATA_V2_W.Ptr, DriverInfoData, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiSetSelectedDriverW", HDEVINFO, DeviceInfoSet, DeviceInfoDataMarshal, DeviceInfoData, DriverInfoDataMarshal, DriverInfoData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10477,11 +10821,14 @@ export SetupDiSetSelectedDriverW(DeviceInfoSet, DeviceInfoData, DriverInfoData) 
  * @since windows5.0
  */
 export SetupDiGetDriverInfoDetailA(DeviceInfoSet, DeviceInfoData, DriverInfoData, DriverInfoDetailData, DriverInfoDetailDataSize, RequiredSize) {
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
+    DriverInfoDetailDataMarshal := DriverInfoDetailData == 0 ? IntPtr : IntPtr
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetDriverInfoDetailA", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, SP_DRVINFO_DATA_V2_A.Ptr, DriverInfoData, IntPtr, DriverInfoDetailData, UInt32, DriverInfoDetailDataSize, RequiredSizeMarshal, RequiredSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetDriverInfoDetailA", HDEVINFO, DeviceInfoSet, DeviceInfoDataMarshal, DeviceInfoData, SP_DRVINFO_DATA_V2_A.Ptr, DriverInfoData, DriverInfoDetailDataMarshal, DriverInfoDetailData, UInt32, DriverInfoDetailDataSize, RequiredSizeMarshal, RequiredSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10514,11 +10861,14 @@ export SetupDiGetDriverInfoDetailA(DeviceInfoSet, DeviceInfoData, DriverInfoData
  * @since windows5.0
  */
 export SetupDiGetDriverInfoDetailW(DeviceInfoSet, DeviceInfoData, DriverInfoData, DriverInfoDetailData, DriverInfoDetailDataSize, RequiredSize) {
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
+    DriverInfoDetailDataMarshal := DriverInfoDetailData == 0 ? IntPtr : IntPtr
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetDriverInfoDetailW", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, SP_DRVINFO_DATA_V2_W.Ptr, DriverInfoData, IntPtr, DriverInfoDetailData, UInt32, DriverInfoDetailDataSize, RequiredSizeMarshal, RequiredSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetDriverInfoDetailW", HDEVINFO, DeviceInfoSet, DeviceInfoDataMarshal, DeviceInfoData, SP_DRVINFO_DATA_V2_W.Ptr, DriverInfoData, DriverInfoDetailDataMarshal, DriverInfoDetailData, UInt32, DriverInfoDetailDataSize, RequiredSizeMarshal, RequiredSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10542,9 +10892,11 @@ export SetupDiGetDriverInfoDetailW(DeviceInfoSet, DeviceInfoData, DriverInfoData
  * @since windows5.0
  */
 export SetupDiDestroyDriverInfoList(DeviceInfoSet, DeviceInfoData, DriverType) {
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiDestroyDriverInfoList", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, SETUP_DI_DRIVER_TYPE, DriverType, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiDestroyDriverInfoList", HDEVINFO, DeviceInfoSet, DeviceInfoDataMarshal, DeviceInfoData, SETUP_DI_DRIVER_TYPE, DriverType, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10654,9 +11006,13 @@ export SetupDiDestroyDriverInfoList(DeviceInfoSet, DeviceInfoData, DriverType) {
 export SetupDiGetClassDevsA(ClassGuid, _Enumerator, hwndParent, Flags) {
     _Enumerator := _Enumerator is String ? StrPtr(_Enumerator) : _Enumerator
 
+    ClassGuidMarshal := ClassGuid == 0 ? IntPtr : Guid.Ptr
+    _EnumeratorMarshal := _Enumerator == 0 ? IntPtr : PSTR
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetClassDevsA", Guid.Ptr, ClassGuid, "ptr", _Enumerator, HWND, hwndParent, SETUP_DI_GET_CLASS_DEVS_FLAGS, Flags, HDEVINFO.Owned)
+    result := DllCall("SETUPAPI.dll\SetupDiGetClassDevsA", ClassGuidMarshal, ClassGuid, _EnumeratorMarshal, _Enumerator, hwndParentMarshal, hwndParent, SETUP_DI_GET_CLASS_DEVS_FLAGS, Flags, HDEVINFO.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10766,9 +11122,13 @@ export SetupDiGetClassDevsA(ClassGuid, _Enumerator, hwndParent, Flags) {
 export SetupDiGetClassDevsW(ClassGuid, _Enumerator, hwndParent, Flags) {
     _Enumerator := _Enumerator is String ? StrPtr(_Enumerator) : _Enumerator
 
+    ClassGuidMarshal := ClassGuid == 0 ? IntPtr : Guid.Ptr
+    _EnumeratorMarshal := _Enumerator == 0 ? IntPtr : PWSTR
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetClassDevsW", Guid.Ptr, ClassGuid, "ptr", _Enumerator, HWND, hwndParent, SETUP_DI_GET_CLASS_DEVS_FLAGS, Flags, HDEVINFO.Owned)
+    result := DllCall("SETUPAPI.dll\SetupDiGetClassDevsW", ClassGuidMarshal, ClassGuid, _EnumeratorMarshal, _Enumerator, hwndParentMarshal, hwndParent, SETUP_DI_GET_CLASS_DEVS_FLAGS, Flags, HDEVINFO.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10912,9 +11272,15 @@ export SetupDiGetClassDevsExA(ClassGuid, _Enumerator, hwndParent, Flags, DeviceI
     _Enumerator := _Enumerator is String ? StrPtr(_Enumerator) : _Enumerator
     MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
 
+    ClassGuidMarshal := ClassGuid == 0 ? IntPtr : Guid.Ptr
+    _EnumeratorMarshal := _Enumerator == 0 ? IntPtr : PSTR
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+    DeviceInfoSetMarshal := DeviceInfoSet == 0 ? IntPtr : HDEVINFO
+    MachineNameMarshal := MachineName == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetClassDevsExA", Guid.Ptr, ClassGuid, "ptr", _Enumerator, HWND, hwndParent, SETUP_DI_GET_CLASS_DEVS_FLAGS, Flags, HDEVINFO, DeviceInfoSet, "ptr", MachineName, "ptr", Reserved, HDEVINFO.Owned)
+    result := DllCall("SETUPAPI.dll\SetupDiGetClassDevsExA", ClassGuidMarshal, ClassGuid, _EnumeratorMarshal, _Enumerator, hwndParentMarshal, hwndParent, SETUP_DI_GET_CLASS_DEVS_FLAGS, Flags, DeviceInfoSetMarshal, DeviceInfoSet, MachineNameMarshal, MachineName, "ptr", Reserved, HDEVINFO.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -11058,9 +11424,15 @@ export SetupDiGetClassDevsExW(ClassGuid, _Enumerator, hwndParent, Flags, DeviceI
     _Enumerator := _Enumerator is String ? StrPtr(_Enumerator) : _Enumerator
     MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
 
+    ClassGuidMarshal := ClassGuid == 0 ? IntPtr : Guid.Ptr
+    _EnumeratorMarshal := _Enumerator == 0 ? IntPtr : PWSTR
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+    DeviceInfoSetMarshal := DeviceInfoSet == 0 ? IntPtr : HDEVINFO
+    MachineNameMarshal := MachineName == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetClassDevsExW", Guid.Ptr, ClassGuid, "ptr", _Enumerator, HWND, hwndParent, SETUP_DI_GET_CLASS_DEVS_FLAGS, Flags, HDEVINFO, DeviceInfoSet, "ptr", MachineName, "ptr", Reserved, HDEVINFO.Owned)
+    result := DllCall("SETUPAPI.dll\SetupDiGetClassDevsExW", ClassGuidMarshal, ClassGuid, _EnumeratorMarshal, _Enumerator, hwndParentMarshal, hwndParent, SETUP_DI_GET_CLASS_DEVS_FLAGS, Flags, DeviceInfoSetMarshal, DeviceInfoSet, MachineNameMarshal, MachineName, "ptr", Reserved, HDEVINFO.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -11092,7 +11464,8 @@ export SetupDiGetINFClassA(InfName, ClassGuid, ClassName, ClassNameSize, Require
     InfName := InfName is String ? StrPtr(InfName) : InfName
     ClassName := ClassName is String ? StrPtr(ClassName) : ClassName
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
@@ -11128,7 +11501,8 @@ export SetupDiGetINFClassW(InfName, ClassGuid, ClassName, ClassNameSize, Require
     InfName := InfName is String ? StrPtr(InfName) : InfName
     ClassName := ClassName is String ? StrPtr(ClassName) : ClassName
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
@@ -11159,11 +11533,12 @@ export SetupDiGetINFClassW(InfName, ClassGuid, ClassName, ClassNameSize, Require
  * @since windows5.0
  */
 export SetupDiBuildClassInfoList(Flags, ClassGuidList, ClassGuidListSize, RequiredSize) {
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    ClassGuidListMarshal := ClassGuidList == 0 ? IntPtr : Guid.Ptr
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiBuildClassInfoList", UInt32, Flags, Guid.Ptr, ClassGuidList, UInt32, ClassGuidListSize, RequiredSizeMarshal, RequiredSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiBuildClassInfoList", UInt32, Flags, ClassGuidListMarshal, ClassGuidList, UInt32, ClassGuidListSize, RequiredSizeMarshal, RequiredSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -11193,11 +11568,13 @@ export SetupDiBuildClassInfoListExA(Flags, ClassGuidList, ClassGuidListSize, Req
 
     MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    ClassGuidListMarshal := ClassGuidList == 0 ? IntPtr : Guid.Ptr
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    MachineNameMarshal := MachineName == 0 ? IntPtr : PSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiBuildClassInfoListExA", UInt32, Flags, Guid.Ptr, ClassGuidList, UInt32, ClassGuidListSize, RequiredSizeMarshal, RequiredSize, "ptr", MachineName, "ptr", Reserved, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiBuildClassInfoListExA", UInt32, Flags, ClassGuidListMarshal, ClassGuidList, UInt32, ClassGuidListSize, RequiredSizeMarshal, RequiredSize, MachineNameMarshal, MachineName, "ptr", Reserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -11227,11 +11604,13 @@ export SetupDiBuildClassInfoListExW(Flags, ClassGuidList, ClassGuidListSize, Req
 
     MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    ClassGuidListMarshal := ClassGuidList == 0 ? IntPtr : Guid.Ptr
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    MachineNameMarshal := MachineName == 0 ? IntPtr : PWSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiBuildClassInfoListExW", UInt32, Flags, Guid.Ptr, ClassGuidList, UInt32, ClassGuidListSize, RequiredSizeMarshal, RequiredSize, "ptr", MachineName, "ptr", Reserved, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiBuildClassInfoListExW", UInt32, Flags, ClassGuidListMarshal, ClassGuidList, UInt32, ClassGuidListSize, RequiredSizeMarshal, RequiredSize, MachineNameMarshal, MachineName, "ptr", Reserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -11261,7 +11640,8 @@ export SetupDiBuildClassInfoListExW(Flags, ClassGuidList, ClassGuidListSize, Req
 export SetupDiGetClassDescriptionA(ClassGuid, ClassDescription, ClassDescriptionSize, RequiredSize) {
     ClassDescription := ClassDescription is String ? StrPtr(ClassDescription) : ClassDescription
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
@@ -11295,7 +11675,8 @@ export SetupDiGetClassDescriptionA(ClassGuid, ClassDescription, ClassDescription
 export SetupDiGetClassDescriptionW(ClassGuid, ClassDescription, ClassDescriptionSize, RequiredSize) {
     ClassDescription := ClassDescription is String ? StrPtr(ClassDescription) : ClassDescription
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
@@ -11338,11 +11719,13 @@ export SetupDiGetClassDescriptionExA(ClassGuid, ClassDescription, ClassDescripti
     ClassDescription := ClassDescription is String ? StrPtr(ClassDescription) : ClassDescription
     MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
+    MachineNameMarshal := MachineName == 0 ? IntPtr : PSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetClassDescriptionExA", Guid.Ptr, ClassGuid, "ptr", ClassDescription, UInt32, ClassDescriptionSize, RequiredSizeMarshal, RequiredSize, "ptr", MachineName, "ptr", Reserved, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetClassDescriptionExA", Guid.Ptr, ClassGuid, "ptr", ClassDescription, UInt32, ClassDescriptionSize, RequiredSizeMarshal, RequiredSize, MachineNameMarshal, MachineName, "ptr", Reserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -11378,11 +11761,13 @@ export SetupDiGetClassDescriptionExW(ClassGuid, ClassDescription, ClassDescripti
     ClassDescription := ClassDescription is String ? StrPtr(ClassDescription) : ClassDescription
     MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
+    MachineNameMarshal := MachineName == 0 ? IntPtr : PWSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetClassDescriptionExW", Guid.Ptr, ClassGuid, "ptr", ClassDescription, UInt32, ClassDescriptionSize, RequiredSizeMarshal, RequiredSize, "ptr", MachineName, "ptr", Reserved, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetClassDescriptionExW", Guid.Ptr, ClassGuid, "ptr", ClassDescription, UInt32, ClassDescriptionSize, RequiredSizeMarshal, RequiredSize, MachineNameMarshal, MachineName, "ptr", Reserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -11436,9 +11821,11 @@ export SetupDiGetClassDescriptionExW(ClassGuid, ClassDescription, ClassDescripti
  * @since windows5.0
  */
 export SetupDiCallClassInstaller(InstallFunction, DeviceInfoSet, DeviceInfoData) {
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiCallClassInstaller", DI_FUNCTION, InstallFunction, HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiCallClassInstaller", DI_FUNCTION, InstallFunction, HDEVINFO, DeviceInfoSet, DeviceInfoDataMarshal, DeviceInfoData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -11461,9 +11848,11 @@ export SetupDiCallClassInstaller(InstallFunction, DeviceInfoSet, DeviceInfoData)
  * @since windows5.0
  */
 export SetupDiSelectDevice(DeviceInfoSet, DeviceInfoData) {
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiSelectDevice", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiSelectDevice", HDEVINFO, DeviceInfoSet, DeviceInfoDataMarshal, DeviceInfoData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -11490,9 +11879,11 @@ export SetupDiSelectDevice(DeviceInfoSet, DeviceInfoData) {
  * @since windows5.0
  */
 export SetupDiSelectBestCompatDrv(DeviceInfoSet, DeviceInfoData) {
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiSelectBestCompatDrv", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiSelectBestCompatDrv", HDEVINFO, DeviceInfoSet, DeviceInfoDataMarshal, DeviceInfoData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -11811,11 +12202,13 @@ export SetupDiChangeState(DeviceInfoSet, DeviceInfoData) {
 export SetupDiInstallClassA(hwndParent, InfFileName, Flags, FileQueue) {
     InfFileName := InfFileName is String ? StrPtr(InfFileName) : InfFileName
 
-    FileQueueMarshal := FileQueue is VarRef ? "ptr" : "ptr"
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+    FileQueueMarshal := FileQueue is VarRef ? "ptr" : IntPtr
+    FileQueueMarshal := FileQueue == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiInstallClassA", HWND, hwndParent, "ptr", InfFileName, UInt32, Flags, FileQueueMarshal, FileQueue, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiInstallClassA", hwndParentMarshal, hwndParent, "ptr", InfFileName, UInt32, Flags, FileQueueMarshal, FileQueue, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -11849,11 +12242,13 @@ export SetupDiInstallClassA(hwndParent, InfFileName, Flags, FileQueue) {
 export SetupDiInstallClassW(hwndParent, InfFileName, Flags, FileQueue) {
     InfFileName := InfFileName is String ? StrPtr(InfFileName) : InfFileName
 
-    FileQueueMarshal := FileQueue is VarRef ? "ptr" : "ptr"
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+    FileQueueMarshal := FileQueue is VarRef ? "ptr" : IntPtr
+    FileQueueMarshal := FileQueue == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiInstallClassW", HWND, hwndParent, "ptr", InfFileName, UInt32, Flags, FileQueueMarshal, FileQueue, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiInstallClassW", hwndParentMarshal, hwndParent, "ptr", InfFileName, UInt32, Flags, FileQueueMarshal, FileQueue, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -11892,11 +12287,15 @@ export SetupDiInstallClassExA(hwndParent, InfFileName, Flags, FileQueue, Interfa
 
     InfFileName := InfFileName is String ? StrPtr(InfFileName) : InfFileName
 
-    FileQueueMarshal := FileQueue is VarRef ? "ptr" : "ptr"
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+    InfFileNameMarshal := InfFileName == 0 ? IntPtr : PSTR
+    FileQueueMarshal := FileQueue is VarRef ? "ptr" : IntPtr
+    FileQueueMarshal := FileQueue == 0 ? IntPtr : "ptr"
+    InterfaceClassGuidMarshal := InterfaceClassGuid == 0 ? IntPtr : Guid.Ptr
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiInstallClassExA", HWND, hwndParent, "ptr", InfFileName, UInt32, Flags, FileQueueMarshal, FileQueue, Guid.Ptr, InterfaceClassGuid, "ptr", Reserved1, "ptr", Reserved2, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiInstallClassExA", hwndParentMarshal, hwndParent, InfFileNameMarshal, InfFileName, UInt32, Flags, FileQueueMarshal, FileQueue, InterfaceClassGuidMarshal, InterfaceClassGuid, "ptr", Reserved1, "ptr", Reserved2, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -11935,11 +12334,15 @@ export SetupDiInstallClassExW(hwndParent, InfFileName, Flags, FileQueue, Interfa
 
     InfFileName := InfFileName is String ? StrPtr(InfFileName) : InfFileName
 
-    FileQueueMarshal := FileQueue is VarRef ? "ptr" : "ptr"
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+    InfFileNameMarshal := InfFileName == 0 ? IntPtr : PWSTR
+    FileQueueMarshal := FileQueue is VarRef ? "ptr" : IntPtr
+    FileQueueMarshal := FileQueue == 0 ? IntPtr : "ptr"
+    InterfaceClassGuidMarshal := InterfaceClassGuid == 0 ? IntPtr : Guid.Ptr
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiInstallClassExW", HWND, hwndParent, "ptr", InfFileName, UInt32, Flags, FileQueueMarshal, FileQueue, Guid.Ptr, InterfaceClassGuid, "ptr", Reserved1, "ptr", Reserved2, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiInstallClassExW", hwndParentMarshal, hwndParent, InfFileNameMarshal, InfFileName, UInt32, Flags, FileQueueMarshal, FileQueue, InterfaceClassGuidMarshal, InterfaceClassGuid, "ptr", Reserved1, "ptr", Reserved2, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -11966,9 +12369,11 @@ export SetupDiInstallClassExW(hwndParent, InfFileName, Flags, FileQueue, Interfa
  * @since windows5.0
  */
 export SetupDiOpenClassRegKey(ClassGuid, samDesired) {
+    ClassGuidMarshal := ClassGuid == 0 ? IntPtr : Guid.Ptr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiOpenClassRegKey", Guid.Ptr, ClassGuid, UInt32, samDesired, HKEY.Owned)
+    result := DllCall("SETUPAPI.dll\SetupDiOpenClassRegKey", ClassGuidMarshal, ClassGuid, UInt32, samDesired, HKEY.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -12009,9 +12414,12 @@ export SetupDiOpenClassRegKeyExA(ClassGuid, samDesired, Flags, MachineName) {
 
     MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
 
+    ClassGuidMarshal := ClassGuid == 0 ? IntPtr : Guid.Ptr
+    MachineNameMarshal := MachineName == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiOpenClassRegKeyExA", Guid.Ptr, ClassGuid, UInt32, samDesired, UInt32, Flags, "ptr", MachineName, "ptr", Reserved, HKEY.Owned)
+    result := DllCall("SETUPAPI.dll\SetupDiOpenClassRegKeyExA", ClassGuidMarshal, ClassGuid, UInt32, samDesired, UInt32, Flags, MachineNameMarshal, MachineName, "ptr", Reserved, HKEY.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -12052,9 +12460,12 @@ export SetupDiOpenClassRegKeyExW(ClassGuid, samDesired, Flags, MachineName) {
 
     MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
 
+    ClassGuidMarshal := ClassGuid == 0 ? IntPtr : Guid.Ptr
+    MachineNameMarshal := MachineName == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiOpenClassRegKeyExW", Guid.Ptr, ClassGuid, UInt32, samDesired, UInt32, Flags, "ptr", MachineName, "ptr", Reserved, HKEY.Owned)
+    result := DllCall("SETUPAPI.dll\SetupDiOpenClassRegKeyExW", ClassGuidMarshal, ClassGuid, UInt32, samDesired, UInt32, Flags, MachineNameMarshal, MachineName, "ptr", Reserved, HKEY.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -12095,11 +12506,13 @@ export SetupDiCreateDeviceInterfaceRegKeyA(DeviceInfoSet, DeviceInterfaceData, s
 
     InfSectionName := InfSectionName is String ? StrPtr(InfSectionName) : InfSectionName
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    InfHandleMarshal := InfHandle == 0 ? IntPtr : "ptr"
+    InfSectionNameMarshal := InfSectionName == 0 ? IntPtr : PSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiCreateDeviceInterfaceRegKeyA", HDEVINFO, DeviceInfoSet, SP_DEVICE_INTERFACE_DATA.Ptr, DeviceInterfaceData, UInt32, Reserved, UInt32, samDesired, InfHandleMarshal, InfHandle, "ptr", InfSectionName, HKEY.Owned)
+    result := DllCall("SETUPAPI.dll\SetupDiCreateDeviceInterfaceRegKeyA", HDEVINFO, DeviceInfoSet, SP_DEVICE_INTERFACE_DATA.Ptr, DeviceInterfaceData, UInt32, Reserved, UInt32, samDesired, InfHandleMarshal, InfHandle, InfSectionNameMarshal, InfSectionName, HKEY.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -12140,11 +12553,13 @@ export SetupDiCreateDeviceInterfaceRegKeyW(DeviceInfoSet, DeviceInterfaceData, s
 
     InfSectionName := InfSectionName is String ? StrPtr(InfSectionName) : InfSectionName
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    InfHandleMarshal := InfHandle == 0 ? IntPtr : "ptr"
+    InfSectionNameMarshal := InfSectionName == 0 ? IntPtr : PWSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiCreateDeviceInterfaceRegKeyW", HDEVINFO, DeviceInfoSet, SP_DEVICE_INTERFACE_DATA.Ptr, DeviceInterfaceData, UInt32, Reserved, UInt32, samDesired, InfHandleMarshal, InfHandle, "ptr", InfSectionName, HKEY.Owned)
+    result := DllCall("SETUPAPI.dll\SetupDiCreateDeviceInterfaceRegKeyW", HDEVINFO, DeviceInfoSet, SP_DEVICE_INTERFACE_DATA.Ptr, DeviceInterfaceData, UInt32, Reserved, UInt32, samDesired, InfHandleMarshal, InfHandle, InfSectionNameMarshal, InfSectionName, HKEY.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -12240,11 +12655,13 @@ export SetupDiDeleteDeviceInterfaceRegKey(DeviceInfoSet, DeviceInterfaceData) {
 export SetupDiCreateDevRegKeyA(DeviceInfoSet, DeviceInfoData, Scope, HwProfile, KeyType, InfHandle, InfSectionName) {
     InfSectionName := InfSectionName is String ? StrPtr(InfSectionName) : InfSectionName
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    InfHandleMarshal := InfHandle == 0 ? IntPtr : "ptr"
+    InfSectionNameMarshal := InfSectionName == 0 ? IntPtr : PSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiCreateDevRegKeyA", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, UInt32, Scope, UInt32, HwProfile, UInt32, KeyType, InfHandleMarshal, InfHandle, "ptr", InfSectionName, HKEY.Owned)
+    result := DllCall("SETUPAPI.dll\SetupDiCreateDevRegKeyA", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, UInt32, Scope, UInt32, HwProfile, UInt32, KeyType, InfHandleMarshal, InfHandle, InfSectionNameMarshal, InfSectionName, HKEY.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -12287,11 +12704,13 @@ export SetupDiCreateDevRegKeyA(DeviceInfoSet, DeviceInfoData, Scope, HwProfile, 
 export SetupDiCreateDevRegKeyW(DeviceInfoSet, DeviceInfoData, Scope, HwProfile, KeyType, InfHandle, InfSectionName) {
     InfSectionName := InfSectionName is String ? StrPtr(InfSectionName) : InfSectionName
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    InfHandleMarshal := InfHandle == 0 ? IntPtr : "ptr"
+    InfSectionNameMarshal := InfSectionName == 0 ? IntPtr : PWSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiCreateDevRegKeyW", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, UInt32, Scope, UInt32, HwProfile, UInt32, KeyType, InfHandleMarshal, InfHandle, "ptr", InfSectionName, HKEY.Owned)
+    result := DllCall("SETUPAPI.dll\SetupDiCreateDevRegKeyW", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, UInt32, Scope, UInt32, HwProfile, UInt32, KeyType, InfHandleMarshal, InfHandle, InfSectionNameMarshal, InfSectionName, HKEY.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -12384,9 +12803,10 @@ export SetupDiDeleteDevRegKey(DeviceInfoSet, DeviceInfoData, Scope, HwProfile, K
  * @since windows5.0
  */
 export SetupDiGetHwProfileList(HwProfileList, HwProfileListSize, RequiredSize, CurrentlyActiveIndex) {
-    HwProfileListMarshal := HwProfileList is VarRef ? "uint*" : "ptr"
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
-    CurrentlyActiveIndexMarshal := CurrentlyActiveIndex is VarRef ? "uint*" : "ptr"
+    HwProfileListMarshal := HwProfileList is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    CurrentlyActiveIndexMarshal := CurrentlyActiveIndex is VarRef ? "uint*" : IntPtr
+    CurrentlyActiveIndexMarshal := CurrentlyActiveIndex == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
@@ -12420,13 +12840,15 @@ export SetupDiGetHwProfileListExA(HwProfileList, HwProfileListSize, RequiredSize
 
     MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
 
-    HwProfileListMarshal := HwProfileList is VarRef ? "uint*" : "ptr"
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
-    CurrentlyActiveIndexMarshal := CurrentlyActiveIndex is VarRef ? "uint*" : "ptr"
+    HwProfileListMarshal := HwProfileList is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    CurrentlyActiveIndexMarshal := CurrentlyActiveIndex is VarRef ? "uint*" : IntPtr
+    CurrentlyActiveIndexMarshal := CurrentlyActiveIndex == 0 ? IntPtr : "uint*"
+    MachineNameMarshal := MachineName == 0 ? IntPtr : PSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetHwProfileListExA", HwProfileListMarshal, HwProfileList, UInt32, HwProfileListSize, RequiredSizeMarshal, RequiredSize, CurrentlyActiveIndexMarshal, CurrentlyActiveIndex, "ptr", MachineName, "ptr", Reserved, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetHwProfileListExA", HwProfileListMarshal, HwProfileList, UInt32, HwProfileListSize, RequiredSizeMarshal, RequiredSize, CurrentlyActiveIndexMarshal, CurrentlyActiveIndex, MachineNameMarshal, MachineName, "ptr", Reserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -12456,13 +12878,15 @@ export SetupDiGetHwProfileListExW(HwProfileList, HwProfileListSize, RequiredSize
 
     MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
 
-    HwProfileListMarshal := HwProfileList is VarRef ? "uint*" : "ptr"
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
-    CurrentlyActiveIndexMarshal := CurrentlyActiveIndex is VarRef ? "uint*" : "ptr"
+    HwProfileListMarshal := HwProfileList is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    CurrentlyActiveIndexMarshal := CurrentlyActiveIndex is VarRef ? "uint*" : IntPtr
+    CurrentlyActiveIndexMarshal := CurrentlyActiveIndex == 0 ? IntPtr : "uint*"
+    MachineNameMarshal := MachineName == 0 ? IntPtr : PWSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetHwProfileListExW", HwProfileListMarshal, HwProfileList, UInt32, HwProfileListSize, RequiredSizeMarshal, RequiredSize, CurrentlyActiveIndexMarshal, CurrentlyActiveIndex, "ptr", MachineName, "ptr", Reserved, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetHwProfileListExW", HwProfileListMarshal, HwProfileList, UInt32, HwProfileListSize, RequiredSizeMarshal, RequiredSize, CurrentlyActiveIndexMarshal, CurrentlyActiveIndex, MachineNameMarshal, MachineName, "ptr", Reserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -12587,11 +13011,13 @@ export SetupDiGetHwProfileListExW(HwProfileList, HwProfileListSize, RequiredSize
  * @since windows6.0.6000
  */
 export SetupDiGetDevicePropertyKeys(DeviceInfoSet, DeviceInfoData, PropertyKeyArray, PropertyKeyCount, RequiredPropertyKeyCount, Flags) {
-    RequiredPropertyKeyCountMarshal := RequiredPropertyKeyCount is VarRef ? "uint*" : "ptr"
+    PropertyKeyArrayMarshal := PropertyKeyArray == 0 ? IntPtr : DEVPROPKEY.Ptr
+    RequiredPropertyKeyCountMarshal := RequiredPropertyKeyCount is VarRef ? "uint*" : IntPtr
+    RequiredPropertyKeyCountMarshal := RequiredPropertyKeyCount == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetDevicePropertyKeys", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, DEVPROPKEY.Ptr, PropertyKeyArray, UInt32, PropertyKeyCount, RequiredPropertyKeyCountMarshal, RequiredPropertyKeyCount, UInt32, Flags, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetDevicePropertyKeys", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, PropertyKeyArrayMarshal, PropertyKeyArray, UInt32, PropertyKeyCount, RequiredPropertyKeyCountMarshal, RequiredPropertyKeyCount, UInt32, Flags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -12752,12 +13178,14 @@ export SetupDiGetDevicePropertyKeys(DeviceInfoSet, DeviceInfoData, PropertyKeyAr
  * @since windows6.0.6000
  */
 export SetupDiGetDevicePropertyW(DeviceInfoSet, DeviceInfoData, _PropertyKey, PropertyType, PropertyBuffer, PropertyBufferSize, RequiredSize, Flags) {
-    PropertyTypeMarshal := PropertyType is VarRef ? "uint*" : "ptr"
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    PropertyTypeMarshal := PropertyType is VarRef ? "uint*" : IntPtr
+    PropertyBufferMarshal := PropertyBuffer == 0 ? IntPtr : IntPtr
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetDevicePropertyW", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, DEVPROPKEY.Ptr, _PropertyKey, PropertyTypeMarshal, PropertyType, IntPtr, PropertyBuffer, UInt32, PropertyBufferSize, RequiredSizeMarshal, RequiredSize, UInt32, Flags, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetDevicePropertyW", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, DEVPROPKEY.Ptr, _PropertyKey, PropertyTypeMarshal, PropertyType, PropertyBufferMarshal, PropertyBuffer, UInt32, PropertyBufferSize, RequiredSizeMarshal, RequiredSize, UInt32, Flags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -12922,9 +13350,11 @@ export SetupDiGetDevicePropertyW(DeviceInfoSet, DeviceInfoData, _PropertyKey, Pr
  * @since windows6.0.6000
  */
 export SetupDiSetDevicePropertyW(DeviceInfoSet, DeviceInfoData, _PropertyKey, PropertyType, PropertyBuffer, PropertyBufferSize, Flags) {
+    PropertyBufferMarshal := PropertyBuffer == 0 ? IntPtr : IntPtr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiSetDevicePropertyW", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, DEVPROPKEY.Ptr, _PropertyKey, DEVPROPTYPE, PropertyType, IntPtr, PropertyBuffer, UInt32, PropertyBufferSize, UInt32, Flags, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiSetDevicePropertyW", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, DEVPROPKEY.Ptr, _PropertyKey, DEVPROPTYPE, PropertyType, PropertyBufferMarshal, PropertyBuffer, UInt32, PropertyBufferSize, UInt32, Flags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -13048,11 +13478,13 @@ export SetupDiSetDevicePropertyW(DeviceInfoSet, DeviceInfoData, _PropertyKey, Pr
  * @since windows6.0.6000
  */
 export SetupDiGetDeviceInterfacePropertyKeys(DeviceInfoSet, DeviceInterfaceData, PropertyKeyArray, PropertyKeyCount, RequiredPropertyKeyCount, Flags) {
-    RequiredPropertyKeyCountMarshal := RequiredPropertyKeyCount is VarRef ? "uint*" : "ptr"
+    PropertyKeyArrayMarshal := PropertyKeyArray == 0 ? IntPtr : DEVPROPKEY.Ptr
+    RequiredPropertyKeyCountMarshal := RequiredPropertyKeyCount is VarRef ? "uint*" : IntPtr
+    RequiredPropertyKeyCountMarshal := RequiredPropertyKeyCount == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetDeviceInterfacePropertyKeys", HDEVINFO, DeviceInfoSet, SP_DEVICE_INTERFACE_DATA.Ptr, DeviceInterfaceData, DEVPROPKEY.Ptr, PropertyKeyArray, UInt32, PropertyKeyCount, RequiredPropertyKeyCountMarshal, RequiredPropertyKeyCount, UInt32, Flags, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetDeviceInterfacePropertyKeys", HDEVINFO, DeviceInfoSet, SP_DEVICE_INTERFACE_DATA.Ptr, DeviceInterfaceData, PropertyKeyArrayMarshal, PropertyKeyArray, UInt32, PropertyKeyCount, RequiredPropertyKeyCountMarshal, RequiredPropertyKeyCount, UInt32, Flags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -13216,12 +13648,14 @@ export SetupDiGetDeviceInterfacePropertyKeys(DeviceInfoSet, DeviceInterfaceData,
  * @since windows6.0.6000
  */
 export SetupDiGetDeviceInterfacePropertyW(DeviceInfoSet, DeviceInterfaceData, _PropertyKey, PropertyType, PropertyBuffer, PropertyBufferSize, RequiredSize, Flags) {
-    PropertyTypeMarshal := PropertyType is VarRef ? "uint*" : "ptr"
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    PropertyTypeMarshal := PropertyType is VarRef ? "uint*" : IntPtr
+    PropertyBufferMarshal := PropertyBuffer == 0 ? IntPtr : IntPtr
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetDeviceInterfacePropertyW", HDEVINFO, DeviceInfoSet, SP_DEVICE_INTERFACE_DATA.Ptr, DeviceInterfaceData, DEVPROPKEY.Ptr, _PropertyKey, PropertyTypeMarshal, PropertyType, IntPtr, PropertyBuffer, UInt32, PropertyBufferSize, RequiredSizeMarshal, RequiredSize, UInt32, Flags, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetDeviceInterfacePropertyW", HDEVINFO, DeviceInfoSet, SP_DEVICE_INTERFACE_DATA.Ptr, DeviceInterfaceData, DEVPROPKEY.Ptr, _PropertyKey, PropertyTypeMarshal, PropertyType, PropertyBufferMarshal, PropertyBuffer, UInt32, PropertyBufferSize, RequiredSizeMarshal, RequiredSize, UInt32, Flags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -13386,9 +13820,11 @@ export SetupDiGetDeviceInterfacePropertyW(DeviceInfoSet, DeviceInterfaceData, _P
  * @since windows6.0.6000
  */
 export SetupDiSetDeviceInterfacePropertyW(DeviceInfoSet, DeviceInterfaceData, _PropertyKey, PropertyType, PropertyBuffer, PropertyBufferSize, Flags) {
+    PropertyBufferMarshal := PropertyBuffer == 0 ? IntPtr : IntPtr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiSetDeviceInterfacePropertyW", HDEVINFO, DeviceInfoSet, SP_DEVICE_INTERFACE_DATA.Ptr, DeviceInterfaceData, DEVPROPKEY.Ptr, _PropertyKey, DEVPROPTYPE, PropertyType, IntPtr, PropertyBuffer, UInt32, PropertyBufferSize, UInt32, Flags, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiSetDeviceInterfacePropertyW", HDEVINFO, DeviceInfoSet, SP_DEVICE_INTERFACE_DATA.Ptr, DeviceInterfaceData, DEVPROPKEY.Ptr, _PropertyKey, DEVPROPTYPE, PropertyType, PropertyBufferMarshal, PropertyBuffer, UInt32, PropertyBufferSize, UInt32, Flags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -13538,11 +13974,13 @@ export SetupDiSetDeviceInterfacePropertyW(DeviceInfoSet, DeviceInterfaceData, _P
  * @since windows6.0.6000
  */
 export SetupDiGetClassPropertyKeys(ClassGuid, PropertyKeyArray, PropertyKeyCount, RequiredPropertyKeyCount, Flags) {
-    RequiredPropertyKeyCountMarshal := RequiredPropertyKeyCount is VarRef ? "uint*" : "ptr"
+    PropertyKeyArrayMarshal := PropertyKeyArray == 0 ? IntPtr : DEVPROPKEY.Ptr
+    RequiredPropertyKeyCountMarshal := RequiredPropertyKeyCount is VarRef ? "uint*" : IntPtr
+    RequiredPropertyKeyCountMarshal := RequiredPropertyKeyCount == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetClassPropertyKeys", Guid.Ptr, ClassGuid, DEVPROPKEY.Ptr, PropertyKeyArray, UInt32, PropertyKeyCount, RequiredPropertyKeyCountMarshal, RequiredPropertyKeyCount, UInt32, Flags, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetClassPropertyKeys", Guid.Ptr, ClassGuid, PropertyKeyArrayMarshal, PropertyKeyArray, UInt32, PropertyKeyCount, RequiredPropertyKeyCountMarshal, RequiredPropertyKeyCount, UInt32, Flags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -13711,11 +14149,14 @@ export SetupDiGetClassPropertyKeysExW(ClassGuid, PropertyKeyArray, PropertyKeyCo
 
     MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
 
-    RequiredPropertyKeyCountMarshal := RequiredPropertyKeyCount is VarRef ? "uint*" : "ptr"
+    PropertyKeyArrayMarshal := PropertyKeyArray == 0 ? IntPtr : DEVPROPKEY.Ptr
+    RequiredPropertyKeyCountMarshal := RequiredPropertyKeyCount is VarRef ? "uint*" : IntPtr
+    RequiredPropertyKeyCountMarshal := RequiredPropertyKeyCount == 0 ? IntPtr : "uint*"
+    MachineNameMarshal := MachineName == 0 ? IntPtr : PWSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetClassPropertyKeysExW", Guid.Ptr, ClassGuid, DEVPROPKEY.Ptr, PropertyKeyArray, UInt32, PropertyKeyCount, RequiredPropertyKeyCountMarshal, RequiredPropertyKeyCount, UInt32, Flags, "ptr", MachineName, "ptr", Reserved, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetClassPropertyKeysExW", Guid.Ptr, ClassGuid, PropertyKeyArrayMarshal, PropertyKeyArray, UInt32, PropertyKeyCount, RequiredPropertyKeyCountMarshal, RequiredPropertyKeyCount, UInt32, Flags, MachineNameMarshal, MachineName, "ptr", Reserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -13891,12 +14332,14 @@ export SetupDiGetClassPropertyKeysExW(ClassGuid, PropertyKeyArray, PropertyKeyCo
  * @since windows6.0.6000
  */
 export SetupDiGetClassPropertyW(ClassGuid, _PropertyKey, PropertyType, PropertyBuffer, PropertyBufferSize, RequiredSize, Flags) {
-    PropertyTypeMarshal := PropertyType is VarRef ? "uint*" : "ptr"
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    PropertyTypeMarshal := PropertyType is VarRef ? "uint*" : IntPtr
+    PropertyBufferMarshal := PropertyBuffer == 0 ? IntPtr : IntPtr
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetClassPropertyW", Guid.Ptr, ClassGuid, DEVPROPKEY.Ptr, _PropertyKey, PropertyTypeMarshal, PropertyType, IntPtr, PropertyBuffer, UInt32, PropertyBufferSize, RequiredSizeMarshal, RequiredSize, UInt32, Flags, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetClassPropertyW", Guid.Ptr, ClassGuid, DEVPROPKEY.Ptr, _PropertyKey, PropertyTypeMarshal, PropertyType, PropertyBufferMarshal, PropertyBuffer, UInt32, PropertyBufferSize, RequiredSizeMarshal, RequiredSize, UInt32, Flags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14091,12 +14534,15 @@ export SetupDiGetClassPropertyExW(ClassGuid, _PropertyKey, PropertyType, Propert
 
     MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
 
-    PropertyTypeMarshal := PropertyType is VarRef ? "uint*" : "ptr"
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    PropertyTypeMarshal := PropertyType is VarRef ? "uint*" : IntPtr
+    PropertyBufferMarshal := PropertyBuffer == 0 ? IntPtr : IntPtr
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
+    MachineNameMarshal := MachineName == 0 ? IntPtr : PWSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetClassPropertyExW", Guid.Ptr, ClassGuid, DEVPROPKEY.Ptr, _PropertyKey, PropertyTypeMarshal, PropertyType, IntPtr, PropertyBuffer, UInt32, PropertyBufferSize, RequiredSizeMarshal, RequiredSize, UInt32, Flags, "ptr", MachineName, "ptr", Reserved, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetClassPropertyExW", Guid.Ptr, ClassGuid, DEVPROPKEY.Ptr, _PropertyKey, PropertyTypeMarshal, PropertyType, PropertyBufferMarshal, PropertyBuffer, UInt32, PropertyBufferSize, RequiredSizeMarshal, RequiredSize, UInt32, Flags, MachineNameMarshal, MachineName, "ptr", Reserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14262,9 +14708,11 @@ export SetupDiGetClassPropertyExW(ClassGuid, _PropertyKey, PropertyType, Propert
  * @since windows6.0.6000
  */
 export SetupDiSetClassPropertyW(ClassGuid, _PropertyKey, PropertyType, PropertyBuffer, PropertyBufferSize, Flags) {
+    PropertyBufferMarshal := PropertyBuffer == 0 ? IntPtr : IntPtr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiSetClassPropertyW", Guid.Ptr, ClassGuid, DEVPROPKEY.Ptr, _PropertyKey, DEVPROPTYPE, PropertyType, IntPtr, PropertyBuffer, UInt32, PropertyBufferSize, UInt32, Flags, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiSetClassPropertyW", Guid.Ptr, ClassGuid, DEVPROPKEY.Ptr, _PropertyKey, DEVPROPTYPE, PropertyType, PropertyBufferMarshal, PropertyBuffer, UInt32, PropertyBufferSize, UInt32, Flags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14449,9 +14897,12 @@ export SetupDiSetClassPropertyExW(ClassGuid, _PropertyKey, PropertyType, Propert
 
     MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
 
+    PropertyBufferMarshal := PropertyBuffer == 0 ? IntPtr : IntPtr
+    MachineNameMarshal := MachineName == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiSetClassPropertyExW", Guid.Ptr, ClassGuid, DEVPROPKEY.Ptr, _PropertyKey, DEVPROPTYPE, PropertyType, IntPtr, PropertyBuffer, UInt32, PropertyBufferSize, UInt32, Flags, "ptr", MachineName, "ptr", Reserved, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiSetClassPropertyExW", Guid.Ptr, ClassGuid, DEVPROPKEY.Ptr, _PropertyKey, DEVPROPTYPE, PropertyType, PropertyBufferMarshal, PropertyBuffer, UInt32, PropertyBufferSize, UInt32, Flags, MachineNameMarshal, MachineName, "ptr", Reserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14476,12 +14927,15 @@ export SetupDiSetClassPropertyExW(ClassGuid, _PropertyKey, PropertyType, Propert
  * @since windows5.0
  */
 export SetupDiGetDeviceRegistryPropertyA(DeviceInfoSet, DeviceInfoData, _Property, PropertyRegDataType, PropertyBuffer, PropertyBufferSize, RequiredSize) {
-    PropertyRegDataTypeMarshal := PropertyRegDataType is VarRef ? "uint*" : "ptr"
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    PropertyRegDataTypeMarshal := PropertyRegDataType is VarRef ? "uint*" : IntPtr
+    PropertyRegDataTypeMarshal := PropertyRegDataType == 0 ? IntPtr : "uint*"
+    PropertyBufferMarshal := PropertyBuffer == 0 ? IntPtr : IntPtr
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetDeviceRegistryPropertyA", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, SETUP_DI_REGISTRY_PROPERTY, _Property, PropertyRegDataTypeMarshal, PropertyRegDataType, IntPtr, PropertyBuffer, UInt32, PropertyBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetDeviceRegistryPropertyA", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, SETUP_DI_REGISTRY_PROPERTY, _Property, PropertyRegDataTypeMarshal, PropertyRegDataType, PropertyBufferMarshal, PropertyBuffer, UInt32, PropertyBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14506,12 +14960,15 @@ export SetupDiGetDeviceRegistryPropertyA(DeviceInfoSet, DeviceInfoData, _Propert
  * @since windows5.0
  */
 export SetupDiGetDeviceRegistryPropertyW(DeviceInfoSet, DeviceInfoData, _Property, PropertyRegDataType, PropertyBuffer, PropertyBufferSize, RequiredSize) {
-    PropertyRegDataTypeMarshal := PropertyRegDataType is VarRef ? "uint*" : "ptr"
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    PropertyRegDataTypeMarshal := PropertyRegDataType is VarRef ? "uint*" : IntPtr
+    PropertyRegDataTypeMarshal := PropertyRegDataType == 0 ? IntPtr : "uint*"
+    PropertyBufferMarshal := PropertyBuffer == 0 ? IntPtr : IntPtr
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetDeviceRegistryPropertyW", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, SETUP_DI_REGISTRY_PROPERTY, _Property, PropertyRegDataTypeMarshal, PropertyRegDataType, IntPtr, PropertyBuffer, UInt32, PropertyBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetDeviceRegistryPropertyW", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, SETUP_DI_REGISTRY_PROPERTY, _Property, PropertyRegDataTypeMarshal, PropertyRegDataType, PropertyBufferMarshal, PropertyBuffer, UInt32, PropertyBufferSize, RequiredSizeMarshal, RequiredSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14543,12 +15000,15 @@ export SetupDiGetClassRegistryPropertyA(ClassGuid, _Property, PropertyRegDataTyp
 
     MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
 
-    PropertyRegDataTypeMarshal := PropertyRegDataType is VarRef ? "uint*" : "ptr"
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    PropertyRegDataTypeMarshal := PropertyRegDataType is VarRef ? "uint*" : IntPtr
+    PropertyRegDataTypeMarshal := PropertyRegDataType == 0 ? IntPtr : "uint*"
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
+    MachineNameMarshal := MachineName == 0 ? IntPtr : PSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetClassRegistryPropertyA", Guid.Ptr, ClassGuid, UInt32, _Property, PropertyRegDataTypeMarshal, PropertyRegDataType, IntPtr, PropertyBuffer, UInt32, PropertyBufferSize, RequiredSizeMarshal, RequiredSize, "ptr", MachineName, "ptr", Reserved, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetClassRegistryPropertyA", Guid.Ptr, ClassGuid, UInt32, _Property, PropertyRegDataTypeMarshal, PropertyRegDataType, IntPtr, PropertyBuffer, UInt32, PropertyBufferSize, RequiredSizeMarshal, RequiredSize, MachineNameMarshal, MachineName, "ptr", Reserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14580,12 +15040,15 @@ export SetupDiGetClassRegistryPropertyW(ClassGuid, _Property, PropertyRegDataTyp
 
     MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
 
-    PropertyRegDataTypeMarshal := PropertyRegDataType is VarRef ? "uint*" : "ptr"
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    PropertyRegDataTypeMarshal := PropertyRegDataType is VarRef ? "uint*" : IntPtr
+    PropertyRegDataTypeMarshal := PropertyRegDataType == 0 ? IntPtr : "uint*"
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
+    MachineNameMarshal := MachineName == 0 ? IntPtr : PWSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetClassRegistryPropertyW", Guid.Ptr, ClassGuid, UInt32, _Property, PropertyRegDataTypeMarshal, PropertyRegDataType, IntPtr, PropertyBuffer, UInt32, PropertyBufferSize, RequiredSizeMarshal, RequiredSize, "ptr", MachineName, "ptr", Reserved, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetClassRegistryPropertyW", Guid.Ptr, ClassGuid, UInt32, _Property, PropertyRegDataTypeMarshal, PropertyRegDataType, IntPtr, PropertyBuffer, UInt32, PropertyBufferSize, RequiredSizeMarshal, RequiredSize, MachineNameMarshal, MachineName, "ptr", Reserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14616,9 +15079,11 @@ export SetupDiGetClassRegistryPropertyW(ClassGuid, _Property, PropertyRegDataTyp
  * @since windows5.0
  */
 export SetupDiSetDeviceRegistryPropertyA(DeviceInfoSet, DeviceInfoData, _Property, PropertyBuffer, PropertyBufferSize) {
+    PropertyBufferMarshal := PropertyBuffer == 0 ? IntPtr : IntPtr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiSetDeviceRegistryPropertyA", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, SETUP_DI_REGISTRY_PROPERTY, _Property, IntPtr, PropertyBuffer, UInt32, PropertyBufferSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiSetDeviceRegistryPropertyA", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, SETUP_DI_REGISTRY_PROPERTY, _Property, PropertyBufferMarshal, PropertyBuffer, UInt32, PropertyBufferSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14649,9 +15114,11 @@ export SetupDiSetDeviceRegistryPropertyA(DeviceInfoSet, DeviceInfoData, _Propert
  * @since windows5.0
  */
 export SetupDiSetDeviceRegistryPropertyW(DeviceInfoSet, DeviceInfoData, _Property, PropertyBuffer, PropertyBufferSize) {
+    PropertyBufferMarshal := PropertyBuffer == 0 ? IntPtr : IntPtr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiSetDeviceRegistryPropertyW", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, SETUP_DI_REGISTRY_PROPERTY, _Property, IntPtr, PropertyBuffer, UInt32, PropertyBufferSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiSetDeviceRegistryPropertyW", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, SETUP_DI_REGISTRY_PROPERTY, _Property, PropertyBufferMarshal, PropertyBuffer, UInt32, PropertyBufferSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14689,9 +15156,12 @@ export SetupDiSetClassRegistryPropertyA(ClassGuid, _Property, PropertyBuffer, Pr
 
     MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
 
+    PropertyBufferMarshal := PropertyBuffer == 0 ? IntPtr : IntPtr
+    MachineNameMarshal := MachineName == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiSetClassRegistryPropertyA", Guid.Ptr, ClassGuid, UInt32, _Property, IntPtr, PropertyBuffer, UInt32, PropertyBufferSize, "ptr", MachineName, "ptr", Reserved, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiSetClassRegistryPropertyA", Guid.Ptr, ClassGuid, UInt32, _Property, PropertyBufferMarshal, PropertyBuffer, UInt32, PropertyBufferSize, MachineNameMarshal, MachineName, "ptr", Reserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14729,9 +15199,12 @@ export SetupDiSetClassRegistryPropertyW(ClassGuid, _Property, PropertyBuffer, Pr
 
     MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
 
+    PropertyBufferMarshal := PropertyBuffer == 0 ? IntPtr : IntPtr
+    MachineNameMarshal := MachineName == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiSetClassRegistryPropertyW", Guid.Ptr, ClassGuid, UInt32, _Property, IntPtr, PropertyBuffer, UInt32, PropertyBufferSize, "ptr", MachineName, "ptr", Reserved, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiSetClassRegistryPropertyW", Guid.Ptr, ClassGuid, UInt32, _Property, PropertyBufferMarshal, PropertyBuffer, UInt32, PropertyBufferSize, MachineNameMarshal, MachineName, "ptr", Reserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14752,9 +15225,11 @@ export SetupDiSetClassRegistryPropertyW(ClassGuid, _Property, PropertyBuffer, Pr
  * @since windows5.0
  */
 export SetupDiGetDeviceInstallParamsA(DeviceInfoSet, DeviceInfoData, DeviceInstallParams) {
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetDeviceInstallParamsA", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, SP_DEVINSTALL_PARAMS_A.Ptr, DeviceInstallParams, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetDeviceInstallParamsA", HDEVINFO, DeviceInfoSet, DeviceInfoDataMarshal, DeviceInfoData, SP_DEVINSTALL_PARAMS_A.Ptr, DeviceInstallParams, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14775,9 +15250,11 @@ export SetupDiGetDeviceInstallParamsA(DeviceInfoSet, DeviceInfoData, DeviceInsta
  * @since windows5.0
  */
 export SetupDiGetDeviceInstallParamsW(DeviceInfoSet, DeviceInfoData, DeviceInstallParams) {
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetDeviceInstallParamsW", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, SP_DEVINSTALL_PARAMS_W.Ptr, DeviceInstallParams, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetDeviceInstallParamsW", HDEVINFO, DeviceInfoSet, DeviceInfoDataMarshal, DeviceInfoData, SP_DEVINSTALL_PARAMS_W.Ptr, DeviceInstallParams, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14806,11 +15283,14 @@ export SetupDiGetDeviceInstallParamsW(DeviceInfoSet, DeviceInfoData, DeviceInsta
  * @since windows5.0
  */
 export SetupDiGetClassInstallParamsA(DeviceInfoSet, DeviceInfoData, ClassInstallParams, ClassInstallParamsSize, RequiredSize) {
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
+    ClassInstallParamsMarshal := ClassInstallParams == 0 ? IntPtr : IntPtr
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetClassInstallParamsA", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, IntPtr, ClassInstallParams, UInt32, ClassInstallParamsSize, RequiredSizeMarshal, RequiredSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetClassInstallParamsA", HDEVINFO, DeviceInfoSet, DeviceInfoDataMarshal, DeviceInfoData, ClassInstallParamsMarshal, ClassInstallParams, UInt32, ClassInstallParamsSize, RequiredSizeMarshal, RequiredSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14839,11 +15319,14 @@ export SetupDiGetClassInstallParamsA(DeviceInfoSet, DeviceInfoData, ClassInstall
  * @since windows5.0
  */
 export SetupDiGetClassInstallParamsW(DeviceInfoSet, DeviceInfoData, ClassInstallParams, ClassInstallParamsSize, RequiredSize) {
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
+    ClassInstallParamsMarshal := ClassInstallParams == 0 ? IntPtr : IntPtr
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetClassInstallParamsW", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, IntPtr, ClassInstallParams, UInt32, ClassInstallParamsSize, RequiredSizeMarshal, RequiredSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetClassInstallParamsW", HDEVINFO, DeviceInfoSet, DeviceInfoDataMarshal, DeviceInfoData, ClassInstallParamsMarshal, ClassInstallParams, UInt32, ClassInstallParamsSize, RequiredSizeMarshal, RequiredSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14870,9 +15353,11 @@ export SetupDiGetClassInstallParamsW(DeviceInfoSet, DeviceInfoData, ClassInstall
  * @since windows5.0
  */
 export SetupDiSetDeviceInstallParamsA(DeviceInfoSet, DeviceInfoData, DeviceInstallParams) {
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiSetDeviceInstallParamsA", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, SP_DEVINSTALL_PARAMS_A.Ptr, DeviceInstallParams, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiSetDeviceInstallParamsA", HDEVINFO, DeviceInfoSet, DeviceInfoDataMarshal, DeviceInfoData, SP_DEVINSTALL_PARAMS_A.Ptr, DeviceInstallParams, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14899,9 +15384,11 @@ export SetupDiSetDeviceInstallParamsA(DeviceInfoSet, DeviceInfoData, DeviceInsta
  * @since windows5.0
  */
 export SetupDiSetDeviceInstallParamsW(DeviceInfoSet, DeviceInfoData, DeviceInstallParams) {
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiSetDeviceInstallParamsW", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, SP_DEVINSTALL_PARAMS_W.Ptr, DeviceInstallParams, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiSetDeviceInstallParamsW", HDEVINFO, DeviceInfoSet, DeviceInfoDataMarshal, DeviceInfoData, SP_DEVINSTALL_PARAMS_W.Ptr, DeviceInstallParams, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14935,9 +15422,12 @@ export SetupDiSetDeviceInstallParamsW(DeviceInfoSet, DeviceInfoData, DeviceInsta
  * @since windows5.0
  */
 export SetupDiSetClassInstallParamsA(DeviceInfoSet, DeviceInfoData, ClassInstallParams, ClassInstallParamsSize) {
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
+    ClassInstallParamsMarshal := ClassInstallParams == 0 ? IntPtr : IntPtr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiSetClassInstallParamsA", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, IntPtr, ClassInstallParams, UInt32, ClassInstallParamsSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiSetClassInstallParamsA", HDEVINFO, DeviceInfoSet, DeviceInfoDataMarshal, DeviceInfoData, ClassInstallParamsMarshal, ClassInstallParams, UInt32, ClassInstallParamsSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14971,9 +15461,12 @@ export SetupDiSetClassInstallParamsA(DeviceInfoSet, DeviceInfoData, ClassInstall
  * @since windows5.0
  */
 export SetupDiSetClassInstallParamsW(DeviceInfoSet, DeviceInfoData, ClassInstallParams, ClassInstallParamsSize) {
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
+    ClassInstallParamsMarshal := ClassInstallParams == 0 ? IntPtr : IntPtr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiSetClassInstallParamsW", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, IntPtr, ClassInstallParams, UInt32, ClassInstallParamsSize, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiSetClassInstallParamsW", HDEVINFO, DeviceInfoSet, DeviceInfoDataMarshal, DeviceInfoData, ClassInstallParamsMarshal, ClassInstallParams, UInt32, ClassInstallParamsSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14995,9 +15488,11 @@ export SetupDiSetClassInstallParamsW(DeviceInfoSet, DeviceInfoData, ClassInstall
  * @since windows5.0
  */
 export SetupDiGetDriverInstallParamsA(DeviceInfoSet, DeviceInfoData, DriverInfoData, DriverInstallParams) {
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetDriverInstallParamsA", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, SP_DRVINFO_DATA_V2_A.Ptr, DriverInfoData, SP_DRVINSTALL_PARAMS.Ptr, DriverInstallParams, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetDriverInstallParamsA", HDEVINFO, DeviceInfoSet, DeviceInfoDataMarshal, DeviceInfoData, SP_DRVINFO_DATA_V2_A.Ptr, DriverInfoData, SP_DRVINSTALL_PARAMS.Ptr, DriverInstallParams, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -15019,9 +15514,11 @@ export SetupDiGetDriverInstallParamsA(DeviceInfoSet, DeviceInfoData, DriverInfoD
  * @since windows5.0
  */
 export SetupDiGetDriverInstallParamsW(DeviceInfoSet, DeviceInfoData, DriverInfoData, DriverInstallParams) {
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetDriverInstallParamsW", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, SP_DRVINFO_DATA_V2_W.Ptr, DriverInfoData, SP_DRVINSTALL_PARAMS.Ptr, DriverInstallParams, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetDriverInstallParamsW", HDEVINFO, DeviceInfoSet, DeviceInfoDataMarshal, DeviceInfoData, SP_DRVINFO_DATA_V2_W.Ptr, DriverInfoData, SP_DRVINSTALL_PARAMS.Ptr, DriverInstallParams, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -15043,9 +15540,11 @@ export SetupDiGetDriverInstallParamsW(DeviceInfoSet, DeviceInfoData, DriverInfoD
  * @since windows5.0
  */
 export SetupDiSetDriverInstallParamsA(DeviceInfoSet, DeviceInfoData, DriverInfoData, DriverInstallParams) {
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiSetDriverInstallParamsA", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, SP_DRVINFO_DATA_V2_A.Ptr, DriverInfoData, SP_DRVINSTALL_PARAMS.Ptr, DriverInstallParams, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiSetDriverInstallParamsA", HDEVINFO, DeviceInfoSet, DeviceInfoDataMarshal, DeviceInfoData, SP_DRVINFO_DATA_V2_A.Ptr, DriverInfoData, SP_DRVINSTALL_PARAMS.Ptr, DriverInstallParams, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -15067,9 +15566,11 @@ export SetupDiSetDriverInstallParamsA(DeviceInfoSet, DeviceInfoData, DriverInfoD
  * @since windows5.0
  */
 export SetupDiSetDriverInstallParamsW(DeviceInfoSet, DeviceInfoData, DriverInfoData, DriverInstallParams) {
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiSetDriverInstallParamsW", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, SP_DRVINFO_DATA_V2_W.Ptr, DriverInfoData, SP_DRVINSTALL_PARAMS.Ptr, DriverInstallParams, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiSetDriverInstallParamsW", HDEVINFO, DeviceInfoSet, DeviceInfoDataMarshal, DeviceInfoData, SP_DRVINFO_DATA_V2_W.Ptr, DriverInfoData, SP_DRVINSTALL_PARAMS.Ptr, DriverInstallParams, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -15097,11 +15598,13 @@ export SetupDiSetDriverInstallParamsW(DeviceInfoSet, DeviceInfoData, DriverInfoD
  * @since windows5.0
  */
 export SetupDiLoadClassIcon(ClassGuid, LargeIcon, MiniIconIndex) {
-    MiniIconIndexMarshal := MiniIconIndex is VarRef ? "int*" : "ptr"
+    LargeIconMarshal := LargeIcon == 0 ? IntPtr : HICON.Ptr
+    MiniIconIndexMarshal := MiniIconIndex is VarRef ? "int*" : IntPtr
+    MiniIconIndexMarshal := MiniIconIndex == 0 ? IntPtr : "int*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiLoadClassIcon", Guid.Ptr, ClassGuid, HICON.Ptr, LargeIcon, MiniIconIndexMarshal, MiniIconIndex, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiLoadClassIcon", Guid.Ptr, ClassGuid, LargeIconMarshal, LargeIcon, MiniIconIndexMarshal, MiniIconIndex, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -15346,11 +15849,12 @@ export SetupDiDrawMiniIcon(_hdc, rc, MiniIconIndex, Flags) {
  * @since windows5.0
  */
 export SetupDiGetClassBitmapIndex(ClassGuid, MiniIconIndex) {
-    MiniIconIndexMarshal := MiniIconIndex is VarRef ? "int*" : "ptr"
+    ClassGuidMarshal := ClassGuid == 0 ? IntPtr : Guid.Ptr
+    MiniIconIndexMarshal := MiniIconIndex is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetClassBitmapIndex", Guid.Ptr, ClassGuid, MiniIconIndexMarshal, MiniIconIndex, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetClassBitmapIndex", ClassGuidMarshal, ClassGuid, MiniIconIndexMarshal, MiniIconIndex, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -15407,9 +15911,11 @@ export SetupDiGetClassImageListExA(ClassImageListData, MachineName) {
 
     MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
 
+    MachineNameMarshal := MachineName == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetClassImageListExA", SP_CLASSIMAGELIST_DATA.Ptr, ClassImageListData, "ptr", MachineName, "ptr", Reserved, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetClassImageListExA", SP_CLASSIMAGELIST_DATA.Ptr, ClassImageListData, MachineNameMarshal, MachineName, "ptr", Reserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -15444,9 +15950,11 @@ export SetupDiGetClassImageListExW(ClassImageListData, MachineName) {
 
     MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
 
+    MachineNameMarshal := MachineName == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetClassImageListExW", SP_CLASSIMAGELIST_DATA.Ptr, ClassImageListData, "ptr", MachineName, "ptr", Reserved, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetClassImageListExW", SP_CLASSIMAGELIST_DATA.Ptr, ClassImageListData, MachineNameMarshal, MachineName, "ptr", Reserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -15466,7 +15974,7 @@ export SetupDiGetClassImageListExW(ClassImageListData, MachineName) {
  * @since windows5.0
  */
 export SetupDiGetClassImageIndex(ClassImageListData, ClassGuid, ImageIndex) {
-    ImageIndexMarshal := ImageIndex is VarRef ? "int*" : "ptr"
+    ImageIndexMarshal := ImageIndex is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
@@ -15603,11 +16111,13 @@ export SetupDiDestroyClassImageList(ClassImageListData) {
  * @since windows5.0
  */
 export SetupDiGetClassDevPropertySheetsA(DeviceInfoSet, DeviceInfoData, PropertySheetHeader, PropertySheetHeaderPageListSize, RequiredSize, PropertySheetType) {
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetClassDevPropertySheetsA", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, PROPSHEETHEADERA_V2.Ptr, PropertySheetHeader, UInt32, PropertySheetHeaderPageListSize, RequiredSizeMarshal, RequiredSize, UInt32, PropertySheetType, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetClassDevPropertySheetsA", HDEVINFO, DeviceInfoSet, DeviceInfoDataMarshal, DeviceInfoData, PROPSHEETHEADERA_V2.Ptr, PropertySheetHeader, UInt32, PropertySheetHeaderPageListSize, RequiredSizeMarshal, RequiredSize, UInt32, PropertySheetType, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -15722,11 +16232,13 @@ export SetupDiGetClassDevPropertySheetsA(DeviceInfoSet, DeviceInfoData, Property
  * @since windows5.0
  */
 export SetupDiGetClassDevPropertySheetsW(DeviceInfoSet, DeviceInfoData, PropertySheetHeader, PropertySheetHeaderPageListSize, RequiredSize, PropertySheetType) {
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetClassDevPropertySheetsW", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, PROPSHEETHEADERW_V2.Ptr, PropertySheetHeader, UInt32, PropertySheetHeaderPageListSize, RequiredSizeMarshal, RequiredSize, UInt32, PropertySheetType, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetClassDevPropertySheetsW", HDEVINFO, DeviceInfoSet, DeviceInfoDataMarshal, DeviceInfoData, PROPSHEETHEADERW_V2.Ptr, PropertySheetHeader, UInt32, PropertySheetHeaderPageListSize, RequiredSizeMarshal, RequiredSize, UInt32, PropertySheetType, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -15749,9 +16261,11 @@ export SetupDiGetClassDevPropertySheetsW(DeviceInfoSet, DeviceInfoData, Property
  * @since windows5.0
  */
 export SetupDiAskForOEMDisk(DeviceInfoSet, DeviceInfoData) {
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiAskForOEMDisk", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiAskForOEMDisk", HDEVINFO, DeviceInfoSet, DeviceInfoDataMarshal, DeviceInfoData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -15773,9 +16287,12 @@ export SetupDiAskForOEMDisk(DeviceInfoSet, DeviceInfoData) {
  * @since windows5.0
  */
 export SetupDiSelectOEMDrv(hwndParent, DeviceInfoSet, DeviceInfoData) {
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
+
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiSelectOEMDrv", HWND, hwndParent, HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiSelectOEMDrv", hwndParentMarshal, hwndParent, HDEVINFO, DeviceInfoSet, DeviceInfoDataMarshal, DeviceInfoData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -15807,7 +16324,8 @@ export SetupDiSelectOEMDrv(hwndParent, DeviceInfoSet, DeviceInfoData) {
 export SetupDiClassNameFromGuidA(ClassGuid, ClassName, ClassNameSize, RequiredSize) {
     ClassName := ClassName is String ? StrPtr(ClassName) : ClassName
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
@@ -15843,7 +16361,8 @@ export SetupDiClassNameFromGuidA(ClassGuid, ClassName, ClassNameSize, RequiredSi
 export SetupDiClassNameFromGuidW(ClassGuid, ClassName, ClassNameSize, RequiredSize) {
     ClassName := ClassName is String ? StrPtr(ClassName) : ClassName
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
@@ -15878,11 +16397,13 @@ export SetupDiClassNameFromGuidExA(ClassGuid, ClassName, ClassNameSize, Required
     ClassName := ClassName is String ? StrPtr(ClassName) : ClassName
     MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
+    MachineNameMarshal := MachineName == 0 ? IntPtr : PSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiClassNameFromGuidExA", Guid.Ptr, ClassGuid, "ptr", ClassName, UInt32, ClassNameSize, RequiredSizeMarshal, RequiredSize, "ptr", MachineName, "ptr", Reserved, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiClassNameFromGuidExA", Guid.Ptr, ClassGuid, "ptr", ClassName, UInt32, ClassNameSize, RequiredSizeMarshal, RequiredSize, MachineNameMarshal, MachineName, "ptr", Reserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -15913,11 +16434,13 @@ export SetupDiClassNameFromGuidExW(ClassGuid, ClassName, ClassNameSize, Required
     ClassName := ClassName is String ? StrPtr(ClassName) : ClassName
     MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
+    MachineNameMarshal := MachineName == 0 ? IntPtr : PWSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiClassNameFromGuidExW", Guid.Ptr, ClassGuid, "ptr", ClassName, UInt32, ClassNameSize, RequiredSizeMarshal, RequiredSize, "ptr", MachineName, "ptr", Reserved, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiClassNameFromGuidExW", Guid.Ptr, ClassGuid, "ptr", ClassName, UInt32, ClassNameSize, RequiredSizeMarshal, RequiredSize, MachineNameMarshal, MachineName, "ptr", Reserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -15947,7 +16470,7 @@ export SetupDiClassNameFromGuidExW(ClassGuid, ClassName, ClassNameSize, Required
 export SetupDiClassGuidsFromNameA(ClassName, ClassGuidList, ClassGuidListSize, RequiredSize) {
     ClassName := ClassName is String ? StrPtr(ClassName) : ClassName
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -15981,7 +16504,7 @@ export SetupDiClassGuidsFromNameA(ClassName, ClassGuidList, ClassGuidListSize, R
 export SetupDiClassGuidsFromNameW(ClassName, ClassGuidList, ClassGuidListSize, RequiredSize) {
     ClassName := ClassName is String ? StrPtr(ClassName) : ClassName
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -16022,11 +16545,12 @@ export SetupDiClassGuidsFromNameExA(ClassName, ClassGuidList, ClassGuidListSize,
     ClassName := ClassName is String ? StrPtr(ClassName) : ClassName
     MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    MachineNameMarshal := MachineName == 0 ? IntPtr : PSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiClassGuidsFromNameExA", "ptr", ClassName, Guid.Ptr, ClassGuidList, UInt32, ClassGuidListSize, RequiredSizeMarshal, RequiredSize, "ptr", MachineName, "ptr", Reserved, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiClassGuidsFromNameExA", "ptr", ClassName, Guid.Ptr, ClassGuidList, UInt32, ClassGuidListSize, RequiredSizeMarshal, RequiredSize, MachineNameMarshal, MachineName, "ptr", Reserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -16063,11 +16587,12 @@ export SetupDiClassGuidsFromNameExW(ClassName, ClassGuidList, ClassGuidListSize,
     ClassName := ClassName is String ? StrPtr(ClassName) : ClassName
     MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    MachineNameMarshal := MachineName == 0 ? IntPtr : PWSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiClassGuidsFromNameExW", "ptr", ClassName, Guid.Ptr, ClassGuidList, UInt32, ClassGuidListSize, RequiredSizeMarshal, RequiredSize, "ptr", MachineName, "ptr", Reserved, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiClassGuidsFromNameExW", "ptr", ClassName, Guid.Ptr, ClassGuidList, UInt32, ClassGuidListSize, RequiredSizeMarshal, RequiredSize, MachineNameMarshal, MachineName, "ptr", Reserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -16097,7 +16622,8 @@ export SetupDiClassGuidsFromNameExW(ClassName, ClassGuidList, ClassGuidListSize,
 export SetupDiGetHwProfileFriendlyNameA(HwProfile, FriendlyName, FriendlyNameSize, RequiredSize) {
     FriendlyName := FriendlyName is String ? StrPtr(FriendlyName) : FriendlyName
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
@@ -16131,7 +16657,8 @@ export SetupDiGetHwProfileFriendlyNameA(HwProfile, FriendlyName, FriendlyNameSiz
 export SetupDiGetHwProfileFriendlyNameW(HwProfile, FriendlyName, FriendlyNameSize, RequiredSize) {
     FriendlyName := FriendlyName is String ? StrPtr(FriendlyName) : FriendlyName
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
@@ -16166,11 +16693,13 @@ export SetupDiGetHwProfileFriendlyNameExA(HwProfile, FriendlyName, FriendlyNameS
     FriendlyName := FriendlyName is String ? StrPtr(FriendlyName) : FriendlyName
     MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
+    MachineNameMarshal := MachineName == 0 ? IntPtr : PSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetHwProfileFriendlyNameExA", UInt32, HwProfile, "ptr", FriendlyName, UInt32, FriendlyNameSize, RequiredSizeMarshal, RequiredSize, "ptr", MachineName, "ptr", Reserved, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetHwProfileFriendlyNameExA", UInt32, HwProfile, "ptr", FriendlyName, UInt32, FriendlyNameSize, RequiredSizeMarshal, RequiredSize, MachineNameMarshal, MachineName, "ptr", Reserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -16201,11 +16730,13 @@ export SetupDiGetHwProfileFriendlyNameExW(HwProfile, FriendlyName, FriendlyNameS
     FriendlyName := FriendlyName is String ? StrPtr(FriendlyName) : FriendlyName
     MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
+    MachineNameMarshal := MachineName == 0 ? IntPtr : PWSTR
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetHwProfileFriendlyNameExW", UInt32, HwProfile, "ptr", FriendlyName, UInt32, FriendlyNameSize, RequiredSizeMarshal, RequiredSize, "ptr", MachineName, "ptr", Reserved, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetHwProfileFriendlyNameExW", UInt32, HwProfile, "ptr", FriendlyName, UInt32, FriendlyNameSize, RequiredSizeMarshal, RequiredSize, MachineNameMarshal, MachineName, "ptr", Reserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -16214,7 +16745,6 @@ export SetupDiGetHwProfileFriendlyNameExW(HwProfile, FriendlyName, FriendlyNameS
 }
 
 /**
- * 
  * @param {HDEVINFO} DeviceInfoSet 
  * @param {Pointer<SP_DEVINFO_DATA>} DeviceInfoData 
  * @param {Pointer<SP_INSTALLWIZARD_DATA>} InstallWizardData 
@@ -16223,7 +16753,9 @@ export SetupDiGetHwProfileFriendlyNameExW(HwProfile, FriendlyName, FriendlyNameS
  * @returns {HPROPSHEETPAGE} 
  */
 export SetupDiGetWizardPage(DeviceInfoSet, DeviceInfoData, InstallWizardData, PageType, Flags) {
-    result := DllCall("SETUPAPI.dll\SetupDiGetWizardPage", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, SP_INSTALLWIZARD_DATA.Ptr, InstallWizardData, UInt32, PageType, UInt32, Flags, HPROPSHEETPAGE.Owned)
+    DeviceInfoDataMarshal := DeviceInfoData == 0 ? IntPtr : SP_DEVINFO_DATA.Ptr
+
+    result := DllCall("SETUPAPI.dll\SetupDiGetWizardPage", HDEVINFO, DeviceInfoSet, DeviceInfoDataMarshal, DeviceInfoData, SP_INSTALLWIZARD_DATA.Ptr, InstallWizardData, UInt32, PageType, UInt32, Flags, HPROPSHEETPAGE.Owned)
     return result
 }
 
@@ -16293,11 +16825,14 @@ export SetupDiGetActualModelsSectionA(_Context, AlternatePlatformInfo, InfSectio
 
     InfSectionWithExt := InfSectionWithExt is String ? StrPtr(InfSectionWithExt) : InfSectionWithExt
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    AlternatePlatformInfoMarshal := AlternatePlatformInfo == 0 ? IntPtr : SP_ALTPLATFORM_INFO_V2.Ptr
+    InfSectionWithExtMarshal := InfSectionWithExt == 0 ? IntPtr : PSTR
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetActualModelsSectionA", INFCONTEXT.Ptr, _Context, SP_ALTPLATFORM_INFO_V2.Ptr, AlternatePlatformInfo, "ptr", InfSectionWithExt, UInt32, InfSectionWithExtSize, RequiredSizeMarshal, RequiredSize, "ptr", Reserved, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetActualModelsSectionA", INFCONTEXT.Ptr, _Context, AlternatePlatformInfoMarshal, AlternatePlatformInfo, InfSectionWithExtMarshal, InfSectionWithExt, UInt32, InfSectionWithExtSize, RequiredSizeMarshal, RequiredSize, "ptr", Reserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -16331,11 +16866,14 @@ export SetupDiGetActualModelsSectionW(_Context, AlternatePlatformInfo, InfSectio
 
     InfSectionWithExt := InfSectionWithExt is String ? StrPtr(InfSectionWithExt) : InfSectionWithExt
 
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    AlternatePlatformInfoMarshal := AlternatePlatformInfo == 0 ? IntPtr : SP_ALTPLATFORM_INFO_V2.Ptr
+    InfSectionWithExtMarshal := InfSectionWithExt == 0 ? IntPtr : PWSTR
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetActualModelsSectionW", INFCONTEXT.Ptr, _Context, SP_ALTPLATFORM_INFO_V2.Ptr, AlternatePlatformInfo, "ptr", InfSectionWithExt, UInt32, InfSectionWithExtSize, RequiredSizeMarshal, RequiredSize, "ptr", Reserved, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetActualModelsSectionW", INFCONTEXT.Ptr, _Context, AlternatePlatformInfoMarshal, AlternatePlatformInfo, InfSectionWithExtMarshal, InfSectionWithExt, UInt32, InfSectionWithExtSize, RequiredSizeMarshal, RequiredSize, "ptr", Reserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -16399,13 +16937,16 @@ export SetupDiGetActualSectionToInstallA(InfHandle, InfSectionName, InfSectionWi
     InfSectionName := InfSectionName is String ? StrPtr(InfSectionName) : InfSectionName
     InfSectionWithExt := InfSectionWithExt is String ? StrPtr(InfSectionWithExt) : InfSectionWithExt
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
-    _ExtensionMarshal := _Extension is VarRef ? "ptr*" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    InfSectionWithExtMarshal := InfSectionWithExt == 0 ? IntPtr : PSTR
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
+    _ExtensionMarshal := _Extension is VarRef ? "ptr*" : IntPtr
+    _ExtensionMarshal := _Extension == 0 ? IntPtr : PSTR.Ptr
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetActualSectionToInstallA", InfHandleMarshal, InfHandle, "ptr", InfSectionName, "ptr", InfSectionWithExt, UInt32, InfSectionWithExtSize, RequiredSizeMarshal, RequiredSize, _ExtensionMarshal, _Extension, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetActualSectionToInstallA", InfHandleMarshal, InfHandle, "ptr", InfSectionName, InfSectionWithExtMarshal, InfSectionWithExt, UInt32, InfSectionWithExtSize, RequiredSizeMarshal, RequiredSize, _ExtensionMarshal, _Extension, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -16469,13 +17010,16 @@ export SetupDiGetActualSectionToInstallW(InfHandle, InfSectionName, InfSectionWi
     InfSectionName := InfSectionName is String ? StrPtr(InfSectionName) : InfSectionName
     InfSectionWithExt := InfSectionWithExt is String ? StrPtr(InfSectionWithExt) : InfSectionWithExt
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
-    _ExtensionMarshal := _Extension is VarRef ? "ptr*" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    InfSectionWithExtMarshal := InfSectionWithExt == 0 ? IntPtr : PWSTR
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
+    _ExtensionMarshal := _Extension is VarRef ? "ptr*" : IntPtr
+    _ExtensionMarshal := _Extension == 0 ? IntPtr : PWSTR.Ptr
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetActualSectionToInstallW", InfHandleMarshal, InfHandle, "ptr", InfSectionName, "ptr", InfSectionWithExt, UInt32, InfSectionWithExtSize, RequiredSizeMarshal, RequiredSize, _ExtensionMarshal, _Extension, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetActualSectionToInstallW", InfHandleMarshal, InfHandle, "ptr", InfSectionName, InfSectionWithExtMarshal, InfSectionWithExt, UInt32, InfSectionWithExtSize, RequiredSizeMarshal, RequiredSize, _ExtensionMarshal, _Extension, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -16528,13 +17072,17 @@ export SetupDiGetActualSectionToInstallExA(InfHandle, InfSectionName, AlternateP
     InfSectionName := InfSectionName is String ? StrPtr(InfSectionName) : InfSectionName
     InfSectionWithExt := InfSectionWithExt is String ? StrPtr(InfSectionWithExt) : InfSectionWithExt
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
-    _ExtensionMarshal := _Extension is VarRef ? "ptr*" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    AlternatePlatformInfoMarshal := AlternatePlatformInfo == 0 ? IntPtr : SP_ALTPLATFORM_INFO_V2.Ptr
+    InfSectionWithExtMarshal := InfSectionWithExt == 0 ? IntPtr : PSTR
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
+    _ExtensionMarshal := _Extension is VarRef ? "ptr*" : IntPtr
+    _ExtensionMarshal := _Extension == 0 ? IntPtr : PSTR.Ptr
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetActualSectionToInstallExA", InfHandleMarshal, InfHandle, "ptr", InfSectionName, SP_ALTPLATFORM_INFO_V2.Ptr, AlternatePlatformInfo, "ptr", InfSectionWithExt, UInt32, InfSectionWithExtSize, RequiredSizeMarshal, RequiredSize, _ExtensionMarshal, _Extension, "ptr", Reserved, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetActualSectionToInstallExA", InfHandleMarshal, InfHandle, "ptr", InfSectionName, AlternatePlatformInfoMarshal, AlternatePlatformInfo, InfSectionWithExtMarshal, InfSectionWithExt, UInt32, InfSectionWithExtSize, RequiredSizeMarshal, RequiredSize, _ExtensionMarshal, _Extension, "ptr", Reserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -16587,13 +17135,17 @@ export SetupDiGetActualSectionToInstallExW(InfHandle, InfSectionName, AlternateP
     InfSectionName := InfSectionName is String ? StrPtr(InfSectionName) : InfSectionName
     InfSectionWithExt := InfSectionWithExt is String ? StrPtr(InfSectionWithExt) : InfSectionWithExt
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
-    _ExtensionMarshal := _Extension is VarRef ? "ptr*" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    AlternatePlatformInfoMarshal := AlternatePlatformInfo == 0 ? IntPtr : SP_ALTPLATFORM_INFO_V2.Ptr
+    InfSectionWithExtMarshal := InfSectionWithExt == 0 ? IntPtr : PWSTR
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
+    _ExtensionMarshal := _Extension is VarRef ? "ptr*" : IntPtr
+    _ExtensionMarshal := _Extension == 0 ? IntPtr : PWSTR.Ptr
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupDiGetActualSectionToInstallExW", InfHandleMarshal, InfHandle, "ptr", InfSectionName, SP_ALTPLATFORM_INFO_V2.Ptr, AlternatePlatformInfo, "ptr", InfSectionWithExt, UInt32, InfSectionWithExtSize, RequiredSizeMarshal, RequiredSize, _ExtensionMarshal, _Extension, "ptr", Reserved, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupDiGetActualSectionToInstallExW", InfHandleMarshal, InfHandle, "ptr", InfSectionName, AlternatePlatformInfoMarshal, AlternatePlatformInfo, InfSectionWithExtMarshal, InfSectionWithExt, UInt32, InfSectionWithExtSize, RequiredSizeMarshal, RequiredSize, _ExtensionMarshal, _Extension, "ptr", Reserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -16629,12 +17181,14 @@ export SetupDiGetActualSectionToInstallExW(InfHandle, InfSectionName, AlternateP
 export SetupEnumInfSectionsA(InfHandle, Index, _Buffer, _Size, SizeNeeded) {
     _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    SizeNeededMarshal := SizeNeeded is VarRef ? "uint*" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    _BufferMarshal := _Buffer == 0 ? IntPtr : PSTR
+    SizeNeededMarshal := SizeNeeded is VarRef ? "uint*" : IntPtr
+    SizeNeededMarshal := SizeNeeded == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupEnumInfSectionsA", InfHandleMarshal, InfHandle, UInt32, Index, "ptr", _Buffer, UInt32, _Size, SizeNeededMarshal, SizeNeeded, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupEnumInfSectionsA", InfHandleMarshal, InfHandle, UInt32, Index, _BufferMarshal, _Buffer, UInt32, _Size, SizeNeededMarshal, SizeNeeded, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -16670,12 +17224,14 @@ export SetupEnumInfSectionsA(InfHandle, Index, _Buffer, _Size, SizeNeeded) {
 export SetupEnumInfSectionsW(InfHandle, Index, _Buffer, _Size, SizeNeeded) {
     _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
-    SizeNeededMarshal := SizeNeeded is VarRef ? "uint*" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
+    _BufferMarshal := _Buffer == 0 ? IntPtr : PWSTR
+    SizeNeededMarshal := SizeNeeded is VarRef ? "uint*" : IntPtr
+    SizeNeededMarshal := SizeNeeded == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("SETUPAPI.dll\SetupEnumInfSectionsW", InfHandleMarshal, InfHandle, UInt32, Index, "ptr", _Buffer, UInt32, _Size, SizeNeededMarshal, SizeNeeded, BOOL)
+    result := DllCall("SETUPAPI.dll\SetupEnumInfSectionsW", InfHandleMarshal, InfHandle, UInt32, Index, _BufferMarshal, _Buffer, UInt32, _Size, SizeNeededMarshal, SizeNeeded, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -16699,7 +17255,9 @@ export SetupEnumInfSectionsW(InfHandle, Index, _Buffer, _Size, SizeNeeded) {
 export SetupVerifyInfFileA(InfName, AltPlatformInfo, InfSignerInfo) {
     InfName := InfName is String ? StrPtr(InfName) : InfName
 
-    result := DllCall("SETUPAPI.dll\SetupVerifyInfFileA", "ptr", InfName, SP_ALTPLATFORM_INFO_V2.Ptr, AltPlatformInfo, SP_INF_SIGNER_INFO_V2_A.Ptr, InfSignerInfo, BOOL)
+    AltPlatformInfoMarshal := AltPlatformInfo == 0 ? IntPtr : SP_ALTPLATFORM_INFO_V2.Ptr
+
+    result := DllCall("SETUPAPI.dll\SetupVerifyInfFileA", "ptr", InfName, AltPlatformInfoMarshal, AltPlatformInfo, SP_INF_SIGNER_INFO_V2_A.Ptr, InfSignerInfo, BOOL)
     return result
 }
 
@@ -16719,7 +17277,9 @@ export SetupVerifyInfFileA(InfName, AltPlatformInfo, InfSignerInfo) {
 export SetupVerifyInfFileW(InfName, AltPlatformInfo, InfSignerInfo) {
     InfName := InfName is String ? StrPtr(InfName) : InfName
 
-    result := DllCall("SETUPAPI.dll\SetupVerifyInfFileW", "ptr", InfName, SP_ALTPLATFORM_INFO_V2.Ptr, AltPlatformInfo, SP_INF_SIGNER_INFO_V2_W.Ptr, InfSignerInfo, BOOL)
+    AltPlatformInfoMarshal := AltPlatformInfo == 0 ? IntPtr : SP_ALTPLATFORM_INFO_V2.Ptr
+
+    result := DllCall("SETUPAPI.dll\SetupVerifyInfFileW", "ptr", InfName, AltPlatformInfoMarshal, AltPlatformInfo, SP_INF_SIGNER_INFO_V2_W.Ptr, InfSignerInfo, BOOL)
     return result
 }
 
@@ -16755,8 +17315,10 @@ export SetupVerifyInfFileW(InfName, AltPlatformInfo, InfSignerInfo) {
 export SetupDiGetCustomDevicePropertyA(DeviceInfoSet, DeviceInfoData, CustomPropertyName, Flags, PropertyRegDataType, PropertyBuffer, PropertyBufferSize, RequiredSize) {
     CustomPropertyName := CustomPropertyName is String ? StrPtr(CustomPropertyName) : CustomPropertyName
 
-    PropertyRegDataTypeMarshal := PropertyRegDataType is VarRef ? "uint*" : "ptr"
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    PropertyRegDataTypeMarshal := PropertyRegDataType is VarRef ? "uint*" : IntPtr
+    PropertyRegDataTypeMarshal := PropertyRegDataType == 0 ? IntPtr : "uint*"
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
@@ -16800,8 +17362,10 @@ export SetupDiGetCustomDevicePropertyA(DeviceInfoSet, DeviceInfoData, CustomProp
 export SetupDiGetCustomDevicePropertyW(DeviceInfoSet, DeviceInfoData, CustomPropertyName, Flags, PropertyRegDataType, PropertyBuffer, PropertyBufferSize, RequiredSize) {
     CustomPropertyName := CustomPropertyName is String ? StrPtr(CustomPropertyName) : CustomPropertyName
 
-    PropertyRegDataTypeMarshal := PropertyRegDataType is VarRef ? "uint*" : "ptr"
-    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : "ptr"
+    PropertyRegDataTypeMarshal := PropertyRegDataType is VarRef ? "uint*" : IntPtr
+    PropertyRegDataTypeMarshal := PropertyRegDataType == 0 ? IntPtr : "uint*"
+    RequiredSizeMarshal := RequiredSize is VarRef ? "uint*" : IntPtr
+    RequiredSizeMarshal := RequiredSize == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
@@ -16852,7 +17416,7 @@ export SetupDiGetCustomDevicePropertyW(DeviceInfoSet, DeviceInfoData, CustomProp
 export SetupConfigureWmiFromInfSectionA(InfHandle, SectionName, Flags) {
     SectionName := SectionName is String ? StrPtr(SectionName) : SectionName
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
 
     result := DllCall("SETUPAPI.dll\SetupConfigureWmiFromInfSectionA", InfHandleMarshal, InfHandle, "ptr", SectionName, UInt32, Flags, BOOL)
     return result
@@ -16897,7 +17461,7 @@ export SetupConfigureWmiFromInfSectionA(InfHandle, SectionName, Flags) {
 export SetupConfigureWmiFromInfSectionW(InfHandle, SectionName, Flags) {
     SectionName := SectionName is String ? StrPtr(SectionName) : SectionName
 
-    InfHandleMarshal := InfHandle is VarRef ? "ptr" : "ptr"
+    InfHandleMarshal := InfHandle is VarRef ? "ptr" : IntPtr
 
     result := DllCall("SETUPAPI.dll\SetupConfigureWmiFromInfSectionW", InfHandleMarshal, InfHandle, "ptr", SectionName, UInt32, Flags, BOOL)
     return result
@@ -17171,7 +17735,7 @@ export SetupConfigureWmiFromInfSectionW(InfHandle, SectionName, Flags) {
  * @since windows5.0
  */
 export CM_Add_Empty_Log_Conf(plcLogConf, dnDevInst, _Priority, ulFlags) {
-    plcLogConfMarshal := plcLogConf is VarRef ? "ptr*" : "ptr"
+    plcLogConfMarshal := plcLogConf is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("CFGMGR32.dll\CM_Add_Empty_Log_Conf", plcLogConfMarshal, plcLogConf, UInt32, dnDevInst, PRIORITY, _Priority, UInt32, ulFlags, CONFIGRET)
     return result
@@ -17207,9 +17771,10 @@ export CM_Add_Empty_Log_Conf(plcLogConf, dnDevInst, _Priority, ulFlags) {
  * @since windows5.0
  */
 export CM_Add_Empty_Log_Conf_Ex(plcLogConf, dnDevInst, _Priority, ulFlags, hMachine) {
-    plcLogConfMarshal := plcLogConf is VarRef ? "ptr*" : "ptr"
+    plcLogConfMarshal := plcLogConf is VarRef ? "ptr*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Add_Empty_Log_Conf_Ex", plcLogConfMarshal, plcLogConf, UInt32, dnDevInst, PRIORITY, _Priority, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Add_Empty_Log_Conf_Ex", plcLogConfMarshal, plcLogConf, UInt32, dnDevInst, PRIORITY, _Priority, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -17364,7 +17929,9 @@ export CM_Add_IDW(dnDevInst, pszID, ulFlags) {
 export CM_Add_ID_ExA(dnDevInst, pszID, ulFlags, hMachine) {
     pszID := pszID is String ? StrPtr(pszID) : pszID
 
-    result := DllCall("CFGMGR32.dll\CM_Add_ID_ExA", UInt32, dnDevInst, "ptr", pszID, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Add_ID_ExA", UInt32, dnDevInst, "ptr", pszID, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -17423,12 +17990,13 @@ export CM_Add_ID_ExA(dnDevInst, pszID, ulFlags, hMachine) {
 export CM_Add_ID_ExW(dnDevInst, pszID, ulFlags, hMachine) {
     pszID := pszID is String ? StrPtr(pszID) : pszID
 
-    result := DllCall("CFGMGR32.dll\CM_Add_ID_ExW", UInt32, dnDevInst, "ptr", pszID, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Add_ID_ExW", UInt32, dnDevInst, "ptr", pszID, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Integer} ullStartValue 
  * @param {Integer} ullEndValue 
  * @param {Pointer} rlh 
@@ -17599,7 +18167,8 @@ export CM_Add_Range(ullStartValue, ullEndValue, rlh, ulFlags) {
  * @since windows5.0
  */
 export CM_Add_Res_Des(prdResDes, lcLogConf, ResourceID, ResourceData, ResourceLen, ulFlags) {
-    prdResDesMarshal := prdResDes is VarRef ? "ptr*" : "ptr"
+    prdResDesMarshal := prdResDes is VarRef ? "ptr*" : IntPtr
+    prdResDesMarshal := prdResDes == 0 ? IntPtr : "ptr*"
 
     result := DllCall("CFGMGR32.dll\CM_Add_Res_Des", prdResDesMarshal, prdResDes, IntPtr, lcLogConf, UInt32, ResourceID, IntPtr, ResourceData, UInt32, ResourceLen, UInt32, ulFlags, CONFIGRET)
     return result
@@ -17769,9 +18338,11 @@ export CM_Add_Res_Des(prdResDes, lcLogConf, ResourceID, ResourceData, ResourceLe
  * @since windows5.0
  */
 export CM_Add_Res_Des_Ex(prdResDes, lcLogConf, ResourceID, ResourceData, ResourceLen, ulFlags, hMachine) {
-    prdResDesMarshal := prdResDes is VarRef ? "ptr*" : "ptr"
+    prdResDesMarshal := prdResDes is VarRef ? "ptr*" : IntPtr
+    prdResDesMarshal := prdResDes == 0 ? IntPtr : "ptr*"
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Add_Res_Des_Ex", prdResDesMarshal, prdResDes, IntPtr, lcLogConf, UInt32, ResourceID, IntPtr, ResourceData, UInt32, ResourceLen, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Add_Res_Des_Ex", prdResDesMarshal, prdResDes, IntPtr, lcLogConf, UInt32, ResourceID, IntPtr, ResourceData, UInt32, ResourceLen, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -17794,9 +18365,10 @@ export CM_Add_Res_Des_Ex(prdResDes, lcLogConf, ResourceID, ResourceData, Resourc
 export CM_Connect_MachineA(UNCServerName, phMachine) {
     UNCServerName := UNCServerName is String ? StrPtr(UNCServerName) : UNCServerName
 
-    phMachineMarshal := phMachine is VarRef ? "ptr*" : "ptr"
+    UNCServerNameMarshal := UNCServerName == 0 ? IntPtr : PSTR
+    phMachineMarshal := phMachine is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Connect_MachineA", "ptr", UNCServerName, phMachineMarshal, phMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Connect_MachineA", UNCServerNameMarshal, UNCServerName, phMachineMarshal, phMachine, CONFIGRET)
     return result
 }
 
@@ -17820,14 +18392,14 @@ export CM_Connect_MachineA(UNCServerName, phMachine) {
 export CM_Connect_MachineW(UNCServerName, phMachine) {
     UNCServerName := UNCServerName is String ? StrPtr(UNCServerName) : UNCServerName
 
-    phMachineMarshal := phMachine is VarRef ? "ptr*" : "ptr"
+    UNCServerNameMarshal := UNCServerName == 0 ? IntPtr : PWSTR
+    phMachineMarshal := phMachine is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Connect_MachineW", "ptr", UNCServerName, phMachineMarshal, phMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Connect_MachineW", UNCServerNameMarshal, UNCServerName, phMachineMarshal, phMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} pdnDevInst 
  * @param {PSTR} pDeviceID 
  * @param {Integer} dnParent 
@@ -17838,14 +18410,13 @@ export CM_Connect_MachineW(UNCServerName, phMachine) {
 export CM_Create_DevNodeA(pdnDevInst, pDeviceID, dnParent, ulFlags) {
     pDeviceID := pDeviceID is String ? StrPtr(pDeviceID) : pDeviceID
 
-    pdnDevInstMarshal := pdnDevInst is VarRef ? "uint*" : "ptr"
+    pdnDevInstMarshal := pdnDevInst is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CFGMGR32.dll\CM_Create_DevNodeA", pdnDevInstMarshal, pdnDevInst, "ptr", pDeviceID, UInt32, dnParent, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} pdnDevInst 
  * @param {PWSTR} pDeviceID 
  * @param {Integer} dnParent 
@@ -17856,14 +18427,13 @@ export CM_Create_DevNodeA(pdnDevInst, pDeviceID, dnParent, ulFlags) {
 export CM_Create_DevNodeW(pdnDevInst, pDeviceID, dnParent, ulFlags) {
     pDeviceID := pDeviceID is String ? StrPtr(pDeviceID) : pDeviceID
 
-    pdnDevInstMarshal := pdnDevInst is VarRef ? "uint*" : "ptr"
+    pdnDevInstMarshal := pdnDevInst is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CFGMGR32.dll\CM_Create_DevNodeW", pdnDevInstMarshal, pdnDevInst, "ptr", pDeviceID, UInt32, dnParent, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} pdnDevInst 
  * @param {PSTR} pDeviceID 
  * @param {Integer} dnParent 
@@ -17875,14 +18445,14 @@ export CM_Create_DevNodeW(pdnDevInst, pDeviceID, dnParent, ulFlags) {
 export CM_Create_DevNode_ExA(pdnDevInst, pDeviceID, dnParent, ulFlags, hMachine) {
     pDeviceID := pDeviceID is String ? StrPtr(pDeviceID) : pDeviceID
 
-    pdnDevInstMarshal := pdnDevInst is VarRef ? "uint*" : "ptr"
+    pdnDevInstMarshal := pdnDevInst is VarRef ? "uint*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Create_DevNode_ExA", pdnDevInstMarshal, pdnDevInst, "ptr", pDeviceID, UInt32, dnParent, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Create_DevNode_ExA", pdnDevInstMarshal, pdnDevInst, "ptr", pDeviceID, UInt32, dnParent, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} pdnDevInst 
  * @param {PWSTR} pDeviceID 
  * @param {Integer} dnParent 
@@ -17894,21 +18464,21 @@ export CM_Create_DevNode_ExA(pdnDevInst, pDeviceID, dnParent, ulFlags, hMachine)
 export CM_Create_DevNode_ExW(pdnDevInst, pDeviceID, dnParent, ulFlags, hMachine) {
     pDeviceID := pDeviceID is String ? StrPtr(pDeviceID) : pDeviceID
 
-    pdnDevInstMarshal := pdnDevInst is VarRef ? "uint*" : "ptr"
+    pdnDevInstMarshal := pdnDevInst is VarRef ? "uint*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Create_DevNode_ExW", pdnDevInstMarshal, pdnDevInst, "ptr", pDeviceID, UInt32, dnParent, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Create_DevNode_ExW", pdnDevInstMarshal, pdnDevInst, "ptr", pDeviceID, UInt32, dnParent, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Pointer>} prlh 
  * @param {Integer} ulFlags 
  * @returns {CONFIGRET} 
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_create_range_list
  */
 export CM_Create_Range_List(prlh, ulFlags) {
-    prlhMarshal := prlh is VarRef ? "ptr*" : "ptr"
+    prlhMarshal := prlh is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("CFGMGR32.dll\CM_Create_Range_List", prlhMarshal, prlh, UInt32, ulFlags, CONFIGRET)
     return result
@@ -17928,7 +18498,6 @@ export CM_Delete_Class_Key(ClassGuid, ulFlags) {
 }
 
 /**
- * 
  * @param {Pointer<Guid>} ClassGuid 
  * @param {Integer} ulFlags 
  * @param {Pointer} hMachine 
@@ -17936,7 +18505,9 @@ export CM_Delete_Class_Key(ClassGuid, ulFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_delete_class_key_ex
  */
 export CM_Delete_Class_Key_Ex(ClassGuid, ulFlags, hMachine) {
-    result := DllCall("CFGMGR32.dll\CM_Delete_Class_Key_Ex", Guid.Ptr, ClassGuid, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Delete_Class_Key_Ex", Guid.Ptr, ClassGuid, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -17955,7 +18526,6 @@ export CM_Delete_DevNode_Key(dnDevNode, ulHardwareProfile, ulFlags) {
 }
 
 /**
- * 
  * @param {Integer} dnDevNode 
  * @param {Integer} ulHardwareProfile 
  * @param {Integer} ulFlags 
@@ -17964,12 +18534,13 @@ export CM_Delete_DevNode_Key(dnDevNode, ulHardwareProfile, ulFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_delete_devnode_key_ex
  */
 export CM_Delete_DevNode_Key_Ex(dnDevNode, ulHardwareProfile, ulFlags, hMachine) {
-    result := DllCall("CFGMGR32.dll\CM_Delete_DevNode_Key_Ex", UInt32, dnDevNode, UInt32, ulHardwareProfile, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Delete_DevNode_Key_Ex", UInt32, dnDevNode, UInt32, ulHardwareProfile, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Integer} ullStartValue 
  * @param {Integer} ullEndValue 
  * @param {Pointer} rlh 
@@ -17983,7 +18554,6 @@ export CM_Delete_Range(ullStartValue, ullEndValue, rlh, ulFlags) {
 }
 
 /**
- * 
  * @param {Integer} dnDevInst 
  * @param {Integer} ResourceID 
  * @param {Integer} ResourceData 
@@ -17994,14 +18564,13 @@ export CM_Delete_Range(ullStartValue, ullEndValue, rlh, ulFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_detect_resource_conflict
  */
 export CM_Detect_Resource_Conflict(dnDevInst, ResourceID, ResourceData, ResourceLen, pbConflictDetected, ulFlags) {
-    pbConflictDetectedMarshal := pbConflictDetected is VarRef ? "int*" : "ptr"
+    pbConflictDetectedMarshal := pbConflictDetected is VarRef ? "int*" : IntPtr
 
     result := DllCall("CFGMGR32.dll\CM_Detect_Resource_Conflict", UInt32, dnDevInst, UInt32, ResourceID, IntPtr, ResourceData, UInt32, ResourceLen, pbConflictDetectedMarshal, pbConflictDetected, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Integer} dnDevInst 
  * @param {Integer} ResourceID 
  * @param {Integer} ResourceData 
@@ -18013,9 +18582,10 @@ export CM_Detect_Resource_Conflict(dnDevInst, ResourceID, ResourceData, Resource
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_detect_resource_conflict_ex
  */
 export CM_Detect_Resource_Conflict_Ex(dnDevInst, ResourceID, ResourceData, ResourceLen, pbConflictDetected, ulFlags, hMachine) {
-    pbConflictDetectedMarshal := pbConflictDetected is VarRef ? "int*" : "ptr"
+    pbConflictDetectedMarshal := pbConflictDetected is VarRef ? "int*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Detect_Resource_Conflict_Ex", UInt32, dnDevInst, UInt32, ResourceID, IntPtr, ResourceData, UInt32, ResourceLen, pbConflictDetectedMarshal, pbConflictDetected, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Detect_Resource_Conflict_Ex", UInt32, dnDevInst, UInt32, ResourceID, IntPtr, ResourceData, UInt32, ResourceLen, pbConflictDetectedMarshal, pbConflictDetected, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -18035,7 +18605,6 @@ export CM_Disable_DevNode(dnDevInst, ulFlags) {
 }
 
 /**
- * 
  * @param {Integer} dnDevInst 
  * @param {Integer} ulFlags 
  * @param {Pointer} hMachine 
@@ -18043,7 +18612,9 @@ export CM_Disable_DevNode(dnDevInst, ulFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_disable_devnode_ex
  */
 export CM_Disable_DevNode_Ex(dnDevInst, ulFlags, hMachine) {
-    result := DllCall("CFGMGR32.dll\CM_Disable_DevNode_Ex", UInt32, dnDevInst, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Disable_DevNode_Ex", UInt32, dnDevInst, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -18060,12 +18631,13 @@ export CM_Disable_DevNode_Ex(dnDevInst, ulFlags, hMachine) {
  * @since windows5.0
  */
 export CM_Disconnect_Machine(hMachine) {
-    result := DllCall("CFGMGR32.dll\CM_Disconnect_Machine", IntPtr, hMachine, CONFIGRET)
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Disconnect_Machine", hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Pointer} rlhOld 
  * @param {Pointer} rlhNew 
  * @param {Integer} ulFlags 
@@ -18091,7 +18663,6 @@ export CM_Enable_DevNode(dnDevInst, ulFlags) {
 }
 
 /**
- * 
  * @param {Integer} dnDevInst 
  * @param {Integer} ulFlags 
  * @param {Pointer} hMachine 
@@ -18099,7 +18670,9 @@ export CM_Enable_DevNode(dnDevInst, ulFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_enable_devnode_ex
  */
 export CM_Enable_DevNode_Ex(dnDevInst, ulFlags, hMachine) {
-    result := DllCall("CFGMGR32.dll\CM_Enable_DevNode_Ex", UInt32, dnDevInst, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Enable_DevNode_Ex", UInt32, dnDevInst, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -18145,7 +18718,9 @@ export CM_Enumerate_Classes(ulClassIndex, ClassGuid, ulFlags) {
  * @since windows5.0
  */
 export CM_Enumerate_Classes_Ex(ulClassIndex, ClassGuid, ulFlags, hMachine) {
-    result := DllCall("CFGMGR32.dll\CM_Enumerate_Classes_Ex", UInt32, ulClassIndex, Guid.Ptr, ClassGuid, CM_ENUMERATE_FLAGS, ulFlags, IntPtr, hMachine, CONFIGRET)
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Enumerate_Classes_Ex", UInt32, ulClassIndex, Guid.Ptr, ClassGuid, CM_ENUMERATE_FLAGS, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -18165,7 +18740,7 @@ export CM_Enumerate_Classes_Ex(ulClassIndex, ClassGuid, ulFlags, hMachine) {
 export CM_Enumerate_EnumeratorsA(ulEnumIndex, _Buffer, pulLength, ulFlags) {
     _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-    pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
+    pulLengthMarshal := pulLength is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CFGMGR32.dll\CM_Enumerate_EnumeratorsA", UInt32, ulEnumIndex, "ptr", _Buffer, pulLengthMarshal, pulLength, UInt32, ulFlags, CONFIGRET)
     return result
@@ -18188,7 +18763,7 @@ export CM_Enumerate_EnumeratorsA(ulEnumIndex, _Buffer, pulLength, ulFlags) {
 export CM_Enumerate_EnumeratorsW(ulEnumIndex, _Buffer, pulLength, ulFlags) {
     _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-    pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
+    pulLengthMarshal := pulLength is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CFGMGR32.dll\CM_Enumerate_EnumeratorsW", UInt32, ulEnumIndex, "ptr", _Buffer, pulLengthMarshal, pulLength, UInt32, ulFlags, CONFIGRET)
     return result
@@ -18216,9 +18791,10 @@ export CM_Enumerate_EnumeratorsW(ulEnumIndex, _Buffer, pulLength, ulFlags) {
 export CM_Enumerate_Enumerators_ExA(ulEnumIndex, _Buffer, pulLength, ulFlags, hMachine) {
     _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-    pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
+    pulLengthMarshal := pulLength is VarRef ? "uint*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Enumerate_Enumerators_ExA", UInt32, ulEnumIndex, "ptr", _Buffer, pulLengthMarshal, pulLength, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Enumerate_Enumerators_ExA", UInt32, ulEnumIndex, "ptr", _Buffer, pulLengthMarshal, pulLength, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -18245,14 +18821,14 @@ export CM_Enumerate_Enumerators_ExA(ulEnumIndex, _Buffer, pulLength, ulFlags, hM
 export CM_Enumerate_Enumerators_ExW(ulEnumIndex, _Buffer, pulLength, ulFlags, hMachine) {
     _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-    pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
+    pulLengthMarshal := pulLength is VarRef ? "uint*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Enumerate_Enumerators_ExW", UInt32, ulEnumIndex, "ptr", _Buffer, pulLengthMarshal, pulLength, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Enumerate_Enumerators_ExW", UInt32, ulEnumIndex, "ptr", _Buffer, pulLengthMarshal, pulLength, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} pullStart 
  * @param {Integer} ullStart 
  * @param {Integer} ulLength 
@@ -18264,14 +18840,13 @@ export CM_Enumerate_Enumerators_ExW(ulEnumIndex, _Buffer, pulLength, ulFlags, hM
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_find_range
  */
 export CM_Find_Range(pullStart, ullStart, ulLength, ullAlignment, ullEnd, rlh, ulFlags) {
-    pullStartMarshal := pullStart is VarRef ? "uint*" : "ptr"
+    pullStartMarshal := pullStart is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CFGMGR32.dll\CM_Find_Range", pullStartMarshal, pullStart, Int64, ullStart, UInt32, ulLength, Int64, ullAlignment, Int64, ullEnd, IntPtr, rlh, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Pointer} rlh 
  * @param {Pointer<Integer>} pullStart 
  * @param {Pointer<Integer>} pullEnd 
@@ -18281,9 +18856,9 @@ export CM_Find_Range(pullStart, ullStart, ulLength, ullAlignment, ullEnd, rlh, u
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_first_range
  */
 export CM_First_Range(rlh, pullStart, pullEnd, preElement, ulFlags) {
-    pullStartMarshal := pullStart is VarRef ? "uint*" : "ptr"
-    pullEndMarshal := pullEnd is VarRef ? "uint*" : "ptr"
-    preElementMarshal := preElement is VarRef ? "ptr*" : "ptr"
+    pullStartMarshal := pullStart is VarRef ? "uint*" : IntPtr
+    pullEndMarshal := pullEnd is VarRef ? "uint*" : IntPtr
+    preElementMarshal := preElement is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("CFGMGR32.dll\CM_First_Range", IntPtr, rlh, pullStartMarshal, pullStart, pullEndMarshal, pullEnd, preElementMarshal, preElement, UInt32, ulFlags, CONFIGRET)
     return result
@@ -18381,7 +18956,9 @@ export CM_Free_Log_Conf(lcLogConfToBeFreed, ulFlags) {
  * @since windows5.0
  */
 export CM_Free_Log_Conf_Ex(lcLogConfToBeFreed, ulFlags, hMachine) {
-    result := DllCall("CFGMGR32.dll\CM_Free_Log_Conf_Ex", IntPtr, lcLogConfToBeFreed, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Free_Log_Conf_Ex", IntPtr, lcLogConfToBeFreed, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -18423,7 +19000,6 @@ export CM_Free_Log_Conf_Handle(lcLogConf) {
 }
 
 /**
- * 
  * @param {Pointer} rlh 
  * @param {Integer} ulFlags 
  * @returns {CONFIGRET} 
@@ -18476,7 +19052,8 @@ export CM_Free_Range_List(rlh, ulFlags) {
  * @since windows5.0
  */
 export CM_Free_Res_Des(prdResDes, rdResDes, ulFlags) {
-    prdResDesMarshal := prdResDes is VarRef ? "ptr*" : "ptr"
+    prdResDesMarshal := prdResDes is VarRef ? "ptr*" : IntPtr
+    prdResDesMarshal := prdResDes == 0 ? IntPtr : "ptr*"
 
     result := DllCall("CFGMGR32.dll\CM_Free_Res_Des", prdResDesMarshal, prdResDes, IntPtr, rdResDes, UInt32, ulFlags, CONFIGRET)
     return result
@@ -18530,9 +19107,11 @@ export CM_Free_Res_Des(prdResDes, rdResDes, ulFlags) {
  * @since windows5.0
  */
 export CM_Free_Res_Des_Ex(prdResDes, rdResDes, ulFlags, hMachine) {
-    prdResDesMarshal := prdResDes is VarRef ? "ptr*" : "ptr"
+    prdResDesMarshal := prdResDes is VarRef ? "ptr*" : IntPtr
+    prdResDesMarshal := prdResDes == 0 ? IntPtr : "ptr*"
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Free_Res_Des_Ex", prdResDesMarshal, prdResDes, IntPtr, rdResDes, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Free_Res_Des_Ex", prdResDesMarshal, prdResDes, IntPtr, rdResDes, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -18636,7 +19215,7 @@ export CM_Free_Res_Des_Handle(rdResDes) {
  * @since windows5.0
  */
 export CM_Get_Child(pdnDevInst, dnDevInst, ulFlags) {
-    pdnDevInstMarshal := pdnDevInst is VarRef ? "uint*" : "ptr"
+    pdnDevInstMarshal := pdnDevInst is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CFGMGR32.dll\CM_Get_Child", pdnDevInstMarshal, pdnDevInst, UInt32, dnDevInst, UInt32, ulFlags, CONFIGRET)
     return result
@@ -18716,14 +19295,14 @@ export CM_Get_Child(pdnDevInst, dnDevInst, ulFlags) {
  * @since windows5.0
  */
 export CM_Get_Child_Ex(pdnDevInst, dnDevInst, ulFlags, hMachine) {
-    pdnDevInstMarshal := pdnDevInst is VarRef ? "uint*" : "ptr"
+    pdnDevInstMarshal := pdnDevInst is VarRef ? "uint*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Child_Ex", pdnDevInstMarshal, pdnDevInst, UInt32, dnDevInst, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Child_Ex", pdnDevInstMarshal, pdnDevInst, UInt32, dnDevInst, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Guid>} ClassGuid 
  * @param {PSTR} _Buffer 
  * @param {Pointer<Integer>} pulLength 
@@ -18734,14 +19313,14 @@ export CM_Get_Child_Ex(pdnDevInst, dnDevInst, ulFlags, hMachine) {
 export CM_Get_Class_NameA(ClassGuid, _Buffer, pulLength, ulFlags) {
     _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-    pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
+    _BufferMarshal := _Buffer == 0 ? IntPtr : PSTR
+    pulLengthMarshal := pulLength is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Class_NameA", Guid.Ptr, ClassGuid, "ptr", _Buffer, pulLengthMarshal, pulLength, UInt32, ulFlags, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Class_NameA", Guid.Ptr, ClassGuid, _BufferMarshal, _Buffer, pulLengthMarshal, pulLength, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Guid>} ClassGuid 
  * @param {PWSTR} _Buffer 
  * @param {Pointer<Integer>} pulLength 
@@ -18752,14 +19331,14 @@ export CM_Get_Class_NameA(ClassGuid, _Buffer, pulLength, ulFlags) {
 export CM_Get_Class_NameW(ClassGuid, _Buffer, pulLength, ulFlags) {
     _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-    pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
+    _BufferMarshal := _Buffer == 0 ? IntPtr : PWSTR
+    pulLengthMarshal := pulLength is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Class_NameW", Guid.Ptr, ClassGuid, "ptr", _Buffer, pulLengthMarshal, pulLength, UInt32, ulFlags, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Class_NameW", Guid.Ptr, ClassGuid, _BufferMarshal, _Buffer, pulLengthMarshal, pulLength, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Guid>} ClassGuid 
  * @param {PSTR} _Buffer 
  * @param {Pointer<Integer>} pulLength 
@@ -18771,14 +19350,15 @@ export CM_Get_Class_NameW(ClassGuid, _Buffer, pulLength, ulFlags) {
 export CM_Get_Class_Name_ExA(ClassGuid, _Buffer, pulLength, ulFlags, hMachine) {
     _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-    pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
+    _BufferMarshal := _Buffer == 0 ? IntPtr : PSTR
+    pulLengthMarshal := pulLength is VarRef ? "uint*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Class_Name_ExA", Guid.Ptr, ClassGuid, "ptr", _Buffer, pulLengthMarshal, pulLength, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Class_Name_ExA", Guid.Ptr, ClassGuid, _BufferMarshal, _Buffer, pulLengthMarshal, pulLength, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Guid>} ClassGuid 
  * @param {PWSTR} _Buffer 
  * @param {Pointer<Integer>} pulLength 
@@ -18790,14 +19370,15 @@ export CM_Get_Class_Name_ExA(ClassGuid, _Buffer, pulLength, ulFlags, hMachine) {
 export CM_Get_Class_Name_ExW(ClassGuid, _Buffer, pulLength, ulFlags, hMachine) {
     _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-    pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
+    _BufferMarshal := _Buffer == 0 ? IntPtr : PWSTR
+    pulLengthMarshal := pulLength is VarRef ? "uint*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Class_Name_ExW", Guid.Ptr, ClassGuid, "ptr", _Buffer, pulLengthMarshal, pulLength, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Class_Name_ExW", Guid.Ptr, ClassGuid, _BufferMarshal, _Buffer, pulLengthMarshal, pulLength, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Guid>} ClassGuid 
  * @param {PSTR} pszKeyName 
  * @param {Pointer<Integer>} pulLength 
@@ -18808,14 +19389,14 @@ export CM_Get_Class_Name_ExW(ClassGuid, _Buffer, pulLength, ulFlags, hMachine) {
 export CM_Get_Class_Key_NameA(ClassGuid, pszKeyName, pulLength, ulFlags) {
     pszKeyName := pszKeyName is String ? StrPtr(pszKeyName) : pszKeyName
 
-    pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
+    pszKeyNameMarshal := pszKeyName == 0 ? IntPtr : PSTR
+    pulLengthMarshal := pulLength is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Class_Key_NameA", Guid.Ptr, ClassGuid, "ptr", pszKeyName, pulLengthMarshal, pulLength, UInt32, ulFlags, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Class_Key_NameA", Guid.Ptr, ClassGuid, pszKeyNameMarshal, pszKeyName, pulLengthMarshal, pulLength, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Guid>} ClassGuid 
  * @param {PWSTR} pszKeyName 
  * @param {Pointer<Integer>} pulLength 
@@ -18826,14 +19407,14 @@ export CM_Get_Class_Key_NameA(ClassGuid, pszKeyName, pulLength, ulFlags) {
 export CM_Get_Class_Key_NameW(ClassGuid, pszKeyName, pulLength, ulFlags) {
     pszKeyName := pszKeyName is String ? StrPtr(pszKeyName) : pszKeyName
 
-    pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
+    pszKeyNameMarshal := pszKeyName == 0 ? IntPtr : PWSTR
+    pulLengthMarshal := pulLength is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Class_Key_NameW", Guid.Ptr, ClassGuid, "ptr", pszKeyName, pulLengthMarshal, pulLength, UInt32, ulFlags, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Class_Key_NameW", Guid.Ptr, ClassGuid, pszKeyNameMarshal, pszKeyName, pulLengthMarshal, pulLength, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Guid>} ClassGuid 
  * @param {PSTR} pszKeyName 
  * @param {Pointer<Integer>} pulLength 
@@ -18845,14 +19426,15 @@ export CM_Get_Class_Key_NameW(ClassGuid, pszKeyName, pulLength, ulFlags) {
 export CM_Get_Class_Key_Name_ExA(ClassGuid, pszKeyName, pulLength, ulFlags, hMachine) {
     pszKeyName := pszKeyName is String ? StrPtr(pszKeyName) : pszKeyName
 
-    pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
+    pszKeyNameMarshal := pszKeyName == 0 ? IntPtr : PSTR
+    pulLengthMarshal := pulLength is VarRef ? "uint*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Class_Key_Name_ExA", Guid.Ptr, ClassGuid, "ptr", pszKeyName, pulLengthMarshal, pulLength, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Class_Key_Name_ExA", Guid.Ptr, ClassGuid, pszKeyNameMarshal, pszKeyName, pulLengthMarshal, pulLength, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Guid>} ClassGuid 
  * @param {PWSTR} pszKeyName 
  * @param {Pointer<Integer>} pulLength 
@@ -18864,9 +19446,11 @@ export CM_Get_Class_Key_Name_ExA(ClassGuid, pszKeyName, pulLength, ulFlags, hMac
 export CM_Get_Class_Key_Name_ExW(ClassGuid, pszKeyName, pulLength, ulFlags, hMachine) {
     pszKeyName := pszKeyName is String ? StrPtr(pszKeyName) : pszKeyName
 
-    pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
+    pszKeyNameMarshal := pszKeyName == 0 ? IntPtr : PWSTR
+    pulLengthMarshal := pulLength is VarRef ? "uint*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Class_Key_Name_ExW", Guid.Ptr, ClassGuid, "ptr", pszKeyName, pulLengthMarshal, pulLength, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Class_Key_Name_ExW", Guid.Ptr, ClassGuid, pszKeyNameMarshal, pszKeyName, pulLengthMarshal, pulLength, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -18882,7 +19466,7 @@ export CM_Get_Class_Key_Name_ExW(ClassGuid, pszKeyName, pulLength, ulFlags, hMac
  * @since windows5.0
  */
 export CM_Get_Depth(pulDepth, dnDevInst, ulFlags) {
-    pulDepthMarshal := pulDepth is VarRef ? "uint*" : "ptr"
+    pulDepthMarshal := pulDepth is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CFGMGR32.dll\CM_Get_Depth", pulDepthMarshal, pulDepth, UInt32, dnDevInst, UInt32, ulFlags, CONFIGRET)
     return result
@@ -18906,9 +19490,10 @@ export CM_Get_Depth(pulDepth, dnDevInst, ulFlags) {
  * @since windows5.0
  */
 export CM_Get_Depth_Ex(pulDepth, dnDevInst, ulFlags, hMachine) {
-    pulDepthMarshal := pulDepth is VarRef ? "uint*" : "ptr"
+    pulDepthMarshal := pulDepth is VarRef ? "uint*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Depth_Ex", pulDepthMarshal, pulDepth, UInt32, dnDevInst, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Depth_Ex", pulDepthMarshal, pulDepth, UInt32, dnDevInst, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -18981,7 +19566,9 @@ export CM_Get_Device_IDW(dnDevInst, _Buffer, BufferLen, ulFlags) {
 export CM_Get_Device_ID_ExA(dnDevInst, _Buffer, BufferLen, ulFlags, hMachine) {
     _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Device_ID_ExA", UInt32, dnDevInst, "ptr", _Buffer, UInt32, BufferLen, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Get_Device_ID_ExA", UInt32, dnDevInst, "ptr", _Buffer, UInt32, BufferLen, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -19010,7 +19597,9 @@ export CM_Get_Device_ID_ExA(dnDevInst, _Buffer, BufferLen, ulFlags, hMachine) {
 export CM_Get_Device_ID_ExW(dnDevInst, _Buffer, BufferLen, ulFlags, hMachine) {
     _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Device_ID_ExW", UInt32, dnDevInst, "ptr", _Buffer, UInt32, BufferLen, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Get_Device_ID_ExW", UInt32, dnDevInst, "ptr", _Buffer, UInt32, BufferLen, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -19047,7 +19636,9 @@ export CM_Get_Device_ID_ListA(pszFilter, _Buffer, BufferLen, ulFlags) {
     pszFilter := pszFilter is String ? StrPtr(pszFilter) : pszFilter
     _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Device_ID_ListA", "ptr", pszFilter, "ptr", _Buffer, UInt32, BufferLen, UInt32, ulFlags, CONFIGRET)
+    pszFilterMarshal := pszFilter == 0 ? IntPtr : PSTR
+
+    result := DllCall("CFGMGR32.dll\CM_Get_Device_ID_ListA", pszFilterMarshal, pszFilter, "ptr", _Buffer, UInt32, BufferLen, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
@@ -19084,7 +19675,9 @@ export CM_Get_Device_ID_ListW(pszFilter, _Buffer, BufferLen, ulFlags) {
     pszFilter := pszFilter is String ? StrPtr(pszFilter) : pszFilter
     _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Device_ID_ListW", "ptr", pszFilter, "ptr", _Buffer, UInt32, BufferLen, UInt32, ulFlags, CONFIGRET)
+    pszFilterMarshal := pszFilter == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CFGMGR32.dll\CM_Get_Device_ID_ListW", pszFilterMarshal, pszFilter, "ptr", _Buffer, UInt32, BufferLen, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
@@ -19109,7 +19702,10 @@ export CM_Get_Device_ID_List_ExA(pszFilter, _Buffer, BufferLen, ulFlags, hMachin
     pszFilter := pszFilter is String ? StrPtr(pszFilter) : pszFilter
     _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Device_ID_List_ExA", "ptr", pszFilter, "ptr", _Buffer, UInt32, BufferLen, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    pszFilterMarshal := pszFilter == 0 ? IntPtr : PSTR
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Get_Device_ID_List_ExA", pszFilterMarshal, pszFilter, "ptr", _Buffer, UInt32, BufferLen, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -19135,7 +19731,10 @@ export CM_Get_Device_ID_List_ExW(pszFilter, _Buffer, BufferLen, ulFlags, hMachin
     pszFilter := pszFilter is String ? StrPtr(pszFilter) : pszFilter
     _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Device_ID_List_ExW", "ptr", pszFilter, "ptr", _Buffer, UInt32, BufferLen, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    pszFilterMarshal := pszFilter == 0 ? IntPtr : PWSTR
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Get_Device_ID_List_ExW", pszFilterMarshal, pszFilter, "ptr", _Buffer, UInt32, BufferLen, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -19164,9 +19763,10 @@ export CM_Get_Device_ID_List_ExW(pszFilter, _Buffer, BufferLen, ulFlags, hMachin
 export CM_Get_Device_ID_List_SizeA(pulLen, pszFilter, ulFlags) {
     pszFilter := pszFilter is String ? StrPtr(pszFilter) : pszFilter
 
-    pulLenMarshal := pulLen is VarRef ? "uint*" : "ptr"
+    pulLenMarshal := pulLen is VarRef ? "uint*" : IntPtr
+    pszFilterMarshal := pszFilter == 0 ? IntPtr : PSTR
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Device_ID_List_SizeA", pulLenMarshal, pulLen, "ptr", pszFilter, UInt32, ulFlags, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Device_ID_List_SizeA", pulLenMarshal, pulLen, pszFilterMarshal, pszFilter, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
@@ -19195,9 +19795,10 @@ export CM_Get_Device_ID_List_SizeA(pulLen, pszFilter, ulFlags) {
 export CM_Get_Device_ID_List_SizeW(pulLen, pszFilter, ulFlags) {
     pszFilter := pszFilter is String ? StrPtr(pszFilter) : pszFilter
 
-    pulLenMarshal := pulLen is VarRef ? "uint*" : "ptr"
+    pulLenMarshal := pulLen is VarRef ? "uint*" : IntPtr
+    pszFilterMarshal := pszFilter == 0 ? IntPtr : PWSTR
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Device_ID_List_SizeW", pulLenMarshal, pulLen, "ptr", pszFilter, UInt32, ulFlags, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Device_ID_List_SizeW", pulLenMarshal, pulLen, pszFilterMarshal, pszFilter, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
@@ -19224,9 +19825,11 @@ export CM_Get_Device_ID_List_SizeW(pulLen, pszFilter, ulFlags) {
 export CM_Get_Device_ID_List_Size_ExA(pulLen, pszFilter, ulFlags, hMachine) {
     pszFilter := pszFilter is String ? StrPtr(pszFilter) : pszFilter
 
-    pulLenMarshal := pulLen is VarRef ? "uint*" : "ptr"
+    pulLenMarshal := pulLen is VarRef ? "uint*" : IntPtr
+    pszFilterMarshal := pszFilter == 0 ? IntPtr : PSTR
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Device_ID_List_Size_ExA", pulLenMarshal, pulLen, "ptr", pszFilter, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Device_ID_List_Size_ExA", pulLenMarshal, pulLen, pszFilterMarshal, pszFilter, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -19254,9 +19857,11 @@ export CM_Get_Device_ID_List_Size_ExA(pulLen, pszFilter, ulFlags, hMachine) {
 export CM_Get_Device_ID_List_Size_ExW(pulLen, pszFilter, ulFlags, hMachine) {
     pszFilter := pszFilter is String ? StrPtr(pszFilter) : pszFilter
 
-    pulLenMarshal := pulLen is VarRef ? "uint*" : "ptr"
+    pulLenMarshal := pulLen is VarRef ? "uint*" : IntPtr
+    pszFilterMarshal := pszFilter == 0 ? IntPtr : PWSTR
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Device_ID_List_Size_ExW", pulLenMarshal, pulLen, "ptr", pszFilter, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Device_ID_List_Size_ExW", pulLenMarshal, pulLen, pszFilterMarshal, pszFilter, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -19278,7 +19883,7 @@ export CM_Get_Device_ID_List_Size_ExW(pulLen, pszFilter, ulFlags, hMachine) {
  * @since windows5.0
  */
 export CM_Get_Device_ID_Size(pulLen, dnDevInst, ulFlags) {
-    pulLenMarshal := pulLen is VarRef ? "uint*" : "ptr"
+    pulLenMarshal := pulLen is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CFGMGR32.dll\CM_Get_Device_ID_Size", pulLenMarshal, pulLen, UInt32, dnDevInst, UInt32, ulFlags, CONFIGRET)
     return result
@@ -19308,9 +19913,10 @@ export CM_Get_Device_ID_Size(pulLen, dnDevInst, ulFlags) {
  * @since windows5.0
  */
 export CM_Get_Device_ID_Size_Ex(pulLen, dnDevInst, ulFlags, hMachine) {
-    pulLenMarshal := pulLen is VarRef ? "uint*" : "ptr"
+    pulLenMarshal := pulLen is VarRef ? "uint*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Device_ID_Size_Ex", pulLenMarshal, pulLen, UInt32, dnDevInst, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Device_ID_Size_Ex", pulLenMarshal, pulLen, UInt32, dnDevInst, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -19329,10 +19935,11 @@ export CM_Get_Device_ID_Size_Ex(pulLen, dnDevInst, ulFlags, hMachine) {
  * @since windows6.0.6000
  */
 export CM_Get_DevNode_PropertyW(dnDevInst, _PropertyKey, PropertyType, PropertyBuffer, PropertyBufferSize, ulFlags) {
-    PropertyTypeMarshal := PropertyType is VarRef ? "uint*" : "ptr"
-    PropertyBufferSizeMarshal := PropertyBufferSize is VarRef ? "uint*" : "ptr"
+    PropertyTypeMarshal := PropertyType is VarRef ? "uint*" : IntPtr
+    PropertyBufferMarshal := PropertyBuffer == 0 ? IntPtr : IntPtr
+    PropertyBufferSizeMarshal := PropertyBufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_DevNode_PropertyW", UInt32, dnDevInst, DEVPROPKEY.Ptr, _PropertyKey, PropertyTypeMarshal, PropertyType, IntPtr, PropertyBuffer, PropertyBufferSizeMarshal, PropertyBufferSize, UInt32, ulFlags, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_DevNode_PropertyW", UInt32, dnDevInst, DEVPROPKEY.Ptr, _PropertyKey, PropertyTypeMarshal, PropertyType, PropertyBufferMarshal, PropertyBuffer, PropertyBufferSizeMarshal, PropertyBufferSize, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
@@ -19355,10 +19962,12 @@ export CM_Get_DevNode_PropertyW(dnDevInst, _PropertyKey, PropertyType, PropertyB
  * @since windows10.0.10240
  */
 export CM_Get_DevNode_Property_ExW(dnDevInst, _PropertyKey, PropertyType, PropertyBuffer, PropertyBufferSize, ulFlags, hMachine) {
-    PropertyTypeMarshal := PropertyType is VarRef ? "uint*" : "ptr"
-    PropertyBufferSizeMarshal := PropertyBufferSize is VarRef ? "uint*" : "ptr"
+    PropertyTypeMarshal := PropertyType is VarRef ? "uint*" : IntPtr
+    PropertyBufferMarshal := PropertyBuffer == 0 ? IntPtr : IntPtr
+    PropertyBufferSizeMarshal := PropertyBufferSize is VarRef ? "uint*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Property_ExW", UInt32, dnDevInst, DEVPROPKEY.Ptr, _PropertyKey, PropertyTypeMarshal, PropertyType, IntPtr, PropertyBuffer, PropertyBufferSizeMarshal, PropertyBufferSize, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Property_ExW", UInt32, dnDevInst, DEVPROPKEY.Ptr, _PropertyKey, PropertyTypeMarshal, PropertyType, PropertyBufferMarshal, PropertyBuffer, PropertyBufferSizeMarshal, PropertyBufferSize, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -19375,9 +19984,10 @@ export CM_Get_DevNode_Property_ExW(dnDevInst, _PropertyKey, PropertyType, Proper
  * @since windows6.0.6000
  */
 export CM_Get_DevNode_Property_Keys(dnDevInst, PropertyKeyArray, PropertyKeyCount, ulFlags) {
-    PropertyKeyCountMarshal := PropertyKeyCount is VarRef ? "uint*" : "ptr"
+    PropertyKeyArrayMarshal := PropertyKeyArray == 0 ? IntPtr : DEVPROPKEY.Ptr
+    PropertyKeyCountMarshal := PropertyKeyCount is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Property_Keys", UInt32, dnDevInst, DEVPROPKEY.Ptr, PropertyKeyArray, PropertyKeyCountMarshal, PropertyKeyCount, UInt32, ulFlags, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Property_Keys", UInt32, dnDevInst, PropertyKeyArrayMarshal, PropertyKeyArray, PropertyKeyCountMarshal, PropertyKeyCount, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
@@ -19398,9 +20008,11 @@ export CM_Get_DevNode_Property_Keys(dnDevInst, PropertyKeyArray, PropertyKeyCoun
  * @since windows10.0.10240
  */
 export CM_Get_DevNode_Property_Keys_Ex(dnDevInst, PropertyKeyArray, PropertyKeyCount, ulFlags, hMachine) {
-    PropertyKeyCountMarshal := PropertyKeyCount is VarRef ? "uint*" : "ptr"
+    PropertyKeyArrayMarshal := PropertyKeyArray == 0 ? IntPtr : DEVPROPKEY.Ptr
+    PropertyKeyCountMarshal := PropertyKeyCount is VarRef ? "uint*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Property_Keys_Ex", UInt32, dnDevInst, DEVPROPKEY.Ptr, PropertyKeyArray, PropertyKeyCountMarshal, PropertyKeyCount, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Property_Keys_Ex", UInt32, dnDevInst, PropertyKeyArrayMarshal, PropertyKeyArray, PropertyKeyCountMarshal, PropertyKeyCount, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -19422,10 +20034,12 @@ export CM_Get_DevNode_Property_Keys_Ex(dnDevInst, PropertyKeyArray, PropertyKeyC
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_devnode_registry_propertya
  */
 export CM_Get_DevNode_Registry_PropertyA(dnDevInst, ulProperty, pulRegDataType, _Buffer, pulLength, ulFlags) {
-    pulRegDataTypeMarshal := pulRegDataType is VarRef ? "uint*" : "ptr"
-    pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
+    pulRegDataTypeMarshal := pulRegDataType is VarRef ? "uint*" : IntPtr
+    pulRegDataTypeMarshal := pulRegDataType == 0 ? IntPtr : "uint*"
+    _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+    pulLengthMarshal := pulLength is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Registry_PropertyA", UInt32, dnDevInst, UInt32, ulProperty, pulRegDataTypeMarshal, pulRegDataType, IntPtr, _Buffer, pulLengthMarshal, pulLength, UInt32, ulFlags, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Registry_PropertyA", UInt32, dnDevInst, UInt32, ulProperty, pulRegDataTypeMarshal, pulRegDataType, _BufferMarshal, _Buffer, pulLengthMarshal, pulLength, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
@@ -19448,15 +20062,16 @@ export CM_Get_DevNode_Registry_PropertyA(dnDevInst, ulProperty, pulRegDataType, 
  * @since windows5.0
  */
 export CM_Get_DevNode_Registry_PropertyW(dnDevInst, ulProperty, pulRegDataType, _Buffer, pulLength, ulFlags) {
-    pulRegDataTypeMarshal := pulRegDataType is VarRef ? "uint*" : "ptr"
-    pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
+    pulRegDataTypeMarshal := pulRegDataType is VarRef ? "uint*" : IntPtr
+    pulRegDataTypeMarshal := pulRegDataType == 0 ? IntPtr : "uint*"
+    _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+    pulLengthMarshal := pulLength is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Registry_PropertyW", UInt32, dnDevInst, UInt32, ulProperty, pulRegDataTypeMarshal, pulRegDataType, IntPtr, _Buffer, pulLengthMarshal, pulLength, UInt32, ulFlags, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Registry_PropertyW", UInt32, dnDevInst, UInt32, ulProperty, pulRegDataTypeMarshal, pulRegDataType, _BufferMarshal, _Buffer, pulLengthMarshal, pulLength, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Integer} dnDevInst 
  * @param {Integer} ulProperty 
  * @param {Pointer<Integer>} pulRegDataType 
@@ -19468,15 +20083,17 @@ export CM_Get_DevNode_Registry_PropertyW(dnDevInst, ulProperty, pulRegDataType, 
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_devnode_registry_property_exa
  */
 export CM_Get_DevNode_Registry_Property_ExA(dnDevInst, ulProperty, pulRegDataType, _Buffer, pulLength, ulFlags, hMachine) {
-    pulRegDataTypeMarshal := pulRegDataType is VarRef ? "uint*" : "ptr"
-    pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
+    pulRegDataTypeMarshal := pulRegDataType is VarRef ? "uint*" : IntPtr
+    pulRegDataTypeMarshal := pulRegDataType == 0 ? IntPtr : "uint*"
+    _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+    pulLengthMarshal := pulLength is VarRef ? "uint*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Registry_Property_ExA", UInt32, dnDevInst, UInt32, ulProperty, pulRegDataTypeMarshal, pulRegDataType, IntPtr, _Buffer, pulLengthMarshal, pulLength, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Registry_Property_ExA", UInt32, dnDevInst, UInt32, ulProperty, pulRegDataTypeMarshal, pulRegDataType, _BufferMarshal, _Buffer, pulLengthMarshal, pulLength, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Integer} dnDevInst 
  * @param {Integer} ulProperty 
  * @param {Pointer<Integer>} pulRegDataType 
@@ -19488,15 +20105,17 @@ export CM_Get_DevNode_Registry_Property_ExA(dnDevInst, ulProperty, pulRegDataTyp
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_devnode_registry_property_exw
  */
 export CM_Get_DevNode_Registry_Property_ExW(dnDevInst, ulProperty, pulRegDataType, _Buffer, pulLength, ulFlags, hMachine) {
-    pulRegDataTypeMarshal := pulRegDataType is VarRef ? "uint*" : "ptr"
-    pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
+    pulRegDataTypeMarshal := pulRegDataType is VarRef ? "uint*" : IntPtr
+    pulRegDataTypeMarshal := pulRegDataType == 0 ? IntPtr : "uint*"
+    _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+    pulLengthMarshal := pulLength is VarRef ? "uint*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Registry_Property_ExW", UInt32, dnDevInst, UInt32, ulProperty, pulRegDataTypeMarshal, pulRegDataType, IntPtr, _Buffer, pulLengthMarshal, pulLength, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Registry_Property_ExW", UInt32, dnDevInst, UInt32, ulProperty, pulRegDataTypeMarshal, pulRegDataType, _BufferMarshal, _Buffer, pulLengthMarshal, pulLength, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Integer} dnDevInst 
  * @param {PSTR} pszCustomPropertyName 
  * @param {Pointer<Integer>} pulRegDataType 
@@ -19509,15 +20128,16 @@ export CM_Get_DevNode_Registry_Property_ExW(dnDevInst, ulProperty, pulRegDataTyp
 export CM_Get_DevNode_Custom_PropertyA(dnDevInst, pszCustomPropertyName, pulRegDataType, _Buffer, pulLength, ulFlags) {
     pszCustomPropertyName := pszCustomPropertyName is String ? StrPtr(pszCustomPropertyName) : pszCustomPropertyName
 
-    pulRegDataTypeMarshal := pulRegDataType is VarRef ? "uint*" : "ptr"
-    pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
+    pulRegDataTypeMarshal := pulRegDataType is VarRef ? "uint*" : IntPtr
+    pulRegDataTypeMarshal := pulRegDataType == 0 ? IntPtr : "uint*"
+    _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+    pulLengthMarshal := pulLength is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Custom_PropertyA", UInt32, dnDevInst, "ptr", pszCustomPropertyName, pulRegDataTypeMarshal, pulRegDataType, IntPtr, _Buffer, pulLengthMarshal, pulLength, UInt32, ulFlags, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Custom_PropertyA", UInt32, dnDevInst, "ptr", pszCustomPropertyName, pulRegDataTypeMarshal, pulRegDataType, _BufferMarshal, _Buffer, pulLengthMarshal, pulLength, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Integer} dnDevInst 
  * @param {PWSTR} pszCustomPropertyName 
  * @param {Pointer<Integer>} pulRegDataType 
@@ -19530,15 +20150,16 @@ export CM_Get_DevNode_Custom_PropertyA(dnDevInst, pszCustomPropertyName, pulRegD
 export CM_Get_DevNode_Custom_PropertyW(dnDevInst, pszCustomPropertyName, pulRegDataType, _Buffer, pulLength, ulFlags) {
     pszCustomPropertyName := pszCustomPropertyName is String ? StrPtr(pszCustomPropertyName) : pszCustomPropertyName
 
-    pulRegDataTypeMarshal := pulRegDataType is VarRef ? "uint*" : "ptr"
-    pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
+    pulRegDataTypeMarshal := pulRegDataType is VarRef ? "uint*" : IntPtr
+    pulRegDataTypeMarshal := pulRegDataType == 0 ? IntPtr : "uint*"
+    _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+    pulLengthMarshal := pulLength is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Custom_PropertyW", UInt32, dnDevInst, "ptr", pszCustomPropertyName, pulRegDataTypeMarshal, pulRegDataType, IntPtr, _Buffer, pulLengthMarshal, pulLength, UInt32, ulFlags, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Custom_PropertyW", UInt32, dnDevInst, "ptr", pszCustomPropertyName, pulRegDataTypeMarshal, pulRegDataType, _BufferMarshal, _Buffer, pulLengthMarshal, pulLength, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Integer} dnDevInst 
  * @param {PSTR} pszCustomPropertyName 
  * @param {Pointer<Integer>} pulRegDataType 
@@ -19552,15 +20173,17 @@ export CM_Get_DevNode_Custom_PropertyW(dnDevInst, pszCustomPropertyName, pulRegD
 export CM_Get_DevNode_Custom_Property_ExA(dnDevInst, pszCustomPropertyName, pulRegDataType, _Buffer, pulLength, ulFlags, hMachine) {
     pszCustomPropertyName := pszCustomPropertyName is String ? StrPtr(pszCustomPropertyName) : pszCustomPropertyName
 
-    pulRegDataTypeMarshal := pulRegDataType is VarRef ? "uint*" : "ptr"
-    pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
+    pulRegDataTypeMarshal := pulRegDataType is VarRef ? "uint*" : IntPtr
+    pulRegDataTypeMarshal := pulRegDataType == 0 ? IntPtr : "uint*"
+    _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+    pulLengthMarshal := pulLength is VarRef ? "uint*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Custom_Property_ExA", UInt32, dnDevInst, "ptr", pszCustomPropertyName, pulRegDataTypeMarshal, pulRegDataType, IntPtr, _Buffer, pulLengthMarshal, pulLength, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Custom_Property_ExA", UInt32, dnDevInst, "ptr", pszCustomPropertyName, pulRegDataTypeMarshal, pulRegDataType, _BufferMarshal, _Buffer, pulLengthMarshal, pulLength, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Integer} dnDevInst 
  * @param {PWSTR} pszCustomPropertyName 
  * @param {Pointer<Integer>} pulRegDataType 
@@ -19574,10 +20197,13 @@ export CM_Get_DevNode_Custom_Property_ExA(dnDevInst, pszCustomPropertyName, pulR
 export CM_Get_DevNode_Custom_Property_ExW(dnDevInst, pszCustomPropertyName, pulRegDataType, _Buffer, pulLength, ulFlags, hMachine) {
     pszCustomPropertyName := pszCustomPropertyName is String ? StrPtr(pszCustomPropertyName) : pszCustomPropertyName
 
-    pulRegDataTypeMarshal := pulRegDataType is VarRef ? "uint*" : "ptr"
-    pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
+    pulRegDataTypeMarshal := pulRegDataType is VarRef ? "uint*" : IntPtr
+    pulRegDataTypeMarshal := pulRegDataType == 0 ? IntPtr : "uint*"
+    _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+    pulLengthMarshal := pulLength is VarRef ? "uint*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Custom_Property_ExW", UInt32, dnDevInst, "ptr", pszCustomPropertyName, pulRegDataTypeMarshal, pulRegDataType, IntPtr, _Buffer, pulLengthMarshal, pulLength, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Custom_Property_ExW", UInt32, dnDevInst, "ptr", pszCustomPropertyName, pulRegDataTypeMarshal, pulRegDataType, _BufferMarshal, _Buffer, pulLengthMarshal, pulLength, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -19594,8 +20220,8 @@ export CM_Get_DevNode_Custom_Property_ExW(dnDevInst, pszCustomPropertyName, pulR
  * @since windows5.0
  */
 export CM_Get_DevNode_Status(pulStatus, pulProblemNumber, dnDevInst, ulFlags) {
-    pulStatusMarshal := pulStatus is VarRef ? "uint*" : "ptr"
-    pulProblemNumberMarshal := pulProblemNumber is VarRef ? "uint*" : "ptr"
+    pulStatusMarshal := pulStatus is VarRef ? "uint*" : IntPtr
+    pulProblemNumberMarshal := pulProblemNumber is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Status", pulStatusMarshal, pulStatus, pulProblemNumberMarshal, pulProblemNumber, UInt32, dnDevInst, UInt32, ulFlags, CONFIGRET)
     return result
@@ -19620,10 +20246,11 @@ export CM_Get_DevNode_Status(pulStatus, pulProblemNumber, dnDevInst, ulFlags) {
  * @since windows5.0
  */
 export CM_Get_DevNode_Status_Ex(pulStatus, pulProblemNumber, dnDevInst, ulFlags, hMachine) {
-    pulStatusMarshal := pulStatus is VarRef ? "uint*" : "ptr"
-    pulProblemNumberMarshal := pulProblemNumber is VarRef ? "uint*" : "ptr"
+    pulStatusMarshal := pulStatus is VarRef ? "uint*" : IntPtr
+    pulProblemNumberMarshal := pulProblemNumber is VarRef ? "uint*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Status_Ex", pulStatusMarshal, pulStatus, pulProblemNumberMarshal, pulProblemNumber, UInt32, dnDevInst, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_DevNode_Status_Ex", pulStatusMarshal, pulStatus, pulProblemNumberMarshal, pulProblemNumber, UInt32, dnDevInst, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -19715,7 +20342,8 @@ export CM_Get_DevNode_Status_Ex(pulStatus, pulProblemNumber, dnDevInst, ulFlags,
  * @since windows5.0
  */
 export CM_Get_First_Log_Conf(plcLogConf, dnDevInst, ulFlags) {
-    plcLogConfMarshal := plcLogConf is VarRef ? "ptr*" : "ptr"
+    plcLogConfMarshal := plcLogConf is VarRef ? "ptr*" : IntPtr
+    plcLogConfMarshal := plcLogConf == 0 ? IntPtr : "ptr*"
 
     result := DllCall("CFGMGR32.dll\CM_Get_First_Log_Conf", plcLogConfMarshal, plcLogConf, UInt32, dnDevInst, CM_LOG_CONF, ulFlags, CONFIGRET)
     return result
@@ -19748,28 +20376,28 @@ export CM_Get_First_Log_Conf(plcLogConf, dnDevInst, ulFlags) {
  * @since windows5.0
  */
 export CM_Get_First_Log_Conf_Ex(plcLogConf, dnDevInst, ulFlags, hMachine) {
-    plcLogConfMarshal := plcLogConf is VarRef ? "ptr*" : "ptr"
+    plcLogConfMarshal := plcLogConf is VarRef ? "ptr*" : IntPtr
+    plcLogConfMarshal := plcLogConf == 0 ? IntPtr : "ptr*"
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_First_Log_Conf_Ex", plcLogConfMarshal, plcLogConf, UInt32, dnDevInst, CM_LOG_CONF, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_First_Log_Conf_Ex", plcLogConfMarshal, plcLogConf, UInt32, dnDevInst, CM_LOG_CONF, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} pulState 
  * @param {Integer} ulFlags 
  * @returns {CONFIGRET} 
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_global_state
  */
 export CM_Get_Global_State(pulState, ulFlags) {
-    pulStateMarshal := pulState is VarRef ? "uint*" : "ptr"
+    pulStateMarshal := pulState is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CFGMGR32.dll\CM_Get_Global_State", pulStateMarshal, pulState, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} pulState 
  * @param {Integer} ulFlags 
  * @param {Pointer} hMachine 
@@ -19777,14 +20405,14 @@ export CM_Get_Global_State(pulState, ulFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_global_state_ex
  */
 export CM_Get_Global_State_Ex(pulState, ulFlags, hMachine) {
-    pulStateMarshal := pulState is VarRef ? "uint*" : "ptr"
+    pulStateMarshal := pulState is VarRef ? "uint*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Global_State_Ex", pulStateMarshal, pulState, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Global_State_Ex", pulStateMarshal, pulState, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Integer} ulIndex 
  * @param {Pointer<HWPROFILEINFO_A>} pHWProfileInfo 
  * @param {Integer} ulFlags 
@@ -19797,7 +20425,6 @@ export CM_Get_Hardware_Profile_InfoA(ulIndex, pHWProfileInfo, ulFlags) {
 }
 
 /**
- * 
  * @param {Integer} ulIndex 
  * @param {Pointer<HWPROFILEINFO_A>} pHWProfileInfo 
  * @param {Integer} ulFlags 
@@ -19806,12 +20433,13 @@ export CM_Get_Hardware_Profile_InfoA(ulIndex, pHWProfileInfo, ulFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_hardware_profile_info_exa
  */
 export CM_Get_Hardware_Profile_Info_ExA(ulIndex, pHWProfileInfo, ulFlags, hMachine) {
-    result := DllCall("CFGMGR32.dll\CM_Get_Hardware_Profile_Info_ExA", UInt32, ulIndex, HWPROFILEINFO_A.Ptr, pHWProfileInfo, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Get_Hardware_Profile_Info_ExA", UInt32, ulIndex, HWPROFILEINFO_A.Ptr, pHWProfileInfo, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Integer} ulIndex 
  * @param {Pointer<HWPROFILEINFO_W>} pHWProfileInfo 
  * @param {Integer} ulFlags 
@@ -19824,7 +20452,6 @@ export CM_Get_Hardware_Profile_InfoW(ulIndex, pHWProfileInfo, ulFlags) {
 }
 
 /**
- * 
  * @param {Integer} ulIndex 
  * @param {Pointer<HWPROFILEINFO_W>} pHWProfileInfo 
  * @param {Integer} ulFlags 
@@ -19833,7 +20460,9 @@ export CM_Get_Hardware_Profile_InfoW(ulIndex, pHWProfileInfo, ulFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_hardware_profile_info_exw
  */
 export CM_Get_Hardware_Profile_Info_ExW(ulIndex, pHWProfileInfo, ulFlags, hMachine) {
-    result := DllCall("CFGMGR32.dll\CM_Get_Hardware_Profile_Info_ExW", UInt32, ulIndex, HWPROFILEINFO_W.Ptr, pHWProfileInfo, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Get_Hardware_Profile_Info_ExW", UInt32, ulIndex, HWPROFILEINFO_W.Ptr, pHWProfileInfo, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -19861,7 +20490,7 @@ export CM_Get_Hardware_Profile_Info_ExW(ulIndex, pHWProfileInfo, ulFlags, hMachi
 export CM_Get_HW_Prof_FlagsA(pDeviceID, ulHardwareProfile, pulValue, ulFlags) {
     pDeviceID := pDeviceID is String ? StrPtr(pDeviceID) : pDeviceID
 
-    pulValueMarshal := pulValue is VarRef ? "uint*" : "ptr"
+    pulValueMarshal := pulValue is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CFGMGR32.dll\CM_Get_HW_Prof_FlagsA", "ptr", pDeviceID, UInt32, ulHardwareProfile, pulValueMarshal, pulValue, UInt32, ulFlags, CONFIGRET)
     return result
@@ -19891,7 +20520,7 @@ export CM_Get_HW_Prof_FlagsA(pDeviceID, ulHardwareProfile, pulValue, ulFlags) {
 export CM_Get_HW_Prof_FlagsW(pDeviceID, ulHardwareProfile, pulValue, ulFlags) {
     pDeviceID := pDeviceID is String ? StrPtr(pDeviceID) : pDeviceID
 
-    pulValueMarshal := pulValue is VarRef ? "uint*" : "ptr"
+    pulValueMarshal := pulValue is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CFGMGR32.dll\CM_Get_HW_Prof_FlagsW", "ptr", pDeviceID, UInt32, ulHardwareProfile, pulValueMarshal, pulValue, UInt32, ulFlags, CONFIGRET)
     return result
@@ -19925,9 +20554,10 @@ export CM_Get_HW_Prof_FlagsW(pDeviceID, ulHardwareProfile, pulValue, ulFlags) {
 export CM_Get_HW_Prof_Flags_ExA(pDeviceID, ulHardwareProfile, pulValue, ulFlags, hMachine) {
     pDeviceID := pDeviceID is String ? StrPtr(pDeviceID) : pDeviceID
 
-    pulValueMarshal := pulValue is VarRef ? "uint*" : "ptr"
+    pulValueMarshal := pulValue is VarRef ? "uint*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_HW_Prof_Flags_ExA", "ptr", pDeviceID, UInt32, ulHardwareProfile, pulValueMarshal, pulValue, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_HW_Prof_Flags_ExA", "ptr", pDeviceID, UInt32, ulHardwareProfile, pulValueMarshal, pulValue, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -19959,9 +20589,10 @@ export CM_Get_HW_Prof_Flags_ExA(pDeviceID, ulHardwareProfile, pulValue, ulFlags,
 export CM_Get_HW_Prof_Flags_ExW(pDeviceID, ulHardwareProfile, pulValue, ulFlags, hMachine) {
     pDeviceID := pDeviceID is String ? StrPtr(pDeviceID) : pDeviceID
 
-    pulValueMarshal := pulValue is VarRef ? "uint*" : "ptr"
+    pulValueMarshal := pulValue is VarRef ? "uint*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_HW_Prof_Flags_ExW", "ptr", pDeviceID, UInt32, ulHardwareProfile, pulValueMarshal, pulValue, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_HW_Prof_Flags_ExW", "ptr", pDeviceID, UInt32, ulHardwareProfile, pulValueMarshal, pulValue, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -20031,7 +20662,7 @@ export CM_Get_Device_Interface_AliasA(pszDeviceInterface, AliasInterfaceGuid, ps
     pszDeviceInterface := pszDeviceInterface is String ? StrPtr(pszDeviceInterface) : pszDeviceInterface
     pszAliasDeviceInterface := pszAliasDeviceInterface is String ? StrPtr(pszAliasDeviceInterface) : pszAliasDeviceInterface
 
-    pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
+    pulLengthMarshal := pulLength is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_AliasA", "ptr", pszDeviceInterface, Guid.Ptr, AliasInterfaceGuid, "ptr", pszAliasDeviceInterface, pulLengthMarshal, pulLength, UInt32, ulFlags, CONFIGRET)
     return result
@@ -20104,14 +20735,13 @@ export CM_Get_Device_Interface_AliasW(pszDeviceInterface, AliasInterfaceGuid, ps
     pszDeviceInterface := pszDeviceInterface is String ? StrPtr(pszDeviceInterface) : pszDeviceInterface
     pszAliasDeviceInterface := pszAliasDeviceInterface is String ? StrPtr(pszAliasDeviceInterface) : pszAliasDeviceInterface
 
-    pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
+    pulLengthMarshal := pulLength is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_AliasW", "ptr", pszDeviceInterface, Guid.Ptr, AliasInterfaceGuid, "ptr", pszAliasDeviceInterface, pulLengthMarshal, pulLength, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {PSTR} pszDeviceInterface 
  * @param {Pointer<Guid>} AliasInterfaceGuid 
  * @param {PSTR} pszAliasDeviceInterface 
@@ -20125,14 +20755,14 @@ export CM_Get_Device_Interface_Alias_ExA(pszDeviceInterface, AliasInterfaceGuid,
     pszDeviceInterface := pszDeviceInterface is String ? StrPtr(pszDeviceInterface) : pszDeviceInterface
     pszAliasDeviceInterface := pszAliasDeviceInterface is String ? StrPtr(pszAliasDeviceInterface) : pszAliasDeviceInterface
 
-    pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
+    pulLengthMarshal := pulLength is VarRef ? "uint*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_Alias_ExA", "ptr", pszDeviceInterface, Guid.Ptr, AliasInterfaceGuid, "ptr", pszAliasDeviceInterface, pulLengthMarshal, pulLength, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_Alias_ExA", "ptr", pszDeviceInterface, Guid.Ptr, AliasInterfaceGuid, "ptr", pszAliasDeviceInterface, pulLengthMarshal, pulLength, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} pszDeviceInterface 
  * @param {Pointer<Guid>} AliasInterfaceGuid 
  * @param {PWSTR} pszAliasDeviceInterface 
@@ -20146,9 +20776,10 @@ export CM_Get_Device_Interface_Alias_ExW(pszDeviceInterface, AliasInterfaceGuid,
     pszDeviceInterface := pszDeviceInterface is String ? StrPtr(pszDeviceInterface) : pszDeviceInterface
     pszAliasDeviceInterface := pszAliasDeviceInterface is String ? StrPtr(pszAliasDeviceInterface) : pszAliasDeviceInterface
 
-    pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
+    pulLengthMarshal := pulLength is VarRef ? "uint*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_Alias_ExW", "ptr", pszDeviceInterface, Guid.Ptr, AliasInterfaceGuid, "ptr", pszAliasDeviceInterface, pulLengthMarshal, pulLength, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_Alias_ExW", "ptr", pszDeviceInterface, Guid.Ptr, AliasInterfaceGuid, "ptr", pszAliasDeviceInterface, pulLengthMarshal, pulLength, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -20189,7 +20820,9 @@ export CM_Get_Device_Interface_ListA(InterfaceClassGuid, pDeviceID, _Buffer, Buf
     pDeviceID := pDeviceID is String ? StrPtr(pDeviceID) : pDeviceID
     _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_ListA", Guid.Ptr, InterfaceClassGuid, "ptr", pDeviceID, "ptr", _Buffer, UInt32, BufferLen, CM_GET_DEVICE_INTERFACE_LIST_FLAGS, ulFlags, CONFIGRET)
+    pDeviceIDMarshal := pDeviceID == 0 ? IntPtr : PSTR
+
+    result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_ListA", Guid.Ptr, InterfaceClassGuid, pDeviceIDMarshal, pDeviceID, "ptr", _Buffer, UInt32, BufferLen, CM_GET_DEVICE_INTERFACE_LIST_FLAGS, ulFlags, CONFIGRET)
     return result
 }
 
@@ -20230,12 +20863,13 @@ export CM_Get_Device_Interface_ListW(InterfaceClassGuid, pDeviceID, _Buffer, Buf
     pDeviceID := pDeviceID is String ? StrPtr(pDeviceID) : pDeviceID
     _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_ListW", Guid.Ptr, InterfaceClassGuid, "ptr", pDeviceID, "ptr", _Buffer, UInt32, BufferLen, CM_GET_DEVICE_INTERFACE_LIST_FLAGS, ulFlags, CONFIGRET)
+    pDeviceIDMarshal := pDeviceID == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_ListW", Guid.Ptr, InterfaceClassGuid, pDeviceIDMarshal, pDeviceID, "ptr", _Buffer, UInt32, BufferLen, CM_GET_DEVICE_INTERFACE_LIST_FLAGS, ulFlags, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Guid>} InterfaceClassGuid 
  * @param {PSTR} pDeviceID 
  * @param {PSTR} _Buffer 
@@ -20249,12 +20883,14 @@ export CM_Get_Device_Interface_List_ExA(InterfaceClassGuid, pDeviceID, _Buffer, 
     pDeviceID := pDeviceID is String ? StrPtr(pDeviceID) : pDeviceID
     _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_List_ExA", Guid.Ptr, InterfaceClassGuid, "ptr", pDeviceID, "ptr", _Buffer, UInt32, BufferLen, CM_GET_DEVICE_INTERFACE_LIST_FLAGS, ulFlags, IntPtr, hMachine, CONFIGRET)
+    pDeviceIDMarshal := pDeviceID == 0 ? IntPtr : PSTR
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_List_ExA", Guid.Ptr, InterfaceClassGuid, pDeviceIDMarshal, pDeviceID, "ptr", _Buffer, UInt32, BufferLen, CM_GET_DEVICE_INTERFACE_LIST_FLAGS, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Guid>} InterfaceClassGuid 
  * @param {PWSTR} pDeviceID 
  * @param {PWSTR} _Buffer 
@@ -20268,7 +20904,10 @@ export CM_Get_Device_Interface_List_ExW(InterfaceClassGuid, pDeviceID, _Buffer, 
     pDeviceID := pDeviceID is String ? StrPtr(pDeviceID) : pDeviceID
     _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_List_ExW", Guid.Ptr, InterfaceClassGuid, "ptr", pDeviceID, "ptr", _Buffer, UInt32, BufferLen, CM_GET_DEVICE_INTERFACE_LIST_FLAGS, ulFlags, IntPtr, hMachine, CONFIGRET)
+    pDeviceIDMarshal := pDeviceID == 0 ? IntPtr : PWSTR
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_List_ExW", Guid.Ptr, InterfaceClassGuid, pDeviceIDMarshal, pDeviceID, "ptr", _Buffer, UInt32, BufferLen, CM_GET_DEVICE_INTERFACE_LIST_FLAGS, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -20327,9 +20966,10 @@ export CM_Get_Device_Interface_List_ExW(InterfaceClassGuid, pDeviceID, _Buffer, 
 export CM_Get_Device_Interface_List_SizeA(pulLen, InterfaceClassGuid, pDeviceID, ulFlags) {
     pDeviceID := pDeviceID is String ? StrPtr(pDeviceID) : pDeviceID
 
-    pulLenMarshal := pulLen is VarRef ? "uint*" : "ptr"
+    pulLenMarshal := pulLen is VarRef ? "uint*" : IntPtr
+    pDeviceIDMarshal := pDeviceID == 0 ? IntPtr : PSTR
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_List_SizeA", pulLenMarshal, pulLen, Guid.Ptr, InterfaceClassGuid, "ptr", pDeviceID, CM_GET_DEVICE_INTERFACE_LIST_FLAGS, ulFlags, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_List_SizeA", pulLenMarshal, pulLen, Guid.Ptr, InterfaceClassGuid, pDeviceIDMarshal, pDeviceID, CM_GET_DEVICE_INTERFACE_LIST_FLAGS, ulFlags, CONFIGRET)
     return result
 }
 
@@ -20388,14 +21028,14 @@ export CM_Get_Device_Interface_List_SizeA(pulLen, InterfaceClassGuid, pDeviceID,
 export CM_Get_Device_Interface_List_SizeW(pulLen, InterfaceClassGuid, pDeviceID, ulFlags) {
     pDeviceID := pDeviceID is String ? StrPtr(pDeviceID) : pDeviceID
 
-    pulLenMarshal := pulLen is VarRef ? "uint*" : "ptr"
+    pulLenMarshal := pulLen is VarRef ? "uint*" : IntPtr
+    pDeviceIDMarshal := pDeviceID == 0 ? IntPtr : PWSTR
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_List_SizeW", pulLenMarshal, pulLen, Guid.Ptr, InterfaceClassGuid, "ptr", pDeviceID, CM_GET_DEVICE_INTERFACE_LIST_FLAGS, ulFlags, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_List_SizeW", pulLenMarshal, pulLen, Guid.Ptr, InterfaceClassGuid, pDeviceIDMarshal, pDeviceID, CM_GET_DEVICE_INTERFACE_LIST_FLAGS, ulFlags, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} pulLen 
  * @param {Pointer<Guid>} InterfaceClassGuid 
  * @param {PSTR} pDeviceID 
@@ -20407,14 +21047,15 @@ export CM_Get_Device_Interface_List_SizeW(pulLen, InterfaceClassGuid, pDeviceID,
 export CM_Get_Device_Interface_List_Size_ExA(pulLen, InterfaceClassGuid, pDeviceID, ulFlags, hMachine) {
     pDeviceID := pDeviceID is String ? StrPtr(pDeviceID) : pDeviceID
 
-    pulLenMarshal := pulLen is VarRef ? "uint*" : "ptr"
+    pulLenMarshal := pulLen is VarRef ? "uint*" : IntPtr
+    pDeviceIDMarshal := pDeviceID == 0 ? IntPtr : PSTR
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_List_Size_ExA", pulLenMarshal, pulLen, Guid.Ptr, InterfaceClassGuid, "ptr", pDeviceID, CM_GET_DEVICE_INTERFACE_LIST_FLAGS, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_List_Size_ExA", pulLenMarshal, pulLen, Guid.Ptr, InterfaceClassGuid, pDeviceIDMarshal, pDeviceID, CM_GET_DEVICE_INTERFACE_LIST_FLAGS, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} pulLen 
  * @param {Pointer<Guid>} InterfaceClassGuid 
  * @param {PWSTR} pDeviceID 
@@ -20426,9 +21067,11 @@ export CM_Get_Device_Interface_List_Size_ExA(pulLen, InterfaceClassGuid, pDevice
 export CM_Get_Device_Interface_List_Size_ExW(pulLen, InterfaceClassGuid, pDeviceID, ulFlags, hMachine) {
     pDeviceID := pDeviceID is String ? StrPtr(pDeviceID) : pDeviceID
 
-    pulLenMarshal := pulLen is VarRef ? "uint*" : "ptr"
+    pulLenMarshal := pulLen is VarRef ? "uint*" : IntPtr
+    pDeviceIDMarshal := pDeviceID == 0 ? IntPtr : PWSTR
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_List_Size_ExW", pulLenMarshal, pulLen, Guid.Ptr, InterfaceClassGuid, "ptr", pDeviceID, CM_GET_DEVICE_INTERFACE_LIST_FLAGS, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_List_Size_ExW", pulLenMarshal, pulLen, Guid.Ptr, InterfaceClassGuid, pDeviceIDMarshal, pDeviceID, CM_GET_DEVICE_INTERFACE_LIST_FLAGS, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -20449,10 +21092,11 @@ export CM_Get_Device_Interface_List_Size_ExW(pulLen, InterfaceClassGuid, pDevice
 export CM_Get_Device_Interface_PropertyW(pszDeviceInterface, _PropertyKey, PropertyType, PropertyBuffer, PropertyBufferSize, ulFlags) {
     pszDeviceInterface := pszDeviceInterface is String ? StrPtr(pszDeviceInterface) : pszDeviceInterface
 
-    PropertyTypeMarshal := PropertyType is VarRef ? "uint*" : "ptr"
-    PropertyBufferSizeMarshal := PropertyBufferSize is VarRef ? "uint*" : "ptr"
+    PropertyTypeMarshal := PropertyType is VarRef ? "uint*" : IntPtr
+    PropertyBufferMarshal := PropertyBuffer == 0 ? IntPtr : IntPtr
+    PropertyBufferSizeMarshal := PropertyBufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_PropertyW", "ptr", pszDeviceInterface, DEVPROPKEY.Ptr, _PropertyKey, PropertyTypeMarshal, PropertyType, IntPtr, PropertyBuffer, PropertyBufferSizeMarshal, PropertyBufferSize, UInt32, ulFlags, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_PropertyW", "ptr", pszDeviceInterface, DEVPROPKEY.Ptr, _PropertyKey, PropertyTypeMarshal, PropertyType, PropertyBufferMarshal, PropertyBuffer, PropertyBufferSizeMarshal, PropertyBufferSize, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
@@ -20477,10 +21121,12 @@ export CM_Get_Device_Interface_PropertyW(pszDeviceInterface, _PropertyKey, Prope
 export CM_Get_Device_Interface_Property_ExW(pszDeviceInterface, _PropertyKey, PropertyType, PropertyBuffer, PropertyBufferSize, ulFlags, hMachine) {
     pszDeviceInterface := pszDeviceInterface is String ? StrPtr(pszDeviceInterface) : pszDeviceInterface
 
-    PropertyTypeMarshal := PropertyType is VarRef ? "uint*" : "ptr"
-    PropertyBufferSizeMarshal := PropertyBufferSize is VarRef ? "uint*" : "ptr"
+    PropertyTypeMarshal := PropertyType is VarRef ? "uint*" : IntPtr
+    PropertyBufferMarshal := PropertyBuffer == 0 ? IntPtr : IntPtr
+    PropertyBufferSizeMarshal := PropertyBufferSize is VarRef ? "uint*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_Property_ExW", "ptr", pszDeviceInterface, DEVPROPKEY.Ptr, _PropertyKey, PropertyTypeMarshal, PropertyType, IntPtr, PropertyBuffer, PropertyBufferSizeMarshal, PropertyBufferSize, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_Property_ExW", "ptr", pszDeviceInterface, DEVPROPKEY.Ptr, _PropertyKey, PropertyTypeMarshal, PropertyType, PropertyBufferMarshal, PropertyBuffer, PropertyBufferSizeMarshal, PropertyBufferSize, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -20499,9 +21145,10 @@ export CM_Get_Device_Interface_Property_ExW(pszDeviceInterface, _PropertyKey, Pr
 export CM_Get_Device_Interface_Property_KeysW(pszDeviceInterface, PropertyKeyArray, PropertyKeyCount, ulFlags) {
     pszDeviceInterface := pszDeviceInterface is String ? StrPtr(pszDeviceInterface) : pszDeviceInterface
 
-    PropertyKeyCountMarshal := PropertyKeyCount is VarRef ? "uint*" : "ptr"
+    PropertyKeyArrayMarshal := PropertyKeyArray == 0 ? IntPtr : DEVPROPKEY.Ptr
+    PropertyKeyCountMarshal := PropertyKeyCount is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_Property_KeysW", "ptr", pszDeviceInterface, DEVPROPKEY.Ptr, PropertyKeyArray, PropertyKeyCountMarshal, PropertyKeyCount, UInt32, ulFlags, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_Property_KeysW", "ptr", pszDeviceInterface, PropertyKeyArrayMarshal, PropertyKeyArray, PropertyKeyCountMarshal, PropertyKeyCount, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
@@ -20524,9 +21171,11 @@ export CM_Get_Device_Interface_Property_KeysW(pszDeviceInterface, PropertyKeyArr
 export CM_Get_Device_Interface_Property_Keys_ExW(pszDeviceInterface, PropertyKeyArray, PropertyKeyCount, ulFlags, hMachine) {
     pszDeviceInterface := pszDeviceInterface is String ? StrPtr(pszDeviceInterface) : pszDeviceInterface
 
-    PropertyKeyCountMarshal := PropertyKeyCount is VarRef ? "uint*" : "ptr"
+    PropertyKeyArrayMarshal := PropertyKeyArray == 0 ? IntPtr : DEVPROPKEY.Ptr
+    PropertyKeyCountMarshal := PropertyKeyCount is VarRef ? "uint*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_Property_Keys_ExW", "ptr", pszDeviceInterface, DEVPROPKEY.Ptr, PropertyKeyArray, PropertyKeyCountMarshal, PropertyKeyCount, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Device_Interface_Property_Keys_ExW", "ptr", pszDeviceInterface, PropertyKeyArrayMarshal, PropertyKeyArray, PropertyKeyCountMarshal, PropertyKeyCount, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -20566,7 +21215,7 @@ export CM_Get_Device_Interface_Property_Keys_ExW(pszDeviceInterface, PropertyKey
  * @since windows5.0
  */
 export CM_Get_Log_Conf_Priority(lcLogConf, pPriority, ulFlags) {
-    pPriorityMarshal := pPriority is VarRef ? "uint*" : "ptr"
+    pPriorityMarshal := pPriority is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CFGMGR32.dll\CM_Get_Log_Conf_Priority", IntPtr, lcLogConf, pPriorityMarshal, pPriority, UInt32, ulFlags, CONFIGRET)
     return result
@@ -20614,9 +21263,10 @@ export CM_Get_Log_Conf_Priority(lcLogConf, pPriority, ulFlags) {
  * @since windows5.0
  */
 export CM_Get_Log_Conf_Priority_Ex(lcLogConf, pPriority, ulFlags, hMachine) {
-    pPriorityMarshal := pPriority is VarRef ? "uint*" : "ptr"
+    pPriorityMarshal := pPriority is VarRef ? "uint*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Log_Conf_Priority_Ex", IntPtr, lcLogConf, pPriorityMarshal, pPriority, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Log_Conf_Priority_Ex", IntPtr, lcLogConf, pPriorityMarshal, pPriority, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -20648,7 +21298,8 @@ export CM_Get_Log_Conf_Priority_Ex(lcLogConf, pPriority, ulFlags, hMachine) {
 export CM_Get_Next_Log_Conf(plcLogConf, lcLogConf) {
     static ulFlags := 0 ;Reserved parameters must always be NULL
 
-    plcLogConfMarshal := plcLogConf is VarRef ? "ptr*" : "ptr"
+    plcLogConfMarshal := plcLogConf is VarRef ? "ptr*" : IntPtr
+    plcLogConfMarshal := plcLogConf == 0 ? IntPtr : "ptr*"
 
     result := DllCall("CFGMGR32.dll\CM_Get_Next_Log_Conf", plcLogConfMarshal, plcLogConf, IntPtr, lcLogConf, UInt32, ulFlags, CONFIGRET)
     return result
@@ -20688,9 +21339,11 @@ export CM_Get_Next_Log_Conf(plcLogConf, lcLogConf) {
 export CM_Get_Next_Log_Conf_Ex(plcLogConf, lcLogConf, hMachine) {
     static ulFlags := 0 ;Reserved parameters must always be NULL
 
-    plcLogConfMarshal := plcLogConf is VarRef ? "ptr*" : "ptr"
+    plcLogConfMarshal := plcLogConf is VarRef ? "ptr*" : IntPtr
+    plcLogConfMarshal := plcLogConf == 0 ? IntPtr : "ptr*"
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Next_Log_Conf_Ex", plcLogConfMarshal, plcLogConf, IntPtr, lcLogConf, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Next_Log_Conf_Ex", plcLogConfMarshal, plcLogConf, IntPtr, lcLogConf, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -20706,7 +21359,7 @@ export CM_Get_Next_Log_Conf_Ex(plcLogConf, lcLogConf, hMachine) {
  * @since windows5.0
  */
 export CM_Get_Parent(pdnDevInst, dnDevInst, ulFlags) {
-    pdnDevInstMarshal := pdnDevInst is VarRef ? "uint*" : "ptr"
+    pdnDevInstMarshal := pdnDevInst is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CFGMGR32.dll\CM_Get_Parent", pdnDevInstMarshal, pdnDevInst, UInt32, dnDevInst, UInt32, ulFlags, CONFIGRET)
     return result
@@ -20730,9 +21383,10 @@ export CM_Get_Parent(pdnDevInst, dnDevInst, ulFlags) {
  * @since windows5.0
  */
 export CM_Get_Parent_Ex(pdnDevInst, dnDevInst, ulFlags, hMachine) {
-    pdnDevInstMarshal := pdnDevInst is VarRef ? "uint*" : "ptr"
+    pdnDevInstMarshal := pdnDevInst is VarRef ? "uint*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Parent_Ex", pdnDevInstMarshal, pdnDevInst, UInt32, dnDevInst, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Parent_Ex", pdnDevInstMarshal, pdnDevInst, UInt32, dnDevInst, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -20778,7 +21432,9 @@ export CM_Get_Res_Des_Data(rdResDes, _Buffer, BufferLen, ulFlags) {
  * @since windows5.0
  */
 export CM_Get_Res_Des_Data_Ex(rdResDes, _Buffer, BufferLen, ulFlags, hMachine) {
-    result := DllCall("CFGMGR32.dll\CM_Get_Res_Des_Data_Ex", IntPtr, rdResDes, IntPtr, _Buffer, UInt32, BufferLen, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Get_Res_Des_Data_Ex", IntPtr, rdResDes, IntPtr, _Buffer, UInt32, BufferLen, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -20797,7 +21453,7 @@ export CM_Get_Res_Des_Data_Ex(rdResDes, _Buffer, BufferLen, ulFlags, hMachine) {
  * @since windows5.0
  */
 export CM_Get_Res_Des_Data_Size(pulSize, rdResDes, ulFlags) {
-    pulSizeMarshal := pulSize is VarRef ? "uint*" : "ptr"
+    pulSizeMarshal := pulSize is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CFGMGR32.dll\CM_Get_Res_Des_Data_Size", pulSizeMarshal, pulSize, IntPtr, rdResDes, UInt32, ulFlags, CONFIGRET)
     return result
@@ -20824,9 +21480,10 @@ export CM_Get_Res_Des_Data_Size(pulSize, rdResDes, ulFlags) {
  * @since windows5.0
  */
 export CM_Get_Res_Des_Data_Size_Ex(pulSize, rdResDes, ulFlags, hMachine) {
-    pulSizeMarshal := pulSize is VarRef ? "uint*" : "ptr"
+    pulSizeMarshal := pulSize is VarRef ? "uint*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Res_Des_Data_Size_Ex", pulSizeMarshal, pulSize, IntPtr, rdResDes, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Res_Des_Data_Size_Ex", pulSizeMarshal, pulSize, IntPtr, rdResDes, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -20844,7 +21501,7 @@ export CM_Get_Res_Des_Data_Size_Ex(pulSize, rdResDes, ulFlags, hMachine) {
  * @since windows5.0
  */
 export CM_Get_Sibling(pdnDevInst, dnDevInst, ulFlags) {
-    pdnDevInstMarshal := pdnDevInst is VarRef ? "uint*" : "ptr"
+    pdnDevInstMarshal := pdnDevInst is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CFGMGR32.dll\CM_Get_Sibling", pdnDevInstMarshal, pdnDevInst, UInt32, dnDevInst, UInt32, ulFlags, CONFIGRET)
     return result
@@ -20870,9 +21527,10 @@ export CM_Get_Sibling(pdnDevInst, dnDevInst, ulFlags) {
  * @since windows5.0
  */
 export CM_Get_Sibling_Ex(pdnDevInst, dnDevInst, ulFlags, hMachine) {
-    pdnDevInstMarshal := pdnDevInst is VarRef ? "uint*" : "ptr"
+    pdnDevInstMarshal := pdnDevInst is VarRef ? "uint*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Sibling_Ex", pdnDevInstMarshal, pdnDevInst, UInt32, dnDevInst, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Sibling_Ex", pdnDevInstMarshal, pdnDevInst, UInt32, dnDevInst, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -20914,9 +21572,11 @@ export CM_Get_Version() {
  * @since windows5.0
  */
 export CM_Get_Version_Ex(hMachine) {
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
     A_LastError := 0
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Version_Ex", IntPtr, hMachine, UInt16)
+    result := DllCall("CFGMGR32.dll\CM_Get_Version_Ex", hMachineMarshal, hMachine, UInt16)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -20956,12 +21616,13 @@ export CM_Is_Version_Available(wVersion) {
  * @since windows5.1.2600
  */
 export CM_Is_Version_Available_Ex(wVersion, hMachine) {
-    result := DllCall("CFGMGR32.dll\CM_Is_Version_Available_Ex", UInt16, wVersion, IntPtr, hMachine, BOOL)
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Is_Version_Available_Ex", UInt16, wVersion, hMachineMarshal, hMachine, BOOL)
     return result
 }
 
 /**
- * 
  * @param {Pointer} rlhOld1 
  * @param {Pointer} rlhOld2 
  * @param {Pointer} rlhNew 
@@ -20975,7 +21636,6 @@ export CM_Intersect_Range_List(rlhOld1, rlhOld2, rlhNew, ulFlags) {
 }
 
 /**
- * 
  * @param {Pointer} rlhOld 
  * @param {Pointer} rlhNew 
  * @param {Integer} ullMaxValue 
@@ -21009,9 +21669,10 @@ export CM_Invert_Range_List(rlhOld, rlhNew, ullMaxValue, ulFlags) {
 export CM_Locate_DevNodeA(pdnDevInst, pDeviceID, ulFlags) {
     pDeviceID := pDeviceID is String ? StrPtr(pDeviceID) : pDeviceID
 
-    pdnDevInstMarshal := pdnDevInst is VarRef ? "uint*" : "ptr"
+    pdnDevInstMarshal := pdnDevInst is VarRef ? "uint*" : IntPtr
+    pDeviceIDMarshal := pDeviceID == 0 ? IntPtr : PSTR
 
-    result := DllCall("CFGMGR32.dll\CM_Locate_DevNodeA", pdnDevInstMarshal, pdnDevInst, "ptr", pDeviceID, CM_LOCATE_DEVNODE_FLAGS, ulFlags, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Locate_DevNodeA", pdnDevInstMarshal, pdnDevInst, pDeviceIDMarshal, pDeviceID, CM_LOCATE_DEVNODE_FLAGS, ulFlags, CONFIGRET)
     return result
 }
 
@@ -21036,9 +21697,10 @@ export CM_Locate_DevNodeA(pdnDevInst, pDeviceID, ulFlags) {
 export CM_Locate_DevNodeW(pdnDevInst, pDeviceID, ulFlags) {
     pDeviceID := pDeviceID is String ? StrPtr(pDeviceID) : pDeviceID
 
-    pdnDevInstMarshal := pdnDevInst is VarRef ? "uint*" : "ptr"
+    pdnDevInstMarshal := pdnDevInst is VarRef ? "uint*" : IntPtr
+    pDeviceIDMarshal := pDeviceID == 0 ? IntPtr : PWSTR
 
-    result := DllCall("CFGMGR32.dll\CM_Locate_DevNodeW", pdnDevInstMarshal, pdnDevInst, "ptr", pDeviceID, CM_LOCATE_DEVNODE_FLAGS, ulFlags, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Locate_DevNodeW", pdnDevInstMarshal, pdnDevInst, pDeviceIDMarshal, pDeviceID, CM_LOCATE_DEVNODE_FLAGS, ulFlags, CONFIGRET)
     return result
 }
 
@@ -21061,9 +21723,11 @@ export CM_Locate_DevNodeW(pdnDevInst, pDeviceID, ulFlags) {
 export CM_Locate_DevNode_ExA(pdnDevInst, pDeviceID, ulFlags, hMachine) {
     pDeviceID := pDeviceID is String ? StrPtr(pDeviceID) : pDeviceID
 
-    pdnDevInstMarshal := pdnDevInst is VarRef ? "uint*" : "ptr"
+    pdnDevInstMarshal := pdnDevInst is VarRef ? "uint*" : IntPtr
+    pDeviceIDMarshal := pDeviceID == 0 ? IntPtr : PSTR
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Locate_DevNode_ExA", pdnDevInstMarshal, pdnDevInst, "ptr", pDeviceID, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Locate_DevNode_ExA", pdnDevInstMarshal, pdnDevInst, pDeviceIDMarshal, pDeviceID, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -21087,14 +21751,15 @@ export CM_Locate_DevNode_ExA(pdnDevInst, pDeviceID, ulFlags, hMachine) {
 export CM_Locate_DevNode_ExW(pdnDevInst, pDeviceID, ulFlags, hMachine) {
     pDeviceID := pDeviceID is String ? StrPtr(pDeviceID) : pDeviceID
 
-    pdnDevInstMarshal := pdnDevInst is VarRef ? "uint*" : "ptr"
+    pdnDevInstMarshal := pdnDevInst is VarRef ? "uint*" : IntPtr
+    pDeviceIDMarshal := pDeviceID == 0 ? IntPtr : PWSTR
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Locate_DevNode_ExW", pdnDevInstMarshal, pdnDevInst, "ptr", pDeviceID, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Locate_DevNode_ExW", pdnDevInstMarshal, pdnDevInst, pDeviceIDMarshal, pDeviceID, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Pointer} rlhOld1 
  * @param {Pointer} rlhOld2 
  * @param {Pointer} rlhNew 
@@ -21152,7 +21817,7 @@ export CM_Merge_Range_List(rlhOld1, rlhOld2, rlhNew, ulFlags) {
  * @since windows5.0
  */
 export CM_Modify_Res_Des(prdResDes, rdResDes, ResourceID, ResourceData, ResourceLen, ulFlags) {
-    prdResDesMarshal := prdResDes is VarRef ? "ptr*" : "ptr"
+    prdResDesMarshal := prdResDes is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("CFGMGR32.dll\CM_Modify_Res_Des", prdResDesMarshal, prdResDes, IntPtr, rdResDes, UInt32, ResourceID, IntPtr, ResourceData, UInt32, ResourceLen, UInt32, ulFlags, CONFIGRET)
     return result
@@ -21210,14 +21875,14 @@ export CM_Modify_Res_Des(prdResDes, rdResDes, ResourceID, ResourceData, Resource
  * @since windows5.0
  */
 export CM_Modify_Res_Des_Ex(prdResDes, rdResDes, ResourceID, ResourceData, ResourceLen, ulFlags, hMachine) {
-    prdResDesMarshal := prdResDes is VarRef ? "ptr*" : "ptr"
+    prdResDesMarshal := prdResDes is VarRef ? "ptr*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Modify_Res_Des_Ex", prdResDesMarshal, prdResDes, IntPtr, rdResDes, UInt32, ResourceID, IntPtr, ResourceData, UInt32, ResourceLen, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Modify_Res_Des_Ex", prdResDesMarshal, prdResDes, IntPtr, rdResDes, UInt32, ResourceID, IntPtr, ResourceData, UInt32, ResourceLen, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Integer} dnFromDevInst 
  * @param {Integer} dnToDevInst 
  * @param {Integer} ulFlags 
@@ -21230,7 +21895,6 @@ export CM_Move_DevNode(dnFromDevInst, dnToDevInst, ulFlags) {
 }
 
 /**
- * 
  * @param {Integer} dnFromDevInst 
  * @param {Integer} dnToDevInst 
  * @param {Integer} ulFlags 
@@ -21239,12 +21903,13 @@ export CM_Move_DevNode(dnFromDevInst, dnToDevInst, ulFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_move_devnode_ex
  */
 export CM_Move_DevNode_Ex(dnFromDevInst, dnToDevInst, ulFlags, hMachine) {
-    result := DllCall("CFGMGR32.dll\CM_Move_DevNode_Ex", UInt32, dnFromDevInst, UInt32, dnToDevInst, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Move_DevNode_Ex", UInt32, dnFromDevInst, UInt32, dnToDevInst, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Pointer>} preElement 
  * @param {Pointer<Integer>} pullStart 
  * @param {Pointer<Integer>} pullEnd 
@@ -21253,9 +21918,9 @@ export CM_Move_DevNode_Ex(dnFromDevInst, dnToDevInst, ulFlags, hMachine) {
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_next_range
  */
 export CM_Next_Range(preElement, pullStart, pullEnd, ulFlags) {
-    preElementMarshal := preElement is VarRef ? "ptr*" : "ptr"
-    pullStartMarshal := pullStart is VarRef ? "uint*" : "ptr"
-    pullEndMarshal := pullEnd is VarRef ? "uint*" : "ptr"
+    preElementMarshal := preElement is VarRef ? "ptr*" : IntPtr
+    pullStartMarshal := pullStart is VarRef ? "uint*" : IntPtr
+    pullEndMarshal := pullEnd is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CFGMGR32.dll\CM_Next_Range", preElementMarshal, preElement, pullStartMarshal, pullStart, pullEndMarshal, pullEnd, UInt32, ulFlags, CONFIGRET)
     return result
@@ -21284,8 +21949,9 @@ export CM_Next_Range(preElement, pullStart, pullEnd, ulFlags) {
  * @since windows5.0
  */
 export CM_Get_Next_Res_Des(prdResDes, rdResDes, ForResource, pResourceID, ulFlags) {
-    prdResDesMarshal := prdResDes is VarRef ? "ptr*" : "ptr"
-    pResourceIDMarshal := pResourceID is VarRef ? "uint*" : "ptr"
+    prdResDesMarshal := prdResDes is VarRef ? "ptr*" : IntPtr
+    pResourceIDMarshal := pResourceID is VarRef ? "uint*" : IntPtr
+    pResourceIDMarshal := pResourceID == 0 ? IntPtr : "uint*"
 
     result := DllCall("CFGMGR32.dll\CM_Get_Next_Res_Des", prdResDesMarshal, prdResDes, IntPtr, rdResDes, CM_RESTYPE, ForResource, pResourceIDMarshal, pResourceID, UInt32, ulFlags, CONFIGRET)
     return result
@@ -21320,10 +21986,12 @@ export CM_Get_Next_Res_Des(prdResDes, rdResDes, ForResource, pResourceID, ulFlag
  * @since windows5.0
  */
 export CM_Get_Next_Res_Des_Ex(prdResDes, rdResDes, ForResource, pResourceID, ulFlags, hMachine) {
-    prdResDesMarshal := prdResDes is VarRef ? "ptr*" : "ptr"
-    pResourceIDMarshal := pResourceID is VarRef ? "uint*" : "ptr"
+    prdResDesMarshal := prdResDes is VarRef ? "ptr*" : IntPtr
+    pResourceIDMarshal := pResourceID is VarRef ? "uint*" : IntPtr
+    pResourceIDMarshal := pResourceID == 0 ? IntPtr : "uint*"
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Next_Res_Des_Ex", prdResDesMarshal, prdResDes, IntPtr, rdResDes, CM_RESTYPE, ForResource, pResourceIDMarshal, pResourceID, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Next_Res_Des_Ex", prdResDesMarshal, prdResDes, IntPtr, rdResDes, CM_RESTYPE, ForResource, pResourceIDMarshal, pResourceID, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -21343,7 +22011,10 @@ export CM_Get_Next_Res_Des_Ex(prdResDes, rdResDes, ForResource, pResourceID, ulF
 export CM_Open_Class_KeyA(ClassGuid, pszClassName, samDesired, Disposition, phkClass, ulFlags) {
     pszClassName := pszClassName is String ? StrPtr(pszClassName) : pszClassName
 
-    result := DllCall("CFGMGR32.dll\CM_Open_Class_KeyA", Guid.Ptr, ClassGuid, "ptr", pszClassName, UInt32, samDesired, UInt32, Disposition, HKEY.Ptr, phkClass, UInt32, ulFlags, CONFIGRET)
+    ClassGuidMarshal := ClassGuid == 0 ? IntPtr : Guid.Ptr
+    pszClassNameMarshal := pszClassName == 0 ? IntPtr : PSTR
+
+    result := DllCall("CFGMGR32.dll\CM_Open_Class_KeyA", ClassGuidMarshal, ClassGuid, pszClassNameMarshal, pszClassName, UInt32, samDesired, UInt32, Disposition, HKEY.Ptr, phkClass, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
@@ -21364,12 +22035,14 @@ export CM_Open_Class_KeyA(ClassGuid, pszClassName, samDesired, Disposition, phkC
 export CM_Open_Class_KeyW(ClassGuid, pszClassName, samDesired, Disposition, phkClass, ulFlags) {
     pszClassName := pszClassName is String ? StrPtr(pszClassName) : pszClassName
 
-    result := DllCall("CFGMGR32.dll\CM_Open_Class_KeyW", Guid.Ptr, ClassGuid, "ptr", pszClassName, UInt32, samDesired, UInt32, Disposition, HKEY.Ptr, phkClass, UInt32, ulFlags, CONFIGRET)
+    ClassGuidMarshal := ClassGuid == 0 ? IntPtr : Guid.Ptr
+    pszClassNameMarshal := pszClassName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CFGMGR32.dll\CM_Open_Class_KeyW", ClassGuidMarshal, ClassGuid, pszClassNameMarshal, pszClassName, UInt32, samDesired, UInt32, Disposition, HKEY.Ptr, phkClass, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Guid>} ClassGuid 
  * @param {PSTR} pszClassName 
  * @param {Integer} samDesired 
@@ -21383,12 +22056,15 @@ export CM_Open_Class_KeyW(ClassGuid, pszClassName, samDesired, Disposition, phkC
 export CM_Open_Class_Key_ExA(ClassGuid, pszClassName, samDesired, Disposition, phkClass, ulFlags, hMachine) {
     pszClassName := pszClassName is String ? StrPtr(pszClassName) : pszClassName
 
-    result := DllCall("CFGMGR32.dll\CM_Open_Class_Key_ExA", Guid.Ptr, ClassGuid, "ptr", pszClassName, UInt32, samDesired, UInt32, Disposition, HKEY.Ptr, phkClass, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    ClassGuidMarshal := ClassGuid == 0 ? IntPtr : Guid.Ptr
+    pszClassNameMarshal := pszClassName == 0 ? IntPtr : PSTR
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Open_Class_Key_ExA", ClassGuidMarshal, ClassGuid, pszClassNameMarshal, pszClassName, UInt32, samDesired, UInt32, Disposition, HKEY.Ptr, phkClass, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Guid>} ClassGuid 
  * @param {PWSTR} pszClassName 
  * @param {Integer} samDesired 
@@ -21402,7 +22078,11 @@ export CM_Open_Class_Key_ExA(ClassGuid, pszClassName, samDesired, Disposition, p
 export CM_Open_Class_Key_ExW(ClassGuid, pszClassName, samDesired, Disposition, phkClass, ulFlags, hMachine) {
     pszClassName := pszClassName is String ? StrPtr(pszClassName) : pszClassName
 
-    result := DllCall("CFGMGR32.dll\CM_Open_Class_Key_ExW", Guid.Ptr, ClassGuid, "ptr", pszClassName, UInt32, samDesired, UInt32, Disposition, HKEY.Ptr, phkClass, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    ClassGuidMarshal := ClassGuid == 0 ? IntPtr : Guid.Ptr
+    pszClassNameMarshal := pszClassName == 0 ? IntPtr : PWSTR
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Open_Class_Key_ExW", ClassGuidMarshal, ClassGuid, pszClassNameMarshal, pszClassName, UInt32, samDesired, UInt32, Disposition, HKEY.Ptr, phkClass, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -21426,7 +22106,6 @@ export CM_Open_DevNode_Key(dnDevNode, samDesired, ulHardwareProfile, Disposition
 }
 
 /**
- * 
  * @param {Integer} dnDevNode 
  * @param {Integer} samDesired 
  * @param {Integer} ulHardwareProfile 
@@ -21438,7 +22117,9 @@ export CM_Open_DevNode_Key(dnDevNode, samDesired, ulHardwareProfile, Disposition
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_open_devnode_key_ex
  */
 export CM_Open_DevNode_Key_Ex(dnDevNode, samDesired, ulHardwareProfile, Disposition, phkDevice, ulFlags, hMachine) {
-    result := DllCall("CFGMGR32.dll\CM_Open_DevNode_Key_Ex", UInt32, dnDevNode, UInt32, samDesired, UInt32, ulHardwareProfile, UInt32, Disposition, HKEY.Ptr, phkDevice, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Open_DevNode_Key_Ex", UInt32, dnDevNode, UInt32, samDesired, UInt32, ulHardwareProfile, UInt32, Disposition, HKEY.Ptr, phkDevice, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -21523,7 +22204,9 @@ export CM_Open_Device_Interface_KeyW(pszDeviceInterface, samDesired, Disposition
 export CM_Open_Device_Interface_Key_ExA(pszDeviceInterface, samDesired, Disposition, phkDeviceInterface, ulFlags, hMachine) {
     pszDeviceInterface := pszDeviceInterface is String ? StrPtr(pszDeviceInterface) : pszDeviceInterface
 
-    result := DllCall("CFGMGR32.dll\CM_Open_Device_Interface_Key_ExA", "ptr", pszDeviceInterface, UInt32, samDesired, UInt32, Disposition, HKEY.Ptr, phkDeviceInterface, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Open_Device_Interface_Key_ExA", "ptr", pszDeviceInterface, UInt32, samDesired, UInt32, Disposition, HKEY.Ptr, phkDeviceInterface, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -21554,7 +22237,9 @@ export CM_Open_Device_Interface_Key_ExA(pszDeviceInterface, samDesired, Disposit
 export CM_Open_Device_Interface_Key_ExW(pszDeviceInterface, samDesired, Disposition, phkDeviceInterface, ulFlags, hMachine) {
     pszDeviceInterface := pszDeviceInterface is String ? StrPtr(pszDeviceInterface) : pszDeviceInterface
 
-    result := DllCall("CFGMGR32.dll\CM_Open_Device_Interface_Key_ExW", "ptr", pszDeviceInterface, UInt32, samDesired, UInt32, Disposition, HKEY.Ptr, phkDeviceInterface, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Open_Device_Interface_Key_ExW", "ptr", pszDeviceInterface, UInt32, samDesired, UInt32, Disposition, HKEY.Ptr, phkDeviceInterface, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -21605,7 +22290,9 @@ export CM_Delete_Device_Interface_KeyW(pszDeviceInterface, ulFlags) {
 export CM_Delete_Device_Interface_Key_ExA(pszDeviceInterface, ulFlags, hMachine) {
     pszDeviceInterface := pszDeviceInterface is String ? StrPtr(pszDeviceInterface) : pszDeviceInterface
 
-    result := DllCall("CFGMGR32.dll\CM_Delete_Device_Interface_Key_ExA", "ptr", pszDeviceInterface, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Delete_Device_Interface_Key_ExA", "ptr", pszDeviceInterface, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -21627,12 +22314,13 @@ export CM_Delete_Device_Interface_Key_ExA(pszDeviceInterface, ulFlags, hMachine)
 export CM_Delete_Device_Interface_Key_ExW(pszDeviceInterface, ulFlags, hMachine) {
     pszDeviceInterface := pszDeviceInterface is String ? StrPtr(pszDeviceInterface) : pszDeviceInterface
 
-    result := DllCall("CFGMGR32.dll\CM_Delete_Device_Interface_Key_ExW", "ptr", pszDeviceInterface, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Delete_Device_Interface_Key_ExW", "ptr", pszDeviceInterface, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Integer} pData 
  * @param {Integer} DataLen 
  * @param {Integer} dnDevInst 
@@ -21647,7 +22335,6 @@ export CM_Query_Arbitrator_Free_Data(pData, DataLen, dnDevInst, ResourceID, ulFl
 }
 
 /**
- * 
  * @param {Integer} pData 
  * @param {Integer} DataLen 
  * @param {Integer} dnDevInst 
@@ -21658,12 +22345,13 @@ export CM_Query_Arbitrator_Free_Data(pData, DataLen, dnDevInst, ResourceID, ulFl
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_query_arbitrator_free_data_ex
  */
 export CM_Query_Arbitrator_Free_Data_Ex(pData, DataLen, dnDevInst, ResourceID, ulFlags, hMachine) {
-    result := DllCall("CFGMGR32.dll\CM_Query_Arbitrator_Free_Data_Ex", IntPtr, pData, UInt32, DataLen, UInt32, dnDevInst, UInt32, ResourceID, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Query_Arbitrator_Free_Data_Ex", IntPtr, pData, UInt32, DataLen, UInt32, dnDevInst, UInt32, ResourceID, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} pulSize 
  * @param {Integer} dnDevInst 
  * @param {Integer} ResourceID 
@@ -21672,14 +22360,13 @@ export CM_Query_Arbitrator_Free_Data_Ex(pData, DataLen, dnDevInst, ResourceID, u
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_query_arbitrator_free_size
  */
 export CM_Query_Arbitrator_Free_Size(pulSize, dnDevInst, ResourceID, ulFlags) {
-    pulSizeMarshal := pulSize is VarRef ? "uint*" : "ptr"
+    pulSizeMarshal := pulSize is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CFGMGR32.dll\CM_Query_Arbitrator_Free_Size", pulSizeMarshal, pulSize, UInt32, dnDevInst, UInt32, ResourceID, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} pulSize 
  * @param {Integer} dnDevInst 
  * @param {Integer} ResourceID 
@@ -21689,14 +22376,14 @@ export CM_Query_Arbitrator_Free_Size(pulSize, dnDevInst, ResourceID, ulFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_query_arbitrator_free_size_ex
  */
 export CM_Query_Arbitrator_Free_Size_Ex(pulSize, dnDevInst, ResourceID, ulFlags, hMachine) {
-    pulSizeMarshal := pulSize is VarRef ? "uint*" : "ptr"
+    pulSizeMarshal := pulSize is VarRef ? "uint*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Query_Arbitrator_Free_Size_Ex", pulSizeMarshal, pulSize, UInt32, dnDevInst, UInt32, ResourceID, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Query_Arbitrator_Free_Size_Ex", pulSizeMarshal, pulSize, UInt32, dnDevInst, UInt32, ResourceID, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Integer} dnAncestor 
  * @param {Integer} ulFlags 
  * @returns {CONFIGRET} 
@@ -21708,7 +22395,6 @@ export CM_Query_Remove_SubTree(dnAncestor, ulFlags) {
 }
 
 /**
- * 
  * @param {Integer} dnAncestor 
  * @param {Integer} ulFlags 
  * @param {Pointer} hMachine 
@@ -21716,7 +22402,9 @@ export CM_Query_Remove_SubTree(dnAncestor, ulFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_query_remove_subtree_ex
  */
 export CM_Query_Remove_SubTree_Ex(dnAncestor, ulFlags, hMachine) {
-    result := DllCall("CFGMGR32.dll\CM_Query_Remove_SubTree_Ex", UInt32, dnAncestor, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Query_Remove_SubTree_Ex", UInt32, dnAncestor, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -21760,9 +22448,11 @@ export CM_Query_Remove_SubTree_Ex(dnAncestor, ulFlags, hMachine) {
 export CM_Query_And_Remove_SubTreeA(dnAncestor, pVetoType, pszVetoName, ulNameLength, ulFlags) {
     pszVetoName := pszVetoName is String ? StrPtr(pszVetoName) : pszVetoName
 
-    pVetoTypeMarshal := pVetoType is VarRef ? "int*" : "ptr"
+    pVetoTypeMarshal := pVetoType is VarRef ? "int*" : IntPtr
+    pVetoTypeMarshal := pVetoType == 0 ? IntPtr : "int*"
+    pszVetoNameMarshal := pszVetoName == 0 ? IntPtr : PSTR
 
-    result := DllCall("CFGMGR32.dll\CM_Query_And_Remove_SubTreeA", UInt32, dnAncestor, pVetoTypeMarshal, pVetoType, "ptr", pszVetoName, UInt32, ulNameLength, UInt32, ulFlags, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Query_And_Remove_SubTreeA", UInt32, dnAncestor, pVetoTypeMarshal, pVetoType, pszVetoNameMarshal, pszVetoName, UInt32, ulNameLength, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
@@ -21810,9 +22500,11 @@ export CM_Query_And_Remove_SubTreeA(dnAncestor, pVetoType, pszVetoName, ulNameLe
 export CM_Query_And_Remove_SubTreeW(dnAncestor, pVetoType, pszVetoName, ulNameLength, ulFlags) {
     pszVetoName := pszVetoName is String ? StrPtr(pszVetoName) : pszVetoName
 
-    pVetoTypeMarshal := pVetoType is VarRef ? "int*" : "ptr"
+    pVetoTypeMarshal := pVetoType is VarRef ? "int*" : IntPtr
+    pVetoTypeMarshal := pVetoType == 0 ? IntPtr : "int*"
+    pszVetoNameMarshal := pszVetoName == 0 ? IntPtr : PWSTR
 
-    result := DllCall("CFGMGR32.dll\CM_Query_And_Remove_SubTreeW", UInt32, dnAncestor, pVetoTypeMarshal, pVetoType, "ptr", pszVetoName, UInt32, ulNameLength, UInt32, ulFlags, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Query_And_Remove_SubTreeW", UInt32, dnAncestor, pVetoTypeMarshal, pVetoType, pszVetoNameMarshal, pszVetoName, UInt32, ulNameLength, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
@@ -21847,9 +22539,12 @@ export CM_Query_And_Remove_SubTreeW(dnAncestor, pVetoType, pszVetoName, ulNameLe
 export CM_Query_And_Remove_SubTree_ExA(dnAncestor, pVetoType, pszVetoName, ulNameLength, ulFlags, hMachine) {
     pszVetoName := pszVetoName is String ? StrPtr(pszVetoName) : pszVetoName
 
-    pVetoTypeMarshal := pVetoType is VarRef ? "int*" : "ptr"
+    pVetoTypeMarshal := pVetoType is VarRef ? "int*" : IntPtr
+    pVetoTypeMarshal := pVetoType == 0 ? IntPtr : "int*"
+    pszVetoNameMarshal := pszVetoName == 0 ? IntPtr : PSTR
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Query_And_Remove_SubTree_ExA", UInt32, dnAncestor, pVetoTypeMarshal, pVetoType, "ptr", pszVetoName, UInt32, ulNameLength, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Query_And_Remove_SubTree_ExA", UInt32, dnAncestor, pVetoTypeMarshal, pVetoType, pszVetoNameMarshal, pszVetoName, UInt32, ulNameLength, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -21889,9 +22584,12 @@ export CM_Query_And_Remove_SubTree_ExA(dnAncestor, pVetoType, pszVetoName, ulNam
 export CM_Query_And_Remove_SubTree_ExW(dnAncestor, pVetoType, pszVetoName, ulNameLength, ulFlags, hMachine) {
     pszVetoName := pszVetoName is String ? StrPtr(pszVetoName) : pszVetoName
 
-    pVetoTypeMarshal := pVetoType is VarRef ? "int*" : "ptr"
+    pVetoTypeMarshal := pVetoType is VarRef ? "int*" : IntPtr
+    pVetoTypeMarshal := pVetoType == 0 ? IntPtr : "int*"
+    pszVetoNameMarshal := pszVetoName == 0 ? IntPtr : PWSTR
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Query_And_Remove_SubTree_ExW", UInt32, dnAncestor, pVetoTypeMarshal, pVetoType, "ptr", pszVetoName, UInt32, ulNameLength, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Query_And_Remove_SubTree_ExW", UInt32, dnAncestor, pVetoTypeMarshal, pVetoType, pszVetoNameMarshal, pszVetoName, UInt32, ulNameLength, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -21926,9 +22624,11 @@ export CM_Query_And_Remove_SubTree_ExW(dnAncestor, pVetoType, pszVetoName, ulNam
 export CM_Request_Device_EjectA(dnDevInst, pVetoType, pszVetoName, ulNameLength, ulFlags) {
     pszVetoName := pszVetoName is String ? StrPtr(pszVetoName) : pszVetoName
 
-    pVetoTypeMarshal := pVetoType is VarRef ? "int*" : "ptr"
+    pVetoTypeMarshal := pVetoType is VarRef ? "int*" : IntPtr
+    pVetoTypeMarshal := pVetoType == 0 ? IntPtr : "int*"
+    pszVetoNameMarshal := pszVetoName == 0 ? IntPtr : PSTR
 
-    result := DllCall("CFGMGR32.dll\CM_Request_Device_EjectA", UInt32, dnDevInst, pVetoTypeMarshal, pVetoType, "ptr", pszVetoName, UInt32, ulNameLength, UInt32, ulFlags, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Request_Device_EjectA", UInt32, dnDevInst, pVetoTypeMarshal, pVetoType, pszVetoNameMarshal, pszVetoName, UInt32, ulNameLength, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
@@ -21971,9 +22671,12 @@ export CM_Request_Device_EjectA(dnDevInst, pVetoType, pszVetoName, ulNameLength,
 export CM_Request_Device_Eject_ExA(dnDevInst, pVetoType, pszVetoName, ulNameLength, ulFlags, hMachine) {
     pszVetoName := pszVetoName is String ? StrPtr(pszVetoName) : pszVetoName
 
-    pVetoTypeMarshal := pVetoType is VarRef ? "int*" : "ptr"
+    pVetoTypeMarshal := pVetoType is VarRef ? "int*" : IntPtr
+    pVetoTypeMarshal := pVetoType == 0 ? IntPtr : "int*"
+    pszVetoNameMarshal := pszVetoName == 0 ? IntPtr : PSTR
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Request_Device_Eject_ExA", UInt32, dnDevInst, pVetoTypeMarshal, pVetoType, "ptr", pszVetoName, UInt32, ulNameLength, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Request_Device_Eject_ExA", UInt32, dnDevInst, pVetoTypeMarshal, pVetoType, pszVetoNameMarshal, pszVetoName, UInt32, ulNameLength, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -22009,9 +22712,11 @@ export CM_Request_Device_Eject_ExA(dnDevInst, pVetoType, pszVetoName, ulNameLeng
 export CM_Request_Device_EjectW(dnDevInst, pVetoType, pszVetoName, ulNameLength, ulFlags) {
     pszVetoName := pszVetoName is String ? StrPtr(pszVetoName) : pszVetoName
 
-    pVetoTypeMarshal := pVetoType is VarRef ? "int*" : "ptr"
+    pVetoTypeMarshal := pVetoType is VarRef ? "int*" : IntPtr
+    pVetoTypeMarshal := pVetoType == 0 ? IntPtr : "int*"
+    pszVetoNameMarshal := pszVetoName == 0 ? IntPtr : PWSTR
 
-    result := DllCall("CFGMGR32.dll\CM_Request_Device_EjectW", UInt32, dnDevInst, pVetoTypeMarshal, pVetoType, "ptr", pszVetoName, UInt32, ulNameLength, UInt32, ulFlags, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Request_Device_EjectW", UInt32, dnDevInst, pVetoTypeMarshal, pVetoType, pszVetoNameMarshal, pszVetoName, UInt32, ulNameLength, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
@@ -22055,9 +22760,12 @@ export CM_Request_Device_EjectW(dnDevInst, pVetoType, pszVetoName, ulNameLength,
 export CM_Request_Device_Eject_ExW(dnDevInst, pVetoType, pszVetoName, ulNameLength, ulFlags, hMachine) {
     pszVetoName := pszVetoName is String ? StrPtr(pszVetoName) : pszVetoName
 
-    pVetoTypeMarshal := pVetoType is VarRef ? "int*" : "ptr"
+    pVetoTypeMarshal := pVetoType is VarRef ? "int*" : IntPtr
+    pVetoTypeMarshal := pVetoType == 0 ? IntPtr : "int*"
+    pszVetoNameMarshal := pszVetoName == 0 ? IntPtr : PWSTR
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Request_Device_Eject_ExW", UInt32, dnDevInst, pVetoTypeMarshal, pVetoType, "ptr", pszVetoName, UInt32, ulNameLength, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Request_Device_Eject_ExW", UInt32, dnDevInst, pVetoTypeMarshal, pVetoType, pszVetoNameMarshal, pszVetoName, UInt32, ulNameLength, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -22101,12 +22809,13 @@ export CM_Reenumerate_DevNode(dnDevInst, ulFlags) {
  * @since windows5.0
  */
 export CM_Reenumerate_DevNode_Ex(dnDevInst, ulFlags, hMachine) {
-    result := DllCall("CFGMGR32.dll\CM_Reenumerate_DevNode_Ex", UInt32, dnDevInst, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Reenumerate_DevNode_Ex", UInt32, dnDevInst, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Integer} dnDevInst 
  * @param {Pointer<Guid>} InterfaceClassGuid 
  * @param {PSTR} pszReference 
@@ -22120,14 +22829,14 @@ export CM_Register_Device_InterfaceA(dnDevInst, InterfaceClassGuid, pszReference
     pszReference := pszReference is String ? StrPtr(pszReference) : pszReference
     pszDeviceInterface := pszDeviceInterface is String ? StrPtr(pszDeviceInterface) : pszDeviceInterface
 
-    pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
+    pszReferenceMarshal := pszReference == 0 ? IntPtr : PSTR
+    pulLengthMarshal := pulLength is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Register_Device_InterfaceA", UInt32, dnDevInst, Guid.Ptr, InterfaceClassGuid, "ptr", pszReference, "ptr", pszDeviceInterface, pulLengthMarshal, pulLength, UInt32, ulFlags, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Register_Device_InterfaceA", UInt32, dnDevInst, Guid.Ptr, InterfaceClassGuid, pszReferenceMarshal, pszReference, "ptr", pszDeviceInterface, pulLengthMarshal, pulLength, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Integer} dnDevInst 
  * @param {Pointer<Guid>} InterfaceClassGuid 
  * @param {PWSTR} pszReference 
@@ -22141,14 +22850,14 @@ export CM_Register_Device_InterfaceW(dnDevInst, InterfaceClassGuid, pszReference
     pszReference := pszReference is String ? StrPtr(pszReference) : pszReference
     pszDeviceInterface := pszDeviceInterface is String ? StrPtr(pszDeviceInterface) : pszDeviceInterface
 
-    pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
+    pszReferenceMarshal := pszReference == 0 ? IntPtr : PWSTR
+    pulLengthMarshal := pulLength is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Register_Device_InterfaceW", UInt32, dnDevInst, Guid.Ptr, InterfaceClassGuid, "ptr", pszReference, "ptr", pszDeviceInterface, pulLengthMarshal, pulLength, UInt32, ulFlags, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Register_Device_InterfaceW", UInt32, dnDevInst, Guid.Ptr, InterfaceClassGuid, pszReferenceMarshal, pszReference, "ptr", pszDeviceInterface, pulLengthMarshal, pulLength, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Integer} dnDevInst 
  * @param {Pointer<Guid>} InterfaceClassGuid 
  * @param {PSTR} pszReference 
@@ -22163,14 +22872,15 @@ export CM_Register_Device_Interface_ExA(dnDevInst, InterfaceClassGuid, pszRefere
     pszReference := pszReference is String ? StrPtr(pszReference) : pszReference
     pszDeviceInterface := pszDeviceInterface is String ? StrPtr(pszDeviceInterface) : pszDeviceInterface
 
-    pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
+    pszReferenceMarshal := pszReference == 0 ? IntPtr : PSTR
+    pulLengthMarshal := pulLength is VarRef ? "uint*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Register_Device_Interface_ExA", UInt32, dnDevInst, Guid.Ptr, InterfaceClassGuid, "ptr", pszReference, "ptr", pszDeviceInterface, pulLengthMarshal, pulLength, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Register_Device_Interface_ExA", UInt32, dnDevInst, Guid.Ptr, InterfaceClassGuid, pszReferenceMarshal, pszReference, "ptr", pszDeviceInterface, pulLengthMarshal, pulLength, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Integer} dnDevInst 
  * @param {Pointer<Guid>} InterfaceClassGuid 
  * @param {PWSTR} pszReference 
@@ -22185,9 +22895,11 @@ export CM_Register_Device_Interface_ExW(dnDevInst, InterfaceClassGuid, pszRefere
     pszReference := pszReference is String ? StrPtr(pszReference) : pszReference
     pszDeviceInterface := pszDeviceInterface is String ? StrPtr(pszDeviceInterface) : pszDeviceInterface
 
-    pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
+    pszReferenceMarshal := pszReference == 0 ? IntPtr : PWSTR
+    pulLengthMarshal := pulLength is VarRef ? "uint*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Register_Device_Interface_ExW", UInt32, dnDevInst, Guid.Ptr, InterfaceClassGuid, "ptr", pszReference, "ptr", pszDeviceInterface, pulLengthMarshal, pulLength, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Register_Device_Interface_ExW", UInt32, dnDevInst, Guid.Ptr, InterfaceClassGuid, pszReferenceMarshal, pszReference, "ptr", pszDeviceInterface, pulLengthMarshal, pulLength, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -22228,7 +22940,9 @@ export CM_Register_Device_Interface_ExW(dnDevInst, InterfaceClassGuid, pszRefere
  * @since windows5.0
  */
 export CM_Set_DevNode_Problem_Ex(dnDevInst, ulProblem, ulFlags, hMachine) {
-    result := DllCall("CFGMGR32.dll\CM_Set_DevNode_Problem_Ex", UInt32, dnDevInst, UInt32, ulProblem, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Set_DevNode_Problem_Ex", UInt32, dnDevInst, UInt32, ulProblem, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -22268,7 +22982,6 @@ export CM_Set_DevNode_Problem(dnDevInst, ulProblem, ulFlags) {
 }
 
 /**
- * 
  * @param {PSTR} pszDeviceInterface 
  * @param {Integer} ulFlags 
  * @returns {CONFIGRET} 
@@ -22282,7 +22995,6 @@ export CM_Unregister_Device_InterfaceA(pszDeviceInterface, ulFlags) {
 }
 
 /**
- * 
  * @param {PWSTR} pszDeviceInterface 
  * @param {Integer} ulFlags 
  * @returns {CONFIGRET} 
@@ -22296,7 +23008,6 @@ export CM_Unregister_Device_InterfaceW(pszDeviceInterface, ulFlags) {
 }
 
 /**
- * 
  * @param {PSTR} pszDeviceInterface 
  * @param {Integer} ulFlags 
  * @param {Pointer} hMachine 
@@ -22306,12 +23017,13 @@ export CM_Unregister_Device_InterfaceW(pszDeviceInterface, ulFlags) {
 export CM_Unregister_Device_Interface_ExA(pszDeviceInterface, ulFlags, hMachine) {
     pszDeviceInterface := pszDeviceInterface is String ? StrPtr(pszDeviceInterface) : pszDeviceInterface
 
-    result := DllCall("CFGMGR32.dll\CM_Unregister_Device_Interface_ExA", "ptr", pszDeviceInterface, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Unregister_Device_Interface_ExA", "ptr", pszDeviceInterface, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} pszDeviceInterface 
  * @param {Integer} ulFlags 
  * @param {Pointer} hMachine 
@@ -22321,12 +23033,13 @@ export CM_Unregister_Device_Interface_ExA(pszDeviceInterface, ulFlags, hMachine)
 export CM_Unregister_Device_Interface_ExW(pszDeviceInterface, ulFlags, hMachine) {
     pszDeviceInterface := pszDeviceInterface is String ? StrPtr(pszDeviceInterface) : pszDeviceInterface
 
-    result := DllCall("CFGMGR32.dll\CM_Unregister_Device_Interface_ExW", "ptr", pszDeviceInterface, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Unregister_Device_Interface_ExW", "ptr", pszDeviceInterface, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Integer} dnDevInst 
  * @param {Integer} ulFlags 
  * @returns {CONFIGRET} 
@@ -22338,7 +23051,6 @@ export CM_Register_Device_Driver(dnDevInst, ulFlags) {
 }
 
 /**
- * 
  * @param {Integer} dnDevInst 
  * @param {Integer} ulFlags 
  * @param {Pointer} hMachine 
@@ -22346,12 +23058,13 @@ export CM_Register_Device_Driver(dnDevInst, ulFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_register_device_driver_ex
  */
 export CM_Register_Device_Driver_Ex(dnDevInst, ulFlags, hMachine) {
-    result := DllCall("CFGMGR32.dll\CM_Register_Device_Driver_Ex", UInt32, dnDevInst, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Register_Device_Driver_Ex", UInt32, dnDevInst, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Integer} dnAncestor 
  * @param {Integer} ulFlags 
  * @returns {CONFIGRET} 
@@ -22363,7 +23076,6 @@ export CM_Remove_SubTree(dnAncestor, ulFlags) {
 }
 
 /**
- * 
  * @param {Integer} dnAncestor 
  * @param {Integer} ulFlags 
  * @param {Pointer} hMachine 
@@ -22371,7 +23083,9 @@ export CM_Remove_SubTree(dnAncestor, ulFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_remove_subtree_ex
  */
 export CM_Remove_SubTree_Ex(dnAncestor, ulFlags, hMachine) {
-    result := DllCall("CFGMGR32.dll\CM_Remove_SubTree_Ex", UInt32, dnAncestor, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Remove_SubTree_Ex", UInt32, dnAncestor, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -22390,7 +23104,9 @@ export CM_Remove_SubTree_Ex(dnAncestor, ulFlags, hMachine) {
  * @since windows6.0.6000
  */
 export CM_Set_DevNode_PropertyW(dnDevInst, _PropertyKey, PropertyType, PropertyBuffer, PropertyBufferSize, ulFlags) {
-    result := DllCall("CFGMGR32.dll\CM_Set_DevNode_PropertyW", UInt32, dnDevInst, DEVPROPKEY.Ptr, _PropertyKey, DEVPROPTYPE, PropertyType, IntPtr, PropertyBuffer, UInt32, PropertyBufferSize, UInt32, ulFlags, CONFIGRET)
+    PropertyBufferMarshal := PropertyBuffer == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Set_DevNode_PropertyW", UInt32, dnDevInst, DEVPROPKEY.Ptr, _PropertyKey, DEVPROPTYPE, PropertyType, PropertyBufferMarshal, PropertyBuffer, UInt32, PropertyBufferSize, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
@@ -22413,7 +23129,10 @@ export CM_Set_DevNode_PropertyW(dnDevInst, _PropertyKey, PropertyType, PropertyB
  * @since windows10.0.10240
  */
 export CM_Set_DevNode_Property_ExW(dnDevInst, _PropertyKey, PropertyType, PropertyBuffer, PropertyBufferSize, ulFlags, hMachine) {
-    result := DllCall("CFGMGR32.dll\CM_Set_DevNode_Property_ExW", UInt32, dnDevInst, DEVPROPKEY.Ptr, _PropertyKey, DEVPROPTYPE, PropertyType, IntPtr, PropertyBuffer, UInt32, PropertyBufferSize, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    PropertyBufferMarshal := PropertyBuffer == 0 ? IntPtr : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Set_DevNode_Property_ExW", UInt32, dnDevInst, DEVPROPKEY.Ptr, _PropertyKey, DEVPROPTYPE, PropertyType, PropertyBufferMarshal, PropertyBuffer, UInt32, PropertyBufferSize, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -22430,7 +23149,9 @@ export CM_Set_DevNode_Property_ExW(dnDevInst, _PropertyKey, PropertyType, Proper
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_set_devnode_registry_propertya
  */
 export CM_Set_DevNode_Registry_PropertyA(dnDevInst, ulProperty, _Buffer, ulLength, ulFlags) {
-    result := DllCall("CFGMGR32.dll\CM_Set_DevNode_Registry_PropertyA", UInt32, dnDevInst, UInt32, ulProperty, IntPtr, _Buffer, UInt32, ulLength, UInt32, ulFlags, CONFIGRET)
+    _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Set_DevNode_Registry_PropertyA", UInt32, dnDevInst, UInt32, ulProperty, _BufferMarshal, _Buffer, UInt32, ulLength, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
@@ -22448,12 +23169,13 @@ export CM_Set_DevNode_Registry_PropertyA(dnDevInst, ulProperty, _Buffer, ulLengt
  * @since windows5.0
  */
 export CM_Set_DevNode_Registry_PropertyW(dnDevInst, ulProperty, _Buffer, ulLength, ulFlags) {
-    result := DllCall("CFGMGR32.dll\CM_Set_DevNode_Registry_PropertyW", UInt32, dnDevInst, UInt32, ulProperty, IntPtr, _Buffer, UInt32, ulLength, UInt32, ulFlags, CONFIGRET)
+    _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Set_DevNode_Registry_PropertyW", UInt32, dnDevInst, UInt32, ulProperty, _BufferMarshal, _Buffer, UInt32, ulLength, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Integer} dnDevInst 
  * @param {Integer} ulProperty 
  * @param {Integer} _Buffer 
@@ -22464,12 +23186,14 @@ export CM_Set_DevNode_Registry_PropertyW(dnDevInst, ulProperty, _Buffer, ulLengt
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_set_devnode_registry_property_exa
  */
 export CM_Set_DevNode_Registry_Property_ExA(dnDevInst, ulProperty, _Buffer, ulLength, ulFlags, hMachine) {
-    result := DllCall("CFGMGR32.dll\CM_Set_DevNode_Registry_Property_ExA", UInt32, dnDevInst, UInt32, ulProperty, IntPtr, _Buffer, UInt32, ulLength, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Set_DevNode_Registry_Property_ExA", UInt32, dnDevInst, UInt32, ulProperty, _BufferMarshal, _Buffer, UInt32, ulLength, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Integer} dnDevInst 
  * @param {Integer} ulProperty 
  * @param {Integer} _Buffer 
@@ -22480,7 +23204,10 @@ export CM_Set_DevNode_Registry_Property_ExA(dnDevInst, ulProperty, _Buffer, ulLe
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_set_devnode_registry_property_exw
  */
 export CM_Set_DevNode_Registry_Property_ExW(dnDevInst, ulProperty, _Buffer, ulLength, ulFlags, hMachine) {
-    result := DllCall("CFGMGR32.dll\CM_Set_DevNode_Registry_Property_ExW", UInt32, dnDevInst, UInt32, ulProperty, IntPtr, _Buffer, UInt32, ulLength, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Set_DevNode_Registry_Property_ExW", UInt32, dnDevInst, UInt32, ulProperty, _BufferMarshal, _Buffer, UInt32, ulLength, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -22501,7 +23228,9 @@ export CM_Set_DevNode_Registry_Property_ExW(dnDevInst, ulProperty, _Buffer, ulLe
 export CM_Set_Device_Interface_PropertyW(pszDeviceInterface, _PropertyKey, PropertyType, PropertyBuffer, PropertyBufferSize, ulFlags) {
     pszDeviceInterface := pszDeviceInterface is String ? StrPtr(pszDeviceInterface) : pszDeviceInterface
 
-    result := DllCall("CFGMGR32.dll\CM_Set_Device_Interface_PropertyW", "ptr", pszDeviceInterface, DEVPROPKEY.Ptr, _PropertyKey, DEVPROPTYPE, PropertyType, IntPtr, PropertyBuffer, UInt32, PropertyBufferSize, UInt32, ulFlags, CONFIGRET)
+    PropertyBufferMarshal := PropertyBuffer == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Set_Device_Interface_PropertyW", "ptr", pszDeviceInterface, DEVPROPKEY.Ptr, _PropertyKey, DEVPROPTYPE, PropertyType, PropertyBufferMarshal, PropertyBuffer, UInt32, PropertyBufferSize, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
@@ -22526,7 +23255,10 @@ export CM_Set_Device_Interface_PropertyW(pszDeviceInterface, _PropertyKey, Prope
 export CM_Set_Device_Interface_Property_ExW(pszDeviceInterface, _PropertyKey, PropertyType, PropertyBuffer, PropertyBufferSize, ulFlags, hMachine) {
     pszDeviceInterface := pszDeviceInterface is String ? StrPtr(pszDeviceInterface) : pszDeviceInterface
 
-    result := DllCall("CFGMGR32.dll\CM_Set_Device_Interface_Property_ExW", "ptr", pszDeviceInterface, DEVPROPKEY.Ptr, _PropertyKey, DEVPROPTYPE, PropertyType, IntPtr, PropertyBuffer, UInt32, PropertyBufferSize, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    PropertyBufferMarshal := PropertyBuffer == 0 ? IntPtr : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Set_Device_Interface_Property_ExW", "ptr", pszDeviceInterface, DEVPROPKEY.Ptr, _PropertyKey, DEVPROPTYPE, PropertyType, PropertyBufferMarshal, PropertyBuffer, UInt32, PropertyBufferSize, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -22558,7 +23290,7 @@ export CM_Set_Device_Interface_Property_ExW(pszDeviceInterface, _PropertyKey, Pr
  * @since windows5.0
  */
 export CM_Is_Dock_Station_Present(pbPresent) {
-    pbPresentMarshal := pbPresent is VarRef ? "int*" : "ptr"
+    pbPresentMarshal := pbPresent is VarRef ? "int*" : IntPtr
 
     result := DllCall("CFGMGR32.dll\CM_Is_Dock_Station_Present", pbPresentMarshal, pbPresent, CONFIGRET)
     return result
@@ -22597,9 +23329,10 @@ export CM_Is_Dock_Station_Present(pbPresent) {
  * @since windows5.0
  */
 export CM_Is_Dock_Station_Present_Ex(pbPresent, hMachine) {
-    pbPresentMarshal := pbPresent is VarRef ? "int*" : "ptr"
+    pbPresentMarshal := pbPresent is VarRef ? "int*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Is_Dock_Station_Present_Ex", pbPresentMarshal, pbPresent, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Is_Dock_Station_Present_Ex", pbPresentMarshal, pbPresent, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -22666,12 +23399,13 @@ export CM_Request_Eject_PC() {
  * @since windows5.0
  */
 export CM_Request_Eject_PC_Ex(hMachine) {
-    result := DllCall("CFGMGR32.dll\CM_Request_Eject_PC_Ex", IntPtr, hMachine, CONFIGRET)
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Request_Eject_PC_Ex", hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {PSTR} pDeviceID 
  * @param {Integer} ulConfig 
  * @param {Integer} ulValue 
@@ -22687,7 +23421,6 @@ export CM_Set_HW_Prof_FlagsA(pDeviceID, ulConfig, ulValue, ulFlags) {
 }
 
 /**
- * 
  * @param {PWSTR} pDeviceID 
  * @param {Integer} ulConfig 
  * @param {Integer} ulValue 
@@ -22703,7 +23436,6 @@ export CM_Set_HW_Prof_FlagsW(pDeviceID, ulConfig, ulValue, ulFlags) {
 }
 
 /**
- * 
  * @param {PSTR} pDeviceID 
  * @param {Integer} ulConfig 
  * @param {Integer} ulValue 
@@ -22715,12 +23447,13 @@ export CM_Set_HW_Prof_FlagsW(pDeviceID, ulConfig, ulValue, ulFlags) {
 export CM_Set_HW_Prof_Flags_ExA(pDeviceID, ulConfig, ulValue, ulFlags, hMachine) {
     pDeviceID := pDeviceID is String ? StrPtr(pDeviceID) : pDeviceID
 
-    result := DllCall("CFGMGR32.dll\CM_Set_HW_Prof_Flags_ExA", "ptr", pDeviceID, UInt32, ulConfig, UInt32, ulValue, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Set_HW_Prof_Flags_ExA", "ptr", pDeviceID, UInt32, ulConfig, UInt32, ulValue, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} pDeviceID 
  * @param {Integer} ulConfig 
  * @param {Integer} ulValue 
@@ -22732,7 +23465,9 @@ export CM_Set_HW_Prof_Flags_ExA(pDeviceID, ulConfig, ulValue, ulFlags, hMachine)
 export CM_Set_HW_Prof_Flags_ExW(pDeviceID, ulConfig, ulValue, ulFlags, hMachine) {
     pDeviceID := pDeviceID is String ? StrPtr(pDeviceID) : pDeviceID
 
-    result := DllCall("CFGMGR32.dll\CM_Set_HW_Prof_Flags_ExW", "ptr", pDeviceID, UInt32, ulConfig, UInt32, ulValue, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Set_HW_Prof_Flags_ExW", "ptr", pDeviceID, UInt32, ulConfig, UInt32, ulValue, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -22756,7 +23491,6 @@ export CM_Setup_DevNode(dnDevInst, ulFlags) {
 }
 
 /**
- * 
  * @param {Integer} dnDevInst 
  * @param {Integer} ulFlags 
  * @param {Pointer} hMachine 
@@ -22764,12 +23498,13 @@ export CM_Setup_DevNode(dnDevInst, ulFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_setup_devnode_ex
  */
 export CM_Setup_DevNode_Ex(dnDevInst, ulFlags, hMachine) {
-    result := DllCall("CFGMGR32.dll\CM_Setup_DevNode_Ex", UInt32, dnDevInst, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Setup_DevNode_Ex", UInt32, dnDevInst, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Integer} ullStartValue 
  * @param {Integer} ullEndValue 
  * @param {Pointer} rlh 
@@ -22806,7 +23541,6 @@ export CM_Uninstall_DevNode(dnDevInst, ulFlags) {
 }
 
 /**
- * 
  * @param {Integer} dnDevInst 
  * @param {Integer} ulFlags 
  * @param {Pointer} hMachine 
@@ -22814,12 +23548,13 @@ export CM_Uninstall_DevNode(dnDevInst, ulFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_uninstall_devnode_ex
  */
 export CM_Uninstall_DevNode_Ex(dnDevInst, ulFlags, hMachine) {
-    result := DllCall("CFGMGR32.dll\CM_Uninstall_DevNode_Ex", UInt32, dnDevInst, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Uninstall_DevNode_Ex", UInt32, dnDevInst, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Integer} ulFlags 
  * @returns {CONFIGRET} 
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_run_detection
@@ -22830,19 +23565,19 @@ export CM_Run_Detection(ulFlags) {
 }
 
 /**
- * 
  * @param {Integer} ulFlags 
  * @param {Pointer} hMachine 
  * @returns {CONFIGRET} 
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_run_detection_ex
  */
 export CM_Run_Detection_Ex(ulFlags, hMachine) {
-    result := DllCall("CFGMGR32.dll\CM_Run_Detection_Ex", UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Run_Detection_Ex", UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Integer} ulHardwareProfile 
  * @param {Integer} ulFlags 
  * @returns {CONFIGRET} 
@@ -22854,7 +23589,6 @@ export CM_Set_HW_Prof(ulHardwareProfile, ulFlags) {
 }
 
 /**
- * 
  * @param {Integer} ulHardwareProfile 
  * @param {Integer} ulFlags 
  * @param {Pointer} hMachine 
@@ -22862,7 +23596,9 @@ export CM_Set_HW_Prof(ulHardwareProfile, ulFlags) {
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_set_hw_prof_ex
  */
 export CM_Set_HW_Prof_Ex(ulHardwareProfile, ulFlags, hMachine) {
-    result := DllCall("CFGMGR32.dll\CM_Set_HW_Prof_Ex", UInt32, ulHardwareProfile, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Set_HW_Prof_Ex", UInt32, ulHardwareProfile, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -22891,9 +23627,10 @@ export CM_Set_HW_Prof_Ex(ulHardwareProfile, ulFlags, hMachine) {
  * @since windows5.0
  */
 export CM_Query_Resource_Conflict_List(pclConflictList, dnDevInst, ResourceID, ResourceData, ResourceLen, ulFlags, hMachine) {
-    pclConflictListMarshal := pclConflictList is VarRef ? "ptr*" : "ptr"
+    pclConflictListMarshal := pclConflictList is VarRef ? "ptr*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Query_Resource_Conflict_List", pclConflictListMarshal, pclConflictList, UInt32, dnDevInst, CM_RESTYPE, ResourceID, IntPtr, ResourceData, UInt32, ResourceLen, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Query_Resource_Conflict_List", pclConflictListMarshal, pclConflictList, UInt32, dnDevInst, CM_RESTYPE, ResourceID, IntPtr, ResourceData, UInt32, ResourceLen, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -22924,7 +23661,7 @@ export CM_Free_Resource_Conflict_Handle(clConflictList) {
  * @since windows5.0
  */
 export CM_Get_Resource_Conflict_Count(clConflictList, pulCount) {
-    pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"
+    pulCountMarshal := pulCount is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CFGMGR32.dll\CM_Get_Resource_Conflict_Count", IntPtr, clConflictList, pulCountMarshal, pulCount, CONFIGRET)
     return result
@@ -23040,10 +23777,11 @@ export CM_Get_Resource_Conflict_DetailsW(clConflictList, ulIndex, pConflictDetai
  * @since windows6.0.6000
  */
 export CM_Get_Class_PropertyW(ClassGUID, _PropertyKey, PropertyType, PropertyBuffer, PropertyBufferSize, ulFlags) {
-    PropertyTypeMarshal := PropertyType is VarRef ? "uint*" : "ptr"
-    PropertyBufferSizeMarshal := PropertyBufferSize is VarRef ? "uint*" : "ptr"
+    PropertyTypeMarshal := PropertyType is VarRef ? "uint*" : IntPtr
+    PropertyBufferMarshal := PropertyBuffer == 0 ? IntPtr : IntPtr
+    PropertyBufferSizeMarshal := PropertyBufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Class_PropertyW", Guid.Ptr, ClassGUID, DEVPROPKEY.Ptr, _PropertyKey, PropertyTypeMarshal, PropertyType, IntPtr, PropertyBuffer, PropertyBufferSizeMarshal, PropertyBufferSize, UInt32, ulFlags, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Class_PropertyW", Guid.Ptr, ClassGUID, DEVPROPKEY.Ptr, _PropertyKey, PropertyTypeMarshal, PropertyType, PropertyBufferMarshal, PropertyBuffer, PropertyBufferSizeMarshal, PropertyBufferSize, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
@@ -23066,10 +23804,12 @@ export CM_Get_Class_PropertyW(ClassGUID, _PropertyKey, PropertyType, PropertyBuf
  * @since windows10.0.10240
  */
 export CM_Get_Class_Property_ExW(ClassGUID, _PropertyKey, PropertyType, PropertyBuffer, PropertyBufferSize, ulFlags, hMachine) {
-    PropertyTypeMarshal := PropertyType is VarRef ? "uint*" : "ptr"
-    PropertyBufferSizeMarshal := PropertyBufferSize is VarRef ? "uint*" : "ptr"
+    PropertyTypeMarshal := PropertyType is VarRef ? "uint*" : IntPtr
+    PropertyBufferMarshal := PropertyBuffer == 0 ? IntPtr : IntPtr
+    PropertyBufferSizeMarshal := PropertyBufferSize is VarRef ? "uint*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Class_Property_ExW", Guid.Ptr, ClassGUID, DEVPROPKEY.Ptr, _PropertyKey, PropertyTypeMarshal, PropertyType, IntPtr, PropertyBuffer, PropertyBufferSizeMarshal, PropertyBufferSize, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Class_Property_ExW", Guid.Ptr, ClassGUID, DEVPROPKEY.Ptr, _PropertyKey, PropertyTypeMarshal, PropertyType, PropertyBufferMarshal, PropertyBuffer, PropertyBufferSizeMarshal, PropertyBufferSize, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -23086,9 +23826,10 @@ export CM_Get_Class_Property_ExW(ClassGUID, _PropertyKey, PropertyType, Property
  * @since windows6.0.6000
  */
 export CM_Get_Class_Property_Keys(ClassGUID, PropertyKeyArray, PropertyKeyCount, ulFlags) {
-    PropertyKeyCountMarshal := PropertyKeyCount is VarRef ? "uint*" : "ptr"
+    PropertyKeyArrayMarshal := PropertyKeyArray == 0 ? IntPtr : DEVPROPKEY.Ptr
+    PropertyKeyCountMarshal := PropertyKeyCount is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Class_Property_Keys", Guid.Ptr, ClassGUID, DEVPROPKEY.Ptr, PropertyKeyArray, PropertyKeyCountMarshal, PropertyKeyCount, UInt32, ulFlags, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Class_Property_Keys", Guid.Ptr, ClassGUID, PropertyKeyArrayMarshal, PropertyKeyArray, PropertyKeyCountMarshal, PropertyKeyCount, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
@@ -23109,9 +23850,11 @@ export CM_Get_Class_Property_Keys(ClassGUID, PropertyKeyArray, PropertyKeyCount,
  * @since windows10.0.10240
  */
 export CM_Get_Class_Property_Keys_Ex(ClassGUID, PropertyKeyArray, PropertyKeyCount, ulFlags, hMachine) {
-    PropertyKeyCountMarshal := PropertyKeyCount is VarRef ? "uint*" : "ptr"
+    PropertyKeyArrayMarshal := PropertyKeyArray == 0 ? IntPtr : DEVPROPKEY.Ptr
+    PropertyKeyCountMarshal := PropertyKeyCount is VarRef ? "uint*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Class_Property_Keys_Ex", Guid.Ptr, ClassGUID, DEVPROPKEY.Ptr, PropertyKeyArray, PropertyKeyCountMarshal, PropertyKeyCount, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Class_Property_Keys_Ex", Guid.Ptr, ClassGUID, PropertyKeyArrayMarshal, PropertyKeyArray, PropertyKeyCountMarshal, PropertyKeyCount, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -23130,7 +23873,9 @@ export CM_Get_Class_Property_Keys_Ex(ClassGUID, PropertyKeyArray, PropertyKeyCou
  * @since windows6.0.6000
  */
 export CM_Set_Class_PropertyW(ClassGUID, _PropertyKey, PropertyType, PropertyBuffer, PropertyBufferSize, ulFlags) {
-    result := DllCall("CFGMGR32.dll\CM_Set_Class_PropertyW", Guid.Ptr, ClassGUID, DEVPROPKEY.Ptr, _PropertyKey, DEVPROPTYPE, PropertyType, IntPtr, PropertyBuffer, UInt32, PropertyBufferSize, UInt32, ulFlags, CONFIGRET)
+    PropertyBufferMarshal := PropertyBuffer == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Set_Class_PropertyW", Guid.Ptr, ClassGUID, DEVPROPKEY.Ptr, _PropertyKey, DEVPROPTYPE, PropertyType, PropertyBufferMarshal, PropertyBuffer, UInt32, PropertyBufferSize, UInt32, ulFlags, CONFIGRET)
     return result
 }
 
@@ -23153,7 +23898,10 @@ export CM_Set_Class_PropertyW(ClassGUID, _PropertyKey, PropertyType, PropertyBuf
  * @since windows10.0.10240
  */
 export CM_Set_Class_Property_ExW(ClassGUID, _PropertyKey, PropertyType, PropertyBuffer, PropertyBufferSize, ulFlags, hMachine) {
-    result := DllCall("CFGMGR32.dll\CM_Set_Class_Property_ExW", Guid.Ptr, ClassGUID, DEVPROPKEY.Ptr, _PropertyKey, DEVPROPTYPE, PropertyType, IntPtr, PropertyBuffer, UInt32, PropertyBufferSize, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    PropertyBufferMarshal := PropertyBuffer == 0 ? IntPtr : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Set_Class_Property_ExW", Guid.Ptr, ClassGUID, DEVPROPKEY.Ptr, _PropertyKey, DEVPROPTYPE, PropertyType, PropertyBufferMarshal, PropertyBuffer, UInt32, PropertyBufferSize, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -23172,10 +23920,13 @@ export CM_Set_Class_Property_ExW(ClassGUID, _PropertyKey, PropertyType, Property
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_get_class_registry_propertya
  */
 export CM_Get_Class_Registry_PropertyA(ClassGuid, ulProperty, pulRegDataType, _Buffer, pulLength, ulFlags, hMachine) {
-    pulRegDataTypeMarshal := pulRegDataType is VarRef ? "uint*" : "ptr"
-    pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
+    pulRegDataTypeMarshal := pulRegDataType is VarRef ? "uint*" : IntPtr
+    pulRegDataTypeMarshal := pulRegDataType == 0 ? IntPtr : "uint*"
+    _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+    pulLengthMarshal := pulLength is VarRef ? "uint*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Class_Registry_PropertyA", Guid.Ptr, ClassGuid, UInt32, ulProperty, pulRegDataTypeMarshal, pulRegDataType, IntPtr, _Buffer, pulLengthMarshal, pulLength, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Class_Registry_PropertyA", Guid.Ptr, ClassGuid, UInt32, ulProperty, pulRegDataTypeMarshal, pulRegDataType, _BufferMarshal, _Buffer, pulLengthMarshal, pulLength, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -23195,10 +23946,13 @@ export CM_Get_Class_Registry_PropertyA(ClassGuid, ulProperty, pulRegDataType, _B
  * @since windows5.0
  */
 export CM_Get_Class_Registry_PropertyW(ClassGuid, ulProperty, pulRegDataType, _Buffer, pulLength, ulFlags, hMachine) {
-    pulRegDataTypeMarshal := pulRegDataType is VarRef ? "uint*" : "ptr"
-    pulLengthMarshal := pulLength is VarRef ? "uint*" : "ptr"
+    pulRegDataTypeMarshal := pulRegDataType is VarRef ? "uint*" : IntPtr
+    pulRegDataTypeMarshal := pulRegDataType == 0 ? IntPtr : "uint*"
+    _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+    pulLengthMarshal := pulLength is VarRef ? "uint*" : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
 
-    result := DllCall("CFGMGR32.dll\CM_Get_Class_Registry_PropertyW", Guid.Ptr, ClassGuid, UInt32, ulProperty, pulRegDataTypeMarshal, pulRegDataType, IntPtr, _Buffer, pulLengthMarshal, pulLength, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    result := DllCall("CFGMGR32.dll\CM_Get_Class_Registry_PropertyW", Guid.Ptr, ClassGuid, UInt32, ulProperty, pulRegDataTypeMarshal, pulRegDataType, _BufferMarshal, _Buffer, pulLengthMarshal, pulLength, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -23220,7 +23974,10 @@ export CM_Get_Class_Registry_PropertyW(ClassGuid, ulProperty, pulRegDataType, _B
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/nf-cfgmgr32-cm_set_class_registry_propertya
  */
 export CM_Set_Class_Registry_PropertyA(ClassGuid, ulProperty, _Buffer, ulLength, ulFlags, hMachine) {
-    result := DllCall("CFGMGR32.dll\CM_Set_Class_Registry_PropertyA", Guid.Ptr, ClassGuid, UInt32, ulProperty, IntPtr, _Buffer, UInt32, ulLength, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Set_Class_Registry_PropertyA", Guid.Ptr, ClassGuid, UInt32, ulProperty, _BufferMarshal, _Buffer, UInt32, ulLength, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
@@ -23243,12 +24000,14 @@ export CM_Set_Class_Registry_PropertyA(ClassGuid, ulProperty, _Buffer, ulLength,
  * @since windows5.0
  */
 export CM_Set_Class_Registry_PropertyW(ClassGuid, ulProperty, _Buffer, ulLength, ulFlags, hMachine) {
-    result := DllCall("CFGMGR32.dll\CM_Set_Class_Registry_PropertyW", Guid.Ptr, ClassGuid, UInt32, ulProperty, IntPtr, _Buffer, UInt32, ulLength, UInt32, ulFlags, IntPtr, hMachine, CONFIGRET)
+    _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+    hMachineMarshal := hMachine == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CFGMGR32.dll\CM_Set_Class_Registry_PropertyW", Guid.Ptr, ClassGuid, UInt32, ulProperty, _BufferMarshal, _Buffer, UInt32, ulLength, UInt32, ulFlags, hMachineMarshal, hMachine, CONFIGRET)
     return result
 }
 
 /**
- * 
  * @param {Integer} dwTimeout 
  * @returns {Integer} 
  */
@@ -23295,7 +24054,8 @@ export CMP_WaitNoPendingInstallEvents(dwTimeout) {
  * @since windows8.0
  */
 export CM_Register_Notification(pFilter, pContext, pCallback, pNotifyContext) {
-    pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+    pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
+    pContextMarshal := pContext == 0 ? IntPtr : "ptr"
 
     result := DllCall("CFGMGR32.dll\CM_Register_Notification", CM_NOTIFY_FILTER.Ptr, pFilter, pContextMarshal, pContext, PCM_NOTIFY_CALLBACK, pCallback, HCMNOTIFICATION.Ptr, pNotifyContext, CONFIGRET)
     return result
@@ -23463,11 +24223,13 @@ export UpdateDriverForPlugAndPlayDevicesA(hwndParent, HardwareId, FullInfPath, I
     HardwareId := HardwareId is String ? StrPtr(HardwareId) : HardwareId
     FullInfPath := FullInfPath is String ? StrPtr(FullInfPath) : FullInfPath
 
-    bRebootRequiredMarshal := bRebootRequired is VarRef ? "int*" : "ptr"
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+    bRebootRequiredMarshal := bRebootRequired is VarRef ? "int*" : IntPtr
+    bRebootRequiredMarshal := bRebootRequired == 0 ? IntPtr : BOOL.Ptr
 
     A_LastError := 0
 
-    result := DllCall("newdev.dll\UpdateDriverForPlugAndPlayDevicesA", HWND, hwndParent, "ptr", HardwareId, "ptr", FullInfPath, UPDATEDRIVERFORPLUGANDPLAYDEVICES_FLAGS, InstallFlags, bRebootRequiredMarshal, bRebootRequired, BOOL)
+    result := DllCall("newdev.dll\UpdateDriverForPlugAndPlayDevicesA", hwndParentMarshal, hwndParent, "ptr", HardwareId, "ptr", FullInfPath, UPDATEDRIVERFORPLUGANDPLAYDEVICES_FLAGS, InstallFlags, bRebootRequiredMarshal, bRebootRequired, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -23587,11 +24349,13 @@ export UpdateDriverForPlugAndPlayDevicesW(hwndParent, HardwareId, FullInfPath, I
     HardwareId := HardwareId is String ? StrPtr(HardwareId) : HardwareId
     FullInfPath := FullInfPath is String ? StrPtr(FullInfPath) : FullInfPath
 
-    bRebootRequiredMarshal := bRebootRequired is VarRef ? "int*" : "ptr"
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+    bRebootRequiredMarshal := bRebootRequired is VarRef ? "int*" : IntPtr
+    bRebootRequiredMarshal := bRebootRequired == 0 ? IntPtr : BOOL.Ptr
 
     A_LastError := 0
 
-    result := DllCall("newdev.dll\UpdateDriverForPlugAndPlayDevicesW", HWND, hwndParent, "ptr", HardwareId, "ptr", FullInfPath, UPDATEDRIVERFORPLUGANDPLAYDEVICES_FLAGS, InstallFlags, bRebootRequiredMarshal, bRebootRequired, BOOL)
+    result := DllCall("newdev.dll\UpdateDriverForPlugAndPlayDevicesW", hwndParentMarshal, hwndParent, "ptr", HardwareId, "ptr", FullInfPath, UPDATEDRIVERFORPLUGANDPLAYDEVICES_FLAGS, InstallFlags, bRebootRequiredMarshal, bRebootRequired, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -23689,11 +24453,14 @@ export UpdateDriverForPlugAndPlayDevicesW(hwndParent, HardwareId, FullInfPath, I
  * @since windows6.0.6000
  */
 export DiInstallDevice(hwndParent, DeviceInfoSet, DeviceInfoData, DriverInfoData, Flags, NeedReboot) {
-    NeedRebootMarshal := NeedReboot is VarRef ? "int*" : "ptr"
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+    DriverInfoDataMarshal := DriverInfoData == 0 ? IntPtr : SP_DRVINFO_DATA_V2_W.Ptr
+    NeedRebootMarshal := NeedReboot is VarRef ? "int*" : IntPtr
+    NeedRebootMarshal := NeedReboot == 0 ? IntPtr : BOOL.Ptr
 
     A_LastError := 0
 
-    result := DllCall("newdev.dll\DiInstallDevice", HWND, hwndParent, HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, SP_DRVINFO_DATA_V2_W.Ptr, DriverInfoData, DIINSTALLDEVICE_FLAGS, Flags, NeedRebootMarshal, NeedReboot, BOOL)
+    result := DllCall("newdev.dll\DiInstallDevice", hwndParentMarshal, hwndParent, HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, DriverInfoDataMarshal, DriverInfoData, DIINSTALLDEVICE_FLAGS, Flags, NeedRebootMarshal, NeedReboot, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -23819,11 +24586,13 @@ export DiInstallDevice(hwndParent, DeviceInfoSet, DeviceInfoData, DriverInfoData
 export DiInstallDriverW(hwndParent, InfPath, Flags, NeedReboot) {
     InfPath := InfPath is String ? StrPtr(InfPath) : InfPath
 
-    NeedRebootMarshal := NeedReboot is VarRef ? "int*" : "ptr"
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+    NeedRebootMarshal := NeedReboot is VarRef ? "int*" : IntPtr
+    NeedRebootMarshal := NeedReboot == 0 ? IntPtr : BOOL.Ptr
 
     A_LastError := 0
 
-    result := DllCall("newdev.dll\DiInstallDriverW", HWND, hwndParent, "ptr", InfPath, DIINSTALLDRIVER_FLAGS, Flags, NeedRebootMarshal, NeedReboot, BOOL)
+    result := DllCall("newdev.dll\DiInstallDriverW", hwndParentMarshal, hwndParent, "ptr", InfPath, DIINSTALLDRIVER_FLAGS, Flags, NeedRebootMarshal, NeedReboot, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -23949,11 +24718,13 @@ export DiInstallDriverW(hwndParent, InfPath, Flags, NeedReboot) {
 export DiInstallDriverA(hwndParent, InfPath, Flags, NeedReboot) {
     InfPath := InfPath is String ? StrPtr(InfPath) : InfPath
 
-    NeedRebootMarshal := NeedReboot is VarRef ? "int*" : "ptr"
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+    NeedRebootMarshal := NeedReboot is VarRef ? "int*" : IntPtr
+    NeedRebootMarshal := NeedReboot == 0 ? IntPtr : BOOL.Ptr
 
     A_LastError := 0
 
-    result := DllCall("newdev.dll\DiInstallDriverA", HWND, hwndParent, "ptr", InfPath, DIINSTALLDRIVER_FLAGS, Flags, NeedRebootMarshal, NeedReboot, BOOL)
+    result := DllCall("newdev.dll\DiInstallDriverA", hwndParentMarshal, hwndParent, "ptr", InfPath, DIINSTALLDRIVER_FLAGS, Flags, NeedRebootMarshal, NeedReboot, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -24051,7 +24822,8 @@ export DiInstallDriverA(hwndParent, InfPath, Flags, NeedReboot) {
  * @since windows6.1
  */
 export DiUninstallDevice(hwndParent, DeviceInfoSet, DeviceInfoData, Flags, NeedReboot) {
-    NeedRebootMarshal := NeedReboot is VarRef ? "int*" : "ptr"
+    NeedRebootMarshal := NeedReboot is VarRef ? "int*" : IntPtr
+    NeedRebootMarshal := NeedReboot == 0 ? IntPtr : BOOL.Ptr
 
     A_LastError := 0
 
@@ -24147,11 +24919,13 @@ export DiUninstallDevice(hwndParent, DeviceInfoSet, DeviceInfoData, Flags, NeedR
 export DiUninstallDriverW(hwndParent, InfPath, Flags, NeedReboot) {
     InfPath := InfPath is String ? StrPtr(InfPath) : InfPath
 
-    NeedRebootMarshal := NeedReboot is VarRef ? "int*" : "ptr"
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+    NeedRebootMarshal := NeedReboot is VarRef ? "int*" : IntPtr
+    NeedRebootMarshal := NeedReboot == 0 ? IntPtr : BOOL.Ptr
 
     A_LastError := 0
 
-    result := DllCall("newdev.dll\DiUninstallDriverW", HWND, hwndParent, "ptr", InfPath, DIUNINSTALLDRIVER_FLAGS, Flags, NeedRebootMarshal, NeedReboot, BOOL)
+    result := DllCall("newdev.dll\DiUninstallDriverW", hwndParentMarshal, hwndParent, "ptr", InfPath, DIUNINSTALLDRIVER_FLAGS, Flags, NeedRebootMarshal, NeedReboot, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -24241,11 +25015,13 @@ export DiUninstallDriverW(hwndParent, InfPath, Flags, NeedReboot) {
 export DiUninstallDriverA(hwndParent, InfPath, Flags, NeedReboot) {
     InfPath := InfPath is String ? StrPtr(InfPath) : InfPath
 
-    NeedRebootMarshal := NeedReboot is VarRef ? "int*" : "ptr"
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+    NeedRebootMarshal := NeedReboot is VarRef ? "int*" : IntPtr
+    NeedRebootMarshal := NeedReboot == 0 ? IntPtr : BOOL.Ptr
 
     A_LastError := 0
 
-    result := DllCall("newdev.dll\DiUninstallDriverA", HWND, hwndParent, "ptr", InfPath, DIUNINSTALLDRIVER_FLAGS, Flags, NeedRebootMarshal, NeedReboot, BOOL)
+    result := DllCall("newdev.dll\DiUninstallDriverA", hwndParentMarshal, hwndParent, "ptr", InfPath, DIUNINSTALLDRIVER_FLAGS, Flags, NeedRebootMarshal, NeedReboot, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -24334,11 +25110,13 @@ export DiUninstallDriverA(hwndParent, InfPath, Flags, NeedReboot) {
  * @since windows6.0.6000
  */
 export DiShowUpdateDevice(hwndParent, DeviceInfoSet, DeviceInfoData, Flags, NeedReboot) {
-    NeedRebootMarshal := NeedReboot is VarRef ? "int*" : "ptr"
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+    NeedRebootMarshal := NeedReboot is VarRef ? "int*" : IntPtr
+    NeedRebootMarshal := NeedReboot == 0 ? IntPtr : BOOL.Ptr
 
     A_LastError := 0
 
-    result := DllCall("newdev.dll\DiShowUpdateDevice", HWND, hwndParent, HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, UInt32, Flags, NeedRebootMarshal, NeedReboot, BOOL)
+    result := DllCall("newdev.dll\DiShowUpdateDevice", hwndParentMarshal, hwndParent, HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, UInt32, Flags, NeedRebootMarshal, NeedReboot, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -24451,11 +25229,13 @@ export DiShowUpdateDevice(hwndParent, DeviceInfoSet, DeviceInfoData, Flags, Need
  * @since windows6.0.6000
  */
 export DiRollbackDriver(DeviceInfoSet, DeviceInfoData, hwndParent, Flags, NeedReboot) {
-    NeedRebootMarshal := NeedReboot is VarRef ? "int*" : "ptr"
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+    NeedRebootMarshal := NeedReboot is VarRef ? "int*" : IntPtr
+    NeedRebootMarshal := NeedReboot == 0 ? IntPtr : BOOL.Ptr
 
     A_LastError := 0
 
-    result := DllCall("newdev.dll\DiRollbackDriver", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, HWND, hwndParent, DIROLLBACKDRIVER_FLAGS, Flags, NeedRebootMarshal, NeedReboot, BOOL)
+    result := DllCall("newdev.dll\DiRollbackDriver", HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, DeviceInfoData, hwndParentMarshal, hwndParent, DIROLLBACKDRIVER_FLAGS, Flags, NeedRebootMarshal, NeedReboot, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -24464,7 +25244,6 @@ export DiRollbackDriver(DeviceInfoSet, DeviceInfoData, hwndParent, Flags, NeedRe
 }
 
 /**
- * 
  * @param {HWND} hwndParent 
  * @param {PWSTR} FilePath 
  * @param {Integer} Flags 
@@ -24474,9 +25253,12 @@ export DiRollbackDriver(DeviceInfoSet, DeviceInfoData, hwndParent, Flags, NeedRe
 export DiShowUpdateDriver(hwndParent, FilePath, Flags, NeedReboot) {
     FilePath := FilePath is String ? StrPtr(FilePath) : FilePath
 
-    NeedRebootMarshal := NeedReboot is VarRef ? "int*" : "ptr"
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+    FilePathMarshal := FilePath == 0 ? IntPtr : PWSTR
+    NeedRebootMarshal := NeedReboot is VarRef ? "int*" : IntPtr
+    NeedRebootMarshal := NeedReboot == 0 ? IntPtr : BOOL.Ptr
 
-    result := DllCall("newdev.dll\DiShowUpdateDriver", HWND, hwndParent, "ptr", FilePath, UInt32, Flags, NeedRebootMarshal, NeedReboot, BOOL)
+    result := DllCall("newdev.dll\DiShowUpdateDriver", hwndParentMarshal, hwndParent, FilePathMarshal, FilePath, UInt32, Flags, NeedRebootMarshal, NeedReboot, BOOL)
     return result
 }
 

@@ -50,8 +50,8 @@ export default struct IOfflineFilesEventsFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefileseventsfilter-getpathfilter
      */
     GetPathFilter(ppszFilter, pMatch) {
-        ppszFilterMarshal := ppszFilter is VarRef ? "ptr*" : "ptr"
-        pMatchMarshal := pMatch is VarRef ? "int*" : "ptr"
+        ppszFilterMarshal := ppszFilter is VarRef ? "ptr*" : IntPtr
+        pMatchMarshal := pMatch is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, ppszFilterMarshal, ppszFilter, pMatchMarshal, pMatch, "HRESULT")
         return result
@@ -66,8 +66,8 @@ export default struct IOfflineFilesEventsFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefileseventsfilter-getincludedevents
      */
     GetIncludedEvents(cElements, prgEvents, pcEvents) {
-        prgEventsMarshal := prgEvents is VarRef ? "int*" : "ptr"
-        pcEventsMarshal := pcEvents is VarRef ? "uint*" : "ptr"
+        prgEventsMarshal := prgEvents is VarRef ? "int*" : IntPtr
+        pcEventsMarshal := pcEvents is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, UInt32, cElements, prgEventsMarshal, prgEvents, pcEventsMarshal, pcEvents, "HRESULT")
         return result
@@ -82,8 +82,8 @@ export default struct IOfflineFilesEventsFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefileseventsfilter-getexcludedevents
      */
     GetExcludedEvents(cElements, prgEvents, pcEvents) {
-        prgEventsMarshal := prgEvents is VarRef ? "int*" : "ptr"
-        pcEventsMarshal := pcEvents is VarRef ? "uint*" : "ptr"
+        prgEventsMarshal := prgEvents is VarRef ? "int*" : IntPtr
+        pcEventsMarshal := pcEvents is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, UInt32, cElements, prgEventsMarshal, prgEvents, pcEventsMarshal, pcEvents, "HRESULT")
         return result
@@ -98,9 +98,9 @@ export default struct IOfflineFilesEventsFilter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPathFilter := CallbackCreate(GetMethod(implObj, "GetPathFilter"), flags, 3)
-        this.vtbl.GetIncludedEvents := CallbackCreate(GetMethod(implObj, "GetIncludedEvents"), flags, 4)
-        this.vtbl.GetExcludedEvents := CallbackCreate(GetMethod(implObj, "GetExcludedEvents"), flags, 4)
+        this.vtbl.GetPathFilter := CallbackCreate(ObjBindMethod(implObj, "GetPathFilter"), flags, 3)
+        this.vtbl.GetIncludedEvents := CallbackCreate(ObjBindMethod(implObj, "GetIncludedEvents"), flags, 4)
+        this.vtbl.GetExcludedEvents := CallbackCreate(ObjBindMethod(implObj, "GetExcludedEvents"), flags, 4)
     }
 
     Dispose() {

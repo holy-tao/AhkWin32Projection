@@ -38,7 +38,6 @@ export default struct IDataFilter extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @param {Integer} lInBufferSize 
      * @param {Pointer<Integer>} pbInBuffer 
@@ -51,17 +50,16 @@ export default struct IDataFilter extends IUnknown {
      * @returns {HRESULT} 
      */
     DoEncode(dwFlags, lInBufferSize, pbInBuffer, lOutBufferSize, pbOutBuffer, lInBytesAvailable, plInBytesRead, plOutBytesWritten, dwReserved) {
-        pbInBufferMarshal := pbInBuffer is VarRef ? "char*" : "ptr"
-        pbOutBufferMarshal := pbOutBuffer is VarRef ? "char*" : "ptr"
-        plInBytesReadMarshal := plInBytesRead is VarRef ? "int*" : "ptr"
-        plOutBytesWrittenMarshal := plOutBytesWritten is VarRef ? "int*" : "ptr"
+        pbInBufferMarshal := pbInBuffer is VarRef ? "char*" : IntPtr
+        pbOutBufferMarshal := pbOutBuffer is VarRef ? "char*" : IntPtr
+        plInBytesReadMarshal := plInBytesRead is VarRef ? "int*" : IntPtr
+        plOutBytesWrittenMarshal := plOutBytesWritten is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, UInt32, dwFlags, Int32, lInBufferSize, pbInBufferMarshal, pbInBuffer, Int32, lOutBufferSize, pbOutBufferMarshal, pbOutBuffer, Int32, lInBytesAvailable, plInBytesReadMarshal, plInBytesRead, plOutBytesWrittenMarshal, plOutBytesWritten, UInt32, dwReserved, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @param {Integer} lInBufferSize 
      * @param {Pointer<Integer>} pbInBuffer 
@@ -74,17 +72,16 @@ export default struct IDataFilter extends IUnknown {
      * @returns {HRESULT} 
      */
     DoDecode(dwFlags, lInBufferSize, pbInBuffer, lOutBufferSize, pbOutBuffer, lInBytesAvailable, plInBytesRead, plOutBytesWritten, dwReserved) {
-        pbInBufferMarshal := pbInBuffer is VarRef ? "char*" : "ptr"
-        pbOutBufferMarshal := pbOutBuffer is VarRef ? "char*" : "ptr"
-        plInBytesReadMarshal := plInBytesRead is VarRef ? "int*" : "ptr"
-        plOutBytesWrittenMarshal := plOutBytesWritten is VarRef ? "int*" : "ptr"
+        pbInBufferMarshal := pbInBuffer is VarRef ? "char*" : IntPtr
+        pbOutBufferMarshal := pbOutBuffer is VarRef ? "char*" : IntPtr
+        plInBytesReadMarshal := plInBytesRead is VarRef ? "int*" : IntPtr
+        plOutBytesWrittenMarshal := plOutBytesWritten is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, UInt32, dwFlags, Int32, lInBufferSize, pbInBufferMarshal, pbInBuffer, Int32, lOutBufferSize, pbOutBufferMarshal, pbOutBuffer, Int32, lInBytesAvailable, plInBytesReadMarshal, plInBytesRead, plOutBytesWrittenMarshal, plOutBytesWritten, UInt32, dwReserved, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwEncLevel 
      * @returns {HRESULT} 
      */
@@ -102,9 +99,9 @@ export default struct IDataFilter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DoEncode := CallbackCreate(GetMethod(implObj, "DoEncode"), flags, 10)
-        this.vtbl.DoDecode := CallbackCreate(GetMethod(implObj, "DoDecode"), flags, 10)
-        this.vtbl.SetEncodingLevel := CallbackCreate(GetMethod(implObj, "SetEncodingLevel"), flags, 2)
+        this.vtbl.DoEncode := CallbackCreate(ObjBindMethod(implObj, "DoEncode"), flags, 10)
+        this.vtbl.DoDecode := CallbackCreate(ObjBindMethod(implObj, "DoDecode"), flags, 10)
+        this.vtbl.SetEncodingLevel := CallbackCreate(ObjBindMethod(implObj, "SetEncodingLevel"), flags, 2)
     }
 
     Dispose() {

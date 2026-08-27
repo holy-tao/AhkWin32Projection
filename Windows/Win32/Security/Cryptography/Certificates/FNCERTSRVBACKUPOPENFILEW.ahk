@@ -20,7 +20,6 @@ export default struct FNCERTSRVBACKUPOPENFILEW {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hbc 
      * @param {PWSTR} pwszAttachmentName 
      * @param {Integer} cbReadHintSize 
@@ -30,8 +29,8 @@ export default struct FNCERTSRVBACKUPOPENFILEW {
     Call(hbc, pwszAttachmentName, cbReadHintSize, pliFileSize) {
         pwszAttachmentName := pwszAttachmentName is String ? StrPtr(pwszAttachmentName) : pwszAttachmentName
 
-        hbcMarshal := hbc is VarRef ? "ptr" : "ptr"
-        pliFileSizeMarshal := pliFileSize is VarRef ? "int64*" : "ptr"
+        hbcMarshal := hbc is VarRef ? "ptr" : IntPtr
+        pliFileSizeMarshal := pliFileSize is VarRef ? "int64*" : IntPtr
 
         result := DllCall(this.value, hbcMarshal, hbc, "ptr", pwszAttachmentName, UInt32, cbReadHintSize, pliFileSizeMarshal, pliFileSize, "HRESULT")
         return result

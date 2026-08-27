@@ -18,7 +18,6 @@ export default struct PPS_POST_PROCESS_INIT_ROUTINE {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

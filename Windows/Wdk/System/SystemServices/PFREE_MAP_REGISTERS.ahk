@@ -19,14 +19,13 @@ export default struct PFREE_MAP_REGISTERS {
     }
 
     /**
-     * 
      * @param {Pointer<DMA_ADAPTER>} DmaAdapter 
      * @param {Pointer<Void>} MapRegisterBase 
      * @param {Integer} NumberOfMapRegisters 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(DmaAdapter, MapRegisterBase, NumberOfMapRegisters) {
-        MapRegisterBaseMarshal := MapRegisterBase is VarRef ? "ptr" : "ptr"
+        MapRegisterBaseMarshal := MapRegisterBase is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, MapRegisterBaseMarshal, MapRegisterBase, UInt32, NumberOfMapRegisters)
     }

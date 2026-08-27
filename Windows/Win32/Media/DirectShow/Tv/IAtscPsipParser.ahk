@@ -119,7 +119,9 @@ export default struct IAtscPsipParser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatscpsipparser-initialize
      */
     Initialize(punkMpeg2Data) {
-        result := ComCall(3, this, "ptr", punkMpeg2Data, "HRESULT")
+        punkMpeg2DataMarshal := punkMpeg2Data == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, punkMpeg2DataMarshal, punkMpeg2Data, "HRESULT")
         return result
     }
 
@@ -158,7 +160,7 @@ export default struct IAtscPsipParser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatscpsipparser-getpmt
      */
     GetPMT(pid, pwProgramNumber) {
-        pwProgramNumberMarshal := pwProgramNumber is VarRef ? "ushort*" : "ptr"
+        pwProgramNumberMarshal := pwProgramNumber is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(6, this, UInt16, pid, pwProgramNumberMarshal, pwProgramNumber, "ptr*", &ppPMT := 0, "HRESULT")
         return IPMT(ppPMT)
@@ -211,7 +213,7 @@ export default struct IAtscPsipParser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatscpsipparser-geteit
      */
     GetEIT(pid, pwSourceId, dwTimeout) {
-        pwSourceIdMarshal := pwSourceId is VarRef ? "ushort*" : "ptr"
+        pwSourceIdMarshal := pwSourceId is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(10, this, UInt16, pid, pwSourceIdMarshal, pwSourceId, UInt32, dwTimeout, "ptr*", &ppEIT := 0, "HRESULT")
         return IATSC_EIT(ppEIT)
@@ -228,8 +230,8 @@ export default struct IAtscPsipParser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatscpsipparser-getett
      */
     GetETT(pid, wSourceId, pwEventId) {
-        wSourceIdMarshal := wSourceId is VarRef ? "ushort*" : "ptr"
-        pwEventIdMarshal := pwEventId is VarRef ? "ushort*" : "ptr"
+        wSourceIdMarshal := wSourceId is VarRef ? "ushort*" : IntPtr
+        pwEventIdMarshal := pwEventId is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(11, this, UInt16, pid, wSourceIdMarshal, wSourceId, pwEventIdMarshal, pwEventId, "ptr*", &ppETT := 0, "HRESULT")
         return IATSC_ETT(ppETT)
@@ -272,17 +274,17 @@ export default struct IAtscPsipParser extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.GetPAT := CallbackCreate(GetMethod(implObj, "GetPAT"), flags, 2)
-        this.vtbl.GetCAT := CallbackCreate(GetMethod(implObj, "GetCAT"), flags, 3)
-        this.vtbl.GetPMT := CallbackCreate(GetMethod(implObj, "GetPMT"), flags, 4)
-        this.vtbl.GetTSDT := CallbackCreate(GetMethod(implObj, "GetTSDT"), flags, 2)
-        this.vtbl.GetMGT := CallbackCreate(GetMethod(implObj, "GetMGT"), flags, 2)
-        this.vtbl.GetVCT := CallbackCreate(GetMethod(implObj, "GetVCT"), flags, 4)
-        this.vtbl.GetEIT := CallbackCreate(GetMethod(implObj, "GetEIT"), flags, 5)
-        this.vtbl.GetETT := CallbackCreate(GetMethod(implObj, "GetETT"), flags, 5)
-        this.vtbl.GetSTT := CallbackCreate(GetMethod(implObj, "GetSTT"), flags, 2)
-        this.vtbl.GetEAS := CallbackCreate(GetMethod(implObj, "GetEAS"), flags, 3)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.GetPAT := CallbackCreate(ObjBindMethod(implObj, "GetPAT"), flags, 2)
+        this.vtbl.GetCAT := CallbackCreate(ObjBindMethod(implObj, "GetCAT"), flags, 3)
+        this.vtbl.GetPMT := CallbackCreate(ObjBindMethod(implObj, "GetPMT"), flags, 4)
+        this.vtbl.GetTSDT := CallbackCreate(ObjBindMethod(implObj, "GetTSDT"), flags, 2)
+        this.vtbl.GetMGT := CallbackCreate(ObjBindMethod(implObj, "GetMGT"), flags, 2)
+        this.vtbl.GetVCT := CallbackCreate(ObjBindMethod(implObj, "GetVCT"), flags, 4)
+        this.vtbl.GetEIT := CallbackCreate(ObjBindMethod(implObj, "GetEIT"), flags, 5)
+        this.vtbl.GetETT := CallbackCreate(ObjBindMethod(implObj, "GetETT"), flags, 5)
+        this.vtbl.GetSTT := CallbackCreate(ObjBindMethod(implObj, "GetSTT"), flags, 2)
+        this.vtbl.GetEAS := CallbackCreate(ObjBindMethod(implObj, "GetEAS"), flags, 3)
     }
 
     Dispose() {

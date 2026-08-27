@@ -25,7 +25,6 @@ export default struct PFNCMHOOKPROC {
     }
 
     /**
-     * 
      * @param {HWND} hwndDialog A handle to a dialog box window.
      * @param {Integer} message The message.
      * @param {WPARAM} _wParam Additional information about the message sent or posted.

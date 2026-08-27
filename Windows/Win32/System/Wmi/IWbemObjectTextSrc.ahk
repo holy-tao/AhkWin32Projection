@@ -90,8 +90,8 @@ export default struct IWbemObjectTextSrc extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetText := CallbackCreate(GetMethod(implObj, "GetText"), flags, 6)
-        this.vtbl.CreateFromText := CallbackCreate(GetMethod(implObj, "CreateFromText"), flags, 6)
+        this.vtbl.GetText := CallbackCreate(ObjBindMethod(implObj, "GetText"), flags, 6)
+        this.vtbl.CreateFromText := CallbackCreate(ObjBindMethod(implObj, "CreateFromText"), flags, 6)
     }
 
     Dispose() {

@@ -19,13 +19,12 @@ export default struct FunctionIDMapper {
     }
 
     /**
-     * 
      * @param {Pointer} funcId 
      * @param {Pointer<BOOL>} pbHookFunction 
      * @returns {Pointer} 
      */
     Call(funcId, pbHookFunction) {
-        pbHookFunctionMarshal := pbHookFunction is VarRef ? "int*" : "ptr"
+        pbHookFunctionMarshal := pbHookFunction is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, IntPtr, funcId, pbHookFunctionMarshal, pbHookFunction, IntPtr)
         return result

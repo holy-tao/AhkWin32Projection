@@ -94,7 +94,6 @@ export default struct Folder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Title() {
@@ -104,7 +103,6 @@ export default struct Folder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Application() {
@@ -113,7 +111,6 @@ export default struct Folder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Parent() {
@@ -122,7 +119,6 @@ export default struct Folder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Folder} 
      */
     get_ParentFolder() {
@@ -507,16 +503,16 @@ export default struct Folder extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Title := CallbackCreate(GetMethod(implObj, "get_Title"), flags, 2)
-        this.vtbl.get_Application := CallbackCreate(GetMethod(implObj, "get_Application"), flags, 2)
-        this.vtbl.get_Parent := CallbackCreate(GetMethod(implObj, "get_Parent"), flags, 2)
-        this.vtbl.get_ParentFolder := CallbackCreate(GetMethod(implObj, "get_ParentFolder"), flags, 2)
-        this.vtbl.Items := CallbackCreate(GetMethod(implObj, "Items"), flags, 2)
-        this.vtbl.ParseName := CallbackCreate(GetMethod(implObj, "ParseName"), flags, 3)
-        this.vtbl.NewFolder := CallbackCreate(GetMethod(implObj, "NewFolder"), flags, 3)
-        this.vtbl.MoveHere := CallbackCreate(GetMethod(implObj, "MoveHere"), flags, 3)
-        this.vtbl.CopyHere := CallbackCreate(GetMethod(implObj, "CopyHere"), flags, 3)
-        this.vtbl.GetDetailsOf := CallbackCreate(GetMethod(implObj, "GetDetailsOf"), flags, 4)
+        this.vtbl.get_Title := CallbackCreate(ObjBindMethod(implObj, "get_Title"), flags, 2)
+        this.vtbl.get_Application := CallbackCreate(ObjBindMethod(implObj, "get_Application"), flags, 2)
+        this.vtbl.get_Parent := CallbackCreate(ObjBindMethod(implObj, "get_Parent"), flags, 2)
+        this.vtbl.get_ParentFolder := CallbackCreate(ObjBindMethod(implObj, "get_ParentFolder"), flags, 2)
+        this.vtbl.Items := CallbackCreate(ObjBindMethod(implObj, "Items"), flags, 2)
+        this.vtbl.ParseName := CallbackCreate(ObjBindMethod(implObj, "ParseName"), flags, 3)
+        this.vtbl.NewFolder := CallbackCreate(ObjBindMethod(implObj, "NewFolder"), flags, 3)
+        this.vtbl.MoveHere := CallbackCreate(ObjBindMethod(implObj, "MoveHere"), flags, 3)
+        this.vtbl.CopyHere := CallbackCreate(ObjBindMethod(implObj, "CopyHere"), flags, 3)
+        this.vtbl.GetDetailsOf := CallbackCreate(ObjBindMethod(implObj, "GetDetailsOf"), flags, 4)
     }
 
     Dispose() {

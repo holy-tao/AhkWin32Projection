@@ -31,7 +31,6 @@ export default struct SpQueryContextAttributesFn {
     }
 
     /**
-     * 
      * @param {Pointer} ContextHandle A handle to the security context.
      * @param {Integer} ContextAttribute Context attribute to query. For a list of valid values, see the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-querycontextattributesa">QueryContextAttributes (General)</a> function.
@@ -62,7 +61,7 @@ export default struct SpQueryContextAttributesFn {
      * </table>
      */
     Call(ContextHandle, ContextAttribute, _Buffer) {
-        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, IntPtr, ContextHandle, UInt32, ContextAttribute, _BufferMarshal, _Buffer, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

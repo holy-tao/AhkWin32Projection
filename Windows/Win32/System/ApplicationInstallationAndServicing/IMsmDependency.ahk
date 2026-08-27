@@ -136,7 +136,7 @@ export default struct IMsmDependency extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/mergemod/nf-mergemod-imsmdependency-get_language
      */
     get_Language(Language) {
-        LanguageMarshal := Language is VarRef ? "short*" : "ptr"
+        LanguageMarshal := Language is VarRef ? "short*" : IntPtr
 
         result := ComCall(8, this, LanguageMarshal, Language, "HRESULT")
         return result
@@ -193,9 +193,9 @@ export default struct IMsmDependency extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Module := CallbackCreate(GetMethod(implObj, "get_Module"), flags, 2)
-        this.vtbl.get_Language := CallbackCreate(GetMethod(implObj, "get_Language"), flags, 2)
-        this.vtbl.get_Version := CallbackCreate(GetMethod(implObj, "get_Version"), flags, 2)
+        this.vtbl.get_Module := CallbackCreate(ObjBindMethod(implObj, "get_Module"), flags, 2)
+        this.vtbl.get_Language := CallbackCreate(ObjBindMethod(implObj, "get_Language"), flags, 2)
+        this.vtbl.get_Version := CallbackCreate(ObjBindMethod(implObj, "get_Version"), flags, 2)
     }
 
     Dispose() {

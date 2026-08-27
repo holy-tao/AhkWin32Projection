@@ -21,7 +21,6 @@ export default struct PFN_IIS_GETSERVERVARIABLE {
     }
 
     /**
-     * 
      * @param {HCONN} param0 
      * @param {PSTR} param1 
      * @param {Pointer<Void>} param2 
@@ -31,8 +30,8 @@ export default struct PFN_IIS_GETSERVERVARIABLE {
     Call(param0, param1, param2, param3) {
         param1 := param1 is String ? StrPtr(param1) : param1
 
-        param2Marshal := param2 is VarRef ? "ptr" : "ptr"
-        param3Marshal := param3 is VarRef ? "uint*" : "ptr"
+        param2Marshal := param2 is VarRef ? "ptr" : IntPtr
+        param3Marshal := param3 is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HCONN, param0, "ptr", param1, param2Marshal, param2, param3Marshal, param3, BOOL)
         return result

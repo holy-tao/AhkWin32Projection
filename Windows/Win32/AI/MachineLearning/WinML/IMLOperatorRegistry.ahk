@@ -43,7 +43,6 @@ export default struct IMLOperatorRegistry extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<MLOperatorSetId>} operatorSetId 
      * @param {Integer} baselineVersion 
      * @param {Pointer<Pointer<MLOperatorSchemaDescription>>} schema 
@@ -53,21 +52,25 @@ export default struct IMLOperatorRegistry extends IUnknown {
      * @returns {HRESULT} 
      */
     RegisterOperatorSetSchema(operatorSetId, baselineVersion, schema, schemaCount, typeInferrer, shapeInferrer) {
-        schemaMarshal := schema is VarRef ? "ptr*" : "ptr"
+        schemaMarshal := schema is VarRef ? "ptr*" : IntPtr
+        schemaMarshal := schema == 0 ? IntPtr : "ptr*"
+        typeInferrerMarshal := typeInferrer == 0 ? IntPtr : "ptr"
+        shapeInferrerMarshal := shapeInferrer == 0 ? IntPtr : "ptr"
 
-        result := ComCall(3, this, MLOperatorSetId.Ptr, operatorSetId, Int32, baselineVersion, schemaMarshal, schema, UInt32, schemaCount, "ptr", typeInferrer, "ptr", shapeInferrer, "HRESULT")
+        result := ComCall(3, this, MLOperatorSetId.Ptr, operatorSetId, Int32, baselineVersion, schemaMarshal, schema, UInt32, schemaCount, typeInferrerMarshal, typeInferrer, shapeInferrerMarshal, shapeInferrer, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<MLOperatorKernelDescription>} operatorKernel 
      * @param {IMLOperatorKernelFactory} operatorKernelFactory 
      * @param {IMLOperatorShapeInferrer} shapeInferrer 
      * @returns {HRESULT} 
      */
     RegisterOperatorKernel(operatorKernel, operatorKernelFactory, shapeInferrer) {
-        result := ComCall(4, this, MLOperatorKernelDescription.Ptr, operatorKernel, "ptr", operatorKernelFactory, "ptr", shapeInferrer, "HRESULT")
+        shapeInferrerMarshal := shapeInferrer == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, MLOperatorKernelDescription.Ptr, operatorKernel, "ptr", operatorKernelFactory, shapeInferrerMarshal, shapeInferrer, "HRESULT")
         return result
     }
 
@@ -80,8 +83,8 @@ export default struct IMLOperatorRegistry extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterOperatorSetSchema := CallbackCreate(GetMethod(implObj, "RegisterOperatorSetSchema"), flags, 7)
-        this.vtbl.RegisterOperatorKernel := CallbackCreate(GetMethod(implObj, "RegisterOperatorKernel"), flags, 4)
+        this.vtbl.RegisterOperatorSetSchema := CallbackCreate(ObjBindMethod(implObj, "RegisterOperatorSetSchema"), flags, 7)
+        this.vtbl.RegisterOperatorKernel := CallbackCreate(ObjBindMethod(implObj, "RegisterOperatorKernel"), flags, 4)
     }
 
     Dispose() {

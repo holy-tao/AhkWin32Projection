@@ -58,7 +58,7 @@ export default struct ITsSbPlacementNotifySink extends ITsSbBaseNotifySink {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnQueryEnvironmentCompleted := CallbackCreate(GetMethod(implObj, "OnQueryEnvironmentCompleted"), flags, 2)
+        this.vtbl.OnQueryEnvironmentCompleted := CallbackCreate(ObjBindMethod(implObj, "OnQueryEnvironmentCompleted"), flags, 2)
     }
 
     Dispose() {

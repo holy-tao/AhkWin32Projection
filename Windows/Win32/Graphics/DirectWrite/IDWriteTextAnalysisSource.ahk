@@ -71,8 +71,8 @@ export default struct IDWriteTextAnalysisSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalysissource-gettextatposition
      */
     GetTextAtPosition(textPosition, textString, textLength) {
-        textStringMarshal := textString is VarRef ? "ptr*" : "ptr"
-        textLengthMarshal := textLength is VarRef ? "uint*" : "ptr"
+        textStringMarshal := textString is VarRef ? "ptr*" : IntPtr
+        textLengthMarshal := textLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, UInt32, textPosition, textStringMarshal, textString, textLengthMarshal, textLength, "HRESULT")
         return result
@@ -104,8 +104,8 @@ export default struct IDWriteTextAnalysisSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalysissource-gettextbeforeposition
      */
     GetTextBeforePosition(textPosition, textString, textLength) {
-        textStringMarshal := textString is VarRef ? "ptr*" : "ptr"
-        textLengthMarshal := textLength is VarRef ? "uint*" : "ptr"
+        textStringMarshal := textString is VarRef ? "ptr*" : IntPtr
+        textLengthMarshal := textLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, UInt32, textPosition, textStringMarshal, textString, textLengthMarshal, textLength, "HRESULT")
         return result
@@ -142,8 +142,8 @@ export default struct IDWriteTextAnalysisSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalysissource-getlocalename
      */
     GetLocaleName(textPosition, textLength, localeName) {
-        textLengthMarshal := textLength is VarRef ? "uint*" : "ptr"
-        localeNameMarshal := localeName is VarRef ? "ptr*" : "ptr"
+        textLengthMarshal := textLength is VarRef ? "uint*" : IntPtr
+        localeNameMarshal := localeName is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(6, this, UInt32, textPosition, textLengthMarshal, textLength, localeNameMarshal, localeName, "HRESULT")
         return result
@@ -170,7 +170,7 @@ export default struct IDWriteTextAnalysisSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalysissource-getnumbersubstitution
      */
     GetNumberSubstitution(textPosition, textLength, numberSubstitution) {
-        textLengthMarshal := textLength is VarRef ? "uint*" : "ptr"
+        textLengthMarshal := textLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, UInt32, textPosition, textLengthMarshal, textLength, IDWriteNumberSubstitution.Ptr, numberSubstitution, "HRESULT")
         return result
@@ -185,11 +185,11 @@ export default struct IDWriteTextAnalysisSource extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTextAtPosition := CallbackCreate(GetMethod(implObj, "GetTextAtPosition"), flags, 4)
-        this.vtbl.GetTextBeforePosition := CallbackCreate(GetMethod(implObj, "GetTextBeforePosition"), flags, 4)
-        this.vtbl.GetParagraphReadingDirection := CallbackCreate(GetMethod(implObj, "GetParagraphReadingDirection"), flags, 1)
-        this.vtbl.GetLocaleName := CallbackCreate(GetMethod(implObj, "GetLocaleName"), flags, 4)
-        this.vtbl.GetNumberSubstitution := CallbackCreate(GetMethod(implObj, "GetNumberSubstitution"), flags, 4)
+        this.vtbl.GetTextAtPosition := CallbackCreate(ObjBindMethod(implObj, "GetTextAtPosition"), flags, 4)
+        this.vtbl.GetTextBeforePosition := CallbackCreate(ObjBindMethod(implObj, "GetTextBeforePosition"), flags, 4)
+        this.vtbl.GetParagraphReadingDirection := CallbackCreate(ObjBindMethod(implObj, "GetParagraphReadingDirection"), flags, 1)
+        this.vtbl.GetLocaleName := CallbackCreate(ObjBindMethod(implObj, "GetLocaleName"), flags, 4)
+        this.vtbl.GetNumberSubstitution := CallbackCreate(ObjBindMethod(implObj, "GetNumberSubstitution"), flags, 4)
     }
 
     Dispose() {

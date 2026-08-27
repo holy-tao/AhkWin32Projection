@@ -37,7 +37,6 @@ export default struct ILearningModelOperatorProviderNative extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IMLOperatorRegistry} 
      */
     GetRegistry() {
@@ -54,7 +53,7 @@ export default struct ILearningModelOperatorProviderNative extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRegistry := CallbackCreate(GetMethod(implObj, "GetRegistry"), flags, 2)
+        this.vtbl.GetRegistry := CallbackCreate(ObjBindMethod(implObj, "GetRegistry"), flags, 2)
     }
 
     Dispose() {

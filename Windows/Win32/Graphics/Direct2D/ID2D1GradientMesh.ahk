@@ -79,8 +79,8 @@ export default struct ID2D1GradientMesh extends ID2D1Resource {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPatchCount := CallbackCreate(GetMethod(implObj, "GetPatchCount"), flags, 1)
-        this.vtbl.GetPatches := CallbackCreate(GetMethod(implObj, "GetPatches"), flags, 4)
+        this.vtbl.GetPatchCount := CallbackCreate(ObjBindMethod(implObj, "GetPatchCount"), flags, 1)
+        this.vtbl.GetPatches := CallbackCreate(ObjBindMethod(implObj, "GetPatches"), flags, 4)
     }
 
     Dispose() {

@@ -116,8 +116,8 @@ export default struct IDirectDrawGammaControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetGammaRamp := CallbackCreate(GetMethod(implObj, "GetGammaRamp"), flags, 3)
-        this.vtbl.SetGammaRamp := CallbackCreate(GetMethod(implObj, "SetGammaRamp"), flags, 3)
+        this.vtbl.GetGammaRamp := CallbackCreate(ObjBindMethod(implObj, "GetGammaRamp"), flags, 3)
+        this.vtbl.SetGammaRamp := CallbackCreate(ObjBindMethod(implObj, "SetGammaRamp"), flags, 3)
     }
 
     Dispose() {

@@ -213,11 +213,11 @@ export default struct IPersistFile extends IPersist {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsDirty := CallbackCreate(GetMethod(implObj, "IsDirty"), flags, 1)
-        this.vtbl.Load := CallbackCreate(GetMethod(implObj, "Load"), flags, 3)
-        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 3)
-        this.vtbl.SaveCompleted := CallbackCreate(GetMethod(implObj, "SaveCompleted"), flags, 2)
-        this.vtbl.GetCurFile := CallbackCreate(GetMethod(implObj, "GetCurFile"), flags, 2)
+        this.vtbl.IsDirty := CallbackCreate(ObjBindMethod(implObj, "IsDirty"), flags, 1)
+        this.vtbl.Load := CallbackCreate(ObjBindMethod(implObj, "Load"), flags, 3)
+        this.vtbl.Save := CallbackCreate(ObjBindMethod(implObj, "Save"), flags, 3)
+        this.vtbl.SaveCompleted := CallbackCreate(ObjBindMethod(implObj, "SaveCompleted"), flags, 2)
+        this.vtbl.GetCurFile := CallbackCreate(ObjBindMethod(implObj, "GetCurFile"), flags, 2)
     }
 
     Dispose() {

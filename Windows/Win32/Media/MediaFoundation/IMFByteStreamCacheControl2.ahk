@@ -51,8 +51,8 @@ export default struct IMFByteStreamCacheControl2 extends IMFByteStreamCacheContr
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfbytestreamcachecontrol2-getbyteranges
      */
     GetByteRanges(pcRanges, ppRanges) {
-        pcRangesMarshal := pcRanges is VarRef ? "uint*" : "ptr"
-        ppRangesMarshal := ppRanges is VarRef ? "ptr*" : "ptr"
+        pcRangesMarshal := pcRanges is VarRef ? "uint*" : IntPtr
+        ppRangesMarshal := ppRanges is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, pcRangesMarshal, pcRanges, ppRangesMarshal, ppRanges, "HRESULT")
         return result
@@ -90,9 +90,9 @@ export default struct IMFByteStreamCacheControl2 extends IMFByteStreamCacheContr
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetByteRanges := CallbackCreate(GetMethod(implObj, "GetByteRanges"), flags, 3)
-        this.vtbl.SetCacheLimit := CallbackCreate(GetMethod(implObj, "SetCacheLimit"), flags, 2)
-        this.vtbl.IsBackgroundTransferActive := CallbackCreate(GetMethod(implObj, "IsBackgroundTransferActive"), flags, 2)
+        this.vtbl.GetByteRanges := CallbackCreate(ObjBindMethod(implObj, "GetByteRanges"), flags, 3)
+        this.vtbl.SetCacheLimit := CallbackCreate(ObjBindMethod(implObj, "SetCacheLimit"), flags, 2)
+        this.vtbl.IsBackgroundTransferActive := CallbackCreate(ObjBindMethod(implObj, "IsBackgroundTransferActive"), flags, 2)
     }
 
     Dispose() {

@@ -20,15 +20,14 @@ export default struct CACHE_OPERATOR {
     }
 
     /**
-     * 
      * @param {Pointer<INTERNET_CACHE_ENTRY_INFOA>} pcei 
      * @param {Pointer<Integer>} pcbcei 
      * @param {Pointer<Void>} pOpData 
      * @returns {BOOL} 
      */
     Call(pcei, pcbcei, pOpData) {
-        pcbceiMarshal := pcbcei is VarRef ? "uint*" : "ptr"
-        pOpDataMarshal := pOpData is VarRef ? "ptr" : "ptr"
+        pcbceiMarshal := pcbcei is VarRef ? "uint*" : IntPtr
+        pOpDataMarshal := pOpData is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, INTERNET_CACHE_ENTRY_INFOA.Ptr, pcei, pcbceiMarshal, pcbcei, pOpDataMarshal, pOpData, BOOL)
         return result

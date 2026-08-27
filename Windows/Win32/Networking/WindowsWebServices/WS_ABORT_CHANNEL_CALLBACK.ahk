@@ -25,15 +25,15 @@ export default struct WS_ABORT_CHANNEL_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} channelInstance The pointer to the state specific to this channel instance,
      *                     as created by the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_create_channel_callback">WS_CREATE_CHANNEL_CALLBACK</a>.
      * @param {Pointer<WS_ERROR>} _error Specifies where additional error information should be stored if the function fails.
      * @returns {HRESULT} This callback function does not return a value.
      */
     Call(channelInstance, _error) {
-        channelInstanceMarshal := channelInstance is VarRef ? "ptr" : "ptr"
-        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
+        channelInstanceMarshal := channelInstance is VarRef ? "ptr" : IntPtr
+        _errorMarshal := _error is VarRef ? "ptr*" : IntPtr
+        _errorMarshal := _error == 0 ? IntPtr : WS_ERROR.Ptr
 
         result := DllCall(this.value, channelInstanceMarshal, channelInstance, _errorMarshal, _error, "HRESULT")
         return result

@@ -214,9 +214,9 @@ export default struct IMFASFStreamConfig extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamconfig-getpayloadextension
      */
     GetPayloadExtension(wPayloadExtensionNumber, pguidExtensionSystemID, pcbExtensionDataSize, pbExtensionSystemInfo, pcbExtensionSystemInfo) {
-        pcbExtensionDataSizeMarshal := pcbExtensionDataSize is VarRef ? "ushort*" : "ptr"
-        pbExtensionSystemInfoMarshal := pbExtensionSystemInfo is VarRef ? "char*" : "ptr"
-        pcbExtensionSystemInfoMarshal := pcbExtensionSystemInfo is VarRef ? "uint*" : "ptr"
+        pcbExtensionDataSizeMarshal := pcbExtensionDataSize is VarRef ? "ushort*" : IntPtr
+        pbExtensionSystemInfoMarshal := pbExtensionSystemInfo is VarRef ? "char*" : IntPtr
+        pcbExtensionSystemInfoMarshal := pcbExtensionSystemInfo is VarRef ? "uint*" : IntPtr
 
         result := ComCall(39, this, UInt16, wPayloadExtensionNumber, Guid.Ptr, pguidExtensionSystemID, pcbExtensionDataSizeMarshal, pcbExtensionDataSize, pbExtensionSystemInfoMarshal, pbExtensionSystemInfo, pcbExtensionSystemInfoMarshal, pcbExtensionSystemInfo, "HRESULT")
         return result
@@ -250,7 +250,7 @@ export default struct IMFASFStreamConfig extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamconfig-addpayloadextension
      */
     AddPayloadExtension(guidExtensionSystemID, cbExtensionDataSize, pbExtensionSystemInfo, cbExtensionSystemInfo) {
-        pbExtensionSystemInfoMarshal := pbExtensionSystemInfo is VarRef ? "char*" : "ptr"
+        pbExtensionSystemInfoMarshal := pbExtensionSystemInfo is VarRef ? "char*" : IntPtr
 
         result := ComCall(40, this, Guid, guidExtensionSystemID, UInt16, cbExtensionDataSize, pbExtensionSystemInfoMarshal, pbExtensionSystemInfo, UInt32, cbExtensionSystemInfo, "HRESULT")
         return result
@@ -307,16 +307,16 @@ export default struct IMFASFStreamConfig extends IMFAttributes {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStreamType := CallbackCreate(GetMethod(implObj, "GetStreamType"), flags, 2)
-        this.vtbl.GetStreamNumber := CallbackCreate(GetMethod(implObj, "GetStreamNumber"), flags, 1)
-        this.vtbl.SetStreamNumber := CallbackCreate(GetMethod(implObj, "SetStreamNumber"), flags, 2)
-        this.vtbl.GetMediaType := CallbackCreate(GetMethod(implObj, "GetMediaType"), flags, 2)
-        this.vtbl.SetMediaType := CallbackCreate(GetMethod(implObj, "SetMediaType"), flags, 2)
-        this.vtbl.GetPayloadExtensionCount := CallbackCreate(GetMethod(implObj, "GetPayloadExtensionCount"), flags, 2)
-        this.vtbl.GetPayloadExtension := CallbackCreate(GetMethod(implObj, "GetPayloadExtension"), flags, 6)
-        this.vtbl.AddPayloadExtension := CallbackCreate(GetMethod(implObj, "AddPayloadExtension"), flags, 5)
-        this.vtbl.RemoveAllPayloadExtensions := CallbackCreate(GetMethod(implObj, "RemoveAllPayloadExtensions"), flags, 1)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.GetStreamType := CallbackCreate(ObjBindMethod(implObj, "GetStreamType"), flags, 2)
+        this.vtbl.GetStreamNumber := CallbackCreate(ObjBindMethod(implObj, "GetStreamNumber"), flags, 1)
+        this.vtbl.SetStreamNumber := CallbackCreate(ObjBindMethod(implObj, "SetStreamNumber"), flags, 2)
+        this.vtbl.GetMediaType := CallbackCreate(ObjBindMethod(implObj, "GetMediaType"), flags, 2)
+        this.vtbl.SetMediaType := CallbackCreate(ObjBindMethod(implObj, "SetMediaType"), flags, 2)
+        this.vtbl.GetPayloadExtensionCount := CallbackCreate(ObjBindMethod(implObj, "GetPayloadExtensionCount"), flags, 2)
+        this.vtbl.GetPayloadExtension := CallbackCreate(ObjBindMethod(implObj, "GetPayloadExtension"), flags, 6)
+        this.vtbl.AddPayloadExtension := CallbackCreate(ObjBindMethod(implObj, "AddPayloadExtension"), flags, 5)
+        this.vtbl.RemoveAllPayloadExtensions := CallbackCreate(ObjBindMethod(implObj, "RemoveAllPayloadExtensions"), flags, 1)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
     }
 
     Dispose() {

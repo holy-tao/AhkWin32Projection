@@ -270,9 +270,9 @@ export default struct IEAPProviderConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rrascfg/nf-rrascfg-ieapproviderconfig-routerinvokeconfigui
      */
     RouterInvokeConfigUI(dwEapTypeId, uConnectionParam, hwndParent, dwFlags, pConnectionDataIn, dwSizeOfConnectionDataIn, ppConnectionDataOut, pdwSizeOfConnectionDataOut) {
-        pConnectionDataInMarshal := pConnectionDataIn is VarRef ? "char*" : "ptr"
-        ppConnectionDataOutMarshal := ppConnectionDataOut is VarRef ? "ptr*" : "ptr"
-        pdwSizeOfConnectionDataOutMarshal := pdwSizeOfConnectionDataOut is VarRef ? "uint*" : "ptr"
+        pConnectionDataInMarshal := pConnectionDataIn is VarRef ? "char*" : IntPtr
+        ppConnectionDataOutMarshal := ppConnectionDataOut is VarRef ? "ptr*" : IntPtr
+        pdwSizeOfConnectionDataOutMarshal := pdwSizeOfConnectionDataOut is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, UInt32, dwEapTypeId, IntPtr, uConnectionParam, HWND, hwndParent, UInt32, dwFlags, pConnectionDataInMarshal, pConnectionDataIn, UInt32, dwSizeOfConnectionDataIn, ppConnectionDataOutMarshal, ppConnectionDataOut, pdwSizeOfConnectionDataOutMarshal, pdwSizeOfConnectionDataOut, "HRESULT")
         return result
@@ -347,10 +347,10 @@ export default struct IEAPProviderConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rrascfg/nf-rrascfg-ieapproviderconfig-routerinvokecredentialsui
      */
     RouterInvokeCredentialsUI(dwEapTypeId, uConnectionParam, hwndParent, dwFlags, pConnectionDataIn, dwSizeOfConnectionDataIn, pUserDataIn, dwSizeOfUserDataIn, ppUserDataOut, pdwSizeOfUserDataOut) {
-        pConnectionDataInMarshal := pConnectionDataIn is VarRef ? "char*" : "ptr"
-        pUserDataInMarshal := pUserDataIn is VarRef ? "char*" : "ptr"
-        ppUserDataOutMarshal := ppUserDataOut is VarRef ? "ptr*" : "ptr"
-        pdwSizeOfUserDataOutMarshal := pdwSizeOfUserDataOut is VarRef ? "uint*" : "ptr"
+        pConnectionDataInMarshal := pConnectionDataIn is VarRef ? "char*" : IntPtr
+        pUserDataInMarshal := pUserDataIn is VarRef ? "char*" : IntPtr
+        ppUserDataOutMarshal := ppUserDataOut is VarRef ? "ptr*" : IntPtr
+        pdwSizeOfUserDataOutMarshal := pdwSizeOfUserDataOut is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, UInt32, dwEapTypeId, IntPtr, uConnectionParam, HWND, hwndParent, UInt32, dwFlags, pConnectionDataInMarshal, pConnectionDataIn, UInt32, dwSizeOfConnectionDataIn, pUserDataInMarshal, pUserDataIn, UInt32, dwSizeOfUserDataIn, ppUserDataOutMarshal, ppUserDataOut, pdwSizeOfUserDataOutMarshal, pdwSizeOfUserDataOut, "HRESULT")
         return result
@@ -365,11 +365,11 @@ export default struct IEAPProviderConfig extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
-        this.vtbl.Uninitialize := CallbackCreate(GetMethod(implObj, "Uninitialize"), flags, 3)
-        this.vtbl.ServerInvokeConfigUI := CallbackCreate(GetMethod(implObj, "ServerInvokeConfigUI"), flags, 6)
-        this.vtbl.RouterInvokeConfigUI := CallbackCreate(GetMethod(implObj, "RouterInvokeConfigUI"), flags, 9)
-        this.vtbl.RouterInvokeCredentialsUI := CallbackCreate(GetMethod(implObj, "RouterInvokeCredentialsUI"), flags, 11)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 4)
+        this.vtbl.Uninitialize := CallbackCreate(ObjBindMethod(implObj, "Uninitialize"), flags, 3)
+        this.vtbl.ServerInvokeConfigUI := CallbackCreate(ObjBindMethod(implObj, "ServerInvokeConfigUI"), flags, 6)
+        this.vtbl.RouterInvokeConfigUI := CallbackCreate(ObjBindMethod(implObj, "RouterInvokeConfigUI"), flags, 9)
+        this.vtbl.RouterInvokeCredentialsUI := CallbackCreate(ObjBindMethod(implObj, "RouterInvokeCredentialsUI"), flags, 11)
     }
 
     Dispose() {

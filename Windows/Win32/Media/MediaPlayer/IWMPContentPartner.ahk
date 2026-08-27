@@ -97,7 +97,9 @@ export default struct IWMPContentPartner extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentpartner-setcallback
      */
     SetCallback(pCallback) {
-        result := ComCall(3, this, "ptr", pCallback, "HRESULT")
+        pCallbackMarshal := pCallback == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pCallbackMarshal, pCallback, "HRESULT")
         return result
     }
 
@@ -360,9 +362,9 @@ export default struct IWMPContentPartner extends IUnknown {
         _location := _location is String ? BSTR.Alloc(_location).Value : _location
         itemLocation := itemLocation is String ? BSTR.Alloc(itemLocation).Value : itemLocation
 
-        prgItemIDsMarshal := prgItemIDs is VarRef ? "uint*" : "ptr"
-        pcItemIDsMarshal := pcItemIDs is VarRef ? "uint*" : "ptr"
-        pprgItemsMarshal := pprgItems is VarRef ? "ptr*" : "ptr"
+        prgItemIDsMarshal := prgItemIDs is VarRef ? "uint*" : IntPtr
+        pcItemIDsMarshal := pcItemIDs is VarRef ? "uint*" : IntPtr
+        pprgItemsMarshal := pprgItems is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(7, this, BSTR, _location, VARIANT.Ptr, pLocationContext, BSTR, itemLocation, UInt32, cItemIDs, prgItemIDsMarshal, prgItemIDs, pcItemIDsMarshal, pcItemIDs, pprgItemsMarshal, pprgItems, "HRESULT")
         return result
@@ -401,7 +403,7 @@ export default struct IWMPContentPartner extends IUnknown {
         _location := _location is String ? BSTR.Alloc(_location).Value : _location
         itemLocation := itemLocation is String ? BSTR.Alloc(itemLocation).Value : itemLocation
 
-        rgItemIDsMarshal := rgItemIDs is VarRef ? "uint*" : "ptr"
+        rgItemIDsMarshal := rgItemIDs is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, UInt32, dwCommandID, BSTR, _location, VARIANT.Ptr, pLocationContext, BSTR, itemLocation, UInt32, cItemIDs, rgItemIDsMarshal, rgItemIDs, "HRESULT")
         return result
@@ -436,9 +438,10 @@ export default struct IWMPContentPartner extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentpartner-canbuysilent
      */
     CanBuySilent(pInfo, pbstrTotalPrice, pSilentOK) {
-        pSilentOKMarshal := pSilentOK is VarRef ? "short*" : "ptr"
+        pInfoMarshal := pInfo == 0 ? IntPtr : "ptr"
+        pSilentOKMarshal := pSilentOK is VarRef ? "short*" : IntPtr
 
-        result := ComCall(9, this, "ptr", pInfo, BSTR.Ptr, pbstrTotalPrice, pSilentOKMarshal, pSilentOK, "HRESULT")
+        result := ComCall(9, this, pInfoMarshal, pInfo, BSTR.Ptr, pbstrTotalPrice, pSilentOKMarshal, pSilentOK, "HRESULT")
         return result
     }
 
@@ -472,7 +475,9 @@ export default struct IWMPContentPartner extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentpartner-buy
      */
     Buy(pInfo, cookie) {
-        result := ComCall(10, this, "ptr", pInfo, UInt32, cookie, "HRESULT")
+        pInfoMarshal := pInfo == 0 ? IntPtr : "ptr"
+
+        result := ComCall(10, this, pInfoMarshal, pInfo, UInt32, cookie, "HRESULT")
         return result
     }
 
@@ -517,7 +522,9 @@ export default struct IWMPContentPartner extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentpartner-download
      */
     Download(pInfo, cookie) {
-        result := ComCall(12, this, "ptr", pInfo, UInt32, cookie, "HRESULT")
+        pInfoMarshal := pInfo == 0 ? IntPtr : "ptr"
+
+        result := ComCall(12, this, pInfoMarshal, pInfo, UInt32, cookie, "HRESULT")
         return result
     }
 
@@ -594,7 +601,9 @@ export default struct IWMPContentPartner extends IUnknown {
         bstrURL := bstrURL is String ? BSTR.Alloc(bstrURL).Value : bstrURL
         bstrRefreshReason := bstrRefreshReason is String ? BSTR.Alloc(bstrRefreshReason).Value : bstrRefreshReason
 
-        result := ComCall(14, this, UInt32, dwCookie, VARIANT_BOOL, fLocal, BSTR, bstrURL, WMPStreamingType, type, UInt32, contentID, BSTR, bstrRefreshReason, VARIANT.Ptr, pReasonContext, "HRESULT")
+        bstrURLMarshal := bstrURL == 0 ? IntPtr : BSTR
+
+        result := ComCall(14, this, UInt32, dwCookie, VARIANT_BOOL, fLocal, bstrURLMarshal, bstrURL, WMPStreamingType, type, UInt32, contentID, BSTR, bstrRefreshReason, VARIANT.Ptr, pReasonContext, "HRESULT")
         return result
     }
 
@@ -630,7 +639,7 @@ export default struct IWMPContentPartner extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentpartner-getcatalogurl
      */
     GetCatalogURL(dwCatalogVersion, dwCatalogSchemaVersion, catalogLCID, pdwNewCatalogVersion, pbstrCatalogURL, pExpirationDate) {
-        pdwNewCatalogVersionMarshal := pdwNewCatalogVersion is VarRef ? "uint*" : "ptr"
+        pdwNewCatalogVersionMarshal := pdwNewCatalogVersion is VarRef ? "uint*" : IntPtr
 
         result := ComCall(15, this, UInt32, dwCatalogVersion, UInt32, dwCatalogSchemaVersion, UInt32, catalogLCID, pdwNewCatalogVersionMarshal, pdwNewCatalogVersion, BSTR.Ptr, pbstrCatalogURL, VARIANT.Ptr, pExpirationDate, "HRESULT")
         return result
@@ -684,7 +693,7 @@ export default struct IWMPContentPartner extends IUnknown {
         bstrFilter := bstrFilter is String ? BSTR.Alloc(bstrFilter).Value : bstrFilter
         bstrViewParams := bstrViewParams is String ? BSTR.Alloc(bstrViewParams).Value : bstrViewParams
 
-        pTemplateSizeMarshal := pTemplateSize is VarRef ? "int*" : "ptr"
+        pTemplateSizeMarshal := pTemplateSize is VarRef ? "int*" : IntPtr
 
         result := ComCall(16, this, WMPTaskType, task, BSTR, _location, VARIANT.Ptr, pContext, BSTR, clickLocation, VARIANT.Ptr, pClickContext, BSTR, bstrFilter, BSTR, bstrViewParams, BSTR.Ptr, pbstrTemplateURL, pTemplateSizeMarshal, pTemplateSize, "HRESULT")
         return result
@@ -956,7 +965,10 @@ export default struct IWMPContentPartner extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentpartner-comparecontainerlistprices
      */
     CompareContainerListPrices(pListBase, pListCompare) {
-        result := ComCall(24, this, "ptr", pListBase, "ptr", pListCompare, "int*", &pResult := 0, "HRESULT")
+        pListBaseMarshal := pListBase == 0 ? IntPtr : "ptr"
+        pListCompareMarshal := pListCompare == 0 ? IntPtr : "ptr"
+
+        result := ComCall(24, this, pListBaseMarshal, pListBase, pListCompareMarshal, pListCompare, "int*", &pResult := 0, "HRESULT")
         return pResult
     }
 
@@ -1009,29 +1021,29 @@ export default struct IWMPContentPartner extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetCallback := CallbackCreate(GetMethod(implObj, "SetCallback"), flags, 2)
-        this.vtbl.Notify := CallbackCreate(GetMethod(implObj, "Notify"), flags, 3)
-        this.vtbl.GetItemInfo := CallbackCreate(GetMethod(implObj, "GetItemInfo"), flags, 4)
-        this.vtbl.GetContentPartnerInfo := CallbackCreate(GetMethod(implObj, "GetContentPartnerInfo"), flags, 3)
-        this.vtbl.GetCommands := CallbackCreate(GetMethod(implObj, "GetCommands"), flags, 8)
-        this.vtbl.InvokeCommand := CallbackCreate(GetMethod(implObj, "InvokeCommand"), flags, 7)
-        this.vtbl.CanBuySilent := CallbackCreate(GetMethod(implObj, "CanBuySilent"), flags, 4)
-        this.vtbl.Buy := CallbackCreate(GetMethod(implObj, "Buy"), flags, 3)
-        this.vtbl.GetStreamingURL := CallbackCreate(GetMethod(implObj, "GetStreamingURL"), flags, 4)
-        this.vtbl.Download := CallbackCreate(GetMethod(implObj, "Download"), flags, 3)
-        this.vtbl.DownloadTrackComplete := CallbackCreate(GetMethod(implObj, "DownloadTrackComplete"), flags, 4)
-        this.vtbl.RefreshLicense := CallbackCreate(GetMethod(implObj, "RefreshLicense"), flags, 8)
-        this.vtbl.GetCatalogURL := CallbackCreate(GetMethod(implObj, "GetCatalogURL"), flags, 7)
-        this.vtbl.GetTemplate := CallbackCreate(GetMethod(implObj, "GetTemplate"), flags, 10)
-        this.vtbl.UpdateDevice := CallbackCreate(GetMethod(implObj, "UpdateDevice"), flags, 2)
-        this.vtbl.GetListContents := CallbackCreate(GetMethod(implObj, "GetListContents"), flags, 6)
-        this.vtbl.Login := CallbackCreate(GetMethod(implObj, "Login"), flags, 5)
-        this.vtbl.Authenticate := CallbackCreate(GetMethod(implObj, "Authenticate"), flags, 3)
-        this.vtbl.Logout := CallbackCreate(GetMethod(implObj, "Logout"), flags, 1)
-        this.vtbl.SendMessage := CallbackCreate(GetMethod(implObj, "SendMessage"), flags, 3)
-        this.vtbl.StationEvent := CallbackCreate(GetMethod(implObj, "StationEvent"), flags, 7)
-        this.vtbl.CompareContainerListPrices := CallbackCreate(GetMethod(implObj, "CompareContainerListPrices"), flags, 4)
-        this.vtbl.VerifyPermission := CallbackCreate(GetMethod(implObj, "VerifyPermission"), flags, 3)
+        this.vtbl.SetCallback := CallbackCreate(ObjBindMethod(implObj, "SetCallback"), flags, 2)
+        this.vtbl.Notify := CallbackCreate(ObjBindMethod(implObj, "Notify"), flags, 3)
+        this.vtbl.GetItemInfo := CallbackCreate(ObjBindMethod(implObj, "GetItemInfo"), flags, 4)
+        this.vtbl.GetContentPartnerInfo := CallbackCreate(ObjBindMethod(implObj, "GetContentPartnerInfo"), flags, 3)
+        this.vtbl.GetCommands := CallbackCreate(ObjBindMethod(implObj, "GetCommands"), flags, 8)
+        this.vtbl.InvokeCommand := CallbackCreate(ObjBindMethod(implObj, "InvokeCommand"), flags, 7)
+        this.vtbl.CanBuySilent := CallbackCreate(ObjBindMethod(implObj, "CanBuySilent"), flags, 4)
+        this.vtbl.Buy := CallbackCreate(ObjBindMethod(implObj, "Buy"), flags, 3)
+        this.vtbl.GetStreamingURL := CallbackCreate(ObjBindMethod(implObj, "GetStreamingURL"), flags, 4)
+        this.vtbl.Download := CallbackCreate(ObjBindMethod(implObj, "Download"), flags, 3)
+        this.vtbl.DownloadTrackComplete := CallbackCreate(ObjBindMethod(implObj, "DownloadTrackComplete"), flags, 4)
+        this.vtbl.RefreshLicense := CallbackCreate(ObjBindMethod(implObj, "RefreshLicense"), flags, 8)
+        this.vtbl.GetCatalogURL := CallbackCreate(ObjBindMethod(implObj, "GetCatalogURL"), flags, 7)
+        this.vtbl.GetTemplate := CallbackCreate(ObjBindMethod(implObj, "GetTemplate"), flags, 10)
+        this.vtbl.UpdateDevice := CallbackCreate(ObjBindMethod(implObj, "UpdateDevice"), flags, 2)
+        this.vtbl.GetListContents := CallbackCreate(ObjBindMethod(implObj, "GetListContents"), flags, 6)
+        this.vtbl.Login := CallbackCreate(ObjBindMethod(implObj, "Login"), flags, 5)
+        this.vtbl.Authenticate := CallbackCreate(ObjBindMethod(implObj, "Authenticate"), flags, 3)
+        this.vtbl.Logout := CallbackCreate(ObjBindMethod(implObj, "Logout"), flags, 1)
+        this.vtbl.SendMessage := CallbackCreate(ObjBindMethod(implObj, "SendMessage"), flags, 3)
+        this.vtbl.StationEvent := CallbackCreate(ObjBindMethod(implObj, "StationEvent"), flags, 7)
+        this.vtbl.CompareContainerListPrices := CallbackCreate(ObjBindMethod(implObj, "CompareContainerListPrices"), flags, 4)
+        this.vtbl.VerifyPermission := CallbackCreate(ObjBindMethod(implObj, "VerifyPermission"), flags, 3)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct LPDDHALVPORTCB_DESTROYVPORT {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_DESTROYVPORTDATA>} param0 
      * @returns {Integer} 
      */

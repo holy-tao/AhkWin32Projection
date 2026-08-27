@@ -73,8 +73,8 @@ export default struct ISyncFullEnumerationChange extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLearnedKnowledgeAfterRecoveryComplete := CallbackCreate(GetMethod(implObj, "GetLearnedKnowledgeAfterRecoveryComplete"), flags, 2)
-        this.vtbl.GetLearnedForgottenKnowledge := CallbackCreate(GetMethod(implObj, "GetLearnedForgottenKnowledge"), flags, 2)
+        this.vtbl.GetLearnedKnowledgeAfterRecoveryComplete := CallbackCreate(ObjBindMethod(implObj, "GetLearnedKnowledgeAfterRecoveryComplete"), flags, 2)
+        this.vtbl.GetLearnedForgottenKnowledge := CallbackCreate(ObjBindMethod(implObj, "GetLearnedForgottenKnowledge"), flags, 2)
     }
 
     Dispose() {

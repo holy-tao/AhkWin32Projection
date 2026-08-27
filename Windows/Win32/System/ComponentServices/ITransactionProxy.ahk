@@ -139,7 +139,7 @@ export default struct ITransactionProxy extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-itransactionproxy-getisolationlevel
      */
     GetIsolationLevel(__MIDL__ITransactionProxy0000) {
-        __MIDL__ITransactionProxy0000Marshal := __MIDL__ITransactionProxy0000 is VarRef ? "int*" : "ptr"
+        __MIDL__ITransactionProxy0000Marshal := __MIDL__ITransactionProxy0000 is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, __MIDL__ITransactionProxy0000Marshal, __MIDL__ITransactionProxy0000, "HRESULT")
         return result
@@ -163,7 +163,7 @@ export default struct ITransactionProxy extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-itransactionproxy-isreusable
      */
     IsReusable(pfIsReusable) {
-        pfIsReusableMarshal := pfIsReusable is VarRef ? "int*" : "ptr"
+        pfIsReusableMarshal := pfIsReusable is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, pfIsReusableMarshal, pfIsReusable, "HRESULT")
         return result
@@ -178,13 +178,13 @@ export default struct ITransactionProxy extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 2)
-        this.vtbl.Abort := CallbackCreate(GetMethod(implObj, "Abort"), flags, 1)
-        this.vtbl.Promote := CallbackCreate(GetMethod(implObj, "Promote"), flags, 2)
-        this.vtbl.CreateVoter := CallbackCreate(GetMethod(implObj, "CreateVoter"), flags, 3)
-        this.vtbl.GetIsolationLevel := CallbackCreate(GetMethod(implObj, "GetIsolationLevel"), flags, 2)
-        this.vtbl.GetIdentifier := CallbackCreate(GetMethod(implObj, "GetIdentifier"), flags, 2)
-        this.vtbl.IsReusable := CallbackCreate(GetMethod(implObj, "IsReusable"), flags, 2)
+        this.vtbl.Commit := CallbackCreate(ObjBindMethod(implObj, "Commit"), flags, 2)
+        this.vtbl.Abort := CallbackCreate(ObjBindMethod(implObj, "Abort"), flags, 1)
+        this.vtbl.Promote := CallbackCreate(ObjBindMethod(implObj, "Promote"), flags, 2)
+        this.vtbl.CreateVoter := CallbackCreate(ObjBindMethod(implObj, "CreateVoter"), flags, 3)
+        this.vtbl.GetIsolationLevel := CallbackCreate(ObjBindMethod(implObj, "GetIsolationLevel"), flags, 2)
+        this.vtbl.GetIdentifier := CallbackCreate(ObjBindMethod(implObj, "GetIdentifier"), flags, 2)
+        this.vtbl.IsReusable := CallbackCreate(ObjBindMethod(implObj, "IsReusable"), flags, 2)
     }
 
     Dispose() {

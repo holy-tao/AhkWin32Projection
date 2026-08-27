@@ -105,7 +105,7 @@ export default struct IMPEG2_TIF_CONTROL extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-impeg2_tif_control-registertif
      */
     RegisterTIF(pUnkTIF, ppvRegistrationContext) {
-        ppvRegistrationContextMarshal := ppvRegistrationContext is VarRef ? "uint*" : "ptr"
+        ppvRegistrationContextMarshal := ppvRegistrationContext is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, "ptr", pUnkTIF, ppvRegistrationContextMarshal, ppvRegistrationContext, "HRESULT")
         return result
@@ -181,7 +181,7 @@ export default struct IMPEG2_TIF_CONTROL extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-impeg2_tif_control-addpids
      */
     AddPIDs(ulcPIDs, pulPIDs) {
-        pulPIDsMarshal := pulPIDs is VarRef ? "uint*" : "ptr"
+        pulPIDsMarshal := pulPIDs is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, UInt32, ulcPIDs, pulPIDsMarshal, pulPIDs, "HRESULT")
         return result
@@ -215,7 +215,7 @@ export default struct IMPEG2_TIF_CONTROL extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-impeg2_tif_control-deletepids
      */
     DeletePIDs(ulcPIDs, pulPIDs) {
-        pulPIDsMarshal := pulPIDs is VarRef ? "uint*" : "ptr"
+        pulPIDsMarshal := pulPIDs is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, UInt32, ulcPIDs, pulPIDsMarshal, pulPIDs, "HRESULT")
         return result
@@ -261,8 +261,8 @@ export default struct IMPEG2_TIF_CONTROL extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-impeg2_tif_control-getpids
      */
     GetPIDs(pulcPIDs, pulPIDs) {
-        pulcPIDsMarshal := pulcPIDs is VarRef ? "uint*" : "ptr"
-        pulPIDsMarshal := pulPIDs is VarRef ? "uint*" : "ptr"
+        pulcPIDsMarshal := pulcPIDs is VarRef ? "uint*" : IntPtr
+        pulPIDsMarshal := pulPIDs is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, pulcPIDsMarshal, pulcPIDs, pulPIDsMarshal, pulPIDs, "HRESULT")
         return result
@@ -277,12 +277,12 @@ export default struct IMPEG2_TIF_CONTROL extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterTIF := CallbackCreate(GetMethod(implObj, "RegisterTIF"), flags, 3)
-        this.vtbl.UnregisterTIF := CallbackCreate(GetMethod(implObj, "UnregisterTIF"), flags, 2)
-        this.vtbl.AddPIDs := CallbackCreate(GetMethod(implObj, "AddPIDs"), flags, 3)
-        this.vtbl.DeletePIDs := CallbackCreate(GetMethod(implObj, "DeletePIDs"), flags, 3)
-        this.vtbl.GetPIDCount := CallbackCreate(GetMethod(implObj, "GetPIDCount"), flags, 2)
-        this.vtbl.GetPIDs := CallbackCreate(GetMethod(implObj, "GetPIDs"), flags, 3)
+        this.vtbl.RegisterTIF := CallbackCreate(ObjBindMethod(implObj, "RegisterTIF"), flags, 3)
+        this.vtbl.UnregisterTIF := CallbackCreate(ObjBindMethod(implObj, "UnregisterTIF"), flags, 2)
+        this.vtbl.AddPIDs := CallbackCreate(ObjBindMethod(implObj, "AddPIDs"), flags, 3)
+        this.vtbl.DeletePIDs := CallbackCreate(ObjBindMethod(implObj, "DeletePIDs"), flags, 3)
+        this.vtbl.GetPIDCount := CallbackCreate(ObjBindMethod(implObj, "GetPIDCount"), flags, 2)
+        this.vtbl.GetPIDs := CallbackCreate(ObjBindMethod(implObj, "GetPIDs"), flags, 3)
     }
 
     Dispose() {

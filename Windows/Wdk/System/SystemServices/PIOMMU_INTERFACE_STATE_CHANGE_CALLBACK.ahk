@@ -18,7 +18,6 @@ export default struct PIOMMU_INTERFACE_STATE_CHANGE_CALLBACK {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

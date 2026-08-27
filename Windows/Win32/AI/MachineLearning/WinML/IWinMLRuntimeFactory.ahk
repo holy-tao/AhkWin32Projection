@@ -59,7 +59,7 @@ export default struct IWinMLRuntimeFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateRuntime := CallbackCreate(GetMethod(implObj, "CreateRuntime"), flags, 3)
+        this.vtbl.CreateRuntime := CallbackCreate(ObjBindMethod(implObj, "CreateRuntime"), flags, 3)
     }
 
     Dispose() {

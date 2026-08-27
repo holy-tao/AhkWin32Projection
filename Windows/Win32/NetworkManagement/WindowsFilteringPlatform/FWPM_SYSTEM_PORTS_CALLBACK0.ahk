@@ -25,7 +25,6 @@ export default struct FWPM_SYSTEM_PORTS_CALLBACK0 {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context Type: <b>void*</b>
      * 
      * Optional context pointer. It contains the value of the <i>context</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmsystemportssubscribe0">FwpmSystemPortsSubscribe0</a> function.
@@ -35,7 +34,7 @@ export default struct FWPM_SYSTEM_PORTS_CALLBACK0 {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_context, sysPorts) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _contextMarshal, _context, FWPM_SYSTEM_PORTS0.Ptr, sysPorts)
     }

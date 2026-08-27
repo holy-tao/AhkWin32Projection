@@ -21,7 +21,6 @@ export default struct PIBIO_STORAGE_NOTIFY_DATABASE_CHANGE_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline 
      * @param {BOOLEAN} RecordsAdded 
      * @returns {HRESULT} 

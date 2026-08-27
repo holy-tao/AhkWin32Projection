@@ -69,8 +69,8 @@ export default struct IMixerOCX extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mixerocx/nf-mixerocx-imixerocx-getaspectratio
      */
     GetAspectRatio(pdwPictAspectRatioX, pdwPictAspectRatioY) {
-        pdwPictAspectRatioXMarshal := pdwPictAspectRatioX is VarRef ? "uint*" : "ptr"
-        pdwPictAspectRatioYMarshal := pdwPictAspectRatioY is VarRef ? "uint*" : "ptr"
+        pdwPictAspectRatioXMarshal := pdwPictAspectRatioX is VarRef ? "uint*" : IntPtr
+        pdwPictAspectRatioYMarshal := pdwPictAspectRatioY is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pdwPictAspectRatioXMarshal, pdwPictAspectRatioX, pdwPictAspectRatioYMarshal, pdwPictAspectRatioY, "HRESULT")
         return result
@@ -84,8 +84,8 @@ export default struct IMixerOCX extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mixerocx/nf-mixerocx-imixerocx-getvideosize
      */
     GetVideoSize(pdwVideoWidth, pdwVideoHeight) {
-        pdwVideoWidthMarshal := pdwVideoWidth is VarRef ? "uint*" : "ptr"
-        pdwVideoHeightMarshal := pdwVideoHeight is VarRef ? "uint*" : "ptr"
+        pdwVideoWidthMarshal := pdwVideoWidth is VarRef ? "uint*" : IntPtr
+        pdwVideoHeightMarshal := pdwVideoHeight is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, pdwVideoWidthMarshal, pdwVideoWidth, pdwVideoHeightMarshal, pdwVideoHeight, "HRESULT")
         return result
@@ -189,14 +189,14 @@ export default struct IMixerOCX extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnDisplayChange := CallbackCreate(GetMethod(implObj, "OnDisplayChange"), flags, 4)
-        this.vtbl.GetAspectRatio := CallbackCreate(GetMethod(implObj, "GetAspectRatio"), flags, 3)
-        this.vtbl.GetVideoSize := CallbackCreate(GetMethod(implObj, "GetVideoSize"), flags, 3)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
-        this.vtbl.OnDraw := CallbackCreate(GetMethod(implObj, "OnDraw"), flags, 3)
-        this.vtbl.SetDrawRegion := CallbackCreate(GetMethod(implObj, "SetDrawRegion"), flags, 4)
-        this.vtbl.Advise := CallbackCreate(GetMethod(implObj, "Advise"), flags, 2)
-        this.vtbl.UnAdvise := CallbackCreate(GetMethod(implObj, "UnAdvise"), flags, 1)
+        this.vtbl.OnDisplayChange := CallbackCreate(ObjBindMethod(implObj, "OnDisplayChange"), flags, 4)
+        this.vtbl.GetAspectRatio := CallbackCreate(ObjBindMethod(implObj, "GetAspectRatio"), flags, 3)
+        this.vtbl.GetVideoSize := CallbackCreate(ObjBindMethod(implObj, "GetVideoSize"), flags, 3)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.OnDraw := CallbackCreate(ObjBindMethod(implObj, "OnDraw"), flags, 3)
+        this.vtbl.SetDrawRegion := CallbackCreate(ObjBindMethod(implObj, "SetDrawRegion"), flags, 4)
+        this.vtbl.Advise := CallbackCreate(ObjBindMethod(implObj, "Advise"), flags, 2)
+        this.vtbl.UnAdvise := CallbackCreate(ObjBindMethod(implObj, "UnAdvise"), flags, 1)
     }
 
     Dispose() {

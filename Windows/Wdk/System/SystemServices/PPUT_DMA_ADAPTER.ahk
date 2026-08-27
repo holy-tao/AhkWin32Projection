@@ -19,7 +19,6 @@ export default struct PPUT_DMA_ADAPTER {
     }
 
     /**
-     * 
      * @param {Pointer<DMA_ADAPTER>} DmaAdapter 
      * @returns {String} Nothing - always returns an empty string
      */

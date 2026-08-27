@@ -18,12 +18,11 @@ export default struct LPMAPIFREEBUFFER {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pv 
      * @returns {Integer} 
      */
     Call(pv) {
-        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+        pvMarshal := pv is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, pvMarshal, pv, UInt32)
         return result

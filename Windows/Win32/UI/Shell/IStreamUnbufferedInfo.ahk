@@ -58,7 +58,7 @@ export default struct IStreamUnbufferedInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSectorSize := CallbackCreate(GetMethod(implObj, "GetSectorSize"), flags, 2)
+        this.vtbl.GetSectorSize := CallbackCreate(ObjBindMethod(implObj, "GetSectorSize"), flags, 2)
     }
 
     Dispose() {

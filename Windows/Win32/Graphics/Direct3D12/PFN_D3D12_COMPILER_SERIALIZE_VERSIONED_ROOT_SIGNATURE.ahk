@@ -21,14 +21,15 @@ export default struct PFN_D3D12_COMPILER_SERIALIZE_VERSIONED_ROOT_SIGNATURE {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_VERSIONED_ROOT_SIGNATURE_DESC>} pRootSignature 
      * @param {Pointer<ID3DBlob>} ppBlob 
      * @param {Pointer<ID3DBlob>} ppErrorBlob 
      * @returns {HRESULT} 
      */
     Call(pRootSignature, ppBlob, ppErrorBlob) {
-        result := DllCall(this.value, D3D12_VERSIONED_ROOT_SIGNATURE_DESC.Ptr, pRootSignature, ID3DBlob.Ptr, ppBlob, ID3DBlob.Ptr, ppErrorBlob, "HRESULT")
+        ppErrorBlobMarshal := ppErrorBlob == 0 ? IntPtr : ID3DBlob.Ptr
+
+        result := DllCall(this.value, D3D12_VERSIONED_ROOT_SIGNATURE_DESC.Ptr, pRootSignature, ID3DBlob.Ptr, ppBlob, ppErrorBlobMarshal, ppErrorBlob, "HRESULT")
         return result
     }
 

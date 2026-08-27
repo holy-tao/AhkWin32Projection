@@ -74,8 +74,8 @@ export default struct IQueryCodePage extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCodePage := CallbackCreate(GetMethod(implObj, "GetCodePage"), flags, 2)
-        this.vtbl.SetCodePage := CallbackCreate(GetMethod(implObj, "SetCodePage"), flags, 2)
+        this.vtbl.GetCodePage := CallbackCreate(ObjBindMethod(implObj, "GetCodePage"), flags, 2)
+        this.vtbl.SetCodePage := CallbackCreate(ObjBindMethod(implObj, "SetCodePage"), flags, 2)
     }
 
     Dispose() {

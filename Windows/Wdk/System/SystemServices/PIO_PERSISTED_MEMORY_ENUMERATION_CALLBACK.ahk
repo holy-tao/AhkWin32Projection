@@ -19,7 +19,6 @@ export default struct PIO_PERSISTED_MEMORY_ENUMERATION_CALLBACK {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

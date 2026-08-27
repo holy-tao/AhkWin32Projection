@@ -144,11 +144,11 @@ export default struct IRunnableObject extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRunningClass := CallbackCreate(GetMethod(implObj, "GetRunningClass"), flags, 2)
-        this.vtbl.Run := CallbackCreate(GetMethod(implObj, "Run"), flags, 2)
-        this.vtbl.IsRunning := CallbackCreate(GetMethod(implObj, "IsRunning"), flags, 1)
-        this.vtbl.LockRunning := CallbackCreate(GetMethod(implObj, "LockRunning"), flags, 3)
-        this.vtbl.SetContainedObject := CallbackCreate(GetMethod(implObj, "SetContainedObject"), flags, 2)
+        this.vtbl.GetRunningClass := CallbackCreate(ObjBindMethod(implObj, "GetRunningClass"), flags, 2)
+        this.vtbl.Run := CallbackCreate(ObjBindMethod(implObj, "Run"), flags, 2)
+        this.vtbl.IsRunning := CallbackCreate(ObjBindMethod(implObj, "IsRunning"), flags, 1)
+        this.vtbl.LockRunning := CallbackCreate(ObjBindMethod(implObj, "LockRunning"), flags, 3)
+        this.vtbl.SetContainedObject := CallbackCreate(ObjBindMethod(implObj, "SetContainedObject"), flags, 2)
     }
 
     Dispose() {

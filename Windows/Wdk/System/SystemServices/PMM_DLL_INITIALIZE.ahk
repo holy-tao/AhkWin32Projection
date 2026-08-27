@@ -20,7 +20,6 @@ export default struct PMM_DLL_INITIALIZE {
     }
 
     /**
-     * 
      * @param {Pointer<UNICODE_STRING>} RegistryPath 
      * @returns {NTSTATUS} 
      */

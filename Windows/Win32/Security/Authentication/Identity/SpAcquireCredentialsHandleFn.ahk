@@ -34,7 +34,6 @@ export default struct SpAcquireCredentialsHandleFn {
     }
 
     /**
-     * 
      * @param {Pointer<LSA_UNICODE_STRING>} PrincipalName Optional. Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> structure containing the name of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security principal</a> whose credentials are being requested. If this value is <b>NULL</b>, the caller requests a handle to the credentials of the user in whose <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security context</a> the caller is executing.
      * @param {Integer} CredentialUseFlags Flags indicating how the credentials will be used. The following values are valid.
@@ -109,13 +108,18 @@ export default struct SpAcquireCredentialsHandleFn {
      * </table>
      */
     Call(PrincipalName, CredentialUseFlags, LogonId, AuthorizationData, GetKeyFunciton, GetKeyArgument, CredentialHandle, ExpirationTime) {
-        AuthorizationDataMarshal := AuthorizationData is VarRef ? "ptr" : "ptr"
-        GetKeyFuncitonMarshal := GetKeyFunciton is VarRef ? "ptr" : "ptr"
-        GetKeyArgumentMarshal := GetKeyArgument is VarRef ? "ptr" : "ptr"
-        CredentialHandleMarshal := CredentialHandle is VarRef ? "ptr*" : "ptr"
-        ExpirationTimeMarshal := ExpirationTime is VarRef ? "int64*" : "ptr"
+        PrincipalNameMarshal := PrincipalName == 0 ? IntPtr : LSA_UNICODE_STRING.Ptr
+        LogonIdMarshal := LogonId == 0 ? IntPtr : LUID.Ptr
+        AuthorizationDataMarshal := AuthorizationData is VarRef ? "ptr" : IntPtr
+        AuthorizationDataMarshal := AuthorizationData == 0 ? IntPtr : "ptr"
+        GetKeyFuncitonMarshal := GetKeyFunciton is VarRef ? "ptr" : IntPtr
+        GetKeyFuncitonMarshal := GetKeyFunciton == 0 ? IntPtr : "ptr"
+        GetKeyArgumentMarshal := GetKeyArgument is VarRef ? "ptr" : IntPtr
+        GetKeyArgumentMarshal := GetKeyArgument == 0 ? IntPtr : "ptr"
+        CredentialHandleMarshal := CredentialHandle is VarRef ? "ptr*" : IntPtr
+        ExpirationTimeMarshal := ExpirationTime is VarRef ? "int64*" : IntPtr
 
-        result := DllCall(this.value, LSA_UNICODE_STRING.Ptr, PrincipalName, UInt32, CredentialUseFlags, LUID.Ptr, LogonId, AuthorizationDataMarshal, AuthorizationData, GetKeyFuncitonMarshal, GetKeyFunciton, GetKeyArgumentMarshal, GetKeyArgument, CredentialHandleMarshal, CredentialHandle, ExpirationTimeMarshal, ExpirationTime, NTSTATUS)
+        result := DllCall(this.value, PrincipalNameMarshal, PrincipalName, UInt32, CredentialUseFlags, LogonIdMarshal, LogonId, AuthorizationDataMarshal, AuthorizationData, GetKeyFuncitonMarshal, GetKeyFunciton, GetKeyArgumentMarshal, GetKeyArgument, CredentialHandleMarshal, CredentialHandle, ExpirationTimeMarshal, ExpirationTime, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

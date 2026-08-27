@@ -105,7 +105,6 @@ export default struct IXSLProcessor extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} var 
      * @returns {HRESULT} 
      */
@@ -115,7 +114,6 @@ export default struct IXSLProcessor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_input() {
@@ -125,7 +123,6 @@ export default struct IXSLProcessor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXSLTemplate} 
      */
     get_ownerTemplate() {
@@ -134,7 +131,6 @@ export default struct IXSLProcessor extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} _mode 
      * @param {BSTR} namespaceURI 
      * @returns {HRESULT} 
@@ -148,7 +144,6 @@ export default struct IXSLProcessor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_startMode() {
@@ -158,7 +153,6 @@ export default struct IXSLProcessor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_startModeURI() {
@@ -168,7 +162,6 @@ export default struct IXSLProcessor extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} output 
      * @returns {HRESULT} 
      */
@@ -178,7 +171,6 @@ export default struct IXSLProcessor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_output() {
@@ -188,7 +180,6 @@ export default struct IXSLProcessor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     transform() {
@@ -197,7 +188,6 @@ export default struct IXSLProcessor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     reset() {
@@ -206,7 +196,6 @@ export default struct IXSLProcessor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_readyState() {
@@ -215,7 +204,6 @@ export default struct IXSLProcessor extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} baseName 
      * @param {VARIANT} parameter 
      * @param {BSTR} namespaceURI 
@@ -230,7 +218,6 @@ export default struct IXSLProcessor extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} obj 
      * @param {BSTR} namespaceURI 
      * @returns {HRESULT} 
@@ -243,7 +230,6 @@ export default struct IXSLProcessor extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLDOMNode} 
      */
     get_stylesheet() {
@@ -260,20 +246,20 @@ export default struct IXSLProcessor extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_input := CallbackCreate(GetMethod(implObj, "put_input"), flags, 2)
-        this.vtbl.get_input := CallbackCreate(GetMethod(implObj, "get_input"), flags, 2)
-        this.vtbl.get_ownerTemplate := CallbackCreate(GetMethod(implObj, "get_ownerTemplate"), flags, 2)
-        this.vtbl.setStartMode := CallbackCreate(GetMethod(implObj, "setStartMode"), flags, 3)
-        this.vtbl.get_startMode := CallbackCreate(GetMethod(implObj, "get_startMode"), flags, 2)
-        this.vtbl.get_startModeURI := CallbackCreate(GetMethod(implObj, "get_startModeURI"), flags, 2)
-        this.vtbl.put_output := CallbackCreate(GetMethod(implObj, "put_output"), flags, 2)
-        this.vtbl.get_output := CallbackCreate(GetMethod(implObj, "get_output"), flags, 2)
-        this.vtbl.transform := CallbackCreate(GetMethod(implObj, "transform"), flags, 2)
-        this.vtbl.reset := CallbackCreate(GetMethod(implObj, "reset"), flags, 1)
-        this.vtbl.get_readyState := CallbackCreate(GetMethod(implObj, "get_readyState"), flags, 2)
-        this.vtbl.addParameter := CallbackCreate(GetMethod(implObj, "addParameter"), flags, 4)
-        this.vtbl.addObject := CallbackCreate(GetMethod(implObj, "addObject"), flags, 3)
-        this.vtbl.get_stylesheet := CallbackCreate(GetMethod(implObj, "get_stylesheet"), flags, 2)
+        this.vtbl.put_input := CallbackCreate(ObjBindMethod(implObj, "put_input"), flags, 2)
+        this.vtbl.get_input := CallbackCreate(ObjBindMethod(implObj, "get_input"), flags, 2)
+        this.vtbl.get_ownerTemplate := CallbackCreate(ObjBindMethod(implObj, "get_ownerTemplate"), flags, 2)
+        this.vtbl.setStartMode := CallbackCreate(ObjBindMethod(implObj, "setStartMode"), flags, 3)
+        this.vtbl.get_startMode := CallbackCreate(ObjBindMethod(implObj, "get_startMode"), flags, 2)
+        this.vtbl.get_startModeURI := CallbackCreate(ObjBindMethod(implObj, "get_startModeURI"), flags, 2)
+        this.vtbl.put_output := CallbackCreate(ObjBindMethod(implObj, "put_output"), flags, 2)
+        this.vtbl.get_output := CallbackCreate(ObjBindMethod(implObj, "get_output"), flags, 2)
+        this.vtbl.transform := CallbackCreate(ObjBindMethod(implObj, "transform"), flags, 2)
+        this.vtbl.reset := CallbackCreate(ObjBindMethod(implObj, "reset"), flags, 1)
+        this.vtbl.get_readyState := CallbackCreate(ObjBindMethod(implObj, "get_readyState"), flags, 2)
+        this.vtbl.addParameter := CallbackCreate(ObjBindMethod(implObj, "addParameter"), flags, 4)
+        this.vtbl.addObject := CallbackCreate(ObjBindMethod(implObj, "addObject"), flags, 3)
+        this.vtbl.get_stylesheet := CallbackCreate(ObjBindMethod(implObj, "get_stylesheet"), flags, 2)
     }
 
     Dispose() {

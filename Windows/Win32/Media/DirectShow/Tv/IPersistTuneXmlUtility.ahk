@@ -67,7 +67,7 @@ export default struct IPersistTuneXmlUtility extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Deserialize := CallbackCreate(GetMethod(implObj, "Deserialize"), flags, 3)
+        this.vtbl.Deserialize := CallbackCreate(ObjBindMethod(implObj, "Deserialize"), flags, 3)
     }
 
     Dispose() {

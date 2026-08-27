@@ -20,7 +20,6 @@ export default struct LPEXCEPFINO_DEFERRED_FILLIN {
     }
 
     /**
-     * 
      * @param {Pointer<EXCEPINFO>} pExcepInfo 
      * @returns {HRESULT} 
      */

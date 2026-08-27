@@ -108,11 +108,11 @@ export default struct ITfThreadMgrEventSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnInitDocumentMgr := CallbackCreate(GetMethod(implObj, "OnInitDocumentMgr"), flags, 2)
-        this.vtbl.OnUninitDocumentMgr := CallbackCreate(GetMethod(implObj, "OnUninitDocumentMgr"), flags, 2)
-        this.vtbl.OnSetFocus := CallbackCreate(GetMethod(implObj, "OnSetFocus"), flags, 3)
-        this.vtbl.OnPushContext := CallbackCreate(GetMethod(implObj, "OnPushContext"), flags, 2)
-        this.vtbl.OnPopContext := CallbackCreate(GetMethod(implObj, "OnPopContext"), flags, 2)
+        this.vtbl.OnInitDocumentMgr := CallbackCreate(ObjBindMethod(implObj, "OnInitDocumentMgr"), flags, 2)
+        this.vtbl.OnUninitDocumentMgr := CallbackCreate(ObjBindMethod(implObj, "OnUninitDocumentMgr"), flags, 2)
+        this.vtbl.OnSetFocus := CallbackCreate(ObjBindMethod(implObj, "OnSetFocus"), flags, 3)
+        this.vtbl.OnPushContext := CallbackCreate(ObjBindMethod(implObj, "OnPushContext"), flags, 2)
+        this.vtbl.OnPopContext := CallbackCreate(ObjBindMethod(implObj, "OnPopContext"), flags, 2)
     }
 
     Dispose() {

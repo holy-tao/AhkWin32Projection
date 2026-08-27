@@ -56,10 +56,10 @@ export default struct ISBE2GlobalEvent2 extends ISBE2GlobalEvent {
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2globalevent2-geteventex
      */
     GetEventEx(idEvt, param1, param2, param3, param4, pSpanning, pcb, pb, pStreamTime) {
-        pSpanningMarshal := pSpanning is VarRef ? "int*" : "ptr"
-        pcbMarshal := pcb is VarRef ? "uint*" : "ptr"
-        pbMarshal := pb is VarRef ? "char*" : "ptr"
-        pStreamTimeMarshal := pStreamTime is VarRef ? "int64*" : "ptr"
+        pSpanningMarshal := pSpanning is VarRef ? "int*" : IntPtr
+        pcbMarshal := pcb is VarRef ? "uint*" : IntPtr
+        pbMarshal := pb is VarRef ? "char*" : IntPtr
+        pStreamTimeMarshal := pStreamTime is VarRef ? "int64*" : IntPtr
 
         result := ComCall(4, this, Guid.Ptr, idEvt, UInt32, param1, UInt32, param2, UInt32, param3, UInt32, param4, pSpanningMarshal, pSpanning, pcbMarshal, pcb, pbMarshal, pb, pStreamTimeMarshal, pStreamTime, "HRESULT")
         return result
@@ -74,7 +74,7 @@ export default struct ISBE2GlobalEvent2 extends ISBE2GlobalEvent {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetEventEx := CallbackCreate(GetMethod(implObj, "GetEventEx"), flags, 10)
+        this.vtbl.GetEventEx := CallbackCreate(ObjBindMethod(implObj, "GetEventEx"), flags, 10)
     }
 
     Dispose() {

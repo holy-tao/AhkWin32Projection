@@ -130,7 +130,7 @@ export default struct IDiscRecorder2Ex extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-sendcommandnodata
      */
     SendCommandNoData(Cdb, CdbSize, Timeout) {
-        CdbMarshal := Cdb is VarRef ? "char*" : "ptr"
+        CdbMarshal := Cdb is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, CdbMarshal, Cdb, UInt32, CdbSize, "char*", &SenseBuffer := 0, UInt32, Timeout, "HRESULT")
         return SenseBuffer
@@ -206,8 +206,8 @@ export default struct IDiscRecorder2Ex extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-sendcommandsenddatatodevice
      */
     SendCommandSendDataToDevice(Cdb, CdbSize, Timeout, _Buffer, BufferSize) {
-        CdbMarshal := Cdb is VarRef ? "char*" : "ptr"
-        _BufferMarshal := _Buffer is VarRef ? "char*" : "ptr"
+        CdbMarshal := Cdb is VarRef ? "char*" : IntPtr
+        _BufferMarshal := _Buffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(4, this, CdbMarshal, Cdb, UInt32, CdbSize, "char*", &SenseBuffer := 0, UInt32, Timeout, _BufferMarshal, _Buffer, UInt32, BufferSize, "HRESULT")
         return SenseBuffer
@@ -612,10 +612,10 @@ export default struct IDiscRecorder2Ex extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-sendcommandgetdatafromdevice
      */
     SendCommandGetDataFromDevice(Cdb, CdbSize, SenseBuffer, Timeout, _Buffer, BufferSize, BufferFetched) {
-        CdbMarshal := Cdb is VarRef ? "char*" : "ptr"
-        SenseBufferMarshal := SenseBuffer is VarRef ? "char*" : "ptr"
-        _BufferMarshal := _Buffer is VarRef ? "char*" : "ptr"
-        BufferFetchedMarshal := BufferFetched is VarRef ? "uint*" : "ptr"
+        CdbMarshal := Cdb is VarRef ? "char*" : IntPtr
+        SenseBufferMarshal := SenseBuffer is VarRef ? "char*" : IntPtr
+        _BufferMarshal := _Buffer is VarRef ? "char*" : IntPtr
+        BufferFetchedMarshal := BufferFetched is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, CdbMarshal, Cdb, UInt32, CdbSize, SenseBufferMarshal, SenseBuffer, UInt32, Timeout, _BufferMarshal, _Buffer, UInt32, BufferSize, BufferFetchedMarshal, BufferFetched, "HRESULT")
         return result
@@ -961,8 +961,8 @@ export default struct IDiscRecorder2Ex extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-readdvdstructure
      */
     ReadDvdStructure(format, _address, layer, agid, data, count) {
-        dataMarshal := data is VarRef ? "ptr*" : "ptr"
-        countMarshal := count is VarRef ? "uint*" : "ptr"
+        dataMarshal := data is VarRef ? "ptr*" : IntPtr
+        countMarshal := count is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, UInt32, format, UInt32, _address, UInt32, layer, UInt32, agid, dataMarshal, data, countMarshal, count, "HRESULT")
         return result
@@ -1285,7 +1285,7 @@ export default struct IDiscRecorder2Ex extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-senddvdstructure
      */
     SendDvdStructure(format, data, count) {
-        dataMarshal := data is VarRef ? "char*" : "ptr"
+        dataMarshal := data is VarRef ? "char*" : IntPtr
 
         result := ComCall(7, this, UInt32, format, dataMarshal, data, UInt32, count, "HRESULT")
         return result
@@ -1334,8 +1334,8 @@ export default struct IDiscRecorder2Ex extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-getadapterdescriptor
      */
     GetAdapterDescriptor(data, byteSize) {
-        dataMarshal := data is VarRef ? "ptr*" : "ptr"
-        byteSizeMarshal := byteSize is VarRef ? "uint*" : "ptr"
+        dataMarshal := data is VarRef ? "ptr*" : IntPtr
+        byteSizeMarshal := byteSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, dataMarshal, data, byteSizeMarshal, byteSize, "HRESULT")
         return result
@@ -1397,8 +1397,8 @@ export default struct IDiscRecorder2Ex extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-getdevicedescriptor
      */
     GetDeviceDescriptor(data, byteSize) {
-        dataMarshal := data is VarRef ? "ptr*" : "ptr"
-        byteSizeMarshal := byteSize is VarRef ? "uint*" : "ptr"
+        dataMarshal := data is VarRef ? "ptr*" : IntPtr
+        byteSizeMarshal := byteSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(9, this, dataMarshal, data, byteSizeMarshal, byteSize, "HRESULT")
         return result
@@ -1683,8 +1683,8 @@ export default struct IDiscRecorder2Ex extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-getdiscinformation
      */
     GetDiscInformation(discInformation, byteSize) {
-        discInformationMarshal := discInformation is VarRef ? "ptr*" : "ptr"
-        byteSizeMarshal := byteSize is VarRef ? "uint*" : "ptr"
+        discInformationMarshal := discInformation is VarRef ? "ptr*" : IntPtr
+        byteSizeMarshal := byteSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(10, this, discInformationMarshal, discInformation, byteSizeMarshal, byteSize, "HRESULT")
         return result
@@ -2008,8 +2008,8 @@ export default struct IDiscRecorder2Ex extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-gettrackinformation
      */
     GetTrackInformation(_address, addressType, trackInformation, byteSize) {
-        trackInformationMarshal := trackInformation is VarRef ? "ptr*" : "ptr"
-        byteSizeMarshal := byteSize is VarRef ? "uint*" : "ptr"
+        trackInformationMarshal := trackInformation is VarRef ? "ptr*" : IntPtr
+        byteSizeMarshal := byteSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(11, this, UInt32, _address, IMAPI_READ_TRACK_ADDRESS_TYPE, addressType, trackInformationMarshal, trackInformation, byteSizeMarshal, byteSize, "HRESULT")
         return result
@@ -2335,8 +2335,8 @@ export default struct IDiscRecorder2Ex extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-getfeaturepage
      */
     GetFeaturePage(requestedFeature, currentFeatureOnly, featureData, byteSize) {
-        featureDataMarshal := featureData is VarRef ? "ptr*" : "ptr"
-        byteSizeMarshal := byteSize is VarRef ? "uint*" : "ptr"
+        featureDataMarshal := featureData is VarRef ? "ptr*" : IntPtr
+        byteSizeMarshal := byteSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(12, this, IMAPI_FEATURE_PAGE_TYPE, requestedFeature, BOOLEAN, currentFeatureOnly, featureDataMarshal, featureData, byteSizeMarshal, byteSize, "HRESULT")
         return result
@@ -2649,8 +2649,8 @@ export default struct IDiscRecorder2Ex extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-getmodepage
      */
     GetModePage(requestedModePage, requestType, modePageData, byteSize) {
-        modePageDataMarshal := modePageData is VarRef ? "ptr*" : "ptr"
-        byteSizeMarshal := byteSize is VarRef ? "uint*" : "ptr"
+        modePageDataMarshal := modePageData is VarRef ? "ptr*" : IntPtr
+        byteSizeMarshal := byteSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, IMAPI_MODE_PAGE_TYPE, requestedModePage, IMAPI_MODE_PAGE_REQUEST_TYPE, requestType, modePageDataMarshal, modePageData, byteSizeMarshal, byteSize, "HRESULT")
         return result
@@ -2973,7 +2973,7 @@ export default struct IDiscRecorder2Ex extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-setmodepage
      */
     SetModePage(requestType, data, byteSize) {
-        dataMarshal := data is VarRef ? "char*" : "ptr"
+        dataMarshal := data is VarRef ? "char*" : IntPtr
 
         result := ComCall(14, this, IMAPI_MODE_PAGE_REQUEST_TYPE, requestType, dataMarshal, data, UInt32, byteSize, "HRESULT")
         return result
@@ -3298,8 +3298,8 @@ export default struct IDiscRecorder2Ex extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-getsupportedfeaturepages
      */
     GetSupportedFeaturePages(currentFeatureOnly, featureData, byteSize) {
-        featureDataMarshal := featureData is VarRef ? "ptr*" : "ptr"
-        byteSizeMarshal := byteSize is VarRef ? "uint*" : "ptr"
+        featureDataMarshal := featureData is VarRef ? "ptr*" : IntPtr
+        byteSizeMarshal := byteSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(15, this, BOOLEAN, currentFeatureOnly, featureDataMarshal, featureData, byteSizeMarshal, byteSize, "HRESULT")
         return result
@@ -3622,8 +3622,8 @@ export default struct IDiscRecorder2Ex extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-getsupportedprofiles
      */
     GetSupportedProfiles(currentOnly, profileTypes, validProfiles) {
-        profileTypesMarshal := profileTypes is VarRef ? "ptr*" : "ptr"
-        validProfilesMarshal := validProfiles is VarRef ? "uint*" : "ptr"
+        profileTypesMarshal := profileTypes is VarRef ? "ptr*" : IntPtr
+        validProfilesMarshal := validProfiles is VarRef ? "uint*" : IntPtr
 
         result := ComCall(16, this, BOOLEAN, currentOnly, profileTypesMarshal, profileTypes, validProfilesMarshal, validProfiles, "HRESULT")
         return result
@@ -3935,8 +3935,8 @@ export default struct IDiscRecorder2Ex extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2ex-getsupportedmodepages
      */
     GetSupportedModePages(requestType, modePageTypes, validPages) {
-        modePageTypesMarshal := modePageTypes is VarRef ? "ptr*" : "ptr"
-        validPagesMarshal := validPages is VarRef ? "uint*" : "ptr"
+        modePageTypesMarshal := modePageTypes is VarRef ? "ptr*" : IntPtr
+        validPagesMarshal := validPages is VarRef ? "uint*" : IntPtr
 
         result := ComCall(17, this, IMAPI_MODE_PAGE_REQUEST_TYPE, requestType, modePageTypesMarshal, modePageTypes, validPagesMarshal, validPages, "HRESULT")
         return result
@@ -3995,24 +3995,24 @@ export default struct IDiscRecorder2Ex extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SendCommandNoData := CallbackCreate(GetMethod(implObj, "SendCommandNoData"), flags, 5)
-        this.vtbl.SendCommandSendDataToDevice := CallbackCreate(GetMethod(implObj, "SendCommandSendDataToDevice"), flags, 7)
-        this.vtbl.SendCommandGetDataFromDevice := CallbackCreate(GetMethod(implObj, "SendCommandGetDataFromDevice"), flags, 8)
-        this.vtbl.ReadDvdStructure := CallbackCreate(GetMethod(implObj, "ReadDvdStructure"), flags, 7)
-        this.vtbl.SendDvdStructure := CallbackCreate(GetMethod(implObj, "SendDvdStructure"), flags, 4)
-        this.vtbl.GetAdapterDescriptor := CallbackCreate(GetMethod(implObj, "GetAdapterDescriptor"), flags, 3)
-        this.vtbl.GetDeviceDescriptor := CallbackCreate(GetMethod(implObj, "GetDeviceDescriptor"), flags, 3)
-        this.vtbl.GetDiscInformation := CallbackCreate(GetMethod(implObj, "GetDiscInformation"), flags, 3)
-        this.vtbl.GetTrackInformation := CallbackCreate(GetMethod(implObj, "GetTrackInformation"), flags, 5)
-        this.vtbl.GetFeaturePage := CallbackCreate(GetMethod(implObj, "GetFeaturePage"), flags, 5)
-        this.vtbl.GetModePage := CallbackCreate(GetMethod(implObj, "GetModePage"), flags, 5)
-        this.vtbl.SetModePage := CallbackCreate(GetMethod(implObj, "SetModePage"), flags, 4)
-        this.vtbl.GetSupportedFeaturePages := CallbackCreate(GetMethod(implObj, "GetSupportedFeaturePages"), flags, 4)
-        this.vtbl.GetSupportedProfiles := CallbackCreate(GetMethod(implObj, "GetSupportedProfiles"), flags, 4)
-        this.vtbl.GetSupportedModePages := CallbackCreate(GetMethod(implObj, "GetSupportedModePages"), flags, 4)
-        this.vtbl.GetByteAlignmentMask := CallbackCreate(GetMethod(implObj, "GetByteAlignmentMask"), flags, 2)
-        this.vtbl.GetMaximumNonPageAlignedTransferSize := CallbackCreate(GetMethod(implObj, "GetMaximumNonPageAlignedTransferSize"), flags, 2)
-        this.vtbl.GetMaximumPageAlignedTransferSize := CallbackCreate(GetMethod(implObj, "GetMaximumPageAlignedTransferSize"), flags, 2)
+        this.vtbl.SendCommandNoData := CallbackCreate(ObjBindMethod(implObj, "SendCommandNoData"), flags, 5)
+        this.vtbl.SendCommandSendDataToDevice := CallbackCreate(ObjBindMethod(implObj, "SendCommandSendDataToDevice"), flags, 7)
+        this.vtbl.SendCommandGetDataFromDevice := CallbackCreate(ObjBindMethod(implObj, "SendCommandGetDataFromDevice"), flags, 8)
+        this.vtbl.ReadDvdStructure := CallbackCreate(ObjBindMethod(implObj, "ReadDvdStructure"), flags, 7)
+        this.vtbl.SendDvdStructure := CallbackCreate(ObjBindMethod(implObj, "SendDvdStructure"), flags, 4)
+        this.vtbl.GetAdapterDescriptor := CallbackCreate(ObjBindMethod(implObj, "GetAdapterDescriptor"), flags, 3)
+        this.vtbl.GetDeviceDescriptor := CallbackCreate(ObjBindMethod(implObj, "GetDeviceDescriptor"), flags, 3)
+        this.vtbl.GetDiscInformation := CallbackCreate(ObjBindMethod(implObj, "GetDiscInformation"), flags, 3)
+        this.vtbl.GetTrackInformation := CallbackCreate(ObjBindMethod(implObj, "GetTrackInformation"), flags, 5)
+        this.vtbl.GetFeaturePage := CallbackCreate(ObjBindMethod(implObj, "GetFeaturePage"), flags, 5)
+        this.vtbl.GetModePage := CallbackCreate(ObjBindMethod(implObj, "GetModePage"), flags, 5)
+        this.vtbl.SetModePage := CallbackCreate(ObjBindMethod(implObj, "SetModePage"), flags, 4)
+        this.vtbl.GetSupportedFeaturePages := CallbackCreate(ObjBindMethod(implObj, "GetSupportedFeaturePages"), flags, 4)
+        this.vtbl.GetSupportedProfiles := CallbackCreate(ObjBindMethod(implObj, "GetSupportedProfiles"), flags, 4)
+        this.vtbl.GetSupportedModePages := CallbackCreate(ObjBindMethod(implObj, "GetSupportedModePages"), flags, 4)
+        this.vtbl.GetByteAlignmentMask := CallbackCreate(ObjBindMethod(implObj, "GetByteAlignmentMask"), flags, 2)
+        this.vtbl.GetMaximumNonPageAlignedTransferSize := CallbackCreate(ObjBindMethod(implObj, "GetMaximumNonPageAlignedTransferSize"), flags, 2)
+        this.vtbl.GetMaximumPageAlignedTransferSize := CallbackCreate(ObjBindMethod(implObj, "GetMaximumPageAlignedTransferSize"), flags, 2)
     }
 
     Dispose() {

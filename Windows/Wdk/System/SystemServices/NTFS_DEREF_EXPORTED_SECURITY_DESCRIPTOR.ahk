@@ -19,13 +19,12 @@ export default struct NTFS_DEREF_EXPORTED_SECURITY_DESCRIPTOR {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Vcb 
      * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(Vcb, _SecurityDescriptor) {
-        VcbMarshal := Vcb is VarRef ? "ptr" : "ptr"
+        VcbMarshal := Vcb is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, VcbMarshal, Vcb, PSECURITY_DESCRIPTOR, _SecurityDescriptor)
     }

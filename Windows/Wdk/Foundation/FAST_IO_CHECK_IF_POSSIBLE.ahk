@@ -22,7 +22,6 @@ export default struct FAST_IO_CHECK_IF_POSSIBLE {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
@@ -34,7 +33,7 @@ export default struct FAST_IO_CHECK_IF_POSSIBLE {
      * @returns {BOOLEAN} 
      */
     Call(FileObject, FileOffset, Length, Wait, LockKey, CheckForReadOperation, IoStatus, DeviceObject) {
-        FileOffsetMarshal := FileOffset is VarRef ? "int64*" : "ptr"
+        FileOffsetMarshal := FileOffset is VarRef ? "int64*" : IntPtr
 
         result := DllCall(this.value, FILE_OBJECT.Ptr, FileObject, FileOffsetMarshal, FileOffset, UInt32, Length, BOOLEAN, Wait, UInt32, LockKey, BOOLEAN, CheckForReadOperation, IO_STATUS_BLOCK.Ptr, IoStatus, DEVICE_OBJECT.Ptr, DeviceObject, BOOLEAN)
         return result

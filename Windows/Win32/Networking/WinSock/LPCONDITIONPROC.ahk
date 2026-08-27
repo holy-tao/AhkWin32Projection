@@ -20,7 +20,6 @@ export default struct LPCONDITIONPROC {
     }
 
     /**
-     * 
      * @param {Pointer<WSABUF>} lpCallerId 
      * @param {Pointer<WSABUF>} lpCallerData 
      * @param {Pointer<QOS>} lpSQOS 
@@ -32,7 +31,7 @@ export default struct LPCONDITIONPROC {
      * @returns {Integer} 
      */
     Call(lpCallerId, lpCallerData, lpSQOS, lpGQOS, lpCalleeId, lpCalleeData, g, dwCallbackData) {
-        gMarshal := g is VarRef ? "uint*" : "ptr"
+        gMarshal := g is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, WSABUF.Ptr, lpCallerId, WSABUF.Ptr, lpCallerData, QOS.Ptr, lpSQOS, QOS.Ptr, lpGQOS, WSABUF.Ptr, lpCalleeId, WSABUF.Ptr, lpCalleeData, gMarshal, g, IntPtr, dwCallbackData, Int32)
         return result

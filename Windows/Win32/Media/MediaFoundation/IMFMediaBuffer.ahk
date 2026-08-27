@@ -170,9 +170,11 @@ export default struct IMFMediaBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediabuffer-lock
      */
     Lock(ppbBuffer, pcbMaxLength, pcbCurrentLength) {
-        ppbBufferMarshal := ppbBuffer is VarRef ? "ptr*" : "ptr"
-        pcbMaxLengthMarshal := pcbMaxLength is VarRef ? "uint*" : "ptr"
-        pcbCurrentLengthMarshal := pcbCurrentLength is VarRef ? "uint*" : "ptr"
+        ppbBufferMarshal := ppbBuffer is VarRef ? "ptr*" : IntPtr
+        pcbMaxLengthMarshal := pcbMaxLength is VarRef ? "uint*" : IntPtr
+        pcbMaxLengthMarshal := pcbMaxLength == 0 ? IntPtr : "uint*"
+        pcbCurrentLengthMarshal := pcbCurrentLength is VarRef ? "uint*" : IntPtr
+        pcbCurrentLengthMarshal := pcbCurrentLength == 0 ? IntPtr : "uint*"
 
         result := ComCall(3, this, ppbBufferMarshal, ppbBuffer, pcbMaxLengthMarshal, pcbMaxLength, pcbCurrentLengthMarshal, pcbCurrentLength, "HRESULT")
         return result
@@ -322,11 +324,11 @@ export default struct IMFMediaBuffer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Lock := CallbackCreate(GetMethod(implObj, "Lock"), flags, 4)
-        this.vtbl.Unlock := CallbackCreate(GetMethod(implObj, "Unlock"), flags, 1)
-        this.vtbl.GetCurrentLength := CallbackCreate(GetMethod(implObj, "GetCurrentLength"), flags, 2)
-        this.vtbl.SetCurrentLength := CallbackCreate(GetMethod(implObj, "SetCurrentLength"), flags, 2)
-        this.vtbl.GetMaxLength := CallbackCreate(GetMethod(implObj, "GetMaxLength"), flags, 2)
+        this.vtbl.Lock := CallbackCreate(ObjBindMethod(implObj, "Lock"), flags, 4)
+        this.vtbl.Unlock := CallbackCreate(ObjBindMethod(implObj, "Unlock"), flags, 1)
+        this.vtbl.GetCurrentLength := CallbackCreate(ObjBindMethod(implObj, "GetCurrentLength"), flags, 2)
+        this.vtbl.SetCurrentLength := CallbackCreate(ObjBindMethod(implObj, "SetCurrentLength"), flags, 2)
+        this.vtbl.GetMaxLength := CallbackCreate(ObjBindMethod(implObj, "GetMaxLength"), flags, 2)
     }
 
     Dispose() {

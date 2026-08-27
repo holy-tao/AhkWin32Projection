@@ -36,15 +36,14 @@ export default struct IWinInetInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwOption 
      * @param {Pointer<Void>} pBuffer 
      * @param {Pointer<Integer>} pcbBuf 
      * @returns {HRESULT} 
      */
     QueryOption(dwOption, pBuffer, pcbBuf) {
-        pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
-        pcbBufMarshal := pcbBuf is VarRef ? "uint*" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "ptr" : IntPtr
+        pcbBufMarshal := pcbBuf is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, UInt32, dwOption, pBufferMarshal, pBuffer, pcbBufMarshal, pcbBuf, "HRESULT")
         return result
@@ -59,7 +58,7 @@ export default struct IWinInetInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryOption := CallbackCreate(GetMethod(implObj, "QueryOption"), flags, 4)
+        this.vtbl.QueryOption := CallbackCreate(ObjBindMethod(implObj, "QueryOption"), flags, 4)
     }
 
     Dispose() {

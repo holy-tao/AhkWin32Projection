@@ -152,7 +152,6 @@ export default struct IGPMGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DisplayName() {
@@ -162,7 +161,6 @@ export default struct IGPMGPO extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} newVal 
      * @returns {HRESULT} 
      */
@@ -174,7 +172,6 @@ export default struct IGPMGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Path() {
@@ -184,7 +181,6 @@ export default struct IGPMGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ID() {
@@ -194,7 +190,6 @@ export default struct IGPMGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DomainName() {
@@ -204,7 +199,6 @@ export default struct IGPMGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_CreationTime() {
@@ -213,7 +207,6 @@ export default struct IGPMGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_ModificationTime() {
@@ -222,7 +215,6 @@ export default struct IGPMGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_UserDSVersionNumber() {
@@ -231,7 +223,6 @@ export default struct IGPMGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ComputerDSVersionNumber() {
@@ -240,7 +231,6 @@ export default struct IGPMGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_UserSysvolVersionNumber() {
@@ -249,7 +239,6 @@ export default struct IGPMGPO extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ComputerSysvolVersionNumber() {
@@ -589,35 +578,35 @@ export default struct IGPMGPO extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_DisplayName := CallbackCreate(GetMethod(implObj, "get_DisplayName"), flags, 2)
-        this.vtbl.put_DisplayName := CallbackCreate(GetMethod(implObj, "put_DisplayName"), flags, 2)
-        this.vtbl.get_Path := CallbackCreate(GetMethod(implObj, "get_Path"), flags, 2)
-        this.vtbl.get_ID := CallbackCreate(GetMethod(implObj, "get_ID"), flags, 2)
-        this.vtbl.get_DomainName := CallbackCreate(GetMethod(implObj, "get_DomainName"), flags, 2)
-        this.vtbl.get_CreationTime := CallbackCreate(GetMethod(implObj, "get_CreationTime"), flags, 2)
-        this.vtbl.get_ModificationTime := CallbackCreate(GetMethod(implObj, "get_ModificationTime"), flags, 2)
-        this.vtbl.get_UserDSVersionNumber := CallbackCreate(GetMethod(implObj, "get_UserDSVersionNumber"), flags, 2)
-        this.vtbl.get_ComputerDSVersionNumber := CallbackCreate(GetMethod(implObj, "get_ComputerDSVersionNumber"), flags, 2)
-        this.vtbl.get_UserSysvolVersionNumber := CallbackCreate(GetMethod(implObj, "get_UserSysvolVersionNumber"), flags, 2)
-        this.vtbl.get_ComputerSysvolVersionNumber := CallbackCreate(GetMethod(implObj, "get_ComputerSysvolVersionNumber"), flags, 2)
-        this.vtbl.GetWMIFilter := CallbackCreate(GetMethod(implObj, "GetWMIFilter"), flags, 2)
-        this.vtbl.SetWMIFilter := CallbackCreate(GetMethod(implObj, "SetWMIFilter"), flags, 2)
-        this.vtbl.SetUserEnabled := CallbackCreate(GetMethod(implObj, "SetUserEnabled"), flags, 2)
-        this.vtbl.SetComputerEnabled := CallbackCreate(GetMethod(implObj, "SetComputerEnabled"), flags, 2)
-        this.vtbl.IsUserEnabled := CallbackCreate(GetMethod(implObj, "IsUserEnabled"), flags, 2)
-        this.vtbl.IsComputerEnabled := CallbackCreate(GetMethod(implObj, "IsComputerEnabled"), flags, 2)
-        this.vtbl.GetSecurityInfo := CallbackCreate(GetMethod(implObj, "GetSecurityInfo"), flags, 2)
-        this.vtbl.SetSecurityInfo := CallbackCreate(GetMethod(implObj, "SetSecurityInfo"), flags, 2)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
-        this.vtbl.Backup := CallbackCreate(GetMethod(implObj, "Backup"), flags, 6)
-        this.vtbl.Import := CallbackCreate(GetMethod(implObj, "Import"), flags, 7)
-        this.vtbl.GenerateReport := CallbackCreate(GetMethod(implObj, "GenerateReport"), flags, 5)
-        this.vtbl.GenerateReportToFile := CallbackCreate(GetMethod(implObj, "GenerateReportToFile"), flags, 4)
-        this.vtbl.CopyTo := CallbackCreate(GetMethod(implObj, "CopyTo"), flags, 8)
-        this.vtbl.SetSecurityDescriptor := CallbackCreate(GetMethod(implObj, "SetSecurityDescriptor"), flags, 3)
-        this.vtbl.GetSecurityDescriptor := CallbackCreate(GetMethod(implObj, "GetSecurityDescriptor"), flags, 3)
-        this.vtbl.IsACLConsistent := CallbackCreate(GetMethod(implObj, "IsACLConsistent"), flags, 2)
-        this.vtbl.MakeACLConsistent := CallbackCreate(GetMethod(implObj, "MakeACLConsistent"), flags, 1)
+        this.vtbl.get_DisplayName := CallbackCreate(ObjBindMethod(implObj, "get_DisplayName"), flags, 2)
+        this.vtbl.put_DisplayName := CallbackCreate(ObjBindMethod(implObj, "put_DisplayName"), flags, 2)
+        this.vtbl.get_Path := CallbackCreate(ObjBindMethod(implObj, "get_Path"), flags, 2)
+        this.vtbl.get_ID := CallbackCreate(ObjBindMethod(implObj, "get_ID"), flags, 2)
+        this.vtbl.get_DomainName := CallbackCreate(ObjBindMethod(implObj, "get_DomainName"), flags, 2)
+        this.vtbl.get_CreationTime := CallbackCreate(ObjBindMethod(implObj, "get_CreationTime"), flags, 2)
+        this.vtbl.get_ModificationTime := CallbackCreate(ObjBindMethod(implObj, "get_ModificationTime"), flags, 2)
+        this.vtbl.get_UserDSVersionNumber := CallbackCreate(ObjBindMethod(implObj, "get_UserDSVersionNumber"), flags, 2)
+        this.vtbl.get_ComputerDSVersionNumber := CallbackCreate(ObjBindMethod(implObj, "get_ComputerDSVersionNumber"), flags, 2)
+        this.vtbl.get_UserSysvolVersionNumber := CallbackCreate(ObjBindMethod(implObj, "get_UserSysvolVersionNumber"), flags, 2)
+        this.vtbl.get_ComputerSysvolVersionNumber := CallbackCreate(ObjBindMethod(implObj, "get_ComputerSysvolVersionNumber"), flags, 2)
+        this.vtbl.GetWMIFilter := CallbackCreate(ObjBindMethod(implObj, "GetWMIFilter"), flags, 2)
+        this.vtbl.SetWMIFilter := CallbackCreate(ObjBindMethod(implObj, "SetWMIFilter"), flags, 2)
+        this.vtbl.SetUserEnabled := CallbackCreate(ObjBindMethod(implObj, "SetUserEnabled"), flags, 2)
+        this.vtbl.SetComputerEnabled := CallbackCreate(ObjBindMethod(implObj, "SetComputerEnabled"), flags, 2)
+        this.vtbl.IsUserEnabled := CallbackCreate(ObjBindMethod(implObj, "IsUserEnabled"), flags, 2)
+        this.vtbl.IsComputerEnabled := CallbackCreate(ObjBindMethod(implObj, "IsComputerEnabled"), flags, 2)
+        this.vtbl.GetSecurityInfo := CallbackCreate(ObjBindMethod(implObj, "GetSecurityInfo"), flags, 2)
+        this.vtbl.SetSecurityInfo := CallbackCreate(ObjBindMethod(implObj, "SetSecurityInfo"), flags, 2)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.Backup := CallbackCreate(ObjBindMethod(implObj, "Backup"), flags, 6)
+        this.vtbl.Import := CallbackCreate(ObjBindMethod(implObj, "Import"), flags, 7)
+        this.vtbl.GenerateReport := CallbackCreate(ObjBindMethod(implObj, "GenerateReport"), flags, 5)
+        this.vtbl.GenerateReportToFile := CallbackCreate(ObjBindMethod(implObj, "GenerateReportToFile"), flags, 4)
+        this.vtbl.CopyTo := CallbackCreate(ObjBindMethod(implObj, "CopyTo"), flags, 8)
+        this.vtbl.SetSecurityDescriptor := CallbackCreate(ObjBindMethod(implObj, "SetSecurityDescriptor"), flags, 3)
+        this.vtbl.GetSecurityDescriptor := CallbackCreate(ObjBindMethod(implObj, "GetSecurityDescriptor"), flags, 3)
+        this.vtbl.IsACLConsistent := CallbackCreate(ObjBindMethod(implObj, "IsACLConsistent"), flags, 2)
+        this.vtbl.MakeACLConsistent := CallbackCreate(ObjBindMethod(implObj, "MakeACLConsistent"), flags, 1)
     }
 
     Dispose() {

@@ -122,7 +122,7 @@ export default struct IURLSearchHook extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Translate := CallbackCreate(GetMethod(implObj, "Translate"), flags, 3)
+        this.vtbl.Translate := CallbackCreate(ObjBindMethod(implObj, "Translate"), flags, 3)
     }
 
     Dispose() {

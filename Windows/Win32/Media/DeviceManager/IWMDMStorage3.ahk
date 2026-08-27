@@ -75,7 +75,9 @@ export default struct IWMDMStorage3 extends IWMDMStorage2 {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorage3-setmetadata
      */
     SetMetadata(pMetadata) {
-        result := ComCall(16, this, "ptr", pMetadata, "HRESULT")
+        pMetadataMarshal := pMetadata == 0 ? IntPtr : "ptr"
+
+        result := ComCall(16, this, pMetadataMarshal, pMetadata, "HRESULT")
         return result
     }
 
@@ -195,9 +197,10 @@ export default struct IWMDMStorage3 extends IWMDMStorage2 {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorage3-setenumpreference
      */
     SetEnumPreference(pMode, nViews, pViews) {
-        pModeMarshal := pMode is VarRef ? "int*" : "ptr"
+        pModeMarshal := pMode is VarRef ? "int*" : IntPtr
+        pViewsMarshal := pViews == 0 ? IntPtr : WMDMMetadataView.Ptr
 
-        result := ComCall(18, this, pModeMarshal, pMode, UInt32, nViews, WMDMMetadataView.Ptr, pViews, "HRESULT")
+        result := ComCall(18, this, pModeMarshal, pMode, UInt32, nViews, pViewsMarshal, pViews, "HRESULT")
         return result
     }
 
@@ -210,10 +213,10 @@ export default struct IWMDMStorage3 extends IWMDMStorage2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMetadata := CallbackCreate(GetMethod(implObj, "GetMetadata"), flags, 2)
-        this.vtbl.SetMetadata := CallbackCreate(GetMethod(implObj, "SetMetadata"), flags, 2)
-        this.vtbl.CreateEmptyMetadataObject := CallbackCreate(GetMethod(implObj, "CreateEmptyMetadataObject"), flags, 2)
-        this.vtbl.SetEnumPreference := CallbackCreate(GetMethod(implObj, "SetEnumPreference"), flags, 4)
+        this.vtbl.GetMetadata := CallbackCreate(ObjBindMethod(implObj, "GetMetadata"), flags, 2)
+        this.vtbl.SetMetadata := CallbackCreate(ObjBindMethod(implObj, "SetMetadata"), flags, 2)
+        this.vtbl.CreateEmptyMetadataObject := CallbackCreate(ObjBindMethod(implObj, "CreateEmptyMetadataObject"), flags, 2)
+        this.vtbl.SetEnumPreference := CallbackCreate(ObjBindMethod(implObj, "SetEnumPreference"), flags, 4)
     }
 
     Dispose() {

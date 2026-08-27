@@ -18,7 +18,6 @@ export default struct CO_CREATE_VC_HANDLER {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Call() {

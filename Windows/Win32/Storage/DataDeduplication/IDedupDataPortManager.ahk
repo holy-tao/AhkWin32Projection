@@ -72,18 +72,17 @@ export default struct IDedupDataPortManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/BEvtColProv/control-getconfiguration
      */
     GetConfiguration(pMinChunkSize, pMaxChunkSize, pChunkingAlgorithm, pHashingAlgorithm, pCompressionAlgorithm) {
-        pMinChunkSizeMarshal := pMinChunkSize is VarRef ? "uint*" : "ptr"
-        pMaxChunkSizeMarshal := pMaxChunkSize is VarRef ? "uint*" : "ptr"
-        pChunkingAlgorithmMarshal := pChunkingAlgorithm is VarRef ? "int*" : "ptr"
-        pHashingAlgorithmMarshal := pHashingAlgorithm is VarRef ? "int*" : "ptr"
-        pCompressionAlgorithmMarshal := pCompressionAlgorithm is VarRef ? "int*" : "ptr"
+        pMinChunkSizeMarshal := pMinChunkSize is VarRef ? "uint*" : IntPtr
+        pMaxChunkSizeMarshal := pMaxChunkSize is VarRef ? "uint*" : IntPtr
+        pChunkingAlgorithmMarshal := pChunkingAlgorithm is VarRef ? "int*" : IntPtr
+        pHashingAlgorithmMarshal := pHashingAlgorithm is VarRef ? "int*" : IntPtr
+        pCompressionAlgorithmMarshal := pCompressionAlgorithm is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, pMinChunkSizeMarshal, pMinChunkSize, pMaxChunkSizeMarshal, pMaxChunkSize, pChunkingAlgorithmMarshal, pChunkingAlgorithm, pHashingAlgorithmMarshal, pHashingAlgorithm, pCompressionAlgorithmMarshal, pCompressionAlgorithm, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @param {BSTR} _Path 
      * @returns {DedupDataPortVolumeStatus} 
@@ -96,7 +95,6 @@ export default struct IDedupDataPortManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @param {BSTR} _Path 
      * @returns {IDedupDataPort} 
@@ -117,9 +115,9 @@ export default struct IDedupDataPortManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetConfiguration := CallbackCreate(GetMethod(implObj, "GetConfiguration"), flags, 6)
-        this.vtbl.GetVolumeStatus := CallbackCreate(GetMethod(implObj, "GetVolumeStatus"), flags, 4)
-        this.vtbl.GetVolumeDataPort := CallbackCreate(GetMethod(implObj, "GetVolumeDataPort"), flags, 4)
+        this.vtbl.GetConfiguration := CallbackCreate(ObjBindMethod(implObj, "GetConfiguration"), flags, 6)
+        this.vtbl.GetVolumeStatus := CallbackCreate(ObjBindMethod(implObj, "GetVolumeStatus"), flags, 4)
+        this.vtbl.GetVolumeDataPort := CallbackCreate(ObjBindMethod(implObj, "GetVolumeDataPort"), flags, 4)
     }
 
     Dispose() {

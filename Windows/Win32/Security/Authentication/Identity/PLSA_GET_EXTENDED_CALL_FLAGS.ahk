@@ -19,12 +19,11 @@ export default struct PLSA_GET_EXTENDED_CALL_FLAGS {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} Flags 
      * @returns {NTSTATUS} 
      */
     Call(Flags) {
-        FlagsMarshal := Flags is VarRef ? "uint*" : "ptr"
+        FlagsMarshal := Flags is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, FlagsMarshal, Flags, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

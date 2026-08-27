@@ -57,7 +57,6 @@ export default struct IRTCSessionStateChangeEvent2 extends IRTCSessionStateChang
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MediaTypes() {
@@ -66,7 +65,6 @@ export default struct IRTCSessionStateChangeEvent2 extends IRTCSessionStateChang
     }
 
     /**
-     * 
      * @param {RTC_SECURITY_TYPE} enSecurityType 
      * @returns {RTC_SECURITY_LEVEL} 
      */
@@ -76,7 +74,6 @@ export default struct IRTCSessionStateChangeEvent2 extends IRTCSessionStateChang
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsForked() {
@@ -85,7 +82,6 @@ export default struct IRTCSessionStateChangeEvent2 extends IRTCSessionStateChang
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrContentType 
      * @param {Pointer<BSTR>} pbstrSessionDescription 
      * @returns {HRESULT} 
@@ -104,10 +100,10 @@ export default struct IRTCSessionStateChangeEvent2 extends IRTCSessionStateChang
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_MediaTypes := CallbackCreate(GetMethod(implObj, "get_MediaTypes"), flags, 2)
-        this.vtbl.get_RemotePreferredSecurityLevel := CallbackCreate(GetMethod(implObj, "get_RemotePreferredSecurityLevel"), flags, 3)
-        this.vtbl.get_IsForked := CallbackCreate(GetMethod(implObj, "get_IsForked"), flags, 2)
-        this.vtbl.GetRemoteSessionDescription := CallbackCreate(GetMethod(implObj, "GetRemoteSessionDescription"), flags, 3)
+        this.vtbl.get_MediaTypes := CallbackCreate(ObjBindMethod(implObj, "get_MediaTypes"), flags, 2)
+        this.vtbl.get_RemotePreferredSecurityLevel := CallbackCreate(ObjBindMethod(implObj, "get_RemotePreferredSecurityLevel"), flags, 3)
+        this.vtbl.get_IsForked := CallbackCreate(ObjBindMethod(implObj, "get_IsForked"), flags, 2)
+        this.vtbl.GetRemoteSessionDescription := CallbackCreate(ObjBindMethod(implObj, "GetRemoteSessionDescription"), flags, 3)
     }
 
     Dispose() {

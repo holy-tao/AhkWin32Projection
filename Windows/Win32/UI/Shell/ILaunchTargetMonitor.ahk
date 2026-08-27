@@ -60,7 +60,7 @@ export default struct ILaunchTargetMonitor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMonitor := CallbackCreate(GetMethod(implObj, "GetMonitor"), flags, 2)
+        this.vtbl.GetMonitor := CallbackCreate(ObjBindMethod(implObj, "GetMonitor"), flags, 2)
     }
 
     Dispose() {

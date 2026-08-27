@@ -68,8 +68,8 @@ export default struct IAudioEndpointOffloadStreamMeter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMeterChannelCount := CallbackCreate(GetMethod(implObj, "GetMeterChannelCount"), flags, 2)
-        this.vtbl.GetMeteringData := CallbackCreate(GetMethod(implObj, "GetMeteringData"), flags, 3)
+        this.vtbl.GetMeterChannelCount := CallbackCreate(ObjBindMethod(implObj, "GetMeterChannelCount"), flags, 2)
+        this.vtbl.GetMeteringData := CallbackCreate(ObjBindMethod(implObj, "GetMeteringData"), flags, 3)
     }
 
     Dispose() {

@@ -259,13 +259,13 @@ export default struct IMFASFContentInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetHeaderSize := CallbackCreate(GetMethod(implObj, "GetHeaderSize"), flags, 3)
-        this.vtbl.ParseHeader := CallbackCreate(GetMethod(implObj, "ParseHeader"), flags, 3)
-        this.vtbl.GenerateHeader := CallbackCreate(GetMethod(implObj, "GenerateHeader"), flags, 3)
-        this.vtbl.GetProfile := CallbackCreate(GetMethod(implObj, "GetProfile"), flags, 2)
-        this.vtbl.SetProfile := CallbackCreate(GetMethod(implObj, "SetProfile"), flags, 2)
-        this.vtbl.GeneratePresentationDescriptor := CallbackCreate(GetMethod(implObj, "GeneratePresentationDescriptor"), flags, 2)
-        this.vtbl.GetEncodingConfigurationPropertyStore := CallbackCreate(GetMethod(implObj, "GetEncodingConfigurationPropertyStore"), flags, 3)
+        this.vtbl.GetHeaderSize := CallbackCreate(ObjBindMethod(implObj, "GetHeaderSize"), flags, 3)
+        this.vtbl.ParseHeader := CallbackCreate(ObjBindMethod(implObj, "ParseHeader"), flags, 3)
+        this.vtbl.GenerateHeader := CallbackCreate(ObjBindMethod(implObj, "GenerateHeader"), flags, 3)
+        this.vtbl.GetProfile := CallbackCreate(ObjBindMethod(implObj, "GetProfile"), flags, 2)
+        this.vtbl.SetProfile := CallbackCreate(ObjBindMethod(implObj, "SetProfile"), flags, 2)
+        this.vtbl.GeneratePresentationDescriptor := CallbackCreate(ObjBindMethod(implObj, "GeneratePresentationDescriptor"), flags, 2)
+        this.vtbl.GetEncodingConfigurationPropertyStore := CallbackCreate(ObjBindMethod(implObj, "GetEncodingConfigurationPropertyStore"), flags, 3)
     }
 
     Dispose() {

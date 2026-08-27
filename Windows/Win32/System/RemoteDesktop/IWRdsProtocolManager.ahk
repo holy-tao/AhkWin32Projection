@@ -169,14 +169,14 @@ export default struct IWRdsProtocolManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.CreateListener := CallbackCreate(GetMethod(implObj, "CreateListener"), flags, 3)
-        this.vtbl.NotifyServiceStateChange := CallbackCreate(GetMethod(implObj, "NotifyServiceStateChange"), flags, 2)
-        this.vtbl.NotifySessionOfServiceStart := CallbackCreate(GetMethod(implObj, "NotifySessionOfServiceStart"), flags, 2)
-        this.vtbl.NotifySessionOfServiceStop := CallbackCreate(GetMethod(implObj, "NotifySessionOfServiceStop"), flags, 2)
-        this.vtbl.NotifySessionStateChange := CallbackCreate(GetMethod(implObj, "NotifySessionStateChange"), flags, 3)
-        this.vtbl.NotifySettingsChange := CallbackCreate(GetMethod(implObj, "NotifySettingsChange"), flags, 2)
-        this.vtbl.Uninitialize := CallbackCreate(GetMethod(implObj, "Uninitialize"), flags, 1)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.CreateListener := CallbackCreate(ObjBindMethod(implObj, "CreateListener"), flags, 3)
+        this.vtbl.NotifyServiceStateChange := CallbackCreate(ObjBindMethod(implObj, "NotifyServiceStateChange"), flags, 2)
+        this.vtbl.NotifySessionOfServiceStart := CallbackCreate(ObjBindMethod(implObj, "NotifySessionOfServiceStart"), flags, 2)
+        this.vtbl.NotifySessionOfServiceStop := CallbackCreate(ObjBindMethod(implObj, "NotifySessionOfServiceStop"), flags, 2)
+        this.vtbl.NotifySessionStateChange := CallbackCreate(ObjBindMethod(implObj, "NotifySessionStateChange"), flags, 3)
+        this.vtbl.NotifySettingsChange := CallbackCreate(ObjBindMethod(implObj, "NotifySettingsChange"), flags, 2)
+        this.vtbl.Uninitialize := CallbackCreate(ObjBindMethod(implObj, "Uninitialize"), flags, 1)
     }
 
     Dispose() {

@@ -50,7 +50,6 @@ export default struct ILatLongReportFactory extends ILocationReportFactory {
     }
 
     /**
-     * 
      * @returns {IDispLatLongReport} 
      */
     get_LatLongReport() {
@@ -67,7 +66,7 @@ export default struct ILatLongReportFactory extends ILocationReportFactory {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_LatLongReport := CallbackCreate(GetMethod(implObj, "get_LatLongReport"), flags, 2)
+        this.vtbl.get_LatLongReport := CallbackCreate(ObjBindMethod(implObj, "get_LatLongReport"), flags, 2)
     }
 
     Dispose() {

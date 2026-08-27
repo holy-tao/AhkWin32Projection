@@ -75,8 +75,8 @@ export default struct ITfKeyTraceEventSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnKeyTraceDown := CallbackCreate(GetMethod(implObj, "OnKeyTraceDown"), flags, 3)
-        this.vtbl.OnKeyTraceUp := CallbackCreate(GetMethod(implObj, "OnKeyTraceUp"), flags, 3)
+        this.vtbl.OnKeyTraceDown := CallbackCreate(ObjBindMethod(implObj, "OnKeyTraceDown"), flags, 3)
+        this.vtbl.OnKeyTraceUp := CallbackCreate(ObjBindMethod(implObj, "OnKeyTraceUp"), flags, 3)
     }
 
     Dispose() {

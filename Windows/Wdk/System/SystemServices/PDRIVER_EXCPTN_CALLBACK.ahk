@@ -19,13 +19,12 @@ export default struct PDRIVER_EXCPTN_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<MCA_EXCEPTION>} BankLog 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Context, BankLog) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _ContextMarshal, _Context, MCA_EXCEPTION.Ptr, BankLog)
     }

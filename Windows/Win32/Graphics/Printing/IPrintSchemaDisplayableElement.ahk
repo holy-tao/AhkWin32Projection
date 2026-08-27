@@ -44,7 +44,6 @@ export default struct IPrintSchemaDisplayableElement extends IPrintSchemaElement
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DisplayName() {
@@ -62,7 +61,7 @@ export default struct IPrintSchemaDisplayableElement extends IPrintSchemaElement
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_DisplayName := CallbackCreate(GetMethod(implObj, "get_DisplayName"), flags, 2)
+        this.vtbl.get_DisplayName := CallbackCreate(ObjBindMethod(implObj, "get_DisplayName"), flags, 2)
     }
 
     Dispose() {

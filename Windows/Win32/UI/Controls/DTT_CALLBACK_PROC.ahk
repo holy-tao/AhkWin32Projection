@@ -22,7 +22,6 @@ export default struct DTT_CALLBACK_PROC {
     }
 
     /**
-     * 
      * @param {HDC} _hdc 
      * @param {PWSTR} pszText 
      * @param {Integer} cchText 

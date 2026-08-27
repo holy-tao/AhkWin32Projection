@@ -84,7 +84,6 @@ export default struct IDOMTreeWalker extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_root() {
@@ -93,7 +92,6 @@ export default struct IDOMTreeWalker extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_whatToShow() {
@@ -102,7 +100,6 @@ export default struct IDOMTreeWalker extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_filter() {
@@ -111,7 +108,6 @@ export default struct IDOMTreeWalker extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_expandEntityReferences() {
@@ -120,7 +116,6 @@ export default struct IDOMTreeWalker extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} v 
      * @returns {HRESULT} 
      */
@@ -130,7 +125,6 @@ export default struct IDOMTreeWalker extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_currentNode() {
@@ -139,7 +133,6 @@ export default struct IDOMTreeWalker extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     parentNode() {
@@ -148,7 +141,6 @@ export default struct IDOMTreeWalker extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     firstChild() {
@@ -157,7 +149,6 @@ export default struct IDOMTreeWalker extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     lastChild() {
@@ -166,7 +157,6 @@ export default struct IDOMTreeWalker extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     previousSibling() {
@@ -175,7 +165,6 @@ export default struct IDOMTreeWalker extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     nextSibling() {
@@ -184,7 +173,6 @@ export default struct IDOMTreeWalker extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     previousNode() {
@@ -193,7 +181,6 @@ export default struct IDOMTreeWalker extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     nextNode() {
@@ -210,19 +197,19 @@ export default struct IDOMTreeWalker extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_root := CallbackCreate(GetMethod(implObj, "get_root"), flags, 2)
-        this.vtbl.get_whatToShow := CallbackCreate(GetMethod(implObj, "get_whatToShow"), flags, 2)
-        this.vtbl.get_filter := CallbackCreate(GetMethod(implObj, "get_filter"), flags, 2)
-        this.vtbl.get_expandEntityReferences := CallbackCreate(GetMethod(implObj, "get_expandEntityReferences"), flags, 2)
-        this.vtbl.putref_currentNode := CallbackCreate(GetMethod(implObj, "putref_currentNode"), flags, 2)
-        this.vtbl.get_currentNode := CallbackCreate(GetMethod(implObj, "get_currentNode"), flags, 2)
-        this.vtbl.parentNode := CallbackCreate(GetMethod(implObj, "parentNode"), flags, 2)
-        this.vtbl.firstChild := CallbackCreate(GetMethod(implObj, "firstChild"), flags, 2)
-        this.vtbl.lastChild := CallbackCreate(GetMethod(implObj, "lastChild"), flags, 2)
-        this.vtbl.previousSibling := CallbackCreate(GetMethod(implObj, "previousSibling"), flags, 2)
-        this.vtbl.nextSibling := CallbackCreate(GetMethod(implObj, "nextSibling"), flags, 2)
-        this.vtbl.previousNode := CallbackCreate(GetMethod(implObj, "previousNode"), flags, 2)
-        this.vtbl.nextNode := CallbackCreate(GetMethod(implObj, "nextNode"), flags, 2)
+        this.vtbl.get_root := CallbackCreate(ObjBindMethod(implObj, "get_root"), flags, 2)
+        this.vtbl.get_whatToShow := CallbackCreate(ObjBindMethod(implObj, "get_whatToShow"), flags, 2)
+        this.vtbl.get_filter := CallbackCreate(ObjBindMethod(implObj, "get_filter"), flags, 2)
+        this.vtbl.get_expandEntityReferences := CallbackCreate(ObjBindMethod(implObj, "get_expandEntityReferences"), flags, 2)
+        this.vtbl.putref_currentNode := CallbackCreate(ObjBindMethod(implObj, "putref_currentNode"), flags, 2)
+        this.vtbl.get_currentNode := CallbackCreate(ObjBindMethod(implObj, "get_currentNode"), flags, 2)
+        this.vtbl.parentNode := CallbackCreate(ObjBindMethod(implObj, "parentNode"), flags, 2)
+        this.vtbl.firstChild := CallbackCreate(ObjBindMethod(implObj, "firstChild"), flags, 2)
+        this.vtbl.lastChild := CallbackCreate(ObjBindMethod(implObj, "lastChild"), flags, 2)
+        this.vtbl.previousSibling := CallbackCreate(ObjBindMethod(implObj, "previousSibling"), flags, 2)
+        this.vtbl.nextSibling := CallbackCreate(ObjBindMethod(implObj, "nextSibling"), flags, 2)
+        this.vtbl.previousNode := CallbackCreate(ObjBindMethod(implObj, "previousNode"), flags, 2)
+        this.vtbl.nextNode := CallbackCreate(ObjBindMethod(implObj, "nextNode"), flags, 2)
     }
 
     Dispose() {

@@ -18,7 +18,6 @@ export default struct PNDIS_TIMER_FUNCTION {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

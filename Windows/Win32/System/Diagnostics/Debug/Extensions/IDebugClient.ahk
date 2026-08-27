@@ -84,7 +84,6 @@ export default struct IDebugClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @param {PSTR} ConnectOptions 
      * @returns {HRESULT} 
@@ -92,12 +91,13 @@ export default struct IDebugClient extends IUnknown {
     AttachKernel(Flags, ConnectOptions) {
         ConnectOptions := ConnectOptions is String ? StrPtr(ConnectOptions) : ConnectOptions
 
-        result := ComCall(3, this, UInt32, Flags, "ptr", ConnectOptions, "HRESULT")
+        ConnectOptionsMarshal := ConnectOptions == 0 ? IntPtr : PSTR
+
+        result := ComCall(3, this, UInt32, Flags, ConnectOptionsMarshal, ConnectOptions, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -105,12 +105,13 @@ export default struct IDebugClient extends IUnknown {
     GetKernelConnectionOptions(_Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(4, this, "ptr", _Buffer, UInt32, BufferSize, "uint*", &OptionsSize := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PSTR
+
+        result := ComCall(4, this, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &OptionsSize := 0, "HRESULT")
         return OptionsSize
     }
 
     /**
-     * 
      * @param {PSTR} Options 
      * @returns {HRESULT} 
      */
@@ -122,7 +123,6 @@ export default struct IDebugClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @param {PSTR} Options 
      * @returns {HRESULT} 
@@ -137,7 +137,6 @@ export default struct IDebugClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} RemoteOptions 
      * @returns {Integer} 
      */
@@ -149,7 +148,6 @@ export default struct IDebugClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @returns {HRESULT} 
      */
@@ -159,7 +157,6 @@ export default struct IDebugClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {Pointer<Integer>} Ids 
      * @param {Integer} Count 
@@ -167,15 +164,16 @@ export default struct IDebugClient extends IUnknown {
      * @returns {HRESULT} 
      */
     GetRunningProcessSystemIds(Server, Ids, Count, ActualCount) {
-        IdsMarshal := Ids is VarRef ? "uint*" : "ptr"
-        ActualCountMarshal := ActualCount is VarRef ? "uint*" : "ptr"
+        IdsMarshal := Ids is VarRef ? "uint*" : IntPtr
+        IdsMarshal := Ids == 0 ? IntPtr : "uint*"
+        ActualCountMarshal := ActualCount is VarRef ? "uint*" : IntPtr
+        ActualCountMarshal := ActualCount == 0 ? IntPtr : "uint*"
 
         result := ComCall(9, this, Int64, Server, IdsMarshal, Ids, UInt32, Count, ActualCountMarshal, ActualCount, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {PSTR} ExeName 
      * @param {Integer} Flags 
@@ -189,7 +187,6 @@ export default struct IDebugClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {Integer} SystemId 
      * @param {Integer} Flags 
@@ -205,15 +202,18 @@ export default struct IDebugClient extends IUnknown {
         ExeName := ExeName is String ? StrPtr(ExeName) : ExeName
         Description := Description is String ? StrPtr(Description) : Description
 
-        ActualExeNameSizeMarshal := ActualExeNameSize is VarRef ? "uint*" : "ptr"
-        ActualDescriptionSizeMarshal := ActualDescriptionSize is VarRef ? "uint*" : "ptr"
+        ExeNameMarshal := ExeName == 0 ? IntPtr : PSTR
+        ActualExeNameSizeMarshal := ActualExeNameSize is VarRef ? "uint*" : IntPtr
+        ActualExeNameSizeMarshal := ActualExeNameSize == 0 ? IntPtr : "uint*"
+        DescriptionMarshal := Description == 0 ? IntPtr : PSTR
+        ActualDescriptionSizeMarshal := ActualDescriptionSize is VarRef ? "uint*" : IntPtr
+        ActualDescriptionSizeMarshal := ActualDescriptionSize == 0 ? IntPtr : "uint*"
 
-        result := ComCall(11, this, Int64, Server, UInt32, SystemId, UInt32, Flags, "ptr", ExeName, UInt32, ExeNameSize, ActualExeNameSizeMarshal, ActualExeNameSize, "ptr", Description, UInt32, DescriptionSize, ActualDescriptionSizeMarshal, ActualDescriptionSize, "HRESULT")
+        result := ComCall(11, this, Int64, Server, UInt32, SystemId, UInt32, Flags, ExeNameMarshal, ExeName, UInt32, ExeNameSize, ActualExeNameSizeMarshal, ActualExeNameSize, DescriptionMarshal, Description, UInt32, DescriptionSize, ActualDescriptionSizeMarshal, ActualDescriptionSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {Integer} ProcessId 
      * @param {Integer} AttachFlags 
@@ -302,7 +302,6 @@ export default struct IDebugClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {PSTR} CommandLine 
      * @param {Integer} CreateFlags 
@@ -313,12 +312,13 @@ export default struct IDebugClient extends IUnknown {
     CreateProcessAndAttach(Server, CommandLine, CreateFlags, ProcessId, AttachFlags) {
         CommandLine := CommandLine is String ? StrPtr(CommandLine) : CommandLine
 
-        result := ComCall(14, this, Int64, Server, "ptr", CommandLine, UInt32, CreateFlags, UInt32, ProcessId, UInt32, AttachFlags, "HRESULT")
+        CommandLineMarshal := CommandLine == 0 ? IntPtr : PSTR
+
+        result := ComCall(14, this, Int64, Server, CommandLineMarshal, CommandLine, UInt32, CreateFlags, UInt32, ProcessId, UInt32, AttachFlags, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetProcessOptions() {
@@ -327,7 +327,6 @@ export default struct IDebugClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
@@ -337,7 +336,6 @@ export default struct IDebugClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
@@ -347,7 +345,6 @@ export default struct IDebugClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
@@ -357,7 +354,6 @@ export default struct IDebugClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} DumpFile 
      * @returns {HRESULT} 
      */
@@ -369,7 +365,6 @@ export default struct IDebugClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} DumpFile 
      * @param {Integer} Qualifier 
      * @returns {HRESULT} 
@@ -382,7 +377,6 @@ export default struct IDebugClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @param {Integer} HistoryLimit 
      * @returns {HRESULT} 
@@ -393,7 +387,6 @@ export default struct IDebugClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Options 
      * @returns {HRESULT} 
      */
@@ -405,7 +398,6 @@ export default struct IDebugClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {PSTR} Machine 
      * @param {Integer} Flags 
@@ -419,7 +411,6 @@ export default struct IDebugClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     TerminateProcesses() {
@@ -428,7 +419,6 @@ export default struct IDebugClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     DetachProcesses() {
@@ -437,7 +427,6 @@ export default struct IDebugClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @returns {HRESULT} 
      */
@@ -447,7 +436,6 @@ export default struct IDebugClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetExitCode() {
@@ -456,7 +444,6 @@ export default struct IDebugClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Timeout 
      * @returns {HRESULT} 
      */
@@ -466,7 +453,6 @@ export default struct IDebugClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugClient} Client 
      * @returns {HRESULT} 
      */
@@ -476,7 +462,6 @@ export default struct IDebugClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugClient} 
      */
     CreateClient() {
@@ -485,7 +470,6 @@ export default struct IDebugClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugInputCallbacks} 
      */
     GetInputCallbacks() {
@@ -494,17 +478,17 @@ export default struct IDebugClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugInputCallbacks} Callbacks 
      * @returns {HRESULT} 
      */
     SetInputCallbacks(Callbacks) {
-        result := ComCall(32, this, "ptr", Callbacks, "HRESULT")
+        CallbacksMarshal := Callbacks == 0 ? IntPtr : "ptr"
+
+        result := ComCall(32, this, CallbacksMarshal, Callbacks, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {IDebugOutputCallbacks} 
      */
     GetOutputCallbacks() {
@@ -513,17 +497,17 @@ export default struct IDebugClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugOutputCallbacks} Callbacks 
      * @returns {HRESULT} 
      */
     SetOutputCallbacks(Callbacks) {
-        result := ComCall(34, this, "ptr", Callbacks, "HRESULT")
+        CallbacksMarshal := Callbacks == 0 ? IntPtr : "ptr"
+
+        result := ComCall(34, this, CallbacksMarshal, Callbacks, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetOutputMask() {
@@ -532,7 +516,6 @@ export default struct IDebugClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Mask 
      * @returns {HRESULT} 
      */
@@ -542,7 +525,6 @@ export default struct IDebugClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugClient} Client 
      * @returns {Integer} 
      */
@@ -552,7 +534,6 @@ export default struct IDebugClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugClient} Client 
      * @param {Integer} Mask 
      * @returns {HRESULT} 
@@ -563,7 +544,6 @@ export default struct IDebugClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetOutputWidth() {
@@ -572,7 +552,6 @@ export default struct IDebugClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Columns 
      * @returns {HRESULT} 
      */
@@ -582,7 +561,6 @@ export default struct IDebugClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -590,24 +568,26 @@ export default struct IDebugClient extends IUnknown {
     GetOutputLinePrefix(_Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(41, this, "ptr", _Buffer, UInt32, BufferSize, "uint*", &PrefixSize := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PSTR
+
+        result := ComCall(41, this, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &PrefixSize := 0, "HRESULT")
         return PrefixSize
     }
 
     /**
-     * 
      * @param {PSTR} Prefix 
      * @returns {HRESULT} 
      */
     SetOutputLinePrefix(Prefix) {
         Prefix := Prefix is String ? StrPtr(Prefix) : Prefix
 
-        result := ComCall(42, this, "ptr", Prefix, "HRESULT")
+        PrefixMarshal := Prefix == 0 ? IntPtr : PSTR
+
+        result := ComCall(42, this, PrefixMarshal, Prefix, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PSTR} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
@@ -615,12 +595,13 @@ export default struct IDebugClient extends IUnknown {
     GetIdentity(_Buffer, BufferSize) {
         _Buffer := _Buffer is String ? StrPtr(_Buffer) : _Buffer
 
-        result := ComCall(43, this, "ptr", _Buffer, UInt32, BufferSize, "uint*", &IdentitySize := 0, "HRESULT")
+        _BufferMarshal := _Buffer == 0 ? IntPtr : PSTR
+
+        result := ComCall(43, this, _BufferMarshal, _Buffer, UInt32, BufferSize, "uint*", &IdentitySize := 0, "HRESULT")
         return IdentitySize
     }
 
     /**
-     * 
      * @param {Integer} OutputControl 
      * @param {Integer} Flags 
      * @param {PSTR} Format 
@@ -634,7 +615,6 @@ export default struct IDebugClient extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugEventCallbacks} 
      */
     GetEventCallbacks() {
@@ -643,17 +623,17 @@ export default struct IDebugClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugEventCallbacks} Callbacks 
      * @returns {HRESULT} 
      */
     SetEventCallbacks(Callbacks) {
-        result := ComCall(46, this, "ptr", Callbacks, "HRESULT")
+        CallbacksMarshal := Callbacks == 0 ? IntPtr : "ptr"
+
+        result := ComCall(46, this, CallbacksMarshal, Callbacks, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     FlushCallbacks() {
@@ -670,51 +650,51 @@ export default struct IDebugClient extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AttachKernel := CallbackCreate(GetMethod(implObj, "AttachKernel"), flags, 3)
-        this.vtbl.GetKernelConnectionOptions := CallbackCreate(GetMethod(implObj, "GetKernelConnectionOptions"), flags, 4)
-        this.vtbl.SetKernelConnectionOptions := CallbackCreate(GetMethod(implObj, "SetKernelConnectionOptions"), flags, 2)
-        this.vtbl.StartProcessServer := CallbackCreate(GetMethod(implObj, "StartProcessServer"), flags, 4)
-        this.vtbl.ConnectProcessServer := CallbackCreate(GetMethod(implObj, "ConnectProcessServer"), flags, 3)
-        this.vtbl.DisconnectProcessServer := CallbackCreate(GetMethod(implObj, "DisconnectProcessServer"), flags, 2)
-        this.vtbl.GetRunningProcessSystemIds := CallbackCreate(GetMethod(implObj, "GetRunningProcessSystemIds"), flags, 5)
-        this.vtbl.GetRunningProcessSystemIdByExecutableName := CallbackCreate(GetMethod(implObj, "GetRunningProcessSystemIdByExecutableName"), flags, 5)
-        this.vtbl.GetRunningProcessDescription := CallbackCreate(GetMethod(implObj, "GetRunningProcessDescription"), flags, 10)
-        this.vtbl.AttachProcess := CallbackCreate(GetMethod(implObj, "AttachProcess"), flags, 4)
-        this.vtbl.CreateProcessA := CallbackCreate(GetMethod(implObj, "CreateProcessA"), flags, 4)
-        this.vtbl.CreateProcessAndAttach := CallbackCreate(GetMethod(implObj, "CreateProcessAndAttach"), flags, 6)
-        this.vtbl.GetProcessOptions := CallbackCreate(GetMethod(implObj, "GetProcessOptions"), flags, 2)
-        this.vtbl.AddProcessOptions := CallbackCreate(GetMethod(implObj, "AddProcessOptions"), flags, 2)
-        this.vtbl.RemoveProcessOptions := CallbackCreate(GetMethod(implObj, "RemoveProcessOptions"), flags, 2)
-        this.vtbl.SetProcessOptions := CallbackCreate(GetMethod(implObj, "SetProcessOptions"), flags, 2)
-        this.vtbl.OpenDumpFile := CallbackCreate(GetMethod(implObj, "OpenDumpFile"), flags, 2)
-        this.vtbl.WriteDumpFile := CallbackCreate(GetMethod(implObj, "WriteDumpFile"), flags, 3)
-        this.vtbl.ConnectSession := CallbackCreate(GetMethod(implObj, "ConnectSession"), flags, 3)
-        this.vtbl.StartServer := CallbackCreate(GetMethod(implObj, "StartServer"), flags, 2)
-        this.vtbl.OutputServers := CallbackCreate(GetMethod(implObj, "OutputServers"), flags, 4)
-        this.vtbl.TerminateProcesses := CallbackCreate(GetMethod(implObj, "TerminateProcesses"), flags, 1)
-        this.vtbl.DetachProcesses := CallbackCreate(GetMethod(implObj, "DetachProcesses"), flags, 1)
-        this.vtbl.EndSession := CallbackCreate(GetMethod(implObj, "EndSession"), flags, 2)
-        this.vtbl.GetExitCode := CallbackCreate(GetMethod(implObj, "GetExitCode"), flags, 2)
-        this.vtbl.DispatchCallbacks := CallbackCreate(GetMethod(implObj, "DispatchCallbacks"), flags, 2)
-        this.vtbl.ExitDispatch := CallbackCreate(GetMethod(implObj, "ExitDispatch"), flags, 2)
-        this.vtbl.CreateClient := CallbackCreate(GetMethod(implObj, "CreateClient"), flags, 2)
-        this.vtbl.GetInputCallbacks := CallbackCreate(GetMethod(implObj, "GetInputCallbacks"), flags, 2)
-        this.vtbl.SetInputCallbacks := CallbackCreate(GetMethod(implObj, "SetInputCallbacks"), flags, 2)
-        this.vtbl.GetOutputCallbacks := CallbackCreate(GetMethod(implObj, "GetOutputCallbacks"), flags, 2)
-        this.vtbl.SetOutputCallbacks := CallbackCreate(GetMethod(implObj, "SetOutputCallbacks"), flags, 2)
-        this.vtbl.GetOutputMask := CallbackCreate(GetMethod(implObj, "GetOutputMask"), flags, 2)
-        this.vtbl.SetOutputMask := CallbackCreate(GetMethod(implObj, "SetOutputMask"), flags, 2)
-        this.vtbl.GetOtherOutputMask := CallbackCreate(GetMethod(implObj, "GetOtherOutputMask"), flags, 3)
-        this.vtbl.SetOtherOutputMask := CallbackCreate(GetMethod(implObj, "SetOtherOutputMask"), flags, 3)
-        this.vtbl.GetOutputWidth := CallbackCreate(GetMethod(implObj, "GetOutputWidth"), flags, 2)
-        this.vtbl.SetOutputWidth := CallbackCreate(GetMethod(implObj, "SetOutputWidth"), flags, 2)
-        this.vtbl.GetOutputLinePrefix := CallbackCreate(GetMethod(implObj, "GetOutputLinePrefix"), flags, 4)
-        this.vtbl.SetOutputLinePrefix := CallbackCreate(GetMethod(implObj, "SetOutputLinePrefix"), flags, 2)
-        this.vtbl.GetIdentity := CallbackCreate(GetMethod(implObj, "GetIdentity"), flags, 4)
-        this.vtbl.OutputIdentity := CallbackCreate(GetMethod(implObj, "OutputIdentity"), flags, 4)
-        this.vtbl.GetEventCallbacks := CallbackCreate(GetMethod(implObj, "GetEventCallbacks"), flags, 2)
-        this.vtbl.SetEventCallbacks := CallbackCreate(GetMethod(implObj, "SetEventCallbacks"), flags, 2)
-        this.vtbl.FlushCallbacks := CallbackCreate(GetMethod(implObj, "FlushCallbacks"), flags, 1)
+        this.vtbl.AttachKernel := CallbackCreate(ObjBindMethod(implObj, "AttachKernel"), flags, 3)
+        this.vtbl.GetKernelConnectionOptions := CallbackCreate(ObjBindMethod(implObj, "GetKernelConnectionOptions"), flags, 4)
+        this.vtbl.SetKernelConnectionOptions := CallbackCreate(ObjBindMethod(implObj, "SetKernelConnectionOptions"), flags, 2)
+        this.vtbl.StartProcessServer := CallbackCreate(ObjBindMethod(implObj, "StartProcessServer"), flags, 4)
+        this.vtbl.ConnectProcessServer := CallbackCreate(ObjBindMethod(implObj, "ConnectProcessServer"), flags, 3)
+        this.vtbl.DisconnectProcessServer := CallbackCreate(ObjBindMethod(implObj, "DisconnectProcessServer"), flags, 2)
+        this.vtbl.GetRunningProcessSystemIds := CallbackCreate(ObjBindMethod(implObj, "GetRunningProcessSystemIds"), flags, 5)
+        this.vtbl.GetRunningProcessSystemIdByExecutableName := CallbackCreate(ObjBindMethod(implObj, "GetRunningProcessSystemIdByExecutableName"), flags, 5)
+        this.vtbl.GetRunningProcessDescription := CallbackCreate(ObjBindMethod(implObj, "GetRunningProcessDescription"), flags, 10)
+        this.vtbl.AttachProcess := CallbackCreate(ObjBindMethod(implObj, "AttachProcess"), flags, 4)
+        this.vtbl.CreateProcessA := CallbackCreate(ObjBindMethod(implObj, "CreateProcessA"), flags, 4)
+        this.vtbl.CreateProcessAndAttach := CallbackCreate(ObjBindMethod(implObj, "CreateProcessAndAttach"), flags, 6)
+        this.vtbl.GetProcessOptions := CallbackCreate(ObjBindMethod(implObj, "GetProcessOptions"), flags, 2)
+        this.vtbl.AddProcessOptions := CallbackCreate(ObjBindMethod(implObj, "AddProcessOptions"), flags, 2)
+        this.vtbl.RemoveProcessOptions := CallbackCreate(ObjBindMethod(implObj, "RemoveProcessOptions"), flags, 2)
+        this.vtbl.SetProcessOptions := CallbackCreate(ObjBindMethod(implObj, "SetProcessOptions"), flags, 2)
+        this.vtbl.OpenDumpFile := CallbackCreate(ObjBindMethod(implObj, "OpenDumpFile"), flags, 2)
+        this.vtbl.WriteDumpFile := CallbackCreate(ObjBindMethod(implObj, "WriteDumpFile"), flags, 3)
+        this.vtbl.ConnectSession := CallbackCreate(ObjBindMethod(implObj, "ConnectSession"), flags, 3)
+        this.vtbl.StartServer := CallbackCreate(ObjBindMethod(implObj, "StartServer"), flags, 2)
+        this.vtbl.OutputServers := CallbackCreate(ObjBindMethod(implObj, "OutputServers"), flags, 4)
+        this.vtbl.TerminateProcesses := CallbackCreate(ObjBindMethod(implObj, "TerminateProcesses"), flags, 1)
+        this.vtbl.DetachProcesses := CallbackCreate(ObjBindMethod(implObj, "DetachProcesses"), flags, 1)
+        this.vtbl.EndSession := CallbackCreate(ObjBindMethod(implObj, "EndSession"), flags, 2)
+        this.vtbl.GetExitCode := CallbackCreate(ObjBindMethod(implObj, "GetExitCode"), flags, 2)
+        this.vtbl.DispatchCallbacks := CallbackCreate(ObjBindMethod(implObj, "DispatchCallbacks"), flags, 2)
+        this.vtbl.ExitDispatch := CallbackCreate(ObjBindMethod(implObj, "ExitDispatch"), flags, 2)
+        this.vtbl.CreateClient := CallbackCreate(ObjBindMethod(implObj, "CreateClient"), flags, 2)
+        this.vtbl.GetInputCallbacks := CallbackCreate(ObjBindMethod(implObj, "GetInputCallbacks"), flags, 2)
+        this.vtbl.SetInputCallbacks := CallbackCreate(ObjBindMethod(implObj, "SetInputCallbacks"), flags, 2)
+        this.vtbl.GetOutputCallbacks := CallbackCreate(ObjBindMethod(implObj, "GetOutputCallbacks"), flags, 2)
+        this.vtbl.SetOutputCallbacks := CallbackCreate(ObjBindMethod(implObj, "SetOutputCallbacks"), flags, 2)
+        this.vtbl.GetOutputMask := CallbackCreate(ObjBindMethod(implObj, "GetOutputMask"), flags, 2)
+        this.vtbl.SetOutputMask := CallbackCreate(ObjBindMethod(implObj, "SetOutputMask"), flags, 2)
+        this.vtbl.GetOtherOutputMask := CallbackCreate(ObjBindMethod(implObj, "GetOtherOutputMask"), flags, 3)
+        this.vtbl.SetOtherOutputMask := CallbackCreate(ObjBindMethod(implObj, "SetOtherOutputMask"), flags, 3)
+        this.vtbl.GetOutputWidth := CallbackCreate(ObjBindMethod(implObj, "GetOutputWidth"), flags, 2)
+        this.vtbl.SetOutputWidth := CallbackCreate(ObjBindMethod(implObj, "SetOutputWidth"), flags, 2)
+        this.vtbl.GetOutputLinePrefix := CallbackCreate(ObjBindMethod(implObj, "GetOutputLinePrefix"), flags, 4)
+        this.vtbl.SetOutputLinePrefix := CallbackCreate(ObjBindMethod(implObj, "SetOutputLinePrefix"), flags, 2)
+        this.vtbl.GetIdentity := CallbackCreate(ObjBindMethod(implObj, "GetIdentity"), flags, 4)
+        this.vtbl.OutputIdentity := CallbackCreate(ObjBindMethod(implObj, "OutputIdentity"), flags, 4)
+        this.vtbl.GetEventCallbacks := CallbackCreate(ObjBindMethod(implObj, "GetEventCallbacks"), flags, 2)
+        this.vtbl.SetEventCallbacks := CallbackCreate(ObjBindMethod(implObj, "SetEventCallbacks"), flags, 2)
+        this.vtbl.FlushCallbacks := CallbackCreate(ObjBindMethod(implObj, "FlushCallbacks"), flags, 1)
     }
 
     Dispose() {

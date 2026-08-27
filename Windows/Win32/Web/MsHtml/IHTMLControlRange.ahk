@@ -295,7 +295,6 @@ export default struct IHTMLControlRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {HRESULT} 
      */
@@ -305,7 +304,6 @@ export default struct IHTMLControlRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {IHTMLElement} 
      */
@@ -315,7 +313,6 @@ export default struct IHTMLControlRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varargStart 
      * @returns {HRESULT} 
      */
@@ -325,7 +322,6 @@ export default struct IHTMLControlRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {VARIANT_BOOL} 
      */
@@ -337,7 +333,6 @@ export default struct IHTMLControlRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {VARIANT_BOOL} 
      */
@@ -349,7 +344,6 @@ export default struct IHTMLControlRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {VARIANT_BOOL} 
      */
@@ -361,7 +355,6 @@ export default struct IHTMLControlRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {VARIANT_BOOL} 
      */
@@ -373,7 +366,6 @@ export default struct IHTMLControlRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {BSTR} 
      */
@@ -386,7 +378,6 @@ export default struct IHTMLControlRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {VARIANT} 
      */
@@ -399,7 +390,6 @@ export default struct IHTMLControlRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @param {VARIANT_BOOL} showUI 
      * @param {VARIANT} value 
@@ -413,7 +403,6 @@ export default struct IHTMLControlRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {VARIANT_BOOL} 
      */
@@ -425,7 +414,6 @@ export default struct IHTMLControlRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     commonParentElement() {
@@ -434,7 +422,6 @@ export default struct IHTMLControlRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -451,21 +438,21 @@ export default struct IHTMLControlRange extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.select := CallbackCreate(GetMethod(implObj, "select"), flags, 1)
-        this.vtbl.add := CallbackCreate(GetMethod(implObj, "add"), flags, 2)
-        this.vtbl.remove := CallbackCreate(GetMethod(implObj, "remove"), flags, 2)
-        this.vtbl.item := CallbackCreate(GetMethod(implObj, "item"), flags, 3)
-        this.vtbl.scrollIntoView := CallbackCreate(GetMethod(implObj, "scrollIntoView"), flags, 2)
-        this.vtbl.queryCommandSupported := CallbackCreate(GetMethod(implObj, "queryCommandSupported"), flags, 3)
-        this.vtbl.queryCommandEnabled := CallbackCreate(GetMethod(implObj, "queryCommandEnabled"), flags, 3)
-        this.vtbl.queryCommandState := CallbackCreate(GetMethod(implObj, "queryCommandState"), flags, 3)
-        this.vtbl.queryCommandIndeterm := CallbackCreate(GetMethod(implObj, "queryCommandIndeterm"), flags, 3)
-        this.vtbl.queryCommandText := CallbackCreate(GetMethod(implObj, "queryCommandText"), flags, 3)
-        this.vtbl.queryCommandValue := CallbackCreate(GetMethod(implObj, "queryCommandValue"), flags, 3)
-        this.vtbl.execCommand := CallbackCreate(GetMethod(implObj, "execCommand"), flags, 5)
-        this.vtbl.execCommandShowHelp := CallbackCreate(GetMethod(implObj, "execCommandShowHelp"), flags, 3)
-        this.vtbl.commonParentElement := CallbackCreate(GetMethod(implObj, "commonParentElement"), flags, 2)
-        this.vtbl.get_length := CallbackCreate(GetMethod(implObj, "get_length"), flags, 2)
+        this.vtbl.select := CallbackCreate(ObjBindMethod(implObj, "select"), flags, 1)
+        this.vtbl.add := CallbackCreate(ObjBindMethod(implObj, "add"), flags, 2)
+        this.vtbl.remove := CallbackCreate(ObjBindMethod(implObj, "remove"), flags, 2)
+        this.vtbl.item := CallbackCreate(ObjBindMethod(implObj, "item"), flags, 3)
+        this.vtbl.scrollIntoView := CallbackCreate(ObjBindMethod(implObj, "scrollIntoView"), flags, 2)
+        this.vtbl.queryCommandSupported := CallbackCreate(ObjBindMethod(implObj, "queryCommandSupported"), flags, 3)
+        this.vtbl.queryCommandEnabled := CallbackCreate(ObjBindMethod(implObj, "queryCommandEnabled"), flags, 3)
+        this.vtbl.queryCommandState := CallbackCreate(ObjBindMethod(implObj, "queryCommandState"), flags, 3)
+        this.vtbl.queryCommandIndeterm := CallbackCreate(ObjBindMethod(implObj, "queryCommandIndeterm"), flags, 3)
+        this.vtbl.queryCommandText := CallbackCreate(ObjBindMethod(implObj, "queryCommandText"), flags, 3)
+        this.vtbl.queryCommandValue := CallbackCreate(ObjBindMethod(implObj, "queryCommandValue"), flags, 3)
+        this.vtbl.execCommand := CallbackCreate(ObjBindMethod(implObj, "execCommand"), flags, 5)
+        this.vtbl.execCommandShowHelp := CallbackCreate(ObjBindMethod(implObj, "execCommandShowHelp"), flags, 3)
+        this.vtbl.commonParentElement := CallbackCreate(ObjBindMethod(implObj, "commonParentElement"), flags, 2)
+        this.vtbl.get_length := CallbackCreate(ObjBindMethod(implObj, "get_length"), flags, 2)
     }
 
     Dispose() {

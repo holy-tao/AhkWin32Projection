@@ -40,7 +40,6 @@ export default struct IHostAssemblyStore extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<AssemblyBindInfo>} pBindInfo 
      * @param {Pointer<Integer>} pAssemblyId 
      * @param {Pointer<Integer>} pContext 
@@ -49,15 +48,14 @@ export default struct IHostAssemblyStore extends IUnknown {
      * @returns {HRESULT} 
      */
     ProvideAssembly(pBindInfo, pAssemblyId, pContext, ppStmAssemblyImage, ppStmPDB) {
-        pAssemblyIdMarshal := pAssemblyId is VarRef ? "uint*" : "ptr"
-        pContextMarshal := pContext is VarRef ? "uint*" : "ptr"
+        pAssemblyIdMarshal := pAssemblyId is VarRef ? "uint*" : IntPtr
+        pContextMarshal := pContext is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, AssemblyBindInfo.Ptr, pBindInfo, pAssemblyIdMarshal, pAssemblyId, pContextMarshal, pContext, IStream.Ptr, ppStmAssemblyImage, IStream.Ptr, ppStmPDB, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<ModuleBindInfo>} pBindInfo 
      * @param {Pointer<Integer>} pdwModuleId 
      * @param {Pointer<IStream>} ppStmModuleImage 
@@ -65,7 +63,7 @@ export default struct IHostAssemblyStore extends IUnknown {
      * @returns {HRESULT} 
      */
     ProvideModule(pBindInfo, pdwModuleId, ppStmModuleImage, ppStmPDB) {
-        pdwModuleIdMarshal := pdwModuleId is VarRef ? "uint*" : "ptr"
+        pdwModuleIdMarshal := pdwModuleId is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, ModuleBindInfo.Ptr, pBindInfo, pdwModuleIdMarshal, pdwModuleId, IStream.Ptr, ppStmModuleImage, IStream.Ptr, ppStmPDB, "HRESULT")
         return result
@@ -80,8 +78,8 @@ export default struct IHostAssemblyStore extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ProvideAssembly := CallbackCreate(GetMethod(implObj, "ProvideAssembly"), flags, 6)
-        this.vtbl.ProvideModule := CallbackCreate(GetMethod(implObj, "ProvideModule"), flags, 5)
+        this.vtbl.ProvideAssembly := CallbackCreate(ObjBindMethod(implObj, "ProvideAssembly"), flags, 6)
+        this.vtbl.ProvideModule := CallbackCreate(ObjBindMethod(implObj, "ProvideModule"), flags, 5)
     }
 
     Dispose() {

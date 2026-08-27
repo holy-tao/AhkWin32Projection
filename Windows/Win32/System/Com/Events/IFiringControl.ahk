@@ -71,7 +71,7 @@ export default struct IFiringControl extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FireSubscription := CallbackCreate(GetMethod(implObj, "FireSubscription"), flags, 2)
+        this.vtbl.FireSubscription := CallbackCreate(ObjBindMethod(implObj, "FireSubscription"), flags, 2)
     }
 
     Dispose() {

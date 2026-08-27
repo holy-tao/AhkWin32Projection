@@ -79,8 +79,8 @@ export default struct IAMGraphBuilderCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SelectedFilter := CallbackCreate(GetMethod(implObj, "SelectedFilter"), flags, 2)
-        this.vtbl.CreatedFilter := CallbackCreate(GetMethod(implObj, "CreatedFilter"), flags, 2)
+        this.vtbl.SelectedFilter := CallbackCreate(ObjBindMethod(implObj, "SelectedFilter"), flags, 2)
+        this.vtbl.CreatedFilter := CallbackCreate(ObjBindMethod(implObj, "CreatedFilter"), flags, 2)
     }
 
     Dispose() {

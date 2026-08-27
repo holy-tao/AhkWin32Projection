@@ -70,6 +70,7 @@ export default struct IHTMLElement extends IDispatch {
         put_onselectstart     : IntPtr
         get_onselectstart     : IntPtr
         scrollIntoView        : IntPtr
+        contains              : IntPtr
         get_sourceIndex       : IntPtr
         get_recordNumber      : IntPtr
         put_lang              : IntPtr
@@ -486,7 +487,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strAttributeName 
      * @param {VARIANT} AttributeValue 
      * @param {Integer} lFlags 
@@ -500,7 +500,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strAttributeName 
      * @param {Integer} lFlags 
      * @returns {VARIANT} 
@@ -514,7 +513,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strAttributeName 
      * @param {Integer} lFlags 
      * @returns {VARIANT_BOOL} 
@@ -527,7 +525,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -539,7 +536,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_className() {
@@ -549,7 +545,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -561,7 +556,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_id() {
@@ -571,7 +565,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_tagName() {
@@ -581,7 +574,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_parentElement() {
@@ -590,7 +582,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStyle} 
      */
     get_style() {
@@ -599,7 +590,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -609,7 +599,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onhelp() {
@@ -619,7 +608,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -629,7 +617,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onclick() {
@@ -639,7 +626,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -649,7 +635,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondblclick() {
@@ -659,7 +644,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -669,7 +653,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onkeydown() {
@@ -679,7 +662,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -689,7 +671,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onkeyup() {
@@ -699,7 +680,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -709,7 +689,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onkeypress() {
@@ -719,7 +698,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -729,7 +707,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmouseout() {
@@ -739,7 +716,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -749,7 +725,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmouseover() {
@@ -759,7 +734,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -769,7 +743,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmousemove() {
@@ -779,7 +752,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -789,7 +761,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmousedown() {
@@ -799,7 +770,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -809,7 +779,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmouseup() {
@@ -819,7 +788,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_document() {
@@ -828,7 +796,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -840,7 +807,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_title() {
@@ -850,7 +816,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -862,7 +827,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_language() {
@@ -872,7 +836,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -882,7 +845,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onselectstart() {
@@ -892,7 +854,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varargStart 
      * @returns {HRESULT} 
      */
@@ -902,7 +863,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLElement} pChild 
      * @returns {VARIANT_BOOL} 
      */
@@ -912,7 +872,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_sourceIndex() {
@@ -921,7 +880,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_recordNumber() {
@@ -931,7 +889,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -943,7 +900,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_lang() {
@@ -953,7 +909,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_offsetLeft() {
@@ -962,7 +917,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_offsetTop() {
@@ -971,7 +925,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_offsetWidth() {
@@ -980,7 +933,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_offsetHeight() {
@@ -989,7 +941,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_offsetParent() {
@@ -998,7 +949,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1010,7 +960,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_innerHTML() {
@@ -1020,7 +969,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1032,7 +980,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_innerText() {
@@ -1042,7 +989,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1054,7 +1000,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_outerHTML() {
@@ -1064,7 +1009,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1076,7 +1020,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_outerText() {
@@ -1086,7 +1029,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} where 
      * @param {BSTR} html 
      * @returns {HRESULT} 
@@ -1100,7 +1042,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} where 
      * @param {BSTR} text 
      * @returns {HRESULT} 
@@ -1114,7 +1055,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_parentTextEdit() {
@@ -1123,7 +1063,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_isTextEdit() {
@@ -1132,7 +1071,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     click() {
@@ -1141,7 +1079,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLFiltersCollection} 
      */
     get_filters() {
@@ -1150,7 +1087,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1160,7 +1096,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondragstart() {
@@ -1170,7 +1105,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     toString() {
@@ -1180,7 +1114,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1190,7 +1123,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onbeforeupdate() {
@@ -1200,7 +1132,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1210,7 +1141,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onafterupdate() {
@@ -1220,7 +1150,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1230,7 +1159,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onerrorupdate() {
@@ -1240,7 +1168,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1250,7 +1177,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onrowexit() {
@@ -1260,7 +1186,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1270,7 +1195,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onrowenter() {
@@ -1280,7 +1204,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1290,7 +1213,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondatasetchanged() {
@@ -1300,7 +1222,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1310,7 +1231,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondataavailable() {
@@ -1320,7 +1240,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1330,7 +1249,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondatasetcomplete() {
@@ -1340,7 +1258,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1350,7 +1267,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onfilterchange() {
@@ -1360,7 +1276,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_children() {
@@ -1369,7 +1284,6 @@ export default struct IHTMLElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_all() {
@@ -1386,93 +1300,93 @@ export default struct IHTMLElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.setAttribute := CallbackCreate(GetMethod(implObj, "setAttribute"), flags, 4)
-        this.vtbl.getAttribute := CallbackCreate(GetMethod(implObj, "getAttribute"), flags, 4)
-        this.vtbl.removeAttribute := CallbackCreate(GetMethod(implObj, "removeAttribute"), flags, 4)
-        this.vtbl.put_className := CallbackCreate(GetMethod(implObj, "put_className"), flags, 2)
-        this.vtbl.get_className := CallbackCreate(GetMethod(implObj, "get_className"), flags, 2)
-        this.vtbl.put_id := CallbackCreate(GetMethod(implObj, "put_id"), flags, 2)
-        this.vtbl.get_id := CallbackCreate(GetMethod(implObj, "get_id"), flags, 2)
-        this.vtbl.get_tagName := CallbackCreate(GetMethod(implObj, "get_tagName"), flags, 2)
-        this.vtbl.get_parentElement := CallbackCreate(GetMethod(implObj, "get_parentElement"), flags, 2)
-        this.vtbl.get_style := CallbackCreate(GetMethod(implObj, "get_style"), flags, 2)
-        this.vtbl.put_onhelp := CallbackCreate(GetMethod(implObj, "put_onhelp"), flags, 2)
-        this.vtbl.get_onhelp := CallbackCreate(GetMethod(implObj, "get_onhelp"), flags, 2)
-        this.vtbl.put_onclick := CallbackCreate(GetMethod(implObj, "put_onclick"), flags, 2)
-        this.vtbl.get_onclick := CallbackCreate(GetMethod(implObj, "get_onclick"), flags, 2)
-        this.vtbl.put_ondblclick := CallbackCreate(GetMethod(implObj, "put_ondblclick"), flags, 2)
-        this.vtbl.get_ondblclick := CallbackCreate(GetMethod(implObj, "get_ondblclick"), flags, 2)
-        this.vtbl.put_onkeydown := CallbackCreate(GetMethod(implObj, "put_onkeydown"), flags, 2)
-        this.vtbl.get_onkeydown := CallbackCreate(GetMethod(implObj, "get_onkeydown"), flags, 2)
-        this.vtbl.put_onkeyup := CallbackCreate(GetMethod(implObj, "put_onkeyup"), flags, 2)
-        this.vtbl.get_onkeyup := CallbackCreate(GetMethod(implObj, "get_onkeyup"), flags, 2)
-        this.vtbl.put_onkeypress := CallbackCreate(GetMethod(implObj, "put_onkeypress"), flags, 2)
-        this.vtbl.get_onkeypress := CallbackCreate(GetMethod(implObj, "get_onkeypress"), flags, 2)
-        this.vtbl.put_onmouseout := CallbackCreate(GetMethod(implObj, "put_onmouseout"), flags, 2)
-        this.vtbl.get_onmouseout := CallbackCreate(GetMethod(implObj, "get_onmouseout"), flags, 2)
-        this.vtbl.put_onmouseover := CallbackCreate(GetMethod(implObj, "put_onmouseover"), flags, 2)
-        this.vtbl.get_onmouseover := CallbackCreate(GetMethod(implObj, "get_onmouseover"), flags, 2)
-        this.vtbl.put_onmousemove := CallbackCreate(GetMethod(implObj, "put_onmousemove"), flags, 2)
-        this.vtbl.get_onmousemove := CallbackCreate(GetMethod(implObj, "get_onmousemove"), flags, 2)
-        this.vtbl.put_onmousedown := CallbackCreate(GetMethod(implObj, "put_onmousedown"), flags, 2)
-        this.vtbl.get_onmousedown := CallbackCreate(GetMethod(implObj, "get_onmousedown"), flags, 2)
-        this.vtbl.put_onmouseup := CallbackCreate(GetMethod(implObj, "put_onmouseup"), flags, 2)
-        this.vtbl.get_onmouseup := CallbackCreate(GetMethod(implObj, "get_onmouseup"), flags, 2)
-        this.vtbl.get_document := CallbackCreate(GetMethod(implObj, "get_document"), flags, 2)
-        this.vtbl.put_title := CallbackCreate(GetMethod(implObj, "put_title"), flags, 2)
-        this.vtbl.get_title := CallbackCreate(GetMethod(implObj, "get_title"), flags, 2)
-        this.vtbl.put_language := CallbackCreate(GetMethod(implObj, "put_language"), flags, 2)
-        this.vtbl.get_language := CallbackCreate(GetMethod(implObj, "get_language"), flags, 2)
-        this.vtbl.put_onselectstart := CallbackCreate(GetMethod(implObj, "put_onselectstart"), flags, 2)
-        this.vtbl.get_onselectstart := CallbackCreate(GetMethod(implObj, "get_onselectstart"), flags, 2)
-        this.vtbl.scrollIntoView := CallbackCreate(GetMethod(implObj, "scrollIntoView"), flags, 2)
-        this.vtbl.contains := CallbackCreate(GetMethod(implObj, "contains"), flags, 3)
-        this.vtbl.get_sourceIndex := CallbackCreate(GetMethod(implObj, "get_sourceIndex"), flags, 2)
-        this.vtbl.get_recordNumber := CallbackCreate(GetMethod(implObj, "get_recordNumber"), flags, 2)
-        this.vtbl.put_lang := CallbackCreate(GetMethod(implObj, "put_lang"), flags, 2)
-        this.vtbl.get_lang := CallbackCreate(GetMethod(implObj, "get_lang"), flags, 2)
-        this.vtbl.get_offsetLeft := CallbackCreate(GetMethod(implObj, "get_offsetLeft"), flags, 2)
-        this.vtbl.get_offsetTop := CallbackCreate(GetMethod(implObj, "get_offsetTop"), flags, 2)
-        this.vtbl.get_offsetWidth := CallbackCreate(GetMethod(implObj, "get_offsetWidth"), flags, 2)
-        this.vtbl.get_offsetHeight := CallbackCreate(GetMethod(implObj, "get_offsetHeight"), flags, 2)
-        this.vtbl.get_offsetParent := CallbackCreate(GetMethod(implObj, "get_offsetParent"), flags, 2)
-        this.vtbl.put_innerHTML := CallbackCreate(GetMethod(implObj, "put_innerHTML"), flags, 2)
-        this.vtbl.get_innerHTML := CallbackCreate(GetMethod(implObj, "get_innerHTML"), flags, 2)
-        this.vtbl.put_innerText := CallbackCreate(GetMethod(implObj, "put_innerText"), flags, 2)
-        this.vtbl.get_innerText := CallbackCreate(GetMethod(implObj, "get_innerText"), flags, 2)
-        this.vtbl.put_outerHTML := CallbackCreate(GetMethod(implObj, "put_outerHTML"), flags, 2)
-        this.vtbl.get_outerHTML := CallbackCreate(GetMethod(implObj, "get_outerHTML"), flags, 2)
-        this.vtbl.put_outerText := CallbackCreate(GetMethod(implObj, "put_outerText"), flags, 2)
-        this.vtbl.get_outerText := CallbackCreate(GetMethod(implObj, "get_outerText"), flags, 2)
-        this.vtbl.insertAdjacentHTML := CallbackCreate(GetMethod(implObj, "insertAdjacentHTML"), flags, 3)
-        this.vtbl.insertAdjacentText := CallbackCreate(GetMethod(implObj, "insertAdjacentText"), flags, 3)
-        this.vtbl.get_parentTextEdit := CallbackCreate(GetMethod(implObj, "get_parentTextEdit"), flags, 2)
-        this.vtbl.get_isTextEdit := CallbackCreate(GetMethod(implObj, "get_isTextEdit"), flags, 2)
-        this.vtbl.click := CallbackCreate(GetMethod(implObj, "click"), flags, 1)
-        this.vtbl.get_filters := CallbackCreate(GetMethod(implObj, "get_filters"), flags, 2)
-        this.vtbl.put_ondragstart := CallbackCreate(GetMethod(implObj, "put_ondragstart"), flags, 2)
-        this.vtbl.get_ondragstart := CallbackCreate(GetMethod(implObj, "get_ondragstart"), flags, 2)
-        this.vtbl.toString := CallbackCreate(GetMethod(implObj, "toString"), flags, 2)
-        this.vtbl.put_onbeforeupdate := CallbackCreate(GetMethod(implObj, "put_onbeforeupdate"), flags, 2)
-        this.vtbl.get_onbeforeupdate := CallbackCreate(GetMethod(implObj, "get_onbeforeupdate"), flags, 2)
-        this.vtbl.put_onafterupdate := CallbackCreate(GetMethod(implObj, "put_onafterupdate"), flags, 2)
-        this.vtbl.get_onafterupdate := CallbackCreate(GetMethod(implObj, "get_onafterupdate"), flags, 2)
-        this.vtbl.put_onerrorupdate := CallbackCreate(GetMethod(implObj, "put_onerrorupdate"), flags, 2)
-        this.vtbl.get_onerrorupdate := CallbackCreate(GetMethod(implObj, "get_onerrorupdate"), flags, 2)
-        this.vtbl.put_onrowexit := CallbackCreate(GetMethod(implObj, "put_onrowexit"), flags, 2)
-        this.vtbl.get_onrowexit := CallbackCreate(GetMethod(implObj, "get_onrowexit"), flags, 2)
-        this.vtbl.put_onrowenter := CallbackCreate(GetMethod(implObj, "put_onrowenter"), flags, 2)
-        this.vtbl.get_onrowenter := CallbackCreate(GetMethod(implObj, "get_onrowenter"), flags, 2)
-        this.vtbl.put_ondatasetchanged := CallbackCreate(GetMethod(implObj, "put_ondatasetchanged"), flags, 2)
-        this.vtbl.get_ondatasetchanged := CallbackCreate(GetMethod(implObj, "get_ondatasetchanged"), flags, 2)
-        this.vtbl.put_ondataavailable := CallbackCreate(GetMethod(implObj, "put_ondataavailable"), flags, 2)
-        this.vtbl.get_ondataavailable := CallbackCreate(GetMethod(implObj, "get_ondataavailable"), flags, 2)
-        this.vtbl.put_ondatasetcomplete := CallbackCreate(GetMethod(implObj, "put_ondatasetcomplete"), flags, 2)
-        this.vtbl.get_ondatasetcomplete := CallbackCreate(GetMethod(implObj, "get_ondatasetcomplete"), flags, 2)
-        this.vtbl.put_onfilterchange := CallbackCreate(GetMethod(implObj, "put_onfilterchange"), flags, 2)
-        this.vtbl.get_onfilterchange := CallbackCreate(GetMethod(implObj, "get_onfilterchange"), flags, 2)
-        this.vtbl.get_children := CallbackCreate(GetMethod(implObj, "get_children"), flags, 2)
-        this.vtbl.get_all := CallbackCreate(GetMethod(implObj, "get_all"), flags, 2)
+        this.vtbl.setAttribute := CallbackCreate(ObjBindMethod(implObj, "setAttribute"), flags, 4)
+        this.vtbl.getAttribute := CallbackCreate(ObjBindMethod(implObj, "getAttribute"), flags, 4)
+        this.vtbl.removeAttribute := CallbackCreate(ObjBindMethod(implObj, "removeAttribute"), flags, 4)
+        this.vtbl.put_className := CallbackCreate(ObjBindMethod(implObj, "put_className"), flags, 2)
+        this.vtbl.get_className := CallbackCreate(ObjBindMethod(implObj, "get_className"), flags, 2)
+        this.vtbl.put_id := CallbackCreate(ObjBindMethod(implObj, "put_id"), flags, 2)
+        this.vtbl.get_id := CallbackCreate(ObjBindMethod(implObj, "get_id"), flags, 2)
+        this.vtbl.get_tagName := CallbackCreate(ObjBindMethod(implObj, "get_tagName"), flags, 2)
+        this.vtbl.get_parentElement := CallbackCreate(ObjBindMethod(implObj, "get_parentElement"), flags, 2)
+        this.vtbl.get_style := CallbackCreate(ObjBindMethod(implObj, "get_style"), flags, 2)
+        this.vtbl.put_onhelp := CallbackCreate(ObjBindMethod(implObj, "put_onhelp"), flags, 2)
+        this.vtbl.get_onhelp := CallbackCreate(ObjBindMethod(implObj, "get_onhelp"), flags, 2)
+        this.vtbl.put_onclick := CallbackCreate(ObjBindMethod(implObj, "put_onclick"), flags, 2)
+        this.vtbl.get_onclick := CallbackCreate(ObjBindMethod(implObj, "get_onclick"), flags, 2)
+        this.vtbl.put_ondblclick := CallbackCreate(ObjBindMethod(implObj, "put_ondblclick"), flags, 2)
+        this.vtbl.get_ondblclick := CallbackCreate(ObjBindMethod(implObj, "get_ondblclick"), flags, 2)
+        this.vtbl.put_onkeydown := CallbackCreate(ObjBindMethod(implObj, "put_onkeydown"), flags, 2)
+        this.vtbl.get_onkeydown := CallbackCreate(ObjBindMethod(implObj, "get_onkeydown"), flags, 2)
+        this.vtbl.put_onkeyup := CallbackCreate(ObjBindMethod(implObj, "put_onkeyup"), flags, 2)
+        this.vtbl.get_onkeyup := CallbackCreate(ObjBindMethod(implObj, "get_onkeyup"), flags, 2)
+        this.vtbl.put_onkeypress := CallbackCreate(ObjBindMethod(implObj, "put_onkeypress"), flags, 2)
+        this.vtbl.get_onkeypress := CallbackCreate(ObjBindMethod(implObj, "get_onkeypress"), flags, 2)
+        this.vtbl.put_onmouseout := CallbackCreate(ObjBindMethod(implObj, "put_onmouseout"), flags, 2)
+        this.vtbl.get_onmouseout := CallbackCreate(ObjBindMethod(implObj, "get_onmouseout"), flags, 2)
+        this.vtbl.put_onmouseover := CallbackCreate(ObjBindMethod(implObj, "put_onmouseover"), flags, 2)
+        this.vtbl.get_onmouseover := CallbackCreate(ObjBindMethod(implObj, "get_onmouseover"), flags, 2)
+        this.vtbl.put_onmousemove := CallbackCreate(ObjBindMethod(implObj, "put_onmousemove"), flags, 2)
+        this.vtbl.get_onmousemove := CallbackCreate(ObjBindMethod(implObj, "get_onmousemove"), flags, 2)
+        this.vtbl.put_onmousedown := CallbackCreate(ObjBindMethod(implObj, "put_onmousedown"), flags, 2)
+        this.vtbl.get_onmousedown := CallbackCreate(ObjBindMethod(implObj, "get_onmousedown"), flags, 2)
+        this.vtbl.put_onmouseup := CallbackCreate(ObjBindMethod(implObj, "put_onmouseup"), flags, 2)
+        this.vtbl.get_onmouseup := CallbackCreate(ObjBindMethod(implObj, "get_onmouseup"), flags, 2)
+        this.vtbl.get_document := CallbackCreate(ObjBindMethod(implObj, "get_document"), flags, 2)
+        this.vtbl.put_title := CallbackCreate(ObjBindMethod(implObj, "put_title"), flags, 2)
+        this.vtbl.get_title := CallbackCreate(ObjBindMethod(implObj, "get_title"), flags, 2)
+        this.vtbl.put_language := CallbackCreate(ObjBindMethod(implObj, "put_language"), flags, 2)
+        this.vtbl.get_language := CallbackCreate(ObjBindMethod(implObj, "get_language"), flags, 2)
+        this.vtbl.put_onselectstart := CallbackCreate(ObjBindMethod(implObj, "put_onselectstart"), flags, 2)
+        this.vtbl.get_onselectstart := CallbackCreate(ObjBindMethod(implObj, "get_onselectstart"), flags, 2)
+        this.vtbl.scrollIntoView := CallbackCreate(ObjBindMethod(implObj, "scrollIntoView"), flags, 2)
+        this.vtbl.contains := CallbackCreate(ObjBindMethod(implObj, "contains"), flags, 3)
+        this.vtbl.get_sourceIndex := CallbackCreate(ObjBindMethod(implObj, "get_sourceIndex"), flags, 2)
+        this.vtbl.get_recordNumber := CallbackCreate(ObjBindMethod(implObj, "get_recordNumber"), flags, 2)
+        this.vtbl.put_lang := CallbackCreate(ObjBindMethod(implObj, "put_lang"), flags, 2)
+        this.vtbl.get_lang := CallbackCreate(ObjBindMethod(implObj, "get_lang"), flags, 2)
+        this.vtbl.get_offsetLeft := CallbackCreate(ObjBindMethod(implObj, "get_offsetLeft"), flags, 2)
+        this.vtbl.get_offsetTop := CallbackCreate(ObjBindMethod(implObj, "get_offsetTop"), flags, 2)
+        this.vtbl.get_offsetWidth := CallbackCreate(ObjBindMethod(implObj, "get_offsetWidth"), flags, 2)
+        this.vtbl.get_offsetHeight := CallbackCreate(ObjBindMethod(implObj, "get_offsetHeight"), flags, 2)
+        this.vtbl.get_offsetParent := CallbackCreate(ObjBindMethod(implObj, "get_offsetParent"), flags, 2)
+        this.vtbl.put_innerHTML := CallbackCreate(ObjBindMethod(implObj, "put_innerHTML"), flags, 2)
+        this.vtbl.get_innerHTML := CallbackCreate(ObjBindMethod(implObj, "get_innerHTML"), flags, 2)
+        this.vtbl.put_innerText := CallbackCreate(ObjBindMethod(implObj, "put_innerText"), flags, 2)
+        this.vtbl.get_innerText := CallbackCreate(ObjBindMethod(implObj, "get_innerText"), flags, 2)
+        this.vtbl.put_outerHTML := CallbackCreate(ObjBindMethod(implObj, "put_outerHTML"), flags, 2)
+        this.vtbl.get_outerHTML := CallbackCreate(ObjBindMethod(implObj, "get_outerHTML"), flags, 2)
+        this.vtbl.put_outerText := CallbackCreate(ObjBindMethod(implObj, "put_outerText"), flags, 2)
+        this.vtbl.get_outerText := CallbackCreate(ObjBindMethod(implObj, "get_outerText"), flags, 2)
+        this.vtbl.insertAdjacentHTML := CallbackCreate(ObjBindMethod(implObj, "insertAdjacentHTML"), flags, 3)
+        this.vtbl.insertAdjacentText := CallbackCreate(ObjBindMethod(implObj, "insertAdjacentText"), flags, 3)
+        this.vtbl.get_parentTextEdit := CallbackCreate(ObjBindMethod(implObj, "get_parentTextEdit"), flags, 2)
+        this.vtbl.get_isTextEdit := CallbackCreate(ObjBindMethod(implObj, "get_isTextEdit"), flags, 2)
+        this.vtbl.click := CallbackCreate(ObjBindMethod(implObj, "click"), flags, 1)
+        this.vtbl.get_filters := CallbackCreate(ObjBindMethod(implObj, "get_filters"), flags, 2)
+        this.vtbl.put_ondragstart := CallbackCreate(ObjBindMethod(implObj, "put_ondragstart"), flags, 2)
+        this.vtbl.get_ondragstart := CallbackCreate(ObjBindMethod(implObj, "get_ondragstart"), flags, 2)
+        this.vtbl.toString := CallbackCreate(ObjBindMethod(implObj, "toString"), flags, 2)
+        this.vtbl.put_onbeforeupdate := CallbackCreate(ObjBindMethod(implObj, "put_onbeforeupdate"), flags, 2)
+        this.vtbl.get_onbeforeupdate := CallbackCreate(ObjBindMethod(implObj, "get_onbeforeupdate"), flags, 2)
+        this.vtbl.put_onafterupdate := CallbackCreate(ObjBindMethod(implObj, "put_onafterupdate"), flags, 2)
+        this.vtbl.get_onafterupdate := CallbackCreate(ObjBindMethod(implObj, "get_onafterupdate"), flags, 2)
+        this.vtbl.put_onerrorupdate := CallbackCreate(ObjBindMethod(implObj, "put_onerrorupdate"), flags, 2)
+        this.vtbl.get_onerrorupdate := CallbackCreate(ObjBindMethod(implObj, "get_onerrorupdate"), flags, 2)
+        this.vtbl.put_onrowexit := CallbackCreate(ObjBindMethod(implObj, "put_onrowexit"), flags, 2)
+        this.vtbl.get_onrowexit := CallbackCreate(ObjBindMethod(implObj, "get_onrowexit"), flags, 2)
+        this.vtbl.put_onrowenter := CallbackCreate(ObjBindMethod(implObj, "put_onrowenter"), flags, 2)
+        this.vtbl.get_onrowenter := CallbackCreate(ObjBindMethod(implObj, "get_onrowenter"), flags, 2)
+        this.vtbl.put_ondatasetchanged := CallbackCreate(ObjBindMethod(implObj, "put_ondatasetchanged"), flags, 2)
+        this.vtbl.get_ondatasetchanged := CallbackCreate(ObjBindMethod(implObj, "get_ondatasetchanged"), flags, 2)
+        this.vtbl.put_ondataavailable := CallbackCreate(ObjBindMethod(implObj, "put_ondataavailable"), flags, 2)
+        this.vtbl.get_ondataavailable := CallbackCreate(ObjBindMethod(implObj, "get_ondataavailable"), flags, 2)
+        this.vtbl.put_ondatasetcomplete := CallbackCreate(ObjBindMethod(implObj, "put_ondatasetcomplete"), flags, 2)
+        this.vtbl.get_ondatasetcomplete := CallbackCreate(ObjBindMethod(implObj, "get_ondatasetcomplete"), flags, 2)
+        this.vtbl.put_onfilterchange := CallbackCreate(ObjBindMethod(implObj, "put_onfilterchange"), flags, 2)
+        this.vtbl.get_onfilterchange := CallbackCreate(ObjBindMethod(implObj, "get_onfilterchange"), flags, 2)
+        this.vtbl.get_children := CallbackCreate(ObjBindMethod(implObj, "get_children"), flags, 2)
+        this.vtbl.get_all := CallbackCreate(ObjBindMethod(implObj, "get_all"), flags, 2)
     }
 
     Dispose() {

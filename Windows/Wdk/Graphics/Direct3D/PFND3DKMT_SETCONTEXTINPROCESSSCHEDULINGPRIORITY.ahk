@@ -20,7 +20,6 @@ export default struct PFND3DKMT_SETCONTEXTINPROCESSSCHEDULINGPRIORITY {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SETCONTEXTINPROCESSSCHEDULINGPRIORITY>} param0 
      * @returns {NTSTATUS} 
      */

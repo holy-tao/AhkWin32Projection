@@ -41,7 +41,6 @@ export default struct PIBIO_ENGINE_GET_ENROLLMENT_HASH_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/ns-winbio_adapter-winbio_pipeline">WINBIO_PIPELINE</a> structure associated with the biometric unit performing the operation.
      * @param {Pointer<Pointer<Integer>>} HashValue Address of variable that receives a pointer to a byte array that contains the hash of the template.
      * @param {Pointer<Pointer>} HashSize A pointer to a variable that receives the size, in bytes, of the hash pointed to  by the <i>HashValue</i> parameter.
@@ -88,8 +87,8 @@ export default struct PIBIO_ENGINE_GET_ENROLLMENT_HASH_FN {
      * </table>
      */
     Call(Pipeline, HashValue, HashSize) {
-        HashValueMarshal := HashValue is VarRef ? "ptr*" : "ptr"
-        HashSizeMarshal := HashSize is VarRef ? "ptr*" : "ptr"
+        HashValueMarshal := HashValue is VarRef ? "ptr*" : IntPtr
+        HashSizeMarshal := HashSize is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, WINBIO_PIPELINE.Ptr, Pipeline, HashValueMarshal, HashValue, HashSizeMarshal, HashSize, "HRESULT")
         return result

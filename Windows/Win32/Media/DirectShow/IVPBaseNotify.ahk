@@ -57,7 +57,7 @@ export default struct IVPBaseNotify extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RenegotiateVPParameters := CallbackCreate(GetMethod(implObj, "RenegotiateVPParameters"), flags, 1)
+        this.vtbl.RenegotiateVPParameters := CallbackCreate(ObjBindMethod(implObj, "RenegotiateVPParameters"), flags, 1)
     }
 
     Dispose() {

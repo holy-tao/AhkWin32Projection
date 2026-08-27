@@ -97,8 +97,8 @@ export default struct IEVRFilterConfigEx extends IEVRFilterConfig {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetConfigPrefs := CallbackCreate(GetMethod(implObj, "SetConfigPrefs"), flags, 2)
-        this.vtbl.GetConfigPrefs := CallbackCreate(GetMethod(implObj, "GetConfigPrefs"), flags, 2)
+        this.vtbl.SetConfigPrefs := CallbackCreate(ObjBindMethod(implObj, "SetConfigPrefs"), flags, 2)
+        this.vtbl.GetConfigPrefs := CallbackCreate(ObjBindMethod(implObj, "GetConfigPrefs"), flags, 2)
     }
 
     Dispose() {

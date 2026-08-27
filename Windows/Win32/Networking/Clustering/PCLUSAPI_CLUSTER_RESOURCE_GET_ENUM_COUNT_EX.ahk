@@ -19,7 +19,6 @@ export default struct PCLUSAPI_CLUSTER_RESOURCE_GET_ENUM_COUNT_EX {
     }
 
     /**
-     * 
      * @param {HRESENUMEX} hResourceEnumEx 
      * @returns {Integer} 
      */

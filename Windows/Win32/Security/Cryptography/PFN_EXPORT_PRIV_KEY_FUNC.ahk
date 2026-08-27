@@ -20,7 +20,6 @@ export default struct PFN_EXPORT_PRIV_KEY_FUNC {
     }
 
     /**
-     * 
      * @param {Pointer} hCryptProv 
      * @param {Integer} dwKeySpec 
      * @param {PSTR} pszPrivateKeyObjId 
@@ -33,10 +32,12 @@ export default struct PFN_EXPORT_PRIV_KEY_FUNC {
     Call(hCryptProv, dwKeySpec, pszPrivateKeyObjId, dwFlags, pvAuxInfo, pPrivateKeyInfo, pcbPrivateKeyInfo) {
         pszPrivateKeyObjId := pszPrivateKeyObjId is String ? StrPtr(pszPrivateKeyObjId) : pszPrivateKeyObjId
 
-        pvAuxInfoMarshal := pvAuxInfo is VarRef ? "ptr" : "ptr"
-        pcbPrivateKeyInfoMarshal := pcbPrivateKeyInfo is VarRef ? "uint*" : "ptr"
+        pvAuxInfoMarshal := pvAuxInfo is VarRef ? "ptr" : IntPtr
+        pvAuxInfoMarshal := pvAuxInfo == 0 ? IntPtr : "ptr"
+        pPrivateKeyInfoMarshal := pPrivateKeyInfo == 0 ? IntPtr : IntPtr
+        pcbPrivateKeyInfoMarshal := pcbPrivateKeyInfo is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, IntPtr, hCryptProv, UInt32, dwKeySpec, "ptr", pszPrivateKeyObjId, UInt32, dwFlags, pvAuxInfoMarshal, pvAuxInfo, IntPtr, pPrivateKeyInfo, pcbPrivateKeyInfoMarshal, pcbPrivateKeyInfo, BOOL)
+        result := DllCall(this.value, IntPtr, hCryptProv, UInt32, dwKeySpec, "ptr", pszPrivateKeyObjId, UInt32, dwFlags, pvAuxInfoMarshal, pvAuxInfo, pPrivateKeyInfoMarshal, pPrivateKeyInfo, pcbPrivateKeyInfoMarshal, pcbPrivateKeyInfo, BOOL)
         return result
     }
 

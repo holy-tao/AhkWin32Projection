@@ -20,15 +20,15 @@ export default struct pHalGetDmaAdapter {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} PhysicalDeviceObject 
      * @param {Pointer<DEVICE_DESCRIPTION>} DeviceDescriptor 
      * @param {Pointer<Integer>} NumberOfMapRegisters 
      * @returns {Pointer<DMA_ADAPTER>} 
      */
     Call(PhysicalDeviceObject, DeviceDescriptor, NumberOfMapRegisters) {
-        PhysicalDeviceObjectMarshal := PhysicalDeviceObject is VarRef ? "ptr" : "ptr"
-        NumberOfMapRegistersMarshal := NumberOfMapRegisters is VarRef ? "uint*" : "ptr"
+        PhysicalDeviceObjectMarshal := PhysicalDeviceObject is VarRef ? "ptr" : IntPtr
+        PhysicalDeviceObjectMarshal := PhysicalDeviceObject == 0 ? IntPtr : "ptr"
+        NumberOfMapRegistersMarshal := NumberOfMapRegisters is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, PhysicalDeviceObjectMarshal, PhysicalDeviceObject, DEVICE_DESCRIPTION.Ptr, DeviceDescriptor, NumberOfMapRegistersMarshal, NumberOfMapRegisters, DMA_ADAPTER.Ptr)
         return result

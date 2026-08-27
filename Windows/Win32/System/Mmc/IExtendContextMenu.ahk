@@ -80,7 +80,7 @@ export default struct IExtendContextMenu extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iextendcontextmenu-addmenuitems
      */
     AddMenuItems(piDataObject, piCallback, pInsertionAllowed) {
-        pInsertionAllowedMarshal := pInsertionAllowed is VarRef ? "int*" : "ptr"
+        pInsertionAllowedMarshal := pInsertionAllowed is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, "ptr", piDataObject, "ptr", piCallback, pInsertionAllowedMarshal, pInsertionAllowed, "HRESULT")
         return result
@@ -115,8 +115,8 @@ export default struct IExtendContextMenu extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddMenuItems := CallbackCreate(GetMethod(implObj, "AddMenuItems"), flags, 4)
-        this.vtbl.Command := CallbackCreate(GetMethod(implObj, "Command"), flags, 3)
+        this.vtbl.AddMenuItems := CallbackCreate(ObjBindMethod(implObj, "AddMenuItems"), flags, 4)
+        this.vtbl.Command := CallbackCreate(ObjBindMethod(implObj, "Command"), flags, 3)
     }
 
     Dispose() {

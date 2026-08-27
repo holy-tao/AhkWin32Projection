@@ -20,15 +20,14 @@ export default struct NCryptEnumStorageProvidersFn {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwProviderCount 
      * @param {Pointer<Pointer<NCryptProviderName>>} ppProviderList 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
     Call(pdwProviderCount, ppProviderList, dwFlags) {
-        pdwProviderCountMarshal := pdwProviderCount is VarRef ? "uint*" : "ptr"
-        ppProviderListMarshal := ppProviderList is VarRef ? "ptr*" : "ptr"
+        pdwProviderCountMarshal := pdwProviderCount is VarRef ? "uint*" : IntPtr
+        ppProviderListMarshal := ppProviderList is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, pdwProviderCountMarshal, pdwProviderCount, ppProviderListMarshal, ppProviderList, UInt32, dwFlags, "HRESULT")
         return result

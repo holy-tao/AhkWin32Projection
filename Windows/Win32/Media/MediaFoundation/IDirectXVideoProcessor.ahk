@@ -102,10 +102,14 @@ export default struct IDirectXVideoProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideoprocessor-getcreationparameters
      */
     GetCreationParameters(pDeviceGuid, pVideoDesc, pRenderTargetFormat, pMaxNumSubStreams) {
-        pRenderTargetFormatMarshal := pRenderTargetFormat is VarRef ? "uint*" : "ptr"
-        pMaxNumSubStreamsMarshal := pMaxNumSubStreams is VarRef ? "uint*" : "ptr"
+        pDeviceGuidMarshal := pDeviceGuid == 0 ? IntPtr : Guid.Ptr
+        pVideoDescMarshal := pVideoDesc == 0 ? IntPtr : DXVA2_VideoDesc.Ptr
+        pRenderTargetFormatMarshal := pRenderTargetFormat is VarRef ? "uint*" : IntPtr
+        pRenderTargetFormatMarshal := pRenderTargetFormat == 0 ? IntPtr : "uint*"
+        pMaxNumSubStreamsMarshal := pMaxNumSubStreams is VarRef ? "uint*" : IntPtr
+        pMaxNumSubStreamsMarshal := pMaxNumSubStreams == 0 ? IntPtr : "uint*"
 
-        result := ComCall(4, this, Guid.Ptr, pDeviceGuid, DXVA2_VideoDesc.Ptr, pVideoDesc, pRenderTargetFormatMarshal, pRenderTargetFormat, pMaxNumSubStreamsMarshal, pMaxNumSubStreams, "HRESULT")
+        result := ComCall(4, this, pDeviceGuidMarshal, pDeviceGuid, pVideoDescMarshal, pVideoDesc, pRenderTargetFormatMarshal, pRenderTargetFormat, pMaxNumSubStreamsMarshal, pMaxNumSubStreams, "HRESULT")
         return result
     }
 
@@ -234,7 +238,9 @@ export default struct IDirectXVideoProcessor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideoprocessor-videoprocessblt
      */
     VideoProcessBlt(pRenderTarget, pBltParams, pSamples, NumSamples, pHandleComplete) {
-        result := ComCall(8, this, "ptr", pRenderTarget, DXVA2_VideoProcessBltParams.Ptr, pBltParams, DXVA2_VideoSample.Ptr, pSamples, UInt32, NumSamples, HANDLE.Ptr, pHandleComplete, "HRESULT")
+        pHandleCompleteMarshal := pHandleComplete == 0 ? IntPtr : HANDLE.Ptr
+
+        result := ComCall(8, this, "ptr", pRenderTarget, DXVA2_VideoProcessBltParams.Ptr, pBltParams, DXVA2_VideoSample.Ptr, pSamples, UInt32, NumSamples, pHandleCompleteMarshal, pHandleComplete, "HRESULT")
         return result
     }
 
@@ -247,12 +253,12 @@ export default struct IDirectXVideoProcessor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetVideoProcessorService := CallbackCreate(GetMethod(implObj, "GetVideoProcessorService"), flags, 2)
-        this.vtbl.GetCreationParameters := CallbackCreate(GetMethod(implObj, "GetCreationParameters"), flags, 5)
-        this.vtbl.GetVideoProcessorCaps := CallbackCreate(GetMethod(implObj, "GetVideoProcessorCaps"), flags, 2)
-        this.vtbl.GetProcAmpRange := CallbackCreate(GetMethod(implObj, "GetProcAmpRange"), flags, 3)
-        this.vtbl.GetFilterPropertyRange := CallbackCreate(GetMethod(implObj, "GetFilterPropertyRange"), flags, 3)
-        this.vtbl.VideoProcessBlt := CallbackCreate(GetMethod(implObj, "VideoProcessBlt"), flags, 6)
+        this.vtbl.GetVideoProcessorService := CallbackCreate(ObjBindMethod(implObj, "GetVideoProcessorService"), flags, 2)
+        this.vtbl.GetCreationParameters := CallbackCreate(ObjBindMethod(implObj, "GetCreationParameters"), flags, 5)
+        this.vtbl.GetVideoProcessorCaps := CallbackCreate(ObjBindMethod(implObj, "GetVideoProcessorCaps"), flags, 2)
+        this.vtbl.GetProcAmpRange := CallbackCreate(ObjBindMethod(implObj, "GetProcAmpRange"), flags, 3)
+        this.vtbl.GetFilterPropertyRange := CallbackCreate(ObjBindMethod(implObj, "GetFilterPropertyRange"), flags, 3)
+        this.vtbl.VideoProcessBlt := CallbackCreate(ObjBindMethod(implObj, "VideoProcessBlt"), flags, 6)
     }
 
     Dispose() {

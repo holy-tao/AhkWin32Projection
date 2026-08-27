@@ -88,8 +88,8 @@ export default struct ITTAPICallCenter extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumerateAgentHandlers := CallbackCreate(GetMethod(implObj, "EnumerateAgentHandlers"), flags, 2)
-        this.vtbl.get_AgentHandlers := CallbackCreate(GetMethod(implObj, "get_AgentHandlers"), flags, 2)
+        this.vtbl.EnumerateAgentHandlers := CallbackCreate(ObjBindMethod(implObj, "EnumerateAgentHandlers"), flags, 2)
+        this.vtbl.get_AgentHandlers := CallbackCreate(ObjBindMethod(implObj, "get_AgentHandlers"), flags, 2)
     }
 
     Dispose() {

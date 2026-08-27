@@ -21,7 +21,6 @@ export default struct OLESTREAMQUERYCONVERTOLELINKCALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pClsid 
      * @param {PWSTR} szClass 
      * @param {PWSTR} szTopicName 
@@ -37,9 +36,14 @@ export default struct OLESTREAMQUERYCONVERTOLELINKCALLBACK {
         szItemName := szItemName is String ? StrPtr(szItemName) : szItemName
         szUNCName := szUNCName is String ? StrPtr(szUNCName) : szUNCName
 
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        szTopicNameMarshal := szTopicName == 0 ? IntPtr : PWSTR
+        szItemNameMarshal := szItemName == 0 ? IntPtr : PWSTR
+        szUNCNameMarshal := szUNCName == 0 ? IntPtr : PWSTR
+        linkUpdatingOptionMarshal := linkUpdatingOption == 0 ? IntPtr : UInt32
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
+        pvContextMarshal := pvContext == 0 ? IntPtr : "ptr"
 
-        result := DllCall(this.value, Guid.Ptr, pClsid, "ptr", szClass, "ptr", szTopicName, "ptr", szItemName, "ptr", szUNCName, UInt32, linkUpdatingOption, pvContextMarshal, pvContext, "HRESULT")
+        result := DllCall(this.value, Guid.Ptr, pClsid, "ptr", szClass, szTopicNameMarshal, szTopicName, szItemNameMarshal, szItemName, szUNCNameMarshal, szUNCName, linkUpdatingOptionMarshal, linkUpdatingOption, pvContextMarshal, pvContext, "HRESULT")
         return result
     }
 

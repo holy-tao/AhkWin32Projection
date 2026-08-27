@@ -24,7 +24,6 @@ export default struct PIBIO_STORAGE_GET_RECORD_COUNT_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/ns-winbio_adapter-winbio_pipeline">WINBIO_PIPELINE</a> structure associated with the biometric unit performing the operation.
      * @returns {Pointer} Pointer to a variable that receives the number of template records in the result set.
      */

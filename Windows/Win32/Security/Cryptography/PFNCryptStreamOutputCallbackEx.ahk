@@ -21,7 +21,6 @@ export default struct PFNCryptStreamOutputCallbackEx {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvCallbackCtxt 
      * @param {Integer} pbData 
      * @param {Pointer} cbData 
@@ -30,9 +29,10 @@ export default struct PFNCryptStreamOutputCallbackEx {
      * @returns {HRESULT} 
      */
     Call(pvCallbackCtxt, pbData, cbData, hDescriptor, fFinal) {
-        pvCallbackCtxtMarshal := pvCallbackCtxt is VarRef ? "ptr" : "ptr"
+        pvCallbackCtxtMarshal := pvCallbackCtxt is VarRef ? "ptr" : IntPtr
+        pbDataMarshal := pbData == 0 ? IntPtr : IntPtr
 
-        result := DllCall(this.value, pvCallbackCtxtMarshal, pvCallbackCtxt, IntPtr, pbData, IntPtr, cbData, NCRYPT_DESCRIPTOR_HANDLE, hDescriptor, BOOL, fFinal, "HRESULT")
+        result := DllCall(this.value, pvCallbackCtxtMarshal, pvCallbackCtxt, pbDataMarshal, pbData, IntPtr, cbData, NCRYPT_DESCRIPTOR_HANDLE, hDescriptor, BOOL, fFinal, "HRESULT")
         return result
     }
 

@@ -53,7 +53,6 @@ export default struct IHTMLCaret extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDisplayPointer} pDispPointer 
      * @param {BOOL} fScrollIntoView 
      * @param {CARET_DIRECTION} eDir 
@@ -65,7 +64,6 @@ export default struct IHTMLCaret extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDisplayPointer} pDispPointer 
      * @param {BOOL} fVisible 
      * @param {BOOL} fScrollIntoView 
@@ -78,7 +76,6 @@ export default struct IHTMLCaret extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pIMarkupPointer 
      * @returns {HRESULT} 
      */
@@ -88,7 +85,6 @@ export default struct IHTMLCaret extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDisplayPointer} pDispPointer 
      * @returns {HRESULT} 
      */
@@ -98,7 +94,6 @@ export default struct IHTMLCaret extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsVisible() {
@@ -107,7 +102,6 @@ export default struct IHTMLCaret extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fScrollIntoView 
      * @returns {HRESULT} 
      */
@@ -141,7 +135,6 @@ export default struct IHTMLCaret extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pText 
      * @param {Integer} lLen 
      * @returns {HRESULT} 
@@ -154,7 +147,6 @@ export default struct IHTMLCaret extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ScrollIntoView() {
@@ -163,7 +155,6 @@ export default struct IHTMLCaret extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fTranslate 
      * @returns {POINT} 
      */
@@ -174,7 +165,6 @@ export default struct IHTMLCaret extends IUnknown {
     }
 
     /**
-     * 
      * @returns {CARET_DIRECTION} 
      */
     GetCaretDirection() {
@@ -183,7 +173,6 @@ export default struct IHTMLCaret extends IUnknown {
     }
 
     /**
-     * 
      * @param {CARET_DIRECTION} eDir 
      * @returns {HRESULT} 
      */
@@ -201,18 +190,18 @@ export default struct IHTMLCaret extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.MoveCaretToPointer := CallbackCreate(GetMethod(implObj, "MoveCaretToPointer"), flags, 4)
-        this.vtbl.MoveCaretToPointerEx := CallbackCreate(GetMethod(implObj, "MoveCaretToPointerEx"), flags, 5)
-        this.vtbl.MoveMarkupPointerToCaret := CallbackCreate(GetMethod(implObj, "MoveMarkupPointerToCaret"), flags, 2)
-        this.vtbl.MoveDisplayPointerToCaret := CallbackCreate(GetMethod(implObj, "MoveDisplayPointerToCaret"), flags, 2)
-        this.vtbl.IsVisible := CallbackCreate(GetMethod(implObj, "IsVisible"), flags, 2)
-        this.vtbl.Show := CallbackCreate(GetMethod(implObj, "Show"), flags, 2)
-        this.vtbl.Hide := CallbackCreate(GetMethod(implObj, "Hide"), flags, 1)
-        this.vtbl.InsertText := CallbackCreate(GetMethod(implObj, "InsertText"), flags, 3)
-        this.vtbl.ScrollIntoView := CallbackCreate(GetMethod(implObj, "ScrollIntoView"), flags, 1)
-        this.vtbl.GetLocation := CallbackCreate(GetMethod(implObj, "GetLocation"), flags, 3)
-        this.vtbl.GetCaretDirection := CallbackCreate(GetMethod(implObj, "GetCaretDirection"), flags, 2)
-        this.vtbl.SetCaretDirection := CallbackCreate(GetMethod(implObj, "SetCaretDirection"), flags, 2)
+        this.vtbl.MoveCaretToPointer := CallbackCreate(ObjBindMethod(implObj, "MoveCaretToPointer"), flags, 4)
+        this.vtbl.MoveCaretToPointerEx := CallbackCreate(ObjBindMethod(implObj, "MoveCaretToPointerEx"), flags, 5)
+        this.vtbl.MoveMarkupPointerToCaret := CallbackCreate(ObjBindMethod(implObj, "MoveMarkupPointerToCaret"), flags, 2)
+        this.vtbl.MoveDisplayPointerToCaret := CallbackCreate(ObjBindMethod(implObj, "MoveDisplayPointerToCaret"), flags, 2)
+        this.vtbl.IsVisible := CallbackCreate(ObjBindMethod(implObj, "IsVisible"), flags, 2)
+        this.vtbl.Show := CallbackCreate(ObjBindMethod(implObj, "Show"), flags, 2)
+        this.vtbl.Hide := CallbackCreate(ObjBindMethod(implObj, "Hide"), flags, 1)
+        this.vtbl.InsertText := CallbackCreate(ObjBindMethod(implObj, "InsertText"), flags, 3)
+        this.vtbl.ScrollIntoView := CallbackCreate(ObjBindMethod(implObj, "ScrollIntoView"), flags, 1)
+        this.vtbl.GetLocation := CallbackCreate(ObjBindMethod(implObj, "GetLocation"), flags, 3)
+        this.vtbl.GetCaretDirection := CallbackCreate(ObjBindMethod(implObj, "GetCaretDirection"), flags, 2)
+        this.vtbl.SetCaretDirection := CallbackCreate(ObjBindMethod(implObj, "SetCaretDirection"), flags, 2)
     }
 
     Dispose() {

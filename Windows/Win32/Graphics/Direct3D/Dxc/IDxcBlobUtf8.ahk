@@ -37,7 +37,6 @@ export default struct IDxcBlobUtf8 extends IDxcBlobEncoding {
     }
 
     /**
-     * 
      * @returns {PSTR} 
      */
     GetStringPointer() {
@@ -46,7 +45,6 @@ export default struct IDxcBlobUtf8 extends IDxcBlobEncoding {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     GetStringLength() {
@@ -63,8 +61,8 @@ export default struct IDxcBlobUtf8 extends IDxcBlobEncoding {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStringPointer := CallbackCreate(GetMethod(implObj, "GetStringPointer"), flags, 1)
-        this.vtbl.GetStringLength := CallbackCreate(GetMethod(implObj, "GetStringLength"), flags, 1)
+        this.vtbl.GetStringPointer := CallbackCreate(ObjBindMethod(implObj, "GetStringPointer"), flags, 1)
+        this.vtbl.GetStringLength := CallbackCreate(ObjBindMethod(implObj, "GetStringLength"), flags, 1)
     }
 
     Dispose() {

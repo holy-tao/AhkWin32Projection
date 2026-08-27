@@ -206,7 +206,6 @@ export FaxConnectFaxServerW(MachineName, FaxHandle) {
 }
 
 /**
- * 
  * @param {HANDLE} FaxHandle 
  * @returns {BOOL} 
  */
@@ -216,7 +215,6 @@ export FaxClose(FaxHandle) {
 }
 
 /**
- * 
  * @param {HANDLE} FaxHandle 
  * @param {Integer} DeviceId 
  * @param {Integer} Flags 
@@ -256,8 +254,8 @@ export FaxOpenPort(FaxHandle, DeviceId, Flags, FaxPortHandle) {
  * @since windows5.0
  */
 export FaxCompleteJobParamsA(JobParams, CoverpageInfo) {
-    JobParamsMarshal := JobParams is VarRef ? "ptr*" : "ptr"
-    CoverpageInfoMarshal := CoverpageInfo is VarRef ? "ptr*" : "ptr"
+    JobParamsMarshal := JobParams is VarRef ? "ptr*" : IntPtr
+    CoverpageInfoMarshal := CoverpageInfo is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("WINFAX.dll\FaxCompleteJobParamsA", JobParamsMarshal, JobParams, CoverpageInfoMarshal, CoverpageInfo, BOOL)
     return result
@@ -291,8 +289,8 @@ export FaxCompleteJobParamsA(JobParams, CoverpageInfo) {
  * @since windows5.0
  */
 export FaxCompleteJobParamsW(JobParams, CoverpageInfo) {
-    JobParamsMarshal := JobParams is VarRef ? "ptr*" : "ptr"
-    CoverpageInfoMarshal := CoverpageInfo is VarRef ? "ptr*" : "ptr"
+    JobParamsMarshal := JobParams is VarRef ? "ptr*" : IntPtr
+    CoverpageInfoMarshal := CoverpageInfo is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("WINFAX.dll\FaxCompleteJobParamsW", JobParamsMarshal, JobParams, CoverpageInfoMarshal, CoverpageInfo, BOOL)
     return result
@@ -420,7 +418,7 @@ export FaxCompleteJobParamsW(JobParams, CoverpageInfo) {
 export FaxSendDocumentA(FaxHandle, FileName, JobParams, CoverpageInfo, FaxJobId) {
     FileName := FileName is String ? StrPtr(FileName) : FileName
 
-    FaxJobIdMarshal := FaxJobId is VarRef ? "uint*" : "ptr"
+    FaxJobIdMarshal := FaxJobId is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -554,7 +552,7 @@ export FaxSendDocumentA(FaxHandle, FileName, JobParams, CoverpageInfo, FaxJobId)
 export FaxSendDocumentW(FaxHandle, FileName, JobParams, CoverpageInfo, FaxJobId) {
     FileName := FileName is String ? StrPtr(FileName) : FileName
 
-    FaxJobIdMarshal := FaxJobId is VarRef ? "uint*" : "ptr"
+    FaxJobIdMarshal := FaxJobId is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -674,8 +672,8 @@ export FaxSendDocumentW(FaxHandle, FileName, JobParams, CoverpageInfo, FaxJobId)
 export FaxSendDocumentForBroadcastA(FaxHandle, FileName, FaxJobId, FaxRecipientCallback, _Context) {
     FileName := FileName is String ? StrPtr(FileName) : FileName
 
-    FaxJobIdMarshal := FaxJobId is VarRef ? "uint*" : "ptr"
-    _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+    FaxJobIdMarshal := FaxJobId is VarRef ? "uint*" : IntPtr
+    _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -795,8 +793,8 @@ export FaxSendDocumentForBroadcastA(FaxHandle, FileName, FaxJobId, FaxRecipientC
 export FaxSendDocumentForBroadcastW(FaxHandle, FileName, FaxJobId, FaxRecipientCallback, _Context) {
     FileName := FileName is String ? StrPtr(FileName) : FileName
 
-    FaxJobIdMarshal := FaxJobId is VarRef ? "uint*" : "ptr"
-    _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+    FaxJobIdMarshal := FaxJobId is VarRef ? "uint*" : IntPtr
+    _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -879,8 +877,8 @@ export FaxSendDocumentForBroadcastW(FaxHandle, FileName, FaxJobId, FaxRecipientC
  * @since windows5.0
  */
 export FaxEnumJobsA(FaxHandle, JobEntry, JobsReturned) {
-    JobEntryMarshal := JobEntry is VarRef ? "ptr*" : "ptr"
-    JobsReturnedMarshal := JobsReturned is VarRef ? "uint*" : "ptr"
+    JobEntryMarshal := JobEntry is VarRef ? "ptr*" : IntPtr
+    JobsReturnedMarshal := JobsReturned is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -963,8 +961,8 @@ export FaxEnumJobsA(FaxHandle, JobEntry, JobsReturned) {
  * @since windows5.0
  */
 export FaxEnumJobsW(FaxHandle, JobEntry, JobsReturned) {
-    JobEntryMarshal := JobEntry is VarRef ? "ptr*" : "ptr"
-    JobsReturnedMarshal := JobsReturned is VarRef ? "uint*" : "ptr"
+    JobEntryMarshal := JobEntry is VarRef ? "ptr*" : IntPtr
+    JobsReturnedMarshal := JobsReturned is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -1049,7 +1047,7 @@ export FaxEnumJobsW(FaxHandle, JobEntry, JobsReturned) {
  * @since windows5.0
  */
 export FaxGetJobA(FaxHandle, JobId, JobEntry) {
-    JobEntryMarshal := JobEntry is VarRef ? "ptr*" : "ptr"
+    JobEntryMarshal := JobEntry is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -1134,7 +1132,7 @@ export FaxGetJobA(FaxHandle, JobId, JobEntry) {
  * @since windows5.0
  */
 export FaxGetJobW(FaxHandle, JobId, JobEntry) {
-    JobEntryMarshal := JobEntry is VarRef ? "ptr*" : "ptr"
+    JobEntryMarshal := JobEntry is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -1289,7 +1287,6 @@ export FaxSetJobW(FaxHandle, JobId, Command, JobEntry) {
 }
 
 /**
- * 
  * @param {HANDLE} FaxHandle 
  * @param {Integer} JobId 
  * @param {Pointer<Pointer<Integer>>} _Buffer 
@@ -1299,10 +1296,10 @@ export FaxSetJobW(FaxHandle, JobId, Command, JobEntry) {
  * @returns {BOOL} 
  */
 export FaxGetPageData(FaxHandle, JobId, _Buffer, BufferSize, ImageWidth, ImageHeight) {
-    _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
-    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
-    ImageWidthMarshal := ImageWidth is VarRef ? "uint*" : "ptr"
-    ImageHeightMarshal := ImageHeight is VarRef ? "uint*" : "ptr"
+    _BufferMarshal := _Buffer is VarRef ? "ptr*" : IntPtr
+    BufferSizeMarshal := BufferSize is VarRef ? "uint*" : IntPtr
+    ImageWidthMarshal := ImageWidth is VarRef ? "uint*" : IntPtr
+    ImageHeightMarshal := ImageHeight is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WINFAX.dll\FaxGetPageData", HANDLE, FaxHandle, UInt32, JobId, _BufferMarshal, _Buffer, BufferSizeMarshal, BufferSize, ImageWidthMarshal, ImageWidth, ImageHeightMarshal, ImageHeight, BOOL)
     return result
@@ -1376,7 +1373,7 @@ export FaxGetPageData(FaxHandle, JobId, _Buffer, BufferSize, ImageWidth, ImageHe
  * @since windows5.0
  */
 export FaxGetDeviceStatusA(FaxPortHandle, DeviceStatus) {
-    DeviceStatusMarshal := DeviceStatus is VarRef ? "ptr*" : "ptr"
+    DeviceStatusMarshal := DeviceStatus is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -1456,7 +1453,7 @@ export FaxGetDeviceStatusA(FaxPortHandle, DeviceStatus) {
  * @since windows5.0
  */
 export FaxGetDeviceStatusW(FaxPortHandle, DeviceStatus) {
-    DeviceStatusMarshal := DeviceStatus is VarRef ? "ptr*" : "ptr"
+    DeviceStatusMarshal := DeviceStatus is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -1469,7 +1466,6 @@ export FaxGetDeviceStatusW(FaxPortHandle, DeviceStatus) {
 }
 
 /**
- * 
  * @param {HANDLE} FaxHandle 
  * @param {Integer} JobId 
  * @returns {BOOL} 
@@ -1549,7 +1545,7 @@ export FaxAbort(FaxHandle, JobId) {
  * @since windows5.0
  */
 export FaxGetConfigurationA(FaxHandle, FaxConfig) {
-    FaxConfigMarshal := FaxConfig is VarRef ? "ptr*" : "ptr"
+    FaxConfigMarshal := FaxConfig is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -1631,7 +1627,7 @@ export FaxGetConfigurationA(FaxHandle, FaxConfig) {
  * @since windows5.0
  */
 export FaxGetConfigurationW(FaxHandle, FaxConfig) {
-    FaxConfigMarshal := FaxConfig is VarRef ? "ptr*" : "ptr"
+    FaxConfigMarshal := FaxConfig is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -1872,8 +1868,8 @@ export FaxSetConfigurationW(FaxHandle, FaxConfig) {
  * @since windows5.0
  */
 export FaxGetLoggingCategoriesA(FaxHandle, Categories, NumberCategories) {
-    CategoriesMarshal := Categories is VarRef ? "ptr*" : "ptr"
-    NumberCategoriesMarshal := NumberCategories is VarRef ? "uint*" : "ptr"
+    CategoriesMarshal := Categories is VarRef ? "ptr*" : IntPtr
+    NumberCategoriesMarshal := NumberCategories is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -1962,8 +1958,8 @@ export FaxGetLoggingCategoriesA(FaxHandle, Categories, NumberCategories) {
  * @since windows5.0
  */
 export FaxGetLoggingCategoriesW(FaxHandle, Categories, NumberCategories) {
-    CategoriesMarshal := Categories is VarRef ? "ptr*" : "ptr"
-    NumberCategoriesMarshal := NumberCategories is VarRef ? "uint*" : "ptr"
+    CategoriesMarshal := Categories is VarRef ? "ptr*" : IntPtr
+    NumberCategoriesMarshal := NumberCategories is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -2226,8 +2222,8 @@ export FaxSetLoggingCategoriesW(FaxHandle, Categories, NumberCategories) {
  * @since windows5.0
  */
 export FaxEnumPortsA(FaxHandle, PortInfo, PortsReturned) {
-    PortInfoMarshal := PortInfo is VarRef ? "ptr*" : "ptr"
-    PortsReturnedMarshal := PortsReturned is VarRef ? "uint*" : "ptr"
+    PortInfoMarshal := PortInfo is VarRef ? "ptr*" : IntPtr
+    PortsReturnedMarshal := PortsReturned is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -2310,8 +2306,8 @@ export FaxEnumPortsA(FaxHandle, PortInfo, PortsReturned) {
  * @since windows5.0
  */
 export FaxEnumPortsW(FaxHandle, PortInfo, PortsReturned) {
-    PortInfoMarshal := PortInfo is VarRef ? "ptr*" : "ptr"
-    PortsReturnedMarshal := PortsReturned is VarRef ? "uint*" : "ptr"
+    PortInfoMarshal := PortInfo is VarRef ? "ptr*" : IntPtr
+    PortsReturnedMarshal := PortsReturned is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -2397,7 +2393,7 @@ export FaxEnumPortsW(FaxHandle, PortInfo, PortsReturned) {
  * @since windows5.0
  */
 export FaxGetPortA(FaxPortHandle, PortInfo) {
-    PortInfoMarshal := PortInfo is VarRef ? "ptr*" : "ptr"
+    PortInfoMarshal := PortInfo is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -2483,7 +2479,7 @@ export FaxGetPortA(FaxPortHandle, PortInfo) {
  * @since windows5.0
  */
 export FaxGetPortW(FaxPortHandle, PortInfo) {
-    PortInfoMarshal := PortInfo is VarRef ? "ptr*" : "ptr"
+    PortInfoMarshal := PortInfo is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -2738,8 +2734,8 @@ export FaxSetPortW(FaxPortHandle, PortInfo) {
  * @since windows5.0
  */
 export FaxEnumRoutingMethodsA(FaxPortHandle, RoutingMethod, MethodsReturned) {
-    RoutingMethodMarshal := RoutingMethod is VarRef ? "ptr*" : "ptr"
-    MethodsReturnedMarshal := MethodsReturned is VarRef ? "uint*" : "ptr"
+    RoutingMethodMarshal := RoutingMethod is VarRef ? "ptr*" : IntPtr
+    MethodsReturnedMarshal := MethodsReturned is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -2830,8 +2826,8 @@ export FaxEnumRoutingMethodsA(FaxPortHandle, RoutingMethod, MethodsReturned) {
  * @since windows5.0
  */
 export FaxEnumRoutingMethodsW(FaxPortHandle, RoutingMethod, MethodsReturned) {
-    RoutingMethodMarshal := RoutingMethod is VarRef ? "ptr*" : "ptr"
-    MethodsReturnedMarshal := MethodsReturned is VarRef ? "uint*" : "ptr"
+    RoutingMethodMarshal := RoutingMethod is VarRef ? "ptr*" : IntPtr
+    MethodsReturnedMarshal := MethodsReturned is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -3090,8 +3086,8 @@ export FaxEnableRoutingMethodW(FaxPortHandle, RoutingGuid, Enabled) {
  * @since windows5.0
  */
 export FaxEnumGlobalRoutingInfoA(FaxHandle, RoutingInfo, MethodsReturned) {
-    RoutingInfoMarshal := RoutingInfo is VarRef ? "ptr*" : "ptr"
-    MethodsReturnedMarshal := MethodsReturned is VarRef ? "uint*" : "ptr"
+    RoutingInfoMarshal := RoutingInfo is VarRef ? "ptr*" : IntPtr
+    MethodsReturnedMarshal := MethodsReturned is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -3176,8 +3172,8 @@ export FaxEnumGlobalRoutingInfoA(FaxHandle, RoutingInfo, MethodsReturned) {
  * @since windows5.0
  */
 export FaxEnumGlobalRoutingInfoW(FaxHandle, RoutingInfo, MethodsReturned) {
-    RoutingInfoMarshal := RoutingInfo is VarRef ? "ptr*" : "ptr"
-    MethodsReturnedMarshal := MethodsReturned is VarRef ? "uint*" : "ptr"
+    RoutingInfoMarshal := RoutingInfo is VarRef ? "ptr*" : IntPtr
+    MethodsReturnedMarshal := MethodsReturned is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -3442,8 +3438,8 @@ export FaxSetGlobalRoutingInfoW(FaxHandle, RoutingInfo) {
 export FaxGetRoutingInfoA(FaxPortHandle, RoutingGuid, RoutingInfoBuffer, RoutingInfoBufferSize) {
     RoutingGuid := RoutingGuid is String ? StrPtr(RoutingGuid) : RoutingGuid
 
-    RoutingInfoBufferMarshal := RoutingInfoBuffer is VarRef ? "ptr*" : "ptr"
-    RoutingInfoBufferSizeMarshal := RoutingInfoBufferSize is VarRef ? "uint*" : "ptr"
+    RoutingInfoBufferMarshal := RoutingInfoBuffer is VarRef ? "ptr*" : IntPtr
+    RoutingInfoBufferSizeMarshal := RoutingInfoBufferSize is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -3552,8 +3548,8 @@ export FaxGetRoutingInfoA(FaxPortHandle, RoutingGuid, RoutingInfoBuffer, Routing
 export FaxGetRoutingInfoW(FaxPortHandle, RoutingGuid, RoutingInfoBuffer, RoutingInfoBufferSize) {
     RoutingGuid := RoutingGuid is String ? StrPtr(RoutingGuid) : RoutingGuid
 
-    RoutingInfoBufferMarshal := RoutingInfoBuffer is VarRef ? "ptr*" : "ptr"
-    RoutingInfoBufferSizeMarshal := RoutingInfoBufferSize is VarRef ? "uint*" : "ptr"
+    RoutingInfoBufferMarshal := RoutingInfoBuffer is VarRef ? "ptr*" : IntPtr
+    RoutingInfoBufferSizeMarshal := RoutingInfoBufferSize is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -3649,7 +3645,7 @@ export FaxGetRoutingInfoW(FaxPortHandle, RoutingGuid, RoutingInfoBuffer, Routing
 export FaxSetRoutingInfoA(FaxPortHandle, RoutingGuid, RoutingInfoBuffer, RoutingInfoBufferSize) {
     RoutingGuid := RoutingGuid is String ? StrPtr(RoutingGuid) : RoutingGuid
 
-    RoutingInfoBufferMarshal := RoutingInfoBuffer is VarRef ? "char*" : "ptr"
+    RoutingInfoBufferMarshal := RoutingInfoBuffer is VarRef ? "char*" : IntPtr
 
     A_LastError := 0
 
@@ -3745,7 +3741,7 @@ export FaxSetRoutingInfoA(FaxPortHandle, RoutingGuid, RoutingInfoBuffer, Routing
 export FaxSetRoutingInfoW(FaxPortHandle, RoutingGuid, RoutingInfoBuffer, RoutingInfoBufferSize) {
     RoutingGuid := RoutingGuid is String ? StrPtr(RoutingGuid) : RoutingGuid
 
-    RoutingInfoBufferMarshal := RoutingInfoBuffer is VarRef ? "char*" : "ptr"
+    RoutingInfoBufferMarshal := RoutingInfoBuffer is VarRef ? "char*" : IntPtr
 
     A_LastError := 0
 
@@ -3758,7 +3754,6 @@ export FaxSetRoutingInfoW(FaxPortHandle, RoutingGuid, RoutingInfoBuffer, Routing
 }
 
 /**
- * 
  * @param {HANDLE} FaxHandle 
  * @param {HANDLE} CompletionPort 
  * @param {Pointer} CompletionKey 
@@ -3772,12 +3767,11 @@ export FaxInitializeEventQueue(FaxHandle, CompletionPort, CompletionKey, _hWnd, 
 }
 
 /**
- * 
  * @param {Pointer<Void>} _Buffer 
  * @returns {String} Nothing - always returns an empty string
  */
 export FaxFreeBuffer(_Buffer) {
-    _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
+    _BufferMarshal := _Buffer is VarRef ? "ptr" : IntPtr
 
     DllCall("WINFAX.dll\FaxFreeBuffer", _BufferMarshal, _Buffer)
 }
@@ -3896,7 +3890,7 @@ export FaxFreeBuffer(_Buffer) {
 export FaxStartPrintJobA(PrinterName, PrintInfo, FaxJobId, FaxContextInfo) {
     PrinterName := PrinterName is String ? StrPtr(PrinterName) : PrinterName
 
-    FaxJobIdMarshal := FaxJobId is VarRef ? "uint*" : "ptr"
+    FaxJobIdMarshal := FaxJobId is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -4022,7 +4016,7 @@ export FaxStartPrintJobA(PrinterName, PrintInfo, FaxJobId, FaxContextInfo) {
 export FaxStartPrintJobW(PrinterName, PrintInfo, FaxJobId, FaxContextInfo) {
     PrinterName := PrinterName is String ? StrPtr(PrinterName) : PrinterName
 
-    FaxJobIdMarshal := FaxJobId is VarRef ? "uint*" : "ptr"
+    FaxJobIdMarshal := FaxJobId is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -4261,7 +4255,6 @@ export FaxRegisterServiceProviderW(DeviceProvider, FriendlyName, ImageName, TspN
 }
 
 /**
- * 
  * @param {PWSTR} DeviceProvider 
  * @returns {BOOL} 
  */
@@ -4346,7 +4339,7 @@ export FaxRegisterRoutingExtensionW(FaxHandle, ExtensionName, FriendlyName, Imag
     FriendlyName := FriendlyName is String ? StrPtr(FriendlyName) : FriendlyName
     ImageName := ImageName is String ? StrPtr(ImageName) : ImageName
 
-    _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+    _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -4359,7 +4352,6 @@ export FaxRegisterRoutingExtensionW(FaxHandle, ExtensionName, FriendlyName, Imag
 }
 
 /**
- * 
  * @param {HANDLE} FaxHandle 
  * @param {Integer} AccessMask 
  * @returns {BOOL} 
@@ -4413,7 +4405,6 @@ export SendToFaxRecipient(sndMode, lpFileName) {
 }
 
 /**
- * 
  * @param {HINSTANCE} hinst 
  * @param {Integer} dwVer 
  * @param {IUnknown} punkOuter 

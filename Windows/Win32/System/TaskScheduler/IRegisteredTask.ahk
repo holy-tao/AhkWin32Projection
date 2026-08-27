@@ -415,7 +415,7 @@ export default struct IRegisteredTask extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-getruntimes
      */
     GetRunTimes(pstStart, pstEnd, pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+        pCountMarshal := pCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(24, this, SYSTEMTIME.Ptr, pstStart, SYSTEMTIME.Ptr, pstEnd, pCountMarshal, pCount, "ptr*", &pRunTimes := 0, "HRESULT")
         return pRunTimes
@@ -430,24 +430,24 @@ export default struct IRegisteredTask extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_Path := CallbackCreate(GetMethod(implObj, "get_Path"), flags, 2)
-        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
-        this.vtbl.get_Enabled := CallbackCreate(GetMethod(implObj, "get_Enabled"), flags, 2)
-        this.vtbl.put_Enabled := CallbackCreate(GetMethod(implObj, "put_Enabled"), flags, 2)
-        this.vtbl.Run := CallbackCreate(GetMethod(implObj, "Run"), flags, 3)
-        this.vtbl.RunEx := CallbackCreate(GetMethod(implObj, "RunEx"), flags, 6)
-        this.vtbl.GetInstances := CallbackCreate(GetMethod(implObj, "GetInstances"), flags, 3)
-        this.vtbl.get_LastRunTime := CallbackCreate(GetMethod(implObj, "get_LastRunTime"), flags, 2)
-        this.vtbl.get_LastTaskResult := CallbackCreate(GetMethod(implObj, "get_LastTaskResult"), flags, 2)
-        this.vtbl.get_NumberOfMissedRuns := CallbackCreate(GetMethod(implObj, "get_NumberOfMissedRuns"), flags, 2)
-        this.vtbl.get_NextRunTime := CallbackCreate(GetMethod(implObj, "get_NextRunTime"), flags, 2)
-        this.vtbl.get_Definition := CallbackCreate(GetMethod(implObj, "get_Definition"), flags, 2)
-        this.vtbl.get_Xml := CallbackCreate(GetMethod(implObj, "get_Xml"), flags, 2)
-        this.vtbl.GetSecurityDescriptor := CallbackCreate(GetMethod(implObj, "GetSecurityDescriptor"), flags, 3)
-        this.vtbl.SetSecurityDescriptor := CallbackCreate(GetMethod(implObj, "SetSecurityDescriptor"), flags, 3)
-        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 2)
-        this.vtbl.GetRunTimes := CallbackCreate(GetMethod(implObj, "GetRunTimes"), flags, 5)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Path := CallbackCreate(ObjBindMethod(implObj, "get_Path"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(ObjBindMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.get_Enabled := CallbackCreate(ObjBindMethod(implObj, "get_Enabled"), flags, 2)
+        this.vtbl.put_Enabled := CallbackCreate(ObjBindMethod(implObj, "put_Enabled"), flags, 2)
+        this.vtbl.Run := CallbackCreate(ObjBindMethod(implObj, "Run"), flags, 3)
+        this.vtbl.RunEx := CallbackCreate(ObjBindMethod(implObj, "RunEx"), flags, 6)
+        this.vtbl.GetInstances := CallbackCreate(ObjBindMethod(implObj, "GetInstances"), flags, 3)
+        this.vtbl.get_LastRunTime := CallbackCreate(ObjBindMethod(implObj, "get_LastRunTime"), flags, 2)
+        this.vtbl.get_LastTaskResult := CallbackCreate(ObjBindMethod(implObj, "get_LastTaskResult"), flags, 2)
+        this.vtbl.get_NumberOfMissedRuns := CallbackCreate(ObjBindMethod(implObj, "get_NumberOfMissedRuns"), flags, 2)
+        this.vtbl.get_NextRunTime := CallbackCreate(ObjBindMethod(implObj, "get_NextRunTime"), flags, 2)
+        this.vtbl.get_Definition := CallbackCreate(ObjBindMethod(implObj, "get_Definition"), flags, 2)
+        this.vtbl.get_Xml := CallbackCreate(ObjBindMethod(implObj, "get_Xml"), flags, 2)
+        this.vtbl.GetSecurityDescriptor := CallbackCreate(ObjBindMethod(implObj, "GetSecurityDescriptor"), flags, 3)
+        this.vtbl.SetSecurityDescriptor := CallbackCreate(ObjBindMethod(implObj, "SetSecurityDescriptor"), flags, 3)
+        this.vtbl.Stop := CallbackCreate(ObjBindMethod(implObj, "Stop"), flags, 2)
+        this.vtbl.GetRunTimes := CallbackCreate(ObjBindMethod(implObj, "GetRunTimes"), flags, 5)
     }
 
     Dispose() {

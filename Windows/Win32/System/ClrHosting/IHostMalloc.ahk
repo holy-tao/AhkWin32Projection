@@ -39,7 +39,6 @@ export default struct IHostMalloc extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} cbSize 
      * @param {EMemoryCriticalLevel} eCriticalLevel 
      * @returns {Pointer<Void>} 
@@ -50,7 +49,6 @@ export default struct IHostMalloc extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} cbSize 
      * @param {EMemoryCriticalLevel} eCriticalLevel 
      * @param {Pointer<Integer>} pszFileName 
@@ -58,19 +56,18 @@ export default struct IHostMalloc extends IUnknown {
      * @returns {Pointer<Void>} 
      */
     DebugAlloc(cbSize, eCriticalLevel, pszFileName, iLineNo) {
-        pszFileNameMarshal := pszFileName is VarRef ? "char*" : "ptr"
+        pszFileNameMarshal := pszFileName is VarRef ? "char*" : IntPtr
 
         result := ComCall(4, this, IntPtr, cbSize, EMemoryCriticalLevel, eCriticalLevel, pszFileNameMarshal, pszFileName, Int32, iLineNo, "ptr*", &ppMem := 0, "HRESULT")
         return ppMem
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pMem 
      * @returns {HRESULT} 
      */
     Free(pMem) {
-        pMemMarshal := pMem is VarRef ? "ptr" : "ptr"
+        pMemMarshal := pMem is VarRef ? "ptr" : IntPtr
 
         result := ComCall(5, this, pMemMarshal, pMem, "HRESULT")
         return result
@@ -85,9 +82,9 @@ export default struct IHostMalloc extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Alloc := CallbackCreate(GetMethod(implObj, "Alloc"), flags, 4)
-        this.vtbl.DebugAlloc := CallbackCreate(GetMethod(implObj, "DebugAlloc"), flags, 6)
-        this.vtbl.Free := CallbackCreate(GetMethod(implObj, "Free"), flags, 2)
+        this.vtbl.Alloc := CallbackCreate(ObjBindMethod(implObj, "Alloc"), flags, 4)
+        this.vtbl.DebugAlloc := CallbackCreate(ObjBindMethod(implObj, "DebugAlloc"), flags, 6)
+        this.vtbl.Free := CallbackCreate(ObjBindMethod(implObj, "Free"), flags, 2)
     }
 
     Dispose() {

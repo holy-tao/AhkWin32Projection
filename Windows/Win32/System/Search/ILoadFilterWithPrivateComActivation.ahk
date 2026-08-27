@@ -39,7 +39,6 @@ export default struct ILoadFilterWithPrivateComActivation extends ILoadFilter {
     }
 
     /**
-     * 
      * @param {Pointer<FILTERED_DATA_SOURCES>} filteredSources 
      * @param {BOOL} useDefault 
      * @param {Pointer<Guid>} filterClsid 
@@ -48,7 +47,7 @@ export default struct ILoadFilterWithPrivateComActivation extends ILoadFilter {
      * @returns {HRESULT} 
      */
     LoadIFilterWithPrivateComActivation(filteredSources, useDefault, filterClsid, isFilterPrivateComActivated, filterObj) {
-        isFilterPrivateComActivatedMarshal := isFilterPrivateComActivated is VarRef ? "int*" : "ptr"
+        isFilterPrivateComActivatedMarshal := isFilterPrivateComActivated is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, FILTERED_DATA_SOURCES.Ptr, filteredSources, BOOL, useDefault, Guid.Ptr, filterClsid, isFilterPrivateComActivatedMarshal, isFilterPrivateComActivated, IFilter.Ptr, filterObj, "HRESULT")
         return result
@@ -63,7 +62,7 @@ export default struct ILoadFilterWithPrivateComActivation extends ILoadFilter {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LoadIFilterWithPrivateComActivation := CallbackCreate(GetMethod(implObj, "LoadIFilterWithPrivateComActivation"), flags, 6)
+        this.vtbl.LoadIFilterWithPrivateComActivation := CallbackCreate(ObjBindMethod(implObj, "LoadIFilterWithPrivateComActivation"), flags, 6)
     }
 
     Dispose() {

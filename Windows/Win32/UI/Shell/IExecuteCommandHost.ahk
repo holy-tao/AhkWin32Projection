@@ -63,7 +63,7 @@ export default struct IExecuteCommandHost extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetUIMode := CallbackCreate(GetMethod(implObj, "GetUIMode"), flags, 2)
+        this.vtbl.GetUIMode := CallbackCreate(ObjBindMethod(implObj, "GetUIMode"), flags, 2)
     }
 
     Dispose() {

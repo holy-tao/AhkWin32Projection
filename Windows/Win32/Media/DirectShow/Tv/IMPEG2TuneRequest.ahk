@@ -115,10 +115,10 @@ export default struct IMPEG2TuneRequest extends ITuneRequest {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_TSID := CallbackCreate(GetMethod(implObj, "get_TSID"), flags, 2)
-        this.vtbl.put_TSID := CallbackCreate(GetMethod(implObj, "put_TSID"), flags, 2)
-        this.vtbl.get_ProgNo := CallbackCreate(GetMethod(implObj, "get_ProgNo"), flags, 2)
-        this.vtbl.put_ProgNo := CallbackCreate(GetMethod(implObj, "put_ProgNo"), flags, 2)
+        this.vtbl.get_TSID := CallbackCreate(ObjBindMethod(implObj, "get_TSID"), flags, 2)
+        this.vtbl.put_TSID := CallbackCreate(ObjBindMethod(implObj, "put_TSID"), flags, 2)
+        this.vtbl.get_ProgNo := CallbackCreate(ObjBindMethod(implObj, "get_ProgNo"), flags, 2)
+        this.vtbl.put_ProgNo := CallbackCreate(ObjBindMethod(implObj, "put_ProgNo"), flags, 2)
     }
 
     Dispose() {

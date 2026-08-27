@@ -56,8 +56,10 @@
 export WerReportCreate(pwzEventType, repType, pReportInformation) {
     pwzEventType := pwzEventType is String ? StrPtr(pwzEventType) : pwzEventType
 
+    pReportInformationMarshal := pReportInformation == 0 ? IntPtr : WER_REPORT_INFORMATION.Ptr
+
     phReportHandle := HREPORT.Owned()
-    result := DllCall("wer.dll\WerReportCreate", "ptr", pwzEventType, WER_REPORT_TYPE, repType, WER_REPORT_INFORMATION.Ptr, pReportInformation, HREPORT.Ptr, phReportHandle, "HRESULT")
+    result := DllCall("wer.dll\WerReportCreate", "ptr", pwzEventType, WER_REPORT_TYPE, repType, pReportInformationMarshal, pReportInformation, HREPORT.Ptr, phReportHandle, "HRESULT")
     return phReportHandle
 }
 
@@ -106,7 +108,9 @@ export WerReportSetParameter(hReportHandle, dwparamID, pwzName, pwzValue) {
     pwzName := pwzName is String ? StrPtr(pwzName) : pwzName
     pwzValue := pwzValue is String ? StrPtr(pwzValue) : pwzValue
 
-    result := DllCall("wer.dll\WerReportSetParameter", HREPORT, hReportHandle, UInt32, dwparamID, "ptr", pwzName, "ptr", pwzValue, "HRESULT")
+    pwzNameMarshal := pwzName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("wer.dll\WerReportSetParameter", HREPORT, hReportHandle, UInt32, dwparamID, pwzNameMarshal, pwzName, "ptr", pwzValue, "HRESULT")
     return result
 }
 
@@ -235,7 +239,11 @@ export WerReportSubmit(hReportHandle, consent, dwFlags) {
  * @since windows6.0.6000
  */
 export WerReportAddDump(hReportHandle, hProcess, hThread, _dumpType, pExceptionParam, pDumpCustomOptions, dwFlags) {
-    result := DllCall("wer.dll\WerReportAddDump", HREPORT, hReportHandle, HANDLE, hProcess, HANDLE, hThread, WER_DUMP_TYPE, _dumpType, WER_EXCEPTION_INFORMATION.Ptr, pExceptionParam, WER_DUMP_CUSTOM_OPTIONS.Ptr, pDumpCustomOptions, UInt32, dwFlags, "HRESULT")
+    hThreadMarshal := hThread == 0 ? IntPtr : HANDLE
+    pExceptionParamMarshal := pExceptionParam == 0 ? IntPtr : WER_EXCEPTION_INFORMATION.Ptr
+    pDumpCustomOptionsMarshal := pDumpCustomOptions == 0 ? IntPtr : WER_DUMP_CUSTOM_OPTIONS.Ptr
+
+    result := DllCall("wer.dll\WerReportAddDump", HREPORT, hReportHandle, HANDLE, hProcess, hThreadMarshal, hThread, WER_DUMP_TYPE, _dumpType, pExceptionParamMarshal, pExceptionParam, pDumpCustomOptionsMarshal, pDumpCustomOptions, UInt32, dwFlags, "HRESULT")
     return result
 }
 
@@ -396,7 +404,7 @@ export WerUnregisterFile(pwzFilePath) {
  * @since windows6.0.6000
  */
 export WerRegisterMemoryBlock(pvAddress, dwSize) {
-    pvAddressMarshal := pvAddress is VarRef ? "ptr" : "ptr"
+    pvAddressMarshal := pvAddress is VarRef ? "ptr" : IntPtr
 
     result := DllCall("KERNEL32.dll\WerRegisterMemoryBlock", pvAddressMarshal, pvAddress, UInt32, dwSize, "HRESULT")
     return result
@@ -439,7 +447,7 @@ export WerRegisterMemoryBlock(pvAddress, dwSize) {
  * @since windows6.0.6000
  */
 export WerUnregisterMemoryBlock(pvAddress) {
-    pvAddressMarshal := pvAddress is VarRef ? "ptr" : "ptr"
+    pvAddressMarshal := pvAddress is VarRef ? "ptr" : IntPtr
 
     result := DllCall("KERNEL32.dll\WerUnregisterMemoryBlock", pvAddressMarshal, pvAddress, "HRESULT")
     return result
@@ -507,7 +515,7 @@ export WerUnregisterMemoryBlock(pvAddress) {
  * @since windows10.0.15063
  */
 export WerRegisterExcludedMemoryBlock(_address, _size) {
-    _addressMarshal := _address is VarRef ? "ptr" : "ptr"
+    _addressMarshal := _address is VarRef ? "ptr" : IntPtr
 
     result := DllCall("KERNEL32.dll\WerRegisterExcludedMemoryBlock", _addressMarshal, _address, UInt32, _size, "HRESULT")
     return result
@@ -539,7 +547,7 @@ export WerRegisterExcludedMemoryBlock(_address, _size) {
  * @since windows10.0.15063
  */
 export WerUnregisterExcludedMemoryBlock(_address) {
-    _addressMarshal := _address is VarRef ? "ptr" : "ptr"
+    _addressMarshal := _address is VarRef ? "ptr" : IntPtr
 
     result := DllCall("KERNEL32.dll\WerUnregisterExcludedMemoryBlock", _addressMarshal, _address, "HRESULT")
     return result
@@ -989,7 +997,7 @@ export WerRemoveExcludedApplication(pwzExeName, bAllUsers) {
 export WerRegisterRuntimeExceptionModule(pwszOutOfProcessCallbackDll, pContext) {
     pwszOutOfProcessCallbackDll := pwszOutOfProcessCallbackDll is String ? StrPtr(pwszOutOfProcessCallbackDll) : pwszOutOfProcessCallbackDll
 
-    pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+    pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
 
     result := DllCall("KERNEL32.dll\WerRegisterRuntimeExceptionModule", "ptr", pwszOutOfProcessCallbackDll, pContextMarshal, pContext, "HRESULT")
     return result
@@ -1037,7 +1045,7 @@ export WerRegisterRuntimeExceptionModule(pwszOutOfProcessCallbackDll, pContext) 
 export WerUnregisterRuntimeExceptionModule(pwszOutOfProcessCallbackDll, pContext) {
     pwszOutOfProcessCallbackDll := pwszOutOfProcessCallbackDll is String ? StrPtr(pwszOutOfProcessCallbackDll) : pwszOutOfProcessCallbackDll
 
-    pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+    pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
 
     result := DllCall("KERNEL32.dll\WerUnregisterRuntimeExceptionModule", "ptr", pwszOutOfProcessCallbackDll, pContextMarshal, pContext, "HRESULT")
     return result
@@ -1068,7 +1076,9 @@ export WerStoreOpen(repStoreType) {
  * @since windows10.0.15063
  */
 export WerStoreClose(_hReportStore) {
-    DllCall("wer.dll\WerStoreClose", HREPORTSTORE, _hReportStore)
+    _hReportStoreMarshal := _hReportStore == 0 ? IntPtr : HREPORTSTORE
+
+    DllCall("wer.dll\WerStoreClose", _hReportStoreMarshal, _hReportStore)
 }
 
 /**
@@ -1141,7 +1151,6 @@ export WerStoreQueryReportMetadataV2(_hReportStore, pszReportKey, pReportMetadat
 }
 
 /**
- * 
  * @param {HREPORTSTORE} _hReportStore 
  * @param {PWSTR} pszReportKey 
  * @param {Pointer<WER_REPORT_METADATA_V3>} pReportMetadata 
@@ -1168,7 +1177,6 @@ export WerFreeString(pwszStr) {
 }
 
 /**
- * 
  * @returns {HRESULT} 
  */
 export WerStorePurge() {
@@ -1177,7 +1185,6 @@ export WerStorePurge() {
 }
 
 /**
- * 
  * @param {HREPORTSTORE} _hReportStore 
  * @returns {Integer} 
  */
@@ -1187,7 +1194,6 @@ export WerStoreGetReportCount(_hReportStore) {
 }
 
 /**
- * 
  * @param {HREPORTSTORE} _hReportStore 
  * @returns {Integer} 
  */
@@ -1197,7 +1203,6 @@ export WerStoreGetSizeOnDisk(_hReportStore) {
 }
 
 /**
- * 
  * @param {HREPORTSTORE} _hReportStore 
  * @param {PWSTR} pszReportKey 
  * @param {Pointer<WER_REPORT_METADATA_V1>} pReportMetadata 
@@ -1211,7 +1216,6 @@ export WerStoreQueryReportMetadataV1(_hReportStore, pszReportKey, pReportMetadat
 }
 
 /**
- * 
  * @param {HREPORTSTORE} _hReportStore 
  * @param {PWSTR} pszReportKey 
  * @param {Integer} dwFlags 
@@ -1423,7 +1427,9 @@ export AddERExcludedApplicationW(wszApplication) {
 export WerReportHang(hwndHungApp, pwzHungApplicationName) {
     pwzHungApplicationName := pwzHungApplicationName is String ? StrPtr(pwzHungApplicationName) : pwzHungApplicationName
 
-    result := DllCall("faultrep.dll\WerReportHang", HWND, hwndHungApp, "ptr", pwzHungApplicationName, "HRESULT")
+    pwzHungApplicationNameMarshal := pwzHungApplicationName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("faultrep.dll\WerReportHang", HWND, hwndHungApp, pwzHungApplicationNameMarshal, pwzHungApplicationName, "HRESULT")
     return result
 }
 

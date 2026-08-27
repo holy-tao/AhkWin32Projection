@@ -136,9 +136,9 @@ export default struct IXpsOMPackage1 extends IXpsOMPackage {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDocumentType := CallbackCreate(GetMethod(implObj, "GetDocumentType"), flags, 2)
-        this.vtbl.WriteToFile1 := CallbackCreate(GetMethod(implObj, "WriteToFile1"), flags, 6)
-        this.vtbl.WriteToStream1 := CallbackCreate(GetMethod(implObj, "WriteToStream1"), flags, 4)
+        this.vtbl.GetDocumentType := CallbackCreate(ObjBindMethod(implObj, "GetDocumentType"), flags, 2)
+        this.vtbl.WriteToFile1 := CallbackCreate(ObjBindMethod(implObj, "WriteToFile1"), flags, 6)
+        this.vtbl.WriteToStream1 := CallbackCreate(ObjBindMethod(implObj, "WriteToStream1"), flags, 4)
     }
 
     Dispose() {

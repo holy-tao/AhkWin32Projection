@@ -52,7 +52,6 @@ export default struct IDOMBeforeUnloadEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -62,7 +61,6 @@ export default struct IDOMBeforeUnloadEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_returnValue() {
@@ -80,8 +78,8 @@ export default struct IDOMBeforeUnloadEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_returnValue := CallbackCreate(GetMethod(implObj, "put_returnValue"), flags, 2)
-        this.vtbl.get_returnValue := CallbackCreate(GetMethod(implObj, "get_returnValue"), flags, 2)
+        this.vtbl.put_returnValue := CallbackCreate(ObjBindMethod(implObj, "put_returnValue"), flags, 2)
+        this.vtbl.get_returnValue := CallbackCreate(ObjBindMethod(implObj, "get_returnValue"), flags, 2)
     }
 
     Dispose() {

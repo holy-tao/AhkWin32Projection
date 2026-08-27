@@ -18,14 +18,13 @@ export default struct PDXGK_REMOVAL_NOTIFICATION {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} GraphicsDeviceHandle 
      * @param {Pointer<Void>} PrivateHandle 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(GraphicsDeviceHandle, PrivateHandle) {
-        GraphicsDeviceHandleMarshal := GraphicsDeviceHandle is VarRef ? "ptr" : "ptr"
-        PrivateHandleMarshal := PrivateHandle is VarRef ? "ptr" : "ptr"
+        GraphicsDeviceHandleMarshal := GraphicsDeviceHandle is VarRef ? "ptr" : IntPtr
+        PrivateHandleMarshal := PrivateHandle is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, GraphicsDeviceHandleMarshal, GraphicsDeviceHandle, PrivateHandleMarshal, PrivateHandle)
     }

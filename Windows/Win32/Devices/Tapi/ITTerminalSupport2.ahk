@@ -132,10 +132,10 @@ export default struct ITTerminalSupport2 extends ITTerminalSupport {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_PluggableSuperclasses := CallbackCreate(GetMethod(implObj, "get_PluggableSuperclasses"), flags, 2)
-        this.vtbl.EnumeratePluggableSuperclasses := CallbackCreate(GetMethod(implObj, "EnumeratePluggableSuperclasses"), flags, 2)
-        this.vtbl.get_PluggableTerminalClasses := CallbackCreate(GetMethod(implObj, "get_PluggableTerminalClasses"), flags, 4)
-        this.vtbl.EnumeratePluggableTerminalClasses := CallbackCreate(GetMethod(implObj, "EnumeratePluggableTerminalClasses"), flags, 4)
+        this.vtbl.get_PluggableSuperclasses := CallbackCreate(ObjBindMethod(implObj, "get_PluggableSuperclasses"), flags, 2)
+        this.vtbl.EnumeratePluggableSuperclasses := CallbackCreate(ObjBindMethod(implObj, "EnumeratePluggableSuperclasses"), flags, 2)
+        this.vtbl.get_PluggableTerminalClasses := CallbackCreate(ObjBindMethod(implObj, "get_PluggableTerminalClasses"), flags, 4)
+        this.vtbl.EnumeratePluggableTerminalClasses := CallbackCreate(ObjBindMethod(implObj, "EnumeratePluggableTerminalClasses"), flags, 4)
     }
 
     Dispose() {

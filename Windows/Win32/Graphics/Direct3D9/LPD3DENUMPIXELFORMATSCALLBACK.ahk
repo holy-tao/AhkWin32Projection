@@ -20,13 +20,12 @@ export default struct LPD3DENUMPIXELFORMATSCALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<DDPIXELFORMAT>} lpDDPixFmt 
      * @param {Pointer<Void>} lpContext 
      * @returns {HRESULT} 
      */
     Call(lpDDPixFmt, lpContext) {
-        lpContextMarshal := lpContext is VarRef ? "ptr" : "ptr"
+        lpContextMarshal := lpContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, DDPIXELFORMAT.Ptr, lpDDPixFmt, lpContextMarshal, lpContext, "HRESULT")
         return result

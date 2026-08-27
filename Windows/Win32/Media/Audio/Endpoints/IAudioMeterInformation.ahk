@@ -107,10 +107,10 @@ export default struct IAudioMeterInformation extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPeakValue := CallbackCreate(GetMethod(implObj, "GetPeakValue"), flags, 2)
-        this.vtbl.GetMeteringChannelCount := CallbackCreate(GetMethod(implObj, "GetMeteringChannelCount"), flags, 2)
-        this.vtbl.GetChannelsPeakValues := CallbackCreate(GetMethod(implObj, "GetChannelsPeakValues"), flags, 3)
-        this.vtbl.QueryHardwareSupport := CallbackCreate(GetMethod(implObj, "QueryHardwareSupport"), flags, 2)
+        this.vtbl.GetPeakValue := CallbackCreate(ObjBindMethod(implObj, "GetPeakValue"), flags, 2)
+        this.vtbl.GetMeteringChannelCount := CallbackCreate(ObjBindMethod(implObj, "GetMeteringChannelCount"), flags, 2)
+        this.vtbl.GetChannelsPeakValues := CallbackCreate(ObjBindMethod(implObj, "GetChannelsPeakValues"), flags, 3)
+        this.vtbl.QueryHardwareSupport := CallbackCreate(ObjBindMethod(implObj, "QueryHardwareSupport"), flags, 2)
     }
 
     Dispose() {

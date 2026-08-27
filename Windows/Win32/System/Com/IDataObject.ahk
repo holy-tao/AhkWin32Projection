@@ -646,15 +646,15 @@ export default struct IDataObject extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetData := CallbackCreate(GetMethod(implObj, "GetData"), flags, 3)
-        this.vtbl.GetDataHere := CallbackCreate(GetMethod(implObj, "GetDataHere"), flags, 3)
-        this.vtbl.QueryGetData := CallbackCreate(GetMethod(implObj, "QueryGetData"), flags, 2)
-        this.vtbl.GetCanonicalFormatEtc := CallbackCreate(GetMethod(implObj, "GetCanonicalFormatEtc"), flags, 3)
-        this.vtbl.SetData := CallbackCreate(GetMethod(implObj, "SetData"), flags, 4)
-        this.vtbl.EnumFormatEtc := CallbackCreate(GetMethod(implObj, "EnumFormatEtc"), flags, 3)
-        this.vtbl.DAdvise := CallbackCreate(GetMethod(implObj, "DAdvise"), flags, 5)
-        this.vtbl.DUnadvise := CallbackCreate(GetMethod(implObj, "DUnadvise"), flags, 2)
-        this.vtbl.EnumDAdvise := CallbackCreate(GetMethod(implObj, "EnumDAdvise"), flags, 2)
+        this.vtbl.GetData := CallbackCreate(ObjBindMethod(implObj, "GetData"), flags, 3)
+        this.vtbl.GetDataHere := CallbackCreate(ObjBindMethod(implObj, "GetDataHere"), flags, 3)
+        this.vtbl.QueryGetData := CallbackCreate(ObjBindMethod(implObj, "QueryGetData"), flags, 2)
+        this.vtbl.GetCanonicalFormatEtc := CallbackCreate(ObjBindMethod(implObj, "GetCanonicalFormatEtc"), flags, 3)
+        this.vtbl.SetData := CallbackCreate(ObjBindMethod(implObj, "SetData"), flags, 4)
+        this.vtbl.EnumFormatEtc := CallbackCreate(ObjBindMethod(implObj, "EnumFormatEtc"), flags, 3)
+        this.vtbl.DAdvise := CallbackCreate(ObjBindMethod(implObj, "DAdvise"), flags, 5)
+        this.vtbl.DUnadvise := CallbackCreate(ObjBindMethod(implObj, "DUnadvise"), flags, 2)
+        this.vtbl.EnumDAdvise := CallbackCreate(ObjBindMethod(implObj, "EnumDAdvise"), flags, 2)
     }
 
     Dispose() {

@@ -144,7 +144,9 @@ export default struct ISensor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-getproperties
      */
     GetProperties(pKeys) {
-        result := ComCall(8, this, "ptr", pKeys, "ptr*", &ppProperties := 0, "HRESULT")
+        pKeysMarshal := pKeys == 0 ? IntPtr : "ptr"
+
+        result := ComCall(8, this, pKeysMarshal, pKeys, "ptr*", &ppProperties := 0, "HRESULT")
         return IPortableDeviceValues(ppProperties)
     }
 
@@ -171,7 +173,9 @@ export default struct ISensor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-setproperties
      */
     SetProperties(pProperties) {
-        result := ComCall(10, this, "ptr", pProperties, "ptr*", &ppResults := 0, "HRESULT")
+        pPropertiesMarshal := pProperties == 0 ? IntPtr : "ptr"
+
+        result := ComCall(10, this, pPropertiesMarshal, pProperties, "ptr*", &ppResults := 0, "HRESULT")
         return IPortableDeviceValues(ppResults)
     }
 
@@ -260,8 +264,8 @@ export default struct ISensor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-geteventinterest
      */
     GetEventInterest(ppValues, pCount) {
-        ppValuesMarshal := ppValues is VarRef ? "ptr*" : "ptr"
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+        ppValuesMarshal := ppValues is VarRef ? "ptr*" : IntPtr
+        pCountMarshal := pCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(15, this, ppValuesMarshal, ppValues, pCountMarshal, pCount, "HRESULT")
         return result
@@ -295,7 +299,9 @@ export default struct ISensor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-seteventinterest
      */
     SetEventInterest(pValues, count) {
-        result := ComCall(16, this, Guid.Ptr, pValues, UInt32, count, "HRESULT")
+        pValuesMarshal := pValues == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(16, this, pValuesMarshal, pValues, UInt32, count, "HRESULT")
         return result
     }
 
@@ -326,7 +332,9 @@ export default struct ISensor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-seteventsink
      */
     SetEventSink(pEvents) {
-        result := ComCall(17, this, "ptr", pEvents, "HRESULT")
+        pEventsMarshal := pEvents == 0 ? IntPtr : "ptr"
+
+        result := ComCall(17, this, pEventsMarshal, pEvents, "HRESULT")
         return result
     }
 
@@ -339,21 +347,21 @@ export default struct ISensor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetID := CallbackCreate(GetMethod(implObj, "GetID"), flags, 2)
-        this.vtbl.GetCategory := CallbackCreate(GetMethod(implObj, "GetCategory"), flags, 2)
-        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
-        this.vtbl.GetFriendlyName := CallbackCreate(GetMethod(implObj, "GetFriendlyName"), flags, 2)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
-        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 3)
-        this.vtbl.GetSupportedDataFields := CallbackCreate(GetMethod(implObj, "GetSupportedDataFields"), flags, 2)
-        this.vtbl.SetProperties := CallbackCreate(GetMethod(implObj, "SetProperties"), flags, 3)
-        this.vtbl.SupportsDataField := CallbackCreate(GetMethod(implObj, "SupportsDataField"), flags, 3)
-        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 2)
-        this.vtbl.GetData := CallbackCreate(GetMethod(implObj, "GetData"), flags, 2)
-        this.vtbl.SupportsEvent := CallbackCreate(GetMethod(implObj, "SupportsEvent"), flags, 3)
-        this.vtbl.GetEventInterest := CallbackCreate(GetMethod(implObj, "GetEventInterest"), flags, 3)
-        this.vtbl.SetEventInterest := CallbackCreate(GetMethod(implObj, "SetEventInterest"), flags, 3)
-        this.vtbl.SetEventSink := CallbackCreate(GetMethod(implObj, "SetEventSink"), flags, 2)
+        this.vtbl.GetID := CallbackCreate(ObjBindMethod(implObj, "GetID"), flags, 2)
+        this.vtbl.GetCategory := CallbackCreate(ObjBindMethod(implObj, "GetCategory"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(ObjBindMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.GetFriendlyName := CallbackCreate(ObjBindMethod(implObj, "GetFriendlyName"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.GetProperties := CallbackCreate(ObjBindMethod(implObj, "GetProperties"), flags, 3)
+        this.vtbl.GetSupportedDataFields := CallbackCreate(ObjBindMethod(implObj, "GetSupportedDataFields"), flags, 2)
+        this.vtbl.SetProperties := CallbackCreate(ObjBindMethod(implObj, "SetProperties"), flags, 3)
+        this.vtbl.SupportsDataField := CallbackCreate(ObjBindMethod(implObj, "SupportsDataField"), flags, 3)
+        this.vtbl.GetState := CallbackCreate(ObjBindMethod(implObj, "GetState"), flags, 2)
+        this.vtbl.GetData := CallbackCreate(ObjBindMethod(implObj, "GetData"), flags, 2)
+        this.vtbl.SupportsEvent := CallbackCreate(ObjBindMethod(implObj, "SupportsEvent"), flags, 3)
+        this.vtbl.GetEventInterest := CallbackCreate(ObjBindMethod(implObj, "GetEventInterest"), flags, 3)
+        this.vtbl.SetEventInterest := CallbackCreate(ObjBindMethod(implObj, "SetEventInterest"), flags, 3)
+        this.vtbl.SetEventSink := CallbackCreate(ObjBindMethod(implObj, "SetEventSink"), flags, 2)
     }
 
     Dispose() {

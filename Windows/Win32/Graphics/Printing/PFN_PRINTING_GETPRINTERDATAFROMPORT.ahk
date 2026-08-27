@@ -21,7 +21,6 @@ export default struct PFN_PRINTING_GETPRINTERDATAFROMPORT {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @param {Integer} param1 
      * @param {PWSTR} param2 
@@ -37,7 +36,7 @@ export default struct PFN_PRINTING_GETPRINTERDATAFROMPORT {
         param3 := param3 is String ? StrPtr(param3) : param3
         param5 := param5 is String ? StrPtr(param5) : param5
 
-        param7Marshal := param7 is VarRef ? "uint*" : "ptr"
+        param7Marshal := param7 is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HANDLE, param0, UInt32, param1, "ptr", param2, "ptr", param3, UInt32, param4, "ptr", param5, UInt32, param6, param7Marshal, param7, BOOL)
         return result

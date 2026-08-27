@@ -24,7 +24,6 @@ export default struct PWLDP_CANEXECUTEFILEFROMDETACHEDSIGNATURE_API {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} host 
      * @param {WLDP_EXECUTION_EVALUATION_OPTIONS} options 
      * @param {HANDLE} contentFileHandle 
@@ -35,7 +34,9 @@ export default struct PWLDP_CANEXECUTEFILEFROMDETACHEDSIGNATURE_API {
     Call(host, options, contentFileHandle, signatureFileHandle, auditInfo) {
         auditInfo := auditInfo is String ? StrPtr(auditInfo) : auditInfo
 
-        result := DllCall(this.value, Guid.Ptr, host, WLDP_EXECUTION_EVALUATION_OPTIONS, options, HANDLE, contentFileHandle, HANDLE, signatureFileHandle, "ptr", auditInfo, "int*", &result := 0, "HRESULT")
+        auditInfoMarshal := auditInfo == 0 ? IntPtr : PWSTR
+
+        result := DllCall(this.value, Guid.Ptr, host, WLDP_EXECUTION_EVALUATION_OPTIONS, options, HANDLE, contentFileHandle, HANDLE, signatureFileHandle, auditInfoMarshal, auditInfo, "int*", &result := 0, "HRESULT")
         return result
     }
 

@@ -193,13 +193,13 @@ export default struct IFileDialogEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnFileOk := CallbackCreate(GetMethod(implObj, "OnFileOk"), flags, 2)
-        this.vtbl.OnFolderChanging := CallbackCreate(GetMethod(implObj, "OnFolderChanging"), flags, 3)
-        this.vtbl.OnFolderChange := CallbackCreate(GetMethod(implObj, "OnFolderChange"), flags, 2)
-        this.vtbl.OnSelectionChange := CallbackCreate(GetMethod(implObj, "OnSelectionChange"), flags, 2)
-        this.vtbl.OnShareViolation := CallbackCreate(GetMethod(implObj, "OnShareViolation"), flags, 4)
-        this.vtbl.OnTypeChange := CallbackCreate(GetMethod(implObj, "OnTypeChange"), flags, 2)
-        this.vtbl.OnOverwrite := CallbackCreate(GetMethod(implObj, "OnOverwrite"), flags, 4)
+        this.vtbl.OnFileOk := CallbackCreate(ObjBindMethod(implObj, "OnFileOk"), flags, 2)
+        this.vtbl.OnFolderChanging := CallbackCreate(ObjBindMethod(implObj, "OnFolderChanging"), flags, 3)
+        this.vtbl.OnFolderChange := CallbackCreate(ObjBindMethod(implObj, "OnFolderChange"), flags, 2)
+        this.vtbl.OnSelectionChange := CallbackCreate(ObjBindMethod(implObj, "OnSelectionChange"), flags, 2)
+        this.vtbl.OnShareViolation := CallbackCreate(ObjBindMethod(implObj, "OnShareViolation"), flags, 4)
+        this.vtbl.OnTypeChange := CallbackCreate(ObjBindMethod(implObj, "OnTypeChange"), flags, 2)
+        this.vtbl.OnOverwrite := CallbackCreate(ObjBindMethod(implObj, "OnOverwrite"), flags, 4)
     }
 
     Dispose() {

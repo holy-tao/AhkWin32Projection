@@ -20,7 +20,6 @@ export default struct PCLUSTER_GET_VOLUME_PATH_NAME {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszFileName 
      * @param {PWSTR} lpszVolumePathName 
      * @param {Integer} cchBufferLength 

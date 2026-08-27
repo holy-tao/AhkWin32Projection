@@ -134,11 +134,11 @@ export default struct IAppxPackageReader extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetBlockMap := CallbackCreate(GetMethod(implObj, "GetBlockMap"), flags, 2)
-        this.vtbl.GetFootprintFile := CallbackCreate(GetMethod(implObj, "GetFootprintFile"), flags, 3)
-        this.vtbl.GetPayloadFile := CallbackCreate(GetMethod(implObj, "GetPayloadFile"), flags, 3)
-        this.vtbl.GetPayloadFiles := CallbackCreate(GetMethod(implObj, "GetPayloadFiles"), flags, 2)
-        this.vtbl.GetManifest := CallbackCreate(GetMethod(implObj, "GetManifest"), flags, 2)
+        this.vtbl.GetBlockMap := CallbackCreate(ObjBindMethod(implObj, "GetBlockMap"), flags, 2)
+        this.vtbl.GetFootprintFile := CallbackCreate(ObjBindMethod(implObj, "GetFootprintFile"), flags, 3)
+        this.vtbl.GetPayloadFile := CallbackCreate(ObjBindMethod(implObj, "GetPayloadFile"), flags, 3)
+        this.vtbl.GetPayloadFiles := CallbackCreate(ObjBindMethod(implObj, "GetPayloadFiles"), flags, 2)
+        this.vtbl.GetManifest := CallbackCreate(ObjBindMethod(implObj, "GetManifest"), flags, 2)
     }
 
     Dispose() {

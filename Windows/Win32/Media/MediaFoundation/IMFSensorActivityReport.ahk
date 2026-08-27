@@ -100,10 +100,10 @@ export default struct IMFSensorActivityReport extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFriendlyName := CallbackCreate(GetMethod(implObj, "GetFriendlyName"), flags, 4)
-        this.vtbl.GetSymbolicLink := CallbackCreate(GetMethod(implObj, "GetSymbolicLink"), flags, 4)
-        this.vtbl.GetProcessCount := CallbackCreate(GetMethod(implObj, "GetProcessCount"), flags, 2)
-        this.vtbl.GetProcessActivity := CallbackCreate(GetMethod(implObj, "GetProcessActivity"), flags, 3)
+        this.vtbl.GetFriendlyName := CallbackCreate(ObjBindMethod(implObj, "GetFriendlyName"), flags, 4)
+        this.vtbl.GetSymbolicLink := CallbackCreate(ObjBindMethod(implObj, "GetSymbolicLink"), flags, 4)
+        this.vtbl.GetProcessCount := CallbackCreate(ObjBindMethod(implObj, "GetProcessCount"), flags, 2)
+        this.vtbl.GetProcessActivity := CallbackCreate(ObjBindMethod(implObj, "GetProcessActivity"), flags, 3)
     }
 
     Dispose() {

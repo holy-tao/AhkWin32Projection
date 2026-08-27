@@ -64,7 +64,7 @@ export default struct IMFCameraOcclusionStateReportCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnOcclusionStateReport := CallbackCreate(GetMethod(implObj, "OnOcclusionStateReport"), flags, 2)
+        this.vtbl.OnOcclusionStateReport := CallbackCreate(ObjBindMethod(implObj, "OnOcclusionStateReport"), flags, 2)
     }
 
     Dispose() {

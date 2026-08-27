@@ -19,7 +19,6 @@ export default struct PRTL_AVL_COMPARE_ROUTINE {
     }
 
     /**
-     * 
      * @returns {RTL_GENERIC_COMPARE_RESULTS} 
      */
     Call() {

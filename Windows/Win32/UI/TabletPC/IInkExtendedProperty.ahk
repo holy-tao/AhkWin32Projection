@@ -109,9 +109,9 @@ export default struct IInkExtendedProperty extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Guid := CallbackCreate(GetMethod(implObj, "get_Guid"), flags, 2)
-        this.vtbl.get_Data := CallbackCreate(GetMethod(implObj, "get_Data"), flags, 2)
-        this.vtbl.put_Data := CallbackCreate(GetMethod(implObj, "put_Data"), flags, 2)
+        this.vtbl.get_Guid := CallbackCreate(ObjBindMethod(implObj, "get_Guid"), flags, 2)
+        this.vtbl.get_Data := CallbackCreate(ObjBindMethod(implObj, "get_Data"), flags, 2)
+        this.vtbl.put_Data := CallbackCreate(ObjBindMethod(implObj, "put_Data"), flags, 2)
     }
 
     Dispose() {

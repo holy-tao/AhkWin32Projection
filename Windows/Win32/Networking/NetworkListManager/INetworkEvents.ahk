@@ -97,10 +97,10 @@ export default struct INetworkEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.NetworkAdded := CallbackCreate(GetMethod(implObj, "NetworkAdded"), flags, 2)
-        this.vtbl.NetworkDeleted := CallbackCreate(GetMethod(implObj, "NetworkDeleted"), flags, 2)
-        this.vtbl.NetworkConnectivityChanged := CallbackCreate(GetMethod(implObj, "NetworkConnectivityChanged"), flags, 3)
-        this.vtbl.NetworkPropertyChanged := CallbackCreate(GetMethod(implObj, "NetworkPropertyChanged"), flags, 3)
+        this.vtbl.NetworkAdded := CallbackCreate(ObjBindMethod(implObj, "NetworkAdded"), flags, 2)
+        this.vtbl.NetworkDeleted := CallbackCreate(ObjBindMethod(implObj, "NetworkDeleted"), flags, 2)
+        this.vtbl.NetworkConnectivityChanged := CallbackCreate(ObjBindMethod(implObj, "NetworkConnectivityChanged"), flags, 3)
+        this.vtbl.NetworkPropertyChanged := CallbackCreate(ObjBindMethod(implObj, "NetworkPropertyChanged"), flags, 3)
     }
 
     Dispose() {

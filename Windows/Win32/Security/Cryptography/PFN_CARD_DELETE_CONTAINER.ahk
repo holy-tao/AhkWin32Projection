@@ -19,7 +19,6 @@ export default struct PFN_CARD_DELETE_CONTAINER {
     }
 
     /**
-     * 
      * @param {Pointer<CARD_DATA>} pCardData 
      * @param {Integer} bContainerIndex 
      * @param {Integer} dwReserved 

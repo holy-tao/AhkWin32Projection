@@ -133,7 +133,7 @@ export default struct IDirectDrawMediaStream extends IMediaStream {
      * @see https://learn.microsoft.com/windows/win32/api/ddstream/nf-ddstream-idirectdrawmediastream-getformat
      */
     GetFormat(pDDSDCurrent, ppDirectDrawPalette, pDDSDDesired, pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : IntPtr
 
         result := ComCall(9, this, DDSURFACEDESC.Ptr, pDDSDCurrent, IDirectDrawPalette.Ptr, ppDirectDrawPalette, DDSURFACEDESC.Ptr, pDDSDDesired, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
@@ -273,12 +273,12 @@ export default struct IDirectDrawMediaStream extends IMediaStream {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFormat := CallbackCreate(GetMethod(implObj, "GetFormat"), flags, 5)
-        this.vtbl.SetFormat := CallbackCreate(GetMethod(implObj, "SetFormat"), flags, 3)
-        this.vtbl.GetDirectDraw := CallbackCreate(GetMethod(implObj, "GetDirectDraw"), flags, 2)
-        this.vtbl.SetDirectDraw := CallbackCreate(GetMethod(implObj, "SetDirectDraw"), flags, 2)
-        this.vtbl.CreateSample := CallbackCreate(GetMethod(implObj, "CreateSample"), flags, 5)
-        this.vtbl.GetTimePerFrame := CallbackCreate(GetMethod(implObj, "GetTimePerFrame"), flags, 2)
+        this.vtbl.GetFormat := CallbackCreate(ObjBindMethod(implObj, "GetFormat"), flags, 5)
+        this.vtbl.SetFormat := CallbackCreate(ObjBindMethod(implObj, "SetFormat"), flags, 3)
+        this.vtbl.GetDirectDraw := CallbackCreate(ObjBindMethod(implObj, "GetDirectDraw"), flags, 2)
+        this.vtbl.SetDirectDraw := CallbackCreate(ObjBindMethod(implObj, "SetDirectDraw"), flags, 2)
+        this.vtbl.CreateSample := CallbackCreate(ObjBindMethod(implObj, "CreateSample"), flags, 5)
+        this.vtbl.GetTimePerFrame := CallbackCreate(ObjBindMethod(implObj, "GetTimePerFrame"), flags, 2)
     }
 
     Dispose() {

@@ -37,7 +37,6 @@ export default struct ID3D12StateObjectProperties1 extends ID3D12StateObjectProp
     }
 
     /**
-     * 
      * @param {PWSTR} pProgramName 
      * @returns {D3D12_PROGRAM_IDENTIFIER} 
      */
@@ -57,7 +56,7 @@ export default struct ID3D12StateObjectProperties1 extends ID3D12StateObjectProp
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProgramIdentifier := CallbackCreate(GetMethod(implObj, "GetProgramIdentifier"), flags, 2)
+        this.vtbl.GetProgramIdentifier := CallbackCreate(ObjBindMethod(implObj, "GetProgramIdentifier"), flags, 2)
     }
 
     Dispose() {

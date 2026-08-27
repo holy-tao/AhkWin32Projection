@@ -58,7 +58,6 @@ export default struct PSET_RESOURCE_STATUS_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer} ResourceHandle Handle identifying the resource to be updated. The <i>ResourceHandle</i> parameter should 
      *        contain the same handle used for the <i>ResourceHandle</i> parameter in the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-popen_routine">Open</a> entry point for this resource.

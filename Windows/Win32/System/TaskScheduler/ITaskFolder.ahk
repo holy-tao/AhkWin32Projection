@@ -640,7 +640,9 @@ export default struct ITaskFolder extends IDispatch {
     RegisterTaskDefinition(_path, pDefinition, flags, userId, password, logonType, sddl) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(17, this, BSTR, _path, "ptr", pDefinition, Int32, flags, VARIANT, userId, VARIANT, password, TASK_LOGON_TYPE, logonType, VARIANT, sddl, "ptr*", &ppTask := 0, "HRESULT")
+        pDefinitionMarshal := pDefinition == 0 ? IntPtr : "ptr"
+
+        result := ComCall(17, this, BSTR, _path, pDefinitionMarshal, pDefinition, Int32, flags, VARIANT, userId, VARIANT, password, TASK_LOGON_TYPE, logonType, VARIANT, sddl, "ptr*", &ppTask := 0, "HRESULT")
         return IRegisteredTask(ppTask)
     }
 
@@ -684,19 +686,19 @@ export default struct ITaskFolder extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_Path := CallbackCreate(GetMethod(implObj, "get_Path"), flags, 2)
-        this.vtbl.GetFolder := CallbackCreate(GetMethod(implObj, "GetFolder"), flags, 3)
-        this.vtbl.GetFolders := CallbackCreate(GetMethod(implObj, "GetFolders"), flags, 3)
-        this.vtbl.CreateFolder := CallbackCreate(GetMethod(implObj, "CreateFolder"), flags, 4)
-        this.vtbl.DeleteFolder := CallbackCreate(GetMethod(implObj, "DeleteFolder"), flags, 3)
-        this.vtbl.GetTask := CallbackCreate(GetMethod(implObj, "GetTask"), flags, 3)
-        this.vtbl.GetTasks := CallbackCreate(GetMethod(implObj, "GetTasks"), flags, 3)
-        this.vtbl.DeleteTask := CallbackCreate(GetMethod(implObj, "DeleteTask"), flags, 3)
-        this.vtbl.RegisterTask := CallbackCreate(GetMethod(implObj, "RegisterTask"), flags, 9)
-        this.vtbl.RegisterTaskDefinition := CallbackCreate(GetMethod(implObj, "RegisterTaskDefinition"), flags, 9)
-        this.vtbl.GetSecurityDescriptor := CallbackCreate(GetMethod(implObj, "GetSecurityDescriptor"), flags, 3)
-        this.vtbl.SetSecurityDescriptor := CallbackCreate(GetMethod(implObj, "SetSecurityDescriptor"), flags, 3)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Path := CallbackCreate(ObjBindMethod(implObj, "get_Path"), flags, 2)
+        this.vtbl.GetFolder := CallbackCreate(ObjBindMethod(implObj, "GetFolder"), flags, 3)
+        this.vtbl.GetFolders := CallbackCreate(ObjBindMethod(implObj, "GetFolders"), flags, 3)
+        this.vtbl.CreateFolder := CallbackCreate(ObjBindMethod(implObj, "CreateFolder"), flags, 4)
+        this.vtbl.DeleteFolder := CallbackCreate(ObjBindMethod(implObj, "DeleteFolder"), flags, 3)
+        this.vtbl.GetTask := CallbackCreate(ObjBindMethod(implObj, "GetTask"), flags, 3)
+        this.vtbl.GetTasks := CallbackCreate(ObjBindMethod(implObj, "GetTasks"), flags, 3)
+        this.vtbl.DeleteTask := CallbackCreate(ObjBindMethod(implObj, "DeleteTask"), flags, 3)
+        this.vtbl.RegisterTask := CallbackCreate(ObjBindMethod(implObj, "RegisterTask"), flags, 9)
+        this.vtbl.RegisterTaskDefinition := CallbackCreate(ObjBindMethod(implObj, "RegisterTaskDefinition"), flags, 9)
+        this.vtbl.GetSecurityDescriptor := CallbackCreate(ObjBindMethod(implObj, "GetSecurityDescriptor"), flags, 3)
+        this.vtbl.SetSecurityDescriptor := CallbackCreate(ObjBindMethod(implObj, "SetSecurityDescriptor"), flags, 3)
     }
 
     Dispose() {

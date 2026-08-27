@@ -30,7 +30,6 @@ export default struct PFNGENERATEGROUPPOLICY {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags A parameter that represents one or more of the following flags.
      * @param {Pointer<BOOL>} pbAbort A value that specifies whether to continue processing GPOs. If this parameter is <b>TRUE</b>, GPO processing stops and the extension must deallocate its resources and return promptly. If this parameter is <b>FALSE</b>, GPO processing continues.
      * @param {PWSTR} pwszSite A pointer to the site name of the target computer. This parameter can be <b>NULL</b>.
@@ -44,9 +43,12 @@ export default struct PFNGENERATEGROUPPOLICY {
     Call(dwFlags, pbAbort, pwszSite, pComputerTarget, pUserTarget) {
         pwszSite := pwszSite is String ? StrPtr(pwszSite) : pwszSite
 
-        pbAbortMarshal := pbAbort is VarRef ? "int*" : "ptr"
+        pbAbortMarshal := pbAbort is VarRef ? "int*" : IntPtr
+        pwszSiteMarshal := pwszSite == 0 ? IntPtr : PWSTR
+        pComputerTargetMarshal := pComputerTarget == 0 ? IntPtr : RSOP_TARGET.Ptr
+        pUserTargetMarshal := pUserTarget == 0 ? IntPtr : RSOP_TARGET.Ptr
 
-        result := DllCall(this.value, UInt32, dwFlags, pbAbortMarshal, pbAbort, "ptr", pwszSite, RSOP_TARGET.Ptr, pComputerTarget, RSOP_TARGET.Ptr, pUserTarget, UInt32)
+        result := DllCall(this.value, UInt32, dwFlags, pbAbortMarshal, pbAbort, pwszSiteMarshal, pwszSite, pComputerTargetMarshal, pComputerTarget, pUserTargetMarshal, pUserTarget, UInt32)
         return result
     }
 

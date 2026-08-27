@@ -20,7 +20,6 @@ export default struct PFN_WEB_CORE_SET_METADATA_DLL_ENTRY {
     }
 
     /**
-     * 
      * @param {PWSTR} pszMetadataType 
      * @param {PWSTR} pszValue 
      * @returns {HRESULT} 

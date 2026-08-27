@@ -86,7 +86,7 @@ export default struct IBackgroundCopyCallback1 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nn-qmgr-ibackgroundcopycallback1
      */
     OnProgressEx(ProgressType, pGroup, pJob, dwFileIndex, dwProgressValue, dwByteArraySize, pByte) {
-        pByteMarshal := pByte is VarRef ? "char*" : "ptr"
+        pByteMarshal := pByte is VarRef ? "char*" : IntPtr
 
         result := ComCall(5, this, UInt32, ProgressType, "ptr", pGroup, "ptr", pJob, UInt32, dwFileIndex, UInt32, dwProgressValue, UInt32, dwByteArraySize, pByteMarshal, pByte, "HRESULT")
         return result
@@ -101,9 +101,9 @@ export default struct IBackgroundCopyCallback1 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnStatus := CallbackCreate(GetMethod(implObj, "OnStatus"), flags, 8)
-        this.vtbl.OnProgress := CallbackCreate(GetMethod(implObj, "OnProgress"), flags, 6)
-        this.vtbl.OnProgressEx := CallbackCreate(GetMethod(implObj, "OnProgressEx"), flags, 8)
+        this.vtbl.OnStatus := CallbackCreate(ObjBindMethod(implObj, "OnStatus"), flags, 8)
+        this.vtbl.OnProgress := CallbackCreate(ObjBindMethod(implObj, "OnProgress"), flags, 6)
+        this.vtbl.OnProgressEx := CallbackCreate(ObjBindMethod(implObj, "OnProgressEx"), flags, 8)
     }
 
     Dispose() {

@@ -89,9 +89,9 @@ export default struct IMILBitmapEffectFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateEffect := CallbackCreate(GetMethod(implObj, "CreateEffect"), flags, 3)
-        this.vtbl.CreateContext := CallbackCreate(GetMethod(implObj, "CreateContext"), flags, 2)
-        this.vtbl.CreateEffectOuter := CallbackCreate(GetMethod(implObj, "CreateEffectOuter"), flags, 2)
+        this.vtbl.CreateEffect := CallbackCreate(ObjBindMethod(implObj, "CreateEffect"), flags, 3)
+        this.vtbl.CreateContext := CallbackCreate(ObjBindMethod(implObj, "CreateContext"), flags, 2)
+        this.vtbl.CreateEffectOuter := CallbackCreate(ObjBindMethod(implObj, "CreateEffectOuter"), flags, 2)
     }
 
     Dispose() {

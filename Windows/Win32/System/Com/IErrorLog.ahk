@@ -62,7 +62,7 @@ export default struct IErrorLog extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddError := CallbackCreate(GetMethod(implObj, "AddError"), flags, 3)
+        this.vtbl.AddError := CallbackCreate(ObjBindMethod(implObj, "AddError"), flags, 3)
     }
 
     Dispose() {

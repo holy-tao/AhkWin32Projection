@@ -20,7 +20,6 @@ export default struct PF_NPCancelConnection {
     }
 
     /**
-     * 
      * @param {PWSTR} lpName 
      * @param {BOOL} fForce 
      * @returns {Integer} 

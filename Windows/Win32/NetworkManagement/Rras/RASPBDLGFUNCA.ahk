@@ -25,7 +25,6 @@ export default struct RASPBDLGFUNCA {
     }
 
     /**
-     * 
      * @param {Pointer} param0 
      * @param {Integer} param1 
      * @param {PSTR} param2 
@@ -35,7 +34,7 @@ export default struct RASPBDLGFUNCA {
     Call(param0, param1, param2, param3) {
         param2 := param2 is String ? StrPtr(param2) : param2
 
-        param3Marshal := param3 is VarRef ? "ptr" : "ptr"
+        param3Marshal := param3 is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, IntPtr, param0, UInt32, param1, "ptr", param2, param3Marshal, param3)
     }

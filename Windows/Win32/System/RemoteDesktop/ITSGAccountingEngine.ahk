@@ -66,7 +66,7 @@ export default struct ITSGAccountingEngine extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DoAccounting := CallbackCreate(GetMethod(implObj, "DoAccounting"), flags, 3)
+        this.vtbl.DoAccounting := CallbackCreate(ObjBindMethod(implObj, "DoAccounting"), flags, 3)
     }
 
     Dispose() {

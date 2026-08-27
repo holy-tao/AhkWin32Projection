@@ -45,7 +45,6 @@ export default struct AsyncIFtpRoleProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszSessionId 
      * @param {PWSTR} pszSiteName 
      * @param {PWSTR} pszUserName 
@@ -63,7 +62,6 @@ export default struct AsyncIFtpRoleProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     Finish_IsUserInRole() {
@@ -80,8 +78,8 @@ export default struct AsyncIFtpRoleProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Begin_IsUserInRole := CallbackCreate(GetMethod(implObj, "Begin_IsUserInRole"), flags, 5)
-        this.vtbl.Finish_IsUserInRole := CallbackCreate(GetMethod(implObj, "Finish_IsUserInRole"), flags, 2)
+        this.vtbl.Begin_IsUserInRole := CallbackCreate(ObjBindMethod(implObj, "Begin_IsUserInRole"), flags, 5)
+        this.vtbl.Finish_IsUserInRole := CallbackCreate(ObjBindMethod(implObj, "Finish_IsUserInRole"), flags, 2)
     }
 
     Dispose() {

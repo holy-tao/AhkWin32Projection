@@ -21,7 +21,6 @@ export default struct VDMGETSELECTORMODULEPROC {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @param {HANDLE} param1 
      * @param {Integer} param2 
@@ -36,7 +35,7 @@ export default struct VDMGETSELECTORMODULEPROC {
         param4 := param4 is String ? StrPtr(param4) : param4
         param6 := param6 is String ? StrPtr(param6) : param6
 
-        param3Marshal := param3 is VarRef ? "uint*" : "ptr"
+        param3Marshal := param3 is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HANDLE, param0, HANDLE, param1, UInt16, param2, param3Marshal, param3, "ptr", param4, UInt32, param5, "ptr", param6, UInt32, param7, BOOL)
         return result

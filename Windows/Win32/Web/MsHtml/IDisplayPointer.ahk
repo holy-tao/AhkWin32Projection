@@ -63,7 +63,6 @@ export default struct IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {POINT} ptPoint 
      * @param {COORD_SYSTEM} eCoordSystem 
      * @param {IHTMLElement} pElementContext 
@@ -76,7 +75,6 @@ export default struct IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {DISPLAY_MOVEUNIT} eMoveUnit 
      * @param {Integer} lXPos 
      * @returns {HRESULT} 
@@ -87,7 +85,6 @@ export default struct IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pMarkupPointer 
      * @returns {HRESULT} 
      */
@@ -97,7 +94,6 @@ export default struct IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDisplayPointer} pDispPointer 
      * @returns {HRESULT} 
      */
@@ -107,7 +103,6 @@ export default struct IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {POINTER_GRAVITY} eGravity 
      * @returns {HRESULT} 
      */
@@ -117,7 +112,6 @@ export default struct IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {POINTER_GRAVITY} 
      */
     GetPointerGravity() {
@@ -126,7 +120,6 @@ export default struct IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {DISPLAY_GRAVITY} eGravity 
      * @returns {HRESULT} 
      */
@@ -136,7 +129,6 @@ export default struct IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {DISPLAY_GRAVITY} 
      */
     GetDisplayGravity() {
@@ -145,7 +137,6 @@ export default struct IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsPositioned() {
@@ -154,7 +145,6 @@ export default struct IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Unposition() {
@@ -163,7 +153,6 @@ export default struct IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDisplayPointer} pDispPointer 
      * @returns {BOOL} 
      */
@@ -173,7 +162,6 @@ export default struct IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDisplayPointer} pDispPointer 
      * @returns {BOOL} 
      */
@@ -183,7 +171,6 @@ export default struct IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDisplayPointer} pDispPointer 
      * @returns {BOOL} 
      */
@@ -193,7 +180,6 @@ export default struct IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsAtBOL() {
@@ -202,7 +188,6 @@ export default struct IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pPointer 
      * @param {IDisplayPointer} pDispLineContext 
      * @returns {HRESULT} 
@@ -213,7 +198,6 @@ export default struct IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ScrollIntoView() {
@@ -222,7 +206,6 @@ export default struct IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ILineInfo} 
      */
     GetLineInfo() {
@@ -231,7 +214,6 @@ export default struct IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     GetFlowElement() {
@@ -240,7 +222,6 @@ export default struct IDisplayPointer extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     QueryBreaks() {
@@ -257,25 +238,25 @@ export default struct IDisplayPointer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.MoveToPoint := CallbackCreate(GetMethod(implObj, "MoveToPoint"), flags, 6)
-        this.vtbl.MoveUnit := CallbackCreate(GetMethod(implObj, "MoveUnit"), flags, 3)
-        this.vtbl.PositionMarkupPointer := CallbackCreate(GetMethod(implObj, "PositionMarkupPointer"), flags, 2)
-        this.vtbl.MoveToPointer := CallbackCreate(GetMethod(implObj, "MoveToPointer"), flags, 2)
-        this.vtbl.SetPointerGravity := CallbackCreate(GetMethod(implObj, "SetPointerGravity"), flags, 2)
-        this.vtbl.GetPointerGravity := CallbackCreate(GetMethod(implObj, "GetPointerGravity"), flags, 2)
-        this.vtbl.SetDisplayGravity := CallbackCreate(GetMethod(implObj, "SetDisplayGravity"), flags, 2)
-        this.vtbl.GetDisplayGravity := CallbackCreate(GetMethod(implObj, "GetDisplayGravity"), flags, 2)
-        this.vtbl.IsPositioned := CallbackCreate(GetMethod(implObj, "IsPositioned"), flags, 2)
-        this.vtbl.Unposition := CallbackCreate(GetMethod(implObj, "Unposition"), flags, 1)
-        this.vtbl.IsEqualTo := CallbackCreate(GetMethod(implObj, "IsEqualTo"), flags, 3)
-        this.vtbl.IsLeftOf := CallbackCreate(GetMethod(implObj, "IsLeftOf"), flags, 3)
-        this.vtbl.IsRightOf := CallbackCreate(GetMethod(implObj, "IsRightOf"), flags, 3)
-        this.vtbl.IsAtBOL := CallbackCreate(GetMethod(implObj, "IsAtBOL"), flags, 2)
-        this.vtbl.MoveToMarkupPointer := CallbackCreate(GetMethod(implObj, "MoveToMarkupPointer"), flags, 3)
-        this.vtbl.ScrollIntoView := CallbackCreate(GetMethod(implObj, "ScrollIntoView"), flags, 1)
-        this.vtbl.GetLineInfo := CallbackCreate(GetMethod(implObj, "GetLineInfo"), flags, 2)
-        this.vtbl.GetFlowElement := CallbackCreate(GetMethod(implObj, "GetFlowElement"), flags, 2)
-        this.vtbl.QueryBreaks := CallbackCreate(GetMethod(implObj, "QueryBreaks"), flags, 2)
+        this.vtbl.MoveToPoint := CallbackCreate(ObjBindMethod(implObj, "MoveToPoint"), flags, 6)
+        this.vtbl.MoveUnit := CallbackCreate(ObjBindMethod(implObj, "MoveUnit"), flags, 3)
+        this.vtbl.PositionMarkupPointer := CallbackCreate(ObjBindMethod(implObj, "PositionMarkupPointer"), flags, 2)
+        this.vtbl.MoveToPointer := CallbackCreate(ObjBindMethod(implObj, "MoveToPointer"), flags, 2)
+        this.vtbl.SetPointerGravity := CallbackCreate(ObjBindMethod(implObj, "SetPointerGravity"), flags, 2)
+        this.vtbl.GetPointerGravity := CallbackCreate(ObjBindMethod(implObj, "GetPointerGravity"), flags, 2)
+        this.vtbl.SetDisplayGravity := CallbackCreate(ObjBindMethod(implObj, "SetDisplayGravity"), flags, 2)
+        this.vtbl.GetDisplayGravity := CallbackCreate(ObjBindMethod(implObj, "GetDisplayGravity"), flags, 2)
+        this.vtbl.IsPositioned := CallbackCreate(ObjBindMethod(implObj, "IsPositioned"), flags, 2)
+        this.vtbl.Unposition := CallbackCreate(ObjBindMethod(implObj, "Unposition"), flags, 1)
+        this.vtbl.IsEqualTo := CallbackCreate(ObjBindMethod(implObj, "IsEqualTo"), flags, 3)
+        this.vtbl.IsLeftOf := CallbackCreate(ObjBindMethod(implObj, "IsLeftOf"), flags, 3)
+        this.vtbl.IsRightOf := CallbackCreate(ObjBindMethod(implObj, "IsRightOf"), flags, 3)
+        this.vtbl.IsAtBOL := CallbackCreate(ObjBindMethod(implObj, "IsAtBOL"), flags, 2)
+        this.vtbl.MoveToMarkupPointer := CallbackCreate(ObjBindMethod(implObj, "MoveToMarkupPointer"), flags, 3)
+        this.vtbl.ScrollIntoView := CallbackCreate(ObjBindMethod(implObj, "ScrollIntoView"), flags, 1)
+        this.vtbl.GetLineInfo := CallbackCreate(ObjBindMethod(implObj, "GetLineInfo"), flags, 2)
+        this.vtbl.GetFlowElement := CallbackCreate(ObjBindMethod(implObj, "GetFlowElement"), flags, 2)
+        this.vtbl.QueryBreaks := CallbackCreate(ObjBindMethod(implObj, "QueryBreaks"), flags, 2)
     }
 
     Dispose() {

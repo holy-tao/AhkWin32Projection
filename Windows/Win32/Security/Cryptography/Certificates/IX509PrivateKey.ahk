@@ -816,7 +816,9 @@ export default struct IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-put_cspinformations
      */
     put_CspInformations(pValue) {
-        result := ComCall(22, this, "ptr", pValue, "HRESULT")
+        pValueMarshal := pValue == 0 ? IntPtr : "ptr"
+
+        result := ComCall(22, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -841,7 +843,9 @@ export default struct IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-put_cspstatus
      */
     put_CspStatus(pValue) {
-        result := ComCall(24, this, "ptr", pValue, "HRESULT")
+        pValueMarshal := pValue == 0 ? IntPtr : "ptr"
+
+        result := ComCall(24, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -1100,7 +1104,9 @@ export default struct IX509PrivateKey extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-put_algorithm
      */
     put_Algorithm(pValue) {
-        result := ComCall(32, this, "ptr", pValue, "HRESULT")
+        pValueMarshal := pValue == 0 ? IntPtr : "ptr"
+
+        result := ComCall(32, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -1532,64 +1538,64 @@ export default struct IX509PrivateKey extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 1)
-        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 1)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
-        this.vtbl.Verify := CallbackCreate(GetMethod(implObj, "Verify"), flags, 2)
-        this.vtbl.Import := CallbackCreate(GetMethod(implObj, "Import"), flags, 4)
-        this.vtbl.Export := CallbackCreate(GetMethod(implObj, "Export"), flags, 4)
-        this.vtbl.ExportPublicKey := CallbackCreate(GetMethod(implObj, "ExportPublicKey"), flags, 2)
-        this.vtbl.get_ContainerName := CallbackCreate(GetMethod(implObj, "get_ContainerName"), flags, 2)
-        this.vtbl.put_ContainerName := CallbackCreate(GetMethod(implObj, "put_ContainerName"), flags, 2)
-        this.vtbl.get_ContainerNamePrefix := CallbackCreate(GetMethod(implObj, "get_ContainerNamePrefix"), flags, 2)
-        this.vtbl.put_ContainerNamePrefix := CallbackCreate(GetMethod(implObj, "put_ContainerNamePrefix"), flags, 2)
-        this.vtbl.get_ReaderName := CallbackCreate(GetMethod(implObj, "get_ReaderName"), flags, 2)
-        this.vtbl.put_ReaderName := CallbackCreate(GetMethod(implObj, "put_ReaderName"), flags, 2)
-        this.vtbl.get_CspInformations := CallbackCreate(GetMethod(implObj, "get_CspInformations"), flags, 2)
-        this.vtbl.put_CspInformations := CallbackCreate(GetMethod(implObj, "put_CspInformations"), flags, 2)
-        this.vtbl.get_CspStatus := CallbackCreate(GetMethod(implObj, "get_CspStatus"), flags, 2)
-        this.vtbl.put_CspStatus := CallbackCreate(GetMethod(implObj, "put_CspStatus"), flags, 2)
-        this.vtbl.get_ProviderName := CallbackCreate(GetMethod(implObj, "get_ProviderName"), flags, 2)
-        this.vtbl.put_ProviderName := CallbackCreate(GetMethod(implObj, "put_ProviderName"), flags, 2)
-        this.vtbl.get_ProviderType := CallbackCreate(GetMethod(implObj, "get_ProviderType"), flags, 2)
-        this.vtbl.put_ProviderType := CallbackCreate(GetMethod(implObj, "put_ProviderType"), flags, 2)
-        this.vtbl.get_LegacyCsp := CallbackCreate(GetMethod(implObj, "get_LegacyCsp"), flags, 2)
-        this.vtbl.put_LegacyCsp := CallbackCreate(GetMethod(implObj, "put_LegacyCsp"), flags, 2)
-        this.vtbl.get_Algorithm := CallbackCreate(GetMethod(implObj, "get_Algorithm"), flags, 2)
-        this.vtbl.put_Algorithm := CallbackCreate(GetMethod(implObj, "put_Algorithm"), flags, 2)
-        this.vtbl.get_KeySpec := CallbackCreate(GetMethod(implObj, "get_KeySpec"), flags, 2)
-        this.vtbl.put_KeySpec := CallbackCreate(GetMethod(implObj, "put_KeySpec"), flags, 2)
-        this.vtbl.get_Length := CallbackCreate(GetMethod(implObj, "get_Length"), flags, 2)
-        this.vtbl.put_Length := CallbackCreate(GetMethod(implObj, "put_Length"), flags, 2)
-        this.vtbl.get_ExportPolicy := CallbackCreate(GetMethod(implObj, "get_ExportPolicy"), flags, 2)
-        this.vtbl.put_ExportPolicy := CallbackCreate(GetMethod(implObj, "put_ExportPolicy"), flags, 2)
-        this.vtbl.get_KeyUsage := CallbackCreate(GetMethod(implObj, "get_KeyUsage"), flags, 2)
-        this.vtbl.put_KeyUsage := CallbackCreate(GetMethod(implObj, "put_KeyUsage"), flags, 2)
-        this.vtbl.get_KeyProtection := CallbackCreate(GetMethod(implObj, "get_KeyProtection"), flags, 2)
-        this.vtbl.put_KeyProtection := CallbackCreate(GetMethod(implObj, "put_KeyProtection"), flags, 2)
-        this.vtbl.get_MachineContext := CallbackCreate(GetMethod(implObj, "get_MachineContext"), flags, 2)
-        this.vtbl.put_MachineContext := CallbackCreate(GetMethod(implObj, "put_MachineContext"), flags, 2)
-        this.vtbl.get_SecurityDescriptor := CallbackCreate(GetMethod(implObj, "get_SecurityDescriptor"), flags, 2)
-        this.vtbl.put_SecurityDescriptor := CallbackCreate(GetMethod(implObj, "put_SecurityDescriptor"), flags, 2)
-        this.vtbl.get_Certificate := CallbackCreate(GetMethod(implObj, "get_Certificate"), flags, 3)
-        this.vtbl.put_Certificate := CallbackCreate(GetMethod(implObj, "put_Certificate"), flags, 3)
-        this.vtbl.get_UniqueContainerName := CallbackCreate(GetMethod(implObj, "get_UniqueContainerName"), flags, 2)
-        this.vtbl.get_Opened := CallbackCreate(GetMethod(implObj, "get_Opened"), flags, 2)
-        this.vtbl.get_DefaultContainer := CallbackCreate(GetMethod(implObj, "get_DefaultContainer"), flags, 2)
-        this.vtbl.get_Existing := CallbackCreate(GetMethod(implObj, "get_Existing"), flags, 2)
-        this.vtbl.put_Existing := CallbackCreate(GetMethod(implObj, "put_Existing"), flags, 2)
-        this.vtbl.get_Silent := CallbackCreate(GetMethod(implObj, "get_Silent"), flags, 2)
-        this.vtbl.put_Silent := CallbackCreate(GetMethod(implObj, "put_Silent"), flags, 2)
-        this.vtbl.get_ParentWindow := CallbackCreate(GetMethod(implObj, "get_ParentWindow"), flags, 2)
-        this.vtbl.put_ParentWindow := CallbackCreate(GetMethod(implObj, "put_ParentWindow"), flags, 2)
-        this.vtbl.get_UIContextMessage := CallbackCreate(GetMethod(implObj, "get_UIContextMessage"), flags, 2)
-        this.vtbl.put_UIContextMessage := CallbackCreate(GetMethod(implObj, "put_UIContextMessage"), flags, 2)
-        this.vtbl.put_Pin := CallbackCreate(GetMethod(implObj, "put_Pin"), flags, 2)
-        this.vtbl.get_FriendlyName := CallbackCreate(GetMethod(implObj, "get_FriendlyName"), flags, 2)
-        this.vtbl.put_FriendlyName := CallbackCreate(GetMethod(implObj, "put_FriendlyName"), flags, 2)
-        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
-        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
+        this.vtbl.Open := CallbackCreate(ObjBindMethod(implObj, "Open"), flags, 1)
+        this.vtbl.Create := CallbackCreate(ObjBindMethod(implObj, "Create"), flags, 1)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.Verify := CallbackCreate(ObjBindMethod(implObj, "Verify"), flags, 2)
+        this.vtbl.Import := CallbackCreate(ObjBindMethod(implObj, "Import"), flags, 4)
+        this.vtbl.Export := CallbackCreate(ObjBindMethod(implObj, "Export"), flags, 4)
+        this.vtbl.ExportPublicKey := CallbackCreate(ObjBindMethod(implObj, "ExportPublicKey"), flags, 2)
+        this.vtbl.get_ContainerName := CallbackCreate(ObjBindMethod(implObj, "get_ContainerName"), flags, 2)
+        this.vtbl.put_ContainerName := CallbackCreate(ObjBindMethod(implObj, "put_ContainerName"), flags, 2)
+        this.vtbl.get_ContainerNamePrefix := CallbackCreate(ObjBindMethod(implObj, "get_ContainerNamePrefix"), flags, 2)
+        this.vtbl.put_ContainerNamePrefix := CallbackCreate(ObjBindMethod(implObj, "put_ContainerNamePrefix"), flags, 2)
+        this.vtbl.get_ReaderName := CallbackCreate(ObjBindMethod(implObj, "get_ReaderName"), flags, 2)
+        this.vtbl.put_ReaderName := CallbackCreate(ObjBindMethod(implObj, "put_ReaderName"), flags, 2)
+        this.vtbl.get_CspInformations := CallbackCreate(ObjBindMethod(implObj, "get_CspInformations"), flags, 2)
+        this.vtbl.put_CspInformations := CallbackCreate(ObjBindMethod(implObj, "put_CspInformations"), flags, 2)
+        this.vtbl.get_CspStatus := CallbackCreate(ObjBindMethod(implObj, "get_CspStatus"), flags, 2)
+        this.vtbl.put_CspStatus := CallbackCreate(ObjBindMethod(implObj, "put_CspStatus"), flags, 2)
+        this.vtbl.get_ProviderName := CallbackCreate(ObjBindMethod(implObj, "get_ProviderName"), flags, 2)
+        this.vtbl.put_ProviderName := CallbackCreate(ObjBindMethod(implObj, "put_ProviderName"), flags, 2)
+        this.vtbl.get_ProviderType := CallbackCreate(ObjBindMethod(implObj, "get_ProviderType"), flags, 2)
+        this.vtbl.put_ProviderType := CallbackCreate(ObjBindMethod(implObj, "put_ProviderType"), flags, 2)
+        this.vtbl.get_LegacyCsp := CallbackCreate(ObjBindMethod(implObj, "get_LegacyCsp"), flags, 2)
+        this.vtbl.put_LegacyCsp := CallbackCreate(ObjBindMethod(implObj, "put_LegacyCsp"), flags, 2)
+        this.vtbl.get_Algorithm := CallbackCreate(ObjBindMethod(implObj, "get_Algorithm"), flags, 2)
+        this.vtbl.put_Algorithm := CallbackCreate(ObjBindMethod(implObj, "put_Algorithm"), flags, 2)
+        this.vtbl.get_KeySpec := CallbackCreate(ObjBindMethod(implObj, "get_KeySpec"), flags, 2)
+        this.vtbl.put_KeySpec := CallbackCreate(ObjBindMethod(implObj, "put_KeySpec"), flags, 2)
+        this.vtbl.get_Length := CallbackCreate(ObjBindMethod(implObj, "get_Length"), flags, 2)
+        this.vtbl.put_Length := CallbackCreate(ObjBindMethod(implObj, "put_Length"), flags, 2)
+        this.vtbl.get_ExportPolicy := CallbackCreate(ObjBindMethod(implObj, "get_ExportPolicy"), flags, 2)
+        this.vtbl.put_ExportPolicy := CallbackCreate(ObjBindMethod(implObj, "put_ExportPolicy"), flags, 2)
+        this.vtbl.get_KeyUsage := CallbackCreate(ObjBindMethod(implObj, "get_KeyUsage"), flags, 2)
+        this.vtbl.put_KeyUsage := CallbackCreate(ObjBindMethod(implObj, "put_KeyUsage"), flags, 2)
+        this.vtbl.get_KeyProtection := CallbackCreate(ObjBindMethod(implObj, "get_KeyProtection"), flags, 2)
+        this.vtbl.put_KeyProtection := CallbackCreate(ObjBindMethod(implObj, "put_KeyProtection"), flags, 2)
+        this.vtbl.get_MachineContext := CallbackCreate(ObjBindMethod(implObj, "get_MachineContext"), flags, 2)
+        this.vtbl.put_MachineContext := CallbackCreate(ObjBindMethod(implObj, "put_MachineContext"), flags, 2)
+        this.vtbl.get_SecurityDescriptor := CallbackCreate(ObjBindMethod(implObj, "get_SecurityDescriptor"), flags, 2)
+        this.vtbl.put_SecurityDescriptor := CallbackCreate(ObjBindMethod(implObj, "put_SecurityDescriptor"), flags, 2)
+        this.vtbl.get_Certificate := CallbackCreate(ObjBindMethod(implObj, "get_Certificate"), flags, 3)
+        this.vtbl.put_Certificate := CallbackCreate(ObjBindMethod(implObj, "put_Certificate"), flags, 3)
+        this.vtbl.get_UniqueContainerName := CallbackCreate(ObjBindMethod(implObj, "get_UniqueContainerName"), flags, 2)
+        this.vtbl.get_Opened := CallbackCreate(ObjBindMethod(implObj, "get_Opened"), flags, 2)
+        this.vtbl.get_DefaultContainer := CallbackCreate(ObjBindMethod(implObj, "get_DefaultContainer"), flags, 2)
+        this.vtbl.get_Existing := CallbackCreate(ObjBindMethod(implObj, "get_Existing"), flags, 2)
+        this.vtbl.put_Existing := CallbackCreate(ObjBindMethod(implObj, "put_Existing"), flags, 2)
+        this.vtbl.get_Silent := CallbackCreate(ObjBindMethod(implObj, "get_Silent"), flags, 2)
+        this.vtbl.put_Silent := CallbackCreate(ObjBindMethod(implObj, "put_Silent"), flags, 2)
+        this.vtbl.get_ParentWindow := CallbackCreate(ObjBindMethod(implObj, "get_ParentWindow"), flags, 2)
+        this.vtbl.put_ParentWindow := CallbackCreate(ObjBindMethod(implObj, "put_ParentWindow"), flags, 2)
+        this.vtbl.get_UIContextMessage := CallbackCreate(ObjBindMethod(implObj, "get_UIContextMessage"), flags, 2)
+        this.vtbl.put_UIContextMessage := CallbackCreate(ObjBindMethod(implObj, "put_UIContextMessage"), flags, 2)
+        this.vtbl.put_Pin := CallbackCreate(ObjBindMethod(implObj, "put_Pin"), flags, 2)
+        this.vtbl.get_FriendlyName := CallbackCreate(ObjBindMethod(implObj, "get_FriendlyName"), flags, 2)
+        this.vtbl.put_FriendlyName := CallbackCreate(ObjBindMethod(implObj, "put_FriendlyName"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(ObjBindMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(ObjBindMethod(implObj, "put_Description"), flags, 2)
     }
 
     Dispose() {

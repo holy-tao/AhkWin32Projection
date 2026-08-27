@@ -620,7 +620,9 @@ export default struct IX509CertificateRequest extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-put_cspinformations
      */
     put_CspInformations(pValue) {
-        result := ComCall(26, this, "ptr", pValue, "HRESULT")
+        pValueMarshal := pValue == 0 ? IntPtr : "ptr"
+
+        result := ComCall(26, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -649,7 +651,9 @@ export default struct IX509CertificateRequest extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-put_hashalgorithm
      */
     put_HashAlgorithm(pValue) {
-        result := ComCall(28, this, "ptr", pValue, "HRESULT")
+        pValueMarshal := pValue == 0 ? IntPtr : "ptr"
+
+        result := ComCall(28, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -849,31 +853,31 @@ export default struct IX509CertificateRequest extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.Encode := CallbackCreate(GetMethod(implObj, "Encode"), flags, 1)
-        this.vtbl.ResetForEncode := CallbackCreate(GetMethod(implObj, "ResetForEncode"), flags, 1)
-        this.vtbl.GetInnerRequest := CallbackCreate(GetMethod(implObj, "GetInnerRequest"), flags, 3)
-        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
-        this.vtbl.get_EnrollmentContext := CallbackCreate(GetMethod(implObj, "get_EnrollmentContext"), flags, 2)
-        this.vtbl.get_Silent := CallbackCreate(GetMethod(implObj, "get_Silent"), flags, 2)
-        this.vtbl.put_Silent := CallbackCreate(GetMethod(implObj, "put_Silent"), flags, 2)
-        this.vtbl.get_ParentWindow := CallbackCreate(GetMethod(implObj, "get_ParentWindow"), flags, 2)
-        this.vtbl.put_ParentWindow := CallbackCreate(GetMethod(implObj, "put_ParentWindow"), flags, 2)
-        this.vtbl.get_UIContextMessage := CallbackCreate(GetMethod(implObj, "get_UIContextMessage"), flags, 2)
-        this.vtbl.put_UIContextMessage := CallbackCreate(GetMethod(implObj, "put_UIContextMessage"), flags, 2)
-        this.vtbl.get_SuppressDefaults := CallbackCreate(GetMethod(implObj, "get_SuppressDefaults"), flags, 2)
-        this.vtbl.put_SuppressDefaults := CallbackCreate(GetMethod(implObj, "put_SuppressDefaults"), flags, 2)
-        this.vtbl.get_RenewalCertificate := CallbackCreate(GetMethod(implObj, "get_RenewalCertificate"), flags, 3)
-        this.vtbl.put_RenewalCertificate := CallbackCreate(GetMethod(implObj, "put_RenewalCertificate"), flags, 3)
-        this.vtbl.get_ClientId := CallbackCreate(GetMethod(implObj, "get_ClientId"), flags, 2)
-        this.vtbl.put_ClientId := CallbackCreate(GetMethod(implObj, "put_ClientId"), flags, 2)
-        this.vtbl.get_CspInformations := CallbackCreate(GetMethod(implObj, "get_CspInformations"), flags, 2)
-        this.vtbl.put_CspInformations := CallbackCreate(GetMethod(implObj, "put_CspInformations"), flags, 2)
-        this.vtbl.get_HashAlgorithm := CallbackCreate(GetMethod(implObj, "get_HashAlgorithm"), flags, 2)
-        this.vtbl.put_HashAlgorithm := CallbackCreate(GetMethod(implObj, "put_HashAlgorithm"), flags, 2)
-        this.vtbl.get_AlternateSignatureAlgorithm := CallbackCreate(GetMethod(implObj, "get_AlternateSignatureAlgorithm"), flags, 2)
-        this.vtbl.put_AlternateSignatureAlgorithm := CallbackCreate(GetMethod(implObj, "put_AlternateSignatureAlgorithm"), flags, 2)
-        this.vtbl.get_RawData := CallbackCreate(GetMethod(implObj, "get_RawData"), flags, 3)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.Encode := CallbackCreate(ObjBindMethod(implObj, "Encode"), flags, 1)
+        this.vtbl.ResetForEncode := CallbackCreate(ObjBindMethod(implObj, "ResetForEncode"), flags, 1)
+        this.vtbl.GetInnerRequest := CallbackCreate(ObjBindMethod(implObj, "GetInnerRequest"), flags, 3)
+        this.vtbl.get_Type := CallbackCreate(ObjBindMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_EnrollmentContext := CallbackCreate(ObjBindMethod(implObj, "get_EnrollmentContext"), flags, 2)
+        this.vtbl.get_Silent := CallbackCreate(ObjBindMethod(implObj, "get_Silent"), flags, 2)
+        this.vtbl.put_Silent := CallbackCreate(ObjBindMethod(implObj, "put_Silent"), flags, 2)
+        this.vtbl.get_ParentWindow := CallbackCreate(ObjBindMethod(implObj, "get_ParentWindow"), flags, 2)
+        this.vtbl.put_ParentWindow := CallbackCreate(ObjBindMethod(implObj, "put_ParentWindow"), flags, 2)
+        this.vtbl.get_UIContextMessage := CallbackCreate(ObjBindMethod(implObj, "get_UIContextMessage"), flags, 2)
+        this.vtbl.put_UIContextMessage := CallbackCreate(ObjBindMethod(implObj, "put_UIContextMessage"), flags, 2)
+        this.vtbl.get_SuppressDefaults := CallbackCreate(ObjBindMethod(implObj, "get_SuppressDefaults"), flags, 2)
+        this.vtbl.put_SuppressDefaults := CallbackCreate(ObjBindMethod(implObj, "put_SuppressDefaults"), flags, 2)
+        this.vtbl.get_RenewalCertificate := CallbackCreate(ObjBindMethod(implObj, "get_RenewalCertificate"), flags, 3)
+        this.vtbl.put_RenewalCertificate := CallbackCreate(ObjBindMethod(implObj, "put_RenewalCertificate"), flags, 3)
+        this.vtbl.get_ClientId := CallbackCreate(ObjBindMethod(implObj, "get_ClientId"), flags, 2)
+        this.vtbl.put_ClientId := CallbackCreate(ObjBindMethod(implObj, "put_ClientId"), flags, 2)
+        this.vtbl.get_CspInformations := CallbackCreate(ObjBindMethod(implObj, "get_CspInformations"), flags, 2)
+        this.vtbl.put_CspInformations := CallbackCreate(ObjBindMethod(implObj, "put_CspInformations"), flags, 2)
+        this.vtbl.get_HashAlgorithm := CallbackCreate(ObjBindMethod(implObj, "get_HashAlgorithm"), flags, 2)
+        this.vtbl.put_HashAlgorithm := CallbackCreate(ObjBindMethod(implObj, "put_HashAlgorithm"), flags, 2)
+        this.vtbl.get_AlternateSignatureAlgorithm := CallbackCreate(ObjBindMethod(implObj, "get_AlternateSignatureAlgorithm"), flags, 2)
+        this.vtbl.put_AlternateSignatureAlgorithm := CallbackCreate(ObjBindMethod(implObj, "put_AlternateSignatureAlgorithm"), flags, 2)
+        this.vtbl.get_RawData := CallbackCreate(ObjBindMethod(implObj, "get_RawData"), flags, 3)
     }
 
     Dispose() {

@@ -67,8 +67,8 @@ export default struct IPBDAAttributesDescriptor extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbdaattributesdescriptor-getattributepayload
      */
     GetAttributePayload(ppbAttributeBuffer, pdwAttributeLength) {
-        ppbAttributeBufferMarshal := ppbAttributeBuffer is VarRef ? "ptr*" : "ptr"
-        pdwAttributeLengthMarshal := pdwAttributeLength is VarRef ? "uint*" : "ptr"
+        ppbAttributeBufferMarshal := ppbAttributeBuffer is VarRef ? "ptr*" : IntPtr
+        pdwAttributeLengthMarshal := pdwAttributeLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, ppbAttributeBufferMarshal, ppbAttributeBuffer, pdwAttributeLengthMarshal, pdwAttributeLength, "HRESULT")
         return result
@@ -83,9 +83,9 @@ export default struct IPBDAAttributesDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetAttributePayload := CallbackCreate(GetMethod(implObj, "GetAttributePayload"), flags, 3)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetAttributePayload := CallbackCreate(ObjBindMethod(implObj, "GetAttributePayload"), flags, 3)
     }
 
     Dispose() {

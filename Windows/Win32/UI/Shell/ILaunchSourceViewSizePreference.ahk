@@ -77,8 +77,8 @@ export default struct ILaunchSourceViewSizePreference extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSourceViewToPosition := CallbackCreate(GetMethod(implObj, "GetSourceViewToPosition"), flags, 2)
-        this.vtbl.GetSourceViewSizePreference := CallbackCreate(GetMethod(implObj, "GetSourceViewSizePreference"), flags, 2)
+        this.vtbl.GetSourceViewToPosition := CallbackCreate(ObjBindMethod(implObj, "GetSourceViewToPosition"), flags, 2)
+        this.vtbl.GetSourceViewSizePreference := CallbackCreate(ObjBindMethod(implObj, "GetSourceViewSizePreference"), flags, 2)
     }
 
     Dispose() {

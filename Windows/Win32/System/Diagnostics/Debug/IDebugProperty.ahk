@@ -59,7 +59,6 @@ export default struct IDebugProperty extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cInfos 
      * @param {Pointer<Guid>} rgguidExtendedInfo 
      * @returns {VARIANT} 
@@ -71,7 +70,6 @@ export default struct IDebugProperty extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszValue 
      * @param {Integer} nRadix 
      * @returns {HRESULT} 
@@ -84,7 +82,6 @@ export default struct IDebugProperty extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwFieldSpec 
      * @param {Integer} nRadix 
      * @param {Pointer<Guid>} refiid 
@@ -116,11 +113,11 @@ export default struct IDebugProperty extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPropertyInfo := CallbackCreate(GetMethod(implObj, "GetPropertyInfo"), flags, 4)
-        this.vtbl.GetExtendedInfo := CallbackCreate(GetMethod(implObj, "GetExtendedInfo"), flags, 4)
-        this.vtbl.SetValueAsString := CallbackCreate(GetMethod(implObj, "SetValueAsString"), flags, 3)
-        this.vtbl.EnumMembers := CallbackCreate(GetMethod(implObj, "EnumMembers"), flags, 5)
-        this.vtbl.GetParent := CallbackCreate(GetMethod(implObj, "GetParent"), flags, 2)
+        this.vtbl.GetPropertyInfo := CallbackCreate(ObjBindMethod(implObj, "GetPropertyInfo"), flags, 4)
+        this.vtbl.GetExtendedInfo := CallbackCreate(ObjBindMethod(implObj, "GetExtendedInfo"), flags, 4)
+        this.vtbl.SetValueAsString := CallbackCreate(ObjBindMethod(implObj, "SetValueAsString"), flags, 3)
+        this.vtbl.EnumMembers := CallbackCreate(ObjBindMethod(implObj, "EnumMembers"), flags, 5)
+        this.vtbl.GetParent := CallbackCreate(ObjBindMethod(implObj, "GetParent"), flags, 2)
     }
 
     Dispose() {

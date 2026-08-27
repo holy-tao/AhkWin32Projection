@@ -18,7 +18,6 @@ export default struct PWINDBG_READ_PROCESS_MEMORY_ROUTINE64 {
     }
 
     /**
-     * 
      * @param {Integer} offset 
      * @param {Pointer<Void>} lpBuffer 
      * @param {Integer} cb 
@@ -26,8 +25,8 @@ export default struct PWINDBG_READ_PROCESS_MEMORY_ROUTINE64 {
      * @returns {Integer} 
      */
     Call(offset, lpBuffer, cb, lpcbBytesRead) {
-        lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
-        lpcbBytesReadMarshal := lpcbBytesRead is VarRef ? "uint*" : "ptr"
+        lpBufferMarshal := lpBuffer is VarRef ? "ptr" : IntPtr
+        lpcbBytesReadMarshal := lpcbBytesRead is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, Int64, offset, lpBufferMarshal, lpBuffer, UInt32, cb, lpcbBytesReadMarshal, lpcbBytesRead, UInt32)
         return result

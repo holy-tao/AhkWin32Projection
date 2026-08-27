@@ -53,7 +53,6 @@ export default struct IDOMCustomEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_detail() {
@@ -63,7 +62,6 @@ export default struct IDOMCustomEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 
@@ -86,8 +84,8 @@ export default struct IDOMCustomEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_detail := CallbackCreate(GetMethod(implObj, "get_detail"), flags, 2)
-        this.vtbl.initCustomEvent := CallbackCreate(GetMethod(implObj, "initCustomEvent"), flags, 5)
+        this.vtbl.get_detail := CallbackCreate(ObjBindMethod(implObj, "get_detail"), flags, 2)
+        this.vtbl.initCustomEvent := CallbackCreate(ObjBindMethod(implObj, "initCustomEvent"), flags, 5)
     }
 
     Dispose() {

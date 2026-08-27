@@ -39,7 +39,6 @@ export default struct IDiagnosticsScriptEngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszScript 
      * @param {PWSTR} pszScriptName 
      * @returns {HRESULT} 
@@ -53,22 +52,20 @@ export default struct IDiagnosticsScriptEngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PWSTR>} pszNames 
      * @param {Pointer<PWSTR>} pszValues 
      * @param {Integer} ulPropertyCount 
      * @returns {HRESULT} 
      */
     FireScriptMessageEvent(pszNames, pszValues, ulPropertyCount) {
-        pszNamesMarshal := pszNames is VarRef ? "ptr*" : "ptr"
-        pszValuesMarshal := pszValues is VarRef ? "ptr*" : "ptr"
+        pszNamesMarshal := pszNames is VarRef ? "ptr*" : IntPtr
+        pszValuesMarshal := pszValues is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, pszNamesMarshal, pszNames, pszValuesMarshal, pszValues, UInt32, ulPropertyCount, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Detach() {
@@ -85,9 +82,9 @@ export default struct IDiagnosticsScriptEngine extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EvaluateScript := CallbackCreate(GetMethod(implObj, "EvaluateScript"), flags, 3)
-        this.vtbl.FireScriptMessageEvent := CallbackCreate(GetMethod(implObj, "FireScriptMessageEvent"), flags, 4)
-        this.vtbl.Detach := CallbackCreate(GetMethod(implObj, "Detach"), flags, 1)
+        this.vtbl.EvaluateScript := CallbackCreate(ObjBindMethod(implObj, "EvaluateScript"), flags, 3)
+        this.vtbl.FireScriptMessageEvent := CallbackCreate(ObjBindMethod(implObj, "FireScriptMessageEvent"), flags, 4)
+        this.vtbl.Detach := CallbackCreate(ObjBindMethod(implObj, "Detach"), flags, 1)
     }
 
     Dispose() {

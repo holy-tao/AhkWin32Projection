@@ -44,7 +44,6 @@ export default struct IRTCWatcherEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCWatcher} 
      */
     get_Watcher() {
@@ -61,7 +60,7 @@ export default struct IRTCWatcherEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Watcher := CallbackCreate(GetMethod(implObj, "get_Watcher"), flags, 2)
+        this.vtbl.get_Watcher := CallbackCreate(ObjBindMethod(implObj, "get_Watcher"), flags, 2)
     }
 
     Dispose() {

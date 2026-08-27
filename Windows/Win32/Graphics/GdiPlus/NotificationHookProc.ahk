@@ -19,12 +19,11 @@ export default struct NotificationHookProc {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} token 
      * @returns {Status} 
      */
     Call(token) {
-        tokenMarshal := token is VarRef ? "ptr*" : "ptr"
+        tokenMarshal := token is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, tokenMarshal, token, Status)
         return result

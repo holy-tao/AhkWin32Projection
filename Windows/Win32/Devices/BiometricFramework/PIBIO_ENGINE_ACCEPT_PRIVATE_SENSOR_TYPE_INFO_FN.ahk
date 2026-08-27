@@ -20,14 +20,13 @@ export default struct PIBIO_ENGINE_ACCEPT_PRIVATE_SENSOR_TYPE_INFO_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline 
      * @param {Pointer<Integer>} TypeInfoBufferAddress 
      * @param {Pointer} TypeInfoBufferSize 
      * @returns {HRESULT} 
      */
     Call(Pipeline, TypeInfoBufferAddress, TypeInfoBufferSize) {
-        TypeInfoBufferAddressMarshal := TypeInfoBufferAddress is VarRef ? "char*" : "ptr"
+        TypeInfoBufferAddressMarshal := TypeInfoBufferAddress is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, WINBIO_PIPELINE.Ptr, Pipeline, TypeInfoBufferAddressMarshal, TypeInfoBufferAddress, IntPtr, TypeInfoBufferSize, "HRESULT")
         return result

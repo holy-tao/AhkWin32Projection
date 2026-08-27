@@ -58,7 +58,6 @@ export default struct LPWSPACCEPT {
     }
 
     /**
-     * 
      * @param {SOCKET} s Descriptor identifying a socket that is listening for connections after a <a href="https://docs.microsoft.com/windows/win32/api/ws2spi/nc-ws2spi-lpwsplisten">LPWSPListen</a>.
      * @param {Integer} addr Optional pointer to a buffer that receives the address of the connecting entity, as known to the service provider. The exact format of the <i>addr</i> parameter is determined by the address family established when the socket in the <a href="https://docs.microsoft.com/windows/win32/winsock/sockaddr-2">sockaddr</a> structure was created.
      * @param {Pointer<Integer>} addrlen Optional pointer to an integer that contains the length of the <i>addr</i> parameter, in bytes.
@@ -228,10 +227,14 @@ export default struct LPWSPACCEPT {
      * </table>
      */
     Call(s, addr, addrlen, lpfnCondition, dwCallbackData, lpErrno) {
-        addrlenMarshal := addrlen is VarRef ? "int*" : "ptr"
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        addrMarshal := addr == 0 ? IntPtr : IntPtr
+        addrlenMarshal := addrlen is VarRef ? "int*" : IntPtr
+        addrlenMarshal := addrlen == 0 ? IntPtr : "int*"
+        lpfnConditionMarshal := lpfnCondition == 0 ? IntPtr : LPCONDITIONPROC
+        dwCallbackDataMarshal := dwCallbackData == 0 ? IntPtr : IntPtr
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
-        result := DllCall(this.value, SOCKET, s, IntPtr, addr, addrlenMarshal, addrlen, LPCONDITIONPROC, lpfnCondition, IntPtr, dwCallbackData, lpErrnoMarshal, lpErrno, SOCKET.Owned)
+        result := DllCall(this.value, SOCKET, s, addrMarshal, addr, addrlenMarshal, addrlen, lpfnConditionMarshal, lpfnCondition, dwCallbackDataMarshal, dwCallbackData, lpErrnoMarshal, lpErrno, SOCKET.Owned)
         return result
     }
 

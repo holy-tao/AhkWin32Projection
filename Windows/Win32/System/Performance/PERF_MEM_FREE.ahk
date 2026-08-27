@@ -24,14 +24,13 @@ export default struct PERF_MEM_FREE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pBuffer Memory to free.
      * @param {Pointer<Void>} pContext Context information set in the <b>pMemContext</b> member of <a href="https://docs.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_provider_context">PERF_PROVIDER_CONTEXT</a>.
      * @returns {String} Nothing - always returns an empty string
      */
     Call(pBuffer, pContext) {
-        pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
-        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "ptr" : IntPtr
+        pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, pBufferMarshal, pBuffer, pContextMarshal, pContext)
     }

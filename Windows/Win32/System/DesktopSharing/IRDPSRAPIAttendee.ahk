@@ -202,14 +202,14 @@ export default struct IRDPSRAPIAttendee extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
-        this.vtbl.get_RemoteName := CallbackCreate(GetMethod(implObj, "get_RemoteName"), flags, 2)
-        this.vtbl.get_ControlLevel := CallbackCreate(GetMethod(implObj, "get_ControlLevel"), flags, 2)
-        this.vtbl.put_ControlLevel := CallbackCreate(GetMethod(implObj, "put_ControlLevel"), flags, 2)
-        this.vtbl.get_Invitation := CallbackCreate(GetMethod(implObj, "get_Invitation"), flags, 2)
-        this.vtbl.TerminateConnection := CallbackCreate(GetMethod(implObj, "TerminateConnection"), flags, 1)
-        this.vtbl.get_Flags := CallbackCreate(GetMethod(implObj, "get_Flags"), flags, 2)
-        this.vtbl.get_ConnectivityInfo := CallbackCreate(GetMethod(implObj, "get_ConnectivityInfo"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(ObjBindMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.get_RemoteName := CallbackCreate(ObjBindMethod(implObj, "get_RemoteName"), flags, 2)
+        this.vtbl.get_ControlLevel := CallbackCreate(ObjBindMethod(implObj, "get_ControlLevel"), flags, 2)
+        this.vtbl.put_ControlLevel := CallbackCreate(ObjBindMethod(implObj, "put_ControlLevel"), flags, 2)
+        this.vtbl.get_Invitation := CallbackCreate(ObjBindMethod(implObj, "get_Invitation"), flags, 2)
+        this.vtbl.TerminateConnection := CallbackCreate(ObjBindMethod(implObj, "TerminateConnection"), flags, 1)
+        this.vtbl.get_Flags := CallbackCreate(ObjBindMethod(implObj, "get_Flags"), flags, 2)
+        this.vtbl.get_ConnectivityInfo := CallbackCreate(ObjBindMethod(implObj, "get_ConnectivityInfo"), flags, 2)
     }
 
     Dispose() {

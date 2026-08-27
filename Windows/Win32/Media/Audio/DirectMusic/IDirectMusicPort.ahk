@@ -65,7 +65,6 @@ export default struct IDirectMusicPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDirectMusicBuffer} pBuffer 
      * @returns {HRESULT} 
      */
@@ -75,7 +74,6 @@ export default struct IDirectMusicPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {HANDLE} hEvent 
      * @returns {HRESULT} 
      */
@@ -85,7 +83,6 @@ export default struct IDirectMusicPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDirectMusicBuffer} pBuffer 
      * @returns {HRESULT} 
      */
@@ -95,7 +92,6 @@ export default struct IDirectMusicPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDirectMusicInstrument} pInstrument 
      * @param {Pointer<DMUS_NOTERANGE>} pNoteRanges 
      * @param {Integer} dwNumNoteRanges 
@@ -107,7 +103,6 @@ export default struct IDirectMusicPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDirectMusicDownloadedInstrument} pDownloadedInstrument 
      * @returns {HRESULT} 
      */
@@ -117,7 +112,6 @@ export default struct IDirectMusicPort extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IReferenceClock} 
      */
     GetLatencyClock() {
@@ -126,7 +120,6 @@ export default struct IDirectMusicPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DMUS_SYNTHSTATS>} pStats 
      * @returns {HRESULT} 
      */
@@ -136,7 +129,6 @@ export default struct IDirectMusicPort extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Compact() {
@@ -145,7 +137,6 @@ export default struct IDirectMusicPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<DMUS_PORTCAPS>} pPortCaps 
      * @returns {HRESULT} 
      */
@@ -280,16 +271,15 @@ export default struct IDirectMusicPort extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/ioapiset/nf-ioapiset-deviceiocontrol
      */
     DeviceIoControl(dwIoControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpOverlapped) {
-        lpInBufferMarshal := lpInBuffer is VarRef ? "ptr" : "ptr"
-        lpOutBufferMarshal := lpOutBuffer is VarRef ? "ptr" : "ptr"
-        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+        lpInBufferMarshal := lpInBuffer is VarRef ? "ptr" : IntPtr
+        lpOutBufferMarshal := lpOutBuffer is VarRef ? "ptr" : IntPtr
+        lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : IntPtr
 
         result := ComCall(12, this, UInt32, dwIoControlCode, lpInBufferMarshal, lpInBuffer, UInt32, nInBufferSize, lpOutBufferMarshal, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, OVERLAPPED.Ptr, lpOverlapped, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwChannelGroups 
      * @returns {HRESULT} 
      */
@@ -299,19 +289,17 @@ export default struct IDirectMusicPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwChannelGroups 
      * @returns {HRESULT} 
      */
     GetNumChannelGroups(pdwChannelGroups) {
-        pdwChannelGroupsMarshal := pdwChannelGroups is VarRef ? "uint*" : "ptr"
+        pdwChannelGroupsMarshal := pdwChannelGroups is VarRef ? "uint*" : IntPtr
 
         result := ComCall(14, this, pdwChannelGroupsMarshal, pdwChannelGroups, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {BOOL} fActive 
      * @returns {HRESULT} 
      */
@@ -321,7 +309,6 @@ export default struct IDirectMusicPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwChannelGroup 
      * @param {Integer} dwChannel 
      * @param {Integer} dwPriority 
@@ -333,21 +320,19 @@ export default struct IDirectMusicPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwChannelGroup 
      * @param {Integer} dwChannel 
      * @param {Pointer<Integer>} pdwPriority 
      * @returns {HRESULT} 
      */
     GetChannelPriority(dwChannelGroup, dwChannel, pdwPriority) {
-        pdwPriorityMarshal := pdwPriority is VarRef ? "uint*" : "ptr"
+        pdwPriorityMarshal := pdwPriority is VarRef ? "uint*" : IntPtr
 
         result := ComCall(17, this, UInt32, dwChannelGroup, UInt32, dwChannel, pdwPriorityMarshal, pdwPriority, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IDirectSound} pDirectSound 
      * @param {IDirectSoundBuffer} pDirectSoundBuffer 
      * @returns {HRESULT} 
@@ -358,15 +343,14 @@ export default struct IDirectMusicPort extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<WAVEFORMATEX>} pWaveFormatEx 
      * @param {Pointer<Integer>} pdwWaveFormatExSize 
      * @param {Pointer<Integer>} pdwBufferSize 
      * @returns {HRESULT} 
      */
     GetFormat(pWaveFormatEx, pdwWaveFormatExSize, pdwBufferSize) {
-        pdwWaveFormatExSizeMarshal := pdwWaveFormatExSize is VarRef ? "uint*" : "ptr"
-        pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : "ptr"
+        pdwWaveFormatExSizeMarshal := pdwWaveFormatExSize is VarRef ? "uint*" : IntPtr
+        pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(19, this, WAVEFORMATEX.Ptr, pWaveFormatEx, pdwWaveFormatExSizeMarshal, pdwWaveFormatExSize, pdwBufferSizeMarshal, pdwBufferSize, "HRESULT")
         return result
@@ -381,23 +365,23 @@ export default struct IDirectMusicPort extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PlayBuffer := CallbackCreate(GetMethod(implObj, "PlayBuffer"), flags, 2)
-        this.vtbl.SetReadNotificationHandle := CallbackCreate(GetMethod(implObj, "SetReadNotificationHandle"), flags, 2)
-        this.vtbl.Read := CallbackCreate(GetMethod(implObj, "Read"), flags, 2)
-        this.vtbl.DownloadInstrument := CallbackCreate(GetMethod(implObj, "DownloadInstrument"), flags, 5)
-        this.vtbl.UnloadInstrument := CallbackCreate(GetMethod(implObj, "UnloadInstrument"), flags, 2)
-        this.vtbl.GetLatencyClock := CallbackCreate(GetMethod(implObj, "GetLatencyClock"), flags, 2)
-        this.vtbl.GetRunningStats := CallbackCreate(GetMethod(implObj, "GetRunningStats"), flags, 2)
-        this.vtbl.Compact := CallbackCreate(GetMethod(implObj, "Compact"), flags, 1)
-        this.vtbl.GetCaps := CallbackCreate(GetMethod(implObj, "GetCaps"), flags, 2)
-        this.vtbl.DeviceIoControl := CallbackCreate(GetMethod(implObj, "DeviceIoControl"), flags, 8)
-        this.vtbl.SetNumChannelGroups := CallbackCreate(GetMethod(implObj, "SetNumChannelGroups"), flags, 2)
-        this.vtbl.GetNumChannelGroups := CallbackCreate(GetMethod(implObj, "GetNumChannelGroups"), flags, 2)
-        this.vtbl.Activate := CallbackCreate(GetMethod(implObj, "Activate"), flags, 2)
-        this.vtbl.SetChannelPriority := CallbackCreate(GetMethod(implObj, "SetChannelPriority"), flags, 4)
-        this.vtbl.GetChannelPriority := CallbackCreate(GetMethod(implObj, "GetChannelPriority"), flags, 4)
-        this.vtbl.SetDirectSound := CallbackCreate(GetMethod(implObj, "SetDirectSound"), flags, 3)
-        this.vtbl.GetFormat := CallbackCreate(GetMethod(implObj, "GetFormat"), flags, 4)
+        this.vtbl.PlayBuffer := CallbackCreate(ObjBindMethod(implObj, "PlayBuffer"), flags, 2)
+        this.vtbl.SetReadNotificationHandle := CallbackCreate(ObjBindMethod(implObj, "SetReadNotificationHandle"), flags, 2)
+        this.vtbl.Read := CallbackCreate(ObjBindMethod(implObj, "Read"), flags, 2)
+        this.vtbl.DownloadInstrument := CallbackCreate(ObjBindMethod(implObj, "DownloadInstrument"), flags, 5)
+        this.vtbl.UnloadInstrument := CallbackCreate(ObjBindMethod(implObj, "UnloadInstrument"), flags, 2)
+        this.vtbl.GetLatencyClock := CallbackCreate(ObjBindMethod(implObj, "GetLatencyClock"), flags, 2)
+        this.vtbl.GetRunningStats := CallbackCreate(ObjBindMethod(implObj, "GetRunningStats"), flags, 2)
+        this.vtbl.Compact := CallbackCreate(ObjBindMethod(implObj, "Compact"), flags, 1)
+        this.vtbl.GetCaps := CallbackCreate(ObjBindMethod(implObj, "GetCaps"), flags, 2)
+        this.vtbl.DeviceIoControl := CallbackCreate(ObjBindMethod(implObj, "DeviceIoControl"), flags, 8)
+        this.vtbl.SetNumChannelGroups := CallbackCreate(ObjBindMethod(implObj, "SetNumChannelGroups"), flags, 2)
+        this.vtbl.GetNumChannelGroups := CallbackCreate(ObjBindMethod(implObj, "GetNumChannelGroups"), flags, 2)
+        this.vtbl.Activate := CallbackCreate(ObjBindMethod(implObj, "Activate"), flags, 2)
+        this.vtbl.SetChannelPriority := CallbackCreate(ObjBindMethod(implObj, "SetChannelPriority"), flags, 4)
+        this.vtbl.GetChannelPriority := CallbackCreate(ObjBindMethod(implObj, "GetChannelPriority"), flags, 4)
+        this.vtbl.SetDirectSound := CallbackCreate(ObjBindMethod(implObj, "SetDirectSound"), flags, 3)
+        this.vtbl.GetFormat := CallbackCreate(ObjBindMethod(implObj, "GetFormat"), flags, 4)
     }
 
     Dispose() {

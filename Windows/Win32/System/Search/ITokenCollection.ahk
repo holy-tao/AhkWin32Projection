@@ -50,7 +50,7 @@ export default struct ITokenCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-itokencollection-numberoftokens
      */
     NumberOfTokens(pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+        pCountMarshal := pCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pCountMarshal, pCount, "HRESULT")
         return result
@@ -76,9 +76,12 @@ export default struct ITokenCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-itokencollection-gettoken
      */
     GetToken(i, pBegin, pLength, ppsz) {
-        pBeginMarshal := pBegin is VarRef ? "uint*" : "ptr"
-        pLengthMarshal := pLength is VarRef ? "uint*" : "ptr"
-        ppszMarshal := ppsz is VarRef ? "ptr*" : "ptr"
+        pBeginMarshal := pBegin is VarRef ? "uint*" : IntPtr
+        pBeginMarshal := pBegin == 0 ? IntPtr : "uint*"
+        pLengthMarshal := pLength is VarRef ? "uint*" : IntPtr
+        pLengthMarshal := pLength == 0 ? IntPtr : "uint*"
+        ppszMarshal := ppsz is VarRef ? "ptr*" : IntPtr
+        ppszMarshal := ppsz == 0 ? IntPtr : PWSTR.Ptr
 
         result := ComCall(4, this, UInt32, i, pBeginMarshal, pBegin, pLengthMarshal, pLength, ppszMarshal, ppsz, "HRESULT")
         return result
@@ -93,8 +96,8 @@ export default struct ITokenCollection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.NumberOfTokens := CallbackCreate(GetMethod(implObj, "NumberOfTokens"), flags, 2)
-        this.vtbl.GetToken := CallbackCreate(GetMethod(implObj, "GetToken"), flags, 5)
+        this.vtbl.NumberOfTokens := CallbackCreate(ObjBindMethod(implObj, "NumberOfTokens"), flags, 2)
+        this.vtbl.GetToken := CallbackCreate(ObjBindMethod(implObj, "GetToken"), flags, 5)
     }
 
     Dispose() {

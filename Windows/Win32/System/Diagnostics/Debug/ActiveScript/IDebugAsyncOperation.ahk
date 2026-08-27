@@ -42,7 +42,6 @@ export default struct IDebugAsyncOperation extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugSyncOperation} 
      */
     GetSyncDebugOperation() {
@@ -51,7 +50,6 @@ export default struct IDebugAsyncOperation extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugAsyncOperationCallBack} padocb 
      * @returns {HRESULT} 
      */
@@ -61,7 +59,6 @@ export default struct IDebugAsyncOperation extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Abort() {
@@ -70,7 +67,6 @@ export default struct IDebugAsyncOperation extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     QueryIsComplete() {
@@ -79,13 +75,12 @@ export default struct IDebugAsyncOperation extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<HRESULT>} phrResult 
      * @param {Pointer<IUnknown>} ppunkResult 
      * @returns {HRESULT} 
      */
     GetResult(phrResult, ppunkResult) {
-        phrResultMarshal := phrResult is VarRef ? "int*" : "ptr"
+        phrResultMarshal := phrResult is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, phrResultMarshal, phrResult, IUnknown.Ptr, ppunkResult, "HRESULT")
         return result
@@ -100,11 +95,11 @@ export default struct IDebugAsyncOperation extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSyncDebugOperation := CallbackCreate(GetMethod(implObj, "GetSyncDebugOperation"), flags, 2)
-        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 2)
-        this.vtbl.Abort := CallbackCreate(GetMethod(implObj, "Abort"), flags, 1)
-        this.vtbl.QueryIsComplete := CallbackCreate(GetMethod(implObj, "QueryIsComplete"), flags, 1)
-        this.vtbl.GetResult := CallbackCreate(GetMethod(implObj, "GetResult"), flags, 3)
+        this.vtbl.GetSyncDebugOperation := CallbackCreate(ObjBindMethod(implObj, "GetSyncDebugOperation"), flags, 2)
+        this.vtbl.Start := CallbackCreate(ObjBindMethod(implObj, "Start"), flags, 2)
+        this.vtbl.Abort := CallbackCreate(ObjBindMethod(implObj, "Abort"), flags, 1)
+        this.vtbl.QueryIsComplete := CallbackCreate(ObjBindMethod(implObj, "QueryIsComplete"), flags, 1)
+        this.vtbl.GetResult := CallbackCreate(ObjBindMethod(implObj, "GetResult"), flags, 3)
     }
 
     Dispose() {

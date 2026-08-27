@@ -84,9 +84,9 @@ export default struct IDirectManipulationDeferContactService extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DeferContact := CallbackCreate(GetMethod(implObj, "DeferContact"), flags, 3)
-        this.vtbl.CancelContact := CallbackCreate(GetMethod(implObj, "CancelContact"), flags, 2)
-        this.vtbl.CancelDeferral := CallbackCreate(GetMethod(implObj, "CancelDeferral"), flags, 2)
+        this.vtbl.DeferContact := CallbackCreate(ObjBindMethod(implObj, "DeferContact"), flags, 3)
+        this.vtbl.CancelContact := CallbackCreate(ObjBindMethod(implObj, "CancelContact"), flags, 2)
+        this.vtbl.CancelDeferral := CallbackCreate(ObjBindMethod(implObj, "CancelDeferral"), flags, 2)
     }
 
     Dispose() {

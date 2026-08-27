@@ -43,7 +43,6 @@ export default struct IPrintSchemaNUpOption extends IPrintSchemaOption {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PagesPerSheet() {
@@ -60,7 +59,7 @@ export default struct IPrintSchemaNUpOption extends IPrintSchemaOption {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_PagesPerSheet := CallbackCreate(GetMethod(implObj, "get_PagesPerSheet"), flags, 2)
+        this.vtbl.get_PagesPerSheet := CallbackCreate(ObjBindMethod(implObj, "get_PagesPerSheet"), flags, 2)
     }
 
     Dispose() {

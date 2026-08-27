@@ -25,7 +25,6 @@ export default struct PDD_MOCOMPCB_ENDFRAME {
     }
 
     /**
-     * 
      * @param {Pointer<DD_ENDMOCOMPFRAMEDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_endmocompframedata">DD_ENDMOCOMPFRAMEDATA</a> structure that contains the information needed to complete the decoded frame.
      * @returns {Integer} <b>DdMoCompEndFrame</b> returns one of the following callback codes:
      */

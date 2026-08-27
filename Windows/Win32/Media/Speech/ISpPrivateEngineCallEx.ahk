@@ -37,7 +37,6 @@ export default struct ISpPrivateEngineCallEx extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pInFrame 
      * @param {Integer} ulInFrameSize 
      * @param {Pointer<Pointer<Void>>} ppCoMemOutFrame 
@@ -45,15 +44,14 @@ export default struct ISpPrivateEngineCallEx extends IUnknown {
      * @returns {HRESULT} 
      */
     CallEngineSynchronize(pInFrame, ulInFrameSize, ppCoMemOutFrame, pulOutFrameSize) {
-        ppCoMemOutFrameMarshal := ppCoMemOutFrame is VarRef ? "ptr*" : "ptr"
-        pulOutFrameSizeMarshal := pulOutFrameSize is VarRef ? "uint*" : "ptr"
+        ppCoMemOutFrameMarshal := ppCoMemOutFrame is VarRef ? "ptr*" : IntPtr
+        pulOutFrameSizeMarshal := pulOutFrameSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, IntPtr, pInFrame, UInt32, ulInFrameSize, ppCoMemOutFrameMarshal, ppCoMemOutFrame, pulOutFrameSizeMarshal, pulOutFrameSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} pInFrame 
      * @param {Integer} ulInFrameSize 
      * @param {Pointer<Pointer<Void>>} ppCoMemOutFrame 
@@ -61,8 +59,8 @@ export default struct ISpPrivateEngineCallEx extends IUnknown {
      * @returns {HRESULT} 
      */
     CallEngineImmediate(pInFrame, ulInFrameSize, ppCoMemOutFrame, pulOutFrameSize) {
-        ppCoMemOutFrameMarshal := ppCoMemOutFrame is VarRef ? "ptr*" : "ptr"
-        pulOutFrameSizeMarshal := pulOutFrameSize is VarRef ? "uint*" : "ptr"
+        ppCoMemOutFrameMarshal := ppCoMemOutFrame is VarRef ? "ptr*" : IntPtr
+        pulOutFrameSizeMarshal := pulOutFrameSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, IntPtr, pInFrame, UInt32, ulInFrameSize, ppCoMemOutFrameMarshal, ppCoMemOutFrame, pulOutFrameSizeMarshal, pulOutFrameSize, "HRESULT")
         return result
@@ -77,8 +75,8 @@ export default struct ISpPrivateEngineCallEx extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CallEngineSynchronize := CallbackCreate(GetMethod(implObj, "CallEngineSynchronize"), flags, 5)
-        this.vtbl.CallEngineImmediate := CallbackCreate(GetMethod(implObj, "CallEngineImmediate"), flags, 5)
+        this.vtbl.CallEngineSynchronize := CallbackCreate(ObjBindMethod(implObj, "CallEngineSynchronize"), flags, 5)
+        this.vtbl.CallEngineImmediate := CallbackCreate(ObjBindMethod(implObj, "CallEngineImmediate"), flags, 5)
     }
 
     Dispose() {

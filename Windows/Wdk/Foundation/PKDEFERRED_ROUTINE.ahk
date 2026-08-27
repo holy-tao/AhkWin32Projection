@@ -18,7 +18,6 @@ export default struct PKDEFERRED_ROUTINE {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

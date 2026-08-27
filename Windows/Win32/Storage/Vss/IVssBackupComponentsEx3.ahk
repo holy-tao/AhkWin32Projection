@@ -248,11 +248,13 @@ export default struct IVssBackupComponentsEx3 extends IVssBackupComponentsEx2 {
      * @see https://learn.microsoft.com/windows/win32/api/vsbackup/nf-vsbackup-ivssbackupcomponentsex3-getwriterstatusex
      */
     GetWriterStatusEx(iWriter, pidInstance, pidWriter, pbstrWriter, pnStatus, phrFailureWriter, phrApplication, pbstrApplicationMessage) {
-        pnStatusMarshal := pnStatus is VarRef ? "int*" : "ptr"
-        phrFailureWriterMarshal := phrFailureWriter is VarRef ? "int*" : "ptr"
-        phrApplicationMarshal := phrApplication is VarRef ? "int*" : "ptr"
+        pnStatusMarshal := pnStatus is VarRef ? "int*" : IntPtr
+        phrFailureWriterMarshal := phrFailureWriter is VarRef ? "int*" : IntPtr
+        phrApplicationMarshal := phrApplication is VarRef ? "int*" : IntPtr
+        phrApplicationMarshal := phrApplication == 0 ? IntPtr : "int*"
+        pbstrApplicationMessageMarshal := pbstrApplicationMessage == 0 ? IntPtr : BSTR.Ptr
 
-        result := ComCall(60, this, UInt32, iWriter, Guid.Ptr, pidInstance, Guid.Ptr, pidWriter, BSTR.Ptr, pbstrWriter, pnStatusMarshal, pnStatus, phrFailureWriterMarshal, phrFailureWriter, phrApplicationMarshal, phrApplication, BSTR.Ptr, pbstrApplicationMessage, "HRESULT")
+        result := ComCall(60, this, UInt32, iWriter, Guid.Ptr, pidInstance, Guid.Ptr, pidWriter, BSTR.Ptr, pbstrWriter, pnStatusMarshal, pnStatus, phrFailureWriterMarshal, phrFailureWriter, phrApplicationMarshal, phrApplication, pbstrApplicationMessageMarshal, pbstrApplicationMessage, "HRESULT")
         return result
     }
 
@@ -358,7 +360,8 @@ export default struct IVssBackupComponentsEx3 extends IVssBackupComponentsEx2 {
      * @see https://learn.microsoft.com/windows/win32/api/vsbackup/nf-vsbackup-ivssbackupcomponentsex3-addsnapshottorecoveryset
      */
     AddSnapshotToRecoverySet(snapshotId, dwFlags, pwszDestinationVolume) {
-        pwszDestinationVolumeMarshal := pwszDestinationVolume is VarRef ? "ushort*" : "ptr"
+        pwszDestinationVolumeMarshal := pwszDestinationVolume is VarRef ? "ushort*" : IntPtr
+        pwszDestinationVolumeMarshal := pwszDestinationVolume == 0 ? IntPtr : "ushort*"
 
         result := ComCall(61, this, Guid, snapshotId, UInt32, dwFlags, pwszDestinationVolumeMarshal, pwszDestinationVolume, "HRESULT")
         return result
@@ -403,10 +406,10 @@ export default struct IVssBackupComponentsEx3 extends IVssBackupComponentsEx2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetWriterStatusEx := CallbackCreate(GetMethod(implObj, "GetWriterStatusEx"), flags, 9)
-        this.vtbl.AddSnapshotToRecoverySet := CallbackCreate(GetMethod(implObj, "AddSnapshotToRecoverySet"), flags, 4)
-        this.vtbl.RecoverSet := CallbackCreate(GetMethod(implObj, "RecoverSet"), flags, 3)
-        this.vtbl.GetSessionId := CallbackCreate(GetMethod(implObj, "GetSessionId"), flags, 2)
+        this.vtbl.GetWriterStatusEx := CallbackCreate(ObjBindMethod(implObj, "GetWriterStatusEx"), flags, 9)
+        this.vtbl.AddSnapshotToRecoverySet := CallbackCreate(ObjBindMethod(implObj, "AddSnapshotToRecoverySet"), flags, 4)
+        this.vtbl.RecoverSet := CallbackCreate(ObjBindMethod(implObj, "RecoverSet"), flags, 3)
+        this.vtbl.GetSessionId := CallbackCreate(ObjBindMethod(implObj, "GetSessionId"), flags, 2)
     }
 
     Dispose() {

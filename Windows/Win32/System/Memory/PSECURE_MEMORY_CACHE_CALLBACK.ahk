@@ -50,7 +50,6 @@ export default struct PSECURE_MEMORY_CACHE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Integer} Addr The starting address of the memory range.
      * @param {Pointer} Range The size of the memory range, in bytes.
      * @returns {BOOLEAN} The return value indicates the success or failure of this function.

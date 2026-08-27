@@ -62,7 +62,6 @@ export default struct IHTMLIsIndexElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -74,7 +73,6 @@ export default struct IHTMLIsIndexElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_prompt() {
@@ -84,7 +82,6 @@ export default struct IHTMLIsIndexElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -96,7 +93,6 @@ export default struct IHTMLIsIndexElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_action() {
@@ -114,10 +110,10 @@ export default struct IHTMLIsIndexElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_prompt := CallbackCreate(GetMethod(implObj, "put_prompt"), flags, 2)
-        this.vtbl.get_prompt := CallbackCreate(GetMethod(implObj, "get_prompt"), flags, 2)
-        this.vtbl.put_action := CallbackCreate(GetMethod(implObj, "put_action"), flags, 2)
-        this.vtbl.get_action := CallbackCreate(GetMethod(implObj, "get_action"), flags, 2)
+        this.vtbl.put_prompt := CallbackCreate(ObjBindMethod(implObj, "put_prompt"), flags, 2)
+        this.vtbl.get_prompt := CallbackCreate(ObjBindMethod(implObj, "get_prompt"), flags, 2)
+        this.vtbl.put_action := CallbackCreate(ObjBindMethod(implObj, "put_action"), flags, 2)
+        this.vtbl.get_action := CallbackCreate(ObjBindMethod(implObj, "get_action"), flags, 2)
     }
 
     Dispose() {

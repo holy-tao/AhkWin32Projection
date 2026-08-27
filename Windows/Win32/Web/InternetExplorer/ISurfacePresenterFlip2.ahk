@@ -37,7 +37,6 @@ export default struct ISurfacePresenterFlip2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {DXGI_MODE_ROTATION} dxgiRotation 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,7 @@ export default struct ISurfacePresenterFlip2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetRotation := CallbackCreate(GetMethod(implObj, "SetRotation"), flags, 2)
+        this.vtbl.SetRotation := CallbackCreate(ObjBindMethod(implObj, "SetRotation"), flags, 2)
     }
 
     Dispose() {

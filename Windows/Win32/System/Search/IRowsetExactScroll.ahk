@@ -36,7 +36,6 @@ export default struct IRowsetExactScroll extends IRowsetScroll {
     }
 
     /**
-     * 
      * @param {Pointer} hChapter 
      * @param {Pointer} cbBookmark 
      * @param {Pointer<Integer>} pBookmark 
@@ -45,9 +44,9 @@ export default struct IRowsetExactScroll extends IRowsetScroll {
      * @returns {HRESULT} 
      */
     GetExactPosition(hChapter, cbBookmark, pBookmark, pulPosition, pcRows) {
-        pBookmarkMarshal := pBookmark is VarRef ? "char*" : "ptr"
-        pulPositionMarshal := pulPosition is VarRef ? "ptr*" : "ptr"
-        pcRowsMarshal := pcRows is VarRef ? "ptr*" : "ptr"
+        pBookmarkMarshal := pBookmark is VarRef ? "char*" : IntPtr
+        pulPositionMarshal := pulPosition is VarRef ? "ptr*" : IntPtr
+        pcRowsMarshal := pcRows is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(14, this, IntPtr, hChapter, IntPtr, cbBookmark, pBookmarkMarshal, pBookmark, pulPositionMarshal, pulPosition, pcRowsMarshal, pcRows, "HRESULT")
         return result
@@ -62,7 +61,7 @@ export default struct IRowsetExactScroll extends IRowsetScroll {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetExactPosition := CallbackCreate(GetMethod(implObj, "GetExactPosition"), flags, 6)
+        this.vtbl.GetExactPosition := CallbackCreate(ObjBindMethod(implObj, "GetExactPosition"), flags, 6)
     }
 
     Dispose() {

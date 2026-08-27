@@ -53,7 +53,7 @@ export default struct IWbemHiPerfEnum extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemhiperfenum-addobjects
      */
     AddObjects(lFlags, uNumObjects, apIds, apObj) {
-        apIdsMarshal := apIds is VarRef ? "int*" : "ptr"
+        apIdsMarshal := apIds is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, Int32, lFlags, UInt32, uNumObjects, apIdsMarshal, apIds, IWbemObjectAccess.Ptr, apObj, "HRESULT")
         return result
@@ -68,7 +68,7 @@ export default struct IWbemHiPerfEnum extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemhiperfenum-removeobjects
      */
     RemoveObjects(lFlags, uNumObjects, apIds) {
-        apIdsMarshal := apIds is VarRef ? "int*" : "ptr"
+        apIdsMarshal := apIds is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, Int32, lFlags, UInt32, uNumObjects, apIdsMarshal, apIds, "HRESULT")
         return result
@@ -87,7 +87,7 @@ export default struct IWbemHiPerfEnum extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemhiperfenum-getobjects
      */
     GetObjects(lFlags, uNumObjects, apObj, puReturned) {
-        puReturnedMarshal := puReturned is VarRef ? "uint*" : "ptr"
+        puReturnedMarshal := puReturned is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, Int32, lFlags, UInt32, uNumObjects, IWbemObjectAccess.Ptr, apObj, puReturnedMarshal, puReturned, "HRESULT")
         return result
@@ -113,10 +113,10 @@ export default struct IWbemHiPerfEnum extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddObjects := CallbackCreate(GetMethod(implObj, "AddObjects"), flags, 5)
-        this.vtbl.RemoveObjects := CallbackCreate(GetMethod(implObj, "RemoveObjects"), flags, 4)
-        this.vtbl.GetObjects := CallbackCreate(GetMethod(implObj, "GetObjects"), flags, 5)
-        this.vtbl.RemoveAll := CallbackCreate(GetMethod(implObj, "RemoveAll"), flags, 2)
+        this.vtbl.AddObjects := CallbackCreate(ObjBindMethod(implObj, "AddObjects"), flags, 5)
+        this.vtbl.RemoveObjects := CallbackCreate(ObjBindMethod(implObj, "RemoveObjects"), flags, 4)
+        this.vtbl.GetObjects := CallbackCreate(ObjBindMethod(implObj, "GetObjects"), flags, 5)
+        this.vtbl.RemoveAll := CallbackCreate(ObjBindMethod(implObj, "RemoveAll"), flags, 2)
     }
 
     Dispose() {

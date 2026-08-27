@@ -24,7 +24,6 @@ export default struct PIBIO_STORAGE_OPEN_DATABASE_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/ns-winbio_adapter-winbio_pipeline">WINBIO_PIPELINE</a> structure associated with the biometric unit performing the operation.
      * @param {Pointer<Guid>} DatabaseId Pointer to a GUID that uniquely identifies the database. This is the same GUID used to register the database in the registry.
      * @param {PWSTR} FilePath Pointer to a <b>NULL</b>-terminated Unicode string that contains the fully qualified file path for the database.

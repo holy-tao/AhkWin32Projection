@@ -262,7 +262,7 @@ export default struct IMonthlyTrigger extends ITrigger {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-imonthlytrigger-get_daysofmonth
      */
     get_DaysOfMonth(pDays) {
-        pDaysMarshal := pDays is VarRef ? "int*" : "ptr"
+        pDaysMarshal := pDays is VarRef ? "int*" : IntPtr
 
         result := ComCall(20, this, pDaysMarshal, pDays, "HRESULT")
         return result
@@ -532,7 +532,7 @@ export default struct IMonthlyTrigger extends ITrigger {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-imonthlytrigger-get_monthsofyear
      */
     get_MonthsOfYear(pMonths) {
-        pMonthsMarshal := pMonths is VarRef ? "short*" : "ptr"
+        pMonthsMarshal := pMonths is VarRef ? "short*" : IntPtr
 
         result := ComCall(22, this, pMonthsMarshal, pMonths, "HRESULT")
         return result
@@ -629,7 +629,7 @@ export default struct IMonthlyTrigger extends ITrigger {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-imonthlytrigger-get_runonlastdayofmonth
      */
     get_RunOnLastDayOfMonth(pLastDay) {
-        pLastDayMarshal := pLastDay is VarRef ? "short*" : "ptr"
+        pLastDayMarshal := pLastDay is VarRef ? "short*" : IntPtr
 
         result := ComCall(24, this, pLastDayMarshal, pLastDay, "HRESULT")
         return result
@@ -679,14 +679,14 @@ export default struct IMonthlyTrigger extends ITrigger {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_DaysOfMonth := CallbackCreate(GetMethod(implObj, "get_DaysOfMonth"), flags, 2)
-        this.vtbl.put_DaysOfMonth := CallbackCreate(GetMethod(implObj, "put_DaysOfMonth"), flags, 2)
-        this.vtbl.get_MonthsOfYear := CallbackCreate(GetMethod(implObj, "get_MonthsOfYear"), flags, 2)
-        this.vtbl.put_MonthsOfYear := CallbackCreate(GetMethod(implObj, "put_MonthsOfYear"), flags, 2)
-        this.vtbl.get_RunOnLastDayOfMonth := CallbackCreate(GetMethod(implObj, "get_RunOnLastDayOfMonth"), flags, 2)
-        this.vtbl.put_RunOnLastDayOfMonth := CallbackCreate(GetMethod(implObj, "put_RunOnLastDayOfMonth"), flags, 2)
-        this.vtbl.get_RandomDelay := CallbackCreate(GetMethod(implObj, "get_RandomDelay"), flags, 2)
-        this.vtbl.put_RandomDelay := CallbackCreate(GetMethod(implObj, "put_RandomDelay"), flags, 2)
+        this.vtbl.get_DaysOfMonth := CallbackCreate(ObjBindMethod(implObj, "get_DaysOfMonth"), flags, 2)
+        this.vtbl.put_DaysOfMonth := CallbackCreate(ObjBindMethod(implObj, "put_DaysOfMonth"), flags, 2)
+        this.vtbl.get_MonthsOfYear := CallbackCreate(ObjBindMethod(implObj, "get_MonthsOfYear"), flags, 2)
+        this.vtbl.put_MonthsOfYear := CallbackCreate(ObjBindMethod(implObj, "put_MonthsOfYear"), flags, 2)
+        this.vtbl.get_RunOnLastDayOfMonth := CallbackCreate(ObjBindMethod(implObj, "get_RunOnLastDayOfMonth"), flags, 2)
+        this.vtbl.put_RunOnLastDayOfMonth := CallbackCreate(ObjBindMethod(implObj, "put_RunOnLastDayOfMonth"), flags, 2)
+        this.vtbl.get_RandomDelay := CallbackCreate(ObjBindMethod(implObj, "get_RandomDelay"), flags, 2)
+        this.vtbl.put_RandomDelay := CallbackCreate(ObjBindMethod(implObj, "put_RandomDelay"), flags, 2)
     }
 
     Dispose() {

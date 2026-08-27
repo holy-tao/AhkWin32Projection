@@ -98,8 +98,8 @@ export default struct IReplicaKeyMap extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ireplicakeymap-lookupreplicakey
      */
     LookupReplicaKey(pbReplicaId, pdwReplicaKey) {
-        pbReplicaIdMarshal := pbReplicaId is VarRef ? "char*" : "ptr"
-        pdwReplicaKeyMarshal := pdwReplicaKey is VarRef ? "uint*" : "ptr"
+        pbReplicaIdMarshal := pbReplicaId is VarRef ? "char*" : IntPtr
+        pdwReplicaKeyMarshal := pdwReplicaKey is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pbReplicaIdMarshal, pbReplicaId, pdwReplicaKeyMarshal, pdwReplicaKey, "HRESULT")
         return result
@@ -165,8 +165,8 @@ export default struct IReplicaKeyMap extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ireplicakeymap-lookupreplicaid
      */
     LookupReplicaId(dwReplicaKey, pbReplicaId, pcbIdSize) {
-        pbReplicaIdMarshal := pbReplicaId is VarRef ? "char*" : "ptr"
-        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
+        pbReplicaIdMarshal := pbReplicaId is VarRef ? "char*" : IntPtr
+        pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, UInt32, dwReplicaKey, pbReplicaIdMarshal, pbReplicaId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
         return result
@@ -239,8 +239,8 @@ export default struct IReplicaKeyMap extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ireplicakeymap-serialize
      */
     Serialize(pbReplicaKeyMap, pcbReplicaKeyMap) {
-        pbReplicaKeyMapMarshal := pbReplicaKeyMap is VarRef ? "char*" : "ptr"
-        pcbReplicaKeyMapMarshal := pcbReplicaKeyMap is VarRef ? "uint*" : "ptr"
+        pbReplicaKeyMapMarshal := pbReplicaKeyMap is VarRef ? "char*" : IntPtr
+        pcbReplicaKeyMapMarshal := pcbReplicaKeyMap is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, pbReplicaKeyMapMarshal, pbReplicaKeyMap, pcbReplicaKeyMapMarshal, pcbReplicaKeyMap, "HRESULT")
         return result
@@ -255,9 +255,9 @@ export default struct IReplicaKeyMap extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LookupReplicaKey := CallbackCreate(GetMethod(implObj, "LookupReplicaKey"), flags, 3)
-        this.vtbl.LookupReplicaId := CallbackCreate(GetMethod(implObj, "LookupReplicaId"), flags, 4)
-        this.vtbl.Serialize := CallbackCreate(GetMethod(implObj, "Serialize"), flags, 3)
+        this.vtbl.LookupReplicaKey := CallbackCreate(ObjBindMethod(implObj, "LookupReplicaKey"), flags, 3)
+        this.vtbl.LookupReplicaId := CallbackCreate(ObjBindMethod(implObj, "LookupReplicaId"), flags, 4)
+        this.vtbl.Serialize := CallbackCreate(ObjBindMethod(implObj, "Serialize"), flags, 3)
     }
 
     Dispose() {

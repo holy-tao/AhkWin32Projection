@@ -40,20 +40,19 @@ export default struct IAudioStateMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PAudioStateMonitorCallback>} callback 
      * @param {Pointer<Void>} _context 
      * @returns {Integer} 
      */
     RegisterCallback(callback, _context) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+        _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
         result := ComCall(3, this, PAudioStateMonitorCallback, callback, _contextMarshal, _context, "int64*", &registration := 0, "HRESULT")
         return registration
     }
 
     /**
-     * 
      * @param {Integer} registration 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -62,7 +61,6 @@ export default struct IAudioStateMonitor extends IUnknown {
     }
 
     /**
-     * 
      * @returns {AudioStateMonitorSoundLevel} 
      */
     GetSoundLevel() {
@@ -79,9 +77,9 @@ export default struct IAudioStateMonitor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterCallback := CallbackCreate(GetMethod(implObj, "RegisterCallback"), flags, 4)
-        this.vtbl.UnregisterCallback := CallbackCreate(GetMethod(implObj, "UnregisterCallback"), flags, 2)
-        this.vtbl.GetSoundLevel := CallbackCreate(GetMethod(implObj, "GetSoundLevel"), flags, 1)
+        this.vtbl.RegisterCallback := CallbackCreate(ObjBindMethod(implObj, "RegisterCallback"), flags, 4)
+        this.vtbl.UnregisterCallback := CallbackCreate(ObjBindMethod(implObj, "UnregisterCallback"), flags, 2)
+        this.vtbl.GetSoundLevel := CallbackCreate(ObjBindMethod(implObj, "GetSoundLevel"), flags, 1)
     }
 
     Dispose() {

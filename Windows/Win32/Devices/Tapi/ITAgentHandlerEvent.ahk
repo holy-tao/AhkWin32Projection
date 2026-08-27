@@ -89,8 +89,8 @@ export default struct ITAgentHandlerEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_AgentHandler := CallbackCreate(GetMethod(implObj, "get_AgentHandler"), flags, 2)
-        this.vtbl.get_Event := CallbackCreate(GetMethod(implObj, "get_Event"), flags, 2)
+        this.vtbl.get_AgentHandler := CallbackCreate(ObjBindMethod(implObj, "get_AgentHandler"), flags, 2)
+        this.vtbl.get_Event := CallbackCreate(ObjBindMethod(implObj, "get_Event"), flags, 2)
     }
 
     Dispose() {

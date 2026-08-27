@@ -140,9 +140,9 @@ export default struct IAudioMediaStream extends IMediaStream {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFormat := CallbackCreate(GetMethod(implObj, "GetFormat"), flags, 2)
-        this.vtbl.SetFormat := CallbackCreate(GetMethod(implObj, "SetFormat"), flags, 2)
-        this.vtbl.CreateSample := CallbackCreate(GetMethod(implObj, "CreateSample"), flags, 4)
+        this.vtbl.GetFormat := CallbackCreate(ObjBindMethod(implObj, "GetFormat"), flags, 2)
+        this.vtbl.SetFormat := CallbackCreate(ObjBindMethod(implObj, "SetFormat"), flags, 2)
+        this.vtbl.CreateSample := CallbackCreate(ObjBindMethod(implObj, "CreateSample"), flags, 4)
     }
 
     Dispose() {

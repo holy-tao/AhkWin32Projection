@@ -19,13 +19,12 @@ export default struct PUNLOCK_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<FILE_LOCK_INFO>} FileLockInfo 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Context, FileLockInfo) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _ContextMarshal, _Context, FILE_LOCK_INFO.Ptr, FileLockInfo)
     }

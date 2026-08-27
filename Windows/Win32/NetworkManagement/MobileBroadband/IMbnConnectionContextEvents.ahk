@@ -92,8 +92,8 @@ export default struct IMbnConnectionContextEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnProvisionedContextListChange := CallbackCreate(GetMethod(implObj, "OnProvisionedContextListChange"), flags, 2)
-        this.vtbl.OnSetProvisionedContextComplete := CallbackCreate(GetMethod(implObj, "OnSetProvisionedContextComplete"), flags, 4)
+        this.vtbl.OnProvisionedContextListChange := CallbackCreate(ObjBindMethod(implObj, "OnProvisionedContextListChange"), flags, 2)
+        this.vtbl.OnSetProvisionedContextComplete := CallbackCreate(ObjBindMethod(implObj, "OnSetProvisionedContextComplete"), flags, 4)
     }
 
     Dispose() {

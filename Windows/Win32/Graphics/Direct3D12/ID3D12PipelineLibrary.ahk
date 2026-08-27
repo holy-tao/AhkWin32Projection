@@ -65,7 +65,9 @@ export default struct ID3D12PipelineLibrary extends ID3D12DeviceChild {
     StorePipeline(pName, pPipeline) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        result := ComCall(8, this, "ptr", pName, "ptr", pPipeline, "HRESULT")
+        pNameMarshal := pName == 0 ? IntPtr : PWSTR
+
+        result := ComCall(8, this, pNameMarshal, pName, "ptr", pPipeline, "HRESULT")
         return result
     }
 
@@ -159,11 +161,11 @@ export default struct ID3D12PipelineLibrary extends ID3D12DeviceChild {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StorePipeline := CallbackCreate(GetMethod(implObj, "StorePipeline"), flags, 3)
-        this.vtbl.LoadGraphicsPipeline := CallbackCreate(GetMethod(implObj, "LoadGraphicsPipeline"), flags, 5)
-        this.vtbl.LoadComputePipeline := CallbackCreate(GetMethod(implObj, "LoadComputePipeline"), flags, 5)
-        this.vtbl.GetSerializedSize := CallbackCreate(GetMethod(implObj, "GetSerializedSize"), flags, 1)
-        this.vtbl.Serialize := CallbackCreate(GetMethod(implObj, "Serialize"), flags, 3)
+        this.vtbl.StorePipeline := CallbackCreate(ObjBindMethod(implObj, "StorePipeline"), flags, 3)
+        this.vtbl.LoadGraphicsPipeline := CallbackCreate(ObjBindMethod(implObj, "LoadGraphicsPipeline"), flags, 5)
+        this.vtbl.LoadComputePipeline := CallbackCreate(ObjBindMethod(implObj, "LoadComputePipeline"), flags, 5)
+        this.vtbl.GetSerializedSize := CallbackCreate(ObjBindMethod(implObj, "GetSerializedSize"), flags, 1)
+        this.vtbl.Serialize := CallbackCreate(ObjBindMethod(implObj, "Serialize"), flags, 3)
     }
 
     Dispose() {

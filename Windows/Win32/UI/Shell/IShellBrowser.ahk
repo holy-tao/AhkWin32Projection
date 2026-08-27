@@ -359,7 +359,9 @@ export default struct IShellBrowser extends IOleWindow {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellbrowser-settoolbaritems
      */
     SetToolbarItems(lpButtons, nButtons, uFlags) {
-        result := ComCall(17, this, TBBUTTON.Ptr, lpButtons, UInt32, nButtons, UInt32, uFlags, "HRESULT")
+        lpButtonsMarshal := lpButtons == 0 ? IntPtr : TBBUTTON.Ptr
+
+        result := ComCall(17, this, lpButtonsMarshal, lpButtons, UInt32, nButtons, UInt32, uFlags, "HRESULT")
         return result
     }
 
@@ -372,19 +374,19 @@ export default struct IShellBrowser extends IOleWindow {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InsertMenusSB := CallbackCreate(GetMethod(implObj, "InsertMenusSB"), flags, 3)
-        this.vtbl.SetMenuSB := CallbackCreate(GetMethod(implObj, "SetMenuSB"), flags, 4)
-        this.vtbl.RemoveMenusSB := CallbackCreate(GetMethod(implObj, "RemoveMenusSB"), flags, 2)
-        this.vtbl.SetStatusTextSB := CallbackCreate(GetMethod(implObj, "SetStatusTextSB"), flags, 2)
-        this.vtbl.EnableModelessSB := CallbackCreate(GetMethod(implObj, "EnableModelessSB"), flags, 2)
-        this.vtbl.TranslateAcceleratorSB := CallbackCreate(GetMethod(implObj, "TranslateAcceleratorSB"), flags, 3)
-        this.vtbl.BrowseObject := CallbackCreate(GetMethod(implObj, "BrowseObject"), flags, 3)
-        this.vtbl.GetViewStateStream := CallbackCreate(GetMethod(implObj, "GetViewStateStream"), flags, 3)
-        this.vtbl.GetControlWindow := CallbackCreate(GetMethod(implObj, "GetControlWindow"), flags, 3)
-        this.vtbl.SendControlMsg := CallbackCreate(GetMethod(implObj, "SendControlMsg"), flags, 6)
-        this.vtbl.QueryActiveShellView := CallbackCreate(GetMethod(implObj, "QueryActiveShellView"), flags, 2)
-        this.vtbl.OnViewWindowActive := CallbackCreate(GetMethod(implObj, "OnViewWindowActive"), flags, 2)
-        this.vtbl.SetToolbarItems := CallbackCreate(GetMethod(implObj, "SetToolbarItems"), flags, 4)
+        this.vtbl.InsertMenusSB := CallbackCreate(ObjBindMethod(implObj, "InsertMenusSB"), flags, 3)
+        this.vtbl.SetMenuSB := CallbackCreate(ObjBindMethod(implObj, "SetMenuSB"), flags, 4)
+        this.vtbl.RemoveMenusSB := CallbackCreate(ObjBindMethod(implObj, "RemoveMenusSB"), flags, 2)
+        this.vtbl.SetStatusTextSB := CallbackCreate(ObjBindMethod(implObj, "SetStatusTextSB"), flags, 2)
+        this.vtbl.EnableModelessSB := CallbackCreate(ObjBindMethod(implObj, "EnableModelessSB"), flags, 2)
+        this.vtbl.TranslateAcceleratorSB := CallbackCreate(ObjBindMethod(implObj, "TranslateAcceleratorSB"), flags, 3)
+        this.vtbl.BrowseObject := CallbackCreate(ObjBindMethod(implObj, "BrowseObject"), flags, 3)
+        this.vtbl.GetViewStateStream := CallbackCreate(ObjBindMethod(implObj, "GetViewStateStream"), flags, 3)
+        this.vtbl.GetControlWindow := CallbackCreate(ObjBindMethod(implObj, "GetControlWindow"), flags, 3)
+        this.vtbl.SendControlMsg := CallbackCreate(ObjBindMethod(implObj, "SendControlMsg"), flags, 6)
+        this.vtbl.QueryActiveShellView := CallbackCreate(ObjBindMethod(implObj, "QueryActiveShellView"), flags, 2)
+        this.vtbl.OnViewWindowActive := CallbackCreate(ObjBindMethod(implObj, "OnViewWindowActive"), flags, 2)
+        this.vtbl.SetToolbarItems := CallbackCreate(ObjBindMethod(implObj, "SetToolbarItems"), flags, 4)
     }
 
     Dispose() {

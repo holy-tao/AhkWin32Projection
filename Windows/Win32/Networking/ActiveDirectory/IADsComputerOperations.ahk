@@ -72,8 +72,8 @@ export default struct IADsComputerOperations extends IADs {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Status := CallbackCreate(GetMethod(implObj, "Status"), flags, 2)
-        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 2)
+        this.vtbl.Status := CallbackCreate(ObjBindMethod(implObj, "Status"), flags, 2)
+        this.vtbl.Shutdown := CallbackCreate(ObjBindMethod(implObj, "Shutdown"), flags, 2)
     }
 
     Dispose() {

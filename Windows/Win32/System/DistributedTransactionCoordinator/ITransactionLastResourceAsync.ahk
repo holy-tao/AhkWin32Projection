@@ -38,7 +38,6 @@ export default struct ITransactionLastResourceAsync extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} grfRM 
      * @returns {HRESULT} 
      */
@@ -48,7 +47,6 @@ export default struct ITransactionLastResourceAsync extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BOID>} pNewUOW 
      * @returns {HRESULT} 
      */
@@ -66,8 +64,8 @@ export default struct ITransactionLastResourceAsync extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DelegateCommit := CallbackCreate(GetMethod(implObj, "DelegateCommit"), flags, 2)
-        this.vtbl.ForgetRequest := CallbackCreate(GetMethod(implObj, "ForgetRequest"), flags, 2)
+        this.vtbl.DelegateCommit := CallbackCreate(ObjBindMethod(implObj, "DelegateCommit"), flags, 2)
+        this.vtbl.ForgetRequest := CallbackCreate(ObjBindMethod(implObj, "ForgetRequest"), flags, 2)
     }
 
     Dispose() {

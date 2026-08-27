@@ -144,10 +144,10 @@ export default struct IDWriteTextAnalysisSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetScriptAnalysis := CallbackCreate(GetMethod(implObj, "SetScriptAnalysis"), flags, 4)
-        this.vtbl.SetLineBreakpoints := CallbackCreate(GetMethod(implObj, "SetLineBreakpoints"), flags, 4)
-        this.vtbl.SetBidiLevel := CallbackCreate(GetMethod(implObj, "SetBidiLevel"), flags, 5)
-        this.vtbl.SetNumberSubstitution := CallbackCreate(GetMethod(implObj, "SetNumberSubstitution"), flags, 4)
+        this.vtbl.SetScriptAnalysis := CallbackCreate(ObjBindMethod(implObj, "SetScriptAnalysis"), flags, 4)
+        this.vtbl.SetLineBreakpoints := CallbackCreate(ObjBindMethod(implObj, "SetLineBreakpoints"), flags, 4)
+        this.vtbl.SetBidiLevel := CallbackCreate(ObjBindMethod(implObj, "SetBidiLevel"), flags, 5)
+        this.vtbl.SetNumberSubstitution := CallbackCreate(ObjBindMethod(implObj, "SetNumberSubstitution"), flags, 4)
     }
 
     Dispose() {

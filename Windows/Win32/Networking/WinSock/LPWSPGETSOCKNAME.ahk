@@ -25,7 +25,6 @@ export default struct LPWSPGETSOCKNAME {
     }
 
     /**
-     * 
      * @param {SOCKET} s Descriptor identifying a bound socket.
      * @param {Integer} name Pointer to a <b><a href="https://docs.microsoft.com/windows/win32/winsock/sockaddr-2">sockaddr</a></b> structure used to supply the address (name) of the socket.
      * @param {Pointer<Integer>} namelen On input, pointer to an integer that indicates the size of the structure pointed to by <i>name</i>, in bytes. On output indicates the size of the returned name, in bytes.
@@ -95,8 +94,8 @@ export default struct LPWSPGETSOCKNAME {
      * </table>
      */
     Call(s, name, namelen, lpErrno) {
-        namelenMarshal := namelen is VarRef ? "int*" : "ptr"
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        namelenMarshal := namelen is VarRef ? "int*" : IntPtr
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, SOCKET, s, IntPtr, name, namelenMarshal, namelen, lpErrnoMarshal, lpErrno, Int32)
         return result

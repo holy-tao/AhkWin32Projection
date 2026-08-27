@@ -138,11 +138,11 @@ export default struct ISyncMgrConflict extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
-        this.vtbl.GetConflictIdInfo := CallbackCreate(GetMethod(implObj, "GetConflictIdInfo"), flags, 2)
-        this.vtbl.GetItemsArray := CallbackCreate(GetMethod(implObj, "GetItemsArray"), flags, 2)
-        this.vtbl.Resolve := CallbackCreate(GetMethod(implObj, "Resolve"), flags, 2)
-        this.vtbl.GetResolutionHandler := CallbackCreate(GetMethod(implObj, "GetResolutionHandler"), flags, 3)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.GetConflictIdInfo := CallbackCreate(ObjBindMethod(implObj, "GetConflictIdInfo"), flags, 2)
+        this.vtbl.GetItemsArray := CallbackCreate(ObjBindMethod(implObj, "GetItemsArray"), flags, 2)
+        this.vtbl.Resolve := CallbackCreate(ObjBindMethod(implObj, "Resolve"), flags, 2)
+        this.vtbl.GetResolutionHandler := CallbackCreate(ObjBindMethod(implObj, "GetResolutionHandler"), flags, 3)
     }
 
     Dispose() {

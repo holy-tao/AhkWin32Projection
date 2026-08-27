@@ -175,14 +175,14 @@ export default struct IEntity extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Name := CallbackCreate(GetMethod(implObj, "Name"), flags, 2)
-        this.vtbl.Base := CallbackCreate(GetMethod(implObj, "Base"), flags, 2)
-        this.vtbl.Relationships := CallbackCreate(GetMethod(implObj, "Relationships"), flags, 3)
-        this.vtbl.GetRelationship := CallbackCreate(GetMethod(implObj, "GetRelationship"), flags, 3)
-        this.vtbl.MetaData := CallbackCreate(GetMethod(implObj, "MetaData"), flags, 3)
-        this.vtbl.NamedEntities := CallbackCreate(GetMethod(implObj, "NamedEntities"), flags, 3)
-        this.vtbl.GetNamedEntity := CallbackCreate(GetMethod(implObj, "GetNamedEntity"), flags, 3)
-        this.vtbl.DefaultPhrase := CallbackCreate(GetMethod(implObj, "DefaultPhrase"), flags, 2)
+        this.vtbl.Name := CallbackCreate(ObjBindMethod(implObj, "Name"), flags, 2)
+        this.vtbl.Base := CallbackCreate(ObjBindMethod(implObj, "Base"), flags, 2)
+        this.vtbl.Relationships := CallbackCreate(ObjBindMethod(implObj, "Relationships"), flags, 3)
+        this.vtbl.GetRelationship := CallbackCreate(ObjBindMethod(implObj, "GetRelationship"), flags, 3)
+        this.vtbl.MetaData := CallbackCreate(ObjBindMethod(implObj, "MetaData"), flags, 3)
+        this.vtbl.NamedEntities := CallbackCreate(ObjBindMethod(implObj, "NamedEntities"), flags, 3)
+        this.vtbl.GetNamedEntity := CallbackCreate(ObjBindMethod(implObj, "GetNamedEntity"), flags, 3)
+        this.vtbl.DefaultPhrase := CallbackCreate(ObjBindMethod(implObj, "DefaultPhrase"), flags, 2)
     }
 
     Dispose() {

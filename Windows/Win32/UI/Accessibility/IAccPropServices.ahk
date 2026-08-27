@@ -83,7 +83,7 @@ export default struct IAccPropServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccpropservices-setpropvalue
      */
     SetPropValue(pIDString, dwIDStringLen, idProp, var) {
-        pIDStringMarshal := pIDString is VarRef ? "char*" : "ptr"
+        pIDStringMarshal := pIDString is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, pIDStringMarshal, pIDString, UInt32, dwIDStringLen, Guid, idProp, VARIANT, var, "HRESULT")
         return result
@@ -123,7 +123,7 @@ export default struct IAccPropServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccpropservices-setpropserver
      */
     SetPropServer(pIDString, dwIDStringLen, paProps, cProps, pServer, _annoScope) {
-        pIDStringMarshal := pIDString is VarRef ? "char*" : "ptr"
+        pIDStringMarshal := pIDString is VarRef ? "char*" : IntPtr
 
         result := ComCall(4, this, pIDStringMarshal, pIDString, UInt32, dwIDStringLen, Guid.Ptr, paProps, Int32, cProps, "ptr", pServer, AnnoScope, _annoScope, "HRESULT")
         return result
@@ -157,7 +157,7 @@ export default struct IAccPropServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccpropservices-clearprops
      */
     ClearProps(pIDString, dwIDStringLen, paProps, cProps) {
-        pIDStringMarshal := pIDString is VarRef ? "char*" : "ptr"
+        pIDStringMarshal := pIDString is VarRef ? "char*" : IntPtr
 
         result := ComCall(5, this, pIDStringMarshal, pIDString, UInt32, dwIDStringLen, Guid.Ptr, paProps, Int32, cProps, "HRESULT")
         return result
@@ -332,8 +332,8 @@ export default struct IAccPropServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccpropservices-composehwndidentitystring
      */
     ComposeHwndIdentityString(_hwnd, idObject, idChild, ppIDString, pdwIDStringLen) {
-        ppIDStringMarshal := ppIDString is VarRef ? "ptr*" : "ptr"
-        pdwIDStringLenMarshal := pdwIDStringLen is VarRef ? "uint*" : "ptr"
+        ppIDStringMarshal := ppIDString is VarRef ? "ptr*" : IntPtr
+        pdwIDStringLenMarshal := pdwIDStringLen is VarRef ? "uint*" : IntPtr
 
         result := ComCall(10, this, HWND, _hwnd, UInt32, idObject, UInt32, idChild, ppIDStringMarshal, ppIDString, pdwIDStringLenMarshal, pdwIDStringLen, "HRESULT")
         return result
@@ -368,9 +368,9 @@ export default struct IAccPropServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccpropservices-decomposehwndidentitystring
      */
     DecomposeHwndIdentityString(pIDString, dwIDStringLen, phwnd, pidObject, pidChild) {
-        pIDStringMarshal := pIDString is VarRef ? "char*" : "ptr"
-        pidObjectMarshal := pidObject is VarRef ? "uint*" : "ptr"
-        pidChildMarshal := pidChild is VarRef ? "uint*" : "ptr"
+        pIDStringMarshal := pIDString is VarRef ? "char*" : IntPtr
+        pidObjectMarshal := pidObject is VarRef ? "uint*" : IntPtr
+        pidChildMarshal := pidChild is VarRef ? "uint*" : IntPtr
 
         result := ComCall(11, this, pIDStringMarshal, pIDString, UInt32, dwIDStringLen, HWND.Ptr, phwnd, pidObjectMarshal, pidObject, pidChildMarshal, pidChild, "HRESULT")
         return result
@@ -524,8 +524,8 @@ export default struct IAccPropServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccpropservices-composehmenuidentitystring
      */
     ComposeHmenuIdentityString(_hmenu, idChild, ppIDString, pdwIDStringLen) {
-        ppIDStringMarshal := ppIDString is VarRef ? "ptr*" : "ptr"
-        pdwIDStringLenMarshal := pdwIDStringLen is VarRef ? "uint*" : "ptr"
+        ppIDStringMarshal := ppIDString is VarRef ? "ptr*" : IntPtr
+        pdwIDStringLenMarshal := pdwIDStringLen is VarRef ? "uint*" : IntPtr
 
         result := ComCall(16, this, HMENU, _hmenu, UInt32, idChild, ppIDStringMarshal, ppIDString, pdwIDStringLenMarshal, pdwIDStringLen, "HRESULT")
         return result
@@ -557,8 +557,8 @@ export default struct IAccPropServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccpropservices-decomposehmenuidentitystring
      */
     DecomposeHmenuIdentityString(pIDString, dwIDStringLen, phmenu, pidChild) {
-        pIDStringMarshal := pIDString is VarRef ? "char*" : "ptr"
-        pidChildMarshal := pidChild is VarRef ? "uint*" : "ptr"
+        pIDStringMarshal := pIDString is VarRef ? "char*" : IntPtr
+        pidChildMarshal := pidChild is VarRef ? "uint*" : IntPtr
 
         result := ComCall(17, this, pIDStringMarshal, pIDString, UInt32, dwIDStringLen, HMENU.Ptr, phmenu, pidChildMarshal, pidChild, "HRESULT")
         return result
@@ -573,21 +573,21 @@ export default struct IAccPropServices extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetPropValue := CallbackCreate(GetMethod(implObj, "SetPropValue"), flags, 5)
-        this.vtbl.SetPropServer := CallbackCreate(GetMethod(implObj, "SetPropServer"), flags, 7)
-        this.vtbl.ClearProps := CallbackCreate(GetMethod(implObj, "ClearProps"), flags, 5)
-        this.vtbl.SetHwndProp := CallbackCreate(GetMethod(implObj, "SetHwndProp"), flags, 6)
-        this.vtbl.SetHwndPropStr := CallbackCreate(GetMethod(implObj, "SetHwndPropStr"), flags, 6)
-        this.vtbl.SetHwndPropServer := CallbackCreate(GetMethod(implObj, "SetHwndPropServer"), flags, 8)
-        this.vtbl.ClearHwndProps := CallbackCreate(GetMethod(implObj, "ClearHwndProps"), flags, 6)
-        this.vtbl.ComposeHwndIdentityString := CallbackCreate(GetMethod(implObj, "ComposeHwndIdentityString"), flags, 6)
-        this.vtbl.DecomposeHwndIdentityString := CallbackCreate(GetMethod(implObj, "DecomposeHwndIdentityString"), flags, 6)
-        this.vtbl.SetHmenuProp := CallbackCreate(GetMethod(implObj, "SetHmenuProp"), flags, 5)
-        this.vtbl.SetHmenuPropStr := CallbackCreate(GetMethod(implObj, "SetHmenuPropStr"), flags, 5)
-        this.vtbl.SetHmenuPropServer := CallbackCreate(GetMethod(implObj, "SetHmenuPropServer"), flags, 7)
-        this.vtbl.ClearHmenuProps := CallbackCreate(GetMethod(implObj, "ClearHmenuProps"), flags, 5)
-        this.vtbl.ComposeHmenuIdentityString := CallbackCreate(GetMethod(implObj, "ComposeHmenuIdentityString"), flags, 5)
-        this.vtbl.DecomposeHmenuIdentityString := CallbackCreate(GetMethod(implObj, "DecomposeHmenuIdentityString"), flags, 5)
+        this.vtbl.SetPropValue := CallbackCreate(ObjBindMethod(implObj, "SetPropValue"), flags, 5)
+        this.vtbl.SetPropServer := CallbackCreate(ObjBindMethod(implObj, "SetPropServer"), flags, 7)
+        this.vtbl.ClearProps := CallbackCreate(ObjBindMethod(implObj, "ClearProps"), flags, 5)
+        this.vtbl.SetHwndProp := CallbackCreate(ObjBindMethod(implObj, "SetHwndProp"), flags, 6)
+        this.vtbl.SetHwndPropStr := CallbackCreate(ObjBindMethod(implObj, "SetHwndPropStr"), flags, 6)
+        this.vtbl.SetHwndPropServer := CallbackCreate(ObjBindMethod(implObj, "SetHwndPropServer"), flags, 8)
+        this.vtbl.ClearHwndProps := CallbackCreate(ObjBindMethod(implObj, "ClearHwndProps"), flags, 6)
+        this.vtbl.ComposeHwndIdentityString := CallbackCreate(ObjBindMethod(implObj, "ComposeHwndIdentityString"), flags, 6)
+        this.vtbl.DecomposeHwndIdentityString := CallbackCreate(ObjBindMethod(implObj, "DecomposeHwndIdentityString"), flags, 6)
+        this.vtbl.SetHmenuProp := CallbackCreate(ObjBindMethod(implObj, "SetHmenuProp"), flags, 5)
+        this.vtbl.SetHmenuPropStr := CallbackCreate(ObjBindMethod(implObj, "SetHmenuPropStr"), flags, 5)
+        this.vtbl.SetHmenuPropServer := CallbackCreate(ObjBindMethod(implObj, "SetHmenuPropServer"), flags, 7)
+        this.vtbl.ClearHmenuProps := CallbackCreate(ObjBindMethod(implObj, "ClearHmenuProps"), flags, 5)
+        this.vtbl.ComposeHmenuIdentityString := CallbackCreate(ObjBindMethod(implObj, "ComposeHmenuIdentityString"), flags, 5)
+        this.vtbl.DecomposeHmenuIdentityString := CallbackCreate(ObjBindMethod(implObj, "DecomposeHmenuIdentityString"), flags, 5)
     }
 
     Dispose() {

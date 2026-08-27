@@ -80,7 +80,7 @@ export default struct IWMPropertyVault extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmpropertyvault-getpropertycount
      */
     GetPropertyCount(pdwCount) {
-        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pdwCountMarshal, pdwCount, "HRESULT")
         return result
@@ -144,9 +144,9 @@ export default struct IWMPropertyVault extends IUnknown {
     GetPropertyByName(pszName, pType, pValue, pdwSize) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
-        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+        pTypeMarshal := pType is VarRef ? "int*" : IntPtr
+        pValueMarshal := pValue is VarRef ? "char*" : IntPtr
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "HRESULT")
         return result
@@ -306,7 +306,7 @@ export default struct IWMPropertyVault extends IUnknown {
     SetProperty(pszName, pType, pValue, dwSize) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "char*" : IntPtr
 
         result := ComCall(5, this, "ptr", pszName, WMT_ATTR_DATATYPE, pType, pValueMarshal, pValue, UInt32, dwSize, "HRESULT")
         return result
@@ -372,10 +372,10 @@ export default struct IWMPropertyVault extends IUnknown {
     GetPropertyByIndex(dwIndex, pszName, pdwNameLen, pType, pValue, pdwSize) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        pdwNameLenMarshal := pdwNameLen is VarRef ? "uint*" : "ptr"
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
-        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+        pdwNameLenMarshal := pdwNameLen is VarRef ? "uint*" : IntPtr
+        pTypeMarshal := pType is VarRef ? "int*" : IntPtr
+        pValueMarshal := pValue is VarRef ? "char*" : IntPtr
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, UInt32, dwIndex, "ptr", pszName, pdwNameLenMarshal, pdwNameLen, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "HRESULT")
         return result
@@ -444,12 +444,12 @@ export default struct IWMPropertyVault extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPropertyCount := CallbackCreate(GetMethod(implObj, "GetPropertyCount"), flags, 2)
-        this.vtbl.GetPropertyByName := CallbackCreate(GetMethod(implObj, "GetPropertyByName"), flags, 5)
-        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 5)
-        this.vtbl.GetPropertyByIndex := CallbackCreate(GetMethod(implObj, "GetPropertyByIndex"), flags, 7)
-        this.vtbl.CopyPropertiesFrom := CallbackCreate(GetMethod(implObj, "CopyPropertiesFrom"), flags, 2)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.GetPropertyCount := CallbackCreate(ObjBindMethod(implObj, "GetPropertyCount"), flags, 2)
+        this.vtbl.GetPropertyByName := CallbackCreate(ObjBindMethod(implObj, "GetPropertyByName"), flags, 5)
+        this.vtbl.SetProperty := CallbackCreate(ObjBindMethod(implObj, "SetProperty"), flags, 5)
+        this.vtbl.GetPropertyByIndex := CallbackCreate(ObjBindMethod(implObj, "GetPropertyByIndex"), flags, 7)
+        this.vtbl.CopyPropertiesFrom := CallbackCreate(ObjBindMethod(implObj, "CopyPropertiesFrom"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
     }
 
     Dispose() {

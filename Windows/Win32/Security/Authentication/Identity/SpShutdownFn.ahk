@@ -19,7 +19,6 @@ export default struct SpShutdownFn {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

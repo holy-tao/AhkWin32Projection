@@ -362,8 +362,8 @@ export default struct IDirectMusicSynth extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynth-download
      */
     Download(phDownload, pvData, pbFree) {
-        pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
-        pbFreeMarshal := pbFree is VarRef ? "int*" : "ptr"
+        pvDataMarshal := pvData is VarRef ? "ptr" : IntPtr
+        pbFreeMarshal := pbFree is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, HANDLE.Ptr, phDownload, pvDataMarshal, pvData, pbFreeMarshal, pbFree, "HRESULT")
         return result
@@ -506,7 +506,7 @@ export default struct IDirectMusicSynth extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynth-playbuffer
      */
     PlayBuffer(rt, pbBuffer, cbBuffer) {
-        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(8, this, Int64, rt, pbBufferMarshal, pbBuffer, UInt32, cbBuffer, "HRESULT")
         return result
@@ -900,7 +900,7 @@ export default struct IDirectMusicSynth extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynth-render
      */
     Render(pBuffer, dwLength, llPosition) {
-        pBufferMarshal := pBuffer is VarRef ? "short*" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "short*" : IntPtr
 
         result := ComCall(15, this, pBufferMarshal, pBuffer, UInt32, dwLength, Int64, llPosition, "HRESULT")
         return result
@@ -936,7 +936,7 @@ export default struct IDirectMusicSynth extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynth-getchannelpriority
      */
     GetChannelPriority(dwChannelGroup, dwChannel, pdwPriority) {
-        pdwPriorityMarshal := pdwPriority is VarRef ? "uint*" : "ptr"
+        pdwPriorityMarshal := pdwPriority is VarRef ? "uint*" : IntPtr
 
         result := ComCall(17, this, UInt32, dwChannelGroup, UInt32, dwChannel, pdwPriorityMarshal, pdwPriority, "HRESULT")
         return result
@@ -985,7 +985,7 @@ export default struct IDirectMusicSynth extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynth-getformat
      */
     GetFormat(pWaveFormatEx, pdwWaveFormatExSize) {
-        pdwWaveFormatExSizeMarshal := pdwWaveFormatExSize is VarRef ? "uint*" : "ptr"
+        pdwWaveFormatExSizeMarshal := pdwWaveFormatExSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(18, this, WAVEFORMATEX.Ptr, pWaveFormatEx, pdwWaveFormatExSizeMarshal, pdwWaveFormatExSize, "HRESULT")
         return result
@@ -1037,7 +1037,7 @@ export default struct IDirectMusicSynth extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynth-getappend
      */
     GetAppend(pdwAppend) {
-        pdwAppendMarshal := pdwAppend is VarRef ? "uint*" : "ptr"
+        pdwAppendMarshal := pdwAppend is VarRef ? "uint*" : IntPtr
 
         result := ComCall(19, this, pdwAppendMarshal, pdwAppend, "HRESULT")
         return result
@@ -1052,23 +1052,23 @@ export default struct IDirectMusicSynth extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 2)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
-        this.vtbl.SetNumChannelGroups := CallbackCreate(GetMethod(implObj, "SetNumChannelGroups"), flags, 2)
-        this.vtbl.Download := CallbackCreate(GetMethod(implObj, "Download"), flags, 4)
-        this.vtbl.Unload := CallbackCreate(GetMethod(implObj, "Unload"), flags, 4)
-        this.vtbl.PlayBuffer := CallbackCreate(GetMethod(implObj, "PlayBuffer"), flags, 4)
-        this.vtbl.GetRunningStats := CallbackCreate(GetMethod(implObj, "GetRunningStats"), flags, 2)
-        this.vtbl.GetPortCaps := CallbackCreate(GetMethod(implObj, "GetPortCaps"), flags, 2)
-        this.vtbl.SetMasterClock := CallbackCreate(GetMethod(implObj, "SetMasterClock"), flags, 2)
-        this.vtbl.GetLatencyClock := CallbackCreate(GetMethod(implObj, "GetLatencyClock"), flags, 2)
-        this.vtbl.Activate := CallbackCreate(GetMethod(implObj, "Activate"), flags, 2)
-        this.vtbl.SetSynthSink := CallbackCreate(GetMethod(implObj, "SetSynthSink"), flags, 2)
-        this.vtbl.Render := CallbackCreate(GetMethod(implObj, "Render"), flags, 4)
-        this.vtbl.SetChannelPriority := CallbackCreate(GetMethod(implObj, "SetChannelPriority"), flags, 4)
-        this.vtbl.GetChannelPriority := CallbackCreate(GetMethod(implObj, "GetChannelPriority"), flags, 4)
-        this.vtbl.GetFormat := CallbackCreate(GetMethod(implObj, "GetFormat"), flags, 3)
-        this.vtbl.GetAppend := CallbackCreate(GetMethod(implObj, "GetAppend"), flags, 2)
+        this.vtbl.Open := CallbackCreate(ObjBindMethod(implObj, "Open"), flags, 2)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
+        this.vtbl.SetNumChannelGroups := CallbackCreate(ObjBindMethod(implObj, "SetNumChannelGroups"), flags, 2)
+        this.vtbl.Download := CallbackCreate(ObjBindMethod(implObj, "Download"), flags, 4)
+        this.vtbl.Unload := CallbackCreate(ObjBindMethod(implObj, "Unload"), flags, 4)
+        this.vtbl.PlayBuffer := CallbackCreate(ObjBindMethod(implObj, "PlayBuffer"), flags, 4)
+        this.vtbl.GetRunningStats := CallbackCreate(ObjBindMethod(implObj, "GetRunningStats"), flags, 2)
+        this.vtbl.GetPortCaps := CallbackCreate(ObjBindMethod(implObj, "GetPortCaps"), flags, 2)
+        this.vtbl.SetMasterClock := CallbackCreate(ObjBindMethod(implObj, "SetMasterClock"), flags, 2)
+        this.vtbl.GetLatencyClock := CallbackCreate(ObjBindMethod(implObj, "GetLatencyClock"), flags, 2)
+        this.vtbl.Activate := CallbackCreate(ObjBindMethod(implObj, "Activate"), flags, 2)
+        this.vtbl.SetSynthSink := CallbackCreate(ObjBindMethod(implObj, "SetSynthSink"), flags, 2)
+        this.vtbl.Render := CallbackCreate(ObjBindMethod(implObj, "Render"), flags, 4)
+        this.vtbl.SetChannelPriority := CallbackCreate(ObjBindMethod(implObj, "SetChannelPriority"), flags, 4)
+        this.vtbl.GetChannelPriority := CallbackCreate(ObjBindMethod(implObj, "GetChannelPriority"), flags, 4)
+        this.vtbl.GetFormat := CallbackCreate(ObjBindMethod(implObj, "GetFormat"), flags, 3)
+        this.vtbl.GetAppend := CallbackCreate(ObjBindMethod(implObj, "GetAppend"), flags, 2)
     }
 
     Dispose() {

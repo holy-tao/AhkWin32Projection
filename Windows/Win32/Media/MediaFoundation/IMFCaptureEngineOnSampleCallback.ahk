@@ -59,7 +59,9 @@ export default struct IMFCaptureEngineOnSampleCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcaptureengineonsamplecallback-onsample
      */
     OnSample(pSample) {
-        result := ComCall(3, this, "ptr", pSample, "HRESULT")
+        pSampleMarshal := pSample == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pSampleMarshal, pSample, "HRESULT")
         return result
     }
 
@@ -72,7 +74,7 @@ export default struct IMFCaptureEngineOnSampleCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnSample := CallbackCreate(GetMethod(implObj, "OnSample"), flags, 2)
+        this.vtbl.OnSample := CallbackCreate(ObjBindMethod(implObj, "OnSample"), flags, 2)
     }
 
     Dispose() {

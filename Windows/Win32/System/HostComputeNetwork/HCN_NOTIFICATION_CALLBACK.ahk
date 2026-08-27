@@ -22,7 +22,6 @@ export default struct HCN_NOTIFICATION_CALLBACK {
     }
 
     /**
-     * 
      * @param {Integer} NotificationType The type of notification [`HCN_NOTIFICATIONS`](./HCN_NOTIFICATIONS.md).
      * @param {Pointer<Void>} _Context Handle for context of callback.
      * @param {HRESULT} NotificationStatus Notification Status.
@@ -32,9 +31,11 @@ export default struct HCN_NOTIFICATION_CALLBACK {
     Call(NotificationType, _Context, NotificationStatus, NotificationData) {
         NotificationData := NotificationData is String ? StrPtr(NotificationData) : NotificationData
 
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
+        NotificationDataMarshal := NotificationData == 0 ? IntPtr : PWSTR
 
-        DllCall(this.value, UInt32, NotificationType, _ContextMarshal, _Context, "int", NotificationStatus, "ptr", NotificationData)
+        DllCall(this.value, UInt32, NotificationType, _ContextMarshal, _Context, "int", NotificationStatus, NotificationDataMarshal, NotificationData)
     }
 
     /**

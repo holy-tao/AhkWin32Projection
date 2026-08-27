@@ -72,7 +72,7 @@ export default struct IWMReaderAllocatorEx extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderallocatorex-allocateforstreamex
      */
     AllocateForStreamEx(wStreamNum, cbBuffer, dwFlags, cnsSampleTime, cnsSampleDuration, pvContext) {
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, UInt16, wStreamNum, UInt32, cbBuffer, "ptr*", &ppBuffer := 0, UInt32, dwFlags, Int64, cnsSampleTime, Int64, cnsSampleDuration, pvContextMarshal, pvContext, "HRESULT")
         return INSSBuffer(ppBuffer)
@@ -111,7 +111,7 @@ export default struct IWMReaderAllocatorEx extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderallocatorex-allocateforoutputex
      */
     AllocateForOutputEx(dwOutputNum, cbBuffer, dwFlags, cnsSampleTime, cnsSampleDuration, pvContext) {
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(4, this, UInt32, dwOutputNum, UInt32, cbBuffer, "ptr*", &ppBuffer := 0, UInt32, dwFlags, Int64, cnsSampleTime, Int64, cnsSampleDuration, pvContextMarshal, pvContext, "HRESULT")
         return INSSBuffer(ppBuffer)
@@ -126,8 +126,8 @@ export default struct IWMReaderAllocatorEx extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AllocateForStreamEx := CallbackCreate(GetMethod(implObj, "AllocateForStreamEx"), flags, 8)
-        this.vtbl.AllocateForOutputEx := CallbackCreate(GetMethod(implObj, "AllocateForOutputEx"), flags, 8)
+        this.vtbl.AllocateForStreamEx := CallbackCreate(ObjBindMethod(implObj, "AllocateForStreamEx"), flags, 8)
+        this.vtbl.AllocateForOutputEx := CallbackCreate(ObjBindMethod(implObj, "AllocateForOutputEx"), flags, 8)
     }
 
     Dispose() {

@@ -36,7 +36,6 @@ export default struct RasCustomDialFn {
     }
 
     /**
-     * 
      * @param {HINSTANCE} hInstDll Handle to the instance of the custom-dial DLL that was loaded.
      * @param {Pointer<RASDIALEXTENSIONS>} lpRasDialExtensions Pointer to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377029(v=vs.85)">RASDIALEXTENSIONS</a> structure that specifies a set of 
@@ -85,7 +84,7 @@ export default struct RasCustomDialFn {
     Call(hInstDll, lpRasDialExtensions, lpszPhonebook, lpRasDialParams, dwNotifierType, lpvNotifier, lphRasConn, dwFlags) {
         lpszPhonebook := lpszPhonebook is String ? StrPtr(lpszPhonebook) : lpszPhonebook
 
-        lpvNotifierMarshal := lpvNotifier is VarRef ? "ptr" : "ptr"
+        lpvNotifierMarshal := lpvNotifier is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, HINSTANCE, hInstDll, RASDIALEXTENSIONS.Ptr, lpRasDialExtensions, "ptr", lpszPhonebook, RASDIALPARAMSA.Ptr, lpRasDialParams, UInt32, dwNotifierType, lpvNotifierMarshal, lpvNotifier, HRASCONN.Ptr, lphRasConn, UInt32, dwFlags, UInt32)
         return result

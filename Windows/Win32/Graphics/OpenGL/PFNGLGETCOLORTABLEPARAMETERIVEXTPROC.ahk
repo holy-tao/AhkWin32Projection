@@ -18,14 +18,13 @@ export default struct PFNGLGETCOLORTABLEPARAMETERIVEXTPROC {
     }
 
     /**
-     * 
      * @param {Integer} target 
      * @param {Integer} pname 
      * @param {Pointer<Integer>} params 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(target, pname, params) {
-        paramsMarshal := params is VarRef ? "int*" : "ptr"
+        paramsMarshal := params is VarRef ? "int*" : IntPtr
 
         DllCall(this.value, UInt32, target, UInt32, pname, paramsMarshal, params)
     }

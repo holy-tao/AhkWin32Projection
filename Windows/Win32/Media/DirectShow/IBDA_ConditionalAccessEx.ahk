@@ -59,7 +59,7 @@ export default struct IBDA_ConditionalAccessEx extends IUnknown {
     CheckEntitlementToken(ulDialogRequest, bstrLanguage, RequestType, ulcbEntitlementTokenLen, pbEntitlementToken) {
         bstrLanguage := bstrLanguage is String ? BSTR.Alloc(bstrLanguage).Value : bstrLanguage
 
-        pbEntitlementTokenMarshal := pbEntitlementToken is VarRef ? "char*" : "ptr"
+        pbEntitlementTokenMarshal := pbEntitlementToken is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, UInt32, ulDialogRequest, BSTR, bstrLanguage, BDA_CONDITIONALACCESS_REQUESTTYPE, RequestType, UInt32, ulcbEntitlementTokenLen, pbEntitlementTokenMarshal, pbEntitlementToken, "uint*", &pulDescrambleStatus := 0, "HRESULT")
         return pulDescrambleStatus
@@ -73,7 +73,7 @@ export default struct IBDA_ConditionalAccessEx extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_conditionalaccessex-setcapturetoken
      */
     SetCaptureToken(ulcbCaptureTokenLen, pbCaptureToken) {
-        pbCaptureTokenMarshal := pbCaptureToken is VarRef ? "char*" : "ptr"
+        pbCaptureTokenMarshal := pbCaptureToken is VarRef ? "char*" : IntPtr
 
         result := ComCall(4, this, UInt32, ulcbCaptureTokenLen, pbCaptureTokenMarshal, pbCaptureToken, "HRESULT")
         return result
@@ -129,11 +129,11 @@ export default struct IBDA_ConditionalAccessEx extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CheckEntitlementToken := CallbackCreate(GetMethod(implObj, "CheckEntitlementToken"), flags, 7)
-        this.vtbl.SetCaptureToken := CallbackCreate(GetMethod(implObj, "SetCaptureToken"), flags, 3)
-        this.vtbl.OpenBroadcastMmi := CallbackCreate(GetMethod(implObj, "OpenBroadcastMmi"), flags, 4)
-        this.vtbl.CloseMmiDialog := CallbackCreate(GetMethod(implObj, "CloseMmiDialog"), flags, 6)
-        this.vtbl.CreateDialogRequestNumber := CallbackCreate(GetMethod(implObj, "CreateDialogRequestNumber"), flags, 2)
+        this.vtbl.CheckEntitlementToken := CallbackCreate(ObjBindMethod(implObj, "CheckEntitlementToken"), flags, 7)
+        this.vtbl.SetCaptureToken := CallbackCreate(ObjBindMethod(implObj, "SetCaptureToken"), flags, 3)
+        this.vtbl.OpenBroadcastMmi := CallbackCreate(ObjBindMethod(implObj, "OpenBroadcastMmi"), flags, 4)
+        this.vtbl.CloseMmiDialog := CallbackCreate(ObjBindMethod(implObj, "CloseMmiDialog"), flags, 6)
+        this.vtbl.CreateDialogRequestNumber := CallbackCreate(ObjBindMethod(implObj, "CreateDialogRequestNumber"), flags, 2)
     }
 
     Dispose() {

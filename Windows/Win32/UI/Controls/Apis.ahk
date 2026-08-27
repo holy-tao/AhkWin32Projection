@@ -423,7 +423,9 @@ export ImageList_Create(cx, _cy, flags, cInitial, cGrow) {
  * @since windows6.0.6000
  */
 export ImageList_Destroy(himl) {
-    result := DllCall("COMCTL32.dll\ImageList_Destroy", HIMAGELIST, himl, BOOL)
+    himlMarshal := himl == 0 ? IntPtr : HIMAGELIST
+
+    result := DllCall("COMCTL32.dll\ImageList_Destroy", himlMarshal, himl, BOOL)
     return result
 }
 
@@ -488,7 +490,9 @@ export ImageList_SetImageCount(himl, uNewCount) {
  * @since windows6.0.6000
  */
 export ImageList_Add(himl, hbmImage, hbmMask) {
-    result := DllCall("COMCTL32.dll\ImageList_Add", HIMAGELIST, himl, HBITMAP, hbmImage, HBITMAP, hbmMask, Int32)
+    hbmMaskMarshal := hbmMask == 0 ? IntPtr : HBITMAP
+
+    result := DllCall("COMCTL32.dll\ImageList_Add", HIMAGELIST, himl, HBITMAP, hbmImage, hbmMaskMarshal, hbmMask, Int32)
     return result
 }
 
@@ -633,7 +637,9 @@ export ImageList_Draw(himl, i, hdcDst, x, y, fStyle) {
  * @since windows6.0.6000
  */
 export ImageList_Replace(himl, i, hbmImage, hbmMask) {
-    result := DllCall("COMCTL32.dll\ImageList_Replace", HIMAGELIST, himl, Int32, i, HBITMAP, hbmImage, HBITMAP, hbmMask, BOOL)
+    hbmMaskMarshal := hbmMask == 0 ? IntPtr : HBITMAP
+
+    result := DllCall("COMCTL32.dll\ImageList_Replace", HIMAGELIST, himl, Int32, i, HBITMAP, hbmImage, hbmMaskMarshal, hbmMask, BOOL)
     return result
 }
 
@@ -1144,7 +1150,10 @@ export ImageList_DragShowNolock(fShow) {
  * @since windows6.0.6000
  */
 export ImageList_GetDragImage(ppt, pptHotspot) {
-    result := DllCall("COMCTL32.dll\ImageList_GetDragImage", POINT.Ptr, ppt, POINT.Ptr, pptHotspot, HIMAGELIST.Owned)
+    pptMarshal := ppt == 0 ? IntPtr : POINT.Ptr
+    pptHotspotMarshal := pptHotspot == 0 ? IntPtr : POINT.Ptr
+
+    result := DllCall("COMCTL32.dll\ImageList_GetDragImage", pptMarshal, ppt, pptHotspotMarshal, pptHotspot, HIMAGELIST.Owned)
     return result
 }
 
@@ -1314,8 +1323,10 @@ export ImageList_WriteEx(himl, dwFlags, pstm) {
  * @since windows6.0.6000
  */
 export ImageList_GetIconSize(himl, cx, _cy) {
-    cxMarshal := cx is VarRef ? "int*" : "ptr"
-    _cyMarshal := _cy is VarRef ? "int*" : "ptr"
+    cxMarshal := cx is VarRef ? "int*" : IntPtr
+    cxMarshal := cx == 0 ? IntPtr : "int*"
+    _cyMarshal := _cy is VarRef ? "int*" : IntPtr
+    _cyMarshal := _cy == 0 ? IntPtr : "int*"
 
     result := DllCall("COMCTL32.dll\ImageList_GetIconSize", HIMAGELIST, himl, cxMarshal, cx, _cyMarshal, _cy, BOOL)
     return result
@@ -1544,9 +1555,11 @@ export CreateToolbarEx(_hwnd, ws, wID, nBitmaps, hBMInst, wBMID, lpButtons, iNum
  * @since windows6.0.6000
  */
 export CreateMappedBitmap(_hInstance, idBitmap, wFlags, lpColorMap, iNumMaps) {
+    lpColorMapMarshal := lpColorMap == 0 ? IntPtr : COLORMAP.Ptr
+
     A_LastError := 0
 
-    result := DllCall("COMCTL32.dll\CreateMappedBitmap", HINSTANCE, _hInstance, IntPtr, idBitmap, UInt32, wFlags, COLORMAP.Ptr, lpColorMap, Int32, iNumMaps, HBITMAP.Owned)
+    result := DllCall("COMCTL32.dll\CreateMappedBitmap", HINSTANCE, _hInstance, IntPtr, idBitmap, UInt32, wFlags, lpColorMapMarshal, lpColorMap, Int32, iNumMaps, HBITMAP.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1808,7 +1821,7 @@ export CreateStatusWindowW(style, lpszText, hwndParent, wID) {
  * @since windows6.0.6000
  */
 export MenuHelp(uMsg, _wParam, _lParam, hMainMenu, hInst, hwndStatus, lpwIDs) {
-    lpwIDsMarshal := lpwIDs is VarRef ? "uint*" : "ptr"
+    lpwIDsMarshal := lpwIDs is VarRef ? "uint*" : IntPtr
 
     DllCall("COMCTL32.dll\MenuHelp", UInt32, uMsg, WPARAM, _wParam, LPARAM, _lParam, HMENU, hMainMenu, HINSTANCE, hInst, HWND, hwndStatus, lpwIDsMarshal, lpwIDs)
 }
@@ -1831,7 +1844,7 @@ export MenuHelp(uMsg, _wParam, _lParam, hMainMenu, hInst, hwndStatus, lpwIDs) {
  * @since windows6.0.6000
  */
 export ShowHideMenuCtl(_hWnd, uFlags, lpInfo) {
-    lpInfoMarshal := lpInfo is VarRef ? "int*" : "ptr"
+    lpInfoMarshal := lpInfo is VarRef ? "int*" : IntPtr
 
     result := DllCall("COMCTL32.dll\ShowHideMenuCtl", HWND, _hWnd, IntPtr, uFlags, lpInfoMarshal, lpInfo, BOOL)
     return result
@@ -1855,7 +1868,7 @@ export ShowHideMenuCtl(_hWnd, uFlags, lpInfo) {
  * @since windows6.0.6000
  */
 export GetEffectiveClientRect(_hWnd, lprc, lpInfo) {
-    lpInfoMarshal := lpInfo is VarRef ? "int*" : "ptr"
+    lpInfoMarshal := lpInfo is VarRef ? "int*" : IntPtr
 
     DllCall("COMCTL32.dll\GetEffectiveClientRect", HWND, _hWnd, RECT.Ptr, lprc, lpInfoMarshal, lpInfo)
 }
@@ -2078,9 +2091,12 @@ export CreateUpDownControl(dwStyle, x, y, cx, _cy, hParent, nID, hInst, hBuddy, 
  * @since windows6.0.6000
  */
 export TaskDialogIndirect(pTaskConfig, pnButton, pnRadioButton, pfVerificationFlagChecked) {
-    pnButtonMarshal := pnButton is VarRef ? "int*" : "ptr"
-    pnRadioButtonMarshal := pnRadioButton is VarRef ? "int*" : "ptr"
-    pfVerificationFlagCheckedMarshal := pfVerificationFlagChecked is VarRef ? "int*" : "ptr"
+    pnButtonMarshal := pnButton is VarRef ? "int*" : IntPtr
+    pnButtonMarshal := pnButton == 0 ? IntPtr : "int*"
+    pnRadioButtonMarshal := pnRadioButton is VarRef ? "int*" : IntPtr
+    pnRadioButtonMarshal := pnRadioButton == 0 ? IntPtr : "int*"
+    pfVerificationFlagCheckedMarshal := pfVerificationFlagChecked is VarRef ? "int*" : IntPtr
+    pfVerificationFlagCheckedMarshal := pfVerificationFlagChecked == 0 ? IntPtr : BOOL.Ptr
 
     result := DllCall("COMCTL32.dll\TaskDialogIndirect", TASKDIALOGCONFIG.Ptr, pTaskConfig, pnButtonMarshal, pnButton, pnRadioButtonMarshal, pnRadioButton, pfVerificationFlagCheckedMarshal, pfVerificationFlagChecked, "HRESULT")
     return result
@@ -2268,7 +2284,14 @@ export TaskDialog(hwndOwner, _hInstance, pszWindowTitle, pszMainInstruction, psz
     pszContent := pszContent is String ? StrPtr(pszContent) : pszContent
     pszIcon := pszIcon is String ? StrPtr(pszIcon) : pszIcon
 
-    result := DllCall("COMCTL32.dll\TaskDialog", HWND, hwndOwner, HINSTANCE, _hInstance, "ptr", pszWindowTitle, "ptr", pszMainInstruction, "ptr", pszContent, TASKDIALOG_COMMON_BUTTON_FLAGS, dwCommonButtons, "ptr", pszIcon, "int*", &pnButton := 0, "HRESULT")
+    hwndOwnerMarshal := hwndOwner == 0 ? IntPtr : HWND
+    _hInstanceMarshal := _hInstance == 0 ? IntPtr : HINSTANCE
+    pszWindowTitleMarshal := pszWindowTitle == 0 ? IntPtr : PWSTR
+    pszMainInstructionMarshal := pszMainInstruction == 0 ? IntPtr : PWSTR
+    pszContentMarshal := pszContent == 0 ? IntPtr : PWSTR
+    pszIconMarshal := pszIcon == 0 ? IntPtr : PWSTR
+
+    result := DllCall("COMCTL32.dll\TaskDialog", hwndOwnerMarshal, hwndOwner, _hInstanceMarshal, _hInstance, pszWindowTitleMarshal, pszWindowTitle, pszMainInstructionMarshal, pszMainInstruction, pszContentMarshal, pszContent, TASKDIALOG_COMMON_BUTTON_FLAGS, dwCommonButtons, pszIconMarshal, pszIcon, "int*", &pnButton := 0, "HRESULT")
     return pnButton
 }
 
@@ -2336,7 +2359,9 @@ export DSA_Create(cbItem, cItemGrow) {
  * @since windows6.0.6000
  */
 export DSA_Destroy(_hdsa) {
-    result := DllCall("COMCTL32.dll\DSA_Destroy", HDSA, _hdsa, BOOL)
+    _hdsaMarshal := _hdsa == 0 ? IntPtr : HDSA
+
+    result := DllCall("COMCTL32.dll\DSA_Destroy", _hdsaMarshal, _hdsa, BOOL)
     return result
 }
 
@@ -2356,9 +2381,11 @@ export DSA_Destroy(_hdsa) {
  * @since windows6.0.6000
  */
 export DSA_DestroyCallback(_hdsa, pfnCB, pData) {
-    pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+    _hdsaMarshal := _hdsa == 0 ? IntPtr : HDSA
+    pDataMarshal := pData is VarRef ? "ptr" : IntPtr
+    pDataMarshal := pData == 0 ? IntPtr : "ptr"
 
-    DllCall("COMCTL32.dll\DSA_DestroyCallback", HDSA, _hdsa, PFNDAENUMCALLBACK, pfnCB, pDataMarshal, pData)
+    DllCall("COMCTL32.dll\DSA_DestroyCallback", _hdsaMarshal, _hdsa, PFNDAENUMCALLBACK, pfnCB, pDataMarshal, pData)
 }
 
 /**
@@ -2414,7 +2441,8 @@ export DSA_DeleteAllItems(_hdsa) {
  * @since windows6.0.6000
  */
 export DSA_EnumCallback(_hdsa, pfnCB, pData) {
-    pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+    pDataMarshal := pData is VarRef ? "ptr" : IntPtr
+    pDataMarshal := pData == 0 ? IntPtr : "ptr"
 
     DllCall("COMCTL32.dll\DSA_EnumCallback", HDSA, _hdsa, PFNDAENUMCALLBACK, pfnCB, pDataMarshal, pData)
 }
@@ -2439,7 +2467,7 @@ export DSA_EnumCallback(_hdsa, pfnCB, pData) {
  * @since windows6.0.6000
  */
 export DSA_InsertItem(_hdsa, i, pitem) {
-    pitemMarshal := pitem is VarRef ? "ptr" : "ptr"
+    pitemMarshal := pitem is VarRef ? "ptr" : IntPtr
 
     result := DllCall("COMCTL32.dll\DSA_InsertItem", HDSA, _hdsa, Int32, i, pitemMarshal, pitem, Int32)
     return result
@@ -2486,7 +2514,7 @@ export DSA_GetItemPtr(_hdsa, i) {
  * @since windows6.0.6000
  */
 export DSA_GetItem(_hdsa, i, pitem) {
-    pitemMarshal := pitem is VarRef ? "ptr" : "ptr"
+    pitemMarshal := pitem is VarRef ? "ptr" : IntPtr
 
     result := DllCall("COMCTL32.dll\DSA_GetItem", HDSA, _hdsa, Int32, i, pitemMarshal, pitem, BOOL)
     return result
@@ -2512,7 +2540,7 @@ export DSA_GetItem(_hdsa, i, pitem) {
  * @since windows6.0.6000
  */
 export DSA_SetItem(_hdsa, i, pitem) {
-    pitemMarshal := pitem is VarRef ? "ptr" : "ptr"
+    pitemMarshal := pitem is VarRef ? "ptr" : IntPtr
 
     result := DllCall("COMCTL32.dll\DSA_SetItem", HDSA, _hdsa, Int32, i, pitemMarshal, pitem, BOOL)
     return result
@@ -2548,7 +2576,9 @@ export DSA_Clone(_hdsa) {
  * @since windows6.0.6000
  */
 export DSA_GetSize(_hdsa) {
-    result := DllCall("COMCTL32.dll\DSA_GetSize", HDSA, _hdsa, Int64)
+    _hdsaMarshal := _hdsa == 0 ? IntPtr : HDSA
+
+    result := DllCall("COMCTL32.dll\DSA_GetSize", _hdsaMarshal, _hdsa, Int64)
     return result
 }
 
@@ -2607,7 +2637,9 @@ export DPA_Create(cItemGrow) {
  * @since windows6.0.6000
  */
 export DPA_CreateEx(cpGrow, hheap) {
-    result := DllCall("COMCTL32.dll\DPA_CreateEx", Int32, cpGrow, HANDLE, hheap, HDPA.Owned)
+    hheapMarshal := hheap == 0 ? IntPtr : HANDLE
+
+    result := DllCall("COMCTL32.dll\DPA_CreateEx", Int32, cpGrow, hheapMarshal, hheap, HDPA.Owned)
     return result
 }
 
@@ -2632,7 +2664,9 @@ export DPA_CreateEx(cpGrow, hheap) {
  * @since windows6.0.6000
  */
 export DPA_Clone(_hdpa, hdpaNew) {
-    result := DllCall("COMCTL32.dll\DPA_Clone", HDPA, _hdpa, HDPA, hdpaNew, HDPA.Owned)
+    hdpaNewMarshal := hdpaNew == 0 ? IntPtr : HDPA
+
+    result := DllCall("COMCTL32.dll\DPA_Clone", HDPA, _hdpa, hdpaNewMarshal, hdpaNew, HDPA.Owned)
     return result
 }
 
@@ -2648,7 +2682,9 @@ export DPA_Clone(_hdpa, hdpaNew) {
  * @since windows6.0.6000
  */
 export DPA_Destroy(_hdpa) {
-    result := DllCall("COMCTL32.dll\DPA_Destroy", HDPA, _hdpa, BOOL)
+    _hdpaMarshal := _hdpa == 0 ? IntPtr : HDPA
+
+    result := DllCall("COMCTL32.dll\DPA_Destroy", _hdpaMarshal, _hdpa, BOOL)
     return result
 }
 
@@ -2668,9 +2704,11 @@ export DPA_Destroy(_hdpa) {
  * @since windows6.0.6000
  */
 export DPA_DestroyCallback(_hdpa, pfnCB, pData) {
-    pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+    _hdpaMarshal := _hdpa == 0 ? IntPtr : HDPA
+    pDataMarshal := pData is VarRef ? "ptr" : IntPtr
+    pDataMarshal := pData == 0 ? IntPtr : "ptr"
 
-    DllCall("COMCTL32.dll\DPA_DestroyCallback", HDPA, _hdpa, PFNDAENUMCALLBACK, pfnCB, pDataMarshal, pData)
+    DllCall("COMCTL32.dll\DPA_DestroyCallback", _hdpaMarshal, _hdpa, PFNDAENUMCALLBACK, pfnCB, pDataMarshal, pData)
 }
 
 /**
@@ -2722,9 +2760,12 @@ export DPA_DeleteAllPtrs(_hdpa) {
  * @since windows6.0.6000
  */
 export DPA_EnumCallback(_hdpa, pfnCB, pData) {
-    pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+    _hdpaMarshal := _hdpa == 0 ? IntPtr : HDPA
+    pfnCBMarshal := pfnCB == 0 ? IntPtr : PFNDAENUMCALLBACK
+    pDataMarshal := pData is VarRef ? "ptr" : IntPtr
+    pDataMarshal := pData == 0 ? IntPtr : "ptr"
 
-    DllCall("COMCTL32.dll\DPA_EnumCallback", HDPA, _hdpa, PFNDAENUMCALLBACK, pfnCB, pDataMarshal, pData)
+    DllCall("COMCTL32.dll\DPA_EnumCallback", _hdpaMarshal, _hdpa, pfnCBMarshal, pfnCB, pDataMarshal, pData)
 }
 
 /**
@@ -2766,7 +2807,8 @@ export DPA_Grow(pdpa, cp) {
  * @since windows6.0.6000
  */
 export DPA_InsertPtr(_hdpa, i, p) {
-    pMarshal := p is VarRef ? "ptr" : "ptr"
+    pMarshal := p is VarRef ? "ptr" : IntPtr
+    pMarshal := p == 0 ? IntPtr : "ptr"
 
     result := DllCall("COMCTL32.dll\DPA_InsertPtr", HDPA, _hdpa, Int32, i, pMarshal, p, Int32)
     return result
@@ -2793,7 +2835,8 @@ export DPA_InsertPtr(_hdpa, i, p) {
  * @since windows6.0.6000
  */
 export DPA_SetPtr(_hdpa, i, p) {
-    pMarshal := p is VarRef ? "ptr" : "ptr"
+    pMarshal := p is VarRef ? "ptr" : IntPtr
+    pMarshal := p == 0 ? IntPtr : "ptr"
 
     result := DllCall("COMCTL32.dll\DPA_SetPtr", HDPA, _hdpa, Int32, i, pMarshal, p, BOOL)
     return result
@@ -2833,7 +2876,8 @@ export DPA_GetPtr(_hdpa, i) {
  * @since windows6.0.6000
  */
 export DPA_GetPtrIndex(_hdpa, p) {
-    pMarshal := p is VarRef ? "ptr" : "ptr"
+    pMarshal := p is VarRef ? "ptr" : IntPtr
+    pMarshal := p == 0 ? IntPtr : "ptr"
 
     result := DllCall("COMCTL32.dll\DPA_GetPtrIndex", HDPA, _hdpa, pMarshal, p, Int32)
     return result
@@ -2851,7 +2895,9 @@ export DPA_GetPtrIndex(_hdpa, p) {
  * @since windows6.0.6000
  */
 export DPA_GetSize(_hdpa) {
-    result := DllCall("COMCTL32.dll\DPA_GetSize", HDPA, _hdpa, Int64)
+    _hdpaMarshal := _hdpa == 0 ? IntPtr : HDPA
+
+    result := DllCall("COMCTL32.dll\DPA_GetSize", _hdpaMarshal, _hdpa, Int64)
     return result
 }
 
@@ -2899,7 +2945,8 @@ export DPA_Sort(_hdpa, pfnCompare, _lParam) {
  * @since windows6.0.6000
  */
 export DPA_LoadStream(_pfn, pstream, pvInstData) {
-    pvInstDataMarshal := pvInstData is VarRef ? "ptr" : "ptr"
+    pvInstDataMarshal := pvInstData is VarRef ? "ptr" : IntPtr
+    pvInstDataMarshal := pvInstData == 0 ? IntPtr : "ptr"
 
     phdpa := HDPA.Owned()
     result := DllCall("COMCTL32.dll\DPA_LoadStream", HDPA.Ptr, phdpa, PFNDPASTREAM, _pfn, "ptr", pstream, pvInstDataMarshal, pvInstData, "HRESULT")
@@ -2971,7 +3018,8 @@ export DPA_LoadStream(_pfn, pstream, pvInstData) {
  * @since windows6.0.6000
  */
 export DPA_SaveStream(_hdpa, _pfn, pstream, pvInstData) {
-    pvInstDataMarshal := pvInstData is VarRef ? "ptr" : "ptr"
+    pvInstDataMarshal := pvInstData is VarRef ? "ptr" : IntPtr
+    pvInstDataMarshal := pvInstData == 0 ? IntPtr : "ptr"
 
     result := DllCall("COMCTL32.dll\DPA_SaveStream", HDPA, _hdpa, PFNDPASTREAM, _pfn, "ptr", pstream, pvInstDataMarshal, pvInstData, "HRESULT")
     return result
@@ -3137,7 +3185,8 @@ export DPA_Merge(hdpaDest, hdpaSrc, dwFlags, pfnCompare, pfnMerge, _lParam) {
  * @since windows6.0.6000
  */
 export DPA_Search(_hdpa, pFind, iStart, pfnCompare, _lParam, options) {
-    pFindMarshal := pFind is VarRef ? "ptr" : "ptr"
+    pFindMarshal := pFind is VarRef ? "ptr" : IntPtr
+    pFindMarshal := pFind == 0 ? IntPtr : "ptr"
 
     result := DllCall("COMCTL32.dll\DPA_Search", HDPA, _hdpa, pFindMarshal, pFind, Int32, iStart, PFNDACOMPARE, pfnCompare, LPARAM, _lParam, UInt32, options, Int32)
     return result
@@ -3162,9 +3211,10 @@ export DPA_Search(_hdpa, pFind, iStart, pfnCompare, _lParam, options) {
 export Str_SetPtrW(ppsz, psz) {
     psz := psz is String ? StrPtr(psz) : psz
 
-    ppszMarshal := ppsz is VarRef ? "ptr*" : "ptr"
+    ppszMarshal := ppsz is VarRef ? "ptr*" : IntPtr
+    pszMarshal := psz == 0 ? IntPtr : PWSTR
 
-    result := DllCall("COMCTL32.dll\Str_SetPtrW", ppszMarshal, ppsz, "ptr", psz, BOOL)
+    result := DllCall("COMCTL32.dll\Str_SetPtrW", ppszMarshal, ppsz, pszMarshal, psz, BOOL)
     return result
 }
 
@@ -3234,8 +3284,8 @@ export FlatSB_ShowScrollBar(param0, code, param2) {
  * @since windows6.0.6000
  */
 export FlatSB_GetScrollRange(param0, code, param2, param3) {
-    param2Marshal := param2 is VarRef ? "int*" : "ptr"
-    param3Marshal := param3 is VarRef ? "int*" : "ptr"
+    param2Marshal := param2 is VarRef ? "int*" : IntPtr
+    param3Marshal := param3 is VarRef ? "int*" : IntPtr
 
     result := DllCall("COMCTL32.dll\FlatSB_GetScrollRange", HWND, param0, SCROLLBAR_CONSTANTS, code, param2Marshal, param2, param3Marshal, param3, BOOL)
     return result
@@ -3305,7 +3355,7 @@ export FlatSB_GetScrollPos(param0, code) {
  * @since windows6.0.6000
  */
 export FlatSB_GetScrollProp(param0, propIndex, param2) {
-    param2Marshal := param2 is VarRef ? "int*" : "ptr"
+    param2Marshal := param2 is VarRef ? "int*" : IntPtr
 
     result := DllCall("COMCTL32.dll\FlatSB_GetScrollProp", HWND, param0, WSB_PROP, propIndex, param2Marshal, param2, BOOL)
     return result
@@ -3575,8 +3625,10 @@ export UninitializeFlatSB(param0) {
 export LoadIconMetric(hinst, pszName, lims) {
     pszName := pszName is String ? StrPtr(pszName) : pszName
 
+    hinstMarshal := hinst == 0 ? IntPtr : HINSTANCE
+
     phico := HICON.Owned()
-    result := DllCall("COMCTL32.dll\LoadIconMetric", HINSTANCE, hinst, "ptr", pszName, _LI_METRIC, lims, HICON.Ptr, phico, "HRESULT")
+    result := DllCall("COMCTL32.dll\LoadIconMetric", hinstMarshal, hinst, "ptr", pszName, _LI_METRIC, lims, HICON.Ptr, phico, "HRESULT")
     return phico
 }
 
@@ -3726,8 +3778,10 @@ export LoadIconMetric(hinst, pszName, lims) {
 export LoadIconWithScaleDown(hinst, pszName, cx, _cy) {
     pszName := pszName is String ? StrPtr(pszName) : pszName
 
+    hinstMarshal := hinst == 0 ? IntPtr : HINSTANCE
+
     phico := HICON.Owned()
-    result := DllCall("COMCTL32.dll\LoadIconWithScaleDown", HINSTANCE, hinst, "ptr", pszName, Int32, cx, Int32, _cy, HICON.Ptr, phico, "HRESULT")
+    result := DllCall("COMCTL32.dll\LoadIconWithScaleDown", hinstMarshal, hinst, "ptr", pszName, Int32, cx, Int32, _cy, HICON.Ptr, phico, "HRESULT")
     return phico
 }
 
@@ -3797,7 +3851,9 @@ export DrawShadowText(_hdc, pszText, cch, prc, dwFlags, crText, crShadow, ixOffs
  * @since windows6.0.6000
  */
 export ImageList_CoCreateInstance(rclsid, punkOuter, riid) {
-    result := DllCall("COMCTL32.dll\ImageList_CoCreateInstance", Guid.Ptr, rclsid, "ptr", punkOuter, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+    punkOuterMarshal := punkOuter == 0 ? IntPtr : "ptr"
+
+    result := DllCall("COMCTL32.dll\ImageList_CoCreateInstance", Guid.Ptr, rclsid, punkOuterMarshal, punkOuter, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
     return ppv
 }
 
@@ -3881,7 +3937,9 @@ export EndPanningFeedback(_hwnd, fAnimateBack) {
  * @since windows8.0
  */
 export GetThemeAnimationProperty(_hTheme, iStoryboardId, iTargetId, eProperty, pvProperty, cbSize) {
-    result := DllCall("UXTHEME.dll\GetThemeAnimationProperty", HTHEME, _hTheme, Int32, iStoryboardId, Int32, iTargetId, TA_PROPERTY, eProperty, IntPtr, pvProperty, UInt32, cbSize, "uint*", &pcbSizeOut := 0, "HRESULT")
+    pvPropertyMarshal := pvProperty == 0 ? IntPtr : IntPtr
+
+    result := DllCall("UXTHEME.dll\GetThemeAnimationProperty", HTHEME, _hTheme, Int32, iStoryboardId, Int32, iTargetId, TA_PROPERTY, eProperty, pvPropertyMarshal, pvProperty, UInt32, cbSize, "uint*", &pcbSizeOut := 0, "HRESULT")
     return pcbSizeOut
 }
 
@@ -3898,7 +3956,9 @@ export GetThemeAnimationProperty(_hTheme, iStoryboardId, iTargetId, eProperty, p
  * @since windows8.0
  */
 export GetThemeAnimationTransform(_hTheme, iStoryboardId, iTargetId, dwTransformIndex, pTransform, cbSize) {
-    result := DllCall("UXTHEME.dll\GetThemeAnimationTransform", HTHEME, _hTheme, Int32, iStoryboardId, Int32, iTargetId, UInt32, dwTransformIndex, IntPtr, pTransform, UInt32, cbSize, "uint*", &pcbSizeOut := 0, "HRESULT")
+    pTransformMarshal := pTransform == 0 ? IntPtr : IntPtr
+
+    result := DllCall("UXTHEME.dll\GetThemeAnimationTransform", HTHEME, _hTheme, Int32, iStoryboardId, Int32, iTargetId, UInt32, dwTransformIndex, pTransformMarshal, pTransform, UInt32, cbSize, "uint*", &pcbSizeOut := 0, "HRESULT")
     return pcbSizeOut
 }
 
@@ -3914,7 +3974,9 @@ export GetThemeAnimationTransform(_hTheme, iStoryboardId, iTargetId, dwTransform
  * @since windows8.0
  */
 export GetThemeTimingFunction(_hTheme, iTimingFunctionId, pTimingFunction, cbSize) {
-    result := DllCall("UXTHEME.dll\GetThemeTimingFunction", HTHEME, _hTheme, Int32, iTimingFunctionId, IntPtr, pTimingFunction, UInt32, cbSize, "uint*", &pcbSizeOut := 0, "HRESULT")
+    pTimingFunctionMarshal := pTimingFunction == 0 ? IntPtr : IntPtr
+
+    result := DllCall("UXTHEME.dll\GetThemeTimingFunction", HTHEME, _hTheme, Int32, iTimingFunctionId, pTimingFunctionMarshal, pTimingFunction, UInt32, cbSize, "uint*", &pcbSizeOut := 0, "HRESULT")
     return pcbSizeOut
 }
 
@@ -3940,7 +4002,9 @@ export GetThemeTimingFunction(_hTheme, iTimingFunctionId, pTimingFunction, cbSiz
 export OpenThemeData(_hwnd, pszClassList) {
     pszClassList := pszClassList is String ? StrPtr(pszClassList) : pszClassList
 
-    result := DllCall("UXTHEME.dll\OpenThemeData", HWND, _hwnd, "ptr", pszClassList, HTHEME.Owned)
+    _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+
+    result := DllCall("UXTHEME.dll\OpenThemeData", _hwndMarshal, _hwnd, "ptr", pszClassList, HTHEME.Owned)
     return result
 }
 
@@ -3966,7 +4030,9 @@ export OpenThemeData(_hwnd, pszClassList) {
 export OpenThemeDataEx(_hwnd, pszClassList, dwFlags) {
     pszClassList := pszClassList is String ? StrPtr(pszClassList) : pszClassList
 
-    result := DllCall("UXTHEME.dll\OpenThemeDataEx", HWND, _hwnd, "ptr", pszClassList, OPEN_THEME_DATA_FLAGS, dwFlags, HTHEME.Owned)
+    _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+
+    result := DllCall("UXTHEME.dll\OpenThemeDataEx", _hwndMarshal, _hwnd, "ptr", pszClassList, OPEN_THEME_DATA_FLAGS, dwFlags, HTHEME.Owned)
     return result
 }
 
@@ -4017,7 +4083,9 @@ export CloseThemeData(_hTheme) {
  * @since windows6.0.6000
  */
 export DrawThemeBackground(_hTheme, _hdc, iPartId, iStateId, pRect, pClipRect) {
-    result := DllCall("UXTHEME.dll\DrawThemeBackground", HTHEME, _hTheme, HDC, _hdc, Int32, iPartId, Int32, iStateId, RECT.Ptr, pRect, RECT.Ptr, pClipRect, "HRESULT")
+    pClipRectMarshal := pClipRect == 0 ? IntPtr : RECT.Ptr
+
+    result := DllCall("UXTHEME.dll\DrawThemeBackground", HTHEME, _hTheme, HDC, _hdc, Int32, iPartId, Int32, iStateId, RECT.Ptr, pRect, pClipRectMarshal, pClipRect, "HRESULT")
     return result
 }
 
@@ -4050,7 +4118,9 @@ export DrawThemeBackground(_hTheme, _hdc, iPartId, iStateId, pRect, pClipRect) {
  * @since windows6.0.6000
  */
 export DrawThemeBackgroundEx(_hTheme, _hdc, iPartId, iStateId, pRect, pOptions) {
-    result := DllCall("UXTHEME.dll\DrawThemeBackgroundEx", HTHEME, _hTheme, HDC, _hdc, Int32, iPartId, Int32, iStateId, RECT.Ptr, pRect, DTBGOPTS.Ptr, pOptions, "HRESULT")
+    pOptionsMarshal := pOptions == 0 ? IntPtr : DTBGOPTS.Ptr
+
+    result := DllCall("UXTHEME.dll\DrawThemeBackgroundEx", HTHEME, _hTheme, HDC, _hdc, Int32, iPartId, Int32, iStateId, RECT.Ptr, pRect, pOptionsMarshal, pOptions, "HRESULT")
     return result
 }
 
@@ -4130,7 +4200,9 @@ export DrawThemeText(_hTheme, _hdc, iPartId, iStateId, pszText, cchText, dwTextF
  * @since windows6.0.6000
  */
 export GetThemeBackgroundContentRect(_hTheme, _hdc, iPartId, iStateId, pBoundingRect, pContentRect) {
-    result := DllCall("UXTHEME.dll\GetThemeBackgroundContentRect", HTHEME, _hTheme, HDC, _hdc, Int32, iPartId, Int32, iStateId, RECT.Ptr, pBoundingRect, RECT.Ptr, pContentRect, "HRESULT")
+    _hdcMarshal := _hdc == 0 ? IntPtr : HDC
+
+    result := DllCall("UXTHEME.dll\GetThemeBackgroundContentRect", HTHEME, _hTheme, _hdcMarshal, _hdc, Int32, iPartId, Int32, iStateId, RECT.Ptr, pBoundingRect, RECT.Ptr, pContentRect, "HRESULT")
     return result
 }
 
@@ -4163,7 +4235,9 @@ export GetThemeBackgroundContentRect(_hTheme, _hdc, iPartId, iStateId, pBounding
  * @since windows6.0.6000
  */
 export GetThemeBackgroundExtent(_hTheme, _hdc, iPartId, iStateId, pContentRect, pExtentRect) {
-    result := DllCall("UXTHEME.dll\GetThemeBackgroundExtent", HTHEME, _hTheme, HDC, _hdc, Int32, iPartId, Int32, iStateId, RECT.Ptr, pContentRect, RECT.Ptr, pExtentRect, "HRESULT")
+    _hdcMarshal := _hdc == 0 ? IntPtr : HDC
+
+    result := DllCall("UXTHEME.dll\GetThemeBackgroundExtent", HTHEME, _hTheme, _hdcMarshal, _hdc, Int32, iPartId, Int32, iStateId, RECT.Ptr, pContentRect, RECT.Ptr, pExtentRect, "HRESULT")
     return result
 }
 
@@ -4193,8 +4267,10 @@ export GetThemeBackgroundExtent(_hTheme, _hdc, iPartId, iStateId, pContentRect, 
  * @since windows6.0.6000
  */
 export GetThemeBackgroundRegion(_hTheme, _hdc, iPartId, iStateId, pRect) {
+    _hdcMarshal := _hdc == 0 ? IntPtr : HDC
+
     pRegion := HRGN.Owned()
-    result := DllCall("UxTheme.dll\GetThemeBackgroundRegion", HTHEME, _hTheme, HDC, _hdc, Int32, iPartId, Int32, iStateId, RECT.Ptr, pRect, HRGN.Ptr, pRegion, "HRESULT")
+    result := DllCall("UxTheme.dll\GetThemeBackgroundRegion", HTHEME, _hTheme, _hdcMarshal, _hdc, Int32, iPartId, Int32, iStateId, RECT.Ptr, pRect, HRGN.Ptr, pRegion, "HRESULT")
     return pRegion
 }
 
@@ -4228,7 +4304,10 @@ export GetThemeBackgroundRegion(_hTheme, _hdc, iPartId, iStateId, pRect) {
  * @since windows6.0.6000
  */
 export GetThemePartSize(_hTheme, _hdc, iPartId, iStateId, prc, eSize, psz) {
-    result := DllCall("UXTHEME.dll\GetThemePartSize", HTHEME, _hTheme, HDC, _hdc, Int32, iPartId, Int32, iStateId, RECT.Ptr, prc, THEMESIZE, eSize, SIZE.Ptr, psz, "HRESULT")
+    _hdcMarshal := _hdc == 0 ? IntPtr : HDC
+    prcMarshal := prc == 0 ? IntPtr : RECT.Ptr
+
+    result := DllCall("UXTHEME.dll\GetThemePartSize", HTHEME, _hTheme, _hdcMarshal, _hdc, Int32, iPartId, Int32, iStateId, prcMarshal, prc, THEMESIZE, eSize, SIZE.Ptr, psz, "HRESULT")
     return result
 }
 
@@ -4270,7 +4349,9 @@ export GetThemePartSize(_hTheme, _hdc, iPartId, iStateId, prc, eSize, psz) {
 export GetThemeTextExtent(_hTheme, _hdc, iPartId, iStateId, pszText, cchCharCount, dwTextFlags, pBoundingRect, pExtentRect) {
     pszText := pszText is String ? StrPtr(pszText) : pszText
 
-    result := DllCall("UxTheme.dll\GetThemeTextExtent", HTHEME, _hTheme, HDC, _hdc, Int32, iPartId, Int32, iStateId, "ptr", pszText, Int32, cchCharCount, DRAW_TEXT_FORMAT, dwTextFlags, RECT.Ptr, pBoundingRect, RECT.Ptr, pExtentRect, "HRESULT")
+    pBoundingRectMarshal := pBoundingRect == 0 ? IntPtr : RECT.Ptr
+
+    result := DllCall("UxTheme.dll\GetThemeTextExtent", HTHEME, _hTheme, HDC, _hdc, Int32, iPartId, Int32, iStateId, "ptr", pszText, Int32, cchCharCount, DRAW_TEXT_FORMAT, dwTextFlags, pBoundingRectMarshal, pBoundingRect, RECT.Ptr, pExtentRect, "HRESULT")
     return result
 }
 
@@ -4338,7 +4419,10 @@ export GetThemeTextMetrics(_hTheme, _hdc, iPartId, iStateId, ptm) {
  * @since windows6.0.6000
  */
 export HitTestThemeBackground(_hTheme, _hdc, iPartId, iStateId, dwOptions, pRect, _hrgn, ptTest) {
-    result := DllCall("UxTheme.dll\HitTestThemeBackground", HTHEME, _hTheme, HDC, _hdc, Int32, iPartId, Int32, iStateId, HIT_TEST_BACKGROUND_OPTIONS, dwOptions, RECT.Ptr, pRect, HRGN, _hrgn, POINT, ptTest, "ushort*", &pwHitTestCode := 0, "HRESULT")
+    _hdcMarshal := _hdc == 0 ? IntPtr : HDC
+    _hrgnMarshal := _hrgn == 0 ? IntPtr : HRGN
+
+    result := DllCall("UxTheme.dll\HitTestThemeBackground", HTHEME, _hTheme, _hdcMarshal, _hdc, Int32, iPartId, Int32, iStateId, HIT_TEST_BACKGROUND_OPTIONS, dwOptions, RECT.Ptr, pRect, _hrgnMarshal, _hrgn, POINT, ptTest, "ushort*", &pwHitTestCode := 0, "HRESULT")
     return pwHitTestCode
 }
 
@@ -4468,7 +4552,9 @@ export HitTestThemeBackground(_hTheme, _hdc, iPartId, iStateId, dwOptions, pRect
  * @since windows6.0.6000
  */
 export DrawThemeEdge(_hTheme, _hdc, iPartId, iStateId, pDestRect, uEdge, uFlags, pContentRect) {
-    result := DllCall("UxTheme.dll\DrawThemeEdge", HTHEME, _hTheme, HDC, _hdc, Int32, iPartId, Int32, iStateId, RECT.Ptr, pDestRect, DRAWEDGE_FLAGS, uEdge, DRAW_EDGE_FLAGS, uFlags, RECT.Ptr, pContentRect, "HRESULT")
+    pContentRectMarshal := pContentRect == 0 ? IntPtr : RECT.Ptr
+
+    result := DllCall("UxTheme.dll\DrawThemeEdge", HTHEME, _hTheme, HDC, _hdc, Int32, iPartId, Int32, iStateId, RECT.Ptr, pDestRect, DRAWEDGE_FLAGS, uEdge, DRAW_EDGE_FLAGS, uFlags, pContentRectMarshal, pContentRect, "HRESULT")
     return result
 }
 
@@ -4655,7 +4741,9 @@ export GetThemeColor(_hTheme, iPartId, iStateId, iPropId) {
  * @since windows6.0.6000
  */
 export GetThemeMetric(_hTheme, _hdc, iPartId, iStateId, iPropId) {
-    result := DllCall("UXTHEME.dll\GetThemeMetric", HTHEME, _hTheme, HDC, _hdc, Int32, iPartId, Int32, iStateId, Int32, iPropId, "int*", &piVal := 0, "HRESULT")
+    _hdcMarshal := _hdc == 0 ? IntPtr : HDC
+
+    result := DllCall("UXTHEME.dll\GetThemeMetric", HTHEME, _hTheme, _hdcMarshal, _hdc, Int32, iPartId, Int32, iStateId, Int32, iPropId, "int*", &piVal := 0, "HRESULT")
     return piVal
 }
 
@@ -4826,7 +4914,9 @@ export GetThemePosition(_hTheme, iPartId, iStateId, iPropId, pPoint) {
  * @since windows6.0.6000
  */
 export GetThemeFont(_hTheme, _hdc, iPartId, iStateId, iPropId, pFont) {
-    result := DllCall("UXTHEME.dll\GetThemeFont", HTHEME, _hTheme, HDC, _hdc, Int32, iPartId, Int32, iStateId, Int32, iPropId, LOGFONTW.Ptr, pFont, "HRESULT")
+    _hdcMarshal := _hdc == 0 ? IntPtr : HDC
+
+    result := DllCall("UXTHEME.dll\GetThemeFont", HTHEME, _hTheme, _hdcMarshal, _hdc, Int32, iPartId, Int32, iStateId, Int32, iPropId, LOGFONTW.Ptr, pFont, "HRESULT")
     return result
 }
 
@@ -4888,7 +4978,10 @@ export GetThemeRect(_hTheme, iPartId, iStateId, iPropId, pRect) {
  * @since windows6.0.6000
  */
 export GetThemeMargins(_hTheme, _hdc, iPartId, iStateId, iPropId, prc, pMargins) {
-    result := DllCall("UXTHEME.dll\GetThemeMargins", HTHEME, _hTheme, HDC, _hdc, Int32, iPartId, Int32, iStateId, Int32, iPropId, RECT.Ptr, prc, MARGINS.Ptr, pMargins, "HRESULT")
+    _hdcMarshal := _hdc == 0 ? IntPtr : HDC
+    prcMarshal := prc == 0 ? IntPtr : RECT.Ptr
+
+    result := DllCall("UXTHEME.dll\GetThemeMargins", HTHEME, _hTheme, _hdcMarshal, _hdc, Int32, iPartId, Int32, iStateId, Int32, iPropId, prcMarshal, prc, MARGINS.Ptr, pMargins, "HRESULT")
     return result
 }
 
@@ -4971,7 +5064,10 @@ export SetWindowTheme(_hwnd, pszSubAppName, pszSubIdList) {
     pszSubAppName := pszSubAppName is String ? StrPtr(pszSubAppName) : pszSubAppName
     pszSubIdList := pszSubIdList is String ? StrPtr(pszSubIdList) : pszSubIdList
 
-    result := DllCall("UXTHEME.dll\SetWindowTheme", HWND, _hwnd, "ptr", pszSubAppName, "ptr", pszSubIdList, "HRESULT")
+    pszSubAppNameMarshal := pszSubAppName == 0 ? IntPtr : PWSTR
+    pszSubIdListMarshal := pszSubIdList == 0 ? IntPtr : PWSTR
+
+    result := DllCall("UXTHEME.dll\SetWindowTheme", HWND, _hwnd, pszSubAppNameMarshal, pszSubAppName, pszSubIdListMarshal, pszSubIdList, "HRESULT")
     return result
 }
 
@@ -5025,7 +5121,9 @@ export GetThemeFilename(_hTheme, iPartId, iStateId, iPropId, pszThemeFileName, c
  * @since windows6.0.6000
  */
 export GetThemeSysColor(_hTheme, iColorId) {
-    result := DllCall("UxTheme.dll\GetThemeSysColor", HTHEME, _hTheme, Int32, iColorId, COLORREF)
+    _hThemeMarshal := _hTheme == 0 ? IntPtr : HTHEME
+
+    result := DllCall("UxTheme.dll\GetThemeSysColor", _hThemeMarshal, _hTheme, Int32, iColorId, COLORREF)
     return result
 }
 
@@ -5047,7 +5145,9 @@ export GetThemeSysColor(_hTheme, iColorId) {
  * @since windows6.0.6000
  */
 export GetThemeSysColorBrush(_hTheme, iColorId) {
-    result := DllCall("UxTheme.dll\GetThemeSysColorBrush", HTHEME, _hTheme, Int32, iColorId, HBRUSH.Owned)
+    _hThemeMarshal := _hTheme == 0 ? IntPtr : HTHEME
+
+    result := DllCall("UxTheme.dll\GetThemeSysColorBrush", _hThemeMarshal, _hTheme, Int32, iColorId, HBRUSH.Owned)
     return result
 }
 
@@ -5085,7 +5185,9 @@ export GetThemeSysColorBrush(_hTheme, iColorId) {
  * @since windows6.0.6000
  */
 export GetThemeSysBool(_hTheme, iBoolId) {
-    result := DllCall("UxTheme.dll\GetThemeSysBool", HTHEME, _hTheme, Int32, iBoolId, BOOL)
+    _hThemeMarshal := _hTheme == 0 ? IntPtr : HTHEME
+
+    result := DllCall("UxTheme.dll\GetThemeSysBool", _hThemeMarshal, _hTheme, Int32, iBoolId, BOOL)
     return result
 }
 
@@ -5213,7 +5315,9 @@ export GetThemeSysBool(_hTheme, iBoolId) {
  * @since windows6.0.6000
  */
 export GetThemeSysSize(_hTheme, iSizeId) {
-    result := DllCall("UxTheme.dll\GetThemeSysSize", HTHEME, _hTheme, Int32, iSizeId, Int32)
+    _hThemeMarshal := _hTheme == 0 ? IntPtr : HTHEME
+
+    result := DllCall("UxTheme.dll\GetThemeSysSize", _hThemeMarshal, _hTheme, Int32, iSizeId, Int32)
     return result
 }
 
@@ -5239,7 +5343,9 @@ export GetThemeSysSize(_hTheme, iSizeId) {
  * @since windows6.0.6000
  */
 export GetThemeSysFont(_hTheme, iFontId, plf) {
-    result := DllCall("UxTheme.dll\GetThemeSysFont", HTHEME, _hTheme, Int32, iFontId, LOGFONTW.Ptr, plf, "HRESULT")
+    _hThemeMarshal := _hTheme == 0 ? IntPtr : HTHEME
+
+    result := DllCall("UxTheme.dll\GetThemeSysFont", _hThemeMarshal, _hTheme, Int32, iFontId, LOGFONTW.Ptr, plf, "HRESULT")
     return result
 }
 
@@ -5710,7 +5816,10 @@ export GetCurrentThemeName(pszThemeFileName, cchMaxNameChars, pszColorBuff, cchM
     pszColorBuff := pszColorBuff is String ? StrPtr(pszColorBuff) : pszColorBuff
     pszSizeBuff := pszSizeBuff is String ? StrPtr(pszSizeBuff) : pszSizeBuff
 
-    result := DllCall("UXTHEME.dll\GetCurrentThemeName", "ptr", pszThemeFileName, Int32, cchMaxNameChars, "ptr", pszColorBuff, Int32, cchMaxColorChars, "ptr", pszSizeBuff, Int32, cchMaxSizeChars, "HRESULT")
+    pszColorBuffMarshal := pszColorBuff == 0 ? IntPtr : PWSTR
+    pszSizeBuffMarshal := pszSizeBuff == 0 ? IntPtr : PWSTR
+
+    result := DllCall("UXTHEME.dll\GetCurrentThemeName", "ptr", pszThemeFileName, Int32, cchMaxNameChars, pszColorBuffMarshal, pszColorBuff, Int32, cchMaxColorChars, pszSizeBuffMarshal, pszSizeBuff, Int32, cchMaxSizeChars, "HRESULT")
     return result
 }
 
@@ -5761,7 +5870,9 @@ export GetThemeDocumentationProperty(pszThemeName, pszPropertyName, pszValueBuff
  * @since windows6.0.6000
  */
 export DrawThemeParentBackground(_hwnd, _hdc, prc) {
-    result := DllCall("UXTHEME.dll\DrawThemeParentBackground", HWND, _hwnd, HDC, _hdc, RECT.Ptr, prc, "HRESULT")
+    prcMarshal := prc == 0 ? IntPtr : RECT.Ptr
+
+    result := DllCall("UXTHEME.dll\DrawThemeParentBackground", HWND, _hwnd, HDC, _hdc, prcMarshal, prc, "HRESULT")
     return result
 }
 
@@ -5798,7 +5909,9 @@ export EnableTheming(fEnable) {
  * @since windows6.0.6000
  */
 export DrawThemeParentBackgroundEx(_hwnd, _hdc, dwFlags, prc) {
-    result := DllCall("UxTheme.dll\DrawThemeParentBackgroundEx", HWND, _hwnd, HDC, _hdc, DRAW_THEME_PARENT_BACKGROUND_FLAGS, dwFlags, RECT.Ptr, prc, "HRESULT")
+    prcMarshal := prc == 0 ? IntPtr : RECT.Ptr
+
+    result := DllCall("UxTheme.dll\DrawThemeParentBackgroundEx", HWND, _hwnd, HDC, _hdc, DRAW_THEME_PARENT_BACKGROUND_FLAGS, dwFlags, prcMarshal, prc, "HRESULT")
     return result
 }
 
@@ -5884,7 +5997,9 @@ export SetWindowThemeAttribute(_hwnd, eAttribute, pvAttribute, cbAttribute) {
 export DrawThemeTextEx(_hTheme, _hdc, iPartId, iStateId, pszText, cchText, dwTextFlags, pRect, pOptions) {
     pszText := pszText is String ? StrPtr(pszText) : pszText
 
-    result := DllCall("UXTHEME.dll\DrawThemeTextEx", HTHEME, _hTheme, HDC, _hdc, Int32, iPartId, Int32, iStateId, "ptr", pszText, Int32, cchText, DRAW_TEXT_FORMAT, dwTextFlags, RECT.Ptr, pRect, DTTOPTS.Ptr, pOptions, "HRESULT")
+    pOptionsMarshal := pOptions == 0 ? IntPtr : DTTOPTS.Ptr
+
+    result := DllCall("UXTHEME.dll\DrawThemeTextEx", HTHEME, _hTheme, HDC, _hdc, Int32, iPartId, Int32, iStateId, "ptr", pszText, Int32, cchText, DRAW_TEXT_FORMAT, dwTextFlags, RECT.Ptr, pRect, pOptionsMarshal, pOptions, "HRESULT")
     return result
 }
 
@@ -5952,10 +6067,12 @@ export GetThemeBitmap(_hTheme, iPartId, iStateId, iPropId, dwFlags) {
  * @since windows6.0.6000
  */
 export GetThemeStream(_hTheme, iPartId, iStateId, iPropId, ppvStream, pcbStream, hInst) {
-    ppvStreamMarshal := ppvStream is VarRef ? "ptr*" : "ptr"
-    pcbStreamMarshal := pcbStream is VarRef ? "uint*" : "ptr"
+    ppvStreamMarshal := ppvStream is VarRef ? "ptr*" : IntPtr
+    pcbStreamMarshal := pcbStream is VarRef ? "uint*" : IntPtr
+    pcbStreamMarshal := pcbStream == 0 ? IntPtr : "uint*"
+    hInstMarshal := hInst == 0 ? IntPtr : HINSTANCE
 
-    result := DllCall("UXTHEME.dll\GetThemeStream", HTHEME, _hTheme, Int32, iPartId, Int32, iStateId, Int32, iPropId, ppvStreamMarshal, ppvStream, pcbStreamMarshal, pcbStream, HINSTANCE, hInst, "HRESULT")
+    result := DllCall("UXTHEME.dll\GetThemeStream", HTHEME, _hTheme, Int32, iPartId, Int32, iStateId, Int32, iPropId, ppvStreamMarshal, ppvStream, pcbStreamMarshal, pcbStream, hInstMarshal, hInst, "HRESULT")
     return result
 }
 
@@ -6021,9 +6138,11 @@ export BufferedPaintUnInit() {
  * @since windows6.0.6000
  */
 export BeginBufferedPaint(hdcTarget, prcTarget, dwFormat, pPaintParams, phdc) {
+    pPaintParamsMarshal := pPaintParams == 0 ? IntPtr : BP_PAINTPARAMS.Ptr
+
     A_LastError := 0
 
-    result := DllCall("UXTHEME.dll\BeginBufferedPaint", HDC, hdcTarget, RECT.Ptr, prcTarget, BP_BUFFERFORMAT, dwFormat, BP_PAINTPARAMS.Ptr, pPaintParams, HDC.Ptr, phdc, IntPtr)
+    result := DllCall("UXTHEME.dll\BeginBufferedPaint", HDC, hdcTarget, RECT.Ptr, prcTarget, BP_BUFFERFORMAT, dwFormat, pPaintParamsMarshal, pPaintParams, HDC.Ptr, phdc, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6125,8 +6244,8 @@ export GetBufferedPaintDC(hBufferedPaint) {
  * @since windows6.0.6000
  */
 export GetBufferedPaintBits(hBufferedPaint, ppbBuffer, pcxRow) {
-    ppbBufferMarshal := ppbBuffer is VarRef ? "ptr*" : "ptr"
-    pcxRowMarshal := pcxRow is VarRef ? "int*" : "ptr"
+    ppbBufferMarshal := ppbBuffer is VarRef ? "ptr*" : IntPtr
+    pcxRowMarshal := pcxRow is VarRef ? "int*" : IntPtr
 
     result := DllCall("UXTHEME.dll\GetBufferedPaintBits", IntPtr, hBufferedPaint, ppbBufferMarshal, ppbBuffer, pcxRowMarshal, pcxRow, "HRESULT")
     return result
@@ -6149,7 +6268,9 @@ export GetBufferedPaintBits(hBufferedPaint, ppbBuffer, pcxRow) {
  * @since windows6.0.6000
  */
 export BufferedPaintClear(hBufferedPaint, prc) {
-    result := DllCall("UXTHEME.dll\BufferedPaintClear", IntPtr, hBufferedPaint, RECT.Ptr, prc, "HRESULT")
+    prcMarshal := prc == 0 ? IntPtr : RECT.Ptr
+
+    result := DllCall("UXTHEME.dll\BufferedPaintClear", IntPtr, hBufferedPaint, prcMarshal, prc, "HRESULT")
     return result
 }
 
@@ -6173,7 +6294,9 @@ export BufferedPaintClear(hBufferedPaint, prc) {
  * @since windows6.0.6000
  */
 export BufferedPaintSetAlpha(hBufferedPaint, prc, alpha) {
-    result := DllCall("UxTheme.dll\BufferedPaintSetAlpha", IntPtr, hBufferedPaint, RECT.Ptr, prc, Int8, alpha, "HRESULT")
+    prcMarshal := prc == 0 ? IntPtr : RECT.Ptr
+
+    result := DllCall("UxTheme.dll\BufferedPaintSetAlpha", IntPtr, hBufferedPaint, prcMarshal, prc, Int8, alpha, "HRESULT")
     return result
 }
 
@@ -6233,7 +6356,9 @@ export BufferedPaintStopAllAnimations(_hwnd) {
  * @since windows6.0.6000
  */
 export BeginBufferedAnimation(_hwnd, hdcTarget, prcTarget, dwFormat, pPaintParams, pAnimationParams, phdcFrom, phdcTo) {
-    result := DllCall("UxTheme.dll\BeginBufferedAnimation", HWND, _hwnd, HDC, hdcTarget, RECT.Ptr, prcTarget, BP_BUFFERFORMAT, dwFormat, BP_PAINTPARAMS.Ptr, pPaintParams, BP_ANIMATIONPARAMS.Ptr, pAnimationParams, HDC.Ptr, phdcFrom, HDC.Ptr, phdcTo, IntPtr)
+    pPaintParamsMarshal := pPaintParams == 0 ? IntPtr : BP_PAINTPARAMS.Ptr
+
+    result := DllCall("UxTheme.dll\BeginBufferedAnimation", HWND, _hwnd, HDC, hdcTarget, RECT.Ptr, prcTarget, BP_BUFFERFORMAT, dwFormat, pPaintParamsMarshal, pPaintParams, BP_ANIMATIONPARAMS.Ptr, pAnimationParams, HDC.Ptr, phdcFrom, HDC.Ptr, phdcTo, IntPtr)
     return result
 }
 
@@ -6655,9 +6780,10 @@ export PackTouchHitTestingProximityEvaluation(pHitTestingInput, pProximityEval) 
  * @since windows8.0
  */
 export GetWindowFeedbackSetting(_hwnd, feedback, dwFlags, pSize, config) {
-    pSizeMarshal := pSize is VarRef ? "uint*" : "ptr"
+    pSizeMarshal := pSize is VarRef ? "uint*" : IntPtr
+    configMarshal := config == 0 ? IntPtr : IntPtr
 
-    result := DllCall("USER32.dll\GetWindowFeedbackSetting", HWND, _hwnd, FEEDBACK_TYPE, feedback, UInt32, dwFlags, pSizeMarshal, pSize, IntPtr, config, BOOL)
+    result := DllCall("USER32.dll\GetWindowFeedbackSetting", HWND, _hwnd, FEEDBACK_TYPE, feedback, UInt32, dwFlags, pSizeMarshal, pSize, configMarshal, config, BOOL)
     return result
 }
 
@@ -6673,7 +6799,9 @@ export GetWindowFeedbackSetting(_hwnd, feedback, dwFlags, pSize, config) {
  * @since windows8.0
  */
 export SetWindowFeedbackSetting(_hwnd, feedback, dwFlags, _size, configuration) {
-    result := DllCall("USER32.dll\SetWindowFeedbackSetting", HWND, _hwnd, FEEDBACK_TYPE, feedback, UInt32, dwFlags, UInt32, _size, IntPtr, configuration, BOOL)
+    configurationMarshal := configuration == 0 ? IntPtr : IntPtr
+
+    result := DllCall("USER32.dll\SetWindowFeedbackSetting", HWND, _hwnd, FEEDBACK_TYPE, feedback, UInt32, dwFlags, UInt32, _size, configurationMarshal, configuration, BOOL)
     return result
 }
 

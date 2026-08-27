@@ -75,7 +75,9 @@ export default struct ICameraUIControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/camerauicontrol/nf-camerauicontrol-icamerauicontrol-show
      */
     Show(pWindow, _mode, selectionMode, captureMode, photoFormat, videoFormat, bHasCloseButton, pEventCallback) {
-        result := ComCall(3, this, "ptr", pWindow, CameraUIControlMode, _mode, CameraUIControlLinearSelectionMode, selectionMode, CameraUIControlCaptureMode, captureMode, CameraUIControlPhotoFormat, photoFormat, CameraUIControlVideoFormat, videoFormat, BOOL, bHasCloseButton, "ptr", pEventCallback, "HRESULT")
+        pEventCallbackMarshal := pEventCallback == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, "ptr", pWindow, CameraUIControlMode, _mode, CameraUIControlLinearSelectionMode, selectionMode, CameraUIControlCaptureMode, captureMode, CameraUIControlPhotoFormat, photoFormat, CameraUIControlVideoFormat, videoFormat, BOOL, bHasCloseButton, pEventCallbackMarshal, pEventCallback, "HRESULT")
         return result
     }
 
@@ -162,14 +164,14 @@ export default struct ICameraUIControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Show := CallbackCreate(GetMethod(implObj, "Show"), flags, 9)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
-        this.vtbl.Suspend := CallbackCreate(GetMethod(implObj, "Suspend"), flags, 2)
-        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 1)
-        this.vtbl.GetCurrentViewType := CallbackCreate(GetMethod(implObj, "GetCurrentViewType"), flags, 2)
-        this.vtbl.GetActiveItem := CallbackCreate(GetMethod(implObj, "GetActiveItem"), flags, 2)
-        this.vtbl.GetSelectedItems := CallbackCreate(GetMethod(implObj, "GetSelectedItems"), flags, 2)
-        this.vtbl.RemoveCapturedItem := CallbackCreate(GetMethod(implObj, "RemoveCapturedItem"), flags, 2)
+        this.vtbl.Show := CallbackCreate(ObjBindMethod(implObj, "Show"), flags, 9)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
+        this.vtbl.Suspend := CallbackCreate(ObjBindMethod(implObj, "Suspend"), flags, 2)
+        this.vtbl.Resume := CallbackCreate(ObjBindMethod(implObj, "Resume"), flags, 1)
+        this.vtbl.GetCurrentViewType := CallbackCreate(ObjBindMethod(implObj, "GetCurrentViewType"), flags, 2)
+        this.vtbl.GetActiveItem := CallbackCreate(ObjBindMethod(implObj, "GetActiveItem"), flags, 2)
+        this.vtbl.GetSelectedItems := CallbackCreate(ObjBindMethod(implObj, "GetSelectedItems"), flags, 2)
+        this.vtbl.RemoveCapturedItem := CallbackCreate(ObjBindMethod(implObj, "RemoveCapturedItem"), flags, 2)
     }
 
     Dispose() {

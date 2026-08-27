@@ -52,7 +52,6 @@ export default struct ISWbemEventSource extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} iTimeoutMs 
      * @returns {ISWbemObject} 
      */
@@ -62,7 +61,6 @@ export default struct ISWbemEventSource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemSecurity} 
      */
     get_Security_() {
@@ -79,8 +77,8 @@ export default struct ISWbemEventSource extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.NextEvent := CallbackCreate(GetMethod(implObj, "NextEvent"), flags, 3)
-        this.vtbl.get_Security_ := CallbackCreate(GetMethod(implObj, "get_Security_"), flags, 2)
+        this.vtbl.NextEvent := CallbackCreate(ObjBindMethod(implObj, "NextEvent"), flags, 3)
+        this.vtbl.get_Security_ := CallbackCreate(ObjBindMethod(implObj, "get_Security_"), flags, 2)
     }
 
     Dispose() {

@@ -96,10 +96,10 @@ export default struct ICrmFormatLogRecords extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetColumnCount := CallbackCreate(GetMethod(implObj, "GetColumnCount"), flags, 2)
-        this.vtbl.GetColumnHeaders := CallbackCreate(GetMethod(implObj, "GetColumnHeaders"), flags, 2)
-        this.vtbl.GetColumn := CallbackCreate(GetMethod(implObj, "GetColumn"), flags, 3)
-        this.vtbl.GetColumnVariants := CallbackCreate(GetMethod(implObj, "GetColumnVariants"), flags, 3)
+        this.vtbl.GetColumnCount := CallbackCreate(ObjBindMethod(implObj, "GetColumnCount"), flags, 2)
+        this.vtbl.GetColumnHeaders := CallbackCreate(ObjBindMethod(implObj, "GetColumnHeaders"), flags, 2)
+        this.vtbl.GetColumn := CallbackCreate(ObjBindMethod(implObj, "GetColumn"), flags, 3)
+        this.vtbl.GetColumnVariants := CallbackCreate(ObjBindMethod(implObj, "GetColumnVariants"), flags, 3)
     }
 
     Dispose() {

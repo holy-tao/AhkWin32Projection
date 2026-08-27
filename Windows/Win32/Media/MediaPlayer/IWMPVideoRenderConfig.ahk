@@ -93,7 +93,7 @@ export default struct IWMPVideoRenderConfig extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_presenterActivate := CallbackCreate(GetMethod(implObj, "put_presenterActivate"), flags, 2)
+        this.vtbl.put_presenterActivate := CallbackCreate(ObjBindMethod(implObj, "put_presenterActivate"), flags, 2)
     }
 
     Dispose() {

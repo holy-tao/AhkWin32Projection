@@ -89,8 +89,8 @@ export default struct IStreamBufferDataCounters extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetData := CallbackCreate(GetMethod(implObj, "GetData"), flags, 2)
-        this.vtbl.ResetData := CallbackCreate(GetMethod(implObj, "ResetData"), flags, 1)
+        this.vtbl.GetData := CallbackCreate(ObjBindMethod(implObj, "GetData"), flags, 2)
+        this.vtbl.ResetData := CallbackCreate(ObjBindMethod(implObj, "ResetData"), flags, 1)
     }
 
     Dispose() {

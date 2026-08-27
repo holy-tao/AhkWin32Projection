@@ -59,7 +59,6 @@ export default struct IRTCUserSearchQuery extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrValue 
      * @returns {HRESULT} 
@@ -73,7 +72,6 @@ export default struct IRTCUserSearchQuery extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @returns {BSTR} 
      */
@@ -86,7 +84,6 @@ export default struct IRTCUserSearchQuery extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_SearchTerms() {
@@ -96,7 +93,6 @@ export default struct IRTCUserSearchQuery extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_USER_SEARCH_PREFERENCE} enPreference 
      * @param {Integer} lValue 
      * @returns {HRESULT} 
@@ -107,7 +103,6 @@ export default struct IRTCUserSearchQuery extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_USER_SEARCH_PREFERENCE} enPreference 
      * @returns {Integer} 
      */
@@ -117,7 +112,6 @@ export default struct IRTCUserSearchQuery extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDomain 
      * @returns {HRESULT} 
      */
@@ -129,7 +123,6 @@ export default struct IRTCUserSearchQuery extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_SearchDomain() {
@@ -147,13 +140,13 @@ export default struct IRTCUserSearchQuery extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_SearchTerm := CallbackCreate(GetMethod(implObj, "put_SearchTerm"), flags, 3)
-        this.vtbl.get_SearchTerm := CallbackCreate(GetMethod(implObj, "get_SearchTerm"), flags, 3)
-        this.vtbl.get_SearchTerms := CallbackCreate(GetMethod(implObj, "get_SearchTerms"), flags, 2)
-        this.vtbl.put_SearchPreference := CallbackCreate(GetMethod(implObj, "put_SearchPreference"), flags, 3)
-        this.vtbl.get_SearchPreference := CallbackCreate(GetMethod(implObj, "get_SearchPreference"), flags, 3)
-        this.vtbl.put_SearchDomain := CallbackCreate(GetMethod(implObj, "put_SearchDomain"), flags, 2)
-        this.vtbl.get_SearchDomain := CallbackCreate(GetMethod(implObj, "get_SearchDomain"), flags, 2)
+        this.vtbl.put_SearchTerm := CallbackCreate(ObjBindMethod(implObj, "put_SearchTerm"), flags, 3)
+        this.vtbl.get_SearchTerm := CallbackCreate(ObjBindMethod(implObj, "get_SearchTerm"), flags, 3)
+        this.vtbl.get_SearchTerms := CallbackCreate(ObjBindMethod(implObj, "get_SearchTerms"), flags, 2)
+        this.vtbl.put_SearchPreference := CallbackCreate(ObjBindMethod(implObj, "put_SearchPreference"), flags, 3)
+        this.vtbl.get_SearchPreference := CallbackCreate(ObjBindMethod(implObj, "get_SearchPreference"), flags, 3)
+        this.vtbl.put_SearchDomain := CallbackCreate(ObjBindMethod(implObj, "put_SearchDomain"), flags, 2)
+        this.vtbl.get_SearchDomain := CallbackCreate(ObjBindMethod(implObj, "get_SearchDomain"), flags, 2)
     }
 
     Dispose() {

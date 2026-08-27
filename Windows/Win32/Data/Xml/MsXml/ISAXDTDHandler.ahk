@@ -38,7 +38,6 @@ export default struct ISAXDTDHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchName 
      * @param {Integer} cchName 
      * @param {PWSTR} pwchPublicId 
@@ -57,7 +56,6 @@ export default struct ISAXDTDHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchName 
      * @param {Integer} cchName 
      * @param {PWSTR} pwchPublicId 
@@ -87,8 +85,8 @@ export default struct ISAXDTDHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.notationDecl := CallbackCreate(GetMethod(implObj, "notationDecl"), flags, 7)
-        this.vtbl.unparsedEntityDecl := CallbackCreate(GetMethod(implObj, "unparsedEntityDecl"), flags, 9)
+        this.vtbl.notationDecl := CallbackCreate(ObjBindMethod(implObj, "notationDecl"), flags, 7)
+        this.vtbl.unparsedEntityDecl := CallbackCreate(ObjBindMethod(implObj, "unparsedEntityDecl"), flags, 9)
     }
 
     Dispose() {

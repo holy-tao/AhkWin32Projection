@@ -23,14 +23,13 @@ export default struct PFN_WdsTransportClientSessionComplete {
     }
 
     /**
-     * 
      * @param {HANDLE} hSessionKey The handle belonging to the session that is being started.
      * @param {Pointer<Void>} pCallerData Pointer to the caller specific data for this session.  This data was specified in the call to <a href="https://docs.microsoft.com/windows/desktop/api/wdstci/nf-wdstci-wdstransportclientstartsession">WdsTransportClientStartSession</a> function.
      * @param {Integer} dwError The overall status of the file transfer.  If the session succeeded, this value will be set to <b>ERROR_SUCCESS</b>.  If the session did not succeed, the error code for the session will be set.
      * @returns {String} Nothing - always returns an empty string
      */
     Call(hSessionKey, pCallerData, dwError) {
-        pCallerDataMarshal := pCallerData is VarRef ? "ptr" : "ptr"
+        pCallerDataMarshal := pCallerData is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, HANDLE, hSessionKey, pCallerDataMarshal, pCallerData, UInt32, dwError)
     }

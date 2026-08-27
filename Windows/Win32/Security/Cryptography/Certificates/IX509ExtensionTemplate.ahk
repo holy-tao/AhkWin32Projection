@@ -107,7 +107,9 @@ export default struct IX509ExtensionTemplate extends IX509Extension {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extensiontemplate-initializeencode
      */
     InitializeEncode(pTemplateOid, MajorVersion, MinorVersion) {
-        result := ComCall(12, this, "ptr", pTemplateOid, Int32, MajorVersion, Int32, MinorVersion, "HRESULT")
+        pTemplateOidMarshal := pTemplateOid == 0 ? IntPtr : "ptr"
+
+        result := ComCall(12, this, pTemplateOidMarshal, pTemplateOid, Int32, MajorVersion, Int32, MinorVersion, "HRESULT")
         return result
     }
 
@@ -216,11 +218,11 @@ export default struct IX509ExtensionTemplate extends IX509Extension {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeEncode := CallbackCreate(GetMethod(implObj, "InitializeEncode"), flags, 4)
-        this.vtbl.InitializeDecode := CallbackCreate(GetMethod(implObj, "InitializeDecode"), flags, 3)
-        this.vtbl.get_TemplateOid := CallbackCreate(GetMethod(implObj, "get_TemplateOid"), flags, 2)
-        this.vtbl.get_MajorVersion := CallbackCreate(GetMethod(implObj, "get_MajorVersion"), flags, 2)
-        this.vtbl.get_MinorVersion := CallbackCreate(GetMethod(implObj, "get_MinorVersion"), flags, 2)
+        this.vtbl.InitializeEncode := CallbackCreate(ObjBindMethod(implObj, "InitializeEncode"), flags, 4)
+        this.vtbl.InitializeDecode := CallbackCreate(ObjBindMethod(implObj, "InitializeDecode"), flags, 3)
+        this.vtbl.get_TemplateOid := CallbackCreate(ObjBindMethod(implObj, "get_TemplateOid"), flags, 2)
+        this.vtbl.get_MajorVersion := CallbackCreate(ObjBindMethod(implObj, "get_MajorVersion"), flags, 2)
+        this.vtbl.get_MinorVersion := CallbackCreate(ObjBindMethod(implObj, "get_MinorVersion"), flags, 2)
     }
 
     Dispose() {

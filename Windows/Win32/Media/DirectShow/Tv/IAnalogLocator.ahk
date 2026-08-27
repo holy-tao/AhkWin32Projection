@@ -85,8 +85,8 @@ export default struct IAnalogLocator extends ILocator {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_VideoStandard := CallbackCreate(GetMethod(implObj, "get_VideoStandard"), flags, 2)
-        this.vtbl.put_VideoStandard := CallbackCreate(GetMethod(implObj, "put_VideoStandard"), flags, 2)
+        this.vtbl.get_VideoStandard := CallbackCreate(ObjBindMethod(implObj, "get_VideoStandard"), flags, 2)
+        this.vtbl.put_VideoStandard := CallbackCreate(ObjBindMethod(implObj, "put_VideoStandard"), flags, 2)
     }
 
     Dispose() {

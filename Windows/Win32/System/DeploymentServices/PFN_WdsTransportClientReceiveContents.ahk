@@ -21,7 +21,6 @@ export default struct PFN_WdsTransportClientReceiveContents {
     }
 
     /**
-     * 
      * @param {HANDLE} hSessionKey The handle belonging to the session that is being started.
      * @param {Pointer<Void>} pCallerData Pointer to the user data for this session.  This data was specified in the call to the <a href="https://docs.microsoft.com/windows/desktop/api/wdstci/nf-wdstci-wdstransportclientstartsession">WdsTransportClientStartSession</a> function.
      * @param {Integer} pContents 
@@ -30,8 +29,8 @@ export default struct PFN_WdsTransportClientReceiveContents {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(hSessionKey, pCallerData, pContents, ulSize, pullContentOffset) {
-        pCallerDataMarshal := pCallerData is VarRef ? "ptr" : "ptr"
-        pullContentOffsetMarshal := pullContentOffset is VarRef ? "uint*" : "ptr"
+        pCallerDataMarshal := pCallerData is VarRef ? "ptr" : IntPtr
+        pullContentOffsetMarshal := pullContentOffset is VarRef ? "uint*" : IntPtr
 
         DllCall(this.value, HANDLE, hSessionKey, pCallerDataMarshal, pCallerData, IntPtr, pContents, UInt32, ulSize, pullContentOffsetMarshal, pullContentOffset)
     }

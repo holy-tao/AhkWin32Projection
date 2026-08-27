@@ -117,7 +117,6 @@ export default struct IDxcContainerBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} fourCC 
      * @param {IDxcBlob} pSource 
      * @returns {HRESULT} 
@@ -128,7 +127,6 @@ export default struct IDxcContainerBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} fourCC 
      * @returns {HRESULT} 
      */
@@ -138,7 +136,6 @@ export default struct IDxcContainerBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDxcOperationResult} 
      */
     SerializeContainer() {
@@ -155,10 +152,10 @@ export default struct IDxcContainerBuilder extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Load := CallbackCreate(GetMethod(implObj, "Load"), flags, 2)
-        this.vtbl.AddPart := CallbackCreate(GetMethod(implObj, "AddPart"), flags, 3)
-        this.vtbl.RemovePart := CallbackCreate(GetMethod(implObj, "RemovePart"), flags, 2)
-        this.vtbl.SerializeContainer := CallbackCreate(GetMethod(implObj, "SerializeContainer"), flags, 2)
+        this.vtbl.Load := CallbackCreate(ObjBindMethod(implObj, "Load"), flags, 2)
+        this.vtbl.AddPart := CallbackCreate(ObjBindMethod(implObj, "AddPart"), flags, 3)
+        this.vtbl.RemovePart := CallbackCreate(ObjBindMethod(implObj, "RemovePart"), flags, 2)
+        this.vtbl.SerializeContainer := CallbackCreate(ObjBindMethod(implObj, "SerializeContainer"), flags, 2)
     }
 
     Dispose() {

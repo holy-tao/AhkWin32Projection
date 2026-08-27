@@ -38,7 +38,6 @@ export default struct ITransportSettingsInternal extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<TRANSPORT_SETTING>} Setting 
      * @returns {HRESULT} 
      */
@@ -48,7 +47,6 @@ export default struct ITransportSettingsInternal extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<TRANSPORT_SETTING>} Setting 
      * @returns {HRESULT} 
      */
@@ -66,8 +64,8 @@ export default struct ITransportSettingsInternal extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ApplySetting := CallbackCreate(GetMethod(implObj, "ApplySetting"), flags, 2)
-        this.vtbl.QuerySetting := CallbackCreate(GetMethod(implObj, "QuerySetting"), flags, 2)
+        this.vtbl.ApplySetting := CallbackCreate(ObjBindMethod(implObj, "ApplySetting"), flags, 2)
+        this.vtbl.QuerySetting := CallbackCreate(ObjBindMethod(implObj, "QuerySetting"), flags, 2)
     }
 
     Dispose() {

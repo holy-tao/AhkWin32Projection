@@ -135,7 +135,7 @@ export default struct IShellFolder extends IUnknown {
 
         pszDisplayName := pszDisplayName is String ? StrPtr(pszDisplayName) : pszDisplayName
 
-        pdwAttributesMarshal := pdwAttributes is VarRef ? "uint*" : "ptr"
+        pdwAttributesMarshal := pdwAttributes is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, HWND, _hwnd, "ptr", pbc, "ptr", pszDisplayName, "uint*", pchEaten, "ptr*", &ppidl := 0, pdwAttributesMarshal, pdwAttributes, "HRESULT")
         return ppidl
@@ -433,8 +433,8 @@ export default struct IShellFolder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder-getattributesof
      */
     GetAttributesOf(cidl, apidl, rgfInOut) {
-        apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
-        rgfInOutMarshal := rgfInOut is VarRef ? "uint*" : "ptr"
+        apidlMarshal := apidl is VarRef ? "ptr*" : IntPtr
+        rgfInOutMarshal := rgfInOut is VarRef ? "uint*" : IntPtr
 
         result := ComCall(9, this, UInt32, cidl, apidlMarshal, apidl, rgfInOutMarshal, rgfInOut, "HRESULT")
         return result
@@ -512,7 +512,7 @@ export default struct IShellFolder extends IUnknown {
     GetUIObjectOf(hwndOwner, cidl, apidl, riid) {
         static rgfReserved := 0 ;Reserved parameters must always be NULL
 
-        apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
+        apidlMarshal := apidl is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(10, this, HWND, hwndOwner, UInt32, cidl, apidlMarshal, apidl, Guid.Ptr, riid, "uint*", rgfReserved, "ptr*", &ppv := 0, "HRESULT")
         return ppv
@@ -588,7 +588,9 @@ export default struct IShellFolder extends IUnknown {
     SetNameOf(_hwnd, pidl, pszName, uFlags) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(12, this, HWND, _hwnd, ITEMIDLIST.Ptr, pidl, "ptr", pszName, SHGDNF, uFlags, "ptr*", &ppidlOut := 0, "HRESULT")
+        _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+
+        result := ComCall(12, this, _hwndMarshal, _hwnd, ITEMIDLIST.Ptr, pidl, "ptr", pszName, SHGDNF, uFlags, "ptr*", &ppidlOut := 0, "HRESULT")
         return ppidlOut
     }
 
@@ -601,16 +603,16 @@ export default struct IShellFolder extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ParseDisplayName := CallbackCreate(GetMethod(implObj, "ParseDisplayName"), flags, 7)
-        this.vtbl.EnumObjects := CallbackCreate(GetMethod(implObj, "EnumObjects"), flags, 4)
-        this.vtbl.BindToObject := CallbackCreate(GetMethod(implObj, "BindToObject"), flags, 5)
-        this.vtbl.BindToStorage := CallbackCreate(GetMethod(implObj, "BindToStorage"), flags, 5)
-        this.vtbl.CompareIDs := CallbackCreate(GetMethod(implObj, "CompareIDs"), flags, 4)
-        this.vtbl.CreateViewObject := CallbackCreate(GetMethod(implObj, "CreateViewObject"), flags, 4)
-        this.vtbl.GetAttributesOf := CallbackCreate(GetMethod(implObj, "GetAttributesOf"), flags, 4)
-        this.vtbl.GetUIObjectOf := CallbackCreate(GetMethod(implObj, "GetUIObjectOf"), flags, 7)
-        this.vtbl.GetDisplayNameOf := CallbackCreate(GetMethod(implObj, "GetDisplayNameOf"), flags, 4)
-        this.vtbl.SetNameOf := CallbackCreate(GetMethod(implObj, "SetNameOf"), flags, 6)
+        this.vtbl.ParseDisplayName := CallbackCreate(ObjBindMethod(implObj, "ParseDisplayName"), flags, 7)
+        this.vtbl.EnumObjects := CallbackCreate(ObjBindMethod(implObj, "EnumObjects"), flags, 4)
+        this.vtbl.BindToObject := CallbackCreate(ObjBindMethod(implObj, "BindToObject"), flags, 5)
+        this.vtbl.BindToStorage := CallbackCreate(ObjBindMethod(implObj, "BindToStorage"), flags, 5)
+        this.vtbl.CompareIDs := CallbackCreate(ObjBindMethod(implObj, "CompareIDs"), flags, 4)
+        this.vtbl.CreateViewObject := CallbackCreate(ObjBindMethod(implObj, "CreateViewObject"), flags, 4)
+        this.vtbl.GetAttributesOf := CallbackCreate(ObjBindMethod(implObj, "GetAttributesOf"), flags, 4)
+        this.vtbl.GetUIObjectOf := CallbackCreate(ObjBindMethod(implObj, "GetUIObjectOf"), flags, 7)
+        this.vtbl.GetDisplayNameOf := CallbackCreate(ObjBindMethod(implObj, "GetDisplayNameOf"), flags, 4)
+        this.vtbl.SetNameOf := CallbackCreate(ObjBindMethod(implObj, "SetNameOf"), flags, 6)
     }
 
     Dispose() {

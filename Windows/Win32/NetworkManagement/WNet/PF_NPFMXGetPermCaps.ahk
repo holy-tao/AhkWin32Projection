@@ -19,7 +19,6 @@ export default struct PF_NPFMXGetPermCaps {
     }
 
     /**
-     * 
      * @param {PWSTR} lpDriveName 
      * @returns {Integer} 
      */

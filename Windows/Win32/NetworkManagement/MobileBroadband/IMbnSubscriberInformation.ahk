@@ -115,9 +115,9 @@ export default struct IMbnSubscriberInformation extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_SubscriberID := CallbackCreate(GetMethod(implObj, "get_SubscriberID"), flags, 2)
-        this.vtbl.get_SimIccID := CallbackCreate(GetMethod(implObj, "get_SimIccID"), flags, 2)
-        this.vtbl.get_TelephoneNumbers := CallbackCreate(GetMethod(implObj, "get_TelephoneNumbers"), flags, 2)
+        this.vtbl.get_SubscriberID := CallbackCreate(ObjBindMethod(implObj, "get_SubscriberID"), flags, 2)
+        this.vtbl.get_SimIccID := CallbackCreate(ObjBindMethod(implObj, "get_SimIccID"), flags, 2)
+        this.vtbl.get_TelephoneNumbers := CallbackCreate(ObjBindMethod(implObj, "get_TelephoneNumbers"), flags, 2)
     }
 
     Dispose() {

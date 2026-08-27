@@ -23,7 +23,6 @@ export default struct PFAX_EXT_REGISTER_FOR_EVENTS {
     }
 
     /**
-     * 
      * @param {HINSTANCE} param0 
      * @param {Integer} param1 
      * @param {FAX_ENUM_DEVICE_ID_SOURCE} param2 

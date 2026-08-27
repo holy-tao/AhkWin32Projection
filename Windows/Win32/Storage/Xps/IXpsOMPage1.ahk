@@ -59,7 +59,6 @@ export default struct IXpsOMPage1 extends IXpsOMPage {
     }
 
     /**
-     * 
      * @param {ISequentialStream} stream 
      * @param {BOOL} optimizeMarkupSize 
      * @param {XPS_DOCUMENT_TYPE} documentType 
@@ -79,8 +78,8 @@ export default struct IXpsOMPage1 extends IXpsOMPage {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDocumentType := CallbackCreate(GetMethod(implObj, "GetDocumentType"), flags, 2)
-        this.vtbl.Write1 := CallbackCreate(GetMethod(implObj, "Write1"), flags, 4)
+        this.vtbl.GetDocumentType := CallbackCreate(ObjBindMethod(implObj, "GetDocumentType"), flags, 2)
+        this.vtbl.Write1 := CallbackCreate(ObjBindMethod(implObj, "Write1"), flags, 4)
     }
 
     Dispose() {

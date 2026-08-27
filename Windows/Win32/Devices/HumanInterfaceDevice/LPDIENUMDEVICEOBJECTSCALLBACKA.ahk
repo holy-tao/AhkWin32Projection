@@ -21,13 +21,12 @@ export default struct LPDIENUMDEVICEOBJECTSCALLBACKA {
     }
 
     /**
-     * 
      * @param {Pointer<DIDEVICEOBJECTINSTANCEA>} param0 
      * @param {Pointer<Void>} param1 
      * @returns {BOOL} 
      */
     Call(param0, param1) {
-        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+        param1Marshal := param1 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, DIDEVICEOBJECTINSTANCEA.Ptr, param0, param1Marshal, param1, BOOL)
         return result

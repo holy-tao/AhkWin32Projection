@@ -20,7 +20,6 @@ export default struct I_RpcProxyIsValidMachineFn {
     }
 
     /**
-     * 
      * @param {PWSTR} Machine 
      * @param {PWSTR} DotMachine 
      * @param {Integer} PortNumber 

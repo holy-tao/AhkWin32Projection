@@ -64,7 +64,7 @@ export default struct IEnumWiaItem2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-ienumwiaitem2-next
      */
     Next(cElt, pcEltFetched) {
-        pcEltFetchedMarshal := pcEltFetched is VarRef ? "uint*" : "ptr"
+        pcEltFetchedMarshal := pcEltFetched is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, UInt32, cElt, "ptr*", &ppIWiaItem2 := 0, pcEltFetchedMarshal, pcEltFetched, "HRESULT")
         return IWiaItem2(ppIWiaItem2)
@@ -135,11 +135,11 @@ export default struct IEnumWiaItem2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 4)
-        this.vtbl.Skip := CallbackCreate(GetMethod(implObj, "Skip"), flags, 2)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.Next := CallbackCreate(ObjBindMethod(implObj, "Next"), flags, 4)
+        this.vtbl.Skip := CallbackCreate(ObjBindMethod(implObj, "Skip"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
     }
 
     Dispose() {

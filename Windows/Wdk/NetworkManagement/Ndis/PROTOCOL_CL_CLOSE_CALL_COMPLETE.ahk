@@ -18,15 +18,15 @@ export default struct PROTOCOL_CL_CLOSE_CALL_COMPLETE {
     }
 
     /**
-     * 
      * @param {Integer} _Status 
      * @param {Pointer<Void>} ProtocolVcContext 
      * @param {Pointer<Void>} ProtocolPartyContext 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Status, ProtocolVcContext, ProtocolPartyContext) {
-        ProtocolVcContextMarshal := ProtocolVcContext is VarRef ? "ptr" : "ptr"
-        ProtocolPartyContextMarshal := ProtocolPartyContext is VarRef ? "ptr" : "ptr"
+        ProtocolVcContextMarshal := ProtocolVcContext is VarRef ? "ptr" : IntPtr
+        ProtocolPartyContextMarshal := ProtocolPartyContext is VarRef ? "ptr" : IntPtr
+        ProtocolPartyContextMarshal := ProtocolPartyContext == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, Int32, _Status, ProtocolVcContextMarshal, ProtocolVcContext, ProtocolPartyContextMarshal, ProtocolPartyContext)
     }

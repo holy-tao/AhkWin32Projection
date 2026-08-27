@@ -162,8 +162,8 @@ export default struct ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-getdecoderbuffer
      */
     GetDecoderBuffer(pDecoder, Type, pBufferSize, ppBuffer) {
-        pBufferSizeMarshal := pBufferSize is VarRef ? "uint*" : "ptr"
-        ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
+        pBufferSizeMarshal := pBufferSize is VarRef ? "uint*" : IntPtr
+        ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(7, this, "ptr", pDecoder, D3D11_VIDEO_DECODER_BUFFER_TYPE, Type, pBufferSizeMarshal, pBufferSize, ppBufferMarshal, ppBuffer, "HRESULT")
         return result
@@ -205,7 +205,9 @@ export default struct ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-decoderbeginframe
      */
     DecoderBeginFrame(pDecoder, pView, ContentKeySize, pContentKey) {
-        result := ComCall(9, this, "ptr", pDecoder, "ptr", pView, UInt32, ContentKeySize, IntPtr, pContentKey, "HRESULT")
+        pContentKeyMarshal := pContentKey == 0 ? IntPtr : IntPtr
+
+        result := ComCall(9, this, "ptr", pDecoder, "ptr", pView, UInt32, ContentKeySize, pContentKeyMarshal, pContentKey, "HRESULT")
         return result
     }
 
@@ -264,7 +266,9 @@ export default struct ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetoutputtargetrect
      */
     VideoProcessorSetOutputTargetRect(pVideoProcessor, Enable, pRect) {
-        ComCall(13, this, "ptr", pVideoProcessor, BOOL, Enable, RECT.Ptr, pRect)
+        pRectMarshal := pRect == 0 ? IntPtr : RECT.Ptr
+
+        ComCall(13, this, "ptr", pVideoProcessor, BOOL, Enable, pRectMarshal, pRect)
     }
 
     /**
@@ -355,7 +359,7 @@ export default struct ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetoutputextension
      */
     VideoProcessorSetOutputExtension(pVideoProcessor, pExtensionGuid, DataSize, pData) {
-        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+        pDataMarshal := pData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(19, this, "ptr", pVideoProcessor, Guid.Ptr, pExtensionGuid, UInt32, DataSize, pDataMarshal, pData, Int32)
         return result
@@ -370,7 +374,7 @@ export default struct ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetoutputtargetrect
      */
     VideoProcessorGetOutputTargetRect(pVideoProcessor, Enabled, pRect) {
-        EnabledMarshal := Enabled is VarRef ? "int*" : "ptr"
+        EnabledMarshal := Enabled is VarRef ? "int*" : IntPtr
 
         ComCall(20, this, "ptr", pVideoProcessor, EnabledMarshal, Enabled, RECT.Ptr, pRect)
     }
@@ -384,7 +388,7 @@ export default struct ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetoutputbackgroundcolor
      */
     VideoProcessorGetOutputBackgroundColor(pVideoProcessor, pYCbCr, pColor) {
-        pYCbCrMarshal := pYCbCr is VarRef ? "int*" : "ptr"
+        pYCbCrMarshal := pYCbCr is VarRef ? "int*" : IntPtr
 
         ComCall(21, this, "ptr", pVideoProcessor, pYCbCrMarshal, pYCbCr, D3D11_VIDEO_COLOR.Ptr, pColor)
     }
@@ -409,8 +413,8 @@ export default struct ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetoutputalphafillmode
      */
     VideoProcessorGetOutputAlphaFillMode(pVideoProcessor, pAlphaFillMode, pStreamIndex) {
-        pAlphaFillModeMarshal := pAlphaFillMode is VarRef ? "int*" : "ptr"
-        pStreamIndexMarshal := pStreamIndex is VarRef ? "uint*" : "ptr"
+        pAlphaFillModeMarshal := pAlphaFillMode is VarRef ? "int*" : IntPtr
+        pStreamIndexMarshal := pStreamIndex is VarRef ? "uint*" : IntPtr
 
         ComCall(23, this, "ptr", pVideoProcessor, pAlphaFillModeMarshal, pAlphaFillMode, pStreamIndexMarshal, pStreamIndex)
     }
@@ -424,7 +428,7 @@ export default struct ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetoutputconstriction
      */
     VideoProcessorGetOutputConstriction(pVideoProcessor, pEnabled, pSize) {
-        pEnabledMarshal := pEnabled is VarRef ? "int*" : "ptr"
+        pEnabledMarshal := pEnabled is VarRef ? "int*" : IntPtr
 
         ComCall(24, this, "ptr", pVideoProcessor, pEnabledMarshal, pEnabled, SIZE.Ptr, pSize)
     }
@@ -437,7 +441,7 @@ export default struct ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetoutputstereomode
      */
     VideoProcessorGetOutputStereoMode(pVideoProcessor, pEnabled) {
-        pEnabledMarshal := pEnabled is VarRef ? "int*" : "ptr"
+        pEnabledMarshal := pEnabled is VarRef ? "int*" : IntPtr
 
         ComCall(25, this, "ptr", pVideoProcessor, pEnabledMarshal, pEnabled)
     }
@@ -522,7 +526,9 @@ export default struct ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetstreamoutputrate
      */
     VideoProcessorSetStreamOutputRate(pVideoProcessor, StreamIndex, OutputRate, RepeatFrame, pCustomRate) {
-        ComCall(29, this, "ptr", pVideoProcessor, UInt32, StreamIndex, D3D11_VIDEO_PROCESSOR_OUTPUT_RATE, OutputRate, BOOL, RepeatFrame, DXGI_RATIONAL.Ptr, pCustomRate)
+        pCustomRateMarshal := pCustomRate == 0 ? IntPtr : DXGI_RATIONAL.Ptr
+
+        ComCall(29, this, "ptr", pVideoProcessor, UInt32, StreamIndex, D3D11_VIDEO_PROCESSOR_OUTPUT_RATE, OutputRate, BOOL, RepeatFrame, pCustomRateMarshal, pCustomRate)
     }
 
     /**
@@ -539,7 +545,9 @@ export default struct ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetstreamsourcerect
      */
     VideoProcessorSetStreamSourceRect(pVideoProcessor, StreamIndex, Enable, pRect) {
-        ComCall(30, this, "ptr", pVideoProcessor, UInt32, StreamIndex, BOOL, Enable, RECT.Ptr, pRect)
+        pRectMarshal := pRect == 0 ? IntPtr : RECT.Ptr
+
+        ComCall(30, this, "ptr", pVideoProcessor, UInt32, StreamIndex, BOOL, Enable, pRectMarshal, pRect)
     }
 
     /**
@@ -556,7 +564,9 @@ export default struct ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetstreamdestrect
      */
     VideoProcessorSetStreamDestRect(pVideoProcessor, StreamIndex, Enable, pRect) {
-        ComCall(31, this, "ptr", pVideoProcessor, UInt32, StreamIndex, BOOL, Enable, RECT.Ptr, pRect)
+        pRectMarshal := pRect == 0 ? IntPtr : RECT.Ptr
+
+        ComCall(31, this, "ptr", pVideoProcessor, UInt32, StreamIndex, BOOL, Enable, pRectMarshal, pRect)
     }
 
     /**
@@ -611,7 +621,8 @@ export default struct ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetstreampalette
      */
     VideoProcessorSetStreamPalette(pVideoProcessor, StreamIndex, Count, pEntries) {
-        pEntriesMarshal := pEntries is VarRef ? "uint*" : "ptr"
+        pEntriesMarshal := pEntries is VarRef ? "uint*" : IntPtr
+        pEntriesMarshal := pEntries == 0 ? IntPtr : "uint*"
 
         ComCall(33, this, "ptr", pVideoProcessor, UInt32, StreamIndex, UInt32, Count, pEntriesMarshal, pEntries)
     }
@@ -633,7 +644,10 @@ export default struct ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetstreampixelaspectratio
      */
     VideoProcessorSetStreamPixelAspectRatio(pVideoProcessor, StreamIndex, Enable, pSourceAspectRatio, pDestinationAspectRatio) {
-        ComCall(34, this, "ptr", pVideoProcessor, UInt32, StreamIndex, BOOL, Enable, DXGI_RATIONAL.Ptr, pSourceAspectRatio, DXGI_RATIONAL.Ptr, pDestinationAspectRatio)
+        pSourceAspectRatioMarshal := pSourceAspectRatio == 0 ? IntPtr : DXGI_RATIONAL.Ptr
+        pDestinationAspectRatioMarshal := pDestinationAspectRatio == 0 ? IntPtr : DXGI_RATIONAL.Ptr
+
+        ComCall(34, this, "ptr", pVideoProcessor, UInt32, StreamIndex, BOOL, Enable, pSourceAspectRatioMarshal, pSourceAspectRatio, pDestinationAspectRatioMarshal, pDestinationAspectRatio)
     }
 
     /**
@@ -749,7 +763,7 @@ export default struct ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetstreamextension
      */
     VideoProcessorSetStreamExtension(pVideoProcessor, StreamIndex, pExtensionGuid, DataSize, pData) {
-        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+        pDataMarshal := pData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(39, this, "ptr", pVideoProcessor, UInt32, StreamIndex, Guid.Ptr, pExtensionGuid, UInt32, DataSize, pDataMarshal, pData, Int32)
         return result
@@ -764,7 +778,7 @@ export default struct ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetstreamframeformat
      */
     VideoProcessorGetStreamFrameFormat(pVideoProcessor, StreamIndex, pFrameFormat) {
-        pFrameFormatMarshal := pFrameFormat is VarRef ? "int*" : "ptr"
+        pFrameFormatMarshal := pFrameFormat is VarRef ? "int*" : IntPtr
 
         ComCall(40, this, "ptr", pVideoProcessor, UInt32, StreamIndex, pFrameFormatMarshal, pFrameFormat)
     }
@@ -821,8 +835,8 @@ export default struct ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetstreamoutputrate
      */
     VideoProcessorGetStreamOutputRate(pVideoProcessor, StreamIndex, pOutputRate, pRepeatFrame, pCustomRate) {
-        pOutputRateMarshal := pOutputRate is VarRef ? "int*" : "ptr"
-        pRepeatFrameMarshal := pRepeatFrame is VarRef ? "int*" : "ptr"
+        pOutputRateMarshal := pOutputRate is VarRef ? "int*" : IntPtr
+        pRepeatFrameMarshal := pRepeatFrame is VarRef ? "int*" : IntPtr
 
         ComCall(42, this, "ptr", pVideoProcessor, UInt32, StreamIndex, pOutputRateMarshal, pOutputRate, pRepeatFrameMarshal, pRepeatFrame, DXGI_RATIONAL.Ptr, pCustomRate)
     }
@@ -837,7 +851,7 @@ export default struct ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetstreamsourcerect
      */
     VideoProcessorGetStreamSourceRect(pVideoProcessor, StreamIndex, pEnabled, pRect) {
-        pEnabledMarshal := pEnabled is VarRef ? "int*" : "ptr"
+        pEnabledMarshal := pEnabled is VarRef ? "int*" : IntPtr
 
         ComCall(43, this, "ptr", pVideoProcessor, UInt32, StreamIndex, pEnabledMarshal, pEnabled, RECT.Ptr, pRect)
     }
@@ -852,7 +866,7 @@ export default struct ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetstreamdestrect
      */
     VideoProcessorGetStreamDestRect(pVideoProcessor, StreamIndex, pEnabled, pRect) {
-        pEnabledMarshal := pEnabled is VarRef ? "int*" : "ptr"
+        pEnabledMarshal := pEnabled is VarRef ? "int*" : IntPtr
 
         ComCall(44, this, "ptr", pVideoProcessor, UInt32, StreamIndex, pEnabledMarshal, pEnabled, RECT.Ptr, pRect)
     }
@@ -867,8 +881,8 @@ export default struct ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetstreamalpha
      */
     VideoProcessorGetStreamAlpha(pVideoProcessor, StreamIndex, pEnabled, pAlpha) {
-        pEnabledMarshal := pEnabled is VarRef ? "int*" : "ptr"
-        pAlphaMarshal := pAlpha is VarRef ? "float*" : "ptr"
+        pEnabledMarshal := pEnabled is VarRef ? "int*" : IntPtr
+        pAlphaMarshal := pAlpha is VarRef ? "float*" : IntPtr
 
         ComCall(45, this, "ptr", pVideoProcessor, UInt32, StreamIndex, pEnabledMarshal, pEnabled, pAlphaMarshal, pAlpha)
     }
@@ -885,7 +899,7 @@ export default struct ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetstreampalette
      */
     VideoProcessorGetStreamPalette(pVideoProcessor, StreamIndex, Count, pEntries) {
-        pEntriesMarshal := pEntries is VarRef ? "uint*" : "ptr"
+        pEntriesMarshal := pEntries is VarRef ? "uint*" : IntPtr
 
         ComCall(46, this, "ptr", pVideoProcessor, UInt32, StreamIndex, UInt32, Count, pEntriesMarshal, pEntries)
     }
@@ -903,7 +917,7 @@ export default struct ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetstreampixelaspectratio
      */
     VideoProcessorGetStreamPixelAspectRatio(pVideoProcessor, StreamIndex, pEnabled, pSourceAspectRatio, pDestinationAspectRatio) {
-        pEnabledMarshal := pEnabled is VarRef ? "int*" : "ptr"
+        pEnabledMarshal := pEnabled is VarRef ? "int*" : IntPtr
 
         ComCall(47, this, "ptr", pVideoProcessor, UInt32, StreamIndex, pEnabledMarshal, pEnabled, DXGI_RATIONAL.Ptr, pSourceAspectRatio, DXGI_RATIONAL.Ptr, pDestinationAspectRatio)
     }
@@ -919,9 +933,9 @@ export default struct ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetstreamlumakey
      */
     VideoProcessorGetStreamLumaKey(pVideoProcessor, StreamIndex, pEnabled, pLower, pUpper) {
-        pEnabledMarshal := pEnabled is VarRef ? "int*" : "ptr"
-        pLowerMarshal := pLower is VarRef ? "float*" : "ptr"
-        pUpperMarshal := pUpper is VarRef ? "float*" : "ptr"
+        pEnabledMarshal := pEnabled is VarRef ? "int*" : IntPtr
+        pLowerMarshal := pLower is VarRef ? "float*" : IntPtr
+        pUpperMarshal := pUpper is VarRef ? "float*" : IntPtr
 
         ComCall(48, this, "ptr", pVideoProcessor, UInt32, StreamIndex, pEnabledMarshal, pEnabled, pLowerMarshal, pLower, pUpperMarshal, pUpper)
     }
@@ -994,12 +1008,12 @@ export default struct ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetstreamstereoformat
      */
     VideoProcessorGetStreamStereoFormat(pVideoProcessor, StreamIndex, pEnable, pFormat, pLeftViewFrame0, pBaseViewFrame0, pFlipMode, MonoOffset) {
-        pEnableMarshal := pEnable is VarRef ? "int*" : "ptr"
-        pFormatMarshal := pFormat is VarRef ? "int*" : "ptr"
-        pLeftViewFrame0Marshal := pLeftViewFrame0 is VarRef ? "int*" : "ptr"
-        pBaseViewFrame0Marshal := pBaseViewFrame0 is VarRef ? "int*" : "ptr"
-        pFlipModeMarshal := pFlipMode is VarRef ? "int*" : "ptr"
-        MonoOffsetMarshal := MonoOffset is VarRef ? "int*" : "ptr"
+        pEnableMarshal := pEnable is VarRef ? "int*" : IntPtr
+        pFormatMarshal := pFormat is VarRef ? "int*" : IntPtr
+        pLeftViewFrame0Marshal := pLeftViewFrame0 is VarRef ? "int*" : IntPtr
+        pBaseViewFrame0Marshal := pBaseViewFrame0 is VarRef ? "int*" : IntPtr
+        pFlipModeMarshal := pFlipMode is VarRef ? "int*" : IntPtr
+        MonoOffsetMarshal := MonoOffset is VarRef ? "int*" : IntPtr
 
         ComCall(49, this, "ptr", pVideoProcessor, UInt32, StreamIndex, pEnableMarshal, pEnable, pFormatMarshal, pFormat, pLeftViewFrame0Marshal, pLeftViewFrame0, pBaseViewFrame0Marshal, pBaseViewFrame0, pFlipModeMarshal, pFlipMode, MonoOffsetMarshal, MonoOffset)
     }
@@ -1015,7 +1029,7 @@ export default struct ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetstreamautoprocessingmode
      */
     VideoProcessorGetStreamAutoProcessingMode(pVideoProcessor, StreamIndex, pEnabled) {
-        pEnabledMarshal := pEnabled is VarRef ? "int*" : "ptr"
+        pEnabledMarshal := pEnabled is VarRef ? "int*" : IntPtr
 
         ComCall(50, this, "ptr", pVideoProcessor, UInt32, StreamIndex, pEnabledMarshal, pEnabled)
     }
@@ -1031,8 +1045,8 @@ export default struct ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetstreamfilter
      */
     VideoProcessorGetStreamFilter(pVideoProcessor, StreamIndex, Filter, pEnabled, pLevel) {
-        pEnabledMarshal := pEnabled is VarRef ? "int*" : "ptr"
-        pLevelMarshal := pLevel is VarRef ? "int*" : "ptr"
+        pEnabledMarshal := pEnabled is VarRef ? "int*" : IntPtr
+        pLevelMarshal := pLevel is VarRef ? "int*" : IntPtr
 
         ComCall(51, this, "ptr", pVideoProcessor, UInt32, StreamIndex, D3D11_VIDEO_PROCESSOR_FILTER, Filter, pEnabledMarshal, pEnabled, pLevelMarshal, pLevel)
     }
@@ -1137,7 +1151,9 @@ export default struct ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-encryptionblt
      */
     EncryptionBlt(pCryptoSession, pSrcSurface, pDstSurface, IVSize, pIV) {
-        ComCall(55, this, "ptr", pCryptoSession, "ptr", pSrcSurface, "ptr", pDstSurface, UInt32, IVSize, IntPtr, pIV)
+        pIVMarshal := pIV == 0 ? IntPtr : IntPtr
+
+        ComCall(55, this, "ptr", pCryptoSession, "ptr", pSrcSurface, "ptr", pDstSurface, UInt32, IVSize, pIVMarshal, pIV)
     }
 
     /**
@@ -1186,7 +1202,11 @@ export default struct ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-decryptionblt
      */
     DecryptionBlt(pCryptoSession, pSrcSurface, pDstSurface, pEncryptedBlockInfo, ContentKeySize, pContentKey, IVSize, pIV) {
-        ComCall(56, this, "ptr", pCryptoSession, "ptr", pSrcSurface, "ptr", pDstSurface, D3D11_ENCRYPTED_BLOCK_INFO.Ptr, pEncryptedBlockInfo, UInt32, ContentKeySize, IntPtr, pContentKey, UInt32, IVSize, IntPtr, pIV)
+        pEncryptedBlockInfoMarshal := pEncryptedBlockInfo == 0 ? IntPtr : D3D11_ENCRYPTED_BLOCK_INFO.Ptr
+        pContentKeyMarshal := pContentKey == 0 ? IntPtr : IntPtr
+        pIVMarshal := pIV == 0 ? IntPtr : IntPtr
+
+        ComCall(56, this, "ptr", pCryptoSession, "ptr", pSrcSurface, "ptr", pDstSurface, pEncryptedBlockInfoMarshal, pEncryptedBlockInfo, UInt32, ContentKeySize, pContentKeyMarshal, pContentKey, UInt32, IVSize, pIVMarshal, pIV)
     }
 
     /**
@@ -1311,8 +1331,8 @@ export default struct ID3D11VideoContext extends ID3D11DeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetstreamrotation
      */
     VideoProcessorGetStreamRotation(pVideoProcessor, StreamIndex, pEnable, pRotation) {
-        pEnableMarshal := pEnable is VarRef ? "int*" : "ptr"
-        pRotationMarshal := pRotation is VarRef ? "int*" : "ptr"
+        pEnableMarshal := pEnable is VarRef ? "int*" : IntPtr
+        pRotationMarshal := pRotation is VarRef ? "int*" : IntPtr
 
         ComCall(64, this, "ptr", pVideoProcessor, UInt32, StreamIndex, pEnableMarshal, pEnable, pRotationMarshal, pRotation)
     }
@@ -1326,64 +1346,64 @@ export default struct ID3D11VideoContext extends ID3D11DeviceChild {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDecoderBuffer := CallbackCreate(GetMethod(implObj, "GetDecoderBuffer"), flags, 5)
-        this.vtbl.ReleaseDecoderBuffer := CallbackCreate(GetMethod(implObj, "ReleaseDecoderBuffer"), flags, 3)
-        this.vtbl.DecoderBeginFrame := CallbackCreate(GetMethod(implObj, "DecoderBeginFrame"), flags, 5)
-        this.vtbl.DecoderEndFrame := CallbackCreate(GetMethod(implObj, "DecoderEndFrame"), flags, 2)
-        this.vtbl.SubmitDecoderBuffers := CallbackCreate(GetMethod(implObj, "SubmitDecoderBuffers"), flags, 4)
-        this.vtbl.DecoderExtension := CallbackCreate(GetMethod(implObj, "DecoderExtension"), flags, 3)
-        this.vtbl.VideoProcessorSetOutputTargetRect := CallbackCreate(GetMethod(implObj, "VideoProcessorSetOutputTargetRect"), flags, 4)
-        this.vtbl.VideoProcessorSetOutputBackgroundColor := CallbackCreate(GetMethod(implObj, "VideoProcessorSetOutputBackgroundColor"), flags, 4)
-        this.vtbl.VideoProcessorSetOutputColorSpace := CallbackCreate(GetMethod(implObj, "VideoProcessorSetOutputColorSpace"), flags, 3)
-        this.vtbl.VideoProcessorSetOutputAlphaFillMode := CallbackCreate(GetMethod(implObj, "VideoProcessorSetOutputAlphaFillMode"), flags, 4)
-        this.vtbl.VideoProcessorSetOutputConstriction := CallbackCreate(GetMethod(implObj, "VideoProcessorSetOutputConstriction"), flags, 4)
-        this.vtbl.VideoProcessorSetOutputStereoMode := CallbackCreate(GetMethod(implObj, "VideoProcessorSetOutputStereoMode"), flags, 3)
-        this.vtbl.VideoProcessorSetOutputExtension := CallbackCreate(GetMethod(implObj, "VideoProcessorSetOutputExtension"), flags, 5)
-        this.vtbl.VideoProcessorGetOutputTargetRect := CallbackCreate(GetMethod(implObj, "VideoProcessorGetOutputTargetRect"), flags, 4)
-        this.vtbl.VideoProcessorGetOutputBackgroundColor := CallbackCreate(GetMethod(implObj, "VideoProcessorGetOutputBackgroundColor"), flags, 4)
-        this.vtbl.VideoProcessorGetOutputColorSpace := CallbackCreate(GetMethod(implObj, "VideoProcessorGetOutputColorSpace"), flags, 3)
-        this.vtbl.VideoProcessorGetOutputAlphaFillMode := CallbackCreate(GetMethod(implObj, "VideoProcessorGetOutputAlphaFillMode"), flags, 4)
-        this.vtbl.VideoProcessorGetOutputConstriction := CallbackCreate(GetMethod(implObj, "VideoProcessorGetOutputConstriction"), flags, 4)
-        this.vtbl.VideoProcessorGetOutputStereoMode := CallbackCreate(GetMethod(implObj, "VideoProcessorGetOutputStereoMode"), flags, 3)
-        this.vtbl.VideoProcessorGetOutputExtension := CallbackCreate(GetMethod(implObj, "VideoProcessorGetOutputExtension"), flags, 5)
-        this.vtbl.VideoProcessorSetStreamFrameFormat := CallbackCreate(GetMethod(implObj, "VideoProcessorSetStreamFrameFormat"), flags, 4)
-        this.vtbl.VideoProcessorSetStreamColorSpace := CallbackCreate(GetMethod(implObj, "VideoProcessorSetStreamColorSpace"), flags, 4)
-        this.vtbl.VideoProcessorSetStreamOutputRate := CallbackCreate(GetMethod(implObj, "VideoProcessorSetStreamOutputRate"), flags, 6)
-        this.vtbl.VideoProcessorSetStreamSourceRect := CallbackCreate(GetMethod(implObj, "VideoProcessorSetStreamSourceRect"), flags, 5)
-        this.vtbl.VideoProcessorSetStreamDestRect := CallbackCreate(GetMethod(implObj, "VideoProcessorSetStreamDestRect"), flags, 5)
-        this.vtbl.VideoProcessorSetStreamAlpha := CallbackCreate(GetMethod(implObj, "VideoProcessorSetStreamAlpha"), flags, 5)
-        this.vtbl.VideoProcessorSetStreamPalette := CallbackCreate(GetMethod(implObj, "VideoProcessorSetStreamPalette"), flags, 5)
-        this.vtbl.VideoProcessorSetStreamPixelAspectRatio := CallbackCreate(GetMethod(implObj, "VideoProcessorSetStreamPixelAspectRatio"), flags, 6)
-        this.vtbl.VideoProcessorSetStreamLumaKey := CallbackCreate(GetMethod(implObj, "VideoProcessorSetStreamLumaKey"), flags, 6)
-        this.vtbl.VideoProcessorSetStreamStereoFormat := CallbackCreate(GetMethod(implObj, "VideoProcessorSetStreamStereoFormat"), flags, 9)
-        this.vtbl.VideoProcessorSetStreamAutoProcessingMode := CallbackCreate(GetMethod(implObj, "VideoProcessorSetStreamAutoProcessingMode"), flags, 4)
-        this.vtbl.VideoProcessorSetStreamFilter := CallbackCreate(GetMethod(implObj, "VideoProcessorSetStreamFilter"), flags, 6)
-        this.vtbl.VideoProcessorSetStreamExtension := CallbackCreate(GetMethod(implObj, "VideoProcessorSetStreamExtension"), flags, 6)
-        this.vtbl.VideoProcessorGetStreamFrameFormat := CallbackCreate(GetMethod(implObj, "VideoProcessorGetStreamFrameFormat"), flags, 4)
-        this.vtbl.VideoProcessorGetStreamColorSpace := CallbackCreate(GetMethod(implObj, "VideoProcessorGetStreamColorSpace"), flags, 4)
-        this.vtbl.VideoProcessorGetStreamOutputRate := CallbackCreate(GetMethod(implObj, "VideoProcessorGetStreamOutputRate"), flags, 6)
-        this.vtbl.VideoProcessorGetStreamSourceRect := CallbackCreate(GetMethod(implObj, "VideoProcessorGetStreamSourceRect"), flags, 5)
-        this.vtbl.VideoProcessorGetStreamDestRect := CallbackCreate(GetMethod(implObj, "VideoProcessorGetStreamDestRect"), flags, 5)
-        this.vtbl.VideoProcessorGetStreamAlpha := CallbackCreate(GetMethod(implObj, "VideoProcessorGetStreamAlpha"), flags, 5)
-        this.vtbl.VideoProcessorGetStreamPalette := CallbackCreate(GetMethod(implObj, "VideoProcessorGetStreamPalette"), flags, 5)
-        this.vtbl.VideoProcessorGetStreamPixelAspectRatio := CallbackCreate(GetMethod(implObj, "VideoProcessorGetStreamPixelAspectRatio"), flags, 6)
-        this.vtbl.VideoProcessorGetStreamLumaKey := CallbackCreate(GetMethod(implObj, "VideoProcessorGetStreamLumaKey"), flags, 6)
-        this.vtbl.VideoProcessorGetStreamStereoFormat := CallbackCreate(GetMethod(implObj, "VideoProcessorGetStreamStereoFormat"), flags, 9)
-        this.vtbl.VideoProcessorGetStreamAutoProcessingMode := CallbackCreate(GetMethod(implObj, "VideoProcessorGetStreamAutoProcessingMode"), flags, 4)
-        this.vtbl.VideoProcessorGetStreamFilter := CallbackCreate(GetMethod(implObj, "VideoProcessorGetStreamFilter"), flags, 6)
-        this.vtbl.VideoProcessorGetStreamExtension := CallbackCreate(GetMethod(implObj, "VideoProcessorGetStreamExtension"), flags, 6)
-        this.vtbl.VideoProcessorBlt := CallbackCreate(GetMethod(implObj, "VideoProcessorBlt"), flags, 6)
-        this.vtbl.NegotiateCryptoSessionKeyExchange := CallbackCreate(GetMethod(implObj, "NegotiateCryptoSessionKeyExchange"), flags, 4)
-        this.vtbl.EncryptionBlt := CallbackCreate(GetMethod(implObj, "EncryptionBlt"), flags, 6)
-        this.vtbl.DecryptionBlt := CallbackCreate(GetMethod(implObj, "DecryptionBlt"), flags, 9)
-        this.vtbl.StartSessionKeyRefresh := CallbackCreate(GetMethod(implObj, "StartSessionKeyRefresh"), flags, 4)
-        this.vtbl.FinishSessionKeyRefresh := CallbackCreate(GetMethod(implObj, "FinishSessionKeyRefresh"), flags, 2)
-        this.vtbl.GetEncryptionBltKey := CallbackCreate(GetMethod(implObj, "GetEncryptionBltKey"), flags, 4)
-        this.vtbl.NegotiateAuthenticatedChannelKeyExchange := CallbackCreate(GetMethod(implObj, "NegotiateAuthenticatedChannelKeyExchange"), flags, 4)
-        this.vtbl.QueryAuthenticatedChannel := CallbackCreate(GetMethod(implObj, "QueryAuthenticatedChannel"), flags, 6)
-        this.vtbl.ConfigureAuthenticatedChannel := CallbackCreate(GetMethod(implObj, "ConfigureAuthenticatedChannel"), flags, 5)
-        this.vtbl.VideoProcessorSetStreamRotation := CallbackCreate(GetMethod(implObj, "VideoProcessorSetStreamRotation"), flags, 5)
-        this.vtbl.VideoProcessorGetStreamRotation := CallbackCreate(GetMethod(implObj, "VideoProcessorGetStreamRotation"), flags, 5)
+        this.vtbl.GetDecoderBuffer := CallbackCreate(ObjBindMethod(implObj, "GetDecoderBuffer"), flags, 5)
+        this.vtbl.ReleaseDecoderBuffer := CallbackCreate(ObjBindMethod(implObj, "ReleaseDecoderBuffer"), flags, 3)
+        this.vtbl.DecoderBeginFrame := CallbackCreate(ObjBindMethod(implObj, "DecoderBeginFrame"), flags, 5)
+        this.vtbl.DecoderEndFrame := CallbackCreate(ObjBindMethod(implObj, "DecoderEndFrame"), flags, 2)
+        this.vtbl.SubmitDecoderBuffers := CallbackCreate(ObjBindMethod(implObj, "SubmitDecoderBuffers"), flags, 4)
+        this.vtbl.DecoderExtension := CallbackCreate(ObjBindMethod(implObj, "DecoderExtension"), flags, 3)
+        this.vtbl.VideoProcessorSetOutputTargetRect := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorSetOutputTargetRect"), flags, 4)
+        this.vtbl.VideoProcessorSetOutputBackgroundColor := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorSetOutputBackgroundColor"), flags, 4)
+        this.vtbl.VideoProcessorSetOutputColorSpace := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorSetOutputColorSpace"), flags, 3)
+        this.vtbl.VideoProcessorSetOutputAlphaFillMode := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorSetOutputAlphaFillMode"), flags, 4)
+        this.vtbl.VideoProcessorSetOutputConstriction := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorSetOutputConstriction"), flags, 4)
+        this.vtbl.VideoProcessorSetOutputStereoMode := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorSetOutputStereoMode"), flags, 3)
+        this.vtbl.VideoProcessorSetOutputExtension := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorSetOutputExtension"), flags, 5)
+        this.vtbl.VideoProcessorGetOutputTargetRect := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorGetOutputTargetRect"), flags, 4)
+        this.vtbl.VideoProcessorGetOutputBackgroundColor := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorGetOutputBackgroundColor"), flags, 4)
+        this.vtbl.VideoProcessorGetOutputColorSpace := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorGetOutputColorSpace"), flags, 3)
+        this.vtbl.VideoProcessorGetOutputAlphaFillMode := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorGetOutputAlphaFillMode"), flags, 4)
+        this.vtbl.VideoProcessorGetOutputConstriction := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorGetOutputConstriction"), flags, 4)
+        this.vtbl.VideoProcessorGetOutputStereoMode := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorGetOutputStereoMode"), flags, 3)
+        this.vtbl.VideoProcessorGetOutputExtension := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorGetOutputExtension"), flags, 5)
+        this.vtbl.VideoProcessorSetStreamFrameFormat := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorSetStreamFrameFormat"), flags, 4)
+        this.vtbl.VideoProcessorSetStreamColorSpace := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorSetStreamColorSpace"), flags, 4)
+        this.vtbl.VideoProcessorSetStreamOutputRate := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorSetStreamOutputRate"), flags, 6)
+        this.vtbl.VideoProcessorSetStreamSourceRect := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorSetStreamSourceRect"), flags, 5)
+        this.vtbl.VideoProcessorSetStreamDestRect := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorSetStreamDestRect"), flags, 5)
+        this.vtbl.VideoProcessorSetStreamAlpha := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorSetStreamAlpha"), flags, 5)
+        this.vtbl.VideoProcessorSetStreamPalette := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorSetStreamPalette"), flags, 5)
+        this.vtbl.VideoProcessorSetStreamPixelAspectRatio := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorSetStreamPixelAspectRatio"), flags, 6)
+        this.vtbl.VideoProcessorSetStreamLumaKey := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorSetStreamLumaKey"), flags, 6)
+        this.vtbl.VideoProcessorSetStreamStereoFormat := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorSetStreamStereoFormat"), flags, 9)
+        this.vtbl.VideoProcessorSetStreamAutoProcessingMode := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorSetStreamAutoProcessingMode"), flags, 4)
+        this.vtbl.VideoProcessorSetStreamFilter := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorSetStreamFilter"), flags, 6)
+        this.vtbl.VideoProcessorSetStreamExtension := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorSetStreamExtension"), flags, 6)
+        this.vtbl.VideoProcessorGetStreamFrameFormat := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorGetStreamFrameFormat"), flags, 4)
+        this.vtbl.VideoProcessorGetStreamColorSpace := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorGetStreamColorSpace"), flags, 4)
+        this.vtbl.VideoProcessorGetStreamOutputRate := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorGetStreamOutputRate"), flags, 6)
+        this.vtbl.VideoProcessorGetStreamSourceRect := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorGetStreamSourceRect"), flags, 5)
+        this.vtbl.VideoProcessorGetStreamDestRect := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorGetStreamDestRect"), flags, 5)
+        this.vtbl.VideoProcessorGetStreamAlpha := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorGetStreamAlpha"), flags, 5)
+        this.vtbl.VideoProcessorGetStreamPalette := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorGetStreamPalette"), flags, 5)
+        this.vtbl.VideoProcessorGetStreamPixelAspectRatio := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorGetStreamPixelAspectRatio"), flags, 6)
+        this.vtbl.VideoProcessorGetStreamLumaKey := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorGetStreamLumaKey"), flags, 6)
+        this.vtbl.VideoProcessorGetStreamStereoFormat := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorGetStreamStereoFormat"), flags, 9)
+        this.vtbl.VideoProcessorGetStreamAutoProcessingMode := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorGetStreamAutoProcessingMode"), flags, 4)
+        this.vtbl.VideoProcessorGetStreamFilter := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorGetStreamFilter"), flags, 6)
+        this.vtbl.VideoProcessorGetStreamExtension := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorGetStreamExtension"), flags, 6)
+        this.vtbl.VideoProcessorBlt := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorBlt"), flags, 6)
+        this.vtbl.NegotiateCryptoSessionKeyExchange := CallbackCreate(ObjBindMethod(implObj, "NegotiateCryptoSessionKeyExchange"), flags, 4)
+        this.vtbl.EncryptionBlt := CallbackCreate(ObjBindMethod(implObj, "EncryptionBlt"), flags, 6)
+        this.vtbl.DecryptionBlt := CallbackCreate(ObjBindMethod(implObj, "DecryptionBlt"), flags, 9)
+        this.vtbl.StartSessionKeyRefresh := CallbackCreate(ObjBindMethod(implObj, "StartSessionKeyRefresh"), flags, 4)
+        this.vtbl.FinishSessionKeyRefresh := CallbackCreate(ObjBindMethod(implObj, "FinishSessionKeyRefresh"), flags, 2)
+        this.vtbl.GetEncryptionBltKey := CallbackCreate(ObjBindMethod(implObj, "GetEncryptionBltKey"), flags, 4)
+        this.vtbl.NegotiateAuthenticatedChannelKeyExchange := CallbackCreate(ObjBindMethod(implObj, "NegotiateAuthenticatedChannelKeyExchange"), flags, 4)
+        this.vtbl.QueryAuthenticatedChannel := CallbackCreate(ObjBindMethod(implObj, "QueryAuthenticatedChannel"), flags, 6)
+        this.vtbl.ConfigureAuthenticatedChannel := CallbackCreate(ObjBindMethod(implObj, "ConfigureAuthenticatedChannel"), flags, 5)
+        this.vtbl.VideoProcessorSetStreamRotation := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorSetStreamRotation"), flags, 5)
+        this.vtbl.VideoProcessorGetStreamRotation := CallbackCreate(ObjBindMethod(implObj, "VideoProcessorGetStreamRotation"), flags, 5)
     }
 
     Dispose() {

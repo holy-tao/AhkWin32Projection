@@ -77,7 +77,7 @@ export default struct IDVRGB219 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetRGB219 := CallbackCreate(GetMethod(implObj, "SetRGB219"), flags, 2)
+        this.vtbl.SetRGB219 := CallbackCreate(ObjBindMethod(implObj, "SetRGB219"), flags, 2)
     }
 
     Dispose() {

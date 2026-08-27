@@ -46,7 +46,6 @@ export default struct IPrintWorkflowObjectModelSourceFileContentNative extends I
     }
 
     /**
-     * 
      * @param {IPrintWorkflowXpsReceiver} receiver 
      * @returns {HRESULT} 
      */
@@ -56,7 +55,6 @@ export default struct IPrintWorkflowObjectModelSourceFileContentNative extends I
     }
 
     /**
-     * 
      * @returns {IXpsOMObjectFactory1} 
      */
     get_ObjectFactory() {
@@ -73,8 +71,8 @@ export default struct IPrintWorkflowObjectModelSourceFileContentNative extends I
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StartXpsOMGeneration := CallbackCreate(GetMethod(implObj, "StartXpsOMGeneration"), flags, 2)
-        this.vtbl.get_ObjectFactory := CallbackCreate(GetMethod(implObj, "get_ObjectFactory"), flags, 2)
+        this.vtbl.StartXpsOMGeneration := CallbackCreate(ObjBindMethod(implObj, "StartXpsOMGeneration"), flags, 2)
+        this.vtbl.get_ObjectFactory := CallbackCreate(ObjBindMethod(implObj, "get_ObjectFactory"), flags, 2)
     }
 
     Dispose() {

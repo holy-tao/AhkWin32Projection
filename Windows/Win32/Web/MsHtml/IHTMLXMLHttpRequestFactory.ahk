@@ -43,7 +43,6 @@ export default struct IHTMLXMLHttpRequestFactory extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLXMLHttpRequest} 
      */
     create() {
@@ -60,7 +59,7 @@ export default struct IHTMLXMLHttpRequestFactory extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.create := CallbackCreate(GetMethod(implObj, "create"), flags, 2)
+        this.vtbl.create := CallbackCreate(ObjBindMethod(implObj, "create"), flags, 2)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct MI_ProviderFT_Subscribe {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} self 
      * @param {Pointer<MI_Context>} _context 
      * @param {Pointer<Integer>} nameSpace 
@@ -32,13 +31,16 @@ export default struct MI_ProviderFT_Subscribe {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(self, _context, nameSpace, className, filter, bookmark, subscriptionID, subscriptionSelf) {
-        selfMarshal := self is VarRef ? "ptr" : "ptr"
-        nameSpaceMarshal := nameSpace is VarRef ? "ushort*" : "ptr"
-        classNameMarshal := className is VarRef ? "ushort*" : "ptr"
-        bookmarkMarshal := bookmark is VarRef ? "ushort*" : "ptr"
-        subscriptionSelfMarshal := subscriptionSelf is VarRef ? "ptr*" : "ptr"
+        selfMarshal := self is VarRef ? "ptr" : IntPtr
+        selfMarshal := self == 0 ? IntPtr : "ptr"
+        nameSpaceMarshal := nameSpace is VarRef ? "ushort*" : IntPtr
+        classNameMarshal := className is VarRef ? "ushort*" : IntPtr
+        filterMarshal := filter == 0 ? IntPtr : MI_Filter.Ptr
+        bookmarkMarshal := bookmark is VarRef ? "ushort*" : IntPtr
+        bookmarkMarshal := bookmark == 0 ? IntPtr : "ushort*"
+        subscriptionSelfMarshal := subscriptionSelf is VarRef ? "ptr*" : IntPtr
 
-        DllCall(this.value, selfMarshal, self, MI_Context.Ptr, _context, nameSpaceMarshal, nameSpace, classNameMarshal, className, MI_Filter.Ptr, filter, bookmarkMarshal, bookmark, Int64, subscriptionID, subscriptionSelfMarshal, subscriptionSelf)
+        DllCall(this.value, selfMarshal, self, MI_Context.Ptr, _context, nameSpaceMarshal, nameSpace, classNameMarshal, className, filterMarshal, filter, bookmarkMarshal, bookmark, Int64, subscriptionID, subscriptionSelfMarshal, subscriptionSelf)
     }
 
     /**

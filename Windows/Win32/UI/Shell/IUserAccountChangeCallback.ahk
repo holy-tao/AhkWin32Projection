@@ -85,7 +85,7 @@ export default struct IUserAccountChangeCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnPictureChange := CallbackCreate(GetMethod(implObj, "OnPictureChange"), flags, 2)
+        this.vtbl.OnPictureChange := CallbackCreate(ObjBindMethod(implObj, "OnPictureChange"), flags, 2)
     }
 
     Dispose() {

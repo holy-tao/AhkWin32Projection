@@ -20,7 +20,6 @@ export default struct PFND3DKMT_GETDISPLAYMODELIST {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_GETDISPLAYMODELIST>} param0 
      * @returns {NTSTATUS} 
      */

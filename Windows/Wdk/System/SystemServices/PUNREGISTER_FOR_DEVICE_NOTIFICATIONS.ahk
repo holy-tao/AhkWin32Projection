@@ -20,7 +20,6 @@ export default struct PUNREGISTER_FOR_DEVICE_NOTIFICATIONS {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} param0 
      * @param {Pointer<PDEVICE_NOTIFY_CALLBACK>} param1 
      * @returns {String} Nothing - always returns an empty string

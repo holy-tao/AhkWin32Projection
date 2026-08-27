@@ -78,7 +78,6 @@ export default struct ISClusPartitionEx extends ISClusPartition {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_TotalSize() {
@@ -87,7 +86,6 @@ export default struct ISClusPartitionEx extends ISClusPartition {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_FreeSpace() {
@@ -96,7 +94,6 @@ export default struct ISClusPartitionEx extends ISClusPartition {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_DeviceNumber() {
@@ -105,7 +102,6 @@ export default struct ISClusPartitionEx extends ISClusPartition {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PartitionNumber() {
@@ -114,7 +110,6 @@ export default struct ISClusPartitionEx extends ISClusPartition {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_VolumeGuid() {
@@ -132,11 +127,11 @@ export default struct ISClusPartitionEx extends ISClusPartition {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_TotalSize := CallbackCreate(GetMethod(implObj, "get_TotalSize"), flags, 2)
-        this.vtbl.get_FreeSpace := CallbackCreate(GetMethod(implObj, "get_FreeSpace"), flags, 2)
-        this.vtbl.get_DeviceNumber := CallbackCreate(GetMethod(implObj, "get_DeviceNumber"), flags, 2)
-        this.vtbl.get_PartitionNumber := CallbackCreate(GetMethod(implObj, "get_PartitionNumber"), flags, 2)
-        this.vtbl.get_VolumeGuid := CallbackCreate(GetMethod(implObj, "get_VolumeGuid"), flags, 2)
+        this.vtbl.get_TotalSize := CallbackCreate(ObjBindMethod(implObj, "get_TotalSize"), flags, 2)
+        this.vtbl.get_FreeSpace := CallbackCreate(ObjBindMethod(implObj, "get_FreeSpace"), flags, 2)
+        this.vtbl.get_DeviceNumber := CallbackCreate(ObjBindMethod(implObj, "get_DeviceNumber"), flags, 2)
+        this.vtbl.get_PartitionNumber := CallbackCreate(ObjBindMethod(implObj, "get_PartitionNumber"), flags, 2)
+        this.vtbl.get_VolumeGuid := CallbackCreate(ObjBindMethod(implObj, "get_VolumeGuid"), flags, 2)
     }
 
     Dispose() {

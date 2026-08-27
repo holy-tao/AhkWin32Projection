@@ -18,7 +18,6 @@ export default struct PSET_D3COLD_SUPPORT {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

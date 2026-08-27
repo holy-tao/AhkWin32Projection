@@ -58,8 +58,8 @@ export default struct IWICBitmapLock extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmaplock-getsize
      */
     GetSize(puiWidth, puiHeight) {
-        puiWidthMarshal := puiWidth is VarRef ? "uint*" : "ptr"
-        puiHeightMarshal := puiHeight is VarRef ? "uint*" : "ptr"
+        puiWidthMarshal := puiWidth is VarRef ? "uint*" : IntPtr
+        puiHeightMarshal := puiHeight is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, puiWidthMarshal, puiWidth, puiHeightMarshal, puiHeight, "HRESULT")
         return result
@@ -96,8 +96,8 @@ export default struct IWICBitmapLock extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmaplock-getdatapointer
      */
     GetDataPointer(pcbBufferSize, ppbData) {
-        pcbBufferSizeMarshal := pcbBufferSize is VarRef ? "uint*" : "ptr"
-        ppbDataMarshal := ppbData is VarRef ? "ptr*" : "ptr"
+        pcbBufferSizeMarshal := pcbBufferSize is VarRef ? "uint*" : IntPtr
+        ppbDataMarshal := ppbData is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, pcbBufferSizeMarshal, pcbBufferSize, ppbDataMarshal, ppbData, "HRESULT")
         return result
@@ -125,10 +125,10 @@ export default struct IWICBitmapLock extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSize := CallbackCreate(GetMethod(implObj, "GetSize"), flags, 3)
-        this.vtbl.GetStride := CallbackCreate(GetMethod(implObj, "GetStride"), flags, 2)
-        this.vtbl.GetDataPointer := CallbackCreate(GetMethod(implObj, "GetDataPointer"), flags, 3)
-        this.vtbl.GetPixelFormat := CallbackCreate(GetMethod(implObj, "GetPixelFormat"), flags, 2)
+        this.vtbl.GetSize := CallbackCreate(ObjBindMethod(implObj, "GetSize"), flags, 3)
+        this.vtbl.GetStride := CallbackCreate(ObjBindMethod(implObj, "GetStride"), flags, 2)
+        this.vtbl.GetDataPointer := CallbackCreate(ObjBindMethod(implObj, "GetDataPointer"), flags, 3)
+        this.vtbl.GetPixelFormat := CallbackCreate(ObjBindMethod(implObj, "GetPixelFormat"), flags, 2)
     }
 
     Dispose() {

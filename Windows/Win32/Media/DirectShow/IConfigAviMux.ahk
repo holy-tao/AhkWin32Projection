@@ -133,10 +133,10 @@ export default struct IConfigAviMux extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetMasterStream := CallbackCreate(GetMethod(implObj, "SetMasterStream"), flags, 2)
-        this.vtbl.GetMasterStream := CallbackCreate(GetMethod(implObj, "GetMasterStream"), flags, 2)
-        this.vtbl.SetOutputCompatibilityIndex := CallbackCreate(GetMethod(implObj, "SetOutputCompatibilityIndex"), flags, 2)
-        this.vtbl.GetOutputCompatibilityIndex := CallbackCreate(GetMethod(implObj, "GetOutputCompatibilityIndex"), flags, 2)
+        this.vtbl.SetMasterStream := CallbackCreate(ObjBindMethod(implObj, "SetMasterStream"), flags, 2)
+        this.vtbl.GetMasterStream := CallbackCreate(ObjBindMethod(implObj, "GetMasterStream"), flags, 2)
+        this.vtbl.SetOutputCompatibilityIndex := CallbackCreate(ObjBindMethod(implObj, "SetOutputCompatibilityIndex"), flags, 2)
+        this.vtbl.GetOutputCompatibilityIndex := CallbackCreate(ObjBindMethod(implObj, "GetOutputCompatibilityIndex"), flags, 2)
     }
 
     Dispose() {

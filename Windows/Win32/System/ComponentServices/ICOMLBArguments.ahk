@@ -100,10 +100,10 @@ export default struct ICOMLBArguments extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCLSID := CallbackCreate(GetMethod(implObj, "GetCLSID"), flags, 2)
-        this.vtbl.SetCLSID := CallbackCreate(GetMethod(implObj, "SetCLSID"), flags, 2)
-        this.vtbl.GetMachineName := CallbackCreate(GetMethod(implObj, "GetMachineName"), flags, 3)
-        this.vtbl.SetMachineName := CallbackCreate(GetMethod(implObj, "SetMachineName"), flags, 3)
+        this.vtbl.GetCLSID := CallbackCreate(ObjBindMethod(implObj, "GetCLSID"), flags, 2)
+        this.vtbl.SetCLSID := CallbackCreate(ObjBindMethod(implObj, "SetCLSID"), flags, 2)
+        this.vtbl.GetMachineName := CallbackCreate(ObjBindMethod(implObj, "GetMachineName"), flags, 3)
+        this.vtbl.SetMachineName := CallbackCreate(ObjBindMethod(implObj, "SetMachineName"), flags, 3)
     }
 
     Dispose() {

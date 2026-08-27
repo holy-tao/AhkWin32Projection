@@ -86,8 +86,8 @@ export default struct ID2D1ImageSource extends ID2D1Image {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OfferResources := CallbackCreate(GetMethod(implObj, "OfferResources"), flags, 1)
-        this.vtbl.TryReclaimResources := CallbackCreate(GetMethod(implObj, "TryReclaimResources"), flags, 2)
+        this.vtbl.OfferResources := CallbackCreate(ObjBindMethod(implObj, "OfferResources"), flags, 1)
+        this.vtbl.TryReclaimResources := CallbackCreate(ObjBindMethod(implObj, "TryReclaimResources"), flags, 2)
     }
 
     Dispose() {

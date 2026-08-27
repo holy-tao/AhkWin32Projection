@@ -228,10 +228,10 @@ export default struct IMFMediaEventGenerator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetEvent := CallbackCreate(GetMethod(implObj, "GetEvent"), flags, 3)
-        this.vtbl.BeginGetEvent := CallbackCreate(GetMethod(implObj, "BeginGetEvent"), flags, 3)
-        this.vtbl.EndGetEvent := CallbackCreate(GetMethod(implObj, "EndGetEvent"), flags, 3)
-        this.vtbl.QueueEvent := CallbackCreate(GetMethod(implObj, "QueueEvent"), flags, 5)
+        this.vtbl.GetEvent := CallbackCreate(ObjBindMethod(implObj, "GetEvent"), flags, 3)
+        this.vtbl.BeginGetEvent := CallbackCreate(ObjBindMethod(implObj, "BeginGetEvent"), flags, 3)
+        this.vtbl.EndGetEvent := CallbackCreate(ObjBindMethod(implObj, "EndGetEvent"), flags, 3)
+        this.vtbl.QueueEvent := CallbackCreate(ObjBindMethod(implObj, "QueueEvent"), flags, 5)
     }
 
     Dispose() {

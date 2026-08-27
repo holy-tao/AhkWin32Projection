@@ -18,14 +18,13 @@ export default struct USER_MARSHAL_FREEING_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Void>} param1 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(param0, param1) {
-        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+        param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+        param1Marshal := param1 is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, param0Marshal, param0, param1Marshal, param1)
     }

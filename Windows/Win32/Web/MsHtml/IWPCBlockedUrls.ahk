@@ -38,7 +38,6 @@ export default struct IWPCBlockedUrls extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCount() {
@@ -47,7 +46,6 @@ export default struct IWPCBlockedUrls extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwIdx 
      * @returns {BSTR} 
      */
@@ -66,8 +64,8 @@ export default struct IWPCBlockedUrls extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
-        this.vtbl.GetUrl := CallbackCreate(GetMethod(implObj, "GetUrl"), flags, 3)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetUrl := CallbackCreate(ObjBindMethod(implObj, "GetUrl"), flags, 3)
     }
 
     Dispose() {

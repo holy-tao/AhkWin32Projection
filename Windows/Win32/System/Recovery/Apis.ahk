@@ -62,7 +62,8 @@
  * @since windows6.0.6000
  */
 export RegisterApplicationRecoveryCallback(pRecoveyCallback, pvParameter, dwPingInterval, dwFlags) {
-    pvParameterMarshal := pvParameter is VarRef ? "ptr" : "ptr"
+    pvParameterMarshal := pvParameter is VarRef ? "ptr" : IntPtr
+    pvParameterMarshal := pvParameter == 0 ? IntPtr : "ptr"
 
     result := DllCall("KERNEL32.dll\RegisterApplicationRecoveryCallback", APPLICATION_RECOVERY_CALLBACK, pRecoveyCallback, pvParameterMarshal, pvParameter, UInt32, dwPingInterval, UInt32, dwFlags, "HRESULT")
     return result
@@ -152,7 +153,9 @@ export UnregisterApplicationRecoveryCallback() {
 export RegisterApplicationRestart(pwzCommandline, dwFlags) {
     pwzCommandline := pwzCommandline is String ? StrPtr(pwzCommandline) : pwzCommandline
 
-    result := DllCall("KERNEL32.dll\RegisterApplicationRestart", "ptr", pwzCommandline, REGISTER_APPLICATION_RESTART_FLAGS, dwFlags, "HRESULT")
+    pwzCommandlineMarshal := pwzCommandline == 0 ? IntPtr : PWSTR
+
+    result := DllCall("KERNEL32.dll\RegisterApplicationRestart", pwzCommandlineMarshal, pwzCommandline, REGISTER_APPLICATION_RESTART_FLAGS, dwFlags, "HRESULT")
     return result
 }
 
@@ -228,10 +231,13 @@ export UnregisterApplicationRestart() {
  * @since windows6.0.6000
  */
 export GetApplicationRecoveryCallback(hProcess, pRecoveryCallback, ppvParameter, pdwPingInterval, pdwFlags) {
-    pRecoveryCallbackMarshal := pRecoveryCallback is VarRef ? "ptr*" : "ptr"
-    ppvParameterMarshal := ppvParameter is VarRef ? "ptr*" : "ptr"
-    pdwPingIntervalMarshal := pdwPingInterval is VarRef ? "uint*" : "ptr"
-    pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+    pRecoveryCallbackMarshal := pRecoveryCallback is VarRef ? "ptr*" : IntPtr
+    ppvParameterMarshal := ppvParameter is VarRef ? "ptr*" : IntPtr
+    ppvParameterMarshal := ppvParameter == 0 ? IntPtr : "ptr*"
+    pdwPingIntervalMarshal := pdwPingInterval is VarRef ? "uint*" : IntPtr
+    pdwPingIntervalMarshal := pdwPingInterval == 0 ? IntPtr : "uint*"
+    pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : IntPtr
+    pdwFlagsMarshal := pdwFlags == 0 ? IntPtr : "uint*"
 
     result := DllCall("KERNEL32.dll\GetApplicationRecoveryCallback", HANDLE, hProcess, pRecoveryCallbackMarshal, pRecoveryCallback, ppvParameterMarshal, ppvParameter, pdwPingIntervalMarshal, pdwPingInterval, pdwFlagsMarshal, pdwFlags, Int32)
     return result
@@ -257,9 +263,10 @@ export GetApplicationRecoveryCallback(hProcess, pRecoveryCallback, ppvParameter,
 export GetApplicationRestartSettings(hProcess, pwzCommandline, pcchSize) {
     pwzCommandline := pwzCommandline is String ? StrPtr(pwzCommandline) : pwzCommandline
 
-    pcchSizeMarshal := pcchSize is VarRef ? "uint*" : "ptr"
+    pwzCommandlineMarshal := pwzCommandline == 0 ? IntPtr : PWSTR
+    pcchSizeMarshal := pcchSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("KERNEL32.dll\GetApplicationRestartSettings", HANDLE, hProcess, "ptr", pwzCommandline, pcchSizeMarshal, pcchSize, "uint*", &pdwFlags := 0, "HRESULT")
+    result := DllCall("KERNEL32.dll\GetApplicationRestartSettings", HANDLE, hProcess, pwzCommandlineMarshal, pwzCommandline, pcchSizeMarshal, pcchSize, "uint*", &pdwFlags := 0, "HRESULT")
     return pdwFlags
 }
 

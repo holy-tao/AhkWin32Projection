@@ -111,7 +111,7 @@ export default struct ICallFrame extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframe-getiidandmethod
      */
     GetIIDAndMethod(pIID, piMethod) {
-        piMethodMarshal := piMethod is VarRef ? "uint*" : "ptr"
+        piMethodMarshal := piMethod is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, Guid.Ptr, pIID, piMethodMarshal, piMethod, "HRESULT")
         return result
@@ -154,8 +154,8 @@ export default struct ICallFrame extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframe-getnames
      */
     GetNames(pwszInterface, pwszMethod) {
-        pwszInterfaceMarshal := pwszInterface is VarRef ? "ptr*" : "ptr"
-        pwszMethodMarshal := pwszMethod is VarRef ? "ptr*" : "ptr"
+        pwszInterfaceMarshal := pwszInterface is VarRef ? "ptr*" : IntPtr
+        pwszMethodMarshal := pwszMethod is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, pwszInterfaceMarshal, pwszInterface, pwszMethodMarshal, pwszMethod, "HRESULT")
         return result
@@ -178,7 +178,7 @@ export default struct ICallFrame extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframe-setstacklocation
      */
     SetStackLocation(pvStack) {
-        pvStackMarshal := pvStack is VarRef ? "ptr" : "ptr"
+        pvStackMarshal := pvStack is VarRef ? "ptr" : IntPtr
 
         ComCall(7, this, pvStackMarshal, pvStack)
     }
@@ -471,10 +471,10 @@ export default struct ICallFrame extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframe-marshal
      */
     Marshal(pmshlContext, _mshlflags, pBuffer, cbBuffer, pcbBufferUsed, pdataRep, prpcFlags) {
-        pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
-        pcbBufferUsedMarshal := pcbBufferUsed is VarRef ? "uint*" : "ptr"
-        pdataRepMarshal := pdataRep is VarRef ? "uint*" : "ptr"
-        prpcFlagsMarshal := prpcFlags is VarRef ? "uint*" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "ptr" : IntPtr
+        pcbBufferUsedMarshal := pcbBufferUsed is VarRef ? "uint*" : IntPtr
+        pdataRepMarshal := pdataRep is VarRef ? "uint*" : IntPtr
+        prpcFlagsMarshal := prpcFlags is VarRef ? "uint*" : IntPtr
 
         result := ComCall(18, this, CALLFRAME_MARSHALCONTEXT.Ptr, pmshlContext, MSHLFLAGS, _mshlflags, pBufferMarshal, pBuffer, UInt32, cbBuffer, pcbBufferUsedMarshal, pcbBufferUsed, pdataRepMarshal, pdataRep, prpcFlagsMarshal, prpcFlags, "HRESULT")
         return result
@@ -492,7 +492,7 @@ export default struct ICallFrame extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframe-unmarshal
      */
     Unmarshal(pBuffer, cbBuffer, dataRep, pcontext) {
-        pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "ptr" : IntPtr
 
         result := ComCall(19, this, pBufferMarshal, pBuffer, UInt32, cbBuffer, UInt32, dataRep, CALLFRAME_MARSHALCONTEXT.Ptr, pcontext, "uint*", &pcbUnmarshalled := 0, "HRESULT")
         return pcbUnmarshalled
@@ -542,7 +542,7 @@ export default struct ICallFrame extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframe-releasemarshaldata
      */
     ReleaseMarshalData(pBuffer, cbBuffer, ibFirstRelease, dataRep, pcontext) {
-        pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "ptr" : IntPtr
 
         result := ComCall(20, this, pBufferMarshal, pBuffer, UInt32, cbBuffer, UInt32, ibFirstRelease, UInt32, dataRep, CALLFRAME_MARSHALCONTEXT.Ptr, pcontext, "HRESULT")
         return result
@@ -597,7 +597,7 @@ export default struct ICallFrame extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframe-invoke
      */
     Invoke(pvReceiver) {
-        pvReceiverMarshal := pvReceiver is VarRef ? "ptr" : "ptr"
+        pvReceiverMarshal := pvReceiver is VarRef ? "ptr" : IntPtr
 
         result := ComCall(21, this, pvReceiverMarshal, pvReceiver, "HRESULT")
         return result
@@ -612,25 +612,25 @@ export default struct ICallFrame extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetInfo := CallbackCreate(GetMethod(implObj, "GetInfo"), flags, 2)
-        this.vtbl.GetIIDAndMethod := CallbackCreate(GetMethod(implObj, "GetIIDAndMethod"), flags, 3)
-        this.vtbl.GetNames := CallbackCreate(GetMethod(implObj, "GetNames"), flags, 3)
-        this.vtbl.GetStackLocation := CallbackCreate(GetMethod(implObj, "GetStackLocation"), flags, 1)
-        this.vtbl.SetStackLocation := CallbackCreate(GetMethod(implObj, "SetStackLocation"), flags, 2)
-        this.vtbl.SetReturnValue := CallbackCreate(GetMethod(implObj, "SetReturnValue"), flags, 2)
-        this.vtbl.GetReturnValue := CallbackCreate(GetMethod(implObj, "GetReturnValue"), flags, 1)
-        this.vtbl.GetParamInfo := CallbackCreate(GetMethod(implObj, "GetParamInfo"), flags, 3)
-        this.vtbl.SetParam := CallbackCreate(GetMethod(implObj, "SetParam"), flags, 3)
-        this.vtbl.GetParam := CallbackCreate(GetMethod(implObj, "GetParam"), flags, 3)
-        this.vtbl.Copy := CallbackCreate(GetMethod(implObj, "Copy"), flags, 4)
-        this.vtbl.Free := CallbackCreate(GetMethod(implObj, "Free"), flags, 7)
-        this.vtbl.FreeParam := CallbackCreate(GetMethod(implObj, "FreeParam"), flags, 5)
-        this.vtbl.WalkFrame := CallbackCreate(GetMethod(implObj, "WalkFrame"), flags, 3)
-        this.vtbl.GetMarshalSizeMax := CallbackCreate(GetMethod(implObj, "GetMarshalSizeMax"), flags, 4)
-        this.vtbl.Marshal := CallbackCreate(GetMethod(implObj, "Marshal"), flags, 8)
-        this.vtbl.Unmarshal := CallbackCreate(GetMethod(implObj, "Unmarshal"), flags, 6)
-        this.vtbl.ReleaseMarshalData := CallbackCreate(GetMethod(implObj, "ReleaseMarshalData"), flags, 6)
-        this.vtbl.Invoke := CallbackCreate(GetMethod(implObj, "Invoke"), flags, 2)
+        this.vtbl.GetInfo := CallbackCreate(ObjBindMethod(implObj, "GetInfo"), flags, 2)
+        this.vtbl.GetIIDAndMethod := CallbackCreate(ObjBindMethod(implObj, "GetIIDAndMethod"), flags, 3)
+        this.vtbl.GetNames := CallbackCreate(ObjBindMethod(implObj, "GetNames"), flags, 3)
+        this.vtbl.GetStackLocation := CallbackCreate(ObjBindMethod(implObj, "GetStackLocation"), flags, 1)
+        this.vtbl.SetStackLocation := CallbackCreate(ObjBindMethod(implObj, "SetStackLocation"), flags, 2)
+        this.vtbl.SetReturnValue := CallbackCreate(ObjBindMethod(implObj, "SetReturnValue"), flags, 2)
+        this.vtbl.GetReturnValue := CallbackCreate(ObjBindMethod(implObj, "GetReturnValue"), flags, 1)
+        this.vtbl.GetParamInfo := CallbackCreate(ObjBindMethod(implObj, "GetParamInfo"), flags, 3)
+        this.vtbl.SetParam := CallbackCreate(ObjBindMethod(implObj, "SetParam"), flags, 3)
+        this.vtbl.GetParam := CallbackCreate(ObjBindMethod(implObj, "GetParam"), flags, 3)
+        this.vtbl.Copy := CallbackCreate(ObjBindMethod(implObj, "Copy"), flags, 4)
+        this.vtbl.Free := CallbackCreate(ObjBindMethod(implObj, "Free"), flags, 7)
+        this.vtbl.FreeParam := CallbackCreate(ObjBindMethod(implObj, "FreeParam"), flags, 5)
+        this.vtbl.WalkFrame := CallbackCreate(ObjBindMethod(implObj, "WalkFrame"), flags, 3)
+        this.vtbl.GetMarshalSizeMax := CallbackCreate(ObjBindMethod(implObj, "GetMarshalSizeMax"), flags, 4)
+        this.vtbl.Marshal := CallbackCreate(ObjBindMethod(implObj, "Marshal"), flags, 8)
+        this.vtbl.Unmarshal := CallbackCreate(ObjBindMethod(implObj, "Unmarshal"), flags, 6)
+        this.vtbl.ReleaseMarshalData := CallbackCreate(ObjBindMethod(implObj, "ReleaseMarshalData"), flags, 6)
+        this.vtbl.Invoke := CallbackCreate(ObjBindMethod(implObj, "Invoke"), flags, 2)
     }
 
     Dispose() {

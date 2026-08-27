@@ -212,8 +212,8 @@ export default struct IVssDifferentialSoftwareSnapshotMgmt extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt-adddiffarea
      */
     AddDiffArea(pwszVolumeName, pwszDiffAreaVolumeName, llMaximumDiffSpace) {
-        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
-        pwszDiffAreaVolumeNameMarshal := pwszDiffAreaVolumeName is VarRef ? "ushort*" : "ptr"
+        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : IntPtr
+        pwszDiffAreaVolumeNameMarshal := pwszDiffAreaVolumeName is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(3, this, pwszVolumeNameMarshal, pwszVolumeName, pwszDiffAreaVolumeNameMarshal, pwszDiffAreaVolumeName, Int64, llMaximumDiffSpace, "HRESULT")
         return result
@@ -368,8 +368,8 @@ export default struct IVssDifferentialSoftwareSnapshotMgmt extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt-changediffareamaximumsize
      */
     ChangeDiffAreaMaximumSize(pwszVolumeName, pwszDiffAreaVolumeName, llMaximumDiffSpace) {
-        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
-        pwszDiffAreaVolumeNameMarshal := pwszDiffAreaVolumeName is VarRef ? "ushort*" : "ptr"
+        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : IntPtr
+        pwszDiffAreaVolumeNameMarshal := pwszDiffAreaVolumeName is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(4, this, pwszVolumeNameMarshal, pwszVolumeName, pwszDiffAreaVolumeNameMarshal, pwszDiffAreaVolumeName, Int64, llMaximumDiffSpace, "HRESULT")
         return result
@@ -397,7 +397,7 @@ export default struct IVssDifferentialSoftwareSnapshotMgmt extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt-queryvolumessupportedfordiffareas
      */
     QueryVolumesSupportedForDiffAreas(pwszOriginalVolumeName) {
-        pwszOriginalVolumeNameMarshal := pwszOriginalVolumeName is VarRef ? "ushort*" : "ptr"
+        pwszOriginalVolumeNameMarshal := pwszOriginalVolumeName is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(5, this, pwszOriginalVolumeNameMarshal, pwszOriginalVolumeName, "ptr*", &ppEnum := 0, "HRESULT")
         return IVssEnumMgmtObject(ppEnum)
@@ -422,7 +422,7 @@ export default struct IVssDifferentialSoftwareSnapshotMgmt extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt-querydiffareasforvolume
      */
     QueryDiffAreasForVolume(pwszVolumeName) {
-        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
+        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(6, this, pwszVolumeNameMarshal, pwszVolumeName, "ptr*", &ppEnum := 0, "HRESULT")
         return IVssEnumMgmtObject(ppEnum)
@@ -450,7 +450,7 @@ export default struct IVssDifferentialSoftwareSnapshotMgmt extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt-querydiffareasonvolume
      */
     QueryDiffAreasOnVolume(pwszVolumeName) {
-        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
+        pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(7, this, pwszVolumeNameMarshal, pwszVolumeName, "ptr*", &ppEnum := 0, "HRESULT")
         return IVssEnumMgmtObject(ppEnum)
@@ -482,12 +482,12 @@ export default struct IVssDifferentialSoftwareSnapshotMgmt extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddDiffArea := CallbackCreate(GetMethod(implObj, "AddDiffArea"), flags, 4)
-        this.vtbl.ChangeDiffAreaMaximumSize := CallbackCreate(GetMethod(implObj, "ChangeDiffAreaMaximumSize"), flags, 4)
-        this.vtbl.QueryVolumesSupportedForDiffAreas := CallbackCreate(GetMethod(implObj, "QueryVolumesSupportedForDiffAreas"), flags, 3)
-        this.vtbl.QueryDiffAreasForVolume := CallbackCreate(GetMethod(implObj, "QueryDiffAreasForVolume"), flags, 3)
-        this.vtbl.QueryDiffAreasOnVolume := CallbackCreate(GetMethod(implObj, "QueryDiffAreasOnVolume"), flags, 3)
-        this.vtbl.QueryDiffAreasForSnapshot := CallbackCreate(GetMethod(implObj, "QueryDiffAreasForSnapshot"), flags, 3)
+        this.vtbl.AddDiffArea := CallbackCreate(ObjBindMethod(implObj, "AddDiffArea"), flags, 4)
+        this.vtbl.ChangeDiffAreaMaximumSize := CallbackCreate(ObjBindMethod(implObj, "ChangeDiffAreaMaximumSize"), flags, 4)
+        this.vtbl.QueryVolumesSupportedForDiffAreas := CallbackCreate(ObjBindMethod(implObj, "QueryVolumesSupportedForDiffAreas"), flags, 3)
+        this.vtbl.QueryDiffAreasForVolume := CallbackCreate(ObjBindMethod(implObj, "QueryDiffAreasForVolume"), flags, 3)
+        this.vtbl.QueryDiffAreasOnVolume := CallbackCreate(ObjBindMethod(implObj, "QueryDiffAreasOnVolume"), flags, 3)
+        this.vtbl.QueryDiffAreasForSnapshot := CallbackCreate(ObjBindMethod(implObj, "QueryDiffAreasForSnapshot"), flags, 3)
     }
 
     Dispose() {

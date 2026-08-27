@@ -156,7 +156,7 @@ export default struct INATNumberOfEntriesCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.NewNumberOfEntries := CallbackCreate(GetMethod(implObj, "NewNumberOfEntries"), flags, 2)
+        this.vtbl.NewNumberOfEntries := CallbackCreate(ObjBindMethod(implObj, "NewNumberOfEntries"), flags, 2)
     }
 
     Dispose() {

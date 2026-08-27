@@ -64,7 +64,7 @@ export default struct IDelegateFolder extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetItemAlloc := CallbackCreate(GetMethod(implObj, "SetItemAlloc"), flags, 2)
+        this.vtbl.SetItemAlloc := CallbackCreate(ObjBindMethod(implObj, "SetItemAlloc"), flags, 2)
     }
 
     Dispose() {

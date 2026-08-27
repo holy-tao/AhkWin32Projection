@@ -86,8 +86,8 @@ export default struct ID2D1BoundsAdjustmentTransform extends ID2D1TransformNode 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetOutputBounds := CallbackCreate(GetMethod(implObj, "SetOutputBounds"), flags, 2)
-        this.vtbl.GetOutputBounds := CallbackCreate(GetMethod(implObj, "GetOutputBounds"), flags, 2)
+        this.vtbl.SetOutputBounds := CallbackCreate(ObjBindMethod(implObj, "SetOutputBounds"), flags, 2)
+        this.vtbl.GetOutputBounds := CallbackCreate(ObjBindMethod(implObj, "GetOutputBounds"), flags, 2)
     }
 
     Dispose() {

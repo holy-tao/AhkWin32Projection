@@ -122,8 +122,8 @@ export default struct ITDirectoryObjectUser extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_IPPhonePrimary := CallbackCreate(GetMethod(implObj, "get_IPPhonePrimary"), flags, 2)
-        this.vtbl.put_IPPhonePrimary := CallbackCreate(GetMethod(implObj, "put_IPPhonePrimary"), flags, 2)
+        this.vtbl.get_IPPhonePrimary := CallbackCreate(ObjBindMethod(implObj, "get_IPPhonePrimary"), flags, 2)
+        this.vtbl.put_IPPhonePrimary := CallbackCreate(ObjBindMethod(implObj, "put_IPPhonePrimary"), flags, 2)
     }
 
     Dispose() {

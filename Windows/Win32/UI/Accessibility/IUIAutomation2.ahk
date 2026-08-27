@@ -159,12 +159,12 @@ export default struct IUIAutomation2 extends IUIAutomation {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_AutoSetFocus := CallbackCreate(GetMethod(implObj, "get_AutoSetFocus"), flags, 2)
-        this.vtbl.put_AutoSetFocus := CallbackCreate(GetMethod(implObj, "put_AutoSetFocus"), flags, 2)
-        this.vtbl.get_ConnectionTimeout := CallbackCreate(GetMethod(implObj, "get_ConnectionTimeout"), flags, 2)
-        this.vtbl.put_ConnectionTimeout := CallbackCreate(GetMethod(implObj, "put_ConnectionTimeout"), flags, 2)
-        this.vtbl.get_TransactionTimeout := CallbackCreate(GetMethod(implObj, "get_TransactionTimeout"), flags, 2)
-        this.vtbl.put_TransactionTimeout := CallbackCreate(GetMethod(implObj, "put_TransactionTimeout"), flags, 2)
+        this.vtbl.get_AutoSetFocus := CallbackCreate(ObjBindMethod(implObj, "get_AutoSetFocus"), flags, 2)
+        this.vtbl.put_AutoSetFocus := CallbackCreate(ObjBindMethod(implObj, "put_AutoSetFocus"), flags, 2)
+        this.vtbl.get_ConnectionTimeout := CallbackCreate(ObjBindMethod(implObj, "get_ConnectionTimeout"), flags, 2)
+        this.vtbl.put_ConnectionTimeout := CallbackCreate(ObjBindMethod(implObj, "put_ConnectionTimeout"), flags, 2)
+        this.vtbl.get_TransactionTimeout := CallbackCreate(ObjBindMethod(implObj, "get_TransactionTimeout"), flags, 2)
+        this.vtbl.put_TransactionTimeout := CallbackCreate(ObjBindMethod(implObj, "put_TransactionTimeout"), flags, 2)
     }
 
     Dispose() {

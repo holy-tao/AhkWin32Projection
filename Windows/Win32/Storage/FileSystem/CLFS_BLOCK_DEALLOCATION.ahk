@@ -18,14 +18,13 @@ export default struct CLFS_BLOCK_DEALLOCATION {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvBuffer 
      * @param {Pointer<Void>} pvUserContext 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(pvBuffer, pvUserContext) {
-        pvBufferMarshal := pvBuffer is VarRef ? "ptr" : "ptr"
-        pvUserContextMarshal := pvUserContext is VarRef ? "ptr" : "ptr"
+        pvBufferMarshal := pvBuffer is VarRef ? "ptr" : IntPtr
+        pvUserContextMarshal := pvUserContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, pvBufferMarshal, pvBuffer, pvUserContextMarshal, pvUserContext)
     }

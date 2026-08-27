@@ -163,11 +163,11 @@ export default struct IXMLHTTPRequest2Callback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnRedirect := CallbackCreate(GetMethod(implObj, "OnRedirect"), flags, 3)
-        this.vtbl.OnHeadersAvailable := CallbackCreate(GetMethod(implObj, "OnHeadersAvailable"), flags, 4)
-        this.vtbl.OnDataAvailable := CallbackCreate(GetMethod(implObj, "OnDataAvailable"), flags, 3)
-        this.vtbl.OnResponseReceived := CallbackCreate(GetMethod(implObj, "OnResponseReceived"), flags, 3)
-        this.vtbl.OnError := CallbackCreate(GetMethod(implObj, "OnError"), flags, 3)
+        this.vtbl.OnRedirect := CallbackCreate(ObjBindMethod(implObj, "OnRedirect"), flags, 3)
+        this.vtbl.OnHeadersAvailable := CallbackCreate(ObjBindMethod(implObj, "OnHeadersAvailable"), flags, 4)
+        this.vtbl.OnDataAvailable := CallbackCreate(ObjBindMethod(implObj, "OnDataAvailable"), flags, 3)
+        this.vtbl.OnResponseReceived := CallbackCreate(ObjBindMethod(implObj, "OnResponseReceived"), flags, 3)
+        this.vtbl.OnError := CallbackCreate(ObjBindMethod(implObj, "OnError"), flags, 3)
     }
 
     Dispose() {

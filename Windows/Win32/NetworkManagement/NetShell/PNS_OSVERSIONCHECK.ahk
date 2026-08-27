@@ -20,7 +20,6 @@ export default struct PNS_OSVERSIONCHECK {
     }
 
     /**
-     * 
      * @param {Integer} CIMOSType 
      * @param {Integer} CIMOSProductSuite 
      * @param {PWSTR} CIMOSVersion 

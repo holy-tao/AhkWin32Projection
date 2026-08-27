@@ -42,21 +42,20 @@ export default struct IEnumSpObjectTokens extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} celt 
      * @param {Pointer<ISpObjectToken>} pelt 
      * @param {Pointer<Integer>} pceltFetched 
      * @returns {HRESULT} 
      */
     Next(celt, pelt, pceltFetched) {
-        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
+        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : IntPtr
+        pceltFetchedMarshal := pceltFetched == 0 ? IntPtr : "uint*"
 
         result := ComCall(3, this, UInt32, celt, ISpObjectToken.Ptr, pelt, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} celt 
      * @returns {HRESULT} 
      */
@@ -66,7 +65,6 @@ export default struct IEnumSpObjectTokens extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -75,7 +73,6 @@ export default struct IEnumSpObjectTokens extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumSpObjectTokens} 
      */
     Clone() {
@@ -100,12 +97,11 @@ export default struct IEnumSpObjectTokens extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pCount 
      * @returns {HRESULT} 
      */
     GetCount(pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+        pCountMarshal := pCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, pCountMarshal, pCount, "HRESULT")
         return result
@@ -120,12 +116,12 @@ export default struct IEnumSpObjectTokens extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 4)
-        this.vtbl.Skip := CallbackCreate(GetMethod(implObj, "Skip"), flags, 2)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
-        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 3)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.Next := CallbackCreate(ObjBindMethod(implObj, "Next"), flags, 4)
+        this.vtbl.Skip := CallbackCreate(ObjBindMethod(implObj, "Skip"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.Item := CallbackCreate(ObjBindMethod(implObj, "Item"), flags, 3)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
     }
 
     Dispose() {

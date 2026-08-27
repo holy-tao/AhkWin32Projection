@@ -37,7 +37,6 @@ export default struct IVisualInteractionSourceInterop extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<POINTER_INFO>} pointerInfo 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,7 @@ export default struct IVisualInteractionSourceInterop extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.TryRedirectForManipulation := CallbackCreate(GetMethod(implObj, "TryRedirectForManipulation"), flags, 2)
+        this.vtbl.TryRedirectForManipulation := CallbackCreate(ObjBindMethod(implObj, "TryRedirectForManipulation"), flags, 2)
     }
 
     Dispose() {

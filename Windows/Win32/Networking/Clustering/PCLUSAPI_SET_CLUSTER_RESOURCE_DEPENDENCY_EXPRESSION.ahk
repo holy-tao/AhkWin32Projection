@@ -20,7 +20,6 @@ export default struct PCLUSAPI_SET_CLUSTER_RESOURCE_DEPENDENCY_EXPRESSION {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {PWSTR} lpszDependencyExpression 
      * @returns {Integer} 

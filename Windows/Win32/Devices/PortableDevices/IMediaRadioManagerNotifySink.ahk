@@ -41,7 +41,6 @@ export default struct IMediaRadioManagerNotifySink extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRadioInstance} pRadioInstance 
      * @returns {HRESULT} 
      */
@@ -51,7 +50,6 @@ export default struct IMediaRadioManagerNotifySink extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrRadioInstanceId 
      * @returns {HRESULT} 
      */
@@ -63,7 +61,6 @@ export default struct IMediaRadioManagerNotifySink extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrRadioInstanceId 
      * @param {DEVICE_RADIO_STATE} radioState 
      * @returns {HRESULT} 
@@ -84,9 +81,9 @@ export default struct IMediaRadioManagerNotifySink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnInstanceAdd := CallbackCreate(GetMethod(implObj, "OnInstanceAdd"), flags, 2)
-        this.vtbl.OnInstanceRemove := CallbackCreate(GetMethod(implObj, "OnInstanceRemove"), flags, 2)
-        this.vtbl.OnInstanceRadioChange := CallbackCreate(GetMethod(implObj, "OnInstanceRadioChange"), flags, 3)
+        this.vtbl.OnInstanceAdd := CallbackCreate(ObjBindMethod(implObj, "OnInstanceAdd"), flags, 2)
+        this.vtbl.OnInstanceRemove := CallbackCreate(ObjBindMethod(implObj, "OnInstanceRemove"), flags, 2)
+        this.vtbl.OnInstanceRadioChange := CallbackCreate(ObjBindMethod(implObj, "OnInstanceRadioChange"), flags, 3)
     }
 
     Dispose() {

@@ -39,7 +39,6 @@ export default struct ID3D12DeviceTools1 extends ID3D12DeviceTools {
     }
 
     /**
-     * 
      * @returns {ID3DBlob} 
      */
     GetApplicationSpecificDriverState() {
@@ -48,7 +47,6 @@ export default struct ID3D12DeviceTools1 extends ID3D12DeviceTools {
     }
 
     /**
-     * 
      * @returns {D3D12_APPLICATION_SPECIFIC_DRIVER_BLOB_STATUS} 
      */
     GetApplicationSpecificDriverBlobStatus() {
@@ -65,8 +63,8 @@ export default struct ID3D12DeviceTools1 extends ID3D12DeviceTools {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetApplicationSpecificDriverState := CallbackCreate(GetMethod(implObj, "GetApplicationSpecificDriverState"), flags, 2)
-        this.vtbl.GetApplicationSpecificDriverBlobStatus := CallbackCreate(GetMethod(implObj, "GetApplicationSpecificDriverBlobStatus"), flags, 1)
+        this.vtbl.GetApplicationSpecificDriverState := CallbackCreate(ObjBindMethod(implObj, "GetApplicationSpecificDriverState"), flags, 2)
+        this.vtbl.GetApplicationSpecificDriverBlobStatus := CallbackCreate(ObjBindMethod(implObj, "GetApplicationSpecificDriverBlobStatus"), flags, 1)
     }
 
     Dispose() {

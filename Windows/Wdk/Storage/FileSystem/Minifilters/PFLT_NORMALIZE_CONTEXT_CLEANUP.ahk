@@ -18,12 +18,12 @@ export default struct PFLT_NORMALIZE_CONTEXT_CLEANUP {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} NormalizationContext 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(NormalizationContext) {
-        NormalizationContextMarshal := NormalizationContext is VarRef ? "ptr*" : "ptr"
+        NormalizationContextMarshal := NormalizationContext is VarRef ? "ptr*" : IntPtr
+        NormalizationContextMarshal := NormalizationContext == 0 ? IntPtr : "ptr*"
 
         DllCall(this.value, NormalizationContextMarshal, NormalizationContext)
     }

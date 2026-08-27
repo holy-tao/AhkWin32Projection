@@ -41,7 +41,6 @@ export default struct IPrintPipelineFilter extends IUnknown {
     }
 
     /**
-     * 
      * @param {IInterFilterCommunicator} pINegotiation 
      * @param {IPrintPipelinePropertyBag} pIPropertyBag 
      * @param {IPrintPipelineManagerControl} pIPipelineControl 
@@ -53,7 +52,6 @@ export default struct IPrintPipelineFilter extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ShutdownOperation() {
@@ -62,7 +60,6 @@ export default struct IPrintPipelineFilter extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     StartOperation() {
@@ -79,9 +76,9 @@ export default struct IPrintPipelineFilter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeFilter := CallbackCreate(GetMethod(implObj, "InitializeFilter"), flags, 4)
-        this.vtbl.ShutdownOperation := CallbackCreate(GetMethod(implObj, "ShutdownOperation"), flags, 1)
-        this.vtbl.StartOperation := CallbackCreate(GetMethod(implObj, "StartOperation"), flags, 1)
+        this.vtbl.InitializeFilter := CallbackCreate(ObjBindMethod(implObj, "InitializeFilter"), flags, 4)
+        this.vtbl.ShutdownOperation := CallbackCreate(ObjBindMethod(implObj, "ShutdownOperation"), flags, 1)
+        this.vtbl.StartOperation := CallbackCreate(ObjBindMethod(implObj, "StartOperation"), flags, 1)
     }
 
     Dispose() {

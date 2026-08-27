@@ -102,9 +102,9 @@ export default struct IShellFolderViewDual2 extends IShellFolderViewDual {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_CurrentViewMode := CallbackCreate(GetMethod(implObj, "get_CurrentViewMode"), flags, 2)
-        this.vtbl.put_CurrentViewMode := CallbackCreate(GetMethod(implObj, "put_CurrentViewMode"), flags, 2)
-        this.vtbl.SelectItemRelative := CallbackCreate(GetMethod(implObj, "SelectItemRelative"), flags, 2)
+        this.vtbl.get_CurrentViewMode := CallbackCreate(ObjBindMethod(implObj, "get_CurrentViewMode"), flags, 2)
+        this.vtbl.put_CurrentViewMode := CallbackCreate(ObjBindMethod(implObj, "put_CurrentViewMode"), flags, 2)
+        this.vtbl.SelectItemRelative := CallbackCreate(ObjBindMethod(implObj, "SelectItemRelative"), flags, 2)
     }
 
     Dispose() {

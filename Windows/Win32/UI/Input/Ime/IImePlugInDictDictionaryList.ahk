@@ -50,8 +50,8 @@ export default struct IImePlugInDictDictionaryList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msimeapi/nf-msimeapi-iimeplugindictdictionarylist-getdictionariesinuse
      */
     GetDictionariesInUse(prgDateCreated, prgfEncrypted) {
-        prgDateCreatedMarshal := prgDateCreated is VarRef ? "ptr*" : "ptr"
-        prgfEncryptedMarshal := prgfEncrypted is VarRef ? "ptr*" : "ptr"
+        prgDateCreatedMarshal := prgDateCreated is VarRef ? "ptr*" : IntPtr
+        prgfEncryptedMarshal := prgfEncrypted is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, "ptr*", &prgDictionaryGUID := 0, prgDateCreatedMarshal, prgDateCreated, prgfEncryptedMarshal, prgfEncrypted, "HRESULT")
         return prgDictionaryGUID
@@ -119,8 +119,8 @@ export default struct IImePlugInDictDictionaryList extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDictionariesInUse := CallbackCreate(GetMethod(implObj, "GetDictionariesInUse"), flags, 4)
-        this.vtbl.DeleteDictionary := CallbackCreate(GetMethod(implObj, "DeleteDictionary"), flags, 2)
+        this.vtbl.GetDictionariesInUse := CallbackCreate(ObjBindMethod(implObj, "GetDictionariesInUse"), flags, 4)
+        this.vtbl.DeleteDictionary := CallbackCreate(ObjBindMethod(implObj, "DeleteDictionary"), flags, 2)
     }
 
     Dispose() {

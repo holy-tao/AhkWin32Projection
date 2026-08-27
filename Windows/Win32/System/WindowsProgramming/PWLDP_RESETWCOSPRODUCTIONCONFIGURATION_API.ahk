@@ -19,7 +19,6 @@ export default struct PWLDP_RESETWCOSPRODUCTIONCONFIGURATION_API {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Call() {

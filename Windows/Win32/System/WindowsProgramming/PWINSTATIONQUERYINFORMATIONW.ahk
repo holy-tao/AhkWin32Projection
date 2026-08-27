@@ -21,7 +21,6 @@ export default struct PWINSTATIONQUERYINFORMATIONW {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @param {Integer} param1 
      * @param {WINSTATIONINFOCLASS} param2 
@@ -31,8 +30,8 @@ export default struct PWINSTATIONQUERYINFORMATIONW {
      * @returns {BOOLEAN} 
      */
     Call(param0, param1, param2, param3, param4, param5) {
-        param3Marshal := param3 is VarRef ? "ptr" : "ptr"
-        param5Marshal := param5 is VarRef ? "uint*" : "ptr"
+        param3Marshal := param3 is VarRef ? "ptr" : IntPtr
+        param5Marshal := param5 is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HANDLE, param0, UInt32, param1, WINSTATIONINFOCLASS, param2, param3Marshal, param3, UInt32, param4, param5Marshal, param5, BOOLEAN)
         return result

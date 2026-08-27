@@ -60,7 +60,7 @@ export default struct ID3D10EffectVectorVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-setboolvector
      */
     SetBoolVector(pData) {
-        pDataMarshal := pData is VarRef ? "int*" : "ptr"
+        pDataMarshal := pData is VarRef ? "int*" : IntPtr
 
         result := ComCall(25, this, pDataMarshal, pData, "HRESULT")
         return result
@@ -77,7 +77,7 @@ export default struct ID3D10EffectVectorVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-setintvector
      */
     SetIntVector(pData) {
-        pDataMarshal := pData is VarRef ? "int*" : "ptr"
+        pDataMarshal := pData is VarRef ? "int*" : IntPtr
 
         result := ComCall(26, this, pDataMarshal, pData, "HRESULT")
         return result
@@ -94,7 +94,7 @@ export default struct ID3D10EffectVectorVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-setfloatvector
      */
     SetFloatVector(pData) {
-        pDataMarshal := pData is VarRef ? "float*" : "ptr"
+        pDataMarshal := pData is VarRef ? "float*" : IntPtr
 
         result := ComCall(27, this, pDataMarshal, pData, "HRESULT")
         return result
@@ -111,7 +111,7 @@ export default struct ID3D10EffectVectorVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-getboolvector
      */
     GetBoolVector(pData) {
-        pDataMarshal := pData is VarRef ? "int*" : "ptr"
+        pDataMarshal := pData is VarRef ? "int*" : IntPtr
 
         result := ComCall(28, this, pDataMarshal, pData, "HRESULT")
         return result
@@ -128,7 +128,7 @@ export default struct ID3D10EffectVectorVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-getintvector
      */
     GetIntVector(pData) {
-        pDataMarshal := pData is VarRef ? "int*" : "ptr"
+        pDataMarshal := pData is VarRef ? "int*" : IntPtr
 
         result := ComCall(29, this, pDataMarshal, pData, "HRESULT")
         return result
@@ -145,7 +145,7 @@ export default struct ID3D10EffectVectorVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-getfloatvector
      */
     GetFloatVector(pData) {
-        pDataMarshal := pData is VarRef ? "float*" : "ptr"
+        pDataMarshal := pData is VarRef ? "float*" : IntPtr
 
         result := ComCall(30, this, pDataMarshal, pData, "HRESULT")
         return result
@@ -168,7 +168,7 @@ export default struct ID3D10EffectVectorVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-setboolvectorarray
      */
     SetBoolVectorArray(pData, Offset, Count) {
-        pDataMarshal := pData is VarRef ? "int*" : "ptr"
+        pDataMarshal := pData is VarRef ? "int*" : IntPtr
 
         result := ComCall(31, this, pDataMarshal, pData, UInt32, Offset, UInt32, Count, "HRESULT")
         return result
@@ -191,7 +191,7 @@ export default struct ID3D10EffectVectorVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-setintvectorarray
      */
     SetIntVectorArray(pData, Offset, Count) {
-        pDataMarshal := pData is VarRef ? "int*" : "ptr"
+        pDataMarshal := pData is VarRef ? "int*" : IntPtr
 
         result := ComCall(32, this, pDataMarshal, pData, UInt32, Offset, UInt32, Count, "HRESULT")
         return result
@@ -214,7 +214,7 @@ export default struct ID3D10EffectVectorVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-setfloatvectorarray
      */
     SetFloatVectorArray(pData, Offset, Count) {
-        pDataMarshal := pData is VarRef ? "float*" : "ptr"
+        pDataMarshal := pData is VarRef ? "float*" : IntPtr
 
         result := ComCall(33, this, pDataMarshal, pData, UInt32, Offset, UInt32, Count, "HRESULT")
         return result
@@ -237,7 +237,7 @@ export default struct ID3D10EffectVectorVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-getboolvectorarray
      */
     GetBoolVectorArray(pData, Offset, Count) {
-        pDataMarshal := pData is VarRef ? "int*" : "ptr"
+        pDataMarshal := pData is VarRef ? "int*" : IntPtr
 
         result := ComCall(34, this, pDataMarshal, pData, UInt32, Offset, UInt32, Count, "HRESULT")
         return result
@@ -260,7 +260,7 @@ export default struct ID3D10EffectVectorVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-getintvectorarray
      */
     GetIntVectorArray(pData, Offset, Count) {
-        pDataMarshal := pData is VarRef ? "int*" : "ptr"
+        pDataMarshal := pData is VarRef ? "int*" : IntPtr
 
         result := ComCall(35, this, pDataMarshal, pData, UInt32, Offset, UInt32, Count, "HRESULT")
         return result
@@ -283,7 +283,7 @@ export default struct ID3D10EffectVectorVariable extends ID3D10EffectVariable {
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-getfloatvectorarray
      */
     GetFloatVectorArray(pData, Offset, Count) {
-        pDataMarshal := pData is VarRef ? "float*" : "ptr"
+        pDataMarshal := pData is VarRef ? "float*" : IntPtr
 
         result := ComCall(36, this, pDataMarshal, pData, UInt32, Offset, UInt32, Count, "HRESULT")
         return result
@@ -298,18 +298,18 @@ export default struct ID3D10EffectVectorVariable extends ID3D10EffectVariable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetBoolVector := CallbackCreate(GetMethod(implObj, "SetBoolVector"), flags, 2)
-        this.vtbl.SetIntVector := CallbackCreate(GetMethod(implObj, "SetIntVector"), flags, 2)
-        this.vtbl.SetFloatVector := CallbackCreate(GetMethod(implObj, "SetFloatVector"), flags, 2)
-        this.vtbl.GetBoolVector := CallbackCreate(GetMethod(implObj, "GetBoolVector"), flags, 2)
-        this.vtbl.GetIntVector := CallbackCreate(GetMethod(implObj, "GetIntVector"), flags, 2)
-        this.vtbl.GetFloatVector := CallbackCreate(GetMethod(implObj, "GetFloatVector"), flags, 2)
-        this.vtbl.SetBoolVectorArray := CallbackCreate(GetMethod(implObj, "SetBoolVectorArray"), flags, 4)
-        this.vtbl.SetIntVectorArray := CallbackCreate(GetMethod(implObj, "SetIntVectorArray"), flags, 4)
-        this.vtbl.SetFloatVectorArray := CallbackCreate(GetMethod(implObj, "SetFloatVectorArray"), flags, 4)
-        this.vtbl.GetBoolVectorArray := CallbackCreate(GetMethod(implObj, "GetBoolVectorArray"), flags, 4)
-        this.vtbl.GetIntVectorArray := CallbackCreate(GetMethod(implObj, "GetIntVectorArray"), flags, 4)
-        this.vtbl.GetFloatVectorArray := CallbackCreate(GetMethod(implObj, "GetFloatVectorArray"), flags, 4)
+        this.vtbl.SetBoolVector := CallbackCreate(ObjBindMethod(implObj, "SetBoolVector"), flags, 2)
+        this.vtbl.SetIntVector := CallbackCreate(ObjBindMethod(implObj, "SetIntVector"), flags, 2)
+        this.vtbl.SetFloatVector := CallbackCreate(ObjBindMethod(implObj, "SetFloatVector"), flags, 2)
+        this.vtbl.GetBoolVector := CallbackCreate(ObjBindMethod(implObj, "GetBoolVector"), flags, 2)
+        this.vtbl.GetIntVector := CallbackCreate(ObjBindMethod(implObj, "GetIntVector"), flags, 2)
+        this.vtbl.GetFloatVector := CallbackCreate(ObjBindMethod(implObj, "GetFloatVector"), flags, 2)
+        this.vtbl.SetBoolVectorArray := CallbackCreate(ObjBindMethod(implObj, "SetBoolVectorArray"), flags, 4)
+        this.vtbl.SetIntVectorArray := CallbackCreate(ObjBindMethod(implObj, "SetIntVectorArray"), flags, 4)
+        this.vtbl.SetFloatVectorArray := CallbackCreate(ObjBindMethod(implObj, "SetFloatVectorArray"), flags, 4)
+        this.vtbl.GetBoolVectorArray := CallbackCreate(ObjBindMethod(implObj, "GetBoolVectorArray"), flags, 4)
+        this.vtbl.GetIntVectorArray := CallbackCreate(ObjBindMethod(implObj, "GetIntVectorArray"), flags, 4)
+        this.vtbl.GetFloatVectorArray := CallbackCreate(ObjBindMethod(implObj, "GetFloatVectorArray"), flags, 4)
     }
 
     Dispose() {

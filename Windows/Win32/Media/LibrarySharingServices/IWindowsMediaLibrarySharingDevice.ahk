@@ -136,10 +136,10 @@ export default struct IWindowsMediaLibrarySharingDevice extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_DeviceID := CallbackCreate(GetMethod(implObj, "get_DeviceID"), flags, 2)
-        this.vtbl.get_Authorization := CallbackCreate(GetMethod(implObj, "get_Authorization"), flags, 2)
-        this.vtbl.put_Authorization := CallbackCreate(GetMethod(implObj, "put_Authorization"), flags, 2)
-        this.vtbl.get_Properties := CallbackCreate(GetMethod(implObj, "get_Properties"), flags, 2)
+        this.vtbl.get_DeviceID := CallbackCreate(ObjBindMethod(implObj, "get_DeviceID"), flags, 2)
+        this.vtbl.get_Authorization := CallbackCreate(ObjBindMethod(implObj, "get_Authorization"), flags, 2)
+        this.vtbl.put_Authorization := CallbackCreate(ObjBindMethod(implObj, "put_Authorization"), flags, 2)
+        this.vtbl.get_Properties := CallbackCreate(ObjBindMethod(implObj, "get_Properties"), flags, 2)
     }
 
     Dispose() {

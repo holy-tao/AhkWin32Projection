@@ -60,7 +60,6 @@ export default struct ISpeechGrammarRuleState extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechGrammarRule} 
      */
     get_Rule() {
@@ -69,7 +68,6 @@ export default struct ISpeechGrammarRuleState extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechGrammarRuleStateTransitions} 
      */
     get_Transitions() {
@@ -78,7 +76,6 @@ export default struct ISpeechGrammarRuleState extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISpeechGrammarRuleState} DestState 
      * @param {BSTR} Words 
      * @param {BSTR} Separators 
@@ -94,12 +91,13 @@ export default struct ISpeechGrammarRuleState extends IDispatch {
         Separators := Separators is String ? BSTR.Alloc(Separators).Value : Separators
         PropertyName := PropertyName is String ? BSTR.Alloc(PropertyName).Value : PropertyName
 
-        result := ComCall(9, this, "ptr", DestState, BSTR, Words, BSTR, Separators, SpeechGrammarWordType, Type, BSTR, PropertyName, Int32, PropertyId, VARIANT.Ptr, _PropertyValue, Float32, Weight, "HRESULT")
+        DestStateMarshal := DestState == 0 ? IntPtr : "ptr"
+
+        result := ComCall(9, this, DestStateMarshal, DestState, BSTR, Words, BSTR, Separators, SpeechGrammarWordType, Type, BSTR, PropertyName, Int32, PropertyId, VARIANT.Ptr, _PropertyValue, Float32, Weight, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {ISpeechGrammarRuleState} DestinationState 
      * @param {ISpeechGrammarRule} Rule 
      * @param {BSTR} PropertyName 
@@ -111,12 +109,14 @@ export default struct ISpeechGrammarRuleState extends IDispatch {
     AddRuleTransition(DestinationState, Rule, PropertyName, PropertyId, _PropertyValue, Weight) {
         PropertyName := PropertyName is String ? BSTR.Alloc(PropertyName).Value : PropertyName
 
-        result := ComCall(10, this, "ptr", DestinationState, "ptr", Rule, BSTR, PropertyName, Int32, PropertyId, VARIANT.Ptr, _PropertyValue, Float32, Weight, "HRESULT")
+        DestinationStateMarshal := DestinationState == 0 ? IntPtr : "ptr"
+        RuleMarshal := Rule == 0 ? IntPtr : "ptr"
+
+        result := ComCall(10, this, DestinationStateMarshal, DestinationState, RuleMarshal, Rule, BSTR, PropertyName, Int32, PropertyId, VARIANT.Ptr, _PropertyValue, Float32, Weight, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {ISpeechGrammarRuleState} DestinationState 
      * @param {SpeechSpecialTransitionType} Type 
      * @param {BSTR} PropertyName 
@@ -128,7 +128,9 @@ export default struct ISpeechGrammarRuleState extends IDispatch {
     AddSpecialTransition(DestinationState, Type, PropertyName, PropertyId, _PropertyValue, Weight) {
         PropertyName := PropertyName is String ? BSTR.Alloc(PropertyName).Value : PropertyName
 
-        result := ComCall(11, this, "ptr", DestinationState, SpeechSpecialTransitionType, Type, BSTR, PropertyName, Int32, PropertyId, VARIANT.Ptr, _PropertyValue, Float32, Weight, "HRESULT")
+        DestinationStateMarshal := DestinationState == 0 ? IntPtr : "ptr"
+
+        result := ComCall(11, this, DestinationStateMarshal, DestinationState, SpeechSpecialTransitionType, Type, BSTR, PropertyName, Int32, PropertyId, VARIANT.Ptr, _PropertyValue, Float32, Weight, "HRESULT")
         return result
     }
 
@@ -141,11 +143,11 @@ export default struct ISpeechGrammarRuleState extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Rule := CallbackCreate(GetMethod(implObj, "get_Rule"), flags, 2)
-        this.vtbl.get_Transitions := CallbackCreate(GetMethod(implObj, "get_Transitions"), flags, 2)
-        this.vtbl.AddWordTransition := CallbackCreate(GetMethod(implObj, "AddWordTransition"), flags, 9)
-        this.vtbl.AddRuleTransition := CallbackCreate(GetMethod(implObj, "AddRuleTransition"), flags, 7)
-        this.vtbl.AddSpecialTransition := CallbackCreate(GetMethod(implObj, "AddSpecialTransition"), flags, 7)
+        this.vtbl.get_Rule := CallbackCreate(ObjBindMethod(implObj, "get_Rule"), flags, 2)
+        this.vtbl.get_Transitions := CallbackCreate(ObjBindMethod(implObj, "get_Transitions"), flags, 2)
+        this.vtbl.AddWordTransition := CallbackCreate(ObjBindMethod(implObj, "AddWordTransition"), flags, 9)
+        this.vtbl.AddRuleTransition := CallbackCreate(ObjBindMethod(implObj, "AddRuleTransition"), flags, 7)
+        this.vtbl.AddSpecialTransition := CallbackCreate(ObjBindMethod(implObj, "AddSpecialTransition"), flags, 7)
     }
 
     Dispose() {

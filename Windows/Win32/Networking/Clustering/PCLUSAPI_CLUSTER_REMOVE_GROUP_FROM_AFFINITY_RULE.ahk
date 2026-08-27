@@ -21,7 +21,6 @@ export default struct PCLUSAPI_CLUSTER_REMOVE_GROUP_FROM_AFFINITY_RULE {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} ruleName 
      * @param {HGROUP} _hGroup 

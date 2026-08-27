@@ -123,10 +123,10 @@ export default struct INameSpaceTreeControl2 extends INameSpaceTreeControl {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetControlStyle := CallbackCreate(GetMethod(implObj, "SetControlStyle"), flags, 3)
-        this.vtbl.GetControlStyle := CallbackCreate(GetMethod(implObj, "GetControlStyle"), flags, 3)
-        this.vtbl.SetControlStyle2 := CallbackCreate(GetMethod(implObj, "SetControlStyle2"), flags, 3)
-        this.vtbl.GetControlStyle2 := CallbackCreate(GetMethod(implObj, "GetControlStyle2"), flags, 3)
+        this.vtbl.SetControlStyle := CallbackCreate(ObjBindMethod(implObj, "SetControlStyle"), flags, 3)
+        this.vtbl.GetControlStyle := CallbackCreate(ObjBindMethod(implObj, "GetControlStyle"), flags, 3)
+        this.vtbl.SetControlStyle2 := CallbackCreate(ObjBindMethod(implObj, "SetControlStyle2"), flags, 3)
+        this.vtbl.GetControlStyle2 := CallbackCreate(ObjBindMethod(implObj, "GetControlStyle2"), flags, 3)
     }
 
     Dispose() {

@@ -43,7 +43,6 @@ export default struct IMFTimedTextRuby extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetRubyText() {
@@ -52,7 +51,6 @@ export default struct IMFTimedTextRuby extends IUnknown {
     }
 
     /**
-     * 
      * @returns {MF_TIMED_TEXT_RUBY_POSITION} 
      */
     GetRubyPosition() {
@@ -61,7 +59,6 @@ export default struct IMFTimedTextRuby extends IUnknown {
     }
 
     /**
-     * 
      * @returns {MF_TIMED_TEXT_RUBY_ALIGN} 
      */
     GetRubyAlign() {
@@ -70,7 +67,6 @@ export default struct IMFTimedTextRuby extends IUnknown {
     }
 
     /**
-     * 
      * @returns {MF_TIMED_TEXT_RUBY_RESERVE} 
      */
     GetRubyReserve() {
@@ -87,10 +83,10 @@ export default struct IMFTimedTextRuby extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRubyText := CallbackCreate(GetMethod(implObj, "GetRubyText"), flags, 2)
-        this.vtbl.GetRubyPosition := CallbackCreate(GetMethod(implObj, "GetRubyPosition"), flags, 2)
-        this.vtbl.GetRubyAlign := CallbackCreate(GetMethod(implObj, "GetRubyAlign"), flags, 2)
-        this.vtbl.GetRubyReserve := CallbackCreate(GetMethod(implObj, "GetRubyReserve"), flags, 2)
+        this.vtbl.GetRubyText := CallbackCreate(ObjBindMethod(implObj, "GetRubyText"), flags, 2)
+        this.vtbl.GetRubyPosition := CallbackCreate(ObjBindMethod(implObj, "GetRubyPosition"), flags, 2)
+        this.vtbl.GetRubyAlign := CallbackCreate(ObjBindMethod(implObj, "GetRubyAlign"), flags, 2)
+        this.vtbl.GetRubyReserve := CallbackCreate(ObjBindMethod(implObj, "GetRubyReserve"), flags, 2)
     }
 
     Dispose() {

@@ -268,16 +268,16 @@ export default struct IFsrmPropertyDefinition extends IFsrmObject {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
-        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
-        this.vtbl.put_Type := CallbackCreate(GetMethod(implObj, "put_Type"), flags, 2)
-        this.vtbl.get_PossibleValues := CallbackCreate(GetMethod(implObj, "get_PossibleValues"), flags, 2)
-        this.vtbl.put_PossibleValues := CallbackCreate(GetMethod(implObj, "put_PossibleValues"), flags, 2)
-        this.vtbl.get_ValueDescriptions := CallbackCreate(GetMethod(implObj, "get_ValueDescriptions"), flags, 2)
-        this.vtbl.put_ValueDescriptions := CallbackCreate(GetMethod(implObj, "put_ValueDescriptions"), flags, 2)
-        this.vtbl.get_Parameters := CallbackCreate(GetMethod(implObj, "get_Parameters"), flags, 2)
-        this.vtbl.put_Parameters := CallbackCreate(GetMethod(implObj, "put_Parameters"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(ObjBindMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(ObjBindMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.put_Type := CallbackCreate(ObjBindMethod(implObj, "put_Type"), flags, 2)
+        this.vtbl.get_PossibleValues := CallbackCreate(ObjBindMethod(implObj, "get_PossibleValues"), flags, 2)
+        this.vtbl.put_PossibleValues := CallbackCreate(ObjBindMethod(implObj, "put_PossibleValues"), flags, 2)
+        this.vtbl.get_ValueDescriptions := CallbackCreate(ObjBindMethod(implObj, "get_ValueDescriptions"), flags, 2)
+        this.vtbl.put_ValueDescriptions := CallbackCreate(ObjBindMethod(implObj, "put_ValueDescriptions"), flags, 2)
+        this.vtbl.get_Parameters := CallbackCreate(ObjBindMethod(implObj, "get_Parameters"), flags, 2)
+        this.vtbl.put_Parameters := CallbackCreate(ObjBindMethod(implObj, "put_Parameters"), flags, 2)
     }
 
     Dispose() {

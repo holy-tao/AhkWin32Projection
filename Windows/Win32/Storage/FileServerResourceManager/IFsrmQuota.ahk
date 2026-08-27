@@ -140,11 +140,11 @@ export default struct IFsrmQuota extends IFsrmQuotaObject {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_QuotaUsed := CallbackCreate(GetMethod(implObj, "get_QuotaUsed"), flags, 2)
-        this.vtbl.get_QuotaPeakUsage := CallbackCreate(GetMethod(implObj, "get_QuotaPeakUsage"), flags, 2)
-        this.vtbl.get_QuotaPeakUsageTime := CallbackCreate(GetMethod(implObj, "get_QuotaPeakUsageTime"), flags, 2)
-        this.vtbl.ResetPeakUsage := CallbackCreate(GetMethod(implObj, "ResetPeakUsage"), flags, 1)
-        this.vtbl.RefreshUsageProperties := CallbackCreate(GetMethod(implObj, "RefreshUsageProperties"), flags, 1)
+        this.vtbl.get_QuotaUsed := CallbackCreate(ObjBindMethod(implObj, "get_QuotaUsed"), flags, 2)
+        this.vtbl.get_QuotaPeakUsage := CallbackCreate(ObjBindMethod(implObj, "get_QuotaPeakUsage"), flags, 2)
+        this.vtbl.get_QuotaPeakUsageTime := CallbackCreate(ObjBindMethod(implObj, "get_QuotaPeakUsageTime"), flags, 2)
+        this.vtbl.ResetPeakUsage := CallbackCreate(ObjBindMethod(implObj, "ResetPeakUsage"), flags, 1)
+        this.vtbl.RefreshUsageProperties := CallbackCreate(ObjBindMethod(implObj, "RefreshUsageProperties"), flags, 1)
     }
 
     Dispose() {

@@ -38,7 +38,6 @@ export default struct ISpeechRecoResult2 extends ISpeechRecoResult {
     }
 
     /**
-     * 
      * @param {BSTR} Feedback 
      * @param {VARIANT_BOOL} WasSuccessful 
      * @returns {HRESULT} 
@@ -59,7 +58,7 @@ export default struct ISpeechRecoResult2 extends ISpeechRecoResult {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetTextFeedback := CallbackCreate(GetMethod(implObj, "SetTextFeedback"), flags, 3)
+        this.vtbl.SetTextFeedback := CallbackCreate(ObjBindMethod(implObj, "SetTextFeedback"), flags, 3)
     }
 
     Dispose() {

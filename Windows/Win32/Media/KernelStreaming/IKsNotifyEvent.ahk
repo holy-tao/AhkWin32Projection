@@ -36,7 +36,6 @@ export default struct IKsNotifyEvent extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Event 
      * @param {Pointer} lParam1 
      * @param {Pointer} lParam2 
@@ -56,7 +55,7 @@ export default struct IKsNotifyEvent extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.KsNotifyEvent := CallbackCreate(GetMethod(implObj, "KsNotifyEvent"), flags, 4)
+        this.vtbl.KsNotifyEvent := CallbackCreate(ObjBindMethod(implObj, "KsNotifyEvent"), flags, 4)
     }
 
     Dispose() {

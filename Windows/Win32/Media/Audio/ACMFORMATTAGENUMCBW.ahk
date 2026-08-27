@@ -35,7 +35,6 @@ export default struct ACMFORMATTAGENUMCBW {
     }
 
     /**
-     * 
      * @param {HACMDRIVERID} hadid Handle to the ACM driver identifier.
      * @param {Pointer<ACMFORMATTAGDETAILSW>} paftd Pointer to an [ACMFORMATTAGDETAILS](./nf-msacm-acmformattagdetails.md) structure that contains the enumerated format tag details.
      * @param {Pointer} dwInstance Application-defined value specified in the <a href="https://docs.microsoft.com/windows/desktop/api/msacm/nf-msacm-acmformattagenum">acmFormatTagEnum</a> function.

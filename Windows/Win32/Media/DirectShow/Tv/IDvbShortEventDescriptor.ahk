@@ -106,11 +106,11 @@ export default struct IDvbShortEventDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetLanguageCode := CallbackCreate(GetMethod(implObj, "GetLanguageCode"), flags, 2)
-        this.vtbl.GetEventNameW := CallbackCreate(GetMethod(implObj, "GetEventNameW"), flags, 3)
-        this.vtbl.GetTextW := CallbackCreate(GetMethod(implObj, "GetTextW"), flags, 3)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetLanguageCode := CallbackCreate(ObjBindMethod(implObj, "GetLanguageCode"), flags, 2)
+        this.vtbl.GetEventNameW := CallbackCreate(ObjBindMethod(implObj, "GetEventNameW"), flags, 3)
+        this.vtbl.GetTextW := CallbackCreate(ObjBindMethod(implObj, "GetTextW"), flags, 3)
     }
 
     Dispose() {

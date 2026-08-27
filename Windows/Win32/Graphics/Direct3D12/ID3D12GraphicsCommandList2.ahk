@@ -51,7 +51,8 @@ export default struct ID3D12GraphicsCommandList2 extends ID3D12GraphicsCommandLi
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist2-writebufferimmediate
      */
     WriteBufferImmediate(Count, pParams, pModes) {
-        pModesMarshal := pModes is VarRef ? "int*" : "ptr"
+        pModesMarshal := pModes is VarRef ? "int*" : IntPtr
+        pModesMarshal := pModes == 0 ? IntPtr : "int*"
 
         ComCall(66, this, UInt32, Count, D3D12_WRITEBUFFERIMMEDIATE_PARAMETER.Ptr, pParams, pModesMarshal, pModes)
     }
@@ -65,7 +66,7 @@ export default struct ID3D12GraphicsCommandList2 extends ID3D12GraphicsCommandLi
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.WriteBufferImmediate := CallbackCreate(GetMethod(implObj, "WriteBufferImmediate"), flags, 4)
+        this.vtbl.WriteBufferImmediate := CallbackCreate(ObjBindMethod(implObj, "WriteBufferImmediate"), flags, 4)
     }
 
     Dispose() {

@@ -63,7 +63,7 @@ export default struct ITfTransitoryExtensionSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnTransitoryExtensionUpdated := CallbackCreate(GetMethod(implObj, "OnTransitoryExtensionUpdated"), flags, 6)
+        this.vtbl.OnTransitoryExtensionUpdated := CallbackCreate(ObjBindMethod(implObj, "OnTransitoryExtensionUpdated"), flags, 6)
     }
 
     Dispose() {

@@ -137,10 +137,10 @@ export default struct IOptionDescription extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
-        this.vtbl.get_Heading := CallbackCreate(GetMethod(implObj, "get_Heading"), flags, 2)
-        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
-        this.vtbl.get_Labels := CallbackCreate(GetMethod(implObj, "get_Labels"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(ObjBindMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.get_Heading := CallbackCreate(ObjBindMethod(implObj, "get_Heading"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(ObjBindMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.get_Labels := CallbackCreate(ObjBindMethod(implObj, "get_Labels"), flags, 2)
     }
 
     Dispose() {

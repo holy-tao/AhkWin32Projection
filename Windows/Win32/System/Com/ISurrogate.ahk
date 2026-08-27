@@ -82,8 +82,8 @@ export default struct ISurrogate extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LoadDllServer := CallbackCreate(GetMethod(implObj, "LoadDllServer"), flags, 2)
-        this.vtbl.FreeSurrogate := CallbackCreate(GetMethod(implObj, "FreeSurrogate"), flags, 1)
+        this.vtbl.LoadDllServer := CallbackCreate(ObjBindMethod(implObj, "LoadDllServer"), flags, 2)
+        this.vtbl.FreeSurrogate := CallbackCreate(ObjBindMethod(implObj, "FreeSurrogate"), flags, 1)
     }
 
     Dispose() {

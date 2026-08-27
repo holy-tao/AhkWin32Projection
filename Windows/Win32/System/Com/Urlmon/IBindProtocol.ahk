@@ -39,7 +39,6 @@ export default struct IBindProtocol extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} szUrl 
      * @param {IBindCtx} pbc 
      * @returns {IBinding} 
@@ -60,7 +59,7 @@ export default struct IBindProtocol extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateBinding := CallbackCreate(GetMethod(implObj, "CreateBinding"), flags, 4)
+        this.vtbl.CreateBinding := CallbackCreate(ObjBindMethod(implObj, "CreateBinding"), flags, 4)
     }
 
     Dispose() {

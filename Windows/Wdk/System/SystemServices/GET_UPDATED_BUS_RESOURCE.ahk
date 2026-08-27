@@ -20,16 +20,16 @@ export default struct GET_UPDATED_BUS_RESOURCE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<Pointer<CM_RESOURCE_LIST>>} UpdatedResourceList 
      * @param {Pointer<Pointer<CM_RESOURCE_LIST>>} UpdatedTranslatedResourceList 
      * @returns {NTSTATUS} 
      */
     Call(_Context, UpdatedResourceList, UpdatedTranslatedResourceList) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        UpdatedResourceListMarshal := UpdatedResourceList is VarRef ? "ptr*" : "ptr"
-        UpdatedTranslatedResourceListMarshal := UpdatedTranslatedResourceList is VarRef ? "ptr*" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
+        UpdatedResourceListMarshal := UpdatedResourceList is VarRef ? "ptr*" : IntPtr
+        UpdatedTranslatedResourceListMarshal := UpdatedTranslatedResourceList is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, UpdatedResourceListMarshal, UpdatedResourceList, UpdatedTranslatedResourceListMarshal, UpdatedTranslatedResourceList, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

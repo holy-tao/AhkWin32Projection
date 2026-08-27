@@ -20,7 +20,6 @@ export default struct VDMSETDBGFLAGSPROC {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @param {Integer} param1 
      * @returns {BOOL} 

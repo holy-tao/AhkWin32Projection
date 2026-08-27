@@ -40,7 +40,7 @@
  * @since windows6.0.6000
  */
 export DwmDefWindowProc(_hWnd, _msg, _wParam, _lParam, plResult) {
-    plResultMarshal := plResult is VarRef ? "ptr*" : "ptr"
+    plResultMarshal := plResult is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("dwmapi.dll\DwmDefWindowProc", HWND, _hWnd, UInt32, _msg, WPARAM, _wParam, LPARAM, _lParam, plResultMarshal, plResult, BOOL)
     return result
@@ -134,8 +134,8 @@ export DwmExtendFrameIntoClientArea(_hWnd, pMarInset) {
  * @since windows6.0.6000
  */
 export DwmGetColorizationColor(pcrColorization, pfOpaqueBlend) {
-    pcrColorizationMarshal := pcrColorization is VarRef ? "uint*" : "ptr"
-    pfOpaqueBlendMarshal := pfOpaqueBlend is VarRef ? "int*" : "ptr"
+    pcrColorizationMarshal := pcrColorization is VarRef ? "uint*" : IntPtr
+    pfOpaqueBlendMarshal := pfOpaqueBlend is VarRef ? "int*" : IntPtr
 
     result := DllCall("dwmapi.dll\DwmGetColorizationColor", pcrColorizationMarshal, pcrColorization, pfOpaqueBlendMarshal, pfOpaqueBlend, "HRESULT")
     return result
@@ -353,7 +353,9 @@ export DwmSetIconicThumbnail(_hwnd, hbmp, dwSITFlags) {
  * @since windows6.1
  */
 export DwmSetIconicLivePreviewBitmap(_hwnd, hbmp, pptClient, dwSITFlags) {
-    result := DllCall("dwmapi.dll\DwmSetIconicLivePreviewBitmap", HWND, _hwnd, HBITMAP, hbmp, POINT.Ptr, pptClient, UInt32, dwSITFlags, "HRESULT")
+    pptClientMarshal := pptClient == 0 ? IntPtr : POINT.Ptr
+
+    result := DllCall("dwmapi.dll\DwmSetIconicLivePreviewBitmap", HWND, _hwnd, HBITMAP, hbmp, pptClientMarshal, pptClient, UInt32, dwSITFlags, "HRESULT")
     return result
 }
 
@@ -444,9 +446,9 @@ export DwmGetGraphicsStreamClient(uIndex, pClientUuid) {
  * @since windows6.0.6000
  */
 export DwmGetTransportAttributes(pfIsRemoting, pfIsConnected, pDwGeneration) {
-    pfIsRemotingMarshal := pfIsRemoting is VarRef ? "int*" : "ptr"
-    pfIsConnectedMarshal := pfIsConnected is VarRef ? "int*" : "ptr"
-    pDwGenerationMarshal := pDwGeneration is VarRef ? "uint*" : "ptr"
+    pfIsRemotingMarshal := pfIsRemoting is VarRef ? "int*" : IntPtr
+    pfIsConnectedMarshal := pfIsConnected is VarRef ? "int*" : IntPtr
+    pDwGenerationMarshal := pDwGeneration is VarRef ? "uint*" : IntPtr
 
     result := DllCall("dwmapi.dll\DwmGetTransportAttributes", pfIsRemotingMarshal, pfIsRemoting, pfIsConnectedMarshal, pfIsConnected, pDwGenerationMarshal, pDwGeneration, "HRESULT")
     return result
@@ -476,7 +478,7 @@ export DwmTransitionOwnedWindow(_hwnd, target) {
  * @since windows8.0
  */
 export DwmRenderGesture(gt, cContacts, pdwPointerID, pPoints) {
-    pdwPointerIDMarshal := pdwPointerID is VarRef ? "uint*" : "ptr"
+    pdwPointerIDMarshal := pdwPointerID is VarRef ? "uint*" : IntPtr
 
     result := DllCall("dwmapi.dll\DwmRenderGesture", GESTURE_TYPE, gt, UInt32, cContacts, pdwPointerIDMarshal, pdwPointerID, POINT.Ptr, pPoints, "HRESULT")
     return result
@@ -519,7 +521,9 @@ export DwmShowContact(dwPointerID, eShowContact) {
  * @since windows10.0.17134
  */
 export DwmGetUnmetTabRequirements(appWindow) {
-    result := DllCall("dwmapi.dll\DwmGetUnmetTabRequirements", HWND, appWindow, "int*", &value := 0, "HRESULT")
+    appWindowMarshal := appWindow == 0 ? IntPtr : HWND
+
+    result := DllCall("dwmapi.dll\DwmGetUnmetTabRequirements", appWindowMarshal, appWindow, "int*", &value := 0, "HRESULT")
     return value
 }
 

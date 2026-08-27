@@ -18,13 +18,12 @@ export default struct PFN_DrvGetTrueTypeFile {
     }
 
     /**
-     * 
      * @param {Pointer} param0 
      * @param {Pointer<Integer>} param1 
      * @returns {Pointer<Void>} 
      */
     Call(param0, param1) {
-        param1Marshal := param1 is VarRef ? "uint*" : "ptr"
+        param1Marshal := param1 is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, IntPtr, param0, param1Marshal, param1, IntPtr)
         return result

@@ -67,7 +67,7 @@ export default struct IThumbnailCapture extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CaptureThumbnail := CallbackCreate(GetMethod(implObj, "CaptureThumbnail"), flags, 4)
+        this.vtbl.CaptureThumbnail := CallbackCreate(ObjBindMethod(implObj, "CaptureThumbnail"), flags, 4)
     }
 
     Dispose() {

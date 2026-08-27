@@ -21,7 +21,6 @@ export default struct PFN_D3D12_CREATE_VERSIONED_ROOT_SIGNATURE_DESERIALIZER_FRO
     }
 
     /**
-     * 
      * @param {Integer} pSrcData 
      * @param {Pointer} SrcDataSizeInBytes 
      * @param {PWSTR} RootSignatureSubobjectName 

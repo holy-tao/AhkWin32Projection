@@ -117,7 +117,9 @@ export default struct IX509SignatureInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509signatureinformation-put_hashalgorithm
      */
     put_HashAlgorithm(pValue) {
-        result := ComCall(8, this, "ptr", pValue, "HRESULT")
+        pValueMarshal := pValue == 0 ? IntPtr : "ptr"
+
+        result := ComCall(8, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -146,7 +148,9 @@ export default struct IX509SignatureInformation extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509signatureinformation-put_publickeyalgorithm
      */
     put_PublicKeyAlgorithm(pValue) {
-        result := ComCall(10, this, "ptr", pValue, "HRESULT")
+        pValueMarshal := pValue == 0 ? IntPtr : "ptr"
+
+        result := ComCall(10, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -449,19 +453,19 @@ export default struct IX509SignatureInformation extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_HashAlgorithm := CallbackCreate(GetMethod(implObj, "get_HashAlgorithm"), flags, 2)
-        this.vtbl.put_HashAlgorithm := CallbackCreate(GetMethod(implObj, "put_HashAlgorithm"), flags, 2)
-        this.vtbl.get_PublicKeyAlgorithm := CallbackCreate(GetMethod(implObj, "get_PublicKeyAlgorithm"), flags, 2)
-        this.vtbl.put_PublicKeyAlgorithm := CallbackCreate(GetMethod(implObj, "put_PublicKeyAlgorithm"), flags, 2)
-        this.vtbl.get_Parameters := CallbackCreate(GetMethod(implObj, "get_Parameters"), flags, 3)
-        this.vtbl.put_Parameters := CallbackCreate(GetMethod(implObj, "put_Parameters"), flags, 3)
-        this.vtbl.get_AlternateSignatureAlgorithm := CallbackCreate(GetMethod(implObj, "get_AlternateSignatureAlgorithm"), flags, 2)
-        this.vtbl.put_AlternateSignatureAlgorithm := CallbackCreate(GetMethod(implObj, "put_AlternateSignatureAlgorithm"), flags, 2)
-        this.vtbl.get_AlternateSignatureAlgorithmSet := CallbackCreate(GetMethod(implObj, "get_AlternateSignatureAlgorithmSet"), flags, 2)
-        this.vtbl.get_NullSigned := CallbackCreate(GetMethod(implObj, "get_NullSigned"), flags, 2)
-        this.vtbl.put_NullSigned := CallbackCreate(GetMethod(implObj, "put_NullSigned"), flags, 2)
-        this.vtbl.GetSignatureAlgorithm := CallbackCreate(GetMethod(implObj, "GetSignatureAlgorithm"), flags, 4)
-        this.vtbl.SetDefaultValues := CallbackCreate(GetMethod(implObj, "SetDefaultValues"), flags, 1)
+        this.vtbl.get_HashAlgorithm := CallbackCreate(ObjBindMethod(implObj, "get_HashAlgorithm"), flags, 2)
+        this.vtbl.put_HashAlgorithm := CallbackCreate(ObjBindMethod(implObj, "put_HashAlgorithm"), flags, 2)
+        this.vtbl.get_PublicKeyAlgorithm := CallbackCreate(ObjBindMethod(implObj, "get_PublicKeyAlgorithm"), flags, 2)
+        this.vtbl.put_PublicKeyAlgorithm := CallbackCreate(ObjBindMethod(implObj, "put_PublicKeyAlgorithm"), flags, 2)
+        this.vtbl.get_Parameters := CallbackCreate(ObjBindMethod(implObj, "get_Parameters"), flags, 3)
+        this.vtbl.put_Parameters := CallbackCreate(ObjBindMethod(implObj, "put_Parameters"), flags, 3)
+        this.vtbl.get_AlternateSignatureAlgorithm := CallbackCreate(ObjBindMethod(implObj, "get_AlternateSignatureAlgorithm"), flags, 2)
+        this.vtbl.put_AlternateSignatureAlgorithm := CallbackCreate(ObjBindMethod(implObj, "put_AlternateSignatureAlgorithm"), flags, 2)
+        this.vtbl.get_AlternateSignatureAlgorithmSet := CallbackCreate(ObjBindMethod(implObj, "get_AlternateSignatureAlgorithmSet"), flags, 2)
+        this.vtbl.get_NullSigned := CallbackCreate(ObjBindMethod(implObj, "get_NullSigned"), flags, 2)
+        this.vtbl.put_NullSigned := CallbackCreate(ObjBindMethod(implObj, "put_NullSigned"), flags, 2)
+        this.vtbl.GetSignatureAlgorithm := CallbackCreate(ObjBindMethod(implObj, "GetSignatureAlgorithm"), flags, 4)
+        this.vtbl.SetDefaultValues := CallbackCreate(ObjBindMethod(implObj, "SetDefaultValues"), flags, 1)
     }
 
     Dispose() {

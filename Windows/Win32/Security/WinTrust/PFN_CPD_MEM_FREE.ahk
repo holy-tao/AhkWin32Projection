@@ -18,12 +18,11 @@ export default struct PFN_CPD_MEM_FREE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvMem2Free 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(pvMem2Free) {
-        pvMem2FreeMarshal := pvMem2Free is VarRef ? "ptr" : "ptr"
+        pvMem2FreeMarshal := pvMem2Free is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, pvMem2FreeMarshal, pvMem2Free)
     }

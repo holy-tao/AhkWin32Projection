@@ -26,7 +26,6 @@ export default struct CrediUnmarshalandDecodeStringFn {
     }
 
     /**
-     * 
      * @param {PWSTR} MarshaledString The marshaled, encrypted string.
      * @param {Pointer<Pointer<Integer>>} _Blob A pointer to the unmarshaled, decrypted string.
      * @param {Pointer<Integer>} BlobSize A pointer to the size, in bytes, of the buffer pointed to by the <i>Blob</i> parameter.
@@ -38,9 +37,9 @@ export default struct CrediUnmarshalandDecodeStringFn {
     Call(MarshaledString, _Blob, BlobSize, IsFailureFatal) {
         MarshaledString := MarshaledString is String ? StrPtr(MarshaledString) : MarshaledString
 
-        _BlobMarshal := _Blob is VarRef ? "ptr*" : "ptr"
-        BlobSizeMarshal := BlobSize is VarRef ? "uint*" : "ptr"
-        IsFailureFatalMarshal := IsFailureFatal is VarRef ? "char*" : "ptr"
+        _BlobMarshal := _Blob is VarRef ? "ptr*" : IntPtr
+        BlobSizeMarshal := BlobSize is VarRef ? "uint*" : IntPtr
+        IsFailureFatalMarshal := IsFailureFatal is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, "ptr", MarshaledString, _BlobMarshal, _Blob, BlobSizeMarshal, BlobSize, IsFailureFatalMarshal, IsFailureFatal, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

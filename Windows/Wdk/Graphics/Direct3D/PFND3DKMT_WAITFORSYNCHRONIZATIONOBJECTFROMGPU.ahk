@@ -20,7 +20,6 @@ export default struct PFND3DKMT_WAITFORSYNCHRONIZATIONOBJECTFROMGPU {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_WAITFORSYNCHRONIZATIONOBJECTFROMGPU>} param0 
      * @returns {NTSTATUS} 
      */

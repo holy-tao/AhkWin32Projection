@@ -45,7 +45,6 @@ export default struct IDWriteTextLayout4 extends IDWriteTextLayout3 {
     }
 
     /**
-     * 
      * @param {Pointer<DWRITE_FONT_AXIS_VALUE>} fontAxisValues 
      * @param {Integer} fontAxisValueCount 
      * @param {DWRITE_TEXT_RANGE} textRange 
@@ -57,7 +56,6 @@ export default struct IDWriteTextLayout4 extends IDWriteTextLayout3 {
     }
 
     /**
-     * 
      * @param {Integer} currentPosition 
      * @returns {Integer} 
      */
@@ -67,7 +65,6 @@ export default struct IDWriteTextLayout4 extends IDWriteTextLayout3 {
     }
 
     /**
-     * 
      * @param {Integer} currentPosition 
      * @param {Pointer<DWRITE_FONT_AXIS_VALUE>} fontAxisValues 
      * @param {Integer} fontAxisValueCount 
@@ -75,12 +72,13 @@ export default struct IDWriteTextLayout4 extends IDWriteTextLayout3 {
      * @returns {HRESULT} 
      */
     GetFontAxisValues(currentPosition, fontAxisValues, fontAxisValueCount, textRange) {
-        result := ComCall(86, this, UInt32, currentPosition, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, UInt32, fontAxisValueCount, DWRITE_TEXT_RANGE.Ptr, textRange, "HRESULT")
+        textRangeMarshal := textRange == 0 ? IntPtr : DWRITE_TEXT_RANGE.Ptr
+
+        result := ComCall(86, this, UInt32, currentPosition, DWRITE_FONT_AXIS_VALUE.Ptr, fontAxisValues, UInt32, fontAxisValueCount, textRangeMarshal, textRange, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {DWRITE_AUTOMATIC_FONT_AXES} 
      */
     GetAutomaticFontAxes() {
@@ -89,7 +87,6 @@ export default struct IDWriteTextLayout4 extends IDWriteTextLayout3 {
     }
 
     /**
-     * 
      * @param {DWRITE_AUTOMATIC_FONT_AXES} automaticFontAxes 
      * @returns {HRESULT} 
      */
@@ -107,11 +104,11 @@ export default struct IDWriteTextLayout4 extends IDWriteTextLayout3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetFontAxisValues := CallbackCreate(GetMethod(implObj, "SetFontAxisValues"), flags, 4)
-        this.vtbl.GetFontAxisValueCount := CallbackCreate(GetMethod(implObj, "GetFontAxisValueCount"), flags, 2)
-        this.vtbl.GetFontAxisValues := CallbackCreate(GetMethod(implObj, "GetFontAxisValues"), flags, 5)
-        this.vtbl.GetAutomaticFontAxes := CallbackCreate(GetMethod(implObj, "GetAutomaticFontAxes"), flags, 1)
-        this.vtbl.SetAutomaticFontAxes := CallbackCreate(GetMethod(implObj, "SetAutomaticFontAxes"), flags, 2)
+        this.vtbl.SetFontAxisValues := CallbackCreate(ObjBindMethod(implObj, "SetFontAxisValues"), flags, 4)
+        this.vtbl.GetFontAxisValueCount := CallbackCreate(ObjBindMethod(implObj, "GetFontAxisValueCount"), flags, 2)
+        this.vtbl.GetFontAxisValues := CallbackCreate(ObjBindMethod(implObj, "GetFontAxisValues"), flags, 5)
+        this.vtbl.GetAutomaticFontAxes := CallbackCreate(ObjBindMethod(implObj, "GetAutomaticFontAxes"), flags, 1)
+        this.vtbl.SetAutomaticFontAxes := CallbackCreate(ObjBindMethod(implObj, "SetAutomaticFontAxes"), flags, 2)
     }
 
     Dispose() {

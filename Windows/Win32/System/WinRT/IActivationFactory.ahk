@@ -66,7 +66,7 @@ export default struct IActivationFactory extends IInspectable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ActivateInstance := CallbackCreate(GetMethod(implObj, "ActivateInstance"), flags, 2)
+        this.vtbl.ActivateInstance := CallbackCreate(ObjBindMethod(implObj, "ActivateInstance"), flags, 2)
     }
 
     Dispose() {

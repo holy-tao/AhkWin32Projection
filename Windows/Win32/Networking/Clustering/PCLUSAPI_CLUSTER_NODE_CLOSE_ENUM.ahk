@@ -19,7 +19,6 @@ export default struct PCLUSAPI_CLUSTER_NODE_CLOSE_ENUM {
     }
 
     /**
-     * 
      * @param {HNODEENUM} _hNodeEnum 
      * @returns {Integer} 
      */

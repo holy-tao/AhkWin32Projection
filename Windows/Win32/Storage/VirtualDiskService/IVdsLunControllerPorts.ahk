@@ -172,8 +172,8 @@ export default struct IVdsLunControllerPorts extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AssociateControllerPorts := CallbackCreate(GetMethod(implObj, "AssociateControllerPorts"), flags, 5)
-        this.vtbl.QueryActiveControllerPorts := CallbackCreate(GetMethod(implObj, "QueryActiveControllerPorts"), flags, 2)
+        this.vtbl.AssociateControllerPorts := CallbackCreate(ObjBindMethod(implObj, "AssociateControllerPorts"), flags, 5)
+        this.vtbl.QueryActiveControllerPorts := CallbackCreate(ObjBindMethod(implObj, "QueryActiveControllerPorts"), flags, 2)
     }
 
     Dispose() {

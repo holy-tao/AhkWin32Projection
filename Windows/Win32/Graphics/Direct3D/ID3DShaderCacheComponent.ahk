@@ -42,7 +42,6 @@ export default struct ID3DShaderCacheComponent extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<Integer>} 
      */
     GetComponentName() {
@@ -51,7 +50,6 @@ export default struct ID3DShaderCacheComponent extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<Integer>} 
      */
     GetStateObjectDatabasePath() {
@@ -60,7 +58,6 @@ export default struct ID3DShaderCacheComponent extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pAdapterFamily 
      * @param {Pointer<Pointer<Integer>>} pPath 
      * @returns {HRESULT} 
@@ -68,14 +65,13 @@ export default struct ID3DShaderCacheComponent extends IUnknown {
     GetPrecompiledCachePath(pAdapterFamily, pPath) {
         pAdapterFamily := pAdapterFamily is String ? StrPtr(pAdapterFamily) : pAdapterFamily
 
-        pPathMarshal := pPath is VarRef ? "ptr*" : "ptr"
+        pPathMarshal := pPath is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, "ptr", pAdapterFamily, pPathMarshal, pPath, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetPrecompiledShaderDatabaseCount() {
@@ -84,7 +80,6 @@ export default struct ID3DShaderCacheComponent extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ArraySize 
      * @returns {D3D_SHADER_CACHE_PSDB_PROPERTIES} 
      */
@@ -103,11 +98,11 @@ export default struct ID3DShaderCacheComponent extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetComponentName := CallbackCreate(GetMethod(implObj, "GetComponentName"), flags, 2)
-        this.vtbl.GetStateObjectDatabasePath := CallbackCreate(GetMethod(implObj, "GetStateObjectDatabasePath"), flags, 2)
-        this.vtbl.GetPrecompiledCachePath := CallbackCreate(GetMethod(implObj, "GetPrecompiledCachePath"), flags, 3)
-        this.vtbl.GetPrecompiledShaderDatabaseCount := CallbackCreate(GetMethod(implObj, "GetPrecompiledShaderDatabaseCount"), flags, 1)
-        this.vtbl.GetPrecompiledShaderDatabases := CallbackCreate(GetMethod(implObj, "GetPrecompiledShaderDatabases"), flags, 3)
+        this.vtbl.GetComponentName := CallbackCreate(ObjBindMethod(implObj, "GetComponentName"), flags, 2)
+        this.vtbl.GetStateObjectDatabasePath := CallbackCreate(ObjBindMethod(implObj, "GetStateObjectDatabasePath"), flags, 2)
+        this.vtbl.GetPrecompiledCachePath := CallbackCreate(ObjBindMethod(implObj, "GetPrecompiledCachePath"), flags, 3)
+        this.vtbl.GetPrecompiledShaderDatabaseCount := CallbackCreate(ObjBindMethod(implObj, "GetPrecompiledShaderDatabaseCount"), flags, 1)
+        this.vtbl.GetPrecompiledShaderDatabases := CallbackCreate(ObjBindMethod(implObj, "GetPrecompiledShaderDatabases"), flags, 3)
     }
 
     Dispose() {

@@ -186,7 +186,15 @@ export default struct IWMDMStorageControl3 extends IWMDMStorageControl2 {
         pwszFileSource := pwszFileSource is String ? StrPtr(pwszFileSource) : pwszFileSource
         pwszFileDest := pwszFileDest is String ? StrPtr(pwszFileDest) : pwszFileDest
 
-        result := ComCall(9, this, UInt32, fuMode, UInt32, fuType, "ptr", pwszFileSource, "ptr", pwszFileDest, "ptr", pOperation, "ptr", pProgress, "ptr", pMetaData, "ptr", pUnknown, IWMDMStorage.Ptr, ppNewObject, "HRESULT")
+        pwszFileSourceMarshal := pwszFileSource == 0 ? IntPtr : PWSTR
+        pwszFileDestMarshal := pwszFileDest == 0 ? IntPtr : PWSTR
+        pOperationMarshal := pOperation == 0 ? IntPtr : "ptr"
+        pProgressMarshal := pProgress == 0 ? IntPtr : "ptr"
+        pMetaDataMarshal := pMetaData == 0 ? IntPtr : "ptr"
+        pUnknownMarshal := pUnknown == 0 ? IntPtr : "ptr"
+        ppNewObjectMarshal := ppNewObject == 0 ? IntPtr : IWMDMStorage.Ptr
+
+        result := ComCall(9, this, UInt32, fuMode, UInt32, fuType, pwszFileSourceMarshal, pwszFileSource, pwszFileDestMarshal, pwszFileDest, pOperationMarshal, pOperation, pProgressMarshal, pProgress, pMetaDataMarshal, pMetaData, pUnknownMarshal, pUnknown, ppNewObjectMarshal, ppNewObject, "HRESULT")
         return result
     }
 
@@ -199,7 +207,7 @@ export default struct IWMDMStorageControl3 extends IWMDMStorageControl2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Insert3 := CallbackCreate(GetMethod(implObj, "Insert3"), flags, 10)
+        this.vtbl.Insert3 := CallbackCreate(ObjBindMethod(implObj, "Insert3"), flags, 10)
     }
 
     Dispose() {

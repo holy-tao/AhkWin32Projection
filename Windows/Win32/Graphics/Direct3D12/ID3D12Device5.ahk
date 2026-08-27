@@ -117,7 +117,7 @@ export default struct ID3D12Device5 extends ID3D12Device4 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device5-enumeratemetacommands
      */
     EnumerateMetaCommands(pNumMetaCommands) {
-        pNumMetaCommandsMarshal := pNumMetaCommands is VarRef ? "uint*" : "ptr"
+        pNumMetaCommandsMarshal := pNumMetaCommands is VarRef ? "uint*" : IntPtr
 
         pDescs := D3D12_META_COMMAND_DESC()
         result := ComCall(59, this, pNumMetaCommandsMarshal, pNumMetaCommands, D3D12_META_COMMAND_DESC.Ptr, pDescs, "HRESULT")
@@ -147,10 +147,12 @@ export default struct ID3D12Device5 extends ID3D12Device4 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device5-enumeratemetacommandparameters
      */
     EnumerateMetaCommandParameters(CommandId, Stage, pTotalStructureSizeInBytes, pParameterCount, pParameterDescs) {
-        pTotalStructureSizeInBytesMarshal := pTotalStructureSizeInBytes is VarRef ? "uint*" : "ptr"
-        pParameterCountMarshal := pParameterCount is VarRef ? "uint*" : "ptr"
+        pTotalStructureSizeInBytesMarshal := pTotalStructureSizeInBytes is VarRef ? "uint*" : IntPtr
+        pTotalStructureSizeInBytesMarshal := pTotalStructureSizeInBytes == 0 ? IntPtr : "uint*"
+        pParameterCountMarshal := pParameterCount is VarRef ? "uint*" : IntPtr
+        pParameterDescsMarshal := pParameterDescs == 0 ? IntPtr : D3D12_META_COMMAND_PARAMETER_DESC.Ptr
 
-        result := ComCall(60, this, Guid.Ptr, CommandId, D3D12_META_COMMAND_PARAMETER_STAGE, Stage, pTotalStructureSizeInBytesMarshal, pTotalStructureSizeInBytes, pParameterCountMarshal, pParameterCount, D3D12_META_COMMAND_PARAMETER_DESC.Ptr, pParameterDescs, "HRESULT")
+        result := ComCall(60, this, Guid.Ptr, CommandId, D3D12_META_COMMAND_PARAMETER_STAGE, Stage, pTotalStructureSizeInBytesMarshal, pTotalStructureSizeInBytes, pParameterCountMarshal, pParameterCount, pParameterDescsMarshal, pParameterDescs, "HRESULT")
         return result
     }
 
@@ -177,7 +179,9 @@ export default struct ID3D12Device5 extends ID3D12Device4 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device5-createmetacommand
      */
     CreateMetaCommand(CommandId, NodeMask, pCreationParametersData, CreationParametersDataSizeInBytes, riid) {
-        result := ComCall(61, this, Guid.Ptr, CommandId, UInt32, NodeMask, IntPtr, pCreationParametersData, IntPtr, CreationParametersDataSizeInBytes, Guid.Ptr, riid, "ptr*", &ppMetaCommand := 0, "HRESULT")
+        pCreationParametersDataMarshal := pCreationParametersData == 0 ? IntPtr : IntPtr
+
+        result := ComCall(61, this, Guid.Ptr, CommandId, UInt32, NodeMask, pCreationParametersDataMarshal, pCreationParametersData, IntPtr, CreationParametersDataSizeInBytes, Guid.Ptr, riid, "ptr*", &ppMetaCommand := 0, "HRESULT")
         return ppMetaCommand
     }
 
@@ -233,14 +237,14 @@ export default struct ID3D12Device5 extends ID3D12Device4 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateLifetimeTracker := CallbackCreate(GetMethod(implObj, "CreateLifetimeTracker"), flags, 4)
-        this.vtbl.RemoveDevice := CallbackCreate(GetMethod(implObj, "RemoveDevice"), flags, 1)
-        this.vtbl.EnumerateMetaCommands := CallbackCreate(GetMethod(implObj, "EnumerateMetaCommands"), flags, 3)
-        this.vtbl.EnumerateMetaCommandParameters := CallbackCreate(GetMethod(implObj, "EnumerateMetaCommandParameters"), flags, 6)
-        this.vtbl.CreateMetaCommand := CallbackCreate(GetMethod(implObj, "CreateMetaCommand"), flags, 7)
-        this.vtbl.CreateStateObject := CallbackCreate(GetMethod(implObj, "CreateStateObject"), flags, 4)
-        this.vtbl.GetRaytracingAccelerationStructurePrebuildInfo := CallbackCreate(GetMethod(implObj, "GetRaytracingAccelerationStructurePrebuildInfo"), flags, 3)
-        this.vtbl.CheckDriverMatchingIdentifier := CallbackCreate(GetMethod(implObj, "CheckDriverMatchingIdentifier"), flags, 3)
+        this.vtbl.CreateLifetimeTracker := CallbackCreate(ObjBindMethod(implObj, "CreateLifetimeTracker"), flags, 4)
+        this.vtbl.RemoveDevice := CallbackCreate(ObjBindMethod(implObj, "RemoveDevice"), flags, 1)
+        this.vtbl.EnumerateMetaCommands := CallbackCreate(ObjBindMethod(implObj, "EnumerateMetaCommands"), flags, 3)
+        this.vtbl.EnumerateMetaCommandParameters := CallbackCreate(ObjBindMethod(implObj, "EnumerateMetaCommandParameters"), flags, 6)
+        this.vtbl.CreateMetaCommand := CallbackCreate(ObjBindMethod(implObj, "CreateMetaCommand"), flags, 7)
+        this.vtbl.CreateStateObject := CallbackCreate(ObjBindMethod(implObj, "CreateStateObject"), flags, 4)
+        this.vtbl.GetRaytracingAccelerationStructurePrebuildInfo := CallbackCreate(ObjBindMethod(implObj, "GetRaytracingAccelerationStructurePrebuildInfo"), flags, 3)
+        this.vtbl.CheckDriverMatchingIdentifier := CallbackCreate(ObjBindMethod(implObj, "CheckDriverMatchingIdentifier"), flags, 3)
     }
 
     Dispose() {

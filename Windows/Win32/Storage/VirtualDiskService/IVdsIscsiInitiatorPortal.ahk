@@ -150,11 +150,11 @@ export default struct IVdsIscsiInitiatorPortal extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
-        this.vtbl.GetInitiatorAdapter := CallbackCreate(GetMethod(implObj, "GetInitiatorAdapter"), flags, 2)
-        this.vtbl.SetIpsecTunnelAddress := CallbackCreate(GetMethod(implObj, "SetIpsecTunnelAddress"), flags, 3)
-        this.vtbl.GetIpsecSecurity := CallbackCreate(GetMethod(implObj, "GetIpsecSecurity"), flags, 3)
-        this.vtbl.SetIpsecSecurity := CallbackCreate(GetMethod(implObj, "SetIpsecSecurity"), flags, 4)
+        this.vtbl.GetProperties := CallbackCreate(ObjBindMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.GetInitiatorAdapter := CallbackCreate(ObjBindMethod(implObj, "GetInitiatorAdapter"), flags, 2)
+        this.vtbl.SetIpsecTunnelAddress := CallbackCreate(ObjBindMethod(implObj, "SetIpsecTunnelAddress"), flags, 3)
+        this.vtbl.GetIpsecSecurity := CallbackCreate(ObjBindMethod(implObj, "GetIpsecSecurity"), flags, 3)
+        this.vtbl.SetIpsecSecurity := CallbackCreate(ObjBindMethod(implObj, "SetIpsecSecurity"), flags, 4)
     }
 
     Dispose() {

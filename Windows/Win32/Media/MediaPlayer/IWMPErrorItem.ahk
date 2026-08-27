@@ -100,7 +100,7 @@ export default struct IWMPErrorItem extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmperroritem-get_errorcode
      */
     get_errorCode(phr) {
-        phrMarshal := phr is VarRef ? "int*" : "ptr"
+        phrMarshal := phr is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, phrMarshal, phr, "HRESULT")
         return result
@@ -197,7 +197,7 @@ export default struct IWMPErrorItem extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmperroritem-get_remedy
      */
     get_remedy(plRemedy) {
-        plRemedyMarshal := plRemedy is VarRef ? "int*" : "ptr"
+        plRemedyMarshal := plRemedy is VarRef ? "int*" : IntPtr
 
         result := ComCall(10, this, plRemedyMarshal, plRemedy, "HRESULT")
         return result
@@ -243,11 +243,11 @@ export default struct IWMPErrorItem extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_errorCode := CallbackCreate(GetMethod(implObj, "get_errorCode"), flags, 2)
-        this.vtbl.get_errorDescription := CallbackCreate(GetMethod(implObj, "get_errorDescription"), flags, 2)
-        this.vtbl.get_errorContext := CallbackCreate(GetMethod(implObj, "get_errorContext"), flags, 2)
-        this.vtbl.get_remedy := CallbackCreate(GetMethod(implObj, "get_remedy"), flags, 2)
-        this.vtbl.get_customUrl := CallbackCreate(GetMethod(implObj, "get_customUrl"), flags, 2)
+        this.vtbl.get_errorCode := CallbackCreate(ObjBindMethod(implObj, "get_errorCode"), flags, 2)
+        this.vtbl.get_errorDescription := CallbackCreate(ObjBindMethod(implObj, "get_errorDescription"), flags, 2)
+        this.vtbl.get_errorContext := CallbackCreate(ObjBindMethod(implObj, "get_errorContext"), flags, 2)
+        this.vtbl.get_remedy := CallbackCreate(ObjBindMethod(implObj, "get_remedy"), flags, 2)
+        this.vtbl.get_customUrl := CallbackCreate(ObjBindMethod(implObj, "get_customUrl"), flags, 2)
     }
 
     Dispose() {

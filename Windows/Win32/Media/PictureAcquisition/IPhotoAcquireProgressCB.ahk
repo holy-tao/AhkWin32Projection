@@ -108,7 +108,9 @@ export default struct IPhotoAcquireProgressCB extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-startenumeration
      */
     StartEnumeration(pPhotoAcquireSource) {
-        result := ComCall(4, this, "ptr", pPhotoAcquireSource, "HRESULT")
+        pPhotoAcquireSourceMarshal := pPhotoAcquireSource == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, pPhotoAcquireSourceMarshal, pPhotoAcquireSource, "HRESULT")
         return result
     }
 
@@ -150,7 +152,9 @@ export default struct IPhotoAcquireProgressCB extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-founditem
      */
     FoundItem(pPhotoAcquireItem) {
-        result := ComCall(5, this, "ptr", pPhotoAcquireItem, "HRESULT")
+        pPhotoAcquireItemMarshal := pPhotoAcquireItem == 0 ? IntPtr : "ptr"
+
+        result := ComCall(5, this, pPhotoAcquireItemMarshal, pPhotoAcquireItem, "HRESULT")
         return result
     }
 
@@ -232,7 +236,9 @@ export default struct IPhotoAcquireProgressCB extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-starttransfer
      */
     StartTransfer(pPhotoAcquireSource) {
-        result := ComCall(7, this, "ptr", pPhotoAcquireSource, "HRESULT")
+        pPhotoAcquireSourceMarshal := pPhotoAcquireSource == 0 ? IntPtr : "ptr"
+
+        result := ComCall(7, this, pPhotoAcquireSourceMarshal, pPhotoAcquireSource, "HRESULT")
         return result
     }
 
@@ -273,7 +279,9 @@ export default struct IPhotoAcquireProgressCB extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-startitemtransfer
      */
     StartItemTransfer(nItemIndex, pPhotoAcquireItem) {
-        result := ComCall(8, this, UInt32, nItemIndex, "ptr", pPhotoAcquireItem, "HRESULT")
+        pPhotoAcquireItemMarshal := pPhotoAcquireItem == 0 ? IntPtr : "ptr"
+
+        result := ComCall(8, this, UInt32, nItemIndex, pPhotoAcquireItemMarshal, pPhotoAcquireItem, "HRESULT")
         return result
     }
 
@@ -398,7 +406,9 @@ export default struct IPhotoAcquireProgressCB extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-enditemtransfer
      */
     EndItemTransfer(nItemIndex, pPhotoAcquireItem, hr) {
-        result := ComCall(11, this, UInt32, nItemIndex, "ptr", pPhotoAcquireItem, "int", hr, "HRESULT")
+        pPhotoAcquireItemMarshal := pPhotoAcquireItem == 0 ? IntPtr : "ptr"
+
+        result := ComCall(11, this, UInt32, nItemIndex, pPhotoAcquireItemMarshal, pPhotoAcquireItem, "int", hr, "HRESULT")
         return result
     }
 
@@ -478,7 +488,9 @@ export default struct IPhotoAcquireProgressCB extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-startdelete
      */
     StartDelete(pPhotoAcquireSource) {
-        result := ComCall(13, this, "ptr", pPhotoAcquireSource, "HRESULT")
+        pPhotoAcquireSourceMarshal := pPhotoAcquireSource == 0 ? IntPtr : "ptr"
+
+        result := ComCall(13, this, pPhotoAcquireSourceMarshal, pPhotoAcquireSource, "HRESULT")
         return result
     }
 
@@ -519,7 +531,9 @@ export default struct IPhotoAcquireProgressCB extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-startitemdelete
      */
     StartItemDelete(nItemIndex, pPhotoAcquireItem) {
-        result := ComCall(14, this, UInt32, nItemIndex, "ptr", pPhotoAcquireItem, "HRESULT")
+        pPhotoAcquireItemMarshal := pPhotoAcquireItem == 0 ? IntPtr : "ptr"
+
+        result := ComCall(14, this, UInt32, nItemIndex, pPhotoAcquireItemMarshal, pPhotoAcquireItem, "HRESULT")
         return result
     }
 
@@ -601,7 +615,9 @@ export default struct IPhotoAcquireProgressCB extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-enditemdelete
      */
     EndItemDelete(nItemIndex, pPhotoAcquireItem, hr) {
-        result := ComCall(16, this, UInt32, nItemIndex, "ptr", pPhotoAcquireItem, "int", hr, "HRESULT")
+        pPhotoAcquireItemMarshal := pPhotoAcquireItem == 0 ? IntPtr : "ptr"
+
+        result := ComCall(16, this, UInt32, nItemIndex, pPhotoAcquireItemMarshal, pPhotoAcquireItem, "int", hr, "HRESULT")
         return result
     }
 
@@ -792,8 +808,11 @@ export default struct IPhotoAcquireProgressCB extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-getuserinput
      */
     GetUserInput(riidType, pUnknown, pPropVarDefault) {
+        pUnknownMarshal := pUnknown == 0 ? IntPtr : "ptr"
+        pPropVarDefaultMarshal := pPropVarDefault == 0 ? IntPtr : PROPVARIANT.Ptr
+
         pPropVarResult := PROPVARIANT()
-        result := ComCall(21, this, Guid.Ptr, riidType, "ptr", pUnknown, PROPVARIANT.Ptr, pPropVarResult, PROPVARIANT.Ptr, pPropVarDefault, "HRESULT")
+        result := ComCall(21, this, Guid.Ptr, riidType, pUnknownMarshal, pUnknown, PROPVARIANT.Ptr, pPropVarResult, pPropVarDefaultMarshal, pPropVarDefault, "HRESULT")
         return pPropVarResult
     }
 
@@ -806,25 +825,25 @@ export default struct IPhotoAcquireProgressCB extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Cancelled := CallbackCreate(GetMethod(implObj, "Cancelled"), flags, 2)
-        this.vtbl.StartEnumeration := CallbackCreate(GetMethod(implObj, "StartEnumeration"), flags, 2)
-        this.vtbl.FoundItem := CallbackCreate(GetMethod(implObj, "FoundItem"), flags, 2)
-        this.vtbl.EndEnumeration := CallbackCreate(GetMethod(implObj, "EndEnumeration"), flags, 2)
-        this.vtbl.StartTransfer := CallbackCreate(GetMethod(implObj, "StartTransfer"), flags, 2)
-        this.vtbl.StartItemTransfer := CallbackCreate(GetMethod(implObj, "StartItemTransfer"), flags, 3)
-        this.vtbl.DirectoryCreated := CallbackCreate(GetMethod(implObj, "DirectoryCreated"), flags, 2)
-        this.vtbl.UpdateTransferPercent := CallbackCreate(GetMethod(implObj, "UpdateTransferPercent"), flags, 3)
-        this.vtbl.EndItemTransfer := CallbackCreate(GetMethod(implObj, "EndItemTransfer"), flags, 4)
-        this.vtbl.EndTransfer := CallbackCreate(GetMethod(implObj, "EndTransfer"), flags, 2)
-        this.vtbl.StartDelete := CallbackCreate(GetMethod(implObj, "StartDelete"), flags, 2)
-        this.vtbl.StartItemDelete := CallbackCreate(GetMethod(implObj, "StartItemDelete"), flags, 3)
-        this.vtbl.UpdateDeletePercent := CallbackCreate(GetMethod(implObj, "UpdateDeletePercent"), flags, 2)
-        this.vtbl.EndItemDelete := CallbackCreate(GetMethod(implObj, "EndItemDelete"), flags, 4)
-        this.vtbl.EndDelete := CallbackCreate(GetMethod(implObj, "EndDelete"), flags, 2)
-        this.vtbl.EndSession := CallbackCreate(GetMethod(implObj, "EndSession"), flags, 2)
-        this.vtbl.GetDeleteAfterAcquire := CallbackCreate(GetMethod(implObj, "GetDeleteAfterAcquire"), flags, 2)
-        this.vtbl.ErrorAdvise := CallbackCreate(GetMethod(implObj, "ErrorAdvise"), flags, 5)
-        this.vtbl.GetUserInput := CallbackCreate(GetMethod(implObj, "GetUserInput"), flags, 5)
+        this.vtbl.Cancelled := CallbackCreate(ObjBindMethod(implObj, "Cancelled"), flags, 2)
+        this.vtbl.StartEnumeration := CallbackCreate(ObjBindMethod(implObj, "StartEnumeration"), flags, 2)
+        this.vtbl.FoundItem := CallbackCreate(ObjBindMethod(implObj, "FoundItem"), flags, 2)
+        this.vtbl.EndEnumeration := CallbackCreate(ObjBindMethod(implObj, "EndEnumeration"), flags, 2)
+        this.vtbl.StartTransfer := CallbackCreate(ObjBindMethod(implObj, "StartTransfer"), flags, 2)
+        this.vtbl.StartItemTransfer := CallbackCreate(ObjBindMethod(implObj, "StartItemTransfer"), flags, 3)
+        this.vtbl.DirectoryCreated := CallbackCreate(ObjBindMethod(implObj, "DirectoryCreated"), flags, 2)
+        this.vtbl.UpdateTransferPercent := CallbackCreate(ObjBindMethod(implObj, "UpdateTransferPercent"), flags, 3)
+        this.vtbl.EndItemTransfer := CallbackCreate(ObjBindMethod(implObj, "EndItemTransfer"), flags, 4)
+        this.vtbl.EndTransfer := CallbackCreate(ObjBindMethod(implObj, "EndTransfer"), flags, 2)
+        this.vtbl.StartDelete := CallbackCreate(ObjBindMethod(implObj, "StartDelete"), flags, 2)
+        this.vtbl.StartItemDelete := CallbackCreate(ObjBindMethod(implObj, "StartItemDelete"), flags, 3)
+        this.vtbl.UpdateDeletePercent := CallbackCreate(ObjBindMethod(implObj, "UpdateDeletePercent"), flags, 2)
+        this.vtbl.EndItemDelete := CallbackCreate(ObjBindMethod(implObj, "EndItemDelete"), flags, 4)
+        this.vtbl.EndDelete := CallbackCreate(ObjBindMethod(implObj, "EndDelete"), flags, 2)
+        this.vtbl.EndSession := CallbackCreate(ObjBindMethod(implObj, "EndSession"), flags, 2)
+        this.vtbl.GetDeleteAfterAcquire := CallbackCreate(ObjBindMethod(implObj, "GetDeleteAfterAcquire"), flags, 2)
+        this.vtbl.ErrorAdvise := CallbackCreate(ObjBindMethod(implObj, "ErrorAdvise"), flags, 5)
+        this.vtbl.GetUserInput := CallbackCreate(ObjBindMethod(implObj, "GetUserInput"), flags, 5)
     }
 
     Dispose() {

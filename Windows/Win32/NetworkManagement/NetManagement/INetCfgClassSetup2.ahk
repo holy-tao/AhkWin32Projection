@@ -37,7 +37,6 @@ export default struct INetCfgClassSetup2 extends INetCfgClassSetup {
     }
 
     /**
-     * 
      * @param {INetCfgComponent} pIComp 
      * @returns {HRESULT} 
      */
@@ -57,7 +56,7 @@ export default struct INetCfgClassSetup2 extends INetCfgClassSetup {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.UpdateNonEnumeratedComponent := CallbackCreate(GetMethod(implObj, "UpdateNonEnumeratedComponent"), flags, 4)
+        this.vtbl.UpdateNonEnumeratedComponent := CallbackCreate(ObjBindMethod(implObj, "UpdateNonEnumeratedComponent"), flags, 4)
     }
 
     Dispose() {

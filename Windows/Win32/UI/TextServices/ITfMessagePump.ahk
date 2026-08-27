@@ -88,7 +88,7 @@ export default struct ITfMessagePump extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfmessagepump-peekmessagea
      */
     PeekMessageA(pMsg, _hwnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg, pfResult) {
-        pfResultMarshal := pfResult is VarRef ? "int*" : "ptr"
+        pfResultMarshal := pfResult is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, MSG.Ptr, pMsg, HWND, _hwnd, UInt32, wMsgFilterMin, UInt32, wMsgFilterMax, UInt32, wRemoveMsg, pfResultMarshal, pfResult, "HRESULT")
         return result
@@ -136,7 +136,7 @@ export default struct ITfMessagePump extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfmessagepump-getmessagea
      */
     GetMessageA(pMsg, _hwnd, wMsgFilterMin, wMsgFilterMax, pfResult) {
-        pfResultMarshal := pfResult is VarRef ? "int*" : "ptr"
+        pfResultMarshal := pfResult is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, MSG.Ptr, pMsg, HWND, _hwnd, UInt32, wMsgFilterMin, UInt32, wMsgFilterMax, pfResultMarshal, pfResult, "HRESULT")
         return result
@@ -185,7 +185,7 @@ export default struct ITfMessagePump extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfmessagepump-peekmessagew
      */
     PeekMessageW(pMsg, _hwnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg, pfResult) {
-        pfResultMarshal := pfResult is VarRef ? "int*" : "ptr"
+        pfResultMarshal := pfResult is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, MSG.Ptr, pMsg, HWND, _hwnd, UInt32, wMsgFilterMin, UInt32, wMsgFilterMax, UInt32, wRemoveMsg, pfResultMarshal, pfResult, "HRESULT")
         return result
@@ -233,7 +233,7 @@ export default struct ITfMessagePump extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfmessagepump-getmessagew
      */
     GetMessageW(pMsg, _hwnd, wMsgFilterMin, wMsgFilterMax, pfResult) {
-        pfResultMarshal := pfResult is VarRef ? "int*" : "ptr"
+        pfResultMarshal := pfResult is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, MSG.Ptr, pMsg, HWND, _hwnd, UInt32, wMsgFilterMin, UInt32, wMsgFilterMax, pfResultMarshal, pfResult, "HRESULT")
         return result
@@ -248,10 +248,10 @@ export default struct ITfMessagePump extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PeekMessageA := CallbackCreate(GetMethod(implObj, "PeekMessageA"), flags, 7)
-        this.vtbl.GetMessageA := CallbackCreate(GetMethod(implObj, "GetMessageA"), flags, 6)
-        this.vtbl.PeekMessageW := CallbackCreate(GetMethod(implObj, "PeekMessageW"), flags, 7)
-        this.vtbl.GetMessageW := CallbackCreate(GetMethod(implObj, "GetMessageW"), flags, 6)
+        this.vtbl.PeekMessageA := CallbackCreate(ObjBindMethod(implObj, "PeekMessageA"), flags, 7)
+        this.vtbl.GetMessageA := CallbackCreate(ObjBindMethod(implObj, "GetMessageA"), flags, 6)
+        this.vtbl.PeekMessageW := CallbackCreate(ObjBindMethod(implObj, "PeekMessageW"), flags, 7)
+        this.vtbl.GetMessageW := CallbackCreate(ObjBindMethod(implObj, "GetMessageW"), flags, 6)
     }
 
     Dispose() {

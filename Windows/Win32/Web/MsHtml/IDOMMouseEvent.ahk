@@ -224,7 +224,6 @@ export default struct IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_screenX() {
@@ -233,7 +232,6 @@ export default struct IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_screenY() {
@@ -242,7 +240,6 @@ export default struct IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_clientX() {
@@ -251,7 +248,6 @@ export default struct IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_clientY() {
@@ -260,7 +256,6 @@ export default struct IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ctrlKey() {
@@ -269,7 +264,6 @@ export default struct IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_shiftKey() {
@@ -278,7 +272,6 @@ export default struct IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_altKey() {
@@ -287,7 +280,6 @@ export default struct IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_metaKey() {
@@ -296,7 +288,6 @@ export default struct IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_button() {
@@ -305,7 +296,6 @@ export default struct IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IEventTarget} 
      */
     get_relatedTarget() {
@@ -314,7 +304,6 @@ export default struct IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 
@@ -340,7 +329,6 @@ export default struct IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} keyArg 
      * @returns {VARIANT_BOOL} 
      */
@@ -352,7 +340,6 @@ export default struct IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_buttons() {
@@ -361,7 +348,6 @@ export default struct IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_fromElement() {
@@ -370,7 +356,6 @@ export default struct IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_toElement() {
@@ -379,7 +364,6 @@ export default struct IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_x() {
@@ -388,7 +372,6 @@ export default struct IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_y() {
@@ -397,7 +380,6 @@ export default struct IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_offsetX() {
@@ -406,7 +388,6 @@ export default struct IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_offsetY() {
@@ -415,7 +396,6 @@ export default struct IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_pageX() {
@@ -424,7 +404,6 @@ export default struct IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_pageY() {
@@ -433,7 +412,6 @@ export default struct IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_layerX() {
@@ -442,7 +420,6 @@ export default struct IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_layerY() {
@@ -451,7 +428,6 @@ export default struct IDOMMouseEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_which() {
@@ -468,30 +444,30 @@ export default struct IDOMMouseEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_screenX := CallbackCreate(GetMethod(implObj, "get_screenX"), flags, 2)
-        this.vtbl.get_screenY := CallbackCreate(GetMethod(implObj, "get_screenY"), flags, 2)
-        this.vtbl.get_clientX := CallbackCreate(GetMethod(implObj, "get_clientX"), flags, 2)
-        this.vtbl.get_clientY := CallbackCreate(GetMethod(implObj, "get_clientY"), flags, 2)
-        this.vtbl.get_ctrlKey := CallbackCreate(GetMethod(implObj, "get_ctrlKey"), flags, 2)
-        this.vtbl.get_shiftKey := CallbackCreate(GetMethod(implObj, "get_shiftKey"), flags, 2)
-        this.vtbl.get_altKey := CallbackCreate(GetMethod(implObj, "get_altKey"), flags, 2)
-        this.vtbl.get_metaKey := CallbackCreate(GetMethod(implObj, "get_metaKey"), flags, 2)
-        this.vtbl.get_button := CallbackCreate(GetMethod(implObj, "get_button"), flags, 2)
-        this.vtbl.get_relatedTarget := CallbackCreate(GetMethod(implObj, "get_relatedTarget"), flags, 2)
-        this.vtbl.initMouseEvent := CallbackCreate(GetMethod(implObj, "initMouseEvent"), flags, 16)
-        this.vtbl.getModifierState := CallbackCreate(GetMethod(implObj, "getModifierState"), flags, 3)
-        this.vtbl.get_buttons := CallbackCreate(GetMethod(implObj, "get_buttons"), flags, 2)
-        this.vtbl.get_fromElement := CallbackCreate(GetMethod(implObj, "get_fromElement"), flags, 2)
-        this.vtbl.get_toElement := CallbackCreate(GetMethod(implObj, "get_toElement"), flags, 2)
-        this.vtbl.get_x := CallbackCreate(GetMethod(implObj, "get_x"), flags, 2)
-        this.vtbl.get_y := CallbackCreate(GetMethod(implObj, "get_y"), flags, 2)
-        this.vtbl.get_offsetX := CallbackCreate(GetMethod(implObj, "get_offsetX"), flags, 2)
-        this.vtbl.get_offsetY := CallbackCreate(GetMethod(implObj, "get_offsetY"), flags, 2)
-        this.vtbl.get_pageX := CallbackCreate(GetMethod(implObj, "get_pageX"), flags, 2)
-        this.vtbl.get_pageY := CallbackCreate(GetMethod(implObj, "get_pageY"), flags, 2)
-        this.vtbl.get_layerX := CallbackCreate(GetMethod(implObj, "get_layerX"), flags, 2)
-        this.vtbl.get_layerY := CallbackCreate(GetMethod(implObj, "get_layerY"), flags, 2)
-        this.vtbl.get_which := CallbackCreate(GetMethod(implObj, "get_which"), flags, 2)
+        this.vtbl.get_screenX := CallbackCreate(ObjBindMethod(implObj, "get_screenX"), flags, 2)
+        this.vtbl.get_screenY := CallbackCreate(ObjBindMethod(implObj, "get_screenY"), flags, 2)
+        this.vtbl.get_clientX := CallbackCreate(ObjBindMethod(implObj, "get_clientX"), flags, 2)
+        this.vtbl.get_clientY := CallbackCreate(ObjBindMethod(implObj, "get_clientY"), flags, 2)
+        this.vtbl.get_ctrlKey := CallbackCreate(ObjBindMethod(implObj, "get_ctrlKey"), flags, 2)
+        this.vtbl.get_shiftKey := CallbackCreate(ObjBindMethod(implObj, "get_shiftKey"), flags, 2)
+        this.vtbl.get_altKey := CallbackCreate(ObjBindMethod(implObj, "get_altKey"), flags, 2)
+        this.vtbl.get_metaKey := CallbackCreate(ObjBindMethod(implObj, "get_metaKey"), flags, 2)
+        this.vtbl.get_button := CallbackCreate(ObjBindMethod(implObj, "get_button"), flags, 2)
+        this.vtbl.get_relatedTarget := CallbackCreate(ObjBindMethod(implObj, "get_relatedTarget"), flags, 2)
+        this.vtbl.initMouseEvent := CallbackCreate(ObjBindMethod(implObj, "initMouseEvent"), flags, 16)
+        this.vtbl.getModifierState := CallbackCreate(ObjBindMethod(implObj, "getModifierState"), flags, 3)
+        this.vtbl.get_buttons := CallbackCreate(ObjBindMethod(implObj, "get_buttons"), flags, 2)
+        this.vtbl.get_fromElement := CallbackCreate(ObjBindMethod(implObj, "get_fromElement"), flags, 2)
+        this.vtbl.get_toElement := CallbackCreate(ObjBindMethod(implObj, "get_toElement"), flags, 2)
+        this.vtbl.get_x := CallbackCreate(ObjBindMethod(implObj, "get_x"), flags, 2)
+        this.vtbl.get_y := CallbackCreate(ObjBindMethod(implObj, "get_y"), flags, 2)
+        this.vtbl.get_offsetX := CallbackCreate(ObjBindMethod(implObj, "get_offsetX"), flags, 2)
+        this.vtbl.get_offsetY := CallbackCreate(ObjBindMethod(implObj, "get_offsetY"), flags, 2)
+        this.vtbl.get_pageX := CallbackCreate(ObjBindMethod(implObj, "get_pageX"), flags, 2)
+        this.vtbl.get_pageY := CallbackCreate(ObjBindMethod(implObj, "get_pageY"), flags, 2)
+        this.vtbl.get_layerX := CallbackCreate(ObjBindMethod(implObj, "get_layerX"), flags, 2)
+        this.vtbl.get_layerY := CallbackCreate(ObjBindMethod(implObj, "get_layerY"), flags, 2)
+        this.vtbl.get_which := CallbackCreate(ObjBindMethod(implObj, "get_which"), flags, 2)
     }
 
     Dispose() {

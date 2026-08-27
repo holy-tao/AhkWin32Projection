@@ -199,10 +199,12 @@
 export NetUserAdd(servername, level, buf, parm_err) {
     servername := servername is String ? StrPtr(servername) : servername
 
-    bufMarshal := buf is VarRef ? "char*" : "ptr"
-    parm_errMarshal := parm_err is VarRef ? "uint*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufMarshal := buf is VarRef ? "char*" : IntPtr
+    parm_errMarshal := parm_err is VarRef ? "uint*" : IntPtr
+    parm_errMarshal := parm_err == 0 ? IntPtr : "uint*"
 
-    result := DllCall("NETAPI32.dll\NetUserAdd", "ptr", servername, UInt32, level, bufMarshal, buf, parm_errMarshal, parm_err, UInt32)
+    result := DllCall("NETAPI32.dll\NetUserAdd", servernameMarshal, servername, UInt32, level, bufMarshal, buf, parm_errMarshal, parm_err, UInt32)
     return result
 }
 
@@ -328,12 +330,14 @@ export NetUserAdd(servername, level, buf, parm_err) {
 export NetUserEnum(servername, level, filter, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
     servername := servername is String ? StrPtr(servername) : servername
 
-    bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
-    entriesreadMarshal := entriesread is VarRef ? "uint*" : "ptr"
-    totalentriesMarshal := totalentries is VarRef ? "uint*" : "ptr"
-    resume_handleMarshal := resume_handle is VarRef ? "uint*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufptrMarshal := bufptr is VarRef ? "ptr*" : IntPtr
+    entriesreadMarshal := entriesread is VarRef ? "uint*" : IntPtr
+    totalentriesMarshal := totalentries is VarRef ? "uint*" : IntPtr
+    resume_handleMarshal := resume_handle is VarRef ? "uint*" : IntPtr
+    resume_handleMarshal := resume_handle == 0 ? IntPtr : "uint*"
 
-    result := DllCall("NETAPI32.dll\NetUserEnum", "ptr", servername, UInt32, level, NET_USER_ENUM_FILTER_FLAGS, filter, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resume_handleMarshal, resume_handle, UInt32)
+    result := DllCall("NETAPI32.dll\NetUserEnum", servernameMarshal, servername, UInt32, level, NET_USER_ENUM_FILTER_FLAGS, filter, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resume_handleMarshal, resume_handle, UInt32)
     return result
 }
 
@@ -432,9 +436,10 @@ export NetUserGetInfo(servername, username, level, bufptr) {
     servername := servername is String ? StrPtr(servername) : servername
     username := username is String ? StrPtr(username) : username
 
-    bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufptrMarshal := bufptr is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\NetUserGetInfo", "ptr", servername, "ptr", username, UInt32, level, bufptrMarshal, bufptr, UInt32)
+    result := DllCall("NETAPI32.dll\NetUserGetInfo", servernameMarshal, servername, "ptr", username, UInt32, level, bufptrMarshal, bufptr, UInt32)
     return result
 }
 
@@ -752,10 +757,12 @@ export NetUserSetInfo(servername, username, level, buf, parm_err) {
     servername := servername is String ? StrPtr(servername) : servername
     username := username is String ? StrPtr(username) : username
 
-    bufMarshal := buf is VarRef ? "char*" : "ptr"
-    parm_errMarshal := parm_err is VarRef ? "uint*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufMarshal := buf is VarRef ? "char*" : IntPtr
+    parm_errMarshal := parm_err is VarRef ? "uint*" : IntPtr
+    parm_errMarshal := parm_err == 0 ? IntPtr : "uint*"
 
-    result := DllCall("NETAPI32.dll\NetUserSetInfo", "ptr", servername, "ptr", username, UInt32, level, bufMarshal, buf, parm_errMarshal, parm_err, UInt32)
+    result := DllCall("NETAPI32.dll\NetUserSetInfo", servernameMarshal, servername, "ptr", username, UInt32, level, bufMarshal, buf, parm_errMarshal, parm_err, UInt32)
     return result
 }
 
@@ -839,7 +846,9 @@ export NetUserDel(servername, username) {
     servername := servername is String ? StrPtr(servername) : servername
     username := username is String ? StrPtr(username) : username
 
-    result := DllCall("NETAPI32.dll\NetUserDel", "ptr", servername, "ptr", username, UInt32)
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+
+    result := DllCall("NETAPI32.dll\NetUserDel", servernameMarshal, servername, "ptr", username, UInt32)
     return result
 }
 
@@ -975,11 +984,12 @@ export NetUserGetGroups(servername, username, level, bufptr, prefmaxlen, entries
     servername := servername is String ? StrPtr(servername) : servername
     username := username is String ? StrPtr(username) : username
 
-    bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
-    entriesreadMarshal := entriesread is VarRef ? "uint*" : "ptr"
-    totalentriesMarshal := totalentries is VarRef ? "uint*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufptrMarshal := bufptr is VarRef ? "ptr*" : IntPtr
+    entriesreadMarshal := entriesread is VarRef ? "uint*" : IntPtr
+    totalentriesMarshal := totalentries is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\NetUserGetGroups", "ptr", servername, "ptr", username, UInt32, level, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, UInt32)
+    result := DllCall("NETAPI32.dll\NetUserGetGroups", servernameMarshal, servername, "ptr", username, UInt32, level, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, UInt32)
     return result
 }
 
@@ -1122,9 +1132,10 @@ export NetUserSetGroups(servername, username, level, buf, num_entries) {
     servername := servername is String ? StrPtr(servername) : servername
     username := username is String ? StrPtr(username) : username
 
-    bufMarshal := buf is VarRef ? "char*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufMarshal := buf is VarRef ? "char*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\NetUserSetGroups", "ptr", servername, "ptr", username, UInt32, level, bufMarshal, buf, UInt32, num_entries, UInt32)
+    result := DllCall("NETAPI32.dll\NetUserSetGroups", servernameMarshal, servername, "ptr", username, UInt32, level, bufMarshal, buf, UInt32, num_entries, UInt32)
     return result
 }
 
@@ -1281,11 +1292,12 @@ export NetUserGetLocalGroups(servername, username, level, flags, bufptr, prefmax
     servername := servername is String ? StrPtr(servername) : servername
     username := username is String ? StrPtr(username) : username
 
-    bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
-    entriesreadMarshal := entriesread is VarRef ? "uint*" : "ptr"
-    totalentriesMarshal := totalentries is VarRef ? "uint*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufptrMarshal := bufptr is VarRef ? "ptr*" : IntPtr
+    entriesreadMarshal := entriesread is VarRef ? "uint*" : IntPtr
+    totalentriesMarshal := totalentries is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\NetUserGetLocalGroups", "ptr", servername, "ptr", username, UInt32, level, UInt32, flags, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, UInt32)
+    result := DllCall("NETAPI32.dll\NetUserGetLocalGroups", servernameMarshal, servername, "ptr", username, UInt32, level, UInt32, flags, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, UInt32)
     return result
 }
 
@@ -1394,9 +1406,10 @@ export NetUserGetLocalGroups(servername, username, level, flags, bufptr, prefmax
 export NetUserModalsGet(servername, level, bufptr) {
     servername := servername is String ? StrPtr(servername) : servername
 
-    bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufptrMarshal := bufptr is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\NetUserModalsGet", "ptr", servername, UInt32, level, bufptrMarshal, bufptr, UInt32)
+    result := DllCall("NETAPI32.dll\NetUserModalsGet", servernameMarshal, servername, UInt32, level, bufptrMarshal, bufptr, UInt32)
     return result
 }
 
@@ -1534,10 +1547,12 @@ export NetUserModalsGet(servername, level, bufptr) {
 export NetUserModalsSet(servername, level, buf, parm_err) {
     servername := servername is String ? StrPtr(servername) : servername
 
-    bufMarshal := buf is VarRef ? "char*" : "ptr"
-    parm_errMarshal := parm_err is VarRef ? "uint*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufMarshal := buf is VarRef ? "char*" : IntPtr
+    parm_errMarshal := parm_err is VarRef ? "uint*" : IntPtr
+    parm_errMarshal := parm_err == 0 ? IntPtr : "uint*"
 
-    result := DllCall("NETAPI32.dll\NetUserModalsSet", "ptr", servername, UInt32, level, bufMarshal, buf, parm_errMarshal, parm_err, UInt32)
+    result := DllCall("NETAPI32.dll\NetUserModalsSet", servernameMarshal, servername, UInt32, level, bufMarshal, buf, parm_errMarshal, parm_err, UInt32)
     return result
 }
 
@@ -1665,9 +1680,12 @@ export NetUserChangePassword(domainname, username, oldpassword, newpassword) {
     oldpassword := oldpassword is String ? StrPtr(oldpassword) : oldpassword
     newpassword := newpassword is String ? StrPtr(newpassword) : newpassword
 
+    domainnameMarshal := domainname == 0 ? IntPtr : PWSTR
+    usernameMarshal := username == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("NETAPI32.dll\NetUserChangePassword", "ptr", domainname, "ptr", username, "ptr", oldpassword, "ptr", newpassword, UInt32)
+    result := DllCall("NETAPI32.dll\NetUserChangePassword", domainnameMarshal, domainname, usernameMarshal, username, "ptr", oldpassword, "ptr", newpassword, UInt32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1776,10 +1794,12 @@ export NetUserChangePassword(domainname, username, oldpassword, newpassword) {
 export NetGroupAdd(servername, level, buf, parm_err) {
     servername := servername is String ? StrPtr(servername) : servername
 
-    bufMarshal := buf is VarRef ? "char*" : "ptr"
-    parm_errMarshal := parm_err is VarRef ? "uint*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufMarshal := buf is VarRef ? "char*" : IntPtr
+    parm_errMarshal := parm_err is VarRef ? "uint*" : IntPtr
+    parm_errMarshal := parm_err == 0 ? IntPtr : "uint*"
 
-    result := DllCall("NETAPI32.dll\NetGroupAdd", "ptr", servername, UInt32, level, bufMarshal, buf, parm_errMarshal, parm_err, UInt32)
+    result := DllCall("NETAPI32.dll\NetGroupAdd", servernameMarshal, servername, UInt32, level, bufMarshal, buf, parm_errMarshal, parm_err, UInt32)
     return result
 }
 
@@ -1883,7 +1903,9 @@ export NetGroupAddUser(servername, GroupName, username) {
     GroupName := GroupName is String ? StrPtr(GroupName) : GroupName
     username := username is String ? StrPtr(username) : username
 
-    result := DllCall("NETAPI32.dll\NetGroupAddUser", "ptr", servername, "ptr", GroupName, "ptr", username, UInt32)
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+
+    result := DllCall("NETAPI32.dll\NetGroupAddUser", servernameMarshal, servername, "ptr", GroupName, "ptr", username, UInt32)
     return result
 }
 
@@ -1968,12 +1990,14 @@ export NetGroupAddUser(servername, GroupName, username) {
 export NetGroupEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
     servername := servername is String ? StrPtr(servername) : servername
 
-    bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
-    entriesreadMarshal := entriesread is VarRef ? "uint*" : "ptr"
-    totalentriesMarshal := totalentries is VarRef ? "uint*" : "ptr"
-    resume_handleMarshal := resume_handle is VarRef ? "ptr*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufptrMarshal := bufptr is VarRef ? "ptr*" : IntPtr
+    entriesreadMarshal := entriesread is VarRef ? "uint*" : IntPtr
+    totalentriesMarshal := totalentries is VarRef ? "uint*" : IntPtr
+    resume_handleMarshal := resume_handle is VarRef ? "ptr*" : IntPtr
+    resume_handleMarshal := resume_handle == 0 ? IntPtr : "ptr*"
 
-    result := DllCall("NETAPI32.dll\NetGroupEnum", "ptr", servername, UInt32, level, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resume_handleMarshal, resume_handle, UInt32)
+    result := DllCall("NETAPI32.dll\NetGroupEnum", servernameMarshal, servername, UInt32, level, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resume_handleMarshal, resume_handle, UInt32)
     return result
 }
 
@@ -2047,9 +2071,10 @@ export NetGroupGetInfo(servername, groupname, level, bufptr) {
     servername := servername is String ? StrPtr(servername) : servername
     groupname := groupname is String ? StrPtr(groupname) : groupname
 
-    bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufptrMarshal := bufptr is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\NetGroupGetInfo", "ptr", servername, "ptr", groupname, UInt32, level, bufptrMarshal, bufptr, UInt32)
+    result := DllCall("NETAPI32.dll\NetGroupGetInfo", servernameMarshal, servername, "ptr", groupname, UInt32, level, bufptrMarshal, bufptr, UInt32)
     return result
 }
 
@@ -2183,10 +2208,12 @@ export NetGroupSetInfo(servername, groupname, level, buf, parm_err) {
     servername := servername is String ? StrPtr(servername) : servername
     groupname := groupname is String ? StrPtr(groupname) : groupname
 
-    bufMarshal := buf is VarRef ? "char*" : "ptr"
-    parm_errMarshal := parm_err is VarRef ? "uint*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufMarshal := buf is VarRef ? "char*" : IntPtr
+    parm_errMarshal := parm_err is VarRef ? "uint*" : IntPtr
+    parm_errMarshal := parm_err == 0 ? IntPtr : "uint*"
 
-    result := DllCall("NETAPI32.dll\NetGroupSetInfo", "ptr", servername, "ptr", groupname, UInt32, level, bufMarshal, buf, parm_errMarshal, parm_err, UInt32)
+    result := DllCall("NETAPI32.dll\NetGroupSetInfo", servernameMarshal, servername, "ptr", groupname, UInt32, level, bufMarshal, buf, parm_errMarshal, parm_err, UInt32)
     return result
 }
 
@@ -2277,7 +2304,9 @@ export NetGroupDel(servername, groupname) {
     servername := servername is String ? StrPtr(servername) : servername
     groupname := groupname is String ? StrPtr(groupname) : groupname
 
-    result := DllCall("NETAPI32.dll\NetGroupDel", "ptr", servername, "ptr", groupname, UInt32)
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+
+    result := DllCall("NETAPI32.dll\NetGroupDel", servernameMarshal, servername, "ptr", groupname, UInt32)
     return result
 }
 
@@ -2392,7 +2421,9 @@ export NetGroupDelUser(servername, GroupName, Username) {
     GroupName := GroupName is String ? StrPtr(GroupName) : GroupName
     Username := Username is String ? StrPtr(Username) : Username
 
-    result := DllCall("NETAPI32.dll\NetGroupDelUser", "ptr", servername, "ptr", GroupName, "ptr", Username, UInt32)
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+
+    result := DllCall("NETAPI32.dll\NetGroupDelUser", servernameMarshal, servername, "ptr", GroupName, "ptr", Username, UInt32)
     return result
 }
 
@@ -2519,12 +2550,14 @@ export NetGroupGetUsers(servername, groupname, level, bufptr, prefmaxlen, entrie
     servername := servername is String ? StrPtr(servername) : servername
     groupname := groupname is String ? StrPtr(groupname) : groupname
 
-    bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
-    entriesreadMarshal := entriesread is VarRef ? "uint*" : "ptr"
-    totalentriesMarshal := totalentries is VarRef ? "uint*" : "ptr"
-    ResumeHandleMarshal := ResumeHandle is VarRef ? "ptr*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufptrMarshal := bufptr is VarRef ? "ptr*" : IntPtr
+    entriesreadMarshal := entriesread is VarRef ? "uint*" : IntPtr
+    totalentriesMarshal := totalentries is VarRef ? "uint*" : IntPtr
+    ResumeHandleMarshal := ResumeHandle is VarRef ? "ptr*" : IntPtr
+    ResumeHandleMarshal := ResumeHandle == 0 ? IntPtr : "ptr*"
 
-    result := DllCall("NETAPI32.dll\NetGroupGetUsers", "ptr", servername, "ptr", groupname, UInt32, level, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, ResumeHandleMarshal, ResumeHandle, UInt32)
+    result := DllCall("NETAPI32.dll\NetGroupGetUsers", servernameMarshal, servername, "ptr", groupname, UInt32, level, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, ResumeHandleMarshal, ResumeHandle, UInt32)
     return result
 }
 
@@ -2690,9 +2723,10 @@ export NetGroupSetUsers(servername, groupname, level, buf, totalentries) {
     servername := servername is String ? StrPtr(servername) : servername
     groupname := groupname is String ? StrPtr(groupname) : groupname
 
-    bufMarshal := buf is VarRef ? "char*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufMarshal := buf is VarRef ? "char*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\NetGroupSetUsers", "ptr", servername, "ptr", groupname, UInt32, level, bufMarshal, buf, UInt32, totalentries, UInt32)
+    result := DllCall("NETAPI32.dll\NetGroupSetUsers", servernameMarshal, servername, "ptr", groupname, UInt32, level, bufMarshal, buf, UInt32, totalentries, UInt32)
     return result
 }
 
@@ -2850,10 +2884,12 @@ export NetGroupSetUsers(servername, groupname, level, buf, totalentries) {
 export NetLocalGroupAdd(servername, level, buf, parm_err) {
     servername := servername is String ? StrPtr(servername) : servername
 
-    bufMarshal := buf is VarRef ? "char*" : "ptr"
-    parm_errMarshal := parm_err is VarRef ? "uint*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufMarshal := buf is VarRef ? "char*" : IntPtr
+    parm_errMarshal := parm_err is VarRef ? "uint*" : IntPtr
+    parm_errMarshal := parm_err == 0 ? IntPtr : "uint*"
 
-    result := DllCall("NETAPI32.dll\NetLocalGroupAdd", "ptr", servername, UInt32, level, bufMarshal, buf, parm_errMarshal, parm_err, UInt32)
+    result := DllCall("NETAPI32.dll\NetLocalGroupAdd", servernameMarshal, servername, UInt32, level, bufMarshal, buf, parm_errMarshal, parm_err, UInt32)
     return result
 }
 
@@ -2869,7 +2905,9 @@ export NetLocalGroupAddMember(servername, groupname, membersid) {
     servername := servername is String ? StrPtr(servername) : servername
     groupname := groupname is String ? StrPtr(groupname) : groupname
 
-    result := DllCall("NETAPI32.dll\NetLocalGroupAddMember", "ptr", servername, "ptr", groupname, PSID, membersid, UInt32)
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+
+    result := DllCall("NETAPI32.dll\NetLocalGroupAddMember", servernameMarshal, servername, "ptr", groupname, PSID, membersid, UInt32)
     return result
 }
 
@@ -2960,12 +2998,14 @@ export NetLocalGroupAddMember(servername, groupname, membersid) {
 export NetLocalGroupEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resumehandle) {
     servername := servername is String ? StrPtr(servername) : servername
 
-    bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
-    entriesreadMarshal := entriesread is VarRef ? "uint*" : "ptr"
-    totalentriesMarshal := totalentries is VarRef ? "uint*" : "ptr"
-    resumehandleMarshal := resumehandle is VarRef ? "ptr*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufptrMarshal := bufptr is VarRef ? "ptr*" : IntPtr
+    entriesreadMarshal := entriesread is VarRef ? "uint*" : IntPtr
+    totalentriesMarshal := totalentries is VarRef ? "uint*" : IntPtr
+    resumehandleMarshal := resumehandle is VarRef ? "ptr*" : IntPtr
+    resumehandleMarshal := resumehandle == 0 ? IntPtr : "ptr*"
 
-    result := DllCall("NETAPI32.dll\NetLocalGroupEnum", "ptr", servername, UInt32, level, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resumehandleMarshal, resumehandle, UInt32)
+    result := DllCall("NETAPI32.dll\NetLocalGroupEnum", servernameMarshal, servername, UInt32, level, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resumehandleMarshal, resumehandle, UInt32)
     return result
 }
 
@@ -3059,9 +3099,10 @@ export NetLocalGroupGetInfo(servername, groupname, level, bufptr) {
     servername := servername is String ? StrPtr(servername) : servername
     groupname := groupname is String ? StrPtr(groupname) : groupname
 
-    bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufptrMarshal := bufptr is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\NetLocalGroupGetInfo", "ptr", servername, "ptr", groupname, UInt32, level, bufptrMarshal, bufptr, UInt32)
+    result := DllCall("NETAPI32.dll\NetLocalGroupGetInfo", servernameMarshal, servername, "ptr", groupname, UInt32, level, bufptrMarshal, bufptr, UInt32)
     return result
 }
 
@@ -3181,10 +3222,12 @@ export NetLocalGroupSetInfo(servername, groupname, level, buf, parm_err) {
     servername := servername is String ? StrPtr(servername) : servername
     groupname := groupname is String ? StrPtr(groupname) : groupname
 
-    bufMarshal := buf is VarRef ? "char*" : "ptr"
-    parm_errMarshal := parm_err is VarRef ? "uint*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufMarshal := buf is VarRef ? "char*" : IntPtr
+    parm_errMarshal := parm_err is VarRef ? "uint*" : IntPtr
+    parm_errMarshal := parm_err == 0 ? IntPtr : "uint*"
 
-    result := DllCall("NETAPI32.dll\NetLocalGroupSetInfo", "ptr", servername, "ptr", groupname, UInt32, level, bufMarshal, buf, parm_errMarshal, parm_err, UInt32)
+    result := DllCall("NETAPI32.dll\NetLocalGroupSetInfo", servernameMarshal, servername, "ptr", groupname, UInt32, level, bufMarshal, buf, parm_errMarshal, parm_err, UInt32)
     return result
 }
 
@@ -3275,7 +3318,9 @@ export NetLocalGroupDel(servername, groupname) {
     servername := servername is String ? StrPtr(servername) : servername
     groupname := groupname is String ? StrPtr(groupname) : groupname
 
-    result := DllCall("NETAPI32.dll\NetLocalGroupDel", "ptr", servername, "ptr", groupname, UInt32)
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+
+    result := DllCall("NETAPI32.dll\NetLocalGroupDel", servernameMarshal, servername, "ptr", groupname, UInt32)
     return result
 }
 
@@ -3291,7 +3336,9 @@ export NetLocalGroupDelMember(servername, groupname, membersid) {
     servername := servername is String ? StrPtr(servername) : servername
     groupname := groupname is String ? StrPtr(groupname) : groupname
 
-    result := DllCall("NETAPI32.dll\NetLocalGroupDelMember", "ptr", servername, "ptr", groupname, PSID, membersid, UInt32)
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+
+    result := DllCall("NETAPI32.dll\NetLocalGroupDelMember", servernameMarshal, servername, "ptr", groupname, PSID, membersid, UInt32)
     return result
 }
 
@@ -3382,12 +3429,14 @@ export NetLocalGroupGetMembers(servername, localgroupname, level, bufptr, prefma
     servername := servername is String ? StrPtr(servername) : servername
     localgroupname := localgroupname is String ? StrPtr(localgroupname) : localgroupname
 
-    bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
-    entriesreadMarshal := entriesread is VarRef ? "uint*" : "ptr"
-    totalentriesMarshal := totalentries is VarRef ? "uint*" : "ptr"
-    resumehandleMarshal := resumehandle is VarRef ? "ptr*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufptrMarshal := bufptr is VarRef ? "ptr*" : IntPtr
+    entriesreadMarshal := entriesread is VarRef ? "uint*" : IntPtr
+    totalentriesMarshal := totalentries is VarRef ? "uint*" : IntPtr
+    resumehandleMarshal := resumehandle is VarRef ? "ptr*" : IntPtr
+    resumehandleMarshal := resumehandle == 0 ? IntPtr : "ptr*"
 
-    result := DllCall("NETAPI32.dll\NetLocalGroupGetMembers", "ptr", servername, "ptr", localgroupname, UInt32, level, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resumehandleMarshal, resumehandle, UInt32)
+    result := DllCall("NETAPI32.dll\NetLocalGroupGetMembers", servernameMarshal, servername, "ptr", localgroupname, UInt32, level, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resumehandleMarshal, resumehandle, UInt32)
     return result
 }
 
@@ -3487,9 +3536,10 @@ export NetLocalGroupSetMembers(servername, groupname, level, buf, totalentries) 
     servername := servername is String ? StrPtr(servername) : servername
     groupname := groupname is String ? StrPtr(groupname) : groupname
 
-    bufMarshal := buf is VarRef ? "char*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufMarshal := buf is VarRef ? "char*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\NetLocalGroupSetMembers", "ptr", servername, "ptr", groupname, UInt32, level, bufMarshal, buf, UInt32, totalentries, UInt32)
+    result := DllCall("NETAPI32.dll\NetLocalGroupSetMembers", servernameMarshal, servername, "ptr", groupname, UInt32, level, bufMarshal, buf, UInt32, totalentries, UInt32)
     return result
 }
 
@@ -3584,9 +3634,10 @@ export NetLocalGroupAddMembers(servername, groupname, level, buf, totalentries) 
     servername := servername is String ? StrPtr(servername) : servername
     groupname := groupname is String ? StrPtr(groupname) : groupname
 
-    bufMarshal := buf is VarRef ? "char*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufMarshal := buf is VarRef ? "char*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\NetLocalGroupAddMembers", "ptr", servername, "ptr", groupname, UInt32, level, bufMarshal, buf, UInt32, totalentries, UInt32)
+    result := DllCall("NETAPI32.dll\NetLocalGroupAddMembers", servernameMarshal, servername, "ptr", groupname, UInt32, level, bufMarshal, buf, UInt32, totalentries, UInt32)
     return result
 }
 
@@ -3670,9 +3721,10 @@ export NetLocalGroupDelMembers(servername, groupname, level, buf, totalentries) 
     servername := servername is String ? StrPtr(servername) : servername
     groupname := groupname is String ? StrPtr(groupname) : groupname
 
-    bufMarshal := buf is VarRef ? "char*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufMarshal := buf is VarRef ? "char*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\NetLocalGroupDelMembers", "ptr", servername, "ptr", groupname, UInt32, level, bufMarshal, buf, UInt32, totalentries, UInt32)
+    result := DllCall("NETAPI32.dll\NetLocalGroupDelMembers", servernameMarshal, servername, "ptr", groupname, UInt32, level, bufMarshal, buf, UInt32, totalentries, UInt32)
     return result
 }
 
@@ -3766,8 +3818,8 @@ export NetLocalGroupDelMembers(servername, groupname, level, buf, totalentries) 
 export NetQueryDisplayInformation(ServerName, Level, Index, EntriesRequested, PreferredMaximumLength, ReturnedEntryCount, SortedBuffer) {
     ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
 
-    ReturnedEntryCountMarshal := ReturnedEntryCount is VarRef ? "uint*" : "ptr"
-    SortedBufferMarshal := SortedBuffer is VarRef ? "ptr*" : "ptr"
+    ReturnedEntryCountMarshal := ReturnedEntryCount is VarRef ? "uint*" : IntPtr
+    SortedBufferMarshal := SortedBuffer is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("NETAPI32.dll\NetQueryDisplayInformation", "ptr", ServerName, UInt32, Level, UInt32, Index, UInt32, EntriesRequested, UInt32, PreferredMaximumLength, ReturnedEntryCountMarshal, ReturnedEntryCount, SortedBufferMarshal, SortedBuffer, UInt32)
     return result
@@ -3846,7 +3898,7 @@ export NetGetDisplayInformationIndex(ServerName, Level, Prefix, Index) {
     ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
     Prefix := Prefix is String ? StrPtr(Prefix) : Prefix
 
-    IndexMarshal := Index is VarRef ? "uint*" : "ptr"
+    IndexMarshal := Index is VarRef ? "uint*" : IntPtr
 
     result := DllCall("NETAPI32.dll\NetGetDisplayInformationIndex", "ptr", ServerName, UInt32, Level, "ptr", Prefix, IndexMarshal, Index, UInt32)
     return result
@@ -3888,10 +3940,12 @@ export NetGetDisplayInformationIndex(ServerName, Level, Prefix, Index) {
 export NetAccessAdd(servername, level, buf, parm_err) {
     servername := servername is String ? StrPtr(servername) : servername
 
-    bufMarshal := buf is VarRef ? "char*" : "ptr"
-    parm_errMarshal := parm_err is VarRef ? "uint*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufMarshal := buf is VarRef ? "char*" : IntPtr
+    parm_errMarshal := parm_err is VarRef ? "uint*" : IntPtr
+    parm_errMarshal := parm_err == 0 ? IntPtr : "uint*"
 
-    result := DllCall("NETAPI32.dll\NetAccessAdd", "ptr", servername, UInt32, level, bufMarshal, buf, parm_errMarshal, parm_err, UInt32)
+    result := DllCall("NETAPI32.dll\NetAccessAdd", servernameMarshal, servername, UInt32, level, bufMarshal, buf, parm_errMarshal, parm_err, UInt32)
     return result
 }
 
@@ -3925,12 +3979,14 @@ export NetAccessEnum(servername, BasePath, Recursive, level, bufptr, prefmaxlen,
     servername := servername is String ? StrPtr(servername) : servername
     BasePath := BasePath is String ? StrPtr(BasePath) : BasePath
 
-    bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
-    entriesreadMarshal := entriesread is VarRef ? "uint*" : "ptr"
-    totalentriesMarshal := totalentries is VarRef ? "uint*" : "ptr"
-    resume_handleMarshal := resume_handle is VarRef ? "uint*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufptrMarshal := bufptr is VarRef ? "ptr*" : IntPtr
+    entriesreadMarshal := entriesread is VarRef ? "uint*" : IntPtr
+    totalentriesMarshal := totalentries is VarRef ? "uint*" : IntPtr
+    resume_handleMarshal := resume_handle is VarRef ? "uint*" : IntPtr
+    resume_handleMarshal := resume_handle == 0 ? IntPtr : "uint*"
 
-    result := DllCall("NETAPI32.dll\NetAccessEnum", "ptr", servername, "ptr", BasePath, UInt32, Recursive, UInt32, level, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resume_handleMarshal, resume_handle, UInt32)
+    result := DllCall("NETAPI32.dll\NetAccessEnum", servernameMarshal, servername, "ptr", BasePath, UInt32, Recursive, UInt32, level, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resume_handleMarshal, resume_handle, UInt32)
     return result
 }
 
@@ -3953,9 +4009,10 @@ export NetAccessGetInfo(servername, resource, level, bufptr) {
     servername := servername is String ? StrPtr(servername) : servername
     resource := resource is String ? StrPtr(resource) : resource
 
-    bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufptrMarshal := bufptr is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\NetAccessGetInfo", "ptr", servername, "ptr", resource, UInt32, level, bufptrMarshal, bufptr, UInt32)
+    result := DllCall("NETAPI32.dll\NetAccessGetInfo", servernameMarshal, servername, "ptr", resource, UInt32, level, bufptrMarshal, bufptr, UInt32)
     return result
 }
 
@@ -3997,10 +4054,12 @@ export NetAccessSetInfo(servername, resource, level, buf, parm_err) {
     servername := servername is String ? StrPtr(servername) : servername
     resource := resource is String ? StrPtr(resource) : resource
 
-    bufMarshal := buf is VarRef ? "char*" : "ptr"
-    parm_errMarshal := parm_err is VarRef ? "uint*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufMarshal := buf is VarRef ? "char*" : IntPtr
+    parm_errMarshal := parm_err is VarRef ? "uint*" : IntPtr
+    parm_errMarshal := parm_err == 0 ? IntPtr : "uint*"
 
-    result := DllCall("NETAPI32.dll\NetAccessSetInfo", "ptr", servername, "ptr", resource, UInt32, level, bufMarshal, buf, parm_errMarshal, parm_err, UInt32)
+    result := DllCall("NETAPI32.dll\NetAccessSetInfo", servernameMarshal, servername, "ptr", resource, UInt32, level, bufMarshal, buf, parm_errMarshal, parm_err, UInt32)
     return result
 }
 
@@ -4045,7 +4104,7 @@ export NetAccessGetUserPerms(servername, UGname, resource, Perms) {
     UGname := UGname is String ? StrPtr(UGname) : UGname
     resource := resource is String ? StrPtr(resource) : resource
 
-    PermsMarshal := Perms is VarRef ? "uint*" : "ptr"
+    PermsMarshal := Perms is VarRef ? "uint*" : IntPtr
 
     result := DllCall("NETAPI32.dll\NetAccessGetUserPerms", "ptr", servername, "ptr", UGname, "ptr", resource, PermsMarshal, Perms, UInt32)
     return result
@@ -4192,9 +4251,9 @@ export NetAccessGetUserPerms(servername, UGname, resource, Perms) {
 export NetValidatePasswordPolicy(ServerName, Qualifier, ValidationType, InputArg, OutputArg) {
     ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
 
-    QualifierMarshal := Qualifier is VarRef ? "ptr" : "ptr"
-    InputArgMarshal := InputArg is VarRef ? "ptr" : "ptr"
-    OutputArgMarshal := OutputArg is VarRef ? "ptr*" : "ptr"
+    QualifierMarshal := Qualifier is VarRef ? "ptr" : IntPtr
+    InputArgMarshal := InputArg is VarRef ? "ptr" : IntPtr
+    OutputArgMarshal := OutputArg is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("NETAPI32.dll\NetValidatePasswordPolicy", "ptr", ServerName, QualifierMarshal, Qualifier, NET_VALIDATE_PASSWORD_TYPE, ValidationType, InputArgMarshal, InputArg, OutputArgMarshal, OutputArg, UInt32)
     return result
@@ -4212,7 +4271,7 @@ export NetValidatePasswordPolicy(ServerName, Qualifier, ValidationType, InputArg
  * @since windowsserver2003
  */
 export NetValidatePasswordPolicyFree(OutputArg) {
-    OutputArgMarshal := OutputArg is VarRef ? "ptr*" : "ptr"
+    OutputArgMarshal := OutputArg is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("NETAPI32.dll\NetValidatePasswordPolicyFree", OutputArgMarshal, OutputArg, UInt32)
     return result
@@ -4287,9 +4346,11 @@ export NetGetDCName(ServerName, DomainName, _Buffer) {
     ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
     DomainName := DomainName is String ? StrPtr(DomainName) : DomainName
 
-    _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
+    ServerNameMarshal := ServerName == 0 ? IntPtr : PWSTR
+    DomainNameMarshal := DomainName == 0 ? IntPtr : PWSTR
+    _BufferMarshal := _Buffer is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\NetGetDCName", "ptr", ServerName, "ptr", DomainName, _BufferMarshal, _Buffer, UInt32)
+    result := DllCall("NETAPI32.dll\NetGetDCName", ServerNameMarshal, ServerName, DomainNameMarshal, DomainName, _BufferMarshal, _Buffer, UInt32)
     return result
 }
 
@@ -4379,9 +4440,11 @@ export NetGetAnyDCName(ServerName, DomainName, _Buffer) {
     ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
     DomainName := DomainName is String ? StrPtr(DomainName) : DomainName
 
-    _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
+    ServerNameMarshal := ServerName == 0 ? IntPtr : PWSTR
+    DomainNameMarshal := DomainName == 0 ? IntPtr : PWSTR
+    _BufferMarshal := _Buffer is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\NetGetAnyDCName", "ptr", ServerName, "ptr", DomainName, _BufferMarshal, _Buffer, UInt32)
+    result := DllCall("NETAPI32.dll\NetGetAnyDCName", ServerNameMarshal, ServerName, DomainNameMarshal, DomainName, _BufferMarshal, _Buffer, UInt32)
     return result
 }
 
@@ -4671,10 +4734,11 @@ export NetGetAnyDCName(ServerName, DomainName, _Buffer) {
 export I_NetLogonControl2(ServerName, FunctionCode, QueryLevel, Data, _Buffer) {
     ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
 
-    DataMarshal := Data is VarRef ? "char*" : "ptr"
-    _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
+    ServerNameMarshal := ServerName == 0 ? IntPtr : PWSTR
+    DataMarshal := Data is VarRef ? "char*" : IntPtr
+    _BufferMarshal := _Buffer is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\I_NetLogonControl2", "ptr", ServerName, UInt32, FunctionCode, UInt32, QueryLevel, DataMarshal, Data, _BufferMarshal, _Buffer, UInt32)
+    result := DllCall("NETAPI32.dll\I_NetLogonControl2", ServerNameMarshal, ServerName, UInt32, FunctionCode, UInt32, QueryLevel, DataMarshal, Data, _BufferMarshal, _Buffer, UInt32)
     return result
 }
 
@@ -4713,7 +4777,9 @@ export NetAddServiceAccount(ServerName, AccountName, Password, Flags) {
     AccountName := AccountName is String ? StrPtr(AccountName) : AccountName
     Password := Password is String ? StrPtr(Password) : Password
 
-    result := DllCall("NETAPI32.dll\NetAddServiceAccount", "ptr", ServerName, "ptr", AccountName, "ptr", Password, UInt32, Flags, NTSTATUS)
+    ServerNameMarshal := ServerName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("NETAPI32.dll\NetAddServiceAccount", ServerNameMarshal, ServerName, "ptr", AccountName, "ptr", Password, UInt32, Flags, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -4751,7 +4817,9 @@ export NetRemoveServiceAccount(ServerName, AccountName, Flags) {
     ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
     AccountName := AccountName is String ? StrPtr(AccountName) : AccountName
 
-    result := DllCall("NETAPI32.dll\NetRemoveServiceAccount", "ptr", ServerName, "ptr", AccountName, UInt32, Flags, NTSTATUS)
+    ServerNameMarshal := ServerName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("NETAPI32.dll\NetRemoveServiceAccount", ServerNameMarshal, ServerName, "ptr", AccountName, UInt32, Flags, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -4773,10 +4841,11 @@ export NetRemoveServiceAccount(ServerName, AccountName, Flags) {
 export NetEnumerateServiceAccounts(ServerName, Flags, AccountsCount, Accounts) {
     ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
 
-    AccountsCountMarshal := AccountsCount is VarRef ? "uint*" : "ptr"
-    AccountsMarshal := Accounts is VarRef ? "ptr*" : "ptr"
+    ServerNameMarshal := ServerName == 0 ? IntPtr : PWSTR
+    AccountsCountMarshal := AccountsCount is VarRef ? "uint*" : IntPtr
+    AccountsMarshal := Accounts is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\NetEnumerateServiceAccounts", "ptr", ServerName, UInt32, Flags, AccountsCountMarshal, AccountsCount, AccountsMarshal, Accounts, NTSTATUS)
+    result := DllCall("NETAPI32.dll\NetEnumerateServiceAccounts", ServerNameMarshal, ServerName, UInt32, Flags, AccountsCountMarshal, AccountsCount, AccountsMarshal, Accounts, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -4796,15 +4865,15 @@ export NetIsServiceAccount(ServerName, AccountName, IsService) {
     ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
     AccountName := AccountName is String ? StrPtr(AccountName) : AccountName
 
-    IsServiceMarshal := IsService is VarRef ? "int*" : "ptr"
+    ServerNameMarshal := ServerName == 0 ? IntPtr : PWSTR
+    IsServiceMarshal := IsService is VarRef ? "int*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\NetIsServiceAccount", "ptr", ServerName, "ptr", AccountName, IsServiceMarshal, IsService, NTSTATUS)
+    result := DllCall("NETAPI32.dll\NetIsServiceAccount", ServerNameMarshal, ServerName, "ptr", AccountName, IsServiceMarshal, IsService, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} ServerName 
  * @param {PWSTR} AccountName 
  * @param {Pointer<BOOL>} IsService 
@@ -4815,10 +4884,11 @@ export NetIsServiceAccount2(ServerName, AccountName, IsService, AccountType) {
     ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
     AccountName := AccountName is String ? StrPtr(AccountName) : AccountName
 
-    IsServiceMarshal := IsService is VarRef ? "int*" : "ptr"
-    AccountTypeMarshal := AccountType is VarRef ? "int*" : "ptr"
+    ServerNameMarshal := ServerName == 0 ? IntPtr : PWSTR
+    IsServiceMarshal := IsService is VarRef ? "int*" : IntPtr
+    AccountTypeMarshal := AccountType is VarRef ? "int*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\NetIsServiceAccount2", "ptr", ServerName, "ptr", AccountName, IsServiceMarshal, IsService, AccountTypeMarshal, AccountType, NTSTATUS)
+    result := DllCall("NETAPI32.dll\NetIsServiceAccount2", ServerNameMarshal, ServerName, "ptr", AccountName, IsServiceMarshal, IsService, AccountTypeMarshal, AccountType, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -4859,9 +4929,10 @@ export NetQueryServiceAccount(ServerName, AccountName, InfoLevel, _Buffer) {
     ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
     AccountName := AccountName is String ? StrPtr(AccountName) : AccountName
 
-    _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
+    ServerNameMarshal := ServerName == 0 ? IntPtr : PWSTR
+    _BufferMarshal := _Buffer is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\NetQueryServiceAccount", "ptr", ServerName, "ptr", AccountName, UInt32, InfoLevel, _BufferMarshal, _Buffer, NTSTATUS)
+    result := DllCall("NETAPI32.dll\NetQueryServiceAccount", ServerNameMarshal, ServerName, "ptr", AccountName, UInt32, InfoLevel, _BufferMarshal, _Buffer, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -4986,7 +5057,7 @@ export NetQueryServiceAccount(ServerName, AccountName, InfoLevel, _Buffer) {
 export NetAlertRaise(AlertType, _Buffer, BufferSize) {
     AlertType := AlertType is String ? StrPtr(AlertType) : AlertType
 
-    _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
+    _BufferMarshal := _Buffer is VarRef ? "ptr" : IntPtr
 
     result := DllCall("NETAPI32.dll\NetAlertRaise", "ptr", AlertType, _BufferMarshal, _Buffer, UInt32, BufferSize, UInt32)
     return result
@@ -5113,7 +5184,7 @@ export NetAlertRaiseEx(AlertType, VariableInfo, VariableInfoSize, ServiceName) {
     AlertType := AlertType is String ? StrPtr(AlertType) : AlertType
     ServiceName := ServiceName is String ? StrPtr(ServiceName) : ServiceName
 
-    VariableInfoMarshal := VariableInfo is VarRef ? "ptr" : "ptr"
+    VariableInfoMarshal := VariableInfo is VarRef ? "ptr" : IntPtr
 
     result := DllCall("NETAPI32.dll\NetAlertRaiseEx", "ptr", AlertType, VariableInfoMarshal, VariableInfo, UInt32, VariableInfoSize, "ptr", ServiceName, UInt32)
     return result
@@ -5224,7 +5295,9 @@ export NetMessageNameAdd(servername, msgname) {
     servername := servername is String ? StrPtr(servername) : servername
     msgname := msgname is String ? StrPtr(msgname) : msgname
 
-    result := DllCall("NETAPI32.dll\NetMessageNameAdd", "ptr", servername, "ptr", msgname, UInt32)
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+
+    result := DllCall("NETAPI32.dll\NetMessageNameAdd", servernameMarshal, servername, "ptr", msgname, UInt32)
     return result
 }
 
@@ -5340,12 +5413,13 @@ export NetMessageNameAdd(servername, msgname) {
 export NetMessageNameEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
     servername := servername is String ? StrPtr(servername) : servername
 
-    bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
-    entriesreadMarshal := entriesread is VarRef ? "uint*" : "ptr"
-    totalentriesMarshal := totalentries is VarRef ? "uint*" : "ptr"
-    resume_handleMarshal := resume_handle is VarRef ? "uint*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufptrMarshal := bufptr is VarRef ? "ptr*" : IntPtr
+    entriesreadMarshal := entriesread is VarRef ? "uint*" : IntPtr
+    totalentriesMarshal := totalentries is VarRef ? "uint*" : IntPtr
+    resume_handleMarshal := resume_handle is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\NetMessageNameEnum", "ptr", servername, UInt32, level, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resume_handleMarshal, resume_handle, UInt32)
+    result := DllCall("NETAPI32.dll\NetMessageNameEnum", servernameMarshal, servername, UInt32, level, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resume_handleMarshal, resume_handle, UInt32)
     return result
 }
 
@@ -5448,9 +5522,10 @@ export NetMessageNameGetInfo(servername, msgname, level, bufptr) {
     servername := servername is String ? StrPtr(servername) : servername
     msgname := msgname is String ? StrPtr(msgname) : msgname
 
-    bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufptrMarshal := bufptr is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\NetMessageNameGetInfo", "ptr", servername, "ptr", msgname, UInt32, level, bufptrMarshal, bufptr, UInt32)
+    result := DllCall("NETAPI32.dll\NetMessageNameGetInfo", servernameMarshal, servername, "ptr", msgname, UInt32, level, bufptrMarshal, bufptr, UInt32)
     return result
 }
 
@@ -5556,7 +5631,9 @@ export NetMessageNameDel(servername, msgname) {
     servername := servername is String ? StrPtr(servername) : servername
     msgname := msgname is String ? StrPtr(msgname) : msgname
 
-    result := DllCall("NETAPI32.dll\NetMessageNameDel", "ptr", servername, "ptr", msgname, UInt32)
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+
+    result := DllCall("NETAPI32.dll\NetMessageNameDel", servernameMarshal, servername, "ptr", msgname, UInt32)
     return result
 }
 
@@ -5646,9 +5723,10 @@ export NetMessageBufferSend(servername, msgname, fromname, buf, buflen) {
     msgname := msgname is String ? StrPtr(msgname) : msgname
     fromname := fromname is String ? StrPtr(fromname) : fromname
 
-    bufMarshal := buf is VarRef ? "char*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufMarshal := buf is VarRef ? "char*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\NetMessageBufferSend", "ptr", servername, "ptr", msgname, "ptr", fromname, bufMarshal, buf, UInt32, buflen, UInt32)
+    result := DllCall("NETAPI32.dll\NetMessageBufferSend", servernameMarshal, servername, "ptr", msgname, "ptr", fromname, bufMarshal, buf, UInt32, buflen, UInt32)
     return result
 }
 
@@ -5671,9 +5749,10 @@ export NetMessageBufferSend(servername, msgname, fromname, buf, buflen) {
 export NetRemoteTOD(UncServerName, BufferPtr) {
     UncServerName := UncServerName is String ? StrPtr(UncServerName) : UncServerName
 
-    BufferPtrMarshal := BufferPtr is VarRef ? "ptr*" : "ptr"
+    UncServerNameMarshal := UncServerName == 0 ? IntPtr : PWSTR
+    BufferPtrMarshal := BufferPtr is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\NetRemoteTOD", "ptr", UncServerName, BufferPtrMarshal, BufferPtr, UInt32)
+    result := DllCall("NETAPI32.dll\NetRemoteTOD", UncServerNameMarshal, UncServerName, BufferPtrMarshal, BufferPtr, UInt32)
     return result
 }
 
@@ -5729,14 +5808,13 @@ export NetRemoteTOD(UncServerName, BufferPtr) {
 export NetRemoteComputerSupports(UncServerName, OptionsWanted, OptionsSupported) {
     UncServerName := UncServerName is String ? StrPtr(UncServerName) : UncServerName
 
-    OptionsSupportedMarshal := OptionsSupported is VarRef ? "uint*" : "ptr"
+    OptionsSupportedMarshal := OptionsSupported is VarRef ? "uint*" : IntPtr
 
     result := DllCall("NETAPI32.dll\NetRemoteComputerSupports", "ptr", UncServerName, NET_REMOTE_COMPUTER_SUPPORTS_OPTIONS, OptionsWanted, OptionsSupportedMarshal, OptionsSupported, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} servername 
  * @param {Integer} level 
  * @param {Pointer<Pointer<Integer>>} bufptr 
@@ -5745,14 +5823,13 @@ export NetRemoteComputerSupports(UncServerName, OptionsWanted, OptionsSupported)
 export NetReplGetInfo(servername, level, bufptr) {
     servername := servername is String ? StrPtr(servername) : servername
 
-    bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
+    bufptrMarshal := bufptr is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("NETAPI32.dll\NetReplGetInfo", "ptr", servername, UInt32, level, bufptrMarshal, bufptr, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} servername 
  * @param {Integer} level 
  * @param {Pointer<Integer>} buf 
@@ -5762,15 +5839,14 @@ export NetReplGetInfo(servername, level, bufptr) {
 export NetReplSetInfo(servername, level, buf, parm_err) {
     servername := servername is String ? StrPtr(servername) : servername
 
-    bufMarshal := buf is VarRef ? "char*" : "ptr"
-    parm_errMarshal := parm_err is VarRef ? "uint*" : "ptr"
+    bufMarshal := buf is VarRef ? "char*" : IntPtr
+    parm_errMarshal := parm_err is VarRef ? "uint*" : IntPtr
 
     result := DllCall("NETAPI32.dll\NetReplSetInfo", "ptr", servername, UInt32, level, bufMarshal, buf, parm_errMarshal, parm_err, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} servername 
  * @param {Integer} level 
  * @param {Pointer<Integer>} buf 
@@ -5780,15 +5856,14 @@ export NetReplSetInfo(servername, level, buf, parm_err) {
 export NetReplExportDirAdd(servername, level, buf, parm_err) {
     servername := servername is String ? StrPtr(servername) : servername
 
-    bufMarshal := buf is VarRef ? "char*" : "ptr"
-    parm_errMarshal := parm_err is VarRef ? "uint*" : "ptr"
+    bufMarshal := buf is VarRef ? "char*" : IntPtr
+    parm_errMarshal := parm_err is VarRef ? "uint*" : IntPtr
 
     result := DllCall("NETAPI32.dll\NetReplExportDirAdd", "ptr", servername, UInt32, level, bufMarshal, buf, parm_errMarshal, parm_err, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} servername 
  * @param {PWSTR} dirname 
  * @returns {Integer} 
@@ -5802,7 +5877,6 @@ export NetReplExportDirDel(servername, dirname) {
 }
 
 /**
- * 
  * @param {PWSTR} servername 
  * @param {Integer} level 
  * @param {Pointer<Pointer<Integer>>} bufptr 
@@ -5815,17 +5889,16 @@ export NetReplExportDirDel(servername, dirname) {
 export NetReplExportDirEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resumehandle) {
     servername := servername is String ? StrPtr(servername) : servername
 
-    bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
-    entriesreadMarshal := entriesread is VarRef ? "uint*" : "ptr"
-    totalentriesMarshal := totalentries is VarRef ? "uint*" : "ptr"
-    resumehandleMarshal := resumehandle is VarRef ? "uint*" : "ptr"
+    bufptrMarshal := bufptr is VarRef ? "ptr*" : IntPtr
+    entriesreadMarshal := entriesread is VarRef ? "uint*" : IntPtr
+    totalentriesMarshal := totalentries is VarRef ? "uint*" : IntPtr
+    resumehandleMarshal := resumehandle is VarRef ? "uint*" : IntPtr
 
     result := DllCall("NETAPI32.dll\NetReplExportDirEnum", "ptr", servername, UInt32, level, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resumehandleMarshal, resumehandle, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} servername 
  * @param {PWSTR} dirname 
  * @param {Integer} level 
@@ -5836,14 +5909,13 @@ export NetReplExportDirGetInfo(servername, dirname, level, bufptr) {
     servername := servername is String ? StrPtr(servername) : servername
     dirname := dirname is String ? StrPtr(dirname) : dirname
 
-    bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
+    bufptrMarshal := bufptr is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("NETAPI32.dll\NetReplExportDirGetInfo", "ptr", servername, "ptr", dirname, UInt32, level, bufptrMarshal, bufptr, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} servername 
  * @param {PWSTR} dirname 
  * @param {Integer} level 
@@ -5855,15 +5927,14 @@ export NetReplExportDirSetInfo(servername, dirname, level, buf, parm_err) {
     servername := servername is String ? StrPtr(servername) : servername
     dirname := dirname is String ? StrPtr(dirname) : dirname
 
-    bufMarshal := buf is VarRef ? "char*" : "ptr"
-    parm_errMarshal := parm_err is VarRef ? "uint*" : "ptr"
+    bufMarshal := buf is VarRef ? "char*" : IntPtr
+    parm_errMarshal := parm_err is VarRef ? "uint*" : IntPtr
 
     result := DllCall("NETAPI32.dll\NetReplExportDirSetInfo", "ptr", servername, "ptr", dirname, UInt32, level, bufMarshal, buf, parm_errMarshal, parm_err, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} servername 
  * @param {PWSTR} dirname 
  * @returns {Integer} 
@@ -5877,7 +5948,6 @@ export NetReplExportDirLock(servername, dirname) {
 }
 
 /**
- * 
  * @param {PWSTR} servername 
  * @param {PWSTR} dirname 
  * @param {Integer} unlockforce 
@@ -5892,7 +5962,6 @@ export NetReplExportDirUnlock(servername, dirname, unlockforce) {
 }
 
 /**
- * 
  * @param {PWSTR} servername 
  * @param {Integer} level 
  * @param {Pointer<Integer>} buf 
@@ -5902,15 +5971,14 @@ export NetReplExportDirUnlock(servername, dirname, unlockforce) {
 export NetReplImportDirAdd(servername, level, buf, parm_err) {
     servername := servername is String ? StrPtr(servername) : servername
 
-    bufMarshal := buf is VarRef ? "char*" : "ptr"
-    parm_errMarshal := parm_err is VarRef ? "uint*" : "ptr"
+    bufMarshal := buf is VarRef ? "char*" : IntPtr
+    parm_errMarshal := parm_err is VarRef ? "uint*" : IntPtr
 
     result := DllCall("NETAPI32.dll\NetReplImportDirAdd", "ptr", servername, UInt32, level, bufMarshal, buf, parm_errMarshal, parm_err, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} servername 
  * @param {PWSTR} dirname 
  * @returns {Integer} 
@@ -5924,7 +5992,6 @@ export NetReplImportDirDel(servername, dirname) {
 }
 
 /**
- * 
  * @param {PWSTR} servername 
  * @param {Integer} level 
  * @param {Pointer<Pointer<Integer>>} bufptr 
@@ -5937,17 +6004,16 @@ export NetReplImportDirDel(servername, dirname) {
 export NetReplImportDirEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resumehandle) {
     servername := servername is String ? StrPtr(servername) : servername
 
-    bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
-    entriesreadMarshal := entriesread is VarRef ? "uint*" : "ptr"
-    totalentriesMarshal := totalentries is VarRef ? "uint*" : "ptr"
-    resumehandleMarshal := resumehandle is VarRef ? "uint*" : "ptr"
+    bufptrMarshal := bufptr is VarRef ? "ptr*" : IntPtr
+    entriesreadMarshal := entriesread is VarRef ? "uint*" : IntPtr
+    totalentriesMarshal := totalentries is VarRef ? "uint*" : IntPtr
+    resumehandleMarshal := resumehandle is VarRef ? "uint*" : IntPtr
 
     result := DllCall("NETAPI32.dll\NetReplImportDirEnum", "ptr", servername, UInt32, level, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resumehandleMarshal, resumehandle, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} servername 
  * @param {PWSTR} dirname 
  * @param {Integer} level 
@@ -5958,14 +6024,13 @@ export NetReplImportDirGetInfo(servername, dirname, level, bufptr) {
     servername := servername is String ? StrPtr(servername) : servername
     dirname := dirname is String ? StrPtr(dirname) : dirname
 
-    bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
+    bufptrMarshal := bufptr is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("NETAPI32.dll\NetReplImportDirGetInfo", "ptr", servername, "ptr", dirname, UInt32, level, bufptrMarshal, bufptr, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} servername 
  * @param {PWSTR} dirname 
  * @returns {Integer} 
@@ -5979,7 +6044,6 @@ export NetReplImportDirLock(servername, dirname) {
 }
 
 /**
- * 
  * @param {PWSTR} servername 
  * @param {PWSTR} dirname 
  * @param {Integer} unlockforce 
@@ -6159,12 +6223,15 @@ export NetServerEnum(servername, level, bufptr, prefmaxlen, entriesread, totalen
     servername := servername is String ? StrPtr(servername) : servername
     domain := domain is String ? StrPtr(domain) : domain
 
-    bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
-    entriesreadMarshal := entriesread is VarRef ? "uint*" : "ptr"
-    totalentriesMarshal := totalentries is VarRef ? "uint*" : "ptr"
-    resume_handleMarshal := resume_handle is VarRef ? "uint*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufptrMarshal := bufptr is VarRef ? "ptr*" : IntPtr
+    entriesreadMarshal := entriesread is VarRef ? "uint*" : IntPtr
+    totalentriesMarshal := totalentries is VarRef ? "uint*" : IntPtr
+    domainMarshal := domain == 0 ? IntPtr : PWSTR
+    resume_handleMarshal := resume_handle is VarRef ? "uint*" : IntPtr
+    resume_handleMarshal := resume_handle == 0 ? IntPtr : "uint*"
 
-    result := DllCall("NETAPI32.dll\NetServerEnum", "ptr", servername, UInt32, level, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, NET_SERVER_TYPE, servertype, "ptr", domain, resume_handleMarshal, resume_handle, UInt32)
+    result := DllCall("NETAPI32.dll\NetServerEnum", servernameMarshal, servername, UInt32, level, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, NET_SERVER_TYPE, servertype, domainMarshal, domain, resume_handleMarshal, resume_handle, UInt32)
     return result
 }
 
@@ -6261,9 +6328,10 @@ export NetServerEnum(servername, level, bufptr, prefmaxlen, entriesread, totalen
 export NetServerGetInfo(servername, level, bufptr) {
     servername := servername is String ? StrPtr(servername) : servername
 
-    bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufptrMarshal := bufptr is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\NetServerGetInfo", "ptr", servername, UInt32, level, bufptrMarshal, bufptr, UInt32)
+    result := DllCall("NETAPI32.dll\NetServerGetInfo", servernameMarshal, servername, UInt32, level, bufptrMarshal, bufptr, UInt32)
     return result
 }
 
@@ -6522,10 +6590,12 @@ export NetServerGetInfo(servername, level, bufptr) {
 export NetServerSetInfo(servername, level, buf, ParmError) {
     servername := servername is String ? StrPtr(servername) : servername
 
-    bufMarshal := buf is VarRef ? "char*" : "ptr"
-    ParmErrorMarshal := ParmError is VarRef ? "uint*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufMarshal := buf is VarRef ? "char*" : IntPtr
+    ParmErrorMarshal := ParmError is VarRef ? "uint*" : IntPtr
+    ParmErrorMarshal := ParmError == 0 ? IntPtr : "uint*"
 
-    result := DllCall("NETAPI32.dll\NetServerSetInfo", "ptr", servername, UInt32, level, bufMarshal, buf, ParmErrorMarshal, ParmError, UInt32)
+    result := DllCall("NETAPI32.dll\NetServerSetInfo", servernameMarshal, servername, UInt32, level, bufMarshal, buf, ParmErrorMarshal, ParmError, UInt32)
     return result
 }
 
@@ -6621,12 +6691,14 @@ export NetServerSetInfo(servername, level, buf, ParmError) {
 export NetServerDiskEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
     servername := servername is String ? StrPtr(servername) : servername
 
-    bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
-    entriesreadMarshal := entriesread is VarRef ? "uint*" : "ptr"
-    totalentriesMarshal := totalentries is VarRef ? "uint*" : "ptr"
-    resume_handleMarshal := resume_handle is VarRef ? "uint*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufptrMarshal := bufptr is VarRef ? "ptr*" : IntPtr
+    entriesreadMarshal := entriesread is VarRef ? "uint*" : IntPtr
+    totalentriesMarshal := totalentries is VarRef ? "uint*" : IntPtr
+    resume_handleMarshal := resume_handle is VarRef ? "uint*" : IntPtr
+    resume_handleMarshal := resume_handle == 0 ? IntPtr : "uint*"
 
-    result := DllCall("NETAPI32.dll\NetServerDiskEnum", "ptr", servername, UInt32, level, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resume_handleMarshal, resume_handle, UInt32)
+    result := DllCall("NETAPI32.dll\NetServerDiskEnum", servernameMarshal, servername, UInt32, level, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resume_handleMarshal, resume_handle, UInt32)
     return result
 }
 
@@ -6723,7 +6795,10 @@ export NetServerComputerNameAdd(ServerName, EmulatedDomainName, EmulatedServerNa
     EmulatedDomainName := EmulatedDomainName is String ? StrPtr(EmulatedDomainName) : EmulatedDomainName
     EmulatedServerName := EmulatedServerName is String ? StrPtr(EmulatedServerName) : EmulatedServerName
 
-    result := DllCall("NETAPI32.dll\NetServerComputerNameAdd", "ptr", ServerName, "ptr", EmulatedDomainName, "ptr", EmulatedServerName, UInt32)
+    ServerNameMarshal := ServerName == 0 ? IntPtr : PWSTR
+    EmulatedDomainNameMarshal := EmulatedDomainName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("NETAPI32.dll\NetServerComputerNameAdd", ServerNameMarshal, ServerName, EmulatedDomainNameMarshal, EmulatedDomainName, "ptr", EmulatedServerName, UInt32)
     return result
 }
 
@@ -6795,7 +6870,9 @@ export NetServerComputerNameDel(ServerName, EmulatedServerName) {
     ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
     EmulatedServerName := EmulatedServerName is String ? StrPtr(EmulatedServerName) : EmulatedServerName
 
-    result := DllCall("NETAPI32.dll\NetServerComputerNameDel", "ptr", ServerName, "ptr", EmulatedServerName, UInt32)
+    ServerNameMarshal := ServerName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("NETAPI32.dll\NetServerComputerNameDel", ServerNameMarshal, ServerName, "ptr", EmulatedServerName, UInt32)
     return result
 }
 
@@ -6919,9 +6996,10 @@ export NetServerComputerNameDel(ServerName, EmulatedServerName) {
 export NetServerTransportAdd(servername, level, bufptr) {
     servername := servername is String ? StrPtr(servername) : servername
 
-    bufptrMarshal := bufptr is VarRef ? "char*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufptrMarshal := bufptr is VarRef ? "char*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\NetServerTransportAdd", "ptr", servername, UInt32, level, bufptrMarshal, bufptr, UInt32)
+    result := DllCall("NETAPI32.dll\NetServerTransportAdd", servernameMarshal, servername, UInt32, level, bufptrMarshal, bufptr, UInt32)
     return result
 }
 
@@ -7046,9 +7124,10 @@ export NetServerTransportAdd(servername, level, bufptr) {
 export NetServerTransportAddEx(servername, level, bufptr) {
     servername := servername is String ? StrPtr(servername) : servername
 
-    bufptrMarshal := bufptr is VarRef ? "char*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufptrMarshal := bufptr is VarRef ? "char*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\NetServerTransportAddEx", "ptr", servername, UInt32, level, bufptrMarshal, bufptr, UInt32)
+    result := DllCall("NETAPI32.dll\NetServerTransportAddEx", servernameMarshal, servername, UInt32, level, bufptrMarshal, bufptr, UInt32)
     return result
 }
 
@@ -7132,9 +7211,10 @@ export NetServerTransportAddEx(servername, level, bufptr) {
 export NetServerTransportDel(servername, level, bufptr) {
     servername := servername is String ? StrPtr(servername) : servername
 
-    bufptrMarshal := bufptr is VarRef ? "char*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufptrMarshal := bufptr is VarRef ? "char*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\NetServerTransportDel", "ptr", servername, UInt32, level, bufptrMarshal, bufptr, UInt32)
+    result := DllCall("NETAPI32.dll\NetServerTransportDel", servernameMarshal, servername, UInt32, level, bufptrMarshal, bufptr, UInt32)
     return result
 }
 
@@ -7212,12 +7292,14 @@ export NetServerTransportDel(servername, level, bufptr) {
 export NetServerTransportEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
     servername := servername is String ? StrPtr(servername) : servername
 
-    bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
-    entriesreadMarshal := entriesread is VarRef ? "uint*" : "ptr"
-    totalentriesMarshal := totalentries is VarRef ? "uint*" : "ptr"
-    resume_handleMarshal := resume_handle is VarRef ? "uint*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufptrMarshal := bufptr is VarRef ? "ptr*" : IntPtr
+    entriesreadMarshal := entriesread is VarRef ? "uint*" : IntPtr
+    totalentriesMarshal := totalentries is VarRef ? "uint*" : IntPtr
+    resume_handleMarshal := resume_handle is VarRef ? "uint*" : IntPtr
+    resume_handleMarshal := resume_handle == 0 ? IntPtr : "uint*"
 
-    result := DllCall("NETAPI32.dll\NetServerTransportEnum", "ptr", servername, UInt32, level, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resume_handleMarshal, resume_handle, UInt32)
+    result := DllCall("NETAPI32.dll\NetServerTransportEnum", servernameMarshal, servername, UInt32, level, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resume_handleMarshal, resume_handle, UInt32)
     return result
 }
 
@@ -7235,9 +7317,10 @@ export NetServiceControl(servername, service, opcode, arg, bufptr) {
     servername := servername is String ? StrPtr(servername) : servername
     service := service is String ? StrPtr(service) : service
 
-    bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufptrMarshal := bufptr is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\NetServiceControl", "ptr", servername, "ptr", service, UInt32, opcode, UInt32, arg, bufptrMarshal, bufptr, UInt32)
+    result := DllCall("NETAPI32.dll\NetServiceControl", servernameMarshal, servername, "ptr", service, UInt32, opcode, UInt32, arg, bufptrMarshal, bufptr, UInt32)
     return result
 }
 
@@ -7256,12 +7339,14 @@ export NetServiceControl(servername, service, opcode, arg, bufptr) {
 export NetServiceEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
     servername := servername is String ? StrPtr(servername) : servername
 
-    bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
-    entriesreadMarshal := entriesread is VarRef ? "uint*" : "ptr"
-    totalentriesMarshal := totalentries is VarRef ? "uint*" : "ptr"
-    resume_handleMarshal := resume_handle is VarRef ? "uint*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufptrMarshal := bufptr is VarRef ? "ptr*" : IntPtr
+    entriesreadMarshal := entriesread is VarRef ? "uint*" : IntPtr
+    totalentriesMarshal := totalentries is VarRef ? "uint*" : IntPtr
+    resume_handleMarshal := resume_handle is VarRef ? "uint*" : IntPtr
+    resume_handleMarshal := resume_handle == 0 ? IntPtr : "uint*"
 
-    result := DllCall("NETAPI32.dll\NetServiceEnum", "ptr", servername, UInt32, level, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resume_handleMarshal, resume_handle, UInt32)
+    result := DllCall("NETAPI32.dll\NetServiceEnum", servernameMarshal, servername, UInt32, level, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resume_handleMarshal, resume_handle, UInt32)
     return result
 }
 
@@ -7278,9 +7363,10 @@ export NetServiceGetInfo(servername, service, level, bufptr) {
     servername := servername is String ? StrPtr(servername) : servername
     service := service is String ? StrPtr(service) : service
 
-    bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufptrMarshal := bufptr is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\NetServiceGetInfo", "ptr", servername, "ptr", service, UInt32, level, bufptrMarshal, bufptr, UInt32)
+    result := DllCall("NETAPI32.dll\NetServiceGetInfo", servernameMarshal, servername, "ptr", service, UInt32, level, bufptrMarshal, bufptr, UInt32)
     return result
 }
 
@@ -7298,10 +7384,11 @@ export NetServiceInstall(servername, service, argc, argv, bufptr) {
     servername := servername is String ? StrPtr(servername) : servername
     service := service is String ? StrPtr(service) : service
 
-    argvMarshal := argv is VarRef ? "ptr*" : "ptr"
-    bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    argvMarshal := argv is VarRef ? "ptr*" : IntPtr
+    bufptrMarshal := bufptr is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\NetServiceInstall", "ptr", servername, "ptr", service, UInt32, argc, argvMarshal, argv, bufptrMarshal, bufptr, UInt32)
+    result := DllCall("NETAPI32.dll\NetServiceInstall", servernameMarshal, servername, "ptr", service, UInt32, argc, argvMarshal, argv, bufptrMarshal, bufptr, UInt32)
     return result
 }
 
@@ -7372,9 +7459,11 @@ export NetServiceInstall(servername, service, argc, argv, bufptr) {
  * @since windows5.0
  */
 export NetUseAdd(servername, LevelFlags, buf, parm_err) {
-    servernameMarshal := servername is VarRef ? "char*" : "ptr"
-    bufMarshal := buf is VarRef ? "char*" : "ptr"
-    parm_errMarshal := parm_err is VarRef ? "uint*" : "ptr"
+    servernameMarshal := servername is VarRef ? "char*" : IntPtr
+    servernameMarshal := servername == 0 ? IntPtr : "char*"
+    bufMarshal := buf is VarRef ? "char*" : IntPtr
+    parm_errMarshal := parm_err is VarRef ? "uint*" : IntPtr
+    parm_errMarshal := parm_err == 0 ? IntPtr : "uint*"
 
     result := DllCall("NETAPI32.dll\NetUseAdd", servernameMarshal, servername, UInt32, LevelFlags, bufMarshal, buf, parm_errMarshal, parm_err, UInt32)
     return result
@@ -7408,7 +7497,9 @@ export NetUseDel(UncServerName, UseName, ForceLevelFlags) {
     UncServerName := UncServerName is String ? StrPtr(UncServerName) : UncServerName
     UseName := UseName is String ? StrPtr(UseName) : UseName
 
-    result := DllCall("NETAPI32.dll\NetUseDel", "ptr", UncServerName, "ptr", UseName, FORCE_LEVEL_FLAGS, ForceLevelFlags, UInt32)
+    UncServerNameMarshal := UncServerName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("NETAPI32.dll\NetUseDel", UncServerNameMarshal, UncServerName, "ptr", UseName, FORCE_LEVEL_FLAGS, ForceLevelFlags, UInt32)
     return result
 }
 
@@ -7496,12 +7587,16 @@ export NetUseDel(UncServerName, UseName, ForceLevelFlags) {
 export NetUseEnum(UncServerName, LevelFlags, BufPtr, PreferedMaximumSize, EntriesRead, TotalEntries, ResumeHandle) {
     UncServerName := UncServerName is String ? StrPtr(UncServerName) : UncServerName
 
-    BufPtrMarshal := BufPtr is VarRef ? "ptr*" : "ptr"
-    EntriesReadMarshal := EntriesRead is VarRef ? "uint*" : "ptr"
-    TotalEntriesMarshal := TotalEntries is VarRef ? "uint*" : "ptr"
-    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : "ptr"
+    UncServerNameMarshal := UncServerName == 0 ? IntPtr : PWSTR
+    BufPtrMarshal := BufPtr is VarRef ? "ptr*" : IntPtr
+    BufPtrMarshal := BufPtr == 0 ? IntPtr : "ptr*"
+    EntriesReadMarshal := EntriesRead is VarRef ? "uint*" : IntPtr
+    EntriesReadMarshal := EntriesRead == 0 ? IntPtr : "uint*"
+    TotalEntriesMarshal := TotalEntries is VarRef ? "uint*" : IntPtr
+    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : IntPtr
+    ResumeHandleMarshal := ResumeHandle == 0 ? IntPtr : "uint*"
 
-    result := DllCall("NETAPI32.dll\NetUseEnum", "ptr", UncServerName, UInt32, LevelFlags, BufPtrMarshal, BufPtr, UInt32, PreferedMaximumSize, EntriesReadMarshal, EntriesRead, TotalEntriesMarshal, TotalEntries, ResumeHandleMarshal, ResumeHandle, UInt32)
+    result := DllCall("NETAPI32.dll\NetUseEnum", UncServerNameMarshal, UncServerName, UInt32, LevelFlags, BufPtrMarshal, BufPtr, UInt32, PreferedMaximumSize, EntriesReadMarshal, EntriesRead, TotalEntriesMarshal, TotalEntries, ResumeHandleMarshal, ResumeHandle, UInt32)
     return result
 }
 
@@ -7537,9 +7632,11 @@ export NetUseGetInfo(UncServerName, UseName, LevelFlags, bufptr) {
     UncServerName := UncServerName is String ? StrPtr(UncServerName) : UncServerName
     UseName := UseName is String ? StrPtr(UseName) : UseName
 
-    bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
+    UncServerNameMarshal := UncServerName == 0 ? IntPtr : PWSTR
+    bufptrMarshal := bufptr is VarRef ? "ptr*" : IntPtr
+    bufptrMarshal := bufptr == 0 ? IntPtr : "ptr*"
 
-    result := DllCall("NETAPI32.dll\NetUseGetInfo", "ptr", UncServerName, "ptr", UseName, UInt32, LevelFlags, bufptrMarshal, bufptr, UInt32)
+    result := DllCall("NETAPI32.dll\NetUseGetInfo", UncServerNameMarshal, UncServerName, "ptr", UseName, UInt32, LevelFlags, bufptrMarshal, bufptr, UInt32)
     return result
 }
 
@@ -7599,9 +7696,11 @@ export NetUseGetInfo(UncServerName, UseName, LevelFlags, bufptr) {
 export NetWkstaGetInfo(servername, level, bufptr) {
     servername := servername is String ? StrPtr(servername) : servername
 
-    bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufptrMarshal := bufptr is VarRef ? "ptr*" : IntPtr
+    bufptrMarshal := bufptr == 0 ? IntPtr : "ptr*"
 
-    result := DllCall("NETAPI32.dll\NetWkstaGetInfo", "ptr", servername, UInt32, level, bufptrMarshal, bufptr, UInt32)
+    result := DllCall("NETAPI32.dll\NetWkstaGetInfo", servernameMarshal, servername, UInt32, level, bufptrMarshal, bufptr, UInt32)
     return result
 }
 
@@ -7793,10 +7892,12 @@ export NetWkstaGetInfo(servername, level, bufptr) {
 export NetWkstaSetInfo(servername, level, _buffer, parm_err) {
     servername := servername is String ? StrPtr(servername) : servername
 
-    _bufferMarshal := _buffer is VarRef ? "char*" : "ptr"
-    parm_errMarshal := parm_err is VarRef ? "uint*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    _bufferMarshal := _buffer is VarRef ? "char*" : IntPtr
+    parm_errMarshal := parm_err is VarRef ? "uint*" : IntPtr
+    parm_errMarshal := parm_err == 0 ? IntPtr : "uint*"
 
-    result := DllCall("NETAPI32.dll\NetWkstaSetInfo", "ptr", servername, UInt32, level, _bufferMarshal, _buffer, parm_errMarshal, parm_err, UInt32)
+    result := DllCall("NETAPI32.dll\NetWkstaSetInfo", servernameMarshal, servername, UInt32, level, _bufferMarshal, _buffer, parm_errMarshal, parm_err, UInt32)
     return result
 }
 
@@ -7860,9 +7961,10 @@ export NetWkstaSetInfo(servername, level, _buffer, parm_err) {
 export NetWkstaUserGetInfo(reserved, level, bufptr) {
     reserved := reserved is String ? StrPtr(reserved) : reserved
 
-    bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
+    reservedMarshal := reserved == 0 ? IntPtr : PWSTR
+    bufptrMarshal := bufptr is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\NetWkstaUserGetInfo", "ptr", reserved, UInt32, level, bufptrMarshal, bufptr, UInt32)
+    result := DllCall("NETAPI32.dll\NetWkstaUserGetInfo", reservedMarshal, reserved, UInt32, level, bufptrMarshal, bufptr, UInt32)
     return result
 }
 
@@ -7932,10 +8034,12 @@ export NetWkstaUserGetInfo(reserved, level, bufptr) {
 export NetWkstaUserSetInfo(reserved, level, buf, parm_err) {
     reserved := reserved is String ? StrPtr(reserved) : reserved
 
-    bufMarshal := buf is VarRef ? "char*" : "ptr"
-    parm_errMarshal := parm_err is VarRef ? "uint*" : "ptr"
+    reservedMarshal := reserved == 0 ? IntPtr : PWSTR
+    bufMarshal := buf is VarRef ? "char*" : IntPtr
+    parm_errMarshal := parm_err is VarRef ? "uint*" : IntPtr
+    parm_errMarshal := parm_err == 0 ? IntPtr : "uint*"
 
-    result := DllCall("NETAPI32.dll\NetWkstaUserSetInfo", "ptr", reserved, UInt32, level, bufMarshal, buf, parm_errMarshal, parm_err, UInt32)
+    result := DllCall("NETAPI32.dll\NetWkstaUserSetInfo", reservedMarshal, reserved, UInt32, level, bufMarshal, buf, parm_errMarshal, parm_err, UInt32)
     return result
 }
 
@@ -8014,12 +8118,16 @@ export NetWkstaUserSetInfo(reserved, level, buf, parm_err) {
 export NetWkstaUserEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resumehandle) {
     servername := servername is String ? StrPtr(servername) : servername
 
-    bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
-    entriesreadMarshal := entriesread is VarRef ? "uint*" : "ptr"
-    totalentriesMarshal := totalentries is VarRef ? "uint*" : "ptr"
-    resumehandleMarshal := resumehandle is VarRef ? "uint*" : "ptr"
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    bufptrMarshal := bufptr is VarRef ? "ptr*" : IntPtr
+    bufptrMarshal := bufptr == 0 ? IntPtr : "ptr*"
+    entriesreadMarshal := entriesread is VarRef ? "uint*" : IntPtr
+    entriesreadMarshal := entriesread == 0 ? IntPtr : "uint*"
+    totalentriesMarshal := totalentries is VarRef ? "uint*" : IntPtr
+    resumehandleMarshal := resumehandle is VarRef ? "uint*" : IntPtr
+    resumehandleMarshal := resumehandle == 0 ? IntPtr : "uint*"
 
-    result := DllCall("NETAPI32.dll\NetWkstaUserEnum", "ptr", servername, UInt32, level, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resumehandleMarshal, resumehandle, UInt32)
+    result := DllCall("NETAPI32.dll\NetWkstaUserEnum", servernameMarshal, servername, UInt32, level, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resumehandleMarshal, resumehandle, UInt32)
     return result
 }
 
@@ -8121,9 +8229,11 @@ export NetWkstaUserEnum(servername, level, bufptr, prefmaxlen, entriesread, tota
  * @see https://learn.microsoft.com/windows/win32/api/lmwksta/nf-lmwksta-netwkstatransportadd
  */
 export NetWkstaTransportAdd(servername, level, buf, parm_err) {
-    servernameMarshal := servername is VarRef ? "char*" : "ptr"
-    bufMarshal := buf is VarRef ? "char*" : "ptr"
-    parm_errMarshal := parm_err is VarRef ? "uint*" : "ptr"
+    servernameMarshal := servername is VarRef ? "char*" : IntPtr
+    servernameMarshal := servername == 0 ? IntPtr : "char*"
+    bufMarshal := buf is VarRef ? "char*" : IntPtr
+    parm_errMarshal := parm_err is VarRef ? "uint*" : IntPtr
+    parm_errMarshal := parm_err == 0 ? IntPtr : "uint*"
 
     result := DllCall("NETAPI32.dll\NetWkstaTransportAdd", servernameMarshal, servername, UInt32, level, bufMarshal, buf, parm_errMarshal, parm_err, UInt32)
     return result
@@ -8189,7 +8299,10 @@ export NetWkstaTransportDel(servername, transportname, ucond) {
     servername := servername is String ? StrPtr(servername) : servername
     transportname := transportname is String ? StrPtr(transportname) : transportname
 
-    result := DllCall("NETAPI32.dll\NetWkstaTransportDel", "ptr", servername, "ptr", transportname, FORCE_LEVEL_FLAGS, ucond, UInt32)
+    servernameMarshal := servername == 0 ? IntPtr : PWSTR
+    transportnameMarshal := transportname == 0 ? IntPtr : PWSTR
+
+    result := DllCall("NETAPI32.dll\NetWkstaTransportDel", servernameMarshal, servername, transportnameMarshal, transportname, FORCE_LEVEL_FLAGS, ucond, UInt32)
     return result
 }
 
@@ -8306,11 +8419,13 @@ export NetWkstaTransportDel(servername, transportname, ucond) {
  * @since windows5.0
  */
 export NetWkstaTransportEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
-    servernameMarshal := servername is VarRef ? "char*" : "ptr"
-    bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
-    entriesreadMarshal := entriesread is VarRef ? "uint*" : "ptr"
-    totalentriesMarshal := totalentries is VarRef ? "uint*" : "ptr"
-    resume_handleMarshal := resume_handle is VarRef ? "uint*" : "ptr"
+    servernameMarshal := servername is VarRef ? "char*" : IntPtr
+    servernameMarshal := servername == 0 ? IntPtr : "char*"
+    bufptrMarshal := bufptr is VarRef ? "ptr*" : IntPtr
+    entriesreadMarshal := entriesread is VarRef ? "uint*" : IntPtr
+    totalentriesMarshal := totalentries is VarRef ? "uint*" : IntPtr
+    resume_handleMarshal := resume_handle is VarRef ? "uint*" : IntPtr
+    resume_handleMarshal := resume_handle == 0 ? IntPtr : "uint*"
 
     result := DllCall("NETAPI32.dll\NetWkstaTransportEnum", servernameMarshal, servername, UInt32, level, bufptrMarshal, bufptr, UInt32, prefmaxlen, entriesreadMarshal, entriesread, totalentriesMarshal, totalentries, resume_handleMarshal, resume_handle, UInt32)
     return result
@@ -8334,7 +8449,7 @@ export NetWkstaTransportEnum(servername, level, bufptr, prefmaxlen, entriesread,
  * @since windows5.0
  */
 export NetApiBufferAllocate(ByteCount, _Buffer) {
-    _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
+    _BufferMarshal := _Buffer is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("NETAPI32.dll\NetApiBufferAllocate", UInt32, ByteCount, _BufferMarshal, _Buffer, UInt32)
     return result
@@ -8371,7 +8486,8 @@ export NetApiBufferAllocate(ByteCount, _Buffer) {
  * @since windows5.0
  */
 export NetApiBufferFree(_Buffer) {
-    _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
+    _BufferMarshal := _Buffer is VarRef ? "ptr" : IntPtr
+    _BufferMarshal := _Buffer == 0 ? IntPtr : "ptr"
 
     result := DllCall("NETAPI32.dll\NetApiBufferFree", _BufferMarshal, _Buffer, UInt32)
     return result
@@ -8397,8 +8513,9 @@ export NetApiBufferFree(_Buffer) {
  * @since windows5.0
  */
 export NetApiBufferReallocate(OldBuffer, NewByteCount, NewBuffer) {
-    OldBufferMarshal := OldBuffer is VarRef ? "ptr" : "ptr"
-    NewBufferMarshal := NewBuffer is VarRef ? "ptr*" : "ptr"
+    OldBufferMarshal := OldBuffer is VarRef ? "ptr" : IntPtr
+    OldBufferMarshal := OldBuffer == 0 ? IntPtr : "ptr"
+    NewBufferMarshal := NewBuffer is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("NETAPI32.dll\NetApiBufferReallocate", OldBufferMarshal, OldBuffer, UInt32, NewByteCount, NewBufferMarshal, NewBuffer, UInt32)
     return result
@@ -8423,8 +8540,8 @@ export NetApiBufferReallocate(OldBuffer, NewByteCount, NewBuffer) {
  * @since windows5.0
  */
 export NetApiBufferSize(_Buffer, ByteCount) {
-    _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
-    ByteCountMarshal := ByteCount is VarRef ? "uint*" : "ptr"
+    _BufferMarshal := _Buffer is VarRef ? "ptr" : IntPtr
+    ByteCountMarshal := ByteCount is VarRef ? "uint*" : IntPtr
 
     result := DllCall("NETAPI32.dll\NetApiBufferSize", _BufferMarshal, _Buffer, ByteCountMarshal, ByteCount, UInt32)
     return result
@@ -8442,9 +8559,12 @@ export NetErrorLogClear(UncServerName, BackupFile, Reserved) {
     UncServerName := UncServerName is String ? StrPtr(UncServerName) : UncServerName
     BackupFile := BackupFile is String ? StrPtr(BackupFile) : BackupFile
 
-    ReservedMarshal := Reserved is VarRef ? "char*" : "ptr"
+    UncServerNameMarshal := UncServerName == 0 ? IntPtr : PWSTR
+    BackupFileMarshal := BackupFile == 0 ? IntPtr : PWSTR
+    ReservedMarshal := Reserved is VarRef ? "char*" : IntPtr
+    ReservedMarshal := Reserved == 0 ? IntPtr : "char*"
 
-    result := DllCall("NETAPI32.dll\NetErrorLogClear", "ptr", UncServerName, "ptr", BackupFile, ReservedMarshal, Reserved, UInt32)
+    result := DllCall("NETAPI32.dll\NetErrorLogClear", UncServerNameMarshal, UncServerName, BackupFileMarshal, BackupFile, ReservedMarshal, Reserved, UInt32)
     return result
 }
 
@@ -8468,12 +8588,15 @@ export NetErrorLogRead(UncServerName, Reserved1, ErrorLogHandle, Offset, Reserve
     UncServerName := UncServerName is String ? StrPtr(UncServerName) : UncServerName
     Reserved1 := Reserved1 is String ? StrPtr(Reserved1) : Reserved1
 
-    Reserved2Marshal := Reserved2 is VarRef ? "uint*" : "ptr"
-    BufPtrMarshal := BufPtr is VarRef ? "ptr*" : "ptr"
-    BytesReadMarshal := BytesRead is VarRef ? "uint*" : "ptr"
-    TotalAvailableMarshal := TotalAvailable is VarRef ? "uint*" : "ptr"
+    UncServerNameMarshal := UncServerName == 0 ? IntPtr : PWSTR
+    Reserved1Marshal := Reserved1 == 0 ? IntPtr : PWSTR
+    Reserved2Marshal := Reserved2 is VarRef ? "uint*" : IntPtr
+    Reserved2Marshal := Reserved2 == 0 ? IntPtr : "uint*"
+    BufPtrMarshal := BufPtr is VarRef ? "ptr*" : IntPtr
+    BytesReadMarshal := BytesRead is VarRef ? "uint*" : IntPtr
+    TotalAvailableMarshal := TotalAvailable is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\NetErrorLogRead", "ptr", UncServerName, "ptr", Reserved1, HLOG.Ptr, ErrorLogHandle, UInt32, Offset, Reserved2Marshal, Reserved2, UInt32, Reserved3, UInt32, OffsetFlag, BufPtrMarshal, BufPtr, UInt32, PrefMaxSize, BytesReadMarshal, BytesRead, TotalAvailableMarshal, TotalAvailable, UInt32)
+    result := DllCall("NETAPI32.dll\NetErrorLogRead", UncServerNameMarshal, UncServerName, Reserved1Marshal, Reserved1, HLOG.Ptr, ErrorLogHandle, UInt32, Offset, Reserved2Marshal, Reserved2, UInt32, Reserved3, UInt32, OffsetFlag, BufPtrMarshal, BufPtr, UInt32, PrefMaxSize, BytesReadMarshal, BytesRead, TotalAvailableMarshal, TotalAvailable, UInt32)
     return result
 }
 
@@ -8493,10 +8616,12 @@ export NetErrorLogRead(UncServerName, Reserved1, ErrorLogHandle, Offset, Reserve
 export NetErrorLogWrite(Reserved1, Code, _Component, _Buffer, NumBytes, MsgBuf, StrCount, Reserved2) {
     _Component := _Component is String ? StrPtr(_Component) : _Component
 
-    Reserved1Marshal := Reserved1 is VarRef ? "char*" : "ptr"
-    _BufferMarshal := _Buffer is VarRef ? "char*" : "ptr"
-    MsgBufMarshal := MsgBuf is VarRef ? "char*" : "ptr"
-    Reserved2Marshal := Reserved2 is VarRef ? "char*" : "ptr"
+    Reserved1Marshal := Reserved1 is VarRef ? "char*" : IntPtr
+    Reserved1Marshal := Reserved1 == 0 ? IntPtr : "char*"
+    _BufferMarshal := _Buffer is VarRef ? "char*" : IntPtr
+    MsgBufMarshal := MsgBuf is VarRef ? "char*" : IntPtr
+    Reserved2Marshal := Reserved2 is VarRef ? "char*" : IntPtr
+    Reserved2Marshal := Reserved2 == 0 ? IntPtr : "char*"
 
     result := DllCall("NETAPI32.dll\NetErrorLogWrite", Reserved1Marshal, Reserved1, UInt32, Code, "ptr", _Component, _BufferMarshal, _Buffer, UInt32, NumBytes, MsgBufMarshal, MsgBuf, UInt32, StrCount, Reserved2Marshal, Reserved2, UInt32)
     return result
@@ -8516,7 +8641,7 @@ export NetConfigGet(server, _component, parameter, bufptr) {
     _component := _component is String ? StrPtr(_component) : _component
     parameter := parameter is String ? StrPtr(parameter) : parameter
 
-    bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
+    bufptrMarshal := bufptr is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("NETAPI32.dll\NetConfigGet", "ptr", server, "ptr", _component, "ptr", parameter, bufptrMarshal, bufptr, UInt32)
     return result
@@ -8534,7 +8659,7 @@ export NetConfigGetAll(server, _component, bufptr) {
     server := server is String ? StrPtr(server) : server
     _component := _component is String ? StrPtr(_component) : _component
 
-    bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
+    bufptrMarshal := bufptr is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("NETAPI32.dll\NetConfigGetAll", "ptr", server, "ptr", _component, bufptrMarshal, bufptr, UInt32)
     return result
@@ -8557,7 +8682,7 @@ export NetConfigSet(server, reserved1, _component, level, reserved2, buf, reserv
     reserved1 := reserved1 is String ? StrPtr(reserved1) : reserved1
     _component := _component is String ? StrPtr(_component) : _component
 
-    bufMarshal := buf is VarRef ? "char*" : "ptr"
+    bufMarshal := buf is VarRef ? "char*" : IntPtr
 
     result := DllCall("NETAPI32.dll\NetConfigSet", "ptr", server, "ptr", reserved1, "ptr", _component, UInt32, level, UInt32, reserved2, bufMarshal, buf, UInt32, reserved3, UInt32)
     return result
@@ -8600,10 +8725,10 @@ export NetAuditRead(server, service, auditloghandle, offset, reserved1, reserved
     server := server is String ? StrPtr(server) : server
     service := service is String ? StrPtr(service) : service
 
-    reserved1Marshal := reserved1 is VarRef ? "uint*" : "ptr"
-    bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
-    bytesreadMarshal := bytesread is VarRef ? "uint*" : "ptr"
-    totalavailableMarshal := totalavailable is VarRef ? "uint*" : "ptr"
+    reserved1Marshal := reserved1 is VarRef ? "uint*" : IntPtr
+    bufptrMarshal := bufptr is VarRef ? "ptr*" : IntPtr
+    bytesreadMarshal := bytesread is VarRef ? "uint*" : IntPtr
+    totalavailableMarshal := totalavailable is VarRef ? "uint*" : IntPtr
 
     result := DllCall("NETAPI32.dll\NetAuditRead", "ptr", server, "ptr", service, HLOG.Ptr, auditloghandle, UInt32, offset, reserved1Marshal, reserved1, UInt32, reserved2, UInt32, offsetflag, bufptrMarshal, bufptr, UInt32, prefmaxlen, bytesreadMarshal, bytesread, totalavailableMarshal, totalavailable, UInt32)
     return result
@@ -8622,8 +8747,8 @@ export NetAuditRead(server, service, auditloghandle, offset, reserved1, reserved
 export NetAuditWrite(type, buf, numbytes, service, reserved) {
     service := service is String ? StrPtr(service) : service
 
-    bufMarshal := buf is VarRef ? "char*" : "ptr"
-    reservedMarshal := reserved is VarRef ? "char*" : "ptr"
+    bufMarshal := buf is VarRef ? "char*" : IntPtr
+    reservedMarshal := reserved is VarRef ? "char*" : IntPtr
 
     result := DllCall("NETAPI32.dll\NetAuditWrite", UInt32, type, bufMarshal, buf, UInt32, numbytes, "ptr", service, reservedMarshal, reserved, UInt32)
     return result
@@ -8785,7 +8910,12 @@ export NetJoinDomain(lpServer, lpDomain, lpMachineAccountOU, lpAccount, lpPasswo
     lpAccount := lpAccount is String ? StrPtr(lpAccount) : lpAccount
     lpPassword := lpPassword is String ? StrPtr(lpPassword) : lpPassword
 
-    result := DllCall("NETAPI32.dll\NetJoinDomain", "ptr", lpServer, "ptr", lpDomain, "ptr", lpMachineAccountOU, "ptr", lpAccount, "ptr", lpPassword, NET_JOIN_DOMAIN_JOIN_OPTIONS, fJoinOptions, UInt32)
+    lpServerMarshal := lpServer == 0 ? IntPtr : PWSTR
+    lpMachineAccountOUMarshal := lpMachineAccountOU == 0 ? IntPtr : PWSTR
+    lpAccountMarshal := lpAccount == 0 ? IntPtr : PWSTR
+    lpPasswordMarshal := lpPassword == 0 ? IntPtr : PWSTR
+
+    result := DllCall("NETAPI32.dll\NetJoinDomain", lpServerMarshal, lpServer, "ptr", lpDomain, lpMachineAccountOUMarshal, lpMachineAccountOU, lpAccountMarshal, lpAccount, lpPasswordMarshal, lpPassword, NET_JOIN_DOMAIN_JOIN_OPTIONS, fJoinOptions, UInt32)
     return result
 }
 
@@ -8855,7 +8985,11 @@ export NetUnjoinDomain(lpServer, lpAccount, lpPassword, fUnjoinOptions) {
     lpAccount := lpAccount is String ? StrPtr(lpAccount) : lpAccount
     lpPassword := lpPassword is String ? StrPtr(lpPassword) : lpPassword
 
-    result := DllCall("NETAPI32.dll\NetUnjoinDomain", "ptr", lpServer, "ptr", lpAccount, "ptr", lpPassword, UInt32, fUnjoinOptions, UInt32)
+    lpServerMarshal := lpServer == 0 ? IntPtr : PWSTR
+    lpAccountMarshal := lpAccount == 0 ? IntPtr : PWSTR
+    lpPasswordMarshal := lpPassword == 0 ? IntPtr : PWSTR
+
+    result := DllCall("NETAPI32.dll\NetUnjoinDomain", lpServerMarshal, lpServer, lpAccountMarshal, lpAccount, lpPasswordMarshal, lpPassword, UInt32, fUnjoinOptions, UInt32)
     return result
 }
 
@@ -8941,7 +9075,12 @@ export NetRenameMachineInDomain(lpServer, lpNewMachineName, lpAccount, lpPasswor
     lpAccount := lpAccount is String ? StrPtr(lpAccount) : lpAccount
     lpPassword := lpPassword is String ? StrPtr(lpPassword) : lpPassword
 
-    result := DllCall("NETAPI32.dll\NetRenameMachineInDomain", "ptr", lpServer, "ptr", lpNewMachineName, "ptr", lpAccount, "ptr", lpPassword, UInt32, fRenameOptions, UInt32)
+    lpServerMarshal := lpServer == 0 ? IntPtr : PWSTR
+    lpNewMachineNameMarshal := lpNewMachineName == 0 ? IntPtr : PWSTR
+    lpAccountMarshal := lpAccount == 0 ? IntPtr : PWSTR
+    lpPasswordMarshal := lpPassword == 0 ? IntPtr : PWSTR
+
+    result := DllCall("NETAPI32.dll\NetRenameMachineInDomain", lpServerMarshal, lpServer, lpNewMachineNameMarshal, lpNewMachineName, lpAccountMarshal, lpAccount, lpPasswordMarshal, lpPassword, UInt32, fRenameOptions, UInt32)
     return result
 }
 
@@ -9193,7 +9332,11 @@ export NetValidateName(lpServer, lpName, lpAccount, lpPassword, NameType) {
     lpAccount := lpAccount is String ? StrPtr(lpAccount) : lpAccount
     lpPassword := lpPassword is String ? StrPtr(lpPassword) : lpPassword
 
-    result := DllCall("NETAPI32.dll\NetValidateName", "ptr", lpServer, "ptr", lpName, "ptr", lpAccount, "ptr", lpPassword, NETSETUP_NAME_TYPE, NameType, UInt32)
+    lpServerMarshal := lpServer == 0 ? IntPtr : PWSTR
+    lpAccountMarshal := lpAccount == 0 ? IntPtr : PWSTR
+    lpPasswordMarshal := lpPassword == 0 ? IntPtr : PWSTR
+
+    result := DllCall("NETAPI32.dll\NetValidateName", lpServerMarshal, lpServer, "ptr", lpName, lpAccountMarshal, lpAccount, lpPasswordMarshal, lpPassword, NETSETUP_NAME_TYPE, NameType, UInt32)
     return result
 }
 
@@ -9256,10 +9399,12 @@ export NetGetJoinableOUs(lpServer, lpDomain, lpAccount, lpPassword, OUCount, OUs
     lpAccount := lpAccount is String ? StrPtr(lpAccount) : lpAccount
     lpPassword := lpPassword is String ? StrPtr(lpPassword) : lpPassword
 
-    OUCountMarshal := OUCount is VarRef ? "uint*" : "ptr"
-    OUsMarshal := OUs is VarRef ? "ptr*" : "ptr"
+    lpAccountMarshal := lpAccount == 0 ? IntPtr : PWSTR
+    lpPasswordMarshal := lpPassword == 0 ? IntPtr : PWSTR
+    OUCountMarshal := OUCount is VarRef ? "uint*" : IntPtr
+    OUsMarshal := OUs is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\NetGetJoinableOUs", "ptr", lpServer, "ptr", lpDomain, "ptr", lpAccount, "ptr", lpPassword, OUCountMarshal, OUCount, OUsMarshal, OUs, UInt32)
+    result := DllCall("NETAPI32.dll\NetGetJoinableOUs", "ptr", lpServer, "ptr", lpDomain, lpAccountMarshal, lpAccount, lpPasswordMarshal, lpPassword, OUCountMarshal, OUCount, OUsMarshal, OUs, UInt32)
     return result
 }
 
@@ -9392,7 +9537,11 @@ export NetAddAlternateComputerName(Server, AlternateName, DomainAccount, DomainA
     DomainAccount := DomainAccount is String ? StrPtr(DomainAccount) : DomainAccount
     DomainAccountPassword := DomainAccountPassword is String ? StrPtr(DomainAccountPassword) : DomainAccountPassword
 
-    result := DllCall("NETAPI32.dll\NetAddAlternateComputerName", "ptr", Server, "ptr", AlternateName, "ptr", DomainAccount, "ptr", DomainAccountPassword, UInt32, Reserved, UInt32)
+    ServerMarshal := Server == 0 ? IntPtr : PWSTR
+    DomainAccountMarshal := DomainAccount == 0 ? IntPtr : PWSTR
+    DomainAccountPasswordMarshal := DomainAccountPassword == 0 ? IntPtr : PWSTR
+
+    result := DllCall("NETAPI32.dll\NetAddAlternateComputerName", ServerMarshal, Server, "ptr", AlternateName, DomainAccountMarshal, DomainAccount, DomainAccountPasswordMarshal, DomainAccountPassword, UInt32, Reserved, UInt32)
     return result
 }
 
@@ -9525,7 +9674,11 @@ export NetRemoveAlternateComputerName(Server, AlternateName, DomainAccount, Doma
     DomainAccount := DomainAccount is String ? StrPtr(DomainAccount) : DomainAccount
     DomainAccountPassword := DomainAccountPassword is String ? StrPtr(DomainAccountPassword) : DomainAccountPassword
 
-    result := DllCall("NETAPI32.dll\NetRemoveAlternateComputerName", "ptr", Server, "ptr", AlternateName, "ptr", DomainAccount, "ptr", DomainAccountPassword, UInt32, Reserved, UInt32)
+    ServerMarshal := Server == 0 ? IntPtr : PWSTR
+    DomainAccountMarshal := DomainAccount == 0 ? IntPtr : PWSTR
+    DomainAccountPasswordMarshal := DomainAccountPassword == 0 ? IntPtr : PWSTR
+
+    result := DllCall("NETAPI32.dll\NetRemoveAlternateComputerName", ServerMarshal, Server, "ptr", AlternateName, DomainAccountMarshal, DomainAccount, DomainAccountPasswordMarshal, DomainAccountPassword, UInt32, Reserved, UInt32)
     return result
 }
 
@@ -9658,7 +9811,11 @@ export NetSetPrimaryComputerName(Server, PrimaryName, DomainAccount, DomainAccou
     DomainAccount := DomainAccount is String ? StrPtr(DomainAccount) : DomainAccount
     DomainAccountPassword := DomainAccountPassword is String ? StrPtr(DomainAccountPassword) : DomainAccountPassword
 
-    result := DllCall("NETAPI32.dll\NetSetPrimaryComputerName", "ptr", Server, "ptr", PrimaryName, "ptr", DomainAccount, "ptr", DomainAccountPassword, UInt32, Reserved, UInt32)
+    ServerMarshal := Server == 0 ? IntPtr : PWSTR
+    DomainAccountMarshal := DomainAccount == 0 ? IntPtr : PWSTR
+    DomainAccountPasswordMarshal := DomainAccountPassword == 0 ? IntPtr : PWSTR
+
+    result := DllCall("NETAPI32.dll\NetSetPrimaryComputerName", ServerMarshal, Server, "ptr", PrimaryName, DomainAccountMarshal, DomainAccount, DomainAccountPasswordMarshal, DomainAccountPassword, UInt32, Reserved, UInt32)
     return result
 }
 
@@ -9773,10 +9930,11 @@ export NetSetPrimaryComputerName(Server, PrimaryName, DomainAccount, DomainAccou
 export NetEnumerateComputerNames(Server, NameType, Reserved, EntryCount, ComputerNames) {
     Server := Server is String ? StrPtr(Server) : Server
 
-    EntryCountMarshal := EntryCount is VarRef ? "uint*" : "ptr"
-    ComputerNamesMarshal := ComputerNames is VarRef ? "ptr*" : "ptr"
+    ServerMarshal := Server == 0 ? IntPtr : PWSTR
+    EntryCountMarshal := EntryCount is VarRef ? "uint*" : IntPtr
+    ComputerNamesMarshal := ComputerNames is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\NetEnumerateComputerNames", "ptr", Server, NET_COMPUTER_NAME_TYPE, NameType, UInt32, Reserved, EntryCountMarshal, EntryCount, ComputerNamesMarshal, ComputerNames, UInt32)
+    result := DllCall("NETAPI32.dll\NetEnumerateComputerNames", ServerMarshal, Server, NET_COMPUTER_NAME_TYPE, NameType, UInt32, Reserved, EntryCountMarshal, EntryCount, ComputerNamesMarshal, ComputerNames, UInt32)
     return result
 }
 
@@ -9969,11 +10127,16 @@ export NetProvisionComputerAccount(lpDomain, lpMachineName, lpMachineAccountOU, 
     lpMachineAccountOU := lpMachineAccountOU is String ? StrPtr(lpMachineAccountOU) : lpMachineAccountOU
     lpDcName := lpDcName is String ? StrPtr(lpDcName) : lpDcName
 
-    pProvisionBinDataMarshal := pProvisionBinData is VarRef ? "ptr*" : "ptr"
-    pdwProvisionBinDataSizeMarshal := pdwProvisionBinDataSize is VarRef ? "uint*" : "ptr"
-    pProvisionTextDataMarshal := pProvisionTextData is VarRef ? "ptr*" : "ptr"
+    lpMachineAccountOUMarshal := lpMachineAccountOU == 0 ? IntPtr : PWSTR
+    lpDcNameMarshal := lpDcName == 0 ? IntPtr : PWSTR
+    pProvisionBinDataMarshal := pProvisionBinData is VarRef ? "ptr*" : IntPtr
+    pProvisionBinDataMarshal := pProvisionBinData == 0 ? IntPtr : "ptr*"
+    pdwProvisionBinDataSizeMarshal := pdwProvisionBinDataSize is VarRef ? "uint*" : IntPtr
+    pdwProvisionBinDataSizeMarshal := pdwProvisionBinDataSize == 0 ? IntPtr : "uint*"
+    pProvisionTextDataMarshal := pProvisionTextData is VarRef ? "ptr*" : IntPtr
+    pProvisionTextDataMarshal := pProvisionTextData == 0 ? IntPtr : PWSTR.Ptr
 
-    result := DllCall("NETAPI32.dll\NetProvisionComputerAccount", "ptr", lpDomain, "ptr", lpMachineName, "ptr", lpMachineAccountOU, "ptr", lpDcName, NETSETUP_PROVISION, dwOptions, pProvisionBinDataMarshal, pProvisionBinData, pdwProvisionBinDataSizeMarshal, pdwProvisionBinDataSize, pProvisionTextDataMarshal, pProvisionTextData, UInt32)
+    result := DllCall("NETAPI32.dll\NetProvisionComputerAccount", "ptr", lpDomain, "ptr", lpMachineName, lpMachineAccountOUMarshal, lpMachineAccountOU, lpDcNameMarshal, lpDcName, NETSETUP_PROVISION, dwOptions, pProvisionBinDataMarshal, pProvisionBinData, pdwProvisionBinDataSizeMarshal, pdwProvisionBinDataSize, pProvisionTextDataMarshal, pProvisionTextData, UInt32)
     return result
 }
 
@@ -10419,9 +10582,12 @@ export NetRequestOfflineDomainJoin(pProvisionBinData, cbProvisionBinDataSize, dw
  * @since windows8.0
  */
 export NetCreateProvisioningPackage(pProvisioningParams, ppPackageBinData, pdwPackageBinDataSize, ppPackageTextData) {
-    ppPackageBinDataMarshal := ppPackageBinData is VarRef ? "ptr*" : "ptr"
-    pdwPackageBinDataSizeMarshal := pdwPackageBinDataSize is VarRef ? "uint*" : "ptr"
-    ppPackageTextDataMarshal := ppPackageTextData is VarRef ? "ptr*" : "ptr"
+    ppPackageBinDataMarshal := ppPackageBinData is VarRef ? "ptr*" : IntPtr
+    ppPackageBinDataMarshal := ppPackageBinData == 0 ? IntPtr : "ptr*"
+    pdwPackageBinDataSizeMarshal := pdwPackageBinDataSize is VarRef ? "uint*" : IntPtr
+    pdwPackageBinDataSizeMarshal := pdwPackageBinDataSize == 0 ? IntPtr : "uint*"
+    ppPackageTextDataMarshal := ppPackageTextData is VarRef ? "ptr*" : IntPtr
+    ppPackageTextDataMarshal := ppPackageTextData == 0 ? IntPtr : PWSTR.Ptr
 
     result := DllCall("NETAPI32.dll\NetCreateProvisioningPackage", NETSETUP_PROVISIONING_PARAMS.Ptr, pProvisioningParams, ppPackageBinDataMarshal, ppPackageBinData, pdwPackageBinDataSizeMarshal, pdwPackageBinDataSize, ppPackageTextDataMarshal, ppPackageTextData, UInt32)
     return result
@@ -10629,7 +10795,9 @@ export NetRequestProvisioningPackageInstall(pPackageBinData, dwPackageBinDataSiz
 export NetGetAadJoinInformation(pcszTenantId) {
     pcszTenantId := pcszTenantId is String ? StrPtr(pcszTenantId) : pcszTenantId
 
-    result := DllCall("NETAPI32.dll\NetGetAadJoinInformation", "ptr", pcszTenantId, "ptr*", &ppJoinInfo := 0, "HRESULT")
+    pcszTenantIdMarshal := pcszTenantId == 0 ? IntPtr : PWSTR
+
+    result := DllCall("NETAPI32.dll\NetGetAadJoinInformation", pcszTenantIdMarshal, pcszTenantId, "ptr*", &ppJoinInfo := 0, "HRESULT")
     return ppJoinInfo
 }
 
@@ -10641,7 +10809,9 @@ export NetGetAadJoinInformation(pcszTenantId) {
  * @since windows10.0.10240
  */
 export NetFreeAadJoinInformation(pJoinInfo) {
-    DllCall("NETAPI32.dll\NetFreeAadJoinInformation", DSREG_JOIN_INFO.Ptr, pJoinInfo)
+    pJoinInfoMarshal := pJoinInfo == 0 ? IntPtr : DSREG_JOIN_INFO.Ptr
+
+    DllCall("NETAPI32.dll\NetFreeAadJoinInformation", pJoinInfoMarshal, pJoinInfo)
 }
 
 /**
@@ -10683,10 +10853,11 @@ export NetFreeAadJoinInformation(pJoinInfo) {
 export NetGetJoinInformation(lpServer, lpNameBuffer, BufferType) {
     lpServer := lpServer is String ? StrPtr(lpServer) : lpServer
 
-    lpNameBufferMarshal := lpNameBuffer is VarRef ? "ptr*" : "ptr"
-    BufferTypeMarshal := BufferType is VarRef ? "int*" : "ptr"
+    lpServerMarshal := lpServer == 0 ? IntPtr : PWSTR
+    lpNameBufferMarshal := lpNameBuffer is VarRef ? "ptr*" : IntPtr
+    BufferTypeMarshal := BufferType is VarRef ? "int*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\NetGetJoinInformation", "ptr", lpServer, lpNameBufferMarshal, lpNameBuffer, BufferTypeMarshal, BufferType, UInt32)
+    result := DllCall("NETAPI32.dll\NetGetJoinInformation", lpServerMarshal, lpServer, lpNameBufferMarshal, lpNameBuffer, BufferTypeMarshal, BufferType, UInt32)
     return result
 }
 
@@ -10861,8 +11032,8 @@ export SetNetScheduleAccountInformation(pwszServerName, pwszAccount, pwszPasswor
 export NetScheduleJobAdd(Servername, _Buffer, JobId) {
     Servername := Servername is String ? StrPtr(Servername) : Servername
 
-    _BufferMarshal := _Buffer is VarRef ? "char*" : "ptr"
-    JobIdMarshal := JobId is VarRef ? "uint*" : "ptr"
+    _BufferMarshal := _Buffer is VarRef ? "char*" : IntPtr
+    JobIdMarshal := JobId is VarRef ? "uint*" : IntPtr
 
     result := DllCall("NETAPI32.dll\NetScheduleJobAdd", "ptr", Servername, _BufferMarshal, _Buffer, JobIdMarshal, JobId, UInt32)
     return result
@@ -10936,10 +11107,10 @@ export NetScheduleJobDel(Servername, MinJobId, MaxJobId) {
 export NetScheduleJobEnum(Servername, PointerToBuffer, PrefferedMaximumLength, EntriesRead, TotalEntries, ResumeHandle) {
     Servername := Servername is String ? StrPtr(Servername) : Servername
 
-    PointerToBufferMarshal := PointerToBuffer is VarRef ? "ptr*" : "ptr"
-    EntriesReadMarshal := EntriesRead is VarRef ? "uint*" : "ptr"
-    TotalEntriesMarshal := TotalEntries is VarRef ? "uint*" : "ptr"
-    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : "ptr"
+    PointerToBufferMarshal := PointerToBuffer is VarRef ? "ptr*" : IntPtr
+    EntriesReadMarshal := EntriesRead is VarRef ? "uint*" : IntPtr
+    TotalEntriesMarshal := TotalEntries is VarRef ? "uint*" : IntPtr
+    ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : IntPtr
 
     result := DllCall("NETAPI32.dll\NetScheduleJobEnum", "ptr", Servername, PointerToBufferMarshal, PointerToBuffer, UInt32, PrefferedMaximumLength, EntriesReadMarshal, EntriesRead, TotalEntriesMarshal, TotalEntries, ResumeHandleMarshal, ResumeHandle, UInt32)
     return result
@@ -10971,14 +11142,13 @@ export NetScheduleJobEnum(Servername, PointerToBuffer, PrefferedMaximumLength, E
 export NetScheduleJobGetInfo(Servername, JobId, PointerToBuffer) {
     Servername := Servername is String ? StrPtr(Servername) : Servername
 
-    PointerToBufferMarshal := PointerToBuffer is VarRef ? "ptr*" : "ptr"
+    PointerToBufferMarshal := PointerToBuffer is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("NETAPI32.dll\NetScheduleJobGetInfo", "ptr", Servername, UInt32, JobId, PointerToBufferMarshal, PointerToBuffer, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PSTR} lpszCallerName 
  * @param {Integer} dwFlags 
  * @returns {Integer} 
@@ -10991,7 +11161,6 @@ export TraceRegisterExA(lpszCallerName, dwFlags) {
 }
 
 /**
- * 
  * @param {Integer} dwTraceID 
  * @returns {Integer} 
  */
@@ -11001,7 +11170,6 @@ export TraceDeregisterA(dwTraceID) {
 }
 
 /**
- * 
  * @param {Integer} dwTraceID 
  * @param {Integer} dwFlags 
  * @returns {Integer} 
@@ -11012,7 +11180,6 @@ export TraceDeregisterExA(dwTraceID, dwFlags) {
 }
 
 /**
- * 
  * @param {Integer} dwTraceID 
  * @param {Pointer<HANDLE>} lphConsole 
  * @returns {Integer} 
@@ -11023,7 +11190,6 @@ export TraceGetConsoleA(dwTraceID, lphConsole) {
 }
 
 /**
- * 
  * @param {Integer} dwTraceID 
  * @param {PSTR} lpszFormat 
  * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
@@ -11040,7 +11206,6 @@ export TracePrintfA(dwTraceID, lpszFormat, args*) {
 }
 
 /**
- * 
  * @param {Integer} dwTraceID 
  * @param {Integer} dwFlags 
  * @param {PSTR} lpszFormat 
@@ -11058,7 +11223,6 @@ export TracePrintfExA(dwTraceID, dwFlags, lpszFormat, args*) {
 }
 
 /**
- * 
  * @param {Integer} dwTraceID 
  * @param {Integer} dwFlags 
  * @param {PSTR} lpszFormat 
@@ -11068,14 +11232,13 @@ export TracePrintfExA(dwTraceID, dwFlags, lpszFormat, args*) {
 export TraceVprintfExA(dwTraceID, dwFlags, lpszFormat, arglist) {
     lpszFormat := lpszFormat is String ? StrPtr(lpszFormat) : lpszFormat
 
-    arglistMarshal := arglist is VarRef ? "char*" : "ptr"
+    arglistMarshal := arglist is VarRef ? "char*" : IntPtr
 
     result := DllCall("rtutils.dll\TraceVprintfExA", UInt32, dwTraceID, UInt32, dwFlags, "ptr", lpszFormat, arglistMarshal, arglist, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Integer} dwTraceID 
  * @param {Integer} dwFlags 
  * @param {PSTR} lpszString 
@@ -11089,7 +11252,6 @@ export TracePutsExA(dwTraceID, dwFlags, lpszString) {
 }
 
 /**
- * 
  * @param {Integer} dwTraceID 
  * @param {Integer} dwFlags 
  * @param {Pointer<Integer>} lpbBytes 
@@ -11102,14 +11264,13 @@ export TracePutsExA(dwTraceID, dwFlags, lpszString) {
 export TraceDumpExA(dwTraceID, dwFlags, lpbBytes, dwByteCount, dwGroupSize, bAddressPrefix, lpszPrefix) {
     lpszPrefix := lpszPrefix is String ? StrPtr(lpszPrefix) : lpszPrefix
 
-    lpbBytesMarshal := lpbBytes is VarRef ? "char*" : "ptr"
+    lpbBytesMarshal := lpbBytes is VarRef ? "char*" : IntPtr
 
     result := DllCall("rtutils.dll\TraceDumpExA", UInt32, dwTraceID, UInt32, dwFlags, lpbBytesMarshal, lpbBytes, UInt32, dwByteCount, UInt32, dwGroupSize, BOOL, bAddressPrefix, "ptr", lpszPrefix, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} lpszCallerName 
  * @param {Integer} dwFlags 
  * @returns {Integer} 
@@ -11122,7 +11283,6 @@ export TraceRegisterExW(lpszCallerName, dwFlags) {
 }
 
 /**
- * 
  * @param {Integer} dwTraceID 
  * @returns {Integer} 
  */
@@ -11132,7 +11292,6 @@ export TraceDeregisterW(dwTraceID) {
 }
 
 /**
- * 
  * @param {Integer} dwTraceID 
  * @param {Integer} dwFlags 
  * @returns {Integer} 
@@ -11143,7 +11302,6 @@ export TraceDeregisterExW(dwTraceID, dwFlags) {
 }
 
 /**
- * 
  * @param {Integer} dwTraceID 
  * @param {Pointer<HANDLE>} lphConsole 
  * @returns {Integer} 
@@ -11154,7 +11312,6 @@ export TraceGetConsoleW(dwTraceID, lphConsole) {
 }
 
 /**
- * 
  * @param {Integer} dwTraceID 
  * @param {PWSTR} lpszFormat 
  * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
@@ -11171,7 +11328,6 @@ export TracePrintfW(dwTraceID, lpszFormat, args*) {
 }
 
 /**
- * 
  * @param {Integer} dwTraceID 
  * @param {Integer} dwFlags 
  * @param {PWSTR} lpszFormat 
@@ -11189,7 +11345,6 @@ export TracePrintfExW(dwTraceID, dwFlags, lpszFormat, args*) {
 }
 
 /**
- * 
  * @param {Integer} dwTraceID 
  * @param {Integer} dwFlags 
  * @param {PWSTR} lpszFormat 
@@ -11199,14 +11354,13 @@ export TracePrintfExW(dwTraceID, dwFlags, lpszFormat, args*) {
 export TraceVprintfExW(dwTraceID, dwFlags, lpszFormat, arglist) {
     lpszFormat := lpszFormat is String ? StrPtr(lpszFormat) : lpszFormat
 
-    arglistMarshal := arglist is VarRef ? "char*" : "ptr"
+    arglistMarshal := arglist is VarRef ? "char*" : IntPtr
 
     result := DllCall("rtutils.dll\TraceVprintfExW", UInt32, dwTraceID, UInt32, dwFlags, "ptr", lpszFormat, arglistMarshal, arglist, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Integer} dwTraceID 
  * @param {Integer} dwFlags 
  * @param {PWSTR} lpszString 
@@ -11220,7 +11374,6 @@ export TracePutsExW(dwTraceID, dwFlags, lpszString) {
 }
 
 /**
- * 
  * @param {Integer} dwTraceID 
  * @param {Integer} dwFlags 
  * @param {Pointer<Integer>} lpbBytes 
@@ -11233,14 +11386,13 @@ export TracePutsExW(dwTraceID, dwFlags, lpszString) {
 export TraceDumpExW(dwTraceID, dwFlags, lpbBytes, dwByteCount, dwGroupSize, bAddressPrefix, lpszPrefix) {
     lpszPrefix := lpszPrefix is String ? StrPtr(lpszPrefix) : lpszPrefix
 
-    lpbBytesMarshal := lpbBytes is VarRef ? "char*" : "ptr"
+    lpbBytesMarshal := lpbBytes is VarRef ? "char*" : IntPtr
 
     result := DllCall("rtutils.dll\TraceDumpExW", UInt32, dwTraceID, UInt32, dwFlags, lpbBytesMarshal, lpbBytes, UInt32, dwByteCount, UInt32, dwGroupSize, BOOL, bAddressPrefix, "ptr", lpszPrefix, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Integer} dwMessageId 
  * @param {Integer} cNumberOfSubStrings 
  * @param {Pointer<PSTR>} plpwsSubStrings 
@@ -11248,13 +11400,12 @@ export TraceDumpExW(dwTraceID, dwFlags, lpbBytes, dwByteCount, dwGroupSize, bAdd
  * @returns {String} Nothing - always returns an empty string
  */
 export LogErrorA(dwMessageId, cNumberOfSubStrings, plpwsSubStrings, dwErrorCode) {
-    plpwsSubStringsMarshal := plpwsSubStrings is VarRef ? "ptr*" : "ptr"
+    plpwsSubStringsMarshal := plpwsSubStrings is VarRef ? "ptr*" : IntPtr
 
     DllCall("rtutils.dll\LogErrorA", UInt32, dwMessageId, UInt32, cNumberOfSubStrings, plpwsSubStringsMarshal, plpwsSubStrings, UInt32, dwErrorCode)
 }
 
 /**
- * 
  * @param {Integer} wEventType 
  * @param {Integer} dwMessageId 
  * @param {Integer} cNumberOfSubStrings 
@@ -11262,13 +11413,12 @@ export LogErrorA(dwMessageId, cNumberOfSubStrings, plpwsSubStrings, dwErrorCode)
  * @returns {String} Nothing - always returns an empty string
  */
 export LogEventA(wEventType, dwMessageId, cNumberOfSubStrings, plpwsSubStrings) {
-    plpwsSubStringsMarshal := plpwsSubStrings is VarRef ? "ptr*" : "ptr"
+    plpwsSubStringsMarshal := plpwsSubStrings is VarRef ? "ptr*" : IntPtr
 
     DllCall("rtutils.dll\LogEventA", UInt32, wEventType, UInt32, dwMessageId, UInt32, cNumberOfSubStrings, plpwsSubStringsMarshal, plpwsSubStrings)
 }
 
 /**
- * 
  * @param {Integer} dwMessageId 
  * @param {Integer} cNumberOfSubStrings 
  * @param {Pointer<PWSTR>} plpwsSubStrings 
@@ -11276,13 +11426,12 @@ export LogEventA(wEventType, dwMessageId, cNumberOfSubStrings, plpwsSubStrings) 
  * @returns {String} Nothing - always returns an empty string
  */
 export LogErrorW(dwMessageId, cNumberOfSubStrings, plpwsSubStrings, dwErrorCode) {
-    plpwsSubStringsMarshal := plpwsSubStrings is VarRef ? "ptr*" : "ptr"
+    plpwsSubStringsMarshal := plpwsSubStrings is VarRef ? "ptr*" : IntPtr
 
     DllCall("rtutils.dll\LogErrorW", UInt32, dwMessageId, UInt32, cNumberOfSubStrings, plpwsSubStringsMarshal, plpwsSubStrings, UInt32, dwErrorCode)
 }
 
 /**
- * 
  * @param {Integer} wEventType 
  * @param {Integer} dwMessageId 
  * @param {Integer} cNumberOfSubStrings 
@@ -11290,13 +11439,12 @@ export LogErrorW(dwMessageId, cNumberOfSubStrings, plpwsSubStrings, dwErrorCode)
  * @returns {String} Nothing - always returns an empty string
  */
 export LogEventW(wEventType, dwMessageId, cNumberOfSubStrings, plpwsSubStrings) {
-    plpwsSubStringsMarshal := plpwsSubStrings is VarRef ? "ptr*" : "ptr"
+    plpwsSubStringsMarshal := plpwsSubStrings is VarRef ? "ptr*" : IntPtr
 
     DllCall("rtutils.dll\LogEventW", UInt32, wEventType, UInt32, dwMessageId, UInt32, cNumberOfSubStrings, plpwsSubStringsMarshal, plpwsSubStrings)
 }
 
 /**
- * 
  * @param {PSTR} lpszSource 
  * @returns {HANDLE} 
  */
@@ -11308,7 +11456,6 @@ export RouterLogRegisterA(lpszSource) {
 }
 
 /**
- * 
  * @param {HANDLE} hLogHandle 
  * @returns {String} Nothing - always returns an empty string
  */
@@ -11317,7 +11464,6 @@ export RouterLogDeregisterA(hLogHandle) {
 }
 
 /**
- * 
  * @param {HANDLE} hLogHandle 
  * @param {Integer} dwEventType 
  * @param {Integer} dwMessageId 
@@ -11327,13 +11473,13 @@ export RouterLogDeregisterA(hLogHandle) {
  * @returns {String} Nothing - always returns an empty string
  */
 export RouterLogEventA(hLogHandle, dwEventType, dwMessageId, dwSubStringCount, plpszSubStringArray, dwErrorCode) {
-    plpszSubStringArrayMarshal := plpszSubStringArray is VarRef ? "ptr*" : "ptr"
+    plpszSubStringArrayMarshal := plpszSubStringArray is VarRef ? "ptr*" : IntPtr
+    plpszSubStringArrayMarshal := plpszSubStringArray == 0 ? IntPtr : PSTR.Ptr
 
     DllCall("rtutils.dll\RouterLogEventA", HANDLE, hLogHandle, UInt32, dwEventType, UInt32, dwMessageId, UInt32, dwSubStringCount, plpszSubStringArrayMarshal, plpszSubStringArray, UInt32, dwErrorCode)
 }
 
 /**
- * 
  * @param {HANDLE} hLogHandle 
  * @param {Integer} dwEventType 
  * @param {Integer} dwMessageId 
@@ -11344,14 +11490,14 @@ export RouterLogEventA(hLogHandle, dwEventType, dwMessageId, dwSubStringCount, p
  * @returns {String} Nothing - always returns an empty string
  */
 export RouterLogEventDataA(hLogHandle, dwEventType, dwMessageId, dwSubStringCount, plpszSubStringArray, dwDataBytes, lpDataBytes) {
-    plpszSubStringArrayMarshal := plpszSubStringArray is VarRef ? "ptr*" : "ptr"
-    lpDataBytesMarshal := lpDataBytes is VarRef ? "char*" : "ptr"
+    plpszSubStringArrayMarshal := plpszSubStringArray is VarRef ? "ptr*" : IntPtr
+    plpszSubStringArrayMarshal := plpszSubStringArray == 0 ? IntPtr : PSTR.Ptr
+    lpDataBytesMarshal := lpDataBytes is VarRef ? "char*" : IntPtr
 
     DllCall("rtutils.dll\RouterLogEventDataA", HANDLE, hLogHandle, UInt32, dwEventType, UInt32, dwMessageId, UInt32, dwSubStringCount, plpszSubStringArrayMarshal, plpszSubStringArray, UInt32, dwDataBytes, lpDataBytesMarshal, lpDataBytes)
 }
 
 /**
- * 
  * @param {HANDLE} hLogHandle 
  * @param {Integer} dwEventType 
  * @param {Integer} dwMessageId 
@@ -11362,13 +11508,12 @@ export RouterLogEventDataA(hLogHandle, dwEventType, dwMessageId, dwSubStringCoun
  * @returns {String} Nothing - always returns an empty string
  */
 export RouterLogEventStringA(hLogHandle, dwEventType, dwMessageId, dwSubStringCount, plpszSubStringArray, dwErrorCode, dwErrorIndex) {
-    plpszSubStringArrayMarshal := plpszSubStringArray is VarRef ? "ptr*" : "ptr"
+    plpszSubStringArrayMarshal := plpszSubStringArray is VarRef ? "ptr*" : IntPtr
 
     DllCall("rtutils.dll\RouterLogEventStringA", HANDLE, hLogHandle, UInt32, dwEventType, UInt32, dwMessageId, UInt32, dwSubStringCount, plpszSubStringArrayMarshal, plpszSubStringArray, UInt32, dwErrorCode, UInt32, dwErrorIndex)
 }
 
 /**
- * 
  * @param {HANDLE} hLogHandle 
  * @param {Integer} dwEventType 
  * @param {Integer} dwErrorCode 
@@ -11386,7 +11531,6 @@ export RouterLogEventExA(hLogHandle, dwEventType, dwErrorCode, dwMessageId, ptsz
 }
 
 /**
- * 
  * @param {HANDLE} hLogHandle 
  * @param {Integer} dwEventType 
  * @param {Integer} dwErrorCode 
@@ -11398,26 +11542,24 @@ export RouterLogEventExA(hLogHandle, dwEventType, dwErrorCode, dwMessageId, ptsz
 export RouterLogEventValistExA(hLogHandle, dwEventType, dwErrorCode, dwMessageId, ptszFormat, arglist) {
     ptszFormat := ptszFormat is String ? StrPtr(ptszFormat) : ptszFormat
 
-    arglistMarshal := arglist is VarRef ? "char*" : "ptr"
+    arglistMarshal := arglist is VarRef ? "char*" : IntPtr
 
     DllCall("rtutils.dll\RouterLogEventValistExA", HANDLE, hLogHandle, UInt32, dwEventType, UInt32, dwErrorCode, UInt32, dwMessageId, "ptr", ptszFormat, arglistMarshal, arglist)
 }
 
 /**
- * 
  * @param {Integer} dwErrorCode 
  * @param {Pointer<PSTR>} lplpszErrorString 
  * @returns {Integer} 
  */
 export RouterGetErrorStringA(dwErrorCode, lplpszErrorString) {
-    lplpszErrorStringMarshal := lplpszErrorString is VarRef ? "ptr*" : "ptr"
+    lplpszErrorStringMarshal := lplpszErrorString is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("rtutils.dll\RouterGetErrorStringA", UInt32, dwErrorCode, lplpszErrorStringMarshal, lplpszErrorString, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} lpszSource 
  * @returns {HANDLE} 
  */
@@ -11429,7 +11571,6 @@ export RouterLogRegisterW(lpszSource) {
 }
 
 /**
- * 
  * @param {HANDLE} hLogHandle 
  * @returns {String} Nothing - always returns an empty string
  */
@@ -11438,7 +11579,6 @@ export RouterLogDeregisterW(hLogHandle) {
 }
 
 /**
- * 
  * @param {HANDLE} hLogHandle 
  * @param {Integer} dwEventType 
  * @param {Integer} dwMessageId 
@@ -11448,13 +11588,13 @@ export RouterLogDeregisterW(hLogHandle) {
  * @returns {String} Nothing - always returns an empty string
  */
 export RouterLogEventW(hLogHandle, dwEventType, dwMessageId, dwSubStringCount, plpszSubStringArray, dwErrorCode) {
-    plpszSubStringArrayMarshal := plpszSubStringArray is VarRef ? "ptr*" : "ptr"
+    plpszSubStringArrayMarshal := plpszSubStringArray is VarRef ? "ptr*" : IntPtr
+    plpszSubStringArrayMarshal := plpszSubStringArray == 0 ? IntPtr : PWSTR.Ptr
 
     DllCall("rtutils.dll\RouterLogEventW", HANDLE, hLogHandle, UInt32, dwEventType, UInt32, dwMessageId, UInt32, dwSubStringCount, plpszSubStringArrayMarshal, plpszSubStringArray, UInt32, dwErrorCode)
 }
 
 /**
- * 
  * @param {HANDLE} hLogHandle 
  * @param {Integer} dwEventType 
  * @param {Integer} dwMessageId 
@@ -11465,14 +11605,14 @@ export RouterLogEventW(hLogHandle, dwEventType, dwMessageId, dwSubStringCount, p
  * @returns {String} Nothing - always returns an empty string
  */
 export RouterLogEventDataW(hLogHandle, dwEventType, dwMessageId, dwSubStringCount, plpszSubStringArray, dwDataBytes, lpDataBytes) {
-    plpszSubStringArrayMarshal := plpszSubStringArray is VarRef ? "ptr*" : "ptr"
-    lpDataBytesMarshal := lpDataBytes is VarRef ? "char*" : "ptr"
+    plpszSubStringArrayMarshal := plpszSubStringArray is VarRef ? "ptr*" : IntPtr
+    plpszSubStringArrayMarshal := plpszSubStringArray == 0 ? IntPtr : PWSTR.Ptr
+    lpDataBytesMarshal := lpDataBytes is VarRef ? "char*" : IntPtr
 
     DllCall("rtutils.dll\RouterLogEventDataW", HANDLE, hLogHandle, UInt32, dwEventType, UInt32, dwMessageId, UInt32, dwSubStringCount, plpszSubStringArrayMarshal, plpszSubStringArray, UInt32, dwDataBytes, lpDataBytesMarshal, lpDataBytes)
 }
 
 /**
- * 
  * @param {HANDLE} hLogHandle 
  * @param {Integer} dwEventType 
  * @param {Integer} dwMessageId 
@@ -11483,13 +11623,12 @@ export RouterLogEventDataW(hLogHandle, dwEventType, dwMessageId, dwSubStringCoun
  * @returns {String} Nothing - always returns an empty string
  */
 export RouterLogEventStringW(hLogHandle, dwEventType, dwMessageId, dwSubStringCount, plpszSubStringArray, dwErrorCode, dwErrorIndex) {
-    plpszSubStringArrayMarshal := plpszSubStringArray is VarRef ? "ptr*" : "ptr"
+    plpszSubStringArrayMarshal := plpszSubStringArray is VarRef ? "ptr*" : IntPtr
 
     DllCall("rtutils.dll\RouterLogEventStringW", HANDLE, hLogHandle, UInt32, dwEventType, UInt32, dwMessageId, UInt32, dwSubStringCount, plpszSubStringArrayMarshal, plpszSubStringArray, UInt32, dwErrorCode, UInt32, dwErrorIndex)
 }
 
 /**
- * 
  * @param {HANDLE} hLogHandle 
  * @param {Integer} dwEventType 
  * @param {Integer} dwErrorCode 
@@ -11507,7 +11646,6 @@ export RouterLogEventExW(hLogHandle, dwEventType, dwErrorCode, dwMessageId, ptsz
 }
 
 /**
- * 
  * @param {HANDLE} hLogHandle 
  * @param {Integer} dwEventType 
  * @param {Integer} dwErrorCode 
@@ -11519,26 +11657,24 @@ export RouterLogEventExW(hLogHandle, dwEventType, dwErrorCode, dwMessageId, ptsz
 export RouterLogEventValistExW(hLogHandle, dwEventType, dwErrorCode, dwMessageId, ptszFormat, arglist) {
     ptszFormat := ptszFormat is String ? StrPtr(ptszFormat) : ptszFormat
 
-    arglistMarshal := arglist is VarRef ? "char*" : "ptr"
+    arglistMarshal := arglist is VarRef ? "char*" : IntPtr
 
     DllCall("rtutils.dll\RouterLogEventValistExW", HANDLE, hLogHandle, UInt32, dwEventType, UInt32, dwErrorCode, UInt32, dwMessageId, "ptr", ptszFormat, arglistMarshal, arglist)
 }
 
 /**
- * 
  * @param {Integer} dwErrorCode 
  * @param {Pointer<PWSTR>} lplpwszErrorString 
  * @returns {Integer} 
  */
 export RouterGetErrorStringW(dwErrorCode, lplpwszErrorString) {
-    lplpwszErrorStringMarshal := lplpwszErrorString is VarRef ? "ptr*" : "ptr"
+    lplpwszErrorStringMarshal := lplpwszErrorString is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("rtutils.dll\RouterGetErrorStringW", UInt32, dwErrorCode, lplpwszErrorStringMarshal, lplpwszErrorString, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PSTR} pszFailedAssertion 
  * @param {PSTR} pszFileName 
  * @param {Integer} dwLineNumber 
@@ -11554,27 +11690,25 @@ export RouterAssert(pszFailedAssertion, pszFileName, dwLineNumber, pszMessage) {
 }
 
 /**
- * 
  * @param {Integer} dwTransportId 
  * @param {Pointer<Pointer<Integer>>} lplpBuffer 
  * @param {Pointer<Integer>} lpdwEntriesRead 
  * @returns {Integer} 
  */
 export MprSetupProtocolEnum(dwTransportId, lplpBuffer, lpdwEntriesRead) {
-    lplpBufferMarshal := lplpBuffer is VarRef ? "ptr*" : "ptr"
-    lpdwEntriesReadMarshal := lpdwEntriesRead is VarRef ? "uint*" : "ptr"
+    lplpBufferMarshal := lplpBuffer is VarRef ? "ptr*" : IntPtr
+    lpdwEntriesReadMarshal := lpdwEntriesRead is VarRef ? "uint*" : IntPtr
 
     result := DllCall("rtutils.dll\MprSetupProtocolEnum", UInt32, dwTransportId, lplpBufferMarshal, lplpBuffer, lpdwEntriesReadMarshal, lpdwEntriesRead, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} lpBuffer 
  * @returns {Integer} 
  */
 export MprSetupProtocolFree(lpBuffer) {
-    lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
+    lpBufferMarshal := lpBuffer is VarRef ? "ptr" : IntPtr
 
     result := DllCall("rtutils.dll\MprSetupProtocolFree", lpBufferMarshal, lpBuffer, UInt32)
     return result

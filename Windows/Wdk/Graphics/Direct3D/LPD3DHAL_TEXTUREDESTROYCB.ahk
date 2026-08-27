@@ -19,7 +19,6 @@ export default struct LPD3DHAL_TEXTUREDESTROYCB {
     }
 
     /**
-     * 
      * @param {Pointer<D3DHAL_TEXTUREDESTROYDATA>} param0 
      * @returns {Integer} 
      */

@@ -71,8 +71,8 @@ export default struct IOfflineFilesDirtyInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LocalDirtyByteCount := CallbackCreate(GetMethod(implObj, "LocalDirtyByteCount"), flags, 2)
-        this.vtbl.RemoteDirtyByteCount := CallbackCreate(GetMethod(implObj, "RemoteDirtyByteCount"), flags, 2)
+        this.vtbl.LocalDirtyByteCount := CallbackCreate(ObjBindMethod(implObj, "LocalDirtyByteCount"), flags, 2)
+        this.vtbl.RemoteDirtyByteCount := CallbackCreate(ObjBindMethod(implObj, "RemoteDirtyByteCount"), flags, 2)
     }
 
     Dispose() {

@@ -601,7 +601,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {IHTMLElementCollection} 
      */
     get_all() {
@@ -610,7 +609,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_body() {
@@ -619,7 +617,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_activeElement() {
@@ -628,7 +625,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {IHTMLElementCollection} 
      */
     get_images() {
@@ -637,7 +633,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {IHTMLElementCollection} 
      */
     get_applets() {
@@ -646,7 +641,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {IHTMLElementCollection} 
      */
     get_links() {
@@ -655,7 +649,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {IHTMLElementCollection} 
      */
     get_forms() {
@@ -664,7 +657,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {IHTMLElementCollection} 
      */
     get_anchors() {
@@ -673,7 +665,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -685,7 +676,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_title() {
@@ -695,7 +685,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {IHTMLElementCollection} 
      */
     get_scripts() {
@@ -704,7 +693,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -716,7 +704,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_designMode() {
@@ -726,7 +713,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {IHTMLSelectionObject} 
      */
     get_selection() {
@@ -735,7 +721,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_readyState() {
@@ -745,7 +730,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {IHTMLFramesCollection2} 
      */
     get_frames() {
@@ -754,7 +738,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {IHTMLElementCollection} 
      */
     get_embeds() {
@@ -763,7 +746,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {IHTMLElementCollection} 
      */
     get_plugins() {
@@ -772,7 +754,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -782,7 +763,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_alinkColor() {
@@ -792,7 +772,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -802,7 +781,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_bgColor() {
@@ -812,7 +790,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -822,7 +799,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_fgColor() {
@@ -832,7 +808,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -842,7 +817,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_linkColor() {
@@ -852,7 +826,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -862,7 +835,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_vlinkColor() {
@@ -872,7 +844,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_referrer() {
@@ -882,7 +853,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {IHTMLLocation} 
      */
     get_location() {
@@ -891,7 +861,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_lastModified() {
@@ -901,7 +870,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -913,7 +881,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_URL() {
@@ -923,7 +890,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -935,7 +901,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_domain() {
@@ -945,7 +910,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -957,7 +921,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_cookie() {
@@ -967,7 +930,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -977,7 +939,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_expando() {
@@ -986,7 +947,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -998,7 +958,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_charset() {
@@ -1008,7 +967,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -1020,7 +978,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_defaultCharset() {
@@ -1030,7 +987,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_mimeType() {
@@ -1040,7 +996,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fileSize() {
@@ -1050,7 +1005,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fileCreatedDate() {
@@ -1060,7 +1014,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fileModifiedDate() {
@@ -1070,7 +1023,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fileUpdatedDate() {
@@ -1080,7 +1032,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_security() {
@@ -1090,7 +1041,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_protocol() {
@@ -1100,7 +1050,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_nameProp() {
@@ -1110,7 +1059,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {Pointer<SAFEARRAY>} psarray 
      * @returns {HRESULT} 
      */
@@ -1120,7 +1068,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {Pointer<SAFEARRAY>} psarray 
      * @returns {HRESULT} 
      */
@@ -1201,7 +1148,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     clear() {
@@ -1210,7 +1156,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {VARIANT_BOOL} 
      */
@@ -1222,7 +1167,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {VARIANT_BOOL} 
      */
@@ -1234,7 +1178,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {VARIANT_BOOL} 
      */
@@ -1246,7 +1189,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {VARIANT_BOOL} 
      */
@@ -1258,7 +1200,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {BSTR} 
      */
@@ -1271,7 +1212,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {VARIANT} 
      */
@@ -1284,7 +1224,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @param {VARIANT_BOOL} showUI 
      * @param {VARIANT} value 
@@ -1298,7 +1237,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {BSTR} cmdID 
      * @returns {VARIANT_BOOL} 
      */
@@ -1310,7 +1248,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {BSTR} eTag 
      * @returns {IHTMLElement} 
      */
@@ -1322,7 +1259,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1332,7 +1268,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onhelp() {
@@ -1342,7 +1277,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1352,7 +1286,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onclick() {
@@ -1362,7 +1295,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1372,7 +1304,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondblclick() {
@@ -1382,7 +1313,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1392,7 +1322,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onkeyup() {
@@ -1402,7 +1331,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1412,7 +1340,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onkeydown() {
@@ -1422,7 +1349,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1432,7 +1358,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onkeypress() {
@@ -1442,7 +1367,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1452,7 +1376,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmouseup() {
@@ -1462,7 +1385,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1472,7 +1394,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmousedown() {
@@ -1482,7 +1403,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1492,7 +1412,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmousemove() {
@@ -1502,7 +1421,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1512,7 +1430,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmouseout() {
@@ -1522,7 +1439,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1532,7 +1448,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmouseover() {
@@ -1542,7 +1457,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1552,7 +1466,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onreadystatechange() {
@@ -1562,7 +1475,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1572,7 +1484,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onafterupdate() {
@@ -1582,7 +1493,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1592,7 +1502,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onrowexit() {
@@ -1602,7 +1511,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1612,7 +1520,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onrowenter() {
@@ -1622,7 +1529,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1632,7 +1538,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondragstart() {
@@ -1642,7 +1547,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1652,7 +1556,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onselectstart() {
@@ -1662,7 +1565,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {IHTMLElement} 
@@ -1673,7 +1575,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {IHTMLWindow2} 
      */
     get_parentWindow() {
@@ -1682,7 +1583,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {IHTMLStyleSheetsCollection} 
      */
     get_styleSheets() {
@@ -1691,7 +1591,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1701,7 +1600,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onbeforeupdate() {
@@ -1711,7 +1609,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1721,7 +1618,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onerrorupdate() {
@@ -1731,7 +1627,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     toString() {
@@ -1741,7 +1636,6 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
     }
 
     /**
-     * 
      * @param {BSTR} bstrHref 
      * @param {Integer} lIndex 
      * @returns {IHTMLStyleSheet} 
@@ -1762,114 +1656,114 @@ export default struct IHTMLDocument2 extends IHTMLDocument {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_all := CallbackCreate(GetMethod(implObj, "get_all"), flags, 2)
-        this.vtbl.get_body := CallbackCreate(GetMethod(implObj, "get_body"), flags, 2)
-        this.vtbl.get_activeElement := CallbackCreate(GetMethod(implObj, "get_activeElement"), flags, 2)
-        this.vtbl.get_images := CallbackCreate(GetMethod(implObj, "get_images"), flags, 2)
-        this.vtbl.get_applets := CallbackCreate(GetMethod(implObj, "get_applets"), flags, 2)
-        this.vtbl.get_links := CallbackCreate(GetMethod(implObj, "get_links"), flags, 2)
-        this.vtbl.get_forms := CallbackCreate(GetMethod(implObj, "get_forms"), flags, 2)
-        this.vtbl.get_anchors := CallbackCreate(GetMethod(implObj, "get_anchors"), flags, 2)
-        this.vtbl.put_title := CallbackCreate(GetMethod(implObj, "put_title"), flags, 2)
-        this.vtbl.get_title := CallbackCreate(GetMethod(implObj, "get_title"), flags, 2)
-        this.vtbl.get_scripts := CallbackCreate(GetMethod(implObj, "get_scripts"), flags, 2)
-        this.vtbl.put_designMode := CallbackCreate(GetMethod(implObj, "put_designMode"), flags, 2)
-        this.vtbl.get_designMode := CallbackCreate(GetMethod(implObj, "get_designMode"), flags, 2)
-        this.vtbl.get_selection := CallbackCreate(GetMethod(implObj, "get_selection"), flags, 2)
-        this.vtbl.get_readyState := CallbackCreate(GetMethod(implObj, "get_readyState"), flags, 2)
-        this.vtbl.get_frames := CallbackCreate(GetMethod(implObj, "get_frames"), flags, 2)
-        this.vtbl.get_embeds := CallbackCreate(GetMethod(implObj, "get_embeds"), flags, 2)
-        this.vtbl.get_plugins := CallbackCreate(GetMethod(implObj, "get_plugins"), flags, 2)
-        this.vtbl.put_alinkColor := CallbackCreate(GetMethod(implObj, "put_alinkColor"), flags, 2)
-        this.vtbl.get_alinkColor := CallbackCreate(GetMethod(implObj, "get_alinkColor"), flags, 2)
-        this.vtbl.put_bgColor := CallbackCreate(GetMethod(implObj, "put_bgColor"), flags, 2)
-        this.vtbl.get_bgColor := CallbackCreate(GetMethod(implObj, "get_bgColor"), flags, 2)
-        this.vtbl.put_fgColor := CallbackCreate(GetMethod(implObj, "put_fgColor"), flags, 2)
-        this.vtbl.get_fgColor := CallbackCreate(GetMethod(implObj, "get_fgColor"), flags, 2)
-        this.vtbl.put_linkColor := CallbackCreate(GetMethod(implObj, "put_linkColor"), flags, 2)
-        this.vtbl.get_linkColor := CallbackCreate(GetMethod(implObj, "get_linkColor"), flags, 2)
-        this.vtbl.put_vlinkColor := CallbackCreate(GetMethod(implObj, "put_vlinkColor"), flags, 2)
-        this.vtbl.get_vlinkColor := CallbackCreate(GetMethod(implObj, "get_vlinkColor"), flags, 2)
-        this.vtbl.get_referrer := CallbackCreate(GetMethod(implObj, "get_referrer"), flags, 2)
-        this.vtbl.get_location := CallbackCreate(GetMethod(implObj, "get_location"), flags, 2)
-        this.vtbl.get_lastModified := CallbackCreate(GetMethod(implObj, "get_lastModified"), flags, 2)
-        this.vtbl.put_URL := CallbackCreate(GetMethod(implObj, "put_URL"), flags, 2)
-        this.vtbl.get_URL := CallbackCreate(GetMethod(implObj, "get_URL"), flags, 2)
-        this.vtbl.put_domain := CallbackCreate(GetMethod(implObj, "put_domain"), flags, 2)
-        this.vtbl.get_domain := CallbackCreate(GetMethod(implObj, "get_domain"), flags, 2)
-        this.vtbl.put_cookie := CallbackCreate(GetMethod(implObj, "put_cookie"), flags, 2)
-        this.vtbl.get_cookie := CallbackCreate(GetMethod(implObj, "get_cookie"), flags, 2)
-        this.vtbl.put_expando := CallbackCreate(GetMethod(implObj, "put_expando"), flags, 2)
-        this.vtbl.get_expando := CallbackCreate(GetMethod(implObj, "get_expando"), flags, 2)
-        this.vtbl.put_charset := CallbackCreate(GetMethod(implObj, "put_charset"), flags, 2)
-        this.vtbl.get_charset := CallbackCreate(GetMethod(implObj, "get_charset"), flags, 2)
-        this.vtbl.put_defaultCharset := CallbackCreate(GetMethod(implObj, "put_defaultCharset"), flags, 2)
-        this.vtbl.get_defaultCharset := CallbackCreate(GetMethod(implObj, "get_defaultCharset"), flags, 2)
-        this.vtbl.get_mimeType := CallbackCreate(GetMethod(implObj, "get_mimeType"), flags, 2)
-        this.vtbl.get_fileSize := CallbackCreate(GetMethod(implObj, "get_fileSize"), flags, 2)
-        this.vtbl.get_fileCreatedDate := CallbackCreate(GetMethod(implObj, "get_fileCreatedDate"), flags, 2)
-        this.vtbl.get_fileModifiedDate := CallbackCreate(GetMethod(implObj, "get_fileModifiedDate"), flags, 2)
-        this.vtbl.get_fileUpdatedDate := CallbackCreate(GetMethod(implObj, "get_fileUpdatedDate"), flags, 2)
-        this.vtbl.get_security := CallbackCreate(GetMethod(implObj, "get_security"), flags, 2)
-        this.vtbl.get_protocol := CallbackCreate(GetMethod(implObj, "get_protocol"), flags, 2)
-        this.vtbl.get_nameProp := CallbackCreate(GetMethod(implObj, "get_nameProp"), flags, 2)
-        this.vtbl.write := CallbackCreate(GetMethod(implObj, "write"), flags, 2)
-        this.vtbl.writeln := CallbackCreate(GetMethod(implObj, "writeln"), flags, 2)
-        this.vtbl.open := CallbackCreate(GetMethod(implObj, "open"), flags, 6)
-        this.vtbl.close := CallbackCreate(GetMethod(implObj, "close"), flags, 1)
-        this.vtbl.clear := CallbackCreate(GetMethod(implObj, "clear"), flags, 1)
-        this.vtbl.queryCommandSupported := CallbackCreate(GetMethod(implObj, "queryCommandSupported"), flags, 3)
-        this.vtbl.queryCommandEnabled := CallbackCreate(GetMethod(implObj, "queryCommandEnabled"), flags, 3)
-        this.vtbl.queryCommandState := CallbackCreate(GetMethod(implObj, "queryCommandState"), flags, 3)
-        this.vtbl.queryCommandIndeterm := CallbackCreate(GetMethod(implObj, "queryCommandIndeterm"), flags, 3)
-        this.vtbl.queryCommandText := CallbackCreate(GetMethod(implObj, "queryCommandText"), flags, 3)
-        this.vtbl.queryCommandValue := CallbackCreate(GetMethod(implObj, "queryCommandValue"), flags, 3)
-        this.vtbl.execCommand := CallbackCreate(GetMethod(implObj, "execCommand"), flags, 5)
-        this.vtbl.execCommandShowHelp := CallbackCreate(GetMethod(implObj, "execCommandShowHelp"), flags, 3)
-        this.vtbl.createElement := CallbackCreate(GetMethod(implObj, "createElement"), flags, 3)
-        this.vtbl.put_onhelp := CallbackCreate(GetMethod(implObj, "put_onhelp"), flags, 2)
-        this.vtbl.get_onhelp := CallbackCreate(GetMethod(implObj, "get_onhelp"), flags, 2)
-        this.vtbl.put_onclick := CallbackCreate(GetMethod(implObj, "put_onclick"), flags, 2)
-        this.vtbl.get_onclick := CallbackCreate(GetMethod(implObj, "get_onclick"), flags, 2)
-        this.vtbl.put_ondblclick := CallbackCreate(GetMethod(implObj, "put_ondblclick"), flags, 2)
-        this.vtbl.get_ondblclick := CallbackCreate(GetMethod(implObj, "get_ondblclick"), flags, 2)
-        this.vtbl.put_onkeyup := CallbackCreate(GetMethod(implObj, "put_onkeyup"), flags, 2)
-        this.vtbl.get_onkeyup := CallbackCreate(GetMethod(implObj, "get_onkeyup"), flags, 2)
-        this.vtbl.put_onkeydown := CallbackCreate(GetMethod(implObj, "put_onkeydown"), flags, 2)
-        this.vtbl.get_onkeydown := CallbackCreate(GetMethod(implObj, "get_onkeydown"), flags, 2)
-        this.vtbl.put_onkeypress := CallbackCreate(GetMethod(implObj, "put_onkeypress"), flags, 2)
-        this.vtbl.get_onkeypress := CallbackCreate(GetMethod(implObj, "get_onkeypress"), flags, 2)
-        this.vtbl.put_onmouseup := CallbackCreate(GetMethod(implObj, "put_onmouseup"), flags, 2)
-        this.vtbl.get_onmouseup := CallbackCreate(GetMethod(implObj, "get_onmouseup"), flags, 2)
-        this.vtbl.put_onmousedown := CallbackCreate(GetMethod(implObj, "put_onmousedown"), flags, 2)
-        this.vtbl.get_onmousedown := CallbackCreate(GetMethod(implObj, "get_onmousedown"), flags, 2)
-        this.vtbl.put_onmousemove := CallbackCreate(GetMethod(implObj, "put_onmousemove"), flags, 2)
-        this.vtbl.get_onmousemove := CallbackCreate(GetMethod(implObj, "get_onmousemove"), flags, 2)
-        this.vtbl.put_onmouseout := CallbackCreate(GetMethod(implObj, "put_onmouseout"), flags, 2)
-        this.vtbl.get_onmouseout := CallbackCreate(GetMethod(implObj, "get_onmouseout"), flags, 2)
-        this.vtbl.put_onmouseover := CallbackCreate(GetMethod(implObj, "put_onmouseover"), flags, 2)
-        this.vtbl.get_onmouseover := CallbackCreate(GetMethod(implObj, "get_onmouseover"), flags, 2)
-        this.vtbl.put_onreadystatechange := CallbackCreate(GetMethod(implObj, "put_onreadystatechange"), flags, 2)
-        this.vtbl.get_onreadystatechange := CallbackCreate(GetMethod(implObj, "get_onreadystatechange"), flags, 2)
-        this.vtbl.put_onafterupdate := CallbackCreate(GetMethod(implObj, "put_onafterupdate"), flags, 2)
-        this.vtbl.get_onafterupdate := CallbackCreate(GetMethod(implObj, "get_onafterupdate"), flags, 2)
-        this.vtbl.put_onrowexit := CallbackCreate(GetMethod(implObj, "put_onrowexit"), flags, 2)
-        this.vtbl.get_onrowexit := CallbackCreate(GetMethod(implObj, "get_onrowexit"), flags, 2)
-        this.vtbl.put_onrowenter := CallbackCreate(GetMethod(implObj, "put_onrowenter"), flags, 2)
-        this.vtbl.get_onrowenter := CallbackCreate(GetMethod(implObj, "get_onrowenter"), flags, 2)
-        this.vtbl.put_ondragstart := CallbackCreate(GetMethod(implObj, "put_ondragstart"), flags, 2)
-        this.vtbl.get_ondragstart := CallbackCreate(GetMethod(implObj, "get_ondragstart"), flags, 2)
-        this.vtbl.put_onselectstart := CallbackCreate(GetMethod(implObj, "put_onselectstart"), flags, 2)
-        this.vtbl.get_onselectstart := CallbackCreate(GetMethod(implObj, "get_onselectstart"), flags, 2)
-        this.vtbl.elementFromPoint := CallbackCreate(GetMethod(implObj, "elementFromPoint"), flags, 4)
-        this.vtbl.get_parentWindow := CallbackCreate(GetMethod(implObj, "get_parentWindow"), flags, 2)
-        this.vtbl.get_styleSheets := CallbackCreate(GetMethod(implObj, "get_styleSheets"), flags, 2)
-        this.vtbl.put_onbeforeupdate := CallbackCreate(GetMethod(implObj, "put_onbeforeupdate"), flags, 2)
-        this.vtbl.get_onbeforeupdate := CallbackCreate(GetMethod(implObj, "get_onbeforeupdate"), flags, 2)
-        this.vtbl.put_onerrorupdate := CallbackCreate(GetMethod(implObj, "put_onerrorupdate"), flags, 2)
-        this.vtbl.get_onerrorupdate := CallbackCreate(GetMethod(implObj, "get_onerrorupdate"), flags, 2)
-        this.vtbl.toString := CallbackCreate(GetMethod(implObj, "toString"), flags, 2)
-        this.vtbl.createStyleSheet := CallbackCreate(GetMethod(implObj, "createStyleSheet"), flags, 4)
+        this.vtbl.get_all := CallbackCreate(ObjBindMethod(implObj, "get_all"), flags, 2)
+        this.vtbl.get_body := CallbackCreate(ObjBindMethod(implObj, "get_body"), flags, 2)
+        this.vtbl.get_activeElement := CallbackCreate(ObjBindMethod(implObj, "get_activeElement"), flags, 2)
+        this.vtbl.get_images := CallbackCreate(ObjBindMethod(implObj, "get_images"), flags, 2)
+        this.vtbl.get_applets := CallbackCreate(ObjBindMethod(implObj, "get_applets"), flags, 2)
+        this.vtbl.get_links := CallbackCreate(ObjBindMethod(implObj, "get_links"), flags, 2)
+        this.vtbl.get_forms := CallbackCreate(ObjBindMethod(implObj, "get_forms"), flags, 2)
+        this.vtbl.get_anchors := CallbackCreate(ObjBindMethod(implObj, "get_anchors"), flags, 2)
+        this.vtbl.put_title := CallbackCreate(ObjBindMethod(implObj, "put_title"), flags, 2)
+        this.vtbl.get_title := CallbackCreate(ObjBindMethod(implObj, "get_title"), flags, 2)
+        this.vtbl.get_scripts := CallbackCreate(ObjBindMethod(implObj, "get_scripts"), flags, 2)
+        this.vtbl.put_designMode := CallbackCreate(ObjBindMethod(implObj, "put_designMode"), flags, 2)
+        this.vtbl.get_designMode := CallbackCreate(ObjBindMethod(implObj, "get_designMode"), flags, 2)
+        this.vtbl.get_selection := CallbackCreate(ObjBindMethod(implObj, "get_selection"), flags, 2)
+        this.vtbl.get_readyState := CallbackCreate(ObjBindMethod(implObj, "get_readyState"), flags, 2)
+        this.vtbl.get_frames := CallbackCreate(ObjBindMethod(implObj, "get_frames"), flags, 2)
+        this.vtbl.get_embeds := CallbackCreate(ObjBindMethod(implObj, "get_embeds"), flags, 2)
+        this.vtbl.get_plugins := CallbackCreate(ObjBindMethod(implObj, "get_plugins"), flags, 2)
+        this.vtbl.put_alinkColor := CallbackCreate(ObjBindMethod(implObj, "put_alinkColor"), flags, 2)
+        this.vtbl.get_alinkColor := CallbackCreate(ObjBindMethod(implObj, "get_alinkColor"), flags, 2)
+        this.vtbl.put_bgColor := CallbackCreate(ObjBindMethod(implObj, "put_bgColor"), flags, 2)
+        this.vtbl.get_bgColor := CallbackCreate(ObjBindMethod(implObj, "get_bgColor"), flags, 2)
+        this.vtbl.put_fgColor := CallbackCreate(ObjBindMethod(implObj, "put_fgColor"), flags, 2)
+        this.vtbl.get_fgColor := CallbackCreate(ObjBindMethod(implObj, "get_fgColor"), flags, 2)
+        this.vtbl.put_linkColor := CallbackCreate(ObjBindMethod(implObj, "put_linkColor"), flags, 2)
+        this.vtbl.get_linkColor := CallbackCreate(ObjBindMethod(implObj, "get_linkColor"), flags, 2)
+        this.vtbl.put_vlinkColor := CallbackCreate(ObjBindMethod(implObj, "put_vlinkColor"), flags, 2)
+        this.vtbl.get_vlinkColor := CallbackCreate(ObjBindMethod(implObj, "get_vlinkColor"), flags, 2)
+        this.vtbl.get_referrer := CallbackCreate(ObjBindMethod(implObj, "get_referrer"), flags, 2)
+        this.vtbl.get_location := CallbackCreate(ObjBindMethod(implObj, "get_location"), flags, 2)
+        this.vtbl.get_lastModified := CallbackCreate(ObjBindMethod(implObj, "get_lastModified"), flags, 2)
+        this.vtbl.put_URL := CallbackCreate(ObjBindMethod(implObj, "put_URL"), flags, 2)
+        this.vtbl.get_URL := CallbackCreate(ObjBindMethod(implObj, "get_URL"), flags, 2)
+        this.vtbl.put_domain := CallbackCreate(ObjBindMethod(implObj, "put_domain"), flags, 2)
+        this.vtbl.get_domain := CallbackCreate(ObjBindMethod(implObj, "get_domain"), flags, 2)
+        this.vtbl.put_cookie := CallbackCreate(ObjBindMethod(implObj, "put_cookie"), flags, 2)
+        this.vtbl.get_cookie := CallbackCreate(ObjBindMethod(implObj, "get_cookie"), flags, 2)
+        this.vtbl.put_expando := CallbackCreate(ObjBindMethod(implObj, "put_expando"), flags, 2)
+        this.vtbl.get_expando := CallbackCreate(ObjBindMethod(implObj, "get_expando"), flags, 2)
+        this.vtbl.put_charset := CallbackCreate(ObjBindMethod(implObj, "put_charset"), flags, 2)
+        this.vtbl.get_charset := CallbackCreate(ObjBindMethod(implObj, "get_charset"), flags, 2)
+        this.vtbl.put_defaultCharset := CallbackCreate(ObjBindMethod(implObj, "put_defaultCharset"), flags, 2)
+        this.vtbl.get_defaultCharset := CallbackCreate(ObjBindMethod(implObj, "get_defaultCharset"), flags, 2)
+        this.vtbl.get_mimeType := CallbackCreate(ObjBindMethod(implObj, "get_mimeType"), flags, 2)
+        this.vtbl.get_fileSize := CallbackCreate(ObjBindMethod(implObj, "get_fileSize"), flags, 2)
+        this.vtbl.get_fileCreatedDate := CallbackCreate(ObjBindMethod(implObj, "get_fileCreatedDate"), flags, 2)
+        this.vtbl.get_fileModifiedDate := CallbackCreate(ObjBindMethod(implObj, "get_fileModifiedDate"), flags, 2)
+        this.vtbl.get_fileUpdatedDate := CallbackCreate(ObjBindMethod(implObj, "get_fileUpdatedDate"), flags, 2)
+        this.vtbl.get_security := CallbackCreate(ObjBindMethod(implObj, "get_security"), flags, 2)
+        this.vtbl.get_protocol := CallbackCreate(ObjBindMethod(implObj, "get_protocol"), flags, 2)
+        this.vtbl.get_nameProp := CallbackCreate(ObjBindMethod(implObj, "get_nameProp"), flags, 2)
+        this.vtbl.write := CallbackCreate(ObjBindMethod(implObj, "write"), flags, 2)
+        this.vtbl.writeln := CallbackCreate(ObjBindMethod(implObj, "writeln"), flags, 2)
+        this.vtbl.open := CallbackCreate(ObjBindMethod(implObj, "open"), flags, 6)
+        this.vtbl.close := CallbackCreate(ObjBindMethod(implObj, "close"), flags, 1)
+        this.vtbl.clear := CallbackCreate(ObjBindMethod(implObj, "clear"), flags, 1)
+        this.vtbl.queryCommandSupported := CallbackCreate(ObjBindMethod(implObj, "queryCommandSupported"), flags, 3)
+        this.vtbl.queryCommandEnabled := CallbackCreate(ObjBindMethod(implObj, "queryCommandEnabled"), flags, 3)
+        this.vtbl.queryCommandState := CallbackCreate(ObjBindMethod(implObj, "queryCommandState"), flags, 3)
+        this.vtbl.queryCommandIndeterm := CallbackCreate(ObjBindMethod(implObj, "queryCommandIndeterm"), flags, 3)
+        this.vtbl.queryCommandText := CallbackCreate(ObjBindMethod(implObj, "queryCommandText"), flags, 3)
+        this.vtbl.queryCommandValue := CallbackCreate(ObjBindMethod(implObj, "queryCommandValue"), flags, 3)
+        this.vtbl.execCommand := CallbackCreate(ObjBindMethod(implObj, "execCommand"), flags, 5)
+        this.vtbl.execCommandShowHelp := CallbackCreate(ObjBindMethod(implObj, "execCommandShowHelp"), flags, 3)
+        this.vtbl.createElement := CallbackCreate(ObjBindMethod(implObj, "createElement"), flags, 3)
+        this.vtbl.put_onhelp := CallbackCreate(ObjBindMethod(implObj, "put_onhelp"), flags, 2)
+        this.vtbl.get_onhelp := CallbackCreate(ObjBindMethod(implObj, "get_onhelp"), flags, 2)
+        this.vtbl.put_onclick := CallbackCreate(ObjBindMethod(implObj, "put_onclick"), flags, 2)
+        this.vtbl.get_onclick := CallbackCreate(ObjBindMethod(implObj, "get_onclick"), flags, 2)
+        this.vtbl.put_ondblclick := CallbackCreate(ObjBindMethod(implObj, "put_ondblclick"), flags, 2)
+        this.vtbl.get_ondblclick := CallbackCreate(ObjBindMethod(implObj, "get_ondblclick"), flags, 2)
+        this.vtbl.put_onkeyup := CallbackCreate(ObjBindMethod(implObj, "put_onkeyup"), flags, 2)
+        this.vtbl.get_onkeyup := CallbackCreate(ObjBindMethod(implObj, "get_onkeyup"), flags, 2)
+        this.vtbl.put_onkeydown := CallbackCreate(ObjBindMethod(implObj, "put_onkeydown"), flags, 2)
+        this.vtbl.get_onkeydown := CallbackCreate(ObjBindMethod(implObj, "get_onkeydown"), flags, 2)
+        this.vtbl.put_onkeypress := CallbackCreate(ObjBindMethod(implObj, "put_onkeypress"), flags, 2)
+        this.vtbl.get_onkeypress := CallbackCreate(ObjBindMethod(implObj, "get_onkeypress"), flags, 2)
+        this.vtbl.put_onmouseup := CallbackCreate(ObjBindMethod(implObj, "put_onmouseup"), flags, 2)
+        this.vtbl.get_onmouseup := CallbackCreate(ObjBindMethod(implObj, "get_onmouseup"), flags, 2)
+        this.vtbl.put_onmousedown := CallbackCreate(ObjBindMethod(implObj, "put_onmousedown"), flags, 2)
+        this.vtbl.get_onmousedown := CallbackCreate(ObjBindMethod(implObj, "get_onmousedown"), flags, 2)
+        this.vtbl.put_onmousemove := CallbackCreate(ObjBindMethod(implObj, "put_onmousemove"), flags, 2)
+        this.vtbl.get_onmousemove := CallbackCreate(ObjBindMethod(implObj, "get_onmousemove"), flags, 2)
+        this.vtbl.put_onmouseout := CallbackCreate(ObjBindMethod(implObj, "put_onmouseout"), flags, 2)
+        this.vtbl.get_onmouseout := CallbackCreate(ObjBindMethod(implObj, "get_onmouseout"), flags, 2)
+        this.vtbl.put_onmouseover := CallbackCreate(ObjBindMethod(implObj, "put_onmouseover"), flags, 2)
+        this.vtbl.get_onmouseover := CallbackCreate(ObjBindMethod(implObj, "get_onmouseover"), flags, 2)
+        this.vtbl.put_onreadystatechange := CallbackCreate(ObjBindMethod(implObj, "put_onreadystatechange"), flags, 2)
+        this.vtbl.get_onreadystatechange := CallbackCreate(ObjBindMethod(implObj, "get_onreadystatechange"), flags, 2)
+        this.vtbl.put_onafterupdate := CallbackCreate(ObjBindMethod(implObj, "put_onafterupdate"), flags, 2)
+        this.vtbl.get_onafterupdate := CallbackCreate(ObjBindMethod(implObj, "get_onafterupdate"), flags, 2)
+        this.vtbl.put_onrowexit := CallbackCreate(ObjBindMethod(implObj, "put_onrowexit"), flags, 2)
+        this.vtbl.get_onrowexit := CallbackCreate(ObjBindMethod(implObj, "get_onrowexit"), flags, 2)
+        this.vtbl.put_onrowenter := CallbackCreate(ObjBindMethod(implObj, "put_onrowenter"), flags, 2)
+        this.vtbl.get_onrowenter := CallbackCreate(ObjBindMethod(implObj, "get_onrowenter"), flags, 2)
+        this.vtbl.put_ondragstart := CallbackCreate(ObjBindMethod(implObj, "put_ondragstart"), flags, 2)
+        this.vtbl.get_ondragstart := CallbackCreate(ObjBindMethod(implObj, "get_ondragstart"), flags, 2)
+        this.vtbl.put_onselectstart := CallbackCreate(ObjBindMethod(implObj, "put_onselectstart"), flags, 2)
+        this.vtbl.get_onselectstart := CallbackCreate(ObjBindMethod(implObj, "get_onselectstart"), flags, 2)
+        this.vtbl.elementFromPoint := CallbackCreate(ObjBindMethod(implObj, "elementFromPoint"), flags, 4)
+        this.vtbl.get_parentWindow := CallbackCreate(ObjBindMethod(implObj, "get_parentWindow"), flags, 2)
+        this.vtbl.get_styleSheets := CallbackCreate(ObjBindMethod(implObj, "get_styleSheets"), flags, 2)
+        this.vtbl.put_onbeforeupdate := CallbackCreate(ObjBindMethod(implObj, "put_onbeforeupdate"), flags, 2)
+        this.vtbl.get_onbeforeupdate := CallbackCreate(ObjBindMethod(implObj, "get_onbeforeupdate"), flags, 2)
+        this.vtbl.put_onerrorupdate := CallbackCreate(ObjBindMethod(implObj, "put_onerrorupdate"), flags, 2)
+        this.vtbl.get_onerrorupdate := CallbackCreate(ObjBindMethod(implObj, "get_onerrorupdate"), flags, 2)
+        this.vtbl.toString := CallbackCreate(ObjBindMethod(implObj, "toString"), flags, 2)
+        this.vtbl.createStyleSheet := CallbackCreate(ObjBindMethod(implObj, "createStyleSheet"), flags, 4)
     }
 
     Dispose() {

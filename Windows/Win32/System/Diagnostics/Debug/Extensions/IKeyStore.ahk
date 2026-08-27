@@ -42,7 +42,6 @@ export default struct IKeyStore extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} key 
      * @param {Pointer<IModelObject>} _object 
      * @param {Pointer<IKeyStore>} metadata 
@@ -51,12 +50,14 @@ export default struct IKeyStore extends IUnknown {
     GetKey(key, _object, metadata) {
         key := key is String ? StrPtr(key) : key
 
-        result := ComCall(3, this, "ptr", key, IModelObject.Ptr, _object, IKeyStore.Ptr, metadata, "HRESULT")
+        _objectMarshal := _object == 0 ? IntPtr : IModelObject.Ptr
+        metadataMarshal := metadata == 0 ? IntPtr : IKeyStore.Ptr
+
+        result := ComCall(3, this, "ptr", key, _objectMarshal, _object, metadataMarshal, metadata, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} key 
      * @param {IModelObject} _object 
      * @param {IKeyStore} metadata 
@@ -65,12 +66,14 @@ export default struct IKeyStore extends IUnknown {
     SetKey(key, _object, metadata) {
         key := key is String ? StrPtr(key) : key
 
-        result := ComCall(4, this, "ptr", key, "ptr", _object, "ptr", metadata, "HRESULT")
+        _objectMarshal := _object == 0 ? IntPtr : "ptr"
+        metadataMarshal := metadata == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, "ptr", key, _objectMarshal, _object, metadataMarshal, metadata, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} key 
      * @param {Pointer<IModelObject>} _object 
      * @param {Pointer<IKeyStore>} metadata 
@@ -79,12 +82,14 @@ export default struct IKeyStore extends IUnknown {
     GetKeyValue(key, _object, metadata) {
         key := key is String ? StrPtr(key) : key
 
-        result := ComCall(5, this, "ptr", key, IModelObject.Ptr, _object, IKeyStore.Ptr, metadata, "HRESULT")
+        _objectMarshal := _object == 0 ? IntPtr : IModelObject.Ptr
+        metadataMarshal := metadata == 0 ? IntPtr : IKeyStore.Ptr
+
+        result := ComCall(5, this, "ptr", key, _objectMarshal, _object, metadataMarshal, metadata, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} key 
      * @param {IModelObject} _object 
      * @returns {HRESULT} 
@@ -97,7 +102,6 @@ export default struct IKeyStore extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ClearKeys() {
@@ -114,11 +118,11 @@ export default struct IKeyStore extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetKey := CallbackCreate(GetMethod(implObj, "GetKey"), flags, 4)
-        this.vtbl.SetKey := CallbackCreate(GetMethod(implObj, "SetKey"), flags, 4)
-        this.vtbl.GetKeyValue := CallbackCreate(GetMethod(implObj, "GetKeyValue"), flags, 4)
-        this.vtbl.SetKeyValue := CallbackCreate(GetMethod(implObj, "SetKeyValue"), flags, 3)
-        this.vtbl.ClearKeys := CallbackCreate(GetMethod(implObj, "ClearKeys"), flags, 1)
+        this.vtbl.GetKey := CallbackCreate(ObjBindMethod(implObj, "GetKey"), flags, 4)
+        this.vtbl.SetKey := CallbackCreate(ObjBindMethod(implObj, "SetKey"), flags, 4)
+        this.vtbl.GetKeyValue := CallbackCreate(ObjBindMethod(implObj, "GetKeyValue"), flags, 4)
+        this.vtbl.SetKeyValue := CallbackCreate(ObjBindMethod(implObj, "SetKeyValue"), flags, 3)
+        this.vtbl.ClearKeys := CallbackCreate(ObjBindMethod(implObj, "ClearKeys"), flags, 1)
     }
 
     Dispose() {

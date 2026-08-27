@@ -19,7 +19,6 @@ export default struct XA_COMMIT_EPT {
     }
 
     /**
-     * 
      * @param {Pointer<XID>} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 

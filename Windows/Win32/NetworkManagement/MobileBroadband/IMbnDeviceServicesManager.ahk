@@ -79,7 +79,7 @@ export default struct IMbnDeviceServicesManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDeviceServicesContext := CallbackCreate(GetMethod(implObj, "GetDeviceServicesContext"), flags, 3)
+        this.vtbl.GetDeviceServicesContext := CallbackCreate(ObjBindMethod(implObj, "GetDeviceServicesContext"), flags, 3)
     }
 
     Dispose() {

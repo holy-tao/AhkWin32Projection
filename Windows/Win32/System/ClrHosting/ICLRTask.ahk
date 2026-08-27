@@ -49,7 +49,6 @@ export default struct ICLRTask extends IUnknown {
     }
 
     /**
-     * 
      * @param {HANDLE} threadHandle 
      * @returns {HRESULT} 
      */
@@ -59,7 +58,6 @@ export default struct ICLRTask extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SwitchOut() {
@@ -68,7 +66,6 @@ export default struct ICLRTask extends IUnknown {
     }
 
     /**
-     * 
      * @returns {COR_GC_THREAD_STATS} 
      */
     GetMemStats() {
@@ -78,7 +75,6 @@ export default struct ICLRTask extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fFull 
      * @returns {HRESULT} 
      */
@@ -88,7 +84,6 @@ export default struct ICLRTask extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ExitTask() {
@@ -97,7 +92,6 @@ export default struct ICLRTask extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Abort() {
@@ -106,7 +100,6 @@ export default struct ICLRTask extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RudeAbort() {
@@ -115,7 +108,6 @@ export default struct ICLRTask extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     NeedsPriorityScheduling() {
@@ -124,7 +116,6 @@ export default struct ICLRTask extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     YieldTask() {
@@ -133,7 +124,6 @@ export default struct ICLRTask extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     LocksHeld() {
@@ -142,7 +132,6 @@ export default struct ICLRTask extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} asked 
      * @returns {HRESULT} 
      */
@@ -160,17 +149,17 @@ export default struct ICLRTask extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SwitchIn := CallbackCreate(GetMethod(implObj, "SwitchIn"), flags, 2)
-        this.vtbl.SwitchOut := CallbackCreate(GetMethod(implObj, "SwitchOut"), flags, 1)
-        this.vtbl.GetMemStats := CallbackCreate(GetMethod(implObj, "GetMemStats"), flags, 2)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 2)
-        this.vtbl.ExitTask := CallbackCreate(GetMethod(implObj, "ExitTask"), flags, 1)
-        this.vtbl.Abort := CallbackCreate(GetMethod(implObj, "Abort"), flags, 1)
-        this.vtbl.RudeAbort := CallbackCreate(GetMethod(implObj, "RudeAbort"), flags, 1)
-        this.vtbl.NeedsPriorityScheduling := CallbackCreate(GetMethod(implObj, "NeedsPriorityScheduling"), flags, 2)
-        this.vtbl.YieldTask := CallbackCreate(GetMethod(implObj, "YieldTask"), flags, 1)
-        this.vtbl.LocksHeld := CallbackCreate(GetMethod(implObj, "LocksHeld"), flags, 2)
-        this.vtbl.SetTaskIdentifier := CallbackCreate(GetMethod(implObj, "SetTaskIdentifier"), flags, 2)
+        this.vtbl.SwitchIn := CallbackCreate(ObjBindMethod(implObj, "SwitchIn"), flags, 2)
+        this.vtbl.SwitchOut := CallbackCreate(ObjBindMethod(implObj, "SwitchOut"), flags, 1)
+        this.vtbl.GetMemStats := CallbackCreate(ObjBindMethod(implObj, "GetMemStats"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 2)
+        this.vtbl.ExitTask := CallbackCreate(ObjBindMethod(implObj, "ExitTask"), flags, 1)
+        this.vtbl.Abort := CallbackCreate(ObjBindMethod(implObj, "Abort"), flags, 1)
+        this.vtbl.RudeAbort := CallbackCreate(ObjBindMethod(implObj, "RudeAbort"), flags, 1)
+        this.vtbl.NeedsPriorityScheduling := CallbackCreate(ObjBindMethod(implObj, "NeedsPriorityScheduling"), flags, 2)
+        this.vtbl.YieldTask := CallbackCreate(ObjBindMethod(implObj, "YieldTask"), flags, 1)
+        this.vtbl.LocksHeld := CallbackCreate(ObjBindMethod(implObj, "LocksHeld"), flags, 2)
+        this.vtbl.SetTaskIdentifier := CallbackCreate(ObjBindMethod(implObj, "SetTaskIdentifier"), flags, 2)
     }
 
     Dispose() {

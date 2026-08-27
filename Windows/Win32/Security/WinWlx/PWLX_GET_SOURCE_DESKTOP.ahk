@@ -23,7 +23,6 @@ export default struct PWLX_GET_SOURCE_DESKTOP {
     }
 
     /**
-     * 
      * @param {HANDLE} hWlx Specifies the Winlogon handle passed to GINA in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nf-winwlx-wlxinitialize">WlxInitialize</a> call.
      * @param {Pointer<Pointer<WLX_DESKTOP>>} ppDesktop Receives a pointer to a 
@@ -61,7 +60,7 @@ export default struct PWLX_GET_SOURCE_DESKTOP {
      * </table>
      */
     Call(hWlx, ppDesktop) {
-        ppDesktopMarshal := ppDesktop is VarRef ? "ptr*" : "ptr"
+        ppDesktopMarshal := ppDesktop is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, HANDLE, hWlx, ppDesktopMarshal, ppDesktop, BOOL)
         return result

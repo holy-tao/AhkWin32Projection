@@ -40,7 +40,6 @@ export default struct IViewObjectPresentFlip extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fRecreatePresenter 
      * @returns {HRESULT} 
      */
@@ -50,22 +49,24 @@ export default struct IViewObjectPresentFlip extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pBitmap 
      * @returns {HRESULT} 
      */
     RenderObjectToBitmap(pBitmap) {
-        result := ComCall(4, this, "ptr", pBitmap, "HRESULT")
+        pBitmapMarshal := pBitmap == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, pBitmapMarshal, pBitmap, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {ISurfacePresenterFlipBuffer} pBuffer 
      * @returns {HRESULT} 
      */
     RenderObjectToSharedBuffer(pBuffer) {
-        result := ComCall(5, this, "ptr", pBuffer, "HRESULT")
+        pBufferMarshal := pBuffer == 0 ? IntPtr : "ptr"
+
+        result := ComCall(5, this, pBufferMarshal, pBuffer, "HRESULT")
         return result
     }
 
@@ -78,9 +79,9 @@ export default struct IViewObjectPresentFlip extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.NotifyRender := CallbackCreate(GetMethod(implObj, "NotifyRender"), flags, 2)
-        this.vtbl.RenderObjectToBitmap := CallbackCreate(GetMethod(implObj, "RenderObjectToBitmap"), flags, 2)
-        this.vtbl.RenderObjectToSharedBuffer := CallbackCreate(GetMethod(implObj, "RenderObjectToSharedBuffer"), flags, 2)
+        this.vtbl.NotifyRender := CallbackCreate(ObjBindMethod(implObj, "NotifyRender"), flags, 2)
+        this.vtbl.RenderObjectToBitmap := CallbackCreate(ObjBindMethod(implObj, "RenderObjectToBitmap"), flags, 2)
+        this.vtbl.RenderObjectToSharedBuffer := CallbackCreate(ObjBindMethod(implObj, "RenderObjectToSharedBuffer"), flags, 2)
     }
 
     Dispose() {

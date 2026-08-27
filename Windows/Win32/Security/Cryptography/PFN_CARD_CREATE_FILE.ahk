@@ -21,7 +21,6 @@ export default struct PFN_CARD_CREATE_FILE {
     }
 
     /**
-     * 
      * @param {Pointer<CARD_DATA>} pCardData 
      * @param {PSTR} pszDirectoryName 
      * @param {PSTR} pszFileName 
@@ -33,7 +32,9 @@ export default struct PFN_CARD_CREATE_FILE {
         pszDirectoryName := pszDirectoryName is String ? StrPtr(pszDirectoryName) : pszDirectoryName
         pszFileName := pszFileName is String ? StrPtr(pszFileName) : pszFileName
 
-        result := DllCall(this.value, CARD_DATA.Ptr, pCardData, "ptr", pszDirectoryName, "ptr", pszFileName, UInt32, cbInitialCreationSize, CARD_FILE_ACCESS_CONDITION, AccessCondition, UInt32)
+        pszDirectoryNameMarshal := pszDirectoryName == 0 ? IntPtr : PSTR
+
+        result := DllCall(this.value, CARD_DATA.Ptr, pCardData, pszDirectoryNameMarshal, pszDirectoryName, "ptr", pszFileName, UInt32, cbInitialCreationSize, CARD_FILE_ACCESS_CONDITION, AccessCondition, UInt32)
         return result
     }
 

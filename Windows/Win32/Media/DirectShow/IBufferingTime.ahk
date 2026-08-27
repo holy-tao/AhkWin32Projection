@@ -37,19 +37,17 @@ export default struct IBufferingTime extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwMilliseconds 
      * @returns {HRESULT} 
      */
     GetBufferingTime(pdwMilliseconds) {
-        pdwMillisecondsMarshal := pdwMilliseconds is VarRef ? "uint*" : "ptr"
+        pdwMillisecondsMarshal := pdwMilliseconds is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pdwMillisecondsMarshal, pdwMilliseconds, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwMilliseconds 
      * @returns {HRESULT} 
      */
@@ -67,8 +65,8 @@ export default struct IBufferingTime extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetBufferingTime := CallbackCreate(GetMethod(implObj, "GetBufferingTime"), flags, 2)
-        this.vtbl.SetBufferingTime := CallbackCreate(GetMethod(implObj, "SetBufferingTime"), flags, 2)
+        this.vtbl.GetBufferingTime := CallbackCreate(ObjBindMethod(implObj, "GetBufferingTime"), flags, 2)
+        this.vtbl.SetBufferingTime := CallbackCreate(ObjBindMethod(implObj, "SetBufferingTime"), flags, 2)
     }
 
     Dispose() {

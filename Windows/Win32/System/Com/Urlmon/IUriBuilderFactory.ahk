@@ -38,7 +38,6 @@ export default struct IUriBuilderFactory extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @param {Pointer} dwReserved 
      * @returns {IUriBuilder} 
@@ -49,7 +48,6 @@ export default struct IUriBuilderFactory extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @param {Pointer} dwReserved 
      * @returns {IUriBuilder} 
@@ -68,8 +66,8 @@ export default struct IUriBuilderFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateIUriBuilder := CallbackCreate(GetMethod(implObj, "CreateIUriBuilder"), flags, 4)
-        this.vtbl.CreateInitializedIUriBuilder := CallbackCreate(GetMethod(implObj, "CreateInitializedIUriBuilder"), flags, 4)
+        this.vtbl.CreateIUriBuilder := CallbackCreate(ObjBindMethod(implObj, "CreateIUriBuilder"), flags, 4)
+        this.vtbl.CreateInitializedIUriBuilder := CallbackCreate(ObjBindMethod(implObj, "CreateInitializedIUriBuilder"), flags, 4)
     }
 
     Dispose() {

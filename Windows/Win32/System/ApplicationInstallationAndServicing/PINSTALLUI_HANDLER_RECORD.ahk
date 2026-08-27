@@ -19,14 +19,13 @@ export default struct PINSTALLUI_HANDLER_RECORD {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvContext 
      * @param {Integer} iMessageType 
      * @param {MSIHANDLE} hRecord 
      * @returns {Integer} 
      */
     Call(pvContext, iMessageType, hRecord) {
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, pvContextMarshal, pvContext, UInt32, iMessageType, MSIHANDLE, hRecord, Int32)
         return result

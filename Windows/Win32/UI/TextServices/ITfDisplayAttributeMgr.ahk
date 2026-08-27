@@ -119,9 +119,9 @@ export default struct ITfDisplayAttributeMgr extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnUpdateInfo := CallbackCreate(GetMethod(implObj, "OnUpdateInfo"), flags, 1)
-        this.vtbl.EnumDisplayAttributeInfo := CallbackCreate(GetMethod(implObj, "EnumDisplayAttributeInfo"), flags, 2)
-        this.vtbl.GetDisplayAttributeInfo := CallbackCreate(GetMethod(implObj, "GetDisplayAttributeInfo"), flags, 4)
+        this.vtbl.OnUpdateInfo := CallbackCreate(ObjBindMethod(implObj, "OnUpdateInfo"), flags, 1)
+        this.vtbl.EnumDisplayAttributeInfo := CallbackCreate(ObjBindMethod(implObj, "EnumDisplayAttributeInfo"), flags, 2)
+        this.vtbl.GetDisplayAttributeInfo := CallbackCreate(ObjBindMethod(implObj, "GetDisplayAttributeInfo"), flags, 4)
     }
 
     Dispose() {

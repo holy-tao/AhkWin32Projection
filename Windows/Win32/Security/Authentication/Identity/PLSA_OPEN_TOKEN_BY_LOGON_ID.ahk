@@ -21,7 +21,6 @@ export default struct PLSA_OPEN_TOKEN_BY_LOGON_ID {
     }
 
     /**
-     * 
      * @param {Pointer<LUID>} LogonId 
      * @param {Pointer<HANDLE>} RetTokenHandle 
      * @returns {NTSTATUS} 

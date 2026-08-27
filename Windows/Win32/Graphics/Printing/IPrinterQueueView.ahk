@@ -42,7 +42,6 @@ export default struct IPrinterQueueView extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} ulViewOffset 
      * @param {Integer} ulViewSize 
      * @returns {HRESULT} 
@@ -61,7 +60,7 @@ export default struct IPrinterQueueView extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetViewRange := CallbackCreate(GetMethod(implObj, "SetViewRange"), flags, 3)
+        this.vtbl.SetViewRange := CallbackCreate(ObjBindMethod(implObj, "SetViewRange"), flags, 3)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct PRESUTIL_GET_CORE_CLUSTER_RESOURCES_EX {
     }
 
     /**
-     * 
      * @param {HCLUSTER} hClusterIn 
      * @param {Pointer<HRESOURCE>} phClusterNameResourceOut 
      * @param {Pointer<HRESOURCE>} phClusterIPAddressResourceOut 
@@ -29,9 +28,9 @@ export default struct PRESUTIL_GET_CORE_CLUSTER_RESOURCES_EX {
      * @returns {Integer} 
      */
     Call(hClusterIn, phClusterNameResourceOut, phClusterIPAddressResourceOut, phClusterQuorumResourceOut, dwDesiredAccess) {
-        phClusterNameResourceOutMarshal := phClusterNameResourceOut is VarRef ? "ptr*" : "ptr"
-        phClusterIPAddressResourceOutMarshal := phClusterIPAddressResourceOut is VarRef ? "ptr*" : "ptr"
-        phClusterQuorumResourceOutMarshal := phClusterQuorumResourceOut is VarRef ? "ptr*" : "ptr"
+        phClusterNameResourceOutMarshal := phClusterNameResourceOut is VarRef ? "ptr*" : IntPtr
+        phClusterIPAddressResourceOutMarshal := phClusterIPAddressResourceOut is VarRef ? "ptr*" : IntPtr
+        phClusterQuorumResourceOutMarshal := phClusterQuorumResourceOut is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, HCLUSTER, hClusterIn, phClusterNameResourceOutMarshal, phClusterNameResourceOut, phClusterIPAddressResourceOutMarshal, phClusterIPAddressResourceOut, phClusterQuorumResourceOutMarshal, phClusterQuorumResourceOut, UInt32, dwDesiredAccess, UInt32)
         return result

@@ -211,10 +211,10 @@ export default struct IBasicAudio extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_Volume := CallbackCreate(GetMethod(implObj, "put_Volume"), flags, 2)
-        this.vtbl.get_Volume := CallbackCreate(GetMethod(implObj, "get_Volume"), flags, 2)
-        this.vtbl.put_Balance := CallbackCreate(GetMethod(implObj, "put_Balance"), flags, 2)
-        this.vtbl.get_Balance := CallbackCreate(GetMethod(implObj, "get_Balance"), flags, 2)
+        this.vtbl.put_Volume := CallbackCreate(ObjBindMethod(implObj, "put_Volume"), flags, 2)
+        this.vtbl.get_Volume := CallbackCreate(ObjBindMethod(implObj, "get_Volume"), flags, 2)
+        this.vtbl.put_Balance := CallbackCreate(ObjBindMethod(implObj, "put_Balance"), flags, 2)
+        this.vtbl.get_Balance := CallbackCreate(ObjBindMethod(implObj, "get_Balance"), flags, 2)
     }
 
     Dispose() {

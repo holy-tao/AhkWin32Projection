@@ -58,7 +58,7 @@ export default struct IVdsProviderSupport extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetVersionSupport := CallbackCreate(GetMethod(implObj, "GetVersionSupport"), flags, 2)
+        this.vtbl.GetVersionSupport := CallbackCreate(ObjBindMethod(implObj, "GetVersionSupport"), flags, 2)
     }
 
     Dispose() {

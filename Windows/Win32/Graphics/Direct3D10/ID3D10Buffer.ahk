@@ -131,9 +131,9 @@ export default struct ID3D10Buffer extends ID3D10Resource {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Map := CallbackCreate(GetMethod(implObj, "Map"), flags, 4)
-        this.vtbl.Unmap := CallbackCreate(GetMethod(implObj, "Unmap"), flags, 1)
-        this.vtbl.GetDesc := CallbackCreate(GetMethod(implObj, "GetDesc"), flags, 2)
+        this.vtbl.Map := CallbackCreate(ObjBindMethod(implObj, "Map"), flags, 4)
+        this.vtbl.Unmap := CallbackCreate(ObjBindMethod(implObj, "Unmap"), flags, 1)
+        this.vtbl.GetDesc := CallbackCreate(ObjBindMethod(implObj, "GetDesc"), flags, 2)
     }
 
     Dispose() {

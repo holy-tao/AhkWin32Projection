@@ -95,7 +95,7 @@ export default struct IAssemblyName extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsxs/nf-winsxs-iassemblyname-setproperty
      */
     SetProperty(PropertyId, pvProperty, cbProperty) {
-        pvPropertyMarshal := pvProperty is VarRef ? "ptr" : "ptr"
+        pvPropertyMarshal := pvProperty is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, UInt32, PropertyId, pvPropertyMarshal, pvProperty, UInt32, cbProperty, "HRESULT")
         return result
@@ -139,8 +139,8 @@ export default struct IAssemblyName extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsxs/nf-winsxs-iassemblyname-getproperty
      */
     GetProperty(PropertyId, pvProperty, pcbProperty) {
-        pvPropertyMarshal := pvProperty is VarRef ? "ptr" : "ptr"
-        pcbPropertyMarshal := pcbProperty is VarRef ? "uint*" : "ptr"
+        pvPropertyMarshal := pvProperty is VarRef ? "ptr" : IntPtr
+        pcbPropertyMarshal := pcbProperty is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, UInt32, PropertyId, pvPropertyMarshal, pvProperty, pcbPropertyMarshal, pcbProperty, "HRESULT")
         return result
@@ -225,9 +225,10 @@ export default struct IAssemblyName extends IUnknown {
     GetDisplayName(szDisplayName, pccDisplayName, dwDisplayFlags) {
         szDisplayName := szDisplayName is String ? StrPtr(szDisplayName) : szDisplayName
 
-        pccDisplayNameMarshal := pccDisplayName is VarRef ? "uint*" : "ptr"
+        szDisplayNameMarshal := szDisplayName == 0 ? IntPtr : PWSTR
+        pccDisplayNameMarshal := pccDisplayName is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(6, this, "ptr", szDisplayName, pccDisplayNameMarshal, pccDisplayName, UInt32, dwDisplayFlags, "HRESULT")
+        result := ComCall(6, this, szDisplayNameMarshal, szDisplayName, pccDisplayNameMarshal, pccDisplayName, UInt32, dwDisplayFlags, "HRESULT")
         return result
     }
 
@@ -247,8 +248,8 @@ export default struct IAssemblyName extends IUnknown {
     Reserved(refIID, pUnkReserved1, pUnkReserved2, szReserved, llReserved, pvReserved, cbReserved, ppReserved) {
         szReserved := szReserved is String ? StrPtr(szReserved) : szReserved
 
-        pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
-        ppReservedMarshal := ppReserved is VarRef ? "ptr*" : "ptr"
+        pvReservedMarshal := pvReserved is VarRef ? "ptr" : IntPtr
+        ppReservedMarshal := ppReserved is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(7, this, Guid.Ptr, refIID, "ptr", pUnkReserved1, "ptr", pUnkReserved2, "ptr", szReserved, Int64, llReserved, pvReservedMarshal, pvReserved, UInt32, cbReserved, ppReservedMarshal, ppReserved, "HRESULT")
         return result
@@ -295,9 +296,10 @@ export default struct IAssemblyName extends IUnknown {
     GetName(lpcwBuffer, pwzName) {
         pwzName := pwzName is String ? StrPtr(pwzName) : pwzName
 
-        lpcwBufferMarshal := lpcwBuffer is VarRef ? "uint*" : "ptr"
+        lpcwBufferMarshal := lpcwBuffer is VarRef ? "uint*" : IntPtr
+        pwzNameMarshal := pwzName == 0 ? IntPtr : PWSTR
 
-        result := ComCall(8, this, lpcwBufferMarshal, lpcwBuffer, "ptr", pwzName, "HRESULT")
+        result := ComCall(8, this, lpcwBufferMarshal, lpcwBuffer, pwzNameMarshal, pwzName, "HRESULT")
         return result
     }
 
@@ -317,8 +319,8 @@ export default struct IAssemblyName extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getversion
      */
     GetVersion(pdwVersionHi, pdwVersionLow) {
-        pdwVersionHiMarshal := pdwVersionHi is VarRef ? "uint*" : "ptr"
-        pdwVersionLowMarshal := pdwVersionLow is VarRef ? "uint*" : "ptr"
+        pdwVersionHiMarshal := pdwVersionHi is VarRef ? "uint*" : IntPtr
+        pdwVersionLowMarshal := pdwVersionLow is VarRef ? "uint*" : IntPtr
 
         result := ComCall(9, this, pdwVersionHiMarshal, pdwVersionHi, pdwVersionLowMarshal, pdwVersionLow, "HRESULT")
         return result
@@ -384,15 +386,15 @@ export default struct IAssemblyName extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 4)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 4)
-        this.vtbl.Finalize := CallbackCreate(GetMethod(implObj, "Finalize"), flags, 1)
-        this.vtbl.GetDisplayName := CallbackCreate(GetMethod(implObj, "GetDisplayName"), flags, 4)
-        this.vtbl.Reserved := CallbackCreate(GetMethod(implObj, "Reserved"), flags, 9)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 3)
-        this.vtbl.GetVersion := CallbackCreate(GetMethod(implObj, "GetVersion"), flags, 3)
-        this.vtbl.IsEqual := CallbackCreate(GetMethod(implObj, "IsEqual"), flags, 3)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.SetProperty := CallbackCreate(ObjBindMethod(implObj, "SetProperty"), flags, 4)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 4)
+        this.vtbl.Finalize := CallbackCreate(ObjBindMethod(implObj, "Finalize"), flags, 1)
+        this.vtbl.GetDisplayName := CallbackCreate(ObjBindMethod(implObj, "GetDisplayName"), flags, 4)
+        this.vtbl.Reserved := CallbackCreate(ObjBindMethod(implObj, "Reserved"), flags, 9)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 3)
+        this.vtbl.GetVersion := CallbackCreate(ObjBindMethod(implObj, "GetVersion"), flags, 3)
+        this.vtbl.IsEqual := CallbackCreate(ObjBindMethod(implObj, "IsEqual"), flags, 3)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
     }
 
     Dispose() {

@@ -73,7 +73,7 @@ export default struct IContextCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ContextCallback := CallbackCreate(GetMethod(implObj, "ContextCallback"), flags, 6)
+        this.vtbl.ContextCallback := CallbackCreate(ObjBindMethod(implObj, "ContextCallback"), flags, 6)
     }
 
     Dispose() {

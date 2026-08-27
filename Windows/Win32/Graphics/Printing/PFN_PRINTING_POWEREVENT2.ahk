@@ -20,14 +20,15 @@ export default struct PFN_PRINTING_POWEREVENT2 {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @param {Integer} param1 
      * @param {Pointer<POWERBROADCAST_SETTING>} param2 
      * @returns {Integer} 
      */
     Call(param0, param1, param2) {
-        result := DllCall(this.value, HANDLE, param0, UInt32, param1, POWERBROADCAST_SETTING.Ptr, param2, UInt32)
+        param2Marshal := param2 == 0 ? IntPtr : POWERBROADCAST_SETTING.Ptr
+
+        result := DllCall(this.value, HANDLE, param0, UInt32, param1, param2Marshal, param2, UInt32)
         return result
     }
 

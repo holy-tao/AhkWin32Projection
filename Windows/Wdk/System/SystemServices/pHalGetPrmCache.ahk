@@ -19,14 +19,13 @@ export default struct pHalGetPrmCache {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<LIST_ENTRY>>} FirmwareList 
      * @param {Pointer<Pointer<LIST_ENTRY>>} UpdateList 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(FirmwareList, UpdateList) {
-        FirmwareListMarshal := FirmwareList is VarRef ? "ptr*" : "ptr"
-        UpdateListMarshal := UpdateList is VarRef ? "ptr*" : "ptr"
+        FirmwareListMarshal := FirmwareList is VarRef ? "ptr*" : IntPtr
+        UpdateListMarshal := UpdateList is VarRef ? "ptr*" : IntPtr
 
         DllCall(this.value, FirmwareListMarshal, FirmwareList, UpdateListMarshal, UpdateList)
     }

@@ -46,7 +46,6 @@ export default struct IRTCWatcher extends IRTCPresenceContact {
     }
 
     /**
-     * 
      * @returns {RTC_WATCHER_STATE} 
      */
     get_State() {
@@ -55,7 +54,6 @@ export default struct IRTCWatcher extends IRTCPresenceContact {
     }
 
     /**
-     * 
      * @param {RTC_WATCHER_STATE} enState 
      * @returns {HRESULT} 
      */
@@ -73,8 +71,8 @@ export default struct IRTCWatcher extends IRTCPresenceContact {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
-        this.vtbl.put_State := CallbackCreate(GetMethod(implObj, "put_State"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(ObjBindMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.put_State := CallbackCreate(ObjBindMethod(implObj, "put_State"), flags, 2)
     }
 
     Dispose() {

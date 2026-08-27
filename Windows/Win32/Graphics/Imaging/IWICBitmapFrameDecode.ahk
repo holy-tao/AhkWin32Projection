@@ -107,9 +107,9 @@ export default struct IWICBitmapFrameDecode extends IWICBitmapSource {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMetadataQueryReader := CallbackCreate(GetMethod(implObj, "GetMetadataQueryReader"), flags, 2)
-        this.vtbl.GetColorContexts := CallbackCreate(GetMethod(implObj, "GetColorContexts"), flags, 4)
-        this.vtbl.GetThumbnail := CallbackCreate(GetMethod(implObj, "GetThumbnail"), flags, 2)
+        this.vtbl.GetMetadataQueryReader := CallbackCreate(ObjBindMethod(implObj, "GetMetadataQueryReader"), flags, 2)
+        this.vtbl.GetColorContexts := CallbackCreate(ObjBindMethod(implObj, "GetColorContexts"), flags, 4)
+        this.vtbl.GetThumbnail := CallbackCreate(ObjBindMethod(implObj, "GetThumbnail"), flags, 2)
     }
 
     Dispose() {

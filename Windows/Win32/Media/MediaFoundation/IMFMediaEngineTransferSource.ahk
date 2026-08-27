@@ -37,7 +37,6 @@ export default struct IMFMediaEngineTransferSource extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMFMediaEngine} destination 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,7 @@ export default struct IMFMediaEngineTransferSource extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.TransferSourceToMediaEngine := CallbackCreate(GetMethod(implObj, "TransferSourceToMediaEngine"), flags, 2)
+        this.vtbl.TransferSourceToMediaEngine := CallbackCreate(ObjBindMethod(implObj, "TransferSourceToMediaEngine"), flags, 2)
     }
 
     Dispose() {

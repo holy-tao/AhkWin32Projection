@@ -23,7 +23,6 @@ export default struct FAST_IO_READ_COMPRESSED {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
@@ -37,9 +36,9 @@ export default struct FAST_IO_READ_COMPRESSED {
      * @returns {BOOLEAN} 
      */
     Call(FileObject, FileOffset, Length, LockKey, _Buffer, MdlChain, IoStatus, CompressedDataInfo, CompressedDataInfoLength, DeviceObject) {
-        FileOffsetMarshal := FileOffset is VarRef ? "int64*" : "ptr"
-        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
-        MdlChainMarshal := MdlChain is VarRef ? "ptr*" : "ptr"
+        FileOffsetMarshal := FileOffset is VarRef ? "int64*" : IntPtr
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : IntPtr
+        MdlChainMarshal := MdlChain is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, FILE_OBJECT.Ptr, FileObject, FileOffsetMarshal, FileOffset, UInt32, Length, UInt32, LockKey, _BufferMarshal, _Buffer, MdlChainMarshal, MdlChain, IO_STATUS_BLOCK.Ptr, IoStatus, IntPtr, CompressedDataInfo, UInt32, CompressedDataInfoLength, DEVICE_OBJECT.Ptr, DeviceObject, BOOLEAN)
         return result

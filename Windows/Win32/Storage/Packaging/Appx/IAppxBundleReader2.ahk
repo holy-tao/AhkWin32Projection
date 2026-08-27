@@ -38,7 +38,6 @@ export default struct IAppxBundleReader2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} fileName 
      * @returns {IAppxPackageReader} 
      */
@@ -58,7 +57,7 @@ export default struct IAppxBundleReader2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPayloadPackageReader := CallbackCreate(GetMethod(implObj, "GetPayloadPackageReader"), flags, 3)
+        this.vtbl.GetPayloadPackageReader := CallbackCreate(ObjBindMethod(implObj, "GetPayloadPackageReader"), flags, 3)
     }
 
     Dispose() {

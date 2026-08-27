@@ -20,7 +20,6 @@ export default struct PCLUSAPI_ADD_CLUSTER_RESOURCE_DEPENDENCY_EX {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @param {HRESOURCE} hDependsOn 
      * @param {PWSTR} lpszReason 
@@ -29,7 +28,9 @@ export default struct PCLUSAPI_ADD_CLUSTER_RESOURCE_DEPENDENCY_EX {
     Call(_hResource, hDependsOn, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall(this.value, HRESOURCE, _hResource, HRESOURCE, hDependsOn, "ptr", lpszReason, UInt32)
+        lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+        result := DllCall(this.value, HRESOURCE, _hResource, HRESOURCE, hDependsOn, lpszReasonMarshal, lpszReason, UInt32)
         return result
     }
 

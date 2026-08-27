@@ -22,7 +22,6 @@ export default struct PFNREADOBJECTSECURITY {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @param {Integer} param1 
      * @param {Pointer<PSECURITY_DESCRIPTOR>} param2 

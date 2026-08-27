@@ -19,7 +19,6 @@ export default struct PFN_CARD_DESTROY_DH_AGREEMENT {
     }
 
     /**
-     * 
      * @param {Pointer<CARD_DATA>} pCardData 
      * @param {Integer} bSecretAgreementIndex 
      * @param {Integer} dwFlags 

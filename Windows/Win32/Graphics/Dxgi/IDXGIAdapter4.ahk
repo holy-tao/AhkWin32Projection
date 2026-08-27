@@ -67,7 +67,7 @@ export default struct IDXGIAdapter4 extends IDXGIAdapter3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDesc3 := CallbackCreate(GetMethod(implObj, "GetDesc3"), flags, 2)
+        this.vtbl.GetDesc3 := CallbackCreate(ObjBindMethod(implObj, "GetDesc3"), flags, 2)
     }
 
     Dispose() {

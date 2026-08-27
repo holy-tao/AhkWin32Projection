@@ -135,15 +135,14 @@ export default struct IWordBreakerConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-getlocaleinfoa
      */
     GetLocaleInfo(pdwCodePageID, plcid) {
-        pdwCodePageIDMarshal := pdwCodePageID is VarRef ? "uint*" : "ptr"
-        plcidMarshal := plcid is VarRef ? "uint*" : "ptr"
+        pdwCodePageIDMarshal := pdwCodePageID is VarRef ? "uint*" : IntPtr
+        plcidMarshal := plcid is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pdwCodePageIDMarshal, pdwCodePageID, plcidMarshal, plcid, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwBreakWordType 
      * @returns {HRESULT} 
      */
@@ -153,19 +152,17 @@ export default struct IWordBreakerConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwBreakWordType 
      * @returns {HRESULT} 
      */
     GetBreakWordType(pdwBreakWordType) {
-        pdwBreakWordTypeMarshal := pdwBreakWordType is VarRef ? "uint*" : "ptr"
+        pdwBreakWordTypeMarshal := pdwBreakWordType is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, pdwBreakWordTypeMarshal, pdwBreakWordType, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} grfBreakFlags 
      * @param {Integer} dwReserved 
      * @returns {HRESULT} 
@@ -176,21 +173,19 @@ export default struct IWordBreakerConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pgrfBreakFlags 
      * @param {Pointer<Integer>} pdwReserved 
      * @returns {HRESULT} 
      */
     GetControlInfo(pgrfBreakFlags, pdwReserved) {
-        pgrfBreakFlagsMarshal := pgrfBreakFlags is VarRef ? "uint*" : "ptr"
-        pdwReservedMarshal := pdwReserved is VarRef ? "uint*" : "ptr"
+        pgrfBreakFlagsMarshal := pgrfBreakFlags is VarRef ? "uint*" : IntPtr
+        pdwReservedMarshal := pdwReserved is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, pgrfBreakFlagsMarshal, pgrfBreakFlags, pdwReservedMarshal, pdwReserved, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IStream} pStream 
      * @param {Integer} dwExtDataType 
      * @returns {HRESULT} 
@@ -201,7 +196,6 @@ export default struct IWordBreakerConfig extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rclsid 
      * @param {IStemmer} pStemmer 
      * @returns {HRESULT} 
@@ -212,7 +206,6 @@ export default struct IWordBreakerConfig extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IStemmer} 
      */
     GetWordStemmer() {
@@ -229,15 +222,15 @@ export default struct IWordBreakerConfig extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetLocaleInfo := CallbackCreate(GetMethod(implObj, "SetLocaleInfo"), flags, 3)
-        this.vtbl.GetLocaleInfo := CallbackCreate(GetMethod(implObj, "GetLocaleInfo"), flags, 3)
-        this.vtbl.SetBreakWordType := CallbackCreate(GetMethod(implObj, "SetBreakWordType"), flags, 2)
-        this.vtbl.GetBreakWordType := CallbackCreate(GetMethod(implObj, "GetBreakWordType"), flags, 2)
-        this.vtbl.SetControlInfo := CallbackCreate(GetMethod(implObj, "SetControlInfo"), flags, 3)
-        this.vtbl.GetControlInfo := CallbackCreate(GetMethod(implObj, "GetControlInfo"), flags, 3)
-        this.vtbl.LoadExternalBreakerData := CallbackCreate(GetMethod(implObj, "LoadExternalBreakerData"), flags, 3)
-        this.vtbl.SetWordStemmer := CallbackCreate(GetMethod(implObj, "SetWordStemmer"), flags, 3)
-        this.vtbl.GetWordStemmer := CallbackCreate(GetMethod(implObj, "GetWordStemmer"), flags, 2)
+        this.vtbl.SetLocaleInfo := CallbackCreate(ObjBindMethod(implObj, "SetLocaleInfo"), flags, 3)
+        this.vtbl.GetLocaleInfo := CallbackCreate(ObjBindMethod(implObj, "GetLocaleInfo"), flags, 3)
+        this.vtbl.SetBreakWordType := CallbackCreate(ObjBindMethod(implObj, "SetBreakWordType"), flags, 2)
+        this.vtbl.GetBreakWordType := CallbackCreate(ObjBindMethod(implObj, "GetBreakWordType"), flags, 2)
+        this.vtbl.SetControlInfo := CallbackCreate(ObjBindMethod(implObj, "SetControlInfo"), flags, 3)
+        this.vtbl.GetControlInfo := CallbackCreate(ObjBindMethod(implObj, "GetControlInfo"), flags, 3)
+        this.vtbl.LoadExternalBreakerData := CallbackCreate(ObjBindMethod(implObj, "LoadExternalBreakerData"), flags, 3)
+        this.vtbl.SetWordStemmer := CallbackCreate(ObjBindMethod(implObj, "SetWordStemmer"), flags, 3)
+        this.vtbl.GetWordStemmer := CallbackCreate(ObjBindMethod(implObj, "GetWordStemmer"), flags, 2)
     }
 
     Dispose() {

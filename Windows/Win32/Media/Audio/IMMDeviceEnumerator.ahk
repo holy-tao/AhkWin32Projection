@@ -305,11 +305,11 @@ export default struct IMMDeviceEnumerator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumAudioEndpoints := CallbackCreate(GetMethod(implObj, "EnumAudioEndpoints"), flags, 4)
-        this.vtbl.GetDefaultAudioEndpoint := CallbackCreate(GetMethod(implObj, "GetDefaultAudioEndpoint"), flags, 4)
-        this.vtbl.GetDevice := CallbackCreate(GetMethod(implObj, "GetDevice"), flags, 3)
-        this.vtbl.RegisterEndpointNotificationCallback := CallbackCreate(GetMethod(implObj, "RegisterEndpointNotificationCallback"), flags, 2)
-        this.vtbl.UnregisterEndpointNotificationCallback := CallbackCreate(GetMethod(implObj, "UnregisterEndpointNotificationCallback"), flags, 2)
+        this.vtbl.EnumAudioEndpoints := CallbackCreate(ObjBindMethod(implObj, "EnumAudioEndpoints"), flags, 4)
+        this.vtbl.GetDefaultAudioEndpoint := CallbackCreate(ObjBindMethod(implObj, "GetDefaultAudioEndpoint"), flags, 4)
+        this.vtbl.GetDevice := CallbackCreate(ObjBindMethod(implObj, "GetDevice"), flags, 3)
+        this.vtbl.RegisterEndpointNotificationCallback := CallbackCreate(ObjBindMethod(implObj, "RegisterEndpointNotificationCallback"), flags, 2)
+        this.vtbl.UnregisterEndpointNotificationCallback := CallbackCreate(ObjBindMethod(implObj, "UnregisterEndpointNotificationCallback"), flags, 2)
     }
 
     Dispose() {

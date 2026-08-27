@@ -66,7 +66,6 @@ export default struct IPrintSchemaFeature extends IPrintSchemaDisplayableElement
     }
 
     /**
-     * 
      * @returns {IPrintSchemaOption} 
      */
     get_SelectedOption() {
@@ -75,7 +74,6 @@ export default struct IPrintSchemaFeature extends IPrintSchemaDisplayableElement
     }
 
     /**
-     * 
      * @param {IPrintSchemaOption} pOption 
      * @returns {HRESULT} 
      */
@@ -85,7 +83,6 @@ export default struct IPrintSchemaFeature extends IPrintSchemaDisplayableElement
     }
 
     /**
-     * 
      * @returns {PrintSchemaSelectionType} 
      */
     get_SelectionType() {
@@ -94,7 +91,6 @@ export default struct IPrintSchemaFeature extends IPrintSchemaDisplayableElement
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrNamespaceUri 
      * @returns {IPrintSchemaOption} 
@@ -108,7 +104,6 @@ export default struct IPrintSchemaFeature extends IPrintSchemaDisplayableElement
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_DisplayUI() {
@@ -125,11 +120,11 @@ export default struct IPrintSchemaFeature extends IPrintSchemaDisplayableElement
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_SelectedOption := CallbackCreate(GetMethod(implObj, "get_SelectedOption"), flags, 2)
-        this.vtbl.put_SelectedOption := CallbackCreate(GetMethod(implObj, "put_SelectedOption"), flags, 2)
-        this.vtbl.get_SelectionType := CallbackCreate(GetMethod(implObj, "get_SelectionType"), flags, 2)
-        this.vtbl.GetOption := CallbackCreate(GetMethod(implObj, "GetOption"), flags, 4)
-        this.vtbl.get_DisplayUI := CallbackCreate(GetMethod(implObj, "get_DisplayUI"), flags, 2)
+        this.vtbl.get_SelectedOption := CallbackCreate(ObjBindMethod(implObj, "get_SelectedOption"), flags, 2)
+        this.vtbl.put_SelectedOption := CallbackCreate(ObjBindMethod(implObj, "put_SelectedOption"), flags, 2)
+        this.vtbl.get_SelectionType := CallbackCreate(ObjBindMethod(implObj, "get_SelectionType"), flags, 2)
+        this.vtbl.GetOption := CallbackCreate(ObjBindMethod(implObj, "GetOption"), flags, 4)
+        this.vtbl.get_DisplayUI := CallbackCreate(ObjBindMethod(implObj, "get_DisplayUI"), flags, 2)
     }
 
     Dispose() {

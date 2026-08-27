@@ -26,7 +26,6 @@ export default struct PMGM_RPF_CALLBACK {
     }
 
     /**
-     * 
      * @param {Integer} dwSourceAddr Specifies the source address from which the multicast data was received. Zero indicates that data is received from all sources (a wildcard receiver for a group); otherwise, the value of <i>dwSourceAddr</i> is the IP address of the source or source network. 
      * 
      * 
@@ -85,11 +84,11 @@ export default struct PMGM_RPF_CALLBACK {
      * @returns {Integer} RRAS does not expect the application to return any specific value; any value returned is ignored by RRAS.
      */
     Call(dwSourceAddr, dwSourceMask, dwGroupAddr, dwGroupMask, pdwInIfIndex, pdwInIfNextHopAddr, pdwUpStreamNbr, dwHdrSize, pbPacketHdr, pbRoute) {
-        pdwInIfIndexMarshal := pdwInIfIndex is VarRef ? "uint*" : "ptr"
-        pdwInIfNextHopAddrMarshal := pdwInIfNextHopAddr is VarRef ? "uint*" : "ptr"
-        pdwUpStreamNbrMarshal := pdwUpStreamNbr is VarRef ? "uint*" : "ptr"
-        pbPacketHdrMarshal := pbPacketHdr is VarRef ? "char*" : "ptr"
-        pbRouteMarshal := pbRoute is VarRef ? "char*" : "ptr"
+        pdwInIfIndexMarshal := pdwInIfIndex is VarRef ? "uint*" : IntPtr
+        pdwInIfNextHopAddrMarshal := pdwInIfNextHopAddr is VarRef ? "uint*" : IntPtr
+        pdwUpStreamNbrMarshal := pdwUpStreamNbr is VarRef ? "uint*" : IntPtr
+        pbPacketHdrMarshal := pbPacketHdr is VarRef ? "char*" : IntPtr
+        pbRouteMarshal := pbRoute is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, UInt32, dwSourceAddr, UInt32, dwSourceMask, UInt32, dwGroupAddr, UInt32, dwGroupMask, pdwInIfIndexMarshal, pdwInIfIndex, pdwInIfNextHopAddrMarshal, pdwInIfNextHopAddr, pdwUpStreamNbrMarshal, pdwUpStreamNbr, UInt32, dwHdrSize, pbPacketHdrMarshal, pbPacketHdr, pbRouteMarshal, pbRoute, UInt32)
         return result

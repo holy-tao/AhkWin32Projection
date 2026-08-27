@@ -45,7 +45,6 @@ export default struct PRADIUS_EXTENSION_PROCESS_2 {
     }
 
     /**
-     * 
      * @param {Pointer<RADIUS_EXTENSION_CONTROL_BLOCK>} pECB Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/authif/ns-authif-radius_extension_control_block">RADIUS_EXTENSION_CONTROL_BLOCK</a> structure. The members of this structure contain values and function pointers that enable the NPS Extension DLL to process the RADIUS packet.
      * @returns {Integer} If the function succeeds, the return value is <b>NO_ERROR</b>.

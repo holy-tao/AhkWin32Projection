@@ -86,7 +86,6 @@ export default struct IHTMLAnchorElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -98,7 +97,6 @@ export default struct IHTMLAnchorElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_charset() {
@@ -108,7 +106,6 @@ export default struct IHTMLAnchorElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -120,7 +117,6 @@ export default struct IHTMLAnchorElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_coords() {
@@ -130,7 +126,6 @@ export default struct IHTMLAnchorElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -142,7 +137,6 @@ export default struct IHTMLAnchorElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_hreflang() {
@@ -152,7 +146,6 @@ export default struct IHTMLAnchorElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -164,7 +157,6 @@ export default struct IHTMLAnchorElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_shape() {
@@ -174,7 +166,6 @@ export default struct IHTMLAnchorElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -186,7 +177,6 @@ export default struct IHTMLAnchorElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -204,16 +194,16 @@ export default struct IHTMLAnchorElement2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_charset := CallbackCreate(GetMethod(implObj, "put_charset"), flags, 2)
-        this.vtbl.get_charset := CallbackCreate(GetMethod(implObj, "get_charset"), flags, 2)
-        this.vtbl.put_coords := CallbackCreate(GetMethod(implObj, "put_coords"), flags, 2)
-        this.vtbl.get_coords := CallbackCreate(GetMethod(implObj, "get_coords"), flags, 2)
-        this.vtbl.put_hreflang := CallbackCreate(GetMethod(implObj, "put_hreflang"), flags, 2)
-        this.vtbl.get_hreflang := CallbackCreate(GetMethod(implObj, "get_hreflang"), flags, 2)
-        this.vtbl.put_shape := CallbackCreate(GetMethod(implObj, "put_shape"), flags, 2)
-        this.vtbl.get_shape := CallbackCreate(GetMethod(implObj, "get_shape"), flags, 2)
-        this.vtbl.put_type := CallbackCreate(GetMethod(implObj, "put_type"), flags, 2)
-        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.put_charset := CallbackCreate(ObjBindMethod(implObj, "put_charset"), flags, 2)
+        this.vtbl.get_charset := CallbackCreate(ObjBindMethod(implObj, "get_charset"), flags, 2)
+        this.vtbl.put_coords := CallbackCreate(ObjBindMethod(implObj, "put_coords"), flags, 2)
+        this.vtbl.get_coords := CallbackCreate(ObjBindMethod(implObj, "get_coords"), flags, 2)
+        this.vtbl.put_hreflang := CallbackCreate(ObjBindMethod(implObj, "put_hreflang"), flags, 2)
+        this.vtbl.get_hreflang := CallbackCreate(ObjBindMethod(implObj, "get_hreflang"), flags, 2)
+        this.vtbl.put_shape := CallbackCreate(ObjBindMethod(implObj, "put_shape"), flags, 2)
+        this.vtbl.get_shape := CallbackCreate(ObjBindMethod(implObj, "get_shape"), flags, 2)
+        this.vtbl.put_type := CallbackCreate(ObjBindMethod(implObj, "put_type"), flags, 2)
+        this.vtbl.get_type := CallbackCreate(ObjBindMethod(implObj, "get_type"), flags, 2)
     }
 
     Dispose() {

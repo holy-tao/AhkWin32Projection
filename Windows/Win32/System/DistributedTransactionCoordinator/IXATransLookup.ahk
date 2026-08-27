@@ -37,7 +37,6 @@ export default struct IXATransLookup extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ITransaction} 
      */
     Lookup() {
@@ -54,7 +53,7 @@ export default struct IXATransLookup extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Lookup := CallbackCreate(GetMethod(implObj, "Lookup"), flags, 2)
+        this.vtbl.Lookup := CallbackCreate(ObjBindMethod(implObj, "Lookup"), flags, 2)
     }
 
     Dispose() {

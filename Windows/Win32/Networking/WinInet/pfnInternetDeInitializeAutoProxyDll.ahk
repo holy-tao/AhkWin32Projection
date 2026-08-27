@@ -20,7 +20,6 @@ export default struct pfnInternetDeInitializeAutoProxyDll {
     }
 
     /**
-     * 
      * @param {PSTR} lpszMime 
      * @param {Integer} dwReserved 
      * @returns {BOOL} 

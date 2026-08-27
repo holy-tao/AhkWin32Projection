@@ -82,7 +82,9 @@ export default struct IReconcileInitiator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/reconcil/nf-reconcil-ireconcileinitiator-setabortcallback
      */
     SetAbortCallback(punkForAbort) {
-        result := ComCall(3, this, "ptr", punkForAbort, "HRESULT")
+        punkForAbortMarshal := punkForAbort == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, punkForAbortMarshal, punkForAbort, "HRESULT")
         return result
     }
 
@@ -115,8 +117,8 @@ export default struct IReconcileInitiator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAbortCallback := CallbackCreate(GetMethod(implObj, "SetAbortCallback"), flags, 2)
-        this.vtbl.SetProgressFeedback := CallbackCreate(GetMethod(implObj, "SetProgressFeedback"), flags, 3)
+        this.vtbl.SetAbortCallback := CallbackCreate(ObjBindMethod(implObj, "SetAbortCallback"), flags, 2)
+        this.vtbl.SetProgressFeedback := CallbackCreate(ObjBindMethod(implObj, "SetProgressFeedback"), flags, 3)
     }
 
     Dispose() {

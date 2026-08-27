@@ -37,7 +37,6 @@ export default struct LPDHCP_ENTRY_POINT_FUNC {
     }
 
     /**
-     * 
      * @param {PWSTR} ChainDlls Collection of remaining third-party DLLs that provided registry entries requesting notification of DHCP Server events, in REG_MULTI_SZ format.
      * @param {Integer} CalloutVersion Version of the DHCP Server API that the third-party DLL is expected to support. The current version number is zero.
      * @param {Pointer<DHCP_CALLOUT_TABLE>} CalloutTbl Cumulative set of notification hooks requested by all third-party DLLs, in the form of a 

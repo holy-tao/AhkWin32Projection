@@ -32,7 +32,6 @@ export default struct PRELEASE_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Resource Resource identifier for the quorum resource to be released.
      * @returns {Integer} <table>
      * <tr>
@@ -65,7 +64,7 @@ export default struct PRELEASE_ROUTINE {
      * </table>
      */
     Call(Resource) {
-        ResourceMarshal := Resource is VarRef ? "ptr" : "ptr"
+        ResourceMarshal := Resource is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, ResourceMarshal, Resource, UInt32)
         return result

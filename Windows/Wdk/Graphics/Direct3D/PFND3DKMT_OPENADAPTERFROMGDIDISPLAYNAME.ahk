@@ -20,7 +20,6 @@ export default struct PFND3DKMT_OPENADAPTERFROMGDIDISPLAYNAME {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_OPENADAPTERFROMGDIDISPLAYNAME>} param0 
      * @returns {NTSTATUS} 
      */

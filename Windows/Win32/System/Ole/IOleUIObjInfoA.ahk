@@ -101,11 +101,15 @@ export default struct IOleUIObjInfoA extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-ioleuiobjinfoa-getobjectinfo
      */
     GetObjectInfo(dwObject, lpdwObjSize, lplpszLabel, lplpszType, lplpszShortType, lplpszLocation) {
-        lpdwObjSizeMarshal := lpdwObjSize is VarRef ? "uint*" : "ptr"
-        lplpszLabelMarshal := lplpszLabel is VarRef ? "ptr*" : "ptr"
-        lplpszTypeMarshal := lplpszType is VarRef ? "ptr*" : "ptr"
-        lplpszShortTypeMarshal := lplpszShortType is VarRef ? "ptr*" : "ptr"
-        lplpszLocationMarshal := lplpszLocation is VarRef ? "ptr*" : "ptr"
+        lpdwObjSizeMarshal := lpdwObjSize is VarRef ? "uint*" : IntPtr
+        lplpszLabelMarshal := lplpszLabel is VarRef ? "ptr*" : IntPtr
+        lplpszLabelMarshal := lplpszLabel == 0 ? IntPtr : PSTR.Ptr
+        lplpszTypeMarshal := lplpszType is VarRef ? "ptr*" : IntPtr
+        lplpszTypeMarshal := lplpszType == 0 ? IntPtr : PSTR.Ptr
+        lplpszShortTypeMarshal := lplpszShortType is VarRef ? "ptr*" : IntPtr
+        lplpszShortTypeMarshal := lplpszShortType == 0 ? IntPtr : PSTR.Ptr
+        lplpszLocationMarshal := lplpszLocation is VarRef ? "ptr*" : IntPtr
+        lplpszLocationMarshal := lplpszLocation == 0 ? IntPtr : PSTR.Ptr
 
         result := ComCall(3, this, UInt32, dwObject, lpdwObjSizeMarshal, lpdwObjSize, lplpszLabelMarshal, lplpszLabel, lplpszTypeMarshal, lplpszType, lplpszShortTypeMarshal, lplpszShortType, lplpszLocationMarshal, lplpszLocation, "HRESULT")
         return result
@@ -177,9 +181,10 @@ export default struct IOleUIObjInfoA extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-ioleuiobjinfoa-getconvertinfo
      */
     GetConvertInfo(dwObject, lpClassID, lpwFormat, lpConvertDefaultClassID, lplpClsidExclude, lpcClsidExclude) {
-        lpwFormatMarshal := lpwFormat is VarRef ? "ushort*" : "ptr"
-        lplpClsidExcludeMarshal := lplpClsidExclude is VarRef ? "ptr*" : "ptr"
-        lpcClsidExcludeMarshal := lpcClsidExclude is VarRef ? "uint*" : "ptr"
+        lpwFormatMarshal := lpwFormat is VarRef ? "ushort*" : IntPtr
+        lplpClsidExcludeMarshal := lplpClsidExclude is VarRef ? "ptr*" : IntPtr
+        lpcClsidExcludeMarshal := lpcClsidExclude is VarRef ? "uint*" : IntPtr
+        lpcClsidExcludeMarshal := lpcClsidExclude == 0 ? IntPtr : "uint*"
 
         result := ComCall(4, this, UInt32, dwObject, Guid.Ptr, lpClassID, lpwFormatMarshal, lpwFormat, Guid.Ptr, lpConvertDefaultClassID, lplpClsidExcludeMarshal, lplpClsidExclude, lpcClsidExcludeMarshal, lpcClsidExclude, "HRESULT")
         return result
@@ -315,10 +320,13 @@ export default struct IOleUIObjInfoA extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-ioleuiobjinfoa-getviewinfo
      */
     GetViewInfo(dwObject, phMetaPict, pdvAspect, pnCurrentScale) {
-        pdvAspectMarshal := pdvAspect is VarRef ? "uint*" : "ptr"
-        pnCurrentScaleMarshal := pnCurrentScale is VarRef ? "int*" : "ptr"
+        phMetaPictMarshal := phMetaPict == 0 ? IntPtr : HGLOBAL.Ptr
+        pdvAspectMarshal := pdvAspect is VarRef ? "uint*" : IntPtr
+        pdvAspectMarshal := pdvAspect == 0 ? IntPtr : "uint*"
+        pnCurrentScaleMarshal := pnCurrentScale is VarRef ? "int*" : IntPtr
+        pnCurrentScaleMarshal := pnCurrentScale == 0 ? IntPtr : "int*"
 
-        result := ComCall(6, this, UInt32, dwObject, HGLOBAL.Ptr, phMetaPict, pdvAspectMarshal, pdvAspect, pnCurrentScaleMarshal, pnCurrentScale, "HRESULT")
+        result := ComCall(6, this, UInt32, dwObject, phMetaPictMarshal, phMetaPict, pdvAspectMarshal, pdvAspect, pnCurrentScaleMarshal, pnCurrentScale, "HRESULT")
         return result
     }
 
@@ -400,11 +408,11 @@ export default struct IOleUIObjInfoA extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetObjectInfo := CallbackCreate(GetMethod(implObj, "GetObjectInfo"), flags, 7)
-        this.vtbl.GetConvertInfo := CallbackCreate(GetMethod(implObj, "GetConvertInfo"), flags, 7)
-        this.vtbl.ConvertObject := CallbackCreate(GetMethod(implObj, "ConvertObject"), flags, 3)
-        this.vtbl.GetViewInfo := CallbackCreate(GetMethod(implObj, "GetViewInfo"), flags, 5)
-        this.vtbl.SetViewInfo := CallbackCreate(GetMethod(implObj, "SetViewInfo"), flags, 6)
+        this.vtbl.GetObjectInfo := CallbackCreate(ObjBindMethod(implObj, "GetObjectInfo"), flags, 7)
+        this.vtbl.GetConvertInfo := CallbackCreate(ObjBindMethod(implObj, "GetConvertInfo"), flags, 7)
+        this.vtbl.ConvertObject := CallbackCreate(ObjBindMethod(implObj, "ConvertObject"), flags, 3)
+        this.vtbl.GetViewInfo := CallbackCreate(ObjBindMethod(implObj, "GetViewInfo"), flags, 5)
+        this.vtbl.SetViewInfo := CallbackCreate(ObjBindMethod(implObj, "SetViewInfo"), flags, 6)
     }
 
     Dispose() {

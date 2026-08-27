@@ -83,10 +83,12 @@ export default struct IMFCameraControlDefaults extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcameracontroldefaults-lockcontroldata
      */
     LockControlData(control, controlSize, data, dataSize) {
-        controlMarshal := control is VarRef ? "ptr*" : "ptr"
-        controlSizeMarshal := controlSize is VarRef ? "uint*" : "ptr"
-        dataMarshal := data is VarRef ? "ptr*" : "ptr"
-        dataSizeMarshal := dataSize is VarRef ? "uint*" : "ptr"
+        controlMarshal := control is VarRef ? "ptr*" : IntPtr
+        controlSizeMarshal := controlSize is VarRef ? "uint*" : IntPtr
+        dataMarshal := data is VarRef ? "ptr*" : IntPtr
+        dataMarshal := data == 0 ? IntPtr : "ptr*"
+        dataSizeMarshal := dataSize is VarRef ? "uint*" : IntPtr
+        dataSizeMarshal := dataSize == 0 ? IntPtr : "uint*"
 
         result := ComCall(5, this, controlMarshal, control, controlSizeMarshal, controlSize, dataMarshal, data, dataSizeMarshal, dataSize, "HRESULT")
         return result
@@ -113,10 +115,10 @@ export default struct IMFCameraControlDefaults extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 1)
-        this.vtbl.GetRangeInfo := CallbackCreate(GetMethod(implObj, "GetRangeInfo"), flags, 2)
-        this.vtbl.LockControlData := CallbackCreate(GetMethod(implObj, "LockControlData"), flags, 5)
-        this.vtbl.UnlockControlData := CallbackCreate(GetMethod(implObj, "UnlockControlData"), flags, 1)
+        this.vtbl.GetType := CallbackCreate(ObjBindMethod(implObj, "GetType"), flags, 1)
+        this.vtbl.GetRangeInfo := CallbackCreate(ObjBindMethod(implObj, "GetRangeInfo"), flags, 2)
+        this.vtbl.LockControlData := CallbackCreate(ObjBindMethod(implObj, "LockControlData"), flags, 5)
+        this.vtbl.UnlockControlData := CallbackCreate(ObjBindMethod(implObj, "UnlockControlData"), flags, 1)
     }
 
     Dispose() {

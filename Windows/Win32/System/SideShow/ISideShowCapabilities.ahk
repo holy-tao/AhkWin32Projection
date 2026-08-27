@@ -38,7 +38,6 @@ export default struct ISideShowCapabilities extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PROPERTYKEY>} in_keyCapability 
      * @param {Pointer<PROPVARIANT>} inout_pValue 
      * @returns {HRESULT} 
@@ -57,7 +56,7 @@ export default struct ISideShowCapabilities extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCapability := CallbackCreate(GetMethod(implObj, "GetCapability"), flags, 3)
+        this.vtbl.GetCapability := CallbackCreate(ObjBindMethod(implObj, "GetCapability"), flags, 3)
     }
 
     Dispose() {

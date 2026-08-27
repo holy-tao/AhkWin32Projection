@@ -27,7 +27,6 @@ export default struct SpLsaModeInitializeFn {
     }
 
     /**
-     * 
      * @param {Integer} LsaVersion The version of the LSA.
      * @param {Pointer<Integer>} PackageVersion Pointer to a <b>ULONG</b> that returns the SSP/AP DLL version number.
      * @param {Pointer<Pointer<SECPKG_FUNCTION_TABLE>>} ppTables Pointer to an array of 
@@ -38,9 +37,9 @@ export default struct SpLsaModeInitializeFn {
      * If the function fails, return an <b>NTSTATUS</b> code that indicates the reason it failed.
      */
     Call(LsaVersion, PackageVersion, ppTables, pcTables) {
-        PackageVersionMarshal := PackageVersion is VarRef ? "uint*" : "ptr"
-        ppTablesMarshal := ppTables is VarRef ? "ptr*" : "ptr"
-        pcTablesMarshal := pcTables is VarRef ? "uint*" : "ptr"
+        PackageVersionMarshal := PackageVersion is VarRef ? "uint*" : IntPtr
+        ppTablesMarshal := ppTables is VarRef ? "ptr*" : IntPtr
+        pcTablesMarshal := pcTables is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, UInt32, LsaVersion, PackageVersionMarshal, PackageVersion, ppTablesMarshal, ppTables, pcTablesMarshal, pcTables, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

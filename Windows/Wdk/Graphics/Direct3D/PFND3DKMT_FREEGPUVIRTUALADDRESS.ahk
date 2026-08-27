@@ -20,7 +20,6 @@ export default struct PFND3DKMT_FREEGPUVIRTUALADDRESS {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_FREEGPUVIRTUALADDRESS>} param0 
      * @returns {NTSTATUS} 
      */

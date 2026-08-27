@@ -135,7 +135,6 @@ export default struct IWebBrowserApp extends IWebBrowser {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Quit() {
@@ -144,21 +143,19 @@ export default struct IWebBrowserApp extends IWebBrowser {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcx 
      * @param {Pointer<Integer>} pcy 
      * @returns {HRESULT} 
      */
     ClientToWindow(pcx, pcy) {
-        pcxMarshal := pcx is VarRef ? "int*" : "ptr"
-        pcyMarshal := pcy is VarRef ? "int*" : "ptr"
+        pcxMarshal := pcx is VarRef ? "int*" : IntPtr
+        pcyMarshal := pcy is VarRef ? "int*" : IntPtr
 
         result := ComCall(33, this, pcxMarshal, pcx, pcyMarshal, pcy, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {BSTR} _Property 
      * @param {VARIANT} vtValue 
      * @returns {HRESULT} 
@@ -189,7 +186,6 @@ export default struct IWebBrowserApp extends IWebBrowser {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -211,7 +207,6 @@ export default struct IWebBrowserApp extends IWebBrowser {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_FullName() {
@@ -221,7 +216,6 @@ export default struct IWebBrowserApp extends IWebBrowser {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Path() {
@@ -231,7 +225,6 @@ export default struct IWebBrowserApp extends IWebBrowser {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Visible() {
@@ -240,7 +233,6 @@ export default struct IWebBrowserApp extends IWebBrowser {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} Value 
      * @returns {HRESULT} 
      */
@@ -250,7 +242,6 @@ export default struct IWebBrowserApp extends IWebBrowser {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_StatusBar() {
@@ -259,7 +250,6 @@ export default struct IWebBrowserApp extends IWebBrowser {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} Value 
      * @returns {HRESULT} 
      */
@@ -269,7 +259,6 @@ export default struct IWebBrowserApp extends IWebBrowser {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_StatusText() {
@@ -279,7 +268,6 @@ export default struct IWebBrowserApp extends IWebBrowser {
     }
 
     /**
-     * 
      * @param {BSTR} StatusText 
      * @returns {HRESULT} 
      */
@@ -320,7 +308,6 @@ export default struct IWebBrowserApp extends IWebBrowser {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_MenuBar() {
@@ -329,7 +316,6 @@ export default struct IWebBrowserApp extends IWebBrowser {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} Value 
      * @returns {HRESULT} 
      */
@@ -339,7 +325,6 @@ export default struct IWebBrowserApp extends IWebBrowser {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_FullScreen() {
@@ -348,7 +333,6 @@ export default struct IWebBrowserApp extends IWebBrowser {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bFullScreen 
      * @returns {HRESULT} 
      */
@@ -366,26 +350,26 @@ export default struct IWebBrowserApp extends IWebBrowser {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Quit := CallbackCreate(GetMethod(implObj, "Quit"), flags, 1)
-        this.vtbl.ClientToWindow := CallbackCreate(GetMethod(implObj, "ClientToWindow"), flags, 3)
-        this.vtbl.PutProperty := CallbackCreate(GetMethod(implObj, "PutProperty"), flags, 3)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_HWND := CallbackCreate(GetMethod(implObj, "get_HWND"), flags, 2)
-        this.vtbl.get_FullName := CallbackCreate(GetMethod(implObj, "get_FullName"), flags, 2)
-        this.vtbl.get_Path := CallbackCreate(GetMethod(implObj, "get_Path"), flags, 2)
-        this.vtbl.get_Visible := CallbackCreate(GetMethod(implObj, "get_Visible"), flags, 2)
-        this.vtbl.put_Visible := CallbackCreate(GetMethod(implObj, "put_Visible"), flags, 2)
-        this.vtbl.get_StatusBar := CallbackCreate(GetMethod(implObj, "get_StatusBar"), flags, 2)
-        this.vtbl.put_StatusBar := CallbackCreate(GetMethod(implObj, "put_StatusBar"), flags, 2)
-        this.vtbl.get_StatusText := CallbackCreate(GetMethod(implObj, "get_StatusText"), flags, 2)
-        this.vtbl.put_StatusText := CallbackCreate(GetMethod(implObj, "put_StatusText"), flags, 2)
-        this.vtbl.get_ToolBar := CallbackCreate(GetMethod(implObj, "get_ToolBar"), flags, 2)
-        this.vtbl.put_ToolBar := CallbackCreate(GetMethod(implObj, "put_ToolBar"), flags, 2)
-        this.vtbl.get_MenuBar := CallbackCreate(GetMethod(implObj, "get_MenuBar"), flags, 2)
-        this.vtbl.put_MenuBar := CallbackCreate(GetMethod(implObj, "put_MenuBar"), flags, 2)
-        this.vtbl.get_FullScreen := CallbackCreate(GetMethod(implObj, "get_FullScreen"), flags, 2)
-        this.vtbl.put_FullScreen := CallbackCreate(GetMethod(implObj, "put_FullScreen"), flags, 2)
+        this.vtbl.Quit := CallbackCreate(ObjBindMethod(implObj, "Quit"), flags, 1)
+        this.vtbl.ClientToWindow := CallbackCreate(ObjBindMethod(implObj, "ClientToWindow"), flags, 3)
+        this.vtbl.PutProperty := CallbackCreate(ObjBindMethod(implObj, "PutProperty"), flags, 3)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_HWND := CallbackCreate(ObjBindMethod(implObj, "get_HWND"), flags, 2)
+        this.vtbl.get_FullName := CallbackCreate(ObjBindMethod(implObj, "get_FullName"), flags, 2)
+        this.vtbl.get_Path := CallbackCreate(ObjBindMethod(implObj, "get_Path"), flags, 2)
+        this.vtbl.get_Visible := CallbackCreate(ObjBindMethod(implObj, "get_Visible"), flags, 2)
+        this.vtbl.put_Visible := CallbackCreate(ObjBindMethod(implObj, "put_Visible"), flags, 2)
+        this.vtbl.get_StatusBar := CallbackCreate(ObjBindMethod(implObj, "get_StatusBar"), flags, 2)
+        this.vtbl.put_StatusBar := CallbackCreate(ObjBindMethod(implObj, "put_StatusBar"), flags, 2)
+        this.vtbl.get_StatusText := CallbackCreate(ObjBindMethod(implObj, "get_StatusText"), flags, 2)
+        this.vtbl.put_StatusText := CallbackCreate(ObjBindMethod(implObj, "put_StatusText"), flags, 2)
+        this.vtbl.get_ToolBar := CallbackCreate(ObjBindMethod(implObj, "get_ToolBar"), flags, 2)
+        this.vtbl.put_ToolBar := CallbackCreate(ObjBindMethod(implObj, "put_ToolBar"), flags, 2)
+        this.vtbl.get_MenuBar := CallbackCreate(ObjBindMethod(implObj, "get_MenuBar"), flags, 2)
+        this.vtbl.put_MenuBar := CallbackCreate(ObjBindMethod(implObj, "put_MenuBar"), flags, 2)
+        this.vtbl.get_FullScreen := CallbackCreate(ObjBindMethod(implObj, "get_FullScreen"), flags, 2)
+        this.vtbl.put_FullScreen := CallbackCreate(ObjBindMethod(implObj, "put_FullScreen"), flags, 2)
     }
 
     Dispose() {

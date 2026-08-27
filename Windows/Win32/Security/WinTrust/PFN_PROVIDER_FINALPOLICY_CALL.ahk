@@ -20,7 +20,6 @@ export default struct PFN_PROVIDER_FINALPOLICY_CALL {
     }
 
     /**
-     * 
      * @param {Pointer<CRYPT_PROVIDER_DATA>} pProvData 
      * @returns {HRESULT} 
      */

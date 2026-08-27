@@ -58,7 +58,9 @@ export default struct IUpdateIDList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iupdateidlist-update
      */
     Update(pbc, pidlIn) {
-        result := ComCall(3, this, "ptr", pbc, ITEMIDLIST.Ptr, pidlIn, "ptr*", &ppidlOut := 0, "HRESULT")
+        pbcMarshal := pbc == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pbcMarshal, pbc, ITEMIDLIST.Ptr, pidlIn, "ptr*", &ppidlOut := 0, "HRESULT")
         return ppidlOut
     }
 
@@ -71,7 +73,7 @@ export default struct IUpdateIDList extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Update := CallbackCreate(GetMethod(implObj, "Update"), flags, 4)
+        this.vtbl.Update := CallbackCreate(ObjBindMethod(implObj, "Update"), flags, 4)
     }
 
     Dispose() {

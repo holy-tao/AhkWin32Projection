@@ -38,21 +38,19 @@ export default struct IEnumJsStackFrames extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cFrameCount 
      * @param {Pointer<JS_NATIVE_FRAME>} pFrames 
      * @param {Pointer<Integer>} pcFetched 
      * @returns {HRESULT} 
      */
     Next(cFrameCount, pFrames, pcFetched) {
-        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, UInt32, cFrameCount, JS_NATIVE_FRAME.Ptr, pFrames, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -69,8 +67,8 @@ export default struct IEnumJsStackFrames extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 4)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Next := CallbackCreate(ObjBindMethod(implObj, "Next"), flags, 4)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
     }
 
     Dispose() {

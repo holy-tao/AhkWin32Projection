@@ -81,7 +81,7 @@ export NetworkIsolationSetupAppContainerBinaries(applicationContainerSid, packag
     packageFolder := packageFolder is String ? StrPtr(packageFolder) : packageFolder
     displayName := displayName is String ? StrPtr(displayName) : displayName
 
-    binariesMarshal := binaries is VarRef ? "ptr*" : "ptr"
+    binariesMarshal := binaries is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationSetupAppContainerBinaries", PSID, applicationContainerSid, "ptr", packageFullName, "ptr", packageFolder, "ptr", displayName, BOOL, bBinariesFullyComputed, binariesMarshal, binaries, UInt32, binariesCount, "HRESULT")
     return result
@@ -159,7 +159,8 @@ export NetworkIsolationSetupAppContainerBinaries(applicationContainerSid, packag
  * @since windows8.0
  */
 export NetworkIsolationRegisterForAppContainerChanges(flags, callback, _context, registrationObject) {
-    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+    _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
     result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationRegisterForAppContainerChanges", UInt32, flags, PAC_CHANGES_CALLBACK_FN, callback, _contextMarshal, _context, HANDLE.Ptr, registrationObject, UInt32)
     return result
@@ -235,8 +236,8 @@ export NetworkIsolationFreeAppContainers(pPublicAppCs) {
  * @since windows8.0
  */
 export NetworkIsolationEnumAppContainers(Flags, pdwNumPublicAppCs, ppPublicAppCs) {
-    pdwNumPublicAppCsMarshal := pdwNumPublicAppCs is VarRef ? "uint*" : "ptr"
-    ppPublicAppCsMarshal := ppPublicAppCs is VarRef ? "ptr*" : "ptr"
+    pdwNumPublicAppCsMarshal := pdwNumPublicAppCs is VarRef ? "uint*" : IntPtr
+    ppPublicAppCsMarshal := ppPublicAppCs is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationEnumAppContainers", UInt32, Flags, pdwNumPublicAppCsMarshal, pdwNumPublicAppCs, ppPublicAppCsMarshal, ppPublicAppCs, UInt32)
     return result
@@ -262,8 +263,8 @@ export NetworkIsolationEnumAppContainers(Flags, pdwNumPublicAppCs, ppPublicAppCs
  * @since windows8.0
  */
 export NetworkIsolationGetAppContainerConfig(pdwNumPublicAppCs, appContainerSids) {
-    pdwNumPublicAppCsMarshal := pdwNumPublicAppCs is VarRef ? "uint*" : "ptr"
-    appContainerSidsMarshal := appContainerSids is VarRef ? "ptr*" : "ptr"
+    pdwNumPublicAppCsMarshal := pdwNumPublicAppCs is VarRef ? "uint*" : IntPtr
+    appContainerSidsMarshal := appContainerSids is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationGetAppContainerConfig", pdwNumPublicAppCsMarshal, pdwNumPublicAppCs, appContainerSidsMarshal, appContainerSids, UInt32)
     return result
@@ -307,7 +308,7 @@ export NetworkIsolationSetAppContainerConfig(dwNumPublicAppCs, appContainerSids)
 export NetworkIsolationDiagnoseConnectFailureAndGetInfo(wszServerName, netIsoError) {
     wszServerName := wszServerName is String ? StrPtr(wszServerName) : wszServerName
 
-    netIsoErrorMarshal := netIsoError is VarRef ? "int*" : "ptr"
+    netIsoErrorMarshal := netIsoError is VarRef ? "int*" : IntPtr
 
     result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationDiagnoseConnectFailureAndGetInfo", "ptr", wszServerName, netIsoErrorMarshal, netIsoError, UInt32)
     return result
@@ -385,7 +386,8 @@ export NetworkIsolationDiagnoseConnectFailureAndGetInfo(wszServerName, netIsoErr
 export NetworkIsolationGetEnterpriseIdAsync(wszServerName, dwFlags, _context, callback, hOperation) {
     wszServerName := wszServerName is String ? StrPtr(wszServerName) : wszServerName
 
-    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+    _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
     result := DllCall("Firewallapi.dll\NetworkIsolationGetEnterpriseIdAsync", "ptr", wszServerName, UInt32, dwFlags, _contextMarshal, _context, PNETISO_EDP_ID_CALLBACK_FN, callback, HANDLE.Ptr, hOperation, UInt32)
     return result

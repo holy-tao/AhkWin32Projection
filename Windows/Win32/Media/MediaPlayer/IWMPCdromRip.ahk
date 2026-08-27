@@ -80,7 +80,7 @@ export default struct IWMPCdromRip extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcdromrip-get_ripstate
      */
     get_ripState(pwmprs) {
-        pwmprsMarshal := pwmprs is VarRef ? "int*" : "ptr"
+        pwmprsMarshal := pwmprs is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, pwmprsMarshal, pwmprs, "HRESULT")
         return result
@@ -115,7 +115,7 @@ export default struct IWMPCdromRip extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcdromrip-get_ripprogress
      */
     get_ripProgress(plProgress) {
-        plProgressMarshal := plProgress is VarRef ? "int*" : "ptr"
+        plProgressMarshal := plProgress is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, plProgressMarshal, plProgress, "HRESULT")
         return result
@@ -192,10 +192,10 @@ export default struct IWMPCdromRip extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ripState := CallbackCreate(GetMethod(implObj, "get_ripState"), flags, 2)
-        this.vtbl.get_ripProgress := CallbackCreate(GetMethod(implObj, "get_ripProgress"), flags, 2)
-        this.vtbl.startRip := CallbackCreate(GetMethod(implObj, "startRip"), flags, 1)
-        this.vtbl.stopRip := CallbackCreate(GetMethod(implObj, "stopRip"), flags, 1)
+        this.vtbl.get_ripState := CallbackCreate(ObjBindMethod(implObj, "get_ripState"), flags, 2)
+        this.vtbl.get_ripProgress := CallbackCreate(ObjBindMethod(implObj, "get_ripProgress"), flags, 2)
+        this.vtbl.startRip := CallbackCreate(ObjBindMethod(implObj, "startRip"), flags, 1)
+        this.vtbl.stopRip := CallbackCreate(ObjBindMethod(implObj, "stopRip"), flags, 1)
     }
 
     Dispose() {

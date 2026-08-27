@@ -20,7 +20,6 @@ export default struct BCryptSignHashFn {
     }
 
     /**
-     * 
      * @param {BCRYPT_KEY_HANDLE} _hKey 
      * @param {Pointer<Void>} pPaddingInfo 
      * @param {Integer} pbInput 
@@ -32,10 +31,12 @@ export default struct BCryptSignHashFn {
      * @returns {NTSTATUS} 
      */
     Call(_hKey, pPaddingInfo, pbInput, cbInput, pbOutput, cbOutput, pcbResult, dwFlags) {
-        pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
-        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+        pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : IntPtr
+        pPaddingInfoMarshal := pPaddingInfo == 0 ? IntPtr : "ptr"
+        pbOutputMarshal := pbOutput == 0 ? IntPtr : IntPtr
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, BCRYPT_KEY_HANDLE, _hKey, pPaddingInfoMarshal, pPaddingInfo, IntPtr, pbInput, UInt32, cbInput, IntPtr, pbOutput, UInt32, cbOutput, pcbResultMarshal, pcbResult, UInt32, dwFlags, NTSTATUS)
+        result := DllCall(this.value, BCRYPT_KEY_HANDLE, _hKey, pPaddingInfoMarshal, pPaddingInfo, IntPtr, pbInput, UInt32, cbInput, pbOutputMarshal, pbOutput, UInt32, cbOutput, pcbResultMarshal, pcbResult, UInt32, dwFlags, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

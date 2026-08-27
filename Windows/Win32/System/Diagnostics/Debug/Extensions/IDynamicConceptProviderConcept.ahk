@@ -42,7 +42,6 @@ export default struct IDynamicConceptProviderConcept extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @param {Pointer<Guid>} conceptId 
      * @param {Pointer<IUnknown>} conceptInterface 
@@ -51,14 +50,14 @@ export default struct IDynamicConceptProviderConcept extends IUnknown {
      * @returns {HRESULT} 
      */
     GetConcept(contextObject, conceptId, conceptInterface, conceptMetadata, hasConcept) {
-        hasConceptMarshal := hasConcept is VarRef ? "int*" : "ptr"
+        conceptMetadataMarshal := conceptMetadata == 0 ? IntPtr : IKeyStore.Ptr
+        hasConceptMarshal := hasConcept is VarRef ? "int*" : IntPtr
 
-        result := ComCall(3, this, "ptr", contextObject, Guid.Ptr, conceptId, IUnknown.Ptr, conceptInterface, IKeyStore.Ptr, conceptMetadata, hasConceptMarshal, hasConcept, "HRESULT")
+        result := ComCall(3, this, "ptr", contextObject, Guid.Ptr, conceptId, IUnknown.Ptr, conceptInterface, conceptMetadataMarshal, conceptMetadata, hasConceptMarshal, hasConcept, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IModelObject} contextObject 
      * @param {Pointer<Guid>} conceptId 
      * @param {IUnknown} conceptInterface 
@@ -66,12 +65,13 @@ export default struct IDynamicConceptProviderConcept extends IUnknown {
      * @returns {HRESULT} 
      */
     SetConcept(contextObject, conceptId, conceptInterface, conceptMetadata) {
-        result := ComCall(4, this, "ptr", contextObject, Guid.Ptr, conceptId, "ptr", conceptInterface, "ptr", conceptMetadata, "HRESULT")
+        conceptMetadataMarshal := conceptMetadata == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, "ptr", contextObject, Guid.Ptr, conceptId, "ptr", conceptInterface, conceptMetadataMarshal, conceptMetadata, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IModelObject} parentModel 
      * @returns {HRESULT} 
      */
@@ -81,7 +81,6 @@ export default struct IDynamicConceptProviderConcept extends IUnknown {
     }
 
     /**
-     * 
      * @param {IModelObject} parentModel 
      * @returns {HRESULT} 
      */
@@ -91,7 +90,6 @@ export default struct IDynamicConceptProviderConcept extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     NotifyDestruct() {
@@ -108,11 +106,11 @@ export default struct IDynamicConceptProviderConcept extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetConcept := CallbackCreate(GetMethod(implObj, "GetConcept"), flags, 6)
-        this.vtbl.SetConcept := CallbackCreate(GetMethod(implObj, "SetConcept"), flags, 5)
-        this.vtbl.NotifyParent := CallbackCreate(GetMethod(implObj, "NotifyParent"), flags, 2)
-        this.vtbl.NotifyParentChange := CallbackCreate(GetMethod(implObj, "NotifyParentChange"), flags, 2)
-        this.vtbl.NotifyDestruct := CallbackCreate(GetMethod(implObj, "NotifyDestruct"), flags, 1)
+        this.vtbl.GetConcept := CallbackCreate(ObjBindMethod(implObj, "GetConcept"), flags, 6)
+        this.vtbl.SetConcept := CallbackCreate(ObjBindMethod(implObj, "SetConcept"), flags, 5)
+        this.vtbl.NotifyParent := CallbackCreate(ObjBindMethod(implObj, "NotifyParent"), flags, 2)
+        this.vtbl.NotifyParentChange := CallbackCreate(ObjBindMethod(implObj, "NotifyParentChange"), flags, 2)
+        this.vtbl.NotifyDestruct := CallbackCreate(ObjBindMethod(implObj, "NotifyDestruct"), flags, 1)
     }
 
     Dispose() {

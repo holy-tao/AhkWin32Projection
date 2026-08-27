@@ -36,7 +36,6 @@ export default struct IMceBurnerControl extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     GetBurnerNoDecryption() {
@@ -53,7 +52,7 @@ export default struct IMceBurnerControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetBurnerNoDecryption := CallbackCreate(GetMethod(implObj, "GetBurnerNoDecryption"), flags, 1)
+        this.vtbl.GetBurnerNoDecryption := CallbackCreate(ObjBindMethod(implObj, "GetBurnerNoDecryption"), flags, 1)
     }
 
     Dispose() {

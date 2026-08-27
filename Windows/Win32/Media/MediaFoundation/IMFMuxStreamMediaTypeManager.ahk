@@ -217,12 +217,12 @@ export default struct IMFMuxStreamMediaTypeManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStreamCount := CallbackCreate(GetMethod(implObj, "GetStreamCount"), flags, 2)
-        this.vtbl.GetMediaType := CallbackCreate(GetMethod(implObj, "GetMediaType"), flags, 3)
-        this.vtbl.GetStreamConfigurationCount := CallbackCreate(GetMethod(implObj, "GetStreamConfigurationCount"), flags, 2)
-        this.vtbl.AddStreamConfiguration := CallbackCreate(GetMethod(implObj, "AddStreamConfiguration"), flags, 2)
-        this.vtbl.RemoveStreamConfiguration := CallbackCreate(GetMethod(implObj, "RemoveStreamConfiguration"), flags, 2)
-        this.vtbl.GetStreamConfiguration := CallbackCreate(GetMethod(implObj, "GetStreamConfiguration"), flags, 3)
+        this.vtbl.GetStreamCount := CallbackCreate(ObjBindMethod(implObj, "GetStreamCount"), flags, 2)
+        this.vtbl.GetMediaType := CallbackCreate(ObjBindMethod(implObj, "GetMediaType"), flags, 3)
+        this.vtbl.GetStreamConfigurationCount := CallbackCreate(ObjBindMethod(implObj, "GetStreamConfigurationCount"), flags, 2)
+        this.vtbl.AddStreamConfiguration := CallbackCreate(ObjBindMethod(implObj, "AddStreamConfiguration"), flags, 2)
+        this.vtbl.RemoveStreamConfiguration := CallbackCreate(ObjBindMethod(implObj, "RemoveStreamConfiguration"), flags, 2)
+        this.vtbl.GetStreamConfiguration := CallbackCreate(ObjBindMethod(implObj, "GetStreamConfiguration"), flags, 3)
     }
 
     Dispose() {

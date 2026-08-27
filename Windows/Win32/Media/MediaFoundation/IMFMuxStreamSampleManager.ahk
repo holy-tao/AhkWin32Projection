@@ -80,9 +80,9 @@ export default struct IMFMuxStreamSampleManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStreamCount := CallbackCreate(GetMethod(implObj, "GetStreamCount"), flags, 2)
-        this.vtbl.GetSample := CallbackCreate(GetMethod(implObj, "GetSample"), flags, 3)
-        this.vtbl.GetStreamConfiguration := CallbackCreate(GetMethod(implObj, "GetStreamConfiguration"), flags, 1)
+        this.vtbl.GetStreamCount := CallbackCreate(ObjBindMethod(implObj, "GetStreamCount"), flags, 2)
+        this.vtbl.GetSample := CallbackCreate(ObjBindMethod(implObj, "GetSample"), flags, 3)
+        this.vtbl.GetStreamConfiguration := CallbackCreate(ObjBindMethod(implObj, "GetStreamConfiguration"), flags, 1)
     }
 
     Dispose() {

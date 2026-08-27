@@ -19,7 +19,6 @@ export default struct UCharIteratorReserved {
     }
 
     /**
-     * 
      * @param {Pointer<UCharIterator>} iter 
      * @param {Integer} something 
      * @returns {Integer} 

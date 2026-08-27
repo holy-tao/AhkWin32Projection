@@ -77,8 +77,8 @@ export default struct ITfInputScope extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/inputscope/nf-inputscope-itfinputscope-getinputscopes
      */
     GetInputScopes(pprgInputScopes, pcCount) {
-        pprgInputScopesMarshal := pprgInputScopes is VarRef ? "ptr*" : "ptr"
-        pcCountMarshal := pcCount is VarRef ? "uint*" : "ptr"
+        pprgInputScopesMarshal := pprgInputScopes is VarRef ? "ptr*" : IntPtr
+        pcCountMarshal := pcCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pprgInputScopesMarshal, pprgInputScopes, pcCountMarshal, pcCount, "HRESULT")
         return result
@@ -110,8 +110,8 @@ export default struct ITfInputScope extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/inputscope/nf-inputscope-itfinputscope-getphrase
      */
     GetPhrase(ppbstrPhrases, pcCount) {
-        ppbstrPhrasesMarshal := ppbstrPhrases is VarRef ? "ptr*" : "ptr"
-        pcCountMarshal := pcCount is VarRef ? "uint*" : "ptr"
+        ppbstrPhrasesMarshal := ppbstrPhrases is VarRef ? "ptr*" : IntPtr
+        pcCountMarshal := pcCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, ppbstrPhrasesMarshal, ppbstrPhrases, pcCountMarshal, pcCount, "HRESULT")
         return result
@@ -161,11 +161,11 @@ export default struct ITfInputScope extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetInputScopes := CallbackCreate(GetMethod(implObj, "GetInputScopes"), flags, 3)
-        this.vtbl.GetPhrase := CallbackCreate(GetMethod(implObj, "GetPhrase"), flags, 3)
-        this.vtbl.GetRegularExpression := CallbackCreate(GetMethod(implObj, "GetRegularExpression"), flags, 2)
-        this.vtbl.GetSRGS := CallbackCreate(GetMethod(implObj, "GetSRGS"), flags, 2)
-        this.vtbl.GetXML := CallbackCreate(GetMethod(implObj, "GetXML"), flags, 2)
+        this.vtbl.GetInputScopes := CallbackCreate(ObjBindMethod(implObj, "GetInputScopes"), flags, 3)
+        this.vtbl.GetPhrase := CallbackCreate(ObjBindMethod(implObj, "GetPhrase"), flags, 3)
+        this.vtbl.GetRegularExpression := CallbackCreate(ObjBindMethod(implObj, "GetRegularExpression"), flags, 2)
+        this.vtbl.GetSRGS := CallbackCreate(ObjBindMethod(implObj, "GetSRGS"), flags, 2)
+        this.vtbl.GetXML := CallbackCreate(ObjBindMethod(implObj, "GetXML"), flags, 2)
     }
 
     Dispose() {

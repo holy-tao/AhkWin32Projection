@@ -19,7 +19,6 @@ export default struct PFLT_MESSAGE_NOTIFY {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} PortCookie 
      * @param {Integer} InputBuffer 
      * @param {Integer} InputBufferLength 
@@ -29,10 +28,13 @@ export default struct PFLT_MESSAGE_NOTIFY {
      * @returns {NTSTATUS} 
      */
     Call(PortCookie, InputBuffer, InputBufferLength, OutputBuffer, OutputBufferLength, ReturnOutputBufferLength) {
-        PortCookieMarshal := PortCookie is VarRef ? "ptr" : "ptr"
-        ReturnOutputBufferLengthMarshal := ReturnOutputBufferLength is VarRef ? "uint*" : "ptr"
+        PortCookieMarshal := PortCookie is VarRef ? "ptr" : IntPtr
+        PortCookieMarshal := PortCookie == 0 ? IntPtr : "ptr"
+        InputBufferMarshal := InputBuffer == 0 ? IntPtr : IntPtr
+        OutputBufferMarshal := OutputBuffer == 0 ? IntPtr : IntPtr
+        ReturnOutputBufferLengthMarshal := ReturnOutputBufferLength is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, PortCookieMarshal, PortCookie, IntPtr, InputBuffer, UInt32, InputBufferLength, IntPtr, OutputBuffer, UInt32, OutputBufferLength, ReturnOutputBufferLengthMarshal, ReturnOutputBufferLength, NTSTATUS)
+        result := DllCall(this.value, PortCookieMarshal, PortCookie, InputBufferMarshal, InputBuffer, UInt32, InputBufferLength, OutputBufferMarshal, OutputBuffer, UInt32, OutputBufferLength, ReturnOutputBufferLengthMarshal, ReturnOutputBufferLength, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

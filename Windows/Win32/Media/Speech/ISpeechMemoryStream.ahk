@@ -38,7 +38,6 @@ export default struct ISpeechMemoryStream extends ISpeechBaseStream {
     }
 
     /**
-     * 
      * @param {VARIANT} Data 
      * @returns {HRESULT} 
      */
@@ -48,7 +47,6 @@ export default struct ISpeechMemoryStream extends ISpeechBaseStream {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     GetData() {
@@ -66,8 +64,8 @@ export default struct ISpeechMemoryStream extends ISpeechBaseStream {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetData := CallbackCreate(GetMethod(implObj, "SetData"), flags, 2)
-        this.vtbl.GetData := CallbackCreate(GetMethod(implObj, "GetData"), flags, 2)
+        this.vtbl.SetData := CallbackCreate(ObjBindMethod(implObj, "SetData"), flags, 2)
+        this.vtbl.GetData := CallbackCreate(ObjBindMethod(implObj, "GetData"), flags, 2)
     }
 
     Dispose() {

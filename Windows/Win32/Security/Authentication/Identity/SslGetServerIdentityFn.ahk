@@ -19,7 +19,6 @@ export default struct SslGetServerIdentityFn {
     }
 
     /**
-     * 
      * @param {Integer} ClientHello 
      * @param {Integer} ClientHelloSize 
      * @param {Pointer<Pointer<Integer>>} ServerIdentity 
@@ -28,8 +27,8 @@ export default struct SslGetServerIdentityFn {
      * @returns {HRESULT} 
      */
     Call(ClientHello, ClientHelloSize, ServerIdentity, ServerIdentitySize, Flags) {
-        ServerIdentityMarshal := ServerIdentity is VarRef ? "ptr*" : "ptr"
-        ServerIdentitySizeMarshal := ServerIdentitySize is VarRef ? "uint*" : "ptr"
+        ServerIdentityMarshal := ServerIdentity is VarRef ? "ptr*" : IntPtr
+        ServerIdentitySizeMarshal := ServerIdentitySize is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, IntPtr, ClientHello, UInt32, ClientHelloSize, ServerIdentityMarshal, ServerIdentity, ServerIdentitySizeMarshal, ServerIdentitySize, UInt32, Flags, "HRESULT")
         return result

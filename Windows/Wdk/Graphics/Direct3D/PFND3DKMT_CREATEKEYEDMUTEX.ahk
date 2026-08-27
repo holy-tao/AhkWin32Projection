@@ -20,7 +20,6 @@ export default struct PFND3DKMT_CREATEKEYEDMUTEX {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_CREATEKEYEDMUTEX>} param0 
      * @returns {NTSTATUS} 
      */

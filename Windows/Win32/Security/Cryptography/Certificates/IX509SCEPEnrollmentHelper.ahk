@@ -97,12 +97,13 @@ export default struct IX509SCEPEnrollmentHelper extends IDispatch {
         strRequestHeaders := strRequestHeaders is String ? BSTR.Alloc(strRequestHeaders).Value : strRequestHeaders
         strCACertificateThumbprint := strCACertificateThumbprint is String ? BSTR.Alloc(strCACertificateThumbprint).Value : strCACertificateThumbprint
 
-        result := ComCall(7, this, BSTR, strServerUrl, BSTR, strRequestHeaders, "ptr", pRequest, BSTR, strCACertificateThumbprint, "HRESULT")
+        pRequestMarshal := pRequest == 0 ? IntPtr : "ptr"
+
+        result := ComCall(7, this, BSTR, strServerUrl, BSTR, strRequestHeaders, pRequestMarshal, pRequest, BSTR, strCACertificateThumbprint, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {BSTR} strServerUrl 
      * @param {BSTR} strRequestHeaders 
      * @param {X509CertificateEnrollmentContext} _Context 
@@ -119,7 +120,6 @@ export default struct IX509SCEPEnrollmentHelper extends IDispatch {
     }
 
     /**
-     * 
      * @param {X509SCEPProcessMessageFlags} ProcessFlags 
      * @returns {X509SCEPDisposition} 
      */
@@ -129,7 +129,6 @@ export default struct IX509SCEPEnrollmentHelper extends IDispatch {
     }
 
     /**
-     * 
      * @param {X509SCEPProcessMessageFlags} ProcessFlags 
      * @returns {X509SCEPDisposition} 
      */
@@ -139,7 +138,6 @@ export default struct IX509SCEPEnrollmentHelper extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IX509SCEPEnrollment} 
      */
     get_X509SCEPEnrollment() {
@@ -148,7 +146,6 @@ export default struct IX509SCEPEnrollmentHelper extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ResultMessageText() {
@@ -166,12 +163,12 @@ export default struct IX509SCEPEnrollmentHelper extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 5)
-        this.vtbl.InitializeForPending := CallbackCreate(GetMethod(implObj, "InitializeForPending"), flags, 5)
-        this.vtbl.Enroll := CallbackCreate(GetMethod(implObj, "Enroll"), flags, 3)
-        this.vtbl.FetchPending := CallbackCreate(GetMethod(implObj, "FetchPending"), flags, 3)
-        this.vtbl.get_X509SCEPEnrollment := CallbackCreate(GetMethod(implObj, "get_X509SCEPEnrollment"), flags, 2)
-        this.vtbl.get_ResultMessageText := CallbackCreate(GetMethod(implObj, "get_ResultMessageText"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 5)
+        this.vtbl.InitializeForPending := CallbackCreate(ObjBindMethod(implObj, "InitializeForPending"), flags, 5)
+        this.vtbl.Enroll := CallbackCreate(ObjBindMethod(implObj, "Enroll"), flags, 3)
+        this.vtbl.FetchPending := CallbackCreate(ObjBindMethod(implObj, "FetchPending"), flags, 3)
+        this.vtbl.get_X509SCEPEnrollment := CallbackCreate(ObjBindMethod(implObj, "get_X509SCEPEnrollment"), flags, 2)
+        this.vtbl.get_ResultMessageText := CallbackCreate(ObjBindMethod(implObj, "get_ResultMessageText"), flags, 2)
     }
 
     Dispose() {

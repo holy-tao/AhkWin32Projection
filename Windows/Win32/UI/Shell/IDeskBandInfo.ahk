@@ -62,7 +62,7 @@ export default struct IDeskBandInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDefaultBandWidth := CallbackCreate(GetMethod(implObj, "GetDefaultBandWidth"), flags, 4)
+        this.vtbl.GetDefaultBandWidth := CallbackCreate(ObjBindMethod(implObj, "GetDefaultBandWidth"), flags, 4)
     }
 
     Dispose() {

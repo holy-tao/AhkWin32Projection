@@ -42,7 +42,9 @@
 export HtmlHelpA(hwndCaller, pszFile, uCommand, dwData) {
     pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-    result := DllCall("hhctrl.ocx\HtmlHelpA", HWND, hwndCaller, "ptr", pszFile, UInt32, uCommand, IntPtr, dwData, HWND)
+    hwndCallerMarshal := hwndCaller == 0 ? IntPtr : HWND
+
+    result := DllCall("hhctrl.ocx\HtmlHelpA", hwndCallerMarshal, hwndCaller, "ptr", pszFile, UInt32, uCommand, IntPtr, dwData, HWND)
     return result
 }
 
@@ -79,7 +81,9 @@ export HtmlHelpA(hwndCaller, pszFile, uCommand, dwData) {
 export HtmlHelpW(hwndCaller, pszFile, uCommand, dwData) {
     pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-    result := DllCall("hhctrl.ocx\HtmlHelpW", HWND, hwndCaller, "ptr", pszFile, UInt32, uCommand, IntPtr, dwData, HWND)
+    hwndCallerMarshal := hwndCaller == 0 ? IntPtr : HWND
+
+    result := DllCall("hhctrl.ocx\HtmlHelpW", hwndCallerMarshal, hwndCaller, "ptr", pszFile, UInt32, uCommand, IntPtr, dwData, HWND)
     return result
 }
 

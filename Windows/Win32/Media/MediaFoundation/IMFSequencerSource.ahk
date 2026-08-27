@@ -139,9 +139,11 @@ export default struct IMFSequencerSource extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsequencersource-getpresentationcontext
      */
     GetPresentationContext(pPD, pId, ppTopology) {
-        pIdMarshal := pId is VarRef ? "uint*" : "ptr"
+        pIdMarshal := pId is VarRef ? "uint*" : IntPtr
+        pIdMarshal := pId == 0 ? IntPtr : "uint*"
+        ppTopologyMarshal := ppTopology == 0 ? IntPtr : IMFTopology.Ptr
 
-        result := ComCall(5, this, "ptr", pPD, pIdMarshal, pId, IMFTopology.Ptr, ppTopology, "HRESULT")
+        result := ComCall(5, this, "ptr", pPD, pIdMarshal, pId, ppTopologyMarshal, ppTopology, "HRESULT")
         return result
     }
 
@@ -227,11 +229,11 @@ export default struct IMFSequencerSource extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AppendTopology := CallbackCreate(GetMethod(implObj, "AppendTopology"), flags, 4)
-        this.vtbl.DeleteTopology := CallbackCreate(GetMethod(implObj, "DeleteTopology"), flags, 2)
-        this.vtbl.GetPresentationContext := CallbackCreate(GetMethod(implObj, "GetPresentationContext"), flags, 4)
-        this.vtbl.UpdateTopology := CallbackCreate(GetMethod(implObj, "UpdateTopology"), flags, 3)
-        this.vtbl.UpdateTopologyFlags := CallbackCreate(GetMethod(implObj, "UpdateTopologyFlags"), flags, 3)
+        this.vtbl.AppendTopology := CallbackCreate(ObjBindMethod(implObj, "AppendTopology"), flags, 4)
+        this.vtbl.DeleteTopology := CallbackCreate(ObjBindMethod(implObj, "DeleteTopology"), flags, 2)
+        this.vtbl.GetPresentationContext := CallbackCreate(ObjBindMethod(implObj, "GetPresentationContext"), flags, 4)
+        this.vtbl.UpdateTopology := CallbackCreate(ObjBindMethod(implObj, "UpdateTopology"), flags, 3)
+        this.vtbl.UpdateTopologyFlags := CallbackCreate(ObjBindMethod(implObj, "UpdateTopologyFlags"), flags, 3)
     }
 
     Dispose() {

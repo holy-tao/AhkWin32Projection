@@ -90,8 +90,8 @@ export default struct IDropTargetProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_DropTargetEffect := CallbackCreate(GetMethod(implObj, "get_DropTargetEffect"), flags, 2)
-        this.vtbl.get_DropTargetEffects := CallbackCreate(GetMethod(implObj, "get_DropTargetEffects"), flags, 2)
+        this.vtbl.get_DropTargetEffect := CallbackCreate(ObjBindMethod(implObj, "get_DropTargetEffect"), flags, 2)
+        this.vtbl.get_DropTargetEffects := CallbackCreate(ObjBindMethod(implObj, "get_DropTargetEffects"), flags, 2)
     }
 
     Dispose() {

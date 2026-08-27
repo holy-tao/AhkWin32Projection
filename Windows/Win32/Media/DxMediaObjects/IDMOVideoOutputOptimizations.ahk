@@ -183,10 +183,10 @@ export default struct IDMOVideoOutputOptimizations extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryOperationModePreferences := CallbackCreate(GetMethod(implObj, "QueryOperationModePreferences"), flags, 3)
-        this.vtbl.SetOperationMode := CallbackCreate(GetMethod(implObj, "SetOperationMode"), flags, 3)
-        this.vtbl.GetCurrentOperationMode := CallbackCreate(GetMethod(implObj, "GetCurrentOperationMode"), flags, 3)
-        this.vtbl.GetCurrentSampleRequirements := CallbackCreate(GetMethod(implObj, "GetCurrentSampleRequirements"), flags, 3)
+        this.vtbl.QueryOperationModePreferences := CallbackCreate(ObjBindMethod(implObj, "QueryOperationModePreferences"), flags, 3)
+        this.vtbl.SetOperationMode := CallbackCreate(ObjBindMethod(implObj, "SetOperationMode"), flags, 3)
+        this.vtbl.GetCurrentOperationMode := CallbackCreate(ObjBindMethod(implObj, "GetCurrentOperationMode"), flags, 3)
+        this.vtbl.GetCurrentSampleRequirements := CallbackCreate(ObjBindMethod(implObj, "GetCurrentSampleRequirements"), flags, 3)
     }
 
     Dispose() {

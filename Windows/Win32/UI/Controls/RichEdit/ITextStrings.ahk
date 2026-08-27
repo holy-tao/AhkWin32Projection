@@ -177,7 +177,9 @@ export default struct ITextStrings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-append
      */
     Append(pRange, iString) {
-        result := ComCall(10, this, "ptr", pRange, Int32, iString, "HRESULT")
+        pRangeMarshal := pRange == 0 ? IntPtr : "ptr"
+
+        result := ComCall(10, this, pRangeMarshal, pRange, Int32, iString, "HRESULT")
         return result
     }
 
@@ -255,7 +257,9 @@ export default struct ITextStrings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-deleterange
      */
     DeleteRange(pRange) {
-        result := ComCall(13, this, "ptr", pRange, "HRESULT")
+        pRangeMarshal := pRange == 0 ? IntPtr : "ptr"
+
+        result := ComCall(13, this, pRangeMarshal, pRange, "HRESULT")
         return result
     }
 
@@ -296,7 +300,9 @@ export default struct ITextStrings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-encodefunction
      */
     EncodeFunction(Type, Align, _Char, Char1, Char2, Count, TeXStyle, cCol, pRange) {
-        result := ComCall(14, this, Int32, Type, Int32, Align, Int32, _Char, Int32, Char1, Int32, Char2, Int32, Count, Int32, TeXStyle, Int32, cCol, "ptr", pRange, "HRESULT")
+        pRangeMarshal := pRange == 0 ? IntPtr : "ptr"
+
+        result := ComCall(14, this, Int32, Type, Int32, Align, Int32, _Char, Int32, Char1, Int32, Char2, Int32, Count, Int32, TeXStyle, Int32, cCol, pRangeMarshal, pRange, "HRESULT")
         return result
     }
 
@@ -470,7 +476,10 @@ export default struct ITextStrings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-setformattedtext
      */
     SetFormattedText(pRangeD, pRangeS) {
-        result := ComCall(20, this, "ptr", pRangeD, "ptr", pRangeS, "HRESULT")
+        pRangeDMarshal := pRangeD == 0 ? IntPtr : "ptr"
+        pRangeSMarshal := pRangeS == 0 ? IntPtr : "ptr"
+
+        result := ComCall(20, this, pRangeDMarshal, pRangeD, pRangeSMarshal, pRangeS, "HRESULT")
         return result
     }
 
@@ -546,7 +555,9 @@ export default struct ITextStrings extends IDispatch {
     SuffixTop(_bstr, pRange) {
         _bstr := _bstr is String ? BSTR.Alloc(_bstr).Value : _bstr
 
-        result := ComCall(22, this, BSTR, _bstr, "ptr", pRange, "HRESULT")
+        pRangeMarshal := pRange == 0 ? IntPtr : "ptr"
+
+        result := ComCall(22, this, BSTR, _bstr, pRangeMarshal, pRange, "HRESULT")
         return result
     }
 
@@ -571,23 +582,23 @@ export default struct ITextStrings extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Item := CallbackCreate(GetMethod(implObj, "Item"), flags, 3)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
-        this.vtbl.Append := CallbackCreate(GetMethod(implObj, "Append"), flags, 3)
-        this.vtbl.Cat2 := CallbackCreate(GetMethod(implObj, "Cat2"), flags, 2)
-        this.vtbl.CatTop2 := CallbackCreate(GetMethod(implObj, "CatTop2"), flags, 2)
-        this.vtbl.DeleteRange := CallbackCreate(GetMethod(implObj, "DeleteRange"), flags, 2)
-        this.vtbl.EncodeFunction := CallbackCreate(GetMethod(implObj, "EncodeFunction"), flags, 10)
-        this.vtbl.GetCch := CallbackCreate(GetMethod(implObj, "GetCch"), flags, 3)
-        this.vtbl.InsertNullStr := CallbackCreate(GetMethod(implObj, "InsertNullStr"), flags, 2)
-        this.vtbl.MoveBoundary := CallbackCreate(GetMethod(implObj, "MoveBoundary"), flags, 3)
-        this.vtbl.PrefixTop := CallbackCreate(GetMethod(implObj, "PrefixTop"), flags, 2)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 3)
-        this.vtbl.SetFormattedText := CallbackCreate(GetMethod(implObj, "SetFormattedText"), flags, 3)
-        this.vtbl.SetOpCp := CallbackCreate(GetMethod(implObj, "SetOpCp"), flags, 3)
-        this.vtbl.SuffixTop := CallbackCreate(GetMethod(implObj, "SuffixTop"), flags, 3)
-        this.vtbl.Swap := CallbackCreate(GetMethod(implObj, "Swap"), flags, 1)
+        this.vtbl.Item := CallbackCreate(ObjBindMethod(implObj, "Item"), flags, 3)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Append := CallbackCreate(ObjBindMethod(implObj, "Append"), flags, 3)
+        this.vtbl.Cat2 := CallbackCreate(ObjBindMethod(implObj, "Cat2"), flags, 2)
+        this.vtbl.CatTop2 := CallbackCreate(ObjBindMethod(implObj, "CatTop2"), flags, 2)
+        this.vtbl.DeleteRange := CallbackCreate(ObjBindMethod(implObj, "DeleteRange"), flags, 2)
+        this.vtbl.EncodeFunction := CallbackCreate(ObjBindMethod(implObj, "EncodeFunction"), flags, 10)
+        this.vtbl.GetCch := CallbackCreate(ObjBindMethod(implObj, "GetCch"), flags, 3)
+        this.vtbl.InsertNullStr := CallbackCreate(ObjBindMethod(implObj, "InsertNullStr"), flags, 2)
+        this.vtbl.MoveBoundary := CallbackCreate(ObjBindMethod(implObj, "MoveBoundary"), flags, 3)
+        this.vtbl.PrefixTop := CallbackCreate(ObjBindMethod(implObj, "PrefixTop"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 3)
+        this.vtbl.SetFormattedText := CallbackCreate(ObjBindMethod(implObj, "SetFormattedText"), flags, 3)
+        this.vtbl.SetOpCp := CallbackCreate(ObjBindMethod(implObj, "SetOpCp"), flags, 3)
+        this.vtbl.SuffixTop := CallbackCreate(ObjBindMethod(implObj, "SuffixTop"), flags, 3)
+        this.vtbl.Swap := CallbackCreate(ObjBindMethod(implObj, "Swap"), flags, 1)
     }
 
     Dispose() {

@@ -43,7 +43,6 @@ export default struct ISAXLexicalHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchName 
      * @param {Integer} cchName 
      * @param {PWSTR} pwchPublicId 
@@ -62,7 +61,6 @@ export default struct ISAXLexicalHandler extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     endDTD() {
@@ -71,7 +69,6 @@ export default struct ISAXLexicalHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchName 
      * @param {Integer} cchName 
      * @returns {HRESULT} 
@@ -84,7 +81,6 @@ export default struct ISAXLexicalHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchName 
      * @param {Integer} cchName 
      * @returns {HRESULT} 
@@ -97,7 +93,6 @@ export default struct ISAXLexicalHandler extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     startCDATA() {
@@ -106,7 +101,6 @@ export default struct ISAXLexicalHandler extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     endCDATA() {
@@ -115,7 +109,6 @@ export default struct ISAXLexicalHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchChars 
      * @param {Integer} cchChars 
      * @returns {HRESULT} 
@@ -136,13 +129,13 @@ export default struct ISAXLexicalHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.startDTD := CallbackCreate(GetMethod(implObj, "startDTD"), flags, 7)
-        this.vtbl.endDTD := CallbackCreate(GetMethod(implObj, "endDTD"), flags, 1)
-        this.vtbl.startEntity := CallbackCreate(GetMethod(implObj, "startEntity"), flags, 3)
-        this.vtbl.endEntity := CallbackCreate(GetMethod(implObj, "endEntity"), flags, 3)
-        this.vtbl.startCDATA := CallbackCreate(GetMethod(implObj, "startCDATA"), flags, 1)
-        this.vtbl.endCDATA := CallbackCreate(GetMethod(implObj, "endCDATA"), flags, 1)
-        this.vtbl.comment := CallbackCreate(GetMethod(implObj, "comment"), flags, 3)
+        this.vtbl.startDTD := CallbackCreate(ObjBindMethod(implObj, "startDTD"), flags, 7)
+        this.vtbl.endDTD := CallbackCreate(ObjBindMethod(implObj, "endDTD"), flags, 1)
+        this.vtbl.startEntity := CallbackCreate(ObjBindMethod(implObj, "startEntity"), flags, 3)
+        this.vtbl.endEntity := CallbackCreate(ObjBindMethod(implObj, "endEntity"), flags, 3)
+        this.vtbl.startCDATA := CallbackCreate(ObjBindMethod(implObj, "startCDATA"), flags, 1)
+        this.vtbl.endCDATA := CallbackCreate(ObjBindMethod(implObj, "endCDATA"), flags, 1)
+        this.vtbl.comment := CallbackCreate(ObjBindMethod(implObj, "comment"), flags, 3)
     }
 
     Dispose() {

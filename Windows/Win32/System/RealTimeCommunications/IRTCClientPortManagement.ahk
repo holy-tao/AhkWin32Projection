@@ -40,7 +40,6 @@ export default struct IRTCClientPortManagement extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrInternalLocalAddress 
      * @param {Integer} lInternalLocalPort 
      * @returns {HRESULT} 
@@ -53,7 +52,6 @@ export default struct IRTCClientPortManagement extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrInternalLocalAddress 
      * @param {Integer} lInternalLocalPort 
      * @returns {HRESULT} 
@@ -66,15 +64,14 @@ export default struct IRTCClientPortManagement extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_PORT_TYPE} enPortType 
      * @param {Pointer<Integer>} plMinValue 
      * @param {Pointer<Integer>} plMaxValue 
      * @returns {HRESULT} 
      */
     GetPortRange(enPortType, plMinValue, plMaxValue) {
-        plMinValueMarshal := plMinValue is VarRef ? "int*" : "ptr"
-        plMaxValueMarshal := plMaxValue is VarRef ? "int*" : "ptr"
+        plMinValueMarshal := plMinValue is VarRef ? "int*" : IntPtr
+        plMaxValueMarshal := plMaxValue is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, RTC_PORT_TYPE, enPortType, plMinValueMarshal, plMinValue, plMaxValueMarshal, plMaxValue, "HRESULT")
         return result
@@ -89,9 +86,9 @@ export default struct IRTCClientPortManagement extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StartListenAddressAndPort := CallbackCreate(GetMethod(implObj, "StartListenAddressAndPort"), flags, 3)
-        this.vtbl.StopListenAddressAndPort := CallbackCreate(GetMethod(implObj, "StopListenAddressAndPort"), flags, 3)
-        this.vtbl.GetPortRange := CallbackCreate(GetMethod(implObj, "GetPortRange"), flags, 4)
+        this.vtbl.StartListenAddressAndPort := CallbackCreate(ObjBindMethod(implObj, "StartListenAddressAndPort"), flags, 3)
+        this.vtbl.StopListenAddressAndPort := CallbackCreate(ObjBindMethod(implObj, "StopListenAddressAndPort"), flags, 3)
+        this.vtbl.GetPortRange := CallbackCreate(ObjBindMethod(implObj, "GetPortRange"), flags, 4)
     }
 
     Dispose() {

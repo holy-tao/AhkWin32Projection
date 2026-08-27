@@ -47,9 +47,11 @@
  * @since windows5.0
  */
 export CreatePipe(hReadPipe, hWritePipe, lpPipeAttributes, nSize) {
+    lpPipeAttributesMarshal := lpPipeAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreatePipe", HANDLE.Ptr, hReadPipe, HANDLE.Ptr, hWritePipe, SECURITY_ATTRIBUTES.Ptr, lpPipeAttributes, UInt32, nSize, BOOL)
+    result := DllCall("KERNEL32.dll\CreatePipe", HANDLE.Ptr, hReadPipe, HANDLE.Ptr, hWritePipe, lpPipeAttributesMarshal, lpPipeAttributes, UInt32, nSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -111,9 +113,11 @@ export CreatePipe(hReadPipe, hWritePipe, lpPipeAttributes, nSize) {
  * @since windows5.0
  */
 export ConnectNamedPipe(hNamedPipe, lpOverlapped) {
+    lpOverlappedMarshal := lpOverlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\ConnectNamedPipe", HANDLE, hNamedPipe, OVERLAPPED.Ptr, lpOverlapped, BOOL)
+    result := DllCall("KERNEL32.dll\ConnectNamedPipe", HANDLE, hNamedPipe, lpOverlappedMarshal, lpOverlapped, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -249,9 +253,12 @@ export DisconnectNamedPipe(hNamedPipe) {
  * @since windows5.0
  */
 export SetNamedPipeHandleState(hNamedPipe, lpMode, lpMaxCollectionCount, lpCollectDataTimeout) {
-    lpModeMarshal := lpMode is VarRef ? "uint*" : "ptr"
-    lpMaxCollectionCountMarshal := lpMaxCollectionCount is VarRef ? "uint*" : "ptr"
-    lpCollectDataTimeoutMarshal := lpCollectDataTimeout is VarRef ? "uint*" : "ptr"
+    lpModeMarshal := lpMode is VarRef ? "uint*" : IntPtr
+    lpModeMarshal := lpMode == 0 ? IntPtr : "uint*"
+    lpMaxCollectionCountMarshal := lpMaxCollectionCount is VarRef ? "uint*" : IntPtr
+    lpMaxCollectionCountMarshal := lpMaxCollectionCount == 0 ? IntPtr : "uint*"
+    lpCollectDataTimeoutMarshal := lpCollectDataTimeout is VarRef ? "uint*" : IntPtr
+    lpCollectDataTimeoutMarshal := lpCollectDataTimeout == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
@@ -301,13 +308,17 @@ export SetNamedPipeHandleState(hNamedPipe, lpMode, lpMaxCollectionCount, lpColle
  * @since windows5.0
  */
 export PeekNamedPipe(hNamedPipe, lpBuffer, nBufferSize, lpBytesRead, lpTotalBytesAvail, lpBytesLeftThisMessage) {
-    lpBytesReadMarshal := lpBytesRead is VarRef ? "uint*" : "ptr"
-    lpTotalBytesAvailMarshal := lpTotalBytesAvail is VarRef ? "uint*" : "ptr"
-    lpBytesLeftThisMessageMarshal := lpBytesLeftThisMessage is VarRef ? "uint*" : "ptr"
+    lpBufferMarshal := lpBuffer == 0 ? IntPtr : IntPtr
+    lpBytesReadMarshal := lpBytesRead is VarRef ? "uint*" : IntPtr
+    lpBytesReadMarshal := lpBytesRead == 0 ? IntPtr : "uint*"
+    lpTotalBytesAvailMarshal := lpTotalBytesAvail is VarRef ? "uint*" : IntPtr
+    lpTotalBytesAvailMarshal := lpTotalBytesAvail == 0 ? IntPtr : "uint*"
+    lpBytesLeftThisMessageMarshal := lpBytesLeftThisMessage is VarRef ? "uint*" : IntPtr
+    lpBytesLeftThisMessageMarshal := lpBytesLeftThisMessage == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\PeekNamedPipe", HANDLE, hNamedPipe, IntPtr, lpBuffer, UInt32, nBufferSize, lpBytesReadMarshal, lpBytesRead, lpTotalBytesAvailMarshal, lpTotalBytesAvail, lpBytesLeftThisMessageMarshal, lpBytesLeftThisMessage, BOOL)
+    result := DllCall("KERNEL32.dll\PeekNamedPipe", HANDLE, hNamedPipe, lpBufferMarshal, lpBuffer, UInt32, nBufferSize, lpBytesReadMarshal, lpBytesRead, lpTotalBytesAvailMarshal, lpTotalBytesAvail, lpBytesLeftThisMessageMarshal, lpBytesLeftThisMessage, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -378,11 +389,14 @@ export PeekNamedPipe(hNamedPipe, lpBuffer, nBufferSize, lpBytesRead, lpTotalByte
  * @since windows5.0
  */
 export TransactNamedPipe(hNamedPipe, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesRead, lpOverlapped) {
-    lpBytesReadMarshal := lpBytesRead is VarRef ? "uint*" : "ptr"
+    lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+    lpOutBufferMarshal := lpOutBuffer == 0 ? IntPtr : IntPtr
+    lpBytesReadMarshal := lpBytesRead is VarRef ? "uint*" : IntPtr
+    lpOverlappedMarshal := lpOverlapped == 0 ? IntPtr : OVERLAPPED.Ptr
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\TransactNamedPipe", HANDLE, hNamedPipe, IntPtr, lpInBuffer, UInt32, nInBufferSize, IntPtr, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReadMarshal, lpBytesRead, OVERLAPPED.Ptr, lpOverlapped, BOOL)
+    result := DllCall("KERNEL32.dll\TransactNamedPipe", HANDLE, hNamedPipe, lpInBufferMarshal, lpInBuffer, UInt32, nInBufferSize, lpOutBufferMarshal, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReadMarshal, lpBytesRead, lpOverlappedMarshal, lpOverlapped, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -704,7 +718,9 @@ export TransactNamedPipe(hNamedPipe, lpInBuffer, nInBufferSize, lpOutBuffer, nOu
 export CreateNamedPipeW(lpName, dwOpenMode, dwPipeMode, nMaxInstances, nOutBufferSize, nInBufferSize, nDefaultTimeOut, lpSecurityAttributes) {
     lpName := lpName is String ? StrPtr(lpName) : lpName
 
-    result := DllCall("KERNEL32.dll\CreateNamedPipeW", "ptr", lpName, FILE_FLAGS_AND_ATTRIBUTES, dwOpenMode, NAMED_PIPE_MODE, dwPipeMode, UInt32, nMaxInstances, UInt32, nOutBufferSize, UInt32, nInBufferSize, UInt32, nDefaultTimeOut, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, HANDLE.Owned)
+    lpSecurityAttributesMarshal := lpSecurityAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+
+    result := DllCall("KERNEL32.dll\CreateNamedPipeW", "ptr", lpName, FILE_FLAGS_AND_ATTRIBUTES, dwOpenMode, NAMED_PIPE_MODE, dwPipeMode, UInt32, nMaxInstances, UInt32, nOutBufferSize, UInt32, nInBufferSize, UInt32, nDefaultTimeOut, lpSecurityAttributesMarshal, lpSecurityAttributes, HANDLE.Owned)
     return result
 }
 
@@ -818,10 +834,14 @@ export ImpersonateNamedPipeClient(hNamedPipe) {
  * @since windows5.0
  */
 export GetNamedPipeInfo(hNamedPipe, lpFlags, lpOutBufferSize, lpInBufferSize, lpMaxInstances) {
-    lpFlagsMarshal := lpFlags is VarRef ? "uint*" : "ptr"
-    lpOutBufferSizeMarshal := lpOutBufferSize is VarRef ? "uint*" : "ptr"
-    lpInBufferSizeMarshal := lpInBufferSize is VarRef ? "uint*" : "ptr"
-    lpMaxInstancesMarshal := lpMaxInstances is VarRef ? "uint*" : "ptr"
+    lpFlagsMarshal := lpFlags is VarRef ? "uint*" : IntPtr
+    lpFlagsMarshal := lpFlags == 0 ? IntPtr : "uint*"
+    lpOutBufferSizeMarshal := lpOutBufferSize is VarRef ? "uint*" : IntPtr
+    lpOutBufferSizeMarshal := lpOutBufferSize == 0 ? IntPtr : "uint*"
+    lpInBufferSizeMarshal := lpInBufferSize is VarRef ? "uint*" : IntPtr
+    lpInBufferSizeMarshal := lpInBufferSize == 0 ? IntPtr : "uint*"
+    lpMaxInstancesMarshal := lpMaxInstances is VarRef ? "uint*" : IntPtr
+    lpMaxInstancesMarshal := lpMaxInstances == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
@@ -863,12 +883,17 @@ export GetNamedPipeInfo(hNamedPipe, lpFlags, lpOutBufferSize, lpInBufferSize, lp
 export GetNamedPipeHandleStateW(hNamedPipe, lpState, lpCurInstances, lpMaxCollectionCount, lpCollectDataTimeout, lpUserName, nMaxUserNameSize) {
     lpUserName := lpUserName is String ? StrPtr(lpUserName) : lpUserName
 
-    lpStateMarshal := lpState is VarRef ? "uint*" : "ptr"
-    lpCurInstancesMarshal := lpCurInstances is VarRef ? "uint*" : "ptr"
-    lpMaxCollectionCountMarshal := lpMaxCollectionCount is VarRef ? "uint*" : "ptr"
-    lpCollectDataTimeoutMarshal := lpCollectDataTimeout is VarRef ? "uint*" : "ptr"
+    lpStateMarshal := lpState is VarRef ? "uint*" : IntPtr
+    lpStateMarshal := lpState == 0 ? IntPtr : "uint*"
+    lpCurInstancesMarshal := lpCurInstances is VarRef ? "uint*" : IntPtr
+    lpCurInstancesMarshal := lpCurInstances == 0 ? IntPtr : "uint*"
+    lpMaxCollectionCountMarshal := lpMaxCollectionCount is VarRef ? "uint*" : IntPtr
+    lpMaxCollectionCountMarshal := lpMaxCollectionCount == 0 ? IntPtr : "uint*"
+    lpCollectDataTimeoutMarshal := lpCollectDataTimeout is VarRef ? "uint*" : IntPtr
+    lpCollectDataTimeoutMarshal := lpCollectDataTimeout == 0 ? IntPtr : "uint*"
+    lpUserNameMarshal := lpUserName == 0 ? IntPtr : PWSTR
 
-    result := DllCall("KERNEL32.dll\GetNamedPipeHandleStateW", HANDLE, hNamedPipe, lpStateMarshal, lpState, lpCurInstancesMarshal, lpCurInstances, lpMaxCollectionCountMarshal, lpMaxCollectionCount, lpCollectDataTimeoutMarshal, lpCollectDataTimeout, "ptr", lpUserName, UInt32, nMaxUserNameSize, BOOL)
+    result := DllCall("KERNEL32.dll\GetNamedPipeHandleStateW", HANDLE, hNamedPipe, lpStateMarshal, lpState, lpCurInstancesMarshal, lpCurInstances, lpMaxCollectionCountMarshal, lpMaxCollectionCount, lpCollectDataTimeoutMarshal, lpCollectDataTimeout, lpUserNameMarshal, lpUserName, UInt32, nMaxUserNameSize, BOOL)
     return result
 }
 
@@ -939,9 +964,11 @@ export GetNamedPipeHandleStateW(hNamedPipe, lpState, lpCurInstances, lpMaxCollec
 export CallNamedPipeW(lpNamedPipeName, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesRead, nTimeOut) {
     lpNamedPipeName := lpNamedPipeName is String ? StrPtr(lpNamedPipeName) : lpNamedPipeName
 
-    lpBytesReadMarshal := lpBytesRead is VarRef ? "uint*" : "ptr"
+    lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+    lpOutBufferMarshal := lpOutBuffer == 0 ? IntPtr : IntPtr
+    lpBytesReadMarshal := lpBytesRead is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("KERNEL32.dll\CallNamedPipeW", "ptr", lpNamedPipeName, IntPtr, lpInBuffer, UInt32, nInBufferSize, IntPtr, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReadMarshal, lpBytesRead, UInt32, nTimeOut, BOOL)
+    result := DllCall("KERNEL32.dll\CallNamedPipeW", "ptr", lpNamedPipeName, lpInBufferMarshal, lpInBuffer, UInt32, nInBufferSize, lpOutBufferMarshal, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReadMarshal, lpBytesRead, UInt32, nTimeOut, BOOL)
     return result
 }
 
@@ -1271,9 +1298,11 @@ export CallNamedPipeW(lpNamedPipeName, lpInBuffer, nInBufferSize, lpOutBuffer, n
 export CreateNamedPipeA(lpName, dwOpenMode, dwPipeMode, nMaxInstances, nOutBufferSize, nInBufferSize, nDefaultTimeOut, lpSecurityAttributes) {
     lpName := lpName is String ? StrPtr(lpName) : lpName
 
+    lpSecurityAttributesMarshal := lpSecurityAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateNamedPipeA", "ptr", lpName, FILE_FLAGS_AND_ATTRIBUTES, dwOpenMode, NAMED_PIPE_MODE, dwPipeMode, UInt32, nMaxInstances, UInt32, nOutBufferSize, UInt32, nInBufferSize, UInt32, nDefaultTimeOut, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateNamedPipeA", "ptr", lpName, FILE_FLAGS_AND_ATTRIBUTES, dwOpenMode, NAMED_PIPE_MODE, dwPipeMode, UInt32, nMaxInstances, UInt32, nOutBufferSize, UInt32, nInBufferSize, UInt32, nDefaultTimeOut, lpSecurityAttributesMarshal, lpSecurityAttributes, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1319,14 +1348,19 @@ export CreateNamedPipeA(lpName, dwOpenMode, dwPipeMode, nMaxInstances, nOutBuffe
 export GetNamedPipeHandleStateA(hNamedPipe, lpState, lpCurInstances, lpMaxCollectionCount, lpCollectDataTimeout, lpUserName, nMaxUserNameSize) {
     lpUserName := lpUserName is String ? StrPtr(lpUserName) : lpUserName
 
-    lpStateMarshal := lpState is VarRef ? "uint*" : "ptr"
-    lpCurInstancesMarshal := lpCurInstances is VarRef ? "uint*" : "ptr"
-    lpMaxCollectionCountMarshal := lpMaxCollectionCount is VarRef ? "uint*" : "ptr"
-    lpCollectDataTimeoutMarshal := lpCollectDataTimeout is VarRef ? "uint*" : "ptr"
+    lpStateMarshal := lpState is VarRef ? "uint*" : IntPtr
+    lpStateMarshal := lpState == 0 ? IntPtr : "uint*"
+    lpCurInstancesMarshal := lpCurInstances is VarRef ? "uint*" : IntPtr
+    lpCurInstancesMarshal := lpCurInstances == 0 ? IntPtr : "uint*"
+    lpMaxCollectionCountMarshal := lpMaxCollectionCount is VarRef ? "uint*" : IntPtr
+    lpMaxCollectionCountMarshal := lpMaxCollectionCount == 0 ? IntPtr : "uint*"
+    lpCollectDataTimeoutMarshal := lpCollectDataTimeout is VarRef ? "uint*" : IntPtr
+    lpCollectDataTimeoutMarshal := lpCollectDataTimeout == 0 ? IntPtr : "uint*"
+    lpUserNameMarshal := lpUserName == 0 ? IntPtr : PSTR
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GetNamedPipeHandleStateA", HANDLE, hNamedPipe, lpStateMarshal, lpState, lpCurInstancesMarshal, lpCurInstances, lpMaxCollectionCountMarshal, lpMaxCollectionCount, lpCollectDataTimeoutMarshal, lpCollectDataTimeout, "ptr", lpUserName, UInt32, nMaxUserNameSize, BOOL)
+    result := DllCall("KERNEL32.dll\GetNamedPipeHandleStateA", HANDLE, hNamedPipe, lpStateMarshal, lpState, lpCurInstancesMarshal, lpCurInstances, lpMaxCollectionCountMarshal, lpMaxCollectionCount, lpCollectDataTimeoutMarshal, lpCollectDataTimeout, lpUserNameMarshal, lpUserName, UInt32, nMaxUserNameSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1404,11 +1438,13 @@ export GetNamedPipeHandleStateA(hNamedPipe, lpState, lpCurInstances, lpMaxCollec
 export CallNamedPipeA(lpNamedPipeName, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesRead, nTimeOut) {
     lpNamedPipeName := lpNamedPipeName is String ? StrPtr(lpNamedPipeName) : lpNamedPipeName
 
-    lpBytesReadMarshal := lpBytesRead is VarRef ? "uint*" : "ptr"
+    lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+    lpOutBufferMarshal := lpOutBuffer == 0 ? IntPtr : IntPtr
+    lpBytesReadMarshal := lpBytesRead is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CallNamedPipeA", "ptr", lpNamedPipeName, IntPtr, lpInBuffer, UInt32, nInBufferSize, IntPtr, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReadMarshal, lpBytesRead, UInt32, nTimeOut, BOOL)
+    result := DllCall("KERNEL32.dll\CallNamedPipeA", "ptr", lpNamedPipeName, lpInBufferMarshal, lpInBuffer, UInt32, nInBufferSize, lpOutBufferMarshal, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReadMarshal, lpBytesRead, UInt32, nTimeOut, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1495,7 +1531,7 @@ export GetNamedPipeClientComputerNameA(Pipe, ClientComputerName, ClientComputerN
  * @since windows6.0.6000
  */
 export GetNamedPipeClientProcessId(Pipe, ClientProcessId) {
-    ClientProcessIdMarshal := ClientProcessId is VarRef ? "uint*" : "ptr"
+    ClientProcessIdMarshal := ClientProcessId is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -1522,7 +1558,7 @@ export GetNamedPipeClientProcessId(Pipe, ClientProcessId) {
  * @since windows6.0.6000
  */
 export GetNamedPipeClientSessionId(Pipe, ClientSessionId) {
-    ClientSessionIdMarshal := ClientSessionId is VarRef ? "uint*" : "ptr"
+    ClientSessionIdMarshal := ClientSessionId is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -1549,7 +1585,7 @@ export GetNamedPipeClientSessionId(Pipe, ClientSessionId) {
  * @since windows6.0.6000
  */
 export GetNamedPipeServerProcessId(Pipe, ServerProcessId) {
-    ServerProcessIdMarshal := ServerProcessId is VarRef ? "uint*" : "ptr"
+    ServerProcessIdMarshal := ServerProcessId is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -1576,7 +1612,7 @@ export GetNamedPipeServerProcessId(Pipe, ServerProcessId) {
  * @since windows6.0.6000
  */
 export GetNamedPipeServerSessionId(Pipe, ServerSessionId) {
-    ServerSessionIdMarshal := ServerSessionId is VarRef ? "uint*" : "ptr"
+    ServerSessionIdMarshal := ServerSessionId is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 

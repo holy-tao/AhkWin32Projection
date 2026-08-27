@@ -147,7 +147,7 @@ export default struct IMonthlyDOWTrigger extends ITrigger {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-imonthlydowtrigger-get_daysofweek
      */
     get_DaysOfWeek(pDays) {
-        pDaysMarshal := pDays is VarRef ? "short*" : "ptr"
+        pDaysMarshal := pDays is VarRef ? "short*" : IntPtr
 
         result := ComCall(20, this, pDaysMarshal, pDays, "HRESULT")
         return result
@@ -257,7 +257,7 @@ export default struct IMonthlyDOWTrigger extends ITrigger {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-imonthlydowtrigger-get_weeksofmonth
      */
     get_WeeksOfMonth(pWeeks) {
-        pWeeksMarshal := pWeeks is VarRef ? "short*" : "ptr"
+        pWeeksMarshal := pWeeks is VarRef ? "short*" : IntPtr
 
         result := ComCall(22, this, pWeeksMarshal, pWeeks, "HRESULT")
         return result
@@ -392,7 +392,7 @@ export default struct IMonthlyDOWTrigger extends ITrigger {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-imonthlydowtrigger-get_monthsofyear
      */
     get_MonthsOfYear(pMonths) {
-        pMonthsMarshal := pMonths is VarRef ? "short*" : "ptr"
+        pMonthsMarshal := pMonths is VarRef ? "short*" : IntPtr
 
         result := ComCall(24, this, pMonthsMarshal, pMonths, "HRESULT")
         return result
@@ -489,7 +489,7 @@ export default struct IMonthlyDOWTrigger extends ITrigger {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-imonthlydowtrigger-get_runonlastweekofmonth
      */
     get_RunOnLastWeekOfMonth(pLastWeek) {
-        pLastWeekMarshal := pLastWeek is VarRef ? "short*" : "ptr"
+        pLastWeekMarshal := pLastWeek is VarRef ? "short*" : IntPtr
 
         result := ComCall(26, this, pLastWeekMarshal, pLastWeek, "HRESULT")
         return result
@@ -539,16 +539,16 @@ export default struct IMonthlyDOWTrigger extends ITrigger {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_DaysOfWeek := CallbackCreate(GetMethod(implObj, "get_DaysOfWeek"), flags, 2)
-        this.vtbl.put_DaysOfWeek := CallbackCreate(GetMethod(implObj, "put_DaysOfWeek"), flags, 2)
-        this.vtbl.get_WeeksOfMonth := CallbackCreate(GetMethod(implObj, "get_WeeksOfMonth"), flags, 2)
-        this.vtbl.put_WeeksOfMonth := CallbackCreate(GetMethod(implObj, "put_WeeksOfMonth"), flags, 2)
-        this.vtbl.get_MonthsOfYear := CallbackCreate(GetMethod(implObj, "get_MonthsOfYear"), flags, 2)
-        this.vtbl.put_MonthsOfYear := CallbackCreate(GetMethod(implObj, "put_MonthsOfYear"), flags, 2)
-        this.vtbl.get_RunOnLastWeekOfMonth := CallbackCreate(GetMethod(implObj, "get_RunOnLastWeekOfMonth"), flags, 2)
-        this.vtbl.put_RunOnLastWeekOfMonth := CallbackCreate(GetMethod(implObj, "put_RunOnLastWeekOfMonth"), flags, 2)
-        this.vtbl.get_RandomDelay := CallbackCreate(GetMethod(implObj, "get_RandomDelay"), flags, 2)
-        this.vtbl.put_RandomDelay := CallbackCreate(GetMethod(implObj, "put_RandomDelay"), flags, 2)
+        this.vtbl.get_DaysOfWeek := CallbackCreate(ObjBindMethod(implObj, "get_DaysOfWeek"), flags, 2)
+        this.vtbl.put_DaysOfWeek := CallbackCreate(ObjBindMethod(implObj, "put_DaysOfWeek"), flags, 2)
+        this.vtbl.get_WeeksOfMonth := CallbackCreate(ObjBindMethod(implObj, "get_WeeksOfMonth"), flags, 2)
+        this.vtbl.put_WeeksOfMonth := CallbackCreate(ObjBindMethod(implObj, "put_WeeksOfMonth"), flags, 2)
+        this.vtbl.get_MonthsOfYear := CallbackCreate(ObjBindMethod(implObj, "get_MonthsOfYear"), flags, 2)
+        this.vtbl.put_MonthsOfYear := CallbackCreate(ObjBindMethod(implObj, "put_MonthsOfYear"), flags, 2)
+        this.vtbl.get_RunOnLastWeekOfMonth := CallbackCreate(ObjBindMethod(implObj, "get_RunOnLastWeekOfMonth"), flags, 2)
+        this.vtbl.put_RunOnLastWeekOfMonth := CallbackCreate(ObjBindMethod(implObj, "put_RunOnLastWeekOfMonth"), flags, 2)
+        this.vtbl.get_RandomDelay := CallbackCreate(ObjBindMethod(implObj, "get_RandomDelay"), flags, 2)
+        this.vtbl.put_RandomDelay := CallbackCreate(ObjBindMethod(implObj, "put_RandomDelay"), flags, 2)
     }
 
     Dispose() {

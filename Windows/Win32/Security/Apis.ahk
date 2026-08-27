@@ -84,13 +84,14 @@
  * @since windows5.1.2600
  */
 export AccessCheck(pSecurityDescriptor, ClientToken, DesiredAccess, GenericMapping, PrivilegeSet, PrivilegeSetLength, GrantedAccess, AccessStatus) {
-    PrivilegeSetLengthMarshal := PrivilegeSetLength is VarRef ? "uint*" : "ptr"
-    GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : "ptr"
-    AccessStatusMarshal := AccessStatus is VarRef ? "int*" : "ptr"
+    PrivilegeSetMarshal := PrivilegeSet == 0 ? IntPtr : IntPtr
+    PrivilegeSetLengthMarshal := PrivilegeSetLength is VarRef ? "uint*" : IntPtr
+    GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : IntPtr
+    AccessStatusMarshal := AccessStatus is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AccessCheck", PSECURITY_DESCRIPTOR, pSecurityDescriptor, HANDLE, ClientToken, UInt32, DesiredAccess, GENERIC_MAPPING.Ptr, GenericMapping, IntPtr, PrivilegeSet, PrivilegeSetLengthMarshal, PrivilegeSetLength, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, BOOL)
+    result := DllCall("ADVAPI32.dll\AccessCheck", PSECURITY_DESCRIPTOR, pSecurityDescriptor, HANDLE, ClientToken, UInt32, DesiredAccess, GENERIC_MAPPING.Ptr, GenericMapping, PrivilegeSetMarshal, PrivilegeSet, PrivilegeSetLengthMarshal, PrivilegeSetLength, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -132,12 +133,14 @@ export AccessCheckAndAuditAlarmW(SubsystemName, HandleId, ObjectTypeName, Object
     ObjectTypeName := ObjectTypeName is String ? StrPtr(ObjectTypeName) : ObjectTypeName
     ObjectName := ObjectName is String ? StrPtr(ObjectName) : ObjectName
 
-    HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
-    GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : "ptr"
-    AccessStatusMarshal := AccessStatus is VarRef ? "int*" : "ptr"
-    pfGenerateOnCloseMarshal := pfGenerateOnClose is VarRef ? "int*" : "ptr"
+    HandleIdMarshal := HandleId is VarRef ? "ptr" : IntPtr
+    HandleIdMarshal := HandleId == 0 ? IntPtr : "ptr"
+    ObjectNameMarshal := ObjectName == 0 ? IntPtr : PWSTR
+    GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : IntPtr
+    AccessStatusMarshal := AccessStatus is VarRef ? "int*" : IntPtr
+    pfGenerateOnCloseMarshal := pfGenerateOnClose is VarRef ? "int*" : IntPtr
 
-    result := DllCall("ADVAPI32.dll\AccessCheckAndAuditAlarmW", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, PSECURITY_DESCRIPTOR, _SecurityDescriptor, UInt32, DesiredAccess, GENERIC_MAPPING.Ptr, GenericMapping, BOOL, ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, pfGenerateOnCloseMarshal, pfGenerateOnClose, BOOL)
+    result := DllCall("ADVAPI32.dll\AccessCheckAndAuditAlarmW", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, ObjectNameMarshal, ObjectName, PSECURITY_DESCRIPTOR, _SecurityDescriptor, UInt32, DesiredAccess, GENERIC_MAPPING.Ptr, GenericMapping, BOOL, ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, pfGenerateOnCloseMarshal, pfGenerateOnClose, BOOL)
     return result
 }
 
@@ -202,13 +205,16 @@ export AccessCheckAndAuditAlarmW(SubsystemName, HandleId, ObjectTypeName, Object
  * @since windows5.1.2600
  */
 export AccessCheckByType(pSecurityDescriptor, PrincipalSelfSid, ClientToken, DesiredAccess, ObjectTypeList, ObjectTypeListLength, GenericMapping, PrivilegeSet, PrivilegeSetLength, GrantedAccess, AccessStatus) {
-    PrivilegeSetLengthMarshal := PrivilegeSetLength is VarRef ? "uint*" : "ptr"
-    GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : "ptr"
-    AccessStatusMarshal := AccessStatus is VarRef ? "int*" : "ptr"
+    PrincipalSelfSidMarshal := PrincipalSelfSid == 0 ? IntPtr : PSID
+    ObjectTypeListMarshal := ObjectTypeList == 0 ? IntPtr : OBJECT_TYPE_LIST.Ptr
+    PrivilegeSetMarshal := PrivilegeSet == 0 ? IntPtr : IntPtr
+    PrivilegeSetLengthMarshal := PrivilegeSetLength is VarRef ? "uint*" : IntPtr
+    GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : IntPtr
+    AccessStatusMarshal := AccessStatus is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AccessCheckByType", PSECURITY_DESCRIPTOR, pSecurityDescriptor, PSID, PrincipalSelfSid, HANDLE, ClientToken, UInt32, DesiredAccess, OBJECT_TYPE_LIST.Ptr, ObjectTypeList, UInt32, ObjectTypeListLength, GENERIC_MAPPING.Ptr, GenericMapping, IntPtr, PrivilegeSet, PrivilegeSetLengthMarshal, PrivilegeSetLength, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, BOOL)
+    result := DllCall("ADVAPI32.dll\AccessCheckByType", PSECURITY_DESCRIPTOR, pSecurityDescriptor, PrincipalSelfSidMarshal, PrincipalSelfSid, HANDLE, ClientToken, UInt32, DesiredAccess, ObjectTypeListMarshal, ObjectTypeList, UInt32, ObjectTypeListLength, GENERIC_MAPPING.Ptr, GenericMapping, PrivilegeSetMarshal, PrivilegeSet, PrivilegeSetLengthMarshal, PrivilegeSetLength, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -273,13 +279,16 @@ export AccessCheckByType(pSecurityDescriptor, PrincipalSelfSid, ClientToken, Des
  * @since windows5.1.2600
  */
 export AccessCheckByTypeResultList(pSecurityDescriptor, PrincipalSelfSid, ClientToken, DesiredAccess, ObjectTypeList, ObjectTypeListLength, GenericMapping, PrivilegeSet, PrivilegeSetLength, GrantedAccessList, AccessStatusList) {
-    PrivilegeSetLengthMarshal := PrivilegeSetLength is VarRef ? "uint*" : "ptr"
-    GrantedAccessListMarshal := GrantedAccessList is VarRef ? "uint*" : "ptr"
-    AccessStatusListMarshal := AccessStatusList is VarRef ? "uint*" : "ptr"
+    PrincipalSelfSidMarshal := PrincipalSelfSid == 0 ? IntPtr : PSID
+    ObjectTypeListMarshal := ObjectTypeList == 0 ? IntPtr : OBJECT_TYPE_LIST.Ptr
+    PrivilegeSetMarshal := PrivilegeSet == 0 ? IntPtr : IntPtr
+    PrivilegeSetLengthMarshal := PrivilegeSetLength is VarRef ? "uint*" : IntPtr
+    GrantedAccessListMarshal := GrantedAccessList is VarRef ? "uint*" : IntPtr
+    AccessStatusListMarshal := AccessStatusList is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AccessCheckByTypeResultList", PSECURITY_DESCRIPTOR, pSecurityDescriptor, PSID, PrincipalSelfSid, HANDLE, ClientToken, UInt32, DesiredAccess, OBJECT_TYPE_LIST.Ptr, ObjectTypeList, UInt32, ObjectTypeListLength, GENERIC_MAPPING.Ptr, GenericMapping, IntPtr, PrivilegeSet, PrivilegeSetLengthMarshal, PrivilegeSetLength, GrantedAccessListMarshal, GrantedAccessList, AccessStatusListMarshal, AccessStatusList, BOOL)
+    result := DllCall("ADVAPI32.dll\AccessCheckByTypeResultList", PSECURITY_DESCRIPTOR, pSecurityDescriptor, PrincipalSelfSidMarshal, PrincipalSelfSid, HANDLE, ClientToken, UInt32, DesiredAccess, ObjectTypeListMarshal, ObjectTypeList, UInt32, ObjectTypeListLength, GENERIC_MAPPING.Ptr, GenericMapping, PrivilegeSetMarshal, PrivilegeSet, PrivilegeSetLengthMarshal, PrivilegeSetLength, GrantedAccessListMarshal, GrantedAccessList, AccessStatusListMarshal, AccessStatusList, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -338,12 +347,15 @@ export AccessCheckByTypeAndAuditAlarmW(SubsystemName, HandleId, ObjectTypeName, 
     ObjectTypeName := ObjectTypeName is String ? StrPtr(ObjectTypeName) : ObjectTypeName
     ObjectName := ObjectName is String ? StrPtr(ObjectName) : ObjectName
 
-    HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
-    GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : "ptr"
-    AccessStatusMarshal := AccessStatus is VarRef ? "int*" : "ptr"
-    pfGenerateOnCloseMarshal := pfGenerateOnClose is VarRef ? "int*" : "ptr"
+    HandleIdMarshal := HandleId is VarRef ? "ptr" : IntPtr
+    ObjectNameMarshal := ObjectName == 0 ? IntPtr : PWSTR
+    PrincipalSelfSidMarshal := PrincipalSelfSid == 0 ? IntPtr : PSID
+    ObjectTypeListMarshal := ObjectTypeList == 0 ? IntPtr : OBJECT_TYPE_LIST.Ptr
+    GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : IntPtr
+    AccessStatusMarshal := AccessStatus is VarRef ? "int*" : IntPtr
+    pfGenerateOnCloseMarshal := pfGenerateOnClose is VarRef ? "int*" : IntPtr
 
-    result := DllCall("ADVAPI32.dll\AccessCheckByTypeAndAuditAlarmW", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, PSECURITY_DESCRIPTOR, _SecurityDescriptor, PSID, PrincipalSelfSid, UInt32, DesiredAccess, AUDIT_EVENT_TYPE, AuditType, UInt32, Flags, OBJECT_TYPE_LIST.Ptr, ObjectTypeList, UInt32, ObjectTypeListLength, GENERIC_MAPPING.Ptr, GenericMapping, BOOL, ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, pfGenerateOnCloseMarshal, pfGenerateOnClose, BOOL)
+    result := DllCall("ADVAPI32.dll\AccessCheckByTypeAndAuditAlarmW", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, ObjectNameMarshal, ObjectName, PSECURITY_DESCRIPTOR, _SecurityDescriptor, PrincipalSelfSidMarshal, PrincipalSelfSid, UInt32, DesiredAccess, AUDIT_EVENT_TYPE, AuditType, UInt32, Flags, ObjectTypeListMarshal, ObjectTypeList, UInt32, ObjectTypeListLength, GENERIC_MAPPING.Ptr, GenericMapping, BOOL, ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, pfGenerateOnCloseMarshal, pfGenerateOnClose, BOOL)
     return result
 }
 
@@ -406,12 +418,15 @@ export AccessCheckByTypeResultListAndAuditAlarmW(SubsystemName, HandleId, Object
     ObjectTypeName := ObjectTypeName is String ? StrPtr(ObjectTypeName) : ObjectTypeName
     ObjectName := ObjectName is String ? StrPtr(ObjectName) : ObjectName
 
-    HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
-    GrantedAccessListMarshal := GrantedAccessList is VarRef ? "uint*" : "ptr"
-    AccessStatusListMarshal := AccessStatusList is VarRef ? "uint*" : "ptr"
-    pfGenerateOnCloseMarshal := pfGenerateOnClose is VarRef ? "int*" : "ptr"
+    HandleIdMarshal := HandleId is VarRef ? "ptr" : IntPtr
+    ObjectNameMarshal := ObjectName == 0 ? IntPtr : PWSTR
+    PrincipalSelfSidMarshal := PrincipalSelfSid == 0 ? IntPtr : PSID
+    ObjectTypeListMarshal := ObjectTypeList == 0 ? IntPtr : OBJECT_TYPE_LIST.Ptr
+    GrantedAccessListMarshal := GrantedAccessList is VarRef ? "uint*" : IntPtr
+    AccessStatusListMarshal := AccessStatusList is VarRef ? "uint*" : IntPtr
+    pfGenerateOnCloseMarshal := pfGenerateOnClose is VarRef ? "int*" : IntPtr
 
-    result := DllCall("ADVAPI32.dll\AccessCheckByTypeResultListAndAuditAlarmW", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, PSECURITY_DESCRIPTOR, _SecurityDescriptor, PSID, PrincipalSelfSid, UInt32, DesiredAccess, AUDIT_EVENT_TYPE, AuditType, UInt32, Flags, OBJECT_TYPE_LIST.Ptr, ObjectTypeList, UInt32, ObjectTypeListLength, GENERIC_MAPPING.Ptr, GenericMapping, BOOL, ObjectCreation, GrantedAccessListMarshal, GrantedAccessList, AccessStatusListMarshal, AccessStatusList, pfGenerateOnCloseMarshal, pfGenerateOnClose, BOOL)
+    result := DllCall("ADVAPI32.dll\AccessCheckByTypeResultListAndAuditAlarmW", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, ObjectNameMarshal, ObjectName, PSECURITY_DESCRIPTOR, _SecurityDescriptor, PrincipalSelfSidMarshal, PrincipalSelfSid, UInt32, DesiredAccess, AUDIT_EVENT_TYPE, AuditType, UInt32, Flags, ObjectTypeListMarshal, ObjectTypeList, UInt32, ObjectTypeListLength, GENERIC_MAPPING.Ptr, GenericMapping, BOOL, ObjectCreation, GrantedAccessListMarshal, GrantedAccessList, AccessStatusListMarshal, AccessStatusList, pfGenerateOnCloseMarshal, pfGenerateOnClose, BOOL)
     return result
 }
 
@@ -470,12 +485,15 @@ export AccessCheckByTypeResultListAndAuditAlarmByHandleW(SubsystemName, HandleId
     ObjectTypeName := ObjectTypeName is String ? StrPtr(ObjectTypeName) : ObjectTypeName
     ObjectName := ObjectName is String ? StrPtr(ObjectName) : ObjectName
 
-    HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
-    GrantedAccessListMarshal := GrantedAccessList is VarRef ? "uint*" : "ptr"
-    AccessStatusListMarshal := AccessStatusList is VarRef ? "uint*" : "ptr"
-    pfGenerateOnCloseMarshal := pfGenerateOnClose is VarRef ? "int*" : "ptr"
+    HandleIdMarshal := HandleId is VarRef ? "ptr" : IntPtr
+    ObjectNameMarshal := ObjectName == 0 ? IntPtr : PWSTR
+    PrincipalSelfSidMarshal := PrincipalSelfSid == 0 ? IntPtr : PSID
+    ObjectTypeListMarshal := ObjectTypeList == 0 ? IntPtr : OBJECT_TYPE_LIST.Ptr
+    GrantedAccessListMarshal := GrantedAccessList is VarRef ? "uint*" : IntPtr
+    AccessStatusListMarshal := AccessStatusList is VarRef ? "uint*" : IntPtr
+    pfGenerateOnCloseMarshal := pfGenerateOnClose is VarRef ? "int*" : IntPtr
 
-    result := DllCall("ADVAPI32.dll\AccessCheckByTypeResultListAndAuditAlarmByHandleW", "ptr", SubsystemName, HandleIdMarshal, HandleId, HANDLE, ClientToken, "ptr", ObjectTypeName, "ptr", ObjectName, PSECURITY_DESCRIPTOR, _SecurityDescriptor, PSID, PrincipalSelfSid, UInt32, DesiredAccess, AUDIT_EVENT_TYPE, AuditType, UInt32, Flags, OBJECT_TYPE_LIST.Ptr, ObjectTypeList, UInt32, ObjectTypeListLength, GENERIC_MAPPING.Ptr, GenericMapping, BOOL, ObjectCreation, GrantedAccessListMarshal, GrantedAccessList, AccessStatusListMarshal, AccessStatusList, pfGenerateOnCloseMarshal, pfGenerateOnClose, BOOL)
+    result := DllCall("ADVAPI32.dll\AccessCheckByTypeResultListAndAuditAlarmByHandleW", "ptr", SubsystemName, HandleIdMarshal, HandleId, HANDLE, ClientToken, "ptr", ObjectTypeName, ObjectNameMarshal, ObjectName, PSECURITY_DESCRIPTOR, _SecurityDescriptor, PrincipalSelfSidMarshal, PrincipalSelfSid, UInt32, DesiredAccess, AUDIT_EVENT_TYPE, AuditType, UInt32, Flags, ObjectTypeListMarshal, ObjectTypeList, UInt32, ObjectTypeListLength, GENERIC_MAPPING.Ptr, GenericMapping, BOOL, ObjectCreation, GrantedAccessListMarshal, GrantedAccessList, AccessStatusListMarshal, AccessStatusList, pfGenerateOnCloseMarshal, pfGenerateOnClose, BOOL)
     return result
 }
 
@@ -784,9 +802,12 @@ export AddAccessAllowedAceEx(pAcl, dwAceRevision, AceFlags, AccessMask, _pSid) {
  * @since windows5.1.2600
  */
 export AddAccessAllowedObjectAce(pAcl, dwAceRevision, AceFlags, AccessMask, ObjectTypeGuid, InheritedObjectTypeGuid, _pSid) {
+    ObjectTypeGuidMarshal := ObjectTypeGuid == 0 ? IntPtr : Guid.Ptr
+    InheritedObjectTypeGuidMarshal := InheritedObjectTypeGuid == 0 ? IntPtr : Guid.Ptr
+
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AddAccessAllowedObjectAce", ACL.Ptr, pAcl, ACE_REVISION, dwAceRevision, ACE_FLAGS, AceFlags, UInt32, AccessMask, Guid.Ptr, ObjectTypeGuid, Guid.Ptr, InheritedObjectTypeGuid, PSID, _pSid, BOOL)
+    result := DllCall("ADVAPI32.dll\AddAccessAllowedObjectAce", ACL.Ptr, pAcl, ACE_REVISION, dwAceRevision, ACE_FLAGS, AceFlags, UInt32, AccessMask, ObjectTypeGuidMarshal, ObjectTypeGuid, InheritedObjectTypeGuidMarshal, InheritedObjectTypeGuid, PSID, _pSid, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1099,9 +1120,12 @@ export AddAccessDeniedAceEx(pAcl, dwAceRevision, AceFlags, AccessMask, _pSid) {
  * @since windows5.1.2600
  */
 export AddAccessDeniedObjectAce(pAcl, dwAceRevision, AceFlags, AccessMask, ObjectTypeGuid, InheritedObjectTypeGuid, _pSid) {
+    ObjectTypeGuidMarshal := ObjectTypeGuid == 0 ? IntPtr : Guid.Ptr
+    InheritedObjectTypeGuidMarshal := InheritedObjectTypeGuid == 0 ? IntPtr : Guid.Ptr
+
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AddAccessDeniedObjectAce", ACL.Ptr, pAcl, ACE_REVISION, dwAceRevision, ACE_FLAGS, AceFlags, UInt32, AccessMask, Guid.Ptr, ObjectTypeGuid, Guid.Ptr, InheritedObjectTypeGuid, PSID, _pSid, BOOL)
+    result := DllCall("ADVAPI32.dll\AddAccessDeniedObjectAce", ACL.Ptr, pAcl, ACE_REVISION, dwAceRevision, ACE_FLAGS, AceFlags, UInt32, AccessMask, ObjectTypeGuidMarshal, ObjectTypeGuid, InheritedObjectTypeGuidMarshal, InheritedObjectTypeGuid, PSID, _pSid, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1486,9 +1510,12 @@ export AddAuditAccessAceEx(pAcl, dwAceRevision, AceFlags, dwAccessMask, _pSid, b
  * @since windows5.1.2600
  */
 export AddAuditAccessObjectAce(pAcl, dwAceRevision, AceFlags, AccessMask, ObjectTypeGuid, InheritedObjectTypeGuid, _pSid, bAuditSuccess, bAuditFailure) {
+    ObjectTypeGuidMarshal := ObjectTypeGuid == 0 ? IntPtr : Guid.Ptr
+    InheritedObjectTypeGuidMarshal := InheritedObjectTypeGuid == 0 ? IntPtr : Guid.Ptr
+
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AddAuditAccessObjectAce", ACL.Ptr, pAcl, ACE_REVISION, dwAceRevision, ACE_FLAGS, AceFlags, UInt32, AccessMask, Guid.Ptr, ObjectTypeGuid, Guid.Ptr, InheritedObjectTypeGuid, PSID, _pSid, BOOL, bAuditSuccess, BOOL, bAuditFailure, BOOL)
+    result := DllCall("ADVAPI32.dll\AddAuditAccessObjectAce", ACL.Ptr, pAcl, ACE_REVISION, dwAceRevision, ACE_FLAGS, AceFlags, UInt32, AccessMask, ObjectTypeGuidMarshal, ObjectTypeGuid, InheritedObjectTypeGuidMarshal, InheritedObjectTypeGuid, PSID, _pSid, BOOL, bAuditSuccess, BOOL, bAuditFailure, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1605,7 +1632,7 @@ export AddMandatoryAce(pAcl, dwAceRevision, AceFlags, MandatoryPolicy, pLabelSid
  * @since windows8.0
  */
 export AddResourceAttributeAce(pAcl, dwAceRevision, AceFlags, AccessMask, _pSid, pAttributeInfo, pReturnLength) {
-    pReturnLengthMarshal := pReturnLength is VarRef ? "uint*" : "ptr"
+    pReturnLengthMarshal := pReturnLength is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -1676,11 +1703,14 @@ export AddScopedPolicyIDAce(pAcl, dwAceRevision, AceFlags, AccessMask, _pSid) {
  * @since windows5.1.2600
  */
 export AdjustTokenGroups(TokenHandle, ResetToDefault, NewState, BufferLength, PreviousState, ReturnLength) {
-    ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
+    NewStateMarshal := NewState == 0 ? IntPtr : TOKEN_GROUPS.Ptr
+    PreviousStateMarshal := PreviousState == 0 ? IntPtr : IntPtr
+    ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : IntPtr
+    ReturnLengthMarshal := ReturnLength == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AdjustTokenGroups", HANDLE, TokenHandle, BOOL, ResetToDefault, TOKEN_GROUPS.Ptr, NewState, UInt32, BufferLength, IntPtr, PreviousState, ReturnLengthMarshal, ReturnLength, BOOL)
+    result := DllCall("ADVAPI32.dll\AdjustTokenGroups", HANDLE, TokenHandle, BOOL, ResetToDefault, NewStateMarshal, NewState, UInt32, BufferLength, PreviousStateMarshal, PreviousState, ReturnLengthMarshal, ReturnLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1801,11 +1831,14 @@ export AdjustTokenGroups(TokenHandle, ResetToDefault, NewState, BufferLength, Pr
  * @since windows5.1.2600
  */
 export AdjustTokenPrivileges(TokenHandle, DisableAllPrivileges, NewState, BufferLength, PreviousState, ReturnLength) {
-    ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
+    NewStateMarshal := NewState == 0 ? IntPtr : TOKEN_PRIVILEGES.Ptr
+    PreviousStateMarshal := PreviousState == 0 ? IntPtr : IntPtr
+    ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : IntPtr
+    ReturnLengthMarshal := ReturnLength == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AdjustTokenPrivileges", HANDLE, TokenHandle, BOOL, DisableAllPrivileges, TOKEN_PRIVILEGES.Ptr, NewState, UInt32, BufferLength, IntPtr, PreviousState, ReturnLengthMarshal, ReturnLength, BOOL)
+    result := DllCall("ADVAPI32.dll\AdjustTokenPrivileges", HANDLE, TokenHandle, BOOL, DisableAllPrivileges, NewStateMarshal, NewState, UInt32, BufferLength, PreviousStateMarshal, PreviousState, ReturnLengthMarshal, ReturnLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1846,7 +1879,7 @@ export AdjustTokenPrivileges(TokenHandle, DisableAllPrivileges, NewState, Buffer
  * @since windows5.1.2600
  */
 export AllocateAndInitializeSid(pIdentifierAuthority, nSubAuthorityCount, nSubAuthority0, nSubAuthority1, nSubAuthority2, nSubAuthority3, nSubAuthority4, nSubAuthority5, nSubAuthority6, nSubAuthority7, _pSid) {
-    _pSidMarshal := _pSid is VarRef ? "ptr*" : "ptr"
+    _pSidMarshal := _pSid is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -1945,11 +1978,12 @@ export AreAnyAccessesGranted(GrantedAccess, DesiredAccess) {
  * @since windows5.1.2600
  */
 export CheckTokenMembership(TokenHandle, SidToCheck, IsMember) {
-    IsMemberMarshal := IsMember is VarRef ? "int*" : "ptr"
+    TokenHandleMarshal := TokenHandle == 0 ? IntPtr : HANDLE
+    IsMemberMarshal := IsMember is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CheckTokenMembership", HANDLE, TokenHandle, PSID, SidToCheck, IsMemberMarshal, IsMember, BOOL)
+    result := DllCall("ADVAPI32.dll\CheckTokenMembership", TokenHandleMarshal, TokenHandle, PSID, SidToCheck, IsMemberMarshal, IsMember, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1972,11 +2006,12 @@ export CheckTokenMembership(TokenHandle, SidToCheck, IsMember) {
  * @since windows8.0
  */
 export CheckTokenCapability(TokenHandle, CapabilitySidToCheck, HasCapability) {
-    HasCapabilityMarshal := HasCapability is VarRef ? "int*" : "ptr"
+    TokenHandleMarshal := TokenHandle == 0 ? IntPtr : HANDLE
+    HasCapabilityMarshal := HasCapability is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CheckTokenCapability", HANDLE, TokenHandle, PSID, CapabilitySidToCheck, HasCapabilityMarshal, HasCapability, BOOL)
+    result := DllCall("KERNEL32.dll\CheckTokenCapability", TokenHandleMarshal, TokenHandle, PSID, CapabilitySidToCheck, HasCapabilityMarshal, HasCapability, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1996,8 +2031,9 @@ export CheckTokenCapability(TokenHandle, CapabilitySidToCheck, HasCapability) {
  * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getappcontainerace
  */
 export GetAppContainerAce(_Acl, StartingAceIndex, AppContainerAce, AppContainerAceIndex) {
-    AppContainerAceMarshal := AppContainerAce is VarRef ? "ptr*" : "ptr"
-    AppContainerAceIndexMarshal := AppContainerAceIndex is VarRef ? "uint*" : "ptr"
+    AppContainerAceMarshal := AppContainerAce is VarRef ? "ptr*" : IntPtr
+    AppContainerAceIndexMarshal := AppContainerAceIndex is VarRef ? "uint*" : IntPtr
+    AppContainerAceIndexMarshal := AppContainerAceIndex == 0 ? IntPtr : "uint*"
 
     result := DllCall("KERNEL32.dll\GetAppContainerAce", ACL.Ptr, _Acl, UInt32, StartingAceIndex, AppContainerAceMarshal, AppContainerAce, AppContainerAceIndexMarshal, AppContainerAceIndex, BOOL)
     return result
@@ -2016,11 +2052,12 @@ export GetAppContainerAce(_Acl, StartingAceIndex, AppContainerAce, AppContainerA
  * @since windows8.0
  */
 export CheckTokenMembershipEx(TokenHandle, SidToCheck, Flags, IsMember) {
-    IsMemberMarshal := IsMember is VarRef ? "int*" : "ptr"
+    TokenHandleMarshal := TokenHandle == 0 ? IntPtr : HANDLE
+    IsMemberMarshal := IsMember is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CheckTokenMembershipEx", HANDLE, TokenHandle, PSID, SidToCheck, UInt32, Flags, IsMemberMarshal, IsMember, BOOL)
+    result := DllCall("KERNEL32.dll\CheckTokenMembershipEx", TokenHandleMarshal, TokenHandle, PSID, SidToCheck, UInt32, Flags, IsMemberMarshal, IsMember, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2067,9 +2104,12 @@ export CheckTokenMembershipEx(TokenHandle, SidToCheck, Flags, IsMember) {
  * @since windows5.1.2600
  */
 export ConvertToAutoInheritPrivateObjectSecurity(ParentDescriptor, CurrentSecurityDescriptor, NewSecurityDescriptor, _ObjectType, IsDirectoryObject, GenericMapping) {
+    ParentDescriptorMarshal := ParentDescriptor == 0 ? IntPtr : PSECURITY_DESCRIPTOR
+    _ObjectTypeMarshal := _ObjectType == 0 ? IntPtr : Guid.Ptr
+
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\ConvertToAutoInheritPrivateObjectSecurity", PSECURITY_DESCRIPTOR, ParentDescriptor, PSECURITY_DESCRIPTOR, CurrentSecurityDescriptor, PSECURITY_DESCRIPTOR.Ptr, NewSecurityDescriptor, Guid.Ptr, _ObjectType, BOOLEAN, IsDirectoryObject, GENERIC_MAPPING.Ptr, GenericMapping, BOOL)
+    result := DllCall("ADVAPI32.dll\ConvertToAutoInheritPrivateObjectSecurity", ParentDescriptorMarshal, ParentDescriptor, PSECURITY_DESCRIPTOR, CurrentSecurityDescriptor, PSECURITY_DESCRIPTOR.Ptr, NewSecurityDescriptor, _ObjectTypeMarshal, _ObjectType, BOOLEAN, IsDirectoryObject, GENERIC_MAPPING.Ptr, GenericMapping, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2140,9 +2180,13 @@ export CopySid(nDestinationSidLength, pDestinationSid, pSourceSid) {
  * @since windows5.1.2600
  */
 export CreatePrivateObjectSecurity(ParentDescriptor, CreatorDescriptor, NewDescriptor, IsDirectoryObject, Token, GenericMapping) {
+    ParentDescriptorMarshal := ParentDescriptor == 0 ? IntPtr : PSECURITY_DESCRIPTOR
+    CreatorDescriptorMarshal := CreatorDescriptor == 0 ? IntPtr : PSECURITY_DESCRIPTOR
+    TokenMarshal := Token == 0 ? IntPtr : HANDLE
+
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CreatePrivateObjectSecurity", PSECURITY_DESCRIPTOR, ParentDescriptor, PSECURITY_DESCRIPTOR, CreatorDescriptor, PSECURITY_DESCRIPTOR.Ptr, NewDescriptor, BOOL, IsDirectoryObject, HANDLE, Token, GENERIC_MAPPING.Ptr, GenericMapping, BOOL)
+    result := DllCall("ADVAPI32.dll\CreatePrivateObjectSecurity", ParentDescriptorMarshal, ParentDescriptor, CreatorDescriptorMarshal, CreatorDescriptor, PSECURITY_DESCRIPTOR.Ptr, NewDescriptor, BOOL, IsDirectoryObject, TokenMarshal, Token, GENERIC_MAPPING.Ptr, GenericMapping, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2282,9 +2326,14 @@ export CreatePrivateObjectSecurity(ParentDescriptor, CreatorDescriptor, NewDescr
  * @since windows5.1.2600
  */
 export CreatePrivateObjectSecurityEx(ParentDescriptor, CreatorDescriptor, NewDescriptor, _ObjectType, IsContainerObject, AutoInheritFlags, Token, GenericMapping) {
+    ParentDescriptorMarshal := ParentDescriptor == 0 ? IntPtr : PSECURITY_DESCRIPTOR
+    CreatorDescriptorMarshal := CreatorDescriptor == 0 ? IntPtr : PSECURITY_DESCRIPTOR
+    _ObjectTypeMarshal := _ObjectType == 0 ? IntPtr : Guid.Ptr
+    TokenMarshal := Token == 0 ? IntPtr : HANDLE
+
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CreatePrivateObjectSecurityEx", PSECURITY_DESCRIPTOR, ParentDescriptor, PSECURITY_DESCRIPTOR, CreatorDescriptor, PSECURITY_DESCRIPTOR.Ptr, NewDescriptor, Guid.Ptr, _ObjectType, BOOL, IsContainerObject, SECURITY_AUTO_INHERIT_FLAGS, AutoInheritFlags, HANDLE, Token, GENERIC_MAPPING.Ptr, GenericMapping, BOOL)
+    result := DllCall("ADVAPI32.dll\CreatePrivateObjectSecurityEx", ParentDescriptorMarshal, ParentDescriptor, CreatorDescriptorMarshal, CreatorDescriptor, PSECURITY_DESCRIPTOR.Ptr, NewDescriptor, _ObjectTypeMarshal, _ObjectType, BOOL, IsContainerObject, SECURITY_AUTO_INHERIT_FLAGS, AutoInheritFlags, TokenMarshal, Token, GENERIC_MAPPING.Ptr, GenericMapping, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2437,11 +2486,15 @@ export CreatePrivateObjectSecurityEx(ParentDescriptor, CreatorDescriptor, NewDes
  * @since windows5.1.2600
  */
 export CreatePrivateObjectSecurityWithMultipleInheritance(ParentDescriptor, CreatorDescriptor, NewDescriptor, ObjectTypes, GuidCount, IsContainerObject, AutoInheritFlags, Token, GenericMapping) {
-    ObjectTypesMarshal := ObjectTypes is VarRef ? "ptr*" : "ptr"
+    ParentDescriptorMarshal := ParentDescriptor == 0 ? IntPtr : PSECURITY_DESCRIPTOR
+    CreatorDescriptorMarshal := CreatorDescriptor == 0 ? IntPtr : PSECURITY_DESCRIPTOR
+    ObjectTypesMarshal := ObjectTypes is VarRef ? "ptr*" : IntPtr
+    ObjectTypesMarshal := ObjectTypes == 0 ? IntPtr : "ptr*"
+    TokenMarshal := Token == 0 ? IntPtr : HANDLE
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CreatePrivateObjectSecurityWithMultipleInheritance", PSECURITY_DESCRIPTOR, ParentDescriptor, PSECURITY_DESCRIPTOR, CreatorDescriptor, PSECURITY_DESCRIPTOR.Ptr, NewDescriptor, ObjectTypesMarshal, ObjectTypes, UInt32, GuidCount, BOOL, IsContainerObject, SECURITY_AUTO_INHERIT_FLAGS, AutoInheritFlags, HANDLE, Token, GENERIC_MAPPING.Ptr, GenericMapping, BOOL)
+    result := DllCall("ADVAPI32.dll\CreatePrivateObjectSecurityWithMultipleInheritance", ParentDescriptorMarshal, ParentDescriptor, CreatorDescriptorMarshal, CreatorDescriptor, PSECURITY_DESCRIPTOR.Ptr, NewDescriptor, ObjectTypesMarshal, ObjectTypes, UInt32, GuidCount, BOOL, IsContainerObject, SECURITY_AUTO_INHERIT_FLAGS, AutoInheritFlags, TokenMarshal, Token, GENERIC_MAPPING.Ptr, GenericMapping, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2519,9 +2572,13 @@ export CreatePrivateObjectSecurityWithMultipleInheritance(ParentDescriptor, Crea
  * @since windows5.1.2600
  */
 export CreateRestrictedToken(ExistingTokenHandle, Flags, DisableSidCount, SidsToDisable, DeletePrivilegeCount, PrivilegesToDelete, RestrictedSidCount, SidsToRestrict, NewTokenHandle) {
+    SidsToDisableMarshal := SidsToDisable == 0 ? IntPtr : SID_AND_ATTRIBUTES.Ptr
+    PrivilegesToDeleteMarshal := PrivilegesToDelete == 0 ? IntPtr : LUID_AND_ATTRIBUTES.Ptr
+    SidsToRestrictMarshal := SidsToRestrict == 0 ? IntPtr : SID_AND_ATTRIBUTES.Ptr
+
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CreateRestrictedToken", HANDLE, ExistingTokenHandle, CREATE_RESTRICTED_TOKEN_FLAGS, Flags, UInt32, DisableSidCount, SID_AND_ATTRIBUTES.Ptr, SidsToDisable, UInt32, DeletePrivilegeCount, LUID_AND_ATTRIBUTES.Ptr, PrivilegesToDelete, UInt32, RestrictedSidCount, SID_AND_ATTRIBUTES.Ptr, SidsToRestrict, HANDLE.Ptr, NewTokenHandle, BOOL)
+    result := DllCall("ADVAPI32.dll\CreateRestrictedToken", HANDLE, ExistingTokenHandle, CREATE_RESTRICTED_TOKEN_FLAGS, Flags, UInt32, DisableSidCount, SidsToDisableMarshal, SidsToDisable, UInt32, DeletePrivilegeCount, PrivilegesToDeleteMarshal, PrivilegesToDelete, UInt32, RestrictedSidCount, SidsToRestrictMarshal, SidsToRestrict, HANDLE.Ptr, NewTokenHandle, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2543,11 +2600,13 @@ export CreateRestrictedToken(ExistingTokenHandle, Flags, DisableSidCount, SidsTo
  * @since windows5.1.2600
  */
 export CreateWellKnownSid(WellKnownSidType, DomainSid, _pSid, cbSid) {
-    cbSidMarshal := cbSid is VarRef ? "uint*" : "ptr"
+    DomainSidMarshal := DomainSid == 0 ? IntPtr : PSID
+    _pSidMarshal := _pSid == 0 ? IntPtr : IntPtr
+    cbSidMarshal := cbSid is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CreateWellKnownSid", WELL_KNOWN_SID_TYPE, WellKnownSidType, PSID, DomainSid, IntPtr, _pSid, cbSidMarshal, cbSid, BOOL)
+    result := DllCall("ADVAPI32.dll\CreateWellKnownSid", WELL_KNOWN_SID_TYPE, WellKnownSidType, DomainSidMarshal, DomainSid, _pSidMarshal, _pSid, cbSidMarshal, cbSid, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2567,7 +2626,7 @@ export CreateWellKnownSid(WellKnownSidType, DomainSid, _pSid, cbSid) {
  * @since windows5.1.2600
  */
 export EqualDomainSid(pSid1, pSid2, pfEqual) {
-    pfEqualMarshal := pfEqual is VarRef ? "int*" : "ptr"
+    pfEqualMarshal := pfEqual is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
@@ -2693,9 +2752,11 @@ export DuplicateToken(ExistingTokenHandle, ImpersonationLevel, DuplicateTokenHan
  * @since windows5.1.2600
  */
 export DuplicateTokenEx(hExistingToken, dwDesiredAccess, lpTokenAttributes, ImpersonationLevel, TokenType, phNewToken) {
+    lpTokenAttributesMarshal := lpTokenAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\DuplicateTokenEx", HANDLE, hExistingToken, TOKEN_ACCESS_MASK, dwDesiredAccess, SECURITY_ATTRIBUTES.Ptr, lpTokenAttributes, SECURITY_IMPERSONATION_LEVEL, ImpersonationLevel, TOKEN_TYPE, TokenType, HANDLE.Ptr, phNewToken, BOOL)
+    result := DllCall("ADVAPI32.dll\DuplicateTokenEx", HANDLE, hExistingToken, TOKEN_ACCESS_MASK, dwDesiredAccess, lpTokenAttributesMarshal, lpTokenAttributes, SECURITY_IMPERSONATION_LEVEL, ImpersonationLevel, TOKEN_TYPE, TokenType, HANDLE.Ptr, phNewToken, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2772,7 +2833,7 @@ export EqualSid(pSid1, pSid2) {
  * @since windows5.1.2600
  */
 export FindFirstFreeAce(pAcl, pAce) {
-    pAceMarshal := pAce is VarRef ? "ptr*" : "ptr"
+    pAceMarshal := pAce is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -2813,7 +2874,7 @@ export FreeSid(_pSid) {
  * @since windows5.1.2600
  */
 export GetAce(pAcl, dwAceIndex, pAce) {
-    pAceMarshal := pAce is VarRef ? "ptr*" : "ptr"
+    pAceMarshal := pAce is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -2881,11 +2942,12 @@ export GetAclInformation(pAcl, pAclInformation, nAclInformationLength, dwAclInfo
 export GetFileSecurityW(lpFileName, RequestedInformation, pSecurityDescriptor, nLength, lpnLengthNeeded) {
     lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-    lpnLengthNeededMarshal := lpnLengthNeeded is VarRef ? "uint*" : "ptr"
+    pSecurityDescriptorMarshal := pSecurityDescriptor == 0 ? IntPtr : IntPtr
+    lpnLengthNeededMarshal := lpnLengthNeeded is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\GetFileSecurityW", "ptr", lpFileName, UInt32, RequestedInformation, IntPtr, pSecurityDescriptor, UInt32, nLength, lpnLengthNeededMarshal, lpnLengthNeeded, BOOL)
+    result := DllCall("ADVAPI32.dll\GetFileSecurityW", "ptr", lpFileName, UInt32, RequestedInformation, pSecurityDescriptorMarshal, pSecurityDescriptor, UInt32, nLength, lpnLengthNeededMarshal, lpnLengthNeeded, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2914,11 +2976,12 @@ export GetFileSecurityW(lpFileName, RequestedInformation, pSecurityDescriptor, n
  * @since windows5.1.2600
  */
 export GetKernelObjectSecurity(_Handle, RequestedInformation, pSecurityDescriptor, nLength, lpnLengthNeeded) {
-    lpnLengthNeededMarshal := lpnLengthNeeded is VarRef ? "uint*" : "ptr"
+    pSecurityDescriptorMarshal := pSecurityDescriptor == 0 ? IntPtr : IntPtr
+    lpnLengthNeededMarshal := lpnLengthNeeded is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\GetKernelObjectSecurity", HANDLE, _Handle, UInt32, RequestedInformation, IntPtr, pSecurityDescriptor, UInt32, nLength, lpnLengthNeededMarshal, lpnLengthNeeded, BOOL)
+    result := DllCall("ADVAPI32.dll\GetKernelObjectSecurity", HANDLE, _Handle, UInt32, RequestedInformation, pSecurityDescriptorMarshal, pSecurityDescriptor, UInt32, nLength, lpnLengthNeededMarshal, lpnLengthNeeded, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2969,11 +3032,12 @@ export GetLengthSid(_pSid) {
  * @since windows5.1.2600
  */
 export GetPrivateObjectSecurity(_ObjectDescriptor, SecurityInformation, ResultantDescriptor, DescriptorLength, ReturnLength) {
-    ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
+    ResultantDescriptorMarshal := ResultantDescriptor == 0 ? IntPtr : IntPtr
+    ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\GetPrivateObjectSecurity", PSECURITY_DESCRIPTOR, _ObjectDescriptor, OBJECT_SECURITY_INFORMATION, SecurityInformation, IntPtr, ResultantDescriptor, UInt32, DescriptorLength, ReturnLengthMarshal, ReturnLength, BOOL)
+    result := DllCall("ADVAPI32.dll\GetPrivateObjectSecurity", PSECURITY_DESCRIPTOR, _ObjectDescriptor, OBJECT_SECURITY_INFORMATION, SecurityInformation, ResultantDescriptorMarshal, ResultantDescriptor, UInt32, DescriptorLength, ReturnLengthMarshal, ReturnLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2996,8 +3060,8 @@ export GetPrivateObjectSecurity(_ObjectDescriptor, SecurityInformation, Resultan
  * @since windows5.1.2600
  */
 export GetSecurityDescriptorControl(pSecurityDescriptor, pControl, lpdwRevision) {
-    pControlMarshal := pControl is VarRef ? "ushort*" : "ptr"
-    lpdwRevisionMarshal := lpdwRevision is VarRef ? "uint*" : "ptr"
+    pControlMarshal := pControl is VarRef ? "ushort*" : IntPtr
+    lpdwRevisionMarshal := lpdwRevision is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -3035,9 +3099,9 @@ export GetSecurityDescriptorControl(pSecurityDescriptor, pControl, lpdwRevision)
  * @since windows5.1.2600
  */
 export GetSecurityDescriptorDacl(pSecurityDescriptor, lpbDaclPresent, pDacl, lpbDaclDefaulted) {
-    lpbDaclPresentMarshal := lpbDaclPresent is VarRef ? "int*" : "ptr"
-    pDaclMarshal := pDacl is VarRef ? "ptr*" : "ptr"
-    lpbDaclDefaultedMarshal := lpbDaclDefaulted is VarRef ? "int*" : "ptr"
+    lpbDaclPresentMarshal := lpbDaclPresent is VarRef ? "int*" : IntPtr
+    pDaclMarshal := pDacl is VarRef ? "ptr*" : IntPtr
+    lpbDaclDefaultedMarshal := lpbDaclDefaulted is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
@@ -3065,8 +3129,8 @@ export GetSecurityDescriptorDacl(pSecurityDescriptor, lpbDaclPresent, pDacl, lpb
  * @since windows5.1.2600
  */
 export GetSecurityDescriptorGroup(pSecurityDescriptor, pGroup, lpbGroupDefaulted) {
-    pGroupMarshal := pGroup is VarRef ? "ptr*" : "ptr"
-    lpbGroupDefaultedMarshal := lpbGroupDefaulted is VarRef ? "int*" : "ptr"
+    pGroupMarshal := pGroup is VarRef ? "ptr*" : IntPtr
+    lpbGroupDefaultedMarshal := lpbGroupDefaulted is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
@@ -3114,8 +3178,8 @@ export GetSecurityDescriptorLength(pSecurityDescriptor) {
  * @since windows5.1.2600
  */
 export GetSecurityDescriptorOwner(pSecurityDescriptor, pOwner, lpbOwnerDefaulted) {
-    pOwnerMarshal := pOwner is VarRef ? "ptr*" : "ptr"
-    lpbOwnerDefaultedMarshal := lpbOwnerDefaulted is VarRef ? "int*" : "ptr"
+    pOwnerMarshal := pOwner is VarRef ? "ptr*" : IntPtr
+    lpbOwnerDefaultedMarshal := lpbOwnerDefaulted is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
@@ -3161,7 +3225,7 @@ export GetSecurityDescriptorOwner(pSecurityDescriptor, pOwner, lpbOwnerDefaulted
  * @since windows5.1.2600
  */
 export GetSecurityDescriptorRMControl(_SecurityDescriptor, RMControl) {
-    RMControlMarshal := RMControl is VarRef ? "char*" : "ptr"
+    RMControlMarshal := RMControl is VarRef ? "char*" : IntPtr
 
     result := DllCall("ADVAPI32.dll\GetSecurityDescriptorRMControl", PSECURITY_DESCRIPTOR, _SecurityDescriptor, RMControlMarshal, RMControl, UInt32)
     return result
@@ -3190,9 +3254,9 @@ export GetSecurityDescriptorRMControl(_SecurityDescriptor, RMControl) {
  * @since windows5.1.2600
  */
 export GetSecurityDescriptorSacl(pSecurityDescriptor, lpbSaclPresent, pSacl, lpbSaclDefaulted) {
-    lpbSaclPresentMarshal := lpbSaclPresent is VarRef ? "int*" : "ptr"
-    pSaclMarshal := pSacl is VarRef ? "ptr*" : "ptr"
-    lpbSaclDefaultedMarshal := lpbSaclDefaulted is VarRef ? "int*" : "ptr"
+    lpbSaclPresentMarshal := lpbSaclPresent is VarRef ? "int*" : IntPtr
+    pSaclMarshal := pSacl is VarRef ? "ptr*" : IntPtr
+    lpbSaclDefaultedMarshal := lpbSaclDefaulted is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
@@ -3322,11 +3386,12 @@ export GetSidSubAuthorityCount(_pSid) {
  * @since windows5.1.2600
  */
 export GetTokenInformation(TokenHandle, TokenInformationClass, TokenInformation, TokenInformationLength, ReturnLength) {
-    ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
+    TokenInformationMarshal := TokenInformation == 0 ? IntPtr : IntPtr
+    ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\GetTokenInformation", HANDLE, TokenHandle, TOKEN_INFORMATION_CLASS, TokenInformationClass, IntPtr, TokenInformation, UInt32, TokenInformationLength, ReturnLengthMarshal, ReturnLength, BOOL)
+    result := DllCall("ADVAPI32.dll\GetTokenInformation", HANDLE, TokenHandle, TOKEN_INFORMATION_CLASS, TokenInformationClass, TokenInformationMarshal, TokenInformation, UInt32, TokenInformationLength, ReturnLengthMarshal, ReturnLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3347,11 +3412,12 @@ export GetTokenInformation(TokenHandle, TokenInformationClass, TokenInformation,
  * @since windows5.1.2600
  */
 export GetWindowsAccountDomainSid(_pSid, pDomainSid, cbDomainSid) {
-    cbDomainSidMarshal := cbDomainSid is VarRef ? "uint*" : "ptr"
+    pDomainSidMarshal := pDomainSid == 0 ? IntPtr : IntPtr
+    cbDomainSidMarshal := cbDomainSid is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\GetWindowsAccountDomainSid", PSID, _pSid, IntPtr, pDomainSid, cbDomainSidMarshal, cbDomainSid, BOOL)
+    result := DllCall("ADVAPI32.dll\GetWindowsAccountDomainSid", PSID, _pSid, pDomainSidMarshal, pDomainSid, cbDomainSidMarshal, cbDomainSid, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3714,15 +3780,20 @@ export IsWellKnownSid(_pSid, WellKnownSidType) {
  * @since windows5.1.2600
  */
 export MakeAbsoluteSD(pSelfRelativeSecurityDescriptor, pAbsoluteSecurityDescriptor, lpdwAbsoluteSecurityDescriptorSize, pDacl, lpdwDaclSize, pSacl, lpdwSaclSize, pOwner, lpdwOwnerSize, pPrimaryGroup, lpdwPrimaryGroupSize) {
-    lpdwAbsoluteSecurityDescriptorSizeMarshal := lpdwAbsoluteSecurityDescriptorSize is VarRef ? "uint*" : "ptr"
-    lpdwDaclSizeMarshal := lpdwDaclSize is VarRef ? "uint*" : "ptr"
-    lpdwSaclSizeMarshal := lpdwSaclSize is VarRef ? "uint*" : "ptr"
-    lpdwOwnerSizeMarshal := lpdwOwnerSize is VarRef ? "uint*" : "ptr"
-    lpdwPrimaryGroupSizeMarshal := lpdwPrimaryGroupSize is VarRef ? "uint*" : "ptr"
+    pAbsoluteSecurityDescriptorMarshal := pAbsoluteSecurityDescriptor == 0 ? IntPtr : IntPtr
+    lpdwAbsoluteSecurityDescriptorSizeMarshal := lpdwAbsoluteSecurityDescriptorSize is VarRef ? "uint*" : IntPtr
+    pDaclMarshal := pDacl == 0 ? IntPtr : IntPtr
+    lpdwDaclSizeMarshal := lpdwDaclSize is VarRef ? "uint*" : IntPtr
+    pSaclMarshal := pSacl == 0 ? IntPtr : IntPtr
+    lpdwSaclSizeMarshal := lpdwSaclSize is VarRef ? "uint*" : IntPtr
+    pOwnerMarshal := pOwner == 0 ? IntPtr : IntPtr
+    lpdwOwnerSizeMarshal := lpdwOwnerSize is VarRef ? "uint*" : IntPtr
+    pPrimaryGroupMarshal := pPrimaryGroup == 0 ? IntPtr : IntPtr
+    lpdwPrimaryGroupSizeMarshal := lpdwPrimaryGroupSize is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\MakeAbsoluteSD", PSECURITY_DESCRIPTOR, pSelfRelativeSecurityDescriptor, IntPtr, pAbsoluteSecurityDescriptor, lpdwAbsoluteSecurityDescriptorSizeMarshal, lpdwAbsoluteSecurityDescriptorSize, IntPtr, pDacl, lpdwDaclSizeMarshal, lpdwDaclSize, IntPtr, pSacl, lpdwSaclSizeMarshal, lpdwSaclSize, IntPtr, pOwner, lpdwOwnerSizeMarshal, lpdwOwnerSize, IntPtr, pPrimaryGroup, lpdwPrimaryGroupSizeMarshal, lpdwPrimaryGroupSize, BOOL)
+    result := DllCall("ADVAPI32.dll\MakeAbsoluteSD", PSECURITY_DESCRIPTOR, pSelfRelativeSecurityDescriptor, pAbsoluteSecurityDescriptorMarshal, pAbsoluteSecurityDescriptor, lpdwAbsoluteSecurityDescriptorSizeMarshal, lpdwAbsoluteSecurityDescriptorSize, pDaclMarshal, pDacl, lpdwDaclSizeMarshal, lpdwDaclSize, pSaclMarshal, pSacl, lpdwSaclSizeMarshal, lpdwSaclSize, pOwnerMarshal, pOwner, lpdwOwnerSizeMarshal, lpdwOwnerSize, pPrimaryGroupMarshal, pPrimaryGroup, lpdwPrimaryGroupSizeMarshal, lpdwPrimaryGroupSize, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3771,11 +3842,12 @@ export MakeAbsoluteSD(pSelfRelativeSecurityDescriptor, pAbsoluteSecurityDescript
  * @since windows5.1.2600
  */
 export MakeSelfRelativeSD(pAbsoluteSecurityDescriptor, pSelfRelativeSecurityDescriptor, lpdwBufferLength) {
-    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
+    pSelfRelativeSecurityDescriptorMarshal := pSelfRelativeSecurityDescriptor == 0 ? IntPtr : IntPtr
+    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\MakeSelfRelativeSD", PSECURITY_DESCRIPTOR, pAbsoluteSecurityDescriptor, IntPtr, pSelfRelativeSecurityDescriptor, lpdwBufferLengthMarshal, lpdwBufferLength, BOOL)
+    result := DllCall("ADVAPI32.dll\MakeSelfRelativeSD", PSECURITY_DESCRIPTOR, pAbsoluteSecurityDescriptor, pSelfRelativeSecurityDescriptorMarshal, pSelfRelativeSecurityDescriptor, lpdwBufferLengthMarshal, lpdwBufferLength, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3795,7 +3867,7 @@ export MakeSelfRelativeSD(pAbsoluteSecurityDescriptor, pSelfRelativeSecurityDesc
  * @since windows5.1.2600
  */
 export MapGenericMask(AccessMask, GenericMapping) {
-    AccessMaskMarshal := AccessMask is VarRef ? "uint*" : "ptr"
+    AccessMaskMarshal := AccessMask is VarRef ? "uint*" : IntPtr
 
     DllCall("ADVAPI32.dll\MapGenericMask", AccessMaskMarshal, AccessMask, GENERIC_MAPPING.Ptr, GenericMapping)
 }
@@ -3815,7 +3887,7 @@ export MapGenericMask(AccessMask, GenericMapping) {
 export ObjectCloseAuditAlarmW(SubsystemName, HandleId, GenerateOnClose) {
     SubsystemName := SubsystemName is String ? StrPtr(SubsystemName) : SubsystemName
 
-    HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
+    HandleIdMarshal := HandleId is VarRef ? "ptr" : IntPtr
 
     result := DllCall("ADVAPI32.dll\ObjectCloseAuditAlarmW", "ptr", SubsystemName, HandleIdMarshal, HandleId, BOOL, GenerateOnClose, BOOL)
     return result
@@ -3837,7 +3909,7 @@ export ObjectCloseAuditAlarmW(SubsystemName, HandleId, GenerateOnClose) {
 export ObjectDeleteAuditAlarmW(SubsystemName, HandleId, GenerateOnClose) {
     SubsystemName := SubsystemName is String ? StrPtr(SubsystemName) : SubsystemName
 
-    HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
+    HandleIdMarshal := HandleId is VarRef ? "ptr" : IntPtr
 
     result := DllCall("ADVAPI32.dll\ObjectDeleteAuditAlarmW", "ptr", SubsystemName, HandleIdMarshal, HandleId, BOOL, GenerateOnClose, BOOL)
     return result
@@ -3873,10 +3945,12 @@ export ObjectOpenAuditAlarmW(SubsystemName, HandleId, ObjectTypeName, ObjectName
     ObjectTypeName := ObjectTypeName is String ? StrPtr(ObjectTypeName) : ObjectTypeName
     ObjectName := ObjectName is String ? StrPtr(ObjectName) : ObjectName
 
-    HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
-    GenerateOnCloseMarshal := GenerateOnClose is VarRef ? "int*" : "ptr"
+    HandleIdMarshal := HandleId is VarRef ? "ptr" : IntPtr
+    ObjectNameMarshal := ObjectName == 0 ? IntPtr : PWSTR
+    PrivilegesMarshal := Privileges == 0 ? IntPtr : PRIVILEGE_SET.Ptr
+    GenerateOnCloseMarshal := GenerateOnClose is VarRef ? "int*" : IntPtr
 
-    result := DllCall("ADVAPI32.dll\ObjectOpenAuditAlarmW", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, PSECURITY_DESCRIPTOR, pSecurityDescriptor, HANDLE, ClientToken, UInt32, DesiredAccess, UInt32, GrantedAccess, PRIVILEGE_SET.Ptr, Privileges, BOOL, ObjectCreation, BOOL, AccessGranted, GenerateOnCloseMarshal, GenerateOnClose, BOOL)
+    result := DllCall("ADVAPI32.dll\ObjectOpenAuditAlarmW", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, ObjectNameMarshal, ObjectName, PSECURITY_DESCRIPTOR, pSecurityDescriptor, HANDLE, ClientToken, UInt32, DesiredAccess, UInt32, GrantedAccess, PrivilegesMarshal, Privileges, BOOL, ObjectCreation, BOOL, AccessGranted, GenerateOnCloseMarshal, GenerateOnClose, BOOL)
     return result
 }
 
@@ -3900,7 +3974,7 @@ export ObjectOpenAuditAlarmW(SubsystemName, HandleId, ObjectTypeName, ObjectName
 export ObjectPrivilegeAuditAlarmW(SubsystemName, HandleId, ClientToken, DesiredAccess, Privileges, AccessGranted) {
     SubsystemName := SubsystemName is String ? StrPtr(SubsystemName) : SubsystemName
 
-    HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
+    HandleIdMarshal := HandleId is VarRef ? "ptr" : IntPtr
 
     result := DllCall("ADVAPI32.dll\ObjectPrivilegeAuditAlarmW", "ptr", SubsystemName, HandleIdMarshal, HandleId, HANDLE, ClientToken, UInt32, DesiredAccess, PRIVILEGE_SET.Ptr, Privileges, BOOL, AccessGranted, BOOL)
     return result
@@ -3930,7 +4004,7 @@ export ObjectPrivilegeAuditAlarmW(SubsystemName, HandleId, ClientToken, DesiredA
  * @since windows5.1.2600
  */
 export PrivilegeCheck(ClientToken, RequiredPrivileges, pfResult) {
-    pfResultMarshal := pfResult is VarRef ? "int*" : "ptr"
+    pfResultMarshal := pfResult is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
@@ -3976,7 +4050,7 @@ export PrivilegedServiceAuditAlarmW(SubsystemName, ServiceName, ClientToken, Pri
  * @since windows6.0.6000
  */
 export QuerySecurityAccessMask(SecurityInformation, DesiredAccess) {
-    DesiredAccessMarshal := DesiredAccess is VarRef ? "uint*" : "ptr"
+    DesiredAccessMarshal := DesiredAccess is VarRef ? "uint*" : IntPtr
 
     DllCall("ADVAPI32.dll\QuerySecurityAccessMask", OBJECT_SECURITY_INFORMATION, SecurityInformation, DesiredAccessMarshal, DesiredAccess)
 }
@@ -4133,9 +4207,11 @@ export SetKernelObjectSecurity(_Handle, SecurityInformation, _SecurityDescriptor
  * @since windows5.1.2600
  */
 export SetPrivateObjectSecurity(SecurityInformation, ModificationDescriptor, ObjectsSecurityDescriptor, GenericMapping, Token) {
+    TokenMarshal := Token == 0 ? IntPtr : HANDLE
+
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\SetPrivateObjectSecurity", OBJECT_SECURITY_INFORMATION, SecurityInformation, PSECURITY_DESCRIPTOR, ModificationDescriptor, PSECURITY_DESCRIPTOR.Ptr, ObjectsSecurityDescriptor, GENERIC_MAPPING.Ptr, GenericMapping, HANDLE, Token, BOOL)
+    result := DllCall("ADVAPI32.dll\SetPrivateObjectSecurity", OBJECT_SECURITY_INFORMATION, SecurityInformation, PSECURITY_DESCRIPTOR, ModificationDescriptor, PSECURITY_DESCRIPTOR.Ptr, ObjectsSecurityDescriptor, GENERIC_MAPPING.Ptr, GenericMapping, TokenMarshal, Token, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4250,9 +4326,11 @@ export SetPrivateObjectSecurity(SecurityInformation, ModificationDescriptor, Obj
  * @since windows5.1.2600
  */
 export SetPrivateObjectSecurityEx(SecurityInformation, ModificationDescriptor, ObjectsSecurityDescriptor, AutoInheritFlags, GenericMapping, Token) {
+    TokenMarshal := Token == 0 ? IntPtr : HANDLE
+
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\SetPrivateObjectSecurityEx", OBJECT_SECURITY_INFORMATION, SecurityInformation, PSECURITY_DESCRIPTOR, ModificationDescriptor, PSECURITY_DESCRIPTOR.Ptr, ObjectsSecurityDescriptor, SECURITY_AUTO_INHERIT_FLAGS, AutoInheritFlags, GENERIC_MAPPING.Ptr, GenericMapping, HANDLE, Token, BOOL)
+    result := DllCall("ADVAPI32.dll\SetPrivateObjectSecurityEx", OBJECT_SECURITY_INFORMATION, SecurityInformation, PSECURITY_DESCRIPTOR, ModificationDescriptor, PSECURITY_DESCRIPTOR.Ptr, ObjectsSecurityDescriptor, SECURITY_AUTO_INHERIT_FLAGS, AutoInheritFlags, GENERIC_MAPPING.Ptr, GenericMapping, TokenMarshal, Token, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4269,7 +4347,7 @@ export SetPrivateObjectSecurityEx(SecurityInformation, ModificationDescriptor, O
  * @since windows6.0.6000
  */
 export SetSecurityAccessMask(SecurityInformation, DesiredAccess) {
-    DesiredAccessMarshal := DesiredAccess is VarRef ? "uint*" : "ptr"
+    DesiredAccessMarshal := DesiredAccess is VarRef ? "uint*" : IntPtr
 
     DllCall("ADVAPI32.dll\SetSecurityAccessMask", OBJECT_SECURITY_INFORMATION, SecurityInformation, DesiredAccessMarshal, DesiredAccess)
 }
@@ -4330,9 +4408,11 @@ export SetSecurityDescriptorControl(pSecurityDescriptor, ControlBitsOfInterest, 
  * @since windows5.1.2600
  */
 export SetSecurityDescriptorDacl(pSecurityDescriptor, bDaclPresent, pDacl, bDaclDefaulted) {
+    pDaclMarshal := pDacl == 0 ? IntPtr : ACL.Ptr
+
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\SetSecurityDescriptorDacl", PSECURITY_DESCRIPTOR, pSecurityDescriptor, BOOL, bDaclPresent, ACL.Ptr, pDacl, BOOL, bDaclDefaulted, BOOL)
+    result := DllCall("ADVAPI32.dll\SetSecurityDescriptorDacl", PSECURITY_DESCRIPTOR, pSecurityDescriptor, BOOL, bDaclPresent, pDaclMarshal, pDacl, BOOL, bDaclDefaulted, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4356,9 +4436,11 @@ export SetSecurityDescriptorDacl(pSecurityDescriptor, bDaclPresent, pDacl, bDacl
  * @since windows5.1.2600
  */
 export SetSecurityDescriptorGroup(pSecurityDescriptor, pGroup, bGroupDefaulted) {
+    pGroupMarshal := pGroup == 0 ? IntPtr : PSID
+
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\SetSecurityDescriptorGroup", PSECURITY_DESCRIPTOR, pSecurityDescriptor, PSID, pGroup, BOOL, bGroupDefaulted, BOOL)
+    result := DllCall("ADVAPI32.dll\SetSecurityDescriptorGroup", PSECURITY_DESCRIPTOR, pSecurityDescriptor, pGroupMarshal, pGroup, BOOL, bGroupDefaulted, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4382,9 +4464,11 @@ export SetSecurityDescriptorGroup(pSecurityDescriptor, pGroup, bGroupDefaulted) 
  * @since windows5.1.2600
  */
 export SetSecurityDescriptorOwner(pSecurityDescriptor, pOwner, bOwnerDefaulted) {
+    pOwnerMarshal := pOwner == 0 ? IntPtr : PSID
+
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\SetSecurityDescriptorOwner", PSECURITY_DESCRIPTOR, pSecurityDescriptor, PSID, pOwner, BOOL, bOwnerDefaulted, BOOL)
+    result := DllCall("ADVAPI32.dll\SetSecurityDescriptorOwner", PSECURITY_DESCRIPTOR, pSecurityDescriptor, pOwnerMarshal, pOwner, BOOL, bOwnerDefaulted, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4406,7 +4490,8 @@ export SetSecurityDescriptorOwner(pSecurityDescriptor, pOwner, bOwnerDefaulted) 
  * @since windows5.1.2600
  */
 export SetSecurityDescriptorRMControl(_SecurityDescriptor, RMControl) {
-    RMControlMarshal := RMControl is VarRef ? "char*" : "ptr"
+    RMControlMarshal := RMControl is VarRef ? "char*" : IntPtr
+    RMControlMarshal := RMControl == 0 ? IntPtr : "char*"
 
     result := DllCall("ADVAPI32.dll\SetSecurityDescriptorRMControl", PSECURITY_DESCRIPTOR, _SecurityDescriptor, RMControlMarshal, RMControl, UInt32)
     return result
@@ -4429,9 +4514,11 @@ export SetSecurityDescriptorRMControl(_SecurityDescriptor, RMControl) {
  * @since windows5.1.2600
  */
 export SetSecurityDescriptorSacl(pSecurityDescriptor, bSaclPresent, pSacl, bSaclDefaulted) {
+    pSaclMarshal := pSacl == 0 ? IntPtr : ACL.Ptr
+
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\SetSecurityDescriptorSacl", PSECURITY_DESCRIPTOR, pSecurityDescriptor, BOOL, bSaclPresent, ACL.Ptr, pSacl, BOOL, bSaclDefaulted, BOOL)
+    result := DllCall("ADVAPI32.dll\SetSecurityDescriptorSacl", PSECURITY_DESCRIPTOR, pSecurityDescriptor, BOOL, bSaclPresent, pSaclMarshal, pSacl, BOOL, bSaclDefaulted, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4487,7 +4574,9 @@ export SetTokenInformation(TokenHandle, TokenInformationClass, TokenInformation,
  * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-setcachedsigninglevel
  */
 export SetCachedSigningLevel(SourceFiles, SourceFileCount, Flags, TargetFile) {
-    result := DllCall("KERNEL32.dll\SetCachedSigningLevel", HANDLE.Ptr, SourceFiles, UInt32, SourceFileCount, UInt32, Flags, HANDLE, TargetFile, BOOL)
+    TargetFileMarshal := TargetFile == 0 ? IntPtr : HANDLE
+
+    result := DllCall("KERNEL32.dll\SetCachedSigningLevel", HANDLE.Ptr, SourceFiles, UInt32, SourceFileCount, UInt32, Flags, TargetFileMarshal, TargetFile, BOOL)
     return result
 }
 
@@ -4512,12 +4601,15 @@ export SetCachedSigningLevel(SourceFiles, SourceFileCount, Flags, TargetFile) {
  * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getcachedsigninglevel
  */
 export GetCachedSigningLevel(_File, Flags, SigningLevel, Thumbprint, ThumbprintSize, ThumbprintAlgorithm) {
-    FlagsMarshal := Flags is VarRef ? "uint*" : "ptr"
-    SigningLevelMarshal := SigningLevel is VarRef ? "uint*" : "ptr"
-    ThumbprintSizeMarshal := ThumbprintSize is VarRef ? "uint*" : "ptr"
-    ThumbprintAlgorithmMarshal := ThumbprintAlgorithm is VarRef ? "uint*" : "ptr"
+    FlagsMarshal := Flags is VarRef ? "uint*" : IntPtr
+    SigningLevelMarshal := SigningLevel is VarRef ? "uint*" : IntPtr
+    ThumbprintMarshal := Thumbprint == 0 ? IntPtr : IntPtr
+    ThumbprintSizeMarshal := ThumbprintSize is VarRef ? "uint*" : IntPtr
+    ThumbprintSizeMarshal := ThumbprintSize == 0 ? IntPtr : "uint*"
+    ThumbprintAlgorithmMarshal := ThumbprintAlgorithm is VarRef ? "uint*" : IntPtr
+    ThumbprintAlgorithmMarshal := ThumbprintAlgorithm == 0 ? IntPtr : "uint*"
 
-    result := DllCall("KERNEL32.dll\GetCachedSigningLevel", HANDLE, _File, FlagsMarshal, Flags, SigningLevelMarshal, SigningLevel, IntPtr, Thumbprint, ThumbprintSizeMarshal, ThumbprintSize, ThumbprintAlgorithmMarshal, ThumbprintAlgorithm, BOOL)
+    result := DllCall("KERNEL32.dll\GetCachedSigningLevel", HANDLE, _File, FlagsMarshal, Flags, SigningLevelMarshal, SigningLevel, ThumbprintMarshal, Thumbprint, ThumbprintSizeMarshal, ThumbprintSize, ThumbprintAlgorithmMarshal, ThumbprintAlgorithm, BOOL)
     return result
 }
 
@@ -4541,10 +4633,10 @@ export GetCachedSigningLevel(_File, Flags, SigningLevel, Thumbprint, ThumbprintS
 export DeriveCapabilitySidsFromName(CapName, CapabilityGroupSids, CapabilityGroupSidCount, CapabilitySids, CapabilitySidCount) {
     CapName := CapName is String ? StrPtr(CapName) : CapName
 
-    CapabilityGroupSidsMarshal := CapabilityGroupSids is VarRef ? "ptr*" : "ptr"
-    CapabilityGroupSidCountMarshal := CapabilityGroupSidCount is VarRef ? "uint*" : "ptr"
-    CapabilitySidsMarshal := CapabilitySids is VarRef ? "ptr*" : "ptr"
-    CapabilitySidCountMarshal := CapabilitySidCount is VarRef ? "uint*" : "ptr"
+    CapabilityGroupSidsMarshal := CapabilityGroupSids is VarRef ? "ptr*" : IntPtr
+    CapabilityGroupSidCountMarshal := CapabilityGroupSidCount is VarRef ? "uint*" : IntPtr
+    CapabilitySidsMarshal := CapabilitySids is VarRef ? "ptr*" : IntPtr
+    CapabilitySidCountMarshal := CapabilitySidCount is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -4557,7 +4649,6 @@ export DeriveCapabilitySidsFromName(CapName, CapabilityGroupSids, CapabilityGrou
 }
 
 /**
- * 
  * @param {Pointer<PSECURITY_DESCRIPTOR>} _SecurityDescriptor 
  * @param {Integer} SecurityDescriptorLength 
  * @param {Pointer<PSECURITY_DESCRIPTOR>} NewSecurityDescriptor 
@@ -4566,9 +4657,11 @@ export DeriveCapabilitySidsFromName(CapName, CapabilityGroupSids, CapabilityGrou
  * @returns {BOOLEAN} 
  */
 export RtlNormalizeSecurityDescriptor(_SecurityDescriptor, SecurityDescriptorLength, NewSecurityDescriptor, NewSecurityDescriptorLength, CheckOnly) {
-    NewSecurityDescriptorLengthMarshal := NewSecurityDescriptorLength is VarRef ? "uint*" : "ptr"
+    NewSecurityDescriptorMarshal := NewSecurityDescriptor == 0 ? IntPtr : PSECURITY_DESCRIPTOR.Ptr
+    NewSecurityDescriptorLengthMarshal := NewSecurityDescriptorLength is VarRef ? "uint*" : IntPtr
+    NewSecurityDescriptorLengthMarshal := NewSecurityDescriptorLength == 0 ? IntPtr : "uint*"
 
-    result := DllCall("ntdll.dll\RtlNormalizeSecurityDescriptor", PSECURITY_DESCRIPTOR.Ptr, _SecurityDescriptor, UInt32, SecurityDescriptorLength, PSECURITY_DESCRIPTOR.Ptr, NewSecurityDescriptor, NewSecurityDescriptorLengthMarshal, NewSecurityDescriptorLength, BOOLEAN, CheckOnly, BOOLEAN)
+    result := DllCall("ntdll.dll\RtlNormalizeSecurityDescriptor", PSECURITY_DESCRIPTOR.Ptr, _SecurityDescriptor, UInt32, SecurityDescriptorLength, NewSecurityDescriptorMarshal, NewSecurityDescriptor, NewSecurityDescriptorLengthMarshal, NewSecurityDescriptorLength, BOOLEAN, CheckOnly, BOOLEAN)
     return result
 }
 
@@ -4593,7 +4686,7 @@ export RtlNormalizeSecurityDescriptor(_SecurityDescriptor, SecurityDescriptorLen
  * @since windows5.1.2600
  */
 export SetUserObjectSecurity(hObj, pSIRequested, _pSID) {
-    pSIRequestedMarshal := pSIRequested is VarRef ? "uint*" : "ptr"
+    pSIRequestedMarshal := pSIRequested is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -4627,12 +4720,13 @@ export SetUserObjectSecurity(hObj, pSIRequested, _pSID) {
  * @since windows5.1.2600
  */
 export GetUserObjectSecurity(hObj, pSIRequested, _pSID, nLength, lpnLengthNeeded) {
-    pSIRequestedMarshal := pSIRequested is VarRef ? "uint*" : "ptr"
-    lpnLengthNeededMarshal := lpnLengthNeeded is VarRef ? "uint*" : "ptr"
+    pSIRequestedMarshal := pSIRequested is VarRef ? "uint*" : IntPtr
+    _pSIDMarshal := _pSID == 0 ? IntPtr : IntPtr
+    lpnLengthNeededMarshal := lpnLengthNeeded is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetUserObjectSecurity", HANDLE, hObj, pSIRequestedMarshal, pSIRequested, IntPtr, _pSID, UInt32, nLength, lpnLengthNeededMarshal, lpnLengthNeeded, BOOL)
+    result := DllCall("USER32.dll\GetUserObjectSecurity", HANDLE, hObj, pSIRequestedMarshal, pSIRequested, _pSIDMarshal, _pSID, UInt32, nLength, lpnLengthNeededMarshal, lpnLengthNeeded, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4680,14 +4774,16 @@ export AccessCheckAndAuditAlarmA(SubsystemName, HandleId, ObjectTypeName, Object
     ObjectTypeName := ObjectTypeName is String ? StrPtr(ObjectTypeName) : ObjectTypeName
     ObjectName := ObjectName is String ? StrPtr(ObjectName) : ObjectName
 
-    HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
-    GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : "ptr"
-    AccessStatusMarshal := AccessStatus is VarRef ? "int*" : "ptr"
-    pfGenerateOnCloseMarshal := pfGenerateOnClose is VarRef ? "int*" : "ptr"
+    HandleIdMarshal := HandleId is VarRef ? "ptr" : IntPtr
+    HandleIdMarshal := HandleId == 0 ? IntPtr : "ptr"
+    ObjectNameMarshal := ObjectName == 0 ? IntPtr : PSTR
+    GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : IntPtr
+    AccessStatusMarshal := AccessStatus is VarRef ? "int*" : IntPtr
+    pfGenerateOnCloseMarshal := pfGenerateOnClose is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AccessCheckAndAuditAlarmA", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, PSECURITY_DESCRIPTOR, _SecurityDescriptor, UInt32, DesiredAccess, GENERIC_MAPPING.Ptr, GenericMapping, BOOL, ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, pfGenerateOnCloseMarshal, pfGenerateOnClose, BOOL)
+    result := DllCall("ADVAPI32.dll\AccessCheckAndAuditAlarmA", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, ObjectNameMarshal, ObjectName, PSECURITY_DESCRIPTOR, _SecurityDescriptor, UInt32, DesiredAccess, GENERIC_MAPPING.Ptr, GenericMapping, BOOL, ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, pfGenerateOnCloseMarshal, pfGenerateOnClose, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4767,14 +4863,17 @@ export AccessCheckByTypeAndAuditAlarmA(SubsystemName, HandleId, ObjectTypeName, 
     ObjectTypeName := ObjectTypeName is String ? StrPtr(ObjectTypeName) : ObjectTypeName
     ObjectName := ObjectName is String ? StrPtr(ObjectName) : ObjectName
 
-    HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
-    GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : "ptr"
-    AccessStatusMarshal := AccessStatus is VarRef ? "int*" : "ptr"
-    pfGenerateOnCloseMarshal := pfGenerateOnClose is VarRef ? "int*" : "ptr"
+    HandleIdMarshal := HandleId is VarRef ? "ptr" : IntPtr
+    ObjectNameMarshal := ObjectName == 0 ? IntPtr : PSTR
+    PrincipalSelfSidMarshal := PrincipalSelfSid == 0 ? IntPtr : PSID
+    ObjectTypeListMarshal := ObjectTypeList == 0 ? IntPtr : OBJECT_TYPE_LIST.Ptr
+    GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : IntPtr
+    AccessStatusMarshal := AccessStatus is VarRef ? "int*" : IntPtr
+    pfGenerateOnCloseMarshal := pfGenerateOnClose is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AccessCheckByTypeAndAuditAlarmA", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, PSECURITY_DESCRIPTOR, _SecurityDescriptor, PSID, PrincipalSelfSid, UInt32, DesiredAccess, AUDIT_EVENT_TYPE, AuditType, UInt32, Flags, OBJECT_TYPE_LIST.Ptr, ObjectTypeList, UInt32, ObjectTypeListLength, GENERIC_MAPPING.Ptr, GenericMapping, BOOL, ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, pfGenerateOnCloseMarshal, pfGenerateOnClose, BOOL)
+    result := DllCall("ADVAPI32.dll\AccessCheckByTypeAndAuditAlarmA", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, ObjectNameMarshal, ObjectName, PSECURITY_DESCRIPTOR, _SecurityDescriptor, PrincipalSelfSidMarshal, PrincipalSelfSid, UInt32, DesiredAccess, AUDIT_EVENT_TYPE, AuditType, UInt32, Flags, ObjectTypeListMarshal, ObjectTypeList, UInt32, ObjectTypeListLength, GENERIC_MAPPING.Ptr, GenericMapping, BOOL, ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, pfGenerateOnCloseMarshal, pfGenerateOnClose, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4844,14 +4943,17 @@ export AccessCheckByTypeResultListAndAuditAlarmA(SubsystemName, HandleId, Object
     ObjectTypeName := ObjectTypeName is String ? StrPtr(ObjectTypeName) : ObjectTypeName
     ObjectName := ObjectName is String ? StrPtr(ObjectName) : ObjectName
 
-    HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
-    GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : "ptr"
-    AccessStatusListMarshal := AccessStatusList is VarRef ? "uint*" : "ptr"
-    pfGenerateOnCloseMarshal := pfGenerateOnClose is VarRef ? "int*" : "ptr"
+    HandleIdMarshal := HandleId is VarRef ? "ptr" : IntPtr
+    ObjectNameMarshal := ObjectName == 0 ? IntPtr : PSTR
+    PrincipalSelfSidMarshal := PrincipalSelfSid == 0 ? IntPtr : PSID
+    ObjectTypeListMarshal := ObjectTypeList == 0 ? IntPtr : OBJECT_TYPE_LIST.Ptr
+    GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : IntPtr
+    AccessStatusListMarshal := AccessStatusList is VarRef ? "uint*" : IntPtr
+    pfGenerateOnCloseMarshal := pfGenerateOnClose is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AccessCheckByTypeResultListAndAuditAlarmA", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, PSECURITY_DESCRIPTOR, _SecurityDescriptor, PSID, PrincipalSelfSid, UInt32, DesiredAccess, AUDIT_EVENT_TYPE, AuditType, UInt32, Flags, OBJECT_TYPE_LIST.Ptr, ObjectTypeList, UInt32, ObjectTypeListLength, GENERIC_MAPPING.Ptr, GenericMapping, BOOL, ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusListMarshal, AccessStatusList, pfGenerateOnCloseMarshal, pfGenerateOnClose, BOOL)
+    result := DllCall("ADVAPI32.dll\AccessCheckByTypeResultListAndAuditAlarmA", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, ObjectNameMarshal, ObjectName, PSECURITY_DESCRIPTOR, _SecurityDescriptor, PrincipalSelfSidMarshal, PrincipalSelfSid, UInt32, DesiredAccess, AUDIT_EVENT_TYPE, AuditType, UInt32, Flags, ObjectTypeListMarshal, ObjectTypeList, UInt32, ObjectTypeListLength, GENERIC_MAPPING.Ptr, GenericMapping, BOOL, ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusListMarshal, AccessStatusList, pfGenerateOnCloseMarshal, pfGenerateOnClose, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4923,14 +5025,17 @@ export AccessCheckByTypeResultListAndAuditAlarmByHandleA(SubsystemName, HandleId
     ObjectTypeName := ObjectTypeName is String ? StrPtr(ObjectTypeName) : ObjectTypeName
     ObjectName := ObjectName is String ? StrPtr(ObjectName) : ObjectName
 
-    HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
-    GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : "ptr"
-    AccessStatusListMarshal := AccessStatusList is VarRef ? "uint*" : "ptr"
-    pfGenerateOnCloseMarshal := pfGenerateOnClose is VarRef ? "int*" : "ptr"
+    HandleIdMarshal := HandleId is VarRef ? "ptr" : IntPtr
+    ObjectNameMarshal := ObjectName == 0 ? IntPtr : PSTR
+    PrincipalSelfSidMarshal := PrincipalSelfSid == 0 ? IntPtr : PSID
+    ObjectTypeListMarshal := ObjectTypeList == 0 ? IntPtr : OBJECT_TYPE_LIST.Ptr
+    GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : IntPtr
+    AccessStatusListMarshal := AccessStatusList is VarRef ? "uint*" : IntPtr
+    pfGenerateOnCloseMarshal := pfGenerateOnClose is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\AccessCheckByTypeResultListAndAuditAlarmByHandleA", "ptr", SubsystemName, HandleIdMarshal, HandleId, HANDLE, ClientToken, "ptr", ObjectTypeName, "ptr", ObjectName, PSECURITY_DESCRIPTOR, _SecurityDescriptor, PSID, PrincipalSelfSid, UInt32, DesiredAccess, AUDIT_EVENT_TYPE, AuditType, UInt32, Flags, OBJECT_TYPE_LIST.Ptr, ObjectTypeList, UInt32, ObjectTypeListLength, GENERIC_MAPPING.Ptr, GenericMapping, BOOL, ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusListMarshal, AccessStatusList, pfGenerateOnCloseMarshal, pfGenerateOnClose, BOOL)
+    result := DllCall("ADVAPI32.dll\AccessCheckByTypeResultListAndAuditAlarmByHandleA", "ptr", SubsystemName, HandleIdMarshal, HandleId, HANDLE, ClientToken, "ptr", ObjectTypeName, ObjectNameMarshal, ObjectName, PSECURITY_DESCRIPTOR, _SecurityDescriptor, PrincipalSelfSidMarshal, PrincipalSelfSid, UInt32, DesiredAccess, AUDIT_EVENT_TYPE, AuditType, UInt32, Flags, ObjectTypeListMarshal, ObjectTypeList, UInt32, ObjectTypeListLength, GENERIC_MAPPING.Ptr, GenericMapping, BOOL, ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusListMarshal, AccessStatusList, pfGenerateOnCloseMarshal, pfGenerateOnClose, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4974,12 +5079,14 @@ export ObjectOpenAuditAlarmA(SubsystemName, HandleId, ObjectTypeName, ObjectName
     ObjectTypeName := ObjectTypeName is String ? StrPtr(ObjectTypeName) : ObjectTypeName
     ObjectName := ObjectName is String ? StrPtr(ObjectName) : ObjectName
 
-    HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
-    GenerateOnCloseMarshal := GenerateOnClose is VarRef ? "int*" : "ptr"
+    HandleIdMarshal := HandleId is VarRef ? "ptr" : IntPtr
+    ObjectNameMarshal := ObjectName == 0 ? IntPtr : PSTR
+    PrivilegesMarshal := Privileges == 0 ? IntPtr : PRIVILEGE_SET.Ptr
+    GenerateOnCloseMarshal := GenerateOnClose is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\ObjectOpenAuditAlarmA", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, PSECURITY_DESCRIPTOR, pSecurityDescriptor, HANDLE, ClientToken, UInt32, DesiredAccess, UInt32, GrantedAccess, PRIVILEGE_SET.Ptr, Privileges, BOOL, ObjectCreation, BOOL, AccessGranted, GenerateOnCloseMarshal, GenerateOnClose, BOOL)
+    result := DllCall("ADVAPI32.dll\ObjectOpenAuditAlarmA", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, ObjectNameMarshal, ObjectName, PSECURITY_DESCRIPTOR, pSecurityDescriptor, HANDLE, ClientToken, UInt32, DesiredAccess, UInt32, GrantedAccess, PrivilegesMarshal, Privileges, BOOL, ObjectCreation, BOOL, AccessGranted, GenerateOnCloseMarshal, GenerateOnClose, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5013,7 +5120,7 @@ export ObjectOpenAuditAlarmA(SubsystemName, HandleId, ObjectTypeName, ObjectName
 export ObjectPrivilegeAuditAlarmA(SubsystemName, HandleId, ClientToken, DesiredAccess, Privileges, AccessGranted) {
     SubsystemName := SubsystemName is String ? StrPtr(SubsystemName) : SubsystemName
 
-    HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
+    HandleIdMarshal := HandleId is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -5043,7 +5150,7 @@ export ObjectPrivilegeAuditAlarmA(SubsystemName, HandleId, ClientToken, DesiredA
 export ObjectCloseAuditAlarmA(SubsystemName, HandleId, GenerateOnClose) {
     SubsystemName := SubsystemName is String ? StrPtr(SubsystemName) : SubsystemName
 
-    HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
+    HandleIdMarshal := HandleId is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -5076,7 +5183,7 @@ export ObjectCloseAuditAlarmA(SubsystemName, HandleId, GenerateOnClose) {
 export ObjectDeleteAuditAlarmA(SubsystemName, HandleId, GenerateOnClose) {
     SubsystemName := SubsystemName is String ? StrPtr(SubsystemName) : SubsystemName
 
-    HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
+    HandleIdMarshal := HandleId is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -5165,7 +5272,7 @@ export PrivilegedServiceAuditAlarmA(SubsystemName, ServiceName, ClientToken, Pri
 export AddConditionalAce(pAcl, dwAceRevision, AceFlags, AceType, AccessMask, _pSid, ConditionStr, ReturnLength) {
     ConditionStr := ConditionStr is String ? StrPtr(ConditionStr) : ConditionStr
 
-    ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
+    ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -5235,11 +5342,12 @@ export SetFileSecurityA(lpFileName, SecurityInformation, pSecurityDescriptor) {
 export GetFileSecurityA(lpFileName, RequestedInformation, pSecurityDescriptor, nLength, lpnLengthNeeded) {
     lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-    lpnLengthNeededMarshal := lpnLengthNeeded is VarRef ? "uint*" : "ptr"
+    pSecurityDescriptorMarshal := pSecurityDescriptor == 0 ? IntPtr : IntPtr
+    lpnLengthNeededMarshal := lpnLengthNeeded is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\GetFileSecurityA", "ptr", lpFileName, UInt32, RequestedInformation, IntPtr, pSecurityDescriptor, UInt32, nLength, lpnLengthNeededMarshal, lpnLengthNeeded, BOOL)
+    result := DllCall("ADVAPI32.dll\GetFileSecurityA", "ptr", lpFileName, UInt32, RequestedInformation, pSecurityDescriptorMarshal, pSecurityDescriptor, UInt32, nLength, lpnLengthNeededMarshal, lpnLengthNeeded, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5283,13 +5391,16 @@ export LookupAccountSidA(lpSystemName, _Sid, Name, cchName, ReferencedDomainName
     Name := Name is String ? StrPtr(Name) : Name
     ReferencedDomainName := ReferencedDomainName is String ? StrPtr(ReferencedDomainName) : ReferencedDomainName
 
-    cchNameMarshal := cchName is VarRef ? "uint*" : "ptr"
-    cchReferencedDomainNameMarshal := cchReferencedDomainName is VarRef ? "uint*" : "ptr"
-    peUseMarshal := peUse is VarRef ? "int*" : "ptr"
+    lpSystemNameMarshal := lpSystemName == 0 ? IntPtr : PSTR
+    NameMarshal := Name == 0 ? IntPtr : PSTR
+    cchNameMarshal := cchName is VarRef ? "uint*" : IntPtr
+    ReferencedDomainNameMarshal := ReferencedDomainName == 0 ? IntPtr : PSTR
+    cchReferencedDomainNameMarshal := cchReferencedDomainName is VarRef ? "uint*" : IntPtr
+    peUseMarshal := peUse is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\LookupAccountSidA", "ptr", lpSystemName, PSID, _Sid, "ptr", Name, cchNameMarshal, cchName, "ptr", ReferencedDomainName, cchReferencedDomainNameMarshal, cchReferencedDomainName, peUseMarshal, peUse, BOOL)
+    result := DllCall("ADVAPI32.dll\LookupAccountSidA", lpSystemNameMarshal, lpSystemName, PSID, _Sid, NameMarshal, Name, cchNameMarshal, cchName, ReferencedDomainNameMarshal, ReferencedDomainName, cchReferencedDomainNameMarshal, cchReferencedDomainName, peUseMarshal, peUse, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5333,13 +5444,16 @@ export LookupAccountSidW(lpSystemName, _Sid, Name, cchName, ReferencedDomainName
     Name := Name is String ? StrPtr(Name) : Name
     ReferencedDomainName := ReferencedDomainName is String ? StrPtr(ReferencedDomainName) : ReferencedDomainName
 
-    cchNameMarshal := cchName is VarRef ? "uint*" : "ptr"
-    cchReferencedDomainNameMarshal := cchReferencedDomainName is VarRef ? "uint*" : "ptr"
-    peUseMarshal := peUse is VarRef ? "int*" : "ptr"
+    lpSystemNameMarshal := lpSystemName == 0 ? IntPtr : PWSTR
+    NameMarshal := Name == 0 ? IntPtr : PWSTR
+    cchNameMarshal := cchName is VarRef ? "uint*" : IntPtr
+    ReferencedDomainNameMarshal := ReferencedDomainName == 0 ? IntPtr : PWSTR
+    cchReferencedDomainNameMarshal := cchReferencedDomainName is VarRef ? "uint*" : IntPtr
+    peUseMarshal := peUse is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\LookupAccountSidW", "ptr", lpSystemName, PSID, _Sid, "ptr", Name, cchNameMarshal, cchName, "ptr", ReferencedDomainName, cchReferencedDomainNameMarshal, cchReferencedDomainName, peUseMarshal, peUse, BOOL)
+    result := DllCall("ADVAPI32.dll\LookupAccountSidW", lpSystemNameMarshal, lpSystemName, PSID, _Sid, NameMarshal, Name, cchNameMarshal, cchName, ReferencedDomainNameMarshal, ReferencedDomainName, cchReferencedDomainNameMarshal, cchReferencedDomainName, peUseMarshal, peUse, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5385,13 +5499,16 @@ export LookupAccountNameA(lpSystemName, lpAccountName, _Sid, cbSid, ReferencedDo
     lpAccountName := lpAccountName is String ? StrPtr(lpAccountName) : lpAccountName
     ReferencedDomainName := ReferencedDomainName is String ? StrPtr(ReferencedDomainName) : ReferencedDomainName
 
-    cbSidMarshal := cbSid is VarRef ? "uint*" : "ptr"
-    cchReferencedDomainNameMarshal := cchReferencedDomainName is VarRef ? "uint*" : "ptr"
-    peUseMarshal := peUse is VarRef ? "int*" : "ptr"
+    lpSystemNameMarshal := lpSystemName == 0 ? IntPtr : PSTR
+    _SidMarshal := _Sid == 0 ? IntPtr : IntPtr
+    cbSidMarshal := cbSid is VarRef ? "uint*" : IntPtr
+    ReferencedDomainNameMarshal := ReferencedDomainName == 0 ? IntPtr : PSTR
+    cchReferencedDomainNameMarshal := cchReferencedDomainName is VarRef ? "uint*" : IntPtr
+    peUseMarshal := peUse is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\LookupAccountNameA", "ptr", lpSystemName, "ptr", lpAccountName, IntPtr, _Sid, cbSidMarshal, cbSid, "ptr", ReferencedDomainName, cchReferencedDomainNameMarshal, cchReferencedDomainName, peUseMarshal, peUse, BOOL)
+    result := DllCall("ADVAPI32.dll\LookupAccountNameA", lpSystemNameMarshal, lpSystemName, "ptr", lpAccountName, _SidMarshal, _Sid, cbSidMarshal, cbSid, ReferencedDomainNameMarshal, ReferencedDomainName, cchReferencedDomainNameMarshal, cchReferencedDomainName, peUseMarshal, peUse, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5437,13 +5554,16 @@ export LookupAccountNameW(lpSystemName, lpAccountName, _Sid, cbSid, ReferencedDo
     lpAccountName := lpAccountName is String ? StrPtr(lpAccountName) : lpAccountName
     ReferencedDomainName := ReferencedDomainName is String ? StrPtr(ReferencedDomainName) : ReferencedDomainName
 
-    cbSidMarshal := cbSid is VarRef ? "uint*" : "ptr"
-    cchReferencedDomainNameMarshal := cchReferencedDomainName is VarRef ? "uint*" : "ptr"
-    peUseMarshal := peUse is VarRef ? "int*" : "ptr"
+    lpSystemNameMarshal := lpSystemName == 0 ? IntPtr : PWSTR
+    _SidMarshal := _Sid == 0 ? IntPtr : IntPtr
+    cbSidMarshal := cbSid is VarRef ? "uint*" : IntPtr
+    ReferencedDomainNameMarshal := ReferencedDomainName == 0 ? IntPtr : PWSTR
+    cchReferencedDomainNameMarshal := cchReferencedDomainName is VarRef ? "uint*" : IntPtr
+    peUseMarshal := peUse is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\LookupAccountNameW", "ptr", lpSystemName, "ptr", lpAccountName, IntPtr, _Sid, cbSidMarshal, cbSid, "ptr", ReferencedDomainName, cchReferencedDomainNameMarshal, cchReferencedDomainName, peUseMarshal, peUse, BOOL)
+    result := DllCall("ADVAPI32.dll\LookupAccountNameW", lpSystemNameMarshal, lpSystemName, "ptr", lpAccountName, _SidMarshal, _Sid, cbSidMarshal, cbSid, ReferencedDomainNameMarshal, ReferencedDomainName, cchReferencedDomainNameMarshal, cchReferencedDomainName, peUseMarshal, peUse, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5470,9 +5590,11 @@ export LookupPrivilegeValueA(lpSystemName, lpName, lpLuid) {
     lpSystemName := lpSystemName is String ? StrPtr(lpSystemName) : lpSystemName
     lpName := lpName is String ? StrPtr(lpName) : lpName
 
+    lpSystemNameMarshal := lpSystemName == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\LookupPrivilegeValueA", "ptr", lpSystemName, "ptr", lpName, LUID.Ptr, lpLuid, BOOL)
+    result := DllCall("ADVAPI32.dll\LookupPrivilegeValueA", lpSystemNameMarshal, lpSystemName, "ptr", lpName, LUID.Ptr, lpLuid, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5499,9 +5621,11 @@ export LookupPrivilegeValueW(lpSystemName, lpName, lpLuid) {
     lpSystemName := lpSystemName is String ? StrPtr(lpSystemName) : lpSystemName
     lpName := lpName is String ? StrPtr(lpName) : lpName
 
+    lpSystemNameMarshal := lpSystemName == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\LookupPrivilegeValueW", "ptr", lpSystemName, "ptr", lpName, LUID.Ptr, lpLuid, BOOL)
+    result := DllCall("ADVAPI32.dll\LookupPrivilegeValueW", lpSystemNameMarshal, lpSystemName, "ptr", lpName, LUID.Ptr, lpLuid, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5536,11 +5660,13 @@ export LookupPrivilegeNameA(lpSystemName, lpLuid, lpName, cchName) {
     lpSystemName := lpSystemName is String ? StrPtr(lpSystemName) : lpSystemName
     lpName := lpName is String ? StrPtr(lpName) : lpName
 
-    cchNameMarshal := cchName is VarRef ? "uint*" : "ptr"
+    lpSystemNameMarshal := lpSystemName == 0 ? IntPtr : PSTR
+    lpNameMarshal := lpName == 0 ? IntPtr : PSTR
+    cchNameMarshal := cchName is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\LookupPrivilegeNameA", "ptr", lpSystemName, LUID.Ptr, lpLuid, "ptr", lpName, cchNameMarshal, cchName, BOOL)
+    result := DllCall("ADVAPI32.dll\LookupPrivilegeNameA", lpSystemNameMarshal, lpSystemName, LUID.Ptr, lpLuid, lpNameMarshal, lpName, cchNameMarshal, cchName, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5575,11 +5701,13 @@ export LookupPrivilegeNameW(lpSystemName, lpLuid, lpName, cchName) {
     lpSystemName := lpSystemName is String ? StrPtr(lpSystemName) : lpSystemName
     lpName := lpName is String ? StrPtr(lpName) : lpName
 
-    cchNameMarshal := cchName is VarRef ? "uint*" : "ptr"
+    lpSystemNameMarshal := lpSystemName == 0 ? IntPtr : PWSTR
+    lpNameMarshal := lpName == 0 ? IntPtr : PWSTR
+    cchNameMarshal := cchName is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\LookupPrivilegeNameW", "ptr", lpSystemName, LUID.Ptr, lpLuid, "ptr", lpName, cchNameMarshal, cchName, BOOL)
+    result := DllCall("ADVAPI32.dll\LookupPrivilegeNameW", lpSystemNameMarshal, lpSystemName, LUID.Ptr, lpLuid, lpNameMarshal, lpName, cchNameMarshal, cchName, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5616,12 +5744,14 @@ export LookupPrivilegeDisplayNameA(lpSystemName, lpName, lpDisplayName, cchDispl
     lpName := lpName is String ? StrPtr(lpName) : lpName
     lpDisplayName := lpDisplayName is String ? StrPtr(lpDisplayName) : lpDisplayName
 
-    cchDisplayNameMarshal := cchDisplayName is VarRef ? "uint*" : "ptr"
-    lpLanguageIdMarshal := lpLanguageId is VarRef ? "uint*" : "ptr"
+    lpSystemNameMarshal := lpSystemName == 0 ? IntPtr : PSTR
+    lpDisplayNameMarshal := lpDisplayName == 0 ? IntPtr : PSTR
+    cchDisplayNameMarshal := cchDisplayName is VarRef ? "uint*" : IntPtr
+    lpLanguageIdMarshal := lpLanguageId is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\LookupPrivilegeDisplayNameA", "ptr", lpSystemName, "ptr", lpName, "ptr", lpDisplayName, cchDisplayNameMarshal, cchDisplayName, lpLanguageIdMarshal, lpLanguageId, BOOL)
+    result := DllCall("ADVAPI32.dll\LookupPrivilegeDisplayNameA", lpSystemNameMarshal, lpSystemName, "ptr", lpName, lpDisplayNameMarshal, lpDisplayName, cchDisplayNameMarshal, cchDisplayName, lpLanguageIdMarshal, lpLanguageId, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5658,12 +5788,14 @@ export LookupPrivilegeDisplayNameW(lpSystemName, lpName, lpDisplayName, cchDispl
     lpName := lpName is String ? StrPtr(lpName) : lpName
     lpDisplayName := lpDisplayName is String ? StrPtr(lpDisplayName) : lpDisplayName
 
-    cchDisplayNameMarshal := cchDisplayName is VarRef ? "uint*" : "ptr"
-    lpLanguageIdMarshal := lpLanguageId is VarRef ? "uint*" : "ptr"
+    lpSystemNameMarshal := lpSystemName == 0 ? IntPtr : PWSTR
+    lpDisplayNameMarshal := lpDisplayName == 0 ? IntPtr : PWSTR
+    cchDisplayNameMarshal := cchDisplayName is VarRef ? "uint*" : IntPtr
+    lpLanguageIdMarshal := lpLanguageId is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\LookupPrivilegeDisplayNameW", "ptr", lpSystemName, "ptr", lpName, "ptr", lpDisplayName, cchDisplayNameMarshal, cchDisplayName, lpLanguageIdMarshal, lpLanguageId, BOOL)
+    result := DllCall("ADVAPI32.dll\LookupPrivilegeDisplayNameW", lpSystemNameMarshal, lpSystemName, "ptr", lpName, lpDisplayNameMarshal, lpDisplayName, cchDisplayNameMarshal, cchDisplayName, lpLanguageIdMarshal, lpLanguageId, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5720,9 +5852,12 @@ export LogonUserA(lpszUsername, lpszDomain, lpszPassword, dwLogonType, dwLogonPr
     lpszDomain := lpszDomain is String ? StrPtr(lpszDomain) : lpszDomain
     lpszPassword := lpszPassword is String ? StrPtr(lpszPassword) : lpszPassword
 
+    lpszDomainMarshal := lpszDomain == 0 ? IntPtr : PSTR
+    lpszPasswordMarshal := lpszPassword == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\LogonUserA", "ptr", lpszUsername, "ptr", lpszDomain, "ptr", lpszPassword, LOGON32_LOGON, dwLogonType, LOGON32_PROVIDER, dwLogonProvider, HANDLE.Ptr, phToken, BOOL)
+    result := DllCall("ADVAPI32.dll\LogonUserA", "ptr", lpszUsername, lpszDomainMarshal, lpszDomain, lpszPasswordMarshal, lpszPassword, LOGON32_LOGON, dwLogonType, LOGON32_PROVIDER, dwLogonProvider, HANDLE.Ptr, phToken, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5779,9 +5914,12 @@ export LogonUserW(lpszUsername, lpszDomain, lpszPassword, dwLogonType, dwLogonPr
     lpszDomain := lpszDomain is String ? StrPtr(lpszDomain) : lpszDomain
     lpszPassword := lpszPassword is String ? StrPtr(lpszPassword) : lpszPassword
 
+    lpszDomainMarshal := lpszDomain == 0 ? IntPtr : PWSTR
+    lpszPasswordMarshal := lpszPassword == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\LogonUserW", "ptr", lpszUsername, "ptr", lpszDomain, "ptr", lpszPassword, LOGON32_LOGON, dwLogonType, LOGON32_PROVIDER, dwLogonProvider, HANDLE.Ptr, phToken, BOOL)
+    result := DllCall("ADVAPI32.dll\LogonUserW", "ptr", lpszUsername, lpszDomainMarshal, lpszDomain, lpszPasswordMarshal, lpszPassword, LOGON32_LOGON, dwLogonType, LOGON32_PROVIDER, dwLogonProvider, HANDLE.Ptr, phToken, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5851,13 +5989,20 @@ export LogonUserExA(lpszUsername, lpszDomain, lpszPassword, dwLogonType, dwLogon
     lpszDomain := lpszDomain is String ? StrPtr(lpszDomain) : lpszDomain
     lpszPassword := lpszPassword is String ? StrPtr(lpszPassword) : lpszPassword
 
-    ppLogonSidMarshal := ppLogonSid is VarRef ? "ptr*" : "ptr"
-    ppProfileBufferMarshal := ppProfileBuffer is VarRef ? "ptr*" : "ptr"
-    pdwProfileLengthMarshal := pdwProfileLength is VarRef ? "uint*" : "ptr"
+    lpszDomainMarshal := lpszDomain == 0 ? IntPtr : PSTR
+    lpszPasswordMarshal := lpszPassword == 0 ? IntPtr : PSTR
+    phTokenMarshal := phToken == 0 ? IntPtr : HANDLE.Ptr
+    ppLogonSidMarshal := ppLogonSid is VarRef ? "ptr*" : IntPtr
+    ppLogonSidMarshal := ppLogonSid == 0 ? IntPtr : PSID.Ptr
+    ppProfileBufferMarshal := ppProfileBuffer is VarRef ? "ptr*" : IntPtr
+    ppProfileBufferMarshal := ppProfileBuffer == 0 ? IntPtr : "ptr*"
+    pdwProfileLengthMarshal := pdwProfileLength is VarRef ? "uint*" : IntPtr
+    pdwProfileLengthMarshal := pdwProfileLength == 0 ? IntPtr : "uint*"
+    pQuotaLimitsMarshal := pQuotaLimits == 0 ? IntPtr : QUOTA_LIMITS.Ptr
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\LogonUserExA", "ptr", lpszUsername, "ptr", lpszDomain, "ptr", lpszPassword, LOGON32_LOGON, dwLogonType, LOGON32_PROVIDER, dwLogonProvider, HANDLE.Ptr, phToken, ppLogonSidMarshal, ppLogonSid, ppProfileBufferMarshal, ppProfileBuffer, pdwProfileLengthMarshal, pdwProfileLength, QUOTA_LIMITS.Ptr, pQuotaLimits, BOOL)
+    result := DllCall("ADVAPI32.dll\LogonUserExA", "ptr", lpszUsername, lpszDomainMarshal, lpszDomain, lpszPasswordMarshal, lpszPassword, LOGON32_LOGON, dwLogonType, LOGON32_PROVIDER, dwLogonProvider, phTokenMarshal, phToken, ppLogonSidMarshal, ppLogonSid, ppProfileBufferMarshal, ppProfileBuffer, pdwProfileLengthMarshal, pdwProfileLength, pQuotaLimitsMarshal, pQuotaLimits, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5927,13 +6072,20 @@ export LogonUserExW(lpszUsername, lpszDomain, lpszPassword, dwLogonType, dwLogon
     lpszDomain := lpszDomain is String ? StrPtr(lpszDomain) : lpszDomain
     lpszPassword := lpszPassword is String ? StrPtr(lpszPassword) : lpszPassword
 
-    ppLogonSidMarshal := ppLogonSid is VarRef ? "ptr*" : "ptr"
-    ppProfileBufferMarshal := ppProfileBuffer is VarRef ? "ptr*" : "ptr"
-    pdwProfileLengthMarshal := pdwProfileLength is VarRef ? "uint*" : "ptr"
+    lpszDomainMarshal := lpszDomain == 0 ? IntPtr : PWSTR
+    lpszPasswordMarshal := lpszPassword == 0 ? IntPtr : PWSTR
+    phTokenMarshal := phToken == 0 ? IntPtr : HANDLE.Ptr
+    ppLogonSidMarshal := ppLogonSid is VarRef ? "ptr*" : IntPtr
+    ppLogonSidMarshal := ppLogonSid == 0 ? IntPtr : PSID.Ptr
+    ppProfileBufferMarshal := ppProfileBuffer is VarRef ? "ptr*" : IntPtr
+    ppProfileBufferMarshal := ppProfileBuffer == 0 ? IntPtr : "ptr*"
+    pdwProfileLengthMarshal := pdwProfileLength is VarRef ? "uint*" : IntPtr
+    pdwProfileLengthMarshal := pdwProfileLength == 0 ? IntPtr : "uint*"
+    pQuotaLimitsMarshal := pQuotaLimits == 0 ? IntPtr : QUOTA_LIMITS.Ptr
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\LogonUserExW", "ptr", lpszUsername, "ptr", lpszDomain, "ptr", lpszPassword, LOGON32_LOGON, dwLogonType, LOGON32_PROVIDER, dwLogonProvider, HANDLE.Ptr, phToken, ppLogonSidMarshal, ppLogonSid, ppProfileBufferMarshal, ppProfileBuffer, pdwProfileLengthMarshal, pdwProfileLength, QUOTA_LIMITS.Ptr, pQuotaLimits, BOOL)
+    result := DllCall("ADVAPI32.dll\LogonUserExW", "ptr", lpszUsername, lpszDomainMarshal, lpszDomain, lpszPasswordMarshal, lpszPassword, LOGON32_LOGON, dwLogonType, LOGON32_PROVIDER, dwLogonProvider, phTokenMarshal, phToken, ppLogonSidMarshal, ppLogonSid, ppProfileBufferMarshal, ppProfileBuffer, pdwProfileLengthMarshal, pdwProfileLength, pQuotaLimitsMarshal, pQuotaLimits, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }

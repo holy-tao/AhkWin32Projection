@@ -21,7 +21,6 @@ export default struct PDD_PALCB_SETENTRIES {
     }
 
     /**
-     * 
      * @param {Pointer<DD_SETENTRIESDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_setentriesdata">DD_SETENTRIESDATA</a> structure that contains the information required to set the palette's entries.
      * @returns {Integer} <i>DdSetEntries</i> returns one of the following callback codes:
      */

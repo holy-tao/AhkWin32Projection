@@ -39,7 +39,6 @@ export default struct IRTCUserSearch extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRTCUserSearchQuery} 
      */
     CreateQuery() {
@@ -48,7 +47,6 @@ export default struct IRTCUserSearch extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRTCUserSearchQuery} pQuery 
      * @param {IRTCProfile} pProfile 
      * @param {Pointer} lCookie 
@@ -68,8 +66,8 @@ export default struct IRTCUserSearch extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateQuery := CallbackCreate(GetMethod(implObj, "CreateQuery"), flags, 2)
-        this.vtbl.ExecuteSearch := CallbackCreate(GetMethod(implObj, "ExecuteSearch"), flags, 4)
+        this.vtbl.CreateQuery := CallbackCreate(ObjBindMethod(implObj, "CreateQuery"), flags, 2)
+        this.vtbl.ExecuteSearch := CallbackCreate(ObjBindMethod(implObj, "ExecuteSearch"), flags, 4)
     }
 
     Dispose() {

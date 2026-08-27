@@ -60,7 +60,7 @@ export default struct IMFExtendedCameraController extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetExtendedCameraControl := CallbackCreate(GetMethod(implObj, "GetExtendedCameraControl"), flags, 4)
+        this.vtbl.GetExtendedCameraControl := CallbackCreate(ObjBindMethod(implObj, "GetExtendedCameraControl"), flags, 4)
     }
 
     Dispose() {

@@ -39,7 +39,6 @@ export default struct ICLRStrongName3 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} wszFilePath 
      * @param {Pointer<Pointer<Integer>>} ppbDigestBlob 
      * @param {Pointer<Integer>} pcbDigestBlob 
@@ -49,15 +48,14 @@ export default struct ICLRStrongName3 extends IUnknown {
     StrongNameDigestGenerate(wszFilePath, ppbDigestBlob, pcbDigestBlob, dwFlags) {
         wszFilePath := wszFilePath is String ? StrPtr(wszFilePath) : wszFilePath
 
-        ppbDigestBlobMarshal := ppbDigestBlob is VarRef ? "ptr*" : "ptr"
-        pcbDigestBlobMarshal := pcbDigestBlob is VarRef ? "uint*" : "ptr"
+        ppbDigestBlobMarshal := ppbDigestBlob is VarRef ? "ptr*" : IntPtr
+        pcbDigestBlobMarshal := pcbDigestBlob is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, "ptr", wszFilePath, ppbDigestBlobMarshal, ppbDigestBlob, pcbDigestBlobMarshal, pcbDigestBlob, UInt32, dwFlags, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} wszKeyContainer 
      * @param {Pointer<Integer>} pbKeyBlob 
      * @param {Integer} cbKeyBlob 
@@ -72,17 +70,16 @@ export default struct ICLRStrongName3 extends IUnknown {
     StrongNameDigestSign(wszKeyContainer, pbKeyBlob, cbKeyBlob, pbDigestBlob, cbDigestBlob, hashAlgId, ppbSignatureBlob, pcbSignatureBlob, dwFlags) {
         wszKeyContainer := wszKeyContainer is String ? StrPtr(wszKeyContainer) : wszKeyContainer
 
-        pbKeyBlobMarshal := pbKeyBlob is VarRef ? "char*" : "ptr"
-        pbDigestBlobMarshal := pbDigestBlob is VarRef ? "char*" : "ptr"
-        ppbSignatureBlobMarshal := ppbSignatureBlob is VarRef ? "ptr*" : "ptr"
-        pcbSignatureBlobMarshal := pcbSignatureBlob is VarRef ? "uint*" : "ptr"
+        pbKeyBlobMarshal := pbKeyBlob is VarRef ? "char*" : IntPtr
+        pbDigestBlobMarshal := pbDigestBlob is VarRef ? "char*" : IntPtr
+        ppbSignatureBlobMarshal := ppbSignatureBlob is VarRef ? "ptr*" : IntPtr
+        pcbSignatureBlobMarshal := pcbSignatureBlob is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, "ptr", wszKeyContainer, pbKeyBlobMarshal, pbKeyBlob, UInt32, cbKeyBlob, pbDigestBlobMarshal, pbDigestBlob, UInt32, cbDigestBlob, UInt32, hashAlgId, ppbSignatureBlobMarshal, ppbSignatureBlob, pcbSignatureBlobMarshal, pcbSignatureBlob, UInt32, dwFlags, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} wszFilePath 
      * @param {Pointer<Integer>} pbSignatureBlob 
      * @param {Integer} cbSignatureBlob 
@@ -91,7 +88,7 @@ export default struct ICLRStrongName3 extends IUnknown {
     StrongNameDigestEmbed(wszFilePath, pbSignatureBlob, cbSignatureBlob) {
         wszFilePath := wszFilePath is String ? StrPtr(wszFilePath) : wszFilePath
 
-        pbSignatureBlobMarshal := pbSignatureBlob is VarRef ? "char*" : "ptr"
+        pbSignatureBlobMarshal := pbSignatureBlob is VarRef ? "char*" : IntPtr
 
         result := ComCall(5, this, "ptr", wszFilePath, pbSignatureBlobMarshal, pbSignatureBlob, UInt32, cbSignatureBlob, "HRESULT")
         return result
@@ -106,9 +103,9 @@ export default struct ICLRStrongName3 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StrongNameDigestGenerate := CallbackCreate(GetMethod(implObj, "StrongNameDigestGenerate"), flags, 5)
-        this.vtbl.StrongNameDigestSign := CallbackCreate(GetMethod(implObj, "StrongNameDigestSign"), flags, 10)
-        this.vtbl.StrongNameDigestEmbed := CallbackCreate(GetMethod(implObj, "StrongNameDigestEmbed"), flags, 4)
+        this.vtbl.StrongNameDigestGenerate := CallbackCreate(ObjBindMethod(implObj, "StrongNameDigestGenerate"), flags, 5)
+        this.vtbl.StrongNameDigestSign := CallbackCreate(ObjBindMethod(implObj, "StrongNameDigestSign"), flags, 10)
+        this.vtbl.StrongNameDigestEmbed := CallbackCreate(ObjBindMethod(implObj, "StrongNameDigestEmbed"), flags, 4)
     }
 
     Dispose() {

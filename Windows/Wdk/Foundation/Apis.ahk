@@ -53,9 +53,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-ntqueryobject
  */
 export NtQueryObject(_Handle, ObjectInformationClass, ObjectInformation, ObjectInformationLength, ReturnLength) {
-    ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
+    _HandleMarshal := _Handle == 0 ? IntPtr : HANDLE
+    ObjectInformationMarshal := ObjectInformation == 0 ? IntPtr : IntPtr
+    ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : IntPtr
+    ReturnLengthMarshal := ReturnLength == 0 ? IntPtr : "uint*"
 
-    result := DllCall("ntdll.dll\NtQueryObject", HANDLE, _Handle, OBJECT_INFORMATION_CLASS, ObjectInformationClass, IntPtr, ObjectInformation, UInt32, ObjectInformationLength, ReturnLengthMarshal, ReturnLength, NTSTATUS)
+    result := DllCall("ntdll.dll\NtQueryObject", _HandleMarshal, _Handle, OBJECT_INFORMATION_CLASS, ObjectInformationClass, ObjectInformationMarshal, ObjectInformation, UInt32, ObjectInformationLength, ReturnLengthMarshal, ReturnLength, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }

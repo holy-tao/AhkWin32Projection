@@ -19,7 +19,6 @@ export default struct PIOMMU_DOMAIN_CONFIGURE {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

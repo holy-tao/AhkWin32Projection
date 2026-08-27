@@ -168,13 +168,13 @@ export default struct IApplicationDesignModeSettings2 extends IApplicationDesign
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetNativeDisplayOrientation := CallbackCreate(GetMethod(implObj, "SetNativeDisplayOrientation"), flags, 2)
-        this.vtbl.SetApplicationViewOrientation := CallbackCreate(GetMethod(implObj, "SetApplicationViewOrientation"), flags, 2)
-        this.vtbl.SetAdjacentDisplayEdges := CallbackCreate(GetMethod(implObj, "SetAdjacentDisplayEdges"), flags, 2)
-        this.vtbl.SetIsOnLockScreen := CallbackCreate(GetMethod(implObj, "SetIsOnLockScreen"), flags, 2)
-        this.vtbl.SetApplicationViewMinWidth := CallbackCreate(GetMethod(implObj, "SetApplicationViewMinWidth"), flags, 2)
-        this.vtbl.GetApplicationSizeBounds := CallbackCreate(GetMethod(implObj, "GetApplicationSizeBounds"), flags, 3)
-        this.vtbl.GetApplicationViewOrientation := CallbackCreate(GetMethod(implObj, "GetApplicationViewOrientation"), flags, 3)
+        this.vtbl.SetNativeDisplayOrientation := CallbackCreate(ObjBindMethod(implObj, "SetNativeDisplayOrientation"), flags, 2)
+        this.vtbl.SetApplicationViewOrientation := CallbackCreate(ObjBindMethod(implObj, "SetApplicationViewOrientation"), flags, 2)
+        this.vtbl.SetAdjacentDisplayEdges := CallbackCreate(ObjBindMethod(implObj, "SetAdjacentDisplayEdges"), flags, 2)
+        this.vtbl.SetIsOnLockScreen := CallbackCreate(ObjBindMethod(implObj, "SetIsOnLockScreen"), flags, 2)
+        this.vtbl.SetApplicationViewMinWidth := CallbackCreate(ObjBindMethod(implObj, "SetApplicationViewMinWidth"), flags, 2)
+        this.vtbl.GetApplicationSizeBounds := CallbackCreate(ObjBindMethod(implObj, "GetApplicationSizeBounds"), flags, 3)
+        this.vtbl.GetApplicationViewOrientation := CallbackCreate(ObjBindMethod(implObj, "GetApplicationViewOrientation"), flags, 3)
     }
 
     Dispose() {

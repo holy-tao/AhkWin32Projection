@@ -18,7 +18,6 @@ export default struct PPCI_READ_WRITE_CONFIG {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Call() {

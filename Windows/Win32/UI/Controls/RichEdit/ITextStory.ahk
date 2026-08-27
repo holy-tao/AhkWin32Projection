@@ -238,7 +238,9 @@ export default struct ITextStory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstory-setformattedtext
      */
     SetFormattedText(pUnk) {
-        result := ComCall(12, this, "ptr", pUnk, "HRESULT")
+        pUnkMarshal := pUnk == 0 ? IntPtr : "ptr"
+
+        result := ComCall(12, this, pUnkMarshal, pUnk, "HRESULT")
         return result
     }
 
@@ -334,18 +336,18 @@ export default struct ITextStory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetActive := CallbackCreate(GetMethod(implObj, "GetActive"), flags, 2)
-        this.vtbl.SetActive := CallbackCreate(GetMethod(implObj, "SetActive"), flags, 2)
-        this.vtbl.GetDisplay := CallbackCreate(GetMethod(implObj, "GetDisplay"), flags, 2)
-        this.vtbl.GetIndex := CallbackCreate(GetMethod(implObj, "GetIndex"), flags, 2)
-        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
-        this.vtbl.SetType := CallbackCreate(GetMethod(implObj, "SetType"), flags, 2)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
-        this.vtbl.GetRange := CallbackCreate(GetMethod(implObj, "GetRange"), flags, 4)
-        this.vtbl.GetText := CallbackCreate(GetMethod(implObj, "GetText"), flags, 3)
-        this.vtbl.SetFormattedText := CallbackCreate(GetMethod(implObj, "SetFormattedText"), flags, 2)
-        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 3)
-        this.vtbl.SetText := CallbackCreate(GetMethod(implObj, "SetText"), flags, 3)
+        this.vtbl.GetActive := CallbackCreate(ObjBindMethod(implObj, "GetActive"), flags, 2)
+        this.vtbl.SetActive := CallbackCreate(ObjBindMethod(implObj, "SetActive"), flags, 2)
+        this.vtbl.GetDisplay := CallbackCreate(ObjBindMethod(implObj, "GetDisplay"), flags, 2)
+        this.vtbl.GetIndex := CallbackCreate(ObjBindMethod(implObj, "GetIndex"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(ObjBindMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.SetType := CallbackCreate(ObjBindMethod(implObj, "SetType"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.GetRange := CallbackCreate(ObjBindMethod(implObj, "GetRange"), flags, 4)
+        this.vtbl.GetText := CallbackCreate(ObjBindMethod(implObj, "GetText"), flags, 3)
+        this.vtbl.SetFormattedText := CallbackCreate(ObjBindMethod(implObj, "SetFormattedText"), flags, 2)
+        this.vtbl.SetProperty := CallbackCreate(ObjBindMethod(implObj, "SetProperty"), flags, 3)
+        this.vtbl.SetText := CallbackCreate(ObjBindMethod(implObj, "SetText"), flags, 3)
     }
 
     Dispose() {

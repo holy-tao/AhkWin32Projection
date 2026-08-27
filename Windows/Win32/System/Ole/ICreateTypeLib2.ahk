@@ -268,10 +268,10 @@ export default struct ICreateTypeLib2 extends ICreateTypeLib {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DeleteTypeInfo := CallbackCreate(GetMethod(implObj, "DeleteTypeInfo"), flags, 2)
-        this.vtbl.SetCustData := CallbackCreate(GetMethod(implObj, "SetCustData"), flags, 3)
-        this.vtbl.SetHelpStringContext := CallbackCreate(GetMethod(implObj, "SetHelpStringContext"), flags, 2)
-        this.vtbl.SetHelpStringDll := CallbackCreate(GetMethod(implObj, "SetHelpStringDll"), flags, 2)
+        this.vtbl.DeleteTypeInfo := CallbackCreate(ObjBindMethod(implObj, "DeleteTypeInfo"), flags, 2)
+        this.vtbl.SetCustData := CallbackCreate(ObjBindMethod(implObj, "SetCustData"), flags, 3)
+        this.vtbl.SetHelpStringContext := CallbackCreate(ObjBindMethod(implObj, "SetHelpStringContext"), flags, 2)
+        this.vtbl.SetHelpStringDll := CallbackCreate(ObjBindMethod(implObj, "SetHelpStringDll"), flags, 2)
     }
 
     Dispose() {

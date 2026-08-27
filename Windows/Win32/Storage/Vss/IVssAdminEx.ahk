@@ -38,7 +38,6 @@ export default struct IVssAdminEx extends IVssAdmin {
     }
 
     /**
-     * 
      * @param {Guid} pProviderId 
      * @returns {Integer} 
      */
@@ -48,7 +47,6 @@ export default struct IVssAdminEx extends IVssAdmin {
     }
 
     /**
-     * 
      * @param {Guid} ProviderId 
      * @returns {Integer} 
      */
@@ -58,7 +56,6 @@ export default struct IVssAdminEx extends IVssAdmin {
     }
 
     /**
-     * 
      * @param {Guid} ProviderId 
      * @param {Integer} lContext 
      * @returns {HRESULT} 
@@ -77,9 +74,9 @@ export default struct IVssAdminEx extends IVssAdmin {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProviderCapability := CallbackCreate(GetMethod(implObj, "GetProviderCapability"), flags, 3)
-        this.vtbl.GetProviderContext := CallbackCreate(GetMethod(implObj, "GetProviderContext"), flags, 3)
-        this.vtbl.SetProviderContext := CallbackCreate(GetMethod(implObj, "SetProviderContext"), flags, 3)
+        this.vtbl.GetProviderCapability := CallbackCreate(ObjBindMethod(implObj, "GetProviderCapability"), flags, 3)
+        this.vtbl.GetProviderContext := CallbackCreate(ObjBindMethod(implObj, "GetProviderContext"), flags, 3)
+        this.vtbl.SetProviderContext := CallbackCreate(ObjBindMethod(implObj, "SetProviderContext"), flags, 3)
     }
 
     Dispose() {

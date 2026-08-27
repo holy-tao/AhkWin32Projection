@@ -38,7 +38,6 @@ export default struct IFilterTrackingSyncChangeBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwFilterKey 
      * @param {Pointer<SYNC_FILTER_CHANGE>} pFilterChange 
      * @returns {HRESULT} 
@@ -49,7 +48,6 @@ export default struct IFilterTrackingSyncChangeBuilder extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SetAllChangeUnitsPresentFlag() {
@@ -66,8 +64,8 @@ export default struct IFilterTrackingSyncChangeBuilder extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddFilterChange := CallbackCreate(GetMethod(implObj, "AddFilterChange"), flags, 3)
-        this.vtbl.SetAllChangeUnitsPresentFlag := CallbackCreate(GetMethod(implObj, "SetAllChangeUnitsPresentFlag"), flags, 1)
+        this.vtbl.AddFilterChange := CallbackCreate(ObjBindMethod(implObj, "AddFilterChange"), flags, 3)
+        this.vtbl.SetAllChangeUnitsPresentFlag := CallbackCreate(ObjBindMethod(implObj, "SetAllChangeUnitsPresentFlag"), flags, 1)
     }
 
     Dispose() {

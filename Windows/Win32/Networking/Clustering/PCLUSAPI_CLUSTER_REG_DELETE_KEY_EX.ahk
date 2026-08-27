@@ -20,7 +20,6 @@ export default struct PCLUSAPI_CLUSTER_REG_DELETE_KEY_EX {
     }
 
     /**
-     * 
      * @param {HKEY} _hKey 
      * @param {PWSTR} lpSubKey 
      * @param {PWSTR} lpszReason 
@@ -30,7 +29,9 @@ export default struct PCLUSAPI_CLUSTER_REG_DELETE_KEY_EX {
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall(this.value, HKEY, _hKey, "ptr", lpSubKey, "ptr", lpszReason, Int32)
+        lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+        result := DllCall(this.value, HKEY, _hKey, "ptr", lpSubKey, lpszReasonMarshal, lpszReason, Int32)
         return result
     }
 

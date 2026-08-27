@@ -99,7 +99,9 @@ export default struct ISupportFilteredSync extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isupportfilteredsync-addfilter
      */
     AddFilter(pFilter, filteringType) {
-        result := ComCall(3, this, "ptr", pFilter, FILTERING_TYPE, filteringType, "HRESULT")
+        pFilterMarshal := pFilter == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pFilterMarshal, pFilter, FILTERING_TYPE, filteringType, "HRESULT")
         return result
     }
 
@@ -112,7 +114,7 @@ export default struct ISupportFilteredSync extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddFilter := CallbackCreate(GetMethod(implObj, "AddFilter"), flags, 3)
+        this.vtbl.AddFilter := CallbackCreate(ObjBindMethod(implObj, "AddFilter"), flags, 3)
     }
 
     Dispose() {

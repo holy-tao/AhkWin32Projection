@@ -44,7 +44,6 @@ export default struct IImgErrorInfo extends IErrorInfo {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetDeveloperDescription() {
@@ -54,7 +53,6 @@ export default struct IImgErrorInfo extends IErrorInfo {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     GetUserErrorId() {
@@ -64,7 +62,6 @@ export default struct IImgErrorInfo extends IErrorInfo {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetUserParameterCount() {
@@ -73,7 +70,6 @@ export default struct IImgErrorInfo extends IErrorInfo {
     }
 
     /**
-     * 
      * @param {Integer} cParam 
      * @returns {BSTR} 
      */
@@ -84,7 +80,6 @@ export default struct IImgErrorInfo extends IErrorInfo {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetUserFallback() {
@@ -94,7 +89,6 @@ export default struct IImgErrorInfo extends IErrorInfo {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetExceptionId() {
@@ -103,7 +97,6 @@ export default struct IImgErrorInfo extends IErrorInfo {
     }
 
     /**
-     * 
      * @returns {ImgErrorInfo} 
      */
     DetachErrorInfo() {
@@ -121,13 +114,13 @@ export default struct IImgErrorInfo extends IErrorInfo {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDeveloperDescription := CallbackCreate(GetMethod(implObj, "GetDeveloperDescription"), flags, 2)
-        this.vtbl.GetUserErrorId := CallbackCreate(GetMethod(implObj, "GetUserErrorId"), flags, 2)
-        this.vtbl.GetUserParameterCount := CallbackCreate(GetMethod(implObj, "GetUserParameterCount"), flags, 2)
-        this.vtbl.GetUserParameter := CallbackCreate(GetMethod(implObj, "GetUserParameter"), flags, 3)
-        this.vtbl.GetUserFallback := CallbackCreate(GetMethod(implObj, "GetUserFallback"), flags, 2)
-        this.vtbl.GetExceptionId := CallbackCreate(GetMethod(implObj, "GetExceptionId"), flags, 2)
-        this.vtbl.DetachErrorInfo := CallbackCreate(GetMethod(implObj, "DetachErrorInfo"), flags, 2)
+        this.vtbl.GetDeveloperDescription := CallbackCreate(ObjBindMethod(implObj, "GetDeveloperDescription"), flags, 2)
+        this.vtbl.GetUserErrorId := CallbackCreate(ObjBindMethod(implObj, "GetUserErrorId"), flags, 2)
+        this.vtbl.GetUserParameterCount := CallbackCreate(ObjBindMethod(implObj, "GetUserParameterCount"), flags, 2)
+        this.vtbl.GetUserParameter := CallbackCreate(ObjBindMethod(implObj, "GetUserParameter"), flags, 3)
+        this.vtbl.GetUserFallback := CallbackCreate(ObjBindMethod(implObj, "GetUserFallback"), flags, 2)
+        this.vtbl.GetExceptionId := CallbackCreate(ObjBindMethod(implObj, "GetExceptionId"), flags, 2)
+        this.vtbl.DetachErrorInfo := CallbackCreate(ObjBindMethod(implObj, "DetachErrorInfo"), flags, 2)
     }
 
     Dispose() {

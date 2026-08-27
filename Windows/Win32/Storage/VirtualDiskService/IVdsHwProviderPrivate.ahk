@@ -65,7 +65,7 @@ export default struct IVdsHwProviderPrivate extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryIfCreatedLun := CallbackCreate(GetMethod(implObj, "QueryIfCreatedLun"), flags, 4)
+        this.vtbl.QueryIfCreatedLun := CallbackCreate(ObjBindMethod(implObj, "QueryIfCreatedLun"), flags, 4)
     }
 
     Dispose() {

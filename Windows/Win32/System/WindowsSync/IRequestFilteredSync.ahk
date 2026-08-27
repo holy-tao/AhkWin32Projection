@@ -89,7 +89,9 @@ export default struct IRequestFilteredSync extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-irequestfilteredsync-specifyfilter
      */
     SpecifyFilter(pCallback) {
-        result := ComCall(3, this, "ptr", pCallback, "HRESULT")
+        pCallbackMarshal := pCallback == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pCallbackMarshal, pCallback, "HRESULT")
         return result
     }
 
@@ -102,7 +104,7 @@ export default struct IRequestFilteredSync extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SpecifyFilter := CallbackCreate(GetMethod(implObj, "SpecifyFilter"), flags, 2)
+        this.vtbl.SpecifyFilter := CallbackCreate(ObjBindMethod(implObj, "SpecifyFilter"), flags, 2)
     }
 
     Dispose() {

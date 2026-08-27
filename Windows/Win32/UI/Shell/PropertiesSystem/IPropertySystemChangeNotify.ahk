@@ -36,7 +36,6 @@ export default struct IPropertySystemChangeNotify extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SchemaRefreshed() {
@@ -53,7 +52,7 @@ export default struct IPropertySystemChangeNotify extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SchemaRefreshed := CallbackCreate(GetMethod(implObj, "SchemaRefreshed"), flags, 1)
+        this.vtbl.SchemaRefreshed := CallbackCreate(ObjBindMethod(implObj, "SchemaRefreshed"), flags, 1)
     }
 
     Dispose() {

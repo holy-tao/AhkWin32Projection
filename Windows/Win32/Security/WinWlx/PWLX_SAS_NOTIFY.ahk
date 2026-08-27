@@ -21,7 +21,6 @@ export default struct PWLX_SAS_NOTIFY {
     }
 
     /**
-     * 
      * @param {HANDLE} hWlx Specifies the Winlogon handle passed to GINA in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winwlx/nf-winwlx-wlxinitialize">WlxInitialize</a> call.
      * @param {Integer} dwSasType Specifies the type of SAS that occurred. 

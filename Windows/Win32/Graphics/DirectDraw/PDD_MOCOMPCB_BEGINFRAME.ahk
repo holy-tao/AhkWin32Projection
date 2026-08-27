@@ -25,7 +25,6 @@ export default struct PDD_MOCOMPCB_BEGINFRAME {
     }
 
     /**
-     * 
      * @param {Pointer<DD_BEGINMOCOMPFRAMEDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_beginmocompframedata">DD_BEGINMOCOMPFRAMEDATA</a> structure that contains the information needed to start decoding a new frame.
      * @returns {Integer} <b>DdMoCompBeginFrame</b> returns one of the following callback codes:
      */

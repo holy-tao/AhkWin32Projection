@@ -51,7 +51,7 @@ export default struct IESOpenMmiEvent extends IESEvent {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesopenmmievent-getdialognumber
      */
     GetDialogNumber(pDialogRequest) {
-        pDialogRequestMarshal := pDialogRequest is VarRef ? "uint*" : "ptr"
+        pDialogRequestMarshal := pDialogRequest is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, pDialogRequestMarshal, pDialogRequest, "uint*", &pDialogNumber := 0, "HRESULT")
         return pDialogNumber
@@ -103,10 +103,10 @@ export default struct IESOpenMmiEvent extends IESEvent {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDialogNumber := CallbackCreate(GetMethod(implObj, "GetDialogNumber"), flags, 3)
-        this.vtbl.GetDialogType := CallbackCreate(GetMethod(implObj, "GetDialogType"), flags, 2)
-        this.vtbl.GetDialogData := CallbackCreate(GetMethod(implObj, "GetDialogData"), flags, 2)
-        this.vtbl.GetDialogStringData := CallbackCreate(GetMethod(implObj, "GetDialogStringData"), flags, 3)
+        this.vtbl.GetDialogNumber := CallbackCreate(ObjBindMethod(implObj, "GetDialogNumber"), flags, 3)
+        this.vtbl.GetDialogType := CallbackCreate(ObjBindMethod(implObj, "GetDialogType"), flags, 2)
+        this.vtbl.GetDialogData := CallbackCreate(ObjBindMethod(implObj, "GetDialogData"), flags, 2)
+        this.vtbl.GetDialogStringData := CallbackCreate(ObjBindMethod(implObj, "GetDialogStringData"), flags, 3)
     }
 
     Dispose() {

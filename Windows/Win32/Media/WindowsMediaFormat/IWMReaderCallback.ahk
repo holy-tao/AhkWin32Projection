@@ -77,7 +77,7 @@ export default struct IWMReaderCallback extends IWMStatusCallback {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadercallback-onsample
      */
     OnSample(dwOutputNum, cnsSampleTime, cnsSampleDuration, dwFlags, pSample, pvContext) {
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(4, this, UInt32, dwOutputNum, Int64, cnsSampleTime, Int64, cnsSampleDuration, UInt32, dwFlags, "ptr", pSample, pvContextMarshal, pvContext, "HRESULT")
         return result
@@ -92,7 +92,7 @@ export default struct IWMReaderCallback extends IWMStatusCallback {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnSample := CallbackCreate(GetMethod(implObj, "OnSample"), flags, 7)
+        this.vtbl.OnSample := CallbackCreate(ObjBindMethod(implObj, "OnSample"), flags, 7)
     }
 
     Dispose() {

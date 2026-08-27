@@ -75,8 +75,8 @@ export default struct IObjectWithSite extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetSite := CallbackCreate(GetMethod(implObj, "SetSite"), flags, 2)
-        this.vtbl.GetSite := CallbackCreate(GetMethod(implObj, "GetSite"), flags, 3)
+        this.vtbl.SetSite := CallbackCreate(ObjBindMethod(implObj, "SetSite"), flags, 2)
+        this.vtbl.GetSite := CallbackCreate(ObjBindMethod(implObj, "GetSite"), flags, 3)
     }
 
     Dispose() {

@@ -155,7 +155,9 @@
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getobjecta
  */
 export GetObjectA(h, c, pv) {
-    result := DllCall("GDI32.dll\GetObjectA", HGDIOBJ, h, Int32, c, IntPtr, pv, Int32)
+    pvMarshal := pv == 0 ? IntPtr : IntPtr
+
+    result := DllCall("GDI32.dll\GetObjectA", HGDIOBJ, h, Int32, c, pvMarshal, pv, Int32)
     return result
 }
 
@@ -685,9 +687,11 @@ export Arc(_hdc, x1, y1, x2, y2, x3, y3, x4, y4) {
  * @since windows5.0
  */
 export BitBlt(_hdc, x, y, cx, _cy, hdcSrc, x1, y1, rop) {
+    hdcSrcMarshal := hdcSrc == 0 ? IntPtr : HDC
+
     A_LastError := 0
 
-    result := DllCall("GDI32.dll\BitBlt", HDC, _hdc, Int32, x, Int32, y, Int32, cx, Int32, _cy, HDC, hdcSrc, Int32, x1, Int32, y1, ROP_CODE, rop, BOOL)
+    result := DllCall("GDI32.dll\BitBlt", HDC, _hdc, Int32, x, Int32, y, Int32, cx, Int32, _cy, hdcSrcMarshal, hdcSrc, Int32, x1, Int32, y1, ROP_CODE, rop, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -823,7 +827,11 @@ export CloseMetaFile(_hdc) {
  * @since windows5.0
  */
 export CombineRgn(hrgnDst, hrgnSrc1, hrgnSrc2, iMode) {
-    result := DllCall("GDI32.dll\CombineRgn", HRGN, hrgnDst, HRGN, hrgnSrc1, HRGN, hrgnSrc2, RGN_COMBINE_MODE, iMode, GDI_REGION_TYPE)
+    hrgnDstMarshal := hrgnDst == 0 ? IntPtr : HRGN
+    hrgnSrc1Marshal := hrgnSrc1 == 0 ? IntPtr : HRGN
+    hrgnSrc2Marshal := hrgnSrc2 == 0 ? IntPtr : HRGN
+
+    result := DllCall("GDI32.dll\CombineRgn", hrgnDstMarshal, hrgnDst, hrgnSrc1Marshal, hrgnSrc1, hrgnSrc2Marshal, hrgnSrc2, RGN_COMBINE_MODE, iMode, GDI_REGION_TYPE)
     return result
 }
 
@@ -851,7 +859,9 @@ export CombineRgn(hrgnDst, hrgnSrc1, hrgnSrc2, iMode) {
 export CopyMetaFileA(param0, param1) {
     param1 := param1 is String ? StrPtr(param1) : param1
 
-    result := DllCall("GDI32.dll\CopyMetaFileA", HMETAFILE, param0, "ptr", param1, HMETAFILE.Owned)
+    param1Marshal := param1 == 0 ? IntPtr : PSTR
+
+    result := DllCall("GDI32.dll\CopyMetaFileA", HMETAFILE, param0, param1Marshal, param1, HMETAFILE.Owned)
     return result
 }
 
@@ -879,7 +889,9 @@ export CopyMetaFileA(param0, param1) {
 export CopyMetaFileW(param0, param1) {
     param1 := param1 is String ? StrPtr(param1) : param1
 
-    result := DllCall("GDI32.dll\CopyMetaFileW", HMETAFILE, param0, "ptr", param1, HMETAFILE.Owned)
+    param1Marshal := param1 == 0 ? IntPtr : PWSTR
+
+    result := DllCall("GDI32.dll\CopyMetaFileW", HMETAFILE, param0, param1Marshal, param1, HMETAFILE.Owned)
     return result
 }
 
@@ -935,7 +947,8 @@ export CopyMetaFileW(param0, param1) {
  * @since windows5.0
  */
 export CreateBitmap(nWidth, nHeight, nPlanes, nBitCount, lpBits) {
-    lpBitsMarshal := lpBits is VarRef ? "ptr" : "ptr"
+    lpBitsMarshal := lpBits is VarRef ? "ptr" : IntPtr
+    lpBitsMarshal := lpBits == 0 ? IntPtr : "ptr"
 
     result := DllCall("GDI32.dll\CreateBitmap", Int32, nWidth, Int32, nHeight, UInt32, nPlanes, UInt32, nBitCount, lpBitsMarshal, lpBits, HBITMAP.Owned)
     return result
@@ -1098,7 +1111,9 @@ export CreateDiscardableBitmap(_hdc, cx, _cy) {
  * @since windows5.0
  */
 export CreateCompatibleDC(_hdc) {
-    result := DllCall("GDI32.dll\CreateCompatibleDC", HDC, _hdc, HDC)
+    _hdcMarshal := _hdc == 0 ? IntPtr : HDC
+
+    result := DllCall("GDI32.dll\CreateCompatibleDC", _hdcMarshal, _hdc, HDC)
     return result
 }
 
@@ -1141,7 +1156,12 @@ export CreateDCA(pwszDriver, pwszDevice, pszPort, pdm) {
     pwszDevice := pwszDevice is String ? StrPtr(pwszDevice) : pwszDevice
     pszPort := pszPort is String ? StrPtr(pszPort) : pszPort
 
-    result := DllCall("GDI32.dll\CreateDCA", "ptr", pwszDriver, "ptr", pwszDevice, "ptr", pszPort, DEVMODEA.Ptr, pdm, HDC)
+    pwszDriverMarshal := pwszDriver == 0 ? IntPtr : PSTR
+    pwszDeviceMarshal := pwszDevice == 0 ? IntPtr : PSTR
+    pszPortMarshal := pszPort == 0 ? IntPtr : PSTR
+    pdmMarshal := pdm == 0 ? IntPtr : DEVMODEA.Ptr
+
+    result := DllCall("GDI32.dll\CreateDCA", pwszDriverMarshal, pwszDriver, pwszDeviceMarshal, pwszDevice, pszPortMarshal, pszPort, pdmMarshal, pdm, HDC)
     return result
 }
 
@@ -1184,7 +1204,12 @@ export CreateDCW(pwszDriver, pwszDevice, pszPort, pdm) {
     pwszDevice := pwszDevice is String ? StrPtr(pwszDevice) : pwszDevice
     pszPort := pszPort is String ? StrPtr(pszPort) : pszPort
 
-    result := DllCall("GDI32.dll\CreateDCW", "ptr", pwszDriver, "ptr", pwszDevice, "ptr", pszPort, DEVMODEW.Ptr, pdm, HDC)
+    pwszDriverMarshal := pwszDriver == 0 ? IntPtr : PWSTR
+    pwszDeviceMarshal := pwszDevice == 0 ? IntPtr : PWSTR
+    pszPortMarshal := pszPort == 0 ? IntPtr : PWSTR
+    pdmMarshal := pdm == 0 ? IntPtr : DEVMODEW.Ptr
+
+    result := DllCall("GDI32.dll\CreateDCW", pwszDriverMarshal, pwszDriver, pwszDeviceMarshal, pwszDevice, pszPortMarshal, pszPort, pdmMarshal, pdm, HDC)
     return result
 }
 
@@ -1237,9 +1262,12 @@ export CreateDCW(pwszDriver, pwszDevice, pszPort, pdm) {
  * @since windows5.0
  */
 export CreateDIBitmap(_hdc, pbmih, flInit, pjBits, pbmi, iUsage) {
-    pjBitsMarshal := pjBits is VarRef ? "ptr" : "ptr"
+    pbmihMarshal := pbmih == 0 ? IntPtr : BITMAPINFOHEADER.Ptr
+    pjBitsMarshal := pjBits is VarRef ? "ptr" : IntPtr
+    pjBitsMarshal := pjBits == 0 ? IntPtr : "ptr"
+    pbmiMarshal := pbmi == 0 ? IntPtr : BITMAPINFO.Ptr
 
-    result := DllCall("GDI32.dll\CreateDIBitmap", HDC, _hdc, BITMAPINFOHEADER.Ptr, pbmih, UInt32, flInit, pjBitsMarshal, pjBits, BITMAPINFO.Ptr, pbmi, DIB_USAGE, iUsage, HBITMAP.Owned)
+    result := DllCall("GDI32.dll\CreateDIBitmap", HDC, _hdc, pbmihMarshal, pbmih, UInt32, flInit, pjBitsMarshal, pjBits, pbmiMarshal, pbmi, DIB_USAGE, iUsage, HBITMAP.Owned)
     return result
 }
 
@@ -1283,7 +1311,7 @@ export CreateDIBPatternBrush(h, iUsage) {
  * @since windows5.0
  */
 export CreateDIBPatternBrushPt(lpPackedDIB, iUsage) {
-    lpPackedDIBMarshal := lpPackedDIB is VarRef ? "ptr" : "ptr"
+    lpPackedDIBMarshal := lpPackedDIB is VarRef ? "ptr" : IntPtr
 
     result := DllCall("GDI32.dll\CreateDIBPatternBrushPt", lpPackedDIBMarshal, lpPackedDIB, DIB_USAGE, iUsage, HBRUSH.Owned)
     return result
@@ -1682,7 +1710,9 @@ export CreateFontIndirectW(lplf) {
 export CreateFontA(cHeight, cWidth, cEscapement, cOrientation, cWeight, bItalic, bUnderline, bStrikeOut, iCharSet, iOutPrecision, iClipPrecision, iQuality, iPitchAndFamily, pszFaceName) {
     pszFaceName := pszFaceName is String ? StrPtr(pszFaceName) : pszFaceName
 
-    result := DllCall("GDI32.dll\CreateFontA", Int32, cHeight, Int32, cWidth, Int32, cEscapement, Int32, cOrientation, Int32, cWeight, UInt32, bItalic, UInt32, bUnderline, UInt32, bStrikeOut, UInt32, iCharSet, UInt32, iOutPrecision, UInt32, iClipPrecision, UInt32, iQuality, UInt32, iPitchAndFamily, "ptr", pszFaceName, HFONT.Owned)
+    pszFaceNameMarshal := pszFaceName == 0 ? IntPtr : PSTR
+
+    result := DllCall("GDI32.dll\CreateFontA", Int32, cHeight, Int32, cWidth, Int32, cEscapement, Int32, cOrientation, Int32, cWeight, UInt32, bItalic, UInt32, bUnderline, UInt32, bStrikeOut, UInt32, iCharSet, UInt32, iOutPrecision, UInt32, iClipPrecision, UInt32, iQuality, UInt32, iPitchAndFamily, pszFaceNameMarshal, pszFaceName, HFONT.Owned)
     return result
 }
 
@@ -1992,7 +2022,9 @@ export CreateFontA(cHeight, cWidth, cEscapement, cOrientation, cWeight, bItalic,
 export CreateFontW(cHeight, cWidth, cEscapement, cOrientation, cWeight, bItalic, bUnderline, bStrikeOut, iCharSet, iOutPrecision, iClipPrecision, iQuality, iPitchAndFamily, pszFaceName) {
     pszFaceName := pszFaceName is String ? StrPtr(pszFaceName) : pszFaceName
 
-    result := DllCall("GDI32.dll\CreateFontW", Int32, cHeight, Int32, cWidth, Int32, cEscapement, Int32, cOrientation, Int32, cWeight, UInt32, bItalic, UInt32, bUnderline, UInt32, bStrikeOut, UInt32, iCharSet, UInt32, iOutPrecision, UInt32, iClipPrecision, UInt32, iQuality, UInt32, iPitchAndFamily, "ptr", pszFaceName, HFONT.Owned)
+    pszFaceNameMarshal := pszFaceName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("GDI32.dll\CreateFontW", Int32, cHeight, Int32, cWidth, Int32, cEscapement, Int32, cOrientation, Int32, cWeight, UInt32, bItalic, UInt32, bUnderline, UInt32, bStrikeOut, UInt32, iCharSet, UInt32, iOutPrecision, UInt32, iClipPrecision, UInt32, iQuality, UInt32, iPitchAndFamily, pszFaceNameMarshal, pszFaceName, HFONT.Owned)
     return result
 }
 
@@ -2047,7 +2079,12 @@ export CreateICA(pszDriver, pszDevice, pszPort, pdm) {
     pszDevice := pszDevice is String ? StrPtr(pszDevice) : pszDevice
     pszPort := pszPort is String ? StrPtr(pszPort) : pszPort
 
-    result := DllCall("GDI32.dll\CreateICA", "ptr", pszDriver, "ptr", pszDevice, "ptr", pszPort, DEVMODEA.Ptr, pdm, HDC)
+    pszDriverMarshal := pszDriver == 0 ? IntPtr : PSTR
+    pszDeviceMarshal := pszDevice == 0 ? IntPtr : PSTR
+    pszPortMarshal := pszPort == 0 ? IntPtr : PSTR
+    pdmMarshal := pdm == 0 ? IntPtr : DEVMODEA.Ptr
+
+    result := DllCall("GDI32.dll\CreateICA", pszDriverMarshal, pszDriver, pszDeviceMarshal, pszDevice, pszPortMarshal, pszPort, pdmMarshal, pdm, HDC)
     return result
 }
 
@@ -2077,7 +2114,12 @@ export CreateICW(pszDriver, pszDevice, pszPort, pdm) {
     pszDevice := pszDevice is String ? StrPtr(pszDevice) : pszDevice
     pszPort := pszPort is String ? StrPtr(pszPort) : pszPort
 
-    result := DllCall("GDI32.dll\CreateICW", "ptr", pszDriver, "ptr", pszDevice, "ptr", pszPort, DEVMODEW.Ptr, pdm, HDC)
+    pszDriverMarshal := pszDriver == 0 ? IntPtr : PWSTR
+    pszDeviceMarshal := pszDevice == 0 ? IntPtr : PWSTR
+    pszPortMarshal := pszPort == 0 ? IntPtr : PWSTR
+    pdmMarshal := pdm == 0 ? IntPtr : DEVMODEW.Ptr
+
+    result := DllCall("GDI32.dll\CreateICW", pszDriverMarshal, pszDriver, pszDeviceMarshal, pszDevice, pszPortMarshal, pszPort, pdmMarshal, pdm, HDC)
     return result
 }
 
@@ -2108,7 +2150,9 @@ export CreateICW(pszDriver, pszDevice, pszPort, pdm) {
 export CreateMetaFileA(pszFile) {
     pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-    result := DllCall("GDI32.dll\CreateMetaFileA", "ptr", pszFile, HDC)
+    pszFileMarshal := pszFile == 0 ? IntPtr : PSTR
+
+    result := DllCall("GDI32.dll\CreateMetaFileA", pszFileMarshal, pszFile, HDC)
     return result
 }
 
@@ -2139,7 +2183,9 @@ export CreateMetaFileA(pszFile) {
 export CreateMetaFileW(pszFile) {
     pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-    result := DllCall("GDI32.dll\CreateMetaFileW", "ptr", pszFile, HDC)
+    pszFileMarshal := pszFile == 0 ? IntPtr : PWSTR
+
+    result := DllCall("GDI32.dll\CreateMetaFileW", pszFileMarshal, pszFile, HDC)
     return result
 }
 
@@ -2232,7 +2278,7 @@ export CreatePenIndirect(plpen) {
  * @since windows5.0
  */
 export CreatePolyPolygonRgn(pptl, pc, cPoly, iMode) {
-    pcMarshal := pc is VarRef ? "int*" : "ptr"
+    pcMarshal := pc is VarRef ? "int*" : IntPtr
 
     result := DllCall("GDI32.dll\CreatePolyPolygonRgn", POINT.Ptr, pptl, pcMarshal, pc, Int32, cPoly, CREATE_POLYGON_RGN_MODE, iMode, HRGN.Owned)
     return result
@@ -2364,9 +2410,11 @@ export CreateScalableFontResourceA(fdwHidden, lpszFont, lpszFile, lpszPath) {
     lpszFile := lpszFile is String ? StrPtr(lpszFile) : lpszFile
     lpszPath := lpszPath is String ? StrPtr(lpszPath) : lpszPath
 
+    lpszPathMarshal := lpszPath == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("GDI32.dll\CreateScalableFontResourceA", UInt32, fdwHidden, "ptr", lpszFont, "ptr", lpszFile, "ptr", lpszPath, BOOL)
+    result := DllCall("GDI32.dll\CreateScalableFontResourceA", UInt32, fdwHidden, "ptr", lpszFont, "ptr", lpszFile, lpszPathMarshal, lpszPath, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2410,9 +2458,11 @@ export CreateScalableFontResourceW(fdwHidden, lpszFont, lpszFile, lpszPath) {
     lpszFile := lpszFile is String ? StrPtr(lpszFile) : lpszFile
     lpszPath := lpszPath is String ? StrPtr(lpszPath) : lpszPath
 
+    lpszPathMarshal := lpszPath == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("GDI32.dll\CreateScalableFontResourceW", UInt32, fdwHidden, "ptr", lpszFont, "ptr", lpszFile, "ptr", lpszPath, BOOL)
+    result := DllCall("GDI32.dll\CreateScalableFontResourceW", UInt32, fdwHidden, "ptr", lpszFont, "ptr", lpszFile, lpszPathMarshal, lpszPath, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2511,7 +2561,9 @@ export DeleteObject(ho) {
  * @since windows5.0
  */
 export DrawEscape(_hdc, iEscape, cjIn, lpIn) {
-    result := DllCall("GDI32.dll\DrawEscape", HDC, _hdc, Int32, iEscape, Int32, cjIn, IntPtr, lpIn, Int32)
+    lpInMarshal := lpIn == 0 ? IntPtr : IntPtr
+
+    result := DllCall("GDI32.dll\DrawEscape", HDC, _hdc, Int32, iEscape, Int32, cjIn, lpInMarshal, lpIn, Int32)
     return result
 }
 
@@ -2854,7 +2906,9 @@ export EnumFontFamiliesExW(_hdc, lpLogfont, lpProc, _lParam, dwFlags) {
 export EnumFontFamiliesA(_hdc, lpLogfont, lpProc, _lParam) {
     lpLogfont := lpLogfont is String ? StrPtr(lpLogfont) : lpLogfont
 
-    result := DllCall("GDI32.dll\EnumFontFamiliesA", HDC, _hdc, "ptr", lpLogfont, FONTENUMPROCA, lpProc, LPARAM, _lParam, Int32)
+    lpLogfontMarshal := lpLogfont == 0 ? IntPtr : PSTR
+
+    result := DllCall("GDI32.dll\EnumFontFamiliesA", HDC, _hdc, lpLogfontMarshal, lpLogfont, FONTENUMPROCA, lpProc, LPARAM, _lParam, Int32)
     return result
 }
 
@@ -2877,7 +2931,9 @@ export EnumFontFamiliesA(_hdc, lpLogfont, lpProc, _lParam) {
 export EnumFontFamiliesW(_hdc, lpLogfont, lpProc, _lParam) {
     lpLogfont := lpLogfont is String ? StrPtr(lpLogfont) : lpLogfont
 
-    result := DllCall("GDI32.dll\EnumFontFamiliesW", HDC, _hdc, "ptr", lpLogfont, FONTENUMPROCW, lpProc, LPARAM, _lParam, Int32)
+    lpLogfontMarshal := lpLogfont == 0 ? IntPtr : PWSTR
+
+    result := DllCall("GDI32.dll\EnumFontFamiliesW", HDC, _hdc, lpLogfontMarshal, lpLogfont, FONTENUMPROCW, lpProc, LPARAM, _lParam, Int32)
     return result
 }
 
@@ -2905,7 +2961,9 @@ export EnumFontFamiliesW(_hdc, lpLogfont, lpProc, _lParam) {
 export EnumFontsA(_hdc, lpLogfont, lpProc, _lParam) {
     lpLogfont := lpLogfont is String ? StrPtr(lpLogfont) : lpLogfont
 
-    result := DllCall("GDI32.dll\EnumFontsA", HDC, _hdc, "ptr", lpLogfont, FONTENUMPROCA, lpProc, LPARAM, _lParam, Int32)
+    lpLogfontMarshal := lpLogfont == 0 ? IntPtr : PSTR
+
+    result := DllCall("GDI32.dll\EnumFontsA", HDC, _hdc, lpLogfontMarshal, lpLogfont, FONTENUMPROCA, lpProc, LPARAM, _lParam, Int32)
     return result
 }
 
@@ -2933,7 +2991,9 @@ export EnumFontsA(_hdc, lpLogfont, lpProc, _lParam) {
 export EnumFontsW(_hdc, lpLogfont, lpProc, _lParam) {
     lpLogfont := lpLogfont is String ? StrPtr(lpLogfont) : lpLogfont
 
-    result := DllCall("GDI32.dll\EnumFontsW", HDC, _hdc, "ptr", lpLogfont, FONTENUMPROCW, lpProc, LPARAM, _lParam, Int32)
+    lpLogfontMarshal := lpLogfont == 0 ? IntPtr : PWSTR
+
+    result := DllCall("GDI32.dll\EnumFontsW", HDC, _hdc, lpLogfontMarshal, lpLogfont, FONTENUMPROCW, lpProc, LPARAM, _lParam, Int32)
     return result
 }
 
@@ -3054,7 +3114,9 @@ export ExcludeClipRect(_hdc, left, top, right, bottom) {
  * @since windows5.0
  */
 export ExtCreateRegion(lpx, nCount, lpData) {
-    result := DllCall("GDI32.dll\ExtCreateRegion", XFORM.Ptr, lpx, UInt32, nCount, IntPtr, lpData, HRGN.Owned)
+    lpxMarshal := lpx == 0 ? IntPtr : XFORM.Ptr
+
+    result := DllCall("GDI32.dll\ExtCreateRegion", lpxMarshal, lpx, UInt32, nCount, IntPtr, lpData, HRGN.Owned)
     return result
 }
 
@@ -3461,7 +3523,7 @@ export GetBrushOrgEx(_hdc, lppt) {
  * @since windows5.0
  */
 export GetCharWidthA(_hdc, iFirst, iLast, lpBuffer) {
-    lpBufferMarshal := lpBuffer is VarRef ? "int*" : "ptr"
+    lpBufferMarshal := lpBuffer is VarRef ? "int*" : IntPtr
 
     result := DllCall("GDI32.dll\GetCharWidthA", HDC, _hdc, UInt32, iFirst, UInt32, iLast, lpBufferMarshal, lpBuffer, BOOL)
     return result
@@ -3493,7 +3555,7 @@ export GetCharWidthA(_hdc, iFirst, iLast, lpBuffer) {
  * @since windows5.0
  */
 export GetCharWidthW(_hdc, iFirst, iLast, lpBuffer) {
-    lpBufferMarshal := lpBuffer is VarRef ? "int*" : "ptr"
+    lpBufferMarshal := lpBuffer is VarRef ? "int*" : IntPtr
 
     result := DllCall("GDI32.dll\GetCharWidthW", HDC, _hdc, UInt32, iFirst, UInt32, iLast, lpBufferMarshal, lpBuffer, BOOL)
     return result
@@ -3518,7 +3580,7 @@ export GetCharWidthW(_hdc, iFirst, iLast, lpBuffer) {
  * @since windows5.0
  */
 export GetCharWidth32A(_hdc, iFirst, iLast, lpBuffer) {
-    lpBufferMarshal := lpBuffer is VarRef ? "int*" : "ptr"
+    lpBufferMarshal := lpBuffer is VarRef ? "int*" : IntPtr
 
     result := DllCall("GDI32.dll\GetCharWidth32A", HDC, _hdc, UInt32, iFirst, UInt32, iLast, lpBufferMarshal, lpBuffer, BOOL)
     return result
@@ -3543,7 +3605,7 @@ export GetCharWidth32A(_hdc, iFirst, iLast, lpBuffer) {
  * @since windows5.0
  */
 export GetCharWidth32W(_hdc, iFirst, iLast, lpBuffer) {
-    lpBufferMarshal := lpBuffer is VarRef ? "int*" : "ptr"
+    lpBufferMarshal := lpBuffer is VarRef ? "int*" : IntPtr
 
     result := DllCall("GDI32.dll\GetCharWidth32W", HDC, _hdc, UInt32, iFirst, UInt32, iLast, lpBufferMarshal, lpBuffer, BOOL)
     return result
@@ -3575,7 +3637,7 @@ export GetCharWidth32W(_hdc, iFirst, iLast, lpBuffer) {
  * @since windows5.0
  */
 export GetCharWidthFloatA(_hdc, iFirst, iLast, lpBuffer) {
-    lpBufferMarshal := lpBuffer is VarRef ? "float*" : "ptr"
+    lpBufferMarshal := lpBuffer is VarRef ? "float*" : IntPtr
 
     result := DllCall("GDI32.dll\GetCharWidthFloatA", HDC, _hdc, UInt32, iFirst, UInt32, iLast, lpBufferMarshal, lpBuffer, BOOL)
     return result
@@ -3607,7 +3669,7 @@ export GetCharWidthFloatA(_hdc, iFirst, iLast, lpBuffer) {
  * @since windows5.0
  */
 export GetCharWidthFloatW(_hdc, iFirst, iLast, lpBuffer) {
-    lpBufferMarshal := lpBuffer is VarRef ? "float*" : "ptr"
+    lpBufferMarshal := lpBuffer is VarRef ? "float*" : IntPtr
 
     result := DllCall("GDI32.dll\GetCharWidthFloatW", HDC, _hdc, UInt32, iFirst, UInt32, iLast, lpBufferMarshal, lpBuffer, BOOL)
     return result
@@ -3942,7 +4004,9 @@ export GetCurrentPositionEx(_hdc, lppt) {
  * @since windows5.0
  */
 export GetDeviceCaps(_hdc, index) {
-    result := DllCall("GDI32.dll\GetDeviceCaps", HDC, _hdc, Int32, index, Int32)
+    _hdcMarshal := _hdc == 0 ? IntPtr : HDC
+
+    result := DllCall("GDI32.dll\GetDeviceCaps", _hdcMarshal, _hdc, Int32, index, Int32)
     return result
 }
 
@@ -4022,7 +4086,8 @@ export GetDeviceCaps(_hdc, index) {
  * @since windows5.0
  */
 export GetDIBits(_hdc, _hbm, start, cLines, lpvBits, lpbmi, usage) {
-    lpvBitsMarshal := lpvBits is VarRef ? "ptr" : "ptr"
+    lpvBitsMarshal := lpvBits is VarRef ? "ptr" : IntPtr
+    lpvBitsMarshal := lpvBits == 0 ? IntPtr : "ptr"
 
     result := DllCall("GDI32.dll\GetDIBits", HDC, _hdc, HBITMAP, _hbm, UInt32, start, UInt32, cLines, lpvBitsMarshal, lpvBits, BITMAPINFO.Ptr, lpbmi, DIB_USAGE, usage, Int32)
     return result
@@ -4048,7 +4113,9 @@ export GetDIBits(_hdc, _hbm, start, cLines, lpvBits, lpbmi, usage) {
  * @since windows5.0
  */
 export GetFontData(_hdc, dwTable, dwOffset, pvBuffer, cjBuffer) {
-    result := DllCall("GDI32.dll\GetFontData", HDC, _hdc, UInt32, dwTable, UInt32, dwOffset, IntPtr, pvBuffer, UInt32, cjBuffer, UInt32)
+    pvBufferMarshal := pvBuffer == 0 ? IntPtr : IntPtr
+
+    result := DllCall("GDI32.dll\GetFontData", HDC, _hdc, UInt32, dwTable, UInt32, dwOffset, pvBufferMarshal, pvBuffer, UInt32, cjBuffer, UInt32)
     return result
 }
 
@@ -4087,7 +4154,9 @@ export GetFontData(_hdc, dwTable, dwOffset, pvBuffer, cjBuffer) {
  * @since windows5.0
  */
 export GetGlyphOutlineA(_hdc, uChar, fuFormat, lpgm, cjBuffer, pvBuffer, lpmat2) {
-    result := DllCall("GDI32.dll\GetGlyphOutlineA", HDC, _hdc, UInt32, uChar, GET_GLYPH_OUTLINE_FORMAT, fuFormat, GLYPHMETRICS.Ptr, lpgm, UInt32, cjBuffer, IntPtr, pvBuffer, MAT2.Ptr, lpmat2, UInt32)
+    pvBufferMarshal := pvBuffer == 0 ? IntPtr : IntPtr
+
+    result := DllCall("GDI32.dll\GetGlyphOutlineA", HDC, _hdc, UInt32, uChar, GET_GLYPH_OUTLINE_FORMAT, fuFormat, GLYPHMETRICS.Ptr, lpgm, UInt32, cjBuffer, pvBufferMarshal, pvBuffer, MAT2.Ptr, lpmat2, UInt32)
     return result
 }
 
@@ -4126,7 +4195,9 @@ export GetGlyphOutlineA(_hdc, uChar, fuFormat, lpgm, cjBuffer, pvBuffer, lpmat2)
  * @since windows5.0
  */
 export GetGlyphOutlineW(_hdc, uChar, fuFormat, lpgm, cjBuffer, pvBuffer, lpmat2) {
-    result := DllCall("GDI32.dll\GetGlyphOutlineW", HDC, _hdc, UInt32, uChar, GET_GLYPH_OUTLINE_FORMAT, fuFormat, GLYPHMETRICS.Ptr, lpgm, UInt32, cjBuffer, IntPtr, pvBuffer, MAT2.Ptr, lpmat2, UInt32)
+    pvBufferMarshal := pvBuffer == 0 ? IntPtr : IntPtr
+
+    result := DllCall("GDI32.dll\GetGlyphOutlineW", HDC, _hdc, UInt32, uChar, GET_GLYPH_OUTLINE_FORMAT, fuFormat, GLYPHMETRICS.Ptr, lpgm, UInt32, cjBuffer, pvBufferMarshal, pvBuffer, MAT2.Ptr, lpmat2, UInt32)
     return result
 }
 
@@ -4235,7 +4306,9 @@ export GetMapMode(_hdc) {
  * @since windows5.0
  */
 export GetMetaFileBitsEx(hMF, cbBuffer, lpData) {
-    result := DllCall("GDI32.dll\GetMetaFileBitsEx", HMETAFILE, hMF, UInt32, cbBuffer, IntPtr, lpData, UInt32)
+    lpDataMarshal := lpData == 0 ? IntPtr : IntPtr
+
+    result := DllCall("GDI32.dll\GetMetaFileBitsEx", HMETAFILE, hMF, UInt32, cbBuffer, lpDataMarshal, lpData, UInt32)
     return result
 }
 
@@ -4420,7 +4493,9 @@ export GetObjectType(h) {
  * @since windows5.0
  */
 export GetOutlineTextMetricsA(_hdc, cjCopy, potm) {
-    result := DllCall("GDI32.dll\GetOutlineTextMetricsA", HDC, _hdc, UInt32, cjCopy, IntPtr, potm, UInt32)
+    potmMarshal := potm == 0 ? IntPtr : IntPtr
+
+    result := DllCall("GDI32.dll\GetOutlineTextMetricsA", HDC, _hdc, UInt32, cjCopy, potmMarshal, potm, UInt32)
     return result
 }
 
@@ -4445,7 +4520,9 @@ export GetOutlineTextMetricsA(_hdc, cjCopy, potm) {
  * @since windows5.0
  */
 export GetOutlineTextMetricsW(_hdc, cjCopy, potm) {
-    result := DllCall("GDI32.dll\GetOutlineTextMetricsW", HDC, _hdc, UInt32, cjCopy, IntPtr, potm, UInt32)
+    potmMarshal := potm == 0 ? IntPtr : IntPtr
+
+    result := DllCall("GDI32.dll\GetOutlineTextMetricsW", HDC, _hdc, UInt32, cjCopy, potmMarshal, potm, UInt32)
     return result
 }
 
@@ -4466,7 +4543,9 @@ export GetOutlineTextMetricsW(_hdc, cjCopy, potm) {
  * @since windows5.0
  */
 export GetPaletteEntries(hpal, iStart, cEntries, pPalEntries) {
-    result := DllCall("GDI32.dll\GetPaletteEntries", HPALETTE, hpal, UInt32, iStart, UInt32, cEntries, PALETTEENTRY.Ptr, pPalEntries, UInt32)
+    pPalEntriesMarshal := pPalEntries == 0 ? IntPtr : PALETTEENTRY.Ptr
+
+    result := DllCall("GDI32.dll\GetPaletteEntries", HPALETTE, hpal, UInt32, iStart, UInt32, cEntries, pPalEntriesMarshal, pPalEntries, UInt32)
     return result
 }
 
@@ -4573,7 +4652,9 @@ export GetRandomRgn(_hdc, _hrgn, i) {
  * @since windows5.0
  */
 export GetRegionData(_hrgn, nCount, lpRgnData) {
-    result := DllCall("GDI32.dll\GetRegionData", HRGN, _hrgn, UInt32, nCount, IntPtr, lpRgnData, UInt32)
+    lpRgnDataMarshal := lpRgnData == 0 ? IntPtr : IntPtr
+
+    result := DllCall("GDI32.dll\GetRegionData", HRGN, _hrgn, UInt32, nCount, lpRgnDataMarshal, lpRgnData, UInt32)
     return result
 }
 
@@ -4705,7 +4786,9 @@ export GetStretchBltMode(_hdc) {
  * @since windows5.0
  */
 export GetSystemPaletteEntries(_hdc, iStart, cEntries, pPalEntries) {
-    result := DllCall("GDI32.dll\GetSystemPaletteEntries", HDC, _hdc, UInt32, iStart, UInt32, cEntries, PALETTEENTRY.Ptr, pPalEntries, UInt32)
+    pPalEntriesMarshal := pPalEntries == 0 ? IntPtr : PALETTEENTRY.Ptr
+
+    result := DllCall("GDI32.dll\GetSystemPaletteEntries", HDC, _hdc, UInt32, iStart, UInt32, cEntries, pPalEntriesMarshal, pPalEntries, UInt32)
     return result
 }
 
@@ -5051,8 +5134,10 @@ export GetTextExtentPoint32W(_hdc, lpString, c, psizl) {
 export GetTextExtentExPointA(_hdc, lpszString, cchString, nMaxExtent, lpnFit, lpnDx, lpSize) {
     lpszString := lpszString is String ? StrPtr(lpszString) : lpszString
 
-    lpnFitMarshal := lpnFit is VarRef ? "int*" : "ptr"
-    lpnDxMarshal := lpnDx is VarRef ? "int*" : "ptr"
+    lpnFitMarshal := lpnFit is VarRef ? "int*" : IntPtr
+    lpnFitMarshal := lpnFit == 0 ? IntPtr : "int*"
+    lpnDxMarshal := lpnDx is VarRef ? "int*" : IntPtr
+    lpnDxMarshal := lpnDx == 0 ? IntPtr : "int*"
 
     result := DllCall("GDI32.dll\GetTextExtentExPointA", HDC, _hdc, "ptr", lpszString, Int32, cchString, Int32, nMaxExtent, lpnFitMarshal, lpnFit, lpnDxMarshal, lpnDx, SIZE.Ptr, lpSize, BOOL)
     return result
@@ -5095,8 +5180,10 @@ export GetTextExtentExPointA(_hdc, lpszString, cchString, nMaxExtent, lpnFit, lp
 export GetTextExtentExPointW(_hdc, lpszString, cchString, nMaxExtent, lpnFit, lpnDx, lpSize) {
     lpszString := lpszString is String ? StrPtr(lpszString) : lpszString
 
-    lpnFitMarshal := lpnFit is VarRef ? "int*" : "ptr"
-    lpnDxMarshal := lpnDx is VarRef ? "int*" : "ptr"
+    lpnFitMarshal := lpnFit is VarRef ? "int*" : IntPtr
+    lpnFitMarshal := lpnFit == 0 ? IntPtr : "int*"
+    lpnDxMarshal := lpnDx is VarRef ? "int*" : IntPtr
+    lpnDxMarshal := lpnDx == 0 ? IntPtr : "int*"
 
     result := DllCall("GDI32.dll\GetTextExtentExPointW", HDC, _hdc, "ptr", lpszString, Int32, cchString, Int32, nMaxExtent, lpnFitMarshal, lpnFit, lpnDxMarshal, lpnDx, SIZE.Ptr, lpSize, BOOL)
     return result
@@ -5252,7 +5339,9 @@ export GetCharacterPlacementW(_hdc, lpString, nCount, nMexExtent, lpResults, dwF
  * @since windows5.0
  */
 export GetFontUnicodeRanges(_hdc, lpgs) {
-    result := DllCall("GDI32.dll\GetFontUnicodeRanges", HDC, _hdc, GLYPHSET.Ptr, lpgs, UInt32)
+    lpgsMarshal := lpgs == 0 ? IntPtr : GLYPHSET.Ptr
+
+    result := DllCall("GDI32.dll\GetFontUnicodeRanges", HDC, _hdc, lpgsMarshal, lpgs, UInt32)
     return result
 }
 
@@ -5298,7 +5387,7 @@ export GetFontUnicodeRanges(_hdc, lpgs) {
 export GetGlyphIndicesA(_hdc, lpstr, c, pgi, fl) {
     lpstr := lpstr is String ? StrPtr(lpstr) : lpstr
 
-    pgiMarshal := pgi is VarRef ? "ushort*" : "ptr"
+    pgiMarshal := pgi is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("GDI32.dll\GetGlyphIndicesA", HDC, _hdc, "ptr", lpstr, Int32, c, pgiMarshal, pgi, UInt32, fl, UInt32)
     return result
@@ -5346,7 +5435,7 @@ export GetGlyphIndicesA(_hdc, lpstr, c, pgi, fl) {
 export GetGlyphIndicesW(_hdc, lpstr, c, pgi, fl) {
     lpstr := lpstr is String ? StrPtr(lpstr) : lpstr
 
-    pgiMarshal := pgi is VarRef ? "ushort*" : "ptr"
+    pgiMarshal := pgi is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("GDI32.dll\GetGlyphIndicesW", HDC, _hdc, "ptr", lpstr, Int32, c, pgiMarshal, pgi, UInt32, fl, UInt32)
     return result
@@ -5373,7 +5462,7 @@ export GetGlyphIndicesW(_hdc, lpstr, c, pgi, fl) {
  * @since windows5.0
  */
 export GetTextExtentPointI(_hdc, pgiIn, cgi, psize) {
-    pgiInMarshal := pgiIn is VarRef ? "ushort*" : "ptr"
+    pgiInMarshal := pgiIn is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("GDI32.dll\GetTextExtentPointI", HDC, _hdc, pgiInMarshal, pgiIn, Int32, cgi, SIZE.Ptr, psize, BOOL)
     return result
@@ -5399,9 +5488,11 @@ export GetTextExtentPointI(_hdc, pgiIn, cgi, psize) {
  * @since windows5.0
  */
 export GetTextExtentExPointI(_hdc, lpwszString, cwchString, nMaxExtent, lpnFit, lpnDx, lpSize) {
-    lpwszStringMarshal := lpwszString is VarRef ? "ushort*" : "ptr"
-    lpnFitMarshal := lpnFit is VarRef ? "int*" : "ptr"
-    lpnDxMarshal := lpnDx is VarRef ? "int*" : "ptr"
+    lpwszStringMarshal := lpwszString is VarRef ? "ushort*" : IntPtr
+    lpnFitMarshal := lpnFit is VarRef ? "int*" : IntPtr
+    lpnFitMarshal := lpnFit == 0 ? IntPtr : "int*"
+    lpnDxMarshal := lpnDx is VarRef ? "int*" : IntPtr
+    lpnDxMarshal := lpnDx == 0 ? IntPtr : "int*"
 
     result := DllCall("GDI32.dll\GetTextExtentExPointI", HDC, _hdc, lpwszStringMarshal, lpwszString, Int32, cwchString, Int32, nMaxExtent, lpnFitMarshal, lpnFit, lpnDxMarshal, lpnDx, SIZE.Ptr, lpSize, BOOL)
     return result
@@ -5425,8 +5516,9 @@ export GetTextExtentExPointI(_hdc, lpwszString, cwchString, nMaxExtent, lpnFit, 
  * @since windows5.0
  */
 export GetCharWidthI(_hdc, giFirst, cgi, pgi, piWidths) {
-    pgiMarshal := pgi is VarRef ? "ushort*" : "ptr"
-    piWidthsMarshal := piWidths is VarRef ? "int*" : "ptr"
+    pgiMarshal := pgi is VarRef ? "ushort*" : IntPtr
+    pgiMarshal := pgi == 0 ? IntPtr : "ushort*"
+    piWidthsMarshal := piWidths is VarRef ? "int*" : IntPtr
 
     result := DllCall("GDI32.dll\GetCharWidthI", HDC, _hdc, UInt32, giFirst, UInt32, cgi, pgiMarshal, pgi, piWidthsMarshal, piWidths, BOOL)
     return result
@@ -5456,7 +5548,8 @@ export GetCharWidthI(_hdc, giFirst, cgi, pgi, piWidths) {
  * @since windows5.0
  */
 export GetCharABCWidthsI(_hdc, giFirst, cgi, pgi, pabc) {
-    pgiMarshal := pgi is VarRef ? "ushort*" : "ptr"
+    pgiMarshal := pgi is VarRef ? "ushort*" : IntPtr
+    pgiMarshal := pgi == 0 ? IntPtr : "ushort*"
 
     result := DllCall("GDI32.dll\GetCharABCWidthsI", HDC, _hdc, UInt32, giFirst, UInt32, cgi, pgiMarshal, pgi, ABC.Ptr, pabc, BOOL)
     return result
@@ -5848,7 +5941,7 @@ export RemoveFontResourceExW(name, fl) {
 export AddFontMemResourceEx(pFileView, cjSize, pNumFonts) {
     static pvResrved := 0 ;Reserved parameters must always be NULL
 
-    pNumFontsMarshal := pNumFonts is VarRef ? "uint*" : "ptr"
+    pNumFontsMarshal := pNumFonts is VarRef ? "uint*" : IntPtr
 
     result := DllCall("GDI32.dll\AddFontMemResourceEx", IntPtr, pFileView, UInt32, cjSize, "ptr", pvResrved, pNumFontsMarshal, pNumFonts, HANDLE.Owned)
     return result
@@ -6095,7 +6188,9 @@ export InvertRgn(_hdc, _hrgn) {
  * @since windows5.0
  */
 export LineDDA(xStart, yStart, xEnd, yEnd, lpProc, data) {
-    result := DllCall("GDI32.dll\LineDDA", Int32, xStart, Int32, yStart, Int32, xEnd, Int32, yEnd, LINEDDAPROC, lpProc, LPARAM, data, BOOL)
+    dataMarshal := data == 0 ? IntPtr : LPARAM
+
+    result := DllCall("GDI32.dll\LineDDA", Int32, xStart, Int32, yStart, Int32, xEnd, Int32, yEnd, LINEDDAPROC, lpProc, dataMarshal, data, BOOL)
     return result
 }
 
@@ -6209,7 +6304,9 @@ export MaskBlt(hdcDest, xDest, yDest, width, height, hdcSrc, xSrc, ySrc, hbmMask
  * @since windows5.0
  */
 export PlgBlt(hdcDest, lpPoint, hdcSrc, xSrc, ySrc, width, height, hbmMask, xMask, yMask) {
-    result := DllCall("GDI32.dll\PlgBlt", HDC, hdcDest, POINT.Ptr, lpPoint, HDC, hdcSrc, Int32, xSrc, Int32, ySrc, Int32, width, Int32, height, HBITMAP, hbmMask, Int32, xMask, Int32, yMask, BOOL)
+    hbmMaskMarshal := hbmMask == 0 ? IntPtr : HBITMAP
+
+    result := DllCall("GDI32.dll\PlgBlt", HDC, hdcDest, POINT.Ptr, lpPoint, HDC, hdcSrc, Int32, xSrc, Int32, ySrc, Int32, width, Int32, height, hbmMaskMarshal, hbmMask, Int32, xMask, Int32, yMask, BOOL)
     return result
 }
 
@@ -6421,7 +6518,7 @@ export PaintRgn(_hdc, _hrgn) {
  * @since windows5.0
  */
 export PolyPolygon(_hdc, apt, asz, csz) {
-    aszMarshal := asz is VarRef ? "int*" : "ptr"
+    aszMarshal := asz is VarRef ? "int*" : IntPtr
 
     result := DllCall("GDI32.dll\PolyPolygon", HDC, _hdc, POINT.Ptr, apt, aszMarshal, asz, Int32, csz, BOOL)
     return result
@@ -6845,7 +6942,9 @@ export SaveDC(_hdc) {
  * @since windows5.0
  */
 export SelectClipRgn(_hdc, _hrgn) {
-    result := DllCall("GDI32.dll\SelectClipRgn", HDC, _hdc, HRGN, _hrgn, GDI_REGION_TYPE)
+    _hrgnMarshal := _hrgn == 0 ? IntPtr : HRGN
+
+    result := DllCall("GDI32.dll\SelectClipRgn", HDC, _hdc, _hrgnMarshal, _hrgn, GDI_REGION_TYPE)
     return result
 }
 
@@ -6916,7 +7015,9 @@ export SelectClipRgn(_hdc, _hrgn) {
  * @since windows5.0
  */
 export ExtSelectClipRgn(_hdc, _hrgn, _mode) {
-    result := DllCall("GDI32.dll\ExtSelectClipRgn", HDC, _hdc, HRGN, _hrgn, RGN_COMBINE_MODE, _mode, GDI_REGION_TYPE)
+    _hrgnMarshal := _hrgn == 0 ? IntPtr : HRGN
+
+    result := DllCall("GDI32.dll\ExtSelectClipRgn", HDC, _hdc, _hrgnMarshal, _hrgn, RGN_COMBINE_MODE, _mode, GDI_REGION_TYPE)
     return result
 }
 
@@ -7255,7 +7356,9 @@ export SetBitmapBits(_hbm, cb, pvBits) {
  * @since windows5.0
  */
 export SetBoundsRect(_hdc, lprect, flags) {
-    result := DllCall("GDI32.dll\SetBoundsRect", HDC, _hdc, RECT.Ptr, lprect, SET_BOUNDS_RECT_FLAGS, flags, UInt32)
+    lprectMarshal := lprect == 0 ? IntPtr : RECT.Ptr
+
+    result := DllCall("GDI32.dll\SetBoundsRect", HDC, _hdc, lprectMarshal, lprect, SET_BOUNDS_RECT_FLAGS, flags, UInt32)
     return result
 }
 
@@ -7309,9 +7412,10 @@ export SetBoundsRect(_hdc, lprect, flags) {
  * @since windows5.0
  */
 export SetDIBits(_hdc, _hbm, start, cLines, lpBits, lpbmi, ColorUse) {
-    lpBitsMarshal := lpBits is VarRef ? "ptr" : "ptr"
+    _hdcMarshal := _hdc == 0 ? IntPtr : HDC
+    lpBitsMarshal := lpBits is VarRef ? "ptr" : IntPtr
 
-    result := DllCall("GDI32.dll\SetDIBits", HDC, _hdc, HBITMAP, _hbm, UInt32, start, UInt32, cLines, lpBitsMarshal, lpBits, BITMAPINFO.Ptr, lpbmi, DIB_USAGE, ColorUse, Int32)
+    result := DllCall("GDI32.dll\SetDIBits", _hdcMarshal, _hdc, HBITMAP, _hbm, UInt32, start, UInt32, cLines, lpBitsMarshal, lpBits, BITMAPINFO.Ptr, lpbmi, DIB_USAGE, ColorUse, Int32)
     return result
 }
 
@@ -7356,7 +7460,7 @@ export SetDIBits(_hdc, _hbm, start, cLines, lpBits, lpbmi, ColorUse) {
  * @since windows5.0
  */
 export SetDIBitsToDevice(_hdc, xDest, yDest, w, h, xSrc, ySrc, StartScan, cLines, lpvBits, lpbmi, ColorUse) {
-    lpvBitsMarshal := lpvBits is VarRef ? "ptr" : "ptr"
+    lpvBitsMarshal := lpvBits is VarRef ? "ptr" : IntPtr
 
     result := DllCall("GDI32.dll\SetDIBitsToDevice", HDC, _hdc, Int32, xDest, Int32, yDest, UInt32, w, UInt32, h, Int32, xSrc, Int32, ySrc, UInt32, StartScan, UInt32, cLines, lpvBitsMarshal, lpvBits, BITMAPINFO.Ptr, lpbmi, DIB_USAGE, ColorUse, Int32)
     return result
@@ -7688,7 +7792,9 @@ export SetPolyFillMode(_hdc, _mode) {
  * @since windows5.0
  */
 export StretchBlt(hdcDest, xDest, yDest, wDest, hDest, hdcSrc, xSrc, ySrc, wSrc, hSrc, rop) {
-    result := DllCall("GDI32.dll\StretchBlt", HDC, hdcDest, Int32, xDest, Int32, yDest, Int32, wDest, Int32, hDest, HDC, hdcSrc, Int32, xSrc, Int32, ySrc, Int32, wSrc, Int32, hSrc, ROP_CODE, rop, BOOL)
+    hdcSrcMarshal := hdcSrc == 0 ? IntPtr : HDC
+
+    result := DllCall("GDI32.dll\StretchBlt", HDC, hdcDest, Int32, xDest, Int32, yDest, Int32, wDest, Int32, hDest, hdcSrcMarshal, hdcSrc, Int32, xSrc, Int32, ySrc, Int32, wSrc, Int32, hSrc, ROP_CODE, rop, BOOL)
     return result
 }
 
@@ -7750,7 +7856,8 @@ export SetRectRgn(_hrgn, left, top, right, bottom) {
  * @since windows5.0
  */
 export StretchDIBits(_hdc, xDest, yDest, DestWidth, DestHeight, xSrc, ySrc, SrcWidth, SrcHeight, lpBits, lpbmi, iUsage, rop) {
-    lpBitsMarshal := lpBits is VarRef ? "ptr" : "ptr"
+    lpBitsMarshal := lpBits is VarRef ? "ptr" : IntPtr
+    lpBitsMarshal := lpBits == 0 ? IntPtr : "ptr"
 
     result := DllCall("GDI32.dll\StretchDIBits", HDC, _hdc, Int32, xDest, Int32, yDest, Int32, DestWidth, Int32, DestHeight, Int32, xSrc, Int32, ySrc, Int32, SrcWidth, Int32, SrcHeight, lpBitsMarshal, lpBits, BITMAPINFO.Ptr, lpbmi, DIB_USAGE, iUsage, ROP_CODE, rop, Int32)
     return result
@@ -8228,7 +8335,7 @@ export TransparentBlt(hdcDest, xoriginDest, yoriginDest, wDest, hDest, hdcSrc, x
  * @since windows5.0
  */
 export GradientFill(_hdc, pVertex, nVertex, pMesh, nMesh, ulMode) {
-    pMeshMarshal := pMesh is VarRef ? "ptr" : "ptr"
+    pMeshMarshal := pMesh is VarRef ? "ptr" : IntPtr
 
     result := DllCall("MSIMG32.dll\GradientFill", HDC, _hdc, TRIVERTEX.Ptr, pVertex, UInt32, nVertex, pMeshMarshal, pMesh, UInt32, nMesh, GRADIENT_FILL, ulMode, BOOL)
     return result
@@ -8370,7 +8477,7 @@ export GdiTransparentBlt(hdcDest, xoriginDest, yoriginDest, wDest, hDest, hdcSrc
  * @since windows5.0
  */
 export GdiGradientFill(_hdc, pVertex, nVertex, pMesh, nCount, ulMode) {
-    pMeshMarshal := pMesh is VarRef ? "ptr" : "ptr"
+    pMeshMarshal := pMesh is VarRef ? "ptr" : IntPtr
 
     result := DllCall("GDI32.dll\GdiGradientFill", HDC, _hdc, TRIVERTEX.Ptr, pVertex, UInt32, nVertex, pMeshMarshal, pMesh, UInt32, nCount, GRADIENT_FILL, ulMode, BOOL)
     return result
@@ -8418,7 +8525,9 @@ export PlayMetaFileRecord(_hdc, lpHandleTable, lpMR, noObjs) {
  * @since windows5.0
  */
 export EnumMetaFile(_hdc, hmf, _proc, param3) {
-    result := DllCall("GDI32.dll\EnumMetaFile", HDC, _hdc, HMETAFILE, hmf, MFENUMPROC, _proc, LPARAM, param3, BOOL)
+    param3Marshal := param3 == 0 ? IntPtr : LPARAM
+
+    result := DllCall("GDI32.dll\EnumMetaFile", HDC, _hdc, HMETAFILE, hmf, MFENUMPROC, _proc, param3Marshal, param3, BOOL)
     return result
 }
 
@@ -8476,7 +8585,9 @@ export CloseEnhMetaFile(_hdc) {
 export CopyEnhMetaFileA(hEnh, lpFileName) {
     lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-    result := DllCall("GDI32.dll\CopyEnhMetaFileA", HENHMETAFILE, hEnh, "ptr", lpFileName, HENHMETAFILE.Owned)
+    lpFileNameMarshal := lpFileName == 0 ? IntPtr : PSTR
+
+    result := DllCall("GDI32.dll\CopyEnhMetaFileA", HENHMETAFILE, hEnh, lpFileNameMarshal, lpFileName, HENHMETAFILE.Owned)
     return result
 }
 
@@ -8506,7 +8617,9 @@ export CopyEnhMetaFileA(hEnh, lpFileName) {
 export CopyEnhMetaFileW(hEnh, lpFileName) {
     lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-    result := DllCall("GDI32.dll\CopyEnhMetaFileW", HENHMETAFILE, hEnh, "ptr", lpFileName, HENHMETAFILE.Owned)
+    lpFileNameMarshal := lpFileName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("GDI32.dll\CopyEnhMetaFileW", HENHMETAFILE, hEnh, lpFileNameMarshal, lpFileName, HENHMETAFILE.Owned)
     return result
 }
 
@@ -8544,7 +8657,12 @@ export CreateEnhMetaFileA(_hdc, lpFilename, lprc, lpDesc) {
     lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
     lpDesc := lpDesc is String ? StrPtr(lpDesc) : lpDesc
 
-    result := DllCall("GDI32.dll\CreateEnhMetaFileA", HDC, _hdc, "ptr", lpFilename, RECT.Ptr, lprc, "ptr", lpDesc, HDC)
+    _hdcMarshal := _hdc == 0 ? IntPtr : HDC
+    lpFilenameMarshal := lpFilename == 0 ? IntPtr : PSTR
+    lprcMarshal := lprc == 0 ? IntPtr : RECT.Ptr
+    lpDescMarshal := lpDesc == 0 ? IntPtr : PSTR
+
+    result := DllCall("GDI32.dll\CreateEnhMetaFileA", _hdcMarshal, _hdc, lpFilenameMarshal, lpFilename, lprcMarshal, lprc, lpDescMarshal, lpDesc, HDC)
     return result
 }
 
@@ -8582,7 +8700,12 @@ export CreateEnhMetaFileW(_hdc, lpFilename, lprc, lpDesc) {
     lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
     lpDesc := lpDesc is String ? StrPtr(lpDesc) : lpDesc
 
-    result := DllCall("GDI32.dll\CreateEnhMetaFileW", HDC, _hdc, "ptr", lpFilename, RECT.Ptr, lprc, "ptr", lpDesc, HDC)
+    _hdcMarshal := _hdc == 0 ? IntPtr : HDC
+    lpFilenameMarshal := lpFilename == 0 ? IntPtr : PWSTR
+    lprcMarshal := lprc == 0 ? IntPtr : RECT.Ptr
+    lpDescMarshal := lpDesc == 0 ? IntPtr : PWSTR
+
+    result := DllCall("GDI32.dll\CreateEnhMetaFileW", _hdcMarshal, _hdc, lpFilenameMarshal, lpFilename, lprcMarshal, lprc, lpDescMarshal, lpDesc, HDC)
     return result
 }
 
@@ -8598,7 +8721,9 @@ export CreateEnhMetaFileW(_hdc, lpFilename, lprc, lpDesc) {
  * @since windows5.0
  */
 export DeleteEnhMetaFile(hmf) {
-    result := DllCall("GDI32.dll\DeleteEnhMetaFile", HENHMETAFILE, hmf, BOOL)
+    hmfMarshal := hmf == 0 ? IntPtr : HENHMETAFILE
+
+    result := DllCall("GDI32.dll\DeleteEnhMetaFile", hmfMarshal, hmf, BOOL)
     return result
 }
 
@@ -8622,9 +8747,12 @@ export DeleteEnhMetaFile(hmf) {
  * @since windows5.0
  */
 export EnumEnhMetaFile(_hdc, hmf, _proc, param3, lpRect) {
-    param3Marshal := param3 is VarRef ? "ptr" : "ptr"
+    _hdcMarshal := _hdc == 0 ? IntPtr : HDC
+    param3Marshal := param3 is VarRef ? "ptr" : IntPtr
+    param3Marshal := param3 == 0 ? IntPtr : "ptr"
+    lpRectMarshal := lpRect == 0 ? IntPtr : RECT.Ptr
 
-    result := DllCall("GDI32.dll\EnumEnhMetaFile", HDC, _hdc, HENHMETAFILE, hmf, ENHMFENUMPROC, _proc, param3Marshal, param3, RECT.Ptr, lpRect, BOOL)
+    result := DllCall("GDI32.dll\EnumEnhMetaFile", _hdcMarshal, _hdc, HENHMETAFILE, hmf, ENHMFENUMPROC, _proc, param3Marshal, param3, lpRectMarshal, lpRect, BOOL)
     return result
 }
 
@@ -8692,7 +8820,9 @@ export GetEnhMetaFileW(lpName) {
  * @since windows5.0
  */
 export GetEnhMetaFileBits(hEMF, nSize, lpData) {
-    result := DllCall("GDI32.dll\GetEnhMetaFileBits", HENHMETAFILE, hEMF, UInt32, nSize, IntPtr, lpData, UInt32)
+    lpDataMarshal := lpData == 0 ? IntPtr : IntPtr
+
+    result := DllCall("GDI32.dll\GetEnhMetaFileBits", HENHMETAFILE, hEMF, UInt32, nSize, lpDataMarshal, lpData, UInt32)
     return result
 }
 
@@ -8725,7 +8855,9 @@ export GetEnhMetaFileBits(hEMF, nSize, lpData) {
 export GetEnhMetaFileDescriptionA(hemf, cchBuffer, lpDescription) {
     lpDescription := lpDescription is String ? StrPtr(lpDescription) : lpDescription
 
-    result := DllCall("GDI32.dll\GetEnhMetaFileDescriptionA", HENHMETAFILE, hemf, UInt32, cchBuffer, "ptr", lpDescription, UInt32)
+    lpDescriptionMarshal := lpDescription == 0 ? IntPtr : PSTR
+
+    result := DllCall("GDI32.dll\GetEnhMetaFileDescriptionA", HENHMETAFILE, hemf, UInt32, cchBuffer, lpDescriptionMarshal, lpDescription, UInt32)
     return result
 }
 
@@ -8758,7 +8890,9 @@ export GetEnhMetaFileDescriptionA(hemf, cchBuffer, lpDescription) {
 export GetEnhMetaFileDescriptionW(hemf, cchBuffer, lpDescription) {
     lpDescription := lpDescription is String ? StrPtr(lpDescription) : lpDescription
 
-    result := DllCall("GDI32.dll\GetEnhMetaFileDescriptionW", HENHMETAFILE, hemf, UInt32, cchBuffer, "ptr", lpDescription, UInt32)
+    lpDescriptionMarshal := lpDescription == 0 ? IntPtr : PWSTR
+
+    result := DllCall("GDI32.dll\GetEnhMetaFileDescriptionW", HENHMETAFILE, hemf, UInt32, cchBuffer, lpDescriptionMarshal, lpDescription, UInt32)
     return result
 }
 
@@ -8776,7 +8910,9 @@ export GetEnhMetaFileDescriptionW(hemf, cchBuffer, lpDescription) {
  * @since windows5.0
  */
 export GetEnhMetaFileHeader(hemf, nSize, lpEnhMetaHeader) {
-    result := DllCall("GDI32.dll\GetEnhMetaFileHeader", HENHMETAFILE, hemf, UInt32, nSize, IntPtr, lpEnhMetaHeader, UInt32)
+    lpEnhMetaHeaderMarshal := lpEnhMetaHeader == 0 ? IntPtr : IntPtr
+
+    result := DllCall("GDI32.dll\GetEnhMetaFileHeader", HENHMETAFILE, hemf, UInt32, nSize, lpEnhMetaHeaderMarshal, lpEnhMetaHeader, UInt32)
     return result
 }
 
@@ -8794,7 +8930,9 @@ export GetEnhMetaFileHeader(hemf, nSize, lpEnhMetaHeader) {
  * @since windows5.0
  */
 export GetEnhMetaFilePaletteEntries(hemf, nNumEntries, lpPaletteEntries) {
-    result := DllCall("GDI32.dll\GetEnhMetaFilePaletteEntries", HENHMETAFILE, hemf, UInt32, nNumEntries, PALETTEENTRY.Ptr, lpPaletteEntries, UInt32)
+    lpPaletteEntriesMarshal := lpPaletteEntries == 0 ? IntPtr : PALETTEENTRY.Ptr
+
+    result := DllCall("GDI32.dll\GetEnhMetaFilePaletteEntries", HENHMETAFILE, hemf, UInt32, nNumEntries, lpPaletteEntriesMarshal, lpPaletteEntries, UInt32)
     return result
 }
 
@@ -8822,7 +8960,9 @@ export GetEnhMetaFilePaletteEntries(hemf, nNumEntries, lpPaletteEntries) {
  * @since windows5.0
  */
 export GetWinMetaFileBits(hemf, cbData16, pData16, iMapMode, hdcRef) {
-    result := DllCall("GDI32.dll\GetWinMetaFileBits", HENHMETAFILE, hemf, UInt32, cbData16, IntPtr, pData16, Int32, iMapMode, HDC, hdcRef, UInt32)
+    pData16Marshal := pData16 == 0 ? IntPtr : IntPtr
+
+    result := DllCall("GDI32.dll\GetWinMetaFileBits", HENHMETAFILE, hemf, UInt32, cbData16, pData16Marshal, pData16, Int32, iMapMode, HDC, hdcRef, UInt32)
     return result
 }
 
@@ -9066,7 +9206,7 @@ export AngleArc(_hdc, x, y, r, StartAngle, SweepAngle) {
  * @since windows5.0
  */
 export PolyPolyline(_hdc, apt, asz, csz) {
-    aszMarshal := asz is VarRef ? "uint*" : "ptr"
+    aszMarshal := asz is VarRef ? "uint*" : IntPtr
 
     result := DllCall("GDI32.dll\PolyPolyline", HDC, _hdc, POINT.Ptr, apt, aszMarshal, asz, UInt32, csz, BOOL)
     return result
@@ -9151,7 +9291,9 @@ export SetWorldTransform(_hdc, lpxf) {
  * @since windows5.0
  */
 export ModifyWorldTransform(_hdc, lpxf, _mode) {
-    result := DllCall("GDI32.dll\ModifyWorldTransform", HDC, _hdc, XFORM.Ptr, lpxf, MODIFY_WORLD_TRANSFORM_MODE, _mode, BOOL)
+    lpxfMarshal := lpxf == 0 ? IntPtr : XFORM.Ptr
+
+    result := DllCall("GDI32.dll\ModifyWorldTransform", HDC, _hdc, lpxfMarshal, lpxf, MODIFY_WORLD_TRANSFORM_MODE, _mode, BOOL)
     return result
 }
 
@@ -9253,11 +9395,13 @@ export CombineTransform(lpxfOut, lpxf1, lpxf2) {
  * @since windows5.0
  */
 export CreateDIBSection(_hdc, pbmi, usage, ppvBits, hSection, offset) {
-    ppvBitsMarshal := ppvBits is VarRef ? "ptr*" : "ptr"
+    _hdcMarshal := _hdc == 0 ? IntPtr : HDC
+    ppvBitsMarshal := ppvBits is VarRef ? "ptr*" : IntPtr
+    hSectionMarshal := hSection == 0 ? IntPtr : HANDLE
 
     A_LastError := 0
 
-    result := DllCall("GDI32.dll\CreateDIBSection", HDC, _hdc, BITMAPINFO.Ptr, pbmi, DIB_USAGE, usage, ppvBitsMarshal, ppvBits, HANDLE, hSection, UInt32, offset, HBITMAP.Owned)
+    result := DllCall("GDI32.dll\CreateDIBSection", _hdcMarshal, _hdc, BITMAPINFO.Ptr, pbmi, DIB_USAGE, usage, ppvBitsMarshal, ppvBits, hSectionMarshal, hSection, UInt32, offset, HBITMAP.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9357,7 +9501,9 @@ export GetColorAdjustment(_hdc, lpca) {
  * @since windows5.0
  */
 export CreateHalftonePalette(_hdc) {
-    result := DllCall("GDI32.dll\CreateHalftonePalette", HDC, _hdc, HPALETTE.Owned)
+    _hdcMarshal := _hdc == 0 ? IntPtr : HDC
+
+    result := DllCall("GDI32.dll\CreateHalftonePalette", _hdcMarshal, _hdc, HPALETTE.Owned)
     return result
 }
 
@@ -9574,9 +9720,11 @@ export FlattenPath(_hdc) {
  * @since windows5.0
  */
 export GetPath(_hdc, apt, aj, cpt) {
-    ajMarshal := aj is VarRef ? "char*" : "ptr"
+    aptMarshal := apt == 0 ? IntPtr : POINT.Ptr
+    ajMarshal := aj is VarRef ? "char*" : IntPtr
+    ajMarshal := aj == 0 ? IntPtr : "char*"
 
-    result := DllCall("GDI32.dll\GetPath", HDC, _hdc, POINT.Ptr, apt, ajMarshal, aj, Int32, cpt, Int32)
+    result := DllCall("GDI32.dll\GetPath", HDC, _hdc, aptMarshal, apt, ajMarshal, aj, Int32, cpt, Int32)
     return result
 }
 
@@ -9619,7 +9767,7 @@ export PathToRegion(_hdc) {
  * @since windows5.0
  */
 export PolyDraw(_hdc, apt, aj, cpt) {
-    ajMarshal := aj is VarRef ? "char*" : "ptr"
+    ajMarshal := aj is VarRef ? "char*" : IntPtr
 
     result := DllCall("GDI32.dll\PolyDraw", HDC, _hdc, POINT.Ptr, apt, ajMarshal, aj, Int32, cpt, BOOL)
     return result
@@ -9704,7 +9852,8 @@ export SetArcDirection(_hdc, dir) {
  * @since windows5.0
  */
 export SetMiterLimit(_hdc, limit, old) {
-    oldMarshal := old is VarRef ? "float*" : "ptr"
+    oldMarshal := old is VarRef ? "float*" : IntPtr
+    oldMarshal := old == 0 ? IntPtr : "float*"
 
     result := DllCall("GDI32.dll\SetMiterLimit", HDC, _hdc, Float32, limit, oldMarshal, old, BOOL)
     return result
@@ -9802,7 +9951,8 @@ export WidenPath(_hdc) {
  * @since windows5.0
  */
 export ExtCreatePen(iPenStyle, cWidth, plbrush, cStyle, pstyle) {
-    pstyleMarshal := pstyle is VarRef ? "uint*" : "ptr"
+    pstyleMarshal := pstyle is VarRef ? "uint*" : IntPtr
+    pstyleMarshal := pstyle == 0 ? IntPtr : "uint*"
 
     result := DllCall("GDI32.dll\ExtCreatePen", UInt32, iPenStyle, UInt32, cWidth, LOGBRUSH.Ptr, plbrush, UInt32, cStyle, pstyleMarshal, pstyle, HPEN.Owned)
     return result
@@ -9821,7 +9971,7 @@ export ExtCreatePen(iPenStyle, cWidth, plbrush, cStyle, pstyle) {
  * @since windows5.0
  */
 export GetMiterLimit(_hdc, plimit) {
-    plimitMarshal := plimit is VarRef ? "float*" : "ptr"
+    plimitMarshal := plimit is VarRef ? "float*" : IntPtr
 
     result := DllCall("GDI32.dll\GetMiterLimit", HDC, _hdc, plimitMarshal, plimit, BOOL)
     return result
@@ -9878,7 +10028,9 @@ export GetArcDirection(_hdc) {
  * @since windows5.0
  */
 export GetObjectW(h, c, pv) {
-    result := DllCall("GDI32.dll\GetObjectW", HGDIOBJ, h, Int32, c, IntPtr, pv, Int32)
+    pvMarshal := pv == 0 ? IntPtr : IntPtr
+
+    result := DllCall("GDI32.dll\GetObjectW", HGDIOBJ, h, Int32, c, pvMarshal, pv, Int32)
     return result
 }
 
@@ -9897,7 +10049,9 @@ export GetObjectW(h, c, pv) {
  * @since windows5.0
  */
 export MoveToEx(_hdc, x, y, lppt) {
-    result := DllCall("GDI32.dll\MoveToEx", HDC, _hdc, Int32, x, Int32, y, POINT.Ptr, lppt, BOOL)
+    lpptMarshal := lppt == 0 ? IntPtr : POINT.Ptr
+
+    result := DllCall("GDI32.dll\MoveToEx", HDC, _hdc, Int32, x, Int32, y, lpptMarshal, lppt, BOOL)
     return result
 }
 
@@ -10354,9 +10508,12 @@ export TextOutW(_hdc, x, y, lpString, c) {
 export ExtTextOutA(_hdc, x, y, options, lprect, lpString, c, lpDx) {
     lpString := lpString is String ? StrPtr(lpString) : lpString
 
-    lpDxMarshal := lpDx is VarRef ? "int*" : "ptr"
+    lprectMarshal := lprect == 0 ? IntPtr : RECT.Ptr
+    lpStringMarshal := lpString == 0 ? IntPtr : PSTR
+    lpDxMarshal := lpDx is VarRef ? "int*" : IntPtr
+    lpDxMarshal := lpDx == 0 ? IntPtr : "int*"
 
-    result := DllCall("GDI32.dll\ExtTextOutA", HDC, _hdc, Int32, x, Int32, y, ETO_OPTIONS, options, RECT.Ptr, lprect, "ptr", lpString, UInt32, c, lpDxMarshal, lpDx, BOOL)
+    result := DllCall("GDI32.dll\ExtTextOutA", HDC, _hdc, Int32, x, Int32, y, ETO_OPTIONS, options, lprectMarshal, lprect, lpStringMarshal, lpString, UInt32, c, lpDxMarshal, lpDx, BOOL)
     return result
 }
 
@@ -10498,9 +10655,12 @@ export ExtTextOutA(_hdc, x, y, options, lprect, lpString, c, lpDx) {
 export ExtTextOutW(_hdc, x, y, options, lprect, lpString, c, lpDx) {
     lpString := lpString is String ? StrPtr(lpString) : lpString
 
-    lpDxMarshal := lpDx is VarRef ? "int*" : "ptr"
+    lprectMarshal := lprect == 0 ? IntPtr : RECT.Ptr
+    lpStringMarshal := lpString == 0 ? IntPtr : PWSTR
+    lpDxMarshal := lpDx is VarRef ? "int*" : IntPtr
+    lpDxMarshal := lpDx == 0 ? IntPtr : "int*"
 
-    result := DllCall("GDI32.dll\ExtTextOutW", HDC, _hdc, Int32, x, Int32, y, ETO_OPTIONS, options, RECT.Ptr, lprect, "ptr", lpString, UInt32, c, lpDxMarshal, lpDx, BOOL)
+    result := DllCall("GDI32.dll\ExtTextOutW", HDC, _hdc, Int32, x, Int32, y, ETO_OPTIONS, options, lprectMarshal, lprect, lpStringMarshal, lpString, UInt32, c, lpDxMarshal, lpDx, BOOL)
     return result
 }
 
@@ -10757,7 +10917,9 @@ export PolylineTo(_hdc, apt, cpt) {
  * @since windows5.0
  */
 export SetViewportExtEx(_hdc, x, y, lpsz) {
-    result := DllCall("GDI32.dll\SetViewportExtEx", HDC, _hdc, Int32, x, Int32, y, SIZE.Ptr, lpsz, BOOL)
+    lpszMarshal := lpsz == 0 ? IntPtr : SIZE.Ptr
+
+    result := DllCall("GDI32.dll\SetViewportExtEx", HDC, _hdc, Int32, x, Int32, y, lpszMarshal, lpsz, BOOL)
     return result
 }
 
@@ -10787,7 +10949,9 @@ export SetViewportExtEx(_hdc, x, y, lpsz) {
  * @since windows5.0
  */
 export SetViewportOrgEx(_hdc, x, y, lppt) {
-    result := DllCall("GDI32.dll\SetViewportOrgEx", HDC, _hdc, Int32, x, Int32, y, POINT.Ptr, lppt, BOOL)
+    lpptMarshal := lppt == 0 ? IntPtr : POINT.Ptr
+
+    result := DllCall("GDI32.dll\SetViewportOrgEx", HDC, _hdc, Int32, x, Int32, y, lpptMarshal, lppt, BOOL)
     return result
 }
 
@@ -10818,7 +10982,9 @@ export SetViewportOrgEx(_hdc, x, y, lppt) {
  * @since windows5.0
  */
 export SetWindowExtEx(_hdc, x, y, lpsz) {
-    result := DllCall("GDI32.dll\SetWindowExtEx", HDC, _hdc, Int32, x, Int32, y, SIZE.Ptr, lpsz, BOOL)
+    lpszMarshal := lpsz == 0 ? IntPtr : SIZE.Ptr
+
+    result := DllCall("GDI32.dll\SetWindowExtEx", HDC, _hdc, Int32, x, Int32, y, lpszMarshal, lpsz, BOOL)
     return result
 }
 
@@ -10848,7 +11014,9 @@ export SetWindowExtEx(_hdc, x, y, lpsz) {
  * @since windows5.0
  */
 export SetWindowOrgEx(_hdc, x, y, lppt) {
-    result := DllCall("GDI32.dll\SetWindowOrgEx", HDC, _hdc, Int32, x, Int32, y, POINT.Ptr, lppt, BOOL)
+    lpptMarshal := lppt == 0 ? IntPtr : POINT.Ptr
+
+    result := DllCall("GDI32.dll\SetWindowOrgEx", HDC, _hdc, Int32, x, Int32, y, lpptMarshal, lppt, BOOL)
     return result
 }
 
@@ -10867,7 +11035,9 @@ export SetWindowOrgEx(_hdc, x, y, lppt) {
  * @since windows5.0
  */
 export OffsetViewportOrgEx(_hdc, x, y, lppt) {
-    result := DllCall("GDI32.dll\OffsetViewportOrgEx", HDC, _hdc, Int32, x, Int32, y, POINT.Ptr, lppt, BOOL)
+    lpptMarshal := lppt == 0 ? IntPtr : POINT.Ptr
+
+    result := DllCall("GDI32.dll\OffsetViewportOrgEx", HDC, _hdc, Int32, x, Int32, y, lpptMarshal, lppt, BOOL)
     return result
 }
 
@@ -10884,7 +11054,9 @@ export OffsetViewportOrgEx(_hdc, x, y, lppt) {
  * @since windows5.0
  */
 export OffsetWindowOrgEx(_hdc, x, y, lppt) {
-    result := DllCall("GDI32.dll\OffsetWindowOrgEx", HDC, _hdc, Int32, x, Int32, y, POINT.Ptr, lppt, BOOL)
+    lpptMarshal := lppt == 0 ? IntPtr : POINT.Ptr
+
+    result := DllCall("GDI32.dll\OffsetWindowOrgEx", HDC, _hdc, Int32, x, Int32, y, lpptMarshal, lppt, BOOL)
     return result
 }
 
@@ -10913,7 +11085,9 @@ export OffsetWindowOrgEx(_hdc, x, y, lppt) {
  * @since windows5.0
  */
 export ScaleViewportExtEx(_hdc, xn, dx, yn, yd, lpsz) {
-    result := DllCall("GDI32.dll\ScaleViewportExtEx", HDC, _hdc, Int32, xn, Int32, dx, Int32, yn, Int32, yd, SIZE.Ptr, lpsz, BOOL)
+    lpszMarshal := lpsz == 0 ? IntPtr : SIZE.Ptr
+
+    result := DllCall("GDI32.dll\ScaleViewportExtEx", HDC, _hdc, Int32, xn, Int32, dx, Int32, yn, Int32, yd, lpszMarshal, lpsz, BOOL)
     return result
 }
 
@@ -10942,7 +11116,9 @@ export ScaleViewportExtEx(_hdc, xn, dx, yn, yd, lpsz) {
  * @since windows5.0
  */
 export ScaleWindowExtEx(_hdc, xn, xd, yn, yd, lpsz) {
-    result := DllCall("GDI32.dll\ScaleWindowExtEx", HDC, _hdc, Int32, xn, Int32, xd, Int32, yn, Int32, yd, SIZE.Ptr, lpsz, BOOL)
+    lpszMarshal := lpsz == 0 ? IntPtr : SIZE.Ptr
+
+    result := DllCall("GDI32.dll\ScaleWindowExtEx", HDC, _hdc, Int32, xn, Int32, xd, Int32, yn, Int32, yd, lpszMarshal, lpsz, BOOL)
     return result
 }
 
@@ -10963,7 +11139,9 @@ export ScaleWindowExtEx(_hdc, xn, xd, yn, yd, lpsz) {
  * @since windows5.0
  */
 export SetBitmapDimensionEx(_hbm, w, h, lpsz) {
-    result := DllCall("GDI32.dll\SetBitmapDimensionEx", HBITMAP, _hbm, Int32, w, Int32, h, SIZE.Ptr, lpsz, BOOL)
+    lpszMarshal := lpsz == 0 ? IntPtr : SIZE.Ptr
+
+    result := DllCall("GDI32.dll\SetBitmapDimensionEx", HBITMAP, _hbm, Int32, w, Int32, h, lpszMarshal, lpsz, BOOL)
     return result
 }
 
@@ -10992,7 +11170,9 @@ export SetBitmapDimensionEx(_hbm, w, h, lpsz) {
  * @since windows5.0
  */
 export SetBrushOrgEx(_hdc, x, y, lppt) {
-    result := DllCall("GDI32.dll\SetBrushOrgEx", HDC, _hdc, Int32, x, Int32, y, POINT.Ptr, lppt, BOOL)
+    lpptMarshal := lppt == 0 ? IntPtr : POINT.Ptr
+
+    result := DllCall("GDI32.dll\SetBrushOrgEx", HDC, _hdc, Int32, x, Int32, y, lpptMarshal, lppt, BOOL)
     return result
 }
 
@@ -11021,7 +11201,9 @@ export SetBrushOrgEx(_hdc, x, y, lppt) {
 export GetTextFaceA(_hdc, c, lpName) {
     lpName := lpName is String ? StrPtr(lpName) : lpName
 
-    result := DllCall("GDI32.dll\GetTextFaceA", HDC, _hdc, Int32, c, "ptr", lpName, Int32)
+    lpNameMarshal := lpName == 0 ? IntPtr : PSTR
+
+    result := DllCall("GDI32.dll\GetTextFaceA", HDC, _hdc, Int32, c, lpNameMarshal, lpName, Int32)
     return result
 }
 
@@ -11050,7 +11232,9 @@ export GetTextFaceA(_hdc, c, lpName) {
 export GetTextFaceW(_hdc, c, lpName) {
     lpName := lpName is String ? StrPtr(lpName) : lpName
 
-    result := DllCall("GDI32.dll\GetTextFaceW", HDC, _hdc, Int32, c, "ptr", lpName, Int32)
+    lpNameMarshal := lpName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("GDI32.dll\GetTextFaceW", HDC, _hdc, Int32, c, lpNameMarshal, lpName, Int32)
     return result
 }
 
@@ -11069,7 +11253,9 @@ export GetTextFaceW(_hdc, c, lpName) {
  * @since windows5.0
  */
 export GetKerningPairsA(_hdc, nPairs, lpKernPair) {
-    result := DllCall("GDI32.dll\GetKerningPairsA", HDC, _hdc, UInt32, nPairs, KERNINGPAIR.Ptr, lpKernPair, UInt32)
+    lpKernPairMarshal := lpKernPair == 0 ? IntPtr : KERNINGPAIR.Ptr
+
+    result := DllCall("GDI32.dll\GetKerningPairsA", HDC, _hdc, UInt32, nPairs, lpKernPairMarshal, lpKernPair, UInt32)
     return result
 }
 
@@ -11088,7 +11274,9 @@ export GetKerningPairsA(_hdc, nPairs, lpKernPair) {
  * @since windows5.0
  */
 export GetKerningPairsW(_hdc, nPairs, lpKernPair) {
-    result := DllCall("GDI32.dll\GetKerningPairsW", HDC, _hdc, UInt32, nPairs, KERNINGPAIR.Ptr, lpKernPair, UInt32)
+    lpKernPairMarshal := lpKernPair == 0 ? IntPtr : KERNINGPAIR.Ptr
+
+    result := DllCall("GDI32.dll\GetKerningPairsW", HDC, _hdc, UInt32, nPairs, lpKernPairMarshal, lpKernPair, UInt32)
     return result
 }
 
@@ -11110,7 +11298,6 @@ export GetDCOrgEx(_hdc, lppt) {
 }
 
 /**
- * 
  * @param {HDC} _hdc 
  * @param {Integer} x 
  * @param {Integer} y 
@@ -11118,7 +11305,9 @@ export GetDCOrgEx(_hdc, lppt) {
  * @returns {BOOL} 
  */
 export FixBrushOrgEx(_hdc, x, y, ptl) {
-    result := DllCall("GDI32.dll\FixBrushOrgEx", HDC, _hdc, Int32, x, Int32, y, POINT.Ptr, ptl, BOOL)
+    ptlMarshal := ptl == 0 ? IntPtr : POINT.Ptr
+
+    result := DllCall("GDI32.dll\FixBrushOrgEx", HDC, _hdc, Int32, x, Int32, y, ptlMarshal, ptl, BOOL)
     return result
 }
 
@@ -11217,7 +11406,6 @@ export GdiGetBatchLimit() {
 }
 
 /**
- * 
  * @param {Integer} param0 
  * @param {Pointer<WGLSWAP>} param1 
  * @returns {Integer} 
@@ -11343,12 +11531,12 @@ export wglSwapMultipleBuffers(param0, param1) {
  * @since windows5.1.2600
  */
 export CreateFontPackage(puchSrcBuffer, ulSrcBufferSize, ppuchFontPackageBuffer, pulFontPackageBufferSize, pulBytesWritten, usFlag, usTTCIndex, usSubsetFormat, usSubsetLanguage, usSubsetPlatform, usSubsetEncoding, pusSubsetKeepList, usSubsetListCount, lpfnAllocate, lpfnReAllocate, lpfnFree, lpvReserved) {
-    puchSrcBufferMarshal := puchSrcBuffer is VarRef ? "char*" : "ptr"
-    ppuchFontPackageBufferMarshal := ppuchFontPackageBuffer is VarRef ? "ptr*" : "ptr"
-    pulFontPackageBufferSizeMarshal := pulFontPackageBufferSize is VarRef ? "uint*" : "ptr"
-    pulBytesWrittenMarshal := pulBytesWritten is VarRef ? "uint*" : "ptr"
-    pusSubsetKeepListMarshal := pusSubsetKeepList is VarRef ? "ushort*" : "ptr"
-    lpvReservedMarshal := lpvReserved is VarRef ? "ptr" : "ptr"
+    puchSrcBufferMarshal := puchSrcBuffer is VarRef ? "char*" : IntPtr
+    ppuchFontPackageBufferMarshal := ppuchFontPackageBuffer is VarRef ? "ptr*" : IntPtr
+    pulFontPackageBufferSizeMarshal := pulFontPackageBufferSize is VarRef ? "uint*" : IntPtr
+    pulBytesWrittenMarshal := pulBytesWritten is VarRef ? "uint*" : IntPtr
+    pusSubsetKeepListMarshal := pusSubsetKeepList is VarRef ? "ushort*" : IntPtr
+    lpvReservedMarshal := lpvReserved is VarRef ? "ptr" : IntPtr
 
     result := DllCall("FONTSUB.dll\CreateFontPackage", puchSrcBufferMarshal, puchSrcBuffer, UInt32, ulSrcBufferSize, ppuchFontPackageBufferMarshal, ppuchFontPackageBuffer, pulFontPackageBufferSizeMarshal, pulFontPackageBufferSize, pulBytesWrittenMarshal, pulBytesWritten, UInt16, usFlag, UInt16, usTTCIndex, UInt16, usSubsetFormat, UInt16, usSubsetLanguage, CREATE_FONT_PACKAGE_SUBSET_PLATFORM, usSubsetPlatform, CREATE_FONT_PACKAGE_SUBSET_ENCODING, usSubsetEncoding, pusSubsetKeepListMarshal, pusSubsetKeepList, UInt16, usSubsetListCount, CFP_ALLOCPROC, lpfnAllocate, CFP_REALLOCPROC, lpfnReAllocate, CFP_FREEPROC, lpfnFree, lpvReservedMarshal, lpvReserved, UInt32)
     return result
@@ -11451,12 +11639,12 @@ export CreateFontPackage(puchSrcBuffer, ulSrcBufferSize, ppuchFontPackageBuffer,
  * @since windows5.1.2600
  */
 export MergeFontPackage(puchMergeFontBuffer, ulMergeFontBufferSize, puchFontPackageBuffer, ulFontPackageBufferSize, ppuchDestBuffer, pulDestBufferSize, pulBytesWritten, usMode, lpfnAllocate, lpfnReAllocate, lpfnFree, lpvReserved) {
-    puchMergeFontBufferMarshal := puchMergeFontBuffer is VarRef ? "char*" : "ptr"
-    puchFontPackageBufferMarshal := puchFontPackageBuffer is VarRef ? "char*" : "ptr"
-    ppuchDestBufferMarshal := ppuchDestBuffer is VarRef ? "ptr*" : "ptr"
-    pulDestBufferSizeMarshal := pulDestBufferSize is VarRef ? "uint*" : "ptr"
-    pulBytesWrittenMarshal := pulBytesWritten is VarRef ? "uint*" : "ptr"
-    lpvReservedMarshal := lpvReserved is VarRef ? "ptr" : "ptr"
+    puchMergeFontBufferMarshal := puchMergeFontBuffer is VarRef ? "char*" : IntPtr
+    puchFontPackageBufferMarshal := puchFontPackageBuffer is VarRef ? "char*" : IntPtr
+    ppuchDestBufferMarshal := ppuchDestBuffer is VarRef ? "ptr*" : IntPtr
+    pulDestBufferSizeMarshal := pulDestBufferSize is VarRef ? "uint*" : IntPtr
+    pulBytesWrittenMarshal := pulBytesWritten is VarRef ? "uint*" : IntPtr
+    lpvReservedMarshal := lpvReserved is VarRef ? "ptr" : IntPtr
 
     result := DllCall("FONTSUB.dll\MergeFontPackage", puchMergeFontBufferMarshal, puchMergeFontBuffer, UInt32, ulMergeFontBufferSize, puchFontPackageBufferMarshal, puchFontPackageBuffer, UInt32, ulFontPackageBufferSize, ppuchDestBufferMarshal, ppuchDestBuffer, pulDestBufferSizeMarshal, pulDestBufferSize, pulBytesWrittenMarshal, pulBytesWritten, UInt16, usMode, CFP_ALLOCPROC, lpfnAllocate, CFP_REALLOCPROC, lpfnReAllocate, CFP_FREEPROC, lpfnFree, lpvReservedMarshal, lpvReserved, UInt32)
     return result
@@ -11488,12 +11676,13 @@ export MergeFontPackage(puchMergeFontBuffer, ulMergeFontBufferSize, puchFontPack
  * @since windows5.0
  */
 export TTEmbedFont(_hDC, ulFlags, ulCharSet, pulPrivStatus, pulStatus, lpfnWriteToStream, lpvWriteStream, pusCharCodeSet, usCharCodeCount, usLanguage, pTTEmbedInfo) {
-    pulPrivStatusMarshal := pulPrivStatus is VarRef ? "uint*" : "ptr"
-    pulStatusMarshal := pulStatus is VarRef ? "uint*" : "ptr"
-    lpvWriteStreamMarshal := lpvWriteStream is VarRef ? "ptr" : "ptr"
-    pusCharCodeSetMarshal := pusCharCodeSet is VarRef ? "ushort*" : "ptr"
+    pulPrivStatusMarshal := pulPrivStatus is VarRef ? "uint*" : IntPtr
+    pulStatusMarshal := pulStatus is VarRef ? "uint*" : IntPtr
+    lpvWriteStreamMarshal := lpvWriteStream is VarRef ? "ptr" : IntPtr
+    pusCharCodeSetMarshal := pusCharCodeSet is VarRef ? "ushort*" : IntPtr
+    pTTEmbedInfoMarshal := pTTEmbedInfo == 0 ? IntPtr : TTEMBEDINFO.Ptr
 
-    result := DllCall("t2embed.dll\TTEmbedFont", HDC, _hDC, TTEMBED_FLAGS, ulFlags, EMBED_FONT_CHARSET, ulCharSet, pulPrivStatusMarshal, pulPrivStatus, pulStatusMarshal, pulStatus, WRITEEMBEDPROC, lpfnWriteToStream, lpvWriteStreamMarshal, lpvWriteStream, pusCharCodeSetMarshal, pusCharCodeSet, UInt16, usCharCodeCount, UInt16, usLanguage, TTEMBEDINFO.Ptr, pTTEmbedInfo, Int32)
+    result := DllCall("t2embed.dll\TTEmbedFont", HDC, _hDC, TTEMBED_FLAGS, ulFlags, EMBED_FONT_CHARSET, ulCharSet, pulPrivStatusMarshal, pulPrivStatus, pulStatusMarshal, pulStatus, WRITEEMBEDPROC, lpfnWriteToStream, lpvWriteStreamMarshal, lpvWriteStream, pusCharCodeSetMarshal, pusCharCodeSet, UInt16, usCharCodeCount, UInt16, usLanguage, pTTEmbedInfoMarshal, pTTEmbedInfo, Int32)
     return result
 }
 
@@ -11529,12 +11718,13 @@ export TTEmbedFont(_hDC, ulFlags, ulCharSet, pulPrivStatus, pulStatus, lpfnWrite
 export TTEmbedFontFromFileA(_hDC, szFontFileName, usTTCIndex, ulFlags, ulCharSet, pulPrivStatus, pulStatus, lpfnWriteToStream, lpvWriteStream, pusCharCodeSet, usCharCodeCount, usLanguage, pTTEmbedInfo) {
     szFontFileName := szFontFileName is String ? StrPtr(szFontFileName) : szFontFileName
 
-    pulPrivStatusMarshal := pulPrivStatus is VarRef ? "uint*" : "ptr"
-    pulStatusMarshal := pulStatus is VarRef ? "uint*" : "ptr"
-    lpvWriteStreamMarshal := lpvWriteStream is VarRef ? "ptr" : "ptr"
-    pusCharCodeSetMarshal := pusCharCodeSet is VarRef ? "ushort*" : "ptr"
+    pulPrivStatusMarshal := pulPrivStatus is VarRef ? "uint*" : IntPtr
+    pulStatusMarshal := pulStatus is VarRef ? "uint*" : IntPtr
+    lpvWriteStreamMarshal := lpvWriteStream is VarRef ? "ptr" : IntPtr
+    pusCharCodeSetMarshal := pusCharCodeSet is VarRef ? "ushort*" : IntPtr
+    pTTEmbedInfoMarshal := pTTEmbedInfo == 0 ? IntPtr : TTEMBEDINFO.Ptr
 
-    result := DllCall("t2embed.dll\TTEmbedFontFromFileA", HDC, _hDC, "ptr", szFontFileName, UInt16, usTTCIndex, TTEMBED_FLAGS, ulFlags, EMBED_FONT_CHARSET, ulCharSet, pulPrivStatusMarshal, pulPrivStatus, pulStatusMarshal, pulStatus, WRITEEMBEDPROC, lpfnWriteToStream, lpvWriteStreamMarshal, lpvWriteStream, pusCharCodeSetMarshal, pusCharCodeSet, UInt16, usCharCodeCount, UInt16, usLanguage, TTEMBEDINFO.Ptr, pTTEmbedInfo, Int32)
+    result := DllCall("t2embed.dll\TTEmbedFontFromFileA", HDC, _hDC, "ptr", szFontFileName, UInt16, usTTCIndex, TTEMBED_FLAGS, ulFlags, EMBED_FONT_CHARSET, ulCharSet, pulPrivStatusMarshal, pulPrivStatus, pulStatusMarshal, pulStatus, WRITEEMBEDPROC, lpfnWriteToStream, lpvWriteStreamMarshal, lpvWriteStream, pusCharCodeSetMarshal, pusCharCodeSet, UInt16, usCharCodeCount, UInt16, usLanguage, pTTEmbedInfoMarshal, pTTEmbedInfo, Int32)
     return result
 }
 
@@ -11589,11 +11779,14 @@ export TTLoadEmbeddedFont(phFontReference, ulFlags, pulPrivStatus, ulPrivs, pulS
     szWinFamilyName := szWinFamilyName is String ? StrPtr(szWinFamilyName) : szWinFamilyName
     szMacFamilyName := szMacFamilyName is String ? StrPtr(szMacFamilyName) : szMacFamilyName
 
-    pulPrivStatusMarshal := pulPrivStatus is VarRef ? "uint*" : "ptr"
-    pulStatusMarshal := pulStatus is VarRef ? "uint*" : "ptr"
-    lpvReadStreamMarshal := lpvReadStream is VarRef ? "ptr" : "ptr"
+    pulPrivStatusMarshal := pulPrivStatus is VarRef ? "uint*" : IntPtr
+    pulStatusMarshal := pulStatus is VarRef ? "uint*" : IntPtr
+    lpvReadStreamMarshal := lpvReadStream is VarRef ? "ptr" : IntPtr
+    szWinFamilyNameMarshal := szWinFamilyName == 0 ? IntPtr : PWSTR
+    szMacFamilyNameMarshal := szMacFamilyName == 0 ? IntPtr : PSTR
+    pTTLoadInfoMarshal := pTTLoadInfo == 0 ? IntPtr : TTLOADINFO.Ptr
 
-    result := DllCall("t2embed.dll\TTLoadEmbeddedFont", HANDLE.Ptr, phFontReference, UInt32, ulFlags, pulPrivStatusMarshal, pulPrivStatus, FONT_LICENSE_PRIVS, ulPrivs, pulStatusMarshal, pulStatus, READEMBEDPROC, lpfnReadFromStream, lpvReadStreamMarshal, lpvReadStream, "ptr", szWinFamilyName, "ptr", szMacFamilyName, TTLOADINFO.Ptr, pTTLoadInfo, Int32)
+    result := DllCall("t2embed.dll\TTLoadEmbeddedFont", HANDLE.Ptr, phFontReference, UInt32, ulFlags, pulPrivStatusMarshal, pulPrivStatus, FONT_LICENSE_PRIVS, ulPrivs, pulStatusMarshal, pulStatus, READEMBEDPROC, lpfnReadFromStream, lpvReadStreamMarshal, lpvReadStream, szWinFamilyNameMarshal, szWinFamilyName, szMacFamilyNameMarshal, szMacFamilyName, pTTLoadInfoMarshal, pTTLoadInfo, Int32)
     return result
 }
 
@@ -11679,11 +11872,12 @@ export TTLoadEmbeddedFont(phFontReference, ulFlags, pulPrivStatus, ulPrivs, pulS
  * @since windows5.0
  */
 export TTGetEmbeddedFontInfo(ulFlags, pulPrivStatus, ulPrivs, pulStatus, lpfnReadFromStream, lpvReadStream, pTTLoadInfo) {
-    pulPrivStatusMarshal := pulPrivStatus is VarRef ? "uint*" : "ptr"
-    pulStatusMarshal := pulStatus is VarRef ? "uint*" : "ptr"
-    lpvReadStreamMarshal := lpvReadStream is VarRef ? "ptr" : "ptr"
+    pulPrivStatusMarshal := pulPrivStatus is VarRef ? "uint*" : IntPtr
+    pulStatusMarshal := pulStatus is VarRef ? "uint*" : IntPtr
+    lpvReadStreamMarshal := lpvReadStream is VarRef ? "ptr" : IntPtr
+    pTTLoadInfoMarshal := pTTLoadInfo == 0 ? IntPtr : TTLOADINFO.Ptr
 
-    result := DllCall("t2embed.dll\TTGetEmbeddedFontInfo", TTEMBED_FLAGS, ulFlags, pulPrivStatusMarshal, pulPrivStatus, FONT_LICENSE_PRIVS, ulPrivs, pulStatusMarshal, pulStatus, READEMBEDPROC, lpfnReadFromStream, lpvReadStreamMarshal, lpvReadStream, TTLOADINFO.Ptr, pTTLoadInfo, Int32)
+    result := DllCall("t2embed.dll\TTGetEmbeddedFontInfo", TTEMBED_FLAGS, ulFlags, pulPrivStatusMarshal, pulPrivStatus, FONT_LICENSE_PRIVS, ulPrivs, pulStatusMarshal, pulStatus, READEMBEDPROC, lpfnReadFromStream, lpvReadStreamMarshal, lpvReadStream, pTTLoadInfoMarshal, pTTLoadInfo, Int32)
     return result
 }
 
@@ -11720,7 +11914,7 @@ export TTGetEmbeddedFontInfo(ulFlags, pulPrivStatus, ulPrivs, pulStatus, lpfnRea
  * @since windows5.0
  */
 export TTDeleteEmbeddedFont(hFontReference, ulFlags, pulStatus) {
-    pulStatusMarshal := pulStatus is VarRef ? "uint*" : "ptr"
+    pulStatusMarshal := pulStatus is VarRef ? "uint*" : IntPtr
 
     result := DllCall("t2embed.dll\TTDeleteEmbeddedFont", HANDLE, hFontReference, UInt32, ulFlags, pulStatusMarshal, pulStatus, Int32)
     return result
@@ -11741,7 +11935,7 @@ export TTDeleteEmbeddedFont(hFontReference, ulFlags, pulStatus) {
  * @since windows5.0
  */
 export TTGetEmbeddingType(_hDC, pulEmbedType) {
-    pulEmbedTypeMarshal := pulEmbedType is VarRef ? "uint*" : "ptr"
+    pulEmbedTypeMarshal := pulEmbedType is VarRef ? "uint*" : IntPtr
 
     result := DllCall("t2embed.dll\TTGetEmbeddingType", HDC, _hDC, pulEmbedTypeMarshal, pulEmbedType, Int32)
     return result
@@ -11766,8 +11960,8 @@ export TTGetEmbeddingType(_hDC, pulEmbedType) {
  * @since windows5.0
  */
 export TTCharToUnicode(_hDC, pucCharCodes, ulCharCodeSize, pusShortCodes, ulShortCodeSize, ulFlags) {
-    pucCharCodesMarshal := pucCharCodes is VarRef ? "char*" : "ptr"
-    pusShortCodesMarshal := pusShortCodes is VarRef ? "ushort*" : "ptr"
+    pucCharCodesMarshal := pucCharCodes is VarRef ? "char*" : IntPtr
+    pusShortCodesMarshal := pusShortCodes is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("t2embed.dll\TTCharToUnicode", HDC, _hDC, pucCharCodesMarshal, pucCharCodes, UInt32, ulCharCodeSize, pusShortCodesMarshal, pusShortCodes, UInt32, ulShortCodeSize, UInt32, ulFlags, Int32)
     return result
@@ -11809,7 +12003,7 @@ export TTRunValidationTests(_hDC, pTestParam) {
  * @since windows5.0
  */
 export TTIsEmbeddingEnabled(_hDC, pbEnabled) {
-    pbEnabledMarshal := pbEnabled is VarRef ? "int*" : "ptr"
+    pbEnabledMarshal := pbEnabled is VarRef ? "int*" : IntPtr
 
     result := DllCall("t2embed.dll\TTIsEmbeddingEnabled", HDC, _hDC, pbEnabledMarshal, pbEnabled, Int32)
     return result
@@ -11834,7 +12028,7 @@ export TTIsEmbeddingEnabled(_hDC, pbEnabled) {
 export TTIsEmbeddingEnabledForFacename(lpszFacename, pbEnabled) {
     lpszFacename := lpszFacename is String ? StrPtr(lpszFacename) : lpszFacename
 
-    pbEnabledMarshal := pbEnabled is VarRef ? "int*" : "ptr"
+    pbEnabledMarshal := pbEnabled is VarRef ? "int*" : IntPtr
 
     result := DllCall("t2embed.dll\TTIsEmbeddingEnabledForFacename", "ptr", lpszFacename, pbEnabledMarshal, pbEnabled, Int32)
     return result
@@ -11972,12 +12166,13 @@ export TTEnableEmbeddingForFacename(lpszFacename, bEnable) {
  * @since windows5.0
  */
 export TTEmbedFontEx(_hDC, ulFlags, ulCharSet, pulPrivStatus, pulStatus, lpfnWriteToStream, lpvWriteStream, pulCharCodeSet, usCharCodeCount, usLanguage, pTTEmbedInfo) {
-    pulPrivStatusMarshal := pulPrivStatus is VarRef ? "uint*" : "ptr"
-    pulStatusMarshal := pulStatus is VarRef ? "uint*" : "ptr"
-    lpvWriteStreamMarshal := lpvWriteStream is VarRef ? "ptr" : "ptr"
-    pulCharCodeSetMarshal := pulCharCodeSet is VarRef ? "uint*" : "ptr"
+    pulPrivStatusMarshal := pulPrivStatus is VarRef ? "uint*" : IntPtr
+    pulStatusMarshal := pulStatus is VarRef ? "uint*" : IntPtr
+    lpvWriteStreamMarshal := lpvWriteStream is VarRef ? "ptr" : IntPtr
+    pulCharCodeSetMarshal := pulCharCodeSet is VarRef ? "uint*" : IntPtr
+    pTTEmbedInfoMarshal := pTTEmbedInfo == 0 ? IntPtr : TTEMBEDINFO.Ptr
 
-    result := DllCall("t2embed.dll\TTEmbedFontEx", HDC, _hDC, TTEMBED_FLAGS, ulFlags, EMBED_FONT_CHARSET, ulCharSet, pulPrivStatusMarshal, pulPrivStatus, pulStatusMarshal, pulStatus, WRITEEMBEDPROC, lpfnWriteToStream, lpvWriteStreamMarshal, lpvWriteStream, pulCharCodeSetMarshal, pulCharCodeSet, UInt16, usCharCodeCount, UInt16, usLanguage, TTEMBEDINFO.Ptr, pTTEmbedInfo, Int32)
+    result := DllCall("t2embed.dll\TTEmbedFontEx", HDC, _hDC, TTEMBED_FLAGS, ulFlags, EMBED_FONT_CHARSET, ulCharSet, pulPrivStatusMarshal, pulPrivStatus, pulStatusMarshal, pulStatus, WRITEEMBEDPROC, lpfnWriteToStream, lpvWriteStreamMarshal, lpvWriteStream, pulCharCodeSetMarshal, pulCharCodeSet, UInt16, usCharCodeCount, UInt16, usLanguage, pTTEmbedInfoMarshal, pTTEmbedInfo, Int32)
     return result
 }
 
@@ -12204,7 +12399,9 @@ export DrawCaption(_hwnd, _hdc, lprect, flags) {
  * @since windows5.0
  */
 export DrawAnimatedRects(_hwnd, idAni, lprcFrom, lprcTo) {
-    result := DllCall("USER32.dll\DrawAnimatedRects", HWND, _hwnd, Int32, idAni, RECT.Ptr, lprcFrom, RECT.Ptr, lprcTo, BOOL)
+    _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+
+    result := DllCall("USER32.dll\DrawAnimatedRects", _hwndMarshal, _hwnd, Int32, idAni, RECT.Ptr, lprcFrom, RECT.Ptr, lprcTo, BOOL)
     return result
 }
 
@@ -12308,7 +12505,9 @@ export DrawTextW(_hdc, lpchText, cchText, lprc, format) {
 export DrawTextExA(_hdc, lpchText, cchText, lprc, format, lpdtp) {
     lpchText := lpchText is String ? StrPtr(lpchText) : lpchText
 
-    result := DllCall("USER32.dll\DrawTextExA", HDC, _hdc, "ptr", lpchText, Int32, cchText, RECT.Ptr, lprc, DRAW_TEXT_FORMAT, format, DRAWTEXTPARAMS.Ptr, lpdtp, Int32)
+    lpdtpMarshal := lpdtp == 0 ? IntPtr : DRAWTEXTPARAMS.Ptr
+
+    result := DllCall("USER32.dll\DrawTextExA", HDC, _hdc, "ptr", lpchText, Int32, cchText, RECT.Ptr, lprc, DRAW_TEXT_FORMAT, format, lpdtpMarshal, lpdtp, Int32)
     return result
 }
 
@@ -12342,7 +12541,9 @@ export DrawTextExA(_hdc, lpchText, cchText, lprc, format, lpdtp) {
 export DrawTextExW(_hdc, lpchText, cchText, lprc, format, lpdtp) {
     lpchText := lpchText is String ? StrPtr(lpchText) : lpchText
 
-    result := DllCall("USER32.dll\DrawTextExW", HDC, _hdc, "ptr", lpchText, Int32, cchText, RECT.Ptr, lprc, DRAW_TEXT_FORMAT, format, DRAWTEXTPARAMS.Ptr, lpdtp, Int32)
+    lpdtpMarshal := lpdtp == 0 ? IntPtr : DRAWTEXTPARAMS.Ptr
+
+    result := DllCall("USER32.dll\DrawTextExW", HDC, _hdc, "ptr", lpchText, Int32, cchText, RECT.Ptr, lprc, DRAW_TEXT_FORMAT, format, lpdtpMarshal, lpdtp, Int32)
     return result
 }
 
@@ -12373,7 +12574,10 @@ export DrawTextExW(_hdc, lpchText, cchText, lprc, format, lpdtp) {
  * @since windows5.0
  */
 export GrayStringA(_hDC, _hBrush, lpOutputFunc, lpData, nCount, X, Y, nWidth, nHeight) {
-    result := DllCall("USER32.dll\GrayStringA", HDC, _hDC, HBRUSH, _hBrush, GRAYSTRINGPROC, lpOutputFunc, LPARAM, lpData, Int32, nCount, Int32, X, Int32, Y, Int32, nWidth, Int32, nHeight, BOOL)
+    _hBrushMarshal := _hBrush == 0 ? IntPtr : HBRUSH
+    lpOutputFuncMarshal := lpOutputFunc == 0 ? IntPtr : GRAYSTRINGPROC
+
+    result := DllCall("USER32.dll\GrayStringA", HDC, _hDC, _hBrushMarshal, _hBrush, lpOutputFuncMarshal, lpOutputFunc, LPARAM, lpData, Int32, nCount, Int32, X, Int32, Y, Int32, nWidth, Int32, nHeight, BOOL)
     return result
 }
 
@@ -12404,7 +12608,10 @@ export GrayStringA(_hDC, _hBrush, lpOutputFunc, lpData, nCount, X, Y, nWidth, nH
  * @since windows5.0
  */
 export GrayStringW(_hDC, _hBrush, lpOutputFunc, lpData, nCount, X, Y, nWidth, nHeight) {
-    result := DllCall("USER32.dll\GrayStringW", HDC, _hDC, HBRUSH, _hBrush, GRAYSTRINGPROC, lpOutputFunc, LPARAM, lpData, Int32, nCount, Int32, X, Int32, Y, Int32, nWidth, Int32, nHeight, BOOL)
+    _hBrushMarshal := _hBrush == 0 ? IntPtr : HBRUSH
+    lpOutputFuncMarshal := lpOutputFunc == 0 ? IntPtr : GRAYSTRINGPROC
+
+    result := DllCall("USER32.dll\GrayStringW", HDC, _hDC, _hBrushMarshal, _hBrush, lpOutputFuncMarshal, lpOutputFunc, LPARAM, lpData, Int32, nCount, Int32, X, Int32, Y, Int32, nWidth, Int32, nHeight, BOOL)
     return result
 }
 
@@ -12570,7 +12777,10 @@ export GrayStringW(_hDC, _hBrush, lpOutputFunc, lpData, nCount, X, Y, nWidth, nH
  * @since windows5.0
  */
 export DrawStateA(_hdc, hbrFore, qfnCallBack, lData, wData, x, y, cx, _cy, uFlags) {
-    result := DllCall("USER32.dll\DrawStateA", HDC, _hdc, HBRUSH, hbrFore, DRAWSTATEPROC, qfnCallBack, LPARAM, lData, WPARAM, wData, Int32, x, Int32, y, Int32, cx, Int32, _cy, DRAWSTATE_FLAGS, uFlags, BOOL)
+    hbrForeMarshal := hbrFore == 0 ? IntPtr : HBRUSH
+    qfnCallBackMarshal := qfnCallBack == 0 ? IntPtr : DRAWSTATEPROC
+
+    result := DllCall("USER32.dll\DrawStateA", HDC, _hdc, hbrForeMarshal, hbrFore, qfnCallBackMarshal, qfnCallBack, LPARAM, lData, WPARAM, wData, Int32, x, Int32, y, Int32, cx, Int32, _cy, DRAWSTATE_FLAGS, uFlags, BOOL)
     return result
 }
 
@@ -12736,7 +12946,10 @@ export DrawStateA(_hdc, hbrFore, qfnCallBack, lData, wData, x, y, cx, _cy, uFlag
  * @since windows5.0
  */
 export DrawStateW(_hdc, hbrFore, qfnCallBack, lData, wData, x, y, cx, _cy, uFlags) {
-    result := DllCall("USER32.dll\DrawStateW", HDC, _hdc, HBRUSH, hbrFore, DRAWSTATEPROC, qfnCallBack, LPARAM, lData, WPARAM, wData, Int32, x, Int32, y, Int32, cx, Int32, _cy, DRAWSTATE_FLAGS, uFlags, BOOL)
+    hbrForeMarshal := hbrFore == 0 ? IntPtr : HBRUSH
+    qfnCallBackMarshal := qfnCallBack == 0 ? IntPtr : DRAWSTATEPROC
+
+    result := DllCall("USER32.dll\DrawStateW", HDC, _hdc, hbrForeMarshal, hbrFore, qfnCallBackMarshal, qfnCallBack, LPARAM, lData, WPARAM, wData, Int32, x, Int32, y, Int32, cx, Int32, _cy, DRAWSTATE_FLAGS, uFlags, BOOL)
     return result
 }
 
@@ -12778,7 +12991,8 @@ export DrawStateW(_hdc, hbrFore, qfnCallBack, lData, wData, x, y, cx, _cy, uFlag
 export TabbedTextOutA(_hdc, x, y, lpString, chCount, nTabPositions, lpnTabStopPositions, nTabOrigin) {
     lpString := lpString is String ? StrPtr(lpString) : lpString
 
-    lpnTabStopPositionsMarshal := lpnTabStopPositions is VarRef ? "int*" : "ptr"
+    lpnTabStopPositionsMarshal := lpnTabStopPositions is VarRef ? "int*" : IntPtr
+    lpnTabStopPositionsMarshal := lpnTabStopPositions == 0 ? IntPtr : "int*"
 
     result := DllCall("USER32.dll\TabbedTextOutA", HDC, _hdc, Int32, x, Int32, y, "ptr", lpString, Int32, chCount, Int32, nTabPositions, lpnTabStopPositionsMarshal, lpnTabStopPositions, Int32, nTabOrigin, Int32)
     return result
@@ -12822,7 +13036,8 @@ export TabbedTextOutA(_hdc, x, y, lpString, chCount, nTabPositions, lpnTabStopPo
 export TabbedTextOutW(_hdc, x, y, lpString, chCount, nTabPositions, lpnTabStopPositions, nTabOrigin) {
     lpString := lpString is String ? StrPtr(lpString) : lpString
 
-    lpnTabStopPositionsMarshal := lpnTabStopPositions is VarRef ? "int*" : "ptr"
+    lpnTabStopPositionsMarshal := lpnTabStopPositions is VarRef ? "int*" : IntPtr
+    lpnTabStopPositionsMarshal := lpnTabStopPositions == 0 ? IntPtr : "int*"
 
     result := DllCall("USER32.dll\TabbedTextOutW", HDC, _hdc, Int32, x, Int32, y, "ptr", lpString, Int32, chCount, Int32, nTabPositions, lpnTabStopPositionsMarshal, lpnTabStopPositions, Int32, nTabOrigin, Int32)
     return result
@@ -12859,7 +13074,8 @@ export TabbedTextOutW(_hdc, x, y, lpString, chCount, nTabPositions, lpnTabStopPo
 export GetTabbedTextExtentA(_hdc, lpString, chCount, nTabPositions, lpnTabStopPositions) {
     lpString := lpString is String ? StrPtr(lpString) : lpString
 
-    lpnTabStopPositionsMarshal := lpnTabStopPositions is VarRef ? "int*" : "ptr"
+    lpnTabStopPositionsMarshal := lpnTabStopPositions is VarRef ? "int*" : IntPtr
+    lpnTabStopPositionsMarshal := lpnTabStopPositions == 0 ? IntPtr : "int*"
 
     result := DllCall("USER32.dll\GetTabbedTextExtentA", HDC, _hdc, "ptr", lpString, Int32, chCount, Int32, nTabPositions, lpnTabStopPositionsMarshal, lpnTabStopPositions, UInt32)
     return result
@@ -12896,7 +13112,8 @@ export GetTabbedTextExtentA(_hdc, lpString, chCount, nTabPositions, lpnTabStopPo
 export GetTabbedTextExtentW(_hdc, lpString, chCount, nTabPositions, lpnTabStopPositions) {
     lpString := lpString is String ? StrPtr(lpString) : lpString
 
-    lpnTabStopPositionsMarshal := lpnTabStopPositions is VarRef ? "int*" : "ptr"
+    lpnTabStopPositionsMarshal := lpnTabStopPositions is VarRef ? "int*" : IntPtr
+    lpnTabStopPositionsMarshal := lpnTabStopPositions == 0 ? IntPtr : "int*"
 
     result := DllCall("USER32.dll\GetTabbedTextExtentW", HDC, _hdc, "ptr", lpString, Int32, chCount, Int32, nTabPositions, lpnTabStopPositionsMarshal, lpnTabStopPositions, UInt32)
     return result
@@ -12958,7 +13175,9 @@ export WindowFromDC(_hDC) {
  * @since windows5.0
  */
 export GetDC(_hWnd) {
-    result := DllCall("USER32.dll\GetDC", HWND, _hWnd, HDC)
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+
+    result := DllCall("USER32.dll\GetDC", _hWndMarshal, _hWnd, HDC)
     return result
 }
 
@@ -12978,7 +13197,10 @@ export GetDC(_hWnd) {
  * @since windows5.0
  */
 export GetDCEx(_hWnd, hrgnClip, flags) {
-    result := DllCall("USER32.dll\GetDCEx", HWND, _hWnd, HRGN, hrgnClip, GET_DCX_FLAGS, flags, HDC)
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+    hrgnClipMarshal := hrgnClip == 0 ? IntPtr : HRGN
+
+    result := DllCall("USER32.dll\GetDCEx", _hWndMarshal, _hWnd, hrgnClipMarshal, hrgnClip, GET_DCX_FLAGS, flags, HDC)
     return result
 }
 
@@ -13002,7 +13224,9 @@ export GetDCEx(_hWnd, hrgnClip, flags) {
  * @since windows5.0
  */
 export GetWindowDC(_hWnd) {
-    result := DllCall("USER32.dll\GetWindowDC", HWND, _hWnd, HDC)
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+
+    result := DllCall("USER32.dll\GetWindowDC", _hWndMarshal, _hWnd, HDC)
     return result
 }
 
@@ -13021,7 +13245,9 @@ export GetWindowDC(_hWnd) {
  * @since windows5.0
  */
 export ReleaseDC(_hWnd, _hDC) {
-    result := DllCall("USER32.dll\ReleaseDC", HWND, _hWnd, HDC, _hDC, Int32)
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+
+    result := DllCall("USER32.dll\ReleaseDC", _hWndMarshal, _hWnd, HDC, _hDC, Int32)
     return result
 }
 
@@ -13087,7 +13313,9 @@ export EndPaint(_hWnd, lpPaint) {
  * @since windows5.0
  */
 export GetUpdateRect(_hWnd, lpRect, bErase) {
-    result := DllCall("USER32.dll\GetUpdateRect", HWND, _hWnd, RECT.Ptr, lpRect, BOOL, bErase, BOOL)
+    lpRectMarshal := lpRect == 0 ? IntPtr : RECT.Ptr
+
+    result := DllCall("USER32.dll\GetUpdateRect", HWND, _hWnd, lpRectMarshal, lpRect, BOOL, bErase, BOOL)
     return result
 }
 
@@ -13156,7 +13384,9 @@ export GetUpdateRgn(_hWnd, _hRgn, bErase) {
  * @since windows5.0
  */
 export SetWindowRgn(_hWnd, _hRgn, bRedraw) {
-    result := DllCall("USER32.dll\SetWindowRgn", HWND, _hWnd, HRGN, _hRgn, BOOL, bRedraw, Int32)
+    _hRgnMarshal := _hRgn == 0 ? IntPtr : HRGN
+
+    result := DllCall("USER32.dll\SetWindowRgn", HWND, _hWnd, _hRgnMarshal, _hRgn, BOOL, bRedraw, Int32)
     return result
 }
 
@@ -13322,7 +13552,10 @@ export ExcludeUpdateRgn(_hDC, _hWnd) {
  * @since windows5.0
  */
 export InvalidateRect(_hWnd, lpRect, bErase) {
-    result := DllCall("USER32.dll\InvalidateRect", HWND, _hWnd, RECT.Ptr, lpRect, BOOL, bErase, BOOL)
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+    lpRectMarshal := lpRect == 0 ? IntPtr : RECT.Ptr
+
+    result := DllCall("USER32.dll\InvalidateRect", _hWndMarshal, _hWnd, lpRectMarshal, lpRect, BOOL, bErase, BOOL)
     return result
 }
 
@@ -13341,7 +13574,10 @@ export InvalidateRect(_hWnd, lpRect, bErase) {
  * @since windows5.0
  */
 export ValidateRect(_hWnd, lpRect) {
-    result := DllCall("USER32.dll\ValidateRect", HWND, _hWnd, RECT.Ptr, lpRect, BOOL)
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+    lpRectMarshal := lpRect == 0 ? IntPtr : RECT.Ptr
+
+    result := DllCall("USER32.dll\ValidateRect", _hWndMarshal, _hWnd, lpRectMarshal, lpRect, BOOL)
     return result
 }
 
@@ -13363,7 +13599,9 @@ export ValidateRect(_hWnd, lpRect) {
  * @since windows5.0
  */
 export InvalidateRgn(_hWnd, _hRgn, bErase) {
-    result := DllCall("USER32.dll\InvalidateRgn", HWND, _hWnd, HRGN, _hRgn, BOOL, bErase, BOOL)
+    _hRgnMarshal := _hRgn == 0 ? IntPtr : HRGN
+
+    result := DllCall("USER32.dll\InvalidateRgn", HWND, _hWnd, _hRgnMarshal, _hRgn, BOOL, bErase, BOOL)
     return result
 }
 
@@ -13382,7 +13620,9 @@ export InvalidateRgn(_hWnd, _hRgn, bErase) {
  * @since windows5.0
  */
 export ValidateRgn(_hWnd, _hRgn) {
-    result := DllCall("USER32.dll\ValidateRgn", HWND, _hWnd, HRGN, _hRgn, BOOL)
+    _hRgnMarshal := _hRgn == 0 ? IntPtr : HRGN
+
+    result := DllCall("USER32.dll\ValidateRgn", HWND, _hWnd, _hRgnMarshal, _hRgn, BOOL)
     return result
 }
 
@@ -13560,7 +13800,11 @@ export ValidateRgn(_hWnd, _hRgn) {
  * @since windows5.0
  */
 export RedrawWindow(_hWnd, lprcUpdate, hrgnUpdate, flags) {
-    result := DllCall("USER32.dll\RedrawWindow", HWND, _hWnd, RECT.Ptr, lprcUpdate, HRGN, hrgnUpdate, REDRAW_WINDOW_FLAGS, flags, BOOL)
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+    lprcUpdateMarshal := lprcUpdate == 0 ? IntPtr : RECT.Ptr
+    hrgnUpdateMarshal := hrgnUpdate == 0 ? IntPtr : HRGN
+
+    result := DllCall("USER32.dll\RedrawWindow", _hWndMarshal, _hWnd, lprcUpdateMarshal, lprcUpdate, hrgnUpdateMarshal, hrgnUpdate, REDRAW_WINDOW_FLAGS, flags, BOOL)
     return result
 }
 
@@ -13584,7 +13828,9 @@ export RedrawWindow(_hWnd, lprcUpdate, hrgnUpdate, flags) {
  * @since windows5.0
  */
 export LockWindowUpdate(hWndLock) {
-    result := DllCall("USER32.dll\LockWindowUpdate", HWND, hWndLock, BOOL)
+    hWndLockMarshal := hWndLock == 0 ? IntPtr : HWND
+
+    result := DllCall("USER32.dll\LockWindowUpdate", hWndLockMarshal, hWndLock, BOOL)
     return result
 }
 
@@ -13670,7 +13916,10 @@ export ScreenToClient(_hWnd, lpPoint) {
  * @since windows5.0
  */
 export MapWindowPoints(hWndFrom, hWndTo, lpPoints, cPoints) {
-    result := DllCall("USER32.dll\MapWindowPoints", HWND, hWndFrom, HWND, hWndTo, POINT.Ptr, lpPoints, UInt32, cPoints, Int32)
+    hWndFromMarshal := hWndFrom == 0 ? IntPtr : HWND
+    hWndToMarshal := hWndTo == 0 ? IntPtr : HWND
+
+    result := DllCall("USER32.dll\MapWindowPoints", hWndFromMarshal, hWndFrom, hWndToMarshal, hWndTo, POINT.Ptr, lpPoints, UInt32, cPoints, Int32)
     return result
 }
 
@@ -13754,8 +14003,8 @@ export GetSysColorBrush(nIndex) {
  * @since windows5.0
  */
 export SetSysColors(cElements, lpaElements, lpaRgbValues) {
-    lpaElementsMarshal := lpaElements is VarRef ? "int*" : "ptr"
-    lpaRgbValuesMarshal := lpaRgbValues is VarRef ? "uint*" : "ptr"
+    lpaElementsMarshal := lpaElements is VarRef ? "int*" : IntPtr
+    lpaRgbValuesMarshal := lpaRgbValues is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -14159,7 +14408,9 @@ export PtInRect(lprc, pt) {
 export LoadBitmapA(_hInstance, lpBitmapName) {
     lpBitmapName := lpBitmapName is String ? StrPtr(lpBitmapName) : lpBitmapName
 
-    result := DllCall("USER32.dll\LoadBitmapA", HINSTANCE, _hInstance, "ptr", lpBitmapName, HBITMAP.Owned)
+    _hInstanceMarshal := _hInstance == 0 ? IntPtr : HINSTANCE
+
+    result := DllCall("USER32.dll\LoadBitmapA", _hInstanceMarshal, _hInstance, "ptr", lpBitmapName, HBITMAP.Owned)
     return result
 }
 
@@ -14264,7 +14515,9 @@ export LoadBitmapA(_hInstance, lpBitmapName) {
 export LoadBitmapW(_hInstance, lpBitmapName) {
     lpBitmapName := lpBitmapName is String ? StrPtr(lpBitmapName) : lpBitmapName
 
-    result := DllCall("USER32.dll\LoadBitmapW", HINSTANCE, _hInstance, "ptr", lpBitmapName, HBITMAP.Owned)
+    _hInstanceMarshal := _hInstance == 0 ? IntPtr : HINSTANCE
+
+    result := DllCall("USER32.dll\LoadBitmapW", _hInstanceMarshal, _hInstance, "ptr", lpBitmapName, HBITMAP.Owned)
     return result
 }
 
@@ -14439,7 +14692,9 @@ export LoadBitmapW(_hInstance, lpBitmapName) {
  * @since windows5.0
  */
 export ChangeDisplaySettingsA(lpDevMode, dwFlags) {
-    result := DllCall("USER32.dll\ChangeDisplaySettingsA", DEVMODEA.Ptr, lpDevMode, CDS_TYPE, dwFlags, DISP_CHANGE)
+    lpDevModeMarshal := lpDevMode == 0 ? IntPtr : DEVMODEA.Ptr
+
+    result := DllCall("USER32.dll\ChangeDisplaySettingsA", lpDevModeMarshal, lpDevMode, CDS_TYPE, dwFlags, DISP_CHANGE)
     return result
 }
 
@@ -14614,7 +14869,9 @@ export ChangeDisplaySettingsA(lpDevMode, dwFlags) {
  * @since windows5.0
  */
 export ChangeDisplaySettingsW(lpDevMode, dwFlags) {
-    result := DllCall("USER32.dll\ChangeDisplaySettingsW", DEVMODEW.Ptr, lpDevMode, CDS_TYPE, dwFlags, DISP_CHANGE)
+    lpDevModeMarshal := lpDevMode == 0 ? IntPtr : DEVMODEW.Ptr
+
+    result := DllCall("USER32.dll\ChangeDisplaySettingsW", lpDevModeMarshal, lpDevMode, CDS_TYPE, dwFlags, DISP_CHANGE)
     return result
 }
 
@@ -14811,9 +15068,12 @@ export ChangeDisplaySettingsExA(lpszDeviceName, lpDevMode, dwflags, _lParam) {
 
     lpszDeviceName := lpszDeviceName is String ? StrPtr(lpszDeviceName) : lpszDeviceName
 
-    _lParamMarshal := _lParam is VarRef ? "ptr" : "ptr"
+    lpszDeviceNameMarshal := lpszDeviceName == 0 ? IntPtr : PSTR
+    lpDevModeMarshal := lpDevMode == 0 ? IntPtr : DEVMODEA.Ptr
+    _lParamMarshal := _lParam is VarRef ? "ptr" : IntPtr
+    _lParamMarshal := _lParam == 0 ? IntPtr : "ptr"
 
-    result := DllCall("USER32.dll\ChangeDisplaySettingsExA", "ptr", lpszDeviceName, DEVMODEA.Ptr, lpDevMode, HWND, _hwnd, CDS_TYPE, dwflags, _lParamMarshal, _lParam, DISP_CHANGE)
+    result := DllCall("USER32.dll\ChangeDisplaySettingsExA", lpszDeviceNameMarshal, lpszDeviceName, lpDevModeMarshal, lpDevMode, HWND, _hwnd, CDS_TYPE, dwflags, _lParamMarshal, _lParam, DISP_CHANGE)
     return result
 }
 
@@ -15010,9 +15270,12 @@ export ChangeDisplaySettingsExW(lpszDeviceName, lpDevMode, dwflags, _lParam) {
 
     lpszDeviceName := lpszDeviceName is String ? StrPtr(lpszDeviceName) : lpszDeviceName
 
-    _lParamMarshal := _lParam is VarRef ? "ptr" : "ptr"
+    lpszDeviceNameMarshal := lpszDeviceName == 0 ? IntPtr : PWSTR
+    lpDevModeMarshal := lpDevMode == 0 ? IntPtr : DEVMODEW.Ptr
+    _lParamMarshal := _lParam is VarRef ? "ptr" : IntPtr
+    _lParamMarshal := _lParam == 0 ? IntPtr : "ptr"
 
-    result := DllCall("USER32.dll\ChangeDisplaySettingsExW", "ptr", lpszDeviceName, DEVMODEW.Ptr, lpDevMode, HWND, _hwnd, CDS_TYPE, dwflags, _lParamMarshal, _lParam, DISP_CHANGE)
+    result := DllCall("USER32.dll\ChangeDisplaySettingsExW", lpszDeviceNameMarshal, lpszDeviceName, lpDevModeMarshal, lpDevMode, HWND, _hwnd, CDS_TYPE, dwflags, _lParamMarshal, _lParam, DISP_CHANGE)
     return result
 }
 
@@ -15054,7 +15317,9 @@ export ChangeDisplaySettingsExW(lpszDeviceName, lpDevMode, dwflags, _lParam) {
 export EnumDisplaySettingsA(lpszDeviceName, iModeNum, lpDevMode) {
     lpszDeviceName := lpszDeviceName is String ? StrPtr(lpszDeviceName) : lpszDeviceName
 
-    result := DllCall("USER32.dll\EnumDisplaySettingsA", "ptr", lpszDeviceName, ENUM_DISPLAY_SETTINGS_MODE, iModeNum, DEVMODEA.Ptr, lpDevMode, BOOL)
+    lpszDeviceNameMarshal := lpszDeviceName == 0 ? IntPtr : PSTR
+
+    result := DllCall("USER32.dll\EnumDisplaySettingsA", lpszDeviceNameMarshal, lpszDeviceName, ENUM_DISPLAY_SETTINGS_MODE, iModeNum, DEVMODEA.Ptr, lpDevMode, BOOL)
     return result
 }
 
@@ -15096,7 +15361,9 @@ export EnumDisplaySettingsA(lpszDeviceName, iModeNum, lpDevMode) {
 export EnumDisplaySettingsW(lpszDeviceName, iModeNum, lpDevMode) {
     lpszDeviceName := lpszDeviceName is String ? StrPtr(lpszDeviceName) : lpszDeviceName
 
-    result := DllCall("USER32.dll\EnumDisplaySettingsW", "ptr", lpszDeviceName, ENUM_DISPLAY_SETTINGS_MODE, iModeNum, DEVMODEW.Ptr, lpDevMode, BOOL)
+    lpszDeviceNameMarshal := lpszDeviceName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("USER32.dll\EnumDisplaySettingsW", lpszDeviceNameMarshal, lpszDeviceName, ENUM_DISPLAY_SETTINGS_MODE, iModeNum, DEVMODEW.Ptr, lpDevMode, BOOL)
     return result
 }
 
@@ -15168,7 +15435,9 @@ export EnumDisplaySettingsW(lpszDeviceName, iModeNum, lpDevMode) {
 export EnumDisplaySettingsExA(lpszDeviceName, iModeNum, lpDevMode, dwFlags) {
     lpszDeviceName := lpszDeviceName is String ? StrPtr(lpszDeviceName) : lpszDeviceName
 
-    result := DllCall("USER32.dll\EnumDisplaySettingsExA", "ptr", lpszDeviceName, ENUM_DISPLAY_SETTINGS_MODE, iModeNum, DEVMODEA.Ptr, lpDevMode, ENUM_DISPLAY_SETTINGS_FLAGS, dwFlags, BOOL)
+    lpszDeviceNameMarshal := lpszDeviceName == 0 ? IntPtr : PSTR
+
+    result := DllCall("USER32.dll\EnumDisplaySettingsExA", lpszDeviceNameMarshal, lpszDeviceName, ENUM_DISPLAY_SETTINGS_MODE, iModeNum, DEVMODEA.Ptr, lpDevMode, ENUM_DISPLAY_SETTINGS_FLAGS, dwFlags, BOOL)
     return result
 }
 
@@ -15240,7 +15509,9 @@ export EnumDisplaySettingsExA(lpszDeviceName, iModeNum, lpDevMode, dwFlags) {
 export EnumDisplaySettingsExW(lpszDeviceName, iModeNum, lpDevMode, dwFlags) {
     lpszDeviceName := lpszDeviceName is String ? StrPtr(lpszDeviceName) : lpszDeviceName
 
-    result := DllCall("USER32.dll\EnumDisplaySettingsExW", "ptr", lpszDeviceName, ENUM_DISPLAY_SETTINGS_MODE, iModeNum, DEVMODEW.Ptr, lpDevMode, ENUM_DISPLAY_SETTINGS_FLAGS, dwFlags, BOOL)
+    lpszDeviceNameMarshal := lpszDeviceName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("USER32.dll\EnumDisplaySettingsExW", lpszDeviceNameMarshal, lpszDeviceName, ENUM_DISPLAY_SETTINGS_MODE, iModeNum, DEVMODEW.Ptr, lpDevMode, ENUM_DISPLAY_SETTINGS_FLAGS, dwFlags, BOOL)
     return result
 }
 
@@ -15280,7 +15551,9 @@ export EnumDisplaySettingsExW(lpszDeviceName, iModeNum, lpDevMode, dwFlags) {
 export EnumDisplayDevicesA(lpDevice, iDevNum, lpDisplayDevice, dwFlags) {
     lpDevice := lpDevice is String ? StrPtr(lpDevice) : lpDevice
 
-    result := DllCall("USER32.dll\EnumDisplayDevicesA", "ptr", lpDevice, UInt32, iDevNum, DISPLAY_DEVICEA.Ptr, lpDisplayDevice, UInt32, dwFlags, BOOL)
+    lpDeviceMarshal := lpDevice == 0 ? IntPtr : PSTR
+
+    result := DllCall("USER32.dll\EnumDisplayDevicesA", lpDeviceMarshal, lpDevice, UInt32, iDevNum, DISPLAY_DEVICEA.Ptr, lpDisplayDevice, UInt32, dwFlags, BOOL)
     return result
 }
 
@@ -15320,7 +15593,9 @@ export EnumDisplayDevicesA(lpDevice, iDevNum, lpDisplayDevice, dwFlags) {
 export EnumDisplayDevicesW(lpDevice, iDevNum, lpDisplayDevice, dwFlags) {
     lpDevice := lpDevice is String ? StrPtr(lpDevice) : lpDevice
 
-    result := DllCall("USER32.dll\EnumDisplayDevicesW", "ptr", lpDevice, UInt32, iDevNum, DISPLAY_DEVICEW.Ptr, lpDisplayDevice, UInt32, dwFlags, BOOL)
+    lpDeviceMarshal := lpDevice == 0 ? IntPtr : PWSTR
+
+    result := DllCall("USER32.dll\EnumDisplayDevicesW", lpDeviceMarshal, lpDevice, UInt32, iDevNum, DISPLAY_DEVICEW.Ptr, lpDisplayDevice, UInt32, dwFlags, BOOL)
     return result
 }
 
@@ -15482,7 +15757,10 @@ export GetMonitorInfoW(_hMonitor, lpmi) {
  * @since windows5.0
  */
 export EnumDisplayMonitors(_hdc, lprcClip, lpfnEnum, dwData) {
-    result := DllCall("USER32.dll\EnumDisplayMonitors", HDC, _hdc, RECT.Ptr, lprcClip, MONITORENUMPROC, lpfnEnum, LPARAM, dwData, BOOL)
+    _hdcMarshal := _hdc == 0 ? IntPtr : HDC
+    lprcClipMarshal := lprcClip == 0 ? IntPtr : RECT.Ptr
+
+    result := DllCall("USER32.dll\EnumDisplayMonitors", _hdcMarshal, _hdc, lprcClipMarshal, lprcClip, MONITORENUMPROC, lpfnEnum, LPARAM, dwData, BOOL)
     return result
 }
 

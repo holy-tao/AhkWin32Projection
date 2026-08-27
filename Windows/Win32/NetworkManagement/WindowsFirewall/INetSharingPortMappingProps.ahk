@@ -198,14 +198,14 @@ export default struct INetSharingPortMappingProps extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_IPProtocol := CallbackCreate(GetMethod(implObj, "get_IPProtocol"), flags, 2)
-        this.vtbl.get_ExternalPort := CallbackCreate(GetMethod(implObj, "get_ExternalPort"), flags, 2)
-        this.vtbl.get_InternalPort := CallbackCreate(GetMethod(implObj, "get_InternalPort"), flags, 2)
-        this.vtbl.get_Options := CallbackCreate(GetMethod(implObj, "get_Options"), flags, 2)
-        this.vtbl.get_TargetName := CallbackCreate(GetMethod(implObj, "get_TargetName"), flags, 2)
-        this.vtbl.get_TargetIPAddress := CallbackCreate(GetMethod(implObj, "get_TargetIPAddress"), flags, 2)
-        this.vtbl.get_Enabled := CallbackCreate(GetMethod(implObj, "get_Enabled"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_IPProtocol := CallbackCreate(ObjBindMethod(implObj, "get_IPProtocol"), flags, 2)
+        this.vtbl.get_ExternalPort := CallbackCreate(ObjBindMethod(implObj, "get_ExternalPort"), flags, 2)
+        this.vtbl.get_InternalPort := CallbackCreate(ObjBindMethod(implObj, "get_InternalPort"), flags, 2)
+        this.vtbl.get_Options := CallbackCreate(ObjBindMethod(implObj, "get_Options"), flags, 2)
+        this.vtbl.get_TargetName := CallbackCreate(ObjBindMethod(implObj, "get_TargetName"), flags, 2)
+        this.vtbl.get_TargetIPAddress := CallbackCreate(ObjBindMethod(implObj, "get_TargetIPAddress"), flags, 2)
+        this.vtbl.get_Enabled := CallbackCreate(ObjBindMethod(implObj, "get_Enabled"), flags, 2)
     }
 
     Dispose() {

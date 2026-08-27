@@ -22,7 +22,6 @@ export default struct CryptXmlDllCreateDigest {
     }
 
     /**
-     * 
      * @param {Pointer<CRYPT_XML_ALGORITHM>} pDigestMethod A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_algorithm">CRYPT_XML_ALGORITHM</a> structure that specifies the algorithm to use to create the  digest.
      * @param {Pointer<Integer>} pcbSize A pointer to a <b>ULONG</b> variable that receives the size, in bytes, of the digest.
      * @returns {Pointer<Void>} A pointer to a <b>CRYPT_XML_DIGEST</b> variable  that receives a pointer to the digest.
@@ -30,7 +29,7 @@ export default struct CryptXmlDllCreateDigest {
      * When you have finished using the resources allocated by the call to this function, you must free them by calling the <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nc-cryptxml-cryptxmldllclosedigest">CryptXmlDllCloseDigest</a> function.
      */
     Call(pDigestMethod, pcbSize) {
-        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, CRYPT_XML_ALGORITHM.Ptr, pDigestMethod, pcbSizeMarshal, pcbSize, "ptr*", &phDigest := 0, "HRESULT")
         return phDigest

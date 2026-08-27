@@ -19,12 +19,11 @@ export default struct PFNSNMPEXTENSIONMONITOR {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pAgentMgmtData 
      * @returns {BOOL} 
      */
     Call(pAgentMgmtData) {
-        pAgentMgmtDataMarshal := pAgentMgmtData is VarRef ? "ptr" : "ptr"
+        pAgentMgmtDataMarshal := pAgentMgmtData is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, pAgentMgmtDataMarshal, pAgentMgmtData, BOOL)
         return result

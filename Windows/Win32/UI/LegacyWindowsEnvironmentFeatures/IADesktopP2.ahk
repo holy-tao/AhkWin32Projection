@@ -44,7 +44,6 @@ export default struct IADesktopP2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ReReadWallpaper() {
@@ -53,7 +52,6 @@ export default struct IADesktopP2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwMask 
      * @returns {Integer} 
      */
@@ -75,7 +73,6 @@ export default struct IADesktopP2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IOleObject} pOleObj 
      * @returns {HRESULT} 
      */
@@ -93,10 +90,10 @@ export default struct IADesktopP2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ReReadWallpaper := CallbackCreate(GetMethod(implObj, "ReReadWallpaper"), flags, 1)
-        this.vtbl.GetADObjectFlags := CallbackCreate(GetMethod(implObj, "GetADObjectFlags"), flags, 3)
-        this.vtbl.UpdateAllDesktopSubscriptions := CallbackCreate(GetMethod(implObj, "UpdateAllDesktopSubscriptions"), flags, 1)
-        this.vtbl.MakeDynamicChanges := CallbackCreate(GetMethod(implObj, "MakeDynamicChanges"), flags, 2)
+        this.vtbl.ReReadWallpaper := CallbackCreate(ObjBindMethod(implObj, "ReReadWallpaper"), flags, 1)
+        this.vtbl.GetADObjectFlags := CallbackCreate(ObjBindMethod(implObj, "GetADObjectFlags"), flags, 3)
+        this.vtbl.UpdateAllDesktopSubscriptions := CallbackCreate(ObjBindMethod(implObj, "UpdateAllDesktopSubscriptions"), flags, 1)
+        this.vtbl.MakeDynamicChanges := CallbackCreate(ObjBindMethod(implObj, "MakeDynamicChanges"), flags, 2)
     }
 
     Dispose() {

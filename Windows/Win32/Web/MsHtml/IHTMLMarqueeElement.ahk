@@ -186,7 +186,6 @@ export default struct IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -196,7 +195,6 @@ export default struct IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_bgColor() {
@@ -206,7 +204,6 @@ export default struct IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -216,7 +213,6 @@ export default struct IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_scrollDelay() {
@@ -225,7 +221,6 @@ export default struct IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -237,7 +232,6 @@ export default struct IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_direction() {
@@ -247,7 +241,6 @@ export default struct IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -259,7 +252,6 @@ export default struct IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_behavior() {
@@ -269,7 +261,6 @@ export default struct IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -279,7 +270,6 @@ export default struct IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_scrollAmount() {
@@ -288,7 +278,6 @@ export default struct IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -298,7 +287,6 @@ export default struct IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_loop() {
@@ -307,7 +295,6 @@ export default struct IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -317,7 +304,6 @@ export default struct IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_vspace() {
@@ -326,7 +312,6 @@ export default struct IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -336,7 +321,6 @@ export default struct IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_hspace() {
@@ -345,7 +329,6 @@ export default struct IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -355,7 +338,6 @@ export default struct IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onfinish() {
@@ -365,7 +347,6 @@ export default struct IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -375,7 +356,6 @@ export default struct IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onstart() {
@@ -385,7 +365,6 @@ export default struct IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -395,7 +374,6 @@ export default struct IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onbounce() {
@@ -405,7 +383,6 @@ export default struct IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -415,7 +392,6 @@ export default struct IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_width() {
@@ -425,7 +401,6 @@ export default struct IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -435,7 +410,6 @@ export default struct IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_height() {
@@ -445,7 +419,6 @@ export default struct IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -455,7 +428,6 @@ export default struct IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_trueSpeed() {
@@ -464,7 +436,6 @@ export default struct IHTMLMarqueeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     start() {
@@ -519,36 +490,36 @@ export default struct IHTMLMarqueeElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_bgColor := CallbackCreate(GetMethod(implObj, "put_bgColor"), flags, 2)
-        this.vtbl.get_bgColor := CallbackCreate(GetMethod(implObj, "get_bgColor"), flags, 2)
-        this.vtbl.put_scrollDelay := CallbackCreate(GetMethod(implObj, "put_scrollDelay"), flags, 2)
-        this.vtbl.get_scrollDelay := CallbackCreate(GetMethod(implObj, "get_scrollDelay"), flags, 2)
-        this.vtbl.put_direction := CallbackCreate(GetMethod(implObj, "put_direction"), flags, 2)
-        this.vtbl.get_direction := CallbackCreate(GetMethod(implObj, "get_direction"), flags, 2)
-        this.vtbl.put_behavior := CallbackCreate(GetMethod(implObj, "put_behavior"), flags, 2)
-        this.vtbl.get_behavior := CallbackCreate(GetMethod(implObj, "get_behavior"), flags, 2)
-        this.vtbl.put_scrollAmount := CallbackCreate(GetMethod(implObj, "put_scrollAmount"), flags, 2)
-        this.vtbl.get_scrollAmount := CallbackCreate(GetMethod(implObj, "get_scrollAmount"), flags, 2)
-        this.vtbl.put_loop := CallbackCreate(GetMethod(implObj, "put_loop"), flags, 2)
-        this.vtbl.get_loop := CallbackCreate(GetMethod(implObj, "get_loop"), flags, 2)
-        this.vtbl.put_vspace := CallbackCreate(GetMethod(implObj, "put_vspace"), flags, 2)
-        this.vtbl.get_vspace := CallbackCreate(GetMethod(implObj, "get_vspace"), flags, 2)
-        this.vtbl.put_hspace := CallbackCreate(GetMethod(implObj, "put_hspace"), flags, 2)
-        this.vtbl.get_hspace := CallbackCreate(GetMethod(implObj, "get_hspace"), flags, 2)
-        this.vtbl.put_onfinish := CallbackCreate(GetMethod(implObj, "put_onfinish"), flags, 2)
-        this.vtbl.get_onfinish := CallbackCreate(GetMethod(implObj, "get_onfinish"), flags, 2)
-        this.vtbl.put_onstart := CallbackCreate(GetMethod(implObj, "put_onstart"), flags, 2)
-        this.vtbl.get_onstart := CallbackCreate(GetMethod(implObj, "get_onstart"), flags, 2)
-        this.vtbl.put_onbounce := CallbackCreate(GetMethod(implObj, "put_onbounce"), flags, 2)
-        this.vtbl.get_onbounce := CallbackCreate(GetMethod(implObj, "get_onbounce"), flags, 2)
-        this.vtbl.put_width := CallbackCreate(GetMethod(implObj, "put_width"), flags, 2)
-        this.vtbl.get_width := CallbackCreate(GetMethod(implObj, "get_width"), flags, 2)
-        this.vtbl.put_height := CallbackCreate(GetMethod(implObj, "put_height"), flags, 2)
-        this.vtbl.get_height := CallbackCreate(GetMethod(implObj, "get_height"), flags, 2)
-        this.vtbl.put_trueSpeed := CallbackCreate(GetMethod(implObj, "put_trueSpeed"), flags, 2)
-        this.vtbl.get_trueSpeed := CallbackCreate(GetMethod(implObj, "get_trueSpeed"), flags, 2)
-        this.vtbl.start := CallbackCreate(GetMethod(implObj, "start"), flags, 1)
-        this.vtbl.stop := CallbackCreate(GetMethod(implObj, "stop"), flags, 1)
+        this.vtbl.put_bgColor := CallbackCreate(ObjBindMethod(implObj, "put_bgColor"), flags, 2)
+        this.vtbl.get_bgColor := CallbackCreate(ObjBindMethod(implObj, "get_bgColor"), flags, 2)
+        this.vtbl.put_scrollDelay := CallbackCreate(ObjBindMethod(implObj, "put_scrollDelay"), flags, 2)
+        this.vtbl.get_scrollDelay := CallbackCreate(ObjBindMethod(implObj, "get_scrollDelay"), flags, 2)
+        this.vtbl.put_direction := CallbackCreate(ObjBindMethod(implObj, "put_direction"), flags, 2)
+        this.vtbl.get_direction := CallbackCreate(ObjBindMethod(implObj, "get_direction"), flags, 2)
+        this.vtbl.put_behavior := CallbackCreate(ObjBindMethod(implObj, "put_behavior"), flags, 2)
+        this.vtbl.get_behavior := CallbackCreate(ObjBindMethod(implObj, "get_behavior"), flags, 2)
+        this.vtbl.put_scrollAmount := CallbackCreate(ObjBindMethod(implObj, "put_scrollAmount"), flags, 2)
+        this.vtbl.get_scrollAmount := CallbackCreate(ObjBindMethod(implObj, "get_scrollAmount"), flags, 2)
+        this.vtbl.put_loop := CallbackCreate(ObjBindMethod(implObj, "put_loop"), flags, 2)
+        this.vtbl.get_loop := CallbackCreate(ObjBindMethod(implObj, "get_loop"), flags, 2)
+        this.vtbl.put_vspace := CallbackCreate(ObjBindMethod(implObj, "put_vspace"), flags, 2)
+        this.vtbl.get_vspace := CallbackCreate(ObjBindMethod(implObj, "get_vspace"), flags, 2)
+        this.vtbl.put_hspace := CallbackCreate(ObjBindMethod(implObj, "put_hspace"), flags, 2)
+        this.vtbl.get_hspace := CallbackCreate(ObjBindMethod(implObj, "get_hspace"), flags, 2)
+        this.vtbl.put_onfinish := CallbackCreate(ObjBindMethod(implObj, "put_onfinish"), flags, 2)
+        this.vtbl.get_onfinish := CallbackCreate(ObjBindMethod(implObj, "get_onfinish"), flags, 2)
+        this.vtbl.put_onstart := CallbackCreate(ObjBindMethod(implObj, "put_onstart"), flags, 2)
+        this.vtbl.get_onstart := CallbackCreate(ObjBindMethod(implObj, "get_onstart"), flags, 2)
+        this.vtbl.put_onbounce := CallbackCreate(ObjBindMethod(implObj, "put_onbounce"), flags, 2)
+        this.vtbl.get_onbounce := CallbackCreate(ObjBindMethod(implObj, "get_onbounce"), flags, 2)
+        this.vtbl.put_width := CallbackCreate(ObjBindMethod(implObj, "put_width"), flags, 2)
+        this.vtbl.get_width := CallbackCreate(ObjBindMethod(implObj, "get_width"), flags, 2)
+        this.vtbl.put_height := CallbackCreate(ObjBindMethod(implObj, "put_height"), flags, 2)
+        this.vtbl.get_height := CallbackCreate(ObjBindMethod(implObj, "get_height"), flags, 2)
+        this.vtbl.put_trueSpeed := CallbackCreate(ObjBindMethod(implObj, "put_trueSpeed"), flags, 2)
+        this.vtbl.get_trueSpeed := CallbackCreate(ObjBindMethod(implObj, "get_trueSpeed"), flags, 2)
+        this.vtbl.start := CallbackCreate(ObjBindMethod(implObj, "start"), flags, 1)
+        this.vtbl.stop := CallbackCreate(ObjBindMethod(implObj, "stop"), flags, 1)
     }
 
     Dispose() {

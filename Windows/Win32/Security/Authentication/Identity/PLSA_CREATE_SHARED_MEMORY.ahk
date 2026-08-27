@@ -18,7 +18,6 @@ export default struct PLSA_CREATE_SHARED_MEMORY {
     }
 
     /**
-     * 
      * @param {Integer} MaxSize 
      * @param {Integer} InitialSize 
      * @returns {Pointer<Void>} 

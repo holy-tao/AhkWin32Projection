@@ -21,7 +21,6 @@ export default struct FAST_IO_RELEASE_FOR_CCFLUSH {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @returns {NTSTATUS} 

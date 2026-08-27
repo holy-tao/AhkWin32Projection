@@ -41,7 +41,6 @@ export default struct PIBIO_ENGINE_QUERY_HASH_ALGORITHMS_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/ns-winbio_adapter-winbio_pipeline">WINBIO_PIPELINE</a> structure associated with the biometric unit performing the operation.
      * @param {Pointer<Pointer>} AlgorithmCount Pointer to a value that receives the number of algorithm OID strings in the buffer specified by the <i>AlgorithmBuffer</i> parameter.
      * @param {Pointer<Pointer>} AlgorithmBufferSize Pointer to a value that contains the size, in bytes, of the buffer specified by the <i>AlgorithmBuffer</i> parameter. The size includes the two <b>NULL</b> values that terminate the buffer.
@@ -78,9 +77,9 @@ export default struct PIBIO_ENGINE_QUERY_HASH_ALGORITHMS_FN {
      * </table>
      */
     Call(Pipeline, AlgorithmCount, AlgorithmBufferSize, AlgorithmBuffer) {
-        AlgorithmCountMarshal := AlgorithmCount is VarRef ? "ptr*" : "ptr"
-        AlgorithmBufferSizeMarshal := AlgorithmBufferSize is VarRef ? "ptr*" : "ptr"
-        AlgorithmBufferMarshal := AlgorithmBuffer is VarRef ? "ptr*" : "ptr"
+        AlgorithmCountMarshal := AlgorithmCount is VarRef ? "ptr*" : IntPtr
+        AlgorithmBufferSizeMarshal := AlgorithmBufferSize is VarRef ? "ptr*" : IntPtr
+        AlgorithmBufferMarshal := AlgorithmBuffer is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, WINBIO_PIPELINE.Ptr, Pipeline, AlgorithmCountMarshal, AlgorithmCount, AlgorithmBufferSizeMarshal, AlgorithmBufferSize, AlgorithmBufferMarshal, AlgorithmBuffer, "HRESULT")
         return result

@@ -19,7 +19,6 @@ export default struct PPROCESSOR_HALT_ROUTINE {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

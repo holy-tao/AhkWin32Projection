@@ -113,10 +113,10 @@ export default struct IPropertyEnumTypeList extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
-        this.vtbl.GetAt := CallbackCreate(GetMethod(implObj, "GetAt"), flags, 4)
-        this.vtbl.GetConditionAt := CallbackCreate(GetMethod(implObj, "GetConditionAt"), flags, 4)
-        this.vtbl.FindMatchingIndex := CallbackCreate(GetMethod(implObj, "FindMatchingIndex"), flags, 3)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetAt := CallbackCreate(ObjBindMethod(implObj, "GetAt"), flags, 4)
+        this.vtbl.GetConditionAt := CallbackCreate(ObjBindMethod(implObj, "GetConditionAt"), flags, 4)
+        this.vtbl.FindMatchingIndex := CallbackCreate(ObjBindMethod(implObj, "FindMatchingIndex"), flags, 3)
     }
 
     Dispose() {

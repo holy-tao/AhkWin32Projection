@@ -141,7 +141,9 @@ export default struct IPin extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ipin-connect
      */
     Connect(pReceivePin, pmt) {
-        result := ComCall(3, this, "ptr", pReceivePin, AM_MEDIA_TYPE.Ptr, pmt, "HRESULT")
+        pmtMarshal := pmt == 0 ? IntPtr : AM_MEDIA_TYPE.Ptr
+
+        result := ComCall(3, this, "ptr", pReceivePin, pmtMarshal, pmt, "HRESULT")
         return result
     }
 
@@ -424,7 +426,7 @@ export default struct IPin extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ipin-queryinternalconnections
      */
     QueryInternalConnections(nPin) {
-        nPinMarshal := nPin is VarRef ? "uint*" : "ptr"
+        nPinMarshal := nPin is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, "ptr*", &apPin := 0, nPinMarshal, nPin, "HRESULT")
         return IPin(apPin)
@@ -604,21 +606,21 @@ export default struct IPin extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 3)
-        this.vtbl.ReceiveConnection := CallbackCreate(GetMethod(implObj, "ReceiveConnection"), flags, 3)
-        this.vtbl.Disconnect := CallbackCreate(GetMethod(implObj, "Disconnect"), flags, 1)
-        this.vtbl.ConnectedTo := CallbackCreate(GetMethod(implObj, "ConnectedTo"), flags, 2)
-        this.vtbl.ConnectionMediaType := CallbackCreate(GetMethod(implObj, "ConnectionMediaType"), flags, 2)
-        this.vtbl.QueryPinInfo := CallbackCreate(GetMethod(implObj, "QueryPinInfo"), flags, 2)
-        this.vtbl.QueryDirection := CallbackCreate(GetMethod(implObj, "QueryDirection"), flags, 2)
-        this.vtbl.QueryId := CallbackCreate(GetMethod(implObj, "QueryId"), flags, 2)
-        this.vtbl.QueryAccept := CallbackCreate(GetMethod(implObj, "QueryAccept"), flags, 2)
-        this.vtbl.EnumMediaTypes := CallbackCreate(GetMethod(implObj, "EnumMediaTypes"), flags, 2)
-        this.vtbl.QueryInternalConnections := CallbackCreate(GetMethod(implObj, "QueryInternalConnections"), flags, 3)
-        this.vtbl.EndOfStream := CallbackCreate(GetMethod(implObj, "EndOfStream"), flags, 1)
-        this.vtbl.BeginFlush := CallbackCreate(GetMethod(implObj, "BeginFlush"), flags, 1)
-        this.vtbl.EndFlush := CallbackCreate(GetMethod(implObj, "EndFlush"), flags, 1)
-        this.vtbl.NewSegment := CallbackCreate(GetMethod(implObj, "NewSegment"), flags, 4)
+        this.vtbl.Connect := CallbackCreate(ObjBindMethod(implObj, "Connect"), flags, 3)
+        this.vtbl.ReceiveConnection := CallbackCreate(ObjBindMethod(implObj, "ReceiveConnection"), flags, 3)
+        this.vtbl.Disconnect := CallbackCreate(ObjBindMethod(implObj, "Disconnect"), flags, 1)
+        this.vtbl.ConnectedTo := CallbackCreate(ObjBindMethod(implObj, "ConnectedTo"), flags, 2)
+        this.vtbl.ConnectionMediaType := CallbackCreate(ObjBindMethod(implObj, "ConnectionMediaType"), flags, 2)
+        this.vtbl.QueryPinInfo := CallbackCreate(ObjBindMethod(implObj, "QueryPinInfo"), flags, 2)
+        this.vtbl.QueryDirection := CallbackCreate(ObjBindMethod(implObj, "QueryDirection"), flags, 2)
+        this.vtbl.QueryId := CallbackCreate(ObjBindMethod(implObj, "QueryId"), flags, 2)
+        this.vtbl.QueryAccept := CallbackCreate(ObjBindMethod(implObj, "QueryAccept"), flags, 2)
+        this.vtbl.EnumMediaTypes := CallbackCreate(ObjBindMethod(implObj, "EnumMediaTypes"), flags, 2)
+        this.vtbl.QueryInternalConnections := CallbackCreate(ObjBindMethod(implObj, "QueryInternalConnections"), flags, 3)
+        this.vtbl.EndOfStream := CallbackCreate(ObjBindMethod(implObj, "EndOfStream"), flags, 1)
+        this.vtbl.BeginFlush := CallbackCreate(ObjBindMethod(implObj, "BeginFlush"), flags, 1)
+        this.vtbl.EndFlush := CallbackCreate(ObjBindMethod(implObj, "EndFlush"), flags, 1)
+        this.vtbl.NewSegment := CallbackCreate(ObjBindMethod(implObj, "NewSegment"), flags, 4)
     }
 
     Dispose() {

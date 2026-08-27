@@ -69,7 +69,7 @@ export default struct ITStaticAudioTerminal extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_WaveId := CallbackCreate(GetMethod(implObj, "get_WaveId"), flags, 2)
+        this.vtbl.get_WaveId := CallbackCreate(ObjBindMethod(implObj, "get_WaveId"), flags, 2)
     }
 
     Dispose() {

@@ -71,8 +71,8 @@ export default struct IUIAutomationOrCondition extends IUIAutomationCondition {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationorcondition-getchildrenasnativearray
      */
     GetChildrenAsNativeArray(childArray, childArrayCount) {
-        childArrayMarshal := childArray is VarRef ? "ptr*" : "ptr"
-        childArrayCountMarshal := childArrayCount is VarRef ? "int*" : "ptr"
+        childArrayMarshal := childArray is VarRef ? "ptr*" : IntPtr
+        childArrayCountMarshal := childArrayCount is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, childArrayMarshal, childArray, childArrayCountMarshal, childArrayCount, "HRESULT")
         return result
@@ -99,9 +99,9 @@ export default struct IUIAutomationOrCondition extends IUIAutomationCondition {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ChildCount := CallbackCreate(GetMethod(implObj, "get_ChildCount"), flags, 2)
-        this.vtbl.GetChildrenAsNativeArray := CallbackCreate(GetMethod(implObj, "GetChildrenAsNativeArray"), flags, 3)
-        this.vtbl.GetChildren := CallbackCreate(GetMethod(implObj, "GetChildren"), flags, 2)
+        this.vtbl.get_ChildCount := CallbackCreate(ObjBindMethod(implObj, "get_ChildCount"), flags, 2)
+        this.vtbl.GetChildrenAsNativeArray := CallbackCreate(ObjBindMethod(implObj, "GetChildrenAsNativeArray"), flags, 3)
+        this.vtbl.GetChildren := CallbackCreate(ObjBindMethod(implObj, "GetChildren"), flags, 2)
     }
 
     Dispose() {

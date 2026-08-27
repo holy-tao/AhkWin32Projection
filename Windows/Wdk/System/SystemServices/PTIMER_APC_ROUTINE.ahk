@@ -18,14 +18,13 @@ export default struct PTIMER_APC_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} TimerContext 
      * @param {Integer} TimerLowValue 
      * @param {Integer} TimerHighValue 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(TimerContext, TimerLowValue, TimerHighValue) {
-        TimerContextMarshal := TimerContext is VarRef ? "ptr" : "ptr"
+        TimerContextMarshal := TimerContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, TimerContextMarshal, TimerContext, UInt32, TimerLowValue, Int32, TimerHighValue)
     }

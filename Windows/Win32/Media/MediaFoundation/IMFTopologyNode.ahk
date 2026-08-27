@@ -396,7 +396,7 @@ export default struct IMFTopologyNode extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopologynode-getinput
      */
     GetInput(dwInputIndex, ppUpstreamNode, pdwOutputIndexOnUpstreamNode) {
-        pdwOutputIndexOnUpstreamNodeMarshal := pdwOutputIndexOnUpstreamNode is VarRef ? "uint*" : "ptr"
+        pdwOutputIndexOnUpstreamNodeMarshal := pdwOutputIndexOnUpstreamNode is VarRef ? "uint*" : IntPtr
 
         result := ComCall(42, this, UInt32, dwInputIndex, IMFTopologyNode.Ptr, ppUpstreamNode, pdwOutputIndexOnUpstreamNodeMarshal, pdwOutputIndexOnUpstreamNode, "HRESULT")
         return result
@@ -451,7 +451,7 @@ export default struct IMFTopologyNode extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopologynode-getoutput
      */
     GetOutput(dwOutputIndex, ppDownstreamNode, pdwInputIndexOnDownstreamNode) {
-        pdwInputIndexOnDownstreamNodeMarshal := pdwInputIndexOnDownstreamNode is VarRef ? "uint*" : "ptr"
+        pdwInputIndexOnDownstreamNodeMarshal := pdwInputIndexOnDownstreamNode is VarRef ? "uint*" : IntPtr
 
         result := ComCall(43, this, UInt32, dwOutputIndex, IMFTopologyNode.Ptr, ppDownstreamNode, pdwInputIndexOnDownstreamNodeMarshal, pdwInputIndexOnDownstreamNode, "HRESULT")
         return result
@@ -644,22 +644,22 @@ export default struct IMFTopologyNode extends IMFAttributes {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetObject := CallbackCreate(GetMethod(implObj, "SetObject"), flags, 2)
-        this.vtbl.GetObject := CallbackCreate(GetMethod(implObj, "GetObject"), flags, 2)
-        this.vtbl.GetNodeType := CallbackCreate(GetMethod(implObj, "GetNodeType"), flags, 2)
-        this.vtbl.GetTopoNodeID := CallbackCreate(GetMethod(implObj, "GetTopoNodeID"), flags, 2)
-        this.vtbl.SetTopoNodeID := CallbackCreate(GetMethod(implObj, "SetTopoNodeID"), flags, 2)
-        this.vtbl.GetInputCount := CallbackCreate(GetMethod(implObj, "GetInputCount"), flags, 2)
-        this.vtbl.GetOutputCount := CallbackCreate(GetMethod(implObj, "GetOutputCount"), flags, 2)
-        this.vtbl.ConnectOutput := CallbackCreate(GetMethod(implObj, "ConnectOutput"), flags, 4)
-        this.vtbl.DisconnectOutput := CallbackCreate(GetMethod(implObj, "DisconnectOutput"), flags, 2)
-        this.vtbl.GetInput := CallbackCreate(GetMethod(implObj, "GetInput"), flags, 4)
-        this.vtbl.GetOutput := CallbackCreate(GetMethod(implObj, "GetOutput"), flags, 4)
-        this.vtbl.SetOutputPrefType := CallbackCreate(GetMethod(implObj, "SetOutputPrefType"), flags, 3)
-        this.vtbl.GetOutputPrefType := CallbackCreate(GetMethod(implObj, "GetOutputPrefType"), flags, 3)
-        this.vtbl.SetInputPrefType := CallbackCreate(GetMethod(implObj, "SetInputPrefType"), flags, 3)
-        this.vtbl.GetInputPrefType := CallbackCreate(GetMethod(implObj, "GetInputPrefType"), flags, 3)
-        this.vtbl.CloneFrom := CallbackCreate(GetMethod(implObj, "CloneFrom"), flags, 2)
+        this.vtbl.SetObject := CallbackCreate(ObjBindMethod(implObj, "SetObject"), flags, 2)
+        this.vtbl.GetObject := CallbackCreate(ObjBindMethod(implObj, "GetObject"), flags, 2)
+        this.vtbl.GetNodeType := CallbackCreate(ObjBindMethod(implObj, "GetNodeType"), flags, 2)
+        this.vtbl.GetTopoNodeID := CallbackCreate(ObjBindMethod(implObj, "GetTopoNodeID"), flags, 2)
+        this.vtbl.SetTopoNodeID := CallbackCreate(ObjBindMethod(implObj, "SetTopoNodeID"), flags, 2)
+        this.vtbl.GetInputCount := CallbackCreate(ObjBindMethod(implObj, "GetInputCount"), flags, 2)
+        this.vtbl.GetOutputCount := CallbackCreate(ObjBindMethod(implObj, "GetOutputCount"), flags, 2)
+        this.vtbl.ConnectOutput := CallbackCreate(ObjBindMethod(implObj, "ConnectOutput"), flags, 4)
+        this.vtbl.DisconnectOutput := CallbackCreate(ObjBindMethod(implObj, "DisconnectOutput"), flags, 2)
+        this.vtbl.GetInput := CallbackCreate(ObjBindMethod(implObj, "GetInput"), flags, 4)
+        this.vtbl.GetOutput := CallbackCreate(ObjBindMethod(implObj, "GetOutput"), flags, 4)
+        this.vtbl.SetOutputPrefType := CallbackCreate(ObjBindMethod(implObj, "SetOutputPrefType"), flags, 3)
+        this.vtbl.GetOutputPrefType := CallbackCreate(ObjBindMethod(implObj, "GetOutputPrefType"), flags, 3)
+        this.vtbl.SetInputPrefType := CallbackCreate(ObjBindMethod(implObj, "SetInputPrefType"), flags, 3)
+        this.vtbl.GetInputPrefType := CallbackCreate(ObjBindMethod(implObj, "GetInputPrefType"), flags, 3)
+        this.vtbl.CloneFrom := CallbackCreate(ObjBindMethod(implObj, "CloneFrom"), flags, 2)
     }
 
     Dispose() {

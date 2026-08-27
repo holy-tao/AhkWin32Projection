@@ -62,7 +62,6 @@ export default struct ID3D10ShaderReflection1 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {D3D10_SHADER_DESC} 
      */
     GetDesc() {
@@ -72,7 +71,6 @@ export default struct ID3D10ShaderReflection1 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {ID3D10ShaderReflectionConstantBuffer} 
      */
@@ -82,7 +80,6 @@ export default struct ID3D10ShaderReflection1 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} Name 
      * @returns {ID3D10ShaderReflectionConstantBuffer} 
      */
@@ -94,7 +91,6 @@ export default struct ID3D10ShaderReflection1 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ResourceIndex 
      * @returns {D3D10_SHADER_INPUT_BIND_DESC} 
      */
@@ -105,7 +101,6 @@ export default struct ID3D10ShaderReflection1 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ParameterIndex 
      * @returns {D3D10_SIGNATURE_PARAMETER_DESC} 
      */
@@ -116,7 +111,6 @@ export default struct ID3D10ShaderReflection1 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ParameterIndex 
      * @returns {D3D10_SIGNATURE_PARAMETER_DESC} 
      */
@@ -272,21 +266,21 @@ export default struct ID3D10ShaderReflection1 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDesc := CallbackCreate(GetMethod(implObj, "GetDesc"), flags, 2)
-        this.vtbl.GetConstantBufferByIndex := CallbackCreate(GetMethod(implObj, "GetConstantBufferByIndex"), flags, 2)
-        this.vtbl.GetConstantBufferByName := CallbackCreate(GetMethod(implObj, "GetConstantBufferByName"), flags, 2)
-        this.vtbl.GetResourceBindingDesc := CallbackCreate(GetMethod(implObj, "GetResourceBindingDesc"), flags, 3)
-        this.vtbl.GetInputParameterDesc := CallbackCreate(GetMethod(implObj, "GetInputParameterDesc"), flags, 3)
-        this.vtbl.GetOutputParameterDesc := CallbackCreate(GetMethod(implObj, "GetOutputParameterDesc"), flags, 3)
-        this.vtbl.GetVariableByName := CallbackCreate(GetMethod(implObj, "GetVariableByName"), flags, 2)
-        this.vtbl.GetResourceBindingDescByName := CallbackCreate(GetMethod(implObj, "GetResourceBindingDescByName"), flags, 3)
-        this.vtbl.GetMovInstructionCount := CallbackCreate(GetMethod(implObj, "GetMovInstructionCount"), flags, 2)
-        this.vtbl.GetMovcInstructionCount := CallbackCreate(GetMethod(implObj, "GetMovcInstructionCount"), flags, 2)
-        this.vtbl.GetConversionInstructionCount := CallbackCreate(GetMethod(implObj, "GetConversionInstructionCount"), flags, 2)
-        this.vtbl.GetBitwiseInstructionCount := CallbackCreate(GetMethod(implObj, "GetBitwiseInstructionCount"), flags, 2)
-        this.vtbl.GetGSInputPrimitive := CallbackCreate(GetMethod(implObj, "GetGSInputPrimitive"), flags, 2)
-        this.vtbl.IsLevel9Shader := CallbackCreate(GetMethod(implObj, "IsLevel9Shader"), flags, 2)
-        this.vtbl.IsSampleFrequencyShader := CallbackCreate(GetMethod(implObj, "IsSampleFrequencyShader"), flags, 2)
+        this.vtbl.GetDesc := CallbackCreate(ObjBindMethod(implObj, "GetDesc"), flags, 2)
+        this.vtbl.GetConstantBufferByIndex := CallbackCreate(ObjBindMethod(implObj, "GetConstantBufferByIndex"), flags, 2)
+        this.vtbl.GetConstantBufferByName := CallbackCreate(ObjBindMethod(implObj, "GetConstantBufferByName"), flags, 2)
+        this.vtbl.GetResourceBindingDesc := CallbackCreate(ObjBindMethod(implObj, "GetResourceBindingDesc"), flags, 3)
+        this.vtbl.GetInputParameterDesc := CallbackCreate(ObjBindMethod(implObj, "GetInputParameterDesc"), flags, 3)
+        this.vtbl.GetOutputParameterDesc := CallbackCreate(ObjBindMethod(implObj, "GetOutputParameterDesc"), flags, 3)
+        this.vtbl.GetVariableByName := CallbackCreate(ObjBindMethod(implObj, "GetVariableByName"), flags, 2)
+        this.vtbl.GetResourceBindingDescByName := CallbackCreate(ObjBindMethod(implObj, "GetResourceBindingDescByName"), flags, 3)
+        this.vtbl.GetMovInstructionCount := CallbackCreate(ObjBindMethod(implObj, "GetMovInstructionCount"), flags, 2)
+        this.vtbl.GetMovcInstructionCount := CallbackCreate(ObjBindMethod(implObj, "GetMovcInstructionCount"), flags, 2)
+        this.vtbl.GetConversionInstructionCount := CallbackCreate(ObjBindMethod(implObj, "GetConversionInstructionCount"), flags, 2)
+        this.vtbl.GetBitwiseInstructionCount := CallbackCreate(ObjBindMethod(implObj, "GetBitwiseInstructionCount"), flags, 2)
+        this.vtbl.GetGSInputPrimitive := CallbackCreate(ObjBindMethod(implObj, "GetGSInputPrimitive"), flags, 2)
+        this.vtbl.IsLevel9Shader := CallbackCreate(ObjBindMethod(implObj, "IsLevel9Shader"), flags, 2)
+        this.vtbl.IsSampleFrequencyShader := CallbackCreate(ObjBindMethod(implObj, "IsSampleFrequencyShader"), flags, 2)
     }
 
     Dispose() {

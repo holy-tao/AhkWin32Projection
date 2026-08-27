@@ -56,7 +56,6 @@ export default struct IHTMLBlockElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -68,7 +67,6 @@ export default struct IHTMLBlockElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_cite() {
@@ -78,7 +76,6 @@ export default struct IHTMLBlockElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -90,7 +87,6 @@ export default struct IHTMLBlockElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_width() {
@@ -108,10 +104,10 @@ export default struct IHTMLBlockElement2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_cite := CallbackCreate(GetMethod(implObj, "put_cite"), flags, 2)
-        this.vtbl.get_cite := CallbackCreate(GetMethod(implObj, "get_cite"), flags, 2)
-        this.vtbl.put_width := CallbackCreate(GetMethod(implObj, "put_width"), flags, 2)
-        this.vtbl.get_width := CallbackCreate(GetMethod(implObj, "get_width"), flags, 2)
+        this.vtbl.put_cite := CallbackCreate(ObjBindMethod(implObj, "put_cite"), flags, 2)
+        this.vtbl.get_cite := CallbackCreate(ObjBindMethod(implObj, "get_cite"), flags, 2)
+        this.vtbl.put_width := CallbackCreate(ObjBindMethod(implObj, "put_width"), flags, 2)
+        this.vtbl.get_width := CallbackCreate(ObjBindMethod(implObj, "get_width"), flags, 2)
     }
 
     Dispose() {

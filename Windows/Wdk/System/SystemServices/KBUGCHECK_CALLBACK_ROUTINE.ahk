@@ -18,13 +18,12 @@ export default struct KBUGCHECK_CALLBACK_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Buffer 
      * @param {Integer} Length 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Buffer, Length) {
-        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _BufferMarshal, _Buffer, UInt32, Length)
     }

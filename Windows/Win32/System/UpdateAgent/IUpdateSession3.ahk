@@ -105,8 +105,8 @@ export default struct IUpdateSession3 extends IUpdateSession2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateUpdateServiceManager := CallbackCreate(GetMethod(implObj, "CreateUpdateServiceManager"), flags, 2)
-        this.vtbl.QueryHistory := CallbackCreate(GetMethod(implObj, "QueryHistory"), flags, 5)
+        this.vtbl.CreateUpdateServiceManager := CallbackCreate(ObjBindMethod(implObj, "CreateUpdateServiceManager"), flags, 2)
+        this.vtbl.QueryHistory := CallbackCreate(ObjBindMethod(implObj, "QueryHistory"), flags, 5)
     }
 
     Dispose() {

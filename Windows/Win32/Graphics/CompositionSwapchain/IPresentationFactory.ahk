@@ -85,9 +85,9 @@ export default struct IPresentationFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsPresentationSupported := CallbackCreate(GetMethod(implObj, "IsPresentationSupported"), flags, 1)
-        this.vtbl.IsPresentationSupportedWithIndependentFlip := CallbackCreate(GetMethod(implObj, "IsPresentationSupportedWithIndependentFlip"), flags, 1)
-        this.vtbl.CreatePresentationManager := CallbackCreate(GetMethod(implObj, "CreatePresentationManager"), flags, 2)
+        this.vtbl.IsPresentationSupported := CallbackCreate(ObjBindMethod(implObj, "IsPresentationSupported"), flags, 1)
+        this.vtbl.IsPresentationSupportedWithIndependentFlip := CallbackCreate(ObjBindMethod(implObj, "IsPresentationSupportedWithIndependentFlip"), flags, 1)
+        this.vtbl.CreatePresentationManager := CallbackCreate(ObjBindMethod(implObj, "CreatePresentationManager"), flags, 2)
     }
 
     Dispose() {

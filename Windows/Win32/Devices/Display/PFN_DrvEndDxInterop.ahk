@@ -20,7 +20,6 @@ export default struct PFN_DrvEndDxInterop {
     }
 
     /**
-     * 
      * @param {Pointer<SURFOBJ>} param0 
      * @param {BOOL} param1 
      * @param {Pointer<BOOL>} param2 
@@ -28,8 +27,8 @@ export default struct PFN_DrvEndDxInterop {
      * @returns {BOOL} 
      */
     Call(param0, param1, param2, KernelModeDeviceHandle) {
-        param2Marshal := param2 is VarRef ? "int*" : "ptr"
-        KernelModeDeviceHandleMarshal := KernelModeDeviceHandle is VarRef ? "ptr" : "ptr"
+        param2Marshal := param2 is VarRef ? "int*" : IntPtr
+        KernelModeDeviceHandleMarshal := KernelModeDeviceHandle is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, SURFOBJ.Ptr, param0, BOOL, param1, param2Marshal, param2, KernelModeDeviceHandleMarshal, KernelModeDeviceHandle, BOOL)
         return result

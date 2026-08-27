@@ -192,7 +192,7 @@ export default struct IWMPSyncDevice2 extends IWMPSyncDevice {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.setItemInfo := CallbackCreate(GetMethod(implObj, "setItemInfo"), flags, 3)
+        this.vtbl.setItemInfo := CallbackCreate(ObjBindMethod(implObj, "setItemInfo"), flags, 3)
     }
 
     Dispose() {

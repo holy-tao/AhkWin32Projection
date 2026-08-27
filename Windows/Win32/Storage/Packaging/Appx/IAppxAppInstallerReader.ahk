@@ -59,7 +59,7 @@ export default struct IAppxAppInstallerReader extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetXmlDom := CallbackCreate(GetMethod(implObj, "GetXmlDom"), flags, 2)
+        this.vtbl.GetXmlDom := CallbackCreate(ObjBindMethod(implObj, "GetXmlDom"), flags, 2)
     }
 
     Dispose() {

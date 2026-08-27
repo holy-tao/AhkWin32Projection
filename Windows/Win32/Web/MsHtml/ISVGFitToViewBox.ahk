@@ -54,7 +54,6 @@ export default struct ISVGFitToViewBox extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedRect} 
      */
     get_viewBox() {
@@ -63,7 +62,6 @@ export default struct ISVGFitToViewBox extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedPreserveAspectRatio} v 
      * @returns {HRESULT} 
      */
@@ -73,7 +71,6 @@ export default struct ISVGFitToViewBox extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedPreserveAspectRatio} 
      */
     get_preserveAspectRatio() {
@@ -90,9 +87,9 @@ export default struct ISVGFitToViewBox extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_viewBox := CallbackCreate(GetMethod(implObj, "get_viewBox"), flags, 2)
-        this.vtbl.putref_preserveAspectRatio := CallbackCreate(GetMethod(implObj, "putref_preserveAspectRatio"), flags, 2)
-        this.vtbl.get_preserveAspectRatio := CallbackCreate(GetMethod(implObj, "get_preserveAspectRatio"), flags, 2)
+        this.vtbl.get_viewBox := CallbackCreate(ObjBindMethod(implObj, "get_viewBox"), flags, 2)
+        this.vtbl.putref_preserveAspectRatio := CallbackCreate(ObjBindMethod(implObj, "putref_preserveAspectRatio"), flags, 2)
+        this.vtbl.get_preserveAspectRatio := CallbackCreate(ObjBindMethod(implObj, "get_preserveAspectRatio"), flags, 2)
     }
 
     Dispose() {

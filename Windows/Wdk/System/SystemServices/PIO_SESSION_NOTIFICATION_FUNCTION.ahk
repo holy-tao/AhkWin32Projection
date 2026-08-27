@@ -19,7 +19,6 @@ export default struct PIO_SESSION_NOTIFICATION_FUNCTION {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

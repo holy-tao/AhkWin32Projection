@@ -85,7 +85,9 @@ export default struct IFEDictionary extends IUnknown {
     Open(pchDictPath, pshf) {
         pchDictPath := pchDictPath is String ? StrPtr(pchDictPath) : pchDictPath
 
-        result := ComCall(3, this, "ptr", pchDictPath, IMESHF.Ptr, pshf, "HRESULT")
+        pchDictPathMarshal := pchDictPath == 0 ? IntPtr : PSTR
+
+        result := ComCall(3, this, pchDictPathMarshal, pchDictPath, IMESHF.Ptr, pshf, "HRESULT")
         return result
     }
 
@@ -194,10 +196,11 @@ export default struct IFEDictionary extends IUnknown {
     GetHeader(pchDictPath, pshf, pjfmt, pulType) {
         pchDictPath := pchDictPath is String ? StrPtr(pchDictPath) : pchDictPath
 
-        pjfmtMarshal := pjfmt is VarRef ? "int*" : "ptr"
-        pulTypeMarshal := pulType is VarRef ? "uint*" : "ptr"
+        pchDictPathMarshal := pchDictPath == 0 ? IntPtr : PSTR
+        pjfmtMarshal := pjfmt is VarRef ? "int*" : IntPtr
+        pulTypeMarshal := pulType is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(5, this, "ptr", pchDictPath, IMESHF.Ptr, pshf, pjfmtMarshal, pjfmt, pulTypeMarshal, pulType, "HRESULT")
+        result := ComCall(5, this, pchDictPathMarshal, pchDictPath, IMESHF.Ptr, pshf, pjfmtMarshal, pjfmt, pulTypeMarshal, pulType, "HRESULT")
         return result
     }
 
@@ -220,8 +223,8 @@ export default struct IFEDictionary extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifedictionary-getpostable
      */
     GetPosTable(prgPosTbl, pcPosTbl) {
-        prgPosTblMarshal := prgPosTbl is VarRef ? "ptr*" : "ptr"
-        pcPosTblMarshal := pcPosTbl is VarRef ? "int*" : "ptr"
+        prgPosTblMarshal := prgPosTbl is VarRef ? "ptr*" : IntPtr
+        pcPosTblMarshal := pcPosTbl is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, prgPosTblMarshal, prgPosTbl, pcPosTblMarshal, pcPosTbl, "HRESULT")
         return result
@@ -400,8 +403,8 @@ export default struct IFEDictionary extends IUnknown {
         pwchLast := pwchLast is String ? StrPtr(pwchLast) : pwchLast
         pwchDisplay := pwchDisplay is String ? StrPtr(pwchDisplay) : pwchDisplay
 
-        pchBufferMarshal := pchBuffer is VarRef ? "char*" : "ptr"
-        pcWrdMarshal := pcWrd is VarRef ? "uint*" : "ptr"
+        pchBufferMarshal := pchBuffer is VarRef ? "char*" : IntPtr
+        pcWrdMarshal := pcWrd is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, "ptr", pwchFirst, "ptr", pwchLast, "ptr", pwchDisplay, UInt32, ulPos, UInt32, ulSelect, UInt32, ulWordSrc, pchBufferMarshal, pchBuffer, UInt32, cbBuffer, pcWrdMarshal, pcWrd, "HRESULT")
         return result
@@ -450,8 +453,8 @@ export default struct IFEDictionary extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifedictionary-nextwords
      */
     NextWords(pchBuffer, cbBuffer, pcWrd) {
-        pchBufferMarshal := pchBuffer is VarRef ? "char*" : "ptr"
-        pcWrdMarshal := pcWrd is VarRef ? "uint*" : "ptr"
+        pchBufferMarshal := pchBuffer is VarRef ? "char*" : IntPtr
+        pcWrdMarshal := pcWrd is VarRef ? "uint*" : IntPtr
 
         result := ComCall(9, this, pchBufferMarshal, pchBuffer, UInt32, cbBuffer, pcWrdMarshal, pcWrd, "HRESULT")
         return result
@@ -541,7 +544,6 @@ export default struct IFEDictionary extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<IMEDP>} pdp 
      * @returns {HRESULT} 
      */
@@ -636,7 +638,6 @@ export default struct IFEDictionary extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMEREG} reg 
      * @param {Pointer<IMEDP>} pdp 
      * @returns {HRESULT} 
@@ -647,7 +648,6 @@ export default struct IFEDictionary extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwchKakariReading 
      * @param {PWSTR} pwchKakariDisplay 
      * @param {Integer} ulKakariPos 
@@ -667,30 +667,28 @@ export default struct IFEDictionary extends IUnknown {
         pwchUkeReading := pwchUkeReading is String ? StrPtr(pwchUkeReading) : pwchUkeReading
         pwchUkeDisplay := pwchUkeDisplay is String ? StrPtr(pwchUkeDisplay) : pwchUkeDisplay
 
-        pchBufferMarshal := pchBuffer is VarRef ? "char*" : "ptr"
-        pcdpMarshal := pcdp is VarRef ? "uint*" : "ptr"
+        pchBufferMarshal := pchBuffer is VarRef ? "char*" : IntPtr
+        pcdpMarshal := pcdp is VarRef ? "uint*" : IntPtr
 
         result := ComCall(16, this, "ptr", pwchKakariReading, "ptr", pwchKakariDisplay, UInt32, ulKakariPos, "ptr", pwchUkeReading, "ptr", pwchUkeDisplay, UInt32, ulUkePos, IMEREL, jrel, UInt32, ulWordSrc, pchBufferMarshal, pchBuffer, UInt32, cbBuffer, pcdpMarshal, pcdp, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pchBuffer 
      * @param {Integer} cbBuffer 
      * @param {Pointer<Integer>} pcDp 
      * @returns {HRESULT} 
      */
     NextDependencies(pchBuffer, cbBuffer, pcDp) {
-        pchBufferMarshal := pchBuffer is VarRef ? "char*" : "ptr"
-        pcDpMarshal := pcDp is VarRef ? "uint*" : "ptr"
+        pchBufferMarshal := pchBuffer is VarRef ? "char*" : IntPtr
+        pcDpMarshal := pcDp is VarRef ? "uint*" : IntPtr
 
         result := ComCall(17, this, pchBufferMarshal, pchBuffer, UInt32, cbBuffer, pcDpMarshal, pcDp, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PSTR} pchDic 
      * @param {Pointer<PFNLOG>} _pfnLog 
      * @param {IMEREG} reg 
@@ -704,7 +702,6 @@ export default struct IFEDictionary extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ConvertFromUserToSys() {
@@ -721,23 +718,23 @@ export default struct IFEDictionary extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 3)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
-        this.vtbl.GetHeader := CallbackCreate(GetMethod(implObj, "GetHeader"), flags, 5)
-        this.vtbl.DisplayProperty := CallbackCreate(GetMethod(implObj, "DisplayProperty"), flags, 2)
-        this.vtbl.GetPosTable := CallbackCreate(GetMethod(implObj, "GetPosTable"), flags, 3)
-        this.vtbl.GetWords := CallbackCreate(GetMethod(implObj, "GetWords"), flags, 10)
-        this.vtbl.NextWords := CallbackCreate(GetMethod(implObj, "NextWords"), flags, 4)
-        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 3)
-        this.vtbl.SetHeader := CallbackCreate(GetMethod(implObj, "SetHeader"), flags, 2)
-        this.vtbl.ExistWord := CallbackCreate(GetMethod(implObj, "ExistWord"), flags, 2)
-        this.vtbl.ExistDependency := CallbackCreate(GetMethod(implObj, "ExistDependency"), flags, 2)
-        this.vtbl.RegisterWord := CallbackCreate(GetMethod(implObj, "RegisterWord"), flags, 3)
-        this.vtbl.RegisterDependency := CallbackCreate(GetMethod(implObj, "RegisterDependency"), flags, 3)
-        this.vtbl.GetDependencies := CallbackCreate(GetMethod(implObj, "GetDependencies"), flags, 12)
-        this.vtbl.NextDependencies := CallbackCreate(GetMethod(implObj, "NextDependencies"), flags, 4)
-        this.vtbl.ConvertFromOldMSIME := CallbackCreate(GetMethod(implObj, "ConvertFromOldMSIME"), flags, 4)
-        this.vtbl.ConvertFromUserToSys := CallbackCreate(GetMethod(implObj, "ConvertFromUserToSys"), flags, 1)
+        this.vtbl.Open := CallbackCreate(ObjBindMethod(implObj, "Open"), flags, 3)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
+        this.vtbl.GetHeader := CallbackCreate(ObjBindMethod(implObj, "GetHeader"), flags, 5)
+        this.vtbl.DisplayProperty := CallbackCreate(ObjBindMethod(implObj, "DisplayProperty"), flags, 2)
+        this.vtbl.GetPosTable := CallbackCreate(ObjBindMethod(implObj, "GetPosTable"), flags, 3)
+        this.vtbl.GetWords := CallbackCreate(ObjBindMethod(implObj, "GetWords"), flags, 10)
+        this.vtbl.NextWords := CallbackCreate(ObjBindMethod(implObj, "NextWords"), flags, 4)
+        this.vtbl.Create := CallbackCreate(ObjBindMethod(implObj, "Create"), flags, 3)
+        this.vtbl.SetHeader := CallbackCreate(ObjBindMethod(implObj, "SetHeader"), flags, 2)
+        this.vtbl.ExistWord := CallbackCreate(ObjBindMethod(implObj, "ExistWord"), flags, 2)
+        this.vtbl.ExistDependency := CallbackCreate(ObjBindMethod(implObj, "ExistDependency"), flags, 2)
+        this.vtbl.RegisterWord := CallbackCreate(ObjBindMethod(implObj, "RegisterWord"), flags, 3)
+        this.vtbl.RegisterDependency := CallbackCreate(ObjBindMethod(implObj, "RegisterDependency"), flags, 3)
+        this.vtbl.GetDependencies := CallbackCreate(ObjBindMethod(implObj, "GetDependencies"), flags, 12)
+        this.vtbl.NextDependencies := CallbackCreate(ObjBindMethod(implObj, "NextDependencies"), flags, 4)
+        this.vtbl.ConvertFromOldMSIME := CallbackCreate(ObjBindMethod(implObj, "ConvertFromOldMSIME"), flags, 4)
+        this.vtbl.ConvertFromUserToSys := CallbackCreate(ObjBindMethod(implObj, "ConvertFromUserToSys"), flags, 1)
     }
 
     Dispose() {

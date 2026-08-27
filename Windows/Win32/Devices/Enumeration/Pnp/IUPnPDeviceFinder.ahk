@@ -165,11 +165,11 @@ export default struct IUPnPDeviceFinder extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FindByType := CallbackCreate(GetMethod(implObj, "FindByType"), flags, 4)
-        this.vtbl.CreateAsyncFind := CallbackCreate(GetMethod(implObj, "CreateAsyncFind"), flags, 5)
-        this.vtbl.StartAsyncFind := CallbackCreate(GetMethod(implObj, "StartAsyncFind"), flags, 2)
-        this.vtbl.CancelAsyncFind := CallbackCreate(GetMethod(implObj, "CancelAsyncFind"), flags, 2)
-        this.vtbl.FindByUDN := CallbackCreate(GetMethod(implObj, "FindByUDN"), flags, 3)
+        this.vtbl.FindByType := CallbackCreate(ObjBindMethod(implObj, "FindByType"), flags, 4)
+        this.vtbl.CreateAsyncFind := CallbackCreate(ObjBindMethod(implObj, "CreateAsyncFind"), flags, 5)
+        this.vtbl.StartAsyncFind := CallbackCreate(ObjBindMethod(implObj, "StartAsyncFind"), flags, 2)
+        this.vtbl.CancelAsyncFind := CallbackCreate(ObjBindMethod(implObj, "CancelAsyncFind"), flags, 2)
+        this.vtbl.FindByUDN := CallbackCreate(ObjBindMethod(implObj, "FindByUDN"), flags, 3)
     }
 
     Dispose() {

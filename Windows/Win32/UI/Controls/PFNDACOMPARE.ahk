@@ -23,7 +23,6 @@ export default struct PFNDACOMPARE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} p1 Type: <b>void*</b>
      * 
      * A pointer to the first item in the comparison.
@@ -56,8 +55,10 @@ export default struct PFNDACOMPARE {
      * </table>
      */
     Call(p1, p2, _lParam) {
-        p1Marshal := p1 is VarRef ? "ptr" : "ptr"
-        p2Marshal := p2 is VarRef ? "ptr" : "ptr"
+        p1Marshal := p1 is VarRef ? "ptr" : IntPtr
+        p1Marshal := p1 == 0 ? IntPtr : "ptr"
+        p2Marshal := p2 is VarRef ? "ptr" : IntPtr
+        p2Marshal := p2 == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, p1Marshal, p1, p2Marshal, p2, LPARAM, _lParam, Int32)
         return result

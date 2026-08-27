@@ -650,16 +650,16 @@ export default struct IOCSPAdmin extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_OCSPServiceProperties := CallbackCreate(GetMethod(implObj, "get_OCSPServiceProperties"), flags, 2)
-        this.vtbl.get_OCSPCAConfigurationCollection := CallbackCreate(GetMethod(implObj, "get_OCSPCAConfigurationCollection"), flags, 2)
-        this.vtbl.GetConfiguration := CallbackCreate(GetMethod(implObj, "GetConfiguration"), flags, 3)
-        this.vtbl.SetConfiguration := CallbackCreate(GetMethod(implObj, "SetConfiguration"), flags, 3)
-        this.vtbl.GetMyRoles := CallbackCreate(GetMethod(implObj, "GetMyRoles"), flags, 3)
-        this.vtbl.Ping := CallbackCreate(GetMethod(implObj, "Ping"), flags, 2)
-        this.vtbl.SetSecurity := CallbackCreate(GetMethod(implObj, "SetSecurity"), flags, 3)
-        this.vtbl.GetSecurity := CallbackCreate(GetMethod(implObj, "GetSecurity"), flags, 3)
-        this.vtbl.GetSigningCertificates := CallbackCreate(GetMethod(implObj, "GetSigningCertificates"), flags, 4)
-        this.vtbl.GetHashAlgorithms := CallbackCreate(GetMethod(implObj, "GetHashAlgorithms"), flags, 4)
+        this.vtbl.get_OCSPServiceProperties := CallbackCreate(ObjBindMethod(implObj, "get_OCSPServiceProperties"), flags, 2)
+        this.vtbl.get_OCSPCAConfigurationCollection := CallbackCreate(ObjBindMethod(implObj, "get_OCSPCAConfigurationCollection"), flags, 2)
+        this.vtbl.GetConfiguration := CallbackCreate(ObjBindMethod(implObj, "GetConfiguration"), flags, 3)
+        this.vtbl.SetConfiguration := CallbackCreate(ObjBindMethod(implObj, "SetConfiguration"), flags, 3)
+        this.vtbl.GetMyRoles := CallbackCreate(ObjBindMethod(implObj, "GetMyRoles"), flags, 3)
+        this.vtbl.Ping := CallbackCreate(ObjBindMethod(implObj, "Ping"), flags, 2)
+        this.vtbl.SetSecurity := CallbackCreate(ObjBindMethod(implObj, "SetSecurity"), flags, 3)
+        this.vtbl.GetSecurity := CallbackCreate(ObjBindMethod(implObj, "GetSecurity"), flags, 3)
+        this.vtbl.GetSigningCertificates := CallbackCreate(ObjBindMethod(implObj, "GetSigningCertificates"), flags, 4)
+        this.vtbl.GetHashAlgorithms := CallbackCreate(ObjBindMethod(implObj, "GetHashAlgorithms"), flags, 4)
     }
 
     Dispose() {

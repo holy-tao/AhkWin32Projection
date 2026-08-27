@@ -67,7 +67,7 @@ export default struct IMediaStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-imediastream-getinformation
      */
     GetInformation(pPurposeId, pType) {
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        pTypeMarshal := pType is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, Guid.Ptr, pPurposeId, pTypeMarshal, pType, "HRESULT")
         return result
@@ -134,12 +134,12 @@ export default struct IMediaStream extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMultiMediaStream := CallbackCreate(GetMethod(implObj, "GetMultiMediaStream"), flags, 2)
-        this.vtbl.GetInformation := CallbackCreate(GetMethod(implObj, "GetInformation"), flags, 3)
-        this.vtbl.SetSameFormat := CallbackCreate(GetMethod(implObj, "SetSameFormat"), flags, 3)
-        this.vtbl.AllocateSample := CallbackCreate(GetMethod(implObj, "AllocateSample"), flags, 3)
-        this.vtbl.CreateSharedSample := CallbackCreate(GetMethod(implObj, "CreateSharedSample"), flags, 4)
-        this.vtbl.SendEndOfStream := CallbackCreate(GetMethod(implObj, "SendEndOfStream"), flags, 2)
+        this.vtbl.GetMultiMediaStream := CallbackCreate(ObjBindMethod(implObj, "GetMultiMediaStream"), flags, 2)
+        this.vtbl.GetInformation := CallbackCreate(ObjBindMethod(implObj, "GetInformation"), flags, 3)
+        this.vtbl.SetSameFormat := CallbackCreate(ObjBindMethod(implObj, "SetSameFormat"), flags, 3)
+        this.vtbl.AllocateSample := CallbackCreate(ObjBindMethod(implObj, "AllocateSample"), flags, 3)
+        this.vtbl.CreateSharedSample := CallbackCreate(ObjBindMethod(implObj, "CreateSharedSample"), flags, 4)
+        this.vtbl.SendEndOfStream := CallbackCreate(ObjBindMethod(implObj, "SendEndOfStream"), flags, 2)
     }
 
     Dispose() {

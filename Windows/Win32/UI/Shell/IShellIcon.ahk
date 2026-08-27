@@ -84,7 +84,7 @@ export default struct IShellIcon extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetIconOf := CallbackCreate(GetMethod(implObj, "GetIconOf"), flags, 4)
+        this.vtbl.GetIconOf := CallbackCreate(ObjBindMethod(implObj, "GetIconOf"), flags, 4)
     }
 
     Dispose() {

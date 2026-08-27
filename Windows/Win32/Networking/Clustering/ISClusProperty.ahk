@@ -135,7 +135,6 @@ export default struct ISClusProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -145,7 +144,6 @@ export default struct ISClusProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Length() {
@@ -154,7 +152,6 @@ export default struct ISClusProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ValueCount() {
@@ -163,7 +160,6 @@ export default struct ISClusProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusPropertyValues} 
      */
     get_Values() {
@@ -172,7 +168,6 @@ export default struct ISClusProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Value() {
@@ -182,7 +177,6 @@ export default struct ISClusProperty extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varValue 
      * @returns {HRESULT} 
      */
@@ -192,7 +186,6 @@ export default struct ISClusProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {CLUSTER_PROPERTY_TYPE} 
      */
     get_Type() {
@@ -201,7 +194,6 @@ export default struct ISClusProperty extends IDispatch {
     }
 
     /**
-     * 
      * @param {CLUSTER_PROPERTY_TYPE} Type 
      * @returns {HRESULT} 
      */
@@ -211,7 +203,6 @@ export default struct ISClusProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {CLUSTER_PROPERTY_FORMAT} 
      */
     get_Format() {
@@ -220,7 +211,6 @@ export default struct ISClusProperty extends IDispatch {
     }
 
     /**
-     * 
      * @param {CLUSTER_PROPERTY_FORMAT} Format 
      * @returns {HRESULT} 
      */
@@ -230,7 +220,6 @@ export default struct ISClusProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ReadOnly() {
@@ -240,7 +229,6 @@ export default struct ISClusProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Private() {
@@ -250,7 +238,6 @@ export default struct ISClusProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Common() {
@@ -260,7 +247,6 @@ export default struct ISClusProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Modified() {
@@ -270,7 +256,6 @@ export default struct ISClusProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     UseDefaultValue() {
@@ -287,21 +272,21 @@ export default struct ISClusProperty extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_Length := CallbackCreate(GetMethod(implObj, "get_Length"), flags, 2)
-        this.vtbl.get_ValueCount := CallbackCreate(GetMethod(implObj, "get_ValueCount"), flags, 2)
-        this.vtbl.get_Values := CallbackCreate(GetMethod(implObj, "get_Values"), flags, 2)
-        this.vtbl.get_Value := CallbackCreate(GetMethod(implObj, "get_Value"), flags, 2)
-        this.vtbl.put_Value := CallbackCreate(GetMethod(implObj, "put_Value"), flags, 2)
-        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
-        this.vtbl.put_Type := CallbackCreate(GetMethod(implObj, "put_Type"), flags, 2)
-        this.vtbl.get_Format := CallbackCreate(GetMethod(implObj, "get_Format"), flags, 2)
-        this.vtbl.put_Format := CallbackCreate(GetMethod(implObj, "put_Format"), flags, 2)
-        this.vtbl.get_ReadOnly := CallbackCreate(GetMethod(implObj, "get_ReadOnly"), flags, 2)
-        this.vtbl.get_Private := CallbackCreate(GetMethod(implObj, "get_Private"), flags, 2)
-        this.vtbl.get_Common := CallbackCreate(GetMethod(implObj, "get_Common"), flags, 2)
-        this.vtbl.get_Modified := CallbackCreate(GetMethod(implObj, "get_Modified"), flags, 2)
-        this.vtbl.UseDefaultValue := CallbackCreate(GetMethod(implObj, "UseDefaultValue"), flags, 1)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Length := CallbackCreate(ObjBindMethod(implObj, "get_Length"), flags, 2)
+        this.vtbl.get_ValueCount := CallbackCreate(ObjBindMethod(implObj, "get_ValueCount"), flags, 2)
+        this.vtbl.get_Values := CallbackCreate(ObjBindMethod(implObj, "get_Values"), flags, 2)
+        this.vtbl.get_Value := CallbackCreate(ObjBindMethod(implObj, "get_Value"), flags, 2)
+        this.vtbl.put_Value := CallbackCreate(ObjBindMethod(implObj, "put_Value"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(ObjBindMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.put_Type := CallbackCreate(ObjBindMethod(implObj, "put_Type"), flags, 2)
+        this.vtbl.get_Format := CallbackCreate(ObjBindMethod(implObj, "get_Format"), flags, 2)
+        this.vtbl.put_Format := CallbackCreate(ObjBindMethod(implObj, "put_Format"), flags, 2)
+        this.vtbl.get_ReadOnly := CallbackCreate(ObjBindMethod(implObj, "get_ReadOnly"), flags, 2)
+        this.vtbl.get_Private := CallbackCreate(ObjBindMethod(implObj, "get_Private"), flags, 2)
+        this.vtbl.get_Common := CallbackCreate(ObjBindMethod(implObj, "get_Common"), flags, 2)
+        this.vtbl.get_Modified := CallbackCreate(ObjBindMethod(implObj, "get_Modified"), flags, 2)
+        this.vtbl.UseDefaultValue := CallbackCreate(ObjBindMethod(implObj, "UseDefaultValue"), flags, 1)
     }
 
     Dispose() {

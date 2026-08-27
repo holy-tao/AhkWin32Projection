@@ -36,7 +36,6 @@ export default struct IElementBehaviorLayout2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetTextDescent() {
@@ -53,7 +52,7 @@ export default struct IElementBehaviorLayout2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTextDescent := CallbackCreate(GetMethod(implObj, "GetTextDescent"), flags, 2)
+        this.vtbl.GetTextDescent := CallbackCreate(ObjBindMethod(implObj, "GetTextDescent"), flags, 2)
     }
 
     Dispose() {

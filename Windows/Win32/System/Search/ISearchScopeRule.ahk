@@ -141,10 +141,10 @@ export default struct ISearchScopeRule extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_PatternOrURL := CallbackCreate(GetMethod(implObj, "get_PatternOrURL"), flags, 2)
-        this.vtbl.get_IsIncluded := CallbackCreate(GetMethod(implObj, "get_IsIncluded"), flags, 2)
-        this.vtbl.get_IsDefault := CallbackCreate(GetMethod(implObj, "get_IsDefault"), flags, 2)
-        this.vtbl.get_FollowFlags := CallbackCreate(GetMethod(implObj, "get_FollowFlags"), flags, 2)
+        this.vtbl.get_PatternOrURL := CallbackCreate(ObjBindMethod(implObj, "get_PatternOrURL"), flags, 2)
+        this.vtbl.get_IsIncluded := CallbackCreate(ObjBindMethod(implObj, "get_IsIncluded"), flags, 2)
+        this.vtbl.get_IsDefault := CallbackCreate(ObjBindMethod(implObj, "get_IsDefault"), flags, 2)
+        this.vtbl.get_FollowFlags := CallbackCreate(ObjBindMethod(implObj, "get_FollowFlags"), flags, 2)
     }
 
     Dispose() {

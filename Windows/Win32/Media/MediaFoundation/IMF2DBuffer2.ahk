@@ -116,10 +116,10 @@ export default struct IMF2DBuffer2 extends IMF2DBuffer {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imf2dbuffer2-lock2dsize
      */
     Lock2DSize(lockFlags, ppbScanline0, plPitch, ppbBufferStart, pcbBufferLength) {
-        ppbScanline0Marshal := ppbScanline0 is VarRef ? "ptr*" : "ptr"
-        plPitchMarshal := plPitch is VarRef ? "int*" : "ptr"
-        ppbBufferStartMarshal := ppbBufferStart is VarRef ? "ptr*" : "ptr"
-        pcbBufferLengthMarshal := pcbBufferLength is VarRef ? "uint*" : "ptr"
+        ppbScanline0Marshal := ppbScanline0 is VarRef ? "ptr*" : IntPtr
+        plPitchMarshal := plPitch is VarRef ? "int*" : IntPtr
+        ppbBufferStartMarshal := ppbBufferStart is VarRef ? "ptr*" : IntPtr
+        pcbBufferLengthMarshal := pcbBufferLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(10, this, MF2DBuffer_LockFlags, lockFlags, ppbScanline0Marshal, ppbScanline0, plPitchMarshal, plPitch, ppbBufferStartMarshal, ppbBufferStart, pcbBufferLengthMarshal, pcbBufferLength, "HRESULT")
         return result
@@ -147,8 +147,8 @@ export default struct IMF2DBuffer2 extends IMF2DBuffer {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Lock2DSize := CallbackCreate(GetMethod(implObj, "Lock2DSize"), flags, 6)
-        this.vtbl.Copy2DTo := CallbackCreate(GetMethod(implObj, "Copy2DTo"), flags, 2)
+        this.vtbl.Lock2DSize := CallbackCreate(ObjBindMethod(implObj, "Lock2DSize"), flags, 6)
+        this.vtbl.Copy2DTo := CallbackCreate(ObjBindMethod(implObj, "Copy2DTo"), flags, 2)
     }
 
     Dispose() {

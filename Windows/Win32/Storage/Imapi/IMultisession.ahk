@@ -118,10 +118,10 @@ export default struct IMultisession extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_IsSupportedOnCurrentMediaState := CallbackCreate(GetMethod(implObj, "get_IsSupportedOnCurrentMediaState"), flags, 2)
-        this.vtbl.put_InUse := CallbackCreate(GetMethod(implObj, "put_InUse"), flags, 2)
-        this.vtbl.get_InUse := CallbackCreate(GetMethod(implObj, "get_InUse"), flags, 2)
-        this.vtbl.get_ImportRecorder := CallbackCreate(GetMethod(implObj, "get_ImportRecorder"), flags, 2)
+        this.vtbl.get_IsSupportedOnCurrentMediaState := CallbackCreate(ObjBindMethod(implObj, "get_IsSupportedOnCurrentMediaState"), flags, 2)
+        this.vtbl.put_InUse := CallbackCreate(ObjBindMethod(implObj, "put_InUse"), flags, 2)
+        this.vtbl.get_InUse := CallbackCreate(ObjBindMethod(implObj, "get_InUse"), flags, 2)
+        this.vtbl.get_ImportRecorder := CallbackCreate(ObjBindMethod(implObj, "get_ImportRecorder"), flags, 2)
     }
 
     Dispose() {

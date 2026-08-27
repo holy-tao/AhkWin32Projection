@@ -141,7 +141,6 @@ export default struct IDxcPdbUtils2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetSourceCount() {
@@ -150,7 +149,6 @@ export default struct IDxcPdbUtils2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uIndex 
      * @returns {IDxcBlobEncoding} 
      */
@@ -160,7 +158,6 @@ export default struct IDxcPdbUtils2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uIndex 
      * @returns {IDxcBlobUtf16} 
      */
@@ -170,31 +167,30 @@ export default struct IDxcPdbUtils2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pCount 
      * @returns {HRESULT} 
      */
     GetLibraryPDBCount(pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+        pCountMarshal := pCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, pCountMarshal, pCount, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} uIndex 
      * @param {Pointer<IDxcPdbUtils2>} ppOutPdbUtils 
      * @param {Pointer<IDxcBlobUtf16>} ppLibraryName 
      * @returns {HRESULT} 
      */
     GetLibraryPDB(uIndex, ppOutPdbUtils, ppLibraryName) {
-        result := ComCall(8, this, UInt32, uIndex, IDxcPdbUtils2.Ptr, ppOutPdbUtils, IDxcBlobUtf16.Ptr, ppLibraryName, "HRESULT")
+        ppLibraryNameMarshal := ppLibraryName == 0 ? IntPtr : IDxcBlobUtf16.Ptr
+
+        result := ComCall(8, this, UInt32, uIndex, IDxcPdbUtils2.Ptr, ppOutPdbUtils, ppLibraryNameMarshal, ppLibraryName, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetFlagCount() {
@@ -203,7 +199,6 @@ export default struct IDxcPdbUtils2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uIndex 
      * @returns {IDxcBlobUtf16} 
      */
@@ -213,7 +208,6 @@ export default struct IDxcPdbUtils2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetArgCount() {
@@ -222,7 +216,6 @@ export default struct IDxcPdbUtils2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uIndex 
      * @returns {IDxcBlobUtf16} 
      */
@@ -232,7 +225,6 @@ export default struct IDxcPdbUtils2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetArgPairCount() {
@@ -241,7 +233,6 @@ export default struct IDxcPdbUtils2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uIndex 
      * @param {Pointer<IDxcBlobUtf16>} ppName 
      * @param {Pointer<IDxcBlobUtf16>} ppValue 
@@ -253,7 +244,6 @@ export default struct IDxcPdbUtils2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetDefineCount() {
@@ -262,7 +252,6 @@ export default struct IDxcPdbUtils2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uIndex 
      * @returns {IDxcBlobUtf16} 
      */
@@ -272,7 +261,6 @@ export default struct IDxcPdbUtils2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDxcBlobUtf16} 
      */
     GetTargetProfile() {
@@ -281,7 +269,6 @@ export default struct IDxcPdbUtils2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDxcBlobUtf16} 
      */
     GetEntryPoint() {
@@ -290,7 +277,6 @@ export default struct IDxcPdbUtils2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDxcBlobUtf16} 
      */
     GetMainFileName() {
@@ -299,7 +285,6 @@ export default struct IDxcPdbUtils2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDxcBlob} 
      */
     GetHash() {
@@ -318,7 +303,6 @@ export default struct IDxcPdbUtils2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDxcVersionInfo} 
      */
     GetVersionInfo() {
@@ -327,7 +311,6 @@ export default struct IDxcPdbUtils2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetCustomToolchainID() {
@@ -336,7 +319,6 @@ export default struct IDxcPdbUtils2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDxcBlob} 
      */
     GetCustomToolchainData() {
@@ -345,7 +327,6 @@ export default struct IDxcPdbUtils2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDxcBlob} 
      */
     GetWholeDxil() {
@@ -354,7 +335,6 @@ export default struct IDxcPdbUtils2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsFullPDB() {
@@ -363,7 +343,6 @@ export default struct IDxcPdbUtils2 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsPDBRef() {
@@ -380,31 +359,31 @@ export default struct IDxcPdbUtils2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Load := CallbackCreate(GetMethod(implObj, "Load"), flags, 2)
-        this.vtbl.GetSourceCount := CallbackCreate(GetMethod(implObj, "GetSourceCount"), flags, 2)
-        this.vtbl.GetSource := CallbackCreate(GetMethod(implObj, "GetSource"), flags, 3)
-        this.vtbl.GetSourceName := CallbackCreate(GetMethod(implObj, "GetSourceName"), flags, 3)
-        this.vtbl.GetLibraryPDBCount := CallbackCreate(GetMethod(implObj, "GetLibraryPDBCount"), flags, 2)
-        this.vtbl.GetLibraryPDB := CallbackCreate(GetMethod(implObj, "GetLibraryPDB"), flags, 4)
-        this.vtbl.GetFlagCount := CallbackCreate(GetMethod(implObj, "GetFlagCount"), flags, 2)
-        this.vtbl.GetFlag := CallbackCreate(GetMethod(implObj, "GetFlag"), flags, 3)
-        this.vtbl.GetArgCount := CallbackCreate(GetMethod(implObj, "GetArgCount"), flags, 2)
-        this.vtbl.GetArg := CallbackCreate(GetMethod(implObj, "GetArg"), flags, 3)
-        this.vtbl.GetArgPairCount := CallbackCreate(GetMethod(implObj, "GetArgPairCount"), flags, 2)
-        this.vtbl.GetArgPair := CallbackCreate(GetMethod(implObj, "GetArgPair"), flags, 4)
-        this.vtbl.GetDefineCount := CallbackCreate(GetMethod(implObj, "GetDefineCount"), flags, 2)
-        this.vtbl.GetDefine := CallbackCreate(GetMethod(implObj, "GetDefine"), flags, 3)
-        this.vtbl.GetTargetProfile := CallbackCreate(GetMethod(implObj, "GetTargetProfile"), flags, 2)
-        this.vtbl.GetEntryPoint := CallbackCreate(GetMethod(implObj, "GetEntryPoint"), flags, 2)
-        this.vtbl.GetMainFileName := CallbackCreate(GetMethod(implObj, "GetMainFileName"), flags, 2)
-        this.vtbl.GetHash := CallbackCreate(GetMethod(implObj, "GetHash"), flags, 2)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
-        this.vtbl.GetVersionInfo := CallbackCreate(GetMethod(implObj, "GetVersionInfo"), flags, 2)
-        this.vtbl.GetCustomToolchainID := CallbackCreate(GetMethod(implObj, "GetCustomToolchainID"), flags, 2)
-        this.vtbl.GetCustomToolchainData := CallbackCreate(GetMethod(implObj, "GetCustomToolchainData"), flags, 2)
-        this.vtbl.GetWholeDxil := CallbackCreate(GetMethod(implObj, "GetWholeDxil"), flags, 2)
-        this.vtbl.IsFullPDB := CallbackCreate(GetMethod(implObj, "IsFullPDB"), flags, 1)
-        this.vtbl.IsPDBRef := CallbackCreate(GetMethod(implObj, "IsPDBRef"), flags, 1)
+        this.vtbl.Load := CallbackCreate(ObjBindMethod(implObj, "Load"), flags, 2)
+        this.vtbl.GetSourceCount := CallbackCreate(ObjBindMethod(implObj, "GetSourceCount"), flags, 2)
+        this.vtbl.GetSource := CallbackCreate(ObjBindMethod(implObj, "GetSource"), flags, 3)
+        this.vtbl.GetSourceName := CallbackCreate(ObjBindMethod(implObj, "GetSourceName"), flags, 3)
+        this.vtbl.GetLibraryPDBCount := CallbackCreate(ObjBindMethod(implObj, "GetLibraryPDBCount"), flags, 2)
+        this.vtbl.GetLibraryPDB := CallbackCreate(ObjBindMethod(implObj, "GetLibraryPDB"), flags, 4)
+        this.vtbl.GetFlagCount := CallbackCreate(ObjBindMethod(implObj, "GetFlagCount"), flags, 2)
+        this.vtbl.GetFlag := CallbackCreate(ObjBindMethod(implObj, "GetFlag"), flags, 3)
+        this.vtbl.GetArgCount := CallbackCreate(ObjBindMethod(implObj, "GetArgCount"), flags, 2)
+        this.vtbl.GetArg := CallbackCreate(ObjBindMethod(implObj, "GetArg"), flags, 3)
+        this.vtbl.GetArgPairCount := CallbackCreate(ObjBindMethod(implObj, "GetArgPairCount"), flags, 2)
+        this.vtbl.GetArgPair := CallbackCreate(ObjBindMethod(implObj, "GetArgPair"), flags, 4)
+        this.vtbl.GetDefineCount := CallbackCreate(ObjBindMethod(implObj, "GetDefineCount"), flags, 2)
+        this.vtbl.GetDefine := CallbackCreate(ObjBindMethod(implObj, "GetDefine"), flags, 3)
+        this.vtbl.GetTargetProfile := CallbackCreate(ObjBindMethod(implObj, "GetTargetProfile"), flags, 2)
+        this.vtbl.GetEntryPoint := CallbackCreate(ObjBindMethod(implObj, "GetEntryPoint"), flags, 2)
+        this.vtbl.GetMainFileName := CallbackCreate(ObjBindMethod(implObj, "GetMainFileName"), flags, 2)
+        this.vtbl.GetHash := CallbackCreate(ObjBindMethod(implObj, "GetHash"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetVersionInfo := CallbackCreate(ObjBindMethod(implObj, "GetVersionInfo"), flags, 2)
+        this.vtbl.GetCustomToolchainID := CallbackCreate(ObjBindMethod(implObj, "GetCustomToolchainID"), flags, 2)
+        this.vtbl.GetCustomToolchainData := CallbackCreate(ObjBindMethod(implObj, "GetCustomToolchainData"), flags, 2)
+        this.vtbl.GetWholeDxil := CallbackCreate(ObjBindMethod(implObj, "GetWholeDxil"), flags, 2)
+        this.vtbl.IsFullPDB := CallbackCreate(ObjBindMethod(implObj, "IsFullPDB"), flags, 1)
+        this.vtbl.IsPDBRef := CallbackCreate(ObjBindMethod(implObj, "IsPDBRef"), flags, 1)
     }
 
     Dispose() {

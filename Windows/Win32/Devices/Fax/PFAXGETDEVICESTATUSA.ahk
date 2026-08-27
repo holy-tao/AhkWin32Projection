@@ -22,13 +22,12 @@ export default struct PFAXGETDEVICESTATUSA {
     }
 
     /**
-     * 
      * @param {HANDLE} FaxPortHandle 
      * @param {Pointer<Pointer<FAX_DEVICE_STATUSA>>} DeviceStatus 
      * @returns {BOOL} 
      */
     Call(FaxPortHandle, DeviceStatus) {
-        DeviceStatusMarshal := DeviceStatus is VarRef ? "ptr*" : "ptr"
+        DeviceStatusMarshal := DeviceStatus is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, HANDLE, FaxPortHandle, DeviceStatusMarshal, DeviceStatus, BOOL)
         return result

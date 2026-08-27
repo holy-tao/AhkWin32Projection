@@ -20,7 +20,6 @@ export default struct POPEN_V2_ROUTINE {
     }
 
     /**
-     * 
      * @param {PWSTR} ResourceName 
      * @param {HKEY} ResourceKey 
      * @param {Pointer} ResourceHandle 

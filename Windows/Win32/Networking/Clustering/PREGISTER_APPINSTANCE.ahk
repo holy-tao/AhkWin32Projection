@@ -21,7 +21,6 @@ export default struct PREGISTER_APPINSTANCE {
     }
 
     /**
-     * 
      * @param {HANDLE} ProcessHandle 
      * @param {Pointer<Guid>} AppInstanceId 
      * @param {BOOL} ChildrenInheritAppInstance 

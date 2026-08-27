@@ -20,13 +20,12 @@ export default struct FNAPONOTIFICATIONCALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<APO_REG_PROPERTIES>} pProperties 
      * @param {Pointer<Void>} pvRefData 
      * @returns {HRESULT} 
      */
     Call(pProperties, pvRefData) {
-        pvRefDataMarshal := pvRefData is VarRef ? "ptr" : "ptr"
+        pvRefDataMarshal := pvRefData is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, APO_REG_PROPERTIES.Ptr, pProperties, pvRefDataMarshal, pvRefData, "HRESULT")
         return result

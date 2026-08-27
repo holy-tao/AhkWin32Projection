@@ -350,7 +350,7 @@ export default struct IADsPropertyValue2 extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadspropertyvalue2-getobjectproperty
      */
     GetObjectProperty(lnADsType) {
-        lnADsTypeMarshal := lnADsType is VarRef ? "int*" : "ptr"
+        lnADsTypeMarshal := lnADsType is VarRef ? "int*" : IntPtr
 
         pvProp := VARIANT()
         result := ComCall(7, this, lnADsTypeMarshal, lnADsType, VARIANT.Ptr, pvProp, "HRESULT")
@@ -378,8 +378,8 @@ export default struct IADsPropertyValue2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetObjectProperty := CallbackCreate(GetMethod(implObj, "GetObjectProperty"), flags, 3)
-        this.vtbl.PutObjectProperty := CallbackCreate(GetMethod(implObj, "PutObjectProperty"), flags, 3)
+        this.vtbl.GetObjectProperty := CallbackCreate(ObjBindMethod(implObj, "GetObjectProperty"), flags, 3)
+        this.vtbl.PutObjectProperty := CallbackCreate(ObjBindMethod(implObj, "PutObjectProperty"), flags, 3)
     }
 
     Dispose() {

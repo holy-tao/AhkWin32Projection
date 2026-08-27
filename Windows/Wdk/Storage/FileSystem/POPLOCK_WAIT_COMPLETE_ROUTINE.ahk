@@ -19,15 +19,15 @@ export default struct POPLOCK_WAIT_COMPLETE_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<IRP>} _Irp 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Context, _Irp) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _IrpMarshal := _Irp == 0 ? IntPtr : IRP.Ptr
 
-        DllCall(this.value, _ContextMarshal, _Context, IRP.Ptr, _Irp)
+        DllCall(this.value, _ContextMarshal, _Context, _IrpMarshal, _Irp)
     }
 
     /**

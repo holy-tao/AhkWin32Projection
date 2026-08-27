@@ -20,7 +20,6 @@ export default struct PCLUSAPI_CLUSTER_REG_QUERY_VALUE {
     }
 
     /**
-     * 
      * @param {HKEY} _hKey 
      * @param {PWSTR} lpszValueName 
      * @param {Pointer<Integer>} lpdwValueType 
@@ -31,10 +30,13 @@ export default struct PCLUSAPI_CLUSTER_REG_QUERY_VALUE {
     Call(_hKey, lpszValueName, lpdwValueType, lpData, lpcbData) {
         lpszValueName := lpszValueName is String ? StrPtr(lpszValueName) : lpszValueName
 
-        lpdwValueTypeMarshal := lpdwValueType is VarRef ? "uint*" : "ptr"
-        lpcbDataMarshal := lpcbData is VarRef ? "uint*" : "ptr"
+        lpdwValueTypeMarshal := lpdwValueType is VarRef ? "uint*" : IntPtr
+        lpdwValueTypeMarshal := lpdwValueType == 0 ? IntPtr : "uint*"
+        lpDataMarshal := lpData == 0 ? IntPtr : IntPtr
+        lpcbDataMarshal := lpcbData is VarRef ? "uint*" : IntPtr
+        lpcbDataMarshal := lpcbData == 0 ? IntPtr : "uint*"
 
-        result := DllCall(this.value, HKEY, _hKey, "ptr", lpszValueName, lpdwValueTypeMarshal, lpdwValueType, IntPtr, lpData, lpcbDataMarshal, lpcbData, Int32)
+        result := DllCall(this.value, HKEY, _hKey, "ptr", lpszValueName, lpdwValueTypeMarshal, lpdwValueType, lpDataMarshal, lpData, lpcbDataMarshal, lpcbData, Int32)
         return result
     }
 

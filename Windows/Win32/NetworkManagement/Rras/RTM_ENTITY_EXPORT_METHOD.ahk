@@ -20,7 +20,6 @@ export default struct RTM_ENTITY_EXPORT_METHOD {
     }
 
     /**
-     * 
      * @param {Pointer} CallerHandle 
      * @param {Pointer} CalleeHandle 
      * @param {Pointer<RTM_ENTITY_METHOD_INPUT>} _Input 

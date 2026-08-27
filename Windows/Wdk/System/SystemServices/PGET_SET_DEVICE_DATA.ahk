@@ -18,7 +18,6 @@ export default struct PGET_SET_DEVICE_DATA {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Call() {

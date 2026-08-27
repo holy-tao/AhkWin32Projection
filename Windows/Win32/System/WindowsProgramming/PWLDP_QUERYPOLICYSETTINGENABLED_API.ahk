@@ -21,7 +21,6 @@ export default struct PWLDP_QUERYPOLICYSETTINGENABLED_API {
     }
 
     /**
-     * 
      * @param {WLDP_POLICY_SETTING} Setting 
      * @returns {BOOL} 
      */

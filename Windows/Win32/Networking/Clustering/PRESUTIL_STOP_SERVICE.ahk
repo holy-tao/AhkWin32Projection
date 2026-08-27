@@ -19,7 +19,6 @@ export default struct PRESUTIL_STOP_SERVICE {
     }
 
     /**
-     * 
      * @param {SC_HANDLE} hServiceHandle 
      * @returns {Integer} 
      */

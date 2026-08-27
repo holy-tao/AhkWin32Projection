@@ -72,8 +72,8 @@ export default struct IVPManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetVideoPortIndex := CallbackCreate(GetMethod(implObj, "SetVideoPortIndex"), flags, 2)
-        this.vtbl.GetVideoPortIndex := CallbackCreate(GetMethod(implObj, "GetVideoPortIndex"), flags, 2)
+        this.vtbl.SetVideoPortIndex := CallbackCreate(ObjBindMethod(implObj, "SetVideoPortIndex"), flags, 2)
+        this.vtbl.GetVideoPortIndex := CallbackCreate(ObjBindMethod(implObj, "GetVideoPortIndex"), flags, 2)
     }
 
     Dispose() {

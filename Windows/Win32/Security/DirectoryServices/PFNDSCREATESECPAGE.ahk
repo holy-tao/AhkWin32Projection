@@ -24,7 +24,6 @@ export default struct PFNDSCREATESECPAGE {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @param {PWSTR} param1 
      * @param {Integer} param2 

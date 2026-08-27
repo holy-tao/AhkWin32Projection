@@ -174,7 +174,7 @@ export default struct IPMT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-gettabledescriptorbytag
      */
     GetTableDescriptorByTag(bTag, pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : IntPtr
 
         result := ComCall(9, this, Int8, bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
@@ -246,7 +246,7 @@ export default struct IPMT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-getrecorddescriptorbytag
      */
     GetRecordDescriptorByTag(dwRecordIndex, bTag, pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : IntPtr
 
         result := ComCall(15, this, UInt32, dwRecordIndex, Int8, bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
         return IGenericDescriptor(ppDescriptor)
@@ -324,8 +324,8 @@ export default struct IPMT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-queryservicegatewayinfo
      */
     QueryServiceGatewayInfo(ppDSMCCList, puiCount) {
-        ppDSMCCListMarshal := ppDSMCCList is VarRef ? "ptr*" : "ptr"
-        puiCountMarshal := puiCount is VarRef ? "uint*" : "ptr"
+        ppDSMCCListMarshal := ppDSMCCList is VarRef ? "ptr*" : IntPtr
+        puiCountMarshal := puiCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(16, this, ppDSMCCListMarshal, ppDSMCCList, puiCountMarshal, puiCount, "HRESULT")
         return result
@@ -403,8 +403,8 @@ export default struct IPMT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipmt-querympeinfo
      */
     QueryMPEInfo(ppMPEList, puiCount) {
-        ppMPEListMarshal := ppMPEList is VarRef ? "ptr*" : "ptr"
-        puiCountMarshal := puiCount is VarRef ? "uint*" : "ptr"
+        ppMPEListMarshal := ppMPEList is VarRef ? "ptr*" : IntPtr
+        puiCountMarshal := puiCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(17, this, ppMPEListMarshal, ppMPEList, puiCountMarshal, puiCount, "HRESULT")
         return result
@@ -622,25 +622,25 @@ export default struct IPMT extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.GetProgramNumber := CallbackCreate(GetMethod(implObj, "GetProgramNumber"), flags, 2)
-        this.vtbl.GetVersionNumber := CallbackCreate(GetMethod(implObj, "GetVersionNumber"), flags, 2)
-        this.vtbl.GetPcrPid := CallbackCreate(GetMethod(implObj, "GetPcrPid"), flags, 2)
-        this.vtbl.GetCountOfTableDescriptors := CallbackCreate(GetMethod(implObj, "GetCountOfTableDescriptors"), flags, 2)
-        this.vtbl.GetTableDescriptorByIndex := CallbackCreate(GetMethod(implObj, "GetTableDescriptorByIndex"), flags, 3)
-        this.vtbl.GetTableDescriptorByTag := CallbackCreate(GetMethod(implObj, "GetTableDescriptorByTag"), flags, 4)
-        this.vtbl.GetCountOfRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRecords"), flags, 2)
-        this.vtbl.GetRecordStreamType := CallbackCreate(GetMethod(implObj, "GetRecordStreamType"), flags, 3)
-        this.vtbl.GetRecordElementaryPid := CallbackCreate(GetMethod(implObj, "GetRecordElementaryPid"), flags, 3)
-        this.vtbl.GetRecordCountOfDescriptors := CallbackCreate(GetMethod(implObj, "GetRecordCountOfDescriptors"), flags, 3)
-        this.vtbl.GetRecordDescriptorByIndex := CallbackCreate(GetMethod(implObj, "GetRecordDescriptorByIndex"), flags, 4)
-        this.vtbl.GetRecordDescriptorByTag := CallbackCreate(GetMethod(implObj, "GetRecordDescriptorByTag"), flags, 5)
-        this.vtbl.QueryServiceGatewayInfo := CallbackCreate(GetMethod(implObj, "QueryServiceGatewayInfo"), flags, 3)
-        this.vtbl.QueryMPEInfo := CallbackCreate(GetMethod(implObj, "QueryMPEInfo"), flags, 3)
-        this.vtbl.RegisterForNextTable := CallbackCreate(GetMethod(implObj, "RegisterForNextTable"), flags, 2)
-        this.vtbl.GetNextTable := CallbackCreate(GetMethod(implObj, "GetNextTable"), flags, 2)
-        this.vtbl.RegisterForWhenCurrent := CallbackCreate(GetMethod(implObj, "RegisterForWhenCurrent"), flags, 2)
-        this.vtbl.ConvertNextToCurrent := CallbackCreate(GetMethod(implObj, "ConvertNextToCurrent"), flags, 1)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetProgramNumber := CallbackCreate(ObjBindMethod(implObj, "GetProgramNumber"), flags, 2)
+        this.vtbl.GetVersionNumber := CallbackCreate(ObjBindMethod(implObj, "GetVersionNumber"), flags, 2)
+        this.vtbl.GetPcrPid := CallbackCreate(ObjBindMethod(implObj, "GetPcrPid"), flags, 2)
+        this.vtbl.GetCountOfTableDescriptors := CallbackCreate(ObjBindMethod(implObj, "GetCountOfTableDescriptors"), flags, 2)
+        this.vtbl.GetTableDescriptorByIndex := CallbackCreate(ObjBindMethod(implObj, "GetTableDescriptorByIndex"), flags, 3)
+        this.vtbl.GetTableDescriptorByTag := CallbackCreate(ObjBindMethod(implObj, "GetTableDescriptorByTag"), flags, 4)
+        this.vtbl.GetCountOfRecords := CallbackCreate(ObjBindMethod(implObj, "GetCountOfRecords"), flags, 2)
+        this.vtbl.GetRecordStreamType := CallbackCreate(ObjBindMethod(implObj, "GetRecordStreamType"), flags, 3)
+        this.vtbl.GetRecordElementaryPid := CallbackCreate(ObjBindMethod(implObj, "GetRecordElementaryPid"), flags, 3)
+        this.vtbl.GetRecordCountOfDescriptors := CallbackCreate(ObjBindMethod(implObj, "GetRecordCountOfDescriptors"), flags, 3)
+        this.vtbl.GetRecordDescriptorByIndex := CallbackCreate(ObjBindMethod(implObj, "GetRecordDescriptorByIndex"), flags, 4)
+        this.vtbl.GetRecordDescriptorByTag := CallbackCreate(ObjBindMethod(implObj, "GetRecordDescriptorByTag"), flags, 5)
+        this.vtbl.QueryServiceGatewayInfo := CallbackCreate(ObjBindMethod(implObj, "QueryServiceGatewayInfo"), flags, 3)
+        this.vtbl.QueryMPEInfo := CallbackCreate(ObjBindMethod(implObj, "QueryMPEInfo"), flags, 3)
+        this.vtbl.RegisterForNextTable := CallbackCreate(ObjBindMethod(implObj, "RegisterForNextTable"), flags, 2)
+        this.vtbl.GetNextTable := CallbackCreate(ObjBindMethod(implObj, "GetNextTable"), flags, 2)
+        this.vtbl.RegisterForWhenCurrent := CallbackCreate(ObjBindMethod(implObj, "RegisterForWhenCurrent"), flags, 2)
+        this.vtbl.ConvertNextToCurrent := CallbackCreate(ObjBindMethod(implObj, "ConvertNextToCurrent"), flags, 1)
     }
 
     Dispose() {

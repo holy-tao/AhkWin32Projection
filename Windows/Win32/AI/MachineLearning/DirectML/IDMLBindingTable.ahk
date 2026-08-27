@@ -55,7 +55,9 @@ export default struct IDMLBindingTable extends IDMLDeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmlbindingtable-bindinputs
      */
     BindInputs(bindingCount, bindings) {
-        ComCall(8, this, UInt32, bindingCount, DML_BINDING_DESC.Ptr, bindings)
+        bindingsMarshal := bindings == 0 ? IntPtr : DML_BINDING_DESC.Ptr
+
+        ComCall(8, this, UInt32, bindingCount, bindingsMarshal, bindings)
     }
 
     /**
@@ -70,7 +72,9 @@ export default struct IDMLBindingTable extends IDMLDeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmlbindingtable-bindoutputs
      */
     BindOutputs(bindingCount, bindings) {
-        ComCall(9, this, UInt32, bindingCount, DML_BINDING_DESC.Ptr, bindings)
+        bindingsMarshal := bindings == 0 ? IntPtr : DML_BINDING_DESC.Ptr
+
+        ComCall(9, this, UInt32, bindingCount, bindingsMarshal, bindings)
     }
 
     /**
@@ -82,7 +86,9 @@ export default struct IDMLBindingTable extends IDMLDeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmlbindingtable-bindtemporaryresource
      */
     BindTemporaryResource(binding) {
-        ComCall(10, this, DML_BINDING_DESC.Ptr, binding)
+        bindingMarshal := binding == 0 ? IntPtr : DML_BINDING_DESC.Ptr
+
+        ComCall(10, this, bindingMarshal, binding)
     }
 
     /**
@@ -94,7 +100,9 @@ export default struct IDMLBindingTable extends IDMLDeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmlbindingtable-bindpersistentresource
      */
     BindPersistentResource(binding) {
-        ComCall(11, this, DML_BINDING_DESC.Ptr, binding)
+        bindingMarshal := binding == 0 ? IntPtr : DML_BINDING_DESC.Ptr
+
+        ComCall(11, this, bindingMarshal, binding)
     }
 
     /**
@@ -108,7 +116,9 @@ export default struct IDMLBindingTable extends IDMLDeviceChild {
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmlbindingtable-reset
      */
     Reset(desc) {
-        result := ComCall(12, this, DML_BINDING_TABLE_DESC.Ptr, desc, "HRESULT")
+        descMarshal := desc == 0 ? IntPtr : DML_BINDING_TABLE_DESC.Ptr
+
+        result := ComCall(12, this, descMarshal, desc, "HRESULT")
         return result
     }
 
@@ -121,11 +131,11 @@ export default struct IDMLBindingTable extends IDMLDeviceChild {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BindInputs := CallbackCreate(GetMethod(implObj, "BindInputs"), flags, 3)
-        this.vtbl.BindOutputs := CallbackCreate(GetMethod(implObj, "BindOutputs"), flags, 3)
-        this.vtbl.BindTemporaryResource := CallbackCreate(GetMethod(implObj, "BindTemporaryResource"), flags, 2)
-        this.vtbl.BindPersistentResource := CallbackCreate(GetMethod(implObj, "BindPersistentResource"), flags, 2)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 2)
+        this.vtbl.BindInputs := CallbackCreate(ObjBindMethod(implObj, "BindInputs"), flags, 3)
+        this.vtbl.BindOutputs := CallbackCreate(ObjBindMethod(implObj, "BindOutputs"), flags, 3)
+        this.vtbl.BindTemporaryResource := CallbackCreate(ObjBindMethod(implObj, "BindTemporaryResource"), flags, 2)
+        this.vtbl.BindPersistentResource := CallbackCreate(ObjBindMethod(implObj, "BindPersistentResource"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 2)
     }
 
     Dispose() {

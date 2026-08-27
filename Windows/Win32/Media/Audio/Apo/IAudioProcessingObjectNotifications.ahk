@@ -52,8 +52,8 @@ export default struct IAudioProcessingObjectNotifications extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/nf-audioengineextensionapo-iaudioprocessingobjectnotifications-getaponotificationregistrationinfo
      */
     GetApoNotificationRegistrationInfo(apoNotifications, count) {
-        apoNotificationsMarshal := apoNotifications is VarRef ? "ptr*" : "ptr"
-        countMarshal := count is VarRef ? "uint*" : "ptr"
+        apoNotificationsMarshal := apoNotifications is VarRef ? "ptr*" : IntPtr
+        countMarshal := count is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, apoNotificationsMarshal, apoNotifications, countMarshal, count, "HRESULT")
         return result
@@ -89,8 +89,8 @@ export default struct IAudioProcessingObjectNotifications extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetApoNotificationRegistrationInfo := CallbackCreate(GetMethod(implObj, "GetApoNotificationRegistrationInfo"), flags, 3)
-        this.vtbl.HandleNotification := CallbackCreate(GetMethod(implObj, "HandleNotification"), flags, 2)
+        this.vtbl.GetApoNotificationRegistrationInfo := CallbackCreate(ObjBindMethod(implObj, "GetApoNotificationRegistrationInfo"), flags, 3)
+        this.vtbl.HandleNotification := CallbackCreate(ObjBindMethod(implObj, "HandleNotification"), flags, 2)
     }
 
     Dispose() {

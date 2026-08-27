@@ -146,13 +146,13 @@ export default struct IComActivityEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnActivityCreate := CallbackCreate(GetMethod(implObj, "OnActivityCreate"), flags, 3)
-        this.vtbl.OnActivityDestroy := CallbackCreate(GetMethod(implObj, "OnActivityDestroy"), flags, 3)
-        this.vtbl.OnActivityEnter := CallbackCreate(GetMethod(implObj, "OnActivityEnter"), flags, 5)
-        this.vtbl.OnActivityTimeout := CallbackCreate(GetMethod(implObj, "OnActivityTimeout"), flags, 6)
-        this.vtbl.OnActivityReenter := CallbackCreate(GetMethod(implObj, "OnActivityReenter"), flags, 5)
-        this.vtbl.OnActivityLeave := CallbackCreate(GetMethod(implObj, "OnActivityLeave"), flags, 4)
-        this.vtbl.OnActivityLeaveSame := CallbackCreate(GetMethod(implObj, "OnActivityLeaveSame"), flags, 4)
+        this.vtbl.OnActivityCreate := CallbackCreate(ObjBindMethod(implObj, "OnActivityCreate"), flags, 3)
+        this.vtbl.OnActivityDestroy := CallbackCreate(ObjBindMethod(implObj, "OnActivityDestroy"), flags, 3)
+        this.vtbl.OnActivityEnter := CallbackCreate(ObjBindMethod(implObj, "OnActivityEnter"), flags, 5)
+        this.vtbl.OnActivityTimeout := CallbackCreate(ObjBindMethod(implObj, "OnActivityTimeout"), flags, 6)
+        this.vtbl.OnActivityReenter := CallbackCreate(ObjBindMethod(implObj, "OnActivityReenter"), flags, 5)
+        this.vtbl.OnActivityLeave := CallbackCreate(ObjBindMethod(implObj, "OnActivityLeave"), flags, 4)
+        this.vtbl.OnActivityLeaveSame := CallbackCreate(ObjBindMethod(implObj, "OnActivityLeaveSame"), flags, 4)
     }
 
     Dispose() {

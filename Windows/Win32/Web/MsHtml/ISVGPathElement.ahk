@@ -94,7 +94,6 @@ export default struct ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedNumber} v 
      * @returns {HRESULT} 
      */
@@ -104,7 +103,6 @@ export default struct ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedNumber} 
      */
     get_pathLength() {
@@ -113,7 +111,6 @@ export default struct ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     getTotalLength() {
@@ -122,7 +119,6 @@ export default struct ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} fltdistance 
      * @returns {ISVGPoint} 
      */
@@ -132,7 +128,6 @@ export default struct ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} fltdistance 
      * @returns {Integer} 
      */
@@ -142,7 +137,6 @@ export default struct ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGPathSegClosePath} 
      */
     createSVGPathSegClosePath() {
@@ -151,7 +145,6 @@ export default struct ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @returns {ISVGPathSegMovetoAbs} 
@@ -162,7 +155,6 @@ export default struct ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @returns {ISVGPathSegMovetoRel} 
@@ -173,7 +165,6 @@ export default struct ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @returns {ISVGPathSegLinetoAbs} 
@@ -184,7 +175,6 @@ export default struct ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @returns {ISVGPathSegLinetoRel} 
@@ -195,7 +185,6 @@ export default struct ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} x1 
@@ -210,7 +199,6 @@ export default struct ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} x1 
@@ -225,7 +213,6 @@ export default struct ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} x1 
@@ -238,7 +225,6 @@ export default struct ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} x1 
@@ -251,7 +237,6 @@ export default struct ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} r1 
@@ -267,7 +252,6 @@ export default struct ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} r1 
@@ -283,7 +267,6 @@ export default struct ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @returns {ISVGPathSegLinetoHorizontalAbs} 
      */
@@ -293,7 +276,6 @@ export default struct ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @returns {ISVGPathSegLinetoHorizontalRel} 
      */
@@ -303,7 +285,6 @@ export default struct ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} y 
      * @returns {ISVGPathSegLinetoVerticalAbs} 
      */
@@ -313,7 +294,6 @@ export default struct ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} y 
      * @returns {ISVGPathSegLinetoVerticalRel} 
      */
@@ -323,7 +303,6 @@ export default struct ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} x2 
@@ -336,7 +315,6 @@ export default struct ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @param {Float} x2 
@@ -349,7 +327,6 @@ export default struct ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @returns {ISVGPathSegCurvetoQuadraticSmoothAbs} 
@@ -360,7 +337,6 @@ export default struct ISVGPathElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} x 
      * @param {Float} y 
      * @returns {ISVGPathSegCurvetoQuadraticSmoothRel} 
@@ -379,30 +355,30 @@ export default struct ISVGPathElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.putref_pathLength := CallbackCreate(GetMethod(implObj, "putref_pathLength"), flags, 2)
-        this.vtbl.get_pathLength := CallbackCreate(GetMethod(implObj, "get_pathLength"), flags, 2)
-        this.vtbl.getTotalLength := CallbackCreate(GetMethod(implObj, "getTotalLength"), flags, 2)
-        this.vtbl.getPointAtLength := CallbackCreate(GetMethod(implObj, "getPointAtLength"), flags, 3)
-        this.vtbl.getPathSegAtLength := CallbackCreate(GetMethod(implObj, "getPathSegAtLength"), flags, 3)
-        this.vtbl.createSVGPathSegClosePath := CallbackCreate(GetMethod(implObj, "createSVGPathSegClosePath"), flags, 2)
-        this.vtbl.createSVGPathSegMovetoAbs := CallbackCreate(GetMethod(implObj, "createSVGPathSegMovetoAbs"), flags, 4)
-        this.vtbl.createSVGPathSegMovetoRel := CallbackCreate(GetMethod(implObj, "createSVGPathSegMovetoRel"), flags, 4)
-        this.vtbl.createSVGPathSegLinetoAbs := CallbackCreate(GetMethod(implObj, "createSVGPathSegLinetoAbs"), flags, 4)
-        this.vtbl.createSVGPathSegLinetoRel := CallbackCreate(GetMethod(implObj, "createSVGPathSegLinetoRel"), flags, 4)
-        this.vtbl.createSVGPathSegCurvetoCubicAbs := CallbackCreate(GetMethod(implObj, "createSVGPathSegCurvetoCubicAbs"), flags, 8)
-        this.vtbl.createSVGPathSegCurvetoCubicRel := CallbackCreate(GetMethod(implObj, "createSVGPathSegCurvetoCubicRel"), flags, 8)
-        this.vtbl.createSVGPathSegCurvetoQuadraticAbs := CallbackCreate(GetMethod(implObj, "createSVGPathSegCurvetoQuadraticAbs"), flags, 6)
-        this.vtbl.createSVGPathSegCurvetoQuadraticRel := CallbackCreate(GetMethod(implObj, "createSVGPathSegCurvetoQuadraticRel"), flags, 6)
-        this.vtbl.createSVGPathSegArcAbs := CallbackCreate(GetMethod(implObj, "createSVGPathSegArcAbs"), flags, 9)
-        this.vtbl.createSVGPathSegArcRel := CallbackCreate(GetMethod(implObj, "createSVGPathSegArcRel"), flags, 9)
-        this.vtbl.createSVGPathSegLinetoHorizontalAbs := CallbackCreate(GetMethod(implObj, "createSVGPathSegLinetoHorizontalAbs"), flags, 3)
-        this.vtbl.createSVGPathSegLinetoHorizontalRel := CallbackCreate(GetMethod(implObj, "createSVGPathSegLinetoHorizontalRel"), flags, 3)
-        this.vtbl.createSVGPathSegLinetoVerticalAbs := CallbackCreate(GetMethod(implObj, "createSVGPathSegLinetoVerticalAbs"), flags, 3)
-        this.vtbl.createSVGPathSegLinetoVerticalRel := CallbackCreate(GetMethod(implObj, "createSVGPathSegLinetoVerticalRel"), flags, 3)
-        this.vtbl.createSVGPathSegCurvetoCubicSmoothAbs := CallbackCreate(GetMethod(implObj, "createSVGPathSegCurvetoCubicSmoothAbs"), flags, 6)
-        this.vtbl.createSVGPathSegCurvetoCubicSmoothRel := CallbackCreate(GetMethod(implObj, "createSVGPathSegCurvetoCubicSmoothRel"), flags, 6)
-        this.vtbl.createSVGPathSegCurvetoQuadraticSmoothAbs := CallbackCreate(GetMethod(implObj, "createSVGPathSegCurvetoQuadraticSmoothAbs"), flags, 4)
-        this.vtbl.createSVGPathSegCurvetoQuadraticSmoothRel := CallbackCreate(GetMethod(implObj, "createSVGPathSegCurvetoQuadraticSmoothRel"), flags, 4)
+        this.vtbl.putref_pathLength := CallbackCreate(ObjBindMethod(implObj, "putref_pathLength"), flags, 2)
+        this.vtbl.get_pathLength := CallbackCreate(ObjBindMethod(implObj, "get_pathLength"), flags, 2)
+        this.vtbl.getTotalLength := CallbackCreate(ObjBindMethod(implObj, "getTotalLength"), flags, 2)
+        this.vtbl.getPointAtLength := CallbackCreate(ObjBindMethod(implObj, "getPointAtLength"), flags, 3)
+        this.vtbl.getPathSegAtLength := CallbackCreate(ObjBindMethod(implObj, "getPathSegAtLength"), flags, 3)
+        this.vtbl.createSVGPathSegClosePath := CallbackCreate(ObjBindMethod(implObj, "createSVGPathSegClosePath"), flags, 2)
+        this.vtbl.createSVGPathSegMovetoAbs := CallbackCreate(ObjBindMethod(implObj, "createSVGPathSegMovetoAbs"), flags, 4)
+        this.vtbl.createSVGPathSegMovetoRel := CallbackCreate(ObjBindMethod(implObj, "createSVGPathSegMovetoRel"), flags, 4)
+        this.vtbl.createSVGPathSegLinetoAbs := CallbackCreate(ObjBindMethod(implObj, "createSVGPathSegLinetoAbs"), flags, 4)
+        this.vtbl.createSVGPathSegLinetoRel := CallbackCreate(ObjBindMethod(implObj, "createSVGPathSegLinetoRel"), flags, 4)
+        this.vtbl.createSVGPathSegCurvetoCubicAbs := CallbackCreate(ObjBindMethod(implObj, "createSVGPathSegCurvetoCubicAbs"), flags, 8)
+        this.vtbl.createSVGPathSegCurvetoCubicRel := CallbackCreate(ObjBindMethod(implObj, "createSVGPathSegCurvetoCubicRel"), flags, 8)
+        this.vtbl.createSVGPathSegCurvetoQuadraticAbs := CallbackCreate(ObjBindMethod(implObj, "createSVGPathSegCurvetoQuadraticAbs"), flags, 6)
+        this.vtbl.createSVGPathSegCurvetoQuadraticRel := CallbackCreate(ObjBindMethod(implObj, "createSVGPathSegCurvetoQuadraticRel"), flags, 6)
+        this.vtbl.createSVGPathSegArcAbs := CallbackCreate(ObjBindMethod(implObj, "createSVGPathSegArcAbs"), flags, 9)
+        this.vtbl.createSVGPathSegArcRel := CallbackCreate(ObjBindMethod(implObj, "createSVGPathSegArcRel"), flags, 9)
+        this.vtbl.createSVGPathSegLinetoHorizontalAbs := CallbackCreate(ObjBindMethod(implObj, "createSVGPathSegLinetoHorizontalAbs"), flags, 3)
+        this.vtbl.createSVGPathSegLinetoHorizontalRel := CallbackCreate(ObjBindMethod(implObj, "createSVGPathSegLinetoHorizontalRel"), flags, 3)
+        this.vtbl.createSVGPathSegLinetoVerticalAbs := CallbackCreate(ObjBindMethod(implObj, "createSVGPathSegLinetoVerticalAbs"), flags, 3)
+        this.vtbl.createSVGPathSegLinetoVerticalRel := CallbackCreate(ObjBindMethod(implObj, "createSVGPathSegLinetoVerticalRel"), flags, 3)
+        this.vtbl.createSVGPathSegCurvetoCubicSmoothAbs := CallbackCreate(ObjBindMethod(implObj, "createSVGPathSegCurvetoCubicSmoothAbs"), flags, 6)
+        this.vtbl.createSVGPathSegCurvetoCubicSmoothRel := CallbackCreate(ObjBindMethod(implObj, "createSVGPathSegCurvetoCubicSmoothRel"), flags, 6)
+        this.vtbl.createSVGPathSegCurvetoQuadraticSmoothAbs := CallbackCreate(ObjBindMethod(implObj, "createSVGPathSegCurvetoQuadraticSmoothAbs"), flags, 4)
+        this.vtbl.createSVGPathSegCurvetoQuadraticSmoothRel := CallbackCreate(ObjBindMethod(implObj, "createSVGPathSegCurvetoQuadraticSmoothRel"), flags, 4)
     }
 
     Dispose() {

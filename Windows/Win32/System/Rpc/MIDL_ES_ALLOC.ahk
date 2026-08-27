@@ -18,16 +18,15 @@ export default struct MIDL_ES_ALLOC {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} state 
      * @param {Pointer<Pointer<Integer>>} pbuffer 
      * @param {Pointer<Integer>} psize 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(state, pbuffer, psize) {
-        stateMarshal := state is VarRef ? "ptr" : "ptr"
-        pbufferMarshal := pbuffer is VarRef ? "ptr*" : "ptr"
-        psizeMarshal := psize is VarRef ? "uint*" : "ptr"
+        stateMarshal := state is VarRef ? "ptr" : IntPtr
+        pbufferMarshal := pbuffer is VarRef ? "ptr*" : IntPtr
+        psizeMarshal := psize is VarRef ? "uint*" : IntPtr
 
         DllCall(this.value, stateMarshal, state, pbufferMarshal, pbuffer, psizeMarshal, psize)
     }

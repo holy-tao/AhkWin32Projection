@@ -65,7 +65,7 @@ export default struct IWMProfileManagerLanguage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofilemanagerlanguage-getuserlanguageid
      */
     GetUserLanguageID(wLangID) {
-        wLangIDMarshal := wLangID is VarRef ? "ushort*" : "ptr"
+        wLangIDMarshal := wLangID is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(3, this, wLangIDMarshal, wLangID, "HRESULT")
         return result
@@ -122,8 +122,8 @@ export default struct IWMProfileManagerLanguage extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetUserLanguageID := CallbackCreate(GetMethod(implObj, "GetUserLanguageID"), flags, 2)
-        this.vtbl.SetUserLanguageID := CallbackCreate(GetMethod(implObj, "SetUserLanguageID"), flags, 2)
+        this.vtbl.GetUserLanguageID := CallbackCreate(ObjBindMethod(implObj, "GetUserLanguageID"), flags, 2)
+        this.vtbl.SetUserLanguageID := CallbackCreate(ObjBindMethod(implObj, "SetUserLanguageID"), flags, 2)
     }
 
     Dispose() {

@@ -285,17 +285,17 @@ export default struct IWICBitmapDecoder extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryCapability := CallbackCreate(GetMethod(implObj, "QueryCapability"), flags, 3)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.GetContainerFormat := CallbackCreate(GetMethod(implObj, "GetContainerFormat"), flags, 2)
-        this.vtbl.GetDecoderInfo := CallbackCreate(GetMethod(implObj, "GetDecoderInfo"), flags, 2)
-        this.vtbl.CopyPalette := CallbackCreate(GetMethod(implObj, "CopyPalette"), flags, 2)
-        this.vtbl.GetMetadataQueryReader := CallbackCreate(GetMethod(implObj, "GetMetadataQueryReader"), flags, 2)
-        this.vtbl.GetPreview := CallbackCreate(GetMethod(implObj, "GetPreview"), flags, 2)
-        this.vtbl.GetColorContexts := CallbackCreate(GetMethod(implObj, "GetColorContexts"), flags, 4)
-        this.vtbl.GetThumbnail := CallbackCreate(GetMethod(implObj, "GetThumbnail"), flags, 2)
-        this.vtbl.GetFrameCount := CallbackCreate(GetMethod(implObj, "GetFrameCount"), flags, 2)
-        this.vtbl.GetFrame := CallbackCreate(GetMethod(implObj, "GetFrame"), flags, 3)
+        this.vtbl.QueryCapability := CallbackCreate(ObjBindMethod(implObj, "QueryCapability"), flags, 3)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetContainerFormat := CallbackCreate(ObjBindMethod(implObj, "GetContainerFormat"), flags, 2)
+        this.vtbl.GetDecoderInfo := CallbackCreate(ObjBindMethod(implObj, "GetDecoderInfo"), flags, 2)
+        this.vtbl.CopyPalette := CallbackCreate(ObjBindMethod(implObj, "CopyPalette"), flags, 2)
+        this.vtbl.GetMetadataQueryReader := CallbackCreate(ObjBindMethod(implObj, "GetMetadataQueryReader"), flags, 2)
+        this.vtbl.GetPreview := CallbackCreate(ObjBindMethod(implObj, "GetPreview"), flags, 2)
+        this.vtbl.GetColorContexts := CallbackCreate(ObjBindMethod(implObj, "GetColorContexts"), flags, 4)
+        this.vtbl.GetThumbnail := CallbackCreate(ObjBindMethod(implObj, "GetThumbnail"), flags, 2)
+        this.vtbl.GetFrameCount := CallbackCreate(ObjBindMethod(implObj, "GetFrameCount"), flags, 2)
+        this.vtbl.GetFrame := CallbackCreate(ObjBindMethod(implObj, "GetFrame"), flags, 3)
     }
 
     Dispose() {

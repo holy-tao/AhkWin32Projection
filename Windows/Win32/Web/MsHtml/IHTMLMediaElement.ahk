@@ -247,7 +247,6 @@ export default struct IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLMediaError} 
      */
     get_error() {
@@ -256,7 +255,6 @@ export default struct IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -268,7 +266,6 @@ export default struct IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_src() {
@@ -278,7 +275,6 @@ export default struct IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_currentSrc() {
@@ -288,7 +284,6 @@ export default struct IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_networkState() {
@@ -297,7 +292,6 @@ export default struct IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -309,7 +303,6 @@ export default struct IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_preload() {
@@ -319,7 +312,6 @@ export default struct IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLTimeRanges} 
      */
     get_buffered() {
@@ -356,7 +348,6 @@ export default struct IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} type 
      * @returns {BSTR} 
      */
@@ -369,7 +360,6 @@ export default struct IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_seeking() {
@@ -378,7 +368,6 @@ export default struct IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -388,7 +377,6 @@ export default struct IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_currentTime() {
@@ -397,7 +385,6 @@ export default struct IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_initialTime() {
@@ -406,7 +393,6 @@ export default struct IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_duration() {
@@ -415,7 +401,6 @@ export default struct IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_paused() {
@@ -424,7 +409,6 @@ export default struct IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -434,7 +418,6 @@ export default struct IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_defaultPlaybackRate() {
@@ -443,7 +426,6 @@ export default struct IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -453,7 +435,6 @@ export default struct IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_playbackRate() {
@@ -462,7 +443,6 @@ export default struct IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLTimeRanges} 
      */
     get_played() {
@@ -471,7 +451,6 @@ export default struct IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLTimeRanges} 
      */
     get_seekable() {
@@ -480,7 +459,6 @@ export default struct IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_ended() {
@@ -489,7 +467,6 @@ export default struct IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -499,7 +476,6 @@ export default struct IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_autoplay() {
@@ -508,7 +484,6 @@ export default struct IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -518,7 +493,6 @@ export default struct IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_loop() {
@@ -615,7 +589,6 @@ export default struct IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -625,7 +598,6 @@ export default struct IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_controls() {
@@ -634,7 +606,6 @@ export default struct IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -644,7 +615,6 @@ export default struct IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_volume() {
@@ -653,7 +623,6 @@ export default struct IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -663,7 +632,6 @@ export default struct IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_muted() {
@@ -672,7 +640,6 @@ export default struct IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -682,7 +649,6 @@ export default struct IHTMLMediaElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_autobuffer() {
@@ -699,43 +665,43 @@ export default struct IHTMLMediaElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_error := CallbackCreate(GetMethod(implObj, "get_error"), flags, 2)
-        this.vtbl.put_src := CallbackCreate(GetMethod(implObj, "put_src"), flags, 2)
-        this.vtbl.get_src := CallbackCreate(GetMethod(implObj, "get_src"), flags, 2)
-        this.vtbl.get_currentSrc := CallbackCreate(GetMethod(implObj, "get_currentSrc"), flags, 2)
-        this.vtbl.get_networkState := CallbackCreate(GetMethod(implObj, "get_networkState"), flags, 2)
-        this.vtbl.put_preload := CallbackCreate(GetMethod(implObj, "put_preload"), flags, 2)
-        this.vtbl.get_preload := CallbackCreate(GetMethod(implObj, "get_preload"), flags, 2)
-        this.vtbl.get_buffered := CallbackCreate(GetMethod(implObj, "get_buffered"), flags, 2)
-        this.vtbl.load := CallbackCreate(GetMethod(implObj, "load"), flags, 1)
-        this.vtbl.canPlayType := CallbackCreate(GetMethod(implObj, "canPlayType"), flags, 3)
-        this.vtbl.get_seeking := CallbackCreate(GetMethod(implObj, "get_seeking"), flags, 2)
-        this.vtbl.put_currentTime := CallbackCreate(GetMethod(implObj, "put_currentTime"), flags, 2)
-        this.vtbl.get_currentTime := CallbackCreate(GetMethod(implObj, "get_currentTime"), flags, 2)
-        this.vtbl.get_initialTime := CallbackCreate(GetMethod(implObj, "get_initialTime"), flags, 2)
-        this.vtbl.get_duration := CallbackCreate(GetMethod(implObj, "get_duration"), flags, 2)
-        this.vtbl.get_paused := CallbackCreate(GetMethod(implObj, "get_paused"), flags, 2)
-        this.vtbl.put_defaultPlaybackRate := CallbackCreate(GetMethod(implObj, "put_defaultPlaybackRate"), flags, 2)
-        this.vtbl.get_defaultPlaybackRate := CallbackCreate(GetMethod(implObj, "get_defaultPlaybackRate"), flags, 2)
-        this.vtbl.put_playbackRate := CallbackCreate(GetMethod(implObj, "put_playbackRate"), flags, 2)
-        this.vtbl.get_playbackRate := CallbackCreate(GetMethod(implObj, "get_playbackRate"), flags, 2)
-        this.vtbl.get_played := CallbackCreate(GetMethod(implObj, "get_played"), flags, 2)
-        this.vtbl.get_seekable := CallbackCreate(GetMethod(implObj, "get_seekable"), flags, 2)
-        this.vtbl.get_ended := CallbackCreate(GetMethod(implObj, "get_ended"), flags, 2)
-        this.vtbl.put_autoplay := CallbackCreate(GetMethod(implObj, "put_autoplay"), flags, 2)
-        this.vtbl.get_autoplay := CallbackCreate(GetMethod(implObj, "get_autoplay"), flags, 2)
-        this.vtbl.put_loop := CallbackCreate(GetMethod(implObj, "put_loop"), flags, 2)
-        this.vtbl.get_loop := CallbackCreate(GetMethod(implObj, "get_loop"), flags, 2)
-        this.vtbl.play := CallbackCreate(GetMethod(implObj, "play"), flags, 1)
-        this.vtbl.pause := CallbackCreate(GetMethod(implObj, "pause"), flags, 1)
-        this.vtbl.put_controls := CallbackCreate(GetMethod(implObj, "put_controls"), flags, 2)
-        this.vtbl.get_controls := CallbackCreate(GetMethod(implObj, "get_controls"), flags, 2)
-        this.vtbl.put_volume := CallbackCreate(GetMethod(implObj, "put_volume"), flags, 2)
-        this.vtbl.get_volume := CallbackCreate(GetMethod(implObj, "get_volume"), flags, 2)
-        this.vtbl.put_muted := CallbackCreate(GetMethod(implObj, "put_muted"), flags, 2)
-        this.vtbl.get_muted := CallbackCreate(GetMethod(implObj, "get_muted"), flags, 2)
-        this.vtbl.put_autobuffer := CallbackCreate(GetMethod(implObj, "put_autobuffer"), flags, 2)
-        this.vtbl.get_autobuffer := CallbackCreate(GetMethod(implObj, "get_autobuffer"), flags, 2)
+        this.vtbl.get_error := CallbackCreate(ObjBindMethod(implObj, "get_error"), flags, 2)
+        this.vtbl.put_src := CallbackCreate(ObjBindMethod(implObj, "put_src"), flags, 2)
+        this.vtbl.get_src := CallbackCreate(ObjBindMethod(implObj, "get_src"), flags, 2)
+        this.vtbl.get_currentSrc := CallbackCreate(ObjBindMethod(implObj, "get_currentSrc"), flags, 2)
+        this.vtbl.get_networkState := CallbackCreate(ObjBindMethod(implObj, "get_networkState"), flags, 2)
+        this.vtbl.put_preload := CallbackCreate(ObjBindMethod(implObj, "put_preload"), flags, 2)
+        this.vtbl.get_preload := CallbackCreate(ObjBindMethod(implObj, "get_preload"), flags, 2)
+        this.vtbl.get_buffered := CallbackCreate(ObjBindMethod(implObj, "get_buffered"), flags, 2)
+        this.vtbl.load := CallbackCreate(ObjBindMethod(implObj, "load"), flags, 1)
+        this.vtbl.canPlayType := CallbackCreate(ObjBindMethod(implObj, "canPlayType"), flags, 3)
+        this.vtbl.get_seeking := CallbackCreate(ObjBindMethod(implObj, "get_seeking"), flags, 2)
+        this.vtbl.put_currentTime := CallbackCreate(ObjBindMethod(implObj, "put_currentTime"), flags, 2)
+        this.vtbl.get_currentTime := CallbackCreate(ObjBindMethod(implObj, "get_currentTime"), flags, 2)
+        this.vtbl.get_initialTime := CallbackCreate(ObjBindMethod(implObj, "get_initialTime"), flags, 2)
+        this.vtbl.get_duration := CallbackCreate(ObjBindMethod(implObj, "get_duration"), flags, 2)
+        this.vtbl.get_paused := CallbackCreate(ObjBindMethod(implObj, "get_paused"), flags, 2)
+        this.vtbl.put_defaultPlaybackRate := CallbackCreate(ObjBindMethod(implObj, "put_defaultPlaybackRate"), flags, 2)
+        this.vtbl.get_defaultPlaybackRate := CallbackCreate(ObjBindMethod(implObj, "get_defaultPlaybackRate"), flags, 2)
+        this.vtbl.put_playbackRate := CallbackCreate(ObjBindMethod(implObj, "put_playbackRate"), flags, 2)
+        this.vtbl.get_playbackRate := CallbackCreate(ObjBindMethod(implObj, "get_playbackRate"), flags, 2)
+        this.vtbl.get_played := CallbackCreate(ObjBindMethod(implObj, "get_played"), flags, 2)
+        this.vtbl.get_seekable := CallbackCreate(ObjBindMethod(implObj, "get_seekable"), flags, 2)
+        this.vtbl.get_ended := CallbackCreate(ObjBindMethod(implObj, "get_ended"), flags, 2)
+        this.vtbl.put_autoplay := CallbackCreate(ObjBindMethod(implObj, "put_autoplay"), flags, 2)
+        this.vtbl.get_autoplay := CallbackCreate(ObjBindMethod(implObj, "get_autoplay"), flags, 2)
+        this.vtbl.put_loop := CallbackCreate(ObjBindMethod(implObj, "put_loop"), flags, 2)
+        this.vtbl.get_loop := CallbackCreate(ObjBindMethod(implObj, "get_loop"), flags, 2)
+        this.vtbl.play := CallbackCreate(ObjBindMethod(implObj, "play"), flags, 1)
+        this.vtbl.pause := CallbackCreate(ObjBindMethod(implObj, "pause"), flags, 1)
+        this.vtbl.put_controls := CallbackCreate(ObjBindMethod(implObj, "put_controls"), flags, 2)
+        this.vtbl.get_controls := CallbackCreate(ObjBindMethod(implObj, "get_controls"), flags, 2)
+        this.vtbl.put_volume := CallbackCreate(ObjBindMethod(implObj, "put_volume"), flags, 2)
+        this.vtbl.get_volume := CallbackCreate(ObjBindMethod(implObj, "get_volume"), flags, 2)
+        this.vtbl.put_muted := CallbackCreate(ObjBindMethod(implObj, "put_muted"), flags, 2)
+        this.vtbl.get_muted := CallbackCreate(ObjBindMethod(implObj, "get_muted"), flags, 2)
+        this.vtbl.put_autobuffer := CallbackCreate(ObjBindMethod(implObj, "put_autobuffer"), flags, 2)
+        this.vtbl.get_autobuffer := CallbackCreate(ObjBindMethod(implObj, "get_autobuffer"), flags, 2)
     }
 
     Dispose() {

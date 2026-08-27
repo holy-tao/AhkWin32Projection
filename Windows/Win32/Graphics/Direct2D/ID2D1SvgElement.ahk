@@ -224,7 +224,9 @@ export default struct ID2D1SvgElement extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-insertchildbefore
      */
     InsertChildBefore(newChild, referenceChild) {
-        result := ComCall(14, this, "ptr", newChild, "ptr", referenceChild, "HRESULT")
+        referenceChildMarshal := referenceChild == 0 ? IntPtr : "ptr"
+
+        result := ComCall(14, this, "ptr", newChild, referenceChildMarshal, referenceChild, "HRESULT")
         return result
     }
 
@@ -314,7 +316,8 @@ export default struct ID2D1SvgElement extends ID2D1Resource {
     IsAttributeSpecified(name, inherited) {
         name := name is String ? StrPtr(name) : name
 
-        inheritedMarshal := inherited is VarRef ? "int*" : "ptr"
+        inheritedMarshal := inherited is VarRef ? "int*" : IntPtr
+        inheritedMarshal := inherited == 0 ? IntPtr : BOOL.Ptr
 
         result := ComCall(19, this, "ptr", name, inheritedMarshal, inherited, BOOL)
         return result
@@ -372,8 +375,9 @@ export default struct ID2D1SvgElement extends ID2D1Resource {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-getspecifiedattributenamelength
      */
     GetSpecifiedAttributeNameLength(index, nameLength, inherited) {
-        nameLengthMarshal := nameLength is VarRef ? "uint*" : "ptr"
-        inheritedMarshal := inherited is VarRef ? "int*" : "ptr"
+        nameLengthMarshal := nameLength is VarRef ? "uint*" : IntPtr
+        inheritedMarshal := inherited is VarRef ? "int*" : IntPtr
+        inheritedMarshal := inherited == 0 ? IntPtr : BOOL.Ptr
 
         result := ComCall(22, this, UInt32, index, nameLengthMarshal, nameLength, inheritedMarshal, inherited, "HRESULT")
         return result
@@ -569,36 +573,36 @@ export default struct ID2D1SvgElement extends ID2D1Resource {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDocument := CallbackCreate(GetMethod(implObj, "GetDocument"), flags, 2)
-        this.vtbl.GetTagName := CallbackCreate(GetMethod(implObj, "GetTagName"), flags, 3)
-        this.vtbl.GetTagNameLength := CallbackCreate(GetMethod(implObj, "GetTagNameLength"), flags, 1)
-        this.vtbl.IsTextContent := CallbackCreate(GetMethod(implObj, "IsTextContent"), flags, 1)
-        this.vtbl.GetParent := CallbackCreate(GetMethod(implObj, "GetParent"), flags, 2)
-        this.vtbl.HasChildren := CallbackCreate(GetMethod(implObj, "HasChildren"), flags, 1)
-        this.vtbl.GetFirstChild := CallbackCreate(GetMethod(implObj, "GetFirstChild"), flags, 2)
-        this.vtbl.GetLastChild := CallbackCreate(GetMethod(implObj, "GetLastChild"), flags, 2)
-        this.vtbl.GetPreviousChild := CallbackCreate(GetMethod(implObj, "GetPreviousChild"), flags, 3)
-        this.vtbl.GetNextChild := CallbackCreate(GetMethod(implObj, "GetNextChild"), flags, 3)
-        this.vtbl.InsertChildBefore := CallbackCreate(GetMethod(implObj, "InsertChildBefore"), flags, 3)
-        this.vtbl.AppendChild := CallbackCreate(GetMethod(implObj, "AppendChild"), flags, 2)
-        this.vtbl.ReplaceChild := CallbackCreate(GetMethod(implObj, "ReplaceChild"), flags, 3)
-        this.vtbl.RemoveChild := CallbackCreate(GetMethod(implObj, "RemoveChild"), flags, 2)
-        this.vtbl.CreateChild := CallbackCreate(GetMethod(implObj, "CreateChild"), flags, 3)
-        this.vtbl.IsAttributeSpecified := CallbackCreate(GetMethod(implObj, "IsAttributeSpecified"), flags, 3)
-        this.vtbl.GetSpecifiedAttributeCount := CallbackCreate(GetMethod(implObj, "GetSpecifiedAttributeCount"), flags, 1)
-        this.vtbl.GetSpecifiedAttributeName := CallbackCreate(GetMethod(implObj, "GetSpecifiedAttributeName"), flags, 5)
-        this.vtbl.GetSpecifiedAttributeNameLength := CallbackCreate(GetMethod(implObj, "GetSpecifiedAttributeNameLength"), flags, 4)
-        this.vtbl.RemoveAttribute := CallbackCreate(GetMethod(implObj, "RemoveAttribute"), flags, 2)
-        this.vtbl.SetTextValue := CallbackCreate(GetMethod(implObj, "SetTextValue"), flags, 3)
-        this.vtbl.GetTextValue := CallbackCreate(GetMethod(implObj, "GetTextValue"), flags, 3)
-        this.vtbl.GetTextValueLength := CallbackCreate(GetMethod(implObj, "GetTextValueLength"), flags, 1)
-        this.vtbl.SetAttributeValue := CallbackCreate(GetMethod(implObj, "SetAttributeValue"), flags, 3)
-        this.vtbl.SetAttributeValue1 := CallbackCreate(GetMethod(implObj, "SetAttributeValue1"), flags, 5)
-        this.vtbl.SetAttributeValue2 := CallbackCreate(GetMethod(implObj, "SetAttributeValue2"), flags, 4)
-        this.vtbl.GetAttributeValue := CallbackCreate(GetMethod(implObj, "GetAttributeValue"), flags, 4)
-        this.vtbl.GetAttributeValue1 := CallbackCreate(GetMethod(implObj, "GetAttributeValue1"), flags, 5)
-        this.vtbl.GetAttributeValue2 := CallbackCreate(GetMethod(implObj, "GetAttributeValue2"), flags, 5)
-        this.vtbl.GetAttributeValueLength := CallbackCreate(GetMethod(implObj, "GetAttributeValueLength"), flags, 4)
+        this.vtbl.GetDocument := CallbackCreate(ObjBindMethod(implObj, "GetDocument"), flags, 2)
+        this.vtbl.GetTagName := CallbackCreate(ObjBindMethod(implObj, "GetTagName"), flags, 3)
+        this.vtbl.GetTagNameLength := CallbackCreate(ObjBindMethod(implObj, "GetTagNameLength"), flags, 1)
+        this.vtbl.IsTextContent := CallbackCreate(ObjBindMethod(implObj, "IsTextContent"), flags, 1)
+        this.vtbl.GetParent := CallbackCreate(ObjBindMethod(implObj, "GetParent"), flags, 2)
+        this.vtbl.HasChildren := CallbackCreate(ObjBindMethod(implObj, "HasChildren"), flags, 1)
+        this.vtbl.GetFirstChild := CallbackCreate(ObjBindMethod(implObj, "GetFirstChild"), flags, 2)
+        this.vtbl.GetLastChild := CallbackCreate(ObjBindMethod(implObj, "GetLastChild"), flags, 2)
+        this.vtbl.GetPreviousChild := CallbackCreate(ObjBindMethod(implObj, "GetPreviousChild"), flags, 3)
+        this.vtbl.GetNextChild := CallbackCreate(ObjBindMethod(implObj, "GetNextChild"), flags, 3)
+        this.vtbl.InsertChildBefore := CallbackCreate(ObjBindMethod(implObj, "InsertChildBefore"), flags, 3)
+        this.vtbl.AppendChild := CallbackCreate(ObjBindMethod(implObj, "AppendChild"), flags, 2)
+        this.vtbl.ReplaceChild := CallbackCreate(ObjBindMethod(implObj, "ReplaceChild"), flags, 3)
+        this.vtbl.RemoveChild := CallbackCreate(ObjBindMethod(implObj, "RemoveChild"), flags, 2)
+        this.vtbl.CreateChild := CallbackCreate(ObjBindMethod(implObj, "CreateChild"), flags, 3)
+        this.vtbl.IsAttributeSpecified := CallbackCreate(ObjBindMethod(implObj, "IsAttributeSpecified"), flags, 3)
+        this.vtbl.GetSpecifiedAttributeCount := CallbackCreate(ObjBindMethod(implObj, "GetSpecifiedAttributeCount"), flags, 1)
+        this.vtbl.GetSpecifiedAttributeName := CallbackCreate(ObjBindMethod(implObj, "GetSpecifiedAttributeName"), flags, 5)
+        this.vtbl.GetSpecifiedAttributeNameLength := CallbackCreate(ObjBindMethod(implObj, "GetSpecifiedAttributeNameLength"), flags, 4)
+        this.vtbl.RemoveAttribute := CallbackCreate(ObjBindMethod(implObj, "RemoveAttribute"), flags, 2)
+        this.vtbl.SetTextValue := CallbackCreate(ObjBindMethod(implObj, "SetTextValue"), flags, 3)
+        this.vtbl.GetTextValue := CallbackCreate(ObjBindMethod(implObj, "GetTextValue"), flags, 3)
+        this.vtbl.GetTextValueLength := CallbackCreate(ObjBindMethod(implObj, "GetTextValueLength"), flags, 1)
+        this.vtbl.SetAttributeValue := CallbackCreate(ObjBindMethod(implObj, "SetAttributeValue"), flags, 3)
+        this.vtbl.SetAttributeValue1 := CallbackCreate(ObjBindMethod(implObj, "SetAttributeValue1"), flags, 5)
+        this.vtbl.SetAttributeValue2 := CallbackCreate(ObjBindMethod(implObj, "SetAttributeValue2"), flags, 4)
+        this.vtbl.GetAttributeValue := CallbackCreate(ObjBindMethod(implObj, "GetAttributeValue"), flags, 4)
+        this.vtbl.GetAttributeValue1 := CallbackCreate(ObjBindMethod(implObj, "GetAttributeValue1"), flags, 5)
+        this.vtbl.GetAttributeValue2 := CallbackCreate(ObjBindMethod(implObj, "GetAttributeValue2"), flags, 5)
+        this.vtbl.GetAttributeValueLength := CallbackCreate(ObjBindMethod(implObj, "GetAttributeValueLength"), flags, 4)
     }
 
     Dispose() {

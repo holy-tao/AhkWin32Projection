@@ -21,7 +21,6 @@ export default struct PWRSCHEMESENUMPROC_V1 {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {Integer} NameSize 
      * @param {Integer} Name 
@@ -32,7 +31,9 @@ export default struct PWRSCHEMESENUMPROC_V1 {
      * @returns {BOOLEAN} 
      */
     Call(Index, NameSize, Name, DescriptionSize, Description, Policy, _Context) {
-        result := DllCall(this.value, UInt32, Index, UInt32, NameSize, IntPtr, Name, UInt32, DescriptionSize, IntPtr, Description, POWER_POLICY.Ptr, Policy, LPARAM, _Context, BOOLEAN)
+        _ContextMarshal := _Context == 0 ? IntPtr : LPARAM
+
+        result := DllCall(this.value, UInt32, Index, UInt32, NameSize, IntPtr, Name, UInt32, DescriptionSize, IntPtr, Description, POWER_POLICY.Ptr, Policy, _ContextMarshal, _Context, BOOLEAN)
         return result
     }
 

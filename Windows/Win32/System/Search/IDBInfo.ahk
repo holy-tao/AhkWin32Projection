@@ -39,7 +39,6 @@ export default struct IDBInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetKeywords() {
@@ -48,7 +47,6 @@ export default struct IDBInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cLiterals 
      * @param {Pointer<Integer>} rgLiterals 
      * @param {Pointer<Integer>} pcLiteralInfo 
@@ -57,10 +55,11 @@ export default struct IDBInfo extends IUnknown {
      * @returns {HRESULT} 
      */
     GetLiteralInfo(cLiterals, rgLiterals, pcLiteralInfo, prgLiteralInfo, ppCharBuffer) {
-        rgLiteralsMarshal := rgLiterals is VarRef ? "uint*" : "ptr"
-        pcLiteralInfoMarshal := pcLiteralInfo is VarRef ? "uint*" : "ptr"
-        prgLiteralInfoMarshal := prgLiteralInfo is VarRef ? "ptr*" : "ptr"
-        ppCharBufferMarshal := ppCharBuffer is VarRef ? "ptr*" : "ptr"
+        rgLiteralsMarshal := rgLiterals is VarRef ? "uint*" : IntPtr
+        rgLiteralsMarshal := rgLiterals == 0 ? IntPtr : "uint*"
+        pcLiteralInfoMarshal := pcLiteralInfo is VarRef ? "uint*" : IntPtr
+        prgLiteralInfoMarshal := prgLiteralInfo is VarRef ? "ptr*" : IntPtr
+        ppCharBufferMarshal := ppCharBuffer is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, UInt32, cLiterals, rgLiteralsMarshal, rgLiterals, pcLiteralInfoMarshal, pcLiteralInfo, prgLiteralInfoMarshal, prgLiteralInfo, ppCharBufferMarshal, ppCharBuffer, "HRESULT")
         return result
@@ -75,8 +74,8 @@ export default struct IDBInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetKeywords := CallbackCreate(GetMethod(implObj, "GetKeywords"), flags, 2)
-        this.vtbl.GetLiteralInfo := CallbackCreate(GetMethod(implObj, "GetLiteralInfo"), flags, 6)
+        this.vtbl.GetKeywords := CallbackCreate(ObjBindMethod(implObj, "GetKeywords"), flags, 2)
+        this.vtbl.GetLiteralInfo := CallbackCreate(ObjBindMethod(implObj, "GetLiteralInfo"), flags, 6)
     }
 
     Dispose() {

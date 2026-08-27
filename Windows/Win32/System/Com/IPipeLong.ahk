@@ -61,8 +61,8 @@ export default struct IPipeLong extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-ipipelong-pull
      */
     Pull(buf, cRequest, pcReturned) {
-        bufMarshal := buf is VarRef ? "int*" : "ptr"
-        pcReturnedMarshal := pcReturned is VarRef ? "uint*" : "ptr"
+        bufMarshal := buf is VarRef ? "int*" : IntPtr
+        pcReturnedMarshal := pcReturned is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, bufMarshal, buf, UInt32, cRequest, pcReturnedMarshal, pcReturned, "HRESULT")
         return result
@@ -80,7 +80,7 @@ export default struct IPipeLong extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-ipipelong-push
      */
     Push(buf, cSent) {
-        bufMarshal := buf is VarRef ? "int*" : "ptr"
+        bufMarshal := buf is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, bufMarshal, buf, UInt32, cSent, "HRESULT")
         return result
@@ -95,8 +95,8 @@ export default struct IPipeLong extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Pull := CallbackCreate(GetMethod(implObj, "Pull"), flags, 4)
-        this.vtbl.Push := CallbackCreate(GetMethod(implObj, "Push"), flags, 3)
+        this.vtbl.Pull := CallbackCreate(ObjBindMethod(implObj, "Pull"), flags, 4)
+        this.vtbl.Push := CallbackCreate(ObjBindMethod(implObj, "Push"), flags, 3)
     }
 
     Dispose() {

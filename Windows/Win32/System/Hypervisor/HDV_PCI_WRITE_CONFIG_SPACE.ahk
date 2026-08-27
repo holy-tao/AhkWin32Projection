@@ -21,7 +21,6 @@ export default struct HDV_PCI_WRITE_CONFIG_SPACE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} deviceContext 
      * @param {Integer} offset 
      * @param {Integer} value 
@@ -40,7 +39,8 @@ export default struct HDV_PCI_WRITE_CONFIG_SPACE {
      * |     |     |
      */
     Call(deviceContext, offset, value) {
-        deviceContextMarshal := deviceContext is VarRef ? "ptr" : "ptr"
+        deviceContextMarshal := deviceContext is VarRef ? "ptr" : IntPtr
+        deviceContextMarshal := deviceContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, deviceContextMarshal, deviceContext, UInt32, offset, UInt32, value, "HRESULT")
         return result

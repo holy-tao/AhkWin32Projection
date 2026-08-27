@@ -19,7 +19,6 @@ export default struct LPDDHALVPORTCB_UPDATE {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_UPDATEVPORTDATA>} param0 
      * @returns {Integer} 
      */

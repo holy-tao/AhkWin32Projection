@@ -136,8 +136,8 @@ export default struct ITfSource extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AdviseSink := CallbackCreate(GetMethod(implObj, "AdviseSink"), flags, 4)
-        this.vtbl.UnadviseSink := CallbackCreate(GetMethod(implObj, "UnadviseSink"), flags, 2)
+        this.vtbl.AdviseSink := CallbackCreate(ObjBindMethod(implObj, "AdviseSink"), flags, 4)
+        this.vtbl.UnadviseSink := CallbackCreate(ObjBindMethod(implObj, "UnadviseSink"), flags, 2)
     }
 
     Dispose() {

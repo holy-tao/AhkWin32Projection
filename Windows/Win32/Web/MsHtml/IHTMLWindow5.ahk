@@ -46,7 +46,6 @@ export default struct IHTMLWindow5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -56,7 +55,6 @@ export default struct IHTMLWindow5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_XMLHttpRequest() {
@@ -74,8 +72,8 @@ export default struct IHTMLWindow5 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_XMLHttpRequest := CallbackCreate(GetMethod(implObj, "put_XMLHttpRequest"), flags, 2)
-        this.vtbl.get_XMLHttpRequest := CallbackCreate(GetMethod(implObj, "get_XMLHttpRequest"), flags, 2)
+        this.vtbl.put_XMLHttpRequest := CallbackCreate(ObjBindMethod(implObj, "put_XMLHttpRequest"), flags, 2)
+        this.vtbl.get_XMLHttpRequest := CallbackCreate(ObjBindMethod(implObj, "get_XMLHttpRequest"), flags, 2)
     }
 
     Dispose() {

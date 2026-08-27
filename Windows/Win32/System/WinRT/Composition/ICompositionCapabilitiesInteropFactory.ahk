@@ -37,7 +37,6 @@ export default struct ICompositionCapabilitiesInteropFactory extends IInspectabl
     }
 
     /**
-     * 
      * @param {HWND} _hwnd 
      * @returns {Pointer} 
      */
@@ -55,7 +54,7 @@ export default struct ICompositionCapabilitiesInteropFactory extends IInspectabl
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetForWindow := CallbackCreate(GetMethod(implObj, "GetForWindow"), flags, 3)
+        this.vtbl.GetForWindow := CallbackCreate(ObjBindMethod(implObj, "GetForWindow"), flags, 3)
     }
 
     Dispose() {

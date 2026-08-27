@@ -144,11 +144,11 @@ export default struct IMultisessionSequential extends IMultisession {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_IsFirstDataSession := CallbackCreate(GetMethod(implObj, "get_IsFirstDataSession"), flags, 2)
-        this.vtbl.get_StartAddressOfPreviousSession := CallbackCreate(GetMethod(implObj, "get_StartAddressOfPreviousSession"), flags, 2)
-        this.vtbl.get_LastWrittenAddressOfPreviousSession := CallbackCreate(GetMethod(implObj, "get_LastWrittenAddressOfPreviousSession"), flags, 2)
-        this.vtbl.get_NextWritableAddress := CallbackCreate(GetMethod(implObj, "get_NextWritableAddress"), flags, 2)
-        this.vtbl.get_FreeSectorsOnMedia := CallbackCreate(GetMethod(implObj, "get_FreeSectorsOnMedia"), flags, 2)
+        this.vtbl.get_IsFirstDataSession := CallbackCreate(ObjBindMethod(implObj, "get_IsFirstDataSession"), flags, 2)
+        this.vtbl.get_StartAddressOfPreviousSession := CallbackCreate(ObjBindMethod(implObj, "get_StartAddressOfPreviousSession"), flags, 2)
+        this.vtbl.get_LastWrittenAddressOfPreviousSession := CallbackCreate(ObjBindMethod(implObj, "get_LastWrittenAddressOfPreviousSession"), flags, 2)
+        this.vtbl.get_NextWritableAddress := CallbackCreate(ObjBindMethod(implObj, "get_NextWritableAddress"), flags, 2)
+        this.vtbl.get_FreeSectorsOnMedia := CallbackCreate(ObjBindMethod(implObj, "get_FreeSectorsOnMedia"), flags, 2)
     }
 
     Dispose() {

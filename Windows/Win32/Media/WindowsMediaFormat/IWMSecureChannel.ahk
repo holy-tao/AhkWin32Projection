@@ -67,7 +67,7 @@ export default struct IWMSecureChannel extends IWMAuthorizer {
      * @see https://learn.microsoft.com/windows/win32/api/wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_addsignature
      */
     WMSC_AddSignature(pbCertSig, cbCertSig) {
-        pbCertSigMarshal := pbCertSig is VarRef ? "char*" : "ptr"
+        pbCertSigMarshal := pbCertSig is VarRef ? "char*" : IntPtr
 
         result := ComCall(7, this, pbCertSigMarshal, pbCertSig, UInt32, cbCertSig, "HRESULT")
         return result
@@ -118,8 +118,8 @@ export default struct IWMSecureChannel extends IWMAuthorizer {
      * @see https://learn.microsoft.com/windows/win32/api/wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_getvalidcertificate
      */
     WMSC_GetValidCertificate(ppbCertificate, pdwSignature) {
-        ppbCertificateMarshal := ppbCertificate is VarRef ? "ptr*" : "ptr"
-        pdwSignatureMarshal := pdwSignature is VarRef ? "uint*" : "ptr"
+        ppbCertificateMarshal := ppbCertificate is VarRef ? "ptr*" : IntPtr
+        pdwSignatureMarshal := pdwSignature is VarRef ? "uint*" : IntPtr
 
         result := ComCall(11, this, ppbCertificateMarshal, ppbCertificate, pdwSignatureMarshal, pdwSignature, "HRESULT")
         return result
@@ -136,7 +136,7 @@ export default struct IWMSecureChannel extends IWMAuthorizer {
      * @see https://learn.microsoft.com/windows/win32/api/wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_encrypt
      */
     WMSC_Encrypt(pbData, cbData) {
-        pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
+        pbDataMarshal := pbData is VarRef ? "char*" : IntPtr
 
         result := ComCall(12, this, pbDataMarshal, pbData, UInt32, cbData, "HRESULT")
         return result
@@ -153,7 +153,7 @@ export default struct IWMSecureChannel extends IWMAuthorizer {
      * @see https://learn.microsoft.com/windows/win32/api/wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_decrypt
      */
     WMSC_Decrypt(pbData, cbData) {
-        pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
+        pbDataMarshal := pbData is VarRef ? "char*" : IntPtr
 
         result := ComCall(13, this, pbDataMarshal, pbData, UInt32, cbData, "HRESULT")
         return result
@@ -187,7 +187,7 @@ export default struct IWMSecureChannel extends IWMAuthorizer {
      * @see https://learn.microsoft.com/windows/win32/api/wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_setshareddata
      */
     WMSC_SetSharedData(dwCertIndex, pbSharedData) {
-        pbSharedDataMarshal := pbSharedData is VarRef ? "char*" : "ptr"
+        pbSharedDataMarshal := pbSharedData is VarRef ? "char*" : IntPtr
 
         result := ComCall(16, this, UInt32, dwCertIndex, pbSharedDataMarshal, pbSharedData, "HRESULT")
         return result
@@ -202,17 +202,17 @@ export default struct IWMSecureChannel extends IWMAuthorizer {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.WMSC_AddCertificate := CallbackCreate(GetMethod(implObj, "WMSC_AddCertificate"), flags, 2)
-        this.vtbl.WMSC_AddSignature := CallbackCreate(GetMethod(implObj, "WMSC_AddSignature"), flags, 3)
-        this.vtbl.WMSC_Connect := CallbackCreate(GetMethod(implObj, "WMSC_Connect"), flags, 2)
-        this.vtbl.WMSC_IsConnected := CallbackCreate(GetMethod(implObj, "WMSC_IsConnected"), flags, 2)
-        this.vtbl.WMSC_Disconnect := CallbackCreate(GetMethod(implObj, "WMSC_Disconnect"), flags, 1)
-        this.vtbl.WMSC_GetValidCertificate := CallbackCreate(GetMethod(implObj, "WMSC_GetValidCertificate"), flags, 3)
-        this.vtbl.WMSC_Encrypt := CallbackCreate(GetMethod(implObj, "WMSC_Encrypt"), flags, 3)
-        this.vtbl.WMSC_Decrypt := CallbackCreate(GetMethod(implObj, "WMSC_Decrypt"), flags, 3)
-        this.vtbl.WMSC_Lock := CallbackCreate(GetMethod(implObj, "WMSC_Lock"), flags, 1)
-        this.vtbl.WMSC_Unlock := CallbackCreate(GetMethod(implObj, "WMSC_Unlock"), flags, 1)
-        this.vtbl.WMSC_SetSharedData := CallbackCreate(GetMethod(implObj, "WMSC_SetSharedData"), flags, 3)
+        this.vtbl.WMSC_AddCertificate := CallbackCreate(ObjBindMethod(implObj, "WMSC_AddCertificate"), flags, 2)
+        this.vtbl.WMSC_AddSignature := CallbackCreate(ObjBindMethod(implObj, "WMSC_AddSignature"), flags, 3)
+        this.vtbl.WMSC_Connect := CallbackCreate(ObjBindMethod(implObj, "WMSC_Connect"), flags, 2)
+        this.vtbl.WMSC_IsConnected := CallbackCreate(ObjBindMethod(implObj, "WMSC_IsConnected"), flags, 2)
+        this.vtbl.WMSC_Disconnect := CallbackCreate(ObjBindMethod(implObj, "WMSC_Disconnect"), flags, 1)
+        this.vtbl.WMSC_GetValidCertificate := CallbackCreate(ObjBindMethod(implObj, "WMSC_GetValidCertificate"), flags, 3)
+        this.vtbl.WMSC_Encrypt := CallbackCreate(ObjBindMethod(implObj, "WMSC_Encrypt"), flags, 3)
+        this.vtbl.WMSC_Decrypt := CallbackCreate(ObjBindMethod(implObj, "WMSC_Decrypt"), flags, 3)
+        this.vtbl.WMSC_Lock := CallbackCreate(ObjBindMethod(implObj, "WMSC_Lock"), flags, 1)
+        this.vtbl.WMSC_Unlock := CallbackCreate(ObjBindMethod(implObj, "WMSC_Unlock"), flags, 1)
+        this.vtbl.WMSC_SetSharedData := CallbackCreate(ObjBindMethod(implObj, "WMSC_SetSharedData"), flags, 3)
     }
 
     Dispose() {

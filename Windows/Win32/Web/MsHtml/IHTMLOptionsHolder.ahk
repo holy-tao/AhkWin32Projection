@@ -162,7 +162,6 @@ export default struct IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDocument2} 
      */
     get_document() {
@@ -171,7 +170,6 @@ export default struct IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLFontNamesCollection} 
      */
     get_fonts() {
@@ -180,7 +178,6 @@ export default struct IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -190,7 +187,6 @@ export default struct IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_execArg() {
@@ -200,7 +196,6 @@ export default struct IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -210,7 +205,6 @@ export default struct IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_errorLine() {
@@ -219,7 +213,6 @@ export default struct IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -229,7 +222,6 @@ export default struct IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_errorCharacter() {
@@ -238,7 +230,6 @@ export default struct IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -248,7 +239,6 @@ export default struct IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_errorCode() {
@@ -257,7 +247,6 @@ export default struct IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -269,7 +258,6 @@ export default struct IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_errorMessage() {
@@ -279,7 +267,6 @@ export default struct IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -289,7 +276,6 @@ export default struct IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_errorDebug() {
@@ -298,7 +284,6 @@ export default struct IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLWindow2} 
      */
     get_unsecuredWindowOfDocument() {
@@ -307,7 +292,6 @@ export default struct IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -319,7 +303,6 @@ export default struct IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_findText() {
@@ -329,7 +312,6 @@ export default struct IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -339,7 +321,6 @@ export default struct IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_anythingAfterFrameset() {
@@ -348,7 +329,6 @@ export default struct IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} fontName 
      * @returns {IHTMLFontSizesCollection} 
      */
@@ -360,7 +340,6 @@ export default struct IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} initFile 
      * @param {VARIANT} initDir 
      * @param {VARIANT} filter 
@@ -374,7 +353,6 @@ export default struct IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} initFile 
      * @param {VARIANT} initDir 
      * @param {VARIANT} filter 
@@ -388,7 +366,6 @@ export default struct IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} initColor 
      * @returns {Integer} 
      */
@@ -398,7 +375,6 @@ export default struct IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     showSecurityInfo() {
@@ -407,7 +383,6 @@ export default struct IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLObjectElement} _object 
      * @returns {VARIANT_BOOL} 
      */
@@ -417,7 +392,6 @@ export default struct IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} fontName 
      * @returns {Integer} 
      */
@@ -429,7 +403,6 @@ export default struct IHTMLOptionsHolder extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_secureConnectionInfo() {
@@ -447,33 +420,33 @@ export default struct IHTMLOptionsHolder extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_document := CallbackCreate(GetMethod(implObj, "get_document"), flags, 2)
-        this.vtbl.get_fonts := CallbackCreate(GetMethod(implObj, "get_fonts"), flags, 2)
-        this.vtbl.put_execArg := CallbackCreate(GetMethod(implObj, "put_execArg"), flags, 2)
-        this.vtbl.get_execArg := CallbackCreate(GetMethod(implObj, "get_execArg"), flags, 2)
-        this.vtbl.put_errorLine := CallbackCreate(GetMethod(implObj, "put_errorLine"), flags, 2)
-        this.vtbl.get_errorLine := CallbackCreate(GetMethod(implObj, "get_errorLine"), flags, 2)
-        this.vtbl.put_errorCharacter := CallbackCreate(GetMethod(implObj, "put_errorCharacter"), flags, 2)
-        this.vtbl.get_errorCharacter := CallbackCreate(GetMethod(implObj, "get_errorCharacter"), flags, 2)
-        this.vtbl.put_errorCode := CallbackCreate(GetMethod(implObj, "put_errorCode"), flags, 2)
-        this.vtbl.get_errorCode := CallbackCreate(GetMethod(implObj, "get_errorCode"), flags, 2)
-        this.vtbl.put_errorMessage := CallbackCreate(GetMethod(implObj, "put_errorMessage"), flags, 2)
-        this.vtbl.get_errorMessage := CallbackCreate(GetMethod(implObj, "get_errorMessage"), flags, 2)
-        this.vtbl.put_errorDebug := CallbackCreate(GetMethod(implObj, "put_errorDebug"), flags, 2)
-        this.vtbl.get_errorDebug := CallbackCreate(GetMethod(implObj, "get_errorDebug"), flags, 2)
-        this.vtbl.get_unsecuredWindowOfDocument := CallbackCreate(GetMethod(implObj, "get_unsecuredWindowOfDocument"), flags, 2)
-        this.vtbl.put_findText := CallbackCreate(GetMethod(implObj, "put_findText"), flags, 2)
-        this.vtbl.get_findText := CallbackCreate(GetMethod(implObj, "get_findText"), flags, 2)
-        this.vtbl.put_anythingAfterFrameset := CallbackCreate(GetMethod(implObj, "put_anythingAfterFrameset"), flags, 2)
-        this.vtbl.get_anythingAfterFrameset := CallbackCreate(GetMethod(implObj, "get_anythingAfterFrameset"), flags, 2)
-        this.vtbl.sizes := CallbackCreate(GetMethod(implObj, "sizes"), flags, 3)
-        this.vtbl.openfiledlg := CallbackCreate(GetMethod(implObj, "openfiledlg"), flags, 6)
-        this.vtbl.savefiledlg := CallbackCreate(GetMethod(implObj, "savefiledlg"), flags, 6)
-        this.vtbl.choosecolordlg := CallbackCreate(GetMethod(implObj, "choosecolordlg"), flags, 3)
-        this.vtbl.showSecurityInfo := CallbackCreate(GetMethod(implObj, "showSecurityInfo"), flags, 1)
-        this.vtbl.isApartmentModel := CallbackCreate(GetMethod(implObj, "isApartmentModel"), flags, 3)
-        this.vtbl.getCharset := CallbackCreate(GetMethod(implObj, "getCharset"), flags, 3)
-        this.vtbl.get_secureConnectionInfo := CallbackCreate(GetMethod(implObj, "get_secureConnectionInfo"), flags, 2)
+        this.vtbl.get_document := CallbackCreate(ObjBindMethod(implObj, "get_document"), flags, 2)
+        this.vtbl.get_fonts := CallbackCreate(ObjBindMethod(implObj, "get_fonts"), flags, 2)
+        this.vtbl.put_execArg := CallbackCreate(ObjBindMethod(implObj, "put_execArg"), flags, 2)
+        this.vtbl.get_execArg := CallbackCreate(ObjBindMethod(implObj, "get_execArg"), flags, 2)
+        this.vtbl.put_errorLine := CallbackCreate(ObjBindMethod(implObj, "put_errorLine"), flags, 2)
+        this.vtbl.get_errorLine := CallbackCreate(ObjBindMethod(implObj, "get_errorLine"), flags, 2)
+        this.vtbl.put_errorCharacter := CallbackCreate(ObjBindMethod(implObj, "put_errorCharacter"), flags, 2)
+        this.vtbl.get_errorCharacter := CallbackCreate(ObjBindMethod(implObj, "get_errorCharacter"), flags, 2)
+        this.vtbl.put_errorCode := CallbackCreate(ObjBindMethod(implObj, "put_errorCode"), flags, 2)
+        this.vtbl.get_errorCode := CallbackCreate(ObjBindMethod(implObj, "get_errorCode"), flags, 2)
+        this.vtbl.put_errorMessage := CallbackCreate(ObjBindMethod(implObj, "put_errorMessage"), flags, 2)
+        this.vtbl.get_errorMessage := CallbackCreate(ObjBindMethod(implObj, "get_errorMessage"), flags, 2)
+        this.vtbl.put_errorDebug := CallbackCreate(ObjBindMethod(implObj, "put_errorDebug"), flags, 2)
+        this.vtbl.get_errorDebug := CallbackCreate(ObjBindMethod(implObj, "get_errorDebug"), flags, 2)
+        this.vtbl.get_unsecuredWindowOfDocument := CallbackCreate(ObjBindMethod(implObj, "get_unsecuredWindowOfDocument"), flags, 2)
+        this.vtbl.put_findText := CallbackCreate(ObjBindMethod(implObj, "put_findText"), flags, 2)
+        this.vtbl.get_findText := CallbackCreate(ObjBindMethod(implObj, "get_findText"), flags, 2)
+        this.vtbl.put_anythingAfterFrameset := CallbackCreate(ObjBindMethod(implObj, "put_anythingAfterFrameset"), flags, 2)
+        this.vtbl.get_anythingAfterFrameset := CallbackCreate(ObjBindMethod(implObj, "get_anythingAfterFrameset"), flags, 2)
+        this.vtbl.sizes := CallbackCreate(ObjBindMethod(implObj, "sizes"), flags, 3)
+        this.vtbl.openfiledlg := CallbackCreate(ObjBindMethod(implObj, "openfiledlg"), flags, 6)
+        this.vtbl.savefiledlg := CallbackCreate(ObjBindMethod(implObj, "savefiledlg"), flags, 6)
+        this.vtbl.choosecolordlg := CallbackCreate(ObjBindMethod(implObj, "choosecolordlg"), flags, 3)
+        this.vtbl.showSecurityInfo := CallbackCreate(ObjBindMethod(implObj, "showSecurityInfo"), flags, 1)
+        this.vtbl.isApartmentModel := CallbackCreate(ObjBindMethod(implObj, "isApartmentModel"), flags, 3)
+        this.vtbl.getCharset := CallbackCreate(ObjBindMethod(implObj, "getCharset"), flags, 3)
+        this.vtbl.get_secureConnectionInfo := CallbackCreate(ObjBindMethod(implObj, "get_secureConnectionInfo"), flags, 2)
     }
 
     Dispose() {

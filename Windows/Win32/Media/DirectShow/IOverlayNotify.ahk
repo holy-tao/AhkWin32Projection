@@ -111,10 +111,10 @@ export default struct IOverlayNotify extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnPaletteChange := CallbackCreate(GetMethod(implObj, "OnPaletteChange"), flags, 3)
-        this.vtbl.OnClipChange := CallbackCreate(GetMethod(implObj, "OnClipChange"), flags, 4)
-        this.vtbl.OnColorKeyChange := CallbackCreate(GetMethod(implObj, "OnColorKeyChange"), flags, 2)
-        this.vtbl.OnPositionChange := CallbackCreate(GetMethod(implObj, "OnPositionChange"), flags, 3)
+        this.vtbl.OnPaletteChange := CallbackCreate(ObjBindMethod(implObj, "OnPaletteChange"), flags, 3)
+        this.vtbl.OnClipChange := CallbackCreate(ObjBindMethod(implObj, "OnClipChange"), flags, 4)
+        this.vtbl.OnColorKeyChange := CallbackCreate(ObjBindMethod(implObj, "OnColorKeyChange"), flags, 2)
+        this.vtbl.OnPositionChange := CallbackCreate(ObjBindMethod(implObj, "OnPositionChange"), flags, 3)
     }
 
     Dispose() {

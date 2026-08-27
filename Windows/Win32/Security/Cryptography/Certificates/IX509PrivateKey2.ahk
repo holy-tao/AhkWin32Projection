@@ -81,7 +81,6 @@ export default struct IX509PrivateKey2 extends IX509PrivateKey {
     }
 
     /**
-     * 
      * @returns {X509HardwareKeyUsageFlags} 
      */
     get_HardwareKeyUsage() {
@@ -90,7 +89,6 @@ export default struct IX509PrivateKey2 extends IX509PrivateKey {
     }
 
     /**
-     * 
      * @param {X509HardwareKeyUsageFlags} Value 
      * @returns {HRESULT} 
      */
@@ -100,7 +98,6 @@ export default struct IX509PrivateKey2 extends IX509PrivateKey {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_AlternateStorageLocation() {
@@ -110,7 +107,6 @@ export default struct IX509PrivateKey2 extends IX509PrivateKey {
     }
 
     /**
-     * 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
      */
@@ -122,7 +118,6 @@ export default struct IX509PrivateKey2 extends IX509PrivateKey {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_AlgorithmName() {
@@ -132,7 +127,6 @@ export default struct IX509PrivateKey2 extends IX509PrivateKey {
     }
 
     /**
-     * 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
      */
@@ -144,7 +138,6 @@ export default struct IX509PrivateKey2 extends IX509PrivateKey {
     }
 
     /**
-     * 
      * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      */
@@ -155,7 +148,6 @@ export default struct IX509PrivateKey2 extends IX509PrivateKey {
     }
 
     /**
-     * 
      * @param {EncodingType} Encoding 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
@@ -168,7 +160,6 @@ export default struct IX509PrivateKey2 extends IX509PrivateKey {
     }
 
     /**
-     * 
      * @returns {X509KeyParametersExportType} 
      */
     get_ParametersExportType() {
@@ -177,7 +168,6 @@ export default struct IX509PrivateKey2 extends IX509PrivateKey {
     }
 
     /**
-     * 
      * @param {X509KeyParametersExportType} Value 
      * @returns {HRESULT} 
      */
@@ -195,16 +185,16 @@ export default struct IX509PrivateKey2 extends IX509PrivateKey {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_HardwareKeyUsage := CallbackCreate(GetMethod(implObj, "get_HardwareKeyUsage"), flags, 2)
-        this.vtbl.put_HardwareKeyUsage := CallbackCreate(GetMethod(implObj, "put_HardwareKeyUsage"), flags, 2)
-        this.vtbl.get_AlternateStorageLocation := CallbackCreate(GetMethod(implObj, "get_AlternateStorageLocation"), flags, 2)
-        this.vtbl.put_AlternateStorageLocation := CallbackCreate(GetMethod(implObj, "put_AlternateStorageLocation"), flags, 2)
-        this.vtbl.get_AlgorithmName := CallbackCreate(GetMethod(implObj, "get_AlgorithmName"), flags, 2)
-        this.vtbl.put_AlgorithmName := CallbackCreate(GetMethod(implObj, "put_AlgorithmName"), flags, 2)
-        this.vtbl.get_AlgorithmParameters := CallbackCreate(GetMethod(implObj, "get_AlgorithmParameters"), flags, 3)
-        this.vtbl.put_AlgorithmParameters := CallbackCreate(GetMethod(implObj, "put_AlgorithmParameters"), flags, 3)
-        this.vtbl.get_ParametersExportType := CallbackCreate(GetMethod(implObj, "get_ParametersExportType"), flags, 2)
-        this.vtbl.put_ParametersExportType := CallbackCreate(GetMethod(implObj, "put_ParametersExportType"), flags, 2)
+        this.vtbl.get_HardwareKeyUsage := CallbackCreate(ObjBindMethod(implObj, "get_HardwareKeyUsage"), flags, 2)
+        this.vtbl.put_HardwareKeyUsage := CallbackCreate(ObjBindMethod(implObj, "put_HardwareKeyUsage"), flags, 2)
+        this.vtbl.get_AlternateStorageLocation := CallbackCreate(ObjBindMethod(implObj, "get_AlternateStorageLocation"), flags, 2)
+        this.vtbl.put_AlternateStorageLocation := CallbackCreate(ObjBindMethod(implObj, "put_AlternateStorageLocation"), flags, 2)
+        this.vtbl.get_AlgorithmName := CallbackCreate(ObjBindMethod(implObj, "get_AlgorithmName"), flags, 2)
+        this.vtbl.put_AlgorithmName := CallbackCreate(ObjBindMethod(implObj, "put_AlgorithmName"), flags, 2)
+        this.vtbl.get_AlgorithmParameters := CallbackCreate(ObjBindMethod(implObj, "get_AlgorithmParameters"), flags, 3)
+        this.vtbl.put_AlgorithmParameters := CallbackCreate(ObjBindMethod(implObj, "put_AlgorithmParameters"), flags, 3)
+        this.vtbl.get_ParametersExportType := CallbackCreate(ObjBindMethod(implObj, "get_ParametersExportType"), flags, 2)
+        this.vtbl.put_ParametersExportType := CallbackCreate(ObjBindMethod(implObj, "put_ParametersExportType"), flags, 2)
     }
 
     Dispose() {

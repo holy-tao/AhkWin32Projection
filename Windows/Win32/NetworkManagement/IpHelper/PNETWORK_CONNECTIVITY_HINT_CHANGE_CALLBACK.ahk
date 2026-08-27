@@ -21,13 +21,12 @@ export default struct PNETWORK_CONNECTIVITY_HINT_CHANGE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} CallerContext The user-specific caller context.
      * @param {NL_NETWORK_CONNECTIVITY_HINT} ConnectivityHint A value of type [NL_NETWORK_CONNECTIVITY_HINT](../nldef/ns-nldef-nl_network_connectivity_hint.md) representing the aggregate connectivity level and cost hints.
      * @returns {String} Nothing - always returns an empty string
      */
     Call(CallerContext, ConnectivityHint) {
-        CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
+        CallerContextMarshal := CallerContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, CallerContextMarshal, CallerContext, NL_NETWORK_CONNECTIVITY_HINT, ConnectivityHint)
     }

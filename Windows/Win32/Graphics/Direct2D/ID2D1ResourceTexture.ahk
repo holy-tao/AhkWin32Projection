@@ -85,10 +85,13 @@ export default struct ID2D1ResourceTexture extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1resourcetexture-update
      */
     Update(minimumExtents, maximimumExtents, strides, dimensions, data, dataCount) {
-        minimumExtentsMarshal := minimumExtents is VarRef ? "uint*" : "ptr"
-        maximimumExtentsMarshal := maximimumExtents is VarRef ? "uint*" : "ptr"
-        stridesMarshal := strides is VarRef ? "uint*" : "ptr"
-        dataMarshal := data is VarRef ? "char*" : "ptr"
+        minimumExtentsMarshal := minimumExtents is VarRef ? "uint*" : IntPtr
+        minimumExtentsMarshal := minimumExtents == 0 ? IntPtr : "uint*"
+        maximimumExtentsMarshal := maximimumExtents is VarRef ? "uint*" : IntPtr
+        maximimumExtentsMarshal := maximimumExtents == 0 ? IntPtr : "uint*"
+        stridesMarshal := strides is VarRef ? "uint*" : IntPtr
+        stridesMarshal := strides == 0 ? IntPtr : "uint*"
+        dataMarshal := data is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, minimumExtentsMarshal, minimumExtents, maximimumExtentsMarshal, maximimumExtents, stridesMarshal, strides, UInt32, dimensions, dataMarshal, data, UInt32, dataCount, "HRESULT")
         return result
@@ -103,7 +106,7 @@ export default struct ID2D1ResourceTexture extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Update := CallbackCreate(GetMethod(implObj, "Update"), flags, 7)
+        this.vtbl.Update := CallbackCreate(ObjBindMethod(implObj, "Update"), flags, 7)
     }
 
     Dispose() {

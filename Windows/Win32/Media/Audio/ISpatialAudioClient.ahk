@@ -101,9 +101,9 @@ export default struct ISpatialAudioClient extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-getstaticobjectposition
      */
     GetStaticObjectPosition(type, x, y, z) {
-        xMarshal := x is VarRef ? "float*" : "ptr"
-        yMarshal := y is VarRef ? "float*" : "ptr"
-        zMarshal := z is VarRef ? "float*" : "ptr"
+        xMarshal := x is VarRef ? "float*" : IntPtr
+        yMarshal := y is VarRef ? "float*" : IntPtr
+        zMarshal := z is VarRef ? "float*" : IntPtr
 
         result := ComCall(3, this, AudioObjectType, type, xMarshal, x, yMarshal, y, zMarshal, z, "HRESULT")
         return result
@@ -216,7 +216,9 @@ export default struct ISpatialAudioClient extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-isspatialaudiostreamavailable
      */
     IsSpatialAudioStreamAvailable(streamUuid, auxiliaryInfo) {
-        result := ComCall(9, this, Guid.Ptr, streamUuid, PROPVARIANT.Ptr, auxiliaryInfo, "HRESULT")
+        auxiliaryInfoMarshal := auxiliaryInfo == 0 ? IntPtr : PROPVARIANT.Ptr
+
+        result := ComCall(9, this, Guid.Ptr, streamUuid, auxiliaryInfoMarshal, auxiliaryInfo, "HRESULT")
         return result
     }
 
@@ -250,14 +252,14 @@ export default struct ISpatialAudioClient extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStaticObjectPosition := CallbackCreate(GetMethod(implObj, "GetStaticObjectPosition"), flags, 5)
-        this.vtbl.GetNativeStaticObjectTypeMask := CallbackCreate(GetMethod(implObj, "GetNativeStaticObjectTypeMask"), flags, 2)
-        this.vtbl.GetMaxDynamicObjectCount := CallbackCreate(GetMethod(implObj, "GetMaxDynamicObjectCount"), flags, 2)
-        this.vtbl.GetSupportedAudioObjectFormatEnumerator := CallbackCreate(GetMethod(implObj, "GetSupportedAudioObjectFormatEnumerator"), flags, 2)
-        this.vtbl.GetMaxFrameCount := CallbackCreate(GetMethod(implObj, "GetMaxFrameCount"), flags, 3)
-        this.vtbl.IsAudioObjectFormatSupported := CallbackCreate(GetMethod(implObj, "IsAudioObjectFormatSupported"), flags, 2)
-        this.vtbl.IsSpatialAudioStreamAvailable := CallbackCreate(GetMethod(implObj, "IsSpatialAudioStreamAvailable"), flags, 3)
-        this.vtbl.ActivateSpatialAudioStream := CallbackCreate(GetMethod(implObj, "ActivateSpatialAudioStream"), flags, 4)
+        this.vtbl.GetStaticObjectPosition := CallbackCreate(ObjBindMethod(implObj, "GetStaticObjectPosition"), flags, 5)
+        this.vtbl.GetNativeStaticObjectTypeMask := CallbackCreate(ObjBindMethod(implObj, "GetNativeStaticObjectTypeMask"), flags, 2)
+        this.vtbl.GetMaxDynamicObjectCount := CallbackCreate(ObjBindMethod(implObj, "GetMaxDynamicObjectCount"), flags, 2)
+        this.vtbl.GetSupportedAudioObjectFormatEnumerator := CallbackCreate(ObjBindMethod(implObj, "GetSupportedAudioObjectFormatEnumerator"), flags, 2)
+        this.vtbl.GetMaxFrameCount := CallbackCreate(ObjBindMethod(implObj, "GetMaxFrameCount"), flags, 3)
+        this.vtbl.IsAudioObjectFormatSupported := CallbackCreate(ObjBindMethod(implObj, "IsAudioObjectFormatSupported"), flags, 2)
+        this.vtbl.IsSpatialAudioStreamAvailable := CallbackCreate(ObjBindMethod(implObj, "IsSpatialAudioStreamAvailable"), flags, 3)
+        this.vtbl.ActivateSpatialAudioStream := CallbackCreate(ObjBindMethod(implObj, "ActivateSpatialAudioStream"), flags, 4)
     }
 
     Dispose() {

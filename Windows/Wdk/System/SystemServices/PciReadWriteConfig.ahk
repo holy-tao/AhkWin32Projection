@@ -19,7 +19,6 @@ export default struct PciReadWriteConfig {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} BusHandler 
      * @param {PCI_SLOT_NUMBER} Slot 
      * @param {Integer} _Buffer 
@@ -28,7 +27,7 @@ export default struct PciReadWriteConfig {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(BusHandler, Slot, _Buffer, Offset, Length) {
-        BusHandlerMarshal := BusHandler is VarRef ? "ptr*" : "ptr"
+        BusHandlerMarshal := BusHandler is VarRef ? "ptr*" : IntPtr
 
         DllCall(this.value, BusHandlerMarshal, BusHandler, PCI_SLOT_NUMBER, Slot, IntPtr, _Buffer, UInt32, Offset, UInt32, Length)
     }

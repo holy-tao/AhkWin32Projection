@@ -92,7 +92,7 @@ export default struct IWCPropertySheetCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-iwcpropertysheetcallback-addpropertysheetpage
      */
     AddPropertySheetPage(hpage) {
-        hpageMarshal := hpage is VarRef ? "int*" : "ptr"
+        hpageMarshal := hpage is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, hpageMarshal, hpage, "HRESULT")
         return result
@@ -107,7 +107,7 @@ export default struct IWCPropertySheetCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddPropertySheetPage := CallbackCreate(GetMethod(implObj, "AddPropertySheetPage"), flags, 2)
+        this.vtbl.AddPropertySheetPage := CallbackCreate(ObjBindMethod(implObj, "AddPropertySheetPage"), flags, 2)
     }
 
     Dispose() {

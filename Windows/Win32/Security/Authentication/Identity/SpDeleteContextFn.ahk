@@ -19,7 +19,6 @@ export default struct SpDeleteContextFn {
     }
 
     /**
-     * 
      * @param {Pointer} ContextHandle 
      * @returns {NTSTATUS} 
      */

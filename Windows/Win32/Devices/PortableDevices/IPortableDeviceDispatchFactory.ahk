@@ -79,7 +79,7 @@ export default struct IPortableDeviceDispatchFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDeviceDispatch := CallbackCreate(GetMethod(implObj, "GetDeviceDispatch"), flags, 3)
+        this.vtbl.GetDeviceDispatch := CallbackCreate(ObjBindMethod(implObj, "GetDeviceDispatch"), flags, 3)
     }
 
     Dispose() {

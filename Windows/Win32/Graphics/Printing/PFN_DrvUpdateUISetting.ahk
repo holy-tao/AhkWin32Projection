@@ -19,7 +19,6 @@ export default struct PFN_DrvUpdateUISetting {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pdriverobj 
      * @param {Pointer<Void>} pOptItem 
      * @param {Integer} dwPreviousSelection 
@@ -27,8 +26,8 @@ export default struct PFN_DrvUpdateUISetting {
      * @returns {BOOL} 
      */
     Call(pdriverobj, pOptItem, dwPreviousSelection, dwMode) {
-        pdriverobjMarshal := pdriverobj is VarRef ? "ptr" : "ptr"
-        pOptItemMarshal := pOptItem is VarRef ? "ptr" : "ptr"
+        pdriverobjMarshal := pdriverobj is VarRef ? "ptr" : IntPtr
+        pOptItemMarshal := pOptItem is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, pdriverobjMarshal, pdriverobj, pOptItemMarshal, pOptItem, UInt32, dwPreviousSelection, UInt32, dwMode, BOOL)
         return result

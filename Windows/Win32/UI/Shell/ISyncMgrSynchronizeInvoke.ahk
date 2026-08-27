@@ -93,7 +93,7 @@ export default struct ISyncMgrSynchronizeInvoke extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronizeinvoke-updateitems
      */
     UpdateItems(dwInvokeFlags, clsid, cbCookie, pCookie) {
-        pCookieMarshal := pCookie is VarRef ? "char*" : "ptr"
+        pCookieMarshal := pCookie is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, UInt32, dwInvokeFlags, Guid.Ptr, clsid, UInt32, cbCookie, pCookieMarshal, pCookie, "HRESULT")
         return result
@@ -140,8 +140,8 @@ export default struct ISyncMgrSynchronizeInvoke extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.UpdateItems := CallbackCreate(GetMethod(implObj, "UpdateItems"), flags, 5)
-        this.vtbl.UpdateAll := CallbackCreate(GetMethod(implObj, "UpdateAll"), flags, 1)
+        this.vtbl.UpdateItems := CallbackCreate(ObjBindMethod(implObj, "UpdateItems"), flags, 5)
+        this.vtbl.UpdateAll := CallbackCreate(ObjBindMethod(implObj, "UpdateAll"), flags, 1)
     }
 
     Dispose() {

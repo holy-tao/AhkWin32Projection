@@ -94,7 +94,6 @@ export default struct IADs extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -104,7 +103,6 @@ export default struct IADs extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Class() {
@@ -114,7 +112,6 @@ export default struct IADs extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_GUID() {
@@ -124,7 +121,6 @@ export default struct IADs extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ADsPath() {
@@ -134,7 +130,6 @@ export default struct IADs extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Parent() {
@@ -144,7 +139,6 @@ export default struct IADs extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Schema() {
@@ -399,19 +393,19 @@ export default struct IADs extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_Class := CallbackCreate(GetMethod(implObj, "get_Class"), flags, 2)
-        this.vtbl.get_GUID := CallbackCreate(GetMethod(implObj, "get_GUID"), flags, 2)
-        this.vtbl.get_ADsPath := CallbackCreate(GetMethod(implObj, "get_ADsPath"), flags, 2)
-        this.vtbl.get_Parent := CallbackCreate(GetMethod(implObj, "get_Parent"), flags, 2)
-        this.vtbl.get_Schema := CallbackCreate(GetMethod(implObj, "get_Schema"), flags, 2)
-        this.vtbl.GetInfo := CallbackCreate(GetMethod(implObj, "GetInfo"), flags, 1)
-        this.vtbl.SetInfo := CallbackCreate(GetMethod(implObj, "SetInfo"), flags, 1)
-        this.vtbl.Get := CallbackCreate(GetMethod(implObj, "Get"), flags, 3)
-        this.vtbl.Put := CallbackCreate(GetMethod(implObj, "Put"), flags, 3)
-        this.vtbl.GetEx := CallbackCreate(GetMethod(implObj, "GetEx"), flags, 3)
-        this.vtbl.PutEx := CallbackCreate(GetMethod(implObj, "PutEx"), flags, 4)
-        this.vtbl.GetInfoEx := CallbackCreate(GetMethod(implObj, "GetInfoEx"), flags, 3)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Class := CallbackCreate(ObjBindMethod(implObj, "get_Class"), flags, 2)
+        this.vtbl.get_GUID := CallbackCreate(ObjBindMethod(implObj, "get_GUID"), flags, 2)
+        this.vtbl.get_ADsPath := CallbackCreate(ObjBindMethod(implObj, "get_ADsPath"), flags, 2)
+        this.vtbl.get_Parent := CallbackCreate(ObjBindMethod(implObj, "get_Parent"), flags, 2)
+        this.vtbl.get_Schema := CallbackCreate(ObjBindMethod(implObj, "get_Schema"), flags, 2)
+        this.vtbl.GetInfo := CallbackCreate(ObjBindMethod(implObj, "GetInfo"), flags, 1)
+        this.vtbl.SetInfo := CallbackCreate(ObjBindMethod(implObj, "SetInfo"), flags, 1)
+        this.vtbl.Get := CallbackCreate(ObjBindMethod(implObj, "Get"), flags, 3)
+        this.vtbl.Put := CallbackCreate(ObjBindMethod(implObj, "Put"), flags, 3)
+        this.vtbl.GetEx := CallbackCreate(ObjBindMethod(implObj, "GetEx"), flags, 3)
+        this.vtbl.PutEx := CallbackCreate(ObjBindMethod(implObj, "PutEx"), flags, 4)
+        this.vtbl.GetInfoEx := CallbackCreate(ObjBindMethod(implObj, "GetInfoEx"), flags, 3)
     }
 
     Dispose() {

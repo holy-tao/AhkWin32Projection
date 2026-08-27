@@ -398,18 +398,18 @@ export default struct IFsiItem extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_FullPath := CallbackCreate(GetMethod(implObj, "get_FullPath"), flags, 2)
-        this.vtbl.get_CreationTime := CallbackCreate(GetMethod(implObj, "get_CreationTime"), flags, 2)
-        this.vtbl.put_CreationTime := CallbackCreate(GetMethod(implObj, "put_CreationTime"), flags, 2)
-        this.vtbl.get_LastAccessedTime := CallbackCreate(GetMethod(implObj, "get_LastAccessedTime"), flags, 2)
-        this.vtbl.put_LastAccessedTime := CallbackCreate(GetMethod(implObj, "put_LastAccessedTime"), flags, 2)
-        this.vtbl.get_LastModifiedTime := CallbackCreate(GetMethod(implObj, "get_LastModifiedTime"), flags, 2)
-        this.vtbl.put_LastModifiedTime := CallbackCreate(GetMethod(implObj, "put_LastModifiedTime"), flags, 2)
-        this.vtbl.get_IsHidden := CallbackCreate(GetMethod(implObj, "get_IsHidden"), flags, 2)
-        this.vtbl.put_IsHidden := CallbackCreate(GetMethod(implObj, "put_IsHidden"), flags, 2)
-        this.vtbl.FileSystemName := CallbackCreate(GetMethod(implObj, "FileSystemName"), flags, 3)
-        this.vtbl.FileSystemPath := CallbackCreate(GetMethod(implObj, "FileSystemPath"), flags, 3)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_FullPath := CallbackCreate(ObjBindMethod(implObj, "get_FullPath"), flags, 2)
+        this.vtbl.get_CreationTime := CallbackCreate(ObjBindMethod(implObj, "get_CreationTime"), flags, 2)
+        this.vtbl.put_CreationTime := CallbackCreate(ObjBindMethod(implObj, "put_CreationTime"), flags, 2)
+        this.vtbl.get_LastAccessedTime := CallbackCreate(ObjBindMethod(implObj, "get_LastAccessedTime"), flags, 2)
+        this.vtbl.put_LastAccessedTime := CallbackCreate(ObjBindMethod(implObj, "put_LastAccessedTime"), flags, 2)
+        this.vtbl.get_LastModifiedTime := CallbackCreate(ObjBindMethod(implObj, "get_LastModifiedTime"), flags, 2)
+        this.vtbl.put_LastModifiedTime := CallbackCreate(ObjBindMethod(implObj, "put_LastModifiedTime"), flags, 2)
+        this.vtbl.get_IsHidden := CallbackCreate(ObjBindMethod(implObj, "get_IsHidden"), flags, 2)
+        this.vtbl.put_IsHidden := CallbackCreate(ObjBindMethod(implObj, "put_IsHidden"), flags, 2)
+        this.vtbl.FileSystemName := CallbackCreate(ObjBindMethod(implObj, "FileSystemName"), flags, 3)
+        this.vtbl.FileSystemPath := CallbackCreate(ObjBindMethod(implObj, "FileSystemPath"), flags, 3)
     }
 
     Dispose() {

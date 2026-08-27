@@ -18,7 +18,6 @@ export default struct PFN_CSP_ALLOC {
     }
 
     /**
-     * 
      * @param {Pointer} _Size 
      * @returns {Pointer<Void>} 
      */

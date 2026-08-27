@@ -32,7 +32,6 @@ export default struct IPrintBidiAsyncNotifyRegistration extends IPrintAsyncNotif
     }
 
     /**
-     * 
      * @param {IPrintAsyncNewChannelCookie} param0 
      * @returns {HRESULT} 
      */
@@ -50,7 +49,7 @@ export default struct IPrintBidiAsyncNotifyRegistration extends IPrintAsyncNotif
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AsyncGetNewChannel := CallbackCreate(GetMethod(implObj, "AsyncGetNewChannel"), flags, 2)
+        this.vtbl.AsyncGetNewChannel := CallbackCreate(ObjBindMethod(implObj, "AsyncGetNewChannel"), flags, 2)
     }
 
     Dispose() {

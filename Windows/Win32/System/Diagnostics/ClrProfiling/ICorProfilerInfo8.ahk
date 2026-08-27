@@ -40,7 +40,6 @@ export default struct ICorProfilerInfo8 extends ICorProfilerInfo7 {
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @returns {BOOL} 
      */
@@ -50,23 +49,21 @@ export default struct ICorProfilerInfo8 extends ICorProfilerInfo7 {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} ip 
      * @param {Pointer<Pointer>} functionId 
      * @param {Pointer<Pointer>} pReJitId 
      * @returns {HRESULT} 
      */
     GetFunctionFromIP3(ip, functionId, pReJitId) {
-        ipMarshal := ip is VarRef ? "char*" : "ptr"
-        functionIdMarshal := functionId is VarRef ? "ptr*" : "ptr"
-        pReJitIdMarshal := pReJitId is VarRef ? "ptr*" : "ptr"
+        ipMarshal := ip is VarRef ? "char*" : IntPtr
+        functionIdMarshal := functionId is VarRef ? "ptr*" : IntPtr
+        pReJitIdMarshal := pReJitId is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(88, this, ipMarshal, ip, functionIdMarshal, functionId, pReJitIdMarshal, pReJitId, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} functionId 
      * @param {Pointer<Pointer>} moduleId 
      * @param {Pointer<Pointer<Integer>>} ppvSig 
@@ -79,10 +76,10 @@ export default struct ICorProfilerInfo8 extends ICorProfilerInfo7 {
     GetDynamicFunctionInfo(functionId, moduleId, ppvSig, pbSig, cchName, pcchName, wszName) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
 
-        moduleIdMarshal := moduleId is VarRef ? "ptr*" : "ptr"
-        ppvSigMarshal := ppvSig is VarRef ? "ptr*" : "ptr"
-        pbSigMarshal := pbSig is VarRef ? "uint*" : "ptr"
-        pcchNameMarshal := pcchName is VarRef ? "uint*" : "ptr"
+        moduleIdMarshal := moduleId is VarRef ? "ptr*" : IntPtr
+        ppvSigMarshal := ppvSig is VarRef ? "ptr*" : IntPtr
+        pbSigMarshal := pbSig is VarRef ? "uint*" : IntPtr
+        pcchNameMarshal := pcchName is VarRef ? "uint*" : IntPtr
 
         result := ComCall(89, this, IntPtr, functionId, moduleIdMarshal, moduleId, ppvSigMarshal, ppvSig, pbSigMarshal, pbSig, UInt32, cchName, pcchNameMarshal, pcchName, "ptr", wszName, "HRESULT")
         return result
@@ -97,9 +94,9 @@ export default struct ICorProfilerInfo8 extends ICorProfilerInfo7 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsFunctionDynamic := CallbackCreate(GetMethod(implObj, "IsFunctionDynamic"), flags, 3)
-        this.vtbl.GetFunctionFromIP3 := CallbackCreate(GetMethod(implObj, "GetFunctionFromIP3"), flags, 4)
-        this.vtbl.GetDynamicFunctionInfo := CallbackCreate(GetMethod(implObj, "GetDynamicFunctionInfo"), flags, 8)
+        this.vtbl.IsFunctionDynamic := CallbackCreate(ObjBindMethod(implObj, "IsFunctionDynamic"), flags, 3)
+        this.vtbl.GetFunctionFromIP3 := CallbackCreate(ObjBindMethod(implObj, "GetFunctionFromIP3"), flags, 4)
+        this.vtbl.GetDynamicFunctionInfo := CallbackCreate(ObjBindMethod(implObj, "GetDynamicFunctionInfo"), flags, 8)
     }
 
     Dispose() {

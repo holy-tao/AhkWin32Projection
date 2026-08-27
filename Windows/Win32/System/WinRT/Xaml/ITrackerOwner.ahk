@@ -40,7 +40,6 @@ export default struct ITrackerOwner extends IUnknown {
     }
 
     /**
-     * 
      * @returns {TrackerHandle} 
      */
     CreateTrackerHandle() {
@@ -49,7 +48,6 @@ export default struct ITrackerOwner extends IUnknown {
     }
 
     /**
-     * 
      * @param {TrackerHandle} _handle 
      * @returns {HRESULT} 
      */
@@ -59,7 +57,6 @@ export default struct ITrackerOwner extends IUnknown {
     }
 
     /**
-     * 
      * @param {TrackerHandle} _handle 
      * @param {IUnknown} value 
      * @returns {HRESULT} 
@@ -70,7 +67,6 @@ export default struct ITrackerOwner extends IUnknown {
     }
 
     /**
-     * 
      * @param {TrackerHandle} _handle 
      * @param {Pointer<IUnknown>} returnValue 
      * @returns {Integer} 
@@ -89,10 +85,10 @@ export default struct ITrackerOwner extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateTrackerHandle := CallbackCreate(GetMethod(implObj, "CreateTrackerHandle"), flags, 2)
-        this.vtbl.DeleteTrackerHandle := CallbackCreate(GetMethod(implObj, "DeleteTrackerHandle"), flags, 2)
-        this.vtbl.SetTrackerValue := CallbackCreate(GetMethod(implObj, "SetTrackerValue"), flags, 3)
-        this.vtbl.TryGetSafeTrackerValue := CallbackCreate(GetMethod(implObj, "TryGetSafeTrackerValue"), flags, 3)
+        this.vtbl.CreateTrackerHandle := CallbackCreate(ObjBindMethod(implObj, "CreateTrackerHandle"), flags, 2)
+        this.vtbl.DeleteTrackerHandle := CallbackCreate(ObjBindMethod(implObj, "DeleteTrackerHandle"), flags, 2)
+        this.vtbl.SetTrackerValue := CallbackCreate(ObjBindMethod(implObj, "SetTrackerValue"), flags, 3)
+        this.vtbl.TryGetSafeTrackerValue := CallbackCreate(ObjBindMethod(implObj, "TryGetSafeTrackerValue"), flags, 3)
     }
 
     Dispose() {

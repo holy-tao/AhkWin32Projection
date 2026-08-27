@@ -50,7 +50,7 @@ export default struct IDsAdminNotifyHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nf-dsadmin-idsadminnotifyhandler-initialize
      */
     Initialize(pExtraInfo, puEventFlags) {
-        puEventFlagsMarshal := puEventFlags is VarRef ? "uint*" : "ptr"
+        puEventFlagsMarshal := puEventFlags is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, "ptr", pExtraInfo, puEventFlagsMarshal, puEventFlags, "HRESULT")
         return result
@@ -98,7 +98,7 @@ export default struct IDsAdminNotifyHandler extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nf-dsadmin-idsadminnotifyhandler-begin
      */
     Begin(uEvent, pArg1, pArg2, puFlags, pBstr) {
-        puFlagsMarshal := puFlags is VarRef ? "uint*" : "ptr"
+        puFlagsMarshal := puFlags is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, UInt32, uEvent, "ptr", pArg1, "ptr", pArg2, puFlagsMarshal, puFlags, BSTR.Ptr, pBstr, "HRESULT")
         return result
@@ -137,10 +137,10 @@ export default struct IDsAdminNotifyHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.Begin := CallbackCreate(GetMethod(implObj, "Begin"), flags, 6)
-        this.vtbl.Notify := CallbackCreate(GetMethod(implObj, "Notify"), flags, 3)
-        this.vtbl.End := CallbackCreate(GetMethod(implObj, "End"), flags, 1)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.Begin := CallbackCreate(ObjBindMethod(implObj, "Begin"), flags, 6)
+        this.vtbl.Notify := CallbackCreate(ObjBindMethod(implObj, "Notify"), flags, 3)
+        this.vtbl.End := CallbackCreate(ObjBindMethod(implObj, "End"), flags, 1)
     }
 
     Dispose() {

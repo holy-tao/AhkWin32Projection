@@ -71,7 +71,6 @@ export default struct IProtectedModeMenuServices extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszModuleName 
      * @param {Integer} wResourceID 
      * @returns {HMENU} 
@@ -93,9 +92,9 @@ export default struct IProtectedModeMenuServices extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateMenu := CallbackCreate(GetMethod(implObj, "CreateMenu"), flags, 2)
-        this.vtbl.LoadMenu := CallbackCreate(GetMethod(implObj, "LoadMenu"), flags, 4)
-        this.vtbl.LoadMenuID := CallbackCreate(GetMethod(implObj, "LoadMenuID"), flags, 4)
+        this.vtbl.CreateMenu := CallbackCreate(ObjBindMethod(implObj, "CreateMenu"), flags, 2)
+        this.vtbl.LoadMenu := CallbackCreate(ObjBindMethod(implObj, "LoadMenu"), flags, 4)
+        this.vtbl.LoadMenuID := CallbackCreate(ObjBindMethod(implObj, "LoadMenuID"), flags, 4)
     }
 
     Dispose() {

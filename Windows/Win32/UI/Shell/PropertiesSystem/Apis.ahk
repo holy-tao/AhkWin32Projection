@@ -778,7 +778,7 @@ export PSCreateMemoryPropertyStore(riid) {
  * @since windows5.1.2600
  */
 export PSCreateDelayedMultiplexPropertyStore(flags, pdpsf, rgStoreIds, cStores, riid) {
-    rgStoreIdsMarshal := rgStoreIds is VarRef ? "uint*" : "ptr"
+    rgStoreIdsMarshal := rgStoreIds is VarRef ? "uint*" : IntPtr
 
     result := DllCall("PROPSYS.dll\PSCreateDelayedMultiplexPropertyStore", GETPROPERTYSTOREFLAGS, flags, "ptr", pdpsf, rgStoreIdsMarshal, rgStoreIds, UInt32, cStores, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
     return ppv
@@ -855,9 +855,12 @@ export PSCreateMultiplexPropertyStore(prgpunkStores, cStores, riid) {
  * @since windows5.1.2600
  */
 export PSCreatePropertyChangeArray(rgpropkey, rgflags, rgpropvar, cChanges, riid) {
-    rgflagsMarshal := rgflags is VarRef ? "int*" : "ptr"
+    rgpropkeyMarshal := rgpropkey == 0 ? IntPtr : PROPERTYKEY.Ptr
+    rgflagsMarshal := rgflags is VarRef ? "int*" : IntPtr
+    rgflagsMarshal := rgflags == 0 ? IntPtr : "int*"
+    rgpropvarMarshal := rgpropvar == 0 ? IntPtr : PROPVARIANT.Ptr
 
-    result := DllCall("PROPSYS.dll\PSCreatePropertyChangeArray", PROPERTYKEY.Ptr, rgpropkey, rgflagsMarshal, rgflags, PROPVARIANT.Ptr, rgpropvar, UInt32, cChanges, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+    result := DllCall("PROPSYS.dll\PSCreatePropertyChangeArray", rgpropkeyMarshal, rgpropkey, rgflagsMarshal, rgflags, rgpropvarMarshal, rgpropvar, UInt32, cChanges, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
     return ppv
 }
 
@@ -3127,7 +3130,9 @@ export SHGetPropertyStoreFromIDList(pidl, flags, riid) {
 export SHGetPropertyStoreFromParsingName(pszPath, pbc, flags, riid) {
     pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-    result := DllCall("SHELL32.dll\SHGetPropertyStoreFromParsingName", "ptr", pszPath, "ptr", pbc, GETPROPERTYSTOREFLAGS, flags, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+    pbcMarshal := pbc == 0 ? IntPtr : "ptr"
+
+    result := DllCall("SHELL32.dll\SHGetPropertyStoreFromParsingName", "ptr", pszPath, pbcMarshal, pbc, GETPROPERTYSTOREFLAGS, flags, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
     return ppv
 }
 
@@ -3207,7 +3212,9 @@ export PifMgr_OpenProperties(pszApp, pszPIF, hInf, flOpt) {
     pszApp := pszApp is String ? StrPtr(pszApp) : pszApp
     pszPIF := pszPIF is String ? StrPtr(pszPIF) : pszPIF
 
-    result := DllCall("SHELL32.dll\PifMgr_OpenProperties", "ptr", pszApp, "ptr", pszPIF, UInt32, hInf, UInt32, flOpt, HANDLE.Owned)
+    pszPIFMarshal := pszPIF == 0 ? IntPtr : PWSTR
+
+    result := DllCall("SHELL32.dll\PifMgr_OpenProperties", "ptr", pszApp, pszPIFMarshal, pszPIF, UInt32, hInf, UInt32, flOpt, HANDLE.Owned)
     return result
 }
 
@@ -3245,7 +3252,11 @@ export PifMgr_OpenProperties(pszApp, pszPIF, hInf, flOpt) {
 export PifMgr_GetProperties(hProps, pszGroup, lpProps, cbProps, flOpt) {
     pszGroup := pszGroup is String ? StrPtr(pszGroup) : pszGroup
 
-    result := DllCall("SHELL32.dll\PifMgr_GetProperties", HANDLE, hProps, "ptr", pszGroup, IntPtr, lpProps, Int32, cbProps, UInt32, flOpt, Int32)
+    hPropsMarshal := hProps == 0 ? IntPtr : HANDLE
+    pszGroupMarshal := pszGroup == 0 ? IntPtr : PSTR
+    lpPropsMarshal := lpProps == 0 ? IntPtr : IntPtr
+
+    result := DllCall("SHELL32.dll\PifMgr_GetProperties", hPropsMarshal, hProps, pszGroupMarshal, pszGroup, lpPropsMarshal, lpProps, Int32, cbProps, UInt32, flOpt, Int32)
     return result
 }
 
@@ -3275,7 +3286,10 @@ export PifMgr_GetProperties(hProps, pszGroup, lpProps, cbProps, flOpt) {
 export PifMgr_SetProperties(hProps, pszGroup, lpProps, cbProps, flOpt) {
     pszGroup := pszGroup is String ? StrPtr(pszGroup) : pszGroup
 
-    result := DllCall("SHELL32.dll\PifMgr_SetProperties", HANDLE, hProps, "ptr", pszGroup, IntPtr, lpProps, Int32, cbProps, UInt32, flOpt, Int32)
+    hPropsMarshal := hProps == 0 ? IntPtr : HANDLE
+    pszGroupMarshal := pszGroup == 0 ? IntPtr : PSTR
+
+    result := DllCall("SHELL32.dll\PifMgr_SetProperties", hPropsMarshal, hProps, pszGroupMarshal, pszGroup, IntPtr, lpProps, Int32, cbProps, UInt32, flOpt, Int32)
     return result
 }
 
@@ -3294,7 +3308,9 @@ export PifMgr_SetProperties(hProps, pszGroup, lpProps, cbProps, flOpt) {
  * @since windows5.0
  */
 export PifMgr_CloseProperties(hProps, flOpt) {
-    result := DllCall("SHELL32.dll\PifMgr_CloseProperties", HANDLE, hProps, UInt32, flOpt, HANDLE.Owned)
+    hPropsMarshal := hProps == 0 ? IntPtr : HANDLE
+
+    result := DllCall("SHELL32.dll\PifMgr_CloseProperties", hPropsMarshal, hProps, UInt32, flOpt, HANDLE.Owned)
     return result
 }
 
@@ -3329,9 +3345,11 @@ export PifMgr_CloseProperties(hProps, flOpt) {
  * @since windows5.0
  */
 export SHPropStgCreate(psstg, fmtid, pclsid, grfFlags, grfMode, dwDisposition, ppstg, puCodePage) {
-    puCodePageMarshal := puCodePage is VarRef ? "uint*" : "ptr"
+    pclsidMarshal := pclsid == 0 ? IntPtr : Guid.Ptr
+    puCodePageMarshal := puCodePage is VarRef ? "uint*" : IntPtr
+    puCodePageMarshal := puCodePage == 0 ? IntPtr : "uint*"
 
-    result := DllCall("SHELL32.dll\SHPropStgCreate", "ptr", psstg, Guid.Ptr, fmtid, Guid.Ptr, pclsid, UInt32, grfFlags, UInt32, grfMode, UInt32, dwDisposition, IPropertyStorage.Ptr, ppstg, puCodePageMarshal, puCodePage, "HRESULT")
+    result := DllCall("SHELL32.dll\SHPropStgCreate", "ptr", psstg, Guid.Ptr, fmtid, pclsidMarshal, pclsid, UInt32, grfFlags, UInt32, grfMode, UInt32, dwDisposition, IPropertyStorage.Ptr, ppstg, puCodePageMarshal, puCodePage, "HRESULT")
     return result
 }
 
@@ -3390,7 +3408,8 @@ export SHPropStgReadMultiple(pps, uCodePage, cpspec, rgpspec, rgvar) {
  * @since windows5.1.2600
  */
 export SHPropStgWriteMultiple(pps, puCodePage, cpspec, rgpspec, rgvar, propidNameFirst) {
-    puCodePageMarshal := puCodePage is VarRef ? "uint*" : "ptr"
+    puCodePageMarshal := puCodePage is VarRef ? "uint*" : IntPtr
+    puCodePageMarshal := puCodePage == 0 ? IntPtr : "uint*"
 
     result := DllCall("SHELL32.dll\SHPropStgWriteMultiple", "ptr", pps, puCodePageMarshal, puCodePage, UInt32, cpspec, PROPSPEC.Ptr, rgpspec, PROPVARIANT.Ptr, rgvar, UInt32, propidNameFirst, "HRESULT")
     return result

@@ -196,7 +196,7 @@ export default struct IOfflineFilesSetting extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessetting-getvalue
      */
     GetValue(pvarValue, pbSetByPolicy) {
-        pbSetByPolicyMarshal := pbSetByPolicy is VarRef ? "int*" : "ptr"
+        pbSetByPolicyMarshal := pbSetByPolicy is VarRef ? "int*" : IntPtr
 
         result := ComCall(11, this, VARIANT.Ptr, pvarValue, pbSetByPolicyMarshal, pbSetByPolicy, "HRESULT")
         return result
@@ -211,15 +211,15 @@ export default struct IOfflineFilesSetting extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
-        this.vtbl.GetValueType := CallbackCreate(GetMethod(implObj, "GetValueType"), flags, 2)
-        this.vtbl.GetPreference := CallbackCreate(GetMethod(implObj, "GetPreference"), flags, 3)
-        this.vtbl.GetPreferenceScope := CallbackCreate(GetMethod(implObj, "GetPreferenceScope"), flags, 2)
-        this.vtbl.SetPreference := CallbackCreate(GetMethod(implObj, "SetPreference"), flags, 3)
-        this.vtbl.DeletePreference := CallbackCreate(GetMethod(implObj, "DeletePreference"), flags, 2)
-        this.vtbl.GetPolicy := CallbackCreate(GetMethod(implObj, "GetPolicy"), flags, 3)
-        this.vtbl.GetPolicyScope := CallbackCreate(GetMethod(implObj, "GetPolicyScope"), flags, 2)
-        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 3)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetValueType := CallbackCreate(ObjBindMethod(implObj, "GetValueType"), flags, 2)
+        this.vtbl.GetPreference := CallbackCreate(ObjBindMethod(implObj, "GetPreference"), flags, 3)
+        this.vtbl.GetPreferenceScope := CallbackCreate(ObjBindMethod(implObj, "GetPreferenceScope"), flags, 2)
+        this.vtbl.SetPreference := CallbackCreate(ObjBindMethod(implObj, "SetPreference"), flags, 3)
+        this.vtbl.DeletePreference := CallbackCreate(ObjBindMethod(implObj, "DeletePreference"), flags, 2)
+        this.vtbl.GetPolicy := CallbackCreate(ObjBindMethod(implObj, "GetPolicy"), flags, 3)
+        this.vtbl.GetPolicyScope := CallbackCreate(ObjBindMethod(implObj, "GetPolicyScope"), flags, 2)
+        this.vtbl.GetValue := CallbackCreate(ObjBindMethod(implObj, "GetValue"), flags, 3)
     }
 
     Dispose() {

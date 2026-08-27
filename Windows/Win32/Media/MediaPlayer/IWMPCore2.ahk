@@ -64,7 +64,7 @@ export default struct IWMPCore2 extends IWMPCore {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_dvd := CallbackCreate(GetMethod(implObj, "get_dvd"), flags, 2)
+        this.vtbl.get_dvd := CallbackCreate(ObjBindMethod(implObj, "get_dvd"), flags, 2)
     }
 
     Dispose() {

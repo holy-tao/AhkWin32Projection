@@ -43,7 +43,6 @@ export default struct ISdoMachine2 extends ISdoMachine {
     }
 
     /**
-     * 
      * @param {BSTR} bstrServiceName 
      * @returns {IUnknown} 
      */
@@ -55,7 +54,6 @@ export default struct ISdoMachine2 extends ISdoMachine {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     EnableTemplates() {
@@ -64,7 +62,6 @@ export default struct ISdoMachine2 extends ISdoMachine {
     }
 
     /**
-     * 
      * @param {BSTR} bstrServiceName 
      * @param {Pointer<IUnknown>} ppConfigRoot 
      * @param {Pointer<IUnknown>} ppTemplatesRoot 
@@ -79,7 +76,6 @@ export default struct ISdoMachine2 extends ISdoMachine {
     }
 
     /**
-     * 
      * @param {IUnknown} pLocalTemplatesRoot 
      * @param {BSTR} bstrRemoteMachineName 
      * @returns {HRESULT} 
@@ -87,12 +83,13 @@ export default struct ISdoMachine2 extends ISdoMachine {
     ImportRemoteTemplates(pLocalTemplatesRoot, bstrRemoteMachineName) {
         bstrRemoteMachineName := bstrRemoteMachineName is String ? BSTR.Alloc(bstrRemoteMachineName).Value : bstrRemoteMachineName
 
-        result := ComCall(19, this, "ptr", pLocalTemplatesRoot, BSTR, bstrRemoteMachineName, "HRESULT")
+        pLocalTemplatesRootMarshal := pLocalTemplatesRoot == 0 ? IntPtr : "ptr"
+
+        result := ComCall(19, this, pLocalTemplatesRootMarshal, pLocalTemplatesRoot, BSTR, bstrRemoteMachineName, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reload() {
@@ -109,11 +106,11 @@ export default struct ISdoMachine2 extends ISdoMachine {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTemplatesSDO := CallbackCreate(GetMethod(implObj, "GetTemplatesSDO"), flags, 3)
-        this.vtbl.EnableTemplates := CallbackCreate(GetMethod(implObj, "EnableTemplates"), flags, 1)
-        this.vtbl.SyncConfigAgainstTemplates := CallbackCreate(GetMethod(implObj, "SyncConfigAgainstTemplates"), flags, 5)
-        this.vtbl.ImportRemoteTemplates := CallbackCreate(GetMethod(implObj, "ImportRemoteTemplates"), flags, 3)
-        this.vtbl.Reload := CallbackCreate(GetMethod(implObj, "Reload"), flags, 1)
+        this.vtbl.GetTemplatesSDO := CallbackCreate(ObjBindMethod(implObj, "GetTemplatesSDO"), flags, 3)
+        this.vtbl.EnableTemplates := CallbackCreate(ObjBindMethod(implObj, "EnableTemplates"), flags, 1)
+        this.vtbl.SyncConfigAgainstTemplates := CallbackCreate(ObjBindMethod(implObj, "SyncConfigAgainstTemplates"), flags, 5)
+        this.vtbl.ImportRemoteTemplates := CallbackCreate(ObjBindMethod(implObj, "ImportRemoteTemplates"), flags, 3)
+        this.vtbl.Reload := CallbackCreate(ObjBindMethod(implObj, "Reload"), flags, 1)
     }
 
     Dispose() {

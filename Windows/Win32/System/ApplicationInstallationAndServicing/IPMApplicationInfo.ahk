@@ -424,7 +424,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     get_ProductID() {
@@ -434,7 +433,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     get_InstanceID() {
@@ -444,7 +442,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     get_OfferID() {
@@ -454,7 +451,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pDefaultTask 
      * @returns {HRESULT} 
      */
@@ -464,7 +460,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pAppTitle 
      * @returns {HRESULT} 
      */
@@ -474,7 +469,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pAppIconPath 
      * @returns {HRESULT} 
      */
@@ -484,7 +478,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_NotificationState() {
@@ -493,7 +486,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PM_APPLICATION_INSTALL_TYPE} 
      */
     get_AppInstallType() {
@@ -502,7 +494,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PM_APPLICATION_STATE} 
      */
     get_State() {
@@ -511,7 +502,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsRevoked() {
@@ -520,7 +510,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_UpdateAvailable() {
@@ -529,7 +518,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {FILETIME} 
      */
     get_InstallDate() {
@@ -539,7 +527,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsUninstallable() {
@@ -548,7 +535,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsThemable() {
@@ -557,7 +543,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsTrial() {
@@ -566,7 +551,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pInstallPath 
      * @returns {HRESULT} 
      */
@@ -576,7 +560,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pDataRoot 
      * @returns {HRESULT} 
      */
@@ -586,7 +569,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PM_APP_GENRE} 
      */
     get_Genre() {
@@ -595,7 +577,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pPublisher 
      * @returns {HRESULT} 
      */
@@ -605,7 +586,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pAuthor 
      * @returns {HRESULT} 
      */
@@ -615,7 +595,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pDescription 
      * @returns {HRESULT} 
      */
@@ -625,7 +604,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pVersion 
      * @returns {HRESULT} 
      */
@@ -635,7 +613,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pImageUrn 
      * @param {Pointer<BSTR>} pParameters 
      * @returns {HRESULT} 
@@ -646,7 +623,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AppPlatMajorVersion() {
@@ -655,7 +631,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AppPlatMinorVersion() {
@@ -664,7 +639,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     get_PublisherID() {
@@ -674,7 +648,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsMultiCore() {
@@ -683,7 +656,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} _pSID 
      * @returns {HRESULT} 
      */
@@ -693,7 +665,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AppPlatMajorVersionLightUp() {
@@ -702,7 +673,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_AppPlatMinorVersionLightUp() {
@@ -711,7 +681,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} IsUpdateAvailable 
      * @returns {HRESULT} 
      */
@@ -721,7 +690,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} IsNotified 
      * @returns {HRESULT} 
      */
@@ -731,7 +699,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} AppIconPath 
      * @returns {HRESULT} 
      */
@@ -743,7 +710,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} IsUninstallable 
      * @returns {HRESULT} 
      */
@@ -753,7 +719,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsPinableOnKidZone() {
@@ -762,7 +727,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsOriginallyPreInstalled() {
@@ -771,7 +735,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsInstallOnSD() {
@@ -780,7 +743,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsOptoutOnSD() {
@@ -789,7 +751,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsOptoutBackupRestore() {
@@ -798,7 +759,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} IsDisabled 
      * @returns {HRESULT} 
      */
@@ -808,7 +768,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} IsUninstallable 
      * @returns {HRESULT} 
      */
@@ -818,7 +777,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_EnterpriseDisabled() {
@@ -827,7 +785,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_EnterpriseUninstallable() {
@@ -836,7 +793,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsVisibleOnAppList() {
@@ -845,7 +801,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsInboxApp() {
@@ -854,7 +809,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     get_StorageID() {
@@ -864,7 +818,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PM_STARTAPPBLOB>} pBlob 
      * @returns {HRESULT} 
      */
@@ -874,7 +827,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsMovable() {
@@ -883,7 +835,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PM_TILE_HUBTYPE} 
      */
     get_DeploymentAppEnumerationHubFilter() {
@@ -892,7 +843,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {FILETIME} 
      */
     get_ModifiedDate() {
@@ -902,7 +852,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsOriginallyRestored() {
@@ -911,7 +860,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_ShouldDeferMdilBind() {
@@ -920,7 +868,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsFullyPreInstall() {
@@ -929,7 +876,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} fIsMdilMaintenanceNeeded 
      * @returns {HRESULT} 
      */
@@ -939,7 +885,6 @@ export default struct IPMApplicationInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} AppTitle 
      * @returns {HRESULT} 
      */
@@ -959,61 +904,61 @@ export default struct IPMApplicationInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ProductID := CallbackCreate(GetMethod(implObj, "get_ProductID"), flags, 2)
-        this.vtbl.get_InstanceID := CallbackCreate(GetMethod(implObj, "get_InstanceID"), flags, 2)
-        this.vtbl.get_OfferID := CallbackCreate(GetMethod(implObj, "get_OfferID"), flags, 2)
-        this.vtbl.get_DefaultTask := CallbackCreate(GetMethod(implObj, "get_DefaultTask"), flags, 2)
-        this.vtbl.get_AppTitle := CallbackCreate(GetMethod(implObj, "get_AppTitle"), flags, 2)
-        this.vtbl.get_IconPath := CallbackCreate(GetMethod(implObj, "get_IconPath"), flags, 2)
-        this.vtbl.get_NotificationState := CallbackCreate(GetMethod(implObj, "get_NotificationState"), flags, 2)
-        this.vtbl.get_AppInstallType := CallbackCreate(GetMethod(implObj, "get_AppInstallType"), flags, 2)
-        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
-        this.vtbl.get_IsRevoked := CallbackCreate(GetMethod(implObj, "get_IsRevoked"), flags, 2)
-        this.vtbl.get_UpdateAvailable := CallbackCreate(GetMethod(implObj, "get_UpdateAvailable"), flags, 2)
-        this.vtbl.get_InstallDate := CallbackCreate(GetMethod(implObj, "get_InstallDate"), flags, 2)
-        this.vtbl.get_IsUninstallable := CallbackCreate(GetMethod(implObj, "get_IsUninstallable"), flags, 2)
-        this.vtbl.get_IsThemable := CallbackCreate(GetMethod(implObj, "get_IsThemable"), flags, 2)
-        this.vtbl.get_IsTrial := CallbackCreate(GetMethod(implObj, "get_IsTrial"), flags, 2)
-        this.vtbl.get_InstallPath := CallbackCreate(GetMethod(implObj, "get_InstallPath"), flags, 2)
-        this.vtbl.get_DataRoot := CallbackCreate(GetMethod(implObj, "get_DataRoot"), flags, 2)
-        this.vtbl.get_Genre := CallbackCreate(GetMethod(implObj, "get_Genre"), flags, 2)
-        this.vtbl.get_Publisher := CallbackCreate(GetMethod(implObj, "get_Publisher"), flags, 2)
-        this.vtbl.get_Author := CallbackCreate(GetMethod(implObj, "get_Author"), flags, 2)
-        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
-        this.vtbl.get_Version := CallbackCreate(GetMethod(implObj, "get_Version"), flags, 2)
-        this.vtbl.get_InvocationInfo := CallbackCreate(GetMethod(implObj, "get_InvocationInfo"), flags, 3)
-        this.vtbl.get_AppPlatMajorVersion := CallbackCreate(GetMethod(implObj, "get_AppPlatMajorVersion"), flags, 2)
-        this.vtbl.get_AppPlatMinorVersion := CallbackCreate(GetMethod(implObj, "get_AppPlatMinorVersion"), flags, 2)
-        this.vtbl.get_PublisherID := CallbackCreate(GetMethod(implObj, "get_PublisherID"), flags, 2)
-        this.vtbl.get_IsMultiCore := CallbackCreate(GetMethod(implObj, "get_IsMultiCore"), flags, 2)
-        this.vtbl.get_SID := CallbackCreate(GetMethod(implObj, "get_SID"), flags, 2)
-        this.vtbl.get_AppPlatMajorVersionLightUp := CallbackCreate(GetMethod(implObj, "get_AppPlatMajorVersionLightUp"), flags, 2)
-        this.vtbl.get_AppPlatMinorVersionLightUp := CallbackCreate(GetMethod(implObj, "get_AppPlatMinorVersionLightUp"), flags, 2)
-        this.vtbl.set_UpdateAvailable := CallbackCreate(GetMethod(implObj, "set_UpdateAvailable"), flags, 2)
-        this.vtbl.set_NotificationState := CallbackCreate(GetMethod(implObj, "set_NotificationState"), flags, 2)
-        this.vtbl.set_IconPath := CallbackCreate(GetMethod(implObj, "set_IconPath"), flags, 2)
-        this.vtbl.set_UninstallableState := CallbackCreate(GetMethod(implObj, "set_UninstallableState"), flags, 2)
-        this.vtbl.get_IsPinableOnKidZone := CallbackCreate(GetMethod(implObj, "get_IsPinableOnKidZone"), flags, 2)
-        this.vtbl.get_IsOriginallyPreInstalled := CallbackCreate(GetMethod(implObj, "get_IsOriginallyPreInstalled"), flags, 2)
-        this.vtbl.get_IsInstallOnSD := CallbackCreate(GetMethod(implObj, "get_IsInstallOnSD"), flags, 2)
-        this.vtbl.get_IsOptoutOnSD := CallbackCreate(GetMethod(implObj, "get_IsOptoutOnSD"), flags, 2)
-        this.vtbl.get_IsOptoutBackupRestore := CallbackCreate(GetMethod(implObj, "get_IsOptoutBackupRestore"), flags, 2)
-        this.vtbl.set_EnterpriseDisabled := CallbackCreate(GetMethod(implObj, "set_EnterpriseDisabled"), flags, 2)
-        this.vtbl.set_EnterpriseUninstallable := CallbackCreate(GetMethod(implObj, "set_EnterpriseUninstallable"), flags, 2)
-        this.vtbl.get_EnterpriseDisabled := CallbackCreate(GetMethod(implObj, "get_EnterpriseDisabled"), flags, 2)
-        this.vtbl.get_EnterpriseUninstallable := CallbackCreate(GetMethod(implObj, "get_EnterpriseUninstallable"), flags, 2)
-        this.vtbl.get_IsVisibleOnAppList := CallbackCreate(GetMethod(implObj, "get_IsVisibleOnAppList"), flags, 2)
-        this.vtbl.get_IsInboxApp := CallbackCreate(GetMethod(implObj, "get_IsInboxApp"), flags, 2)
-        this.vtbl.get_StorageID := CallbackCreate(GetMethod(implObj, "get_StorageID"), flags, 2)
-        this.vtbl.get_StartAppBlob := CallbackCreate(GetMethod(implObj, "get_StartAppBlob"), flags, 2)
-        this.vtbl.get_IsMovable := CallbackCreate(GetMethod(implObj, "get_IsMovable"), flags, 2)
-        this.vtbl.get_DeploymentAppEnumerationHubFilter := CallbackCreate(GetMethod(implObj, "get_DeploymentAppEnumerationHubFilter"), flags, 2)
-        this.vtbl.get_ModifiedDate := CallbackCreate(GetMethod(implObj, "get_ModifiedDate"), flags, 2)
-        this.vtbl.get_IsOriginallyRestored := CallbackCreate(GetMethod(implObj, "get_IsOriginallyRestored"), flags, 2)
-        this.vtbl.get_ShouldDeferMdilBind := CallbackCreate(GetMethod(implObj, "get_ShouldDeferMdilBind"), flags, 2)
-        this.vtbl.get_IsFullyPreInstall := CallbackCreate(GetMethod(implObj, "get_IsFullyPreInstall"), flags, 2)
-        this.vtbl.set_IsMdilMaintenanceNeeded := CallbackCreate(GetMethod(implObj, "set_IsMdilMaintenanceNeeded"), flags, 2)
-        this.vtbl.set_Title := CallbackCreate(GetMethod(implObj, "set_Title"), flags, 2)
+        this.vtbl.get_ProductID := CallbackCreate(ObjBindMethod(implObj, "get_ProductID"), flags, 2)
+        this.vtbl.get_InstanceID := CallbackCreate(ObjBindMethod(implObj, "get_InstanceID"), flags, 2)
+        this.vtbl.get_OfferID := CallbackCreate(ObjBindMethod(implObj, "get_OfferID"), flags, 2)
+        this.vtbl.get_DefaultTask := CallbackCreate(ObjBindMethod(implObj, "get_DefaultTask"), flags, 2)
+        this.vtbl.get_AppTitle := CallbackCreate(ObjBindMethod(implObj, "get_AppTitle"), flags, 2)
+        this.vtbl.get_IconPath := CallbackCreate(ObjBindMethod(implObj, "get_IconPath"), flags, 2)
+        this.vtbl.get_NotificationState := CallbackCreate(ObjBindMethod(implObj, "get_NotificationState"), flags, 2)
+        this.vtbl.get_AppInstallType := CallbackCreate(ObjBindMethod(implObj, "get_AppInstallType"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(ObjBindMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.get_IsRevoked := CallbackCreate(ObjBindMethod(implObj, "get_IsRevoked"), flags, 2)
+        this.vtbl.get_UpdateAvailable := CallbackCreate(ObjBindMethod(implObj, "get_UpdateAvailable"), flags, 2)
+        this.vtbl.get_InstallDate := CallbackCreate(ObjBindMethod(implObj, "get_InstallDate"), flags, 2)
+        this.vtbl.get_IsUninstallable := CallbackCreate(ObjBindMethod(implObj, "get_IsUninstallable"), flags, 2)
+        this.vtbl.get_IsThemable := CallbackCreate(ObjBindMethod(implObj, "get_IsThemable"), flags, 2)
+        this.vtbl.get_IsTrial := CallbackCreate(ObjBindMethod(implObj, "get_IsTrial"), flags, 2)
+        this.vtbl.get_InstallPath := CallbackCreate(ObjBindMethod(implObj, "get_InstallPath"), flags, 2)
+        this.vtbl.get_DataRoot := CallbackCreate(ObjBindMethod(implObj, "get_DataRoot"), flags, 2)
+        this.vtbl.get_Genre := CallbackCreate(ObjBindMethod(implObj, "get_Genre"), flags, 2)
+        this.vtbl.get_Publisher := CallbackCreate(ObjBindMethod(implObj, "get_Publisher"), flags, 2)
+        this.vtbl.get_Author := CallbackCreate(ObjBindMethod(implObj, "get_Author"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(ObjBindMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.get_Version := CallbackCreate(ObjBindMethod(implObj, "get_Version"), flags, 2)
+        this.vtbl.get_InvocationInfo := CallbackCreate(ObjBindMethod(implObj, "get_InvocationInfo"), flags, 3)
+        this.vtbl.get_AppPlatMajorVersion := CallbackCreate(ObjBindMethod(implObj, "get_AppPlatMajorVersion"), flags, 2)
+        this.vtbl.get_AppPlatMinorVersion := CallbackCreate(ObjBindMethod(implObj, "get_AppPlatMinorVersion"), flags, 2)
+        this.vtbl.get_PublisherID := CallbackCreate(ObjBindMethod(implObj, "get_PublisherID"), flags, 2)
+        this.vtbl.get_IsMultiCore := CallbackCreate(ObjBindMethod(implObj, "get_IsMultiCore"), flags, 2)
+        this.vtbl.get_SID := CallbackCreate(ObjBindMethod(implObj, "get_SID"), flags, 2)
+        this.vtbl.get_AppPlatMajorVersionLightUp := CallbackCreate(ObjBindMethod(implObj, "get_AppPlatMajorVersionLightUp"), flags, 2)
+        this.vtbl.get_AppPlatMinorVersionLightUp := CallbackCreate(ObjBindMethod(implObj, "get_AppPlatMinorVersionLightUp"), flags, 2)
+        this.vtbl.set_UpdateAvailable := CallbackCreate(ObjBindMethod(implObj, "set_UpdateAvailable"), flags, 2)
+        this.vtbl.set_NotificationState := CallbackCreate(ObjBindMethod(implObj, "set_NotificationState"), flags, 2)
+        this.vtbl.set_IconPath := CallbackCreate(ObjBindMethod(implObj, "set_IconPath"), flags, 2)
+        this.vtbl.set_UninstallableState := CallbackCreate(ObjBindMethod(implObj, "set_UninstallableState"), flags, 2)
+        this.vtbl.get_IsPinableOnKidZone := CallbackCreate(ObjBindMethod(implObj, "get_IsPinableOnKidZone"), flags, 2)
+        this.vtbl.get_IsOriginallyPreInstalled := CallbackCreate(ObjBindMethod(implObj, "get_IsOriginallyPreInstalled"), flags, 2)
+        this.vtbl.get_IsInstallOnSD := CallbackCreate(ObjBindMethod(implObj, "get_IsInstallOnSD"), flags, 2)
+        this.vtbl.get_IsOptoutOnSD := CallbackCreate(ObjBindMethod(implObj, "get_IsOptoutOnSD"), flags, 2)
+        this.vtbl.get_IsOptoutBackupRestore := CallbackCreate(ObjBindMethod(implObj, "get_IsOptoutBackupRestore"), flags, 2)
+        this.vtbl.set_EnterpriseDisabled := CallbackCreate(ObjBindMethod(implObj, "set_EnterpriseDisabled"), flags, 2)
+        this.vtbl.set_EnterpriseUninstallable := CallbackCreate(ObjBindMethod(implObj, "set_EnterpriseUninstallable"), flags, 2)
+        this.vtbl.get_EnterpriseDisabled := CallbackCreate(ObjBindMethod(implObj, "get_EnterpriseDisabled"), flags, 2)
+        this.vtbl.get_EnterpriseUninstallable := CallbackCreate(ObjBindMethod(implObj, "get_EnterpriseUninstallable"), flags, 2)
+        this.vtbl.get_IsVisibleOnAppList := CallbackCreate(ObjBindMethod(implObj, "get_IsVisibleOnAppList"), flags, 2)
+        this.vtbl.get_IsInboxApp := CallbackCreate(ObjBindMethod(implObj, "get_IsInboxApp"), flags, 2)
+        this.vtbl.get_StorageID := CallbackCreate(ObjBindMethod(implObj, "get_StorageID"), flags, 2)
+        this.vtbl.get_StartAppBlob := CallbackCreate(ObjBindMethod(implObj, "get_StartAppBlob"), flags, 2)
+        this.vtbl.get_IsMovable := CallbackCreate(ObjBindMethod(implObj, "get_IsMovable"), flags, 2)
+        this.vtbl.get_DeploymentAppEnumerationHubFilter := CallbackCreate(ObjBindMethod(implObj, "get_DeploymentAppEnumerationHubFilter"), flags, 2)
+        this.vtbl.get_ModifiedDate := CallbackCreate(ObjBindMethod(implObj, "get_ModifiedDate"), flags, 2)
+        this.vtbl.get_IsOriginallyRestored := CallbackCreate(ObjBindMethod(implObj, "get_IsOriginallyRestored"), flags, 2)
+        this.vtbl.get_ShouldDeferMdilBind := CallbackCreate(ObjBindMethod(implObj, "get_ShouldDeferMdilBind"), flags, 2)
+        this.vtbl.get_IsFullyPreInstall := CallbackCreate(ObjBindMethod(implObj, "get_IsFullyPreInstall"), flags, 2)
+        this.vtbl.set_IsMdilMaintenanceNeeded := CallbackCreate(ObjBindMethod(implObj, "set_IsMdilMaintenanceNeeded"), flags, 2)
+        this.vtbl.set_Title := CallbackCreate(ObjBindMethod(implObj, "set_Title"), flags, 2)
     }
 
     Dispose() {

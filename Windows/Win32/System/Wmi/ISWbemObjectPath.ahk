@@ -167,7 +167,6 @@ export default struct ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Path() {
@@ -177,7 +176,6 @@ export default struct ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strPath 
      * @returns {HRESULT} 
      */
@@ -189,7 +187,6 @@ export default struct ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_RelPath() {
@@ -199,7 +196,6 @@ export default struct ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strRelPath 
      * @returns {HRESULT} 
      */
@@ -211,7 +207,6 @@ export default struct ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Server() {
@@ -221,7 +216,6 @@ export default struct ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strServer 
      * @returns {HRESULT} 
      */
@@ -233,7 +227,6 @@ export default struct ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Namespace() {
@@ -243,7 +236,6 @@ export default struct ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strNamespace 
      * @returns {HRESULT} 
      */
@@ -255,7 +247,6 @@ export default struct ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ParentNamespace() {
@@ -265,7 +256,6 @@ export default struct ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DisplayName() {
@@ -275,7 +265,6 @@ export default struct ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strDisplayName 
      * @returns {HRESULT} 
      */
@@ -287,7 +276,6 @@ export default struct ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Class() {
@@ -297,7 +285,6 @@ export default struct ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strClass 
      * @returns {HRESULT} 
      */
@@ -309,7 +296,6 @@ export default struct ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsClass() {
@@ -318,7 +304,6 @@ export default struct ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SetAsClass() {
@@ -327,7 +312,6 @@ export default struct ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsSingleton() {
@@ -336,7 +320,6 @@ export default struct ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SetAsSingleton() {
@@ -345,7 +328,6 @@ export default struct ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemNamedValueSet} 
      */
     get_Keys() {
@@ -354,7 +336,6 @@ export default struct ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISWbemSecurity} 
      */
     get_Security_() {
@@ -363,7 +344,6 @@ export default struct ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Locale() {
@@ -373,7 +353,6 @@ export default struct ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strLocale 
      * @returns {HRESULT} 
      */
@@ -385,7 +364,6 @@ export default struct ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Authority() {
@@ -395,7 +373,6 @@ export default struct ISWbemObjectPath extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strAuthority 
      * @returns {HRESULT} 
      */
@@ -415,29 +392,29 @@ export default struct ISWbemObjectPath extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Path := CallbackCreate(GetMethod(implObj, "get_Path"), flags, 2)
-        this.vtbl.put_Path := CallbackCreate(GetMethod(implObj, "put_Path"), flags, 2)
-        this.vtbl.get_RelPath := CallbackCreate(GetMethod(implObj, "get_RelPath"), flags, 2)
-        this.vtbl.put_RelPath := CallbackCreate(GetMethod(implObj, "put_RelPath"), flags, 2)
-        this.vtbl.get_Server := CallbackCreate(GetMethod(implObj, "get_Server"), flags, 2)
-        this.vtbl.put_Server := CallbackCreate(GetMethod(implObj, "put_Server"), flags, 2)
-        this.vtbl.get_Namespace := CallbackCreate(GetMethod(implObj, "get_Namespace"), flags, 2)
-        this.vtbl.put_Namespace := CallbackCreate(GetMethod(implObj, "put_Namespace"), flags, 2)
-        this.vtbl.get_ParentNamespace := CallbackCreate(GetMethod(implObj, "get_ParentNamespace"), flags, 2)
-        this.vtbl.get_DisplayName := CallbackCreate(GetMethod(implObj, "get_DisplayName"), flags, 2)
-        this.vtbl.put_DisplayName := CallbackCreate(GetMethod(implObj, "put_DisplayName"), flags, 2)
-        this.vtbl.get_Class := CallbackCreate(GetMethod(implObj, "get_Class"), flags, 2)
-        this.vtbl.put_Class := CallbackCreate(GetMethod(implObj, "put_Class"), flags, 2)
-        this.vtbl.get_IsClass := CallbackCreate(GetMethod(implObj, "get_IsClass"), flags, 2)
-        this.vtbl.SetAsClass := CallbackCreate(GetMethod(implObj, "SetAsClass"), flags, 1)
-        this.vtbl.get_IsSingleton := CallbackCreate(GetMethod(implObj, "get_IsSingleton"), flags, 2)
-        this.vtbl.SetAsSingleton := CallbackCreate(GetMethod(implObj, "SetAsSingleton"), flags, 1)
-        this.vtbl.get_Keys := CallbackCreate(GetMethod(implObj, "get_Keys"), flags, 2)
-        this.vtbl.get_Security_ := CallbackCreate(GetMethod(implObj, "get_Security_"), flags, 2)
-        this.vtbl.get_Locale := CallbackCreate(GetMethod(implObj, "get_Locale"), flags, 2)
-        this.vtbl.put_Locale := CallbackCreate(GetMethod(implObj, "put_Locale"), flags, 2)
-        this.vtbl.get_Authority := CallbackCreate(GetMethod(implObj, "get_Authority"), flags, 2)
-        this.vtbl.put_Authority := CallbackCreate(GetMethod(implObj, "put_Authority"), flags, 2)
+        this.vtbl.get_Path := CallbackCreate(ObjBindMethod(implObj, "get_Path"), flags, 2)
+        this.vtbl.put_Path := CallbackCreate(ObjBindMethod(implObj, "put_Path"), flags, 2)
+        this.vtbl.get_RelPath := CallbackCreate(ObjBindMethod(implObj, "get_RelPath"), flags, 2)
+        this.vtbl.put_RelPath := CallbackCreate(ObjBindMethod(implObj, "put_RelPath"), flags, 2)
+        this.vtbl.get_Server := CallbackCreate(ObjBindMethod(implObj, "get_Server"), flags, 2)
+        this.vtbl.put_Server := CallbackCreate(ObjBindMethod(implObj, "put_Server"), flags, 2)
+        this.vtbl.get_Namespace := CallbackCreate(ObjBindMethod(implObj, "get_Namespace"), flags, 2)
+        this.vtbl.put_Namespace := CallbackCreate(ObjBindMethod(implObj, "put_Namespace"), flags, 2)
+        this.vtbl.get_ParentNamespace := CallbackCreate(ObjBindMethod(implObj, "get_ParentNamespace"), flags, 2)
+        this.vtbl.get_DisplayName := CallbackCreate(ObjBindMethod(implObj, "get_DisplayName"), flags, 2)
+        this.vtbl.put_DisplayName := CallbackCreate(ObjBindMethod(implObj, "put_DisplayName"), flags, 2)
+        this.vtbl.get_Class := CallbackCreate(ObjBindMethod(implObj, "get_Class"), flags, 2)
+        this.vtbl.put_Class := CallbackCreate(ObjBindMethod(implObj, "put_Class"), flags, 2)
+        this.vtbl.get_IsClass := CallbackCreate(ObjBindMethod(implObj, "get_IsClass"), flags, 2)
+        this.vtbl.SetAsClass := CallbackCreate(ObjBindMethod(implObj, "SetAsClass"), flags, 1)
+        this.vtbl.get_IsSingleton := CallbackCreate(ObjBindMethod(implObj, "get_IsSingleton"), flags, 2)
+        this.vtbl.SetAsSingleton := CallbackCreate(ObjBindMethod(implObj, "SetAsSingleton"), flags, 1)
+        this.vtbl.get_Keys := CallbackCreate(ObjBindMethod(implObj, "get_Keys"), flags, 2)
+        this.vtbl.get_Security_ := CallbackCreate(ObjBindMethod(implObj, "get_Security_"), flags, 2)
+        this.vtbl.get_Locale := CallbackCreate(ObjBindMethod(implObj, "get_Locale"), flags, 2)
+        this.vtbl.put_Locale := CallbackCreate(ObjBindMethod(implObj, "put_Locale"), flags, 2)
+        this.vtbl.get_Authority := CallbackCreate(ObjBindMethod(implObj, "get_Authority"), flags, 2)
+        this.vtbl.put_Authority := CallbackCreate(ObjBindMethod(implObj, "put_Authority"), flags, 2)
     }
 
     Dispose() {

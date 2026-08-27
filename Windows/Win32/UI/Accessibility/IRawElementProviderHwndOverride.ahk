@@ -77,7 +77,7 @@ export default struct IRawElementProviderHwndOverride extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOverrideProviderForHwnd := CallbackCreate(GetMethod(implObj, "GetOverrideProviderForHwnd"), flags, 3)
+        this.vtbl.GetOverrideProviderForHwnd := CallbackCreate(ObjBindMethod(implObj, "GetOverrideProviderForHwnd"), flags, 3)
     }
 
     Dispose() {

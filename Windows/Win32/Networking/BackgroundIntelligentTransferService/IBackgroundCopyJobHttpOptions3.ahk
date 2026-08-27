@@ -94,8 +94,8 @@ export default struct IBackgroundCopyJobHttpOptions3 extends IBackgroundCopyJobH
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetServerCertificateValidationInterface := CallbackCreate(GetMethod(implObj, "SetServerCertificateValidationInterface"), flags, 2)
-        this.vtbl.MakeCustomHeadersWriteOnly := CallbackCreate(GetMethod(implObj, "MakeCustomHeadersWriteOnly"), flags, 1)
+        this.vtbl.SetServerCertificateValidationInterface := CallbackCreate(ObjBindMethod(implObj, "SetServerCertificateValidationInterface"), flags, 2)
+        this.vtbl.MakeCustomHeadersWriteOnly := CallbackCreate(ObjBindMethod(implObj, "MakeCustomHeadersWriteOnly"), flags, 1)
     }
 
     Dispose() {

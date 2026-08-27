@@ -21,7 +21,6 @@ export default struct CRYPT_RETURN_HWND {
     }
 
     /**
-     * 
      * @param {Pointer<HWND>} phWnd The address of an **HWND** variable that receives the parent window handle.
      * @returns {String} Nothing - always returns an empty string
      */

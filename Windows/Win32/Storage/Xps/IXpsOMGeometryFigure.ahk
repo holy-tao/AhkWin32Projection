@@ -458,8 +458,8 @@ export default struct IXpsOMGeometryFigure extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometryfigure-getsegmentdata
      */
     GetSegmentData(dataCount, segmentData) {
-        dataCountMarshal := dataCount is VarRef ? "uint*" : "ptr"
-        segmentDataMarshal := segmentData is VarRef ? "float*" : "ptr"
+        dataCountMarshal := dataCount is VarRef ? "uint*" : IntPtr
+        segmentDataMarshal := segmentData is VarRef ? "float*" : IntPtr
 
         result := ComCall(4, this, dataCountMarshal, dataCount, segmentDataMarshal, segmentData, "HRESULT")
         return result
@@ -523,8 +523,8 @@ export default struct IXpsOMGeometryFigure extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometryfigure-getsegmenttypes
      */
     GetSegmentTypes(segmentCount, segmentTypes) {
-        segmentCountMarshal := segmentCount is VarRef ? "uint*" : "ptr"
-        segmentTypesMarshal := segmentTypes is VarRef ? "int*" : "ptr"
+        segmentCountMarshal := segmentCount is VarRef ? "uint*" : IntPtr
+        segmentTypesMarshal := segmentTypes is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, segmentCountMarshal, segmentCount, segmentTypesMarshal, segmentTypes, "HRESULT")
         return result
@@ -615,8 +615,8 @@ export default struct IXpsOMGeometryFigure extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometryfigure-getsegmentstrokes
      */
     GetSegmentStrokes(segmentCount, segmentStrokes) {
-        segmentCountMarshal := segmentCount is VarRef ? "uint*" : "ptr"
-        segmentStrokesMarshal := segmentStrokes is VarRef ? "int*" : "ptr"
+        segmentCountMarshal := segmentCount is VarRef ? "uint*" : IntPtr
+        segmentStrokesMarshal := segmentStrokes is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, segmentCountMarshal, segmentCount, segmentStrokesMarshal, segmentStrokes, "HRESULT")
         return result
@@ -1134,9 +1134,9 @@ export default struct IXpsOMGeometryFigure extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgeometryfigure-setsegments
      */
     SetSegments(segmentCount, segmentDataCount, segmentTypes, segmentData, segmentStrokes) {
-        segmentTypesMarshal := segmentTypes is VarRef ? "int*" : "ptr"
-        segmentDataMarshal := segmentData is VarRef ? "float*" : "ptr"
-        segmentStrokesMarshal := segmentStrokes is VarRef ? "int*" : "ptr"
+        segmentTypesMarshal := segmentTypes is VarRef ? "int*" : IntPtr
+        segmentDataMarshal := segmentData is VarRef ? "float*" : IntPtr
+        segmentStrokesMarshal := segmentStrokes is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, UInt32, segmentCount, UInt32, segmentDataCount, segmentTypesMarshal, segmentTypes, segmentDataMarshal, segmentData, segmentStrokesMarshal, segmentStrokes, "HRESULT")
         return result
@@ -1429,21 +1429,21 @@ export default struct IXpsOMGeometryFigure extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOwner := CallbackCreate(GetMethod(implObj, "GetOwner"), flags, 2)
-        this.vtbl.GetSegmentData := CallbackCreate(GetMethod(implObj, "GetSegmentData"), flags, 3)
-        this.vtbl.GetSegmentTypes := CallbackCreate(GetMethod(implObj, "GetSegmentTypes"), flags, 3)
-        this.vtbl.GetSegmentStrokes := CallbackCreate(GetMethod(implObj, "GetSegmentStrokes"), flags, 3)
-        this.vtbl.SetSegments := CallbackCreate(GetMethod(implObj, "SetSegments"), flags, 6)
-        this.vtbl.GetStartPoint := CallbackCreate(GetMethod(implObj, "GetStartPoint"), flags, 2)
-        this.vtbl.SetStartPoint := CallbackCreate(GetMethod(implObj, "SetStartPoint"), flags, 2)
-        this.vtbl.GetIsClosed := CallbackCreate(GetMethod(implObj, "GetIsClosed"), flags, 2)
-        this.vtbl.SetIsClosed := CallbackCreate(GetMethod(implObj, "SetIsClosed"), flags, 2)
-        this.vtbl.GetIsFilled := CallbackCreate(GetMethod(implObj, "GetIsFilled"), flags, 2)
-        this.vtbl.SetIsFilled := CallbackCreate(GetMethod(implObj, "SetIsFilled"), flags, 2)
-        this.vtbl.GetSegmentCount := CallbackCreate(GetMethod(implObj, "GetSegmentCount"), flags, 2)
-        this.vtbl.GetSegmentDataCount := CallbackCreate(GetMethod(implObj, "GetSegmentDataCount"), flags, 2)
-        this.vtbl.GetSegmentStrokePattern := CallbackCreate(GetMethod(implObj, "GetSegmentStrokePattern"), flags, 2)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.GetOwner := CallbackCreate(ObjBindMethod(implObj, "GetOwner"), flags, 2)
+        this.vtbl.GetSegmentData := CallbackCreate(ObjBindMethod(implObj, "GetSegmentData"), flags, 3)
+        this.vtbl.GetSegmentTypes := CallbackCreate(ObjBindMethod(implObj, "GetSegmentTypes"), flags, 3)
+        this.vtbl.GetSegmentStrokes := CallbackCreate(ObjBindMethod(implObj, "GetSegmentStrokes"), flags, 3)
+        this.vtbl.SetSegments := CallbackCreate(ObjBindMethod(implObj, "SetSegments"), flags, 6)
+        this.vtbl.GetStartPoint := CallbackCreate(ObjBindMethod(implObj, "GetStartPoint"), flags, 2)
+        this.vtbl.SetStartPoint := CallbackCreate(ObjBindMethod(implObj, "SetStartPoint"), flags, 2)
+        this.vtbl.GetIsClosed := CallbackCreate(ObjBindMethod(implObj, "GetIsClosed"), flags, 2)
+        this.vtbl.SetIsClosed := CallbackCreate(ObjBindMethod(implObj, "SetIsClosed"), flags, 2)
+        this.vtbl.GetIsFilled := CallbackCreate(ObjBindMethod(implObj, "GetIsFilled"), flags, 2)
+        this.vtbl.SetIsFilled := CallbackCreate(ObjBindMethod(implObj, "SetIsFilled"), flags, 2)
+        this.vtbl.GetSegmentCount := CallbackCreate(ObjBindMethod(implObj, "GetSegmentCount"), flags, 2)
+        this.vtbl.GetSegmentDataCount := CallbackCreate(ObjBindMethod(implObj, "GetSegmentDataCount"), flags, 2)
+        this.vtbl.GetSegmentStrokePattern := CallbackCreate(ObjBindMethod(implObj, "GetSegmentStrokePattern"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
     }
 
     Dispose() {

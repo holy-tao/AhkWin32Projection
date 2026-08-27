@@ -38,7 +38,6 @@ export default struct IGetRow extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer} hRow 
      * @param {Pointer<Guid>} riid 
@@ -50,7 +49,6 @@ export default struct IGetRow extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hRow 
      * @returns {PWSTR} 
      */
@@ -68,8 +66,8 @@ export default struct IGetRow extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRowFromHROW := CallbackCreate(GetMethod(implObj, "GetRowFromHROW"), flags, 5)
-        this.vtbl.GetURLFromHROW := CallbackCreate(GetMethod(implObj, "GetURLFromHROW"), flags, 3)
+        this.vtbl.GetRowFromHROW := CallbackCreate(ObjBindMethod(implObj, "GetRowFromHROW"), flags, 5)
+        this.vtbl.GetURLFromHROW := CallbackCreate(ObjBindMethod(implObj, "GetURLFromHROW"), flags, 3)
     }
 
     Dispose() {

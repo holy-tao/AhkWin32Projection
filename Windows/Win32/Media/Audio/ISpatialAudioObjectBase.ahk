@@ -89,8 +89,8 @@ export default struct ISpatialAudioObjectBase extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioobjectbase-getbuffer
      */
     GetBuffer(_buffer, bufferLength) {
-        _bufferMarshal := _buffer is VarRef ? "ptr*" : "ptr"
-        bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
+        _bufferMarshal := _buffer is VarRef ? "ptr*" : IntPtr
+        bufferLengthMarshal := bufferLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, _bufferMarshal, _buffer, bufferLengthMarshal, bufferLength, "HRESULT")
         return result
@@ -177,10 +177,10 @@ export default struct ISpatialAudioObjectBase extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetBuffer := CallbackCreate(GetMethod(implObj, "GetBuffer"), flags, 3)
-        this.vtbl.SetEndOfStream := CallbackCreate(GetMethod(implObj, "SetEndOfStream"), flags, 2)
-        this.vtbl.IsActive := CallbackCreate(GetMethod(implObj, "IsActive"), flags, 2)
-        this.vtbl.GetAudioObjectType := CallbackCreate(GetMethod(implObj, "GetAudioObjectType"), flags, 2)
+        this.vtbl.GetBuffer := CallbackCreate(ObjBindMethod(implObj, "GetBuffer"), flags, 3)
+        this.vtbl.SetEndOfStream := CallbackCreate(ObjBindMethod(implObj, "SetEndOfStream"), flags, 2)
+        this.vtbl.IsActive := CallbackCreate(ObjBindMethod(implObj, "IsActive"), flags, 2)
+        this.vtbl.GetAudioObjectType := CallbackCreate(ObjBindMethod(implObj, "GetAudioObjectType"), flags, 2)
     }
 
     Dispose() {

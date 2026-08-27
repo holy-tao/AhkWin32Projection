@@ -170,9 +170,9 @@ export default struct IMFMediaStream extends IMFMediaEventGenerator {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMediaSource := CallbackCreate(GetMethod(implObj, "GetMediaSource"), flags, 2)
-        this.vtbl.GetStreamDescriptor := CallbackCreate(GetMethod(implObj, "GetStreamDescriptor"), flags, 2)
-        this.vtbl.RequestSample := CallbackCreate(GetMethod(implObj, "RequestSample"), flags, 2)
+        this.vtbl.GetMediaSource := CallbackCreate(ObjBindMethod(implObj, "GetMediaSource"), flags, 2)
+        this.vtbl.GetStreamDescriptor := CallbackCreate(ObjBindMethod(implObj, "GetStreamDescriptor"), flags, 2)
+        this.vtbl.RequestSample := CallbackCreate(ObjBindMethod(implObj, "RequestSample"), flags, 2)
     }
 
     Dispose() {

@@ -121,9 +121,9 @@ export default struct ITAddressEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Address := CallbackCreate(GetMethod(implObj, "get_Address"), flags, 2)
-        this.vtbl.get_Event := CallbackCreate(GetMethod(implObj, "get_Event"), flags, 2)
-        this.vtbl.get_Terminal := CallbackCreate(GetMethod(implObj, "get_Terminal"), flags, 2)
+        this.vtbl.get_Address := CallbackCreate(ObjBindMethod(implObj, "get_Address"), flags, 2)
+        this.vtbl.get_Event := CallbackCreate(ObjBindMethod(implObj, "get_Event"), flags, 2)
+        this.vtbl.get_Terminal := CallbackCreate(ObjBindMethod(implObj, "get_Terminal"), flags, 2)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct PBOUND_CALLBACK {
     }
 
     /**
-     * 
      * @returns {BOUND_CALLBACK_STATUS} 
      */
     Call() {

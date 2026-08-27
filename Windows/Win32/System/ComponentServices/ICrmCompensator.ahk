@@ -60,7 +60,9 @@ export default struct ICrmCompensator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmcompensator-setlogcontrol
      */
     SetLogControl(pLogControl) {
-        result := ComCall(3, this, "ptr", pLogControl, "HRESULT")
+        pLogControlMarshal := pLogControl == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pLogControlMarshal, pLogControl, "HRESULT")
         return result
     }
 
@@ -190,16 +192,16 @@ export default struct ICrmCompensator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetLogControl := CallbackCreate(GetMethod(implObj, "SetLogControl"), flags, 2)
-        this.vtbl.BeginPrepare := CallbackCreate(GetMethod(implObj, "BeginPrepare"), flags, 1)
-        this.vtbl.PrepareRecord := CallbackCreate(GetMethod(implObj, "PrepareRecord"), flags, 3)
-        this.vtbl.EndPrepare := CallbackCreate(GetMethod(implObj, "EndPrepare"), flags, 2)
-        this.vtbl.BeginCommit := CallbackCreate(GetMethod(implObj, "BeginCommit"), flags, 2)
-        this.vtbl.CommitRecord := CallbackCreate(GetMethod(implObj, "CommitRecord"), flags, 3)
-        this.vtbl.EndCommit := CallbackCreate(GetMethod(implObj, "EndCommit"), flags, 1)
-        this.vtbl.BeginAbort := CallbackCreate(GetMethod(implObj, "BeginAbort"), flags, 2)
-        this.vtbl.AbortRecord := CallbackCreate(GetMethod(implObj, "AbortRecord"), flags, 3)
-        this.vtbl.EndAbort := CallbackCreate(GetMethod(implObj, "EndAbort"), flags, 1)
+        this.vtbl.SetLogControl := CallbackCreate(ObjBindMethod(implObj, "SetLogControl"), flags, 2)
+        this.vtbl.BeginPrepare := CallbackCreate(ObjBindMethod(implObj, "BeginPrepare"), flags, 1)
+        this.vtbl.PrepareRecord := CallbackCreate(ObjBindMethod(implObj, "PrepareRecord"), flags, 3)
+        this.vtbl.EndPrepare := CallbackCreate(ObjBindMethod(implObj, "EndPrepare"), flags, 2)
+        this.vtbl.BeginCommit := CallbackCreate(ObjBindMethod(implObj, "BeginCommit"), flags, 2)
+        this.vtbl.CommitRecord := CallbackCreate(ObjBindMethod(implObj, "CommitRecord"), flags, 3)
+        this.vtbl.EndCommit := CallbackCreate(ObjBindMethod(implObj, "EndCommit"), flags, 1)
+        this.vtbl.BeginAbort := CallbackCreate(ObjBindMethod(implObj, "BeginAbort"), flags, 2)
+        this.vtbl.AbortRecord := CallbackCreate(ObjBindMethod(implObj, "AbortRecord"), flags, 3)
+        this.vtbl.EndAbort := CallbackCreate(ObjBindMethod(implObj, "EndAbort"), flags, 1)
     }
 
     Dispose() {

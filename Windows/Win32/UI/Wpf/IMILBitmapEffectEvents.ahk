@@ -88,8 +88,8 @@ export default struct IMILBitmapEffectEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.PropertyChange := CallbackCreate(GetMethod(implObj, "PropertyChange"), flags, 3)
-        this.vtbl.DirtyRegion := CallbackCreate(GetMethod(implObj, "DirtyRegion"), flags, 3)
+        this.vtbl.PropertyChange := CallbackCreate(ObjBindMethod(implObj, "PropertyChange"), flags, 3)
+        this.vtbl.DirtyRegion := CallbackCreate(ObjBindMethod(implObj, "DirtyRegion"), flags, 3)
     }
 
     Dispose() {

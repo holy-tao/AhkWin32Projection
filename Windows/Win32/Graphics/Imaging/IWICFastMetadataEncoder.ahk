@@ -85,8 +85,8 @@ export default struct IWICFastMetadataEncoder extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 1)
-        this.vtbl.GetMetadataQueryWriter := CallbackCreate(GetMethod(implObj, "GetMetadataQueryWriter"), flags, 2)
+        this.vtbl.Commit := CallbackCreate(ObjBindMethod(implObj, "Commit"), flags, 1)
+        this.vtbl.GetMetadataQueryWriter := CallbackCreate(ObjBindMethod(implObj, "GetMetadataQueryWriter"), flags, 2)
     }
 
     Dispose() {

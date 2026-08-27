@@ -36,16 +36,15 @@ export default struct IActiveScriptError64 extends IActiveScriptError {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwSourceContext 
      * @param {Pointer<Integer>} pulLineNumber 
      * @param {Pointer<Integer>} plCharacterPosition 
      * @returns {HRESULT} 
      */
     GetSourcePosition64(pdwSourceContext, pulLineNumber, plCharacterPosition) {
-        pdwSourceContextMarshal := pdwSourceContext is VarRef ? "uint*" : "ptr"
-        pulLineNumberMarshal := pulLineNumber is VarRef ? "uint*" : "ptr"
-        plCharacterPositionMarshal := plCharacterPosition is VarRef ? "int*" : "ptr"
+        pdwSourceContextMarshal := pdwSourceContext is VarRef ? "uint*" : IntPtr
+        pulLineNumberMarshal := pulLineNumber is VarRef ? "uint*" : IntPtr
+        plCharacterPositionMarshal := plCharacterPosition is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, pdwSourceContextMarshal, pdwSourceContext, pulLineNumberMarshal, pulLineNumber, plCharacterPositionMarshal, plCharacterPosition, "HRESULT")
         return result
@@ -60,7 +59,7 @@ export default struct IActiveScriptError64 extends IActiveScriptError {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSourcePosition64 := CallbackCreate(GetMethod(implObj, "GetSourcePosition64"), flags, 4)
+        this.vtbl.GetSourcePosition64 := CallbackCreate(ObjBindMethod(implObj, "GetSourcePosition64"), flags, 4)
     }
 
     Dispose() {

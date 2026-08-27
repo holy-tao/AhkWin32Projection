@@ -66,7 +66,6 @@ export default struct IHTMLDatabinding extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -78,7 +77,6 @@ export default struct IHTMLDatabinding extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_dataFld() {
@@ -88,7 +86,6 @@ export default struct IHTMLDatabinding extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -100,7 +97,6 @@ export default struct IHTMLDatabinding extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_dataSrc() {
@@ -110,7 +106,6 @@ export default struct IHTMLDatabinding extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -122,7 +117,6 @@ export default struct IHTMLDatabinding extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_dataFormatAs() {
@@ -140,12 +134,12 @@ export default struct IHTMLDatabinding extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_dataFld := CallbackCreate(GetMethod(implObj, "put_dataFld"), flags, 2)
-        this.vtbl.get_dataFld := CallbackCreate(GetMethod(implObj, "get_dataFld"), flags, 2)
-        this.vtbl.put_dataSrc := CallbackCreate(GetMethod(implObj, "put_dataSrc"), flags, 2)
-        this.vtbl.get_dataSrc := CallbackCreate(GetMethod(implObj, "get_dataSrc"), flags, 2)
-        this.vtbl.put_dataFormatAs := CallbackCreate(GetMethod(implObj, "put_dataFormatAs"), flags, 2)
-        this.vtbl.get_dataFormatAs := CallbackCreate(GetMethod(implObj, "get_dataFormatAs"), flags, 2)
+        this.vtbl.put_dataFld := CallbackCreate(ObjBindMethod(implObj, "put_dataFld"), flags, 2)
+        this.vtbl.get_dataFld := CallbackCreate(ObjBindMethod(implObj, "get_dataFld"), flags, 2)
+        this.vtbl.put_dataSrc := CallbackCreate(ObjBindMethod(implObj, "put_dataSrc"), flags, 2)
+        this.vtbl.get_dataSrc := CallbackCreate(ObjBindMethod(implObj, "get_dataSrc"), flags, 2)
+        this.vtbl.put_dataFormatAs := CallbackCreate(ObjBindMethod(implObj, "put_dataFormatAs"), flags, 2)
+        this.vtbl.get_dataFormatAs := CallbackCreate(ObjBindMethod(implObj, "get_dataFormatAs"), flags, 2)
     }
 
     Dispose() {

@@ -22,7 +22,6 @@ export default struct PFLUSH_DMA_BUFFER {
     }
 
     /**
-     * 
      * @param {Pointer<DMA_ADAPTER>} DmaAdapter 
      * @param {Pointer<MDL>} _Mdl 
      * @param {BOOLEAN} ReadOperation 

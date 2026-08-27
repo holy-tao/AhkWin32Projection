@@ -332,7 +332,9 @@ export default struct IInkRecognitionAlternate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionalternate-getstrokesfromstrokeranges
      */
     GetStrokesFromStrokeRanges(Strokes) {
-        result := ComCall(17, this, "ptr", Strokes, "ptr*", &GetStrokesFromStrokeRanges := 0, "HRESULT")
+        StrokesMarshal := Strokes == 0 ? IntPtr : "ptr"
+
+        result := ComCall(17, this, StrokesMarshal, Strokes, "ptr*", &GetStrokesFromStrokeRanges := 0, "HRESULT")
         return IInkStrokes(GetStrokesFromStrokeRanges)
     }
 
@@ -348,8 +350,8 @@ export default struct IInkRecognitionAlternate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionalternate-getstrokesfromtextrange
      */
     GetStrokesFromTextRange(selectionStart, selectionLength) {
-        selectionStartMarshal := selectionStart is VarRef ? "int*" : "ptr"
-        selectionLengthMarshal := selectionLength is VarRef ? "int*" : "ptr"
+        selectionStartMarshal := selectionStart is VarRef ? "int*" : IntPtr
+        selectionLengthMarshal := selectionLength is VarRef ? "int*" : IntPtr
 
         result := ComCall(18, this, selectionStartMarshal, selectionStart, selectionLengthMarshal, selectionLength, "ptr*", &GetStrokesFromTextRange := 0, "HRESULT")
         return IInkStrokes(GetStrokesFromTextRange)
@@ -366,10 +368,11 @@ export default struct IInkRecognitionAlternate extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionalternate-gettextrangefromstrokes
      */
     GetTextRangeFromStrokes(Strokes, selectionStart, selectionLength) {
-        selectionStartMarshal := selectionStart is VarRef ? "int*" : "ptr"
-        selectionLengthMarshal := selectionLength is VarRef ? "int*" : "ptr"
+        StrokesMarshal := Strokes == 0 ? IntPtr : "ptr"
+        selectionStartMarshal := selectionStart is VarRef ? "int*" : IntPtr
+        selectionLengthMarshal := selectionLength is VarRef ? "int*" : IntPtr
 
-        result := ComCall(19, this, "ptr", Strokes, selectionStartMarshal, selectionStart, selectionLengthMarshal, selectionLength, "HRESULT")
+        result := ComCall(19, this, StrokesMarshal, Strokes, selectionStartMarshal, selectionStart, selectionLengthMarshal, selectionLength, "HRESULT")
         return result
     }
 
@@ -545,21 +548,21 @@ export default struct IInkRecognitionAlternate extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_String := CallbackCreate(GetMethod(implObj, "get_String"), flags, 2)
-        this.vtbl.get_Confidence := CallbackCreate(GetMethod(implObj, "get_Confidence"), flags, 2)
-        this.vtbl.get_Baseline := CallbackCreate(GetMethod(implObj, "get_Baseline"), flags, 2)
-        this.vtbl.get_Midline := CallbackCreate(GetMethod(implObj, "get_Midline"), flags, 2)
-        this.vtbl.get_Ascender := CallbackCreate(GetMethod(implObj, "get_Ascender"), flags, 2)
-        this.vtbl.get_Descender := CallbackCreate(GetMethod(implObj, "get_Descender"), flags, 2)
-        this.vtbl.get_LineNumber := CallbackCreate(GetMethod(implObj, "get_LineNumber"), flags, 2)
-        this.vtbl.get_Strokes := CallbackCreate(GetMethod(implObj, "get_Strokes"), flags, 2)
-        this.vtbl.get_LineAlternates := CallbackCreate(GetMethod(implObj, "get_LineAlternates"), flags, 2)
-        this.vtbl.get_ConfidenceAlternates := CallbackCreate(GetMethod(implObj, "get_ConfidenceAlternates"), flags, 2)
-        this.vtbl.GetStrokesFromStrokeRanges := CallbackCreate(GetMethod(implObj, "GetStrokesFromStrokeRanges"), flags, 3)
-        this.vtbl.GetStrokesFromTextRange := CallbackCreate(GetMethod(implObj, "GetStrokesFromTextRange"), flags, 4)
-        this.vtbl.GetTextRangeFromStrokes := CallbackCreate(GetMethod(implObj, "GetTextRangeFromStrokes"), flags, 4)
-        this.vtbl.AlternatesWithConstantPropertyValues := CallbackCreate(GetMethod(implObj, "AlternatesWithConstantPropertyValues"), flags, 3)
-        this.vtbl.GetPropertyValue := CallbackCreate(GetMethod(implObj, "GetPropertyValue"), flags, 3)
+        this.vtbl.get_String := CallbackCreate(ObjBindMethod(implObj, "get_String"), flags, 2)
+        this.vtbl.get_Confidence := CallbackCreate(ObjBindMethod(implObj, "get_Confidence"), flags, 2)
+        this.vtbl.get_Baseline := CallbackCreate(ObjBindMethod(implObj, "get_Baseline"), flags, 2)
+        this.vtbl.get_Midline := CallbackCreate(ObjBindMethod(implObj, "get_Midline"), flags, 2)
+        this.vtbl.get_Ascender := CallbackCreate(ObjBindMethod(implObj, "get_Ascender"), flags, 2)
+        this.vtbl.get_Descender := CallbackCreate(ObjBindMethod(implObj, "get_Descender"), flags, 2)
+        this.vtbl.get_LineNumber := CallbackCreate(ObjBindMethod(implObj, "get_LineNumber"), flags, 2)
+        this.vtbl.get_Strokes := CallbackCreate(ObjBindMethod(implObj, "get_Strokes"), flags, 2)
+        this.vtbl.get_LineAlternates := CallbackCreate(ObjBindMethod(implObj, "get_LineAlternates"), flags, 2)
+        this.vtbl.get_ConfidenceAlternates := CallbackCreate(ObjBindMethod(implObj, "get_ConfidenceAlternates"), flags, 2)
+        this.vtbl.GetStrokesFromStrokeRanges := CallbackCreate(ObjBindMethod(implObj, "GetStrokesFromStrokeRanges"), flags, 3)
+        this.vtbl.GetStrokesFromTextRange := CallbackCreate(ObjBindMethod(implObj, "GetStrokesFromTextRange"), flags, 4)
+        this.vtbl.GetTextRangeFromStrokes := CallbackCreate(ObjBindMethod(implObj, "GetTextRangeFromStrokes"), flags, 4)
+        this.vtbl.AlternatesWithConstantPropertyValues := CallbackCreate(ObjBindMethod(implObj, "AlternatesWithConstantPropertyValues"), flags, 3)
+        this.vtbl.GetPropertyValue := CallbackCreate(ObjBindMethod(implObj, "GetPropertyValue"), flags, 3)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct PCLUSAPI_CLUSTER_ADD_GROUP_TO_GROUP_GROUPSET {
     }
 
     /**
-     * 
      * @param {HGROUPSET} _hGroupSet 
      * @param {HGROUP} _hGroup 
      * @returns {Integer} 

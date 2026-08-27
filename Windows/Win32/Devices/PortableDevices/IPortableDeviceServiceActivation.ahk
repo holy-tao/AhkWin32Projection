@@ -40,7 +40,6 @@ export default struct IPortableDeviceServiceActivation extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszPnPServiceID 
      * @param {IPortableDeviceValues} pClientInfo 
      * @param {IPortableDeviceServiceOpenCallback} pCallback 
@@ -54,7 +53,6 @@ export default struct IPortableDeviceServiceActivation extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CancelOpenAsync() {
@@ -71,8 +69,8 @@ export default struct IPortableDeviceServiceActivation extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OpenAsync := CallbackCreate(GetMethod(implObj, "OpenAsync"), flags, 4)
-        this.vtbl.CancelOpenAsync := CallbackCreate(GetMethod(implObj, "CancelOpenAsync"), flags, 1)
+        this.vtbl.OpenAsync := CallbackCreate(ObjBindMethod(implObj, "OpenAsync"), flags, 4)
+        this.vtbl.CancelOpenAsync := CallbackCreate(ObjBindMethod(implObj, "CancelOpenAsync"), flags, 1)
     }
 
     Dispose() {

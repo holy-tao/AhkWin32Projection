@@ -138,11 +138,11 @@ export default struct ISharedBitmap extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSharedBitmap := CallbackCreate(GetMethod(implObj, "GetSharedBitmap"), flags, 2)
-        this.vtbl.GetSize := CallbackCreate(GetMethod(implObj, "GetSize"), flags, 2)
-        this.vtbl.GetFormat := CallbackCreate(GetMethod(implObj, "GetFormat"), flags, 2)
-        this.vtbl.InitializeBitmap := CallbackCreate(GetMethod(implObj, "InitializeBitmap"), flags, 3)
-        this.vtbl.Detach := CallbackCreate(GetMethod(implObj, "Detach"), flags, 2)
+        this.vtbl.GetSharedBitmap := CallbackCreate(ObjBindMethod(implObj, "GetSharedBitmap"), flags, 2)
+        this.vtbl.GetSize := CallbackCreate(ObjBindMethod(implObj, "GetSize"), flags, 2)
+        this.vtbl.GetFormat := CallbackCreate(ObjBindMethod(implObj, "GetFormat"), flags, 2)
+        this.vtbl.InitializeBitmap := CallbackCreate(ObjBindMethod(implObj, "InitializeBitmap"), flags, 3)
+        this.vtbl.Detach := CallbackCreate(ObjBindMethod(implObj, "Detach"), flags, 2)
     }
 
     Dispose() {

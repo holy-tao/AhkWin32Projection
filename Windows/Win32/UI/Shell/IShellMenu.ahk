@@ -157,7 +157,9 @@ export default struct IShellMenu extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellmenu-initialize
      */
     Initialize(psmc, uId, uIdAncestor, dwFlags) {
-        result := ComCall(3, this, "ptr", psmc, UInt32, uId, UInt32, uIdAncestor, UInt32, dwFlags, "HRESULT")
+        psmcMarshal := psmc == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, psmcMarshal, psmc, UInt32, uId, UInt32, uIdAncestor, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -181,11 +183,15 @@ export default struct IShellMenu extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellmenu-getmenuinfo
      */
     GetMenuInfo(ppsmc, puId, puIdAncestor, pdwFlags) {
-        puIdMarshal := puId is VarRef ? "uint*" : "ptr"
-        puIdAncestorMarshal := puIdAncestor is VarRef ? "uint*" : "ptr"
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+        ppsmcMarshal := ppsmc == 0 ? IntPtr : IShellMenuCallback.Ptr
+        puIdMarshal := puId is VarRef ? "uint*" : IntPtr
+        puIdMarshal := puId == 0 ? IntPtr : "uint*"
+        puIdAncestorMarshal := puIdAncestor is VarRef ? "uint*" : IntPtr
+        puIdAncestorMarshal := puIdAncestor == 0 ? IntPtr : "uint*"
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : IntPtr
+        pdwFlagsMarshal := pdwFlags == 0 ? IntPtr : "uint*"
 
-        result := ComCall(4, this, IShellMenuCallback.Ptr, ppsmc, puIdMarshal, puId, puIdAncestorMarshal, puIdAncestor, pdwFlagsMarshal, pdwFlags, "HRESULT")
+        result := ComCall(4, this, ppsmcMarshal, ppsmc, puIdMarshal, puId, puIdAncestorMarshal, puIdAncestor, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -211,7 +217,11 @@ export default struct IShellMenu extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellmenu-setshellfolder
      */
     SetShellFolder(psf, pidlFolder, _hKey, dwFlags) {
-        result := ComCall(5, this, "ptr", psf, ITEMIDLIST.Ptr, pidlFolder, HKEY, _hKey, UInt32, dwFlags, "HRESULT")
+        psfMarshal := psf == 0 ? IntPtr : "ptr"
+        pidlFolderMarshal := pidlFolder == 0 ? IntPtr : ITEMIDLIST.Ptr
+        _hKeyMarshal := _hKey == 0 ? IntPtr : HKEY
+
+        result := ComCall(5, this, psfMarshal, psf, pidlFolderMarshal, pidlFolder, _hKeyMarshal, _hKey, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -320,9 +330,9 @@ export default struct IShellMenu extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellmenu-getshellfolder
      */
     GetShellFolder(pdwFlags, ppidl, riid, ppv) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-        ppidlMarshal := ppidl is VarRef ? "ptr*" : "ptr"
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : IntPtr
+        ppidlMarshal := ppidl is VarRef ? "ptr*" : IntPtr
+        ppvMarshal := ppv is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(6, this, pdwFlagsMarshal, pdwFlags, ppidlMarshal, ppidl, Guid.Ptr, riid, ppvMarshal, ppv, "HRESULT")
         return result
@@ -345,7 +355,10 @@ export default struct IShellMenu extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellmenu-setmenu
      */
     SetMenu(_hmenu, _hwnd, dwFlags) {
-        result := ComCall(7, this, HMENU, _hmenu, HWND, _hwnd, UInt32, dwFlags, "HRESULT")
+        _hmenuMarshal := _hmenu == 0 ? IntPtr : HMENU
+        _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+
+        result := ComCall(7, this, _hmenuMarshal, _hmenu, _hwndMarshal, _hwnd, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -366,9 +379,12 @@ export default struct IShellMenu extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellmenu-getmenu
      */
     GetMenu(phmenu, phwnd, pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+        phmenuMarshal := phmenu == 0 ? IntPtr : HMENU.Ptr
+        phwndMarshal := phwnd == 0 ? IntPtr : HWND.Ptr
+        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : IntPtr
+        pdwFlagsMarshal := pdwFlags == 0 ? IntPtr : "uint*"
 
-        result := ComCall(8, this, HMENU.Ptr, phmenu, HWND.Ptr, phwnd, pdwFlagsMarshal, pdwFlags, "HRESULT")
+        result := ComCall(8, this, phmenuMarshal, phmenu, phwndMarshal, phwnd, pdwFlagsMarshal, pdwFlags, "HRESULT")
         return result
     }
 
@@ -386,7 +402,9 @@ export default struct IShellMenu extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellmenu-invalidateitem
      */
     InvalidateItem(psmd, dwFlags) {
-        result := ComCall(9, this, SMDATA.Ptr, psmd, UInt32, dwFlags, "HRESULT")
+        psmdMarshal := psmd == 0 ? IntPtr : SMDATA.Ptr
+
+        result := ComCall(9, this, psmdMarshal, psmd, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -430,15 +448,15 @@ export default struct IShellMenu extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 5)
-        this.vtbl.GetMenuInfo := CallbackCreate(GetMethod(implObj, "GetMenuInfo"), flags, 5)
-        this.vtbl.SetShellFolder := CallbackCreate(GetMethod(implObj, "SetShellFolder"), flags, 5)
-        this.vtbl.GetShellFolder := CallbackCreate(GetMethod(implObj, "GetShellFolder"), flags, 5)
-        this.vtbl.SetMenu := CallbackCreate(GetMethod(implObj, "SetMenu"), flags, 4)
-        this.vtbl.GetMenu := CallbackCreate(GetMethod(implObj, "GetMenu"), flags, 4)
-        this.vtbl.InvalidateItem := CallbackCreate(GetMethod(implObj, "InvalidateItem"), flags, 3)
-        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 2)
-        this.vtbl.SetMenuToolbar := CallbackCreate(GetMethod(implObj, "SetMenuToolbar"), flags, 3)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 5)
+        this.vtbl.GetMenuInfo := CallbackCreate(ObjBindMethod(implObj, "GetMenuInfo"), flags, 5)
+        this.vtbl.SetShellFolder := CallbackCreate(ObjBindMethod(implObj, "SetShellFolder"), flags, 5)
+        this.vtbl.GetShellFolder := CallbackCreate(ObjBindMethod(implObj, "GetShellFolder"), flags, 5)
+        this.vtbl.SetMenu := CallbackCreate(ObjBindMethod(implObj, "SetMenu"), flags, 4)
+        this.vtbl.GetMenu := CallbackCreate(ObjBindMethod(implObj, "GetMenu"), flags, 4)
+        this.vtbl.InvalidateItem := CallbackCreate(ObjBindMethod(implObj, "InvalidateItem"), flags, 3)
+        this.vtbl.GetState := CallbackCreate(ObjBindMethod(implObj, "GetState"), flags, 2)
+        this.vtbl.SetMenuToolbar := CallbackCreate(ObjBindMethod(implObj, "SetMenuToolbar"), flags, 3)
     }
 
     Dispose() {

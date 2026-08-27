@@ -20,7 +20,6 @@ export default struct PCLUSAPI_SET_CLUSTER_NETWORK_NAME_EX {
     }
 
     /**
-     * 
      * @param {HNETWORK} _hNetwork 
      * @param {PWSTR} lpszName 
      * @param {PWSTR} lpszReason 
@@ -30,7 +29,9 @@ export default struct PCLUSAPI_SET_CLUSTER_NETWORK_NAME_EX {
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall(this.value, HNETWORK, _hNetwork, "ptr", lpszName, "ptr", lpszReason, UInt32)
+        lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+        result := DllCall(this.value, HNETWORK, _hNetwork, "ptr", lpszName, lpszReasonMarshal, lpszReason, UInt32)
         return result
     }
 

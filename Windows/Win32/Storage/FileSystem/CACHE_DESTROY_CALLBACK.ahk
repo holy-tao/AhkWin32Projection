@@ -22,13 +22,12 @@ export default struct CACHE_DESTROY_CALLBACK {
     }
 
     /**
-     * 
      * @param {Integer} cb The size of the data or key pointed to by the <i>lpb</i> parameter, in bytes.
      * @param {Pointer<Integer>} lpb A pointer to the data or key.
      * @returns {String} Nothing - always returns an empty string
      */
     Call(cb, lpb) {
-        lpbMarshal := lpb is VarRef ? "char*" : "ptr"
+        lpbMarshal := lpb is VarRef ? "char*" : IntPtr
 
         DllCall(this.value, UInt32, cb, lpbMarshal, lpb)
     }

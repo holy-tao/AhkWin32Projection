@@ -163,10 +163,10 @@ export default struct IMFVideoSampleAllocator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetDirectXManager := CallbackCreate(GetMethod(implObj, "SetDirectXManager"), flags, 2)
-        this.vtbl.UninitializeSampleAllocator := CallbackCreate(GetMethod(implObj, "UninitializeSampleAllocator"), flags, 1)
-        this.vtbl.InitializeSampleAllocator := CallbackCreate(GetMethod(implObj, "InitializeSampleAllocator"), flags, 3)
-        this.vtbl.AllocateSample := CallbackCreate(GetMethod(implObj, "AllocateSample"), flags, 2)
+        this.vtbl.SetDirectXManager := CallbackCreate(ObjBindMethod(implObj, "SetDirectXManager"), flags, 2)
+        this.vtbl.UninitializeSampleAllocator := CallbackCreate(ObjBindMethod(implObj, "UninitializeSampleAllocator"), flags, 1)
+        this.vtbl.InitializeSampleAllocator := CallbackCreate(ObjBindMethod(implObj, "InitializeSampleAllocator"), flags, 3)
+        this.vtbl.AllocateSample := CallbackCreate(ObjBindMethod(implObj, "AllocateSample"), flags, 2)
     }
 
     Dispose() {

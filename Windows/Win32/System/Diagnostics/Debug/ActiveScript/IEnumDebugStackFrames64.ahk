@@ -37,14 +37,13 @@ export default struct IEnumDebugStackFrames64 extends IEnumDebugStackFrames {
     }
 
     /**
-     * 
      * @param {Integer} celt 
      * @param {Pointer<DebugStackFrameDescriptor64>} prgdsfd 
      * @param {Pointer<Integer>} pceltFetched 
      * @returns {HRESULT} 
      */
     Next64(celt, prgdsfd, pceltFetched) {
-        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
+        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, UInt32, celt, DebugStackFrameDescriptor64.Ptr, prgdsfd, pceltFetchedMarshal, pceltFetched, "HRESULT")
         return result
@@ -59,7 +58,7 @@ export default struct IEnumDebugStackFrames64 extends IEnumDebugStackFrames {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Next64 := CallbackCreate(GetMethod(implObj, "Next64"), flags, 4)
+        this.vtbl.Next64 := CallbackCreate(ObjBindMethod(implObj, "Next64"), flags, 4)
     }
 
     Dispose() {

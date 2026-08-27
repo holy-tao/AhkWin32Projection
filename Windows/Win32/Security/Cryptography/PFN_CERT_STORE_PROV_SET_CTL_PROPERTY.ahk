@@ -23,7 +23,6 @@ export default struct PFN_CERT_STORE_PROV_SET_CTL_PROPERTY {
     }
 
     /**
-     * 
      * @param {HCERTSTOREPROV} hStoreProv A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
      * @param {Pointer<CTL_CONTEXT>} pCtlContext A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_context">CTL_CONTEXT</a> structure.
@@ -33,7 +32,8 @@ export default struct PFN_CERT_STORE_PROV_SET_CTL_PROPERTY {
      * @returns {BOOL} Returns <b>TRUE</b> if the property can be set. Returns <b>FALSE</b> if the property cannot be set.
      */
     Call(hStoreProv, pCtlContext, dwPropId, dwFlags, pvData) {
-        pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
+        pvDataMarshal := pvData is VarRef ? "ptr" : IntPtr
+        pvDataMarshal := pvData == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, HCERTSTOREPROV, hStoreProv, CTL_CONTEXT.Ptr, pCtlContext, UInt32, dwPropId, UInt32, dwFlags, pvDataMarshal, pvData, BOOL)
         return result

@@ -38,17 +38,17 @@ export default struct ISpObjectWithToken extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISpObjectToken} pToken 
      * @returns {HRESULT} 
      */
     SetObjectToken(pToken) {
-        result := ComCall(3, this, "ptr", pToken, "HRESULT")
+        pTokenMarshal := pToken == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pTokenMarshal, pToken, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {ISpObjectToken} 
      */
     GetObjectToken() {
@@ -65,8 +65,8 @@ export default struct ISpObjectWithToken extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetObjectToken := CallbackCreate(GetMethod(implObj, "SetObjectToken"), flags, 2)
-        this.vtbl.GetObjectToken := CallbackCreate(GetMethod(implObj, "GetObjectToken"), flags, 2)
+        this.vtbl.SetObjectToken := CallbackCreate(ObjBindMethod(implObj, "SetObjectToken"), flags, 2)
+        this.vtbl.GetObjectToken := CallbackCreate(ObjBindMethod(implObj, "GetObjectToken"), flags, 2)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct GameInputReadingCallback {
     }
 
     /**
-     * 
      * @param {Integer} callbackToken 
      * @param {Pointer<Void>} _context 
      * @param {IGameInputReading} reading 
@@ -27,7 +26,7 @@ export default struct GameInputReadingCallback {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(callbackToken, _context, reading, hasOverrunOccurred) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, Int64, callbackToken, _contextMarshal, _context, "ptr", reading, Int32, hasOverrunOccurred)
     }

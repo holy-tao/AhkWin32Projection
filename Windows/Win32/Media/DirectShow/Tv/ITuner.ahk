@@ -217,16 +217,16 @@ export default struct ITuner extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_TuningSpace := CallbackCreate(GetMethod(implObj, "get_TuningSpace"), flags, 2)
-        this.vtbl.put_TuningSpace := CallbackCreate(GetMethod(implObj, "put_TuningSpace"), flags, 2)
-        this.vtbl.EnumTuningSpaces := CallbackCreate(GetMethod(implObj, "EnumTuningSpaces"), flags, 2)
-        this.vtbl.get_TuneRequest := CallbackCreate(GetMethod(implObj, "get_TuneRequest"), flags, 2)
-        this.vtbl.put_TuneRequest := CallbackCreate(GetMethod(implObj, "put_TuneRequest"), flags, 2)
-        this.vtbl.Validate := CallbackCreate(GetMethod(implObj, "Validate"), flags, 2)
-        this.vtbl.get_PreferredComponentTypes := CallbackCreate(GetMethod(implObj, "get_PreferredComponentTypes"), flags, 2)
-        this.vtbl.put_PreferredComponentTypes := CallbackCreate(GetMethod(implObj, "put_PreferredComponentTypes"), flags, 2)
-        this.vtbl.get_SignalStrength := CallbackCreate(GetMethod(implObj, "get_SignalStrength"), flags, 2)
-        this.vtbl.TriggerSignalEvents := CallbackCreate(GetMethod(implObj, "TriggerSignalEvents"), flags, 2)
+        this.vtbl.get_TuningSpace := CallbackCreate(ObjBindMethod(implObj, "get_TuningSpace"), flags, 2)
+        this.vtbl.put_TuningSpace := CallbackCreate(ObjBindMethod(implObj, "put_TuningSpace"), flags, 2)
+        this.vtbl.EnumTuningSpaces := CallbackCreate(ObjBindMethod(implObj, "EnumTuningSpaces"), flags, 2)
+        this.vtbl.get_TuneRequest := CallbackCreate(ObjBindMethod(implObj, "get_TuneRequest"), flags, 2)
+        this.vtbl.put_TuneRequest := CallbackCreate(ObjBindMethod(implObj, "put_TuneRequest"), flags, 2)
+        this.vtbl.Validate := CallbackCreate(ObjBindMethod(implObj, "Validate"), flags, 2)
+        this.vtbl.get_PreferredComponentTypes := CallbackCreate(ObjBindMethod(implObj, "get_PreferredComponentTypes"), flags, 2)
+        this.vtbl.put_PreferredComponentTypes := CallbackCreate(ObjBindMethod(implObj, "put_PreferredComponentTypes"), flags, 2)
+        this.vtbl.get_SignalStrength := CallbackCreate(ObjBindMethod(implObj, "get_SignalStrength"), flags, 2)
+        this.vtbl.TriggerSignalEvents := CallbackCreate(ObjBindMethod(implObj, "TriggerSignalEvents"), flags, 2)
     }
 
     Dispose() {

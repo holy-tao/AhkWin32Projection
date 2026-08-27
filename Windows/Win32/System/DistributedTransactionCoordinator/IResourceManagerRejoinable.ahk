@@ -37,14 +37,13 @@ export default struct IResourceManagerRejoinable extends IResourceManager2 {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pPrepInfo 
      * @param {Integer} cbPrepInfo 
      * @param {Integer} lTimeout 
      * @returns {XACTSTAT} 
      */
     Rejoin(pPrepInfo, cbPrepInfo, lTimeout) {
-        pPrepInfoMarshal := pPrepInfo is VarRef ? "char*" : "ptr"
+        pPrepInfoMarshal := pPrepInfo is VarRef ? "char*" : IntPtr
 
         result := ComCall(9, this, pPrepInfoMarshal, pPrepInfo, UInt32, cbPrepInfo, UInt32, lTimeout, "int*", &pXactStat := 0, "HRESULT")
         return pXactStat
@@ -59,7 +58,7 @@ export default struct IResourceManagerRejoinable extends IResourceManager2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Rejoin := CallbackCreate(GetMethod(implObj, "Rejoin"), flags, 5)
+        this.vtbl.Rejoin := CallbackCreate(ObjBindMethod(implObj, "Rejoin"), flags, 5)
     }
 
     Dispose() {

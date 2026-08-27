@@ -37,7 +37,6 @@ export default struct ICLRProfiling extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwProfileeProcessID 
      * @param {Integer} dwMillisecondsMax 
      * @param {Pointer<Guid>} pClsidProfiler 
@@ -49,7 +48,7 @@ export default struct ICLRProfiling extends IUnknown {
     AttachProfiler(dwProfileeProcessID, dwMillisecondsMax, pClsidProfiler, wszProfilerPath, pvClientData, cbClientData) {
         wszProfilerPath := wszProfilerPath is String ? StrPtr(wszProfilerPath) : wszProfilerPath
 
-        pvClientDataMarshal := pvClientData is VarRef ? "ptr" : "ptr"
+        pvClientDataMarshal := pvClientData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, UInt32, dwProfileeProcessID, UInt32, dwMillisecondsMax, Guid.Ptr, pClsidProfiler, "ptr", wszProfilerPath, pvClientDataMarshal, pvClientData, UInt32, cbClientData, "HRESULT")
         return result
@@ -64,7 +63,7 @@ export default struct ICLRProfiling extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AttachProfiler := CallbackCreate(GetMethod(implObj, "AttachProfiler"), flags, 7)
+        this.vtbl.AttachProfiler := CallbackCreate(ObjBindMethod(implObj, "AttachProfiler"), flags, 7)
     }
 
     Dispose() {

@@ -104,8 +104,8 @@ export default struct IMSVidFilePlayback extends IMSVidPlayback {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_FileName := CallbackCreate(GetMethod(implObj, "get_FileName"), flags, 2)
-        this.vtbl.put_FileName := CallbackCreate(GetMethod(implObj, "put_FileName"), flags, 2)
+        this.vtbl.get_FileName := CallbackCreate(ObjBindMethod(implObj, "get_FileName"), flags, 2)
+        this.vtbl.put_FileName := CallbackCreate(ObjBindMethod(implObj, "put_FileName"), flags, 2)
     }
 
     Dispose() {

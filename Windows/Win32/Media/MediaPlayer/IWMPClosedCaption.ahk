@@ -388,14 +388,14 @@ export default struct IWMPClosedCaption extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_SAMIStyle := CallbackCreate(GetMethod(implObj, "get_SAMIStyle"), flags, 2)
-        this.vtbl.put_SAMIStyle := CallbackCreate(GetMethod(implObj, "put_SAMIStyle"), flags, 2)
-        this.vtbl.get_SAMILang := CallbackCreate(GetMethod(implObj, "get_SAMILang"), flags, 2)
-        this.vtbl.put_SAMILang := CallbackCreate(GetMethod(implObj, "put_SAMILang"), flags, 2)
-        this.vtbl.get_SAMIFileName := CallbackCreate(GetMethod(implObj, "get_SAMIFileName"), flags, 2)
-        this.vtbl.put_SAMIFileName := CallbackCreate(GetMethod(implObj, "put_SAMIFileName"), flags, 2)
-        this.vtbl.get_captioningId := CallbackCreate(GetMethod(implObj, "get_captioningId"), flags, 2)
-        this.vtbl.put_captioningId := CallbackCreate(GetMethod(implObj, "put_captioningId"), flags, 2)
+        this.vtbl.get_SAMIStyle := CallbackCreate(ObjBindMethod(implObj, "get_SAMIStyle"), flags, 2)
+        this.vtbl.put_SAMIStyle := CallbackCreate(ObjBindMethod(implObj, "put_SAMIStyle"), flags, 2)
+        this.vtbl.get_SAMILang := CallbackCreate(ObjBindMethod(implObj, "get_SAMILang"), flags, 2)
+        this.vtbl.put_SAMILang := CallbackCreate(ObjBindMethod(implObj, "put_SAMILang"), flags, 2)
+        this.vtbl.get_SAMIFileName := CallbackCreate(ObjBindMethod(implObj, "get_SAMIFileName"), flags, 2)
+        this.vtbl.put_SAMIFileName := CallbackCreate(ObjBindMethod(implObj, "put_SAMIFileName"), flags, 2)
+        this.vtbl.get_captioningId := CallbackCreate(ObjBindMethod(implObj, "get_captioningId"), flags, 2)
+        this.vtbl.put_captioningId := CallbackCreate(ObjBindMethod(implObj, "put_captioningId"), flags, 2)
     }
 
     Dispose() {

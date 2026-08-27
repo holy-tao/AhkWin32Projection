@@ -50,7 +50,6 @@ export default struct ID3DShaderCacheApplication extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<Integer>} 
      */
     GetExePath() {
@@ -59,7 +58,6 @@ export default struct ID3DShaderCacheApplication extends IUnknown {
     }
 
     /**
-     * 
      * @returns {D3D_SHADER_CACHE_APPLICATION_DESC} 
      */
     GetDesc() {
@@ -69,7 +67,6 @@ export default struct ID3DShaderCacheApplication extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pName 
      * @param {PWSTR} pStateObjectDBPath 
      * @param {Integer} NumPSDB 
@@ -86,7 +83,6 @@ export default struct ID3DShaderCacheApplication extends IUnknown {
     }
 
     /**
-     * 
      * @param {ID3DShaderCacheComponent} pComponent 
      * @returns {HRESULT} 
      */
@@ -96,7 +92,6 @@ export default struct ID3DShaderCacheApplication extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetComponentCount() {
@@ -105,7 +100,6 @@ export default struct ID3DShaderCacheApplication extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -116,7 +110,6 @@ export default struct ID3DShaderCacheApplication extends IUnknown {
     }
 
     /**
-     * 
      * @param {D3D_SHADER_CACHE_TARGET_FLAGS} flags 
      * @returns {Integer} 
      */
@@ -126,7 +119,6 @@ export default struct ID3DShaderCacheApplication extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ArraySize 
      * @param {Pointer<D3D_SHADER_CACHE_COMPILER_PROPERTIES>} pArray 
      * @param {D3D_SHADER_CACHE_TARGET_FLAGS} flags 
@@ -138,7 +130,6 @@ export default struct ID3DShaderCacheApplication extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer<Integer>} 
      */
     GetInstallerName() {
@@ -155,15 +146,15 @@ export default struct ID3DShaderCacheApplication extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetExePath := CallbackCreate(GetMethod(implObj, "GetExePath"), flags, 2)
-        this.vtbl.GetDesc := CallbackCreate(GetMethod(implObj, "GetDesc"), flags, 2)
-        this.vtbl.RegisterComponent := CallbackCreate(GetMethod(implObj, "RegisterComponent"), flags, 7)
-        this.vtbl.RemoveComponent := CallbackCreate(GetMethod(implObj, "RemoveComponent"), flags, 2)
-        this.vtbl.GetComponentCount := CallbackCreate(GetMethod(implObj, "GetComponentCount"), flags, 1)
-        this.vtbl.GetComponent := CallbackCreate(GetMethod(implObj, "GetComponent"), flags, 4)
-        this.vtbl.GetPrecompileTargetCount := CallbackCreate(GetMethod(implObj, "GetPrecompileTargetCount"), flags, 2)
-        this.vtbl.GetPrecompileTargets := CallbackCreate(GetMethod(implObj, "GetPrecompileTargets"), flags, 4)
-        this.vtbl.GetInstallerName := CallbackCreate(GetMethod(implObj, "GetInstallerName"), flags, 2)
+        this.vtbl.GetExePath := CallbackCreate(ObjBindMethod(implObj, "GetExePath"), flags, 2)
+        this.vtbl.GetDesc := CallbackCreate(ObjBindMethod(implObj, "GetDesc"), flags, 2)
+        this.vtbl.RegisterComponent := CallbackCreate(ObjBindMethod(implObj, "RegisterComponent"), flags, 7)
+        this.vtbl.RemoveComponent := CallbackCreate(ObjBindMethod(implObj, "RemoveComponent"), flags, 2)
+        this.vtbl.GetComponentCount := CallbackCreate(ObjBindMethod(implObj, "GetComponentCount"), flags, 1)
+        this.vtbl.GetComponent := CallbackCreate(ObjBindMethod(implObj, "GetComponent"), flags, 4)
+        this.vtbl.GetPrecompileTargetCount := CallbackCreate(ObjBindMethod(implObj, "GetPrecompileTargetCount"), flags, 2)
+        this.vtbl.GetPrecompileTargets := CallbackCreate(ObjBindMethod(implObj, "GetPrecompileTargets"), flags, 4)
+        this.vtbl.GetInstallerName := CallbackCreate(ObjBindMethod(implObj, "GetInstallerName"), flags, 2)
     }
 
     Dispose() {

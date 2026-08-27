@@ -38,7 +38,6 @@ export default struct IWaitMultiple extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} timeout 
      * @returns {ISynchronize} 
      */
@@ -48,7 +47,6 @@ export default struct IWaitMultiple extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISynchronize} pSync 
      * @returns {HRESULT} 
      */
@@ -66,8 +64,8 @@ export default struct IWaitMultiple extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.WaitMultiple := CallbackCreate(GetMethod(implObj, "WaitMultiple"), flags, 3)
-        this.vtbl.AddSynchronize := CallbackCreate(GetMethod(implObj, "AddSynchronize"), flags, 2)
+        this.vtbl.WaitMultiple := CallbackCreate(ObjBindMethod(implObj, "WaitMultiple"), flags, 3)
+        this.vtbl.AddSynchronize := CallbackCreate(ObjBindMethod(implObj, "AddSynchronize"), flags, 2)
     }
 
     Dispose() {

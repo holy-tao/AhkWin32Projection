@@ -486,15 +486,15 @@ export default struct IWiaDevMgr extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumDeviceInfo := CallbackCreate(GetMethod(implObj, "EnumDeviceInfo"), flags, 3)
-        this.vtbl.CreateDevice := CallbackCreate(GetMethod(implObj, "CreateDevice"), flags, 3)
-        this.vtbl.SelectDeviceDlg := CallbackCreate(GetMethod(implObj, "SelectDeviceDlg"), flags, 6)
-        this.vtbl.SelectDeviceDlgID := CallbackCreate(GetMethod(implObj, "SelectDeviceDlgID"), flags, 5)
-        this.vtbl.GetImageDlg := CallbackCreate(GetMethod(implObj, "GetImageDlg"), flags, 8)
-        this.vtbl.RegisterEventCallbackProgram := CallbackCreate(GetMethod(implObj, "RegisterEventCallbackProgram"), flags, 8)
-        this.vtbl.RegisterEventCallbackInterface := CallbackCreate(GetMethod(implObj, "RegisterEventCallbackInterface"), flags, 6)
-        this.vtbl.RegisterEventCallbackCLSID := CallbackCreate(GetMethod(implObj, "RegisterEventCallbackCLSID"), flags, 8)
-        this.vtbl.AddDeviceDlg := CallbackCreate(GetMethod(implObj, "AddDeviceDlg"), flags, 3)
+        this.vtbl.EnumDeviceInfo := CallbackCreate(ObjBindMethod(implObj, "EnumDeviceInfo"), flags, 3)
+        this.vtbl.CreateDevice := CallbackCreate(ObjBindMethod(implObj, "CreateDevice"), flags, 3)
+        this.vtbl.SelectDeviceDlg := CallbackCreate(ObjBindMethod(implObj, "SelectDeviceDlg"), flags, 6)
+        this.vtbl.SelectDeviceDlgID := CallbackCreate(ObjBindMethod(implObj, "SelectDeviceDlgID"), flags, 5)
+        this.vtbl.GetImageDlg := CallbackCreate(ObjBindMethod(implObj, "GetImageDlg"), flags, 8)
+        this.vtbl.RegisterEventCallbackProgram := CallbackCreate(ObjBindMethod(implObj, "RegisterEventCallbackProgram"), flags, 8)
+        this.vtbl.RegisterEventCallbackInterface := CallbackCreate(ObjBindMethod(implObj, "RegisterEventCallbackInterface"), flags, 6)
+        this.vtbl.RegisterEventCallbackCLSID := CallbackCreate(ObjBindMethod(implObj, "RegisterEventCallbackCLSID"), flags, 8)
+        this.vtbl.AddDeviceDlg := CallbackCreate(ObjBindMethod(implObj, "AddDeviceDlg"), flags, 3)
     }
 
     Dispose() {

@@ -72,7 +72,7 @@ export default struct IWMPErrorItem2 extends IWMPErrorItem {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmperroritem2-get_condition
      */
     get_condition(plCondition) {
-        plConditionMarshal := plCondition is VarRef ? "int*" : "ptr"
+        plConditionMarshal := plCondition is VarRef ? "int*" : IntPtr
 
         result := ComCall(12, this, plConditionMarshal, plCondition, "HRESULT")
         return result
@@ -87,7 +87,7 @@ export default struct IWMPErrorItem2 extends IWMPErrorItem {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_condition := CallbackCreate(GetMethod(implObj, "get_condition"), flags, 2)
+        this.vtbl.get_condition := CallbackCreate(ObjBindMethod(implObj, "get_condition"), flags, 2)
     }
 
     Dispose() {

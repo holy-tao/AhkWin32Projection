@@ -39,7 +39,6 @@ export default struct ICastingSourceInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ICastingController} 
      */
     GetController() {
@@ -48,7 +47,6 @@ export default struct ICastingSourceInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {INamedPropertyStore} 
      */
     GetProperties() {
@@ -65,8 +63,8 @@ export default struct ICastingSourceInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetController := CallbackCreate(GetMethod(implObj, "GetController"), flags, 2)
-        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.GetController := CallbackCreate(ObjBindMethod(implObj, "GetController"), flags, 2)
+        this.vtbl.GetProperties := CallbackCreate(ObjBindMethod(implObj, "GetProperties"), flags, 2)
     }
 
     Dispose() {

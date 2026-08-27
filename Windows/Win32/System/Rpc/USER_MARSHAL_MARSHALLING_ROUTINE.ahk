@@ -18,16 +18,15 @@ export default struct USER_MARSHAL_MARSHALLING_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<Void>} param2 
      * @returns {Pointer<Integer>} 
      */
     Call(param0, param1, param2) {
-        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-        param1Marshal := param1 is VarRef ? "char*" : "ptr"
-        param2Marshal := param2 is VarRef ? "ptr" : "ptr"
+        param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+        param1Marshal := param1 is VarRef ? "char*" : IntPtr
+        param2Marshal := param2 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, IntPtr)
         return result

@@ -21,7 +21,6 @@ export default struct PCLUSAPI_CREATE_CLUSTER_GROUP_GROUPSET {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszGroupSetName 
      * @returns {HGROUPSET} 

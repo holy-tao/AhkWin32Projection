@@ -121,7 +121,9 @@ export default struct IPropertySheetProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-ipropertysheetprovider-addprimarypages
      */
     AddPrimaryPages(lpUnknown, bCreateHandle, hNotifyWindow, bScopePane) {
-        result := ComCall(5, this, "ptr", lpUnknown, BOOL, bCreateHandle, HWND, hNotifyWindow, BOOL, bScopePane, "HRESULT")
+        lpUnknownMarshal := lpUnknown == 0 ? IntPtr : "ptr"
+
+        result := ComCall(5, this, lpUnknownMarshal, lpUnknown, BOOL, bCreateHandle, HWND, hNotifyWindow, BOOL, bScopePane, "HRESULT")
         return result
     }
 
@@ -169,11 +171,11 @@ export default struct IPropertySheetProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreatePropertySheet := CallbackCreate(GetMethod(implObj, "CreatePropertySheet"), flags, 6)
-        this.vtbl.FindPropertySheet := CallbackCreate(GetMethod(implObj, "FindPropertySheet"), flags, 4)
-        this.vtbl.AddPrimaryPages := CallbackCreate(GetMethod(implObj, "AddPrimaryPages"), flags, 5)
-        this.vtbl.AddExtensionPages := CallbackCreate(GetMethod(implObj, "AddExtensionPages"), flags, 1)
-        this.vtbl.Show := CallbackCreate(GetMethod(implObj, "Show"), flags, 3)
+        this.vtbl.CreatePropertySheet := CallbackCreate(ObjBindMethod(implObj, "CreatePropertySheet"), flags, 6)
+        this.vtbl.FindPropertySheet := CallbackCreate(ObjBindMethod(implObj, "FindPropertySheet"), flags, 4)
+        this.vtbl.AddPrimaryPages := CallbackCreate(ObjBindMethod(implObj, "AddPrimaryPages"), flags, 5)
+        this.vtbl.AddExtensionPages := CallbackCreate(ObjBindMethod(implObj, "AddExtensionPages"), flags, 1)
+        this.vtbl.Show := CallbackCreate(ObjBindMethod(implObj, "Show"), flags, 3)
     }
 
     Dispose() {

@@ -350,7 +350,6 @@ export default struct IGPMPermission extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Inherited() {
@@ -359,7 +358,6 @@ export default struct IGPMPermission extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Inheritable() {
@@ -368,7 +366,6 @@ export default struct IGPMPermission extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Denied() {
@@ -377,7 +374,6 @@ export default struct IGPMPermission extends IDispatch {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_Permission() {
@@ -386,7 +382,6 @@ export default struct IGPMPermission extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IGPMTrustee} 
      */
     get_Trustee() {
@@ -403,11 +398,11 @@ export default struct IGPMPermission extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Inherited := CallbackCreate(GetMethod(implObj, "get_Inherited"), flags, 2)
-        this.vtbl.get_Inheritable := CallbackCreate(GetMethod(implObj, "get_Inheritable"), flags, 2)
-        this.vtbl.get_Denied := CallbackCreate(GetMethod(implObj, "get_Denied"), flags, 2)
-        this.vtbl.get_Permission := CallbackCreate(GetMethod(implObj, "get_Permission"), flags, 2)
-        this.vtbl.get_Trustee := CallbackCreate(GetMethod(implObj, "get_Trustee"), flags, 2)
+        this.vtbl.get_Inherited := CallbackCreate(ObjBindMethod(implObj, "get_Inherited"), flags, 2)
+        this.vtbl.get_Inheritable := CallbackCreate(ObjBindMethod(implObj, "get_Inheritable"), flags, 2)
+        this.vtbl.get_Denied := CallbackCreate(ObjBindMethod(implObj, "get_Denied"), flags, 2)
+        this.vtbl.get_Permission := CallbackCreate(ObjBindMethod(implObj, "get_Permission"), flags, 2)
+        this.vtbl.get_Trustee := CallbackCreate(ObjBindMethod(implObj, "get_Trustee"), flags, 2)
     }
 
     Dispose() {

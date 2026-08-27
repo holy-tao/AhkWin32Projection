@@ -57,7 +57,6 @@ export default struct ISchemaItemCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {ISchemaItem} 
      */
@@ -67,7 +66,6 @@ export default struct ISchemaItemCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {ISchemaItem} 
      */
@@ -79,7 +77,6 @@ export default struct ISchemaItemCollection extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @param {BSTR} namespaceURI 
      * @returns {ISchemaItem} 
@@ -93,7 +90,6 @@ export default struct ISchemaItemCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -102,7 +98,6 @@ export default struct ISchemaItemCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__newEnum() {
@@ -119,11 +114,11 @@ export default struct ISchemaItemCollection extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_item := CallbackCreate(GetMethod(implObj, "get_item"), flags, 3)
-        this.vtbl.itemByName := CallbackCreate(GetMethod(implObj, "itemByName"), flags, 3)
-        this.vtbl.itemByQName := CallbackCreate(GetMethod(implObj, "itemByQName"), flags, 4)
-        this.vtbl.get_length := CallbackCreate(GetMethod(implObj, "get_length"), flags, 2)
-        this.vtbl.get__newEnum := CallbackCreate(GetMethod(implObj, "get__newEnum"), flags, 2)
+        this.vtbl.get_item := CallbackCreate(ObjBindMethod(implObj, "get_item"), flags, 3)
+        this.vtbl.itemByName := CallbackCreate(ObjBindMethod(implObj, "itemByName"), flags, 3)
+        this.vtbl.itemByQName := CallbackCreate(ObjBindMethod(implObj, "itemByQName"), flags, 4)
+        this.vtbl.get_length := CallbackCreate(ObjBindMethod(implObj, "get_length"), flags, 2)
+        this.vtbl.get__newEnum := CallbackCreate(ObjBindMethod(implObj, "get__newEnum"), flags, 2)
     }
 
     Dispose() {

@@ -724,16 +724,16 @@ export default struct ICreateTypeLib extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateTypeInfo := CallbackCreate(GetMethod(implObj, "CreateTypeInfo"), flags, 4)
-        this.vtbl.SetName := CallbackCreate(GetMethod(implObj, "SetName"), flags, 2)
-        this.vtbl.SetVersion := CallbackCreate(GetMethod(implObj, "SetVersion"), flags, 3)
-        this.vtbl.SetGuid := CallbackCreate(GetMethod(implObj, "SetGuid"), flags, 2)
-        this.vtbl.SetDocString := CallbackCreate(GetMethod(implObj, "SetDocString"), flags, 2)
-        this.vtbl.SetHelpFileName := CallbackCreate(GetMethod(implObj, "SetHelpFileName"), flags, 2)
-        this.vtbl.SetHelpContext := CallbackCreate(GetMethod(implObj, "SetHelpContext"), flags, 2)
-        this.vtbl.SetLcid := CallbackCreate(GetMethod(implObj, "SetLcid"), flags, 2)
-        this.vtbl.SetLibFlags := CallbackCreate(GetMethod(implObj, "SetLibFlags"), flags, 2)
-        this.vtbl.SaveAllChanges := CallbackCreate(GetMethod(implObj, "SaveAllChanges"), flags, 1)
+        this.vtbl.CreateTypeInfo := CallbackCreate(ObjBindMethod(implObj, "CreateTypeInfo"), flags, 4)
+        this.vtbl.SetName := CallbackCreate(ObjBindMethod(implObj, "SetName"), flags, 2)
+        this.vtbl.SetVersion := CallbackCreate(ObjBindMethod(implObj, "SetVersion"), flags, 3)
+        this.vtbl.SetGuid := CallbackCreate(ObjBindMethod(implObj, "SetGuid"), flags, 2)
+        this.vtbl.SetDocString := CallbackCreate(ObjBindMethod(implObj, "SetDocString"), flags, 2)
+        this.vtbl.SetHelpFileName := CallbackCreate(ObjBindMethod(implObj, "SetHelpFileName"), flags, 2)
+        this.vtbl.SetHelpContext := CallbackCreate(ObjBindMethod(implObj, "SetHelpContext"), flags, 2)
+        this.vtbl.SetLcid := CallbackCreate(ObjBindMethod(implObj, "SetLcid"), flags, 2)
+        this.vtbl.SetLibFlags := CallbackCreate(ObjBindMethod(implObj, "SetLibFlags"), flags, 2)
+        this.vtbl.SaveAllChanges := CallbackCreate(ObjBindMethod(implObj, "SaveAllChanges"), flags, 1)
     }
 
     Dispose() {

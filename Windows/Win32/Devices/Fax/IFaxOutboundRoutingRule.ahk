@@ -266,17 +266,17 @@ export default struct IFaxOutboundRoutingRule extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_CountryCode := CallbackCreate(GetMethod(implObj, "get_CountryCode"), flags, 2)
-        this.vtbl.get_AreaCode := CallbackCreate(GetMethod(implObj, "get_AreaCode"), flags, 2)
-        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
-        this.vtbl.get_UseDevice := CallbackCreate(GetMethod(implObj, "get_UseDevice"), flags, 2)
-        this.vtbl.put_UseDevice := CallbackCreate(GetMethod(implObj, "put_UseDevice"), flags, 2)
-        this.vtbl.get_DeviceId := CallbackCreate(GetMethod(implObj, "get_DeviceId"), flags, 2)
-        this.vtbl.put_DeviceId := CallbackCreate(GetMethod(implObj, "put_DeviceId"), flags, 2)
-        this.vtbl.get_GroupName := CallbackCreate(GetMethod(implObj, "get_GroupName"), flags, 2)
-        this.vtbl.put_GroupName := CallbackCreate(GetMethod(implObj, "put_GroupName"), flags, 2)
-        this.vtbl.Refresh := CallbackCreate(GetMethod(implObj, "Refresh"), flags, 1)
-        this.vtbl.Save := CallbackCreate(GetMethod(implObj, "Save"), flags, 1)
+        this.vtbl.get_CountryCode := CallbackCreate(ObjBindMethod(implObj, "get_CountryCode"), flags, 2)
+        this.vtbl.get_AreaCode := CallbackCreate(ObjBindMethod(implObj, "get_AreaCode"), flags, 2)
+        this.vtbl.get_Status := CallbackCreate(ObjBindMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.get_UseDevice := CallbackCreate(ObjBindMethod(implObj, "get_UseDevice"), flags, 2)
+        this.vtbl.put_UseDevice := CallbackCreate(ObjBindMethod(implObj, "put_UseDevice"), flags, 2)
+        this.vtbl.get_DeviceId := CallbackCreate(ObjBindMethod(implObj, "get_DeviceId"), flags, 2)
+        this.vtbl.put_DeviceId := CallbackCreate(ObjBindMethod(implObj, "put_DeviceId"), flags, 2)
+        this.vtbl.get_GroupName := CallbackCreate(ObjBindMethod(implObj, "get_GroupName"), flags, 2)
+        this.vtbl.put_GroupName := CallbackCreate(ObjBindMethod(implObj, "put_GroupName"), flags, 2)
+        this.vtbl.Refresh := CallbackCreate(ObjBindMethod(implObj, "Refresh"), flags, 1)
+        this.vtbl.Save := CallbackCreate(ObjBindMethod(implObj, "Save"), flags, 1)
     }
 
     Dispose() {

@@ -51,7 +51,6 @@ export default struct ISpLexicon extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszWord 
      * @param {Integer} LangID 
      * @param {Integer} dwFlags 
@@ -66,7 +65,6 @@ export default struct ISpLexicon extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszWord 
      * @param {Integer} LangID 
      * @param {SPPARTOFSPEECH} ePartOfSpeech 
@@ -76,14 +74,14 @@ export default struct ISpLexicon extends IUnknown {
     AddPronunciation(pszWord, LangID, ePartOfSpeech, pszPronunciation) {
         pszWord := pszWord is String ? StrPtr(pszWord) : pszWord
 
-        pszPronunciationMarshal := pszPronunciation is VarRef ? "ushort*" : "ptr"
+        pszPronunciationMarshal := pszPronunciation is VarRef ? "ushort*" : IntPtr
+        pszPronunciationMarshal := pszPronunciation == 0 ? IntPtr : "ushort*"
 
         result := ComCall(4, this, "ptr", pszWord, UInt16, LangID, SPPARTOFSPEECH, ePartOfSpeech, pszPronunciationMarshal, pszPronunciation, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pszWord 
      * @param {Integer} LangID 
      * @param {SPPARTOFSPEECH} ePartOfSpeech 
@@ -93,40 +91,38 @@ export default struct ISpLexicon extends IUnknown {
     RemovePronunciation(pszWord, LangID, ePartOfSpeech, pszPronunciation) {
         pszWord := pszWord is String ? StrPtr(pszWord) : pszWord
 
-        pszPronunciationMarshal := pszPronunciation is VarRef ? "ushort*" : "ptr"
+        pszPronunciationMarshal := pszPronunciation is VarRef ? "ushort*" : IntPtr
+        pszPronunciationMarshal := pszPronunciation == 0 ? IntPtr : "ushort*"
 
         result := ComCall(5, this, "ptr", pszWord, UInt16, LangID, SPPARTOFSPEECH, ePartOfSpeech, pszPronunciationMarshal, pszPronunciation, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwGeneration 
      * @returns {HRESULT} 
      */
     GetGeneration(pdwGeneration) {
-        pdwGenerationMarshal := pdwGeneration is VarRef ? "uint*" : "ptr"
+        pdwGenerationMarshal := pdwGeneration is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, pdwGenerationMarshal, pdwGeneration, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @param {Pointer<Integer>} pdwGeneration 
      * @param {Pointer<SPWORDLIST>} pWordList 
      * @returns {HRESULT} 
      */
     GetGenerationChange(dwFlags, pdwGeneration, pWordList) {
-        pdwGenerationMarshal := pdwGeneration is VarRef ? "uint*" : "ptr"
+        pdwGenerationMarshal := pdwGeneration is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, UInt32, dwFlags, pdwGenerationMarshal, pdwGeneration, SPWORDLIST.Ptr, pWordList, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwFlags 
      * @param {Pointer<Integer>} pdwGeneration 
      * @param {Pointer<Integer>} pdwCookie 
@@ -134,8 +130,9 @@ export default struct ISpLexicon extends IUnknown {
      * @returns {HRESULT} 
      */
     GetWords(dwFlags, pdwGeneration, pdwCookie, pWordList) {
-        pdwGenerationMarshal := pdwGeneration is VarRef ? "uint*" : "ptr"
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
+        pdwGenerationMarshal := pdwGeneration is VarRef ? "uint*" : IntPtr
+        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : IntPtr
+        pdwCookieMarshal := pdwCookie == 0 ? IntPtr : "uint*"
 
         result := ComCall(8, this, UInt32, dwFlags, pdwGenerationMarshal, pdwGeneration, pdwCookieMarshal, pdwCookie, SPWORDLIST.Ptr, pWordList, "HRESULT")
         return result
@@ -150,12 +147,12 @@ export default struct ISpLexicon extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPronunciations := CallbackCreate(GetMethod(implObj, "GetPronunciations"), flags, 5)
-        this.vtbl.AddPronunciation := CallbackCreate(GetMethod(implObj, "AddPronunciation"), flags, 5)
-        this.vtbl.RemovePronunciation := CallbackCreate(GetMethod(implObj, "RemovePronunciation"), flags, 5)
-        this.vtbl.GetGeneration := CallbackCreate(GetMethod(implObj, "GetGeneration"), flags, 2)
-        this.vtbl.GetGenerationChange := CallbackCreate(GetMethod(implObj, "GetGenerationChange"), flags, 4)
-        this.vtbl.GetWords := CallbackCreate(GetMethod(implObj, "GetWords"), flags, 5)
+        this.vtbl.GetPronunciations := CallbackCreate(ObjBindMethod(implObj, "GetPronunciations"), flags, 5)
+        this.vtbl.AddPronunciation := CallbackCreate(ObjBindMethod(implObj, "AddPronunciation"), flags, 5)
+        this.vtbl.RemovePronunciation := CallbackCreate(ObjBindMethod(implObj, "RemovePronunciation"), flags, 5)
+        this.vtbl.GetGeneration := CallbackCreate(ObjBindMethod(implObj, "GetGeneration"), flags, 2)
+        this.vtbl.GetGenerationChange := CallbackCreate(ObjBindMethod(implObj, "GetGenerationChange"), flags, 4)
+        this.vtbl.GetWords := CallbackCreate(ObjBindMethod(implObj, "GetWords"), flags, 5)
     }
 
     Dispose() {

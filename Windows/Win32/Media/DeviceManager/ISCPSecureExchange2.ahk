@@ -73,10 +73,11 @@ export default struct ISCPSecureExchange2 extends ISCPSecureExchange {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsecureexchange2-transfercontainerdata2
      */
     TransferContainerData2(pData, dwSize, pProgressCallback, abMac) {
-        pDataMarshal := pData is VarRef ? "char*" : "ptr"
-        abMacMarshal := abMac is VarRef ? "char*" : "ptr"
+        pDataMarshal := pData is VarRef ? "char*" : IntPtr
+        pProgressCallbackMarshal := pProgressCallback == 0 ? IntPtr : "ptr"
+        abMacMarshal := abMac is VarRef ? "char*" : IntPtr
 
-        result := ComCall(6, this, pDataMarshal, pData, UInt32, dwSize, "ptr", pProgressCallback, "uint*", &pfuReadyFlags := 0, abMacMarshal, abMac, "HRESULT")
+        result := ComCall(6, this, pDataMarshal, pData, UInt32, dwSize, pProgressCallbackMarshal, pProgressCallback, "uint*", &pfuReadyFlags := 0, abMacMarshal, abMac, "HRESULT")
         return pfuReadyFlags
     }
 
@@ -89,7 +90,7 @@ export default struct ISCPSecureExchange2 extends ISCPSecureExchange {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.TransferContainerData2 := CallbackCreate(GetMethod(implObj, "TransferContainerData2"), flags, 6)
+        this.vtbl.TransferContainerData2 := CallbackCreate(ObjBindMethod(implObj, "TransferContainerData2"), flags, 6)
     }
 
     Dispose() {

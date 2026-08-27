@@ -19,7 +19,6 @@ export default struct pKdMapPhysicalMemory64 {
     }
 
     /**
-     * 
      * @param {Integer} PhysicalAddress 
      * @param {Integer} NumberPages 
      * @param {BOOLEAN} FlushCurrentTLB 

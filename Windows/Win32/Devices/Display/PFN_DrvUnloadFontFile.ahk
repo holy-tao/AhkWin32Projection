@@ -19,7 +19,6 @@ export default struct PFN_DrvUnloadFontFile {
     }
 
     /**
-     * 
      * @param {Pointer} param0 
      * @returns {BOOL} 
      */

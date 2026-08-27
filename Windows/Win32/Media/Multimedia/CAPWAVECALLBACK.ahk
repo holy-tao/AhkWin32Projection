@@ -25,7 +25,6 @@ export default struct CAPWAVECALLBACK {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd Handle to the capture window associated with the callback function.
      * @param {Pointer<WAVEHDR>} lpWHdr Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd743837(v=vs.85)">WAVEHDR</a> structure containing information about the captured audio data.
      * @returns {LRESULT} 

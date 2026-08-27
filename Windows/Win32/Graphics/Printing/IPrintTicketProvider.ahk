@@ -47,22 +47,20 @@ export default struct IPrintTicketProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Pointer<Pointer<Integer>>} ppVersions 
      * @param {Pointer<Integer>} cVersions 
      * @returns {HRESULT} 
      */
     GetSupportedVersions(hPrinter, ppVersions, cVersions) {
-        ppVersionsMarshal := ppVersions is VarRef ? "ptr*" : "ptr"
-        cVersionsMarshal := cVersions is VarRef ? "int*" : "ptr"
+        ppVersionsMarshal := ppVersions is VarRef ? "ptr*" : IntPtr
+        cVersionsMarshal := cVersions is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, PRINTER_HANDLE, hPrinter, ppVersionsMarshal, ppVersions, cVersionsMarshal, cVersions, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} _version 
      * @param {Pointer<SHIMOPTS>} pOptions 
@@ -72,17 +70,16 @@ export default struct IPrintTicketProvider extends IUnknown {
      * @returns {HRESULT} 
      */
     BindPrinter(hPrinter, _version, pOptions, pDevModeFlags, cNamespaces, ppNamespaces) {
-        pOptionsMarshal := pOptions is VarRef ? "int*" : "ptr"
-        pDevModeFlagsMarshal := pDevModeFlags is VarRef ? "uint*" : "ptr"
-        cNamespacesMarshal := cNamespaces is VarRef ? "int*" : "ptr"
-        ppNamespacesMarshal := ppNamespaces is VarRef ? "ptr*" : "ptr"
+        pOptionsMarshal := pOptions is VarRef ? "int*" : IntPtr
+        pDevModeFlagsMarshal := pDevModeFlags is VarRef ? "uint*" : IntPtr
+        cNamespacesMarshal := cNamespaces is VarRef ? "int*" : IntPtr
+        ppNamespacesMarshal := ppNamespaces is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, PRINTER_HANDLE, hPrinter, Int32, _version, pOptionsMarshal, pOptions, pDevModeFlagsMarshal, pDevModeFlags, cNamespacesMarshal, cNamespaces, ppNamespacesMarshal, ppNamespaces, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pDefaultNamespace 
      * @returns {HRESULT} 
      */
@@ -92,7 +89,6 @@ export default struct IPrintTicketProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {IXMLDOMDocument2} pPrintTicket 
      * @param {Integer} cbDevmodeIn 
      * @param {Pointer<DEVMODEA>} pDevmodeIn 
@@ -101,15 +97,14 @@ export default struct IPrintTicketProvider extends IUnknown {
      * @returns {HRESULT} 
      */
     ConvertPrintTicketToDevMode(pPrintTicket, cbDevmodeIn, pDevmodeIn, pcbDevmodeOut, ppDevmodeOut) {
-        pcbDevmodeOutMarshal := pcbDevmodeOut is VarRef ? "uint*" : "ptr"
-        ppDevmodeOutMarshal := ppDevmodeOut is VarRef ? "ptr*" : "ptr"
+        pcbDevmodeOutMarshal := pcbDevmodeOut is VarRef ? "uint*" : IntPtr
+        ppDevmodeOutMarshal := ppDevmodeOut is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(6, this, "ptr", pPrintTicket, UInt32, cbDevmodeIn, DEVMODEA.Ptr, pDevmodeIn, pcbDevmodeOutMarshal, pcbDevmodeOut, ppDevmodeOutMarshal, ppDevmodeOut, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} cbDevmode 
      * @param {Pointer<DEVMODEA>} pDevmode 
      * @param {IXMLDOMDocument2} pPrintTicket 
@@ -121,7 +116,6 @@ export default struct IPrintTicketProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {IXMLDOMDocument2} pPrintTicket 
      * @returns {IXMLDOMDocument2} 
      */
@@ -131,7 +125,6 @@ export default struct IPrintTicketProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {IXMLDOMDocument2} pBaseTicket 
      * @returns {HRESULT} 
      */
@@ -149,13 +142,13 @@ export default struct IPrintTicketProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSupportedVersions := CallbackCreate(GetMethod(implObj, "GetSupportedVersions"), flags, 4)
-        this.vtbl.BindPrinter := CallbackCreate(GetMethod(implObj, "BindPrinter"), flags, 7)
-        this.vtbl.QueryDeviceNamespace := CallbackCreate(GetMethod(implObj, "QueryDeviceNamespace"), flags, 2)
-        this.vtbl.ConvertPrintTicketToDevMode := CallbackCreate(GetMethod(implObj, "ConvertPrintTicketToDevMode"), flags, 6)
-        this.vtbl.ConvertDevModeToPrintTicket := CallbackCreate(GetMethod(implObj, "ConvertDevModeToPrintTicket"), flags, 4)
-        this.vtbl.GetPrintCapabilities := CallbackCreate(GetMethod(implObj, "GetPrintCapabilities"), flags, 3)
-        this.vtbl.ValidatePrintTicket := CallbackCreate(GetMethod(implObj, "ValidatePrintTicket"), flags, 2)
+        this.vtbl.GetSupportedVersions := CallbackCreate(ObjBindMethod(implObj, "GetSupportedVersions"), flags, 4)
+        this.vtbl.BindPrinter := CallbackCreate(ObjBindMethod(implObj, "BindPrinter"), flags, 7)
+        this.vtbl.QueryDeviceNamespace := CallbackCreate(ObjBindMethod(implObj, "QueryDeviceNamespace"), flags, 2)
+        this.vtbl.ConvertPrintTicketToDevMode := CallbackCreate(ObjBindMethod(implObj, "ConvertPrintTicketToDevMode"), flags, 6)
+        this.vtbl.ConvertDevModeToPrintTicket := CallbackCreate(ObjBindMethod(implObj, "ConvertDevModeToPrintTicket"), flags, 4)
+        this.vtbl.GetPrintCapabilities := CallbackCreate(ObjBindMethod(implObj, "GetPrintCapabilities"), flags, 3)
+        this.vtbl.ValidatePrintTicket := CallbackCreate(ObjBindMethod(implObj, "ValidatePrintTicket"), flags, 2)
     }
 
     Dispose() {

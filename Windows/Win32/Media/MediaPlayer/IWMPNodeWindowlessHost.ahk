@@ -66,7 +66,7 @@ export default struct IWMPNodeWindowlessHost extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InvalidateRect := CallbackCreate(GetMethod(implObj, "InvalidateRect"), flags, 3)
+        this.vtbl.InvalidateRect := CallbackCreate(ObjBindMethod(implObj, "InvalidateRect"), flags, 3)
     }
 
     Dispose() {

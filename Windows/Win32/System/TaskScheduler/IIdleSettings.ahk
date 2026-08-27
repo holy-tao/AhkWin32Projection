@@ -151,7 +151,7 @@ export default struct IIdleSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iidlesettings-get_stoponidleend
      */
     get_StopOnIdleEnd(pStop) {
-        pStopMarshal := pStop is VarRef ? "short*" : "ptr"
+        pStopMarshal := pStop is VarRef ? "short*" : IntPtr
 
         result := ComCall(11, this, pStopMarshal, pStop, "HRESULT")
         return result
@@ -181,7 +181,7 @@ export default struct IIdleSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iidlesettings-get_restartonidle
      */
     get_RestartOnIdle(pRestart) {
-        pRestartMarshal := pRestart is VarRef ? "short*" : "ptr"
+        pRestartMarshal := pRestart is VarRef ? "short*" : IntPtr
 
         result := ComCall(13, this, pRestartMarshal, pRestart, "HRESULT")
         return result
@@ -211,14 +211,14 @@ export default struct IIdleSettings extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_IdleDuration := CallbackCreate(GetMethod(implObj, "get_IdleDuration"), flags, 2)
-        this.vtbl.put_IdleDuration := CallbackCreate(GetMethod(implObj, "put_IdleDuration"), flags, 2)
-        this.vtbl.get_WaitTimeout := CallbackCreate(GetMethod(implObj, "get_WaitTimeout"), flags, 2)
-        this.vtbl.put_WaitTimeout := CallbackCreate(GetMethod(implObj, "put_WaitTimeout"), flags, 2)
-        this.vtbl.get_StopOnIdleEnd := CallbackCreate(GetMethod(implObj, "get_StopOnIdleEnd"), flags, 2)
-        this.vtbl.put_StopOnIdleEnd := CallbackCreate(GetMethod(implObj, "put_StopOnIdleEnd"), flags, 2)
-        this.vtbl.get_RestartOnIdle := CallbackCreate(GetMethod(implObj, "get_RestartOnIdle"), flags, 2)
-        this.vtbl.put_RestartOnIdle := CallbackCreate(GetMethod(implObj, "put_RestartOnIdle"), flags, 2)
+        this.vtbl.get_IdleDuration := CallbackCreate(ObjBindMethod(implObj, "get_IdleDuration"), flags, 2)
+        this.vtbl.put_IdleDuration := CallbackCreate(ObjBindMethod(implObj, "put_IdleDuration"), flags, 2)
+        this.vtbl.get_WaitTimeout := CallbackCreate(ObjBindMethod(implObj, "get_WaitTimeout"), flags, 2)
+        this.vtbl.put_WaitTimeout := CallbackCreate(ObjBindMethod(implObj, "put_WaitTimeout"), flags, 2)
+        this.vtbl.get_StopOnIdleEnd := CallbackCreate(ObjBindMethod(implObj, "get_StopOnIdleEnd"), flags, 2)
+        this.vtbl.put_StopOnIdleEnd := CallbackCreate(ObjBindMethod(implObj, "put_StopOnIdleEnd"), flags, 2)
+        this.vtbl.get_RestartOnIdle := CallbackCreate(ObjBindMethod(implObj, "get_RestartOnIdle"), flags, 2)
+        this.vtbl.put_RestartOnIdle := CallbackCreate(ObjBindMethod(implObj, "put_RestartOnIdle"), flags, 2)
     }
 
     Dispose() {

@@ -94,7 +94,7 @@ export default struct IMetaDataDispenser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatadispenser-openscopeonmemory
      */
     OpenScopeOnMemory(pData, cbData, dwOpenFlags, riid) {
-        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+        pDataMarshal := pData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(5, this, pDataMarshal, pData, UInt32, cbData, UInt32, dwOpenFlags, Guid.Ptr, riid, "ptr*", &ppIUnk := 0, "HRESULT")
         return IUnknown(ppIUnk)
@@ -109,9 +109,9 @@ export default struct IMetaDataDispenser extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DefineScope := CallbackCreate(GetMethod(implObj, "DefineScope"), flags, 5)
-        this.vtbl.OpenScope := CallbackCreate(GetMethod(implObj, "OpenScope"), flags, 5)
-        this.vtbl.OpenScopeOnMemory := CallbackCreate(GetMethod(implObj, "OpenScopeOnMemory"), flags, 6)
+        this.vtbl.DefineScope := CallbackCreate(ObjBindMethod(implObj, "DefineScope"), flags, 5)
+        this.vtbl.OpenScope := CallbackCreate(ObjBindMethod(implObj, "OpenScope"), flags, 5)
+        this.vtbl.OpenScopeOnMemory := CallbackCreate(ObjBindMethod(implObj, "OpenScopeOnMemory"), flags, 6)
     }
 
     Dispose() {

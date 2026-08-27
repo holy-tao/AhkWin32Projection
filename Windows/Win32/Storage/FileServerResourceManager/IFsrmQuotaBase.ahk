@@ -226,16 +226,16 @@ export default struct IFsrmQuotaBase extends IFsrmObject {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_QuotaLimit := CallbackCreate(GetMethod(implObj, "get_QuotaLimit"), flags, 2)
-        this.vtbl.put_QuotaLimit := CallbackCreate(GetMethod(implObj, "put_QuotaLimit"), flags, 2)
-        this.vtbl.get_QuotaFlags := CallbackCreate(GetMethod(implObj, "get_QuotaFlags"), flags, 2)
-        this.vtbl.put_QuotaFlags := CallbackCreate(GetMethod(implObj, "put_QuotaFlags"), flags, 2)
-        this.vtbl.get_Thresholds := CallbackCreate(GetMethod(implObj, "get_Thresholds"), flags, 2)
-        this.vtbl.AddThreshold := CallbackCreate(GetMethod(implObj, "AddThreshold"), flags, 2)
-        this.vtbl.DeleteThreshold := CallbackCreate(GetMethod(implObj, "DeleteThreshold"), flags, 2)
-        this.vtbl.ModifyThreshold := CallbackCreate(GetMethod(implObj, "ModifyThreshold"), flags, 3)
-        this.vtbl.CreateThresholdAction := CallbackCreate(GetMethod(implObj, "CreateThresholdAction"), flags, 4)
-        this.vtbl.EnumThresholdActions := CallbackCreate(GetMethod(implObj, "EnumThresholdActions"), flags, 3)
+        this.vtbl.get_QuotaLimit := CallbackCreate(ObjBindMethod(implObj, "get_QuotaLimit"), flags, 2)
+        this.vtbl.put_QuotaLimit := CallbackCreate(ObjBindMethod(implObj, "put_QuotaLimit"), flags, 2)
+        this.vtbl.get_QuotaFlags := CallbackCreate(ObjBindMethod(implObj, "get_QuotaFlags"), flags, 2)
+        this.vtbl.put_QuotaFlags := CallbackCreate(ObjBindMethod(implObj, "put_QuotaFlags"), flags, 2)
+        this.vtbl.get_Thresholds := CallbackCreate(ObjBindMethod(implObj, "get_Thresholds"), flags, 2)
+        this.vtbl.AddThreshold := CallbackCreate(ObjBindMethod(implObj, "AddThreshold"), flags, 2)
+        this.vtbl.DeleteThreshold := CallbackCreate(ObjBindMethod(implObj, "DeleteThreshold"), flags, 2)
+        this.vtbl.ModifyThreshold := CallbackCreate(ObjBindMethod(implObj, "ModifyThreshold"), flags, 3)
+        this.vtbl.CreateThresholdAction := CallbackCreate(ObjBindMethod(implObj, "CreateThresholdAction"), flags, 4)
+        this.vtbl.EnumThresholdActions := CallbackCreate(ObjBindMethod(implObj, "EnumThresholdActions"), flags, 3)
     }
 
     Dispose() {

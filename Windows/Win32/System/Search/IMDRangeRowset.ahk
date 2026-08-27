@@ -37,7 +37,6 @@ export default struct IMDRangeRowset extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer} ulStartCell 
      * @param {Pointer} ulEndCell 
@@ -60,7 +59,7 @@ export default struct IMDRangeRowset extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRangeRowset := CallbackCreate(GetMethod(implObj, "GetRangeRowset"), flags, 8)
+        this.vtbl.GetRangeRowset := CallbackCreate(ObjBindMethod(implObj, "GetRangeRowset"), flags, 8)
     }
 
     Dispose() {

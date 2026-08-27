@@ -116,7 +116,9 @@ export default struct IMFReadWriteClassFactory extends IUnknown {
     CreateInstanceFromURL(clsid, pwszURL, pAttributes, riid) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        result := ComCall(3, this, Guid.Ptr, clsid, "ptr", pwszURL, "ptr", pAttributes, Guid.Ptr, riid, "ptr*", &ppvObject := 0, "HRESULT")
+        pAttributesMarshal := pAttributes == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, Guid.Ptr, clsid, "ptr", pwszURL, pAttributesMarshal, pAttributes, Guid.Ptr, riid, "ptr*", &ppvObject := 0, "HRESULT")
         return ppvObject
     }
 
@@ -210,7 +212,9 @@ export default struct IMFReadWriteClassFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfreadwriteclassfactory-createinstancefromobject
      */
     CreateInstanceFromObject(clsid, punkObject, pAttributes, riid) {
-        result := ComCall(4, this, Guid.Ptr, clsid, "ptr", punkObject, "ptr", pAttributes, Guid.Ptr, riid, "ptr*", &ppvObject := 0, "HRESULT")
+        pAttributesMarshal := pAttributes == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, Guid.Ptr, clsid, "ptr", punkObject, pAttributesMarshal, pAttributes, Guid.Ptr, riid, "ptr*", &ppvObject := 0, "HRESULT")
         return ppvObject
     }
 
@@ -223,8 +227,8 @@ export default struct IMFReadWriteClassFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateInstanceFromURL := CallbackCreate(GetMethod(implObj, "CreateInstanceFromURL"), flags, 6)
-        this.vtbl.CreateInstanceFromObject := CallbackCreate(GetMethod(implObj, "CreateInstanceFromObject"), flags, 6)
+        this.vtbl.CreateInstanceFromURL := CallbackCreate(ObjBindMethod(implObj, "CreateInstanceFromURL"), flags, 6)
+        this.vtbl.CreateInstanceFromObject := CallbackCreate(ObjBindMethod(implObj, "CreateInstanceFromObject"), flags, 6)
     }
 
     Dispose() {

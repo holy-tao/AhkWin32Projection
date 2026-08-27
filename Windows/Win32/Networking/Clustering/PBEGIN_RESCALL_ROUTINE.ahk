@@ -21,7 +21,6 @@ export default struct PBEGIN_RESCALL_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Resource The resource ID for the resource.
      * @param {Integer} ControlCode The control code to call.
      * @param {Pointer<Void>} InBuffer A pointer to the buffer that contains the input data for the call to the control code.
@@ -78,11 +77,11 @@ export default struct PBEGIN_RESCALL_ROUTINE {
      * </table>
      */
     Call(Resource, ControlCode, InBuffer, InBufferSize, OutBuffer, OutBufferSize, BytesReturned, _context, ReturnedAsynchronously) {
-        ResourceMarshal := Resource is VarRef ? "ptr" : "ptr"
-        InBufferMarshal := InBuffer is VarRef ? "ptr" : "ptr"
-        OutBufferMarshal := OutBuffer is VarRef ? "ptr" : "ptr"
-        BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
-        ReturnedAsynchronouslyMarshal := ReturnedAsynchronously is VarRef ? "int*" : "ptr"
+        ResourceMarshal := Resource is VarRef ? "ptr" : IntPtr
+        InBufferMarshal := InBuffer is VarRef ? "ptr" : IntPtr
+        OutBufferMarshal := OutBuffer is VarRef ? "ptr" : IntPtr
+        BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : IntPtr
+        ReturnedAsynchronouslyMarshal := ReturnedAsynchronously is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, ResourceMarshal, Resource, UInt32, ControlCode, InBufferMarshal, InBuffer, UInt32, InBufferSize, OutBufferMarshal, OutBuffer, UInt32, OutBufferSize, BytesReturnedMarshal, BytesReturned, Int64, _context, ReturnedAsynchronouslyMarshal, ReturnedAsynchronously, UInt32)
         return result

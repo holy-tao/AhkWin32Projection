@@ -20,14 +20,14 @@ export default struct PFLT_DEFERRED_IO_WORKITEM_ROUTINE {
     }
 
     /**
-     * 
      * @param {PFLT_DEFERRED_IO_WORKITEM} FltWorkItem 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @param {Pointer<Void>} _Context 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(FltWorkItem, CallbackData, _Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, PFLT_DEFERRED_IO_WORKITEM, FltWorkItem, FLT_CALLBACK_DATA.Ptr, CallbackData, _ContextMarshal, _Context)
     }

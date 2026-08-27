@@ -47,7 +47,9 @@ export default struct ITPluggableTerminalEventSinkRegistration extends IUnknown 
      * @see https://learn.microsoft.com/windows/win32/api/msp/nf-msp-itpluggableterminaleventsinkregistration-registersink
      */
     RegisterSink(pEventSink) {
-        result := ComCall(3, this, "ptr", pEventSink, "HRESULT")
+        pEventSinkMarshal := pEventSink == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pEventSinkMarshal, pEventSink, "HRESULT")
         return result
     }
 
@@ -70,8 +72,8 @@ export default struct ITPluggableTerminalEventSinkRegistration extends IUnknown 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterSink := CallbackCreate(GetMethod(implObj, "RegisterSink"), flags, 2)
-        this.vtbl.UnregisterSink := CallbackCreate(GetMethod(implObj, "UnregisterSink"), flags, 1)
+        this.vtbl.RegisterSink := CallbackCreate(ObjBindMethod(implObj, "RegisterSink"), flags, 2)
+        this.vtbl.UnregisterSink := CallbackCreate(ObjBindMethod(implObj, "UnregisterSink"), flags, 1)
     }
 
     Dispose() {

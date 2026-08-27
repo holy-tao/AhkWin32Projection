@@ -20,7 +20,6 @@ export default struct PFAXDEVCONFIGURE {
     }
 
     /**
-     * 
      * @param {Pointer<HPROPSHEETPAGE>} param0 
      * @returns {BOOL} 
      */

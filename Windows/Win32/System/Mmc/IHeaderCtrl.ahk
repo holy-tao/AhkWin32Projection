@@ -158,12 +158,12 @@ export default struct IHeaderCtrl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InsertColumn := CallbackCreate(GetMethod(implObj, "InsertColumn"), flags, 5)
-        this.vtbl.DeleteColumn := CallbackCreate(GetMethod(implObj, "DeleteColumn"), flags, 2)
-        this.vtbl.SetColumnText := CallbackCreate(GetMethod(implObj, "SetColumnText"), flags, 3)
-        this.vtbl.GetColumnText := CallbackCreate(GetMethod(implObj, "GetColumnText"), flags, 3)
-        this.vtbl.SetColumnWidth := CallbackCreate(GetMethod(implObj, "SetColumnWidth"), flags, 3)
-        this.vtbl.GetColumnWidth := CallbackCreate(GetMethod(implObj, "GetColumnWidth"), flags, 3)
+        this.vtbl.InsertColumn := CallbackCreate(ObjBindMethod(implObj, "InsertColumn"), flags, 5)
+        this.vtbl.DeleteColumn := CallbackCreate(ObjBindMethod(implObj, "DeleteColumn"), flags, 2)
+        this.vtbl.SetColumnText := CallbackCreate(ObjBindMethod(implObj, "SetColumnText"), flags, 3)
+        this.vtbl.GetColumnText := CallbackCreate(ObjBindMethod(implObj, "GetColumnText"), flags, 3)
+        this.vtbl.SetColumnWidth := CallbackCreate(ObjBindMethod(implObj, "SetColumnWidth"), flags, 3)
+        this.vtbl.GetColumnWidth := CallbackCreate(ObjBindMethod(implObj, "GetColumnWidth"), flags, 3)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct PWINDBG_DISASM32 {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} lpOffset 
      * @param {PSTR} lpBuffer 
      * @param {Integer} fShowEffectiveAddress 
@@ -28,7 +27,7 @@ export default struct PWINDBG_DISASM32 {
     Call(lpOffset, lpBuffer, fShowEffectiveAddress) {
         lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
-        lpOffsetMarshal := lpOffset is VarRef ? "uint*" : "ptr"
+        lpOffsetMarshal := lpOffset is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, lpOffsetMarshal, lpOffset, "ptr", lpBuffer, UInt32, fShowEffectiveAddress, UInt32)
         return result

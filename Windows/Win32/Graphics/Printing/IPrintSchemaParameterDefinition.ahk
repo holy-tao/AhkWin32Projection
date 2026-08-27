@@ -78,7 +78,6 @@ export default struct IPrintSchemaParameterDefinition extends IPrintSchemaDispla
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_UserInputRequired() {
@@ -87,7 +86,6 @@ export default struct IPrintSchemaParameterDefinition extends IPrintSchemaDispla
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_UnitType() {
@@ -97,7 +95,6 @@ export default struct IPrintSchemaParameterDefinition extends IPrintSchemaDispla
     }
 
     /**
-     * 
      * @returns {PrintSchemaParameterDataType} 
      */
     get_DataType() {
@@ -106,7 +103,6 @@ export default struct IPrintSchemaParameterDefinition extends IPrintSchemaDispla
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_RangeMin() {
@@ -115,7 +111,6 @@ export default struct IPrintSchemaParameterDefinition extends IPrintSchemaDispla
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_RangeMax() {
@@ -132,11 +127,11 @@ export default struct IPrintSchemaParameterDefinition extends IPrintSchemaDispla
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_UserInputRequired := CallbackCreate(GetMethod(implObj, "get_UserInputRequired"), flags, 2)
-        this.vtbl.get_UnitType := CallbackCreate(GetMethod(implObj, "get_UnitType"), flags, 2)
-        this.vtbl.get_DataType := CallbackCreate(GetMethod(implObj, "get_DataType"), flags, 2)
-        this.vtbl.get_RangeMin := CallbackCreate(GetMethod(implObj, "get_RangeMin"), flags, 2)
-        this.vtbl.get_RangeMax := CallbackCreate(GetMethod(implObj, "get_RangeMax"), flags, 2)
+        this.vtbl.get_UserInputRequired := CallbackCreate(ObjBindMethod(implObj, "get_UserInputRequired"), flags, 2)
+        this.vtbl.get_UnitType := CallbackCreate(ObjBindMethod(implObj, "get_UnitType"), flags, 2)
+        this.vtbl.get_DataType := CallbackCreate(ObjBindMethod(implObj, "get_DataType"), flags, 2)
+        this.vtbl.get_RangeMin := CallbackCreate(ObjBindMethod(implObj, "get_RangeMin"), flags, 2)
+        this.vtbl.get_RangeMax := CallbackCreate(ObjBindMethod(implObj, "get_RangeMax"), flags, 2)
     }
 
     Dispose() {

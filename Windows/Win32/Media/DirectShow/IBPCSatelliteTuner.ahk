@@ -47,8 +47,8 @@ export default struct IBPCSatelliteTuner extends IAMTuner {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ibpcsatellitetuner-get_defaultsubchanneltypes
      */
     get_DefaultSubChannelTypes(plDefaultVideoType, plDefaultAudioType) {
-        plDefaultVideoTypeMarshal := plDefaultVideoType is VarRef ? "int*" : "ptr"
-        plDefaultAudioTypeMarshal := plDefaultAudioType is VarRef ? "int*" : "ptr"
+        plDefaultVideoTypeMarshal := plDefaultVideoType is VarRef ? "int*" : IntPtr
+        plDefaultAudioTypeMarshal := plDefaultAudioType is VarRef ? "int*" : IntPtr
 
         result := ComCall(18, this, plDefaultVideoTypeMarshal, plDefaultVideoType, plDefaultAudioTypeMarshal, plDefaultAudioType, "HRESULT")
         return result
@@ -85,9 +85,9 @@ export default struct IBPCSatelliteTuner extends IAMTuner {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_DefaultSubChannelTypes := CallbackCreate(GetMethod(implObj, "get_DefaultSubChannelTypes"), flags, 3)
-        this.vtbl.put_DefaultSubChannelTypes := CallbackCreate(GetMethod(implObj, "put_DefaultSubChannelTypes"), flags, 3)
-        this.vtbl.IsTapingPermitted := CallbackCreate(GetMethod(implObj, "IsTapingPermitted"), flags, 1)
+        this.vtbl.get_DefaultSubChannelTypes := CallbackCreate(ObjBindMethod(implObj, "get_DefaultSubChannelTypes"), flags, 3)
+        this.vtbl.put_DefaultSubChannelTypes := CallbackCreate(ObjBindMethod(implObj, "put_DefaultSubChannelTypes"), flags, 3)
+        this.vtbl.IsTapingPermitted := CallbackCreate(ObjBindMethod(implObj, "IsTapingPermitted"), flags, 1)
     }
 
     Dispose() {

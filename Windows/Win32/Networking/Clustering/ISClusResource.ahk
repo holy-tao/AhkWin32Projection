@@ -233,7 +233,6 @@ export default struct ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_CommonProperties() {
@@ -242,7 +241,6 @@ export default struct ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_PrivateProperties() {
@@ -251,7 +249,6 @@ export default struct ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_CommonROProperties() {
@@ -260,7 +257,6 @@ export default struct ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_PrivateROProperties() {
@@ -269,7 +265,6 @@ export default struct ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     get_Handle() {
@@ -278,7 +273,6 @@ export default struct ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -288,7 +282,6 @@ export default struct ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrResourceName 
      * @returns {HRESULT} 
      */
@@ -300,7 +293,6 @@ export default struct ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {CLUSTER_RESOURCE_STATE} 
      */
     get_State() {
@@ -309,7 +301,6 @@ export default struct ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {CLUS_FLAGS} 
      */
     get_CoreFlag() {
@@ -318,7 +309,6 @@ export default struct ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDevicePath 
      * @param {Integer} lMaxLogSize 
      * @returns {HRESULT} 
@@ -331,7 +321,6 @@ export default struct ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Delete() {
@@ -340,7 +329,6 @@ export default struct ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Fail() {
@@ -349,7 +337,6 @@ export default struct ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} nTimeout 
      * @returns {VARIANT} 
      */
@@ -360,7 +347,6 @@ export default struct ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} nTimeout 
      * @returns {VARIANT} 
      */
@@ -371,7 +357,6 @@ export default struct ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISClusResGroup} pResourceGroup 
      * @returns {HRESULT} 
      */
@@ -381,7 +366,6 @@ export default struct ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISClusNode} pNode 
      * @returns {HRESULT} 
      */
@@ -391,7 +375,6 @@ export default struct ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISClusNode} pNode 
      * @returns {HRESULT} 
      */
@@ -423,7 +406,6 @@ export default struct ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusResPossibleOwnerNodes} 
      */
     get_PossibleOwnerNodes() {
@@ -432,7 +414,6 @@ export default struct ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusResDependencies} 
      */
     get_Dependencies() {
@@ -441,7 +422,6 @@ export default struct ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusResDependents} 
      */
     get_Dependents() {
@@ -450,7 +430,6 @@ export default struct ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusResGroup} 
      */
     get_Group() {
@@ -459,7 +438,6 @@ export default struct ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusNode} 
      */
     get_OwnerNode() {
@@ -468,7 +446,6 @@ export default struct ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISCluster} 
      */
     get_Cluster() {
@@ -477,7 +454,6 @@ export default struct ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {CLUSTER_RESOURCE_CLASS} 
      */
     get_ClassInfo() {
@@ -486,7 +462,6 @@ export default struct ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusDisk} 
      */
     get_Disk() {
@@ -495,7 +470,6 @@ export default struct ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusRegistryKeys} 
      */
     get_RegistryKeys() {
@@ -504,7 +478,6 @@ export default struct ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusCryptoKeys} 
      */
     get_CryptoKeys() {
@@ -513,7 +486,6 @@ export default struct ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_TypeName() {
@@ -523,7 +495,6 @@ export default struct ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusResType} 
      */
     get_Type() {
@@ -532,7 +503,6 @@ export default struct ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_MaintenanceMode() {
@@ -541,7 +511,6 @@ export default struct ISClusResource extends IDispatch {
     }
 
     /**
-     * 
      * @param {BOOL} bMaintenanceMode 
      * @returns {HRESULT} 
      */
@@ -559,38 +528,38 @@ export default struct ISClusResource extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_CommonProperties := CallbackCreate(GetMethod(implObj, "get_CommonProperties"), flags, 2)
-        this.vtbl.get_PrivateProperties := CallbackCreate(GetMethod(implObj, "get_PrivateProperties"), flags, 2)
-        this.vtbl.get_CommonROProperties := CallbackCreate(GetMethod(implObj, "get_CommonROProperties"), flags, 2)
-        this.vtbl.get_PrivateROProperties := CallbackCreate(GetMethod(implObj, "get_PrivateROProperties"), flags, 2)
-        this.vtbl.get_Handle := CallbackCreate(GetMethod(implObj, "get_Handle"), flags, 2)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
-        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
-        this.vtbl.get_CoreFlag := CallbackCreate(GetMethod(implObj, "get_CoreFlag"), flags, 2)
-        this.vtbl.BecomeQuorumResource := CallbackCreate(GetMethod(implObj, "BecomeQuorumResource"), flags, 3)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
-        this.vtbl.Fail := CallbackCreate(GetMethod(implObj, "Fail"), flags, 1)
-        this.vtbl.Online := CallbackCreate(GetMethod(implObj, "Online"), flags, 3)
-        this.vtbl.Offline := CallbackCreate(GetMethod(implObj, "Offline"), flags, 3)
-        this.vtbl.ChangeResourceGroup := CallbackCreate(GetMethod(implObj, "ChangeResourceGroup"), flags, 2)
-        this.vtbl.AddResourceNode := CallbackCreate(GetMethod(implObj, "AddResourceNode"), flags, 2)
-        this.vtbl.RemoveResourceNode := CallbackCreate(GetMethod(implObj, "RemoveResourceNode"), flags, 2)
-        this.vtbl.CanResourceBeDependent := CallbackCreate(GetMethod(implObj, "CanResourceBeDependent"), flags, 3)
-        this.vtbl.get_PossibleOwnerNodes := CallbackCreate(GetMethod(implObj, "get_PossibleOwnerNodes"), flags, 2)
-        this.vtbl.get_Dependencies := CallbackCreate(GetMethod(implObj, "get_Dependencies"), flags, 2)
-        this.vtbl.get_Dependents := CallbackCreate(GetMethod(implObj, "get_Dependents"), flags, 2)
-        this.vtbl.get_Group := CallbackCreate(GetMethod(implObj, "get_Group"), flags, 2)
-        this.vtbl.get_OwnerNode := CallbackCreate(GetMethod(implObj, "get_OwnerNode"), flags, 2)
-        this.vtbl.get_Cluster := CallbackCreate(GetMethod(implObj, "get_Cluster"), flags, 2)
-        this.vtbl.get_ClassInfo := CallbackCreate(GetMethod(implObj, "get_ClassInfo"), flags, 2)
-        this.vtbl.get_Disk := CallbackCreate(GetMethod(implObj, "get_Disk"), flags, 2)
-        this.vtbl.get_RegistryKeys := CallbackCreate(GetMethod(implObj, "get_RegistryKeys"), flags, 2)
-        this.vtbl.get_CryptoKeys := CallbackCreate(GetMethod(implObj, "get_CryptoKeys"), flags, 2)
-        this.vtbl.get_TypeName := CallbackCreate(GetMethod(implObj, "get_TypeName"), flags, 2)
-        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
-        this.vtbl.get_MaintenanceMode := CallbackCreate(GetMethod(implObj, "get_MaintenanceMode"), flags, 2)
-        this.vtbl.put_MaintenanceMode := CallbackCreate(GetMethod(implObj, "put_MaintenanceMode"), flags, 2)
+        this.vtbl.get_CommonProperties := CallbackCreate(ObjBindMethod(implObj, "get_CommonProperties"), flags, 2)
+        this.vtbl.get_PrivateProperties := CallbackCreate(ObjBindMethod(implObj, "get_PrivateProperties"), flags, 2)
+        this.vtbl.get_CommonROProperties := CallbackCreate(ObjBindMethod(implObj, "get_CommonROProperties"), flags, 2)
+        this.vtbl.get_PrivateROProperties := CallbackCreate(ObjBindMethod(implObj, "get_PrivateROProperties"), flags, 2)
+        this.vtbl.get_Handle := CallbackCreate(ObjBindMethod(implObj, "get_Handle"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(ObjBindMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(ObjBindMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.get_CoreFlag := CallbackCreate(ObjBindMethod(implObj, "get_CoreFlag"), flags, 2)
+        this.vtbl.BecomeQuorumResource := CallbackCreate(ObjBindMethod(implObj, "BecomeQuorumResource"), flags, 3)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.Fail := CallbackCreate(ObjBindMethod(implObj, "Fail"), flags, 1)
+        this.vtbl.Online := CallbackCreate(ObjBindMethod(implObj, "Online"), flags, 3)
+        this.vtbl.Offline := CallbackCreate(ObjBindMethod(implObj, "Offline"), flags, 3)
+        this.vtbl.ChangeResourceGroup := CallbackCreate(ObjBindMethod(implObj, "ChangeResourceGroup"), flags, 2)
+        this.vtbl.AddResourceNode := CallbackCreate(ObjBindMethod(implObj, "AddResourceNode"), flags, 2)
+        this.vtbl.RemoveResourceNode := CallbackCreate(ObjBindMethod(implObj, "RemoveResourceNode"), flags, 2)
+        this.vtbl.CanResourceBeDependent := CallbackCreate(ObjBindMethod(implObj, "CanResourceBeDependent"), flags, 3)
+        this.vtbl.get_PossibleOwnerNodes := CallbackCreate(ObjBindMethod(implObj, "get_PossibleOwnerNodes"), flags, 2)
+        this.vtbl.get_Dependencies := CallbackCreate(ObjBindMethod(implObj, "get_Dependencies"), flags, 2)
+        this.vtbl.get_Dependents := CallbackCreate(ObjBindMethod(implObj, "get_Dependents"), flags, 2)
+        this.vtbl.get_Group := CallbackCreate(ObjBindMethod(implObj, "get_Group"), flags, 2)
+        this.vtbl.get_OwnerNode := CallbackCreate(ObjBindMethod(implObj, "get_OwnerNode"), flags, 2)
+        this.vtbl.get_Cluster := CallbackCreate(ObjBindMethod(implObj, "get_Cluster"), flags, 2)
+        this.vtbl.get_ClassInfo := CallbackCreate(ObjBindMethod(implObj, "get_ClassInfo"), flags, 2)
+        this.vtbl.get_Disk := CallbackCreate(ObjBindMethod(implObj, "get_Disk"), flags, 2)
+        this.vtbl.get_RegistryKeys := CallbackCreate(ObjBindMethod(implObj, "get_RegistryKeys"), flags, 2)
+        this.vtbl.get_CryptoKeys := CallbackCreate(ObjBindMethod(implObj, "get_CryptoKeys"), flags, 2)
+        this.vtbl.get_TypeName := CallbackCreate(ObjBindMethod(implObj, "get_TypeName"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(ObjBindMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_MaintenanceMode := CallbackCreate(ObjBindMethod(implObj, "get_MaintenanceMode"), flags, 2)
+        this.vtbl.put_MaintenanceMode := CallbackCreate(ObjBindMethod(implObj, "put_MaintenanceMode"), flags, 2)
     }
 
     Dispose() {

@@ -24,7 +24,6 @@ export default struct RPC_AUTH_KEY_RETRIEVAL_FN {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} Arg Pointer to a user-defined argument to the user-supplied encryption key acquisition function. The RPC run-time library uses the <i>Arg</i> parameter supplied to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcserverregisterauthinfo">RpcServerRegisterAuthInfo</a>.
      * @param {PWSTR} ServerPrincName Pointer to the principal name to use for the server when authenticating remote procedure calls. The RPC run-time library uses the <i>ServerPrincName</i> parameter supplied to 
@@ -37,9 +36,9 @@ export default struct RPC_AUTH_KEY_RETRIEVAL_FN {
     Call(Arg, ServerPrincName, KeyVer, Key, _Status) {
         ServerPrincName := ServerPrincName is String ? StrPtr(ServerPrincName) : ServerPrincName
 
-        ArgMarshal := Arg is VarRef ? "ptr" : "ptr"
-        KeyMarshal := Key is VarRef ? "ptr*" : "ptr"
-        _StatusMarshal := _Status is VarRef ? "int*" : "ptr"
+        ArgMarshal := Arg is VarRef ? "ptr" : IntPtr
+        KeyMarshal := Key is VarRef ? "ptr*" : IntPtr
+        _StatusMarshal := _Status is VarRef ? "int*" : IntPtr
 
         DllCall(this.value, ArgMarshal, Arg, "ptr", ServerPrincName, UInt32, KeyVer, KeyMarshal, Key, _StatusMarshal, _Status)
     }

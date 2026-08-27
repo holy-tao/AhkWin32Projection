@@ -40,7 +40,6 @@ export default struct ISpeechFileStream extends ISpeechBaseStream {
     }
 
     /**
-     * 
      * @param {BSTR} FileName 
      * @param {SpeechStreamFileMode} FileMode 
      * @param {VARIANT_BOOL} DoEvents 
@@ -54,7 +53,6 @@ export default struct ISpeechFileStream extends ISpeechBaseStream {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Close() {
@@ -71,8 +69,8 @@ export default struct ISpeechFileStream extends ISpeechBaseStream {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 4)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.Open := CallbackCreate(ObjBindMethod(implObj, "Open"), flags, 4)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
     }
 
     Dispose() {

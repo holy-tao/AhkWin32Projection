@@ -19,16 +19,15 @@ export default struct PLSA_GET_USER_AUTH_DATA {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} UserHandle 
      * @param {Pointer<Pointer<Integer>>} UserAuthData 
      * @param {Pointer<Integer>} UserAuthDataSize 
      * @returns {NTSTATUS} 
      */
     Call(UserHandle, UserAuthData, UserAuthDataSize) {
-        UserHandleMarshal := UserHandle is VarRef ? "ptr" : "ptr"
-        UserAuthDataMarshal := UserAuthData is VarRef ? "ptr*" : "ptr"
-        UserAuthDataSizeMarshal := UserAuthDataSize is VarRef ? "uint*" : "ptr"
+        UserHandleMarshal := UserHandle is VarRef ? "ptr" : IntPtr
+        UserAuthDataMarshal := UserAuthData is VarRef ? "ptr*" : IntPtr
+        UserAuthDataSizeMarshal := UserAuthDataSize is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, UserHandleMarshal, UserHandle, UserAuthDataMarshal, UserAuthData, UserAuthDataSizeMarshal, UserAuthDataSize, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

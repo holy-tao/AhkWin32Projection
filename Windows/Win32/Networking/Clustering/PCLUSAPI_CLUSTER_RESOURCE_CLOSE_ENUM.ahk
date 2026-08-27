@@ -19,7 +19,6 @@ export default struct PCLUSAPI_CLUSTER_RESOURCE_CLOSE_ENUM {
     }
 
     /**
-     * 
      * @param {HRESENUM} _hResEnum 
      * @returns {Integer} 
      */

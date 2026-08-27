@@ -114,9 +114,9 @@ export default struct IAMParse extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetParseTime := CallbackCreate(GetMethod(implObj, "GetParseTime"), flags, 2)
-        this.vtbl.SetParseTime := CallbackCreate(GetMethod(implObj, "SetParseTime"), flags, 2)
-        this.vtbl.Flush := CallbackCreate(GetMethod(implObj, "Flush"), flags, 1)
+        this.vtbl.GetParseTime := CallbackCreate(ObjBindMethod(implObj, "GetParseTime"), flags, 2)
+        this.vtbl.SetParseTime := CallbackCreate(ObjBindMethod(implObj, "SetParseTime"), flags, 2)
+        this.vtbl.Flush := CallbackCreate(ObjBindMethod(implObj, "Flush"), flags, 1)
     }
 
     Dispose() {

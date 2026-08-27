@@ -62,8 +62,8 @@ export default struct IItemNameLimits extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iitemnamelimits-getvalidcharacters
      */
     GetValidCharacters(ppwszValidChars, ppwszInvalidChars) {
-        ppwszValidCharsMarshal := ppwszValidChars is VarRef ? "ptr*" : "ptr"
-        ppwszInvalidCharsMarshal := ppwszInvalidChars is VarRef ? "ptr*" : "ptr"
+        ppwszValidCharsMarshal := ppwszValidChars is VarRef ? "ptr*" : IntPtr
+        ppwszInvalidCharsMarshal := ppwszInvalidChars is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, ppwszValidCharsMarshal, ppwszValidChars, ppwszInvalidCharsMarshal, ppwszInvalidChars, "HRESULT")
         return result
@@ -95,8 +95,8 @@ export default struct IItemNameLimits extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetValidCharacters := CallbackCreate(GetMethod(implObj, "GetValidCharacters"), flags, 3)
-        this.vtbl.GetMaxLength := CallbackCreate(GetMethod(implObj, "GetMaxLength"), flags, 3)
+        this.vtbl.GetValidCharacters := CallbackCreate(ObjBindMethod(implObj, "GetValidCharacters"), flags, 3)
+        this.vtbl.GetMaxLength := CallbackCreate(ObjBindMethod(implObj, "GetMaxLength"), flags, 3)
     }
 
     Dispose() {

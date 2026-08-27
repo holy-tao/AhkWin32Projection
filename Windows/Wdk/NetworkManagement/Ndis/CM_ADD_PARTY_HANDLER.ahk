@@ -18,7 +18,6 @@ export default struct CM_ADD_PARTY_HANDLER {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Call() {

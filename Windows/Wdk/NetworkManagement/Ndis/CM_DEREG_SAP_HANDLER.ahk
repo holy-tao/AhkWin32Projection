@@ -18,7 +18,6 @@ export default struct CM_DEREG_SAP_HANDLER {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Call() {

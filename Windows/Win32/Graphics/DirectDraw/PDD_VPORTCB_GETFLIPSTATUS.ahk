@@ -27,7 +27,6 @@ export default struct PDD_VPORTCB_GETFLIPSTATUS {
     }
 
     /**
-     * 
      * @param {Pointer<DD_GETVPORTFLIPSTATUSDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_getvportflipstatusdata">DD_GETVPORTFLIPSTATUSDATA</a> structure that contains the information required for the driver to determine a surface's flip status.
      * @returns {Integer} <i>DdVideoPortGetFlipStatus</i> returns one of the following callback codes:
      */

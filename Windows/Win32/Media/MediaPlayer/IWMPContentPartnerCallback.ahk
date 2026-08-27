@@ -217,9 +217,9 @@ export default struct IWMPContentPartnerCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentpartnercallback-getcatalogversion
      */
     GetCatalogVersion(pdwVersion, pdwSchemaVersion, plcid) {
-        pdwVersionMarshal := pdwVersion is VarRef ? "uint*" : "ptr"
-        pdwSchemaVersionMarshal := pdwSchemaVersion is VarRef ? "uint*" : "ptr"
-        plcidMarshal := plcid is VarRef ? "uint*" : "ptr"
+        pdwVersionMarshal := pdwVersion is VarRef ? "uint*" : IntPtr
+        pdwSchemaVersionMarshal := pdwSchemaVersion is VarRef ? "uint*" : IntPtr
+        plcidMarshal := plcid is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, pdwVersionMarshal, pdwVersion, pdwSchemaVersionMarshal, pdwSchemaVersion, plcidMarshal, plcid, "HRESULT")
         return result
@@ -322,7 +322,7 @@ export default struct IWMPContentPartnerCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentpartnercallback-addlistcontents
      */
     AddListContents(dwListCookie, cItems, prgItems) {
-        prgItemsMarshal := prgItems is VarRef ? "uint*" : "ptr"
+        prgItemsMarshal := prgItems is VarRef ? "uint*" : IntPtr
 
         result := ComCall(9, this, UInt32, dwListCookie, UInt32, cItems, prgItemsMarshal, prgItems, "HRESULT")
         return result
@@ -432,8 +432,8 @@ export default struct IWMPContentPartnerCallback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentpartnercallback-getcontentidsinlibrary
      */
     GetContentIDsInLibrary(pcContentIDs, pprgIDs) {
-        pcContentIDsMarshal := pcContentIDs is VarRef ? "uint*" : "ptr"
-        pprgIDsMarshal := pprgIDs is VarRef ? "ptr*" : "ptr"
+        pcContentIDsMarshal := pcContentIDs is VarRef ? "uint*" : IntPtr
+        pprgIDsMarshal := pprgIDs is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(12, this, pcContentIDsMarshal, pcContentIDs, pprgIDsMarshal, pprgIDs, "HRESULT")
         return result
@@ -556,19 +556,19 @@ export default struct IWMPContentPartnerCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Notify := CallbackCreate(GetMethod(implObj, "Notify"), flags, 3)
-        this.vtbl.BuyComplete := CallbackCreate(GetMethod(implObj, "BuyComplete"), flags, 3)
-        this.vtbl.DownloadTrack := CallbackCreate(GetMethod(implObj, "DownloadTrack"), flags, 6)
-        this.vtbl.GetCatalogVersion := CallbackCreate(GetMethod(implObj, "GetCatalogVersion"), flags, 4)
-        this.vtbl.UpdateDeviceComplete := CallbackCreate(GetMethod(implObj, "UpdateDeviceComplete"), flags, 2)
-        this.vtbl.ChangeView := CallbackCreate(GetMethod(implObj, "ChangeView"), flags, 4)
-        this.vtbl.AddListContents := CallbackCreate(GetMethod(implObj, "AddListContents"), flags, 4)
-        this.vtbl.ListContentsComplete := CallbackCreate(GetMethod(implObj, "ListContentsComplete"), flags, 3)
-        this.vtbl.SendMessageComplete := CallbackCreate(GetMethod(implObj, "SendMessageComplete"), flags, 4)
-        this.vtbl.GetContentIDsInLibrary := CallbackCreate(GetMethod(implObj, "GetContentIDsInLibrary"), flags, 3)
-        this.vtbl.RefreshLicenseComplete := CallbackCreate(GetMethod(implObj, "RefreshLicenseComplete"), flags, 4)
-        this.vtbl.ShowPopup := CallbackCreate(GetMethod(implObj, "ShowPopup"), flags, 3)
-        this.vtbl.VerifyPermissionComplete := CallbackCreate(GetMethod(implObj, "VerifyPermissionComplete"), flags, 4)
+        this.vtbl.Notify := CallbackCreate(ObjBindMethod(implObj, "Notify"), flags, 3)
+        this.vtbl.BuyComplete := CallbackCreate(ObjBindMethod(implObj, "BuyComplete"), flags, 3)
+        this.vtbl.DownloadTrack := CallbackCreate(ObjBindMethod(implObj, "DownloadTrack"), flags, 6)
+        this.vtbl.GetCatalogVersion := CallbackCreate(ObjBindMethod(implObj, "GetCatalogVersion"), flags, 4)
+        this.vtbl.UpdateDeviceComplete := CallbackCreate(ObjBindMethod(implObj, "UpdateDeviceComplete"), flags, 2)
+        this.vtbl.ChangeView := CallbackCreate(ObjBindMethod(implObj, "ChangeView"), flags, 4)
+        this.vtbl.AddListContents := CallbackCreate(ObjBindMethod(implObj, "AddListContents"), flags, 4)
+        this.vtbl.ListContentsComplete := CallbackCreate(ObjBindMethod(implObj, "ListContentsComplete"), flags, 3)
+        this.vtbl.SendMessageComplete := CallbackCreate(ObjBindMethod(implObj, "SendMessageComplete"), flags, 4)
+        this.vtbl.GetContentIDsInLibrary := CallbackCreate(ObjBindMethod(implObj, "GetContentIDsInLibrary"), flags, 3)
+        this.vtbl.RefreshLicenseComplete := CallbackCreate(ObjBindMethod(implObj, "RefreshLicenseComplete"), flags, 4)
+        this.vtbl.ShowPopup := CallbackCreate(ObjBindMethod(implObj, "ShowPopup"), flags, 3)
+        this.vtbl.VerifyPermissionComplete := CallbackCreate(ObjBindMethod(implObj, "VerifyPermissionComplete"), flags, 4)
     }
 
     Dispose() {

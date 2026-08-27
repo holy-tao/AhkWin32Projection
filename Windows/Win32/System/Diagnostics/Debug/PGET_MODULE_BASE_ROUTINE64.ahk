@@ -26,7 +26,6 @@ export default struct PGET_MODULE_BASE_ROUTINE64 {
     }
 
     /**
-     * 
      * @param {HANDLE} hProcess A handle to the process for which the stack trace is generated.
      * @param {Integer} _Address An address within the module image to be located.
      * @returns {Integer} The function returns the base address of the module.

@@ -19,7 +19,6 @@ export default struct PTRANSLATE_BUS_ADDRESS {
     }
 
     /**
-     * 
      * @returns {BOOLEAN} 
      */
     Call() {

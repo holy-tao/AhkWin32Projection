@@ -236,12 +236,12 @@ export default struct IApplicationDesignModeSettings extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetNativeDisplaySize := CallbackCreate(GetMethod(implObj, "SetNativeDisplaySize"), flags, 2)
-        this.vtbl.SetScaleFactor := CallbackCreate(GetMethod(implObj, "SetScaleFactor"), flags, 2)
-        this.vtbl.SetApplicationViewState := CallbackCreate(GetMethod(implObj, "SetApplicationViewState"), flags, 2)
-        this.vtbl.ComputeApplicationSize := CallbackCreate(GetMethod(implObj, "ComputeApplicationSize"), flags, 2)
-        this.vtbl.IsApplicationViewStateSupported := CallbackCreate(GetMethod(implObj, "IsApplicationViewStateSupported"), flags, 5)
-        this.vtbl.TriggerEdgeGesture := CallbackCreate(GetMethod(implObj, "TriggerEdgeGesture"), flags, 2)
+        this.vtbl.SetNativeDisplaySize := CallbackCreate(ObjBindMethod(implObj, "SetNativeDisplaySize"), flags, 2)
+        this.vtbl.SetScaleFactor := CallbackCreate(ObjBindMethod(implObj, "SetScaleFactor"), flags, 2)
+        this.vtbl.SetApplicationViewState := CallbackCreate(ObjBindMethod(implObj, "SetApplicationViewState"), flags, 2)
+        this.vtbl.ComputeApplicationSize := CallbackCreate(ObjBindMethod(implObj, "ComputeApplicationSize"), flags, 2)
+        this.vtbl.IsApplicationViewStateSupported := CallbackCreate(ObjBindMethod(implObj, "IsApplicationViewStateSupported"), flags, 5)
+        this.vtbl.TriggerEdgeGesture := CallbackCreate(ObjBindMethod(implObj, "TriggerEdgeGesture"), flags, 2)
     }
 
     Dispose() {

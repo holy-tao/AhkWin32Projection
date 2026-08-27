@@ -592,7 +592,9 @@ export default struct ITextFont2 extends ITextFont {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-setduplicate2
      */
     SetDuplicate2(pFont) {
-        result := ComCall(80, this, "ptr", pFont, "HRESULT")
+        pFontMarshal := pFont == 0 ? IntPtr : "ptr"
+
+        result := ComCall(80, this, pFontMarshal, pFont, "HRESULT")
         return result
     }
 
@@ -1079,8 +1081,8 @@ export default struct ITextFont2 extends ITextFont {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-geteffects
      */
     GetEffects(pValue, pMask) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-        pMaskMarshal := pMask is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "int*" : IntPtr
+        pMaskMarshal := pMask is VarRef ? "int*" : IntPtr
 
         result := ComCall(100, this, pValueMarshal, pValue, pMaskMarshal, pMask, "HRESULT")
         return result
@@ -1104,8 +1106,8 @@ export default struct ITextFont2 extends ITextFont {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-geteffects2
      */
     GetEffects2(pValue, pMask) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-        pMaskMarshal := pMask is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "int*" : IntPtr
+        pMaskMarshal := pMask is VarRef ? "int*" : IntPtr
 
         result := ComCall(101, this, pValueMarshal, pValue, pMaskMarshal, pMask, "HRESULT")
         return result
@@ -1146,8 +1148,8 @@ export default struct ITextFont2 extends ITextFont {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-getpropertyinfo
      */
     GetPropertyInfo(Index, pType, pValue) {
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+        pTypeMarshal := pType is VarRef ? "int*" : IntPtr
+        pValueMarshal := pValue is VarRef ? "int*" : IntPtr
 
         result := ComCall(103, this, Int32, Index, pTypeMarshal, pType, pValueMarshal, pValue, "HRESULT")
         return result
@@ -1168,7 +1170,9 @@ export default struct ITextFont2 extends ITextFont {
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextfont2-isequal2
      */
     IsEqual2(pFont) {
-        result := ComCall(104, this, "ptr", pFont, "int*", &pB := 0, "HRESULT")
+        pFontMarshal := pFont == 0 ? IntPtr : "ptr"
+
+        result := ComCall(104, this, pFontMarshal, pFont, "int*", &pB := 0, "HRESULT")
         return pB
     }
 
@@ -1247,52 +1251,52 @@ export default struct ITextFont2 extends ITextFont {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
-        this.vtbl.GetAutoLigatures := CallbackCreate(GetMethod(implObj, "GetAutoLigatures"), flags, 2)
-        this.vtbl.SetAutoLigatures := CallbackCreate(GetMethod(implObj, "SetAutoLigatures"), flags, 2)
-        this.vtbl.GetAutospaceAlpha := CallbackCreate(GetMethod(implObj, "GetAutospaceAlpha"), flags, 2)
-        this.vtbl.SetAutospaceAlpha := CallbackCreate(GetMethod(implObj, "SetAutospaceAlpha"), flags, 2)
-        this.vtbl.GetAutospaceNumeric := CallbackCreate(GetMethod(implObj, "GetAutospaceNumeric"), flags, 2)
-        this.vtbl.SetAutospaceNumeric := CallbackCreate(GetMethod(implObj, "SetAutospaceNumeric"), flags, 2)
-        this.vtbl.GetAutospaceParens := CallbackCreate(GetMethod(implObj, "GetAutospaceParens"), flags, 2)
-        this.vtbl.SetAutospaceParens := CallbackCreate(GetMethod(implObj, "SetAutospaceParens"), flags, 2)
-        this.vtbl.GetCharRep := CallbackCreate(GetMethod(implObj, "GetCharRep"), flags, 2)
-        this.vtbl.SetCharRep := CallbackCreate(GetMethod(implObj, "SetCharRep"), flags, 2)
-        this.vtbl.GetCompressionMode := CallbackCreate(GetMethod(implObj, "GetCompressionMode"), flags, 2)
-        this.vtbl.SetCompressionMode := CallbackCreate(GetMethod(implObj, "SetCompressionMode"), flags, 2)
-        this.vtbl.GetCookie := CallbackCreate(GetMethod(implObj, "GetCookie"), flags, 2)
-        this.vtbl.SetCookie := CallbackCreate(GetMethod(implObj, "SetCookie"), flags, 2)
-        this.vtbl.GetDoubleStrike := CallbackCreate(GetMethod(implObj, "GetDoubleStrike"), flags, 2)
-        this.vtbl.SetDoubleStrike := CallbackCreate(GetMethod(implObj, "SetDoubleStrike"), flags, 2)
-        this.vtbl.GetDuplicate2 := CallbackCreate(GetMethod(implObj, "GetDuplicate2"), flags, 2)
-        this.vtbl.SetDuplicate2 := CallbackCreate(GetMethod(implObj, "SetDuplicate2"), flags, 2)
-        this.vtbl.GetLinkType := CallbackCreate(GetMethod(implObj, "GetLinkType"), flags, 2)
-        this.vtbl.GetMathZone := CallbackCreate(GetMethod(implObj, "GetMathZone"), flags, 2)
-        this.vtbl.SetMathZone := CallbackCreate(GetMethod(implObj, "SetMathZone"), flags, 2)
-        this.vtbl.GetModWidthPairs := CallbackCreate(GetMethod(implObj, "GetModWidthPairs"), flags, 2)
-        this.vtbl.SetModWidthPairs := CallbackCreate(GetMethod(implObj, "SetModWidthPairs"), flags, 2)
-        this.vtbl.GetModWidthSpace := CallbackCreate(GetMethod(implObj, "GetModWidthSpace"), flags, 2)
-        this.vtbl.SetModWidthSpace := CallbackCreate(GetMethod(implObj, "SetModWidthSpace"), flags, 2)
-        this.vtbl.GetOldNumbers := CallbackCreate(GetMethod(implObj, "GetOldNumbers"), flags, 2)
-        this.vtbl.SetOldNumbers := CallbackCreate(GetMethod(implObj, "SetOldNumbers"), flags, 2)
-        this.vtbl.GetOverlapping := CallbackCreate(GetMethod(implObj, "GetOverlapping"), flags, 2)
-        this.vtbl.SetOverlapping := CallbackCreate(GetMethod(implObj, "SetOverlapping"), flags, 2)
-        this.vtbl.GetPositionSubSuper := CallbackCreate(GetMethod(implObj, "GetPositionSubSuper"), flags, 2)
-        this.vtbl.SetPositionSubSuper := CallbackCreate(GetMethod(implObj, "SetPositionSubSuper"), flags, 2)
-        this.vtbl.GetScaling := CallbackCreate(GetMethod(implObj, "GetScaling"), flags, 2)
-        this.vtbl.SetScaling := CallbackCreate(GetMethod(implObj, "SetScaling"), flags, 2)
-        this.vtbl.GetSpaceExtension := CallbackCreate(GetMethod(implObj, "GetSpaceExtension"), flags, 2)
-        this.vtbl.SetSpaceExtension := CallbackCreate(GetMethod(implObj, "SetSpaceExtension"), flags, 2)
-        this.vtbl.GetUnderlinePositionMode := CallbackCreate(GetMethod(implObj, "GetUnderlinePositionMode"), flags, 2)
-        this.vtbl.SetUnderlinePositionMode := CallbackCreate(GetMethod(implObj, "SetUnderlinePositionMode"), flags, 2)
-        this.vtbl.GetEffects := CallbackCreate(GetMethod(implObj, "GetEffects"), flags, 3)
-        this.vtbl.GetEffects2 := CallbackCreate(GetMethod(implObj, "GetEffects2"), flags, 3)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 3)
-        this.vtbl.GetPropertyInfo := CallbackCreate(GetMethod(implObj, "GetPropertyInfo"), flags, 4)
-        this.vtbl.IsEqual2 := CallbackCreate(GetMethod(implObj, "IsEqual2"), flags, 3)
-        this.vtbl.SetEffects := CallbackCreate(GetMethod(implObj, "SetEffects"), flags, 3)
-        this.vtbl.SetEffects2 := CallbackCreate(GetMethod(implObj, "SetEffects2"), flags, 3)
-        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 3)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetAutoLigatures := CallbackCreate(ObjBindMethod(implObj, "GetAutoLigatures"), flags, 2)
+        this.vtbl.SetAutoLigatures := CallbackCreate(ObjBindMethod(implObj, "SetAutoLigatures"), flags, 2)
+        this.vtbl.GetAutospaceAlpha := CallbackCreate(ObjBindMethod(implObj, "GetAutospaceAlpha"), flags, 2)
+        this.vtbl.SetAutospaceAlpha := CallbackCreate(ObjBindMethod(implObj, "SetAutospaceAlpha"), flags, 2)
+        this.vtbl.GetAutospaceNumeric := CallbackCreate(ObjBindMethod(implObj, "GetAutospaceNumeric"), flags, 2)
+        this.vtbl.SetAutospaceNumeric := CallbackCreate(ObjBindMethod(implObj, "SetAutospaceNumeric"), flags, 2)
+        this.vtbl.GetAutospaceParens := CallbackCreate(ObjBindMethod(implObj, "GetAutospaceParens"), flags, 2)
+        this.vtbl.SetAutospaceParens := CallbackCreate(ObjBindMethod(implObj, "SetAutospaceParens"), flags, 2)
+        this.vtbl.GetCharRep := CallbackCreate(ObjBindMethod(implObj, "GetCharRep"), flags, 2)
+        this.vtbl.SetCharRep := CallbackCreate(ObjBindMethod(implObj, "SetCharRep"), flags, 2)
+        this.vtbl.GetCompressionMode := CallbackCreate(ObjBindMethod(implObj, "GetCompressionMode"), flags, 2)
+        this.vtbl.SetCompressionMode := CallbackCreate(ObjBindMethod(implObj, "SetCompressionMode"), flags, 2)
+        this.vtbl.GetCookie := CallbackCreate(ObjBindMethod(implObj, "GetCookie"), flags, 2)
+        this.vtbl.SetCookie := CallbackCreate(ObjBindMethod(implObj, "SetCookie"), flags, 2)
+        this.vtbl.GetDoubleStrike := CallbackCreate(ObjBindMethod(implObj, "GetDoubleStrike"), flags, 2)
+        this.vtbl.SetDoubleStrike := CallbackCreate(ObjBindMethod(implObj, "SetDoubleStrike"), flags, 2)
+        this.vtbl.GetDuplicate2 := CallbackCreate(ObjBindMethod(implObj, "GetDuplicate2"), flags, 2)
+        this.vtbl.SetDuplicate2 := CallbackCreate(ObjBindMethod(implObj, "SetDuplicate2"), flags, 2)
+        this.vtbl.GetLinkType := CallbackCreate(ObjBindMethod(implObj, "GetLinkType"), flags, 2)
+        this.vtbl.GetMathZone := CallbackCreate(ObjBindMethod(implObj, "GetMathZone"), flags, 2)
+        this.vtbl.SetMathZone := CallbackCreate(ObjBindMethod(implObj, "SetMathZone"), flags, 2)
+        this.vtbl.GetModWidthPairs := CallbackCreate(ObjBindMethod(implObj, "GetModWidthPairs"), flags, 2)
+        this.vtbl.SetModWidthPairs := CallbackCreate(ObjBindMethod(implObj, "SetModWidthPairs"), flags, 2)
+        this.vtbl.GetModWidthSpace := CallbackCreate(ObjBindMethod(implObj, "GetModWidthSpace"), flags, 2)
+        this.vtbl.SetModWidthSpace := CallbackCreate(ObjBindMethod(implObj, "SetModWidthSpace"), flags, 2)
+        this.vtbl.GetOldNumbers := CallbackCreate(ObjBindMethod(implObj, "GetOldNumbers"), flags, 2)
+        this.vtbl.SetOldNumbers := CallbackCreate(ObjBindMethod(implObj, "SetOldNumbers"), flags, 2)
+        this.vtbl.GetOverlapping := CallbackCreate(ObjBindMethod(implObj, "GetOverlapping"), flags, 2)
+        this.vtbl.SetOverlapping := CallbackCreate(ObjBindMethod(implObj, "SetOverlapping"), flags, 2)
+        this.vtbl.GetPositionSubSuper := CallbackCreate(ObjBindMethod(implObj, "GetPositionSubSuper"), flags, 2)
+        this.vtbl.SetPositionSubSuper := CallbackCreate(ObjBindMethod(implObj, "SetPositionSubSuper"), flags, 2)
+        this.vtbl.GetScaling := CallbackCreate(ObjBindMethod(implObj, "GetScaling"), flags, 2)
+        this.vtbl.SetScaling := CallbackCreate(ObjBindMethod(implObj, "SetScaling"), flags, 2)
+        this.vtbl.GetSpaceExtension := CallbackCreate(ObjBindMethod(implObj, "GetSpaceExtension"), flags, 2)
+        this.vtbl.SetSpaceExtension := CallbackCreate(ObjBindMethod(implObj, "SetSpaceExtension"), flags, 2)
+        this.vtbl.GetUnderlinePositionMode := CallbackCreate(ObjBindMethod(implObj, "GetUnderlinePositionMode"), flags, 2)
+        this.vtbl.SetUnderlinePositionMode := CallbackCreate(ObjBindMethod(implObj, "SetUnderlinePositionMode"), flags, 2)
+        this.vtbl.GetEffects := CallbackCreate(ObjBindMethod(implObj, "GetEffects"), flags, 3)
+        this.vtbl.GetEffects2 := CallbackCreate(ObjBindMethod(implObj, "GetEffects2"), flags, 3)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 3)
+        this.vtbl.GetPropertyInfo := CallbackCreate(ObjBindMethod(implObj, "GetPropertyInfo"), flags, 4)
+        this.vtbl.IsEqual2 := CallbackCreate(ObjBindMethod(implObj, "IsEqual2"), flags, 3)
+        this.vtbl.SetEffects := CallbackCreate(ObjBindMethod(implObj, "SetEffects"), flags, 3)
+        this.vtbl.SetEffects2 := CallbackCreate(ObjBindMethod(implObj, "SetEffects2"), flags, 3)
+        this.vtbl.SetProperty := CallbackCreate(ObjBindMethod(implObj, "SetProperty"), flags, 3)
     }
 
     Dispose() {

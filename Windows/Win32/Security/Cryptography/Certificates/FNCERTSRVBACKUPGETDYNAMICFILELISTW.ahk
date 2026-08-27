@@ -19,16 +19,15 @@ export default struct FNCERTSRVBACKUPGETDYNAMICFILELISTW {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hbc 
      * @param {Pointer<Pointer<Integer>>} ppwszzFileList 
      * @param {Pointer<Integer>} pcbSize 
      * @returns {HRESULT} 
      */
     Call(hbc, ppwszzFileList, pcbSize) {
-        hbcMarshal := hbc is VarRef ? "ptr" : "ptr"
-        ppwszzFileListMarshal := ppwszzFileList is VarRef ? "ptr*" : "ptr"
-        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+        hbcMarshal := hbc is VarRef ? "ptr" : IntPtr
+        ppwszzFileListMarshal := ppwszzFileList is VarRef ? "ptr*" : IntPtr
+        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, hbcMarshal, hbc, ppwszzFileListMarshal, ppwszzFileList, pcbSizeMarshal, pcbSize, "HRESULT")
         return result

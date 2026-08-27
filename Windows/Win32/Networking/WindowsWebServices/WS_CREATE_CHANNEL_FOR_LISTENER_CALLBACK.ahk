@@ -25,7 +25,6 @@ export default struct WS_CREATE_CHANNEL_FOR_LISTENER_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} listenerInstance The pointer to the state specific to this listener instance,
      *                     as created by the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_create_listener_callback">WS_CREATE_LISTENER_CALLBACK</a>.
      * @param {Integer} channelParameters The pointer to the value that was specified by the
@@ -48,8 +47,9 @@ export default struct WS_CREATE_CHANNEL_FOR_LISTENER_CALLBACK {
      *                     in this parameter.
      */
     Call(listenerInstance, channelParameters, channelParametersSize, _error) {
-        listenerInstanceMarshal := listenerInstance is VarRef ? "ptr" : "ptr"
-        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
+        listenerInstanceMarshal := listenerInstance is VarRef ? "ptr" : IntPtr
+        _errorMarshal := _error is VarRef ? "ptr*" : IntPtr
+        _errorMarshal := _error == 0 ? IntPtr : WS_ERROR.Ptr
 
         result := DllCall(this.value, listenerInstanceMarshal, listenerInstance, IntPtr, channelParameters, UInt32, channelParametersSize, "ptr*", &channelInstance := 0, _errorMarshal, _error, "HRESULT")
         return channelInstance

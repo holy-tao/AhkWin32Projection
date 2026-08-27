@@ -19,7 +19,6 @@ export default struct LPDDHALMOCOMPCB_CREATE {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_CREATEMOCOMPDATA>} param0 
      * @returns {Integer} 
      */

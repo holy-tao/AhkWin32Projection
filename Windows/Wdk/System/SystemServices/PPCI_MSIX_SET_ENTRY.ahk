@@ -19,7 +19,6 @@ export default struct PPCI_MSIX_SET_ENTRY {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

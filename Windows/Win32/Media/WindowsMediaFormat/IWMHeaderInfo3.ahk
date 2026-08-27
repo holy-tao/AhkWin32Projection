@@ -79,8 +79,8 @@ export default struct IWMHeaderInfo3 extends IWMHeaderInfo2 {
     GetAttributeIndices(wStreamNum, pwszName, pwLangIndex, pwCount) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        pwLangIndexMarshal := pwLangIndex is VarRef ? "ushort*" : "ptr"
-        pwCountMarshal := pwCount is VarRef ? "ushort*" : "ptr"
+        pwLangIndexMarshal := pwLangIndex is VarRef ? "ushort*" : IntPtr
+        pwCountMarshal := pwCount is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(18, this, UInt16, wStreamNum, "ptr", pwszName, pwLangIndexMarshal, pwLangIndex, "ushort*", &pwIndices := 0, pwCountMarshal, pwCount, "HRESULT")
         return pwIndices
@@ -157,11 +157,11 @@ export default struct IWMHeaderInfo3 extends IWMHeaderInfo2 {
     GetAttributeByIndexEx(wStreamNum, wIndex, pwszName, pwNameLen, pType, pwLangIndex, pValue, pdwDataLength) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        pwNameLenMarshal := pwNameLen is VarRef ? "ushort*" : "ptr"
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-        pwLangIndexMarshal := pwLangIndex is VarRef ? "ushort*" : "ptr"
-        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
-        pdwDataLengthMarshal := pdwDataLength is VarRef ? "uint*" : "ptr"
+        pwNameLenMarshal := pwNameLen is VarRef ? "ushort*" : IntPtr
+        pTypeMarshal := pType is VarRef ? "int*" : IntPtr
+        pwLangIndexMarshal := pwLangIndex is VarRef ? "ushort*" : IntPtr
+        pValueMarshal := pValue is VarRef ? "char*" : IntPtr
+        pdwDataLengthMarshal := pdwDataLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(19, this, UInt16, wStreamNum, UInt16, wIndex, "ptr", pwszName, pwNameLenMarshal, pwNameLen, pTypeMarshal, pType, pwLangIndexMarshal, pwLangIndex, pValueMarshal, pValue, pdwDataLengthMarshal, pdwDataLength, "HRESULT")
         return result
@@ -258,7 +258,7 @@ export default struct IWMHeaderInfo3 extends IWMHeaderInfo2 {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo3-modifyattribute
      */
     ModifyAttribute(wStreamNum, wIndex, Type, wLangIndex, pValue, dwLength) {
-        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "char*" : IntPtr
 
         result := ComCall(20, this, UInt16, wStreamNum, UInt16, wIndex, WMT_ATTR_DATATYPE, Type, UInt16, wLangIndex, pValueMarshal, pValue, UInt32, dwLength, "HRESULT")
         return result
@@ -287,7 +287,7 @@ export default struct IWMHeaderInfo3 extends IWMHeaderInfo2 {
     AddAttribute(wStreamNum, pszName, Type, wLangIndex, pValue, dwLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "char*" : IntPtr
 
         result := ComCall(21, this, UInt16, wStreamNum, "ptr", pszName, "ushort*", &pwIndex := 0, WMT_ATTR_DATATYPE, Type, UInt16, wLangIndex, pValueMarshal, pValue, UInt32, dwLength, "HRESULT")
         return pwIndex
@@ -383,7 +383,7 @@ export default struct IWMHeaderInfo3 extends IWMHeaderInfo2 {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
         pwszDescription := pwszDescription is String ? StrPtr(pwszDescription) : pwszDescription
 
-        pbCodecInfoMarshal := pbCodecInfo is VarRef ? "char*" : "ptr"
+        pbCodecInfoMarshal := pbCodecInfo is VarRef ? "char*" : IntPtr
 
         result := ComCall(23, this, "ptr", pwszName, "ptr", pwszDescription, WMT_CODEC_INFO_TYPE, codecType, UInt16, cbCodecInfo, pbCodecInfoMarshal, pbCodecInfo, "HRESULT")
         return result
@@ -398,13 +398,13 @@ export default struct IWMHeaderInfo3 extends IWMHeaderInfo2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAttributeCountEx := CallbackCreate(GetMethod(implObj, "GetAttributeCountEx"), flags, 3)
-        this.vtbl.GetAttributeIndices := CallbackCreate(GetMethod(implObj, "GetAttributeIndices"), flags, 6)
-        this.vtbl.GetAttributeByIndexEx := CallbackCreate(GetMethod(implObj, "GetAttributeByIndexEx"), flags, 9)
-        this.vtbl.ModifyAttribute := CallbackCreate(GetMethod(implObj, "ModifyAttribute"), flags, 7)
-        this.vtbl.AddAttribute := CallbackCreate(GetMethod(implObj, "AddAttribute"), flags, 8)
-        this.vtbl.DeleteAttribute := CallbackCreate(GetMethod(implObj, "DeleteAttribute"), flags, 3)
-        this.vtbl.AddCodecInfo := CallbackCreate(GetMethod(implObj, "AddCodecInfo"), flags, 6)
+        this.vtbl.GetAttributeCountEx := CallbackCreate(ObjBindMethod(implObj, "GetAttributeCountEx"), flags, 3)
+        this.vtbl.GetAttributeIndices := CallbackCreate(ObjBindMethod(implObj, "GetAttributeIndices"), flags, 6)
+        this.vtbl.GetAttributeByIndexEx := CallbackCreate(ObjBindMethod(implObj, "GetAttributeByIndexEx"), flags, 9)
+        this.vtbl.ModifyAttribute := CallbackCreate(ObjBindMethod(implObj, "ModifyAttribute"), flags, 7)
+        this.vtbl.AddAttribute := CallbackCreate(ObjBindMethod(implObj, "AddAttribute"), flags, 8)
+        this.vtbl.DeleteAttribute := CallbackCreate(ObjBindMethod(implObj, "DeleteAttribute"), flags, 3)
+        this.vtbl.AddCodecInfo := CallbackCreate(ObjBindMethod(implObj, "AddCodecInfo"), flags, 6)
     }
 
     Dispose() {

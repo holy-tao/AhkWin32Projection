@@ -63,7 +63,7 @@ export default struct IWRdsProtocolListenerCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnConnected := CallbackCreate(GetMethod(implObj, "OnConnected"), flags, 4)
+        this.vtbl.OnConnected := CallbackCreate(ObjBindMethod(implObj, "OnConnected"), flags, 4)
     }
 
     Dispose() {

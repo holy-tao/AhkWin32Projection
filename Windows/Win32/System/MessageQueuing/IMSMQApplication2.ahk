@@ -81,7 +81,6 @@ export default struct IMSMQApplication2 extends IMSMQApplication {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} Flags 
      * @param {Pointer<VARIANT>} ExternalCertificate 
      * @returns {HRESULT} 
@@ -92,7 +91,6 @@ export default struct IMSMQApplication2 extends IMSMQApplication {
     }
 
     /**
-     * 
      * @param {BSTR} bstrGuid 
      * @returns {BSTR} 
      */
@@ -105,7 +103,6 @@ export default struct IMSMQApplication2 extends IMSMQApplication {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MSMQVersionMajor() {
@@ -114,7 +111,6 @@ export default struct IMSMQApplication2 extends IMSMQApplication {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MSMQVersionMinor() {
@@ -123,7 +119,6 @@ export default struct IMSMQApplication2 extends IMSMQApplication {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MSMQVersionBuild() {
@@ -132,7 +127,6 @@ export default struct IMSMQApplication2 extends IMSMQApplication {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsDsEnabled() {
@@ -141,7 +135,6 @@ export default struct IMSMQApplication2 extends IMSMQApplication {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Properties() {
@@ -158,13 +151,13 @@ export default struct IMSMQApplication2 extends IMSMQApplication {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterCertificate := CallbackCreate(GetMethod(implObj, "RegisterCertificate"), flags, 3)
-        this.vtbl.MachineNameOfMachineId := CallbackCreate(GetMethod(implObj, "MachineNameOfMachineId"), flags, 3)
-        this.vtbl.get_MSMQVersionMajor := CallbackCreate(GetMethod(implObj, "get_MSMQVersionMajor"), flags, 2)
-        this.vtbl.get_MSMQVersionMinor := CallbackCreate(GetMethod(implObj, "get_MSMQVersionMinor"), flags, 2)
-        this.vtbl.get_MSMQVersionBuild := CallbackCreate(GetMethod(implObj, "get_MSMQVersionBuild"), flags, 2)
-        this.vtbl.get_IsDsEnabled := CallbackCreate(GetMethod(implObj, "get_IsDsEnabled"), flags, 2)
-        this.vtbl.get_Properties := CallbackCreate(GetMethod(implObj, "get_Properties"), flags, 2)
+        this.vtbl.RegisterCertificate := CallbackCreate(ObjBindMethod(implObj, "RegisterCertificate"), flags, 3)
+        this.vtbl.MachineNameOfMachineId := CallbackCreate(ObjBindMethod(implObj, "MachineNameOfMachineId"), flags, 3)
+        this.vtbl.get_MSMQVersionMajor := CallbackCreate(ObjBindMethod(implObj, "get_MSMQVersionMajor"), flags, 2)
+        this.vtbl.get_MSMQVersionMinor := CallbackCreate(ObjBindMethod(implObj, "get_MSMQVersionMinor"), flags, 2)
+        this.vtbl.get_MSMQVersionBuild := CallbackCreate(ObjBindMethod(implObj, "get_MSMQVersionBuild"), flags, 2)
+        this.vtbl.get_IsDsEnabled := CallbackCreate(ObjBindMethod(implObj, "get_IsDsEnabled"), flags, 2)
+        this.vtbl.get_Properties := CallbackCreate(ObjBindMethod(implObj, "get_Properties"), flags, 2)
     }
 
     Dispose() {

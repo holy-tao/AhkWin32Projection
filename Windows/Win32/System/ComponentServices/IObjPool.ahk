@@ -43,7 +43,6 @@ export default struct IObjPool extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved1() {
@@ -51,7 +50,6 @@ export default struct IObjPool extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved2() {
@@ -59,7 +57,6 @@ export default struct IObjPool extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved3() {
@@ -67,7 +64,6 @@ export default struct IObjPool extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved4() {
@@ -85,7 +81,6 @@ export default struct IObjPool extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved5() {
@@ -93,7 +88,6 @@ export default struct IObjPool extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Reserved6() {
@@ -109,13 +103,13 @@ export default struct IObjPool extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Reserved1 := CallbackCreate(GetMethod(implObj, "Reserved1"), flags, 1)
-        this.vtbl.Reserved2 := CallbackCreate(GetMethod(implObj, "Reserved2"), flags, 1)
-        this.vtbl.Reserved3 := CallbackCreate(GetMethod(implObj, "Reserved3"), flags, 1)
-        this.vtbl.Reserved4 := CallbackCreate(GetMethod(implObj, "Reserved4"), flags, 1)
-        this.vtbl.PutEndTx := CallbackCreate(GetMethod(implObj, "PutEndTx"), flags, 2)
-        this.vtbl.Reserved5 := CallbackCreate(GetMethod(implObj, "Reserved5"), flags, 1)
-        this.vtbl.Reserved6 := CallbackCreate(GetMethod(implObj, "Reserved6"), flags, 1)
+        this.vtbl.Reserved1 := CallbackCreate(ObjBindMethod(implObj, "Reserved1"), flags, 1)
+        this.vtbl.Reserved2 := CallbackCreate(ObjBindMethod(implObj, "Reserved2"), flags, 1)
+        this.vtbl.Reserved3 := CallbackCreate(ObjBindMethod(implObj, "Reserved3"), flags, 1)
+        this.vtbl.Reserved4 := CallbackCreate(ObjBindMethod(implObj, "Reserved4"), flags, 1)
+        this.vtbl.PutEndTx := CallbackCreate(ObjBindMethod(implObj, "PutEndTx"), flags, 2)
+        this.vtbl.Reserved5 := CallbackCreate(ObjBindMethod(implObj, "Reserved5"), flags, 1)
+        this.vtbl.Reserved6 := CallbackCreate(ObjBindMethod(implObj, "Reserved6"), flags, 1)
     }
 
     Dispose() {

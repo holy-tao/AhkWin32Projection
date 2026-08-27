@@ -103,7 +103,7 @@ export default struct IShellLinkDataList extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinkdatalist-adddatablock
      */
     AddDataBlock(pDataBlock) {
-        pDataBlockMarshal := pDataBlock is VarRef ? "ptr" : "ptr"
+        pDataBlockMarshal := pDataBlock is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, pDataBlockMarshal, pDataBlock, "HRESULT")
         return result
@@ -175,11 +175,11 @@ export default struct IShellLinkDataList extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddDataBlock := CallbackCreate(GetMethod(implObj, "AddDataBlock"), flags, 2)
-        this.vtbl.CopyDataBlock := CallbackCreate(GetMethod(implObj, "CopyDataBlock"), flags, 3)
-        this.vtbl.RemoveDataBlock := CallbackCreate(GetMethod(implObj, "RemoveDataBlock"), flags, 2)
-        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
-        this.vtbl.SetFlags := CallbackCreate(GetMethod(implObj, "SetFlags"), flags, 2)
+        this.vtbl.AddDataBlock := CallbackCreate(ObjBindMethod(implObj, "AddDataBlock"), flags, 2)
+        this.vtbl.CopyDataBlock := CallbackCreate(ObjBindMethod(implObj, "CopyDataBlock"), flags, 3)
+        this.vtbl.RemoveDataBlock := CallbackCreate(ObjBindMethod(implObj, "RemoveDataBlock"), flags, 2)
+        this.vtbl.GetFlags := CallbackCreate(ObjBindMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.SetFlags := CallbackCreate(ObjBindMethod(implObj, "SetFlags"), flags, 2)
     }
 
     Dispose() {

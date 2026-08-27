@@ -24,7 +24,6 @@ export default struct PWLDP_CANEXECUTESTREAM_API {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} host 
      * @param {WLDP_EXECUTION_EVALUATION_OPTIONS} options 
      * @param {IStream} stream 
@@ -34,7 +33,9 @@ export default struct PWLDP_CANEXECUTESTREAM_API {
     Call(host, options, stream, auditInfo) {
         auditInfo := auditInfo is String ? StrPtr(auditInfo) : auditInfo
 
-        result := DllCall(this.value, Guid.Ptr, host, WLDP_EXECUTION_EVALUATION_OPTIONS, options, "ptr", stream, "ptr", auditInfo, "int*", &result := 0, "HRESULT")
+        auditInfoMarshal := auditInfo == 0 ? IntPtr : PWSTR
+
+        result := DllCall(this.value, Guid.Ptr, host, WLDP_EXECUTION_EVALUATION_OPTIONS, options, "ptr", stream, auditInfoMarshal, auditInfo, "int*", &result := 0, "HRESULT")
         return result
     }
 

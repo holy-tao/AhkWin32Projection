@@ -54,7 +54,6 @@ export default struct IHTMLDOMTextNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} offset 
      * @param {Integer} Count 
      * @returns {BSTR} 
@@ -66,7 +65,6 @@ export default struct IHTMLDOMTextNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} offset 
      * @param {BSTR} bstrstring 
      * @returns {HRESULT} 
@@ -79,7 +77,6 @@ export default struct IHTMLDOMTextNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} offset 
      * @param {Integer} Count 
      * @returns {HRESULT} 
@@ -90,7 +87,6 @@ export default struct IHTMLDOMTextNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} offset 
      * @param {Integer} Count 
      * @param {BSTR} bstrstring 
@@ -104,7 +100,6 @@ export default struct IHTMLDOMTextNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} offset 
      * @returns {IHTMLDOMNode} 
      */
@@ -114,7 +109,6 @@ export default struct IHTMLDOMTextNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_wholeText() {
@@ -124,7 +118,6 @@ export default struct IHTMLDOMTextNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrText 
      * @returns {IHTMLDOMNode} 
      */
@@ -136,7 +129,6 @@ export default struct IHTMLDOMTextNode3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     hasAttributes() {
@@ -174,15 +166,15 @@ export default struct IHTMLDOMTextNode3 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.substringData := CallbackCreate(GetMethod(implObj, "substringData"), flags, 4)
-        this.vtbl.insertData := CallbackCreate(GetMethod(implObj, "insertData"), flags, 3)
-        this.vtbl.deleteData := CallbackCreate(GetMethod(implObj, "deleteData"), flags, 3)
-        this.vtbl.replaceData := CallbackCreate(GetMethod(implObj, "replaceData"), flags, 4)
-        this.vtbl.splitText := CallbackCreate(GetMethod(implObj, "splitText"), flags, 3)
-        this.vtbl.get_wholeText := CallbackCreate(GetMethod(implObj, "get_wholeText"), flags, 2)
-        this.vtbl.replaceWholeText := CallbackCreate(GetMethod(implObj, "replaceWholeText"), flags, 3)
-        this.vtbl.hasAttributes := CallbackCreate(GetMethod(implObj, "hasAttributes"), flags, 2)
-        this.vtbl.normalize := CallbackCreate(GetMethod(implObj, "normalize"), flags, 1)
+        this.vtbl.substringData := CallbackCreate(ObjBindMethod(implObj, "substringData"), flags, 4)
+        this.vtbl.insertData := CallbackCreate(ObjBindMethod(implObj, "insertData"), flags, 3)
+        this.vtbl.deleteData := CallbackCreate(ObjBindMethod(implObj, "deleteData"), flags, 3)
+        this.vtbl.replaceData := CallbackCreate(ObjBindMethod(implObj, "replaceData"), flags, 4)
+        this.vtbl.splitText := CallbackCreate(ObjBindMethod(implObj, "splitText"), flags, 3)
+        this.vtbl.get_wholeText := CallbackCreate(ObjBindMethod(implObj, "get_wholeText"), flags, 2)
+        this.vtbl.replaceWholeText := CallbackCreate(ObjBindMethod(implObj, "replaceWholeText"), flags, 3)
+        this.vtbl.hasAttributes := CallbackCreate(ObjBindMethod(implObj, "hasAttributes"), flags, 2)
+        this.vtbl.normalize := CallbackCreate(ObjBindMethod(implObj, "normalize"), flags, 1)
     }
 
     Dispose() {

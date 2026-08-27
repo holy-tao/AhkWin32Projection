@@ -131,7 +131,7 @@ export default struct IWTSSBPlugin extends IUnknown {
         _ApplicationType := _ApplicationType is String ? StrPtr(_ApplicationType) : _ApplicationType
         FarmName := FarmName is String ? StrPtr(FarmName) : FarmName
 
-        pMachineIdMarshal := pMachineId is VarRef ? "int*" : "ptr"
+        pMachineIdMarshal := pMachineId is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, "ptr", UserName, "ptr", DomainName, "ptr", _ApplicationType, "ptr", FarmName, pMachineIdMarshal, pMachineId, "HRESULT")
         return result
@@ -171,7 +171,7 @@ export default struct IWTSSBPlugin extends IUnknown {
         DomainName := DomainName is String ? StrPtr(DomainName) : DomainName
         _ApplicationType := _ApplicationType is String ? StrPtr(_ApplicationType) : _ApplicationType
 
-        pSessionIdMarshal := pSessionId is VarRef ? "uint*" : "ptr"
+        pSessionIdMarshal := pSessionId is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, "ptr", UserName, "ptr", DomainName, "ptr", _ApplicationType, WTSSBX_IP_ADDRESS.Ptr, RedirectorInternalIP, pSessionIdMarshal, pSessionId, WTSSBX_MACHINE_CONNECT_INFO.Ptr, pMachineConnectInfo, "HRESULT")
         return result
@@ -186,12 +186,12 @@ export default struct IWTSSBPlugin extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.WTSSBX_MachineChangeNotification := CallbackCreate(GetMethod(implObj, "WTSSBX_MachineChangeNotification"), flags, 4)
-        this.vtbl.WTSSBX_SessionChangeNotification := CallbackCreate(GetMethod(implObj, "WTSSBX_SessionChangeNotification"), flags, 5)
-        this.vtbl.WTSSBX_GetMostSuitableServer := CallbackCreate(GetMethod(implObj, "WTSSBX_GetMostSuitableServer"), flags, 6)
-        this.vtbl.Terminated := CallbackCreate(GetMethod(implObj, "Terminated"), flags, 1)
-        this.vtbl.WTSSBX_GetUserExternalSession := CallbackCreate(GetMethod(implObj, "WTSSBX_GetUserExternalSession"), flags, 7)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.WTSSBX_MachineChangeNotification := CallbackCreate(ObjBindMethod(implObj, "WTSSBX_MachineChangeNotification"), flags, 4)
+        this.vtbl.WTSSBX_SessionChangeNotification := CallbackCreate(ObjBindMethod(implObj, "WTSSBX_SessionChangeNotification"), flags, 5)
+        this.vtbl.WTSSBX_GetMostSuitableServer := CallbackCreate(ObjBindMethod(implObj, "WTSSBX_GetMostSuitableServer"), flags, 6)
+        this.vtbl.Terminated := CallbackCreate(ObjBindMethod(implObj, "Terminated"), flags, 1)
+        this.vtbl.WTSSBX_GetUserExternalSession := CallbackCreate(ObjBindMethod(implObj, "WTSSBX_GetUserExternalSession"), flags, 7)
     }
 
     Dispose() {

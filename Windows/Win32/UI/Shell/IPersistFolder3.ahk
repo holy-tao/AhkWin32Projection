@@ -104,8 +104,8 @@ export default struct IPersistFolder3 extends IPersistFolder2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeEx := CallbackCreate(GetMethod(implObj, "InitializeEx"), flags, 4)
-        this.vtbl.GetFolderTargetInfo := CallbackCreate(GetMethod(implObj, "GetFolderTargetInfo"), flags, 2)
+        this.vtbl.InitializeEx := CallbackCreate(ObjBindMethod(implObj, "InitializeEx"), flags, 4)
+        this.vtbl.GetFolderTargetInfo := CallbackCreate(ObjBindMethod(implObj, "GetFolderTargetInfo"), flags, 2)
     }
 
     Dispose() {

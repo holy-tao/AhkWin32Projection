@@ -20,7 +20,6 @@ export default struct PRESUTIL_TERMINATE_SERVICE_PROCESS_FROM_RES_DLL {
     }
 
     /**
-     * 
      * @param {Integer} dwServicePid 
      * @param {BOOL} bOffline 
      * @param {Pointer<Integer>} pdwResourceState 
@@ -29,7 +28,7 @@ export default struct PRESUTIL_TERMINATE_SERVICE_PROCESS_FROM_RES_DLL {
      * @returns {Integer} 
      */
     Call(dwServicePid, bOffline, pdwResourceState, pfnLogEvent, hResourceHandle) {
-        pdwResourceStateMarshal := pdwResourceState is VarRef ? "uint*" : "ptr"
+        pdwResourceStateMarshal := pdwResourceState is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, UInt32, dwServicePid, BOOL, bOffline, pdwResourceStateMarshal, pdwResourceState, PLOG_EVENT_ROUTINE, pfnLogEvent, IntPtr, hResourceHandle, UInt32)
         return result

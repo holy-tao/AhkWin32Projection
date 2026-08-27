@@ -37,7 +37,6 @@ export default struct IDirectSoundCaptureBuffer8 extends IDirectSoundCaptureBuff
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rguidObject 
      * @param {Integer} dwIndex 
      * @param {Pointer<Guid>} rguidInterface 
@@ -49,7 +48,6 @@ export default struct IDirectSoundCaptureBuffer8 extends IDirectSoundCaptureBuff
     }
 
     /**
-     * 
      * @param {Integer} dwEffectsCount 
      * @returns {Integer} 
      */
@@ -67,8 +65,8 @@ export default struct IDirectSoundCaptureBuffer8 extends IDirectSoundCaptureBuff
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetObjectInPath := CallbackCreate(GetMethod(implObj, "GetObjectInPath"), flags, 5)
-        this.vtbl.GetFXStatus := CallbackCreate(GetMethod(implObj, "GetFXStatus"), flags, 3)
+        this.vtbl.GetObjectInPath := CallbackCreate(ObjBindMethod(implObj, "GetObjectInPath"), flags, 5)
+        this.vtbl.GetFXStatus := CallbackCreate(ObjBindMethod(implObj, "GetFXStatus"), flags, 3)
     }
 
     Dispose() {

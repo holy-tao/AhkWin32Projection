@@ -18,7 +18,6 @@ export default struct PPO_FX_DEVICE_POWER_REQUIRED_CALLBACK {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

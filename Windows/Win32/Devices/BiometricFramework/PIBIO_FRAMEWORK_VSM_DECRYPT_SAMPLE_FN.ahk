@@ -20,7 +20,6 @@ export default struct PIBIO_FRAMEWORK_VSM_DECRYPT_SAMPLE_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline 
      * @param {Integer} Authentication 
      * @param {Pointer} AuthenticationSize 

@@ -19,7 +19,6 @@ export default struct PFN_AUTHZ_FREE_DYNAMIC_GROUPS {
     }
 
     /**
-     * 
      * @param {Pointer<SID_AND_ATTRIBUTES>} pSidAttrArray 
      * @returns {String} Nothing - always returns an empty string
      */

@@ -158,7 +158,7 @@ export default struct IMaintenanceSettings extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-imaintenancesettings-get_exclusive
      */
     get_Exclusive(target) {
-        targetMarshal := target is VarRef ? "short*" : "ptr"
+        targetMarshal := target is VarRef ? "short*" : IntPtr
 
         result := ComCall(12, this, targetMarshal, target, "HRESULT")
         return result
@@ -173,12 +173,12 @@ export default struct IMaintenanceSettings extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_Period := CallbackCreate(GetMethod(implObj, "put_Period"), flags, 2)
-        this.vtbl.get_Period := CallbackCreate(GetMethod(implObj, "get_Period"), flags, 2)
-        this.vtbl.put_Deadline := CallbackCreate(GetMethod(implObj, "put_Deadline"), flags, 2)
-        this.vtbl.get_Deadline := CallbackCreate(GetMethod(implObj, "get_Deadline"), flags, 2)
-        this.vtbl.put_Exclusive := CallbackCreate(GetMethod(implObj, "put_Exclusive"), flags, 2)
-        this.vtbl.get_Exclusive := CallbackCreate(GetMethod(implObj, "get_Exclusive"), flags, 2)
+        this.vtbl.put_Period := CallbackCreate(ObjBindMethod(implObj, "put_Period"), flags, 2)
+        this.vtbl.get_Period := CallbackCreate(ObjBindMethod(implObj, "get_Period"), flags, 2)
+        this.vtbl.put_Deadline := CallbackCreate(ObjBindMethod(implObj, "put_Deadline"), flags, 2)
+        this.vtbl.get_Deadline := CallbackCreate(ObjBindMethod(implObj, "get_Deadline"), flags, 2)
+        this.vtbl.put_Exclusive := CallbackCreate(ObjBindMethod(implObj, "put_Exclusive"), flags, 2)
+        this.vtbl.get_Exclusive := CallbackCreate(ObjBindMethod(implObj, "get_Exclusive"), flags, 2)
     }
 
     Dispose() {

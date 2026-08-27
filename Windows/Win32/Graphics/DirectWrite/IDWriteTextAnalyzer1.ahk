@@ -79,9 +79,9 @@ export default struct IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritetextanalyzer1-applycharacterspacing
      */
     ApplyCharacterSpacing(leadingSpacing, trailingSpacing, minimumAdvanceWidth, textLength, glyphCount, clusterMap, glyphAdvances, glyphOffsets, glyphProperties, modifiedGlyphAdvances, modifiedGlyphOffsets) {
-        clusterMapMarshal := clusterMap is VarRef ? "ushort*" : "ptr"
-        glyphAdvancesMarshal := glyphAdvances is VarRef ? "float*" : "ptr"
-        modifiedGlyphAdvancesMarshal := modifiedGlyphAdvances is VarRef ? "float*" : "ptr"
+        clusterMapMarshal := clusterMap is VarRef ? "ushort*" : IntPtr
+        glyphAdvancesMarshal := glyphAdvances is VarRef ? "float*" : IntPtr
+        modifiedGlyphAdvancesMarshal := modifiedGlyphAdvances is VarRef ? "float*" : IntPtr
 
         result := ComCall(10, this, Float32, leadingSpacing, Float32, trailingSpacing, Float32, minimumAdvanceWidth, UInt32, textLength, UInt32, glyphCount, clusterMapMarshal, clusterMap, glyphAdvancesMarshal, glyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, glyphOffsets, DWRITE_SHAPING_GLYPH_PROPERTIES.Ptr, glyphProperties, modifiedGlyphAdvancesMarshal, modifiedGlyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, modifiedGlyphOffsets, "HRESULT")
         return result
@@ -130,10 +130,11 @@ export default struct IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer {
     GetBaseline(fontFace, baseline, isVertical, isSimulationAllowed, scriptAnalysis, localeName, baselineCoordinate, exists) {
         localeName := localeName is String ? StrPtr(localeName) : localeName
 
-        baselineCoordinateMarshal := baselineCoordinate is VarRef ? "int*" : "ptr"
-        existsMarshal := exists is VarRef ? "int*" : "ptr"
+        localeNameMarshal := localeName == 0 ? IntPtr : PWSTR
+        baselineCoordinateMarshal := baselineCoordinate is VarRef ? "int*" : IntPtr
+        existsMarshal := exists is VarRef ? "int*" : IntPtr
 
-        result := ComCall(11, this, "ptr", fontFace, DWRITE_BASELINE, baseline, BOOL, isVertical, BOOL, isSimulationAllowed, DWRITE_SCRIPT_ANALYSIS, scriptAnalysis, "ptr", localeName, baselineCoordinateMarshal, baselineCoordinate, existsMarshal, exists, "HRESULT")
+        result := ComCall(11, this, "ptr", fontFace, DWRITE_BASELINE, baseline, BOOL, isVertical, BOOL, isSimulationAllowed, DWRITE_SCRIPT_ANALYSIS, scriptAnalysis, localeNameMarshal, localeName, baselineCoordinateMarshal, baselineCoordinate, existsMarshal, exists, "HRESULT")
         return result
     }
 
@@ -244,9 +245,10 @@ export default struct IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer {
     GetTextComplexity(textString, textLength, fontFace, isTextSimple, textLengthRead, glyphIndices) {
         textString := textString is String ? StrPtr(textString) : textString
 
-        isTextSimpleMarshal := isTextSimple is VarRef ? "int*" : "ptr"
-        textLengthReadMarshal := textLengthRead is VarRef ? "uint*" : "ptr"
-        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
+        isTextSimpleMarshal := isTextSimple is VarRef ? "int*" : IntPtr
+        textLengthReadMarshal := textLengthRead is VarRef ? "uint*" : IntPtr
+        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : IntPtr
+        glyphIndicesMarshal := glyphIndices == 0 ? IntPtr : "ushort*"
 
         result := ComCall(15, this, "ptr", textString, UInt32, textLength, "ptr", fontFace, isTextSimpleMarshal, isTextSimple, textLengthReadMarshal, textLengthRead, glyphIndicesMarshal, glyphIndices, "HRESULT")
         return result
@@ -295,10 +297,11 @@ export default struct IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer {
     GetJustificationOpportunities(fontFace, fontEmSize, scriptAnalysis, textLength, glyphCount, textString, clusterMap, glyphProperties) {
         textString := textString is String ? StrPtr(textString) : textString
 
-        clusterMapMarshal := clusterMap is VarRef ? "ushort*" : "ptr"
+        fontFaceMarshal := fontFace == 0 ? IntPtr : "ptr"
+        clusterMapMarshal := clusterMap is VarRef ? "ushort*" : IntPtr
 
         justificationOpportunities := DWRITE_JUSTIFICATION_OPPORTUNITY()
-        result := ComCall(16, this, "ptr", fontFace, Float32, fontEmSize, DWRITE_SCRIPT_ANALYSIS, scriptAnalysis, UInt32, textLength, UInt32, glyphCount, "ptr", textString, clusterMapMarshal, clusterMap, DWRITE_SHAPING_GLYPH_PROPERTIES.Ptr, glyphProperties, DWRITE_JUSTIFICATION_OPPORTUNITY.Ptr, justificationOpportunities, "HRESULT")
+        result := ComCall(16, this, fontFaceMarshal, fontFace, Float32, fontEmSize, DWRITE_SCRIPT_ANALYSIS, scriptAnalysis, UInt32, textLength, UInt32, glyphCount, "ptr", textString, clusterMapMarshal, clusterMap, DWRITE_SHAPING_GLYPH_PROPERTIES.Ptr, glyphProperties, DWRITE_JUSTIFICATION_OPPORTUNITY.Ptr, justificationOpportunities, "HRESULT")
         return justificationOpportunities
     }
 
@@ -335,10 +338,11 @@ export default struct IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritetextanalyzer1-justifyglyphadvances
      */
     JustifyGlyphAdvances(lineWidth, glyphCount, justificationOpportunities, glyphAdvances, glyphOffsets, justifiedGlyphAdvances, justifiedGlyphOffsets) {
-        glyphAdvancesMarshal := glyphAdvances is VarRef ? "float*" : "ptr"
-        justifiedGlyphAdvancesMarshal := justifiedGlyphAdvances is VarRef ? "float*" : "ptr"
+        glyphAdvancesMarshal := glyphAdvances is VarRef ? "float*" : IntPtr
+        justifiedGlyphAdvancesMarshal := justifiedGlyphAdvances is VarRef ? "float*" : IntPtr
+        justifiedGlyphOffsetsMarshal := justifiedGlyphOffsets == 0 ? IntPtr : DWRITE_GLYPH_OFFSET.Ptr
 
-        result := ComCall(17, this, Float32, lineWidth, UInt32, glyphCount, DWRITE_JUSTIFICATION_OPPORTUNITY.Ptr, justificationOpportunities, glyphAdvancesMarshal, glyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, glyphOffsets, justifiedGlyphAdvancesMarshal, justifiedGlyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, justifiedGlyphOffsets, "HRESULT")
+        result := ComCall(17, this, Float32, lineWidth, UInt32, glyphCount, DWRITE_JUSTIFICATION_OPPORTUNITY.Ptr, justificationOpportunities, glyphAdvancesMarshal, glyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, glyphOffsets, justifiedGlyphAdvancesMarshal, justifiedGlyphAdvances, justifiedGlyphOffsetsMarshal, justifiedGlyphOffsets, "HRESULT")
         return result
     }
 
@@ -418,16 +422,19 @@ export default struct IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritetextanalyzer1-getjustifiedglyphs
      */
     GetJustifiedGlyphs(fontFace, fontEmSize, scriptAnalysis, textLength, glyphCount, maxGlyphCount, clusterMap, glyphIndices, glyphAdvances, justifiedGlyphAdvances, justifiedGlyphOffsets, glyphProperties, actualGlyphCount, modifiedClusterMap, modifiedGlyphIndices, modifiedGlyphAdvances, modifiedGlyphOffsets) {
-        clusterMapMarshal := clusterMap is VarRef ? "ushort*" : "ptr"
-        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
-        glyphAdvancesMarshal := glyphAdvances is VarRef ? "float*" : "ptr"
-        justifiedGlyphAdvancesMarshal := justifiedGlyphAdvances is VarRef ? "float*" : "ptr"
-        actualGlyphCountMarshal := actualGlyphCount is VarRef ? "uint*" : "ptr"
-        modifiedClusterMapMarshal := modifiedClusterMap is VarRef ? "ushort*" : "ptr"
-        modifiedGlyphIndicesMarshal := modifiedGlyphIndices is VarRef ? "ushort*" : "ptr"
-        modifiedGlyphAdvancesMarshal := modifiedGlyphAdvances is VarRef ? "float*" : "ptr"
+        fontFaceMarshal := fontFace == 0 ? IntPtr : "ptr"
+        clusterMapMarshal := clusterMap is VarRef ? "ushort*" : IntPtr
+        clusterMapMarshal := clusterMap == 0 ? IntPtr : "ushort*"
+        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : IntPtr
+        glyphAdvancesMarshal := glyphAdvances is VarRef ? "float*" : IntPtr
+        justifiedGlyphAdvancesMarshal := justifiedGlyphAdvances is VarRef ? "float*" : IntPtr
+        actualGlyphCountMarshal := actualGlyphCount is VarRef ? "uint*" : IntPtr
+        modifiedClusterMapMarshal := modifiedClusterMap is VarRef ? "ushort*" : IntPtr
+        modifiedClusterMapMarshal := modifiedClusterMap == 0 ? IntPtr : "ushort*"
+        modifiedGlyphIndicesMarshal := modifiedGlyphIndices is VarRef ? "ushort*" : IntPtr
+        modifiedGlyphAdvancesMarshal := modifiedGlyphAdvances is VarRef ? "float*" : IntPtr
 
-        result := ComCall(18, this, "ptr", fontFace, Float32, fontEmSize, DWRITE_SCRIPT_ANALYSIS, scriptAnalysis, UInt32, textLength, UInt32, glyphCount, UInt32, maxGlyphCount, clusterMapMarshal, clusterMap, glyphIndicesMarshal, glyphIndices, glyphAdvancesMarshal, glyphAdvances, justifiedGlyphAdvancesMarshal, justifiedGlyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, justifiedGlyphOffsets, DWRITE_SHAPING_GLYPH_PROPERTIES.Ptr, glyphProperties, actualGlyphCountMarshal, actualGlyphCount, modifiedClusterMapMarshal, modifiedClusterMap, modifiedGlyphIndicesMarshal, modifiedGlyphIndices, modifiedGlyphAdvancesMarshal, modifiedGlyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, modifiedGlyphOffsets, "HRESULT")
+        result := ComCall(18, this, fontFaceMarshal, fontFace, Float32, fontEmSize, DWRITE_SCRIPT_ANALYSIS, scriptAnalysis, UInt32, textLength, UInt32, glyphCount, UInt32, maxGlyphCount, clusterMapMarshal, clusterMap, glyphIndicesMarshal, glyphIndices, glyphAdvancesMarshal, glyphAdvances, justifiedGlyphAdvancesMarshal, justifiedGlyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, justifiedGlyphOffsets, DWRITE_SHAPING_GLYPH_PROPERTIES.Ptr, glyphProperties, actualGlyphCountMarshal, actualGlyphCount, modifiedClusterMapMarshal, modifiedClusterMap, modifiedGlyphIndicesMarshal, modifiedGlyphIndices, modifiedGlyphAdvancesMarshal, modifiedGlyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, modifiedGlyphOffsets, "HRESULT")
         return result
     }
 
@@ -440,15 +447,15 @@ export default struct IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ApplyCharacterSpacing := CallbackCreate(GetMethod(implObj, "ApplyCharacterSpacing"), flags, 12)
-        this.vtbl.GetBaseline := CallbackCreate(GetMethod(implObj, "GetBaseline"), flags, 9)
-        this.vtbl.AnalyzeVerticalGlyphOrientation := CallbackCreate(GetMethod(implObj, "AnalyzeVerticalGlyphOrientation"), flags, 5)
-        this.vtbl.GetGlyphOrientationTransform := CallbackCreate(GetMethod(implObj, "GetGlyphOrientationTransform"), flags, 4)
-        this.vtbl.GetScriptProperties := CallbackCreate(GetMethod(implObj, "GetScriptProperties"), flags, 3)
-        this.vtbl.GetTextComplexity := CallbackCreate(GetMethod(implObj, "GetTextComplexity"), flags, 7)
-        this.vtbl.GetJustificationOpportunities := CallbackCreate(GetMethod(implObj, "GetJustificationOpportunities"), flags, 10)
-        this.vtbl.JustifyGlyphAdvances := CallbackCreate(GetMethod(implObj, "JustifyGlyphAdvances"), flags, 8)
-        this.vtbl.GetJustifiedGlyphs := CallbackCreate(GetMethod(implObj, "GetJustifiedGlyphs"), flags, 18)
+        this.vtbl.ApplyCharacterSpacing := CallbackCreate(ObjBindMethod(implObj, "ApplyCharacterSpacing"), flags, 12)
+        this.vtbl.GetBaseline := CallbackCreate(ObjBindMethod(implObj, "GetBaseline"), flags, 9)
+        this.vtbl.AnalyzeVerticalGlyphOrientation := CallbackCreate(ObjBindMethod(implObj, "AnalyzeVerticalGlyphOrientation"), flags, 5)
+        this.vtbl.GetGlyphOrientationTransform := CallbackCreate(ObjBindMethod(implObj, "GetGlyphOrientationTransform"), flags, 4)
+        this.vtbl.GetScriptProperties := CallbackCreate(ObjBindMethod(implObj, "GetScriptProperties"), flags, 3)
+        this.vtbl.GetTextComplexity := CallbackCreate(ObjBindMethod(implObj, "GetTextComplexity"), flags, 7)
+        this.vtbl.GetJustificationOpportunities := CallbackCreate(ObjBindMethod(implObj, "GetJustificationOpportunities"), flags, 10)
+        this.vtbl.JustifyGlyphAdvances := CallbackCreate(ObjBindMethod(implObj, "JustifyGlyphAdvances"), flags, 8)
+        this.vtbl.GetJustifiedGlyphs := CallbackCreate(ObjBindMethod(implObj, "GetJustifiedGlyphs"), flags, 18)
     }
 
     Dispose() {

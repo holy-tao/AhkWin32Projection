@@ -68,7 +68,6 @@ export default struct IPrintSchemaCapabilities extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @param {BSTR} bstrKeyName 
      * @returns {IPrintSchemaFeature} 
      */
@@ -80,7 +79,6 @@ export default struct IPrintSchemaCapabilities extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrNamespaceUri 
      * @returns {IPrintSchemaFeature} 
@@ -94,7 +92,6 @@ export default struct IPrintSchemaCapabilities extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @returns {IPrintSchemaPageImageableSize} 
      */
     get_PageImageableSize() {
@@ -103,7 +100,6 @@ export default struct IPrintSchemaCapabilities extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_JobCopiesAllDocumentsMinValue() {
@@ -112,7 +108,6 @@ export default struct IPrintSchemaCapabilities extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_JobCopiesAllDocumentsMaxValue() {
@@ -121,7 +116,6 @@ export default struct IPrintSchemaCapabilities extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @param {IPrintSchemaFeature} pFeature 
      * @returns {IPrintSchemaOption} 
      */
@@ -131,7 +125,6 @@ export default struct IPrintSchemaCapabilities extends IPrintSchemaElement {
     }
 
     /**
-     * 
      * @param {IPrintSchemaFeature} pFeature 
      * @returns {IPrintSchemaOptionCollection} 
      */
@@ -149,13 +142,13 @@ export default struct IPrintSchemaCapabilities extends IPrintSchemaElement {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFeatureByKeyName := CallbackCreate(GetMethod(implObj, "GetFeatureByKeyName"), flags, 3)
-        this.vtbl.GetFeature := CallbackCreate(GetMethod(implObj, "GetFeature"), flags, 4)
-        this.vtbl.get_PageImageableSize := CallbackCreate(GetMethod(implObj, "get_PageImageableSize"), flags, 2)
-        this.vtbl.get_JobCopiesAllDocumentsMinValue := CallbackCreate(GetMethod(implObj, "get_JobCopiesAllDocumentsMinValue"), flags, 2)
-        this.vtbl.get_JobCopiesAllDocumentsMaxValue := CallbackCreate(GetMethod(implObj, "get_JobCopiesAllDocumentsMaxValue"), flags, 2)
-        this.vtbl.GetSelectedOptionInPrintTicket := CallbackCreate(GetMethod(implObj, "GetSelectedOptionInPrintTicket"), flags, 3)
-        this.vtbl.GetOptions := CallbackCreate(GetMethod(implObj, "GetOptions"), flags, 3)
+        this.vtbl.GetFeatureByKeyName := CallbackCreate(ObjBindMethod(implObj, "GetFeatureByKeyName"), flags, 3)
+        this.vtbl.GetFeature := CallbackCreate(ObjBindMethod(implObj, "GetFeature"), flags, 4)
+        this.vtbl.get_PageImageableSize := CallbackCreate(ObjBindMethod(implObj, "get_PageImageableSize"), flags, 2)
+        this.vtbl.get_JobCopiesAllDocumentsMinValue := CallbackCreate(ObjBindMethod(implObj, "get_JobCopiesAllDocumentsMinValue"), flags, 2)
+        this.vtbl.get_JobCopiesAllDocumentsMaxValue := CallbackCreate(ObjBindMethod(implObj, "get_JobCopiesAllDocumentsMaxValue"), flags, 2)
+        this.vtbl.GetSelectedOptionInPrintTicket := CallbackCreate(ObjBindMethod(implObj, "GetSelectedOptionInPrintTicket"), flags, 3)
+        this.vtbl.GetOptions := CallbackCreate(ObjBindMethod(implObj, "GetOptions"), flags, 3)
     }
 
     Dispose() {

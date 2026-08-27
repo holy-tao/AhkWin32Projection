@@ -138,9 +138,10 @@
  * @since windows6.0.6000
  */
 export WSCEnumProtocols32(lpiProtocols, lpProtocolBuffer, lpdwBufferLength, lpErrno) {
-    lpiProtocolsMarshal := lpiProtocols is VarRef ? "int*" : "ptr"
-    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
-    lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+    lpiProtocolsMarshal := lpiProtocols is VarRef ? "int*" : IntPtr
+    lpiProtocolsMarshal := lpiProtocols == 0 ? IntPtr : "int*"
+    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : IntPtr
+    lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
     result := DllCall("WS2_32.dll\WSCEnumProtocols32", lpiProtocolsMarshal, lpiProtocols, IntPtr, lpProtocolBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, lpErrnoMarshal, lpErrno, Int32)
     return result
@@ -222,7 +223,7 @@ export WSCEnumProtocols32(lpiProtocols, lpProtocolBuffer, lpdwBufferLength, lpEr
  * @since windows6.0.6000
  */
 export WSCDeinstallProvider32(lpProviderId, lpErrno) {
-    lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+    lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
     result := DllCall("WS2_32.dll\WSCDeinstallProvider32", Guid.Ptr, lpProviderId, lpErrnoMarshal, lpErrno, Int32)
     return result
@@ -345,7 +346,7 @@ export WSCDeinstallProvider32(lpProviderId, lpErrno) {
 export WSCInstallProvider64_32(lpProviderId, lpszProviderDllPath, lpProtocolInfoList, dwNumberOfEntries, lpErrno) {
     lpszProviderDllPath := lpszProviderDllPath is String ? StrPtr(lpszProviderDllPath) : lpszProviderDllPath
 
-    lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+    lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
     result := DllCall("WS2_32.dll\WSCInstallProvider64_32", Guid.Ptr, lpProviderId, "ptr", lpszProviderDllPath, WSAPROTOCOL_INFOW.Ptr, lpProtocolInfoList, UInt32, dwNumberOfEntries, lpErrnoMarshal, lpErrno, Int32)
     return result
@@ -400,8 +401,8 @@ export WSCInstallProvider64_32(lpProviderId, lpszProviderDllPath, lpProtocolInfo
 export WSCGetProviderPath32(lpProviderId, lpszProviderDllPath, lpProviderDllPathLen, lpErrno) {
     lpszProviderDllPath := lpszProviderDllPath is String ? StrPtr(lpszProviderDllPath) : lpszProviderDllPath
 
-    lpProviderDllPathLenMarshal := lpProviderDllPathLen is VarRef ? "int*" : "ptr"
-    lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+    lpProviderDllPathLenMarshal := lpProviderDllPathLen is VarRef ? "int*" : IntPtr
+    lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
     result := DllCall("WS2_32.dll\WSCGetProviderPath32", Guid.Ptr, lpProviderId, "ptr", lpszProviderDllPath, lpProviderDllPathLenMarshal, lpProviderDllPathLen, lpErrnoMarshal, lpErrno, Int32)
     return result
@@ -492,7 +493,7 @@ export WSCGetProviderPath32(lpProviderId, lpszProviderDllPath, lpProviderDllPath
 export WSCUpdateProvider32(lpProviderId, lpszProviderDllPath, lpProtocolInfoList, dwNumberOfEntries, lpErrno) {
     lpszProviderDllPath := lpszProviderDllPath is String ? StrPtr(lpszProviderDllPath) : lpszProviderDllPath
 
-    lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+    lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
     result := DllCall("WS2_32.dll\WSCUpdateProvider32", Guid.Ptr, lpProviderId, "ptr", lpszProviderDllPath, WSAPROTOCOL_INFOW.Ptr, lpProtocolInfoList, UInt32, dwNumberOfEntries, lpErrnoMarshal, lpErrno, Int32)
     return result
@@ -647,7 +648,7 @@ export WSCUpdateProvider32(lpProviderId, lpszProviderDllPath, lpProtocolInfoList
  * @since windows6.0.6000
  */
 export WSCSetProviderInfo32(lpProviderId, InfoType, Info, InfoSize, Flags, lpErrno) {
-    lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+    lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
     result := DllCall("WS2_32.dll\WSCSetProviderInfo32", Guid.Ptr, lpProviderId, WSC_PROVIDER_INFO_TYPE, InfoType, IntPtr, Info, IntPtr, InfoSize, UInt32, Flags, lpErrnoMarshal, lpErrno, Int32)
     return result
@@ -810,8 +811,8 @@ export WSCSetProviderInfo32(lpProviderId, InfoType, Info, InfoSize, Flags, lpErr
  * @since windows6.0.6000
  */
 export WSCGetProviderInfo32(lpProviderId, InfoType, Info, InfoSize, Flags, lpErrno) {
-    InfoSizeMarshal := InfoSize is VarRef ? "ptr*" : "ptr"
-    lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+    InfoSizeMarshal := InfoSize is VarRef ? "ptr*" : IntPtr
+    lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
     result := DllCall("WS2_32.dll\WSCGetProviderInfo32", Guid.Ptr, lpProviderId, WSC_PROVIDER_INFO_TYPE, InfoType, IntPtr, Info, InfoSizeMarshal, InfoSize, UInt32, Flags, lpErrnoMarshal, lpErrno, Int32)
     return result
@@ -880,7 +881,7 @@ export WSCGetProviderInfo32(lpProviderId, InfoType, Info, InfoSize, Flags, lpErr
  * @since windows6.0.6000
  */
 export WSCEnumNameSpaceProviders32(lpdwBufferLength, lpnspBuffer) {
-    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
+    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WS2_32.dll\WSCEnumNameSpaceProviders32", lpdwBufferLengthMarshal, lpdwBufferLength, IntPtr, lpnspBuffer, Int32)
     return result
@@ -952,7 +953,7 @@ export WSCEnumNameSpaceProviders32(lpdwBufferLength, lpnspBuffer) {
  * @since windows6.0.6000
  */
 export WSCEnumNameSpaceProvidersEx32(lpdwBufferLength, lpnspBuffer) {
-    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
+    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WS2_32.dll\WSCEnumNameSpaceProvidersEx32", lpdwBufferLengthMarshal, lpdwBufferLength, IntPtr, lpnspBuffer, Int32)
     return result
@@ -1471,8 +1472,9 @@ export WSCInstallProviderAndChains64_32(lpProviderId, lpszProviderDllPath, lpszP
     lpszProviderDllPath32 := lpszProviderDllPath32 is String ? StrPtr(lpszProviderDllPath32) : lpszProviderDllPath32
     lpszLspName := lpszLspName is String ? StrPtr(lpszLspName) : lpszLspName
 
-    lpdwCatalogEntryIdMarshal := lpdwCatalogEntryId is VarRef ? "uint*" : "ptr"
-    lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+    lpdwCatalogEntryIdMarshal := lpdwCatalogEntryId is VarRef ? "uint*" : IntPtr
+    lpdwCatalogEntryIdMarshal := lpdwCatalogEntryId == 0 ? IntPtr : "uint*"
+    lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
     result := DllCall("WS2_32.dll\WSCInstallProviderAndChains64_32", Guid.Ptr, lpProviderId, "ptr", lpszProviderDllPath, "ptr", lpszProviderDllPath32, "ptr", lpszLspName, UInt32, dwServiceFlags, WSAPROTOCOL_INFOW.Ptr, lpProtocolInfoList, UInt32, dwNumberOfEntries, lpdwCatalogEntryIdMarshal, lpdwCatalogEntryId, lpErrnoMarshal, lpErrno, Int32)
     return result
@@ -1566,7 +1568,7 @@ export WSCInstallProviderAndChains64_32(lpProviderId, lpszProviderDllPath, lpszP
  * @since windows6.0.6000
  */
 export WSCWriteProviderOrder32(lpwdCatalogEntryId, dwNumberOfEntries) {
-    lpwdCatalogEntryIdMarshal := lpwdCatalogEntryId is VarRef ? "uint*" : "ptr"
+    lpwdCatalogEntryIdMarshal := lpwdCatalogEntryId is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WS2_32.dll\WSCWriteProviderOrder32", lpwdCatalogEntryIdMarshal, lpwdCatalogEntryId, UInt32, dwNumberOfEntries, Int32)
     return result
@@ -1900,11 +1902,13 @@ export __WSAFDIsSet(fd, param1) {
  * @since windows8.1
  */
 export accept(s, addr, addrlen) {
-    addrlenMarshal := addrlen is VarRef ? "int*" : "ptr"
+    addrMarshal := addr == 0 ? IntPtr : IntPtr
+    addrlenMarshal := addrlen is VarRef ? "int*" : IntPtr
+    addrlenMarshal := addrlen == 0 ? IntPtr : "int*"
 
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\accept", SOCKET_handle, s, IntPtr, addr, addrlenMarshal, addrlen, SOCKET.Owned)
+    result := DllCall("WS2_32.dll\accept", SOCKET_handle, s, addrMarshal, addr, addrlenMarshal, addrlen, SOCKET.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2830,7 +2834,7 @@ export connect(s, name, namelen) {
  * @since windows8.1
  */
 export ioctlsocket(s, cmd, argp) {
-    argpMarshal := argp is VarRef ? "uint*" : "ptr"
+    argpMarshal := argp is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -2944,7 +2948,7 @@ export ioctlsocket(s, cmd, argp) {
  * @since windows8.1
  */
 export getpeername(s, name, namelen) {
-    namelenMarshal := namelen is VarRef ? "int*" : "ptr"
+    namelenMarshal := namelen is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
@@ -3062,7 +3066,7 @@ export getpeername(s, name, namelen) {
  * @since windows8.1
  */
 export getsockname(s, name, namelen) {
-    namelenMarshal := namelen is VarRef ? "int*" : "ptr"
+    namelenMarshal := namelen is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
@@ -3612,7 +3616,7 @@ export getsockname(s, name, namelen) {
  * @since windows8.1
  */
 export getsockopt(s, level, optname, optval, optlen) {
-    optlenMarshal := optlen is VarRef ? "int*" : "ptr"
+    optlenMarshal := optlen is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
@@ -4571,11 +4575,13 @@ export recv(s, buf, len, flags) {
  * @since windows8.1
  */
 export recvfrom(s, buf, len, flags, from, fromlen) {
-    fromlenMarshal := fromlen is VarRef ? "int*" : "ptr"
+    fromMarshal := from == 0 ? IntPtr : IntPtr
+    fromlenMarshal := fromlen is VarRef ? "int*" : IntPtr
+    fromlenMarshal := fromlen == 0 ? IntPtr : "int*"
 
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\recvfrom", SOCKET_handle, s, IntPtr, buf, Int32, len, Int32, flags, IntPtr, from, fromlenMarshal, fromlen, Int32)
+    result := DllCall("WS2_32.dll\recvfrom", SOCKET_handle, s, IntPtr, buf, Int32, len, Int32, flags, fromMarshal, from, fromlenMarshal, fromlen, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4781,9 +4787,14 @@ export recvfrom(s, buf, len, flags, from, fromlen) {
  * @since windows8.1
  */
 export select(nfds, readfds, writefds, exceptfds, timeout) {
+    readfdsMarshal := readfds == 0 ? IntPtr : FD_SET.Ptr
+    writefdsMarshal := writefds == 0 ? IntPtr : FD_SET.Ptr
+    exceptfdsMarshal := exceptfds == 0 ? IntPtr : FD_SET.Ptr
+    timeoutMarshal := timeout == 0 ? IntPtr : TIMEVAL.Ptr
+
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\select", Int32, nfds, FD_SET.Ptr, readfds, FD_SET.Ptr, writefds, FD_SET.Ptr, exceptfds, TIMEVAL.Ptr, timeout, Int32)
+    result := DllCall("WS2_32.dll\select", Int32, nfds, readfdsMarshal, readfds, writefdsMarshal, writefds, exceptfdsMarshal, exceptfds, timeoutMarshal, timeout, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5749,9 +5760,11 @@ export sendto(s, buf, len, flags, to, tolen) {
  * @since windows8.1
  */
 export setsockopt(s, level, optname, optval, optlen) {
+    optvalMarshal := optval == 0 ? IntPtr : IntPtr
+
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\setsockopt", SOCKET_handle, s, Int32, level, Int32, optname, IntPtr, optval, Int32, optlen, Int32)
+    result := DllCall("WS2_32.dll\setsockopt", SOCKET_handle, s, Int32, level, Int32, optname, optvalMarshal, optval, Int32, optlen, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6963,9 +6976,11 @@ export GetHostNameW(name, namelen) {
 export getservbyport(port, proto) {
     proto := proto is String ? StrPtr(proto) : proto
 
+    protoMarshal := proto == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\getservbyport", Int32, port, "ptr", proto, SERVENT.Ptr)
+    result := DllCall("WS2_32.dll\getservbyport", Int32, port, protoMarshal, proto, SERVENT.Ptr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7100,9 +7115,11 @@ export getservbyname(name, proto) {
     name := name is String ? StrPtr(name) : name
     proto := proto is String ? StrPtr(proto) : proto
 
+    protoMarshal := proto == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\getservbyname", "ptr", name, "ptr", proto, SERVENT.Ptr)
+    result := DllCall("WS2_32.dll\getservbyname", "ptr", name, protoMarshal, proto, SERVENT.Ptr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9340,11 +9357,15 @@ export WSAAsyncSelect(s, _hWnd, wMsg, lEvent) {
  * @since windows8.1
  */
 export WSAAccept(s, addr, addrlen, lpfnCondition, dwCallbackData) {
-    addrlenMarshal := addrlen is VarRef ? "int*" : "ptr"
+    addrMarshal := addr == 0 ? IntPtr : IntPtr
+    addrlenMarshal := addrlen is VarRef ? "int*" : IntPtr
+    addrlenMarshal := addrlen == 0 ? IntPtr : "int*"
+    lpfnConditionMarshal := lpfnCondition == 0 ? IntPtr : LPCONDITIONPROC
+    dwCallbackDataMarshal := dwCallbackData == 0 ? IntPtr : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\WSAAccept", SOCKET_handle, s, IntPtr, addr, addrlenMarshal, addrlen, LPCONDITIONPROC, lpfnCondition, IntPtr, dwCallbackData, SOCKET.Owned)
+    result := DllCall("WS2_32.dll\WSAAccept", SOCKET_handle, s, addrMarshal, addr, addrlenMarshal, addrlen, lpfnConditionMarshal, lpfnCondition, dwCallbackDataMarshal, dwCallbackData, SOCKET.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9785,9 +9806,14 @@ export WSACloseEvent(hEvent) {
  * @since windows8.1
  */
 export WSAConnect(s, name, namelen, lpCallerData, lpCalleeData, lpSQOS, lpGQOS) {
+    lpCallerDataMarshal := lpCallerData == 0 ? IntPtr : WSABUF.Ptr
+    lpCalleeDataMarshal := lpCalleeData == 0 ? IntPtr : WSABUF.Ptr
+    lpSQOSMarshal := lpSQOS == 0 ? IntPtr : QOS.Ptr
+    lpGQOSMarshal := lpGQOS == 0 ? IntPtr : QOS.Ptr
+
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\WSAConnect", SOCKET_handle, s, IntPtr, name, Int32, namelen, WSABUF.Ptr, lpCallerData, WSABUF.Ptr, lpCalleeData, QOS.Ptr, lpSQOS, QOS.Ptr, lpGQOS, Int32)
+    result := DllCall("WS2_32.dll\WSAConnect", SOCKET_handle, s, IntPtr, name, Int32, namelen, lpCallerDataMarshal, lpCallerData, lpCalleeDataMarshal, lpCalleeData, lpSQOSMarshal, lpSQOS, lpGQOSMarshal, lpGQOS, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9930,12 +9956,17 @@ export WSAConnectByNameW(s, nodename, servicename, LocalAddressLength, LocalAddr
     nodename := nodename is String ? StrPtr(nodename) : nodename
     servicename := servicename is String ? StrPtr(servicename) : servicename
 
-    LocalAddressLengthMarshal := LocalAddressLength is VarRef ? "uint*" : "ptr"
-    RemoteAddressLengthMarshal := RemoteAddressLength is VarRef ? "uint*" : "ptr"
+    LocalAddressLengthMarshal := LocalAddressLength is VarRef ? "uint*" : IntPtr
+    LocalAddressLengthMarshal := LocalAddressLength == 0 ? IntPtr : "uint*"
+    LocalAddressMarshal := LocalAddress == 0 ? IntPtr : IntPtr
+    RemoteAddressLengthMarshal := RemoteAddressLength is VarRef ? "uint*" : IntPtr
+    RemoteAddressLengthMarshal := RemoteAddressLength == 0 ? IntPtr : "uint*"
+    RemoteAddressMarshal := RemoteAddress == 0 ? IntPtr : IntPtr
+    timeoutMarshal := timeout == 0 ? IntPtr : TIMEVAL.Ptr
 
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\WSAConnectByNameW", SOCKET_handle, s, "ptr", nodename, "ptr", servicename, LocalAddressLengthMarshal, LocalAddressLength, IntPtr, LocalAddress, RemoteAddressLengthMarshal, RemoteAddressLength, IntPtr, RemoteAddress, TIMEVAL.Ptr, timeout, OVERLAPPED.Ptr, Reserved, BOOL)
+    result := DllCall("WS2_32.dll\WSAConnectByNameW", SOCKET_handle, s, "ptr", nodename, "ptr", servicename, LocalAddressLengthMarshal, LocalAddressLength, LocalAddressMarshal, LocalAddress, RemoteAddressLengthMarshal, RemoteAddressLength, RemoteAddressMarshal, RemoteAddress, timeoutMarshal, timeout, OVERLAPPED.Ptr, Reserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10079,12 +10110,17 @@ export WSAConnectByNameA(s, nodename, servicename, LocalAddressLength, LocalAddr
     nodename := nodename is String ? StrPtr(nodename) : nodename
     servicename := servicename is String ? StrPtr(servicename) : servicename
 
-    LocalAddressLengthMarshal := LocalAddressLength is VarRef ? "uint*" : "ptr"
-    RemoteAddressLengthMarshal := RemoteAddressLength is VarRef ? "uint*" : "ptr"
+    LocalAddressLengthMarshal := LocalAddressLength is VarRef ? "uint*" : IntPtr
+    LocalAddressLengthMarshal := LocalAddressLength == 0 ? IntPtr : "uint*"
+    LocalAddressMarshal := LocalAddress == 0 ? IntPtr : IntPtr
+    RemoteAddressLengthMarshal := RemoteAddressLength is VarRef ? "uint*" : IntPtr
+    RemoteAddressLengthMarshal := RemoteAddressLength == 0 ? IntPtr : "uint*"
+    RemoteAddressMarshal := RemoteAddress == 0 ? IntPtr : IntPtr
+    timeoutMarshal := timeout == 0 ? IntPtr : TIMEVAL.Ptr
 
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\WSAConnectByNameA", SOCKET_handle, s, "ptr", nodename, "ptr", servicename, LocalAddressLengthMarshal, LocalAddressLength, IntPtr, LocalAddress, RemoteAddressLengthMarshal, RemoteAddressLength, IntPtr, RemoteAddress, TIMEVAL.Ptr, timeout, OVERLAPPED.Ptr, Reserved, BOOL)
+    result := DllCall("WS2_32.dll\WSAConnectByNameA", SOCKET_handle, s, "ptr", nodename, "ptr", servicename, LocalAddressLengthMarshal, LocalAddressLength, LocalAddressMarshal, LocalAddress, RemoteAddressLengthMarshal, RemoteAddressLength, RemoteAddressMarshal, RemoteAddress, timeoutMarshal, timeout, OVERLAPPED.Ptr, Reserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10307,12 +10343,17 @@ export WSAConnectByNameA(s, nodename, servicename, LocalAddressLength, LocalAddr
 export WSAConnectByList(s, SocketAddress, LocalAddressLength, LocalAddress, RemoteAddressLength, RemoteAddress, timeout) {
     static Reserved := 0 ;Reserved parameters must always be NULL
 
-    LocalAddressLengthMarshal := LocalAddressLength is VarRef ? "uint*" : "ptr"
-    RemoteAddressLengthMarshal := RemoteAddressLength is VarRef ? "uint*" : "ptr"
+    LocalAddressLengthMarshal := LocalAddressLength is VarRef ? "uint*" : IntPtr
+    LocalAddressLengthMarshal := LocalAddressLength == 0 ? IntPtr : "uint*"
+    LocalAddressMarshal := LocalAddress == 0 ? IntPtr : IntPtr
+    RemoteAddressLengthMarshal := RemoteAddressLength is VarRef ? "uint*" : IntPtr
+    RemoteAddressLengthMarshal := RemoteAddressLength == 0 ? IntPtr : "uint*"
+    RemoteAddressMarshal := RemoteAddress == 0 ? IntPtr : IntPtr
+    timeoutMarshal := timeout == 0 ? IntPtr : TIMEVAL.Ptr
 
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\WSAConnectByList", SOCKET_handle, s, SOCKET_ADDRESS_LIST.Ptr, SocketAddress, LocalAddressLengthMarshal, LocalAddressLength, IntPtr, LocalAddress, RemoteAddressLengthMarshal, RemoteAddressLength, IntPtr, RemoteAddress, TIMEVAL.Ptr, timeout, OVERLAPPED.Ptr, Reserved, BOOL)
+    result := DllCall("WS2_32.dll\WSAConnectByList", SOCKET_handle, s, SOCKET_ADDRESS_LIST.Ptr, SocketAddress, LocalAddressLengthMarshal, LocalAddressLength, LocalAddressMarshal, LocalAddress, RemoteAddressLengthMarshal, RemoteAddressLength, RemoteAddressMarshal, RemoteAddress, timeoutMarshal, timeout, OVERLAPPED.Ptr, Reserved, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -11188,12 +11229,14 @@ export WSAEnumNetworkEvents(s, hEventObject, lpNetworkEvents) {
  * @since windows8.1
  */
 export WSAEnumProtocolsA(lpiProtocols, lpProtocolBuffer, lpdwBufferLength) {
-    lpiProtocolsMarshal := lpiProtocols is VarRef ? "int*" : "ptr"
-    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
+    lpiProtocolsMarshal := lpiProtocols is VarRef ? "int*" : IntPtr
+    lpiProtocolsMarshal := lpiProtocols == 0 ? IntPtr : "int*"
+    lpProtocolBufferMarshal := lpProtocolBuffer == 0 ? IntPtr : IntPtr
+    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\WSAEnumProtocolsA", lpiProtocolsMarshal, lpiProtocols, IntPtr, lpProtocolBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, Int32)
+    result := DllCall("WS2_32.dll\WSAEnumProtocolsA", lpiProtocolsMarshal, lpiProtocols, lpProtocolBufferMarshal, lpProtocolBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -11313,12 +11356,14 @@ export WSAEnumProtocolsA(lpiProtocols, lpProtocolBuffer, lpdwBufferLength) {
  * @since windows8.1
  */
 export WSAEnumProtocolsW(lpiProtocols, lpProtocolBuffer, lpdwBufferLength) {
-    lpiProtocolsMarshal := lpiProtocols is VarRef ? "int*" : "ptr"
-    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
+    lpiProtocolsMarshal := lpiProtocols is VarRef ? "int*" : IntPtr
+    lpiProtocolsMarshal := lpiProtocols == 0 ? IntPtr : "int*"
+    lpProtocolBufferMarshal := lpProtocolBuffer == 0 ? IntPtr : IntPtr
+    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\WSAEnumProtocolsW", lpiProtocolsMarshal, lpiProtocols, IntPtr, lpProtocolBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, Int32)
+    result := DllCall("WS2_32.dll\WSAEnumProtocolsW", lpiProtocolsMarshal, lpiProtocols, lpProtocolBufferMarshal, lpProtocolBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -11746,9 +11791,11 @@ export WSAEnumProtocolsW(lpiProtocols, lpProtocolBuffer, lpdwBufferLength) {
  * @since windows8.1
  */
 export WSAEventSelect(s, hEventObject, lNetworkEvents) {
+    hEventObjectMarshal := hEventObject == 0 ? IntPtr : WSAEVENT
+
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\WSAEventSelect", SOCKET_handle, s, WSAEVENT, hEventObject, Int32, lNetworkEvents, Int32)
+    result := DllCall("WS2_32.dll\WSAEventSelect", SOCKET_handle, s, hEventObjectMarshal, hEventObject, Int32, lNetworkEvents, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -11892,8 +11939,8 @@ export WSAEventSelect(s, hEventObject, lNetworkEvents) {
  * @since windows8.1
  */
 export WSAGetOverlappedResult(s, lpOverlapped, lpcbTransfer, fWait, lpdwFlags) {
-    lpcbTransferMarshal := lpcbTransfer is VarRef ? "uint*" : "ptr"
-    lpdwFlagsMarshal := lpdwFlags is VarRef ? "uint*" : "ptr"
+    lpcbTransferMarshal := lpcbTransfer is VarRef ? "uint*" : IntPtr
+    lpdwFlagsMarshal := lpdwFlags is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -12068,7 +12115,7 @@ export WSAGetQOSByName(s, lpQOSName, lpQOS) {
  * @since windows8.1
  */
 export WSAHtonl(s, hostlong, lpnetlong) {
-    lpnetlongMarshal := lpnetlong is VarRef ? "uint*" : "ptr"
+    lpnetlongMarshal := lpnetlong is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -12158,7 +12205,7 @@ export WSAHtonl(s, hostlong, lpnetlong) {
  * @since windows8.1
  */
 export WSAHtons(s, hostshort, lpnetshort) {
-    lpnetshortMarshal := lpnetshort is VarRef ? "ushort*" : "ptr"
+    lpnetshortMarshal := lpnetshort is VarRef ? "ushort*" : IntPtr
 
     A_LastError := 0
 
@@ -12337,11 +12384,15 @@ export WSAHtons(s, hostshort, lpnetshort) {
  * @since windows8.1
  */
 export WSAIoctl(s, dwIoControlCode, lpvInBuffer, cbInBuffer, lpvOutBuffer, cbOutBuffer, lpcbBytesReturned, lpOverlapped, lpCompletionRoutine) {
-    lpcbBytesReturnedMarshal := lpcbBytesReturned is VarRef ? "uint*" : "ptr"
+    lpvInBufferMarshal := lpvInBuffer == 0 ? IntPtr : IntPtr
+    lpvOutBufferMarshal := lpvOutBuffer == 0 ? IntPtr : IntPtr
+    lpcbBytesReturnedMarshal := lpcbBytesReturned is VarRef ? "uint*" : IntPtr
+    lpOverlappedMarshal := lpOverlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+    lpCompletionRoutineMarshal := lpCompletionRoutine == 0 ? IntPtr : LPWSAOVERLAPPED_COMPLETION_ROUTINE
 
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\WSAIoctl", SOCKET_handle, s, UInt32, dwIoControlCode, IntPtr, lpvInBuffer, UInt32, cbInBuffer, IntPtr, lpvOutBuffer, UInt32, cbOutBuffer, lpcbBytesReturnedMarshal, lpcbBytesReturned, OVERLAPPED.Ptr, lpOverlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE, lpCompletionRoutine, Int32)
+    result := DllCall("WS2_32.dll\WSAIoctl", SOCKET_handle, s, UInt32, dwIoControlCode, lpvInBufferMarshal, lpvInBuffer, UInt32, cbInBuffer, lpvOutBufferMarshal, lpvOutBuffer, UInt32, cbOutBuffer, lpcbBytesReturnedMarshal, lpcbBytesReturned, lpOverlappedMarshal, lpOverlapped, lpCompletionRoutineMarshal, lpCompletionRoutine, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -12662,9 +12713,14 @@ export WSAIoctl(s, dwIoControlCode, lpvInBuffer, cbInBuffer, lpvOutBuffer, cbOut
  * @since windows8.1
  */
 export WSAJoinLeaf(s, name, namelen, lpCallerData, lpCalleeData, lpSQOS, lpGQOS, dwFlags) {
+    lpCallerDataMarshal := lpCallerData == 0 ? IntPtr : WSABUF.Ptr
+    lpCalleeDataMarshal := lpCalleeData == 0 ? IntPtr : WSABUF.Ptr
+    lpSQOSMarshal := lpSQOS == 0 ? IntPtr : QOS.Ptr
+    lpGQOSMarshal := lpGQOS == 0 ? IntPtr : QOS.Ptr
+
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\WSAJoinLeaf", SOCKET_handle, s, IntPtr, name, Int32, namelen, WSABUF.Ptr, lpCallerData, WSABUF.Ptr, lpCalleeData, QOS.Ptr, lpSQOS, QOS.Ptr, lpGQOS, UInt32, dwFlags, SOCKET.Owned)
+    result := DllCall("WS2_32.dll\WSAJoinLeaf", SOCKET_handle, s, IntPtr, name, Int32, namelen, lpCallerDataMarshal, lpCallerData, lpCalleeDataMarshal, lpCalleeData, lpSQOSMarshal, lpSQOS, lpGQOSMarshal, lpGQOS, UInt32, dwFlags, SOCKET.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -12750,7 +12806,7 @@ export WSAJoinLeaf(s, name, namelen, lpCallerData, lpCalleeData, lpSQOS, lpGQOS,
  * @since windows8.1
  */
 export WSANtohl(s, netlong, lphostlong) {
-    lphostlongMarshal := lphostlong is VarRef ? "uint*" : "ptr"
+    lphostlongMarshal := lphostlong is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -12842,7 +12898,7 @@ export WSANtohl(s, netlong, lphostlong) {
  * @since windows8.1
  */
 export WSANtohs(s, netshort, lphostshort) {
-    lphostshortMarshal := lphostshort is VarRef ? "ushort*" : "ptr"
+    lphostshortMarshal := lphostshort is VarRef ? "ushort*" : IntPtr
 
     A_LastError := 0
 
@@ -13325,12 +13381,15 @@ export WSANtohs(s, netshort, lphostshort) {
  * @since windows8.1
  */
 export WSARecv(s, lpBuffers, dwBufferCount, lpNumberOfBytesRecvd, lpFlags, lpOverlapped, lpCompletionRoutine) {
-    lpNumberOfBytesRecvdMarshal := lpNumberOfBytesRecvd is VarRef ? "uint*" : "ptr"
-    lpFlagsMarshal := lpFlags is VarRef ? "uint*" : "ptr"
+    lpNumberOfBytesRecvdMarshal := lpNumberOfBytesRecvd is VarRef ? "uint*" : IntPtr
+    lpNumberOfBytesRecvdMarshal := lpNumberOfBytesRecvd == 0 ? IntPtr : "uint*"
+    lpFlagsMarshal := lpFlags is VarRef ? "uint*" : IntPtr
+    lpOverlappedMarshal := lpOverlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+    lpCompletionRoutineMarshal := lpCompletionRoutine == 0 ? IntPtr : LPWSAOVERLAPPED_COMPLETION_ROUTINE
 
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\WSARecv", SOCKET_handle, s, WSABUF.Ptr, lpBuffers, UInt32, dwBufferCount, lpNumberOfBytesRecvdMarshal, lpNumberOfBytesRecvd, lpFlagsMarshal, lpFlags, OVERLAPPED.Ptr, lpOverlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE, lpCompletionRoutine, Int32)
+    result := DllCall("WS2_32.dll\WSARecv", SOCKET_handle, s, WSABUF.Ptr, lpBuffers, UInt32, dwBufferCount, lpNumberOfBytesRecvdMarshal, lpNumberOfBytesRecvd, lpFlagsMarshal, lpFlags, lpOverlappedMarshal, lpOverlapped, lpCompletionRoutineMarshal, lpCompletionRoutine, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -13467,9 +13526,11 @@ export WSARecv(s, lpBuffers, dwBufferCount, lpNumberOfBytesRecvd, lpFlags, lpOve
  * @since windows5.0
  */
 export WSARecvDisconnect(s, lpInboundDisconnectData) {
+    lpInboundDisconnectDataMarshal := lpInboundDisconnectData == 0 ? IntPtr : WSABUF.Ptr
+
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\WSARecvDisconnect", SOCKET_handle, s, WSABUF.Ptr, lpInboundDisconnectData, Int32)
+    result := DllCall("WS2_32.dll\WSARecvDisconnect", SOCKET_handle, s, lpInboundDisconnectDataMarshal, lpInboundDisconnectData, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -13797,13 +13858,18 @@ export WSARecvDisconnect(s, lpInboundDisconnectData) {
  * @since windows8.1
  */
 export WSARecvFrom(s, lpBuffers, dwBufferCount, lpNumberOfBytesRecvd, lpFlags, lpFrom, lpFromlen, lpOverlapped, lpCompletionRoutine) {
-    lpNumberOfBytesRecvdMarshal := lpNumberOfBytesRecvd is VarRef ? "uint*" : "ptr"
-    lpFlagsMarshal := lpFlags is VarRef ? "uint*" : "ptr"
-    lpFromlenMarshal := lpFromlen is VarRef ? "int*" : "ptr"
+    lpNumberOfBytesRecvdMarshal := lpNumberOfBytesRecvd is VarRef ? "uint*" : IntPtr
+    lpNumberOfBytesRecvdMarshal := lpNumberOfBytesRecvd == 0 ? IntPtr : "uint*"
+    lpFlagsMarshal := lpFlags is VarRef ? "uint*" : IntPtr
+    lpFromMarshal := lpFrom == 0 ? IntPtr : IntPtr
+    lpFromlenMarshal := lpFromlen is VarRef ? "int*" : IntPtr
+    lpFromlenMarshal := lpFromlen == 0 ? IntPtr : "int*"
+    lpOverlappedMarshal := lpOverlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+    lpCompletionRoutineMarshal := lpCompletionRoutine == 0 ? IntPtr : LPWSAOVERLAPPED_COMPLETION_ROUTINE
 
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\WSARecvFrom", SOCKET_handle, s, WSABUF.Ptr, lpBuffers, UInt32, dwBufferCount, lpNumberOfBytesRecvdMarshal, lpNumberOfBytesRecvd, lpFlagsMarshal, lpFlags, IntPtr, lpFrom, lpFromlenMarshal, lpFromlen, OVERLAPPED.Ptr, lpOverlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE, lpCompletionRoutine, Int32)
+    result := DllCall("WS2_32.dll\WSARecvFrom", SOCKET_handle, s, WSABUF.Ptr, lpBuffers, UInt32, dwBufferCount, lpNumberOfBytesRecvdMarshal, lpNumberOfBytesRecvd, lpFlagsMarshal, lpFlags, lpFromMarshal, lpFrom, lpFromlenMarshal, lpFromlen, lpOverlappedMarshal, lpOverlapped, lpCompletionRoutineMarshal, lpCompletionRoutine, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14254,11 +14320,14 @@ export WSAResetEvent(hEvent) {
  * @since windows8.1
  */
 export WSASend(s, lpBuffers, dwBufferCount, lpNumberOfBytesSent, dwFlags, lpOverlapped, lpCompletionRoutine) {
-    lpNumberOfBytesSentMarshal := lpNumberOfBytesSent is VarRef ? "uint*" : "ptr"
+    lpNumberOfBytesSentMarshal := lpNumberOfBytesSent is VarRef ? "uint*" : IntPtr
+    lpNumberOfBytesSentMarshal := lpNumberOfBytesSent == 0 ? IntPtr : "uint*"
+    lpOverlappedMarshal := lpOverlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+    lpCompletionRoutineMarshal := lpCompletionRoutine == 0 ? IntPtr : LPWSAOVERLAPPED_COMPLETION_ROUTINE
 
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\WSASend", SOCKET_handle, s, WSABUF.Ptr, lpBuffers, UInt32, dwBufferCount, lpNumberOfBytesSentMarshal, lpNumberOfBytesSent, UInt32, dwFlags, OVERLAPPED.Ptr, lpOverlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE, lpCompletionRoutine, Int32)
+    result := DllCall("WS2_32.dll\WSASend", SOCKET_handle, s, WSABUF.Ptr, lpBuffers, UInt32, dwBufferCount, lpNumberOfBytesSentMarshal, lpNumberOfBytesSent, UInt32, dwFlags, lpOverlappedMarshal, lpOverlapped, lpCompletionRoutineMarshal, lpCompletionRoutine, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14634,11 +14703,14 @@ export WSASend(s, lpBuffers, dwBufferCount, lpNumberOfBytesSent, dwFlags, lpOver
  * @since windows8.1
  */
 export WSASendMsg(_Handle, lpMsg, dwFlags, lpNumberOfBytesSent, lpOverlapped, lpCompletionRoutine) {
-    lpNumberOfBytesSentMarshal := lpNumberOfBytesSent is VarRef ? "uint*" : "ptr"
+    lpNumberOfBytesSentMarshal := lpNumberOfBytesSent is VarRef ? "uint*" : IntPtr
+    lpNumberOfBytesSentMarshal := lpNumberOfBytesSent == 0 ? IntPtr : "uint*"
+    lpOverlappedMarshal := lpOverlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+    lpCompletionRoutineMarshal := lpCompletionRoutine == 0 ? IntPtr : LPWSAOVERLAPPED_COMPLETION_ROUTINE
 
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\WSASendMsg", SOCKET_handle, _Handle, WSAMSG.Ptr, lpMsg, UInt32, dwFlags, lpNumberOfBytesSentMarshal, lpNumberOfBytesSent, OVERLAPPED.Ptr, lpOverlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE, lpCompletionRoutine, Int32)
+    result := DllCall("WS2_32.dll\WSASendMsg", SOCKET_handle, _Handle, WSAMSG.Ptr, lpMsg, UInt32, dwFlags, lpNumberOfBytesSentMarshal, lpNumberOfBytesSent, lpOverlappedMarshal, lpOverlapped, lpCompletionRoutineMarshal, lpCompletionRoutine, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14771,9 +14843,11 @@ export WSASendMsg(_Handle, lpMsg, dwFlags, lpNumberOfBytesSent, lpOverlapped, lp
  * @since windows5.0
  */
 export WSASendDisconnect(s, lpOutboundDisconnectData) {
+    lpOutboundDisconnectDataMarshal := lpOutboundDisconnectData == 0 ? IntPtr : WSABUF.Ptr
+
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\WSASendDisconnect", SOCKET_handle, s, WSABUF.Ptr, lpOutboundDisconnectData, Int32)
+    result := DllCall("WS2_32.dll\WSASendDisconnect", SOCKET_handle, s, lpOutboundDisconnectDataMarshal, lpOutboundDisconnectData, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -15197,11 +15271,15 @@ export WSASendDisconnect(s, lpOutboundDisconnectData) {
  * @since windows8.1
  */
 export WSASendTo(s, lpBuffers, dwBufferCount, lpNumberOfBytesSent, dwFlags, lpTo, iTolen, lpOverlapped, lpCompletionRoutine) {
-    lpNumberOfBytesSentMarshal := lpNumberOfBytesSent is VarRef ? "uint*" : "ptr"
+    lpNumberOfBytesSentMarshal := lpNumberOfBytesSent is VarRef ? "uint*" : IntPtr
+    lpNumberOfBytesSentMarshal := lpNumberOfBytesSent == 0 ? IntPtr : "uint*"
+    lpToMarshal := lpTo == 0 ? IntPtr : IntPtr
+    lpOverlappedMarshal := lpOverlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+    lpCompletionRoutineMarshal := lpCompletionRoutine == 0 ? IntPtr : LPWSAOVERLAPPED_COMPLETION_ROUTINE
 
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\WSASendTo", SOCKET_handle, s, WSABUF.Ptr, lpBuffers, UInt32, dwBufferCount, lpNumberOfBytesSentMarshal, lpNumberOfBytesSent, UInt32, dwFlags, IntPtr, lpTo, Int32, iTolen, OVERLAPPED.Ptr, lpOverlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE, lpCompletionRoutine, Int32)
+    result := DllCall("WS2_32.dll\WSASendTo", SOCKET_handle, s, WSABUF.Ptr, lpBuffers, UInt32, dwBufferCount, lpNumberOfBytesSentMarshal, lpNumberOfBytesSent, UInt32, dwFlags, lpToMarshal, lpTo, Int32, iTolen, lpOverlappedMarshal, lpOverlapped, lpCompletionRoutineMarshal, lpCompletionRoutine, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -16046,9 +16124,11 @@ export WSASetEvent(hEvent) {
  * @since windows8.1
  */
 export WSASocketA(af, type, protocol, lpProtocolInfo, g, dwFlags) {
+    lpProtocolInfoMarshal := lpProtocolInfo == 0 ? IntPtr : WSAPROTOCOL_INFOA.Ptr
+
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\WSASocketA", Int32, af, Int32, type, Int32, protocol, WSAPROTOCOL_INFOA.Ptr, lpProtocolInfo, UInt32, g, UInt32, dwFlags, SOCKET.Owned)
+    result := DllCall("WS2_32.dll\WSASocketA", Int32, af, Int32, type, Int32, protocol, lpProtocolInfoMarshal, lpProtocolInfo, UInt32, g, UInt32, dwFlags, SOCKET.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -16812,9 +16892,11 @@ export WSASocketA(af, type, protocol, lpProtocolInfo, g, dwFlags) {
  * @since windows8.1
  */
 export WSASocketW(af, type, protocol, lpProtocolInfo, g, dwFlags) {
+    lpProtocolInfoMarshal := lpProtocolInfo == 0 ? IntPtr : WSAPROTOCOL_INFOW.Ptr
+
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\WSASocketW", Int32, af, Int32, type, Int32, protocol, WSAPROTOCOL_INFOW.Ptr, lpProtocolInfo, UInt32, g, UInt32, dwFlags, SOCKET.Owned)
+    result := DllCall("WS2_32.dll\WSASocketW", Int32, af, Int32, type, Int32, protocol, lpProtocolInfoMarshal, lpProtocolInfo, UInt32, g, UInt32, dwFlags, SOCKET.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -17050,11 +17132,12 @@ export WSAWaitForMultipleEvents(cEvents, lphEvents, fWaitAll, dwTimeout, fAlerta
 export WSAAddressToStringA(lpsaAddress, dwAddressLength, lpProtocolInfo, lpszAddressString, lpdwAddressStringLength) {
     lpszAddressString := lpszAddressString is String ? StrPtr(lpszAddressString) : lpszAddressString
 
-    lpdwAddressStringLengthMarshal := lpdwAddressStringLength is VarRef ? "uint*" : "ptr"
+    lpProtocolInfoMarshal := lpProtocolInfo == 0 ? IntPtr : WSAPROTOCOL_INFOA.Ptr
+    lpdwAddressStringLengthMarshal := lpdwAddressStringLength is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\WSAAddressToStringA", IntPtr, lpsaAddress, UInt32, dwAddressLength, WSAPROTOCOL_INFOA.Ptr, lpProtocolInfo, "ptr", lpszAddressString, lpdwAddressStringLengthMarshal, lpdwAddressStringLength, Int32)
+    result := DllCall("WS2_32.dll\WSAAddressToStringA", IntPtr, lpsaAddress, UInt32, dwAddressLength, lpProtocolInfoMarshal, lpProtocolInfo, "ptr", lpszAddressString, lpdwAddressStringLengthMarshal, lpdwAddressStringLength, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -17157,11 +17240,12 @@ export WSAAddressToStringA(lpsaAddress, dwAddressLength, lpProtocolInfo, lpszAdd
 export WSAAddressToStringW(lpsaAddress, dwAddressLength, lpProtocolInfo, lpszAddressString, lpdwAddressStringLength) {
     lpszAddressString := lpszAddressString is String ? StrPtr(lpszAddressString) : lpszAddressString
 
-    lpdwAddressStringLengthMarshal := lpdwAddressStringLength is VarRef ? "uint*" : "ptr"
+    lpProtocolInfoMarshal := lpProtocolInfo == 0 ? IntPtr : WSAPROTOCOL_INFOW.Ptr
+    lpdwAddressStringLengthMarshal := lpdwAddressStringLength is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\WSAAddressToStringW", IntPtr, lpsaAddress, UInt32, dwAddressLength, WSAPROTOCOL_INFOW.Ptr, lpProtocolInfo, "ptr", lpszAddressString, lpdwAddressStringLengthMarshal, lpdwAddressStringLength, Int32)
+    result := DllCall("WS2_32.dll\WSAAddressToStringW", IntPtr, lpsaAddress, UInt32, dwAddressLength, lpProtocolInfoMarshal, lpProtocolInfo, "ptr", lpszAddressString, lpdwAddressStringLengthMarshal, lpdwAddressStringLength, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -17264,11 +17348,12 @@ export WSAAddressToStringW(lpsaAddress, dwAddressLength, lpProtocolInfo, lpszAdd
 export WSAStringToAddressA(AddressString, AddressFamily, lpProtocolInfo, lpAddress, lpAddressLength) {
     AddressString := AddressString is String ? StrPtr(AddressString) : AddressString
 
-    lpAddressLengthMarshal := lpAddressLength is VarRef ? "int*" : "ptr"
+    lpProtocolInfoMarshal := lpProtocolInfo == 0 ? IntPtr : WSAPROTOCOL_INFOA.Ptr
+    lpAddressLengthMarshal := lpAddressLength is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\WSAStringToAddressA", "ptr", AddressString, Int32, AddressFamily, WSAPROTOCOL_INFOA.Ptr, lpProtocolInfo, IntPtr, lpAddress, lpAddressLengthMarshal, lpAddressLength, Int32)
+    result := DllCall("WS2_32.dll\WSAStringToAddressA", "ptr", AddressString, Int32, AddressFamily, lpProtocolInfoMarshal, lpProtocolInfo, IntPtr, lpAddress, lpAddressLengthMarshal, lpAddressLength, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -17370,11 +17455,12 @@ export WSAStringToAddressA(AddressString, AddressFamily, lpProtocolInfo, lpAddre
 export WSAStringToAddressW(AddressString, AddressFamily, lpProtocolInfo, lpAddress, lpAddressLength) {
     AddressString := AddressString is String ? StrPtr(AddressString) : AddressString
 
-    lpAddressLengthMarshal := lpAddressLength is VarRef ? "int*" : "ptr"
+    lpProtocolInfoMarshal := lpProtocolInfo == 0 ? IntPtr : WSAPROTOCOL_INFOW.Ptr
+    lpAddressLengthMarshal := lpAddressLength is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\WSAStringToAddressW", "ptr", AddressString, Int32, AddressFamily, WSAPROTOCOL_INFOW.Ptr, lpProtocolInfo, IntPtr, lpAddress, lpAddressLengthMarshal, lpAddressLength, Int32)
+    result := DllCall("WS2_32.dll\WSAStringToAddressW", "ptr", AddressString, Int32, AddressFamily, lpProtocolInfoMarshal, lpProtocolInfo, IntPtr, lpAddress, lpAddressLengthMarshal, lpAddressLength, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -18601,7 +18687,7 @@ export WSALookupServiceBeginW(lpqsRestrictions, dwControlFlags, lphLookup) {
  * @since windows8.1
  */
 export WSALookupServiceNextA(hLookup, dwControlFlags, lpdwBufferLength, lpqsResults) {
-    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
+    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -19026,11 +19112,12 @@ export WSALookupServiceNextA(hLookup, dwControlFlags, lpdwBufferLength, lpqsResu
  * @since windows8.1
  */
 export WSALookupServiceNextW(hLookup, dwControlFlags, lpdwBufferLength, lpqsResults) {
-    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
+    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : IntPtr
+    lpqsResultsMarshal := lpqsResults == 0 ? IntPtr : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\WSALookupServiceNextW", HANDLE, hLookup, UInt32, dwControlFlags, lpdwBufferLengthMarshal, lpdwBufferLength, IntPtr, lpqsResults, Int32)
+    result := DllCall("WS2_32.dll\WSALookupServiceNextW", HANDLE, hLookup, UInt32, dwControlFlags, lpdwBufferLengthMarshal, lpdwBufferLength, lpqsResultsMarshal, lpqsResults, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -19228,11 +19315,14 @@ export WSALookupServiceNextW(hLookup, dwControlFlags, lpdwBufferLength, lpqsResu
  * @since windows8.1
  */
 export WSANSPIoctl(hLookup, dwControlCode, lpvInBuffer, cbInBuffer, lpvOutBuffer, cbOutBuffer, lpcbBytesReturned, lpCompletion) {
-    lpcbBytesReturnedMarshal := lpcbBytesReturned is VarRef ? "uint*" : "ptr"
+    lpvInBufferMarshal := lpvInBuffer == 0 ? IntPtr : IntPtr
+    lpvOutBufferMarshal := lpvOutBuffer == 0 ? IntPtr : IntPtr
+    lpcbBytesReturnedMarshal := lpcbBytesReturned is VarRef ? "uint*" : IntPtr
+    lpCompletionMarshal := lpCompletion == 0 ? IntPtr : WSACOMPLETION.Ptr
 
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\WSANSPIoctl", HANDLE, hLookup, UInt32, dwControlCode, IntPtr, lpvInBuffer, UInt32, cbInBuffer, IntPtr, lpvOutBuffer, UInt32, cbOutBuffer, lpcbBytesReturnedMarshal, lpcbBytesReturned, WSACOMPLETION.Ptr, lpCompletion, Int32)
+    result := DllCall("WS2_32.dll\WSANSPIoctl", HANDLE, hLookup, UInt32, dwControlCode, lpvInBufferMarshal, lpvInBuffer, UInt32, cbInBuffer, lpvOutBufferMarshal, lpvOutBuffer, UInt32, cbOutBuffer, lpcbBytesReturnedMarshal, lpcbBytesReturned, lpCompletionMarshal, lpCompletion, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -19777,7 +19867,7 @@ export WSARemoveServiceClass(lpServiceClassId) {
  * @since windows5.0
  */
 export WSAGetServiceClassInfoA(lpProviderId, lpServiceClassId, lpdwBufSize, lpServiceClassInfo) {
-    lpdwBufSizeMarshal := lpdwBufSize is VarRef ? "uint*" : "ptr"
+    lpdwBufSizeMarshal := lpdwBufSize is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -19912,7 +20002,7 @@ export WSAGetServiceClassInfoA(lpProviderId, lpServiceClassId, lpdwBufSize, lpSe
  * @since windows5.0
  */
 export WSAGetServiceClassInfoW(lpProviderId, lpServiceClassId, lpdwBufSize, lpServiceClassInfo) {
-    lpdwBufSizeMarshal := lpdwBufSize is VarRef ? "uint*" : "ptr"
+    lpdwBufSizeMarshal := lpdwBufSize is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -19996,7 +20086,7 @@ export WSAGetServiceClassInfoW(lpProviderId, lpServiceClassId, lpdwBufSize, lpSe
  * @since windows8.1
  */
 export WSAEnumNameSpaceProvidersA(lpdwBufferLength, lpnspBuffer) {
-    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
+    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -20079,7 +20169,7 @@ export WSAEnumNameSpaceProvidersA(lpdwBufferLength, lpnspBuffer) {
  * @since windows8.1
  */
 export WSAEnumNameSpaceProvidersW(lpdwBufferLength, lpnspBuffer) {
-    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
+    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -20167,7 +20257,7 @@ export WSAEnumNameSpaceProvidersW(lpdwBufferLength, lpnspBuffer) {
  * @since windows8.1
  */
 export WSAEnumNameSpaceProvidersExA(lpdwBufferLength, lpnspBuffer) {
-    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
+    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -20254,7 +20344,7 @@ export WSAEnumNameSpaceProvidersExA(lpdwBufferLength, lpnspBuffer) {
  * @since windows8.1
  */
 export WSAEnumNameSpaceProvidersExW(lpdwBufferLength, lpnspBuffer) {
-    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
+    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -20378,7 +20468,7 @@ export WSAEnumNameSpaceProvidersExW(lpdwBufferLength, lpnspBuffer) {
  * @since windows5.0
  */
 export WSAGetServiceClassNameByClassIdA(lpServiceClassId, lpszServiceClassName, lpdwBufferLength) {
-    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
+    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -20501,7 +20591,7 @@ export WSAGetServiceClassNameByClassIdA(lpServiceClassId, lpszServiceClassName, 
  * @since windows5.0
  */
 export WSAGetServiceClassNameByClassIdW(lpServiceClassId, lpszServiceClassName, lpdwBufferLength) {
-    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
+    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -21216,9 +21306,12 @@ export WSASetServiceW(lpqsRegInfo, essoperation, dwControlFlags) {
  * @since windows8.1
  */
 export WSAProviderConfigChange(lpNotificationHandle, lpOverlapped, lpCompletionRoutine) {
+    lpOverlappedMarshal := lpOverlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+    lpCompletionRoutineMarshal := lpCompletionRoutine == 0 ? IntPtr : LPWSAOVERLAPPED_COMPLETION_ROUTINE
+
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\WSAProviderConfigChange", HANDLE.Ptr, lpNotificationHandle, OVERLAPPED.Ptr, lpOverlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE, lpCompletionRoutine, Int32)
+    result := DllCall("WS2_32.dll\WSAProviderConfigChange", HANDLE.Ptr, lpNotificationHandle, lpOverlappedMarshal, lpOverlapped, lpCompletionRoutineMarshal, lpCompletionRoutine, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -21480,9 +21573,12 @@ export WSAPoll(fdArray, fds, timeout) {
  * @see https://learn.microsoft.com/windows/win32/api/winsock2/nf-winsock2-processsocketnotifications
  */
 export ProcessSocketNotifications(completionPort, registrationCount, registrationInfos, timeoutMs, completionCount, completionPortEntries, receivedEntryCount) {
-    receivedEntryCountMarshal := receivedEntryCount is VarRef ? "uint*" : "ptr"
+    registrationInfosMarshal := registrationInfos == 0 ? IntPtr : SOCK_NOTIFY_REGISTRATION.Ptr
+    completionPortEntriesMarshal := completionPortEntries == 0 ? IntPtr : OVERLAPPED_ENTRY.Ptr
+    receivedEntryCountMarshal := receivedEntryCount is VarRef ? "uint*" : IntPtr
+    receivedEntryCountMarshal := receivedEntryCount == 0 ? IntPtr : "uint*"
 
-    result := DllCall("WS2_32.dll\ProcessSocketNotifications", HANDLE, completionPort, UInt32, registrationCount, SOCK_NOTIFY_REGISTRATION.Ptr, registrationInfos, UInt32, timeoutMs, UInt32, completionCount, OVERLAPPED_ENTRY.Ptr, completionPortEntries, receivedEntryCountMarshal, receivedEntryCount, UInt32)
+    result := DllCall("WS2_32.dll\ProcessSocketNotifications", HANDLE, completionPort, UInt32, registrationCount, registrationInfosMarshal, registrationInfos, UInt32, timeoutMs, UInt32, completionCount, completionPortEntriesMarshal, completionPortEntries, receivedEntryCountMarshal, receivedEntryCount, UInt32)
     return result
 }
 
@@ -21583,7 +21679,7 @@ export RtlIpv4AddressToStringA(Addr, S) {
 export RtlIpv4AddressToStringExA(_Address, Port, AddressString, AddressStringLength) {
     AddressString := AddressString is String ? StrPtr(AddressString) : AddressString
 
-    AddressStringLengthMarshal := AddressStringLength is VarRef ? "uint*" : "ptr"
+    AddressStringLengthMarshal := AddressStringLength is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ntdll.dll\RtlIpv4AddressToStringExA", IN_ADDR.Ptr, _Address, UInt16, Port, "ptr", AddressString, AddressStringLengthMarshal, AddressStringLength, Int32)
     return result
@@ -21693,7 +21789,7 @@ export RtlIpv4AddressToStringW(Addr, S) {
 export RtlIpv4AddressToStringExW(_Address, Port, AddressString, AddressStringLength) {
     AddressString := AddressString is String ? StrPtr(AddressString) : AddressString
 
-    AddressStringLengthMarshal := AddressStringLength is VarRef ? "uint*" : "ptr"
+    AddressStringLengthMarshal := AddressStringLength is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ntdll.dll\RtlIpv4AddressToStringExW", IN_ADDR.Ptr, _Address, UInt16, Port, "ptr", AddressString, AddressStringLengthMarshal, AddressStringLength, Int32)
     return result
@@ -21792,7 +21888,7 @@ export RtlIpv4AddressToStringExW(_Address, Port, AddressString, AddressStringLen
 export RtlIpv4StringToAddressA(S, Strict, Terminator, Addr) {
     S := S is String ? StrPtr(S) : S
 
-    TerminatorMarshal := Terminator is VarRef ? "ptr*" : "ptr"
+    TerminatorMarshal := Terminator is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("ntdll.dll\RtlIpv4StringToAddressA", "ptr", S, BOOLEAN, Strict, TerminatorMarshal, Terminator, IN_ADDR.Ptr, Addr, Int32)
     return result
@@ -21849,7 +21945,7 @@ export RtlIpv4StringToAddressA(S, Strict, Terminator, Addr) {
 export RtlIpv4StringToAddressExA(AddressString, Strict, _Address, Port) {
     AddressString := AddressString is String ? StrPtr(AddressString) : AddressString
 
-    PortMarshal := Port is VarRef ? "ushort*" : "ptr"
+    PortMarshal := Port is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("ntdll.dll\RtlIpv4StringToAddressExA", "ptr", AddressString, BOOLEAN, Strict, IN_ADDR.Ptr, _Address, PortMarshal, Port, Int32)
     return result
@@ -21948,7 +22044,7 @@ export RtlIpv4StringToAddressExA(AddressString, Strict, _Address, Port) {
 export RtlIpv4StringToAddressW(S, Strict, Terminator, Addr) {
     S := S is String ? StrPtr(S) : S
 
-    TerminatorMarshal := Terminator is VarRef ? "ptr*" : "ptr"
+    TerminatorMarshal := Terminator is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("ntdll.dll\RtlIpv4StringToAddressW", "ptr", S, BOOLEAN, Strict, TerminatorMarshal, Terminator, IN_ADDR.Ptr, Addr, Int32)
     return result
@@ -22038,7 +22134,7 @@ export RtlIpv4StringToAddressW(S, Strict, Terminator, Addr) {
 export RtlIpv4StringToAddressExW(AddressString, Strict, _Address, Port) {
     AddressString := AddressString is String ? StrPtr(AddressString) : AddressString
 
-    PortMarshal := Port is VarRef ? "ushort*" : "ptr"
+    PortMarshal := Port is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("ntdll.dll\RtlIpv4StringToAddressExW", "ptr", AddressString, BOOLEAN, Strict, IN_ADDR.Ptr, _Address, PortMarshal, Port, Int32)
     return result
@@ -22151,7 +22247,7 @@ export RtlIpv6AddressToStringA(Addr, S) {
 export RtlIpv6AddressToStringExA(_Address, ScopeId, Port, AddressString, AddressStringLength) {
     AddressString := AddressString is String ? StrPtr(AddressString) : AddressString
 
-    AddressStringLengthMarshal := AddressStringLength is VarRef ? "uint*" : "ptr"
+    AddressStringLengthMarshal := AddressStringLength is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ntdll.dll\RtlIpv6AddressToStringExA", IN6_ADDR.Ptr, _Address, UInt32, ScopeId, UInt16, Port, "ptr", AddressString, AddressStringLengthMarshal, AddressStringLength, Int32)
     return result
@@ -22276,7 +22372,7 @@ export RtlIpv6AddressToStringW(Addr, S) {
 export RtlIpv6AddressToStringExW(_Address, ScopeId, Port, AddressString, AddressStringLength) {
     AddressString := AddressString is String ? StrPtr(AddressString) : AddressString
 
-    AddressStringLengthMarshal := AddressStringLength is VarRef ? "uint*" : "ptr"
+    AddressStringLengthMarshal := AddressStringLength is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ntdll.dll\RtlIpv6AddressToStringExW", IN6_ADDR.Ptr, _Address, UInt32, ScopeId, UInt16, Port, "ptr", AddressString, AddressStringLengthMarshal, AddressStringLength, Int32)
     return result
@@ -22365,7 +22461,7 @@ export RtlIpv6AddressToStringExW(_Address, ScopeId, Port, AddressString, Address
 export RtlIpv6StringToAddressA(S, Terminator, Addr) {
     S := S is String ? StrPtr(S) : S
 
-    TerminatorMarshal := Terminator is VarRef ? "ptr*" : "ptr"
+    TerminatorMarshal := Terminator is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("ntdll.dll\RtlIpv6StringToAddressA", "ptr", S, TerminatorMarshal, Terminator, IN6_ADDR.Ptr, Addr, Int32)
     return result
@@ -22428,8 +22524,8 @@ export RtlIpv6StringToAddressA(S, Terminator, Addr) {
 export RtlIpv6StringToAddressExA(AddressString, _Address, ScopeId, Port) {
     AddressString := AddressString is String ? StrPtr(AddressString) : AddressString
 
-    ScopeIdMarshal := ScopeId is VarRef ? "uint*" : "ptr"
-    PortMarshal := Port is VarRef ? "ushort*" : "ptr"
+    ScopeIdMarshal := ScopeId is VarRef ? "uint*" : IntPtr
+    PortMarshal := Port is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("ntdll.dll\RtlIpv6StringToAddressExA", "ptr", AddressString, IN6_ADDR.Ptr, _Address, ScopeIdMarshal, ScopeId, PortMarshal, Port, Int32)
     return result
@@ -22518,7 +22614,7 @@ export RtlIpv6StringToAddressExA(AddressString, _Address, ScopeId, Port) {
 export RtlIpv6StringToAddressW(S, Terminator, Addr) {
     S := S is String ? StrPtr(S) : S
 
-    TerminatorMarshal := Terminator is VarRef ? "ptr*" : "ptr"
+    TerminatorMarshal := Terminator is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("ntdll.dll\RtlIpv6StringToAddressW", "ptr", S, TerminatorMarshal, Terminator, IN6_ADDR.Ptr, Addr, Int32)
     return result
@@ -22594,8 +22690,8 @@ export RtlIpv6StringToAddressW(S, Terminator, Addr) {
 export RtlIpv6StringToAddressExW(AddressString, _Address, ScopeId, Port) {
     AddressString := AddressString is String ? StrPtr(AddressString) : AddressString
 
-    ScopeIdMarshal := ScopeId is VarRef ? "uint*" : "ptr"
-    PortMarshal := Port is VarRef ? "ushort*" : "ptr"
+    ScopeIdMarshal := ScopeId is VarRef ? "uint*" : IntPtr
+    PortMarshal := Port is VarRef ? "ushort*" : IntPtr
 
     result := DllCall("ntdll.dll\RtlIpv6StringToAddressExW", "ptr", AddressString, IN6_ADDR.Ptr, _Address, ScopeIdMarshal, ScopeId, PortMarshal, Port, Int32)
     return result
@@ -22765,7 +22861,7 @@ export RtlEthernetAddressToStringW(Addr, S) {
 export RtlEthernetStringToAddressA(S, Terminator, Addr) {
     S := S is String ? StrPtr(S) : S
 
-    TerminatorMarshal := Terminator is VarRef ? "ptr*" : "ptr"
+    TerminatorMarshal := Terminator is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("ntdll.dll\RtlEthernetStringToAddressA", "ptr", S, TerminatorMarshal, Terminator, DL_EUI48.Ptr, Addr, Int32)
     return result
@@ -22851,7 +22947,7 @@ export RtlEthernetStringToAddressA(S, Terminator, Addr) {
 export RtlEthernetStringToAddressW(S, Terminator, Addr) {
     S := S is String ? StrPtr(S) : S
 
-    TerminatorMarshal := Terminator is VarRef ? "ptr*" : "ptr"
+    TerminatorMarshal := Terminator is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("ntdll.dll\RtlEthernetStringToAddressW", "ptr", S, TerminatorMarshal, Terminator, DL_EUI48.Ptr, Addr, Int32)
     return result
@@ -23093,7 +23189,7 @@ export RtlEthernetStringToAddressW(S, Terminator, Addr) {
  * @since windows5.0
  */
 export WSARecvEx(s, buf, len, flags) {
-    flagsMarshal := flags is VarRef ? "int*" : "ptr"
+    flagsMarshal := flags is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
@@ -23440,7 +23536,10 @@ export WSARecvEx(s, buf, len, flags) {
  * @since windows8.1
  */
 export TransmitFile(hSocket, hFile, nNumberOfBytesToWrite, nNumberOfBytesPerSend, lpOverlapped, lpTransmitBuffers, dwReserved) {
-    result := DllCall("MSWSOCK.dll\TransmitFile", SOCKET_handle, hSocket, HANDLE, hFile, UInt32, nNumberOfBytesToWrite, UInt32, nNumberOfBytesPerSend, OVERLAPPED.Ptr, lpOverlapped, TRANSMIT_FILE_BUFFERS.Ptr, lpTransmitBuffers, UInt32, dwReserved, BOOL)
+    lpOverlappedMarshal := lpOverlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+    lpTransmitBuffersMarshal := lpTransmitBuffers == 0 ? IntPtr : TRANSMIT_FILE_BUFFERS.Ptr
+
+    result := DllCall("MSWSOCK.dll\TransmitFile", SOCKET_handle, hSocket, HANDLE, hFile, UInt32, nNumberOfBytesToWrite, UInt32, nNumberOfBytesPerSend, lpOverlappedMarshal, lpOverlapped, lpTransmitBuffersMarshal, lpTransmitBuffers, UInt32, dwReserved, BOOL)
     return result
 }
 
@@ -23621,8 +23720,8 @@ export TransmitFile(hSocket, hFile, nNumberOfBytesToWrite, nNumberOfBytesPerSend
  * @since windows8.1
  */
 export AcceptEx(sListenSocket, sAcceptSocket, lpOutputBuffer, dwReceiveDataLength, dwLocalAddressLength, dwRemoteAddressLength, lpdwBytesReceived, lpOverlapped) {
-    lpOutputBufferMarshal := lpOutputBuffer is VarRef ? "ptr" : "ptr"
-    lpdwBytesReceivedMarshal := lpdwBytesReceived is VarRef ? "uint*" : "ptr"
+    lpOutputBufferMarshal := lpOutputBuffer is VarRef ? "ptr" : IntPtr
+    lpdwBytesReceivedMarshal := lpdwBytesReceived is VarRef ? "uint*" : IntPtr
 
     result := DllCall("MSWSOCK.dll\AcceptEx", SOCKET_handle, sListenSocket, SOCKET_handle, sAcceptSocket, lpOutputBufferMarshal, lpOutputBuffer, UInt32, dwReceiveDataLength, UInt32, dwLocalAddressLength, UInt32, dwRemoteAddressLength, lpdwBytesReceivedMarshal, lpdwBytesReceived, OVERLAPPED.Ptr, lpOverlapped, BOOL)
     return result
@@ -23667,11 +23766,11 @@ export AcceptEx(sListenSocket, sAcceptSocket, lpOutputBuffer, dwReceiveDataLengt
  * @since windows8.1
  */
 export GetAcceptExSockaddrs(lpOutputBuffer, dwReceiveDataLength, dwLocalAddressLength, dwRemoteAddressLength, LocalSockaddr, LocalSockaddrLength, RemoteSockaddr, RemoteSockaddrLength) {
-    lpOutputBufferMarshal := lpOutputBuffer is VarRef ? "ptr" : "ptr"
-    LocalSockaddrMarshal := LocalSockaddr is VarRef ? "ptr*" : "ptr"
-    LocalSockaddrLengthMarshal := LocalSockaddrLength is VarRef ? "int*" : "ptr"
-    RemoteSockaddrMarshal := RemoteSockaddr is VarRef ? "ptr*" : "ptr"
-    RemoteSockaddrLengthMarshal := RemoteSockaddrLength is VarRef ? "int*" : "ptr"
+    lpOutputBufferMarshal := lpOutputBuffer is VarRef ? "ptr" : IntPtr
+    LocalSockaddrMarshal := LocalSockaddr is VarRef ? "ptr*" : IntPtr
+    LocalSockaddrLengthMarshal := LocalSockaddrLength is VarRef ? "int*" : IntPtr
+    RemoteSockaddrMarshal := RemoteSockaddr is VarRef ? "ptr*" : IntPtr
+    RemoteSockaddrLengthMarshal := RemoteSockaddrLength is VarRef ? "int*" : IntPtr
 
     DllCall("MSWSOCK.dll\GetAcceptExSockaddrs", lpOutputBufferMarshal, lpOutputBuffer, UInt32, dwReceiveDataLength, UInt32, dwLocalAddressLength, UInt32, dwRemoteAddressLength, LocalSockaddrMarshal, LocalSockaddr, LocalSockaddrLengthMarshal, LocalSockaddrLength, RemoteSockaddrMarshal, RemoteSockaddr, RemoteSockaddrLengthMarshal, RemoteSockaddrLength)
 }
@@ -23746,11 +23845,13 @@ export GetAcceptExSockaddrs(lpOutputBuffer, dwReceiveDataLength, dwLocalAddressL
  * @since windows5.0
  */
 export WSCEnumProtocols(lpiProtocols, lpProtocolBuffer, lpdwBufferLength, lpErrno) {
-    lpiProtocolsMarshal := lpiProtocols is VarRef ? "int*" : "ptr"
-    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
-    lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+    lpiProtocolsMarshal := lpiProtocols is VarRef ? "int*" : IntPtr
+    lpiProtocolsMarshal := lpiProtocols == 0 ? IntPtr : "int*"
+    lpProtocolBufferMarshal := lpProtocolBuffer == 0 ? IntPtr : IntPtr
+    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : IntPtr
+    lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
-    result := DllCall("WS2_32.dll\WSCEnumProtocols", lpiProtocolsMarshal, lpiProtocols, IntPtr, lpProtocolBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, lpErrnoMarshal, lpErrno, Int32)
+    result := DllCall("WS2_32.dll\WSCEnumProtocols", lpiProtocolsMarshal, lpiProtocols, lpProtocolBufferMarshal, lpProtocolBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, lpErrnoMarshal, lpErrno, Int32)
     return result
 }
 
@@ -23832,7 +23933,7 @@ export WSCEnumProtocols(lpiProtocols, lpProtocolBuffer, lpdwBufferLength, lpErrn
  * @since windows5.0
  */
 export WSCDeinstallProvider(lpProviderId, lpErrno) {
-    lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+    lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
     result := DllCall("WS2_32.dll\WSCDeinstallProvider", Guid.Ptr, lpProviderId, lpErrnoMarshal, lpErrno, Int32)
     return result
@@ -23944,7 +24045,7 @@ export WSCDeinstallProvider(lpProviderId, lpErrno) {
 export WSCInstallProvider(lpProviderId, lpszProviderDllPath, lpProtocolInfoList, dwNumberOfEntries, lpErrno) {
     lpszProviderDllPath := lpszProviderDllPath is String ? StrPtr(lpszProviderDllPath) : lpszProviderDllPath
 
-    lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+    lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
     result := DllCall("WS2_32.dll\WSCInstallProvider", Guid.Ptr, lpProviderId, "ptr", lpszProviderDllPath, WSAPROTOCOL_INFOW.Ptr, lpProtocolInfoList, UInt32, dwNumberOfEntries, lpErrnoMarshal, lpErrno, Int32)
     return result
@@ -23997,8 +24098,8 @@ export WSCInstallProvider(lpProviderId, lpszProviderDllPath, lpProtocolInfoList,
 export WSCGetProviderPath(lpProviderId, lpszProviderDllPath, lpProviderDllPathLen, lpErrno) {
     lpszProviderDllPath := lpszProviderDllPath is String ? StrPtr(lpszProviderDllPath) : lpszProviderDllPath
 
-    lpProviderDllPathLenMarshal := lpProviderDllPathLen is VarRef ? "int*" : "ptr"
-    lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+    lpProviderDllPathLenMarshal := lpProviderDllPathLen is VarRef ? "int*" : IntPtr
+    lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
     result := DllCall("WS2_32.dll\WSCGetProviderPath", Guid.Ptr, lpProviderId, "ptr", lpszProviderDllPath, lpProviderDllPathLenMarshal, lpProviderDllPathLen, lpErrnoMarshal, lpErrno, Int32)
     return result
@@ -24086,7 +24187,7 @@ export WSCGetProviderPath(lpProviderId, lpszProviderDllPath, lpProviderDllPathLe
 export WSCUpdateProvider(lpProviderId, lpszProviderDllPath, lpProtocolInfoList, dwNumberOfEntries, lpErrno) {
     lpszProviderDllPath := lpszProviderDllPath is String ? StrPtr(lpszProviderDllPath) : lpszProviderDllPath
 
-    lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+    lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
     result := DllCall("WS2_32.dll\WSCUpdateProvider", Guid.Ptr, lpProviderId, "ptr", lpszProviderDllPath, WSAPROTOCOL_INFOW.Ptr, lpProtocolInfoList, UInt32, dwNumberOfEntries, lpErrnoMarshal, lpErrno, Int32)
     return result
@@ -24250,7 +24351,7 @@ export WSCUpdateProvider(lpProviderId, lpszProviderDllPath, lpProtocolInfoList, 
  * @since windows6.0.6000
  */
 export WSCSetProviderInfo(lpProviderId, InfoType, Info, InfoSize, Flags, lpErrno) {
-    lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+    lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
     result := DllCall("WS2_32.dll\WSCSetProviderInfo", Guid.Ptr, lpProviderId, WSC_PROVIDER_INFO_TYPE, InfoType, IntPtr, Info, IntPtr, InfoSize, UInt32, Flags, lpErrnoMarshal, lpErrno, Int32)
     return result
@@ -24412,8 +24513,8 @@ export WSCSetProviderInfo(lpProviderId, InfoType, Info, InfoSize, Flags, lpErrno
  * @since windows6.0.6000
  */
 export WSCGetProviderInfo(lpProviderId, InfoType, Info, InfoSize, Flags, lpErrno) {
-    InfoSizeMarshal := InfoSize is VarRef ? "ptr*" : "ptr"
-    lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+    InfoSizeMarshal := InfoSize is VarRef ? "ptr*" : IntPtr
+    lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
     result := DllCall("WS2_32.dll\WSCGetProviderInfo", Guid.Ptr, lpProviderId, WSC_PROVIDER_INFO_TYPE, InfoType, IntPtr, Info, InfoSizeMarshal, InfoSize, UInt32, Flags, lpErrnoMarshal, lpErrno, Int32)
     return result
@@ -24558,10 +24659,12 @@ export WSCSetApplicationCategory(_Path, PathLength, Extra, ExtraLength, Permitte
     _Path := _Path is String ? StrPtr(_Path) : _Path
     Extra := Extra is String ? StrPtr(Extra) : Extra
 
-    pPrevPermLspCatMarshal := pPrevPermLspCat is VarRef ? "uint*" : "ptr"
-    lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+    ExtraMarshal := Extra == 0 ? IntPtr : PWSTR
+    pPrevPermLspCatMarshal := pPrevPermLspCat is VarRef ? "uint*" : IntPtr
+    pPrevPermLspCatMarshal := pPrevPermLspCat == 0 ? IntPtr : "uint*"
+    lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
-    result := DllCall("WS2_32.dll\WSCSetApplicationCategory", "ptr", _Path, UInt32, PathLength, "ptr", Extra, UInt32, ExtraLength, UInt32, PermittedLspCategories, pPrevPermLspCatMarshal, pPrevPermLspCat, lpErrnoMarshal, lpErrno, Int32)
+    result := DllCall("WS2_32.dll\WSCSetApplicationCategory", "ptr", _Path, UInt32, PathLength, ExtraMarshal, Extra, UInt32, ExtraLength, UInt32, PermittedLspCategories, pPrevPermLspCatMarshal, pPrevPermLspCat, lpErrnoMarshal, lpErrno, Int32)
     return result
 }
 
@@ -24710,10 +24813,11 @@ export WSCGetApplicationCategory(_Path, PathLength, Extra, ExtraLength, pPermitt
     _Path := _Path is String ? StrPtr(_Path) : _Path
     Extra := Extra is String ? StrPtr(Extra) : Extra
 
-    pPermittedLspCategoriesMarshal := pPermittedLspCategories is VarRef ? "uint*" : "ptr"
-    lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+    ExtraMarshal := Extra == 0 ? IntPtr : PWSTR
+    pPermittedLspCategoriesMarshal := pPermittedLspCategories is VarRef ? "uint*" : IntPtr
+    lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
-    result := DllCall("WS2_32.dll\WSCGetApplicationCategory", "ptr", _Path, UInt32, PathLength, "ptr", Extra, UInt32, ExtraLength, pPermittedLspCategoriesMarshal, pPermittedLspCategories, lpErrnoMarshal, lpErrno, Int32)
+    result := DllCall("WS2_32.dll\WSCGetApplicationCategory", "ptr", _Path, UInt32, PathLength, ExtraMarshal, Extra, UInt32, ExtraLength, pPermittedLspCategoriesMarshal, pPermittedLspCategories, lpErrnoMarshal, lpErrno, Int32)
     return result
 }
 
@@ -24796,7 +24900,7 @@ export WSCGetApplicationCategory(_Path, PathLength, Extra, ExtraLength, pPermitt
  * @since windows5.0
  */
 export WPUCompleteOverlappedRequest(s, lpOverlapped, dwError, cbTransferred, lpErrno) {
-    lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+    lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
     result := DllCall("WS2_32.dll\WPUCompleteOverlappedRequest", SOCKET_handle, s, OVERLAPPED.Ptr, lpOverlapped, UInt32, dwError, UInt32, cbTransferred, lpErrnoMarshal, lpErrno, Int32)
     return result
@@ -25503,8 +25607,9 @@ export WSAProviderCompleteAsyncCall(hAsyncCall, iRetCode) {
  * @since windows5.0
  */
 export EnumProtocolsA(lpiProtocols, lpProtocolBuffer, lpdwBufferLength) {
-    lpiProtocolsMarshal := lpiProtocols is VarRef ? "int*" : "ptr"
-    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
+    lpiProtocolsMarshal := lpiProtocols is VarRef ? "int*" : IntPtr
+    lpiProtocolsMarshal := lpiProtocols == 0 ? IntPtr : "int*"
+    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -25636,8 +25741,9 @@ export EnumProtocolsA(lpiProtocols, lpProtocolBuffer, lpdwBufferLength) {
  * @since windows5.0
  */
 export EnumProtocolsW(lpiProtocols, lpProtocolBuffer, lpdwBufferLength) {
-    lpiProtocolsMarshal := lpiProtocols is VarRef ? "int*" : "ptr"
-    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
+    lpiProtocolsMarshal := lpiProtocols is VarRef ? "int*" : IntPtr
+    lpiProtocolsMarshal := lpiProtocols == 0 ? IntPtr : "int*"
+    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -25861,13 +25967,17 @@ export GetAddressByNameA(dwNameSpace, lpServiceType, lpServiceName, lpiProtocols
     lpServiceName := lpServiceName is String ? StrPtr(lpServiceName) : lpServiceName
     lpAliasBuffer := lpAliasBuffer is String ? StrPtr(lpAliasBuffer) : lpAliasBuffer
 
-    lpiProtocolsMarshal := lpiProtocols is VarRef ? "int*" : "ptr"
-    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
-    lpdwAliasBufferLengthMarshal := lpdwAliasBufferLength is VarRef ? "uint*" : "ptr"
+    lpServiceNameMarshal := lpServiceName == 0 ? IntPtr : PSTR
+    lpiProtocolsMarshal := lpiProtocols is VarRef ? "int*" : IntPtr
+    lpiProtocolsMarshal := lpiProtocols == 0 ? IntPtr : "int*"
+    lpServiceAsyncInfoMarshal := lpServiceAsyncInfo == 0 ? IntPtr : SERVICE_ASYNC_INFO.Ptr
+    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : IntPtr
+    lpAliasBufferMarshal := lpAliasBuffer == 0 ? IntPtr : PSTR
+    lpdwAliasBufferLengthMarshal := lpdwAliasBufferLength is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("MSWSOCK.dll\GetAddressByNameA", UInt32, dwNameSpace, Guid.Ptr, lpServiceType, "ptr", lpServiceName, lpiProtocolsMarshal, lpiProtocols, UInt32, dwResolution, SERVICE_ASYNC_INFO.Ptr, lpServiceAsyncInfo, IntPtr, lpCsaddrBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, "ptr", lpAliasBuffer, lpdwAliasBufferLengthMarshal, lpdwAliasBufferLength, Int32)
+    result := DllCall("MSWSOCK.dll\GetAddressByNameA", UInt32, dwNameSpace, Guid.Ptr, lpServiceType, lpServiceNameMarshal, lpServiceName, lpiProtocolsMarshal, lpiProtocols, UInt32, dwResolution, lpServiceAsyncInfoMarshal, lpServiceAsyncInfo, IntPtr, lpCsaddrBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, lpAliasBufferMarshal, lpAliasBuffer, lpdwAliasBufferLengthMarshal, lpdwAliasBufferLength, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -26087,13 +26197,17 @@ export GetAddressByNameW(dwNameSpace, lpServiceType, lpServiceName, lpiProtocols
     lpServiceName := lpServiceName is String ? StrPtr(lpServiceName) : lpServiceName
     lpAliasBuffer := lpAliasBuffer is String ? StrPtr(lpAliasBuffer) : lpAliasBuffer
 
-    lpiProtocolsMarshal := lpiProtocols is VarRef ? "int*" : "ptr"
-    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : "ptr"
-    lpdwAliasBufferLengthMarshal := lpdwAliasBufferLength is VarRef ? "uint*" : "ptr"
+    lpServiceNameMarshal := lpServiceName == 0 ? IntPtr : PWSTR
+    lpiProtocolsMarshal := lpiProtocols is VarRef ? "int*" : IntPtr
+    lpiProtocolsMarshal := lpiProtocols == 0 ? IntPtr : "int*"
+    lpServiceAsyncInfoMarshal := lpServiceAsyncInfo == 0 ? IntPtr : SERVICE_ASYNC_INFO.Ptr
+    lpdwBufferLengthMarshal := lpdwBufferLength is VarRef ? "uint*" : IntPtr
+    lpAliasBufferMarshal := lpAliasBuffer == 0 ? IntPtr : PWSTR
+    lpdwAliasBufferLengthMarshal := lpdwAliasBufferLength is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("MSWSOCK.dll\GetAddressByNameW", UInt32, dwNameSpace, Guid.Ptr, lpServiceType, "ptr", lpServiceName, lpiProtocolsMarshal, lpiProtocols, UInt32, dwResolution, SERVICE_ASYNC_INFO.Ptr, lpServiceAsyncInfo, IntPtr, lpCsaddrBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, "ptr", lpAliasBuffer, lpdwAliasBufferLengthMarshal, lpdwAliasBufferLength, Int32)
+    result := DllCall("MSWSOCK.dll\GetAddressByNameW", UInt32, dwNameSpace, Guid.Ptr, lpServiceType, lpServiceNameMarshal, lpServiceName, lpiProtocolsMarshal, lpiProtocols, UInt32, dwResolution, lpServiceAsyncInfoMarshal, lpServiceAsyncInfo, IntPtr, lpCsaddrBuffer, lpdwBufferLengthMarshal, lpdwBufferLength, lpAliasBufferMarshal, lpAliasBuffer, lpdwAliasBufferLengthMarshal, lpdwAliasBufferLength, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -26431,11 +26545,12 @@ export GetNameByTypeW(lpServiceType, lpServiceName, dwNameLength) {
  * @since windows5.0
  */
 export SetServiceA(dwNameSpace, dwOperation, dwFlags, lpServiceInfo, lpServiceAsyncInfo, lpdwStatusFlags) {
-    lpdwStatusFlagsMarshal := lpdwStatusFlags is VarRef ? "uint*" : "ptr"
+    lpServiceAsyncInfoMarshal := lpServiceAsyncInfo == 0 ? IntPtr : SERVICE_ASYNC_INFO.Ptr
+    lpdwStatusFlagsMarshal := lpdwStatusFlags is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("MSWSOCK.dll\SetServiceA", UInt32, dwNameSpace, SET_SERVICE_OPERATION, dwOperation, UInt32, dwFlags, SERVICE_INFOA.Ptr, lpServiceInfo, SERVICE_ASYNC_INFO.Ptr, lpServiceAsyncInfo, lpdwStatusFlagsMarshal, lpdwStatusFlags, Int32)
+    result := DllCall("MSWSOCK.dll\SetServiceA", UInt32, dwNameSpace, SET_SERVICE_OPERATION, dwOperation, UInt32, dwFlags, SERVICE_INFOA.Ptr, lpServiceInfo, lpServiceAsyncInfoMarshal, lpServiceAsyncInfo, lpdwStatusFlagsMarshal, lpdwStatusFlags, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -26623,11 +26738,12 @@ export SetServiceA(dwNameSpace, dwOperation, dwFlags, lpServiceInfo, lpServiceAs
  * @since windows5.0
  */
 export SetServiceW(dwNameSpace, dwOperation, dwFlags, lpServiceInfo, lpServiceAsyncInfo, lpdwStatusFlags) {
-    lpdwStatusFlagsMarshal := lpdwStatusFlags is VarRef ? "uint*" : "ptr"
+    lpServiceAsyncInfoMarshal := lpServiceAsyncInfo == 0 ? IntPtr : SERVICE_ASYNC_INFO.Ptr
+    lpdwStatusFlagsMarshal := lpdwStatusFlags is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("MSWSOCK.dll\SetServiceW", UInt32, dwNameSpace, SET_SERVICE_OPERATION, dwOperation, UInt32, dwFlags, SERVICE_INFOW.Ptr, lpServiceInfo, SERVICE_ASYNC_INFO.Ptr, lpServiceAsyncInfo, lpdwStatusFlagsMarshal, lpdwStatusFlags, Int32)
+    result := DllCall("MSWSOCK.dll\SetServiceW", UInt32, dwNameSpace, SET_SERVICE_OPERATION, dwOperation, UInt32, dwFlags, SERVICE_INFOW.Ptr, lpServiceInfo, lpServiceAsyncInfoMarshal, lpServiceAsyncInfo, lpdwStatusFlagsMarshal, lpdwStatusFlags, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -26872,11 +26988,12 @@ export SetServiceW(dwNameSpace, dwOperation, dwFlags, lpServiceInfo, lpServiceAs
 export GetServiceA(dwNameSpace, lpGuid, lpServiceName, dwProperties, lpBuffer, lpdwBufferSize, lpServiceAsyncInfo) {
     lpServiceName := lpServiceName is String ? StrPtr(lpServiceName) : lpServiceName
 
-    lpdwBufferSizeMarshal := lpdwBufferSize is VarRef ? "uint*" : "ptr"
+    lpdwBufferSizeMarshal := lpdwBufferSize is VarRef ? "uint*" : IntPtr
+    lpServiceAsyncInfoMarshal := lpServiceAsyncInfo == 0 ? IntPtr : SERVICE_ASYNC_INFO.Ptr
 
     A_LastError := 0
 
-    result := DllCall("MSWSOCK.dll\GetServiceA", UInt32, dwNameSpace, Guid.Ptr, lpGuid, "ptr", lpServiceName, UInt32, dwProperties, IntPtr, lpBuffer, lpdwBufferSizeMarshal, lpdwBufferSize, SERVICE_ASYNC_INFO.Ptr, lpServiceAsyncInfo, Int32)
+    result := DllCall("MSWSOCK.dll\GetServiceA", UInt32, dwNameSpace, Guid.Ptr, lpGuid, "ptr", lpServiceName, UInt32, dwProperties, IntPtr, lpBuffer, lpdwBufferSizeMarshal, lpdwBufferSize, lpServiceAsyncInfoMarshal, lpServiceAsyncInfo, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -27121,11 +27238,12 @@ export GetServiceA(dwNameSpace, lpGuid, lpServiceName, dwProperties, lpBuffer, l
 export GetServiceW(dwNameSpace, lpGuid, lpServiceName, dwProperties, lpBuffer, lpdwBufferSize, lpServiceAsyncInfo) {
     lpServiceName := lpServiceName is String ? StrPtr(lpServiceName) : lpServiceName
 
-    lpdwBufferSizeMarshal := lpdwBufferSize is VarRef ? "uint*" : "ptr"
+    lpdwBufferSizeMarshal := lpdwBufferSize is VarRef ? "uint*" : IntPtr
+    lpServiceAsyncInfoMarshal := lpServiceAsyncInfo == 0 ? IntPtr : SERVICE_ASYNC_INFO.Ptr
 
     A_LastError := 0
 
-    result := DllCall("MSWSOCK.dll\GetServiceW", UInt32, dwNameSpace, Guid.Ptr, lpGuid, "ptr", lpServiceName, UInt32, dwProperties, IntPtr, lpBuffer, lpdwBufferSizeMarshal, lpdwBufferSize, SERVICE_ASYNC_INFO.Ptr, lpServiceAsyncInfo, Int32)
+    result := DllCall("MSWSOCK.dll\GetServiceW", UInt32, dwNameSpace, Guid.Ptr, lpGuid, "ptr", lpServiceName, UInt32, dwProperties, IntPtr, lpBuffer, lpdwBufferSizeMarshal, lpdwBufferSize, lpServiceAsyncInfoMarshal, lpServiceAsyncInfo, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -27418,11 +27536,14 @@ export getaddrinfo(pNodeName, pServiceName, pHints, ppResult) {
     pNodeName := pNodeName is String ? StrPtr(pNodeName) : pNodeName
     pServiceName := pServiceName is String ? StrPtr(pServiceName) : pServiceName
 
-    ppResultMarshal := ppResult is VarRef ? "ptr*" : "ptr"
+    pNodeNameMarshal := pNodeName == 0 ? IntPtr : PSTR
+    pServiceNameMarshal := pServiceName == 0 ? IntPtr : PSTR
+    pHintsMarshal := pHints == 0 ? IntPtr : ADDRINFOA.Ptr
+    ppResultMarshal := ppResult is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\getaddrinfo", "ptr", pNodeName, "ptr", pServiceName, ADDRINFOA.Ptr, pHints, ppResultMarshal, ppResult, Int32)
+    result := DllCall("WS2_32.dll\getaddrinfo", pNodeNameMarshal, pNodeName, pServiceNameMarshal, pServiceName, pHintsMarshal, pHints, ppResultMarshal, ppResult, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -27707,9 +27828,12 @@ export GetAddrInfoW(pNodeName, pServiceName, pHints, ppResult) {
     pNodeName := pNodeName is String ? StrPtr(pNodeName) : pNodeName
     pServiceName := pServiceName is String ? StrPtr(pServiceName) : pServiceName
 
-    ppResultMarshal := ppResult is VarRef ? "ptr*" : "ptr"
+    pNodeNameMarshal := pNodeName == 0 ? IntPtr : PWSTR
+    pServiceNameMarshal := pServiceName == 0 ? IntPtr : PWSTR
+    pHintsMarshal := pHints == 0 ? IntPtr : ADDRINFOW.Ptr
+    ppResultMarshal := ppResult is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("WS2_32.dll\GetAddrInfoW", "ptr", pNodeName, "ptr", pServiceName, ADDRINFOW.Ptr, pHints, ppResultMarshal, ppResult, Int32)
+    result := DllCall("WS2_32.dll\GetAddrInfoW", pNodeNameMarshal, pNodeName, pServiceNameMarshal, pServiceName, pHintsMarshal, pHints, ppResultMarshal, ppResult, Int32)
     return result
 }
 
@@ -28189,9 +28313,17 @@ export GetAddrInfoExA(pName, pServiceName, dwNameSpace, lpNspId, hints, ppResult
     pName := pName is String ? StrPtr(pName) : pName
     pServiceName := pServiceName is String ? StrPtr(pServiceName) : pServiceName
 
-    ppResultMarshal := ppResult is VarRef ? "ptr*" : "ptr"
+    pNameMarshal := pName == 0 ? IntPtr : PSTR
+    pServiceNameMarshal := pServiceName == 0 ? IntPtr : PSTR
+    lpNspIdMarshal := lpNspId == 0 ? IntPtr : Guid.Ptr
+    hintsMarshal := hints == 0 ? IntPtr : ADDRINFOEXA.Ptr
+    ppResultMarshal := ppResult is VarRef ? "ptr*" : IntPtr
+    timeoutMarshal := timeout == 0 ? IntPtr : TIMEVAL.Ptr
+    lpOverlappedMarshal := lpOverlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+    lpCompletionRoutineMarshal := lpCompletionRoutine == 0 ? IntPtr : LPLOOKUPSERVICE_COMPLETION_ROUTINE
+    lpNameHandleMarshal := lpNameHandle == 0 ? IntPtr : HANDLE.Ptr
 
-    result := DllCall("WS2_32.dll\GetAddrInfoExA", "ptr", pName, "ptr", pServiceName, UInt32, dwNameSpace, Guid.Ptr, lpNspId, ADDRINFOEXA.Ptr, hints, ppResultMarshal, ppResult, TIMEVAL.Ptr, timeout, OVERLAPPED.Ptr, lpOverlapped, LPLOOKUPSERVICE_COMPLETION_ROUTINE, lpCompletionRoutine, HANDLE.Ptr, lpNameHandle, Int32)
+    result := DllCall("WS2_32.dll\GetAddrInfoExA", pNameMarshal, pName, pServiceNameMarshal, pServiceName, UInt32, dwNameSpace, lpNspIdMarshal, lpNspId, hintsMarshal, hints, ppResultMarshal, ppResult, timeoutMarshal, timeout, lpOverlappedMarshal, lpOverlapped, lpCompletionRoutineMarshal, lpCompletionRoutine, lpNameHandleMarshal, lpNameHandle, Int32)
     return result
 }
 
@@ -28665,9 +28797,17 @@ export GetAddrInfoExW(pName, pServiceName, dwNameSpace, lpNspId, hints, ppResult
     pName := pName is String ? StrPtr(pName) : pName
     pServiceName := pServiceName is String ? StrPtr(pServiceName) : pServiceName
 
-    ppResultMarshal := ppResult is VarRef ? "ptr*" : "ptr"
+    pNameMarshal := pName == 0 ? IntPtr : PWSTR
+    pServiceNameMarshal := pServiceName == 0 ? IntPtr : PWSTR
+    lpNspIdMarshal := lpNspId == 0 ? IntPtr : Guid.Ptr
+    hintsMarshal := hints == 0 ? IntPtr : ADDRINFOEXW.Ptr
+    ppResultMarshal := ppResult is VarRef ? "ptr*" : IntPtr
+    timeoutMarshal := timeout == 0 ? IntPtr : TIMEVAL.Ptr
+    lpOverlappedMarshal := lpOverlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+    lpCompletionRoutineMarshal := lpCompletionRoutine == 0 ? IntPtr : LPLOOKUPSERVICE_COMPLETION_ROUTINE
+    lpHandleMarshal := lpHandle == 0 ? IntPtr : HANDLE.Ptr
 
-    result := DllCall("WS2_32.dll\GetAddrInfoExW", "ptr", pName, "ptr", pServiceName, UInt32, dwNameSpace, Guid.Ptr, lpNspId, ADDRINFOEXW.Ptr, hints, ppResultMarshal, ppResult, TIMEVAL.Ptr, timeout, OVERLAPPED.Ptr, lpOverlapped, LPLOOKUPSERVICE_COMPLETION_ROUTINE, lpCompletionRoutine, HANDLE.Ptr, lpHandle, Int32)
+    result := DllCall("WS2_32.dll\GetAddrInfoExW", pNameMarshal, pName, pServiceNameMarshal, pServiceName, UInt32, dwNameSpace, lpNspIdMarshal, lpNspId, hintsMarshal, hints, ppResultMarshal, ppResult, timeoutMarshal, timeout, lpOverlappedMarshal, lpOverlapped, lpCompletionRoutineMarshal, lpCompletionRoutine, lpHandleMarshal, lpHandle, Int32)
     return result
 }
 
@@ -28920,7 +29060,16 @@ export SetAddrInfoExA(pName, pServiceName, pAddresses, dwAddressCount, lpBlob, d
     pName := pName is String ? StrPtr(pName) : pName
     pServiceName := pServiceName is String ? StrPtr(pServiceName) : pServiceName
 
-    result := DllCall("WS2_32.dll\SetAddrInfoExA", "ptr", pName, "ptr", pServiceName, SOCKET_ADDRESS.Ptr, pAddresses, UInt32, dwAddressCount, BLOB.Ptr, lpBlob, UInt32, dwFlags, UInt32, dwNameSpace, Guid.Ptr, lpNspId, TIMEVAL.Ptr, timeout, OVERLAPPED.Ptr, lpOverlapped, LPLOOKUPSERVICE_COMPLETION_ROUTINE, lpCompletionRoutine, HANDLE.Ptr, lpNameHandle, Int32)
+    pServiceNameMarshal := pServiceName == 0 ? IntPtr : PSTR
+    pAddressesMarshal := pAddresses == 0 ? IntPtr : SOCKET_ADDRESS.Ptr
+    lpBlobMarshal := lpBlob == 0 ? IntPtr : BLOB.Ptr
+    lpNspIdMarshal := lpNspId == 0 ? IntPtr : Guid.Ptr
+    timeoutMarshal := timeout == 0 ? IntPtr : TIMEVAL.Ptr
+    lpOverlappedMarshal := lpOverlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+    lpCompletionRoutineMarshal := lpCompletionRoutine == 0 ? IntPtr : LPLOOKUPSERVICE_COMPLETION_ROUTINE
+    lpNameHandleMarshal := lpNameHandle == 0 ? IntPtr : HANDLE.Ptr
+
+    result := DllCall("WS2_32.dll\SetAddrInfoExA", "ptr", pName, pServiceNameMarshal, pServiceName, pAddressesMarshal, pAddresses, UInt32, dwAddressCount, lpBlobMarshal, lpBlob, UInt32, dwFlags, UInt32, dwNameSpace, lpNspIdMarshal, lpNspId, timeoutMarshal, timeout, lpOverlappedMarshal, lpOverlapped, lpCompletionRoutineMarshal, lpCompletionRoutine, lpNameHandleMarshal, lpNameHandle, Int32)
     return result
 }
 
@@ -29126,7 +29275,16 @@ export SetAddrInfoExW(pName, pServiceName, pAddresses, dwAddressCount, lpBlob, d
     pName := pName is String ? StrPtr(pName) : pName
     pServiceName := pServiceName is String ? StrPtr(pServiceName) : pServiceName
 
-    result := DllCall("WS2_32.dll\SetAddrInfoExW", "ptr", pName, "ptr", pServiceName, SOCKET_ADDRESS.Ptr, pAddresses, UInt32, dwAddressCount, BLOB.Ptr, lpBlob, UInt32, dwFlags, UInt32, dwNameSpace, Guid.Ptr, lpNspId, TIMEVAL.Ptr, timeout, OVERLAPPED.Ptr, lpOverlapped, LPLOOKUPSERVICE_COMPLETION_ROUTINE, lpCompletionRoutine, HANDLE.Ptr, lpNameHandle, Int32)
+    pServiceNameMarshal := pServiceName == 0 ? IntPtr : PWSTR
+    pAddressesMarshal := pAddresses == 0 ? IntPtr : SOCKET_ADDRESS.Ptr
+    lpBlobMarshal := lpBlob == 0 ? IntPtr : BLOB.Ptr
+    lpNspIdMarshal := lpNspId == 0 ? IntPtr : Guid.Ptr
+    timeoutMarshal := timeout == 0 ? IntPtr : TIMEVAL.Ptr
+    lpOverlappedMarshal := lpOverlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+    lpCompletionRoutineMarshal := lpCompletionRoutine == 0 ? IntPtr : LPLOOKUPSERVICE_COMPLETION_ROUTINE
+    lpNameHandleMarshal := lpNameHandle == 0 ? IntPtr : HANDLE.Ptr
+
+    result := DllCall("WS2_32.dll\SetAddrInfoExW", "ptr", pName, pServiceNameMarshal, pServiceName, pAddressesMarshal, pAddresses, UInt32, dwAddressCount, lpBlobMarshal, lpBlob, UInt32, dwFlags, UInt32, dwNameSpace, lpNspIdMarshal, lpNspId, timeoutMarshal, timeout, lpOverlappedMarshal, lpOverlapped, lpCompletionRoutineMarshal, lpCompletionRoutine, lpNameHandleMarshal, lpNameHandle, Int32)
     return result
 }
 
@@ -29159,9 +29317,11 @@ export SetAddrInfoExW(pName, pServiceName, pAddresses, dwAddressCount, lpBlob, d
  * @since windows8.1
  */
 export freeaddrinfo(pAddrInfo) {
+    pAddrInfoMarshal := pAddrInfo == 0 ? IntPtr : ADDRINFOA.Ptr
+
     A_LastError := 0
 
-    DllCall("WS2_32.dll\freeaddrinfo", ADDRINFOA.Ptr, pAddrInfo)
+    DllCall("WS2_32.dll\freeaddrinfo", pAddrInfoMarshal, pAddrInfo)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -29196,7 +29356,9 @@ export freeaddrinfo(pAddrInfo) {
  * @since windows8.1
  */
 export FreeAddrInfoW(pAddrInfo) {
-    DllCall("WS2_32.dll\FreeAddrInfoW", ADDRINFOW.Ptr, pAddrInfo)
+    pAddrInfoMarshal := pAddrInfo == 0 ? IntPtr : ADDRINFOW.Ptr
+
+    DllCall("WS2_32.dll\FreeAddrInfoW", pAddrInfoMarshal, pAddrInfo)
 }
 
 /**
@@ -29221,7 +29383,9 @@ export FreeAddrInfoW(pAddrInfo) {
  * @since windows8.1
  */
 export FreeAddrInfoEx(pAddrInfoEx) {
-    DllCall("WS2_32.dll\FreeAddrInfoEx", ADDRINFOEXA.Ptr, pAddrInfoEx)
+    pAddrInfoExMarshal := pAddrInfoEx == 0 ? IntPtr : ADDRINFOEXA.Ptr
+
+    DllCall("WS2_32.dll\FreeAddrInfoEx", pAddrInfoExMarshal, pAddrInfoEx)
 }
 
 /**
@@ -29252,7 +29416,9 @@ export FreeAddrInfoEx(pAddrInfoEx) {
  * @since windows8.1
  */
 export FreeAddrInfoExW(pAddrInfoEx) {
-    DllCall("WS2_32.dll\FreeAddrInfoExW", ADDRINFOEXW.Ptr, pAddrInfoEx)
+    pAddrInfoExMarshal := pAddrInfoEx == 0 ? IntPtr : ADDRINFOEXW.Ptr
+
+    DllCall("WS2_32.dll\FreeAddrInfoExW", pAddrInfoExMarshal, pAddrInfoEx)
 }
 
 /**
@@ -29358,9 +29524,12 @@ export getnameinfo(pSockaddr, SockaddrLength, pNodeBuffer, NodeBufferSize, pServ
     pNodeBuffer := pNodeBuffer is String ? StrPtr(pNodeBuffer) : pNodeBuffer
     pServiceBuffer := pServiceBuffer is String ? StrPtr(pServiceBuffer) : pServiceBuffer
 
+    pNodeBufferMarshal := pNodeBuffer == 0 ? IntPtr : PSTR
+    pServiceBufferMarshal := pServiceBuffer == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("WS2_32.dll\getnameinfo", IntPtr, pSockaddr, socklen_t, SockaddrLength, "ptr", pNodeBuffer, UInt32, NodeBufferSize, "ptr", pServiceBuffer, UInt32, ServiceBufferSize, Int32, Flags, Int32)
+    result := DllCall("WS2_32.dll\getnameinfo", IntPtr, pSockaddr, socklen_t, SockaddrLength, pNodeBufferMarshal, pNodeBuffer, UInt32, NodeBufferSize, pServiceBufferMarshal, pServiceBuffer, UInt32, ServiceBufferSize, Int32, Flags, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -29469,7 +29638,10 @@ export GetNameInfoW(pSockaddr, SockaddrLength, pNodeBuffer, NodeBufferSize, pSer
     pNodeBuffer := pNodeBuffer is String ? StrPtr(pNodeBuffer) : pNodeBuffer
     pServiceBuffer := pServiceBuffer is String ? StrPtr(pServiceBuffer) : pServiceBuffer
 
-    result := DllCall("WS2_32.dll\GetNameInfoW", IntPtr, pSockaddr, socklen_t, SockaddrLength, "ptr", pNodeBuffer, UInt32, NodeBufferSize, "ptr", pServiceBuffer, UInt32, ServiceBufferSize, Int32, Flags, Int32)
+    pNodeBufferMarshal := pNodeBuffer == 0 ? IntPtr : PWSTR
+    pServiceBufferMarshal := pServiceBuffer == 0 ? IntPtr : PWSTR
+
+    result := DllCall("WS2_32.dll\GetNameInfoW", IntPtr, pSockaddr, socklen_t, SockaddrLength, pNodeBufferMarshal, pNodeBuffer, UInt32, NodeBufferSize, pServiceBufferMarshal, pServiceBuffer, UInt32, ServiceBufferSize, Int32, Flags, Int32)
     return result
 }
 
@@ -29589,7 +29761,7 @@ export GetNameInfoW(pSockaddr, SockaddrLength, pNodeBuffer, NodeBufferSize, pSer
 export inet_pton(Family, pszAddrString, pAddrBuf) {
     pszAddrString := pszAddrString is String ? StrPtr(pszAddrString) : pszAddrString
 
-    pAddrBufMarshal := pAddrBuf is VarRef ? "ptr" : "ptr"
+    pAddrBufMarshal := pAddrBuf is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -29717,7 +29889,7 @@ export inet_pton(Family, pszAddrString, pAddrBuf) {
 export InetPtonW(Family, pszAddrString, pAddrBuf) {
     pszAddrString := pszAddrString is String ? StrPtr(pszAddrString) : pszAddrString
 
-    pAddrBufMarshal := pAddrBuf is VarRef ? "ptr" : "ptr"
+    pAddrBufMarshal := pAddrBuf is VarRef ? "ptr" : IntPtr
 
     result := DllCall("WS2_32.dll\InetPtonW", Int32, Family, "ptr", pszAddrString, pAddrBufMarshal, pAddrBuf, Int32)
     return result
@@ -29842,7 +30014,7 @@ export InetPtonW(Family, pszAddrString, pAddrBuf) {
 export inet_ntop(Family, pAddr, pStringBuf, StringBufSize) {
     pStringBuf := pStringBuf is String ? StrPtr(pStringBuf) : pStringBuf
 
-    pAddrMarshal := pAddr is VarRef ? "ptr" : "ptr"
+    pAddrMarshal := pAddr is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -29973,7 +30145,7 @@ export inet_ntop(Family, pAddr, pStringBuf, StringBufSize) {
 export InetNtopW(Family, pAddr, pStringBuf, StringBufSize) {
     pStringBuf := pStringBuf is String ? StrPtr(pStringBuf) : pStringBuf
 
-    pAddrMarshal := pAddr is VarRef ? "ptr" : "ptr"
+    pAddrMarshal := pAddr is VarRef ? "ptr" : IntPtr
 
     result := DllCall("WS2_32.dll\InetNtopW", Int32, Family, pAddrMarshal, pAddr, "ptr", pStringBuf, IntPtr, StringBufSize, PWSTR)
     return result
@@ -30163,9 +30335,13 @@ export InetNtopW(Family, pAddr, pStringBuf, StringBufSize) {
  * @since windows6.0.6000
  */
 export WSASetSocketSecurity(_Socket, SecuritySettings, SecuritySettingsLen, _Overlapped, CompletionRoutine) {
+    SecuritySettingsMarshal := SecuritySettings == 0 ? IntPtr : IntPtr
+    _OverlappedMarshal := _Overlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+    CompletionRoutineMarshal := CompletionRoutine == 0 ? IntPtr : LPWSAOVERLAPPED_COMPLETION_ROUTINE
+
     A_LastError := 0
 
-    result := DllCall("fwpuclnt.dll\WSASetSocketSecurity", SOCKET_handle, _Socket, IntPtr, SecuritySettings, UInt32, SecuritySettingsLen, OVERLAPPED.Ptr, _Overlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE, CompletionRoutine, Int32)
+    result := DllCall("fwpuclnt.dll\WSASetSocketSecurity", SOCKET_handle, _Socket, SecuritySettingsMarshal, SecuritySettings, UInt32, SecuritySettingsLen, _OverlappedMarshal, _Overlapped, CompletionRoutineMarshal, CompletionRoutine, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -30292,11 +30468,15 @@ export WSASetSocketSecurity(_Socket, SecuritySettings, SecuritySettingsLen, _Ove
  * @since windows6.0.6000
  */
 export WSAQuerySocketSecurity(_Socket, SecurityQueryTemplate, SecurityQueryTemplateLen, SecurityQueryInfo, SecurityQueryInfoLen, _Overlapped, CompletionRoutine) {
-    SecurityQueryInfoLenMarshal := SecurityQueryInfoLen is VarRef ? "uint*" : "ptr"
+    SecurityQueryTemplateMarshal := SecurityQueryTemplate == 0 ? IntPtr : IntPtr
+    SecurityQueryInfoMarshal := SecurityQueryInfo == 0 ? IntPtr : IntPtr
+    SecurityQueryInfoLenMarshal := SecurityQueryInfoLen is VarRef ? "uint*" : IntPtr
+    _OverlappedMarshal := _Overlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+    CompletionRoutineMarshal := CompletionRoutine == 0 ? IntPtr : LPWSAOVERLAPPED_COMPLETION_ROUTINE
 
     A_LastError := 0
 
-    result := DllCall("fwpuclnt.dll\WSAQuerySocketSecurity", SOCKET_handle, _Socket, IntPtr, SecurityQueryTemplate, UInt32, SecurityQueryTemplateLen, IntPtr, SecurityQueryInfo, SecurityQueryInfoLenMarshal, SecurityQueryInfoLen, OVERLAPPED.Ptr, _Overlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE, CompletionRoutine, Int32)
+    result := DllCall("fwpuclnt.dll\WSAQuerySocketSecurity", SOCKET_handle, _Socket, SecurityQueryTemplateMarshal, SecurityQueryTemplate, UInt32, SecurityQueryTemplateLen, SecurityQueryInfoMarshal, SecurityQueryInfo, SecurityQueryInfoLenMarshal, SecurityQueryInfoLen, _OverlappedMarshal, _Overlapped, CompletionRoutineMarshal, CompletionRoutine, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -30403,9 +30583,12 @@ export WSAQuerySocketSecurity(_Socket, SecurityQueryTemplate, SecurityQueryTempl
  * @since windows6.0.6000
  */
 export WSASetSocketPeerTargetName(_Socket, PeerTargetName, PeerTargetNameLen, _Overlapped, CompletionRoutine) {
+    _OverlappedMarshal := _Overlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+    CompletionRoutineMarshal := CompletionRoutine == 0 ? IntPtr : LPWSAOVERLAPPED_COMPLETION_ROUTINE
+
     A_LastError := 0
 
-    result := DllCall("fwpuclnt.dll\WSASetSocketPeerTargetName", SOCKET_handle, _Socket, IntPtr, PeerTargetName, UInt32, PeerTargetNameLen, OVERLAPPED.Ptr, _Overlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE, CompletionRoutine, Int32)
+    result := DllCall("fwpuclnt.dll\WSASetSocketPeerTargetName", SOCKET_handle, _Socket, IntPtr, PeerTargetName, UInt32, PeerTargetNameLen, _OverlappedMarshal, _Overlapped, CompletionRoutineMarshal, CompletionRoutine, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -30499,9 +30682,12 @@ export WSASetSocketPeerTargetName(_Socket, PeerTargetName, PeerTargetNameLen, _O
  * @since windows6.0.6000
  */
 export WSADeleteSocketPeerTargetName(_Socket, PeerAddr, PeerAddrLen, _Overlapped, CompletionRoutine) {
+    _OverlappedMarshal := _Overlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+    CompletionRoutineMarshal := CompletionRoutine == 0 ? IntPtr : LPWSAOVERLAPPED_COMPLETION_ROUTINE
+
     A_LastError := 0
 
-    result := DllCall("fwpuclnt.dll\WSADeleteSocketPeerTargetName", SOCKET_handle, _Socket, IntPtr, PeerAddr, UInt32, PeerAddrLen, OVERLAPPED.Ptr, _Overlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE, CompletionRoutine, Int32)
+    result := DllCall("fwpuclnt.dll\WSADeleteSocketPeerTargetName", SOCKET_handle, _Socket, IntPtr, PeerAddr, UInt32, PeerAddrLen, _OverlappedMarshal, _Overlapped, CompletionRoutineMarshal, CompletionRoutine, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -30589,9 +30775,11 @@ export WSADeleteSocketPeerTargetName(_Socket, PeerAddr, PeerAddrLen, _Overlapped
  * @since windows6.0.6000
  */
 export WSAImpersonateSocketPeer(_Socket, PeerAddr, PeerAddrLen) {
+    PeerAddrMarshal := PeerAddr == 0 ? IntPtr : IntPtr
+
     A_LastError := 0
 
-    result := DllCall("fwpuclnt.dll\WSAImpersonateSocketPeer", SOCKET_handle, _Socket, IntPtr, PeerAddr, UInt32, PeerAddrLen, Int32)
+    result := DllCall("fwpuclnt.dll\WSAImpersonateSocketPeer", SOCKET_handle, _Socket, PeerAddrMarshal, PeerAddr, UInt32, PeerAddrLen, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -30755,7 +30943,7 @@ export SetSocketMediaStreamingMode(value) {
  * @since windows5.0
  */
 export WSCWriteProviderOrder(lpwdCatalogEntryId, dwNumberOfEntries) {
-    lpwdCatalogEntryIdMarshal := lpwdCatalogEntryId is VarRef ? "uint*" : "ptr"
+    lpwdCatalogEntryIdMarshal := lpwdCatalogEntryId is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WS2_32.dll\WSCWriteProviderOrder", lpwdCatalogEntryIdMarshal, lpwdCatalogEntryId, UInt32, dwNumberOfEntries, Int32)
     return result

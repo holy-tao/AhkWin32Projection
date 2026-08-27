@@ -46,7 +46,6 @@ export default struct IMetaDataEmit2 extends IMetaDataEmit {
     }
 
     /**
-     * 
      * @param {Integer} tkParent 
      * @param {Pointer<Integer>} pvSigBlob 
      * @param {Integer} cbSigBlob 
@@ -54,28 +53,26 @@ export default struct IMetaDataEmit2 extends IMetaDataEmit {
      * @returns {HRESULT} 
      */
     DefineMethodSpec(tkParent, pvSigBlob, cbSigBlob, pmi) {
-        pvSigBlobMarshal := pvSigBlob is VarRef ? "char*" : "ptr"
-        pmiMarshal := pmi is VarRef ? "uint*" : "ptr"
+        pvSigBlobMarshal := pvSigBlob is VarRef ? "char*" : IntPtr
+        pmiMarshal := pmi is VarRef ? "uint*" : IntPtr
 
         result := ComCall(52, this, UInt32, tkParent, pvSigBlobMarshal, pvSigBlob, UInt32, cbSigBlob, pmiMarshal, pmi, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {CorSaveSize} fSave 
      * @param {Pointer<Integer>} pdwSaveSize 
      * @returns {HRESULT} 
      */
     GetDeltaSaveSize(fSave, pdwSaveSize) {
-        pdwSaveSizeMarshal := pdwSaveSize is VarRef ? "uint*" : "ptr"
+        pdwSaveSizeMarshal := pdwSaveSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(53, this, CorSaveSize, fSave, pdwSaveSizeMarshal, pdwSaveSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} szFile 
      * @param {Integer} dwSaveFlags 
      * @returns {HRESULT} 
@@ -88,7 +85,6 @@ export default struct IMetaDataEmit2 extends IMetaDataEmit {
     }
 
     /**
-     * 
      * @param {IStream} pIStream 
      * @param {Integer} dwSaveFlags 
      * @returns {HRESULT} 
@@ -99,20 +95,18 @@ export default struct IMetaDataEmit2 extends IMetaDataEmit {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pbData 
      * @param {Integer} cbData 
      * @returns {HRESULT} 
      */
     SaveDeltaToMemory(pbData, cbData) {
-        pbDataMarshal := pbData is VarRef ? "ptr" : "ptr"
+        pbDataMarshal := pbData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(56, this, pbDataMarshal, pbData, UInt32, cbData, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} tk 
      * @param {Integer} ulParamSeq 
      * @param {Integer} dwParamFlags 
@@ -125,15 +119,14 @@ export default struct IMetaDataEmit2 extends IMetaDataEmit {
     DefineGenericParam(tk, ulParamSeq, dwParamFlags, szname, reserved, rtkConstraints, pgp) {
         szname := szname is String ? StrPtr(szname) : szname
 
-        rtkConstraintsMarshal := rtkConstraints is VarRef ? "uint*" : "ptr"
-        pgpMarshal := pgp is VarRef ? "uint*" : "ptr"
+        rtkConstraintsMarshal := rtkConstraints is VarRef ? "uint*" : IntPtr
+        pgpMarshal := pgp is VarRef ? "uint*" : IntPtr
 
         result := ComCall(57, this, UInt32, tk, UInt32, ulParamSeq, UInt32, dwParamFlags, "ptr", szname, UInt32, reserved, rtkConstraintsMarshal, rtkConstraints, pgpMarshal, pgp, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} gp 
      * @param {Integer} dwParamFlags 
      * @param {PWSTR} szName 
@@ -144,14 +137,13 @@ export default struct IMetaDataEmit2 extends IMetaDataEmit {
     SetGenericParamProps(gp, dwParamFlags, szName, reserved, rtkConstraints) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        rtkConstraintsMarshal := rtkConstraints is VarRef ? "uint*" : "ptr"
+        rtkConstraintsMarshal := rtkConstraints is VarRef ? "uint*" : IntPtr
 
         result := ComCall(58, this, UInt32, gp, UInt32, dwParamFlags, "ptr", szName, UInt32, reserved, rtkConstraintsMarshal, rtkConstraints, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ResetENCLog() {
@@ -168,14 +160,14 @@ export default struct IMetaDataEmit2 extends IMetaDataEmit {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DefineMethodSpec := CallbackCreate(GetMethod(implObj, "DefineMethodSpec"), flags, 5)
-        this.vtbl.GetDeltaSaveSize := CallbackCreate(GetMethod(implObj, "GetDeltaSaveSize"), flags, 3)
-        this.vtbl.SaveDelta := CallbackCreate(GetMethod(implObj, "SaveDelta"), flags, 3)
-        this.vtbl.SaveDeltaToStream := CallbackCreate(GetMethod(implObj, "SaveDeltaToStream"), flags, 3)
-        this.vtbl.SaveDeltaToMemory := CallbackCreate(GetMethod(implObj, "SaveDeltaToMemory"), flags, 3)
-        this.vtbl.DefineGenericParam := CallbackCreate(GetMethod(implObj, "DefineGenericParam"), flags, 8)
-        this.vtbl.SetGenericParamProps := CallbackCreate(GetMethod(implObj, "SetGenericParamProps"), flags, 6)
-        this.vtbl.ResetENCLog := CallbackCreate(GetMethod(implObj, "ResetENCLog"), flags, 1)
+        this.vtbl.DefineMethodSpec := CallbackCreate(ObjBindMethod(implObj, "DefineMethodSpec"), flags, 5)
+        this.vtbl.GetDeltaSaveSize := CallbackCreate(ObjBindMethod(implObj, "GetDeltaSaveSize"), flags, 3)
+        this.vtbl.SaveDelta := CallbackCreate(ObjBindMethod(implObj, "SaveDelta"), flags, 3)
+        this.vtbl.SaveDeltaToStream := CallbackCreate(ObjBindMethod(implObj, "SaveDeltaToStream"), flags, 3)
+        this.vtbl.SaveDeltaToMemory := CallbackCreate(ObjBindMethod(implObj, "SaveDeltaToMemory"), flags, 3)
+        this.vtbl.DefineGenericParam := CallbackCreate(ObjBindMethod(implObj, "DefineGenericParam"), flags, 8)
+        this.vtbl.SetGenericParamProps := CallbackCreate(ObjBindMethod(implObj, "SetGenericParamProps"), flags, 6)
+        this.vtbl.ResetENCLog := CallbackCreate(ObjBindMethod(implObj, "ResetENCLog"), flags, 1)
     }
 
     Dispose() {

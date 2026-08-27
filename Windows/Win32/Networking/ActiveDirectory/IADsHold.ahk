@@ -58,7 +58,6 @@ export default struct IADsHold extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ObjectName() {
@@ -68,7 +67,6 @@ export default struct IADsHold extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrObjectName 
      * @returns {HRESULT} 
      */
@@ -80,7 +78,6 @@ export default struct IADsHold extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Amount() {
@@ -89,7 +86,6 @@ export default struct IADsHold extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnAmount 
      * @returns {HRESULT} 
      */
@@ -107,10 +103,10 @@ export default struct IADsHold extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ObjectName := CallbackCreate(GetMethod(implObj, "get_ObjectName"), flags, 2)
-        this.vtbl.put_ObjectName := CallbackCreate(GetMethod(implObj, "put_ObjectName"), flags, 2)
-        this.vtbl.get_Amount := CallbackCreate(GetMethod(implObj, "get_Amount"), flags, 2)
-        this.vtbl.put_Amount := CallbackCreate(GetMethod(implObj, "put_Amount"), flags, 2)
+        this.vtbl.get_ObjectName := CallbackCreate(ObjBindMethod(implObj, "get_ObjectName"), flags, 2)
+        this.vtbl.put_ObjectName := CallbackCreate(ObjBindMethod(implObj, "put_ObjectName"), flags, 2)
+        this.vtbl.get_Amount := CallbackCreate(ObjBindMethod(implObj, "get_Amount"), flags, 2)
+        this.vtbl.put_Amount := CallbackCreate(ObjBindMethod(implObj, "put_Amount"), flags, 2)
     }
 
     Dispose() {

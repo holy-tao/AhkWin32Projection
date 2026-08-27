@@ -48,7 +48,6 @@ export default struct IHTMLFormElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -60,7 +59,6 @@ export default struct IHTMLFormElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_acceptCharset() {
@@ -70,7 +68,6 @@ export default struct IHTMLFormElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} urn 
      * @returns {IDispatch} 
      */
@@ -88,9 +85,9 @@ export default struct IHTMLFormElement2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_acceptCharset := CallbackCreate(GetMethod(implObj, "put_acceptCharset"), flags, 2)
-        this.vtbl.get_acceptCharset := CallbackCreate(GetMethod(implObj, "get_acceptCharset"), flags, 2)
-        this.vtbl.urns := CallbackCreate(GetMethod(implObj, "urns"), flags, 3)
+        this.vtbl.put_acceptCharset := CallbackCreate(ObjBindMethod(implObj, "put_acceptCharset"), flags, 2)
+        this.vtbl.get_acceptCharset := CallbackCreate(ObjBindMethod(implObj, "get_acceptCharset"), flags, 2)
+        this.vtbl.urns := CallbackCreate(ObjBindMethod(implObj, "urns"), flags, 3)
     }
 
     Dispose() {

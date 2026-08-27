@@ -18,12 +18,12 @@ export default struct ONDEMAND_NOTIFICATION_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} param0 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(param0) {
-        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+        param0Marshal := param0 is VarRef ? "ptr" : IntPtr
+        param0Marshal := param0 == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, param0Marshal, param0)
     }

@@ -52,7 +52,6 @@ export default struct PDD_VPORTCB_GETBANDWIDTH {
     }
 
     /**
-     * 
      * @param {Pointer<DD_GETVPORTBANDWIDTHDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_getvportbandwidthdata">DD_GETVPORTBANDWIDTHDATA</a> structure that contains the information required for the driver to return the bandwidth data.
      * @returns {Integer} <b>DdVideoPortGetBandwidth</b> returns one of the following callback codes:
      */

@@ -176,9 +176,12 @@ export default struct IThumbnailCache extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/thumbcache/nf-thumbcache-ithumbnailcache-getthumbnail
      */
     GetThumbnail(pShellItem, cxyRequestedThumbSize, flags, ppvThumb, pOutFlags, pThumbnailID) {
-        pOutFlagsMarshal := pOutFlags is VarRef ? "int*" : "ptr"
+        ppvThumbMarshal := ppvThumb == 0 ? IntPtr : ISharedBitmap.Ptr
+        pOutFlagsMarshal := pOutFlags is VarRef ? "int*" : IntPtr
+        pOutFlagsMarshal := pOutFlags == 0 ? IntPtr : "int*"
+        pThumbnailIDMarshal := pThumbnailID == 0 ? IntPtr : WTS_THUMBNAILID.Ptr
 
-        result := ComCall(3, this, "ptr", pShellItem, UInt32, cxyRequestedThumbSize, WTS_FLAGS, flags, ISharedBitmap.Ptr, ppvThumb, pOutFlagsMarshal, pOutFlags, WTS_THUMBNAILID.Ptr, pThumbnailID, "HRESULT")
+        result := ComCall(3, this, "ptr", pShellItem, UInt32, cxyRequestedThumbSize, WTS_FLAGS, flags, ppvThumbMarshal, ppvThumb, pOutFlagsMarshal, pOutFlags, pThumbnailIDMarshal, pThumbnailID, "HRESULT")
         return result
     }
 
@@ -266,9 +269,11 @@ export default struct IThumbnailCache extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/thumbcache/nf-thumbcache-ithumbnailcache-getthumbnailbyid
      */
     GetThumbnailByID(thumbnailID, cxyRequestedThumbSize, ppvThumb, pOutFlags) {
-        pOutFlagsMarshal := pOutFlags is VarRef ? "int*" : "ptr"
+        ppvThumbMarshal := ppvThumb == 0 ? IntPtr : ISharedBitmap.Ptr
+        pOutFlagsMarshal := pOutFlags is VarRef ? "int*" : IntPtr
+        pOutFlagsMarshal := pOutFlags == 0 ? IntPtr : "int*"
 
-        result := ComCall(4, this, WTS_THUMBNAILID, thumbnailID, UInt32, cxyRequestedThumbSize, ISharedBitmap.Ptr, ppvThumb, pOutFlagsMarshal, pOutFlags, "HRESULT")
+        result := ComCall(4, this, WTS_THUMBNAILID, thumbnailID, UInt32, cxyRequestedThumbSize, ppvThumbMarshal, ppvThumb, pOutFlagsMarshal, pOutFlags, "HRESULT")
         return result
     }
 
@@ -281,8 +286,8 @@ export default struct IThumbnailCache extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetThumbnail := CallbackCreate(GetMethod(implObj, "GetThumbnail"), flags, 7)
-        this.vtbl.GetThumbnailByID := CallbackCreate(GetMethod(implObj, "GetThumbnailByID"), flags, 5)
+        this.vtbl.GetThumbnail := CallbackCreate(ObjBindMethod(implObj, "GetThumbnail"), flags, 7)
+        this.vtbl.GetThumbnailByID := CallbackCreate(ObjBindMethod(implObj, "GetThumbnailByID"), flags, 5)
     }
 
     Dispose() {

@@ -243,11 +243,12 @@ export WinUsb_GetAssociatedInterface(InterfaceHandle, AssociatedInterfaceIndex, 
  * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_getdescriptor
  */
 export WinUsb_GetDescriptor(InterfaceHandle, DescriptorType, Index, LanguageID, _Buffer, BufferLength, LengthTransferred) {
-    LengthTransferredMarshal := LengthTransferred is VarRef ? "uint*" : "ptr"
+    _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+    LengthTransferredMarshal := LengthTransferred is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("WINUSB.dll\WinUsb_GetDescriptor", WINUSB_INTERFACE_HANDLE, InterfaceHandle, Int8, DescriptorType, Int8, Index, UInt16, LanguageID, IntPtr, _Buffer, UInt32, BufferLength, LengthTransferredMarshal, LengthTransferred, BOOL)
+    result := DllCall("WINUSB.dll\WinUsb_GetDescriptor", WINUSB_INTERFACE_HANDLE, InterfaceHandle, Int8, DescriptorType, Int8, Index, UInt16, LanguageID, _BufferMarshal, _Buffer, UInt32, BufferLength, LengthTransferredMarshal, LengthTransferred, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -351,7 +352,7 @@ export WinUsb_QueryInterfaceSettings(InterfaceHandle, AlternateInterfaceNumber, 
  * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_querydeviceinformation
  */
 export WinUsb_QueryDeviceInformation(InterfaceHandle, InformationType, BufferLength, _Buffer) {
-    BufferLengthMarshal := BufferLength is VarRef ? "uint*" : "ptr"
+    BufferLengthMarshal := BufferLength is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -439,7 +440,7 @@ export WinUsb_SetCurrentAlternateSetting(InterfaceHandle, SettingNumber) {
  * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_getcurrentalternatesetting
  */
 export WinUsb_GetCurrentAlternateSetting(InterfaceHandle, SettingNumber) {
-    SettingNumberMarshal := SettingNumber is VarRef ? "char*" : "ptr"
+    SettingNumberMarshal := SettingNumber is VarRef ? "char*" : IntPtr
 
     A_LastError := 0
 
@@ -695,7 +696,7 @@ export WinUsb_SetPipePolicy(InterfaceHandle, PipeID, PolicyType, ValueLength, Va
  * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_getpipepolicy
  */
 export WinUsb_GetPipePolicy(InterfaceHandle, PipeID, PolicyType, ValueLength, Value) {
-    ValueLengthMarshal := ValueLength is VarRef ? "uint*" : "ptr"
+    ValueLengthMarshal := ValueLength is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -790,11 +791,14 @@ export WinUsb_GetPipePolicy(InterfaceHandle, PipeID, PolicyType, ValueLength, Va
  * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_readpipe
  */
 export WinUsb_ReadPipe(InterfaceHandle, PipeID, _Buffer, BufferLength, LengthTransferred, _Overlapped) {
-    LengthTransferredMarshal := LengthTransferred is VarRef ? "uint*" : "ptr"
+    _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+    LengthTransferredMarshal := LengthTransferred is VarRef ? "uint*" : IntPtr
+    LengthTransferredMarshal := LengthTransferred == 0 ? IntPtr : "uint*"
+    _OverlappedMarshal := _Overlapped == 0 ? IntPtr : OVERLAPPED.Ptr
 
     A_LastError := 0
 
-    result := DllCall("WINUSB.dll\WinUsb_ReadPipe", WINUSB_INTERFACE_HANDLE, InterfaceHandle, Int8, PipeID, IntPtr, _Buffer, UInt32, BufferLength, LengthTransferredMarshal, LengthTransferred, OVERLAPPED.Ptr, _Overlapped, BOOL)
+    result := DllCall("WINUSB.dll\WinUsb_ReadPipe", WINUSB_INTERFACE_HANDLE, InterfaceHandle, Int8, PipeID, _BufferMarshal, _Buffer, UInt32, BufferLength, LengthTransferredMarshal, LengthTransferred, _OverlappedMarshal, _Overlapped, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -888,11 +892,13 @@ export WinUsb_ReadPipe(InterfaceHandle, PipeID, _Buffer, BufferLength, LengthTra
  * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_writepipe
  */
 export WinUsb_WritePipe(InterfaceHandle, PipeID, _Buffer, BufferLength, LengthTransferred, _Overlapped) {
-    LengthTransferredMarshal := LengthTransferred is VarRef ? "uint*" : "ptr"
+    LengthTransferredMarshal := LengthTransferred is VarRef ? "uint*" : IntPtr
+    LengthTransferredMarshal := LengthTransferred == 0 ? IntPtr : "uint*"
+    _OverlappedMarshal := _Overlapped == 0 ? IntPtr : OVERLAPPED.Ptr
 
     A_LastError := 0
 
-    result := DllCall("WINUSB.dll\WinUsb_WritePipe", WINUSB_INTERFACE_HANDLE, InterfaceHandle, Int8, PipeID, IntPtr, _Buffer, UInt32, BufferLength, LengthTransferredMarshal, LengthTransferred, OVERLAPPED.Ptr, _Overlapped, BOOL)
+    result := DllCall("WINUSB.dll\WinUsb_WritePipe", WINUSB_INTERFACE_HANDLE, InterfaceHandle, Int8, PipeID, IntPtr, _Buffer, UInt32, BufferLength, LengthTransferredMarshal, LengthTransferred, _OverlappedMarshal, _Overlapped, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -965,11 +971,14 @@ export WinUsb_WritePipe(InterfaceHandle, PipeID, _Buffer, BufferLength, LengthTr
  * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_controltransfer
  */
 export WinUsb_ControlTransfer(InterfaceHandle, SetupPacket, _Buffer, BufferLength, LengthTransferred, _Overlapped) {
-    LengthTransferredMarshal := LengthTransferred is VarRef ? "uint*" : "ptr"
+    _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+    LengthTransferredMarshal := LengthTransferred is VarRef ? "uint*" : IntPtr
+    LengthTransferredMarshal := LengthTransferred == 0 ? IntPtr : "uint*"
+    _OverlappedMarshal := _Overlapped == 0 ? IntPtr : OVERLAPPED.Ptr
 
     A_LastError := 0
 
-    result := DllCall("WINUSB.dll\WinUsb_ControlTransfer", WINUSB_INTERFACE_HANDLE, InterfaceHandle, WINUSB_SETUP_PACKET, SetupPacket, IntPtr, _Buffer, UInt32, BufferLength, LengthTransferredMarshal, LengthTransferred, OVERLAPPED.Ptr, _Overlapped, BOOL)
+    result := DllCall("WINUSB.dll\WinUsb_ControlTransfer", WINUSB_INTERFACE_HANDLE, InterfaceHandle, WINUSB_SETUP_PACKET, SetupPacket, _BufferMarshal, _Buffer, UInt32, BufferLength, LengthTransferredMarshal, LengthTransferred, _OverlappedMarshal, _Overlapped, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1307,7 +1316,7 @@ export WinUsb_SetPowerPolicy(InterfaceHandle, PolicyType, ValueLength, Value) {
  * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_getpowerpolicy
  */
 export WinUsb_GetPowerPolicy(InterfaceHandle, PolicyType, ValueLength, Value) {
-    ValueLengthMarshal := ValueLength is VarRef ? "uint*" : "ptr"
+    ValueLengthMarshal := ValueLength is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -1339,7 +1348,7 @@ export WinUsb_GetPowerPolicy(InterfaceHandle, PolicyType, ValueLength, Value) {
  * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_getoverlappedresult
  */
 export WinUsb_GetOverlappedResult(InterfaceHandle, lpOverlapped, lpNumberOfBytesTransferred, bWait) {
-    lpNumberOfBytesTransferredMarshal := lpNumberOfBytesTransferred is VarRef ? "uint*" : "ptr"
+    lpNumberOfBytesTransferredMarshal := lpNumberOfBytesTransferred is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -1352,7 +1361,6 @@ export WinUsb_GetOverlappedResult(InterfaceHandle, lpOverlapped, lpNumberOfBytes
 }
 
 /**
- * 
  * @param {Pointer<USB_CONFIGURATION_DESCRIPTOR>} ConfigurationDescriptor 
  * @param {Pointer<Void>} StartPosition 
  * @param {Integer} InterfaceNumber 
@@ -1363,7 +1371,7 @@ export WinUsb_GetOverlappedResult(InterfaceHandle, lpOverlapped, lpNumberOfBytes
  * @returns {Pointer<USB_INTERFACE_DESCRIPTOR>} 
  */
 export WinUsb_ParseConfigurationDescriptor(ConfigurationDescriptor, StartPosition, InterfaceNumber, AlternateSetting, InterfaceClass, InterfaceSubClass, InterfaceProtocol) {
-    StartPositionMarshal := StartPosition is VarRef ? "ptr" : "ptr"
+    StartPositionMarshal := StartPosition is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -1376,7 +1384,6 @@ export WinUsb_ParseConfigurationDescriptor(ConfigurationDescriptor, StartPositio
 }
 
 /**
- * 
  * @param {Integer} DescriptorBuffer 
  * @param {Integer} TotalLength 
  * @param {Pointer<Void>} StartPosition 
@@ -1384,7 +1391,7 @@ export WinUsb_ParseConfigurationDescriptor(ConfigurationDescriptor, StartPositio
  * @returns {Pointer<USB_COMMON_DESCRIPTOR>} 
  */
 export WinUsb_ParseDescriptors(DescriptorBuffer, TotalLength, StartPosition, DescriptorType) {
-    StartPositionMarshal := StartPosition is VarRef ? "ptr" : "ptr"
+    StartPositionMarshal := StartPosition is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -1408,8 +1415,8 @@ export WinUsb_ParseDescriptors(DescriptorBuffer, TotalLength, StartPosition, Des
  * @since windows8.1
  */
 export WinUsb_GetCurrentFrameNumber(InterfaceHandle, CurrentFrameNumber, _TimeStamp) {
-    CurrentFrameNumberMarshal := CurrentFrameNumber is VarRef ? "uint*" : "ptr"
-    _TimeStampMarshal := _TimeStamp is VarRef ? "int64*" : "ptr"
+    CurrentFrameNumberMarshal := CurrentFrameNumber is VarRef ? "uint*" : IntPtr
+    _TimeStampMarshal := _TimeStamp is VarRef ? "int64*" : IntPtr
 
     A_LastError := 0
 
@@ -1430,7 +1437,7 @@ export WinUsb_GetCurrentFrameNumber(InterfaceHandle, CurrentFrameNumber, _TimeSt
  * @since windows8.1
  */
 export WinUsb_GetAdjustedFrameNumber(CurrentFrameNumber, _TimeStamp) {
-    CurrentFrameNumberMarshal := CurrentFrameNumber is VarRef ? "uint*" : "ptr"
+    CurrentFrameNumberMarshal := CurrentFrameNumber is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -1458,7 +1465,7 @@ export WinUsb_GetAdjustedFrameNumber(CurrentFrameNumber, _TimeStamp) {
  * @since windows8.1
  */
 export WinUsb_RegisterIsochBuffer(InterfaceHandle, PipeID, _Buffer, BufferLength, IsochBufferHandle) {
-    IsochBufferHandleMarshal := IsochBufferHandle is VarRef ? "ptr*" : "ptr"
+    IsochBufferHandleMarshal := IsochBufferHandle is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -1480,7 +1487,7 @@ export WinUsb_RegisterIsochBuffer(InterfaceHandle, PipeID, _Buffer, BufferLength
  * @since windows8.1
  */
 export WinUsb_UnregisterIsochBuffer(IsochBufferHandle) {
-    IsochBufferHandleMarshal := IsochBufferHandle is VarRef ? "ptr" : "ptr"
+    IsochBufferHandleMarshal := IsochBufferHandle is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -1510,12 +1517,13 @@ export WinUsb_UnregisterIsochBuffer(IsochBufferHandle) {
  * @since windows8.1
  */
 export WinUsb_WriteIsochPipe(BufferHandle, Offset, Length, FrameNumber, _Overlapped) {
-    BufferHandleMarshal := BufferHandle is VarRef ? "ptr" : "ptr"
-    FrameNumberMarshal := FrameNumber is VarRef ? "uint*" : "ptr"
+    BufferHandleMarshal := BufferHandle is VarRef ? "ptr" : IntPtr
+    FrameNumberMarshal := FrameNumber is VarRef ? "uint*" : IntPtr
+    _OverlappedMarshal := _Overlapped == 0 ? IntPtr : OVERLAPPED.Ptr
 
     A_LastError := 0
 
-    result := DllCall("WINUSB.dll\WinUsb_WriteIsochPipe", BufferHandleMarshal, BufferHandle, UInt32, Offset, UInt32, Length, FrameNumberMarshal, FrameNumber, OVERLAPPED.Ptr, _Overlapped, BOOL)
+    result := DllCall("WINUSB.dll\WinUsb_WriteIsochPipe", BufferHandleMarshal, BufferHandle, UInt32, Offset, UInt32, Length, FrameNumberMarshal, FrameNumber, _OverlappedMarshal, _Overlapped, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1543,12 +1551,13 @@ export WinUsb_WriteIsochPipe(BufferHandle, Offset, Length, FrameNumber, _Overlap
  * @since windows8.1
  */
 export WinUsb_ReadIsochPipe(BufferHandle, Offset, Length, FrameNumber, NumberOfPackets, IsoPacketDescriptors, _Overlapped) {
-    BufferHandleMarshal := BufferHandle is VarRef ? "ptr" : "ptr"
-    FrameNumberMarshal := FrameNumber is VarRef ? "uint*" : "ptr"
+    BufferHandleMarshal := BufferHandle is VarRef ? "ptr" : IntPtr
+    FrameNumberMarshal := FrameNumber is VarRef ? "uint*" : IntPtr
+    _OverlappedMarshal := _Overlapped == 0 ? IntPtr : OVERLAPPED.Ptr
 
     A_LastError := 0
 
-    result := DllCall("WINUSB.dll\WinUsb_ReadIsochPipe", BufferHandleMarshal, BufferHandle, UInt32, Offset, UInt32, Length, FrameNumberMarshal, FrameNumber, UInt32, NumberOfPackets, USBD_ISO_PACKET_DESCRIPTOR.Ptr, IsoPacketDescriptors, OVERLAPPED.Ptr, _Overlapped, BOOL)
+    result := DllCall("WINUSB.dll\WinUsb_ReadIsochPipe", BufferHandleMarshal, BufferHandle, UInt32, Offset, UInt32, Length, FrameNumberMarshal, FrameNumber, UInt32, NumberOfPackets, USBD_ISO_PACKET_DESCRIPTOR.Ptr, IsoPacketDescriptors, _OverlappedMarshal, _Overlapped, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1579,11 +1588,12 @@ export WinUsb_ReadIsochPipe(BufferHandle, Offset, Length, FrameNumber, NumberOfP
  * @since windows8.1
  */
 export WinUsb_WriteIsochPipeAsap(BufferHandle, Offset, Length, ContinueStream, _Overlapped) {
-    BufferHandleMarshal := BufferHandle is VarRef ? "ptr" : "ptr"
+    BufferHandleMarshal := BufferHandle is VarRef ? "ptr" : IntPtr
+    _OverlappedMarshal := _Overlapped == 0 ? IntPtr : OVERLAPPED.Ptr
 
     A_LastError := 0
 
-    result := DllCall("WINUSB.dll\WinUsb_WriteIsochPipeAsap", BufferHandleMarshal, BufferHandle, UInt32, Offset, UInt32, Length, BOOL, ContinueStream, OVERLAPPED.Ptr, _Overlapped, BOOL)
+    result := DllCall("WINUSB.dll\WinUsb_WriteIsochPipeAsap", BufferHandleMarshal, BufferHandle, UInt32, Offset, UInt32, Length, BOOL, ContinueStream, _OverlappedMarshal, _Overlapped, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1617,11 +1627,12 @@ export WinUsb_WriteIsochPipeAsap(BufferHandle, Offset, Length, ContinueStream, _
  * @since windows8.1
  */
 export WinUsb_ReadIsochPipeAsap(BufferHandle, Offset, Length, ContinueStream, NumberOfPackets, IsoPacketDescriptors, _Overlapped) {
-    BufferHandleMarshal := BufferHandle is VarRef ? "ptr" : "ptr"
+    BufferHandleMarshal := BufferHandle is VarRef ? "ptr" : IntPtr
+    _OverlappedMarshal := _Overlapped == 0 ? IntPtr : OVERLAPPED.Ptr
 
     A_LastError := 0
 
-    result := DllCall("WINUSB.dll\WinUsb_ReadIsochPipeAsap", BufferHandleMarshal, BufferHandle, UInt32, Offset, UInt32, Length, BOOL, ContinueStream, UInt32, NumberOfPackets, USBD_ISO_PACKET_DESCRIPTOR.Ptr, IsoPacketDescriptors, OVERLAPPED.Ptr, _Overlapped, BOOL)
+    result := DllCall("WINUSB.dll\WinUsb_ReadIsochPipeAsap", BufferHandleMarshal, BufferHandle, UInt32, Offset, UInt32, Length, BOOL, ContinueStream, UInt32, NumberOfPackets, USBD_ISO_PACKET_DESCRIPTOR.Ptr, IsoPacketDescriptors, _OverlappedMarshal, _Overlapped, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }

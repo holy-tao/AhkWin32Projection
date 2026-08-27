@@ -151,8 +151,8 @@ export default struct IMFContentProtectionManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BeginEnableContent := CallbackCreate(GetMethod(implObj, "BeginEnableContent"), flags, 5)
-        this.vtbl.EndEnableContent := CallbackCreate(GetMethod(implObj, "EndEnableContent"), flags, 2)
+        this.vtbl.BeginEnableContent := CallbackCreate(ObjBindMethod(implObj, "BeginEnableContent"), flags, 5)
+        this.vtbl.EndEnableContent := CallbackCreate(ObjBindMethod(implObj, "EndEnableContent"), flags, 2)
     }
 
     Dispose() {

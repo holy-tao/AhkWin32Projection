@@ -120,7 +120,7 @@ export default struct ISyncSessionState2 extends ISyncSessionState {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncsessionstate2-getsessionerrorstatus
      */
     GetSessionErrorStatus(phrSessionError) {
-        phrSessionErrorMarshal := phrSessionError is VarRef ? "int*" : "ptr"
+        phrSessionErrorMarshal := phrSessionError is VarRef ? "int*" : IntPtr
 
         result := ComCall(11, this, phrSessionErrorMarshal, phrSessionError, "HRESULT")
         return result
@@ -135,8 +135,8 @@ export default struct ISyncSessionState2 extends ISyncSessionState {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetProviderWithError := CallbackCreate(GetMethod(implObj, "SetProviderWithError"), flags, 2)
-        this.vtbl.GetSessionErrorStatus := CallbackCreate(GetMethod(implObj, "GetSessionErrorStatus"), flags, 2)
+        this.vtbl.SetProviderWithError := CallbackCreate(ObjBindMethod(implObj, "SetProviderWithError"), flags, 2)
+        this.vtbl.GetSessionErrorStatus := CallbackCreate(ObjBindMethod(implObj, "GetSessionErrorStatus"), flags, 2)
     }
 
     Dispose() {

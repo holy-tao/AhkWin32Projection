@@ -19,7 +19,6 @@ export default struct LPDDHALSURFCB_ADDATTACHEDSURFACE {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_ADDATTACHEDSURFACEDATA>} param0 
      * @returns {Integer} 
      */

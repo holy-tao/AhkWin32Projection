@@ -188,9 +188,9 @@ export default struct IWICDevelopRaw extends IWICBitmapFrameDecode {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getwhitepointrgb
      */
     GetWhitePointRGB(pRed, pGreen, pBlue) {
-        pRedMarshal := pRed is VarRef ? "uint*" : "ptr"
-        pGreenMarshal := pGreen is VarRef ? "uint*" : "ptr"
-        pBlueMarshal := pBlue is VarRef ? "uint*" : "ptr"
+        pRedMarshal := pRed is VarRef ? "uint*" : IntPtr
+        pGreenMarshal := pGreen is VarRef ? "uint*" : IntPtr
+        pBlueMarshal := pBlue is VarRef ? "uint*" : IntPtr
 
         result := ComCall(17, this, pRedMarshal, pRed, pGreenMarshal, pGreen, pBlueMarshal, pBlue, "HRESULT")
         return result
@@ -287,9 +287,9 @@ export default struct IWICDevelopRaw extends IWICBitmapFrameDecode {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getkelvinrangeinfo
      */
     GetKelvinRangeInfo(pMinKelvinTemp, pMaxKelvinTemp, pKelvinTempStepValue) {
-        pMinKelvinTempMarshal := pMinKelvinTemp is VarRef ? "uint*" : "ptr"
-        pMaxKelvinTempMarshal := pMaxKelvinTemp is VarRef ? "uint*" : "ptr"
-        pKelvinTempStepValueMarshal := pKelvinTempStepValue is VarRef ? "uint*" : "ptr"
+        pMinKelvinTempMarshal := pMinKelvinTemp is VarRef ? "uint*" : IntPtr
+        pMaxKelvinTempMarshal := pMaxKelvinTemp is VarRef ? "uint*" : IntPtr
+        pKelvinTempStepValueMarshal := pKelvinTempStepValue is VarRef ? "uint*" : IntPtr
 
         result := ComCall(22, this, pMinKelvinTempMarshal, pMinKelvinTemp, pMaxKelvinTempMarshal, pMaxKelvinTemp, pKelvinTempStepValueMarshal, pKelvinTempStepValue, "HRESULT")
         return result
@@ -517,9 +517,11 @@ export default struct IWICDevelopRaw extends IWICBitmapFrameDecode {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-gettonecurve
      */
     GetToneCurve(cbToneCurveBufferSize, pToneCurve, pcbActualToneCurveBufferSize) {
-        pcbActualToneCurveBufferSizeMarshal := pcbActualToneCurveBufferSize is VarRef ? "uint*" : "ptr"
+        pToneCurveMarshal := pToneCurve == 0 ? IntPtr : IntPtr
+        pcbActualToneCurveBufferSizeMarshal := pcbActualToneCurveBufferSize is VarRef ? "uint*" : IntPtr
+        pcbActualToneCurveBufferSizeMarshal := pcbActualToneCurveBufferSize == 0 ? IntPtr : "uint*"
 
-        result := ComCall(37, this, UInt32, cbToneCurveBufferSize, IntPtr, pToneCurve, pcbActualToneCurveBufferSizeMarshal, pcbActualToneCurveBufferSize, "HRESULT")
+        result := ComCall(37, this, UInt32, cbToneCurveBufferSize, pToneCurveMarshal, pToneCurve, pcbActualToneCurveBufferSizeMarshal, pcbActualToneCurveBufferSize, "HRESULT")
         return result
     }
 
@@ -601,38 +603,38 @@ export default struct IWICDevelopRaw extends IWICBitmapFrameDecode {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryRawCapabilitiesInfo := CallbackCreate(GetMethod(implObj, "QueryRawCapabilitiesInfo"), flags, 2)
-        this.vtbl.LoadParameterSet := CallbackCreate(GetMethod(implObj, "LoadParameterSet"), flags, 2)
-        this.vtbl.GetCurrentParameterSet := CallbackCreate(GetMethod(implObj, "GetCurrentParameterSet"), flags, 2)
-        this.vtbl.SetExposureCompensation := CallbackCreate(GetMethod(implObj, "SetExposureCompensation"), flags, 2)
-        this.vtbl.GetExposureCompensation := CallbackCreate(GetMethod(implObj, "GetExposureCompensation"), flags, 2)
-        this.vtbl.SetWhitePointRGB := CallbackCreate(GetMethod(implObj, "SetWhitePointRGB"), flags, 4)
-        this.vtbl.GetWhitePointRGB := CallbackCreate(GetMethod(implObj, "GetWhitePointRGB"), flags, 4)
-        this.vtbl.SetNamedWhitePoint := CallbackCreate(GetMethod(implObj, "SetNamedWhitePoint"), flags, 2)
-        this.vtbl.GetNamedWhitePoint := CallbackCreate(GetMethod(implObj, "GetNamedWhitePoint"), flags, 2)
-        this.vtbl.SetWhitePointKelvin := CallbackCreate(GetMethod(implObj, "SetWhitePointKelvin"), flags, 2)
-        this.vtbl.GetWhitePointKelvin := CallbackCreate(GetMethod(implObj, "GetWhitePointKelvin"), flags, 2)
-        this.vtbl.GetKelvinRangeInfo := CallbackCreate(GetMethod(implObj, "GetKelvinRangeInfo"), flags, 4)
-        this.vtbl.SetContrast := CallbackCreate(GetMethod(implObj, "SetContrast"), flags, 2)
-        this.vtbl.GetContrast := CallbackCreate(GetMethod(implObj, "GetContrast"), flags, 2)
-        this.vtbl.SetGamma := CallbackCreate(GetMethod(implObj, "SetGamma"), flags, 2)
-        this.vtbl.GetGamma := CallbackCreate(GetMethod(implObj, "GetGamma"), flags, 2)
-        this.vtbl.SetSharpness := CallbackCreate(GetMethod(implObj, "SetSharpness"), flags, 2)
-        this.vtbl.GetSharpness := CallbackCreate(GetMethod(implObj, "GetSharpness"), flags, 2)
-        this.vtbl.SetSaturation := CallbackCreate(GetMethod(implObj, "SetSaturation"), flags, 2)
-        this.vtbl.GetSaturation := CallbackCreate(GetMethod(implObj, "GetSaturation"), flags, 2)
-        this.vtbl.SetTint := CallbackCreate(GetMethod(implObj, "SetTint"), flags, 2)
-        this.vtbl.GetTint := CallbackCreate(GetMethod(implObj, "GetTint"), flags, 2)
-        this.vtbl.SetNoiseReduction := CallbackCreate(GetMethod(implObj, "SetNoiseReduction"), flags, 2)
-        this.vtbl.GetNoiseReduction := CallbackCreate(GetMethod(implObj, "GetNoiseReduction"), flags, 2)
-        this.vtbl.SetDestinationColorContext := CallbackCreate(GetMethod(implObj, "SetDestinationColorContext"), flags, 2)
-        this.vtbl.SetToneCurve := CallbackCreate(GetMethod(implObj, "SetToneCurve"), flags, 3)
-        this.vtbl.GetToneCurve := CallbackCreate(GetMethod(implObj, "GetToneCurve"), flags, 4)
-        this.vtbl.SetRotation := CallbackCreate(GetMethod(implObj, "SetRotation"), flags, 2)
-        this.vtbl.GetRotation := CallbackCreate(GetMethod(implObj, "GetRotation"), flags, 2)
-        this.vtbl.SetRenderMode := CallbackCreate(GetMethod(implObj, "SetRenderMode"), flags, 2)
-        this.vtbl.GetRenderMode := CallbackCreate(GetMethod(implObj, "GetRenderMode"), flags, 2)
-        this.vtbl.SetNotificationCallback := CallbackCreate(GetMethod(implObj, "SetNotificationCallback"), flags, 2)
+        this.vtbl.QueryRawCapabilitiesInfo := CallbackCreate(ObjBindMethod(implObj, "QueryRawCapabilitiesInfo"), flags, 2)
+        this.vtbl.LoadParameterSet := CallbackCreate(ObjBindMethod(implObj, "LoadParameterSet"), flags, 2)
+        this.vtbl.GetCurrentParameterSet := CallbackCreate(ObjBindMethod(implObj, "GetCurrentParameterSet"), flags, 2)
+        this.vtbl.SetExposureCompensation := CallbackCreate(ObjBindMethod(implObj, "SetExposureCompensation"), flags, 2)
+        this.vtbl.GetExposureCompensation := CallbackCreate(ObjBindMethod(implObj, "GetExposureCompensation"), flags, 2)
+        this.vtbl.SetWhitePointRGB := CallbackCreate(ObjBindMethod(implObj, "SetWhitePointRGB"), flags, 4)
+        this.vtbl.GetWhitePointRGB := CallbackCreate(ObjBindMethod(implObj, "GetWhitePointRGB"), flags, 4)
+        this.vtbl.SetNamedWhitePoint := CallbackCreate(ObjBindMethod(implObj, "SetNamedWhitePoint"), flags, 2)
+        this.vtbl.GetNamedWhitePoint := CallbackCreate(ObjBindMethod(implObj, "GetNamedWhitePoint"), flags, 2)
+        this.vtbl.SetWhitePointKelvin := CallbackCreate(ObjBindMethod(implObj, "SetWhitePointKelvin"), flags, 2)
+        this.vtbl.GetWhitePointKelvin := CallbackCreate(ObjBindMethod(implObj, "GetWhitePointKelvin"), flags, 2)
+        this.vtbl.GetKelvinRangeInfo := CallbackCreate(ObjBindMethod(implObj, "GetKelvinRangeInfo"), flags, 4)
+        this.vtbl.SetContrast := CallbackCreate(ObjBindMethod(implObj, "SetContrast"), flags, 2)
+        this.vtbl.GetContrast := CallbackCreate(ObjBindMethod(implObj, "GetContrast"), flags, 2)
+        this.vtbl.SetGamma := CallbackCreate(ObjBindMethod(implObj, "SetGamma"), flags, 2)
+        this.vtbl.GetGamma := CallbackCreate(ObjBindMethod(implObj, "GetGamma"), flags, 2)
+        this.vtbl.SetSharpness := CallbackCreate(ObjBindMethod(implObj, "SetSharpness"), flags, 2)
+        this.vtbl.GetSharpness := CallbackCreate(ObjBindMethod(implObj, "GetSharpness"), flags, 2)
+        this.vtbl.SetSaturation := CallbackCreate(ObjBindMethod(implObj, "SetSaturation"), flags, 2)
+        this.vtbl.GetSaturation := CallbackCreate(ObjBindMethod(implObj, "GetSaturation"), flags, 2)
+        this.vtbl.SetTint := CallbackCreate(ObjBindMethod(implObj, "SetTint"), flags, 2)
+        this.vtbl.GetTint := CallbackCreate(ObjBindMethod(implObj, "GetTint"), flags, 2)
+        this.vtbl.SetNoiseReduction := CallbackCreate(ObjBindMethod(implObj, "SetNoiseReduction"), flags, 2)
+        this.vtbl.GetNoiseReduction := CallbackCreate(ObjBindMethod(implObj, "GetNoiseReduction"), flags, 2)
+        this.vtbl.SetDestinationColorContext := CallbackCreate(ObjBindMethod(implObj, "SetDestinationColorContext"), flags, 2)
+        this.vtbl.SetToneCurve := CallbackCreate(ObjBindMethod(implObj, "SetToneCurve"), flags, 3)
+        this.vtbl.GetToneCurve := CallbackCreate(ObjBindMethod(implObj, "GetToneCurve"), flags, 4)
+        this.vtbl.SetRotation := CallbackCreate(ObjBindMethod(implObj, "SetRotation"), flags, 2)
+        this.vtbl.GetRotation := CallbackCreate(ObjBindMethod(implObj, "GetRotation"), flags, 2)
+        this.vtbl.SetRenderMode := CallbackCreate(ObjBindMethod(implObj, "SetRenderMode"), flags, 2)
+        this.vtbl.GetRenderMode := CallbackCreate(ObjBindMethod(implObj, "GetRenderMode"), flags, 2)
+        this.vtbl.SetNotificationCallback := CallbackCreate(ObjBindMethod(implObj, "SetNotificationCallback"), flags, 2)
     }
 
     Dispose() {

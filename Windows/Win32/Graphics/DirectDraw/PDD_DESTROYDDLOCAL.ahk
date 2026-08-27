@@ -31,7 +31,6 @@ export default struct PDD_DESTROYDDLOCAL {
     }
 
     /**
-     * 
      * @param {Pointer<DD_DESTROYDDLOCALDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawi/ns-ddrawi-ddhal_destroyddlocaldata">DDHAL_DESTROYDDLOCALDATA</a> structure that contains the information required for the driver to destroy the surfaces.
      * @returns {Integer} <b>D3dDestroyDDLocal</b> returns one of the following callback codes:
      */

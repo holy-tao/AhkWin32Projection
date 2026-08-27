@@ -48,7 +48,6 @@ export default struct IUpdateSearcher3 extends IUpdateSearcher2 {
     }
 
     /**
-     * 
      * @returns {SearchScope} 
      */
     get_SearchScope() {
@@ -57,7 +56,6 @@ export default struct IUpdateSearcher3 extends IUpdateSearcher2 {
     }
 
     /**
-     * 
      * @param {SearchScope} value 
      * @returns {HRESULT} 
      */
@@ -75,8 +73,8 @@ export default struct IUpdateSearcher3 extends IUpdateSearcher2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_SearchScope := CallbackCreate(GetMethod(implObj, "get_SearchScope"), flags, 2)
-        this.vtbl.put_SearchScope := CallbackCreate(GetMethod(implObj, "put_SearchScope"), flags, 2)
+        this.vtbl.get_SearchScope := CallbackCreate(ObjBindMethod(implObj, "get_SearchScope"), flags, 2)
+        this.vtbl.put_SearchScope := CallbackCreate(ObjBindMethod(implObj, "put_SearchScope"), flags, 2)
     }
 
     Dispose() {

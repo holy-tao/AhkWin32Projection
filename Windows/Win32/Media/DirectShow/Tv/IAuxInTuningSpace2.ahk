@@ -78,8 +78,8 @@ export default struct IAuxInTuningSpace2 extends IAuxInTuningSpace {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_CountryCode := CallbackCreate(GetMethod(implObj, "get_CountryCode"), flags, 2)
-        this.vtbl.put_CountryCode := CallbackCreate(GetMethod(implObj, "put_CountryCode"), flags, 2)
+        this.vtbl.get_CountryCode := CallbackCreate(ObjBindMethod(implObj, "get_CountryCode"), flags, 2)
+        this.vtbl.put_CountryCode := CallbackCreate(ObjBindMethod(implObj, "put_CountryCode"), flags, 2)
     }
 
     Dispose() {

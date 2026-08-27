@@ -69,7 +69,9 @@ export default struct IMDSPStorage4 extends IMDSPStorage3 {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorage4-setreferences
      */
     SetReferences(dwRefs, ppISPStorage) {
-        result := ComCall(19, this, UInt32, dwRefs, IMDSPStorage.Ptr, ppISPStorage, "HRESULT")
+        ppISPStorageMarshal := ppISPStorage == 0 ? IntPtr : IMDSPStorage.Ptr
+
+        result := ComCall(19, this, UInt32, dwRefs, ppISPStorageMarshal, ppISPStorage, "HRESULT")
         return result
     }
 
@@ -94,8 +96,8 @@ export default struct IMDSPStorage4 extends IMDSPStorage3 {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorage4-getreferences
      */
     GetReferences(pdwRefs, pppISPStorage) {
-        pdwRefsMarshal := pdwRefs is VarRef ? "uint*" : "ptr"
-        pppISPStorageMarshal := pppISPStorage is VarRef ? "ptr*" : "ptr"
+        pdwRefsMarshal := pdwRefs is VarRef ? "uint*" : IntPtr
+        pppISPStorageMarshal := pppISPStorage is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(20, this, pdwRefsMarshal, pdwRefs, pppISPStorageMarshal, pppISPStorage, "HRESULT")
         return result
@@ -240,7 +242,9 @@ export default struct IMDSPStorage4 extends IMDSPStorage3 {
     CreateStorageWithMetadata(dwAttributes, pwszName, pMetadata, qwFileSize) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(21, this, UInt32, dwAttributes, "ptr", pwszName, "ptr", pMetadata, Int64, qwFileSize, "ptr*", &ppNewStorage := 0, "HRESULT")
+        pMetadataMarshal := pMetadata == 0 ? IntPtr : "ptr"
+
+        result := ComCall(21, this, UInt32, dwAttributes, "ptr", pwszName, pMetadataMarshal, pMetadata, Int64, qwFileSize, "ptr*", &ppNewStorage := 0, "HRESULT")
         return IMDSPStorage(ppNewStorage)
     }
 
@@ -268,9 +272,10 @@ export default struct IMDSPStorage4 extends IMDSPStorage3 {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorage4-getspecifiedmetadata
      */
     GetSpecifiedMetadata(cProperties, ppwszPropNames, pMetadata) {
-        ppwszPropNamesMarshal := ppwszPropNames is VarRef ? "ptr*" : "ptr"
+        ppwszPropNamesMarshal := ppwszPropNames is VarRef ? "ptr*" : IntPtr
+        pMetadataMarshal := pMetadata == 0 ? IntPtr : "ptr"
 
-        result := ComCall(22, this, UInt32, cProperties, ppwszPropNamesMarshal, ppwszPropNames, "ptr", pMetadata, "HRESULT")
+        result := ComCall(22, this, UInt32, cProperties, ppwszPropNamesMarshal, ppwszPropNames, pMetadataMarshal, pMetadata, "HRESULT")
         return result
     }
 
@@ -321,12 +326,12 @@ export default struct IMDSPStorage4 extends IMDSPStorage3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetReferences := CallbackCreate(GetMethod(implObj, "SetReferences"), flags, 3)
-        this.vtbl.GetReferences := CallbackCreate(GetMethod(implObj, "GetReferences"), flags, 3)
-        this.vtbl.CreateStorageWithMetadata := CallbackCreate(GetMethod(implObj, "CreateStorageWithMetadata"), flags, 6)
-        this.vtbl.GetSpecifiedMetadata := CallbackCreate(GetMethod(implObj, "GetSpecifiedMetadata"), flags, 4)
-        this.vtbl.FindStorage := CallbackCreate(GetMethod(implObj, "FindStorage"), flags, 4)
-        this.vtbl.GetParent := CallbackCreate(GetMethod(implObj, "GetParent"), flags, 2)
+        this.vtbl.SetReferences := CallbackCreate(ObjBindMethod(implObj, "SetReferences"), flags, 3)
+        this.vtbl.GetReferences := CallbackCreate(ObjBindMethod(implObj, "GetReferences"), flags, 3)
+        this.vtbl.CreateStorageWithMetadata := CallbackCreate(ObjBindMethod(implObj, "CreateStorageWithMetadata"), flags, 6)
+        this.vtbl.GetSpecifiedMetadata := CallbackCreate(ObjBindMethod(implObj, "GetSpecifiedMetadata"), flags, 4)
+        this.vtbl.FindStorage := CallbackCreate(ObjBindMethod(implObj, "FindStorage"), flags, 4)
+        this.vtbl.GetParent := CallbackCreate(ObjBindMethod(implObj, "GetParent"), flags, 2)
     }
 
     Dispose() {

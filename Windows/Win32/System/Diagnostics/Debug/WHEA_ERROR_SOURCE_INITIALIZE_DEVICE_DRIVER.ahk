@@ -19,13 +19,13 @@ export default struct WHEA_ERROR_SOURCE_INITIALIZE_DEVICE_DRIVER {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Integer} ErrorSourceId 
      * @returns {NTSTATUS} 
      */
     Call(_Context, ErrorSourceId) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, _ContextMarshal, _Context, UInt32, ErrorSourceId, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

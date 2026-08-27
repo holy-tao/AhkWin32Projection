@@ -23,7 +23,6 @@ export default struct WNDOBJCHANGEPROC {
     }
 
     /**
-     * 
      * @param {Pointer<WNDOBJ>} pwo Pointer to a [WNDOBJ](/windows/win32/api/winddi/ns-winddi-wndobj) structure defining the window object that is currently changing. The window object contains the new size and position of the window. If *fl* is **WOC_CHANGED**, then this parameter is **NULL**.
      * @param {Integer} fl 
      * @returns {String} Nothing - always returns an empty string

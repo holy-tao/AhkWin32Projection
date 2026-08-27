@@ -59,7 +59,7 @@ export default struct IWeakReferenceSource extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetWeakReference := CallbackCreate(GetMethod(implObj, "GetWeakReference"), flags, 2)
+        this.vtbl.GetWeakReference := CallbackCreate(ObjBindMethod(implObj, "GetWeakReference"), flags, 2)
     }
 
     Dispose() {

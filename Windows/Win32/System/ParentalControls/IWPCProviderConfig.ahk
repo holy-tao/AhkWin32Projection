@@ -87,7 +87,9 @@ export default struct IWPCProviderConfig extends IUnknown {
     Configure(_hWnd, bstrSID) {
         bstrSID := bstrSID is String ? BSTR.Alloc(bstrSID).Value : bstrSID
 
-        result := ComCall(4, this, HWND, _hWnd, BSTR, bstrSID, "HRESULT")
+        _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+
+        result := ComCall(4, this, _hWndMarshal, _hWnd, BSTR, bstrSID, "HRESULT")
         return result
     }
 
@@ -104,7 +106,9 @@ export default struct IWPCProviderConfig extends IUnknown {
     RequestOverride(_hWnd, bstrPath, dwFlags) {
         bstrPath := bstrPath is String ? BSTR.Alloc(bstrPath).Value : bstrPath
 
-        result := ComCall(5, this, HWND, _hWnd, BSTR, bstrPath, UInt32, dwFlags, "HRESULT")
+        _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+
+        result := ComCall(5, this, _hWndMarshal, _hWnd, BSTR, bstrPath, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -117,9 +121,9 @@ export default struct IWPCProviderConfig extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetUserSummary := CallbackCreate(GetMethod(implObj, "GetUserSummary"), flags, 3)
-        this.vtbl.Configure := CallbackCreate(GetMethod(implObj, "Configure"), flags, 3)
-        this.vtbl.RequestOverride := CallbackCreate(GetMethod(implObj, "RequestOverride"), flags, 4)
+        this.vtbl.GetUserSummary := CallbackCreate(ObjBindMethod(implObj, "GetUserSummary"), flags, 3)
+        this.vtbl.Configure := CallbackCreate(ObjBindMethod(implObj, "Configure"), flags, 3)
+        this.vtbl.RequestOverride := CallbackCreate(ObjBindMethod(implObj, "RequestOverride"), flags, 4)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct PFN_DrvEnableSurface {
     }
 
     /**
-     * 
      * @param {DHPDEV} param0 
      * @returns {HSURF} 
      */

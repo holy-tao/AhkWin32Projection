@@ -237,18 +237,18 @@ export default struct ITsSbProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateTargetObject := CallbackCreate(GetMethod(implObj, "CreateTargetObject"), flags, 4)
-        this.vtbl.CreateLoadBalanceResultObject := CallbackCreate(GetMethod(implObj, "CreateLoadBalanceResultObject"), flags, 3)
-        this.vtbl.CreateSessionObject := CallbackCreate(GetMethod(implObj, "CreateSessionObject"), flags, 6)
-        this.vtbl.CreatePluginPropertySet := CallbackCreate(GetMethod(implObj, "CreatePluginPropertySet"), flags, 2)
-        this.vtbl.CreateTargetPropertySetObject := CallbackCreate(GetMethod(implObj, "CreateTargetPropertySetObject"), flags, 2)
-        this.vtbl.CreateEnvironmentObject := CallbackCreate(GetMethod(implObj, "CreateEnvironmentObject"), flags, 4)
-        this.vtbl.GetResourcePluginStore := CallbackCreate(GetMethod(implObj, "GetResourcePluginStore"), flags, 2)
-        this.vtbl.GetFilterPluginStore := CallbackCreate(GetMethod(implObj, "GetFilterPluginStore"), flags, 2)
-        this.vtbl.RegisterForNotification := CallbackCreate(GetMethod(implObj, "RegisterForNotification"), flags, 4)
-        this.vtbl.UnRegisterForNotification := CallbackCreate(GetMethod(implObj, "UnRegisterForNotification"), flags, 3)
-        this.vtbl.GetInstanceOfGlobalStore := CallbackCreate(GetMethod(implObj, "GetInstanceOfGlobalStore"), flags, 2)
-        this.vtbl.CreateEnvironmentPropertySetObject := CallbackCreate(GetMethod(implObj, "CreateEnvironmentPropertySetObject"), flags, 2)
+        this.vtbl.CreateTargetObject := CallbackCreate(ObjBindMethod(implObj, "CreateTargetObject"), flags, 4)
+        this.vtbl.CreateLoadBalanceResultObject := CallbackCreate(ObjBindMethod(implObj, "CreateLoadBalanceResultObject"), flags, 3)
+        this.vtbl.CreateSessionObject := CallbackCreate(ObjBindMethod(implObj, "CreateSessionObject"), flags, 6)
+        this.vtbl.CreatePluginPropertySet := CallbackCreate(ObjBindMethod(implObj, "CreatePluginPropertySet"), flags, 2)
+        this.vtbl.CreateTargetPropertySetObject := CallbackCreate(ObjBindMethod(implObj, "CreateTargetPropertySetObject"), flags, 2)
+        this.vtbl.CreateEnvironmentObject := CallbackCreate(ObjBindMethod(implObj, "CreateEnvironmentObject"), flags, 4)
+        this.vtbl.GetResourcePluginStore := CallbackCreate(ObjBindMethod(implObj, "GetResourcePluginStore"), flags, 2)
+        this.vtbl.GetFilterPluginStore := CallbackCreate(ObjBindMethod(implObj, "GetFilterPluginStore"), flags, 2)
+        this.vtbl.RegisterForNotification := CallbackCreate(ObjBindMethod(implObj, "RegisterForNotification"), flags, 4)
+        this.vtbl.UnRegisterForNotification := CallbackCreate(ObjBindMethod(implObj, "UnRegisterForNotification"), flags, 3)
+        this.vtbl.GetInstanceOfGlobalStore := CallbackCreate(ObjBindMethod(implObj, "GetInstanceOfGlobalStore"), flags, 2)
+        this.vtbl.CreateEnvironmentPropertySetObject := CallbackCreate(ObjBindMethod(implObj, "CreateEnvironmentPropertySetObject"), flags, 2)
     }
 
     Dispose() {

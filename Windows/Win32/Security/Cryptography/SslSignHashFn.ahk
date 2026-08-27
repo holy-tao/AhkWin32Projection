@@ -21,7 +21,6 @@ export default struct SslSignHashFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_KEY_HANDLE} hPrivateKey 
      * @param {Integer} pbHashValue 
@@ -32,7 +31,9 @@ export default struct SslSignHashFn {
      * @returns {Integer} 
      */
     Call(hSslProvider, hPrivateKey, pbHashValue, cbHashValue, pbSignature, cbSignature, dwFlags) {
-        result := DllCall(this.value, NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hPrivateKey, IntPtr, pbHashValue, UInt32, cbHashValue, IntPtr, pbSignature, UInt32, cbSignature, "uint*", &pcbResult := 0, UInt32, dwFlags, "HRESULT")
+        pbSignatureMarshal := pbSignature == 0 ? IntPtr : IntPtr
+
+        result := DllCall(this.value, NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hPrivateKey, IntPtr, pbHashValue, UInt32, cbHashValue, pbSignatureMarshal, pbSignature, UInt32, cbSignature, "uint*", &pcbResult := 0, UInt32, dwFlags, "HRESULT")
         return pcbResult
     }
 

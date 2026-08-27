@@ -203,15 +203,15 @@ export default struct IMFSensorDevice extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDeviceId := CallbackCreate(GetMethod(implObj, "GetDeviceId"), flags, 2)
-        this.vtbl.GetDeviceType := CallbackCreate(GetMethod(implObj, "GetDeviceType"), flags, 2)
-        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
-        this.vtbl.GetSymbolicLink := CallbackCreate(GetMethod(implObj, "GetSymbolicLink"), flags, 4)
-        this.vtbl.GetDeviceAttributes := CallbackCreate(GetMethod(implObj, "GetDeviceAttributes"), flags, 2)
-        this.vtbl.GetStreamAttributesCount := CallbackCreate(GetMethod(implObj, "GetStreamAttributesCount"), flags, 3)
-        this.vtbl.GetStreamAttributes := CallbackCreate(GetMethod(implObj, "GetStreamAttributes"), flags, 4)
-        this.vtbl.SetSensorDeviceMode := CallbackCreate(GetMethod(implObj, "SetSensorDeviceMode"), flags, 2)
-        this.vtbl.GetSensorDeviceMode := CallbackCreate(GetMethod(implObj, "GetSensorDeviceMode"), flags, 2)
+        this.vtbl.GetDeviceId := CallbackCreate(ObjBindMethod(implObj, "GetDeviceId"), flags, 2)
+        this.vtbl.GetDeviceType := CallbackCreate(ObjBindMethod(implObj, "GetDeviceType"), flags, 2)
+        this.vtbl.GetFlags := CallbackCreate(ObjBindMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.GetSymbolicLink := CallbackCreate(ObjBindMethod(implObj, "GetSymbolicLink"), flags, 4)
+        this.vtbl.GetDeviceAttributes := CallbackCreate(ObjBindMethod(implObj, "GetDeviceAttributes"), flags, 2)
+        this.vtbl.GetStreamAttributesCount := CallbackCreate(ObjBindMethod(implObj, "GetStreamAttributesCount"), flags, 3)
+        this.vtbl.GetStreamAttributes := CallbackCreate(ObjBindMethod(implObj, "GetStreamAttributes"), flags, 4)
+        this.vtbl.SetSensorDeviceMode := CallbackCreate(ObjBindMethod(implObj, "SetSensorDeviceMode"), flags, 2)
+        this.vtbl.GetSensorDeviceMode := CallbackCreate(ObjBindMethod(implObj, "GetSensorDeviceMode"), flags, 2)
     }
 
     Dispose() {

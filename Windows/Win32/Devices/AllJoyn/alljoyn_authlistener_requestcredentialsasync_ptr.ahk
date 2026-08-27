@@ -21,7 +21,6 @@ export default struct alljoyn_authlistener_requestcredentialsasync_ptr {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {alljoyn_authlistener} listener 
      * @param {PSTR} authMechanism 
@@ -37,8 +36,8 @@ export default struct alljoyn_authlistener_requestcredentialsasync_ptr {
         peerName := peerName is String ? StrPtr(peerName) : peerName
         userName := userName is String ? StrPtr(userName) : userName
 
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
-        authContextMarshal := authContext is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+        authContextMarshal := authContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _contextMarshal, _context, alljoyn_authlistener, listener, "ptr", authMechanism, "ptr", peerName, UInt16, authCount, "ptr", userName, UInt16, credMask, authContextMarshal, authContext, QStatus)
         return result

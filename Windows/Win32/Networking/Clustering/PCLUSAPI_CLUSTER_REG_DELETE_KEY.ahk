@@ -20,7 +20,6 @@ export default struct PCLUSAPI_CLUSTER_REG_DELETE_KEY {
     }
 
     /**
-     * 
      * @param {HKEY} _hKey 
      * @param {PWSTR} lpszSubKey 
      * @returns {Integer} 

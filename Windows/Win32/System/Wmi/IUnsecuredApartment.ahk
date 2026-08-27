@@ -71,7 +71,7 @@ export default struct IUnsecuredApartment extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateObjectStub := CallbackCreate(GetMethod(implObj, "CreateObjectStub"), flags, 3)
+        this.vtbl.CreateObjectStub := CallbackCreate(ObjBindMethod(implObj, "CreateObjectStub"), flags, 3)
     }
 
     Dispose() {

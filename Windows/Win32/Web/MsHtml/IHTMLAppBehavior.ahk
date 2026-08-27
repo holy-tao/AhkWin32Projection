@@ -170,7 +170,6 @@ export default struct IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -182,7 +181,6 @@ export default struct IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_applicationName() {
@@ -192,7 +190,6 @@ export default struct IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -204,7 +201,6 @@ export default struct IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_version() {
@@ -214,7 +210,6 @@ export default struct IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -226,7 +221,6 @@ export default struct IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_icon() {
@@ -236,7 +230,6 @@ export default struct IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -248,7 +241,6 @@ export default struct IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_singleInstance() {
@@ -258,7 +250,6 @@ export default struct IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -270,7 +261,6 @@ export default struct IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_minimizeButton() {
@@ -280,7 +270,6 @@ export default struct IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -292,7 +281,6 @@ export default struct IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_maximizeButton() {
@@ -302,7 +290,6 @@ export default struct IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -314,7 +301,6 @@ export default struct IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_border() {
@@ -324,7 +310,6 @@ export default struct IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -336,7 +321,6 @@ export default struct IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_borderStyle() {
@@ -346,7 +330,6 @@ export default struct IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -358,7 +341,6 @@ export default struct IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_sysMenu() {
@@ -368,7 +350,6 @@ export default struct IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -380,7 +361,6 @@ export default struct IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_caption() {
@@ -390,7 +370,6 @@ export default struct IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -402,7 +381,6 @@ export default struct IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_windowState() {
@@ -412,7 +390,6 @@ export default struct IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -424,7 +401,6 @@ export default struct IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_showInTaskBar() {
@@ -434,7 +410,6 @@ export default struct IHTMLAppBehavior extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_commandLine() {
@@ -452,31 +427,31 @@ export default struct IHTMLAppBehavior extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_applicationName := CallbackCreate(GetMethod(implObj, "put_applicationName"), flags, 2)
-        this.vtbl.get_applicationName := CallbackCreate(GetMethod(implObj, "get_applicationName"), flags, 2)
-        this.vtbl.put_version := CallbackCreate(GetMethod(implObj, "put_version"), flags, 2)
-        this.vtbl.get_version := CallbackCreate(GetMethod(implObj, "get_version"), flags, 2)
-        this.vtbl.put_icon := CallbackCreate(GetMethod(implObj, "put_icon"), flags, 2)
-        this.vtbl.get_icon := CallbackCreate(GetMethod(implObj, "get_icon"), flags, 2)
-        this.vtbl.put_singleInstance := CallbackCreate(GetMethod(implObj, "put_singleInstance"), flags, 2)
-        this.vtbl.get_singleInstance := CallbackCreate(GetMethod(implObj, "get_singleInstance"), flags, 2)
-        this.vtbl.put_minimizeButton := CallbackCreate(GetMethod(implObj, "put_minimizeButton"), flags, 2)
-        this.vtbl.get_minimizeButton := CallbackCreate(GetMethod(implObj, "get_minimizeButton"), flags, 2)
-        this.vtbl.put_maximizeButton := CallbackCreate(GetMethod(implObj, "put_maximizeButton"), flags, 2)
-        this.vtbl.get_maximizeButton := CallbackCreate(GetMethod(implObj, "get_maximizeButton"), flags, 2)
-        this.vtbl.put_border := CallbackCreate(GetMethod(implObj, "put_border"), flags, 2)
-        this.vtbl.get_border := CallbackCreate(GetMethod(implObj, "get_border"), flags, 2)
-        this.vtbl.put_borderStyle := CallbackCreate(GetMethod(implObj, "put_borderStyle"), flags, 2)
-        this.vtbl.get_borderStyle := CallbackCreate(GetMethod(implObj, "get_borderStyle"), flags, 2)
-        this.vtbl.put_sysMenu := CallbackCreate(GetMethod(implObj, "put_sysMenu"), flags, 2)
-        this.vtbl.get_sysMenu := CallbackCreate(GetMethod(implObj, "get_sysMenu"), flags, 2)
-        this.vtbl.put_caption := CallbackCreate(GetMethod(implObj, "put_caption"), flags, 2)
-        this.vtbl.get_caption := CallbackCreate(GetMethod(implObj, "get_caption"), flags, 2)
-        this.vtbl.put_windowState := CallbackCreate(GetMethod(implObj, "put_windowState"), flags, 2)
-        this.vtbl.get_windowState := CallbackCreate(GetMethod(implObj, "get_windowState"), flags, 2)
-        this.vtbl.put_showInTaskBar := CallbackCreate(GetMethod(implObj, "put_showInTaskBar"), flags, 2)
-        this.vtbl.get_showInTaskBar := CallbackCreate(GetMethod(implObj, "get_showInTaskBar"), flags, 2)
-        this.vtbl.get_commandLine := CallbackCreate(GetMethod(implObj, "get_commandLine"), flags, 2)
+        this.vtbl.put_applicationName := CallbackCreate(ObjBindMethod(implObj, "put_applicationName"), flags, 2)
+        this.vtbl.get_applicationName := CallbackCreate(ObjBindMethod(implObj, "get_applicationName"), flags, 2)
+        this.vtbl.put_version := CallbackCreate(ObjBindMethod(implObj, "put_version"), flags, 2)
+        this.vtbl.get_version := CallbackCreate(ObjBindMethod(implObj, "get_version"), flags, 2)
+        this.vtbl.put_icon := CallbackCreate(ObjBindMethod(implObj, "put_icon"), flags, 2)
+        this.vtbl.get_icon := CallbackCreate(ObjBindMethod(implObj, "get_icon"), flags, 2)
+        this.vtbl.put_singleInstance := CallbackCreate(ObjBindMethod(implObj, "put_singleInstance"), flags, 2)
+        this.vtbl.get_singleInstance := CallbackCreate(ObjBindMethod(implObj, "get_singleInstance"), flags, 2)
+        this.vtbl.put_minimizeButton := CallbackCreate(ObjBindMethod(implObj, "put_minimizeButton"), flags, 2)
+        this.vtbl.get_minimizeButton := CallbackCreate(ObjBindMethod(implObj, "get_minimizeButton"), flags, 2)
+        this.vtbl.put_maximizeButton := CallbackCreate(ObjBindMethod(implObj, "put_maximizeButton"), flags, 2)
+        this.vtbl.get_maximizeButton := CallbackCreate(ObjBindMethod(implObj, "get_maximizeButton"), flags, 2)
+        this.vtbl.put_border := CallbackCreate(ObjBindMethod(implObj, "put_border"), flags, 2)
+        this.vtbl.get_border := CallbackCreate(ObjBindMethod(implObj, "get_border"), flags, 2)
+        this.vtbl.put_borderStyle := CallbackCreate(ObjBindMethod(implObj, "put_borderStyle"), flags, 2)
+        this.vtbl.get_borderStyle := CallbackCreate(ObjBindMethod(implObj, "get_borderStyle"), flags, 2)
+        this.vtbl.put_sysMenu := CallbackCreate(ObjBindMethod(implObj, "put_sysMenu"), flags, 2)
+        this.vtbl.get_sysMenu := CallbackCreate(ObjBindMethod(implObj, "get_sysMenu"), flags, 2)
+        this.vtbl.put_caption := CallbackCreate(ObjBindMethod(implObj, "put_caption"), flags, 2)
+        this.vtbl.get_caption := CallbackCreate(ObjBindMethod(implObj, "get_caption"), flags, 2)
+        this.vtbl.put_windowState := CallbackCreate(ObjBindMethod(implObj, "put_windowState"), flags, 2)
+        this.vtbl.get_windowState := CallbackCreate(ObjBindMethod(implObj, "get_windowState"), flags, 2)
+        this.vtbl.put_showInTaskBar := CallbackCreate(ObjBindMethod(implObj, "put_showInTaskBar"), flags, 2)
+        this.vtbl.get_showInTaskBar := CallbackCreate(ObjBindMethod(implObj, "get_showInTaskBar"), flags, 2)
+        this.vtbl.get_commandLine := CallbackCreate(ObjBindMethod(implObj, "get_commandLine"), flags, 2)
     }
 
     Dispose() {

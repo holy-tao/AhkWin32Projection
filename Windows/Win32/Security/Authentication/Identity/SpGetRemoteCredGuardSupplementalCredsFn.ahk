@@ -23,7 +23,6 @@ export default struct SpGetRemoteCredGuardSupplementalCredsFn {
     }
 
     /**
-     * 
      * @param {Pointer} CredHandle 
      * @param {Pointer<LSA_UNICODE_STRING>} TargetName 
      * @param {Pointer<HANDLE>} RedirectedLogonHandle 
@@ -34,10 +33,10 @@ export default struct SpGetRemoteCredGuardSupplementalCredsFn {
      * @returns {NTSTATUS} 
      */
     Call(CredHandle, TargetName, RedirectedLogonHandle, Callback, CleanupCallback, SupplementalCredsSize, SupplementalCreds) {
-        CallbackMarshal := Callback is VarRef ? "ptr*" : "ptr"
-        CleanupCallbackMarshal := CleanupCallback is VarRef ? "ptr*" : "ptr"
-        SupplementalCredsSizeMarshal := SupplementalCredsSize is VarRef ? "uint*" : "ptr"
-        SupplementalCredsMarshal := SupplementalCreds is VarRef ? "ptr*" : "ptr"
+        CallbackMarshal := Callback is VarRef ? "ptr*" : IntPtr
+        CleanupCallbackMarshal := CleanupCallback is VarRef ? "ptr*" : IntPtr
+        SupplementalCredsSizeMarshal := SupplementalCredsSize is VarRef ? "uint*" : IntPtr
+        SupplementalCredsMarshal := SupplementalCreds is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, IntPtr, CredHandle, LSA_UNICODE_STRING.Ptr, TargetName, HANDLE.Ptr, RedirectedLogonHandle, CallbackMarshal, Callback, CleanupCallbackMarshal, CleanupCallback, SupplementalCredsSizeMarshal, SupplementalCredsSize, SupplementalCredsMarshal, SupplementalCreds, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

@@ -69,8 +69,8 @@ export default struct IAudioLfxControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetLocalEffectsState := CallbackCreate(GetMethod(implObj, "SetLocalEffectsState"), flags, 2)
-        this.vtbl.GetLocalEffectsState := CallbackCreate(GetMethod(implObj, "GetLocalEffectsState"), flags, 2)
+        this.vtbl.SetLocalEffectsState := CallbackCreate(ObjBindMethod(implObj, "SetLocalEffectsState"), flags, 2)
+        this.vtbl.GetLocalEffectsState := CallbackCreate(ObjBindMethod(implObj, "GetLocalEffectsState"), flags, 2)
     }
 
     Dispose() {

@@ -38,7 +38,6 @@ export default struct IBindEventHandler extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pstrEvent 
      * @param {IDispatch} pdisp 
      * @returns {HRESULT} 
@@ -59,7 +58,7 @@ export default struct IBindEventHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BindHandler := CallbackCreate(GetMethod(implObj, "BindHandler"), flags, 3)
+        this.vtbl.BindHandler := CallbackCreate(ObjBindMethod(implObj, "BindHandler"), flags, 3)
     }
 
     Dispose() {

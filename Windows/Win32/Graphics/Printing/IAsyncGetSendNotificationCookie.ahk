@@ -33,7 +33,6 @@ export default struct IAsyncGetSendNotificationCookie extends IPrintAsyncCookie 
     }
 
     /**
-     * 
      * @param {IPrintAsyncNotifyDataObject} param0 
      * @param {BOOL} param1 
      * @returns {HRESULT} 
@@ -52,7 +51,7 @@ export default struct IAsyncGetSendNotificationCookie extends IPrintAsyncCookie 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FinishAsyncCallWithData := CallbackCreate(GetMethod(implObj, "FinishAsyncCallWithData"), flags, 3)
+        this.vtbl.FinishAsyncCallWithData := CallbackCreate(ObjBindMethod(implObj, "FinishAsyncCallWithData"), flags, 3)
     }
 
     Dispose() {

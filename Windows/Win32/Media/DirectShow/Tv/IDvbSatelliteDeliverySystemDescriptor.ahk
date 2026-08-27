@@ -152,15 +152,15 @@ export default struct IDvbSatelliteDeliverySystemDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetFrequency := CallbackCreate(GetMethod(implObj, "GetFrequency"), flags, 2)
-        this.vtbl.GetOrbitalPosition := CallbackCreate(GetMethod(implObj, "GetOrbitalPosition"), flags, 2)
-        this.vtbl.GetWestEastFlag := CallbackCreate(GetMethod(implObj, "GetWestEastFlag"), flags, 2)
-        this.vtbl.GetPolarization := CallbackCreate(GetMethod(implObj, "GetPolarization"), flags, 2)
-        this.vtbl.GetModulation := CallbackCreate(GetMethod(implObj, "GetModulation"), flags, 2)
-        this.vtbl.GetSymbolRate := CallbackCreate(GetMethod(implObj, "GetSymbolRate"), flags, 2)
-        this.vtbl.GetFECInner := CallbackCreate(GetMethod(implObj, "GetFECInner"), flags, 2)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetFrequency := CallbackCreate(ObjBindMethod(implObj, "GetFrequency"), flags, 2)
+        this.vtbl.GetOrbitalPosition := CallbackCreate(ObjBindMethod(implObj, "GetOrbitalPosition"), flags, 2)
+        this.vtbl.GetWestEastFlag := CallbackCreate(ObjBindMethod(implObj, "GetWestEastFlag"), flags, 2)
+        this.vtbl.GetPolarization := CallbackCreate(ObjBindMethod(implObj, "GetPolarization"), flags, 2)
+        this.vtbl.GetModulation := CallbackCreate(ObjBindMethod(implObj, "GetModulation"), flags, 2)
+        this.vtbl.GetSymbolRate := CallbackCreate(ObjBindMethod(implObj, "GetSymbolRate"), flags, 2)
+        this.vtbl.GetFECInner := CallbackCreate(ObjBindMethod(implObj, "GetFECInner"), flags, 2)
     }
 
     Dispose() {

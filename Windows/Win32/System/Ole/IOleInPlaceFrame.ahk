@@ -345,12 +345,12 @@ export default struct IOleInPlaceFrame extends IOleInPlaceUIWindow {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InsertMenus := CallbackCreate(GetMethod(implObj, "InsertMenus"), flags, 3)
-        this.vtbl.SetMenu := CallbackCreate(GetMethod(implObj, "SetMenu"), flags, 4)
-        this.vtbl.RemoveMenus := CallbackCreate(GetMethod(implObj, "RemoveMenus"), flags, 2)
-        this.vtbl.SetStatusText := CallbackCreate(GetMethod(implObj, "SetStatusText"), flags, 2)
-        this.vtbl.EnableModeless := CallbackCreate(GetMethod(implObj, "EnableModeless"), flags, 2)
-        this.vtbl.TranslateAccelerator := CallbackCreate(GetMethod(implObj, "TranslateAccelerator"), flags, 3)
+        this.vtbl.InsertMenus := CallbackCreate(ObjBindMethod(implObj, "InsertMenus"), flags, 3)
+        this.vtbl.SetMenu := CallbackCreate(ObjBindMethod(implObj, "SetMenu"), flags, 4)
+        this.vtbl.RemoveMenus := CallbackCreate(ObjBindMethod(implObj, "RemoveMenus"), flags, 2)
+        this.vtbl.SetStatusText := CallbackCreate(ObjBindMethod(implObj, "SetStatusText"), flags, 2)
+        this.vtbl.EnableModeless := CallbackCreate(ObjBindMethod(implObj, "EnableModeless"), flags, 2)
+        this.vtbl.TranslateAccelerator := CallbackCreate(ObjBindMethod(implObj, "TranslateAccelerator"), flags, 3)
     }
 
     Dispose() {

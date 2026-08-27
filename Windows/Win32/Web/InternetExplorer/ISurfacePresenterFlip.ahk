@@ -37,7 +37,6 @@ export default struct ISurfacePresenterFlip extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Present() {
@@ -46,7 +45,6 @@ export default struct ISurfacePresenterFlip extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} backBufferIndex 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -65,8 +63,8 @@ export default struct ISurfacePresenterFlip extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Present := CallbackCreate(GetMethod(implObj, "Present"), flags, 1)
-        this.vtbl.GetBuffer := CallbackCreate(GetMethod(implObj, "GetBuffer"), flags, 4)
+        this.vtbl.Present := CallbackCreate(ObjBindMethod(implObj, "Present"), flags, 1)
+        this.vtbl.GetBuffer := CallbackCreate(ObjBindMethod(implObj, "GetBuffer"), flags, 4)
     }
 
     Dispose() {

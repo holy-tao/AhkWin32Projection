@@ -19,7 +19,6 @@ export default struct PFN_DrvLoadFontFile {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<Pointer>} param1 
      * @param {Pointer<Pointer<Void>>} param2 
@@ -30,9 +29,9 @@ export default struct PFN_DrvLoadFontFile {
      * @returns {Pointer} 
      */
     Call(param0, param1, param2, param3, param4, param5, param6) {
-        param1Marshal := param1 is VarRef ? "ptr*" : "ptr"
-        param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
-        param3Marshal := param3 is VarRef ? "uint*" : "ptr"
+        param1Marshal := param1 is VarRef ? "ptr*" : IntPtr
+        param2Marshal := param2 is VarRef ? "ptr*" : IntPtr
+        param3Marshal := param3 is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, UInt32, param0, param1Marshal, param1, param2Marshal, param2, param3Marshal, param3, DESIGNVECTOR.Ptr, param4, UInt32, param5, UInt32, param6, IntPtr)
         return result

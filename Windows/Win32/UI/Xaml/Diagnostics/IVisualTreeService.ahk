@@ -91,8 +91,8 @@ export default struct IVisualTreeService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservice-getenums
      */
     GetEnums(pCount, ppEnums) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-        ppEnumsMarshal := ppEnums is VarRef ? "ptr*" : "ptr"
+        pCountMarshal := pCount is VarRef ? "uint*" : IntPtr
+        ppEnumsMarshal := ppEnums is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, pCountMarshal, pCount, ppEnumsMarshal, ppEnums, "HRESULT")
         return result
@@ -131,10 +131,10 @@ export default struct IVisualTreeService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservice-getpropertyvalueschain
      */
     GetPropertyValuesChain(instanceHandle, pSourceCount, ppPropertySources, pPropertyCount, ppPropertyValues) {
-        pSourceCountMarshal := pSourceCount is VarRef ? "uint*" : "ptr"
-        ppPropertySourcesMarshal := ppPropertySources is VarRef ? "ptr*" : "ptr"
-        pPropertyCountMarshal := pPropertyCount is VarRef ? "uint*" : "ptr"
-        ppPropertyValuesMarshal := ppPropertyValues is VarRef ? "ptr*" : "ptr"
+        pSourceCountMarshal := pSourceCount is VarRef ? "uint*" : IntPtr
+        ppPropertySourcesMarshal := ppPropertySources is VarRef ? "ptr*" : IntPtr
+        pPropertyCountMarshal := pPropertyCount is VarRef ? "uint*" : IntPtr
+        ppPropertyValuesMarshal := ppPropertyValues is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(7, this, Int64, instanceHandle, pSourceCountMarshal, pSourceCount, ppPropertySourcesMarshal, ppPropertySources, pPropertyCountMarshal, pPropertyCount, ppPropertyValuesMarshal, ppPropertyValues, "HRESULT")
         return result
@@ -196,7 +196,7 @@ export default struct IVisualTreeService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservice-getcollectionelements
      */
     GetCollectionElements(instanceHandle, startIndex, pElementCount) {
-        pElementCountMarshal := pElementCount is VarRef ? "uint*" : "ptr"
+        pElementCountMarshal := pElementCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(11, this, Int64, instanceHandle, UInt32, startIndex, pElementCountMarshal, pElementCount, "ptr*", &ppElementValues := 0, "HRESULT")
         return ppElementValues
@@ -257,18 +257,18 @@ export default struct IVisualTreeService extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AdviseVisualTreeChange := CallbackCreate(GetMethod(implObj, "AdviseVisualTreeChange"), flags, 2)
-        this.vtbl.UnadviseVisualTreeChange := CallbackCreate(GetMethod(implObj, "UnadviseVisualTreeChange"), flags, 2)
-        this.vtbl.GetEnums := CallbackCreate(GetMethod(implObj, "GetEnums"), flags, 3)
-        this.vtbl.CreateInstance := CallbackCreate(GetMethod(implObj, "CreateInstance"), flags, 4)
-        this.vtbl.GetPropertyValuesChain := CallbackCreate(GetMethod(implObj, "GetPropertyValuesChain"), flags, 6)
-        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 4)
-        this.vtbl.ClearProperty := CallbackCreate(GetMethod(implObj, "ClearProperty"), flags, 3)
-        this.vtbl.GetCollectionCount := CallbackCreate(GetMethod(implObj, "GetCollectionCount"), flags, 3)
-        this.vtbl.GetCollectionElements := CallbackCreate(GetMethod(implObj, "GetCollectionElements"), flags, 5)
-        this.vtbl.AddChild := CallbackCreate(GetMethod(implObj, "AddChild"), flags, 4)
-        this.vtbl.RemoveChild := CallbackCreate(GetMethod(implObj, "RemoveChild"), flags, 3)
-        this.vtbl.ClearChildren := CallbackCreate(GetMethod(implObj, "ClearChildren"), flags, 2)
+        this.vtbl.AdviseVisualTreeChange := CallbackCreate(ObjBindMethod(implObj, "AdviseVisualTreeChange"), flags, 2)
+        this.vtbl.UnadviseVisualTreeChange := CallbackCreate(ObjBindMethod(implObj, "UnadviseVisualTreeChange"), flags, 2)
+        this.vtbl.GetEnums := CallbackCreate(ObjBindMethod(implObj, "GetEnums"), flags, 3)
+        this.vtbl.CreateInstance := CallbackCreate(ObjBindMethod(implObj, "CreateInstance"), flags, 4)
+        this.vtbl.GetPropertyValuesChain := CallbackCreate(ObjBindMethod(implObj, "GetPropertyValuesChain"), flags, 6)
+        this.vtbl.SetProperty := CallbackCreate(ObjBindMethod(implObj, "SetProperty"), flags, 4)
+        this.vtbl.ClearProperty := CallbackCreate(ObjBindMethod(implObj, "ClearProperty"), flags, 3)
+        this.vtbl.GetCollectionCount := CallbackCreate(ObjBindMethod(implObj, "GetCollectionCount"), flags, 3)
+        this.vtbl.GetCollectionElements := CallbackCreate(ObjBindMethod(implObj, "GetCollectionElements"), flags, 5)
+        this.vtbl.AddChild := CallbackCreate(ObjBindMethod(implObj, "AddChild"), flags, 4)
+        this.vtbl.RemoveChild := CallbackCreate(ObjBindMethod(implObj, "RemoveChild"), flags, 3)
+        this.vtbl.ClearChildren := CallbackCreate(ObjBindMethod(implObj, "ClearChildren"), flags, 2)
     }
 
     Dispose() {

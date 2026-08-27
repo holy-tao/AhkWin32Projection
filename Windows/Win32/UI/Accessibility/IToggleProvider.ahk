@@ -87,8 +87,8 @@ export default struct IToggleProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Toggle := CallbackCreate(GetMethod(implObj, "Toggle"), flags, 1)
-        this.vtbl.get_ToggleState := CallbackCreate(GetMethod(implObj, "get_ToggleState"), flags, 2)
+        this.vtbl.Toggle := CallbackCreate(ObjBindMethod(implObj, "Toggle"), flags, 1)
+        this.vtbl.get_ToggleState := CallbackCreate(ObjBindMethod(implObj, "get_ToggleState"), flags, 2)
     }
 
     Dispose() {

@@ -91,7 +91,6 @@
 
 ;@region Functions
 /**
- * 
  * @param {Pointer<CLUSAPI_REASON_HANDLER>} lpHandler 
  * @returns {Pointer<CLUSAPI_REASON_HANDLER>} 
  */
@@ -119,9 +118,10 @@ export ClusapiSetReasonHandler(lpHandler) {
 export GetNodeClusterState(lpszNodeName, pdwClusterState) {
     lpszNodeName := lpszNodeName is String ? StrPtr(lpszNodeName) : lpszNodeName
 
-    pdwClusterStateMarshal := pdwClusterState is VarRef ? "uint*" : "ptr"
+    lpszNodeNameMarshal := lpszNodeName == 0 ? IntPtr : PWSTR
+    pdwClusterStateMarshal := pdwClusterState is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("CLUSAPI.dll\GetNodeClusterState", "ptr", lpszNodeName, pdwClusterStateMarshal, pdwClusterState, UInt32)
+    result := DllCall("CLUSAPI.dll\GetNodeClusterState", lpszNodeNameMarshal, lpszNodeName, pdwClusterStateMarshal, pdwClusterState, UInt32)
     return result
 }
 
@@ -171,9 +171,11 @@ export GetNodeClusterState(lpszNodeName, pdwClusterState) {
 export OpenCluster(lpszClusterName) {
     lpszClusterName := lpszClusterName is String ? StrPtr(lpszClusterName) : lpszClusterName
 
+    lpszClusterNameMarshal := lpszClusterName == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("CLUSAPI.dll\OpenCluster", "ptr", lpszClusterName, HCLUSTER)
+    result := DllCall("CLUSAPI.dll\OpenCluster", lpszClusterNameMarshal, lpszClusterName, HCLUSTER)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -235,11 +237,13 @@ export OpenCluster(lpszClusterName) {
 export OpenClusterEx(lpszClusterName, DesiredAccess, GrantedAccess) {
     lpszClusterName := lpszClusterName is String ? StrPtr(lpszClusterName) : lpszClusterName
 
-    GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : "ptr"
+    lpszClusterNameMarshal := lpszClusterName == 0 ? IntPtr : PWSTR
+    GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : IntPtr
+    GrantedAccessMarshal := GrantedAccess == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("CLUSAPI.dll\OpenClusterEx", "ptr", lpszClusterName, UInt32, DesiredAccess, GrantedAccessMarshal, GrantedAccess, HCLUSTER)
+    result := DllCall("CLUSAPI.dll\OpenClusterEx", lpszClusterNameMarshal, lpszClusterName, UInt32, DesiredAccess, GrantedAccessMarshal, GrantedAccess, HCLUSTER)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -285,7 +289,6 @@ export SetClusterName(_hCluster, lpszNewClusterName) {
 }
 
 /**
- * 
  * @param {HCLUSTER} _hCluster 
  * @param {PWSTR} lpszNewClusterName 
  * @param {PWSTR} lpszReason 
@@ -295,7 +298,9 @@ export SetClusterNameEx(_hCluster, lpszNewClusterName, lpszReason) {
     lpszNewClusterName := lpszNewClusterName is String ? StrPtr(lpszNewClusterName) : lpszNewClusterName
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\SetClusterNameEx", HCLUSTER, _hCluster, "ptr", lpszNewClusterName, "ptr", lpszReason, UInt32)
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\SetClusterNameEx", HCLUSTER, _hCluster, "ptr", lpszNewClusterName, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -350,9 +355,10 @@ export SetClusterNameEx(_hCluster, lpszNewClusterName, lpszReason) {
 export GetClusterInformation(_hCluster, lpszClusterName, lpcchClusterName, lpClusterInfo) {
     lpszClusterName := lpszClusterName is String ? StrPtr(lpszClusterName) : lpszClusterName
 
-    lpcchClusterNameMarshal := lpcchClusterName is VarRef ? "uint*" : "ptr"
+    lpcchClusterNameMarshal := lpcchClusterName is VarRef ? "uint*" : IntPtr
+    lpClusterInfoMarshal := lpClusterInfo == 0 ? IntPtr : CLUSTERVERSIONINFO.Ptr
 
-    result := DllCall("CLUSAPI.dll\GetClusterInformation", HCLUSTER, _hCluster, "ptr", lpszClusterName, lpcchClusterNameMarshal, lpcchClusterName, CLUSTERVERSIONINFO.Ptr, lpClusterInfo, UInt32)
+    result := DllCall("CLUSAPI.dll\GetClusterInformation", HCLUSTER, _hCluster, "ptr", lpszClusterName, lpcchClusterNameMarshal, lpcchClusterName, lpClusterInfoMarshal, lpClusterInfo, UInt32)
     return result
 }
 
@@ -395,9 +401,9 @@ export GetClusterQuorumResource(_hCluster, lpszResourceName, lpcchResourceName, 
     lpszResourceName := lpszResourceName is String ? StrPtr(lpszResourceName) : lpszResourceName
     lpszDeviceName := lpszDeviceName is String ? StrPtr(lpszDeviceName) : lpszDeviceName
 
-    lpcchResourceNameMarshal := lpcchResourceName is VarRef ? "uint*" : "ptr"
-    lpcchDeviceNameMarshal := lpcchDeviceName is VarRef ? "uint*" : "ptr"
-    lpdwMaxQuorumLogSizeMarshal := lpdwMaxQuorumLogSize is VarRef ? "uint*" : "ptr"
+    lpcchResourceNameMarshal := lpcchResourceName is VarRef ? "uint*" : IntPtr
+    lpcchDeviceNameMarshal := lpcchDeviceName is VarRef ? "uint*" : IntPtr
+    lpdwMaxQuorumLogSizeMarshal := lpdwMaxQuorumLogSize is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CLUSAPI.dll\GetClusterQuorumResource", HCLUSTER, _hCluster, "ptr", lpszResourceName, lpcchResourceNameMarshal, lpcchResourceName, "ptr", lpszDeviceName, lpcchDeviceNameMarshal, lpcchDeviceName, lpdwMaxQuorumLogSizeMarshal, lpdwMaxQuorumLogSize, UInt32)
     return result
@@ -462,12 +468,13 @@ export GetClusterQuorumResource(_hCluster, lpszResourceName, lpcchResourceName, 
 export SetClusterQuorumResource(_hResource, lpszDeviceName, dwMaxQuoLogSize) {
     lpszDeviceName := lpszDeviceName is String ? StrPtr(lpszDeviceName) : lpszDeviceName
 
-    result := DllCall("CLUSAPI.dll\SetClusterQuorumResource", HRESOURCE, _hResource, "ptr", lpszDeviceName, UInt32, dwMaxQuoLogSize, UInt32)
+    lpszDeviceNameMarshal := lpszDeviceName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\SetClusterQuorumResource", HRESOURCE, _hResource, lpszDeviceNameMarshal, lpszDeviceName, UInt32, dwMaxQuoLogSize, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HRESOURCE} _hResource 
  * @param {PWSTR} lpszDeviceName 
  * @param {Integer} dwMaxQuorumLogSize 
@@ -478,7 +485,10 @@ export SetClusterQuorumResourceEx(_hResource, lpszDeviceName, dwMaxQuorumLogSize
     lpszDeviceName := lpszDeviceName is String ? StrPtr(lpszDeviceName) : lpszDeviceName
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\SetClusterQuorumResourceEx", HRESOURCE, _hResource, "ptr", lpszDeviceName, UInt32, dwMaxQuorumLogSize, "ptr", lpszReason, UInt32)
+    lpszDeviceNameMarshal := lpszDeviceName == 0 ? IntPtr : PWSTR
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\SetClusterQuorumResourceEx", HRESOURCE, _hResource, lpszDeviceNameMarshal, lpszDeviceName, UInt32, dwMaxQuorumLogSize, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -730,7 +740,9 @@ export RestoreClusterDatabase(lpszPathName, bForce, lpszQuorumDriveLetter) {
     lpszPathName := lpszPathName is String ? StrPtr(lpszPathName) : lpszPathName
     lpszQuorumDriveLetter := lpszQuorumDriveLetter is String ? StrPtr(lpszQuorumDriveLetter) : lpszQuorumDriveLetter
 
-    result := DllCall("CLUSAPI.dll\RestoreClusterDatabase", "ptr", lpszPathName, BOOL, bForce, "ptr", lpszQuorumDriveLetter, UInt32)
+    lpszQuorumDriveLetterMarshal := lpszQuorumDriveLetter == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\RestoreClusterDatabase", "ptr", lpszPathName, BOOL, bForce, lpszQuorumDriveLetterMarshal, lpszQuorumDriveLetter, UInt32)
     return result
 }
 
@@ -774,7 +786,7 @@ export RestoreClusterDatabase(lpszPathName, bForce, lpszQuorumDriveLetter) {
  * @since windowsserver2003
  */
 export SetClusterNetworkPriorityOrder(_hCluster, NetworkCount, NetworkList) {
-    NetworkListMarshal := NetworkList is VarRef ? "ptr*" : "ptr"
+    NetworkListMarshal := NetworkList is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("CLUSAPI.dll\SetClusterNetworkPriorityOrder", HCLUSTER, _hCluster, UInt32, NetworkCount, NetworkListMarshal, NetworkList, UInt32)
     return result
@@ -867,9 +879,10 @@ export SetClusterServiceAccountPassword(lpszClusterName, lpszNewPassword, dwFlag
     lpszClusterName := lpszClusterName is String ? StrPtr(lpszClusterName) : lpszClusterName
     lpszNewPassword := lpszNewPassword is String ? StrPtr(lpszNewPassword) : lpszNewPassword
 
-    lpcbReturnStatusBufferSizeMarshal := lpcbReturnStatusBufferSize is VarRef ? "uint*" : "ptr"
+    lpReturnStatusBufferMarshal := lpReturnStatusBuffer == 0 ? IntPtr : IntPtr
+    lpcbReturnStatusBufferSizeMarshal := lpcbReturnStatusBufferSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("CLUSAPI.dll\SetClusterServiceAccountPassword", "ptr", lpszClusterName, "ptr", lpszNewPassword, UInt32, dwFlags, IntPtr, lpReturnStatusBuffer, lpcbReturnStatusBufferSizeMarshal, lpcbReturnStatusBufferSize, UInt32)
+    result := DllCall("CLUSAPI.dll\SetClusterServiceAccountPassword", "ptr", lpszClusterName, "ptr", lpszNewPassword, UInt32, dwFlags, lpReturnStatusBufferMarshal, lpReturnStatusBuffer, lpcbReturnStatusBufferSizeMarshal, lpcbReturnStatusBufferSize, UInt32)
     return result
 }
 
@@ -1022,14 +1035,17 @@ export SetClusterServiceAccountPassword(lpszClusterName, lpszNewPassword, dwFlag
  * @since windowsserver2008
  */
 export ClusterControl(_hCluster, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
-    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+    hHostNodeMarshal := hHostNode == 0 ? IntPtr : HNODE
+    lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+    lpOutBufferMarshal := lpOutBuffer == 0 ? IntPtr : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned == 0 ? IntPtr : "uint*"
 
-    result := DllCall("CLUSAPI.dll\ClusterControl", HCLUSTER, _hCluster, HNODE, hHostNode, UInt32, dwControlCode, IntPtr, lpInBuffer, UInt32, nInBufferSize, IntPtr, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, UInt32)
+    result := DllCall("CLUSAPI.dll\ClusterControl", HCLUSTER, _hCluster, hHostNodeMarshal, hHostNode, UInt32, dwControlCode, lpInBufferMarshal, lpInBuffer, UInt32, nInBufferSize, lpOutBufferMarshal, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HCLUSTER} _hCluster 
  * @param {HNODE} hHostNode 
  * @param {Integer} dwControlCode 
@@ -1044,9 +1060,14 @@ export ClusterControl(_hCluster, hHostNode, dwControlCode, lpInBuffer, nInBuffer
 export ClusterControlEx(_hCluster, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+    hHostNodeMarshal := hHostNode == 0 ? IntPtr : HNODE
+    lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+    lpOutBufferMarshal := lpOutBuffer == 0 ? IntPtr : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned == 0 ? IntPtr : "uint*"
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
 
-    result := DllCall("CLUSAPI.dll\ClusterControlEx", HCLUSTER, _hCluster, HNODE, hHostNode, UInt32, dwControlCode, IntPtr, lpInBuffer, UInt32, nInBufferSize, IntPtr, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, UInt32)
+    result := DllCall("CLUSAPI.dll\ClusterControlEx", HCLUSTER, _hCluster, hHostNodeMarshal, hHostNode, UInt32, dwControlCode, lpInBufferMarshal, lpInBuffer, UInt32, nInBufferSize, lpOutBufferMarshal, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -1061,9 +1082,11 @@ export ClusterControlEx(_hCluster, hHostNode, dwControlCode, lpInBuffer, nInBuff
  * @since windowsserver2016
  */
 export ClusterUpgradeFunctionalLevel(_hCluster, perform, pfnProgressCallback, pvCallbackArg) {
-    pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
+    pfnProgressCallbackMarshal := pfnProgressCallback == 0 ? IntPtr : PCLUSTER_UPGRADE_PROGRESS_CALLBACK
+    pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : IntPtr
+    pvCallbackArgMarshal := pvCallbackArg == 0 ? IntPtr : "ptr"
 
-    result := DllCall("CLUSAPI.dll\ClusterUpgradeFunctionalLevel", HCLUSTER, _hCluster, BOOL, perform, PCLUSTER_UPGRADE_PROGRESS_CALLBACK, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, UInt32)
+    result := DllCall("CLUSAPI.dll\ClusterUpgradeFunctionalLevel", HCLUSTER, _hCluster, BOOL, perform, pfnProgressCallbackMarshal, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, UInt32)
     return result
 }
 
@@ -1234,14 +1257,26 @@ export GetClusterNotifyV2(_hChange, lpdwNotifyKey, pFilterAndType, _buffer, lpbB
     lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
     lpszType := lpszType is String ? StrPtr(lpszType) : lpszType
 
-    lpdwNotifyKeyMarshal := lpdwNotifyKey is VarRef ? "ptr*" : "ptr"
-    lpbBufferSizeMarshal := lpbBufferSize is VarRef ? "uint*" : "ptr"
-    lpcchObjectIdMarshal := lpcchObjectId is VarRef ? "uint*" : "ptr"
-    lpcchParentIdMarshal := lpcchParentId is VarRef ? "uint*" : "ptr"
-    lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
-    lpcchTypeMarshal := lpcchType is VarRef ? "uint*" : "ptr"
+    lpdwNotifyKeyMarshal := lpdwNotifyKey is VarRef ? "ptr*" : IntPtr
+    pFilterAndTypeMarshal := pFilterAndType == 0 ? IntPtr : NOTIFY_FILTER_AND_TYPE.Ptr
+    _bufferMarshal := _buffer == 0 ? IntPtr : IntPtr
+    lpbBufferSizeMarshal := lpbBufferSize is VarRef ? "uint*" : IntPtr
+    lpbBufferSizeMarshal := lpbBufferSize == 0 ? IntPtr : "uint*"
+    lpszObjectIdMarshal := lpszObjectId == 0 ? IntPtr : PWSTR
+    lpcchObjectIdMarshal := lpcchObjectId is VarRef ? "uint*" : IntPtr
+    lpcchObjectIdMarshal := lpcchObjectId == 0 ? IntPtr : "uint*"
+    lpszParentIdMarshal := lpszParentId == 0 ? IntPtr : PWSTR
+    lpcchParentIdMarshal := lpcchParentId is VarRef ? "uint*" : IntPtr
+    lpcchParentIdMarshal := lpcchParentId == 0 ? IntPtr : "uint*"
+    lpszNameMarshal := lpszName == 0 ? IntPtr : PWSTR
+    lpcchNameMarshal := lpcchName is VarRef ? "uint*" : IntPtr
+    lpcchNameMarshal := lpcchName == 0 ? IntPtr : "uint*"
+    lpszTypeMarshal := lpszType == 0 ? IntPtr : PWSTR
+    lpcchTypeMarshal := lpcchType is VarRef ? "uint*" : IntPtr
+    lpcchTypeMarshal := lpcchType == 0 ? IntPtr : "uint*"
+    dwMillisecondsMarshal := dwMilliseconds == 0 ? IntPtr : UInt32
 
-    result := DllCall("CLUSAPI.dll\GetClusterNotifyV2", HCHANGE, _hChange, lpdwNotifyKeyMarshal, lpdwNotifyKey, NOTIFY_FILTER_AND_TYPE.Ptr, pFilterAndType, IntPtr, _buffer, lpbBufferSizeMarshal, lpbBufferSize, "ptr", lpszObjectId, lpcchObjectIdMarshal, lpcchObjectId, "ptr", lpszParentId, lpcchParentIdMarshal, lpcchParentId, "ptr", lpszName, lpcchNameMarshal, lpcchName, "ptr", lpszType, lpcchTypeMarshal, lpcchType, UInt32, dwMilliseconds, UInt32)
+    result := DllCall("CLUSAPI.dll\GetClusterNotifyV2", HCHANGE, _hChange, lpdwNotifyKeyMarshal, lpdwNotifyKey, pFilterAndTypeMarshal, pFilterAndType, _bufferMarshal, _buffer, lpbBufferSizeMarshal, lpbBufferSize, lpszObjectIdMarshal, lpszObjectId, lpcchObjectIdMarshal, lpcchObjectId, lpszParentIdMarshal, lpszParentId, lpcchParentIdMarshal, lpcchParentId, lpszNameMarshal, lpszName, lpcchNameMarshal, lpcchName, lpszTypeMarshal, lpszType, lpcchTypeMarshal, lpcchType, dwMillisecondsMarshal, dwMilliseconds, UInt32)
     return result
 }
 
@@ -1404,9 +1439,9 @@ export RegisterClusterNotify(_hChange, dwFilterType, hObject, dwNotifyKey) {
 export GetClusterNotify(_hChange, lpdwNotifyKey, lpdwFilterType, lpszName, lpcchName, dwMilliseconds) {
     lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
-    lpdwNotifyKeyMarshal := lpdwNotifyKey is VarRef ? "ptr*" : "ptr"
-    lpdwFilterTypeMarshal := lpdwFilterType is VarRef ? "uint*" : "ptr"
-    lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
+    lpdwNotifyKeyMarshal := lpdwNotifyKey is VarRef ? "ptr*" : IntPtr
+    lpdwFilterTypeMarshal := lpdwFilterType is VarRef ? "uint*" : IntPtr
+    lpcchNameMarshal := lpcchName is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CLUSAPI.dll\GetClusterNotify", HCHANGE, _hChange, lpdwNotifyKeyMarshal, lpdwNotifyKey, lpdwFilterTypeMarshal, lpdwFilterType, "ptr", lpszName, lpcchNameMarshal, lpcchName, UInt32, dwMilliseconds, UInt32)
     return result
@@ -1561,8 +1596,8 @@ export ClusterGetEnumCount(hEnum) {
 export ClusterEnum(hEnum, dwIndex, lpdwType, lpszName, lpcchName) {
     lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
-    lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : "ptr"
-    lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
+    lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : IntPtr
+    lpcchNameMarshal := lpcchName is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CLUSAPI.dll\ClusterEnum", HCLUSENUM, hEnum, UInt32, dwIndex, lpdwTypeMarshal, lpdwType, "ptr", lpszName, lpcchNameMarshal, lpcchName, UInt32)
     return result
@@ -1584,7 +1619,6 @@ export ClusterCloseEnum(hEnum) {
 }
 
 /**
- * 
  * @param {HCLUSTER} _hCluster 
  * @param {Integer} dwType 
  * @param {Pointer<Void>} pOptions 
@@ -1592,7 +1626,8 @@ export ClusterCloseEnum(hEnum) {
  * @since windowsserver2008
  */
 export ClusterOpenEnumEx(_hCluster, dwType, pOptions) {
-    pOptionsMarshal := pOptions is VarRef ? "ptr" : "ptr"
+    pOptionsMarshal := pOptions is VarRef ? "ptr" : IntPtr
+    pOptionsMarshal := pOptions == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -1670,7 +1705,7 @@ export ClusterGetEnumCountEx(hClusterEnum) {
  * @since windowsserver2008
  */
 export ClusterEnumEx(hClusterEnum, dwIndex, pItem, cbItem) {
-    cbItemMarshal := cbItem is VarRef ? "uint*" : "ptr"
+    cbItemMarshal := cbItem is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CLUSAPI.dll\ClusterEnumEx", HCLUSENUMEX, hClusterEnum, UInt32, dwIndex, CLUSTER_ENUM_ITEM.Ptr, pItem, cbItemMarshal, cbItem, UInt32)
     return result
@@ -1802,7 +1837,6 @@ export DeleteClusterGroupSet(_hGroupSet) {
 }
 
 /**
- * 
  * @param {HGROUPSET} _hGroupSet 
  * @param {PWSTR} lpszReason 
  * @returns {Integer} 
@@ -1810,7 +1844,9 @@ export DeleteClusterGroupSet(_hGroupSet) {
 export DeleteClusterGroupSetEx(_hGroupSet, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\DeleteClusterGroupSetEx", HGROUPSET, _hGroupSet, "ptr", lpszReason, UInt32)
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\DeleteClusterGroupSetEx", HGROUPSET, _hGroupSet, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -1831,7 +1867,6 @@ export ClusterAddGroupToGroupSet(_hGroupSet, _hGroup) {
 }
 
 /**
- * 
  * @param {HGROUPSET} _hGroupSet 
  * @param {HGROUP} _hGroup 
  * @param {Integer} faultDomain 
@@ -1844,7 +1879,6 @@ export ClusterAddGroupToGroupSetWithDomains(_hGroupSet, _hGroup, faultDomain, up
 }
 
 /**
- * 
  * @param {HGROUPSET} _hGroupSet 
  * @param {HGROUP} _hGroup 
  * @param {Integer} faultDomain 
@@ -1855,7 +1889,9 @@ export ClusterAddGroupToGroupSetWithDomains(_hGroupSet, _hGroup, faultDomain, up
 export ClusterAddGroupToGroupSetWithDomainsEx(_hGroupSet, _hGroup, faultDomain, updateDomain, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\ClusterAddGroupToGroupSetWithDomainsEx", HGROUPSET, _hGroupSet, HGROUP, _hGroup, UInt32, faultDomain, UInt32, updateDomain, "ptr", lpszReason, UInt32)
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\ClusterAddGroupToGroupSetWithDomainsEx", HGROUPSET, _hGroupSet, HGROUP, _hGroup, UInt32, faultDomain, UInt32, updateDomain, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -1875,7 +1911,6 @@ export ClusterRemoveGroupFromGroupSet(_hGroup) {
 }
 
 /**
- * 
  * @param {HGROUP} _hGroup 
  * @param {PWSTR} lpszReason 
  * @returns {Integer} 
@@ -1883,7 +1918,9 @@ export ClusterRemoveGroupFromGroupSet(_hGroup) {
 export ClusterRemoveGroupFromGroupSetEx(_hGroup, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\ClusterRemoveGroupFromGroupSetEx", HGROUP, _hGroup, "ptr", lpszReason, UInt32)
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\ClusterRemoveGroupFromGroupSetEx", HGROUP, _hGroup, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -1987,14 +2024,17 @@ export ClusterRemoveGroupFromGroupSetEx(_hGroup, lpszReason) {
  * @since windowsserver2016
  */
 export ClusterGroupSetControl(_hGroupSet, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned) {
-    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+    hHostNodeMarshal := hHostNode == 0 ? IntPtr : HNODE
+    lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+    lpOutBufferMarshal := lpOutBuffer == 0 ? IntPtr : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned == 0 ? IntPtr : "uint*"
 
-    result := DllCall("CLUSAPI.dll\ClusterGroupSetControl", HGROUPSET, _hGroupSet, HNODE, hHostNode, UInt32, dwControlCode, IntPtr, lpInBuffer, UInt32, cbInBufferSize, IntPtr, lpOutBuffer, UInt32, cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, UInt32)
+    result := DllCall("CLUSAPI.dll\ClusterGroupSetControl", HGROUPSET, _hGroupSet, hHostNodeMarshal, hHostNode, UInt32, dwControlCode, lpInBufferMarshal, lpInBuffer, UInt32, cbInBufferSize, lpOutBufferMarshal, lpOutBuffer, UInt32, cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HGROUPSET} _hGroupSet 
  * @param {HNODE} hHostNode 
  * @param {Integer} dwControlCode 
@@ -2009,9 +2049,14 @@ export ClusterGroupSetControl(_hGroupSet, hHostNode, dwControlCode, lpInBuffer, 
 export ClusterGroupSetControlEx(_hGroupSet, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+    hHostNodeMarshal := hHostNode == 0 ? IntPtr : HNODE
+    lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+    lpOutBufferMarshal := lpOutBuffer == 0 ? IntPtr : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned == 0 ? IntPtr : "uint*"
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
 
-    result := DllCall("CLUSAPI.dll\ClusterGroupSetControlEx", HGROUPSET, _hGroupSet, HNODE, hHostNode, UInt32, dwControlCode, IntPtr, lpInBuffer, UInt32, cbInBufferSize, IntPtr, lpOutBuffer, UInt32, cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, UInt32)
+    result := DllCall("CLUSAPI.dll\ClusterGroupSetControlEx", HGROUPSET, _hGroupSet, hHostNodeMarshal, hHostNode, UInt32, dwControlCode, lpInBufferMarshal, lpInBuffer, UInt32, cbInBufferSize, lpOutBufferMarshal, lpOutBuffer, UInt32, cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -2032,7 +2077,6 @@ export AddClusterGroupDependency(hDependentGroup, hProviderGroup) {
 }
 
 /**
- * 
  * @param {HGROUP} hDependentGroup 
  * @param {HGROUP} hProviderGroup 
  * @param {PWSTR} lpszReason 
@@ -2041,7 +2085,9 @@ export AddClusterGroupDependency(hDependentGroup, hProviderGroup) {
 export AddClusterGroupDependencyEx(hDependentGroup, hProviderGroup, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\AddClusterGroupDependencyEx", HGROUP, hDependentGroup, HGROUP, hProviderGroup, "ptr", lpszReason, UInt32)
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\AddClusterGroupDependencyEx", HGROUP, hDependentGroup, HGROUP, hProviderGroup, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -2064,7 +2110,6 @@ export SetGroupDependencyExpression(_hGroup, lpszDependencyExpression) {
 }
 
 /**
- * 
  * @param {HGROUP} _hGroup 
  * @param {PWSTR} lpszDependencyExpression 
  * @param {PWSTR} lpszReason 
@@ -2074,7 +2119,9 @@ export SetGroupDependencyExpressionEx(_hGroup, lpszDependencyExpression, lpszRea
     lpszDependencyExpression := lpszDependencyExpression is String ? StrPtr(lpszDependencyExpression) : lpszDependencyExpression
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\SetGroupDependencyExpressionEx", HGROUP, _hGroup, "ptr", lpszDependencyExpression, "ptr", lpszReason, UInt32)
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\SetGroupDependencyExpressionEx", HGROUP, _hGroup, "ptr", lpszDependencyExpression, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -2095,7 +2142,6 @@ export RemoveClusterGroupDependency(_hGroup, hDependsOn) {
 }
 
 /**
- * 
  * @param {HGROUP} _hGroup 
  * @param {HGROUP} hDependsOn 
  * @param {PWSTR} lpszReason 
@@ -2104,7 +2150,9 @@ export RemoveClusterGroupDependency(_hGroup, hDependsOn) {
 export RemoveClusterGroupDependencyEx(_hGroup, hDependsOn, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\RemoveClusterGroupDependencyEx", HGROUP, _hGroup, HGROUP, hDependsOn, "ptr", lpszReason, UInt32)
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\RemoveClusterGroupDependencyEx", HGROUP, _hGroup, HGROUP, hDependsOn, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -2125,7 +2173,6 @@ export AddClusterGroupSetDependency(hDependentGroupSet, hProviderGroupSet) {
 }
 
 /**
- * 
  * @param {HGROUPSET} hDependentGroupSet 
  * @param {HGROUPSET} hProviderGroupSet 
  * @param {PWSTR} lpszReason 
@@ -2134,7 +2181,9 @@ export AddClusterGroupSetDependency(hDependentGroupSet, hProviderGroupSet) {
 export AddClusterGroupSetDependencyEx(hDependentGroupSet, hProviderGroupSet, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\AddClusterGroupSetDependencyEx", HGROUPSET, hDependentGroupSet, HGROUPSET, hProviderGroupSet, "ptr", lpszReason, UInt32)
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\AddClusterGroupSetDependencyEx", HGROUPSET, hDependentGroupSet, HGROUPSET, hProviderGroupSet, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -2157,7 +2206,6 @@ export SetClusterGroupSetDependencyExpression(_hGroupSet, lpszDependencyExprssio
 }
 
 /**
- * 
  * @param {HGROUPSET} _hGroupSet 
  * @param {PWSTR} lpszDependencyExpression 
  * @param {PWSTR} lpszReason 
@@ -2167,7 +2215,9 @@ export SetClusterGroupSetDependencyExpressionEx(_hGroupSet, lpszDependencyExpres
     lpszDependencyExpression := lpszDependencyExpression is String ? StrPtr(lpszDependencyExpression) : lpszDependencyExpression
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\SetClusterGroupSetDependencyExpressionEx", HGROUPSET, _hGroupSet, "ptr", lpszDependencyExpression, "ptr", lpszReason, UInt32)
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\SetClusterGroupSetDependencyExpressionEx", HGROUPSET, _hGroupSet, "ptr", lpszDependencyExpression, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -2188,7 +2238,6 @@ export RemoveClusterGroupSetDependency(_hGroupSet, hDependsOn) {
 }
 
 /**
- * 
  * @param {HGROUPSET} _hGroupSet 
  * @param {HGROUPSET} hDependsOn 
  * @param {PWSTR} lpszReason 
@@ -2197,7 +2246,9 @@ export RemoveClusterGroupSetDependency(_hGroupSet, hDependsOn) {
 export RemoveClusterGroupSetDependencyEx(_hGroupSet, hDependsOn, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\RemoveClusterGroupSetDependencyEx", HGROUPSET, _hGroupSet, HGROUPSET, hDependsOn, "ptr", lpszReason, UInt32)
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\RemoveClusterGroupSetDependencyEx", HGROUPSET, _hGroupSet, HGROUPSET, hDependsOn, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -2218,7 +2269,6 @@ export AddClusterGroupToGroupSetDependency(hDependentGroup, hProviderGroupSet) {
 }
 
 /**
- * 
  * @param {HGROUP} hDependentGroup 
  * @param {HGROUPSET} hProviderGroupSet 
  * @param {PWSTR} lpszReason 
@@ -2227,7 +2277,9 @@ export AddClusterGroupToGroupSetDependency(hDependentGroup, hProviderGroupSet) {
 export AddClusterGroupToGroupSetDependencyEx(hDependentGroup, hProviderGroupSet, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\AddClusterGroupToGroupSetDependencyEx", HGROUP, hDependentGroup, HGROUPSET, hProviderGroupSet, "ptr", lpszReason, UInt32)
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\AddClusterGroupToGroupSetDependencyEx", HGROUP, hDependentGroup, HGROUPSET, hProviderGroupSet, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -2248,7 +2300,6 @@ export RemoveClusterGroupToGroupSetDependency(_hGroup, hDependsOn) {
 }
 
 /**
- * 
  * @param {HGROUP} _hGroup 
  * @param {HGROUPSET} hDependsOn 
  * @param {PWSTR} lpszReason 
@@ -2257,7 +2308,9 @@ export RemoveClusterGroupToGroupSetDependency(_hGroup, hDependsOn) {
 export RemoveClusterGroupToGroupSetDependencyEx(_hGroup, hDependsOn, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\RemoveClusterGroupToGroupSetDependencyEx", HGROUP, _hGroup, HGROUPSET, hDependsOn, "ptr", lpszReason, UInt32)
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\RemoveClusterGroupToGroupSetDependencyEx", HGROUP, _hGroup, HGROUPSET, hDependsOn, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -2318,7 +2371,7 @@ export ClusterGroupSetGetEnumCount(_hGroupSetEnum) {
 export ClusterGroupSetEnum(_hGroupSetEnum, dwIndex, lpszName, lpcchName) {
     lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
-    lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
+    lpcchNameMarshal := lpcchName is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CLUSAPI.dll\ClusterGroupSetEnum", HGROUPSETENUM, _hGroupSetEnum, UInt32, dwIndex, "ptr", lpszName, lpcchNameMarshal, lpcchName, UInt32)
     return result
@@ -2340,7 +2393,6 @@ export ClusterGroupSetCloseEnum(_hGroupSetEnum) {
 }
 
 /**
- * 
  * @param {HGROUPSET} hDependentGroupSet 
  * @param {PWSTR} lpRemoteClusterName 
  * @param {PWSTR} lpRemoteGroupSetName 
@@ -2355,7 +2407,6 @@ export AddCrossClusterGroupSetDependency(hDependentGroupSet, lpRemoteClusterName
 }
 
 /**
- * 
  * @param {HGROUPSET} hDependentGroupSet 
  * @param {PWSTR} lpRemoteClusterName 
  * @param {PWSTR} lpRemoteGroupSetName 
@@ -2370,7 +2421,6 @@ export RemoveCrossClusterGroupSetDependency(hDependentGroupSet, lpRemoteClusterN
 }
 
 /**
- * 
  * @param {HCLUSTER} _hCluster 
  * @param {PWSTR} lpAvailabilitySetName 
  * @param {Pointer<CLUSTER_AVAILABILITY_SET_CONFIG>} pAvailabilitySetConfig 
@@ -2384,7 +2434,6 @@ export CreateClusterAvailabilitySet(_hCluster, lpAvailabilitySetName, pAvailabil
 }
 
 /**
- * 
  * @param {HCLUSTER} _hCluster 
  * @param {PWSTR} lpszNodeNameCurrent 
  * @param {PWSTR} lpszNodeNameNew 
@@ -2399,7 +2448,6 @@ export ClusterNodeReplacement(_hCluster, lpszNodeNameCurrent, lpszNodeNameNew) {
 }
 
 /**
- * 
  * @param {HCLUSTER} _hCluster 
  * @param {PWSTR} ruleName 
  * @param {CLUS_AFFINITY_RULE_TYPE} ruleType 
@@ -2413,7 +2461,6 @@ export ClusterCreateAffinityRule(_hCluster, ruleName, ruleType) {
 }
 
 /**
- * 
  * @param {HCLUSTER} _hCluster 
  * @param {PWSTR} ruleName 
  * @returns {Integer} 
@@ -2426,7 +2473,6 @@ export ClusterRemoveAffinityRule(_hCluster, ruleName) {
 }
 
 /**
- * 
  * @param {HCLUSTER} _hCluster 
  * @param {PWSTR} ruleName 
  * @param {HGROUP} _hGroup 
@@ -2440,7 +2486,6 @@ export ClusterAddGroupToAffinityRule(_hCluster, ruleName, _hGroup) {
 }
 
 /**
- * 
  * @param {HCLUSTER} _hCluster 
  * @param {PWSTR} ruleName 
  * @param {HGROUP} _hGroup 
@@ -2454,7 +2499,6 @@ export ClusterRemoveGroupFromAffinityRule(_hCluster, ruleName, _hGroup) {
 }
 
 /**
- * 
  * @param {HCLUSTER} _hCluster 
  * @param {PWSTR} affinityRuleName 
  * @param {HNODE} hHostNode 
@@ -2469,9 +2513,13 @@ export ClusterRemoveGroupFromAffinityRule(_hCluster, ruleName, _hGroup) {
 export ClusterAffinityRuleControl(_hCluster, affinityRuleName, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned) {
     affinityRuleName := affinityRuleName is String ? StrPtr(affinityRuleName) : affinityRuleName
 
-    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+    hHostNodeMarshal := hHostNode == 0 ? IntPtr : HNODE
+    lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+    lpOutBufferMarshal := lpOutBuffer == 0 ? IntPtr : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned == 0 ? IntPtr : "uint*"
 
-    result := DllCall("CLUSAPI.dll\ClusterAffinityRuleControl", HCLUSTER, _hCluster, "ptr", affinityRuleName, HNODE, hHostNode, UInt32, dwControlCode, IntPtr, lpInBuffer, UInt32, cbInBufferSize, IntPtr, lpOutBuffer, UInt32, cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, UInt32)
+    result := DllCall("CLUSAPI.dll\ClusterAffinityRuleControl", HCLUSTER, _hCluster, "ptr", affinityRuleName, hHostNodeMarshal, hHostNode, UInt32, dwControlCode, lpInBufferMarshal, lpInBuffer, UInt32, cbInBufferSize, lpOutBufferMarshal, lpOutBuffer, UInt32, cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, UInt32)
     return result
 }
 
@@ -2570,11 +2618,13 @@ export OpenClusterNode(_hCluster, lpszNodeName) {
 export OpenClusterNodeEx(_hCluster, lpszNodeName, dwDesiredAccess, lpdwGrantedAccess) {
     lpszNodeName := lpszNodeName is String ? StrPtr(lpszNodeName) : lpszNodeName
 
-    lpdwGrantedAccessMarshal := lpdwGrantedAccess is VarRef ? "uint*" : "ptr"
+    lpszNodeNameMarshal := lpszNodeName == 0 ? IntPtr : PWSTR
+    lpdwGrantedAccessMarshal := lpdwGrantedAccess is VarRef ? "uint*" : IntPtr
+    lpdwGrantedAccessMarshal := lpdwGrantedAccess == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("CLUSAPI.dll\OpenClusterNodeEx", HCLUSTER, _hCluster, "ptr", lpszNodeName, UInt32, dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, HNODE)
+    result := DllCall("CLUSAPI.dll\OpenClusterNodeEx", HCLUSTER, _hCluster, lpszNodeNameMarshal, lpszNodeName, UInt32, dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, HNODE)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2583,7 +2633,6 @@ export OpenClusterNodeEx(_hCluster, lpszNodeName, dwDesiredAccess, lpdwGrantedAc
 }
 
 /**
- * 
  * @param {HCLUSTER} _hCluster 
  * @param {Integer} nodeId 
  * @returns {HNODE} 
@@ -2820,9 +2869,10 @@ export GetClusterNodeState(_hNode) {
 export GetClusterNodeId(_hNode, lpszNodeId, lpcchName) {
     lpszNodeId := lpszNodeId is String ? StrPtr(lpszNodeId) : lpszNodeId
 
-    lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
+    _hNodeMarshal := _hNode == 0 ? IntPtr : HNODE
+    lpcchNameMarshal := lpcchName is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("CLUSAPI.dll\GetClusterNodeId", HNODE, _hNode, "ptr", lpszNodeId, lpcchNameMarshal, lpcchName, UInt32)
+    result := DllCall("CLUSAPI.dll\GetClusterNodeId", _hNodeMarshal, _hNode, "ptr", lpszNodeId, lpcchNameMarshal, lpcchName, UInt32)
     return result
 }
 
@@ -2921,9 +2971,12 @@ export ClusterNetInterfaceOpenEnum(_hCluster, lpszNodeName, lpszNetworkName) {
     lpszNodeName := lpszNodeName is String ? StrPtr(lpszNodeName) : lpszNodeName
     lpszNetworkName := lpszNetworkName is String ? StrPtr(lpszNetworkName) : lpszNetworkName
 
+    lpszNodeNameMarshal := lpszNodeName == 0 ? IntPtr : PWSTR
+    lpszNetworkNameMarshal := lpszNetworkName == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("CLUSAPI.dll\ClusterNetInterfaceOpenEnum", HCLUSTER, _hCluster, "ptr", lpszNodeName, "ptr", lpszNetworkName, HNETINTERFACEENUM)
+    result := DllCall("CLUSAPI.dll\ClusterNetInterfaceOpenEnum", HCLUSTER, _hCluster, lpszNodeNameMarshal, lpszNodeName, lpszNetworkNameMarshal, lpszNetworkName, HNETINTERFACEENUM)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2996,7 +3049,7 @@ export ClusterNetInterfaceOpenEnum(_hCluster, lpszNodeName, lpszNetworkName) {
 export ClusterNetInterfaceEnum(_hNetInterfaceEnum, dwIndex, lpszName, lpcchName) {
     lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
-    lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
+    lpcchNameMarshal := lpcchName is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CLUSAPI.dll\ClusterNetInterfaceEnum", HNETINTERFACEENUM, _hNetInterfaceEnum, UInt32, dwIndex, "ptr", lpszName, lpcchNameMarshal, lpcchName, UInt32)
     return result
@@ -3048,7 +3101,6 @@ export ClusterNodeOpenEnum(_hNode, dwType) {
 }
 
 /**
- * 
  * @param {HNODE} _hNode 
  * @param {Integer} dwType 
  * @param {Pointer<Void>} pOptions 
@@ -3056,7 +3108,8 @@ export ClusterNodeOpenEnum(_hNode, dwType) {
  * @since windowsserver2008
  */
 export ClusterNodeOpenEnumEx(_hNode, dwType, pOptions) {
-    pOptionsMarshal := pOptions is VarRef ? "ptr" : "ptr"
+    pOptionsMarshal := pOptions is VarRef ? "ptr" : IntPtr
+    pOptionsMarshal := pOptions == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -3131,7 +3184,7 @@ export ClusterNodeGetEnumCountEx(_hNodeEnum) {
  * @since windowsserver2008
  */
 export ClusterNodeEnumEx(_hNodeEnum, dwIndex, pItem, cbItem) {
-    cbItemMarshal := cbItem is VarRef ? "uint*" : "ptr"
+    cbItemMarshal := cbItem is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CLUSAPI.dll\ClusterNodeEnumEx", HNODEENUMEX, _hNodeEnum, UInt32, dwIndex, CLUSTER_ENUM_ITEM.Ptr, pItem, cbItemMarshal, cbItem, UInt32)
     return result
@@ -3257,8 +3310,8 @@ export ClusterNodeCloseEnum(_hNodeEnum) {
 export ClusterNodeEnum(_hNodeEnum, dwIndex, lpdwType, lpszName, lpcchName) {
     lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
-    lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : "ptr"
-    lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
+    lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : IntPtr
+    lpcchNameMarshal := lpcchName is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CLUSAPI.dll\ClusterNodeEnum", HNODEENUM, _hNodeEnum, UInt32, dwIndex, lpdwTypeMarshal, lpdwType, "ptr", lpszName, lpcchNameMarshal, lpcchName, UInt32)
     return result
@@ -3296,14 +3349,13 @@ export ClusterNodeEnum(_hNodeEnum, dwIndex, lpdwType, lpszName, lpcchName) {
  * @since windowsserver2008
  */
 export EvictClusterNodeEx(_hNode, dwTimeOut, phrCleanupStatus) {
-    phrCleanupStatusMarshal := phrCleanupStatus is VarRef ? "int*" : "ptr"
+    phrCleanupStatusMarshal := phrCleanupStatus is VarRef ? "int*" : IntPtr
 
     result := DllCall("CLUSAPI.dll\EvictClusterNodeEx", HNODE, _hNode, UInt32, dwTimeOut, phrCleanupStatusMarshal, phrCleanupStatus, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HNODE} _hNode 
  * @param {Integer} dwTimeout 
  * @param {Pointer<HRESULT>} phrCleanupStatus 
@@ -3313,9 +3365,10 @@ export EvictClusterNodeEx(_hNode, dwTimeOut, phrCleanupStatus) {
 export EvictClusterNodeEx2(_hNode, dwTimeout, phrCleanupStatus, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    phrCleanupStatusMarshal := phrCleanupStatus is VarRef ? "int*" : "ptr"
+    phrCleanupStatusMarshal := phrCleanupStatus is VarRef ? "int*" : IntPtr
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
 
-    result := DllCall("CLUSAPI.dll\EvictClusterNodeEx2", HNODE, _hNode, UInt32, dwTimeout, phrCleanupStatusMarshal, phrCleanupStatus, "ptr", lpszReason, UInt32)
+    result := DllCall("CLUSAPI.dll\EvictClusterNodeEx2", HNODE, _hNode, UInt32, dwTimeout, phrCleanupStatusMarshal, phrCleanupStatus, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -3461,11 +3514,13 @@ export OpenClusterGroup(_hCluster, lpszGroupName) {
 export OpenClusterGroupEx(_hCluster, lpszGroupName, dwDesiredAccess, lpdwGrantedAccess) {
     lpszGroupName := lpszGroupName is String ? StrPtr(lpszGroupName) : lpszGroupName
 
-    lpdwGrantedAccessMarshal := lpdwGrantedAccess is VarRef ? "uint*" : "ptr"
+    lpszGroupNameMarshal := lpszGroupName == 0 ? IntPtr : PWSTR
+    lpdwGrantedAccessMarshal := lpdwGrantedAccess is VarRef ? "uint*" : IntPtr
+    lpdwGrantedAccessMarshal := lpdwGrantedAccess == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("CLUSAPI.dll\OpenClusterGroupEx", HCLUSTER, _hCluster, "ptr", lpszGroupName, UInt32, dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, HGROUP)
+    result := DllCall("CLUSAPI.dll\OpenClusterGroupEx", HCLUSTER, _hCluster, lpszGroupNameMarshal, lpszGroupName, UInt32, dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, HGROUP)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3474,7 +3529,6 @@ export OpenClusterGroupEx(_hCluster, lpszGroupName, dwDesiredAccess, lpdwGranted
 }
 
 /**
- * 
  * @param {HNODE} _hNode 
  * @param {BOOL} bDrainNode 
  * @param {Integer} dwPauseFlags 
@@ -3483,12 +3537,13 @@ export OpenClusterGroupEx(_hCluster, lpszGroupName, dwDesiredAccess, lpdwGranted
  * @since windowsserver2012
  */
 export PauseClusterNodeEx(_hNode, bDrainNode, dwPauseFlags, hNodeDrainTarget) {
-    result := DllCall("CLUSAPI.dll\PauseClusterNodeEx", HNODE, _hNode, BOOL, bDrainNode, UInt32, dwPauseFlags, HNODE, hNodeDrainTarget, UInt32)
+    hNodeDrainTargetMarshal := hNodeDrainTarget == 0 ? IntPtr : HNODE
+
+    result := DllCall("CLUSAPI.dll\PauseClusterNodeEx", HNODE, _hNode, BOOL, bDrainNode, UInt32, dwPauseFlags, hNodeDrainTargetMarshal, hNodeDrainTarget, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HNODE} _hNode 
  * @param {BOOL} bDrainNode 
  * @param {Integer} dwPauseFlags 
@@ -3499,7 +3554,10 @@ export PauseClusterNodeEx(_hNode, bDrainNode, dwPauseFlags, hNodeDrainTarget) {
 export PauseClusterNodeEx2(_hNode, bDrainNode, dwPauseFlags, hNodeDrainTarget, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\PauseClusterNodeEx2", HNODE, _hNode, BOOL, bDrainNode, UInt32, dwPauseFlags, HNODE, hNodeDrainTarget, "ptr", lpszReason, UInt32)
+    hNodeDrainTargetMarshal := hNodeDrainTarget == 0 ? IntPtr : HNODE
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\PauseClusterNodeEx2", HNODE, _hNode, BOOL, bDrainNode, UInt32, dwPauseFlags, hNodeDrainTargetMarshal, hNodeDrainTarget, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -3521,7 +3579,6 @@ export ResumeClusterNodeEx(_hNode, eResumeFailbackType, dwResumeFlagsReserved) {
 }
 
 /**
- * 
  * @param {HNODE} _hNode 
  * @param {CLUSTER_NODE_RESUME_FAILBACK_TYPE} eResumeFailbackType 
  * @param {Integer} dwResumeFlagsReserved 
@@ -3531,7 +3588,9 @@ export ResumeClusterNodeEx(_hNode, eResumeFailbackType, dwResumeFlagsReserved) {
 export ResumeClusterNodeEx2(_hNode, eResumeFailbackType, dwResumeFlagsReserved, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\ResumeClusterNodeEx2", HNODE, _hNode, CLUSTER_NODE_RESUME_FAILBACK_TYPE, eResumeFailbackType, UInt32, dwResumeFlagsReserved, "ptr", lpszReason, UInt32)
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\ResumeClusterNodeEx2", HNODE, _hNode, CLUSTER_NODE_RESUME_FAILBACK_TYPE, eResumeFailbackType, UInt32, dwResumeFlagsReserved, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -3550,7 +3609,9 @@ export ResumeClusterNodeEx2(_hNode, eResumeFailbackType, dwResumeFlagsReserved, 
 export CreateClusterGroupEx(_hCluster, lpszGroupName, pGroupInfo) {
     lpszGroupName := lpszGroupName is String ? StrPtr(lpszGroupName) : lpszGroupName
 
-    result := DllCall("CLUSAPI.dll\CreateClusterGroupEx", HCLUSTER, _hCluster, "ptr", lpszGroupName, CLUSTER_CREATE_GROUP_INFO.Ptr, pGroupInfo, HGROUP)
+    pGroupInfoMarshal := pGroupInfo == 0 ? IntPtr : CLUSTER_CREATE_GROUP_INFO.Ptr
+
+    result := DllCall("CLUSAPI.dll\CreateClusterGroupEx", HCLUSTER, _hCluster, "ptr", lpszGroupName, pGroupInfoMarshal, pGroupInfo, HGROUP)
     return result
 }
 
@@ -3571,7 +3632,10 @@ export CreateClusterGroupEx(_hCluster, lpszGroupName, pGroupInfo) {
  * @since windowsserver2012
  */
 export ClusterGroupOpenEnumEx(_hCluster, lpszProperties, cbProperties, lpszRoProperties, cbRoProperties, dwFlags) {
-    result := DllCall("CLUSAPI.dll\ClusterGroupOpenEnumEx", HCLUSTER, _hCluster, IntPtr, lpszProperties, UInt32, cbProperties, IntPtr, lpszRoProperties, UInt32, cbRoProperties, UInt32, dwFlags, HGROUPENUMEX)
+    lpszPropertiesMarshal := lpszProperties == 0 ? IntPtr : IntPtr
+    lpszRoPropertiesMarshal := lpszRoProperties == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CLUSAPI.dll\ClusterGroupOpenEnumEx", HCLUSTER, _hCluster, lpszPropertiesMarshal, lpszProperties, UInt32, cbProperties, lpszRoPropertiesMarshal, lpszRoProperties, UInt32, cbRoProperties, UInt32, dwFlags, HGROUPENUMEX)
     return result
 }
 
@@ -3642,7 +3706,7 @@ export ClusterGroupGetEnumCountEx(_hGroupEnumEx) {
  * @since windowsserver2012
  */
 export ClusterGroupEnumEx(_hGroupEnumEx, dwIndex, pItem, cbItem) {
-    cbItemMarshal := cbItem is VarRef ? "uint*" : "ptr"
+    cbItemMarshal := cbItem is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CLUSAPI.dll\ClusterGroupEnumEx", HGROUPENUMEX, _hGroupEnumEx, UInt32, dwIndex, CLUSTER_GROUP_ENUM_ITEM.Ptr, pItem, cbItemMarshal, cbItem, UInt32)
     return result
@@ -3681,9 +3745,12 @@ export ClusterGroupCloseEnumEx(_hGroupEnumEx) {
  * @since windowsserver2012
  */
 export ClusterResourceOpenEnumEx(_hCluster, lpszProperties, cbProperties, lpszRoProperties, cbRoProperties, dwFlags) {
+    lpszPropertiesMarshal := lpszProperties == 0 ? IntPtr : IntPtr
+    lpszRoPropertiesMarshal := lpszRoProperties == 0 ? IntPtr : IntPtr
+
     A_LastError := 0
 
-    result := DllCall("CLUSAPI.dll\ClusterResourceOpenEnumEx", HCLUSTER, _hCluster, IntPtr, lpszProperties, UInt32, cbProperties, IntPtr, lpszRoProperties, UInt32, cbRoProperties, UInt32, dwFlags, HRESENUMEX)
+    result := DllCall("CLUSAPI.dll\ClusterResourceOpenEnumEx", HCLUSTER, _hCluster, lpszPropertiesMarshal, lpszProperties, UInt32, cbProperties, lpszRoPropertiesMarshal, lpszRoProperties, UInt32, cbRoProperties, UInt32, dwFlags, HRESENUMEX)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3777,7 +3844,7 @@ export ClusterResourceGetEnumCountEx(hResourceEnumEx) {
  * @since windowsserver2012
  */
 export ClusterResourceEnumEx(hResourceEnumEx, dwIndex, pItem, cbItem) {
-    cbItemMarshal := cbItem is VarRef ? "uint*" : "ptr"
+    cbItemMarshal := cbItem is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CLUSAPI.dll\ClusterResourceEnumEx", HRESENUMEX, hResourceEnumEx, UInt32, dwIndex, CLUSTER_RESOURCE_ENUM_ITEM.Ptr, pItem, cbItemMarshal, cbItem, UInt32)
     return result
@@ -3841,7 +3908,10 @@ export ClusterResourceCloseEnumEx(hResourceEnumEx) {
  * @since windowsserver2012
  */
 export OnlineClusterGroupEx(_hGroup, hDestinationNode, dwOnlineFlags, lpInBuffer, cbInBufferSize) {
-    result := DllCall("CLUSAPI.dll\OnlineClusterGroupEx", HGROUP, _hGroup, HNODE, hDestinationNode, UInt32, dwOnlineFlags, IntPtr, lpInBuffer, UInt32, cbInBufferSize, UInt32)
+    hDestinationNodeMarshal := hDestinationNode == 0 ? IntPtr : HNODE
+    lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CLUSAPI.dll\OnlineClusterGroupEx", HGROUP, _hGroup, hDestinationNodeMarshal, hDestinationNode, UInt32, dwOnlineFlags, lpInBufferMarshal, lpInBuffer, UInt32, cbInBufferSize, UInt32)
     return result
 }
 
@@ -3880,12 +3950,13 @@ export OnlineClusterGroupEx(_hGroup, hDestinationNode, dwOnlineFlags, lpInBuffer
  * @since windowsserver2012
  */
 export OfflineClusterGroupEx(_hGroup, dwOfflineFlags, lpInBuffer, cbInBufferSize) {
-    result := DllCall("CLUSAPI.dll\OfflineClusterGroupEx", HGROUP, _hGroup, UInt32, dwOfflineFlags, IntPtr, lpInBuffer, UInt32, cbInBufferSize, UInt32)
+    lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CLUSAPI.dll\OfflineClusterGroupEx", HGROUP, _hGroup, UInt32, dwOfflineFlags, lpInBufferMarshal, lpInBuffer, UInt32, cbInBufferSize, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HGROUP} _hGroup 
  * @param {HNODE} hDestinationNode 
  * @param {Integer} dwOnlineFlags 
@@ -3897,12 +3968,15 @@ export OfflineClusterGroupEx(_hGroup, dwOfflineFlags, lpInBuffer, cbInBufferSize
 export OnlineClusterGroupEx2(_hGroup, hDestinationNode, dwOnlineFlags, lpInBuffer, cbInBufferSize, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\OnlineClusterGroupEx2", HGROUP, _hGroup, HNODE, hDestinationNode, UInt32, dwOnlineFlags, IntPtr, lpInBuffer, UInt32, cbInBufferSize, "ptr", lpszReason, UInt32)
+    hDestinationNodeMarshal := hDestinationNode == 0 ? IntPtr : HNODE
+    lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\OnlineClusterGroupEx2", HGROUP, _hGroup, hDestinationNodeMarshal, hDestinationNode, UInt32, dwOnlineFlags, lpInBufferMarshal, lpInBuffer, UInt32, cbInBufferSize, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HGROUP} _hGroup 
  * @param {Integer} dwOfflineFlags 
  * @param {Pointer<Integer>} lpInBuffer 
@@ -3913,9 +3987,11 @@ export OnlineClusterGroupEx2(_hGroup, hDestinationNode, dwOnlineFlags, lpInBuffe
 export OfflineClusterGroupEx2(_hGroup, dwOfflineFlags, lpInBuffer, cbInBufferSize, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    lpInBufferMarshal := lpInBuffer is VarRef ? "char*" : "ptr"
+    lpInBufferMarshal := lpInBuffer is VarRef ? "char*" : IntPtr
+    lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : "char*"
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
 
-    result := DllCall("CLUSAPI.dll\OfflineClusterGroupEx2", HGROUP, _hGroup, UInt32, dwOfflineFlags, lpInBufferMarshal, lpInBuffer, UInt32, cbInBufferSize, "ptr", lpszReason, UInt32)
+    result := DllCall("CLUSAPI.dll\OfflineClusterGroupEx2", HGROUP, _hGroup, UInt32, dwOfflineFlags, lpInBufferMarshal, lpInBuffer, UInt32, cbInBufferSize, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -3951,12 +4027,13 @@ export OfflineClusterGroupEx2(_hGroup, dwOfflineFlags, lpInBuffer, cbInBufferSiz
  * @since windowsserver2012
  */
 export OnlineClusterResourceEx(_hResource, dwOnlineFlags, lpInBuffer, cbInBufferSize) {
-    result := DllCall("CLUSAPI.dll\OnlineClusterResourceEx", HRESOURCE, _hResource, UInt32, dwOnlineFlags, IntPtr, lpInBuffer, UInt32, cbInBufferSize, UInt32)
+    lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CLUSAPI.dll\OnlineClusterResourceEx", HRESOURCE, _hResource, UInt32, dwOnlineFlags, lpInBufferMarshal, lpInBuffer, UInt32, cbInBufferSize, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HRESOURCE} _hResource 
  * @param {Integer} dwOnlineFlags 
  * @param {Integer} lpInBuffer 
@@ -3967,7 +4044,10 @@ export OnlineClusterResourceEx(_hResource, dwOnlineFlags, lpInBuffer, cbInBuffer
 export OnlineClusterResourceEx2(_hResource, dwOnlineFlags, lpInBuffer, cbInBufferSize, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\OnlineClusterResourceEx2", HRESOURCE, _hResource, UInt32, dwOnlineFlags, IntPtr, lpInBuffer, UInt32, cbInBufferSize, "ptr", lpszReason, UInt32)
+    lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\OnlineClusterResourceEx2", HRESOURCE, _hResource, UInt32, dwOnlineFlags, lpInBufferMarshal, lpInBuffer, UInt32, cbInBufferSize, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -4004,12 +4084,13 @@ export OnlineClusterResourceEx2(_hResource, dwOnlineFlags, lpInBuffer, cbInBuffe
  * @since windowsserver2012
  */
 export OfflineClusterResourceEx(_hResource, dwOfflineFlags, lpInBuffer, cbInBufferSize) {
-    result := DllCall("CLUSAPI.dll\OfflineClusterResourceEx", HRESOURCE, _hResource, UInt32, dwOfflineFlags, IntPtr, lpInBuffer, UInt32, cbInBufferSize, UInt32)
+    lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CLUSAPI.dll\OfflineClusterResourceEx", HRESOURCE, _hResource, UInt32, dwOfflineFlags, lpInBufferMarshal, lpInBuffer, UInt32, cbInBufferSize, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HRESOURCE} _hResource 
  * @param {Integer} dwOfflineFlags 
  * @param {Integer} lpInBuffer 
@@ -4020,7 +4101,10 @@ export OfflineClusterResourceEx(_hResource, dwOfflineFlags, lpInBuffer, cbInBuff
 export OfflineClusterResourceEx2(_hResource, dwOfflineFlags, lpInBuffer, cbInBufferSize, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\OfflineClusterResourceEx2", HRESOURCE, _hResource, UInt32, dwOfflineFlags, IntPtr, lpInBuffer, UInt32, cbInBufferSize, "ptr", lpszReason, UInt32)
+    lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\OfflineClusterResourceEx2", HRESOURCE, _hResource, UInt32, dwOfflineFlags, lpInBufferMarshal, lpInBuffer, UInt32, cbInBufferSize, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -4054,12 +4138,14 @@ export OfflineClusterResourceEx2(_hResource, dwOfflineFlags, lpInBuffer, cbInBuf
  * @since windowsserver2012
  */
 export MoveClusterGroupEx(_hGroup, hDestinationNode, dwMoveFlags, lpInBuffer, cbInBufferSize) {
-    result := DllCall("CLUSAPI.dll\MoveClusterGroupEx", HGROUP, _hGroup, HNODE, hDestinationNode, UInt32, dwMoveFlags, IntPtr, lpInBuffer, UInt32, cbInBufferSize, UInt32)
+    hDestinationNodeMarshal := hDestinationNode == 0 ? IntPtr : HNODE
+    lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CLUSAPI.dll\MoveClusterGroupEx", HGROUP, _hGroup, hDestinationNodeMarshal, hDestinationNode, UInt32, dwMoveFlags, lpInBufferMarshal, lpInBuffer, UInt32, cbInBufferSize, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HGROUP} _hGroup 
  * @param {HNODE} hDestinationNode 
  * @param {Integer} dwMoveFlags 
@@ -4071,7 +4157,11 @@ export MoveClusterGroupEx(_hGroup, hDestinationNode, dwMoveFlags, lpInBuffer, cb
 export MoveClusterGroupEx2(_hGroup, hDestinationNode, dwMoveFlags, lpInBuffer, cbInBufferSize, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\MoveClusterGroupEx2", HGROUP, _hGroup, HNODE, hDestinationNode, UInt32, dwMoveFlags, IntPtr, lpInBuffer, UInt32, cbInBufferSize, "ptr", lpszReason, UInt32)
+    hDestinationNodeMarshal := hDestinationNode == 0 ? IntPtr : HNODE
+    lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\MoveClusterGroupEx2", HGROUP, _hGroup, hDestinationNodeMarshal, hDestinationNode, UInt32, dwMoveFlags, lpInBufferMarshal, lpInBuffer, UInt32, cbInBufferSize, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -4104,7 +4194,6 @@ export CancelClusterGroupOperation(_hGroup, dwCancelFlags_RESERVED) {
 }
 
 /**
- * 
  * @param {HRESOURCE} _hResource 
  * @param {Integer} dwFlags 
  * @returns {Integer} 
@@ -4116,7 +4205,6 @@ export RestartClusterResource(_hResource, dwFlags) {
 }
 
 /**
- * 
  * @param {HRESOURCE} _hResource 
  * @param {Integer} dwFlags 
  * @param {PWSTR} lpszReason 
@@ -4125,7 +4213,9 @@ export RestartClusterResource(_hResource, dwFlags) {
 export RestartClusterResourceEx(_hResource, dwFlags, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\RestartClusterResourceEx", HRESOURCE, _hResource, UInt32, dwFlags, "ptr", lpszReason, UInt32)
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\RestartClusterResourceEx", HRESOURCE, _hResource, UInt32, dwFlags, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -4310,11 +4400,13 @@ export GetClusterFromGroup(_hGroup) {
 export GetClusterGroupState(_hGroup, lpszNodeName, lpcchNodeName) {
     lpszNodeName := lpszNodeName is String ? StrPtr(lpszNodeName) : lpszNodeName
 
-    lpcchNodeNameMarshal := lpcchNodeName is VarRef ? "uint*" : "ptr"
+    lpszNodeNameMarshal := lpszNodeName == 0 ? IntPtr : PWSTR
+    lpcchNodeNameMarshal := lpcchNodeName is VarRef ? "uint*" : IntPtr
+    lpcchNodeNameMarshal := lpcchNodeName == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("CLUSAPI.dll\GetClusterGroupState", HGROUP, _hGroup, "ptr", lpszNodeName, lpcchNodeNameMarshal, lpcchNodeName, CLUSTER_GROUP_STATE)
+    result := DllCall("CLUSAPI.dll\GetClusterGroupState", HGROUP, _hGroup, lpszNodeNameMarshal, lpszNodeName, lpcchNodeNameMarshal, lpcchNodeName, CLUSTER_GROUP_STATE)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4365,14 +4457,14 @@ export SetClusterGroupName(_hGroup, lpszGroupName) {
  * @since windowsserver2008
  */
 export SetClusterGroupNodeList(_hGroup, NodeCount, NodeList) {
-    NodeListMarshal := NodeList is VarRef ? "ptr*" : "ptr"
+    NodeListMarshal := NodeList is VarRef ? "ptr*" : IntPtr
+    NodeListMarshal := NodeList == 0 ? IntPtr : HNODE.Ptr
 
     result := DllCall("CLUSAPI.dll\SetClusterGroupNodeList", HGROUP, _hGroup, UInt32, NodeCount, NodeListMarshal, NodeList, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HGROUP} _hGroup 
  * @param {PWSTR} lpszGroupName 
  * @param {PWSTR} lpszReason 
@@ -4382,12 +4474,13 @@ export SetClusterGroupNameEx(_hGroup, lpszGroupName, lpszReason) {
     lpszGroupName := lpszGroupName is String ? StrPtr(lpszGroupName) : lpszGroupName
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\SetClusterGroupNameEx", HGROUP, _hGroup, "ptr", lpszGroupName, "ptr", lpszReason, UInt32)
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\SetClusterGroupNameEx", HGROUP, _hGroup, "ptr", lpszGroupName, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HGROUP} _hGroup 
  * @param {Integer} NodeCount 
  * @param {Pointer<HNODE>} NodeList 
@@ -4397,9 +4490,10 @@ export SetClusterGroupNameEx(_hGroup, lpszGroupName, lpszReason) {
 export SetClusterGroupNodeListEx(_hGroup, NodeCount, NodeList, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    NodeListMarshal := NodeList is VarRef ? "ptr*" : "ptr"
+    NodeListMarshal := NodeList is VarRef ? "ptr*" : IntPtr
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
 
-    result := DllCall("CLUSAPI.dll\SetClusterGroupNodeListEx", HGROUP, _hGroup, UInt32, NodeCount, NodeListMarshal, NodeList, "ptr", lpszReason, UInt32)
+    result := DllCall("CLUSAPI.dll\SetClusterGroupNodeListEx", HGROUP, _hGroup, UInt32, NodeCount, NodeListMarshal, NodeList, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -4452,7 +4546,9 @@ export SetClusterGroupNodeListEx(_hGroup, NodeCount, NodeList, lpszReason) {
  * @since windowsserver2008
  */
 export OnlineClusterGroup(_hGroup, hDestinationNode) {
-    result := DllCall("CLUSAPI.dll\OnlineClusterGroup", HGROUP, _hGroup, HNODE, hDestinationNode, UInt32)
+    hDestinationNodeMarshal := hDestinationNode == 0 ? IntPtr : HNODE
+
+    result := DllCall("CLUSAPI.dll\OnlineClusterGroup", HGROUP, _hGroup, hDestinationNodeMarshal, hDestinationNode, UInt32)
     return result
 }
 
@@ -4500,7 +4596,9 @@ export OnlineClusterGroup(_hGroup, hDestinationNode) {
  * @since windowsserver2008
  */
 export MoveClusterGroup(_hGroup, hDestinationNode) {
-    result := DllCall("CLUSAPI.dll\MoveClusterGroup", HGROUP, _hGroup, HNODE, hDestinationNode, UInt32)
+    hDestinationNodeMarshal := hDestinationNode == 0 ? IntPtr : HNODE
+
+    result := DllCall("CLUSAPI.dll\MoveClusterGroup", HGROUP, _hGroup, hDestinationNodeMarshal, hDestinationNode, UInt32)
     return result
 }
 
@@ -4596,7 +4694,6 @@ export DestroyClusterGroup(_hGroup) {
 }
 
 /**
- * 
  * @param {HGROUP} _hGroup 
  * @param {PWSTR} lpszReason 
  * @returns {Integer} 
@@ -4604,12 +4701,13 @@ export DestroyClusterGroup(_hGroup) {
 export DeleteClusterGroupEx(_hGroup, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\DeleteClusterGroupEx", HGROUP, _hGroup, "ptr", lpszReason, UInt32)
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\DeleteClusterGroupEx", HGROUP, _hGroup, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HGROUP} _hGroup 
  * @param {PWSTR} lpszReason 
  * @returns {Integer} 
@@ -4617,7 +4715,9 @@ export DeleteClusterGroupEx(_hGroup, lpszReason) {
 export DestroyClusterGroupEx(_hGroup, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\DestroyClusterGroupEx", HGROUP, _hGroup, "ptr", lpszReason, UInt32)
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\DestroyClusterGroupEx", HGROUP, _hGroup, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -4754,8 +4854,8 @@ export ClusterGroupGetEnumCount(_hGroupEnum) {
 export ClusterGroupEnum(_hGroupEnum, dwIndex, lpdwType, lpszResourceName, lpcchName) {
     lpszResourceName := lpszResourceName is String ? StrPtr(lpszResourceName) : lpszResourceName
 
-    lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : "ptr"
-    lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
+    lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : IntPtr
+    lpcchNameMarshal := lpcchName is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CLUSAPI.dll\ClusterGroupEnum", HGROUPENUM, _hGroupEnum, UInt32, dwIndex, lpdwTypeMarshal, lpdwType, "ptr", lpszResourceName, lpcchNameMarshal, lpcchName, UInt32)
     return result
@@ -4809,7 +4909,6 @@ export CreateClusterResource(_hGroup, lpszResourceName, lpszResourceType, dwFlag
 }
 
 /**
- * 
  * @param {HGROUP} _hGroup 
  * @param {PWSTR} lpszResourceName 
  * @param {PWSTR} lpszResourceType 
@@ -4822,7 +4921,9 @@ export CreateClusterResourceEx(_hGroup, lpszResourceName, lpszResourceType, dwFl
     lpszResourceType := lpszResourceType is String ? StrPtr(lpszResourceType) : lpszResourceType
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\CreateClusterResourceEx", HGROUP, _hGroup, "ptr", lpszResourceName, "ptr", lpszResourceType, UInt32, dwFlags, "ptr", lpszReason, HRESOURCE)
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\CreateClusterResourceEx", HGROUP, _hGroup, "ptr", lpszResourceName, "ptr", lpszResourceType, UInt32, dwFlags, lpszReasonMarshal, lpszReason, HRESOURCE)
     return result
 }
 
@@ -4921,11 +5022,13 @@ export OpenClusterResource(_hCluster, lpszResourceName) {
 export OpenClusterResourceEx(_hCluster, lpszResourceName, dwDesiredAccess, lpdwGrantedAccess) {
     lpszResourceName := lpszResourceName is String ? StrPtr(lpszResourceName) : lpszResourceName
 
-    lpdwGrantedAccessMarshal := lpdwGrantedAccess is VarRef ? "uint*" : "ptr"
+    lpszResourceNameMarshal := lpszResourceName == 0 ? IntPtr : PWSTR
+    lpdwGrantedAccessMarshal := lpdwGrantedAccess is VarRef ? "uint*" : IntPtr
+    lpdwGrantedAccessMarshal := lpdwGrantedAccess == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("CLUSAPI.dll\OpenClusterResourceEx", HCLUSTER, _hCluster, "ptr", lpszResourceName, UInt32, dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, HRESOURCE)
+    result := DllCall("CLUSAPI.dll\OpenClusterResourceEx", HCLUSTER, _hCluster, lpszResourceNameMarshal, lpszResourceName, UInt32, dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, HRESOURCE)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5052,7 +5155,6 @@ export DeleteClusterResource(_hResource) {
 }
 
 /**
- * 
  * @param {HRESOURCE} _hResource 
  * @param {PWSTR} lpszReason 
  * @returns {Integer} 
@@ -5060,7 +5162,9 @@ export DeleteClusterResource(_hResource) {
 export DeleteClusterResourceEx(_hResource, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\DeleteClusterResourceEx", HRESOURCE, _hResource, "ptr", lpszReason, UInt32)
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\DeleteClusterResourceEx", HRESOURCE, _hResource, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -5208,12 +5312,16 @@ export GetClusterResourceState(_hResource, lpszNodeName, lpcchNodeName, lpszGrou
     lpszNodeName := lpszNodeName is String ? StrPtr(lpszNodeName) : lpszNodeName
     lpszGroupName := lpszGroupName is String ? StrPtr(lpszGroupName) : lpszGroupName
 
-    lpcchNodeNameMarshal := lpcchNodeName is VarRef ? "uint*" : "ptr"
-    lpcchGroupNameMarshal := lpcchGroupName is VarRef ? "uint*" : "ptr"
+    lpszNodeNameMarshal := lpszNodeName == 0 ? IntPtr : PWSTR
+    lpcchNodeNameMarshal := lpcchNodeName is VarRef ? "uint*" : IntPtr
+    lpcchNodeNameMarshal := lpcchNodeName == 0 ? IntPtr : "uint*"
+    lpszGroupNameMarshal := lpszGroupName == 0 ? IntPtr : PWSTR
+    lpcchGroupNameMarshal := lpcchGroupName is VarRef ? "uint*" : IntPtr
+    lpcchGroupNameMarshal := lpcchGroupName == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("CLUSAPI.dll\GetClusterResourceState", HRESOURCE, _hResource, "ptr", lpszNodeName, lpcchNodeNameMarshal, lpcchNodeName, "ptr", lpszGroupName, lpcchGroupNameMarshal, lpcchGroupName, CLUSTER_RESOURCE_STATE)
+    result := DllCall("CLUSAPI.dll\GetClusterResourceState", HRESOURCE, _hResource, lpszNodeNameMarshal, lpszNodeName, lpcchNodeNameMarshal, lpcchNodeName, lpszGroupNameMarshal, lpszGroupName, lpcchGroupNameMarshal, lpcchGroupName, CLUSTER_RESOURCE_STATE)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5250,7 +5358,6 @@ export SetClusterResourceName(_hResource, lpszResourceName) {
 }
 
 /**
- * 
  * @param {HRESOURCE} _hResource 
  * @param {PWSTR} lpszResourceName 
  * @param {PWSTR} lpszReason 
@@ -5260,7 +5367,9 @@ export SetClusterResourceNameEx(_hResource, lpszResourceName, lpszReason) {
     lpszResourceName := lpszResourceName is String ? StrPtr(lpszResourceName) : lpszResourceName
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\SetClusterResourceNameEx", HRESOURCE, _hResource, "ptr", lpszResourceName, "ptr", lpszReason, UInt32)
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\SetClusterResourceNameEx", HRESOURCE, _hResource, "ptr", lpszResourceName, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -5284,7 +5393,6 @@ export FailClusterResource(_hResource) {
 }
 
 /**
- * 
  * @param {HRESOURCE} _hResource 
  * @param {PWSTR} lpszReason 
  * @returns {Integer} 
@@ -5292,7 +5400,9 @@ export FailClusterResource(_hResource) {
 export FailClusterResourceEx(_hResource, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\FailClusterResourceEx", HRESOURCE, _hResource, "ptr", lpszReason, UInt32)
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\FailClusterResourceEx", HRESOURCE, _hResource, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -5420,7 +5530,6 @@ export ChangeClusterResourceGroup(_hResource, _hGroup) {
 }
 
 /**
- * 
  * @param {HRESOURCE} _hResource 
  * @param {HGROUP} _hGroup 
  * @param {Integer} Flags 
@@ -5432,7 +5541,6 @@ export ChangeClusterResourceGroupEx(_hResource, _hGroup, Flags) {
 }
 
 /**
- * 
  * @param {HRESOURCE} _hResource 
  * @param {HGROUP} _hGroup 
  * @param {Integer} Flags 
@@ -5442,7 +5550,9 @@ export ChangeClusterResourceGroupEx(_hResource, _hGroup, Flags) {
 export ChangeClusterResourceGroupEx2(_hResource, _hGroup, Flags, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\ChangeClusterResourceGroupEx2", HRESOURCE, _hResource, HGROUP, _hGroup, Int64, Flags, "ptr", lpszReason, UInt32)
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\ChangeClusterResourceGroupEx2", HRESOURCE, _hResource, HGROUP, _hGroup, Int64, Flags, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -5490,7 +5600,6 @@ export RemoveClusterResourceNode(_hResource, _hNode) {
 }
 
 /**
- * 
  * @param {HRESOURCE} _hResource 
  * @param {HNODE} _hNode 
  * @param {PWSTR} lpszReason 
@@ -5499,12 +5608,13 @@ export RemoveClusterResourceNode(_hResource, _hNode) {
 export AddClusterResourceNodeEx(_hResource, _hNode, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\AddClusterResourceNodeEx", HRESOURCE, _hResource, HNODE, _hNode, "ptr", lpszReason, UInt32)
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\AddClusterResourceNodeEx", HRESOURCE, _hResource, HNODE, _hNode, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HRESOURCE} _hResource 
  * @param {HNODE} _hNode 
  * @param {PWSTR} lpszReason 
@@ -5513,7 +5623,9 @@ export AddClusterResourceNodeEx(_hResource, _hNode, lpszReason) {
 export RemoveClusterResourceNodeEx(_hResource, _hNode, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\RemoveClusterResourceNodeEx", HRESOURCE, _hResource, HNODE, _hNode, "ptr", lpszReason, UInt32)
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\RemoveClusterResourceNodeEx", HRESOURCE, _hResource, HNODE, _hNode, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -5663,7 +5775,6 @@ export RemoveClusterResourceDependency(_hResource, hDependsOn) {
 }
 
 /**
- * 
  * @param {HRESOURCE} _hResource 
  * @param {HRESOURCE} hDependsOn 
  * @param {PWSTR} lpszReason 
@@ -5672,12 +5783,13 @@ export RemoveClusterResourceDependency(_hResource, hDependsOn) {
 export AddClusterResourceDependencyEx(_hResource, hDependsOn, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\AddClusterResourceDependencyEx", HRESOURCE, _hResource, HRESOURCE, hDependsOn, "ptr", lpszReason, UInt32)
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\AddClusterResourceDependencyEx", HRESOURCE, _hResource, HRESOURCE, hDependsOn, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HRESOURCE} _hResource 
  * @param {HRESOURCE} hDependsOn 
  * @param {PWSTR} lpszReason 
@@ -5686,7 +5798,9 @@ export AddClusterResourceDependencyEx(_hResource, hDependsOn, lpszReason) {
 export RemoveClusterResourceDependencyEx(_hResource, hDependsOn, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\RemoveClusterResourceDependencyEx", HRESOURCE, _hResource, HRESOURCE, hDependsOn, "ptr", lpszReason, UInt32)
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\RemoveClusterResourceDependencyEx", HRESOURCE, _hResource, HRESOURCE, hDependsOn, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -5745,9 +5859,10 @@ export SetClusterResourceDependencyExpression(_hResource, lpszDependencyExpressi
 export GetClusterResourceDependencyExpression(_hResource, lpszDependencyExpression, lpcchDependencyExpression) {
     lpszDependencyExpression := lpszDependencyExpression is String ? StrPtr(lpszDependencyExpression) : lpszDependencyExpression
 
-    lpcchDependencyExpressionMarshal := lpcchDependencyExpression is VarRef ? "uint*" : "ptr"
+    lpszDependencyExpressionMarshal := lpszDependencyExpression == 0 ? IntPtr : PWSTR
+    lpcchDependencyExpressionMarshal := lpcchDependencyExpression is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("CLUSAPI.dll\GetClusterResourceDependencyExpression", HRESOURCE, _hResource, "ptr", lpszDependencyExpression, lpcchDependencyExpressionMarshal, lpcchDependencyExpression, UInt32)
+    result := DllCall("CLUSAPI.dll\GetClusterResourceDependencyExpression", HRESOURCE, _hResource, lpszDependencyExpressionMarshal, lpszDependencyExpression, lpcchDependencyExpressionMarshal, lpcchDependencyExpression, UInt32)
     return result
 }
 
@@ -5799,7 +5914,7 @@ export RemoveResourceFromClusterSharedVolumes(_hResource) {
 export IsFileOnClusterSharedVolume(lpszPathName, pbFileIsOnSharedVolume) {
     lpszPathName := lpszPathName is String ? StrPtr(lpszPathName) : lpszPathName
 
-    pbFileIsOnSharedVolumeMarshal := pbFileIsOnSharedVolume is VarRef ? "int*" : "ptr"
+    pbFileIsOnSharedVolumeMarshal := pbFileIsOnSharedVolume is VarRef ? "int*" : IntPtr
 
     result := DllCall("CLUSAPI.dll\IsFileOnClusterSharedVolume", "ptr", lpszPathName, pbFileIsOnSharedVolumeMarshal, pbFileIsOnSharedVolume, UInt32)
     return result
@@ -6236,9 +6351,13 @@ export CanResourceBeDependent(_hResource, hResourceDependent) {
  * @since windowsserver2008
  */
 export ClusterResourceControl(_hResource, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned) {
-    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+    hHostNodeMarshal := hHostNode == 0 ? IntPtr : HNODE
+    lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+    lpOutBufferMarshal := lpOutBuffer == 0 ? IntPtr : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned == 0 ? IntPtr : "uint*"
 
-    result := DllCall("CLUSAPI.dll\ClusterResourceControl", HRESOURCE, _hResource, HNODE, hHostNode, UInt32, dwControlCode, IntPtr, lpInBuffer, UInt32, cbInBufferSize, IntPtr, lpOutBuffer, UInt32, cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, UInt32)
+    result := DllCall("CLUSAPI.dll\ClusterResourceControl", HRESOURCE, _hResource, hHostNodeMarshal, hHostNode, UInt32, dwControlCode, lpInBufferMarshal, lpInBuffer, UInt32, cbInBufferSize, lpOutBufferMarshal, lpOutBuffer, UInt32, cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, UInt32)
     return result
 }
 
@@ -6360,9 +6479,13 @@ export ClusterResourceControl(_hResource, hHostNode, dwControlCode, lpInBuffer, 
  * @since windowsserver2016
  */
 export ClusterResourceControlAsUser(_hResource, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned) {
-    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+    hHostNodeMarshal := hHostNode == 0 ? IntPtr : HNODE
+    lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+    lpOutBufferMarshal := lpOutBuffer == 0 ? IntPtr : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned == 0 ? IntPtr : "uint*"
 
-    result := DllCall("CLUSAPI.dll\ClusterResourceControlAsUser", HRESOURCE, _hResource, HNODE, hHostNode, UInt32, dwControlCode, IntPtr, lpInBuffer, UInt32, cbInBufferSize, IntPtr, lpOutBuffer, UInt32, cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, UInt32)
+    result := DllCall("CLUSAPI.dll\ClusterResourceControlAsUser", HRESOURCE, _hResource, hHostNodeMarshal, hHostNode, UInt32, dwControlCode, lpInBufferMarshal, lpInBuffer, UInt32, cbInBufferSize, lpOutBufferMarshal, lpOutBuffer, UInt32, cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, UInt32)
     return result
 }
 
@@ -6534,9 +6657,13 @@ export ClusterResourceControlAsUser(_hResource, hHostNode, dwControlCode, lpInBu
 export ClusterResourceTypeControl(_hCluster, lpszResourceTypeName, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
     lpszResourceTypeName := lpszResourceTypeName is String ? StrPtr(lpszResourceTypeName) : lpszResourceTypeName
 
-    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+    hHostNodeMarshal := hHostNode == 0 ? IntPtr : HNODE
+    lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+    lpOutBufferMarshal := lpOutBuffer == 0 ? IntPtr : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned == 0 ? IntPtr : "uint*"
 
-    result := DllCall("CLUSAPI.dll\ClusterResourceTypeControl", HCLUSTER, _hCluster, "ptr", lpszResourceTypeName, HNODE, hHostNode, UInt32, dwControlCode, IntPtr, lpInBuffer, UInt32, nInBufferSize, IntPtr, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, UInt32)
+    result := DllCall("CLUSAPI.dll\ClusterResourceTypeControl", HCLUSTER, _hCluster, "ptr", lpszResourceTypeName, hHostNodeMarshal, hHostNode, UInt32, dwControlCode, lpInBufferMarshal, lpInBuffer, UInt32, nInBufferSize, lpOutBufferMarshal, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, UInt32)
     return result
 }
 
@@ -6634,9 +6761,13 @@ export ClusterResourceTypeControl(_hCluster, lpszResourceTypeName, hHostNode, dw
 export ClusterResourceTypeControlAsUser(_hCluster, lpszResourceTypeName, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
     lpszResourceTypeName := lpszResourceTypeName is String ? StrPtr(lpszResourceTypeName) : lpszResourceTypeName
 
-    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+    hHostNodeMarshal := hHostNode == 0 ? IntPtr : HNODE
+    lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+    lpOutBufferMarshal := lpOutBuffer == 0 ? IntPtr : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned == 0 ? IntPtr : "uint*"
 
-    result := DllCall("CLUSAPI.dll\ClusterResourceTypeControlAsUser", HCLUSTER, _hCluster, "ptr", lpszResourceTypeName, HNODE, hHostNode, UInt32, dwControlCode, IntPtr, lpInBuffer, UInt32, nInBufferSize, IntPtr, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, UInt32)
+    result := DllCall("CLUSAPI.dll\ClusterResourceTypeControlAsUser", HCLUSTER, _hCluster, "ptr", lpszResourceTypeName, hHostNodeMarshal, hHostNode, UInt32, dwControlCode, lpInBufferMarshal, lpInBuffer, UInt32, nInBufferSize, lpOutBufferMarshal, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, UInt32)
     return result
 }
 
@@ -6785,14 +6916,17 @@ export ClusterResourceTypeControlAsUser(_hCluster, lpszResourceTypeName, hHostNo
  * @since windowsserver2008
  */
 export ClusterGroupControl(_hGroup, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
-    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+    hHostNodeMarshal := hHostNode == 0 ? IntPtr : HNODE
+    lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+    lpOutBufferMarshal := lpOutBuffer == 0 ? IntPtr : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned == 0 ? IntPtr : "uint*"
 
-    result := DllCall("CLUSAPI.dll\ClusterGroupControl", HGROUP, _hGroup, HNODE, hHostNode, UInt32, dwControlCode, IntPtr, lpInBuffer, UInt32, nInBufferSize, IntPtr, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, UInt32)
+    result := DllCall("CLUSAPI.dll\ClusterGroupControl", HGROUP, _hGroup, hHostNodeMarshal, hHostNode, UInt32, dwControlCode, lpInBufferMarshal, lpInBuffer, UInt32, nInBufferSize, lpOutBufferMarshal, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HRESOURCE} _hResource 
  * @param {HNODE} hHostNode 
  * @param {Integer} dwControlCode 
@@ -6807,14 +6941,18 @@ export ClusterGroupControl(_hGroup, hHostNode, dwControlCode, lpInBuffer, nInBuf
 export ClusterResourceControlEx(_hResource, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+    hHostNodeMarshal := hHostNode == 0 ? IntPtr : HNODE
+    lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+    lpOutBufferMarshal := lpOutBuffer == 0 ? IntPtr : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned == 0 ? IntPtr : "uint*"
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
 
-    result := DllCall("CLUSAPI.dll\ClusterResourceControlEx", HRESOURCE, _hResource, HNODE, hHostNode, UInt32, dwControlCode, IntPtr, lpInBuffer, UInt32, cbInBufferSize, IntPtr, lpOutBuffer, UInt32, cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, UInt32)
+    result := DllCall("CLUSAPI.dll\ClusterResourceControlEx", HRESOURCE, _hResource, hHostNodeMarshal, hHostNode, UInt32, dwControlCode, lpInBufferMarshal, lpInBuffer, UInt32, cbInBufferSize, lpOutBufferMarshal, lpOutBuffer, UInt32, cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HRESOURCE} _hResource 
  * @param {HNODE} hHostNode 
  * @param {Integer} dwControlCode 
@@ -6829,14 +6967,18 @@ export ClusterResourceControlEx(_hResource, hHostNode, dwControlCode, lpInBuffer
 export ClusterResourceControlAsUserEx(_hResource, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+    hHostNodeMarshal := hHostNode == 0 ? IntPtr : HNODE
+    lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+    lpOutBufferMarshal := lpOutBuffer == 0 ? IntPtr : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned == 0 ? IntPtr : "uint*"
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
 
-    result := DllCall("CLUSAPI.dll\ClusterResourceControlAsUserEx", HRESOURCE, _hResource, HNODE, hHostNode, UInt32, dwControlCode, IntPtr, lpInBuffer, UInt32, cbInBufferSize, IntPtr, lpOutBuffer, UInt32, cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, UInt32)
+    result := DllCall("CLUSAPI.dll\ClusterResourceControlAsUserEx", HRESOURCE, _hResource, hHostNodeMarshal, hHostNode, UInt32, dwControlCode, lpInBufferMarshal, lpInBuffer, UInt32, cbInBufferSize, lpOutBufferMarshal, lpOutBuffer, UInt32, cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HCLUSTER} _hCluster 
  * @param {PWSTR} lpszResourceTypeName 
  * @param {HNODE} hHostNode 
@@ -6853,14 +6995,18 @@ export ClusterResourceTypeControlEx(_hCluster, lpszResourceTypeName, hHostNode, 
     lpszResourceTypeName := lpszResourceTypeName is String ? StrPtr(lpszResourceTypeName) : lpszResourceTypeName
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+    hHostNodeMarshal := hHostNode == 0 ? IntPtr : HNODE
+    lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+    lpOutBufferMarshal := lpOutBuffer == 0 ? IntPtr : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned == 0 ? IntPtr : "uint*"
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
 
-    result := DllCall("CLUSAPI.dll\ClusterResourceTypeControlEx", HCLUSTER, _hCluster, "ptr", lpszResourceTypeName, HNODE, hHostNode, UInt32, dwControlCode, IntPtr, lpInBuffer, UInt32, nInBufferSize, IntPtr, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, UInt32)
+    result := DllCall("CLUSAPI.dll\ClusterResourceTypeControlEx", HCLUSTER, _hCluster, "ptr", lpszResourceTypeName, hHostNodeMarshal, hHostNode, UInt32, dwControlCode, lpInBufferMarshal, lpInBuffer, UInt32, nInBufferSize, lpOutBufferMarshal, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HCLUSTER} _hCluster 
  * @param {PWSTR} lpszResourceTypeName 
  * @param {HNODE} hHostNode 
@@ -6877,14 +7023,18 @@ export ClusterResourceTypeControlAsUserEx(_hCluster, lpszResourceTypeName, hHost
     lpszResourceTypeName := lpszResourceTypeName is String ? StrPtr(lpszResourceTypeName) : lpszResourceTypeName
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+    hHostNodeMarshal := hHostNode == 0 ? IntPtr : HNODE
+    lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+    lpOutBufferMarshal := lpOutBuffer == 0 ? IntPtr : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned == 0 ? IntPtr : "uint*"
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
 
-    result := DllCall("CLUSAPI.dll\ClusterResourceTypeControlAsUserEx", HCLUSTER, _hCluster, "ptr", lpszResourceTypeName, HNODE, hHostNode, UInt32, dwControlCode, IntPtr, lpInBuffer, UInt32, nInBufferSize, IntPtr, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, UInt32)
+    result := DllCall("CLUSAPI.dll\ClusterResourceTypeControlAsUserEx", HCLUSTER, _hCluster, "ptr", lpszResourceTypeName, hHostNodeMarshal, hHostNode, UInt32, dwControlCode, lpInBufferMarshal, lpInBuffer, UInt32, nInBufferSize, lpOutBufferMarshal, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HGROUP} _hGroup 
  * @param {HNODE} hHostNode 
  * @param {Integer} dwControlCode 
@@ -6899,9 +7049,14 @@ export ClusterResourceTypeControlAsUserEx(_hCluster, lpszResourceTypeName, hHost
 export ClusterGroupControlEx(_hGroup, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+    hHostNodeMarshal := hHostNode == 0 ? IntPtr : HNODE
+    lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+    lpOutBufferMarshal := lpOutBuffer == 0 ? IntPtr : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned == 0 ? IntPtr : "uint*"
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
 
-    result := DllCall("CLUSAPI.dll\ClusterGroupControlEx", HGROUP, _hGroup, HNODE, hHostNode, UInt32, dwControlCode, IntPtr, lpInBuffer, UInt32, nInBufferSize, IntPtr, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, UInt32)
+    result := DllCall("CLUSAPI.dll\ClusterGroupControlEx", HGROUP, _hGroup, hHostNodeMarshal, hHostNode, UInt32, dwControlCode, lpInBufferMarshal, lpInBuffer, UInt32, nInBufferSize, lpOutBufferMarshal, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -7046,14 +7201,17 @@ export ClusterGroupControlEx(_hGroup, hHostNode, dwControlCode, lpInBuffer, nInB
  * @since windowsserver2008
  */
 export ClusterNodeControl(_hNode, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
-    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+    hHostNodeMarshal := hHostNode == 0 ? IntPtr : HNODE
+    lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+    lpOutBufferMarshal := lpOutBuffer == 0 ? IntPtr : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned == 0 ? IntPtr : "uint*"
 
-    result := DllCall("CLUSAPI.dll\ClusterNodeControl", HNODE, _hNode, HNODE, hHostNode, UInt32, dwControlCode, IntPtr, lpInBuffer, UInt32, nInBufferSize, IntPtr, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, UInt32)
+    result := DllCall("CLUSAPI.dll\ClusterNodeControl", HNODE, _hNode, hHostNodeMarshal, hHostNode, UInt32, dwControlCode, lpInBufferMarshal, lpInBuffer, UInt32, nInBufferSize, lpOutBufferMarshal, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HNODE} _hNode 
  * @param {HNODE} hHostNode 
  * @param {Integer} dwControlCode 
@@ -7068,9 +7226,14 @@ export ClusterNodeControl(_hNode, hHostNode, dwControlCode, lpInBuffer, nInBuffe
 export ClusterNodeControlEx(_hNode, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+    hHostNodeMarshal := hHostNode == 0 ? IntPtr : HNODE
+    lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+    lpOutBufferMarshal := lpOutBuffer == 0 ? IntPtr : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned == 0 ? IntPtr : "uint*"
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
 
-    result := DllCall("CLUSAPI.dll\ClusterNodeControlEx", HNODE, _hNode, HNODE, hHostNode, UInt32, dwControlCode, IntPtr, lpInBuffer, UInt32, nInBufferSize, IntPtr, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, UInt32)
+    result := DllCall("CLUSAPI.dll\ClusterNodeControlEx", HNODE, _hNode, hHostNodeMarshal, hHostNode, UInt32, dwControlCode, lpInBufferMarshal, lpInBuffer, UInt32, nInBufferSize, lpOutBufferMarshal, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -7100,7 +7263,7 @@ export ClusterNodeControlEx(_hNode, hHostNode, dwControlCode, lpInBuffer, nInBuf
 export GetClusterResourceNetworkName(_hResource, lpBuffer, nSize) {
     lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
-    nSizeMarshal := nSize is VarRef ? "uint*" : "ptr"
+    nSizeMarshal := nSize is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -7247,8 +7410,8 @@ export ClusterResourceGetEnumCount(_hResEnum) {
 export ClusterResourceEnum(_hResEnum, dwIndex, lpdwType, lpszName, lpcchName) {
     lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
-    lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : "ptr"
-    lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
+    lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : IntPtr
+    lpcchNameMarshal := lpcchName is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CLUSAPI.dll\ClusterResourceEnum", HRESENUM, _hResEnum, UInt32, dwIndex, lpdwTypeMarshal, lpdwType, "ptr", lpszName, lpcchNameMarshal, lpcchName, UInt32)
     return result
@@ -7317,7 +7480,6 @@ export DeleteClusterResourceType(_hCluster, lpszResourceTypeName) {
 }
 
 /**
- * 
  * @param {HCLUSTER} _hCluster 
  * @param {PWSTR} lpszResourceTypeName 
  * @param {PWSTR} lpszDisplayName 
@@ -7333,12 +7495,13 @@ export CreateClusterResourceTypeEx(_hCluster, lpszResourceTypeName, lpszDisplayN
     lpszResourceTypeDll := lpszResourceTypeDll is String ? StrPtr(lpszResourceTypeDll) : lpszResourceTypeDll
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\CreateClusterResourceTypeEx", HCLUSTER, _hCluster, "ptr", lpszResourceTypeName, "ptr", lpszDisplayName, "ptr", lpszResourceTypeDll, UInt32, dwLooksAlivePollInterval, UInt32, dwIsAlivePollInterval, "ptr", lpszReason, UInt32)
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\CreateClusterResourceTypeEx", HCLUSTER, _hCluster, "ptr", lpszResourceTypeName, "ptr", lpszDisplayName, "ptr", lpszResourceTypeDll, UInt32, dwLooksAlivePollInterval, UInt32, dwIsAlivePollInterval, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HCLUSTER} _hCluster 
  * @param {PWSTR} lpszTypeName 
  * @param {PWSTR} lpszReason 
@@ -7348,7 +7511,9 @@ export DeleteClusterResourceTypeEx(_hCluster, lpszTypeName, lpszReason) {
     lpszTypeName := lpszTypeName is String ? StrPtr(lpszTypeName) : lpszTypeName
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\DeleteClusterResourceTypeEx", HCLUSTER, _hCluster, "ptr", lpszTypeName, "ptr", lpszReason, UInt32)
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\DeleteClusterResourceTypeEx", HCLUSTER, _hCluster, "ptr", lpszTypeName, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -7475,8 +7640,8 @@ export ClusterResourceTypeGetEnumCount(_hResTypeEnum) {
 export ClusterResourceTypeEnum(_hResTypeEnum, dwIndex, lpdwType, lpszName, lpcchName) {
     lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
-    lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : "ptr"
-    lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
+    lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : IntPtr
+    lpcchNameMarshal := lpcchName is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CLUSAPI.dll\ClusterResourceTypeEnum", HRESTYPEENUM, _hResTypeEnum, UInt32, dwIndex, lpdwTypeMarshal, lpdwType, "ptr", lpszName, lpcchNameMarshal, lpcchName, UInt32)
     return result
@@ -7584,11 +7749,13 @@ export OpenClusterNetwork(_hCluster, lpszNetworkName) {
 export OpenClusterNetworkEx(_hCluster, lpszNetworkName, dwDesiredAccess, lpdwGrantedAccess) {
     lpszNetworkName := lpszNetworkName is String ? StrPtr(lpszNetworkName) : lpszNetworkName
 
-    lpdwGrantedAccessMarshal := lpdwGrantedAccess is VarRef ? "uint*" : "ptr"
+    lpszNetworkNameMarshal := lpszNetworkName == 0 ? IntPtr : PWSTR
+    lpdwGrantedAccessMarshal := lpdwGrantedAccess is VarRef ? "uint*" : IntPtr
+    lpdwGrantedAccessMarshal := lpdwGrantedAccess == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("CLUSAPI.dll\OpenClusterNetworkEx", HCLUSTER, _hCluster, "ptr", lpszNetworkName, UInt32, dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, HNETWORK)
+    result := DllCall("CLUSAPI.dll\OpenClusterNetworkEx", HCLUSTER, _hCluster, lpszNetworkNameMarshal, lpszNetworkName, UInt32, dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, HNETWORK)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7803,8 +7970,8 @@ export ClusterNetworkGetEnumCount(_hNetworkEnum) {
 export ClusterNetworkEnum(_hNetworkEnum, dwIndex, lpdwType, lpszName, lpcchName) {
     lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
-    lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : "ptr"
-    lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
+    lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : IntPtr
+    lpcchNameMarshal := lpcchName is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CLUSAPI.dll\ClusterNetworkEnum", HNETWORKENUM, _hNetworkEnum, UInt32, dwIndex, lpdwTypeMarshal, lpdwType, "ptr", lpszName, lpcchNameMarshal, lpcchName, UInt32)
     return result
@@ -7937,7 +8104,6 @@ export SetClusterNetworkName(_hNetwork, lpszName) {
 }
 
 /**
- * 
  * @param {HNETWORK} _hNetwork 
  * @param {PWSTR} lpszName 
  * @param {PWSTR} lpszReason 
@@ -7947,7 +8113,9 @@ export SetClusterNetworkNameEx(_hNetwork, lpszName, lpszReason) {
     lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\SetClusterNetworkNameEx", HNETWORK, _hNetwork, "ptr", lpszName, "ptr", lpszReason, UInt32)
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\SetClusterNetworkNameEx", HNETWORK, _hNetwork, "ptr", lpszName, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -7986,7 +8154,7 @@ export SetClusterNetworkNameEx(_hNetwork, lpszName, lpszReason) {
 export GetClusterNetworkId(_hNetwork, lpszNetworkId, lpcchName) {
     lpszNetworkId := lpszNetworkId is String ? StrPtr(lpszNetworkId) : lpszNetworkId
 
-    lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
+    lpcchNameMarshal := lpcchName is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CLUSAPI.dll\GetClusterNetworkId", HNETWORK, _hNetwork, "ptr", lpszNetworkId, lpcchNameMarshal, lpcchName, UInt32)
     return result
@@ -8133,14 +8301,17 @@ export GetClusterNetworkId(_hNetwork, lpszNetworkId, lpcchName) {
  * @since windowsserver2008
  */
 export ClusterNetworkControl(_hNetwork, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
-    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+    hHostNodeMarshal := hHostNode == 0 ? IntPtr : HNODE
+    lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+    lpOutBufferMarshal := lpOutBuffer == 0 ? IntPtr : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned == 0 ? IntPtr : "uint*"
 
-    result := DllCall("CLUSAPI.dll\ClusterNetworkControl", HNETWORK, _hNetwork, HNODE, hHostNode, UInt32, dwControlCode, IntPtr, lpInBuffer, UInt32, nInBufferSize, IntPtr, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, UInt32)
+    result := DllCall("CLUSAPI.dll\ClusterNetworkControl", HNETWORK, _hNetwork, hHostNodeMarshal, hHostNode, UInt32, dwControlCode, lpInBufferMarshal, lpInBuffer, UInt32, nInBufferSize, lpOutBufferMarshal, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HNETWORK} _hNetwork 
  * @param {HNODE} hHostNode 
  * @param {Integer} dwControlCode 
@@ -8155,9 +8326,14 @@ export ClusterNetworkControl(_hNetwork, hHostNode, dwControlCode, lpInBuffer, nI
 export ClusterNetworkControlEx(_hNetwork, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+    hHostNodeMarshal := hHostNode == 0 ? IntPtr : HNODE
+    lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+    lpOutBufferMarshal := lpOutBuffer == 0 ? IntPtr : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned == 0 ? IntPtr : "uint*"
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
 
-    result := DllCall("CLUSAPI.dll\ClusterNetworkControlEx", HNETWORK, _hNetwork, HNODE, hHostNode, UInt32, dwControlCode, IntPtr, lpInBuffer, UInt32, nInBufferSize, IntPtr, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, UInt32)
+    result := DllCall("CLUSAPI.dll\ClusterNetworkControlEx", HNETWORK, _hNetwork, hHostNodeMarshal, hHostNode, UInt32, dwControlCode, lpInBufferMarshal, lpInBuffer, UInt32, nInBufferSize, lpOutBufferMarshal, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -8248,11 +8424,13 @@ export OpenClusterNetInterface(_hCluster, lpszInterfaceName) {
 export OpenClusterNetInterfaceEx(_hCluster, lpszInterfaceName, dwDesiredAccess, lpdwGrantedAccess) {
     lpszInterfaceName := lpszInterfaceName is String ? StrPtr(lpszInterfaceName) : lpszInterfaceName
 
-    lpdwGrantedAccessMarshal := lpdwGrantedAccess is VarRef ? "uint*" : "ptr"
+    lpszInterfaceNameMarshal := lpszInterfaceName == 0 ? IntPtr : PWSTR
+    lpdwGrantedAccessMarshal := lpdwGrantedAccess is VarRef ? "uint*" : IntPtr
+    lpdwGrantedAccessMarshal := lpdwGrantedAccess == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
-    result := DllCall("CLUSAPI.dll\OpenClusterNetInterfaceEx", HCLUSTER, _hCluster, "ptr", lpszInterfaceName, UInt32, dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, HNETINTERFACE)
+    result := DllCall("CLUSAPI.dll\OpenClusterNetInterfaceEx", HCLUSTER, _hCluster, lpszInterfaceNameMarshal, lpszInterfaceName, UInt32, dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, HNETINTERFACE)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8299,7 +8477,7 @@ export GetClusterNetInterface(_hCluster, lpszNodeName, lpszNetworkName, lpszInte
     lpszNetworkName := lpszNetworkName is String ? StrPtr(lpszNetworkName) : lpszNetworkName
     lpszInterfaceName := lpszInterfaceName is String ? StrPtr(lpszInterfaceName) : lpszInterfaceName
 
-    lpcchInterfaceNameMarshal := lpcchInterfaceName is VarRef ? "uint*" : "ptr"
+    lpcchInterfaceNameMarshal := lpcchInterfaceName is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CLUSAPI.dll\GetClusterNetInterface", HCLUSTER, _hCluster, "ptr", lpszNodeName, "ptr", lpszNetworkName, "ptr", lpszInterfaceName, lpcchInterfaceNameMarshal, lpcchInterfaceName, UInt32)
     return result
@@ -8611,14 +8789,17 @@ export GetClusterNetInterfaceState(_hNetInterface) {
  * @since windowsserver2008
  */
 export ClusterNetInterfaceControl(_hNetInterface, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned) {
-    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+    hHostNodeMarshal := hHostNode == 0 ? IntPtr : HNODE
+    lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+    lpOutBufferMarshal := lpOutBuffer == 0 ? IntPtr : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned == 0 ? IntPtr : "uint*"
 
-    result := DllCall("CLUSAPI.dll\ClusterNetInterfaceControl", HNETINTERFACE, _hNetInterface, HNODE, hHostNode, UInt32, dwControlCode, IntPtr, lpInBuffer, UInt32, nInBufferSize, IntPtr, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, UInt32)
+    result := DllCall("CLUSAPI.dll\ClusterNetInterfaceControl", HNETINTERFACE, _hNetInterface, hHostNodeMarshal, hHostNode, UInt32, dwControlCode, lpInBufferMarshal, lpInBuffer, UInt32, nInBufferSize, lpOutBufferMarshal, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HNETINTERFACE} _hNetInterface 
  * @param {HNODE} hHostNode 
  * @param {Integer} dwControlCode 
@@ -8633,9 +8814,14 @@ export ClusterNetInterfaceControl(_hNetInterface, hHostNode, dwControlCode, lpIn
 export ClusterNetInterfaceControlEx(_hNetInterface, hHostNode, dwControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+    hHostNodeMarshal := hHostNode == 0 ? IntPtr : HNODE
+    lpInBufferMarshal := lpInBuffer == 0 ? IntPtr : IntPtr
+    lpOutBufferMarshal := lpOutBuffer == 0 ? IntPtr : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : IntPtr
+    lpBytesReturnedMarshal := lpBytesReturned == 0 ? IntPtr : "uint*"
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
 
-    result := DllCall("CLUSAPI.dll\ClusterNetInterfaceControlEx", HNETINTERFACE, _hNetInterface, HNODE, hHostNode, UInt32, dwControlCode, IntPtr, lpInBuffer, UInt32, nInBufferSize, IntPtr, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpszReason, UInt32)
+    result := DllCall("CLUSAPI.dll\ClusterNetInterfaceControlEx", HNETINTERFACE, _hNetInterface, hHostNodeMarshal, hHostNode, UInt32, dwControlCode, lpInBufferMarshal, lpInBuffer, UInt32, nInBufferSize, lpOutBufferMarshal, lpOutBuffer, UInt32, nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -8854,14 +9040,15 @@ export GetClusterNetInterfaceKey(_hNetInterface, samDesired) {
 export ClusterRegCreateKey(_hKey, lpszSubKey, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition) {
     lpszSubKey := lpszSubKey is String ? StrPtr(lpszSubKey) : lpszSubKey
 
-    lpdwDispositionMarshal := lpdwDisposition is VarRef ? "uint*" : "ptr"
+    lpSecurityAttributesMarshal := lpSecurityAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpdwDispositionMarshal := lpdwDisposition is VarRef ? "uint*" : IntPtr
+    lpdwDispositionMarshal := lpdwDisposition == 0 ? IntPtr : "uint*"
 
-    result := DllCall("CLUSAPI.dll\ClusterRegCreateKey", HKEY, _hKey, "ptr", lpszSubKey, UInt32, dwOptions, UInt32, samDesired, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, HKEY.Ptr, phkResult, lpdwDispositionMarshal, lpdwDisposition, Int32)
+    result := DllCall("CLUSAPI.dll\ClusterRegCreateKey", HKEY, _hKey, "ptr", lpszSubKey, UInt32, dwOptions, UInt32, samDesired, lpSecurityAttributesMarshal, lpSecurityAttributes, HKEY.Ptr, phkResult, lpdwDispositionMarshal, lpdwDisposition, Int32)
     return result
 }
 
 /**
- * 
  * @param {HKEY} _hKey 
  * @param {PWSTR} lpSubKey 
  * @param {Integer} dwOptions 
@@ -8876,9 +9063,12 @@ export ClusterRegCreateKeyEx(_hKey, lpSubKey, dwOptions, samDesired, lpSecurityA
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    lpdwDispositionMarshal := lpdwDisposition is VarRef ? "uint*" : "ptr"
+    lpSecurityAttributesMarshal := lpSecurityAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+    lpdwDispositionMarshal := lpdwDisposition is VarRef ? "uint*" : IntPtr
+    lpdwDispositionMarshal := lpdwDisposition == 0 ? IntPtr : "uint*"
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
 
-    result := DllCall("CLUSAPI.dll\ClusterRegCreateKeyEx", HKEY, _hKey, "ptr", lpSubKey, UInt32, dwOptions, UInt32, samDesired, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, HKEY.Ptr, phkResult, lpdwDispositionMarshal, lpdwDisposition, "ptr", lpszReason, Int32)
+    result := DllCall("CLUSAPI.dll\ClusterRegCreateKeyEx", HKEY, _hKey, "ptr", lpSubKey, UInt32, dwOptions, UInt32, samDesired, lpSecurityAttributesMarshal, lpSecurityAttributes, HKEY.Ptr, phkResult, lpdwDispositionMarshal, lpdwDisposition, lpszReasonMarshal, lpszReason, Int32)
     return result
 }
 
@@ -8960,7 +9150,6 @@ export ClusterRegDeleteKey(_hKey, lpszSubKey) {
 }
 
 /**
- * 
  * @param {HKEY} _hKey 
  * @param {PWSTR} lpSubKey 
  * @param {PWSTR} lpszReason 
@@ -8970,7 +9159,9 @@ export ClusterRegDeleteKeyEx(_hKey, lpSubKey, lpszReason) {
     lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\ClusterRegDeleteKeyEx", HKEY, _hKey, "ptr", lpSubKey, "ptr", lpszReason, Int32)
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\ClusterRegDeleteKeyEx", HKEY, _hKey, "ptr", lpSubKey, lpszReasonMarshal, lpszReason, Int32)
     return result
 }
 
@@ -9078,9 +9269,10 @@ export ClusterRegCloseKey(_hKey) {
 export ClusterRegEnumKey(_hKey, dwIndex, lpszName, lpcchName, lpftLastWriteTime) {
     lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
-    lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
+    lpcchNameMarshal := lpcchName is VarRef ? "uint*" : IntPtr
+    lpftLastWriteTimeMarshal := lpftLastWriteTime == 0 ? IntPtr : FILETIME.Ptr
 
-    result := DllCall("CLUSAPI.dll\ClusterRegEnumKey", HKEY, _hKey, UInt32, dwIndex, "ptr", lpszName, lpcchNameMarshal, lpcchName, FILETIME.Ptr, lpftLastWriteTime, Int32)
+    result := DllCall("CLUSAPI.dll\ClusterRegEnumKey", HKEY, _hKey, UInt32, dwIndex, "ptr", lpszName, lpcchNameMarshal, lpcchName, lpftLastWriteTimeMarshal, lpftLastWriteTime, Int32)
     return result
 }
 
@@ -9133,7 +9325,7 @@ export ClusterRegEnumKey(_hKey, dwIndex, lpszName, lpcchName, lpftLastWriteTime)
 export ClusterRegSetValue(_hKey, lpszValueName, dwType, lpData, cbData) {
     lpszValueName := lpszValueName is String ? StrPtr(lpszValueName) : lpszValueName
 
-    lpDataMarshal := lpData is VarRef ? "char*" : "ptr"
+    lpDataMarshal := lpData is VarRef ? "char*" : IntPtr
 
     A_LastError := 0
 
@@ -9188,7 +9380,6 @@ export ClusterRegDeleteValue(_hKey, lpszValueName) {
 }
 
 /**
- * 
  * @param {HKEY} _hKey 
  * @param {PWSTR} lpszValueName 
  * @param {Integer} dwType 
@@ -9201,14 +9392,14 @@ export ClusterRegSetValueEx(_hKey, lpszValueName, dwType, lpData, cbData, lpszRe
     lpszValueName := lpszValueName is String ? StrPtr(lpszValueName) : lpszValueName
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    lpDataMarshal := lpData is VarRef ? "char*" : "ptr"
+    lpDataMarshal := lpData is VarRef ? "char*" : IntPtr
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
 
-    result := DllCall("CLUSAPI.dll\ClusterRegSetValueEx", HKEY, _hKey, "ptr", lpszValueName, UInt32, dwType, lpDataMarshal, lpData, UInt32, cbData, "ptr", lpszReason, UInt32)
+    result := DllCall("CLUSAPI.dll\ClusterRegSetValueEx", HKEY, _hKey, "ptr", lpszValueName, UInt32, dwType, lpDataMarshal, lpData, UInt32, cbData, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HKEY} _hKey 
  * @param {PWSTR} lpszValueName 
  * @param {PWSTR} lpszReason 
@@ -9218,7 +9409,9 @@ export ClusterRegDeleteValueEx(_hKey, lpszValueName, lpszReason) {
     lpszValueName := lpszValueName is String ? StrPtr(lpszValueName) : lpszValueName
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\ClusterRegDeleteValueEx", HKEY, _hKey, "ptr", lpszValueName, "ptr", lpszReason, UInt32)
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\ClusterRegDeleteValueEx", HKEY, _hKey, "ptr", lpszValueName, lpszReasonMarshal, lpszReason, UInt32)
     return result
 }
 
@@ -9285,10 +9478,13 @@ export ClusterRegDeleteValueEx(_hKey, lpszValueName, lpszReason) {
 export ClusterRegQueryValue(_hKey, lpszValueName, lpdwValueType, lpData, lpcbData) {
     lpszValueName := lpszValueName is String ? StrPtr(lpszValueName) : lpszValueName
 
-    lpdwValueTypeMarshal := lpdwValueType is VarRef ? "uint*" : "ptr"
-    lpcbDataMarshal := lpcbData is VarRef ? "uint*" : "ptr"
+    lpdwValueTypeMarshal := lpdwValueType is VarRef ? "uint*" : IntPtr
+    lpdwValueTypeMarshal := lpdwValueType == 0 ? IntPtr : "uint*"
+    lpDataMarshal := lpData == 0 ? IntPtr : IntPtr
+    lpcbDataMarshal := lpcbData is VarRef ? "uint*" : IntPtr
+    lpcbDataMarshal := lpcbData == 0 ? IntPtr : "uint*"
 
-    result := DllCall("CLUSAPI.dll\ClusterRegQueryValue", HKEY, _hKey, "ptr", lpszValueName, lpdwValueTypeMarshal, lpdwValueType, IntPtr, lpData, lpcbDataMarshal, lpcbData, Int32)
+    result := DllCall("CLUSAPI.dll\ClusterRegQueryValue", HKEY, _hKey, "ptr", lpszValueName, lpdwValueTypeMarshal, lpdwValueType, lpDataMarshal, lpData, lpcbDataMarshal, lpcbData, Int32)
     return result
 }
 
@@ -9378,11 +9574,14 @@ export ClusterRegQueryValue(_hKey, lpszValueName, lpdwValueType, lpData, lpcbDat
 export ClusterRegEnumValue(_hKey, dwIndex, lpszValueName, lpcchValueName, lpdwType, lpData, lpcbData) {
     lpszValueName := lpszValueName is String ? StrPtr(lpszValueName) : lpszValueName
 
-    lpcchValueNameMarshal := lpcchValueName is VarRef ? "uint*" : "ptr"
-    lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : "ptr"
-    lpcbDataMarshal := lpcbData is VarRef ? "uint*" : "ptr"
+    lpcchValueNameMarshal := lpcchValueName is VarRef ? "uint*" : IntPtr
+    lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : IntPtr
+    lpdwTypeMarshal := lpdwType == 0 ? IntPtr : "uint*"
+    lpDataMarshal := lpData == 0 ? IntPtr : IntPtr
+    lpcbDataMarshal := lpcbData is VarRef ? "uint*" : IntPtr
+    lpcbDataMarshal := lpcbData == 0 ? IntPtr : "uint*"
 
-    result := DllCall("CLUSAPI.dll\ClusterRegEnumValue", HKEY, _hKey, UInt32, dwIndex, "ptr", lpszValueName, lpcchValueNameMarshal, lpcchValueName, lpdwTypeMarshal, lpdwType, IntPtr, lpData, lpcbDataMarshal, lpcbData, UInt32)
+    result := DllCall("CLUSAPI.dll\ClusterRegEnumValue", HKEY, _hKey, UInt32, dwIndex, "ptr", lpszValueName, lpcchValueNameMarshal, lpcchValueName, lpdwTypeMarshal, lpdwType, lpDataMarshal, lpData, lpcbDataMarshal, lpcbData, UInt32)
     return result
 }
 
@@ -9404,12 +9603,12 @@ export ClusterRegEnumValue(_hKey, dwIndex, lpszValueName, lpcchValueName, lpdwTy
  * @since windowsserver2008
  */
 export ClusterRegQueryInfoKey(_hKey, lpcSubKeys, lpcchMaxSubKeyLen, lpcValues, lpcchMaxValueNameLen, lpcbMaxValueLen, lpcbSecurityDescriptor, lpftLastWriteTime) {
-    lpcSubKeysMarshal := lpcSubKeys is VarRef ? "uint*" : "ptr"
-    lpcchMaxSubKeyLenMarshal := lpcchMaxSubKeyLen is VarRef ? "uint*" : "ptr"
-    lpcValuesMarshal := lpcValues is VarRef ? "uint*" : "ptr"
-    lpcchMaxValueNameLenMarshal := lpcchMaxValueNameLen is VarRef ? "uint*" : "ptr"
-    lpcbMaxValueLenMarshal := lpcbMaxValueLen is VarRef ? "uint*" : "ptr"
-    lpcbSecurityDescriptorMarshal := lpcbSecurityDescriptor is VarRef ? "uint*" : "ptr"
+    lpcSubKeysMarshal := lpcSubKeys is VarRef ? "uint*" : IntPtr
+    lpcchMaxSubKeyLenMarshal := lpcchMaxSubKeyLen is VarRef ? "uint*" : IntPtr
+    lpcValuesMarshal := lpcValues is VarRef ? "uint*" : IntPtr
+    lpcchMaxValueNameLenMarshal := lpcchMaxValueNameLen is VarRef ? "uint*" : IntPtr
+    lpcbMaxValueLenMarshal := lpcbMaxValueLen is VarRef ? "uint*" : IntPtr
+    lpcbSecurityDescriptorMarshal := lpcbSecurityDescriptor is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CLUSAPI.dll\ClusterRegQueryInfoKey", HKEY, _hKey, lpcSubKeysMarshal, lpcSubKeys, lpcchMaxSubKeyLenMarshal, lpcchMaxSubKeyLen, lpcValuesMarshal, lpcValues, lpcchMaxValueNameLenMarshal, lpcchMaxValueNameLen, lpcbMaxValueLenMarshal, lpcbMaxValueLen, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, FILETIME.Ptr, lpftLastWriteTime, Int32)
     return result
@@ -9429,7 +9628,7 @@ export ClusterRegQueryInfoKey(_hKey, lpcSubKeys, lpcchMaxSubKeyLen, lpcValues, l
  * @since windowsserver2008
  */
 export ClusterRegGetKeySecurity(_hKey, RequestedInformation, pSecurityDescriptor, lpcbSecurityDescriptor) {
-    lpcbSecurityDescriptorMarshal := lpcbSecurityDescriptor is VarRef ? "uint*" : "ptr"
+    lpcbSecurityDescriptorMarshal := lpcbSecurityDescriptor is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CLUSAPI.dll\ClusterRegGetKeySecurity", HKEY, _hKey, UInt32, RequestedInformation, IntPtr, pSecurityDescriptor, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, Int32)
     return result
@@ -9484,7 +9683,6 @@ export ClusterRegSetKeySecurity(_hKey, SecurityInformation, pSecurityDescriptor)
 }
 
 /**
- * 
  * @param {HKEY} _hKey 
  * @param {OBJECT_SECURITY_INFORMATION} SecurityInformation 
  * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor 
@@ -9494,7 +9692,9 @@ export ClusterRegSetKeySecurity(_hKey, SecurityInformation, pSecurityDescriptor)
 export ClusterRegSetKeySecurityEx(_hKey, SecurityInformation, pSecurityDescriptor, lpszReason) {
     lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-    result := DllCall("CLUSAPI.dll\ClusterRegSetKeySecurityEx", HKEY, _hKey, OBJECT_SECURITY_INFORMATION, SecurityInformation, PSECURITY_DESCRIPTOR, pSecurityDescriptor, "ptr", lpszReason, Int32)
+    lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+    result := DllCall("CLUSAPI.dll\ClusterRegSetKeySecurityEx", HKEY, _hKey, OBJECT_SECURITY_INFORMATION, SecurityInformation, PSECURITY_DESCRIPTOR, pSecurityDescriptor, lpszReasonMarshal, lpszReason, Int32)
     return result
 }
 
@@ -9582,9 +9782,10 @@ export ClusterRegSyncDatabase(_hCluster, flags) {
  * @since windowsserver2008
  */
 export ClusterRegCreateBatch(_hKey, pHREGBATCH) {
-    pHREGBATCHMarshal := pHREGBATCH is VarRef ? "ptr*" : "ptr"
+    _hKeyMarshal := _hKey == 0 ? IntPtr : HKEY
+    pHREGBATCHMarshal := pHREGBATCH is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("CLUSAPI.dll\ClusterRegCreateBatch", HKEY, _hKey, pHREGBATCHMarshal, pHREGBATCH, Int32)
+    result := DllCall("CLUSAPI.dll\ClusterRegCreateBatch", _hKeyMarshal, _hKey, pHREGBATCHMarshal, pHREGBATCH, Int32)
     return result
 }
 
@@ -9697,7 +9898,10 @@ export ClusterRegCreateBatch(_hKey, pHREGBATCH) {
 export ClusterRegBatchAddCommand(_hRegBatch, dwCommand, wzName, dwOptions, lpData, cbData) {
     wzName := wzName is String ? StrPtr(wzName) : wzName
 
-    result := DllCall("CLUSAPI.dll\ClusterRegBatchAddCommand", HREGBATCH, _hRegBatch, CLUSTER_REG_COMMAND, dwCommand, "ptr", wzName, UInt32, dwOptions, IntPtr, lpData, UInt32, cbData, Int32)
+    wzNameMarshal := wzName == 0 ? IntPtr : PWSTR
+    lpDataMarshal := lpData == 0 ? IntPtr : IntPtr
+
+    result := DllCall("CLUSAPI.dll\ClusterRegBatchAddCommand", HREGBATCH, _hRegBatch, CLUSTER_REG_COMMAND, dwCommand, wzNameMarshal, wzName, UInt32, dwOptions, lpDataMarshal, lpData, UInt32, cbData, Int32)
     return result
 }
 
@@ -9754,7 +9958,8 @@ export ClusterRegBatchAddCommand(_hRegBatch, dwCommand, wzName, dwOptions, lpDat
  * @since windowsserver2008
  */
 export ClusterRegCloseBatch(_hRegBatch, bCommit, failedCommandNumber) {
-    failedCommandNumberMarshal := failedCommandNumber is VarRef ? "int*" : "ptr"
+    failedCommandNumberMarshal := failedCommandNumber is VarRef ? "int*" : IntPtr
+    failedCommandNumberMarshal := failedCommandNumber == 0 ? IntPtr : "int*"
 
     result := DllCall("CLUSAPI.dll\ClusterRegCloseBatch", HREGBATCH, _hRegBatch, BOOL, bCommit, failedCommandNumberMarshal, failedCommandNumber, Int32)
     return result
@@ -9811,7 +10016,8 @@ export ClusterRegCloseBatch(_hRegBatch, bCommit, failedCommandNumber) {
  * @since windowsserver2012
  */
 export ClusterRegCloseBatchEx(_hRegBatch, flags, failedCommandNumber) {
-    failedCommandNumberMarshal := failedCommandNumber is VarRef ? "int*" : "ptr"
+    failedCommandNumberMarshal := failedCommandNumber is VarRef ? "int*" : IntPtr
+    failedCommandNumberMarshal := failedCommandNumber == 0 ? IntPtr : "int*"
 
     result := DllCall("CLUSAPI.dll\ClusterRegCloseBatchEx", HREGBATCH, _hRegBatch, UInt32, flags, failedCommandNumberMarshal, failedCommandNumber, Int32)
     return result
@@ -9901,7 +10107,7 @@ export ClusterRegBatchCloseNotification(hBatchNotification) {
  * @since windowsserver2008
  */
 export ClusterRegCreateBatchNotifyPort(_hKey, phBatchNotifyPort) {
-    phBatchNotifyPortMarshal := phBatchNotifyPort is VarRef ? "ptr*" : "ptr"
+    phBatchNotifyPortMarshal := phBatchNotifyPort is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("CLUSAPI.dll\ClusterRegCreateBatchNotifyPort", HKEY, _hKey, phBatchNotifyPortMarshal, phBatchNotifyPort, Int32)
     return result
@@ -10031,7 +10237,7 @@ export ClusterRegCloseBatchNotifyPort(hBatchNotifyPort) {
  * @since windowsserver2008
  */
 export ClusterRegGetBatchNotification(hBatchNotify, phBatchNotification) {
-    phBatchNotificationMarshal := phBatchNotification is VarRef ? "ptr*" : "ptr"
+    phBatchNotificationMarshal := phBatchNotification is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("CLUSAPI.dll\ClusterRegGetBatchNotification", HREGBATCHPORT, hBatchNotify, phBatchNotificationMarshal, phBatchNotification, Int32)
     return result
@@ -10082,7 +10288,7 @@ export ClusterRegGetBatchNotification(hBatchNotify, phBatchNotification) {
  * @since windowsserver2012
  */
 export ClusterRegCreateReadBatch(_hKey, phRegReadBatch) {
-    phRegReadBatchMarshal := phRegReadBatch is VarRef ? "ptr*" : "ptr"
+    phRegReadBatchMarshal := phRegReadBatch is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("CLUSAPI.dll\ClusterRegCreateReadBatch", HKEY, _hKey, phRegReadBatchMarshal, phRegReadBatch, Int32)
     return result
@@ -10206,7 +10412,7 @@ export ClusterRegReadBatchAddCommand(_hRegReadBatch, wzSubkeyName, wzValueName) 
  * @since windowsserver2012
  */
 export ClusterRegCloseReadBatch(_hRegReadBatch, phRegReadBatchReply) {
-    phRegReadBatchReplyMarshal := phRegReadBatchReply is VarRef ? "ptr*" : "ptr"
+    phRegReadBatchReplyMarshal := phRegReadBatchReply is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("CLUSAPI.dll\ClusterRegCloseReadBatch", HREGREADBATCH, _hRegReadBatch, phRegReadBatchReplyMarshal, phRegReadBatchReply, Int32)
     return result
@@ -10266,7 +10472,7 @@ export ClusterRegCloseReadBatch(_hRegReadBatch, phRegReadBatchReply) {
  * @since windowsserver2016
  */
 export ClusterRegCloseReadBatchEx(_hRegReadBatch, flags, phRegReadBatchReply) {
-    phRegReadBatchReplyMarshal := phRegReadBatchReply is VarRef ? "ptr*" : "ptr"
+    phRegReadBatchReplyMarshal := phRegReadBatchReply is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("CLUSAPI.dll\ClusterRegCloseReadBatchEx", HREGREADBATCH, _hRegReadBatch, UInt32, flags, phRegReadBatchReplyMarshal, phRegReadBatchReply, Int32)
     return result
@@ -10464,11 +10670,13 @@ export ClusterSetAccountAccess(_hCluster, szAccountSID, dwAccess, dwControlType)
  * @since windowsserver2008
  */
 export CreateCluster(pConfig, pfnProgressCallback, pvCallbackArg) {
-    pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
+    pfnProgressCallbackMarshal := pfnProgressCallback == 0 ? IntPtr : PCLUSTER_SETUP_PROGRESS_CALLBACK
+    pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : IntPtr
+    pvCallbackArgMarshal := pvCallbackArg == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
-    result := DllCall("CLUSAPI.dll\CreateCluster", CREATE_CLUSTER_CONFIG.Ptr, pConfig, PCLUSTER_SETUP_PROGRESS_CALLBACK, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, HCLUSTER)
+    result := DllCall("CLUSAPI.dll\CreateCluster", CREATE_CLUSTER_CONFIG.Ptr, pConfig, pfnProgressCallbackMarshal, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, HCLUSTER)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10487,14 +10695,15 @@ export CreateCluster(pConfig, pfnProgressCallback, pvCallbackArg) {
  * @since windowsserver2016
  */
 export CreateClusterNameAccount(_hCluster, pConfig, pfnProgressCallback, pvCallbackArg) {
-    pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
+    pfnProgressCallbackMarshal := pfnProgressCallback == 0 ? IntPtr : PCLUSTER_SETUP_PROGRESS_CALLBACK
+    pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : IntPtr
+    pvCallbackArgMarshal := pvCallbackArg == 0 ? IntPtr : "ptr"
 
-    result := DllCall("CLUSAPI.dll\CreateClusterNameAccount", HCLUSTER, _hCluster, CREATE_CLUSTER_NAME_ACCOUNT.Ptr, pConfig, PCLUSTER_SETUP_PROGRESS_CALLBACK, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, UInt32)
+    result := DllCall("CLUSAPI.dll\CreateClusterNameAccount", HCLUSTER, _hCluster, CREATE_CLUSTER_NAME_ACCOUNT.Ptr, pConfig, pfnProgressCallbackMarshal, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HCLUSTER} _hCluster 
  * @param {BOOL} bDeleteComputerObjects 
  * @returns {Integer} 
@@ -10505,7 +10714,6 @@ export RemoveClusterNameAccount(_hCluster, bDeleteComputerObjects) {
 }
 
 /**
- * 
  * @param {HCLUSTER} _hCluster 
  * @param {Pointer<REPAIR_CLUSTER_NAME_ACCOUNT_CONFIG>} pConfig 
  * @param {Pointer<PCLUSTER_SETUP_PROGRESS_CALLBACK>} pfnProgressCallback 
@@ -10513,70 +10721,67 @@ export RemoveClusterNameAccount(_hCluster, bDeleteComputerObjects) {
  * @returns {Integer} 
  */
 export RepairClusterNameAccount(_hCluster, pConfig, pfnProgressCallback, pvCallbackArg) {
-    pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
+    pfnProgressCallbackMarshal := pfnProgressCallback == 0 ? IntPtr : PCLUSTER_SETUP_PROGRESS_CALLBACK
+    pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : IntPtr
+    pvCallbackArgMarshal := pvCallbackArg == 0 ? IntPtr : "ptr"
 
-    result := DllCall("CLUSAPI.dll\RepairClusterNameAccount", HCLUSTER, _hCluster, REPAIR_CLUSTER_NAME_ACCOUNT_CONFIG.Ptr, pConfig, PCLUSTER_SETUP_PROGRESS_CALLBACK, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, UInt32)
+    result := DllCall("CLUSAPI.dll\RepairClusterNameAccount", HCLUSTER, _hCluster, REPAIR_CLUSTER_NAME_ACCOUNT_CONFIG.Ptr, pConfig, pfnProgressCallbackMarshal, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Integer} cNodes 
  * @param {Pointer<PWSTR>} ppszNodeNames 
  * @param {Pointer<CLUSTER_MGMT_POINT_RESTYPE>} pCNOResType 
  * @returns {Integer} 
  */
 export DetermineCNOResTypeFromNodelist(cNodes, ppszNodeNames, pCNOResType) {
-    ppszNodeNamesMarshal := ppszNodeNames is VarRef ? "ptr*" : "ptr"
-    pCNOResTypeMarshal := pCNOResType is VarRef ? "int*" : "ptr"
+    ppszNodeNamesMarshal := ppszNodeNames is VarRef ? "ptr*" : IntPtr
+    pCNOResTypeMarshal := pCNOResType is VarRef ? "int*" : IntPtr
 
     result := DllCall("CLUSAPI.dll\DetermineCNOResTypeFromNodelist", UInt32, cNodes, ppszNodeNamesMarshal, ppszNodeNames, pCNOResTypeMarshal, pCNOResType, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HCLUSTER} _hCluster 
  * @param {Pointer<CLUSTER_MGMT_POINT_RESTYPE>} pCNOResType 
  * @returns {Integer} 
  */
 export DetermineCNOResTypeFromCluster(_hCluster, pCNOResType) {
-    pCNOResTypeMarshal := pCNOResType is VarRef ? "int*" : "ptr"
+    pCNOResTypeMarshal := pCNOResType is VarRef ? "int*" : IntPtr
 
     result := DllCall("CLUSAPI.dll\DetermineCNOResTypeFromCluster", HCLUSTER, _hCluster, pCNOResTypeMarshal, pCNOResType, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Integer} cNodes 
  * @param {Pointer<PWSTR>} ppszNodeNames 
  * @param {Pointer<CLUSTER_CLOUD_TYPE>} pCloudType 
  * @returns {Integer} 
  */
 export DetermineClusterCloudTypeFromNodelist(cNodes, ppszNodeNames, pCloudType) {
-    ppszNodeNamesMarshal := ppszNodeNames is VarRef ? "ptr*" : "ptr"
-    pCloudTypeMarshal := pCloudType is VarRef ? "int*" : "ptr"
+    ppszNodeNamesMarshal := ppszNodeNames is VarRef ? "ptr*" : IntPtr
+    pCloudTypeMarshal := pCloudType is VarRef ? "int*" : IntPtr
 
     result := DllCall("CLUSAPI.dll\DetermineClusterCloudTypeFromNodelist", UInt32, cNodes, ppszNodeNamesMarshal, ppszNodeNames, pCloudTypeMarshal, pCloudType, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HCLUSTER} _hCluster 
  * @param {Pointer<CLUSTER_CLOUD_TYPE>} pCloudType 
  * @returns {Integer} 
  */
 export DetermineClusterCloudTypeFromCluster(_hCluster, pCloudType) {
-    pCloudTypeMarshal := pCloudType is VarRef ? "int*" : "ptr"
+    pCloudTypeMarshal := pCloudType is VarRef ? "int*" : IntPtr
 
     result := DllCall("CLUSAPI.dll\DetermineClusterCloudTypeFromCluster", HCLUSTER, _hCluster, pCloudTypeMarshal, pCloudType, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} ppszNodeName 
  * @param {Pointer<Integer>} NodeCloudType 
  * @returns {Integer} 
@@ -10584,7 +10789,7 @@ export DetermineClusterCloudTypeFromCluster(_hCluster, pCloudType) {
 export GetNodeCloudTypeDW(ppszNodeName, NodeCloudType) {
     ppszNodeName := ppszNodeName is String ? StrPtr(ppszNodeName) : ppszNodeName
 
-    NodeCloudTypeMarshal := NodeCloudType is VarRef ? "uint*" : "ptr"
+    NodeCloudTypeMarshal := NodeCloudType is VarRef ? "uint*" : IntPtr
 
     result := DllCall("CLUSAPI.dll\GetNodeCloudTypeDW", "ptr", ppszNodeName, NodeCloudTypeMarshal, NodeCloudType, UInt32)
     return result
@@ -10631,11 +10836,13 @@ export RegisterClusterResourceTypeNotifyV2(_hChange, _hCluster, Flags, resTypeNa
 export AddClusterNode(_hCluster, lpszNodeName, pfnProgressCallback, pvCallbackArg) {
     lpszNodeName := lpszNodeName is String ? StrPtr(lpszNodeName) : lpszNodeName
 
-    pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
+    pfnProgressCallbackMarshal := pfnProgressCallback == 0 ? IntPtr : PCLUSTER_SETUP_PROGRESS_CALLBACK
+    pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : IntPtr
+    pvCallbackArgMarshal := pvCallbackArg == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
-    result := DllCall("CLUSAPI.dll\AddClusterNode", HCLUSTER, _hCluster, "ptr", lpszNodeName, PCLUSTER_SETUP_PROGRESS_CALLBACK, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, HNODE)
+    result := DllCall("CLUSAPI.dll\AddClusterNode", HCLUSTER, _hCluster, "ptr", lpszNodeName, pfnProgressCallbackMarshal, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, HNODE)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10644,7 +10851,6 @@ export AddClusterNode(_hCluster, lpszNodeName, pfnProgressCallback, pvCallbackAr
 }
 
 /**
- * 
  * @param {HCLUSTER} _hCluster 
  * @param {PWSTR} lpszNodeName 
  * @param {Pointer<PCLUSTER_SETUP_PROGRESS_CALLBACK>} pfnProgressCallback 
@@ -10658,14 +10864,17 @@ export AddClusterStorageNode(_hCluster, lpszNodeName, pfnProgressCallback, pvCal
     lpszClusterStorageNodeDescription := lpszClusterStorageNodeDescription is String ? StrPtr(lpszClusterStorageNodeDescription) : lpszClusterStorageNodeDescription
     lpszClusterStorageNodeLocation := lpszClusterStorageNodeLocation is String ? StrPtr(lpszClusterStorageNodeLocation) : lpszClusterStorageNodeLocation
 
-    pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
+    pfnProgressCallbackMarshal := pfnProgressCallback == 0 ? IntPtr : PCLUSTER_SETUP_PROGRESS_CALLBACK
+    pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : IntPtr
+    pvCallbackArgMarshal := pvCallbackArg == 0 ? IntPtr : "ptr"
+    lpszClusterStorageNodeDescriptionMarshal := lpszClusterStorageNodeDescription == 0 ? IntPtr : PWSTR
+    lpszClusterStorageNodeLocationMarshal := lpszClusterStorageNodeLocation == 0 ? IntPtr : PWSTR
 
-    result := DllCall("CLUSAPI.dll\AddClusterStorageNode", HCLUSTER, _hCluster, "ptr", lpszNodeName, PCLUSTER_SETUP_PROGRESS_CALLBACK, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, "ptr", lpszClusterStorageNodeDescription, "ptr", lpszClusterStorageNodeLocation, UInt32)
+    result := DllCall("CLUSAPI.dll\AddClusterStorageNode", HCLUSTER, _hCluster, "ptr", lpszNodeName, pfnProgressCallbackMarshal, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, lpszClusterStorageNodeDescriptionMarshal, lpszClusterStorageNodeDescription, lpszClusterStorageNodeLocationMarshal, lpszClusterStorageNodeLocation, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HCLUSTER} _hCluster 
  * @param {PWSTR} lpszNodeName 
  * @param {Integer} dwFlags 
@@ -10676,14 +10885,15 @@ export AddClusterStorageNode(_hCluster, lpszNodeName, pfnProgressCallback, pvCal
 export AddClusterNodeEx(_hCluster, lpszNodeName, dwFlags, pfnProgressCallback, pvCallbackArg) {
     lpszNodeName := lpszNodeName is String ? StrPtr(lpszNodeName) : lpszNodeName
 
-    pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
+    pfnProgressCallbackMarshal := pfnProgressCallback == 0 ? IntPtr : PCLUSTER_SETUP_PROGRESS_CALLBACK
+    pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : IntPtr
+    pvCallbackArgMarshal := pvCallbackArg == 0 ? IntPtr : "ptr"
 
-    result := DllCall("CLUSAPI.dll\AddClusterNodeEx", HCLUSTER, _hCluster, "ptr", lpszNodeName, UInt32, dwFlags, PCLUSTER_SETUP_PROGRESS_CALLBACK, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, HNODE)
+    result := DllCall("CLUSAPI.dll\AddClusterNodeEx", HCLUSTER, _hCluster, "ptr", lpszNodeName, UInt32, dwFlags, pfnProgressCallbackMarshal, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, HNODE)
     return result
 }
 
 /**
- * 
  * @param {HCLUSTER} _hCluster 
  * @param {PWSTR} lpszClusterStorageEnclosureName 
  * @param {Integer} dwTimeout 
@@ -10717,14 +10927,15 @@ export RemoveClusterStorageNode(_hCluster, lpszClusterStorageEnclosureName, dwTi
  * @since windowsserver2008
  */
 export DestroyCluster(_hCluster, pfnProgressCallback, pvCallbackArg, fdeleteVirtualComputerObjects) {
-    pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
+    pfnProgressCallbackMarshal := pfnProgressCallback == 0 ? IntPtr : PCLUSTER_SETUP_PROGRESS_CALLBACK
+    pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : IntPtr
+    pvCallbackArgMarshal := pvCallbackArg == 0 ? IntPtr : "ptr"
 
-    result := DllCall("CLUSAPI.dll\DestroyCluster", HCLUSTER, _hCluster, PCLUSTER_SETUP_PROGRESS_CALLBACK, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, BOOL, fdeleteVirtualComputerObjects, UInt32)
+    result := DllCall("CLUSAPI.dll\DestroyCluster", HCLUSTER, _hCluster, pfnProgressCallbackMarshal, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, BOOL, fdeleteVirtualComputerObjects, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<CLUSTER_HEALTH_FAULT>} clusterHealthFault 
  * @returns {Integer} 
  * @since windowsserver2016
@@ -10735,7 +10946,6 @@ export InitializeClusterHealthFault(clusterHealthFault) {
 }
 
 /**
- * 
  * @param {Pointer<CLUSTER_HEALTH_FAULT_ARRAY>} clusterHealthFaultArray 
  * @returns {Integer} 
  * @since windowsserver2016
@@ -10746,7 +10956,6 @@ export InitializeClusterHealthFaultArray(clusterHealthFaultArray) {
 }
 
 /**
- * 
  * @param {Pointer<CLUSTER_HEALTH_FAULT>} clusterHealthFault 
  * @returns {Integer} 
  * @since windowsserver2016
@@ -10757,7 +10966,6 @@ export FreeClusterHealthFault(clusterHealthFault) {
 }
 
 /**
- * 
  * @param {Pointer<CLUSTER_HEALTH_FAULT_ARRAY>} clusterHealthFaultArray 
  * @returns {Integer} 
  * @since windowsserver2016
@@ -10768,7 +10976,6 @@ export FreeClusterHealthFaultArray(clusterHealthFaultArray) {
 }
 
 /**
- * 
  * @param {HCLUSTER} _hCluster 
  * @param {Pointer<CLUSTER_HEALTH_FAULT_ARRAY>} objects 
  * @param {Integer} flags 
@@ -10781,7 +10988,6 @@ export ClusGetClusterHealthFaults(_hCluster, objects, flags) {
 }
 
 /**
- * 
  * @param {HCLUSTER} _hCluster 
  * @param {PWSTR} id 
  * @param {Integer} flags 
@@ -10796,7 +11002,6 @@ export ClusRemoveClusterHealthFault(_hCluster, id, flags) {
 }
 
 /**
- * 
  * @param {HCLUSTER} _hCluster 
  * @param {Pointer<CLUSTER_HEALTH_FAULT>} failure 
  * @param {Integer} param2 
@@ -11075,8 +11280,8 @@ export ResUtilIsPathValid(pszPath) {
  * @since windowsserver2008
  */
 export ResUtilEnumProperties(pPropertyTable, pszOutProperties, cbOutPropertiesSize, pcbBytesReturned, pcbRequired) {
-    pcbBytesReturnedMarshal := pcbBytesReturned is VarRef ? "uint*" : "ptr"
-    pcbRequiredMarshal := pcbRequired is VarRef ? "uint*" : "ptr"
+    pcbBytesReturnedMarshal := pcbBytesReturned is VarRef ? "uint*" : IntPtr
+    pcbRequiredMarshal := pcbRequired is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilEnumProperties", RESUTIL_PROPERTY_ITEM.Ptr, pPropertyTable, IntPtr, pszOutProperties, UInt32, cbOutPropertiesSize, pcbBytesReturnedMarshal, pcbBytesReturned, pcbRequiredMarshal, pcbRequired, UInt32)
     return result
@@ -11137,8 +11342,8 @@ export ResUtilEnumProperties(pPropertyTable, pszOutProperties, cbOutPropertiesSi
  * @since windowsserver2008
  */
 export ResUtilEnumPrivateProperties(hkeyClusterKey, pszOutProperties, cbOutPropertiesSize, pcbBytesReturned, pcbRequired) {
-    pcbBytesReturnedMarshal := pcbBytesReturned is VarRef ? "uint*" : "ptr"
-    pcbRequiredMarshal := pcbRequired is VarRef ? "uint*" : "ptr"
+    pcbBytesReturnedMarshal := pcbBytesReturned is VarRef ? "uint*" : IntPtr
+    pcbRequiredMarshal := pcbRequired is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilEnumPrivateProperties", HKEY, hkeyClusterKey, IntPtr, pszOutProperties, UInt32, cbOutPropertiesSize, pcbBytesReturnedMarshal, pcbBytesReturned, pcbRequiredMarshal, pcbRequired, UInt32)
     return result
@@ -11200,8 +11405,8 @@ export ResUtilEnumPrivateProperties(hkeyClusterKey, pszOutProperties, cbOutPrope
  * @since windowsserver2008
  */
 export ResUtilGetProperties(hkeyClusterKey, pPropertyTable, pOutPropertyList, cbOutPropertyListSize, pcbBytesReturned, pcbRequired) {
-    pcbBytesReturnedMarshal := pcbBytesReturned is VarRef ? "uint*" : "ptr"
-    pcbRequiredMarshal := pcbRequired is VarRef ? "uint*" : "ptr"
+    pcbBytesReturnedMarshal := pcbBytesReturned is VarRef ? "uint*" : IntPtr
+    pcbRequiredMarshal := pcbRequired is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilGetProperties", HKEY, hkeyClusterKey, RESUTIL_PROPERTY_ITEM.Ptr, pPropertyTable, IntPtr, pOutPropertyList, UInt32, cbOutPropertyListSize, pcbBytesReturnedMarshal, pcbBytesReturned, pcbRequiredMarshal, pcbRequired, UInt32)
     return result
@@ -11270,8 +11475,8 @@ export ResUtilGetProperties(hkeyClusterKey, pPropertyTable, pOutPropertyList, cb
  * @since windowsserver2008
  */
 export ResUtilGetAllProperties(hkeyClusterKey, pPropertyTable, pOutPropertyList, cbOutPropertyListSize, pcbBytesReturned, pcbRequired) {
-    pcbBytesReturnedMarshal := pcbBytesReturned is VarRef ? "uint*" : "ptr"
-    pcbRequiredMarshal := pcbRequired is VarRef ? "uint*" : "ptr"
+    pcbBytesReturnedMarshal := pcbBytesReturned is VarRef ? "uint*" : IntPtr
+    pcbRequiredMarshal := pcbRequired is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilGetAllProperties", HKEY, hkeyClusterKey, RESUTIL_PROPERTY_ITEM.Ptr, pPropertyTable, IntPtr, pOutPropertyList, UInt32, cbOutPropertyListSize, pcbBytesReturnedMarshal, pcbBytesReturned, pcbRequiredMarshal, pcbRequired, UInt32)
     return result
@@ -11332,8 +11537,8 @@ export ResUtilGetAllProperties(hkeyClusterKey, pPropertyTable, pOutPropertyList,
  * @since windowsserver2008
  */
 export ResUtilGetPrivateProperties(hkeyClusterKey, pOutPropertyList, cbOutPropertyListSize, pcbBytesReturned, pcbRequired) {
-    pcbBytesReturnedMarshal := pcbBytesReturned is VarRef ? "uint*" : "ptr"
-    pcbRequiredMarshal := pcbRequired is VarRef ? "uint*" : "ptr"
+    pcbBytesReturnedMarshal := pcbBytesReturned is VarRef ? "uint*" : IntPtr
+    pcbRequiredMarshal := pcbRequired is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilGetPrivateProperties", HKEY, hkeyClusterKey, IntPtr, pOutPropertyList, UInt32, cbOutPropertyListSize, pcbBytesReturnedMarshal, pcbBytesReturned, pcbRequiredMarshal, pcbRequired, UInt32)
     return result
@@ -11382,8 +11587,8 @@ export ResUtilGetPrivateProperties(hkeyClusterKey, pOutPropertyList, cbOutProper
  * @since windowsserver2008
  */
 export ResUtilGetPropertySize(hkeyClusterKey, pPropertyTableItem, pcbOutPropertyListSize, pnPropertyCount) {
-    pcbOutPropertyListSizeMarshal := pcbOutPropertyListSize is VarRef ? "uint*" : "ptr"
-    pnPropertyCountMarshal := pnPropertyCount is VarRef ? "uint*" : "ptr"
+    pcbOutPropertyListSizeMarshal := pcbOutPropertyListSize is VarRef ? "uint*" : IntPtr
+    pnPropertyCountMarshal := pnPropertyCount is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilGetPropertySize", HKEY, hkeyClusterKey, RESUTIL_PROPERTY_ITEM.Ptr, pPropertyTableItem, pcbOutPropertyListSizeMarshal, pcbOutPropertyListSize, pnPropertyCountMarshal, pnPropertyCount, UInt32)
     return result
@@ -11421,7 +11626,7 @@ export ResUtilGetPropertySize(hkeyClusterKey, pPropertyTableItem, pcbOutProperty
  * @since windowsserver2008
  */
 export ResUtilGetProperty(hkeyClusterKey, pPropertyTableItem, pOutPropertyItem, pcbOutPropertyItemSize) {
-    pcbOutPropertyItemSizeMarshal := pcbOutPropertyItemSize is VarRef ? "uint*" : "ptr"
+    pcbOutPropertyItemSizeMarshal := pcbOutPropertyItemSize is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilGetProperty", HKEY, hkeyClusterKey, RESUTIL_PROPERTY_ITEM.Ptr, pPropertyTableItem, IntPtr, pOutPropertyItem, pcbOutPropertyItemSizeMarshal, pcbOutPropertyItemSize, UInt32)
     return result
@@ -11484,7 +11689,8 @@ export ResUtilGetProperty(hkeyClusterKey, pPropertyTableItem, pOutPropertyItem, 
 export ResUtilVerifyPropertyTable(pPropertyTable, bAllowUnknownProperties, pInPropertyList, cbInPropertyListSize, pOutParams) {
     static Reserved := 0 ;Reserved parameters must always be NULL
 
-    pOutParamsMarshal := pOutParams is VarRef ? "char*" : "ptr"
+    pOutParamsMarshal := pOutParams is VarRef ? "char*" : IntPtr
+    pOutParamsMarshal := pOutParams == 0 ? IntPtr : "char*"
 
     result := DllCall("RESUTILS.dll\ResUtilVerifyPropertyTable", RESUTIL_PROPERTY_ITEM.Ptr, pPropertyTable, "ptr", Reserved, BOOL, bAllowUnknownProperties, IntPtr, pInPropertyList, UInt32, cbInPropertyListSize, pOutParamsMarshal, pOutParams, UInt32)
     return result
@@ -11597,7 +11803,8 @@ export ResUtilVerifyPropertyTable(pPropertyTable, bAllowUnknownProperties, pInPr
 export ResUtilSetPropertyTable(hkeyClusterKey, pPropertyTable, bAllowUnknownProperties, pInPropertyList, cbInPropertyListSize, pOutParams) {
     static Reserved := 0 ;Reserved parameters must always be NULL
 
-    pOutParamsMarshal := pOutParams is VarRef ? "char*" : "ptr"
+    pOutParamsMarshal := pOutParams is VarRef ? "char*" : IntPtr
+    pOutParamsMarshal := pOutParams == 0 ? IntPtr : "char*"
 
     result := DllCall("RESUTILS.dll\ResUtilSetPropertyTable", HKEY, hkeyClusterKey, RESUTIL_PROPERTY_ITEM.Ptr, pPropertyTable, "ptr", Reserved, BOOL, bAllowUnknownProperties, IntPtr, pInPropertyList, UInt32, cbInPropertyListSize, pOutParamsMarshal, pOutParams, UInt32)
     return result
@@ -11693,9 +11900,9 @@ export ResUtilSetPropertyTable(hkeyClusterKey, pPropertyTable, bAllowUnknownProp
  * @since windowsserver2008
  */
 export ResUtilSetPropertyTableEx(hkeyClusterKey, pPropertyTable, Reserved, bAllowUnknownProperties, pInPropertyList, cbInPropertyListSize, bForceWrite, pOutParams) {
-    ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
-    pInPropertyListMarshal := pInPropertyList is VarRef ? "ptr" : "ptr"
-    pOutParamsMarshal := pOutParams is VarRef ? "char*" : "ptr"
+    ReservedMarshal := Reserved is VarRef ? "ptr" : IntPtr
+    pInPropertyListMarshal := pInPropertyList is VarRef ? "ptr" : IntPtr
+    pOutParamsMarshal := pOutParams is VarRef ? "char*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilSetPropertyTableEx", HKEY, hkeyClusterKey, RESUTIL_PROPERTY_ITEM.Ptr, pPropertyTable, ReservedMarshal, Reserved, BOOL, bAllowUnknownProperties, pInPropertyListMarshal, pInPropertyList, UInt32, cbInPropertyListSize, BOOL, bForceWrite, pOutParamsMarshal, pOutParams, UInt32)
     return result
@@ -11770,10 +11977,10 @@ export ResUtilSetPropertyTableEx(hkeyClusterKey, pPropertyTable, Reserved, bAllo
  * @since windowsserver2008
  */
 export ResUtilSetPropertyParameterBlock(hkeyClusterKey, pPropertyTable, Reserved, pInParams, pInPropertyList, cbInPropertyListSize, pOutParams) {
-    ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
-    pInParamsMarshal := pInParams is VarRef ? "char*" : "ptr"
-    pInPropertyListMarshal := pInPropertyList is VarRef ? "ptr" : "ptr"
-    pOutParamsMarshal := pOutParams is VarRef ? "char*" : "ptr"
+    ReservedMarshal := Reserved is VarRef ? "ptr" : IntPtr
+    pInParamsMarshal := pInParams is VarRef ? "char*" : IntPtr
+    pInPropertyListMarshal := pInPropertyList is VarRef ? "ptr" : IntPtr
+    pOutParamsMarshal := pOutParams is VarRef ? "char*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilSetPropertyParameterBlock", HKEY, hkeyClusterKey, RESUTIL_PROPERTY_ITEM.Ptr, pPropertyTable, ReservedMarshal, Reserved, pInParamsMarshal, pInParams, pInPropertyListMarshal, pInPropertyList, UInt32, cbInPropertyListSize, pOutParamsMarshal, pOutParams, UInt32)
     return result
@@ -11847,10 +12054,10 @@ export ResUtilSetPropertyParameterBlock(hkeyClusterKey, pPropertyTable, Reserved
  * @since windowsserver2008
  */
 export ResUtilSetPropertyParameterBlockEx(hkeyClusterKey, pPropertyTable, Reserved, pInParams, pInPropertyList, cbInPropertyListSize, bForceWrite, pOutParams) {
-    ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
-    pInParamsMarshal := pInParams is VarRef ? "char*" : "ptr"
-    pInPropertyListMarshal := pInPropertyList is VarRef ? "ptr" : "ptr"
-    pOutParamsMarshal := pOutParams is VarRef ? "char*" : "ptr"
+    ReservedMarshal := Reserved is VarRef ? "ptr" : IntPtr
+    pInParamsMarshal := pInParams is VarRef ? "char*" : IntPtr
+    pInPropertyListMarshal := pInPropertyList is VarRef ? "ptr" : IntPtr
+    pOutParamsMarshal := pOutParams is VarRef ? "char*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilSetPropertyParameterBlockEx", HKEY, hkeyClusterKey, RESUTIL_PROPERTY_ITEM.Ptr, pPropertyTable, ReservedMarshal, Reserved, pInParamsMarshal, pInParams, pInPropertyListMarshal, pInPropertyList, UInt32, cbInPropertyListSize, BOOL, bForceWrite, pOutParamsMarshal, pOutParams, UInt32)
     return result
@@ -11945,8 +12152,8 @@ export ResUtilSetUnknownProperties(hkeyClusterKey, pPropertyTable, pInPropertyLi
  * @since windowsserver2008
  */
 export ResUtilGetPropertiesToParameterBlock(hkeyClusterKey, pPropertyTable, pOutParams, bCheckForRequiredProperties, pszNameOfPropInError) {
-    pOutParamsMarshal := pOutParams is VarRef ? "char*" : "ptr"
-    pszNameOfPropInErrorMarshal := pszNameOfPropInError is VarRef ? "ptr*" : "ptr"
+    pOutParamsMarshal := pOutParams is VarRef ? "char*" : IntPtr
+    pszNameOfPropInErrorMarshal := pszNameOfPropInError is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilGetPropertiesToParameterBlock", HKEY, hkeyClusterKey, RESUTIL_PROPERTY_ITEM.Ptr, pPropertyTable, pOutParamsMarshal, pOutParams, BOOL, bCheckForRequiredProperties, pszNameOfPropInErrorMarshal, pszNameOfPropInError, UInt32)
     return result
@@ -12013,12 +12220,13 @@ export ResUtilGetPropertiesToParameterBlock(hkeyClusterKey, pPropertyTable, pOut
  * @since windowsserver2008
  */
 export ResUtilPropertyListFromParameterBlock(pPropertyTable, pOutPropertyList, pcbOutPropertyListSize, pInParams, pcbBytesReturned, pcbRequired) {
-    pcbOutPropertyListSizeMarshal := pcbOutPropertyListSize is VarRef ? "uint*" : "ptr"
-    pInParamsMarshal := pInParams is VarRef ? "char*" : "ptr"
-    pcbBytesReturnedMarshal := pcbBytesReturned is VarRef ? "uint*" : "ptr"
-    pcbRequiredMarshal := pcbRequired is VarRef ? "uint*" : "ptr"
+    pOutPropertyListMarshal := pOutPropertyList == 0 ? IntPtr : IntPtr
+    pcbOutPropertyListSizeMarshal := pcbOutPropertyListSize is VarRef ? "uint*" : IntPtr
+    pInParamsMarshal := pInParams is VarRef ? "char*" : IntPtr
+    pcbBytesReturnedMarshal := pcbBytesReturned is VarRef ? "uint*" : IntPtr
+    pcbRequiredMarshal := pcbRequired is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("RESUTILS.dll\ResUtilPropertyListFromParameterBlock", RESUTIL_PROPERTY_ITEM.Ptr, pPropertyTable, IntPtr, pOutPropertyList, pcbOutPropertyListSizeMarshal, pcbOutPropertyListSize, pInParamsMarshal, pInParams, pcbBytesReturnedMarshal, pcbBytesReturned, pcbRequiredMarshal, pcbRequired, UInt32)
+    result := DllCall("RESUTILS.dll\ResUtilPropertyListFromParameterBlock", RESUTIL_PROPERTY_ITEM.Ptr, pPropertyTable, pOutPropertyListMarshal, pOutPropertyList, pcbOutPropertyListSizeMarshal, pcbOutPropertyListSize, pInParamsMarshal, pInParams, pcbBytesReturnedMarshal, pcbBytesReturned, pcbRequiredMarshal, pcbRequired, UInt32)
     return result
 }
 
@@ -12037,8 +12245,8 @@ export ResUtilPropertyListFromParameterBlock(pPropertyTable, pOutPropertyList, p
  * @since windowsserver2008
  */
 export ResUtilDupParameterBlock(pOutParams, pInParams, pPropertyTable) {
-    pOutParamsMarshal := pOutParams is VarRef ? "char*" : "ptr"
-    pInParamsMarshal := pInParams is VarRef ? "char*" : "ptr"
+    pOutParamsMarshal := pOutParams is VarRef ? "char*" : IntPtr
+    pInParamsMarshal := pInParams is VarRef ? "char*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilDupParameterBlock", pOutParamsMarshal, pOutParams, pInParamsMarshal, pInParams, RESUTIL_PROPERTY_ITEM.Ptr, pPropertyTable, UInt32)
     return result
@@ -12062,8 +12270,8 @@ export ResUtilDupParameterBlock(pOutParams, pInParams, pPropertyTable) {
  * @since windowsserver2008
  */
 export ResUtilFreeParameterBlock(pOutParams, pInParams, pPropertyTable) {
-    pOutParamsMarshal := pOutParams is VarRef ? "char*" : "ptr"
-    pInParamsMarshal := pInParams is VarRef ? "char*" : "ptr"
+    pOutParamsMarshal := pOutParams is VarRef ? "char*" : IntPtr
+    pInParamsMarshal := pInParams is VarRef ? "char*" : IntPtr
 
     DllCall("RESUTILS.dll\ResUtilFreeParameterBlock", pOutParamsMarshal, pOutParams, pInParamsMarshal, pInParams, RESUTIL_PROPERTY_ITEM.Ptr, pPropertyTable)
 }
@@ -12108,9 +12316,9 @@ export ResUtilFreeParameterBlock(pOutParams, pInParams, pPropertyTable) {
  * @since windowsserver2008
  */
 export ResUtilAddUnknownProperties(hkeyClusterKey, pPropertyTable, pOutPropertyList, pcbOutPropertyListSize, pcbBytesReturned, pcbRequired) {
-    pOutPropertyListMarshal := pOutPropertyList is VarRef ? "ptr" : "ptr"
-    pcbBytesReturnedMarshal := pcbBytesReturned is VarRef ? "uint*" : "ptr"
-    pcbRequiredMarshal := pcbRequired is VarRef ? "uint*" : "ptr"
+    pOutPropertyListMarshal := pOutPropertyList is VarRef ? "ptr" : IntPtr
+    pcbBytesReturnedMarshal := pcbBytesReturned is VarRef ? "uint*" : IntPtr
+    pcbRequiredMarshal := pcbRequired is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilAddUnknownProperties", HKEY, hkeyClusterKey, RESUTIL_PROPERTY_ITEM.Ptr, pPropertyTable, pOutPropertyListMarshal, pOutPropertyList, UInt32, pcbOutPropertyListSize, pcbBytesReturnedMarshal, pcbBytesReturned, pcbRequiredMarshal, pcbRequired, UInt32)
     return result
@@ -12284,8 +12492,8 @@ export ResUtilDupString(pszInString) {
 export ResUtilGetBinaryValue(hkeyClusterKey, pszValueName, ppbOutValue, pcbOutValueSize) {
     pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
-    ppbOutValueMarshal := ppbOutValue is VarRef ? "ptr*" : "ptr"
-    pcbOutValueSizeMarshal := pcbOutValueSize is VarRef ? "uint*" : "ptr"
+    ppbOutValueMarshal := ppbOutValue is VarRef ? "ptr*" : IntPtr
+    pcbOutValueSizeMarshal := pcbOutValueSize is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilGetBinaryValue", HKEY, hkeyClusterKey, "ptr", pszValueName, ppbOutValueMarshal, ppbOutValue, pcbOutValueSizeMarshal, pcbOutValueSize, UInt32)
     return result
@@ -12356,14 +12564,13 @@ export ResUtilGetSzValue(hkeyClusterKey, pszValueName) {
 export ResUtilGetDwordValue(hkeyClusterKey, pszValueName, pdwOutValue, dwDefaultValue) {
     pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
-    pdwOutValueMarshal := pdwOutValue is VarRef ? "uint*" : "ptr"
+    pdwOutValueMarshal := pdwOutValue is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilGetDwordValue", HKEY, hkeyClusterKey, "ptr", pszValueName, pdwOutValueMarshal, pdwOutValue, UInt32, dwDefaultValue, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HKEY} hkeyClusterKey 
  * @param {PWSTR} pszValueName 
  * @param {Pointer<Integer>} pqwOutValue 
@@ -12374,7 +12581,7 @@ export ResUtilGetDwordValue(hkeyClusterKey, pszValueName, pdwOutValue, dwDefault
 export ResUtilGetQwordValue(hkeyClusterKey, pszValueName, pqwOutValue, qwDefaultValue) {
     pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
-    pqwOutValueMarshal := pqwOutValue is VarRef ? "uint*" : "ptr"
+    pqwOutValueMarshal := pqwOutValue is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilGetQwordValue", HKEY, hkeyClusterKey, "ptr", pszValueName, pqwOutValueMarshal, pqwOutValue, Int64, qwDefaultValue, UInt32)
     return result
@@ -12439,9 +12646,10 @@ export ResUtilGetQwordValue(hkeyClusterKey, pszValueName, pqwOutValue, qwDefault
 export ResUtilSetBinaryValue(hkeyClusterKey, pszValueName, pbNewValue, cbNewValueSize, ppbOutValue, pcbOutValueSize) {
     pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
-    pcbOutValueSizeMarshal := pcbOutValueSize is VarRef ? "uint*" : "ptr"
+    ppbOutValueMarshal := ppbOutValue == 0 ? IntPtr : IntPtr
+    pcbOutValueSizeMarshal := pcbOutValueSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("RESUTILS.dll\ResUtilSetBinaryValue", HKEY, hkeyClusterKey, "ptr", pszValueName, IntPtr, pbNewValue, UInt32, cbNewValueSize, IntPtr, ppbOutValue, pcbOutValueSizeMarshal, pcbOutValueSize, UInt32)
+    result := DllCall("RESUTILS.dll\ResUtilSetBinaryValue", HKEY, hkeyClusterKey, "ptr", pszValueName, IntPtr, pbNewValue, UInt32, cbNewValueSize, ppbOutValueMarshal, ppbOutValue, pcbOutValueSizeMarshal, pcbOutValueSize, UInt32)
     return result
 }
 
@@ -12505,7 +12713,8 @@ export ResUtilSetSzValue(hkeyClusterKey, pszValueName, pszNewValue, ppszOutStrin
     pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
     pszNewValue := pszNewValue is String ? StrPtr(pszNewValue) : pszNewValue
 
-    ppszOutStringMarshal := ppszOutString is VarRef ? "ptr*" : "ptr"
+    ppszOutStringMarshal := ppszOutString is VarRef ? "ptr*" : IntPtr
+    ppszOutStringMarshal := ppszOutString == 0 ? IntPtr : PWSTR.Ptr
 
     result := DllCall("RESUTILS.dll\ResUtilSetSzValue", HKEY, hkeyClusterKey, "ptr", pszValueName, "ptr", pszNewValue, ppszOutStringMarshal, ppszOutString, UInt32)
     return result
@@ -12573,7 +12782,8 @@ export ResUtilSetExpandSzValue(hkeyClusterKey, pszValueName, pszNewValue, ppszOu
     pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
     pszNewValue := pszNewValue is String ? StrPtr(pszNewValue) : pszNewValue
 
-    ppszOutStringMarshal := ppszOutString is VarRef ? "ptr*" : "ptr"
+    ppszOutStringMarshal := ppszOutString is VarRef ? "ptr*" : IntPtr
+    ppszOutStringMarshal := ppszOutString == 0 ? IntPtr : PWSTR.Ptr
 
     result := DllCall("RESUTILS.dll\ResUtilSetExpandSzValue", HKEY, hkeyClusterKey, "ptr", pszValueName, "ptr", pszNewValue, ppszOutStringMarshal, ppszOutString, UInt32)
     return result
@@ -12642,8 +12852,10 @@ export ResUtilSetExpandSzValue(hkeyClusterKey, pszValueName, pszNewValue, ppszOu
 export ResUtilSetMultiSzValue(hkeyClusterKey, pszValueName, pszNewValue, cbNewValueSize, ppszOutValue, pcbOutValueSize) {
     pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
-    ppszOutValueMarshal := ppszOutValue is VarRef ? "ptr*" : "ptr"
-    pcbOutValueSizeMarshal := pcbOutValueSize is VarRef ? "uint*" : "ptr"
+    ppszOutValueMarshal := ppszOutValue is VarRef ? "ptr*" : IntPtr
+    ppszOutValueMarshal := ppszOutValue == 0 ? IntPtr : PWSTR.Ptr
+    pcbOutValueSizeMarshal := pcbOutValueSize is VarRef ? "uint*" : IntPtr
+    pcbOutValueSizeMarshal := pcbOutValueSize == 0 ? IntPtr : "uint*"
 
     result := DllCall("RESUTILS.dll\ResUtilSetMultiSzValue", HKEY, hkeyClusterKey, "ptr", pszValueName, IntPtr, pszNewValue, UInt32, cbNewValueSize, ppszOutValueMarshal, ppszOutValue, pcbOutValueSizeMarshal, pcbOutValueSize, UInt32)
     return result
@@ -12688,7 +12900,7 @@ export ResUtilSetMultiSzValue(hkeyClusterKey, pszValueName, pszNewValue, cbNewVa
 export ResUtilSetDwordValue(hkeyClusterKey, pszValueName, dwNewValue, pdwOutValue) {
     pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
-    pdwOutValueMarshal := pdwOutValue is VarRef ? "uint*" : "ptr"
+    pdwOutValueMarshal := pdwOutValue is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilSetDwordValue", HKEY, hkeyClusterKey, "ptr", pszValueName, UInt32, dwNewValue, pdwOutValueMarshal, pdwOutValue, UInt32)
     return result
@@ -12707,7 +12919,8 @@ export ResUtilSetDwordValue(hkeyClusterKey, pszValueName, dwNewValue, pdwOutValu
 export ResUtilSetQwordValue(hkeyClusterKey, pszValueName, qwNewValue, pqwOutValue) {
     pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
-    pqwOutValueMarshal := pqwOutValue is VarRef ? "uint*" : "ptr"
+    pqwOutValueMarshal := pqwOutValue is VarRef ? "uint*" : IntPtr
+    pqwOutValueMarshal := pqwOutValue == 0 ? IntPtr : "uint*"
 
     result := DllCall("RESUTILS.dll\ResUtilSetQwordValue", HKEY, hkeyClusterKey, "ptr", pszValueName, Int64, qwNewValue, pqwOutValueMarshal, pqwOutValue, UInt32)
     return result
@@ -12771,11 +12984,12 @@ export ResUtilSetValueEx(hkeyClusterKey, _valueName, valueType, valueData, value
  * @since windowsserver2008
  */
 export ResUtilGetBinaryProperty(ppbOutValue, pcbOutValueSize, pValueStruct, pbOldValue, cbOldValueSize, ppPropertyList, pcbPropertyListSize) {
-    ppbOutValueMarshal := ppbOutValue is VarRef ? "ptr*" : "ptr"
-    pcbOutValueSizeMarshal := pcbOutValueSize is VarRef ? "uint*" : "ptr"
-    pcbPropertyListSizeMarshal := pcbPropertyListSize is VarRef ? "uint*" : "ptr"
+    ppbOutValueMarshal := ppbOutValue is VarRef ? "ptr*" : IntPtr
+    pcbOutValueSizeMarshal := pcbOutValueSize is VarRef ? "uint*" : IntPtr
+    pbOldValueMarshal := pbOldValue == 0 ? IntPtr : IntPtr
+    pcbPropertyListSizeMarshal := pcbPropertyListSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("RESUTILS.dll\ResUtilGetBinaryProperty", ppbOutValueMarshal, ppbOutValue, pcbOutValueSizeMarshal, pcbOutValueSize, CLUSPROP_BINARY.Ptr, pValueStruct, IntPtr, pbOldValue, UInt32, cbOldValueSize, IntPtr, ppPropertyList, pcbPropertyListSizeMarshal, pcbPropertyListSize, UInt32)
+    result := DllCall("RESUTILS.dll\ResUtilGetBinaryProperty", ppbOutValueMarshal, ppbOutValue, pcbOutValueSizeMarshal, pcbOutValueSize, CLUSPROP_BINARY.Ptr, pValueStruct, pbOldValueMarshal, pbOldValue, UInt32, cbOldValueSize, IntPtr, ppPropertyList, pcbPropertyListSizeMarshal, pcbPropertyListSize, UInt32)
     return result
 }
 
@@ -12818,10 +13032,11 @@ export ResUtilGetBinaryProperty(ppbOutValue, pcbOutValueSize, pValueStruct, pbOl
 export ResUtilGetSzProperty(ppszOutValue, pValueStruct, pszOldValue, ppPropertyList, pcbPropertyListSize) {
     pszOldValue := pszOldValue is String ? StrPtr(pszOldValue) : pszOldValue
 
-    ppszOutValueMarshal := ppszOutValue is VarRef ? "ptr*" : "ptr"
-    pcbPropertyListSizeMarshal := pcbPropertyListSize is VarRef ? "uint*" : "ptr"
+    ppszOutValueMarshal := ppszOutValue is VarRef ? "ptr*" : IntPtr
+    pszOldValueMarshal := pszOldValue == 0 ? IntPtr : PWSTR
+    pcbPropertyListSizeMarshal := pcbPropertyListSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("RESUTILS.dll\ResUtilGetSzProperty", ppszOutValueMarshal, ppszOutValue, CLUSPROP_SZ.Ptr, pValueStruct, "ptr", pszOldValue, IntPtr, ppPropertyList, pcbPropertyListSizeMarshal, pcbPropertyListSize, UInt32)
+    result := DllCall("RESUTILS.dll\ResUtilGetSzProperty", ppszOutValueMarshal, ppszOutValue, CLUSPROP_SZ.Ptr, pValueStruct, pszOldValueMarshal, pszOldValue, IntPtr, ppPropertyList, pcbPropertyListSizeMarshal, pcbPropertyListSize, UInt32)
     return result
 }
 
@@ -12864,11 +13079,12 @@ export ResUtilGetSzProperty(ppszOutValue, pValueStruct, pszOldValue, ppPropertyL
  * @since windowsserver2008
  */
 export ResUtilGetMultiSzProperty(ppszOutValue, pcbOutValueSize, pValueStruct, pszOldValue, cbOldValueSize, ppPropertyList, pcbPropertyListSize) {
-    ppszOutValueMarshal := ppszOutValue is VarRef ? "ptr*" : "ptr"
-    pcbOutValueSizeMarshal := pcbOutValueSize is VarRef ? "uint*" : "ptr"
-    pcbPropertyListSizeMarshal := pcbPropertyListSize is VarRef ? "uint*" : "ptr"
+    ppszOutValueMarshal := ppszOutValue is VarRef ? "ptr*" : IntPtr
+    pcbOutValueSizeMarshal := pcbOutValueSize is VarRef ? "uint*" : IntPtr
+    pszOldValueMarshal := pszOldValue == 0 ? IntPtr : IntPtr
+    pcbPropertyListSizeMarshal := pcbPropertyListSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("RESUTILS.dll\ResUtilGetMultiSzProperty", ppszOutValueMarshal, ppszOutValue, pcbOutValueSizeMarshal, pcbOutValueSize, CLUSPROP_SZ.Ptr, pValueStruct, IntPtr, pszOldValue, UInt32, cbOldValueSize, IntPtr, ppPropertyList, pcbPropertyListSizeMarshal, pcbPropertyListSize, UInt32)
+    result := DllCall("RESUTILS.dll\ResUtilGetMultiSzProperty", ppszOutValueMarshal, ppszOutValue, pcbOutValueSizeMarshal, pcbOutValueSize, CLUSPROP_SZ.Ptr, pValueStruct, pszOldValueMarshal, pszOldValue, UInt32, cbOldValueSize, IntPtr, ppPropertyList, pcbPropertyListSizeMarshal, pcbPropertyListSize, UInt32)
     return result
 }
 
@@ -12917,16 +13133,15 @@ export ResUtilGetMultiSzProperty(ppszOutValue, pcbOutValueSize, pValueStruct, ps
  * @since windowsserver2008
  */
 export ResUtilGetDwordProperty(pdwOutValue, pValueStruct, dwOldValue, dwMinimum, dwMaximum, ppPropertyList, pcbPropertyListSize) {
-    pdwOutValueMarshal := pdwOutValue is VarRef ? "uint*" : "ptr"
-    ppPropertyListMarshal := ppPropertyList is VarRef ? "ptr*" : "ptr"
-    pcbPropertyListSizeMarshal := pcbPropertyListSize is VarRef ? "uint*" : "ptr"
+    pdwOutValueMarshal := pdwOutValue is VarRef ? "uint*" : IntPtr
+    ppPropertyListMarshal := ppPropertyList is VarRef ? "ptr*" : IntPtr
+    pcbPropertyListSizeMarshal := pcbPropertyListSize is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilGetDwordProperty", pdwOutValueMarshal, pdwOutValue, CLUSPROP_DWORD.Ptr, pValueStruct, UInt32, dwOldValue, UInt32, dwMinimum, UInt32, dwMaximum, ppPropertyListMarshal, ppPropertyList, pcbPropertyListSizeMarshal, pcbPropertyListSize, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Integer>} plOutValue 
  * @param {Pointer<CLUSPROP_LONG>} pValueStruct 
  * @param {Integer} lOldValue 
@@ -12938,9 +13153,9 @@ export ResUtilGetDwordProperty(pdwOutValue, pValueStruct, dwOldValue, dwMinimum,
  * @since windowsserver2008
  */
 export ResUtilGetLongProperty(plOutValue, pValueStruct, lOldValue, lMinimum, lMaximum, ppPropertyList, pcbPropertyListSize) {
-    plOutValueMarshal := plOutValue is VarRef ? "int*" : "ptr"
-    ppPropertyListMarshal := ppPropertyList is VarRef ? "ptr*" : "ptr"
-    pcbPropertyListSizeMarshal := pcbPropertyListSize is VarRef ? "uint*" : "ptr"
+    plOutValueMarshal := plOutValue is VarRef ? "int*" : IntPtr
+    ppPropertyListMarshal := ppPropertyList is VarRef ? "ptr*" : IntPtr
+    pcbPropertyListSizeMarshal := pcbPropertyListSize is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilGetLongProperty", plOutValueMarshal, plOutValue, CLUSPROP_LONG.Ptr, pValueStruct, Int32, lOldValue, Int32, lMinimum, Int32, lMaximum, ppPropertyListMarshal, ppPropertyList, pcbPropertyListSizeMarshal, pcbPropertyListSize, UInt32)
     return result
@@ -12960,8 +13175,8 @@ export ResUtilGetLongProperty(plOutValue, pValueStruct, lOldValue, lMinimum, lMa
  * @since windowsserver2008
  */
 export ResUtilGetFileTimeProperty(pftOutValue, pValueStruct, ftOldValue, ftMinimum, ftMaximum, ppPropertyList, pcbPropertyListSize) {
-    ppPropertyListMarshal := ppPropertyList is VarRef ? "ptr*" : "ptr"
-    pcbPropertyListSizeMarshal := pcbPropertyListSize is VarRef ? "uint*" : "ptr"
+    ppPropertyListMarshal := ppPropertyList is VarRef ? "ptr*" : IntPtr
+    pcbPropertyListSizeMarshal := pcbPropertyListSize is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilGetFileTimeProperty", FILETIME.Ptr, pftOutValue, CLUSPROP_FILETIME.Ptr, pValueStruct, FILETIME, ftOldValue, FILETIME, ftMinimum, FILETIME, ftMaximum, ppPropertyListMarshal, ppPropertyList, pcbPropertyListSizeMarshal, pcbPropertyListSize, UInt32)
     return result
@@ -13008,7 +13223,7 @@ export ResUtilGetEnvironmentWithNetName(_hResource) {
  * @since windowsserver2008
  */
 export ResUtilFreeEnvironment(lpEnvironment) {
-    lpEnvironmentMarshal := lpEnvironment is VarRef ? "ptr" : "ptr"
+    lpEnvironmentMarshal := lpEnvironment is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilFreeEnvironment", lpEnvironmentMarshal, lpEnvironment, UInt32)
     return result
@@ -13165,7 +13380,8 @@ export ResUtilSetResourceServiceStartParameters(pszServiceName, schSCMHandle, ph
 export ResUtilFindSzProperty(pPropertyList, cbPropertyListSize, pszPropertyName, pszPropertyValue) {
     pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
 
-    pszPropertyValueMarshal := pszPropertyValue is VarRef ? "ptr*" : "ptr"
+    pszPropertyValueMarshal := pszPropertyValue is VarRef ? "ptr*" : IntPtr
+    pszPropertyValueMarshal := pszPropertyValue == 0 ? IntPtr : PWSTR.Ptr
 
     result := DllCall("RESUTILS.dll\ResUtilFindSzProperty", IntPtr, pPropertyList, UInt32, cbPropertyListSize, "ptr", pszPropertyName, pszPropertyValueMarshal, pszPropertyValue, UInt32)
     return result
@@ -13229,7 +13445,8 @@ export ResUtilFindSzProperty(pPropertyList, cbPropertyListSize, pszPropertyName,
 export ResUtilFindExpandSzProperty(pPropertyList, cbPropertyListSize, pszPropertyName, pszPropertyValue) {
     pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
 
-    pszPropertyValueMarshal := pszPropertyValue is VarRef ? "ptr*" : "ptr"
+    pszPropertyValueMarshal := pszPropertyValue is VarRef ? "ptr*" : IntPtr
+    pszPropertyValueMarshal := pszPropertyValue == 0 ? IntPtr : PWSTR.Ptr
 
     result := DllCall("RESUTILS.dll\ResUtilFindExpandSzProperty", IntPtr, pPropertyList, UInt32, cbPropertyListSize, "ptr", pszPropertyName, pszPropertyValueMarshal, pszPropertyValue, UInt32)
     return result
@@ -13293,7 +13510,8 @@ export ResUtilFindExpandSzProperty(pPropertyList, cbPropertyListSize, pszPropert
 export ResUtilFindExpandedSzProperty(pPropertyList, cbPropertyListSize, pszPropertyName, pszPropertyValue) {
     pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
 
-    pszPropertyValueMarshal := pszPropertyValue is VarRef ? "ptr*" : "ptr"
+    pszPropertyValueMarshal := pszPropertyValue is VarRef ? "ptr*" : IntPtr
+    pszPropertyValueMarshal := pszPropertyValue == 0 ? IntPtr : PWSTR.Ptr
 
     result := DllCall("RESUTILS.dll\ResUtilFindExpandedSzProperty", IntPtr, pPropertyList, UInt32, cbPropertyListSize, "ptr", pszPropertyName, pszPropertyValueMarshal, pszPropertyValue, UInt32)
     return result
@@ -13346,7 +13564,7 @@ export ResUtilFindExpandedSzProperty(pPropertyList, cbPropertyListSize, pszPrope
 export ResUtilFindDwordProperty(pPropertyList, cbPropertyListSize, pszPropertyName, pdwPropertyValue) {
     pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
 
-    pdwPropertyValueMarshal := pdwPropertyValue is VarRef ? "uint*" : "ptr"
+    pdwPropertyValueMarshal := pdwPropertyValue is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilFindDwordProperty", IntPtr, pPropertyList, UInt32, cbPropertyListSize, "ptr", pszPropertyName, pdwPropertyValueMarshal, pdwPropertyValue, UInt32)
     return result
@@ -13411,8 +13629,10 @@ export ResUtilFindDwordProperty(pPropertyList, cbPropertyListSize, pszPropertyNa
 export ResUtilFindBinaryProperty(pPropertyList, cbPropertyListSize, pszPropertyName, pbPropertyValue, pcbPropertyValueSize) {
     pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
 
-    pbPropertyValueMarshal := pbPropertyValue is VarRef ? "ptr*" : "ptr"
-    pcbPropertyValueSizeMarshal := pcbPropertyValueSize is VarRef ? "uint*" : "ptr"
+    pbPropertyValueMarshal := pbPropertyValue is VarRef ? "ptr*" : IntPtr
+    pbPropertyValueMarshal := pbPropertyValue == 0 ? IntPtr : "ptr*"
+    pcbPropertyValueSizeMarshal := pcbPropertyValueSize is VarRef ? "uint*" : IntPtr
+    pcbPropertyValueSizeMarshal := pcbPropertyValueSize == 0 ? IntPtr : "uint*"
 
     result := DllCall("RESUTILS.dll\ResUtilFindBinaryProperty", IntPtr, pPropertyList, UInt32, cbPropertyListSize, "ptr", pszPropertyName, pbPropertyValueMarshal, pbPropertyValue, pcbPropertyValueSizeMarshal, pcbPropertyValueSize, UInt32)
     return result
@@ -13477,8 +13697,8 @@ export ResUtilFindBinaryProperty(pPropertyList, cbPropertyListSize, pszPropertyN
 export ResUtilFindMultiSzProperty(pPropertyList, cbPropertyListSize, pszPropertyName, pszPropertyValue, pcbPropertyValueSize) {
     pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
 
-    pszPropertyValueMarshal := pszPropertyValue is VarRef ? "ptr*" : "ptr"
-    pcbPropertyValueSizeMarshal := pcbPropertyValueSize is VarRef ? "uint*" : "ptr"
+    pszPropertyValueMarshal := pszPropertyValue is VarRef ? "ptr*" : IntPtr
+    pcbPropertyValueSizeMarshal := pcbPropertyValueSize is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilFindMultiSzProperty", IntPtr, pPropertyList, UInt32, cbPropertyListSize, "ptr", pszPropertyName, pszPropertyValueMarshal, pszPropertyValue, pcbPropertyValueSizeMarshal, pcbPropertyValueSize, UInt32)
     return result
@@ -13531,7 +13751,7 @@ export ResUtilFindMultiSzProperty(pPropertyList, cbPropertyListSize, pszProperty
 export ResUtilFindLongProperty(pPropertyList, cbPropertyListSize, pszPropertyName, plPropertyValue) {
     pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
 
-    plPropertyValueMarshal := plPropertyValue is VarRef ? "int*" : "ptr"
+    plPropertyValueMarshal := plPropertyValue is VarRef ? "int*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilFindLongProperty", IntPtr, pPropertyList, UInt32, cbPropertyListSize, "ptr", pszPropertyName, plPropertyValueMarshal, plPropertyValue, UInt32)
     return result
@@ -13554,7 +13774,7 @@ export ResUtilFindLongProperty(pPropertyList, cbPropertyListSize, pszPropertyNam
 export ResUtilFindULargeIntegerProperty(pPropertyList, cbPropertyListSize, pszPropertyName, plPropertyValue) {
     pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
 
-    plPropertyValueMarshal := plPropertyValue is VarRef ? "uint*" : "ptr"
+    plPropertyValueMarshal := plPropertyValue is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilFindULargeIntegerProperty", IntPtr, pPropertyList, UInt32, cbPropertyListSize, "ptr", pszPropertyName, plPropertyValueMarshal, plPropertyValue, UInt32)
     return result
@@ -13591,7 +13811,7 @@ export ResUtilFindFileTimeProperty(pPropertyList, cbPropertyListSize, pszPropert
  * @since windowsserver2008
  */
 export ClusWorkerCreate(lpWorker, lpStartAddress, lpParameter) {
-    lpParameterMarshal := lpParameter is VarRef ? "ptr" : "ptr"
+    lpParameterMarshal := lpParameter is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RESUTILS.dll\ClusWorkerCreate", CLUS_WORKER.Ptr, lpWorker, PWORKER_START_ROUTINE, lpStartAddress, lpParameterMarshal, lpParameter, UInt32)
     return result
@@ -13748,7 +13968,7 @@ export ClusWorkerTerminateEx(ClusWorker, TimeoutInMilliseconds, WaitOnly) {
  * @since windowsserver2016
  */
 export ClusWorkersTerminate(ClusWorkers, ClusWorkersCount, TimeoutInMilliseconds, WaitOnly) {
-    ClusWorkersMarshal := ClusWorkers is VarRef ? "ptr*" : "ptr"
+    ClusWorkersMarshal := ClusWorkers is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ClusWorkersTerminate", ClusWorkersMarshal, ClusWorkers, IntPtr, ClusWorkersCount, UInt32, TimeoutInMilliseconds, BOOL, WaitOnly, UInt32)
     return result
@@ -13873,7 +14093,7 @@ export ResUtilIsResourceClassEqual(prci, _hResource) {
 export ResUtilEnumResources(hSelf, lpszResTypeName, pResCallBack, pParameter) {
     lpszResTypeName := lpszResTypeName is String ? StrPtr(lpszResTypeName) : lpszResTypeName
 
-    pParameterMarshal := pParameter is VarRef ? "ptr" : "ptr"
+    pParameterMarshal := pParameter is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilEnumResources", HRESOURCE, hSelf, "ptr", lpszResTypeName, LPRESOURCE_CALLBACK, pResCallBack, pParameterMarshal, pParameter, UInt32)
     return result
@@ -13919,7 +14139,7 @@ export ResUtilEnumResources(hSelf, lpszResTypeName, pResCallBack, pParameter) {
 export ResUtilEnumResourcesEx(_hCluster, hSelf, lpszResTypeName, pResCallBack, pParameter) {
     lpszResTypeName := lpszResTypeName is String ? StrPtr(lpszResTypeName) : lpszResTypeName
 
-    pParameterMarshal := pParameter is VarRef ? "ptr" : "ptr"
+    pParameterMarshal := pParameter is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilEnumResourcesEx", HCLUSTER, _hCluster, HRESOURCE, hSelf, "ptr", lpszResTypeName, LPRESOURCE_CALLBACK_EX, pResCallBack, pParameterMarshal, pParameter, UInt32)
     return result
@@ -14258,9 +14478,9 @@ export ResUtilGetResourceDependentIPAddressProps(_hResource, pszAddress, pcchAdd
     pszSubnetMask := pszSubnetMask is String ? StrPtr(pszSubnetMask) : pszSubnetMask
     pszNetwork := pszNetwork is String ? StrPtr(pszNetwork) : pszNetwork
 
-    pcchAddressMarshal := pcchAddress is VarRef ? "uint*" : "ptr"
-    pcchSubnetMaskMarshal := pcchSubnetMask is VarRef ? "uint*" : "ptr"
-    pcchNetworkMarshal := pcchNetwork is VarRef ? "uint*" : "ptr"
+    pcchAddressMarshal := pcchAddress is VarRef ? "uint*" : IntPtr
+    pcchSubnetMaskMarshal := pcchSubnetMask is VarRef ? "uint*" : IntPtr
+    pcchNetworkMarshal := pcchNetwork is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilGetResourceDependentIPAddressProps", HRESOURCE, _hResource, "ptr", pszAddress, pcchAddressMarshal, pcchAddress, "ptr", pszSubnetMask, pcchSubnetMaskMarshal, pcchSubnetMask, "ptr", pszNetwork, pcchNetworkMarshal, pcchNetwork, UInt32)
     return result
@@ -14334,7 +14554,7 @@ export ResUtilGetResourceDependentIPAddressProps(_hResource, pszAddress, pcchAdd
 export ResUtilFindDependentDiskResourceDriveLetter(_hCluster, _hResource, pszDriveLetter, pcchDriveLetter) {
     pszDriveLetter := pszDriveLetter is String ? StrPtr(pszDriveLetter) : pszDriveLetter
 
-    pcchDriveLetterMarshal := pcchDriveLetter is VarRef ? "uint*" : "ptr"
+    pcchDriveLetterMarshal := pcchDriveLetter is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -14382,7 +14602,7 @@ export ResUtilFindDependentDiskResourceDriveLetter(_hCluster, _hResource, pszDri
  * @since windowsserver2008
  */
 export ResUtilTerminateServiceProcessFromResDll(dwServicePid, bOffline, pdwResourceState, pfnLogEvent, hResourceHandle) {
-    pdwResourceStateMarshal := pdwResourceState is VarRef ? "uint*" : "ptr"
+    pdwResourceStateMarshal := pdwResourceState is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilTerminateServiceProcessFromResDll", UInt32, dwServicePid, BOOL, bOffline, pdwResourceStateMarshal, pdwResourceState, PLOG_EVENT_ROUTINE, pfnLogEvent, IntPtr, hResourceHandle, UInt32)
     return result
@@ -14405,8 +14625,8 @@ export ResUtilTerminateServiceProcessFromResDll(dwServicePid, bOffline, pdwResou
  * @since windowsserver2008
  */
 export ResUtilGetPropertyFormats(pPropertyTable, pOutPropertyFormatList, cbPropertyFormatListSize, pcbBytesReturned, pcbRequired) {
-    pcbBytesReturnedMarshal := pcbBytesReturned is VarRef ? "uint*" : "ptr"
-    pcbRequiredMarshal := pcbRequired is VarRef ? "uint*" : "ptr"
+    pcbBytesReturnedMarshal := pcbBytesReturned is VarRef ? "uint*" : IntPtr
+    pcbRequiredMarshal := pcbRequired is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilGetPropertyFormats", RESUTIL_PROPERTY_ITEM.Ptr, pPropertyTable, IntPtr, pOutPropertyFormatList, UInt32, cbPropertyFormatListSize, pcbBytesReturnedMarshal, pcbBytesReturned, pcbRequiredMarshal, pcbRequired, UInt32)
     return result
@@ -14429,9 +14649,9 @@ export ResUtilGetPropertyFormats(pPropertyTable, pOutPropertyFormatList, cbPrope
  * @since windowsserver2008
  */
 export ResUtilGetCoreClusterResources(_hCluster, phClusterNameResource, phClusterIPAddressResource, phClusterQuorumResource) {
-    phClusterNameResourceMarshal := phClusterNameResource is VarRef ? "ptr*" : "ptr"
-    phClusterIPAddressResourceMarshal := phClusterIPAddressResource is VarRef ? "ptr*" : "ptr"
-    phClusterQuorumResourceMarshal := phClusterQuorumResource is VarRef ? "ptr*" : "ptr"
+    phClusterNameResourceMarshal := phClusterNameResource is VarRef ? "ptr*" : IntPtr
+    phClusterIPAddressResourceMarshal := phClusterIPAddressResource is VarRef ? "ptr*" : IntPtr
+    phClusterQuorumResourceMarshal := phClusterQuorumResource is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilGetCoreClusterResources", HCLUSTER, _hCluster, phClusterNameResourceMarshal, phClusterNameResource, phClusterIPAddressResourceMarshal, phClusterIPAddressResource, phClusterQuorumResourceMarshal, phClusterQuorumResource, UInt32)
     return result
@@ -14455,7 +14675,7 @@ export ResUtilGetCoreClusterResources(_hCluster, phClusterNameResource, phCluste
 export ResUtilGetResourceName(_hResource, pszResourceName, pcchResourceNameInOut) {
     pszResourceName := pszResourceName is String ? StrPtr(pszResourceName) : pszResourceName
 
-    pcchResourceNameInOutMarshal := pcchResourceNameInOut is VarRef ? "uint*" : "ptr"
+    pcchResourceNameInOutMarshal := pcchResourceNameInOut is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilGetResourceName", HRESOURCE, _hResource, "ptr", pszResourceName, pcchResourceNameInOutMarshal, pcchResourceNameInOut, UInt32)
     return result
@@ -14794,8 +15014,8 @@ export ClusterPrepareSharedVolumeForBackup(lpszFileName, lpszVolumePathName, lpc
     lpszVolumePathName := lpszVolumePathName is String ? StrPtr(lpszVolumePathName) : lpszVolumePathName
     lpszVolumeName := lpszVolumeName is String ? StrPtr(lpszVolumeName) : lpszVolumeName
 
-    lpcchVolumePathNameMarshal := lpcchVolumePathName is VarRef ? "uint*" : "ptr"
-    lpcchVolumeNameMarshal := lpcchVolumeName is VarRef ? "uint*" : "ptr"
+    lpcchVolumePathNameMarshal := lpcchVolumePathName is VarRef ? "uint*" : IntPtr
+    lpcchVolumeNameMarshal := lpcchVolumeName is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ClusterPrepareSharedVolumeForBackup", "ptr", lpszFileName, "ptr", lpszVolumePathName, lpcchVolumePathNameMarshal, lpcchVolumePathName, "ptr", lpszVolumeName, lpcchVolumeNameMarshal, lpcchVolumeName, UInt32)
     return result
@@ -14907,7 +15127,7 @@ export ResUtilSetResourceServiceStartParametersEx(pszServiceName, schSCMHandle, 
 export ResUtilEnumResourcesEx2(_hCluster, hSelf, lpszResTypeName, pResCallBack, pParameter, dwDesiredAccess) {
     lpszResTypeName := lpszResTypeName is String ? StrPtr(lpszResTypeName) : lpszResTypeName
 
-    pParameterMarshal := pParameter is VarRef ? "ptr" : "ptr"
+    pParameterMarshal := pParameter is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilEnumResourcesEx2", HCLUSTER, _hCluster, HRESOURCE, hSelf, "ptr", lpszResTypeName, LPRESOURCE_CALLBACK_EX, pResCallBack, pParameterMarshal, pParameter, UInt32, dwDesiredAccess, UInt32)
     return result
@@ -15059,8 +15279,10 @@ export ResUtilGetResourceNameDependencyEx(lpszResourceName, lpszResourceType, dw
  * @since windowsserver2012
  */
 export ResUtilGetCoreClusterResourcesEx(hClusterIn, phClusterNameResourceOut, phClusterQuorumResourceOut, dwDesiredAccess) {
-    phClusterNameResourceOutMarshal := phClusterNameResourceOut is VarRef ? "ptr*" : "ptr"
-    phClusterQuorumResourceOutMarshal := phClusterQuorumResourceOut is VarRef ? "ptr*" : "ptr"
+    phClusterNameResourceOutMarshal := phClusterNameResourceOut is VarRef ? "ptr*" : IntPtr
+    phClusterNameResourceOutMarshal := phClusterNameResourceOut == 0 ? IntPtr : HRESOURCE.Ptr
+    phClusterQuorumResourceOutMarshal := phClusterQuorumResourceOut is VarRef ? "ptr*" : IntPtr
+    phClusterQuorumResourceOutMarshal := phClusterQuorumResourceOut == 0 ? IntPtr : HRESOURCE.Ptr
 
     result := DllCall("RESUTILS.dll\ResUtilGetCoreClusterResourcesEx", HCLUSTER, hClusterIn, phClusterNameResourceOutMarshal, phClusterNameResourceOut, phClusterQuorumResourceOutMarshal, phClusterQuorumResourceOut, UInt32, dwDesiredAccess, UInt32)
     return result
@@ -15079,14 +15301,13 @@ export ResUtilGetCoreClusterResourcesEx(hClusterIn, phClusterNameResourceOut, ph
 export OpenClusterCryptProvider(lpszResource, lpszProvider, dwType, dwFlags) {
     lpszResource := lpszResource is String ? StrPtr(lpszResource) : lpszResource
 
-    lpszProviderMarshal := lpszProvider is VarRef ? "char*" : "ptr"
+    lpszProviderMarshal := lpszProvider is VarRef ? "char*" : IntPtr
 
     result := DllCall("RESUTILS.dll\OpenClusterCryptProvider", "ptr", lpszResource, lpszProviderMarshal, lpszProvider, UInt32, dwType, UInt32, dwFlags, HCLUSCRYPTPROVIDER)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} lpszResource 
  * @param {PWSTR} lpszKeyname 
  * @param {Pointer<Integer>} lpszProvider 
@@ -15098,7 +15319,7 @@ export OpenClusterCryptProviderEx(lpszResource, lpszKeyname, lpszProvider, dwTyp
     lpszResource := lpszResource is String ? StrPtr(lpszResource) : lpszResource
     lpszKeyname := lpszKeyname is String ? StrPtr(lpszKeyname) : lpszKeyname
 
-    lpszProviderMarshal := lpszProvider is VarRef ? "char*" : "ptr"
+    lpszProviderMarshal := lpszProvider is VarRef ? "char*" : IntPtr
 
     result := DllCall("RESUTILS.dll\OpenClusterCryptProviderEx", "ptr", lpszResource, "ptr", lpszKeyname, lpszProviderMarshal, lpszProvider, UInt32, dwType, UInt32, dwFlags, HCLUSCRYPTPROVIDER)
     return result
@@ -15128,9 +15349,9 @@ export CloseClusterCryptProvider(_hClusCryptProvider) {
  * @since windowsserver2012
  */
 export ClusterEncrypt(_hClusCryptProvider, pData, cbData, ppData, pcbData) {
-    pDataMarshal := pData is VarRef ? "char*" : "ptr"
-    ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
-    pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+    pDataMarshal := pData is VarRef ? "char*" : IntPtr
+    ppDataMarshal := ppData is VarRef ? "ptr*" : IntPtr
+    pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ClusterEncrypt", HCLUSCRYPTPROVIDER, _hClusCryptProvider, pDataMarshal, pData, UInt32, cbData, ppDataMarshal, ppData, pcbDataMarshal, pcbData, UInt32)
     return result
@@ -15148,36 +15369,34 @@ export ClusterEncrypt(_hClusCryptProvider, pData, cbData, ppData, pcbData) {
  * @since windowsserver2012
  */
 export ClusterDecrypt(_hClusCryptProvider, pCryptInput, cbCryptInput, ppCryptOutput, pcbCryptOutput) {
-    pCryptInputMarshal := pCryptInput is VarRef ? "char*" : "ptr"
-    ppCryptOutputMarshal := ppCryptOutput is VarRef ? "ptr*" : "ptr"
-    pcbCryptOutputMarshal := pcbCryptOutput is VarRef ? "uint*" : "ptr"
+    pCryptInputMarshal := pCryptInput is VarRef ? "char*" : IntPtr
+    ppCryptOutputMarshal := ppCryptOutput is VarRef ? "ptr*" : IntPtr
+    pcbCryptOutputMarshal := pcbCryptOutput is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ClusterDecrypt", HCLUSCRYPTPROVIDER, _hClusCryptProvider, pCryptInputMarshal, pCryptInput, UInt32, cbCryptInput, ppCryptOutputMarshal, ppCryptOutput, pcbCryptOutputMarshal, pcbCryptOutput, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Pointer<Void>} pCryptInfo 
  * @returns {Integer} 
  * @since windowsserver2012
  */
 export FreeClusterCrypt(pCryptInfo) {
-    pCryptInfoMarshal := pCryptInfo is VarRef ? "ptr" : "ptr"
+    pCryptInfoMarshal := pCryptInfo is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RESUTILS.dll\FreeClusterCrypt", pCryptInfoMarshal, pCryptInfo, UInt32)
     return result
 }
 
 /**
- * 
  * @param {Integer} flags 
  * @param {Integer} reason 
  * @param {Pointer<Integer>} pResult 
  * @returns {Integer} 
  */
 export ResUtilVerifyShutdownSafe(flags, reason, pResult) {
-    pResultMarshal := pResult is VarRef ? "uint*" : "ptr"
+    pResultMarshal := pResult is VarRef ? "uint*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilVerifyShutdownSafe", UInt32, flags, UInt32, reason, pResultMarshal, pResult, UInt32)
     return result
@@ -15210,7 +15429,6 @@ export ResUtilLeftPaxosIsLessThanRight(left, right) {
 }
 
 /**
- * 
  * @param {HKEY} key 
  * @param {PWSTR} keyName 
  * @param {BOOL} treatNoKeyAsError 
@@ -15224,21 +15442,19 @@ export ResUtilsDeleteKeyTree(key, keyName, treatNoKeyAsError) {
 }
 
 /**
- * 
  * @param {HGROUP} hSelf 
  * @param {HGROUP} _hGroup 
  * @param {Pointer<BOOL>} pEqual 
  * @returns {Integer} 
  */
 export ResUtilGroupsEqual(hSelf, _hGroup, pEqual) {
-    pEqualMarshal := pEqual is VarRef ? "int*" : "ptr"
+    pEqualMarshal := pEqual is VarRef ? "int*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilGroupsEqual", HGROUP, hSelf, HGROUP, _hGroup, pEqualMarshal, pEqual, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HCLUSTER} _hCluster 
  * @param {HGROUP} hSelf 
  * @param {Pointer<LPGROUP_CALLBACK_EX>} pResCallBack 
@@ -15246,14 +15462,13 @@ export ResUtilGroupsEqual(hSelf, _hGroup, pEqual) {
  * @returns {Integer} 
  */
 export ResUtilEnumGroups(_hCluster, hSelf, pResCallBack, pParameter) {
-    pParameterMarshal := pParameter is VarRef ? "ptr" : "ptr"
+    pParameterMarshal := pParameter is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilEnumGroups", HCLUSTER, _hCluster, HGROUP, hSelf, LPGROUP_CALLBACK_EX, pResCallBack, pParameterMarshal, pParameter, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HCLUSTER} _hCluster 
  * @param {HGROUP} hSelf 
  * @param {CLUSGROUP_TYPE} groupType 
@@ -15262,40 +15477,37 @@ export ResUtilEnumGroups(_hCluster, hSelf, pResCallBack, pParameter) {
  * @returns {Integer} 
  */
 export ResUtilEnumGroupsEx(_hCluster, hSelf, groupType, pResCallBack, pParameter) {
-    pParameterMarshal := pParameter is VarRef ? "ptr" : "ptr"
+    pParameterMarshal := pParameter is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilEnumGroupsEx", HCLUSTER, _hCluster, HGROUP, hSelf, CLUSGROUP_TYPE, groupType, LPGROUP_CALLBACK_EX, pResCallBack, pParameterMarshal, pParameter, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HGROUP} group 
  * @param {Pointer<HGROUP>} copy 
  * @returns {Integer} 
  */
 export ResUtilDupGroup(group, copy) {
-    copyMarshal := copy is VarRef ? "ptr*" : "ptr"
+    copyMarshal := copy is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilDupGroup", HGROUP, group, copyMarshal, copy, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HGROUP} _hGroup 
  * @param {Pointer<CLUSGROUP_TYPE>} groupType 
  * @returns {Integer} 
  */
 export ResUtilGetClusterGroupType(_hGroup, groupType) {
-    groupTypeMarshal := groupType is VarRef ? "int*" : "ptr"
+    groupTypeMarshal := groupType is VarRef ? "int*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilGetClusterGroupType", HGROUP, _hGroup, groupTypeMarshal, groupType, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HCLUSTER} _hCluster 
  * @returns {HGROUP} 
  */
@@ -15305,7 +15517,6 @@ export ResUtilGetCoreGroup(_hCluster) {
 }
 
 /**
- * 
  * @param {HRESOURCE} hSelf 
  * @param {Integer} _enumType 
  * @param {Pointer<LPRESOURCE_CALLBACK_EX>} pResCallBack 
@@ -15313,27 +15524,25 @@ export ResUtilGetCoreGroup(_hCluster) {
  * @returns {Integer} 
  */
 export ResUtilResourceDepEnum(hSelf, _enumType, pResCallBack, pParameter) {
-    pParameterMarshal := pParameter is VarRef ? "ptr" : "ptr"
+    pParameterMarshal := pParameter is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilResourceDepEnum", HRESOURCE, hSelf, UInt32, _enumType, LPRESOURCE_CALLBACK_EX, pResCallBack, pParameterMarshal, pParameter, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HRESOURCE} group 
  * @param {Pointer<HRESOURCE>} copy 
  * @returns {Integer} 
  */
 export ResUtilDupResource(group, copy) {
-    copyMarshal := copy is VarRef ? "ptr*" : "ptr"
+    copyMarshal := copy is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilDupResource", HRESOURCE, group, copyMarshal, copy, UInt32)
     return result
 }
 
 /**
- * 
  * @param {HCLUSTER} _hCluster 
  * @param {Pointer<Guid>} guid 
  * @returns {Integer} 
@@ -15344,14 +15553,13 @@ export ResUtilGetClusterId(_hCluster, guid) {
 }
 
 /**
- * 
  * @param {HCLUSTER} _hCluster 
  * @param {Pointer<LPNODE_CALLBACK>} pNodeCallBack 
  * @param {Pointer<Void>} pParameter 
  * @returns {Integer} 
  */
 export ResUtilNodeEnum(_hCluster, pNodeCallBack, pParameter) {
-    pParameterMarshal := pParameter is VarRef ? "ptr" : "ptr"
+    pParameterMarshal := pParameter is VarRef ? "ptr" : IntPtr
 
     result := DllCall("RESUTILS.dll\ResUtilNodeEnum", HCLUSTER, _hCluster, LPNODE_CALLBACK, pNodeCallBack, pParameterMarshal, pParameter, UInt32)
     return result
@@ -15449,7 +15657,6 @@ export RegisterAppInstance(ProcessHandle, AppInstanceId, ChildrenInheritAppInsta
 }
 
 /**
- * 
  * @param {Pointer<Guid>} AppInstanceId 
  * @param {Integer} InstanceVersionHigh 
  * @param {Integer} InstanceVersionLow 
@@ -15461,7 +15668,6 @@ export RegisterAppInstanceVersion(AppInstanceId, InstanceVersionHigh, InstanceVe
 }
 
 /**
- * 
  * @param {Pointer<Guid>} AppInstanceId 
  * @param {Pointer<Integer>} InstanceVersionHigh 
  * @param {Pointer<Integer>} InstanceVersionLow 
@@ -15469,15 +15675,14 @@ export RegisterAppInstanceVersion(AppInstanceId, InstanceVersionHigh, InstanceVe
  * @returns {Integer} 
  */
 export QueryAppInstanceVersion(AppInstanceId, InstanceVersionHigh, InstanceVersionLow, VersionStatus) {
-    InstanceVersionHighMarshal := InstanceVersionHigh is VarRef ? "uint*" : "ptr"
-    InstanceVersionLowMarshal := InstanceVersionLow is VarRef ? "uint*" : "ptr"
+    InstanceVersionHighMarshal := InstanceVersionHigh is VarRef ? "uint*" : IntPtr
+    InstanceVersionLowMarshal := InstanceVersionLow is VarRef ? "uint*" : IntPtr
 
     result := DllCall("NTLANMAN.dll\QueryAppInstanceVersion", Guid.Ptr, AppInstanceId, InstanceVersionHighMarshal, InstanceVersionHigh, InstanceVersionLowMarshal, InstanceVersionLow, "ptr", VersionStatus, UInt32)
     return result
 }
 
 /**
- * 
  * @returns {Integer} 
  */
 export ResetAllAppInstanceVersions() {

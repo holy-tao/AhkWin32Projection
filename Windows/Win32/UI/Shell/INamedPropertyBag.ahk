@@ -119,9 +119,9 @@ export default struct INamedPropertyBag extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ReadPropertyNPB := CallbackCreate(GetMethod(implObj, "ReadPropertyNPB"), flags, 4)
-        this.vtbl.WritePropertyNPB := CallbackCreate(GetMethod(implObj, "WritePropertyNPB"), flags, 4)
-        this.vtbl.RemovePropertyNPB := CallbackCreate(GetMethod(implObj, "RemovePropertyNPB"), flags, 3)
+        this.vtbl.ReadPropertyNPB := CallbackCreate(ObjBindMethod(implObj, "ReadPropertyNPB"), flags, 4)
+        this.vtbl.WritePropertyNPB := CallbackCreate(ObjBindMethod(implObj, "WritePropertyNPB"), flags, 4)
+        this.vtbl.RemovePropertyNPB := CallbackCreate(ObjBindMethod(implObj, "RemovePropertyNPB"), flags, 3)
     }
 
     Dispose() {

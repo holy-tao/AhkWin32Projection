@@ -21,98 +21,106 @@
 
 ;@region Functions
 /**
- * 
  * @param {Pointer<Guid>} pcGuidDevice 
  * @param {IUnknown} pUnkOuter 
  * @returns {IDirectSound} 
  */
 export DirectSoundCreate(pcGuidDevice, pUnkOuter) {
-    result := DllCall("DSOUND.dll\DirectSoundCreate", Guid.Ptr, pcGuidDevice, "ptr*", &ppDS := 0, "ptr", pUnkOuter, "HRESULT")
+    pcGuidDeviceMarshal := pcGuidDevice == 0 ? IntPtr : Guid.Ptr
+    pUnkOuterMarshal := pUnkOuter == 0 ? IntPtr : "ptr"
+
+    result := DllCall("DSOUND.dll\DirectSoundCreate", pcGuidDeviceMarshal, pcGuidDevice, "ptr*", &ppDS := 0, pUnkOuterMarshal, pUnkOuter, "HRESULT")
     return IDirectSound(ppDS)
 }
 
 /**
- * 
  * @param {Pointer<LPDSENUMCALLBACKA>} pDSEnumCallback 
  * @param {Pointer<Void>} pContext 
  * @returns {HRESULT} 
  */
 export DirectSoundEnumerateA(pDSEnumCallback, pContext) {
-    pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+    pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
+    pContextMarshal := pContext == 0 ? IntPtr : "ptr"
 
     result := DllCall("DSOUND.dll\DirectSoundEnumerateA", LPDSENUMCALLBACKA, pDSEnumCallback, pContextMarshal, pContext, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {Pointer<LPDSENUMCALLBACKW>} pDSEnumCallback 
  * @param {Pointer<Void>} pContext 
  * @returns {HRESULT} 
  */
 export DirectSoundEnumerateW(pDSEnumCallback, pContext) {
-    pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+    pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
+    pContextMarshal := pContext == 0 ? IntPtr : "ptr"
 
     result := DllCall("DSOUND.dll\DirectSoundEnumerateW", LPDSENUMCALLBACKW, pDSEnumCallback, pContextMarshal, pContext, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {Pointer<Guid>} pcGuidDevice 
  * @param {IUnknown} pUnkOuter 
  * @returns {IDirectSoundCapture} 
  */
 export DirectSoundCaptureCreate(pcGuidDevice, pUnkOuter) {
-    result := DllCall("DSOUND.dll\DirectSoundCaptureCreate", Guid.Ptr, pcGuidDevice, "ptr*", &ppDSC := 0, "ptr", pUnkOuter, "HRESULT")
+    pcGuidDeviceMarshal := pcGuidDevice == 0 ? IntPtr : Guid.Ptr
+    pUnkOuterMarshal := pUnkOuter == 0 ? IntPtr : "ptr"
+
+    result := DllCall("DSOUND.dll\DirectSoundCaptureCreate", pcGuidDeviceMarshal, pcGuidDevice, "ptr*", &ppDSC := 0, pUnkOuterMarshal, pUnkOuter, "HRESULT")
     return IDirectSoundCapture(ppDSC)
 }
 
 /**
- * 
  * @param {Pointer<LPDSENUMCALLBACKA>} pDSEnumCallback 
  * @param {Pointer<Void>} pContext 
  * @returns {HRESULT} 
  */
 export DirectSoundCaptureEnumerateA(pDSEnumCallback, pContext) {
-    pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+    pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
+    pContextMarshal := pContext == 0 ? IntPtr : "ptr"
 
     result := DllCall("DSOUND.dll\DirectSoundCaptureEnumerateA", LPDSENUMCALLBACKA, pDSEnumCallback, pContextMarshal, pContext, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {Pointer<LPDSENUMCALLBACKW>} pDSEnumCallback 
  * @param {Pointer<Void>} pContext 
  * @returns {HRESULT} 
  */
 export DirectSoundCaptureEnumerateW(pDSEnumCallback, pContext) {
-    pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+    pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
+    pContextMarshal := pContext == 0 ? IntPtr : "ptr"
 
     result := DllCall("DSOUND.dll\DirectSoundCaptureEnumerateW", LPDSENUMCALLBACKW, pDSEnumCallback, pContextMarshal, pContext, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {Pointer<Guid>} pcGuidDevice 
  * @param {IUnknown} pUnkOuter 
  * @returns {IDirectSound8} 
  */
 export DirectSoundCreate8(pcGuidDevice, pUnkOuter) {
-    result := DllCall("DSOUND.dll\DirectSoundCreate8", Guid.Ptr, pcGuidDevice, "ptr*", &ppDS8 := 0, "ptr", pUnkOuter, "HRESULT")
+    pcGuidDeviceMarshal := pcGuidDevice == 0 ? IntPtr : Guid.Ptr
+    pUnkOuterMarshal := pUnkOuter == 0 ? IntPtr : "ptr"
+
+    result := DllCall("DSOUND.dll\DirectSoundCreate8", pcGuidDeviceMarshal, pcGuidDevice, "ptr*", &ppDS8 := 0, pUnkOuterMarshal, pUnkOuter, "HRESULT")
     return IDirectSound8(ppDS8)
 }
 
 /**
- * 
  * @param {Pointer<Guid>} pcGuidDevice 
  * @param {IUnknown} pUnkOuter 
  * @returns {IDirectSoundCapture} 
  */
 export DirectSoundCaptureCreate8(pcGuidDevice, pUnkOuter) {
-    result := DllCall("DSOUND.dll\DirectSoundCaptureCreate8", Guid.Ptr, pcGuidDevice, "ptr*", &ppDSC8 := 0, "ptr", pUnkOuter, "HRESULT")
+    pcGuidDeviceMarshal := pcGuidDevice == 0 ? IntPtr : Guid.Ptr
+    pUnkOuterMarshal := pUnkOuter == 0 ? IntPtr : "ptr"
+
+    result := DllCall("DSOUND.dll\DirectSoundCaptureCreate8", pcGuidDeviceMarshal, pcGuidDevice, "ptr*", &ppDSC8 := 0, pUnkOuterMarshal, pUnkOuter, "HRESULT")
     return IDirectSoundCapture(ppDSC8)
 }
 
@@ -135,18 +143,23 @@ export DirectSoundCaptureCreate8(pcGuidDevice, pUnkOuter) {
  * @see https://learn.microsoft.com/windows/win32/DevNotes/directsoundfullduplexcreate
  */
 export DirectSoundFullDuplexCreate(pcGuidCaptureDevice, pcGuidRenderDevice, pcDSCBufferDesc, pcDSBufferDesc, _hWnd, dwLevel, ppDSFD, ppDSCBuffer8, ppDSBuffer8, pUnkOuter) {
-    result := DllCall("DSOUND.dll\DirectSoundFullDuplexCreate", Guid.Ptr, pcGuidCaptureDevice, Guid.Ptr, pcGuidRenderDevice, DSCBUFFERDESC.Ptr, pcDSCBufferDesc, DSBUFFERDESC.Ptr, pcDSBufferDesc, HWND, _hWnd, UInt32, dwLevel, IDirectSoundFullDuplex.Ptr, ppDSFD, IDirectSoundCaptureBuffer8.Ptr, ppDSCBuffer8, IDirectSoundBuffer8.Ptr, ppDSBuffer8, "ptr", pUnkOuter, "HRESULT")
+    pcGuidCaptureDeviceMarshal := pcGuidCaptureDevice == 0 ? IntPtr : Guid.Ptr
+    pcGuidRenderDeviceMarshal := pcGuidRenderDevice == 0 ? IntPtr : Guid.Ptr
+    pUnkOuterMarshal := pUnkOuter == 0 ? IntPtr : "ptr"
+
+    result := DllCall("DSOUND.dll\DirectSoundFullDuplexCreate", pcGuidCaptureDeviceMarshal, pcGuidCaptureDevice, pcGuidRenderDeviceMarshal, pcGuidRenderDevice, DSCBUFFERDESC.Ptr, pcDSCBufferDesc, DSBUFFERDESC.Ptr, pcDSBufferDesc, HWND, _hWnd, UInt32, dwLevel, IDirectSoundFullDuplex.Ptr, ppDSFD, IDirectSoundCaptureBuffer8.Ptr, ppDSCBuffer8, IDirectSoundBuffer8.Ptr, ppDSBuffer8, pUnkOuterMarshal, pUnkOuter, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {Pointer<Guid>} pGuidSrc 
  * @param {Pointer<Guid>} pGuidDest 
  * @returns {HRESULT} 
  */
 export GetDeviceID(pGuidSrc, pGuidDest) {
-    result := DllCall("DSOUND.dll\GetDeviceID", Guid.Ptr, pGuidSrc, Guid.Ptr, pGuidDest, "HRESULT")
+    pGuidSrcMarshal := pGuidSrc == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("DSOUND.dll\GetDeviceID", pGuidSrcMarshal, pGuidSrc, Guid.Ptr, pGuidDest, "HRESULT")
     return result
 }
 

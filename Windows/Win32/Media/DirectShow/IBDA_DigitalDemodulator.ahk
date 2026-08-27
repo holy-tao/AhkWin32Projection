@@ -119,7 +119,7 @@ export default struct IBDA_DigitalDemodulator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-put_modulationtype
      */
     put_ModulationType(pModulationType) {
-        pModulationTypeMarshal := pModulationType is VarRef ? "int*" : "ptr"
+        pModulationTypeMarshal := pModulationType is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, pModulationTypeMarshal, pModulationType, "HRESULT")
         return result
@@ -132,7 +132,7 @@ export default struct IBDA_DigitalDemodulator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-get_modulationtype
      */
     get_ModulationType(pModulationType) {
-        pModulationTypeMarshal := pModulationType is VarRef ? "int*" : "ptr"
+        pModulationTypeMarshal := pModulationType is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, pModulationTypeMarshal, pModulationType, "HRESULT")
         return result
@@ -145,7 +145,7 @@ export default struct IBDA_DigitalDemodulator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-put_innerfecmethod
      */
     put_InnerFECMethod(pFECMethod) {
-        pFECMethodMarshal := pFECMethod is VarRef ? "int*" : "ptr"
+        pFECMethodMarshal := pFECMethod is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, pFECMethodMarshal, pFECMethod, "HRESULT")
         return result
@@ -158,7 +158,7 @@ export default struct IBDA_DigitalDemodulator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-get_innerfecmethod
      */
     get_InnerFECMethod(pFECMethod) {
-        pFECMethodMarshal := pFECMethod is VarRef ? "int*" : "ptr"
+        pFECMethodMarshal := pFECMethod is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, pFECMethodMarshal, pFECMethod, "HRESULT")
         return result
@@ -171,7 +171,7 @@ export default struct IBDA_DigitalDemodulator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-put_innerfecrate
      */
     put_InnerFECRate(pFECRate) {
-        pFECRateMarshal := pFECRate is VarRef ? "int*" : "ptr"
+        pFECRateMarshal := pFECRate is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, pFECRateMarshal, pFECRate, "HRESULT")
         return result
@@ -184,7 +184,7 @@ export default struct IBDA_DigitalDemodulator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-get_innerfecrate
      */
     get_InnerFECRate(pFECRate) {
-        pFECRateMarshal := pFECRate is VarRef ? "int*" : "ptr"
+        pFECRateMarshal := pFECRate is VarRef ? "int*" : IntPtr
 
         result := ComCall(8, this, pFECRateMarshal, pFECRate, "HRESULT")
         return result
@@ -197,7 +197,7 @@ export default struct IBDA_DigitalDemodulator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-put_outerfecmethod
      */
     put_OuterFECMethod(pFECMethod) {
-        pFECMethodMarshal := pFECMethod is VarRef ? "int*" : "ptr"
+        pFECMethodMarshal := pFECMethod is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, pFECMethodMarshal, pFECMethod, "HRESULT")
         return result
@@ -210,7 +210,7 @@ export default struct IBDA_DigitalDemodulator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-get_outerfecmethod
      */
     get_OuterFECMethod(pFECMethod) {
-        pFECMethodMarshal := pFECMethod is VarRef ? "int*" : "ptr"
+        pFECMethodMarshal := pFECMethod is VarRef ? "int*" : IntPtr
 
         result := ComCall(10, this, pFECMethodMarshal, pFECMethod, "HRESULT")
         return result
@@ -223,7 +223,7 @@ export default struct IBDA_DigitalDemodulator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-put_outerfecrate
      */
     put_OuterFECRate(pFECRate) {
-        pFECRateMarshal := pFECRate is VarRef ? "int*" : "ptr"
+        pFECRateMarshal := pFECRate is VarRef ? "int*" : IntPtr
 
         result := ComCall(11, this, pFECRateMarshal, pFECRate, "HRESULT")
         return result
@@ -236,7 +236,7 @@ export default struct IBDA_DigitalDemodulator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-get_outerfecrate
      */
     get_OuterFECRate(pFECRate) {
-        pFECRateMarshal := pFECRate is VarRef ? "int*" : "ptr"
+        pFECRateMarshal := pFECRate is VarRef ? "int*" : IntPtr
 
         result := ComCall(12, this, pFECRateMarshal, pFECRate, "HRESULT")
         return result
@@ -249,7 +249,7 @@ export default struct IBDA_DigitalDemodulator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-put_symbolrate
      */
     put_SymbolRate(pSymbolRate) {
-        pSymbolRateMarshal := pSymbolRate is VarRef ? "uint*" : "ptr"
+        pSymbolRateMarshal := pSymbolRate is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, pSymbolRateMarshal, pSymbolRate, "HRESULT")
         return result
@@ -262,7 +262,7 @@ export default struct IBDA_DigitalDemodulator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-get_symbolrate
      */
     get_SymbolRate(pSymbolRate) {
-        pSymbolRateMarshal := pSymbolRate is VarRef ? "uint*" : "ptr"
+        pSymbolRateMarshal := pSymbolRate is VarRef ? "uint*" : IntPtr
 
         result := ComCall(14, this, pSymbolRateMarshal, pSymbolRate, "HRESULT")
         return result
@@ -275,7 +275,7 @@ export default struct IBDA_DigitalDemodulator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-put_spectralinversion
      */
     put_SpectralInversion(pSpectralInversion) {
-        pSpectralInversionMarshal := pSpectralInversion is VarRef ? "int*" : "ptr"
+        pSpectralInversionMarshal := pSpectralInversion is VarRef ? "int*" : IntPtr
 
         result := ComCall(15, this, pSpectralInversionMarshal, pSpectralInversion, "HRESULT")
         return result
@@ -290,7 +290,7 @@ export default struct IBDA_DigitalDemodulator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator-get_spectralinversion
      */
     get_SpectralInversion(pSpectralInversion) {
-        pSpectralInversionMarshal := pSpectralInversion is VarRef ? "int*" : "ptr"
+        pSpectralInversionMarshal := pSpectralInversion is VarRef ? "int*" : IntPtr
 
         result := ComCall(16, this, pSpectralInversionMarshal, pSpectralInversion, "HRESULT")
         return result
@@ -305,20 +305,20 @@ export default struct IBDA_DigitalDemodulator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_ModulationType := CallbackCreate(GetMethod(implObj, "put_ModulationType"), flags, 2)
-        this.vtbl.get_ModulationType := CallbackCreate(GetMethod(implObj, "get_ModulationType"), flags, 2)
-        this.vtbl.put_InnerFECMethod := CallbackCreate(GetMethod(implObj, "put_InnerFECMethod"), flags, 2)
-        this.vtbl.get_InnerFECMethod := CallbackCreate(GetMethod(implObj, "get_InnerFECMethod"), flags, 2)
-        this.vtbl.put_InnerFECRate := CallbackCreate(GetMethod(implObj, "put_InnerFECRate"), flags, 2)
-        this.vtbl.get_InnerFECRate := CallbackCreate(GetMethod(implObj, "get_InnerFECRate"), flags, 2)
-        this.vtbl.put_OuterFECMethod := CallbackCreate(GetMethod(implObj, "put_OuterFECMethod"), flags, 2)
-        this.vtbl.get_OuterFECMethod := CallbackCreate(GetMethod(implObj, "get_OuterFECMethod"), flags, 2)
-        this.vtbl.put_OuterFECRate := CallbackCreate(GetMethod(implObj, "put_OuterFECRate"), flags, 2)
-        this.vtbl.get_OuterFECRate := CallbackCreate(GetMethod(implObj, "get_OuterFECRate"), flags, 2)
-        this.vtbl.put_SymbolRate := CallbackCreate(GetMethod(implObj, "put_SymbolRate"), flags, 2)
-        this.vtbl.get_SymbolRate := CallbackCreate(GetMethod(implObj, "get_SymbolRate"), flags, 2)
-        this.vtbl.put_SpectralInversion := CallbackCreate(GetMethod(implObj, "put_SpectralInversion"), flags, 2)
-        this.vtbl.get_SpectralInversion := CallbackCreate(GetMethod(implObj, "get_SpectralInversion"), flags, 2)
+        this.vtbl.put_ModulationType := CallbackCreate(ObjBindMethod(implObj, "put_ModulationType"), flags, 2)
+        this.vtbl.get_ModulationType := CallbackCreate(ObjBindMethod(implObj, "get_ModulationType"), flags, 2)
+        this.vtbl.put_InnerFECMethod := CallbackCreate(ObjBindMethod(implObj, "put_InnerFECMethod"), flags, 2)
+        this.vtbl.get_InnerFECMethod := CallbackCreate(ObjBindMethod(implObj, "get_InnerFECMethod"), flags, 2)
+        this.vtbl.put_InnerFECRate := CallbackCreate(ObjBindMethod(implObj, "put_InnerFECRate"), flags, 2)
+        this.vtbl.get_InnerFECRate := CallbackCreate(ObjBindMethod(implObj, "get_InnerFECRate"), flags, 2)
+        this.vtbl.put_OuterFECMethod := CallbackCreate(ObjBindMethod(implObj, "put_OuterFECMethod"), flags, 2)
+        this.vtbl.get_OuterFECMethod := CallbackCreate(ObjBindMethod(implObj, "get_OuterFECMethod"), flags, 2)
+        this.vtbl.put_OuterFECRate := CallbackCreate(ObjBindMethod(implObj, "put_OuterFECRate"), flags, 2)
+        this.vtbl.get_OuterFECRate := CallbackCreate(ObjBindMethod(implObj, "get_OuterFECRate"), flags, 2)
+        this.vtbl.put_SymbolRate := CallbackCreate(ObjBindMethod(implObj, "put_SymbolRate"), flags, 2)
+        this.vtbl.get_SymbolRate := CallbackCreate(ObjBindMethod(implObj, "get_SymbolRate"), flags, 2)
+        this.vtbl.put_SpectralInversion := CallbackCreate(ObjBindMethod(implObj, "put_SpectralInversion"), flags, 2)
+        this.vtbl.get_SpectralInversion := CallbackCreate(ObjBindMethod(implObj, "get_SpectralInversion"), flags, 2)
     }
 
     Dispose() {

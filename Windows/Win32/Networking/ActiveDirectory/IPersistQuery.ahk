@@ -107,7 +107,7 @@ export default struct IPersistQuery extends IPersist {
         pSection := pSection is String ? StrPtr(pSection) : pSection
         pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
 
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, "ptr", pSection, "ptr", pValueName, pValueMarshal, pValue, "HRESULT")
         return result
@@ -126,7 +126,7 @@ export default struct IPersistQuery extends IPersist {
         pSection := pSection is String ? StrPtr(pSection) : pSection
         pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
 
-        pStructMarshal := pStruct is VarRef ? "ptr" : "ptr"
+        pStructMarshal := pStruct is VarRef ? "ptr" : IntPtr
 
         result := ComCall(8, this, "ptr", pSection, "ptr", pValueName, pStructMarshal, pStruct, UInt32, cbStruct, "HRESULT")
         return result
@@ -145,7 +145,7 @@ export default struct IPersistQuery extends IPersist {
         pSection := pSection is String ? StrPtr(pSection) : pSection
         pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
 
-        pStructMarshal := pStruct is VarRef ? "ptr" : "ptr"
+        pStructMarshal := pStruct is VarRef ? "ptr" : IntPtr
 
         result := ComCall(9, this, "ptr", pSection, "ptr", pValueName, pStructMarshal, pStruct, UInt32, cbStruct, "HRESULT")
         return result
@@ -170,13 +170,13 @@ export default struct IPersistQuery extends IPersist {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.WriteString := CallbackCreate(GetMethod(implObj, "WriteString"), flags, 4)
-        this.vtbl.ReadString := CallbackCreate(GetMethod(implObj, "ReadString"), flags, 5)
-        this.vtbl.WriteInt := CallbackCreate(GetMethod(implObj, "WriteInt"), flags, 4)
-        this.vtbl.ReadInt := CallbackCreate(GetMethod(implObj, "ReadInt"), flags, 4)
-        this.vtbl.WriteStruct := CallbackCreate(GetMethod(implObj, "WriteStruct"), flags, 5)
-        this.vtbl.ReadStruct := CallbackCreate(GetMethod(implObj, "ReadStruct"), flags, 5)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.WriteString := CallbackCreate(ObjBindMethod(implObj, "WriteString"), flags, 4)
+        this.vtbl.ReadString := CallbackCreate(ObjBindMethod(implObj, "ReadString"), flags, 5)
+        this.vtbl.WriteInt := CallbackCreate(ObjBindMethod(implObj, "WriteInt"), flags, 4)
+        this.vtbl.ReadInt := CallbackCreate(ObjBindMethod(implObj, "ReadInt"), flags, 4)
+        this.vtbl.WriteStruct := CallbackCreate(ObjBindMethod(implObj, "WriteStruct"), flags, 5)
+        this.vtbl.ReadStruct := CallbackCreate(ObjBindMethod(implObj, "ReadStruct"), flags, 5)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
     }
 
     Dispose() {

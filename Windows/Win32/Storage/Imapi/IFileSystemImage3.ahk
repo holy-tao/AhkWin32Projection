@@ -125,9 +125,9 @@ export default struct IFileSystemImage3 extends IFileSystemImage2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_CreateRedundantUdfMetadataFiles := CallbackCreate(GetMethod(implObj, "get_CreateRedundantUdfMetadataFiles"), flags, 2)
-        this.vtbl.put_CreateRedundantUdfMetadataFiles := CallbackCreate(GetMethod(implObj, "put_CreateRedundantUdfMetadataFiles"), flags, 2)
-        this.vtbl.ProbeSpecificFileSystem := CallbackCreate(GetMethod(implObj, "ProbeSpecificFileSystem"), flags, 3)
+        this.vtbl.get_CreateRedundantUdfMetadataFiles := CallbackCreate(ObjBindMethod(implObj, "get_CreateRedundantUdfMetadataFiles"), flags, 2)
+        this.vtbl.put_CreateRedundantUdfMetadataFiles := CallbackCreate(ObjBindMethod(implObj, "put_CreateRedundantUdfMetadataFiles"), flags, 2)
+        this.vtbl.ProbeSpecificFileSystem := CallbackCreate(ObjBindMethod(implObj, "ProbeSpecificFileSystem"), flags, 3)
     }
 
     Dispose() {

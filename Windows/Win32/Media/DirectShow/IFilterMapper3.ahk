@@ -57,7 +57,7 @@ export default struct IFilterMapper3 extends IFilterMapper2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetICreateDevEnum := CallbackCreate(GetMethod(implObj, "GetICreateDevEnum"), flags, 2)
+        this.vtbl.GetICreateDevEnum := CallbackCreate(ObjBindMethod(implObj, "GetICreateDevEnum"), flags, 2)
     }
 
     Dispose() {

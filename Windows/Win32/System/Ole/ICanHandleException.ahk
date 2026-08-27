@@ -38,7 +38,6 @@ export default struct ICanHandleException extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<EXCEPINFO>} pExcepInfo 
      * @param {Pointer<VARIANT>} pvar 
      * @returns {HRESULT} 
@@ -57,7 +56,7 @@ export default struct ICanHandleException extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CanHandleException := CallbackCreate(GetMethod(implObj, "CanHandleException"), flags, 3)
+        this.vtbl.CanHandleException := CallbackCreate(ObjBindMethod(implObj, "CanHandleException"), flags, 3)
     }
 
     Dispose() {

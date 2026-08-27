@@ -19,7 +19,6 @@ export default struct LPFNSHOWJOYCPL {
     }
 
     /**
-     * 
      * @param {HWND} _hWnd 
      * @returns {String} Nothing - always returns an empty string
      */

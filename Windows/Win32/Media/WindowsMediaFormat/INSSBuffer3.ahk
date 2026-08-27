@@ -78,7 +78,7 @@ export default struct INSSBuffer3 extends INSSBuffer2 {
      * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nf-wmsbuffer-inssbuffer3-setproperty
      */
     SetProperty(guidBufferProperty, pvBufferProperty, dwBufferPropertySize) {
-        pvBufferPropertyMarshal := pvBufferProperty is VarRef ? "ptr" : "ptr"
+        pvBufferPropertyMarshal := pvBufferProperty is VarRef ? "ptr" : IntPtr
 
         result := ComCall(10, this, Guid, guidBufferProperty, pvBufferPropertyMarshal, pvBufferProperty, UInt32, dwBufferPropertySize, "HRESULT")
         return result
@@ -92,7 +92,7 @@ export default struct INSSBuffer3 extends INSSBuffer2 {
      * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nf-wmsbuffer-inssbuffer3-getproperty
      */
     GetProperty(guidBufferProperty, pdwBufferPropertySize) {
-        pdwBufferPropertySizeMarshal := pdwBufferPropertySize is VarRef ? "uint*" : "ptr"
+        pdwBufferPropertySizeMarshal := pdwBufferPropertySize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(11, this, Guid, guidBufferProperty, "ptr", &pvBufferProperty := 0, pdwBufferPropertySizeMarshal, pdwBufferPropertySize, "HRESULT")
         return pvBufferProperty
@@ -107,8 +107,8 @@ export default struct INSSBuffer3 extends INSSBuffer2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 4)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 4)
+        this.vtbl.SetProperty := CallbackCreate(ObjBindMethod(implObj, "SetProperty"), flags, 4)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 4)
     }
 
     Dispose() {

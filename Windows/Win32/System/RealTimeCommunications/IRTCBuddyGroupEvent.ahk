@@ -70,7 +70,6 @@ export default struct IRTCBuddyGroupEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {RTC_GROUP_EVENT_TYPE} 
      */
     get_EventType() {
@@ -79,7 +78,6 @@ export default struct IRTCBuddyGroupEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCBuddyGroup} 
      */
     get_Group() {
@@ -88,7 +86,6 @@ export default struct IRTCBuddyGroupEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCBuddy2} 
      */
     get_Buddy() {
@@ -97,7 +94,6 @@ export default struct IRTCBuddyGroupEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_StatusCode() {
@@ -114,10 +110,10 @@ export default struct IRTCBuddyGroupEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_EventType := CallbackCreate(GetMethod(implObj, "get_EventType"), flags, 2)
-        this.vtbl.get_Group := CallbackCreate(GetMethod(implObj, "get_Group"), flags, 2)
-        this.vtbl.get_Buddy := CallbackCreate(GetMethod(implObj, "get_Buddy"), flags, 2)
-        this.vtbl.get_StatusCode := CallbackCreate(GetMethod(implObj, "get_StatusCode"), flags, 2)
+        this.vtbl.get_EventType := CallbackCreate(ObjBindMethod(implObj, "get_EventType"), flags, 2)
+        this.vtbl.get_Group := CallbackCreate(ObjBindMethod(implObj, "get_Group"), flags, 2)
+        this.vtbl.get_Buddy := CallbackCreate(ObjBindMethod(implObj, "get_Buddy"), flags, 2)
+        this.vtbl.get_StatusCode := CallbackCreate(ObjBindMethod(implObj, "get_StatusCode"), flags, 2)
     }
 
     Dispose() {

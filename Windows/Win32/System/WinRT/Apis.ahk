@@ -123,7 +123,7 @@ export RoGetAgileReference(options, riid, pUnk) {
  * @since windows8.0
  */
 export HSTRING_UserSize(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\HSTRING_UserSize", param0Marshal, param0, UInt32, param1, HSTRING.Ptr, param2, UInt32)
     return result
@@ -139,8 +139,8 @@ export HSTRING_UserSize(param0, param1, param2) {
  * @since windows8.0
  */
 export HSTRING_UserMarshal(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\HSTRING_UserMarshal", param0Marshal, param0, param1Marshal, param1, HSTRING.Ptr, param2, IntPtr)
     return result
@@ -185,8 +185,8 @@ export HSTRING_UserMarshal(param0, param1, param2) {
  * @since windows8.0
  */
 export HSTRING_UserUnmarshal(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\HSTRING_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, HSTRING.Ptr, param2, IntPtr)
     return result
@@ -201,7 +201,7 @@ export HSTRING_UserUnmarshal(param0, param1, param2) {
  * @since windows8.0
  */
 export HSTRING_UserFree(param0, param1) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\HSTRING_UserFree", param0Marshal, param0, HSTRING.Ptr, param1)
 }
@@ -216,7 +216,7 @@ export HSTRING_UserFree(param0, param1) {
  * @since windows8.0
  */
 export HSTRING_UserSize64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\HSTRING_UserSize64", param0Marshal, param0, UInt32, param1, HSTRING.Ptr, param2, UInt32)
     return result
@@ -232,8 +232,8 @@ export HSTRING_UserSize64(param0, param1, param2) {
  * @since windows8.0
  */
 export HSTRING_UserMarshal64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\HSTRING_UserMarshal64", param0Marshal, param0, param1Marshal, param1, HSTRING.Ptr, param2, IntPtr)
     return result
@@ -278,8 +278,8 @@ export HSTRING_UserMarshal64(param0, param1, param2) {
  * @since windows8.0
  */
 export HSTRING_UserUnmarshal64(param0, param1, param2) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
-    param1Marshal := param1 is VarRef ? "char*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
+    param1Marshal := param1 is VarRef ? "char*" : IntPtr
 
     result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\HSTRING_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, HSTRING.Ptr, param2, IntPtr)
     return result
@@ -294,7 +294,7 @@ export HSTRING_UserUnmarshal64(param0, param1, param2) {
  * @since windows8.0
  */
 export HSTRING_UserFree64(param0, param1) {
-    param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+    param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
     DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\HSTRING_UserFree64", param0Marshal, param0, HSTRING.Ptr, param1)
 }
@@ -324,8 +324,10 @@ export HSTRING_UserFree64(param0, param1) {
 export WindowsCreateString(sourceString, length) {
     sourceString := sourceString is String ? StrPtr(sourceString) : sourceString
 
+    sourceStringMarshal := sourceString == 0 ? IntPtr : PWSTR
+
     _string := HSTRING.Owned()
-    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsCreateString", "ptr", sourceString, UInt32, length, HSTRING.Ptr, _string, "HRESULT")
+    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsCreateString", sourceStringMarshal, sourceString, UInt32, length, HSTRING.Ptr, _string, "HRESULT")
     return _string
 }
 
@@ -359,8 +361,10 @@ export WindowsCreateString(sourceString, length) {
 export WindowsCreateStringReference(sourceString, length, hstringHeader) {
     sourceString := sourceString is String ? StrPtr(sourceString) : sourceString
 
+    sourceStringMarshal := sourceString == 0 ? IntPtr : PWSTR
+
     _string := HSTRING.Owned()
-    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsCreateStringReference", "ptr", sourceString, UInt32, length, HSTRING_HEADER.Ptr, hstringHeader, HSTRING.Ptr, _string, "HRESULT")
+    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsCreateStringReference", sourceStringMarshal, sourceString, UInt32, length, HSTRING_HEADER.Ptr, hstringHeader, HSTRING.Ptr, _string, "HRESULT")
     return _string
 }
 
@@ -378,7 +382,9 @@ export WindowsCreateStringReference(sourceString, length, hstringHeader) {
  * @since windows8.0
  */
 export WindowsDeleteString(_string) {
-    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsDeleteString", HSTRING, _string, "HRESULT")
+    _stringMarshal := _string == 0 ? IntPtr : HSTRING
+
+    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsDeleteString", _stringMarshal, _string, "HRESULT")
     return result
 }
 
@@ -398,8 +404,10 @@ export WindowsDeleteString(_string) {
  * @since windows8.0
  */
 export WindowsDuplicateString(_string) {
+    _stringMarshal := _string == 0 ? IntPtr : HSTRING
+
     newString := HSTRING.Owned()
-    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsDuplicateString", HSTRING, _string, HSTRING.Ptr, newString, "HRESULT")
+    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsDuplicateString", _stringMarshal, _string, HSTRING.Ptr, newString, "HRESULT")
     return newString
 }
 
@@ -415,7 +423,9 @@ export WindowsDuplicateString(_string) {
  * @since windows8.0
  */
 export WindowsGetStringLen(_string) {
-    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsGetStringLen", HSTRING, _string, UInt32)
+    _stringMarshal := _string == 0 ? IntPtr : HSTRING
+
+    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsGetStringLen", _stringMarshal, _string, UInt32)
     return result
 }
 
@@ -438,9 +448,11 @@ export WindowsGetStringLen(_string) {
  * @since windows8.0
  */
 export WindowsGetStringRawBuffer(_string, length) {
-    lengthMarshal := length is VarRef ? "uint*" : "ptr"
+    _stringMarshal := _string == 0 ? IntPtr : HSTRING
+    lengthMarshal := length is VarRef ? "uint*" : IntPtr
+    lengthMarshal := length == 0 ? IntPtr : "uint*"
 
-    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsGetStringRawBuffer", HSTRING, _string, lengthMarshal, length, PWSTR)
+    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsGetStringRawBuffer", _stringMarshal, _string, lengthMarshal, length, PWSTR)
     return result
 }
 
@@ -456,7 +468,9 @@ export WindowsGetStringRawBuffer(_string, length) {
  * @since windows8.0
  */
 export WindowsIsStringEmpty(_string) {
-    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsIsStringEmpty", HSTRING, _string, BOOL)
+    _stringMarshal := _string == 0 ? IntPtr : HSTRING
+
+    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsIsStringEmpty", _stringMarshal, _string, BOOL)
     return result
 }
 
@@ -472,7 +486,9 @@ export WindowsIsStringEmpty(_string) {
  * @since windows8.0
  */
 export WindowsStringHasEmbeddedNull(_string) {
-    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsStringHasEmbeddedNull", HSTRING, _string, BOOL.Ptr, &hasEmbedNull := 0, "HRESULT")
+    _stringMarshal := _string == 0 ? IntPtr : HSTRING
+
+    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsStringHasEmbeddedNull", _stringMarshal, _string, BOOL.Ptr, &hasEmbedNull := 0, "HRESULT")
     return hasEmbedNull
 }
 
@@ -512,7 +528,10 @@ export WindowsStringHasEmbeddedNull(_string) {
  * @since windows8.0
  */
 export WindowsCompareStringOrdinal(string1, string2) {
-    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsCompareStringOrdinal", HSTRING, string1, HSTRING, string2, "int*", &result := 0, "HRESULT")
+    string1Marshal := string1 == 0 ? IntPtr : HSTRING
+    string2Marshal := string2 == 0 ? IntPtr : HSTRING
+
+    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsCompareStringOrdinal", string1Marshal, string1, string2Marshal, string2, "int*", &result := 0, "HRESULT")
     return result
 }
 
@@ -533,8 +552,10 @@ export WindowsCompareStringOrdinal(string1, string2) {
  * @since windows8.0
  */
 export WindowsSubstring(_string, startIndex) {
+    _stringMarshal := _string == 0 ? IntPtr : HSTRING
+
     newString := HSTRING.Owned()
-    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsSubstring", HSTRING, _string, UInt32, startIndex, HSTRING.Ptr, newString, "HRESULT")
+    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsSubstring", _stringMarshal, _string, UInt32, startIndex, HSTRING.Ptr, newString, "HRESULT")
     return newString
 }
 
@@ -558,8 +579,10 @@ export WindowsSubstring(_string, startIndex) {
  * @since windows8.0
  */
 export WindowsSubstringWithSpecifiedLength(_string, startIndex, length) {
+    _stringMarshal := _string == 0 ? IntPtr : HSTRING
+
     newString := HSTRING.Owned()
-    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsSubstringWithSpecifiedLength", HSTRING, _string, UInt32, startIndex, UInt32, length, HSTRING.Ptr, newString, "HRESULT")
+    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsSubstringWithSpecifiedLength", _stringMarshal, _string, UInt32, startIndex, UInt32, length, HSTRING.Ptr, newString, "HRESULT")
     return newString
 }
 
@@ -580,8 +603,11 @@ export WindowsSubstringWithSpecifiedLength(_string, startIndex, length) {
  * @since windows8.0
  */
 export WindowsConcatString(string1, string2) {
+    string1Marshal := string1 == 0 ? IntPtr : HSTRING
+    string2Marshal := string2 == 0 ? IntPtr : HSTRING
+
     newString := HSTRING.Owned()
-    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsConcatString", HSTRING, string1, HSTRING, string2, HSTRING.Ptr, newString, "HRESULT")
+    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsConcatString", string1Marshal, string1, string2Marshal, string2, HSTRING.Ptr, newString, "HRESULT")
     return newString
 }
 
@@ -606,8 +632,12 @@ export WindowsConcatString(string1, string2) {
  * @since windows8.0
  */
 export WindowsReplaceString(_string, stringReplaced, stringReplaceWith) {
+    _stringMarshal := _string == 0 ? IntPtr : HSTRING
+    stringReplacedMarshal := stringReplaced == 0 ? IntPtr : HSTRING
+    stringReplaceWithMarshal := stringReplaceWith == 0 ? IntPtr : HSTRING
+
     newString := HSTRING.Owned()
-    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsReplaceString", HSTRING, _string, HSTRING, stringReplaced, HSTRING, stringReplaceWith, HSTRING.Ptr, newString, "HRESULT")
+    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsReplaceString", _stringMarshal, _string, stringReplacedMarshal, stringReplaced, stringReplaceWithMarshal, stringReplaceWith, HSTRING.Ptr, newString, "HRESULT")
     return newString
 }
 
@@ -628,8 +658,11 @@ export WindowsReplaceString(_string, stringReplaced, stringReplaceWith) {
  * @since windows8.0
  */
 export WindowsTrimStringStart(_string, trimString) {
+    _stringMarshal := _string == 0 ? IntPtr : HSTRING
+    trimStringMarshal := trimString == 0 ? IntPtr : HSTRING
+
     newString := HSTRING.Owned()
-    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsTrimStringStart", HSTRING, _string, HSTRING, trimString, HSTRING.Ptr, newString, "HRESULT")
+    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsTrimStringStart", _stringMarshal, _string, trimStringMarshal, trimString, HSTRING.Ptr, newString, "HRESULT")
     return newString
 }
 
@@ -650,8 +683,11 @@ export WindowsTrimStringStart(_string, trimString) {
  * @since windows8.0
  */
 export WindowsTrimStringEnd(_string, trimString) {
+    _stringMarshal := _string == 0 ? IntPtr : HSTRING
+    trimStringMarshal := trimString == 0 ? IntPtr : HSTRING
+
     newString := HSTRING.Owned()
-    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsTrimStringEnd", HSTRING, _string, HSTRING, trimString, HSTRING.Ptr, newString, "HRESULT")
+    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsTrimStringEnd", _stringMarshal, _string, trimStringMarshal, trimString, HSTRING.Ptr, newString, "HRESULT")
     return newString
 }
 
@@ -729,7 +765,7 @@ export WindowsTrimStringEnd(_string, trimString) {
  * @since windows8.0
  */
 export WindowsPreallocateStringBuffer(length, charBuffer, bufferHandle) {
-    charBufferMarshal := charBuffer is VarRef ? "ptr*" : "ptr"
+    charBufferMarshal := charBuffer is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsPreallocateStringBuffer", UInt32, length, charBufferMarshal, charBuffer, HSTRING_BUFFER.Ptr, bufferHandle, "HRESULT")
     return result
@@ -804,7 +840,9 @@ export WindowsPromoteStringBuffer(bufferHandle) {
  * @since windows8.0
  */
 export WindowsDeleteStringBuffer(bufferHandle) {
-    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsDeleteStringBuffer", HSTRING_BUFFER, bufferHandle, "HRESULT")
+    bufferHandleMarshal := bufferHandle == 0 ? IntPtr : HSTRING_BUFFER
+
+    result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsDeleteStringBuffer", bufferHandleMarshal, bufferHandle, "HRESULT")
     return result
 }
 
@@ -854,9 +892,10 @@ export WindowsDeleteStringBuffer(bufferHandle) {
  * @since windows8.0
  */
 export WindowsInspectString(targetHString, machine, callback, _context, length, targetStringAddress) {
-    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
-    lengthMarshal := length is VarRef ? "uint*" : "ptr"
-    targetStringAddressMarshal := targetStringAddress is VarRef ? "ptr*" : "ptr"
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+    _contextMarshal := _context == 0 ? IntPtr : "ptr"
+    lengthMarshal := length is VarRef ? "uint*" : IntPtr
+    targetStringAddressMarshal := targetStringAddress is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsInspectString", IntPtr, targetHString, UInt16, machine, PINSPECT_HSTRING_CALLBACK, callback, _contextMarshal, _context, lengthMarshal, length, targetStringAddressMarshal, targetStringAddress, "HRESULT")
     return result
@@ -911,9 +950,10 @@ export WindowsInspectString(targetHString, machine, callback, _context, length, 
  * @since windows8.0
  */
 export WindowsInspectString2(targetHString, machine, callback, _context, length, targetStringAddress) {
-    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
-    lengthMarshal := length is VarRef ? "uint*" : "ptr"
-    targetStringAddressMarshal := targetStringAddress is VarRef ? "uint*" : "ptr"
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+    _contextMarshal := _context == 0 ? IntPtr : "ptr"
+    lengthMarshal := length is VarRef ? "uint*" : IntPtr
+    targetStringAddressMarshal := targetStringAddress is VarRef ? "uint*" : IntPtr
 
     result := DllCall("api-ms-win-core-winrt-string-l1-1-1.dll\WindowsInspectString2", Int64, targetHString, UInt16, machine, PINSPECT_HSTRING_CALLBACK2, callback, _contextMarshal, _context, lengthMarshal, length, targetStringAddressMarshal, targetStringAddress, "HRESULT")
     return result
@@ -1060,7 +1100,7 @@ export RoActivateInstance(activatableClassId) {
  * @since windows8.0
  */
 export RoRegisterActivationFactories(activatableClassIds, activationFactoryCallbacks, count) {
-    activationFactoryCallbacksMarshal := activationFactoryCallbacks is VarRef ? "ptr*" : "ptr"
+    activationFactoryCallbacksMarshal := activationFactoryCallbacks is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoRegisterActivationFactories", HSTRING.Ptr, activatableClassIds, activationFactoryCallbacksMarshal, activationFactoryCallbacks, UInt32, count, RO_REGISTRATION_COOKIE.Ptr, &cookie := 0, "HRESULT")
     return cookie
@@ -1114,7 +1154,7 @@ export RoGetActivationFactory(activatableClassId, iid) {
  * @since windows8.0
  */
 export RoRegisterForApartmentShutdown(callbackObject, apartmentIdentifier, regCookie) {
-    apartmentIdentifierMarshal := apartmentIdentifier is VarRef ? "uint*" : "ptr"
+    apartmentIdentifierMarshal := apartmentIdentifier is VarRef ? "uint*" : IntPtr
 
     result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoRegisterForApartmentShutdown", "ptr", callbackObject, apartmentIdentifierMarshal, apartmentIdentifier, APARTMENT_SHUTDOWN_REGISTRATION_COOKIE.Ptr, regCookie, "HRESULT")
     return result
@@ -1262,7 +1302,9 @@ export RoResolveRestrictedErrorInfoReference(_reference) {
  * @since windows8.0
  */
 export SetRestrictedErrorInfo(pRestrictedErrorInfo) {
-    result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\SetRestrictedErrorInfo", "ptr", pRestrictedErrorInfo, "HRESULT")
+    pRestrictedErrorInfoMarshal := pRestrictedErrorInfo == 0 ? IntPtr : "ptr"
+
+    result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\SetRestrictedErrorInfo", pRestrictedErrorInfoMarshal, pRestrictedErrorInfo, "HRESULT")
     return result
 }
 
@@ -1353,7 +1395,9 @@ export GetRestrictedErrorInfo() {
 export RoOriginateErrorW(_error, cchMax, message) {
     message := message is String ? StrPtr(message) : message
 
-    result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoOriginateErrorW", "int", _error, UInt32, cchMax, "ptr", message, BOOL)
+    messageMarshal := message == 0 ? IntPtr : PWSTR
+
+    result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoOriginateErrorW", "int", _error, UInt32, cchMax, messageMarshal, message, BOOL)
     return result
 }
 
@@ -1415,7 +1459,9 @@ export RoOriginateErrorW(_error, cchMax, message) {
  * @since windows8.0
  */
 export RoOriginateError(_error, message) {
-    result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoOriginateError", "int", _error, HSTRING, message, BOOL)
+    messageMarshal := message == 0 ? IntPtr : HSTRING
+
+    result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoOriginateError", "int", _error, messageMarshal, message, BOOL)
     return result
 }
 
@@ -1485,7 +1531,9 @@ export RoOriginateError(_error, message) {
 export RoTransformErrorW(oldError, newError, cchMax, message) {
     message := message is String ? StrPtr(message) : message
 
-    result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoTransformErrorW", "int", oldError, "int", newError, UInt32, cchMax, "ptr", message, BOOL)
+    messageMarshal := message == 0 ? IntPtr : PWSTR
+
+    result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoTransformErrorW", "int", oldError, "int", newError, UInt32, cchMax, messageMarshal, message, BOOL)
     return result
 }
 
@@ -1546,7 +1594,9 @@ export RoTransformErrorW(oldError, newError, cchMax, message) {
  * @since windows8.0
  */
 export RoTransformError(oldError, newError, message) {
-    result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoTransformError", "int", oldError, "int", newError, HSTRING, message, BOOL)
+    messageMarshal := message == 0 ? IntPtr : HSTRING
+
+    result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoTransformError", "int", oldError, "int", newError, messageMarshal, message, BOOL)
     return result
 }
 
@@ -1634,7 +1684,10 @@ export RoFailFastWithErrorContext(hrError) {
  * @since windows8.1
  */
 export RoOriginateLanguageException(_error, message, languageException) {
-    result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoOriginateLanguageException", "int", _error, HSTRING, message, "ptr", languageException, BOOL)
+    messageMarshal := message == 0 ? IntPtr : HSTRING
+    languageExceptionMarshal := languageException == 0 ? IntPtr : "ptr"
+
+    result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoOriginateLanguageException", "int", _error, messageMarshal, message, languageExceptionMarshal, languageException, BOOL)
     return result
 }
 
@@ -1676,7 +1729,8 @@ export RoReportUnhandledError(pRestrictedErrorInfo) {
  * @since windows8.1
  */
 export RoInspectThreadErrorInfo(targetTebAddress, machine, readMemoryCallback, _context) {
-    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+    _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
     result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoInspectThreadErrorInfo", IntPtr, targetTebAddress, UInt16, machine, PINSPECT_MEMORY_CALLBACK, readMemoryCallback, _contextMarshal, _context, "ptr*", &targetErrorInfoAddress := 0, "HRESULT")
     return targetErrorInfoAddress
@@ -1699,16 +1753,16 @@ export RoInspectThreadErrorInfo(targetTebAddress, machine, readMemoryCallback, _
  * @since windows8.1
  */
 export RoInspectCapturedStackBackTrace(targetErrorInfoAddress, machine, readMemoryCallback, _context, frameCount, targetBackTraceAddress) {
-    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
-    frameCountMarshal := frameCount is VarRef ? "uint*" : "ptr"
-    targetBackTraceAddressMarshal := targetBackTraceAddress is VarRef ? "ptr*" : "ptr"
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+    _contextMarshal := _context == 0 ? IntPtr : "ptr"
+    frameCountMarshal := frameCount is VarRef ? "uint*" : IntPtr
+    targetBackTraceAddressMarshal := targetBackTraceAddress is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoInspectCapturedStackBackTrace", IntPtr, targetErrorInfoAddress, UInt16, machine, PINSPECT_MEMORY_CALLBACK, readMemoryCallback, _contextMarshal, _context, frameCountMarshal, frameCount, targetBackTraceAddressMarshal, targetBackTraceAddress, "HRESULT")
     return result
 }
 
 /**
- * 
  * @remarks
  * The function checks to see if current error info matches the *hrIn* value passed in and, if not, it originates a matching error info.
  * @param {HRESULT} hrIn An HRESULT representing the error for which restricted error info is retrieved.
@@ -1824,8 +1878,8 @@ export IsErrorPropagationEnabled() {
  * @since windows8.0
  */
 export RoGetServerActivatableClasses(serverName, activatableClassIds, count) {
-    activatableClassIdsMarshal := activatableClassIds is VarRef ? "ptr*" : "ptr"
-    countMarshal := count is VarRef ? "uint*" : "ptr"
+    activatableClassIdsMarshal := activatableClassIds is VarRef ? "ptr*" : IntPtr
+    countMarshal := count is VarRef ? "uint*" : IntPtr
 
     result := DllCall("api-ms-win-core-winrt-registration-l1-1-0.dll\RoGetServerActivatableClasses", HSTRING, serverName, activatableClassIdsMarshal, activatableClassIds, countMarshal, count, "HRESULT")
     return result

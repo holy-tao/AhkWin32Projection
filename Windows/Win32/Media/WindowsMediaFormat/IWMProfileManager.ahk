@@ -145,7 +145,7 @@ export default struct IWMProfileManager extends IUnknown {
     SaveProfile(pIWMProfile, pwszProfile, pdwLength) {
         pwszProfile := pwszProfile is String ? StrPtr(pwszProfile) : pwszProfile
 
-        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
+        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, "ptr", pIWMProfile, "ptr", pwszProfile, pdwLengthMarshal, pdwLength, "HRESULT")
         return result
@@ -193,12 +193,12 @@ export default struct IWMProfileManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateEmptyProfile := CallbackCreate(GetMethod(implObj, "CreateEmptyProfile"), flags, 3)
-        this.vtbl.LoadProfileByID := CallbackCreate(GetMethod(implObj, "LoadProfileByID"), flags, 3)
-        this.vtbl.LoadProfileByData := CallbackCreate(GetMethod(implObj, "LoadProfileByData"), flags, 3)
-        this.vtbl.SaveProfile := CallbackCreate(GetMethod(implObj, "SaveProfile"), flags, 4)
-        this.vtbl.GetSystemProfileCount := CallbackCreate(GetMethod(implObj, "GetSystemProfileCount"), flags, 2)
-        this.vtbl.LoadSystemProfile := CallbackCreate(GetMethod(implObj, "LoadSystemProfile"), flags, 3)
+        this.vtbl.CreateEmptyProfile := CallbackCreate(ObjBindMethod(implObj, "CreateEmptyProfile"), flags, 3)
+        this.vtbl.LoadProfileByID := CallbackCreate(ObjBindMethod(implObj, "LoadProfileByID"), flags, 3)
+        this.vtbl.LoadProfileByData := CallbackCreate(ObjBindMethod(implObj, "LoadProfileByData"), flags, 3)
+        this.vtbl.SaveProfile := CallbackCreate(ObjBindMethod(implObj, "SaveProfile"), flags, 4)
+        this.vtbl.GetSystemProfileCount := CallbackCreate(ObjBindMethod(implObj, "GetSystemProfileCount"), flags, 2)
+        this.vtbl.LoadSystemProfile := CallbackCreate(ObjBindMethod(implObj, "LoadSystemProfile"), flags, 3)
     }
 
     Dispose() {

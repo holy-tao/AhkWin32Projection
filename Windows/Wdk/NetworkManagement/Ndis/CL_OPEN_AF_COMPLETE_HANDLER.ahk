@@ -18,7 +18,6 @@ export default struct CL_OPEN_AF_COMPLETE_HANDLER {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

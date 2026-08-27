@@ -78,8 +78,8 @@ export default struct ID2D1TransformedGeometry extends ID2D1Geometry {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSourceGeometry := CallbackCreate(GetMethod(implObj, "GetSourceGeometry"), flags, 2)
-        this.vtbl.GetTransform := CallbackCreate(GetMethod(implObj, "GetTransform"), flags, 2)
+        this.vtbl.GetSourceGeometry := CallbackCreate(ObjBindMethod(implObj, "GetSourceGeometry"), flags, 2)
+        this.vtbl.GetTransform := CallbackCreate(ObjBindMethod(implObj, "GetTransform"), flags, 2)
     }
 
     Dispose() {

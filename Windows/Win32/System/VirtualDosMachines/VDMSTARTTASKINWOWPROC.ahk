@@ -20,7 +20,6 @@ export default struct VDMSTARTTASKINWOWPROC {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {PSTR} param1 
      * @param {Integer} param2 

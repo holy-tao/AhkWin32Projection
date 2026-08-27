@@ -424,14 +424,14 @@ export default struct ITSubStream extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StartSubStream := CallbackCreate(GetMethod(implObj, "StartSubStream"), flags, 1)
-        this.vtbl.PauseSubStream := CallbackCreate(GetMethod(implObj, "PauseSubStream"), flags, 1)
-        this.vtbl.StopSubStream := CallbackCreate(GetMethod(implObj, "StopSubStream"), flags, 1)
-        this.vtbl.SelectTerminal := CallbackCreate(GetMethod(implObj, "SelectTerminal"), flags, 2)
-        this.vtbl.UnselectTerminal := CallbackCreate(GetMethod(implObj, "UnselectTerminal"), flags, 2)
-        this.vtbl.EnumerateTerminals := CallbackCreate(GetMethod(implObj, "EnumerateTerminals"), flags, 2)
-        this.vtbl.get_Terminals := CallbackCreate(GetMethod(implObj, "get_Terminals"), flags, 2)
-        this.vtbl.get_Stream := CallbackCreate(GetMethod(implObj, "get_Stream"), flags, 2)
+        this.vtbl.StartSubStream := CallbackCreate(ObjBindMethod(implObj, "StartSubStream"), flags, 1)
+        this.vtbl.PauseSubStream := CallbackCreate(ObjBindMethod(implObj, "PauseSubStream"), flags, 1)
+        this.vtbl.StopSubStream := CallbackCreate(ObjBindMethod(implObj, "StopSubStream"), flags, 1)
+        this.vtbl.SelectTerminal := CallbackCreate(ObjBindMethod(implObj, "SelectTerminal"), flags, 2)
+        this.vtbl.UnselectTerminal := CallbackCreate(ObjBindMethod(implObj, "UnselectTerminal"), flags, 2)
+        this.vtbl.EnumerateTerminals := CallbackCreate(ObjBindMethod(implObj, "EnumerateTerminals"), flags, 2)
+        this.vtbl.get_Terminals := CallbackCreate(ObjBindMethod(implObj, "get_Terminals"), flags, 2)
+        this.vtbl.get_Stream := CallbackCreate(ObjBindMethod(implObj, "get_Stream"), flags, 2)
     }
 
     Dispose() {

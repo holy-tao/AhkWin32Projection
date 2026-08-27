@@ -23,7 +23,6 @@ export default struct WS_IS_DEFAULT_VALUE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} descriptionData This is the value of the descriptionData field from <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_custom_type_description">WS_CUSTOM_TYPE_DESCRIPTION</a>.
      *                     The callback can use this to access any additional information about the type.
      * @param {Integer} value A pointer to the value being serialized.
@@ -44,10 +43,12 @@ export default struct WS_IS_DEFAULT_VALUE_CALLBACK {
      * @returns {BOOL} Whether or not the value is the default value.
      */
     Call(descriptionData, value, defaultValue, valueSize, _error) {
-        descriptionDataMarshal := descriptionData is VarRef ? "ptr" : "ptr"
-        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
+        descriptionDataMarshal := descriptionData is VarRef ? "ptr" : IntPtr
+        defaultValueMarshal := defaultValue == 0 ? IntPtr : IntPtr
+        _errorMarshal := _error is VarRef ? "ptr*" : IntPtr
+        _errorMarshal := _error == 0 ? IntPtr : WS_ERROR.Ptr
 
-        result := DllCall(this.value, descriptionDataMarshal, descriptionData, IntPtr, value, IntPtr, defaultValue, UInt32, valueSize, BOOL.Ptr, &isDefault := 0, _errorMarshal, _error, "HRESULT")
+        result := DllCall(this.value, descriptionDataMarshal, descriptionData, IntPtr, value, defaultValueMarshal, defaultValue, UInt32, valueSize, BOOL.Ptr, &isDefault := 0, _errorMarshal, _error, "HRESULT")
         return isDefault
     }
 

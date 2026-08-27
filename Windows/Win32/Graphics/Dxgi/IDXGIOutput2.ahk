@@ -60,7 +60,7 @@ export default struct IDXGIOutput2 extends IDXGIOutput1 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SupportsOverlays := CallbackCreate(GetMethod(implObj, "SupportsOverlays"), flags, 1)
+        this.vtbl.SupportsOverlays := CallbackCreate(ObjBindMethod(implObj, "SupportsOverlays"), flags, 1)
     }
 
     Dispose() {

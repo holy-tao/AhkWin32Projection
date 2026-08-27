@@ -19,7 +19,6 @@ export default struct PFN_CARD_CREATE_CONTAINER_EX {
     }
 
     /**
-     * 
      * @param {Pointer<CARD_DATA>} pCardData 
      * @param {Integer} bContainerIndex 
      * @param {Integer} dwFlags 
@@ -30,7 +29,7 @@ export default struct PFN_CARD_CREATE_CONTAINER_EX {
      * @returns {Integer} 
      */
     Call(pCardData, bContainerIndex, dwFlags, dwKeySpec, dwKeySize, pbKeyData, PinId) {
-        pbKeyDataMarshal := pbKeyData is VarRef ? "char*" : "ptr"
+        pbKeyDataMarshal := pbKeyData is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, CARD_DATA.Ptr, pCardData, Int8, bContainerIndex, UInt32, dwFlags, UInt32, dwKeySpec, UInt32, dwKeySize, pbKeyDataMarshal, pbKeyData, UInt32, PinId, UInt32)
         return result

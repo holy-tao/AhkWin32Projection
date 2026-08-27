@@ -37,7 +37,6 @@ export default struct IWICBitmapSourceTransform2 extends IWICBitmapSourceTransfo
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pPixelFormat 
      * @param {Integer} cCount 
      * @param {Pointer<IWICColorContext>} ppIColorContexts 
@@ -57,7 +56,7 @@ export default struct IWICBitmapSourceTransform2 extends IWICBitmapSourceTransfo
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetColorContextsForPixelFormat := CallbackCreate(GetMethod(implObj, "GetColorContextsForPixelFormat"), flags, 5)
+        this.vtbl.GetColorContextsForPixelFormat := CallbackCreate(ObjBindMethod(implObj, "GetColorContextsForPixelFormat"), flags, 5)
     }
 
     Dispose() {

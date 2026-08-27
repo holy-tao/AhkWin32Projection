@@ -44,7 +44,6 @@ export default struct IRTCProfileEvent2 extends IRTCProfileEvent {
     }
 
     /**
-     * 
      * @returns {RTC_PROFILE_EVENT_TYPE} 
      */
     get_EventType() {
@@ -61,7 +60,7 @@ export default struct IRTCProfileEvent2 extends IRTCProfileEvent {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_EventType := CallbackCreate(GetMethod(implObj, "get_EventType"), flags, 2)
+        this.vtbl.get_EventType := CallbackCreate(ObjBindMethod(implObj, "get_EventType"), flags, 2)
     }
 
     Dispose() {

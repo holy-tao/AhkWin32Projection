@@ -58,8 +58,8 @@ export default struct IAccIdentity extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccidentity-getidentitystring
      */
     GetIdentityString(dwIDChild, ppIDString, pdwIDStringLen) {
-        ppIDStringMarshal := ppIDString is VarRef ? "ptr*" : "ptr"
-        pdwIDStringLenMarshal := pdwIDStringLen is VarRef ? "uint*" : "ptr"
+        ppIDStringMarshal := ppIDString is VarRef ? "ptr*" : IntPtr
+        pdwIDStringLenMarshal := pdwIDStringLen is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, UInt32, dwIDChild, ppIDStringMarshal, ppIDString, pdwIDStringLenMarshal, pdwIDStringLen, "HRESULT")
         return result
@@ -74,7 +74,7 @@ export default struct IAccIdentity extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetIdentityString := CallbackCreate(GetMethod(implObj, "GetIdentityString"), flags, 4)
+        this.vtbl.GetIdentityString := CallbackCreate(ObjBindMethod(implObj, "GetIdentityString"), flags, 4)
     }
 
     Dispose() {

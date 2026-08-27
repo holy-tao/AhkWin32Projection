@@ -61,7 +61,6 @@ export default struct IDebugDocumentHelper64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugApplication64} pda 
      * @param {PWSTR} pszShortName 
      * @param {PWSTR} pszLongName 
@@ -77,7 +76,6 @@ export default struct IDebugDocumentHelper64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugDocumentHelper64} pddhParent 
      * @returns {HRESULT} 
      */
@@ -87,7 +85,6 @@ export default struct IDebugDocumentHelper64 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Detach() {
@@ -96,7 +93,6 @@ export default struct IDebugDocumentHelper64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszText 
      * @returns {HRESULT} 
      */
@@ -108,7 +104,6 @@ export default struct IDebugDocumentHelper64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} pszText 
      * @returns {HRESULT} 
      */
@@ -120,7 +115,6 @@ export default struct IDebugDocumentHelper64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugDocumentHost} pddh 
      * @returns {HRESULT} 
      */
@@ -130,7 +124,6 @@ export default struct IDebugDocumentHelper64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cChars 
      * @param {Integer} dwTextStartCookie 
      * @returns {HRESULT} 
@@ -141,7 +134,6 @@ export default struct IDebugDocumentHelper64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulCharOffset 
      * @param {Integer} cChars 
      * @param {IActiveScript} pas 
@@ -154,7 +146,6 @@ export default struct IDebugDocumentHelper64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} staTextAttr 
      * @returns {HRESULT} 
      */
@@ -164,21 +155,19 @@ export default struct IDebugDocumentHelper64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulCharOffset 
      * @param {Integer} cChars 
      * @param {Pointer<Integer>} pstaTextAttr 
      * @returns {HRESULT} 
      */
     SetTextAttributes(ulCharOffset, cChars, pstaTextAttr) {
-        pstaTextAttrMarshal := pstaTextAttr is VarRef ? "ushort*" : "ptr"
+        pstaTextAttrMarshal := pstaTextAttr is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(12, this, UInt32, ulCharOffset, UInt32, cChars, pstaTextAttrMarshal, pstaTextAttr, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pszLongName 
      * @returns {HRESULT} 
      */
@@ -190,7 +179,6 @@ export default struct IDebugDocumentHelper64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszShortName 
      * @returns {HRESULT} 
      */
@@ -202,7 +190,6 @@ export default struct IDebugDocumentHelper64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} pszAttributes 
      * @returns {HRESULT} 
      */
@@ -212,7 +199,6 @@ export default struct IDebugDocumentHelper64 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugApplicationNode} 
      */
     GetDebugApplicationNode() {
@@ -221,7 +207,6 @@ export default struct IDebugDocumentHelper64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSourceContext 
      * @param {Pointer<IActiveScript>} ppasd 
      * @param {Pointer<Integer>} piCharPos 
@@ -229,15 +214,14 @@ export default struct IDebugDocumentHelper64 extends IUnknown {
      * @returns {HRESULT} 
      */
     GetScriptBlockInfo(dwSourceContext, ppasd, piCharPos, pcChars) {
-        piCharPosMarshal := piCharPos is VarRef ? "uint*" : "ptr"
-        pcCharsMarshal := pcChars is VarRef ? "uint*" : "ptr"
+        piCharPosMarshal := piCharPos is VarRef ? "uint*" : IntPtr
+        pcCharsMarshal := pcChars is VarRef ? "uint*" : IntPtr
 
         result := ComCall(17, this, Int64, dwSourceContext, IActiveScript.Ptr, ppasd, piCharPosMarshal, piCharPos, pcCharsMarshal, pcChars, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} iCharPos 
      * @param {Integer} cChars 
      * @returns {IDebugDocumentContext} 
@@ -248,7 +232,6 @@ export default struct IDebugDocumentHelper64 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     BringDocumentToTop() {
@@ -257,12 +240,13 @@ export default struct IDebugDocumentHelper64 extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugDocumentContext} pddc 
      * @returns {HRESULT} 
      */
     BringDocumentContextToTop(pddc) {
-        result := ComCall(20, this, "ptr", pddc, "HRESULT")
+        pddcMarshal := pddc == 0 ? IntPtr : "ptr"
+
+        result := ComCall(20, this, pddcMarshal, pddc, "HRESULT")
         return result
     }
 
@@ -275,24 +259,24 @@ export default struct IDebugDocumentHelper64 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 5)
-        this.vtbl.Attach := CallbackCreate(GetMethod(implObj, "Attach"), flags, 2)
-        this.vtbl.Detach := CallbackCreate(GetMethod(implObj, "Detach"), flags, 1)
-        this.vtbl.AddUnicodeText := CallbackCreate(GetMethod(implObj, "AddUnicodeText"), flags, 2)
-        this.vtbl.AddDBCSText := CallbackCreate(GetMethod(implObj, "AddDBCSText"), flags, 2)
-        this.vtbl.SetDebugDocumentHost := CallbackCreate(GetMethod(implObj, "SetDebugDocumentHost"), flags, 2)
-        this.vtbl.AddDeferredText := CallbackCreate(GetMethod(implObj, "AddDeferredText"), flags, 3)
-        this.vtbl.DefineScriptBlock := CallbackCreate(GetMethod(implObj, "DefineScriptBlock"), flags, 6)
-        this.vtbl.SetDefaultTextAttr := CallbackCreate(GetMethod(implObj, "SetDefaultTextAttr"), flags, 2)
-        this.vtbl.SetTextAttributes := CallbackCreate(GetMethod(implObj, "SetTextAttributes"), flags, 4)
-        this.vtbl.SetLongName := CallbackCreate(GetMethod(implObj, "SetLongName"), flags, 2)
-        this.vtbl.SetShortName := CallbackCreate(GetMethod(implObj, "SetShortName"), flags, 2)
-        this.vtbl.SetDocumentAttr := CallbackCreate(GetMethod(implObj, "SetDocumentAttr"), flags, 2)
-        this.vtbl.GetDebugApplicationNode := CallbackCreate(GetMethod(implObj, "GetDebugApplicationNode"), flags, 2)
-        this.vtbl.GetScriptBlockInfo := CallbackCreate(GetMethod(implObj, "GetScriptBlockInfo"), flags, 5)
-        this.vtbl.CreateDebugDocumentContext := CallbackCreate(GetMethod(implObj, "CreateDebugDocumentContext"), flags, 4)
-        this.vtbl.BringDocumentToTop := CallbackCreate(GetMethod(implObj, "BringDocumentToTop"), flags, 1)
-        this.vtbl.BringDocumentContextToTop := CallbackCreate(GetMethod(implObj, "BringDocumentContextToTop"), flags, 2)
+        this.vtbl.Init := CallbackCreate(ObjBindMethod(implObj, "Init"), flags, 5)
+        this.vtbl.Attach := CallbackCreate(ObjBindMethod(implObj, "Attach"), flags, 2)
+        this.vtbl.Detach := CallbackCreate(ObjBindMethod(implObj, "Detach"), flags, 1)
+        this.vtbl.AddUnicodeText := CallbackCreate(ObjBindMethod(implObj, "AddUnicodeText"), flags, 2)
+        this.vtbl.AddDBCSText := CallbackCreate(ObjBindMethod(implObj, "AddDBCSText"), flags, 2)
+        this.vtbl.SetDebugDocumentHost := CallbackCreate(ObjBindMethod(implObj, "SetDebugDocumentHost"), flags, 2)
+        this.vtbl.AddDeferredText := CallbackCreate(ObjBindMethod(implObj, "AddDeferredText"), flags, 3)
+        this.vtbl.DefineScriptBlock := CallbackCreate(ObjBindMethod(implObj, "DefineScriptBlock"), flags, 6)
+        this.vtbl.SetDefaultTextAttr := CallbackCreate(ObjBindMethod(implObj, "SetDefaultTextAttr"), flags, 2)
+        this.vtbl.SetTextAttributes := CallbackCreate(ObjBindMethod(implObj, "SetTextAttributes"), flags, 4)
+        this.vtbl.SetLongName := CallbackCreate(ObjBindMethod(implObj, "SetLongName"), flags, 2)
+        this.vtbl.SetShortName := CallbackCreate(ObjBindMethod(implObj, "SetShortName"), flags, 2)
+        this.vtbl.SetDocumentAttr := CallbackCreate(ObjBindMethod(implObj, "SetDocumentAttr"), flags, 2)
+        this.vtbl.GetDebugApplicationNode := CallbackCreate(ObjBindMethod(implObj, "GetDebugApplicationNode"), flags, 2)
+        this.vtbl.GetScriptBlockInfo := CallbackCreate(ObjBindMethod(implObj, "GetScriptBlockInfo"), flags, 5)
+        this.vtbl.CreateDebugDocumentContext := CallbackCreate(ObjBindMethod(implObj, "CreateDebugDocumentContext"), flags, 4)
+        this.vtbl.BringDocumentToTop := CallbackCreate(ObjBindMethod(implObj, "BringDocumentToTop"), flags, 1)
+        this.vtbl.BringDocumentContextToTop := CallbackCreate(ObjBindMethod(implObj, "BringDocumentContextToTop"), flags, 2)
     }
 
     Dispose() {

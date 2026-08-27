@@ -105,9 +105,9 @@ export default struct ITraceEventCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnBeginProcessTrace := CallbackCreate(GetMethod(implObj, "OnBeginProcessTrace"), flags, 3)
-        this.vtbl.OnFinalizeProcessTrace := CallbackCreate(GetMethod(implObj, "OnFinalizeProcessTrace"), flags, 2)
-        this.vtbl.OnEvent := CallbackCreate(GetMethod(implObj, "OnEvent"), flags, 3)
+        this.vtbl.OnBeginProcessTrace := CallbackCreate(ObjBindMethod(implObj, "OnBeginProcessTrace"), flags, 3)
+        this.vtbl.OnFinalizeProcessTrace := CallbackCreate(ObjBindMethod(implObj, "OnFinalizeProcessTrace"), flags, 2)
+        this.vtbl.OnEvent := CallbackCreate(ObjBindMethod(implObj, "OnEvent"), flags, 3)
     }
 
     Dispose() {

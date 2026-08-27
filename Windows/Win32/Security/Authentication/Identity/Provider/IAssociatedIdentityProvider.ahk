@@ -98,9 +98,9 @@ export default struct IAssociatedIdentityProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AssociateIdentity := CallbackCreate(GetMethod(implObj, "AssociateIdentity"), flags, 3)
-        this.vtbl.DisassociateIdentity := CallbackCreate(GetMethod(implObj, "DisassociateIdentity"), flags, 3)
-        this.vtbl.ChangeCredential := CallbackCreate(GetMethod(implObj, "ChangeCredential"), flags, 3)
+        this.vtbl.AssociateIdentity := CallbackCreate(ObjBindMethod(implObj, "AssociateIdentity"), flags, 3)
+        this.vtbl.DisassociateIdentity := CallbackCreate(ObjBindMethod(implObj, "DisassociateIdentity"), flags, 3)
+        this.vtbl.ChangeCredential := CallbackCreate(ObjBindMethod(implObj, "ChangeCredential"), flags, 3)
     }
 
     Dispose() {

@@ -419,7 +419,9 @@ export default struct IUIAnimationStoryboard extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard-settag
      */
     SetTag(_object, id) {
-        result := ComCall(15, this, "ptr", _object, UInt32, id, "HRESULT")
+        _objectMarshal := _object == 0 ? IntPtr : "ptr"
+
+        result := ComCall(15, this, _objectMarshal, _object, UInt32, id, "HRESULT")
         return result
     }
 
@@ -453,9 +455,11 @@ export default struct IUIAnimationStoryboard extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard-gettag
      */
     GetTag(_object, id) {
-        idMarshal := id is VarRef ? "uint*" : "ptr"
+        _objectMarshal := _object == 0 ? IntPtr : IUnknown.Ptr
+        idMarshal := id is VarRef ? "uint*" : IntPtr
+        idMarshal := id == 0 ? IntPtr : "uint*"
 
-        result := ComCall(16, this, IUnknown.Ptr, _object, idMarshal, id, "HRESULT")
+        result := ComCall(16, this, _objectMarshal, _object, idMarshal, id, "HRESULT")
         return result
     }
 
@@ -493,7 +497,9 @@ export default struct IUIAnimationStoryboard extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard-setstoryboardeventhandler
      */
     SetStoryboardEventHandler(handler) {
-        result := ComCall(19, this, "ptr", handler, "HRESULT")
+        handlerMarshal := handler == 0 ? IntPtr : "ptr"
+
+        result := ComCall(19, this, handlerMarshal, handler, "HRESULT")
         return result
     }
 
@@ -506,23 +512,23 @@ export default struct IUIAnimationStoryboard extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddTransition := CallbackCreate(GetMethod(implObj, "AddTransition"), flags, 3)
-        this.vtbl.AddKeyframeAtOffset := CallbackCreate(GetMethod(implObj, "AddKeyframeAtOffset"), flags, 4)
-        this.vtbl.AddKeyframeAfterTransition := CallbackCreate(GetMethod(implObj, "AddKeyframeAfterTransition"), flags, 3)
-        this.vtbl.AddTransitionAtKeyframe := CallbackCreate(GetMethod(implObj, "AddTransitionAtKeyframe"), flags, 4)
-        this.vtbl.AddTransitionBetweenKeyframes := CallbackCreate(GetMethod(implObj, "AddTransitionBetweenKeyframes"), flags, 5)
-        this.vtbl.RepeatBetweenKeyframes := CallbackCreate(GetMethod(implObj, "RepeatBetweenKeyframes"), flags, 4)
-        this.vtbl.HoldVariable := CallbackCreate(GetMethod(implObj, "HoldVariable"), flags, 2)
-        this.vtbl.SetLongestAcceptableDelay := CallbackCreate(GetMethod(implObj, "SetLongestAcceptableDelay"), flags, 2)
-        this.vtbl.Schedule := CallbackCreate(GetMethod(implObj, "Schedule"), flags, 3)
-        this.vtbl.Conclude := CallbackCreate(GetMethod(implObj, "Conclude"), flags, 1)
-        this.vtbl.Finish := CallbackCreate(GetMethod(implObj, "Finish"), flags, 2)
-        this.vtbl.Abandon := CallbackCreate(GetMethod(implObj, "Abandon"), flags, 1)
-        this.vtbl.SetTag := CallbackCreate(GetMethod(implObj, "SetTag"), flags, 3)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 3)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
-        this.vtbl.GetElapsedTime := CallbackCreate(GetMethod(implObj, "GetElapsedTime"), flags, 2)
-        this.vtbl.SetStoryboardEventHandler := CallbackCreate(GetMethod(implObj, "SetStoryboardEventHandler"), flags, 2)
+        this.vtbl.AddTransition := CallbackCreate(ObjBindMethod(implObj, "AddTransition"), flags, 3)
+        this.vtbl.AddKeyframeAtOffset := CallbackCreate(ObjBindMethod(implObj, "AddKeyframeAtOffset"), flags, 4)
+        this.vtbl.AddKeyframeAfterTransition := CallbackCreate(ObjBindMethod(implObj, "AddKeyframeAfterTransition"), flags, 3)
+        this.vtbl.AddTransitionAtKeyframe := CallbackCreate(ObjBindMethod(implObj, "AddTransitionAtKeyframe"), flags, 4)
+        this.vtbl.AddTransitionBetweenKeyframes := CallbackCreate(ObjBindMethod(implObj, "AddTransitionBetweenKeyframes"), flags, 5)
+        this.vtbl.RepeatBetweenKeyframes := CallbackCreate(ObjBindMethod(implObj, "RepeatBetweenKeyframes"), flags, 4)
+        this.vtbl.HoldVariable := CallbackCreate(ObjBindMethod(implObj, "HoldVariable"), flags, 2)
+        this.vtbl.SetLongestAcceptableDelay := CallbackCreate(ObjBindMethod(implObj, "SetLongestAcceptableDelay"), flags, 2)
+        this.vtbl.Schedule := CallbackCreate(ObjBindMethod(implObj, "Schedule"), flags, 3)
+        this.vtbl.Conclude := CallbackCreate(ObjBindMethod(implObj, "Conclude"), flags, 1)
+        this.vtbl.Finish := CallbackCreate(ObjBindMethod(implObj, "Finish"), flags, 2)
+        this.vtbl.Abandon := CallbackCreate(ObjBindMethod(implObj, "Abandon"), flags, 1)
+        this.vtbl.SetTag := CallbackCreate(ObjBindMethod(implObj, "SetTag"), flags, 3)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 3)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.GetElapsedTime := CallbackCreate(ObjBindMethod(implObj, "GetElapsedTime"), flags, 2)
+        this.vtbl.SetStoryboardEventHandler := CallbackCreate(ObjBindMethod(implObj, "SetStoryboardEventHandler"), flags, 2)
     }
 
     Dispose() {

@@ -22,7 +22,6 @@ export default struct PFN_CERT_STORE_PROV_FIND_CERT {
     }
 
     /**
-     * 
      * @param {HCERTSTOREPROV} hStoreProv 
      * @param {Pointer<CERT_STORE_PROV_FIND_INFO>} pFindInfo 
      * @param {Pointer<CERT_CONTEXT>} pPrevCertContext 
@@ -32,8 +31,8 @@ export default struct PFN_CERT_STORE_PROV_FIND_CERT {
      * @returns {BOOL} 
      */
     Call(hStoreProv, pFindInfo, pPrevCertContext, dwFlags, ppvStoreProvFindInfo, ppProvCertContext) {
-        ppvStoreProvFindInfoMarshal := ppvStoreProvFindInfo is VarRef ? "ptr*" : "ptr"
-        ppProvCertContextMarshal := ppProvCertContext is VarRef ? "ptr*" : "ptr"
+        ppvStoreProvFindInfoMarshal := ppvStoreProvFindInfo is VarRef ? "ptr*" : IntPtr
+        ppProvCertContextMarshal := ppProvCertContext is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, HCERTSTOREPROV, hStoreProv, CERT_STORE_PROV_FIND_INFO.Ptr, pFindInfo, CERT_CONTEXT.Ptr, pPrevCertContext, UInt32, dwFlags, ppvStoreProvFindInfoMarshal, ppvStoreProvFindInfo, ppProvCertContextMarshal, ppProvCertContext, BOOL)
         return result

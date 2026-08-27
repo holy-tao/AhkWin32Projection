@@ -95,9 +95,9 @@ export default struct ID2D1Device4 extends ID2D1Device3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateDeviceContext := CallbackCreate(GetMethod(implObj, "CreateDeviceContext"), flags, 3)
-        this.vtbl.SetMaximumColorGlyphCacheMemory := CallbackCreate(GetMethod(implObj, "SetMaximumColorGlyphCacheMemory"), flags, 2)
-        this.vtbl.GetMaximumColorGlyphCacheMemory := CallbackCreate(GetMethod(implObj, "GetMaximumColorGlyphCacheMemory"), flags, 1)
+        this.vtbl.CreateDeviceContext := CallbackCreate(ObjBindMethod(implObj, "CreateDeviceContext"), flags, 3)
+        this.vtbl.SetMaximumColorGlyphCacheMemory := CallbackCreate(ObjBindMethod(implObj, "SetMaximumColorGlyphCacheMemory"), flags, 2)
+        this.vtbl.GetMaximumColorGlyphCacheMemory := CallbackCreate(ObjBindMethod(implObj, "GetMaximumColorGlyphCacheMemory"), flags, 1)
     }
 
     Dispose() {

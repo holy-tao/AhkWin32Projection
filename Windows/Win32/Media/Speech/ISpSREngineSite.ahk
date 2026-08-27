@@ -69,20 +69,18 @@ export default struct ISpSREngineSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pv 
      * @param {Integer} cb 
      * @returns {Integer} 
      */
     Read(pv, cb) {
-        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+        pvMarshal := pv is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, pvMarshal, pv, UInt32, cb, "uint*", &pcbRead := 0, "HRESULT")
         return pcbRead
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     DataAvailable() {
@@ -91,7 +89,6 @@ export default struct ISpSREngineSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cbSize 
      * @returns {HRESULT} 
      */
@@ -101,7 +98,6 @@ export default struct ISpSREngineSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SPPARSEINFO>} pParseInfo 
      * @returns {ISpPhraseBuilder} 
      */
@@ -111,7 +107,6 @@ export default struct ISpSREngineSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SPRECORESULTINFO>} pResultInfo 
      * @returns {HRESULT} 
      */
@@ -121,7 +116,6 @@ export default struct ISpSREngineSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SPEVENT>} pEvent 
      * @param {SPRECOCONTEXTHANDLE} hSAPIRecoContext 
      * @returns {HRESULT} 
@@ -132,7 +126,6 @@ export default struct ISpSREngineSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ullProcessedThruPos 
      * @returns {HRESULT} 
      */
@@ -142,7 +135,6 @@ export default struct ISpSREngineSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<SPWORDENTRY>} pWordEntry 
      * @param {SPWORDINFOOPT} Options 
      * @returns {HRESULT} 
@@ -153,20 +145,18 @@ export default struct ISpSREngineSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {SPWORDHANDLE} hWord 
      * @param {Pointer<Void>} pvClientContext 
      * @returns {HRESULT} 
      */
     SetWordClientContext(hWord, pvClientContext) {
-        pvClientContextMarshal := pvClientContext is VarRef ? "ptr" : "ptr"
+        pvClientContextMarshal := pvClientContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(11, this, SPWORDHANDLE, hWord, pvClientContextMarshal, pvClientContext, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<SPRULEENTRY>} pRuleEntry 
      * @param {SPRULEINFOOPT} Options 
      * @returns {HRESULT} 
@@ -177,20 +167,18 @@ export default struct ISpSREngineSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {SPRULEHANDLE} hRule 
      * @param {Pointer<Void>} pvClientContext 
      * @returns {HRESULT} 
      */
     SetRuleClientContext(hRule, pvClientContext) {
-        pvClientContextMarshal := pvClientContext is VarRef ? "ptr" : "ptr"
+        pvClientContextMarshal := pvClientContext is VarRef ? "ptr" : IntPtr
 
         result := ComCall(13, this, SPRULEHANDLE, hRule, pvClientContextMarshal, pvClientContext, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {SPSTATEHANDLE} hState 
      * @returns {SPSTATEINFO} 
      */
@@ -201,7 +189,6 @@ export default struct ISpSREngineSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {SPRULEHANDLE} hRule 
      * @param {PWSTR} pszResourceName 
      * @returns {PWSTR} 
@@ -214,7 +201,6 @@ export default struct ISpSREngineSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {SPTRANSITIONID} ID 
      * @returns {Pointer<SPTRANSITIONPROPERTY>} 
      */
@@ -224,7 +210,6 @@ export default struct ISpSREngineSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {SPRULEHANDLE} hRule 
      * @param {SPRULEHANDLE} hAltRule 
      * @returns {HRESULT} 
@@ -235,7 +220,6 @@ export default struct ISpSREngineSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {SPRULEHANDLE} hRule 
      * @returns {Integer} 
      */
@@ -245,7 +229,6 @@ export default struct ISpSREngineSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {SPRECOCONTEXTHANDLE} hContext 
      * @returns {Integer} 
      */
@@ -255,7 +238,6 @@ export default struct ISpSREngineSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ullCurrentRecoPos 
      * @returns {HRESULT} 
      */
@@ -273,24 +255,24 @@ export default struct ISpSREngineSite extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Read := CallbackCreate(GetMethod(implObj, "Read"), flags, 4)
-        this.vtbl.DataAvailable := CallbackCreate(GetMethod(implObj, "DataAvailable"), flags, 2)
-        this.vtbl.SetBufferNotifySize := CallbackCreate(GetMethod(implObj, "SetBufferNotifySize"), flags, 2)
-        this.vtbl.ParseFromTransitions := CallbackCreate(GetMethod(implObj, "ParseFromTransitions"), flags, 3)
-        this.vtbl.Recognition := CallbackCreate(GetMethod(implObj, "Recognition"), flags, 2)
-        this.vtbl.AddEvent := CallbackCreate(GetMethod(implObj, "AddEvent"), flags, 3)
-        this.vtbl.Synchronize := CallbackCreate(GetMethod(implObj, "Synchronize"), flags, 2)
-        this.vtbl.GetWordInfo := CallbackCreate(GetMethod(implObj, "GetWordInfo"), flags, 3)
-        this.vtbl.SetWordClientContext := CallbackCreate(GetMethod(implObj, "SetWordClientContext"), flags, 3)
-        this.vtbl.GetRuleInfo := CallbackCreate(GetMethod(implObj, "GetRuleInfo"), flags, 3)
-        this.vtbl.SetRuleClientContext := CallbackCreate(GetMethod(implObj, "SetRuleClientContext"), flags, 3)
-        this.vtbl.GetStateInfo := CallbackCreate(GetMethod(implObj, "GetStateInfo"), flags, 3)
-        this.vtbl.GetResource := CallbackCreate(GetMethod(implObj, "GetResource"), flags, 4)
-        this.vtbl.GetTransitionProperty := CallbackCreate(GetMethod(implObj, "GetTransitionProperty"), flags, 3)
-        this.vtbl.IsAlternate := CallbackCreate(GetMethod(implObj, "IsAlternate"), flags, 3)
-        this.vtbl.GetMaxAlternates := CallbackCreate(GetMethod(implObj, "GetMaxAlternates"), flags, 3)
-        this.vtbl.GetContextMaxAlternates := CallbackCreate(GetMethod(implObj, "GetContextMaxAlternates"), flags, 3)
-        this.vtbl.UpdateRecoPos := CallbackCreate(GetMethod(implObj, "UpdateRecoPos"), flags, 2)
+        this.vtbl.Read := CallbackCreate(ObjBindMethod(implObj, "Read"), flags, 4)
+        this.vtbl.DataAvailable := CallbackCreate(ObjBindMethod(implObj, "DataAvailable"), flags, 2)
+        this.vtbl.SetBufferNotifySize := CallbackCreate(ObjBindMethod(implObj, "SetBufferNotifySize"), flags, 2)
+        this.vtbl.ParseFromTransitions := CallbackCreate(ObjBindMethod(implObj, "ParseFromTransitions"), flags, 3)
+        this.vtbl.Recognition := CallbackCreate(ObjBindMethod(implObj, "Recognition"), flags, 2)
+        this.vtbl.AddEvent := CallbackCreate(ObjBindMethod(implObj, "AddEvent"), flags, 3)
+        this.vtbl.Synchronize := CallbackCreate(ObjBindMethod(implObj, "Synchronize"), flags, 2)
+        this.vtbl.GetWordInfo := CallbackCreate(ObjBindMethod(implObj, "GetWordInfo"), flags, 3)
+        this.vtbl.SetWordClientContext := CallbackCreate(ObjBindMethod(implObj, "SetWordClientContext"), flags, 3)
+        this.vtbl.GetRuleInfo := CallbackCreate(ObjBindMethod(implObj, "GetRuleInfo"), flags, 3)
+        this.vtbl.SetRuleClientContext := CallbackCreate(ObjBindMethod(implObj, "SetRuleClientContext"), flags, 3)
+        this.vtbl.GetStateInfo := CallbackCreate(ObjBindMethod(implObj, "GetStateInfo"), flags, 3)
+        this.vtbl.GetResource := CallbackCreate(ObjBindMethod(implObj, "GetResource"), flags, 4)
+        this.vtbl.GetTransitionProperty := CallbackCreate(ObjBindMethod(implObj, "GetTransitionProperty"), flags, 3)
+        this.vtbl.IsAlternate := CallbackCreate(ObjBindMethod(implObj, "IsAlternate"), flags, 3)
+        this.vtbl.GetMaxAlternates := CallbackCreate(ObjBindMethod(implObj, "GetMaxAlternates"), flags, 3)
+        this.vtbl.GetContextMaxAlternates := CallbackCreate(ObjBindMethod(implObj, "GetContextMaxAlternates"), flags, 3)
+        this.vtbl.UpdateRecoPos := CallbackCreate(ObjBindMethod(implObj, "UpdateRecoPos"), flags, 2)
     }
 
     Dispose() {

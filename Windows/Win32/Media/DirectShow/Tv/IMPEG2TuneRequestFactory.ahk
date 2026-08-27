@@ -70,7 +70,7 @@ export default struct IMPEG2TuneRequestFactory extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateTuneRequest := CallbackCreate(GetMethod(implObj, "CreateTuneRequest"), flags, 3)
+        this.vtbl.CreateTuneRequest := CallbackCreate(ObjBindMethod(implObj, "CreateTuneRequest"), flags, 3)
     }
 
     Dispose() {

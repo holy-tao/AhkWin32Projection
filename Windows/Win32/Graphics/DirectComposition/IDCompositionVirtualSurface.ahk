@@ -85,7 +85,9 @@ export default struct IDCompositionVirtualSurface extends IDCompositionSurface {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvirtualsurface-trim
      */
     Trim(rectangles, count) {
-        result := ComCall(9, this, RECT.Ptr, rectangles, UInt32, count, "HRESULT")
+        rectanglesMarshal := rectangles == 0 ? IntPtr : RECT.Ptr
+
+        result := ComCall(9, this, rectanglesMarshal, rectangles, UInt32, count, "HRESULT")
         return result
     }
 
@@ -98,8 +100,8 @@ export default struct IDCompositionVirtualSurface extends IDCompositionSurface {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Resize := CallbackCreate(GetMethod(implObj, "Resize"), flags, 3)
-        this.vtbl.Trim := CallbackCreate(GetMethod(implObj, "Trim"), flags, 3)
+        this.vtbl.Resize := CallbackCreate(ObjBindMethod(implObj, "Resize"), flags, 3)
+        this.vtbl.Trim := CallbackCreate(ObjBindMethod(implObj, "Trim"), flags, 3)
     }
 
     Dispose() {

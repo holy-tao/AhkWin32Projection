@@ -48,8 +48,8 @@ export default struct IMSVidWebDVD2 extends IMSVidWebDVD {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidwebdvd2-get_bookmark
      */
     get_Bookmark(ppData, pDataLength) {
-        ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
-        pDataLengthMarshal := pDataLength is VarRef ? "uint*" : "ptr"
+        ppDataMarshal := ppData is VarRef ? "ptr*" : IntPtr
+        pDataLengthMarshal := pDataLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(127, this, ppDataMarshal, ppData, pDataLengthMarshal, pDataLength, "HRESULT")
         return result
@@ -63,7 +63,7 @@ export default struct IMSVidWebDVD2 extends IMSVidWebDVD {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidwebdvd2-put_bookmark
      */
     put_Bookmark(pData, dwDataLength) {
-        pDataMarshal := pData is VarRef ? "char*" : "ptr"
+        pDataMarshal := pData is VarRef ? "char*" : IntPtr
 
         result := ComCall(128, this, pDataMarshal, pData, UInt32, dwDataLength, "HRESULT")
         return result
@@ -78,8 +78,8 @@ export default struct IMSVidWebDVD2 extends IMSVidWebDVD {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Bookmark := CallbackCreate(GetMethod(implObj, "get_Bookmark"), flags, 3)
-        this.vtbl.put_Bookmark := CallbackCreate(GetMethod(implObj, "put_Bookmark"), flags, 3)
+        this.vtbl.get_Bookmark := CallbackCreate(ObjBindMethod(implObj, "get_Bookmark"), flags, 3)
+        this.vtbl.put_Bookmark := CallbackCreate(ObjBindMethod(implObj, "put_Bookmark"), flags, 3)
     }
 
     Dispose() {

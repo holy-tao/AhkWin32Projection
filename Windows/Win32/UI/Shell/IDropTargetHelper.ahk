@@ -174,11 +174,11 @@ export default struct IDropTargetHelper extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DragEnter := CallbackCreate(GetMethod(implObj, "DragEnter"), flags, 5)
-        this.vtbl.DragLeave := CallbackCreate(GetMethod(implObj, "DragLeave"), flags, 1)
-        this.vtbl.DragOver := CallbackCreate(GetMethod(implObj, "DragOver"), flags, 3)
-        this.vtbl.Drop := CallbackCreate(GetMethod(implObj, "Drop"), flags, 4)
-        this.vtbl.Show := CallbackCreate(GetMethod(implObj, "Show"), flags, 2)
+        this.vtbl.DragEnter := CallbackCreate(ObjBindMethod(implObj, "DragEnter"), flags, 5)
+        this.vtbl.DragLeave := CallbackCreate(ObjBindMethod(implObj, "DragLeave"), flags, 1)
+        this.vtbl.DragOver := CallbackCreate(ObjBindMethod(implObj, "DragOver"), flags, 3)
+        this.vtbl.Drop := CallbackCreate(ObjBindMethod(implObj, "Drop"), flags, 4)
+        this.vtbl.Show := CallbackCreate(ObjBindMethod(implObj, "Show"), flags, 2)
     }
 
     Dispose() {

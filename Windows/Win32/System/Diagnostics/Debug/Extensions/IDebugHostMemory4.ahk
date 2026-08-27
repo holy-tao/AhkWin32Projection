@@ -38,7 +38,6 @@ export default struct IDebugHostMemory4 extends IDebugHostMemory3 {
     }
 
     /**
-     * 
      * @param {Integer} physAddr 
      * @returns {Location} 
      */
@@ -49,7 +48,6 @@ export default struct IDebugHostMemory4 extends IDebugHostMemory3 {
     }
 
     /**
-     * 
      * @param {Pointer<Location>} pLocation 
      * @returns {Boolean} 
      */
@@ -67,8 +65,8 @@ export default struct IDebugHostMemory4 extends IDebugHostMemory3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPhysicalAddressLocation := CallbackCreate(GetMethod(implObj, "GetPhysicalAddressLocation"), flags, 3)
-        this.vtbl.IsPhysicalAddressLocation := CallbackCreate(GetMethod(implObj, "IsPhysicalAddressLocation"), flags, 2)
+        this.vtbl.GetPhysicalAddressLocation := CallbackCreate(ObjBindMethod(implObj, "GetPhysicalAddressLocation"), flags, 3)
+        this.vtbl.IsPhysicalAddressLocation := CallbackCreate(ObjBindMethod(implObj, "IsPhysicalAddressLocation"), flags, 2)
     }
 
     Dispose() {

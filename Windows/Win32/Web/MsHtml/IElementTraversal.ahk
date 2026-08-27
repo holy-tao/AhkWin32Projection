@@ -76,7 +76,6 @@ export default struct IElementTraversal extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_firstElementChild() {
@@ -85,7 +84,6 @@ export default struct IElementTraversal extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_lastElementChild() {
@@ -94,7 +92,6 @@ export default struct IElementTraversal extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_previousElementSibling() {
@@ -103,7 +100,6 @@ export default struct IElementTraversal extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_nextElementSibling() {
@@ -112,7 +108,6 @@ export default struct IElementTraversal extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_childElementCount() {
@@ -129,11 +124,11 @@ export default struct IElementTraversal extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_firstElementChild := CallbackCreate(GetMethod(implObj, "get_firstElementChild"), flags, 2)
-        this.vtbl.get_lastElementChild := CallbackCreate(GetMethod(implObj, "get_lastElementChild"), flags, 2)
-        this.vtbl.get_previousElementSibling := CallbackCreate(GetMethod(implObj, "get_previousElementSibling"), flags, 2)
-        this.vtbl.get_nextElementSibling := CallbackCreate(GetMethod(implObj, "get_nextElementSibling"), flags, 2)
-        this.vtbl.get_childElementCount := CallbackCreate(GetMethod(implObj, "get_childElementCount"), flags, 2)
+        this.vtbl.get_firstElementChild := CallbackCreate(ObjBindMethod(implObj, "get_firstElementChild"), flags, 2)
+        this.vtbl.get_lastElementChild := CallbackCreate(ObjBindMethod(implObj, "get_lastElementChild"), flags, 2)
+        this.vtbl.get_previousElementSibling := CallbackCreate(ObjBindMethod(implObj, "get_previousElementSibling"), flags, 2)
+        this.vtbl.get_nextElementSibling := CallbackCreate(ObjBindMethod(implObj, "get_nextElementSibling"), flags, 2)
+        this.vtbl.get_childElementCount := CallbackCreate(ObjBindMethod(implObj, "get_childElementCount"), flags, 2)
     }
 
     Dispose() {

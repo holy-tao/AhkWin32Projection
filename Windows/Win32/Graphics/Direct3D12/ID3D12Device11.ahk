@@ -37,7 +37,6 @@ export default struct ID3D12Device11 extends ID3D12Device10 {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_SAMPLER_DESC2>} pDesc 
      * @param {D3D12_CPU_DESCRIPTOR_HANDLE} DestDescriptor 
      * @returns {String} Nothing - always returns an empty string
@@ -55,7 +54,7 @@ export default struct ID3D12Device11 extends ID3D12Device10 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateSampler2 := CallbackCreate(GetMethod(implObj, "CreateSampler2"), flags, 3)
+        this.vtbl.CreateSampler2 := CallbackCreate(ObjBindMethod(implObj, "CreateSampler2"), flags, 3)
     }
 
     Dispose() {

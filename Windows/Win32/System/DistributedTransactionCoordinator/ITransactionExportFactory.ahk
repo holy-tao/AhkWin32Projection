@@ -38,7 +38,6 @@ export default struct ITransactionExportFactory extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     GetRemoteClassId() {
@@ -55,7 +54,7 @@ export default struct ITransactionExportFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/Msi/create-time-date-summary
      */
     Create(cbWhereabouts, rgbWhereabouts) {
-        rgbWhereaboutsMarshal := rgbWhereabouts is VarRef ? "char*" : "ptr"
+        rgbWhereaboutsMarshal := rgbWhereabouts is VarRef ? "char*" : IntPtr
 
         result := ComCall(4, this, UInt32, cbWhereabouts, rgbWhereaboutsMarshal, rgbWhereabouts, "ptr*", &ppExport := 0, "HRESULT")
         return ITransactionExport(ppExport)
@@ -70,8 +69,8 @@ export default struct ITransactionExportFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRemoteClassId := CallbackCreate(GetMethod(implObj, "GetRemoteClassId"), flags, 2)
-        this.vtbl.Create := CallbackCreate(GetMethod(implObj, "Create"), flags, 4)
+        this.vtbl.GetRemoteClassId := CallbackCreate(ObjBindMethod(implObj, "GetRemoteClassId"), flags, 2)
+        this.vtbl.Create := CallbackCreate(ObjBindMethod(implObj, "Create"), flags, 4)
     }
 
     Dispose() {

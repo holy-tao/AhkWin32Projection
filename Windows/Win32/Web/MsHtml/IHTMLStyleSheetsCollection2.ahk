@@ -37,7 +37,6 @@ export default struct IHTMLStyleSheetsCollection2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {VARIANT} 
      */
@@ -56,7 +55,7 @@ export default struct IHTMLStyleSheetsCollection2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.item := CallbackCreate(GetMethod(implObj, "item"), flags, 3)
+        this.vtbl.item := CallbackCreate(ObjBindMethod(implObj, "item"), flags, 3)
     }
 
     Dispose() {

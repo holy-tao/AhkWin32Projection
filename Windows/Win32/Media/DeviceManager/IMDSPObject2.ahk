@@ -47,7 +47,7 @@ export default struct IMDSPObject2 extends IMDSPObject {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspobject2-readonclearchannel
      */
     ReadOnClearChannel(pdwSize) {
-        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(11, this, "char*", &pData := 0, pdwSizeMarshal, pdwSize, "HRESULT")
         return pData
@@ -72,8 +72,8 @@ export default struct IMDSPObject2 extends IMDSPObject {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspobject2-writeonclearchannel
      */
     WriteOnClearChannel(pData, pdwSize) {
-        pDataMarshal := pData is VarRef ? "char*" : "ptr"
-        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+        pDataMarshal := pData is VarRef ? "char*" : IntPtr
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(12, this, pDataMarshal, pData, pdwSizeMarshal, pdwSize, "HRESULT")
         return result
@@ -88,8 +88,8 @@ export default struct IMDSPObject2 extends IMDSPObject {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ReadOnClearChannel := CallbackCreate(GetMethod(implObj, "ReadOnClearChannel"), flags, 3)
-        this.vtbl.WriteOnClearChannel := CallbackCreate(GetMethod(implObj, "WriteOnClearChannel"), flags, 3)
+        this.vtbl.ReadOnClearChannel := CallbackCreate(ObjBindMethod(implObj, "ReadOnClearChannel"), flags, 3)
+        this.vtbl.WriteOnClearChannel := CallbackCreate(ObjBindMethod(implObj, "WriteOnClearChannel"), flags, 3)
     }
 
     Dispose() {

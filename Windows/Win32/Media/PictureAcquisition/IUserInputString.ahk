@@ -204,7 +204,10 @@ export default struct IUserInputString extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-getimage
      */
     GetImage(nSize, phBitmap, phIcon) {
-        result := ComCall(12, this, UInt32, nSize, HBITMAP.Ptr, phBitmap, HICON.Ptr, phIcon, "HRESULT")
+        phBitmapMarshal := phBitmap == 0 ? IntPtr : HBITMAP.Ptr
+        phIconMarshal := phIcon == 0 ? IntPtr : HICON.Ptr
+
+        result := ComCall(12, this, UInt32, nSize, phBitmapMarshal, phBitmap, phIconMarshal, phIcon, "HRESULT")
         return result
     }
 
@@ -217,16 +220,16 @@ export default struct IUserInputString extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSubmitButtonText := CallbackCreate(GetMethod(implObj, "GetSubmitButtonText"), flags, 2)
-        this.vtbl.GetPrompt := CallbackCreate(GetMethod(implObj, "GetPrompt"), flags, 2)
-        this.vtbl.GetStringId := CallbackCreate(GetMethod(implObj, "GetStringId"), flags, 2)
-        this.vtbl.GetStringType := CallbackCreate(GetMethod(implObj, "GetStringType"), flags, 2)
-        this.vtbl.GetTooltipText := CallbackCreate(GetMethod(implObj, "GetTooltipText"), flags, 2)
-        this.vtbl.GetMaxLength := CallbackCreate(GetMethod(implObj, "GetMaxLength"), flags, 2)
-        this.vtbl.GetDefault := CallbackCreate(GetMethod(implObj, "GetDefault"), flags, 2)
-        this.vtbl.GetMruCount := CallbackCreate(GetMethod(implObj, "GetMruCount"), flags, 2)
-        this.vtbl.GetMruEntryAt := CallbackCreate(GetMethod(implObj, "GetMruEntryAt"), flags, 3)
-        this.vtbl.GetImage := CallbackCreate(GetMethod(implObj, "GetImage"), flags, 4)
+        this.vtbl.GetSubmitButtonText := CallbackCreate(ObjBindMethod(implObj, "GetSubmitButtonText"), flags, 2)
+        this.vtbl.GetPrompt := CallbackCreate(ObjBindMethod(implObj, "GetPrompt"), flags, 2)
+        this.vtbl.GetStringId := CallbackCreate(ObjBindMethod(implObj, "GetStringId"), flags, 2)
+        this.vtbl.GetStringType := CallbackCreate(ObjBindMethod(implObj, "GetStringType"), flags, 2)
+        this.vtbl.GetTooltipText := CallbackCreate(ObjBindMethod(implObj, "GetTooltipText"), flags, 2)
+        this.vtbl.GetMaxLength := CallbackCreate(ObjBindMethod(implObj, "GetMaxLength"), flags, 2)
+        this.vtbl.GetDefault := CallbackCreate(ObjBindMethod(implObj, "GetDefault"), flags, 2)
+        this.vtbl.GetMruCount := CallbackCreate(ObjBindMethod(implObj, "GetMruCount"), flags, 2)
+        this.vtbl.GetMruEntryAt := CallbackCreate(ObjBindMethod(implObj, "GetMruEntryAt"), flags, 3)
+        this.vtbl.GetImage := CallbackCreate(ObjBindMethod(implObj, "GetImage"), flags, 4)
     }
 
     Dispose() {

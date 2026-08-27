@@ -63,7 +63,9 @@ export default struct IWindowsParentalControlsCore extends IUnknown {
     GetUserSettings(pcszSID) {
         pcszSID := pcszSID is String ? StrPtr(pcszSID) : pcszSID
 
-        result := ComCall(4, this, "ptr", pcszSID, "ptr*", &ppSettings := 0, "HRESULT")
+        pcszSIDMarshal := pcszSID == 0 ? IntPtr : PWSTR
+
+        result := ComCall(4, this, pcszSIDMarshal, pcszSID, "ptr*", &ppSettings := 0, "HRESULT")
         return IWPCSettings(ppSettings)
     }
 
@@ -76,7 +78,9 @@ export default struct IWindowsParentalControlsCore extends IUnknown {
     GetWebSettings(pcszSID) {
         pcszSID := pcszSID is String ? StrPtr(pcszSID) : pcszSID
 
-        result := ComCall(5, this, "ptr", pcszSID, "ptr*", &ppSettings := 0, "HRESULT")
+        pcszSIDMarshal := pcszSID == 0 ? IntPtr : PWSTR
+
+        result := ComCall(5, this, pcszSIDMarshal, pcszSID, "ptr*", &ppSettings := 0, "HRESULT")
         return IWPCWebSettings(ppSettings)
     }
 
@@ -87,7 +91,8 @@ export default struct IWindowsParentalControlsCore extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwindowsparentalcontrolscore-getwebfilterinfo
      */
     GetWebFilterInfo(ppszName) {
-        ppszNameMarshal := ppszName is VarRef ? "ptr*" : "ptr"
+        ppszNameMarshal := ppszName is VarRef ? "ptr*" : IntPtr
+        ppszNameMarshal := ppszName == 0 ? IntPtr : PWSTR.Ptr
 
         pguidID := Guid()
         result := ComCall(6, this, Guid.Ptr, pguidID, ppszNameMarshal, ppszName, "HRESULT")
@@ -103,10 +108,10 @@ export default struct IWindowsParentalControlsCore extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetVisibility := CallbackCreate(GetMethod(implObj, "GetVisibility"), flags, 2)
-        this.vtbl.GetUserSettings := CallbackCreate(GetMethod(implObj, "GetUserSettings"), flags, 3)
-        this.vtbl.GetWebSettings := CallbackCreate(GetMethod(implObj, "GetWebSettings"), flags, 3)
-        this.vtbl.GetWebFilterInfo := CallbackCreate(GetMethod(implObj, "GetWebFilterInfo"), flags, 3)
+        this.vtbl.GetVisibility := CallbackCreate(ObjBindMethod(implObj, "GetVisibility"), flags, 2)
+        this.vtbl.GetUserSettings := CallbackCreate(ObjBindMethod(implObj, "GetUserSettings"), flags, 3)
+        this.vtbl.GetWebSettings := CallbackCreate(ObjBindMethod(implObj, "GetWebSettings"), flags, 3)
+        this.vtbl.GetWebFilterInfo := CallbackCreate(ObjBindMethod(implObj, "GetWebFilterInfo"), flags, 3)
     }
 
     Dispose() {

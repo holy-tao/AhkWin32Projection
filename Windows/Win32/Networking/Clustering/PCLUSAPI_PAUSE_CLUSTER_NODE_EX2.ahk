@@ -21,7 +21,6 @@ export default struct PCLUSAPI_PAUSE_CLUSTER_NODE_EX2 {
     }
 
     /**
-     * 
      * @param {HNODE} _hNode 
      * @param {BOOL} bDrainNode 
      * @param {Integer} dwPauseFlags 
@@ -32,7 +31,10 @@ export default struct PCLUSAPI_PAUSE_CLUSTER_NODE_EX2 {
     Call(_hNode, bDrainNode, dwPauseFlags, hNodeDrainTarget, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall(this.value, HNODE, _hNode, BOOL, bDrainNode, UInt32, dwPauseFlags, HNODE, hNodeDrainTarget, "ptr", lpszReason, UInt32)
+        hNodeDrainTargetMarshal := hNodeDrainTarget == 0 ? IntPtr : HNODE
+        lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+        result := DllCall(this.value, HNODE, _hNode, BOOL, bDrainNode, UInt32, dwPauseFlags, hNodeDrainTargetMarshal, hNodeDrainTarget, lpszReasonMarshal, lpszReason, UInt32)
         return result
     }
 

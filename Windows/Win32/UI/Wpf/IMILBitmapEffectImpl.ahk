@@ -129,7 +129,7 @@ export default struct IMILBitmapEffectImpl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectimpl-getinputbitmapsource
      */
     GetInputBitmapSource(uiIndex, pRenderContext, pfModifyInPlace) {
-        pfModifyInPlaceMarshal := pfModifyInPlace is VarRef ? "short*" : "ptr"
+        pfModifyInPlaceMarshal := pfModifyInPlace is VarRef ? "short*" : IntPtr
 
         result := ComCall(7, this, UInt32, uiIndex, "ptr", pRenderContext, pfModifyInPlaceMarshal, pfModifyInPlace, "ptr*", &ppBitmapSource := 0, "HRESULT")
         return IWICBitmapSource(ppBitmapSource)
@@ -152,7 +152,7 @@ export default struct IMILBitmapEffectImpl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectimpl-getoutputbitmapsource
      */
     GetOutputBitmapSource(uiIndex, pRenderContext, pfModifyInPlace) {
-        pfModifyInPlaceMarshal := pfModifyInPlace is VarRef ? "short*" : "ptr"
+        pfModifyInPlaceMarshal := pfModifyInPlace is VarRef ? "short*" : IntPtr
 
         result := ComCall(8, this, UInt32, uiIndex, "ptr", pRenderContext, pfModifyInPlaceMarshal, pfModifyInPlace, "ptr*", &ppBitmapSource := 0, "HRESULT")
         return IWICBitmapSource(ppBitmapSource)
@@ -182,13 +182,13 @@ export default struct IMILBitmapEffectImpl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsInPlaceModificationAllowed := CallbackCreate(GetMethod(implObj, "IsInPlaceModificationAllowed"), flags, 3)
-        this.vtbl.SetParentEffect := CallbackCreate(GetMethod(implObj, "SetParentEffect"), flags, 2)
-        this.vtbl.GetInputSource := CallbackCreate(GetMethod(implObj, "GetInputSource"), flags, 3)
-        this.vtbl.GetInputSourceBounds := CallbackCreate(GetMethod(implObj, "GetInputSourceBounds"), flags, 3)
-        this.vtbl.GetInputBitmapSource := CallbackCreate(GetMethod(implObj, "GetInputBitmapSource"), flags, 5)
-        this.vtbl.GetOutputBitmapSource := CallbackCreate(GetMethod(implObj, "GetOutputBitmapSource"), flags, 5)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.IsInPlaceModificationAllowed := CallbackCreate(ObjBindMethod(implObj, "IsInPlaceModificationAllowed"), flags, 3)
+        this.vtbl.SetParentEffect := CallbackCreate(ObjBindMethod(implObj, "SetParentEffect"), flags, 2)
+        this.vtbl.GetInputSource := CallbackCreate(ObjBindMethod(implObj, "GetInputSource"), flags, 3)
+        this.vtbl.GetInputSourceBounds := CallbackCreate(ObjBindMethod(implObj, "GetInputSourceBounds"), flags, 3)
+        this.vtbl.GetInputBitmapSource := CallbackCreate(ObjBindMethod(implObj, "GetInputBitmapSource"), flags, 5)
+        this.vtbl.GetOutputBitmapSource := CallbackCreate(ObjBindMethod(implObj, "GetOutputBitmapSource"), flags, 5)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
     }
 
     Dispose() {

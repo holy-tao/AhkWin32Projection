@@ -64,7 +64,7 @@ export default struct ISpatialAudioObjectRenderStreamNotify extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnAvailableDynamicObjectCountChange := CallbackCreate(GetMethod(implObj, "OnAvailableDynamicObjectCountChange"), flags, 4)
+        this.vtbl.OnAvailableDynamicObjectCountChange := CallbackCreate(ObjBindMethod(implObj, "OnAvailableDynamicObjectCountChange"), flags, 4)
     }
 
     Dispose() {

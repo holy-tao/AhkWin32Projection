@@ -21,7 +21,6 @@ export default struct PCLUSAPI_GET_CLUSTER_GROUP_STATE {
     }
 
     /**
-     * 
      * @param {HGROUP} _hGroup 
      * @param {PWSTR} lpszNodeName 
      * @param {Pointer<Integer>} lpcchNodeName 
@@ -30,9 +29,11 @@ export default struct PCLUSAPI_GET_CLUSTER_GROUP_STATE {
     Call(_hGroup, lpszNodeName, lpcchNodeName) {
         lpszNodeName := lpszNodeName is String ? StrPtr(lpszNodeName) : lpszNodeName
 
-        lpcchNodeNameMarshal := lpcchNodeName is VarRef ? "uint*" : "ptr"
+        lpszNodeNameMarshal := lpszNodeName == 0 ? IntPtr : PWSTR
+        lpcchNodeNameMarshal := lpcchNodeName is VarRef ? "uint*" : IntPtr
+        lpcchNodeNameMarshal := lpcchNodeName == 0 ? IntPtr : "uint*"
 
-        result := DllCall(this.value, HGROUP, _hGroup, "ptr", lpszNodeName, lpcchNodeNameMarshal, lpcchNodeName, CLUSTER_GROUP_STATE)
+        result := DllCall(this.value, HGROUP, _hGroup, lpszNodeNameMarshal, lpszNodeName, lpcchNodeNameMarshal, lpcchNodeName, CLUSTER_GROUP_STATE)
         return result
     }
 

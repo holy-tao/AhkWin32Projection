@@ -126,10 +126,10 @@ export default struct IComHandlerAction extends IAction {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ClassId := CallbackCreate(GetMethod(implObj, "get_ClassId"), flags, 2)
-        this.vtbl.put_ClassId := CallbackCreate(GetMethod(implObj, "put_ClassId"), flags, 2)
-        this.vtbl.get_Data := CallbackCreate(GetMethod(implObj, "get_Data"), flags, 2)
-        this.vtbl.put_Data := CallbackCreate(GetMethod(implObj, "put_Data"), flags, 2)
+        this.vtbl.get_ClassId := CallbackCreate(ObjBindMethod(implObj, "get_ClassId"), flags, 2)
+        this.vtbl.put_ClassId := CallbackCreate(ObjBindMethod(implObj, "put_ClassId"), flags, 2)
+        this.vtbl.get_Data := CallbackCreate(ObjBindMethod(implObj, "get_Data"), flags, 2)
+        this.vtbl.put_Data := CallbackCreate(ObjBindMethod(implObj, "put_Data"), flags, 2)
     }
 
     Dispose() {

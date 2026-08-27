@@ -37,21 +37,19 @@ export default struct IRowsetChangeExtInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hReserved 
      * @param {Pointer} hRow 
      * @param {Pointer<Pointer>} phRowOriginal 
      * @returns {HRESULT} 
      */
     GetOriginalRow(hReserved, hRow, phRowOriginal) {
-        phRowOriginalMarshal := phRowOriginal is VarRef ? "ptr*" : "ptr"
+        phRowOriginalMarshal := phRowOriginal is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, IntPtr, hReserved, IntPtr, hRow, phRowOriginalMarshal, phRowOriginal, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} hReserved 
      * @param {Pointer} hRow 
      * @param {Integer} cColumnOrdinals 
@@ -60,8 +58,8 @@ export default struct IRowsetChangeExtInfo extends IUnknown {
      * @returns {HRESULT} 
      */
     GetPendingColumns(hReserved, hRow, cColumnOrdinals, rgiOrdinals, rgColumnStatus) {
-        rgiOrdinalsMarshal := rgiOrdinals is VarRef ? "uint*" : "ptr"
-        rgColumnStatusMarshal := rgColumnStatus is VarRef ? "uint*" : "ptr"
+        rgiOrdinalsMarshal := rgiOrdinals is VarRef ? "uint*" : IntPtr
+        rgColumnStatusMarshal := rgColumnStatus is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, IntPtr, hReserved, IntPtr, hRow, UInt32, cColumnOrdinals, rgiOrdinalsMarshal, rgiOrdinals, rgColumnStatusMarshal, rgColumnStatus, "HRESULT")
         return result
@@ -76,8 +74,8 @@ export default struct IRowsetChangeExtInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOriginalRow := CallbackCreate(GetMethod(implObj, "GetOriginalRow"), flags, 4)
-        this.vtbl.GetPendingColumns := CallbackCreate(GetMethod(implObj, "GetPendingColumns"), flags, 6)
+        this.vtbl.GetOriginalRow := CallbackCreate(ObjBindMethod(implObj, "GetOriginalRow"), flags, 4)
+        this.vtbl.GetPendingColumns := CallbackCreate(ObjBindMethod(implObj, "GetPendingColumns"), flags, 6)
     }
 
     Dispose() {

@@ -149,13 +149,13 @@ export default struct ICreateProcessInputs extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCreateFlags := CallbackCreate(GetMethod(implObj, "GetCreateFlags"), flags, 2)
-        this.vtbl.SetCreateFlags := CallbackCreate(GetMethod(implObj, "SetCreateFlags"), flags, 2)
-        this.vtbl.AddCreateFlags := CallbackCreate(GetMethod(implObj, "AddCreateFlags"), flags, 2)
-        this.vtbl.SetHotKey := CallbackCreate(GetMethod(implObj, "SetHotKey"), flags, 2)
-        this.vtbl.AddStartupFlags := CallbackCreate(GetMethod(implObj, "AddStartupFlags"), flags, 2)
-        this.vtbl.SetTitle := CallbackCreate(GetMethod(implObj, "SetTitle"), flags, 2)
-        this.vtbl.SetEnvironmentVariable := CallbackCreate(GetMethod(implObj, "SetEnvironmentVariable"), flags, 3)
+        this.vtbl.GetCreateFlags := CallbackCreate(ObjBindMethod(implObj, "GetCreateFlags"), flags, 2)
+        this.vtbl.SetCreateFlags := CallbackCreate(ObjBindMethod(implObj, "SetCreateFlags"), flags, 2)
+        this.vtbl.AddCreateFlags := CallbackCreate(ObjBindMethod(implObj, "AddCreateFlags"), flags, 2)
+        this.vtbl.SetHotKey := CallbackCreate(ObjBindMethod(implObj, "SetHotKey"), flags, 2)
+        this.vtbl.AddStartupFlags := CallbackCreate(ObjBindMethod(implObj, "AddStartupFlags"), flags, 2)
+        this.vtbl.SetTitle := CallbackCreate(ObjBindMethod(implObj, "SetTitle"), flags, 2)
+        this.vtbl.SetEnvironmentVariable := CallbackCreate(ObjBindMethod(implObj, "SetEnvironmentVariable"), flags, 3)
     }
 
     Dispose() {

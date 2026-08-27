@@ -38,7 +38,6 @@ export default struct IWMPDownloadManager extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lCollectionId 
      * @returns {IWMPDownloadCollection} 
      */
@@ -48,7 +47,6 @@ export default struct IWMPDownloadManager extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IWMPDownloadCollection} 
      */
     createDownloadCollection() {
@@ -65,8 +63,8 @@ export default struct IWMPDownloadManager extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.getDownloadCollection := CallbackCreate(GetMethod(implObj, "getDownloadCollection"), flags, 3)
-        this.vtbl.createDownloadCollection := CallbackCreate(GetMethod(implObj, "createDownloadCollection"), flags, 2)
+        this.vtbl.getDownloadCollection := CallbackCreate(ObjBindMethod(implObj, "getDownloadCollection"), flags, 3)
+        this.vtbl.createDownloadCollection := CallbackCreate(ObjBindMethod(implObj, "createDownloadCollection"), flags, 2)
     }
 
     Dispose() {

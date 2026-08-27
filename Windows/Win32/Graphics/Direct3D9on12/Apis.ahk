@@ -11,7 +11,6 @@
 
 ;@region Functions
 /**
- * 
  * @param {Integer} SDKVersion 
  * @param {Pointer<D3D9ON12_ARGS>} pOverrideList 
  * @param {Integer} NumOverrideEntries 
@@ -23,7 +22,6 @@ export Direct3DCreate9On12Ex(SDKVersion, pOverrideList, NumOverrideEntries) {
 }
 
 /**
- * 
  * @param {Integer} SDKVersion 
  * @param {Pointer<D3D9ON12_ARGS>} pOverrideList 
  * @param {Integer} NumOverrideEntries 

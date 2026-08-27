@@ -184,7 +184,9 @@ export default struct IXAudio2SourceVoice extends IXAudio2Voice {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2sourcevoice-submitsourcebuffer
      */
     SubmitSourceBuffer(pBuffer, pBufferWMA) {
-        result := ComCall(21, this, XAUDIO2_BUFFER.Ptr, pBuffer, XAUDIO2_BUFFER_WMA.Ptr, pBufferWMA, "HRESULT")
+        pBufferWMAMarshal := pBufferWMA == 0 ? IntPtr : XAUDIO2_BUFFER_WMA.Ptr
+
+        result := ComCall(21, this, XAUDIO2_BUFFER.Ptr, pBuffer, pBufferWMAMarshal, pBufferWMA, "HRESULT")
         return result
     }
 
@@ -332,7 +334,7 @@ export default struct IXAudio2SourceVoice extends IXAudio2Voice {
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2sourcevoice-getfrequencyratio
      */
     GetFrequencyRatio(pRatio) {
-        pRatioMarshal := pRatio is VarRef ? "float*" : "ptr"
+        pRatioMarshal := pRatio is VarRef ? "float*" : IntPtr
 
         ComCall(27, this, pRatioMarshal, pRatio)
     }
@@ -367,16 +369,16 @@ export default struct IXAudio2SourceVoice extends IXAudio2Voice {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 3)
-        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 3)
-        this.vtbl.SubmitSourceBuffer := CallbackCreate(GetMethod(implObj, "SubmitSourceBuffer"), flags, 3)
-        this.vtbl.FlushSourceBuffers := CallbackCreate(GetMethod(implObj, "FlushSourceBuffers"), flags, 1)
-        this.vtbl.Discontinuity := CallbackCreate(GetMethod(implObj, "Discontinuity"), flags, 1)
-        this.vtbl.ExitLoop := CallbackCreate(GetMethod(implObj, "ExitLoop"), flags, 2)
-        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 3)
-        this.vtbl.SetFrequencyRatio := CallbackCreate(GetMethod(implObj, "SetFrequencyRatio"), flags, 3)
-        this.vtbl.GetFrequencyRatio := CallbackCreate(GetMethod(implObj, "GetFrequencyRatio"), flags, 2)
-        this.vtbl.SetSourceSampleRate := CallbackCreate(GetMethod(implObj, "SetSourceSampleRate"), flags, 2)
+        this.vtbl.Start := CallbackCreate(ObjBindMethod(implObj, "Start"), flags, 3)
+        this.vtbl.Stop := CallbackCreate(ObjBindMethod(implObj, "Stop"), flags, 3)
+        this.vtbl.SubmitSourceBuffer := CallbackCreate(ObjBindMethod(implObj, "SubmitSourceBuffer"), flags, 3)
+        this.vtbl.FlushSourceBuffers := CallbackCreate(ObjBindMethod(implObj, "FlushSourceBuffers"), flags, 1)
+        this.vtbl.Discontinuity := CallbackCreate(ObjBindMethod(implObj, "Discontinuity"), flags, 1)
+        this.vtbl.ExitLoop := CallbackCreate(ObjBindMethod(implObj, "ExitLoop"), flags, 2)
+        this.vtbl.GetState := CallbackCreate(ObjBindMethod(implObj, "GetState"), flags, 3)
+        this.vtbl.SetFrequencyRatio := CallbackCreate(ObjBindMethod(implObj, "SetFrequencyRatio"), flags, 3)
+        this.vtbl.GetFrequencyRatio := CallbackCreate(ObjBindMethod(implObj, "GetFrequencyRatio"), flags, 2)
+        this.vtbl.SetSourceSampleRate := CallbackCreate(ObjBindMethod(implObj, "SetSourceSampleRate"), flags, 2)
     }
 
     Dispose() {

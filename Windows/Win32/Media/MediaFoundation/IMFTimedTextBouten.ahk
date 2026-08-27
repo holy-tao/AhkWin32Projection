@@ -41,7 +41,6 @@ export default struct IMFTimedTextBouten extends IUnknown {
     }
 
     /**
-     * 
      * @returns {MF_TIMED_TEXT_BOUTEN_TYPE} 
      */
     GetBoutenType() {
@@ -50,7 +49,6 @@ export default struct IMFTimedTextBouten extends IUnknown {
     }
 
     /**
-     * 
      * @returns {MFARGB} 
      */
     GetBoutenColor() {
@@ -60,7 +58,6 @@ export default struct IMFTimedTextBouten extends IUnknown {
     }
 
     /**
-     * 
      * @returns {MF_TIMED_TEXT_BOUTEN_POSITION} 
      */
     GetBoutenPosition() {
@@ -77,9 +74,9 @@ export default struct IMFTimedTextBouten extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetBoutenType := CallbackCreate(GetMethod(implObj, "GetBoutenType"), flags, 2)
-        this.vtbl.GetBoutenColor := CallbackCreate(GetMethod(implObj, "GetBoutenColor"), flags, 2)
-        this.vtbl.GetBoutenPosition := CallbackCreate(GetMethod(implObj, "GetBoutenPosition"), flags, 2)
+        this.vtbl.GetBoutenType := CallbackCreate(ObjBindMethod(implObj, "GetBoutenType"), flags, 2)
+        this.vtbl.GetBoutenColor := CallbackCreate(ObjBindMethod(implObj, "GetBoutenColor"), flags, 2)
+        this.vtbl.GetBoutenPosition := CallbackCreate(ObjBindMethod(implObj, "GetBoutenPosition"), flags, 2)
     }
 
     Dispose() {

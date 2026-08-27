@@ -20,7 +20,6 @@ export default struct PFND3DKMT_POLLDISPLAYCHILDREN {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_POLLDISPLAYCHILDREN>} param0 
      * @returns {NTSTATUS} 
      */

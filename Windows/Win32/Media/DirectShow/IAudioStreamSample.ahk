@@ -57,7 +57,7 @@ export default struct IAudioStreamSample extends IStreamSample {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAudioData := CallbackCreate(GetMethod(implObj, "GetAudioData"), flags, 2)
+        this.vtbl.GetAudioData := CallbackCreate(ObjBindMethod(implObj, "GetAudioData"), flags, 2)
     }
 
     Dispose() {

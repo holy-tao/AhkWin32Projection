@@ -20,14 +20,13 @@ export default struct pHalSetSystemInformation {
     }
 
     /**
-     * 
      * @param {HAL_SET_INFORMATION_CLASS} InformationClass 
      * @param {Integer} BufferSize 
      * @param {Pointer<Void>} _Buffer 
      * @returns {NTSTATUS} 
      */
     Call(InformationClass, BufferSize, _Buffer) {
-        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, HAL_SET_INFORMATION_CLASS, InformationClass, UInt32, BufferSize, _BufferMarshal, _Buffer, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

@@ -120,11 +120,11 @@ export default struct IRelationship extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Name := CallbackCreate(GetMethod(implObj, "Name"), flags, 2)
-        this.vtbl.IsReal := CallbackCreate(GetMethod(implObj, "IsReal"), flags, 2)
-        this.vtbl.Destination := CallbackCreate(GetMethod(implObj, "Destination"), flags, 2)
-        this.vtbl.MetaData := CallbackCreate(GetMethod(implObj, "MetaData"), flags, 3)
-        this.vtbl.DefaultPhrase := CallbackCreate(GetMethod(implObj, "DefaultPhrase"), flags, 2)
+        this.vtbl.Name := CallbackCreate(ObjBindMethod(implObj, "Name"), flags, 2)
+        this.vtbl.IsReal := CallbackCreate(ObjBindMethod(implObj, "IsReal"), flags, 2)
+        this.vtbl.Destination := CallbackCreate(ObjBindMethod(implObj, "Destination"), flags, 2)
+        this.vtbl.MetaData := CallbackCreate(ObjBindMethod(implObj, "MetaData"), flags, 3)
+        this.vtbl.DefaultPhrase := CallbackCreate(ObjBindMethod(implObj, "DefaultPhrase"), flags, 2)
     }
 
     Dispose() {

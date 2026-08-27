@@ -103,9 +103,9 @@ export default struct IDeskBand2 extends IDeskBand {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CanRenderComposited := CallbackCreate(GetMethod(implObj, "CanRenderComposited"), flags, 2)
-        this.vtbl.SetCompositionState := CallbackCreate(GetMethod(implObj, "SetCompositionState"), flags, 2)
-        this.vtbl.GetCompositionState := CallbackCreate(GetMethod(implObj, "GetCompositionState"), flags, 2)
+        this.vtbl.CanRenderComposited := CallbackCreate(ObjBindMethod(implObj, "CanRenderComposited"), flags, 2)
+        this.vtbl.SetCompositionState := CallbackCreate(ObjBindMethod(implObj, "SetCompositionState"), flags, 2)
+        this.vtbl.GetCompositionState := CallbackCreate(ObjBindMethod(implObj, "GetCompositionState"), flags, 2)
     }
 
     Dispose() {

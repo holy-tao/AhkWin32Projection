@@ -36,7 +36,6 @@ export default struct IDXGraphicsAnalysis extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     BeginCapture() {
@@ -44,7 +43,6 @@ export default struct IDXGraphicsAnalysis extends IUnknown {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     EndCapture() {
@@ -60,8 +58,8 @@ export default struct IDXGraphicsAnalysis extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BeginCapture := CallbackCreate(GetMethod(implObj, "BeginCapture"), flags, 1)
-        this.vtbl.EndCapture := CallbackCreate(GetMethod(implObj, "EndCapture"), flags, 1)
+        this.vtbl.BeginCapture := CallbackCreate(ObjBindMethod(implObj, "BeginCapture"), flags, 1)
+        this.vtbl.EndCapture := CallbackCreate(ObjBindMethod(implObj, "EndCapture"), flags, 1)
     }
 
     Dispose() {

@@ -48,7 +48,6 @@ export default struct PFNPROCESSGROUPPOLICY {
     }
 
     /**
-     * 
      * @param {Integer} dwFlags This parameter can be one or more of the following flags.
      * @param {HANDLE} hToken Token for the user or computer, returned from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-logonusera">LogonUser</a>, 
@@ -71,9 +70,10 @@ export default struct PFNPROCESSGROUPPOLICY {
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
      */
     Call(dwFlags, hToken, hKeyRoot, pDeletedGPOList, pChangedGPOList, pHandle, pbAbort, pStatusCallback) {
-        pbAbortMarshal := pbAbort is VarRef ? "int*" : "ptr"
+        pbAbortMarshal := pbAbort is VarRef ? "int*" : IntPtr
+        pStatusCallbackMarshal := pStatusCallback == 0 ? IntPtr : PFNSTATUSMESSAGECALLBACK
 
-        result := DllCall(this.value, UInt32, dwFlags, HANDLE, hToken, HKEY, hKeyRoot, GROUP_POLICY_OBJECTA.Ptr, pDeletedGPOList, GROUP_POLICY_OBJECTA.Ptr, pChangedGPOList, IntPtr, pHandle, pbAbortMarshal, pbAbort, PFNSTATUSMESSAGECALLBACK, pStatusCallback, UInt32)
+        result := DllCall(this.value, UInt32, dwFlags, HANDLE, hToken, HKEY, hKeyRoot, GROUP_POLICY_OBJECTA.Ptr, pDeletedGPOList, GROUP_POLICY_OBJECTA.Ptr, pChangedGPOList, IntPtr, pHandle, pbAbortMarshal, pbAbort, pStatusCallbackMarshal, pStatusCallback, UInt32)
         return result
     }
 

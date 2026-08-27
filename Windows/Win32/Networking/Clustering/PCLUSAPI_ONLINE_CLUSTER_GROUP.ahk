@@ -20,13 +20,14 @@ export default struct PCLUSAPI_ONLINE_CLUSTER_GROUP {
     }
 
     /**
-     * 
      * @param {HGROUP} _hGroup 
      * @param {HNODE} hDestinationNode 
      * @returns {Integer} 
      */
     Call(_hGroup, hDestinationNode) {
-        result := DllCall(this.value, HGROUP, _hGroup, HNODE, hDestinationNode, UInt32)
+        hDestinationNodeMarshal := hDestinationNode == 0 ? IntPtr : HNODE
+
+        result := DllCall(this.value, HGROUP, _hGroup, hDestinationNodeMarshal, hDestinationNode, UInt32)
         return result
     }
 

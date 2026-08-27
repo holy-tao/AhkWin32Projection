@@ -19,13 +19,13 @@ export default struct D3D12ApplicationDescFunc {
     }
 
     /**
-     * 
      * @param {Pointer<D3D12_APPLICATION_DESC>} pApplicationDesc 
      * @param {Pointer<Void>} pContext 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(pApplicationDesc, pContext) {
-        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+        pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
+        pContextMarshal := pContext == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, D3D12_APPLICATION_DESC.Ptr, pApplicationDesc, pContextMarshal, pContext)
     }

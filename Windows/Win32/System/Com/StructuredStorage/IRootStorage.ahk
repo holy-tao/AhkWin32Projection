@@ -81,7 +81,7 @@ export default struct IRootStorage extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SwitchToFile := CallbackCreate(GetMethod(implObj, "SwitchToFile"), flags, 2)
+        this.vtbl.SwitchToFile := CallbackCreate(ObjBindMethod(implObj, "SwitchToFile"), flags, 2)
     }
 
     Dispose() {

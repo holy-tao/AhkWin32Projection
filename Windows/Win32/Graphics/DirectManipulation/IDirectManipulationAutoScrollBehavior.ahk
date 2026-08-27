@@ -62,7 +62,7 @@ export default struct IDirectManipulationAutoScrollBehavior extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetConfiguration := CallbackCreate(GetMethod(implObj, "SetConfiguration"), flags, 3)
+        this.vtbl.SetConfiguration := CallbackCreate(ObjBindMethod(implObj, "SetConfiguration"), flags, 3)
     }
 
     Dispose() {

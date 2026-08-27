@@ -883,7 +883,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Attr() {
@@ -892,7 +891,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_BehaviorUrnsCollection() {
@@ -901,7 +899,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_BookmarkCollection() {
@@ -910,7 +907,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_CompatibleInfo() {
@@ -919,7 +915,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_CompatibleInfoCollection() {
@@ -928,7 +923,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_ControlRangeCollection() {
@@ -937,7 +931,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_CSSCurrentStyleDeclaration() {
@@ -946,7 +939,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_CSSRuleList() {
@@ -955,7 +947,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_CSSRuleStyleDeclaration() {
@@ -964,7 +955,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_CSSStyleDeclaration() {
@@ -973,7 +963,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_CSSStyleRule() {
@@ -982,7 +971,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_CSSStyleSheet() {
@@ -991,7 +979,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_DataTransfer() {
@@ -1000,7 +987,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_DOMImplementation() {
@@ -1009,7 +995,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Element() {
@@ -1018,7 +1003,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Event() {
@@ -1027,7 +1011,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_History() {
@@ -1036,7 +1019,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTCElementBehaviorDefaults() {
@@ -1045,7 +1027,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLAnchorElement() {
@@ -1054,7 +1035,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLAreaElement() {
@@ -1063,7 +1043,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLAreasCollection() {
@@ -1072,7 +1051,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLBaseElement() {
@@ -1081,7 +1059,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLBaseFontElement() {
@@ -1090,7 +1067,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLBGSoundElement() {
@@ -1099,7 +1075,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLBlockElement() {
@@ -1108,7 +1083,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLBodyElement() {
@@ -1117,7 +1091,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLBRElement() {
@@ -1126,7 +1099,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLButtonElement() {
@@ -1135,7 +1107,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLCollection() {
@@ -1144,7 +1115,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLCommentElement() {
@@ -1153,7 +1123,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLDDElement() {
@@ -1162,7 +1131,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLDivElement() {
@@ -1171,7 +1139,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLDocument() {
@@ -1180,7 +1147,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLDListElement() {
@@ -1189,7 +1155,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLDTElement() {
@@ -1198,7 +1163,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLEmbedElement() {
@@ -1207,7 +1171,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLFieldSetElement() {
@@ -1216,7 +1179,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLFontElement() {
@@ -1225,7 +1187,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLFormElement() {
@@ -1234,7 +1195,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLFrameElement() {
@@ -1243,7 +1203,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLFrameSetElement() {
@@ -1252,7 +1211,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLGenericElement() {
@@ -1261,7 +1219,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLHeadElement() {
@@ -1270,7 +1227,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLHeadingElement() {
@@ -1279,7 +1235,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLHRElement() {
@@ -1288,7 +1243,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLHtmlElement() {
@@ -1297,7 +1251,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLIFrameElement() {
@@ -1306,7 +1259,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLImageElement() {
@@ -1315,7 +1267,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLInputElement() {
@@ -1324,7 +1275,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLIsIndexElement() {
@@ -1333,7 +1283,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLLabelElement() {
@@ -1342,7 +1291,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLLegendElement() {
@@ -1351,7 +1299,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLLIElement() {
@@ -1360,7 +1307,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLLinkElement() {
@@ -1369,7 +1315,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLMapElement() {
@@ -1378,7 +1323,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLMarqueeElement() {
@@ -1387,7 +1331,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLMetaElement() {
@@ -1396,7 +1339,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLModelessDialog() {
@@ -1405,7 +1347,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLNamespaceInfo() {
@@ -1414,7 +1355,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLNamespaceInfoCollection() {
@@ -1423,7 +1363,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLNextIdElement() {
@@ -1432,7 +1371,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLNoShowElement() {
@@ -1441,7 +1379,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLObjectElement() {
@@ -1450,7 +1387,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLOListElement() {
@@ -1459,7 +1395,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLOptionElement() {
@@ -1468,7 +1403,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLParagraphElement() {
@@ -1477,7 +1411,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLParamElement() {
@@ -1486,7 +1419,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLPhraseElement() {
@@ -1495,7 +1427,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLPluginsCollection() {
@@ -1504,7 +1435,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLPopup() {
@@ -1513,7 +1443,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLScriptElement() {
@@ -1522,7 +1451,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLSelectElement() {
@@ -1531,7 +1459,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLSpanElement() {
@@ -1540,7 +1467,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLStyleElement() {
@@ -1549,7 +1475,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLTableCaptionElement() {
@@ -1558,7 +1483,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLTableCellElement() {
@@ -1567,7 +1491,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLTableColElement() {
@@ -1576,7 +1499,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLTableElement() {
@@ -1585,7 +1507,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLTableRowElement() {
@@ -1594,7 +1515,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLTableSectionElement() {
@@ -1603,7 +1523,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLTextAreaElement() {
@@ -1612,7 +1531,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLTextElement() {
@@ -1621,7 +1539,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLTitleElement() {
@@ -1630,7 +1547,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLUListElement() {
@@ -1639,7 +1555,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_HTMLUnknownElement() {
@@ -1648,7 +1563,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Image() {
@@ -1657,7 +1571,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Location() {
@@ -1666,7 +1579,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_NamedNodeMap() {
@@ -1675,7 +1587,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Navigator() {
@@ -1684,7 +1595,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_NodeList() {
@@ -1693,7 +1603,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Option() {
@@ -1702,7 +1611,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Screen() {
@@ -1711,7 +1619,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Selection() {
@@ -1720,7 +1627,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_StaticNodeList() {
@@ -1729,7 +1635,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Storage() {
@@ -1738,7 +1643,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_StyleSheetList() {
@@ -1747,7 +1651,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_StyleSheetPage() {
@@ -1756,7 +1659,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_StyleSheetPageList() {
@@ -1765,7 +1667,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Text() {
@@ -1774,7 +1675,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_TextRange() {
@@ -1783,7 +1683,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_TextRangeCollection() {
@@ -1792,7 +1691,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_TextRectangle() {
@@ -1801,7 +1699,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_TextRectangleList() {
@@ -1810,7 +1707,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Window() {
@@ -1819,7 +1715,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_XDomainRequest() {
@@ -1828,7 +1723,6 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_XMLHttpRequest() {
@@ -1845,112 +1739,112 @@ export default struct IHTMLDOMConstructorCollection extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Attr := CallbackCreate(GetMethod(implObj, "get_Attr"), flags, 2)
-        this.vtbl.get_BehaviorUrnsCollection := CallbackCreate(GetMethod(implObj, "get_BehaviorUrnsCollection"), flags, 2)
-        this.vtbl.get_BookmarkCollection := CallbackCreate(GetMethod(implObj, "get_BookmarkCollection"), flags, 2)
-        this.vtbl.get_CompatibleInfo := CallbackCreate(GetMethod(implObj, "get_CompatibleInfo"), flags, 2)
-        this.vtbl.get_CompatibleInfoCollection := CallbackCreate(GetMethod(implObj, "get_CompatibleInfoCollection"), flags, 2)
-        this.vtbl.get_ControlRangeCollection := CallbackCreate(GetMethod(implObj, "get_ControlRangeCollection"), flags, 2)
-        this.vtbl.get_CSSCurrentStyleDeclaration := CallbackCreate(GetMethod(implObj, "get_CSSCurrentStyleDeclaration"), flags, 2)
-        this.vtbl.get_CSSRuleList := CallbackCreate(GetMethod(implObj, "get_CSSRuleList"), flags, 2)
-        this.vtbl.get_CSSRuleStyleDeclaration := CallbackCreate(GetMethod(implObj, "get_CSSRuleStyleDeclaration"), flags, 2)
-        this.vtbl.get_CSSStyleDeclaration := CallbackCreate(GetMethod(implObj, "get_CSSStyleDeclaration"), flags, 2)
-        this.vtbl.get_CSSStyleRule := CallbackCreate(GetMethod(implObj, "get_CSSStyleRule"), flags, 2)
-        this.vtbl.get_CSSStyleSheet := CallbackCreate(GetMethod(implObj, "get_CSSStyleSheet"), flags, 2)
-        this.vtbl.get_DataTransfer := CallbackCreate(GetMethod(implObj, "get_DataTransfer"), flags, 2)
-        this.vtbl.get_DOMImplementation := CallbackCreate(GetMethod(implObj, "get_DOMImplementation"), flags, 2)
-        this.vtbl.get_Element := CallbackCreate(GetMethod(implObj, "get_Element"), flags, 2)
-        this.vtbl.get_Event := CallbackCreate(GetMethod(implObj, "get_Event"), flags, 2)
-        this.vtbl.get_History := CallbackCreate(GetMethod(implObj, "get_History"), flags, 2)
-        this.vtbl.get_HTCElementBehaviorDefaults := CallbackCreate(GetMethod(implObj, "get_HTCElementBehaviorDefaults"), flags, 2)
-        this.vtbl.get_HTMLAnchorElement := CallbackCreate(GetMethod(implObj, "get_HTMLAnchorElement"), flags, 2)
-        this.vtbl.get_HTMLAreaElement := CallbackCreate(GetMethod(implObj, "get_HTMLAreaElement"), flags, 2)
-        this.vtbl.get_HTMLAreasCollection := CallbackCreate(GetMethod(implObj, "get_HTMLAreasCollection"), flags, 2)
-        this.vtbl.get_HTMLBaseElement := CallbackCreate(GetMethod(implObj, "get_HTMLBaseElement"), flags, 2)
-        this.vtbl.get_HTMLBaseFontElement := CallbackCreate(GetMethod(implObj, "get_HTMLBaseFontElement"), flags, 2)
-        this.vtbl.get_HTMLBGSoundElement := CallbackCreate(GetMethod(implObj, "get_HTMLBGSoundElement"), flags, 2)
-        this.vtbl.get_HTMLBlockElement := CallbackCreate(GetMethod(implObj, "get_HTMLBlockElement"), flags, 2)
-        this.vtbl.get_HTMLBodyElement := CallbackCreate(GetMethod(implObj, "get_HTMLBodyElement"), flags, 2)
-        this.vtbl.get_HTMLBRElement := CallbackCreate(GetMethod(implObj, "get_HTMLBRElement"), flags, 2)
-        this.vtbl.get_HTMLButtonElement := CallbackCreate(GetMethod(implObj, "get_HTMLButtonElement"), flags, 2)
-        this.vtbl.get_HTMLCollection := CallbackCreate(GetMethod(implObj, "get_HTMLCollection"), flags, 2)
-        this.vtbl.get_HTMLCommentElement := CallbackCreate(GetMethod(implObj, "get_HTMLCommentElement"), flags, 2)
-        this.vtbl.get_HTMLDDElement := CallbackCreate(GetMethod(implObj, "get_HTMLDDElement"), flags, 2)
-        this.vtbl.get_HTMLDivElement := CallbackCreate(GetMethod(implObj, "get_HTMLDivElement"), flags, 2)
-        this.vtbl.get_HTMLDocument := CallbackCreate(GetMethod(implObj, "get_HTMLDocument"), flags, 2)
-        this.vtbl.get_HTMLDListElement := CallbackCreate(GetMethod(implObj, "get_HTMLDListElement"), flags, 2)
-        this.vtbl.get_HTMLDTElement := CallbackCreate(GetMethod(implObj, "get_HTMLDTElement"), flags, 2)
-        this.vtbl.get_HTMLEmbedElement := CallbackCreate(GetMethod(implObj, "get_HTMLEmbedElement"), flags, 2)
-        this.vtbl.get_HTMLFieldSetElement := CallbackCreate(GetMethod(implObj, "get_HTMLFieldSetElement"), flags, 2)
-        this.vtbl.get_HTMLFontElement := CallbackCreate(GetMethod(implObj, "get_HTMLFontElement"), flags, 2)
-        this.vtbl.get_HTMLFormElement := CallbackCreate(GetMethod(implObj, "get_HTMLFormElement"), flags, 2)
-        this.vtbl.get_HTMLFrameElement := CallbackCreate(GetMethod(implObj, "get_HTMLFrameElement"), flags, 2)
-        this.vtbl.get_HTMLFrameSetElement := CallbackCreate(GetMethod(implObj, "get_HTMLFrameSetElement"), flags, 2)
-        this.vtbl.get_HTMLGenericElement := CallbackCreate(GetMethod(implObj, "get_HTMLGenericElement"), flags, 2)
-        this.vtbl.get_HTMLHeadElement := CallbackCreate(GetMethod(implObj, "get_HTMLHeadElement"), flags, 2)
-        this.vtbl.get_HTMLHeadingElement := CallbackCreate(GetMethod(implObj, "get_HTMLHeadingElement"), flags, 2)
-        this.vtbl.get_HTMLHRElement := CallbackCreate(GetMethod(implObj, "get_HTMLHRElement"), flags, 2)
-        this.vtbl.get_HTMLHtmlElement := CallbackCreate(GetMethod(implObj, "get_HTMLHtmlElement"), flags, 2)
-        this.vtbl.get_HTMLIFrameElement := CallbackCreate(GetMethod(implObj, "get_HTMLIFrameElement"), flags, 2)
-        this.vtbl.get_HTMLImageElement := CallbackCreate(GetMethod(implObj, "get_HTMLImageElement"), flags, 2)
-        this.vtbl.get_HTMLInputElement := CallbackCreate(GetMethod(implObj, "get_HTMLInputElement"), flags, 2)
-        this.vtbl.get_HTMLIsIndexElement := CallbackCreate(GetMethod(implObj, "get_HTMLIsIndexElement"), flags, 2)
-        this.vtbl.get_HTMLLabelElement := CallbackCreate(GetMethod(implObj, "get_HTMLLabelElement"), flags, 2)
-        this.vtbl.get_HTMLLegendElement := CallbackCreate(GetMethod(implObj, "get_HTMLLegendElement"), flags, 2)
-        this.vtbl.get_HTMLLIElement := CallbackCreate(GetMethod(implObj, "get_HTMLLIElement"), flags, 2)
-        this.vtbl.get_HTMLLinkElement := CallbackCreate(GetMethod(implObj, "get_HTMLLinkElement"), flags, 2)
-        this.vtbl.get_HTMLMapElement := CallbackCreate(GetMethod(implObj, "get_HTMLMapElement"), flags, 2)
-        this.vtbl.get_HTMLMarqueeElement := CallbackCreate(GetMethod(implObj, "get_HTMLMarqueeElement"), flags, 2)
-        this.vtbl.get_HTMLMetaElement := CallbackCreate(GetMethod(implObj, "get_HTMLMetaElement"), flags, 2)
-        this.vtbl.get_HTMLModelessDialog := CallbackCreate(GetMethod(implObj, "get_HTMLModelessDialog"), flags, 2)
-        this.vtbl.get_HTMLNamespaceInfo := CallbackCreate(GetMethod(implObj, "get_HTMLNamespaceInfo"), flags, 2)
-        this.vtbl.get_HTMLNamespaceInfoCollection := CallbackCreate(GetMethod(implObj, "get_HTMLNamespaceInfoCollection"), flags, 2)
-        this.vtbl.get_HTMLNextIdElement := CallbackCreate(GetMethod(implObj, "get_HTMLNextIdElement"), flags, 2)
-        this.vtbl.get_HTMLNoShowElement := CallbackCreate(GetMethod(implObj, "get_HTMLNoShowElement"), flags, 2)
-        this.vtbl.get_HTMLObjectElement := CallbackCreate(GetMethod(implObj, "get_HTMLObjectElement"), flags, 2)
-        this.vtbl.get_HTMLOListElement := CallbackCreate(GetMethod(implObj, "get_HTMLOListElement"), flags, 2)
-        this.vtbl.get_HTMLOptionElement := CallbackCreate(GetMethod(implObj, "get_HTMLOptionElement"), flags, 2)
-        this.vtbl.get_HTMLParagraphElement := CallbackCreate(GetMethod(implObj, "get_HTMLParagraphElement"), flags, 2)
-        this.vtbl.get_HTMLParamElement := CallbackCreate(GetMethod(implObj, "get_HTMLParamElement"), flags, 2)
-        this.vtbl.get_HTMLPhraseElement := CallbackCreate(GetMethod(implObj, "get_HTMLPhraseElement"), flags, 2)
-        this.vtbl.get_HTMLPluginsCollection := CallbackCreate(GetMethod(implObj, "get_HTMLPluginsCollection"), flags, 2)
-        this.vtbl.get_HTMLPopup := CallbackCreate(GetMethod(implObj, "get_HTMLPopup"), flags, 2)
-        this.vtbl.get_HTMLScriptElement := CallbackCreate(GetMethod(implObj, "get_HTMLScriptElement"), flags, 2)
-        this.vtbl.get_HTMLSelectElement := CallbackCreate(GetMethod(implObj, "get_HTMLSelectElement"), flags, 2)
-        this.vtbl.get_HTMLSpanElement := CallbackCreate(GetMethod(implObj, "get_HTMLSpanElement"), flags, 2)
-        this.vtbl.get_HTMLStyleElement := CallbackCreate(GetMethod(implObj, "get_HTMLStyleElement"), flags, 2)
-        this.vtbl.get_HTMLTableCaptionElement := CallbackCreate(GetMethod(implObj, "get_HTMLTableCaptionElement"), flags, 2)
-        this.vtbl.get_HTMLTableCellElement := CallbackCreate(GetMethod(implObj, "get_HTMLTableCellElement"), flags, 2)
-        this.vtbl.get_HTMLTableColElement := CallbackCreate(GetMethod(implObj, "get_HTMLTableColElement"), flags, 2)
-        this.vtbl.get_HTMLTableElement := CallbackCreate(GetMethod(implObj, "get_HTMLTableElement"), flags, 2)
-        this.vtbl.get_HTMLTableRowElement := CallbackCreate(GetMethod(implObj, "get_HTMLTableRowElement"), flags, 2)
-        this.vtbl.get_HTMLTableSectionElement := CallbackCreate(GetMethod(implObj, "get_HTMLTableSectionElement"), flags, 2)
-        this.vtbl.get_HTMLTextAreaElement := CallbackCreate(GetMethod(implObj, "get_HTMLTextAreaElement"), flags, 2)
-        this.vtbl.get_HTMLTextElement := CallbackCreate(GetMethod(implObj, "get_HTMLTextElement"), flags, 2)
-        this.vtbl.get_HTMLTitleElement := CallbackCreate(GetMethod(implObj, "get_HTMLTitleElement"), flags, 2)
-        this.vtbl.get_HTMLUListElement := CallbackCreate(GetMethod(implObj, "get_HTMLUListElement"), flags, 2)
-        this.vtbl.get_HTMLUnknownElement := CallbackCreate(GetMethod(implObj, "get_HTMLUnknownElement"), flags, 2)
-        this.vtbl.get_Image := CallbackCreate(GetMethod(implObj, "get_Image"), flags, 2)
-        this.vtbl.get_Location := CallbackCreate(GetMethod(implObj, "get_Location"), flags, 2)
-        this.vtbl.get_NamedNodeMap := CallbackCreate(GetMethod(implObj, "get_NamedNodeMap"), flags, 2)
-        this.vtbl.get_Navigator := CallbackCreate(GetMethod(implObj, "get_Navigator"), flags, 2)
-        this.vtbl.get_NodeList := CallbackCreate(GetMethod(implObj, "get_NodeList"), flags, 2)
-        this.vtbl.get_Option := CallbackCreate(GetMethod(implObj, "get_Option"), flags, 2)
-        this.vtbl.get_Screen := CallbackCreate(GetMethod(implObj, "get_Screen"), flags, 2)
-        this.vtbl.get_Selection := CallbackCreate(GetMethod(implObj, "get_Selection"), flags, 2)
-        this.vtbl.get_StaticNodeList := CallbackCreate(GetMethod(implObj, "get_StaticNodeList"), flags, 2)
-        this.vtbl.get_Storage := CallbackCreate(GetMethod(implObj, "get_Storage"), flags, 2)
-        this.vtbl.get_StyleSheetList := CallbackCreate(GetMethod(implObj, "get_StyleSheetList"), flags, 2)
-        this.vtbl.get_StyleSheetPage := CallbackCreate(GetMethod(implObj, "get_StyleSheetPage"), flags, 2)
-        this.vtbl.get_StyleSheetPageList := CallbackCreate(GetMethod(implObj, "get_StyleSheetPageList"), flags, 2)
-        this.vtbl.get_Text := CallbackCreate(GetMethod(implObj, "get_Text"), flags, 2)
-        this.vtbl.get_TextRange := CallbackCreate(GetMethod(implObj, "get_TextRange"), flags, 2)
-        this.vtbl.get_TextRangeCollection := CallbackCreate(GetMethod(implObj, "get_TextRangeCollection"), flags, 2)
-        this.vtbl.get_TextRectangle := CallbackCreate(GetMethod(implObj, "get_TextRectangle"), flags, 2)
-        this.vtbl.get_TextRectangleList := CallbackCreate(GetMethod(implObj, "get_TextRectangleList"), flags, 2)
-        this.vtbl.get_Window := CallbackCreate(GetMethod(implObj, "get_Window"), flags, 2)
-        this.vtbl.get_XDomainRequest := CallbackCreate(GetMethod(implObj, "get_XDomainRequest"), flags, 2)
-        this.vtbl.get_XMLHttpRequest := CallbackCreate(GetMethod(implObj, "get_XMLHttpRequest"), flags, 2)
+        this.vtbl.get_Attr := CallbackCreate(ObjBindMethod(implObj, "get_Attr"), flags, 2)
+        this.vtbl.get_BehaviorUrnsCollection := CallbackCreate(ObjBindMethod(implObj, "get_BehaviorUrnsCollection"), flags, 2)
+        this.vtbl.get_BookmarkCollection := CallbackCreate(ObjBindMethod(implObj, "get_BookmarkCollection"), flags, 2)
+        this.vtbl.get_CompatibleInfo := CallbackCreate(ObjBindMethod(implObj, "get_CompatibleInfo"), flags, 2)
+        this.vtbl.get_CompatibleInfoCollection := CallbackCreate(ObjBindMethod(implObj, "get_CompatibleInfoCollection"), flags, 2)
+        this.vtbl.get_ControlRangeCollection := CallbackCreate(ObjBindMethod(implObj, "get_ControlRangeCollection"), flags, 2)
+        this.vtbl.get_CSSCurrentStyleDeclaration := CallbackCreate(ObjBindMethod(implObj, "get_CSSCurrentStyleDeclaration"), flags, 2)
+        this.vtbl.get_CSSRuleList := CallbackCreate(ObjBindMethod(implObj, "get_CSSRuleList"), flags, 2)
+        this.vtbl.get_CSSRuleStyleDeclaration := CallbackCreate(ObjBindMethod(implObj, "get_CSSRuleStyleDeclaration"), flags, 2)
+        this.vtbl.get_CSSStyleDeclaration := CallbackCreate(ObjBindMethod(implObj, "get_CSSStyleDeclaration"), flags, 2)
+        this.vtbl.get_CSSStyleRule := CallbackCreate(ObjBindMethod(implObj, "get_CSSStyleRule"), flags, 2)
+        this.vtbl.get_CSSStyleSheet := CallbackCreate(ObjBindMethod(implObj, "get_CSSStyleSheet"), flags, 2)
+        this.vtbl.get_DataTransfer := CallbackCreate(ObjBindMethod(implObj, "get_DataTransfer"), flags, 2)
+        this.vtbl.get_DOMImplementation := CallbackCreate(ObjBindMethod(implObj, "get_DOMImplementation"), flags, 2)
+        this.vtbl.get_Element := CallbackCreate(ObjBindMethod(implObj, "get_Element"), flags, 2)
+        this.vtbl.get_Event := CallbackCreate(ObjBindMethod(implObj, "get_Event"), flags, 2)
+        this.vtbl.get_History := CallbackCreate(ObjBindMethod(implObj, "get_History"), flags, 2)
+        this.vtbl.get_HTCElementBehaviorDefaults := CallbackCreate(ObjBindMethod(implObj, "get_HTCElementBehaviorDefaults"), flags, 2)
+        this.vtbl.get_HTMLAnchorElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLAnchorElement"), flags, 2)
+        this.vtbl.get_HTMLAreaElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLAreaElement"), flags, 2)
+        this.vtbl.get_HTMLAreasCollection := CallbackCreate(ObjBindMethod(implObj, "get_HTMLAreasCollection"), flags, 2)
+        this.vtbl.get_HTMLBaseElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLBaseElement"), flags, 2)
+        this.vtbl.get_HTMLBaseFontElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLBaseFontElement"), flags, 2)
+        this.vtbl.get_HTMLBGSoundElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLBGSoundElement"), flags, 2)
+        this.vtbl.get_HTMLBlockElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLBlockElement"), flags, 2)
+        this.vtbl.get_HTMLBodyElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLBodyElement"), flags, 2)
+        this.vtbl.get_HTMLBRElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLBRElement"), flags, 2)
+        this.vtbl.get_HTMLButtonElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLButtonElement"), flags, 2)
+        this.vtbl.get_HTMLCollection := CallbackCreate(ObjBindMethod(implObj, "get_HTMLCollection"), flags, 2)
+        this.vtbl.get_HTMLCommentElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLCommentElement"), flags, 2)
+        this.vtbl.get_HTMLDDElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLDDElement"), flags, 2)
+        this.vtbl.get_HTMLDivElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLDivElement"), flags, 2)
+        this.vtbl.get_HTMLDocument := CallbackCreate(ObjBindMethod(implObj, "get_HTMLDocument"), flags, 2)
+        this.vtbl.get_HTMLDListElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLDListElement"), flags, 2)
+        this.vtbl.get_HTMLDTElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLDTElement"), flags, 2)
+        this.vtbl.get_HTMLEmbedElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLEmbedElement"), flags, 2)
+        this.vtbl.get_HTMLFieldSetElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLFieldSetElement"), flags, 2)
+        this.vtbl.get_HTMLFontElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLFontElement"), flags, 2)
+        this.vtbl.get_HTMLFormElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLFormElement"), flags, 2)
+        this.vtbl.get_HTMLFrameElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLFrameElement"), flags, 2)
+        this.vtbl.get_HTMLFrameSetElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLFrameSetElement"), flags, 2)
+        this.vtbl.get_HTMLGenericElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLGenericElement"), flags, 2)
+        this.vtbl.get_HTMLHeadElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLHeadElement"), flags, 2)
+        this.vtbl.get_HTMLHeadingElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLHeadingElement"), flags, 2)
+        this.vtbl.get_HTMLHRElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLHRElement"), flags, 2)
+        this.vtbl.get_HTMLHtmlElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLHtmlElement"), flags, 2)
+        this.vtbl.get_HTMLIFrameElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLIFrameElement"), flags, 2)
+        this.vtbl.get_HTMLImageElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLImageElement"), flags, 2)
+        this.vtbl.get_HTMLInputElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLInputElement"), flags, 2)
+        this.vtbl.get_HTMLIsIndexElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLIsIndexElement"), flags, 2)
+        this.vtbl.get_HTMLLabelElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLLabelElement"), flags, 2)
+        this.vtbl.get_HTMLLegendElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLLegendElement"), flags, 2)
+        this.vtbl.get_HTMLLIElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLLIElement"), flags, 2)
+        this.vtbl.get_HTMLLinkElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLLinkElement"), flags, 2)
+        this.vtbl.get_HTMLMapElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLMapElement"), flags, 2)
+        this.vtbl.get_HTMLMarqueeElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLMarqueeElement"), flags, 2)
+        this.vtbl.get_HTMLMetaElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLMetaElement"), flags, 2)
+        this.vtbl.get_HTMLModelessDialog := CallbackCreate(ObjBindMethod(implObj, "get_HTMLModelessDialog"), flags, 2)
+        this.vtbl.get_HTMLNamespaceInfo := CallbackCreate(ObjBindMethod(implObj, "get_HTMLNamespaceInfo"), flags, 2)
+        this.vtbl.get_HTMLNamespaceInfoCollection := CallbackCreate(ObjBindMethod(implObj, "get_HTMLNamespaceInfoCollection"), flags, 2)
+        this.vtbl.get_HTMLNextIdElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLNextIdElement"), flags, 2)
+        this.vtbl.get_HTMLNoShowElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLNoShowElement"), flags, 2)
+        this.vtbl.get_HTMLObjectElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLObjectElement"), flags, 2)
+        this.vtbl.get_HTMLOListElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLOListElement"), flags, 2)
+        this.vtbl.get_HTMLOptionElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLOptionElement"), flags, 2)
+        this.vtbl.get_HTMLParagraphElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLParagraphElement"), flags, 2)
+        this.vtbl.get_HTMLParamElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLParamElement"), flags, 2)
+        this.vtbl.get_HTMLPhraseElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLPhraseElement"), flags, 2)
+        this.vtbl.get_HTMLPluginsCollection := CallbackCreate(ObjBindMethod(implObj, "get_HTMLPluginsCollection"), flags, 2)
+        this.vtbl.get_HTMLPopup := CallbackCreate(ObjBindMethod(implObj, "get_HTMLPopup"), flags, 2)
+        this.vtbl.get_HTMLScriptElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLScriptElement"), flags, 2)
+        this.vtbl.get_HTMLSelectElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLSelectElement"), flags, 2)
+        this.vtbl.get_HTMLSpanElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLSpanElement"), flags, 2)
+        this.vtbl.get_HTMLStyleElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLStyleElement"), flags, 2)
+        this.vtbl.get_HTMLTableCaptionElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLTableCaptionElement"), flags, 2)
+        this.vtbl.get_HTMLTableCellElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLTableCellElement"), flags, 2)
+        this.vtbl.get_HTMLTableColElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLTableColElement"), flags, 2)
+        this.vtbl.get_HTMLTableElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLTableElement"), flags, 2)
+        this.vtbl.get_HTMLTableRowElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLTableRowElement"), flags, 2)
+        this.vtbl.get_HTMLTableSectionElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLTableSectionElement"), flags, 2)
+        this.vtbl.get_HTMLTextAreaElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLTextAreaElement"), flags, 2)
+        this.vtbl.get_HTMLTextElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLTextElement"), flags, 2)
+        this.vtbl.get_HTMLTitleElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLTitleElement"), flags, 2)
+        this.vtbl.get_HTMLUListElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLUListElement"), flags, 2)
+        this.vtbl.get_HTMLUnknownElement := CallbackCreate(ObjBindMethod(implObj, "get_HTMLUnknownElement"), flags, 2)
+        this.vtbl.get_Image := CallbackCreate(ObjBindMethod(implObj, "get_Image"), flags, 2)
+        this.vtbl.get_Location := CallbackCreate(ObjBindMethod(implObj, "get_Location"), flags, 2)
+        this.vtbl.get_NamedNodeMap := CallbackCreate(ObjBindMethod(implObj, "get_NamedNodeMap"), flags, 2)
+        this.vtbl.get_Navigator := CallbackCreate(ObjBindMethod(implObj, "get_Navigator"), flags, 2)
+        this.vtbl.get_NodeList := CallbackCreate(ObjBindMethod(implObj, "get_NodeList"), flags, 2)
+        this.vtbl.get_Option := CallbackCreate(ObjBindMethod(implObj, "get_Option"), flags, 2)
+        this.vtbl.get_Screen := CallbackCreate(ObjBindMethod(implObj, "get_Screen"), flags, 2)
+        this.vtbl.get_Selection := CallbackCreate(ObjBindMethod(implObj, "get_Selection"), flags, 2)
+        this.vtbl.get_StaticNodeList := CallbackCreate(ObjBindMethod(implObj, "get_StaticNodeList"), flags, 2)
+        this.vtbl.get_Storage := CallbackCreate(ObjBindMethod(implObj, "get_Storage"), flags, 2)
+        this.vtbl.get_StyleSheetList := CallbackCreate(ObjBindMethod(implObj, "get_StyleSheetList"), flags, 2)
+        this.vtbl.get_StyleSheetPage := CallbackCreate(ObjBindMethod(implObj, "get_StyleSheetPage"), flags, 2)
+        this.vtbl.get_StyleSheetPageList := CallbackCreate(ObjBindMethod(implObj, "get_StyleSheetPageList"), flags, 2)
+        this.vtbl.get_Text := CallbackCreate(ObjBindMethod(implObj, "get_Text"), flags, 2)
+        this.vtbl.get_TextRange := CallbackCreate(ObjBindMethod(implObj, "get_TextRange"), flags, 2)
+        this.vtbl.get_TextRangeCollection := CallbackCreate(ObjBindMethod(implObj, "get_TextRangeCollection"), flags, 2)
+        this.vtbl.get_TextRectangle := CallbackCreate(ObjBindMethod(implObj, "get_TextRectangle"), flags, 2)
+        this.vtbl.get_TextRectangleList := CallbackCreate(ObjBindMethod(implObj, "get_TextRectangleList"), flags, 2)
+        this.vtbl.get_Window := CallbackCreate(ObjBindMethod(implObj, "get_Window"), flags, 2)
+        this.vtbl.get_XDomainRequest := CallbackCreate(ObjBindMethod(implObj, "get_XDomainRequest"), flags, 2)
+        this.vtbl.get_XMLHttpRequest := CallbackCreate(ObjBindMethod(implObj, "get_XMLHttpRequest"), flags, 2)
     }
 
     Dispose() {

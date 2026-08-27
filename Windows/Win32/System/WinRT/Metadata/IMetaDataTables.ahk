@@ -62,7 +62,7 @@ export default struct IMetaDataTables extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-getstringheapsize
      */
     GetStringHeapSize(pcbStrings) {
-        pcbStringsMarshal := pcbStrings is VarRef ? "uint*" : "ptr"
+        pcbStringsMarshal := pcbStrings is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pcbStringsMarshal, pcbStrings, "HRESULT")
         return result
@@ -75,7 +75,7 @@ export default struct IMetaDataTables extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-getblobheapsize
      */
     GetBlobHeapSize(pcbBlobs) {
-        pcbBlobsMarshal := pcbBlobs is VarRef ? "uint*" : "ptr"
+        pcbBlobsMarshal := pcbBlobs is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pcbBlobsMarshal, pcbBlobs, "HRESULT")
         return result
@@ -88,7 +88,7 @@ export default struct IMetaDataTables extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-getguidheapsize
      */
     GetGuidHeapSize(pcbGuids) {
-        pcbGuidsMarshal := pcbGuids is VarRef ? "uint*" : "ptr"
+        pcbGuidsMarshal := pcbGuids is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, pcbGuidsMarshal, pcbGuids, "HRESULT")
         return result
@@ -101,7 +101,7 @@ export default struct IMetaDataTables extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-getuserstringheapsize
      */
     GetUserStringHeapSize(pcbBlobs) {
-        pcbBlobsMarshal := pcbBlobs is VarRef ? "uint*" : "ptr"
+        pcbBlobsMarshal := pcbBlobs is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, pcbBlobsMarshal, pcbBlobs, "HRESULT")
         return result
@@ -114,7 +114,7 @@ export default struct IMetaDataTables extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-getnumtables
      */
     GetNumTables(pcTables) {
-        pcTablesMarshal := pcTables is VarRef ? "uint*" : "ptr"
+        pcTablesMarshal := pcTables is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, pcTablesMarshal, pcTables, "HRESULT")
         return result
@@ -130,7 +130,7 @@ export default struct IMetaDataTables extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-gettableindex
      */
     GetTableIndex(token, pixTbl) {
-        pixTblMarshal := pixTbl is VarRef ? "uint*" : "ptr"
+        pixTblMarshal := pixTbl is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, UInt32, token, pixTblMarshal, pixTbl, "HRESULT")
         return result
@@ -148,11 +148,11 @@ export default struct IMetaDataTables extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-gettableinfo
      */
     GetTableInfo(ixTbl, pcbRow, pcRows, pcCols, piKey, ppName) {
-        pcbRowMarshal := pcbRow is VarRef ? "uint*" : "ptr"
-        pcRowsMarshal := pcRows is VarRef ? "uint*" : "ptr"
-        pcColsMarshal := pcCols is VarRef ? "uint*" : "ptr"
-        piKeyMarshal := piKey is VarRef ? "uint*" : "ptr"
-        ppNameMarshal := ppName is VarRef ? "ptr*" : "ptr"
+        pcbRowMarshal := pcbRow is VarRef ? "uint*" : IntPtr
+        pcRowsMarshal := pcRows is VarRef ? "uint*" : IntPtr
+        pcColsMarshal := pcCols is VarRef ? "uint*" : IntPtr
+        piKeyMarshal := piKey is VarRef ? "uint*" : IntPtr
+        ppNameMarshal := ppName is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(9, this, UInt32, ixTbl, pcbRowMarshal, pcbRow, pcRowsMarshal, pcRows, pcColsMarshal, pcCols, piKeyMarshal, piKey, ppNameMarshal, ppName, "HRESULT")
         return result
@@ -170,10 +170,10 @@ export default struct IMetaDataTables extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-getcolumninfo
      */
     GetColumnInfo(ixTbl, ixCol, poCol, pcbCol, pType, ppName) {
-        poColMarshal := poCol is VarRef ? "uint*" : "ptr"
-        pcbColMarshal := pcbCol is VarRef ? "uint*" : "ptr"
-        pTypeMarshal := pType is VarRef ? "uint*" : "ptr"
-        ppNameMarshal := ppName is VarRef ? "ptr*" : "ptr"
+        poColMarshal := poCol is VarRef ? "uint*" : IntPtr
+        pcbColMarshal := pcbCol is VarRef ? "uint*" : IntPtr
+        pTypeMarshal := pType is VarRef ? "uint*" : IntPtr
+        ppNameMarshal := ppName is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(10, this, UInt32, ixTbl, UInt32, ixCol, poColMarshal, poCol, pcbColMarshal, pcbCol, pTypeMarshal, pType, ppNameMarshal, ppName, "HRESULT")
         return result
@@ -189,9 +189,9 @@ export default struct IMetaDataTables extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-getcodedtokeninfo
      */
     GetCodedTokenInfo(ixCdTkn, pcTokens, ppTokens, ppName) {
-        pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
-        ppTokensMarshal := ppTokens is VarRef ? "ptr*" : "ptr"
-        ppNameMarshal := ppName is VarRef ? "ptr*" : "ptr"
+        pcTokensMarshal := pcTokens is VarRef ? "uint*" : IntPtr
+        ppTokensMarshal := ppTokens is VarRef ? "ptr*" : IntPtr
+        ppNameMarshal := ppName is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(11, this, UInt32, ixCdTkn, pcTokensMarshal, pcTokens, ppTokensMarshal, ppTokens, ppNameMarshal, ppName, "HRESULT")
         return result
@@ -208,7 +208,7 @@ export default struct IMetaDataTables extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-getrow
      */
     GetRow(ixTbl, rid, ppRow) {
-        ppRowMarshal := ppRow is VarRef ? "ptr*" : "ptr"
+        ppRowMarshal := ppRow is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(12, this, UInt32, ixTbl, UInt32, rid, ppRowMarshal, ppRow, "HRESULT")
         return result
@@ -224,7 +224,7 @@ export default struct IMetaDataTables extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-getcolumn
      */
     GetColumn(ixTbl, ixCol, rid, pVal) {
-        pValMarshal := pVal is VarRef ? "uint*" : "ptr"
+        pValMarshal := pVal is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, UInt32, ixTbl, UInt32, ixCol, UInt32, rid, pValMarshal, pVal, "HRESULT")
         return result
@@ -238,7 +238,7 @@ export default struct IMetaDataTables extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-getstring
      */
     GetString(ixString, ppString) {
-        ppStringMarshal := ppString is VarRef ? "ptr*" : "ptr"
+        ppStringMarshal := ppString is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(14, this, UInt32, ixString, ppStringMarshal, ppString, "HRESULT")
         return result
@@ -253,8 +253,8 @@ export default struct IMetaDataTables extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-getblob
      */
     GetBlob(ixBlob, pcbData, ppData) {
-        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
-        ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
+        ppDataMarshal := ppData is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(15, this, UInt32, ixBlob, pcbDataMarshal, pcbData, ppDataMarshal, ppData, "HRESULT")
         return result
@@ -270,7 +270,7 @@ export default struct IMetaDataTables extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-getguid
      */
     GetGuid(ixGuid, ppGUID) {
-        ppGUIDMarshal := ppGUID is VarRef ? "ptr*" : "ptr"
+        ppGUIDMarshal := ppGUID is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(16, this, UInt32, ixGuid, ppGUIDMarshal, ppGUID, "HRESULT")
         return result
@@ -285,8 +285,8 @@ export default struct IMetaDataTables extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-getuserstring
      */
     GetUserString(ixUserString, pcbData, ppData) {
-        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
-        ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
+        ppDataMarshal := ppData is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(17, this, UInt32, ixUserString, pcbDataMarshal, pcbData, ppDataMarshal, ppData, "HRESULT")
         return result
@@ -300,7 +300,7 @@ export default struct IMetaDataTables extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-getnextstring
      */
     GetNextString(ixString, pNext) {
-        pNextMarshal := pNext is VarRef ? "uint*" : "ptr"
+        pNextMarshal := pNext is VarRef ? "uint*" : IntPtr
 
         result := ComCall(18, this, UInt32, ixString, pNextMarshal, pNext, "HRESULT")
         return result
@@ -314,7 +314,7 @@ export default struct IMetaDataTables extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-getnextblob
      */
     GetNextBlob(ixBlob, pNext) {
-        pNextMarshal := pNext is VarRef ? "uint*" : "ptr"
+        pNextMarshal := pNext is VarRef ? "uint*" : IntPtr
 
         result := ComCall(19, this, UInt32, ixBlob, pNextMarshal, pNext, "HRESULT")
         return result
@@ -330,7 +330,7 @@ export default struct IMetaDataTables extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-getnextguid
      */
     GetNextGuid(ixGuid, pNext) {
-        pNextMarshal := pNext is VarRef ? "uint*" : "ptr"
+        pNextMarshal := pNext is VarRef ? "uint*" : IntPtr
 
         result := ComCall(20, this, UInt32, ixGuid, pNextMarshal, pNext, "HRESULT")
         return result
@@ -346,7 +346,7 @@ export default struct IMetaDataTables extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables-getnextuserstring
      */
     GetNextUserString(ixUserString, pNext) {
-        pNextMarshal := pNext is VarRef ? "uint*" : "ptr"
+        pNextMarshal := pNext is VarRef ? "uint*" : IntPtr
 
         result := ComCall(21, this, UInt32, ixUserString, pNextMarshal, pNext, "HRESULT")
         return result
@@ -361,25 +361,25 @@ export default struct IMetaDataTables extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStringHeapSize := CallbackCreate(GetMethod(implObj, "GetStringHeapSize"), flags, 2)
-        this.vtbl.GetBlobHeapSize := CallbackCreate(GetMethod(implObj, "GetBlobHeapSize"), flags, 2)
-        this.vtbl.GetGuidHeapSize := CallbackCreate(GetMethod(implObj, "GetGuidHeapSize"), flags, 2)
-        this.vtbl.GetUserStringHeapSize := CallbackCreate(GetMethod(implObj, "GetUserStringHeapSize"), flags, 2)
-        this.vtbl.GetNumTables := CallbackCreate(GetMethod(implObj, "GetNumTables"), flags, 2)
-        this.vtbl.GetTableIndex := CallbackCreate(GetMethod(implObj, "GetTableIndex"), flags, 3)
-        this.vtbl.GetTableInfo := CallbackCreate(GetMethod(implObj, "GetTableInfo"), flags, 7)
-        this.vtbl.GetColumnInfo := CallbackCreate(GetMethod(implObj, "GetColumnInfo"), flags, 7)
-        this.vtbl.GetCodedTokenInfo := CallbackCreate(GetMethod(implObj, "GetCodedTokenInfo"), flags, 5)
-        this.vtbl.GetRow := CallbackCreate(GetMethod(implObj, "GetRow"), flags, 4)
-        this.vtbl.GetColumn := CallbackCreate(GetMethod(implObj, "GetColumn"), flags, 5)
-        this.vtbl.GetString := CallbackCreate(GetMethod(implObj, "GetString"), flags, 3)
-        this.vtbl.GetBlob := CallbackCreate(GetMethod(implObj, "GetBlob"), flags, 4)
-        this.vtbl.GetGuid := CallbackCreate(GetMethod(implObj, "GetGuid"), flags, 3)
-        this.vtbl.GetUserString := CallbackCreate(GetMethod(implObj, "GetUserString"), flags, 4)
-        this.vtbl.GetNextString := CallbackCreate(GetMethod(implObj, "GetNextString"), flags, 3)
-        this.vtbl.GetNextBlob := CallbackCreate(GetMethod(implObj, "GetNextBlob"), flags, 3)
-        this.vtbl.GetNextGuid := CallbackCreate(GetMethod(implObj, "GetNextGuid"), flags, 3)
-        this.vtbl.GetNextUserString := CallbackCreate(GetMethod(implObj, "GetNextUserString"), flags, 3)
+        this.vtbl.GetStringHeapSize := CallbackCreate(ObjBindMethod(implObj, "GetStringHeapSize"), flags, 2)
+        this.vtbl.GetBlobHeapSize := CallbackCreate(ObjBindMethod(implObj, "GetBlobHeapSize"), flags, 2)
+        this.vtbl.GetGuidHeapSize := CallbackCreate(ObjBindMethod(implObj, "GetGuidHeapSize"), flags, 2)
+        this.vtbl.GetUserStringHeapSize := CallbackCreate(ObjBindMethod(implObj, "GetUserStringHeapSize"), flags, 2)
+        this.vtbl.GetNumTables := CallbackCreate(ObjBindMethod(implObj, "GetNumTables"), flags, 2)
+        this.vtbl.GetTableIndex := CallbackCreate(ObjBindMethod(implObj, "GetTableIndex"), flags, 3)
+        this.vtbl.GetTableInfo := CallbackCreate(ObjBindMethod(implObj, "GetTableInfo"), flags, 7)
+        this.vtbl.GetColumnInfo := CallbackCreate(ObjBindMethod(implObj, "GetColumnInfo"), flags, 7)
+        this.vtbl.GetCodedTokenInfo := CallbackCreate(ObjBindMethod(implObj, "GetCodedTokenInfo"), flags, 5)
+        this.vtbl.GetRow := CallbackCreate(ObjBindMethod(implObj, "GetRow"), flags, 4)
+        this.vtbl.GetColumn := CallbackCreate(ObjBindMethod(implObj, "GetColumn"), flags, 5)
+        this.vtbl.GetString := CallbackCreate(ObjBindMethod(implObj, "GetString"), flags, 3)
+        this.vtbl.GetBlob := CallbackCreate(ObjBindMethod(implObj, "GetBlob"), flags, 4)
+        this.vtbl.GetGuid := CallbackCreate(ObjBindMethod(implObj, "GetGuid"), flags, 3)
+        this.vtbl.GetUserString := CallbackCreate(ObjBindMethod(implObj, "GetUserString"), flags, 4)
+        this.vtbl.GetNextString := CallbackCreate(ObjBindMethod(implObj, "GetNextString"), flags, 3)
+        this.vtbl.GetNextBlob := CallbackCreate(ObjBindMethod(implObj, "GetNextBlob"), flags, 3)
+        this.vtbl.GetNextGuid := CallbackCreate(ObjBindMethod(implObj, "GetNextGuid"), flags, 3)
+        this.vtbl.GetNextUserString := CallbackCreate(ObjBindMethod(implObj, "GetNextUserString"), flags, 3)
     }
 
     Dispose() {

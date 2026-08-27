@@ -22,7 +22,6 @@ export default struct IOMMU_REGISTER_INTERFACE_STATE_CHANGE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<PIOMMU_INTERFACE_STATE_CHANGE_CALLBACK>} StateChangeCallback 
      * @param {Pointer<Void>} _Context 
      * @param {Pointer<IOMMU_DMA_DEVICE>} DmaDevice 
@@ -30,8 +29,9 @@ export default struct IOMMU_REGISTER_INTERFACE_STATE_CHANGE_CALLBACK {
      * @returns {NTSTATUS} 
      */
     Call(StateChangeCallback, _Context, DmaDevice, StateFields) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        DmaDeviceMarshal := DmaDevice is VarRef ? "ptr*" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
+        DmaDeviceMarshal := DmaDevice is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, PIOMMU_INTERFACE_STATE_CHANGE_CALLBACK, StateChangeCallback, _ContextMarshal, _Context, DmaDeviceMarshal, DmaDevice, IOMMU_INTERFACE_STATE_CHANGE_FIELDS.Ptr, StateFields, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

@@ -153,12 +153,12 @@ export default struct IFsrmStorageModuleDefinition extends IFsrmPipelineModuleDe
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Capabilities := CallbackCreate(GetMethod(implObj, "get_Capabilities"), flags, 2)
-        this.vtbl.put_Capabilities := CallbackCreate(GetMethod(implObj, "put_Capabilities"), flags, 2)
-        this.vtbl.get_StorageType := CallbackCreate(GetMethod(implObj, "get_StorageType"), flags, 2)
-        this.vtbl.put_StorageType := CallbackCreate(GetMethod(implObj, "put_StorageType"), flags, 2)
-        this.vtbl.get_UpdatesFileContent := CallbackCreate(GetMethod(implObj, "get_UpdatesFileContent"), flags, 2)
-        this.vtbl.put_UpdatesFileContent := CallbackCreate(GetMethod(implObj, "put_UpdatesFileContent"), flags, 2)
+        this.vtbl.get_Capabilities := CallbackCreate(ObjBindMethod(implObj, "get_Capabilities"), flags, 2)
+        this.vtbl.put_Capabilities := CallbackCreate(ObjBindMethod(implObj, "put_Capabilities"), flags, 2)
+        this.vtbl.get_StorageType := CallbackCreate(ObjBindMethod(implObj, "get_StorageType"), flags, 2)
+        this.vtbl.put_StorageType := CallbackCreate(ObjBindMethod(implObj, "put_StorageType"), flags, 2)
+        this.vtbl.get_UpdatesFileContent := CallbackCreate(ObjBindMethod(implObj, "get_UpdatesFileContent"), flags, 2)
+        this.vtbl.put_UpdatesFileContent := CallbackCreate(ObjBindMethod(implObj, "put_UpdatesFileContent"), flags, 2)
     }
 
     Dispose() {

@@ -40,23 +40,21 @@ export default struct IDebugHostFunctionLocalStorage extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} start 
      * @param {Pointer<Integer>} end 
      * @param {Pointer<Boolean>} guaranteed 
      * @returns {HRESULT} 
      */
     GetValidRange(start, end, guaranteed) {
-        startMarshal := start is VarRef ? "uint*" : "ptr"
-        endMarshal := end is VarRef ? "uint*" : "ptr"
-        guaranteedMarshal := guaranteed is VarRef ? "int*" : "ptr"
+        startMarshal := start is VarRef ? "uint*" : IntPtr
+        endMarshal := end is VarRef ? "uint*" : IntPtr
+        guaranteedMarshal := guaranteed is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, startMarshal, start, endMarshal, end, guaranteedMarshal, guaranteed, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {StorageKind} 
      */
     GetStorageKind() {
@@ -65,7 +63,6 @@ export default struct IDebugHostFunctionLocalStorage extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetRegister() {
@@ -74,7 +71,6 @@ export default struct IDebugHostFunctionLocalStorage extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetOffset() {
@@ -91,10 +87,10 @@ export default struct IDebugHostFunctionLocalStorage extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetValidRange := CallbackCreate(GetMethod(implObj, "GetValidRange"), flags, 4)
-        this.vtbl.GetStorageKind := CallbackCreate(GetMethod(implObj, "GetStorageKind"), flags, 2)
-        this.vtbl.GetRegister := CallbackCreate(GetMethod(implObj, "GetRegister"), flags, 2)
-        this.vtbl.GetOffset := CallbackCreate(GetMethod(implObj, "GetOffset"), flags, 2)
+        this.vtbl.GetValidRange := CallbackCreate(ObjBindMethod(implObj, "GetValidRange"), flags, 4)
+        this.vtbl.GetStorageKind := CallbackCreate(ObjBindMethod(implObj, "GetStorageKind"), flags, 2)
+        this.vtbl.GetRegister := CallbackCreate(ObjBindMethod(implObj, "GetRegister"), flags, 2)
+        this.vtbl.GetOffset := CallbackCreate(ObjBindMethod(implObj, "GetOffset"), flags, 2)
     }
 
     Dispose() {

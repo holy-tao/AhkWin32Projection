@@ -38,7 +38,6 @@ export default struct IPrinterExtensionRequest extends IDispatch {
     }
 
     /**
-     * 
      * @param {HRESULT} hrStatus 
      * @param {BSTR} bstrLogMessage 
      * @returns {HRESULT} 
@@ -51,7 +50,6 @@ export default struct IPrinterExtensionRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Complete() {
@@ -68,8 +66,8 @@ export default struct IPrinterExtensionRequest extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 3)
-        this.vtbl.Complete := CallbackCreate(GetMethod(implObj, "Complete"), flags, 1)
+        this.vtbl.Cancel := CallbackCreate(ObjBindMethod(implObj, "Cancel"), flags, 3)
+        this.vtbl.Complete := CallbackCreate(ObjBindMethod(implObj, "Complete"), flags, 1)
     }
 
     Dispose() {

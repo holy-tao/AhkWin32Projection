@@ -20,7 +20,6 @@ export default struct DxcCreateInstanceProc {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rclsid 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 

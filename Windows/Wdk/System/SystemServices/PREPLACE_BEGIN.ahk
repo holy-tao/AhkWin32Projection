@@ -20,13 +20,12 @@ export default struct PREPLACE_BEGIN {
     }
 
     /**
-     * 
      * @param {Pointer<PNP_REPLACE_PARAMETERS>} Parameters 
      * @param {Pointer<Pointer<Void>>} _Context 
      * @returns {NTSTATUS} 
      */
     Call(Parameters, _Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr*" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, PNP_REPLACE_PARAMETERS.Ptr, Parameters, _ContextMarshal, _Context, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

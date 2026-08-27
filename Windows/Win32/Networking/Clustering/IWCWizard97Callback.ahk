@@ -96,7 +96,7 @@ export default struct IWCWizard97Callback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-iwcwizard97callback-addwizard97page
      */
     AddWizard97Page(hpage) {
-        hpageMarshal := hpage is VarRef ? "int*" : "ptr"
+        hpageMarshal := hpage is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, hpageMarshal, hpage, "HRESULT")
         return result
@@ -154,7 +154,7 @@ export default struct IWCWizard97Callback extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-iwcwizard97callback-enablenext
      */
     EnableNext(hpage, bEnable) {
-        hpageMarshal := hpage is VarRef ? "int*" : "ptr"
+        hpageMarshal := hpage is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, hpageMarshal, hpage, BOOL, bEnable, "HRESULT")
         return result
@@ -169,8 +169,8 @@ export default struct IWCWizard97Callback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddWizard97Page := CallbackCreate(GetMethod(implObj, "AddWizard97Page"), flags, 2)
-        this.vtbl.EnableNext := CallbackCreate(GetMethod(implObj, "EnableNext"), flags, 3)
+        this.vtbl.AddWizard97Page := CallbackCreate(ObjBindMethod(implObj, "AddWizard97Page"), flags, 2)
+        this.vtbl.EnableNext := CallbackCreate(ObjBindMethod(implObj, "EnableNext"), flags, 3)
     }
 
     Dispose() {

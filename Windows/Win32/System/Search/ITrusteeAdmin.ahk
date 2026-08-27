@@ -43,7 +43,6 @@ export default struct ITrusteeAdmin extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<TRUSTEE_W>} pTrustee1 
      * @param {Pointer<TRUSTEE_W>} pTrustee2 
      * @returns {HRESULT} 
@@ -54,7 +53,6 @@ export default struct ITrusteeAdmin extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<TRUSTEE_W>} pTrustee 
      * @param {Integer} cPropertySets 
      * @param {Pointer<DBPROPSET>} rgPropertySets 
@@ -66,7 +64,6 @@ export default struct ITrusteeAdmin extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<TRUSTEE_W>} pTrustee 
      * @returns {HRESULT} 
      */
@@ -76,7 +73,6 @@ export default struct ITrusteeAdmin extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<TRUSTEE_W>} pTrustee 
      * @param {Integer} cPropertySets 
      * @param {Pointer<DBPROPSET>} rgPropertySets 
@@ -88,7 +84,6 @@ export default struct ITrusteeAdmin extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<TRUSTEE_W>} pTrustee 
      * @param {Integer} cPropertyIDSets 
      * @param {Pointer<DBPROPIDSET>} rgPropertyIDSets 
@@ -96,7 +91,7 @@ export default struct ITrusteeAdmin extends IUnknown {
      * @returns {Pointer<DBPROPSET>} 
      */
     GetTrusteeProperties(pTrustee, cPropertyIDSets, rgPropertyIDSets, pcPropertySets) {
-        pcPropertySetsMarshal := pcPropertySets is VarRef ? "uint*" : "ptr"
+        pcPropertySetsMarshal := pcPropertySets is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, TRUSTEE_W.Ptr, pTrustee, UInt32, cPropertyIDSets, DBPROPIDSET.Ptr, rgPropertyIDSets, pcPropertySetsMarshal, pcPropertySets, "ptr*", &prgPropertySets := 0, "HRESULT")
         return prgPropertySets
@@ -111,11 +106,11 @@ export default struct ITrusteeAdmin extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CompareTrustees := CallbackCreate(GetMethod(implObj, "CompareTrustees"), flags, 3)
-        this.vtbl.CreateTrustee := CallbackCreate(GetMethod(implObj, "CreateTrustee"), flags, 4)
-        this.vtbl.DeleteTrustee := CallbackCreate(GetMethod(implObj, "DeleteTrustee"), flags, 2)
-        this.vtbl.SetTrusteeProperties := CallbackCreate(GetMethod(implObj, "SetTrusteeProperties"), flags, 4)
-        this.vtbl.GetTrusteeProperties := CallbackCreate(GetMethod(implObj, "GetTrusteeProperties"), flags, 6)
+        this.vtbl.CompareTrustees := CallbackCreate(ObjBindMethod(implObj, "CompareTrustees"), flags, 3)
+        this.vtbl.CreateTrustee := CallbackCreate(ObjBindMethod(implObj, "CreateTrustee"), flags, 4)
+        this.vtbl.DeleteTrustee := CallbackCreate(ObjBindMethod(implObj, "DeleteTrustee"), flags, 2)
+        this.vtbl.SetTrusteeProperties := CallbackCreate(ObjBindMethod(implObj, "SetTrusteeProperties"), flags, 4)
+        this.vtbl.GetTrusteeProperties := CallbackCreate(ObjBindMethod(implObj, "GetTrusteeProperties"), flags, 6)
     }
 
     Dispose() {

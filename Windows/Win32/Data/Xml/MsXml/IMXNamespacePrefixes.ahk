@@ -54,7 +54,6 @@ export default struct IMXNamespacePrefixes extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} index 
      * @returns {BSTR} 
      */
@@ -65,7 +64,6 @@ export default struct IMXNamespacePrefixes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_length() {
@@ -74,7 +72,6 @@ export default struct IMXNamespacePrefixes extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get__newEnum() {
@@ -91,9 +88,9 @@ export default struct IMXNamespacePrefixes extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_item := CallbackCreate(GetMethod(implObj, "get_item"), flags, 3)
-        this.vtbl.get_length := CallbackCreate(GetMethod(implObj, "get_length"), flags, 2)
-        this.vtbl.get__newEnum := CallbackCreate(GetMethod(implObj, "get__newEnum"), flags, 2)
+        this.vtbl.get_item := CallbackCreate(ObjBindMethod(implObj, "get_item"), flags, 3)
+        this.vtbl.get_length := CallbackCreate(ObjBindMethod(implObj, "get_length"), flags, 2)
+        this.vtbl.get__newEnum := CallbackCreate(ObjBindMethod(implObj, "get__newEnum"), flags, 2)
     }
 
     Dispose() {

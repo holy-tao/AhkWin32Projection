@@ -38,7 +38,6 @@ export default struct ICLRDebuggingLibraryProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszFileName 
      * @param {Integer} dwTimestamp 
      * @param {Integer} dwSizeOfImage 
@@ -61,7 +60,7 @@ export default struct ICLRDebuggingLibraryProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ProvideLibrary := CallbackCreate(GetMethod(implObj, "ProvideLibrary"), flags, 5)
+        this.vtbl.ProvideLibrary := CallbackCreate(ObjBindMethod(implObj, "ProvideLibrary"), flags, 5)
     }
 
     Dispose() {

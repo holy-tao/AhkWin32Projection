@@ -55,7 +55,6 @@ export default struct IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
@@ -67,7 +66,6 @@ export default struct IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
@@ -79,7 +77,6 @@ export default struct IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} Length 
      * @param {Integer} Pattern 
@@ -93,7 +90,6 @@ export default struct IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
@@ -105,7 +101,6 @@ export default struct IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
@@ -117,7 +112,6 @@ export default struct IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Count 
      * @param {Integer} Offset 
      * @returns {Integer} 
@@ -128,21 +122,19 @@ export default struct IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Count 
      * @param {Integer} Offset 
      * @param {Pointer<Integer>} Ptrs 
      * @returns {HRESULT} 
      */
     WritePointersVirtual(Count, Offset, Ptrs) {
-        PtrsMarshal := Ptrs is VarRef ? "uint*" : "ptr"
+        PtrsMarshal := Ptrs is VarRef ? "uint*" : IntPtr
 
         result := ComCall(9, this, UInt32, Count, Int64, Offset, PtrsMarshal, Ptrs, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
@@ -154,7 +146,6 @@ export default struct IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Offset 
      * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
@@ -166,7 +157,6 @@ export default struct IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Processor 
      * @param {Integer} Offset 
      * @param {Integer} _Buffer 
@@ -179,7 +169,6 @@ export default struct IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Processor 
      * @param {Integer} Offset 
      * @param {Integer} _Buffer 
@@ -192,7 +181,6 @@ export default struct IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} InterfaceType 
      * @param {Integer} BusNumber 
      * @param {Integer} AddressSpace 
@@ -207,7 +195,6 @@ export default struct IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} InterfaceType 
      * @param {Integer} BusNumber 
      * @param {Integer} AddressSpace 
@@ -222,7 +209,6 @@ export default struct IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Msr 
      * @returns {Integer} 
      */
@@ -232,7 +218,6 @@ export default struct IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Msr 
      * @param {Integer} Value 
      * @returns {HRESULT} 
@@ -243,7 +228,6 @@ export default struct IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} BusDataType 
      * @param {Integer} BusNumber 
      * @param {Integer} SlotNumber 
@@ -258,7 +242,6 @@ export default struct IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} BusDataType 
      * @param {Integer} BusNumber 
      * @param {Integer} SlotNumber 
@@ -273,7 +256,6 @@ export default struct IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     CheckLowMemory() {
@@ -282,7 +264,6 @@ export default struct IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
@@ -294,7 +275,6 @@ export default struct IDebugDataSpaces extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Processor 
      * @param {Integer} Index 
      * @param {Integer} _Buffer 
@@ -315,26 +295,26 @@ export default struct IDebugDataSpaces extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ReadVirtual := CallbackCreate(GetMethod(implObj, "ReadVirtual"), flags, 5)
-        this.vtbl.WriteVirtual := CallbackCreate(GetMethod(implObj, "WriteVirtual"), flags, 5)
-        this.vtbl.SearchVirtual := CallbackCreate(GetMethod(implObj, "SearchVirtual"), flags, 7)
-        this.vtbl.ReadVirtualUncached := CallbackCreate(GetMethod(implObj, "ReadVirtualUncached"), flags, 5)
-        this.vtbl.WriteVirtualUncached := CallbackCreate(GetMethod(implObj, "WriteVirtualUncached"), flags, 5)
-        this.vtbl.ReadPointersVirtual := CallbackCreate(GetMethod(implObj, "ReadPointersVirtual"), flags, 4)
-        this.vtbl.WritePointersVirtual := CallbackCreate(GetMethod(implObj, "WritePointersVirtual"), flags, 4)
-        this.vtbl.ReadPhysical := CallbackCreate(GetMethod(implObj, "ReadPhysical"), flags, 5)
-        this.vtbl.WritePhysical := CallbackCreate(GetMethod(implObj, "WritePhysical"), flags, 5)
-        this.vtbl.ReadControl := CallbackCreate(GetMethod(implObj, "ReadControl"), flags, 6)
-        this.vtbl.WriteControl := CallbackCreate(GetMethod(implObj, "WriteControl"), flags, 6)
-        this.vtbl.ReadIo := CallbackCreate(GetMethod(implObj, "ReadIo"), flags, 8)
-        this.vtbl.WriteIo := CallbackCreate(GetMethod(implObj, "WriteIo"), flags, 8)
-        this.vtbl.ReadMsr := CallbackCreate(GetMethod(implObj, "ReadMsr"), flags, 3)
-        this.vtbl.WriteMsr := CallbackCreate(GetMethod(implObj, "WriteMsr"), flags, 3)
-        this.vtbl.ReadBusData := CallbackCreate(GetMethod(implObj, "ReadBusData"), flags, 8)
-        this.vtbl.WriteBusData := CallbackCreate(GetMethod(implObj, "WriteBusData"), flags, 8)
-        this.vtbl.CheckLowMemory := CallbackCreate(GetMethod(implObj, "CheckLowMemory"), flags, 1)
-        this.vtbl.ReadDebuggerData := CallbackCreate(GetMethod(implObj, "ReadDebuggerData"), flags, 5)
-        this.vtbl.ReadProcessorSystemData := CallbackCreate(GetMethod(implObj, "ReadProcessorSystemData"), flags, 6)
+        this.vtbl.ReadVirtual := CallbackCreate(ObjBindMethod(implObj, "ReadVirtual"), flags, 5)
+        this.vtbl.WriteVirtual := CallbackCreate(ObjBindMethod(implObj, "WriteVirtual"), flags, 5)
+        this.vtbl.SearchVirtual := CallbackCreate(ObjBindMethod(implObj, "SearchVirtual"), flags, 7)
+        this.vtbl.ReadVirtualUncached := CallbackCreate(ObjBindMethod(implObj, "ReadVirtualUncached"), flags, 5)
+        this.vtbl.WriteVirtualUncached := CallbackCreate(ObjBindMethod(implObj, "WriteVirtualUncached"), flags, 5)
+        this.vtbl.ReadPointersVirtual := CallbackCreate(ObjBindMethod(implObj, "ReadPointersVirtual"), flags, 4)
+        this.vtbl.WritePointersVirtual := CallbackCreate(ObjBindMethod(implObj, "WritePointersVirtual"), flags, 4)
+        this.vtbl.ReadPhysical := CallbackCreate(ObjBindMethod(implObj, "ReadPhysical"), flags, 5)
+        this.vtbl.WritePhysical := CallbackCreate(ObjBindMethod(implObj, "WritePhysical"), flags, 5)
+        this.vtbl.ReadControl := CallbackCreate(ObjBindMethod(implObj, "ReadControl"), flags, 6)
+        this.vtbl.WriteControl := CallbackCreate(ObjBindMethod(implObj, "WriteControl"), flags, 6)
+        this.vtbl.ReadIo := CallbackCreate(ObjBindMethod(implObj, "ReadIo"), flags, 8)
+        this.vtbl.WriteIo := CallbackCreate(ObjBindMethod(implObj, "WriteIo"), flags, 8)
+        this.vtbl.ReadMsr := CallbackCreate(ObjBindMethod(implObj, "ReadMsr"), flags, 3)
+        this.vtbl.WriteMsr := CallbackCreate(ObjBindMethod(implObj, "WriteMsr"), flags, 3)
+        this.vtbl.ReadBusData := CallbackCreate(ObjBindMethod(implObj, "ReadBusData"), flags, 8)
+        this.vtbl.WriteBusData := CallbackCreate(ObjBindMethod(implObj, "WriteBusData"), flags, 8)
+        this.vtbl.CheckLowMemory := CallbackCreate(ObjBindMethod(implObj, "CheckLowMemory"), flags, 1)
+        this.vtbl.ReadDebuggerData := CallbackCreate(ObjBindMethod(implObj, "ReadDebuggerData"), flags, 5)
+        this.vtbl.ReadProcessorSystemData := CallbackCreate(ObjBindMethod(implObj, "ReadProcessorSystemData"), flags, 6)
     }
 
     Dispose() {

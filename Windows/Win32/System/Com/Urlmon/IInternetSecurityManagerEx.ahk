@@ -37,7 +37,6 @@ export default struct IInternetSecurityManagerEx extends IInternetSecurityManage
     }
 
     /**
-     * 
      * @param {PWSTR} pwszUrl 
      * @param {Integer} dwAction 
      * @param {Pointer<Integer>} pPolicy 
@@ -52,9 +51,9 @@ export default struct IInternetSecurityManagerEx extends IInternetSecurityManage
     ProcessUrlActionEx(pwszUrl, dwAction, pPolicy, cbPolicy, pContext, cbContext, dwFlags, dwReserved, pdwOutFlags) {
         pwszUrl := pwszUrl is String ? StrPtr(pwszUrl) : pwszUrl
 
-        pPolicyMarshal := pPolicy is VarRef ? "char*" : "ptr"
-        pContextMarshal := pContext is VarRef ? "char*" : "ptr"
-        pdwOutFlagsMarshal := pdwOutFlags is VarRef ? "uint*" : "ptr"
+        pPolicyMarshal := pPolicy is VarRef ? "char*" : IntPtr
+        pContextMarshal := pContext is VarRef ? "char*" : IntPtr
+        pdwOutFlagsMarshal := pdwOutFlags is VarRef ? "uint*" : IntPtr
 
         result := ComCall(11, this, "ptr", pwszUrl, UInt32, dwAction, pPolicyMarshal, pPolicy, UInt32, cbPolicy, pContextMarshal, pContext, UInt32, cbContext, UInt32, dwFlags, UInt32, dwReserved, pdwOutFlagsMarshal, pdwOutFlags, "HRESULT")
         return result
@@ -69,7 +68,7 @@ export default struct IInternetSecurityManagerEx extends IInternetSecurityManage
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ProcessUrlActionEx := CallbackCreate(GetMethod(implObj, "ProcessUrlActionEx"), flags, 10)
+        this.vtbl.ProcessUrlActionEx := CallbackCreate(ObjBindMethod(implObj, "ProcessUrlActionEx"), flags, 10)
     }
 
     Dispose() {

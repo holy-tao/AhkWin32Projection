@@ -111,7 +111,6 @@ export default struct ISpeechPhraseProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -121,7 +120,6 @@ export default struct ISpeechPhraseProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Id() {
@@ -130,7 +128,6 @@ export default struct ISpeechPhraseProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Value() {
@@ -140,7 +137,6 @@ export default struct ISpeechPhraseProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_FirstElement() {
@@ -149,7 +145,6 @@ export default struct ISpeechPhraseProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_NumberOfElements() {
@@ -158,7 +153,6 @@ export default struct ISpeechPhraseProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_EngineConfidence() {
@@ -167,7 +161,6 @@ export default struct ISpeechPhraseProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {SpeechEngineConfidence} 
      */
     get_Confidence() {
@@ -176,7 +169,6 @@ export default struct ISpeechPhraseProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechPhraseProperty} 
      */
     get_Parent() {
@@ -185,7 +177,6 @@ export default struct ISpeechPhraseProperty extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechPhraseProperties} 
      */
     get_Children() {
@@ -202,15 +193,15 @@ export default struct ISpeechPhraseProperty extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
-        this.vtbl.get_Value := CallbackCreate(GetMethod(implObj, "get_Value"), flags, 2)
-        this.vtbl.get_FirstElement := CallbackCreate(GetMethod(implObj, "get_FirstElement"), flags, 2)
-        this.vtbl.get_NumberOfElements := CallbackCreate(GetMethod(implObj, "get_NumberOfElements"), flags, 2)
-        this.vtbl.get_EngineConfidence := CallbackCreate(GetMethod(implObj, "get_EngineConfidence"), flags, 2)
-        this.vtbl.get_Confidence := CallbackCreate(GetMethod(implObj, "get_Confidence"), flags, 2)
-        this.vtbl.get_Parent := CallbackCreate(GetMethod(implObj, "get_Parent"), flags, 2)
-        this.vtbl.get_Children := CallbackCreate(GetMethod(implObj, "get_Children"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(ObjBindMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.get_Value := CallbackCreate(ObjBindMethod(implObj, "get_Value"), flags, 2)
+        this.vtbl.get_FirstElement := CallbackCreate(ObjBindMethod(implObj, "get_FirstElement"), flags, 2)
+        this.vtbl.get_NumberOfElements := CallbackCreate(ObjBindMethod(implObj, "get_NumberOfElements"), flags, 2)
+        this.vtbl.get_EngineConfidence := CallbackCreate(ObjBindMethod(implObj, "get_EngineConfidence"), flags, 2)
+        this.vtbl.get_Confidence := CallbackCreate(ObjBindMethod(implObj, "get_Confidence"), flags, 2)
+        this.vtbl.get_Parent := CallbackCreate(ObjBindMethod(implObj, "get_Parent"), flags, 2)
+        this.vtbl.get_Children := CallbackCreate(ObjBindMethod(implObj, "get_Children"), flags, 2)
     }
 
     Dispose() {

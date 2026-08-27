@@ -68,8 +68,8 @@ export default struct IAccPropServer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccpropserver-getpropvalue
      */
     GetPropValue(pIDString, dwIDStringLen, idProp, pvarValue, pfHasProp) {
-        pIDStringMarshal := pIDString is VarRef ? "char*" : "ptr"
-        pfHasPropMarshal := pfHasProp is VarRef ? "int*" : "ptr"
+        pIDStringMarshal := pIDString is VarRef ? "char*" : IntPtr
+        pfHasPropMarshal := pfHasProp is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, pIDStringMarshal, pIDString, UInt32, dwIDStringLen, Guid, idProp, VARIANT.Ptr, pvarValue, pfHasPropMarshal, pfHasProp, "HRESULT")
         return result
@@ -84,7 +84,7 @@ export default struct IAccPropServer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPropValue := CallbackCreate(GetMethod(implObj, "GetPropValue"), flags, 6)
+        this.vtbl.GetPropValue := CallbackCreate(ObjBindMethod(implObj, "GetPropValue"), flags, 6)
     }
 
     Dispose() {

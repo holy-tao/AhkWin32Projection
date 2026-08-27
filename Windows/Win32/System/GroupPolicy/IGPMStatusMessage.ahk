@@ -78,7 +78,6 @@ export default struct IGPMStatusMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ObjectPath() {
@@ -102,7 +101,6 @@ export default struct IGPMStatusMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ExtensionName() {
@@ -112,7 +110,6 @@ export default struct IGPMStatusMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_SettingsName() {
@@ -136,7 +133,6 @@ export default struct IGPMStatusMessage extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Message() {
@@ -154,12 +150,12 @@ export default struct IGPMStatusMessage extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ObjectPath := CallbackCreate(GetMethod(implObj, "get_ObjectPath"), flags, 2)
-        this.vtbl.ErrorCode := CallbackCreate(GetMethod(implObj, "ErrorCode"), flags, 1)
-        this.vtbl.get_ExtensionName := CallbackCreate(GetMethod(implObj, "get_ExtensionName"), flags, 2)
-        this.vtbl.get_SettingsName := CallbackCreate(GetMethod(implObj, "get_SettingsName"), flags, 2)
-        this.vtbl.OperationCode := CallbackCreate(GetMethod(implObj, "OperationCode"), flags, 1)
-        this.vtbl.get_Message := CallbackCreate(GetMethod(implObj, "get_Message"), flags, 2)
+        this.vtbl.get_ObjectPath := CallbackCreate(ObjBindMethod(implObj, "get_ObjectPath"), flags, 2)
+        this.vtbl.ErrorCode := CallbackCreate(ObjBindMethod(implObj, "ErrorCode"), flags, 1)
+        this.vtbl.get_ExtensionName := CallbackCreate(ObjBindMethod(implObj, "get_ExtensionName"), flags, 2)
+        this.vtbl.get_SettingsName := CallbackCreate(ObjBindMethod(implObj, "get_SettingsName"), flags, 2)
+        this.vtbl.OperationCode := CallbackCreate(ObjBindMethod(implObj, "OperationCode"), flags, 1)
+        this.vtbl.get_Message := CallbackCreate(ObjBindMethod(implObj, "get_Message"), flags, 2)
     }
 
     Dispose() {

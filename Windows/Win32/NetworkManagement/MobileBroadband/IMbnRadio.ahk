@@ -108,9 +108,9 @@ export default struct IMbnRadio extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_SoftwareRadioState := CallbackCreate(GetMethod(implObj, "get_SoftwareRadioState"), flags, 2)
-        this.vtbl.get_HardwareRadioState := CallbackCreate(GetMethod(implObj, "get_HardwareRadioState"), flags, 2)
-        this.vtbl.SetSoftwareRadioState := CallbackCreate(GetMethod(implObj, "SetSoftwareRadioState"), flags, 3)
+        this.vtbl.get_SoftwareRadioState := CallbackCreate(ObjBindMethod(implObj, "get_SoftwareRadioState"), flags, 2)
+        this.vtbl.get_HardwareRadioState := CallbackCreate(ObjBindMethod(implObj, "get_HardwareRadioState"), flags, 2)
+        this.vtbl.SetSoftwareRadioState := CallbackCreate(ObjBindMethod(implObj, "SetSoftwareRadioState"), flags, 3)
     }
 
     Dispose() {

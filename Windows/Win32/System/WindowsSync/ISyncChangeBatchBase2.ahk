@@ -152,8 +152,8 @@ export default struct ISyncChangeBatchBase2 extends ISyncChangeBatchBase {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase2-serializewithoptions
      */
     SerializeWithOptions(targetFormatVersion, dwFlags, pbBuffer, pdwSerializedSize) {
-        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
-        pdwSerializedSizeMarshal := pdwSerializedSize is VarRef ? "uint*" : "ptr"
+        pbBufferMarshal := pbBuffer is VarRef ? "char*" : IntPtr
+        pdwSerializedSizeMarshal := pdwSerializedSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(17, this, SYNC_SERIALIZATION_VERSION, targetFormatVersion, UInt32, dwFlags, pbBufferMarshal, pbBuffer, pdwSerializedSizeMarshal, pdwSerializedSize, "HRESULT")
         return result
@@ -168,7 +168,7 @@ export default struct ISyncChangeBatchBase2 extends ISyncChangeBatchBase {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SerializeWithOptions := CallbackCreate(GetMethod(implObj, "SerializeWithOptions"), flags, 5)
+        this.vtbl.SerializeWithOptions := CallbackCreate(ObjBindMethod(implObj, "SerializeWithOptions"), flags, 5)
     }
 
     Dispose() {

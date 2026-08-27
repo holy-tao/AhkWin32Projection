@@ -76,7 +76,7 @@ export default struct IViewObject2 extends IViewObject {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetExtent := CallbackCreate(GetMethod(implObj, "GetExtent"), flags, 5)
+        this.vtbl.GetExtent := CallbackCreate(ObjBindMethod(implObj, "GetExtent"), flags, 5)
     }
 
     Dispose() {

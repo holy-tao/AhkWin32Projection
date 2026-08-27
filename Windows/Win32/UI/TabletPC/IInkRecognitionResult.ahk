@@ -148,7 +148,6 @@ export default struct IInkRecognitionResult extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} selectionStart 
      * @param {Integer} selectionLength 
      * @param {Integer} maximumAlternates 
@@ -247,7 +246,9 @@ export default struct IInkRecognitionResult extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionresult-modifytopalternate
      */
     ModifyTopAlternate(Alternate) {
-        result := ComCall(12, this, "ptr", Alternate, "HRESULT")
+        AlternateMarshal := Alternate == 0 ? IntPtr : "ptr"
+
+        result := ComCall(12, this, AlternateMarshal, Alternate, "HRESULT")
         return result
     }
 
@@ -316,13 +317,13 @@ export default struct IInkRecognitionResult extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_TopString := CallbackCreate(GetMethod(implObj, "get_TopString"), flags, 2)
-        this.vtbl.get_TopAlternate := CallbackCreate(GetMethod(implObj, "get_TopAlternate"), flags, 2)
-        this.vtbl.get_TopConfidence := CallbackCreate(GetMethod(implObj, "get_TopConfidence"), flags, 2)
-        this.vtbl.get_Strokes := CallbackCreate(GetMethod(implObj, "get_Strokes"), flags, 2)
-        this.vtbl.AlternatesFromSelection := CallbackCreate(GetMethod(implObj, "AlternatesFromSelection"), flags, 5)
-        this.vtbl.ModifyTopAlternate := CallbackCreate(GetMethod(implObj, "ModifyTopAlternate"), flags, 2)
-        this.vtbl.SetResultOnStrokes := CallbackCreate(GetMethod(implObj, "SetResultOnStrokes"), flags, 1)
+        this.vtbl.get_TopString := CallbackCreate(ObjBindMethod(implObj, "get_TopString"), flags, 2)
+        this.vtbl.get_TopAlternate := CallbackCreate(ObjBindMethod(implObj, "get_TopAlternate"), flags, 2)
+        this.vtbl.get_TopConfidence := CallbackCreate(ObjBindMethod(implObj, "get_TopConfidence"), flags, 2)
+        this.vtbl.get_Strokes := CallbackCreate(ObjBindMethod(implObj, "get_Strokes"), flags, 2)
+        this.vtbl.AlternatesFromSelection := CallbackCreate(ObjBindMethod(implObj, "AlternatesFromSelection"), flags, 5)
+        this.vtbl.ModifyTopAlternate := CallbackCreate(ObjBindMethod(implObj, "ModifyTopAlternate"), flags, 2)
+        this.vtbl.SetResultOnStrokes := CallbackCreate(ObjBindMethod(implObj, "SetResultOnStrokes"), flags, 1)
     }
 
     Dispose() {

@@ -156,13 +156,13 @@ export default struct IStringTable extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddString := CallbackCreate(GetMethod(implObj, "AddString"), flags, 3)
-        this.vtbl.GetString := CallbackCreate(GetMethod(implObj, "GetString"), flags, 5)
-        this.vtbl.GetStringLength := CallbackCreate(GetMethod(implObj, "GetStringLength"), flags, 3)
-        this.vtbl.DeleteString := CallbackCreate(GetMethod(implObj, "DeleteString"), flags, 2)
-        this.vtbl.DeleteAllStrings := CallbackCreate(GetMethod(implObj, "DeleteAllStrings"), flags, 1)
-        this.vtbl.FindString := CallbackCreate(GetMethod(implObj, "FindString"), flags, 3)
-        this.vtbl.Enumerate := CallbackCreate(GetMethod(implObj, "Enumerate"), flags, 2)
+        this.vtbl.AddString := CallbackCreate(ObjBindMethod(implObj, "AddString"), flags, 3)
+        this.vtbl.GetString := CallbackCreate(ObjBindMethod(implObj, "GetString"), flags, 5)
+        this.vtbl.GetStringLength := CallbackCreate(ObjBindMethod(implObj, "GetStringLength"), flags, 3)
+        this.vtbl.DeleteString := CallbackCreate(ObjBindMethod(implObj, "DeleteString"), flags, 2)
+        this.vtbl.DeleteAllStrings := CallbackCreate(ObjBindMethod(implObj, "DeleteAllStrings"), flags, 1)
+        this.vtbl.FindString := CallbackCreate(ObjBindMethod(implObj, "FindString"), flags, 3)
+        this.vtbl.Enumerate := CallbackCreate(ObjBindMethod(implObj, "Enumerate"), flags, 2)
     }
 
     Dispose() {

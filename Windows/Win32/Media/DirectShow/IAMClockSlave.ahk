@@ -112,8 +112,8 @@ export default struct IAMClockSlave extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetErrorTolerance := CallbackCreate(GetMethod(implObj, "SetErrorTolerance"), flags, 2)
-        this.vtbl.GetErrorTolerance := CallbackCreate(GetMethod(implObj, "GetErrorTolerance"), flags, 2)
+        this.vtbl.SetErrorTolerance := CallbackCreate(ObjBindMethod(implObj, "SetErrorTolerance"), flags, 2)
+        this.vtbl.GetErrorTolerance := CallbackCreate(ObjBindMethod(implObj, "GetErrorTolerance"), flags, 2)
     }
 
     Dispose() {

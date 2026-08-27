@@ -51,7 +51,7 @@ export default struct IMemoryAllocator extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/Stg/imemoryallocator-free
      */
     Free(pv) {
-        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+        pvMarshal := pv is VarRef ? "ptr" : IntPtr
 
         ComCall(1, this, pvMarshal, pv)
     }

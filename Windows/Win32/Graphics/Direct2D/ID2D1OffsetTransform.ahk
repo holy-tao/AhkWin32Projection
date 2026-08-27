@@ -73,8 +73,8 @@ export default struct ID2D1OffsetTransform extends ID2D1TransformNode {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetOffset := CallbackCreate(GetMethod(implObj, "SetOffset"), flags, 2)
-        this.vtbl.GetOffset := CallbackCreate(GetMethod(implObj, "GetOffset"), flags, 1)
+        this.vtbl.SetOffset := CallbackCreate(ObjBindMethod(implObj, "SetOffset"), flags, 2)
+        this.vtbl.GetOffset := CallbackCreate(ObjBindMethod(implObj, "GetOffset"), flags, 1)
     }
 
     Dispose() {

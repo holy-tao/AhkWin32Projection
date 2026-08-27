@@ -149,12 +149,12 @@ export default struct IUIAutomationSelectionPattern extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCurrentSelection := CallbackCreate(GetMethod(implObj, "GetCurrentSelection"), flags, 2)
-        this.vtbl.get_CurrentCanSelectMultiple := CallbackCreate(GetMethod(implObj, "get_CurrentCanSelectMultiple"), flags, 2)
-        this.vtbl.get_CurrentIsSelectionRequired := CallbackCreate(GetMethod(implObj, "get_CurrentIsSelectionRequired"), flags, 2)
-        this.vtbl.GetCachedSelection := CallbackCreate(GetMethod(implObj, "GetCachedSelection"), flags, 2)
-        this.vtbl.get_CachedCanSelectMultiple := CallbackCreate(GetMethod(implObj, "get_CachedCanSelectMultiple"), flags, 2)
-        this.vtbl.get_CachedIsSelectionRequired := CallbackCreate(GetMethod(implObj, "get_CachedIsSelectionRequired"), flags, 2)
+        this.vtbl.GetCurrentSelection := CallbackCreate(ObjBindMethod(implObj, "GetCurrentSelection"), flags, 2)
+        this.vtbl.get_CurrentCanSelectMultiple := CallbackCreate(ObjBindMethod(implObj, "get_CurrentCanSelectMultiple"), flags, 2)
+        this.vtbl.get_CurrentIsSelectionRequired := CallbackCreate(ObjBindMethod(implObj, "get_CurrentIsSelectionRequired"), flags, 2)
+        this.vtbl.GetCachedSelection := CallbackCreate(ObjBindMethod(implObj, "GetCachedSelection"), flags, 2)
+        this.vtbl.get_CachedCanSelectMultiple := CallbackCreate(ObjBindMethod(implObj, "get_CachedCanSelectMultiple"), flags, 2)
+        this.vtbl.get_CachedIsSelectionRequired := CallbackCreate(ObjBindMethod(implObj, "get_CachedIsSelectionRequired"), flags, 2)
     }
 
     Dispose() {

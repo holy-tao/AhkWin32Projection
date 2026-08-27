@@ -20,7 +20,6 @@ export default struct PCLUSAPI_DELETE_CLUSTER_GROUP_EX {
     }
 
     /**
-     * 
      * @param {HGROUP} _hGroup 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
@@ -28,7 +27,9 @@ export default struct PCLUSAPI_DELETE_CLUSTER_GROUP_EX {
     Call(_hGroup, lpszReason) {
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall(this.value, HGROUP, _hGroup, "ptr", lpszReason, UInt32)
+        lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+        result := DllCall(this.value, HGROUP, _hGroup, lpszReasonMarshal, lpszReason, UInt32)
         return result
     }
 

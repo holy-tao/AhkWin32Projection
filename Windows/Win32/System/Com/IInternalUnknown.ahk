@@ -67,7 +67,7 @@ export default struct IInternalUnknown extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryInternalInterface := CallbackCreate(GetMethod(implObj, "QueryInternalInterface"), flags, 3)
+        this.vtbl.QueryInternalInterface := CallbackCreate(ObjBindMethod(implObj, "QueryInternalInterface"), flags, 3)
     }
 
     Dispose() {

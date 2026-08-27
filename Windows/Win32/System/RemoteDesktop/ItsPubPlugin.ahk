@@ -86,8 +86,8 @@ export default struct ItsPubPlugin extends IUnknown {
     GetResourceList(userID, pceAppListSize, resourceList) {
         userID := userID is String ? StrPtr(userID) : userID
 
-        pceAppListSizeMarshal := pceAppListSize is VarRef ? "int*" : "ptr"
-        resourceListMarshal := resourceList is VarRef ? "ptr*" : "ptr"
+        pceAppListSizeMarshal := pceAppListSize is VarRef ? "int*" : IntPtr
+        resourceListMarshal := resourceList is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, "ptr", userID, pceAppListSizeMarshal, pceAppListSize, resourceListMarshal, resourceList, "HRESULT")
         return result
@@ -172,12 +172,12 @@ export default struct ItsPubPlugin extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetResourceList := CallbackCreate(GetMethod(implObj, "GetResourceList"), flags, 4)
-        this.vtbl.GetResource := CallbackCreate(GetMethod(implObj, "GetResource"), flags, 4)
-        this.vtbl.GetCacheLastUpdateTime := CallbackCreate(GetMethod(implObj, "GetCacheLastUpdateTime"), flags, 2)
-        this.vtbl.get_pluginName := CallbackCreate(GetMethod(implObj, "get_pluginName"), flags, 2)
-        this.vtbl.get_pluginVersion := CallbackCreate(GetMethod(implObj, "get_pluginVersion"), flags, 2)
-        this.vtbl.ResolveResource := CallbackCreate(GetMethod(implObj, "ResolveResource"), flags, 6)
+        this.vtbl.GetResourceList := CallbackCreate(ObjBindMethod(implObj, "GetResourceList"), flags, 4)
+        this.vtbl.GetResource := CallbackCreate(ObjBindMethod(implObj, "GetResource"), flags, 4)
+        this.vtbl.GetCacheLastUpdateTime := CallbackCreate(ObjBindMethod(implObj, "GetCacheLastUpdateTime"), flags, 2)
+        this.vtbl.get_pluginName := CallbackCreate(ObjBindMethod(implObj, "get_pluginName"), flags, 2)
+        this.vtbl.get_pluginVersion := CallbackCreate(ObjBindMethod(implObj, "get_pluginVersion"), flags, 2)
+        this.vtbl.ResolveResource := CallbackCreate(ObjBindMethod(implObj, "ResolveResource"), flags, 6)
     }
 
     Dispose() {

@@ -62,7 +62,7 @@ export default struct IAudioEndpointRT extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpointrt-getcurrentpadding
      */
     GetCurrentPadding(pPadding, pAeCurrentPosition) {
-        pPaddingMarshal := pPadding is VarRef ? "int64*" : "ptr"
+        pPaddingMarshal := pPadding is VarRef ? "int64*" : IntPtr
 
         ComCall(3, this, pPaddingMarshal, pPadding, AE_CURRENT_POSITION.Ptr, pAeCurrentPosition)
     }
@@ -131,10 +131,10 @@ export default struct IAudioEndpointRT extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCurrentPadding := CallbackCreate(GetMethod(implObj, "GetCurrentPadding"), flags, 3)
-        this.vtbl.ProcessingComplete := CallbackCreate(GetMethod(implObj, "ProcessingComplete"), flags, 1)
-        this.vtbl.SetPinInactive := CallbackCreate(GetMethod(implObj, "SetPinInactive"), flags, 1)
-        this.vtbl.SetPinActive := CallbackCreate(GetMethod(implObj, "SetPinActive"), flags, 1)
+        this.vtbl.GetCurrentPadding := CallbackCreate(ObjBindMethod(implObj, "GetCurrentPadding"), flags, 3)
+        this.vtbl.ProcessingComplete := CallbackCreate(ObjBindMethod(implObj, "ProcessingComplete"), flags, 1)
+        this.vtbl.SetPinInactive := CallbackCreate(ObjBindMethod(implObj, "SetPinInactive"), flags, 1)
+        this.vtbl.SetPinActive := CallbackCreate(ObjBindMethod(implObj, "SetPinActive"), flags, 1)
     }
 
     Dispose() {

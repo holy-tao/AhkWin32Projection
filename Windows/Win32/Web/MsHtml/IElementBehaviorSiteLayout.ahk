@@ -39,7 +39,6 @@ export default struct IElementBehaviorSiteLayout extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     InvalidateLayoutInfo() {
@@ -48,7 +47,6 @@ export default struct IElementBehaviorSiteLayout extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     InvalidateSize() {
@@ -57,7 +55,6 @@ export default struct IElementBehaviorSiteLayout extends IUnknown {
     }
 
     /**
-     * 
      * @returns {SIZE} 
      */
     GetMediaResolution() {
@@ -75,9 +72,9 @@ export default struct IElementBehaviorSiteLayout extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InvalidateLayoutInfo := CallbackCreate(GetMethod(implObj, "InvalidateLayoutInfo"), flags, 1)
-        this.vtbl.InvalidateSize := CallbackCreate(GetMethod(implObj, "InvalidateSize"), flags, 1)
-        this.vtbl.GetMediaResolution := CallbackCreate(GetMethod(implObj, "GetMediaResolution"), flags, 2)
+        this.vtbl.InvalidateLayoutInfo := CallbackCreate(ObjBindMethod(implObj, "InvalidateLayoutInfo"), flags, 1)
+        this.vtbl.InvalidateSize := CallbackCreate(ObjBindMethod(implObj, "InvalidateSize"), flags, 1)
+        this.vtbl.GetMediaResolution := CallbackCreate(ObjBindMethod(implObj, "GetMediaResolution"), flags, 2)
     }
 
     Dispose() {

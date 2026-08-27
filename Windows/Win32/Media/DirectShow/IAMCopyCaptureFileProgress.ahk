@@ -136,7 +136,7 @@ export default struct IAMCopyCaptureFileProgress extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Progress := CallbackCreate(GetMethod(implObj, "Progress"), flags, 2)
+        this.vtbl.Progress := CallbackCreate(ObjBindMethod(implObj, "Progress"), flags, 2)
     }
 
     Dispose() {

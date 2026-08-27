@@ -39,7 +39,6 @@ export default struct INetCfgComponentSysPrep extends IUnknown {
     }
 
     /**
-     * 
      * @param {INetCfgSysPrep} pncsp 
      * @param {PWSTR} pszwAnswerSections 
      * @param {Pointer<Guid>} pAdapterInstanceGuid 
@@ -53,7 +52,6 @@ export default struct INetCfgComponentSysPrep extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszwAnswerFile 
      * @param {PWSTR} pszwAnswerSection 
      * @param {Pointer<Guid>} pAdapterInstanceGuid 
@@ -76,8 +74,8 @@ export default struct INetCfgComponentSysPrep extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SaveAdapterParameters := CallbackCreate(GetMethod(implObj, "SaveAdapterParameters"), flags, 4)
-        this.vtbl.RestoreAdapterParameters := CallbackCreate(GetMethod(implObj, "RestoreAdapterParameters"), flags, 4)
+        this.vtbl.SaveAdapterParameters := CallbackCreate(ObjBindMethod(implObj, "SaveAdapterParameters"), flags, 4)
+        this.vtbl.RestoreAdapterParameters := CallbackCreate(ObjBindMethod(implObj, "RestoreAdapterParameters"), flags, 4)
     }
 
     Dispose() {

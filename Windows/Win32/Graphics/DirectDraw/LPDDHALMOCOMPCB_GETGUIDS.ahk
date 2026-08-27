@@ -19,7 +19,6 @@ export default struct LPDDHALMOCOMPCB_GETGUIDS {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_GETMOCOMPGUIDSDATA>} param0 
      * @returns {Integer} 
      */

@@ -37,7 +37,6 @@ export default struct IRowsetWatchNotify extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRowset} pRowset 
      * @param {Integer} eChangeReason 
      * @returns {HRESULT} 
@@ -56,7 +55,7 @@ export default struct IRowsetWatchNotify extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnChange := CallbackCreate(GetMethod(implObj, "OnChange"), flags, 3)
+        this.vtbl.OnChange := CallbackCreate(ObjBindMethod(implObj, "OnChange"), flags, 3)
     }
 
     Dispose() {

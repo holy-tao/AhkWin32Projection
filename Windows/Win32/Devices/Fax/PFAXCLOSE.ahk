@@ -30,7 +30,6 @@ export default struct PFAXCLOSE {
     }
 
     /**
-     * 
      * @param {HANDLE} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies the fax handle to close. This value can be a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function, or a fax port handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfaxopenport">FaxOpenPort</a> function.

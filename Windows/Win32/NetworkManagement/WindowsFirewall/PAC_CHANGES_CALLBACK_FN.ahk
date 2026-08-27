@@ -23,7 +23,6 @@ export default struct PAC_CHANGES_CALLBACK_FN {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context Type: <b>void*</b>
      * 
      * Optional context pointer. It contains the value of the <i>context</i> parameter of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-networkisolationregisterforappcontainerchanges">NetworkIsolationRegisterForAppContainerChanges</a> function.
@@ -33,7 +32,8 @@ export default struct PAC_CHANGES_CALLBACK_FN {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_context, pChange) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+        _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, _contextMarshal, _context, INET_FIREWALL_AC_CHANGE.Ptr, pChange)
     }

@@ -94,7 +94,7 @@ export default struct ICheckSxsConfig extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsSameSxsConfig := CallbackCreate(GetMethod(implObj, "IsSameSxsConfig"), flags, 4)
+        this.vtbl.IsSameSxsConfig := CallbackCreate(ObjBindMethod(implObj, "IsSameSxsConfig"), flags, 4)
     }
 
     Dispose() {

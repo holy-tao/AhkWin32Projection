@@ -22,13 +22,13 @@ export default struct PFN_AUTHENTICATION_CALLBACK_EX {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvParam Optional. A context pointer previously passed into the <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nf-bluetoothapis-bluetoothregisterforauthentication">BluetoothRegisterForAuthentication</a> function.
      * @param {Pointer<BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS>} pAuthCallbackParams A <a href="https://docs.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_authentication_callback_params">BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS</a> structure that contains device and authentication configuration information specific to the Bluetooth device responding to an authentication request.
      * @returns {BOOL} The return value from this function is ignored by the system.
      */
     Call(pvParam, pAuthCallbackParams) {
-        pvParamMarshal := pvParam is VarRef ? "ptr" : "ptr"
+        pvParamMarshal := pvParam is VarRef ? "ptr" : IntPtr
+        pvParamMarshal := pvParam == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, pvParamMarshal, pvParam, BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS.Ptr, pAuthCallbackParams, BOOL)
         return result

@@ -121,7 +121,7 @@ export default struct IMultiQI extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryMultipleInterfaces := CallbackCreate(GetMethod(implObj, "QueryMultipleInterfaces"), flags, 3)
+        this.vtbl.QueryMultipleInterfaces := CallbackCreate(ObjBindMethod(implObj, "QueryMultipleInterfaces"), flags, 3)
     }
 
     Dispose() {

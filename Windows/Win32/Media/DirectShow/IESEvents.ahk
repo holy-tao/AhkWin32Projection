@@ -61,7 +61,7 @@ export default struct IESEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnESEventReceived := CallbackCreate(GetMethod(implObj, "OnESEventReceived"), flags, 3)
+        this.vtbl.OnESEventReceived := CallbackCreate(ObjBindMethod(implObj, "OnESEventReceived"), flags, 3)
     }
 
     Dispose() {

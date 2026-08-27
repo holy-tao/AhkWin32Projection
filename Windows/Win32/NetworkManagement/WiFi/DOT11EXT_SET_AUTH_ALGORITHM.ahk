@@ -19,13 +19,14 @@ export default struct DOT11EXT_SET_AUTH_ALGORITHM {
     }
 
     /**
-     * 
      * @param {HANDLE} hDot11SvcHandle 
      * @param {Integer} dwAuthAlgo 
      * @returns {Integer} 
      */
     Call(hDot11SvcHandle, dwAuthAlgo) {
-        result := DllCall(this.value, HANDLE, hDot11SvcHandle, UInt32, dwAuthAlgo, UInt32)
+        hDot11SvcHandleMarshal := hDot11SvcHandle == 0 ? IntPtr : HANDLE
+
+        result := DllCall(this.value, hDot11SvcHandleMarshal, hDot11SvcHandle, UInt32, dwAuthAlgo, UInt32)
         return result
     }
 

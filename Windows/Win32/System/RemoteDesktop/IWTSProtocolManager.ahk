@@ -125,11 +125,11 @@ export default struct IWTSProtocolManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateListener := CallbackCreate(GetMethod(implObj, "CreateListener"), flags, 3)
-        this.vtbl.NotifyServiceStateChange := CallbackCreate(GetMethod(implObj, "NotifyServiceStateChange"), flags, 2)
-        this.vtbl.NotifySessionOfServiceStart := CallbackCreate(GetMethod(implObj, "NotifySessionOfServiceStart"), flags, 2)
-        this.vtbl.NotifySessionOfServiceStop := CallbackCreate(GetMethod(implObj, "NotifySessionOfServiceStop"), flags, 2)
-        this.vtbl.NotifySessionStateChange := CallbackCreate(GetMethod(implObj, "NotifySessionStateChange"), flags, 3)
+        this.vtbl.CreateListener := CallbackCreate(ObjBindMethod(implObj, "CreateListener"), flags, 3)
+        this.vtbl.NotifyServiceStateChange := CallbackCreate(ObjBindMethod(implObj, "NotifyServiceStateChange"), flags, 2)
+        this.vtbl.NotifySessionOfServiceStart := CallbackCreate(ObjBindMethod(implObj, "NotifySessionOfServiceStart"), flags, 2)
+        this.vtbl.NotifySessionOfServiceStop := CallbackCreate(ObjBindMethod(implObj, "NotifySessionOfServiceStop"), flags, 2)
+        this.vtbl.NotifySessionStateChange := CallbackCreate(ObjBindMethod(implObj, "NotifySessionStateChange"), flags, 3)
     }
 
     Dispose() {

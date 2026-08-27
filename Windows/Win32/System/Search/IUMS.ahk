@@ -34,7 +34,6 @@ export default struct IUMS extends Win32ComInterface {
     }
 
     /**
-     * 
      * @param {Integer} ticks 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -43,7 +42,6 @@ export default struct IUMS extends Win32ComInterface {
     }
 
     /**
-     * 
      * @param {Integer} ticks 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -52,7 +50,6 @@ export default struct IUMS extends Win32ComInterface {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     SqlUmsSwitchPremptive() {
@@ -60,7 +57,6 @@ export default struct IUMS extends Win32ComInterface {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     SqlUmsSwitchNonPremptive() {
@@ -68,7 +64,6 @@ export default struct IUMS extends Win32ComInterface {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     SqlUmsFIsPremptive() {

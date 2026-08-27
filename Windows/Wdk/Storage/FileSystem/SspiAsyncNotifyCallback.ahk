@@ -21,14 +21,14 @@ export default struct SspiAsyncNotifyCallback {
     }
 
     /**
-     * 
      * @param {Pointer<SspiAsyncContext>} _Handle The async context handle.
      * @param {Pointer<Void>} CallbackData Receives the callback data passed by the [SspiSetAsyncNotifyCallback](nf-sspi-sspisetasyncnotifycallback.md) function as "PVOID CallbackData".
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Handle, CallbackData) {
-        _HandleMarshal := _Handle is VarRef ? "ptr*" : "ptr"
-        CallbackDataMarshal := CallbackData is VarRef ? "ptr" : "ptr"
+        _HandleMarshal := _Handle is VarRef ? "ptr*" : IntPtr
+        CallbackDataMarshal := CallbackData is VarRef ? "ptr" : IntPtr
+        CallbackDataMarshal := CallbackData == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, _HandleMarshal, _Handle, CallbackDataMarshal, CallbackData)
     }

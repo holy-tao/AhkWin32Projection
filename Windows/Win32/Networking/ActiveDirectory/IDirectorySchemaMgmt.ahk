@@ -61,9 +61,9 @@ export default struct IDirectorySchemaMgmt extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-idirectoryschemamgmt
      */
     EnumAttributes(ppszAttrNames, dwNumAttributes, ppAttrDefinition, pdwNumAttributes) {
-        ppszAttrNamesMarshal := ppszAttrNames is VarRef ? "ptr*" : "ptr"
-        ppAttrDefinitionMarshal := ppAttrDefinition is VarRef ? "ptr*" : "ptr"
-        pdwNumAttributesMarshal := pdwNumAttributes is VarRef ? "uint*" : "ptr"
+        ppszAttrNamesMarshal := ppszAttrNames is VarRef ? "ptr*" : IntPtr
+        ppAttrDefinitionMarshal := ppAttrDefinition is VarRef ? "ptr*" : IntPtr
+        pdwNumAttributesMarshal := pdwNumAttributes is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, ppszAttrNamesMarshal, ppszAttrNames, UInt32, dwNumAttributes, ppAttrDefinitionMarshal, ppAttrDefinition, pdwNumAttributesMarshal, pdwNumAttributes, "HRESULT")
         return result
@@ -128,9 +128,9 @@ export default struct IDirectorySchemaMgmt extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-idirectoryschemamgmt
      */
     EnumClasses(ppszClassNames, dwNumClasses, ppClassDefinition, pdwNumClasses) {
-        ppszClassNamesMarshal := ppszClassNames is VarRef ? "ptr*" : "ptr"
-        ppClassDefinitionMarshal := ppClassDefinition is VarRef ? "ptr*" : "ptr"
-        pdwNumClassesMarshal := pdwNumClasses is VarRef ? "uint*" : "ptr"
+        ppszClassNamesMarshal := ppszClassNames is VarRef ? "ptr*" : IntPtr
+        ppClassDefinitionMarshal := ppClassDefinition is VarRef ? "ptr*" : IntPtr
+        pdwNumClassesMarshal := pdwNumClasses is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, ppszClassNamesMarshal, ppszClassNames, UInt32, dwNumClasses, ppClassDefinitionMarshal, ppClassDefinition, pdwNumClassesMarshal, pdwNumClasses, "HRESULT")
         return result
@@ -192,14 +192,14 @@ export default struct IDirectorySchemaMgmt extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumAttributes := CallbackCreate(GetMethod(implObj, "EnumAttributes"), flags, 5)
-        this.vtbl.CreateAttributeDefinition := CallbackCreate(GetMethod(implObj, "CreateAttributeDefinition"), flags, 3)
-        this.vtbl.WriteAttributeDefinition := CallbackCreate(GetMethod(implObj, "WriteAttributeDefinition"), flags, 3)
-        this.vtbl.DeleteAttributeDefinition := CallbackCreate(GetMethod(implObj, "DeleteAttributeDefinition"), flags, 2)
-        this.vtbl.EnumClasses := CallbackCreate(GetMethod(implObj, "EnumClasses"), flags, 5)
-        this.vtbl.WriteClassDefinition := CallbackCreate(GetMethod(implObj, "WriteClassDefinition"), flags, 3)
-        this.vtbl.CreateClassDefinition := CallbackCreate(GetMethod(implObj, "CreateClassDefinition"), flags, 3)
-        this.vtbl.DeleteClassDefinition := CallbackCreate(GetMethod(implObj, "DeleteClassDefinition"), flags, 2)
+        this.vtbl.EnumAttributes := CallbackCreate(ObjBindMethod(implObj, "EnumAttributes"), flags, 5)
+        this.vtbl.CreateAttributeDefinition := CallbackCreate(ObjBindMethod(implObj, "CreateAttributeDefinition"), flags, 3)
+        this.vtbl.WriteAttributeDefinition := CallbackCreate(ObjBindMethod(implObj, "WriteAttributeDefinition"), flags, 3)
+        this.vtbl.DeleteAttributeDefinition := CallbackCreate(ObjBindMethod(implObj, "DeleteAttributeDefinition"), flags, 2)
+        this.vtbl.EnumClasses := CallbackCreate(ObjBindMethod(implObj, "EnumClasses"), flags, 5)
+        this.vtbl.WriteClassDefinition := CallbackCreate(ObjBindMethod(implObj, "WriteClassDefinition"), flags, 3)
+        this.vtbl.CreateClassDefinition := CallbackCreate(ObjBindMethod(implObj, "CreateClassDefinition"), flags, 3)
+        this.vtbl.DeleteClassDefinition := CallbackCreate(ObjBindMethod(implObj, "DeleteClassDefinition"), flags, 2)
     }
 
     Dispose() {

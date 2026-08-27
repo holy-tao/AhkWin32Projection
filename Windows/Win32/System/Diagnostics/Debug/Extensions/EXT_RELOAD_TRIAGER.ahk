@@ -20,7 +20,6 @@ export default struct EXT_RELOAD_TRIAGER {
     }
 
     /**
-     * 
      * @param {IDebugClient4} Client 
      * @returns {HRESULT} 
      */

@@ -20,7 +20,6 @@ export default struct PCLUSAPI_SET_CLUSTER_GROUP_NAME {
     }
 
     /**
-     * 
      * @param {HGROUP} _hGroup 
      * @param {PWSTR} lpszGroupName 
      * @returns {Integer} 

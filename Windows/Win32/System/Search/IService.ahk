@@ -36,7 +36,6 @@ export default struct IService extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkInner 
      * @returns {HRESULT} 
      */
@@ -54,7 +53,7 @@ export default struct IService extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InvokeService := CallbackCreate(GetMethod(implObj, "InvokeService"), flags, 2)
+        this.vtbl.InvokeService := CallbackCreate(ObjBindMethod(implObj, "InvokeService"), flags, 2)
     }
 
     Dispose() {

@@ -53,10 +53,10 @@ export default struct IAMDevMemoryAllocator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdevmemoryallocator-getinfo
      */
     GetInfo(pdwcbTotalFree, pdwcbLargestFree, pdwcbTotalMemory, pdwcbMinimumChunk) {
-        pdwcbTotalFreeMarshal := pdwcbTotalFree is VarRef ? "uint*" : "ptr"
-        pdwcbLargestFreeMarshal := pdwcbLargestFree is VarRef ? "uint*" : "ptr"
-        pdwcbTotalMemoryMarshal := pdwcbTotalMemory is VarRef ? "uint*" : "ptr"
-        pdwcbMinimumChunkMarshal := pdwcbMinimumChunk is VarRef ? "uint*" : "ptr"
+        pdwcbTotalFreeMarshal := pdwcbTotalFree is VarRef ? "uint*" : IntPtr
+        pdwcbLargestFreeMarshal := pdwcbLargestFree is VarRef ? "uint*" : IntPtr
+        pdwcbTotalMemoryMarshal := pdwcbTotalMemory is VarRef ? "uint*" : IntPtr
+        pdwcbMinimumChunkMarshal := pdwcbMinimumChunk is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pdwcbTotalFreeMarshal, pdwcbTotalFree, pdwcbLargestFreeMarshal, pdwcbLargestFree, pdwcbTotalMemoryMarshal, pdwcbTotalMemory, pdwcbMinimumChunkMarshal, pdwcbMinimumChunk, "HRESULT")
         return result
@@ -71,7 +71,7 @@ export default struct IAMDevMemoryAllocator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdevmemoryallocator-checkmemory
      */
     CheckMemory(pBuffer) {
-        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(4, this, pBufferMarshal, pBuffer, "HRESULT")
         return result
@@ -86,7 +86,7 @@ export default struct IAMDevMemoryAllocator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdevmemoryallocator-alloc
      */
     Alloc(pdwcbBuffer) {
-        pdwcbBufferMarshal := pdwcbBuffer is VarRef ? "uint*" : "ptr"
+        pdwcbBufferMarshal := pdwcbBuffer is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, "ptr*", &ppBuffer := 0, pdwcbBufferMarshal, pdwcbBuffer, "HRESULT")
         return ppBuffer
@@ -101,7 +101,7 @@ export default struct IAMDevMemoryAllocator extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdevmemoryallocator-free
      */
     Free(pBuffer) {
-        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(6, this, pBufferMarshal, pBuffer, "HRESULT")
         return result
@@ -131,11 +131,11 @@ export default struct IAMDevMemoryAllocator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetInfo := CallbackCreate(GetMethod(implObj, "GetInfo"), flags, 5)
-        this.vtbl.CheckMemory := CallbackCreate(GetMethod(implObj, "CheckMemory"), flags, 2)
-        this.vtbl.Alloc := CallbackCreate(GetMethod(implObj, "Alloc"), flags, 3)
-        this.vtbl.Free := CallbackCreate(GetMethod(implObj, "Free"), flags, 2)
-        this.vtbl.GetDevMemoryObject := CallbackCreate(GetMethod(implObj, "GetDevMemoryObject"), flags, 3)
+        this.vtbl.GetInfo := CallbackCreate(ObjBindMethod(implObj, "GetInfo"), flags, 5)
+        this.vtbl.CheckMemory := CallbackCreate(ObjBindMethod(implObj, "CheckMemory"), flags, 2)
+        this.vtbl.Alloc := CallbackCreate(ObjBindMethod(implObj, "Alloc"), flags, 3)
+        this.vtbl.Free := CallbackCreate(ObjBindMethod(implObj, "Free"), flags, 2)
+        this.vtbl.GetDevMemoryObject := CallbackCreate(ObjBindMethod(implObj, "GetDevMemoryObject"), flags, 3)
     }
 
     Dispose() {

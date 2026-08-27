@@ -135,7 +135,7 @@ export default struct IWMProfile extends IUnknown {
     GetName(pwszName, pcchName) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        pcchNameMarshal := pcchName is VarRef ? "uint*" : "ptr"
+        pcchNameMarshal := pcchName is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, "ptr", pwszName, pcchNameMarshal, pcchName, "HRESULT")
         return result
@@ -248,7 +248,7 @@ export default struct IWMProfile extends IUnknown {
     GetDescription(pwszDescription, pcchDescription) {
         pwszDescription := pwszDescription is String ? StrPtr(pwszDescription) : pwszDescription
 
-        pcchDescriptionMarshal := pcchDescription is VarRef ? "uint*" : "ptr"
+        pcchDescriptionMarshal := pcchDescription is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, "ptr", pwszDescription, pcchDescriptionMarshal, pcchDescription, "HRESULT")
         return result
@@ -733,24 +733,24 @@ export default struct IWMProfile extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetVersion := CallbackCreate(GetMethod(implObj, "GetVersion"), flags, 2)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 3)
-        this.vtbl.SetName := CallbackCreate(GetMethod(implObj, "SetName"), flags, 2)
-        this.vtbl.GetDescription := CallbackCreate(GetMethod(implObj, "GetDescription"), flags, 3)
-        this.vtbl.SetDescription := CallbackCreate(GetMethod(implObj, "SetDescription"), flags, 2)
-        this.vtbl.GetStreamCount := CallbackCreate(GetMethod(implObj, "GetStreamCount"), flags, 2)
-        this.vtbl.GetStream := CallbackCreate(GetMethod(implObj, "GetStream"), flags, 3)
-        this.vtbl.GetStreamByNumber := CallbackCreate(GetMethod(implObj, "GetStreamByNumber"), flags, 3)
-        this.vtbl.RemoveStream := CallbackCreate(GetMethod(implObj, "RemoveStream"), flags, 2)
-        this.vtbl.RemoveStreamByNumber := CallbackCreate(GetMethod(implObj, "RemoveStreamByNumber"), flags, 2)
-        this.vtbl.AddStream := CallbackCreate(GetMethod(implObj, "AddStream"), flags, 2)
-        this.vtbl.ReconfigStream := CallbackCreate(GetMethod(implObj, "ReconfigStream"), flags, 2)
-        this.vtbl.CreateNewStream := CallbackCreate(GetMethod(implObj, "CreateNewStream"), flags, 3)
-        this.vtbl.GetMutualExclusionCount := CallbackCreate(GetMethod(implObj, "GetMutualExclusionCount"), flags, 2)
-        this.vtbl.GetMutualExclusion := CallbackCreate(GetMethod(implObj, "GetMutualExclusion"), flags, 3)
-        this.vtbl.RemoveMutualExclusion := CallbackCreate(GetMethod(implObj, "RemoveMutualExclusion"), flags, 2)
-        this.vtbl.AddMutualExclusion := CallbackCreate(GetMethod(implObj, "AddMutualExclusion"), flags, 2)
-        this.vtbl.CreateNewMutualExclusion := CallbackCreate(GetMethod(implObj, "CreateNewMutualExclusion"), flags, 2)
+        this.vtbl.GetVersion := CallbackCreate(ObjBindMethod(implObj, "GetVersion"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 3)
+        this.vtbl.SetName := CallbackCreate(ObjBindMethod(implObj, "SetName"), flags, 2)
+        this.vtbl.GetDescription := CallbackCreate(ObjBindMethod(implObj, "GetDescription"), flags, 3)
+        this.vtbl.SetDescription := CallbackCreate(ObjBindMethod(implObj, "SetDescription"), flags, 2)
+        this.vtbl.GetStreamCount := CallbackCreate(ObjBindMethod(implObj, "GetStreamCount"), flags, 2)
+        this.vtbl.GetStream := CallbackCreate(ObjBindMethod(implObj, "GetStream"), flags, 3)
+        this.vtbl.GetStreamByNumber := CallbackCreate(ObjBindMethod(implObj, "GetStreamByNumber"), flags, 3)
+        this.vtbl.RemoveStream := CallbackCreate(ObjBindMethod(implObj, "RemoveStream"), flags, 2)
+        this.vtbl.RemoveStreamByNumber := CallbackCreate(ObjBindMethod(implObj, "RemoveStreamByNumber"), flags, 2)
+        this.vtbl.AddStream := CallbackCreate(ObjBindMethod(implObj, "AddStream"), flags, 2)
+        this.vtbl.ReconfigStream := CallbackCreate(ObjBindMethod(implObj, "ReconfigStream"), flags, 2)
+        this.vtbl.CreateNewStream := CallbackCreate(ObjBindMethod(implObj, "CreateNewStream"), flags, 3)
+        this.vtbl.GetMutualExclusionCount := CallbackCreate(ObjBindMethod(implObj, "GetMutualExclusionCount"), flags, 2)
+        this.vtbl.GetMutualExclusion := CallbackCreate(ObjBindMethod(implObj, "GetMutualExclusion"), flags, 3)
+        this.vtbl.RemoveMutualExclusion := CallbackCreate(ObjBindMethod(implObj, "RemoveMutualExclusion"), flags, 2)
+        this.vtbl.AddMutualExclusion := CallbackCreate(ObjBindMethod(implObj, "AddMutualExclusion"), flags, 2)
+        this.vtbl.CreateNewMutualExclusion := CallbackCreate(ObjBindMethod(implObj, "CreateNewMutualExclusion"), flags, 2)
     }
 
     Dispose() {

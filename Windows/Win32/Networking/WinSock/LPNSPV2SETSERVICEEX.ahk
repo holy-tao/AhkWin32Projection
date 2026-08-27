@@ -190,7 +190,6 @@ export default struct LPNSPV2SETSERVICEEX {
     }
 
     /**
-     * 
      * @param {HANDLE} hAsyncCall A handle returned from the previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nc-ws2spi-lpnsplookupservicebegin">NSPv2LookupServiceBegin</a> used for asynchronous calls.
      * @param {Pointer<Guid>} lpProviderId A pointer to the GUID of the specific namespace provider in which the name or service is registered.
@@ -268,7 +267,7 @@ export default struct LPNSPV2SETSERVICEEX {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(hAsyncCall, lpProviderId, lpqsRegInfo, essOperation, dwControlFlags, lpvClientSessionArg) {
-        lpvClientSessionArgMarshal := lpvClientSessionArg is VarRef ? "ptr" : "ptr"
+        lpvClientSessionArgMarshal := lpvClientSessionArg is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, HANDLE, hAsyncCall, Guid.Ptr, lpProviderId, WSAQUERYSET2W.Ptr, lpqsRegInfo, WSAESETSERVICEOP, essOperation, UInt32, dwControlFlags, lpvClientSessionArgMarshal, lpvClientSessionArg)
     }

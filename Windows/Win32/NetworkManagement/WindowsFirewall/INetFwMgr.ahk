@@ -488,11 +488,11 @@ export default struct INetFwMgr extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_LocalPolicy := CallbackCreate(GetMethod(implObj, "get_LocalPolicy"), flags, 2)
-        this.vtbl.get_CurrentProfileType := CallbackCreate(GetMethod(implObj, "get_CurrentProfileType"), flags, 2)
-        this.vtbl.RestoreDefaults := CallbackCreate(GetMethod(implObj, "RestoreDefaults"), flags, 1)
-        this.vtbl.IsPortAllowed := CallbackCreate(GetMethod(implObj, "IsPortAllowed"), flags, 8)
-        this.vtbl.IsIcmpTypeAllowed := CallbackCreate(GetMethod(implObj, "IsIcmpTypeAllowed"), flags, 6)
+        this.vtbl.get_LocalPolicy := CallbackCreate(ObjBindMethod(implObj, "get_LocalPolicy"), flags, 2)
+        this.vtbl.get_CurrentProfileType := CallbackCreate(ObjBindMethod(implObj, "get_CurrentProfileType"), flags, 2)
+        this.vtbl.RestoreDefaults := CallbackCreate(ObjBindMethod(implObj, "RestoreDefaults"), flags, 1)
+        this.vtbl.IsPortAllowed := CallbackCreate(ObjBindMethod(implObj, "IsPortAllowed"), flags, 8)
+        this.vtbl.IsIcmpTypeAllowed := CallbackCreate(ObjBindMethod(implObj, "IsIcmpTypeAllowed"), flags, 6)
     }
 
     Dispose() {

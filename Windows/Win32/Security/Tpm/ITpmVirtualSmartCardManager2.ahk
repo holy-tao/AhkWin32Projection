@@ -39,7 +39,6 @@ export default struct ITpmVirtualSmartCardManager2 extends ITpmVirtualSmartCardM
     }
 
     /**
-     * 
      * @param {PWSTR} pszFriendlyName 
      * @param {Integer} bAdminAlgId 
      * @param {Pointer<Integer>} pbAdminKey 
@@ -61,13 +60,13 @@ export default struct ITpmVirtualSmartCardManager2 extends ITpmVirtualSmartCardM
     CreateVirtualSmartCardWithPinPolicy(pszFriendlyName, bAdminAlgId, pbAdminKey, cbAdminKey, pbAdminKcv, cbAdminKcv, pbPuk, cbPuk, pbPin, cbPin, pbPinPolicy, cbPinPolicy, fGenerate, pStatusCallback, ppszInstanceId, pfNeedReboot) {
         pszFriendlyName := pszFriendlyName is String ? StrPtr(pszFriendlyName) : pszFriendlyName
 
-        pbAdminKeyMarshal := pbAdminKey is VarRef ? "char*" : "ptr"
-        pbAdminKcvMarshal := pbAdminKcv is VarRef ? "char*" : "ptr"
-        pbPukMarshal := pbPuk is VarRef ? "char*" : "ptr"
-        pbPinMarshal := pbPin is VarRef ? "char*" : "ptr"
-        pbPinPolicyMarshal := pbPinPolicy is VarRef ? "char*" : "ptr"
-        ppszInstanceIdMarshal := ppszInstanceId is VarRef ? "ptr*" : "ptr"
-        pfNeedRebootMarshal := pfNeedReboot is VarRef ? "int*" : "ptr"
+        pbAdminKeyMarshal := pbAdminKey is VarRef ? "char*" : IntPtr
+        pbAdminKcvMarshal := pbAdminKcv is VarRef ? "char*" : IntPtr
+        pbPukMarshal := pbPuk is VarRef ? "char*" : IntPtr
+        pbPinMarshal := pbPin is VarRef ? "char*" : IntPtr
+        pbPinPolicyMarshal := pbPinPolicy is VarRef ? "char*" : IntPtr
+        ppszInstanceIdMarshal := ppszInstanceId is VarRef ? "ptr*" : IntPtr
+        pfNeedRebootMarshal := pfNeedReboot is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, "ptr", pszFriendlyName, Int8, bAdminAlgId, pbAdminKeyMarshal, pbAdminKey, UInt32, cbAdminKey, pbAdminKcvMarshal, pbAdminKcv, UInt32, cbAdminKcv, pbPukMarshal, pbPuk, UInt32, cbPuk, pbPinMarshal, pbPin, UInt32, cbPin, pbPinPolicyMarshal, pbPinPolicy, UInt32, cbPinPolicy, BOOL, fGenerate, "ptr", pStatusCallback, ppszInstanceIdMarshal, ppszInstanceId, pfNeedRebootMarshal, pfNeedReboot, "HRESULT")
         return result
@@ -82,7 +81,7 @@ export default struct ITpmVirtualSmartCardManager2 extends ITpmVirtualSmartCardM
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateVirtualSmartCardWithPinPolicy := CallbackCreate(GetMethod(implObj, "CreateVirtualSmartCardWithPinPolicy"), flags, 17)
+        this.vtbl.CreateVirtualSmartCardWithPinPolicy := CallbackCreate(ObjBindMethod(implObj, "CreateVirtualSmartCardWithPinPolicy"), flags, 17)
     }
 
     Dispose() {

@@ -263,8 +263,8 @@ export default struct IDesktopWallpaper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getslideshowoptions
      */
     GetSlideshowOptions(options, slideshowTick) {
-        optionsMarshal := options is VarRef ? "int*" : "ptr"
-        slideshowTickMarshal := slideshowTick is VarRef ? "uint*" : "ptr"
+        optionsMarshal := options is VarRef ? "int*" : IntPtr
+        slideshowTickMarshal := slideshowTick is VarRef ? "uint*" : IntPtr
 
         result := ComCall(15, this, optionsMarshal, options, slideshowTickMarshal, slideshowTick, "HRESULT")
         return result
@@ -350,22 +350,22 @@ export default struct IDesktopWallpaper extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetWallpaper := CallbackCreate(GetMethod(implObj, "SetWallpaper"), flags, 3)
-        this.vtbl.GetWallpaper := CallbackCreate(GetMethod(implObj, "GetWallpaper"), flags, 3)
-        this.vtbl.GetMonitorDevicePathAt := CallbackCreate(GetMethod(implObj, "GetMonitorDevicePathAt"), flags, 3)
-        this.vtbl.GetMonitorDevicePathCount := CallbackCreate(GetMethod(implObj, "GetMonitorDevicePathCount"), flags, 2)
-        this.vtbl.GetMonitorRECT := CallbackCreate(GetMethod(implObj, "GetMonitorRECT"), flags, 3)
-        this.vtbl.SetBackgroundColor := CallbackCreate(GetMethod(implObj, "SetBackgroundColor"), flags, 2)
-        this.vtbl.GetBackgroundColor := CallbackCreate(GetMethod(implObj, "GetBackgroundColor"), flags, 2)
-        this.vtbl.SetPosition := CallbackCreate(GetMethod(implObj, "SetPosition"), flags, 2)
-        this.vtbl.GetPosition := CallbackCreate(GetMethod(implObj, "GetPosition"), flags, 2)
-        this.vtbl.SetSlideshow := CallbackCreate(GetMethod(implObj, "SetSlideshow"), flags, 2)
-        this.vtbl.GetSlideshow := CallbackCreate(GetMethod(implObj, "GetSlideshow"), flags, 2)
-        this.vtbl.SetSlideshowOptions := CallbackCreate(GetMethod(implObj, "SetSlideshowOptions"), flags, 3)
-        this.vtbl.GetSlideshowOptions := CallbackCreate(GetMethod(implObj, "GetSlideshowOptions"), flags, 3)
-        this.vtbl.AdvanceSlideshow := CallbackCreate(GetMethod(implObj, "AdvanceSlideshow"), flags, 3)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
-        this.vtbl.Enable := CallbackCreate(GetMethod(implObj, "Enable"), flags, 2)
+        this.vtbl.SetWallpaper := CallbackCreate(ObjBindMethod(implObj, "SetWallpaper"), flags, 3)
+        this.vtbl.GetWallpaper := CallbackCreate(ObjBindMethod(implObj, "GetWallpaper"), flags, 3)
+        this.vtbl.GetMonitorDevicePathAt := CallbackCreate(ObjBindMethod(implObj, "GetMonitorDevicePathAt"), flags, 3)
+        this.vtbl.GetMonitorDevicePathCount := CallbackCreate(ObjBindMethod(implObj, "GetMonitorDevicePathCount"), flags, 2)
+        this.vtbl.GetMonitorRECT := CallbackCreate(ObjBindMethod(implObj, "GetMonitorRECT"), flags, 3)
+        this.vtbl.SetBackgroundColor := CallbackCreate(ObjBindMethod(implObj, "SetBackgroundColor"), flags, 2)
+        this.vtbl.GetBackgroundColor := CallbackCreate(ObjBindMethod(implObj, "GetBackgroundColor"), flags, 2)
+        this.vtbl.SetPosition := CallbackCreate(ObjBindMethod(implObj, "SetPosition"), flags, 2)
+        this.vtbl.GetPosition := CallbackCreate(ObjBindMethod(implObj, "GetPosition"), flags, 2)
+        this.vtbl.SetSlideshow := CallbackCreate(ObjBindMethod(implObj, "SetSlideshow"), flags, 2)
+        this.vtbl.GetSlideshow := CallbackCreate(ObjBindMethod(implObj, "GetSlideshow"), flags, 2)
+        this.vtbl.SetSlideshowOptions := CallbackCreate(ObjBindMethod(implObj, "SetSlideshowOptions"), flags, 3)
+        this.vtbl.GetSlideshowOptions := CallbackCreate(ObjBindMethod(implObj, "GetSlideshowOptions"), flags, 3)
+        this.vtbl.AdvanceSlideshow := CallbackCreate(ObjBindMethod(implObj, "AdvanceSlideshow"), flags, 3)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.Enable := CallbackCreate(ObjBindMethod(implObj, "Enable"), flags, 2)
     }
 
     Dispose() {

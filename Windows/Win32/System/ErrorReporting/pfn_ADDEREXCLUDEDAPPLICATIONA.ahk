@@ -21,7 +21,6 @@ export default struct pfn_ADDEREXCLUDEDAPPLICATIONA {
     }
 
     /**
-     * 
      * @param {PSTR} param0 
      * @returns {EFaultRepRetVal} 
      */

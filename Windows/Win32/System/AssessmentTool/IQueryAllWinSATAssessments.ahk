@@ -71,7 +71,7 @@ export default struct IQueryAllWinSATAssessments extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_AllXML := CallbackCreate(GetMethod(implObj, "get_AllXML"), flags, 4)
+        this.vtbl.get_AllXML := CallbackCreate(ObjBindMethod(implObj, "get_AllXML"), flags, 4)
     }
 
     Dispose() {

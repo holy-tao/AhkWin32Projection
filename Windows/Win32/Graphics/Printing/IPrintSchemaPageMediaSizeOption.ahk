@@ -51,7 +51,6 @@ export default struct IPrintSchemaPageMediaSizeOption extends IPrintSchemaOption
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_WidthInMicrons() {
@@ -60,7 +59,6 @@ export default struct IPrintSchemaPageMediaSizeOption extends IPrintSchemaOption
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_HeightInMicrons() {
@@ -77,8 +75,8 @@ export default struct IPrintSchemaPageMediaSizeOption extends IPrintSchemaOption
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_WidthInMicrons := CallbackCreate(GetMethod(implObj, "get_WidthInMicrons"), flags, 2)
-        this.vtbl.get_HeightInMicrons := CallbackCreate(GetMethod(implObj, "get_HeightInMicrons"), flags, 2)
+        this.vtbl.get_WidthInMicrons := CallbackCreate(ObjBindMethod(implObj, "get_WidthInMicrons"), flags, 2)
+        this.vtbl.get_HeightInMicrons := CallbackCreate(ObjBindMethod(implObj, "get_HeightInMicrons"), flags, 2)
     }
 
     Dispose() {

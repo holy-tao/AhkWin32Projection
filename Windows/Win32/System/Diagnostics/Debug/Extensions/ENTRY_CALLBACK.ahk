@@ -19,13 +19,13 @@ export default struct ENTRY_CALLBACK {
     }
 
     /**
-     * 
      * @param {Integer} EntryAddress 
      * @param {Pointer<Void>} _Context 
      * @returns {HRESULT} 
      */
     Call(EntryAddress, _Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, Int64, EntryAddress, _ContextMarshal, _Context, "HRESULT")
         return result

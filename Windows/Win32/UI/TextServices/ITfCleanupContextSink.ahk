@@ -75,7 +75,7 @@ export default struct ITfCleanupContextSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnCleanupContext := CallbackCreate(GetMethod(implObj, "OnCleanupContext"), flags, 3)
+        this.vtbl.OnCleanupContext := CallbackCreate(ObjBindMethod(implObj, "OnCleanupContext"), flags, 3)
     }
 
     Dispose() {

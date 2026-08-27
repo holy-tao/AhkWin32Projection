@@ -156,9 +156,11 @@
 export LoadStringA(_hInstance, uID, lpBuffer, cchBufferMax) {
     lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
+    _hInstanceMarshal := _hInstance == 0 ? IntPtr : HINSTANCE
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\LoadStringA", HINSTANCE, _hInstance, UInt32, uID, "ptr", lpBuffer, Int32, cchBufferMax, Int32)
+    result := DllCall("USER32.dll\LoadStringA", _hInstanceMarshal, _hInstance, UInt32, uID, "ptr", lpBuffer, Int32, cchBufferMax, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -200,9 +202,11 @@ export LoadStringA(_hInstance, uID, lpBuffer, cchBufferMax) {
 export LoadStringW(_hInstance, uID, lpBuffer, cchBufferMax) {
     lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
+    _hInstanceMarshal := _hInstance == 0 ? IntPtr : HINSTANCE
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\LoadStringW", HINSTANCE, _hInstance, UInt32, uID, "ptr", lpBuffer, Int32, cchBufferMax, Int32)
+    result := DllCall("USER32.dll\LoadStringW", _hInstanceMarshal, _hInstance, UInt32, uID, "ptr", lpBuffer, Int32, cchBufferMax, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -587,7 +591,7 @@ export wvsprintfA(param0, param1, arglist) {
     param0 := param0 is String ? StrPtr(param0) : param0
     param1 := param1 is String ? StrPtr(param1) : param1
 
-    arglistMarshal := arglist is VarRef ? "char*" : "ptr"
+    arglistMarshal := arglist is VarRef ? "char*" : IntPtr
 
     A_LastError := 0
 
@@ -632,7 +636,7 @@ export wvsprintfW(param0, param1, arglist) {
     param0 := param0 is String ? StrPtr(param0) : param0
     param1 := param1 is String ? StrPtr(param1) : param1
 
-    arglistMarshal := arglist is VarRef ? "char*" : "ptr"
+    arglistMarshal := arglist is VarRef ? "char*" : IntPtr
 
     A_LastError := 0
 
@@ -1262,9 +1266,11 @@ export RegisterWindowMessageW(lpString) {
  * @since windows5.0
  */
 export GetMessageA(lpMsg, _hWnd, wMsgFilterMin, wMsgFilterMax) {
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetMessageA", MSG.Ptr, lpMsg, HWND, _hWnd, UInt32, wMsgFilterMin, UInt32, wMsgFilterMax, BOOL)
+    result := DllCall("USER32.dll\GetMessageA", MSG.Ptr, lpMsg, _hWndMarshal, _hWnd, UInt32, wMsgFilterMin, UInt32, wMsgFilterMax, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1367,9 +1373,11 @@ export GetMessageA(lpMsg, _hWnd, wMsgFilterMin, wMsgFilterMax) {
  * @since windows5.0
  */
 export GetMessageW(lpMsg, _hWnd, wMsgFilterMin, wMsgFilterMax) {
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetMessageW", MSG.Ptr, lpMsg, HWND, _hWnd, UInt32, wMsgFilterMin, UInt32, wMsgFilterMax, BOOL)
+    result := DllCall("USER32.dll\GetMessageW", MSG.Ptr, lpMsg, _hWndMarshal, _hWnd, UInt32, wMsgFilterMin, UInt32, wMsgFilterMax, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1447,7 +1455,6 @@ export DispatchMessageW(lpMsg) {
 }
 
 /**
- * 
  * @param {Integer} cMessagesMax 
  * @returns {BOOL} 
  */
@@ -1515,7 +1522,9 @@ export SetMessageQueue(cMessagesMax) {
  * @since windows5.0
  */
 export PeekMessageA(lpMsg, _hWnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg) {
-    result := DllCall("USER32.dll\PeekMessageA", MSG.Ptr, lpMsg, HWND, _hWnd, UInt32, wMsgFilterMin, UInt32, wMsgFilterMax, PEEK_MESSAGE_REMOVE_TYPE, wRemoveMsg, BOOL)
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+
+    result := DllCall("USER32.dll\PeekMessageA", MSG.Ptr, lpMsg, _hWndMarshal, _hWnd, UInt32, wMsgFilterMin, UInt32, wMsgFilterMax, PEEK_MESSAGE_REMOVE_TYPE, wRemoveMsg, BOOL)
     return result
 }
 
@@ -1578,7 +1587,9 @@ export PeekMessageA(lpMsg, _hWnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg) {
  * @since windows5.0
  */
 export PeekMessageW(lpMsg, _hWnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg) {
-    result := DllCall("USER32.dll\PeekMessageW", MSG.Ptr, lpMsg, HWND, _hWnd, UInt32, wMsgFilterMin, UInt32, wMsgFilterMax, PEEK_MESSAGE_REMOVE_TYPE, wRemoveMsg, BOOL)
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+
+    result := DllCall("USER32.dll\PeekMessageW", MSG.Ptr, lpMsg, _hWndMarshal, _hWnd, UInt32, wMsgFilterMin, UInt32, wMsgFilterMax, PEEK_MESSAGE_REMOVE_TYPE, wRemoveMsg, BOOL)
     return result
 }
 
@@ -1741,9 +1752,12 @@ export SendMessageA(_hWnd, _Msg, _wParam, _lParam) {
  * @since windows5.0
  */
 export SendMessageW(_hWnd, _Msg, _wParam, _lParam) {
+    _wParamMarshal := _wParam == 0 ? IntPtr : WPARAM
+    _lParamMarshal := _lParam == 0 ? IntPtr : LPARAM
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\SendMessageW", HWND, _hWnd, UInt32, _Msg, WPARAM, _wParam, LPARAM, _lParam, LRESULT)
+    result := DllCall("USER32.dll\SendMessageW", HWND, _hWnd, UInt32, _Msg, _wParamMarshal, _wParam, _lParamMarshal, _lParam, LRESULT)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1800,7 +1814,8 @@ export SendMessageW(_hWnd, _Msg, _wParam, _lParam) {
  * @since windows5.0
  */
 export SendMessageTimeoutA(_hWnd, _Msg, _wParam, _lParam, fuFlags, uTimeout, lpdwResult) {
-    lpdwResultMarshal := lpdwResult is VarRef ? "ptr*" : "ptr"
+    lpdwResultMarshal := lpdwResult is VarRef ? "ptr*" : IntPtr
+    lpdwResultMarshal := lpdwResult == 0 ? IntPtr : "ptr*"
 
     A_LastError := 0
 
@@ -1861,7 +1876,8 @@ export SendMessageTimeoutA(_hWnd, _Msg, _wParam, _lParam, fuFlags, uTimeout, lpd
  * @since windows5.0
  */
 export SendMessageTimeoutW(_hWnd, _Msg, _wParam, _lParam, fuFlags, uTimeout, lpdwResult) {
-    lpdwResultMarshal := lpdwResult is VarRef ? "ptr*" : "ptr"
+    lpdwResultMarshal := lpdwResult is VarRef ? "ptr*" : IntPtr
+    lpdwResultMarshal := lpdwResult == 0 ? IntPtr : "ptr*"
 
     A_LastError := 0
 
@@ -2147,7 +2163,7 @@ export SendMessageCallbackW(_hWnd, _Msg, _wParam, _lParam, lpResultCallBack, dwD
  * @since windows5.1.2600
  */
 export RegisterDeviceNotificationA(hRecipient, NotificationFilter, Flags) {
-    NotificationFilterMarshal := NotificationFilter is VarRef ? "ptr" : "ptr"
+    NotificationFilterMarshal := NotificationFilter is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -2217,7 +2233,7 @@ export RegisterDeviceNotificationA(hRecipient, NotificationFilter, Flags) {
  * @since windows5.1.2600
  */
 export RegisterDeviceNotificationW(hRecipient, NotificationFilter, Flags) {
-    NotificationFilterMarshal := NotificationFilter is VarRef ? "ptr" : "ptr"
+    NotificationFilterMarshal := NotificationFilter is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -2336,9 +2352,11 @@ export UnregisterDeviceNotification(_Handle) {
  * @since windows5.0
  */
 export PostMessageA(_hWnd, _Msg, _wParam, _lParam) {
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\PostMessageA", HWND, _hWnd, UInt32, _Msg, WPARAM, _wParam, LPARAM, _lParam, BOOL)
+    result := DllCall("USER32.dll\PostMessageA", _hWndMarshal, _hWnd, UInt32, _Msg, WPARAM, _wParam, LPARAM, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2431,9 +2449,11 @@ export PostMessageA(_hWnd, _Msg, _wParam, _lParam) {
  * @since windows5.0
  */
 export PostMessageW(_hWnd, _Msg, _wParam, _lParam) {
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\PostMessageW", HWND, _hWnd, UInt32, _Msg, WPARAM, _wParam, LPARAM, _lParam, BOOL)
+    result := DllCall("USER32.dll\PostMessageW", _hWndMarshal, _hWnd, UInt32, _Msg, WPARAM, _wParam, LPARAM, _lParam, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3038,9 +3058,11 @@ export RegisterClassW(lpWndClass) {
 export UnregisterClassA(lpClassName, _hInstance) {
     lpClassName := lpClassName is String ? StrPtr(lpClassName) : lpClassName
 
+    _hInstanceMarshal := _hInstance == 0 ? IntPtr : HINSTANCE
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\UnregisterClassA", "ptr", lpClassName, HINSTANCE, _hInstance, BOOL)
+    result := DllCall("USER32.dll\UnregisterClassA", "ptr", lpClassName, _hInstanceMarshal, _hInstance, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3082,9 +3104,11 @@ export UnregisterClassA(lpClassName, _hInstance) {
 export UnregisterClassW(lpClassName, _hInstance) {
     lpClassName := lpClassName is String ? StrPtr(lpClassName) : lpClassName
 
+    _hInstanceMarshal := _hInstance == 0 ? IntPtr : HINSTANCE
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\UnregisterClassW", "ptr", lpClassName, HINSTANCE, _hInstance, BOOL)
+    result := DllCall("USER32.dll\UnregisterClassW", "ptr", lpClassName, _hInstanceMarshal, _hInstance, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3120,9 +3144,11 @@ export UnregisterClassW(lpClassName, _hInstance) {
 export GetClassInfoA(_hInstance, lpClassName, lpWndClass) {
     lpClassName := lpClassName is String ? StrPtr(lpClassName) : lpClassName
 
+    _hInstanceMarshal := _hInstance == 0 ? IntPtr : HINSTANCE
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetClassInfoA", HINSTANCE, _hInstance, "ptr", lpClassName, WNDCLASSA.Ptr, lpWndClass, BOOL)
+    result := DllCall("USER32.dll\GetClassInfoA", _hInstanceMarshal, _hInstance, "ptr", lpClassName, WNDCLASSA.Ptr, lpWndClass, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3158,9 +3184,11 @@ export GetClassInfoA(_hInstance, lpClassName, lpWndClass) {
 export GetClassInfoW(_hInstance, lpClassName, lpWndClass) {
     lpClassName := lpClassName is String ? StrPtr(lpClassName) : lpClassName
 
+    _hInstanceMarshal := _hInstance == 0 ? IntPtr : HINSTANCE
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetClassInfoW", HINSTANCE, _hInstance, "ptr", lpClassName, WNDCLASSW.Ptr, lpWndClass, BOOL)
+    result := DllCall("USER32.dll\GetClassInfoW", _hInstanceMarshal, _hInstance, "ptr", lpClassName, WNDCLASSW.Ptr, lpWndClass, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3265,9 +3293,11 @@ export RegisterClassExW(param0) {
 export GetClassInfoExA(_hInstance, lpszClass, lpwcx) {
     lpszClass := lpszClass is String ? StrPtr(lpszClass) : lpszClass
 
+    _hInstanceMarshal := _hInstance == 0 ? IntPtr : HINSTANCE
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetClassInfoExA", HINSTANCE, _hInstance, "ptr", lpszClass, WNDCLASSEXA.Ptr, lpwcx, BOOL)
+    result := DllCall("USER32.dll\GetClassInfoExA", _hInstanceMarshal, _hInstance, "ptr", lpszClass, WNDCLASSEXA.Ptr, lpwcx, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3308,9 +3338,11 @@ export GetClassInfoExA(_hInstance, lpszClass, lpwcx) {
 export GetClassInfoExW(_hInstance, lpszClass, lpwcx) {
     lpszClass := lpszClass is String ? StrPtr(lpszClass) : lpszClass
 
+    _hInstanceMarshal := _hInstance == 0 ? IntPtr : HINSTANCE
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetClassInfoExW", HINSTANCE, _hInstance, "ptr", lpszClass, WNDCLASSEXW.Ptr, lpwcx, BOOL)
+    result := DllCall("USER32.dll\GetClassInfoExW", _hInstanceMarshal, _hInstance, "ptr", lpszClass, WNDCLASSEXW.Ptr, lpwcx, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3483,11 +3515,17 @@ export CreateWindowExA(dwExStyle, lpClassName, lpWindowName, dwStyle, X, Y, nWid
     lpClassName := lpClassName is String ? StrPtr(lpClassName) : lpClassName
     lpWindowName := lpWindowName is String ? StrPtr(lpWindowName) : lpWindowName
 
-    lpParamMarshal := lpParam is VarRef ? "ptr" : "ptr"
+    lpClassNameMarshal := lpClassName == 0 ? IntPtr : PSTR
+    lpWindowNameMarshal := lpWindowName == 0 ? IntPtr : PSTR
+    hWndParentMarshal := hWndParent == 0 ? IntPtr : HWND
+    _hMenuMarshal := _hMenu == 0 ? IntPtr : HMENU
+    _hInstanceMarshal := _hInstance == 0 ? IntPtr : HINSTANCE
+    lpParamMarshal := lpParam is VarRef ? "ptr" : IntPtr
+    lpParamMarshal := lpParam == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\CreateWindowExA", WINDOW_EX_STYLE, dwExStyle, "ptr", lpClassName, "ptr", lpWindowName, WINDOW_STYLE, dwStyle, Int32, X, Int32, Y, Int32, nWidth, Int32, nHeight, HWND, hWndParent, HMENU, _hMenu, HINSTANCE, _hInstance, lpParamMarshal, lpParam, HWND)
+    result := DllCall("USER32.dll\CreateWindowExA", WINDOW_EX_STYLE, dwExStyle, lpClassNameMarshal, lpClassName, lpWindowNameMarshal, lpWindowName, WINDOW_STYLE, dwStyle, Int32, X, Int32, Y, Int32, nWidth, Int32, nHeight, hWndParentMarshal, hWndParent, _hMenuMarshal, _hMenu, _hInstanceMarshal, _hInstance, lpParamMarshal, lpParam, HWND)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3660,11 +3698,17 @@ export CreateWindowExW(dwExStyle, lpClassName, lpWindowName, dwStyle, X, Y, nWid
     lpClassName := lpClassName is String ? StrPtr(lpClassName) : lpClassName
     lpWindowName := lpWindowName is String ? StrPtr(lpWindowName) : lpWindowName
 
-    lpParamMarshal := lpParam is VarRef ? "ptr" : "ptr"
+    lpClassNameMarshal := lpClassName == 0 ? IntPtr : PWSTR
+    lpWindowNameMarshal := lpWindowName == 0 ? IntPtr : PWSTR
+    hWndParentMarshal := hWndParent == 0 ? IntPtr : HWND
+    _hMenuMarshal := _hMenu == 0 ? IntPtr : HMENU
+    _hInstanceMarshal := _hInstance == 0 ? IntPtr : HINSTANCE
+    lpParamMarshal := lpParam is VarRef ? "ptr" : IntPtr
+    lpParamMarshal := lpParam == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\CreateWindowExW", WINDOW_EX_STYLE, dwExStyle, "ptr", lpClassName, "ptr", lpWindowName, WINDOW_STYLE, dwStyle, Int32, X, Int32, Y, Int32, nWidth, Int32, nHeight, HWND, hWndParent, HMENU, _hMenu, HINSTANCE, _hInstance, lpParamMarshal, lpParam, HWND)
+    result := DllCall("USER32.dll\CreateWindowExW", WINDOW_EX_STYLE, dwExStyle, lpClassNameMarshal, lpClassName, lpWindowNameMarshal, lpWindowName, WINDOW_STYLE, dwStyle, Int32, X, Int32, Y, Int32, nWidth, Int32, nHeight, hWndParentMarshal, hWndParent, _hMenuMarshal, _hMenu, _hInstanceMarshal, _hInstance, lpParamMarshal, lpParam, HWND)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3688,7 +3732,9 @@ export CreateWindowExW(dwExStyle, lpClassName, lpWindowName, dwStyle, X, Y, nWid
  * @since windows5.0
  */
 export IsWindow(_hWnd) {
-    result := DllCall("USER32.dll\IsWindow", HWND, _hWnd, BOOL)
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+
+    result := DllCall("USER32.dll\IsWindow", _hWndMarshal, _hWnd, BOOL)
     return result
 }
 
@@ -3892,9 +3938,16 @@ export AnimateWindow(_hWnd, dwTime, dwFlags) {
  * @since windows5.0
  */
 export UpdateLayeredWindow(_hWnd, hdcDst, pptDst, psize, hdcSrc, pptSrc, crKey, pblend, dwFlags) {
+    hdcDstMarshal := hdcDst == 0 ? IntPtr : HDC
+    pptDstMarshal := pptDst == 0 ? IntPtr : POINT.Ptr
+    psizeMarshal := psize == 0 ? IntPtr : SIZE.Ptr
+    hdcSrcMarshal := hdcSrc == 0 ? IntPtr : HDC
+    pptSrcMarshal := pptSrc == 0 ? IntPtr : POINT.Ptr
+    pblendMarshal := pblend == 0 ? IntPtr : BLENDFUNCTION.Ptr
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\UpdateLayeredWindow", HWND, _hWnd, HDC, hdcDst, POINT.Ptr, pptDst, SIZE.Ptr, psize, HDC, hdcSrc, POINT.Ptr, pptSrc, COLORREF, crKey, BLENDFUNCTION.Ptr, pblend, UPDATE_LAYERED_WINDOW_FLAGS, dwFlags, BOOL)
+    result := DllCall("USER32.dll\UpdateLayeredWindow", HWND, _hWnd, hdcDstMarshal, hdcDst, pptDstMarshal, pptDst, psizeMarshal, psize, hdcSrcMarshal, hdcSrc, pptSrcMarshal, pptSrc, COLORREF, crKey, pblendMarshal, pblend, UPDATE_LAYERED_WINDOW_FLAGS, dwFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -3903,7 +3956,6 @@ export UpdateLayeredWindow(_hWnd, hdcDst, pptDst, psize, hdcSrc, pptSrc, crKey, 
 }
 
 /**
- * 
  * @param {HWND} _hWnd 
  * @param {Pointer<UPDATELAYEREDWINDOWINFO>} pULWInfo 
  * @returns {BOOL} 
@@ -3938,9 +3990,12 @@ export UpdateLayeredWindowIndirect(_hWnd, pULWInfo) {
  * @since windows5.1.2600
  */
 export GetLayeredWindowAttributes(_hwnd, pcrKey, pbAlpha, pdwFlags) {
-    pcrKeyMarshal := pcrKey is VarRef ? "uint*" : "ptr"
-    pbAlphaMarshal := pbAlpha is VarRef ? "char*" : "ptr"
-    pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+    pcrKeyMarshal := pcrKey is VarRef ? "uint*" : IntPtr
+    pcrKeyMarshal := pcrKey == 0 ? IntPtr : COLORREF.Ptr
+    pbAlphaMarshal := pbAlpha is VarRef ? "char*" : IntPtr
+    pbAlphaMarshal := pbAlpha == 0 ? IntPtr : "char*"
+    pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : IntPtr
+    pdwFlagsMarshal := pdwFlags == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
@@ -4228,9 +4283,11 @@ export MoveWindow(_hWnd, X, Y, nWidth, nHeight, bRepaint) {
  * @since windows5.0
  */
 export SetWindowPos(_hWnd, hWndInsertAfter, X, Y, cx, _cy, uFlags) {
+    hWndInsertAfterMarshal := hWndInsertAfter == 0 ? IntPtr : HWND
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\SetWindowPos", HWND, _hWnd, HWND, hWndInsertAfter, Int32, X, Int32, Y, Int32, cx, Int32, _cy, SET_WINDOW_POS_FLAGS, uFlags, BOOL)
+    result := DllCall("USER32.dll\SetWindowPos", HWND, _hWnd, hWndInsertAfterMarshal, hWndInsertAfter, Int32, X, Int32, Y, Int32, cx, Int32, _cy, SET_WINDOW_POS_FLAGS, uFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4329,7 +4386,7 @@ export SetWindowPlacement(_hWnd, lpwndpl) {
  * @since windows6.1
  */
 export GetWindowDisplayAffinity(_hWnd, pdwAffinity) {
-    pdwAffinityMarshal := pdwAffinity is VarRef ? "uint*" : "ptr"
+    pdwAffinityMarshal := pdwAffinity is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -4455,9 +4512,11 @@ export BeginDeferWindowPos(nNumWindows) {
  * @since windows5.0
  */
 export DeferWindowPos(hWinPosInfo, _hWnd, hWndInsertAfter, x, y, cx, _cy, uFlags) {
+    hWndInsertAfterMarshal := hWndInsertAfter == 0 ? IntPtr : HWND
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\DeferWindowPos", HDWP, hWinPosInfo, HWND, _hWnd, HWND, hWndInsertAfter, Int32, x, Int32, y, Int32, cx, Int32, _cy, SET_WINDOW_POS_FLAGS, uFlags, HDWP)
+    result := DllCall("USER32.dll\DeferWindowPos", HDWP, hWinPosInfo, HWND, _hWnd, hWndInsertAfterMarshal, hWndInsertAfter, Int32, x, Int32, y, Int32, cx, Int32, _cy, SET_WINDOW_POS_FLAGS, uFlags, HDWP)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4634,9 +4693,13 @@ export IsZoomed(_hWnd) {
 export CreateDialogParamA(_hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam) {
     lpTemplateName := lpTemplateName is String ? StrPtr(lpTemplateName) : lpTemplateName
 
+    _hInstanceMarshal := _hInstance == 0 ? IntPtr : HINSTANCE
+    hWndParentMarshal := hWndParent == 0 ? IntPtr : HWND
+    lpDialogFuncMarshal := lpDialogFunc == 0 ? IntPtr : DLGPROC
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\CreateDialogParamA", HINSTANCE, _hInstance, "ptr", lpTemplateName, HWND, hWndParent, DLGPROC, lpDialogFunc, LPARAM, dwInitParam, HWND)
+    result := DllCall("USER32.dll\CreateDialogParamA", _hInstanceMarshal, _hInstance, "ptr", lpTemplateName, hWndParentMarshal, hWndParent, lpDialogFuncMarshal, lpDialogFunc, LPARAM, dwInitParam, HWND)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4683,9 +4746,13 @@ export CreateDialogParamA(_hInstance, lpTemplateName, hWndParent, lpDialogFunc, 
 export CreateDialogParamW(_hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam) {
     lpTemplateName := lpTemplateName is String ? StrPtr(lpTemplateName) : lpTemplateName
 
+    _hInstanceMarshal := _hInstance == 0 ? IntPtr : HINSTANCE
+    hWndParentMarshal := hWndParent == 0 ? IntPtr : HWND
+    lpDialogFuncMarshal := lpDialogFunc == 0 ? IntPtr : DLGPROC
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\CreateDialogParamW", HINSTANCE, _hInstance, "ptr", lpTemplateName, HWND, hWndParent, DLGPROC, lpDialogFunc, LPARAM, dwInitParam, HWND)
+    result := DllCall("USER32.dll\CreateDialogParamW", _hInstanceMarshal, _hInstance, "ptr", lpTemplateName, hWndParentMarshal, hWndParent, lpDialogFuncMarshal, lpDialogFunc, LPARAM, dwInitParam, HWND)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4743,9 +4810,13 @@ export CreateDialogParamW(_hInstance, lpTemplateName, hWndParent, lpDialogFunc, 
  * @since windows5.0
  */
 export CreateDialogIndirectParamA(_hInstance, lpTemplate, hWndParent, lpDialogFunc, dwInitParam) {
+    _hInstanceMarshal := _hInstance == 0 ? IntPtr : HINSTANCE
+    hWndParentMarshal := hWndParent == 0 ? IntPtr : HWND
+    lpDialogFuncMarshal := lpDialogFunc == 0 ? IntPtr : DLGPROC
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\CreateDialogIndirectParamA", HINSTANCE, _hInstance, DLGTEMPLATE.Ptr, lpTemplate, HWND, hWndParent, DLGPROC, lpDialogFunc, LPARAM, dwInitParam, HWND)
+    result := DllCall("USER32.dll\CreateDialogIndirectParamA", _hInstanceMarshal, _hInstance, DLGTEMPLATE.Ptr, lpTemplate, hWndParentMarshal, hWndParent, lpDialogFuncMarshal, lpDialogFunc, LPARAM, dwInitParam, HWND)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4803,9 +4874,13 @@ export CreateDialogIndirectParamA(_hInstance, lpTemplate, hWndParent, lpDialogFu
  * @since windows5.0
  */
 export CreateDialogIndirectParamW(_hInstance, lpTemplate, hWndParent, lpDialogFunc, dwInitParam) {
+    _hInstanceMarshal := _hInstance == 0 ? IntPtr : HINSTANCE
+    hWndParentMarshal := hWndParent == 0 ? IntPtr : HWND
+    lpDialogFuncMarshal := lpDialogFunc == 0 ? IntPtr : DLGPROC
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\CreateDialogIndirectParamW", HINSTANCE, _hInstance, DLGTEMPLATE.Ptr, lpTemplate, HWND, hWndParent, DLGPROC, lpDialogFunc, LPARAM, dwInitParam, HWND)
+    result := DllCall("USER32.dll\CreateDialogIndirectParamW", _hInstanceMarshal, _hInstance, DLGTEMPLATE.Ptr, lpTemplate, hWndParentMarshal, hWndParent, lpDialogFuncMarshal, lpDialogFunc, LPARAM, dwInitParam, HWND)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4852,9 +4927,13 @@ export CreateDialogIndirectParamW(_hInstance, lpTemplate, hWndParent, lpDialogFu
 export DialogBoxParamA(_hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam) {
     lpTemplateName := lpTemplateName is String ? StrPtr(lpTemplateName) : lpTemplateName
 
+    _hInstanceMarshal := _hInstance == 0 ? IntPtr : HINSTANCE
+    hWndParentMarshal := hWndParent == 0 ? IntPtr : HWND
+    lpDialogFuncMarshal := lpDialogFunc == 0 ? IntPtr : DLGPROC
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\DialogBoxParamA", HINSTANCE, _hInstance, "ptr", lpTemplateName, HWND, hWndParent, DLGPROC, lpDialogFunc, LPARAM, dwInitParam, IntPtr)
+    result := DllCall("USER32.dll\DialogBoxParamA", _hInstanceMarshal, _hInstance, "ptr", lpTemplateName, hWndParentMarshal, hWndParent, lpDialogFuncMarshal, lpDialogFunc, LPARAM, dwInitParam, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4901,9 +4980,13 @@ export DialogBoxParamA(_hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwI
 export DialogBoxParamW(_hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam) {
     lpTemplateName := lpTemplateName is String ? StrPtr(lpTemplateName) : lpTemplateName
 
+    _hInstanceMarshal := _hInstance == 0 ? IntPtr : HINSTANCE
+    hWndParentMarshal := hWndParent == 0 ? IntPtr : HWND
+    lpDialogFuncMarshal := lpDialogFunc == 0 ? IntPtr : DLGPROC
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\DialogBoxParamW", HINSTANCE, _hInstance, "ptr", lpTemplateName, HWND, hWndParent, DLGPROC, lpDialogFunc, LPARAM, dwInitParam, IntPtr)
+    result := DllCall("USER32.dll\DialogBoxParamW", _hInstanceMarshal, _hInstance, "ptr", lpTemplateName, hWndParentMarshal, hWndParent, lpDialogFuncMarshal, lpDialogFunc, LPARAM, dwInitParam, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -4959,9 +5042,13 @@ export DialogBoxParamW(_hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwI
  * @since windows5.0
  */
 export DialogBoxIndirectParamA(_hInstance, hDialogTemplate, hWndParent, lpDialogFunc, dwInitParam) {
+    _hInstanceMarshal := _hInstance == 0 ? IntPtr : HINSTANCE
+    hWndParentMarshal := hWndParent == 0 ? IntPtr : HWND
+    lpDialogFuncMarshal := lpDialogFunc == 0 ? IntPtr : DLGPROC
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\DialogBoxIndirectParamA", HINSTANCE, _hInstance, DLGTEMPLATE.Ptr, hDialogTemplate, HWND, hWndParent, DLGPROC, lpDialogFunc, LPARAM, dwInitParam, IntPtr)
+    result := DllCall("USER32.dll\DialogBoxIndirectParamA", _hInstanceMarshal, _hInstance, DLGTEMPLATE.Ptr, hDialogTemplate, hWndParentMarshal, hWndParent, lpDialogFuncMarshal, lpDialogFunc, LPARAM, dwInitParam, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5017,9 +5104,13 @@ export DialogBoxIndirectParamA(_hInstance, hDialogTemplate, hWndParent, lpDialog
  * @since windows5.0
  */
 export DialogBoxIndirectParamW(_hInstance, hDialogTemplate, hWndParent, lpDialogFunc, dwInitParam) {
+    _hInstanceMarshal := _hInstance == 0 ? IntPtr : HINSTANCE
+    hWndParentMarshal := hWndParent == 0 ? IntPtr : HWND
+    lpDialogFuncMarshal := lpDialogFunc == 0 ? IntPtr : DLGPROC
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\DialogBoxIndirectParamW", HINSTANCE, _hInstance, DLGTEMPLATE.Ptr, hDialogTemplate, HWND, hWndParent, DLGPROC, lpDialogFunc, LPARAM, dwInitParam, IntPtr)
+    result := DllCall("USER32.dll\DialogBoxIndirectParamW", _hInstanceMarshal, _hInstance, DLGTEMPLATE.Ptr, hDialogTemplate, hWndParentMarshal, hWndParent, lpDialogFuncMarshal, lpDialogFunc, LPARAM, dwInitParam, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5079,9 +5170,11 @@ export EndDialog(hDlg, nResult) {
  * @since windows5.0
  */
 export GetDlgItem(hDlg, nIDDlgItem) {
+    hDlgMarshal := hDlg == 0 ? IntPtr : HWND
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetDlgItem", HWND, hDlg, Int32, nIDDlgItem, HWND)
+    result := DllCall("USER32.dll\GetDlgItem", hDlgMarshal, hDlg, Int32, nIDDlgItem, HWND)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5159,7 +5252,8 @@ export SetDlgItemInt(hDlg, nIDDlgItem, uValue, bSigned) {
  * @since windows5.0
  */
 export GetDlgItemInt(hDlg, nIDDlgItem, lpTranslated, bSigned) {
-    lpTranslatedMarshal := lpTranslated is VarRef ? "int*" : "ptr"
+    lpTranslatedMarshal := lpTranslated is VarRef ? "int*" : IntPtr
+    lpTranslatedMarshal := lpTranslated == 0 ? IntPtr : BOOL.Ptr
 
     A_LastError := 0
 
@@ -5413,9 +5507,11 @@ export SendDlgItemMessageW(hDlg, nIDDlgItem, _Msg, _wParam, _lParam) {
  * @since windows5.0
  */
 export GetNextDlgGroupItem(hDlg, hCtl, bPrevious) {
+    hCtlMarshal := hCtl == 0 ? IntPtr : HWND
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetNextDlgGroupItem", HWND, hDlg, HWND, hCtl, BOOL, bPrevious, HWND)
+    result := DllCall("USER32.dll\GetNextDlgGroupItem", HWND, hDlg, hCtlMarshal, hCtl, BOOL, bPrevious, HWND)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -5454,9 +5550,11 @@ export GetNextDlgGroupItem(hDlg, hCtl, bPrevious) {
  * @since windows5.0
  */
 export GetNextDlgTabItem(hDlg, hCtl, bPrevious) {
+    hCtlMarshal := hCtl == 0 ? IntPtr : HWND
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetNextDlgTabItem", HWND, hDlg, HWND, hCtl, BOOL, bPrevious, HWND)
+    result := DllCall("USER32.dll\GetNextDlgTabItem", HWND, hDlg, hCtlMarshal, hCtl, BOOL, bPrevious, HWND)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -6738,7 +6836,6 @@ export IsCharLowerA(ch) {
 }
 
 /**
- * 
  * @remarks
  * > [!NOTE]
  * > The winuser.h header defines IsCharLower as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
@@ -6934,9 +7031,11 @@ export GetQueueStatus(flags) {
  * @since windows5.1.2600
  */
 export MsgWaitForMultipleObjects(nCount, pHandles, fWaitAll, dwMilliseconds, dwWakeMask) {
+    pHandlesMarshal := pHandles == 0 ? IntPtr : HANDLE.Ptr
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\MsgWaitForMultipleObjects", UInt32, nCount, HANDLE.Ptr, pHandles, BOOL, fWaitAll, UInt32, dwMilliseconds, QUEUE_STATUS_FLAGS, dwWakeMask, WAIT_EVENT)
+    result := DllCall("USER32.dll\MsgWaitForMultipleObjects", UInt32, nCount, pHandlesMarshal, pHandles, BOOL, fWaitAll, UInt32, dwMilliseconds, QUEUE_STATUS_FLAGS, dwWakeMask, WAIT_EVENT)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7091,9 +7190,11 @@ export MsgWaitForMultipleObjects(nCount, pHandles, fWaitAll, dwMilliseconds, dwW
  * @since windows5.1.2600
  */
 export MsgWaitForMultipleObjectsEx(nCount, pHandles, dwMilliseconds, dwWakeMask, dwFlags) {
+    pHandlesMarshal := pHandles == 0 ? IntPtr : HANDLE.Ptr
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\MsgWaitForMultipleObjectsEx", UInt32, nCount, HANDLE.Ptr, pHandles, UInt32, dwMilliseconds, QUEUE_STATUS_FLAGS, dwWakeMask, MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS, dwFlags, WAIT_EVENT)
+    result := DllCall("USER32.dll\MsgWaitForMultipleObjectsEx", UInt32, nCount, pHandlesMarshal, pHandles, UInt32, dwMilliseconds, QUEUE_STATUS_FLAGS, dwWakeMask, MSG_WAIT_FOR_MULTIPLE_OBJECTS_EX_FLAGS, dwFlags, WAIT_EVENT)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7138,9 +7239,12 @@ export MsgWaitForMultipleObjectsEx(nCount, pHandles, dwMilliseconds, dwWakeMask,
  * @since windows5.0
  */
 export SetTimer(_hWnd, nIDEvent, uElapse, lpTimerFunc) {
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+    lpTimerFuncMarshal := lpTimerFunc == 0 ? IntPtr : TIMERPROC
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\SetTimer", HWND, _hWnd, IntPtr, nIDEvent, UInt32, uElapse, TIMERPROC, lpTimerFunc, IntPtr)
+    result := DllCall("USER32.dll\SetTimer", _hWndMarshal, _hWnd, IntPtr, nIDEvent, UInt32, uElapse, lpTimerFuncMarshal, lpTimerFunc, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7192,9 +7296,12 @@ export SetTimer(_hWnd, nIDEvent, uElapse, lpTimerFunc) {
  * @since windows8.0
  */
 export SetCoalescableTimer(_hWnd, nIDEvent, uElapse, lpTimerFunc, uToleranceDelay) {
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+    lpTimerFuncMarshal := lpTimerFunc == 0 ? IntPtr : TIMERPROC
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\SetCoalescableTimer", HWND, _hWnd, IntPtr, nIDEvent, UInt32, uElapse, TIMERPROC, lpTimerFunc, UInt32, uToleranceDelay, IntPtr)
+    result := DllCall("USER32.dll\SetCoalescableTimer", _hWndMarshal, _hWnd, IntPtr, nIDEvent, UInt32, uElapse, lpTimerFuncMarshal, lpTimerFunc, UInt32, uToleranceDelay, IntPtr)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7226,9 +7333,11 @@ export SetCoalescableTimer(_hWnd, nIDEvent, uElapse, lpTimerFunc, uToleranceDela
  * @since windows5.0
  */
 export KillTimer(_hWnd, uIDEvent) {
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\KillTimer", HWND, _hWnd, IntPtr, uIDEvent, BOOL)
+    result := DllCall("USER32.dll\KillTimer", _hWndMarshal, _hWnd, IntPtr, uIDEvent, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7281,9 +7390,11 @@ export IsWindowUnicode(_hWnd) {
 export LoadAcceleratorsA(_hInstance, lpTableName) {
     lpTableName := lpTableName is String ? StrPtr(lpTableName) : lpTableName
 
+    _hInstanceMarshal := _hInstance == 0 ? IntPtr : HINSTANCE
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\LoadAcceleratorsA", HINSTANCE, _hInstance, "ptr", lpTableName, HACCEL.Owned)
+    result := DllCall("USER32.dll\LoadAcceleratorsA", _hInstanceMarshal, _hInstance, "ptr", lpTableName, HACCEL.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7314,9 +7425,11 @@ export LoadAcceleratorsA(_hInstance, lpTableName) {
 export LoadAcceleratorsW(_hInstance, lpTableName) {
     lpTableName := lpTableName is String ? StrPtr(lpTableName) : lpTableName
 
+    _hInstanceMarshal := _hInstance == 0 ? IntPtr : HINSTANCE
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\LoadAcceleratorsW", HINSTANCE, _hInstance, "ptr", lpTableName, HACCEL.Owned)
+    result := DllCall("USER32.dll\LoadAcceleratorsW", _hInstanceMarshal, _hInstance, "ptr", lpTableName, HACCEL.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7419,7 +7532,9 @@ export DestroyAcceleratorTable(_hAccel) {
  * @since windows5.0
  */
 export CopyAcceleratorTableA(hAccelSrc, lpAccelDst, cAccelEntries) {
-    result := DllCall("USER32.dll\CopyAcceleratorTableA", HACCEL, hAccelSrc, ACCEL.Ptr, lpAccelDst, Int32, cAccelEntries, Int32)
+    lpAccelDstMarshal := lpAccelDst == 0 ? IntPtr : ACCEL.Ptr
+
+    result := DllCall("USER32.dll\CopyAcceleratorTableA", HACCEL, hAccelSrc, lpAccelDstMarshal, lpAccelDst, Int32, cAccelEntries, Int32)
     return result
 }
 
@@ -7446,7 +7561,9 @@ export CopyAcceleratorTableA(hAccelSrc, lpAccelDst, cAccelEntries) {
  * @since windows5.0
  */
 export CopyAcceleratorTableW(hAccelSrc, lpAccelDst, cAccelEntries) {
-    result := DllCall("USER32.dll\CopyAcceleratorTableW", HACCEL, hAccelSrc, ACCEL.Ptr, lpAccelDst, Int32, cAccelEntries, Int32)
+    lpAccelDstMarshal := lpAccelDst == 0 ? IntPtr : ACCEL.Ptr
+
+    result := DllCall("USER32.dll\CopyAcceleratorTableW", HACCEL, hAccelSrc, lpAccelDstMarshal, lpAccelDst, Int32, cAccelEntries, Int32)
     return result
 }
 
@@ -7745,9 +7862,11 @@ export GetSystemMetrics(nIndex) {
 export LoadMenuA(_hInstance, lpMenuName) {
     lpMenuName := lpMenuName is String ? StrPtr(lpMenuName) : lpMenuName
 
+    _hInstanceMarshal := _hInstance == 0 ? IntPtr : HINSTANCE
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\LoadMenuA", HINSTANCE, _hInstance, "ptr", lpMenuName, HMENU.Owned)
+    result := DllCall("USER32.dll\LoadMenuA", _hInstanceMarshal, _hInstance, "ptr", lpMenuName, HMENU.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7776,9 +7895,11 @@ export LoadMenuA(_hInstance, lpMenuName) {
 export LoadMenuW(_hInstance, lpMenuName) {
     lpMenuName := lpMenuName is String ? StrPtr(lpMenuName) : lpMenuName
 
+    _hInstanceMarshal := _hInstance == 0 ? IntPtr : HINSTANCE
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\LoadMenuW", HINSTANCE, _hInstance, "ptr", lpMenuName, HMENU.Owned)
+    result := DllCall("USER32.dll\LoadMenuW", _hInstanceMarshal, _hInstance, "ptr", lpMenuName, HMENU.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7809,7 +7930,7 @@ export LoadMenuW(_hInstance, lpMenuName) {
  * @since windows5.0
  */
 export LoadMenuIndirectA(lpMenuTemplate) {
-    lpMenuTemplateMarshal := lpMenuTemplate is VarRef ? "ptr" : "ptr"
+    lpMenuTemplateMarshal := lpMenuTemplate is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -7844,7 +7965,7 @@ export LoadMenuIndirectA(lpMenuTemplate) {
  * @since windows5.0
  */
 export LoadMenuIndirectW(lpMenuTemplate) {
-    lpMenuTemplateMarshal := lpMenuTemplate is VarRef ? "ptr" : "ptr"
+    lpMenuTemplateMarshal := lpMenuTemplate is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
@@ -7895,9 +8016,11 @@ export GetMenu(_hWnd) {
  * @since windows5.0
  */
 export SetMenu(_hWnd, _hMenu) {
+    _hMenuMarshal := _hMenu == 0 ? IntPtr : HMENU
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\SetMenu", HWND, _hWnd, HMENU, _hMenu, BOOL)
+    result := DllCall("USER32.dll\SetMenu", HWND, _hWnd, _hMenuMarshal, _hMenu, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -7906,7 +8029,6 @@ export SetMenu(_hWnd, _hMenu) {
 }
 
 /**
- * 
  * @param {HMENU} _hMenu 
  * @param {Integer} cmd 
  * @param {PSTR} lpszNewItem 
@@ -7917,12 +8039,13 @@ export SetMenu(_hWnd, _hMenu) {
 export ChangeMenuA(_hMenu, cmd, lpszNewItem, cmdInsert, flags) {
     lpszNewItem := lpszNewItem is String ? StrPtr(lpszNewItem) : lpszNewItem
 
-    result := DllCall("USER32.dll\ChangeMenuA", HMENU, _hMenu, UInt32, cmd, "ptr", lpszNewItem, UInt32, cmdInsert, UInt32, flags, BOOL)
+    lpszNewItemMarshal := lpszNewItem == 0 ? IntPtr : PSTR
+
+    result := DllCall("USER32.dll\ChangeMenuA", HMENU, _hMenu, UInt32, cmd, lpszNewItemMarshal, lpszNewItem, UInt32, cmdInsert, UInt32, flags, BOOL)
     return result
 }
 
 /**
- * 
  * @param {HMENU} _hMenu 
  * @param {Integer} cmd 
  * @param {PWSTR} lpszNewItem 
@@ -7933,7 +8056,9 @@ export ChangeMenuA(_hMenu, cmd, lpszNewItem, cmdInsert, flags) {
 export ChangeMenuW(_hMenu, cmd, lpszNewItem, cmdInsert, flags) {
     lpszNewItem := lpszNewItem is String ? StrPtr(lpszNewItem) : lpszNewItem
 
-    result := DllCall("USER32.dll\ChangeMenuW", HMENU, _hMenu, UInt32, cmd, "ptr", lpszNewItem, UInt32, cmdInsert, UInt32, flags, BOOL)
+    lpszNewItemMarshal := lpszNewItem == 0 ? IntPtr : PWSTR
+
+    result := DllCall("USER32.dll\ChangeMenuW", HMENU, _hMenu, UInt32, cmd, lpszNewItemMarshal, lpszNewItem, UInt32, cmdInsert, UInt32, flags, BOOL)
     return result
 }
 
@@ -8052,7 +8177,9 @@ export HiliteMenuItem(_hWnd, _hMenu, uIDHiliteItem, uHilite) {
 export GetMenuStringA(_hMenu, uIDItem, lpString, cchMax, flags) {
     lpString := lpString is String ? StrPtr(lpString) : lpString
 
-    result := DllCall("USER32.dll\GetMenuStringA", HMENU, _hMenu, UInt32, uIDItem, "ptr", lpString, Int32, cchMax, MENU_ITEM_FLAGS, flags, Int32)
+    lpStringMarshal := lpString == 0 ? IntPtr : PSTR
+
+    result := DllCall("USER32.dll\GetMenuStringA", HMENU, _hMenu, UInt32, uIDItem, lpStringMarshal, lpString, Int32, cchMax, MENU_ITEM_FLAGS, flags, Int32)
     return result
 }
 
@@ -8091,7 +8218,9 @@ export GetMenuStringA(_hMenu, uIDItem, lpString, cchMax, flags) {
 export GetMenuStringW(_hMenu, uIDItem, lpString, cchMax, flags) {
     lpString := lpString is String ? StrPtr(lpString) : lpString
 
-    result := DllCall("USER32.dll\GetMenuStringW", HMENU, _hMenu, UInt32, uIDItem, "ptr", lpString, Int32, cchMax, MENU_ITEM_FLAGS, flags, Int32)
+    lpStringMarshal := lpString == 0 ? IntPtr : PWSTR
+
+    result := DllCall("USER32.dll\GetMenuStringW", HMENU, _hMenu, UInt32, uIDItem, lpStringMarshal, lpString, Int32, cchMax, MENU_ITEM_FLAGS, flags, Int32)
     return result
 }
 
@@ -8547,9 +8676,11 @@ export GetMenuItemID(_hMenu, nPos) {
  * @since windows5.0
  */
 export GetMenuItemCount(_hMenu) {
+    _hMenuMarshal := _hMenu == 0 ? IntPtr : HMENU
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetMenuItemCount", HMENU, _hMenu, Int32)
+    result := DllCall("USER32.dll\GetMenuItemCount", _hMenuMarshal, _hMenu, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8672,9 +8803,11 @@ export GetMenuItemCount(_hMenu) {
 export InsertMenuA(_hMenu, uPosition, uFlags, uIDNewItem, lpNewItem) {
     lpNewItem := lpNewItem is String ? StrPtr(lpNewItem) : lpNewItem
 
+    lpNewItemMarshal := lpNewItem == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\InsertMenuA", HMENU, _hMenu, UInt32, uPosition, MENU_ITEM_FLAGS, uFlags, IntPtr, uIDNewItem, "ptr", lpNewItem, BOOL)
+    result := DllCall("USER32.dll\InsertMenuA", HMENU, _hMenu, UInt32, uPosition, MENU_ITEM_FLAGS, uFlags, IntPtr, uIDNewItem, lpNewItemMarshal, lpNewItem, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8797,9 +8930,11 @@ export InsertMenuA(_hMenu, uPosition, uFlags, uIDNewItem, lpNewItem) {
 export InsertMenuW(_hMenu, uPosition, uFlags, uIDNewItem, lpNewItem) {
     lpNewItem := lpNewItem is String ? StrPtr(lpNewItem) : lpNewItem
 
+    lpNewItemMarshal := lpNewItem == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\InsertMenuW", HMENU, _hMenu, UInt32, uPosition, MENU_ITEM_FLAGS, uFlags, IntPtr, uIDNewItem, "ptr", lpNewItem, BOOL)
+    result := DllCall("USER32.dll\InsertMenuW", HMENU, _hMenu, UInt32, uPosition, MENU_ITEM_FLAGS, uFlags, IntPtr, uIDNewItem, lpNewItemMarshal, lpNewItem, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8881,9 +9016,11 @@ export InsertMenuW(_hMenu, uPosition, uFlags, uIDNewItem, lpNewItem) {
 export AppendMenuA(_hMenu, uFlags, uIDNewItem, lpNewItem) {
     lpNewItem := lpNewItem is String ? StrPtr(lpNewItem) : lpNewItem
 
+    lpNewItemMarshal := lpNewItem == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\AppendMenuA", HMENU, _hMenu, MENU_ITEM_FLAGS, uFlags, IntPtr, uIDNewItem, "ptr", lpNewItem, BOOL)
+    result := DllCall("USER32.dll\AppendMenuA", HMENU, _hMenu, MENU_ITEM_FLAGS, uFlags, IntPtr, uIDNewItem, lpNewItemMarshal, lpNewItem, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -8965,9 +9102,11 @@ export AppendMenuA(_hMenu, uFlags, uIDNewItem, lpNewItem) {
 export AppendMenuW(_hMenu, uFlags, uIDNewItem, lpNewItem) {
     lpNewItem := lpNewItem is String ? StrPtr(lpNewItem) : lpNewItem
 
+    lpNewItemMarshal := lpNewItem == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\AppendMenuW", HMENU, _hMenu, MENU_ITEM_FLAGS, uFlags, IntPtr, uIDNewItem, "ptr", lpNewItem, BOOL)
+    result := DllCall("USER32.dll\AppendMenuW", HMENU, _hMenu, MENU_ITEM_FLAGS, uFlags, IntPtr, uIDNewItem, lpNewItemMarshal, lpNewItem, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9091,9 +9230,11 @@ export AppendMenuW(_hMenu, uFlags, uIDNewItem, lpNewItem) {
 export ModifyMenuA(hMnu, uPosition, uFlags, uIDNewItem, lpNewItem) {
     lpNewItem := lpNewItem is String ? StrPtr(lpNewItem) : lpNewItem
 
+    lpNewItemMarshal := lpNewItem == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\ModifyMenuA", HMENU, hMnu, UInt32, uPosition, MENU_ITEM_FLAGS, uFlags, IntPtr, uIDNewItem, "ptr", lpNewItem, BOOL)
+    result := DllCall("USER32.dll\ModifyMenuA", HMENU, hMnu, UInt32, uPosition, MENU_ITEM_FLAGS, uFlags, IntPtr, uIDNewItem, lpNewItemMarshal, lpNewItem, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9217,9 +9358,11 @@ export ModifyMenuA(hMnu, uPosition, uFlags, uIDNewItem, lpNewItem) {
 export ModifyMenuW(hMnu, uPosition, uFlags, uIDNewItem, lpNewItem) {
     lpNewItem := lpNewItem is String ? StrPtr(lpNewItem) : lpNewItem
 
+    lpNewItemMarshal := lpNewItem == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\ModifyMenuW", HMENU, hMnu, UInt32, uPosition, MENU_ITEM_FLAGS, uFlags, IntPtr, uIDNewItem, "ptr", lpNewItem, BOOL)
+    result := DllCall("USER32.dll\ModifyMenuW", HMENU, hMnu, UInt32, uPosition, MENU_ITEM_FLAGS, uFlags, IntPtr, uIDNewItem, lpNewItemMarshal, lpNewItem, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9320,9 +9463,12 @@ export DeleteMenu(_hMenu, uPosition, uFlags) {
  * @since windows5.0
  */
 export SetMenuItemBitmaps(_hMenu, uPosition, uFlags, hBitmapUnchecked, hBitmapChecked) {
+    hBitmapUncheckedMarshal := hBitmapUnchecked == 0 ? IntPtr : HBITMAP
+    hBitmapCheckedMarshal := hBitmapChecked == 0 ? IntPtr : HBITMAP
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\SetMenuItemBitmaps", HMENU, _hMenu, UInt32, uPosition, MENU_ITEM_FLAGS, uFlags, HBITMAP, hBitmapUnchecked, HBITMAP, hBitmapChecked, BOOL)
+    result := DllCall("USER32.dll\SetMenuItemBitmaps", HMENU, _hMenu, UInt32, uPosition, MENU_ITEM_FLAGS, uFlags, hBitmapUncheckedMarshal, hBitmapUnchecked, hBitmapCheckedMarshal, hBitmapChecked, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9638,9 +9784,11 @@ export GetMenuCheckMarkDimensions() {
 export TrackPopupMenu(_hMenu, uFlags, x, y, _hWnd, prcRect) {
     static nReserved := 0 ;Reserved parameters must always be NULL
 
+    prcRectMarshal := prcRect == 0 ? IntPtr : RECT.Ptr
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\TrackPopupMenu", HMENU, _hMenu, TRACK_POPUP_MENU_FLAGS, uFlags, Int32, x, Int32, y, Int32, nReserved, HWND, _hWnd, RECT.Ptr, prcRect, BOOL)
+    result := DllCall("USER32.dll\TrackPopupMenu", HMENU, _hMenu, TRACK_POPUP_MENU_FLAGS, uFlags, Int32, x, Int32, y, Int32, nReserved, HWND, _hWnd, prcRectMarshal, prcRect, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -9951,9 +10099,11 @@ export TrackPopupMenu(_hMenu, uFlags, x, y, _hWnd, prcRect) {
  * @since windows5.0
  */
 export TrackPopupMenuEx(_hMenu, uFlags, x, y, _hwnd, lptpm) {
+    lptpmMarshal := lptpm == 0 ? IntPtr : TPMPARAMS.Ptr
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\TrackPopupMenuEx", HMENU, _hMenu, UInt32, uFlags, Int32, x, Int32, y, HWND, _hwnd, TPMPARAMS.Ptr, lptpm, BOOL)
+    result := DllCall("USER32.dll\TrackPopupMenuEx", HMENU, _hMenu, UInt32, uFlags, Int32, x, Int32, y, HWND, _hwnd, lptpmMarshal, lptpm, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10169,9 +10319,11 @@ export TrackPopupMenuEx(_hMenu, uFlags, x, y, _hwnd, lptpm) {
  * @since windows6.1
  */
 export CalculatePopupWindowPosition(anchorPoint, windowSize, flags, excludeRect, popupWindowPosition) {
+    excludeRectMarshal := excludeRect == 0 ? IntPtr : RECT.Ptr
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\CalculatePopupWindowPosition", POINT.Ptr, anchorPoint, SIZE.Ptr, windowSize, UInt32, flags, RECT.Ptr, excludeRect, RECT.Ptr, popupWindowPosition, BOOL)
+    result := DllCall("USER32.dll\CalculatePopupWindowPosition", POINT.Ptr, anchorPoint, SIZE.Ptr, windowSize, UInt32, flags, excludeRectMarshal, excludeRect, RECT.Ptr, popupWindowPosition, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10565,9 +10717,11 @@ export SetMenuDefaultItem(_hMenu, uItem, fByPos) {
  * @since windows5.0
  */
 export GetMenuItemRect(_hWnd, _hMenu, uItem, lprcItem) {
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetMenuItemRect", HWND, _hWnd, HMENU, _hMenu, UInt32, uItem, RECT.Ptr, lprcItem, BOOL)
+    result := DllCall("USER32.dll\GetMenuItemRect", _hWndMarshal, _hWnd, HMENU, _hMenu, UInt32, uItem, RECT.Ptr, lprcItem, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10593,12 +10747,13 @@ export GetMenuItemRect(_hWnd, _hMenu, uItem, lprcItem) {
  * @since windows5.0
  */
 export MenuItemFromPoint(_hWnd, _hMenu, ptScreen) {
-    result := DllCall("USER32.dll\MenuItemFromPoint", HWND, _hWnd, HMENU, _hMenu, POINT, ptScreen, Int32)
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+
+    result := DllCall("USER32.dll\MenuItemFromPoint", _hWndMarshal, _hWnd, HMENU, _hMenu, POINT, ptScreen, Int32)
     return result
 }
 
 /**
- * 
  * @param {HWND} hwndParent 
  * @param {HWND} hwndFrom 
  * @param {Integer} fmt 
@@ -10607,7 +10762,9 @@ export MenuItemFromPoint(_hWnd, _hMenu, ptScreen) {
  * @returns {Integer} 
  */
 export DragObject(hwndParent, hwndFrom, fmt, data, hcur) {
-    result := DllCall("USER32.dll\DragObject", HWND, hwndParent, HWND, hwndFrom, UInt32, fmt, IntPtr, data, HCURSOR, hcur, UInt32)
+    hcurMarshal := hcur == 0 ? IntPtr : HCURSOR
+
+    result := DllCall("USER32.dll\DragObject", HWND, hwndParent, HWND, hwndFrom, UInt32, fmt, IntPtr, data, hcurMarshal, hcur, UInt32)
     return result
 }
 
@@ -10836,9 +10993,12 @@ export LockSetForegroundWindow(uLockCode) {
  * @since windows6.0.6000
  */
 export ScrollWindow(_hWnd, XAmount, YAmount, lpRect, lpClipRect) {
+    lpRectMarshal := lpRect == 0 ? IntPtr : RECT.Ptr
+    lpClipRectMarshal := lpClipRect == 0 ? IntPtr : RECT.Ptr
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\ScrollWindow", HWND, _hWnd, Int32, XAmount, Int32, YAmount, RECT.Ptr, lpRect, RECT.Ptr, lpClipRect, BOOL)
+    result := DllCall("USER32.dll\ScrollWindow", HWND, _hWnd, Int32, XAmount, Int32, YAmount, lpRectMarshal, lpRect, lpClipRectMarshal, lpClipRect, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10890,9 +11050,14 @@ export ScrollWindow(_hWnd, XAmount, YAmount, lpRect, lpClipRect) {
  * @since windows6.0.6000
  */
 export ScrollDC(_hDC, dx, dy, lprcScroll, lprcClip, hrgnUpdate, lprcUpdate) {
+    lprcScrollMarshal := lprcScroll == 0 ? IntPtr : RECT.Ptr
+    lprcClipMarshal := lprcClip == 0 ? IntPtr : RECT.Ptr
+    hrgnUpdateMarshal := hrgnUpdate == 0 ? IntPtr : HRGN
+    lprcUpdateMarshal := lprcUpdate == 0 ? IntPtr : RECT.Ptr
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\ScrollDC", HDC, _hDC, Int32, dx, Int32, dy, RECT.Ptr, lprcScroll, RECT.Ptr, lprcClip, HRGN, hrgnUpdate, RECT.Ptr, lprcUpdate, BOOL)
+    result := DllCall("USER32.dll\ScrollDC", HDC, _hDC, Int32, dx, Int32, dy, lprcScrollMarshal, lprcScroll, lprcClipMarshal, lprcClip, hrgnUpdateMarshal, hrgnUpdate, lprcUpdateMarshal, lprcUpdate, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -10952,9 +11117,14 @@ export ScrollDC(_hDC, dx, dy, lprcScroll, lprcClip, hrgnUpdate, lprcUpdate) {
  * @since windows6.0.6000
  */
 export ScrollWindowEx(_hWnd, dx, dy, prcScroll, prcClip, hrgnUpdate, prcUpdate, flags) {
+    prcScrollMarshal := prcScroll == 0 ? IntPtr : RECT.Ptr
+    prcClipMarshal := prcClip == 0 ? IntPtr : RECT.Ptr
+    hrgnUpdateMarshal := hrgnUpdate == 0 ? IntPtr : HRGN
+    prcUpdateMarshal := prcUpdate == 0 ? IntPtr : RECT.Ptr
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\ScrollWindowEx", HWND, _hWnd, Int32, dx, Int32, dy, RECT.Ptr, prcScroll, RECT.Ptr, prcClip, HRGN, hrgnUpdate, RECT.Ptr, prcUpdate, SCROLL_WINDOW_FLAGS, flags, Int32)
+    result := DllCall("USER32.dll\ScrollWindowEx", HWND, _hWnd, Int32, dx, Int32, dy, prcScrollMarshal, prcScroll, prcClipMarshal, prcClip, hrgnUpdateMarshal, hrgnUpdate, prcUpdateMarshal, prcUpdate, SCROLL_WINDOW_FLAGS, flags, Int32)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -11026,8 +11196,8 @@ export GetScrollPos(_hWnd, nBar) {
  * @since windows6.0.6000
  */
 export GetScrollRange(_hWnd, nBar, lpMinPos, lpMaxPos) {
-    lpMinPosMarshal := lpMinPos is VarRef ? "int*" : "ptr"
-    lpMaxPosMarshal := lpMaxPos is VarRef ? "int*" : "ptr"
+    lpMinPosMarshal := lpMinPos is VarRef ? "int*" : IntPtr
+    lpMaxPosMarshal := lpMaxPos is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
@@ -11065,9 +11235,11 @@ export GetScrollRange(_hWnd, nBar, lpMinPos, lpMaxPos) {
 export SetPropA(_hWnd, lpString, hData) {
     lpString := lpString is String ? StrPtr(lpString) : lpString
 
+    hDataMarshal := hData == 0 ? IntPtr : HANDLE
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\SetPropA", HWND, _hWnd, "ptr", lpString, HANDLE, hData, BOOL)
+    result := DllCall("USER32.dll\SetPropA", HWND, _hWnd, "ptr", lpString, hDataMarshal, hData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -11101,9 +11273,11 @@ export SetPropA(_hWnd, lpString, hData) {
 export SetPropW(_hWnd, lpString, hData) {
     lpString := lpString is String ? StrPtr(lpString) : lpString
 
+    hDataMarshal := hData == 0 ? IntPtr : HANDLE
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\SetPropW", HWND, _hWnd, "ptr", lpString, HANDLE, hData, BOOL)
+    result := DllCall("USER32.dll\SetPropW", HWND, _hWnd, "ptr", lpString, hDataMarshal, hData, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -11354,9 +11528,11 @@ export EnumPropsW(_hWnd, lpEnumFunc) {
 export SetWindowTextA(_hWnd, lpString) {
     lpString := lpString is String ? StrPtr(lpString) : lpString
 
+    lpStringMarshal := lpString == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\SetWindowTextA", HWND, _hWnd, "ptr", lpString, BOOL)
+    result := DllCall("USER32.dll\SetWindowTextA", HWND, _hWnd, lpStringMarshal, lpString, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -11389,9 +11565,11 @@ export SetWindowTextA(_hWnd, lpString) {
 export SetWindowTextW(_hWnd, lpString) {
     lpString := lpString is String ? StrPtr(lpString) : lpString
 
+    lpStringMarshal := lpString == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\SetWindowTextW", HWND, _hWnd, "ptr", lpString, BOOL)
+    result := DllCall("USER32.dll\SetWindowTextW", HWND, _hWnd, lpStringMarshal, lpString, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -11873,9 +12051,13 @@ export MessageBoxA(_hWnd, lpText, lpCaption, uType) {
     lpText := lpText is String ? StrPtr(lpText) : lpText
     lpCaption := lpCaption is String ? StrPtr(lpCaption) : lpCaption
 
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+    lpTextMarshal := lpText == 0 ? IntPtr : PSTR
+    lpCaptionMarshal := lpCaption == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\MessageBoxA", HWND, _hWnd, "ptr", lpText, "ptr", lpCaption, MESSAGEBOX_STYLE, uType, MESSAGEBOX_RESULT)
+    result := DllCall("USER32.dll\MessageBoxA", _hWndMarshal, _hWnd, lpTextMarshal, lpText, lpCaptionMarshal, lpCaption, MESSAGEBOX_STYLE, uType, MESSAGEBOX_RESULT)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -12058,9 +12240,13 @@ export MessageBoxW(_hWnd, lpText, lpCaption, uType) {
     lpText := lpText is String ? StrPtr(lpText) : lpText
     lpCaption := lpCaption is String ? StrPtr(lpCaption) : lpCaption
 
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+    lpTextMarshal := lpText == 0 ? IntPtr : PWSTR
+    lpCaptionMarshal := lpCaption == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\MessageBoxW", HWND, _hWnd, "ptr", lpText, "ptr", lpCaption, MESSAGEBOX_STYLE, uType, MESSAGEBOX_RESULT)
+    result := DllCall("USER32.dll\MessageBoxW", _hWndMarshal, _hWnd, lpTextMarshal, lpText, lpCaptionMarshal, lpCaption, MESSAGEBOX_STYLE, uType, MESSAGEBOX_RESULT)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -12228,9 +12414,13 @@ export MessageBoxExA(_hWnd, lpText, lpCaption, uType, wLanguageId) {
     lpText := lpText is String ? StrPtr(lpText) : lpText
     lpCaption := lpCaption is String ? StrPtr(lpCaption) : lpCaption
 
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+    lpTextMarshal := lpText == 0 ? IntPtr : PSTR
+    lpCaptionMarshal := lpCaption == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\MessageBoxExA", HWND, _hWnd, "ptr", lpText, "ptr", lpCaption, MESSAGEBOX_STYLE, uType, UInt16, wLanguageId, MESSAGEBOX_RESULT)
+    result := DllCall("USER32.dll\MessageBoxExA", _hWndMarshal, _hWnd, lpTextMarshal, lpText, lpCaptionMarshal, lpCaption, MESSAGEBOX_STYLE, uType, UInt16, wLanguageId, MESSAGEBOX_RESULT)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -12398,9 +12588,13 @@ export MessageBoxExW(_hWnd, lpText, lpCaption, uType, wLanguageId) {
     lpText := lpText is String ? StrPtr(lpText) : lpText
     lpCaption := lpCaption is String ? StrPtr(lpCaption) : lpCaption
 
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+    lpTextMarshal := lpText == 0 ? IntPtr : PWSTR
+    lpCaptionMarshal := lpCaption == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\MessageBoxExW", HWND, _hWnd, "ptr", lpText, "ptr", lpCaption, MESSAGEBOX_STYLE, uType, UInt16, wLanguageId, MESSAGEBOX_RESULT)
+    result := DllCall("USER32.dll\MessageBoxExW", _hWndMarshal, _hWnd, lpTextMarshal, lpText, lpCaptionMarshal, lpCaption, MESSAGEBOX_STYLE, uType, UInt16, wLanguageId, MESSAGEBOX_RESULT)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -12808,7 +13002,9 @@ export SetPhysicalCursorPos(X, Y) {
  * @since windows5.0
  */
 export SetCursor(_hCursor) {
-    result := DllCall("USER32.dll\SetCursor", HCURSOR, _hCursor, HCURSOR.Owned)
+    _hCursorMarshal := _hCursor == 0 ? IntPtr : HCURSOR
+
+    result := DllCall("USER32.dll\SetCursor", _hCursorMarshal, _hCursor, HCURSOR.Owned)
     return result
 }
 
@@ -12943,9 +13139,11 @@ export GetCursor() {
  * @since windows5.0
  */
 export CreateCaret(_hWnd, _hBitmap, nWidth, nHeight) {
+    _hBitmapMarshal := _hBitmap == 0 ? IntPtr : HBITMAP
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\CreateCaret", HWND, _hWnd, HBITMAP, _hBitmap, Int32, nWidth, Int32, nHeight, BOOL)
+    result := DllCall("USER32.dll\CreateCaret", HWND, _hWnd, _hBitmapMarshal, _hBitmap, Int32, nWidth, Int32, nHeight, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -13053,9 +13251,11 @@ export DestroyCaret() {
  * @since windows5.0
  */
 export HideCaret(_hWnd) {
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\HideCaret", HWND, _hWnd, BOOL)
+    result := DllCall("USER32.dll\HideCaret", _hWndMarshal, _hWnd, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -13083,9 +13283,11 @@ export HideCaret(_hWnd) {
  * @since windows5.0
  */
 export ShowCaret(_hWnd) {
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\ShowCaret", HWND, _hWnd, BOOL)
+    result := DllCall("USER32.dll\ShowCaret", _hWndMarshal, _hWnd, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -13308,9 +13510,11 @@ export ChildWindowFromPoint(hWndParent, _Point) {
  * @since windows5.0
  */
 export ClipCursor(lpRect) {
+    lpRectMarshal := lpRect == 0 ? IntPtr : RECT.Ptr
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\ClipCursor", RECT.Ptr, lpRect, BOOL)
+    result := DllCall("USER32.dll\ClipCursor", lpRectMarshal, lpRect, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -13423,7 +13627,6 @@ export GetWindowWord(_hWnd, nIndex) {
 }
 
 /**
- * 
  * @param {HWND} _hWnd 
  * @param {Integer} nIndex 
  * @param {Integer} wNewWord 
@@ -13827,7 +14030,7 @@ export SetClassLongW(_hWnd, nIndex, dwNewLong) {
  * @since windows5.0
  */
 export GetProcessDefaultLayout(pdwDefaultLayout) {
-    pdwDefaultLayoutMarshal := pdwDefaultLayout is VarRef ? "uint*" : "ptr"
+    pdwDefaultLayoutMarshal := pdwDefaultLayout is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -14027,9 +14230,11 @@ export GetParent(_hWnd) {
  * @since windows5.0
  */
 export SetParent(hWndChild, hWndNewParent) {
+    hWndNewParentMarshal := hWndNewParent == 0 ? IntPtr : HWND
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\SetParent", HWND, hWndChild, HWND, hWndNewParent, HWND)
+    result := DllCall("USER32.dll\SetParent", HWND, hWndChild, hWndNewParentMarshal, hWndNewParent, HWND)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14059,7 +14264,9 @@ export SetParent(hWndChild, hWndNewParent) {
  * @since windows5.0
  */
 export EnumChildWindows(hWndParent, lpEnumFunc, _lParam) {
-    result := DllCall("USER32.dll\EnumChildWindows", HWND, hWndParent, WNDENUMPROC, lpEnumFunc, LPARAM, _lParam, BOOL)
+    hWndParentMarshal := hWndParent == 0 ? IntPtr : HWND
+
+    result := DllCall("USER32.dll\EnumChildWindows", hWndParentMarshal, hWndParent, WNDENUMPROC, lpEnumFunc, LPARAM, _lParam, BOOL)
     return result
 }
 
@@ -14089,9 +14296,12 @@ export FindWindowA(lpClassName, lpWindowName) {
     lpClassName := lpClassName is String ? StrPtr(lpClassName) : lpClassName
     lpWindowName := lpWindowName is String ? StrPtr(lpWindowName) : lpWindowName
 
+    lpClassNameMarshal := lpClassName == 0 ? IntPtr : PSTR
+    lpWindowNameMarshal := lpWindowName == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\FindWindowA", "ptr", lpClassName, "ptr", lpWindowName, HWND)
+    result := DllCall("USER32.dll\FindWindowA", lpClassNameMarshal, lpClassName, lpWindowNameMarshal, lpWindowName, HWND)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14125,9 +14335,12 @@ export FindWindowW(lpClassName, lpWindowName) {
     lpClassName := lpClassName is String ? StrPtr(lpClassName) : lpClassName
     lpWindowName := lpWindowName is String ? StrPtr(lpWindowName) : lpWindowName
 
+    lpClassNameMarshal := lpClassName == 0 ? IntPtr : PWSTR
+    lpWindowNameMarshal := lpWindowName == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\FindWindowW", "ptr", lpClassName, "ptr", lpWindowName, HWND)
+    result := DllCall("USER32.dll\FindWindowW", lpClassNameMarshal, lpClassName, lpWindowNameMarshal, lpWindowName, HWND)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14188,9 +14401,14 @@ export FindWindowExA(hWndParent, hWndChildAfter, lpszClass, lpszWindow) {
     lpszClass := lpszClass is String ? StrPtr(lpszClass) : lpszClass
     lpszWindow := lpszWindow is String ? StrPtr(lpszWindow) : lpszWindow
 
+    hWndParentMarshal := hWndParent == 0 ? IntPtr : HWND
+    hWndChildAfterMarshal := hWndChildAfter == 0 ? IntPtr : HWND
+    lpszClassMarshal := lpszClass == 0 ? IntPtr : PSTR
+    lpszWindowMarshal := lpszWindow == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\FindWindowExA", HWND, hWndParent, HWND, hWndChildAfter, "ptr", lpszClass, "ptr", lpszWindow, HWND)
+    result := DllCall("USER32.dll\FindWindowExA", hWndParentMarshal, hWndParent, hWndChildAfterMarshal, hWndChildAfter, lpszClassMarshal, lpszClass, lpszWindowMarshal, lpszWindow, HWND)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14251,9 +14469,14 @@ export FindWindowExW(hWndParent, hWndChildAfter, lpszClass, lpszWindow) {
     lpszClass := lpszClass is String ? StrPtr(lpszClass) : lpszClass
     lpszWindow := lpszWindow is String ? StrPtr(lpszWindow) : lpszWindow
 
+    hWndParentMarshal := hWndParent == 0 ? IntPtr : HWND
+    hWndChildAfterMarshal := hWndChildAfter == 0 ? IntPtr : HWND
+    lpszClassMarshal := lpszClass == 0 ? IntPtr : PWSTR
+    lpszWindowMarshal := lpszWindow == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\FindWindowExW", HWND, hWndParent, HWND, hWndChildAfter, "ptr", lpszClass, "ptr", lpszWindow, HWND)
+    result := DllCall("USER32.dll\FindWindowExW", hWndParentMarshal, hWndParent, hWndChildAfterMarshal, hWndChildAfter, lpszClassMarshal, lpszClass, lpszWindowMarshal, lpszWindow, HWND)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14529,9 +14752,11 @@ export GetClassNameW(_hWnd, lpClassName, nMaxCount) {
  * @since windows5.0
  */
 export GetTopWindow(_hWnd) {
+    _hWndMarshal := _hWnd == 0 ? IntPtr : HWND
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetTopWindow", HWND, _hWnd, HWND)
+    result := DllCall("USER32.dll\GetTopWindow", _hWndMarshal, _hWnd, HWND)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14554,7 +14779,8 @@ export GetTopWindow(_hWnd) {
  * @since windows5.0
  */
 export GetWindowThreadProcessId(_hWnd, lpdwProcessId) {
-    lpdwProcessIdMarshal := lpdwProcessId is VarRef ? "uint*" : "ptr"
+    lpdwProcessIdMarshal := lpdwProcessId is VarRef ? "uint*" : IntPtr
+    lpdwProcessIdMarshal := lpdwProcessId == 0 ? IntPtr : "uint*"
 
     result := DllCall("USER32.dll\GetWindowThreadProcessId", HWND, _hWnd, lpdwProcessIdMarshal, lpdwProcessId, UInt32)
     return result
@@ -14632,7 +14858,6 @@ export GetWindow(_hWnd, uCmd) {
 }
 
 /**
- * 
  * @param {Integer} nFilterType 
  * @param {Pointer<HOOKPROC>} pfnFilterProc 
  * @returns {HHOOK} 
@@ -14643,7 +14868,6 @@ export SetWindowsHookA(nFilterType, pfnFilterProc) {
 }
 
 /**
- * 
  * @param {Integer} nFilterType 
  * @param {Pointer<HOOKPROC>} pfnFilterProc 
  * @returns {HHOOK} 
@@ -14654,7 +14878,6 @@ export SetWindowsHookW(nFilterType, pfnFilterProc) {
 }
 
 /**
- * 
  * @param {Integer} nCode 
  * @param {Pointer<HOOKPROC>} pfnFilterProc 
  * @returns {BOOL} 
@@ -14801,9 +15024,11 @@ export UnhookWindowsHook(nCode, pfnFilterProc) {
  * @since windows5.0
  */
 export SetWindowsHookExA(idHook, lpfn, hmod, dwThreadId) {
+    hmodMarshal := hmod == 0 ? IntPtr : HINSTANCE
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\SetWindowsHookExA", WINDOWS_HOOK_ID, idHook, HOOKPROC, lpfn, HINSTANCE, hmod, UInt32, dwThreadId, HHOOK.Owned)
+    result := DllCall("USER32.dll\SetWindowsHookExA", WINDOWS_HOOK_ID, idHook, HOOKPROC, lpfn, hmodMarshal, hmod, UInt32, dwThreadId, HHOOK.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -14948,9 +15173,11 @@ export SetWindowsHookExA(idHook, lpfn, hmod, dwThreadId) {
  * @since windows5.0
  */
 export SetWindowsHookExW(idHook, lpfn, hmod, dwThreadId) {
+    hmodMarshal := hmod == 0 ? IntPtr : HINSTANCE
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\SetWindowsHookExW", WINDOWS_HOOK_ID, idHook, HOOKPROC, lpfn, HINSTANCE, hmod, UInt32, dwThreadId, HHOOK.Owned)
+    result := DllCall("USER32.dll\SetWindowsHookExW", WINDOWS_HOOK_ID, idHook, HOOKPROC, lpfn, hmodMarshal, hmod, UInt32, dwThreadId, HHOOK.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -15009,7 +15236,9 @@ export UnhookWindowsHookEx(hhk) {
  * @since windows5.0
  */
 export CallNextHookEx(hhk, nCode, _wParam, _lParam) {
-    result := DllCall("USER32.dll\CallNextHookEx", HHOOK, hhk, Int32, nCode, WPARAM, _wParam, LPARAM, _lParam, LRESULT)
+    hhkMarshal := hhk == 0 ? IntPtr : HHOOK
+
+    result := DllCall("USER32.dll\CallNextHookEx", hhkMarshal, hhk, Int32, nCode, WPARAM, _wParam, LPARAM, _lParam, LRESULT)
     return result
 }
 
@@ -15262,9 +15491,11 @@ export CheckMenuRadioItem(_hmenu, first, last, check, flags) {
 export LoadCursorA(_hInstance, lpCursorName) {
     lpCursorName := lpCursorName is String ? StrPtr(lpCursorName) : lpCursorName
 
+    _hInstanceMarshal := _hInstance == 0 ? IntPtr : HINSTANCE
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\LoadCursorA", HINSTANCE, _hInstance, "ptr", lpCursorName, HCURSOR)
+    result := DllCall("USER32.dll\LoadCursorA", _hInstanceMarshal, _hInstance, "ptr", lpCursorName, HCURSOR)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -15481,9 +15712,11 @@ export LoadCursorA(_hInstance, lpCursorName) {
 export LoadCursorW(_hInstance, lpCursorName) {
     lpCursorName := lpCursorName is String ? StrPtr(lpCursorName) : lpCursorName
 
+    _hInstanceMarshal := _hInstance == 0 ? IntPtr : HINSTANCE
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\LoadCursorW", HINSTANCE, _hInstance, "ptr", lpCursorName, HCURSOR)
+    result := DllCall("USER32.dll\LoadCursorW", _hInstanceMarshal, _hInstance, "ptr", lpCursorName, HCURSOR)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -15644,12 +15877,13 @@ export LoadCursorFromFileW(lpFileName) {
  * @since windows5.0
  */
 export CreateCursor(hInst, xHotSpot, yHotSpot, nWidth, nHeight, pvANDPlane, pvXORPlane) {
-    pvANDPlaneMarshal := pvANDPlane is VarRef ? "ptr" : "ptr"
-    pvXORPlaneMarshal := pvXORPlane is VarRef ? "ptr" : "ptr"
+    hInstMarshal := hInst == 0 ? IntPtr : HINSTANCE
+    pvANDPlaneMarshal := pvANDPlane is VarRef ? "ptr" : IntPtr
+    pvXORPlaneMarshal := pvXORPlane is VarRef ? "ptr" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\CreateCursor", HINSTANCE, hInst, Int32, xHotSpot, Int32, yHotSpot, Int32, nWidth, Int32, nHeight, pvANDPlaneMarshal, pvANDPlane, pvXORPlaneMarshal, pvXORPlane, HCURSOR.Owned)
+    result := DllCall("USER32.dll\CreateCursor", hInstMarshal, hInst, Int32, xHotSpot, Int32, yHotSpot, Int32, nWidth, Int32, nHeight, pvANDPlaneMarshal, pvANDPlane, pvXORPlaneMarshal, pvXORPlane, HCURSOR.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -15755,9 +15989,11 @@ export SetSystemCursor(hcur, id) {
 export LoadIconA(_hInstance, lpIconName) {
     lpIconName := lpIconName is String ? StrPtr(lpIconName) : lpIconName
 
+    _hInstanceMarshal := _hInstance == 0 ? IntPtr : HINSTANCE
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\LoadIconA", HINSTANCE, _hInstance, "ptr", lpIconName, HICON.Owned)
+    result := DllCall("USER32.dll\LoadIconA", _hInstanceMarshal, _hInstance, "ptr", lpIconName, HICON.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -15795,9 +16031,11 @@ export LoadIconA(_hInstance, lpIconName) {
 export LoadIconW(_hInstance, lpIconName) {
     lpIconName := lpIconName is String ? StrPtr(lpIconName) : lpIconName
 
+    _hInstanceMarshal := _hInstance == 0 ? IntPtr : HINSTANCE
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\LoadIconW", HINSTANCE, _hInstance, "ptr", lpIconName, HICON.Owned)
+    result := DllCall("USER32.dll\LoadIconW", _hInstanceMarshal, _hInstance, "ptr", lpIconName, HICON.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -15878,9 +16116,11 @@ export LoadIconW(_hInstance, lpIconName) {
 export PrivateExtractIconsA(szFileName, nIconIndex, cxIcon, cyIcon, phicon, piconid, nIcons, flags) {
     szFileName := szFileName is String ? StrPtr(szFileName) : szFileName
 
-    piconidMarshal := piconid is VarRef ? "uint*" : "ptr"
+    phiconMarshal := phicon == 0 ? IntPtr : HICON.Ptr
+    piconidMarshal := piconid is VarRef ? "uint*" : IntPtr
+    piconidMarshal := piconid == 0 ? IntPtr : "uint*"
 
-    result := DllCall("USER32.dll\PrivateExtractIconsA", "ptr", szFileName, Int32, nIconIndex, Int32, cxIcon, Int32, cyIcon, HICON.Ptr, phicon, piconidMarshal, piconid, UInt32, nIcons, UInt32, flags, UInt32)
+    result := DllCall("USER32.dll\PrivateExtractIconsA", "ptr", szFileName, Int32, nIconIndex, Int32, cxIcon, Int32, cyIcon, phiconMarshal, phicon, piconidMarshal, piconid, UInt32, nIcons, UInt32, flags, UInt32)
     return result
 }
 
@@ -15957,9 +16197,11 @@ export PrivateExtractIconsA(szFileName, nIconIndex, cxIcon, cyIcon, phicon, pico
 export PrivateExtractIconsW(szFileName, nIconIndex, cxIcon, cyIcon, phicon, piconid, nIcons, flags) {
     szFileName := szFileName is String ? StrPtr(szFileName) : szFileName
 
-    piconidMarshal := piconid is VarRef ? "uint*" : "ptr"
+    phiconMarshal := phicon == 0 ? IntPtr : HICON.Ptr
+    piconidMarshal := piconid is VarRef ? "uint*" : IntPtr
+    piconidMarshal := piconid == 0 ? IntPtr : "uint*"
 
-    result := DllCall("USER32.dll\PrivateExtractIconsW", "ptr", szFileName, Int32, nIconIndex, Int32, cxIcon, Int32, cyIcon, HICON.Ptr, phicon, piconidMarshal, piconid, UInt32, nIcons, UInt32, flags, UInt32)
+    result := DllCall("USER32.dll\PrivateExtractIconsW", "ptr", szFileName, Int32, nIconIndex, Int32, cxIcon, Int32, cyIcon, phiconMarshal, phicon, piconidMarshal, piconid, UInt32, nIcons, UInt32, flags, UInt32)
     return result
 }
 
@@ -16029,12 +16271,13 @@ export PrivateExtractIconsW(szFileName, nIconIndex, cxIcon, cyIcon, phicon, pico
  * @since windows5.0
  */
 export CreateIcon(_hInstance, nWidth, nHeight, cPlanes, cBitsPixel, lpbANDbits, lpbXORbits) {
-    lpbANDbitsMarshal := lpbANDbits is VarRef ? "char*" : "ptr"
-    lpbXORbitsMarshal := lpbXORbits is VarRef ? "char*" : "ptr"
+    _hInstanceMarshal := _hInstance == 0 ? IntPtr : HINSTANCE
+    lpbANDbitsMarshal := lpbANDbits is VarRef ? "char*" : IntPtr
+    lpbXORbitsMarshal := lpbXORbits is VarRef ? "char*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("USER32.dll\CreateIcon", HINSTANCE, _hInstance, Int32, nWidth, Int32, nHeight, Int8, cPlanes, Int8, cBitsPixel, lpbANDbitsMarshal, lpbANDbits, lpbXORbitsMarshal, lpbXORbits, HICON.Owned)
+    result := DllCall("USER32.dll\CreateIcon", _hInstanceMarshal, _hInstance, Int32, nWidth, Int32, nHeight, Int8, cPlanes, Int8, cBitsPixel, lpbANDbitsMarshal, lpbANDbits, lpbXORbitsMarshal, lpbXORbits, HICON.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -16107,7 +16350,7 @@ export DestroyIcon(_hIcon) {
  * @since windows5.0
  */
 export LookupIconIdFromDirectory(presbits, fIcon) {
-    presbitsMarshal := presbits is VarRef ? "char*" : "ptr"
+    presbitsMarshal := presbits is VarRef ? "char*" : IntPtr
 
     A_LastError := 0
 
@@ -16149,7 +16392,7 @@ export LookupIconIdFromDirectory(presbits, fIcon) {
  * @since windows5.0
  */
 export LookupIconIdFromDirectoryEx(presbits, fIcon, cxDesired, cyDesired, Flags) {
-    presbitsMarshal := presbits is VarRef ? "char*" : "ptr"
+    presbitsMarshal := presbits is VarRef ? "char*" : IntPtr
 
     A_LastError := 0
 
@@ -16341,9 +16584,11 @@ export CreateIconFromResourceEx(presbits, dwResSize, fIcon, dwVer, cxDesired, cy
 export LoadImageA(hInst, name, type, cx, _cy, fuLoad) {
     name := name is String ? StrPtr(name) : name
 
+    hInstMarshal := hInst == 0 ? IntPtr : HINSTANCE
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\LoadImageA", HINSTANCE, hInst, "ptr", name, GDI_IMAGE_TYPE, type, Int32, cx, Int32, _cy, IMAGE_FLAGS, fuLoad, HANDLE.Owned)
+    result := DllCall("USER32.dll\LoadImageA", hInstMarshal, hInst, "ptr", name, GDI_IMAGE_TYPE, type, Int32, cx, Int32, _cy, IMAGE_FLAGS, fuLoad, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -16450,9 +16695,11 @@ export LoadImageA(hInst, name, type, cx, _cy, fuLoad) {
 export LoadImageW(hInst, name, type, cx, _cy, fuLoad) {
     name := name is String ? StrPtr(name) : name
 
+    hInstMarshal := hInst == 0 ? IntPtr : HINSTANCE
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\LoadImageW", HINSTANCE, hInst, "ptr", name, GDI_IMAGE_TYPE, type, Int32, cx, Int32, _cy, IMAGE_FLAGS, fuLoad, HANDLE.Owned)
+    result := DllCall("USER32.dll\LoadImageW", hInstMarshal, hInst, "ptr", name, GDI_IMAGE_TYPE, type, Int32, cx, Int32, _cy, IMAGE_FLAGS, fuLoad, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -16572,9 +16819,11 @@ export CopyImage(h, type, cx, _cy, flags) {
  * @since windows5.0
  */
 export DrawIconEx(_hdc, xLeft, yTop, _hIcon, cxWidth, cyWidth, istepIfAniCur, hbrFlickerFreeDraw, diFlags) {
+    hbrFlickerFreeDrawMarshal := hbrFlickerFreeDraw == 0 ? IntPtr : HBRUSH
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\DrawIconEx", HDC, _hdc, Int32, xLeft, Int32, yTop, HICON, _hIcon, Int32, cxWidth, Int32, cyWidth, UInt32, istepIfAniCur, HBRUSH, hbrFlickerFreeDraw, DI_FLAGS, diFlags, BOOL)
+    result := DllCall("USER32.dll\DrawIconEx", HDC, _hdc, Int32, xLeft, Int32, yTop, HICON, _hIcon, Int32, cxWidth, Int32, cyWidth, UInt32, istepIfAniCur, hbrFlickerFreeDrawMarshal, hbrFlickerFreeDraw, DI_FLAGS, diFlags, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -16970,7 +17219,9 @@ export GetScrollInfo(_hwnd, nBar, lpsi) {
  * @since windows5.0
  */
 export DefFrameProcA(_hWnd, hWndMDIClient, uMsg, _wParam, _lParam) {
-    result := DllCall("USER32.dll\DefFrameProcA", HWND, _hWnd, HWND, hWndMDIClient, UInt32, uMsg, WPARAM, _wParam, LPARAM, _lParam, LRESULT)
+    hWndMDIClientMarshal := hWndMDIClient == 0 ? IntPtr : HWND
+
+    result := DllCall("USER32.dll\DefFrameProcA", HWND, _hWnd, hWndMDIClientMarshal, hWndMDIClient, UInt32, uMsg, WPARAM, _wParam, LPARAM, _lParam, LRESULT)
     return result
 }
 
@@ -17041,7 +17292,9 @@ export DefFrameProcA(_hWnd, hWndMDIClient, uMsg, _wParam, _lParam) {
  * @since windows5.0
  */
 export DefFrameProcW(_hWnd, hWndMDIClient, uMsg, _wParam, _lParam) {
-    result := DllCall("USER32.dll\DefFrameProcW", HWND, _hWnd, HWND, hWndMDIClient, UInt32, uMsg, WPARAM, _wParam, LPARAM, _lParam, LRESULT)
+    hWndMDIClientMarshal := hWndMDIClient == 0 ? IntPtr : HWND
+
+    result := DllCall("USER32.dll\DefFrameProcW", HWND, _hWnd, hWndMDIClientMarshal, hWndMDIClient, UInt32, uMsg, WPARAM, _wParam, LPARAM, _lParam, LRESULT)
     return result
 }
 
@@ -17315,9 +17568,12 @@ export CreateMDIWindowA(lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeigh
     lpClassName := lpClassName is String ? StrPtr(lpClassName) : lpClassName
     lpWindowName := lpWindowName is String ? StrPtr(lpWindowName) : lpWindowName
 
+    hWndParentMarshal := hWndParent == 0 ? IntPtr : HWND
+    _hInstanceMarshal := _hInstance == 0 ? IntPtr : HINSTANCE
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\CreateMDIWindowA", "ptr", lpClassName, "ptr", lpWindowName, WINDOW_STYLE, dwStyle, Int32, X, Int32, Y, Int32, nWidth, Int32, nHeight, HWND, hWndParent, HINSTANCE, _hInstance, LPARAM, _lParam, HWND)
+    result := DllCall("USER32.dll\CreateMDIWindowA", "ptr", lpClassName, "ptr", lpWindowName, WINDOW_STYLE, dwStyle, Int32, X, Int32, Y, Int32, nWidth, Int32, nHeight, hWndParentMarshal, hWndParent, _hInstanceMarshal, _hInstance, LPARAM, _lParam, HWND)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -17370,9 +17626,12 @@ export CreateMDIWindowW(lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeigh
     lpClassName := lpClassName is String ? StrPtr(lpClassName) : lpClassName
     lpWindowName := lpWindowName is String ? StrPtr(lpWindowName) : lpWindowName
 
+    hWndParentMarshal := hWndParent == 0 ? IntPtr : HWND
+    _hInstanceMarshal := _hInstance == 0 ? IntPtr : HINSTANCE
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\CreateMDIWindowW", "ptr", lpClassName, "ptr", lpWindowName, WINDOW_STYLE, dwStyle, Int32, X, Int32, Y, Int32, nWidth, Int32, nHeight, HWND, hWndParent, HINSTANCE, _hInstance, LPARAM, _lParam, HWND)
+    result := DllCall("USER32.dll\CreateMDIWindowW", "ptr", lpClassName, "ptr", lpWindowName, WINDOW_STYLE, dwStyle, Int32, X, Int32, Y, Int32, nWidth, Int32, nHeight, hWndParentMarshal, hWndParent, _hInstanceMarshal, _hInstance, LPARAM, _lParam, HWND)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -17406,9 +17665,13 @@ export CreateMDIWindowW(lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeigh
  * @since windows5.0
  */
 export TileWindows(hwndParent, wHow, lpRect, cKids, lpKids) {
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+    lpRectMarshal := lpRect == 0 ? IntPtr : RECT.Ptr
+    lpKidsMarshal := lpKids == 0 ? IntPtr : HWND.Ptr
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\TileWindows", HWND, hwndParent, TILE_WINDOWS_HOW, wHow, RECT.Ptr, lpRect, UInt32, cKids, HWND.Ptr, lpKids, UInt16)
+    result := DllCall("USER32.dll\TileWindows", hwndParentMarshal, hwndParent, TILE_WINDOWS_HOW, wHow, lpRectMarshal, lpRect, UInt32, cKids, lpKidsMarshal, lpKids, UInt16)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -17445,9 +17708,13 @@ export TileWindows(hwndParent, wHow, lpRect, cKids, lpKids) {
  * @since windows5.0
  */
 export CascadeWindows(hwndParent, wHow, lpRect, cKids, lpKids) {
+    hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+    lpRectMarshal := lpRect == 0 ? IntPtr : RECT.Ptr
+    lpKidsMarshal := lpKids == 0 ? IntPtr : HWND.Ptr
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\CascadeWindows", HWND, hwndParent, CASCADE_WINDOWS_HOW, wHow, RECT.Ptr, lpRect, UInt32, cKids, HWND.Ptr, lpKids, UInt16)
+    result := DllCall("USER32.dll\CascadeWindows", hwndParentMarshal, hwndParent, CASCADE_WINDOWS_HOW, wHow, lpRectMarshal, lpRect, UInt32, cKids, lpKidsMarshal, lpKids, UInt16)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -20312,7 +20579,8 @@ export CascadeWindows(hwndParent, wHow, lpRect, cKids, lpKids) {
  * @since windows5.0
  */
 export SystemParametersInfoA(uiAction, uiParam, pvParam, fWinIni) {
-    pvParamMarshal := pvParam is VarRef ? "ptr" : "ptr"
+    pvParamMarshal := pvParam is VarRef ? "ptr" : IntPtr
+    pvParamMarshal := pvParam == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -23178,7 +23446,8 @@ export SystemParametersInfoA(uiAction, uiParam, pvParam, fWinIni) {
  * @since windows5.0
  */
 export SystemParametersInfoW(uiAction, uiParam, pvParam, fWinIni) {
-    pvParamMarshal := pvParam is VarRef ? "ptr" : "ptr"
+    pvParamMarshal := pvParam is VarRef ? "ptr" : IntPtr
+    pvParamMarshal := pvParam == 0 ? IntPtr : "ptr"
 
     A_LastError := 0
 
@@ -23235,7 +23504,6 @@ export SoundSentry() {
 }
 
 /**
- * 
  * @param {Integer} dwLevel 
  * @returns {String} Nothing - always returns an empty string
  */
@@ -23280,7 +23548,6 @@ export InternalGetWindowText(_hWnd, pString, cchMaxCount) {
 }
 
 /**
- * 
  * @returns {BOOL} 
  */
 export CancelShutdown() {
@@ -23394,13 +23661,14 @@ export IsProcessDPIAware() {
 }
 
 /**
- * 
  * @param {HWND} _hwnd 
  * @param {HWND} hwndInherit 
  * @returns {BOOL} 
  */
 export InheritWindowMonitor(_hwnd, hwndInherit) {
-    result := DllCall("USER32.dll\InheritWindowMonitor", HWND, _hwnd, HWND, hwndInherit, BOOL)
+    hwndInheritMarshal := hwndInherit == 0 ? IntPtr : HWND
+
+    result := DllCall("USER32.dll\InheritWindowMonitor", HWND, _hwnd, hwndInheritMarshal, hwndInherit, BOOL)
     return result
 }
 
@@ -23736,9 +24004,12 @@ export RealGetWindowClassW(_hwnd, ptszClassName, cchClassNameMax) {
 export GetAltTabInfoA(_hwnd, iItem, pati, pszItemText, cchItemText) {
     pszItemText := pszItemText is String ? StrPtr(pszItemText) : pszItemText
 
+    _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+    pszItemTextMarshal := pszItemText == 0 ? IntPtr : PSTR
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetAltTabInfoA", HWND, _hwnd, Int32, iItem, ALTTABINFO.Ptr, pati, "ptr", pszItemText, UInt32, cchItemText, BOOL)
+    result := DllCall("USER32.dll\GetAltTabInfoA", _hwndMarshal, _hwnd, Int32, iItem, ALTTABINFO.Ptr, pati, pszItemTextMarshal, pszItemText, UInt32, cchItemText, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -23783,9 +24054,12 @@ export GetAltTabInfoA(_hwnd, iItem, pati, pszItemText, cchItemText) {
 export GetAltTabInfoW(_hwnd, iItem, pati, pszItemText, cchItemText) {
     pszItemText := pszItemText is String ? StrPtr(pszItemText) : pszItemText
 
+    _hwndMarshal := _hwnd == 0 ? IntPtr : HWND
+    pszItemTextMarshal := pszItemText == 0 ? IntPtr : PWSTR
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\GetAltTabInfoW", HWND, _hwnd, Int32, iItem, ALTTABINFO.Ptr, pati, "ptr", pszItemText, UInt32, cchItemText, BOOL)
+    result := DllCall("USER32.dll\GetAltTabInfoW", _hwndMarshal, _hwnd, Int32, iItem, ALTTABINFO.Ptr, pati, pszItemTextMarshal, pszItemText, UInt32, cchItemText, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -23868,9 +24142,11 @@ export ChangeWindowMessageFilter(message, dwFlag) {
  * @since windows6.1
  */
 export ChangeWindowMessageFilterEx(_hwnd, message, action, pChangeFilterStruct) {
+    pChangeFilterStructMarshal := pChangeFilterStruct == 0 ? IntPtr : CHANGEFILTERSTRUCT.Ptr
+
     A_LastError := 0
 
-    result := DllCall("USER32.dll\ChangeWindowMessageFilterEx", HWND, _hwnd, UInt32, message, WINDOW_MESSAGE_FILTER_ACTION, action, CHANGEFILTERSTRUCT.Ptr, pChangeFilterStruct, BOOL)
+    result := DllCall("USER32.dll\ChangeWindowMessageFilterEx", HWND, _hwnd, UInt32, message, WINDOW_MESSAGE_FILTER_ACTION, action, pChangeFilterStructMarshal, pChangeFilterStruct, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -23879,7 +24155,6 @@ export ChangeWindowMessageFilterEx(_hwnd, message, action, pChangeFilterStruct) 
 }
 
 /**
- * 
  * @param {HWND} topLevelWindow 
  * @returns {BOOL} 
  */
@@ -23889,20 +24164,18 @@ export ConvertToInterceptWindow(topLevelWindow) {
 }
 
 /**
- * 
  * @param {HWND} topLevelWindow 
  * @param {Pointer<BOOL>} isIntercept 
  * @returns {BOOL} 
  */
 export IsInterceptWindow(topLevelWindow, isIntercept) {
-    isInterceptMarshal := isIntercept is VarRef ? "int*" : "ptr"
+    isInterceptMarshal := isIntercept is VarRef ? "int*" : IntPtr
 
     result := DllCall("USER32.dll\IsInterceptWindow", HWND, topLevelWindow, isInterceptMarshal, isIntercept, BOOL)
     return result
 }
 
 /**
- * 
  * @param {HWND} _hwnd 
  * @param {Pointer<WINDOW_ACTION>} pAction 
  * @returns {BOOL} 
@@ -23976,7 +24249,6 @@ export RegisterForTooltipDismissNotification(_hWnd, tdFlags) {
 }
 
 /**
- * 
  * @returns {BOOL} 
  */
 export ConvertPrimaryPointerToMouseDrag() {
@@ -24004,7 +24276,6 @@ export IsWindowArranged(_hwnd) {
 }
 
 /**
- * 
  * @returns {Integer} 
  */
 export GetCurrentMonitorTopologyId() {
@@ -24013,7 +24284,6 @@ export GetCurrentMonitorTopologyId() {
 }
 
 /**
- * 
  * @param {HWND} _hwnd 
  * @param {BOOL} fRegister 
  * @returns {BOOL} 
@@ -24024,7 +24294,6 @@ export RegisterCloakedNotification(_hwnd, fRegister) {
 }
 
 /**
- * 
  * @param {HWND} _hwnd 
  * @param {POINT} ptCursor 
  * @param {MOVESIZE_OPERATION} moveSizeCode 
@@ -24047,7 +24316,9 @@ export CreateResourceIndexer(projectRoot, extensionDllPath) {
     projectRoot := projectRoot is String ? StrPtr(projectRoot) : projectRoot
     extensionDllPath := extensionDllPath is String ? StrPtr(extensionDllPath) : extensionDllPath
 
-    result := DllCall("MrmSupport.dll\CreateResourceIndexer", "ptr", projectRoot, "ptr", extensionDllPath, "ptr*", &ppResourceIndexer := 0, "HRESULT")
+    extensionDllPathMarshal := extensionDllPath == 0 ? IntPtr : PWSTR
+
+    result := DllCall("MrmSupport.dll\CreateResourceIndexer", "ptr", projectRoot, extensionDllPathMarshal, extensionDllPath, "ptr*", &ppResourceIndexer := 0, "HRESULT")
     return ppResourceIndexer
 }
 
@@ -24059,7 +24330,8 @@ export CreateResourceIndexer(projectRoot, extensionDllPath) {
  * @since windows10.0.10240
  */
 export DestroyResourceIndexer(resourceIndexer) {
-    resourceIndexerMarshal := resourceIndexer is VarRef ? "ptr" : "ptr"
+    resourceIndexerMarshal := resourceIndexer is VarRef ? "ptr" : IntPtr
+    resourceIndexerMarshal := resourceIndexer == 0 ? IntPtr : "ptr"
 
     DllCall("MrmSupport.dll\DestroyResourceIndexer", resourceIndexerMarshal, resourceIndexer)
 }
@@ -24078,10 +24350,10 @@ export DestroyResourceIndexer(resourceIndexer) {
 export IndexFilePath(resourceIndexer, filePath, ppResourceUri, pQualifierCount, ppQualifiers) {
     filePath := filePath is String ? StrPtr(filePath) : filePath
 
-    resourceIndexerMarshal := resourceIndexer is VarRef ? "ptr" : "ptr"
-    ppResourceUriMarshal := ppResourceUri is VarRef ? "ptr*" : "ptr"
-    pQualifierCountMarshal := pQualifierCount is VarRef ? "uint*" : "ptr"
-    ppQualifiersMarshal := ppQualifiers is VarRef ? "ptr*" : "ptr"
+    resourceIndexerMarshal := resourceIndexer is VarRef ? "ptr" : IntPtr
+    ppResourceUriMarshal := ppResourceUri is VarRef ? "ptr*" : IntPtr
+    pQualifierCountMarshal := pQualifierCount is VarRef ? "uint*" : IntPtr
+    ppQualifiersMarshal := ppQualifiers is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("MrmSupport.dll\IndexFilePath", resourceIndexerMarshal, resourceIndexer, "ptr", filePath, ppResourceUriMarshal, ppResourceUri, pQualifierCountMarshal, pQualifierCount, ppQualifiersMarshal, ppQualifiers, "HRESULT")
     return result
@@ -24099,7 +24371,10 @@ export IndexFilePath(resourceIndexer, filePath, ppResourceUri, pQualifierCount, 
 export DestroyIndexedResults(resourceUri, qualifierCount, qualifiers) {
     resourceUri := resourceUri is String ? StrPtr(resourceUri) : resourceUri
 
-    DllCall("MrmSupport.dll\DestroyIndexedResults", "ptr", resourceUri, UInt32, qualifierCount, IndexedResourceQualifier.Ptr, qualifiers)
+    resourceUriMarshal := resourceUri == 0 ? IntPtr : PWSTR
+    qualifiersMarshal := qualifiers == 0 ? IntPtr : IndexedResourceQualifier.Ptr
+
+    DllCall("MrmSupport.dll\DestroyIndexedResults", resourceUriMarshal, resourceUri, UInt32, qualifierCount, qualifiersMarshal, qualifiers)
 }
 
 /**
@@ -24129,7 +24404,10 @@ export MrmCreateResourceIndexer(packageFamilyName, projectRoot, platformVersion,
     projectRoot := projectRoot is String ? StrPtr(projectRoot) : projectRoot
     defaultQualifiers := defaultQualifiers is String ? StrPtr(defaultQualifiers) : defaultQualifiers
 
-    result := DllCall("MrmSupport.dll\MrmCreateResourceIndexer", "ptr", packageFamilyName, "ptr", projectRoot, MrmPlatformVersion, platformVersion, "ptr", defaultQualifiers, MrmResourceIndexerHandle.Ptr, indexer, "HRESULT")
+    packageFamilyNameMarshal := packageFamilyName == 0 ? IntPtr : PWSTR
+    defaultQualifiersMarshal := defaultQualifiers == 0 ? IntPtr : PWSTR
+
+    result := DllCall("MrmSupport.dll\MrmCreateResourceIndexer", packageFamilyNameMarshal, packageFamilyName, "ptr", projectRoot, MrmPlatformVersion, platformVersion, defaultQualifiersMarshal, defaultQualifiers, MrmResourceIndexerHandle.Ptr, indexer, "HRESULT")
     return result
 }
 
@@ -24160,7 +24438,9 @@ export MrmCreateResourceIndexerFromPreviousSchemaFile(projectRoot, platformVersi
     defaultQualifiers := defaultQualifiers is String ? StrPtr(defaultQualifiers) : defaultQualifiers
     schemaFile := schemaFile is String ? StrPtr(schemaFile) : schemaFile
 
-    result := DllCall("MrmSupport.dll\MrmCreateResourceIndexerFromPreviousSchemaFile", "ptr", projectRoot, MrmPlatformVersion, platformVersion, "ptr", defaultQualifiers, "ptr", schemaFile, MrmResourceIndexerHandle.Ptr, indexer, "HRESULT")
+    defaultQualifiersMarshal := defaultQualifiers == 0 ? IntPtr : PWSTR
+
+    result := DllCall("MrmSupport.dll\MrmCreateResourceIndexerFromPreviousSchemaFile", "ptr", projectRoot, MrmPlatformVersion, platformVersion, defaultQualifiersMarshal, defaultQualifiers, "ptr", schemaFile, MrmResourceIndexerHandle.Ptr, indexer, "HRESULT")
     return result
 }
 
@@ -24191,7 +24471,9 @@ export MrmCreateResourceIndexerFromPreviousPriFile(projectRoot, platformVersion,
     defaultQualifiers := defaultQualifiers is String ? StrPtr(defaultQualifiers) : defaultQualifiers
     priFile := priFile is String ? StrPtr(priFile) : priFile
 
-    result := DllCall("MrmSupport.dll\MrmCreateResourceIndexerFromPreviousPriFile", "ptr", projectRoot, MrmPlatformVersion, platformVersion, "ptr", defaultQualifiers, "ptr", priFile, MrmResourceIndexerHandle.Ptr, indexer, "HRESULT")
+    defaultQualifiersMarshal := defaultQualifiers == 0 ? IntPtr : PWSTR
+
+    result := DllCall("MrmSupport.dll\MrmCreateResourceIndexerFromPreviousPriFile", "ptr", projectRoot, MrmPlatformVersion, platformVersion, defaultQualifiersMarshal, defaultQualifiers, "ptr", priFile, MrmResourceIndexerHandle.Ptr, indexer, "HRESULT")
     return result
 }
 
@@ -24226,7 +24508,9 @@ export MrmCreateResourceIndexerFromPreviousSchemaData(projectRoot, platformVersi
     projectRoot := projectRoot is String ? StrPtr(projectRoot) : projectRoot
     defaultQualifiers := defaultQualifiers is String ? StrPtr(defaultQualifiers) : defaultQualifiers
 
-    result := DllCall("MrmSupport.dll\MrmCreateResourceIndexerFromPreviousSchemaData", "ptr", projectRoot, MrmPlatformVersion, platformVersion, "ptr", defaultQualifiers, IntPtr, schemaXmlData, UInt32, schemaXmlSize, MrmResourceIndexerHandle.Ptr, indexer, "HRESULT")
+    defaultQualifiersMarshal := defaultQualifiers == 0 ? IntPtr : PWSTR
+
+    result := DllCall("MrmSupport.dll\MrmCreateResourceIndexerFromPreviousSchemaData", "ptr", projectRoot, MrmPlatformVersion, platformVersion, defaultQualifiersMarshal, defaultQualifiers, IntPtr, schemaXmlData, UInt32, schemaXmlSize, MrmResourceIndexerHandle.Ptr, indexer, "HRESULT")
     return result
 }
 
@@ -24261,12 +24545,13 @@ export MrmCreateResourceIndexerFromPreviousPriData(projectRoot, platformVersion,
     projectRoot := projectRoot is String ? StrPtr(projectRoot) : projectRoot
     defaultQualifiers := defaultQualifiers is String ? StrPtr(defaultQualifiers) : defaultQualifiers
 
-    result := DllCall("MrmSupport.dll\MrmCreateResourceIndexerFromPreviousPriData", "ptr", projectRoot, MrmPlatformVersion, platformVersion, "ptr", defaultQualifiers, IntPtr, priData, UInt32, priSize, MrmResourceIndexerHandle.Ptr, indexer, "HRESULT")
+    defaultQualifiersMarshal := defaultQualifiers == 0 ? IntPtr : PWSTR
+
+    result := DllCall("MrmSupport.dll\MrmCreateResourceIndexerFromPreviousPriData", "ptr", projectRoot, MrmPlatformVersion, platformVersion, defaultQualifiersMarshal, defaultQualifiers, IntPtr, priData, UInt32, priSize, MrmResourceIndexerHandle.Ptr, indexer, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {PWSTR} packageFamilyName 
  * @param {PWSTR} projectRoot 
  * @param {MrmPlatformVersion} platformVersion 
@@ -24280,7 +24565,10 @@ export MrmCreateResourceIndexerWithFlags(packageFamilyName, projectRoot, platfor
     projectRoot := projectRoot is String ? StrPtr(projectRoot) : projectRoot
     defaultQualifiers := defaultQualifiers is String ? StrPtr(defaultQualifiers) : defaultQualifiers
 
-    result := DllCall("MrmSupport.dll\MrmCreateResourceIndexerWithFlags", "ptr", packageFamilyName, "ptr", projectRoot, MrmPlatformVersion, platformVersion, "ptr", defaultQualifiers, MrmIndexerFlags, flags, MrmResourceIndexerHandle.Ptr, indexer, "HRESULT")
+    packageFamilyNameMarshal := packageFamilyName == 0 ? IntPtr : PWSTR
+    defaultQualifiersMarshal := defaultQualifiers == 0 ? IntPtr : PWSTR
+
+    result := DllCall("MrmSupport.dll\MrmCreateResourceIndexerWithFlags", packageFamilyNameMarshal, packageFamilyName, "ptr", projectRoot, MrmPlatformVersion, platformVersion, defaultQualifiersMarshal, defaultQualifiers, MrmIndexerFlags, flags, MrmResourceIndexerHandle.Ptr, indexer, "HRESULT")
     return result
 }
 
@@ -24312,7 +24600,9 @@ export MrmIndexString(indexer, resourceUri, resourceString, qualifiers) {
     resourceString := resourceString is String ? StrPtr(resourceString) : resourceString
     qualifiers := qualifiers is String ? StrPtr(qualifiers) : qualifiers
 
-    result := DllCall("MrmSupport.dll\MrmIndexString", MrmResourceIndexerHandle, indexer, "ptr", resourceUri, "ptr", resourceString, "ptr", qualifiers, "HRESULT")
+    qualifiersMarshal := qualifiers == 0 ? IntPtr : PWSTR
+
+    result := DllCall("MrmSupport.dll\MrmIndexString", MrmResourceIndexerHandle, indexer, "ptr", resourceUri, "ptr", resourceString, qualifiersMarshal, qualifiers, "HRESULT")
     return result
 }
 
@@ -24346,7 +24636,9 @@ export MrmIndexEmbeddedData(indexer, resourceUri, embeddedData, embeddedDataSize
     resourceUri := resourceUri is String ? StrPtr(resourceUri) : resourceUri
     qualifiers := qualifiers is String ? StrPtr(qualifiers) : qualifiers
 
-    result := DllCall("MrmSupport.dll\MrmIndexEmbeddedData", MrmResourceIndexerHandle, indexer, "ptr", resourceUri, IntPtr, embeddedData, UInt32, embeddedDataSize, "ptr", qualifiers, "HRESULT")
+    qualifiersMarshal := qualifiers == 0 ? IntPtr : PWSTR
+
+    result := DllCall("MrmSupport.dll\MrmIndexEmbeddedData", MrmResourceIndexerHandle, indexer, "ptr", resourceUri, IntPtr, embeddedData, UInt32, embeddedDataSize, qualifiersMarshal, qualifiers, "HRESULT")
     return result
 }
 
@@ -24378,7 +24670,9 @@ export MrmIndexFile(indexer, resourceUri, filePath, qualifiers) {
     filePath := filePath is String ? StrPtr(filePath) : filePath
     qualifiers := qualifiers is String ? StrPtr(qualifiers) : qualifiers
 
-    result := DllCall("MrmSupport.dll\MrmIndexFile", MrmResourceIndexerHandle, indexer, "ptr", resourceUri, "ptr", filePath, "ptr", qualifiers, "HRESULT")
+    qualifiersMarshal := qualifiers == 0 ? IntPtr : PWSTR
+
+    result := DllCall("MrmSupport.dll\MrmIndexFile", MrmResourceIndexerHandle, indexer, "ptr", resourceUri, "ptr", filePath, qualifiersMarshal, qualifiers, "HRESULT")
     return result
 }
 
@@ -24402,7 +24696,9 @@ export MrmIndexFile(indexer, resourceUri, filePath, qualifiers) {
 export MrmIndexFileAutoQualifiers(indexer, filePath) {
     filePath := filePath is String ? StrPtr(filePath) : filePath
 
-    result := DllCall("MrmSupport.dll\MrmIndexFileAutoQualifiers", MrmResourceIndexerHandle, indexer, "ptr", filePath, "HRESULT")
+    filePathMarshal := filePath == 0 ? IntPtr : PWSTR
+
+    result := DllCall("MrmSupport.dll\MrmIndexFileAutoQualifiers", MrmResourceIndexerHandle, indexer, filePathMarshal, filePath, "HRESULT")
     return result
 }
 
@@ -24457,7 +24753,6 @@ export MrmCreateResourceFile(indexer, packagingMode, packagingOptions, outputDir
 }
 
 /**
- * 
  * @param {MrmResourceIndexerHandle} indexer 
  * @param {MrmPackagingMode} packagingMode 
  * @param {MrmPackagingOptions} packagingOptions 
@@ -24497,8 +24792,8 @@ export MrmCreateResourceFileWithChecksum(indexer, packagingMode, packagingOption
  * @see https://learn.microsoft.com/windows/win32/menurc/mrmcreateresourcefileinmemory
  */
 export MrmCreateResourceFileInMemory(indexer, packagingMode, packagingOptions, outputPriData, outputPriSize) {
-    outputPriDataMarshal := outputPriData is VarRef ? "ptr*" : "ptr"
-    outputPriSizeMarshal := outputPriSize is VarRef ? "uint*" : "ptr"
+    outputPriDataMarshal := outputPriData is VarRef ? "ptr*" : IntPtr
+    outputPriSizeMarshal := outputPriSize is VarRef ? "uint*" : IntPtr
 
     result := DllCall("MrmSupport.dll\MrmCreateResourceFileInMemory", MrmResourceIndexerHandle, indexer, MrmPackagingMode, packagingMode, MrmPackagingOptions, packagingOptions, outputPriDataMarshal, outputPriData, outputPriSizeMarshal, outputPriSize, "HRESULT")
     return result
@@ -24521,8 +24816,8 @@ export MrmCreateResourceFileInMemory(indexer, packagingMode, packagingOptions, o
  * @see https://learn.microsoft.com/windows/win32/menurc/mrmpeekresourceindexermessages
  */
 export MrmPeekResourceIndexerMessages(_handle, messages, numMsgs) {
-    messagesMarshal := messages is VarRef ? "ptr*" : "ptr"
-    numMsgsMarshal := numMsgs is VarRef ? "uint*" : "ptr"
+    messagesMarshal := messages is VarRef ? "ptr*" : IntPtr
+    numMsgsMarshal := numMsgs is VarRef ? "uint*" : IntPtr
 
     result := DllCall("MrmSupport.dll\MrmPeekResourceIndexerMessages", MrmResourceIndexerHandle, _handle, messagesMarshal, messages, numMsgsMarshal, numMsgs, "HRESULT")
     return result
@@ -24554,7 +24849,7 @@ export MrmDestroyIndexerAndMessages(indexer) {
  * @see https://learn.microsoft.com/windows/win32/menurc/mrmfreememory
  */
 export MrmFreeMemory(data) {
-    dataMarshal := data is VarRef ? "char*" : "ptr"
+    dataMarshal := data is VarRef ? "char*" : IntPtr
 
     result := DllCall("MrmSupport.dll\MrmFreeMemory", dataMarshal, data, "HRESULT")
     return result
@@ -24586,7 +24881,9 @@ export MrmDumpPriFile(indexFileName, schemaPriFile, _dumpType, outputXmlFile) {
     schemaPriFile := schemaPriFile is String ? StrPtr(schemaPriFile) : schemaPriFile
     outputXmlFile := outputXmlFile is String ? StrPtr(outputXmlFile) : outputXmlFile
 
-    result := DllCall("MrmSupport.dll\MrmDumpPriFile", "ptr", indexFileName, "ptr", schemaPriFile, MrmDumpType, _dumpType, "ptr", outputXmlFile, "HRESULT")
+    schemaPriFileMarshal := schemaPriFile == 0 ? IntPtr : PWSTR
+
+    result := DllCall("MrmSupport.dll\MrmDumpPriFile", "ptr", indexFileName, schemaPriFileMarshal, schemaPriFile, MrmDumpType, _dumpType, "ptr", outputXmlFile, "HRESULT")
     return result
 }
 
@@ -24618,10 +24915,11 @@ export MrmDumpPriFileInMemory(indexFileName, schemaPriFile, _dumpType, outputXml
     indexFileName := indexFileName is String ? StrPtr(indexFileName) : indexFileName
     schemaPriFile := schemaPriFile is String ? StrPtr(schemaPriFile) : schemaPriFile
 
-    outputXmlDataMarshal := outputXmlData is VarRef ? "ptr*" : "ptr"
-    outputXmlSizeMarshal := outputXmlSize is VarRef ? "uint*" : "ptr"
+    schemaPriFileMarshal := schemaPriFile == 0 ? IntPtr : PWSTR
+    outputXmlDataMarshal := outputXmlData is VarRef ? "ptr*" : IntPtr
+    outputXmlSizeMarshal := outputXmlSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("MrmSupport.dll\MrmDumpPriFileInMemory", "ptr", indexFileName, "ptr", schemaPriFile, MrmDumpType, _dumpType, outputXmlDataMarshal, outputXmlData, outputXmlSizeMarshal, outputXmlSize, "HRESULT")
+    result := DllCall("MrmSupport.dll\MrmDumpPriFileInMemory", "ptr", indexFileName, schemaPriFileMarshal, schemaPriFile, MrmDumpType, _dumpType, outputXmlDataMarshal, outputXmlData, outputXmlSizeMarshal, outputXmlSize, "HRESULT")
     return result
 }
 
@@ -24656,10 +24954,11 @@ export MrmDumpPriFileInMemory(indexFileName, schemaPriFile, _dumpType, outputXml
  * @see https://learn.microsoft.com/windows/win32/menurc/mrmdumppridatainmemory
  */
 export MrmDumpPriDataInMemory(inputPriData, inputPriSize, schemaPriData, schemaPriSize, _dumpType, outputXmlData, outputXmlSize) {
-    outputXmlDataMarshal := outputXmlData is VarRef ? "ptr*" : "ptr"
-    outputXmlSizeMarshal := outputXmlSize is VarRef ? "uint*" : "ptr"
+    schemaPriDataMarshal := schemaPriData == 0 ? IntPtr : IntPtr
+    outputXmlDataMarshal := outputXmlData is VarRef ? "ptr*" : IntPtr
+    outputXmlSizeMarshal := outputXmlSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("MrmSupport.dll\MrmDumpPriDataInMemory", IntPtr, inputPriData, UInt32, inputPriSize, IntPtr, schemaPriData, UInt32, schemaPriSize, MrmDumpType, _dumpType, outputXmlDataMarshal, outputXmlData, outputXmlSizeMarshal, outputXmlSize, "HRESULT")
+    result := DllCall("MrmSupport.dll\MrmDumpPriDataInMemory", IntPtr, inputPriData, UInt32, inputPriSize, schemaPriDataMarshal, schemaPriData, UInt32, schemaPriSize, MrmDumpType, _dumpType, outputXmlDataMarshal, outputXmlData, outputXmlSizeMarshal, outputXmlSize, "HRESULT")
     return result
 }
 
@@ -24683,7 +24982,9 @@ export MrmCreateConfig(platformVersion, defaultQualifiers, outputXmlFile) {
     defaultQualifiers := defaultQualifiers is String ? StrPtr(defaultQualifiers) : defaultQualifiers
     outputXmlFile := outputXmlFile is String ? StrPtr(outputXmlFile) : outputXmlFile
 
-    result := DllCall("MrmSupport.dll\MrmCreateConfig", MrmPlatformVersion, platformVersion, "ptr", defaultQualifiers, "ptr", outputXmlFile, "HRESULT")
+    defaultQualifiersMarshal := defaultQualifiers == 0 ? IntPtr : PWSTR
+
+    result := DllCall("MrmSupport.dll\MrmCreateConfig", MrmPlatformVersion, platformVersion, defaultQualifiersMarshal, defaultQualifiers, "ptr", outputXmlFile, "HRESULT")
     return result
 }
 
@@ -24709,15 +25010,15 @@ export MrmCreateConfig(platformVersion, defaultQualifiers, outputXmlFile) {
 export MrmCreateConfigInMemory(platformVersion, defaultQualifiers, outputXmlData, outputXmlSize) {
     defaultQualifiers := defaultQualifiers is String ? StrPtr(defaultQualifiers) : defaultQualifiers
 
-    outputXmlDataMarshal := outputXmlData is VarRef ? "ptr*" : "ptr"
-    outputXmlSizeMarshal := outputXmlSize is VarRef ? "uint*" : "ptr"
+    defaultQualifiersMarshal := defaultQualifiers == 0 ? IntPtr : PWSTR
+    outputXmlDataMarshal := outputXmlData is VarRef ? "ptr*" : IntPtr
+    outputXmlSizeMarshal := outputXmlSize is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("MrmSupport.dll\MrmCreateConfigInMemory", MrmPlatformVersion, platformVersion, "ptr", defaultQualifiers, outputXmlDataMarshal, outputXmlData, outputXmlSizeMarshal, outputXmlSize, "HRESULT")
+    result := DllCall("MrmSupport.dll\MrmCreateConfigInMemory", MrmPlatformVersion, platformVersion, defaultQualifiersMarshal, defaultQualifiers, outputXmlDataMarshal, outputXmlData, outputXmlSizeMarshal, outputXmlSize, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {PWSTR} priFile 
  * @returns {Integer} 
  */

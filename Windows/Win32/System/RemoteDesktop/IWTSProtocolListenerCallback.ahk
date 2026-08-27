@@ -59,7 +59,7 @@ export default struct IWTSProtocolListenerCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnConnected := CallbackCreate(GetMethod(implObj, "OnConnected"), flags, 3)
+        this.vtbl.OnConnected := CallbackCreate(ObjBindMethod(implObj, "OnConnected"), flags, 3)
     }
 
     Dispose() {

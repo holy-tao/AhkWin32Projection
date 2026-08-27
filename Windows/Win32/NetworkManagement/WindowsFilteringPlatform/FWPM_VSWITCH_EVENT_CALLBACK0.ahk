@@ -25,7 +25,6 @@ export default struct FWPM_VSWITCH_EVENT_CALLBACK0 {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context Type: <b>void*</b>
      * 
      * Optional context pointer. It contains the value of the <i>context</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmvswitcheventsubscribe0">FwpmvSwitchEventSubscribe0</a> function.
@@ -35,7 +34,7 @@ export default struct FWPM_VSWITCH_EVENT_CALLBACK0 {
      * @returns {Integer} This callback function does not return a value.
      */
     Call(_context, vSwitchEvent) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _contextMarshal, _context, FWPM_VSWITCH_EVENT0.Ptr, vSwitchEvent, UInt32)
         return result

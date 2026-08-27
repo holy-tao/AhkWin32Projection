@@ -20,15 +20,14 @@ export default struct PIBIO_FRAMEWORK_VSM_CACHE_EXPORT_BEGIN_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline 
      * @param {Pointer<Pointer>} RequiredCapacity 
      * @param {Pointer<Pointer>} MaxBufferSize 
      * @returns {HRESULT} 
      */
     Call(Pipeline, RequiredCapacity, MaxBufferSize) {
-        RequiredCapacityMarshal := RequiredCapacity is VarRef ? "ptr*" : "ptr"
-        MaxBufferSizeMarshal := MaxBufferSize is VarRef ? "ptr*" : "ptr"
+        RequiredCapacityMarshal := RequiredCapacity is VarRef ? "ptr*" : IntPtr
+        MaxBufferSizeMarshal := MaxBufferSize is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, WINBIO_PIPELINE.Ptr, Pipeline, RequiredCapacityMarshal, RequiredCapacity, MaxBufferSizeMarshal, MaxBufferSize, "HRESULT")
         return result

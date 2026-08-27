@@ -20,12 +20,11 @@ export default struct IOMMU_FLUSH_DOMAIN {
     }
 
     /**
-     * 
      * @param {Pointer<IOMMU_DMA_DOMAIN>} Domain 
      * @returns {NTSTATUS} 
      */
     Call(Domain) {
-        DomainMarshal := Domain is VarRef ? "ptr*" : "ptr"
+        DomainMarshal := Domain is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, DomainMarshal, Domain, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

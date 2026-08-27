@@ -69,7 +69,7 @@ export default struct IAMNetShowPreroll extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowpreroll-get_preroll
      */
     get_Preroll(pfPreroll) {
-        pfPrerollMarshal := pfPreroll is VarRef ? "short*" : "ptr"
+        pfPrerollMarshal := pfPreroll is VarRef ? "short*" : IntPtr
 
         result := ComCall(8, this, pfPrerollMarshal, pfPreroll, "HRESULT")
         return result
@@ -84,8 +84,8 @@ export default struct IAMNetShowPreroll extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_Preroll := CallbackCreate(GetMethod(implObj, "put_Preroll"), flags, 2)
-        this.vtbl.get_Preroll := CallbackCreate(GetMethod(implObj, "get_Preroll"), flags, 2)
+        this.vtbl.put_Preroll := CallbackCreate(ObjBindMethod(implObj, "put_Preroll"), flags, 2)
+        this.vtbl.get_Preroll := CallbackCreate(ObjBindMethod(implObj, "get_Preroll"), flags, 2)
     }
 
     Dispose() {

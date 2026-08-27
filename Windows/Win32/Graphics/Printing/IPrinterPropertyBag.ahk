@@ -48,7 +48,6 @@ export default struct IPrinterPropertyBag extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @returns {BOOL} 
      */
@@ -60,7 +59,6 @@ export default struct IPrinterPropertyBag extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {BOOL} bValue 
      * @returns {HRESULT} 
@@ -73,7 +71,6 @@ export default struct IPrinterPropertyBag extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @returns {Integer} 
      */
@@ -85,7 +82,6 @@ export default struct IPrinterPropertyBag extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {Integer} nValue 
      * @returns {HRESULT} 
@@ -98,7 +94,6 @@ export default struct IPrinterPropertyBag extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @returns {BSTR} 
      */
@@ -111,7 +106,6 @@ export default struct IPrinterPropertyBag extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrValue 
      * @returns {HRESULT} 
@@ -125,7 +119,6 @@ export default struct IPrinterPropertyBag extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {Pointer<Integer>} pcbValue 
      * @param {Pointer<Pointer<Integer>>} ppValue 
@@ -134,15 +127,14 @@ export default struct IPrinterPropertyBag extends IDispatch {
     GetBytes(bstrName, pcbValue, ppValue) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        pcbValueMarshal := pcbValue is VarRef ? "uint*" : "ptr"
-        ppValueMarshal := ppValue is VarRef ? "ptr*" : "ptr"
+        pcbValueMarshal := pcbValue is VarRef ? "uint*" : IntPtr
+        ppValueMarshal := ppValue is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(13, this, BSTR, bstrName, pcbValueMarshal, pcbValue, ppValueMarshal, ppValue, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @param {Integer} cbValue 
      * @param {Pointer<Integer>} pValue 
@@ -151,14 +143,13 @@ export default struct IPrinterPropertyBag extends IDispatch {
     SetBytes(bstrName, cbValue, pValue) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        pValueMarshal := pValue is VarRef ? "char*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "char*" : IntPtr
 
         result := ComCall(14, this, BSTR, bstrName, UInt32, cbValue, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @returns {IStream} 
      */
@@ -170,7 +161,6 @@ export default struct IPrinterPropertyBag extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrName 
      * @returns {IStream} 
      */
@@ -190,16 +180,16 @@ export default struct IPrinterPropertyBag extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetBool := CallbackCreate(GetMethod(implObj, "GetBool"), flags, 3)
-        this.vtbl.SetBool := CallbackCreate(GetMethod(implObj, "SetBool"), flags, 3)
-        this.vtbl.GetInt32 := CallbackCreate(GetMethod(implObj, "GetInt32"), flags, 3)
-        this.vtbl.SetInt32 := CallbackCreate(GetMethod(implObj, "SetInt32"), flags, 3)
-        this.vtbl.GetString := CallbackCreate(GetMethod(implObj, "GetString"), flags, 3)
-        this.vtbl.SetString := CallbackCreate(GetMethod(implObj, "SetString"), flags, 3)
-        this.vtbl.GetBytes := CallbackCreate(GetMethod(implObj, "GetBytes"), flags, 4)
-        this.vtbl.SetBytes := CallbackCreate(GetMethod(implObj, "SetBytes"), flags, 4)
-        this.vtbl.GetReadStream := CallbackCreate(GetMethod(implObj, "GetReadStream"), flags, 3)
-        this.vtbl.GetWriteStream := CallbackCreate(GetMethod(implObj, "GetWriteStream"), flags, 3)
+        this.vtbl.GetBool := CallbackCreate(ObjBindMethod(implObj, "GetBool"), flags, 3)
+        this.vtbl.SetBool := CallbackCreate(ObjBindMethod(implObj, "SetBool"), flags, 3)
+        this.vtbl.GetInt32 := CallbackCreate(ObjBindMethod(implObj, "GetInt32"), flags, 3)
+        this.vtbl.SetInt32 := CallbackCreate(ObjBindMethod(implObj, "SetInt32"), flags, 3)
+        this.vtbl.GetString := CallbackCreate(ObjBindMethod(implObj, "GetString"), flags, 3)
+        this.vtbl.SetString := CallbackCreate(ObjBindMethod(implObj, "SetString"), flags, 3)
+        this.vtbl.GetBytes := CallbackCreate(ObjBindMethod(implObj, "GetBytes"), flags, 4)
+        this.vtbl.SetBytes := CallbackCreate(ObjBindMethod(implObj, "SetBytes"), flags, 4)
+        this.vtbl.GetReadStream := CallbackCreate(ObjBindMethod(implObj, "GetReadStream"), flags, 3)
+        this.vtbl.GetWriteStream := CallbackCreate(ObjBindMethod(implObj, "GetWriteStream"), flags, 3)
     }
 
     Dispose() {

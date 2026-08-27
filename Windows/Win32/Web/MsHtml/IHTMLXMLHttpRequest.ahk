@@ -107,7 +107,6 @@ export default struct IHTMLXMLHttpRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_readyState() {
@@ -116,7 +115,6 @@ export default struct IHTMLXMLHttpRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_responseBody() {
@@ -126,7 +124,6 @@ export default struct IHTMLXMLHttpRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_responseText() {
@@ -136,7 +133,6 @@ export default struct IHTMLXMLHttpRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_responseXML() {
@@ -145,7 +141,6 @@ export default struct IHTMLXMLHttpRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_status() {
@@ -154,7 +149,6 @@ export default struct IHTMLXMLHttpRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_statusText() {
@@ -164,7 +158,6 @@ export default struct IHTMLXMLHttpRequest extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -174,7 +167,6 @@ export default struct IHTMLXMLHttpRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onreadystatechange() {
@@ -564,7 +556,6 @@ export default struct IHTMLXMLHttpRequest extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     getAllResponseHeaders() {
@@ -574,7 +565,6 @@ export default struct IHTMLXMLHttpRequest extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrHeader 
      * @returns {BSTR} 
      */
@@ -587,7 +577,6 @@ export default struct IHTMLXMLHttpRequest extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrHeader 
      * @param {BSTR} bstrValue 
      * @returns {HRESULT} 
@@ -609,20 +598,20 @@ export default struct IHTMLXMLHttpRequest extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_readyState := CallbackCreate(GetMethod(implObj, "get_readyState"), flags, 2)
-        this.vtbl.get_responseBody := CallbackCreate(GetMethod(implObj, "get_responseBody"), flags, 2)
-        this.vtbl.get_responseText := CallbackCreate(GetMethod(implObj, "get_responseText"), flags, 2)
-        this.vtbl.get_responseXML := CallbackCreate(GetMethod(implObj, "get_responseXML"), flags, 2)
-        this.vtbl.get_status := CallbackCreate(GetMethod(implObj, "get_status"), flags, 2)
-        this.vtbl.get_statusText := CallbackCreate(GetMethod(implObj, "get_statusText"), flags, 2)
-        this.vtbl.put_onreadystatechange := CallbackCreate(GetMethod(implObj, "put_onreadystatechange"), flags, 2)
-        this.vtbl.get_onreadystatechange := CallbackCreate(GetMethod(implObj, "get_onreadystatechange"), flags, 2)
-        this.vtbl.abort := CallbackCreate(GetMethod(implObj, "abort"), flags, 1)
-        this.vtbl.open := CallbackCreate(GetMethod(implObj, "open"), flags, 6)
-        this.vtbl.send := CallbackCreate(GetMethod(implObj, "send"), flags, 2)
-        this.vtbl.getAllResponseHeaders := CallbackCreate(GetMethod(implObj, "getAllResponseHeaders"), flags, 2)
-        this.vtbl.getResponseHeader := CallbackCreate(GetMethod(implObj, "getResponseHeader"), flags, 3)
-        this.vtbl.setRequestHeader := CallbackCreate(GetMethod(implObj, "setRequestHeader"), flags, 3)
+        this.vtbl.get_readyState := CallbackCreate(ObjBindMethod(implObj, "get_readyState"), flags, 2)
+        this.vtbl.get_responseBody := CallbackCreate(ObjBindMethod(implObj, "get_responseBody"), flags, 2)
+        this.vtbl.get_responseText := CallbackCreate(ObjBindMethod(implObj, "get_responseText"), flags, 2)
+        this.vtbl.get_responseXML := CallbackCreate(ObjBindMethod(implObj, "get_responseXML"), flags, 2)
+        this.vtbl.get_status := CallbackCreate(ObjBindMethod(implObj, "get_status"), flags, 2)
+        this.vtbl.get_statusText := CallbackCreate(ObjBindMethod(implObj, "get_statusText"), flags, 2)
+        this.vtbl.put_onreadystatechange := CallbackCreate(ObjBindMethod(implObj, "put_onreadystatechange"), flags, 2)
+        this.vtbl.get_onreadystatechange := CallbackCreate(ObjBindMethod(implObj, "get_onreadystatechange"), flags, 2)
+        this.vtbl.abort := CallbackCreate(ObjBindMethod(implObj, "abort"), flags, 1)
+        this.vtbl.open := CallbackCreate(ObjBindMethod(implObj, "open"), flags, 6)
+        this.vtbl.send := CallbackCreate(ObjBindMethod(implObj, "send"), flags, 2)
+        this.vtbl.getAllResponseHeaders := CallbackCreate(ObjBindMethod(implObj, "getAllResponseHeaders"), flags, 2)
+        this.vtbl.getResponseHeader := CallbackCreate(ObjBindMethod(implObj, "getResponseHeader"), flags, 3)
+        this.vtbl.setRequestHeader := CallbackCreate(ObjBindMethod(implObj, "setRequestHeader"), flags, 3)
     }
 
     Dispose() {

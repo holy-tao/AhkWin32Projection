@@ -72,7 +72,6 @@ export default struct IADsResource extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_User() {
@@ -82,7 +81,6 @@ export default struct IADsResource extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_UserPath() {
@@ -92,7 +90,6 @@ export default struct IADsResource extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Path() {
@@ -102,7 +99,6 @@ export default struct IADsResource extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_LockCount() {
@@ -119,10 +115,10 @@ export default struct IADsResource extends IADs {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_User := CallbackCreate(GetMethod(implObj, "get_User"), flags, 2)
-        this.vtbl.get_UserPath := CallbackCreate(GetMethod(implObj, "get_UserPath"), flags, 2)
-        this.vtbl.get_Path := CallbackCreate(GetMethod(implObj, "get_Path"), flags, 2)
-        this.vtbl.get_LockCount := CallbackCreate(GetMethod(implObj, "get_LockCount"), flags, 2)
+        this.vtbl.get_User := CallbackCreate(ObjBindMethod(implObj, "get_User"), flags, 2)
+        this.vtbl.get_UserPath := CallbackCreate(ObjBindMethod(implObj, "get_UserPath"), flags, 2)
+        this.vtbl.get_Path := CallbackCreate(ObjBindMethod(implObj, "get_Path"), flags, 2)
+        this.vtbl.get_LockCount := CallbackCreate(ObjBindMethod(implObj, "get_LockCount"), flags, 2)
     }
 
     Dispose() {

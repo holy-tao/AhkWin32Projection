@@ -64,7 +64,7 @@ export default struct IUIAutomationVirtualizedItemPattern extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Realize := CallbackCreate(GetMethod(implObj, "Realize"), flags, 1)
+        this.vtbl.Realize := CallbackCreate(ObjBindMethod(implObj, "Realize"), flags, 1)
     }
 
     Dispose() {

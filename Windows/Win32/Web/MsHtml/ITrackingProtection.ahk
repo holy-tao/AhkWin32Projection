@@ -39,7 +39,6 @@ export default struct ITrackingProtection extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrUrl 
      * @returns {BOOL} 
      */
@@ -51,7 +50,6 @@ export default struct ITrackingProtection extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetEnabled() {
@@ -68,8 +66,8 @@ export default struct ITrackingProtection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EvaluateUrl := CallbackCreate(GetMethod(implObj, "EvaluateUrl"), flags, 3)
-        this.vtbl.GetEnabled := CallbackCreate(GetMethod(implObj, "GetEnabled"), flags, 2)
+        this.vtbl.EvaluateUrl := CallbackCreate(ObjBindMethod(implObj, "EvaluateUrl"), flags, 3)
+        this.vtbl.GetEnabled := CallbackCreate(ObjBindMethod(implObj, "GetEnabled"), flags, 2)
     }
 
     Dispose() {

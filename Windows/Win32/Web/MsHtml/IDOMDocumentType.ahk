@@ -91,7 +91,6 @@ export default struct IDOMDocumentType extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -101,7 +100,6 @@ export default struct IDOMDocumentType extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_entities() {
@@ -110,7 +108,6 @@ export default struct IDOMDocumentType extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_notations() {
@@ -119,7 +116,6 @@ export default struct IDOMDocumentType extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_publicId() {
@@ -129,7 +125,6 @@ export default struct IDOMDocumentType extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_systemId() {
@@ -139,7 +134,6 @@ export default struct IDOMDocumentType extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_internalSubset() {
@@ -157,12 +151,12 @@ export default struct IDOMDocumentType extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
-        this.vtbl.get_entities := CallbackCreate(GetMethod(implObj, "get_entities"), flags, 2)
-        this.vtbl.get_notations := CallbackCreate(GetMethod(implObj, "get_notations"), flags, 2)
-        this.vtbl.get_publicId := CallbackCreate(GetMethod(implObj, "get_publicId"), flags, 2)
-        this.vtbl.get_systemId := CallbackCreate(GetMethod(implObj, "get_systemId"), flags, 2)
-        this.vtbl.get_internalSubset := CallbackCreate(GetMethod(implObj, "get_internalSubset"), flags, 2)
+        this.vtbl.get_name := CallbackCreate(ObjBindMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.get_entities := CallbackCreate(ObjBindMethod(implObj, "get_entities"), flags, 2)
+        this.vtbl.get_notations := CallbackCreate(ObjBindMethod(implObj, "get_notations"), flags, 2)
+        this.vtbl.get_publicId := CallbackCreate(ObjBindMethod(implObj, "get_publicId"), flags, 2)
+        this.vtbl.get_systemId := CallbackCreate(ObjBindMethod(implObj, "get_systemId"), flags, 2)
+        this.vtbl.get_internalSubset := CallbackCreate(ObjBindMethod(implObj, "get_internalSubset"), flags, 2)
     }
 
     Dispose() {

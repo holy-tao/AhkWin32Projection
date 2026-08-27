@@ -91,8 +91,8 @@ export default struct IWMDMOperation3 extends IWMDMOperation {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmoperation3-transferobjectdataonclearchannel
      */
     TransferObjectDataOnClearChannel(pData, pdwSize) {
-        pDataMarshal := pData is VarRef ? "char*" : "ptr"
-        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+        pDataMarshal := pData is VarRef ? "char*" : IntPtr
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, pDataMarshal, pData, pdwSizeMarshal, pdwSize, "HRESULT")
         return result
@@ -107,7 +107,7 @@ export default struct IWMDMOperation3 extends IWMDMOperation {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.TransferObjectDataOnClearChannel := CallbackCreate(GetMethod(implObj, "TransferObjectDataOnClearChannel"), flags, 3)
+        this.vtbl.TransferObjectDataOnClearChannel := CallbackCreate(ObjBindMethod(implObj, "TransferObjectDataOnClearChannel"), flags, 3)
     }
 
     Dispose() {

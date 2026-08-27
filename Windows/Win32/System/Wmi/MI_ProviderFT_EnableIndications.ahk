@@ -19,7 +19,6 @@ export default struct MI_ProviderFT_EnableIndications {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} self 
      * @param {Pointer<MI_Context>} indicationsContext 
      * @param {Pointer<Integer>} nameSpace 
@@ -27,9 +26,10 @@ export default struct MI_ProviderFT_EnableIndications {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(self, indicationsContext, nameSpace, className) {
-        selfMarshal := self is VarRef ? "ptr" : "ptr"
-        nameSpaceMarshal := nameSpace is VarRef ? "ushort*" : "ptr"
-        classNameMarshal := className is VarRef ? "ushort*" : "ptr"
+        selfMarshal := self is VarRef ? "ptr" : IntPtr
+        selfMarshal := self == 0 ? IntPtr : "ptr"
+        nameSpaceMarshal := nameSpace is VarRef ? "ushort*" : IntPtr
+        classNameMarshal := className is VarRef ? "ushort*" : IntPtr
 
         DllCall(this.value, selfMarshal, self, MI_Context.Ptr, indicationsContext, nameSpaceMarshal, nameSpace, classNameMarshal, className)
     }

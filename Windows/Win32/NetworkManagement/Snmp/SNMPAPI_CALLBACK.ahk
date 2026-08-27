@@ -28,7 +28,6 @@ export default struct SNMPAPI_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer} hSession Handle to the WinSNMP session.
      * @param {HWND} _hWnd Handle to a window of the WinSNMP application to notify when an asynchronous request completes, or when trap notification occurs. This parameter does not have significance for the WinSNMP session, but the implementation always passes the value to the callback function.
      * @param {Integer} wMsg Specifies an unsigned integer that identifies the notification message to send to the WinSNMP application window. This parameter does not have significance for the WinSNMP session, but the implementation always passes the value to the callback function.
@@ -41,7 +40,7 @@ export default struct SNMPAPI_CALLBACK {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpclose">SnmpClose</a> function for the indicated session.
      */
     Call(hSession, _hWnd, wMsg, _wParam, _lParam, lpClientData) {
-        lpClientDataMarshal := lpClientData is VarRef ? "ptr" : "ptr"
+        lpClientDataMarshal := lpClientData is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, IntPtr, hSession, HWND, _hWnd, UInt32, wMsg, WPARAM, _wParam, LPARAM, _lParam, lpClientDataMarshal, lpClientData, UInt32)
         return result

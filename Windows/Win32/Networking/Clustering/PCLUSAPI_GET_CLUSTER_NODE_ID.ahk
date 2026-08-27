@@ -20,7 +20,6 @@ export default struct PCLUSAPI_GET_CLUSTER_NODE_ID {
     }
 
     /**
-     * 
      * @param {HNODE} _hNode 
      * @param {PWSTR} lpszNodeId 
      * @param {Pointer<Integer>} lpcchName 
@@ -29,9 +28,10 @@ export default struct PCLUSAPI_GET_CLUSTER_NODE_ID {
     Call(_hNode, lpszNodeId, lpcchName) {
         lpszNodeId := lpszNodeId is String ? StrPtr(lpszNodeId) : lpszNodeId
 
-        lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
+        _hNodeMarshal := _hNode == 0 ? IntPtr : HNODE
+        lpcchNameMarshal := lpcchName is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, HNODE, _hNode, "ptr", lpszNodeId, lpcchNameMarshal, lpcchName, UInt32)
+        result := DllCall(this.value, _hNodeMarshal, _hNode, "ptr", lpszNodeId, lpcchNameMarshal, lpcchName, UInt32)
         return result
     }
 

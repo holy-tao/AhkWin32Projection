@@ -18,14 +18,14 @@ export default struct PLSA_FREE_SHARED_MEMORY {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} SharedMem 
      * @param {Pointer<Void>} Memory 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(SharedMem, Memory) {
-        SharedMemMarshal := SharedMem is VarRef ? "ptr" : "ptr"
-        MemoryMarshal := Memory is VarRef ? "ptr" : "ptr"
+        SharedMemMarshal := SharedMem is VarRef ? "ptr" : IntPtr
+        MemoryMarshal := Memory is VarRef ? "ptr" : IntPtr
+        MemoryMarshal := Memory == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, SharedMemMarshal, SharedMem, MemoryMarshal, Memory)
     }

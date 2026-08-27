@@ -19,7 +19,6 @@ export default struct DEREFERENCECONNECTION {
     }
 
     /**
-     * 
      * @param {Pointer<LDAP>} PrimaryConnection 
      * @param {Pointer<LDAP>} ConnectionToDereference 
      * @returns {Integer} 

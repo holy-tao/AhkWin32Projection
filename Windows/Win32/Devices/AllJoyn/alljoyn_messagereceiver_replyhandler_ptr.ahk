@@ -19,13 +19,12 @@ export default struct alljoyn_messagereceiver_replyhandler_ptr {
     }
 
     /**
-     * 
      * @param {alljoyn_message} message 
      * @param {Pointer<Void>} _context 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(message, _context) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, alljoyn_message, message, _contextMarshal, _context)
     }

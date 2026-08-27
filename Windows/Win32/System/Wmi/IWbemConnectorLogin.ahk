@@ -38,7 +38,6 @@ export default struct IWbemConnectorLogin extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} wszNetworkResource 
      * @param {PWSTR} wszPreferredLocale 
      * @param {Integer} lFlags 
@@ -63,7 +62,7 @@ export default struct IWbemConnectorLogin extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ConnectorLogin := CallbackCreate(GetMethod(implObj, "ConnectorLogin"), flags, 7)
+        this.vtbl.ConnectorLogin := CallbackCreate(ObjBindMethod(implObj, "ConnectorLogin"), flags, 7)
     }
 
     Dispose() {

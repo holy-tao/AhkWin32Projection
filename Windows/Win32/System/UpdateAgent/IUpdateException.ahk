@@ -104,9 +104,9 @@ export default struct IUpdateException extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Message := CallbackCreate(GetMethod(implObj, "get_Message"), flags, 2)
-        this.vtbl.get_HResult := CallbackCreate(GetMethod(implObj, "get_HResult"), flags, 2)
-        this.vtbl.get_Context := CallbackCreate(GetMethod(implObj, "get_Context"), flags, 2)
+        this.vtbl.get_Message := CallbackCreate(ObjBindMethod(implObj, "get_Message"), flags, 2)
+        this.vtbl.get_HResult := CallbackCreate(ObjBindMethod(implObj, "get_HResult"), flags, 2)
+        this.vtbl.get_Context := CallbackCreate(ObjBindMethod(implObj, "get_Context"), flags, 2)
     }
 
     Dispose() {

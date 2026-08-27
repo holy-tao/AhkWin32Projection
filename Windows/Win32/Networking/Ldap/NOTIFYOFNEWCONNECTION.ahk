@@ -22,7 +22,6 @@ export default struct NOTIFYOFNEWCONNECTION {
     }
 
     /**
-     * 
      * @param {Pointer<LDAP>} PrimaryConnection 
      * @param {Pointer<LDAP>} ReferralFromConnection 
      * @param {PWSTR} NewDN 
@@ -38,8 +37,8 @@ export default struct NOTIFYOFNEWCONNECTION {
         NewDN := NewDN is String ? StrPtr(NewDN) : NewDN
         HostName := HostName is String ? StrPtr(HostName) : HostName
 
-        SecAuthIdentityMarshal := SecAuthIdentity is VarRef ? "ptr" : "ptr"
-        CurrentUserMarshal := CurrentUser is VarRef ? "ptr" : "ptr"
+        SecAuthIdentityMarshal := SecAuthIdentity is VarRef ? "ptr" : IntPtr
+        CurrentUserMarshal := CurrentUser is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, LDAP.Ptr, PrimaryConnection, LDAP.Ptr, ReferralFromConnection, "ptr", NewDN, "ptr", HostName, LDAP.Ptr, NewConnection, UInt32, PortNumber, SecAuthIdentityMarshal, SecAuthIdentity, CurrentUserMarshal, CurrentUser, UInt32, ErrorCodeFromBind, BOOLEAN)
         return result

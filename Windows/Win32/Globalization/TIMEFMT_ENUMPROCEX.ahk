@@ -21,7 +21,6 @@ export default struct TIMEFMT_ENUMPROCEX {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @param {LPARAM} param1 
      * @returns {BOOL} 

@@ -42,7 +42,6 @@ export default struct ISpTTSEngineSite extends ISpEventSink {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetActions() {
@@ -51,20 +50,18 @@ export default struct ISpTTSEngineSite extends ISpEventSink {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pBuff 
      * @param {Integer} cb 
      * @returns {Integer} 
      */
     Write(pBuff, cb) {
-        pBuffMarshal := pBuff is VarRef ? "ptr" : "ptr"
+        pBuffMarshal := pBuff is VarRef ? "ptr" : IntPtr
 
         result := ComCall(6, this, pBuffMarshal, pBuff, UInt32, cb, "uint*", &pcbWritten := 0, "HRESULT")
         return pcbWritten
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetRate() {
@@ -73,7 +70,6 @@ export default struct ISpTTSEngineSite extends ISpEventSink {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetVolume() {
@@ -82,21 +78,19 @@ export default struct ISpTTSEngineSite extends ISpEventSink {
     }
 
     /**
-     * 
      * @param {Pointer<SPVSKIPTYPE>} peType 
      * @param {Pointer<Integer>} plNumItems 
      * @returns {HRESULT} 
      */
     GetSkipInfo(peType, plNumItems) {
-        peTypeMarshal := peType is VarRef ? "int*" : "ptr"
-        plNumItemsMarshal := plNumItems is VarRef ? "int*" : "ptr"
+        peTypeMarshal := peType is VarRef ? "int*" : IntPtr
+        plNumItemsMarshal := plNumItems is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, peTypeMarshal, peType, plNumItemsMarshal, plNumItems, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} ulNumSkipped 
      * @returns {HRESULT} 
      */
@@ -114,12 +108,12 @@ export default struct ISpTTSEngineSite extends ISpEventSink {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetActions := CallbackCreate(GetMethod(implObj, "GetActions"), flags, 1)
-        this.vtbl.Write := CallbackCreate(GetMethod(implObj, "Write"), flags, 4)
-        this.vtbl.GetRate := CallbackCreate(GetMethod(implObj, "GetRate"), flags, 2)
-        this.vtbl.GetVolume := CallbackCreate(GetMethod(implObj, "GetVolume"), flags, 2)
-        this.vtbl.GetSkipInfo := CallbackCreate(GetMethod(implObj, "GetSkipInfo"), flags, 3)
-        this.vtbl.CompleteSkip := CallbackCreate(GetMethod(implObj, "CompleteSkip"), flags, 2)
+        this.vtbl.GetActions := CallbackCreate(ObjBindMethod(implObj, "GetActions"), flags, 1)
+        this.vtbl.Write := CallbackCreate(ObjBindMethod(implObj, "Write"), flags, 4)
+        this.vtbl.GetRate := CallbackCreate(ObjBindMethod(implObj, "GetRate"), flags, 2)
+        this.vtbl.GetVolume := CallbackCreate(ObjBindMethod(implObj, "GetVolume"), flags, 2)
+        this.vtbl.GetSkipInfo := CallbackCreate(ObjBindMethod(implObj, "GetSkipInfo"), flags, 3)
+        this.vtbl.CompleteSkip := CallbackCreate(ObjBindMethod(implObj, "CompleteSkip"), flags, 2)
     }
 
     Dispose() {

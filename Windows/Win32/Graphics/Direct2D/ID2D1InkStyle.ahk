@@ -98,10 +98,10 @@ export default struct ID2D1InkStyle extends ID2D1Resource {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetNibTransform := CallbackCreate(GetMethod(implObj, "SetNibTransform"), flags, 2)
-        this.vtbl.GetNibTransform := CallbackCreate(GetMethod(implObj, "GetNibTransform"), flags, 2)
-        this.vtbl.SetNibShape := CallbackCreate(GetMethod(implObj, "SetNibShape"), flags, 2)
-        this.vtbl.GetNibShape := CallbackCreate(GetMethod(implObj, "GetNibShape"), flags, 1)
+        this.vtbl.SetNibTransform := CallbackCreate(ObjBindMethod(implObj, "SetNibTransform"), flags, 2)
+        this.vtbl.GetNibTransform := CallbackCreate(ObjBindMethod(implObj, "GetNibTransform"), flags, 2)
+        this.vtbl.SetNibShape := CallbackCreate(ObjBindMethod(implObj, "SetNibShape"), flags, 2)
+        this.vtbl.GetNibShape := CallbackCreate(ObjBindMethod(implObj, "GetNibShape"), flags, 1)
     }
 
     Dispose() {

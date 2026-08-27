@@ -38,20 +38,18 @@ export default struct IDCInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cInfo 
      * @param {Pointer<Integer>} rgeInfoType 
      * @returns {Pointer<DCINFO>} 
      */
     GetInfo(cInfo, rgeInfoType) {
-        rgeInfoTypeMarshal := rgeInfoType is VarRef ? "uint*" : "ptr"
+        rgeInfoTypeMarshal := rgeInfoType is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, UInt32, cInfo, rgeInfoTypeMarshal, rgeInfoType, "ptr*", &prgInfo := 0, "HRESULT")
         return prgInfo
     }
 
     /**
-     * 
      * @param {Integer} cInfo 
      * @param {Pointer<DCINFO>} rgInfo 
      * @returns {HRESULT} 
@@ -70,8 +68,8 @@ export default struct IDCInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetInfo := CallbackCreate(GetMethod(implObj, "GetInfo"), flags, 4)
-        this.vtbl.SetInfo := CallbackCreate(GetMethod(implObj, "SetInfo"), flags, 3)
+        this.vtbl.GetInfo := CallbackCreate(ObjBindMethod(implObj, "GetInfo"), flags, 4)
+        this.vtbl.SetInfo := CallbackCreate(ObjBindMethod(implObj, "SetInfo"), flags, 3)
     }
 
     Dispose() {

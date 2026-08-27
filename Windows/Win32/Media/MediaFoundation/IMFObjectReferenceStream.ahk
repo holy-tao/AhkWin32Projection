@@ -88,8 +88,8 @@ export default struct IMFObjectReferenceStream extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SaveReference := CallbackCreate(GetMethod(implObj, "SaveReference"), flags, 3)
-        this.vtbl.LoadReference := CallbackCreate(GetMethod(implObj, "LoadReference"), flags, 3)
+        this.vtbl.SaveReference := CallbackCreate(ObjBindMethod(implObj, "SaveReference"), flags, 3)
+        this.vtbl.LoadReference := CallbackCreate(ObjBindMethod(implObj, "LoadReference"), flags, 3)
     }
 
     Dispose() {

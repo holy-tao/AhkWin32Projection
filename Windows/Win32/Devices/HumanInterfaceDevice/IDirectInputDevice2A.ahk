@@ -53,7 +53,6 @@ export default struct IDirectInputDevice2A extends IDirectInputDeviceA {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} param0 
      * @param {Pointer<DIEFFECT>} param1 
      * @param {IUnknown} param3 
@@ -65,21 +64,19 @@ export default struct IDirectInputDevice2A extends IDirectInputDeviceA {
     }
 
     /**
-     * 
      * @param {Pointer<LPDIENUMEFFECTSCALLBACKA>} param0 
      * @param {Pointer<Void>} param1 
      * @param {Integer} param2 
      * @returns {HRESULT} 
      */
     EnumEffects(param0, param1, param2) {
-        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+        param1Marshal := param1 is VarRef ? "ptr" : IntPtr
 
         result := ComCall(19, this, LPDIENUMEFFECTSCALLBACKA, param0, param1Marshal, param1, UInt32, param2, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<DIEFFECTINFOA>} param0 
      * @param {Pointer<Guid>} param1 
      * @returns {HRESULT} 
@@ -90,19 +87,17 @@ export default struct IDirectInputDevice2A extends IDirectInputDeviceA {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} param0 
      * @returns {HRESULT} 
      */
     GetForceFeedbackState(param0) {
-        param0Marshal := param0 is VarRef ? "uint*" : "ptr"
+        param0Marshal := param0 is VarRef ? "uint*" : IntPtr
 
         result := ComCall(21, this, param0Marshal, param0, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @returns {HRESULT} 
      */
@@ -112,14 +107,13 @@ export default struct IDirectInputDevice2A extends IDirectInputDeviceA {
     }
 
     /**
-     * 
      * @param {Pointer<LPDIENUMCREATEDEFFECTOBJECTSCALLBACK>} param0 
      * @param {Pointer<Void>} param1 
      * @param {Integer} param2 
      * @returns {HRESULT} 
      */
     EnumCreatedEffectObjects(param0, param1, param2) {
-        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+        param1Marshal := param1 is VarRef ? "ptr" : IntPtr
 
         result := ComCall(23, this, LPDIENUMCREATEDEFFECTOBJECTSCALLBACK, param0, param1Marshal, param1, UInt32, param2, "HRESULT")
         return result
@@ -177,7 +171,6 @@ export default struct IDirectInputDevice2A extends IDirectInputDeviceA {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Poll() {
@@ -186,7 +179,6 @@ export default struct IDirectInputDevice2A extends IDirectInputDeviceA {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Pointer<DIDEVICEOBJECTDATA>} param1 
      * @param {Pointer<Integer>} param2 
@@ -194,7 +186,7 @@ export default struct IDirectInputDevice2A extends IDirectInputDeviceA {
      * @returns {HRESULT} 
      */
     SendDeviceData(param0, param1, param2, param3) {
-        param2Marshal := param2 is VarRef ? "uint*" : "ptr"
+        param2Marshal := param2 is VarRef ? "uint*" : IntPtr
 
         result := ComCall(26, this, UInt32, param0, DIDEVICEOBJECTDATA.Ptr, param1, param2Marshal, param2, UInt32, param3, "HRESULT")
         return result
@@ -209,15 +201,15 @@ export default struct IDirectInputDevice2A extends IDirectInputDeviceA {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateEffect := CallbackCreate(GetMethod(implObj, "CreateEffect"), flags, 5)
-        this.vtbl.EnumEffects := CallbackCreate(GetMethod(implObj, "EnumEffects"), flags, 4)
-        this.vtbl.GetEffectInfo := CallbackCreate(GetMethod(implObj, "GetEffectInfo"), flags, 3)
-        this.vtbl.GetForceFeedbackState := CallbackCreate(GetMethod(implObj, "GetForceFeedbackState"), flags, 2)
-        this.vtbl.SendForceFeedbackCommand := CallbackCreate(GetMethod(implObj, "SendForceFeedbackCommand"), flags, 2)
-        this.vtbl.EnumCreatedEffectObjects := CallbackCreate(GetMethod(implObj, "EnumCreatedEffectObjects"), flags, 4)
-        this.vtbl.Escape := CallbackCreate(GetMethod(implObj, "Escape"), flags, 2)
-        this.vtbl.Poll := CallbackCreate(GetMethod(implObj, "Poll"), flags, 1)
-        this.vtbl.SendDeviceData := CallbackCreate(GetMethod(implObj, "SendDeviceData"), flags, 5)
+        this.vtbl.CreateEffect := CallbackCreate(ObjBindMethod(implObj, "CreateEffect"), flags, 5)
+        this.vtbl.EnumEffects := CallbackCreate(ObjBindMethod(implObj, "EnumEffects"), flags, 4)
+        this.vtbl.GetEffectInfo := CallbackCreate(ObjBindMethod(implObj, "GetEffectInfo"), flags, 3)
+        this.vtbl.GetForceFeedbackState := CallbackCreate(ObjBindMethod(implObj, "GetForceFeedbackState"), flags, 2)
+        this.vtbl.SendForceFeedbackCommand := CallbackCreate(ObjBindMethod(implObj, "SendForceFeedbackCommand"), flags, 2)
+        this.vtbl.EnumCreatedEffectObjects := CallbackCreate(ObjBindMethod(implObj, "EnumCreatedEffectObjects"), flags, 4)
+        this.vtbl.Escape := CallbackCreate(ObjBindMethod(implObj, "Escape"), flags, 2)
+        this.vtbl.Poll := CallbackCreate(ObjBindMethod(implObj, "Poll"), flags, 1)
+        this.vtbl.SendDeviceData := CallbackCreate(ObjBindMethod(implObj, "SendDeviceData"), flags, 5)
     }
 
     Dispose() {

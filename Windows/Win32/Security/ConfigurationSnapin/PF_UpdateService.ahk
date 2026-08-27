@@ -20,7 +20,6 @@ export default struct PF_UpdateService {
     }
 
     /**
-     * 
      * @param {Pointer<SCESVC_CALLBACK_INFO>} pSceCbInfo 
      * @param {Pointer<SCESVC_CONFIGURATION_INFO>} ServiceInfo 
      * @returns {Integer} 

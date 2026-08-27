@@ -129,7 +129,6 @@ export default struct ISchemaElement extends ISchemaParticle {
     }
 
     /**
-     * 
      * @returns {ISchemaType} 
      */
     get_type() {
@@ -138,7 +137,6 @@ export default struct ISchemaElement extends ISchemaParticle {
     }
 
     /**
-     * 
      * @returns {ISchemaComplexType} 
      */
     get_scope() {
@@ -147,7 +145,6 @@ export default struct ISchemaElement extends ISchemaParticle {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_defaultValue() {
@@ -157,7 +154,6 @@ export default struct ISchemaElement extends ISchemaParticle {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fixedValue() {
@@ -167,7 +163,6 @@ export default struct ISchemaElement extends ISchemaParticle {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_isNillable() {
@@ -176,7 +171,6 @@ export default struct ISchemaElement extends ISchemaParticle {
     }
 
     /**
-     * 
      * @returns {ISchemaItemCollection} 
      */
     get_identityConstraints() {
@@ -185,7 +179,6 @@ export default struct ISchemaElement extends ISchemaParticle {
     }
 
     /**
-     * 
      * @returns {ISchemaElement} 
      */
     get_substitutionGroup() {
@@ -194,7 +187,6 @@ export default struct ISchemaElement extends ISchemaParticle {
     }
 
     /**
-     * 
      * @returns {SCHEMADERIVATIONMETHOD} 
      */
     get_substitutionGroupExclusions() {
@@ -203,7 +195,6 @@ export default struct ISchemaElement extends ISchemaParticle {
     }
 
     /**
-     * 
      * @returns {SCHEMADERIVATIONMETHOD} 
      */
     get_disallowedSubstitutions() {
@@ -212,7 +203,6 @@ export default struct ISchemaElement extends ISchemaParticle {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_isAbstract() {
@@ -221,7 +211,6 @@ export default struct ISchemaElement extends ISchemaParticle {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_isReference() {
@@ -238,17 +227,17 @@ export default struct ISchemaElement extends ISchemaParticle {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
-        this.vtbl.get_scope := CallbackCreate(GetMethod(implObj, "get_scope"), flags, 2)
-        this.vtbl.get_defaultValue := CallbackCreate(GetMethod(implObj, "get_defaultValue"), flags, 2)
-        this.vtbl.get_fixedValue := CallbackCreate(GetMethod(implObj, "get_fixedValue"), flags, 2)
-        this.vtbl.get_isNillable := CallbackCreate(GetMethod(implObj, "get_isNillable"), flags, 2)
-        this.vtbl.get_identityConstraints := CallbackCreate(GetMethod(implObj, "get_identityConstraints"), flags, 2)
-        this.vtbl.get_substitutionGroup := CallbackCreate(GetMethod(implObj, "get_substitutionGroup"), flags, 2)
-        this.vtbl.get_substitutionGroupExclusions := CallbackCreate(GetMethod(implObj, "get_substitutionGroupExclusions"), flags, 2)
-        this.vtbl.get_disallowedSubstitutions := CallbackCreate(GetMethod(implObj, "get_disallowedSubstitutions"), flags, 2)
-        this.vtbl.get_isAbstract := CallbackCreate(GetMethod(implObj, "get_isAbstract"), flags, 2)
-        this.vtbl.get_isReference := CallbackCreate(GetMethod(implObj, "get_isReference"), flags, 2)
+        this.vtbl.get_type := CallbackCreate(ObjBindMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.get_scope := CallbackCreate(ObjBindMethod(implObj, "get_scope"), flags, 2)
+        this.vtbl.get_defaultValue := CallbackCreate(ObjBindMethod(implObj, "get_defaultValue"), flags, 2)
+        this.vtbl.get_fixedValue := CallbackCreate(ObjBindMethod(implObj, "get_fixedValue"), flags, 2)
+        this.vtbl.get_isNillable := CallbackCreate(ObjBindMethod(implObj, "get_isNillable"), flags, 2)
+        this.vtbl.get_identityConstraints := CallbackCreate(ObjBindMethod(implObj, "get_identityConstraints"), flags, 2)
+        this.vtbl.get_substitutionGroup := CallbackCreate(ObjBindMethod(implObj, "get_substitutionGroup"), flags, 2)
+        this.vtbl.get_substitutionGroupExclusions := CallbackCreate(ObjBindMethod(implObj, "get_substitutionGroupExclusions"), flags, 2)
+        this.vtbl.get_disallowedSubstitutions := CallbackCreate(ObjBindMethod(implObj, "get_disallowedSubstitutions"), flags, 2)
+        this.vtbl.get_isAbstract := CallbackCreate(ObjBindMethod(implObj, "get_isAbstract"), flags, 2)
+        this.vtbl.get_isReference := CallbackCreate(ObjBindMethod(implObj, "get_isReference"), flags, 2)
     }
 
     Dispose() {

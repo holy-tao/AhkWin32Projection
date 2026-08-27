@@ -39,7 +39,6 @@ export default struct IHTMLEditHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {IHTMLElement} pIElement 
      * @param {Pointer<RECT>} prcNew 
      * @param {ELEMENT_CORNER} eHandle 
@@ -59,7 +58,7 @@ export default struct IHTMLEditHost extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SnapRect := CallbackCreate(GetMethod(implObj, "SnapRect"), flags, 4)
+        this.vtbl.SnapRect := CallbackCreate(ObjBindMethod(implObj, "SnapRect"), flags, 4)
     }
 
     Dispose() {

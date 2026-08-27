@@ -75,8 +75,8 @@ export default struct IWICPixelFormatInfo2 extends IWICPixelFormatInfo {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SupportsTransparency := CallbackCreate(GetMethod(implObj, "SupportsTransparency"), flags, 2)
-        this.vtbl.GetNumericRepresentation := CallbackCreate(GetMethod(implObj, "GetNumericRepresentation"), flags, 2)
+        this.vtbl.SupportsTransparency := CallbackCreate(ObjBindMethod(implObj, "SupportsTransparency"), flags, 2)
+        this.vtbl.GetNumericRepresentation := CallbackCreate(ObjBindMethod(implObj, "GetNumericRepresentation"), flags, 2)
     }
 
     Dispose() {

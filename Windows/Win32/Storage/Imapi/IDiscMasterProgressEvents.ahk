@@ -161,15 +161,15 @@ export default struct IDiscMasterProgressEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryCancel := CallbackCreate(GetMethod(implObj, "QueryCancel"), flags, 2)
-        this.vtbl.NotifyPnPActivity := CallbackCreate(GetMethod(implObj, "NotifyPnPActivity"), flags, 1)
-        this.vtbl.NotifyAddProgress := CallbackCreate(GetMethod(implObj, "NotifyAddProgress"), flags, 3)
-        this.vtbl.NotifyBlockProgress := CallbackCreate(GetMethod(implObj, "NotifyBlockProgress"), flags, 3)
-        this.vtbl.NotifyTrackProgress := CallbackCreate(GetMethod(implObj, "NotifyTrackProgress"), flags, 3)
-        this.vtbl.NotifyPreparingBurn := CallbackCreate(GetMethod(implObj, "NotifyPreparingBurn"), flags, 2)
-        this.vtbl.NotifyClosingDisc := CallbackCreate(GetMethod(implObj, "NotifyClosingDisc"), flags, 2)
-        this.vtbl.NotifyBurnComplete := CallbackCreate(GetMethod(implObj, "NotifyBurnComplete"), flags, 2)
-        this.vtbl.NotifyEraseComplete := CallbackCreate(GetMethod(implObj, "NotifyEraseComplete"), flags, 2)
+        this.vtbl.QueryCancel := CallbackCreate(ObjBindMethod(implObj, "QueryCancel"), flags, 2)
+        this.vtbl.NotifyPnPActivity := CallbackCreate(ObjBindMethod(implObj, "NotifyPnPActivity"), flags, 1)
+        this.vtbl.NotifyAddProgress := CallbackCreate(ObjBindMethod(implObj, "NotifyAddProgress"), flags, 3)
+        this.vtbl.NotifyBlockProgress := CallbackCreate(ObjBindMethod(implObj, "NotifyBlockProgress"), flags, 3)
+        this.vtbl.NotifyTrackProgress := CallbackCreate(ObjBindMethod(implObj, "NotifyTrackProgress"), flags, 3)
+        this.vtbl.NotifyPreparingBurn := CallbackCreate(ObjBindMethod(implObj, "NotifyPreparingBurn"), flags, 2)
+        this.vtbl.NotifyClosingDisc := CallbackCreate(ObjBindMethod(implObj, "NotifyClosingDisc"), flags, 2)
+        this.vtbl.NotifyBurnComplete := CallbackCreate(ObjBindMethod(implObj, "NotifyBurnComplete"), flags, 2)
+        this.vtbl.NotifyEraseComplete := CallbackCreate(ObjBindMethod(implObj, "NotifyEraseComplete"), flags, 2)
     }
 
     Dispose() {

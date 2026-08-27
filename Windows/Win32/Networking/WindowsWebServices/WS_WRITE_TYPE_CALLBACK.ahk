@@ -28,7 +28,6 @@ export default struct WS_WRITE_TYPE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<WS_XML_WRITER>} writer A  <b>WS_XML_WRITER</b> pointer to the writer that the value should be written to.
      * @param {WS_TYPE_MAPPING} typeMapping Indicates how the XML is being mapped to this type.  See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_type_mapping">WS_TYPE_MAPPING</a> for more information.
      *                 
@@ -45,9 +44,10 @@ export default struct WS_WRITE_TYPE_CALLBACK {
      * @returns {HRESULT} This callback function does not return a value.
      */
     Call(writer, typeMapping, descriptionData, value, valueSize, _error) {
-        writerMarshal := writer is VarRef ? "ptr*" : "ptr"
-        descriptionDataMarshal := descriptionData is VarRef ? "ptr" : "ptr"
-        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
+        writerMarshal := writer is VarRef ? "ptr*" : IntPtr
+        descriptionDataMarshal := descriptionData is VarRef ? "ptr" : IntPtr
+        _errorMarshal := _error is VarRef ? "ptr*" : IntPtr
+        _errorMarshal := _error == 0 ? IntPtr : WS_ERROR.Ptr
 
         result := DllCall(this.value, writerMarshal, writer, WS_TYPE_MAPPING, typeMapping, descriptionDataMarshal, descriptionData, IntPtr, value, UInt32, valueSize, _errorMarshal, _error, "HRESULT")
         return result

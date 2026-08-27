@@ -36,7 +36,6 @@ export default struct IGetDispenser extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} iid 
      * @returns {Pointer<Void>} 
      */
@@ -54,7 +53,7 @@ export default struct IGetDispenser extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDispenser := CallbackCreate(GetMethod(implObj, "GetDispenser"), flags, 3)
+        this.vtbl.GetDispenser := CallbackCreate(ObjBindMethod(implObj, "GetDispenser"), flags, 3)
     }
 
     Dispose() {

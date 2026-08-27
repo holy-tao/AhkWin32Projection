@@ -89,7 +89,6 @@ export default struct IDWriteFontFaceReference extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDWriteFontFaceReference} fontFaceReference 
      * @returns {BOOL} 
      */
@@ -240,7 +239,7 @@ export default struct IDWriteFontFaceReference extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfacereference-enqueueglyphdownloadrequest
      */
     EnqueueGlyphDownloadRequest(glyphIndices, glyphCount) {
-        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
+        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(15, this, glyphIndicesMarshal, glyphIndices, UInt32, glyphCount, "HRESULT")
         return result
@@ -273,20 +272,20 @@ export default struct IDWriteFontFaceReference extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateFontFace := CallbackCreate(GetMethod(implObj, "CreateFontFace"), flags, 2)
-        this.vtbl.CreateFontFaceWithSimulations := CallbackCreate(GetMethod(implObj, "CreateFontFaceWithSimulations"), flags, 3)
-        this.vtbl.Equals := CallbackCreate(GetMethod(implObj, "Equals"), flags, 2)
-        this.vtbl.GetFontFaceIndex := CallbackCreate(GetMethod(implObj, "GetFontFaceIndex"), flags, 1)
-        this.vtbl.GetSimulations := CallbackCreate(GetMethod(implObj, "GetSimulations"), flags, 1)
-        this.vtbl.GetFontFile := CallbackCreate(GetMethod(implObj, "GetFontFile"), flags, 2)
-        this.vtbl.GetLocalFileSize := CallbackCreate(GetMethod(implObj, "GetLocalFileSize"), flags, 1)
-        this.vtbl.GetFileSize := CallbackCreate(GetMethod(implObj, "GetFileSize"), flags, 1)
-        this.vtbl.GetFileTime := CallbackCreate(GetMethod(implObj, "GetFileTime"), flags, 2)
-        this.vtbl.GetLocality := CallbackCreate(GetMethod(implObj, "GetLocality"), flags, 1)
-        this.vtbl.EnqueueFontDownloadRequest := CallbackCreate(GetMethod(implObj, "EnqueueFontDownloadRequest"), flags, 1)
-        this.vtbl.EnqueueCharacterDownloadRequest := CallbackCreate(GetMethod(implObj, "EnqueueCharacterDownloadRequest"), flags, 3)
-        this.vtbl.EnqueueGlyphDownloadRequest := CallbackCreate(GetMethod(implObj, "EnqueueGlyphDownloadRequest"), flags, 3)
-        this.vtbl.EnqueueFileFragmentDownloadRequest := CallbackCreate(GetMethod(implObj, "EnqueueFileFragmentDownloadRequest"), flags, 3)
+        this.vtbl.CreateFontFace := CallbackCreate(ObjBindMethod(implObj, "CreateFontFace"), flags, 2)
+        this.vtbl.CreateFontFaceWithSimulations := CallbackCreate(ObjBindMethod(implObj, "CreateFontFaceWithSimulations"), flags, 3)
+        this.vtbl.Equals := CallbackCreate(ObjBindMethod(implObj, "Equals"), flags, 2)
+        this.vtbl.GetFontFaceIndex := CallbackCreate(ObjBindMethod(implObj, "GetFontFaceIndex"), flags, 1)
+        this.vtbl.GetSimulations := CallbackCreate(ObjBindMethod(implObj, "GetSimulations"), flags, 1)
+        this.vtbl.GetFontFile := CallbackCreate(ObjBindMethod(implObj, "GetFontFile"), flags, 2)
+        this.vtbl.GetLocalFileSize := CallbackCreate(ObjBindMethod(implObj, "GetLocalFileSize"), flags, 1)
+        this.vtbl.GetFileSize := CallbackCreate(ObjBindMethod(implObj, "GetFileSize"), flags, 1)
+        this.vtbl.GetFileTime := CallbackCreate(ObjBindMethod(implObj, "GetFileTime"), flags, 2)
+        this.vtbl.GetLocality := CallbackCreate(ObjBindMethod(implObj, "GetLocality"), flags, 1)
+        this.vtbl.EnqueueFontDownloadRequest := CallbackCreate(ObjBindMethod(implObj, "EnqueueFontDownloadRequest"), flags, 1)
+        this.vtbl.EnqueueCharacterDownloadRequest := CallbackCreate(ObjBindMethod(implObj, "EnqueueCharacterDownloadRequest"), flags, 3)
+        this.vtbl.EnqueueGlyphDownloadRequest := CallbackCreate(ObjBindMethod(implObj, "EnqueueGlyphDownloadRequest"), flags, 3)
+        this.vtbl.EnqueueFileFragmentDownloadRequest := CallbackCreate(ObjBindMethod(implObj, "EnqueueFileFragmentDownloadRequest"), flags, 3)
     }
 
     Dispose() {

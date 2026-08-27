@@ -44,7 +44,6 @@ export default struct ISpGrammarCompiler extends IUnknown {
     }
 
     /**
-     * 
      * @param {IStream} pSource 
      * @param {IStream} pDest 
      * @param {IStream} pHeader 
@@ -54,7 +53,11 @@ export default struct ISpGrammarCompiler extends IUnknown {
      * @returns {HRESULT} 
      */
     CompileStream(pSource, pDest, pHeader, pReserved, pErrorLog, dwFlags) {
-        result := ComCall(3, this, "ptr", pSource, "ptr", pDest, "ptr", pHeader, "ptr", pReserved, "ptr", pErrorLog, UInt32, dwFlags, "HRESULT")
+        pHeaderMarshal := pHeader == 0 ? IntPtr : "ptr"
+        pReservedMarshal := pReserved == 0 ? IntPtr : "ptr"
+        pErrorLogMarshal := pErrorLog == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, "ptr", pSource, "ptr", pDest, pHeaderMarshal, pHeader, pReservedMarshal, pReserved, pErrorLogMarshal, pErrorLog, UInt32, dwFlags, "HRESULT")
         return result
     }
 
@@ -67,7 +70,7 @@ export default struct ISpGrammarCompiler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CompileStream := CallbackCreate(GetMethod(implObj, "CompileStream"), flags, 7)
+        this.vtbl.CompileStream := CallbackCreate(ObjBindMethod(implObj, "CompileStream"), flags, 7)
     }
 
     Dispose() {

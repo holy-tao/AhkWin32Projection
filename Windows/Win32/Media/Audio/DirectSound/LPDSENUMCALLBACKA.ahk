@@ -22,7 +22,6 @@ export default struct LPDSENUMCALLBACKA {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} param0 
      * @param {PSTR} param1 
      * @param {PSTR} param2 
@@ -33,7 +32,7 @@ export default struct LPDSENUMCALLBACKA {
         param1 := param1 is String ? StrPtr(param1) : param1
         param2 := param2 is String ? StrPtr(param2) : param2
 
-        param3Marshal := param3 is VarRef ? "ptr" : "ptr"
+        param3Marshal := param3 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, Guid.Ptr, param0, "ptr", param1, "ptr", param2, param3Marshal, param3, BOOL)
         return result

@@ -284,18 +284,18 @@ export default struct IGPM extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDomain := CallbackCreate(GetMethod(implObj, "GetDomain"), flags, 5)
-        this.vtbl.GetBackupDir := CallbackCreate(GetMethod(implObj, "GetBackupDir"), flags, 3)
-        this.vtbl.GetSitesContainer := CallbackCreate(GetMethod(implObj, "GetSitesContainer"), flags, 6)
-        this.vtbl.GetRSOP := CallbackCreate(GetMethod(implObj, "GetRSOP"), flags, 5)
-        this.vtbl.CreatePermission := CallbackCreate(GetMethod(implObj, "CreatePermission"), flags, 5)
-        this.vtbl.CreateSearchCriteria := CallbackCreate(GetMethod(implObj, "CreateSearchCriteria"), flags, 2)
-        this.vtbl.CreateTrustee := CallbackCreate(GetMethod(implObj, "CreateTrustee"), flags, 3)
-        this.vtbl.GetClientSideExtensions := CallbackCreate(GetMethod(implObj, "GetClientSideExtensions"), flags, 2)
-        this.vtbl.GetConstants := CallbackCreate(GetMethod(implObj, "GetConstants"), flags, 2)
-        this.vtbl.GetMigrationTable := CallbackCreate(GetMethod(implObj, "GetMigrationTable"), flags, 3)
-        this.vtbl.CreateMigrationTable := CallbackCreate(GetMethod(implObj, "CreateMigrationTable"), flags, 2)
-        this.vtbl.InitializeReporting := CallbackCreate(GetMethod(implObj, "InitializeReporting"), flags, 2)
+        this.vtbl.GetDomain := CallbackCreate(ObjBindMethod(implObj, "GetDomain"), flags, 5)
+        this.vtbl.GetBackupDir := CallbackCreate(ObjBindMethod(implObj, "GetBackupDir"), flags, 3)
+        this.vtbl.GetSitesContainer := CallbackCreate(ObjBindMethod(implObj, "GetSitesContainer"), flags, 6)
+        this.vtbl.GetRSOP := CallbackCreate(ObjBindMethod(implObj, "GetRSOP"), flags, 5)
+        this.vtbl.CreatePermission := CallbackCreate(ObjBindMethod(implObj, "CreatePermission"), flags, 5)
+        this.vtbl.CreateSearchCriteria := CallbackCreate(ObjBindMethod(implObj, "CreateSearchCriteria"), flags, 2)
+        this.vtbl.CreateTrustee := CallbackCreate(ObjBindMethod(implObj, "CreateTrustee"), flags, 3)
+        this.vtbl.GetClientSideExtensions := CallbackCreate(ObjBindMethod(implObj, "GetClientSideExtensions"), flags, 2)
+        this.vtbl.GetConstants := CallbackCreate(ObjBindMethod(implObj, "GetConstants"), flags, 2)
+        this.vtbl.GetMigrationTable := CallbackCreate(ObjBindMethod(implObj, "GetMigrationTable"), flags, 3)
+        this.vtbl.CreateMigrationTable := CallbackCreate(ObjBindMethod(implObj, "CreateMigrationTable"), flags, 2)
+        this.vtbl.InitializeReporting := CallbackCreate(ObjBindMethod(implObj, "InitializeReporting"), flags, 2)
     }
 
     Dispose() {

@@ -101,8 +101,8 @@ export default struct IDWriteFontSet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset-findfontfacereference
      */
     FindFontFaceReference(fontFaceReference, listIndex, exists) {
-        listIndexMarshal := listIndex is VarRef ? "uint*" : "ptr"
-        existsMarshal := exists is VarRef ? "int*" : "ptr"
+        listIndexMarshal := listIndex is VarRef ? "uint*" : IntPtr
+        existsMarshal := exists is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, "ptr", fontFaceReference, listIndexMarshal, listIndex, existsMarshal, exists, "HRESULT")
         return result
@@ -125,8 +125,8 @@ export default struct IDWriteFontSet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset-findfontface
      */
     FindFontFace(fontFace, listIndex, exists) {
-        listIndexMarshal := listIndex is VarRef ? "uint*" : "ptr"
-        existsMarshal := exists is VarRef ? "int*" : "ptr"
+        listIndexMarshal := listIndex is VarRef ? "uint*" : IntPtr
+        existsMarshal := exists is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, "ptr", fontFace, listIndexMarshal, listIndex, existsMarshal, exists, "HRESULT")
         return result
@@ -181,7 +181,7 @@ export default struct IDWriteFontSet extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset-getpropertyvalues(dwrite_font_property_id_wcharconst_idwritestringlist)
      */
     GetPropertyValues2(listIndex, propertyId, exists, values) {
-        existsMarshal := exists is VarRef ? "int*" : "ptr"
+        existsMarshal := exists is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, UInt32, listIndex, DWRITE_FONT_PROPERTY_ID, propertyId, existsMarshal, exists, IDWriteLocalizedStrings.Ptr, values, "HRESULT")
         return result
@@ -253,16 +253,16 @@ export default struct IDWriteFontSet extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFontCount := CallbackCreate(GetMethod(implObj, "GetFontCount"), flags, 1)
-        this.vtbl.GetFontFaceReference := CallbackCreate(GetMethod(implObj, "GetFontFaceReference"), flags, 3)
-        this.vtbl.FindFontFaceReference := CallbackCreate(GetMethod(implObj, "FindFontFaceReference"), flags, 4)
-        this.vtbl.FindFontFace := CallbackCreate(GetMethod(implObj, "FindFontFace"), flags, 4)
-        this.vtbl.GetPropertyValues := CallbackCreate(GetMethod(implObj, "GetPropertyValues"), flags, 3)
-        this.vtbl.GetPropertyValues1 := CallbackCreate(GetMethod(implObj, "GetPropertyValues1"), flags, 4)
-        this.vtbl.GetPropertyValues2 := CallbackCreate(GetMethod(implObj, "GetPropertyValues2"), flags, 5)
-        this.vtbl.GetPropertyOccurrenceCount := CallbackCreate(GetMethod(implObj, "GetPropertyOccurrenceCount"), flags, 3)
-        this.vtbl.GetMatchingFonts := CallbackCreate(GetMethod(implObj, "GetMatchingFonts"), flags, 6)
-        this.vtbl.GetMatchingFonts1 := CallbackCreate(GetMethod(implObj, "GetMatchingFonts1"), flags, 4)
+        this.vtbl.GetFontCount := CallbackCreate(ObjBindMethod(implObj, "GetFontCount"), flags, 1)
+        this.vtbl.GetFontFaceReference := CallbackCreate(ObjBindMethod(implObj, "GetFontFaceReference"), flags, 3)
+        this.vtbl.FindFontFaceReference := CallbackCreate(ObjBindMethod(implObj, "FindFontFaceReference"), flags, 4)
+        this.vtbl.FindFontFace := CallbackCreate(ObjBindMethod(implObj, "FindFontFace"), flags, 4)
+        this.vtbl.GetPropertyValues := CallbackCreate(ObjBindMethod(implObj, "GetPropertyValues"), flags, 3)
+        this.vtbl.GetPropertyValues1 := CallbackCreate(ObjBindMethod(implObj, "GetPropertyValues1"), flags, 4)
+        this.vtbl.GetPropertyValues2 := CallbackCreate(ObjBindMethod(implObj, "GetPropertyValues2"), flags, 5)
+        this.vtbl.GetPropertyOccurrenceCount := CallbackCreate(ObjBindMethod(implObj, "GetPropertyOccurrenceCount"), flags, 3)
+        this.vtbl.GetMatchingFonts := CallbackCreate(ObjBindMethod(implObj, "GetMatchingFonts"), flags, 6)
+        this.vtbl.GetMatchingFonts1 := CallbackCreate(ObjBindMethod(implObj, "GetMatchingFonts1"), flags, 4)
     }
 
     Dispose() {

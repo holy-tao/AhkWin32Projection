@@ -64,7 +64,7 @@ export default struct IOfflineFilesGhostInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsGhosted := CallbackCreate(GetMethod(implObj, "IsGhosted"), flags, 2)
+        this.vtbl.IsGhosted := CallbackCreate(ObjBindMethod(implObj, "IsGhosted"), flags, 2)
     }
 
     Dispose() {

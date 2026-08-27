@@ -69,7 +69,7 @@ export default struct ITocCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itoccollection-getentrycount
      */
     GetEntryCount(pdwEntryCount) {
-        pdwEntryCountMarshal := pdwEntryCount is VarRef ? "uint*" : "ptr"
+        pdwEntryCountMarshal := pdwEntryCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pdwEntryCountMarshal, pdwEntryCount, "HRESULT")
         return result
@@ -116,7 +116,7 @@ export default struct ITocCollection extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itoccollection-addentry
      */
     AddEntry(pToc, pdwEntryIndex) {
-        pdwEntryIndexMarshal := pdwEntryIndex is VarRef ? "uint*" : "ptr"
+        pdwEntryIndexMarshal := pdwEntryIndex is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, "ptr", pToc, pdwEntryIndexMarshal, pdwEntryIndex, "HRESULT")
         return result
@@ -194,11 +194,11 @@ export default struct ITocCollection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetEntryCount := CallbackCreate(GetMethod(implObj, "GetEntryCount"), flags, 2)
-        this.vtbl.GetEntryByIndex := CallbackCreate(GetMethod(implObj, "GetEntryByIndex"), flags, 3)
-        this.vtbl.AddEntry := CallbackCreate(GetMethod(implObj, "AddEntry"), flags, 3)
-        this.vtbl.AddEntryByIndex := CallbackCreate(GetMethod(implObj, "AddEntryByIndex"), flags, 3)
-        this.vtbl.RemoveEntryByIndex := CallbackCreate(GetMethod(implObj, "RemoveEntryByIndex"), flags, 2)
+        this.vtbl.GetEntryCount := CallbackCreate(ObjBindMethod(implObj, "GetEntryCount"), flags, 2)
+        this.vtbl.GetEntryByIndex := CallbackCreate(ObjBindMethod(implObj, "GetEntryByIndex"), flags, 3)
+        this.vtbl.AddEntry := CallbackCreate(ObjBindMethod(implObj, "AddEntry"), flags, 3)
+        this.vtbl.AddEntryByIndex := CallbackCreate(ObjBindMethod(implObj, "AddEntryByIndex"), flags, 3)
+        this.vtbl.RemoveEntryByIndex := CallbackCreate(ObjBindMethod(implObj, "RemoveEntryByIndex"), flags, 2)
     }
 
     Dispose() {

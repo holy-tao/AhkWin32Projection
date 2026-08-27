@@ -101,9 +101,9 @@ export default struct IInputObject extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.UIActivateIO := CallbackCreate(GetMethod(implObj, "UIActivateIO"), flags, 3)
-        this.vtbl.HasFocusIO := CallbackCreate(GetMethod(implObj, "HasFocusIO"), flags, 1)
-        this.vtbl.TranslateAcceleratorIO := CallbackCreate(GetMethod(implObj, "TranslateAcceleratorIO"), flags, 2)
+        this.vtbl.UIActivateIO := CallbackCreate(ObjBindMethod(implObj, "UIActivateIO"), flags, 3)
+        this.vtbl.HasFocusIO := CallbackCreate(ObjBindMethod(implObj, "HasFocusIO"), flags, 1)
+        this.vtbl.TranslateAcceleratorIO := CallbackCreate(ObjBindMethod(implObj, "TranslateAcceleratorIO"), flags, 2)
     }
 
     Dispose() {

@@ -39,7 +39,6 @@ export default struct IGeometrySource2DInterop extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ID2D1Geometry} 
      */
     GetGeometry() {
@@ -48,7 +47,6 @@ export default struct IGeometrySource2DInterop extends IUnknown {
     }
 
     /**
-     * 
      * @param {ID2D1Factory} factory 
      * @returns {ID2D1Geometry} 
      */
@@ -66,8 +64,8 @@ export default struct IGeometrySource2DInterop extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetGeometry := CallbackCreate(GetMethod(implObj, "GetGeometry"), flags, 2)
-        this.vtbl.TryGetGeometryUsingFactory := CallbackCreate(GetMethod(implObj, "TryGetGeometryUsingFactory"), flags, 3)
+        this.vtbl.GetGeometry := CallbackCreate(ObjBindMethod(implObj, "GetGeometry"), flags, 2)
+        this.vtbl.TryGetGeometryUsingFactory := CallbackCreate(ObjBindMethod(implObj, "TryGetGeometryUsingFactory"), flags, 3)
     }
 
     Dispose() {

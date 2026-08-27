@@ -38,7 +38,6 @@ export default struct IDataModelScriptDebugBreakpointEnumerator extends IUnknown
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -47,7 +46,6 @@ export default struct IDataModelScriptDebugBreakpointEnumerator extends IUnknown
     }
 
     /**
-     * 
      * @returns {IDataModelScriptDebugBreakpoint} 
      */
     GetNext() {
@@ -64,8 +62,8 @@ export default struct IDataModelScriptDebugBreakpointEnumerator extends IUnknown
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.GetNext := CallbackCreate(GetMethod(implObj, "GetNext"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.GetNext := CallbackCreate(ObjBindMethod(implObj, "GetNext"), flags, 2)
     }
 
     Dispose() {

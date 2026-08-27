@@ -80,8 +80,8 @@ export default struct IShellItemFilter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IncludeItem := CallbackCreate(GetMethod(implObj, "IncludeItem"), flags, 2)
-        this.vtbl.GetEnumFlagsForItem := CallbackCreate(GetMethod(implObj, "GetEnumFlagsForItem"), flags, 3)
+        this.vtbl.IncludeItem := CallbackCreate(ObjBindMethod(implObj, "IncludeItem"), flags, 2)
+        this.vtbl.GetEnumFlagsForItem := CallbackCreate(ObjBindMethod(implObj, "GetEnumFlagsForItem"), flags, 3)
     }
 
     Dispose() {

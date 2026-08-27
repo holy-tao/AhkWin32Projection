@@ -220,15 +220,15 @@ export default struct IShellFolderViewDual3 extends IShellFolderViewDual2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_GroupBy := CallbackCreate(GetMethod(implObj, "get_GroupBy"), flags, 2)
-        this.vtbl.put_GroupBy := CallbackCreate(GetMethod(implObj, "put_GroupBy"), flags, 2)
-        this.vtbl.get_FolderFlags := CallbackCreate(GetMethod(implObj, "get_FolderFlags"), flags, 2)
-        this.vtbl.put_FolderFlags := CallbackCreate(GetMethod(implObj, "put_FolderFlags"), flags, 2)
-        this.vtbl.get_SortColumns := CallbackCreate(GetMethod(implObj, "get_SortColumns"), flags, 2)
-        this.vtbl.put_SortColumns := CallbackCreate(GetMethod(implObj, "put_SortColumns"), flags, 2)
-        this.vtbl.put_IconSize := CallbackCreate(GetMethod(implObj, "put_IconSize"), flags, 2)
-        this.vtbl.get_IconSize := CallbackCreate(GetMethod(implObj, "get_IconSize"), flags, 2)
-        this.vtbl.FilterView := CallbackCreate(GetMethod(implObj, "FilterView"), flags, 2)
+        this.vtbl.get_GroupBy := CallbackCreate(ObjBindMethod(implObj, "get_GroupBy"), flags, 2)
+        this.vtbl.put_GroupBy := CallbackCreate(ObjBindMethod(implObj, "put_GroupBy"), flags, 2)
+        this.vtbl.get_FolderFlags := CallbackCreate(ObjBindMethod(implObj, "get_FolderFlags"), flags, 2)
+        this.vtbl.put_FolderFlags := CallbackCreate(ObjBindMethod(implObj, "put_FolderFlags"), flags, 2)
+        this.vtbl.get_SortColumns := CallbackCreate(ObjBindMethod(implObj, "get_SortColumns"), flags, 2)
+        this.vtbl.put_SortColumns := CallbackCreate(ObjBindMethod(implObj, "put_SortColumns"), flags, 2)
+        this.vtbl.put_IconSize := CallbackCreate(ObjBindMethod(implObj, "put_IconSize"), flags, 2)
+        this.vtbl.get_IconSize := CallbackCreate(ObjBindMethod(implObj, "get_IconSize"), flags, 2)
+        this.vtbl.FilterView := CallbackCreate(ObjBindMethod(implObj, "FilterView"), flags, 2)
     }
 
     Dispose() {

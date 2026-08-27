@@ -66,7 +66,7 @@ export default struct IWMPMedia2 extends IWMPMedia {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_error := CallbackCreate(GetMethod(implObj, "get_error"), flags, 2)
+        this.vtbl.get_error := CallbackCreate(ObjBindMethod(implObj, "get_error"), flags, 2)
     }
 
     Dispose() {

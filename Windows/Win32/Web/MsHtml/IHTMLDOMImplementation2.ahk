@@ -44,7 +44,6 @@ export default struct IHTMLDOMImplementation2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrQualifiedName 
      * @param {Pointer<VARIANT>} pvarPublicId 
      * @param {Pointer<VARIANT>} pvarSystemId 
@@ -58,7 +57,6 @@ export default struct IHTMLDOMImplementation2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvarNS 
      * @param {Pointer<VARIANT>} pvarTagName 
      * @param {IDOMDocumentType} pDocumentType 
@@ -70,7 +68,6 @@ export default struct IHTMLDOMImplementation2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrTitle 
      * @returns {IHTMLDocument7} 
      */
@@ -82,7 +79,6 @@ export default struct IHTMLDOMImplementation2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrfeature 
      * @param {VARIANT} _version 
      * @returns {VARIANT_BOOL} 
@@ -103,10 +99,10 @@ export default struct IHTMLDOMImplementation2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.createDocumentType := CallbackCreate(GetMethod(implObj, "createDocumentType"), flags, 5)
-        this.vtbl.createDocument := CallbackCreate(GetMethod(implObj, "createDocument"), flags, 5)
-        this.vtbl.createHTMLDocument := CallbackCreate(GetMethod(implObj, "createHTMLDocument"), flags, 3)
-        this.vtbl.hasFeature := CallbackCreate(GetMethod(implObj, "hasFeature"), flags, 4)
+        this.vtbl.createDocumentType := CallbackCreate(ObjBindMethod(implObj, "createDocumentType"), flags, 5)
+        this.vtbl.createDocument := CallbackCreate(ObjBindMethod(implObj, "createDocument"), flags, 5)
+        this.vtbl.createHTMLDocument := CallbackCreate(ObjBindMethod(implObj, "createHTMLDocument"), flags, 3)
+        this.vtbl.hasFeature := CallbackCreate(ObjBindMethod(implObj, "hasFeature"), flags, 4)
     }
 
     Dispose() {

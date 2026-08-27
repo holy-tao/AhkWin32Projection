@@ -46,8 +46,8 @@ export default struct IMetaDataTables2 extends IMetaDataTables {
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables2-getmetadatastorage
      */
     GetMetaDataStorage(ppvMd, pcbMd) {
-        ppvMdMarshal := ppvMd is VarRef ? "ptr*" : "ptr"
-        pcbMdMarshal := pcbMd is VarRef ? "uint*" : "ptr"
+        ppvMdMarshal := ppvMd is VarRef ? "ptr*" : IntPtr
+        pcbMdMarshal := pcbMd is VarRef ? "uint*" : IntPtr
 
         result := ComCall(22, this, ppvMdMarshal, ppvMd, pcbMdMarshal, pcbMd, "HRESULT")
         return result
@@ -63,9 +63,9 @@ export default struct IMetaDataTables2 extends IMetaDataTables {
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables2-getmetadatastreaminfo
      */
     GetMetaDataStreamInfo(ix, ppchName, ppv, pcb) {
-        ppchNameMarshal := ppchName is VarRef ? "ptr*" : "ptr"
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-        pcbMarshal := pcb is VarRef ? "uint*" : "ptr"
+        ppchNameMarshal := ppchName is VarRef ? "ptr*" : IntPtr
+        ppvMarshal := ppv is VarRef ? "ptr*" : IntPtr
+        pcbMarshal := pcb is VarRef ? "uint*" : IntPtr
 
         result := ComCall(23, this, UInt32, ix, ppchNameMarshal, ppchName, ppvMarshal, ppv, pcbMarshal, pcb, "HRESULT")
         return result
@@ -80,8 +80,8 @@ export default struct IMetaDataTables2 extends IMetaDataTables {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMetaDataStorage := CallbackCreate(GetMethod(implObj, "GetMetaDataStorage"), flags, 3)
-        this.vtbl.GetMetaDataStreamInfo := CallbackCreate(GetMethod(implObj, "GetMetaDataStreamInfo"), flags, 5)
+        this.vtbl.GetMetaDataStorage := CallbackCreate(ObjBindMethod(implObj, "GetMetaDataStorage"), flags, 3)
+        this.vtbl.GetMetaDataStreamInfo := CallbackCreate(ObjBindMethod(implObj, "GetMetaDataStreamInfo"), flags, 5)
     }
 
     Dispose() {

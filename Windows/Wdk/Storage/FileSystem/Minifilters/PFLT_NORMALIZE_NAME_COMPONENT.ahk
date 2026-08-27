@@ -21,7 +21,6 @@ export default struct PFLT_NORMALIZE_NAME_COMPONENT {
     }
 
     /**
-     * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<UNICODE_STRING>} ParentDirectory 
      * @param {Integer} VolumeNameLength 
@@ -33,7 +32,7 @@ export default struct PFLT_NORMALIZE_NAME_COMPONENT {
      * @returns {NTSTATUS} 
      */
     Call(Instance, ParentDirectory, VolumeNameLength, _Component, ExpandComponentName, ExpandComponentNameLength, Flags, NormalizationContext) {
-        NormalizationContextMarshal := NormalizationContext is VarRef ? "ptr*" : "ptr"
+        NormalizationContextMarshal := NormalizationContext is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, PFLT_INSTANCE, Instance, UNICODE_STRING.Ptr, ParentDirectory, UInt16, VolumeNameLength, UNICODE_STRING.Ptr, _Component, IntPtr, ExpandComponentName, UInt32, ExpandComponentNameLength, UInt32, Flags, NormalizationContextMarshal, NormalizationContext, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

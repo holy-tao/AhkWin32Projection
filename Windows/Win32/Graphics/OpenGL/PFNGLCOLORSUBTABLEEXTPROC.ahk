@@ -18,7 +18,6 @@ export default struct PFNGLCOLORSUBTABLEEXTPROC {
     }
 
     /**
-     * 
      * @param {Integer} target 
      * @param {Integer} start 
      * @param {Integer} count 
@@ -28,7 +27,7 @@ export default struct PFNGLCOLORSUBTABLEEXTPROC {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(target, start, count, format, type, data) {
-        dataMarshal := data is VarRef ? "ptr" : "ptr"
+        dataMarshal := data is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, UInt32, target, Int32, start, Int32, count, UInt32, format, UInt32, type, dataMarshal, data)
     }

@@ -18,12 +18,11 @@ export default struct BCryptFreeBufferFn {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} pvBuffer 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(pvBuffer) {
-        pvBufferMarshal := pvBuffer is VarRef ? "ptr" : "ptr"
+        pvBufferMarshal := pvBuffer is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, pvBufferMarshal, pvBuffer)
     }

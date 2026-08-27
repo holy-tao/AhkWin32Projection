@@ -67,7 +67,11 @@ export default struct IWMDMStorageControl extends IUnknown {
     Insert(fuMode, pwszFile, pOperation, pProgress) {
         pwszFile := pwszFile is String ? StrPtr(pwszFile) : pwszFile
 
-        result := ComCall(3, this, UInt32, fuMode, "ptr", pwszFile, "ptr", pOperation, "ptr", pProgress, "ptr*", &ppNewObject := 0, "HRESULT")
+        pwszFileMarshal := pwszFile == 0 ? IntPtr : PWSTR
+        pOperationMarshal := pOperation == 0 ? IntPtr : "ptr"
+        pProgressMarshal := pProgress == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, UInt32, fuMode, pwszFileMarshal, pwszFile, pOperationMarshal, pOperation, pProgressMarshal, pProgress, "ptr*", &ppNewObject := 0, "HRESULT")
         return IWMDMStorage(ppNewObject)
     }
 
@@ -116,7 +120,9 @@ export default struct IWMDMStorageControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstoragecontrol-delete
      */
     Delete(fuMode, pProgress) {
-        result := ComCall(4, this, UInt32, fuMode, "ptr", pProgress, "HRESULT")
+        pProgressMarshal := pProgress == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, UInt32, fuMode, pProgressMarshal, pProgress, "HRESULT")
         return result
     }
 
@@ -159,7 +165,9 @@ export default struct IWMDMStorageControl extends IUnknown {
     Rename(fuMode, pwszNewName, pProgress) {
         pwszNewName := pwszNewName is String ? StrPtr(pwszNewName) : pwszNewName
 
-        result := ComCall(5, this, UInt32, fuMode, "ptr", pwszNewName, "ptr", pProgress, "HRESULT")
+        pProgressMarshal := pProgress == 0 ? IntPtr : "ptr"
+
+        result := ComCall(5, this, UInt32, fuMode, "ptr", pwszNewName, pProgressMarshal, pProgress, "HRESULT")
         return result
     }
 
@@ -219,7 +227,11 @@ export default struct IWMDMStorageControl extends IUnknown {
     Read(fuMode, pwszFile, pProgress, pOperation) {
         pwszFile := pwszFile is String ? StrPtr(pwszFile) : pwszFile
 
-        result := ComCall(6, this, UInt32, fuMode, "ptr", pwszFile, "ptr", pProgress, "ptr", pOperation, "HRESULT")
+        pwszFileMarshal := pwszFile == 0 ? IntPtr : PWSTR
+        pProgressMarshal := pProgress == 0 ? IntPtr : "ptr"
+        pOperationMarshal := pOperation == 0 ? IntPtr : "ptr"
+
+        result := ComCall(6, this, UInt32, fuMode, pwszFileMarshal, pwszFile, pProgressMarshal, pProgress, pOperationMarshal, pOperation, "HRESULT")
         return result
     }
 
@@ -286,7 +298,10 @@ export default struct IWMDMStorageControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstoragecontrol-move
      */
     Move(fuMode, pTargetObject, pProgress) {
-        result := ComCall(7, this, UInt32, fuMode, "ptr", pTargetObject, "ptr", pProgress, "HRESULT")
+        pTargetObjectMarshal := pTargetObject == 0 ? IntPtr : "ptr"
+        pProgressMarshal := pProgress == 0 ? IntPtr : "ptr"
+
+        result := ComCall(7, this, UInt32, fuMode, pTargetObjectMarshal, pTargetObject, pProgressMarshal, pProgress, "HRESULT")
         return result
     }
 
@@ -299,11 +314,11 @@ export default struct IWMDMStorageControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Insert := CallbackCreate(GetMethod(implObj, "Insert"), flags, 6)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 3)
-        this.vtbl.Rename := CallbackCreate(GetMethod(implObj, "Rename"), flags, 4)
-        this.vtbl.Read := CallbackCreate(GetMethod(implObj, "Read"), flags, 5)
-        this.vtbl.Move := CallbackCreate(GetMethod(implObj, "Move"), flags, 4)
+        this.vtbl.Insert := CallbackCreate(ObjBindMethod(implObj, "Insert"), flags, 6)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 3)
+        this.vtbl.Rename := CallbackCreate(ObjBindMethod(implObj, "Rename"), flags, 4)
+        this.vtbl.Read := CallbackCreate(ObjBindMethod(implObj, "Read"), flags, 5)
+        this.vtbl.Move := CallbackCreate(ObjBindMethod(implObj, "Move"), flags, 4)
     }
 
     Dispose() {

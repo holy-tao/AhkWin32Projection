@@ -44,7 +44,6 @@ export default struct ID3D12DeviceFactory extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     InitializeFromGlobalState() {
@@ -53,7 +52,6 @@ export default struct ID3D12DeviceFactory extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ApplyToGlobalState() {
@@ -154,7 +152,6 @@ export default struct ID3D12DeviceFactory extends IUnknown {
     }
 
     /**
-     * 
      * @returns {D3D12_DEVICE_FACTORY_FLAGS} 
      */
     GetFlags() {
@@ -163,7 +160,6 @@ export default struct ID3D12DeviceFactory extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} clsid 
      * @param {Pointer<Guid>} iid 
      * @returns {Pointer<Void>} 
@@ -174,7 +170,6 @@ export default struct ID3D12DeviceFactory extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} NumFeatures 
      * @param {Pointer<Guid>} pIIDs 
      * @param {Pointer<Void>} pConfigurationStructs 
@@ -182,22 +177,25 @@ export default struct ID3D12DeviceFactory extends IUnknown {
      * @returns {HRESULT} 
      */
     EnableExperimentalFeatures(NumFeatures, pIIDs, pConfigurationStructs, pConfigurationStructSizes) {
-        pConfigurationStructsMarshal := pConfigurationStructs is VarRef ? "ptr" : "ptr"
-        pConfigurationStructSizesMarshal := pConfigurationStructSizes is VarRef ? "uint*" : "ptr"
+        pConfigurationStructsMarshal := pConfigurationStructs is VarRef ? "ptr" : IntPtr
+        pConfigurationStructsMarshal := pConfigurationStructs == 0 ? IntPtr : "ptr"
+        pConfigurationStructSizesMarshal := pConfigurationStructSizes is VarRef ? "uint*" : IntPtr
+        pConfigurationStructSizesMarshal := pConfigurationStructSizes == 0 ? IntPtr : "uint*"
 
         result := ComCall(8, this, UInt32, NumFeatures, Guid.Ptr, pIIDs, pConfigurationStructsMarshal, pConfigurationStructs, pConfigurationStructSizesMarshal, pConfigurationStructSizes, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IUnknown} _adapter 
      * @param {D3D_FEATURE_LEVEL} FeatureLevel 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
     CreateDevice(_adapter, FeatureLevel, riid) {
-        result := ComCall(9, this, "ptr", _adapter, D3D_FEATURE_LEVEL, FeatureLevel, Guid.Ptr, riid, "ptr*", &ppvDevice := 0, "HRESULT")
+        _adapterMarshal := _adapter == 0 ? IntPtr : "ptr"
+
+        result := ComCall(9, this, _adapterMarshal, _adapter, D3D_FEATURE_LEVEL, FeatureLevel, Guid.Ptr, riid, "ptr*", &ppvDevice := 0, "HRESULT")
         return ppvDevice
     }
 
@@ -210,13 +208,13 @@ export default struct ID3D12DeviceFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeFromGlobalState := CallbackCreate(GetMethod(implObj, "InitializeFromGlobalState"), flags, 1)
-        this.vtbl.ApplyToGlobalState := CallbackCreate(GetMethod(implObj, "ApplyToGlobalState"), flags, 1)
-        this.vtbl.SetFlags := CallbackCreate(GetMethod(implObj, "SetFlags"), flags, 2)
-        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 1)
-        this.vtbl.GetConfigurationInterface := CallbackCreate(GetMethod(implObj, "GetConfigurationInterface"), flags, 4)
-        this.vtbl.EnableExperimentalFeatures := CallbackCreate(GetMethod(implObj, "EnableExperimentalFeatures"), flags, 5)
-        this.vtbl.CreateDevice := CallbackCreate(GetMethod(implObj, "CreateDevice"), flags, 5)
+        this.vtbl.InitializeFromGlobalState := CallbackCreate(ObjBindMethod(implObj, "InitializeFromGlobalState"), flags, 1)
+        this.vtbl.ApplyToGlobalState := CallbackCreate(ObjBindMethod(implObj, "ApplyToGlobalState"), flags, 1)
+        this.vtbl.SetFlags := CallbackCreate(ObjBindMethod(implObj, "SetFlags"), flags, 2)
+        this.vtbl.GetFlags := CallbackCreate(ObjBindMethod(implObj, "GetFlags"), flags, 1)
+        this.vtbl.GetConfigurationInterface := CallbackCreate(ObjBindMethod(implObj, "GetConfigurationInterface"), flags, 4)
+        this.vtbl.EnableExperimentalFeatures := CallbackCreate(ObjBindMethod(implObj, "EnableExperimentalFeatures"), flags, 5)
+        this.vtbl.CreateDevice := CallbackCreate(ObjBindMethod(implObj, "CreateDevice"), flags, 5)
     }
 
     Dispose() {

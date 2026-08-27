@@ -22,7 +22,6 @@ export default struct PALLOCATE_COMMON_BUFFER_VECTOR {
     }
 
     /**
-     * 
      * @param {Pointer<DMA_ADAPTER>} DmaAdapter 
      * @param {Integer} LowAddress 
      * @param {Integer} HighAddress 
@@ -35,7 +34,7 @@ export default struct PALLOCATE_COMMON_BUFFER_VECTOR {
      * @returns {NTSTATUS} 
      */
     Call(DmaAdapter, LowAddress, HighAddress, CacheType, IdealNode, Flags, NumberOfElements, SizeOfElements, VectorOut) {
-        VectorOutMarshal := VectorOut is VarRef ? "ptr*" : "ptr"
+        VectorOutMarshal := VectorOut is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, Int64, LowAddress, Int64, HighAddress, MEMORY_CACHING_TYPE, CacheType, UInt32, IdealNode, UInt32, Flags, UInt32, NumberOfElements, Int64, SizeOfElements, VectorOutMarshal, VectorOut, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

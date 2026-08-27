@@ -104,7 +104,12 @@ export default struct IOfflineFilesItemContainer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesitemcontainer-enumitemsex
      */
     EnumItemsEx(pIncludeFileFilter, pIncludeDirFilter, pExcludeFileFilter, pExcludeDirFilter, dwEnumFlags, dwQueryFlags) {
-        result := ComCall(4, this, "ptr", pIncludeFileFilter, "ptr", pIncludeDirFilter, "ptr", pExcludeFileFilter, "ptr", pExcludeDirFilter, UInt32, dwEnumFlags, UInt32, dwQueryFlags, "ptr*", &ppenum := 0, "HRESULT")
+        pIncludeFileFilterMarshal := pIncludeFileFilter == 0 ? IntPtr : "ptr"
+        pIncludeDirFilterMarshal := pIncludeDirFilter == 0 ? IntPtr : "ptr"
+        pExcludeFileFilterMarshal := pExcludeFileFilter == 0 ? IntPtr : "ptr"
+        pExcludeDirFilterMarshal := pExcludeDirFilter == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, pIncludeFileFilterMarshal, pIncludeFileFilter, pIncludeDirFilterMarshal, pIncludeDirFilter, pExcludeFileFilterMarshal, pExcludeFileFilter, pExcludeDirFilterMarshal, pExcludeDirFilter, UInt32, dwEnumFlags, UInt32, dwQueryFlags, "ptr*", &ppenum := 0, "HRESULT")
         return IEnumOfflineFilesItems(ppenum)
     }
 
@@ -117,8 +122,8 @@ export default struct IOfflineFilesItemContainer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumItems := CallbackCreate(GetMethod(implObj, "EnumItems"), flags, 3)
-        this.vtbl.EnumItemsEx := CallbackCreate(GetMethod(implObj, "EnumItemsEx"), flags, 8)
+        this.vtbl.EnumItems := CallbackCreate(ObjBindMethod(implObj, "EnumItems"), flags, 3)
+        this.vtbl.EnumItemsEx := CallbackCreate(ObjBindMethod(implObj, "EnumItemsEx"), flags, 8)
     }
 
     Dispose() {

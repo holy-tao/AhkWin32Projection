@@ -19,7 +19,6 @@ export default struct LPDDHAL_CREATEPALETTE {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_CREATEPALETTEDATA>} param0 
      * @returns {Integer} 
      */

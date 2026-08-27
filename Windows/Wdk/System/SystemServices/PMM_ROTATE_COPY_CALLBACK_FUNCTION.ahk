@@ -20,14 +20,13 @@ export default struct PMM_ROTATE_COPY_CALLBACK_FUNCTION {
     }
 
     /**
-     * 
      * @param {Pointer<MDL>} DestinationMdl 
      * @param {Pointer<MDL>} SourceMdl 
      * @param {Pointer<Void>} _Context 
      * @returns {NTSTATUS} 
      */
     Call(DestinationMdl, SourceMdl, _Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, MDL.Ptr, DestinationMdl, MDL.Ptr, SourceMdl, _ContextMarshal, _Context, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

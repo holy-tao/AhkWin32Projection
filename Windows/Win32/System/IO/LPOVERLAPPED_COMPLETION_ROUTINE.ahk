@@ -43,7 +43,6 @@ export default struct LPOVERLAPPED_COMPLETION_ROUTINE {
     }
 
     /**
-     * 
      * @param {Integer} dwErrorCode The I/O completion status. This parameter can be one of the 
      *       <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
      * @param {Integer} dwNumberOfBytesTransfered The number of bytes transferred. If an error occurs, this parameter is zero.

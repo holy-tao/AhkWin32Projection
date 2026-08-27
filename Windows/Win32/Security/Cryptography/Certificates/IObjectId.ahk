@@ -464,14 +464,14 @@ export default struct IObjectId extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeFromName := CallbackCreate(GetMethod(implObj, "InitializeFromName"), flags, 2)
-        this.vtbl.InitializeFromValue := CallbackCreate(GetMethod(implObj, "InitializeFromValue"), flags, 2)
-        this.vtbl.InitializeFromAlgorithmName := CallbackCreate(GetMethod(implObj, "InitializeFromAlgorithmName"), flags, 5)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_FriendlyName := CallbackCreate(GetMethod(implObj, "get_FriendlyName"), flags, 2)
-        this.vtbl.put_FriendlyName := CallbackCreate(GetMethod(implObj, "put_FriendlyName"), flags, 2)
-        this.vtbl.get_Value := CallbackCreate(GetMethod(implObj, "get_Value"), flags, 2)
-        this.vtbl.GetAlgorithmName := CallbackCreate(GetMethod(implObj, "GetAlgorithmName"), flags, 4)
+        this.vtbl.InitializeFromName := CallbackCreate(ObjBindMethod(implObj, "InitializeFromName"), flags, 2)
+        this.vtbl.InitializeFromValue := CallbackCreate(ObjBindMethod(implObj, "InitializeFromValue"), flags, 2)
+        this.vtbl.InitializeFromAlgorithmName := CallbackCreate(ObjBindMethod(implObj, "InitializeFromAlgorithmName"), flags, 5)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_FriendlyName := CallbackCreate(ObjBindMethod(implObj, "get_FriendlyName"), flags, 2)
+        this.vtbl.put_FriendlyName := CallbackCreate(ObjBindMethod(implObj, "put_FriendlyName"), flags, 2)
+        this.vtbl.get_Value := CallbackCreate(ObjBindMethod(implObj, "get_Value"), flags, 2)
+        this.vtbl.GetAlgorithmName := CallbackCreate(ObjBindMethod(implObj, "GetAlgorithmName"), flags, 4)
     }
 
     Dispose() {

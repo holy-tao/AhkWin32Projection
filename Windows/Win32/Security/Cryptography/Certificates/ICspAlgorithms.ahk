@@ -102,7 +102,9 @@ export default struct ICspAlgorithms extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspalgorithms-add
      */
     Add(pVal) {
-        result := ComCall(10, this, "ptr", pVal, "HRESULT")
+        pValMarshal := pVal == 0 ? IntPtr : "ptr"
+
+        result := ComCall(10, this, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -151,7 +153,9 @@ export default struct ICspAlgorithms extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspalgorithms-get_indexbyobjectid
      */
     get_IndexByObjectId(pObjectId) {
-        result := ComCall(14, this, "ptr", pObjectId, "int*", &pIndex := 0, "HRESULT")
+        pObjectIdMarshal := pObjectId == 0 ? IntPtr : "ptr"
+
+        result := ComCall(14, this, pObjectIdMarshal, pObjectId, "int*", &pIndex := 0, "HRESULT")
         return pIndex
     }
 
@@ -164,14 +168,14 @@ export default struct ICspAlgorithms extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ItemByIndex := CallbackCreate(GetMethod(implObj, "get_ItemByIndex"), flags, 3)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 2)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
-        this.vtbl.get_ItemByName := CallbackCreate(GetMethod(implObj, "get_ItemByName"), flags, 3)
-        this.vtbl.get_IndexByObjectId := CallbackCreate(GetMethod(implObj, "get_IndexByObjectId"), flags, 3)
+        this.vtbl.get_ItemByIndex := CallbackCreate(ObjBindMethod(implObj, "get_ItemByIndex"), flags, 3)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get__NewEnum := CallbackCreate(ObjBindMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 2)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.get_ItemByName := CallbackCreate(ObjBindMethod(implObj, "get_ItemByName"), flags, 3)
+        this.vtbl.get_IndexByObjectId := CallbackCreate(ObjBindMethod(implObj, "get_IndexByObjectId"), flags, 3)
     }
 
     Dispose() {

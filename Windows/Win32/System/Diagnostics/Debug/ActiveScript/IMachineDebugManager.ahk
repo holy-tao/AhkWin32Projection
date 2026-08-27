@@ -40,7 +40,6 @@ export default struct IMachineDebugManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRemoteDebugApplication} pda 
      * @returns {Integer} 
      */
@@ -50,7 +49,6 @@ export default struct IMachineDebugManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwAppCookie 
      * @returns {HRESULT} 
      */
@@ -60,7 +58,6 @@ export default struct IMachineDebugManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumRemoteDebugApplications} 
      */
     EnumApplications() {
@@ -77,9 +74,9 @@ export default struct IMachineDebugManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddApplication := CallbackCreate(GetMethod(implObj, "AddApplication"), flags, 3)
-        this.vtbl.RemoveApplication := CallbackCreate(GetMethod(implObj, "RemoveApplication"), flags, 2)
-        this.vtbl.EnumApplications := CallbackCreate(GetMethod(implObj, "EnumApplications"), flags, 2)
+        this.vtbl.AddApplication := CallbackCreate(ObjBindMethod(implObj, "AddApplication"), flags, 3)
+        this.vtbl.RemoveApplication := CallbackCreate(ObjBindMethod(implObj, "RemoveApplication"), flags, 2)
+        this.vtbl.EnumApplications := CallbackCreate(ObjBindMethod(implObj, "EnumApplications"), flags, 2)
     }
 
     Dispose() {

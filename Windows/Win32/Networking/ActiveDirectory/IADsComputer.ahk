@@ -205,7 +205,6 @@ export default struct IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ComputerID() {
@@ -215,7 +214,6 @@ export default struct IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Site() {
@@ -225,7 +223,6 @@ export default struct IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Description() {
@@ -235,7 +232,6 @@ export default struct IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDescription 
      * @returns {HRESULT} 
      */
@@ -247,7 +243,6 @@ export default struct IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Location() {
@@ -257,7 +252,6 @@ export default struct IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrLocation 
      * @returns {HRESULT} 
      */
@@ -269,7 +263,6 @@ export default struct IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PrimaryUser() {
@@ -279,7 +272,6 @@ export default struct IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPrimaryUser 
      * @returns {HRESULT} 
      */
@@ -291,7 +283,6 @@ export default struct IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Owner() {
@@ -301,7 +292,6 @@ export default struct IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrOwner 
      * @returns {HRESULT} 
      */
@@ -313,7 +303,6 @@ export default struct IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Division() {
@@ -323,7 +312,6 @@ export default struct IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDivision 
      * @returns {HRESULT} 
      */
@@ -335,7 +323,6 @@ export default struct IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Department() {
@@ -345,7 +332,6 @@ export default struct IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDepartment 
      * @returns {HRESULT} 
      */
@@ -357,7 +343,6 @@ export default struct IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Role() {
@@ -367,7 +352,6 @@ export default struct IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrRole 
      * @returns {HRESULT} 
      */
@@ -379,7 +363,6 @@ export default struct IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_OperatingSystem() {
@@ -389,7 +372,6 @@ export default struct IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrOperatingSystem 
      * @returns {HRESULT} 
      */
@@ -401,7 +383,6 @@ export default struct IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_OperatingSystemVersion() {
@@ -411,7 +392,6 @@ export default struct IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrOperatingSystemVersion 
      * @returns {HRESULT} 
      */
@@ -423,7 +403,6 @@ export default struct IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Model() {
@@ -433,7 +412,6 @@ export default struct IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrModel 
      * @returns {HRESULT} 
      */
@@ -445,7 +423,6 @@ export default struct IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Processor() {
@@ -455,7 +432,6 @@ export default struct IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrProcessor 
      * @returns {HRESULT} 
      */
@@ -467,7 +443,6 @@ export default struct IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ProcessorCount() {
@@ -477,7 +452,6 @@ export default struct IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrProcessorCount 
      * @returns {HRESULT} 
      */
@@ -489,7 +463,6 @@ export default struct IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_MemorySize() {
@@ -499,7 +472,6 @@ export default struct IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrMemorySize 
      * @returns {HRESULT} 
      */
@@ -511,7 +483,6 @@ export default struct IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_StorageCapacity() {
@@ -521,7 +492,6 @@ export default struct IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrStorageCapacity 
      * @returns {HRESULT} 
      */
@@ -533,7 +503,6 @@ export default struct IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_NetAddresses() {
@@ -543,7 +512,6 @@ export default struct IADsComputer extends IADs {
     }
 
     /**
-     * 
      * @param {VARIANT} vNetAddresses 
      * @returns {HRESULT} 
      */
@@ -561,38 +529,38 @@ export default struct IADsComputer extends IADs {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ComputerID := CallbackCreate(GetMethod(implObj, "get_ComputerID"), flags, 2)
-        this.vtbl.get_Site := CallbackCreate(GetMethod(implObj, "get_Site"), flags, 2)
-        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
-        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
-        this.vtbl.get_Location := CallbackCreate(GetMethod(implObj, "get_Location"), flags, 2)
-        this.vtbl.put_Location := CallbackCreate(GetMethod(implObj, "put_Location"), flags, 2)
-        this.vtbl.get_PrimaryUser := CallbackCreate(GetMethod(implObj, "get_PrimaryUser"), flags, 2)
-        this.vtbl.put_PrimaryUser := CallbackCreate(GetMethod(implObj, "put_PrimaryUser"), flags, 2)
-        this.vtbl.get_Owner := CallbackCreate(GetMethod(implObj, "get_Owner"), flags, 2)
-        this.vtbl.put_Owner := CallbackCreate(GetMethod(implObj, "put_Owner"), flags, 2)
-        this.vtbl.get_Division := CallbackCreate(GetMethod(implObj, "get_Division"), flags, 2)
-        this.vtbl.put_Division := CallbackCreate(GetMethod(implObj, "put_Division"), flags, 2)
-        this.vtbl.get_Department := CallbackCreate(GetMethod(implObj, "get_Department"), flags, 2)
-        this.vtbl.put_Department := CallbackCreate(GetMethod(implObj, "put_Department"), flags, 2)
-        this.vtbl.get_Role := CallbackCreate(GetMethod(implObj, "get_Role"), flags, 2)
-        this.vtbl.put_Role := CallbackCreate(GetMethod(implObj, "put_Role"), flags, 2)
-        this.vtbl.get_OperatingSystem := CallbackCreate(GetMethod(implObj, "get_OperatingSystem"), flags, 2)
-        this.vtbl.put_OperatingSystem := CallbackCreate(GetMethod(implObj, "put_OperatingSystem"), flags, 2)
-        this.vtbl.get_OperatingSystemVersion := CallbackCreate(GetMethod(implObj, "get_OperatingSystemVersion"), flags, 2)
-        this.vtbl.put_OperatingSystemVersion := CallbackCreate(GetMethod(implObj, "put_OperatingSystemVersion"), flags, 2)
-        this.vtbl.get_Model := CallbackCreate(GetMethod(implObj, "get_Model"), flags, 2)
-        this.vtbl.put_Model := CallbackCreate(GetMethod(implObj, "put_Model"), flags, 2)
-        this.vtbl.get_Processor := CallbackCreate(GetMethod(implObj, "get_Processor"), flags, 2)
-        this.vtbl.put_Processor := CallbackCreate(GetMethod(implObj, "put_Processor"), flags, 2)
-        this.vtbl.get_ProcessorCount := CallbackCreate(GetMethod(implObj, "get_ProcessorCount"), flags, 2)
-        this.vtbl.put_ProcessorCount := CallbackCreate(GetMethod(implObj, "put_ProcessorCount"), flags, 2)
-        this.vtbl.get_MemorySize := CallbackCreate(GetMethod(implObj, "get_MemorySize"), flags, 2)
-        this.vtbl.put_MemorySize := CallbackCreate(GetMethod(implObj, "put_MemorySize"), flags, 2)
-        this.vtbl.get_StorageCapacity := CallbackCreate(GetMethod(implObj, "get_StorageCapacity"), flags, 2)
-        this.vtbl.put_StorageCapacity := CallbackCreate(GetMethod(implObj, "put_StorageCapacity"), flags, 2)
-        this.vtbl.get_NetAddresses := CallbackCreate(GetMethod(implObj, "get_NetAddresses"), flags, 2)
-        this.vtbl.put_NetAddresses := CallbackCreate(GetMethod(implObj, "put_NetAddresses"), flags, 2)
+        this.vtbl.get_ComputerID := CallbackCreate(ObjBindMethod(implObj, "get_ComputerID"), flags, 2)
+        this.vtbl.get_Site := CallbackCreate(ObjBindMethod(implObj, "get_Site"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(ObjBindMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(ObjBindMethod(implObj, "put_Description"), flags, 2)
+        this.vtbl.get_Location := CallbackCreate(ObjBindMethod(implObj, "get_Location"), flags, 2)
+        this.vtbl.put_Location := CallbackCreate(ObjBindMethod(implObj, "put_Location"), flags, 2)
+        this.vtbl.get_PrimaryUser := CallbackCreate(ObjBindMethod(implObj, "get_PrimaryUser"), flags, 2)
+        this.vtbl.put_PrimaryUser := CallbackCreate(ObjBindMethod(implObj, "put_PrimaryUser"), flags, 2)
+        this.vtbl.get_Owner := CallbackCreate(ObjBindMethod(implObj, "get_Owner"), flags, 2)
+        this.vtbl.put_Owner := CallbackCreate(ObjBindMethod(implObj, "put_Owner"), flags, 2)
+        this.vtbl.get_Division := CallbackCreate(ObjBindMethod(implObj, "get_Division"), flags, 2)
+        this.vtbl.put_Division := CallbackCreate(ObjBindMethod(implObj, "put_Division"), flags, 2)
+        this.vtbl.get_Department := CallbackCreate(ObjBindMethod(implObj, "get_Department"), flags, 2)
+        this.vtbl.put_Department := CallbackCreate(ObjBindMethod(implObj, "put_Department"), flags, 2)
+        this.vtbl.get_Role := CallbackCreate(ObjBindMethod(implObj, "get_Role"), flags, 2)
+        this.vtbl.put_Role := CallbackCreate(ObjBindMethod(implObj, "put_Role"), flags, 2)
+        this.vtbl.get_OperatingSystem := CallbackCreate(ObjBindMethod(implObj, "get_OperatingSystem"), flags, 2)
+        this.vtbl.put_OperatingSystem := CallbackCreate(ObjBindMethod(implObj, "put_OperatingSystem"), flags, 2)
+        this.vtbl.get_OperatingSystemVersion := CallbackCreate(ObjBindMethod(implObj, "get_OperatingSystemVersion"), flags, 2)
+        this.vtbl.put_OperatingSystemVersion := CallbackCreate(ObjBindMethod(implObj, "put_OperatingSystemVersion"), flags, 2)
+        this.vtbl.get_Model := CallbackCreate(ObjBindMethod(implObj, "get_Model"), flags, 2)
+        this.vtbl.put_Model := CallbackCreate(ObjBindMethod(implObj, "put_Model"), flags, 2)
+        this.vtbl.get_Processor := CallbackCreate(ObjBindMethod(implObj, "get_Processor"), flags, 2)
+        this.vtbl.put_Processor := CallbackCreate(ObjBindMethod(implObj, "put_Processor"), flags, 2)
+        this.vtbl.get_ProcessorCount := CallbackCreate(ObjBindMethod(implObj, "get_ProcessorCount"), flags, 2)
+        this.vtbl.put_ProcessorCount := CallbackCreate(ObjBindMethod(implObj, "put_ProcessorCount"), flags, 2)
+        this.vtbl.get_MemorySize := CallbackCreate(ObjBindMethod(implObj, "get_MemorySize"), flags, 2)
+        this.vtbl.put_MemorySize := CallbackCreate(ObjBindMethod(implObj, "put_MemorySize"), flags, 2)
+        this.vtbl.get_StorageCapacity := CallbackCreate(ObjBindMethod(implObj, "get_StorageCapacity"), flags, 2)
+        this.vtbl.put_StorageCapacity := CallbackCreate(ObjBindMethod(implObj, "put_StorageCapacity"), flags, 2)
+        this.vtbl.get_NetAddresses := CallbackCreate(ObjBindMethod(implObj, "get_NetAddresses"), flags, 2)
+        this.vtbl.put_NetAddresses := CallbackCreate(ObjBindMethod(implObj, "put_NetAddresses"), flags, 2)
     }
 
     Dispose() {

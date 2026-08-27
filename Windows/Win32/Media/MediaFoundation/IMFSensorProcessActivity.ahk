@@ -93,10 +93,10 @@ export default struct IMFSensorProcessActivity extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProcessId := CallbackCreate(GetMethod(implObj, "GetProcessId"), flags, 2)
-        this.vtbl.GetStreamingState := CallbackCreate(GetMethod(implObj, "GetStreamingState"), flags, 2)
-        this.vtbl.GetStreamingMode := CallbackCreate(GetMethod(implObj, "GetStreamingMode"), flags, 2)
-        this.vtbl.GetReportTime := CallbackCreate(GetMethod(implObj, "GetReportTime"), flags, 2)
+        this.vtbl.GetProcessId := CallbackCreate(ObjBindMethod(implObj, "GetProcessId"), flags, 2)
+        this.vtbl.GetStreamingState := CallbackCreate(ObjBindMethod(implObj, "GetStreamingState"), flags, 2)
+        this.vtbl.GetStreamingMode := CallbackCreate(ObjBindMethod(implObj, "GetStreamingMode"), flags, 2)
+        this.vtbl.GetReportTime := CallbackCreate(ObjBindMethod(implObj, "GetReportTime"), flags, 2)
     }
 
     Dispose() {

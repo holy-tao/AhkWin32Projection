@@ -37,7 +37,6 @@ export default struct IDebugPlmClient extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Server 
      * @param {Integer} Timeout 
      * @param {PWSTR} PackageFullName 
@@ -52,10 +51,11 @@ export default struct IDebugPlmClient extends IUnknown {
         AppName := AppName is String ? StrPtr(AppName) : AppName
         Arguments := Arguments is String ? StrPtr(Arguments) : Arguments
 
-        ProcessIdMarshal := ProcessId is VarRef ? "uint*" : "ptr"
-        ThreadIdMarshal := ThreadId is VarRef ? "uint*" : "ptr"
+        ArgumentsMarshal := Arguments == 0 ? IntPtr : PWSTR
+        ProcessIdMarshal := ProcessId is VarRef ? "uint*" : IntPtr
+        ThreadIdMarshal := ThreadId is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(3, this, Int64, Server, UInt32, Timeout, "ptr", PackageFullName, "ptr", AppName, "ptr", Arguments, ProcessIdMarshal, ProcessId, ThreadIdMarshal, ThreadId, "HRESULT")
+        result := ComCall(3, this, Int64, Server, UInt32, Timeout, "ptr", PackageFullName, "ptr", AppName, ArgumentsMarshal, Arguments, ProcessIdMarshal, ProcessId, ThreadIdMarshal, ThreadId, "HRESULT")
         return result
     }
 
@@ -68,7 +68,7 @@ export default struct IDebugPlmClient extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LaunchPlmPackageForDebugWide := CallbackCreate(GetMethod(implObj, "LaunchPlmPackageForDebugWide"), flags, 8)
+        this.vtbl.LaunchPlmPackageForDebugWide := CallbackCreate(ObjBindMethod(implObj, "LaunchPlmPackageForDebugWide"), flags, 8)
     }
 
     Dispose() {

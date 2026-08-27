@@ -68,7 +68,7 @@ export default struct ID3D12Debug5 extends ID3D12Debug4 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetEnableAutoName := CallbackCreate(GetMethod(implObj, "SetEnableAutoName"), flags, 2)
+        this.vtbl.SetEnableAutoName := CallbackCreate(ObjBindMethod(implObj, "SetEnableAutoName"), flags, 2)
     }
 
     Dispose() {

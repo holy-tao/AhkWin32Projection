@@ -100,8 +100,8 @@ export default struct ITsSbGlobalStore extends IUnknown {
     EnumerateFarms(ProviderName, pdwCount, pVal) {
         ProviderName := ProviderName is String ? BSTR.Alloc(ProviderName).Value : ProviderName
 
-        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
-        pValMarshal := pVal is VarRef ? "ptr*" : "ptr"
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : IntPtr
+        pValMarshal := pVal is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, BSTR, ProviderName, pdwCountMarshal, pdwCount, pValMarshal, pVal, "HRESULT")
         return result
@@ -121,7 +121,7 @@ export default struct ITsSbGlobalStore extends IUnknown {
         FarmName := FarmName is String ? BSTR.Alloc(FarmName).Value : FarmName
         EnvName := EnvName is String ? BSTR.Alloc(EnvName).Value : EnvName
 
-        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, BSTR, ProviderName, BSTR, FarmName, BSTR, EnvName, pdwCountMarshal, pdwCount, "ptr*", &pVal := 0, "HRESULT")
         return pVal
@@ -137,7 +137,7 @@ export default struct ITsSbGlobalStore extends IUnknown {
     EnumerateEnvironmentsByProvider(ProviderName, pdwCount) {
         ProviderName := ProviderName is String ? BSTR.Alloc(ProviderName).Value : ProviderName
 
-        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, BSTR, ProviderName, pdwCountMarshal, pdwCount, "ptr*", &ppVal := 0, "HRESULT")
         return ppVal
@@ -164,8 +164,8 @@ export default struct ITsSbGlobalStore extends IUnknown {
         poolName := poolName is String ? BSTR.Alloc(poolName).Value : poolName
         initialProgram := initialProgram is String ? BSTR.Alloc(initialProgram).Value : initialProgram
 
-        pSessionStateMarshal := pSessionState is VarRef ? "int*" : "ptr"
-        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+        pSessionStateMarshal := pSessionState is VarRef ? "int*" : IntPtr
+        pdwCountMarshal := pdwCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, BSTR, ProviderName, BSTR, targetName, BSTR, userName, BSTR, userDomain, BSTR, poolName, BSTR, initialProgram, pSessionStateMarshal, pSessionState, pdwCountMarshal, pdwCount, "ptr*", &ppVal := 0, "HRESULT")
         return ppVal
@@ -196,13 +196,13 @@ export default struct ITsSbGlobalStore extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryTarget := CallbackCreate(GetMethod(implObj, "QueryTarget"), flags, 5)
-        this.vtbl.QuerySessionBySessionId := CallbackCreate(GetMethod(implObj, "QuerySessionBySessionId"), flags, 5)
-        this.vtbl.EnumerateFarms := CallbackCreate(GetMethod(implObj, "EnumerateFarms"), flags, 4)
-        this.vtbl.EnumerateTargets := CallbackCreate(GetMethod(implObj, "EnumerateTargets"), flags, 6)
-        this.vtbl.EnumerateEnvironmentsByProvider := CallbackCreate(GetMethod(implObj, "EnumerateEnvironmentsByProvider"), flags, 4)
-        this.vtbl.EnumerateSessions := CallbackCreate(GetMethod(implObj, "EnumerateSessions"), flags, 10)
-        this.vtbl.GetFarmProperty := CallbackCreate(GetMethod(implObj, "GetFarmProperty"), flags, 4)
+        this.vtbl.QueryTarget := CallbackCreate(ObjBindMethod(implObj, "QueryTarget"), flags, 5)
+        this.vtbl.QuerySessionBySessionId := CallbackCreate(ObjBindMethod(implObj, "QuerySessionBySessionId"), flags, 5)
+        this.vtbl.EnumerateFarms := CallbackCreate(ObjBindMethod(implObj, "EnumerateFarms"), flags, 4)
+        this.vtbl.EnumerateTargets := CallbackCreate(ObjBindMethod(implObj, "EnumerateTargets"), flags, 6)
+        this.vtbl.EnumerateEnvironmentsByProvider := CallbackCreate(ObjBindMethod(implObj, "EnumerateEnvironmentsByProvider"), flags, 4)
+        this.vtbl.EnumerateSessions := CallbackCreate(ObjBindMethod(implObj, "EnumerateSessions"), flags, 10)
+        this.vtbl.GetFarmProperty := CallbackCreate(ObjBindMethod(implObj, "GetFarmProperty"), flags, 4)
     }
 
     Dispose() {

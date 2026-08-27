@@ -136,12 +136,12 @@ export default struct IMFMediaTimeRange extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 1)
-        this.vtbl.GetStart := CallbackCreate(GetMethod(implObj, "GetStart"), flags, 3)
-        this.vtbl.GetEnd := CallbackCreate(GetMethod(implObj, "GetEnd"), flags, 3)
-        this.vtbl.ContainsTime := CallbackCreate(GetMethod(implObj, "ContainsTime"), flags, 2)
-        this.vtbl.AddRange := CallbackCreate(GetMethod(implObj, "AddRange"), flags, 3)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 1)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 1)
+        this.vtbl.GetStart := CallbackCreate(ObjBindMethod(implObj, "GetStart"), flags, 3)
+        this.vtbl.GetEnd := CallbackCreate(ObjBindMethod(implObj, "GetEnd"), flags, 3)
+        this.vtbl.ContainsTime := CallbackCreate(ObjBindMethod(implObj, "ContainsTime"), flags, 2)
+        this.vtbl.AddRange := CallbackCreate(ObjBindMethod(implObj, "AddRange"), flags, 3)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 1)
     }
 
     Dispose() {

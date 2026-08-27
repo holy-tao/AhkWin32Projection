@@ -213,14 +213,14 @@ export default struct IScrollProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Scroll := CallbackCreate(GetMethod(implObj, "Scroll"), flags, 3)
-        this.vtbl.SetScrollPercent := CallbackCreate(GetMethod(implObj, "SetScrollPercent"), flags, 3)
-        this.vtbl.get_HorizontalScrollPercent := CallbackCreate(GetMethod(implObj, "get_HorizontalScrollPercent"), flags, 2)
-        this.vtbl.get_VerticalScrollPercent := CallbackCreate(GetMethod(implObj, "get_VerticalScrollPercent"), flags, 2)
-        this.vtbl.get_HorizontalViewSize := CallbackCreate(GetMethod(implObj, "get_HorizontalViewSize"), flags, 2)
-        this.vtbl.get_VerticalViewSize := CallbackCreate(GetMethod(implObj, "get_VerticalViewSize"), flags, 2)
-        this.vtbl.get_HorizontallyScrollable := CallbackCreate(GetMethod(implObj, "get_HorizontallyScrollable"), flags, 2)
-        this.vtbl.get_VerticallyScrollable := CallbackCreate(GetMethod(implObj, "get_VerticallyScrollable"), flags, 2)
+        this.vtbl.Scroll := CallbackCreate(ObjBindMethod(implObj, "Scroll"), flags, 3)
+        this.vtbl.SetScrollPercent := CallbackCreate(ObjBindMethod(implObj, "SetScrollPercent"), flags, 3)
+        this.vtbl.get_HorizontalScrollPercent := CallbackCreate(ObjBindMethod(implObj, "get_HorizontalScrollPercent"), flags, 2)
+        this.vtbl.get_VerticalScrollPercent := CallbackCreate(ObjBindMethod(implObj, "get_VerticalScrollPercent"), flags, 2)
+        this.vtbl.get_HorizontalViewSize := CallbackCreate(ObjBindMethod(implObj, "get_HorizontalViewSize"), flags, 2)
+        this.vtbl.get_VerticalViewSize := CallbackCreate(ObjBindMethod(implObj, "get_VerticalViewSize"), flags, 2)
+        this.vtbl.get_HorizontallyScrollable := CallbackCreate(ObjBindMethod(implObj, "get_HorizontallyScrollable"), flags, 2)
+        this.vtbl.get_VerticallyScrollable := CallbackCreate(ObjBindMethod(implObj, "get_VerticallyScrollable"), flags, 2)
     }
 
     Dispose() {

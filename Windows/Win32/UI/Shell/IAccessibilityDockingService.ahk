@@ -68,8 +68,8 @@ export default struct IAccessibilityDockingService extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/com/iaccessibilitydockingservice-getavailablesize
      */
     GetAvailableSize(_hMonitor, pcxFixed, pcyMax) {
-        pcxFixedMarshal := pcxFixed is VarRef ? "uint*" : "ptr"
-        pcyMaxMarshal := pcyMax is VarRef ? "uint*" : "ptr"
+        pcxFixedMarshal := pcxFixed is VarRef ? "uint*" : IntPtr
+        pcyMaxMarshal := pcyMax is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, HMONITOR, _hMonitor, pcxFixedMarshal, pcxFixed, pcyMaxMarshal, pcyMax, "HRESULT")
         return result
@@ -224,9 +224,9 @@ export default struct IAccessibilityDockingService extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAvailableSize := CallbackCreate(GetMethod(implObj, "GetAvailableSize"), flags, 4)
-        this.vtbl.DockWindow := CallbackCreate(GetMethod(implObj, "DockWindow"), flags, 5)
-        this.vtbl.UndockWindow := CallbackCreate(GetMethod(implObj, "UndockWindow"), flags, 2)
+        this.vtbl.GetAvailableSize := CallbackCreate(ObjBindMethod(implObj, "GetAvailableSize"), flags, 4)
+        this.vtbl.DockWindow := CallbackCreate(ObjBindMethod(implObj, "DockWindow"), flags, 5)
+        this.vtbl.UndockWindow := CallbackCreate(ObjBindMethod(implObj, "UndockWindow"), flags, 2)
     }
 
     Dispose() {

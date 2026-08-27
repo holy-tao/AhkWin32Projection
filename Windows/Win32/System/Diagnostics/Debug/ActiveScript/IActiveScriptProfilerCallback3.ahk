@@ -36,7 +36,6 @@ export default struct IActiveScriptProfilerCallback3 extends IActiveScriptProfil
     }
 
     /**
-     * 
      * @param {Integer} webWorkerId 
      * @returns {HRESULT} 
      */
@@ -54,7 +53,7 @@ export default struct IActiveScriptProfilerCallback3 extends IActiveScriptProfil
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetWebWorkerId := CallbackCreate(GetMethod(implObj, "SetWebWorkerId"), flags, 2)
+        this.vtbl.SetWebWorkerId := CallbackCreate(ObjBindMethod(implObj, "SetWebWorkerId"), flags, 2)
     }
 
     Dispose() {

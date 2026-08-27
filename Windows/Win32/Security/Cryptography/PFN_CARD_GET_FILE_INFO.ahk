@@ -21,7 +21,6 @@ export default struct PFN_CARD_GET_FILE_INFO {
     }
 
     /**
-     * 
      * @param {Pointer<CARD_DATA>} pCardData 
      * @param {PSTR} pszDirectoryName 
      * @param {PSTR} pszFileName 
@@ -32,7 +31,9 @@ export default struct PFN_CARD_GET_FILE_INFO {
         pszDirectoryName := pszDirectoryName is String ? StrPtr(pszDirectoryName) : pszDirectoryName
         pszFileName := pszFileName is String ? StrPtr(pszFileName) : pszFileName
 
-        result := DllCall(this.value, CARD_DATA.Ptr, pCardData, "ptr", pszDirectoryName, "ptr", pszFileName, CARD_FILE_INFO.Ptr, pCardFileInfo, UInt32)
+        pszDirectoryNameMarshal := pszDirectoryName == 0 ? IntPtr : PSTR
+
+        result := DllCall(this.value, CARD_DATA.Ptr, pCardData, pszDirectoryNameMarshal, pszDirectoryName, "ptr", pszFileName, CARD_FILE_INFO.Ptr, pCardFileInfo, UInt32)
         return result
     }
 

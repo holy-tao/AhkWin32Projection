@@ -49,7 +49,6 @@ export default struct IContactAggregationLinkCollection extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IContactAggregationLink} 
      */
     FindFirst() {
@@ -58,7 +57,6 @@ export default struct IContactAggregationLinkCollection extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pSourceType 
      * @param {PWSTR} pAccountId 
      * @param {Pointer<CONTACT_AGGREGATION_BLOB>} pRemoteId 
@@ -73,7 +71,6 @@ export default struct IContactAggregationLinkCollection extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IContactAggregationLink} 
      */
     FindNext() {
@@ -82,7 +79,6 @@ export default struct IContactAggregationLinkCollection extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -99,10 +95,10 @@ export default struct IContactAggregationLinkCollection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FindFirst := CallbackCreate(GetMethod(implObj, "FindFirst"), flags, 2)
-        this.vtbl.FindFirstByRemoteId := CallbackCreate(GetMethod(implObj, "FindFirstByRemoteId"), flags, 5)
-        this.vtbl.FindNext := CallbackCreate(GetMethod(implObj, "FindNext"), flags, 2)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.FindFirst := CallbackCreate(ObjBindMethod(implObj, "FindFirst"), flags, 2)
+        this.vtbl.FindFirstByRemoteId := CallbackCreate(ObjBindMethod(implObj, "FindFirstByRemoteId"), flags, 5)
+        this.vtbl.FindNext := CallbackCreate(ObjBindMethod(implObj, "FindNext"), flags, 2)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
     }
 
     Dispose() {

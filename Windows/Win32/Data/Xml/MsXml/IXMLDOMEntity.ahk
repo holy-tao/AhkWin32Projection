@@ -61,7 +61,6 @@ export default struct IXMLDOMEntity extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_publicId() {
@@ -71,7 +70,6 @@ export default struct IXMLDOMEntity extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_systemId() {
@@ -81,7 +79,6 @@ export default struct IXMLDOMEntity extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_notationName() {
@@ -99,9 +96,9 @@ export default struct IXMLDOMEntity extends IXMLDOMNode {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_publicId := CallbackCreate(GetMethod(implObj, "get_publicId"), flags, 2)
-        this.vtbl.get_systemId := CallbackCreate(GetMethod(implObj, "get_systemId"), flags, 2)
-        this.vtbl.get_notationName := CallbackCreate(GetMethod(implObj, "get_notationName"), flags, 2)
+        this.vtbl.get_publicId := CallbackCreate(ObjBindMethod(implObj, "get_publicId"), flags, 2)
+        this.vtbl.get_systemId := CallbackCreate(ObjBindMethod(implObj, "get_systemId"), flags, 2)
+        this.vtbl.get_notationName := CallbackCreate(ObjBindMethod(implObj, "get_notationName"), flags, 2)
     }
 
     Dispose() {

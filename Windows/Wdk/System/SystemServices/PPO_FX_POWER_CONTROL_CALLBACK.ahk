@@ -19,7 +19,6 @@ export default struct PPO_FX_POWER_CONTROL_CALLBACK {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

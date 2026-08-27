@@ -37,7 +37,6 @@ export default struct IPartDiscardControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} uriSentinelPage 
      * @param {Pointer<BSTR>} uriPartToDiscard 
      * @returns {HRESULT} 
@@ -56,7 +55,7 @@ export default struct IPartDiscardControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDiscardProperties := CallbackCreate(GetMethod(implObj, "GetDiscardProperties"), flags, 3)
+        this.vtbl.GetDiscardProperties := CallbackCreate(ObjBindMethod(implObj, "GetDiscardProperties"), flags, 3)
     }
 
     Dispose() {

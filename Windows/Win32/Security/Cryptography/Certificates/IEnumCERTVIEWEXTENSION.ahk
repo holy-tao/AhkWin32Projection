@@ -75,7 +75,7 @@ export default struct IEnumCERTVIEWEXTENSION extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-ienumcertviewextension-next
      */
     Next(pIndex) {
-        pIndexMarshal := pIndex is VarRef ? "int*" : "ptr"
+        pIndexMarshal := pIndex is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, pIndexMarshal, pIndex, "HRESULT")
         return result
@@ -220,7 +220,7 @@ export default struct IEnumCERTVIEWEXTENSION extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-ienumcertviewextension-getflags
      */
     GetFlags(pFlags) {
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
+        pFlagsMarshal := pFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, pFlagsMarshal, pFlags, "HRESULT")
         return result
@@ -350,13 +350,13 @@ export default struct IEnumCERTVIEWEXTENSION extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 2)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
-        this.vtbl.GetFlags := CallbackCreate(GetMethod(implObj, "GetFlags"), flags, 2)
-        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 4)
-        this.vtbl.Skip := CallbackCreate(GetMethod(implObj, "Skip"), flags, 2)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.Next := CallbackCreate(ObjBindMethod(implObj, "Next"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetFlags := CallbackCreate(ObjBindMethod(implObj, "GetFlags"), flags, 2)
+        this.vtbl.GetValue := CallbackCreate(ObjBindMethod(implObj, "GetValue"), flags, 4)
+        this.vtbl.Skip := CallbackCreate(ObjBindMethod(implObj, "Skip"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
     }
 
     Dispose() {

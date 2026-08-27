@@ -37,7 +37,6 @@ export default struct IWebWizardHost2 extends IWebWizardHost {
     }
 
     /**
-     * 
      * @param {BSTR} value 
      * @returns {BSTR} 
      */
@@ -58,7 +57,7 @@ export default struct IWebWizardHost2 extends IWebWizardHost {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SignString := CallbackCreate(GetMethod(implObj, "SignString"), flags, 3)
+        this.vtbl.SignString := CallbackCreate(ObjBindMethod(implObj, "SignString"), flags, 3)
     }
 
     Dispose() {

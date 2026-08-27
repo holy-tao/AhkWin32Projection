@@ -38,17 +38,17 @@ export default struct ICommandText extends ICommand {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pguidDialect 
      * @returns {PWSTR} 
      */
     GetCommandText(pguidDialect) {
-        result := ComCall(6, this, Guid.Ptr, pguidDialect, PWSTR.Ptr, &ppwszCommand := 0, "HRESULT")
+        pguidDialectMarshal := pguidDialect == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(6, this, pguidDialectMarshal, pguidDialect, PWSTR.Ptr, &ppwszCommand := 0, "HRESULT")
         return ppwszCommand
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rguidDialect 
      * @param {PWSTR} pwszCommand 
      * @returns {HRESULT} 
@@ -56,7 +56,9 @@ export default struct ICommandText extends ICommand {
     SetCommandText(rguidDialect, pwszCommand) {
         pwszCommand := pwszCommand is String ? StrPtr(pwszCommand) : pwszCommand
 
-        result := ComCall(7, this, Guid.Ptr, rguidDialect, "ptr", pwszCommand, "HRESULT")
+        pwszCommandMarshal := pwszCommand == 0 ? IntPtr : PWSTR
+
+        result := ComCall(7, this, Guid.Ptr, rguidDialect, pwszCommandMarshal, pwszCommand, "HRESULT")
         return result
     }
 
@@ -69,8 +71,8 @@ export default struct ICommandText extends ICommand {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCommandText := CallbackCreate(GetMethod(implObj, "GetCommandText"), flags, 3)
-        this.vtbl.SetCommandText := CallbackCreate(GetMethod(implObj, "SetCommandText"), flags, 3)
+        this.vtbl.GetCommandText := CallbackCreate(ObjBindMethod(implObj, "GetCommandText"), flags, 3)
+        this.vtbl.SetCommandText := CallbackCreate(ObjBindMethod(implObj, "SetCommandText"), flags, 3)
     }
 
     Dispose() {

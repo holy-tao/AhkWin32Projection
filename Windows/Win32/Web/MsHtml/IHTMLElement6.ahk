@@ -353,7 +353,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvarNS 
      * @param {BSTR} strAttributeName 
      * @returns {VARIANT} 
@@ -367,7 +366,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvarNS 
      * @param {BSTR} strAttributeName 
      * @param {Pointer<VARIANT>} pvarAttributeValue 
@@ -381,7 +379,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvarNS 
      * @param {BSTR} strAttributeName 
      * @returns {HRESULT} 
@@ -394,7 +391,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvarNS 
      * @param {BSTR} bstrname 
      * @returns {IHTMLDOMAttribute2} 
@@ -407,7 +403,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMAttribute2} pattr 
      * @returns {IHTMLDOMAttribute2} 
      */
@@ -417,7 +412,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} pvarNS 
      * @param {BSTR} name 
      * @returns {VARIANT_BOOL} 
@@ -430,7 +424,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strAttributeName 
      * @returns {VARIANT} 
      */
@@ -443,7 +436,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strAttributeName 
      * @param {Pointer<VARIANT>} pvarAttributeValue 
      * @returns {HRESULT} 
@@ -456,7 +448,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strAttributeName 
      * @returns {HRESULT} 
      */
@@ -468,7 +459,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} strAttributeName 
      * @returns {IHTMLDOMAttribute2} 
      */
@@ -480,7 +470,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMAttribute2} pattr 
      * @returns {IHTMLDOMAttribute2} 
      */
@@ -490,7 +479,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMAttribute2} pattr 
      * @returns {IHTMLDOMAttribute2} 
      */
@@ -500,7 +488,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {VARIANT_BOOL} 
      */
@@ -512,7 +499,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} varNS 
      * @param {BSTR} bstrLocalName 
      * @returns {IHTMLElementCollection} 
@@ -525,7 +511,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_tagName() {
@@ -535,7 +520,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_nodeName() {
@@ -545,7 +529,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {IHTMLElementCollection} 
      */
@@ -557,7 +540,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {VARIANT_BOOL} 
      */
@@ -569,7 +551,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -579,7 +560,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onabort() {
@@ -589,7 +569,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -599,7 +578,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_oncanplay() {
@@ -609,7 +587,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -619,7 +596,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_oncanplaythrough() {
@@ -629,7 +605,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -639,7 +614,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onchange() {
@@ -649,7 +623,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -659,7 +632,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondurationchange() {
@@ -669,7 +641,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -679,7 +650,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onemptied() {
@@ -689,7 +659,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -699,7 +668,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onended() {
@@ -709,7 +677,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -719,7 +686,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onerror() {
@@ -729,7 +695,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -739,7 +704,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_oninput() {
@@ -749,7 +713,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -759,7 +722,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onload() {
@@ -769,7 +731,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -779,7 +740,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onloadeddata() {
@@ -789,7 +749,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -799,7 +758,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onloadedmetadata() {
@@ -809,7 +767,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -819,7 +776,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onloadstart() {
@@ -829,7 +785,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -839,7 +794,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onpause() {
@@ -849,7 +803,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -859,7 +812,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onplay() {
@@ -869,7 +821,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -879,7 +830,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onplaying() {
@@ -889,7 +839,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -899,7 +848,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onprogress() {
@@ -909,7 +857,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -919,7 +866,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onratechange() {
@@ -929,7 +875,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -939,7 +884,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onreset() {
@@ -949,7 +893,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -959,7 +902,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onseeked() {
@@ -969,7 +911,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -979,7 +920,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onseeking() {
@@ -989,7 +929,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -999,7 +938,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onselect() {
@@ -1009,7 +947,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1019,7 +956,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onstalled() {
@@ -1029,7 +965,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1039,7 +974,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onsubmit() {
@@ -1049,7 +983,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1059,7 +992,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onsuspend() {
@@ -1069,7 +1001,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1079,7 +1010,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ontimeupdate() {
@@ -1089,7 +1019,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1099,7 +1028,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onvolumechange() {
@@ -1109,7 +1037,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -1119,7 +1046,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onwaiting() {
@@ -1129,7 +1055,6 @@ export default struct IHTMLElement6 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     hasAttributes() {
@@ -1146,81 +1071,81 @@ export default struct IHTMLElement6 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.getAttributeNS := CallbackCreate(GetMethod(implObj, "getAttributeNS"), flags, 4)
-        this.vtbl.setAttributeNS := CallbackCreate(GetMethod(implObj, "setAttributeNS"), flags, 4)
-        this.vtbl.removeAttributeNS := CallbackCreate(GetMethod(implObj, "removeAttributeNS"), flags, 3)
-        this.vtbl.getAttributeNodeNS := CallbackCreate(GetMethod(implObj, "getAttributeNodeNS"), flags, 4)
-        this.vtbl.setAttributeNodeNS := CallbackCreate(GetMethod(implObj, "setAttributeNodeNS"), flags, 3)
-        this.vtbl.hasAttributeNS := CallbackCreate(GetMethod(implObj, "hasAttributeNS"), flags, 4)
-        this.vtbl.getAttribute := CallbackCreate(GetMethod(implObj, "getAttribute"), flags, 3)
-        this.vtbl.setAttribute := CallbackCreate(GetMethod(implObj, "setAttribute"), flags, 3)
-        this.vtbl.removeAttribute := CallbackCreate(GetMethod(implObj, "removeAttribute"), flags, 2)
-        this.vtbl.getAttributeNode := CallbackCreate(GetMethod(implObj, "getAttributeNode"), flags, 3)
-        this.vtbl.setAttributeNode := CallbackCreate(GetMethod(implObj, "setAttributeNode"), flags, 3)
-        this.vtbl.removeAttributeNode := CallbackCreate(GetMethod(implObj, "removeAttributeNode"), flags, 3)
-        this.vtbl.hasAttribute := CallbackCreate(GetMethod(implObj, "hasAttribute"), flags, 3)
-        this.vtbl.getElementsByTagNameNS := CallbackCreate(GetMethod(implObj, "getElementsByTagNameNS"), flags, 4)
-        this.vtbl.get_tagName := CallbackCreate(GetMethod(implObj, "get_tagName"), flags, 2)
-        this.vtbl.get_nodeName := CallbackCreate(GetMethod(implObj, "get_nodeName"), flags, 2)
-        this.vtbl.getElementsByClassName := CallbackCreate(GetMethod(implObj, "getElementsByClassName"), flags, 3)
-        this.vtbl.msMatchesSelector := CallbackCreate(GetMethod(implObj, "msMatchesSelector"), flags, 3)
-        this.vtbl.put_onabort := CallbackCreate(GetMethod(implObj, "put_onabort"), flags, 2)
-        this.vtbl.get_onabort := CallbackCreate(GetMethod(implObj, "get_onabort"), flags, 2)
-        this.vtbl.put_oncanplay := CallbackCreate(GetMethod(implObj, "put_oncanplay"), flags, 2)
-        this.vtbl.get_oncanplay := CallbackCreate(GetMethod(implObj, "get_oncanplay"), flags, 2)
-        this.vtbl.put_oncanplaythrough := CallbackCreate(GetMethod(implObj, "put_oncanplaythrough"), flags, 2)
-        this.vtbl.get_oncanplaythrough := CallbackCreate(GetMethod(implObj, "get_oncanplaythrough"), flags, 2)
-        this.vtbl.put_onchange := CallbackCreate(GetMethod(implObj, "put_onchange"), flags, 2)
-        this.vtbl.get_onchange := CallbackCreate(GetMethod(implObj, "get_onchange"), flags, 2)
-        this.vtbl.put_ondurationchange := CallbackCreate(GetMethod(implObj, "put_ondurationchange"), flags, 2)
-        this.vtbl.get_ondurationchange := CallbackCreate(GetMethod(implObj, "get_ondurationchange"), flags, 2)
-        this.vtbl.put_onemptied := CallbackCreate(GetMethod(implObj, "put_onemptied"), flags, 2)
-        this.vtbl.get_onemptied := CallbackCreate(GetMethod(implObj, "get_onemptied"), flags, 2)
-        this.vtbl.put_onended := CallbackCreate(GetMethod(implObj, "put_onended"), flags, 2)
-        this.vtbl.get_onended := CallbackCreate(GetMethod(implObj, "get_onended"), flags, 2)
-        this.vtbl.put_onerror := CallbackCreate(GetMethod(implObj, "put_onerror"), flags, 2)
-        this.vtbl.get_onerror := CallbackCreate(GetMethod(implObj, "get_onerror"), flags, 2)
-        this.vtbl.put_oninput := CallbackCreate(GetMethod(implObj, "put_oninput"), flags, 2)
-        this.vtbl.get_oninput := CallbackCreate(GetMethod(implObj, "get_oninput"), flags, 2)
-        this.vtbl.put_onload := CallbackCreate(GetMethod(implObj, "put_onload"), flags, 2)
-        this.vtbl.get_onload := CallbackCreate(GetMethod(implObj, "get_onload"), flags, 2)
-        this.vtbl.put_onloadeddata := CallbackCreate(GetMethod(implObj, "put_onloadeddata"), flags, 2)
-        this.vtbl.get_onloadeddata := CallbackCreate(GetMethod(implObj, "get_onloadeddata"), flags, 2)
-        this.vtbl.put_onloadedmetadata := CallbackCreate(GetMethod(implObj, "put_onloadedmetadata"), flags, 2)
-        this.vtbl.get_onloadedmetadata := CallbackCreate(GetMethod(implObj, "get_onloadedmetadata"), flags, 2)
-        this.vtbl.put_onloadstart := CallbackCreate(GetMethod(implObj, "put_onloadstart"), flags, 2)
-        this.vtbl.get_onloadstart := CallbackCreate(GetMethod(implObj, "get_onloadstart"), flags, 2)
-        this.vtbl.put_onpause := CallbackCreate(GetMethod(implObj, "put_onpause"), flags, 2)
-        this.vtbl.get_onpause := CallbackCreate(GetMethod(implObj, "get_onpause"), flags, 2)
-        this.vtbl.put_onplay := CallbackCreate(GetMethod(implObj, "put_onplay"), flags, 2)
-        this.vtbl.get_onplay := CallbackCreate(GetMethod(implObj, "get_onplay"), flags, 2)
-        this.vtbl.put_onplaying := CallbackCreate(GetMethod(implObj, "put_onplaying"), flags, 2)
-        this.vtbl.get_onplaying := CallbackCreate(GetMethod(implObj, "get_onplaying"), flags, 2)
-        this.vtbl.put_onprogress := CallbackCreate(GetMethod(implObj, "put_onprogress"), flags, 2)
-        this.vtbl.get_onprogress := CallbackCreate(GetMethod(implObj, "get_onprogress"), flags, 2)
-        this.vtbl.put_onratechange := CallbackCreate(GetMethod(implObj, "put_onratechange"), flags, 2)
-        this.vtbl.get_onratechange := CallbackCreate(GetMethod(implObj, "get_onratechange"), flags, 2)
-        this.vtbl.put_onreset := CallbackCreate(GetMethod(implObj, "put_onreset"), flags, 2)
-        this.vtbl.get_onreset := CallbackCreate(GetMethod(implObj, "get_onreset"), flags, 2)
-        this.vtbl.put_onseeked := CallbackCreate(GetMethod(implObj, "put_onseeked"), flags, 2)
-        this.vtbl.get_onseeked := CallbackCreate(GetMethod(implObj, "get_onseeked"), flags, 2)
-        this.vtbl.put_onseeking := CallbackCreate(GetMethod(implObj, "put_onseeking"), flags, 2)
-        this.vtbl.get_onseeking := CallbackCreate(GetMethod(implObj, "get_onseeking"), flags, 2)
-        this.vtbl.put_onselect := CallbackCreate(GetMethod(implObj, "put_onselect"), flags, 2)
-        this.vtbl.get_onselect := CallbackCreate(GetMethod(implObj, "get_onselect"), flags, 2)
-        this.vtbl.put_onstalled := CallbackCreate(GetMethod(implObj, "put_onstalled"), flags, 2)
-        this.vtbl.get_onstalled := CallbackCreate(GetMethod(implObj, "get_onstalled"), flags, 2)
-        this.vtbl.put_onsubmit := CallbackCreate(GetMethod(implObj, "put_onsubmit"), flags, 2)
-        this.vtbl.get_onsubmit := CallbackCreate(GetMethod(implObj, "get_onsubmit"), flags, 2)
-        this.vtbl.put_onsuspend := CallbackCreate(GetMethod(implObj, "put_onsuspend"), flags, 2)
-        this.vtbl.get_onsuspend := CallbackCreate(GetMethod(implObj, "get_onsuspend"), flags, 2)
-        this.vtbl.put_ontimeupdate := CallbackCreate(GetMethod(implObj, "put_ontimeupdate"), flags, 2)
-        this.vtbl.get_ontimeupdate := CallbackCreate(GetMethod(implObj, "get_ontimeupdate"), flags, 2)
-        this.vtbl.put_onvolumechange := CallbackCreate(GetMethod(implObj, "put_onvolumechange"), flags, 2)
-        this.vtbl.get_onvolumechange := CallbackCreate(GetMethod(implObj, "get_onvolumechange"), flags, 2)
-        this.vtbl.put_onwaiting := CallbackCreate(GetMethod(implObj, "put_onwaiting"), flags, 2)
-        this.vtbl.get_onwaiting := CallbackCreate(GetMethod(implObj, "get_onwaiting"), flags, 2)
-        this.vtbl.hasAttributes := CallbackCreate(GetMethod(implObj, "hasAttributes"), flags, 2)
+        this.vtbl.getAttributeNS := CallbackCreate(ObjBindMethod(implObj, "getAttributeNS"), flags, 4)
+        this.vtbl.setAttributeNS := CallbackCreate(ObjBindMethod(implObj, "setAttributeNS"), flags, 4)
+        this.vtbl.removeAttributeNS := CallbackCreate(ObjBindMethod(implObj, "removeAttributeNS"), flags, 3)
+        this.vtbl.getAttributeNodeNS := CallbackCreate(ObjBindMethod(implObj, "getAttributeNodeNS"), flags, 4)
+        this.vtbl.setAttributeNodeNS := CallbackCreate(ObjBindMethod(implObj, "setAttributeNodeNS"), flags, 3)
+        this.vtbl.hasAttributeNS := CallbackCreate(ObjBindMethod(implObj, "hasAttributeNS"), flags, 4)
+        this.vtbl.getAttribute := CallbackCreate(ObjBindMethod(implObj, "getAttribute"), flags, 3)
+        this.vtbl.setAttribute := CallbackCreate(ObjBindMethod(implObj, "setAttribute"), flags, 3)
+        this.vtbl.removeAttribute := CallbackCreate(ObjBindMethod(implObj, "removeAttribute"), flags, 2)
+        this.vtbl.getAttributeNode := CallbackCreate(ObjBindMethod(implObj, "getAttributeNode"), flags, 3)
+        this.vtbl.setAttributeNode := CallbackCreate(ObjBindMethod(implObj, "setAttributeNode"), flags, 3)
+        this.vtbl.removeAttributeNode := CallbackCreate(ObjBindMethod(implObj, "removeAttributeNode"), flags, 3)
+        this.vtbl.hasAttribute := CallbackCreate(ObjBindMethod(implObj, "hasAttribute"), flags, 3)
+        this.vtbl.getElementsByTagNameNS := CallbackCreate(ObjBindMethod(implObj, "getElementsByTagNameNS"), flags, 4)
+        this.vtbl.get_tagName := CallbackCreate(ObjBindMethod(implObj, "get_tagName"), flags, 2)
+        this.vtbl.get_nodeName := CallbackCreate(ObjBindMethod(implObj, "get_nodeName"), flags, 2)
+        this.vtbl.getElementsByClassName := CallbackCreate(ObjBindMethod(implObj, "getElementsByClassName"), flags, 3)
+        this.vtbl.msMatchesSelector := CallbackCreate(ObjBindMethod(implObj, "msMatchesSelector"), flags, 3)
+        this.vtbl.put_onabort := CallbackCreate(ObjBindMethod(implObj, "put_onabort"), flags, 2)
+        this.vtbl.get_onabort := CallbackCreate(ObjBindMethod(implObj, "get_onabort"), flags, 2)
+        this.vtbl.put_oncanplay := CallbackCreate(ObjBindMethod(implObj, "put_oncanplay"), flags, 2)
+        this.vtbl.get_oncanplay := CallbackCreate(ObjBindMethod(implObj, "get_oncanplay"), flags, 2)
+        this.vtbl.put_oncanplaythrough := CallbackCreate(ObjBindMethod(implObj, "put_oncanplaythrough"), flags, 2)
+        this.vtbl.get_oncanplaythrough := CallbackCreate(ObjBindMethod(implObj, "get_oncanplaythrough"), flags, 2)
+        this.vtbl.put_onchange := CallbackCreate(ObjBindMethod(implObj, "put_onchange"), flags, 2)
+        this.vtbl.get_onchange := CallbackCreate(ObjBindMethod(implObj, "get_onchange"), flags, 2)
+        this.vtbl.put_ondurationchange := CallbackCreate(ObjBindMethod(implObj, "put_ondurationchange"), flags, 2)
+        this.vtbl.get_ondurationchange := CallbackCreate(ObjBindMethod(implObj, "get_ondurationchange"), flags, 2)
+        this.vtbl.put_onemptied := CallbackCreate(ObjBindMethod(implObj, "put_onemptied"), flags, 2)
+        this.vtbl.get_onemptied := CallbackCreate(ObjBindMethod(implObj, "get_onemptied"), flags, 2)
+        this.vtbl.put_onended := CallbackCreate(ObjBindMethod(implObj, "put_onended"), flags, 2)
+        this.vtbl.get_onended := CallbackCreate(ObjBindMethod(implObj, "get_onended"), flags, 2)
+        this.vtbl.put_onerror := CallbackCreate(ObjBindMethod(implObj, "put_onerror"), flags, 2)
+        this.vtbl.get_onerror := CallbackCreate(ObjBindMethod(implObj, "get_onerror"), flags, 2)
+        this.vtbl.put_oninput := CallbackCreate(ObjBindMethod(implObj, "put_oninput"), flags, 2)
+        this.vtbl.get_oninput := CallbackCreate(ObjBindMethod(implObj, "get_oninput"), flags, 2)
+        this.vtbl.put_onload := CallbackCreate(ObjBindMethod(implObj, "put_onload"), flags, 2)
+        this.vtbl.get_onload := CallbackCreate(ObjBindMethod(implObj, "get_onload"), flags, 2)
+        this.vtbl.put_onloadeddata := CallbackCreate(ObjBindMethod(implObj, "put_onloadeddata"), flags, 2)
+        this.vtbl.get_onloadeddata := CallbackCreate(ObjBindMethod(implObj, "get_onloadeddata"), flags, 2)
+        this.vtbl.put_onloadedmetadata := CallbackCreate(ObjBindMethod(implObj, "put_onloadedmetadata"), flags, 2)
+        this.vtbl.get_onloadedmetadata := CallbackCreate(ObjBindMethod(implObj, "get_onloadedmetadata"), flags, 2)
+        this.vtbl.put_onloadstart := CallbackCreate(ObjBindMethod(implObj, "put_onloadstart"), flags, 2)
+        this.vtbl.get_onloadstart := CallbackCreate(ObjBindMethod(implObj, "get_onloadstart"), flags, 2)
+        this.vtbl.put_onpause := CallbackCreate(ObjBindMethod(implObj, "put_onpause"), flags, 2)
+        this.vtbl.get_onpause := CallbackCreate(ObjBindMethod(implObj, "get_onpause"), flags, 2)
+        this.vtbl.put_onplay := CallbackCreate(ObjBindMethod(implObj, "put_onplay"), flags, 2)
+        this.vtbl.get_onplay := CallbackCreate(ObjBindMethod(implObj, "get_onplay"), flags, 2)
+        this.vtbl.put_onplaying := CallbackCreate(ObjBindMethod(implObj, "put_onplaying"), flags, 2)
+        this.vtbl.get_onplaying := CallbackCreate(ObjBindMethod(implObj, "get_onplaying"), flags, 2)
+        this.vtbl.put_onprogress := CallbackCreate(ObjBindMethod(implObj, "put_onprogress"), flags, 2)
+        this.vtbl.get_onprogress := CallbackCreate(ObjBindMethod(implObj, "get_onprogress"), flags, 2)
+        this.vtbl.put_onratechange := CallbackCreate(ObjBindMethod(implObj, "put_onratechange"), flags, 2)
+        this.vtbl.get_onratechange := CallbackCreate(ObjBindMethod(implObj, "get_onratechange"), flags, 2)
+        this.vtbl.put_onreset := CallbackCreate(ObjBindMethod(implObj, "put_onreset"), flags, 2)
+        this.vtbl.get_onreset := CallbackCreate(ObjBindMethod(implObj, "get_onreset"), flags, 2)
+        this.vtbl.put_onseeked := CallbackCreate(ObjBindMethod(implObj, "put_onseeked"), flags, 2)
+        this.vtbl.get_onseeked := CallbackCreate(ObjBindMethod(implObj, "get_onseeked"), flags, 2)
+        this.vtbl.put_onseeking := CallbackCreate(ObjBindMethod(implObj, "put_onseeking"), flags, 2)
+        this.vtbl.get_onseeking := CallbackCreate(ObjBindMethod(implObj, "get_onseeking"), flags, 2)
+        this.vtbl.put_onselect := CallbackCreate(ObjBindMethod(implObj, "put_onselect"), flags, 2)
+        this.vtbl.get_onselect := CallbackCreate(ObjBindMethod(implObj, "get_onselect"), flags, 2)
+        this.vtbl.put_onstalled := CallbackCreate(ObjBindMethod(implObj, "put_onstalled"), flags, 2)
+        this.vtbl.get_onstalled := CallbackCreate(ObjBindMethod(implObj, "get_onstalled"), flags, 2)
+        this.vtbl.put_onsubmit := CallbackCreate(ObjBindMethod(implObj, "put_onsubmit"), flags, 2)
+        this.vtbl.get_onsubmit := CallbackCreate(ObjBindMethod(implObj, "get_onsubmit"), flags, 2)
+        this.vtbl.put_onsuspend := CallbackCreate(ObjBindMethod(implObj, "put_onsuspend"), flags, 2)
+        this.vtbl.get_onsuspend := CallbackCreate(ObjBindMethod(implObj, "get_onsuspend"), flags, 2)
+        this.vtbl.put_ontimeupdate := CallbackCreate(ObjBindMethod(implObj, "put_ontimeupdate"), flags, 2)
+        this.vtbl.get_ontimeupdate := CallbackCreate(ObjBindMethod(implObj, "get_ontimeupdate"), flags, 2)
+        this.vtbl.put_onvolumechange := CallbackCreate(ObjBindMethod(implObj, "put_onvolumechange"), flags, 2)
+        this.vtbl.get_onvolumechange := CallbackCreate(ObjBindMethod(implObj, "get_onvolumechange"), flags, 2)
+        this.vtbl.put_onwaiting := CallbackCreate(ObjBindMethod(implObj, "put_onwaiting"), flags, 2)
+        this.vtbl.get_onwaiting := CallbackCreate(ObjBindMethod(implObj, "get_onwaiting"), flags, 2)
+        this.vtbl.hasAttributes := CallbackCreate(ObjBindMethod(implObj, "hasAttributes"), flags, 2)
     }
 
     Dispose() {

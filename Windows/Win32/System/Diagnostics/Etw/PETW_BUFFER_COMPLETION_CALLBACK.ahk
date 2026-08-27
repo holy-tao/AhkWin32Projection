@@ -21,13 +21,13 @@ export default struct PETW_BUFFER_COMPLETION_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<ETW_BUFFER_HEADER>} _Buffer Pointer to the raw ETW buffer
      * @param {Pointer<Void>} CallbackContext User defined context passed in as BufferCompletionContext to [OpenTraceFromBufferStream](nf-evntrace-opentracefrombufferstream.md).
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_Buffer, CallbackContext) {
-        CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
+        CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : IntPtr
+        CallbackContextMarshal := CallbackContext == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, ETW_BUFFER_HEADER.Ptr, _Buffer, CallbackContextMarshal, CallbackContext)
     }

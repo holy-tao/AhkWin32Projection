@@ -44,7 +44,6 @@ export default struct IDesktopWindowTargetInterop extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HWND} 
      */
     get_Hwnd() {
@@ -62,7 +61,7 @@ export default struct IDesktopWindowTargetInterop extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Hwnd := CallbackCreate(GetMethod(implObj, "get_Hwnd"), flags, 2)
+        this.vtbl.get_Hwnd := CallbackCreate(ObjBindMethod(implObj, "get_Hwnd"), flags, 2)
     }
 
     Dispose() {

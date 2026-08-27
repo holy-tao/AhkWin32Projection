@@ -37,7 +37,6 @@ export default struct ISIInbandEPGEvent extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDVB_EIT2} pIDVB_EIT 
      * @param {Integer} dwTable_ID 
      * @param {Integer} dwService_ID 
@@ -57,7 +56,7 @@ export default struct ISIInbandEPGEvent extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SIObjectEvent := CallbackCreate(GetMethod(implObj, "SIObjectEvent"), flags, 4)
+        this.vtbl.SIObjectEvent := CallbackCreate(ObjBindMethod(implObj, "SIObjectEvent"), flags, 4)
     }
 
     Dispose() {

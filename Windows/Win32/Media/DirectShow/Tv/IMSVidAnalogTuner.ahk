@@ -185,7 +185,7 @@ export default struct IMSVidAnalogTuner extends IMSVidTuner {
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidanalogtuner-channelavailable
      */
     ChannelAvailable(nChannel, SignalStrength) {
-        SignalStrengthMarshal := SignalStrength is VarRef ? "int*" : "ptr"
+        SignalStrengthMarshal := SignalStrength is VarRef ? "int*" : IntPtr
 
         result := ComCall(30, this, Int32, nChannel, SignalStrengthMarshal, SignalStrength, VARIANT_BOOL.Ptr, &fSignalPresent := 0, "HRESULT")
         return fSignalPresent
@@ -200,15 +200,15 @@ export default struct IMSVidAnalogTuner extends IMSVidTuner {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Channel := CallbackCreate(GetMethod(implObj, "get_Channel"), flags, 2)
-        this.vtbl.put_Channel := CallbackCreate(GetMethod(implObj, "put_Channel"), flags, 2)
-        this.vtbl.get_VideoFrequency := CallbackCreate(GetMethod(implObj, "get_VideoFrequency"), flags, 2)
-        this.vtbl.get_AudioFrequency := CallbackCreate(GetMethod(implObj, "get_AudioFrequency"), flags, 2)
-        this.vtbl.get_CountryCode := CallbackCreate(GetMethod(implObj, "get_CountryCode"), flags, 2)
-        this.vtbl.put_CountryCode := CallbackCreate(GetMethod(implObj, "put_CountryCode"), flags, 2)
-        this.vtbl.get_SAP := CallbackCreate(GetMethod(implObj, "get_SAP"), flags, 2)
-        this.vtbl.put_SAP := CallbackCreate(GetMethod(implObj, "put_SAP"), flags, 2)
-        this.vtbl.ChannelAvailable := CallbackCreate(GetMethod(implObj, "ChannelAvailable"), flags, 4)
+        this.vtbl.get_Channel := CallbackCreate(ObjBindMethod(implObj, "get_Channel"), flags, 2)
+        this.vtbl.put_Channel := CallbackCreate(ObjBindMethod(implObj, "put_Channel"), flags, 2)
+        this.vtbl.get_VideoFrequency := CallbackCreate(ObjBindMethod(implObj, "get_VideoFrequency"), flags, 2)
+        this.vtbl.get_AudioFrequency := CallbackCreate(ObjBindMethod(implObj, "get_AudioFrequency"), flags, 2)
+        this.vtbl.get_CountryCode := CallbackCreate(ObjBindMethod(implObj, "get_CountryCode"), flags, 2)
+        this.vtbl.put_CountryCode := CallbackCreate(ObjBindMethod(implObj, "put_CountryCode"), flags, 2)
+        this.vtbl.get_SAP := CallbackCreate(ObjBindMethod(implObj, "get_SAP"), flags, 2)
+        this.vtbl.put_SAP := CallbackCreate(ObjBindMethod(implObj, "put_SAP"), flags, 2)
+        this.vtbl.ChannelAvailable := CallbackCreate(ObjBindMethod(implObj, "ChannelAvailable"), flags, 4)
     }
 
     Dispose() {

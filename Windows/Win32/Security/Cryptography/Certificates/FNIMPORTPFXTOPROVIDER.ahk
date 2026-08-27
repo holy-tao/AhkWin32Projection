@@ -23,7 +23,6 @@ export default struct FNIMPORTPFXTOPROVIDER {
     }
 
     /**
-     * 
      * @param {HWND} hWndParent 
      * @param {Integer} pbPFX 
      * @param {Integer} cbPFX 
@@ -46,10 +45,18 @@ export default struct FNIMPORTPFXTOPROVIDER {
         pwszPin := pwszPin is String ? StrPtr(pwszPin) : pwszPin
         pwszFriendlyName := pwszFriendlyName is String ? StrPtr(pwszFriendlyName) : pwszFriendlyName
 
-        pcCertOutMarshal := pcCertOut is VarRef ? "uint*" : "ptr"
-        prgpCertOutMarshal := prgpCertOut is VarRef ? "ptr*" : "ptr"
+        pwszPasswordMarshal := pwszPassword == 0 ? IntPtr : PWSTR
+        pwszProviderNameMarshal := pwszProviderName == 0 ? IntPtr : PWSTR
+        pwszReaderNameMarshal := pwszReaderName == 0 ? IntPtr : PWSTR
+        pwszContainerNamePrefixMarshal := pwszContainerNamePrefix == 0 ? IntPtr : PWSTR
+        pwszPinMarshal := pwszPin == 0 ? IntPtr : PWSTR
+        pwszFriendlyNameMarshal := pwszFriendlyName == 0 ? IntPtr : PWSTR
+        pcCertOutMarshal := pcCertOut is VarRef ? "uint*" : IntPtr
+        pcCertOutMarshal := pcCertOut == 0 ? IntPtr : "uint*"
+        prgpCertOutMarshal := prgpCertOut is VarRef ? "ptr*" : IntPtr
+        prgpCertOutMarshal := prgpCertOut == 0 ? IntPtr : "ptr*"
 
-        result := DllCall(this.value, HWND, hWndParent, IntPtr, pbPFX, UInt32, cbPFX, ImportPFXFlags, ImportFlags, "ptr", pwszPassword, "ptr", pwszProviderName, "ptr", pwszReaderName, "ptr", pwszContainerNamePrefix, "ptr", pwszPin, "ptr", pwszFriendlyName, pcCertOutMarshal, pcCertOut, prgpCertOutMarshal, prgpCertOut, "HRESULT")
+        result := DllCall(this.value, HWND, hWndParent, IntPtr, pbPFX, UInt32, cbPFX, ImportPFXFlags, ImportFlags, pwszPasswordMarshal, pwszPassword, pwszProviderNameMarshal, pwszProviderName, pwszReaderNameMarshal, pwszReaderName, pwszContainerNamePrefixMarshal, pwszContainerNamePrefix, pwszPinMarshal, pwszPin, pwszFriendlyNameMarshal, pwszFriendlyName, pcCertOutMarshal, pcCertOut, prgpCertOutMarshal, prgpCertOut, "HRESULT")
         return result
     }
 

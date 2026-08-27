@@ -60,7 +60,7 @@ export default struct IRicheditUiaOverrides extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPropertyOverrideValue := CallbackCreate(GetMethod(implObj, "GetPropertyOverrideValue"), flags, 3)
+        this.vtbl.GetPropertyOverrideValue := CallbackCreate(ObjBindMethod(implObj, "GetPropertyOverrideValue"), flags, 3)
     }
 
     Dispose() {

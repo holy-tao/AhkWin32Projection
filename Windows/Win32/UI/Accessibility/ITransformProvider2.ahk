@@ -147,12 +147,12 @@ export default struct ITransformProvider2 extends ITransformProvider {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Zoom := CallbackCreate(GetMethod(implObj, "Zoom"), flags, 2)
-        this.vtbl.get_CanZoom := CallbackCreate(GetMethod(implObj, "get_CanZoom"), flags, 2)
-        this.vtbl.get_ZoomLevel := CallbackCreate(GetMethod(implObj, "get_ZoomLevel"), flags, 2)
-        this.vtbl.get_ZoomMinimum := CallbackCreate(GetMethod(implObj, "get_ZoomMinimum"), flags, 2)
-        this.vtbl.get_ZoomMaximum := CallbackCreate(GetMethod(implObj, "get_ZoomMaximum"), flags, 2)
-        this.vtbl.ZoomByUnit := CallbackCreate(GetMethod(implObj, "ZoomByUnit"), flags, 2)
+        this.vtbl.Zoom := CallbackCreate(ObjBindMethod(implObj, "Zoom"), flags, 2)
+        this.vtbl.get_CanZoom := CallbackCreate(ObjBindMethod(implObj, "get_CanZoom"), flags, 2)
+        this.vtbl.get_ZoomLevel := CallbackCreate(ObjBindMethod(implObj, "get_ZoomLevel"), flags, 2)
+        this.vtbl.get_ZoomMinimum := CallbackCreate(ObjBindMethod(implObj, "get_ZoomMinimum"), flags, 2)
+        this.vtbl.get_ZoomMaximum := CallbackCreate(ObjBindMethod(implObj, "get_ZoomMaximum"), flags, 2)
+        this.vtbl.ZoomByUnit := CallbackCreate(ObjBindMethod(implObj, "ZoomByUnit"), flags, 2)
     }
 
     Dispose() {

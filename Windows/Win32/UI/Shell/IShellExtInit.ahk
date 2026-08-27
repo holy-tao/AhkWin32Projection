@@ -72,7 +72,11 @@ export default struct IShellExtInit extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellextinit-initialize
      */
     Initialize(pidlFolder, pdtobj, hkeyProgID) {
-        result := ComCall(3, this, ITEMIDLIST.Ptr, pidlFolder, "ptr", pdtobj, HKEY, hkeyProgID, "HRESULT")
+        pidlFolderMarshal := pidlFolder == 0 ? IntPtr : ITEMIDLIST.Ptr
+        pdtobjMarshal := pdtobj == 0 ? IntPtr : "ptr"
+        hkeyProgIDMarshal := hkeyProgID == 0 ? IntPtr : HKEY
+
+        result := ComCall(3, this, pidlFolderMarshal, pidlFolder, pdtobjMarshal, pdtobj, hkeyProgIDMarshal, hkeyProgID, "HRESULT")
         return result
     }
 
@@ -85,7 +89,7 @@ export default struct IShellExtInit extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 4)
     }
 
     Dispose() {

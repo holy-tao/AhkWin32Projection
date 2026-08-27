@@ -34,7 +34,6 @@ export default struct PDD_SURFCB_GETFLIPSTATUS {
     }
 
     /**
-     * 
      * @param {Pointer<DD_GETFLIPSTATUSDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_getflipstatusdata">DD_GETFLIPSTATUSDATA</a> structure that contains the information required to perform the flip status query.
      * @returns {Integer} <b>DdGetFlipStatus</b> returns one of the following callback codes:
      */

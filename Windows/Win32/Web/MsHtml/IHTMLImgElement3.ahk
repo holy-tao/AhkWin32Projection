@@ -76,7 +76,6 @@ export default struct IHTMLImgElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -88,7 +87,6 @@ export default struct IHTMLImgElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_longDesc() {
@@ -98,7 +96,6 @@ export default struct IHTMLImgElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -110,7 +107,6 @@ export default struct IHTMLImgElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_vrml() {
@@ -120,7 +116,6 @@ export default struct IHTMLImgElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -132,7 +127,6 @@ export default struct IHTMLImgElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_lowsrc() {
@@ -142,7 +136,6 @@ export default struct IHTMLImgElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -154,7 +147,6 @@ export default struct IHTMLImgElement3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_dynsrc() {
@@ -172,14 +164,14 @@ export default struct IHTMLImgElement3 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_longDesc := CallbackCreate(GetMethod(implObj, "put_longDesc"), flags, 2)
-        this.vtbl.get_longDesc := CallbackCreate(GetMethod(implObj, "get_longDesc"), flags, 2)
-        this.vtbl.put_vrml := CallbackCreate(GetMethod(implObj, "put_vrml"), flags, 2)
-        this.vtbl.get_vrml := CallbackCreate(GetMethod(implObj, "get_vrml"), flags, 2)
-        this.vtbl.put_lowsrc := CallbackCreate(GetMethod(implObj, "put_lowsrc"), flags, 2)
-        this.vtbl.get_lowsrc := CallbackCreate(GetMethod(implObj, "get_lowsrc"), flags, 2)
-        this.vtbl.put_dynsrc := CallbackCreate(GetMethod(implObj, "put_dynsrc"), flags, 2)
-        this.vtbl.get_dynsrc := CallbackCreate(GetMethod(implObj, "get_dynsrc"), flags, 2)
+        this.vtbl.put_longDesc := CallbackCreate(ObjBindMethod(implObj, "put_longDesc"), flags, 2)
+        this.vtbl.get_longDesc := CallbackCreate(ObjBindMethod(implObj, "get_longDesc"), flags, 2)
+        this.vtbl.put_vrml := CallbackCreate(ObjBindMethod(implObj, "put_vrml"), flags, 2)
+        this.vtbl.get_vrml := CallbackCreate(ObjBindMethod(implObj, "get_vrml"), flags, 2)
+        this.vtbl.put_lowsrc := CallbackCreate(ObjBindMethod(implObj, "put_lowsrc"), flags, 2)
+        this.vtbl.get_lowsrc := CallbackCreate(ObjBindMethod(implObj, "get_lowsrc"), flags, 2)
+        this.vtbl.put_dynsrc := CallbackCreate(ObjBindMethod(implObj, "put_dynsrc"), flags, 2)
+        this.vtbl.get_dynsrc := CallbackCreate(ObjBindMethod(implObj, "get_dynsrc"), flags, 2)
     }
 
     Dispose() {

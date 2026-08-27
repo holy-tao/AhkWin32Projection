@@ -20,7 +20,6 @@ export default struct PFND3DKMT_MARKDEVICEASERROR {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_MARKDEVICEASERROR>} param0 
      * @returns {NTSTATUS} 
      */

@@ -72,7 +72,7 @@ export default struct IADsExtension extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsextension-privategetidsofnames
      */
     PrivateGetIDsOfNames(riid, rgszNames, cNames, lcid) {
-        rgszNamesMarshal := rgszNames is VarRef ? "ptr*" : "ptr"
+        rgszNamesMarshal := rgszNames is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, Guid.Ptr, riid, rgszNamesMarshal, rgszNames, UInt32, cNames, UInt32, lcid, "int*", &rgDispid := 0, "HRESULT")
         return rgDispid
@@ -94,7 +94,7 @@ export default struct IADsExtension extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsextension-privateinvoke
      */
     PrivateInvoke(dispidMember, riid, lcid, wFlags, pdispparams, pvarResult, pexcepinfo, puArgErr) {
-        puArgErrMarshal := puArgErr is VarRef ? "uint*" : "ptr"
+        puArgErrMarshal := puArgErr is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, Int32, dispidMember, Guid.Ptr, riid, UInt32, lcid, UInt16, wFlags, DISPPARAMS.Ptr, pdispparams, VARIANT.Ptr, pvarResult, EXCEPINFO.Ptr, pexcepinfo, puArgErrMarshal, puArgErr, "HRESULT")
         return result
@@ -109,9 +109,9 @@ export default struct IADsExtension extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Operate := CallbackCreate(GetMethod(implObj, "Operate"), flags, 5)
-        this.vtbl.PrivateGetIDsOfNames := CallbackCreate(GetMethod(implObj, "PrivateGetIDsOfNames"), flags, 6)
-        this.vtbl.PrivateInvoke := CallbackCreate(GetMethod(implObj, "PrivateInvoke"), flags, 9)
+        this.vtbl.Operate := CallbackCreate(ObjBindMethod(implObj, "Operate"), flags, 5)
+        this.vtbl.PrivateGetIDsOfNames := CallbackCreate(ObjBindMethod(implObj, "PrivateGetIDsOfNames"), flags, 6)
+        this.vtbl.PrivateInvoke := CallbackCreate(ObjBindMethod(implObj, "PrivateInvoke"), flags, 9)
     }
 
     Dispose() {

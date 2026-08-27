@@ -20,7 +20,6 @@ export default struct PFN_CARD_QUERY_FREE_SPACE {
     }
 
     /**
-     * 
      * @param {Pointer<CARD_DATA>} pCardData 
      * @param {Integer} dwFlags 
      * @param {Pointer<CARD_FREE_SPACE_INFO>} pCardFreeSpaceInfo 

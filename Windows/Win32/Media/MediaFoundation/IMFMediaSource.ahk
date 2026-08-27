@@ -359,12 +359,12 @@ export default struct IMFMediaSource extends IMFMediaEventGenerator {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCharacteristics := CallbackCreate(GetMethod(implObj, "GetCharacteristics"), flags, 2)
-        this.vtbl.CreatePresentationDescriptor := CallbackCreate(GetMethod(implObj, "CreatePresentationDescriptor"), flags, 2)
-        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 4)
-        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
-        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
-        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 1)
+        this.vtbl.GetCharacteristics := CallbackCreate(ObjBindMethod(implObj, "GetCharacteristics"), flags, 2)
+        this.vtbl.CreatePresentationDescriptor := CallbackCreate(ObjBindMethod(implObj, "CreatePresentationDescriptor"), flags, 2)
+        this.vtbl.Start := CallbackCreate(ObjBindMethod(implObj, "Start"), flags, 4)
+        this.vtbl.Stop := CallbackCreate(ObjBindMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.Pause := CallbackCreate(ObjBindMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Shutdown := CallbackCreate(ObjBindMethod(implObj, "Shutdown"), flags, 1)
     }
 
     Dispose() {

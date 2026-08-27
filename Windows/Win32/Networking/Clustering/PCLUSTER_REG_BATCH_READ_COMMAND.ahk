@@ -20,7 +20,6 @@ export default struct PCLUSTER_REG_BATCH_READ_COMMAND {
     }
 
     /**
-     * 
      * @param {HREGBATCHNOTIFICATION} hBatchNotification 
      * @param {Pointer<CLUSTER_BATCH_COMMAND>} pBatchCommand 
      * @returns {Integer} 

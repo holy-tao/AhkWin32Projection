@@ -19,7 +19,6 @@ export default struct LPDDHAL_CREATESURFACE {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_CREATESURFACEDATA>} param0 
      * @returns {Integer} 
      */

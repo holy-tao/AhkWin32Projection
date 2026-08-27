@@ -154,9 +154,9 @@ export default struct IWMPCdrom extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_driveSpecifier := CallbackCreate(GetMethod(implObj, "get_driveSpecifier"), flags, 2)
-        this.vtbl.get_playlist := CallbackCreate(GetMethod(implObj, "get_playlist"), flags, 2)
-        this.vtbl.eject := CallbackCreate(GetMethod(implObj, "eject"), flags, 1)
+        this.vtbl.get_driveSpecifier := CallbackCreate(ObjBindMethod(implObj, "get_driveSpecifier"), flags, 2)
+        this.vtbl.get_playlist := CallbackCreate(ObjBindMethod(implObj, "get_playlist"), flags, 2)
+        this.vtbl.eject := CallbackCreate(ObjBindMethod(implObj, "eject"), flags, 1)
     }
 
     Dispose() {

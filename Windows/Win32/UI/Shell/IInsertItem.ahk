@@ -62,7 +62,7 @@ export default struct IInsertItem extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InsertItem := CallbackCreate(GetMethod(implObj, "InsertItem"), flags, 2)
+        this.vtbl.InsertItem := CallbackCreate(ObjBindMethod(implObj, "InsertItem"), flags, 2)
     }
 
     Dispose() {

@@ -129,10 +129,10 @@ export default struct IUIAutomationDropTargetPattern extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_CurrentDropTargetEffect := CallbackCreate(GetMethod(implObj, "get_CurrentDropTargetEffect"), flags, 2)
-        this.vtbl.get_CachedDropTargetEffect := CallbackCreate(GetMethod(implObj, "get_CachedDropTargetEffect"), flags, 2)
-        this.vtbl.get_CurrentDropTargetEffects := CallbackCreate(GetMethod(implObj, "get_CurrentDropTargetEffects"), flags, 2)
-        this.vtbl.get_CachedDropTargetEffects := CallbackCreate(GetMethod(implObj, "get_CachedDropTargetEffects"), flags, 2)
+        this.vtbl.get_CurrentDropTargetEffect := CallbackCreate(ObjBindMethod(implObj, "get_CurrentDropTargetEffect"), flags, 2)
+        this.vtbl.get_CachedDropTargetEffect := CallbackCreate(ObjBindMethod(implObj, "get_CachedDropTargetEffect"), flags, 2)
+        this.vtbl.get_CurrentDropTargetEffects := CallbackCreate(ObjBindMethod(implObj, "get_CurrentDropTargetEffects"), flags, 2)
+        this.vtbl.get_CachedDropTargetEffects := CallbackCreate(ObjBindMethod(implObj, "get_CachedDropTargetEffects"), flags, 2)
     }
 
     Dispose() {

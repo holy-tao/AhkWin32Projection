@@ -60,7 +60,7 @@ export default struct ID2D1StrokeStyle1 extends ID2D1StrokeStyle {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStrokeTransformType := CallbackCreate(GetMethod(implObj, "GetStrokeTransformType"), flags, 1)
+        this.vtbl.GetStrokeTransformType := CallbackCreate(ObjBindMethod(implObj, "GetStrokeTransformType"), flags, 1)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct LPFNCCINFOW {
     }
 
     /**
-     * 
      * @param {Pointer<CCINFOW>} acci 
      * @returns {Integer} 
      */

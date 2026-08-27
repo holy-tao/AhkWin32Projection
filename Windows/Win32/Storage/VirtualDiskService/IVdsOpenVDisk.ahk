@@ -268,12 +268,12 @@ export default struct IVdsOpenVDisk extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Attach := CallbackCreate(GetMethod(implObj, "Attach"), flags, 6)
-        this.vtbl.Detach := CallbackCreate(GetMethod(implObj, "Detach"), flags, 3)
-        this.vtbl.DetachAndDelete := CallbackCreate(GetMethod(implObj, "DetachAndDelete"), flags, 3)
-        this.vtbl.Compact := CallbackCreate(GetMethod(implObj, "Compact"), flags, 4)
-        this.vtbl.Merge := CallbackCreate(GetMethod(implObj, "Merge"), flags, 4)
-        this.vtbl.Expand := CallbackCreate(GetMethod(implObj, "Expand"), flags, 4)
+        this.vtbl.Attach := CallbackCreate(ObjBindMethod(implObj, "Attach"), flags, 6)
+        this.vtbl.Detach := CallbackCreate(ObjBindMethod(implObj, "Detach"), flags, 3)
+        this.vtbl.DetachAndDelete := CallbackCreate(ObjBindMethod(implObj, "DetachAndDelete"), flags, 3)
+        this.vtbl.Compact := CallbackCreate(ObjBindMethod(implObj, "Compact"), flags, 4)
+        this.vtbl.Merge := CallbackCreate(ObjBindMethod(implObj, "Merge"), flags, 4)
+        this.vtbl.Expand := CallbackCreate(ObjBindMethod(implObj, "Expand"), flags, 4)
     }
 
     Dispose() {

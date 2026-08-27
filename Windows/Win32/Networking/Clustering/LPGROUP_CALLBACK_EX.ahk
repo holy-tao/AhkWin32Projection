@@ -20,7 +20,6 @@ export default struct LPGROUP_CALLBACK_EX {
     }
 
     /**
-     * 
      * @param {HCLUSTER} param0 
      * @param {HGROUP} param1 
      * @param {HGROUP} param2 
@@ -28,7 +27,7 @@ export default struct LPGROUP_CALLBACK_EX {
      * @returns {Integer} 
      */
     Call(param0, param1, param2, param3) {
-        param3Marshal := param3 is VarRef ? "ptr" : "ptr"
+        param3Marshal := param3 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, HCLUSTER, param0, HGROUP, param1, HGROUP, param2, param3Marshal, param3, UInt32)
         return result

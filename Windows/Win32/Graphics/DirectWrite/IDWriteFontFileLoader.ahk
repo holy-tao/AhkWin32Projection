@@ -70,7 +70,7 @@ export default struct IDWriteFontFileLoader extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateStreamFromKey := CallbackCreate(GetMethod(implObj, "CreateStreamFromKey"), flags, 4)
+        this.vtbl.CreateStreamFromKey := CallbackCreate(ObjBindMethod(implObj, "CreateStreamFromKey"), flags, 4)
     }
 
     Dispose() {

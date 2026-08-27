@@ -122,7 +122,6 @@ export default struct IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRTCClient} 
      */
     get_Client() {
@@ -131,7 +130,6 @@ export default struct IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @returns {RTC_SESSION_STATE} 
      */
     get_State() {
@@ -140,7 +138,6 @@ export default struct IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @returns {RTC_SESSION_TYPE} 
      */
     get_Type() {
@@ -149,7 +146,6 @@ export default struct IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRTCProfile} 
      */
     get_Profile() {
@@ -158,7 +154,6 @@ export default struct IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRTCCollection} 
      */
     get_Participants() {
@@ -167,7 +162,6 @@ export default struct IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Answer() {
@@ -176,7 +170,6 @@ export default struct IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_TERMINATE_REASON} enReason 
      * @returns {HRESULT} 
      */
@@ -186,7 +179,6 @@ export default struct IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_SESSION_TYPE} enType 
      * @param {BSTR} bstrLocalPhoneURI 
      * @param {IRTCProfile} pProfile 
@@ -201,7 +193,6 @@ export default struct IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrAddress 
      * @param {BSTR} bstrName 
      * @returns {IRTCParticipant} 
@@ -215,7 +206,6 @@ export default struct IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRTCParticipant} pParticipant 
      * @returns {HRESULT} 
      */
@@ -225,7 +215,6 @@ export default struct IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRTCEnumParticipants} 
      */
     EnumerateParticipants() {
@@ -234,7 +223,6 @@ export default struct IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_CanAddParticipants() {
@@ -243,7 +231,6 @@ export default struct IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_RedirectedUserURI() {
@@ -253,7 +240,6 @@ export default struct IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_RedirectedUserName() {
@@ -263,7 +249,6 @@ export default struct IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     NextRedirectedUser() {
@@ -300,7 +285,6 @@ export default struct IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_MESSAGING_USER_STATUS} enUserStatus 
      * @param {Pointer} lCookie 
      * @returns {HRESULT} 
@@ -311,7 +295,6 @@ export default struct IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lMediaType 
      * @param {Pointer} lCookie 
      * @returns {HRESULT} 
@@ -322,7 +305,6 @@ export default struct IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lMediaType 
      * @param {Pointer} lCookie 
      * @returns {HRESULT} 
@@ -333,7 +315,6 @@ export default struct IRTCSession extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lMediaType 
      * @param {BSTR} EncryptionKey 
      * @returns {HRESULT} 
@@ -354,26 +335,26 @@ export default struct IRTCSession extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Client := CallbackCreate(GetMethod(implObj, "get_Client"), flags, 2)
-        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
-        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
-        this.vtbl.get_Profile := CallbackCreate(GetMethod(implObj, "get_Profile"), flags, 2)
-        this.vtbl.get_Participants := CallbackCreate(GetMethod(implObj, "get_Participants"), flags, 2)
-        this.vtbl.Answer := CallbackCreate(GetMethod(implObj, "Answer"), flags, 1)
-        this.vtbl.Terminate := CallbackCreate(GetMethod(implObj, "Terminate"), flags, 2)
-        this.vtbl.Redirect := CallbackCreate(GetMethod(implObj, "Redirect"), flags, 5)
-        this.vtbl.AddParticipant := CallbackCreate(GetMethod(implObj, "AddParticipant"), flags, 4)
-        this.vtbl.RemoveParticipant := CallbackCreate(GetMethod(implObj, "RemoveParticipant"), flags, 2)
-        this.vtbl.EnumerateParticipants := CallbackCreate(GetMethod(implObj, "EnumerateParticipants"), flags, 2)
-        this.vtbl.get_CanAddParticipants := CallbackCreate(GetMethod(implObj, "get_CanAddParticipants"), flags, 2)
-        this.vtbl.get_RedirectedUserURI := CallbackCreate(GetMethod(implObj, "get_RedirectedUserURI"), flags, 2)
-        this.vtbl.get_RedirectedUserName := CallbackCreate(GetMethod(implObj, "get_RedirectedUserName"), flags, 2)
-        this.vtbl.NextRedirectedUser := CallbackCreate(GetMethod(implObj, "NextRedirectedUser"), flags, 1)
-        this.vtbl.SendMessage := CallbackCreate(GetMethod(implObj, "SendMessage"), flags, 4)
-        this.vtbl.SendMessageStatus := CallbackCreate(GetMethod(implObj, "SendMessageStatus"), flags, 3)
-        this.vtbl.AddStream := CallbackCreate(GetMethod(implObj, "AddStream"), flags, 3)
-        this.vtbl.RemoveStream := CallbackCreate(GetMethod(implObj, "RemoveStream"), flags, 3)
-        this.vtbl.put_EncryptionKey := CallbackCreate(GetMethod(implObj, "put_EncryptionKey"), flags, 3)
+        this.vtbl.get_Client := CallbackCreate(ObjBindMethod(implObj, "get_Client"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(ObjBindMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(ObjBindMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_Profile := CallbackCreate(ObjBindMethod(implObj, "get_Profile"), flags, 2)
+        this.vtbl.get_Participants := CallbackCreate(ObjBindMethod(implObj, "get_Participants"), flags, 2)
+        this.vtbl.Answer := CallbackCreate(ObjBindMethod(implObj, "Answer"), flags, 1)
+        this.vtbl.Terminate := CallbackCreate(ObjBindMethod(implObj, "Terminate"), flags, 2)
+        this.vtbl.Redirect := CallbackCreate(ObjBindMethod(implObj, "Redirect"), flags, 5)
+        this.vtbl.AddParticipant := CallbackCreate(ObjBindMethod(implObj, "AddParticipant"), flags, 4)
+        this.vtbl.RemoveParticipant := CallbackCreate(ObjBindMethod(implObj, "RemoveParticipant"), flags, 2)
+        this.vtbl.EnumerateParticipants := CallbackCreate(ObjBindMethod(implObj, "EnumerateParticipants"), flags, 2)
+        this.vtbl.get_CanAddParticipants := CallbackCreate(ObjBindMethod(implObj, "get_CanAddParticipants"), flags, 2)
+        this.vtbl.get_RedirectedUserURI := CallbackCreate(ObjBindMethod(implObj, "get_RedirectedUserURI"), flags, 2)
+        this.vtbl.get_RedirectedUserName := CallbackCreate(ObjBindMethod(implObj, "get_RedirectedUserName"), flags, 2)
+        this.vtbl.NextRedirectedUser := CallbackCreate(ObjBindMethod(implObj, "NextRedirectedUser"), flags, 1)
+        this.vtbl.SendMessage := CallbackCreate(ObjBindMethod(implObj, "SendMessage"), flags, 4)
+        this.vtbl.SendMessageStatus := CallbackCreate(ObjBindMethod(implObj, "SendMessageStatus"), flags, 3)
+        this.vtbl.AddStream := CallbackCreate(ObjBindMethod(implObj, "AddStream"), flags, 3)
+        this.vtbl.RemoveStream := CallbackCreate(ObjBindMethod(implObj, "RemoveStream"), flags, 3)
+        this.vtbl.put_EncryptionKey := CallbackCreate(ObjBindMethod(implObj, "put_EncryptionKey"), flags, 3)
     }
 
     Dispose() {

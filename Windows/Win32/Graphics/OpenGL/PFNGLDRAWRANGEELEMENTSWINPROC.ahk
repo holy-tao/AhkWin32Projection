@@ -18,7 +18,6 @@ export default struct PFNGLDRAWRANGEELEMENTSWINPROC {
     }
 
     /**
-     * 
      * @param {Integer} _mode 
      * @param {Integer} start 
      * @param {Integer} end 
@@ -28,7 +27,7 @@ export default struct PFNGLDRAWRANGEELEMENTSWINPROC {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_mode, start, end, count, type, indices) {
-        indicesMarshal := indices is VarRef ? "ptr" : "ptr"
+        indicesMarshal := indices is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, UInt32, _mode, UInt32, start, UInt32, end, Int32, count, UInt32, type, indicesMarshal, indices)
     }

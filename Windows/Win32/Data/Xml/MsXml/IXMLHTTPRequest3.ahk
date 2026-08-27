@@ -74,7 +74,7 @@ export default struct IXMLHTTPRequest3 extends IXMLHTTPRequest2 {
     SetClientCertificate(cbClientCertificateHash, pbClientCertificateHash, pwszPin) {
         pwszPin := pwszPin is String ? StrPtr(pwszPin) : pwszPin
 
-        pbClientCertificateHashMarshal := pbClientCertificateHash is VarRef ? "char*" : "ptr"
+        pbClientCertificateHashMarshal := pbClientCertificateHash is VarRef ? "char*" : IntPtr
 
         result := ComCall(13, this, UInt32, cbClientCertificateHash, pbClientCertificateHashMarshal, pbClientCertificateHash, "ptr", pwszPin, "HRESULT")
         return result
@@ -89,7 +89,7 @@ export default struct IXMLHTTPRequest3 extends IXMLHTTPRequest2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetClientCertificate := CallbackCreate(GetMethod(implObj, "SetClientCertificate"), flags, 4)
+        this.vtbl.SetClientCertificate := CallbackCreate(ObjBindMethod(implObj, "SetClientCertificate"), flags, 4)
     }
 
     Dispose() {

@@ -22,7 +22,6 @@ export default struct WSMAN_PLUGIN_CONNECT {
     }
 
     /**
-     * 
      * @param {Pointer<WSMAN_PLUGIN_REQUEST>} requestDetails A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_plugin_request">WSMAN_PLUGIN_REQUEST</a> 
      *       structure that specifies the resource URI, options, locale, shutdown flag, and handle for the request.
      * @param {Integer} flags Reserved for future use. Must be set to zero.
@@ -35,10 +34,12 @@ export default struct WSMAN_PLUGIN_CONNECT {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(requestDetails, flags, shellContext, commandContext, inboundConnectInformation) {
-        shellContextMarshal := shellContext is VarRef ? "ptr" : "ptr"
-        commandContextMarshal := commandContext is VarRef ? "ptr" : "ptr"
+        shellContextMarshal := shellContext is VarRef ? "ptr" : IntPtr
+        commandContextMarshal := commandContext is VarRef ? "ptr" : IntPtr
+        commandContextMarshal := commandContext == 0 ? IntPtr : "ptr"
+        inboundConnectInformationMarshal := inboundConnectInformation == 0 ? IntPtr : WSMAN_DATA.Ptr
 
-        DllCall(this.value, WSMAN_PLUGIN_REQUEST.Ptr, requestDetails, UInt32, flags, shellContextMarshal, shellContext, commandContextMarshal, commandContext, WSMAN_DATA.Ptr, inboundConnectInformation)
+        DllCall(this.value, WSMAN_PLUGIN_REQUEST.Ptr, requestDetails, UInt32, flags, shellContextMarshal, shellContext, commandContextMarshal, commandContext, inboundConnectInformationMarshal, inboundConnectInformation)
     }
 
     /**

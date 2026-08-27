@@ -101,9 +101,9 @@ export default struct IWICProgressiveLevelControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLevelCount := CallbackCreate(GetMethod(implObj, "GetLevelCount"), flags, 2)
-        this.vtbl.GetCurrentLevel := CallbackCreate(GetMethod(implObj, "GetCurrentLevel"), flags, 2)
-        this.vtbl.SetCurrentLevel := CallbackCreate(GetMethod(implObj, "SetCurrentLevel"), flags, 2)
+        this.vtbl.GetLevelCount := CallbackCreate(ObjBindMethod(implObj, "GetLevelCount"), flags, 2)
+        this.vtbl.GetCurrentLevel := CallbackCreate(ObjBindMethod(implObj, "GetCurrentLevel"), flags, 2)
+        this.vtbl.SetCurrentLevel := CallbackCreate(ObjBindMethod(implObj, "SetCurrentLevel"), flags, 2)
     }
 
     Dispose() {

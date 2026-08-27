@@ -274,10 +274,10 @@ export default struct ITfComposition extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRange := CallbackCreate(GetMethod(implObj, "GetRange"), flags, 2)
-        this.vtbl.ShiftStart := CallbackCreate(GetMethod(implObj, "ShiftStart"), flags, 3)
-        this.vtbl.ShiftEnd := CallbackCreate(GetMethod(implObj, "ShiftEnd"), flags, 3)
-        this.vtbl.EndComposition := CallbackCreate(GetMethod(implObj, "EndComposition"), flags, 2)
+        this.vtbl.GetRange := CallbackCreate(ObjBindMethod(implObj, "GetRange"), flags, 2)
+        this.vtbl.ShiftStart := CallbackCreate(ObjBindMethod(implObj, "ShiftStart"), flags, 3)
+        this.vtbl.ShiftEnd := CallbackCreate(ObjBindMethod(implObj, "ShiftEnd"), flags, 3)
+        this.vtbl.EndComposition := CallbackCreate(ObjBindMethod(implObj, "EndComposition"), flags, 2)
     }
 
     Dispose() {

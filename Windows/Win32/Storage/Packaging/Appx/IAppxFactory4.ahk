@@ -38,7 +38,6 @@ export default struct IAppxFactory4 extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} uri 
      * @param {PWSTR} expectedDigest 
      * @returns {IAppxPackageReader} 
@@ -60,7 +59,7 @@ export default struct IAppxFactory4 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreatePackageReaderFromSourceUri := CallbackCreate(GetMethod(implObj, "CreatePackageReaderFromSourceUri"), flags, 4)
+        this.vtbl.CreatePackageReaderFromSourceUri := CallbackCreate(ObjBindMethod(implObj, "CreatePackageReaderFromSourceUri"), flags, 4)
     }
 
     Dispose() {

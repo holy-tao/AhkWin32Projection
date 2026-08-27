@@ -64,7 +64,7 @@ export default struct IUIAutomationBoolCondition extends IUIAutomationCondition 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_BooleanValue := CallbackCreate(GetMethod(implObj, "get_BooleanValue"), flags, 2)
+        this.vtbl.get_BooleanValue := CallbackCreate(ObjBindMethod(implObj, "get_BooleanValue"), flags, 2)
     }
 
     Dispose() {

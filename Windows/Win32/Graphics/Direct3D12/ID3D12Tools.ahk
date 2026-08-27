@@ -83,8 +83,8 @@ export default struct ID3D12Tools extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnableShaderInstrumentation := CallbackCreate(GetMethod(implObj, "EnableShaderInstrumentation"), flags, 2)
-        this.vtbl.ShaderInstrumentationEnabled := CallbackCreate(GetMethod(implObj, "ShaderInstrumentationEnabled"), flags, 1)
+        this.vtbl.EnableShaderInstrumentation := CallbackCreate(ObjBindMethod(implObj, "EnableShaderInstrumentation"), flags, 2)
+        this.vtbl.ShaderInstrumentationEnabled := CallbackCreate(ObjBindMethod(implObj, "ShaderInstrumentationEnabled"), flags, 1)
     }
 
     Dispose() {

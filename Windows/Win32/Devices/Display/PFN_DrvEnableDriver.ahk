@@ -20,7 +20,6 @@ export default struct PFN_DrvEnableDriver {
     }
 
     /**
-     * 
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @param {Pointer<DRVENABLEDATA>} param2 

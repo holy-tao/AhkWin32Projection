@@ -19,7 +19,6 @@ export default struct RTM_EVENT_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer} RtmRegHandle 
      * @param {RTM_EVENT_TYPE} EventType 
      * @param {Pointer<Void>} Context1 
@@ -27,8 +26,8 @@ export default struct RTM_EVENT_CALLBACK {
      * @returns {Integer} 
      */
     Call(RtmRegHandle, EventType, Context1, Context2) {
-        Context1Marshal := Context1 is VarRef ? "ptr" : "ptr"
-        Context2Marshal := Context2 is VarRef ? "ptr" : "ptr"
+        Context1Marshal := Context1 is VarRef ? "ptr" : IntPtr
+        Context2Marshal := Context2 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, IntPtr, RtmRegHandle, RTM_EVENT_TYPE, EventType, Context1Marshal, Context1, Context2Marshal, Context2, UInt32)
         return result

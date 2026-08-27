@@ -70,8 +70,8 @@ export default struct ID3D11VideoProcessor extends ID3D11DeviceChild {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetContentDesc := CallbackCreate(GetMethod(implObj, "GetContentDesc"), flags, 2)
-        this.vtbl.GetRateConversionCaps := CallbackCreate(GetMethod(implObj, "GetRateConversionCaps"), flags, 2)
+        this.vtbl.GetContentDesc := CallbackCreate(ObjBindMethod(implObj, "GetContentDesc"), flags, 2)
+        this.vtbl.GetRateConversionCaps := CallbackCreate(ObjBindMethod(implObj, "GetRateConversionCaps"), flags, 2)
     }
 
     Dispose() {

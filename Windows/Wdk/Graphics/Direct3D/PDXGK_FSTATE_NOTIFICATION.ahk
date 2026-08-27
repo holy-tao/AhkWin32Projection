@@ -19,7 +19,6 @@ export default struct PDXGK_FSTATE_NOTIFICATION {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} GraphicsDeviceHandle 
      * @param {Integer} ComponentIndex 
      * @param {Integer} NewFState 
@@ -28,8 +27,8 @@ export default struct PDXGK_FSTATE_NOTIFICATION {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(GraphicsDeviceHandle, ComponentIndex, NewFState, PreNotification, PrivateHandle) {
-        GraphicsDeviceHandleMarshal := GraphicsDeviceHandle is VarRef ? "ptr" : "ptr"
-        PrivateHandleMarshal := PrivateHandle is VarRef ? "ptr" : "ptr"
+        GraphicsDeviceHandleMarshal := GraphicsDeviceHandle is VarRef ? "ptr" : IntPtr
+        PrivateHandleMarshal := PrivateHandle is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, GraphicsDeviceHandleMarshal, GraphicsDeviceHandle, UInt32, ComponentIndex, UInt32, NewFState, BOOLEAN, PreNotification, PrivateHandleMarshal, PrivateHandle)
     }

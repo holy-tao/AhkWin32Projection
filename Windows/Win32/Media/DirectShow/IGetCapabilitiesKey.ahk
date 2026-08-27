@@ -60,7 +60,7 @@ export default struct IGetCapabilitiesKey extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCapabilitiesKey := CallbackCreate(GetMethod(implObj, "GetCapabilitiesKey"), flags, 2)
+        this.vtbl.GetCapabilitiesKey := CallbackCreate(ObjBindMethod(implObj, "GetCapabilitiesKey"), flags, 2)
     }
 
     Dispose() {

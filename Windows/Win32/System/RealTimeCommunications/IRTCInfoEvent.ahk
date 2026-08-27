@@ -70,7 +70,6 @@ export default struct IRTCInfoEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCSession2} 
      */
     get_Session() {
@@ -79,7 +78,6 @@ export default struct IRTCInfoEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCParticipant} 
      */
     get_Participant() {
@@ -88,7 +86,6 @@ export default struct IRTCInfoEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Info() {
@@ -98,7 +95,6 @@ export default struct IRTCInfoEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_InfoHeader() {
@@ -116,10 +112,10 @@ export default struct IRTCInfoEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Session := CallbackCreate(GetMethod(implObj, "get_Session"), flags, 2)
-        this.vtbl.get_Participant := CallbackCreate(GetMethod(implObj, "get_Participant"), flags, 2)
-        this.vtbl.get_Info := CallbackCreate(GetMethod(implObj, "get_Info"), flags, 2)
-        this.vtbl.get_InfoHeader := CallbackCreate(GetMethod(implObj, "get_InfoHeader"), flags, 2)
+        this.vtbl.get_Session := CallbackCreate(ObjBindMethod(implObj, "get_Session"), flags, 2)
+        this.vtbl.get_Participant := CallbackCreate(ObjBindMethod(implObj, "get_Participant"), flags, 2)
+        this.vtbl.get_Info := CallbackCreate(ObjBindMethod(implObj, "get_Info"), flags, 2)
+        this.vtbl.get_InfoHeader := CallbackCreate(ObjBindMethod(implObj, "get_InfoHeader"), flags, 2)
     }
 
     Dispose() {

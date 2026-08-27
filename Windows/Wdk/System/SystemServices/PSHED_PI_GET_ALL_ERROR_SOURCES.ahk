@@ -19,7 +19,6 @@ export default struct PSHED_PI_GET_ALL_ERROR_SOURCES {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} PluginContext 
      * @param {Pointer<Integer>} Count 
      * @param {Integer} ErrorSrcs 
@@ -27,9 +26,10 @@ export default struct PSHED_PI_GET_ALL_ERROR_SOURCES {
      * @returns {NTSTATUS} 
      */
     Call(PluginContext, Count, ErrorSrcs, Length) {
-        PluginContextMarshal := PluginContext is VarRef ? "ptr" : "ptr"
-        CountMarshal := Count is VarRef ? "uint*" : "ptr"
-        LengthMarshal := Length is VarRef ? "uint*" : "ptr"
+        PluginContextMarshal := PluginContext is VarRef ? "ptr" : IntPtr
+        PluginContextMarshal := PluginContext == 0 ? IntPtr : "ptr"
+        CountMarshal := Count is VarRef ? "uint*" : IntPtr
+        LengthMarshal := Length is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, PluginContextMarshal, PluginContext, CountMarshal, Count, IntPtr, ErrorSrcs, LengthMarshal, Length, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

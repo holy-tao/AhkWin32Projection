@@ -47,7 +47,6 @@ export default struct ICorProfilerInfo12 extends ICorProfilerInfo11 {
     }
 
     /**
-     * 
      * @param {Integer} cProviderConfigs 
      * @param {Pointer<COR_PRF_EVENTPIPE_PROVIDER_CONFIG>} pProviderConfigs 
      * @param {BOOL} requestRundown 
@@ -59,7 +58,6 @@ export default struct ICorProfilerInfo12 extends ICorProfilerInfo11 {
     }
 
     /**
-     * 
      * @param {Integer} session 
      * @param {COR_PRF_EVENTPIPE_PROVIDER_CONFIG} providerConfig 
      * @returns {HRESULT} 
@@ -70,7 +68,6 @@ export default struct ICorProfilerInfo12 extends ICorProfilerInfo11 {
     }
 
     /**
-     * 
      * @param {Integer} session 
      * @returns {HRESULT} 
      */
@@ -80,7 +77,6 @@ export default struct ICorProfilerInfo12 extends ICorProfilerInfo11 {
     }
 
     /**
-     * 
      * @param {PWSTR} providerName 
      * @returns {Pointer} 
      */
@@ -92,7 +88,6 @@ export default struct ICorProfilerInfo12 extends ICorProfilerInfo11 {
     }
 
     /**
-     * 
      * @param {Pointer} provider 
      * @param {Integer} cchName 
      * @param {PWSTR} providerName 
@@ -106,7 +101,6 @@ export default struct ICorProfilerInfo12 extends ICorProfilerInfo11 {
     }
 
     /**
-     * 
      * @param {Pointer} provider 
      * @param {PWSTR} eventName 
      * @param {Integer} eventID 
@@ -127,7 +121,6 @@ export default struct ICorProfilerInfo12 extends ICorProfilerInfo11 {
     }
 
     /**
-     * 
      * @param {Pointer} event 
      * @param {Integer} cData 
      * @param {Pointer<COR_PRF_EVENT_DATA>} data 
@@ -149,13 +142,13 @@ export default struct ICorProfilerInfo12 extends ICorProfilerInfo11 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EventPipeStartSession := CallbackCreate(GetMethod(implObj, "EventPipeStartSession"), flags, 5)
-        this.vtbl.EventPipeAddProviderToSession := CallbackCreate(GetMethod(implObj, "EventPipeAddProviderToSession"), flags, 3)
-        this.vtbl.EventPipeStopSession := CallbackCreate(GetMethod(implObj, "EventPipeStopSession"), flags, 2)
-        this.vtbl.EventPipeCreateProvider := CallbackCreate(GetMethod(implObj, "EventPipeCreateProvider"), flags, 3)
-        this.vtbl.EventPipeGetProviderInfo := CallbackCreate(GetMethod(implObj, "EventPipeGetProviderInfo"), flags, 5)
-        this.vtbl.EventPipeDefineEvent := CallbackCreate(GetMethod(implObj, "EventPipeDefineEvent"), flags, 12)
-        this.vtbl.EventPipeWriteEvent := CallbackCreate(GetMethod(implObj, "EventPipeWriteEvent"), flags, 6)
+        this.vtbl.EventPipeStartSession := CallbackCreate(ObjBindMethod(implObj, "EventPipeStartSession"), flags, 5)
+        this.vtbl.EventPipeAddProviderToSession := CallbackCreate(ObjBindMethod(implObj, "EventPipeAddProviderToSession"), flags, 3)
+        this.vtbl.EventPipeStopSession := CallbackCreate(ObjBindMethod(implObj, "EventPipeStopSession"), flags, 2)
+        this.vtbl.EventPipeCreateProvider := CallbackCreate(ObjBindMethod(implObj, "EventPipeCreateProvider"), flags, 3)
+        this.vtbl.EventPipeGetProviderInfo := CallbackCreate(ObjBindMethod(implObj, "EventPipeGetProviderInfo"), flags, 5)
+        this.vtbl.EventPipeDefineEvent := CallbackCreate(ObjBindMethod(implObj, "EventPipeDefineEvent"), flags, 12)
+        this.vtbl.EventPipeWriteEvent := CallbackCreate(ObjBindMethod(implObj, "EventPipeWriteEvent"), flags, 6)
     }
 
     Dispose() {

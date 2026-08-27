@@ -81,7 +81,6 @@ export default struct LPFN_RIORECEIVEEX {
     }
 
     /**
-     * 
      * @param {RIO_RQ} SocketQueue A descriptor that identifies a connected registered I/O UDP socket or a bound registered I/O UDP socket.
      * @param {Pointer<RIO_BUF>} pData A description of the portion of the registered buffer in which to receive data.
      * 
@@ -118,9 +117,14 @@ export default struct LPFN_RIORECEIVEEX {
      * | <dl> <dt>**[WSA\_OPERATION\_ABORTED](/windows/win32/winsock/windows-sockets-error-codes-2#wsa-operation-aborted)**</dt> </dl> | The operation has been canceled while the receive operation was pending. This error is returned if the socket is closed locally or remotely, or the the SIO\_FLUSH command in [**WSAIoctl**](../winsock2/nf-winsock2-wsaioctl.md) is executed.<br/>                                                                                                                      |
      */
     Call(SocketQueue, pData, DataBufferCount, pLocalAddress, pRemoteAddress, pControlContext, pFlags, Flags, RequestContext) {
-        RequestContextMarshal := RequestContext is VarRef ? "ptr" : "ptr"
+        pLocalAddressMarshal := pLocalAddress == 0 ? IntPtr : RIO_BUF.Ptr
+        pRemoteAddressMarshal := pRemoteAddress == 0 ? IntPtr : RIO_BUF.Ptr
+        pControlContextMarshal := pControlContext == 0 ? IntPtr : RIO_BUF.Ptr
+        pFlagsMarshal := pFlags == 0 ? IntPtr : RIO_BUF.Ptr
+        RequestContextMarshal := RequestContext is VarRef ? "ptr" : IntPtr
+        RequestContextMarshal := RequestContext == 0 ? IntPtr : "ptr"
 
-        result := DllCall(this.value, RIO_RQ, SocketQueue, RIO_BUF.Ptr, pData, UInt32, DataBufferCount, RIO_BUF.Ptr, pLocalAddress, RIO_BUF.Ptr, pRemoteAddress, RIO_BUF.Ptr, pControlContext, RIO_BUF.Ptr, pFlags, UInt32, Flags, RequestContextMarshal, RequestContext, Int32)
+        result := DllCall(this.value, RIO_RQ, SocketQueue, RIO_BUF.Ptr, pData, UInt32, DataBufferCount, pLocalAddressMarshal, pLocalAddress, pRemoteAddressMarshal, pRemoteAddress, pControlContextMarshal, pControlContext, pFlagsMarshal, pFlags, UInt32, Flags, RequestContextMarshal, RequestContext, Int32)
         return result
     }
 

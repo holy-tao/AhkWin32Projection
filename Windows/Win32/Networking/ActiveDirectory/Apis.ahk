@@ -76,7 +76,7 @@
 export ADsGetObject(lpszPathName, riid, ppObject) {
     lpszPathName := lpszPathName is String ? StrPtr(lpszPathName) : lpszPathName
 
-    ppObjectMarshal := ppObject is VarRef ? "ptr*" : "ptr"
+    ppObjectMarshal := ppObject is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("ACTIVEDS.dll\ADsGetObject", "ptr", lpszPathName, Guid.Ptr, riid, ppObjectMarshal, ppObject, "HRESULT")
     return result
@@ -172,7 +172,7 @@ export ADsFreeEnumerator(pEnumVariant) {
  * @since windows6.0.6000
  */
 export ADsEnumerateNext(pEnumVariant, cElements, pvar, pcElementsFetched) {
-    pcElementsFetchedMarshal := pcElementsFetched is VarRef ? "uint*" : "ptr"
+    pcElementsFetchedMarshal := pcElementsFetched is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ACTIVEDS.dll\ADsEnumerateNext", "ptr", pEnumVariant, UInt32, cElements, VARIANT.Ptr, pvar, pcElementsFetchedMarshal, pcElementsFetched, "HRESULT")
     return result
@@ -200,7 +200,7 @@ export ADsEnumerateNext(pEnumVariant, cElements, pvar, pcElementsFetched) {
  * @since windows6.0.6000
  */
 export ADsBuildVarArrayStr(lppPathNames, dwPathNames, pVar) {
-    lppPathNamesMarshal := lppPathNames is VarRef ? "ptr*" : "ptr"
+    lppPathNamesMarshal := lppPathNames is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("ACTIVEDS.dll\ADsBuildVarArrayStr", lppPathNamesMarshal, lppPathNames, UInt32, dwPathNames, VARIANT.Ptr, pVar, "HRESULT")
     return result
@@ -240,7 +240,7 @@ export ADsBuildVarArrayStr(lppPathNames, dwPathNames, pVar) {
  * @since windows6.0.6000
  */
 export ADsBuildVarArrayInt(lpdwObjectTypes, dwObjectTypes, pVar) {
-    lpdwObjectTypesMarshal := lpdwObjectTypes is VarRef ? "uint*" : "ptr"
+    lpdwObjectTypesMarshal := lpdwObjectTypes is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ACTIVEDS.dll\ADsBuildVarArrayInt", lpdwObjectTypesMarshal, lpdwObjectTypes, UInt32, dwObjectTypes, VARIANT.Ptr, pVar, "HRESULT")
     return result
@@ -340,7 +340,7 @@ export ADsOpenObject(lpszPathName, lpszUserName, lpszPassword, dwReserved, riid,
     lpszUserName := lpszUserName is String ? StrPtr(lpszUserName) : lpszUserName
     lpszPassword := lpszPassword is String ? StrPtr(lpszPassword) : lpszPassword
 
-    ppObjectMarshal := ppObject is VarRef ? "ptr*" : "ptr"
+    ppObjectMarshal := ppObject is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("ACTIVEDS.dll\ADsOpenObject", "ptr", lpszPathName, "ptr", lpszUserName, "ptr", lpszPassword, ADS_AUTHENTICATION_ENUM, dwReserved, Guid.Ptr, riid, ppObjectMarshal, ppObject, "HRESULT")
     return result
@@ -423,7 +423,7 @@ export ADsGetLastError(lpError, lpErrorBuf, dwErrorBufLen, lpNameBuf, dwNameBufL
     lpErrorBuf := lpErrorBuf is String ? StrPtr(lpErrorBuf) : lpErrorBuf
     lpNameBuf := lpNameBuf is String ? StrPtr(lpNameBuf) : lpNameBuf
 
-    lpErrorMarshal := lpError is VarRef ? "uint*" : "ptr"
+    lpErrorMarshal := lpError is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -545,7 +545,7 @@ export AllocADsMem(cb) {
  * @since windows6.0.6000
  */
 export FreeADsMem(pMem) {
-    pMemMarshal := pMem is VarRef ? "ptr" : "ptr"
+    pMemMarshal := pMem is VarRef ? "ptr" : IntPtr
 
     result := DllCall("ACTIVEDS.dll\FreeADsMem", pMemMarshal, pMem, BOOL)
     return result
@@ -573,7 +573,7 @@ export FreeADsMem(pMem) {
  * @since windows6.0.6000
  */
 export ReallocADsMem(pOldMem, cbOld, cbNew) {
-    pOldMemMarshal := pOldMem is VarRef ? "ptr" : "ptr"
+    pOldMemMarshal := pOldMem is VarRef ? "ptr" : IntPtr
 
     result := DllCall("ACTIVEDS.dll\ReallocADsMem", pOldMemMarshal, pOldMem, UInt32, cbOld, UInt32, cbNew, IntPtr)
     return result
@@ -651,7 +651,7 @@ export FreeADsStr(_pStr) {
 export ReallocADsStr(ppStr, _pStr) {
     _pStr := _pStr is String ? StrPtr(_pStr) : _pStr
 
-    ppStrMarshal := ppStr is VarRef ? "ptr*" : "ptr"
+    ppStrMarshal := ppStr is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("ACTIVEDS.dll\ReallocADsStr", ppStrMarshal, ppStr, "ptr", _pStr, BOOL)
     return result
@@ -676,14 +676,13 @@ export ReallocADsStr(ppStr, _pStr) {
  * @since windows6.0.6000
  */
 export ADsEncodeBinaryData(pbSrcData, dwSrcLen) {
-    pbSrcDataMarshal := pbSrcData is VarRef ? "char*" : "ptr"
+    pbSrcDataMarshal := pbSrcData is VarRef ? "char*" : IntPtr
 
     result := DllCall("ACTIVEDS.dll\ADsEncodeBinaryData", pbSrcDataMarshal, pbSrcData, UInt32, dwSrcLen, PWSTR.Ptr, &ppszDestData := 0, "HRESULT")
     return ppszDestData
 }
 
 /**
- * 
  * @param {PWSTR} szSrcData 
  * @param {Pointer<Pointer<Integer>>} ppbDestData 
  * @param {Pointer<Integer>} pdwDestLen 
@@ -692,15 +691,14 @@ export ADsEncodeBinaryData(pbSrcData, dwSrcLen) {
 export ADsDecodeBinaryData(szSrcData, ppbDestData, pdwDestLen) {
     szSrcData := szSrcData is String ? StrPtr(szSrcData) : szSrcData
 
-    ppbDestDataMarshal := ppbDestData is VarRef ? "ptr*" : "ptr"
-    pdwDestLenMarshal := pdwDestLen is VarRef ? "uint*" : "ptr"
+    ppbDestDataMarshal := ppbDestData is VarRef ? "ptr*" : IntPtr
+    pdwDestLenMarshal := pdwDestLen is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ACTIVEDS.dll\ADsDecodeBinaryData", "ptr", szSrcData, ppbDestDataMarshal, ppbDestData, pdwDestLenMarshal, pdwDestLen, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {Pointer<VARIANT>} pVariant 
  * @param {Integer} dwNumVariant 
  * @param {Pointer<Pointer<ADSVALUE>>} ppAdsValues 
@@ -708,15 +706,14 @@ export ADsDecodeBinaryData(szSrcData, ppbDestData, pdwDestLen) {
  * @returns {HRESULT} 
  */
 export PropVariantToAdsType(pVariant, dwNumVariant, ppAdsValues, pdwNumValues) {
-    ppAdsValuesMarshal := ppAdsValues is VarRef ? "ptr*" : "ptr"
-    pdwNumValuesMarshal := pdwNumValues is VarRef ? "uint*" : "ptr"
+    ppAdsValuesMarshal := ppAdsValues is VarRef ? "ptr*" : IntPtr
+    pdwNumValuesMarshal := pdwNumValues is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ACTIVEDS.dll\PropVariantToAdsType", VARIANT.Ptr, pVariant, UInt32, dwNumVariant, ppAdsValuesMarshal, ppAdsValues, pdwNumValuesMarshal, pdwNumValues, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {Pointer<ADSVALUE>} pAdsValues 
  * @param {Integer} dwNumValues 
  * @param {Pointer<VARIANT>} pVariant 
@@ -728,7 +725,6 @@ export AdsTypeToPropVariant(pAdsValues, dwNumValues, pVariant) {
 }
 
 /**
- * 
  * @param {Pointer<ADSVALUE>} pAdsValues 
  * @param {Integer} dwNumValues 
  * @returns {String} Nothing - always returns an empty string
@@ -812,7 +808,7 @@ export SecurityDescriptorToBinarySD(vVarSecDes, ppSecurityDescriptor, pdwSDLengt
     userName := userName is String ? StrPtr(userName) : userName
     passWord := passWord is String ? StrPtr(passWord) : passWord
 
-    pdwSDLengthMarshal := pdwSDLength is VarRef ? "uint*" : "ptr"
+    pdwSDLengthMarshal := pdwSDLength is VarRef ? "uint*" : IntPtr
 
     result := DllCall("ACTIVEDS.dll\SecurityDescriptorToBinarySD", VARIANT, vVarSecDes, PSECURITY_DESCRIPTOR.Ptr, ppSecurityDescriptor, pdwSDLengthMarshal, pdwSDLength, "ptr", pszServerName, "ptr", userName, "ptr", passWord, UInt32, dwFlags, "HRESULT")
     return result
@@ -965,7 +961,7 @@ export ADsPropGetInitInfo(hNotifyObj, pInitParams) {
  * @since windows6.0.6000
  */
 export ADsPropSetHwndWithTitle(hNotifyObj, hPage, ptzTitle) {
-    ptzTitleMarshal := ptzTitle is VarRef ? "char*" : "ptr"
+    ptzTitleMarshal := ptzTitle is VarRef ? "char*" : IntPtr
 
     result := DllCall("dsprop.dll\ADsPropSetHwndWithTitle", HWND, hNotifyObj, HWND, hPage, ptzTitleMarshal, ptzTitle, BOOL)
     return result
@@ -1125,9 +1121,12 @@ export DsMakeSpnW(ServiceClass, ServiceName, InstanceName, InstancePort, Referre
     Referrer := Referrer is String ? StrPtr(Referrer) : Referrer
     pszSpn := pszSpn is String ? StrPtr(pszSpn) : pszSpn
 
-    pcSpnLengthMarshal := pcSpnLength is VarRef ? "uint*" : "ptr"
+    InstanceNameMarshal := InstanceName == 0 ? IntPtr : PWSTR
+    ReferrerMarshal := Referrer == 0 ? IntPtr : PWSTR
+    pcSpnLengthMarshal := pcSpnLength is VarRef ? "uint*" : IntPtr
+    pszSpnMarshal := pszSpn == 0 ? IntPtr : PWSTR
 
-    result := DllCall("DSPARSE.dll\DsMakeSpnW", "ptr", ServiceClass, "ptr", ServiceName, "ptr", InstanceName, UInt16, InstancePort, "ptr", Referrer, pcSpnLengthMarshal, pcSpnLength, "ptr", pszSpn, UInt32)
+    result := DllCall("DSPARSE.dll\DsMakeSpnW", "ptr", ServiceClass, "ptr", ServiceName, InstanceNameMarshal, InstanceName, UInt16, InstancePort, ReferrerMarshal, Referrer, pcSpnLengthMarshal, pcSpnLength, pszSpnMarshal, pszSpn, UInt32)
     return result
 }
 
@@ -1217,9 +1216,12 @@ export DsMakeSpnA(ServiceClass, ServiceName, InstanceName, InstancePort, Referre
     Referrer := Referrer is String ? StrPtr(Referrer) : Referrer
     pszSpn := pszSpn is String ? StrPtr(pszSpn) : pszSpn
 
-    pcSpnLengthMarshal := pcSpnLength is VarRef ? "uint*" : "ptr"
+    InstanceNameMarshal := InstanceName == 0 ? IntPtr : PSTR
+    ReferrerMarshal := Referrer == 0 ? IntPtr : PSTR
+    pcSpnLengthMarshal := pcSpnLength is VarRef ? "uint*" : IntPtr
+    pszSpnMarshal := pszSpn == 0 ? IntPtr : PSTR
 
-    result := DllCall("DSPARSE.dll\DsMakeSpnA", "ptr", ServiceClass, "ptr", ServiceName, "ptr", InstanceName, UInt16, InstancePort, "ptr", Referrer, pcSpnLengthMarshal, pcSpnLength, "ptr", pszSpn, UInt32)
+    result := DllCall("DSPARSE.dll\DsMakeSpnA", "ptr", ServiceClass, "ptr", ServiceName, InstanceNameMarshal, InstanceName, UInt16, InstancePort, ReferrerMarshal, Referrer, pcSpnLengthMarshal, pcSpnLength, pszSpnMarshal, pszSpn, UInt32)
     return result
 }
 
@@ -1263,12 +1265,19 @@ export DsCrackSpnA(pszSpn, pcServiceClass, ServiceClass, pcServiceName, ServiceN
     ServiceName := ServiceName is String ? StrPtr(ServiceName) : ServiceName
     InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
-    pcServiceClassMarshal := pcServiceClass is VarRef ? "uint*" : "ptr"
-    pcServiceNameMarshal := pcServiceName is VarRef ? "uint*" : "ptr"
-    pcInstanceNameMarshal := pcInstanceName is VarRef ? "uint*" : "ptr"
-    pInstancePortMarshal := pInstancePort is VarRef ? "ushort*" : "ptr"
+    pcServiceClassMarshal := pcServiceClass is VarRef ? "uint*" : IntPtr
+    pcServiceClassMarshal := pcServiceClass == 0 ? IntPtr : "uint*"
+    ServiceClassMarshal := ServiceClass == 0 ? IntPtr : PSTR
+    pcServiceNameMarshal := pcServiceName is VarRef ? "uint*" : IntPtr
+    pcServiceNameMarshal := pcServiceName == 0 ? IntPtr : "uint*"
+    ServiceNameMarshal := ServiceName == 0 ? IntPtr : PSTR
+    pcInstanceNameMarshal := pcInstanceName is VarRef ? "uint*" : IntPtr
+    pcInstanceNameMarshal := pcInstanceName == 0 ? IntPtr : "uint*"
+    InstanceNameMarshal := InstanceName == 0 ? IntPtr : PSTR
+    pInstancePortMarshal := pInstancePort is VarRef ? "ushort*" : IntPtr
+    pInstancePortMarshal := pInstancePort == 0 ? IntPtr : "ushort*"
 
-    result := DllCall("DSPARSE.dll\DsCrackSpnA", "ptr", pszSpn, pcServiceClassMarshal, pcServiceClass, "ptr", ServiceClass, pcServiceNameMarshal, pcServiceName, "ptr", ServiceName, pcInstanceNameMarshal, pcInstanceName, "ptr", InstanceName, pInstancePortMarshal, pInstancePort, UInt32)
+    result := DllCall("DSPARSE.dll\DsCrackSpnA", "ptr", pszSpn, pcServiceClassMarshal, pcServiceClass, ServiceClassMarshal, ServiceClass, pcServiceNameMarshal, pcServiceName, ServiceNameMarshal, ServiceName, pcInstanceNameMarshal, pcInstanceName, InstanceNameMarshal, InstanceName, pInstancePortMarshal, pInstancePort, UInt32)
     return result
 }
 
@@ -1312,12 +1321,19 @@ export DsCrackSpnW(pszSpn, pcServiceClass, ServiceClass, pcServiceName, ServiceN
     ServiceName := ServiceName is String ? StrPtr(ServiceName) : ServiceName
     InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
-    pcServiceClassMarshal := pcServiceClass is VarRef ? "uint*" : "ptr"
-    pcServiceNameMarshal := pcServiceName is VarRef ? "uint*" : "ptr"
-    pcInstanceNameMarshal := pcInstanceName is VarRef ? "uint*" : "ptr"
-    pInstancePortMarshal := pInstancePort is VarRef ? "ushort*" : "ptr"
+    pcServiceClassMarshal := pcServiceClass is VarRef ? "uint*" : IntPtr
+    pcServiceClassMarshal := pcServiceClass == 0 ? IntPtr : "uint*"
+    ServiceClassMarshal := ServiceClass == 0 ? IntPtr : PWSTR
+    pcServiceNameMarshal := pcServiceName is VarRef ? "uint*" : IntPtr
+    pcServiceNameMarshal := pcServiceName == 0 ? IntPtr : "uint*"
+    ServiceNameMarshal := ServiceName == 0 ? IntPtr : PWSTR
+    pcInstanceNameMarshal := pcInstanceName is VarRef ? "uint*" : IntPtr
+    pcInstanceNameMarshal := pcInstanceName == 0 ? IntPtr : "uint*"
+    InstanceNameMarshal := InstanceName == 0 ? IntPtr : PWSTR
+    pInstancePortMarshal := pInstancePort is VarRef ? "ushort*" : IntPtr
+    pInstancePortMarshal := pInstancePort == 0 ? IntPtr : "ushort*"
 
-    result := DllCall("DSPARSE.dll\DsCrackSpnW", "ptr", pszSpn, pcServiceClassMarshal, pcServiceClass, "ptr", ServiceClass, pcServiceNameMarshal, pcServiceName, "ptr", ServiceName, pcInstanceNameMarshal, pcInstanceName, "ptr", InstanceName, pInstancePortMarshal, pInstancePort, UInt32)
+    result := DllCall("DSPARSE.dll\DsCrackSpnW", "ptr", pszSpn, pcServiceClassMarshal, pcServiceClass, ServiceClassMarshal, ServiceClass, pcServiceNameMarshal, pcServiceName, ServiceNameMarshal, ServiceName, pcInstanceNameMarshal, pcInstanceName, InstanceNameMarshal, InstanceName, pInstancePortMarshal, pInstancePort, UInt32)
     return result
 }
 
@@ -1352,7 +1368,7 @@ export DsQuoteRdnValueW(cUnquotedRdnValueLength, psUnquotedRdnValue, pcQuotedRdn
     psUnquotedRdnValue := psUnquotedRdnValue is String ? StrPtr(psUnquotedRdnValue) : psUnquotedRdnValue
     psQuotedRdnValue := psQuotedRdnValue is String ? StrPtr(psQuotedRdnValue) : psQuotedRdnValue
 
-    pcQuotedRdnValueLengthMarshal := pcQuotedRdnValueLength is VarRef ? "uint*" : "ptr"
+    pcQuotedRdnValueLengthMarshal := pcQuotedRdnValueLength is VarRef ? "uint*" : IntPtr
 
     result := DllCall("DSPARSE.dll\DsQuoteRdnValueW", UInt32, cUnquotedRdnValueLength, "ptr", psUnquotedRdnValue, pcQuotedRdnValueLengthMarshal, pcQuotedRdnValueLength, "ptr", psQuotedRdnValue, UInt32)
     return result
@@ -1389,7 +1405,7 @@ export DsQuoteRdnValueA(cUnquotedRdnValueLength, psUnquotedRdnValue, pcQuotedRdn
     psUnquotedRdnValue := psUnquotedRdnValue is String ? StrPtr(psUnquotedRdnValue) : psUnquotedRdnValue
     psQuotedRdnValue := psQuotedRdnValue is String ? StrPtr(psQuotedRdnValue) : psQuotedRdnValue
 
-    pcQuotedRdnValueLengthMarshal := pcQuotedRdnValueLength is VarRef ? "uint*" : "ptr"
+    pcQuotedRdnValueLengthMarshal := pcQuotedRdnValueLength is VarRef ? "uint*" : IntPtr
 
     result := DllCall("DSPARSE.dll\DsQuoteRdnValueA", UInt32, cUnquotedRdnValueLength, "ptr", psUnquotedRdnValue, pcQuotedRdnValueLengthMarshal, pcQuotedRdnValueLength, "ptr", psQuotedRdnValue, UInt32)
     return result
@@ -1443,7 +1459,7 @@ export DsUnquoteRdnValueW(cQuotedRdnValueLength, psQuotedRdnValue, pcUnquotedRdn
     psQuotedRdnValue := psQuotedRdnValue is String ? StrPtr(psQuotedRdnValue) : psQuotedRdnValue
     psUnquotedRdnValue := psUnquotedRdnValue is String ? StrPtr(psUnquotedRdnValue) : psUnquotedRdnValue
 
-    pcUnquotedRdnValueLengthMarshal := pcUnquotedRdnValueLength is VarRef ? "uint*" : "ptr"
+    pcUnquotedRdnValueLengthMarshal := pcUnquotedRdnValueLength is VarRef ? "uint*" : IntPtr
 
     result := DllCall("DSPARSE.dll\DsUnquoteRdnValueW", UInt32, cQuotedRdnValueLength, "ptr", psQuotedRdnValue, pcUnquotedRdnValueLengthMarshal, pcUnquotedRdnValueLength, "ptr", psUnquotedRdnValue, UInt32)
     return result
@@ -1497,7 +1513,7 @@ export DsUnquoteRdnValueA(cQuotedRdnValueLength, psQuotedRdnValue, pcUnquotedRdn
     psQuotedRdnValue := psQuotedRdnValue is String ? StrPtr(psQuotedRdnValue) : psQuotedRdnValue
     psUnquotedRdnValue := psUnquotedRdnValue is String ? StrPtr(psUnquotedRdnValue) : psUnquotedRdnValue
 
-    pcUnquotedRdnValueLengthMarshal := pcUnquotedRdnValueLength is VarRef ? "uint*" : "ptr"
+    pcUnquotedRdnValueLengthMarshal := pcUnquotedRdnValueLength is VarRef ? "uint*" : IntPtr
 
     result := DllCall("DSPARSE.dll\DsUnquoteRdnValueA", UInt32, cQuotedRdnValueLength, "ptr", psQuotedRdnValue, pcUnquotedRdnValueLengthMarshal, pcUnquotedRdnValueLength, "ptr", psUnquotedRdnValue, UInt32)
     return result
@@ -1516,12 +1532,12 @@ export DsUnquoteRdnValueA(cQuotedRdnValueLength, psQuotedRdnValue, pcUnquotedRdn
  * @since windows6.0.6000
  */
 export DsGetRdnW(ppDN, pcDN, ppKey, pcKey, ppVal, pcVal) {
-    ppDNMarshal := ppDN is VarRef ? "ptr*" : "ptr"
-    pcDNMarshal := pcDN is VarRef ? "uint*" : "ptr"
-    ppKeyMarshal := ppKey is VarRef ? "ptr*" : "ptr"
-    pcKeyMarshal := pcKey is VarRef ? "uint*" : "ptr"
-    ppValMarshal := ppVal is VarRef ? "ptr*" : "ptr"
-    pcValMarshal := pcVal is VarRef ? "uint*" : "ptr"
+    ppDNMarshal := ppDN is VarRef ? "ptr*" : IntPtr
+    pcDNMarshal := pcDN is VarRef ? "uint*" : IntPtr
+    ppKeyMarshal := ppKey is VarRef ? "ptr*" : IntPtr
+    pcKeyMarshal := pcKey is VarRef ? "uint*" : IntPtr
+    ppValMarshal := ppVal is VarRef ? "ptr*" : IntPtr
+    pcValMarshal := pcVal is VarRef ? "uint*" : IntPtr
 
     result := DllCall("DSPARSE.dll\DsGetRdnW", ppDNMarshal, ppDN, pcDNMarshal, pcDN, ppKeyMarshal, ppKey, pcKeyMarshal, pcKey, ppValMarshal, ppVal, pcValMarshal, pcVal, UInt32)
     return result
@@ -1552,9 +1568,11 @@ export DsGetRdnW(ppDN, pcDN, ppKey, pcKey, ppVal, pcVal) {
 export DsCrackUnquotedMangledRdnW(pszRDN, cchRDN, pGuid, peDsMangleFor) {
     pszRDN := pszRDN is String ? StrPtr(pszRDN) : pszRDN
 
-    peDsMangleForMarshal := peDsMangleFor is VarRef ? "int*" : "ptr"
+    pGuidMarshal := pGuid == 0 ? IntPtr : Guid.Ptr
+    peDsMangleForMarshal := peDsMangleFor is VarRef ? "int*" : IntPtr
+    peDsMangleForMarshal := peDsMangleFor == 0 ? IntPtr : "int*"
 
-    result := DllCall("DSPARSE.dll\DsCrackUnquotedMangledRdnW", "ptr", pszRDN, UInt32, cchRDN, Guid.Ptr, pGuid, peDsMangleForMarshal, peDsMangleFor, BOOL)
+    result := DllCall("DSPARSE.dll\DsCrackUnquotedMangledRdnW", "ptr", pszRDN, UInt32, cchRDN, pGuidMarshal, pGuid, peDsMangleForMarshal, peDsMangleFor, BOOL)
     return result
 }
 
@@ -1583,9 +1601,11 @@ export DsCrackUnquotedMangledRdnW(pszRDN, cchRDN, pGuid, peDsMangleFor) {
 export DsCrackUnquotedMangledRdnA(pszRDN, cchRDN, pGuid, peDsMangleFor) {
     pszRDN := pszRDN is String ? StrPtr(pszRDN) : pszRDN
 
-    peDsMangleForMarshal := peDsMangleFor is VarRef ? "int*" : "ptr"
+    pGuidMarshal := pGuid == 0 ? IntPtr : Guid.Ptr
+    peDsMangleForMarshal := peDsMangleFor is VarRef ? "int*" : IntPtr
+    peDsMangleForMarshal := peDsMangleFor == 0 ? IntPtr : "int*"
 
-    result := DllCall("DSPARSE.dll\DsCrackUnquotedMangledRdnA", "ptr", pszRDN, UInt32, cchRDN, Guid.Ptr, pGuid, peDsMangleForMarshal, peDsMangleFor, BOOL)
+    result := DllCall("DSPARSE.dll\DsCrackUnquotedMangledRdnA", "ptr", pszRDN, UInt32, cchRDN, pGuidMarshal, pGuid, peDsMangleForMarshal, peDsMangleFor, BOOL)
     return result
 }
 
@@ -1676,7 +1696,6 @@ export DsIsMangledDnW(pszDn, eDsMangleFor) {
 }
 
 /**
- * 
  * @param {PSTR} pszSpn 
  * @param {Integer} cSpn 
  * @param {Pointer<Integer>} pcServiceClass 
@@ -1694,17 +1713,23 @@ export DsCrackSpn2A(pszSpn, cSpn, pcServiceClass, ServiceClass, pcServiceName, S
     ServiceName := ServiceName is String ? StrPtr(ServiceName) : ServiceName
     InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
-    pcServiceClassMarshal := pcServiceClass is VarRef ? "uint*" : "ptr"
-    pcServiceNameMarshal := pcServiceName is VarRef ? "uint*" : "ptr"
-    pcInstanceNameMarshal := pcInstanceName is VarRef ? "uint*" : "ptr"
-    pInstancePortMarshal := pInstancePort is VarRef ? "ushort*" : "ptr"
+    pcServiceClassMarshal := pcServiceClass is VarRef ? "uint*" : IntPtr
+    pcServiceClassMarshal := pcServiceClass == 0 ? IntPtr : "uint*"
+    ServiceClassMarshal := ServiceClass == 0 ? IntPtr : PSTR
+    pcServiceNameMarshal := pcServiceName is VarRef ? "uint*" : IntPtr
+    pcServiceNameMarshal := pcServiceName == 0 ? IntPtr : "uint*"
+    ServiceNameMarshal := ServiceName == 0 ? IntPtr : PSTR
+    pcInstanceNameMarshal := pcInstanceName is VarRef ? "uint*" : IntPtr
+    pcInstanceNameMarshal := pcInstanceName == 0 ? IntPtr : "uint*"
+    InstanceNameMarshal := InstanceName == 0 ? IntPtr : PSTR
+    pInstancePortMarshal := pInstancePort is VarRef ? "ushort*" : IntPtr
+    pInstancePortMarshal := pInstancePort == 0 ? IntPtr : "ushort*"
 
-    result := DllCall("DSPARSE.dll\DsCrackSpn2A", "ptr", pszSpn, UInt32, cSpn, pcServiceClassMarshal, pcServiceClass, "ptr", ServiceClass, pcServiceNameMarshal, pcServiceName, "ptr", ServiceName, pcInstanceNameMarshal, pcInstanceName, "ptr", InstanceName, pInstancePortMarshal, pInstancePort, UInt32)
+    result := DllCall("DSPARSE.dll\DsCrackSpn2A", "ptr", pszSpn, UInt32, cSpn, pcServiceClassMarshal, pcServiceClass, ServiceClassMarshal, ServiceClass, pcServiceNameMarshal, pcServiceName, ServiceNameMarshal, ServiceName, pcInstanceNameMarshal, pcInstanceName, InstanceNameMarshal, InstanceName, pInstancePortMarshal, pInstancePort, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} pszSpn 
  * @param {Integer} cSpn 
  * @param {Pointer<Integer>} pcServiceClass 
@@ -1722,17 +1747,23 @@ export DsCrackSpn2W(pszSpn, cSpn, pcServiceClass, ServiceClass, pcServiceName, S
     ServiceName := ServiceName is String ? StrPtr(ServiceName) : ServiceName
     InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
-    pcServiceClassMarshal := pcServiceClass is VarRef ? "uint*" : "ptr"
-    pcServiceNameMarshal := pcServiceName is VarRef ? "uint*" : "ptr"
-    pcInstanceNameMarshal := pcInstanceName is VarRef ? "uint*" : "ptr"
-    pInstancePortMarshal := pInstancePort is VarRef ? "ushort*" : "ptr"
+    pcServiceClassMarshal := pcServiceClass is VarRef ? "uint*" : IntPtr
+    pcServiceClassMarshal := pcServiceClass == 0 ? IntPtr : "uint*"
+    ServiceClassMarshal := ServiceClass == 0 ? IntPtr : PWSTR
+    pcServiceNameMarshal := pcServiceName is VarRef ? "uint*" : IntPtr
+    pcServiceNameMarshal := pcServiceName == 0 ? IntPtr : "uint*"
+    ServiceNameMarshal := ServiceName == 0 ? IntPtr : PWSTR
+    pcInstanceNameMarshal := pcInstanceName is VarRef ? "uint*" : IntPtr
+    pcInstanceNameMarshal := pcInstanceName == 0 ? IntPtr : "uint*"
+    InstanceNameMarshal := InstanceName == 0 ? IntPtr : PWSTR
+    pInstancePortMarshal := pInstancePort is VarRef ? "ushort*" : IntPtr
+    pInstancePortMarshal := pInstancePort == 0 ? IntPtr : "ushort*"
 
-    result := DllCall("DSPARSE.dll\DsCrackSpn2W", "ptr", pszSpn, UInt32, cSpn, pcServiceClassMarshal, pcServiceClass, "ptr", ServiceClass, pcServiceNameMarshal, pcServiceName, "ptr", ServiceName, pcInstanceNameMarshal, pcInstanceName, "ptr", InstanceName, pInstancePortMarshal, pInstancePort, UInt32)
+    result := DllCall("DSPARSE.dll\DsCrackSpn2W", "ptr", pszSpn, UInt32, cSpn, pcServiceClassMarshal, pcServiceClass, ServiceClassMarshal, ServiceClass, pcServiceNameMarshal, pcServiceName, ServiceNameMarshal, ServiceName, pcInstanceNameMarshal, pcInstanceName, InstanceNameMarshal, InstanceName, pInstancePortMarshal, pInstancePort, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} pszSpn 
  * @param {Integer} cSpn 
  * @param {Pointer<Integer>} pcHostName 
@@ -1753,18 +1784,17 @@ export DsCrackSpn3W(pszSpn, cSpn, pcHostName, HostName, pcInstanceName, Instance
     DomainName := DomainName is String ? StrPtr(DomainName) : DomainName
     RealmName := RealmName is String ? StrPtr(RealmName) : RealmName
 
-    pcHostNameMarshal := pcHostName is VarRef ? "uint*" : "ptr"
-    pcInstanceNameMarshal := pcInstanceName is VarRef ? "uint*" : "ptr"
-    pPortNumberMarshal := pPortNumber is VarRef ? "ushort*" : "ptr"
-    pcDomainNameMarshal := pcDomainName is VarRef ? "uint*" : "ptr"
-    pcRealmNameMarshal := pcRealmName is VarRef ? "uint*" : "ptr"
+    pcHostNameMarshal := pcHostName is VarRef ? "uint*" : IntPtr
+    pcInstanceNameMarshal := pcInstanceName is VarRef ? "uint*" : IntPtr
+    pPortNumberMarshal := pPortNumber is VarRef ? "ushort*" : IntPtr
+    pcDomainNameMarshal := pcDomainName is VarRef ? "uint*" : IntPtr
+    pcRealmNameMarshal := pcRealmName is VarRef ? "uint*" : IntPtr
 
     result := DllCall("DSPARSE.dll\DsCrackSpn3W", "ptr", pszSpn, UInt32, cSpn, pcHostNameMarshal, pcHostName, "ptr", HostName, pcInstanceNameMarshal, pcInstanceName, "ptr", InstanceName, pPortNumberMarshal, pPortNumber, pcDomainNameMarshal, pcDomainName, "ptr", DomainName, pcRealmNameMarshal, pcRealmName, "ptr", RealmName, UInt32)
     return result
 }
 
 /**
- * 
  * @param {PWSTR} pszSpn 
  * @param {Integer} cSpn 
  * @param {Pointer<Integer>} pcHostName 
@@ -1787,11 +1817,11 @@ export DsCrackSpn4W(pszSpn, cSpn, pcHostName, HostName, pcInstanceName, Instance
     DomainName := DomainName is String ? StrPtr(DomainName) : DomainName
     RealmName := RealmName is String ? StrPtr(RealmName) : RealmName
 
-    pcHostNameMarshal := pcHostName is VarRef ? "uint*" : "ptr"
-    pcInstanceNameMarshal := pcInstanceName is VarRef ? "uint*" : "ptr"
-    pcPortNameMarshal := pcPortName is VarRef ? "uint*" : "ptr"
-    pcDomainNameMarshal := pcDomainName is VarRef ? "uint*" : "ptr"
-    pcRealmNameMarshal := pcRealmName is VarRef ? "uint*" : "ptr"
+    pcHostNameMarshal := pcHostName is VarRef ? "uint*" : IntPtr
+    pcInstanceNameMarshal := pcInstanceName is VarRef ? "uint*" : IntPtr
+    pcPortNameMarshal := pcPortName is VarRef ? "uint*" : IntPtr
+    pcDomainNameMarshal := pcDomainName is VarRef ? "uint*" : IntPtr
+    pcRealmNameMarshal := pcRealmName is VarRef ? "uint*" : IntPtr
 
     result := DllCall("DSPARSE.dll\DsCrackSpn4W", "ptr", pszSpn, UInt32, cSpn, pcHostNameMarshal, pcHostName, "ptr", HostName, pcInstanceNameMarshal, pcInstanceName, "ptr", InstanceName, pcPortNameMarshal, pcPortName, "ptr", PortName, pcDomainNameMarshal, pcDomainName, "ptr", DomainName, pcRealmNameMarshal, pcRealmName, "ptr", RealmName, UInt32)
     return result
@@ -1891,7 +1921,10 @@ export DsBindW(DomainControllerName, DnsDomainName, phDS) {
     DomainControllerName := DomainControllerName is String ? StrPtr(DomainControllerName) : DomainControllerName
     DnsDomainName := DnsDomainName is String ? StrPtr(DnsDomainName) : DnsDomainName
 
-    result := DllCall("NTDSAPI.dll\DsBindW", "ptr", DomainControllerName, "ptr", DnsDomainName, HANDLE.Ptr, phDS, UInt32)
+    DomainControllerNameMarshal := DomainControllerName == 0 ? IntPtr : PWSTR
+    DnsDomainNameMarshal := DnsDomainName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("NTDSAPI.dll\DsBindW", DomainControllerNameMarshal, DomainControllerName, DnsDomainNameMarshal, DnsDomainName, HANDLE.Ptr, phDS, UInt32)
     return result
 }
 
@@ -1989,7 +2022,10 @@ export DsBindA(DomainControllerName, DnsDomainName, phDS) {
     DomainControllerName := DomainControllerName is String ? StrPtr(DomainControllerName) : DomainControllerName
     DnsDomainName := DnsDomainName is String ? StrPtr(DnsDomainName) : DnsDomainName
 
-    result := DllCall("NTDSAPI.dll\DsBindA", "ptr", DomainControllerName, "ptr", DnsDomainName, HANDLE.Ptr, phDS, UInt32)
+    DomainControllerNameMarshal := DomainControllerName == 0 ? IntPtr : PSTR
+    DnsDomainNameMarshal := DnsDomainName == 0 ? IntPtr : PSTR
+
+    result := DllCall("NTDSAPI.dll\DsBindA", DomainControllerNameMarshal, DomainControllerName, DnsDomainNameMarshal, DnsDomainName, HANDLE.Ptr, phDS, UInt32)
     return result
 }
 
@@ -2018,9 +2054,12 @@ export DsBindWithCredW(DomainControllerName, DnsDomainName, AuthIdentity, phDS) 
     DomainControllerName := DomainControllerName is String ? StrPtr(DomainControllerName) : DomainControllerName
     DnsDomainName := DnsDomainName is String ? StrPtr(DnsDomainName) : DnsDomainName
 
-    AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : "ptr"
+    DomainControllerNameMarshal := DomainControllerName == 0 ? IntPtr : PWSTR
+    DnsDomainNameMarshal := DnsDomainName == 0 ? IntPtr : PWSTR
+    AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : IntPtr
+    AuthIdentityMarshal := AuthIdentity == 0 ? IntPtr : "ptr"
 
-    result := DllCall("NTDSAPI.dll\DsBindWithCredW", "ptr", DomainControllerName, "ptr", DnsDomainName, AuthIdentityMarshal, AuthIdentity, HANDLE.Ptr, phDS, UInt32)
+    result := DllCall("NTDSAPI.dll\DsBindWithCredW", DomainControllerNameMarshal, DomainControllerName, DnsDomainNameMarshal, DnsDomainName, AuthIdentityMarshal, AuthIdentity, HANDLE.Ptr, phDS, UInt32)
     return result
 }
 
@@ -2049,9 +2088,12 @@ export DsBindWithCredA(DomainControllerName, DnsDomainName, AuthIdentity, phDS) 
     DomainControllerName := DomainControllerName is String ? StrPtr(DomainControllerName) : DomainControllerName
     DnsDomainName := DnsDomainName is String ? StrPtr(DnsDomainName) : DnsDomainName
 
-    AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : "ptr"
+    DomainControllerNameMarshal := DomainControllerName == 0 ? IntPtr : PSTR
+    DnsDomainNameMarshal := DnsDomainName == 0 ? IntPtr : PSTR
+    AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : IntPtr
+    AuthIdentityMarshal := AuthIdentity == 0 ? IntPtr : "ptr"
 
-    result := DllCall("NTDSAPI.dll\DsBindWithCredA", "ptr", DomainControllerName, "ptr", DnsDomainName, AuthIdentityMarshal, AuthIdentity, HANDLE.Ptr, phDS, UInt32)
+    result := DllCall("NTDSAPI.dll\DsBindWithCredA", DomainControllerNameMarshal, DomainControllerName, DnsDomainNameMarshal, DnsDomainName, AuthIdentityMarshal, AuthIdentity, HANDLE.Ptr, phDS, UInt32)
     return result
 }
 
@@ -2080,9 +2122,13 @@ export DsBindWithSpnW(DomainControllerName, DnsDomainName, AuthIdentity, Service
     DnsDomainName := DnsDomainName is String ? StrPtr(DnsDomainName) : DnsDomainName
     ServicePrincipalName := ServicePrincipalName is String ? StrPtr(ServicePrincipalName) : ServicePrincipalName
 
-    AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : "ptr"
+    DomainControllerNameMarshal := DomainControllerName == 0 ? IntPtr : PWSTR
+    DnsDomainNameMarshal := DnsDomainName == 0 ? IntPtr : PWSTR
+    AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : IntPtr
+    AuthIdentityMarshal := AuthIdentity == 0 ? IntPtr : "ptr"
+    ServicePrincipalNameMarshal := ServicePrincipalName == 0 ? IntPtr : PWSTR
 
-    result := DllCall("NTDSAPI.dll\DsBindWithSpnW", "ptr", DomainControllerName, "ptr", DnsDomainName, AuthIdentityMarshal, AuthIdentity, "ptr", ServicePrincipalName, HANDLE.Ptr, phDS, UInt32)
+    result := DllCall("NTDSAPI.dll\DsBindWithSpnW", DomainControllerNameMarshal, DomainControllerName, DnsDomainNameMarshal, DnsDomainName, AuthIdentityMarshal, AuthIdentity, ServicePrincipalNameMarshal, ServicePrincipalName, HANDLE.Ptr, phDS, UInt32)
     return result
 }
 
@@ -2111,9 +2157,13 @@ export DsBindWithSpnA(DomainControllerName, DnsDomainName, AuthIdentity, Service
     DnsDomainName := DnsDomainName is String ? StrPtr(DnsDomainName) : DnsDomainName
     ServicePrincipalName := ServicePrincipalName is String ? StrPtr(ServicePrincipalName) : ServicePrincipalName
 
-    AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : "ptr"
+    DomainControllerNameMarshal := DomainControllerName == 0 ? IntPtr : PSTR
+    DnsDomainNameMarshal := DnsDomainName == 0 ? IntPtr : PSTR
+    AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : IntPtr
+    AuthIdentityMarshal := AuthIdentity == 0 ? IntPtr : "ptr"
+    ServicePrincipalNameMarshal := ServicePrincipalName == 0 ? IntPtr : PSTR
 
-    result := DllCall("NTDSAPI.dll\DsBindWithSpnA", "ptr", DomainControllerName, "ptr", DnsDomainName, AuthIdentityMarshal, AuthIdentity, "ptr", ServicePrincipalName, HANDLE.Ptr, phDS, UInt32)
+    result := DllCall("NTDSAPI.dll\DsBindWithSpnA", DomainControllerNameMarshal, DomainControllerName, DnsDomainNameMarshal, DnsDomainName, AuthIdentityMarshal, AuthIdentity, ServicePrincipalNameMarshal, ServicePrincipalName, HANDLE.Ptr, phDS, UInt32)
     return result
 }
 
@@ -2143,9 +2193,14 @@ export DsBindWithSpnExW(DomainControllerName, DnsDomainName, AuthIdentity, Servi
     DnsDomainName := DnsDomainName is String ? StrPtr(DnsDomainName) : DnsDomainName
     ServicePrincipalName := ServicePrincipalName is String ? StrPtr(ServicePrincipalName) : ServicePrincipalName
 
-    AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : "ptr"
+    DomainControllerNameMarshal := DomainControllerName == 0 ? IntPtr : PWSTR
+    DnsDomainNameMarshal := DnsDomainName == 0 ? IntPtr : PWSTR
+    AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : IntPtr
+    AuthIdentityMarshal := AuthIdentity == 0 ? IntPtr : "ptr"
+    ServicePrincipalNameMarshal := ServicePrincipalName == 0 ? IntPtr : PWSTR
+    BindFlagsMarshal := BindFlags == 0 ? IntPtr : UInt32
 
-    result := DllCall("NTDSAPI.dll\DsBindWithSpnExW", "ptr", DomainControllerName, "ptr", DnsDomainName, AuthIdentityMarshal, AuthIdentity, "ptr", ServicePrincipalName, UInt32, BindFlags, HANDLE.Ptr, phDS, UInt32)
+    result := DllCall("NTDSAPI.dll\DsBindWithSpnExW", DomainControllerNameMarshal, DomainControllerName, DnsDomainNameMarshal, DnsDomainName, AuthIdentityMarshal, AuthIdentity, ServicePrincipalNameMarshal, ServicePrincipalName, BindFlagsMarshal, BindFlags, HANDLE.Ptr, phDS, UInt32)
     return result
 }
 
@@ -2175,9 +2230,14 @@ export DsBindWithSpnExA(DomainControllerName, DnsDomainName, AuthIdentity, Servi
     DnsDomainName := DnsDomainName is String ? StrPtr(DnsDomainName) : DnsDomainName
     ServicePrincipalName := ServicePrincipalName is String ? StrPtr(ServicePrincipalName) : ServicePrincipalName
 
-    AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : "ptr"
+    DomainControllerNameMarshal := DomainControllerName == 0 ? IntPtr : PSTR
+    DnsDomainNameMarshal := DnsDomainName == 0 ? IntPtr : PSTR
+    AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : IntPtr
+    AuthIdentityMarshal := AuthIdentity == 0 ? IntPtr : "ptr"
+    ServicePrincipalNameMarshal := ServicePrincipalName == 0 ? IntPtr : PSTR
+    BindFlagsMarshal := BindFlags == 0 ? IntPtr : UInt32
 
-    result := DllCall("NTDSAPI.dll\DsBindWithSpnExA", "ptr", DomainControllerName, "ptr", DnsDomainName, AuthIdentityMarshal, AuthIdentity, "ptr", ServicePrincipalName, UInt32, BindFlags, HANDLE.Ptr, phDS, UInt32)
+    result := DllCall("NTDSAPI.dll\DsBindWithSpnExA", DomainControllerNameMarshal, DomainControllerName, DnsDomainNameMarshal, DnsDomainName, AuthIdentityMarshal, AuthIdentity, ServicePrincipalNameMarshal, ServicePrincipalName, BindFlagsMarshal, BindFlags, HANDLE.Ptr, phDS, UInt32)
     return result
 }
 
@@ -2333,9 +2393,16 @@ export DsBindByInstanceW(ServerName, Annotation, InstanceGuid, DnsDomainName, Au
     DnsDomainName := DnsDomainName is String ? StrPtr(DnsDomainName) : DnsDomainName
     ServicePrincipalName := ServicePrincipalName is String ? StrPtr(ServicePrincipalName) : ServicePrincipalName
 
-    AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : "ptr"
+    ServerNameMarshal := ServerName == 0 ? IntPtr : PWSTR
+    AnnotationMarshal := Annotation == 0 ? IntPtr : PWSTR
+    InstanceGuidMarshal := InstanceGuid == 0 ? IntPtr : Guid.Ptr
+    DnsDomainNameMarshal := DnsDomainName == 0 ? IntPtr : PWSTR
+    AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : IntPtr
+    AuthIdentityMarshal := AuthIdentity == 0 ? IntPtr : "ptr"
+    ServicePrincipalNameMarshal := ServicePrincipalName == 0 ? IntPtr : PWSTR
+    BindFlagsMarshal := BindFlags == 0 ? IntPtr : UInt32
 
-    result := DllCall("NTDSAPI.dll\DsBindByInstanceW", "ptr", ServerName, "ptr", Annotation, Guid.Ptr, InstanceGuid, "ptr", DnsDomainName, AuthIdentityMarshal, AuthIdentity, "ptr", ServicePrincipalName, UInt32, BindFlags, HANDLE.Ptr, phDS, UInt32)
+    result := DllCall("NTDSAPI.dll\DsBindByInstanceW", ServerNameMarshal, ServerName, AnnotationMarshal, Annotation, InstanceGuidMarshal, InstanceGuid, DnsDomainNameMarshal, DnsDomainName, AuthIdentityMarshal, AuthIdentity, ServicePrincipalNameMarshal, ServicePrincipalName, BindFlagsMarshal, BindFlags, HANDLE.Ptr, phDS, UInt32)
     return result
 }
 
@@ -2491,9 +2558,16 @@ export DsBindByInstanceA(ServerName, Annotation, InstanceGuid, DnsDomainName, Au
     DnsDomainName := DnsDomainName is String ? StrPtr(DnsDomainName) : DnsDomainName
     ServicePrincipalName := ServicePrincipalName is String ? StrPtr(ServicePrincipalName) : ServicePrincipalName
 
-    AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : "ptr"
+    ServerNameMarshal := ServerName == 0 ? IntPtr : PSTR
+    AnnotationMarshal := Annotation == 0 ? IntPtr : PSTR
+    InstanceGuidMarshal := InstanceGuid == 0 ? IntPtr : Guid.Ptr
+    DnsDomainNameMarshal := DnsDomainName == 0 ? IntPtr : PSTR
+    AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : IntPtr
+    AuthIdentityMarshal := AuthIdentity == 0 ? IntPtr : "ptr"
+    ServicePrincipalNameMarshal := ServicePrincipalName == 0 ? IntPtr : PSTR
+    BindFlagsMarshal := BindFlags == 0 ? IntPtr : UInt32
 
-    result := DllCall("NTDSAPI.dll\DsBindByInstanceA", "ptr", ServerName, "ptr", Annotation, Guid.Ptr, InstanceGuid, "ptr", DnsDomainName, AuthIdentityMarshal, AuthIdentity, "ptr", ServicePrincipalName, UInt32, BindFlags, HANDLE.Ptr, phDS, UInt32)
+    result := DllCall("NTDSAPI.dll\DsBindByInstanceA", ServerNameMarshal, ServerName, AnnotationMarshal, Annotation, InstanceGuidMarshal, InstanceGuid, DnsDomainNameMarshal, DnsDomainName, AuthIdentityMarshal, AuthIdentity, ServicePrincipalNameMarshal, ServicePrincipalName, BindFlagsMarshal, BindFlags, HANDLE.Ptr, phDS, UInt32)
     return result
 }
 
@@ -2512,7 +2586,9 @@ export DsBindByInstanceA(ServerName, Annotation, InstanceGuid, DnsDomainName, Au
 export DsBindToISTGW(SiteName, phDS) {
     SiteName := SiteName is String ? StrPtr(SiteName) : SiteName
 
-    result := DllCall("NTDSAPI.dll\DsBindToISTGW", "ptr", SiteName, HANDLE.Ptr, phDS, UInt32)
+    SiteNameMarshal := SiteName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("NTDSAPI.dll\DsBindToISTGW", SiteNameMarshal, SiteName, HANDLE.Ptr, phDS, UInt32)
     return result
 }
 
@@ -2531,7 +2607,9 @@ export DsBindToISTGW(SiteName, phDS) {
 export DsBindToISTGA(SiteName, phDS) {
     SiteName := SiteName is String ? StrPtr(SiteName) : SiteName
 
-    result := DllCall("NTDSAPI.dll\DsBindToISTGA", "ptr", SiteName, HANDLE.Ptr, phDS, UInt32)
+    SiteNameMarshal := SiteName == 0 ? IntPtr : PSTR
+
+    result := DllCall("NTDSAPI.dll\DsBindToISTGA", SiteNameMarshal, SiteName, HANDLE.Ptr, phDS, UInt32)
     return result
 }
 
@@ -2613,9 +2691,12 @@ export DsMakePasswordCredentialsW(User, Domain, Password, pAuthIdentity) {
     Domain := Domain is String ? StrPtr(Domain) : Domain
     Password := Password is String ? StrPtr(Password) : Password
 
-    pAuthIdentityMarshal := pAuthIdentity is VarRef ? "ptr*" : "ptr"
+    UserMarshal := User == 0 ? IntPtr : PWSTR
+    DomainMarshal := Domain == 0 ? IntPtr : PWSTR
+    PasswordMarshal := Password == 0 ? IntPtr : PWSTR
+    pAuthIdentityMarshal := pAuthIdentity is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NTDSAPI.dll\DsMakePasswordCredentialsW", "ptr", User, "ptr", Domain, "ptr", Password, pAuthIdentityMarshal, pAuthIdentity, UInt32)
+    result := DllCall("NTDSAPI.dll\DsMakePasswordCredentialsW", UserMarshal, User, DomainMarshal, Domain, PasswordMarshal, Password, pAuthIdentityMarshal, pAuthIdentity, UInt32)
     return result
 }
 
@@ -2652,9 +2733,12 @@ export DsMakePasswordCredentialsA(User, Domain, Password, pAuthIdentity) {
     Domain := Domain is String ? StrPtr(Domain) : Domain
     Password := Password is String ? StrPtr(Password) : Password
 
-    pAuthIdentityMarshal := pAuthIdentity is VarRef ? "ptr*" : "ptr"
+    UserMarshal := User == 0 ? IntPtr : PSTR
+    DomainMarshal := Domain == 0 ? IntPtr : PSTR
+    PasswordMarshal := Password == 0 ? IntPtr : PSTR
+    pAuthIdentityMarshal := pAuthIdentity is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NTDSAPI.dll\DsMakePasswordCredentialsA", "ptr", User, "ptr", Domain, "ptr", Password, pAuthIdentityMarshal, pAuthIdentity, UInt32)
+    result := DllCall("NTDSAPI.dll\DsMakePasswordCredentialsA", UserMarshal, User, DomainMarshal, Domain, PasswordMarshal, Password, pAuthIdentityMarshal, pAuthIdentity, UInt32)
     return result
 }
 
@@ -2675,7 +2759,7 @@ export DsMakePasswordCredentialsA(User, Domain, Password, pAuthIdentity) {
  * @since windows6.0.6000
  */
 export DsFreePasswordCredentials(AuthIdentity) {
-    AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : "ptr"
+    AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : IntPtr
 
     DllCall("NTDSAPI.dll\DsFreePasswordCredentials", AuthIdentityMarshal, AuthIdentity)
 }
@@ -2734,10 +2818,11 @@ export DsFreePasswordCredentials(AuthIdentity) {
  * @since windows6.0.6000
  */
 export DsCrackNamesW(hDS, flags, formatOffered, formatDesired, cNames, rpNames, ppResult) {
-    rpNamesMarshal := rpNames is VarRef ? "ptr*" : "ptr"
-    ppResultMarshal := ppResult is VarRef ? "ptr*" : "ptr"
+    hDSMarshal := hDS == 0 ? IntPtr : HANDLE
+    rpNamesMarshal := rpNames is VarRef ? "ptr*" : IntPtr
+    ppResultMarshal := ppResult is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NTDSAPI.dll\DsCrackNamesW", HANDLE, hDS, DS_NAME_FLAGS, flags, DS_NAME_FORMAT, formatOffered, DS_NAME_FORMAT, formatDesired, UInt32, cNames, rpNamesMarshal, rpNames, ppResultMarshal, ppResult, UInt32)
+    result := DllCall("NTDSAPI.dll\DsCrackNamesW", hDSMarshal, hDS, DS_NAME_FLAGS, flags, DS_NAME_FORMAT, formatOffered, DS_NAME_FORMAT, formatDesired, UInt32, cNames, rpNamesMarshal, rpNames, ppResultMarshal, ppResult, UInt32)
     return result
 }
 
@@ -2795,10 +2880,11 @@ export DsCrackNamesW(hDS, flags, formatOffered, formatDesired, cNames, rpNames, 
  * @since windows6.0.6000
  */
 export DsCrackNamesA(hDS, flags, formatOffered, formatDesired, cNames, rpNames, ppResult) {
-    rpNamesMarshal := rpNames is VarRef ? "ptr*" : "ptr"
-    ppResultMarshal := ppResult is VarRef ? "ptr*" : "ptr"
+    hDSMarshal := hDS == 0 ? IntPtr : HANDLE
+    rpNamesMarshal := rpNames is VarRef ? "ptr*" : IntPtr
+    ppResultMarshal := ppResult is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NTDSAPI.dll\DsCrackNamesA", HANDLE, hDS, DS_NAME_FLAGS, flags, DS_NAME_FORMAT, formatOffered, DS_NAME_FORMAT, formatDesired, UInt32, cNames, rpNamesMarshal, rpNames, ppResultMarshal, ppResult, UInt32)
+    result := DllCall("NTDSAPI.dll\DsCrackNamesA", hDSMarshal, hDS, DS_NAME_FLAGS, flags, DS_NAME_FORMAT, formatOffered, DS_NAME_FORMAT, formatDesired, UInt32, cNames, rpNamesMarshal, rpNames, ppResultMarshal, ppResult, UInt32)
     return result
 }
 
@@ -2876,12 +2962,15 @@ export DsGetSpnA(ServiceType, ServiceClass, ServiceName, InstancePort, cInstance
     ServiceClass := ServiceClass is String ? StrPtr(ServiceClass) : ServiceClass
     ServiceName := ServiceName is String ? StrPtr(ServiceName) : ServiceName
 
-    pInstanceNamesMarshal := pInstanceNames is VarRef ? "ptr*" : "ptr"
-    pInstancePortsMarshal := pInstancePorts is VarRef ? "ushort*" : "ptr"
-    pcSpnMarshal := pcSpn is VarRef ? "uint*" : "ptr"
-    prpszSpnMarshal := prpszSpn is VarRef ? "ptr*" : "ptr"
+    ServiceNameMarshal := ServiceName == 0 ? IntPtr : PSTR
+    pInstanceNamesMarshal := pInstanceNames is VarRef ? "ptr*" : IntPtr
+    pInstanceNamesMarshal := pInstanceNames == 0 ? IntPtr : PSTR.Ptr
+    pInstancePortsMarshal := pInstancePorts is VarRef ? "ushort*" : IntPtr
+    pInstancePortsMarshal := pInstancePorts == 0 ? IntPtr : "ushort*"
+    pcSpnMarshal := pcSpn is VarRef ? "uint*" : IntPtr
+    prpszSpnMarshal := prpszSpn is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NTDSAPI.dll\DsGetSpnA", DS_SPN_NAME_TYPE, ServiceType, "ptr", ServiceClass, "ptr", ServiceName, UInt16, InstancePort, UInt16, cInstanceNames, pInstanceNamesMarshal, pInstanceNames, pInstancePortsMarshal, pInstancePorts, pcSpnMarshal, pcSpn, prpszSpnMarshal, prpszSpn, UInt32)
+    result := DllCall("NTDSAPI.dll\DsGetSpnA", DS_SPN_NAME_TYPE, ServiceType, "ptr", ServiceClass, ServiceNameMarshal, ServiceName, UInt16, InstancePort, UInt16, cInstanceNames, pInstanceNamesMarshal, pInstanceNames, pInstancePortsMarshal, pInstancePorts, pcSpnMarshal, pcSpn, prpszSpnMarshal, prpszSpn, UInt32)
     return result
 }
 
@@ -2931,12 +3020,15 @@ export DsGetSpnW(ServiceType, ServiceClass, ServiceName, InstancePort, cInstance
     ServiceClass := ServiceClass is String ? StrPtr(ServiceClass) : ServiceClass
     ServiceName := ServiceName is String ? StrPtr(ServiceName) : ServiceName
 
-    pInstanceNamesMarshal := pInstanceNames is VarRef ? "ptr*" : "ptr"
-    pInstancePortsMarshal := pInstancePorts is VarRef ? "ushort*" : "ptr"
-    pcSpnMarshal := pcSpn is VarRef ? "uint*" : "ptr"
-    prpszSpnMarshal := prpszSpn is VarRef ? "ptr*" : "ptr"
+    ServiceNameMarshal := ServiceName == 0 ? IntPtr : PWSTR
+    pInstanceNamesMarshal := pInstanceNames is VarRef ? "ptr*" : IntPtr
+    pInstanceNamesMarshal := pInstanceNames == 0 ? IntPtr : PWSTR.Ptr
+    pInstancePortsMarshal := pInstancePorts is VarRef ? "ushort*" : IntPtr
+    pInstancePortsMarshal := pInstancePorts == 0 ? IntPtr : "ushort*"
+    pcSpnMarshal := pcSpn is VarRef ? "uint*" : IntPtr
+    prpszSpnMarshal := prpszSpn is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NTDSAPI.dll\DsGetSpnW", DS_SPN_NAME_TYPE, ServiceType, "ptr", ServiceClass, "ptr", ServiceName, UInt16, InstancePort, UInt16, cInstanceNames, pInstanceNamesMarshal, pInstanceNames, pInstancePortsMarshal, pInstancePorts, pcSpnMarshal, pcSpn, prpszSpnMarshal, prpszSpn, UInt32)
+    result := DllCall("NTDSAPI.dll\DsGetSpnW", DS_SPN_NAME_TYPE, ServiceType, "ptr", ServiceClass, ServiceNameMarshal, ServiceName, UInt16, InstancePort, UInt16, cInstanceNames, pInstanceNamesMarshal, pInstanceNames, pInstancePortsMarshal, pInstancePorts, pcSpnMarshal, pcSpn, prpszSpnMarshal, prpszSpn, UInt32)
     return result
 }
 
@@ -2952,7 +3044,7 @@ export DsGetSpnW(ServiceType, ServiceClass, ServiceName, InstancePort, cInstance
  * @since windows6.0.6000
  */
 export DsFreeSpnArrayA(cSpn, rpszSpn) {
-    rpszSpnMarshal := rpszSpn is VarRef ? "ptr*" : "ptr"
+    rpszSpnMarshal := rpszSpn is VarRef ? "ptr*" : IntPtr
 
     DllCall("NTDSAPI.dll\DsFreeSpnArrayA", UInt32, cSpn, rpszSpnMarshal, rpszSpn)
 }
@@ -2969,7 +3061,7 @@ export DsFreeSpnArrayA(cSpn, rpszSpn) {
  * @since windows6.0.6000
  */
 export DsFreeSpnArrayW(cSpn, rpszSpn) {
-    rpszSpnMarshal := rpszSpn is VarRef ? "ptr*" : "ptr"
+    rpszSpnMarshal := rpszSpn is VarRef ? "ptr*" : IntPtr
 
     DllCall("NTDSAPI.dll\DsFreeSpnArrayW", UInt32, cSpn, rpszSpnMarshal, rpszSpn)
 }
@@ -3039,7 +3131,7 @@ export DsFreeSpnArrayW(cSpn, rpszSpn) {
 export DsWriteAccountSpnA(hDS, Operation, pszAccount, cSpn, rpszSpn) {
     pszAccount := pszAccount is String ? StrPtr(pszAccount) : pszAccount
 
-    rpszSpnMarshal := rpszSpn is VarRef ? "ptr*" : "ptr"
+    rpszSpnMarshal := rpszSpn is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("NTDSAPI.dll\DsWriteAccountSpnA", HANDLE, hDS, DS_SPN_WRITE_OP, Operation, "ptr", pszAccount, UInt32, cSpn, rpszSpnMarshal, rpszSpn, UInt32)
     return result
@@ -3110,7 +3202,7 @@ export DsWriteAccountSpnA(hDS, Operation, pszAccount, cSpn, rpszSpn) {
 export DsWriteAccountSpnW(hDS, Operation, pszAccount, cSpn, rpszSpn) {
     pszAccount := pszAccount is String ? StrPtr(pszAccount) : pszAccount
 
-    rpszSpnMarshal := rpszSpn is VarRef ? "ptr*" : "ptr"
+    rpszSpnMarshal := rpszSpn is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("NTDSAPI.dll\DsWriteAccountSpnW", HANDLE, hDS, DS_SPN_WRITE_OP, Operation, "ptr", pszAccount, UInt32, cSpn, rpszSpnMarshal, rpszSpn, UInt32)
     return result
@@ -3153,7 +3245,7 @@ export DsClientMakeSpnForTargetServerW(ServiceClass, ServiceName, pcSpnLength, p
     ServiceName := ServiceName is String ? StrPtr(ServiceName) : ServiceName
     pszSpn := pszSpn is String ? StrPtr(pszSpn) : pszSpn
 
-    pcSpnLengthMarshal := pcSpnLength is VarRef ? "uint*" : "ptr"
+    pcSpnLengthMarshal := pcSpnLength is VarRef ? "uint*" : IntPtr
 
     result := DllCall("NTDSAPI.dll\DsClientMakeSpnForTargetServerW", "ptr", ServiceClass, "ptr", ServiceName, pcSpnLengthMarshal, pcSpnLength, "ptr", pszSpn, UInt32)
     return result
@@ -3196,7 +3288,7 @@ export DsClientMakeSpnForTargetServerA(ServiceClass, ServiceName, pcSpnLength, p
     ServiceName := ServiceName is String ? StrPtr(ServiceName) : ServiceName
     pszSpn := pszSpn is String ? StrPtr(pszSpn) : pszSpn
 
-    pcSpnLengthMarshal := pcSpnLength is VarRef ? "uint*" : "ptr"
+    pcSpnLengthMarshal := pcSpnLength is VarRef ? "uint*" : IntPtr
 
     result := DllCall("NTDSAPI.dll\DsClientMakeSpnForTargetServerA", "ptr", ServiceClass, "ptr", ServiceName, pcSpnLengthMarshal, pcSpnLength, "ptr", pszSpn, UInt32)
     return result
@@ -3234,7 +3326,9 @@ export DsServerRegisterSpnA(Operation, ServiceClass, UserObjectDN) {
     ServiceClass := ServiceClass is String ? StrPtr(ServiceClass) : ServiceClass
     UserObjectDN := UserObjectDN is String ? StrPtr(UserObjectDN) : UserObjectDN
 
-    result := DllCall("NTDSAPI.dll\DsServerRegisterSpnA", DS_SPN_WRITE_OP, Operation, "ptr", ServiceClass, "ptr", UserObjectDN, UInt32)
+    UserObjectDNMarshal := UserObjectDN == 0 ? IntPtr : PSTR
+
+    result := DllCall("NTDSAPI.dll\DsServerRegisterSpnA", DS_SPN_WRITE_OP, Operation, "ptr", ServiceClass, UserObjectDNMarshal, UserObjectDN, UInt32)
     return result
 }
 
@@ -3270,7 +3364,9 @@ export DsServerRegisterSpnW(Operation, ServiceClass, UserObjectDN) {
     ServiceClass := ServiceClass is String ? StrPtr(ServiceClass) : ServiceClass
     UserObjectDN := UserObjectDN is String ? StrPtr(UserObjectDN) : UserObjectDN
 
-    result := DllCall("NTDSAPI.dll\DsServerRegisterSpnW", DS_SPN_WRITE_OP, Operation, "ptr", ServiceClass, "ptr", UserObjectDN, UInt32)
+    UserObjectDNMarshal := UserObjectDN == 0 ? IntPtr : PWSTR
+
+    result := DllCall("NTDSAPI.dll\DsServerRegisterSpnW", DS_SPN_WRITE_OP, Operation, "ptr", ServiceClass, UserObjectDNMarshal, UserObjectDN, UInt32)
     return result
 }
 
@@ -3364,7 +3460,9 @@ export DsReplicaAddA(hDS, NameContext, SourceDsaDn, TransportDn, SourceDsaAddres
     TransportDn := TransportDn is String ? StrPtr(TransportDn) : TransportDn
     SourceDsaAddress := SourceDsaAddress is String ? StrPtr(SourceDsaAddress) : SourceDsaAddress
 
-    result := DllCall("NTDSAPI.dll\DsReplicaAddA", HANDLE, hDS, "ptr", NameContext, "ptr", SourceDsaDn, "ptr", TransportDn, "ptr", SourceDsaAddress, SCHEDULE.Ptr, pSchedule, UInt32, Options, UInt32)
+    pScheduleMarshal := pSchedule == 0 ? IntPtr : SCHEDULE.Ptr
+
+    result := DllCall("NTDSAPI.dll\DsReplicaAddA", HANDLE, hDS, "ptr", NameContext, "ptr", SourceDsaDn, "ptr", TransportDn, "ptr", SourceDsaAddress, pScheduleMarshal, pSchedule, UInt32, Options, UInt32)
     return result
 }
 
@@ -3394,7 +3492,9 @@ export DsReplicaAddW(hDS, NameContext, SourceDsaDn, TransportDn, SourceDsaAddres
     TransportDn := TransportDn is String ? StrPtr(TransportDn) : TransportDn
     SourceDsaAddress := SourceDsaAddress is String ? StrPtr(SourceDsaAddress) : SourceDsaAddress
 
-    result := DllCall("NTDSAPI.dll\DsReplicaAddW", HANDLE, hDS, "ptr", NameContext, "ptr", SourceDsaDn, "ptr", TransportDn, "ptr", SourceDsaAddress, SCHEDULE.Ptr, pSchedule, UInt32, Options, UInt32)
+    pScheduleMarshal := pSchedule == 0 ? IntPtr : SCHEDULE.Ptr
+
+    result := DllCall("NTDSAPI.dll\DsReplicaAddW", HANDLE, hDS, "ptr", NameContext, "ptr", SourceDsaDn, "ptr", TransportDn, "ptr", SourceDsaAddress, pScheduleMarshal, pSchedule, UInt32, Options, UInt32)
     return result
 }
 
@@ -3474,7 +3574,10 @@ export DsReplicaModifyA(hDS, NameContext, pUuidSourceDsa, SourceDsaAddress, pSch
     NameContext := NameContext is String ? StrPtr(NameContext) : NameContext
     SourceDsaAddress := SourceDsaAddress is String ? StrPtr(SourceDsaAddress) : SourceDsaAddress
 
-    result := DllCall("NTDSAPI.dll\DsReplicaModifyA", HANDLE, hDS, "ptr", NameContext, Guid.Ptr, pUuidSourceDsa, "ptr", TransportDn, "ptr", SourceDsaAddress, SCHEDULE.Ptr, pSchedule, UInt32, ReplicaFlags, UInt32, ModifyFields, UInt32, Options, UInt32)
+    pUuidSourceDsaMarshal := pUuidSourceDsa == 0 ? IntPtr : Guid.Ptr
+    pScheduleMarshal := pSchedule == 0 ? IntPtr : SCHEDULE.Ptr
+
+    result := DllCall("NTDSAPI.dll\DsReplicaModifyA", HANDLE, hDS, "ptr", NameContext, pUuidSourceDsaMarshal, pUuidSourceDsa, "ptr", TransportDn, "ptr", SourceDsaAddress, pScheduleMarshal, pSchedule, UInt32, ReplicaFlags, UInt32, ModifyFields, UInt32, Options, UInt32)
     return result
 }
 
@@ -3505,7 +3608,10 @@ export DsReplicaModifyW(hDS, NameContext, pUuidSourceDsa, SourceDsaAddress, pSch
     NameContext := NameContext is String ? StrPtr(NameContext) : NameContext
     SourceDsaAddress := SourceDsaAddress is String ? StrPtr(SourceDsaAddress) : SourceDsaAddress
 
-    result := DllCall("NTDSAPI.dll\DsReplicaModifyW", HANDLE, hDS, "ptr", NameContext, Guid.Ptr, pUuidSourceDsa, "ptr", TransportDn, "ptr", SourceDsaAddress, SCHEDULE.Ptr, pSchedule, UInt32, ReplicaFlags, UInt32, ModifyFields, UInt32, Options, UInt32)
+    pUuidSourceDsaMarshal := pUuidSourceDsa == 0 ? IntPtr : Guid.Ptr
+    pScheduleMarshal := pSchedule == 0 ? IntPtr : SCHEDULE.Ptr
+
+    result := DllCall("NTDSAPI.dll\DsReplicaModifyW", HANDLE, hDS, "ptr", NameContext, pUuidSourceDsaMarshal, pUuidSourceDsa, "ptr", TransportDn, "ptr", SourceDsaAddress, pScheduleMarshal, pSchedule, UInt32, ReplicaFlags, UInt32, ModifyFields, UInt32, Options, UInt32)
     return result
 }
 
@@ -3606,8 +3712,10 @@ export DsReplicaUpdateRefsW(hDS, NameContext, DsaDest, pUuidDsaDest, Options) {
 export DsReplicaSyncAllA(hDS, pszNameContext, ulFlags, _pFnCallBack, pCallbackData, pErrors) {
     pszNameContext := pszNameContext is String ? StrPtr(pszNameContext) : pszNameContext
 
-    pCallbackDataMarshal := pCallbackData is VarRef ? "ptr" : "ptr"
-    pErrorsMarshal := pErrors is VarRef ? "ptr*" : "ptr"
+    pCallbackDataMarshal := pCallbackData is VarRef ? "ptr" : IntPtr
+    pCallbackDataMarshal := pCallbackData == 0 ? IntPtr : "ptr"
+    pErrorsMarshal := pErrors is VarRef ? "ptr*" : IntPtr
+    pErrorsMarshal := pErrors == 0 ? IntPtr : "ptr*"
 
     result := DllCall("NTDSAPI.dll\DsReplicaSyncAllA", HANDLE, hDS, "ptr", pszNameContext, UInt32, ulFlags, IntPtr, _pFnCallBack, pCallbackDataMarshal, pCallbackData, pErrorsMarshal, pErrors, UInt32)
     return result
@@ -3646,8 +3754,10 @@ export DsReplicaSyncAllA(hDS, pszNameContext, ulFlags, _pFnCallBack, pCallbackDa
 export DsReplicaSyncAllW(hDS, pszNameContext, ulFlags, _pFnCallBack, pCallbackData, pErrors) {
     pszNameContext := pszNameContext is String ? StrPtr(pszNameContext) : pszNameContext
 
-    pCallbackDataMarshal := pCallbackData is VarRef ? "ptr" : "ptr"
-    pErrorsMarshal := pErrors is VarRef ? "ptr*" : "ptr"
+    pCallbackDataMarshal := pCallbackData is VarRef ? "ptr" : IntPtr
+    pCallbackDataMarshal := pCallbackData == 0 ? IntPtr : "ptr"
+    pErrorsMarshal := pErrors is VarRef ? "ptr*" : IntPtr
+    pErrorsMarshal := pErrors == 0 ? IntPtr : "ptr*"
 
     result := DllCall("NTDSAPI.dll\DsReplicaSyncAllW", HANDLE, hDS, "ptr", pszNameContext, UInt32, ulFlags, IntPtr, _pFnCallBack, pCallbackDataMarshal, pCallbackData, pErrorsMarshal, pErrors, UInt32)
     return result
@@ -3673,9 +3783,11 @@ export DsRemoveDsServerW(hDs, ServerDN, DomainDN, fLastDcInDomain, fCommit) {
     ServerDN := ServerDN is String ? StrPtr(ServerDN) : ServerDN
     DomainDN := DomainDN is String ? StrPtr(DomainDN) : DomainDN
 
-    fLastDcInDomainMarshal := fLastDcInDomain is VarRef ? "int*" : "ptr"
+    DomainDNMarshal := DomainDN == 0 ? IntPtr : PWSTR
+    fLastDcInDomainMarshal := fLastDcInDomain is VarRef ? "int*" : IntPtr
+    fLastDcInDomainMarshal := fLastDcInDomain == 0 ? IntPtr : BOOL.Ptr
 
-    result := DllCall("NTDSAPI.dll\DsRemoveDsServerW", HANDLE, hDs, "ptr", ServerDN, "ptr", DomainDN, fLastDcInDomainMarshal, fLastDcInDomain, BOOL, fCommit, UInt32)
+    result := DllCall("NTDSAPI.dll\DsRemoveDsServerW", HANDLE, hDs, "ptr", ServerDN, DomainDNMarshal, DomainDN, fLastDcInDomainMarshal, fLastDcInDomain, BOOL, fCommit, UInt32)
     return result
 }
 
@@ -3699,9 +3811,11 @@ export DsRemoveDsServerA(hDs, ServerDN, DomainDN, fLastDcInDomain, fCommit) {
     ServerDN := ServerDN is String ? StrPtr(ServerDN) : ServerDN
     DomainDN := DomainDN is String ? StrPtr(DomainDN) : DomainDN
 
-    fLastDcInDomainMarshal := fLastDcInDomain is VarRef ? "int*" : "ptr"
+    DomainDNMarshal := DomainDN == 0 ? IntPtr : PSTR
+    fLastDcInDomainMarshal := fLastDcInDomain is VarRef ? "int*" : IntPtr
+    fLastDcInDomainMarshal := fLastDcInDomain == 0 ? IntPtr : BOOL.Ptr
 
-    result := DllCall("NTDSAPI.dll\DsRemoveDsServerA", HANDLE, hDs, "ptr", ServerDN, "ptr", DomainDN, fLastDcInDomainMarshal, fLastDcInDomain, BOOL, fCommit, UInt32)
+    result := DllCall("NTDSAPI.dll\DsRemoveDsServerA", HANDLE, hDs, "ptr", ServerDN, DomainDNMarshal, DomainDN, fLastDcInDomainMarshal, fLastDcInDomain, BOOL, fCommit, UInt32)
     return result
 }
 
@@ -3766,7 +3880,7 @@ export DsRemoveDsDomainA(hDs, DomainDN) {
  * @since windows6.0.6000
  */
 export DsListSitesA(hDs, ppSites) {
-    ppSitesMarshal := ppSites is VarRef ? "ptr*" : "ptr"
+    ppSitesMarshal := ppSites is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("NTDSAPI.dll\DsListSitesA", HANDLE, hDs, ppSitesMarshal, ppSites, UInt32)
     return result
@@ -3793,7 +3907,7 @@ export DsListSitesA(hDs, ppSites) {
  * @since windows6.0.6000
  */
 export DsListSitesW(hDs, ppSites) {
-    ppSitesMarshal := ppSites is VarRef ? "ptr*" : "ptr"
+    ppSitesMarshal := ppSites is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("NTDSAPI.dll\DsListSitesW", HANDLE, hDs, ppSitesMarshal, ppSites, UInt32)
     return result
@@ -3824,7 +3938,7 @@ export DsListSitesW(hDs, ppSites) {
 export DsListServersInSiteA(hDs, site, ppServers) {
     site := site is String ? StrPtr(site) : site
 
-    ppServersMarshal := ppServers is VarRef ? "ptr*" : "ptr"
+    ppServersMarshal := ppServers is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("NTDSAPI.dll\DsListServersInSiteA", HANDLE, hDs, "ptr", site, ppServersMarshal, ppServers, UInt32)
     return result
@@ -3855,7 +3969,7 @@ export DsListServersInSiteA(hDs, site, ppServers) {
 export DsListServersInSiteW(hDs, site, ppServers) {
     site := site is String ? StrPtr(site) : site
 
-    ppServersMarshal := ppServers is VarRef ? "ptr*" : "ptr"
+    ppServersMarshal := ppServers is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("NTDSAPI.dll\DsListServersInSiteW", HANDLE, hDs, "ptr", site, ppServersMarshal, ppServers, UInt32)
     return result
@@ -3886,7 +4000,7 @@ export DsListServersInSiteW(hDs, site, ppServers) {
 export DsListDomainsInSiteA(hDs, site, ppDomains) {
     site := site is String ? StrPtr(site) : site
 
-    ppDomainsMarshal := ppDomains is VarRef ? "ptr*" : "ptr"
+    ppDomainsMarshal := ppDomains is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("NTDSAPI.dll\DsListDomainsInSiteA", HANDLE, hDs, "ptr", site, ppDomainsMarshal, ppDomains, UInt32)
     return result
@@ -3917,7 +4031,7 @@ export DsListDomainsInSiteA(hDs, site, ppDomains) {
 export DsListDomainsInSiteW(hDs, site, ppDomains) {
     site := site is String ? StrPtr(site) : site
 
-    ppDomainsMarshal := ppDomains is VarRef ? "ptr*" : "ptr"
+    ppDomainsMarshal := ppDomains is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("NTDSAPI.dll\DsListDomainsInSiteW", HANDLE, hDs, "ptr", site, ppDomainsMarshal, ppDomains, UInt32)
     return result
@@ -3950,7 +4064,7 @@ export DsListServersForDomainInSiteA(hDs, domain, site, ppServers) {
     domain := domain is String ? StrPtr(domain) : domain
     site := site is String ? StrPtr(site) : site
 
-    ppServersMarshal := ppServers is VarRef ? "ptr*" : "ptr"
+    ppServersMarshal := ppServers is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("NTDSAPI.dll\DsListServersForDomainInSiteA", HANDLE, hDs, "ptr", domain, "ptr", site, ppServersMarshal, ppServers, UInt32)
     return result
@@ -3983,7 +4097,7 @@ export DsListServersForDomainInSiteW(hDs, domain, site, ppServers) {
     domain := domain is String ? StrPtr(domain) : domain
     site := site is String ? StrPtr(site) : site
 
-    ppServersMarshal := ppServers is VarRef ? "ptr*" : "ptr"
+    ppServersMarshal := ppServers is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("NTDSAPI.dll\DsListServersForDomainInSiteW", HANDLE, hDs, "ptr", domain, "ptr", site, ppServersMarshal, ppServers, UInt32)
     return result
@@ -4018,7 +4132,7 @@ export DsListServersForDomainInSiteW(hDs, domain, site, ppServers) {
 export DsListInfoForServerA(hDs, server, ppInfo) {
     server := server is String ? StrPtr(server) : server
 
-    ppInfoMarshal := ppInfo is VarRef ? "ptr*" : "ptr"
+    ppInfoMarshal := ppInfo is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("NTDSAPI.dll\DsListInfoForServerA", HANDLE, hDs, "ptr", server, ppInfoMarshal, ppInfo, UInt32)
     return result
@@ -4053,7 +4167,7 @@ export DsListInfoForServerA(hDs, server, ppInfo) {
 export DsListInfoForServerW(hDs, server, ppInfo) {
     server := server is String ? StrPtr(server) : server
 
-    ppInfoMarshal := ppInfo is VarRef ? "ptr*" : "ptr"
+    ppInfoMarshal := ppInfo is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("NTDSAPI.dll\DsListInfoForServerW", HANDLE, hDs, "ptr", server, ppInfoMarshal, ppInfo, UInt32)
     return result
@@ -4081,7 +4195,7 @@ export DsListInfoForServerW(hDs, server, ppInfo) {
  * @since windows6.0.6000
  */
 export DsListRolesA(hDs, ppRoles) {
-    ppRolesMarshal := ppRoles is VarRef ? "ptr*" : "ptr"
+    ppRolesMarshal := ppRoles is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("NTDSAPI.dll\DsListRolesA", HANDLE, hDs, ppRolesMarshal, ppRoles, UInt32)
     return result
@@ -4109,7 +4223,7 @@ export DsListRolesA(hDs, ppRoles) {
  * @since windows6.0.6000
  */
 export DsListRolesW(hDs, ppRoles) {
-    ppRolesMarshal := ppRoles is VarRef ? "ptr*" : "ptr"
+    ppRolesMarshal := ppRoles is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("NTDSAPI.dll\DsListRolesW", HANDLE, hDs, ppRolesMarshal, ppRoles, UInt32)
     return result
@@ -4143,8 +4257,8 @@ export DsQuerySitesByCostW(hDS, pwszFromSite, rgwszToSites, cToSites, prgSiteInf
 
     pwszFromSite := pwszFromSite is String ? StrPtr(pwszFromSite) : pwszFromSite
 
-    rgwszToSitesMarshal := rgwszToSites is VarRef ? "ptr*" : "ptr"
-    prgSiteInfoMarshal := prgSiteInfo is VarRef ? "ptr*" : "ptr"
+    rgwszToSitesMarshal := rgwszToSites is VarRef ? "ptr*" : IntPtr
+    prgSiteInfoMarshal := prgSiteInfo is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("NTDSAPI.dll\DsQuerySitesByCostW", HANDLE, hDS, "ptr", pwszFromSite, rgwszToSitesMarshal, rgwszToSites, UInt32, cToSites, UInt32, dwFlags, prgSiteInfoMarshal, prgSiteInfo, UInt32)
     return result
@@ -4178,8 +4292,8 @@ export DsQuerySitesByCostA(hDS, pszFromSite, rgszToSites, cToSites, prgSiteInfo)
 
     pszFromSite := pszFromSite is String ? StrPtr(pszFromSite) : pszFromSite
 
-    rgszToSitesMarshal := rgszToSites is VarRef ? "ptr*" : "ptr"
-    prgSiteInfoMarshal := prgSiteInfo is VarRef ? "ptr*" : "ptr"
+    rgszToSitesMarshal := rgszToSites is VarRef ? "ptr*" : IntPtr
+    prgSiteInfoMarshal := prgSiteInfo is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("NTDSAPI.dll\DsQuerySitesByCostA", HANDLE, hDS, "ptr", pszFromSite, rgszToSitesMarshal, rgszToSites, UInt32, cToSites, UInt32, dwFlags, prgSiteInfoMarshal, prgSiteInfo, UInt32)
     return result
@@ -4214,7 +4328,7 @@ export DsQuerySitesFree(rgSiteInfo) {
  * @since windows6.0.6000
  */
 export DsMapSchemaGuidsA(hDs, cGuids, rGuids, ppGuidMap) {
-    ppGuidMapMarshal := ppGuidMap is VarRef ? "ptr*" : "ptr"
+    ppGuidMapMarshal := ppGuidMap is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("NTDSAPI.dll\DsMapSchemaGuidsA", HANDLE, hDs, UInt32, cGuids, Guid.Ptr, rGuids, ppGuidMapMarshal, ppGuidMap, UInt32)
     return result
@@ -4252,7 +4366,7 @@ export DsFreeSchemaGuidMapA(pGuidMap) {
  * @since windows6.0.6000
  */
 export DsMapSchemaGuidsW(hDs, cGuids, rGuids, ppGuidMap) {
-    ppGuidMapMarshal := ppGuidMap is VarRef ? "ptr*" : "ptr"
+    ppGuidMapMarshal := ppGuidMap is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("NTDSAPI.dll\DsMapSchemaGuidsW", HANDLE, hDs, UInt32, cGuids, Guid.Ptr, rGuids, ppGuidMapMarshal, ppGuidMap, UInt32)
     return result
@@ -4294,8 +4408,8 @@ export DsFreeSchemaGuidMapW(pGuidMap) {
 export DsGetDomainControllerInfoA(hDs, DomainName, InfoLevel, pcOut, ppInfo) {
     DomainName := DomainName is String ? StrPtr(DomainName) : DomainName
 
-    pcOutMarshal := pcOut is VarRef ? "uint*" : "ptr"
-    ppInfoMarshal := ppInfo is VarRef ? "ptr*" : "ptr"
+    pcOutMarshal := pcOut is VarRef ? "uint*" : IntPtr
+    ppInfoMarshal := ppInfo is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("NTDSAPI.dll\DsGetDomainControllerInfoA", HANDLE, hDs, "ptr", DomainName, UInt32, InfoLevel, pcOutMarshal, pcOut, ppInfoMarshal, ppInfo, UInt32)
     return result
@@ -4323,8 +4437,8 @@ export DsGetDomainControllerInfoA(hDs, DomainName, InfoLevel, pcOut, ppInfo) {
 export DsGetDomainControllerInfoW(hDs, DomainName, InfoLevel, pcOut, ppInfo) {
     DomainName := DomainName is String ? StrPtr(DomainName) : DomainName
 
-    pcOutMarshal := pcOut is VarRef ? "uint*" : "ptr"
-    ppInfoMarshal := ppInfo is VarRef ? "ptr*" : "ptr"
+    pcOutMarshal := pcOut is VarRef ? "uint*" : IntPtr
+    ppInfoMarshal := ppInfo is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("NTDSAPI.dll\DsGetDomainControllerInfoW", HANDLE, hDs, "ptr", DomainName, UInt32, InfoLevel, pcOutMarshal, pcOut, ppInfoMarshal, ppInfo, UInt32)
     return result
@@ -4343,7 +4457,7 @@ export DsGetDomainControllerInfoW(hDs, DomainName, InfoLevel, pcOut, ppInfo) {
  * @since windows6.0.6000
  */
 export DsFreeDomainControllerInfoA(InfoLevel, cInfo, pInfo) {
-    pInfoMarshal := pInfo is VarRef ? "ptr" : "ptr"
+    pInfoMarshal := pInfo is VarRef ? "ptr" : IntPtr
 
     DllCall("NTDSAPI.dll\DsFreeDomainControllerInfoA", UInt32, InfoLevel, UInt32, cInfo, pInfoMarshal, pInfo)
 }
@@ -4361,7 +4475,7 @@ export DsFreeDomainControllerInfoA(InfoLevel, cInfo, pInfo) {
  * @since windows6.0.6000
  */
 export DsFreeDomainControllerInfoW(InfoLevel, cInfo, pInfo) {
-    pInfoMarshal := pInfo is VarRef ? "ptr" : "ptr"
+    pInfoMarshal := pInfo is VarRef ? "ptr" : IntPtr
 
     DllCall("NTDSAPI.dll\DsFreeDomainControllerInfoW", UInt32, InfoLevel, UInt32, cInfo, pInfoMarshal, pInfo)
 }
@@ -4450,9 +4564,11 @@ export DsReplicaVerifyObjectsA(hDS, NameContext, pUuidDsaSrc, ulOptions) {
 export DsReplicaGetInfoW(hDS, InfoType, pszObject, puuidForSourceDsaObjGuid, ppInfo) {
     pszObject := pszObject is String ? StrPtr(pszObject) : pszObject
 
-    ppInfoMarshal := ppInfo is VarRef ? "ptr*" : "ptr"
+    pszObjectMarshal := pszObject == 0 ? IntPtr : PWSTR
+    puuidForSourceDsaObjGuidMarshal := puuidForSourceDsaObjGuid == 0 ? IntPtr : Guid.Ptr
+    ppInfoMarshal := ppInfo is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NTDSAPI.dll\DsReplicaGetInfoW", HANDLE, hDS, DS_REPL_INFO_TYPE, InfoType, "ptr", pszObject, Guid.Ptr, puuidForSourceDsaObjGuid, ppInfoMarshal, ppInfo, UInt32)
+    result := DllCall("NTDSAPI.dll\DsReplicaGetInfoW", HANDLE, hDS, DS_REPL_INFO_TYPE, InfoType, pszObjectMarshal, pszObject, puuidForSourceDsaObjGuidMarshal, puuidForSourceDsaObjGuid, ppInfoMarshal, ppInfo, UInt32)
     return result
 }
 
@@ -4481,9 +4597,13 @@ export DsReplicaGetInfo2W(hDS, InfoType, pszObject, puuidForSourceDsaObjGuid, ps
     pszAttributeName := pszAttributeName is String ? StrPtr(pszAttributeName) : pszAttributeName
     pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-    ppInfoMarshal := ppInfo is VarRef ? "ptr*" : "ptr"
+    pszObjectMarshal := pszObject == 0 ? IntPtr : PWSTR
+    puuidForSourceDsaObjGuidMarshal := puuidForSourceDsaObjGuid == 0 ? IntPtr : Guid.Ptr
+    pszAttributeNameMarshal := pszAttributeName == 0 ? IntPtr : PWSTR
+    pszValueMarshal := pszValue == 0 ? IntPtr : PWSTR
+    ppInfoMarshal := ppInfo is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NTDSAPI.dll\DsReplicaGetInfo2W", HANDLE, hDS, DS_REPL_INFO_TYPE, InfoType, "ptr", pszObject, Guid.Ptr, puuidForSourceDsaObjGuid, "ptr", pszAttributeName, "ptr", pszValue, UInt32, dwFlags, UInt32, dwEnumerationContext, ppInfoMarshal, ppInfo, UInt32)
+    result := DllCall("NTDSAPI.dll\DsReplicaGetInfo2W", HANDLE, hDS, DS_REPL_INFO_TYPE, InfoType, pszObjectMarshal, pszObject, puuidForSourceDsaObjGuidMarshal, puuidForSourceDsaObjGuid, pszAttributeNameMarshal, pszAttributeName, pszValueMarshal, pszValue, UInt32, dwFlags, UInt32, dwEnumerationContext, ppInfoMarshal, ppInfo, UInt32)
     return result
 }
 
@@ -4496,7 +4616,7 @@ export DsReplicaGetInfo2W(hDS, InfoType, pszObject, puuidForSourceDsaObjGuid, ps
  * @since windows6.0.6000
  */
 export DsReplicaFreeInfo(InfoType, pInfo) {
-    pInfoMarshal := pInfo is VarRef ? "ptr" : "ptr"
+    pInfoMarshal := pInfo is VarRef ? "ptr" : IntPtr
 
     DllCall("NTDSAPI.dll\DsReplicaFreeInfo", DS_REPL_INFO_TYPE, InfoType, pInfoMarshal, pInfo)
 }
@@ -4537,9 +4657,11 @@ export DsAddSidHistoryW(hDS, SrcDomain, SrcPrincipal, SrcDomainController, SrcDo
     DstDomain := DstDomain is String ? StrPtr(DstDomain) : DstDomain
     DstPrincipal := DstPrincipal is String ? StrPtr(DstPrincipal) : DstPrincipal
 
-    SrcDomainCredsMarshal := SrcDomainCreds is VarRef ? "ptr" : "ptr"
+    SrcDomainControllerMarshal := SrcDomainController == 0 ? IntPtr : PWSTR
+    SrcDomainCredsMarshal := SrcDomainCreds is VarRef ? "ptr" : IntPtr
+    SrcDomainCredsMarshal := SrcDomainCreds == 0 ? IntPtr : "ptr"
 
-    result := DllCall("NTDSAPI.dll\DsAddSidHistoryW", HANDLE, hDS, UInt32, Flags, "ptr", SrcDomain, "ptr", SrcPrincipal, "ptr", SrcDomainController, SrcDomainCredsMarshal, SrcDomainCreds, "ptr", DstDomain, "ptr", DstPrincipal, UInt32)
+    result := DllCall("NTDSAPI.dll\DsAddSidHistoryW", HANDLE, hDS, UInt32, Flags, "ptr", SrcDomain, "ptr", SrcPrincipal, SrcDomainControllerMarshal, SrcDomainController, SrcDomainCredsMarshal, SrcDomainCreds, "ptr", DstDomain, "ptr", DstPrincipal, UInt32)
     return result
 }
 
@@ -4579,9 +4701,11 @@ export DsAddSidHistoryA(hDS, SrcDomain, SrcPrincipal, SrcDomainController, SrcDo
     DstDomain := DstDomain is String ? StrPtr(DstDomain) : DstDomain
     DstPrincipal := DstPrincipal is String ? StrPtr(DstPrincipal) : DstPrincipal
 
-    SrcDomainCredsMarshal := SrcDomainCreds is VarRef ? "ptr" : "ptr"
+    SrcDomainControllerMarshal := SrcDomainController == 0 ? IntPtr : PSTR
+    SrcDomainCredsMarshal := SrcDomainCreds is VarRef ? "ptr" : IntPtr
+    SrcDomainCredsMarshal := SrcDomainCreds == 0 ? IntPtr : "ptr"
 
-    result := DllCall("NTDSAPI.dll\DsAddSidHistoryA", HANDLE, hDS, UInt32, Flags, "ptr", SrcDomain, "ptr", SrcPrincipal, "ptr", SrcDomainController, SrcDomainCredsMarshal, SrcDomainCreds, "ptr", DstDomain, "ptr", DstPrincipal, UInt32)
+    result := DllCall("NTDSAPI.dll\DsAddSidHistoryA", HANDLE, hDS, UInt32, Flags, "ptr", SrcDomain, "ptr", SrcPrincipal, SrcDomainControllerMarshal, SrcDomainController, SrcDomainCredsMarshal, SrcDomainCreds, "ptr", DstDomain, "ptr", DstPrincipal, UInt32)
     return result
 }
 
@@ -4697,7 +4821,7 @@ export DsInheritSecurityIdentityA(hDS, SrcPrincipal, DstPrincipal) {
 export DsRoleGetPrimaryDomainInformation(lpServer, InfoLevel, _Buffer) {
     lpServer := lpServer is String ? StrPtr(lpServer) : lpServer
 
-    _BufferMarshal := _Buffer is VarRef ? "ptr*" : "ptr"
+    _BufferMarshal := _Buffer is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("NETAPI32.dll\DsRoleGetPrimaryDomainInformation", "ptr", lpServer, DSROLE_PRIMARY_DOMAIN_INFO_LEVEL, InfoLevel, _BufferMarshal, _Buffer, UInt32)
     return result
@@ -4711,7 +4835,7 @@ export DsRoleGetPrimaryDomainInformation(lpServer, InfoLevel, _Buffer) {
  * @since windows6.0.6000
  */
 export DsRoleFreeMemory(_Buffer) {
-    _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
+    _BufferMarshal := _Buffer is VarRef ? "ptr" : IntPtr
 
     DllCall("NETAPI32.dll\DsRoleFreeMemory", _BufferMarshal, _Buffer)
 }
@@ -5059,9 +5183,13 @@ export DsGetDcNameA(ComputerName, DomainName, DomainGuid, SiteName, Flags, Domai
     DomainName := DomainName is String ? StrPtr(DomainName) : DomainName
     SiteName := SiteName is String ? StrPtr(SiteName) : SiteName
 
-    DomainControllerInfoMarshal := DomainControllerInfo is VarRef ? "ptr*" : "ptr"
+    ComputerNameMarshal := ComputerName == 0 ? IntPtr : PSTR
+    DomainNameMarshal := DomainName == 0 ? IntPtr : PSTR
+    DomainGuidMarshal := DomainGuid == 0 ? IntPtr : Guid.Ptr
+    SiteNameMarshal := SiteName == 0 ? IntPtr : PSTR
+    DomainControllerInfoMarshal := DomainControllerInfo is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\DsGetDcNameA", "ptr", ComputerName, "ptr", DomainName, Guid.Ptr, DomainGuid, "ptr", SiteName, UInt32, Flags, DomainControllerInfoMarshal, DomainControllerInfo, UInt32)
+    result := DllCall("NETAPI32.dll\DsGetDcNameA", ComputerNameMarshal, ComputerName, DomainNameMarshal, DomainName, DomainGuidMarshal, DomainGuid, SiteNameMarshal, SiteName, UInt32, Flags, DomainControllerInfoMarshal, DomainControllerInfo, UInt32)
     return result
 }
 
@@ -5408,9 +5536,13 @@ export DsGetDcNameW(ComputerName, DomainName, DomainGuid, SiteName, Flags, Domai
     DomainName := DomainName is String ? StrPtr(DomainName) : DomainName
     SiteName := SiteName is String ? StrPtr(SiteName) : SiteName
 
-    DomainControllerInfoMarshal := DomainControllerInfo is VarRef ? "ptr*" : "ptr"
+    ComputerNameMarshal := ComputerName == 0 ? IntPtr : PWSTR
+    DomainNameMarshal := DomainName == 0 ? IntPtr : PWSTR
+    DomainGuidMarshal := DomainGuid == 0 ? IntPtr : Guid.Ptr
+    SiteNameMarshal := SiteName == 0 ? IntPtr : PWSTR
+    DomainControllerInfoMarshal := DomainControllerInfo is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\DsGetDcNameW", "ptr", ComputerName, "ptr", DomainName, Guid.Ptr, DomainGuid, "ptr", SiteName, UInt32, Flags, DomainControllerInfoMarshal, DomainControllerInfo, UInt32)
+    result := DllCall("NETAPI32.dll\DsGetDcNameW", ComputerNameMarshal, ComputerName, DomainNameMarshal, DomainName, DomainGuidMarshal, DomainGuid, SiteNameMarshal, SiteName, UInt32, Flags, DomainControllerInfoMarshal, DomainControllerInfo, UInt32)
     return result
 }
 
@@ -5437,9 +5569,10 @@ export DsGetDcNameW(ComputerName, DomainName, DomainGuid, SiteName, Flags, Domai
 export DsGetSiteNameA(ComputerName, SiteName) {
     ComputerName := ComputerName is String ? StrPtr(ComputerName) : ComputerName
 
-    SiteNameMarshal := SiteName is VarRef ? "ptr*" : "ptr"
+    ComputerNameMarshal := ComputerName == 0 ? IntPtr : PSTR
+    SiteNameMarshal := SiteName is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\DsGetSiteNameA", "ptr", ComputerName, SiteNameMarshal, SiteName, UInt32)
+    result := DllCall("NETAPI32.dll\DsGetSiteNameA", ComputerNameMarshal, ComputerName, SiteNameMarshal, SiteName, UInt32)
     return result
 }
 
@@ -5466,9 +5599,10 @@ export DsGetSiteNameA(ComputerName, SiteName) {
 export DsGetSiteNameW(ComputerName, SiteName) {
     ComputerName := ComputerName is String ? StrPtr(ComputerName) : ComputerName
 
-    SiteNameMarshal := SiteName is VarRef ? "ptr*" : "ptr"
+    ComputerNameMarshal := ComputerName == 0 ? IntPtr : PWSTR
+    SiteNameMarshal := SiteName is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\DsGetSiteNameW", "ptr", ComputerName, SiteNameMarshal, SiteName, UInt32)
+    result := DllCall("NETAPI32.dll\DsGetSiteNameW", ComputerNameMarshal, ComputerName, SiteNameMarshal, SiteName, UInt32)
     return result
 }
 
@@ -5527,9 +5661,10 @@ export DsValidateSubnetNameA(SubnetName) {
 export DsAddressToSiteNamesW(ComputerName, EntryCount, SocketAddresses, SiteNames) {
     ComputerName := ComputerName is String ? StrPtr(ComputerName) : ComputerName
 
-    SiteNamesMarshal := SiteNames is VarRef ? "ptr*" : "ptr"
+    ComputerNameMarshal := ComputerName == 0 ? IntPtr : PWSTR
+    SiteNamesMarshal := SiteNames is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\DsAddressToSiteNamesW", "ptr", ComputerName, UInt32, EntryCount, SOCKET_ADDRESS.Ptr, SocketAddresses, SiteNamesMarshal, SiteNames, UInt32)
+    result := DllCall("NETAPI32.dll\DsAddressToSiteNamesW", ComputerNameMarshal, ComputerName, UInt32, EntryCount, SOCKET_ADDRESS.Ptr, SocketAddresses, SiteNamesMarshal, SiteNames, UInt32)
     return result
 }
 
@@ -5550,9 +5685,10 @@ export DsAddressToSiteNamesW(ComputerName, EntryCount, SocketAddresses, SiteName
 export DsAddressToSiteNamesA(ComputerName, EntryCount, SocketAddresses, SiteNames) {
     ComputerName := ComputerName is String ? StrPtr(ComputerName) : ComputerName
 
-    SiteNamesMarshal := SiteNames is VarRef ? "ptr*" : "ptr"
+    ComputerNameMarshal := ComputerName == 0 ? IntPtr : PSTR
+    SiteNamesMarshal := SiteNames is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\DsAddressToSiteNamesA", "ptr", ComputerName, UInt32, EntryCount, SOCKET_ADDRESS.Ptr, SocketAddresses, SiteNamesMarshal, SiteNames, UInt32)
+    result := DllCall("NETAPI32.dll\DsAddressToSiteNamesA", ComputerNameMarshal, ComputerName, UInt32, EntryCount, SOCKET_ADDRESS.Ptr, SocketAddresses, SiteNamesMarshal, SiteNames, UInt32)
     return result
 }
 
@@ -5576,10 +5712,11 @@ export DsAddressToSiteNamesA(ComputerName, EntryCount, SocketAddresses, SiteName
 export DsAddressToSiteNamesExW(ComputerName, EntryCount, SocketAddresses, SiteNames, SubnetNames) {
     ComputerName := ComputerName is String ? StrPtr(ComputerName) : ComputerName
 
-    SiteNamesMarshal := SiteNames is VarRef ? "ptr*" : "ptr"
-    SubnetNamesMarshal := SubnetNames is VarRef ? "ptr*" : "ptr"
+    ComputerNameMarshal := ComputerName == 0 ? IntPtr : PWSTR
+    SiteNamesMarshal := SiteNames is VarRef ? "ptr*" : IntPtr
+    SubnetNamesMarshal := SubnetNames is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\DsAddressToSiteNamesExW", "ptr", ComputerName, UInt32, EntryCount, SOCKET_ADDRESS.Ptr, SocketAddresses, SiteNamesMarshal, SiteNames, SubnetNamesMarshal, SubnetNames, UInt32)
+    result := DllCall("NETAPI32.dll\DsAddressToSiteNamesExW", ComputerNameMarshal, ComputerName, UInt32, EntryCount, SOCKET_ADDRESS.Ptr, SocketAddresses, SiteNamesMarshal, SiteNames, SubnetNamesMarshal, SubnetNames, UInt32)
     return result
 }
 
@@ -5603,10 +5740,11 @@ export DsAddressToSiteNamesExW(ComputerName, EntryCount, SocketAddresses, SiteNa
 export DsAddressToSiteNamesExA(ComputerName, EntryCount, SocketAddresses, SiteNames, SubnetNames) {
     ComputerName := ComputerName is String ? StrPtr(ComputerName) : ComputerName
 
-    SiteNamesMarshal := SiteNames is VarRef ? "ptr*" : "ptr"
-    SubnetNamesMarshal := SubnetNames is VarRef ? "ptr*" : "ptr"
+    ComputerNameMarshal := ComputerName == 0 ? IntPtr : PSTR
+    SiteNamesMarshal := SiteNames is VarRef ? "ptr*" : IntPtr
+    SubnetNamesMarshal := SubnetNames is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\DsAddressToSiteNamesExA", "ptr", ComputerName, UInt32, EntryCount, SOCKET_ADDRESS.Ptr, SocketAddresses, SiteNamesMarshal, SiteNames, SubnetNamesMarshal, SubnetNames, UInt32)
+    result := DllCall("NETAPI32.dll\DsAddressToSiteNamesExA", ComputerNameMarshal, ComputerName, UInt32, EntryCount, SOCKET_ADDRESS.Ptr, SocketAddresses, SiteNamesMarshal, SiteNames, SubnetNamesMarshal, SubnetNames, UInt32)
     return result
 }
 
@@ -5628,10 +5766,11 @@ export DsAddressToSiteNamesExA(ComputerName, EntryCount, SocketAddresses, SiteNa
 export DsEnumerateDomainTrustsW(ServerName, Flags, Domains, DomainCount) {
     ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
 
-    DomainsMarshal := Domains is VarRef ? "ptr*" : "ptr"
-    DomainCountMarshal := DomainCount is VarRef ? "uint*" : "ptr"
+    ServerNameMarshal := ServerName == 0 ? IntPtr : PWSTR
+    DomainsMarshal := Domains is VarRef ? "ptr*" : IntPtr
+    DomainCountMarshal := DomainCount is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\DsEnumerateDomainTrustsW", "ptr", ServerName, UInt32, Flags, DomainsMarshal, Domains, DomainCountMarshal, DomainCount, UInt32)
+    result := DllCall("NETAPI32.dll\DsEnumerateDomainTrustsW", ServerNameMarshal, ServerName, UInt32, Flags, DomainsMarshal, Domains, DomainCountMarshal, DomainCount, UInt32)
     return result
 }
 
@@ -5653,10 +5792,11 @@ export DsEnumerateDomainTrustsW(ServerName, Flags, Domains, DomainCount) {
 export DsEnumerateDomainTrustsA(ServerName, Flags, Domains, DomainCount) {
     ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
 
-    DomainsMarshal := Domains is VarRef ? "ptr*" : "ptr"
-    DomainCountMarshal := DomainCount is VarRef ? "uint*" : "ptr"
+    ServerNameMarshal := ServerName == 0 ? IntPtr : PSTR
+    DomainsMarshal := Domains is VarRef ? "ptr*" : IntPtr
+    DomainCountMarshal := DomainCount is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\DsEnumerateDomainTrustsA", "ptr", ServerName, UInt32, Flags, DomainsMarshal, Domains, DomainCountMarshal, DomainCount, UInt32)
+    result := DllCall("NETAPI32.dll\DsEnumerateDomainTrustsA", ServerNameMarshal, ServerName, UInt32, Flags, DomainsMarshal, Domains, DomainCountMarshal, DomainCount, UInt32)
     return result
 }
 
@@ -5684,9 +5824,11 @@ export DsGetForestTrustInformationW(ServerName, TrustedDomainName, Flags, Forest
     ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
     TrustedDomainName := TrustedDomainName is String ? StrPtr(TrustedDomainName) : TrustedDomainName
 
-    ForestTrustInfoMarshal := ForestTrustInfo is VarRef ? "ptr*" : "ptr"
+    ServerNameMarshal := ServerName == 0 ? IntPtr : PWSTR
+    TrustedDomainNameMarshal := TrustedDomainName == 0 ? IntPtr : PWSTR
+    ForestTrustInfoMarshal := ForestTrustInfo is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\DsGetForestTrustInformationW", "ptr", ServerName, "ptr", TrustedDomainName, UInt32, Flags, ForestTrustInfoMarshal, ForestTrustInfo, UInt32)
+    result := DllCall("NETAPI32.dll\DsGetForestTrustInformationW", ServerNameMarshal, ServerName, TrustedDomainNameMarshal, TrustedDomainName, UInt32, Flags, ForestTrustInfoMarshal, ForestTrustInfo, UInt32)
     return result
 }
 
@@ -5707,9 +5849,10 @@ export DsGetForestTrustInformationW(ServerName, TrustedDomainName, Flags, Forest
 export DsMergeForestTrustInformationW(DomainName, NewForestTrustInfo, OldForestTrustInfo, MergedForestTrustInfo) {
     DomainName := DomainName is String ? StrPtr(DomainName) : DomainName
 
-    MergedForestTrustInfoMarshal := MergedForestTrustInfo is VarRef ? "ptr*" : "ptr"
+    OldForestTrustInfoMarshal := OldForestTrustInfo == 0 ? IntPtr : LSA_FOREST_TRUST_INFORMATION.Ptr
+    MergedForestTrustInfoMarshal := MergedForestTrustInfo is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\DsMergeForestTrustInformationW", "ptr", DomainName, LSA_FOREST_TRUST_INFORMATION.Ptr, NewForestTrustInfo, LSA_FOREST_TRUST_INFORMATION.Ptr, OldForestTrustInfo, MergedForestTrustInfoMarshal, MergedForestTrustInfo, UInt32)
+    result := DllCall("NETAPI32.dll\DsMergeForestTrustInformationW", "ptr", DomainName, LSA_FOREST_TRUST_INFORMATION.Ptr, NewForestTrustInfo, OldForestTrustInfoMarshal, OldForestTrustInfo, MergedForestTrustInfoMarshal, MergedForestTrustInfo, UInt32)
     return result
 }
 
@@ -5728,10 +5871,11 @@ export DsMergeForestTrustInformationW(DomainName, NewForestTrustInfo, OldForestT
 export DsGetDcSiteCoverageW(ServerName, EntryCount, SiteNames) {
     ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
 
-    EntryCountMarshal := EntryCount is VarRef ? "uint*" : "ptr"
-    SiteNamesMarshal := SiteNames is VarRef ? "ptr*" : "ptr"
+    ServerNameMarshal := ServerName == 0 ? IntPtr : PWSTR
+    EntryCountMarshal := EntryCount is VarRef ? "uint*" : IntPtr
+    SiteNamesMarshal := SiteNames is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\DsGetDcSiteCoverageW", "ptr", ServerName, EntryCountMarshal, EntryCount, SiteNamesMarshal, SiteNames, UInt32)
+    result := DllCall("NETAPI32.dll\DsGetDcSiteCoverageW", ServerNameMarshal, ServerName, EntryCountMarshal, EntryCount, SiteNamesMarshal, SiteNames, UInt32)
     return result
 }
 
@@ -5750,10 +5894,11 @@ export DsGetDcSiteCoverageW(ServerName, EntryCount, SiteNames) {
 export DsGetDcSiteCoverageA(ServerName, EntryCount, SiteNames) {
     ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
 
-    EntryCountMarshal := EntryCount is VarRef ? "uint*" : "ptr"
-    SiteNamesMarshal := SiteNames is VarRef ? "ptr*" : "ptr"
+    ServerNameMarshal := ServerName == 0 ? IntPtr : PSTR
+    EntryCountMarshal := EntryCount is VarRef ? "uint*" : IntPtr
+    SiteNamesMarshal := SiteNames is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("NETAPI32.dll\DsGetDcSiteCoverageA", "ptr", ServerName, EntryCountMarshal, EntryCount, SiteNamesMarshal, SiteNames, UInt32)
+    result := DllCall("NETAPI32.dll\DsGetDcSiteCoverageA", ServerNameMarshal, ServerName, EntryCountMarshal, EntryCount, SiteNamesMarshal, SiteNames, UInt32)
     return result
 }
 
@@ -5782,7 +5927,12 @@ export DsDeregisterDnsHostRecordsW(ServerName, DnsDomainName, DomainGuid, DsaGui
     DnsDomainName := DnsDomainName is String ? StrPtr(DnsDomainName) : DnsDomainName
     DnsHostName := DnsHostName is String ? StrPtr(DnsHostName) : DnsHostName
 
-    result := DllCall("NETAPI32.dll\DsDeregisterDnsHostRecordsW", "ptr", ServerName, "ptr", DnsDomainName, Guid.Ptr, DomainGuid, Guid.Ptr, DsaGuid, "ptr", DnsHostName, UInt32)
+    ServerNameMarshal := ServerName == 0 ? IntPtr : PWSTR
+    DnsDomainNameMarshal := DnsDomainName == 0 ? IntPtr : PWSTR
+    DomainGuidMarshal := DomainGuid == 0 ? IntPtr : Guid.Ptr
+    DsaGuidMarshal := DsaGuid == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("NETAPI32.dll\DsDeregisterDnsHostRecordsW", ServerNameMarshal, ServerName, DnsDomainNameMarshal, DnsDomainName, DomainGuidMarshal, DomainGuid, DsaGuidMarshal, DsaGuid, "ptr", DnsHostName, UInt32)
     return result
 }
 
@@ -5811,7 +5961,12 @@ export DsDeregisterDnsHostRecordsA(ServerName, DnsDomainName, DomainGuid, DsaGui
     DnsDomainName := DnsDomainName is String ? StrPtr(DnsDomainName) : DnsDomainName
     DnsHostName := DnsHostName is String ? StrPtr(DnsHostName) : DnsHostName
 
-    result := DllCall("NETAPI32.dll\DsDeregisterDnsHostRecordsA", "ptr", ServerName, "ptr", DnsDomainName, Guid.Ptr, DomainGuid, Guid.Ptr, DsaGuid, "ptr", DnsHostName, UInt32)
+    ServerNameMarshal := ServerName == 0 ? IntPtr : PSTR
+    DnsDomainNameMarshal := DnsDomainName == 0 ? IntPtr : PSTR
+    DomainGuidMarshal := DomainGuid == 0 ? IntPtr : Guid.Ptr
+    DsaGuidMarshal := DsaGuid == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("NETAPI32.dll\DsDeregisterDnsHostRecordsA", ServerNameMarshal, ServerName, DnsDomainNameMarshal, DnsDomainName, DomainGuidMarshal, DomainGuid, DsaGuidMarshal, DsaGuid, "ptr", DnsHostName, UInt32)
     return result
 }
 
@@ -5838,7 +5993,11 @@ export DsGetDcOpenW(DnsName, OptionFlags, SiteName, DomainGuid, DnsForestName, D
     SiteName := SiteName is String ? StrPtr(SiteName) : SiteName
     DnsForestName := DnsForestName is String ? StrPtr(DnsForestName) : DnsForestName
 
-    result := DllCall("NETAPI32.dll\DsGetDcOpenW", "ptr", DnsName, UInt32, OptionFlags, "ptr", SiteName, Guid.Ptr, DomainGuid, "ptr", DnsForestName, UInt32, DcFlags, HANDLE.Ptr, RetGetDcContext, UInt32)
+    SiteNameMarshal := SiteName == 0 ? IntPtr : PWSTR
+    DomainGuidMarshal := DomainGuid == 0 ? IntPtr : Guid.Ptr
+    DnsForestNameMarshal := DnsForestName == 0 ? IntPtr : PWSTR
+
+    result := DllCall("NETAPI32.dll\DsGetDcOpenW", "ptr", DnsName, UInt32, OptionFlags, SiteNameMarshal, SiteName, DomainGuidMarshal, DomainGuid, DnsForestNameMarshal, DnsForestName, UInt32, DcFlags, HANDLE.Ptr, RetGetDcContext, UInt32)
     return result
 }
 
@@ -5865,7 +6024,11 @@ export DsGetDcOpenA(DnsName, OptionFlags, SiteName, DomainGuid, DnsForestName, D
     SiteName := SiteName is String ? StrPtr(SiteName) : SiteName
     DnsForestName := DnsForestName is String ? StrPtr(DnsForestName) : DnsForestName
 
-    result := DllCall("NETAPI32.dll\DsGetDcOpenA", "ptr", DnsName, UInt32, OptionFlags, "ptr", SiteName, Guid.Ptr, DomainGuid, "ptr", DnsForestName, UInt32, DcFlags, HANDLE.Ptr, RetGetDcContext, UInt32)
+    SiteNameMarshal := SiteName == 0 ? IntPtr : PSTR
+    DomainGuidMarshal := DomainGuid == 0 ? IntPtr : Guid.Ptr
+    DnsForestNameMarshal := DnsForestName == 0 ? IntPtr : PSTR
+
+    result := DllCall("NETAPI32.dll\DsGetDcOpenA", "ptr", DnsName, UInt32, OptionFlags, SiteNameMarshal, SiteName, DomainGuidMarshal, DomainGuid, DnsForestNameMarshal, DnsForestName, UInt32, DcFlags, HANDLE.Ptr, RetGetDcContext, UInt32)
     return result
 }
 
@@ -5910,9 +6073,12 @@ export DsGetDcOpenA(DnsName, OptionFlags, SiteName, DomainGuid, DnsForestName, D
  * @since windows6.0.6000
  */
 export DsGetDcNextW(GetDcContextHandle, SockAddressCount, SockAddresses, DnsHostName) {
-    SockAddressCountMarshal := SockAddressCount is VarRef ? "uint*" : "ptr"
-    SockAddressesMarshal := SockAddresses is VarRef ? "ptr*" : "ptr"
-    DnsHostNameMarshal := DnsHostName is VarRef ? "ptr*" : "ptr"
+    SockAddressCountMarshal := SockAddressCount is VarRef ? "uint*" : IntPtr
+    SockAddressCountMarshal := SockAddressCount == 0 ? IntPtr : "uint*"
+    SockAddressesMarshal := SockAddresses is VarRef ? "ptr*" : IntPtr
+    SockAddressesMarshal := SockAddresses == 0 ? IntPtr : "ptr*"
+    DnsHostNameMarshal := DnsHostName is VarRef ? "ptr*" : IntPtr
+    DnsHostNameMarshal := DnsHostName == 0 ? IntPtr : PWSTR.Ptr
 
     result := DllCall("NETAPI32.dll\DsGetDcNextW", HANDLE, GetDcContextHandle, SockAddressCountMarshal, SockAddressCount, SockAddressesMarshal, SockAddresses, DnsHostNameMarshal, DnsHostName, UInt32)
     return result
@@ -5959,9 +6125,12 @@ export DsGetDcNextW(GetDcContextHandle, SockAddressCount, SockAddresses, DnsHost
  * @since windows6.0.6000
  */
 export DsGetDcNextA(GetDcContextHandle, SockAddressCount, SockAddresses, DnsHostName) {
-    SockAddressCountMarshal := SockAddressCount is VarRef ? "uint*" : "ptr"
-    SockAddressesMarshal := SockAddresses is VarRef ? "ptr*" : "ptr"
-    DnsHostNameMarshal := DnsHostName is VarRef ? "ptr*" : "ptr"
+    SockAddressCountMarshal := SockAddressCount is VarRef ? "uint*" : IntPtr
+    SockAddressCountMarshal := SockAddressCount == 0 ? IntPtr : "uint*"
+    SockAddressesMarshal := SockAddresses is VarRef ? "ptr*" : IntPtr
+    SockAddressesMarshal := SockAddresses == 0 ? IntPtr : "ptr*"
+    DnsHostNameMarshal := DnsHostName is VarRef ? "ptr*" : IntPtr
+    DnsHostNameMarshal := DnsHostName == 0 ? IntPtr : PSTR.Ptr
 
     result := DllCall("NETAPI32.dll\DsGetDcNextA", HANDLE, GetDcContextHandle, SockAddressCountMarshal, SockAddressCount, SockAddressesMarshal, SockAddresses, DnsHostNameMarshal, DnsHostName, UInt32)
     return result

@@ -143,9 +143,9 @@ export default struct IWMPPlayerServices extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.activateUIPlugin := CallbackCreate(GetMethod(implObj, "activateUIPlugin"), flags, 2)
-        this.vtbl.setTaskPane := CallbackCreate(GetMethod(implObj, "setTaskPane"), flags, 2)
-        this.vtbl.setTaskPaneURL := CallbackCreate(GetMethod(implObj, "setTaskPaneURL"), flags, 4)
+        this.vtbl.activateUIPlugin := CallbackCreate(ObjBindMethod(implObj, "activateUIPlugin"), flags, 2)
+        this.vtbl.setTaskPane := CallbackCreate(ObjBindMethod(implObj, "setTaskPane"), flags, 2)
+        this.vtbl.setTaskPaneURL := CallbackCreate(ObjBindMethod(implObj, "setTaskPaneURL"), flags, 4)
     }
 
     Dispose() {

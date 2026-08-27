@@ -39,7 +39,6 @@ export default struct IEnumSpeechCommands extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumSpeechCommands} 
      */
     Clone() {
@@ -48,22 +47,20 @@ export default struct IEnumSpeechCommands extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulCount 
      * @param {Pointer<Pointer<Integer>>} pSpCmds 
      * @param {Pointer<Integer>} pcFetched 
      * @returns {HRESULT} 
      */
     Next(ulCount, pSpCmds, pcFetched) {
-        pSpCmdsMarshal := pSpCmds is VarRef ? "ptr*" : "ptr"
-        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
+        pSpCmdsMarshal := pSpCmds is VarRef ? "ptr*" : IntPtr
+        pcFetchedMarshal := pcFetched is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, UInt32, ulCount, pSpCmdsMarshal, pSpCmds, pcFetchedMarshal, pcFetched, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -72,7 +69,6 @@ export default struct IEnumSpeechCommands extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulCount 
      * @returns {HRESULT} 
      */
@@ -90,10 +86,10 @@ export default struct IEnumSpeechCommands extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
-        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 4)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.Skip := CallbackCreate(GetMethod(implObj, "Skip"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.Next := CallbackCreate(ObjBindMethod(implObj, "Next"), flags, 4)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Skip := CallbackCreate(ObjBindMethod(implObj, "Skip"), flags, 2)
     }
 
     Dispose() {

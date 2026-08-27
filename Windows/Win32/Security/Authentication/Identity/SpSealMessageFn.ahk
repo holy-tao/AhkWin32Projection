@@ -31,7 +31,6 @@ export default struct SpSealMessageFn {
     }
 
     /**
-     * 
      * @param {Pointer} ContextHandle Handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security context</a> used to sign the message.
      * @param {Integer} QualityOfProtection Specifies package-specific flags that indicate the quality of protection. An SSP/AP can use this parameter to enable the selection of cryptographic algorithms.
      * @param {Pointer<SecBufferDesc>} MessageBuffers Pointer to a 

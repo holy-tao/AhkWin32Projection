@@ -65,9 +65,9 @@ export default struct IDWriteTextAnalysisSource1 extends IDWriteTextAnalysisSour
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritetextanalysissource1-getverticalglyphorientation
      */
     GetVerticalGlyphOrientation(textPosition, textLength, glyphOrientation, bidiLevel) {
-        textLengthMarshal := textLength is VarRef ? "uint*" : "ptr"
-        glyphOrientationMarshal := glyphOrientation is VarRef ? "int*" : "ptr"
-        bidiLevelMarshal := bidiLevel is VarRef ? "char*" : "ptr"
+        textLengthMarshal := textLength is VarRef ? "uint*" : IntPtr
+        glyphOrientationMarshal := glyphOrientation is VarRef ? "int*" : IntPtr
+        bidiLevelMarshal := bidiLevel is VarRef ? "char*" : IntPtr
 
         result := ComCall(8, this, UInt32, textPosition, textLengthMarshal, textLength, glyphOrientationMarshal, glyphOrientation, bidiLevelMarshal, bidiLevel, "HRESULT")
         return result
@@ -82,7 +82,7 @@ export default struct IDWriteTextAnalysisSource1 extends IDWriteTextAnalysisSour
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetVerticalGlyphOrientation := CallbackCreate(GetMethod(implObj, "GetVerticalGlyphOrientation"), flags, 5)
+        this.vtbl.GetVerticalGlyphOrientation := CallbackCreate(ObjBindMethod(implObj, "GetVerticalGlyphOrientation"), flags, 5)
     }
 
     Dispose() {

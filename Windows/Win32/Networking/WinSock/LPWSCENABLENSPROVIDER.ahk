@@ -20,7 +20,6 @@ export default struct LPWSCENABLENSPROVIDER {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} lpProviderId 
      * @param {BOOL} fEnable 
      * @returns {Integer} 

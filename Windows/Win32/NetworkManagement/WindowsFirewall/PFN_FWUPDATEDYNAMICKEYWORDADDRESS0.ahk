@@ -45,7 +45,6 @@ export default struct PFN_FWUPDATEDYNAMICKEYWORDADDRESS0 {
     }
 
     /**
-     * 
      * @param {Guid} dynamicKeywordAddressId Type: **[GUID](/windows/win32/api/guiddef/ns-guiddef-guid)**
      * 
      * The id of the dynamic keyword address object to update.

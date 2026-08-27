@@ -18,7 +18,6 @@ export default struct PDMA_COMPLETION_ROUTINE {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

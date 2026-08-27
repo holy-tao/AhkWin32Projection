@@ -72,8 +72,8 @@ export default struct ITfLMLattice extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryType := CallbackCreate(GetMethod(implObj, "QueryType"), flags, 3)
-        this.vtbl.EnumLatticeElements := CallbackCreate(GetMethod(implObj, "EnumLatticeElements"), flags, 4)
+        this.vtbl.QueryType := CallbackCreate(ObjBindMethod(implObj, "QueryType"), flags, 3)
+        this.vtbl.EnumLatticeElements := CallbackCreate(ObjBindMethod(implObj, "EnumLatticeElements"), flags, 4)
     }
 
     Dispose() {

@@ -146,12 +146,12 @@ export default struct IAnalogRadioTuningSpace extends ITuningSpace {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_MinFrequency := CallbackCreate(GetMethod(implObj, "get_MinFrequency"), flags, 2)
-        this.vtbl.put_MinFrequency := CallbackCreate(GetMethod(implObj, "put_MinFrequency"), flags, 2)
-        this.vtbl.get_MaxFrequency := CallbackCreate(GetMethod(implObj, "get_MaxFrequency"), flags, 2)
-        this.vtbl.put_MaxFrequency := CallbackCreate(GetMethod(implObj, "put_MaxFrequency"), flags, 2)
-        this.vtbl.get_Step := CallbackCreate(GetMethod(implObj, "get_Step"), flags, 2)
-        this.vtbl.put_Step := CallbackCreate(GetMethod(implObj, "put_Step"), flags, 2)
+        this.vtbl.get_MinFrequency := CallbackCreate(ObjBindMethod(implObj, "get_MinFrequency"), flags, 2)
+        this.vtbl.put_MinFrequency := CallbackCreate(ObjBindMethod(implObj, "put_MinFrequency"), flags, 2)
+        this.vtbl.get_MaxFrequency := CallbackCreate(ObjBindMethod(implObj, "get_MaxFrequency"), flags, 2)
+        this.vtbl.put_MaxFrequency := CallbackCreate(ObjBindMethod(implObj, "put_MaxFrequency"), flags, 2)
+        this.vtbl.get_Step := CallbackCreate(ObjBindMethod(implObj, "get_Step"), flags, 2)
+        this.vtbl.put_Step := CallbackCreate(ObjBindMethod(implObj, "put_Step"), flags, 2)
     }
 
     Dispose() {

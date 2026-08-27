@@ -22,7 +22,6 @@ export default struct PIBIO_SENSOR_CONNECT_SECURE_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline 
      * @param {Pointer<WINBIO_SECURE_CONNECTION_PARAMS>} ConnectionParams 
      * @returns {Pointer<WINBIO_SECURE_CONNECTION_DATA>} 

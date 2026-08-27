@@ -145,11 +145,11 @@ export default struct IWdsTransportSetupManager extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Version := CallbackCreate(GetMethod(implObj, "get_Version"), flags, 2)
-        this.vtbl.get_InstalledFeatures := CallbackCreate(GetMethod(implObj, "get_InstalledFeatures"), flags, 2)
-        this.vtbl.get_Protocols := CallbackCreate(GetMethod(implObj, "get_Protocols"), flags, 2)
-        this.vtbl.RegisterContentProvider := CallbackCreate(GetMethod(implObj, "RegisterContentProvider"), flags, 5)
-        this.vtbl.DeregisterContentProvider := CallbackCreate(GetMethod(implObj, "DeregisterContentProvider"), flags, 2)
+        this.vtbl.get_Version := CallbackCreate(ObjBindMethod(implObj, "get_Version"), flags, 2)
+        this.vtbl.get_InstalledFeatures := CallbackCreate(ObjBindMethod(implObj, "get_InstalledFeatures"), flags, 2)
+        this.vtbl.get_Protocols := CallbackCreate(ObjBindMethod(implObj, "get_Protocols"), flags, 2)
+        this.vtbl.RegisterContentProvider := CallbackCreate(ObjBindMethod(implObj, "RegisterContentProvider"), flags, 5)
+        this.vtbl.DeregisterContentProvider := CallbackCreate(ObjBindMethod(implObj, "DeregisterContentProvider"), flags, 2)
     }
 
     Dispose() {

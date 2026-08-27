@@ -18,7 +18,6 @@ export default struct PFNSNMPCLEANUPEX {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     Call() {

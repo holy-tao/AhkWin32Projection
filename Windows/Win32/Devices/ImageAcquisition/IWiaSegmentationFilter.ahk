@@ -94,7 +94,10 @@ export default struct IWiaSegmentationFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiasegmentationfilter-detectregions
      */
     DetectRegions(lFlags, pInputStream, pWiaItem2) {
-        result := ComCall(3, this, Int32, lFlags, "ptr", pInputStream, "ptr", pWiaItem2, "HRESULT")
+        pInputStreamMarshal := pInputStream == 0 ? IntPtr : "ptr"
+        pWiaItem2Marshal := pWiaItem2 == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, Int32, lFlags, pInputStreamMarshal, pInputStream, pWiaItem2Marshal, pWiaItem2, "HRESULT")
         return result
     }
 
@@ -107,7 +110,7 @@ export default struct IWiaSegmentationFilter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DetectRegions := CallbackCreate(GetMethod(implObj, "DetectRegions"), flags, 4)
+        this.vtbl.DetectRegions := CallbackCreate(ObjBindMethod(implObj, "DetectRegions"), flags, 4)
     }
 
     Dispose() {

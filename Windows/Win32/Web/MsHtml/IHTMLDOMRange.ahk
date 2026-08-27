@@ -114,7 +114,6 @@ export default struct IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDOMNode} 
      */
     get_startContainer() {
@@ -123,7 +122,6 @@ export default struct IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_startOffset() {
@@ -132,7 +130,6 @@ export default struct IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDOMNode} 
      */
     get_endContainer() {
@@ -141,7 +138,6 @@ export default struct IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_endOffset() {
@@ -150,7 +146,6 @@ export default struct IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_collapsed() {
@@ -159,7 +154,6 @@ export default struct IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDOMNode} 
      */
     get_commonAncestorContainer() {
@@ -168,7 +162,6 @@ export default struct IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} refNode 
      * @param {Integer} offset 
      * @returns {HRESULT} 
@@ -179,7 +172,6 @@ export default struct IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} refNode 
      * @param {Integer} offset 
      * @returns {HRESULT} 
@@ -190,7 +182,6 @@ export default struct IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} refNode 
      * @returns {HRESULT} 
      */
@@ -200,7 +191,6 @@ export default struct IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} refNode 
      * @returns {HRESULT} 
      */
@@ -210,7 +200,6 @@ export default struct IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} refNode 
      * @returns {HRESULT} 
      */
@@ -220,7 +209,6 @@ export default struct IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} refNode 
      * @returns {HRESULT} 
      */
@@ -230,7 +218,6 @@ export default struct IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} toStart 
      * @returns {HRESULT} 
      */
@@ -240,7 +227,6 @@ export default struct IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} refNode 
      * @returns {HRESULT} 
      */
@@ -250,7 +236,6 @@ export default struct IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} refNode 
      * @returns {HRESULT} 
      */
@@ -260,7 +245,6 @@ export default struct IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} how 
      * @param {IDispatch} sourceRange 
      * @returns {Integer} 
@@ -271,7 +255,6 @@ export default struct IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     deleteContents() {
@@ -280,7 +263,6 @@ export default struct IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     extractContents() {
@@ -289,7 +271,6 @@ export default struct IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     cloneContents() {
@@ -298,7 +279,6 @@ export default struct IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} newNode 
      * @returns {HRESULT} 
      */
@@ -308,7 +288,6 @@ export default struct IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} newParent 
      * @returns {HRESULT} 
      */
@@ -318,7 +297,6 @@ export default struct IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDOMRange} 
      */
     cloneRange() {
@@ -327,7 +305,6 @@ export default struct IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     toString() {
@@ -337,7 +314,6 @@ export default struct IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     detach() {
@@ -346,7 +322,6 @@ export default struct IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLRectCollection} 
      */
     getClientRects() {
@@ -355,7 +330,6 @@ export default struct IHTMLDOMRange extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLRect} 
      */
     getBoundingClientRect() {
@@ -372,32 +346,32 @@ export default struct IHTMLDOMRange extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_startContainer := CallbackCreate(GetMethod(implObj, "get_startContainer"), flags, 2)
-        this.vtbl.get_startOffset := CallbackCreate(GetMethod(implObj, "get_startOffset"), flags, 2)
-        this.vtbl.get_endContainer := CallbackCreate(GetMethod(implObj, "get_endContainer"), flags, 2)
-        this.vtbl.get_endOffset := CallbackCreate(GetMethod(implObj, "get_endOffset"), flags, 2)
-        this.vtbl.get_collapsed := CallbackCreate(GetMethod(implObj, "get_collapsed"), flags, 2)
-        this.vtbl.get_commonAncestorContainer := CallbackCreate(GetMethod(implObj, "get_commonAncestorContainer"), flags, 2)
-        this.vtbl.setStart := CallbackCreate(GetMethod(implObj, "setStart"), flags, 3)
-        this.vtbl.setEnd := CallbackCreate(GetMethod(implObj, "setEnd"), flags, 3)
-        this.vtbl.setStartBefore := CallbackCreate(GetMethod(implObj, "setStartBefore"), flags, 2)
-        this.vtbl.setStartAfter := CallbackCreate(GetMethod(implObj, "setStartAfter"), flags, 2)
-        this.vtbl.setEndBefore := CallbackCreate(GetMethod(implObj, "setEndBefore"), flags, 2)
-        this.vtbl.setEndAfter := CallbackCreate(GetMethod(implObj, "setEndAfter"), flags, 2)
-        this.vtbl.collapse := CallbackCreate(GetMethod(implObj, "collapse"), flags, 2)
-        this.vtbl.selectNode := CallbackCreate(GetMethod(implObj, "selectNode"), flags, 2)
-        this.vtbl.selectNodeContents := CallbackCreate(GetMethod(implObj, "selectNodeContents"), flags, 2)
-        this.vtbl.compareBoundaryPoints := CallbackCreate(GetMethod(implObj, "compareBoundaryPoints"), flags, 4)
-        this.vtbl.deleteContents := CallbackCreate(GetMethod(implObj, "deleteContents"), flags, 1)
-        this.vtbl.extractContents := CallbackCreate(GetMethod(implObj, "extractContents"), flags, 2)
-        this.vtbl.cloneContents := CallbackCreate(GetMethod(implObj, "cloneContents"), flags, 2)
-        this.vtbl.insertNode := CallbackCreate(GetMethod(implObj, "insertNode"), flags, 2)
-        this.vtbl.surroundContents := CallbackCreate(GetMethod(implObj, "surroundContents"), flags, 2)
-        this.vtbl.cloneRange := CallbackCreate(GetMethod(implObj, "cloneRange"), flags, 2)
-        this.vtbl.toString := CallbackCreate(GetMethod(implObj, "toString"), flags, 2)
-        this.vtbl.detach := CallbackCreate(GetMethod(implObj, "detach"), flags, 1)
-        this.vtbl.getClientRects := CallbackCreate(GetMethod(implObj, "getClientRects"), flags, 2)
-        this.vtbl.getBoundingClientRect := CallbackCreate(GetMethod(implObj, "getBoundingClientRect"), flags, 2)
+        this.vtbl.get_startContainer := CallbackCreate(ObjBindMethod(implObj, "get_startContainer"), flags, 2)
+        this.vtbl.get_startOffset := CallbackCreate(ObjBindMethod(implObj, "get_startOffset"), flags, 2)
+        this.vtbl.get_endContainer := CallbackCreate(ObjBindMethod(implObj, "get_endContainer"), flags, 2)
+        this.vtbl.get_endOffset := CallbackCreate(ObjBindMethod(implObj, "get_endOffset"), flags, 2)
+        this.vtbl.get_collapsed := CallbackCreate(ObjBindMethod(implObj, "get_collapsed"), flags, 2)
+        this.vtbl.get_commonAncestorContainer := CallbackCreate(ObjBindMethod(implObj, "get_commonAncestorContainer"), flags, 2)
+        this.vtbl.setStart := CallbackCreate(ObjBindMethod(implObj, "setStart"), flags, 3)
+        this.vtbl.setEnd := CallbackCreate(ObjBindMethod(implObj, "setEnd"), flags, 3)
+        this.vtbl.setStartBefore := CallbackCreate(ObjBindMethod(implObj, "setStartBefore"), flags, 2)
+        this.vtbl.setStartAfter := CallbackCreate(ObjBindMethod(implObj, "setStartAfter"), flags, 2)
+        this.vtbl.setEndBefore := CallbackCreate(ObjBindMethod(implObj, "setEndBefore"), flags, 2)
+        this.vtbl.setEndAfter := CallbackCreate(ObjBindMethod(implObj, "setEndAfter"), flags, 2)
+        this.vtbl.collapse := CallbackCreate(ObjBindMethod(implObj, "collapse"), flags, 2)
+        this.vtbl.selectNode := CallbackCreate(ObjBindMethod(implObj, "selectNode"), flags, 2)
+        this.vtbl.selectNodeContents := CallbackCreate(ObjBindMethod(implObj, "selectNodeContents"), flags, 2)
+        this.vtbl.compareBoundaryPoints := CallbackCreate(ObjBindMethod(implObj, "compareBoundaryPoints"), flags, 4)
+        this.vtbl.deleteContents := CallbackCreate(ObjBindMethod(implObj, "deleteContents"), flags, 1)
+        this.vtbl.extractContents := CallbackCreate(ObjBindMethod(implObj, "extractContents"), flags, 2)
+        this.vtbl.cloneContents := CallbackCreate(ObjBindMethod(implObj, "cloneContents"), flags, 2)
+        this.vtbl.insertNode := CallbackCreate(ObjBindMethod(implObj, "insertNode"), flags, 2)
+        this.vtbl.surroundContents := CallbackCreate(ObjBindMethod(implObj, "surroundContents"), flags, 2)
+        this.vtbl.cloneRange := CallbackCreate(ObjBindMethod(implObj, "cloneRange"), flags, 2)
+        this.vtbl.toString := CallbackCreate(ObjBindMethod(implObj, "toString"), flags, 2)
+        this.vtbl.detach := CallbackCreate(ObjBindMethod(implObj, "detach"), flags, 1)
+        this.vtbl.getClientRects := CallbackCreate(ObjBindMethod(implObj, "getClientRects"), flags, 2)
+        this.vtbl.getBoundingClientRect := CallbackCreate(ObjBindMethod(implObj, "getBoundingClientRect"), flags, 2)
     }
 
     Dispose() {

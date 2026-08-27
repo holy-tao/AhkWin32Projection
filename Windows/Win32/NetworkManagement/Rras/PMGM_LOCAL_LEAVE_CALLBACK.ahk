@@ -22,7 +22,6 @@ export default struct PMGM_LOCAL_LEAVE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Integer} dwSourceAddr Specifies the source address from which to stop receiving multicast data. Zero indicates to stop receiving data from all sources (a wildcard receiver for a group); otherwise, the value of <i>dwSourceAddr</i> is the IP address of the source or source network. 
      * 
      * 

@@ -85,7 +85,7 @@ export default struct IWMPSyncServices extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncservices-get_devicecount
      */
     get_deviceCount(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+        plCountMarshal := plCount is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, plCountMarshal, plCount, "HRESULT")
         return result
@@ -113,8 +113,8 @@ export default struct IWMPSyncServices extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_deviceCount := CallbackCreate(GetMethod(implObj, "get_deviceCount"), flags, 2)
-        this.vtbl.getDevice := CallbackCreate(GetMethod(implObj, "getDevice"), flags, 3)
+        this.vtbl.get_deviceCount := CallbackCreate(ObjBindMethod(implObj, "get_deviceCount"), flags, 2)
+        this.vtbl.getDevice := CallbackCreate(ObjBindMethod(implObj, "getDevice"), flags, 3)
     }
 
     Dispose() {

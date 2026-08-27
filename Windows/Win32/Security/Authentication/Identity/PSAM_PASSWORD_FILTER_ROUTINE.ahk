@@ -57,7 +57,6 @@ export default struct PSAM_PASSWORD_FILTER_ROUTINE {
     }
 
     /**
-     * 
      * @param {Pointer<LSA_UNICODE_STRING>} AccountName Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> that represents the name of the user whose password changed.
      * @param {Pointer<LSA_UNICODE_STRING>} FullName Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> that represents the full name of the user whose password changed.
      * @param {Pointer<LSA_UNICODE_STRING>} Password Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> that represents the new plaintext password. When you have finished using the password, clear it from memory by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> function. For more information on protecting the password, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.

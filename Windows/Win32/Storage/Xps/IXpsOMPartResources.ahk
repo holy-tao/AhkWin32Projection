@@ -138,10 +138,10 @@ export default struct IXpsOMPartResources extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFontResources := CallbackCreate(GetMethod(implObj, "GetFontResources"), flags, 2)
-        this.vtbl.GetImageResources := CallbackCreate(GetMethod(implObj, "GetImageResources"), flags, 2)
-        this.vtbl.GetColorProfileResources := CallbackCreate(GetMethod(implObj, "GetColorProfileResources"), flags, 2)
-        this.vtbl.GetRemoteDictionaryResources := CallbackCreate(GetMethod(implObj, "GetRemoteDictionaryResources"), flags, 2)
+        this.vtbl.GetFontResources := CallbackCreate(ObjBindMethod(implObj, "GetFontResources"), flags, 2)
+        this.vtbl.GetImageResources := CallbackCreate(ObjBindMethod(implObj, "GetImageResources"), flags, 2)
+        this.vtbl.GetColorProfileResources := CallbackCreate(ObjBindMethod(implObj, "GetColorProfileResources"), flags, 2)
+        this.vtbl.GetRemoteDictionaryResources := CallbackCreate(ObjBindMethod(implObj, "GetRemoteDictionaryResources"), flags, 2)
     }
 
     Dispose() {

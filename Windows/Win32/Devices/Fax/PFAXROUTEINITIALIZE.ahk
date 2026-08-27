@@ -21,7 +21,6 @@ export default struct PFAXROUTEINITIALIZE {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @param {Pointer<FAX_ROUTE_CALLBACKROUTINES>} param1 
      * @returns {BOOL} 

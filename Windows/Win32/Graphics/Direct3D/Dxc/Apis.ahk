@@ -10,7 +10,6 @@
 
 ;@region Functions
 /**
- * 
  * @param {Pointer<Guid>} rclsid 
  * @param {Pointer<Guid>} riid 
  * @returns {Pointer<Void>} 
@@ -21,7 +20,6 @@ export DxcCreateInstance(rclsid, riid) {
 }
 
 /**
- * 
  * @param {IMalloc} pMalloc 
  * @param {Pointer<Guid>} rclsid 
  * @param {Pointer<Guid>} riid 

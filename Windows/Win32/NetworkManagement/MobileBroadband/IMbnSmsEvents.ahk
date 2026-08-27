@@ -175,13 +175,13 @@ export default struct IMbnSmsEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnSmsConfigurationChange := CallbackCreate(GetMethod(implObj, "OnSmsConfigurationChange"), flags, 2)
-        this.vtbl.OnSetSmsConfigurationComplete := CallbackCreate(GetMethod(implObj, "OnSetSmsConfigurationComplete"), flags, 4)
-        this.vtbl.OnSmsSendComplete := CallbackCreate(GetMethod(implObj, "OnSmsSendComplete"), flags, 4)
-        this.vtbl.OnSmsReadComplete := CallbackCreate(GetMethod(implObj, "OnSmsReadComplete"), flags, 7)
-        this.vtbl.OnSmsNewClass0Message := CallbackCreate(GetMethod(implObj, "OnSmsNewClass0Message"), flags, 4)
-        this.vtbl.OnSmsDeleteComplete := CallbackCreate(GetMethod(implObj, "OnSmsDeleteComplete"), flags, 4)
-        this.vtbl.OnSmsStatusChange := CallbackCreate(GetMethod(implObj, "OnSmsStatusChange"), flags, 2)
+        this.vtbl.OnSmsConfigurationChange := CallbackCreate(ObjBindMethod(implObj, "OnSmsConfigurationChange"), flags, 2)
+        this.vtbl.OnSetSmsConfigurationComplete := CallbackCreate(ObjBindMethod(implObj, "OnSetSmsConfigurationComplete"), flags, 4)
+        this.vtbl.OnSmsSendComplete := CallbackCreate(ObjBindMethod(implObj, "OnSmsSendComplete"), flags, 4)
+        this.vtbl.OnSmsReadComplete := CallbackCreate(ObjBindMethod(implObj, "OnSmsReadComplete"), flags, 7)
+        this.vtbl.OnSmsNewClass0Message := CallbackCreate(ObjBindMethod(implObj, "OnSmsNewClass0Message"), flags, 4)
+        this.vtbl.OnSmsDeleteComplete := CallbackCreate(ObjBindMethod(implObj, "OnSmsDeleteComplete"), flags, 4)
+        this.vtbl.OnSmsStatusChange := CallbackCreate(ObjBindMethod(implObj, "OnSmsStatusChange"), flags, 2)
     }
 
     Dispose() {

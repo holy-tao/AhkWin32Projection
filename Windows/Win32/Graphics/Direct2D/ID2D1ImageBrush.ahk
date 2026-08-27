@@ -58,7 +58,9 @@ export default struct ID2D1ImageBrush extends ID2D1Brush {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1imagebrush-setimage
      */
     SetImage(_image) {
-        ComCall(8, this, "ptr", _image)
+        _imageMarshal := _image == 0 ? IntPtr : "ptr"
+
+        ComCall(8, this, _imageMarshal, _image)
     }
 
     /**
@@ -190,16 +192,16 @@ export default struct ID2D1ImageBrush extends ID2D1Brush {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetImage := CallbackCreate(GetMethod(implObj, "SetImage"), flags, 2)
-        this.vtbl.SetExtendModeX := CallbackCreate(GetMethod(implObj, "SetExtendModeX"), flags, 2)
-        this.vtbl.SetExtendModeY := CallbackCreate(GetMethod(implObj, "SetExtendModeY"), flags, 2)
-        this.vtbl.SetInterpolationMode := CallbackCreate(GetMethod(implObj, "SetInterpolationMode"), flags, 2)
-        this.vtbl.SetSourceRectangle := CallbackCreate(GetMethod(implObj, "SetSourceRectangle"), flags, 2)
-        this.vtbl.GetImage := CallbackCreate(GetMethod(implObj, "GetImage"), flags, 2)
-        this.vtbl.GetExtendModeX := CallbackCreate(GetMethod(implObj, "GetExtendModeX"), flags, 1)
-        this.vtbl.GetExtendModeY := CallbackCreate(GetMethod(implObj, "GetExtendModeY"), flags, 1)
-        this.vtbl.GetInterpolationMode := CallbackCreate(GetMethod(implObj, "GetInterpolationMode"), flags, 1)
-        this.vtbl.GetSourceRectangle := CallbackCreate(GetMethod(implObj, "GetSourceRectangle"), flags, 2)
+        this.vtbl.SetImage := CallbackCreate(ObjBindMethod(implObj, "SetImage"), flags, 2)
+        this.vtbl.SetExtendModeX := CallbackCreate(ObjBindMethod(implObj, "SetExtendModeX"), flags, 2)
+        this.vtbl.SetExtendModeY := CallbackCreate(ObjBindMethod(implObj, "SetExtendModeY"), flags, 2)
+        this.vtbl.SetInterpolationMode := CallbackCreate(ObjBindMethod(implObj, "SetInterpolationMode"), flags, 2)
+        this.vtbl.SetSourceRectangle := CallbackCreate(ObjBindMethod(implObj, "SetSourceRectangle"), flags, 2)
+        this.vtbl.GetImage := CallbackCreate(ObjBindMethod(implObj, "GetImage"), flags, 2)
+        this.vtbl.GetExtendModeX := CallbackCreate(ObjBindMethod(implObj, "GetExtendModeX"), flags, 1)
+        this.vtbl.GetExtendModeY := CallbackCreate(ObjBindMethod(implObj, "GetExtendModeY"), flags, 1)
+        this.vtbl.GetInterpolationMode := CallbackCreate(ObjBindMethod(implObj, "GetInterpolationMode"), flags, 1)
+        this.vtbl.GetSourceRectangle := CallbackCreate(ObjBindMethod(implObj, "GetSourceRectangle"), flags, 2)
     }
 
     Dispose() {

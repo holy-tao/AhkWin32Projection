@@ -74,8 +74,8 @@ export default struct IWMReaderAccelerator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCodecInterface := CallbackCreate(GetMethod(implObj, "GetCodecInterface"), flags, 4)
-        this.vtbl.Notify := CallbackCreate(GetMethod(implObj, "Notify"), flags, 3)
+        this.vtbl.GetCodecInterface := CallbackCreate(ObjBindMethod(implObj, "GetCodecInterface"), flags, 4)
+        this.vtbl.Notify := CallbackCreate(ObjBindMethod(implObj, "Notify"), flags, 3)
     }
 
     Dispose() {

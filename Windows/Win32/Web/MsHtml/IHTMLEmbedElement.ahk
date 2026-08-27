@@ -113,7 +113,6 @@ export default struct IHTMLEmbedElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -125,7 +124,6 @@ export default struct IHTMLEmbedElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_hidden() {
@@ -135,7 +133,6 @@ export default struct IHTMLEmbedElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_palette() {
@@ -145,7 +142,6 @@ export default struct IHTMLEmbedElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_pluginspage() {
@@ -155,7 +151,6 @@ export default struct IHTMLEmbedElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -167,7 +162,6 @@ export default struct IHTMLEmbedElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_src() {
@@ -177,7 +171,6 @@ export default struct IHTMLEmbedElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -189,7 +182,6 @@ export default struct IHTMLEmbedElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_units() {
@@ -199,7 +191,6 @@ export default struct IHTMLEmbedElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -211,7 +202,6 @@ export default struct IHTMLEmbedElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -221,7 +211,6 @@ export default struct IHTMLEmbedElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -231,7 +220,6 @@ export default struct IHTMLEmbedElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_width() {
@@ -241,7 +229,6 @@ export default struct IHTMLEmbedElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -251,7 +238,6 @@ export default struct IHTMLEmbedElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_height() {
@@ -269,20 +255,20 @@ export default struct IHTMLEmbedElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_hidden := CallbackCreate(GetMethod(implObj, "put_hidden"), flags, 2)
-        this.vtbl.get_hidden := CallbackCreate(GetMethod(implObj, "get_hidden"), flags, 2)
-        this.vtbl.get_palette := CallbackCreate(GetMethod(implObj, "get_palette"), flags, 2)
-        this.vtbl.get_pluginspage := CallbackCreate(GetMethod(implObj, "get_pluginspage"), flags, 2)
-        this.vtbl.put_src := CallbackCreate(GetMethod(implObj, "put_src"), flags, 2)
-        this.vtbl.get_src := CallbackCreate(GetMethod(implObj, "get_src"), flags, 2)
-        this.vtbl.put_units := CallbackCreate(GetMethod(implObj, "put_units"), flags, 2)
-        this.vtbl.get_units := CallbackCreate(GetMethod(implObj, "get_units"), flags, 2)
-        this.vtbl.put_name := CallbackCreate(GetMethod(implObj, "put_name"), flags, 2)
-        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
-        this.vtbl.put_width := CallbackCreate(GetMethod(implObj, "put_width"), flags, 2)
-        this.vtbl.get_width := CallbackCreate(GetMethod(implObj, "get_width"), flags, 2)
-        this.vtbl.put_height := CallbackCreate(GetMethod(implObj, "put_height"), flags, 2)
-        this.vtbl.get_height := CallbackCreate(GetMethod(implObj, "get_height"), flags, 2)
+        this.vtbl.put_hidden := CallbackCreate(ObjBindMethod(implObj, "put_hidden"), flags, 2)
+        this.vtbl.get_hidden := CallbackCreate(ObjBindMethod(implObj, "get_hidden"), flags, 2)
+        this.vtbl.get_palette := CallbackCreate(ObjBindMethod(implObj, "get_palette"), flags, 2)
+        this.vtbl.get_pluginspage := CallbackCreate(ObjBindMethod(implObj, "get_pluginspage"), flags, 2)
+        this.vtbl.put_src := CallbackCreate(ObjBindMethod(implObj, "put_src"), flags, 2)
+        this.vtbl.get_src := CallbackCreate(ObjBindMethod(implObj, "get_src"), flags, 2)
+        this.vtbl.put_units := CallbackCreate(ObjBindMethod(implObj, "put_units"), flags, 2)
+        this.vtbl.get_units := CallbackCreate(ObjBindMethod(implObj, "get_units"), flags, 2)
+        this.vtbl.put_name := CallbackCreate(ObjBindMethod(implObj, "put_name"), flags, 2)
+        this.vtbl.get_name := CallbackCreate(ObjBindMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.put_width := CallbackCreate(ObjBindMethod(implObj, "put_width"), flags, 2)
+        this.vtbl.get_width := CallbackCreate(ObjBindMethod(implObj, "get_width"), flags, 2)
+        this.vtbl.put_height := CallbackCreate(ObjBindMethod(implObj, "put_height"), flags, 2)
+        this.vtbl.get_height := CallbackCreate(ObjBindMethod(implObj, "get_height"), flags, 2)
     }
 
     Dispose() {

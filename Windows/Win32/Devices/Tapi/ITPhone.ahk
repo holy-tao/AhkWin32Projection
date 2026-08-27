@@ -502,8 +502,8 @@ export default struct ITPhone extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-getphonecapsbuffer
      */
     GetPhoneCapsBuffer(pcbCaps, pdwSize, ppPhoneCapsBuffer) {
-        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
-        ppPhoneCapsBufferMarshal := ppPhoneCapsBuffer is VarRef ? "ptr*" : "ptr"
+        pdwSizeMarshal := pdwSize is VarRef ? "uint*" : IntPtr
+        ppPhoneCapsBufferMarshal := ppPhoneCapsBuffer is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(29, this, PHONECAPS_BUFFER, pcbCaps, pdwSizeMarshal, pdwSize, ppPhoneCapsBufferMarshal, ppPhoneCapsBuffer, "HRESULT")
         return result
@@ -675,7 +675,7 @@ export default struct ITPhone extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-devicespecific
      */
     DeviceSpecific(pParams, dwSize) {
-        pParamsMarshal := pParams is VarRef ? "char*" : "ptr"
+        pParamsMarshal := pParams is VarRef ? "char*" : IntPtr
 
         result := ComCall(37, this, pParamsMarshal, pParams, UInt32, dwSize, "HRESULT")
         return result
@@ -744,39 +744,39 @@ export default struct ITPhone extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Open := CallbackCreate(GetMethod(implObj, "Open"), flags, 2)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
-        this.vtbl.get_Addresses := CallbackCreate(GetMethod(implObj, "get_Addresses"), flags, 2)
-        this.vtbl.EnumerateAddresses := CallbackCreate(GetMethod(implObj, "EnumerateAddresses"), flags, 2)
-        this.vtbl.get_PhoneCapsLong := CallbackCreate(GetMethod(implObj, "get_PhoneCapsLong"), flags, 3)
-        this.vtbl.get_PhoneCapsString := CallbackCreate(GetMethod(implObj, "get_PhoneCapsString"), flags, 3)
-        this.vtbl.get_Terminals := CallbackCreate(GetMethod(implObj, "get_Terminals"), flags, 3)
-        this.vtbl.EnumerateTerminals := CallbackCreate(GetMethod(implObj, "EnumerateTerminals"), flags, 3)
-        this.vtbl.get_ButtonMode := CallbackCreate(GetMethod(implObj, "get_ButtonMode"), flags, 3)
-        this.vtbl.put_ButtonMode := CallbackCreate(GetMethod(implObj, "put_ButtonMode"), flags, 3)
-        this.vtbl.get_ButtonFunction := CallbackCreate(GetMethod(implObj, "get_ButtonFunction"), flags, 3)
-        this.vtbl.put_ButtonFunction := CallbackCreate(GetMethod(implObj, "put_ButtonFunction"), flags, 3)
-        this.vtbl.get_ButtonText := CallbackCreate(GetMethod(implObj, "get_ButtonText"), flags, 3)
-        this.vtbl.put_ButtonText := CallbackCreate(GetMethod(implObj, "put_ButtonText"), flags, 3)
-        this.vtbl.get_ButtonState := CallbackCreate(GetMethod(implObj, "get_ButtonState"), flags, 3)
-        this.vtbl.get_HookSwitchState := CallbackCreate(GetMethod(implObj, "get_HookSwitchState"), flags, 3)
-        this.vtbl.put_HookSwitchState := CallbackCreate(GetMethod(implObj, "put_HookSwitchState"), flags, 3)
-        this.vtbl.put_RingMode := CallbackCreate(GetMethod(implObj, "put_RingMode"), flags, 2)
-        this.vtbl.get_RingMode := CallbackCreate(GetMethod(implObj, "get_RingMode"), flags, 2)
-        this.vtbl.put_RingVolume := CallbackCreate(GetMethod(implObj, "put_RingVolume"), flags, 2)
-        this.vtbl.get_RingVolume := CallbackCreate(GetMethod(implObj, "get_RingVolume"), flags, 2)
-        this.vtbl.get_Privilege := CallbackCreate(GetMethod(implObj, "get_Privilege"), flags, 2)
-        this.vtbl.GetPhoneCapsBuffer := CallbackCreate(GetMethod(implObj, "GetPhoneCapsBuffer"), flags, 4)
-        this.vtbl.get_PhoneCapsBuffer := CallbackCreate(GetMethod(implObj, "get_PhoneCapsBuffer"), flags, 3)
-        this.vtbl.get_LampMode := CallbackCreate(GetMethod(implObj, "get_LampMode"), flags, 3)
-        this.vtbl.put_LampMode := CallbackCreate(GetMethod(implObj, "put_LampMode"), flags, 3)
-        this.vtbl.get_Display := CallbackCreate(GetMethod(implObj, "get_Display"), flags, 2)
-        this.vtbl.SetDisplay := CallbackCreate(GetMethod(implObj, "SetDisplay"), flags, 4)
-        this.vtbl.get_PreferredAddresses := CallbackCreate(GetMethod(implObj, "get_PreferredAddresses"), flags, 2)
-        this.vtbl.EnumeratePreferredAddresses := CallbackCreate(GetMethod(implObj, "EnumeratePreferredAddresses"), flags, 2)
-        this.vtbl.DeviceSpecific := CallbackCreate(GetMethod(implObj, "DeviceSpecific"), flags, 3)
-        this.vtbl.DeviceSpecificVariant := CallbackCreate(GetMethod(implObj, "DeviceSpecificVariant"), flags, 2)
-        this.vtbl.NegotiateExtVersion := CallbackCreate(GetMethod(implObj, "NegotiateExtVersion"), flags, 4)
+        this.vtbl.Open := CallbackCreate(ObjBindMethod(implObj, "Open"), flags, 2)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
+        this.vtbl.get_Addresses := CallbackCreate(ObjBindMethod(implObj, "get_Addresses"), flags, 2)
+        this.vtbl.EnumerateAddresses := CallbackCreate(ObjBindMethod(implObj, "EnumerateAddresses"), flags, 2)
+        this.vtbl.get_PhoneCapsLong := CallbackCreate(ObjBindMethod(implObj, "get_PhoneCapsLong"), flags, 3)
+        this.vtbl.get_PhoneCapsString := CallbackCreate(ObjBindMethod(implObj, "get_PhoneCapsString"), flags, 3)
+        this.vtbl.get_Terminals := CallbackCreate(ObjBindMethod(implObj, "get_Terminals"), flags, 3)
+        this.vtbl.EnumerateTerminals := CallbackCreate(ObjBindMethod(implObj, "EnumerateTerminals"), flags, 3)
+        this.vtbl.get_ButtonMode := CallbackCreate(ObjBindMethod(implObj, "get_ButtonMode"), flags, 3)
+        this.vtbl.put_ButtonMode := CallbackCreate(ObjBindMethod(implObj, "put_ButtonMode"), flags, 3)
+        this.vtbl.get_ButtonFunction := CallbackCreate(ObjBindMethod(implObj, "get_ButtonFunction"), flags, 3)
+        this.vtbl.put_ButtonFunction := CallbackCreate(ObjBindMethod(implObj, "put_ButtonFunction"), flags, 3)
+        this.vtbl.get_ButtonText := CallbackCreate(ObjBindMethod(implObj, "get_ButtonText"), flags, 3)
+        this.vtbl.put_ButtonText := CallbackCreate(ObjBindMethod(implObj, "put_ButtonText"), flags, 3)
+        this.vtbl.get_ButtonState := CallbackCreate(ObjBindMethod(implObj, "get_ButtonState"), flags, 3)
+        this.vtbl.get_HookSwitchState := CallbackCreate(ObjBindMethod(implObj, "get_HookSwitchState"), flags, 3)
+        this.vtbl.put_HookSwitchState := CallbackCreate(ObjBindMethod(implObj, "put_HookSwitchState"), flags, 3)
+        this.vtbl.put_RingMode := CallbackCreate(ObjBindMethod(implObj, "put_RingMode"), flags, 2)
+        this.vtbl.get_RingMode := CallbackCreate(ObjBindMethod(implObj, "get_RingMode"), flags, 2)
+        this.vtbl.put_RingVolume := CallbackCreate(ObjBindMethod(implObj, "put_RingVolume"), flags, 2)
+        this.vtbl.get_RingVolume := CallbackCreate(ObjBindMethod(implObj, "get_RingVolume"), flags, 2)
+        this.vtbl.get_Privilege := CallbackCreate(ObjBindMethod(implObj, "get_Privilege"), flags, 2)
+        this.vtbl.GetPhoneCapsBuffer := CallbackCreate(ObjBindMethod(implObj, "GetPhoneCapsBuffer"), flags, 4)
+        this.vtbl.get_PhoneCapsBuffer := CallbackCreate(ObjBindMethod(implObj, "get_PhoneCapsBuffer"), flags, 3)
+        this.vtbl.get_LampMode := CallbackCreate(ObjBindMethod(implObj, "get_LampMode"), flags, 3)
+        this.vtbl.put_LampMode := CallbackCreate(ObjBindMethod(implObj, "put_LampMode"), flags, 3)
+        this.vtbl.get_Display := CallbackCreate(ObjBindMethod(implObj, "get_Display"), flags, 2)
+        this.vtbl.SetDisplay := CallbackCreate(ObjBindMethod(implObj, "SetDisplay"), flags, 4)
+        this.vtbl.get_PreferredAddresses := CallbackCreate(ObjBindMethod(implObj, "get_PreferredAddresses"), flags, 2)
+        this.vtbl.EnumeratePreferredAddresses := CallbackCreate(ObjBindMethod(implObj, "EnumeratePreferredAddresses"), flags, 2)
+        this.vtbl.DeviceSpecific := CallbackCreate(ObjBindMethod(implObj, "DeviceSpecific"), flags, 3)
+        this.vtbl.DeviceSpecificVariant := CallbackCreate(ObjBindMethod(implObj, "DeviceSpecificVariant"), flags, 2)
+        this.vtbl.NegotiateExtVersion := CallbackCreate(ObjBindMethod(implObj, "NegotiateExtVersion"), flags, 4)
     }
 
     Dispose() {

@@ -25,7 +25,6 @@ export default struct PFNPEER_FREE_SECURITY_DATA {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} hGraph Specifies the peer graph associated with the specified record.
      * @param {Pointer<Void>} pvContext Pointer to the security context to free. This  parameter is set to the value of the <b>pvContext</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_security_interface">PEER_SECURITY_INTERFACE</a> structure passed in <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergraphcreate">PeerGraphCreate</a> or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergraphopen">PeerGraphOpen</a>.
      * @param {Pointer<PEER_DATA>} pSecurityData Pointer to the security data to  free.
@@ -61,8 +60,9 @@ export default struct PFNPEER_FREE_SECURITY_DATA {
      * </table>
      */
     Call(hGraph, pvContext, pSecurityData) {
-        hGraphMarshal := hGraph is VarRef ? "ptr" : "ptr"
-        pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
+        hGraphMarshal := hGraph is VarRef ? "ptr" : IntPtr
+        pvContextMarshal := pvContext is VarRef ? "ptr" : IntPtr
+        pvContextMarshal := pvContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, hGraphMarshal, hGraph, pvContextMarshal, pvContext, PEER_DATA.Ptr, pSecurityData, "HRESULT")
         return result

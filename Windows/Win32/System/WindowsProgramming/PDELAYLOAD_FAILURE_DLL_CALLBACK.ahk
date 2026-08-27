@@ -19,7 +19,6 @@ export default struct PDELAYLOAD_FAILURE_DLL_CALLBACK {
     }
 
     /**
-     * 
      * @param {Integer} NotificationReason 
      * @param {Pointer<DELAYLOAD_INFO>} DelayloadInfo 
      * @returns {Pointer<Void>} 

@@ -38,14 +38,13 @@ export default struct IDxcBlobEncoding extends IDxcBlob {
     }
 
     /**
-     * 
      * @param {Pointer<BOOL>} pKnown 
      * @param {Pointer<DXC_CP>} pCodePage 
      * @returns {HRESULT} 
      */
     GetEncoding(pKnown, pCodePage) {
-        pKnownMarshal := pKnown is VarRef ? "int*" : "ptr"
-        pCodePageMarshal := pCodePage is VarRef ? "uint*" : "ptr"
+        pKnownMarshal := pKnown is VarRef ? "int*" : IntPtr
+        pCodePageMarshal := pCodePage is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, pKnownMarshal, pKnown, pCodePageMarshal, pCodePage, "HRESULT")
         return result
@@ -60,7 +59,7 @@ export default struct IDxcBlobEncoding extends IDxcBlob {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetEncoding := CallbackCreate(GetMethod(implObj, "GetEncoding"), flags, 3)
+        this.vtbl.GetEncoding := CallbackCreate(ObjBindMethod(implObj, "GetEncoding"), flags, 3)
     }
 
     Dispose() {

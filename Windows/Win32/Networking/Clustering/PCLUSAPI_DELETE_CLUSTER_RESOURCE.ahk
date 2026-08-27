@@ -19,7 +19,6 @@ export default struct PCLUSAPI_DELETE_CLUSTER_RESOURCE {
     }
 
     /**
-     * 
      * @param {HRESOURCE} _hResource 
      * @returns {Integer} 
      */

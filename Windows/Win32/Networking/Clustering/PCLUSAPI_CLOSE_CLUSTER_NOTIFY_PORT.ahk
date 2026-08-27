@@ -20,7 +20,6 @@ export default struct PCLUSAPI_CLOSE_CLUSTER_NOTIFY_PORT {
     }
 
     /**
-     * 
      * @param {HCHANGE} _hChange 
      * @returns {BOOL} 
      */

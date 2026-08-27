@@ -18,7 +18,6 @@ export default struct PPO_FX_DIRECTED_POWER_DOWN_CALLBACK {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

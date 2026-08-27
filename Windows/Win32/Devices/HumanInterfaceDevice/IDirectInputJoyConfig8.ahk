@@ -235,7 +235,7 @@ export default struct IDirectInputJoyConfig8 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputjoyconfig8-enumtypes
      */
     EnumTypes(param0, param1) {
-        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
+        param1Marshal := param1 is VarRef ? "ptr" : IntPtr
 
         result := ComCall(7, this, LPDIJOYTYPECALLBACK, param0, param1Marshal, param1, "HRESULT")
         return result
@@ -773,22 +773,22 @@ export default struct IDirectInputJoyConfig8 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Acquire := CallbackCreate(GetMethod(implObj, "Acquire"), flags, 1)
-        this.vtbl.Unacquire := CallbackCreate(GetMethod(implObj, "Unacquire"), flags, 1)
-        this.vtbl.SetCooperativeLevel := CallbackCreate(GetMethod(implObj, "SetCooperativeLevel"), flags, 3)
-        this.vtbl.SendNotify := CallbackCreate(GetMethod(implObj, "SendNotify"), flags, 1)
-        this.vtbl.EnumTypes := CallbackCreate(GetMethod(implObj, "EnumTypes"), flags, 3)
-        this.vtbl.GetTypeInfo := CallbackCreate(GetMethod(implObj, "GetTypeInfo"), flags, 4)
-        this.vtbl.SetTypeInfo := CallbackCreate(GetMethod(implObj, "SetTypeInfo"), flags, 5)
-        this.vtbl.DeleteType := CallbackCreate(GetMethod(implObj, "DeleteType"), flags, 2)
-        this.vtbl.GetConfig := CallbackCreate(GetMethod(implObj, "GetConfig"), flags, 4)
-        this.vtbl.SetConfig := CallbackCreate(GetMethod(implObj, "SetConfig"), flags, 4)
-        this.vtbl.DeleteConfig := CallbackCreate(GetMethod(implObj, "DeleteConfig"), flags, 2)
-        this.vtbl.GetUserValues := CallbackCreate(GetMethod(implObj, "GetUserValues"), flags, 3)
-        this.vtbl.SetUserValues := CallbackCreate(GetMethod(implObj, "SetUserValues"), flags, 3)
-        this.vtbl.AddNewHardware := CallbackCreate(GetMethod(implObj, "AddNewHardware"), flags, 3)
-        this.vtbl.OpenTypeKey := CallbackCreate(GetMethod(implObj, "OpenTypeKey"), flags, 4)
-        this.vtbl.OpenAppStatusKey := CallbackCreate(GetMethod(implObj, "OpenAppStatusKey"), flags, 2)
+        this.vtbl.Acquire := CallbackCreate(ObjBindMethod(implObj, "Acquire"), flags, 1)
+        this.vtbl.Unacquire := CallbackCreate(ObjBindMethod(implObj, "Unacquire"), flags, 1)
+        this.vtbl.SetCooperativeLevel := CallbackCreate(ObjBindMethod(implObj, "SetCooperativeLevel"), flags, 3)
+        this.vtbl.SendNotify := CallbackCreate(ObjBindMethod(implObj, "SendNotify"), flags, 1)
+        this.vtbl.EnumTypes := CallbackCreate(ObjBindMethod(implObj, "EnumTypes"), flags, 3)
+        this.vtbl.GetTypeInfo := CallbackCreate(ObjBindMethod(implObj, "GetTypeInfo"), flags, 4)
+        this.vtbl.SetTypeInfo := CallbackCreate(ObjBindMethod(implObj, "SetTypeInfo"), flags, 5)
+        this.vtbl.DeleteType := CallbackCreate(ObjBindMethod(implObj, "DeleteType"), flags, 2)
+        this.vtbl.GetConfig := CallbackCreate(ObjBindMethod(implObj, "GetConfig"), flags, 4)
+        this.vtbl.SetConfig := CallbackCreate(ObjBindMethod(implObj, "SetConfig"), flags, 4)
+        this.vtbl.DeleteConfig := CallbackCreate(ObjBindMethod(implObj, "DeleteConfig"), flags, 2)
+        this.vtbl.GetUserValues := CallbackCreate(ObjBindMethod(implObj, "GetUserValues"), flags, 3)
+        this.vtbl.SetUserValues := CallbackCreate(ObjBindMethod(implObj, "SetUserValues"), flags, 3)
+        this.vtbl.AddNewHardware := CallbackCreate(ObjBindMethod(implObj, "AddNewHardware"), flags, 3)
+        this.vtbl.OpenTypeKey := CallbackCreate(ObjBindMethod(implObj, "OpenTypeKey"), flags, 4)
+        this.vtbl.OpenAppStatusKey := CallbackCreate(ObjBindMethod(implObj, "OpenAppStatusKey"), flags, 2)
     }
 
     Dispose() {

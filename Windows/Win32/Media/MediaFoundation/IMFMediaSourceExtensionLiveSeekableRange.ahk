@@ -37,7 +37,6 @@ export default struct IMFMediaSourceExtensionLiveSeekableRange extends IUnknown 
     }
 
     /**
-     * 
      * @param {Float} start 
      * @param {Float} end 
      * @returns {HRESULT} 
@@ -48,7 +47,6 @@ export default struct IMFMediaSourceExtensionLiveSeekableRange extends IUnknown 
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ClearLiveSeekableRange() {
@@ -65,8 +63,8 @@ export default struct IMFMediaSourceExtensionLiveSeekableRange extends IUnknown 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetLiveSeekableRange := CallbackCreate(GetMethod(implObj, "SetLiveSeekableRange"), flags, 3)
-        this.vtbl.ClearLiveSeekableRange := CallbackCreate(GetMethod(implObj, "ClearLiveSeekableRange"), flags, 1)
+        this.vtbl.SetLiveSeekableRange := CallbackCreate(ObjBindMethod(implObj, "SetLiveSeekableRange"), flags, 3)
+        this.vtbl.ClearLiveSeekableRange := CallbackCreate(ObjBindMethod(implObj, "ClearLiveSeekableRange"), flags, 1)
     }
 
     Dispose() {

@@ -42,7 +42,6 @@ export default struct ICorConfiguration extends IUnknown {
     }
 
     /**
-     * 
      * @param {IGCThreadControl} pGCThreadControl 
      * @returns {HRESULT} 
      */
@@ -52,7 +51,6 @@ export default struct ICorConfiguration extends IUnknown {
     }
 
     /**
-     * 
      * @param {IGCHostControl} pGCHostControl 
      * @returns {HRESULT} 
      */
@@ -62,7 +60,6 @@ export default struct ICorConfiguration extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebuggerThreadControl} pDebuggerThreadControl 
      * @returns {HRESULT} 
      */
@@ -72,7 +69,6 @@ export default struct ICorConfiguration extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSpecialThreadId 
      * @returns {HRESULT} 
      */
@@ -90,10 +86,10 @@ export default struct ICorConfiguration extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetGCThreadControl := CallbackCreate(GetMethod(implObj, "SetGCThreadControl"), flags, 2)
-        this.vtbl.SetGCHostControl := CallbackCreate(GetMethod(implObj, "SetGCHostControl"), flags, 2)
-        this.vtbl.SetDebuggerThreadControl := CallbackCreate(GetMethod(implObj, "SetDebuggerThreadControl"), flags, 2)
-        this.vtbl.AddDebuggerSpecialThread := CallbackCreate(GetMethod(implObj, "AddDebuggerSpecialThread"), flags, 2)
+        this.vtbl.SetGCThreadControl := CallbackCreate(ObjBindMethod(implObj, "SetGCThreadControl"), flags, 2)
+        this.vtbl.SetGCHostControl := CallbackCreate(ObjBindMethod(implObj, "SetGCHostControl"), flags, 2)
+        this.vtbl.SetDebuggerThreadControl := CallbackCreate(ObjBindMethod(implObj, "SetDebuggerThreadControl"), flags, 2)
+        this.vtbl.AddDebuggerSpecialThread := CallbackCreate(ObjBindMethod(implObj, "AddDebuggerSpecialThread"), flags, 2)
     }
 
     Dispose() {

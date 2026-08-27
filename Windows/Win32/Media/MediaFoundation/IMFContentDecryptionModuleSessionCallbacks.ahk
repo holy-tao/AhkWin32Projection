@@ -56,7 +56,7 @@ export default struct IMFContentDecryptionModuleSessionCallbacks extends IUnknow
     KeyMessage(messageType, message, messageSize, destinationURL) {
         destinationURL := destinationURL is String ? StrPtr(destinationURL) : destinationURL
 
-        messageMarshal := message is VarRef ? "char*" : "ptr"
+        messageMarshal := message is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, MF_MEDIAKEYSESSION_MESSAGETYPE, messageType, messageMarshal, message, UInt32, messageSize, "ptr", destinationURL, "HRESULT")
         return result
@@ -85,8 +85,8 @@ export default struct IMFContentDecryptionModuleSessionCallbacks extends IUnknow
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.KeyMessage := CallbackCreate(GetMethod(implObj, "KeyMessage"), flags, 5)
-        this.vtbl.KeyStatusChanged := CallbackCreate(GetMethod(implObj, "KeyStatusChanged"), flags, 1)
+        this.vtbl.KeyMessage := CallbackCreate(ObjBindMethod(implObj, "KeyMessage"), flags, 5)
+        this.vtbl.KeyStatusChanged := CallbackCreate(ObjBindMethod(implObj, "KeyStatusChanged"), flags, 1)
     }
 
     Dispose() {

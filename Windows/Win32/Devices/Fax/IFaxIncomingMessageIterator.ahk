@@ -174,12 +174,12 @@ export default struct IFaxIncomingMessageIterator extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Message := CallbackCreate(GetMethod(implObj, "get_Message"), flags, 2)
-        this.vtbl.get_PrefetchSize := CallbackCreate(GetMethod(implObj, "get_PrefetchSize"), flags, 2)
-        this.vtbl.put_PrefetchSize := CallbackCreate(GetMethod(implObj, "put_PrefetchSize"), flags, 2)
-        this.vtbl.get_AtEOF := CallbackCreate(GetMethod(implObj, "get_AtEOF"), flags, 2)
-        this.vtbl.MoveFirst := CallbackCreate(GetMethod(implObj, "MoveFirst"), flags, 1)
-        this.vtbl.MoveNext := CallbackCreate(GetMethod(implObj, "MoveNext"), flags, 1)
+        this.vtbl.get_Message := CallbackCreate(ObjBindMethod(implObj, "get_Message"), flags, 2)
+        this.vtbl.get_PrefetchSize := CallbackCreate(ObjBindMethod(implObj, "get_PrefetchSize"), flags, 2)
+        this.vtbl.put_PrefetchSize := CallbackCreate(ObjBindMethod(implObj, "put_PrefetchSize"), flags, 2)
+        this.vtbl.get_AtEOF := CallbackCreate(ObjBindMethod(implObj, "get_AtEOF"), flags, 2)
+        this.vtbl.MoveFirst := CallbackCreate(ObjBindMethod(implObj, "MoveFirst"), flags, 1)
+        this.vtbl.MoveNext := CallbackCreate(ObjBindMethod(implObj, "MoveNext"), flags, 1)
     }
 
     Dispose() {

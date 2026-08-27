@@ -74,8 +74,8 @@ export default struct ID3D12VirtualizationGuestDevice extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ShareWithHost := CallbackCreate(GetMethod(implObj, "ShareWithHost"), flags, 3)
-        this.vtbl.CreateFenceFd := CallbackCreate(GetMethod(implObj, "CreateFenceFd"), flags, 4)
+        this.vtbl.ShareWithHost := CallbackCreate(ObjBindMethod(implObj, "ShareWithHost"), flags, 3)
+        this.vtbl.CreateFenceFd := CallbackCreate(ObjBindMethod(implObj, "CreateFenceFd"), flags, 4)
     }
 
     Dispose() {

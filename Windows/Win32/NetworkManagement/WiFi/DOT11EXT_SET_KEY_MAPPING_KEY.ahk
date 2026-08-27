@@ -20,13 +20,14 @@ export default struct DOT11EXT_SET_KEY_MAPPING_KEY {
     }
 
     /**
-     * 
      * @param {HANDLE} hDot11SvcHandle 
      * @param {Pointer<DOT11_CIPHER_KEY_MAPPING_KEY_VALUE>} pKey 
      * @returns {Integer} 
      */
     Call(hDot11SvcHandle, pKey) {
-        result := DllCall(this.value, HANDLE, hDot11SvcHandle, DOT11_CIPHER_KEY_MAPPING_KEY_VALUE.Ptr, pKey, UInt32)
+        hDot11SvcHandleMarshal := hDot11SvcHandle == 0 ? IntPtr : HANDLE
+
+        result := DllCall(this.value, hDot11SvcHandleMarshal, hDot11SvcHandle, DOT11_CIPHER_KEY_MAPPING_KEY_VALUE.Ptr, pKey, UInt32)
         return result
     }
 

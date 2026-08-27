@@ -121,7 +121,7 @@ export default struct ITfRangeBackup extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Restore := CallbackCreate(GetMethod(implObj, "Restore"), flags, 3)
+        this.vtbl.Restore := CallbackCreate(ObjBindMethod(implObj, "Restore"), flags, 3)
     }
 
     Dispose() {

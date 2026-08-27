@@ -25,7 +25,6 @@ export default struct WSMAN_SHELL_COMPLETION_FUNCTION {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} operationContext Represents user-defined context passed to the WinRM (WinRM) Client Shell 
      *       application programming interface (API) .
      * @param {Integer} flags Specifies one or more flags from the 
@@ -50,9 +49,13 @@ export default struct WSMAN_SHELL_COMPLETION_FUNCTION {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(operationContext, flags, _error, _shell, command, operationHandle, data) {
-        operationContextMarshal := operationContext is VarRef ? "ptr" : "ptr"
+        operationContextMarshal := operationContext is VarRef ? "ptr" : IntPtr
+        operationContextMarshal := operationContext == 0 ? IntPtr : "ptr"
+        commandMarshal := command == 0 ? IntPtr : WSMAN_COMMAND_HANDLE
+        operationHandleMarshal := operationHandle == 0 ? IntPtr : WSMAN_OPERATION_HANDLE
+        dataMarshal := data == 0 ? IntPtr : WSMAN_RESPONSE_DATA.Ptr
 
-        DllCall(this.value, operationContextMarshal, operationContext, UInt32, flags, WSMAN_ERROR.Ptr, _error, WSMAN_SHELL_HANDLE, _shell, WSMAN_COMMAND_HANDLE, command, WSMAN_OPERATION_HANDLE, operationHandle, WSMAN_RESPONSE_DATA.Ptr, data)
+        DllCall(this.value, operationContextMarshal, operationContext, UInt32, flags, WSMAN_ERROR.Ptr, _error, WSMAN_SHELL_HANDLE, _shell, commandMarshal, command, operationHandleMarshal, operationHandle, dataMarshal, data)
     }
 
     /**

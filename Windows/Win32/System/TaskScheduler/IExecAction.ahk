@@ -178,12 +178,12 @@ export default struct IExecAction extends IAction {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Path := CallbackCreate(GetMethod(implObj, "get_Path"), flags, 2)
-        this.vtbl.put_Path := CallbackCreate(GetMethod(implObj, "put_Path"), flags, 2)
-        this.vtbl.get_Arguments := CallbackCreate(GetMethod(implObj, "get_Arguments"), flags, 2)
-        this.vtbl.put_Arguments := CallbackCreate(GetMethod(implObj, "put_Arguments"), flags, 2)
-        this.vtbl.get_WorkingDirectory := CallbackCreate(GetMethod(implObj, "get_WorkingDirectory"), flags, 2)
-        this.vtbl.put_WorkingDirectory := CallbackCreate(GetMethod(implObj, "put_WorkingDirectory"), flags, 2)
+        this.vtbl.get_Path := CallbackCreate(ObjBindMethod(implObj, "get_Path"), flags, 2)
+        this.vtbl.put_Path := CallbackCreate(ObjBindMethod(implObj, "put_Path"), flags, 2)
+        this.vtbl.get_Arguments := CallbackCreate(ObjBindMethod(implObj, "get_Arguments"), flags, 2)
+        this.vtbl.put_Arguments := CallbackCreate(ObjBindMethod(implObj, "put_Arguments"), flags, 2)
+        this.vtbl.get_WorkingDirectory := CallbackCreate(ObjBindMethod(implObj, "get_WorkingDirectory"), flags, 2)
+        this.vtbl.put_WorkingDirectory := CallbackCreate(ObjBindMethod(implObj, "put_WorkingDirectory"), flags, 2)
     }
 
     Dispose() {

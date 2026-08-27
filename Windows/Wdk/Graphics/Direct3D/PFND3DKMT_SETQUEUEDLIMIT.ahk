@@ -20,7 +20,6 @@ export default struct PFND3DKMT_SETQUEUEDLIMIT {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_SETQUEUEDLIMIT>} param0 
      * @returns {NTSTATUS} 
      */

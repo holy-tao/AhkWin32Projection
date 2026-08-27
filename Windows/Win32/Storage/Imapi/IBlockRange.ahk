@@ -91,8 +91,8 @@ export default struct IBlockRange extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_StartLba := CallbackCreate(GetMethod(implObj, "get_StartLba"), flags, 2)
-        this.vtbl.get_EndLba := CallbackCreate(GetMethod(implObj, "get_EndLba"), flags, 2)
+        this.vtbl.get_StartLba := CallbackCreate(ObjBindMethod(implObj, "get_StartLba"), flags, 2)
+        this.vtbl.get_EndLba := CallbackCreate(ObjBindMethod(implObj, "get_EndLba"), flags, 2)
     }
 
     Dispose() {

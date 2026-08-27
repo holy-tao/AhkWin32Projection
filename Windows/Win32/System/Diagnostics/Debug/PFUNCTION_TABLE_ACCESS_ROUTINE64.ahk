@@ -26,7 +26,6 @@ export default struct PFUNCTION_TABLE_ACCESS_ROUTINE64 {
     }
 
     /**
-     * 
      * @param {HANDLE} ahProcess A handle to the process for which the stack trace is generated.
      * @param {Integer} AddrBase The address of the instruction to be located.
      * @returns {Pointer<Void>} The function returns a pointer to the run-time function table. On an x86 computer, this is a pointer to an 

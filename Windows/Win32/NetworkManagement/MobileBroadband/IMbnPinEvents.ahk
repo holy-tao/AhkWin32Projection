@@ -174,11 +174,11 @@ export default struct IMbnPinEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnEnableComplete := CallbackCreate(GetMethod(implObj, "OnEnableComplete"), flags, 5)
-        this.vtbl.OnDisableComplete := CallbackCreate(GetMethod(implObj, "OnDisableComplete"), flags, 5)
-        this.vtbl.OnEnterComplete := CallbackCreate(GetMethod(implObj, "OnEnterComplete"), flags, 5)
-        this.vtbl.OnChangeComplete := CallbackCreate(GetMethod(implObj, "OnChangeComplete"), flags, 5)
-        this.vtbl.OnUnblockComplete := CallbackCreate(GetMethod(implObj, "OnUnblockComplete"), flags, 5)
+        this.vtbl.OnEnableComplete := CallbackCreate(ObjBindMethod(implObj, "OnEnableComplete"), flags, 5)
+        this.vtbl.OnDisableComplete := CallbackCreate(ObjBindMethod(implObj, "OnDisableComplete"), flags, 5)
+        this.vtbl.OnEnterComplete := CallbackCreate(ObjBindMethod(implObj, "OnEnterComplete"), flags, 5)
+        this.vtbl.OnChangeComplete := CallbackCreate(ObjBindMethod(implObj, "OnChangeComplete"), flags, 5)
+        this.vtbl.OnUnblockComplete := CallbackCreate(ObjBindMethod(implObj, "OnUnblockComplete"), flags, 5)
     }
 
     Dispose() {

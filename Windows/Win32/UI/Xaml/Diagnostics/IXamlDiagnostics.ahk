@@ -115,8 +115,8 @@ export default struct IXamlDiagnostics extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ixamldiagnostics-hittest
      */
     HitTest(_rect, pCount, ppInstanceHandles) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-        ppInstanceHandlesMarshal := ppInstanceHandles is VarRef ? "ptr*" : "ptr"
+        pCountMarshal := pCount is VarRef ? "uint*" : IntPtr
+        ppInstanceHandlesMarshal := ppInstanceHandles is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(8, this, RECT, _rect, pCountMarshal, pCount, ppInstanceHandlesMarshal, ppInstanceHandles, "HRESULT")
         return result
@@ -153,14 +153,14 @@ export default struct IXamlDiagnostics extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDispatcher := CallbackCreate(GetMethod(implObj, "GetDispatcher"), flags, 2)
-        this.vtbl.GetUiLayer := CallbackCreate(GetMethod(implObj, "GetUiLayer"), flags, 2)
-        this.vtbl.GetApplication := CallbackCreate(GetMethod(implObj, "GetApplication"), flags, 2)
-        this.vtbl.GetIInspectableFromHandle := CallbackCreate(GetMethod(implObj, "GetIInspectableFromHandle"), flags, 3)
-        this.vtbl.GetHandleFromIInspectable := CallbackCreate(GetMethod(implObj, "GetHandleFromIInspectable"), flags, 3)
-        this.vtbl.HitTest := CallbackCreate(GetMethod(implObj, "HitTest"), flags, 4)
-        this.vtbl.RegisterInstance := CallbackCreate(GetMethod(implObj, "RegisterInstance"), flags, 3)
-        this.vtbl.GetInitializationData := CallbackCreate(GetMethod(implObj, "GetInitializationData"), flags, 2)
+        this.vtbl.GetDispatcher := CallbackCreate(ObjBindMethod(implObj, "GetDispatcher"), flags, 2)
+        this.vtbl.GetUiLayer := CallbackCreate(ObjBindMethod(implObj, "GetUiLayer"), flags, 2)
+        this.vtbl.GetApplication := CallbackCreate(ObjBindMethod(implObj, "GetApplication"), flags, 2)
+        this.vtbl.GetIInspectableFromHandle := CallbackCreate(ObjBindMethod(implObj, "GetIInspectableFromHandle"), flags, 3)
+        this.vtbl.GetHandleFromIInspectable := CallbackCreate(ObjBindMethod(implObj, "GetHandleFromIInspectable"), flags, 3)
+        this.vtbl.HitTest := CallbackCreate(ObjBindMethod(implObj, "HitTest"), flags, 4)
+        this.vtbl.RegisterInstance := CallbackCreate(ObjBindMethod(implObj, "RegisterInstance"), flags, 3)
+        this.vtbl.GetInitializationData := CallbackCreate(ObjBindMethod(implObj, "GetInitializationData"), flags, 2)
     }
 
     Dispose() {

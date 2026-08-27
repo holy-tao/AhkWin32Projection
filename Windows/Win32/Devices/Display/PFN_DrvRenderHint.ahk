@@ -19,7 +19,6 @@ export default struct PFN_DrvRenderHint {
     }
 
     /**
-     * 
      * @param {DHPDEV} _dhpdev 
      * @param {Integer} NotifyCode 
      * @param {Pointer} Length 
@@ -27,7 +26,9 @@ export default struct PFN_DrvRenderHint {
      * @returns {Integer} 
      */
     Call(_dhpdev, NotifyCode, Length, Data) {
-        result := DllCall(this.value, DHPDEV, _dhpdev, UInt32, NotifyCode, IntPtr, Length, IntPtr, Data, Int32)
+        DataMarshal := Data == 0 ? IntPtr : IntPtr
+
+        result := DllCall(this.value, DHPDEV, _dhpdev, UInt32, NotifyCode, IntPtr, Length, DataMarshal, Data, Int32)
         return result
     }
 

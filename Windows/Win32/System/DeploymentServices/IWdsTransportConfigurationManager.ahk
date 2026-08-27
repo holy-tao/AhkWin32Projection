@@ -170,15 +170,15 @@ export default struct IWdsTransportConfigurationManager extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ServicePolicy := CallbackCreate(GetMethod(implObj, "get_ServicePolicy"), flags, 2)
-        this.vtbl.get_DiagnosticsPolicy := CallbackCreate(GetMethod(implObj, "get_DiagnosticsPolicy"), flags, 2)
-        this.vtbl.get_WdsTransportServicesRunning := CallbackCreate(GetMethod(implObj, "get_WdsTransportServicesRunning"), flags, 3)
-        this.vtbl.EnableWdsTransportServices := CallbackCreate(GetMethod(implObj, "EnableWdsTransportServices"), flags, 1)
-        this.vtbl.DisableWdsTransportServices := CallbackCreate(GetMethod(implObj, "DisableWdsTransportServices"), flags, 1)
-        this.vtbl.StartWdsTransportServices := CallbackCreate(GetMethod(implObj, "StartWdsTransportServices"), flags, 1)
-        this.vtbl.StopWdsTransportServices := CallbackCreate(GetMethod(implObj, "StopWdsTransportServices"), flags, 1)
-        this.vtbl.RestartWdsTransportServices := CallbackCreate(GetMethod(implObj, "RestartWdsTransportServices"), flags, 1)
-        this.vtbl.NotifyWdsTransportServices := CallbackCreate(GetMethod(implObj, "NotifyWdsTransportServices"), flags, 2)
+        this.vtbl.get_ServicePolicy := CallbackCreate(ObjBindMethod(implObj, "get_ServicePolicy"), flags, 2)
+        this.vtbl.get_DiagnosticsPolicy := CallbackCreate(ObjBindMethod(implObj, "get_DiagnosticsPolicy"), flags, 2)
+        this.vtbl.get_WdsTransportServicesRunning := CallbackCreate(ObjBindMethod(implObj, "get_WdsTransportServicesRunning"), flags, 3)
+        this.vtbl.EnableWdsTransportServices := CallbackCreate(ObjBindMethod(implObj, "EnableWdsTransportServices"), flags, 1)
+        this.vtbl.DisableWdsTransportServices := CallbackCreate(ObjBindMethod(implObj, "DisableWdsTransportServices"), flags, 1)
+        this.vtbl.StartWdsTransportServices := CallbackCreate(ObjBindMethod(implObj, "StartWdsTransportServices"), flags, 1)
+        this.vtbl.StopWdsTransportServices := CallbackCreate(ObjBindMethod(implObj, "StopWdsTransportServices"), flags, 1)
+        this.vtbl.RestartWdsTransportServices := CallbackCreate(ObjBindMethod(implObj, "RestartWdsTransportServices"), flags, 1)
+        this.vtbl.NotifyWdsTransportServices := CallbackCreate(ObjBindMethod(implObj, "NotifyWdsTransportServices"), flags, 2)
     }
 
     Dispose() {

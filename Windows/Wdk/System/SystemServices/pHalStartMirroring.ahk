@@ -19,7 +19,6 @@ export default struct pHalStartMirroring {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

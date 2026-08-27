@@ -60,7 +60,6 @@ export default struct IPrinterScriptContext extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IPrinterScriptablePropertyBag} 
      */
     get_DriverProperties() {
@@ -69,7 +68,6 @@ export default struct IPrinterScriptContext extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IPrinterScriptablePropertyBag} 
      */
     get_QueueProperties() {
@@ -78,7 +76,6 @@ export default struct IPrinterScriptContext extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IPrinterScriptablePropertyBag} 
      */
     get_UserProperties() {
@@ -95,9 +92,9 @@ export default struct IPrinterScriptContext extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_DriverProperties := CallbackCreate(GetMethod(implObj, "get_DriverProperties"), flags, 2)
-        this.vtbl.get_QueueProperties := CallbackCreate(GetMethod(implObj, "get_QueueProperties"), flags, 2)
-        this.vtbl.get_UserProperties := CallbackCreate(GetMethod(implObj, "get_UserProperties"), flags, 2)
+        this.vtbl.get_DriverProperties := CallbackCreate(ObjBindMethod(implObj, "get_DriverProperties"), flags, 2)
+        this.vtbl.get_QueueProperties := CallbackCreate(ObjBindMethod(implObj, "get_QueueProperties"), flags, 2)
+        this.vtbl.get_UserProperties := CallbackCreate(ObjBindMethod(implObj, "get_UserProperties"), flags, 2)
     }
 
     Dispose() {

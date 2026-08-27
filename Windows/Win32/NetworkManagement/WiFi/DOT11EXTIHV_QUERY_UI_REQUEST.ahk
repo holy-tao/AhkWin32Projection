@@ -21,16 +21,16 @@ export default struct DOT11EXTIHV_QUERY_UI_REQUEST {
     }
 
     /**
-     * 
      * @param {HANDLE} hIhvExtAdapter 
      * @param {DOT11EXT_IHV_CONNECTION_PHASE} connectionPhase 
      * @param {Pointer<Pointer<DOT11EXT_IHV_UI_REQUEST>>} ppIhvUIRequest 
      * @returns {Integer} 
      */
     Call(hIhvExtAdapter, connectionPhase, ppIhvUIRequest) {
-        ppIhvUIRequestMarshal := ppIhvUIRequest is VarRef ? "ptr*" : "ptr"
+        hIhvExtAdapterMarshal := hIhvExtAdapter == 0 ? IntPtr : HANDLE
+        ppIhvUIRequestMarshal := ppIhvUIRequest is VarRef ? "ptr*" : IntPtr
 
-        result := DllCall(this.value, HANDLE, hIhvExtAdapter, DOT11EXT_IHV_CONNECTION_PHASE, connectionPhase, ppIhvUIRequestMarshal, ppIhvUIRequest, UInt32)
+        result := DllCall(this.value, hIhvExtAdapterMarshal, hIhvExtAdapter, DOT11EXT_IHV_CONNECTION_PHASE, connectionPhase, ppIhvUIRequestMarshal, ppIhvUIRequest, UInt32)
         return result
     }
 

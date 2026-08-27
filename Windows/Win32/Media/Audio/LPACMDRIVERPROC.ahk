@@ -21,7 +21,6 @@ export default struct LPACMDRIVERPROC {
     }
 
     /**
-     * 
      * @param {Pointer} param0 
      * @param {HACMDRIVERID} param1 
      * @param {Integer} param2 

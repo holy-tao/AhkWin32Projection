@@ -217,7 +217,8 @@ export CfUnregisterSyncRoot(SyncRootPath) {
 export CfConnectSyncRoot(SyncRootPath, CallbackTable, CallbackContext, ConnectFlags) {
     SyncRootPath := SyncRootPath is String ? StrPtr(SyncRootPath) : SyncRootPath
 
-    CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
+    CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : IntPtr
+    CallbackContextMarshal := CallbackContext == 0 ? IntPtr : "ptr"
 
     ConnectionKey := CF_CONNECTION_KEY.Owned()
     result := DllCall("cldapi.dll\CfConnectSyncRoot", "ptr", SyncRootPath, CF_CALLBACK_REGISTRATION.Ptr, CallbackTable, CallbackContextMarshal, CallbackContext, CF_CONNECT_FLAGS, ConnectFlags, CF_CONNECTION_KEY.Ptr, ConnectionKey, "HRESULT")
@@ -273,7 +274,7 @@ export CfGetTransferKey(FileHandle) {
  * @since windows10.0.16299
  */
 export CfReleaseTransferKey(FileHandle, TransferKey) {
-    TransferKeyMarshal := TransferKey is VarRef ? "int64*" : "ptr"
+    TransferKeyMarshal := TransferKey is VarRef ? "int64*" : IntPtr
 
     DllCall("cldapi.dll\CfReleaseTransferKey", HANDLE, FileHandle, TransferKeyMarshal, TransferKey)
 }
@@ -348,7 +349,9 @@ export CfQuerySyncProviderStatus(ConnectionKey) {
 export CfReportSyncStatus(SyncRootPath, SyncStatus) {
     SyncRootPath := SyncRootPath is String ? StrPtr(SyncRootPath) : SyncRootPath
 
-    result := DllCall("cldapi.dll\CfReportSyncStatus", "ptr", SyncRootPath, CF_SYNC_STATUS.Ptr, SyncStatus, "HRESULT")
+    SyncStatusMarshal := SyncStatus == 0 ? IntPtr : CF_SYNC_STATUS.Ptr
+
+    result := DllCall("cldapi.dll\CfReportSyncStatus", "ptr", SyncRootPath, SyncStatusMarshal, SyncStatus, "HRESULT")
     return result
 }
 
@@ -500,7 +503,10 @@ export CfCloseHandle(FileHandle) {
  * @since windows10.0.16299
  */
 export CfConvertToPlaceholder(FileHandle, FileIdentity, FileIdentityLength, ConvertFlags, _Overlapped) {
-    result := DllCall("cldapi.dll\CfConvertToPlaceholder", HANDLE, FileHandle, IntPtr, FileIdentity, UInt32, FileIdentityLength, CF_CONVERT_FLAGS, ConvertFlags, "int64*", &ConvertUsn := 0, OVERLAPPED.Ptr, _Overlapped, "HRESULT")
+    FileIdentityMarshal := FileIdentity == 0 ? IntPtr : IntPtr
+    _OverlappedMarshal := _Overlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+
+    result := DllCall("cldapi.dll\CfConvertToPlaceholder", HANDLE, FileHandle, FileIdentityMarshal, FileIdentity, UInt32, FileIdentityLength, CF_CONVERT_FLAGS, ConvertFlags, "int64*", &ConvertUsn := 0, _OverlappedMarshal, _Overlapped, "HRESULT")
     return ConvertUsn
 }
 
@@ -557,9 +563,14 @@ export CfConvertToPlaceholder(FileHandle, FileIdentity, FileIdentityLength, Conv
  * @since windows10.0.16299
  */
 export CfUpdatePlaceholder(FileHandle, FsMetadata, FileIdentity, FileIdentityLength, DehydrateRangeArray, DehydrateRangeCount, UpdateFlags, UpdateUsn, _Overlapped) {
-    UpdateUsnMarshal := UpdateUsn is VarRef ? "int64*" : "ptr"
+    FsMetadataMarshal := FsMetadata == 0 ? IntPtr : CF_FS_METADATA.Ptr
+    FileIdentityMarshal := FileIdentity == 0 ? IntPtr : IntPtr
+    DehydrateRangeArrayMarshal := DehydrateRangeArray == 0 ? IntPtr : CF_FILE_RANGE.Ptr
+    UpdateUsnMarshal := UpdateUsn is VarRef ? "int64*" : IntPtr
+    UpdateUsnMarshal := UpdateUsn == 0 ? IntPtr : "int64*"
+    _OverlappedMarshal := _Overlapped == 0 ? IntPtr : OVERLAPPED.Ptr
 
-    result := DllCall("cldapi.dll\CfUpdatePlaceholder", HANDLE, FileHandle, CF_FS_METADATA.Ptr, FsMetadata, IntPtr, FileIdentity, UInt32, FileIdentityLength, CF_FILE_RANGE.Ptr, DehydrateRangeArray, UInt32, DehydrateRangeCount, CF_UPDATE_FLAGS, UpdateFlags, UpdateUsnMarshal, UpdateUsn, OVERLAPPED.Ptr, _Overlapped, "HRESULT")
+    result := DllCall("cldapi.dll\CfUpdatePlaceholder", HANDLE, FileHandle, FsMetadataMarshal, FsMetadata, FileIdentityMarshal, FileIdentity, UInt32, FileIdentityLength, DehydrateRangeArrayMarshal, DehydrateRangeArray, UInt32, DehydrateRangeCount, CF_UPDATE_FLAGS, UpdateFlags, UpdateUsnMarshal, UpdateUsn, _OverlappedMarshal, _Overlapped, "HRESULT")
     return result
 }
 
@@ -581,7 +592,9 @@ export CfUpdatePlaceholder(FileHandle, FsMetadata, FileIdentity, FileIdentityLen
  * @since windows10.0.16299
  */
 export CfRevertPlaceholder(FileHandle, RevertFlags, _Overlapped) {
-    result := DllCall("cldapi.dll\CfRevertPlaceholder", HANDLE, FileHandle, CF_REVERT_FLAGS, RevertFlags, OVERLAPPED.Ptr, _Overlapped, "HRESULT")
+    _OverlappedMarshal := _Overlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+
+    result := DllCall("cldapi.dll\CfRevertPlaceholder", HANDLE, FileHandle, CF_REVERT_FLAGS, RevertFlags, _OverlappedMarshal, _Overlapped, "HRESULT")
     return result
 }
 
@@ -603,12 +616,13 @@ export CfRevertPlaceholder(FileHandle, RevertFlags, _Overlapped) {
  * @since windows10.0.16299
  */
 export CfHydratePlaceholder(FileHandle, StartingOffset, Length, HydrateFlags, _Overlapped) {
-    result := DllCall("cldapi.dll\CfHydratePlaceholder", HANDLE, FileHandle, Int64, StartingOffset, Int64, Length, CF_HYDRATE_FLAGS, HydrateFlags, OVERLAPPED.Ptr, _Overlapped, "HRESULT")
+    _OverlappedMarshal := _Overlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+
+    result := DllCall("cldapi.dll\CfHydratePlaceholder", HANDLE, FileHandle, Int64, StartingOffset, Int64, Length, CF_HYDRATE_FLAGS, HydrateFlags, _OverlappedMarshal, _Overlapped, "HRESULT")
     return result
 }
 
 /**
- * 
  * @param {HANDLE} FileHandle 
  * @param {Integer} StartingOffset 
  * @param {Integer} Length 
@@ -617,7 +631,9 @@ export CfHydratePlaceholder(FileHandle, StartingOffset, Length, HydrateFlags, _O
  * @returns {HRESULT} 
  */
 export CfDehydratePlaceholder(FileHandle, StartingOffset, Length, DehydrateFlags, _Overlapped) {
-    result := DllCall("cldapi.dll\CfDehydratePlaceholder", HANDLE, FileHandle, Int64, StartingOffset, Int64, Length, CF_DEHYDRATE_FLAGS, DehydrateFlags, OVERLAPPED.Ptr, _Overlapped, "HRESULT")
+    _OverlappedMarshal := _Overlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+
+    result := DllCall("cldapi.dll\CfDehydratePlaceholder", HANDLE, FileHandle, Int64, StartingOffset, Int64, Length, CF_DEHYDRATE_FLAGS, DehydrateFlags, _OverlappedMarshal, _Overlapped, "HRESULT")
     return result
 }
 
@@ -640,7 +656,9 @@ export CfDehydratePlaceholder(FileHandle, StartingOffset, Length, DehydrateFlags
  * @since windows10.0.16299
  */
 export CfSetPinState(FileHandle, PinState, PinFlags, _Overlapped) {
-    result := DllCall("cldapi.dll\CfSetPinState", HANDLE, FileHandle, CF_PIN_STATE, PinState, CF_SET_PIN_FLAGS, PinFlags, OVERLAPPED.Ptr, _Overlapped, "HRESULT")
+    _OverlappedMarshal := _Overlapped == 0 ? IntPtr : OVERLAPPED.Ptr
+
+    result := DllCall("cldapi.dll\CfSetPinState", HANDLE, FileHandle, CF_PIN_STATE, PinState, CF_SET_PIN_FLAGS, PinFlags, _OverlappedMarshal, _Overlapped, "HRESULT")
     return result
 }
 
@@ -655,7 +673,8 @@ export CfSetPinState(FileHandle, PinState, PinFlags, _Overlapped) {
  * @since windows10.0.16299
  */
 export CfSetInSyncState(FileHandle, InSyncState, InSyncFlags, InSyncUsn) {
-    InSyncUsnMarshal := InSyncUsn is VarRef ? "int64*" : "ptr"
+    InSyncUsnMarshal := InSyncUsn is VarRef ? "int64*" : IntPtr
+    InSyncUsnMarshal := InSyncUsn == 0 ? IntPtr : "int64*"
 
     result := DllCall("cldapi.dll\CfSetInSyncState", HANDLE, FileHandle, CF_IN_SYNC_STATE, InSyncState, CF_SET_IN_SYNC_FLAGS, InSyncFlags, InSyncUsnMarshal, InSyncUsn, "HRESULT")
     return result
@@ -731,7 +750,7 @@ export CfGetPlaceholderStateFromAttributeTag(FileAttributes, ReparseTag) {
  * @since windows10.0.16299
  */
 export CfGetPlaceholderStateFromFileInfo(InfoBuffer, InfoClass) {
-    InfoBufferMarshal := InfoBuffer is VarRef ? "ptr" : "ptr"
+    InfoBufferMarshal := InfoBuffer is VarRef ? "ptr" : IntPtr
 
     result := DllCall("cldapi.dll\CfGetPlaceholderStateFromFileInfo", InfoBufferMarshal, InfoBuffer, FILE_INFO_BY_HANDLE_CLASS, InfoClass, CF_PLACEHOLDER_STATE)
     return result
@@ -803,8 +822,9 @@ export CfGetPlaceholderInfo(FileHandle, InfoClass, InfoBuffer, InfoBufferLength)
 export CfGetSyncRootInfoByPath(FilePath, InfoClass, InfoBuffer, InfoBufferLength, ReturnedLength) {
     FilePath := FilePath is String ? StrPtr(FilePath) : FilePath
 
-    InfoBufferMarshal := InfoBuffer is VarRef ? "ptr" : "ptr"
-    ReturnedLengthMarshal := ReturnedLength is VarRef ? "uint*" : "ptr"
+    InfoBufferMarshal := InfoBuffer is VarRef ? "ptr" : IntPtr
+    ReturnedLengthMarshal := ReturnedLength is VarRef ? "uint*" : IntPtr
+    ReturnedLengthMarshal := ReturnedLength == 0 ? IntPtr : "uint*"
 
     result := DllCall("cldapi.dll\CfGetSyncRootInfoByPath", "ptr", FilePath, CF_SYNC_ROOT_INFO_CLASS, InfoClass, InfoBufferMarshal, InfoBuffer, UInt32, InfoBufferLength, ReturnedLengthMarshal, ReturnedLength, "HRESULT")
     return result
@@ -826,8 +846,9 @@ export CfGetSyncRootInfoByPath(FilePath, InfoClass, InfoBuffer, InfoBufferLength
  * @since windows10.0.16299
  */
 export CfGetSyncRootInfoByHandle(FileHandle, InfoClass, InfoBuffer, InfoBufferLength, ReturnedLength) {
-    InfoBufferMarshal := InfoBuffer is VarRef ? "ptr" : "ptr"
-    ReturnedLengthMarshal := ReturnedLength is VarRef ? "uint*" : "ptr"
+    InfoBufferMarshal := InfoBuffer is VarRef ? "ptr" : IntPtr
+    ReturnedLengthMarshal := ReturnedLength is VarRef ? "uint*" : IntPtr
+    ReturnedLengthMarshal := ReturnedLength == 0 ? IntPtr : "uint*"
 
     result := DllCall("cldapi.dll\CfGetSyncRootInfoByHandle", HANDLE, FileHandle, CF_SYNC_ROOT_INFO_CLASS, InfoClass, InfoBufferMarshal, InfoBuffer, UInt32, InfoBufferLength, ReturnedLengthMarshal, ReturnedLength, "HRESULT")
     return result

@@ -40,7 +40,6 @@ export default struct INetConnectionConnectUi extends IUnknown {
     }
 
     /**
-     * 
      * @param {INetConnection} pCon 
      * @returns {HRESULT} 
      */
@@ -50,7 +49,6 @@ export default struct INetConnectionConnectUi extends IUnknown {
     }
 
     /**
-     * 
      * @param {HWND} hwndParent 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
@@ -83,9 +81,9 @@ export default struct INetConnectionConnectUi extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetConnection := CallbackCreate(GetMethod(implObj, "SetConnection"), flags, 2)
-        this.vtbl.Connect := CallbackCreate(GetMethod(implObj, "Connect"), flags, 3)
-        this.vtbl.Disconnect := CallbackCreate(GetMethod(implObj, "Disconnect"), flags, 3)
+        this.vtbl.SetConnection := CallbackCreate(ObjBindMethod(implObj, "SetConnection"), flags, 2)
+        this.vtbl.Connect := CallbackCreate(ObjBindMethod(implObj, "Connect"), flags, 3)
+        this.vtbl.Disconnect := CallbackCreate(ObjBindMethod(implObj, "Disconnect"), flags, 3)
     }
 
     Dispose() {

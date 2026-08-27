@@ -28,7 +28,6 @@ export default struct PFAXROUTEADDFILE {
     }
 
     /**
-     * 
      * @param {Integer} JobId Type: <b>DWORD</b>
      * 
      * Specifies a unique number that identifies the fax job that received the fax document.

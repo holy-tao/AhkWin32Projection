@@ -60,9 +60,10 @@ export default struct ID3D12Object extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12object-getprivatedata
      */
     GetPrivateData(guid, pDataSize, pData) {
-        pDataSizeMarshal := pDataSize is VarRef ? "uint*" : "ptr"
+        pDataSizeMarshal := pDataSize is VarRef ? "uint*" : IntPtr
+        pDataMarshal := pData == 0 ? IntPtr : IntPtr
 
-        result := ComCall(3, this, Guid.Ptr, guid, pDataSizeMarshal, pDataSize, IntPtr, pData, "HRESULT")
+        result := ComCall(3, this, Guid.Ptr, guid, pDataSizeMarshal, pDataSize, pDataMarshal, pData, "HRESULT")
         return result
     }
 
@@ -86,7 +87,9 @@ export default struct ID3D12Object extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12object-setprivatedata
      */
     SetPrivateData(guid, DataSize, pData) {
-        result := ComCall(4, this, Guid.Ptr, guid, UInt32, DataSize, IntPtr, pData, "HRESULT")
+        pDataMarshal := pData == 0 ? IntPtr : IntPtr
+
+        result := ComCall(4, this, Guid.Ptr, guid, UInt32, DataSize, pDataMarshal, pData, "HRESULT")
         return result
     }
 
@@ -104,7 +107,9 @@ export default struct ID3D12Object extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12object-setprivatedatainterface
      */
     SetPrivateDataInterface(guid, pData) {
-        result := ComCall(5, this, Guid.Ptr, guid, "ptr", pData, "HRESULT")
+        pDataMarshal := pData == 0 ? IntPtr : "ptr"
+
+        result := ComCall(5, this, Guid.Ptr, guid, pDataMarshal, pData, "HRESULT")
         return result
     }
 
@@ -140,10 +145,10 @@ export default struct ID3D12Object extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPrivateData := CallbackCreate(GetMethod(implObj, "GetPrivateData"), flags, 4)
-        this.vtbl.SetPrivateData := CallbackCreate(GetMethod(implObj, "SetPrivateData"), flags, 4)
-        this.vtbl.SetPrivateDataInterface := CallbackCreate(GetMethod(implObj, "SetPrivateDataInterface"), flags, 3)
-        this.vtbl.SetName := CallbackCreate(GetMethod(implObj, "SetName"), flags, 2)
+        this.vtbl.GetPrivateData := CallbackCreate(ObjBindMethod(implObj, "GetPrivateData"), flags, 4)
+        this.vtbl.SetPrivateData := CallbackCreate(ObjBindMethod(implObj, "SetPrivateData"), flags, 4)
+        this.vtbl.SetPrivateDataInterface := CallbackCreate(ObjBindMethod(implObj, "SetPrivateDataInterface"), flags, 3)
+        this.vtbl.SetName := CallbackCreate(ObjBindMethod(implObj, "SetName"), flags, 2)
     }
 
     Dispose() {

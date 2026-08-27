@@ -260,12 +260,12 @@ export default struct IMFQualityManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.NotifyTopology := CallbackCreate(GetMethod(implObj, "NotifyTopology"), flags, 2)
-        this.vtbl.NotifyPresentationClock := CallbackCreate(GetMethod(implObj, "NotifyPresentationClock"), flags, 2)
-        this.vtbl.NotifyProcessInput := CallbackCreate(GetMethod(implObj, "NotifyProcessInput"), flags, 4)
-        this.vtbl.NotifyProcessOutput := CallbackCreate(GetMethod(implObj, "NotifyProcessOutput"), flags, 4)
-        this.vtbl.NotifyQualityEvent := CallbackCreate(GetMethod(implObj, "NotifyQualityEvent"), flags, 3)
-        this.vtbl.Shutdown := CallbackCreate(GetMethod(implObj, "Shutdown"), flags, 1)
+        this.vtbl.NotifyTopology := CallbackCreate(ObjBindMethod(implObj, "NotifyTopology"), flags, 2)
+        this.vtbl.NotifyPresentationClock := CallbackCreate(ObjBindMethod(implObj, "NotifyPresentationClock"), flags, 2)
+        this.vtbl.NotifyProcessInput := CallbackCreate(ObjBindMethod(implObj, "NotifyProcessInput"), flags, 4)
+        this.vtbl.NotifyProcessOutput := CallbackCreate(ObjBindMethod(implObj, "NotifyProcessOutput"), flags, 4)
+        this.vtbl.NotifyQualityEvent := CallbackCreate(ObjBindMethod(implObj, "NotifyQualityEvent"), flags, 3)
+        this.vtbl.Shutdown := CallbackCreate(ObjBindMethod(implObj, "Shutdown"), flags, 1)
     }
 
     Dispose() {

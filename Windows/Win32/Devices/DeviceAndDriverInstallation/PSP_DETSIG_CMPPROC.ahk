@@ -20,7 +20,6 @@ export default struct PSP_DETSIG_CMPPROC {
     }
 
     /**
-     * 
      * @param {HDEVINFO} DeviceInfoSet 
      * @param {Pointer<SP_DEVINFO_DATA>} NewDeviceData 
      * @param {Pointer<SP_DEVINFO_DATA>} ExistingDeviceData 
@@ -28,7 +27,8 @@ export default struct PSP_DETSIG_CMPPROC {
      * @returns {Integer} 
      */
     Call(DeviceInfoSet, NewDeviceData, ExistingDeviceData, CompareContext) {
-        CompareContextMarshal := CompareContext is VarRef ? "ptr" : "ptr"
+        CompareContextMarshal := CompareContext is VarRef ? "ptr" : IntPtr
+        CompareContextMarshal := CompareContext == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, HDEVINFO, DeviceInfoSet, SP_DEVINFO_DATA.Ptr, NewDeviceData, SP_DEVINFO_DATA.Ptr, ExistingDeviceData, CompareContextMarshal, CompareContext, UInt32)
         return result

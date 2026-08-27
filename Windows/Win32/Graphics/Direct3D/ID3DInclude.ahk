@@ -69,9 +69,9 @@ export default struct ID3DInclude extends Win32ComInterface {
     Open(IncludeType, pFileName, pParentData, ppData, pBytes) {
         pFileName := pFileName is String ? StrPtr(pFileName) : pFileName
 
-        pParentDataMarshal := pParentData is VarRef ? "ptr" : "ptr"
-        ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
-        pBytesMarshal := pBytes is VarRef ? "uint*" : "ptr"
+        pParentDataMarshal := pParentData is VarRef ? "ptr" : IntPtr
+        ppDataMarshal := ppData is VarRef ? "ptr*" : IntPtr
+        pBytesMarshal := pBytes is VarRef ? "uint*" : IntPtr
 
         result := ComCall(0, this, D3D_INCLUDE_TYPE, IncludeType, "ptr", pFileName, pParentDataMarshal, pParentData, ppDataMarshal, ppData, pBytesMarshal, pBytes, "HRESULT")
         return result
@@ -98,7 +98,7 @@ export default struct ID3DInclude extends Win32ComInterface {
      * @see https://learn.microsoft.com/windows/win32/api/d3dcommon/nf-d3dcommon-id3dinclude-close
      */
     Close(pData) {
-        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
+        pDataMarshal := pData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(1, this, pDataMarshal, pData, "HRESULT")
         return result

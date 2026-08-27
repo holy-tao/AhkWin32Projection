@@ -141,7 +141,7 @@ export default struct IMFPluginControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfplugincontrol-getpreferredclsidbyindex
      */
     GetPreferredClsidByIndex(pluginType, index, selector, clsid) {
-        selectorMarshal := selector is VarRef ? "ptr*" : "ptr"
+        selectorMarshal := selector is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, UInt32, pluginType, UInt32, index, selectorMarshal, selector, Guid.Ptr, clsid, "HRESULT")
         return result
@@ -160,7 +160,9 @@ export default struct IMFPluginControl extends IUnknown {
     SetPreferredClsid(pluginType, selector, clsid) {
         selector := selector is String ? StrPtr(selector) : selector
 
-        result := ComCall(5, this, UInt32, pluginType, "ptr", selector, Guid.Ptr, clsid, "HRESULT")
+        clsidMarshal := clsid == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(5, this, UInt32, pluginType, "ptr", selector, clsidMarshal, clsid, "HRESULT")
         return result
     }
 
@@ -282,12 +284,12 @@ export default struct IMFPluginControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPreferredClsid := CallbackCreate(GetMethod(implObj, "GetPreferredClsid"), flags, 4)
-        this.vtbl.GetPreferredClsidByIndex := CallbackCreate(GetMethod(implObj, "GetPreferredClsidByIndex"), flags, 5)
-        this.vtbl.SetPreferredClsid := CallbackCreate(GetMethod(implObj, "SetPreferredClsid"), flags, 4)
-        this.vtbl.IsDisabled := CallbackCreate(GetMethod(implObj, "IsDisabled"), flags, 3)
-        this.vtbl.GetDisabledByIndex := CallbackCreate(GetMethod(implObj, "GetDisabledByIndex"), flags, 4)
-        this.vtbl.SetDisabled := CallbackCreate(GetMethod(implObj, "SetDisabled"), flags, 4)
+        this.vtbl.GetPreferredClsid := CallbackCreate(ObjBindMethod(implObj, "GetPreferredClsid"), flags, 4)
+        this.vtbl.GetPreferredClsidByIndex := CallbackCreate(ObjBindMethod(implObj, "GetPreferredClsidByIndex"), flags, 5)
+        this.vtbl.SetPreferredClsid := CallbackCreate(ObjBindMethod(implObj, "SetPreferredClsid"), flags, 4)
+        this.vtbl.IsDisabled := CallbackCreate(ObjBindMethod(implObj, "IsDisabled"), flags, 3)
+        this.vtbl.GetDisabledByIndex := CallbackCreate(ObjBindMethod(implObj, "GetDisabledByIndex"), flags, 4)
+        this.vtbl.SetDisabled := CallbackCreate(ObjBindMethod(implObj, "SetDisabled"), flags, 4)
     }
 
     Dispose() {

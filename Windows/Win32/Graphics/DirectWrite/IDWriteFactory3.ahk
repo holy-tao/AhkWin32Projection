@@ -96,7 +96,9 @@ export default struct IDWriteFactory3 extends IDWriteFactory2 {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory3-createglyphrunanalysis
      */
     CreateGlyphRunAnalysis(_glyphRun, transform, renderingMode, measuringMode, gridFitMode, antialiasMode, baselineOriginX, baselineOriginY) {
-        result := ComCall(31, this, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_MATRIX.Ptr, transform, DWRITE_RENDERING_MODE1, renderingMode, DWRITE_MEASURING_MODE, measuringMode, DWRITE_GRID_FIT_MODE, gridFitMode, DWRITE_TEXT_ANTIALIAS_MODE, antialiasMode, Float32, baselineOriginX, Float32, baselineOriginY, "ptr*", &glyphRunAnalysis := 0, "HRESULT")
+        transformMarshal := transform == 0 ? IntPtr : DWRITE_MATRIX.Ptr
+
+        result := ComCall(31, this, DWRITE_GLYPH_RUN.Ptr, _glyphRun, transformMarshal, transform, DWRITE_RENDERING_MODE1, renderingMode, DWRITE_MEASURING_MODE, measuringMode, DWRITE_GRID_FIT_MODE, gridFitMode, DWRITE_TEXT_ANTIALIAS_MODE, antialiasMode, Float32, baselineOriginX, Float32, baselineOriginY, "ptr*", &glyphRunAnalysis := 0, "HRESULT")
         return IDWriteGlyphRunAnalysis(glyphRunAnalysis)
     }
 
@@ -179,7 +181,9 @@ export default struct IDWriteFactory3 extends IDWriteFactory2 {
     CreateFontFaceReference1(filePath, lastWriteTime, faceIndex, fontSimulations) {
         filePath := filePath is String ? StrPtr(filePath) : filePath
 
-        result := ComCall(34, this, "ptr", filePath, FILETIME.Ptr, lastWriteTime, UInt32, faceIndex, DWRITE_FONT_SIMULATIONS, fontSimulations, "ptr*", &fontFaceReference := 0, "HRESULT")
+        lastWriteTimeMarshal := lastWriteTime == 0 ? IntPtr : FILETIME.Ptr
+
+        result := ComCall(34, this, "ptr", filePath, lastWriteTimeMarshal, lastWriteTime, UInt32, faceIndex, DWRITE_FONT_SIMULATIONS, fontSimulations, "ptr*", &fontFaceReference := 0, "HRESULT")
         return IDWriteFontFaceReference(fontFaceReference)
     }
 
@@ -264,15 +268,15 @@ export default struct IDWriteFactory3 extends IDWriteFactory2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateGlyphRunAnalysis := CallbackCreate(GetMethod(implObj, "CreateGlyphRunAnalysis"), flags, 10)
-        this.vtbl.CreateCustomRenderingParams := CallbackCreate(GetMethod(implObj, "CreateCustomRenderingParams"), flags, 9)
-        this.vtbl.CreateFontFaceReference := CallbackCreate(GetMethod(implObj, "CreateFontFaceReference"), flags, 5)
-        this.vtbl.CreateFontFaceReference1 := CallbackCreate(GetMethod(implObj, "CreateFontFaceReference1"), flags, 6)
-        this.vtbl.GetSystemFontSet := CallbackCreate(GetMethod(implObj, "GetSystemFontSet"), flags, 2)
-        this.vtbl.CreateFontSetBuilder := CallbackCreate(GetMethod(implObj, "CreateFontSetBuilder"), flags, 2)
-        this.vtbl.CreateFontCollectionFromFontSet := CallbackCreate(GetMethod(implObj, "CreateFontCollectionFromFontSet"), flags, 3)
-        this.vtbl.GetSystemFontCollection := CallbackCreate(GetMethod(implObj, "GetSystemFontCollection"), flags, 4)
-        this.vtbl.GetFontDownloadQueue := CallbackCreate(GetMethod(implObj, "GetFontDownloadQueue"), flags, 2)
+        this.vtbl.CreateGlyphRunAnalysis := CallbackCreate(ObjBindMethod(implObj, "CreateGlyphRunAnalysis"), flags, 10)
+        this.vtbl.CreateCustomRenderingParams := CallbackCreate(ObjBindMethod(implObj, "CreateCustomRenderingParams"), flags, 9)
+        this.vtbl.CreateFontFaceReference := CallbackCreate(ObjBindMethod(implObj, "CreateFontFaceReference"), flags, 5)
+        this.vtbl.CreateFontFaceReference1 := CallbackCreate(ObjBindMethod(implObj, "CreateFontFaceReference1"), flags, 6)
+        this.vtbl.GetSystemFontSet := CallbackCreate(ObjBindMethod(implObj, "GetSystemFontSet"), flags, 2)
+        this.vtbl.CreateFontSetBuilder := CallbackCreate(ObjBindMethod(implObj, "CreateFontSetBuilder"), flags, 2)
+        this.vtbl.CreateFontCollectionFromFontSet := CallbackCreate(ObjBindMethod(implObj, "CreateFontCollectionFromFontSet"), flags, 3)
+        this.vtbl.GetSystemFontCollection := CallbackCreate(ObjBindMethod(implObj, "GetSystemFontCollection"), flags, 4)
+        this.vtbl.GetFontDownloadQueue := CallbackCreate(ObjBindMethod(implObj, "GetFontDownloadQueue"), flags, 2)
     }
 
     Dispose() {

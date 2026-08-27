@@ -45,7 +45,6 @@ export default struct AsyncIFtpPostprocessProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<POST_PROCESS_PARAMETERS>} pPostProcessParameters 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,6 @@ export default struct AsyncIFtpPostprocessProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {FTP_PROCESS_STATUS} 
      */
     Finish_HandlePostprocess() {
@@ -72,8 +70,8 @@ export default struct AsyncIFtpPostprocessProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Begin_HandlePostprocess := CallbackCreate(GetMethod(implObj, "Begin_HandlePostprocess"), flags, 2)
-        this.vtbl.Finish_HandlePostprocess := CallbackCreate(GetMethod(implObj, "Finish_HandlePostprocess"), flags, 2)
+        this.vtbl.Begin_HandlePostprocess := CallbackCreate(ObjBindMethod(implObj, "Begin_HandlePostprocess"), flags, 2)
+        this.vtbl.Finish_HandlePostprocess := CallbackCreate(ObjBindMethod(implObj, "Finish_HandlePostprocess"), flags, 2)
     }
 
     Dispose() {

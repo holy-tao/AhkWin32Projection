@@ -60,7 +60,6 @@ export default struct ScopeNamespace extends IDispatch {
     }
 
     /**
-     * 
      * @param {Node} _Node 
      * @returns {Node} 
      */
@@ -70,7 +69,6 @@ export default struct ScopeNamespace extends IDispatch {
     }
 
     /**
-     * 
      * @param {Node} _Node 
      * @returns {Node} 
      */
@@ -80,7 +78,6 @@ export default struct ScopeNamespace extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Node} 
      */
     GetRoot() {
@@ -89,7 +86,6 @@ export default struct ScopeNamespace extends IDispatch {
     }
 
     /**
-     * 
      * @param {Node} _Node 
      * @returns {HRESULT} 
      */
@@ -107,11 +103,11 @@ export default struct ScopeNamespace extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetParent := CallbackCreate(GetMethod(implObj, "GetParent"), flags, 3)
-        this.vtbl.GetChild := CallbackCreate(GetMethod(implObj, "GetChild"), flags, 3)
-        this.vtbl.GetNext := CallbackCreate(GetMethod(implObj, "GetNext"), flags, 3)
-        this.vtbl.GetRoot := CallbackCreate(GetMethod(implObj, "GetRoot"), flags, 2)
-        this.vtbl.Expand := CallbackCreate(GetMethod(implObj, "Expand"), flags, 2)
+        this.vtbl.GetParent := CallbackCreate(ObjBindMethod(implObj, "GetParent"), flags, 3)
+        this.vtbl.GetChild := CallbackCreate(ObjBindMethod(implObj, "GetChild"), flags, 3)
+        this.vtbl.GetNext := CallbackCreate(ObjBindMethod(implObj, "GetNext"), flags, 3)
+        this.vtbl.GetRoot := CallbackCreate(ObjBindMethod(implObj, "GetRoot"), flags, 2)
+        this.vtbl.Expand := CallbackCreate(ObjBindMethod(implObj, "Expand"), flags, 2)
     }
 
     Dispose() {

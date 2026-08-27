@@ -22,7 +22,6 @@ export default struct PFN_DrvQueryDeviceSupport {
     }
 
     /**
-     * 
      * @param {Pointer<SURFOBJ>} param0 
      * @param {Pointer<XLATEOBJ>} param1 
      * @param {Pointer<XFORMOBJ>} param2 
@@ -34,8 +33,8 @@ export default struct PFN_DrvQueryDeviceSupport {
      * @returns {BOOL} 
      */
     Call(param0, param1, param2, param3, param4, param5, param6, param7) {
-        param5Marshal := param5 is VarRef ? "ptr" : "ptr"
-        param7Marshal := param7 is VarRef ? "ptr" : "ptr"
+        param5Marshal := param5 is VarRef ? "ptr" : IntPtr
+        param7Marshal := param7 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, SURFOBJ.Ptr, param0, XLATEOBJ.Ptr, param1, XFORMOBJ.Ptr, param2, UInt32, param3, UInt32, param4, param5Marshal, param5, UInt32, param6, param7Marshal, param7, BOOL)
         return result

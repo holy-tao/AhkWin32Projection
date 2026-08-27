@@ -213,7 +213,6 @@ export default struct IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_navigationStart() {
@@ -222,7 +221,6 @@ export default struct IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_unloadEventStart() {
@@ -231,7 +229,6 @@ export default struct IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_unloadEventEnd() {
@@ -240,7 +237,6 @@ export default struct IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_redirectStart() {
@@ -249,7 +245,6 @@ export default struct IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_redirectEnd() {
@@ -258,7 +253,6 @@ export default struct IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_fetchStart() {
@@ -267,7 +261,6 @@ export default struct IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_domainLookupStart() {
@@ -276,7 +269,6 @@ export default struct IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_domainLookupEnd() {
@@ -285,7 +277,6 @@ export default struct IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_connectStart() {
@@ -294,7 +285,6 @@ export default struct IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_connectEnd() {
@@ -303,7 +293,6 @@ export default struct IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_requestStart() {
@@ -312,7 +301,6 @@ export default struct IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_responseStart() {
@@ -321,7 +309,6 @@ export default struct IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_responseEnd() {
@@ -330,7 +317,6 @@ export default struct IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_domLoading() {
@@ -339,7 +325,6 @@ export default struct IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_domInteractive() {
@@ -348,7 +333,6 @@ export default struct IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_domContentLoadedEventStart() {
@@ -357,7 +341,6 @@ export default struct IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_domContentLoadedEventEnd() {
@@ -366,7 +349,6 @@ export default struct IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_domComplete() {
@@ -375,7 +357,6 @@ export default struct IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_loadEventStart() {
@@ -384,7 +365,6 @@ export default struct IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_loadEventEnd() {
@@ -393,7 +373,6 @@ export default struct IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_msFirstPaint() {
@@ -402,7 +381,6 @@ export default struct IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     toString() {
@@ -412,7 +390,6 @@ export default struct IHTMLPerformanceTiming extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     toJSON() {
@@ -430,29 +407,29 @@ export default struct IHTMLPerformanceTiming extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_navigationStart := CallbackCreate(GetMethod(implObj, "get_navigationStart"), flags, 2)
-        this.vtbl.get_unloadEventStart := CallbackCreate(GetMethod(implObj, "get_unloadEventStart"), flags, 2)
-        this.vtbl.get_unloadEventEnd := CallbackCreate(GetMethod(implObj, "get_unloadEventEnd"), flags, 2)
-        this.vtbl.get_redirectStart := CallbackCreate(GetMethod(implObj, "get_redirectStart"), flags, 2)
-        this.vtbl.get_redirectEnd := CallbackCreate(GetMethod(implObj, "get_redirectEnd"), flags, 2)
-        this.vtbl.get_fetchStart := CallbackCreate(GetMethod(implObj, "get_fetchStart"), flags, 2)
-        this.vtbl.get_domainLookupStart := CallbackCreate(GetMethod(implObj, "get_domainLookupStart"), flags, 2)
-        this.vtbl.get_domainLookupEnd := CallbackCreate(GetMethod(implObj, "get_domainLookupEnd"), flags, 2)
-        this.vtbl.get_connectStart := CallbackCreate(GetMethod(implObj, "get_connectStart"), flags, 2)
-        this.vtbl.get_connectEnd := CallbackCreate(GetMethod(implObj, "get_connectEnd"), flags, 2)
-        this.vtbl.get_requestStart := CallbackCreate(GetMethod(implObj, "get_requestStart"), flags, 2)
-        this.vtbl.get_responseStart := CallbackCreate(GetMethod(implObj, "get_responseStart"), flags, 2)
-        this.vtbl.get_responseEnd := CallbackCreate(GetMethod(implObj, "get_responseEnd"), flags, 2)
-        this.vtbl.get_domLoading := CallbackCreate(GetMethod(implObj, "get_domLoading"), flags, 2)
-        this.vtbl.get_domInteractive := CallbackCreate(GetMethod(implObj, "get_domInteractive"), flags, 2)
-        this.vtbl.get_domContentLoadedEventStart := CallbackCreate(GetMethod(implObj, "get_domContentLoadedEventStart"), flags, 2)
-        this.vtbl.get_domContentLoadedEventEnd := CallbackCreate(GetMethod(implObj, "get_domContentLoadedEventEnd"), flags, 2)
-        this.vtbl.get_domComplete := CallbackCreate(GetMethod(implObj, "get_domComplete"), flags, 2)
-        this.vtbl.get_loadEventStart := CallbackCreate(GetMethod(implObj, "get_loadEventStart"), flags, 2)
-        this.vtbl.get_loadEventEnd := CallbackCreate(GetMethod(implObj, "get_loadEventEnd"), flags, 2)
-        this.vtbl.get_msFirstPaint := CallbackCreate(GetMethod(implObj, "get_msFirstPaint"), flags, 2)
-        this.vtbl.toString := CallbackCreate(GetMethod(implObj, "toString"), flags, 2)
-        this.vtbl.toJSON := CallbackCreate(GetMethod(implObj, "toJSON"), flags, 2)
+        this.vtbl.get_navigationStart := CallbackCreate(ObjBindMethod(implObj, "get_navigationStart"), flags, 2)
+        this.vtbl.get_unloadEventStart := CallbackCreate(ObjBindMethod(implObj, "get_unloadEventStart"), flags, 2)
+        this.vtbl.get_unloadEventEnd := CallbackCreate(ObjBindMethod(implObj, "get_unloadEventEnd"), flags, 2)
+        this.vtbl.get_redirectStart := CallbackCreate(ObjBindMethod(implObj, "get_redirectStart"), flags, 2)
+        this.vtbl.get_redirectEnd := CallbackCreate(ObjBindMethod(implObj, "get_redirectEnd"), flags, 2)
+        this.vtbl.get_fetchStart := CallbackCreate(ObjBindMethod(implObj, "get_fetchStart"), flags, 2)
+        this.vtbl.get_domainLookupStart := CallbackCreate(ObjBindMethod(implObj, "get_domainLookupStart"), flags, 2)
+        this.vtbl.get_domainLookupEnd := CallbackCreate(ObjBindMethod(implObj, "get_domainLookupEnd"), flags, 2)
+        this.vtbl.get_connectStart := CallbackCreate(ObjBindMethod(implObj, "get_connectStart"), flags, 2)
+        this.vtbl.get_connectEnd := CallbackCreate(ObjBindMethod(implObj, "get_connectEnd"), flags, 2)
+        this.vtbl.get_requestStart := CallbackCreate(ObjBindMethod(implObj, "get_requestStart"), flags, 2)
+        this.vtbl.get_responseStart := CallbackCreate(ObjBindMethod(implObj, "get_responseStart"), flags, 2)
+        this.vtbl.get_responseEnd := CallbackCreate(ObjBindMethod(implObj, "get_responseEnd"), flags, 2)
+        this.vtbl.get_domLoading := CallbackCreate(ObjBindMethod(implObj, "get_domLoading"), flags, 2)
+        this.vtbl.get_domInteractive := CallbackCreate(ObjBindMethod(implObj, "get_domInteractive"), flags, 2)
+        this.vtbl.get_domContentLoadedEventStart := CallbackCreate(ObjBindMethod(implObj, "get_domContentLoadedEventStart"), flags, 2)
+        this.vtbl.get_domContentLoadedEventEnd := CallbackCreate(ObjBindMethod(implObj, "get_domContentLoadedEventEnd"), flags, 2)
+        this.vtbl.get_domComplete := CallbackCreate(ObjBindMethod(implObj, "get_domComplete"), flags, 2)
+        this.vtbl.get_loadEventStart := CallbackCreate(ObjBindMethod(implObj, "get_loadEventStart"), flags, 2)
+        this.vtbl.get_loadEventEnd := CallbackCreate(ObjBindMethod(implObj, "get_loadEventEnd"), flags, 2)
+        this.vtbl.get_msFirstPaint := CallbackCreate(ObjBindMethod(implObj, "get_msFirstPaint"), flags, 2)
+        this.vtbl.toString := CallbackCreate(ObjBindMethod(implObj, "toString"), flags, 2)
+        this.vtbl.toJSON := CallbackCreate(ObjBindMethod(implObj, "toJSON"), flags, 2)
     }
 
     Dispose() {

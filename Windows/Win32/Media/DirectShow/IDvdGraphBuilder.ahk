@@ -130,9 +130,9 @@ export default struct IDvdGraphBuilder extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFiltergraph := CallbackCreate(GetMethod(implObj, "GetFiltergraph"), flags, 2)
-        this.vtbl.GetDvdInterface := CallbackCreate(GetMethod(implObj, "GetDvdInterface"), flags, 3)
-        this.vtbl.RenderDvdVideoVolume := CallbackCreate(GetMethod(implObj, "RenderDvdVideoVolume"), flags, 4)
+        this.vtbl.GetFiltergraph := CallbackCreate(ObjBindMethod(implObj, "GetFiltergraph"), flags, 2)
+        this.vtbl.GetDvdInterface := CallbackCreate(ObjBindMethod(implObj, "GetDvdInterface"), flags, 3)
+        this.vtbl.RenderDvdVideoVolume := CallbackCreate(ObjBindMethod(implObj, "RenderDvdVideoVolume"), flags, 4)
     }
 
     Dispose() {

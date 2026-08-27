@@ -136,10 +136,10 @@ export default struct IDCompositionTranslateTransform extends IDCompositionTrans
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetOffsetX := CallbackCreate(GetMethod(implObj, "SetOffsetX"), flags, 2)
-        this.vtbl.SetOffsetX1 := CallbackCreate(GetMethod(implObj, "SetOffsetX1"), flags, 2)
-        this.vtbl.SetOffsetY := CallbackCreate(GetMethod(implObj, "SetOffsetY"), flags, 2)
-        this.vtbl.SetOffsetY1 := CallbackCreate(GetMethod(implObj, "SetOffsetY1"), flags, 2)
+        this.vtbl.SetOffsetX := CallbackCreate(ObjBindMethod(implObj, "SetOffsetX"), flags, 2)
+        this.vtbl.SetOffsetX1 := CallbackCreate(ObjBindMethod(implObj, "SetOffsetX1"), flags, 2)
+        this.vtbl.SetOffsetY := CallbackCreate(ObjBindMethod(implObj, "SetOffsetY"), flags, 2)
+        this.vtbl.SetOffsetY1 := CallbackCreate(ObjBindMethod(implObj, "SetOffsetY1"), flags, 2)
     }
 
     Dispose() {

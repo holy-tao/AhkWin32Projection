@@ -40,7 +40,6 @@ export default struct IDebugHostType4 extends IDebugHostType3 {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetExtendedArrayHeaderSize() {
@@ -49,7 +48,6 @@ export default struct IDebugHostType4 extends IDebugHostType3 {
     }
 
     /**
-     * 
      * @param {Integer} dimensions 
      * @returns {ExtendedArrayDimension} 
      */
@@ -60,7 +58,6 @@ export default struct IDebugHostType4 extends IDebugHostType3 {
     }
 
     /**
-     * 
      * @returns {UDTKind} 
      */
     GetUDTKind() {
@@ -77,9 +74,9 @@ export default struct IDebugHostType4 extends IDebugHostType3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetExtendedArrayHeaderSize := CallbackCreate(GetMethod(implObj, "GetExtendedArrayHeaderSize"), flags, 2)
-        this.vtbl.GetExtendedArrayDimensions := CallbackCreate(GetMethod(implObj, "GetExtendedArrayDimensions"), flags, 3)
-        this.vtbl.GetUDTKind := CallbackCreate(GetMethod(implObj, "GetUDTKind"), flags, 2)
+        this.vtbl.GetExtendedArrayHeaderSize := CallbackCreate(ObjBindMethod(implObj, "GetExtendedArrayHeaderSize"), flags, 2)
+        this.vtbl.GetExtendedArrayDimensions := CallbackCreate(ObjBindMethod(implObj, "GetExtendedArrayDimensions"), flags, 3)
+        this.vtbl.GetUDTKind := CallbackCreate(ObjBindMethod(implObj, "GetUDTKind"), flags, 2)
     }
 
     Dispose() {

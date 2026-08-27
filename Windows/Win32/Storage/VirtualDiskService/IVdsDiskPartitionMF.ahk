@@ -156,8 +156,8 @@ export default struct IVdsDiskPartitionMF extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsdiskpartitionmf-querypartitionfilesystemformatsupport
      */
     QueryPartitionFileSystemFormatSupport(ullOffset, ppFileSystemSupportProps, plNumberOfFileSystems) {
-        ppFileSystemSupportPropsMarshal := ppFileSystemSupportProps is VarRef ? "ptr*" : "ptr"
-        plNumberOfFileSystemsMarshal := plNumberOfFileSystems is VarRef ? "int*" : "ptr"
+        ppFileSystemSupportPropsMarshal := ppFileSystemSupportProps is VarRef ? "ptr*" : IntPtr
+        plNumberOfFileSystemsMarshal := plNumberOfFileSystems is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, Int64, ullOffset, ppFileSystemSupportPropsMarshal, ppFileSystemSupportProps, plNumberOfFileSystemsMarshal, plNumberOfFileSystems, "HRESULT")
         return result
@@ -204,10 +204,10 @@ export default struct IVdsDiskPartitionMF extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPartitionFileSystemProperties := CallbackCreate(GetMethod(implObj, "GetPartitionFileSystemProperties"), flags, 3)
-        this.vtbl.GetPartitionFileSystemTypeName := CallbackCreate(GetMethod(implObj, "GetPartitionFileSystemTypeName"), flags, 3)
-        this.vtbl.QueryPartitionFileSystemFormatSupport := CallbackCreate(GetMethod(implObj, "QueryPartitionFileSystemFormatSupport"), flags, 4)
-        this.vtbl.FormatPartitionEx := CallbackCreate(GetMethod(implObj, "FormatPartitionEx"), flags, 10)
+        this.vtbl.GetPartitionFileSystemProperties := CallbackCreate(ObjBindMethod(implObj, "GetPartitionFileSystemProperties"), flags, 3)
+        this.vtbl.GetPartitionFileSystemTypeName := CallbackCreate(ObjBindMethod(implObj, "GetPartitionFileSystemTypeName"), flags, 3)
+        this.vtbl.QueryPartitionFileSystemFormatSupport := CallbackCreate(ObjBindMethod(implObj, "QueryPartitionFileSystemFormatSupport"), flags, 4)
+        this.vtbl.FormatPartitionEx := CallbackCreate(ObjBindMethod(implObj, "FormatPartitionEx"), flags, 10)
     }
 
     Dispose() {

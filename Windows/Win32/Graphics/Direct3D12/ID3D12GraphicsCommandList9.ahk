@@ -37,7 +37,6 @@ export default struct ID3D12GraphicsCommandList9 extends ID3D12GraphicsCommandLi
     }
 
     /**
-     * 
      * @param {Float} DepthBias 
      * @param {Float} DepthBiasClamp 
      * @param {Float} SlopeScaledDepthBias 
@@ -48,7 +47,6 @@ export default struct ID3D12GraphicsCommandList9 extends ID3D12GraphicsCommandLi
     }
 
     /**
-     * 
      * @param {D3D12_INDEX_BUFFER_STRIP_CUT_VALUE} IBStripCutValue 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -65,8 +63,8 @@ export default struct ID3D12GraphicsCommandList9 extends ID3D12GraphicsCommandLi
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RSSetDepthBias := CallbackCreate(GetMethod(implObj, "RSSetDepthBias"), flags, 4)
-        this.vtbl.IASetIndexBufferStripCutValue := CallbackCreate(GetMethod(implObj, "IASetIndexBufferStripCutValue"), flags, 2)
+        this.vtbl.RSSetDepthBias := CallbackCreate(ObjBindMethod(implObj, "RSSetDepthBias"), flags, 4)
+        this.vtbl.IASetIndexBufferStripCutValue := CallbackCreate(ObjBindMethod(implObj, "IASetIndexBufferStripCutValue"), flags, 2)
     }
 
     Dispose() {

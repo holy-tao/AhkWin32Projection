@@ -53,7 +53,6 @@ export default struct ISchemaAny extends ISchemaParticle {
     }
 
     /**
-     * 
      * @returns {ISchemaStringCollection} 
      */
     get_namespaces() {
@@ -62,7 +61,6 @@ export default struct ISchemaAny extends ISchemaParticle {
     }
 
     /**
-     * 
      * @returns {SCHEMAPROCESSCONTENTS} 
      */
     get_processContents() {
@@ -79,8 +77,8 @@ export default struct ISchemaAny extends ISchemaParticle {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_namespaces := CallbackCreate(GetMethod(implObj, "get_namespaces"), flags, 2)
-        this.vtbl.get_processContents := CallbackCreate(GetMethod(implObj, "get_processContents"), flags, 2)
+        this.vtbl.get_namespaces := CallbackCreate(ObjBindMethod(implObj, "get_namespaces"), flags, 2)
+        this.vtbl.get_processContents := CallbackCreate(ObjBindMethod(implObj, "get_processContents"), flags, 2)
     }
 
     Dispose() {

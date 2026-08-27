@@ -70,12 +70,13 @@ export AllocConsole() {
 }
 
 /**
- * 
  * @param {Pointer<ALLOC_CONSOLE_OPTIONS>} options 
  * @returns {ALLOC_CONSOLE_RESULT} 
  */
 export AllocConsoleWithOptions(options) {
-    result := DllCall("KERNEL32.dll\AllocConsoleWithOptions", ALLOC_CONSOLE_OPTIONS.Ptr, options, "int*", &result := 0, "HRESULT")
+    optionsMarshal := options == 0 ? IntPtr : ALLOC_CONSOLE_OPTIONS.Ptr
+
+    result := DllCall("KERNEL32.dll\AllocConsoleWithOptions", optionsMarshal, options, "int*", &result := 0, "HRESULT")
     return result
 }
 
@@ -201,7 +202,7 @@ export GetConsoleOutputCP() {
  * @see https://learn.microsoft.com/windows/console/getconsolemode
  */
 export GetConsoleMode(hConsoleHandle, lpMode) {
-    lpModeMarshal := lpMode is VarRef ? "uint*" : "ptr"
+    lpModeMarshal := lpMode is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -255,7 +256,7 @@ export SetConsoleMode(hConsoleHandle, dwMode) {
  * @see https://learn.microsoft.com/windows/console/getnumberofconsoleinputevents
  */
 export GetNumberOfConsoleInputEvents(hConsoleInput, lpNumberOfEvents) {
-    lpNumberOfEventsMarshal := lpNumberOfEvents is VarRef ? "uint*" : "ptr"
+    lpNumberOfEventsMarshal := lpNumberOfEvents is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -287,7 +288,7 @@ export GetNumberOfConsoleInputEvents(hConsoleInput, lpNumberOfEvents) {
  * @see https://learn.microsoft.com/windows/console/readconsoleinput
  */
 export ReadConsoleInputA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead) {
-    lpNumberOfEventsReadMarshal := lpNumberOfEventsRead is VarRef ? "uint*" : "ptr"
+    lpNumberOfEventsReadMarshal := lpNumberOfEventsRead is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -319,7 +320,7 @@ export ReadConsoleInputA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead)
  * @see https://learn.microsoft.com/windows/console/readconsoleinput
  */
 export ReadConsoleInputW(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead) {
-    lpNumberOfEventsReadMarshal := lpNumberOfEventsRead is VarRef ? "uint*" : "ptr"
+    lpNumberOfEventsReadMarshal := lpNumberOfEventsRead is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -347,7 +348,7 @@ export ReadConsoleInputW(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead)
  * @see https://learn.microsoft.com/windows/console/peekconsoleinput
  */
 export PeekConsoleInputA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead) {
-    lpNumberOfEventsReadMarshal := lpNumberOfEventsRead is VarRef ? "uint*" : "ptr"
+    lpNumberOfEventsReadMarshal := lpNumberOfEventsRead is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -375,7 +376,7 @@ export PeekConsoleInputA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead)
  * @see https://learn.microsoft.com/windows/console/peekconsoleinput
  */
 export PeekConsoleInputW(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead) {
-    lpNumberOfEventsReadMarshal := lpNumberOfEventsRead is VarRef ? "uint*" : "ptr"
+    lpNumberOfEventsReadMarshal := lpNumberOfEventsRead is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -418,12 +419,13 @@ export PeekConsoleInputW(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead)
  * @see https://learn.microsoft.com/windows/console/readconsole
  */
 export ReadConsoleA(hConsoleInput, lpBuffer, nNumberOfCharsToRead, lpNumberOfCharsRead, pInputControl) {
-    lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
-    lpNumberOfCharsReadMarshal := lpNumberOfCharsRead is VarRef ? "uint*" : "ptr"
+    lpBufferMarshal := lpBuffer is VarRef ? "ptr" : IntPtr
+    lpNumberOfCharsReadMarshal := lpNumberOfCharsRead is VarRef ? "uint*" : IntPtr
+    pInputControlMarshal := pInputControl == 0 ? IntPtr : CONSOLE_READCONSOLE_CONTROL.Ptr
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\ReadConsoleA", HANDLE, hConsoleInput, lpBufferMarshal, lpBuffer, UInt32, nNumberOfCharsToRead, lpNumberOfCharsReadMarshal, lpNumberOfCharsRead, CONSOLE_READCONSOLE_CONTROL.Ptr, pInputControl, BOOL)
+    result := DllCall("KERNEL32.dll\ReadConsoleA", HANDLE, hConsoleInput, lpBufferMarshal, lpBuffer, UInt32, nNumberOfCharsToRead, lpNumberOfCharsReadMarshal, lpNumberOfCharsRead, pInputControlMarshal, pInputControl, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -462,12 +464,13 @@ export ReadConsoleA(hConsoleInput, lpBuffer, nNumberOfCharsToRead, lpNumberOfCha
  * @see https://learn.microsoft.com/windows/console/readconsole
  */
 export ReadConsoleW(hConsoleInput, lpBuffer, nNumberOfCharsToRead, lpNumberOfCharsRead, pInputControl) {
-    lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
-    lpNumberOfCharsReadMarshal := lpNumberOfCharsRead is VarRef ? "uint*" : "ptr"
+    lpBufferMarshal := lpBuffer is VarRef ? "ptr" : IntPtr
+    lpNumberOfCharsReadMarshal := lpNumberOfCharsRead is VarRef ? "uint*" : IntPtr
+    pInputControlMarshal := pInputControl == 0 ? IntPtr : CONSOLE_READCONSOLE_CONTROL.Ptr
 
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\ReadConsoleW", HANDLE, hConsoleInput, lpBufferMarshal, lpBuffer, UInt32, nNumberOfCharsToRead, lpNumberOfCharsReadMarshal, lpNumberOfCharsRead, CONSOLE_READCONSOLE_CONTROL.Ptr, pInputControl, BOOL)
+    result := DllCall("KERNEL32.dll\ReadConsoleW", HANDLE, hConsoleInput, lpBufferMarshal, lpBuffer, UInt32, nNumberOfCharsToRead, lpNumberOfCharsReadMarshal, lpNumberOfCharsRead, pInputControlMarshal, pInputControl, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -505,7 +508,8 @@ export WriteConsoleA(hConsoleOutput, lpBuffer, nNumberOfCharsToWrite, lpNumberOf
 
     lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
-    lpNumberOfCharsWrittenMarshal := lpNumberOfCharsWritten is VarRef ? "uint*" : "ptr"
+    lpNumberOfCharsWrittenMarshal := lpNumberOfCharsWritten is VarRef ? "uint*" : IntPtr
+    lpNumberOfCharsWrittenMarshal := lpNumberOfCharsWritten == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
@@ -547,7 +551,8 @@ export WriteConsoleW(hConsoleOutput, lpBuffer, nNumberOfCharsToWrite, lpNumberOf
 
     lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
-    lpNumberOfCharsWrittenMarshal := lpNumberOfCharsWritten is VarRef ? "uint*" : "ptr"
+    lpNumberOfCharsWrittenMarshal := lpNumberOfCharsWritten is VarRef ? "uint*" : IntPtr
+    lpNumberOfCharsWrittenMarshal := lpNumberOfCharsWritten == 0 ? IntPtr : "uint*"
 
     A_LastError := 0
 
@@ -595,9 +600,11 @@ export WriteConsoleW(hConsoleOutput, lpBuffer, nNumberOfCharsToWrite, lpNumberOf
  * @see https://learn.microsoft.com/windows/console/setconsolectrlhandler
  */
 export SetConsoleCtrlHandler(HandlerRoutine, Add) {
+    HandlerRoutineMarshal := HandlerRoutine == 0 ? IntPtr : PHANDLER_ROUTINE
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetConsoleCtrlHandler", PHANDLER_ROUTINE, HandlerRoutine, BOOL, Add, BOOL)
+    result := DllCall("KERNEL32.dll\SetConsoleCtrlHandler", HandlerRoutineMarshal, HandlerRoutine, BOOL, Add, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -668,7 +675,6 @@ export ClosePseudoConsole(hPC) {
 }
 
 /**
- * 
  * @param {HPCON} hPC 
  * @returns {HRESULT} 
  */
@@ -699,7 +705,7 @@ export ReleasePseudoConsole(hPC) {
  * @see https://learn.microsoft.com/windows/console/fillconsoleoutputcharacter
  */
 export FillConsoleOutputCharacterA(hConsoleOutput, cCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten) {
-    lpNumberOfCharsWrittenMarshal := lpNumberOfCharsWritten is VarRef ? "uint*" : "ptr"
+    lpNumberOfCharsWrittenMarshal := lpNumberOfCharsWritten is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -733,7 +739,7 @@ export FillConsoleOutputCharacterA(hConsoleOutput, cCharacter, nLength, dwWriteC
  * @see https://learn.microsoft.com/windows/console/fillconsoleoutputcharacter
  */
 export FillConsoleOutputCharacterW(hConsoleOutput, cCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten) {
-    lpNumberOfCharsWrittenMarshal := lpNumberOfCharsWritten is VarRef ? "uint*" : "ptr"
+    lpNumberOfCharsWrittenMarshal := lpNumberOfCharsWritten is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -765,7 +771,7 @@ export FillConsoleOutputCharacterW(hConsoleOutput, cCharacter, nLength, dwWriteC
  * @see https://learn.microsoft.com/windows/console/fillconsoleoutputattribute
  */
 export FillConsoleOutputAttribute(hConsoleOutput, wAttribute, nLength, dwWriteCoord, lpNumberOfAttrsWritten) {
-    lpNumberOfAttrsWrittenMarshal := lpNumberOfAttrsWritten is VarRef ? "uint*" : "ptr"
+    lpNumberOfAttrsWrittenMarshal := lpNumberOfAttrsWritten is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -845,9 +851,11 @@ export GenerateConsoleCtrlEvent(dwCtrlEvent, dwProcessGroupId) {
 export CreateConsoleScreenBuffer(dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwFlags) {
     static lpScreenBufferData := 0 ;Reserved parameters must always be NULL
 
+    lpSecurityAttributesMarshal := lpSecurityAttributes == 0 ? IntPtr : SECURITY_ATTRIBUTES.Ptr
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\CreateConsoleScreenBuffer", UInt32, dwDesiredAccess, UInt32, dwShareMode, SECURITY_ATTRIBUTES.Ptr, lpSecurityAttributes, UInt32, dwFlags, "ptr", lpScreenBufferData, HANDLE.Owned)
+    result := DllCall("KERNEL32.dll\CreateConsoleScreenBuffer", UInt32, dwDesiredAccess, UInt32, dwShareMode, lpSecurityAttributesMarshal, lpSecurityAttributes, UInt32, dwFlags, "ptr", lpScreenBufferData, HANDLE.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1239,7 +1247,7 @@ export SetConsoleWindowInfo(hConsoleOutput, bAbsolute, lpConsoleWindow) {
 export WriteConsoleOutputCharacterA(hConsoleOutput, lpCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten) {
     lpCharacter := lpCharacter is String ? StrPtr(lpCharacter) : lpCharacter
 
-    lpNumberOfCharsWrittenMarshal := lpNumberOfCharsWritten is VarRef ? "uint*" : "ptr"
+    lpNumberOfCharsWrittenMarshal := lpNumberOfCharsWritten is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -1275,7 +1283,7 @@ export WriteConsoleOutputCharacterA(hConsoleOutput, lpCharacter, nLength, dwWrit
 export WriteConsoleOutputCharacterW(hConsoleOutput, lpCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten) {
     lpCharacter := lpCharacter is String ? StrPtr(lpCharacter) : lpCharacter
 
-    lpNumberOfCharsWrittenMarshal := lpNumberOfCharsWritten is VarRef ? "uint*" : "ptr"
+    lpNumberOfCharsWrittenMarshal := lpNumberOfCharsWritten is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -1307,8 +1315,8 @@ export WriteConsoleOutputCharacterW(hConsoleOutput, lpCharacter, nLength, dwWrit
  * @see https://learn.microsoft.com/windows/console/writeconsoleoutputattribute
  */
 export WriteConsoleOutputAttribute(hConsoleOutput, lpAttribute, nLength, dwWriteCoord, lpNumberOfAttrsWritten) {
-    lpAttributeMarshal := lpAttribute is VarRef ? "ushort*" : "ptr"
-    lpNumberOfAttrsWrittenMarshal := lpNumberOfAttrsWritten is VarRef ? "uint*" : "ptr"
+    lpAttributeMarshal := lpAttribute is VarRef ? "ushort*" : IntPtr
+    lpNumberOfAttrsWrittenMarshal := lpNumberOfAttrsWritten is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -1341,7 +1349,7 @@ export WriteConsoleOutputAttribute(hConsoleOutput, lpAttribute, nLength, dwWrite
 export ReadConsoleOutputCharacterA(hConsoleOutput, lpCharacter, nLength, dwReadCoord, lpNumberOfCharsRead) {
     lpCharacter := lpCharacter is String ? StrPtr(lpCharacter) : lpCharacter
 
-    lpNumberOfCharsReadMarshal := lpNumberOfCharsRead is VarRef ? "uint*" : "ptr"
+    lpNumberOfCharsReadMarshal := lpNumberOfCharsRead is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -1374,7 +1382,7 @@ export ReadConsoleOutputCharacterA(hConsoleOutput, lpCharacter, nLength, dwReadC
 export ReadConsoleOutputCharacterW(hConsoleOutput, lpCharacter, nLength, dwReadCoord, lpNumberOfCharsRead) {
     lpCharacter := lpCharacter is String ? StrPtr(lpCharacter) : lpCharacter
 
-    lpNumberOfCharsReadMarshal := lpNumberOfCharsRead is VarRef ? "uint*" : "ptr"
+    lpNumberOfCharsReadMarshal := lpNumberOfCharsRead is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -1405,8 +1413,8 @@ export ReadConsoleOutputCharacterW(hConsoleOutput, lpCharacter, nLength, dwReadC
  * @see https://learn.microsoft.com/windows/console/readconsoleoutputattribute
  */
 export ReadConsoleOutputAttribute(hConsoleOutput, lpAttribute, nLength, dwReadCoord, lpNumberOfAttrsRead) {
-    lpAttributeMarshal := lpAttribute is VarRef ? "ushort*" : "ptr"
-    lpNumberOfAttrsReadMarshal := lpNumberOfAttrsRead is VarRef ? "uint*" : "ptr"
+    lpAttributeMarshal := lpAttribute is VarRef ? "ushort*" : IntPtr
+    lpNumberOfAttrsReadMarshal := lpNumberOfAttrsRead is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -1437,7 +1445,7 @@ export ReadConsoleOutputAttribute(hConsoleOutput, lpAttribute, nLength, dwReadCo
  * @see https://learn.microsoft.com/windows/console/writeconsoleinput
  */
 export WriteConsoleInputA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsWritten) {
-    lpNumberOfEventsWrittenMarshal := lpNumberOfEventsWritten is VarRef ? "uint*" : "ptr"
+    lpNumberOfEventsWrittenMarshal := lpNumberOfEventsWritten is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -1468,7 +1476,7 @@ export WriteConsoleInputA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsWrit
  * @see https://learn.microsoft.com/windows/console/writeconsoleinput
  */
 export WriteConsoleInputW(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsWritten) {
-    lpNumberOfEventsWrittenMarshal := lpNumberOfEventsWritten is VarRef ? "uint*" : "ptr"
+    lpNumberOfEventsWrittenMarshal := lpNumberOfEventsWritten is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -1504,9 +1512,11 @@ export WriteConsoleInputW(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsWrit
  * @see https://learn.microsoft.com/windows/console/scrollconsolescreenbuffer
  */
 export ScrollConsoleScreenBufferA(hConsoleOutput, lpScrollRectangle, lpClipRectangle, dwDestinationOrigin, lpFill) {
+    lpClipRectangleMarshal := lpClipRectangle == 0 ? IntPtr : SMALL_RECT.Ptr
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\ScrollConsoleScreenBufferA", HANDLE, hConsoleOutput, SMALL_RECT.Ptr, lpScrollRectangle, SMALL_RECT.Ptr, lpClipRectangle, COORD, dwDestinationOrigin, CHAR_INFO.Ptr, lpFill, BOOL)
+    result := DllCall("KERNEL32.dll\ScrollConsoleScreenBufferA", HANDLE, hConsoleOutput, SMALL_RECT.Ptr, lpScrollRectangle, lpClipRectangleMarshal, lpClipRectangle, COORD, dwDestinationOrigin, CHAR_INFO.Ptr, lpFill, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1538,9 +1548,11 @@ export ScrollConsoleScreenBufferA(hConsoleOutput, lpScrollRectangle, lpClipRecta
  * @see https://learn.microsoft.com/windows/console/scrollconsolescreenbuffer
  */
 export ScrollConsoleScreenBufferW(hConsoleOutput, lpScrollRectangle, lpClipRectangle, dwDestinationOrigin, lpFill) {
+    lpClipRectangleMarshal := lpClipRectangle == 0 ? IntPtr : SMALL_RECT.Ptr
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\ScrollConsoleScreenBufferW", HANDLE, hConsoleOutput, SMALL_RECT.Ptr, lpScrollRectangle, SMALL_RECT.Ptr, lpClipRectangle, COORD, dwDestinationOrigin, CHAR_INFO.Ptr, lpFill, BOOL)
+    result := DllCall("KERNEL32.dll\ScrollConsoleScreenBufferW", HANDLE, hConsoleOutput, SMALL_RECT.Ptr, lpScrollRectangle, lpClipRectangleMarshal, lpClipRectangle, COORD, dwDestinationOrigin, CHAR_INFO.Ptr, lpFill, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1888,7 +1900,7 @@ export SetConsoleTitleW(lpConsoleTitle) {
  * @see https://learn.microsoft.com/windows/console/getnumberofconsolemousebuttons
  */
 export GetNumberOfConsoleMouseButtons(lpNumberOfMouseButtons) {
-    lpNumberOfMouseButtonsMarshal := lpNumberOfMouseButtons is VarRef ? "uint*" : "ptr"
+    lpNumberOfMouseButtonsMarshal := lpNumberOfMouseButtons is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -2087,7 +2099,7 @@ export SetConsoleHistoryInfo(lpConsoleHistoryInfo) {
  * @see https://learn.microsoft.com/windows/console/getconsoledisplaymode
  */
 export GetConsoleDisplayMode(lpModeFlags) {
-    lpModeFlagsMarshal := lpModeFlags is VarRef ? "uint*" : "ptr"
+    lpModeFlagsMarshal := lpModeFlags is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -2117,9 +2129,11 @@ export GetConsoleDisplayMode(lpModeFlags) {
  * @see https://learn.microsoft.com/windows/console/setconsoledisplaymode
  */
 export SetConsoleDisplayMode(hConsoleOutput, dwFlags, lpNewScreenBufferDimensions) {
+    lpNewScreenBufferDimensionsMarshal := lpNewScreenBufferDimensions == 0 ? IntPtr : COORD.Ptr
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\SetConsoleDisplayMode", HANDLE, hConsoleOutput, UInt32, dwFlags, COORD.Ptr, lpNewScreenBufferDimensions, BOOL)
+    result := DllCall("KERNEL32.dll\SetConsoleDisplayMode", HANDLE, hConsoleOutput, UInt32, dwFlags, lpNewScreenBufferDimensionsMarshal, lpNewScreenBufferDimensions, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2450,7 +2464,6 @@ export GetConsoleAliasExesW(ExeNameBuffer, ExeNameBufferLength) {
 }
 
 /**
- * 
  * @param {PSTR} ExeName 
  * @returns {String} Nothing - always returns an empty string
  */
@@ -2461,7 +2474,6 @@ export ExpungeConsoleCommandHistoryA(ExeName) {
 }
 
 /**
- * 
  * @param {PWSTR} ExeName 
  * @returns {String} Nothing - always returns an empty string
  */
@@ -2472,7 +2484,6 @@ export ExpungeConsoleCommandHistoryW(ExeName) {
 }
 
 /**
- * 
  * @param {Integer} _Number 
  * @param {PSTR} ExeName 
  * @returns {BOOL} 
@@ -2485,7 +2496,6 @@ export SetConsoleNumberOfCommandsA(_Number, ExeName) {
 }
 
 /**
- * 
  * @param {Integer} _Number 
  * @param {PWSTR} ExeName 
  * @returns {BOOL} 
@@ -2498,7 +2508,6 @@ export SetConsoleNumberOfCommandsW(_Number, ExeName) {
 }
 
 /**
- * 
  * @param {PSTR} ExeName 
  * @returns {Integer} 
  */
@@ -2510,7 +2519,6 @@ export GetConsoleCommandHistoryLengthA(ExeName) {
 }
 
 /**
- * 
  * @param {PWSTR} ExeName 
  * @returns {Integer} 
  */
@@ -2522,7 +2530,6 @@ export GetConsoleCommandHistoryLengthW(ExeName) {
 }
 
 /**
- * 
  * @param {Integer} Commands 
  * @param {Integer} CommandBufferLength 
  * @param {PSTR} ExeName 
@@ -2536,7 +2543,6 @@ export GetConsoleCommandHistoryA(Commands, CommandBufferLength, ExeName) {
 }
 
 /**
- * 
  * @param {Integer} Commands 
  * @param {Integer} CommandBufferLength 
  * @param {PWSTR} ExeName 
@@ -2567,7 +2573,7 @@ export GetConsoleCommandHistoryW(Commands, CommandBufferLength, ExeName) {
  * @see https://learn.microsoft.com/windows/console/getconsoleprocesslist
  */
 export GetConsoleProcessList(lpdwProcessList, dwProcessCount) {
-    lpdwProcessListMarshal := lpdwProcessList is VarRef ? "uint*" : "ptr"
+    lpdwProcessListMarshal := lpdwProcessList is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -2580,7 +2586,6 @@ export GetConsoleProcessList(lpdwProcessList, dwProcessCount) {
 }
 
 /**
- * 
  * @param {PSTR} pszLayout 
  * @returns {BOOL} 
  */
@@ -2592,7 +2597,6 @@ export GetConsoleKeyboardLayoutNameA(pszLayout) {
 }
 
 /**
- * 
  * @param {PWSTR} pszLayout 
  * @returns {BOOL} 
  */
@@ -2604,7 +2608,6 @@ export GetConsoleKeyboardLayoutNameW(pszLayout) {
 }
 
 /**
- * 
  * @param {HANDLE} hConsoleOutput 
  * @param {Pointer<SMALL_RECT>} lpRect 
  * @returns {BOOL} 
@@ -2615,7 +2618,6 @@ export InvalidateConsoleDIBits(hConsoleOutput, lpRect) {
 }
 
 /**
- * 
  * @returns {String} Nothing - always returns an empty string
  */
 export SetLastConsoleEventActive() {
@@ -2623,20 +2625,19 @@ export SetLastConsoleEventActive() {
 }
 
 /**
- * 
  * @param {Integer} iFunction 
  * @param {Pointer<Void>} lpData 
  * @returns {BOOL} 
  */
 export VDMConsoleOperation(iFunction, lpData) {
-    lpDataMarshal := lpData is VarRef ? "ptr" : "ptr"
+    lpDataMarshal := lpData is VarRef ? "ptr" : IntPtr
+    lpDataMarshal := lpData == 0 ? IntPtr : "ptr"
 
     result := DllCall("KERNEL32.dll\VDMConsoleOperation", UInt32, iFunction, lpDataMarshal, lpData, BOOL)
     return result
 }
 
 /**
- * 
  * @param {HICON} _hIcon 
  * @returns {BOOL} 
  */
@@ -2646,7 +2647,6 @@ export SetConsoleIcon(_hIcon) {
 }
 
 /**
- * 
  * @param {HANDLE} hConsoleOutput 
  * @param {Integer} nFont 
  * @returns {BOOL} 
@@ -2657,7 +2657,6 @@ export SetConsoleFont(hConsoleOutput, nFont) {
 }
 
 /**
- * 
  * @param {HANDLE} hConsoleOutput 
  * @param {BOOL} bMaximumWindow 
  * @param {Integer} nLength 
@@ -2670,7 +2669,6 @@ export GetConsoleFontInfo(hConsoleOutput, bMaximumWindow, nLength, lpConsoleFont
 }
 
 /**
- * 
  * @returns {Integer} 
  */
 export GetNumberOfConsoleFonts() {
@@ -2679,7 +2677,6 @@ export GetNumberOfConsoleFonts() {
 }
 
 /**
- * 
  * @param {HANDLE} hConsoleOutput 
  * @param {HCURSOR} _hCursor 
  * @returns {BOOL} 
@@ -2690,7 +2687,6 @@ export SetConsoleCursor(hConsoleOutput, _hCursor) {
 }
 
 /**
- * 
  * @param {HANDLE} hConsoleOutput 
  * @param {BOOL} bShow 
  * @returns {Integer} 
@@ -2701,7 +2697,6 @@ export ShowConsoleCursor(hConsoleOutput, bShow) {
 }
 
 /**
- * 
  * @param {HANDLE} hConsoleOutput 
  * @param {Integer} dwCommandIdLow 
  * @param {Integer} dwCommandIdHigh 
@@ -2713,7 +2708,6 @@ export ConsoleMenuControl(hConsoleOutput, dwCommandIdLow, dwCommandIdHigh) {
 }
 
 /**
- * 
  * @param {HANDLE} hConsoleOutput 
  * @param {HPALETTE} _hPalette 
  * @param {Integer} dwUsage 
@@ -2725,7 +2719,6 @@ export SetConsolePalette(hConsoleOutput, _hPalette, dwUsage) {
 }
 
 /**
- * 
  * @param {Integer} dwRegisterFlags 
  * @param {HANDLE} hStartHardwareEvent 
  * @param {HANDLE} hEndHardwareEvent 
@@ -2739,16 +2732,16 @@ export SetConsolePalette(hConsoleOutput, _hPalette, dwUsage) {
 export RegisterConsoleVDM(dwRegisterFlags, hStartHardwareEvent, hEndHardwareEvent, hErrorhardwareEvent, lpStateLength, lpState, VDMBufferSize, lpVDMBuffer) {
     static Reserved := 0 ;Reserved parameters must always be NULL
 
-    lpStateLengthMarshal := lpStateLength is VarRef ? "uint*" : "ptr"
-    lpStateMarshal := lpState is VarRef ? "ptr*" : "ptr"
-    lpVDMBufferMarshal := lpVDMBuffer is VarRef ? "ptr*" : "ptr"
+    lpStateLengthMarshal := lpStateLength is VarRef ? "uint*" : IntPtr
+    lpStateMarshal := lpState is VarRef ? "ptr*" : IntPtr
+    VDMBufferSizeMarshal := VDMBufferSize == 0 ? IntPtr : COORD
+    lpVDMBufferMarshal := lpVDMBuffer is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("KERNEL32.dll\RegisterConsoleVDM", UInt32, dwRegisterFlags, HANDLE, hStartHardwareEvent, HANDLE, hEndHardwareEvent, HANDLE, hErrorhardwareEvent, UInt32, Reserved, lpStateLengthMarshal, lpStateLength, lpStateMarshal, lpState, COORD, VDMBufferSize, lpVDMBufferMarshal, lpVDMBuffer, BOOL)
+    result := DllCall("KERNEL32.dll\RegisterConsoleVDM", UInt32, dwRegisterFlags, HANDLE, hStartHardwareEvent, HANDLE, hEndHardwareEvent, HANDLE, hErrorhardwareEvent, UInt32, Reserved, lpStateLengthMarshal, lpStateLength, lpStateMarshal, lpState, VDMBufferSizeMarshal, VDMBufferSize, lpVDMBufferMarshal, lpVDMBuffer, BOOL)
     return result
 }
 
 /**
- * 
  * @param {HANDLE} hConsoleOutput 
  * @param {Pointer<COORD>} lpResolution 
  * @param {Pointer<COORD>} lpFontSize 
@@ -2760,7 +2753,6 @@ export GetConsoleHardwareState(hConsoleOutput, lpResolution, lpFontSize) {
 }
 
 /**
- * 
  * @param {HANDLE} hConsoleOutput 
  * @param {COORD} dwResolution 
  * @param {COORD} dwFontSize 
@@ -2772,7 +2764,6 @@ export SetConsoleHardwareState(hConsoleOutput, dwResolution, dwFontSize) {
 }
 
 /**
- * 
  * @param {BOOL} bSet 
  * @param {Integer} bReserveKeys 
  * @param {Pointer<APPKEY>} lpAppKeys 
@@ -2785,7 +2776,6 @@ export SetConsoleKeyShortcuts(bSet, bReserveKeys, lpAppKeys, dwNumAppKeys) {
 }
 
 /**
- * 
  * @param {BOOL} bEnable 
  * @returns {BOOL} 
  */
@@ -2795,7 +2785,6 @@ export SetConsoleMenuClose(bEnable) {
 }
 
 /**
- * 
  * @param {Integer} nBufferLength 
  * @param {PSTR} lpBuffer 
  * @returns {Integer} 
@@ -2808,7 +2797,6 @@ export GetConsoleInputExeNameA(nBufferLength, lpBuffer) {
 }
 
 /**
- * 
  * @param {Integer} nBufferLength 
  * @param {PWSTR} lpBuffer 
  * @returns {Integer} 
@@ -2821,7 +2809,6 @@ export GetConsoleInputExeNameW(nBufferLength, lpBuffer) {
 }
 
 /**
- * 
  * @param {PSTR} lpExeName 
  * @returns {BOOL} 
  */
@@ -2833,7 +2820,6 @@ export SetConsoleInputExeNameA(lpExeName) {
 }
 
 /**
- * 
  * @param {PWSTR} lpExeName 
  * @returns {BOOL} 
  */
@@ -2870,7 +2856,7 @@ export SetConsoleInputExeNameW(lpExeName) {
  * @see https://learn.microsoft.com/windows/console/readconsoleinputex
  */
 export ReadConsoleInputExA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead, wFlags) {
-    lpNumberOfEventsReadMarshal := lpNumberOfEventsRead is VarRef ? "uint*" : "ptr"
+    lpNumberOfEventsReadMarshal := lpNumberOfEventsRead is VarRef ? "uint*" : IntPtr
 
     result := DllCall("KERNEL32.dll\ReadConsoleInputExA", HANDLE, hConsoleInput, INPUT_RECORD.Ptr, lpBuffer, UInt32, nLength, lpNumberOfEventsReadMarshal, lpNumberOfEventsRead, UInt16, wFlags, BOOL)
     return result
@@ -2902,14 +2888,13 @@ export ReadConsoleInputExA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRea
  * @see https://learn.microsoft.com/windows/console/readconsoleinputex
  */
 export ReadConsoleInputExW(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead, wFlags) {
-    lpNumberOfEventsReadMarshal := lpNumberOfEventsRead is VarRef ? "uint*" : "ptr"
+    lpNumberOfEventsReadMarshal := lpNumberOfEventsRead is VarRef ? "uint*" : IntPtr
 
     result := DllCall("KERNEL32.dll\ReadConsoleInputExW", HANDLE, hConsoleInput, INPUT_RECORD.Ptr, lpBuffer, UInt32, nLength, lpNumberOfEventsReadMarshal, lpNumberOfEventsRead, UInt16, wFlags, BOOL)
     return result
 }
 
 /**
- * 
  * @param {HANDLE} hConsoleInput 
  * @param {Pointer<INPUT_RECORD>} lpBuffer 
  * @param {Integer} nLength 
@@ -2917,14 +2902,13 @@ export ReadConsoleInputExW(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRea
  * @returns {BOOL} 
  */
 export WriteConsoleInputVDMA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsWritten) {
-    lpNumberOfEventsWrittenMarshal := lpNumberOfEventsWritten is VarRef ? "uint*" : "ptr"
+    lpNumberOfEventsWrittenMarshal := lpNumberOfEventsWritten is VarRef ? "uint*" : IntPtr
 
     result := DllCall("KERNEL32.dll\WriteConsoleInputVDMA", HANDLE, hConsoleInput, INPUT_RECORD.Ptr, lpBuffer, UInt32, nLength, lpNumberOfEventsWrittenMarshal, lpNumberOfEventsWritten, BOOL)
     return result
 }
 
 /**
- * 
  * @param {HANDLE} hConsoleInput 
  * @param {Pointer<INPUT_RECORD>} lpBuffer 
  * @param {Integer} nLength 
@@ -2932,27 +2916,25 @@ export WriteConsoleInputVDMA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsW
  * @returns {BOOL} 
  */
 export WriteConsoleInputVDMW(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsWritten) {
-    lpNumberOfEventsWrittenMarshal := lpNumberOfEventsWritten is VarRef ? "uint*" : "ptr"
+    lpNumberOfEventsWrittenMarshal := lpNumberOfEventsWritten is VarRef ? "uint*" : IntPtr
 
     result := DllCall("KERNEL32.dll\WriteConsoleInputVDMW", HANDLE, hConsoleInput, INPUT_RECORD.Ptr, lpBuffer, UInt32, nLength, lpNumberOfEventsWrittenMarshal, lpNumberOfEventsWritten, BOOL)
     return result
 }
 
 /**
- * 
  * @param {HANDLE} hConsole 
  * @param {Pointer<Integer>} lpdwNlsMode 
  * @returns {BOOL} 
  */
 export GetConsoleNlsMode(hConsole, lpdwNlsMode) {
-    lpdwNlsModeMarshal := lpdwNlsMode is VarRef ? "uint*" : "ptr"
+    lpdwNlsModeMarshal := lpdwNlsMode is VarRef ? "uint*" : IntPtr
 
     result := DllCall("KERNEL32.dll\GetConsoleNlsMode", HANDLE, hConsole, lpdwNlsModeMarshal, lpdwNlsMode, BOOL)
     return result
 }
 
 /**
- * 
  * @param {HANDLE} hConsole 
  * @param {Integer} fdwNlsMode 
  * @returns {BOOL} 
@@ -2963,21 +2945,19 @@ export SetConsoleNlsMode(hConsole, fdwNlsMode) {
 }
 
 /**
- * 
  * @param {HANDLE} hConsole 
  * @param {COORD} coordCheck 
  * @param {Pointer<Integer>} pdwType 
  * @returns {BOOL} 
  */
 export GetConsoleCharType(hConsole, coordCheck, pdwType) {
-    pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
+    pdwTypeMarshal := pdwType is VarRef ? "uint*" : IntPtr
 
     result := DllCall("KERNEL32.dll\GetConsoleCharType", HANDLE, hConsole, COORD, coordCheck, pdwTypeMarshal, pdwType, BOOL)
     return result
 }
 
 /**
- * 
  * @param {HANDLE} hConsoleHandle 
  * @param {Integer} wCodePoint 
  * @param {COORD} cFontSize 
@@ -2992,7 +2972,6 @@ export SetConsoleLocalEUDC(hConsoleHandle, wCodePoint, cFontSize, lpSB) {
 }
 
 /**
- * 
  * @param {HANDLE} hConsoleHandle 
  * @param {BOOL} Blink 
  * @param {BOOL} DBEnable 
@@ -3004,22 +2983,20 @@ export SetConsoleCursorMode(hConsoleHandle, Blink, DBEnable) {
 }
 
 /**
- * 
  * @param {HANDLE} hConsoleHandle 
  * @param {Pointer<BOOL>} pbBlink 
  * @param {Pointer<BOOL>} pbDBEnable 
  * @returns {BOOL} 
  */
 export GetConsoleCursorMode(hConsoleHandle, pbBlink, pbDBEnable) {
-    pbBlinkMarshal := pbBlink is VarRef ? "int*" : "ptr"
-    pbDBEnableMarshal := pbDBEnable is VarRef ? "int*" : "ptr"
+    pbBlinkMarshal := pbBlink is VarRef ? "int*" : IntPtr
+    pbDBEnableMarshal := pbDBEnable is VarRef ? "int*" : IntPtr
 
     result := DllCall("KERNEL32.dll\GetConsoleCursorMode", HANDLE, hConsoleHandle, pbBlinkMarshal, pbBlink, pbDBEnableMarshal, pbDBEnable, BOOL)
     return result
 }
 
 /**
- * 
  * @param {BOOL} fOs2Register 
  * @returns {BOOL} 
  */
@@ -3029,7 +3006,6 @@ export RegisterConsoleOS2(fOs2Register) {
 }
 
 /**
- * 
  * @param {BOOL} fOs2OemFormat 
  * @returns {BOOL} 
  */
@@ -3039,20 +3015,19 @@ export SetConsoleOS2OemFormat(fOs2OemFormat) {
 }
 
 /**
- * 
  * @param {HWND} hWndConsoleIME 
  * @param {Pointer<Integer>} lpdwConsoleThreadId 
  * @returns {BOOL} 
  */
 export RegisterConsoleIME(hWndConsoleIME, lpdwConsoleThreadId) {
-    lpdwConsoleThreadIdMarshal := lpdwConsoleThreadId is VarRef ? "uint*" : "ptr"
+    lpdwConsoleThreadIdMarshal := lpdwConsoleThreadId is VarRef ? "uint*" : IntPtr
+    lpdwConsoleThreadIdMarshal := lpdwConsoleThreadId == 0 ? IntPtr : "uint*"
 
     result := DllCall("KERNEL32.dll\RegisterConsoleIME", HWND, hWndConsoleIME, lpdwConsoleThreadIdMarshal, lpdwConsoleThreadId, BOOL)
     return result
 }
 
 /**
- * 
  * @returns {BOOL} 
  */
 export UnregisterConsoleIME() {
@@ -3061,7 +3036,6 @@ export UnregisterConsoleIME() {
 }
 
 /**
- * 
  * @param {PWSTR} lpConsoleDevice 
  * @param {Integer} dwDesiredAccess 
  * @param {BOOL} bInheritHandle 
@@ -3076,7 +3050,6 @@ export OpenConsoleW(lpConsoleDevice, dwDesiredAccess, bInheritHandle, dwShareMod
 }
 
 /**
- * 
  * @param {HANDLE} hSourceHandle 
  * @param {Integer} dwDesiredAccess 
  * @param {BOOL} bInheritHandle 
@@ -3089,7 +3062,6 @@ export DuplicateConsoleHandle(hSourceHandle, dwDesiredAccess, bInheritHandle, dw
 }
 
 /**
- * 
  * @param {HANDLE} hConsole 
  * @returns {BOOL} 
  */
@@ -3099,7 +3071,6 @@ export CloseConsoleHandle(hConsole) {
 }
 
 /**
- * 
  * @param {HANDLE} hIoHandle 
  * @returns {BOOL} 
  */
@@ -3109,7 +3080,6 @@ export VerifyConsoleIoHandle(hIoHandle) {
 }
 
 /**
- * 
  * @returns {HANDLE} 
  */
 export GetConsoleInputWaitHandle() {
@@ -3118,7 +3088,6 @@ export GetConsoleInputWaitHandle() {
 }
 
 /**
- * 
  * @param {CONSOLECONTROL} Command 
  * @param {Integer} ConsoleInformation 
  * @param {Integer} ConsoleInformationLength 
@@ -3215,7 +3184,9 @@ export SetStdHandle(nStdHandle, hHandle) {
  * @see https://learn.microsoft.com/windows/win32/api/processenv/nf-processenv-setstdhandleex
  */
 export SetStdHandleEx(nStdHandle, hHandle, phPrevValue) {
-    result := DllCall("KERNEL32.dll\SetStdHandleEx", STD_HANDLE, nStdHandle, HANDLE, hHandle, HANDLE.Ptr, phPrevValue, BOOL)
+    phPrevValueMarshal := phPrevValue == 0 ? IntPtr : HANDLE.Ptr
+
+    result := DllCall("KERNEL32.dll\SetStdHandleEx", STD_HANDLE, nStdHandle, HANDLE, hHandle, phPrevValueMarshal, phPrevValue, BOOL)
     return result
 }
 

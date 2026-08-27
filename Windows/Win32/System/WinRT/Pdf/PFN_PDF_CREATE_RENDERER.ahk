@@ -21,7 +21,6 @@ export default struct PFN_PDF_CREATE_RENDERER {
     }
 
     /**
-     * 
      * @param {IDXGIDevice} param0 
      * @returns {IPdfRendererNative} 
      */

@@ -20,7 +20,6 @@ export default struct EXT_GET_HANDLE_TRACE {
     }
 
     /**
-     * 
      * @param {IDebugClient} Client 
      * @param {Integer} TraceType 
      * @param {Integer} StartIndex 
@@ -30,8 +29,8 @@ export default struct EXT_GET_HANDLE_TRACE {
      * @returns {HRESULT} 
      */
     Call(Client, TraceType, StartIndex, HandleValue, StackFunctions, StackTraceSize) {
-        HandleValueMarshal := HandleValue is VarRef ? "uint*" : "ptr"
-        StackFunctionsMarshal := StackFunctions is VarRef ? "uint*" : "ptr"
+        HandleValueMarshal := HandleValue is VarRef ? "uint*" : IntPtr
+        StackFunctionsMarshal := StackFunctions is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, "ptr", Client, UInt32, TraceType, UInt32, StartIndex, HandleValueMarshal, HandleValue, StackFunctionsMarshal, StackFunctions, UInt32, StackTraceSize, "HRESULT")
         return result

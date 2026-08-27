@@ -190,12 +190,12 @@ export default struct ITDetectTone extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_AppSpecific := CallbackCreate(GetMethod(implObj, "get_AppSpecific"), flags, 2)
-        this.vtbl.put_AppSpecific := CallbackCreate(GetMethod(implObj, "put_AppSpecific"), flags, 2)
-        this.vtbl.get_Duration := CallbackCreate(GetMethod(implObj, "get_Duration"), flags, 2)
-        this.vtbl.put_Duration := CallbackCreate(GetMethod(implObj, "put_Duration"), flags, 2)
-        this.vtbl.get_Frequency := CallbackCreate(GetMethod(implObj, "get_Frequency"), flags, 3)
-        this.vtbl.put_Frequency := CallbackCreate(GetMethod(implObj, "put_Frequency"), flags, 3)
+        this.vtbl.get_AppSpecific := CallbackCreate(ObjBindMethod(implObj, "get_AppSpecific"), flags, 2)
+        this.vtbl.put_AppSpecific := CallbackCreate(ObjBindMethod(implObj, "put_AppSpecific"), flags, 2)
+        this.vtbl.get_Duration := CallbackCreate(ObjBindMethod(implObj, "get_Duration"), flags, 2)
+        this.vtbl.put_Duration := CallbackCreate(ObjBindMethod(implObj, "put_Duration"), flags, 2)
+        this.vtbl.get_Frequency := CallbackCreate(ObjBindMethod(implObj, "get_Frequency"), flags, 3)
+        this.vtbl.put_Frequency := CallbackCreate(ObjBindMethod(implObj, "put_Frequency"), flags, 3)
     }
 
     Dispose() {

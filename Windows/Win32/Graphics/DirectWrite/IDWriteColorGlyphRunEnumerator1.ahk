@@ -60,7 +60,7 @@ export default struct IDWriteColorGlyphRunEnumerator1 extends IDWriteColorGlyphR
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCurrentRun := CallbackCreate(GetMethod(implObj, "GetCurrentRun"), flags, 2)
+        this.vtbl.GetCurrentRun := CallbackCreate(ObjBindMethod(implObj, "GetCurrentRun"), flags, 2)
     }
 
     Dispose() {

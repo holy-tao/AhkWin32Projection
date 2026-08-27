@@ -20,7 +20,6 @@ export default struct PREGISTERCLASSNAMEW {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @returns {BOOLEAN} 
      */

@@ -88,7 +88,6 @@ export default struct ISVGTextPositioningElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLengthList} v 
      * @returns {HRESULT} 
      */
@@ -98,7 +97,6 @@ export default struct ISVGTextPositioningElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLengthList} 
      */
     get_x() {
@@ -107,7 +105,6 @@ export default struct ISVGTextPositioningElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLengthList} v 
      * @returns {HRESULT} 
      */
@@ -117,7 +114,6 @@ export default struct ISVGTextPositioningElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLengthList} 
      */
     get_y() {
@@ -126,7 +122,6 @@ export default struct ISVGTextPositioningElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLengthList} v 
      * @returns {HRESULT} 
      */
@@ -136,7 +131,6 @@ export default struct ISVGTextPositioningElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLengthList} 
      */
     get_dx() {
@@ -145,7 +139,6 @@ export default struct ISVGTextPositioningElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLengthList} v 
      * @returns {HRESULT} 
      */
@@ -155,7 +148,6 @@ export default struct ISVGTextPositioningElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLengthList} 
      */
     get_dy() {
@@ -164,7 +156,6 @@ export default struct ISVGTextPositioningElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedNumberList} v 
      * @returns {HRESULT} 
      */
@@ -174,7 +165,6 @@ export default struct ISVGTextPositioningElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedNumberList} 
      */
     get_rotate() {
@@ -191,16 +181,16 @@ export default struct ISVGTextPositioningElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.putref_x := CallbackCreate(GetMethod(implObj, "putref_x"), flags, 2)
-        this.vtbl.get_x := CallbackCreate(GetMethod(implObj, "get_x"), flags, 2)
-        this.vtbl.putref_y := CallbackCreate(GetMethod(implObj, "putref_y"), flags, 2)
-        this.vtbl.get_y := CallbackCreate(GetMethod(implObj, "get_y"), flags, 2)
-        this.vtbl.putref_dx := CallbackCreate(GetMethod(implObj, "putref_dx"), flags, 2)
-        this.vtbl.get_dx := CallbackCreate(GetMethod(implObj, "get_dx"), flags, 2)
-        this.vtbl.putref_dy := CallbackCreate(GetMethod(implObj, "putref_dy"), flags, 2)
-        this.vtbl.get_dy := CallbackCreate(GetMethod(implObj, "get_dy"), flags, 2)
-        this.vtbl.putref_rotate := CallbackCreate(GetMethod(implObj, "putref_rotate"), flags, 2)
-        this.vtbl.get_rotate := CallbackCreate(GetMethod(implObj, "get_rotate"), flags, 2)
+        this.vtbl.putref_x := CallbackCreate(ObjBindMethod(implObj, "putref_x"), flags, 2)
+        this.vtbl.get_x := CallbackCreate(ObjBindMethod(implObj, "get_x"), flags, 2)
+        this.vtbl.putref_y := CallbackCreate(ObjBindMethod(implObj, "putref_y"), flags, 2)
+        this.vtbl.get_y := CallbackCreate(ObjBindMethod(implObj, "get_y"), flags, 2)
+        this.vtbl.putref_dx := CallbackCreate(ObjBindMethod(implObj, "putref_dx"), flags, 2)
+        this.vtbl.get_dx := CallbackCreate(ObjBindMethod(implObj, "get_dx"), flags, 2)
+        this.vtbl.putref_dy := CallbackCreate(ObjBindMethod(implObj, "putref_dy"), flags, 2)
+        this.vtbl.get_dy := CallbackCreate(ObjBindMethod(implObj, "get_dy"), flags, 2)
+        this.vtbl.putref_rotate := CallbackCreate(ObjBindMethod(implObj, "putref_rotate"), flags, 2)
+        this.vtbl.get_rotate := CallbackCreate(ObjBindMethod(implObj, "get_rotate"), flags, 2)
     }
 
     Dispose() {

@@ -87,7 +87,6 @@ export default struct IMFTimedTextNotify extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} trackId 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -128,7 +127,9 @@ export default struct IMFTimedTextNotify extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextnotify-cue
      */
     Cue(cueEvent, currentTime, cue) {
-        ComCall(8, this, MF_TIMED_TEXT_CUE_EVENT, cueEvent, Float64, currentTime, "ptr", cue)
+        cueMarshal := cue == 0 ? IntPtr : "ptr"
+
+        ComCall(8, this, MF_TIMED_TEXT_CUE_EVENT, cueEvent, Float64, currentTime, cueMarshal, cue)
     }
 
     /**
@@ -149,13 +150,13 @@ export default struct IMFTimedTextNotify extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.TrackAdded := CallbackCreate(GetMethod(implObj, "TrackAdded"), flags, 2)
-        this.vtbl.TrackRemoved := CallbackCreate(GetMethod(implObj, "TrackRemoved"), flags, 2)
-        this.vtbl.TrackSelected := CallbackCreate(GetMethod(implObj, "TrackSelected"), flags, 3)
-        this.vtbl.TrackReadyStateChanged := CallbackCreate(GetMethod(implObj, "TrackReadyStateChanged"), flags, 2)
-        this.vtbl.Error := CallbackCreate(GetMethod(implObj, "Error"), flags, 4)
-        this.vtbl.Cue := CallbackCreate(GetMethod(implObj, "Cue"), flags, 4)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.TrackAdded := CallbackCreate(ObjBindMethod(implObj, "TrackAdded"), flags, 2)
+        this.vtbl.TrackRemoved := CallbackCreate(ObjBindMethod(implObj, "TrackRemoved"), flags, 2)
+        this.vtbl.TrackSelected := CallbackCreate(ObjBindMethod(implObj, "TrackSelected"), flags, 3)
+        this.vtbl.TrackReadyStateChanged := CallbackCreate(ObjBindMethod(implObj, "TrackReadyStateChanged"), flags, 2)
+        this.vtbl.Error := CallbackCreate(ObjBindMethod(implObj, "Error"), flags, 4)
+        this.vtbl.Cue := CallbackCreate(ObjBindMethod(implObj, "Cue"), flags, 4)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
     }
 
     Dispose() {

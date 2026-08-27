@@ -51,7 +51,7 @@ export DisableThreadProfiling(PerformanceDataHandle) {
  * @since windows6.1
  */
 export QueryThreadProfiling(ThreadHandle, Enabled) {
-    EnabledMarshal := Enabled is VarRef ? "char*" : "ptr"
+    EnabledMarshal := Enabled is VarRef ? "char*" : IntPtr
 
     result := DllCall("KERNEL32.dll\QueryThreadProfiling", HANDLE, ThreadHandle, EnabledMarshal, Enabled, UInt32)
     return result

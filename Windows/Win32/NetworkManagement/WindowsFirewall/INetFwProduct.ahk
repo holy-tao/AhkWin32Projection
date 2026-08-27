@@ -140,11 +140,11 @@ export default struct INetFwProduct extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_RuleCategories := CallbackCreate(GetMethod(implObj, "get_RuleCategories"), flags, 2)
-        this.vtbl.put_RuleCategories := CallbackCreate(GetMethod(implObj, "put_RuleCategories"), flags, 2)
-        this.vtbl.get_DisplayName := CallbackCreate(GetMethod(implObj, "get_DisplayName"), flags, 2)
-        this.vtbl.put_DisplayName := CallbackCreate(GetMethod(implObj, "put_DisplayName"), flags, 2)
-        this.vtbl.get_PathToSignedProductExe := CallbackCreate(GetMethod(implObj, "get_PathToSignedProductExe"), flags, 2)
+        this.vtbl.get_RuleCategories := CallbackCreate(ObjBindMethod(implObj, "get_RuleCategories"), flags, 2)
+        this.vtbl.put_RuleCategories := CallbackCreate(ObjBindMethod(implObj, "put_RuleCategories"), flags, 2)
+        this.vtbl.get_DisplayName := CallbackCreate(ObjBindMethod(implObj, "get_DisplayName"), flags, 2)
+        this.vtbl.put_DisplayName := CallbackCreate(ObjBindMethod(implObj, "put_DisplayName"), flags, 2)
+        this.vtbl.get_PathToSignedProductExe := CallbackCreate(ObjBindMethod(implObj, "get_PathToSignedProductExe"), flags, 2)
     }
 
     Dispose() {

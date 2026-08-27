@@ -83,7 +83,6 @@ export default struct IPMBackgroundWorkerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Guid} 
      */
     get_ProductID() {
@@ -93,7 +92,6 @@ export default struct IPMBackgroundWorkerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pTaskID 
      * @returns {HRESULT} 
      */
@@ -103,7 +101,6 @@ export default struct IPMBackgroundWorkerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pBGName 
      * @returns {HRESULT} 
      */
@@ -113,7 +110,6 @@ export default struct IPMBackgroundWorkerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MaxStartupLatency() {
@@ -122,7 +118,6 @@ export default struct IPMBackgroundWorkerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ExpectedRuntime() {
@@ -131,7 +126,6 @@ export default struct IPMBackgroundWorkerInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     get_IsBootWorker() {
@@ -148,12 +142,12 @@ export default struct IPMBackgroundWorkerInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ProductID := CallbackCreate(GetMethod(implObj, "get_ProductID"), flags, 2)
-        this.vtbl.get_TaskID := CallbackCreate(GetMethod(implObj, "get_TaskID"), flags, 2)
-        this.vtbl.get_BGName := CallbackCreate(GetMethod(implObj, "get_BGName"), flags, 2)
-        this.vtbl.get_MaxStartupLatency := CallbackCreate(GetMethod(implObj, "get_MaxStartupLatency"), flags, 2)
-        this.vtbl.get_ExpectedRuntime := CallbackCreate(GetMethod(implObj, "get_ExpectedRuntime"), flags, 2)
-        this.vtbl.get_IsBootWorker := CallbackCreate(GetMethod(implObj, "get_IsBootWorker"), flags, 2)
+        this.vtbl.get_ProductID := CallbackCreate(ObjBindMethod(implObj, "get_ProductID"), flags, 2)
+        this.vtbl.get_TaskID := CallbackCreate(ObjBindMethod(implObj, "get_TaskID"), flags, 2)
+        this.vtbl.get_BGName := CallbackCreate(ObjBindMethod(implObj, "get_BGName"), flags, 2)
+        this.vtbl.get_MaxStartupLatency := CallbackCreate(ObjBindMethod(implObj, "get_MaxStartupLatency"), flags, 2)
+        this.vtbl.get_ExpectedRuntime := CallbackCreate(ObjBindMethod(implObj, "get_ExpectedRuntime"), flags, 2)
+        this.vtbl.get_IsBootWorker := CallbackCreate(ObjBindMethod(implObj, "get_IsBootWorker"), flags, 2)
     }
 
     Dispose() {

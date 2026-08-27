@@ -192,9 +192,9 @@ export default struct IMofCompiler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CompileFile := CallbackCreate(GetMethod(implObj, "CompileFile"), flags, 10)
-        this.vtbl.CompileBuffer := CallbackCreate(GetMethod(implObj, "CompileBuffer"), flags, 11)
-        this.vtbl.CreateBMOF := CallbackCreate(GetMethod(implObj, "CreateBMOF"), flags, 8)
+        this.vtbl.CompileFile := CallbackCreate(ObjBindMethod(implObj, "CompileFile"), flags, 10)
+        this.vtbl.CompileBuffer := CallbackCreate(ObjBindMethod(implObj, "CompileBuffer"), flags, 11)
+        this.vtbl.CreateBMOF := CallbackCreate(ObjBindMethod(implObj, "CreateBMOF"), flags, 8)
     }
 
     Dispose() {

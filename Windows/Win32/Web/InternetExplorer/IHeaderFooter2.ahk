@@ -46,7 +46,6 @@ export default struct IHeaderFooter2 extends IHeaderFooter {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -58,7 +57,6 @@ export default struct IHeaderFooter2 extends IHeaderFooter {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_font() {
@@ -76,8 +74,8 @@ export default struct IHeaderFooter2 extends IHeaderFooter {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_font := CallbackCreate(GetMethod(implObj, "put_font"), flags, 2)
-        this.vtbl.get_font := CallbackCreate(GetMethod(implObj, "get_font"), flags, 2)
+        this.vtbl.put_font := CallbackCreate(ObjBindMethod(implObj, "put_font"), flags, 2)
+        this.vtbl.get_font := CallbackCreate(ObjBindMethod(implObj, "get_font"), flags, 2)
     }
 
     Dispose() {

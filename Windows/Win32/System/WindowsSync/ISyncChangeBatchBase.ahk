@@ -108,7 +108,7 @@ export default struct ISyncChangeBatchBase extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase-getislastbatch
      */
     GetIsLastBatch(pfLastBatch) {
-        pfLastBatchMarshal := pfLastBatch is VarRef ? "int*" : "ptr"
+        pfLastBatchMarshal := pfLastBatch is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, pfLastBatchMarshal, pfLastBatch, "HRESULT")
         return result
@@ -154,7 +154,7 @@ export default struct ISyncChangeBatchBase extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase-getworkestimateforbatch
      */
     GetWorkEstimateForBatch(pdwWorkForBatch) {
-        pdwWorkForBatchMarshal := pdwWorkForBatch is VarRef ? "uint*" : "ptr"
+        pdwWorkForBatchMarshal := pdwWorkForBatch is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, pdwWorkForBatchMarshal, pdwWorkForBatch, "HRESULT")
         return result
@@ -200,7 +200,7 @@ export default struct ISyncChangeBatchBase extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase-getremainingworkestimateforsession
      */
     GetRemainingWorkEstimateForSession(pdwRemainingWorkForSession) {
-        pdwRemainingWorkForSessionMarshal := pdwRemainingWorkForSession is VarRef ? "uint*" : "ptr"
+        pdwRemainingWorkForSessionMarshal := pdwRemainingWorkForSession is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, pdwRemainingWorkForSessionMarshal, pdwRemainingWorkForSession, "HRESULT")
         return result
@@ -268,7 +268,7 @@ export default struct ISyncChangeBatchBase extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase-beginorderedgroup
      */
     BeginOrderedGroup(pbLowerBound) {
-        pbLowerBoundMarshal := pbLowerBound is VarRef ? "char*" : "ptr"
+        pbLowerBoundMarshal := pbLowerBound is VarRef ? "char*" : IntPtr
 
         result := ComCall(7, this, pbLowerBoundMarshal, pbLowerBound, "HRESULT")
         return result
@@ -334,7 +334,7 @@ export default struct ISyncChangeBatchBase extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase-endorderedgroup
      */
     EndOrderedGroup(pbUpperBound, pMadeWithKnowledge) {
-        pbUpperBoundMarshal := pbUpperBound is VarRef ? "char*" : "ptr"
+        pbUpperBoundMarshal := pbUpperBound is VarRef ? "char*" : IntPtr
 
         result := ComCall(8, this, pbUpperBoundMarshal, pbUpperBound, "ptr", pMadeWithKnowledge, "HRESULT")
         return result
@@ -352,8 +352,8 @@ export default struct ISyncChangeBatchBase extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase-additemmetadatatogroup
      */
     AddItemMetadataToGroup(pbOwnerReplicaId, pbItemId, pChangeVersion, pCreationVersion, dwFlags, dwWorkForChange) {
-        pbOwnerReplicaIdMarshal := pbOwnerReplicaId is VarRef ? "char*" : "ptr"
-        pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
+        pbOwnerReplicaIdMarshal := pbOwnerReplicaId is VarRef ? "char*" : IntPtr
+        pbItemIdMarshal := pbItemId is VarRef ? "char*" : IntPtr
 
         result := ComCall(9, this, pbOwnerReplicaIdMarshal, pbOwnerReplicaId, pbItemIdMarshal, pbItemId, SYNC_VERSION.Ptr, pChangeVersion, SYNC_VERSION.Ptr, pCreationVersion, UInt32, dwFlags, UInt32, dwWorkForChange, "ptr*", &ppChangeBuilder := 0, "HRESULT")
         return ISyncChangeBuilder(ppChangeBuilder)
@@ -554,8 +554,8 @@ export default struct ISyncChangeBatchBase extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase-serialize
      */
     Serialize(pbChangeBatch, pcbChangeBatch) {
-        pbChangeBatchMarshal := pbChangeBatch is VarRef ? "char*" : "ptr"
-        pcbChangeBatchMarshal := pcbChangeBatch is VarRef ? "uint*" : "ptr"
+        pbChangeBatchMarshal := pbChangeBatch is VarRef ? "char*" : IntPtr
+        pcbChangeBatchMarshal := pcbChangeBatch is VarRef ? "uint*" : IntPtr
 
         result := ComCall(16, this, pbChangeBatchMarshal, pbChangeBatch, pcbChangeBatchMarshal, pcbChangeBatch, "HRESULT")
         return result
@@ -570,20 +570,20 @@ export default struct ISyncChangeBatchBase extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetChangeEnumerator := CallbackCreate(GetMethod(implObj, "GetChangeEnumerator"), flags, 2)
-        this.vtbl.GetIsLastBatch := CallbackCreate(GetMethod(implObj, "GetIsLastBatch"), flags, 2)
-        this.vtbl.GetWorkEstimateForBatch := CallbackCreate(GetMethod(implObj, "GetWorkEstimateForBatch"), flags, 2)
-        this.vtbl.GetRemainingWorkEstimateForSession := CallbackCreate(GetMethod(implObj, "GetRemainingWorkEstimateForSession"), flags, 2)
-        this.vtbl.BeginOrderedGroup := CallbackCreate(GetMethod(implObj, "BeginOrderedGroup"), flags, 2)
-        this.vtbl.EndOrderedGroup := CallbackCreate(GetMethod(implObj, "EndOrderedGroup"), flags, 3)
-        this.vtbl.AddItemMetadataToGroup := CallbackCreate(GetMethod(implObj, "AddItemMetadataToGroup"), flags, 8)
-        this.vtbl.GetLearnedKnowledge := CallbackCreate(GetMethod(implObj, "GetLearnedKnowledge"), flags, 2)
-        this.vtbl.GetPrerequisiteKnowledge := CallbackCreate(GetMethod(implObj, "GetPrerequisiteKnowledge"), flags, 2)
-        this.vtbl.GetSourceForgottenKnowledge := CallbackCreate(GetMethod(implObj, "GetSourceForgottenKnowledge"), flags, 2)
-        this.vtbl.SetLastBatch := CallbackCreate(GetMethod(implObj, "SetLastBatch"), flags, 1)
-        this.vtbl.SetWorkEstimateForBatch := CallbackCreate(GetMethod(implObj, "SetWorkEstimateForBatch"), flags, 2)
-        this.vtbl.SetRemainingWorkEstimateForSession := CallbackCreate(GetMethod(implObj, "SetRemainingWorkEstimateForSession"), flags, 2)
-        this.vtbl.Serialize := CallbackCreate(GetMethod(implObj, "Serialize"), flags, 3)
+        this.vtbl.GetChangeEnumerator := CallbackCreate(ObjBindMethod(implObj, "GetChangeEnumerator"), flags, 2)
+        this.vtbl.GetIsLastBatch := CallbackCreate(ObjBindMethod(implObj, "GetIsLastBatch"), flags, 2)
+        this.vtbl.GetWorkEstimateForBatch := CallbackCreate(ObjBindMethod(implObj, "GetWorkEstimateForBatch"), flags, 2)
+        this.vtbl.GetRemainingWorkEstimateForSession := CallbackCreate(ObjBindMethod(implObj, "GetRemainingWorkEstimateForSession"), flags, 2)
+        this.vtbl.BeginOrderedGroup := CallbackCreate(ObjBindMethod(implObj, "BeginOrderedGroup"), flags, 2)
+        this.vtbl.EndOrderedGroup := CallbackCreate(ObjBindMethod(implObj, "EndOrderedGroup"), flags, 3)
+        this.vtbl.AddItemMetadataToGroup := CallbackCreate(ObjBindMethod(implObj, "AddItemMetadataToGroup"), flags, 8)
+        this.vtbl.GetLearnedKnowledge := CallbackCreate(ObjBindMethod(implObj, "GetLearnedKnowledge"), flags, 2)
+        this.vtbl.GetPrerequisiteKnowledge := CallbackCreate(ObjBindMethod(implObj, "GetPrerequisiteKnowledge"), flags, 2)
+        this.vtbl.GetSourceForgottenKnowledge := CallbackCreate(ObjBindMethod(implObj, "GetSourceForgottenKnowledge"), flags, 2)
+        this.vtbl.SetLastBatch := CallbackCreate(ObjBindMethod(implObj, "SetLastBatch"), flags, 1)
+        this.vtbl.SetWorkEstimateForBatch := CallbackCreate(ObjBindMethod(implObj, "SetWorkEstimateForBatch"), flags, 2)
+        this.vtbl.SetRemainingWorkEstimateForSession := CallbackCreate(ObjBindMethod(implObj, "SetRemainingWorkEstimateForSession"), flags, 2)
+        this.vtbl.Serialize := CallbackCreate(ObjBindMethod(implObj, "Serialize"), flags, 3)
     }
 
     Dispose() {

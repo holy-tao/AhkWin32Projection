@@ -20,7 +20,6 @@ export default struct PFND3DKMT_QUERYPROCESSOFFERINFO {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_QUERYPROCESSOFFERINFO>} param0 
      * @returns {NTSTATUS} 
      */

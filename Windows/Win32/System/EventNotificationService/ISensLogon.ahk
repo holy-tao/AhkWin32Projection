@@ -296,13 +296,13 @@ export default struct ISensLogon extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Logon := CallbackCreate(GetMethod(implObj, "Logon"), flags, 2)
-        this.vtbl.Logoff := CallbackCreate(GetMethod(implObj, "Logoff"), flags, 2)
-        this.vtbl.StartShell := CallbackCreate(GetMethod(implObj, "StartShell"), flags, 2)
-        this.vtbl.DisplayLock := CallbackCreate(GetMethod(implObj, "DisplayLock"), flags, 2)
-        this.vtbl.DisplayUnlock := CallbackCreate(GetMethod(implObj, "DisplayUnlock"), flags, 2)
-        this.vtbl.StartScreenSaver := CallbackCreate(GetMethod(implObj, "StartScreenSaver"), flags, 2)
-        this.vtbl.StopScreenSaver := CallbackCreate(GetMethod(implObj, "StopScreenSaver"), flags, 2)
+        this.vtbl.Logon := CallbackCreate(ObjBindMethod(implObj, "Logon"), flags, 2)
+        this.vtbl.Logoff := CallbackCreate(ObjBindMethod(implObj, "Logoff"), flags, 2)
+        this.vtbl.StartShell := CallbackCreate(ObjBindMethod(implObj, "StartShell"), flags, 2)
+        this.vtbl.DisplayLock := CallbackCreate(ObjBindMethod(implObj, "DisplayLock"), flags, 2)
+        this.vtbl.DisplayUnlock := CallbackCreate(ObjBindMethod(implObj, "DisplayUnlock"), flags, 2)
+        this.vtbl.StartScreenSaver := CallbackCreate(ObjBindMethod(implObj, "StartScreenSaver"), flags, 2)
+        this.vtbl.StopScreenSaver := CallbackCreate(ObjBindMethod(implObj, "StopScreenSaver"), flags, 2)
     }
 
     Dispose() {

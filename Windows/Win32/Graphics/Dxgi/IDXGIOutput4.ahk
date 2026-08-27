@@ -70,7 +70,7 @@ export default struct IDXGIOutput4 extends IDXGIOutput3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CheckOverlayColorSpaceSupport := CallbackCreate(GetMethod(implObj, "CheckOverlayColorSpaceSupport"), flags, 5)
+        this.vtbl.CheckOverlayColorSpaceSupport := CallbackCreate(ObjBindMethod(implObj, "CheckOverlayColorSpaceSupport"), flags, 5)
     }
 
     Dispose() {

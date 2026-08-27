@@ -73,7 +73,7 @@ export default struct IWMPStringCollection2 extends IWMPStringCollection {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpstringcollection2-isidentical
      */
     isIdentical(pIWMPStringCollection2, pvbool) {
-        pvboolMarshal := pvbool is VarRef ? "short*" : "ptr"
+        pvboolMarshal := pvbool is VarRef ? "short*" : IntPtr
 
         result := ComCall(9, this, "ptr", pIWMPStringCollection2, pvboolMarshal, pvbool, "HRESULT")
         return result
@@ -155,7 +155,7 @@ export default struct IWMPStringCollection2 extends IWMPStringCollection {
         bstrType := bstrType is String ? BSTR.Alloc(bstrType).Value : bstrType
         bstrLanguage := bstrLanguage is String ? BSTR.Alloc(bstrLanguage).Value : bstrLanguage
 
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+        plCountMarshal := plCount is VarRef ? "int*" : IntPtr
 
         result := ComCall(11, this, Int32, lCollectionIndex, BSTR, bstrType, BSTR, bstrLanguage, plCountMarshal, plCount, "HRESULT")
         return result
@@ -216,10 +216,10 @@ export default struct IWMPStringCollection2 extends IWMPStringCollection {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.isIdentical := CallbackCreate(GetMethod(implObj, "isIdentical"), flags, 3)
-        this.vtbl.getItemInfo := CallbackCreate(GetMethod(implObj, "getItemInfo"), flags, 4)
-        this.vtbl.getAttributeCountByType := CallbackCreate(GetMethod(implObj, "getAttributeCountByType"), flags, 5)
-        this.vtbl.getItemInfoByType := CallbackCreate(GetMethod(implObj, "getItemInfoByType"), flags, 6)
+        this.vtbl.isIdentical := CallbackCreate(ObjBindMethod(implObj, "isIdentical"), flags, 3)
+        this.vtbl.getItemInfo := CallbackCreate(ObjBindMethod(implObj, "getItemInfo"), flags, 4)
+        this.vtbl.getAttributeCountByType := CallbackCreate(ObjBindMethod(implObj, "getAttributeCountByType"), flags, 5)
+        this.vtbl.getItemInfoByType := CallbackCreate(ObjBindMethod(implObj, "getItemInfoByType"), flags, 6)
     }
 
     Dispose() {

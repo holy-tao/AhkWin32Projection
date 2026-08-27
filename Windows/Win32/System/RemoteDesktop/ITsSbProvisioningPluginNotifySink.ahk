@@ -135,12 +135,12 @@ export default struct ITsSbProvisioningPluginNotifySink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnJobCreated := CallbackCreate(GetMethod(implObj, "OnJobCreated"), flags, 2)
-        this.vtbl.OnVirtualMachineStatusChanged := CallbackCreate(GetMethod(implObj, "OnVirtualMachineStatusChanged"), flags, 5)
-        this.vtbl.OnJobCompleted := CallbackCreate(GetMethod(implObj, "OnJobCompleted"), flags, 3)
-        this.vtbl.OnJobCancelled := CallbackCreate(GetMethod(implObj, "OnJobCancelled"), flags, 1)
-        this.vtbl.LockVirtualMachine := CallbackCreate(GetMethod(implObj, "LockVirtualMachine"), flags, 2)
-        this.vtbl.OnVirtualMachineHostStatusChanged := CallbackCreate(GetMethod(implObj, "OnVirtualMachineHostStatusChanged"), flags, 5)
+        this.vtbl.OnJobCreated := CallbackCreate(ObjBindMethod(implObj, "OnJobCreated"), flags, 2)
+        this.vtbl.OnVirtualMachineStatusChanged := CallbackCreate(ObjBindMethod(implObj, "OnVirtualMachineStatusChanged"), flags, 5)
+        this.vtbl.OnJobCompleted := CallbackCreate(ObjBindMethod(implObj, "OnJobCompleted"), flags, 3)
+        this.vtbl.OnJobCancelled := CallbackCreate(ObjBindMethod(implObj, "OnJobCancelled"), flags, 1)
+        this.vtbl.LockVirtualMachine := CallbackCreate(ObjBindMethod(implObj, "LockVirtualMachine"), flags, 2)
+        this.vtbl.OnVirtualMachineHostStatusChanged := CallbackCreate(ObjBindMethod(implObj, "OnVirtualMachineHostStatusChanged"), flags, 5)
     }
 
     Dispose() {

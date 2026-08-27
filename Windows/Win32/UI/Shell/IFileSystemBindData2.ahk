@@ -131,10 +131,10 @@ export default struct IFileSystemBindData2 extends IFileSystemBindData {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetFileID := CallbackCreate(GetMethod(implObj, "SetFileID"), flags, 2)
-        this.vtbl.GetFileID := CallbackCreate(GetMethod(implObj, "GetFileID"), flags, 2)
-        this.vtbl.SetJunctionCLSID := CallbackCreate(GetMethod(implObj, "SetJunctionCLSID"), flags, 2)
-        this.vtbl.GetJunctionCLSID := CallbackCreate(GetMethod(implObj, "GetJunctionCLSID"), flags, 2)
+        this.vtbl.SetFileID := CallbackCreate(ObjBindMethod(implObj, "SetFileID"), flags, 2)
+        this.vtbl.GetFileID := CallbackCreate(ObjBindMethod(implObj, "GetFileID"), flags, 2)
+        this.vtbl.SetJunctionCLSID := CallbackCreate(ObjBindMethod(implObj, "SetJunctionCLSID"), flags, 2)
+        this.vtbl.GetJunctionCLSID := CallbackCreate(ObjBindMethod(implObj, "GetJunctionCLSID"), flags, 2)
     }
 
     Dispose() {

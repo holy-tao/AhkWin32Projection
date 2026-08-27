@@ -85,8 +85,8 @@ export default struct IUIAutomationTextChildPattern extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_TextContainer := CallbackCreate(GetMethod(implObj, "get_TextContainer"), flags, 2)
-        this.vtbl.get_TextRange := CallbackCreate(GetMethod(implObj, "get_TextRange"), flags, 2)
+        this.vtbl.get_TextContainer := CallbackCreate(ObjBindMethod(implObj, "get_TextContainer"), flags, 2)
+        this.vtbl.get_TextRange := CallbackCreate(ObjBindMethod(implObj, "get_TextRange"), flags, 2)
     }
 
     Dispose() {

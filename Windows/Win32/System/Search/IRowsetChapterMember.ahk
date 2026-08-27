@@ -36,7 +36,6 @@ export default struct IRowsetChapterMember extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hChapter 
      * @param {Pointer} hRow 
      * @returns {HRESULT} 
@@ -55,7 +54,7 @@ export default struct IRowsetChapterMember extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsRowInChapter := CallbackCreate(GetMethod(implObj, "IsRowInChapter"), flags, 3)
+        this.vtbl.IsRowInChapter := CallbackCreate(ObjBindMethod(implObj, "IsRowInChapter"), flags, 3)
     }
 
     Dispose() {

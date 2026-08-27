@@ -20,7 +20,6 @@ export default struct pfn_REPORTFAULT {
     }
 
     /**
-     * 
      * @param {Pointer<EXCEPTION_POINTERS>} param0 
      * @param {Integer} param1 
      * @returns {EFaultRepRetVal} 

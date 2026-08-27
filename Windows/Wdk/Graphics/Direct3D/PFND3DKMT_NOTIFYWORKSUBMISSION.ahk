@@ -20,7 +20,6 @@ export default struct PFND3DKMT_NOTIFYWORKSUBMISSION {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_NOTIFY_WORK_SUBMISSION>} param0 
      * @returns {NTSTATUS} 
      */

@@ -30,7 +30,9 @@
 export SysAllocString(psz) {
     psz := psz is String ? StrPtr(psz) : psz
 
-    result := DllCall("OLEAUT32.dll\SysAllocString", "ptr", psz, BSTR.Owned)
+    pszMarshal := psz == 0 ? IntPtr : PWSTR
+
+    result := DllCall("OLEAUT32.dll\SysAllocString", pszMarshal, psz, BSTR.Owned)
     return result
 }
 
@@ -76,7 +78,9 @@ export SysAllocString(psz) {
 export SysReAllocString(pbstr, psz) {
     psz := psz is String ? StrPtr(psz) : psz
 
-    result := DllCall("OLEAUT32.dll\SysReAllocString", BSTR.Ptr, pbstr, "ptr", psz, Int32)
+    pszMarshal := psz == 0 ? IntPtr : PWSTR
+
+    result := DllCall("OLEAUT32.dll\SysReAllocString", BSTR.Ptr, pbstr, pszMarshal, psz, Int32)
     return result
 }
 
@@ -95,7 +99,9 @@ export SysReAllocString(pbstr, psz) {
 export SysAllocStringLen(strIn, ui) {
     strIn := strIn is String ? StrPtr(strIn) : strIn
 
-    result := DllCall("OLEAUT32.dll\SysAllocStringLen", "ptr", strIn, UInt32, ui, BSTR.Owned)
+    strInMarshal := strIn == 0 ? IntPtr : PWSTR
+
+    result := DllCall("OLEAUT32.dll\SysAllocStringLen", strInMarshal, strIn, UInt32, ui, BSTR.Owned)
     return result
 }
 
@@ -144,7 +150,9 @@ export SysAllocStringLen(strIn, ui) {
 export SysReAllocStringLen(pbstr, psz, len) {
     psz := psz is String ? StrPtr(psz) : psz
 
-    result := DllCall("OLEAUT32.dll\SysReAllocStringLen", BSTR.Ptr, pbstr, "ptr", psz, UInt32, len, Int32)
+    pszMarshal := psz == 0 ? IntPtr : PWSTR
+
+    result := DllCall("OLEAUT32.dll\SysReAllocStringLen", BSTR.Ptr, pbstr, pszMarshal, psz, UInt32, len, Int32)
     return result
 }
 
@@ -182,7 +190,9 @@ export SysReleaseString(bstrString) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysfreestring
  */
 export SysFreeString(bstrString) {
-    DllCall("OLEAUT32.dll\SysFreeString", BSTR, bstrString)
+    bstrStringMarshal := bstrString == 0 ? IntPtr : BSTR
+
+    DllCall("OLEAUT32.dll\SysFreeString", bstrStringMarshal, bstrString)
 }
 
 /**
@@ -194,7 +204,9 @@ export SysFreeString(bstrString) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysstringlen
  */
 export SysStringLen(pbstr) {
-    result := DllCall("OLEAUT32.dll\SysStringLen", BSTR, pbstr, UInt32)
+    pbstrMarshal := pbstr == 0 ? IntPtr : BSTR
+
+    result := DllCall("OLEAUT32.dll\SysStringLen", pbstrMarshal, pbstr, UInt32)
     return result
 }
 
@@ -207,7 +219,9 @@ export SysStringLen(pbstr) {
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysstringbytelen
  */
 export SysStringByteLen(_bstr) {
-    result := DllCall("OLEAUT32.dll\SysStringByteLen", BSTR, _bstr, UInt32)
+    _bstrMarshal := _bstr == 0 ? IntPtr : BSTR
+
+    result := DllCall("OLEAUT32.dll\SysStringByteLen", _bstrMarshal, _bstr, UInt32)
     return result
 }
 
@@ -227,7 +241,9 @@ export SysStringByteLen(_bstr) {
 export SysAllocStringByteLen(psz, len) {
     psz := psz is String ? StrPtr(psz) : psz
 
-    result := DllCall("OLEAUT32.dll\SysAllocStringByteLen", "ptr", psz, UInt32, len, BSTR.Owned)
+    pszMarshal := psz == 0 ? IntPtr : PSTR
+
+    result := DllCall("OLEAUT32.dll\SysAllocStringByteLen", pszMarshal, psz, UInt32, len, BSTR.Owned)
     return result
 }
 
@@ -598,7 +614,7 @@ export CompareObjectHandles(hFirstObjectHandle, hSecondObjectHandle) {
  * @since windows5.0
  */
 export GetHandleInformation(hObject, lpdwFlags) {
-    lpdwFlagsMarshal := lpdwFlags is VarRef ? "uint*" : "ptr"
+    lpdwFlagsMarshal := lpdwFlags is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -793,9 +809,11 @@ export SetLastErrorEx(dwErrCode, dwType) {
  * @since windows5.1.2600
  */
 export GlobalFree(hMem) {
+    hMemMarshal := hMem == 0 ? IntPtr : HGLOBAL
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\GlobalFree", HGLOBAL, hMem, HGLOBAL.Owned)
+    result := DllCall("KERNEL32.dll\GlobalFree", hMemMarshal, hMem, HGLOBAL.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }
@@ -831,9 +849,11 @@ export GlobalFree(hMem) {
  * @since windows5.1.2600
  */
 export LocalFree(hMem) {
+    hMemMarshal := hMem == 0 ? IntPtr : HLOCAL
+
     A_LastError := 0
 
-    result := DllCall("KERNEL32.dll\LocalFree", HLOCAL, hMem, HLOCAL.Owned)
+    result := DllCall("KERNEL32.dll\LocalFree", hMemMarshal, hMem, HLOCAL.Owned)
     if(A_LastError) {
         throw OSError(A_LastError)
     }

@@ -19,7 +19,6 @@ export default struct LPDDHALVPORTCB_WAITFORSYNC {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_WAITFORVPORTSYNCDATA>} param0 
      * @returns {Integer} 
      */

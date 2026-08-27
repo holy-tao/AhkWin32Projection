@@ -37,19 +37,17 @@ export default struct IRowsetQueryStatus extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwStatus 
      * @returns {HRESULT} 
      */
     GetStatus(pdwStatus) {
-        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
+        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pdwStatusMarshal, pdwStatus, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwStatus 
      * @param {Pointer<Integer>} pcFilteredDocuments 
      * @param {Pointer<Integer>} pcDocumentsToFilter 
@@ -62,14 +60,14 @@ export default struct IRowsetQueryStatus extends IUnknown {
      * @returns {HRESULT} 
      */
     GetStatusEx(pdwStatus, pcFilteredDocuments, pcDocumentsToFilter, pdwRatioFinishedDenominator, pdwRatioFinishedNumerator, cbBmk, pBmk, piRowBmk, pcRowsTotal) {
-        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
-        pcFilteredDocumentsMarshal := pcFilteredDocuments is VarRef ? "uint*" : "ptr"
-        pcDocumentsToFilterMarshal := pcDocumentsToFilter is VarRef ? "uint*" : "ptr"
-        pdwRatioFinishedDenominatorMarshal := pdwRatioFinishedDenominator is VarRef ? "ptr*" : "ptr"
-        pdwRatioFinishedNumeratorMarshal := pdwRatioFinishedNumerator is VarRef ? "ptr*" : "ptr"
-        pBmkMarshal := pBmk is VarRef ? "char*" : "ptr"
-        piRowBmkMarshal := piRowBmk is VarRef ? "ptr*" : "ptr"
-        pcRowsTotalMarshal := pcRowsTotal is VarRef ? "ptr*" : "ptr"
+        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : IntPtr
+        pcFilteredDocumentsMarshal := pcFilteredDocuments is VarRef ? "uint*" : IntPtr
+        pcDocumentsToFilterMarshal := pcDocumentsToFilter is VarRef ? "uint*" : IntPtr
+        pdwRatioFinishedDenominatorMarshal := pdwRatioFinishedDenominator is VarRef ? "ptr*" : IntPtr
+        pdwRatioFinishedNumeratorMarshal := pdwRatioFinishedNumerator is VarRef ? "ptr*" : IntPtr
+        pBmkMarshal := pBmk is VarRef ? "char*" : IntPtr
+        piRowBmkMarshal := piRowBmk is VarRef ? "ptr*" : IntPtr
+        pcRowsTotalMarshal := pcRowsTotal is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, pdwStatusMarshal, pdwStatus, pcFilteredDocumentsMarshal, pcFilteredDocuments, pcDocumentsToFilterMarshal, pcDocumentsToFilter, pdwRatioFinishedDenominatorMarshal, pdwRatioFinishedDenominator, pdwRatioFinishedNumeratorMarshal, pdwRatioFinishedNumerator, IntPtr, cbBmk, pBmkMarshal, pBmk, piRowBmkMarshal, piRowBmk, pcRowsTotalMarshal, pcRowsTotal, "HRESULT")
         return result
@@ -84,8 +82,8 @@ export default struct IRowsetQueryStatus extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
-        this.vtbl.GetStatusEx := CallbackCreate(GetMethod(implObj, "GetStatusEx"), flags, 10)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.GetStatusEx := CallbackCreate(ObjBindMethod(implObj, "GetStatusEx"), flags, 10)
     }
 
     Dispose() {

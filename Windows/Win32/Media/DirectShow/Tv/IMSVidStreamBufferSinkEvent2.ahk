@@ -105,8 +105,8 @@ export default struct IMSVidStreamBufferSinkEvent2 extends IMSVidStreamBufferSin
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EncryptionOn := CallbackCreate(GetMethod(implObj, "EncryptionOn"), flags, 1)
-        this.vtbl.EncryptionOff := CallbackCreate(GetMethod(implObj, "EncryptionOff"), flags, 1)
+        this.vtbl.EncryptionOn := CallbackCreate(ObjBindMethod(implObj, "EncryptionOn"), flags, 1)
+        this.vtbl.EncryptionOff := CallbackCreate(ObjBindMethod(implObj, "EncryptionOff"), flags, 1)
     }
 
     Dispose() {

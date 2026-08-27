@@ -20,7 +20,6 @@ export default struct PCLUSAPI_CLUSTER_ENUM {
     }
 
     /**
-     * 
      * @param {HCLUSENUM} hEnum 
      * @param {Integer} dwIndex 
      * @param {Pointer<Integer>} lpdwType 
@@ -31,8 +30,8 @@ export default struct PCLUSAPI_CLUSTER_ENUM {
     Call(hEnum, dwIndex, lpdwType, lpszName, lpcchName) {
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
-        lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : "ptr"
-        lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
+        lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : IntPtr
+        lpcchNameMarshal := lpcchName is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HCLUSENUM, hEnum, UInt32, dwIndex, lpdwTypeMarshal, lpdwType, "ptr", lpszName, lpcchNameMarshal, lpcchName, UInt32)
         return result

@@ -27,7 +27,6 @@ export default struct PDD_GETAVAILDRIVERMEMORY {
     }
 
     /**
-     * 
      * @param {Pointer<DD_GETAVAILDRIVERMEMORYDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_getavaildrivermemorydata">DD_GETAVAILDRIVERMEMORYDATA</a> structure that contains the information required to perform the query.
      * @returns {Integer} <b>DdGetAvailDriverMemory</b> returns one of the following callback codes:
      */

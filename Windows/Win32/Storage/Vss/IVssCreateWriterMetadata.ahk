@@ -330,7 +330,7 @@ export default struct IVssCreateWriterMetadata extends Win32ComInterface {
         wszComponentName := wszComponentName is String ? StrPtr(wszComponentName) : wszComponentName
         wszCaption := wszCaption is String ? StrPtr(wszCaption) : wszCaption
 
-        pbIconMarshal := pbIcon is VarRef ? "char*" : "ptr"
+        pbIconMarshal := pbIcon is VarRef ? "char*" : IntPtr
 
         result := ComCall(2, this, VSS_COMPONENT_TYPE, ct, "ptr", wszLogicalPath, "ptr", wszComponentName, "ptr", wszCaption, pbIconMarshal, pbIcon, UInt32, cbIcon, Int8, bRestoreMetadata, Int8, bNotifyOnBackupComplete, Int8, bSelectable, Int8, bSelectableForRestore, UInt32, dwComponentFlags, "HRESULT")
         return result

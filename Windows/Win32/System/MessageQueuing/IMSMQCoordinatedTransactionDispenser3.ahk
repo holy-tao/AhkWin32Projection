@@ -45,7 +45,6 @@ export default struct IMSMQCoordinatedTransactionDispenser3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IMSMQTransaction3} 
      */
     BeginTransaction() {
@@ -54,7 +53,6 @@ export default struct IMSMQCoordinatedTransactionDispenser3 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Properties() {
@@ -71,8 +69,8 @@ export default struct IMSMQCoordinatedTransactionDispenser3 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BeginTransaction := CallbackCreate(GetMethod(implObj, "BeginTransaction"), flags, 2)
-        this.vtbl.get_Properties := CallbackCreate(GetMethod(implObj, "get_Properties"), flags, 2)
+        this.vtbl.BeginTransaction := CallbackCreate(ObjBindMethod(implObj, "BeginTransaction"), flags, 2)
+        this.vtbl.get_Properties := CallbackCreate(ObjBindMethod(implObj, "get_Properties"), flags, 2)
     }
 
     Dispose() {

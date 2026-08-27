@@ -20,7 +20,6 @@ export default struct LPFNCCINFOA {
     }
 
     /**
-     * 
      * @param {Pointer<CCINFOA>} acci 
      * @returns {Integer} 
      */

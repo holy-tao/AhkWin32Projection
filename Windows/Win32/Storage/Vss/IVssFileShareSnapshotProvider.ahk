@@ -268,7 +268,7 @@ export default struct IVssFileShareSnapshotProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivssfilesharesnapshotprovider-deletesnapshots
      */
     DeleteSnapshots(SourceObjectId, eSourceObjectType, bForceDelete, plDeletedSnapshots, pNondeletedSnapshotID) {
-        plDeletedSnapshotsMarshal := plDeletedSnapshots is VarRef ? "int*" : "ptr"
+        plDeletedSnapshotsMarshal := plDeletedSnapshots is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, Guid, SourceObjectId, VSS_OBJECT_TYPE, eSourceObjectType, BOOL, bForceDelete, plDeletedSnapshotsMarshal, plDeletedSnapshots, Guid.Ptr, pNondeletedSnapshotID, "HRESULT")
         return result
@@ -396,7 +396,7 @@ export default struct IVssFileShareSnapshotProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivssfilesharesnapshotprovider-beginpreparesnapshot
      */
     BeginPrepareSnapshot(SnapshotSetId, SnapshotId, pwszSharePath, lNewContext, ProviderId) {
-        pwszSharePathMarshal := pwszSharePath is VarRef ? "ushort*" : "ptr"
+        pwszSharePathMarshal := pwszSharePath is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(7, this, Guid, SnapshotSetId, Guid, SnapshotId, pwszSharePathMarshal, pwszSharePath, Int32, lNewContext, Guid, ProviderId, "HRESULT")
         return result
@@ -411,7 +411,7 @@ export default struct IVssFileShareSnapshotProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivssfilesharesnapshotprovider-ispathsupported
      */
     IsPathSupported(pwszSharePath) {
-        pwszSharePathMarshal := pwszSharePath is VarRef ? "ushort*" : "ptr"
+        pwszSharePathMarshal := pwszSharePath is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(8, this, pwszSharePathMarshal, pwszSharePath, BOOL.Ptr, &pbSupportedByThisProvider := 0, "HRESULT")
         return pbSupportedByThisProvider
@@ -515,9 +515,9 @@ export default struct IVssFileShareSnapshotProvider extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivssfilesharesnapshotprovider-ispathsnapshotted
      */
     IsPathSnapshotted(pwszSharePath, pbSnapshotsPresent, plSnapshotCompatibility) {
-        pwszSharePathMarshal := pwszSharePath is VarRef ? "ushort*" : "ptr"
-        pbSnapshotsPresentMarshal := pbSnapshotsPresent is VarRef ? "int*" : "ptr"
-        plSnapshotCompatibilityMarshal := plSnapshotCompatibility is VarRef ? "int*" : "ptr"
+        pwszSharePathMarshal := pwszSharePath is VarRef ? "ushort*" : IntPtr
+        pbSnapshotsPresentMarshal := pbSnapshotsPresent is VarRef ? "int*" : IntPtr
+        plSnapshotCompatibilityMarshal := plSnapshotCompatibility is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, pwszSharePathMarshal, pwszSharePath, pbSnapshotsPresentMarshal, pbSnapshotsPresent, plSnapshotCompatibilityMarshal, plSnapshotCompatibility, "HRESULT")
         return result
@@ -607,14 +607,14 @@ export default struct IVssFileShareSnapshotProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetContext := CallbackCreate(GetMethod(implObj, "SetContext"), flags, 2)
-        this.vtbl.GetSnapshotProperties := CallbackCreate(GetMethod(implObj, "GetSnapshotProperties"), flags, 3)
-        this.vtbl.Query := CallbackCreate(GetMethod(implObj, "Query"), flags, 5)
-        this.vtbl.DeleteSnapshots := CallbackCreate(GetMethod(implObj, "DeleteSnapshots"), flags, 6)
-        this.vtbl.BeginPrepareSnapshot := CallbackCreate(GetMethod(implObj, "BeginPrepareSnapshot"), flags, 6)
-        this.vtbl.IsPathSupported := CallbackCreate(GetMethod(implObj, "IsPathSupported"), flags, 3)
-        this.vtbl.IsPathSnapshotted := CallbackCreate(GetMethod(implObj, "IsPathSnapshotted"), flags, 4)
-        this.vtbl.SetSnapshotProperty := CallbackCreate(GetMethod(implObj, "SetSnapshotProperty"), flags, 4)
+        this.vtbl.SetContext := CallbackCreate(ObjBindMethod(implObj, "SetContext"), flags, 2)
+        this.vtbl.GetSnapshotProperties := CallbackCreate(ObjBindMethod(implObj, "GetSnapshotProperties"), flags, 3)
+        this.vtbl.Query := CallbackCreate(ObjBindMethod(implObj, "Query"), flags, 5)
+        this.vtbl.DeleteSnapshots := CallbackCreate(ObjBindMethod(implObj, "DeleteSnapshots"), flags, 6)
+        this.vtbl.BeginPrepareSnapshot := CallbackCreate(ObjBindMethod(implObj, "BeginPrepareSnapshot"), flags, 6)
+        this.vtbl.IsPathSupported := CallbackCreate(ObjBindMethod(implObj, "IsPathSupported"), flags, 3)
+        this.vtbl.IsPathSnapshotted := CallbackCreate(ObjBindMethod(implObj, "IsPathSnapshotted"), flags, 4)
+        this.vtbl.SetSnapshotProperty := CallbackCreate(ObjBindMethod(implObj, "SetSnapshotProperty"), flags, 4)
     }
 
     Dispose() {

@@ -67,7 +67,7 @@ export default struct ID3D12Device3 extends ID3D12Device2 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device3-openexistingheapfromaddress
      */
     OpenExistingHeapFromAddress(pAddress, riid) {
-        pAddressMarshal := pAddress is VarRef ? "ptr" : "ptr"
+        pAddressMarshal := pAddress is VarRef ? "ptr" : IntPtr
 
         result := ComCall(48, this, pAddressMarshal, pAddress, Guid.Ptr, riid, "ptr*", &ppvHeap := 0, "HRESULT")
         return ppvHeap
@@ -149,9 +149,9 @@ export default struct ID3D12Device3 extends ID3D12Device2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OpenExistingHeapFromAddress := CallbackCreate(GetMethod(implObj, "OpenExistingHeapFromAddress"), flags, 4)
-        this.vtbl.OpenExistingHeapFromFileMapping := CallbackCreate(GetMethod(implObj, "OpenExistingHeapFromFileMapping"), flags, 4)
-        this.vtbl.EnqueueMakeResident := CallbackCreate(GetMethod(implObj, "EnqueueMakeResident"), flags, 6)
+        this.vtbl.OpenExistingHeapFromAddress := CallbackCreate(ObjBindMethod(implObj, "OpenExistingHeapFromAddress"), flags, 4)
+        this.vtbl.OpenExistingHeapFromFileMapping := CallbackCreate(ObjBindMethod(implObj, "OpenExistingHeapFromFileMapping"), flags, 4)
+        this.vtbl.EnqueueMakeResident := CallbackCreate(ObjBindMethod(implObj, "EnqueueMakeResident"), flags, 6)
     }
 
     Dispose() {

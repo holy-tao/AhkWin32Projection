@@ -39,7 +39,6 @@ export default struct IVdsAdvancedDisk3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VDS_ADVANCEDDISK_PROP} 
      */
     GetProperties() {
@@ -49,7 +48,6 @@ export default struct IVdsAdvancedDisk3 extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetUniqueId() {
@@ -66,8 +64,8 @@ export default struct IVdsAdvancedDisk3 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 2)
-        this.vtbl.GetUniqueId := CallbackCreate(GetMethod(implObj, "GetUniqueId"), flags, 2)
+        this.vtbl.GetProperties := CallbackCreate(ObjBindMethod(implObj, "GetProperties"), flags, 2)
+        this.vtbl.GetUniqueId := CallbackCreate(ObjBindMethod(implObj, "GetUniqueId"), flags, 2)
     }
 
     Dispose() {

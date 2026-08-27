@@ -12,7 +12,6 @@
 
 ;@region Functions
 /**
- * 
  * @param {HWND} hwndOwner 
  * @param {PWSTR} pszUrl 
  * @param {IEnumPrivacyRecords} pPrivacyEnum 
@@ -22,7 +21,9 @@
 export DoPrivacyDlg(hwndOwner, pszUrl, pPrivacyEnum, fReportAllSites) {
     pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
-    result := DllCall("SHDOCVW.dll\DoPrivacyDlg", HWND, hwndOwner, "ptr", pszUrl, "ptr", pPrivacyEnum, BOOL, fReportAllSites, "HRESULT")
+    hwndOwnerMarshal := hwndOwner == 0 ? IntPtr : HWND
+
+    result := DllCall("SHDOCVW.dll\DoPrivacyDlg", hwndOwnerMarshal, hwndOwner, "ptr", pszUrl, "ptr", pPrivacyEnum, BOOL, fReportAllSites, "HRESULT")
     return result
 }
 

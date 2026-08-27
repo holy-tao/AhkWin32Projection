@@ -82,7 +82,7 @@ export default struct IRecoverableError extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-irecoverableerror-getstage
      */
     GetStage(pStage) {
-        pStageMarshal := pStage is VarRef ? "int*" : "ptr"
+        pStageMarshal := pStage is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, pStageMarshal, pStage, "HRESULT")
         return result
@@ -124,7 +124,7 @@ export default struct IRecoverableError extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-irecoverableerror-getprovider
      */
     GetProvider(pProviderRole) {
-        pProviderRoleMarshal := pProviderRole is VarRef ? "int*" : "ptr"
+        pProviderRoleMarshal := pProviderRole is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, pProviderRoleMarshal, pProviderRole, "HRESULT")
         return result
@@ -147,7 +147,7 @@ export default struct IRecoverableError extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-irecoverableerror-getrecoverableerrordataforchange
      */
     GetRecoverableErrorDataForChange(phrError) {
-        phrErrorMarshal := phrError is VarRef ? "int*" : "ptr"
+        phrErrorMarshal := phrError is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, phrErrorMarshal, phrError, "ptr*", &ppErrorData := 0, "HRESULT")
         return IRecoverableErrorData(ppErrorData)
@@ -161,7 +161,7 @@ export default struct IRecoverableError extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-irecoverableerror-getrecoverableerrordataforchangeunit
      */
     GetRecoverableErrorDataForChangeUnit(pChangeUnit, phrError) {
-        phrErrorMarshal := phrError is VarRef ? "int*" : "ptr"
+        phrErrorMarshal := phrError is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, "ptr", pChangeUnit, phrErrorMarshal, phrError, "ptr*", &ppErrorData := 0, "HRESULT")
         return IRecoverableErrorData(ppErrorData)
@@ -176,11 +176,11 @@ export default struct IRecoverableError extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStage := CallbackCreate(GetMethod(implObj, "GetStage"), flags, 2)
-        this.vtbl.GetProvider := CallbackCreate(GetMethod(implObj, "GetProvider"), flags, 2)
-        this.vtbl.GetChangeWithRecoverableError := CallbackCreate(GetMethod(implObj, "GetChangeWithRecoverableError"), flags, 2)
-        this.vtbl.GetRecoverableErrorDataForChange := CallbackCreate(GetMethod(implObj, "GetRecoverableErrorDataForChange"), flags, 3)
-        this.vtbl.GetRecoverableErrorDataForChangeUnit := CallbackCreate(GetMethod(implObj, "GetRecoverableErrorDataForChangeUnit"), flags, 4)
+        this.vtbl.GetStage := CallbackCreate(ObjBindMethod(implObj, "GetStage"), flags, 2)
+        this.vtbl.GetProvider := CallbackCreate(ObjBindMethod(implObj, "GetProvider"), flags, 2)
+        this.vtbl.GetChangeWithRecoverableError := CallbackCreate(ObjBindMethod(implObj, "GetChangeWithRecoverableError"), flags, 2)
+        this.vtbl.GetRecoverableErrorDataForChange := CallbackCreate(ObjBindMethod(implObj, "GetRecoverableErrorDataForChange"), flags, 3)
+        this.vtbl.GetRecoverableErrorDataForChangeUnit := CallbackCreate(ObjBindMethod(implObj, "GetRecoverableErrorDataForChangeUnit"), flags, 4)
     }
 
     Dispose() {

@@ -304,7 +304,7 @@ export default struct IWICBitmapFrameEncode extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapframeencode-writepixels
      */
     WritePixels(lineCount, cbStride, cbBufferSize, pbPixels) {
-        pbPixelsMarshal := pbPixels is VarRef ? "char*" : "ptr"
+        pbPixelsMarshal := pbPixels is VarRef ? "char*" : IntPtr
 
         result := ComCall(10, this, UInt32, lineCount, UInt32, cbStride, UInt32, cbBufferSize, pbPixelsMarshal, pbPixels, "HRESULT")
         return result
@@ -382,17 +382,17 @@ export default struct IWICBitmapFrameEncode extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.SetSize := CallbackCreate(GetMethod(implObj, "SetSize"), flags, 3)
-        this.vtbl.SetResolution := CallbackCreate(GetMethod(implObj, "SetResolution"), flags, 3)
-        this.vtbl.SetPixelFormat := CallbackCreate(GetMethod(implObj, "SetPixelFormat"), flags, 2)
-        this.vtbl.SetColorContexts := CallbackCreate(GetMethod(implObj, "SetColorContexts"), flags, 3)
-        this.vtbl.SetPalette := CallbackCreate(GetMethod(implObj, "SetPalette"), flags, 2)
-        this.vtbl.SetThumbnail := CallbackCreate(GetMethod(implObj, "SetThumbnail"), flags, 2)
-        this.vtbl.WritePixels := CallbackCreate(GetMethod(implObj, "WritePixels"), flags, 5)
-        this.vtbl.WriteSource := CallbackCreate(GetMethod(implObj, "WriteSource"), flags, 3)
-        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 1)
-        this.vtbl.GetMetadataQueryWriter := CallbackCreate(GetMethod(implObj, "GetMetadataQueryWriter"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.SetSize := CallbackCreate(ObjBindMethod(implObj, "SetSize"), flags, 3)
+        this.vtbl.SetResolution := CallbackCreate(ObjBindMethod(implObj, "SetResolution"), flags, 3)
+        this.vtbl.SetPixelFormat := CallbackCreate(ObjBindMethod(implObj, "SetPixelFormat"), flags, 2)
+        this.vtbl.SetColorContexts := CallbackCreate(ObjBindMethod(implObj, "SetColorContexts"), flags, 3)
+        this.vtbl.SetPalette := CallbackCreate(ObjBindMethod(implObj, "SetPalette"), flags, 2)
+        this.vtbl.SetThumbnail := CallbackCreate(ObjBindMethod(implObj, "SetThumbnail"), flags, 2)
+        this.vtbl.WritePixels := CallbackCreate(ObjBindMethod(implObj, "WritePixels"), flags, 5)
+        this.vtbl.WriteSource := CallbackCreate(ObjBindMethod(implObj, "WriteSource"), flags, 3)
+        this.vtbl.Commit := CallbackCreate(ObjBindMethod(implObj, "Commit"), flags, 1)
+        this.vtbl.GetMetadataQueryWriter := CallbackCreate(ObjBindMethod(implObj, "GetMetadataQueryWriter"), flags, 2)
     }
 
     Dispose() {

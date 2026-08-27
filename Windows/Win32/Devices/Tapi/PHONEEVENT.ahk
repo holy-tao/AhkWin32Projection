@@ -30,7 +30,6 @@ export default struct PHONEEVENT {
     }
 
     /**
-     * 
      * @param {HTAPIPHONE} htPhone The TAPI handle for the phone on which the event occurred.
      * @param {Integer} dwMsg Specifies the kind of event that is being reported. Interpretation of the other parameters is done in different ways according to the context indicated by <i>dwMsg</i>.
      * @param {Pointer} dwParam1 A parameter for the message.

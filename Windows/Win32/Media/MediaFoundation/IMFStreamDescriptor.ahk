@@ -95,8 +95,8 @@ export default struct IMFStreamDescriptor extends IMFAttributes {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetStreamIdentifier := CallbackCreate(GetMethod(implObj, "GetStreamIdentifier"), flags, 2)
-        this.vtbl.GetMediaTypeHandler := CallbackCreate(GetMethod(implObj, "GetMediaTypeHandler"), flags, 2)
+        this.vtbl.GetStreamIdentifier := CallbackCreate(ObjBindMethod(implObj, "GetStreamIdentifier"), flags, 2)
+        this.vtbl.GetMediaTypeHandler := CallbackCreate(ObjBindMethod(implObj, "GetMediaTypeHandler"), flags, 2)
     }
 
     Dispose() {

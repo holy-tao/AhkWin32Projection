@@ -19,7 +19,6 @@ export default struct LPWPUQUERYBLOCKINGCALLBACK {
     }
 
     /**
-     * 
      * @param {Integer} dwCatalogEntryId 
      * @param {Pointer<Pointer<LPBLOCKINGCALLBACK>>} lplpfnCallback 
      * @param {Pointer<Pointer>} lpdwContext 
@@ -27,9 +26,9 @@ export default struct LPWPUQUERYBLOCKINGCALLBACK {
      * @returns {Integer} 
      */
     Call(dwCatalogEntryId, lplpfnCallback, lpdwContext, lpErrno) {
-        lplpfnCallbackMarshal := lplpfnCallback is VarRef ? "ptr*" : "ptr"
-        lpdwContextMarshal := lpdwContext is VarRef ? "ptr*" : "ptr"
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        lplpfnCallbackMarshal := lplpfnCallback is VarRef ? "ptr*" : IntPtr
+        lpdwContextMarshal := lpdwContext is VarRef ? "ptr*" : IntPtr
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, UInt32, dwCatalogEntryId, lplpfnCallbackMarshal, lplpfnCallback, lpdwContextMarshal, lpdwContext, lpErrnoMarshal, lpErrno, Int32)
         return result

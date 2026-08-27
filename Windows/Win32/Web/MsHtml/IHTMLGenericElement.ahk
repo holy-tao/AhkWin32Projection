@@ -52,7 +52,6 @@ export default struct IHTMLGenericElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_recordset() {
@@ -61,7 +60,6 @@ export default struct IHTMLGenericElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} dataMember 
      * @param {Pointer<VARIANT>} hierarchy 
      * @returns {IDispatch} 
@@ -82,8 +80,8 @@ export default struct IHTMLGenericElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_recordset := CallbackCreate(GetMethod(implObj, "get_recordset"), flags, 2)
-        this.vtbl.namedRecordset := CallbackCreate(GetMethod(implObj, "namedRecordset"), flags, 4)
+        this.vtbl.get_recordset := CallbackCreate(ObjBindMethod(implObj, "get_recordset"), flags, 2)
+        this.vtbl.namedRecordset := CallbackCreate(ObjBindMethod(implObj, "namedRecordset"), flags, 4)
     }
 
     Dispose() {

@@ -116,8 +116,8 @@ export default struct ICoreFragment extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-icorefragment-nextcolumn
      */
     NextColumn(pChangeUnitId, pChangeUnitIdSize) {
-        pChangeUnitIdMarshal := pChangeUnitId is VarRef ? "char*" : "ptr"
-        pChangeUnitIdSizeMarshal := pChangeUnitIdSize is VarRef ? "uint*" : "ptr"
+        pChangeUnitIdMarshal := pChangeUnitId is VarRef ? "char*" : IntPtr
+        pChangeUnitIdSizeMarshal := pChangeUnitIdSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pChangeUnitIdMarshal, pChangeUnitId, pChangeUnitIdSizeMarshal, pChangeUnitIdSize, "HRESULT")
         return result
@@ -133,8 +133,8 @@ export default struct ICoreFragment extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-icorefragment-nextrange
      */
     NextRange(pItemId, pItemIdSize) {
-        pItemIdMarshal := pItemId is VarRef ? "char*" : "ptr"
-        pItemIdSizeMarshal := pItemIdSize is VarRef ? "uint*" : "ptr"
+        pItemIdMarshal := pItemId is VarRef ? "char*" : IntPtr
+        pItemIdSizeMarshal := pItemIdSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pItemIdMarshal, pItemId, pItemIdSizeMarshal, pItemIdSize, "ptr*", &piClockVector := 0, "HRESULT")
         return IClockVector(piClockVector)
@@ -217,7 +217,7 @@ export default struct ICoreFragment extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-icorefragment-getcolumncount
      */
     GetColumnCount(pColumnCount) {
-        pColumnCountMarshal := pColumnCount is VarRef ? "uint*" : "ptr"
+        pColumnCountMarshal := pColumnCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, pColumnCountMarshal, pColumnCount, "HRESULT")
         return result
@@ -261,7 +261,7 @@ export default struct ICoreFragment extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-icorefragment-getrangecount
      */
     GetRangeCount(pRangeCount) {
-        pRangeCountMarshal := pRangeCount is VarRef ? "uint*" : "ptr"
+        pRangeCountMarshal := pRangeCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(7, this, pRangeCountMarshal, pRangeCount, "HRESULT")
         return result
@@ -276,11 +276,11 @@ export default struct ICoreFragment extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.NextColumn := CallbackCreate(GetMethod(implObj, "NextColumn"), flags, 3)
-        this.vtbl.NextRange := CallbackCreate(GetMethod(implObj, "NextRange"), flags, 4)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.GetColumnCount := CallbackCreate(GetMethod(implObj, "GetColumnCount"), flags, 2)
-        this.vtbl.GetRangeCount := CallbackCreate(GetMethod(implObj, "GetRangeCount"), flags, 2)
+        this.vtbl.NextColumn := CallbackCreate(ObjBindMethod(implObj, "NextColumn"), flags, 3)
+        this.vtbl.NextRange := CallbackCreate(ObjBindMethod(implObj, "NextRange"), flags, 4)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.GetColumnCount := CallbackCreate(ObjBindMethod(implObj, "GetColumnCount"), flags, 2)
+        this.vtbl.GetRangeCount := CallbackCreate(ObjBindMethod(implObj, "GetRangeCount"), flags, 2)
     }
 
     Dispose() {

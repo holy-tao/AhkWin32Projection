@@ -20,7 +20,6 @@ export default struct PCLUSAPI_RESTORE_CLUSTER_DATABASE {
     }
 
     /**
-     * 
      * @param {PWSTR} lpszPathName 
      * @param {BOOL} bForce 
      * @param {PWSTR} lpszQuorumDriveLetter 
@@ -30,7 +29,9 @@ export default struct PCLUSAPI_RESTORE_CLUSTER_DATABASE {
         lpszPathName := lpszPathName is String ? StrPtr(lpszPathName) : lpszPathName
         lpszQuorumDriveLetter := lpszQuorumDriveLetter is String ? StrPtr(lpszQuorumDriveLetter) : lpszQuorumDriveLetter
 
-        result := DllCall(this.value, "ptr", lpszPathName, BOOL, bForce, "ptr", lpszQuorumDriveLetter, UInt32)
+        lpszQuorumDriveLetterMarshal := lpszQuorumDriveLetter == 0 ? IntPtr : PWSTR
+
+        result := DllCall(this.value, "ptr", lpszPathName, BOOL, bForce, lpszQuorumDriveLetterMarshal, lpszQuorumDriveLetter, UInt32)
         return result
     }
 

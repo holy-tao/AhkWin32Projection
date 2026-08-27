@@ -23,7 +23,6 @@ export default struct LPNSPLOOKUPSERVICEEND {
     }
 
     /**
-     * 
      * @param {HANDLE} hLookup The handle obtained previously by a call to  
      * <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nc-ws2spi-lpnsplookupservicebegin">NSPLookupServiceBegin</a>.
      * @returns {Integer} The function should return **NO_ERROR** (zero) if the routine succeeds. It should return **SOCKET_ERROR** (–1) if the routine fails and it must set the appropriate error code using <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsasetlasterror">WSASetLastError</a>.

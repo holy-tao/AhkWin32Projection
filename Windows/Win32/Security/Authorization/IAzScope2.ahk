@@ -186,14 +186,14 @@ export default struct IAzScope2 extends IAzScope {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_RoleDefinitions := CallbackCreate(GetMethod(implObj, "get_RoleDefinitions"), flags, 2)
-        this.vtbl.CreateRoleDefinition := CallbackCreate(GetMethod(implObj, "CreateRoleDefinition"), flags, 3)
-        this.vtbl.OpenRoleDefinition := CallbackCreate(GetMethod(implObj, "OpenRoleDefinition"), flags, 3)
-        this.vtbl.DeleteRoleDefinition := CallbackCreate(GetMethod(implObj, "DeleteRoleDefinition"), flags, 2)
-        this.vtbl.get_RoleAssignments := CallbackCreate(GetMethod(implObj, "get_RoleAssignments"), flags, 2)
-        this.vtbl.CreateRoleAssignment := CallbackCreate(GetMethod(implObj, "CreateRoleAssignment"), flags, 3)
-        this.vtbl.OpenRoleAssignment := CallbackCreate(GetMethod(implObj, "OpenRoleAssignment"), flags, 3)
-        this.vtbl.DeleteRoleAssignment := CallbackCreate(GetMethod(implObj, "DeleteRoleAssignment"), flags, 2)
+        this.vtbl.get_RoleDefinitions := CallbackCreate(ObjBindMethod(implObj, "get_RoleDefinitions"), flags, 2)
+        this.vtbl.CreateRoleDefinition := CallbackCreate(ObjBindMethod(implObj, "CreateRoleDefinition"), flags, 3)
+        this.vtbl.OpenRoleDefinition := CallbackCreate(ObjBindMethod(implObj, "OpenRoleDefinition"), flags, 3)
+        this.vtbl.DeleteRoleDefinition := CallbackCreate(ObjBindMethod(implObj, "DeleteRoleDefinition"), flags, 2)
+        this.vtbl.get_RoleAssignments := CallbackCreate(ObjBindMethod(implObj, "get_RoleAssignments"), flags, 2)
+        this.vtbl.CreateRoleAssignment := CallbackCreate(ObjBindMethod(implObj, "CreateRoleAssignment"), flags, 3)
+        this.vtbl.OpenRoleAssignment := CallbackCreate(ObjBindMethod(implObj, "OpenRoleAssignment"), flags, 3)
+        this.vtbl.DeleteRoleAssignment := CallbackCreate(ObjBindMethod(implObj, "DeleteRoleAssignment"), flags, 2)
     }
 
     Dispose() {

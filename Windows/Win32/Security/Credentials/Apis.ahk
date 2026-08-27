@@ -49,8 +49,8 @@
  * @see https://learn.microsoft.com/windows/win32/api/keycredmgr/nf-keycredmgr-keycredentialmanagergetoperationerrorstates
  */
 export KeyCredentialManagerGetOperationErrorStates(_keyCredentialManagerOperationType, isReady, _keyCredentialManagerOperationErrorStates) {
-    isReadyMarshal := isReady is VarRef ? "int*" : "ptr"
-    _keyCredentialManagerOperationErrorStatesMarshal := _keyCredentialManagerOperationErrorStates is VarRef ? "int*" : "ptr"
+    isReadyMarshal := isReady is VarRef ? "int*" : IntPtr
+    _keyCredentialManagerOperationErrorStatesMarshal := _keyCredentialManagerOperationErrorStates is VarRef ? "int*" : IntPtr
 
     result := DllCall("KeyCredMgr.dll\KeyCredentialManagerGetOperationErrorStates", KeyCredentialManagerOperationType, _keyCredentialManagerOperationType, isReadyMarshal, isReady, _keyCredentialManagerOperationErrorStatesMarshal, _keyCredentialManagerOperationErrorStates, "HRESULT")
     return result
@@ -447,7 +447,7 @@ export CredReadW(TargetName, Type, Credential) {
 
     TargetName := TargetName is String ? StrPtr(TargetName) : TargetName
 
-    CredentialMarshal := Credential is VarRef ? "ptr*" : "ptr"
+    CredentialMarshal := Credential is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -504,7 +504,7 @@ export CredReadA(TargetName, Type, Credential) {
 
     TargetName := TargetName is String ? StrPtr(TargetName) : TargetName
 
-    CredentialMarshal := Credential is VarRef ? "ptr*" : "ptr"
+    CredentialMarshal := Credential is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -580,12 +580,13 @@ export CredEnumerateW(Filter, Count, Credential) {
 
     Filter := Filter is String ? StrPtr(Filter) : Filter
 
-    CountMarshal := Count is VarRef ? "uint*" : "ptr"
-    CredentialMarshal := Credential is VarRef ? "ptr*" : "ptr"
+    FilterMarshal := Filter == 0 ? IntPtr : PWSTR
+    CountMarshal := Count is VarRef ? "uint*" : IntPtr
+    CredentialMarshal := Credential is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CredEnumerateW", "ptr", Filter, CRED_ENUMERATE_FLAGS, Flags, CountMarshal, Count, CredentialMarshal, Credential, BOOL)
+    result := DllCall("ADVAPI32.dll\CredEnumerateW", FilterMarshal, Filter, CRED_ENUMERATE_FLAGS, Flags, CountMarshal, Count, CredentialMarshal, Credential, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -657,12 +658,13 @@ export CredEnumerateA(Filter, Count, Credential) {
 
     Filter := Filter is String ? StrPtr(Filter) : Filter
 
-    CountMarshal := Count is VarRef ? "uint*" : "ptr"
-    CredentialMarshal := Credential is VarRef ? "ptr*" : "ptr"
+    FilterMarshal := Filter == 0 ? IntPtr : PSTR
+    CountMarshal := Count is VarRef ? "uint*" : IntPtr
+    CredentialMarshal := Credential is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CredEnumerateA", "ptr", Filter, CRED_ENUMERATE_FLAGS, Flags, CountMarshal, Count, CredentialMarshal, Credential, BOOL)
+    result := DllCall("ADVAPI32.dll\CredEnumerateA", FilterMarshal, Filter, CRED_ENUMERATE_FLAGS, Flags, CountMarshal, Count, CredentialMarshal, Credential, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1065,8 +1067,8 @@ export CredWriteDomainCredentialsA(TargetInfo, Credential, Flags) {
  * @since windows5.1.2600
  */
 export CredReadDomainCredentialsW(TargetInfo, Flags, Count, Credential) {
-    CountMarshal := Count is VarRef ? "uint*" : "ptr"
-    CredentialMarshal := Credential is VarRef ? "ptr*" : "ptr"
+    CountMarshal := Count is VarRef ? "uint*" : IntPtr
+    CredentialMarshal := Credential is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -1165,8 +1167,8 @@ export CredReadDomainCredentialsW(TargetInfo, Flags, Count, Credential) {
  * @since windows5.1.2600
  */
 export CredReadDomainCredentialsA(TargetInfo, Flags, Count, Credential) {
-    CountMarshal := Count is VarRef ? "uint*" : "ptr"
-    CredentialMarshal := Credential is VarRef ? "ptr*" : "ptr"
+    CountMarshal := Count is VarRef ? "uint*" : IntPtr
+    CredentialMarshal := Credential is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -1423,7 +1425,7 @@ export CredRenameA(OldTargetName, NewTargetName, Type) {
 export CredGetTargetInfoW(TargetName, Flags, TargetInfo) {
     TargetName := TargetName is String ? StrPtr(TargetName) : TargetName
 
-    TargetInfoMarshal := TargetInfo is VarRef ? "ptr*" : "ptr"
+    TargetInfoMarshal := TargetInfo is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -1468,7 +1470,7 @@ export CredGetTargetInfoW(TargetName, Flags, TargetInfo) {
 export CredGetTargetInfoA(TargetName, Flags, TargetInfo) {
     TargetName := TargetName is String ? StrPtr(TargetName) : TargetName
 
-    TargetInfoMarshal := TargetInfo is VarRef ? "ptr*" : "ptr"
+    TargetInfoMarshal := TargetInfo is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -1505,8 +1507,8 @@ export CredGetTargetInfoA(TargetName, Flags, TargetInfo) {
  * @since windows5.1.2600
  */
 export CredMarshalCredentialW(CredType, Credential, MarshaledCredential) {
-    CredentialMarshal := Credential is VarRef ? "ptr" : "ptr"
-    MarshaledCredentialMarshal := MarshaledCredential is VarRef ? "ptr*" : "ptr"
+    CredentialMarshal := Credential is VarRef ? "ptr" : IntPtr
+    MarshaledCredentialMarshal := MarshaledCredential is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -1543,8 +1545,8 @@ export CredMarshalCredentialW(CredType, Credential, MarshaledCredential) {
  * @since windows5.1.2600
  */
 export CredMarshalCredentialA(CredType, Credential, MarshaledCredential) {
-    CredentialMarshal := Credential is VarRef ? "ptr" : "ptr"
-    MarshaledCredentialMarshal := MarshaledCredential is VarRef ? "ptr*" : "ptr"
+    CredentialMarshal := Credential is VarRef ? "ptr" : IntPtr
+    MarshaledCredentialMarshal := MarshaledCredential is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -1580,8 +1582,8 @@ export CredMarshalCredentialA(CredType, Credential, MarshaledCredential) {
 export CredUnmarshalCredentialW(MarshaledCredential, CredType, Credential) {
     MarshaledCredential := MarshaledCredential is String ? StrPtr(MarshaledCredential) : MarshaledCredential
 
-    CredTypeMarshal := CredType is VarRef ? "int*" : "ptr"
-    CredentialMarshal := Credential is VarRef ? "ptr*" : "ptr"
+    CredTypeMarshal := CredType is VarRef ? "int*" : IntPtr
+    CredentialMarshal := Credential is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -1617,8 +1619,8 @@ export CredUnmarshalCredentialW(MarshaledCredential, CredType, Credential) {
 export CredUnmarshalCredentialA(MarshaledCredential, CredType, Credential) {
     MarshaledCredential := MarshaledCredential is String ? StrPtr(MarshaledCredential) : MarshaledCredential
 
-    CredTypeMarshal := CredType is VarRef ? "int*" : "ptr"
-    CredentialMarshal := Credential is VarRef ? "ptr*" : "ptr"
+    CredTypeMarshal := CredType is VarRef ? "int*" : IntPtr
+    CredentialMarshal := Credential is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -1757,13 +1759,17 @@ export CredUnPackAuthenticationBufferW(dwFlags, pAuthBuffer, cbAuthBuffer, pszUs
     pszDomainName := pszDomainName is String ? StrPtr(pszDomainName) : pszDomainName
     pszPassword := pszPassword is String ? StrPtr(pszPassword) : pszPassword
 
-    pcchMaxUserNameMarshal := pcchMaxUserName is VarRef ? "uint*" : "ptr"
-    pcchMaxDomainNameMarshal := pcchMaxDomainName is VarRef ? "uint*" : "ptr"
-    pcchMaxPasswordMarshal := pcchMaxPassword is VarRef ? "uint*" : "ptr"
+    pszUserNameMarshal := pszUserName == 0 ? IntPtr : PWSTR
+    pcchMaxUserNameMarshal := pcchMaxUserName is VarRef ? "uint*" : IntPtr
+    pszDomainNameMarshal := pszDomainName == 0 ? IntPtr : PWSTR
+    pcchMaxDomainNameMarshal := pcchMaxDomainName is VarRef ? "uint*" : IntPtr
+    pcchMaxDomainNameMarshal := pcchMaxDomainName == 0 ? IntPtr : "uint*"
+    pszPasswordMarshal := pszPassword == 0 ? IntPtr : PWSTR
+    pcchMaxPasswordMarshal := pcchMaxPassword is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("credui.dll\CredUnPackAuthenticationBufferW", CRED_PACK_FLAGS, dwFlags, IntPtr, pAuthBuffer, UInt32, cbAuthBuffer, "ptr", pszUserName, pcchMaxUserNameMarshal, pcchMaxUserName, "ptr", pszDomainName, pcchMaxDomainNameMarshal, pcchMaxDomainName, "ptr", pszPassword, pcchMaxPasswordMarshal, pcchMaxPassword, BOOL)
+    result := DllCall("credui.dll\CredUnPackAuthenticationBufferW", CRED_PACK_FLAGS, dwFlags, IntPtr, pAuthBuffer, UInt32, cbAuthBuffer, pszUserNameMarshal, pszUserName, pcchMaxUserNameMarshal, pcchMaxUserName, pszDomainNameMarshal, pszDomainName, pcchMaxDomainNameMarshal, pcchMaxDomainName, pszPasswordMarshal, pszPassword, pcchMaxPasswordMarshal, pcchMaxPassword, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1864,13 +1870,17 @@ export CredUnPackAuthenticationBufferA(dwFlags, pAuthBuffer, cbAuthBuffer, pszUs
     pszDomainName := pszDomainName is String ? StrPtr(pszDomainName) : pszDomainName
     pszPassword := pszPassword is String ? StrPtr(pszPassword) : pszPassword
 
-    pcchlMaxUserNameMarshal := pcchlMaxUserName is VarRef ? "uint*" : "ptr"
-    pcchMaxDomainNameMarshal := pcchMaxDomainName is VarRef ? "uint*" : "ptr"
-    pcchMaxPasswordMarshal := pcchMaxPassword is VarRef ? "uint*" : "ptr"
+    pszUserNameMarshal := pszUserName == 0 ? IntPtr : PSTR
+    pcchlMaxUserNameMarshal := pcchlMaxUserName is VarRef ? "uint*" : IntPtr
+    pszDomainNameMarshal := pszDomainName == 0 ? IntPtr : PSTR
+    pcchMaxDomainNameMarshal := pcchMaxDomainName is VarRef ? "uint*" : IntPtr
+    pcchMaxDomainNameMarshal := pcchMaxDomainName == 0 ? IntPtr : "uint*"
+    pszPasswordMarshal := pszPassword == 0 ? IntPtr : PSTR
+    pcchMaxPasswordMarshal := pcchMaxPassword is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("credui.dll\CredUnPackAuthenticationBufferA", CRED_PACK_FLAGS, dwFlags, IntPtr, pAuthBuffer, UInt32, cbAuthBuffer, "ptr", pszUserName, pcchlMaxUserNameMarshal, pcchlMaxUserName, "ptr", pszDomainName, pcchMaxDomainNameMarshal, pcchMaxDomainName, "ptr", pszPassword, pcchMaxPasswordMarshal, pcchMaxPassword, BOOL)
+    result := DllCall("credui.dll\CredUnPackAuthenticationBufferA", CRED_PACK_FLAGS, dwFlags, IntPtr, pAuthBuffer, UInt32, cbAuthBuffer, pszUserNameMarshal, pszUserName, pcchlMaxUserNameMarshal, pcchlMaxUserName, pszDomainNameMarshal, pszDomainName, pcchMaxDomainNameMarshal, pcchMaxDomainName, pszPasswordMarshal, pszPassword, pcchMaxPasswordMarshal, pcchMaxPassword, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -1980,11 +1990,12 @@ export CredPackAuthenticationBufferW(dwFlags, pszUserName, pszPassword, pPackedC
     pszUserName := pszUserName is String ? StrPtr(pszUserName) : pszUserName
     pszPassword := pszPassword is String ? StrPtr(pszPassword) : pszPassword
 
-    pcbPackedCredentialsMarshal := pcbPackedCredentials is VarRef ? "uint*" : "ptr"
+    pPackedCredentialsMarshal := pPackedCredentials == 0 ? IntPtr : IntPtr
+    pcbPackedCredentialsMarshal := pcbPackedCredentials is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("credui.dll\CredPackAuthenticationBufferW", CRED_PACK_FLAGS, dwFlags, "ptr", pszUserName, "ptr", pszPassword, IntPtr, pPackedCredentials, pcbPackedCredentialsMarshal, pcbPackedCredentials, BOOL)
+    result := DllCall("credui.dll\CredPackAuthenticationBufferW", CRED_PACK_FLAGS, dwFlags, "ptr", pszUserName, "ptr", pszPassword, pPackedCredentialsMarshal, pPackedCredentials, pcbPackedCredentialsMarshal, pcbPackedCredentials, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2094,11 +2105,12 @@ export CredPackAuthenticationBufferA(dwFlags, pszUserName, pszPassword, pPackedC
     pszUserName := pszUserName is String ? StrPtr(pszUserName) : pszUserName
     pszPassword := pszPassword is String ? StrPtr(pszPassword) : pszPassword
 
-    pcbPackedCredentialsMarshal := pcbPackedCredentials is VarRef ? "uint*" : "ptr"
+    pPackedCredentialsMarshal := pPackedCredentials == 0 ? IntPtr : IntPtr
+    pcbPackedCredentialsMarshal := pcbPackedCredentials is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("credui.dll\CredPackAuthenticationBufferA", CRED_PACK_FLAGS, dwFlags, "ptr", pszUserName, "ptr", pszPassword, IntPtr, pPackedCredentials, pcbPackedCredentialsMarshal, pcbPackedCredentials, BOOL)
+    result := DllCall("credui.dll\CredPackAuthenticationBufferA", CRED_PACK_FLAGS, dwFlags, "ptr", pszUserName, "ptr", pszPassword, pPackedCredentialsMarshal, pPackedCredentials, pcbPackedCredentialsMarshal, pcbPackedCredentials, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2133,8 +2145,9 @@ export CredProtectW(fAsSelf, pszCredentials, cchCredentials, pszProtectedCredent
     pszCredentials := pszCredentials is String ? StrPtr(pszCredentials) : pszCredentials
     pszProtectedCredentials := pszProtectedCredentials is String ? StrPtr(pszProtectedCredentials) : pszProtectedCredentials
 
-    pcchMaxCharsMarshal := pcchMaxChars is VarRef ? "uint*" : "ptr"
-    ProtectionTypeMarshal := ProtectionType is VarRef ? "int*" : "ptr"
+    pcchMaxCharsMarshal := pcchMaxChars is VarRef ? "uint*" : IntPtr
+    ProtectionTypeMarshal := ProtectionType is VarRef ? "int*" : IntPtr
+    ProtectionTypeMarshal := ProtectionType == 0 ? IntPtr : "int*"
 
     A_LastError := 0
 
@@ -2173,8 +2186,9 @@ export CredProtectA(fAsSelf, pszCredentials, cchCredentials, pszProtectedCredent
     pszCredentials := pszCredentials is String ? StrPtr(pszCredentials) : pszCredentials
     pszProtectedCredentials := pszProtectedCredentials is String ? StrPtr(pszProtectedCredentials) : pszProtectedCredentials
 
-    pcchMaxCharsMarshal := pcchMaxChars is VarRef ? "uint*" : "ptr"
-    ProtectionTypeMarshal := ProtectionType is VarRef ? "int*" : "ptr"
+    pcchMaxCharsMarshal := pcchMaxChars is VarRef ? "uint*" : IntPtr
+    ProtectionTypeMarshal := ProtectionType is VarRef ? "int*" : IntPtr
+    ProtectionTypeMarshal := ProtectionType == 0 ? IntPtr : "int*"
 
     A_LastError := 0
 
@@ -2238,11 +2252,12 @@ export CredUnprotectW(fAsSelf, pszProtectedCredentials, cchProtectedCredentials,
     pszProtectedCredentials := pszProtectedCredentials is String ? StrPtr(pszProtectedCredentials) : pszProtectedCredentials
     pszCredentials := pszCredentials is String ? StrPtr(pszCredentials) : pszCredentials
 
-    pcchMaxCharsMarshal := pcchMaxChars is VarRef ? "uint*" : "ptr"
+    pszCredentialsMarshal := pszCredentials == 0 ? IntPtr : PWSTR
+    pcchMaxCharsMarshal := pcchMaxChars is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CredUnprotectW", BOOL, fAsSelf, "ptr", pszProtectedCredentials, UInt32, cchProtectedCredentials, "ptr", pszCredentials, pcchMaxCharsMarshal, pcchMaxChars, BOOL)
+    result := DllCall("ADVAPI32.dll\CredUnprotectW", BOOL, fAsSelf, "ptr", pszProtectedCredentials, UInt32, cchProtectedCredentials, pszCredentialsMarshal, pszCredentials, pcchMaxCharsMarshal, pcchMaxChars, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2302,11 +2317,12 @@ export CredUnprotectA(fAsSelf, pszProtectedCredentials, cchProtectedCredentials,
     pszProtectedCredentials := pszProtectedCredentials is String ? StrPtr(pszProtectedCredentials) : pszProtectedCredentials
     pszCredentials := pszCredentials is String ? StrPtr(pszCredentials) : pszCredentials
 
-    pcchMaxCharsMarshal := pcchMaxChars is VarRef ? "uint*" : "ptr"
+    pszCredentialsMarshal := pszCredentials == 0 ? IntPtr : PSTR
+    pcchMaxCharsMarshal := pcchMaxChars is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
-    result := DllCall("ADVAPI32.dll\CredUnprotectA", BOOL, fAsSelf, "ptr", pszProtectedCredentials, UInt32, cchProtectedCredentials, "ptr", pszCredentials, pcchMaxCharsMarshal, pcchMaxChars, BOOL)
+    result := DllCall("ADVAPI32.dll\CredUnprotectA", BOOL, fAsSelf, "ptr", pszProtectedCredentials, UInt32, cchProtectedCredentials, pszCredentialsMarshal, pszCredentials, pcchMaxCharsMarshal, pcchMaxChars, BOOL)
     if(!result && A_LastError) {
         throw OSError(A_LastError)
     }
@@ -2331,7 +2347,7 @@ export CredUnprotectA(fAsSelf, pszProtectedCredentials, cchProtectedCredentials,
 export CredIsProtectedW(pszProtectedCredentials, pProtectionType) {
     pszProtectedCredentials := pszProtectedCredentials is String ? StrPtr(pszProtectedCredentials) : pszProtectedCredentials
 
-    pProtectionTypeMarshal := pProtectionType is VarRef ? "int*" : "ptr"
+    pProtectionTypeMarshal := pProtectionType is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
@@ -2360,7 +2376,7 @@ export CredIsProtectedW(pszProtectedCredentials, pProtectionType) {
 export CredIsProtectedA(pszProtectedCredentials, pProtectionType) {
     pszProtectedCredentials := pszProtectedCredentials is String ? StrPtr(pszProtectedCredentials) : pszProtectedCredentials
 
-    pProtectionTypeMarshal := pProtectionType is VarRef ? "int*" : "ptr"
+    pProtectionTypeMarshal := pProtectionType is VarRef ? "int*" : IntPtr
 
     A_LastError := 0
 
@@ -2393,7 +2409,7 @@ export CredIsProtectedA(pszProtectedCredentials, pProtectionType) {
 export CredFindBestCredentialW(TargetName, Type, Flags, Credential) {
     TargetName := TargetName is String ? StrPtr(TargetName) : TargetName
 
-    CredentialMarshal := Credential is VarRef ? "ptr*" : "ptr"
+    CredentialMarshal := Credential is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -2426,7 +2442,7 @@ export CredFindBestCredentialW(TargetName, Type, Flags, Credential) {
 export CredFindBestCredentialA(TargetName, Type, Flags, Credential) {
     TargetName := TargetName is String ? StrPtr(TargetName) : TargetName
 
-    CredentialMarshal := Credential is VarRef ? "ptr*" : "ptr"
+    CredentialMarshal := Credential is VarRef ? "ptr*" : IntPtr
 
     A_LastError := 0
 
@@ -2522,7 +2538,7 @@ export CredFindBestCredentialA(TargetName, Type, Flags, Credential) {
  * @since windows5.1.2600
  */
 export CredGetSessionTypes(MaximumPersistCount, MaximumPersist) {
-    MaximumPersistMarshal := MaximumPersist is VarRef ? "uint*" : "ptr"
+    MaximumPersistMarshal := MaximumPersist is VarRef ? "uint*" : IntPtr
 
     A_LastError := 0
 
@@ -2542,7 +2558,7 @@ export CredGetSessionTypes(MaximumPersistCount, MaximumPersist) {
  * @since windows5.1.2600
  */
 export CredFree(_Buffer) {
-    _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
+    _BufferMarshal := _Buffer is VarRef ? "ptr" : IntPtr
 
     DllCall("ADVAPI32.dll\CredFree", _BufferMarshal, _Buffer)
 }
@@ -2705,9 +2721,12 @@ export CredUIPromptForCredentialsW(pUiInfo, pszTargetName, dwAuthError, pszUserN
     pszUserName := pszUserName is String ? StrPtr(pszUserName) : pszUserName
     pszPassword := pszPassword is String ? StrPtr(pszPassword) : pszPassword
 
-    saveMarshal := save is VarRef ? "int*" : "ptr"
+    pUiInfoMarshal := pUiInfo == 0 ? IntPtr : CREDUI_INFOW.Ptr
+    pszTargetNameMarshal := pszTargetName == 0 ? IntPtr : PWSTR
+    saveMarshal := save is VarRef ? "int*" : IntPtr
+    saveMarshal := save == 0 ? IntPtr : BOOL.Ptr
 
-    result := DllCall("credui.dll\CredUIPromptForCredentialsW", CREDUI_INFOW.Ptr, pUiInfo, "ptr", pszTargetName, SecHandle.Ptr, pContext, UInt32, dwAuthError, "ptr", pszUserName, UInt32, ulUserNameBufferSize, "ptr", pszPassword, UInt32, ulPasswordBufferSize, saveMarshal, save, CREDUI_FLAGS, dwFlags, WIN32_ERROR)
+    result := DllCall("credui.dll\CredUIPromptForCredentialsW", pUiInfoMarshal, pUiInfo, pszTargetNameMarshal, pszTargetName, SecHandle.Ptr, pContext, UInt32, dwAuthError, "ptr", pszUserName, UInt32, ulUserNameBufferSize, "ptr", pszPassword, UInt32, ulPasswordBufferSize, saveMarshal, save, CREDUI_FLAGS, dwFlags, WIN32_ERROR)
     return result
 }
 
@@ -2876,9 +2895,12 @@ export CredUIPromptForCredentialsA(pUiInfo, pszTargetName, dwAuthError, pszUserN
     pszUserName := pszUserName is String ? StrPtr(pszUserName) : pszUserName
     pszPassword := pszPassword is String ? StrPtr(pszPassword) : pszPassword
 
-    saveMarshal := save is VarRef ? "int*" : "ptr"
+    pUiInfoMarshal := pUiInfo == 0 ? IntPtr : CREDUI_INFOA.Ptr
+    pszTargetNameMarshal := pszTargetName == 0 ? IntPtr : PSTR
+    saveMarshal := save is VarRef ? "int*" : IntPtr
+    saveMarshal := save == 0 ? IntPtr : BOOL.Ptr
 
-    result := DllCall("credui.dll\CredUIPromptForCredentialsA", CREDUI_INFOA.Ptr, pUiInfo, "ptr", pszTargetName, SecHandle.Ptr, pContext, UInt32, dwAuthError, "ptr", pszUserName, UInt32, ulUserNameBufferSize, "ptr", pszPassword, UInt32, ulPasswordBufferSize, saveMarshal, save, CREDUI_FLAGS, dwFlags, WIN32_ERROR)
+    result := DllCall("credui.dll\CredUIPromptForCredentialsA", pUiInfoMarshal, pUiInfo, pszTargetNameMarshal, pszTargetName, SecHandle.Ptr, pContext, UInt32, dwAuthError, "ptr", pszUserName, UInt32, ulUserNameBufferSize, "ptr", pszPassword, UInt32, ulPasswordBufferSize, saveMarshal, save, CREDUI_FLAGS, dwFlags, WIN32_ERROR)
     return result
 }
 
@@ -2926,12 +2948,15 @@ export CredUIPromptForCredentialsA(pUiInfo, pszTargetName, dwAuthError, pszUserN
  * @since windows6.0.6000
  */
 export CredUIPromptForWindowsCredentialsW(pUiInfo, dwAuthError, pulAuthPackage, pvInAuthBuffer, ulInAuthBufferSize, ppvOutAuthBuffer, pulOutAuthBufferSize, pfSave, dwFlags) {
-    pulAuthPackageMarshal := pulAuthPackage is VarRef ? "uint*" : "ptr"
-    ppvOutAuthBufferMarshal := ppvOutAuthBuffer is VarRef ? "ptr*" : "ptr"
-    pulOutAuthBufferSizeMarshal := pulOutAuthBufferSize is VarRef ? "uint*" : "ptr"
-    pfSaveMarshal := pfSave is VarRef ? "int*" : "ptr"
+    pUiInfoMarshal := pUiInfo == 0 ? IntPtr : CREDUI_INFOW.Ptr
+    pulAuthPackageMarshal := pulAuthPackage is VarRef ? "uint*" : IntPtr
+    pvInAuthBufferMarshal := pvInAuthBuffer == 0 ? IntPtr : IntPtr
+    ppvOutAuthBufferMarshal := ppvOutAuthBuffer is VarRef ? "ptr*" : IntPtr
+    pulOutAuthBufferSizeMarshal := pulOutAuthBufferSize is VarRef ? "uint*" : IntPtr
+    pfSaveMarshal := pfSave is VarRef ? "int*" : IntPtr
+    pfSaveMarshal := pfSave == 0 ? IntPtr : BOOL.Ptr
 
-    result := DllCall("credui.dll\CredUIPromptForWindowsCredentialsW", CREDUI_INFOW.Ptr, pUiInfo, UInt32, dwAuthError, pulAuthPackageMarshal, pulAuthPackage, IntPtr, pvInAuthBuffer, UInt32, ulInAuthBufferSize, ppvOutAuthBufferMarshal, ppvOutAuthBuffer, pulOutAuthBufferSizeMarshal, pulOutAuthBufferSize, pfSaveMarshal, pfSave, CREDUIWIN_FLAGS, dwFlags, UInt32)
+    result := DllCall("credui.dll\CredUIPromptForWindowsCredentialsW", pUiInfoMarshal, pUiInfo, UInt32, dwAuthError, pulAuthPackageMarshal, pulAuthPackage, pvInAuthBufferMarshal, pvInAuthBuffer, UInt32, ulInAuthBufferSize, ppvOutAuthBufferMarshal, ppvOutAuthBuffer, pulOutAuthBufferSizeMarshal, pulOutAuthBufferSize, pfSaveMarshal, pfSave, CREDUIWIN_FLAGS, dwFlags, UInt32)
     return result
 }
 
@@ -2979,12 +3004,15 @@ export CredUIPromptForWindowsCredentialsW(pUiInfo, dwAuthError, pulAuthPackage, 
  * @since windows6.0.6000
  */
 export CredUIPromptForWindowsCredentialsA(pUiInfo, dwAuthError, pulAuthPackage, pvInAuthBuffer, ulInAuthBufferSize, ppvOutAuthBuffer, pulOutAuthBufferSize, pfSave, dwFlags) {
-    pulAuthPackageMarshal := pulAuthPackage is VarRef ? "uint*" : "ptr"
-    ppvOutAuthBufferMarshal := ppvOutAuthBuffer is VarRef ? "ptr*" : "ptr"
-    pulOutAuthBufferSizeMarshal := pulOutAuthBufferSize is VarRef ? "uint*" : "ptr"
-    pfSaveMarshal := pfSave is VarRef ? "int*" : "ptr"
+    pUiInfoMarshal := pUiInfo == 0 ? IntPtr : CREDUI_INFOA.Ptr
+    pulAuthPackageMarshal := pulAuthPackage is VarRef ? "uint*" : IntPtr
+    pvInAuthBufferMarshal := pvInAuthBuffer == 0 ? IntPtr : IntPtr
+    ppvOutAuthBufferMarshal := ppvOutAuthBuffer is VarRef ? "ptr*" : IntPtr
+    pulOutAuthBufferSizeMarshal := pulOutAuthBufferSize is VarRef ? "uint*" : IntPtr
+    pfSaveMarshal := pfSave is VarRef ? "int*" : IntPtr
+    pfSaveMarshal := pfSave == 0 ? IntPtr : BOOL.Ptr
 
-    result := DllCall("credui.dll\CredUIPromptForWindowsCredentialsA", CREDUI_INFOA.Ptr, pUiInfo, UInt32, dwAuthError, pulAuthPackageMarshal, pulAuthPackage, IntPtr, pvInAuthBuffer, UInt32, ulInAuthBufferSize, ppvOutAuthBufferMarshal, ppvOutAuthBuffer, pulOutAuthBufferSizeMarshal, pulOutAuthBufferSize, pfSaveMarshal, pfSave, CREDUIWIN_FLAGS, dwFlags, UInt32)
+    result := DllCall("credui.dll\CredUIPromptForWindowsCredentialsA", pUiInfoMarshal, pUiInfo, UInt32, dwAuthError, pulAuthPackageMarshal, pulAuthPackage, pvInAuthBufferMarshal, pvInAuthBuffer, UInt32, ulInAuthBufferSize, ppvOutAuthBufferMarshal, ppvOutAuthBuffer, pulOutAuthBufferSizeMarshal, pulOutAuthBufferSize, pfSaveMarshal, pfSave, CREDUIWIN_FLAGS, dwFlags, UInt32)
     return result
 }
 
@@ -3336,9 +3364,11 @@ export CredUICmdLinePromptForCredentialsW(pszTargetName, dwAuthError, UserName, 
     UserName := UserName is String ? StrPtr(UserName) : UserName
     pszPassword := pszPassword is String ? StrPtr(pszPassword) : pszPassword
 
-    pfSaveMarshal := pfSave is VarRef ? "int*" : "ptr"
+    pszTargetNameMarshal := pszTargetName == 0 ? IntPtr : PWSTR
+    pfSaveMarshal := pfSave is VarRef ? "int*" : IntPtr
+    pfSaveMarshal := pfSave == 0 ? IntPtr : BOOL.Ptr
 
-    result := DllCall("credui.dll\CredUICmdLinePromptForCredentialsW", "ptr", pszTargetName, SecHandle.Ptr, pContext, UInt32, dwAuthError, "ptr", UserName, UInt32, ulUserBufferSize, "ptr", pszPassword, UInt32, ulPasswordBufferSize, pfSaveMarshal, pfSave, CREDUI_FLAGS, dwFlags, UInt32)
+    result := DllCall("credui.dll\CredUICmdLinePromptForCredentialsW", pszTargetNameMarshal, pszTargetName, SecHandle.Ptr, pContext, UInt32, dwAuthError, "ptr", UserName, UInt32, ulUserBufferSize, "ptr", pszPassword, UInt32, ulPasswordBufferSize, pfSaveMarshal, pfSave, CREDUI_FLAGS, dwFlags, UInt32)
     return result
 }
 
@@ -3496,9 +3526,11 @@ export CredUICmdLinePromptForCredentialsA(pszTargetName, dwAuthError, UserName, 
     UserName := UserName is String ? StrPtr(UserName) : UserName
     pszPassword := pszPassword is String ? StrPtr(pszPassword) : pszPassword
 
-    pfSaveMarshal := pfSave is VarRef ? "int*" : "ptr"
+    pszTargetNameMarshal := pszTargetName == 0 ? IntPtr : PSTR
+    pfSaveMarshal := pfSave is VarRef ? "int*" : IntPtr
+    pfSaveMarshal := pfSave == 0 ? IntPtr : BOOL.Ptr
 
-    result := DllCall("credui.dll\CredUICmdLinePromptForCredentialsA", "ptr", pszTargetName, SecHandle.Ptr, pContext, UInt32, dwAuthError, "ptr", UserName, UInt32, ulUserBufferSize, "ptr", pszPassword, UInt32, ulPasswordBufferSize, pfSaveMarshal, pfSave, CREDUI_FLAGS, dwFlags, UInt32)
+    result := DllCall("credui.dll\CredUICmdLinePromptForCredentialsA", pszTargetNameMarshal, pszTargetName, SecHandle.Ptr, pContext, UInt32, dwAuthError, "ptr", UserName, UInt32, ulUserBufferSize, "ptr", pszPassword, UInt32, ulPasswordBufferSize, pfSaveMarshal, pfSave, CREDUI_FLAGS, dwFlags, UInt32)
     return result
 }
 
@@ -3633,7 +3665,9 @@ export CredUIStoreSSOCredW(pszRealm, pszUsername, pszPassword, bPersist) {
     pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
     pszPassword := pszPassword is String ? StrPtr(pszPassword) : pszPassword
 
-    result := DllCall("credui.dll\CredUIStoreSSOCredW", "ptr", pszRealm, "ptr", pszUsername, "ptr", pszPassword, BOOL, bPersist, UInt32)
+    pszRealmMarshal := pszRealm == 0 ? IntPtr : PWSTR
+
+    result := DllCall("credui.dll\CredUIStoreSSOCredW", pszRealmMarshal, pszRealm, "ptr", pszUsername, "ptr", pszPassword, BOOL, bPersist, UInt32)
     return result
 }
 
@@ -3677,9 +3711,10 @@ export CredUIStoreSSOCredW(pszRealm, pszUsername, pszPassword, bPersist) {
 export CredUIReadSSOCredW(pszRealm, ppszUsername) {
     pszRealm := pszRealm is String ? StrPtr(pszRealm) : pszRealm
 
-    ppszUsernameMarshal := ppszUsername is VarRef ? "ptr*" : "ptr"
+    pszRealmMarshal := pszRealm == 0 ? IntPtr : PWSTR
+    ppszUsernameMarshal := ppszUsername is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("credui.dll\CredUIReadSSOCredW", "ptr", pszRealm, ppszUsernameMarshal, ppszUsername, UInt32)
+    result := DllCall("credui.dll\CredUIReadSSOCredW", pszRealmMarshal, pszRealm, ppszUsernameMarshal, ppszUsername, UInt32)
     return result
 }
 
@@ -3705,7 +3740,7 @@ export CredUIReadSSOCredW(pszRealm, ppszUsername) {
 export SCardEstablishContext(dwScope, phContext) {
     static pvReserved1 := 0, pvReserved2 := 0 ;Reserved parameters must always be NULL
 
-    phContextMarshal := phContext is VarRef ? "ptr*" : "ptr"
+    phContextMarshal := phContext is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("WinSCard.dll\SCardEstablishContext", SCARD_SCOPE, dwScope, "ptr", pvReserved1, "ptr", pvReserved2, phContextMarshal, phContext, Int32)
     return result
@@ -3911,9 +3946,10 @@ export SCardIsValidContext(hContext) {
 export SCardListReaderGroupsA(hContext, mszGroups, pcchGroups) {
     mszGroups := mszGroups is String ? StrPtr(mszGroups) : mszGroups
 
-    pcchGroupsMarshal := pcchGroups is VarRef ? "uint*" : "ptr"
+    mszGroupsMarshal := mszGroups == 0 ? IntPtr : PSTR
+    pcchGroupsMarshal := pcchGroups is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("WinSCard.dll\SCardListReaderGroupsA", IntPtr, hContext, "ptr", mszGroups, pcchGroupsMarshal, pcchGroups, Int32)
+    result := DllCall("WinSCard.dll\SCardListReaderGroupsA", IntPtr, hContext, mszGroupsMarshal, mszGroups, pcchGroupsMarshal, pcchGroups, Int32)
     return result
 }
 
@@ -4018,9 +4054,10 @@ export SCardListReaderGroupsA(hContext, mszGroups, pcchGroups) {
 export SCardListReaderGroupsW(hContext, mszGroups, pcchGroups) {
     mszGroups := mszGroups is String ? StrPtr(mszGroups) : mszGroups
 
-    pcchGroupsMarshal := pcchGroups is VarRef ? "uint*" : "ptr"
+    mszGroupsMarshal := mszGroups == 0 ? IntPtr : PWSTR
+    pcchGroupsMarshal := pcchGroups is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("WinSCard.dll\SCardListReaderGroupsW", IntPtr, hContext, "ptr", mszGroups, pcchGroupsMarshal, pcchGroups, Int32)
+    result := DllCall("WinSCard.dll\SCardListReaderGroupsW", IntPtr, hContext, mszGroupsMarshal, mszGroups, pcchGroupsMarshal, pcchGroups, Int32)
     return result
 }
 
@@ -4149,9 +4186,11 @@ export SCardListReadersA(hContext, mszGroups, mszReaders, pcchReaders) {
     mszGroups := mszGroups is String ? StrPtr(mszGroups) : mszGroups
     mszReaders := mszReaders is String ? StrPtr(mszReaders) : mszReaders
 
-    pcchReadersMarshal := pcchReaders is VarRef ? "uint*" : "ptr"
+    mszGroupsMarshal := mszGroups == 0 ? IntPtr : PSTR
+    mszReadersMarshal := mszReaders == 0 ? IntPtr : PSTR
+    pcchReadersMarshal := pcchReaders is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("WinSCard.dll\SCardListReadersA", IntPtr, hContext, "ptr", mszGroups, "ptr", mszReaders, pcchReadersMarshal, pcchReaders, Int32)
+    result := DllCall("WinSCard.dll\SCardListReadersA", IntPtr, hContext, mszGroupsMarshal, mszGroups, mszReadersMarshal, mszReaders, pcchReadersMarshal, pcchReaders, Int32)
     return result
 }
 
@@ -4280,9 +4319,11 @@ export SCardListReadersW(hContext, mszGroups, mszReaders, pcchReaders) {
     mszGroups := mszGroups is String ? StrPtr(mszGroups) : mszGroups
     mszReaders := mszReaders is String ? StrPtr(mszReaders) : mszReaders
 
-    pcchReadersMarshal := pcchReaders is VarRef ? "uint*" : "ptr"
+    mszGroupsMarshal := mszGroups == 0 ? IntPtr : PWSTR
+    mszReadersMarshal := mszReaders == 0 ? IntPtr : PWSTR
+    pcchReadersMarshal := pcchReaders is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("WinSCard.dll\SCardListReadersW", IntPtr, hContext, "ptr", mszGroups, "ptr", mszReaders, pcchReadersMarshal, pcchReaders, Int32)
+    result := DllCall("WinSCard.dll\SCardListReadersW", IntPtr, hContext, mszGroupsMarshal, mszGroups, mszReadersMarshal, mszReaders, pcchReadersMarshal, pcchReaders, Int32)
     return result
 }
 
@@ -4347,10 +4388,13 @@ export SCardListReadersW(hContext, mszGroups, mszReaders, pcchReaders) {
 export SCardListCardsA(hContext, pbAtr, rgquidInterfaces, cguidInterfaceCount, mszCards, pcchCards) {
     mszCards := mszCards is String ? StrPtr(mszCards) : mszCards
 
-    pbAtrMarshal := pbAtr is VarRef ? "char*" : "ptr"
-    pcchCardsMarshal := pcchCards is VarRef ? "uint*" : "ptr"
+    pbAtrMarshal := pbAtr is VarRef ? "char*" : IntPtr
+    pbAtrMarshal := pbAtr == 0 ? IntPtr : "char*"
+    rgquidInterfacesMarshal := rgquidInterfaces == 0 ? IntPtr : Guid.Ptr
+    mszCardsMarshal := mszCards == 0 ? IntPtr : PSTR
+    pcchCardsMarshal := pcchCards is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("WinSCard.dll\SCardListCardsA", IntPtr, hContext, pbAtrMarshal, pbAtr, Guid.Ptr, rgquidInterfaces, UInt32, cguidInterfaceCount, "ptr", mszCards, pcchCardsMarshal, pcchCards, Int32)
+    result := DllCall("WinSCard.dll\SCardListCardsA", IntPtr, hContext, pbAtrMarshal, pbAtr, rgquidInterfacesMarshal, rgquidInterfaces, UInt32, cguidInterfaceCount, mszCardsMarshal, mszCards, pcchCardsMarshal, pcchCards, Int32)
     return result
 }
 
@@ -4415,10 +4459,13 @@ export SCardListCardsA(hContext, pbAtr, rgquidInterfaces, cguidInterfaceCount, m
 export SCardListCardsW(hContext, pbAtr, rgquidInterfaces, cguidInterfaceCount, mszCards, pcchCards) {
     mszCards := mszCards is String ? StrPtr(mszCards) : mszCards
 
-    pbAtrMarshal := pbAtr is VarRef ? "char*" : "ptr"
-    pcchCardsMarshal := pcchCards is VarRef ? "uint*" : "ptr"
+    pbAtrMarshal := pbAtr is VarRef ? "char*" : IntPtr
+    pbAtrMarshal := pbAtr == 0 ? IntPtr : "char*"
+    rgquidInterfacesMarshal := rgquidInterfaces == 0 ? IntPtr : Guid.Ptr
+    mszCardsMarshal := mszCards == 0 ? IntPtr : PWSTR
+    pcchCardsMarshal := pcchCards is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("WinSCard.dll\SCardListCardsW", IntPtr, hContext, pbAtrMarshal, pbAtr, Guid.Ptr, rgquidInterfaces, UInt32, cguidInterfaceCount, "ptr", mszCards, pcchCardsMarshal, pcchCards, Int32)
+    result := DllCall("WinSCard.dll\SCardListCardsW", IntPtr, hContext, pbAtrMarshal, pbAtr, rgquidInterfacesMarshal, rgquidInterfaces, UInt32, cguidInterfaceCount, mszCardsMarshal, mszCards, pcchCardsMarshal, pcchCards, Int32)
     return result
 }
 
@@ -4471,7 +4518,7 @@ export SCardListCardsW(hContext, pbAtr, rgquidInterfaces, cguidInterfaceCount, m
 export SCardListInterfacesA(hContext, szCard, pguidInterfaces, pcguidInterfaces) {
     szCard := szCard is String ? StrPtr(szCard) : szCard
 
-    pcguidInterfacesMarshal := pcguidInterfaces is VarRef ? "uint*" : "ptr"
+    pcguidInterfacesMarshal := pcguidInterfaces is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WinSCard.dll\SCardListInterfacesA", IntPtr, hContext, "ptr", szCard, Guid.Ptr, pguidInterfaces, pcguidInterfacesMarshal, pcguidInterfaces, Int32)
     return result
@@ -4526,7 +4573,7 @@ export SCardListInterfacesA(hContext, szCard, pguidInterfaces, pcguidInterfaces)
 export SCardListInterfacesW(hContext, szCard, pguidInterfaces, pcguidInterfaces) {
     szCard := szCard is String ? StrPtr(szCard) : szCard
 
-    pcguidInterfacesMarshal := pcguidInterfaces is VarRef ? "uint*" : "ptr"
+    pcguidInterfacesMarshal := pcguidInterfaces is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WinSCard.dll\SCardListInterfacesW", IntPtr, hContext, "ptr", szCard, Guid.Ptr, pguidInterfaces, pcguidInterfacesMarshal, pcguidInterfaces, Int32)
     return result
@@ -4745,7 +4792,7 @@ export SCardGetCardTypeProviderNameA(hContext, szCardName, dwProviderId, szProvi
     szCardName := szCardName is String ? StrPtr(szCardName) : szCardName
     szProvider := szProvider is String ? StrPtr(szProvider) : szProvider
 
-    pcchProviderMarshal := pcchProvider is VarRef ? "uint*" : "ptr"
+    pcchProviderMarshal := pcchProvider is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WinSCard.dll\SCardGetCardTypeProviderNameA", IntPtr, hContext, "ptr", szCardName, UInt32, dwProviderId, "ptr", szProvider, pcchProviderMarshal, pcchProvider, Int32)
     return result
@@ -4860,7 +4907,7 @@ export SCardGetCardTypeProviderNameW(hContext, szCardName, dwProviderId, szProvi
     szCardName := szCardName is String ? StrPtr(szCardName) : szCardName
     szProvider := szProvider is String ? StrPtr(szProvider) : szProvider
 
-    pcchProviderMarshal := pcchProvider is VarRef ? "uint*" : "ptr"
+    pcchProviderMarshal := pcchProvider is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WinSCard.dll\SCardGetCardTypeProviderNameW", IntPtr, hContext, "ptr", szCardName, UInt32, dwProviderId, "ptr", szProvider, pcchProviderMarshal, pcchProvider, Int32)
     return result
@@ -5969,10 +6016,12 @@ export SCardRemoveReaderFromGroupW(hContext, szReaderName, szGroupName) {
 export SCardIntroduceCardTypeA(hContext, szCardName, pguidPrimaryProvider, rgguidInterfaces, dwInterfaceCount, pbAtr, pbAtrMask, cbAtrLen) {
     szCardName := szCardName is String ? StrPtr(szCardName) : szCardName
 
-    pbAtrMarshal := pbAtr is VarRef ? "char*" : "ptr"
-    pbAtrMaskMarshal := pbAtrMask is VarRef ? "char*" : "ptr"
+    pguidPrimaryProviderMarshal := pguidPrimaryProvider == 0 ? IntPtr : Guid.Ptr
+    rgguidInterfacesMarshal := rgguidInterfaces == 0 ? IntPtr : Guid.Ptr
+    pbAtrMarshal := pbAtr is VarRef ? "char*" : IntPtr
+    pbAtrMaskMarshal := pbAtrMask is VarRef ? "char*" : IntPtr
 
-    result := DllCall("WinSCard.dll\SCardIntroduceCardTypeA", IntPtr, hContext, "ptr", szCardName, Guid.Ptr, pguidPrimaryProvider, Guid.Ptr, rgguidInterfaces, UInt32, dwInterfaceCount, pbAtrMarshal, pbAtr, pbAtrMaskMarshal, pbAtrMask, UInt32, cbAtrLen, Int32)
+    result := DllCall("WinSCard.dll\SCardIntroduceCardTypeA", IntPtr, hContext, "ptr", szCardName, pguidPrimaryProviderMarshal, pguidPrimaryProvider, rgguidInterfacesMarshal, rgguidInterfaces, UInt32, dwInterfaceCount, pbAtrMarshal, pbAtr, pbAtrMaskMarshal, pbAtrMask, UInt32, cbAtrLen, Int32)
     return result
 }
 
@@ -6033,10 +6082,12 @@ export SCardIntroduceCardTypeA(hContext, szCardName, pguidPrimaryProvider, rggui
 export SCardIntroduceCardTypeW(hContext, szCardName, pguidPrimaryProvider, rgguidInterfaces, dwInterfaceCount, pbAtr, pbAtrMask, cbAtrLen) {
     szCardName := szCardName is String ? StrPtr(szCardName) : szCardName
 
-    pbAtrMarshal := pbAtr is VarRef ? "char*" : "ptr"
-    pbAtrMaskMarshal := pbAtrMask is VarRef ? "char*" : "ptr"
+    pguidPrimaryProviderMarshal := pguidPrimaryProvider == 0 ? IntPtr : Guid.Ptr
+    rgguidInterfacesMarshal := rgguidInterfaces == 0 ? IntPtr : Guid.Ptr
+    pbAtrMarshal := pbAtr is VarRef ? "char*" : IntPtr
+    pbAtrMaskMarshal := pbAtrMask is VarRef ? "char*" : IntPtr
 
-    result := DllCall("WinSCard.dll\SCardIntroduceCardTypeW", IntPtr, hContext, "ptr", szCardName, Guid.Ptr, pguidPrimaryProvider, Guid.Ptr, rgguidInterfaces, UInt32, dwInterfaceCount, pbAtrMarshal, pbAtr, pbAtrMaskMarshal, pbAtrMask, UInt32, cbAtrLen, Int32)
+    result := DllCall("WinSCard.dll\SCardIntroduceCardTypeW", IntPtr, hContext, "ptr", szCardName, pguidPrimaryProviderMarshal, pguidPrimaryProvider, rgguidInterfacesMarshal, rgguidInterfaces, UInt32, dwInterfaceCount, pbAtrMarshal, pbAtr, pbAtrMaskMarshal, pbAtrMask, UInt32, cbAtrLen, Int32)
     return result
 }
 
@@ -6394,7 +6445,7 @@ export SCardForgetCardTypeW(hContext, szCardName) {
  * @since windows5.1.2600
  */
 export SCardFreeMemory(hContext, pvMem) {
-    pvMemMarshal := pvMem is VarRef ? "ptr" : "ptr"
+    pvMemMarshal := pvMem is VarRef ? "ptr" : IntPtr
 
     result := DllCall("WinSCard.dll\SCardFreeMemory", IntPtr, hContext, pvMemMarshal, pvMem, Int32)
     return result
@@ -6997,8 +7048,8 @@ export SCardCancel(hContext) {
 export SCardConnectA(hContext, szReader, dwShareMode, dwPreferredProtocols, phCard, pdwActiveProtocol) {
     szReader := szReader is String ? StrPtr(szReader) : szReader
 
-    phCardMarshal := phCard is VarRef ? "ptr*" : "ptr"
-    pdwActiveProtocolMarshal := pdwActiveProtocol is VarRef ? "uint*" : "ptr"
+    phCardMarshal := phCard is VarRef ? "ptr*" : IntPtr
+    pdwActiveProtocolMarshal := pdwActiveProtocol is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WinSCard.dll\SCardConnectA", IntPtr, hContext, "ptr", szReader, UInt32, dwShareMode, UInt32, dwPreferredProtocols, phCardMarshal, phCard, pdwActiveProtocolMarshal, pdwActiveProtocol, Int32)
     return result
@@ -7175,8 +7226,8 @@ export SCardConnectA(hContext, szReader, dwShareMode, dwPreferredProtocols, phCa
 export SCardConnectW(hContext, szReader, dwShareMode, dwPreferredProtocols, phCard, pdwActiveProtocol) {
     szReader := szReader is String ? StrPtr(szReader) : szReader
 
-    phCardMarshal := phCard is VarRef ? "ptr*" : "ptr"
-    pdwActiveProtocolMarshal := pdwActiveProtocol is VarRef ? "uint*" : "ptr"
+    phCardMarshal := phCard is VarRef ? "ptr*" : IntPtr
+    pdwActiveProtocolMarshal := pdwActiveProtocol is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WinSCard.dll\SCardConnectW", IntPtr, hContext, "ptr", szReader, UInt32, dwShareMode, UInt32, dwPreferredProtocols, phCardMarshal, phCard, pdwActiveProtocolMarshal, pdwActiveProtocol, Int32)
     return result
@@ -7350,7 +7401,8 @@ export SCardConnectW(hContext, szReader, dwShareMode, dwPreferredProtocols, phCa
  * @since windows5.1.2600
  */
 export SCardReconnect(hCard, dwShareMode, dwPreferredProtocols, dwInitialization, pdwActiveProtocol) {
-    pdwActiveProtocolMarshal := pdwActiveProtocol is VarRef ? "uint*" : "ptr"
+    pdwActiveProtocolMarshal := pdwActiveProtocol is VarRef ? "uint*" : IntPtr
+    pdwActiveProtocolMarshal := pdwActiveProtocol == 0 ? IntPtr : "uint*"
 
     result := DllCall("WinSCard.dll\SCardReconnect", IntPtr, hCard, UInt32, dwShareMode, UInt32, dwPreferredProtocols, UInt32, dwInitialization, pdwActiveProtocolMarshal, pdwActiveProtocol, Int32)
     return result
@@ -7568,7 +7620,6 @@ export SCardEndTransaction(hCard, dwDisposition) {
 }
 
 /**
- * 
  * @param {Pointer} hCard 
  * @param {Pointer<Integer>} pdwState 
  * @param {Pointer<Integer>} pdwProtocol 
@@ -7577,9 +7628,9 @@ export SCardEndTransaction(hCard, dwDisposition) {
  * @returns {Integer} 
  */
 export SCardState(hCard, pdwState, pdwProtocol, pbAtr, pcbAtrLen) {
-    pdwStateMarshal := pdwState is VarRef ? "uint*" : "ptr"
-    pdwProtocolMarshal := pdwProtocol is VarRef ? "uint*" : "ptr"
-    pcbAtrLenMarshal := pcbAtrLen is VarRef ? "uint*" : "ptr"
+    pdwStateMarshal := pdwState is VarRef ? "uint*" : IntPtr
+    pdwProtocolMarshal := pdwProtocol is VarRef ? "uint*" : IntPtr
+    pcbAtrLenMarshal := pcbAtrLen is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WinSCard.dll\SCardState", IntPtr, hCard, pdwStateMarshal, pdwState, pdwProtocolMarshal, pdwProtocol, IntPtr, pbAtr, pcbAtrLenMarshal, pcbAtrLen, Int32)
     return result
@@ -7722,13 +7773,19 @@ export SCardState(hCard, pdwState, pdwProtocol, pbAtr, pcbAtrLen) {
 export SCardStatusA(hCard, mszReaderNames, pcchReaderLen, pdwState, pdwProtocol, pbAtr, pcbAtrLen) {
     mszReaderNames := mszReaderNames is String ? StrPtr(mszReaderNames) : mszReaderNames
 
-    pcchReaderLenMarshal := pcchReaderLen is VarRef ? "uint*" : "ptr"
-    pdwStateMarshal := pdwState is VarRef ? "uint*" : "ptr"
-    pdwProtocolMarshal := pdwProtocol is VarRef ? "uint*" : "ptr"
-    pbAtrMarshal := pbAtr is VarRef ? "char*" : "ptr"
-    pcbAtrLenMarshal := pcbAtrLen is VarRef ? "uint*" : "ptr"
+    mszReaderNamesMarshal := mszReaderNames == 0 ? IntPtr : PSTR
+    pcchReaderLenMarshal := pcchReaderLen is VarRef ? "uint*" : IntPtr
+    pcchReaderLenMarshal := pcchReaderLen == 0 ? IntPtr : "uint*"
+    pdwStateMarshal := pdwState is VarRef ? "uint*" : IntPtr
+    pdwStateMarshal := pdwState == 0 ? IntPtr : "uint*"
+    pdwProtocolMarshal := pdwProtocol is VarRef ? "uint*" : IntPtr
+    pdwProtocolMarshal := pdwProtocol == 0 ? IntPtr : "uint*"
+    pbAtrMarshal := pbAtr is VarRef ? "char*" : IntPtr
+    pbAtrMarshal := pbAtr == 0 ? IntPtr : "char*"
+    pcbAtrLenMarshal := pcbAtrLen is VarRef ? "uint*" : IntPtr
+    pcbAtrLenMarshal := pcbAtrLen == 0 ? IntPtr : "uint*"
 
-    result := DllCall("WinSCard.dll\SCardStatusA", IntPtr, hCard, "ptr", mszReaderNames, pcchReaderLenMarshal, pcchReaderLen, pdwStateMarshal, pdwState, pdwProtocolMarshal, pdwProtocol, pbAtrMarshal, pbAtr, pcbAtrLenMarshal, pcbAtrLen, Int32)
+    result := DllCall("WinSCard.dll\SCardStatusA", IntPtr, hCard, mszReaderNamesMarshal, mszReaderNames, pcchReaderLenMarshal, pcchReaderLen, pdwStateMarshal, pdwState, pdwProtocolMarshal, pdwProtocol, pbAtrMarshal, pbAtr, pcbAtrLenMarshal, pcbAtrLen, Int32)
     return result
 }
 
@@ -7869,13 +7926,19 @@ export SCardStatusA(hCard, mszReaderNames, pcchReaderLen, pdwState, pdwProtocol,
 export SCardStatusW(hCard, mszReaderNames, pcchReaderLen, pdwState, pdwProtocol, pbAtr, pcbAtrLen) {
     mszReaderNames := mszReaderNames is String ? StrPtr(mszReaderNames) : mszReaderNames
 
-    pcchReaderLenMarshal := pcchReaderLen is VarRef ? "uint*" : "ptr"
-    pdwStateMarshal := pdwState is VarRef ? "uint*" : "ptr"
-    pdwProtocolMarshal := pdwProtocol is VarRef ? "uint*" : "ptr"
-    pbAtrMarshal := pbAtr is VarRef ? "char*" : "ptr"
-    pcbAtrLenMarshal := pcbAtrLen is VarRef ? "uint*" : "ptr"
+    mszReaderNamesMarshal := mszReaderNames == 0 ? IntPtr : PWSTR
+    pcchReaderLenMarshal := pcchReaderLen is VarRef ? "uint*" : IntPtr
+    pcchReaderLenMarshal := pcchReaderLen == 0 ? IntPtr : "uint*"
+    pdwStateMarshal := pdwState is VarRef ? "uint*" : IntPtr
+    pdwStateMarshal := pdwState == 0 ? IntPtr : "uint*"
+    pdwProtocolMarshal := pdwProtocol is VarRef ? "uint*" : IntPtr
+    pdwProtocolMarshal := pdwProtocol == 0 ? IntPtr : "uint*"
+    pbAtrMarshal := pbAtr is VarRef ? "char*" : IntPtr
+    pbAtrMarshal := pbAtr == 0 ? IntPtr : "char*"
+    pcbAtrLenMarshal := pcbAtrLen is VarRef ? "uint*" : IntPtr
+    pcbAtrLenMarshal := pcbAtrLen == 0 ? IntPtr : "uint*"
 
-    result := DllCall("WinSCard.dll\SCardStatusW", IntPtr, hCard, "ptr", mszReaderNames, pcchReaderLenMarshal, pcchReaderLen, pdwStateMarshal, pdwState, pdwProtocolMarshal, pdwProtocol, pbAtrMarshal, pbAtr, pcbAtrLenMarshal, pcbAtrLen, Int32)
+    result := DllCall("WinSCard.dll\SCardStatusW", IntPtr, hCard, mszReaderNamesMarshal, mszReaderNames, pcchReaderLenMarshal, pcchReaderLen, pdwStateMarshal, pdwState, pdwProtocolMarshal, pdwProtocol, pbAtrMarshal, pbAtr, pcbAtrLenMarshal, pcbAtrLen, Int32)
     return result
 }
 
@@ -7990,9 +8053,10 @@ export SCardStatusW(hCard, mszReaderNames, pcchReaderLen, pdwState, pdwProtocol,
  * @since windows5.1.2600
  */
 export SCardTransmit(hCard, pioSendPci, pbSendBuffer, cbSendLength, pioRecvPci, pbRecvBuffer, pcbRecvLength) {
-    pcbRecvLengthMarshal := pcbRecvLength is VarRef ? "uint*" : "ptr"
+    pioRecvPciMarshal := pioRecvPci == 0 ? IntPtr : SCARD_IO_REQUEST.Ptr
+    pcbRecvLengthMarshal := pcbRecvLength is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("WinSCard.dll\SCardTransmit", IntPtr, hCard, SCARD_IO_REQUEST.Ptr, pioSendPci, IntPtr, pbSendBuffer, UInt32, cbSendLength, SCARD_IO_REQUEST.Ptr, pioRecvPci, IntPtr, pbRecvBuffer, pcbRecvLengthMarshal, pcbRecvLength, Int32)
+    result := DllCall("WinSCard.dll\SCardTransmit", IntPtr, hCard, SCARD_IO_REQUEST.Ptr, pioSendPci, IntPtr, pbSendBuffer, UInt32, cbSendLength, pioRecvPciMarshal, pioRecvPci, IntPtr, pbRecvBuffer, pcbRecvLengthMarshal, pcbRecvLength, Int32)
     return result
 }
 
@@ -8008,7 +8072,7 @@ export SCardTransmit(hCard, pioSendPci, pbSendBuffer, cbSendLength, pioRecvPci, 
  * @since windows6.0.6000
  */
 export SCardGetTransmitCount(hCard, pcTransmitCount) {
-    pcTransmitCountMarshal := pcTransmitCount is VarRef ? "uint*" : "ptr"
+    pcTransmitCountMarshal := pcTransmitCount is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WinSCard.dll\SCardGetTransmitCount", IntPtr, hCard, pcTransmitCountMarshal, pcTransmitCount, Int32)
     return result
@@ -8062,7 +8126,7 @@ export SCardGetTransmitCount(hCard, pcTransmitCount) {
  * @since windows5.1.2600
  */
 export SCardControl(hCard, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned) {
-    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
+    lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WinSCard.dll\SCardControl", IntPtr, hCard, UInt32, dwControlCode, IntPtr, lpInBuffer, UInt32, cbInBufferSize, IntPtr, lpOutBuffer, UInt32, cbOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, Int32)
     return result
@@ -8508,9 +8572,10 @@ export SCardControl(hCard, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffe
  * @since windows5.1.2600
  */
 export SCardGetAttrib(hCard, dwAttrId, pbAttr, pcbAttrLen) {
-    pcbAttrLenMarshal := pcbAttrLen is VarRef ? "uint*" : "ptr"
+    pbAttrMarshal := pbAttr == 0 ? IntPtr : IntPtr
+    pcbAttrLenMarshal := pcbAttrLen is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("WinSCard.dll\SCardGetAttrib", IntPtr, hCard, UInt32, dwAttrId, IntPtr, pbAttr, pcbAttrLenMarshal, pcbAttrLen, Int32)
+    result := DllCall("WinSCard.dll\SCardGetAttrib", IntPtr, hCard, UInt32, dwAttrId, pbAttrMarshal, pbAttr, pcbAttrLenMarshal, pcbAttrLen, Int32)
     return result
 }
 
@@ -8804,7 +8869,6 @@ export GetOpenCardNameW(param0) {
 }
 
 /**
- * 
  * @returns {Integer} 
  */
 export SCardDlgExtendedError() {
@@ -8864,7 +8928,7 @@ export SCardDlgExtendedError() {
 export SCardReadCacheA(hContext, CardIdentifier, FreshnessCounter, LookupName, Data, DataLen) {
     LookupName := LookupName is String ? StrPtr(LookupName) : LookupName
 
-    DataLenMarshal := DataLen is VarRef ? "uint*" : "ptr"
+    DataLenMarshal := DataLen is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WinSCard.dll\SCardReadCacheA", IntPtr, hContext, Guid.Ptr, CardIdentifier, UInt32, FreshnessCounter, "ptr", LookupName, IntPtr, Data, DataLenMarshal, DataLen, Int32)
     return result
@@ -8922,7 +8986,7 @@ export SCardReadCacheA(hContext, CardIdentifier, FreshnessCounter, LookupName, D
 export SCardReadCacheW(hContext, CardIdentifier, FreshnessCounter, LookupName, Data, DataLen) {
     LookupName := LookupName is String ? StrPtr(LookupName) : LookupName
 
-    DataLenMarshal := DataLen is VarRef ? "uint*" : "ptr"
+    DataLenMarshal := DataLen is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WinSCard.dll\SCardReadCacheW", IntPtr, hContext, Guid.Ptr, CardIdentifier, UInt32, FreshnessCounter, "ptr", LookupName, IntPtr, Data, DataLenMarshal, DataLen, Int32)
     return result
@@ -9061,7 +9125,7 @@ export SCardWriteCacheW(hContext, CardIdentifier, FreshnessCounter, LookupName, 
 export SCardGetReaderIconA(hContext, szReaderName, pbIcon, pcbIcon) {
     szReaderName := szReaderName is String ? StrPtr(szReaderName) : szReaderName
 
-    pcbIconMarshal := pcbIcon is VarRef ? "uint*" : "ptr"
+    pcbIconMarshal := pcbIcon is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WinSCard.dll\SCardGetReaderIconA", IntPtr, hContext, "ptr", szReaderName, IntPtr, pbIcon, pcbIconMarshal, pcbIcon, Int32)
     return result
@@ -9112,7 +9176,7 @@ export SCardGetReaderIconA(hContext, szReaderName, pbIcon, pcbIcon) {
 export SCardGetReaderIconW(hContext, szReaderName, pbIcon, pcbIcon) {
     szReaderName := szReaderName is String ? StrPtr(szReaderName) : szReaderName
 
-    pcbIconMarshal := pcbIcon is VarRef ? "uint*" : "ptr"
+    pcbIconMarshal := pcbIcon is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WinSCard.dll\SCardGetReaderIconW", IntPtr, hContext, "ptr", szReaderName, IntPtr, pbIcon, pcbIconMarshal, pcbIcon, Int32)
     return result
@@ -9163,7 +9227,7 @@ export SCardGetReaderIconW(hContext, szReaderName, pbIcon, pcbIcon) {
 export SCardGetDeviceTypeIdA(hContext, szReaderName, pdwDeviceTypeId) {
     szReaderName := szReaderName is String ? StrPtr(szReaderName) : szReaderName
 
-    pdwDeviceTypeIdMarshal := pdwDeviceTypeId is VarRef ? "uint*" : "ptr"
+    pdwDeviceTypeIdMarshal := pdwDeviceTypeId is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WinSCard.dll\SCardGetDeviceTypeIdA", IntPtr, hContext, "ptr", szReaderName, pdwDeviceTypeIdMarshal, pdwDeviceTypeId, Int32)
     return result
@@ -9214,7 +9278,7 @@ export SCardGetDeviceTypeIdA(hContext, szReaderName, pdwDeviceTypeId) {
 export SCardGetDeviceTypeIdW(hContext, szReaderName, pdwDeviceTypeId) {
     szReaderName := szReaderName is String ? StrPtr(szReaderName) : szReaderName
 
-    pdwDeviceTypeIdMarshal := pdwDeviceTypeId is VarRef ? "uint*" : "ptr"
+    pdwDeviceTypeIdMarshal := pdwDeviceTypeId is VarRef ? "uint*" : IntPtr
 
     result := DllCall("WinSCard.dll\SCardGetDeviceTypeIdW", IntPtr, hContext, "ptr", szReaderName, pdwDeviceTypeIdMarshal, pdwDeviceTypeId, Int32)
     return result
@@ -9266,9 +9330,10 @@ export SCardGetReaderDeviceInstanceIdA(hContext, szReaderName, szDeviceInstanceI
     szReaderName := szReaderName is String ? StrPtr(szReaderName) : szReaderName
     szDeviceInstanceId := szDeviceInstanceId is String ? StrPtr(szDeviceInstanceId) : szDeviceInstanceId
 
-    pcchDeviceInstanceIdMarshal := pcchDeviceInstanceId is VarRef ? "uint*" : "ptr"
+    szDeviceInstanceIdMarshal := szDeviceInstanceId == 0 ? IntPtr : PSTR
+    pcchDeviceInstanceIdMarshal := pcchDeviceInstanceId is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("WinSCard.dll\SCardGetReaderDeviceInstanceIdA", IntPtr, hContext, "ptr", szReaderName, "ptr", szDeviceInstanceId, pcchDeviceInstanceIdMarshal, pcchDeviceInstanceId, Int32)
+    result := DllCall("WinSCard.dll\SCardGetReaderDeviceInstanceIdA", IntPtr, hContext, "ptr", szReaderName, szDeviceInstanceIdMarshal, szDeviceInstanceId, pcchDeviceInstanceIdMarshal, pcchDeviceInstanceId, Int32)
     return result
 }
 
@@ -9318,9 +9383,10 @@ export SCardGetReaderDeviceInstanceIdW(hContext, szReaderName, szDeviceInstanceI
     szReaderName := szReaderName is String ? StrPtr(szReaderName) : szReaderName
     szDeviceInstanceId := szDeviceInstanceId is String ? StrPtr(szDeviceInstanceId) : szDeviceInstanceId
 
-    pcchDeviceInstanceIdMarshal := pcchDeviceInstanceId is VarRef ? "uint*" : "ptr"
+    szDeviceInstanceIdMarshal := szDeviceInstanceId == 0 ? IntPtr : PWSTR
+    pcchDeviceInstanceIdMarshal := pcchDeviceInstanceId is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("WinSCard.dll\SCardGetReaderDeviceInstanceIdW", IntPtr, hContext, "ptr", szReaderName, "ptr", szDeviceInstanceId, pcchDeviceInstanceIdMarshal, pcchDeviceInstanceId, Int32)
+    result := DllCall("WinSCard.dll\SCardGetReaderDeviceInstanceIdW", IntPtr, hContext, "ptr", szReaderName, szDeviceInstanceIdMarshal, szDeviceInstanceId, pcchDeviceInstanceIdMarshal, pcchDeviceInstanceId, Int32)
     return result
 }
 
@@ -9370,9 +9436,10 @@ export SCardListReadersWithDeviceInstanceIdA(hContext, szDeviceInstanceId, mszRe
     szDeviceInstanceId := szDeviceInstanceId is String ? StrPtr(szDeviceInstanceId) : szDeviceInstanceId
     mszReaders := mszReaders is String ? StrPtr(mszReaders) : mszReaders
 
-    pcchReadersMarshal := pcchReaders is VarRef ? "uint*" : "ptr"
+    mszReadersMarshal := mszReaders == 0 ? IntPtr : PSTR
+    pcchReadersMarshal := pcchReaders is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("WinSCard.dll\SCardListReadersWithDeviceInstanceIdA", IntPtr, hContext, "ptr", szDeviceInstanceId, "ptr", mszReaders, pcchReadersMarshal, pcchReaders, Int32)
+    result := DllCall("WinSCard.dll\SCardListReadersWithDeviceInstanceIdA", IntPtr, hContext, "ptr", szDeviceInstanceId, mszReadersMarshal, mszReaders, pcchReadersMarshal, pcchReaders, Int32)
     return result
 }
 
@@ -9422,9 +9489,10 @@ export SCardListReadersWithDeviceInstanceIdW(hContext, szDeviceInstanceId, mszRe
     szDeviceInstanceId := szDeviceInstanceId is String ? StrPtr(szDeviceInstanceId) : szDeviceInstanceId
     mszReaders := mszReaders is String ? StrPtr(mszReaders) : mszReaders
 
-    pcchReadersMarshal := pcchReaders is VarRef ? "uint*" : "ptr"
+    mszReadersMarshal := mszReaders == 0 ? IntPtr : PWSTR
+    pcchReadersMarshal := pcchReaders is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("WinSCard.dll\SCardListReadersWithDeviceInstanceIdW", IntPtr, hContext, "ptr", szDeviceInstanceId, "ptr", mszReaders, pcchReadersMarshal, pcchReaders, Int32)
+    result := DllCall("WinSCard.dll\SCardListReadersWithDeviceInstanceIdW", IntPtr, hContext, "ptr", szDeviceInstanceId, mszReadersMarshal, mszReaders, pcchReadersMarshal, pcchReaders, Int32)
     return result
 }
 

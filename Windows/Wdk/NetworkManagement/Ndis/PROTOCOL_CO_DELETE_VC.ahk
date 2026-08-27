@@ -18,12 +18,11 @@ export default struct PROTOCOL_CO_DELETE_VC {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} ProtocolVcContext 
      * @returns {Integer} 
      */
     Call(ProtocolVcContext) {
-        ProtocolVcContextMarshal := ProtocolVcContext is VarRef ? "ptr" : "ptr"
+        ProtocolVcContextMarshal := ProtocolVcContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, ProtocolVcContextMarshal, ProtocolVcContext, Int32)
         return result

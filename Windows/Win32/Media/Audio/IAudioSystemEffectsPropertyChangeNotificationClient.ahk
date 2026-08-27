@@ -70,7 +70,7 @@ export default struct IAudioSystemEffectsPropertyChangeNotificationClient extend
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnPropertyChanged := CallbackCreate(GetMethod(implObj, "OnPropertyChanged"), flags, 3)
+        this.vtbl.OnPropertyChanged := CallbackCreate(ObjBindMethod(implObj, "OnPropertyChanged"), flags, 3)
     }
 
     Dispose() {

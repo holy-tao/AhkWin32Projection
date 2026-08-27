@@ -99,8 +99,8 @@ export default struct ISynchronousDataRetriever extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetIdParameters := CallbackCreate(GetMethod(implObj, "GetIdParameters"), flags, 2)
-        this.vtbl.LoadChangeData := CallbackCreate(GetMethod(implObj, "LoadChangeData"), flags, 3)
+        this.vtbl.GetIdParameters := CallbackCreate(ObjBindMethod(implObj, "GetIdParameters"), flags, 2)
+        this.vtbl.LoadChangeData := CallbackCreate(ObjBindMethod(implObj, "LoadChangeData"), flags, 3)
     }
 
     Dispose() {

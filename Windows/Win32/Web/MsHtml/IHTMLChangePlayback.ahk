@@ -37,13 +37,12 @@ export default struct IHTMLChangePlayback extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pbRecord 
      * @param {BOOL} fForward 
      * @returns {HRESULT} 
      */
     ExecChange(pbRecord, fForward) {
-        pbRecordMarshal := pbRecord is VarRef ? "char*" : "ptr"
+        pbRecordMarshal := pbRecord is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, pbRecordMarshal, pbRecord, BOOL, fForward, "HRESULT")
         return result
@@ -58,7 +57,7 @@ export default struct IHTMLChangePlayback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ExecChange := CallbackCreate(GetMethod(implObj, "ExecChange"), flags, 3)
+        this.vtbl.ExecChange := CallbackCreate(ObjBindMethod(implObj, "ExecChange"), flags, 3)
     }
 
     Dispose() {

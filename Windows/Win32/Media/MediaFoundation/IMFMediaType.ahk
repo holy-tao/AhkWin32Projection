@@ -269,7 +269,7 @@ export default struct IMFMediaType extends IMFAttributes {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediatype-freerepresentation
      */
     FreeRepresentation(guidRepresentation, pvRepresentation) {
-        pvRepresentationMarshal := pvRepresentation is VarRef ? "ptr" : "ptr"
+        pvRepresentationMarshal := pvRepresentation is VarRef ? "ptr" : IntPtr
 
         result := ComCall(37, this, Guid, guidRepresentation, pvRepresentationMarshal, pvRepresentation, "HRESULT")
         return result
@@ -284,11 +284,11 @@ export default struct IMFMediaType extends IMFAttributes {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMajorType := CallbackCreate(GetMethod(implObj, "GetMajorType"), flags, 2)
-        this.vtbl.IsCompressedFormat := CallbackCreate(GetMethod(implObj, "IsCompressedFormat"), flags, 2)
-        this.vtbl.IsEqual := CallbackCreate(GetMethod(implObj, "IsEqual"), flags, 3)
-        this.vtbl.GetRepresentation := CallbackCreate(GetMethod(implObj, "GetRepresentation"), flags, 3)
-        this.vtbl.FreeRepresentation := CallbackCreate(GetMethod(implObj, "FreeRepresentation"), flags, 3)
+        this.vtbl.GetMajorType := CallbackCreate(ObjBindMethod(implObj, "GetMajorType"), flags, 2)
+        this.vtbl.IsCompressedFormat := CallbackCreate(ObjBindMethod(implObj, "IsCompressedFormat"), flags, 2)
+        this.vtbl.IsEqual := CallbackCreate(ObjBindMethod(implObj, "IsEqual"), flags, 3)
+        this.vtbl.GetRepresentation := CallbackCreate(ObjBindMethod(implObj, "GetRepresentation"), flags, 3)
+        this.vtbl.FreeRepresentation := CallbackCreate(ObjBindMethod(implObj, "FreeRepresentation"), flags, 3)
     }
 
     Dispose() {

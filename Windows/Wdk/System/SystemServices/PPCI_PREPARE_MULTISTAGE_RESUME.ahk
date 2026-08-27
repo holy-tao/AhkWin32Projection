@@ -18,7 +18,6 @@ export default struct PPCI_PREPARE_MULTISTAGE_RESUME {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

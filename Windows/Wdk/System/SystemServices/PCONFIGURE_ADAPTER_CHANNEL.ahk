@@ -20,14 +20,13 @@ export default struct PCONFIGURE_ADAPTER_CHANNEL {
     }
 
     /**
-     * 
      * @param {Pointer<DMA_ADAPTER>} DmaAdapter 
      * @param {Integer} FunctionNumber 
      * @param {Pointer<Void>} _Context 
      * @returns {NTSTATUS} 
      */
     Call(DmaAdapter, FunctionNumber, _Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, UInt32, FunctionNumber, _ContextMarshal, _Context, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

@@ -101,8 +101,8 @@ export default struct IRawElementProviderAdviseEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AdviseEventAdded := CallbackCreate(GetMethod(implObj, "AdviseEventAdded"), flags, 3)
-        this.vtbl.AdviseEventRemoved := CallbackCreate(GetMethod(implObj, "AdviseEventRemoved"), flags, 3)
+        this.vtbl.AdviseEventAdded := CallbackCreate(ObjBindMethod(implObj, "AdviseEventAdded"), flags, 3)
+        this.vtbl.AdviseEventRemoved := CallbackCreate(ObjBindMethod(implObj, "AdviseEventRemoved"), flags, 3)
     }
 
     Dispose() {

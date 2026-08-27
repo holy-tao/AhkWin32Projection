@@ -38,7 +38,6 @@ export default struct IDebugHostErrorSink extends IUnknown {
     }
 
     /**
-     * 
      * @param {ErrorClass} errClass 
      * @param {HRESULT} hrError 
      * @param {PWSTR} message 
@@ -60,7 +59,7 @@ export default struct IDebugHostErrorSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ReportError := CallbackCreate(GetMethod(implObj, "ReportError"), flags, 4)
+        this.vtbl.ReportError := CallbackCreate(ObjBindMethod(implObj, "ReportError"), flags, 4)
     }
 
     Dispose() {

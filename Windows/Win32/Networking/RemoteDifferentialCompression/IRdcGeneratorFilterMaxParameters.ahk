@@ -106,10 +106,10 @@ export default struct IRdcGeneratorFilterMaxParameters extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetHorizonSize := CallbackCreate(GetMethod(implObj, "GetHorizonSize"), flags, 2)
-        this.vtbl.SetHorizonSize := CallbackCreate(GetMethod(implObj, "SetHorizonSize"), flags, 2)
-        this.vtbl.GetHashWindowSize := CallbackCreate(GetMethod(implObj, "GetHashWindowSize"), flags, 2)
-        this.vtbl.SetHashWindowSize := CallbackCreate(GetMethod(implObj, "SetHashWindowSize"), flags, 2)
+        this.vtbl.GetHorizonSize := CallbackCreate(ObjBindMethod(implObj, "GetHorizonSize"), flags, 2)
+        this.vtbl.SetHorizonSize := CallbackCreate(ObjBindMethod(implObj, "SetHorizonSize"), flags, 2)
+        this.vtbl.GetHashWindowSize := CallbackCreate(ObjBindMethod(implObj, "GetHashWindowSize"), flags, 2)
+        this.vtbl.SetHashWindowSize := CallbackCreate(ObjBindMethod(implObj, "SetHashWindowSize"), flags, 2)
     }
 
     Dispose() {

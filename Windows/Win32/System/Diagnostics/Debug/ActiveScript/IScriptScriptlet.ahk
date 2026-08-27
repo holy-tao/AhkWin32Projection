@@ -43,7 +43,6 @@ export default struct IScriptScriptlet extends IScriptEntry {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetSubItemName() {
@@ -53,7 +52,6 @@ export default struct IScriptScriptlet extends IScriptEntry {
     }
 
     /**
-     * 
      * @param {PWSTR} psz 
      * @returns {HRESULT} 
      */
@@ -65,7 +63,6 @@ export default struct IScriptScriptlet extends IScriptEntry {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetEventName() {
@@ -75,7 +72,6 @@ export default struct IScriptScriptlet extends IScriptEntry {
     }
 
     /**
-     * 
      * @param {PWSTR} psz 
      * @returns {HRESULT} 
      */
@@ -87,7 +83,6 @@ export default struct IScriptScriptlet extends IScriptEntry {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetSimpleEventName() {
@@ -97,7 +92,6 @@ export default struct IScriptScriptlet extends IScriptEntry {
     }
 
     /**
-     * 
      * @param {PWSTR} psz 
      * @returns {HRESULT} 
      */
@@ -117,12 +111,12 @@ export default struct IScriptScriptlet extends IScriptEntry {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSubItemName := CallbackCreate(GetMethod(implObj, "GetSubItemName"), flags, 2)
-        this.vtbl.SetSubItemName := CallbackCreate(GetMethod(implObj, "SetSubItemName"), flags, 2)
-        this.vtbl.GetEventName := CallbackCreate(GetMethod(implObj, "GetEventName"), flags, 2)
-        this.vtbl.SetEventName := CallbackCreate(GetMethod(implObj, "SetEventName"), flags, 2)
-        this.vtbl.GetSimpleEventName := CallbackCreate(GetMethod(implObj, "GetSimpleEventName"), flags, 2)
-        this.vtbl.SetSimpleEventName := CallbackCreate(GetMethod(implObj, "SetSimpleEventName"), flags, 2)
+        this.vtbl.GetSubItemName := CallbackCreate(ObjBindMethod(implObj, "GetSubItemName"), flags, 2)
+        this.vtbl.SetSubItemName := CallbackCreate(ObjBindMethod(implObj, "SetSubItemName"), flags, 2)
+        this.vtbl.GetEventName := CallbackCreate(ObjBindMethod(implObj, "GetEventName"), flags, 2)
+        this.vtbl.SetEventName := CallbackCreate(ObjBindMethod(implObj, "SetEventName"), flags, 2)
+        this.vtbl.GetSimpleEventName := CallbackCreate(ObjBindMethod(implObj, "GetSimpleEventName"), flags, 2)
+        this.vtbl.SetSimpleEventName := CallbackCreate(ObjBindMethod(implObj, "SetSimpleEventName"), flags, 2)
     }
 
     Dispose() {

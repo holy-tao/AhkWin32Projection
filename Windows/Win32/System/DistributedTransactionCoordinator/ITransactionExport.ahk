@@ -37,7 +37,6 @@ export default struct ITransactionExport extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} punkTransaction 
      * @returns {Integer} 
      */
@@ -47,7 +46,6 @@ export default struct ITransactionExport extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} punkTransaction 
      * @param {Integer} cbTransactionCookie 
      * @param {Pointer<Integer>} rgbTransactionCookie 
@@ -55,8 +53,8 @@ export default struct ITransactionExport extends IUnknown {
      * @returns {HRESULT} 
      */
     GetTransactionCookie(punkTransaction, cbTransactionCookie, rgbTransactionCookie, pcbUsed) {
-        rgbTransactionCookieMarshal := rgbTransactionCookie is VarRef ? "char*" : "ptr"
-        pcbUsedMarshal := pcbUsed is VarRef ? "uint*" : "ptr"
+        rgbTransactionCookieMarshal := rgbTransactionCookie is VarRef ? "char*" : IntPtr
+        pcbUsedMarshal := pcbUsed is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, "ptr", punkTransaction, UInt32, cbTransactionCookie, rgbTransactionCookieMarshal, rgbTransactionCookie, pcbUsedMarshal, pcbUsed, "HRESULT")
         return result
@@ -71,8 +69,8 @@ export default struct ITransactionExport extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Export := CallbackCreate(GetMethod(implObj, "Export"), flags, 3)
-        this.vtbl.GetTransactionCookie := CallbackCreate(GetMethod(implObj, "GetTransactionCookie"), flags, 5)
+        this.vtbl.Export := CallbackCreate(ObjBindMethod(implObj, "Export"), flags, 3)
+        this.vtbl.GetTransactionCookie := CallbackCreate(ObjBindMethod(implObj, "GetTransactionCookie"), flags, 5)
     }
 
     Dispose() {

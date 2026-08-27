@@ -27,7 +27,6 @@ export default struct SpFreeCredentialsHandleFn {
     }
 
     /**
-     * 
      * @param {Pointer} CredentialHandle A handle to the credentials to free.
      * @returns {NTSTATUS} If the function succeeds, return STATUS_SUCCESS.
      * 

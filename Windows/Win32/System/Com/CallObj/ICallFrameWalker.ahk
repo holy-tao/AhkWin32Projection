@@ -77,7 +77,7 @@ export default struct ICallFrameWalker extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframewalker-onwalkinterface
      */
     OnWalkInterface(iid, ppvInterface, fIn, fOut) {
-        ppvInterfaceMarshal := ppvInterface is VarRef ? "ptr*" : "ptr"
+        ppvInterfaceMarshal := ppvInterface is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, Guid.Ptr, iid, ppvInterfaceMarshal, ppvInterface, BOOL, fIn, BOOL, fOut, "HRESULT")
         return result
@@ -92,7 +92,7 @@ export default struct ICallFrameWalker extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnWalkInterface := CallbackCreate(GetMethod(implObj, "OnWalkInterface"), flags, 5)
+        this.vtbl.OnWalkInterface := CallbackCreate(ObjBindMethod(implObj, "OnWalkInterface"), flags, 5)
     }
 
     Dispose() {

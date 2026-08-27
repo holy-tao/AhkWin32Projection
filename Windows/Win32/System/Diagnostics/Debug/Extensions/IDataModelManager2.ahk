@@ -43,7 +43,6 @@ export default struct IDataModelManager2 extends IDataModelManager {
     }
 
     /**
-     * 
      * @param {PWSTR} modelName 
      * @param {PWSTR} subNamespaceModelName 
      * @param {PWSTR} accessName 
@@ -55,19 +54,22 @@ export default struct IDataModelManager2 extends IDataModelManager {
         subNamespaceModelName := subNamespaceModelName is String ? StrPtr(subNamespaceModelName) : subNamespaceModelName
         accessName := accessName is String ? StrPtr(accessName) : accessName
 
-        result := ComCall(23, this, "ptr", modelName, "ptr", subNamespaceModelName, "ptr", accessName, "ptr", metadata, "ptr*", &namespaceModelObject := 0, "HRESULT")
+        metadataMarshal := metadata == 0 ? IntPtr : "ptr"
+
+        result := ComCall(23, this, "ptr", modelName, "ptr", subNamespaceModelName, "ptr", accessName, metadataMarshal, metadata, "ptr*", &namespaceModelObject := 0, "HRESULT")
         return IModelObject(namespaceModelObject)
     }
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @param {Pointer<VARIANT>} intrinsicData 
      * @param {IDebugHostType} type 
      * @returns {IModelObject} 
      */
     CreateTypedIntrinsicObjectEx(_context, intrinsicData, type) {
-        result := ComCall(24, this, "ptr", _context, VARIANT.Ptr, intrinsicData, "ptr", type, "ptr*", &_object := 0, "HRESULT")
+        _contextMarshal := _context == 0 ? IntPtr : "ptr"
+
+        result := ComCall(24, this, _contextMarshal, _context, VARIANT.Ptr, intrinsicData, "ptr", type, "ptr*", &_object := 0, "HRESULT")
         return IModelObject(_object)
     }
 
@@ -80,8 +82,8 @@ export default struct IDataModelManager2 extends IDataModelManager {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AcquireSubNamespace := CallbackCreate(GetMethod(implObj, "AcquireSubNamespace"), flags, 6)
-        this.vtbl.CreateTypedIntrinsicObjectEx := CallbackCreate(GetMethod(implObj, "CreateTypedIntrinsicObjectEx"), flags, 5)
+        this.vtbl.AcquireSubNamespace := CallbackCreate(ObjBindMethod(implObj, "AcquireSubNamespace"), flags, 6)
+        this.vtbl.CreateTypedIntrinsicObjectEx := CallbackCreate(ObjBindMethod(implObj, "CreateTypedIntrinsicObjectEx"), flags, 5)
     }
 
     Dispose() {

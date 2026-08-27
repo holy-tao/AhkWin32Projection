@@ -91,8 +91,8 @@ export default struct IMFClockConsumer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetPresentationClock := CallbackCreate(GetMethod(implObj, "SetPresentationClock"), flags, 2)
-        this.vtbl.GetPresentationClock := CallbackCreate(GetMethod(implObj, "GetPresentationClock"), flags, 2)
+        this.vtbl.SetPresentationClock := CallbackCreate(ObjBindMethod(implObj, "SetPresentationClock"), flags, 2)
+        this.vtbl.GetPresentationClock := CallbackCreate(ObjBindMethod(implObj, "GetPresentationClock"), flags, 2)
     }
 
     Dispose() {

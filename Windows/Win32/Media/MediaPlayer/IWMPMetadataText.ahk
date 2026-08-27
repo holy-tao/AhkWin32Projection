@@ -126,8 +126,8 @@ export default struct IWMPMetadataText extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_description := CallbackCreate(GetMethod(implObj, "get_description"), flags, 2)
-        this.vtbl.get_text := CallbackCreate(GetMethod(implObj, "get_text"), flags, 2)
+        this.vtbl.get_description := CallbackCreate(ObjBindMethod(implObj, "get_description"), flags, 2)
+        this.vtbl.get_text := CallbackCreate(ObjBindMethod(implObj, "get_text"), flags, 2)
     }
 
     Dispose() {

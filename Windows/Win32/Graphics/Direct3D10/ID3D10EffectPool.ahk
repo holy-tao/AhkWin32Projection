@@ -60,7 +60,7 @@ export default struct ID3D10EffectPool extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AsEffect := CallbackCreate(GetMethod(implObj, "AsEffect"), flags, 1)
+        this.vtbl.AsEffect := CallbackCreate(ObjBindMethod(implObj, "AsEffect"), flags, 1)
     }
 
     Dispose() {

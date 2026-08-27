@@ -33,7 +33,6 @@ export default struct PIBIO_STORAGE_QUERY_BY_CONTENT_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline Pointer to the  <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/ns-winbio_adapter-winbio_pipeline">WINBIO_PIPELINE</a> structure associated with the biometric unit performing the operation.
      * @param {Integer} SubFactor A <b>WINBIO_BIOMETRIC_SUBTYPE</b> value that specifies the sub-factor associated with the template.
      * @param {Pointer<Integer>} IndexVector 
@@ -136,7 +135,7 @@ export default struct PIBIO_STORAGE_QUERY_BY_CONTENT_FN {
      * </table>
      */
     Call(Pipeline, SubFactor, IndexVector, IndexElementCount) {
-        IndexVectorMarshal := IndexVector is VarRef ? "uint*" : "ptr"
+        IndexVectorMarshal := IndexVector is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, WINBIO_PIPELINE.Ptr, Pipeline, Int8, SubFactor, IndexVectorMarshal, IndexVector, IntPtr, IndexElementCount, "HRESULT")
         return result

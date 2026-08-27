@@ -48,7 +48,6 @@ export default struct IKsClockPropertySet extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     KsGetTime() {
@@ -57,7 +56,6 @@ export default struct IKsClockPropertySet extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Time 
      * @returns {HRESULT} 
      */
@@ -67,7 +65,6 @@ export default struct IKsClockPropertySet extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     KsGetPhysicalTime() {
@@ -76,7 +73,6 @@ export default struct IKsClockPropertySet extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Time 
      * @returns {HRESULT} 
      */
@@ -86,7 +82,6 @@ export default struct IKsClockPropertySet extends IUnknown {
     }
 
     /**
-     * 
      * @returns {KSCORRELATED_TIME} 
      */
     KsGetCorrelatedTime() {
@@ -96,7 +91,6 @@ export default struct IKsClockPropertySet extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<KSCORRELATED_TIME>} CorrelatedTime 
      * @returns {HRESULT} 
      */
@@ -106,7 +100,6 @@ export default struct IKsClockPropertySet extends IUnknown {
     }
 
     /**
-     * 
      * @returns {KSCORRELATED_TIME} 
      */
     KsGetCorrelatedPhysicalTime() {
@@ -116,7 +109,6 @@ export default struct IKsClockPropertySet extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<KSCORRELATED_TIME>} CorrelatedTime 
      * @returns {HRESULT} 
      */
@@ -126,7 +118,6 @@ export default struct IKsClockPropertySet extends IUnknown {
     }
 
     /**
-     * 
      * @returns {KSRESOLUTION} 
      */
     KsGetResolution() {
@@ -136,7 +127,6 @@ export default struct IKsClockPropertySet extends IUnknown {
     }
 
     /**
-     * 
      * @returns {KSSTATE} 
      */
     KsGetState() {
@@ -153,16 +143,16 @@ export default struct IKsClockPropertySet extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.KsGetTime := CallbackCreate(GetMethod(implObj, "KsGetTime"), flags, 2)
-        this.vtbl.KsSetTime := CallbackCreate(GetMethod(implObj, "KsSetTime"), flags, 2)
-        this.vtbl.KsGetPhysicalTime := CallbackCreate(GetMethod(implObj, "KsGetPhysicalTime"), flags, 2)
-        this.vtbl.KsSetPhysicalTime := CallbackCreate(GetMethod(implObj, "KsSetPhysicalTime"), flags, 2)
-        this.vtbl.KsGetCorrelatedTime := CallbackCreate(GetMethod(implObj, "KsGetCorrelatedTime"), flags, 2)
-        this.vtbl.KsSetCorrelatedTime := CallbackCreate(GetMethod(implObj, "KsSetCorrelatedTime"), flags, 2)
-        this.vtbl.KsGetCorrelatedPhysicalTime := CallbackCreate(GetMethod(implObj, "KsGetCorrelatedPhysicalTime"), flags, 2)
-        this.vtbl.KsSetCorrelatedPhysicalTime := CallbackCreate(GetMethod(implObj, "KsSetCorrelatedPhysicalTime"), flags, 2)
-        this.vtbl.KsGetResolution := CallbackCreate(GetMethod(implObj, "KsGetResolution"), flags, 2)
-        this.vtbl.KsGetState := CallbackCreate(GetMethod(implObj, "KsGetState"), flags, 2)
+        this.vtbl.KsGetTime := CallbackCreate(ObjBindMethod(implObj, "KsGetTime"), flags, 2)
+        this.vtbl.KsSetTime := CallbackCreate(ObjBindMethod(implObj, "KsSetTime"), flags, 2)
+        this.vtbl.KsGetPhysicalTime := CallbackCreate(ObjBindMethod(implObj, "KsGetPhysicalTime"), flags, 2)
+        this.vtbl.KsSetPhysicalTime := CallbackCreate(ObjBindMethod(implObj, "KsSetPhysicalTime"), flags, 2)
+        this.vtbl.KsGetCorrelatedTime := CallbackCreate(ObjBindMethod(implObj, "KsGetCorrelatedTime"), flags, 2)
+        this.vtbl.KsSetCorrelatedTime := CallbackCreate(ObjBindMethod(implObj, "KsSetCorrelatedTime"), flags, 2)
+        this.vtbl.KsGetCorrelatedPhysicalTime := CallbackCreate(ObjBindMethod(implObj, "KsGetCorrelatedPhysicalTime"), flags, 2)
+        this.vtbl.KsSetCorrelatedPhysicalTime := CallbackCreate(ObjBindMethod(implObj, "KsSetCorrelatedPhysicalTime"), flags, 2)
+        this.vtbl.KsGetResolution := CallbackCreate(ObjBindMethod(implObj, "KsGetResolution"), flags, 2)
+        this.vtbl.KsGetState := CallbackCreate(ObjBindMethod(implObj, "KsGetState"), flags, 2)
     }
 
     Dispose() {

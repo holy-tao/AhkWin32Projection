@@ -22,7 +22,6 @@ export default struct IOMMU_MAP_RESERVED_LOGICAL_RANGE {
     }
 
     /**
-     * 
      * @param {Pointer<IOMMU_DMA_LOGICAL_ADDRESS_TOKEN>} LogicalAddressToken 
      * @param {Pointer} Offset 
      * @param {Integer} Permissions 

@@ -106,9 +106,9 @@ export default struct IQuickActivate extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QuickActivate := CallbackCreate(GetMethod(implObj, "QuickActivate"), flags, 3)
-        this.vtbl.SetContentExtent := CallbackCreate(GetMethod(implObj, "SetContentExtent"), flags, 2)
-        this.vtbl.GetContentExtent := CallbackCreate(GetMethod(implObj, "GetContentExtent"), flags, 2)
+        this.vtbl.QuickActivate := CallbackCreate(ObjBindMethod(implObj, "QuickActivate"), flags, 3)
+        this.vtbl.SetContentExtent := CallbackCreate(ObjBindMethod(implObj, "SetContentExtent"), flags, 2)
+        this.vtbl.GetContentExtent := CallbackCreate(ObjBindMethod(implObj, "GetContentExtent"), flags, 2)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct VDMGETSYMBOLPROC {
     }
 
     /**
-     * 
      * @param {PSTR} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
@@ -34,7 +33,7 @@ export default struct VDMGETSYMBOLPROC {
         param0 := param0 is String ? StrPtr(param0) : param0
         param5 := param5 is String ? StrPtr(param5) : param5
 
-        param6Marshal := param6 is VarRef ? "uint*" : "ptr"
+        param6Marshal := param6 is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, "ptr", param0, UInt16, param1, UInt32, param2, BOOL, param3, BOOL, param4, "ptr", param5, param6Marshal, param6, BOOL)
         return result

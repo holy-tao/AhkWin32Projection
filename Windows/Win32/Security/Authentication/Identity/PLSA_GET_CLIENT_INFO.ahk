@@ -20,7 +20,6 @@ export default struct PLSA_GET_CLIENT_INFO {
     }
 
     /**
-     * 
      * @param {Pointer<SECPKG_CLIENT_INFO>} ClientInfo 
      * @returns {NTSTATUS} 
      */

@@ -34,7 +34,6 @@ export default struct PWINBIO_CAPTURE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} CaptureCallbackContext Pointer to a buffer defined by the application and passed to the <i>CaptureCallbackContext</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiocapturesamplewithcallback">WinBioCaptureSampleWithCallback</a> function. The buffer is not modified by the framework or the biometric unit. Your application can use the data to help it determine what actions to perform or to maintain additional information about the biometric capture.
      * @param {HRESULT} OperationStatus Error code returned by the capture operation.
      * @param {Integer} UnitId Biometric unit ID number.
@@ -44,7 +43,8 @@ export default struct PWINBIO_CAPTURE_CALLBACK {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(CaptureCallbackContext, OperationStatus, UnitId, Sample, SampleSize, RejectDetail) {
-        CaptureCallbackContextMarshal := CaptureCallbackContext is VarRef ? "ptr" : "ptr"
+        CaptureCallbackContextMarshal := CaptureCallbackContext is VarRef ? "ptr" : IntPtr
+        CaptureCallbackContextMarshal := CaptureCallbackContext == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, CaptureCallbackContextMarshal, CaptureCallbackContext, "int", OperationStatus, UInt32, UnitId, IntPtr, Sample, IntPtr, SampleSize, UInt32, RejectDetail)
     }

@@ -71,8 +71,8 @@ export default struct ICrmMonitor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetClerks := CallbackCreate(GetMethod(implObj, "GetClerks"), flags, 2)
-        this.vtbl.HoldClerk := CallbackCreate(GetMethod(implObj, "HoldClerk"), flags, 3)
+        this.vtbl.GetClerks := CallbackCreate(ObjBindMethod(implObj, "GetClerks"), flags, 2)
+        this.vtbl.HoldClerk := CallbackCreate(ObjBindMethod(implObj, "HoldClerk"), flags, 3)
     }
 
     Dispose() {

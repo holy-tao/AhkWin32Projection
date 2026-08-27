@@ -21,7 +21,6 @@ export default struct MSGCALLRELEASE {
     }
 
     /**
-     * 
      * @param {Integer} ulCallerData > [in] Contains calling application information about the **IMessage** interface.
      * @param {IMessage} lpMessage > [in] Pointer to the top-level message and attachments that have been released.
      * @returns {String} Nothing - always returns an empty string

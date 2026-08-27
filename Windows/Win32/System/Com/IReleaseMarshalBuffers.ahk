@@ -37,14 +37,15 @@ export default struct IReleaseMarshalBuffers extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<RPCOLEMESSAGE>} pMsg 
      * @param {Integer} dwFlags 
      * @param {IUnknown} pChnl 
      * @returns {HRESULT} 
      */
     ReleaseMarshalBuffer(pMsg, dwFlags, pChnl) {
-        result := ComCall(3, this, RPCOLEMESSAGE.Ptr, pMsg, UInt32, dwFlags, "ptr", pChnl, "HRESULT")
+        pChnlMarshal := pChnl == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, RPCOLEMESSAGE.Ptr, pMsg, UInt32, dwFlags, pChnlMarshal, pChnl, "HRESULT")
         return result
     }
 
@@ -57,7 +58,7 @@ export default struct IReleaseMarshalBuffers extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ReleaseMarshalBuffer := CallbackCreate(GetMethod(implObj, "ReleaseMarshalBuffer"), flags, 4)
+        this.vtbl.ReleaseMarshalBuffer := CallbackCreate(ObjBindMethod(implObj, "ReleaseMarshalBuffer"), flags, 4)
     }
 
     Dispose() {

@@ -392,8 +392,8 @@ export default struct IMFByteStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-read
      */
     Read(pb, cb, pcbRead) {
-        pbMarshal := pb is VarRef ? "char*" : "ptr"
-        pcbReadMarshal := pcbRead is VarRef ? "uint*" : "ptr"
+        pbMarshal := pb is VarRef ? "char*" : IntPtr
+        pcbReadMarshal := pcbRead is VarRef ? "uint*" : IntPtr
 
         result := ComCall(9, this, pbMarshal, pb, UInt32, cb, pcbReadMarshal, pcbRead, "HRESULT")
         return result
@@ -476,7 +476,7 @@ export default struct IMFByteStream extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-write
      */
     Write(pb, cb) {
-        pbMarshal := pb is VarRef ? "char*" : "ptr"
+        pbMarshal := pb is VarRef ? "char*" : IntPtr
 
         result := ComCall(12, this, pbMarshal, pb, UInt32, cb, "uint*", &pcbWritten := 0, "HRESULT")
         return pcbWritten
@@ -619,21 +619,21 @@ export default struct IMFByteStream extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCapabilities := CallbackCreate(GetMethod(implObj, "GetCapabilities"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.SetLength := CallbackCreate(GetMethod(implObj, "SetLength"), flags, 2)
-        this.vtbl.GetCurrentPosition := CallbackCreate(GetMethod(implObj, "GetCurrentPosition"), flags, 2)
-        this.vtbl.SetCurrentPosition := CallbackCreate(GetMethod(implObj, "SetCurrentPosition"), flags, 2)
-        this.vtbl.IsEndOfStream := CallbackCreate(GetMethod(implObj, "IsEndOfStream"), flags, 2)
-        this.vtbl.Read := CallbackCreate(GetMethod(implObj, "Read"), flags, 4)
-        this.vtbl.BeginRead := CallbackCreate(GetMethod(implObj, "BeginRead"), flags, 5)
-        this.vtbl.EndRead := CallbackCreate(GetMethod(implObj, "EndRead"), flags, 3)
-        this.vtbl.Write := CallbackCreate(GetMethod(implObj, "Write"), flags, 4)
-        this.vtbl.BeginWrite := CallbackCreate(GetMethod(implObj, "BeginWrite"), flags, 5)
-        this.vtbl.EndWrite := CallbackCreate(GetMethod(implObj, "EndWrite"), flags, 3)
-        this.vtbl.Seek := CallbackCreate(GetMethod(implObj, "Seek"), flags, 5)
-        this.vtbl.Flush := CallbackCreate(GetMethod(implObj, "Flush"), flags, 1)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.GetCapabilities := CallbackCreate(ObjBindMethod(implObj, "GetCapabilities"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.SetLength := CallbackCreate(ObjBindMethod(implObj, "SetLength"), flags, 2)
+        this.vtbl.GetCurrentPosition := CallbackCreate(ObjBindMethod(implObj, "GetCurrentPosition"), flags, 2)
+        this.vtbl.SetCurrentPosition := CallbackCreate(ObjBindMethod(implObj, "SetCurrentPosition"), flags, 2)
+        this.vtbl.IsEndOfStream := CallbackCreate(ObjBindMethod(implObj, "IsEndOfStream"), flags, 2)
+        this.vtbl.Read := CallbackCreate(ObjBindMethod(implObj, "Read"), flags, 4)
+        this.vtbl.BeginRead := CallbackCreate(ObjBindMethod(implObj, "BeginRead"), flags, 5)
+        this.vtbl.EndRead := CallbackCreate(ObjBindMethod(implObj, "EndRead"), flags, 3)
+        this.vtbl.Write := CallbackCreate(ObjBindMethod(implObj, "Write"), flags, 4)
+        this.vtbl.BeginWrite := CallbackCreate(ObjBindMethod(implObj, "BeginWrite"), flags, 5)
+        this.vtbl.EndWrite := CallbackCreate(ObjBindMethod(implObj, "EndWrite"), flags, 3)
+        this.vtbl.Seek := CallbackCreate(ObjBindMethod(implObj, "Seek"), flags, 5)
+        this.vtbl.Flush := CallbackCreate(ObjBindMethod(implObj, "Flush"), flags, 1)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
     }
 
     Dispose() {

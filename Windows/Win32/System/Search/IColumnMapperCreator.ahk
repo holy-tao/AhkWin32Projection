@@ -63,7 +63,7 @@ export default struct IColumnMapperCreator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetColumnMapper := CallbackCreate(GetMethod(implObj, "GetColumnMapper"), flags, 4)
+        this.vtbl.GetColumnMapper := CallbackCreate(ObjBindMethod(implObj, "GetColumnMapper"), flags, 4)
     }
 
     Dispose() {

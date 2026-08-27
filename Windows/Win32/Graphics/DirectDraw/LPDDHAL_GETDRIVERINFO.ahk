@@ -19,7 +19,6 @@ export default struct LPDDHAL_GETDRIVERINFO {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_GETDRIVERINFODATA>} param0 
      * @returns {Integer} 
      */

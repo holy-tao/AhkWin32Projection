@@ -37,26 +37,29 @@ export default struct ICommandStream extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} piid 
      * @param {Pointer<Guid>} pguidDialect 
      * @param {Pointer<IUnknown>} ppCommandStream 
      * @returns {HRESULT} 
      */
     GetCommandStream(piid, pguidDialect, ppCommandStream) {
-        result := ComCall(3, this, Guid.Ptr, piid, Guid.Ptr, pguidDialect, IUnknown.Ptr, ppCommandStream, "HRESULT")
+        piidMarshal := piid == 0 ? IntPtr : Guid.Ptr
+        pguidDialectMarshal := pguidDialect == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(3, this, piidMarshal, piid, pguidDialectMarshal, pguidDialect, IUnknown.Ptr, ppCommandStream, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Guid>} rguidDialect 
      * @param {IUnknown} pCommandStream 
      * @returns {HRESULT} 
      */
     SetCommandStream(riid, rguidDialect, pCommandStream) {
-        result := ComCall(4, this, Guid.Ptr, riid, Guid.Ptr, rguidDialect, "ptr", pCommandStream, "HRESULT")
+        pCommandStreamMarshal := pCommandStream == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, Guid.Ptr, riid, Guid.Ptr, rguidDialect, pCommandStreamMarshal, pCommandStream, "HRESULT")
         return result
     }
 
@@ -69,8 +72,8 @@ export default struct ICommandStream extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCommandStream := CallbackCreate(GetMethod(implObj, "GetCommandStream"), flags, 4)
-        this.vtbl.SetCommandStream := CallbackCreate(GetMethod(implObj, "SetCommandStream"), flags, 4)
+        this.vtbl.GetCommandStream := CallbackCreate(ObjBindMethod(implObj, "GetCommandStream"), flags, 4)
+        this.vtbl.SetCommandStream := CallbackCreate(ObjBindMethod(implObj, "SetCommandStream"), flags, 4)
     }
 
     Dispose() {

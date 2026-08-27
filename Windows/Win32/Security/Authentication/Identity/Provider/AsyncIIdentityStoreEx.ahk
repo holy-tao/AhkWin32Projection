@@ -46,7 +46,6 @@ export default struct AsyncIIdentityStoreEx extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} LocalName 
      * @param {PWSTR} ConnectedName 
      * @param {Pointer<Guid>} ProviderGUID 
@@ -56,12 +55,13 @@ export default struct AsyncIIdentityStoreEx extends IUnknown {
         LocalName := LocalName is String ? StrPtr(LocalName) : LocalName
         ConnectedName := ConnectedName is String ? StrPtr(ConnectedName) : ConnectedName
 
-        result := ComCall(3, this, "ptr", LocalName, "ptr", ConnectedName, Guid.Ptr, ProviderGUID, "HRESULT")
+        LocalNameMarshal := LocalName == 0 ? IntPtr : PWSTR
+
+        result := ComCall(3, this, LocalNameMarshal, LocalName, "ptr", ConnectedName, Guid.Ptr, ProviderGUID, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_CreateConnectedIdentity() {
@@ -70,7 +70,6 @@ export default struct AsyncIIdentityStoreEx extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} ConnectedName 
      * @param {Pointer<Guid>} ProviderGUID 
      * @returns {HRESULT} 
@@ -83,7 +82,6 @@ export default struct AsyncIIdentityStoreEx extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_DeleteConnectedIdentity() {
@@ -100,10 +98,10 @@ export default struct AsyncIIdentityStoreEx extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Begin_CreateConnectedIdentity := CallbackCreate(GetMethod(implObj, "Begin_CreateConnectedIdentity"), flags, 4)
-        this.vtbl.Finish_CreateConnectedIdentity := CallbackCreate(GetMethod(implObj, "Finish_CreateConnectedIdentity"), flags, 1)
-        this.vtbl.Begin_DeleteConnectedIdentity := CallbackCreate(GetMethod(implObj, "Begin_DeleteConnectedIdentity"), flags, 3)
-        this.vtbl.Finish_DeleteConnectedIdentity := CallbackCreate(GetMethod(implObj, "Finish_DeleteConnectedIdentity"), flags, 1)
+        this.vtbl.Begin_CreateConnectedIdentity := CallbackCreate(ObjBindMethod(implObj, "Begin_CreateConnectedIdentity"), flags, 4)
+        this.vtbl.Finish_CreateConnectedIdentity := CallbackCreate(ObjBindMethod(implObj, "Finish_CreateConnectedIdentity"), flags, 1)
+        this.vtbl.Begin_DeleteConnectedIdentity := CallbackCreate(ObjBindMethod(implObj, "Begin_DeleteConnectedIdentity"), flags, 3)
+        this.vtbl.Finish_DeleteConnectedIdentity := CallbackCreate(ObjBindMethod(implObj, "Finish_DeleteConnectedIdentity"), flags, 1)
     }
 
     Dispose() {

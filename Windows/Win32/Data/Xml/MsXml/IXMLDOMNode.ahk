@@ -236,7 +236,6 @@ export default struct IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_nodeName() {
@@ -246,7 +245,6 @@ export default struct IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_nodeValue() {
@@ -256,7 +254,6 @@ export default struct IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} value 
      * @returns {HRESULT} 
      */
@@ -266,7 +263,6 @@ export default struct IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {DOMNodeType} 
      */
     get_nodeType() {
@@ -275,7 +271,6 @@ export default struct IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLDOMNode} 
      */
     get_parentNode() {
@@ -284,7 +279,6 @@ export default struct IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLDOMNodeList} 
      */
     get_childNodes() {
@@ -293,7 +287,6 @@ export default struct IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLDOMNode} 
      */
     get_firstChild() {
@@ -302,7 +295,6 @@ export default struct IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLDOMNode} 
      */
     get_lastChild() {
@@ -311,7 +303,6 @@ export default struct IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLDOMNode} 
      */
     get_previousSibling() {
@@ -320,7 +311,6 @@ export default struct IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLDOMNode} 
      */
     get_nextSibling() {
@@ -329,7 +319,6 @@ export default struct IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLDOMNamedNodeMap} 
      */
     get_attributes() {
@@ -338,7 +327,6 @@ export default struct IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {IXMLDOMNode} newChild 
      * @param {VARIANT} refChild 
      * @returns {IXMLDOMNode} 
@@ -349,7 +337,6 @@ export default struct IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {IXMLDOMNode} newChild 
      * @param {IXMLDOMNode} oldChild 
      * @returns {IXMLDOMNode} 
@@ -360,7 +347,6 @@ export default struct IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {IXMLDOMNode} childNode 
      * @returns {IXMLDOMNode} 
      */
@@ -370,7 +356,6 @@ export default struct IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {IXMLDOMNode} newChild 
      * @returns {IXMLDOMNode} 
      */
@@ -380,7 +365,6 @@ export default struct IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     hasChildNodes() {
@@ -389,7 +373,6 @@ export default struct IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLDOMDocument} 
      */
     get_ownerDocument() {
@@ -398,7 +381,6 @@ export default struct IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} deep 
      * @returns {IXMLDOMNode} 
      */
@@ -408,7 +390,6 @@ export default struct IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_nodeTypeString() {
@@ -418,7 +399,6 @@ export default struct IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_text() {
@@ -428,7 +408,6 @@ export default struct IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} text 
      * @returns {HRESULT} 
      */
@@ -440,7 +419,6 @@ export default struct IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_specified() {
@@ -449,7 +427,6 @@ export default struct IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IXMLDOMNode} 
      */
     get_definition() {
@@ -458,7 +435,6 @@ export default struct IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_nodeTypedValue() {
@@ -468,7 +444,6 @@ export default struct IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} typedValue 
      * @returns {HRESULT} 
      */
@@ -478,7 +453,6 @@ export default struct IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_dataType() {
@@ -488,7 +462,6 @@ export default struct IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} dataTypeName 
      * @returns {HRESULT} 
      */
@@ -500,7 +473,6 @@ export default struct IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_xml() {
@@ -510,7 +482,6 @@ export default struct IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {IXMLDOMNode} stylesheet 
      * @returns {BSTR} 
      */
@@ -521,7 +492,6 @@ export default struct IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} queryString 
      * @returns {IXMLDOMNodeList} 
      */
@@ -533,7 +503,6 @@ export default struct IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} queryString 
      * @returns {IXMLDOMNode} 
      */
@@ -545,7 +514,6 @@ export default struct IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_parsed() {
@@ -554,7 +522,6 @@ export default struct IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_namespaceURI() {
@@ -564,7 +531,6 @@ export default struct IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_prefix() {
@@ -574,7 +540,6 @@ export default struct IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_baseName() {
@@ -584,7 +549,6 @@ export default struct IXMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {IXMLDOMNode} stylesheet 
      * @param {VARIANT} outputObject 
      * @returns {HRESULT} 
@@ -603,42 +567,42 @@ export default struct IXMLDOMNode extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_nodeName := CallbackCreate(GetMethod(implObj, "get_nodeName"), flags, 2)
-        this.vtbl.get_nodeValue := CallbackCreate(GetMethod(implObj, "get_nodeValue"), flags, 2)
-        this.vtbl.put_nodeValue := CallbackCreate(GetMethod(implObj, "put_nodeValue"), flags, 2)
-        this.vtbl.get_nodeType := CallbackCreate(GetMethod(implObj, "get_nodeType"), flags, 2)
-        this.vtbl.get_parentNode := CallbackCreate(GetMethod(implObj, "get_parentNode"), flags, 2)
-        this.vtbl.get_childNodes := CallbackCreate(GetMethod(implObj, "get_childNodes"), flags, 2)
-        this.vtbl.get_firstChild := CallbackCreate(GetMethod(implObj, "get_firstChild"), flags, 2)
-        this.vtbl.get_lastChild := CallbackCreate(GetMethod(implObj, "get_lastChild"), flags, 2)
-        this.vtbl.get_previousSibling := CallbackCreate(GetMethod(implObj, "get_previousSibling"), flags, 2)
-        this.vtbl.get_nextSibling := CallbackCreate(GetMethod(implObj, "get_nextSibling"), flags, 2)
-        this.vtbl.get_attributes := CallbackCreate(GetMethod(implObj, "get_attributes"), flags, 2)
-        this.vtbl.insertBefore := CallbackCreate(GetMethod(implObj, "insertBefore"), flags, 4)
-        this.vtbl.replaceChild := CallbackCreate(GetMethod(implObj, "replaceChild"), flags, 4)
-        this.vtbl.removeChild := CallbackCreate(GetMethod(implObj, "removeChild"), flags, 3)
-        this.vtbl.appendChild := CallbackCreate(GetMethod(implObj, "appendChild"), flags, 3)
-        this.vtbl.hasChildNodes := CallbackCreate(GetMethod(implObj, "hasChildNodes"), flags, 2)
-        this.vtbl.get_ownerDocument := CallbackCreate(GetMethod(implObj, "get_ownerDocument"), flags, 2)
-        this.vtbl.cloneNode := CallbackCreate(GetMethod(implObj, "cloneNode"), flags, 3)
-        this.vtbl.get_nodeTypeString := CallbackCreate(GetMethod(implObj, "get_nodeTypeString"), flags, 2)
-        this.vtbl.get_text := CallbackCreate(GetMethod(implObj, "get_text"), flags, 2)
-        this.vtbl.put_text := CallbackCreate(GetMethod(implObj, "put_text"), flags, 2)
-        this.vtbl.get_specified := CallbackCreate(GetMethod(implObj, "get_specified"), flags, 2)
-        this.vtbl.get_definition := CallbackCreate(GetMethod(implObj, "get_definition"), flags, 2)
-        this.vtbl.get_nodeTypedValue := CallbackCreate(GetMethod(implObj, "get_nodeTypedValue"), flags, 2)
-        this.vtbl.put_nodeTypedValue := CallbackCreate(GetMethod(implObj, "put_nodeTypedValue"), flags, 2)
-        this.vtbl.get_dataType := CallbackCreate(GetMethod(implObj, "get_dataType"), flags, 2)
-        this.vtbl.put_dataType := CallbackCreate(GetMethod(implObj, "put_dataType"), flags, 2)
-        this.vtbl.get_xml := CallbackCreate(GetMethod(implObj, "get_xml"), flags, 2)
-        this.vtbl.transformNode := CallbackCreate(GetMethod(implObj, "transformNode"), flags, 3)
-        this.vtbl.selectNodes := CallbackCreate(GetMethod(implObj, "selectNodes"), flags, 3)
-        this.vtbl.selectSingleNode := CallbackCreate(GetMethod(implObj, "selectSingleNode"), flags, 3)
-        this.vtbl.get_parsed := CallbackCreate(GetMethod(implObj, "get_parsed"), flags, 2)
-        this.vtbl.get_namespaceURI := CallbackCreate(GetMethod(implObj, "get_namespaceURI"), flags, 2)
-        this.vtbl.get_prefix := CallbackCreate(GetMethod(implObj, "get_prefix"), flags, 2)
-        this.vtbl.get_baseName := CallbackCreate(GetMethod(implObj, "get_baseName"), flags, 2)
-        this.vtbl.transformNodeToObject := CallbackCreate(GetMethod(implObj, "transformNodeToObject"), flags, 3)
+        this.vtbl.get_nodeName := CallbackCreate(ObjBindMethod(implObj, "get_nodeName"), flags, 2)
+        this.vtbl.get_nodeValue := CallbackCreate(ObjBindMethod(implObj, "get_nodeValue"), flags, 2)
+        this.vtbl.put_nodeValue := CallbackCreate(ObjBindMethod(implObj, "put_nodeValue"), flags, 2)
+        this.vtbl.get_nodeType := CallbackCreate(ObjBindMethod(implObj, "get_nodeType"), flags, 2)
+        this.vtbl.get_parentNode := CallbackCreate(ObjBindMethod(implObj, "get_parentNode"), flags, 2)
+        this.vtbl.get_childNodes := CallbackCreate(ObjBindMethod(implObj, "get_childNodes"), flags, 2)
+        this.vtbl.get_firstChild := CallbackCreate(ObjBindMethod(implObj, "get_firstChild"), flags, 2)
+        this.vtbl.get_lastChild := CallbackCreate(ObjBindMethod(implObj, "get_lastChild"), flags, 2)
+        this.vtbl.get_previousSibling := CallbackCreate(ObjBindMethod(implObj, "get_previousSibling"), flags, 2)
+        this.vtbl.get_nextSibling := CallbackCreate(ObjBindMethod(implObj, "get_nextSibling"), flags, 2)
+        this.vtbl.get_attributes := CallbackCreate(ObjBindMethod(implObj, "get_attributes"), flags, 2)
+        this.vtbl.insertBefore := CallbackCreate(ObjBindMethod(implObj, "insertBefore"), flags, 4)
+        this.vtbl.replaceChild := CallbackCreate(ObjBindMethod(implObj, "replaceChild"), flags, 4)
+        this.vtbl.removeChild := CallbackCreate(ObjBindMethod(implObj, "removeChild"), flags, 3)
+        this.vtbl.appendChild := CallbackCreate(ObjBindMethod(implObj, "appendChild"), flags, 3)
+        this.vtbl.hasChildNodes := CallbackCreate(ObjBindMethod(implObj, "hasChildNodes"), flags, 2)
+        this.vtbl.get_ownerDocument := CallbackCreate(ObjBindMethod(implObj, "get_ownerDocument"), flags, 2)
+        this.vtbl.cloneNode := CallbackCreate(ObjBindMethod(implObj, "cloneNode"), flags, 3)
+        this.vtbl.get_nodeTypeString := CallbackCreate(ObjBindMethod(implObj, "get_nodeTypeString"), flags, 2)
+        this.vtbl.get_text := CallbackCreate(ObjBindMethod(implObj, "get_text"), flags, 2)
+        this.vtbl.put_text := CallbackCreate(ObjBindMethod(implObj, "put_text"), flags, 2)
+        this.vtbl.get_specified := CallbackCreate(ObjBindMethod(implObj, "get_specified"), flags, 2)
+        this.vtbl.get_definition := CallbackCreate(ObjBindMethod(implObj, "get_definition"), flags, 2)
+        this.vtbl.get_nodeTypedValue := CallbackCreate(ObjBindMethod(implObj, "get_nodeTypedValue"), flags, 2)
+        this.vtbl.put_nodeTypedValue := CallbackCreate(ObjBindMethod(implObj, "put_nodeTypedValue"), flags, 2)
+        this.vtbl.get_dataType := CallbackCreate(ObjBindMethod(implObj, "get_dataType"), flags, 2)
+        this.vtbl.put_dataType := CallbackCreate(ObjBindMethod(implObj, "put_dataType"), flags, 2)
+        this.vtbl.get_xml := CallbackCreate(ObjBindMethod(implObj, "get_xml"), flags, 2)
+        this.vtbl.transformNode := CallbackCreate(ObjBindMethod(implObj, "transformNode"), flags, 3)
+        this.vtbl.selectNodes := CallbackCreate(ObjBindMethod(implObj, "selectNodes"), flags, 3)
+        this.vtbl.selectSingleNode := CallbackCreate(ObjBindMethod(implObj, "selectSingleNode"), flags, 3)
+        this.vtbl.get_parsed := CallbackCreate(ObjBindMethod(implObj, "get_parsed"), flags, 2)
+        this.vtbl.get_namespaceURI := CallbackCreate(ObjBindMethod(implObj, "get_namespaceURI"), flags, 2)
+        this.vtbl.get_prefix := CallbackCreate(ObjBindMethod(implObj, "get_prefix"), flags, 2)
+        this.vtbl.get_baseName := CallbackCreate(ObjBindMethod(implObj, "get_baseName"), flags, 2)
+        this.vtbl.transformNodeToObject := CallbackCreate(ObjBindMethod(implObj, "transformNodeToObject"), flags, 3)
     }
 
     Dispose() {

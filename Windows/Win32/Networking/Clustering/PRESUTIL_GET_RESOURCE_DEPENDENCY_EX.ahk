@@ -21,7 +21,6 @@ export default struct PRESUTIL_GET_RESOURCE_DEPENDENCY_EX {
     }
 
     /**
-     * 
      * @param {HANDLE} hSelf 
      * @param {PWSTR} lpszResourceType 
      * @param {Integer} dwDesiredAccess 

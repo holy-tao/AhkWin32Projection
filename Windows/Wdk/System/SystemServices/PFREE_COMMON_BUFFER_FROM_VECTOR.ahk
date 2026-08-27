@@ -20,14 +20,13 @@ export default struct PFREE_COMMON_BUFFER_FROM_VECTOR {
     }
 
     /**
-     * 
      * @param {Pointer<DMA_ADAPTER>} DmaAdapter 
      * @param {Pointer<DMA_COMMON_BUFFER_VECTOR>} Vector 
      * @param {Integer} Index 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(DmaAdapter, Vector, Index) {
-        VectorMarshal := Vector is VarRef ? "ptr*" : "ptr"
+        VectorMarshal := Vector is VarRef ? "ptr*" : IntPtr
 
         DllCall(this.value, DMA_ADAPTER.Ptr, DmaAdapter, VectorMarshal, Vector, UInt32, Index)
     }

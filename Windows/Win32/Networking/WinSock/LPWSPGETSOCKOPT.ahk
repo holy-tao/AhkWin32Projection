@@ -31,7 +31,6 @@ export default struct LPWSPGETSOCKOPT {
     }
 
     /**
-     * 
      * @param {SOCKET} s A descriptor identifying a socket.
      * @param {Integer} level The level at which the option is defined; the supported levels include <b><a href="https://docs.microsoft.com/windows/win32/winsock/sol-socket-socket-options">SOL_SOCKET</a></b>. (See annex for more protocol-specific levels.)
      * @param {Integer} optname The socket option for which the value is to be retrieved.
@@ -114,8 +113,8 @@ export default struct LPWSPGETSOCKOPT {
      * </table>
      */
     Call(s, level, optname, optval, optlen, lpErrno) {
-        optlenMarshal := optlen is VarRef ? "int*" : "ptr"
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        optlenMarshal := optlen is VarRef ? "int*" : IntPtr
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, SOCKET, s, Int32, level, Int32, optname, IntPtr, optval, optlenMarshal, optlen, lpErrnoMarshal, lpErrno, Int32)
         return result

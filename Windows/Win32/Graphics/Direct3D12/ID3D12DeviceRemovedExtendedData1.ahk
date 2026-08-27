@@ -39,7 +39,6 @@ export default struct ID3D12DeviceRemovedExtendedData1 extends ID3D12DeviceRemov
     }
 
     /**
-     * 
      * @returns {D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1} 
      */
     GetAutoBreadcrumbsOutput1() {
@@ -49,7 +48,6 @@ export default struct ID3D12DeviceRemovedExtendedData1 extends ID3D12DeviceRemov
     }
 
     /**
-     * 
      * @returns {D3D12_DRED_PAGE_FAULT_OUTPUT1} 
      */
     GetPageFaultAllocationOutput1() {
@@ -67,8 +65,8 @@ export default struct ID3D12DeviceRemovedExtendedData1 extends ID3D12DeviceRemov
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAutoBreadcrumbsOutput1 := CallbackCreate(GetMethod(implObj, "GetAutoBreadcrumbsOutput1"), flags, 2)
-        this.vtbl.GetPageFaultAllocationOutput1 := CallbackCreate(GetMethod(implObj, "GetPageFaultAllocationOutput1"), flags, 2)
+        this.vtbl.GetAutoBreadcrumbsOutput1 := CallbackCreate(ObjBindMethod(implObj, "GetAutoBreadcrumbsOutput1"), flags, 2)
+        this.vtbl.GetPageFaultAllocationOutput1 := CallbackCreate(ObjBindMethod(implObj, "GetPageFaultAllocationOutput1"), flags, 2)
     }
 
     Dispose() {

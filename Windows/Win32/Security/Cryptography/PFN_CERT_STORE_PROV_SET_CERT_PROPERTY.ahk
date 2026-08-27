@@ -23,7 +23,6 @@ export default struct PFN_CERT_STORE_PROV_SET_CERT_PROPERTY {
     }
 
     /**
-     * 
      * @param {HCERTSTOREPROV} hStoreProv Provider-specific value returned in 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_store_prov_info">CERT_STORE_PROV_INFO</a> by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pfn_cert_dll_open_store_prov_func">CertDllOpenStoreProv</a>.
@@ -35,7 +34,8 @@ export default struct PFN_CERT_STORE_PROV_SET_CERT_PROPERTY {
      * @returns {BOOL} Returns <b>TRUE</b> if it is okay to set the property.
      */
     Call(hStoreProv, pCertContext, dwPropId, dwFlags, pvData) {
-        pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
+        pvDataMarshal := pvData is VarRef ? "ptr" : IntPtr
+        pvDataMarshal := pvData == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, HCERTSTOREPROV, hStoreProv, CERT_CONTEXT.Ptr, pCertContext, UInt32, dwPropId, UInt32, dwFlags, pvDataMarshal, pvData, BOOL)
         return result

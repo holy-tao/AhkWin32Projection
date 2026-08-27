@@ -66,7 +66,7 @@ export default struct ICredentialProviderSetUserArray extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetUserArray := CallbackCreate(GetMethod(implObj, "SetUserArray"), flags, 2)
+        this.vtbl.SetUserArray := CallbackCreate(ObjBindMethod(implObj, "SetUserArray"), flags, 2)
     }
 
     Dispose() {

@@ -40,7 +40,6 @@ export default struct ISpRecoContext2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} eGrammarOptions 
      * @returns {HRESULT} 
      */
@@ -50,19 +49,17 @@ export default struct ISpRecoContext2 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} peGrammarOptions 
      * @returns {HRESULT} 
      */
     GetGrammarOptions(peGrammarOptions) {
-        peGrammarOptionsMarshal := peGrammarOptions is VarRef ? "uint*" : "ptr"
+        peGrammarOptionsMarshal := peGrammarOptions is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, peGrammarOptionsMarshal, peGrammarOptions, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pAdaptationData 
      * @param {Integer} cch 
      * @param {PWSTR} pTopicName 
@@ -87,9 +84,9 @@ export default struct ISpRecoContext2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetGrammarOptions := CallbackCreate(GetMethod(implObj, "SetGrammarOptions"), flags, 2)
-        this.vtbl.GetGrammarOptions := CallbackCreate(GetMethod(implObj, "GetGrammarOptions"), flags, 2)
-        this.vtbl.SetAdaptationData2 := CallbackCreate(GetMethod(implObj, "SetAdaptationData2"), flags, 6)
+        this.vtbl.SetGrammarOptions := CallbackCreate(ObjBindMethod(implObj, "SetGrammarOptions"), flags, 2)
+        this.vtbl.GetGrammarOptions := CallbackCreate(ObjBindMethod(implObj, "GetGrammarOptions"), flags, 2)
+        this.vtbl.SetAdaptationData2 := CallbackCreate(ObjBindMethod(implObj, "SetAdaptationData2"), flags, 6)
     }
 
     Dispose() {

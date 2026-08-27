@@ -153,11 +153,11 @@ export default struct IAMMediaStream extends IMediaStream {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 5)
-        this.vtbl.SetState := CallbackCreate(GetMethod(implObj, "SetState"), flags, 2)
-        this.vtbl.JoinAMMultiMediaStream := CallbackCreate(GetMethod(implObj, "JoinAMMultiMediaStream"), flags, 2)
-        this.vtbl.JoinFilter := CallbackCreate(GetMethod(implObj, "JoinFilter"), flags, 2)
-        this.vtbl.JoinFilterGraph := CallbackCreate(GetMethod(implObj, "JoinFilterGraph"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 5)
+        this.vtbl.SetState := CallbackCreate(ObjBindMethod(implObj, "SetState"), flags, 2)
+        this.vtbl.JoinAMMultiMediaStream := CallbackCreate(ObjBindMethod(implObj, "JoinAMMultiMediaStream"), flags, 2)
+        this.vtbl.JoinFilter := CallbackCreate(ObjBindMethod(implObj, "JoinFilter"), flags, 2)
+        this.vtbl.JoinFilterGraph := CallbackCreate(ObjBindMethod(implObj, "JoinFilterGraph"), flags, 2)
     }
 
     Dispose() {

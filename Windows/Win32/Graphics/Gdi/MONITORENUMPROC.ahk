@@ -33,7 +33,6 @@ export default struct MONITORENUMPROC {
     }
 
     /**
-     * 
      * @param {HMONITOR} param0 A handle to the display monitor. This value will always be non-<b>NULL</b>.
      * @param {HDC} param1 A handle to a device context.
      * 

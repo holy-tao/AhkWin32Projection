@@ -61,7 +61,6 @@ export default struct ISchemaIdentityConstraint extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_selector() {
@@ -71,7 +70,6 @@ export default struct ISchemaIdentityConstraint extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {ISchemaStringCollection} 
      */
     get_fields() {
@@ -80,7 +78,6 @@ export default struct ISchemaIdentityConstraint extends ISchemaItem {
     }
 
     /**
-     * 
      * @returns {ISchemaIdentityConstraint} 
      */
     get_referencedKey() {
@@ -97,9 +94,9 @@ export default struct ISchemaIdentityConstraint extends ISchemaItem {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_selector := CallbackCreate(GetMethod(implObj, "get_selector"), flags, 2)
-        this.vtbl.get_fields := CallbackCreate(GetMethod(implObj, "get_fields"), flags, 2)
-        this.vtbl.get_referencedKey := CallbackCreate(GetMethod(implObj, "get_referencedKey"), flags, 2)
+        this.vtbl.get_selector := CallbackCreate(ObjBindMethod(implObj, "get_selector"), flags, 2)
+        this.vtbl.get_fields := CallbackCreate(ObjBindMethod(implObj, "get_fields"), flags, 2)
+        this.vtbl.get_referencedKey := CallbackCreate(ObjBindMethod(implObj, "get_referencedKey"), flags, 2)
     }
 
     Dispose() {

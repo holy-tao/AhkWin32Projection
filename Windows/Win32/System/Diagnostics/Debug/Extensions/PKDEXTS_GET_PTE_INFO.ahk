@@ -21,7 +21,6 @@ export default struct PKDEXTS_GET_PTE_INFO {
     }
 
     /**
-     * 
      * @param {IDebugClient} Client 
      * @param {Integer} Virtual 
      * @param {Pointer<KDEXTS_PTE_INFO>} PteInfo 

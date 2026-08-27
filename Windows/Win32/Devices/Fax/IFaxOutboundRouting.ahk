@@ -85,8 +85,8 @@ export default struct IFaxOutboundRouting extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetGroups := CallbackCreate(GetMethod(implObj, "GetGroups"), flags, 2)
-        this.vtbl.GetRules := CallbackCreate(GetMethod(implObj, "GetRules"), flags, 2)
+        this.vtbl.GetGroups := CallbackCreate(ObjBindMethod(implObj, "GetGroups"), flags, 2)
+        this.vtbl.GetRules := CallbackCreate(ObjBindMethod(implObj, "GetRules"), flags, 2)
     }
 
     Dispose() {

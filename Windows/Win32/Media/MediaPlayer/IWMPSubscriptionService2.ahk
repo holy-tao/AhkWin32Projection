@@ -205,10 +205,10 @@ export default struct IWMPSubscriptionService2 extends IWMPSubscriptionService {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.stopBackgroundProcessing := CallbackCreate(GetMethod(implObj, "stopBackgroundProcessing"), flags, 1)
-        this.vtbl.serviceEvent := CallbackCreate(GetMethod(implObj, "serviceEvent"), flags, 2)
-        this.vtbl.deviceAvailable := CallbackCreate(GetMethod(implObj, "deviceAvailable"), flags, 3)
-        this.vtbl.prepareForSync := CallbackCreate(GetMethod(implObj, "prepareForSync"), flags, 4)
+        this.vtbl.stopBackgroundProcessing := CallbackCreate(ObjBindMethod(implObj, "stopBackgroundProcessing"), flags, 1)
+        this.vtbl.serviceEvent := CallbackCreate(ObjBindMethod(implObj, "serviceEvent"), flags, 2)
+        this.vtbl.deviceAvailable := CallbackCreate(ObjBindMethod(implObj, "deviceAvailable"), flags, 3)
+        this.vtbl.prepareForSync := CallbackCreate(ObjBindMethod(implObj, "prepareForSync"), flags, 4)
     }
 
     Dispose() {

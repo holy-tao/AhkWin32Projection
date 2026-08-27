@@ -66,7 +66,7 @@ export default struct IAudioViewManagerService extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAudioStreamWindow := CallbackCreate(GetMethod(implObj, "SetAudioStreamWindow"), flags, 2)
+        this.vtbl.SetAudioStreamWindow := CallbackCreate(ObjBindMethod(implObj, "SetAudioStreamWindow"), flags, 2)
     }
 
     Dispose() {

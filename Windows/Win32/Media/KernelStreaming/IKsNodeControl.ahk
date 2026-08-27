@@ -72,7 +72,7 @@ export default struct IKsNodeControl extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-iksnodecontrol-put_kscontrol
      */
     put_KsControl(pKsControl) {
-        pKsControlMarshal := pKsControl is VarRef ? "ptr" : "ptr"
+        pKsControlMarshal := pKsControl is VarRef ? "ptr" : IntPtr
 
         result := ComCall(4, this, pKsControlMarshal, pKsControl, "HRESULT")
         return result
@@ -87,8 +87,8 @@ export default struct IKsNodeControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_NodeId := CallbackCreate(GetMethod(implObj, "put_NodeId"), flags, 2)
-        this.vtbl.put_KsControl := CallbackCreate(GetMethod(implObj, "put_KsControl"), flags, 2)
+        this.vtbl.put_NodeId := CallbackCreate(ObjBindMethod(implObj, "put_NodeId"), flags, 2)
+        this.vtbl.put_KsControl := CallbackCreate(ObjBindMethod(implObj, "put_KsControl"), flags, 2)
     }
 
     Dispose() {

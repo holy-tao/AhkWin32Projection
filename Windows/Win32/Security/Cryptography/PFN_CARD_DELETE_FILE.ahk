@@ -20,7 +20,6 @@ export default struct PFN_CARD_DELETE_FILE {
     }
 
     /**
-     * 
      * @param {Pointer<CARD_DATA>} pCardData 
      * @param {PSTR} pszDirectoryName 
      * @param {PSTR} pszFileName 
@@ -31,7 +30,9 @@ export default struct PFN_CARD_DELETE_FILE {
         pszDirectoryName := pszDirectoryName is String ? StrPtr(pszDirectoryName) : pszDirectoryName
         pszFileName := pszFileName is String ? StrPtr(pszFileName) : pszFileName
 
-        result := DllCall(this.value, CARD_DATA.Ptr, pCardData, "ptr", pszDirectoryName, "ptr", pszFileName, UInt32, dwFlags, UInt32)
+        pszDirectoryNameMarshal := pszDirectoryName == 0 ? IntPtr : PSTR
+
+        result := DllCall(this.value, CARD_DATA.Ptr, pCardData, pszDirectoryNameMarshal, pszDirectoryName, "ptr", pszFileName, UInt32, dwFlags, UInt32)
         return result
     }
 

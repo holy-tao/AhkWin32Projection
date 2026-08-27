@@ -21,7 +21,6 @@ export default struct PIBIO_FRAMEWORK_VSM_QUERY_AUTHORIZED_ENROLLMENTS_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline 
      * @param {Pointer<WINBIO_IDENTITY>} Identity 
      * @param {Pointer<Pointer>} SecureIdentityCount 
@@ -29,8 +28,8 @@ export default struct PIBIO_FRAMEWORK_VSM_QUERY_AUTHORIZED_ENROLLMENTS_FN {
      * @returns {HRESULT} 
      */
     Call(Pipeline, Identity, SecureIdentityCount, SecureIdentities) {
-        SecureIdentityCountMarshal := SecureIdentityCount is VarRef ? "ptr*" : "ptr"
-        SecureIdentitiesMarshal := SecureIdentities is VarRef ? "ptr*" : "ptr"
+        SecureIdentityCountMarshal := SecureIdentityCount is VarRef ? "ptr*" : IntPtr
+        SecureIdentitiesMarshal := SecureIdentities is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, WINBIO_PIPELINE.Ptr, Pipeline, WINBIO_IDENTITY.Ptr, Identity, SecureIdentityCountMarshal, SecureIdentityCount, SecureIdentitiesMarshal, SecureIdentities, "HRESULT")
         return result

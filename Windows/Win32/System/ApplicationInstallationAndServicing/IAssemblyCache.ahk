@@ -91,7 +91,7 @@ export default struct IAssemblyCache extends IUnknown {
     UninstallAssembly(dwFlags, pszAssemblyName, pRefData, pulDisposition) {
         pszAssemblyName := pszAssemblyName is String ? StrPtr(pszAssemblyName) : pszAssemblyName
 
-        pulDispositionMarshal := pulDisposition is VarRef ? "uint*" : "ptr"
+        pulDispositionMarshal := pulDisposition is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, UInt32, dwFlags, "ptr", pszAssemblyName, FUSION_INSTALL_REFERENCE.Ptr, pRefData, pulDispositionMarshal, pulDisposition, "HRESULT")
         return result
@@ -152,7 +152,7 @@ export default struct IAssemblyCache extends IUnknown {
     CreateAssemblyCacheItem(dwFlags, pvReserved, pszAssemblyName) {
         pszAssemblyName := pszAssemblyName is String ? StrPtr(pszAssemblyName) : pszAssemblyName
 
-        pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
+        pvReservedMarshal := pvReserved is VarRef ? "ptr" : IntPtr
 
         result := ComCall(5, this, UInt32, dwFlags, pvReservedMarshal, pvReserved, "ptr*", &ppAsmItem := 0, "ptr", pszAssemblyName, "HRESULT")
         return IAssemblyCacheItem(ppAsmItem)
@@ -253,11 +253,11 @@ export default struct IAssemblyCache extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.UninstallAssembly := CallbackCreate(GetMethod(implObj, "UninstallAssembly"), flags, 5)
-        this.vtbl.QueryAssemblyInfo := CallbackCreate(GetMethod(implObj, "QueryAssemblyInfo"), flags, 4)
-        this.vtbl.CreateAssemblyCacheItem := CallbackCreate(GetMethod(implObj, "CreateAssemblyCacheItem"), flags, 5)
-        this.vtbl.Reserved := CallbackCreate(GetMethod(implObj, "Reserved"), flags, 2)
-        this.vtbl.InstallAssembly := CallbackCreate(GetMethod(implObj, "InstallAssembly"), flags, 4)
+        this.vtbl.UninstallAssembly := CallbackCreate(ObjBindMethod(implObj, "UninstallAssembly"), flags, 5)
+        this.vtbl.QueryAssemblyInfo := CallbackCreate(ObjBindMethod(implObj, "QueryAssemblyInfo"), flags, 4)
+        this.vtbl.CreateAssemblyCacheItem := CallbackCreate(ObjBindMethod(implObj, "CreateAssemblyCacheItem"), flags, 5)
+        this.vtbl.Reserved := CallbackCreate(ObjBindMethod(implObj, "Reserved"), flags, 2)
+        this.vtbl.InstallAssembly := CallbackCreate(ObjBindMethod(implObj, "InstallAssembly"), flags, 4)
     }
 
     Dispose() {

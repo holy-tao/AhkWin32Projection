@@ -38,7 +38,6 @@ export default struct IJsDebug extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} processId 
      * @param {Integer} runtimeJsBaseAddress 
      * @param {IJsDebugDataTarget} pDataTarget 
@@ -58,7 +57,7 @@ export default struct IJsDebug extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OpenVirtualProcess := CallbackCreate(GetMethod(implObj, "OpenVirtualProcess"), flags, 5)
+        this.vtbl.OpenVirtualProcess := CallbackCreate(ObjBindMethod(implObj, "OpenVirtualProcess"), flags, 5)
     }
 
     Dispose() {

@@ -65,7 +65,9 @@ export default struct IAudioMute extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iaudiomute-setmute
      */
     SetMute(bMuted, pguidEventContext) {
-        result := ComCall(3, this, BOOL, bMuted, Guid.Ptr, pguidEventContext, "HRESULT")
+        pguidEventContextMarshal := pguidEventContext == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(3, this, BOOL, bMuted, pguidEventContextMarshal, pguidEventContext, "HRESULT")
         return result
     }
 
@@ -88,8 +90,8 @@ export default struct IAudioMute extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetMute := CallbackCreate(GetMethod(implObj, "SetMute"), flags, 3)
-        this.vtbl.GetMute := CallbackCreate(GetMethod(implObj, "GetMute"), flags, 2)
+        this.vtbl.SetMute := CallbackCreate(ObjBindMethod(implObj, "SetMute"), flags, 3)
+        this.vtbl.GetMute := CallbackCreate(ObjBindMethod(implObj, "GetMute"), flags, 2)
     }
 
     Dispose() {

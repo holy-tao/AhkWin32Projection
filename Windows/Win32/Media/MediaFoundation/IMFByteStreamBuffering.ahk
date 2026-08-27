@@ -184,9 +184,9 @@ export default struct IMFByteStreamBuffering extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetBufferingParams := CallbackCreate(GetMethod(implObj, "SetBufferingParams"), flags, 2)
-        this.vtbl.EnableBuffering := CallbackCreate(GetMethod(implObj, "EnableBuffering"), flags, 2)
-        this.vtbl.StopBuffering := CallbackCreate(GetMethod(implObj, "StopBuffering"), flags, 1)
+        this.vtbl.SetBufferingParams := CallbackCreate(ObjBindMethod(implObj, "SetBufferingParams"), flags, 2)
+        this.vtbl.EnableBuffering := CallbackCreate(ObjBindMethod(implObj, "EnableBuffering"), flags, 2)
+        this.vtbl.StopBuffering := CallbackCreate(ObjBindMethod(implObj, "StopBuffering"), flags, 1)
     }
 
     Dispose() {

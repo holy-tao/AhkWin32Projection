@@ -222,8 +222,8 @@ export default struct IVdsServiceUninstallDisk extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsserviceuninstalldisk-uninstalldisks
      */
     UninstallDisks(pDiskIdArray, ulCount, bForce, pbReboot, pResults) {
-        pbRebootMarshal := pbReboot is VarRef ? "char*" : "ptr"
-        pResultsMarshal := pResults is VarRef ? "int*" : "ptr"
+        pbRebootMarshal := pbReboot is VarRef ? "char*" : IntPtr
+        pResultsMarshal := pResults is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, Guid.Ptr, pDiskIdArray, UInt32, ulCount, BOOLEAN, bForce, pbRebootMarshal, pbReboot, pResultsMarshal, pResults, "HRESULT")
         return result
@@ -238,8 +238,8 @@ export default struct IVdsServiceUninstallDisk extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDiskIdFromLunInfo := CallbackCreate(GetMethod(implObj, "GetDiskIdFromLunInfo"), flags, 3)
-        this.vtbl.UninstallDisks := CallbackCreate(GetMethod(implObj, "UninstallDisks"), flags, 6)
+        this.vtbl.GetDiskIdFromLunInfo := CallbackCreate(ObjBindMethod(implObj, "GetDiskIdFromLunInfo"), flags, 3)
+        this.vtbl.UninstallDisks := CallbackCreate(ObjBindMethod(implObj, "UninstallDisks"), flags, 6)
     }
 
     Dispose() {

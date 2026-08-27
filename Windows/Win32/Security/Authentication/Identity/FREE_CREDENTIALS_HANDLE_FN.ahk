@@ -20,7 +20,6 @@ export default struct FREE_CREDENTIALS_HANDLE_FN {
     }
 
     /**
-     * 
      * @param {Pointer<SecHandle>} param0 
      * @returns {HRESULT} 
      */

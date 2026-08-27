@@ -37,7 +37,6 @@ export default struct ITypeFactory extends IUnknown {
     }
 
     /**
-     * 
      * @param {ITypeInfo} pTypeInfo 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
@@ -56,7 +55,7 @@ export default struct ITypeFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateFromTypeInfo := CallbackCreate(GetMethod(implObj, "CreateFromTypeInfo"), flags, 4)
+        this.vtbl.CreateFromTypeInfo := CallbackCreate(ObjBindMethod(implObj, "CreateFromTypeInfo"), flags, 4)
     }
 
     Dispose() {

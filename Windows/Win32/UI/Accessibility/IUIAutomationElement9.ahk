@@ -86,8 +86,8 @@ export default struct IUIAutomationElement9 extends IUIAutomationElement8 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_CurrentIsDialog := CallbackCreate(GetMethod(implObj, "get_CurrentIsDialog"), flags, 2)
-        this.vtbl.get_CachedIsDialog := CallbackCreate(GetMethod(implObj, "get_CachedIsDialog"), flags, 2)
+        this.vtbl.get_CurrentIsDialog := CallbackCreate(ObjBindMethod(implObj, "get_CurrentIsDialog"), flags, 2)
+        this.vtbl.get_CachedIsDialog := CallbackCreate(ObjBindMethod(implObj, "get_CachedIsDialog"), flags, 2)
     }
 
     Dispose() {

@@ -21,14 +21,13 @@ export default struct PGET_POOL_REGION {
     }
 
     /**
-     * 
      * @param {IDebugClient} Client 
      * @param {Integer} Pool 
      * @param {Pointer<DEBUG_POOL_REGION>} PoolRegion 
      * @returns {HRESULT} 
      */
     Call(Client, Pool, PoolRegion) {
-        PoolRegionMarshal := PoolRegion is VarRef ? "int*" : "ptr"
+        PoolRegionMarshal := PoolRegion is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, "ptr", Client, Int64, Pool, PoolRegionMarshal, PoolRegion, "HRESULT")
         return result

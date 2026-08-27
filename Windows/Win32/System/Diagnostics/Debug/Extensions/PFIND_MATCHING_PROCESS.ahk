@@ -21,7 +21,6 @@ export default struct PFIND_MATCHING_PROCESS {
     }
 
     /**
-     * 
      * @param {IDebugClient} Client 
      * @param {Pointer<KDEXT_PROCESS_FIND_PARAMS>} ProcessInfo 
      * @returns {Integer} 

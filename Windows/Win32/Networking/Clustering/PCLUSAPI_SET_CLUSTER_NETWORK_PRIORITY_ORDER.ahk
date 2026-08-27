@@ -20,14 +20,13 @@ export default struct PCLUSAPI_SET_CLUSTER_NETWORK_PRIORITY_ORDER {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {Integer} NetworkCount 
      * @param {Pointer<HNETWORK>} NetworkList 
      * @returns {Integer} 
      */
     Call(_hCluster, NetworkCount, NetworkList) {
-        NetworkListMarshal := NetworkList is VarRef ? "ptr*" : "ptr"
+        NetworkListMarshal := NetworkList is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, HCLUSTER, _hCluster, UInt32, NetworkCount, NetworkListMarshal, NetworkList, UInt32)
         return result

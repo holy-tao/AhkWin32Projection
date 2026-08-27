@@ -99,9 +99,9 @@ export default struct ID3D12DebugCommandList extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AssertResourceState := CallbackCreate(GetMethod(implObj, "AssertResourceState"), flags, 4)
-        this.vtbl.SetFeatureMask := CallbackCreate(GetMethod(implObj, "SetFeatureMask"), flags, 2)
-        this.vtbl.GetFeatureMask := CallbackCreate(GetMethod(implObj, "GetFeatureMask"), flags, 1)
+        this.vtbl.AssertResourceState := CallbackCreate(ObjBindMethod(implObj, "AssertResourceState"), flags, 4)
+        this.vtbl.SetFeatureMask := CallbackCreate(ObjBindMethod(implObj, "SetFeatureMask"), flags, 2)
+        this.vtbl.GetFeatureMask := CallbackCreate(ObjBindMethod(implObj, "GetFeatureMask"), flags, 1)
     }
 
     Dispose() {

@@ -150,7 +150,6 @@ export default struct IADsPrintJob extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_HostPrintQueue() {
@@ -160,7 +159,6 @@ export default struct IADsPrintJob extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_User() {
@@ -170,7 +168,6 @@ export default struct IADsPrintJob extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_UserPath() {
@@ -180,7 +177,6 @@ export default struct IADsPrintJob extends IADs {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_TimeSubmitted() {
@@ -189,7 +185,6 @@ export default struct IADsPrintJob extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_TotalPages() {
@@ -198,7 +193,6 @@ export default struct IADsPrintJob extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Size() {
@@ -207,7 +201,6 @@ export default struct IADsPrintJob extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Description() {
@@ -217,7 +210,6 @@ export default struct IADsPrintJob extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrDescription 
      * @returns {HRESULT} 
      */
@@ -229,7 +221,6 @@ export default struct IADsPrintJob extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Priority() {
@@ -238,7 +229,6 @@ export default struct IADsPrintJob extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnPriority 
      * @returns {HRESULT} 
      */
@@ -248,7 +238,6 @@ export default struct IADsPrintJob extends IADs {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_StartTime() {
@@ -257,7 +246,6 @@ export default struct IADsPrintJob extends IADs {
     }
 
     /**
-     * 
      * @param {Float} daStartTime 
      * @returns {HRESULT} 
      */
@@ -267,7 +255,6 @@ export default struct IADsPrintJob extends IADs {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_UntilTime() {
@@ -276,7 +263,6 @@ export default struct IADsPrintJob extends IADs {
     }
 
     /**
-     * 
      * @param {Float} daUntilTime 
      * @returns {HRESULT} 
      */
@@ -286,7 +272,6 @@ export default struct IADsPrintJob extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Notify() {
@@ -296,7 +281,6 @@ export default struct IADsPrintJob extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrNotify 
      * @returns {HRESULT} 
      */
@@ -308,7 +292,6 @@ export default struct IADsPrintJob extends IADs {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_NotifyPath() {
@@ -318,7 +301,6 @@ export default struct IADsPrintJob extends IADs {
     }
 
     /**
-     * 
      * @param {BSTR} bstrNotifyPath 
      * @returns {HRESULT} 
      */
@@ -338,24 +320,24 @@ export default struct IADsPrintJob extends IADs {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_HostPrintQueue := CallbackCreate(GetMethod(implObj, "get_HostPrintQueue"), flags, 2)
-        this.vtbl.get_User := CallbackCreate(GetMethod(implObj, "get_User"), flags, 2)
-        this.vtbl.get_UserPath := CallbackCreate(GetMethod(implObj, "get_UserPath"), flags, 2)
-        this.vtbl.get_TimeSubmitted := CallbackCreate(GetMethod(implObj, "get_TimeSubmitted"), flags, 2)
-        this.vtbl.get_TotalPages := CallbackCreate(GetMethod(implObj, "get_TotalPages"), flags, 2)
-        this.vtbl.get_Size := CallbackCreate(GetMethod(implObj, "get_Size"), flags, 2)
-        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
-        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
-        this.vtbl.get_Priority := CallbackCreate(GetMethod(implObj, "get_Priority"), flags, 2)
-        this.vtbl.put_Priority := CallbackCreate(GetMethod(implObj, "put_Priority"), flags, 2)
-        this.vtbl.get_StartTime := CallbackCreate(GetMethod(implObj, "get_StartTime"), flags, 2)
-        this.vtbl.put_StartTime := CallbackCreate(GetMethod(implObj, "put_StartTime"), flags, 2)
-        this.vtbl.get_UntilTime := CallbackCreate(GetMethod(implObj, "get_UntilTime"), flags, 2)
-        this.vtbl.put_UntilTime := CallbackCreate(GetMethod(implObj, "put_UntilTime"), flags, 2)
-        this.vtbl.get_Notify := CallbackCreate(GetMethod(implObj, "get_Notify"), flags, 2)
-        this.vtbl.put_Notify := CallbackCreate(GetMethod(implObj, "put_Notify"), flags, 2)
-        this.vtbl.get_NotifyPath := CallbackCreate(GetMethod(implObj, "get_NotifyPath"), flags, 2)
-        this.vtbl.put_NotifyPath := CallbackCreate(GetMethod(implObj, "put_NotifyPath"), flags, 2)
+        this.vtbl.get_HostPrintQueue := CallbackCreate(ObjBindMethod(implObj, "get_HostPrintQueue"), flags, 2)
+        this.vtbl.get_User := CallbackCreate(ObjBindMethod(implObj, "get_User"), flags, 2)
+        this.vtbl.get_UserPath := CallbackCreate(ObjBindMethod(implObj, "get_UserPath"), flags, 2)
+        this.vtbl.get_TimeSubmitted := CallbackCreate(ObjBindMethod(implObj, "get_TimeSubmitted"), flags, 2)
+        this.vtbl.get_TotalPages := CallbackCreate(ObjBindMethod(implObj, "get_TotalPages"), flags, 2)
+        this.vtbl.get_Size := CallbackCreate(ObjBindMethod(implObj, "get_Size"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(ObjBindMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(ObjBindMethod(implObj, "put_Description"), flags, 2)
+        this.vtbl.get_Priority := CallbackCreate(ObjBindMethod(implObj, "get_Priority"), flags, 2)
+        this.vtbl.put_Priority := CallbackCreate(ObjBindMethod(implObj, "put_Priority"), flags, 2)
+        this.vtbl.get_StartTime := CallbackCreate(ObjBindMethod(implObj, "get_StartTime"), flags, 2)
+        this.vtbl.put_StartTime := CallbackCreate(ObjBindMethod(implObj, "put_StartTime"), flags, 2)
+        this.vtbl.get_UntilTime := CallbackCreate(ObjBindMethod(implObj, "get_UntilTime"), flags, 2)
+        this.vtbl.put_UntilTime := CallbackCreate(ObjBindMethod(implObj, "put_UntilTime"), flags, 2)
+        this.vtbl.get_Notify := CallbackCreate(ObjBindMethod(implObj, "get_Notify"), flags, 2)
+        this.vtbl.put_Notify := CallbackCreate(ObjBindMethod(implObj, "put_Notify"), flags, 2)
+        this.vtbl.get_NotifyPath := CallbackCreate(ObjBindMethod(implObj, "get_NotifyPath"), flags, 2)
+        this.vtbl.put_NotifyPath := CallbackCreate(ObjBindMethod(implObj, "put_NotifyPath"), flags, 2)
     }
 
     Dispose() {

@@ -116,7 +116,7 @@ export default struct IPreviousVersionsInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AreSnapshotsAvailable := CallbackCreate(GetMethod(implObj, "AreSnapshotsAvailable"), flags, 4)
+        this.vtbl.AreSnapshotsAvailable := CallbackCreate(ObjBindMethod(implObj, "AreSnapshotsAvailable"), flags, 4)
     }
 
     Dispose() {

@@ -674,7 +674,7 @@ export default struct IShellImageData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedata-getcurrentpage
      */
     GetCurrentPage(pnPage) {
-        pnPageMarshal := pnPage is VarRef ? "uint*" : "ptr"
+        pnPageMarshal := pnPage is VarRef ? "uint*" : IntPtr
 
         result := ComCall(15, this, pnPageMarshal, pnPage, "HRESULT")
         return result
@@ -711,7 +711,7 @@ export default struct IShellImageData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedata-getpagecount
      */
     GetPageCount(pcPages) {
-        pcPagesMarshal := pcPages is VarRef ? "uint*" : "ptr"
+        pcPagesMarshal := pcPages is VarRef ? "uint*" : IntPtr
 
         result := ComCall(16, this, pcPagesMarshal, pcPages, "HRESULT")
         return result
@@ -860,7 +860,7 @@ export default struct IShellImageData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedata-getpixelformat
      */
     GetPixelFormat(pFormat) {
-        pFormatMarshal := pFormat is VarRef ? "uint*" : "ptr"
+        pFormatMarshal := pFormat is VarRef ? "uint*" : IntPtr
 
         result := ComCall(20, this, pFormatMarshal, pFormat, "HRESULT")
         return result
@@ -899,7 +899,7 @@ export default struct IShellImageData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedata-getdelay
      */
     GetDelay(pdwDelay) {
-        pdwDelayMarshal := pdwDelay is VarRef ? "uint*" : "ptr"
+        pdwDelayMarshal := pdwDelay is VarRef ? "uint*" : IntPtr
 
         result := ComCall(21, this, pdwDelayMarshal, pdwDelay, "HRESULT")
         return result
@@ -1181,8 +1181,8 @@ export default struct IShellImageData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedata-getresolution
      */
     GetResolution(puResolutionX, puResolutionY) {
-        puResolutionXMarshal := puResolutionX is VarRef ? "uint*" : "ptr"
-        puResolutionYMarshal := puResolutionY is VarRef ? "uint*" : "ptr"
+        puResolutionXMarshal := puResolutionX is VarRef ? "uint*" : IntPtr
+        puResolutionYMarshal := puResolutionY is VarRef ? "uint*" : IntPtr
 
         result := ComCall(28, this, puResolutionXMarshal, puResolutionX, puResolutionYMarshal, puResolutionY, "HRESULT")
         return result
@@ -1226,7 +1226,7 @@ export default struct IShellImageData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedata-getencoderparams
      */
     GetEncoderParams(pguidFmt, ppEncParams) {
-        ppEncParamsMarshal := ppEncParams is VarRef ? "ptr*" : "ptr"
+        ppEncParamsMarshal := ppEncParams is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(29, this, Guid.Ptr, pguidFmt, ppEncParamsMarshal, ppEncParams, "HRESULT")
         return result
@@ -1279,7 +1279,7 @@ export default struct IShellImageData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedata-cloneframe
      */
     CloneFrame(ppImg) {
-        ppImgMarshal := ppImg is VarRef ? "ptr*" : "ptr"
+        ppImgMarshal := ppImg is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(31, this, ppImgMarshal, ppImg, "HRESULT")
         return result
@@ -1304,7 +1304,7 @@ export default struct IShellImageData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedata-replaceframe
      */
     ReplaceFrame(pImg) {
-        pImgMarshal := pImg is VarRef ? "char*" : "ptr"
+        pImgMarshal := pImg is VarRef ? "char*" : IntPtr
 
         result := ComCall(32, this, pImgMarshal, pImg, "HRESULT")
         return result
@@ -1319,36 +1319,36 @@ export default struct IShellImageData extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Decode := CallbackCreate(GetMethod(implObj, "Decode"), flags, 4)
-        this.vtbl.Draw := CallbackCreate(GetMethod(implObj, "Draw"), flags, 4)
-        this.vtbl.NextFrame := CallbackCreate(GetMethod(implObj, "NextFrame"), flags, 1)
-        this.vtbl.NextPage := CallbackCreate(GetMethod(implObj, "NextPage"), flags, 1)
-        this.vtbl.PrevPage := CallbackCreate(GetMethod(implObj, "PrevPage"), flags, 1)
-        this.vtbl.IsTransparent := CallbackCreate(GetMethod(implObj, "IsTransparent"), flags, 1)
-        this.vtbl.IsAnimated := CallbackCreate(GetMethod(implObj, "IsAnimated"), flags, 1)
-        this.vtbl.IsVector := CallbackCreate(GetMethod(implObj, "IsVector"), flags, 1)
-        this.vtbl.IsMultipage := CallbackCreate(GetMethod(implObj, "IsMultipage"), flags, 1)
-        this.vtbl.IsEditable := CallbackCreate(GetMethod(implObj, "IsEditable"), flags, 1)
-        this.vtbl.IsPrintable := CallbackCreate(GetMethod(implObj, "IsPrintable"), flags, 1)
-        this.vtbl.IsDecoded := CallbackCreate(GetMethod(implObj, "IsDecoded"), flags, 1)
-        this.vtbl.GetCurrentPage := CallbackCreate(GetMethod(implObj, "GetCurrentPage"), flags, 2)
-        this.vtbl.GetPageCount := CallbackCreate(GetMethod(implObj, "GetPageCount"), flags, 2)
-        this.vtbl.SelectPage := CallbackCreate(GetMethod(implObj, "SelectPage"), flags, 2)
-        this.vtbl.GetSize := CallbackCreate(GetMethod(implObj, "GetSize"), flags, 2)
-        this.vtbl.GetRawDataFormat := CallbackCreate(GetMethod(implObj, "GetRawDataFormat"), flags, 2)
-        this.vtbl.GetPixelFormat := CallbackCreate(GetMethod(implObj, "GetPixelFormat"), flags, 2)
-        this.vtbl.GetDelay := CallbackCreate(GetMethod(implObj, "GetDelay"), flags, 2)
-        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 3)
-        this.vtbl.Rotate := CallbackCreate(GetMethod(implObj, "Rotate"), flags, 2)
-        this.vtbl.Scale := CallbackCreate(GetMethod(implObj, "Scale"), flags, 4)
-        this.vtbl.DiscardEdit := CallbackCreate(GetMethod(implObj, "DiscardEdit"), flags, 1)
-        this.vtbl.SetEncoderParams := CallbackCreate(GetMethod(implObj, "SetEncoderParams"), flags, 2)
-        this.vtbl.DisplayName := CallbackCreate(GetMethod(implObj, "DisplayName"), flags, 3)
-        this.vtbl.GetResolution := CallbackCreate(GetMethod(implObj, "GetResolution"), flags, 3)
-        this.vtbl.GetEncoderParams := CallbackCreate(GetMethod(implObj, "GetEncoderParams"), flags, 3)
-        this.vtbl.RegisterAbort := CallbackCreate(GetMethod(implObj, "RegisterAbort"), flags, 3)
-        this.vtbl.CloneFrame := CallbackCreate(GetMethod(implObj, "CloneFrame"), flags, 2)
-        this.vtbl.ReplaceFrame := CallbackCreate(GetMethod(implObj, "ReplaceFrame"), flags, 2)
+        this.vtbl.Decode := CallbackCreate(ObjBindMethod(implObj, "Decode"), flags, 4)
+        this.vtbl.Draw := CallbackCreate(ObjBindMethod(implObj, "Draw"), flags, 4)
+        this.vtbl.NextFrame := CallbackCreate(ObjBindMethod(implObj, "NextFrame"), flags, 1)
+        this.vtbl.NextPage := CallbackCreate(ObjBindMethod(implObj, "NextPage"), flags, 1)
+        this.vtbl.PrevPage := CallbackCreate(ObjBindMethod(implObj, "PrevPage"), flags, 1)
+        this.vtbl.IsTransparent := CallbackCreate(ObjBindMethod(implObj, "IsTransparent"), flags, 1)
+        this.vtbl.IsAnimated := CallbackCreate(ObjBindMethod(implObj, "IsAnimated"), flags, 1)
+        this.vtbl.IsVector := CallbackCreate(ObjBindMethod(implObj, "IsVector"), flags, 1)
+        this.vtbl.IsMultipage := CallbackCreate(ObjBindMethod(implObj, "IsMultipage"), flags, 1)
+        this.vtbl.IsEditable := CallbackCreate(ObjBindMethod(implObj, "IsEditable"), flags, 1)
+        this.vtbl.IsPrintable := CallbackCreate(ObjBindMethod(implObj, "IsPrintable"), flags, 1)
+        this.vtbl.IsDecoded := CallbackCreate(ObjBindMethod(implObj, "IsDecoded"), flags, 1)
+        this.vtbl.GetCurrentPage := CallbackCreate(ObjBindMethod(implObj, "GetCurrentPage"), flags, 2)
+        this.vtbl.GetPageCount := CallbackCreate(ObjBindMethod(implObj, "GetPageCount"), flags, 2)
+        this.vtbl.SelectPage := CallbackCreate(ObjBindMethod(implObj, "SelectPage"), flags, 2)
+        this.vtbl.GetSize := CallbackCreate(ObjBindMethod(implObj, "GetSize"), flags, 2)
+        this.vtbl.GetRawDataFormat := CallbackCreate(ObjBindMethod(implObj, "GetRawDataFormat"), flags, 2)
+        this.vtbl.GetPixelFormat := CallbackCreate(ObjBindMethod(implObj, "GetPixelFormat"), flags, 2)
+        this.vtbl.GetDelay := CallbackCreate(ObjBindMethod(implObj, "GetDelay"), flags, 2)
+        this.vtbl.GetProperties := CallbackCreate(ObjBindMethod(implObj, "GetProperties"), flags, 3)
+        this.vtbl.Rotate := CallbackCreate(ObjBindMethod(implObj, "Rotate"), flags, 2)
+        this.vtbl.Scale := CallbackCreate(ObjBindMethod(implObj, "Scale"), flags, 4)
+        this.vtbl.DiscardEdit := CallbackCreate(ObjBindMethod(implObj, "DiscardEdit"), flags, 1)
+        this.vtbl.SetEncoderParams := CallbackCreate(ObjBindMethod(implObj, "SetEncoderParams"), flags, 2)
+        this.vtbl.DisplayName := CallbackCreate(ObjBindMethod(implObj, "DisplayName"), flags, 3)
+        this.vtbl.GetResolution := CallbackCreate(ObjBindMethod(implObj, "GetResolution"), flags, 3)
+        this.vtbl.GetEncoderParams := CallbackCreate(ObjBindMethod(implObj, "GetEncoderParams"), flags, 3)
+        this.vtbl.RegisterAbort := CallbackCreate(ObjBindMethod(implObj, "RegisterAbort"), flags, 3)
+        this.vtbl.CloneFrame := CallbackCreate(ObjBindMethod(implObj, "CloneFrame"), flags, 2)
+        this.vtbl.ReplaceFrame := CallbackCreate(ObjBindMethod(implObj, "ReplaceFrame"), flags, 2)
     }
 
     Dispose() {

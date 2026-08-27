@@ -86,8 +86,8 @@ export default struct IRowsetPrioritization extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-irowsetprioritization-getscopepriority
      */
     GetScopePriority(_priority, scopeStatisticsEventFrequency) {
-        _priorityMarshal := _priority is VarRef ? "int*" : "ptr"
-        scopeStatisticsEventFrequencyMarshal := scopeStatisticsEventFrequency is VarRef ? "uint*" : "ptr"
+        _priorityMarshal := _priority is VarRef ? "int*" : IntPtr
+        scopeStatisticsEventFrequencyMarshal := scopeStatisticsEventFrequency is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, _priorityMarshal, _priority, scopeStatisticsEventFrequencyMarshal, scopeStatisticsEventFrequency, "HRESULT")
         return result
@@ -116,9 +116,9 @@ export default struct IRowsetPrioritization extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-irowsetprioritization-getscopestatistics
      */
     GetScopeStatistics(indexedDocumentCount, oustandingAddCount, oustandingModifyCount) {
-        indexedDocumentCountMarshal := indexedDocumentCount is VarRef ? "uint*" : "ptr"
-        oustandingAddCountMarshal := oustandingAddCount is VarRef ? "uint*" : "ptr"
-        oustandingModifyCountMarshal := oustandingModifyCount is VarRef ? "uint*" : "ptr"
+        indexedDocumentCountMarshal := indexedDocumentCount is VarRef ? "uint*" : IntPtr
+        oustandingAddCountMarshal := oustandingAddCount is VarRef ? "uint*" : IntPtr
+        oustandingModifyCountMarshal := oustandingModifyCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, indexedDocumentCountMarshal, indexedDocumentCount, oustandingAddCountMarshal, oustandingAddCount, oustandingModifyCountMarshal, oustandingModifyCount, "HRESULT")
         return result
@@ -133,9 +133,9 @@ export default struct IRowsetPrioritization extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetScopePriority := CallbackCreate(GetMethod(implObj, "SetScopePriority"), flags, 3)
-        this.vtbl.GetScopePriority := CallbackCreate(GetMethod(implObj, "GetScopePriority"), flags, 3)
-        this.vtbl.GetScopeStatistics := CallbackCreate(GetMethod(implObj, "GetScopeStatistics"), flags, 4)
+        this.vtbl.SetScopePriority := CallbackCreate(ObjBindMethod(implObj, "SetScopePriority"), flags, 3)
+        this.vtbl.GetScopePriority := CallbackCreate(ObjBindMethod(implObj, "GetScopePriority"), flags, 3)
+        this.vtbl.GetScopeStatistics := CallbackCreate(ObjBindMethod(implObj, "GetScopeStatistics"), flags, 4)
     }
 
     Dispose() {

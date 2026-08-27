@@ -103,7 +103,6 @@ export default struct IDialEngine extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzProperty 
      * @param {PWSTR} pwzValue 
      * @returns {HRESULT} 
@@ -117,7 +116,6 @@ export default struct IDialEngine extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Dial() {
@@ -126,7 +124,6 @@ export default struct IDialEngine extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     HangUp() {
@@ -135,7 +132,6 @@ export default struct IDialEngine extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetConnectedState() {
@@ -144,7 +140,6 @@ export default struct IDialEngine extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     GetConnectHandle() {
@@ -161,13 +156,13 @@ export default struct IDialEngine extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 4)
-        this.vtbl.SetProperty := CallbackCreate(GetMethod(implObj, "SetProperty"), flags, 3)
-        this.vtbl.Dial := CallbackCreate(GetMethod(implObj, "Dial"), flags, 1)
-        this.vtbl.HangUp := CallbackCreate(GetMethod(implObj, "HangUp"), flags, 1)
-        this.vtbl.GetConnectedState := CallbackCreate(GetMethod(implObj, "GetConnectedState"), flags, 2)
-        this.vtbl.GetConnectHandle := CallbackCreate(GetMethod(implObj, "GetConnectHandle"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 4)
+        this.vtbl.SetProperty := CallbackCreate(ObjBindMethod(implObj, "SetProperty"), flags, 3)
+        this.vtbl.Dial := CallbackCreate(ObjBindMethod(implObj, "Dial"), flags, 1)
+        this.vtbl.HangUp := CallbackCreate(ObjBindMethod(implObj, "HangUp"), flags, 1)
+        this.vtbl.GetConnectedState := CallbackCreate(ObjBindMethod(implObj, "GetConnectedState"), flags, 2)
+        this.vtbl.GetConnectHandle := CallbackCreate(ObjBindMethod(implObj, "GetConnectHandle"), flags, 2)
     }
 
     Dispose() {

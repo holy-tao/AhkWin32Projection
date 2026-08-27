@@ -38,7 +38,6 @@ export default struct ITravelLogEntry extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetTitle() {
@@ -47,7 +46,6 @@ export default struct ITravelLogEntry extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetURL() {
@@ -64,8 +62,8 @@ export default struct ITravelLogEntry extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTitle := CallbackCreate(GetMethod(implObj, "GetTitle"), flags, 2)
-        this.vtbl.GetURL := CallbackCreate(GetMethod(implObj, "GetURL"), flags, 2)
+        this.vtbl.GetTitle := CallbackCreate(ObjBindMethod(implObj, "GetTitle"), flags, 2)
+        this.vtbl.GetURL := CallbackCreate(ObjBindMethod(implObj, "GetURL"), flags, 2)
     }
 
     Dispose() {

@@ -449,13 +449,13 @@ export default struct IUpdateServiceManager extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Services := CallbackCreate(GetMethod(implObj, "get_Services"), flags, 2)
-        this.vtbl.AddService := CallbackCreate(GetMethod(implObj, "AddService"), flags, 4)
-        this.vtbl.RegisterServiceWithAU := CallbackCreate(GetMethod(implObj, "RegisterServiceWithAU"), flags, 2)
-        this.vtbl.RemoveService := CallbackCreate(GetMethod(implObj, "RemoveService"), flags, 2)
-        this.vtbl.UnregisterServiceWithAU := CallbackCreate(GetMethod(implObj, "UnregisterServiceWithAU"), flags, 2)
-        this.vtbl.AddScanPackageService := CallbackCreate(GetMethod(implObj, "AddScanPackageService"), flags, 5)
-        this.vtbl.SetOption := CallbackCreate(GetMethod(implObj, "SetOption"), flags, 3)
+        this.vtbl.get_Services := CallbackCreate(ObjBindMethod(implObj, "get_Services"), flags, 2)
+        this.vtbl.AddService := CallbackCreate(ObjBindMethod(implObj, "AddService"), flags, 4)
+        this.vtbl.RegisterServiceWithAU := CallbackCreate(ObjBindMethod(implObj, "RegisterServiceWithAU"), flags, 2)
+        this.vtbl.RemoveService := CallbackCreate(ObjBindMethod(implObj, "RemoveService"), flags, 2)
+        this.vtbl.UnregisterServiceWithAU := CallbackCreate(ObjBindMethod(implObj, "UnregisterServiceWithAU"), flags, 2)
+        this.vtbl.AddScanPackageService := CallbackCreate(ObjBindMethod(implObj, "AddScanPackageService"), flags, 5)
+        this.vtbl.SetOption := CallbackCreate(ObjBindMethod(implObj, "SetOption"), flags, 3)
     }
 
     Dispose() {

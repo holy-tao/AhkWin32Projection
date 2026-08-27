@@ -59,7 +59,7 @@ export default struct IDiskQuotaEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnUserNameChanged := CallbackCreate(GetMethod(implObj, "OnUserNameChanged"), flags, 2)
+        this.vtbl.OnUserNameChanged := CallbackCreate(ObjBindMethod(implObj, "OnUserNameChanged"), flags, 2)
     }
 
     Dispose() {

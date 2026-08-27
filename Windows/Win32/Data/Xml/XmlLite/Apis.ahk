@@ -13,18 +13,18 @@
 
 ;@region Functions
 /**
- * 
  * @param {Pointer<Guid>} riid 
  * @param {IMalloc} pMalloc 
  * @returns {Pointer<Void>} 
  */
 export CreateXmlReader(riid, pMalloc) {
-    result := DllCall("XmlLite.dll\CreateXmlReader", Guid.Ptr, riid, "ptr*", &ppvObject := 0, "ptr", pMalloc, "HRESULT")
+    pMallocMarshal := pMalloc == 0 ? IntPtr : "ptr"
+
+    result := DllCall("XmlLite.dll\CreateXmlReader", Guid.Ptr, riid, "ptr*", &ppvObject := 0, pMallocMarshal, pMalloc, "HRESULT")
     return ppvObject
 }
 
 /**
- * 
  * @param {IUnknown} pInputStream 
  * @param {IMalloc} pMalloc 
  * @param {Integer} nEncodingCodePage 
@@ -35,12 +35,14 @@ export CreateXmlReader(riid, pMalloc) {
 export CreateXmlReaderInputWithEncodingCodePage(pInputStream, pMalloc, nEncodingCodePage, fEncodingHint, pwszBaseUri) {
     pwszBaseUri := pwszBaseUri is String ? StrPtr(pwszBaseUri) : pwszBaseUri
 
-    result := DllCall("XmlLite.dll\CreateXmlReaderInputWithEncodingCodePage", "ptr", pInputStream, "ptr", pMalloc, UInt32, nEncodingCodePage, BOOL, fEncodingHint, "ptr", pwszBaseUri, "ptr*", &ppInput := 0, "HRESULT")
+    pMallocMarshal := pMalloc == 0 ? IntPtr : "ptr"
+    pwszBaseUriMarshal := pwszBaseUri == 0 ? IntPtr : PWSTR
+
+    result := DllCall("XmlLite.dll\CreateXmlReaderInputWithEncodingCodePage", "ptr", pInputStream, pMallocMarshal, pMalloc, UInt32, nEncodingCodePage, BOOL, fEncodingHint, pwszBaseUriMarshal, pwszBaseUri, "ptr*", &ppInput := 0, "HRESULT")
     return IUnknown(ppInput)
 }
 
 /**
- * 
  * @param {IUnknown} pInputStream 
  * @param {IMalloc} pMalloc 
  * @param {PWSTR} pwszEncodingName 
@@ -52,35 +54,39 @@ export CreateXmlReaderInputWithEncodingName(pInputStream, pMalloc, pwszEncodingN
     pwszEncodingName := pwszEncodingName is String ? StrPtr(pwszEncodingName) : pwszEncodingName
     pwszBaseUri := pwszBaseUri is String ? StrPtr(pwszBaseUri) : pwszBaseUri
 
-    result := DllCall("XmlLite.dll\CreateXmlReaderInputWithEncodingName", "ptr", pInputStream, "ptr", pMalloc, "ptr", pwszEncodingName, BOOL, fEncodingHint, "ptr", pwszBaseUri, "ptr*", &ppInput := 0, "HRESULT")
+    pMallocMarshal := pMalloc == 0 ? IntPtr : "ptr"
+    pwszBaseUriMarshal := pwszBaseUri == 0 ? IntPtr : PWSTR
+
+    result := DllCall("XmlLite.dll\CreateXmlReaderInputWithEncodingName", "ptr", pInputStream, pMallocMarshal, pMalloc, "ptr", pwszEncodingName, BOOL, fEncodingHint, pwszBaseUriMarshal, pwszBaseUri, "ptr*", &ppInput := 0, "HRESULT")
     return IUnknown(ppInput)
 }
 
 /**
- * 
  * @param {Pointer<Guid>} riid 
  * @param {IMalloc} pMalloc 
  * @returns {Pointer<Void>} 
  */
 export CreateXmlWriter(riid, pMalloc) {
-    result := DllCall("XmlLite.dll\CreateXmlWriter", Guid.Ptr, riid, "ptr*", &ppvObject := 0, "ptr", pMalloc, "HRESULT")
+    pMallocMarshal := pMalloc == 0 ? IntPtr : "ptr"
+
+    result := DllCall("XmlLite.dll\CreateXmlWriter", Guid.Ptr, riid, "ptr*", &ppvObject := 0, pMallocMarshal, pMalloc, "HRESULT")
     return ppvObject
 }
 
 /**
- * 
  * @param {IUnknown} pOutputStream 
  * @param {IMalloc} pMalloc 
  * @param {Integer} nEncodingCodePage 
  * @returns {IUnknown} 
  */
 export CreateXmlWriterOutputWithEncodingCodePage(pOutputStream, pMalloc, nEncodingCodePage) {
-    result := DllCall("XmlLite.dll\CreateXmlWriterOutputWithEncodingCodePage", "ptr", pOutputStream, "ptr", pMalloc, UInt32, nEncodingCodePage, "ptr*", &ppOutput := 0, "HRESULT")
+    pMallocMarshal := pMalloc == 0 ? IntPtr : "ptr"
+
+    result := DllCall("XmlLite.dll\CreateXmlWriterOutputWithEncodingCodePage", "ptr", pOutputStream, pMallocMarshal, pMalloc, UInt32, nEncodingCodePage, "ptr*", &ppOutput := 0, "HRESULT")
     return IUnknown(ppOutput)
 }
 
 /**
- * 
  * @param {IUnknown} pOutputStream 
  * @param {IMalloc} pMalloc 
  * @param {PWSTR} pwszEncodingName 
@@ -89,7 +95,9 @@ export CreateXmlWriterOutputWithEncodingCodePage(pOutputStream, pMalloc, nEncodi
 export CreateXmlWriterOutputWithEncodingName(pOutputStream, pMalloc, pwszEncodingName) {
     pwszEncodingName := pwszEncodingName is String ? StrPtr(pwszEncodingName) : pwszEncodingName
 
-    result := DllCall("XmlLite.dll\CreateXmlWriterOutputWithEncodingName", "ptr", pOutputStream, "ptr", pMalloc, "ptr", pwszEncodingName, "ptr*", &ppOutput := 0, "HRESULT")
+    pMallocMarshal := pMalloc == 0 ? IntPtr : "ptr"
+
+    result := DllCall("XmlLite.dll\CreateXmlWriterOutputWithEncodingName", "ptr", pOutputStream, pMallocMarshal, pMalloc, "ptr", pwszEncodingName, "ptr*", &ppOutput := 0, "HRESULT")
     return IUnknown(ppOutput)
 }
 

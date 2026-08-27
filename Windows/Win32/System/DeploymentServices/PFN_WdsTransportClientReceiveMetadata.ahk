@@ -21,7 +21,6 @@ export default struct PFN_WdsTransportClientReceiveMetadata {
     }
 
     /**
-     * 
      * @param {HANDLE} hSessionKey The handle belonging to the session that is being started.
      * @param {Pointer<Void>} pCallerData Pointer to the caller specific data for this session.    This data was specified in the call to <a href="https://docs.microsoft.com/windows/desktop/api/wdstci/nf-wdstci-wdstransportclientstartsession">WdsTransportClientStartSession</a> function.
      * @param {Integer} pMetadata Data provided by the content provider that is associated with this object in some manner.
@@ -29,7 +28,7 @@ export default struct PFN_WdsTransportClientReceiveMetadata {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(hSessionKey, pCallerData, pMetadata, ulSize) {
-        pCallerDataMarshal := pCallerData is VarRef ? "ptr" : "ptr"
+        pCallerDataMarshal := pCallerData is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, HANDLE, hSessionKey, pCallerDataMarshal, pCallerData, IntPtr, pMetadata, UInt32, ulSize)
     }

@@ -71,8 +71,8 @@ export default struct IAMovieSetup extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Register := CallbackCreate(GetMethod(implObj, "Register"), flags, 1)
-        this.vtbl.Unregister := CallbackCreate(GetMethod(implObj, "Unregister"), flags, 1)
+        this.vtbl.Register := CallbackCreate(ObjBindMethod(implObj, "Register"), flags, 1)
+        this.vtbl.Unregister := CallbackCreate(ObjBindMethod(implObj, "Unregister"), flags, 1)
     }
 
     Dispose() {

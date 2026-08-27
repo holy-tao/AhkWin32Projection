@@ -314,7 +314,9 @@ export default struct IX509CertificateRequestPkcs10 extends IX509CertificateRequ
     InitializeFromPrivateKey(_Context, pPrivateKey, strTemplateName) {
         strTemplateName := strTemplateName is String ? BSTR.Alloc(strTemplateName).Value : strTemplateName
 
-        result := ComCall(33, this, X509CertificateEnrollmentContext, _Context, "ptr", pPrivateKey, BSTR, strTemplateName, "HRESULT")
+        pPrivateKeyMarshal := pPrivateKey == 0 ? IntPtr : "ptr"
+
+        result := ComCall(33, this, X509CertificateEnrollmentContext, _Context, pPrivateKeyMarshal, pPrivateKey, BSTR, strTemplateName, "HRESULT")
         return result
     }
 
@@ -365,7 +367,9 @@ export default struct IX509CertificateRequestPkcs10 extends IX509CertificateRequ
     InitializeFromPublicKey(_Context, pPublicKey, strTemplateName) {
         strTemplateName := strTemplateName is String ? BSTR.Alloc(strTemplateName).Value : strTemplateName
 
-        result := ComCall(34, this, X509CertificateEnrollmentContext, _Context, "ptr", pPublicKey, BSTR, strTemplateName, "HRESULT")
+        pPublicKeyMarshal := pPublicKey == 0 ? IntPtr : "ptr"
+
+        result := ComCall(34, this, X509CertificateEnrollmentContext, _Context, pPublicKeyMarshal, pPublicKey, BSTR, strTemplateName, "HRESULT")
         return result
     }
 
@@ -797,7 +801,9 @@ export default struct IX509CertificateRequestPkcs10 extends IX509CertificateRequ
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-put_subject
      */
     put_Subject(pValue) {
-        result := ComCall(46, this, "ptr", pValue, "HRESULT")
+        pValueMarshal := pValue == 0 ? IntPtr : "ptr"
+
+        result := ComCall(46, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -1261,34 +1267,34 @@ export default struct IX509CertificateRequestPkcs10 extends IX509CertificateRequ
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeFromTemplateName := CallbackCreate(GetMethod(implObj, "InitializeFromTemplateName"), flags, 3)
-        this.vtbl.InitializeFromPrivateKey := CallbackCreate(GetMethod(implObj, "InitializeFromPrivateKey"), flags, 4)
-        this.vtbl.InitializeFromPublicKey := CallbackCreate(GetMethod(implObj, "InitializeFromPublicKey"), flags, 4)
-        this.vtbl.InitializeFromCertificate := CallbackCreate(GetMethod(implObj, "InitializeFromCertificate"), flags, 5)
-        this.vtbl.InitializeDecode := CallbackCreate(GetMethod(implObj, "InitializeDecode"), flags, 3)
-        this.vtbl.CheckSignature := CallbackCreate(GetMethod(implObj, "CheckSignature"), flags, 2)
-        this.vtbl.IsSmartCard := CallbackCreate(GetMethod(implObj, "IsSmartCard"), flags, 2)
-        this.vtbl.get_TemplateObjectId := CallbackCreate(GetMethod(implObj, "get_TemplateObjectId"), flags, 2)
-        this.vtbl.get_PublicKey := CallbackCreate(GetMethod(implObj, "get_PublicKey"), flags, 2)
-        this.vtbl.get_PrivateKey := CallbackCreate(GetMethod(implObj, "get_PrivateKey"), flags, 2)
-        this.vtbl.get_NullSigned := CallbackCreate(GetMethod(implObj, "get_NullSigned"), flags, 2)
-        this.vtbl.get_ReuseKey := CallbackCreate(GetMethod(implObj, "get_ReuseKey"), flags, 2)
-        this.vtbl.get_OldCertificate := CallbackCreate(GetMethod(implObj, "get_OldCertificate"), flags, 3)
-        this.vtbl.get_Subject := CallbackCreate(GetMethod(implObj, "get_Subject"), flags, 2)
-        this.vtbl.put_Subject := CallbackCreate(GetMethod(implObj, "put_Subject"), flags, 2)
-        this.vtbl.get_CspStatuses := CallbackCreate(GetMethod(implObj, "get_CspStatuses"), flags, 2)
-        this.vtbl.get_SmimeCapabilities := CallbackCreate(GetMethod(implObj, "get_SmimeCapabilities"), flags, 2)
-        this.vtbl.put_SmimeCapabilities := CallbackCreate(GetMethod(implObj, "put_SmimeCapabilities"), flags, 2)
-        this.vtbl.get_SignatureInformation := CallbackCreate(GetMethod(implObj, "get_SignatureInformation"), flags, 2)
-        this.vtbl.get_KeyContainerNamePrefix := CallbackCreate(GetMethod(implObj, "get_KeyContainerNamePrefix"), flags, 2)
-        this.vtbl.put_KeyContainerNamePrefix := CallbackCreate(GetMethod(implObj, "put_KeyContainerNamePrefix"), flags, 2)
-        this.vtbl.get_CryptAttributes := CallbackCreate(GetMethod(implObj, "get_CryptAttributes"), flags, 2)
-        this.vtbl.get_X509Extensions := CallbackCreate(GetMethod(implObj, "get_X509Extensions"), flags, 2)
-        this.vtbl.get_CriticalExtensions := CallbackCreate(GetMethod(implObj, "get_CriticalExtensions"), flags, 2)
-        this.vtbl.get_SuppressOids := CallbackCreate(GetMethod(implObj, "get_SuppressOids"), flags, 2)
-        this.vtbl.get_RawDataToBeSigned := CallbackCreate(GetMethod(implObj, "get_RawDataToBeSigned"), flags, 3)
-        this.vtbl.get_Signature := CallbackCreate(GetMethod(implObj, "get_Signature"), flags, 3)
-        this.vtbl.GetCspStatuses := CallbackCreate(GetMethod(implObj, "GetCspStatuses"), flags, 3)
+        this.vtbl.InitializeFromTemplateName := CallbackCreate(ObjBindMethod(implObj, "InitializeFromTemplateName"), flags, 3)
+        this.vtbl.InitializeFromPrivateKey := CallbackCreate(ObjBindMethod(implObj, "InitializeFromPrivateKey"), flags, 4)
+        this.vtbl.InitializeFromPublicKey := CallbackCreate(ObjBindMethod(implObj, "InitializeFromPublicKey"), flags, 4)
+        this.vtbl.InitializeFromCertificate := CallbackCreate(ObjBindMethod(implObj, "InitializeFromCertificate"), flags, 5)
+        this.vtbl.InitializeDecode := CallbackCreate(ObjBindMethod(implObj, "InitializeDecode"), flags, 3)
+        this.vtbl.CheckSignature := CallbackCreate(ObjBindMethod(implObj, "CheckSignature"), flags, 2)
+        this.vtbl.IsSmartCard := CallbackCreate(ObjBindMethod(implObj, "IsSmartCard"), flags, 2)
+        this.vtbl.get_TemplateObjectId := CallbackCreate(ObjBindMethod(implObj, "get_TemplateObjectId"), flags, 2)
+        this.vtbl.get_PublicKey := CallbackCreate(ObjBindMethod(implObj, "get_PublicKey"), flags, 2)
+        this.vtbl.get_PrivateKey := CallbackCreate(ObjBindMethod(implObj, "get_PrivateKey"), flags, 2)
+        this.vtbl.get_NullSigned := CallbackCreate(ObjBindMethod(implObj, "get_NullSigned"), flags, 2)
+        this.vtbl.get_ReuseKey := CallbackCreate(ObjBindMethod(implObj, "get_ReuseKey"), flags, 2)
+        this.vtbl.get_OldCertificate := CallbackCreate(ObjBindMethod(implObj, "get_OldCertificate"), flags, 3)
+        this.vtbl.get_Subject := CallbackCreate(ObjBindMethod(implObj, "get_Subject"), flags, 2)
+        this.vtbl.put_Subject := CallbackCreate(ObjBindMethod(implObj, "put_Subject"), flags, 2)
+        this.vtbl.get_CspStatuses := CallbackCreate(ObjBindMethod(implObj, "get_CspStatuses"), flags, 2)
+        this.vtbl.get_SmimeCapabilities := CallbackCreate(ObjBindMethod(implObj, "get_SmimeCapabilities"), flags, 2)
+        this.vtbl.put_SmimeCapabilities := CallbackCreate(ObjBindMethod(implObj, "put_SmimeCapabilities"), flags, 2)
+        this.vtbl.get_SignatureInformation := CallbackCreate(ObjBindMethod(implObj, "get_SignatureInformation"), flags, 2)
+        this.vtbl.get_KeyContainerNamePrefix := CallbackCreate(ObjBindMethod(implObj, "get_KeyContainerNamePrefix"), flags, 2)
+        this.vtbl.put_KeyContainerNamePrefix := CallbackCreate(ObjBindMethod(implObj, "put_KeyContainerNamePrefix"), flags, 2)
+        this.vtbl.get_CryptAttributes := CallbackCreate(ObjBindMethod(implObj, "get_CryptAttributes"), flags, 2)
+        this.vtbl.get_X509Extensions := CallbackCreate(ObjBindMethod(implObj, "get_X509Extensions"), flags, 2)
+        this.vtbl.get_CriticalExtensions := CallbackCreate(ObjBindMethod(implObj, "get_CriticalExtensions"), flags, 2)
+        this.vtbl.get_SuppressOids := CallbackCreate(ObjBindMethod(implObj, "get_SuppressOids"), flags, 2)
+        this.vtbl.get_RawDataToBeSigned := CallbackCreate(ObjBindMethod(implObj, "get_RawDataToBeSigned"), flags, 3)
+        this.vtbl.get_Signature := CallbackCreate(ObjBindMethod(implObj, "get_Signature"), flags, 3)
+        this.vtbl.GetCspStatuses := CallbackCreate(ObjBindMethod(implObj, "GetCspStatuses"), flags, 3)
     }
 
     Dispose() {

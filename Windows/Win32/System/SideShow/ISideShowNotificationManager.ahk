@@ -39,17 +39,17 @@ export default struct ISideShowNotificationManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {ISideShowNotification} in_pINotification 
      * @returns {HRESULT} 
      */
     Show(in_pINotification) {
-        result := ComCall(3, this, "ptr", in_pINotification, "HRESULT")
+        in_pINotificationMarshal := in_pINotification == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, in_pINotificationMarshal, in_pINotification, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} in_notificationId 
      * @returns {HRESULT} 
      */
@@ -59,7 +59,6 @@ export default struct ISideShowNotificationManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RevokeAll() {
@@ -76,9 +75,9 @@ export default struct ISideShowNotificationManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Show := CallbackCreate(GetMethod(implObj, "Show"), flags, 2)
-        this.vtbl.Revoke := CallbackCreate(GetMethod(implObj, "Revoke"), flags, 2)
-        this.vtbl.RevokeAll := CallbackCreate(GetMethod(implObj, "RevokeAll"), flags, 1)
+        this.vtbl.Show := CallbackCreate(ObjBindMethod(implObj, "Show"), flags, 2)
+        this.vtbl.Revoke := CallbackCreate(ObjBindMethod(implObj, "Revoke"), flags, 2)
+        this.vtbl.RevokeAll := CallbackCreate(ObjBindMethod(implObj, "RevokeAll"), flags, 1)
     }
 
     Dispose() {

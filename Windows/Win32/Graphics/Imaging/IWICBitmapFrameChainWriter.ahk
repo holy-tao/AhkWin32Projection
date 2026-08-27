@@ -41,7 +41,6 @@ export default struct IWICBitmapFrameChainWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {WICBitmapChainType} chainType 
      * @param {Pointer<IPropertyBag2>} ppIEncoderOptions 
      * @returns {IWICBitmapFrameEncode} 
@@ -52,7 +51,6 @@ export default struct IWICBitmapFrameChainWriter extends IUnknown {
     }
 
     /**
-     * 
      * @param {WICBitmapChainType} chainType 
      * @returns {BOOL} 
      */
@@ -70,8 +68,8 @@ export default struct IWICBitmapFrameChainWriter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AppendFrameToChain := CallbackCreate(GetMethod(implObj, "AppendFrameToChain"), flags, 4)
-        this.vtbl.DoesSupportChainType := CallbackCreate(GetMethod(implObj, "DoesSupportChainType"), flags, 3)
+        this.vtbl.AppendFrameToChain := CallbackCreate(ObjBindMethod(implObj, "AppendFrameToChain"), flags, 4)
+        this.vtbl.DoesSupportChainType := CallbackCreate(ObjBindMethod(implObj, "DoesSupportChainType"), flags, 3)
     }
 
     Dispose() {

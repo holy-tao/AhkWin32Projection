@@ -20,7 +20,6 @@ export default struct PFN_PRINTING_READPORT {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @param {Pointer<Integer>} param1 
      * @param {Integer} param2 
@@ -28,8 +27,9 @@ export default struct PFN_PRINTING_READPORT {
      * @returns {BOOL} 
      */
     Call(param0, param1, param2, param3) {
-        param1Marshal := param1 is VarRef ? "char*" : "ptr"
-        param3Marshal := param3 is VarRef ? "uint*" : "ptr"
+        param1Marshal := param1 is VarRef ? "char*" : IntPtr
+        param1Marshal := param1 == 0 ? IntPtr : "char*"
+        param3Marshal := param3 is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HANDLE, param0, param1Marshal, param1, UInt32, param2, param3Marshal, param3, BOOL)
         return result

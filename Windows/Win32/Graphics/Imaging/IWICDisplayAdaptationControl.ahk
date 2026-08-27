@@ -39,7 +39,6 @@ export default struct IWICDisplayAdaptationControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} pguidDstFormat 
      * @returns {BOOL} 
      */
@@ -49,7 +48,6 @@ export default struct IWICDisplayAdaptationControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Float} fLuminanceInNits 
      * @returns {HRESULT} 
      */
@@ -59,7 +57,6 @@ export default struct IWICDisplayAdaptationControl extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     GetDisplayMaxLuminance() {
@@ -76,9 +73,9 @@ export default struct IWICDisplayAdaptationControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DoesSupportChangingMaxLuminance := CallbackCreate(GetMethod(implObj, "DoesSupportChangingMaxLuminance"), flags, 3)
-        this.vtbl.SetDisplayMaxLuminance := CallbackCreate(GetMethod(implObj, "SetDisplayMaxLuminance"), flags, 2)
-        this.vtbl.GetDisplayMaxLuminance := CallbackCreate(GetMethod(implObj, "GetDisplayMaxLuminance"), flags, 2)
+        this.vtbl.DoesSupportChangingMaxLuminance := CallbackCreate(ObjBindMethod(implObj, "DoesSupportChangingMaxLuminance"), flags, 3)
+        this.vtbl.SetDisplayMaxLuminance := CallbackCreate(ObjBindMethod(implObj, "SetDisplayMaxLuminance"), flags, 2)
+        this.vtbl.GetDisplayMaxLuminance := CallbackCreate(ObjBindMethod(implObj, "GetDisplayMaxLuminance"), flags, 2)
     }
 
     Dispose() {

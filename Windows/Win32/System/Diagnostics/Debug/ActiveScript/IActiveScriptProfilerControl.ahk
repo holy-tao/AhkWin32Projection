@@ -38,7 +38,6 @@ export default struct IActiveScriptProfilerControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} clsidProfilerObject 
      * @param {Integer} dwEventMask 
      * @param {Integer} dwContext 
@@ -50,7 +49,6 @@ export default struct IActiveScriptProfilerControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwEventMask 
      * @returns {HRESULT} 
      */
@@ -60,7 +58,6 @@ export default struct IActiveScriptProfilerControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {HRESULT} hrShutdownReason 
      * @returns {HRESULT} 
      */
@@ -78,9 +75,9 @@ export default struct IActiveScriptProfilerControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StartProfiling := CallbackCreate(GetMethod(implObj, "StartProfiling"), flags, 4)
-        this.vtbl.SetProfilerEventMask := CallbackCreate(GetMethod(implObj, "SetProfilerEventMask"), flags, 2)
-        this.vtbl.StopProfiling := CallbackCreate(GetMethod(implObj, "StopProfiling"), flags, 2)
+        this.vtbl.StartProfiling := CallbackCreate(ObjBindMethod(implObj, "StartProfiling"), flags, 4)
+        this.vtbl.SetProfilerEventMask := CallbackCreate(ObjBindMethod(implObj, "SetProfilerEventMask"), flags, 2)
+        this.vtbl.StopProfiling := CallbackCreate(ObjBindMethod(implObj, "StopProfiling"), flags, 2)
     }
 
     Dispose() {

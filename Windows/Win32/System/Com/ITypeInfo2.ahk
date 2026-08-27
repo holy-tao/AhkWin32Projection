@@ -222,9 +222,11 @@ export default struct ITypeInfo2 extends ITypeInfo {
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo2-getdocumentation2
      */
     GetDocumentation2(memid, lcid, pbstrHelpString, pdwHelpStringContext, pbstrHelpStringDll) {
-        pdwHelpStringContextMarshal := pdwHelpStringContext is VarRef ? "uint*" : "ptr"
+        pbstrHelpStringMarshal := pbstrHelpString == 0 ? IntPtr : BSTR.Ptr
+        pdwHelpStringContextMarshal := pdwHelpStringContext is VarRef ? "uint*" : IntPtr
+        pbstrHelpStringDllMarshal := pbstrHelpStringDll == 0 ? IntPtr : BSTR.Ptr
 
-        result := ComCall(31, this, Int32, memid, UInt32, lcid, BSTR.Ptr, pbstrHelpString, pdwHelpStringContextMarshal, pdwHelpStringContext, BSTR.Ptr, pbstrHelpStringDll, "HRESULT")
+        result := ComCall(31, this, Int32, memid, UInt32, lcid, pbstrHelpStringMarshal, pbstrHelpString, pdwHelpStringContextMarshal, pdwHelpStringContext, pbstrHelpStringDllMarshal, pbstrHelpStringDll, "HRESULT")
         return result
     }
 
@@ -301,21 +303,21 @@ export default struct ITypeInfo2 extends ITypeInfo {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTypeKind := CallbackCreate(GetMethod(implObj, "GetTypeKind"), flags, 2)
-        this.vtbl.GetTypeFlags := CallbackCreate(GetMethod(implObj, "GetTypeFlags"), flags, 2)
-        this.vtbl.GetFuncIndexOfMemId := CallbackCreate(GetMethod(implObj, "GetFuncIndexOfMemId"), flags, 4)
-        this.vtbl.GetVarIndexOfMemId := CallbackCreate(GetMethod(implObj, "GetVarIndexOfMemId"), flags, 3)
-        this.vtbl.GetCustData := CallbackCreate(GetMethod(implObj, "GetCustData"), flags, 3)
-        this.vtbl.GetFuncCustData := CallbackCreate(GetMethod(implObj, "GetFuncCustData"), flags, 4)
-        this.vtbl.GetParamCustData := CallbackCreate(GetMethod(implObj, "GetParamCustData"), flags, 5)
-        this.vtbl.GetVarCustData := CallbackCreate(GetMethod(implObj, "GetVarCustData"), flags, 4)
-        this.vtbl.GetImplTypeCustData := CallbackCreate(GetMethod(implObj, "GetImplTypeCustData"), flags, 4)
-        this.vtbl.GetDocumentation2 := CallbackCreate(GetMethod(implObj, "GetDocumentation2"), flags, 6)
-        this.vtbl.GetAllCustData := CallbackCreate(GetMethod(implObj, "GetAllCustData"), flags, 2)
-        this.vtbl.GetAllFuncCustData := CallbackCreate(GetMethod(implObj, "GetAllFuncCustData"), flags, 3)
-        this.vtbl.GetAllParamCustData := CallbackCreate(GetMethod(implObj, "GetAllParamCustData"), flags, 4)
-        this.vtbl.GetAllVarCustData := CallbackCreate(GetMethod(implObj, "GetAllVarCustData"), flags, 3)
-        this.vtbl.GetAllImplTypeCustData := CallbackCreate(GetMethod(implObj, "GetAllImplTypeCustData"), flags, 3)
+        this.vtbl.GetTypeKind := CallbackCreate(ObjBindMethod(implObj, "GetTypeKind"), flags, 2)
+        this.vtbl.GetTypeFlags := CallbackCreate(ObjBindMethod(implObj, "GetTypeFlags"), flags, 2)
+        this.vtbl.GetFuncIndexOfMemId := CallbackCreate(ObjBindMethod(implObj, "GetFuncIndexOfMemId"), flags, 4)
+        this.vtbl.GetVarIndexOfMemId := CallbackCreate(ObjBindMethod(implObj, "GetVarIndexOfMemId"), flags, 3)
+        this.vtbl.GetCustData := CallbackCreate(ObjBindMethod(implObj, "GetCustData"), flags, 3)
+        this.vtbl.GetFuncCustData := CallbackCreate(ObjBindMethod(implObj, "GetFuncCustData"), flags, 4)
+        this.vtbl.GetParamCustData := CallbackCreate(ObjBindMethod(implObj, "GetParamCustData"), flags, 5)
+        this.vtbl.GetVarCustData := CallbackCreate(ObjBindMethod(implObj, "GetVarCustData"), flags, 4)
+        this.vtbl.GetImplTypeCustData := CallbackCreate(ObjBindMethod(implObj, "GetImplTypeCustData"), flags, 4)
+        this.vtbl.GetDocumentation2 := CallbackCreate(ObjBindMethod(implObj, "GetDocumentation2"), flags, 6)
+        this.vtbl.GetAllCustData := CallbackCreate(ObjBindMethod(implObj, "GetAllCustData"), flags, 2)
+        this.vtbl.GetAllFuncCustData := CallbackCreate(ObjBindMethod(implObj, "GetAllFuncCustData"), flags, 3)
+        this.vtbl.GetAllParamCustData := CallbackCreate(ObjBindMethod(implObj, "GetAllParamCustData"), flags, 4)
+        this.vtbl.GetAllVarCustData := CallbackCreate(ObjBindMethod(implObj, "GetAllVarCustData"), flags, 3)
+        this.vtbl.GetAllImplTypeCustData := CallbackCreate(ObjBindMethod(implObj, "GetAllImplTypeCustData"), flags, 3)
     }
 
     Dispose() {

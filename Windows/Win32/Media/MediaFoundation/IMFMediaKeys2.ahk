@@ -41,7 +41,6 @@ export default struct IMFMediaKeys2 extends IMFMediaKeys {
     }
 
     /**
-     * 
      * @param {MF_MEDIAKEYSESSION_TYPE} eSessionType 
      * @param {IMFMediaKeySessionNotify2} pMFMediaKeySessionNotify2 
      * @returns {IMFMediaKeySession2} 
@@ -52,18 +51,18 @@ export default struct IMFMediaKeys2 extends IMFMediaKeys {
     }
 
     /**
-     * 
      * @param {Integer} pbServerCertificate 
      * @param {Integer} cb 
      * @returns {HRESULT} 
      */
     SetServerCertificate(pbServerCertificate, cb) {
-        result := ComCall(8, this, IntPtr, pbServerCertificate, UInt32, cb, "HRESULT")
+        pbServerCertificateMarshal := pbServerCertificate == 0 ? IntPtr : IntPtr
+
+        result := ComCall(8, this, pbServerCertificateMarshal, pbServerCertificate, UInt32, cb, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {HRESULT} systemCode 
      * @returns {HRESULT} 
      */
@@ -81,9 +80,9 @@ export default struct IMFMediaKeys2 extends IMFMediaKeys {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateSession2 := CallbackCreate(GetMethod(implObj, "CreateSession2"), flags, 4)
-        this.vtbl.SetServerCertificate := CallbackCreate(GetMethod(implObj, "SetServerCertificate"), flags, 3)
-        this.vtbl.GetDOMException := CallbackCreate(GetMethod(implObj, "GetDOMException"), flags, 3)
+        this.vtbl.CreateSession2 := CallbackCreate(ObjBindMethod(implObj, "CreateSession2"), flags, 4)
+        this.vtbl.SetServerCertificate := CallbackCreate(ObjBindMethod(implObj, "SetServerCertificate"), flags, 3)
+        this.vtbl.GetDOMException := CallbackCreate(ObjBindMethod(implObj, "GetDOMException"), flags, 3)
     }
 
     Dispose() {

@@ -139,8 +139,8 @@ export default struct IWMColorConvProps extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetMode := CallbackCreate(GetMethod(implObj, "SetMode"), flags, 2)
-        this.vtbl.SetFullCroppingParam := CallbackCreate(GetMethod(implObj, "SetFullCroppingParam"), flags, 7)
+        this.vtbl.SetMode := CallbackCreate(ObjBindMethod(implObj, "SetMode"), flags, 2)
+        this.vtbl.SetFullCroppingParam := CallbackCreate(ObjBindMethod(implObj, "SetFullCroppingParam"), flags, 7)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct KspUnsealMessageFn {
     }
 
     /**
-     * 
      * @param {Pointer} ContextId 
      * @param {Pointer<SecBufferDesc>} Message 
      * @param {Integer} MessageSeqNo 
@@ -28,7 +27,8 @@ export default struct KspUnsealMessageFn {
      * @returns {NTSTATUS} 
      */
     Call(ContextId, Message, MessageSeqNo, pfQOP) {
-        pfQOPMarshal := pfQOP is VarRef ? "uint*" : "ptr"
+        pfQOPMarshal := pfQOP is VarRef ? "uint*" : IntPtr
+        pfQOPMarshal := pfQOP == 0 ? IntPtr : "uint*"
 
         result := DllCall(this.value, IntPtr, ContextId, SecBufferDesc.Ptr, Message, UInt32, MessageSeqNo, pfQOPMarshal, pfQOP, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

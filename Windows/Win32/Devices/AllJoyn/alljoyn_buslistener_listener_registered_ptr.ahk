@@ -19,13 +19,12 @@ export default struct alljoyn_buslistener_listener_registered_ptr {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {alljoyn_busattachment} bus 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_context, bus) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _contextMarshal, _context, alljoyn_busattachment, bus)
     }

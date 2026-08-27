@@ -37,7 +37,6 @@ export default struct IElementNamespace extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrTagName 
      * @param {Integer} lFlags 
      * @returns {HRESULT} 
@@ -58,7 +57,7 @@ export default struct IElementNamespace extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddTag := CallbackCreate(GetMethod(implObj, "AddTag"), flags, 3)
+        this.vtbl.AddTag := CallbackCreate(ObjBindMethod(implObj, "AddTag"), flags, 3)
     }
 
     Dispose() {

@@ -19,12 +19,11 @@ export default struct PFN_HidP_GetVersionInternal {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} _Version 
      * @returns {NTSTATUS} 
      */
     Call(_Version) {
-        _VersionMarshal := _Version is VarRef ? "uint*" : "ptr"
+        _VersionMarshal := _Version is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, _VersionMarshal, _Version, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

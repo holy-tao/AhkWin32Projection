@@ -43,7 +43,6 @@ export default struct IDebugHostFunctionIntrospection extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IDebugHostFunctionLocalDetailsEnumerator} 
      */
     EnumerateLocalsDetails() {
@@ -52,7 +51,6 @@ export default struct IDebugHostFunctionIntrospection extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} rva 
      * @returns {IDebugHostSymbolEnumerator} 
      */
@@ -62,7 +60,6 @@ export default struct IDebugHostFunctionIntrospection extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} rva 
      * @param {Pointer<Location>} rangeStart 
      * @param {Pointer<Location>} rangeEnd 
@@ -74,14 +71,13 @@ export default struct IDebugHostFunctionIntrospection extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} rva 
      * @param {Pointer<BSTR>} _sourceFile 
      * @param {Pointer<Integer>} sourceLine 
      * @returns {HRESULT} 
      */
     FindSourceLocationByRVA(rva, _sourceFile, sourceLine) {
-        sourceLineMarshal := sourceLine is VarRef ? "uint*" : "ptr"
+        sourceLineMarshal := sourceLine is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, Int64, rva, BSTR.Ptr, _sourceFile, sourceLineMarshal, sourceLine, "HRESULT")
         return result
@@ -96,10 +92,10 @@ export default struct IDebugHostFunctionIntrospection extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumerateLocalsDetails := CallbackCreate(GetMethod(implObj, "EnumerateLocalsDetails"), flags, 2)
-        this.vtbl.EnumerateInlineFunctionsByRVA := CallbackCreate(GetMethod(implObj, "EnumerateInlineFunctionsByRVA"), flags, 3)
-        this.vtbl.FindContainingCodeRangeByRVA := CallbackCreate(GetMethod(implObj, "FindContainingCodeRangeByRVA"), flags, 4)
-        this.vtbl.FindSourceLocationByRVA := CallbackCreate(GetMethod(implObj, "FindSourceLocationByRVA"), flags, 4)
+        this.vtbl.EnumerateLocalsDetails := CallbackCreate(ObjBindMethod(implObj, "EnumerateLocalsDetails"), flags, 2)
+        this.vtbl.EnumerateInlineFunctionsByRVA := CallbackCreate(ObjBindMethod(implObj, "EnumerateInlineFunctionsByRVA"), flags, 3)
+        this.vtbl.FindContainingCodeRangeByRVA := CallbackCreate(ObjBindMethod(implObj, "FindContainingCodeRangeByRVA"), flags, 4)
+        this.vtbl.FindSourceLocationByRVA := CallbackCreate(ObjBindMethod(implObj, "FindSourceLocationByRVA"), flags, 4)
     }
 
     Dispose() {

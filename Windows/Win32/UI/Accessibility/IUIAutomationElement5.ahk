@@ -121,10 +121,10 @@ export default struct IUIAutomationElement5 extends IUIAutomationElement4 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_CurrentLandmarkType := CallbackCreate(GetMethod(implObj, "get_CurrentLandmarkType"), flags, 2)
-        this.vtbl.get_CurrentLocalizedLandmarkType := CallbackCreate(GetMethod(implObj, "get_CurrentLocalizedLandmarkType"), flags, 2)
-        this.vtbl.get_CachedLandmarkType := CallbackCreate(GetMethod(implObj, "get_CachedLandmarkType"), flags, 2)
-        this.vtbl.get_CachedLocalizedLandmarkType := CallbackCreate(GetMethod(implObj, "get_CachedLocalizedLandmarkType"), flags, 2)
+        this.vtbl.get_CurrentLandmarkType := CallbackCreate(ObjBindMethod(implObj, "get_CurrentLandmarkType"), flags, 2)
+        this.vtbl.get_CurrentLocalizedLandmarkType := CallbackCreate(ObjBindMethod(implObj, "get_CurrentLocalizedLandmarkType"), flags, 2)
+        this.vtbl.get_CachedLandmarkType := CallbackCreate(ObjBindMethod(implObj, "get_CachedLandmarkType"), flags, 2)
+        this.vtbl.get_CachedLocalizedLandmarkType := CallbackCreate(ObjBindMethod(implObj, "get_CachedLocalizedLandmarkType"), flags, 2)
     }
 
     Dispose() {

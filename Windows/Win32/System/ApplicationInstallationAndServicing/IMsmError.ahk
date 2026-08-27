@@ -288,7 +288,7 @@ export default struct IMsmError extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/mergemod/nf-mergemod-imsmerror-get_type
      */
     get_Type(ErrorType) {
-        ErrorTypeMarshal := ErrorType is VarRef ? "int*" : "ptr"
+        ErrorTypeMarshal := ErrorType is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, ErrorTypeMarshal, ErrorType, "HRESULT")
         return result
@@ -388,7 +388,7 @@ export default struct IMsmError extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/mergemod/nf-mergemod-imsmerror-get_language
      */
     get_Language(ErrorLanguage) {
-        ErrorLanguageMarshal := ErrorLanguage is VarRef ? "short*" : "ptr"
+        ErrorLanguageMarshal := ErrorLanguage is VarRef ? "short*" : IntPtr
 
         result := ComCall(9, this, ErrorLanguageMarshal, ErrorLanguage, "HRESULT")
         return result
@@ -541,13 +541,13 @@ export default struct IMsmError extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
-        this.vtbl.get_Path := CallbackCreate(GetMethod(implObj, "get_Path"), flags, 2)
-        this.vtbl.get_Language := CallbackCreate(GetMethod(implObj, "get_Language"), flags, 2)
-        this.vtbl.get_DatabaseTable := CallbackCreate(GetMethod(implObj, "get_DatabaseTable"), flags, 2)
-        this.vtbl.get_DatabaseKeys := CallbackCreate(GetMethod(implObj, "get_DatabaseKeys"), flags, 2)
-        this.vtbl.get_ModuleTable := CallbackCreate(GetMethod(implObj, "get_ModuleTable"), flags, 2)
-        this.vtbl.get_ModuleKeys := CallbackCreate(GetMethod(implObj, "get_ModuleKeys"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(ObjBindMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.get_Path := CallbackCreate(ObjBindMethod(implObj, "get_Path"), flags, 2)
+        this.vtbl.get_Language := CallbackCreate(ObjBindMethod(implObj, "get_Language"), flags, 2)
+        this.vtbl.get_DatabaseTable := CallbackCreate(ObjBindMethod(implObj, "get_DatabaseTable"), flags, 2)
+        this.vtbl.get_DatabaseKeys := CallbackCreate(ObjBindMethod(implObj, "get_DatabaseKeys"), flags, 2)
+        this.vtbl.get_ModuleTable := CallbackCreate(ObjBindMethod(implObj, "get_ModuleTable"), flags, 2)
+        this.vtbl.get_ModuleKeys := CallbackCreate(ObjBindMethod(implObj, "get_ModuleKeys"), flags, 2)
     }
 
     Dispose() {

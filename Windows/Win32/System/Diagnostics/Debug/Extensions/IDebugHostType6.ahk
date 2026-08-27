@@ -41,21 +41,19 @@ export default struct IDebugHostType6 extends IDebugHostType5 {
     }
 
     /**
-     * 
      * @param {Pointer<IDebugHostType>} pTagType 
      * @param {Pointer<Integer>} pTagOffset 
      * @param {Pointer<VARIANT>} pTagMask 
      * @returns {HRESULT} 
      */
     GetTaggedUnionTag(pTagType, pTagOffset, pTagMask) {
-        pTagOffsetMarshal := pTagOffset is VarRef ? "uint*" : "ptr"
+        pTagOffsetMarshal := pTagOffset is VarRef ? "uint*" : IntPtr
 
         result := ComCall(39, this, IDebugHostType.Ptr, pTagType, pTagOffsetMarshal, pTagOffset, VARIANT.Ptr, pTagMask, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {IDebugHostTaggedUnionRangeEnumerator} 
      */
     GetTaggedUnionTagRanges() {
@@ -64,7 +62,6 @@ export default struct IDebugHostType6 extends IDebugHostType5 {
     }
 
     /**
-     * 
      * @param {IDebugHostType} pTaggedUnionType 
      * @returns {IDebugHostType} 
      */
@@ -82,9 +79,9 @@ export default struct IDebugHostType6 extends IDebugHostType5 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTaggedUnionTag := CallbackCreate(GetMethod(implObj, "GetTaggedUnionTag"), flags, 4)
-        this.vtbl.GetTaggedUnionTagRanges := CallbackCreate(GetMethod(implObj, "GetTaggedUnionTagRanges"), flags, 2)
-        this.vtbl.UpcastToTaggedUnionType := CallbackCreate(GetMethod(implObj, "UpcastToTaggedUnionType"), flags, 3)
+        this.vtbl.GetTaggedUnionTag := CallbackCreate(ObjBindMethod(implObj, "GetTaggedUnionTag"), flags, 4)
+        this.vtbl.GetTaggedUnionTagRanges := CallbackCreate(ObjBindMethod(implObj, "GetTaggedUnionTagRanges"), flags, 2)
+        this.vtbl.UpcastToTaggedUnionType := CallbackCreate(ObjBindMethod(implObj, "UpcastToTaggedUnionType"), flags, 3)
     }
 
     Dispose() {

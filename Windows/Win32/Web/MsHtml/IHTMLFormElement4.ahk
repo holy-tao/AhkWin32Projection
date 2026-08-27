@@ -46,7 +46,6 @@ export default struct IHTMLFormElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -58,7 +57,6 @@ export default struct IHTMLFormElement4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_action() {
@@ -76,8 +74,8 @@ export default struct IHTMLFormElement4 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_action := CallbackCreate(GetMethod(implObj, "put_action"), flags, 2)
-        this.vtbl.get_action := CallbackCreate(GetMethod(implObj, "get_action"), flags, 2)
+        this.vtbl.put_action := CallbackCreate(ObjBindMethod(implObj, "put_action"), flags, 2)
+        this.vtbl.get_action := CallbackCreate(ObjBindMethod(implObj, "get_action"), flags, 2)
     }
 
     Dispose() {

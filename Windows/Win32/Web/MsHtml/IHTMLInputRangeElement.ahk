@@ -127,7 +127,6 @@ export default struct IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -137,7 +136,6 @@ export default struct IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_disabled() {
@@ -146,7 +144,6 @@ export default struct IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -156,7 +153,6 @@ export default struct IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -168,7 +164,6 @@ export default struct IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_alt() {
@@ -178,7 +173,6 @@ export default struct IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -190,7 +184,6 @@ export default struct IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -200,7 +193,6 @@ export default struct IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -212,7 +204,6 @@ export default struct IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_value() {
@@ -222,7 +213,6 @@ export default struct IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -234,7 +224,6 @@ export default struct IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_min() {
@@ -244,7 +233,6 @@ export default struct IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -256,7 +244,6 @@ export default struct IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_max() {
@@ -266,7 +253,6 @@ export default struct IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -278,7 +264,6 @@ export default struct IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_step() {
@@ -288,7 +273,6 @@ export default struct IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} v 
      * @returns {HRESULT} 
      */
@@ -298,7 +282,6 @@ export default struct IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_valueAsNumber() {
@@ -307,7 +290,6 @@ export default struct IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} n 
      * @returns {HRESULT} 
      */
@@ -317,7 +299,6 @@ export default struct IHTMLInputRangeElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} n 
      * @returns {HRESULT} 
      */
@@ -335,25 +316,25 @@ export default struct IHTMLInputRangeElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_disabled := CallbackCreate(GetMethod(implObj, "put_disabled"), flags, 2)
-        this.vtbl.get_disabled := CallbackCreate(GetMethod(implObj, "get_disabled"), flags, 2)
-        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
-        this.vtbl.put_alt := CallbackCreate(GetMethod(implObj, "put_alt"), flags, 2)
-        this.vtbl.get_alt := CallbackCreate(GetMethod(implObj, "get_alt"), flags, 2)
-        this.vtbl.put_name := CallbackCreate(GetMethod(implObj, "put_name"), flags, 2)
-        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
-        this.vtbl.put_value := CallbackCreate(GetMethod(implObj, "put_value"), flags, 2)
-        this.vtbl.get_value := CallbackCreate(GetMethod(implObj, "get_value"), flags, 2)
-        this.vtbl.put_min := CallbackCreate(GetMethod(implObj, "put_min"), flags, 2)
-        this.vtbl.get_min := CallbackCreate(GetMethod(implObj, "get_min"), flags, 2)
-        this.vtbl.put_max := CallbackCreate(GetMethod(implObj, "put_max"), flags, 2)
-        this.vtbl.get_max := CallbackCreate(GetMethod(implObj, "get_max"), flags, 2)
-        this.vtbl.put_step := CallbackCreate(GetMethod(implObj, "put_step"), flags, 2)
-        this.vtbl.get_step := CallbackCreate(GetMethod(implObj, "get_step"), flags, 2)
-        this.vtbl.put_valueAsNumber := CallbackCreate(GetMethod(implObj, "put_valueAsNumber"), flags, 2)
-        this.vtbl.get_valueAsNumber := CallbackCreate(GetMethod(implObj, "get_valueAsNumber"), flags, 2)
-        this.vtbl.stepUp := CallbackCreate(GetMethod(implObj, "stepUp"), flags, 2)
-        this.vtbl.stepDown := CallbackCreate(GetMethod(implObj, "stepDown"), flags, 2)
+        this.vtbl.put_disabled := CallbackCreate(ObjBindMethod(implObj, "put_disabled"), flags, 2)
+        this.vtbl.get_disabled := CallbackCreate(ObjBindMethod(implObj, "get_disabled"), flags, 2)
+        this.vtbl.get_type := CallbackCreate(ObjBindMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.put_alt := CallbackCreate(ObjBindMethod(implObj, "put_alt"), flags, 2)
+        this.vtbl.get_alt := CallbackCreate(ObjBindMethod(implObj, "get_alt"), flags, 2)
+        this.vtbl.put_name := CallbackCreate(ObjBindMethod(implObj, "put_name"), flags, 2)
+        this.vtbl.get_name := CallbackCreate(ObjBindMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.put_value := CallbackCreate(ObjBindMethod(implObj, "put_value"), flags, 2)
+        this.vtbl.get_value := CallbackCreate(ObjBindMethod(implObj, "get_value"), flags, 2)
+        this.vtbl.put_min := CallbackCreate(ObjBindMethod(implObj, "put_min"), flags, 2)
+        this.vtbl.get_min := CallbackCreate(ObjBindMethod(implObj, "get_min"), flags, 2)
+        this.vtbl.put_max := CallbackCreate(ObjBindMethod(implObj, "put_max"), flags, 2)
+        this.vtbl.get_max := CallbackCreate(ObjBindMethod(implObj, "get_max"), flags, 2)
+        this.vtbl.put_step := CallbackCreate(ObjBindMethod(implObj, "put_step"), flags, 2)
+        this.vtbl.get_step := CallbackCreate(ObjBindMethod(implObj, "get_step"), flags, 2)
+        this.vtbl.put_valueAsNumber := CallbackCreate(ObjBindMethod(implObj, "put_valueAsNumber"), flags, 2)
+        this.vtbl.get_valueAsNumber := CallbackCreate(ObjBindMethod(implObj, "get_valueAsNumber"), flags, 2)
+        this.vtbl.stepUp := CallbackCreate(ObjBindMethod(implObj, "stepUp"), flags, 2)
+        this.vtbl.stepDown := CallbackCreate(ObjBindMethod(implObj, "stepDown"), flags, 2)
     }
 
     Dispose() {

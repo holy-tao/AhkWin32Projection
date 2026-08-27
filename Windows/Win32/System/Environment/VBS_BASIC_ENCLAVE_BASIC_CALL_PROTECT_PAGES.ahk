@@ -18,14 +18,13 @@ export default struct VBS_BASIC_ENCLAVE_BASIC_CALL_PROTECT_PAGES {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} EnclaveAddress 
      * @param {Pointer} NumberOfytes 
      * @param {Integer} PageProtection 
      * @returns {Integer} 
      */
     Call(EnclaveAddress, NumberOfytes, PageProtection) {
-        EnclaveAddressMarshal := EnclaveAddress is VarRef ? "ptr" : "ptr"
+        EnclaveAddressMarshal := EnclaveAddress is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, EnclaveAddressMarshal, EnclaveAddress, IntPtr, NumberOfytes, UInt32, PageProtection, Int32)
         return result

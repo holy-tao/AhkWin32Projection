@@ -74,8 +74,8 @@ export default struct IDWriteFontFileEnumerator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.MoveNext := CallbackCreate(GetMethod(implObj, "MoveNext"), flags, 2)
-        this.vtbl.GetCurrentFontFile := CallbackCreate(GetMethod(implObj, "GetCurrentFontFile"), flags, 2)
+        this.vtbl.MoveNext := CallbackCreate(ObjBindMethod(implObj, "MoveNext"), flags, 2)
+        this.vtbl.GetCurrentFontFile := CallbackCreate(ObjBindMethod(implObj, "GetCurrentFontFile"), flags, 2)
     }
 
     Dispose() {

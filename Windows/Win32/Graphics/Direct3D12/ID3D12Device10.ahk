@@ -85,9 +85,12 @@ export default struct ID3D12Device10 extends ID3D12Device9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device10-createcommittedresource3
      */
     CreateCommittedResource3(pHeapProperties, HeapFlags, pDesc, InitialLayout, pOptimizedClearValue, pProtectedSession, NumCastableFormats, pCastableFormats, riidResource) {
-        pCastableFormatsMarshal := pCastableFormats is VarRef ? "int*" : "ptr"
+        pOptimizedClearValueMarshal := pOptimizedClearValue == 0 ? IntPtr : D3D12_CLEAR_VALUE.Ptr
+        pProtectedSessionMarshal := pProtectedSession == 0 ? IntPtr : "ptr"
+        pCastableFormatsMarshal := pCastableFormats is VarRef ? "int*" : IntPtr
+        pCastableFormatsMarshal := pCastableFormats == 0 ? IntPtr : "int*"
 
-        result := ComCall(76, this, D3D12_HEAP_PROPERTIES.Ptr, pHeapProperties, D3D12_HEAP_FLAGS, HeapFlags, D3D12_RESOURCE_DESC1.Ptr, pDesc, D3D12_BARRIER_LAYOUT, InitialLayout, D3D12_CLEAR_VALUE.Ptr, pOptimizedClearValue, "ptr", pProtectedSession, UInt32, NumCastableFormats, pCastableFormatsMarshal, pCastableFormats, Guid.Ptr, riidResource, "ptr*", &ppvResource := 0, "HRESULT")
+        result := ComCall(76, this, D3D12_HEAP_PROPERTIES.Ptr, pHeapProperties, D3D12_HEAP_FLAGS, HeapFlags, D3D12_RESOURCE_DESC1.Ptr, pDesc, D3D12_BARRIER_LAYOUT, InitialLayout, pOptimizedClearValueMarshal, pOptimizedClearValue, pProtectedSessionMarshal, pProtectedSession, UInt32, NumCastableFormats, pCastableFormatsMarshal, pCastableFormats, Guid.Ptr, riidResource, "ptr*", &ppvResource := 0, "HRESULT")
         return ppvResource
     }
 
@@ -127,9 +130,11 @@ export default struct ID3D12Device10 extends ID3D12Device9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device10-createplacedresource2
      */
     CreatePlacedResource2(pHeap, HeapOffset, pDesc, InitialLayout, pOptimizedClearValue, NumCastableFormats, pCastableFormats, riid) {
-        pCastableFormatsMarshal := pCastableFormats is VarRef ? "int*" : "ptr"
+        pOptimizedClearValueMarshal := pOptimizedClearValue == 0 ? IntPtr : D3D12_CLEAR_VALUE.Ptr
+        pCastableFormatsMarshal := pCastableFormats is VarRef ? "int*" : IntPtr
+        pCastableFormatsMarshal := pCastableFormats == 0 ? IntPtr : "int*"
 
-        result := ComCall(77, this, "ptr", pHeap, Int64, HeapOffset, D3D12_RESOURCE_DESC1.Ptr, pDesc, D3D12_BARRIER_LAYOUT, InitialLayout, D3D12_CLEAR_VALUE.Ptr, pOptimizedClearValue, UInt32, NumCastableFormats, pCastableFormatsMarshal, pCastableFormats, Guid.Ptr, riid, "ptr*", &ppvResource := 0, "HRESULT")
+        result := ComCall(77, this, "ptr", pHeap, Int64, HeapOffset, D3D12_RESOURCE_DESC1.Ptr, pDesc, D3D12_BARRIER_LAYOUT, InitialLayout, pOptimizedClearValueMarshal, pOptimizedClearValue, UInt32, NumCastableFormats, pCastableFormatsMarshal, pCastableFormats, Guid.Ptr, riid, "ptr*", &ppvResource := 0, "HRESULT")
         return ppvResource
     }
 
@@ -166,9 +171,12 @@ export default struct ID3D12Device10 extends ID3D12Device9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device10-createreservedresource2
      */
     CreateReservedResource2(pDesc, InitialLayout, pOptimizedClearValue, pProtectedSession, NumCastableFormats, pCastableFormats, riid) {
-        pCastableFormatsMarshal := pCastableFormats is VarRef ? "int*" : "ptr"
+        pOptimizedClearValueMarshal := pOptimizedClearValue == 0 ? IntPtr : D3D12_CLEAR_VALUE.Ptr
+        pProtectedSessionMarshal := pProtectedSession == 0 ? IntPtr : "ptr"
+        pCastableFormatsMarshal := pCastableFormats is VarRef ? "int*" : IntPtr
+        pCastableFormatsMarshal := pCastableFormats == 0 ? IntPtr : "int*"
 
-        result := ComCall(78, this, D3D12_RESOURCE_DESC.Ptr, pDesc, D3D12_BARRIER_LAYOUT, InitialLayout, D3D12_CLEAR_VALUE.Ptr, pOptimizedClearValue, "ptr", pProtectedSession, UInt32, NumCastableFormats, pCastableFormatsMarshal, pCastableFormats, Guid.Ptr, riid, "ptr*", &ppvResource := 0, "HRESULT")
+        result := ComCall(78, this, D3D12_RESOURCE_DESC.Ptr, pDesc, D3D12_BARRIER_LAYOUT, InitialLayout, pOptimizedClearValueMarshal, pOptimizedClearValue, pProtectedSessionMarshal, pProtectedSession, UInt32, NumCastableFormats, pCastableFormatsMarshal, pCastableFormats, Guid.Ptr, riid, "ptr*", &ppvResource := 0, "HRESULT")
         return ppvResource
     }
 
@@ -181,9 +189,9 @@ export default struct ID3D12Device10 extends ID3D12Device9 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateCommittedResource3 := CallbackCreate(GetMethod(implObj, "CreateCommittedResource3"), flags, 11)
-        this.vtbl.CreatePlacedResource2 := CallbackCreate(GetMethod(implObj, "CreatePlacedResource2"), flags, 10)
-        this.vtbl.CreateReservedResource2 := CallbackCreate(GetMethod(implObj, "CreateReservedResource2"), flags, 9)
+        this.vtbl.CreateCommittedResource3 := CallbackCreate(ObjBindMethod(implObj, "CreateCommittedResource3"), flags, 11)
+        this.vtbl.CreatePlacedResource2 := CallbackCreate(ObjBindMethod(implObj, "CreatePlacedResource2"), flags, 10)
+        this.vtbl.CreateReservedResource2 := CallbackCreate(ObjBindMethod(implObj, "CreateReservedResource2"), flags, 9)
     }
 
     Dispose() {

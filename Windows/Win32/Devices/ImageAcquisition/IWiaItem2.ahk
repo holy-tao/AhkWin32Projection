@@ -158,7 +158,9 @@ export default struct IWiaItem2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaitem2-enumchilditems
      */
     EnumChildItems(pCategoryGUID) {
-        result := ComCall(5, this, Guid.Ptr, pCategoryGUID, "ptr*", &ppIEnumWiaItem2 := 0, "HRESULT")
+        pCategoryGUIDMarshal := pCategoryGUID == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(5, this, pCategoryGUIDMarshal, pCategoryGUID, "ptr*", &ppIEnumWiaItem2 := 0, "HRESULT")
         return IEnumWiaItem2(ppIEnumWiaItem2)
     }
 
@@ -253,10 +255,11 @@ export default struct IWiaItem2 extends IUnknown {
         bstrFolderName := bstrFolderName is String ? BSTR.Alloc(bstrFolderName).Value : bstrFolderName
         bstrFilename := bstrFilename is String ? BSTR.Alloc(bstrFilename).Value : bstrFilename
 
-        plNumFilesMarshal := plNumFiles is VarRef ? "int*" : "ptr"
-        ppbstrFilePathsMarshal := ppbstrFilePaths is VarRef ? "ptr*" : "ptr"
+        plNumFilesMarshal := plNumFiles is VarRef ? "int*" : IntPtr
+        ppbstrFilePathsMarshal := ppbstrFilePaths is VarRef ? "ptr*" : IntPtr
+        ppItemMarshal := ppItem == 0 ? IntPtr : IWiaItem2.Ptr
 
-        result := ComCall(9, this, Int32, lFlags, HWND, hwndParent, BSTR, bstrFolderName, BSTR, bstrFilename, plNumFilesMarshal, plNumFiles, ppbstrFilePathsMarshal, ppbstrFilePaths, IWiaItem2.Ptr, ppItem, "HRESULT")
+        result := ComCall(9, this, Int32, lFlags, HWND, hwndParent, BSTR, bstrFolderName, BSTR, bstrFilename, plNumFilesMarshal, plNumFiles, ppbstrFilePathsMarshal, ppbstrFilePaths, ppItemMarshal, ppItem, "HRESULT")
         return result
     }
 
@@ -379,7 +382,7 @@ export default struct IWiaItem2 extends IUnknown {
     CheckExtension(lFlags, bstrName, riidExtensionInterface, pbExtensionExists) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        pbExtensionExistsMarshal := pbExtensionExists is VarRef ? "int*" : "ptr"
+        pbExtensionExistsMarshal := pbExtensionExists is VarRef ? "int*" : IntPtr
 
         result := ComCall(12, this, Int32, lFlags, BSTR, bstrName, Guid.Ptr, riidExtensionInterface, pbExtensionExistsMarshal, pbExtensionExists, "HRESULT")
         return result
@@ -420,7 +423,7 @@ export default struct IWiaItem2 extends IUnknown {
     GetExtension(lFlags, bstrName, riidExtensionInterface, ppOut) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        ppOutMarshal := ppOut is VarRef ? "ptr*" : "ptr"
+        ppOutMarshal := ppOut is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(13, this, Int32, lFlags, BSTR, bstrName, Guid.Ptr, riidExtensionInterface, ppOutMarshal, ppOut, "HRESULT")
         return result
@@ -507,7 +510,7 @@ export default struct IWiaItem2 extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaitem2-diagnostic
      */
     Diagnostic(ulSize, pBuffer) {
-        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(18, this, UInt32, ulSize, pBufferMarshal, pBuffer, "HRESULT")
         return result
@@ -522,22 +525,22 @@ export default struct IWiaItem2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateChildItem := CallbackCreate(GetMethod(implObj, "CreateChildItem"), flags, 5)
-        this.vtbl.DeleteItem := CallbackCreate(GetMethod(implObj, "DeleteItem"), flags, 2)
-        this.vtbl.EnumChildItems := CallbackCreate(GetMethod(implObj, "EnumChildItems"), flags, 3)
-        this.vtbl.FindItemByName := CallbackCreate(GetMethod(implObj, "FindItemByName"), flags, 4)
-        this.vtbl.GetItemCategory := CallbackCreate(GetMethod(implObj, "GetItemCategory"), flags, 2)
-        this.vtbl.GetItemType := CallbackCreate(GetMethod(implObj, "GetItemType"), flags, 2)
-        this.vtbl.DeviceDlg := CallbackCreate(GetMethod(implObj, "DeviceDlg"), flags, 8)
-        this.vtbl.DeviceCommand := CallbackCreate(GetMethod(implObj, "DeviceCommand"), flags, 4)
-        this.vtbl.EnumDeviceCapabilities := CallbackCreate(GetMethod(implObj, "EnumDeviceCapabilities"), flags, 3)
-        this.vtbl.CheckExtension := CallbackCreate(GetMethod(implObj, "CheckExtension"), flags, 5)
-        this.vtbl.GetExtension := CallbackCreate(GetMethod(implObj, "GetExtension"), flags, 5)
-        this.vtbl.GetParentItem := CallbackCreate(GetMethod(implObj, "GetParentItem"), flags, 2)
-        this.vtbl.GetRootItem := CallbackCreate(GetMethod(implObj, "GetRootItem"), flags, 2)
-        this.vtbl.GetPreviewComponent := CallbackCreate(GetMethod(implObj, "GetPreviewComponent"), flags, 3)
-        this.vtbl.EnumRegisterEventInfo := CallbackCreate(GetMethod(implObj, "EnumRegisterEventInfo"), flags, 4)
-        this.vtbl.Diagnostic := CallbackCreate(GetMethod(implObj, "Diagnostic"), flags, 3)
+        this.vtbl.CreateChildItem := CallbackCreate(ObjBindMethod(implObj, "CreateChildItem"), flags, 5)
+        this.vtbl.DeleteItem := CallbackCreate(ObjBindMethod(implObj, "DeleteItem"), flags, 2)
+        this.vtbl.EnumChildItems := CallbackCreate(ObjBindMethod(implObj, "EnumChildItems"), flags, 3)
+        this.vtbl.FindItemByName := CallbackCreate(ObjBindMethod(implObj, "FindItemByName"), flags, 4)
+        this.vtbl.GetItemCategory := CallbackCreate(ObjBindMethod(implObj, "GetItemCategory"), flags, 2)
+        this.vtbl.GetItemType := CallbackCreate(ObjBindMethod(implObj, "GetItemType"), flags, 2)
+        this.vtbl.DeviceDlg := CallbackCreate(ObjBindMethod(implObj, "DeviceDlg"), flags, 8)
+        this.vtbl.DeviceCommand := CallbackCreate(ObjBindMethod(implObj, "DeviceCommand"), flags, 4)
+        this.vtbl.EnumDeviceCapabilities := CallbackCreate(ObjBindMethod(implObj, "EnumDeviceCapabilities"), flags, 3)
+        this.vtbl.CheckExtension := CallbackCreate(ObjBindMethod(implObj, "CheckExtension"), flags, 5)
+        this.vtbl.GetExtension := CallbackCreate(ObjBindMethod(implObj, "GetExtension"), flags, 5)
+        this.vtbl.GetParentItem := CallbackCreate(ObjBindMethod(implObj, "GetParentItem"), flags, 2)
+        this.vtbl.GetRootItem := CallbackCreate(ObjBindMethod(implObj, "GetRootItem"), flags, 2)
+        this.vtbl.GetPreviewComponent := CallbackCreate(ObjBindMethod(implObj, "GetPreviewComponent"), flags, 3)
+        this.vtbl.EnumRegisterEventInfo := CallbackCreate(ObjBindMethod(implObj, "EnumRegisterEventInfo"), flags, 4)
+        this.vtbl.Diagnostic := CallbackCreate(ObjBindMethod(implObj, "Diagnostic"), flags, 3)
     }
 
     Dispose() {

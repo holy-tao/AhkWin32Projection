@@ -28,7 +28,6 @@ export default struct SpCompleteAuthTokenFn {
     }
 
     /**
-     * 
      * @param {Pointer} ContextHandle Handle of the context to complete.
      * @param {Pointer<SecBufferDesc>} InputBuffer Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secbufferdesc">SecBufferDesc</a> structure that contains package-specific information for the context.

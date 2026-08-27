@@ -155,7 +155,8 @@ export default struct IDvbSiParser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsiparser-getpmt
      */
     GetPMT(pid, pwProgramNumber) {
-        pwProgramNumberMarshal := pwProgramNumber is VarRef ? "ushort*" : "ptr"
+        pwProgramNumberMarshal := pwProgramNumber is VarRef ? "ushort*" : IntPtr
+        pwProgramNumberMarshal := pwProgramNumber == 0 ? IntPtr : "ushort*"
 
         result := ComCall(6, this, UInt16, pid, pwProgramNumberMarshal, pwProgramNumber, "ptr*", &ppPMT := 0, "HRESULT")
         return IPMT(ppPMT)
@@ -200,7 +201,8 @@ export default struct IDvbSiParser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsiparser-getnit
      */
     GetNIT(tableId, pwNetworkId) {
-        pwNetworkIdMarshal := pwNetworkId is VarRef ? "ushort*" : "ptr"
+        pwNetworkIdMarshal := pwNetworkId is VarRef ? "ushort*" : IntPtr
+        pwNetworkIdMarshal := pwNetworkId == 0 ? IntPtr : "ushort*"
 
         result := ComCall(8, this, Int8, tableId, pwNetworkIdMarshal, pwNetworkId, "ptr*", &ppNIT := 0, "HRESULT")
         return IDVB_NIT(ppNIT)
@@ -233,7 +235,8 @@ export default struct IDvbSiParser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsiparser-getsdt
      */
     GetSDT(tableId, pwTransportStreamId) {
-        pwTransportStreamIdMarshal := pwTransportStreamId is VarRef ? "ushort*" : "ptr"
+        pwTransportStreamIdMarshal := pwTransportStreamId is VarRef ? "ushort*" : IntPtr
+        pwTransportStreamIdMarshal := pwTransportStreamId == 0 ? IntPtr : "ushort*"
 
         result := ComCall(9, this, Int8, tableId, pwTransportStreamIdMarshal, pwTransportStreamId, "ptr*", &ppSDT := 0, "HRESULT")
         return IDVB_SDT(ppSDT)
@@ -274,7 +277,8 @@ export default struct IDvbSiParser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsiparser-geteit
      */
     GetEIT(tableId, pwServiceId) {
-        pwServiceIdMarshal := pwServiceId is VarRef ? "ushort*" : "ptr"
+        pwServiceIdMarshal := pwServiceId is VarRef ? "ushort*" : IntPtr
+        pwServiceIdMarshal := pwServiceId == 0 ? IntPtr : "ushort*"
 
         result := ComCall(10, this, Int8, tableId, pwServiceIdMarshal, pwServiceId, "ptr*", &ppEIT := 0, "HRESULT")
         return IDVB_EIT(ppEIT)
@@ -289,7 +293,8 @@ export default struct IDvbSiParser extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsiparser-getbat
      */
     GetBAT(pwBouquetId) {
-        pwBouquetIdMarshal := pwBouquetId is VarRef ? "ushort*" : "ptr"
+        pwBouquetIdMarshal := pwBouquetId is VarRef ? "ushort*" : IntPtr
+        pwBouquetIdMarshal := pwBouquetId == 0 ? IntPtr : "ushort*"
 
         result := ComCall(11, this, pwBouquetIdMarshal, pwBouquetId, "ptr*", &ppBAT := 0, "HRESULT")
         return IDVB_BAT(ppBAT)
@@ -373,21 +378,21 @@ export default struct IDvbSiParser extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.GetPAT := CallbackCreate(GetMethod(implObj, "GetPAT"), flags, 2)
-        this.vtbl.GetCAT := CallbackCreate(GetMethod(implObj, "GetCAT"), flags, 3)
-        this.vtbl.GetPMT := CallbackCreate(GetMethod(implObj, "GetPMT"), flags, 4)
-        this.vtbl.GetTSDT := CallbackCreate(GetMethod(implObj, "GetTSDT"), flags, 2)
-        this.vtbl.GetNIT := CallbackCreate(GetMethod(implObj, "GetNIT"), flags, 4)
-        this.vtbl.GetSDT := CallbackCreate(GetMethod(implObj, "GetSDT"), flags, 4)
-        this.vtbl.GetEIT := CallbackCreate(GetMethod(implObj, "GetEIT"), flags, 4)
-        this.vtbl.GetBAT := CallbackCreate(GetMethod(implObj, "GetBAT"), flags, 3)
-        this.vtbl.GetRST := CallbackCreate(GetMethod(implObj, "GetRST"), flags, 3)
-        this.vtbl.GetST := CallbackCreate(GetMethod(implObj, "GetST"), flags, 4)
-        this.vtbl.GetTDT := CallbackCreate(GetMethod(implObj, "GetTDT"), flags, 2)
-        this.vtbl.GetTOT := CallbackCreate(GetMethod(implObj, "GetTOT"), flags, 2)
-        this.vtbl.GetDIT := CallbackCreate(GetMethod(implObj, "GetDIT"), flags, 3)
-        this.vtbl.GetSIT := CallbackCreate(GetMethod(implObj, "GetSIT"), flags, 3)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.GetPAT := CallbackCreate(ObjBindMethod(implObj, "GetPAT"), flags, 2)
+        this.vtbl.GetCAT := CallbackCreate(ObjBindMethod(implObj, "GetCAT"), flags, 3)
+        this.vtbl.GetPMT := CallbackCreate(ObjBindMethod(implObj, "GetPMT"), flags, 4)
+        this.vtbl.GetTSDT := CallbackCreate(ObjBindMethod(implObj, "GetTSDT"), flags, 2)
+        this.vtbl.GetNIT := CallbackCreate(ObjBindMethod(implObj, "GetNIT"), flags, 4)
+        this.vtbl.GetSDT := CallbackCreate(ObjBindMethod(implObj, "GetSDT"), flags, 4)
+        this.vtbl.GetEIT := CallbackCreate(ObjBindMethod(implObj, "GetEIT"), flags, 4)
+        this.vtbl.GetBAT := CallbackCreate(ObjBindMethod(implObj, "GetBAT"), flags, 3)
+        this.vtbl.GetRST := CallbackCreate(ObjBindMethod(implObj, "GetRST"), flags, 3)
+        this.vtbl.GetST := CallbackCreate(ObjBindMethod(implObj, "GetST"), flags, 4)
+        this.vtbl.GetTDT := CallbackCreate(ObjBindMethod(implObj, "GetTDT"), flags, 2)
+        this.vtbl.GetTOT := CallbackCreate(ObjBindMethod(implObj, "GetTOT"), flags, 2)
+        this.vtbl.GetDIT := CallbackCreate(ObjBindMethod(implObj, "GetDIT"), flags, 3)
+        this.vtbl.GetSIT := CallbackCreate(ObjBindMethod(implObj, "GetSIT"), flags, 3)
     }
 
     Dispose() {

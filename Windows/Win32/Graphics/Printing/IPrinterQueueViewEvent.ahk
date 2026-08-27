@@ -37,7 +37,6 @@ export default struct IPrinterQueueViewEvent extends IDispatch {
     }
 
     /**
-     * 
      * @param {IPrintJobCollection} pCollection 
      * @param {Integer} ulViewOffset 
      * @param {Integer} ulViewSize 
@@ -58,7 +57,7 @@ export default struct IPrinterQueueViewEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnChanged := CallbackCreate(GetMethod(implObj, "OnChanged"), flags, 5)
+        this.vtbl.OnChanged := CallbackCreate(ObjBindMethod(implObj, "OnChanged"), flags, 5)
     }
 
     Dispose() {

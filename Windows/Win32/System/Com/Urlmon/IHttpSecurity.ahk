@@ -36,7 +36,6 @@ export default struct IHttpSecurity extends IWindowForBindingUI {
     }
 
     /**
-     * 
      * @param {Integer} dwProblem 
      * @returns {HRESULT} 
      */
@@ -54,7 +53,7 @@ export default struct IHttpSecurity extends IWindowForBindingUI {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnSecurityProblem := CallbackCreate(GetMethod(implObj, "OnSecurityProblem"), flags, 2)
+        this.vtbl.OnSecurityProblem := CallbackCreate(ObjBindMethod(implObj, "OnSecurityProblem"), flags, 2)
     }
 
     Dispose() {

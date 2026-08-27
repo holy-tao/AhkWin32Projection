@@ -19,7 +19,6 @@ export default struct PWINDBG_GET_EXPRESSION64 {
     }
 
     /**
-     * 
      * @param {PSTR} lpExpression 
      * @returns {Integer} 
      */

@@ -23,7 +23,6 @@ export default struct PFN_D3D11ON12_CREATE_DEVICE {
     }
 
     /**
-     * 
      * @param {IUnknown} param0 
      * @param {Integer} param1 
      * @param {Pointer<D3D_FEATURE_LEVEL>} param2 
@@ -37,10 +36,15 @@ export default struct PFN_D3D11ON12_CREATE_DEVICE {
      * @returns {HRESULT} 
      */
     Call(param0, param1, param2, FeatureLevels, param4, NumQueues, param6, param7, param8, param9) {
-        param2Marshal := param2 is VarRef ? "int*" : "ptr"
-        param9Marshal := param9 is VarRef ? "int*" : "ptr"
+        param2Marshal := param2 is VarRef ? "int*" : IntPtr
+        param2Marshal := param2 == 0 ? IntPtr : "int*"
+        param4Marshal := param4 == 0 ? IntPtr : IUnknown.Ptr
+        param7Marshal := param7 == 0 ? IntPtr : ID3D11Device.Ptr
+        param8Marshal := param8 == 0 ? IntPtr : ID3D11DeviceContext.Ptr
+        param9Marshal := param9 is VarRef ? "int*" : IntPtr
+        param9Marshal := param9 == 0 ? IntPtr : "int*"
 
-        result := DllCall(this.value, "ptr", param0, UInt32, param1, param2Marshal, param2, UInt32, FeatureLevels, IUnknown.Ptr, param4, UInt32, NumQueues, UInt32, param6, ID3D11Device.Ptr, param7, ID3D11DeviceContext.Ptr, param8, param9Marshal, param9, "HRESULT")
+        result := DllCall(this.value, "ptr", param0, UInt32, param1, param2Marshal, param2, UInt32, FeatureLevels, param4Marshal, param4, UInt32, NumQueues, UInt32, param6, param7Marshal, param7, param8Marshal, param8, param9Marshal, param9, "HRESULT")
         return result
     }
 

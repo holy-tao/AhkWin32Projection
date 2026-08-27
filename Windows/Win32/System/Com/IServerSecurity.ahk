@@ -56,13 +56,18 @@ export default struct IServerSecurity extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-iserversecurity-queryblanket
      */
     QueryBlanket(pAuthnSvc, pAuthzSvc, pServerPrincName, pAuthnLevel, pImpLevel, pPrivs, pCapabilities) {
-        pAuthnSvcMarshal := pAuthnSvc is VarRef ? "uint*" : "ptr"
-        pAuthzSvcMarshal := pAuthzSvc is VarRef ? "uint*" : "ptr"
-        pServerPrincNameMarshal := pServerPrincName is VarRef ? "ptr*" : "ptr"
-        pAuthnLevelMarshal := pAuthnLevel is VarRef ? "uint*" : "ptr"
-        pImpLevelMarshal := pImpLevel is VarRef ? "uint*" : "ptr"
-        pPrivsMarshal := pPrivs is VarRef ? "ptr*" : "ptr"
-        pCapabilitiesMarshal := pCapabilities is VarRef ? "uint*" : "ptr"
+        pAuthnSvcMarshal := pAuthnSvc is VarRef ? "uint*" : IntPtr
+        pAuthnSvcMarshal := pAuthnSvc == 0 ? IntPtr : "uint*"
+        pAuthzSvcMarshal := pAuthzSvc is VarRef ? "uint*" : IntPtr
+        pAuthzSvcMarshal := pAuthzSvc == 0 ? IntPtr : "uint*"
+        pServerPrincNameMarshal := pServerPrincName is VarRef ? "ptr*" : IntPtr
+        pAuthnLevelMarshal := pAuthnLevel is VarRef ? "uint*" : IntPtr
+        pAuthnLevelMarshal := pAuthnLevel == 0 ? IntPtr : "uint*"
+        pImpLevelMarshal := pImpLevel is VarRef ? "uint*" : IntPtr
+        pImpLevelMarshal := pImpLevel == 0 ? IntPtr : "uint*"
+        pPrivsMarshal := pPrivs is VarRef ? "ptr*" : IntPtr
+        pCapabilitiesMarshal := pCapabilities is VarRef ? "uint*" : IntPtr
+        pCapabilitiesMarshal := pCapabilities == 0 ? IntPtr : "uint*"
 
         result := ComCall(3, this, pAuthnSvcMarshal, pAuthnSvc, pAuthzSvcMarshal, pAuthzSvc, pServerPrincNameMarshal, pServerPrincName, pAuthnLevelMarshal, pAuthnLevel, pImpLevelMarshal, pImpLevel, pPrivsMarshal, pPrivs, pCapabilitiesMarshal, pCapabilities, "HRESULT")
         return result
@@ -129,10 +134,10 @@ export default struct IServerSecurity extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryBlanket := CallbackCreate(GetMethod(implObj, "QueryBlanket"), flags, 8)
-        this.vtbl.ImpersonateClient := CallbackCreate(GetMethod(implObj, "ImpersonateClient"), flags, 1)
-        this.vtbl.RevertToSelf := CallbackCreate(GetMethod(implObj, "RevertToSelf"), flags, 1)
-        this.vtbl.IsImpersonating := CallbackCreate(GetMethod(implObj, "IsImpersonating"), flags, 1)
+        this.vtbl.QueryBlanket := CallbackCreate(ObjBindMethod(implObj, "QueryBlanket"), flags, 8)
+        this.vtbl.ImpersonateClient := CallbackCreate(ObjBindMethod(implObj, "ImpersonateClient"), flags, 1)
+        this.vtbl.RevertToSelf := CallbackCreate(ObjBindMethod(implObj, "RevertToSelf"), flags, 1)
+        this.vtbl.IsImpersonating := CallbackCreate(ObjBindMethod(implObj, "IsImpersonating"), flags, 1)
     }
 
     Dispose() {

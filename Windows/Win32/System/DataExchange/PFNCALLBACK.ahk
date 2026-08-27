@@ -23,7 +23,6 @@ export default struct PFNCALLBACK {
     }
 
     /**
-     * 
      * @param {Integer} wType Type: <b>UINT</b>
      * 
      * The type of the current transaction. This parameter consists of a combination of transaction class flags and transaction type flags. The following table describes each of the transaction classes and provides a list of the transaction types in each class. For information about a specific transaction type, see the individual description of that type in **Remarks**.

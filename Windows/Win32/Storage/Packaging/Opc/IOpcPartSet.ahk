@@ -221,11 +221,11 @@ export default struct IOpcPartSet extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPart := CallbackCreate(GetMethod(implObj, "GetPart"), flags, 3)
-        this.vtbl.CreatePart := CallbackCreate(GetMethod(implObj, "CreatePart"), flags, 5)
-        this.vtbl.DeletePart := CallbackCreate(GetMethod(implObj, "DeletePart"), flags, 2)
-        this.vtbl.PartExists := CallbackCreate(GetMethod(implObj, "PartExists"), flags, 3)
-        this.vtbl.GetEnumerator := CallbackCreate(GetMethod(implObj, "GetEnumerator"), flags, 2)
+        this.vtbl.GetPart := CallbackCreate(ObjBindMethod(implObj, "GetPart"), flags, 3)
+        this.vtbl.CreatePart := CallbackCreate(ObjBindMethod(implObj, "CreatePart"), flags, 5)
+        this.vtbl.DeletePart := CallbackCreate(ObjBindMethod(implObj, "DeletePart"), flags, 2)
+        this.vtbl.PartExists := CallbackCreate(ObjBindMethod(implObj, "PartExists"), flags, 3)
+        this.vtbl.GetEnumerator := CallbackCreate(ObjBindMethod(implObj, "GetEnumerator"), flags, 2)
     }
 
     Dispose() {

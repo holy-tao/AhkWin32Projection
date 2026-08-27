@@ -172,10 +172,10 @@ export default struct IWMPRemoteMediaServices extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetServiceType := CallbackCreate(GetMethod(implObj, "GetServiceType"), flags, 2)
-        this.vtbl.GetApplicationName := CallbackCreate(GetMethod(implObj, "GetApplicationName"), flags, 2)
-        this.vtbl.GetScriptableObject := CallbackCreate(GetMethod(implObj, "GetScriptableObject"), flags, 3)
-        this.vtbl.GetCustomUIMode := CallbackCreate(GetMethod(implObj, "GetCustomUIMode"), flags, 2)
+        this.vtbl.GetServiceType := CallbackCreate(ObjBindMethod(implObj, "GetServiceType"), flags, 2)
+        this.vtbl.GetApplicationName := CallbackCreate(ObjBindMethod(implObj, "GetApplicationName"), flags, 2)
+        this.vtbl.GetScriptableObject := CallbackCreate(ObjBindMethod(implObj, "GetScriptableObject"), flags, 3)
+        this.vtbl.GetCustomUIMode := CallbackCreate(ObjBindMethod(implObj, "GetCustomUIMode"), flags, 2)
     }
 
     Dispose() {

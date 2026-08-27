@@ -59,7 +59,7 @@ export default struct ITfClientId extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetClientId := CallbackCreate(GetMethod(implObj, "GetClientId"), flags, 3)
+        this.vtbl.GetClientId := CallbackCreate(ObjBindMethod(implObj, "GetClientId"), flags, 3)
     }
 
     Dispose() {

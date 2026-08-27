@@ -86,7 +86,6 @@ export default struct IPrintJob extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -96,7 +95,6 @@ export default struct IPrintJob extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Id() {
@@ -105,7 +103,6 @@ export default struct IPrintJob extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_PrintedPages() {
@@ -114,7 +111,6 @@ export default struct IPrintJob extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_TotalPages() {
@@ -123,7 +119,6 @@ export default struct IPrintJob extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PrintJobStatus} 
      */
     get_Status() {
@@ -132,7 +127,6 @@ export default struct IPrintJob extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_SubmissionTime() {
@@ -141,7 +135,6 @@ export default struct IPrintJob extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     RequestCancel() {
@@ -158,13 +151,13 @@ export default struct IPrintJob extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
-        this.vtbl.get_PrintedPages := CallbackCreate(GetMethod(implObj, "get_PrintedPages"), flags, 2)
-        this.vtbl.get_TotalPages := CallbackCreate(GetMethod(implObj, "get_TotalPages"), flags, 2)
-        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
-        this.vtbl.get_SubmissionTime := CallbackCreate(GetMethod(implObj, "get_SubmissionTime"), flags, 2)
-        this.vtbl.RequestCancel := CallbackCreate(GetMethod(implObj, "RequestCancel"), flags, 1)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(ObjBindMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.get_PrintedPages := CallbackCreate(ObjBindMethod(implObj, "get_PrintedPages"), flags, 2)
+        this.vtbl.get_TotalPages := CallbackCreate(ObjBindMethod(implObj, "get_TotalPages"), flags, 2)
+        this.vtbl.get_Status := CallbackCreate(ObjBindMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.get_SubmissionTime := CallbackCreate(ObjBindMethod(implObj, "get_SubmissionTime"), flags, 2)
+        this.vtbl.RequestCancel := CallbackCreate(ObjBindMethod(implObj, "RequestCancel"), flags, 1)
     }
 
     Dispose() {

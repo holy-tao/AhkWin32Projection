@@ -59,7 +59,7 @@ export default struct ILaunchTargetViewSizePreference extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTargetViewSizePreference := CallbackCreate(GetMethod(implObj, "GetTargetViewSizePreference"), flags, 2)
+        this.vtbl.GetTargetViewSizePreference := CallbackCreate(ObjBindMethod(implObj, "GetTargetViewSizePreference"), flags, 2)
     }
 
     Dispose() {

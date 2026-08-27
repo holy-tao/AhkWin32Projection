@@ -66,7 +66,6 @@ export default struct IHTMLAreaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -78,7 +77,6 @@ export default struct IHTMLAreaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_shape() {
@@ -88,7 +86,6 @@ export default struct IHTMLAreaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -100,7 +97,6 @@ export default struct IHTMLAreaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_coords() {
@@ -110,7 +106,6 @@ export default struct IHTMLAreaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -122,7 +117,6 @@ export default struct IHTMLAreaElement2 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_href() {
@@ -140,12 +134,12 @@ export default struct IHTMLAreaElement2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_shape := CallbackCreate(GetMethod(implObj, "put_shape"), flags, 2)
-        this.vtbl.get_shape := CallbackCreate(GetMethod(implObj, "get_shape"), flags, 2)
-        this.vtbl.put_coords := CallbackCreate(GetMethod(implObj, "put_coords"), flags, 2)
-        this.vtbl.get_coords := CallbackCreate(GetMethod(implObj, "get_coords"), flags, 2)
-        this.vtbl.put_href := CallbackCreate(GetMethod(implObj, "put_href"), flags, 2)
-        this.vtbl.get_href := CallbackCreate(GetMethod(implObj, "get_href"), flags, 2)
+        this.vtbl.put_shape := CallbackCreate(ObjBindMethod(implObj, "put_shape"), flags, 2)
+        this.vtbl.get_shape := CallbackCreate(ObjBindMethod(implObj, "get_shape"), flags, 2)
+        this.vtbl.put_coords := CallbackCreate(ObjBindMethod(implObj, "put_coords"), flags, 2)
+        this.vtbl.get_coords := CallbackCreate(ObjBindMethod(implObj, "get_coords"), flags, 2)
+        this.vtbl.put_href := CallbackCreate(ObjBindMethod(implObj, "put_href"), flags, 2)
+        this.vtbl.get_href := CallbackCreate(ObjBindMethod(implObj, "get_href"), flags, 2)
     }
 
     Dispose() {

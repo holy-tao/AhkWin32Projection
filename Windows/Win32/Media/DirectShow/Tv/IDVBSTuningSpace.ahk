@@ -213,16 +213,16 @@ export default struct IDVBSTuningSpace extends IDVBTuningSpace2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_LowOscillator := CallbackCreate(GetMethod(implObj, "get_LowOscillator"), flags, 2)
-        this.vtbl.put_LowOscillator := CallbackCreate(GetMethod(implObj, "put_LowOscillator"), flags, 2)
-        this.vtbl.get_HighOscillator := CallbackCreate(GetMethod(implObj, "get_HighOscillator"), flags, 2)
-        this.vtbl.put_HighOscillator := CallbackCreate(GetMethod(implObj, "put_HighOscillator"), flags, 2)
-        this.vtbl.get_LNBSwitch := CallbackCreate(GetMethod(implObj, "get_LNBSwitch"), flags, 2)
-        this.vtbl.put_LNBSwitch := CallbackCreate(GetMethod(implObj, "put_LNBSwitch"), flags, 2)
-        this.vtbl.get_InputRange := CallbackCreate(GetMethod(implObj, "get_InputRange"), flags, 2)
-        this.vtbl.put_InputRange := CallbackCreate(GetMethod(implObj, "put_InputRange"), flags, 2)
-        this.vtbl.get_SpectralInversion := CallbackCreate(GetMethod(implObj, "get_SpectralInversion"), flags, 2)
-        this.vtbl.put_SpectralInversion := CallbackCreate(GetMethod(implObj, "put_SpectralInversion"), flags, 2)
+        this.vtbl.get_LowOscillator := CallbackCreate(ObjBindMethod(implObj, "get_LowOscillator"), flags, 2)
+        this.vtbl.put_LowOscillator := CallbackCreate(ObjBindMethod(implObj, "put_LowOscillator"), flags, 2)
+        this.vtbl.get_HighOscillator := CallbackCreate(ObjBindMethod(implObj, "get_HighOscillator"), flags, 2)
+        this.vtbl.put_HighOscillator := CallbackCreate(ObjBindMethod(implObj, "put_HighOscillator"), flags, 2)
+        this.vtbl.get_LNBSwitch := CallbackCreate(ObjBindMethod(implObj, "get_LNBSwitch"), flags, 2)
+        this.vtbl.put_LNBSwitch := CallbackCreate(ObjBindMethod(implObj, "put_LNBSwitch"), flags, 2)
+        this.vtbl.get_InputRange := CallbackCreate(ObjBindMethod(implObj, "get_InputRange"), flags, 2)
+        this.vtbl.put_InputRange := CallbackCreate(ObjBindMethod(implObj, "put_InputRange"), flags, 2)
+        this.vtbl.get_SpectralInversion := CallbackCreate(ObjBindMethod(implObj, "get_SpectralInversion"), flags, 2)
+        this.vtbl.put_SpectralInversion := CallbackCreate(ObjBindMethod(implObj, "put_SpectralInversion"), flags, 2)
     }
 
     Dispose() {

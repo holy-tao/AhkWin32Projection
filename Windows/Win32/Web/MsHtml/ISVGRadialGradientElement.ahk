@@ -87,7 +87,6 @@ export default struct ISVGRadialGradientElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -97,7 +96,6 @@ export default struct ISVGRadialGradientElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_cx() {
@@ -106,7 +104,6 @@ export default struct ISVGRadialGradientElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -116,7 +113,6 @@ export default struct ISVGRadialGradientElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_cy() {
@@ -125,7 +121,6 @@ export default struct ISVGRadialGradientElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -135,7 +130,6 @@ export default struct ISVGRadialGradientElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_r() {
@@ -144,7 +138,6 @@ export default struct ISVGRadialGradientElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -154,7 +147,6 @@ export default struct ISVGRadialGradientElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_fx() {
@@ -163,7 +155,6 @@ export default struct ISVGRadialGradientElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -173,7 +164,6 @@ export default struct ISVGRadialGradientElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_fy() {
@@ -190,16 +180,16 @@ export default struct ISVGRadialGradientElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.putref_cx := CallbackCreate(GetMethod(implObj, "putref_cx"), flags, 2)
-        this.vtbl.get_cx := CallbackCreate(GetMethod(implObj, "get_cx"), flags, 2)
-        this.vtbl.putref_cy := CallbackCreate(GetMethod(implObj, "putref_cy"), flags, 2)
-        this.vtbl.get_cy := CallbackCreate(GetMethod(implObj, "get_cy"), flags, 2)
-        this.vtbl.putref_r := CallbackCreate(GetMethod(implObj, "putref_r"), flags, 2)
-        this.vtbl.get_r := CallbackCreate(GetMethod(implObj, "get_r"), flags, 2)
-        this.vtbl.putref_fx := CallbackCreate(GetMethod(implObj, "putref_fx"), flags, 2)
-        this.vtbl.get_fx := CallbackCreate(GetMethod(implObj, "get_fx"), flags, 2)
-        this.vtbl.putref_fy := CallbackCreate(GetMethod(implObj, "putref_fy"), flags, 2)
-        this.vtbl.get_fy := CallbackCreate(GetMethod(implObj, "get_fy"), flags, 2)
+        this.vtbl.putref_cx := CallbackCreate(ObjBindMethod(implObj, "putref_cx"), flags, 2)
+        this.vtbl.get_cx := CallbackCreate(ObjBindMethod(implObj, "get_cx"), flags, 2)
+        this.vtbl.putref_cy := CallbackCreate(ObjBindMethod(implObj, "putref_cy"), flags, 2)
+        this.vtbl.get_cy := CallbackCreate(ObjBindMethod(implObj, "get_cy"), flags, 2)
+        this.vtbl.putref_r := CallbackCreate(ObjBindMethod(implObj, "putref_r"), flags, 2)
+        this.vtbl.get_r := CallbackCreate(ObjBindMethod(implObj, "get_r"), flags, 2)
+        this.vtbl.putref_fx := CallbackCreate(ObjBindMethod(implObj, "putref_fx"), flags, 2)
+        this.vtbl.get_fx := CallbackCreate(ObjBindMethod(implObj, "get_fx"), flags, 2)
+        this.vtbl.putref_fy := CallbackCreate(ObjBindMethod(implObj, "putref_fy"), flags, 2)
+        this.vtbl.get_fy := CallbackCreate(ObjBindMethod(implObj, "get_fy"), flags, 2)
     }
 
     Dispose() {

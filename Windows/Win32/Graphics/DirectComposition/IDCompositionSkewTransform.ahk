@@ -216,14 +216,14 @@ export default struct IDCompositionSkewTransform extends IDCompositionTransform 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAngleX := CallbackCreate(GetMethod(implObj, "SetAngleX"), flags, 2)
-        this.vtbl.SetAngleX1 := CallbackCreate(GetMethod(implObj, "SetAngleX1"), flags, 2)
-        this.vtbl.SetAngleY := CallbackCreate(GetMethod(implObj, "SetAngleY"), flags, 2)
-        this.vtbl.SetAngleY1 := CallbackCreate(GetMethod(implObj, "SetAngleY1"), flags, 2)
-        this.vtbl.SetCenterX := CallbackCreate(GetMethod(implObj, "SetCenterX"), flags, 2)
-        this.vtbl.SetCenterX1 := CallbackCreate(GetMethod(implObj, "SetCenterX1"), flags, 2)
-        this.vtbl.SetCenterY := CallbackCreate(GetMethod(implObj, "SetCenterY"), flags, 2)
-        this.vtbl.SetCenterY1 := CallbackCreate(GetMethod(implObj, "SetCenterY1"), flags, 2)
+        this.vtbl.SetAngleX := CallbackCreate(ObjBindMethod(implObj, "SetAngleX"), flags, 2)
+        this.vtbl.SetAngleX1 := CallbackCreate(ObjBindMethod(implObj, "SetAngleX1"), flags, 2)
+        this.vtbl.SetAngleY := CallbackCreate(ObjBindMethod(implObj, "SetAngleY"), flags, 2)
+        this.vtbl.SetAngleY1 := CallbackCreate(ObjBindMethod(implObj, "SetAngleY1"), flags, 2)
+        this.vtbl.SetCenterX := CallbackCreate(ObjBindMethod(implObj, "SetCenterX"), flags, 2)
+        this.vtbl.SetCenterX1 := CallbackCreate(ObjBindMethod(implObj, "SetCenterX1"), flags, 2)
+        this.vtbl.SetCenterY := CallbackCreate(ObjBindMethod(implObj, "SetCenterY"), flags, 2)
+        this.vtbl.SetCenterY1 := CallbackCreate(ObjBindMethod(implObj, "SetCenterY1"), flags, 2)
     }
 
     Dispose() {

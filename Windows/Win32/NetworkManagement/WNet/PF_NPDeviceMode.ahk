@@ -19,7 +19,6 @@ export default struct PF_NPDeviceMode {
     }
 
     /**
-     * 
      * @param {HWND} hParent 
      * @returns {Integer} 
      */

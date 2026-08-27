@@ -19,7 +19,6 @@ export default struct DOT11EXT_PRE_ASSOCIATE_COMPLETION {
     }
 
     /**
-     * 
      * @param {HANDLE} hDot11SvcHandle 
      * @param {HANDLE} hConnectSession 
      * @param {Integer} dwReasonCode 
@@ -27,7 +26,10 @@ export default struct DOT11EXT_PRE_ASSOCIATE_COMPLETION {
      * @returns {Integer} 
      */
     Call(hDot11SvcHandle, hConnectSession, dwReasonCode, dwWin32Error) {
-        result := DllCall(this.value, HANDLE, hDot11SvcHandle, HANDLE, hConnectSession, UInt32, dwReasonCode, UInt32, dwWin32Error, UInt32)
+        hDot11SvcHandleMarshal := hDot11SvcHandle == 0 ? IntPtr : HANDLE
+        hConnectSessionMarshal := hConnectSession == 0 ? IntPtr : HANDLE
+
+        result := DllCall(this.value, hDot11SvcHandleMarshal, hDot11SvcHandle, hConnectSessionMarshal, hConnectSession, UInt32, dwReasonCode, UInt32, dwWin32Error, UInt32)
         return result
     }
 

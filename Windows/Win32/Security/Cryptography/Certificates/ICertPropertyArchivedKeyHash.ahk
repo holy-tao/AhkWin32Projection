@@ -100,8 +100,8 @@ export default struct ICertPropertyArchivedKeyHash extends ICertProperty {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.get_ArchivedKeyHash := CallbackCreate(GetMethod(implObj, "get_ArchivedKeyHash"), flags, 3)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.get_ArchivedKeyHash := CallbackCreate(ObjBindMethod(implObj, "get_ArchivedKeyHash"), flags, 3)
     }
 
     Dispose() {

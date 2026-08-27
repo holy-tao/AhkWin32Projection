@@ -73,7 +73,7 @@ export default struct IDMLDevice1 extends IDMLDevice {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CompileGraph := CallbackCreate(GetMethod(implObj, "CompileGraph"), flags, 5)
+        this.vtbl.CompileGraph := CallbackCreate(ObjBindMethod(implObj, "CompileGraph"), flags, 5)
     }
 
     Dispose() {

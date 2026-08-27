@@ -131,9 +131,9 @@ export default struct IMFPMPServer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LockProcess := CallbackCreate(GetMethod(implObj, "LockProcess"), flags, 1)
-        this.vtbl.UnlockProcess := CallbackCreate(GetMethod(implObj, "UnlockProcess"), flags, 1)
-        this.vtbl.CreateObjectByCLSID := CallbackCreate(GetMethod(implObj, "CreateObjectByCLSID"), flags, 4)
+        this.vtbl.LockProcess := CallbackCreate(ObjBindMethod(implObj, "LockProcess"), flags, 1)
+        this.vtbl.UnlockProcess := CallbackCreate(ObjBindMethod(implObj, "UnlockProcess"), flags, 1)
+        this.vtbl.CreateObjectByCLSID := CallbackCreate(ObjBindMethod(implObj, "CreateObjectByCLSID"), flags, 4)
     }
 
     Dispose() {

@@ -21,7 +21,6 @@ export default struct PCLUSAPI_CREATE_CLUSTER_RESOURCE_EX {
     }
 
     /**
-     * 
      * @param {HGROUP} _hGroup 
      * @param {PWSTR} lpszResourceName 
      * @param {PWSTR} lpszResourceType 
@@ -34,7 +33,9 @@ export default struct PCLUSAPI_CREATE_CLUSTER_RESOURCE_EX {
         lpszResourceType := lpszResourceType is String ? StrPtr(lpszResourceType) : lpszResourceType
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
-        result := DllCall(this.value, HGROUP, _hGroup, "ptr", lpszResourceName, "ptr", lpszResourceType, UInt32, dwFlags, "ptr", lpszReason, HRESOURCE)
+        lpszReasonMarshal := lpszReason == 0 ? IntPtr : PWSTR
+
+        result := DllCall(this.value, HGROUP, _hGroup, "ptr", lpszResourceName, "ptr", lpszResourceType, UInt32, dwFlags, lpszReasonMarshal, lpszReason, HRESOURCE)
         return result
     }
 

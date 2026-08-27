@@ -37,7 +37,6 @@ export default struct LPWSPENUMNETWORKEVENTS {
     }
 
     /**
-     * 
      * @param {SOCKET} s Descriptor identifying the socket.
      * @param {HANDLE} hEventObject Optional handle identifying an associated event object to be reset.
      * @param {Pointer<WSANETWORKEVENTS>} lpNetworkEvents Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsanetworkevents">WSANETWORKEVENTS</a> structure that is filled with a record of occurred network events and any associated error codes. The **WSANETWORKEVENTS** structure is defined in the following text.
@@ -96,7 +95,7 @@ export default struct LPWSPENUMNETWORKEVENTS {
      * </table>
      */
     Call(s, hEventObject, lpNetworkEvents, lpErrno) {
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, SOCKET, s, HANDLE, hEventObject, WSANETWORKEVENTS.Ptr, lpNetworkEvents, lpErrnoMarshal, lpErrno, Int32)
         return result

@@ -55,8 +55,8 @@ export default struct ItsPubPlugin2 extends ItsPubPlugin {
     GetResource2List(userID, pceAppListSize, resourceList) {
         userID := userID is String ? StrPtr(userID) : userID
 
-        pceAppListSizeMarshal := pceAppListSize is VarRef ? "int*" : "ptr"
-        resourceListMarshal := resourceList is VarRef ? "ptr*" : "ptr"
+        pceAppListSizeMarshal := pceAppListSize is VarRef ? "int*" : IntPtr
+        resourceListMarshal := resourceList is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(9, this, "ptr", userID, pceAppListSizeMarshal, pceAppListSize, resourceListMarshal, resourceList, "HRESULT")
         return result
@@ -125,10 +125,10 @@ export default struct ItsPubPlugin2 extends ItsPubPlugin {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetResource2List := CallbackCreate(GetMethod(implObj, "GetResource2List"), flags, 4)
-        this.vtbl.GetResource2 := CallbackCreate(GetMethod(implObj, "GetResource2"), flags, 4)
-        this.vtbl.ResolvePersonalDesktop := CallbackCreate(GetMethod(implObj, "ResolvePersonalDesktop"), flags, 6)
-        this.vtbl.DeletePersonalDesktopAssignment := CallbackCreate(GetMethod(implObj, "DeletePersonalDesktopAssignment"), flags, 4)
+        this.vtbl.GetResource2List := CallbackCreate(ObjBindMethod(implObj, "GetResource2List"), flags, 4)
+        this.vtbl.GetResource2 := CallbackCreate(ObjBindMethod(implObj, "GetResource2"), flags, 4)
+        this.vtbl.ResolvePersonalDesktop := CallbackCreate(ObjBindMethod(implObj, "ResolvePersonalDesktop"), flags, 6)
+        this.vtbl.DeletePersonalDesktopAssignment := CallbackCreate(ObjBindMethod(implObj, "DeletePersonalDesktopAssignment"), flags, 4)
     }
 
     Dispose() {

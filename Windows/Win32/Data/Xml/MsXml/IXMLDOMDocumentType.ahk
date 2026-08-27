@@ -61,7 +61,6 @@ export default struct IXMLDOMDocumentType extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -71,7 +70,6 @@ export default struct IXMLDOMDocumentType extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {IXMLDOMNamedNodeMap} 
      */
     get_entities() {
@@ -80,7 +78,6 @@ export default struct IXMLDOMDocumentType extends IXMLDOMNode {
     }
 
     /**
-     * 
      * @returns {IXMLDOMNamedNodeMap} 
      */
     get_notations() {
@@ -97,9 +94,9 @@ export default struct IXMLDOMDocumentType extends IXMLDOMNode {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
-        this.vtbl.get_entities := CallbackCreate(GetMethod(implObj, "get_entities"), flags, 2)
-        this.vtbl.get_notations := CallbackCreate(GetMethod(implObj, "get_notations"), flags, 2)
+        this.vtbl.get_name := CallbackCreate(ObjBindMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.get_entities := CallbackCreate(ObjBindMethod(implObj, "get_entities"), flags, 2)
+        this.vtbl.get_notations := CallbackCreate(ObjBindMethod(implObj, "get_notations"), flags, 2)
     }
 
     Dispose() {

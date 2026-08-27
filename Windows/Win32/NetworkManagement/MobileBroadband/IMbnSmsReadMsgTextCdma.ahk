@@ -268,14 +268,14 @@ export default struct IMbnSmsReadMsgTextCdma extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Index := CallbackCreate(GetMethod(implObj, "get_Index"), flags, 2)
-        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
-        this.vtbl.get_Address := CallbackCreate(GetMethod(implObj, "get_Address"), flags, 2)
-        this.vtbl.get_Timestamp := CallbackCreate(GetMethod(implObj, "get_Timestamp"), flags, 2)
-        this.vtbl.get_EncodingID := CallbackCreate(GetMethod(implObj, "get_EncodingID"), flags, 2)
-        this.vtbl.get_LanguageID := CallbackCreate(GetMethod(implObj, "get_LanguageID"), flags, 2)
-        this.vtbl.get_SizeInCharacters := CallbackCreate(GetMethod(implObj, "get_SizeInCharacters"), flags, 2)
-        this.vtbl.get_Message := CallbackCreate(GetMethod(implObj, "get_Message"), flags, 2)
+        this.vtbl.get_Index := CallbackCreate(ObjBindMethod(implObj, "get_Index"), flags, 2)
+        this.vtbl.get_Status := CallbackCreate(ObjBindMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.get_Address := CallbackCreate(ObjBindMethod(implObj, "get_Address"), flags, 2)
+        this.vtbl.get_Timestamp := CallbackCreate(ObjBindMethod(implObj, "get_Timestamp"), flags, 2)
+        this.vtbl.get_EncodingID := CallbackCreate(ObjBindMethod(implObj, "get_EncodingID"), flags, 2)
+        this.vtbl.get_LanguageID := CallbackCreate(ObjBindMethod(implObj, "get_LanguageID"), flags, 2)
+        this.vtbl.get_SizeInCharacters := CallbackCreate(ObjBindMethod(implObj, "get_SizeInCharacters"), flags, 2)
+        this.vtbl.get_Message := CallbackCreate(ObjBindMethod(implObj, "get_Message"), flags, 2)
     }
 
     Dispose() {

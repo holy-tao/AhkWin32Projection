@@ -112,7 +112,7 @@ export default struct IServicePoolConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicepoolconfig-get_maxpoolsize
      */
     get_MaxPoolSize(pdwMaxPool) {
-        pdwMaxPoolMarshal := pdwMaxPool is VarRef ? "uint*" : "ptr"
+        pdwMaxPoolMarshal := pdwMaxPool is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pdwMaxPoolMarshal, pdwMaxPool, "HRESULT")
         return result
@@ -136,7 +136,7 @@ export default struct IServicePoolConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicepoolconfig-get_minpoolsize
      */
     get_MinPoolSize(pdwMinPool) {
-        pdwMinPoolMarshal := pdwMinPool is VarRef ? "uint*" : "ptr"
+        pdwMinPoolMarshal := pdwMinPool is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, pdwMinPoolMarshal, pdwMinPool, "HRESULT")
         return result
@@ -160,7 +160,7 @@ export default struct IServicePoolConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicepoolconfig-get_creationtimeout
      */
     get_CreationTimeout(pdwCreationTimeout) {
-        pdwCreationTimeoutMarshal := pdwCreationTimeout is VarRef ? "uint*" : "ptr"
+        pdwCreationTimeoutMarshal := pdwCreationTimeout is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, pdwCreationTimeoutMarshal, pdwCreationTimeout, "HRESULT")
         return result
@@ -184,7 +184,7 @@ export default struct IServicePoolConfig extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicepoolconfig-get_transactionaffinity
      */
     get_TransactionAffinity(pfTxAffinity) {
-        pfTxAffinityMarshal := pfTxAffinity is VarRef ? "int*" : "ptr"
+        pfTxAffinityMarshal := pfTxAffinity is VarRef ? "int*" : IntPtr
 
         result := ComCall(10, this, pfTxAffinityMarshal, pfTxAffinity, "HRESULT")
         return result
@@ -220,16 +220,16 @@ export default struct IServicePoolConfig extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_MaxPoolSize := CallbackCreate(GetMethod(implObj, "put_MaxPoolSize"), flags, 2)
-        this.vtbl.get_MaxPoolSize := CallbackCreate(GetMethod(implObj, "get_MaxPoolSize"), flags, 2)
-        this.vtbl.put_MinPoolSize := CallbackCreate(GetMethod(implObj, "put_MinPoolSize"), flags, 2)
-        this.vtbl.get_MinPoolSize := CallbackCreate(GetMethod(implObj, "get_MinPoolSize"), flags, 2)
-        this.vtbl.put_CreationTimeout := CallbackCreate(GetMethod(implObj, "put_CreationTimeout"), flags, 2)
-        this.vtbl.get_CreationTimeout := CallbackCreate(GetMethod(implObj, "get_CreationTimeout"), flags, 2)
-        this.vtbl.put_TransactionAffinity := CallbackCreate(GetMethod(implObj, "put_TransactionAffinity"), flags, 2)
-        this.vtbl.get_TransactionAffinity := CallbackCreate(GetMethod(implObj, "get_TransactionAffinity"), flags, 2)
-        this.vtbl.put_ClassFactory := CallbackCreate(GetMethod(implObj, "put_ClassFactory"), flags, 2)
-        this.vtbl.get_ClassFactory := CallbackCreate(GetMethod(implObj, "get_ClassFactory"), flags, 2)
+        this.vtbl.put_MaxPoolSize := CallbackCreate(ObjBindMethod(implObj, "put_MaxPoolSize"), flags, 2)
+        this.vtbl.get_MaxPoolSize := CallbackCreate(ObjBindMethod(implObj, "get_MaxPoolSize"), flags, 2)
+        this.vtbl.put_MinPoolSize := CallbackCreate(ObjBindMethod(implObj, "put_MinPoolSize"), flags, 2)
+        this.vtbl.get_MinPoolSize := CallbackCreate(ObjBindMethod(implObj, "get_MinPoolSize"), flags, 2)
+        this.vtbl.put_CreationTimeout := CallbackCreate(ObjBindMethod(implObj, "put_CreationTimeout"), flags, 2)
+        this.vtbl.get_CreationTimeout := CallbackCreate(ObjBindMethod(implObj, "get_CreationTimeout"), flags, 2)
+        this.vtbl.put_TransactionAffinity := CallbackCreate(ObjBindMethod(implObj, "put_TransactionAffinity"), flags, 2)
+        this.vtbl.get_TransactionAffinity := CallbackCreate(ObjBindMethod(implObj, "get_TransactionAffinity"), flags, 2)
+        this.vtbl.put_ClassFactory := CallbackCreate(ObjBindMethod(implObj, "put_ClassFactory"), flags, 2)
+        this.vtbl.get_ClassFactory := CallbackCreate(ObjBindMethod(implObj, "get_ClassFactory"), flags, 2)
     }
 
     Dispose() {

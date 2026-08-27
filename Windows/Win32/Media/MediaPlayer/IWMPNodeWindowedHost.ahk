@@ -40,7 +40,6 @@ export default struct IWMPNodeWindowedHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uMsg 
      * @param {WPARAM} _wparam 
      * @param {LPARAM} _lparam 
@@ -49,8 +48,8 @@ export default struct IWMPNodeWindowedHost extends IUnknown {
      * @returns {HRESULT} 
      */
     OnWindowMessageFromRenderer(uMsg, _wparam, _lparam, plRet, pfHandled) {
-        plRetMarshal := plRet is VarRef ? "ptr*" : "ptr"
-        pfHandledMarshal := pfHandled is VarRef ? "int*" : "ptr"
+        plRetMarshal := plRet is VarRef ? "ptr*" : IntPtr
+        pfHandledMarshal := pfHandled is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, UInt32, uMsg, WPARAM, _wparam, LPARAM, _lparam, plRetMarshal, plRet, pfHandledMarshal, pfHandled, "HRESULT")
         return result
@@ -65,7 +64,7 @@ export default struct IWMPNodeWindowedHost extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnWindowMessageFromRenderer := CallbackCreate(GetMethod(implObj, "OnWindowMessageFromRenderer"), flags, 6)
+        this.vtbl.OnWindowMessageFromRenderer := CallbackCreate(ObjBindMethod(implObj, "OnWindowMessageFromRenderer"), flags, 6)
     }
 
     Dispose() {

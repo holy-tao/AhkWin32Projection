@@ -124,7 +124,6 @@ export default struct _ICounterItemUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_Value() {
@@ -133,7 +132,6 @@ export default struct _ICounterItemUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _Color 
      * @returns {HRESULT} 
      */
@@ -143,7 +141,6 @@ export default struct _ICounterItemUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Color() {
@@ -152,7 +149,6 @@ export default struct _ICounterItemUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iWidth 
      * @returns {HRESULT} 
      */
@@ -162,7 +158,6 @@ export default struct _ICounterItemUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Width() {
@@ -171,7 +166,6 @@ export default struct _ICounterItemUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iLineStyle 
      * @returns {HRESULT} 
      */
@@ -181,7 +175,6 @@ export default struct _ICounterItemUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_LineStyle() {
@@ -190,7 +183,6 @@ export default struct _ICounterItemUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iScale 
      * @returns {HRESULT} 
      */
@@ -200,7 +192,6 @@ export default struct _ICounterItemUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ScaleFactor() {
@@ -209,7 +200,6 @@ export default struct _ICounterItemUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Path() {
@@ -219,21 +209,19 @@ export default struct _ICounterItemUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Float>} Value 
      * @param {Pointer<Integer>} _Status 
      * @returns {HRESULT} 
      */
     GetValue(Value, _Status) {
-        ValueMarshal := Value is VarRef ? "double*" : "ptr"
-        _StatusMarshal := _Status is VarRef ? "int*" : "ptr"
+        ValueMarshal := Value is VarRef ? "double*" : IntPtr
+        _StatusMarshal := _Status is VarRef ? "int*" : IntPtr
 
         result := ComCall(13, this, ValueMarshal, Value, _StatusMarshal, _Status, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Float>} Max 
      * @param {Pointer<Float>} Min 
      * @param {Pointer<Float>} Avg 
@@ -241,17 +229,16 @@ export default struct _ICounterItemUnion extends IUnknown {
      * @returns {HRESULT} 
      */
     GetStatistics(Max, Min, Avg, _Status) {
-        MaxMarshal := Max is VarRef ? "double*" : "ptr"
-        MinMarshal := Min is VarRef ? "double*" : "ptr"
-        AvgMarshal := Avg is VarRef ? "double*" : "ptr"
-        _StatusMarshal := _Status is VarRef ? "int*" : "ptr"
+        MaxMarshal := Max is VarRef ? "double*" : IntPtr
+        MinMarshal := Min is VarRef ? "double*" : IntPtr
+        AvgMarshal := Avg is VarRef ? "double*" : IntPtr
+        _StatusMarshal := _Status is VarRef ? "int*" : IntPtr
 
         result := ComCall(14, this, MaxMarshal, Max, MinMarshal, Min, AvgMarshal, Avg, _StatusMarshal, _Status, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -261,7 +248,6 @@ export default struct _ICounterItemUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Selected() {
@@ -270,7 +256,6 @@ export default struct _ICounterItemUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 
      */
@@ -280,7 +265,6 @@ export default struct _ICounterItemUnion extends IUnknown {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_Visible() {
@@ -289,7 +273,6 @@ export default struct _ICounterItemUnion extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} iIndex 
      * @param {SysmonDataType} iWhich 
      * @returns {VARIANT} 
@@ -309,23 +292,23 @@ export default struct _ICounterItemUnion extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Value := CallbackCreate(GetMethod(implObj, "get_Value"), flags, 2)
-        this.vtbl.put_Color := CallbackCreate(GetMethod(implObj, "put_Color"), flags, 2)
-        this.vtbl.get_Color := CallbackCreate(GetMethod(implObj, "get_Color"), flags, 2)
-        this.vtbl.put_Width := CallbackCreate(GetMethod(implObj, "put_Width"), flags, 2)
-        this.vtbl.get_Width := CallbackCreate(GetMethod(implObj, "get_Width"), flags, 2)
-        this.vtbl.put_LineStyle := CallbackCreate(GetMethod(implObj, "put_LineStyle"), flags, 2)
-        this.vtbl.get_LineStyle := CallbackCreate(GetMethod(implObj, "get_LineStyle"), flags, 2)
-        this.vtbl.put_ScaleFactor := CallbackCreate(GetMethod(implObj, "put_ScaleFactor"), flags, 2)
-        this.vtbl.get_ScaleFactor := CallbackCreate(GetMethod(implObj, "get_ScaleFactor"), flags, 2)
-        this.vtbl.get_Path := CallbackCreate(GetMethod(implObj, "get_Path"), flags, 2)
-        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 3)
-        this.vtbl.GetStatistics := CallbackCreate(GetMethod(implObj, "GetStatistics"), flags, 5)
-        this.vtbl.put_Selected := CallbackCreate(GetMethod(implObj, "put_Selected"), flags, 2)
-        this.vtbl.get_Selected := CallbackCreate(GetMethod(implObj, "get_Selected"), flags, 2)
-        this.vtbl.put_Visible := CallbackCreate(GetMethod(implObj, "put_Visible"), flags, 2)
-        this.vtbl.get_Visible := CallbackCreate(GetMethod(implObj, "get_Visible"), flags, 2)
-        this.vtbl.GetDataAt := CallbackCreate(GetMethod(implObj, "GetDataAt"), flags, 4)
+        this.vtbl.get_Value := CallbackCreate(ObjBindMethod(implObj, "get_Value"), flags, 2)
+        this.vtbl.put_Color := CallbackCreate(ObjBindMethod(implObj, "put_Color"), flags, 2)
+        this.vtbl.get_Color := CallbackCreate(ObjBindMethod(implObj, "get_Color"), flags, 2)
+        this.vtbl.put_Width := CallbackCreate(ObjBindMethod(implObj, "put_Width"), flags, 2)
+        this.vtbl.get_Width := CallbackCreate(ObjBindMethod(implObj, "get_Width"), flags, 2)
+        this.vtbl.put_LineStyle := CallbackCreate(ObjBindMethod(implObj, "put_LineStyle"), flags, 2)
+        this.vtbl.get_LineStyle := CallbackCreate(ObjBindMethod(implObj, "get_LineStyle"), flags, 2)
+        this.vtbl.put_ScaleFactor := CallbackCreate(ObjBindMethod(implObj, "put_ScaleFactor"), flags, 2)
+        this.vtbl.get_ScaleFactor := CallbackCreate(ObjBindMethod(implObj, "get_ScaleFactor"), flags, 2)
+        this.vtbl.get_Path := CallbackCreate(ObjBindMethod(implObj, "get_Path"), flags, 2)
+        this.vtbl.GetValue := CallbackCreate(ObjBindMethod(implObj, "GetValue"), flags, 3)
+        this.vtbl.GetStatistics := CallbackCreate(ObjBindMethod(implObj, "GetStatistics"), flags, 5)
+        this.vtbl.put_Selected := CallbackCreate(ObjBindMethod(implObj, "put_Selected"), flags, 2)
+        this.vtbl.get_Selected := CallbackCreate(ObjBindMethod(implObj, "get_Selected"), flags, 2)
+        this.vtbl.put_Visible := CallbackCreate(ObjBindMethod(implObj, "put_Visible"), flags, 2)
+        this.vtbl.get_Visible := CallbackCreate(ObjBindMethod(implObj, "get_Visible"), flags, 2)
+        this.vtbl.GetDataAt := CallbackCreate(ObjBindMethod(implObj, "GetDataAt"), flags, 4)
     }
 
     Dispose() {

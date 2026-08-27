@@ -36,7 +36,6 @@ export default struct IViewObjectPresentNotify extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     OnPreRender() {
@@ -53,7 +52,7 @@ export default struct IViewObjectPresentNotify extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnPreRender := CallbackCreate(GetMethod(implObj, "OnPreRender"), flags, 1)
+        this.vtbl.OnPreRender := CallbackCreate(ObjBindMethod(implObj, "OnPreRender"), flags, 1)
     }
 
     Dispose() {

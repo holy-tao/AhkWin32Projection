@@ -100,7 +100,7 @@ export default struct IWMPPlaylist extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylist-get_count
      */
     get_count(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+        plCountMarshal := plCount is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, plCountMarshal, plCount, "HRESULT")
         return result
@@ -203,7 +203,7 @@ export default struct IWMPPlaylist extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylist-get_attributecount
      */
     get_attributeCount(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
+        plCountMarshal := plCount is VarRef ? "int*" : IntPtr
 
         result := ComCall(10, this, plCountMarshal, plCount, "HRESULT")
         return result
@@ -357,7 +357,7 @@ export default struct IWMPPlaylist extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylist-get_isidentical
      */
     get_isIdentical(pIWMPPlaylist, pvbool) {
-        pvboolMarshal := pvbool is VarRef ? "short*" : "ptr"
+        pvboolMarshal := pvbool is VarRef ? "short*" : IntPtr
 
         result := ComCall(15, this, "ptr", pIWMPPlaylist, pvboolMarshal, pvbool, "HRESULT")
         return result
@@ -534,20 +534,20 @@ export default struct IWMPPlaylist extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_count := CallbackCreate(GetMethod(implObj, "get_count"), flags, 2)
-        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
-        this.vtbl.put_name := CallbackCreate(GetMethod(implObj, "put_name"), flags, 2)
-        this.vtbl.get_attributeCount := CallbackCreate(GetMethod(implObj, "get_attributeCount"), flags, 2)
-        this.vtbl.get_attributeName := CallbackCreate(GetMethod(implObj, "get_attributeName"), flags, 3)
-        this.vtbl.get_item := CallbackCreate(GetMethod(implObj, "get_item"), flags, 3)
-        this.vtbl.getItemInfo := CallbackCreate(GetMethod(implObj, "getItemInfo"), flags, 3)
-        this.vtbl.setItemInfo := CallbackCreate(GetMethod(implObj, "setItemInfo"), flags, 3)
-        this.vtbl.get_isIdentical := CallbackCreate(GetMethod(implObj, "get_isIdentical"), flags, 3)
-        this.vtbl.clear := CallbackCreate(GetMethod(implObj, "clear"), flags, 1)
-        this.vtbl.insertItem := CallbackCreate(GetMethod(implObj, "insertItem"), flags, 3)
-        this.vtbl.appendItem := CallbackCreate(GetMethod(implObj, "appendItem"), flags, 2)
-        this.vtbl.removeItem := CallbackCreate(GetMethod(implObj, "removeItem"), flags, 2)
-        this.vtbl.moveItem := CallbackCreate(GetMethod(implObj, "moveItem"), flags, 3)
+        this.vtbl.get_count := CallbackCreate(ObjBindMethod(implObj, "get_count"), flags, 2)
+        this.vtbl.get_name := CallbackCreate(ObjBindMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.put_name := CallbackCreate(ObjBindMethod(implObj, "put_name"), flags, 2)
+        this.vtbl.get_attributeCount := CallbackCreate(ObjBindMethod(implObj, "get_attributeCount"), flags, 2)
+        this.vtbl.get_attributeName := CallbackCreate(ObjBindMethod(implObj, "get_attributeName"), flags, 3)
+        this.vtbl.get_item := CallbackCreate(ObjBindMethod(implObj, "get_item"), flags, 3)
+        this.vtbl.getItemInfo := CallbackCreate(ObjBindMethod(implObj, "getItemInfo"), flags, 3)
+        this.vtbl.setItemInfo := CallbackCreate(ObjBindMethod(implObj, "setItemInfo"), flags, 3)
+        this.vtbl.get_isIdentical := CallbackCreate(ObjBindMethod(implObj, "get_isIdentical"), flags, 3)
+        this.vtbl.clear := CallbackCreate(ObjBindMethod(implObj, "clear"), flags, 1)
+        this.vtbl.insertItem := CallbackCreate(ObjBindMethod(implObj, "insertItem"), flags, 3)
+        this.vtbl.appendItem := CallbackCreate(ObjBindMethod(implObj, "appendItem"), flags, 2)
+        this.vtbl.removeItem := CallbackCreate(ObjBindMethod(implObj, "removeItem"), flags, 2)
+        this.vtbl.moveItem := CallbackCreate(ObjBindMethod(implObj, "moveItem"), flags, 3)
     }
 
     Dispose() {

@@ -126,12 +126,12 @@ export default struct IReferenceTrackerHost extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DisconnectUnusedReferenceSources := CallbackCreate(GetMethod(implObj, "DisconnectUnusedReferenceSources"), flags, 2)
-        this.vtbl.ReleaseDisconnectedReferenceSources := CallbackCreate(GetMethod(implObj, "ReleaseDisconnectedReferenceSources"), flags, 1)
-        this.vtbl.NotifyEndOfReferenceTrackingOnThread := CallbackCreate(GetMethod(implObj, "NotifyEndOfReferenceTrackingOnThread"), flags, 1)
-        this.vtbl.GetTrackerTarget := CallbackCreate(GetMethod(implObj, "GetTrackerTarget"), flags, 3)
-        this.vtbl.AddMemoryPressure := CallbackCreate(GetMethod(implObj, "AddMemoryPressure"), flags, 2)
-        this.vtbl.RemoveMemoryPressure := CallbackCreate(GetMethod(implObj, "RemoveMemoryPressure"), flags, 2)
+        this.vtbl.DisconnectUnusedReferenceSources := CallbackCreate(ObjBindMethod(implObj, "DisconnectUnusedReferenceSources"), flags, 2)
+        this.vtbl.ReleaseDisconnectedReferenceSources := CallbackCreate(ObjBindMethod(implObj, "ReleaseDisconnectedReferenceSources"), flags, 1)
+        this.vtbl.NotifyEndOfReferenceTrackingOnThread := CallbackCreate(ObjBindMethod(implObj, "NotifyEndOfReferenceTrackingOnThread"), flags, 1)
+        this.vtbl.GetTrackerTarget := CallbackCreate(ObjBindMethod(implObj, "GetTrackerTarget"), flags, 3)
+        this.vtbl.AddMemoryPressure := CallbackCreate(ObjBindMethod(implObj, "AddMemoryPressure"), flags, 2)
+        this.vtbl.RemoveMemoryPressure := CallbackCreate(ObjBindMethod(implObj, "RemoveMemoryPressure"), flags, 2)
     }
 
     Dispose() {

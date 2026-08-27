@@ -116,9 +116,9 @@ export default struct IDWriteGlyphRunAnalysis extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwriteglyphrunanalysis-getalphablendparams
      */
     GetAlphaBlendParams(renderingParams, blendGamma, blendEnhancedContrast, blendClearTypeLevel) {
-        blendGammaMarshal := blendGamma is VarRef ? "float*" : "ptr"
-        blendEnhancedContrastMarshal := blendEnhancedContrast is VarRef ? "float*" : "ptr"
-        blendClearTypeLevelMarshal := blendClearTypeLevel is VarRef ? "float*" : "ptr"
+        blendGammaMarshal := blendGamma is VarRef ? "float*" : IntPtr
+        blendEnhancedContrastMarshal := blendEnhancedContrast is VarRef ? "float*" : IntPtr
+        blendClearTypeLevelMarshal := blendClearTypeLevel is VarRef ? "float*" : IntPtr
 
         result := ComCall(5, this, "ptr", renderingParams, blendGammaMarshal, blendGamma, blendEnhancedContrastMarshal, blendEnhancedContrast, blendClearTypeLevelMarshal, blendClearTypeLevel, "HRESULT")
         return result
@@ -133,9 +133,9 @@ export default struct IDWriteGlyphRunAnalysis extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAlphaTextureBounds := CallbackCreate(GetMethod(implObj, "GetAlphaTextureBounds"), flags, 3)
-        this.vtbl.CreateAlphaTexture := CallbackCreate(GetMethod(implObj, "CreateAlphaTexture"), flags, 5)
-        this.vtbl.GetAlphaBlendParams := CallbackCreate(GetMethod(implObj, "GetAlphaBlendParams"), flags, 5)
+        this.vtbl.GetAlphaTextureBounds := CallbackCreate(ObjBindMethod(implObj, "GetAlphaTextureBounds"), flags, 3)
+        this.vtbl.CreateAlphaTexture := CallbackCreate(ObjBindMethod(implObj, "CreateAlphaTexture"), flags, 5)
+        this.vtbl.GetAlphaBlendParams := CallbackCreate(ObjBindMethod(implObj, "GetAlphaBlendParams"), flags, 5)
     }
 
     Dispose() {

@@ -88,9 +88,9 @@ export default struct IAudioSystemEffectsCustomFormats extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFormatCount := CallbackCreate(GetMethod(implObj, "GetFormatCount"), flags, 2)
-        this.vtbl.GetFormat := CallbackCreate(GetMethod(implObj, "GetFormat"), flags, 3)
-        this.vtbl.GetFormatRepresentation := CallbackCreate(GetMethod(implObj, "GetFormatRepresentation"), flags, 3)
+        this.vtbl.GetFormatCount := CallbackCreate(ObjBindMethod(implObj, "GetFormatCount"), flags, 2)
+        this.vtbl.GetFormat := CallbackCreate(ObjBindMethod(implObj, "GetFormat"), flags, 3)
+        this.vtbl.GetFormatRepresentation := CallbackCreate(ObjBindMethod(implObj, "GetFormatRepresentation"), flags, 3)
     }
 
     Dispose() {

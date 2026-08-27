@@ -40,7 +40,6 @@ export default struct IAppxManifestReader3 extends IAppxManifestReader2 {
     }
 
     /**
-     * 
      * @param {APPX_CAPABILITY_CLASS_TYPE} capabilityClass 
      * @returns {IAppxManifestCapabilitiesEnumerator} 
      */
@@ -50,7 +49,6 @@ export default struct IAppxManifestReader3 extends IAppxManifestReader2 {
     }
 
     /**
-     * 
      * @returns {IAppxManifestTargetDeviceFamiliesEnumerator} 
      */
     GetTargetDeviceFamilies() {
@@ -67,8 +65,8 @@ export default struct IAppxManifestReader3 extends IAppxManifestReader2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCapabilitiesByCapabilityClass := CallbackCreate(GetMethod(implObj, "GetCapabilitiesByCapabilityClass"), flags, 3)
-        this.vtbl.GetTargetDeviceFamilies := CallbackCreate(GetMethod(implObj, "GetTargetDeviceFamilies"), flags, 2)
+        this.vtbl.GetCapabilitiesByCapabilityClass := CallbackCreate(ObjBindMethod(implObj, "GetCapabilitiesByCapabilityClass"), flags, 3)
+        this.vtbl.GetTargetDeviceFamilies := CallbackCreate(ObjBindMethod(implObj, "GetTargetDeviceFamilies"), flags, 2)
     }
 
     Dispose() {

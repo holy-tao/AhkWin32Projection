@@ -89,8 +89,8 @@ export default struct IPersistSerializedPropStorage2 extends IPersistSerializedP
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPropertyStorageSize := CallbackCreate(GetMethod(implObj, "GetPropertyStorageSize"), flags, 2)
-        this.vtbl.GetPropertyStorageBuffer := CallbackCreate(GetMethod(implObj, "GetPropertyStorageBuffer"), flags, 4)
+        this.vtbl.GetPropertyStorageSize := CallbackCreate(ObjBindMethod(implObj, "GetPropertyStorageSize"), flags, 2)
+        this.vtbl.GetPropertyStorageBuffer := CallbackCreate(ObjBindMethod(implObj, "GetPropertyStorageBuffer"), flags, 4)
     }
 
     Dispose() {

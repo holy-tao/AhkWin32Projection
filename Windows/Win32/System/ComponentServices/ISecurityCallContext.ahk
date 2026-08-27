@@ -213,12 +213,12 @@ export default struct ISecurityCallContext extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
-        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
-        this.vtbl.IsCallerInRole := CallbackCreate(GetMethod(implObj, "IsCallerInRole"), flags, 3)
-        this.vtbl.IsSecurityEnabled := CallbackCreate(GetMethod(implObj, "IsSecurityEnabled"), flags, 2)
-        this.vtbl.IsUserInRole := CallbackCreate(GetMethod(implObj, "IsUserInRole"), flags, 4)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(ObjBindMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.get__NewEnum := CallbackCreate(ObjBindMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.IsCallerInRole := CallbackCreate(ObjBindMethod(implObj, "IsCallerInRole"), flags, 3)
+        this.vtbl.IsSecurityEnabled := CallbackCreate(ObjBindMethod(implObj, "IsSecurityEnabled"), flags, 2)
+        this.vtbl.IsUserInRole := CallbackCreate(ObjBindMethod(implObj, "IsUserInRole"), flags, 4)
     }
 
     Dispose() {

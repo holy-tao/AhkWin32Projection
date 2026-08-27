@@ -19,7 +19,6 @@ export default struct PHVL_WHEA_ERROR_NOTIFICATION {
     }
 
     /**
-     * 
      * @returns {NTSTATUS} 
      */
     Call() {

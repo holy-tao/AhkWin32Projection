@@ -67,9 +67,11 @@ export default struct IWICBitmapCodecProgressNotification extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapcodecprogressnotification-registerprogressnotification
      */
     RegisterProgressNotification(_pfnProgressNotification, pvData, dwProgressFlags) {
-        pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
+        _pfnProgressNotificationMarshal := _pfnProgressNotification == 0 ? IntPtr : PFNProgressNotification
+        pvDataMarshal := pvData is VarRef ? "ptr" : IntPtr
+        pvDataMarshal := pvData == 0 ? IntPtr : "ptr"
 
-        result := ComCall(3, this, PFNProgressNotification, _pfnProgressNotification, pvDataMarshal, pvData, UInt32, dwProgressFlags, "HRESULT")
+        result := ComCall(3, this, _pfnProgressNotificationMarshal, _pfnProgressNotification, pvDataMarshal, pvData, UInt32, dwProgressFlags, "HRESULT")
         return result
     }
 
@@ -82,7 +84,7 @@ export default struct IWICBitmapCodecProgressNotification extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterProgressNotification := CallbackCreate(GetMethod(implObj, "RegisterProgressNotification"), flags, 4)
+        this.vtbl.RegisterProgressNotification := CallbackCreate(ObjBindMethod(implObj, "RegisterProgressNotification"), flags, 4)
     }
 
     Dispose() {

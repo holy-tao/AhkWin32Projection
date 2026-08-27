@@ -264,18 +264,18 @@ export default struct ISearchFolderItemFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetDisplayName := CallbackCreate(GetMethod(implObj, "SetDisplayName"), flags, 2)
-        this.vtbl.SetFolderTypeID := CallbackCreate(GetMethod(implObj, "SetFolderTypeID"), flags, 2)
-        this.vtbl.SetFolderLogicalViewMode := CallbackCreate(GetMethod(implObj, "SetFolderLogicalViewMode"), flags, 2)
-        this.vtbl.SetIconSize := CallbackCreate(GetMethod(implObj, "SetIconSize"), flags, 2)
-        this.vtbl.SetVisibleColumns := CallbackCreate(GetMethod(implObj, "SetVisibleColumns"), flags, 3)
-        this.vtbl.SetSortColumns := CallbackCreate(GetMethod(implObj, "SetSortColumns"), flags, 3)
-        this.vtbl.SetGroupColumn := CallbackCreate(GetMethod(implObj, "SetGroupColumn"), flags, 2)
-        this.vtbl.SetStacks := CallbackCreate(GetMethod(implObj, "SetStacks"), flags, 3)
-        this.vtbl.SetScope := CallbackCreate(GetMethod(implObj, "SetScope"), flags, 2)
-        this.vtbl.SetCondition := CallbackCreate(GetMethod(implObj, "SetCondition"), flags, 2)
-        this.vtbl.GetShellItem := CallbackCreate(GetMethod(implObj, "GetShellItem"), flags, 3)
-        this.vtbl.GetIDList := CallbackCreate(GetMethod(implObj, "GetIDList"), flags, 2)
+        this.vtbl.SetDisplayName := CallbackCreate(ObjBindMethod(implObj, "SetDisplayName"), flags, 2)
+        this.vtbl.SetFolderTypeID := CallbackCreate(ObjBindMethod(implObj, "SetFolderTypeID"), flags, 2)
+        this.vtbl.SetFolderLogicalViewMode := CallbackCreate(ObjBindMethod(implObj, "SetFolderLogicalViewMode"), flags, 2)
+        this.vtbl.SetIconSize := CallbackCreate(ObjBindMethod(implObj, "SetIconSize"), flags, 2)
+        this.vtbl.SetVisibleColumns := CallbackCreate(ObjBindMethod(implObj, "SetVisibleColumns"), flags, 3)
+        this.vtbl.SetSortColumns := CallbackCreate(ObjBindMethod(implObj, "SetSortColumns"), flags, 3)
+        this.vtbl.SetGroupColumn := CallbackCreate(ObjBindMethod(implObj, "SetGroupColumn"), flags, 2)
+        this.vtbl.SetStacks := CallbackCreate(ObjBindMethod(implObj, "SetStacks"), flags, 3)
+        this.vtbl.SetScope := CallbackCreate(ObjBindMethod(implObj, "SetScope"), flags, 2)
+        this.vtbl.SetCondition := CallbackCreate(ObjBindMethod(implObj, "SetCondition"), flags, 2)
+        this.vtbl.GetShellItem := CallbackCreate(ObjBindMethod(implObj, "GetShellItem"), flags, 3)
+        this.vtbl.GetIDList := CallbackCreate(ObjBindMethod(implObj, "GetIDList"), flags, 2)
     }
 
     Dispose() {

@@ -145,9 +145,9 @@ export default struct ITfCompartmentMgr extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCompartment := CallbackCreate(GetMethod(implObj, "GetCompartment"), flags, 3)
-        this.vtbl.ClearCompartment := CallbackCreate(GetMethod(implObj, "ClearCompartment"), flags, 3)
-        this.vtbl.EnumCompartments := CallbackCreate(GetMethod(implObj, "EnumCompartments"), flags, 2)
+        this.vtbl.GetCompartment := CallbackCreate(ObjBindMethod(implObj, "GetCompartment"), flags, 3)
+        this.vtbl.ClearCompartment := CallbackCreate(ObjBindMethod(implObj, "ClearCompartment"), flags, 3)
+        this.vtbl.EnumCompartments := CallbackCreate(ObjBindMethod(implObj, "EnumCompartments"), flags, 2)
     }
 
     Dispose() {

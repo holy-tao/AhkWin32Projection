@@ -44,7 +44,9 @@ export default struct IMFMediaEngineNeedKeyNotify extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineneedkeynotify-needkey
      */
     NeedKey(initData, cb) {
-        ComCall(3, this, IntPtr, initData, UInt32, cb)
+        initDataMarshal := initData == 0 ? IntPtr : IntPtr
+
+        ComCall(3, this, initDataMarshal, initData, UInt32, cb)
     }
 
     _Query(iid) {
@@ -56,7 +58,7 @@ export default struct IMFMediaEngineNeedKeyNotify extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.NeedKey := CallbackCreate(GetMethod(implObj, "NeedKey"), flags, 3)
+        this.vtbl.NeedKey := CallbackCreate(ObjBindMethod(implObj, "NeedKey"), flags, 3)
     }
 
     Dispose() {

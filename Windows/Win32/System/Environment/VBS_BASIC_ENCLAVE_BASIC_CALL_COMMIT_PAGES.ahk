@@ -18,7 +18,6 @@ export default struct VBS_BASIC_ENCLAVE_BASIC_CALL_COMMIT_PAGES {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} EnclaveAddress 
      * @param {Pointer} NumberOfBytes 
      * @param {Pointer<Void>} SourceAddress 
@@ -26,8 +25,9 @@ export default struct VBS_BASIC_ENCLAVE_BASIC_CALL_COMMIT_PAGES {
      * @returns {Integer} 
      */
     Call(EnclaveAddress, NumberOfBytes, SourceAddress, PageProtection) {
-        EnclaveAddressMarshal := EnclaveAddress is VarRef ? "ptr" : "ptr"
-        SourceAddressMarshal := SourceAddress is VarRef ? "ptr" : "ptr"
+        EnclaveAddressMarshal := EnclaveAddress is VarRef ? "ptr" : IntPtr
+        SourceAddressMarshal := SourceAddress is VarRef ? "ptr" : IntPtr
+        SourceAddressMarshal := SourceAddress == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, EnclaveAddressMarshal, EnclaveAddress, IntPtr, NumberOfBytes, SourceAddressMarshal, SourceAddress, UInt32, PageProtection, Int32)
         return result

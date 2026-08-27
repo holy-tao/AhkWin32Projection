@@ -121,7 +121,7 @@ export default struct IWMPLibrary extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmplibrary-get_type
      */
     get_type(pwmplt) {
-        pwmpltMarshal := pwmplt is VarRef ? "int*" : "ptr"
+        pwmpltMarshal := pwmplt is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, pwmpltMarshal, pwmplt, "HRESULT")
         return result
@@ -167,7 +167,7 @@ export default struct IWMPLibrary extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmplibrary-isidentical
      */
     isIdentical(pIWMPLibrary, pvbool) {
-        pvboolMarshal := pvbool is VarRef ? "short*" : "ptr"
+        pvboolMarshal := pvbool is VarRef ? "short*" : IntPtr
 
         result := ComCall(6, this, "ptr", pIWMPLibrary, pvboolMarshal, pvbool, "HRESULT")
         return result
@@ -182,10 +182,10 @@ export default struct IWMPLibrary extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
-        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
-        this.vtbl.get_mediaCollection := CallbackCreate(GetMethod(implObj, "get_mediaCollection"), flags, 2)
-        this.vtbl.isIdentical := CallbackCreate(GetMethod(implObj, "isIdentical"), flags, 3)
+        this.vtbl.get_name := CallbackCreate(ObjBindMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.get_type := CallbackCreate(ObjBindMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.get_mediaCollection := CallbackCreate(ObjBindMethod(implObj, "get_mediaCollection"), flags, 2)
+        this.vtbl.isIdentical := CallbackCreate(ObjBindMethod(implObj, "isIdentical"), flags, 3)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct LPLOOKUPSERVICE_COMPLETION_ROUTINE {
     }
 
     /**
-     * 
      * @param {Integer} dwError 
      * @param {Integer} dwBytes 
      * @param {Pointer<OVERLAPPED>} lpOverlapped 

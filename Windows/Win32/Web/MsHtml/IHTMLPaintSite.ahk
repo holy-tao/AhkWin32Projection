@@ -46,7 +46,6 @@ export default struct IHTMLPaintSite extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     InvalidatePainterInfo() {
@@ -74,7 +73,6 @@ export default struct IHTMLPaintSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {HRGN} rgnInvalid 
      * @returns {HRESULT} 
      */
@@ -84,7 +82,6 @@ export default struct IHTMLPaintSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} lFlags 
      * @returns {HTML_PAINT_DRAW_INFO} 
      */
@@ -95,7 +92,6 @@ export default struct IHTMLPaintSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {POINT} ptGlobal 
      * @returns {POINT} 
      */
@@ -106,7 +102,6 @@ export default struct IHTMLPaintSite extends IUnknown {
     }
 
     /**
-     * 
      * @param {POINT} ptLocal 
      * @returns {POINT} 
      */
@@ -117,7 +112,6 @@ export default struct IHTMLPaintSite extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetHitTestCookie() {
@@ -134,13 +128,13 @@ export default struct IHTMLPaintSite extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InvalidatePainterInfo := CallbackCreate(GetMethod(implObj, "InvalidatePainterInfo"), flags, 1)
-        this.vtbl.InvalidateRect := CallbackCreate(GetMethod(implObj, "InvalidateRect"), flags, 2)
-        this.vtbl.InvalidateRegion := CallbackCreate(GetMethod(implObj, "InvalidateRegion"), flags, 2)
-        this.vtbl.GetDrawInfo := CallbackCreate(GetMethod(implObj, "GetDrawInfo"), flags, 3)
-        this.vtbl.TransformGlobalToLocal := CallbackCreate(GetMethod(implObj, "TransformGlobalToLocal"), flags, 3)
-        this.vtbl.TransformLocalToGlobal := CallbackCreate(GetMethod(implObj, "TransformLocalToGlobal"), flags, 3)
-        this.vtbl.GetHitTestCookie := CallbackCreate(GetMethod(implObj, "GetHitTestCookie"), flags, 2)
+        this.vtbl.InvalidatePainterInfo := CallbackCreate(ObjBindMethod(implObj, "InvalidatePainterInfo"), flags, 1)
+        this.vtbl.InvalidateRect := CallbackCreate(ObjBindMethod(implObj, "InvalidateRect"), flags, 2)
+        this.vtbl.InvalidateRegion := CallbackCreate(ObjBindMethod(implObj, "InvalidateRegion"), flags, 2)
+        this.vtbl.GetDrawInfo := CallbackCreate(ObjBindMethod(implObj, "GetDrawInfo"), flags, 3)
+        this.vtbl.TransformGlobalToLocal := CallbackCreate(ObjBindMethod(implObj, "TransformGlobalToLocal"), flags, 3)
+        this.vtbl.TransformLocalToGlobal := CallbackCreate(ObjBindMethod(implObj, "TransformLocalToGlobal"), flags, 3)
+        this.vtbl.GetHitTestCookie := CallbackCreate(ObjBindMethod(implObj, "GetHitTestCookie"), flags, 2)
     }
 
     Dispose() {

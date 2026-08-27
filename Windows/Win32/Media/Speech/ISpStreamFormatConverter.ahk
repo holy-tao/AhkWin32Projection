@@ -49,19 +49,19 @@ export default struct ISpStreamFormatConverter extends ISpStreamFormat {
     }
 
     /**
-     * 
      * @param {ISpStreamFormat} pStream 
      * @param {BOOL} fSetFormatToBaseStreamFormat 
      * @param {BOOL} fWriteToBaseStream 
      * @returns {HRESULT} 
      */
     SetBaseStream(pStream, fSetFormatToBaseStreamFormat, fWriteToBaseStream) {
-        result := ComCall(15, this, "ptr", pStream, BOOL, fSetFormatToBaseStreamFormat, BOOL, fWriteToBaseStream, "HRESULT")
+        pStreamMarshal := pStream == 0 ? IntPtr : "ptr"
+
+        result := ComCall(15, this, pStreamMarshal, pStream, BOOL, fSetFormatToBaseStreamFormat, BOOL, fWriteToBaseStream, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {ISpStreamFormat} 
      */
     GetBaseStream() {
@@ -70,7 +70,6 @@ export default struct ISpStreamFormatConverter extends ISpStreamFormat {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rguidFormatIdOfConvertedStream 
      * @param {Pointer<WAVEFORMATEX>} pWaveFormatExOfConvertedStream 
      * @returns {HRESULT} 
@@ -81,7 +80,6 @@ export default struct ISpStreamFormatConverter extends ISpStreamFormat {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ResetSeekPosition() {
@@ -90,7 +88,6 @@ export default struct ISpStreamFormatConverter extends ISpStreamFormat {
     }
 
     /**
-     * 
      * @param {Integer} ullOffsetConvertedStream 
      * @returns {Integer} 
      */
@@ -100,7 +97,6 @@ export default struct ISpStreamFormatConverter extends ISpStreamFormat {
     }
 
     /**
-     * 
      * @param {Integer} ullOffsetBaseStream 
      * @returns {Integer} 
      */
@@ -118,12 +114,12 @@ export default struct ISpStreamFormatConverter extends ISpStreamFormat {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetBaseStream := CallbackCreate(GetMethod(implObj, "SetBaseStream"), flags, 4)
-        this.vtbl.GetBaseStream := CallbackCreate(GetMethod(implObj, "GetBaseStream"), flags, 2)
-        this.vtbl.SetFormat := CallbackCreate(GetMethod(implObj, "SetFormat"), flags, 3)
-        this.vtbl.ResetSeekPosition := CallbackCreate(GetMethod(implObj, "ResetSeekPosition"), flags, 1)
-        this.vtbl.ScaleConvertedToBaseOffset := CallbackCreate(GetMethod(implObj, "ScaleConvertedToBaseOffset"), flags, 3)
-        this.vtbl.ScaleBaseToConvertedOffset := CallbackCreate(GetMethod(implObj, "ScaleBaseToConvertedOffset"), flags, 3)
+        this.vtbl.SetBaseStream := CallbackCreate(ObjBindMethod(implObj, "SetBaseStream"), flags, 4)
+        this.vtbl.GetBaseStream := CallbackCreate(ObjBindMethod(implObj, "GetBaseStream"), flags, 2)
+        this.vtbl.SetFormat := CallbackCreate(ObjBindMethod(implObj, "SetFormat"), flags, 3)
+        this.vtbl.ResetSeekPosition := CallbackCreate(ObjBindMethod(implObj, "ResetSeekPosition"), flags, 1)
+        this.vtbl.ScaleConvertedToBaseOffset := CallbackCreate(ObjBindMethod(implObj, "ScaleConvertedToBaseOffset"), flags, 3)
+        this.vtbl.ScaleBaseToConvertedOffset := CallbackCreate(ObjBindMethod(implObj, "ScaleBaseToConvertedOffset"), flags, 3)
     }
 
     Dispose() {

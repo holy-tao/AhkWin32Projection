@@ -61,7 +61,9 @@ export default struct IClassFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/unknwn/nf-unknwn-iclassfactory-createinstance
      */
     CreateInstance(pUnkOuter, riid) {
-        result := ComCall(3, this, "ptr", pUnkOuter, Guid.Ptr, riid, "ptr*", &ppvObject := 0, "HRESULT")
+        pUnkOuterMarshal := pUnkOuter == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pUnkOuterMarshal, pUnkOuter, Guid.Ptr, riid, "ptr*", &ppvObject := 0, "HRESULT")
         return ppvObject
     }
 
@@ -95,8 +97,8 @@ export default struct IClassFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateInstance := CallbackCreate(GetMethod(implObj, "CreateInstance"), flags, 4)
-        this.vtbl.LockServer := CallbackCreate(GetMethod(implObj, "LockServer"), flags, 2)
+        this.vtbl.CreateInstance := CallbackCreate(ObjBindMethod(implObj, "CreateInstance"), flags, 4)
+        this.vtbl.LockServer := CallbackCreate(ObjBindMethod(implObj, "LockServer"), flags, 2)
     }
 
     Dispose() {

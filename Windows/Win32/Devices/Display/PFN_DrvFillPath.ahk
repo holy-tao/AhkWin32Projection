@@ -24,7 +24,6 @@ export default struct PFN_DrvFillPath {
     }
 
     /**
-     * 
      * @param {Pointer<SURFOBJ>} param0 
      * @param {Pointer<PATHOBJ>} param1 
      * @param {Pointer<CLIPOBJ>} param2 

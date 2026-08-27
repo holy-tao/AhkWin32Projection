@@ -42,7 +42,6 @@ export default struct IABContainer extends IMAPIContainer {
     }
 
     /**
-     * 
      * @remarks
      * The **IABContainer::CreateEntry** method creates a new entry of a particular type in the specified container, returning a pointer to an interface implementation for further access to the entry. The new entry is created by using a template that has been selected from the container's list of available templates published in its one-off table. Callers access a container's one-off table by calling its [IMAPIProp::OpenProperty](imapiprop-openproperty.md) method and requesting the **PR_CREATE_TEMPLATES** ([PidTagCreateTemplates](pidtagcreatetemplates-canonical-property.md)) property.
      * @param {Integer} cbEntryID > [in] The count of the bytes in the entry identifier pointed to by the  _lpEntryID_ parameter.
@@ -69,7 +68,6 @@ export default struct IABContainer extends IMAPIContainer {
     }
 
     /**
-     * 
      * @remarks
      * The **IABContainer::CopyEntries** method copies entries from the same container or a different container. A call to **CopyEntries** is functionally equivalent to making the following calls for each entry to be copied: 
      *   
@@ -112,7 +110,10 @@ export default struct IABContainer extends IMAPIContainer {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iabcontainer-copyentries
      */
     CopyEntries(lpEntries, ulUIParam, lpProgress, ulFlags) {
-        result := ComCall(20, this, SBinaryArray.Ptr, lpEntries, IntPtr, ulUIParam, "ptr", lpProgress, UInt32, ulFlags, "HRESULT")
+        ulUIParamMarshal := ulUIParam == 0 ? IntPtr : IntPtr
+        lpProgressMarshal := lpProgress == 0 ? IntPtr : "ptr"
+
+        result := ComCall(20, this, SBinaryArray.Ptr, lpEntries, ulUIParamMarshal, ulUIParam, lpProgressMarshal, lpProgress, UInt32, ulFlags, "HRESULT")
         return result
     }
 
@@ -135,7 +136,6 @@ export default struct IABContainer extends IMAPIContainer {
     }
 
     /**
-     * 
      * @remarks
      * The **ResolveNames** method attempts to match unresolved recipients from the array of entries in the _lpAdrList_ parameter to recipients in this address book container. An unresolved recipient typically has only the **PR_DISPLAY_NAME** ([PidTagDisplayName](pidtagdisplayname-canonical-property.md)) property and possibly a few other properties. An unresolved recipient does not have the **PR_ENTRYID** ([PidTagEntryId](pidtagentryid-canonical-property.md)) property, and its corresponding flag in the _lpFlagList_ parameter is set to MAPI_UNRESOLVED. Conversely, a resolved recipient always has at least the **PR_ENTRYID** property plus several other properties such as **PR_EMAIL_ADDRESS** ([PidTagEmailAddress](pidtagemailaddress-canonical-property.md)), **PR_DISPLAY_NAME**, and **PR_ADDRTYPE** ([PidTagAddressType](pidtagaddresstype-canonical-property.md)).
      *   
@@ -177,8 +177,10 @@ export default struct IABContainer extends IMAPIContainer {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iabcontainer-resolvenames
      */
     ResolveNames(lpPropTagArray, ulFlags, lpAdrList) {
+        lpPropTagArrayMarshal := lpPropTagArray == 0 ? IntPtr : SPropTagArray.Ptr
+
         lpFlagList := FlagList()
-        result := ComCall(22, this, SPropTagArray.Ptr, lpPropTagArray, UInt32, ulFlags, ADRLIST.Ptr, lpAdrList, FlagList.Ptr, lpFlagList, "HRESULT")
+        result := ComCall(22, this, lpPropTagArrayMarshal, lpPropTagArray, UInt32, ulFlags, ADRLIST.Ptr, lpAdrList, FlagList.Ptr, lpFlagList, "HRESULT")
         return lpFlagList
     }
 
@@ -191,10 +193,10 @@ export default struct IABContainer extends IMAPIContainer {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateEntry := CallbackCreate(GetMethod(implObj, "CreateEntry"), flags, 5)
-        this.vtbl.CopyEntries := CallbackCreate(GetMethod(implObj, "CopyEntries"), flags, 5)
-        this.vtbl.DeleteEntries := CallbackCreate(GetMethod(implObj, "DeleteEntries"), flags, 3)
-        this.vtbl.ResolveNames := CallbackCreate(GetMethod(implObj, "ResolveNames"), flags, 5)
+        this.vtbl.CreateEntry := CallbackCreate(ObjBindMethod(implObj, "CreateEntry"), flags, 5)
+        this.vtbl.CopyEntries := CallbackCreate(ObjBindMethod(implObj, "CopyEntries"), flags, 5)
+        this.vtbl.DeleteEntries := CallbackCreate(ObjBindMethod(implObj, "DeleteEntries"), flags, 3)
+        this.vtbl.ResolveNames := CallbackCreate(ObjBindMethod(implObj, "ResolveNames"), flags, 5)
     }
 
     Dispose() {

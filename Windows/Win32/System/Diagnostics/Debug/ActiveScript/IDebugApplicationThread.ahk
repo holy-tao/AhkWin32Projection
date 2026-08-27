@@ -42,7 +42,6 @@ export default struct IDebugApplicationThread extends IRemoteDebugApplicationThr
     }
 
     /**
-     * 
      * @param {IDebugThreadCall32} pstcb 
      * @param {Integer} dwParam1 
      * @param {Integer} dwParam2 
@@ -55,7 +54,6 @@ export default struct IDebugApplicationThread extends IRemoteDebugApplicationThr
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     QueryIsCurrentThread() {
@@ -64,7 +62,6 @@ export default struct IDebugApplicationThread extends IRemoteDebugApplicationThr
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     QueryIsDebuggerThread() {
@@ -73,7 +70,6 @@ export default struct IDebugApplicationThread extends IRemoteDebugApplicationThr
     }
 
     /**
-     * 
      * @param {PWSTR} pstrDescription 
      * @returns {HRESULT} 
      */
@@ -85,7 +81,6 @@ export default struct IDebugApplicationThread extends IRemoteDebugApplicationThr
     }
 
     /**
-     * 
      * @param {PWSTR} pstrState 
      * @returns {HRESULT} 
      */
@@ -105,11 +100,11 @@ export default struct IDebugApplicationThread extends IRemoteDebugApplicationThr
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SynchronousCallIntoThread32 := CallbackCreate(GetMethod(implObj, "SynchronousCallIntoThread32"), flags, 5)
-        this.vtbl.QueryIsCurrentThread := CallbackCreate(GetMethod(implObj, "QueryIsCurrentThread"), flags, 1)
-        this.vtbl.QueryIsDebuggerThread := CallbackCreate(GetMethod(implObj, "QueryIsDebuggerThread"), flags, 1)
-        this.vtbl.SetDescription := CallbackCreate(GetMethod(implObj, "SetDescription"), flags, 2)
-        this.vtbl.SetStateString := CallbackCreate(GetMethod(implObj, "SetStateString"), flags, 2)
+        this.vtbl.SynchronousCallIntoThread32 := CallbackCreate(ObjBindMethod(implObj, "SynchronousCallIntoThread32"), flags, 5)
+        this.vtbl.QueryIsCurrentThread := CallbackCreate(ObjBindMethod(implObj, "QueryIsCurrentThread"), flags, 1)
+        this.vtbl.QueryIsDebuggerThread := CallbackCreate(ObjBindMethod(implObj, "QueryIsDebuggerThread"), flags, 1)
+        this.vtbl.SetDescription := CallbackCreate(ObjBindMethod(implObj, "SetDescription"), flags, 2)
+        this.vtbl.SetStateString := CallbackCreate(ObjBindMethod(implObj, "SetStateString"), flags, 2)
     }
 
     Dispose() {

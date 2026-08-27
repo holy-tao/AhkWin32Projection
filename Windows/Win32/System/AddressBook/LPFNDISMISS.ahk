@@ -18,13 +18,12 @@ export default struct LPFNDISMISS {
     }
 
     /**
-     * 
      * @param {Pointer} ulUIParam 
      * @param {Pointer<Void>} lpvContext 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(ulUIParam, lpvContext) {
-        lpvContextMarshal := lpvContext is VarRef ? "ptr" : "ptr"
+        lpvContextMarshal := lpvContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, IntPtr, ulUIParam, lpvContextMarshal, lpvContext)
     }

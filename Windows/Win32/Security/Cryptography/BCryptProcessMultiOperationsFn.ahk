@@ -21,7 +21,6 @@ export default struct BCryptProcessMultiOperationsFn {
     }
 
     /**
-     * 
      * @param {BCRYPT_HANDLE} hObject 
      * @param {BCRYPT_MULTI_OPERATION_TYPE} operationType 
      * @param {Integer} pOperations 

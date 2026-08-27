@@ -39,7 +39,6 @@ export default struct IMetaDataFilter extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     UnmarkAll() {
@@ -48,7 +47,6 @@ export default struct IMetaDataFilter extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} tk 
      * @returns {HRESULT} 
      */
@@ -58,13 +56,12 @@ export default struct IMetaDataFilter extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} tk 
      * @param {Pointer<BOOL>} pIsMarked 
      * @returns {HRESULT} 
      */
     IsTokenMarked(tk, pIsMarked) {
-        pIsMarkedMarshal := pIsMarked is VarRef ? "int*" : "ptr"
+        pIsMarkedMarshal := pIsMarked is VarRef ? "int*" : IntPtr
 
         result := ComCall(5, this, UInt32, tk, pIsMarkedMarshal, pIsMarked, "HRESULT")
         return result
@@ -79,9 +76,9 @@ export default struct IMetaDataFilter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.UnmarkAll := CallbackCreate(GetMethod(implObj, "UnmarkAll"), flags, 1)
-        this.vtbl.MarkToken := CallbackCreate(GetMethod(implObj, "MarkToken"), flags, 2)
-        this.vtbl.IsTokenMarked := CallbackCreate(GetMethod(implObj, "IsTokenMarked"), flags, 3)
+        this.vtbl.UnmarkAll := CallbackCreate(ObjBindMethod(implObj, "UnmarkAll"), flags, 1)
+        this.vtbl.MarkToken := CallbackCreate(ObjBindMethod(implObj, "MarkToken"), flags, 2)
+        this.vtbl.IsTokenMarked := CallbackCreate(ObjBindMethod(implObj, "IsTokenMarked"), flags, 3)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct PROTOCOL_CM_REG_SAP {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} CallMgrAfContext 
      * @param {Pointer<CO_SAP>} Sap 
      * @param {Pointer<Void>} NdisSapHandle 
@@ -27,9 +26,9 @@ export default struct PROTOCOL_CM_REG_SAP {
      * @returns {Integer} 
      */
     Call(CallMgrAfContext, Sap, NdisSapHandle, CallMgrSapContext) {
-        CallMgrAfContextMarshal := CallMgrAfContext is VarRef ? "ptr" : "ptr"
-        NdisSapHandleMarshal := NdisSapHandle is VarRef ? "ptr" : "ptr"
-        CallMgrSapContextMarshal := CallMgrSapContext is VarRef ? "ptr*" : "ptr"
+        CallMgrAfContextMarshal := CallMgrAfContext is VarRef ? "ptr" : IntPtr
+        NdisSapHandleMarshal := NdisSapHandle is VarRef ? "ptr" : IntPtr
+        CallMgrSapContextMarshal := CallMgrSapContext is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, CallMgrAfContextMarshal, CallMgrAfContext, CO_SAP.Ptr, Sap, NdisSapHandleMarshal, NdisSapHandle, CallMgrSapContextMarshal, CallMgrSapContext, Int32)
         return result

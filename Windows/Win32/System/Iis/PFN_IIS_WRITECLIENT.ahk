@@ -20,7 +20,6 @@ export default struct PFN_IIS_WRITECLIENT {
     }
 
     /**
-     * 
      * @param {HCONN} param0 
      * @param {Pointer<Void>} param1 
      * @param {Pointer<Integer>} param2 
@@ -28,8 +27,8 @@ export default struct PFN_IIS_WRITECLIENT {
      * @returns {BOOL} 
      */
     Call(param0, param1, param2, param3) {
-        param1Marshal := param1 is VarRef ? "ptr" : "ptr"
-        param2Marshal := param2 is VarRef ? "uint*" : "ptr"
+        param1Marshal := param1 is VarRef ? "ptr" : IntPtr
+        param2Marshal := param2 is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HCONN, param0, param1Marshal, param1, param2Marshal, param2, UInt32, param3, BOOL)
         return result

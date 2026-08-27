@@ -21,7 +21,6 @@ export default struct PFLT_TRANSACTION_NOTIFICATION_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_RELATED_OBJECTS>} FltObjects 
      * @param {PFLT_CONTEXT} _TransactionContext 
      * @param {Integer} NotificationMask 

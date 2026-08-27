@@ -25,7 +25,6 @@ export default struct PFNRASSENDBUFFER {
     }
 
     /**
-     * 
      * @param {HANDLE} hPort Handle to the port on which to send the data in the buffer. This handle should be the handle passed in by RAS as the first parameter of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nc-ras-rascustomscriptexecutefn">RasCustomScriptExecute</a> function.
      * @param {Pointer<Integer>} pBuffer Pointer to a buffer of data to send over the port specified by the <i>hPort</i> parameter. Obtain this buffer using 
@@ -65,7 +64,7 @@ export default struct PFNRASSENDBUFFER {
      * </table>
      */
     Call(hPort, pBuffer, dwSize) {
-        pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
+        pBufferMarshal := pBuffer is VarRef ? "char*" : IntPtr
 
         result := DllCall(this.value, HANDLE, hPort, pBufferMarshal, pBuffer, UInt32, dwSize, UInt32)
         return result

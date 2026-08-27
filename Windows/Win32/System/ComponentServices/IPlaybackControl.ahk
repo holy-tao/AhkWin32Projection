@@ -79,8 +79,8 @@ export default struct IPlaybackControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FinalClientRetry := CallbackCreate(GetMethod(implObj, "FinalClientRetry"), flags, 1)
-        this.vtbl.FinalServerRetry := CallbackCreate(GetMethod(implObj, "FinalServerRetry"), flags, 1)
+        this.vtbl.FinalClientRetry := CallbackCreate(ObjBindMethod(implObj, "FinalClientRetry"), flags, 1)
+        this.vtbl.FinalServerRetry := CallbackCreate(ObjBindMethod(implObj, "FinalServerRetry"), flags, 1)
     }
 
     Dispose() {

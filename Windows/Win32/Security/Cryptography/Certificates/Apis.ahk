@@ -36,7 +36,7 @@
 export CertSrvIsServerOnlineW(pwszServerName, pfServerOnline) {
     pwszServerName := pwszServerName is String ? StrPtr(pwszServerName) : pwszServerName
 
-    pfServerOnlineMarshal := pfServerOnline is VarRef ? "int*" : "ptr"
+    pfServerOnlineMarshal := pfServerOnline is VarRef ? "int*" : IntPtr
 
     result := DllCall("certadm.dll\CertSrvIsServerOnlineW", "ptr", pwszServerName, pfServerOnlineMarshal, pfServerOnline, "HRESULT")
     return result
@@ -58,9 +58,9 @@ export CertSrvIsServerOnlineW(pwszServerName, pfServerOnline) {
  * @since windowsserver2003
  */
 export CertSrvBackupGetDynamicFileListW(hbc, ppwszzFileList, pcbSize) {
-    hbcMarshal := hbc is VarRef ? "ptr" : "ptr"
-    ppwszzFileListMarshal := ppwszzFileList is VarRef ? "ptr*" : "ptr"
-    pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+    hbcMarshal := hbc is VarRef ? "ptr" : IntPtr
+    ppwszzFileListMarshal := ppwszzFileList is VarRef ? "ptr*" : IntPtr
+    pcbSizeMarshal := pcbSize is VarRef ? "uint*" : IntPtr
 
     result := DllCall("certadm.dll\CertSrvBackupGetDynamicFileListW", hbcMarshal, hbc, ppwszzFileListMarshal, ppwszzFileList, pcbSizeMarshal, pcbSize, "HRESULT")
     return result
@@ -89,7 +89,7 @@ export CertSrvBackupGetDynamicFileListW(hbc, ppwszzFileList, pcbSize) {
 export CertSrvBackupPrepareW(pwszServerName, grbitJet, dwBackupFlags, phbc) {
     pwszServerName := pwszServerName is String ? StrPtr(pwszServerName) : pwszServerName
 
-    phbcMarshal := phbc is VarRef ? "ptr*" : "ptr"
+    phbcMarshal := phbc is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("certadm.dll\CertSrvBackupPrepareW", "ptr", pwszServerName, UInt32, grbitJet, CSBACKUP_TYPE, dwBackupFlags, phbcMarshal, phbc, "HRESULT")
     return result
@@ -132,9 +132,9 @@ export CertSrvBackupPrepareW(pwszServerName, grbitJet, dwBackupFlags, phbc) {
  * @since windowsserver2003
  */
 export CertSrvBackupGetDatabaseNamesW(hbc, ppwszzAttachmentInformation, pcbSize) {
-    hbcMarshal := hbc is VarRef ? "ptr" : "ptr"
-    ppwszzAttachmentInformationMarshal := ppwszzAttachmentInformation is VarRef ? "ptr*" : "ptr"
-    pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+    hbcMarshal := hbc is VarRef ? "ptr" : IntPtr
+    ppwszzAttachmentInformationMarshal := ppwszzAttachmentInformation is VarRef ? "ptr*" : IntPtr
+    pcbSizeMarshal := pcbSize is VarRef ? "uint*" : IntPtr
 
     result := DllCall("certadm.dll\CertSrvBackupGetDatabaseNamesW", hbcMarshal, hbc, ppwszzAttachmentInformationMarshal, ppwszzAttachmentInformation, pcbSizeMarshal, pcbSize, "HRESULT")
     return result
@@ -163,8 +163,8 @@ export CertSrvBackupGetDatabaseNamesW(hbc, ppwszzAttachmentInformation, pcbSize)
 export CertSrvBackupOpenFileW(hbc, pwszAttachmentName, cbReadHintSize, pliFileSize) {
     pwszAttachmentName := pwszAttachmentName is String ? StrPtr(pwszAttachmentName) : pwszAttachmentName
 
-    hbcMarshal := hbc is VarRef ? "ptr" : "ptr"
-    pliFileSizeMarshal := pliFileSize is VarRef ? "int64*" : "ptr"
+    hbcMarshal := hbc is VarRef ? "ptr" : IntPtr
+    pliFileSizeMarshal := pliFileSize is VarRef ? "int64*" : IntPtr
 
     result := DllCall("certadm.dll\CertSrvBackupOpenFileW", hbcMarshal, hbc, "ptr", pwszAttachmentName, UInt32, cbReadHintSize, pliFileSizeMarshal, pliFileSize, "HRESULT")
     return result
@@ -185,9 +185,9 @@ export CertSrvBackupOpenFileW(hbc, pwszAttachmentName, cbReadHintSize, pliFileSi
  * @since windowsserver2003
  */
 export CertSrvBackupRead(hbc, pvBuffer, cbBuffer, pcbRead) {
-    hbcMarshal := hbc is VarRef ? "ptr" : "ptr"
-    pvBufferMarshal := pvBuffer is VarRef ? "ptr" : "ptr"
-    pcbReadMarshal := pcbRead is VarRef ? "uint*" : "ptr"
+    hbcMarshal := hbc is VarRef ? "ptr" : IntPtr
+    pvBufferMarshal := pvBuffer is VarRef ? "ptr" : IntPtr
+    pcbReadMarshal := pcbRead is VarRef ? "uint*" : IntPtr
 
     result := DllCall("certadm.dll\CertSrvBackupRead", hbcMarshal, hbc, pvBufferMarshal, pvBuffer, UInt32, cbBuffer, pcbReadMarshal, pcbRead, "HRESULT")
     return result
@@ -203,7 +203,7 @@ export CertSrvBackupRead(hbc, pvBuffer, cbBuffer, pcbRead) {
  * @since windowsserver2003
  */
 export CertSrvBackupClose(hbc) {
-    hbcMarshal := hbc is VarRef ? "ptr" : "ptr"
+    hbcMarshal := hbc is VarRef ? "ptr" : IntPtr
 
     result := DllCall("certadm.dll\CertSrvBackupClose", hbcMarshal, hbc, "HRESULT")
     return result
@@ -224,9 +224,9 @@ export CertSrvBackupClose(hbc) {
  * @since windowsserver2003
  */
 export CertSrvBackupGetBackupLogsW(hbc, ppwszzBackupLogFiles, pcbSize) {
-    hbcMarshal := hbc is VarRef ? "ptr" : "ptr"
-    ppwszzBackupLogFilesMarshal := ppwszzBackupLogFiles is VarRef ? "ptr*" : "ptr"
-    pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+    hbcMarshal := hbc is VarRef ? "ptr" : IntPtr
+    ppwszzBackupLogFilesMarshal := ppwszzBackupLogFiles is VarRef ? "ptr*" : IntPtr
+    pcbSizeMarshal := pcbSize is VarRef ? "uint*" : IntPtr
 
     result := DllCall("certadm.dll\CertSrvBackupGetBackupLogsW", hbcMarshal, hbc, ppwszzBackupLogFilesMarshal, ppwszzBackupLogFiles, pcbSizeMarshal, pcbSize, "HRESULT")
     return result
@@ -253,7 +253,7 @@ export CertSrvBackupGetBackupLogsW(hbc, ppwszzBackupLogFiles, pcbSize) {
  * @since windowsserver2003
  */
 export CertSrvBackupTruncateLogs(hbc) {
-    hbcMarshal := hbc is VarRef ? "ptr" : "ptr"
+    hbcMarshal := hbc is VarRef ? "ptr" : IntPtr
 
     result := DllCall("certadm.dll\CertSrvBackupTruncateLogs", hbcMarshal, hbc, "HRESULT")
     return result
@@ -269,7 +269,7 @@ export CertSrvBackupTruncateLogs(hbc) {
  * @since windowsserver2003
  */
 export CertSrvBackupEnd(hbc) {
-    hbcMarshal := hbc is VarRef ? "ptr" : "ptr"
+    hbcMarshal := hbc is VarRef ? "ptr" : IntPtr
 
     result := DllCall("certadm.dll\CertSrvBackupEnd", hbcMarshal, hbc, "HRESULT")
     return result
@@ -303,7 +303,7 @@ export CertSrvBackupEnd(hbc) {
  * @since windowsserver2003
  */
 export CertSrvBackupFree(pv) {
-    pvMarshal := pv is VarRef ? "ptr" : "ptr"
+    pvMarshal := pv is VarRef ? "ptr" : IntPtr
 
     DllCall("certadm.dll\CertSrvBackupFree", pvMarshal, pv)
 }
@@ -322,9 +322,9 @@ export CertSrvBackupFree(pv) {
  * @since windowsserver2003
  */
 export CertSrvRestoreGetDatabaseLocationsW(hbc, ppwszzDatabaseLocationList, pcbSize) {
-    hbcMarshal := hbc is VarRef ? "ptr" : "ptr"
-    ppwszzDatabaseLocationListMarshal := ppwszzDatabaseLocationList is VarRef ? "ptr*" : "ptr"
-    pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
+    hbcMarshal := hbc is VarRef ? "ptr" : IntPtr
+    ppwszzDatabaseLocationListMarshal := ppwszzDatabaseLocationList is VarRef ? "ptr*" : IntPtr
+    pcbSizeMarshal := pcbSize is VarRef ? "uint*" : IntPtr
 
     result := DllCall("certadm.dll\CertSrvRestoreGetDatabaseLocationsW", hbcMarshal, hbc, ppwszzDatabaseLocationListMarshal, ppwszzDatabaseLocationList, pcbSizeMarshal, pcbSize, "HRESULT")
     return result
@@ -368,7 +368,7 @@ export CertSrvRestoreGetDatabaseLocationsW(hbc, ppwszzDatabaseLocationList, pcbS
 export CertSrvRestorePrepareW(pwszServerName, dwRestoreFlags, phbc) {
     pwszServerName := pwszServerName is String ? StrPtr(pwszServerName) : pwszServerName
 
-    phbcMarshal := phbc is VarRef ? "ptr*" : "ptr"
+    phbcMarshal := phbc is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("certadm.dll\CertSrvRestorePrepareW", "ptr", pwszServerName, UInt32, dwRestoreFlags, phbcMarshal, phbc, "HRESULT")
     return result
@@ -404,7 +404,7 @@ export CertSrvRestoreRegisterW(hbc, pwszCheckPointFilePath, pwszLogPath, rgrstma
     pwszLogPath := pwszLogPath is String ? StrPtr(pwszLogPath) : pwszLogPath
     pwszBackupLogPath := pwszBackupLogPath is String ? StrPtr(pwszBackupLogPath) : pwszBackupLogPath
 
-    hbcMarshal := hbc is VarRef ? "ptr" : "ptr"
+    hbcMarshal := hbc is VarRef ? "ptr" : IntPtr
 
     result := DllCall("certadm.dll\CertSrvRestoreRegisterW", hbcMarshal, hbc, "ptr", pwszCheckPointFilePath, "ptr", pwszLogPath, CSEDB_RSTMAPW.Ptr, rgrstmap, Int32, crstmap, "ptr", pwszBackupLogPath, UInt32, genLow, UInt32, genHigh, "HRESULT")
     return result
@@ -435,7 +435,7 @@ export CertSrvRestoreRegisterThroughFile(hbc, pwszCheckPointFilePath, pwszLogPat
     pwszLogPath := pwszLogPath is String ? StrPtr(pwszLogPath) : pwszLogPath
     pwszBackupLogPath := pwszBackupLogPath is String ? StrPtr(pwszBackupLogPath) : pwszBackupLogPath
 
-    hbcMarshal := hbc is VarRef ? "ptr" : "ptr"
+    hbcMarshal := hbc is VarRef ? "ptr" : IntPtr
 
     result := DllCall("certadm.dll\CertSrvRestoreRegisterThroughFile", hbcMarshal, hbc, "ptr", pwszCheckPointFilePath, "ptr", pwszLogPath, CSEDB_RSTMAPW.Ptr, rgrstmap, Int32, crstmap, "ptr", pwszBackupLogPath, UInt32, genLow, UInt32, genHigh, "HRESULT")
     return result
@@ -453,7 +453,7 @@ export CertSrvRestoreRegisterThroughFile(hbc, pwszCheckPointFilePath, pwszLogPat
  * @since windowsserver2003
  */
 export CertSrvRestoreRegisterComplete(hbc, hrRestoreState) {
-    hbcMarshal := hbc is VarRef ? "ptr" : "ptr"
+    hbcMarshal := hbc is VarRef ? "ptr" : IntPtr
 
     result := DllCall("certadm.dll\CertSrvRestoreRegisterComplete", hbcMarshal, hbc, "int", hrRestoreState, "HRESULT")
     return result
@@ -471,7 +471,7 @@ export CertSrvRestoreRegisterComplete(hbc, hrRestoreState) {
  * @since windowsserver2003
  */
 export CertSrvRestoreEnd(hbc) {
-    hbcMarshal := hbc is VarRef ? "ptr" : "ptr"
+    hbcMarshal := hbc is VarRef ? "ptr" : IntPtr
 
     result := DllCall("certadm.dll\CertSrvRestoreEnd", hbcMarshal, hbc, "HRESULT")
     return result
@@ -511,8 +511,8 @@ export CertSrvRestoreEnd(hbc) {
 export CertSrvServerControlW(pwszServerName, dwControlFlags, pcbOut, ppbOut) {
     pwszServerName := pwszServerName is String ? StrPtr(pwszServerName) : pwszServerName
 
-    pcbOutMarshal := pcbOut is VarRef ? "uint*" : "ptr"
-    ppbOutMarshal := ppbOut is VarRef ? "ptr*" : "ptr"
+    pcbOutMarshal := pcbOut is VarRef ? "uint*" : IntPtr
+    ppbOutMarshal := ppbOut is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("certadm.dll\CertSrvServerControlW", "ptr", pwszServerName, UInt32, dwControlFlags, pcbOutMarshal, pcbOut, ppbOutMarshal, ppbOut, "HRESULT")
     return result
@@ -531,15 +531,15 @@ export CertSrvServerControlW(pwszServerName, dwControlFlags, pcbOut, ppbOut) {
  * @since windows6.1
  */
 export PstGetTrustAnchors(pTargetName, cCriteria, rgpCriteria, ppTrustedIssuers) {
-    ppTrustedIssuersMarshal := ppTrustedIssuers is VarRef ? "ptr*" : "ptr"
+    rgpCriteriaMarshal := rgpCriteria == 0 ? IntPtr : CERT_SELECT_CRITERIA.Ptr
+    ppTrustedIssuersMarshal := ppTrustedIssuers is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("certpoleng.dll\PstGetTrustAnchors", UNICODE_STRING.Ptr, pTargetName, UInt32, cCriteria, CERT_SELECT_CRITERIA.Ptr, rgpCriteria, ppTrustedIssuersMarshal, ppTrustedIssuers, NTSTATUS)
+    result := DllCall("certpoleng.dll\PstGetTrustAnchors", UNICODE_STRING.Ptr, pTargetName, UInt32, cCriteria, rgpCriteriaMarshal, rgpCriteria, ppTrustedIssuersMarshal, ppTrustedIssuers, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
 /**
- * 
  * @param {Pointer<UNICODE_STRING>} pTargetName 
  * @param {Integer} cCriteria 
  * @param {Pointer<CERT_SELECT_CRITERIA>} rgpCriteria 
@@ -548,22 +548,23 @@ export PstGetTrustAnchors(pTargetName, cCriteria, rgpCriteria, ppTrustedIssuers)
  * @returns {NTSTATUS} 
  */
 export PstGetTrustAnchorsEx(pTargetName, cCriteria, rgpCriteria, pCertContext, ppTrustedIssuers) {
-    ppTrustedIssuersMarshal := ppTrustedIssuers is VarRef ? "ptr*" : "ptr"
+    rgpCriteriaMarshal := rgpCriteria == 0 ? IntPtr : CERT_SELECT_CRITERIA.Ptr
+    pCertContextMarshal := pCertContext == 0 ? IntPtr : CERT_CONTEXT.Ptr
+    ppTrustedIssuersMarshal := ppTrustedIssuers is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("certpoleng.dll\PstGetTrustAnchorsEx", UNICODE_STRING.Ptr, pTargetName, UInt32, cCriteria, CERT_SELECT_CRITERIA.Ptr, rgpCriteria, CERT_CONTEXT.Ptr, pCertContext, ppTrustedIssuersMarshal, ppTrustedIssuers, NTSTATUS)
+    result := DllCall("certpoleng.dll\PstGetTrustAnchorsEx", UNICODE_STRING.Ptr, pTargetName, UInt32, cCriteria, rgpCriteriaMarshal, rgpCriteria, pCertContextMarshal, pCertContext, ppTrustedIssuersMarshal, ppTrustedIssuers, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
 /**
- * 
  * @param {Pointer<CERT_CONTEXT>} pCert 
  * @param {Pointer<SecPkgContext_IssuerListInfoEx>} pTrustedIssuers 
  * @param {Pointer<Pointer<CERT_CHAIN_CONTEXT>>} ppCertChainContext 
  * @returns {NTSTATUS} 
  */
 export PstGetCertificateChain(pCert, pTrustedIssuers, ppCertChainContext) {
-    ppCertChainContextMarshal := ppCertChainContext is VarRef ? "ptr*" : "ptr"
+    ppCertChainContextMarshal := ppCertChainContext is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("certpoleng.dll\PstGetCertificateChain", CERT_CONTEXT.Ptr, pCert, SecPkgContext_IssuerListInfoEx.Ptr, pTrustedIssuers, ppCertChainContextMarshal, ppCertChainContext, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -585,10 +586,11 @@ export PstGetCertificateChain(pCert, pTrustedIssuers, ppCertChainContext) {
  * @since windows6.1
  */
 export PstGetCertificates(pTargetName, cCriteria, rgpCriteria, bIsClient, pdwCertChainContextCount, ppCertChainContexts) {
-    pdwCertChainContextCountMarshal := pdwCertChainContextCount is VarRef ? "uint*" : "ptr"
-    ppCertChainContextsMarshal := ppCertChainContexts is VarRef ? "ptr*" : "ptr"
+    rgpCriteriaMarshal := rgpCriteria == 0 ? IntPtr : CERT_SELECT_CRITERIA.Ptr
+    pdwCertChainContextCountMarshal := pdwCertChainContextCount is VarRef ? "uint*" : IntPtr
+    ppCertChainContextsMarshal := ppCertChainContexts is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("certpoleng.dll\PstGetCertificates", UNICODE_STRING.Ptr, pTargetName, UInt32, cCriteria, CERT_SELECT_CRITERIA.Ptr, rgpCriteria, BOOL, bIsClient, pdwCertChainContextCountMarshal, pdwCertChainContextCount, ppCertChainContextsMarshal, ppCertChainContexts, NTSTATUS)
+    result := DllCall("certpoleng.dll\PstGetCertificates", UNICODE_STRING.Ptr, pTargetName, UInt32, cCriteria, rgpCriteriaMarshal, rgpCriteria, BOOL, bIsClient, pdwCertChainContextCountMarshal, pdwCertChainContextCount, ppCertChainContextsMarshal, ppCertChainContexts, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -623,7 +625,12 @@ export PstAcquirePrivateKey(pCert) {
  * @since windows6.1
  */
 export PstValidate(pTargetName, bIsClient, pRequestedIssuancePolicy, phAdditionalCertStore, pCert, pProvGUID) {
-    result := DllCall("certpoleng.dll\PstValidate", UNICODE_STRING.Ptr, pTargetName, BOOL, bIsClient, CERT_USAGE_MATCH.Ptr, pRequestedIssuancePolicy, HCERTSTORE.Ptr, phAdditionalCertStore, CERT_CONTEXT.Ptr, pCert, Guid.Ptr, pProvGUID, NTSTATUS)
+    pTargetNameMarshal := pTargetName == 0 ? IntPtr : UNICODE_STRING.Ptr
+    pRequestedIssuancePolicyMarshal := pRequestedIssuancePolicy == 0 ? IntPtr : CERT_USAGE_MATCH.Ptr
+    phAdditionalCertStoreMarshal := phAdditionalCertStore == 0 ? IntPtr : HCERTSTORE.Ptr
+    pProvGUIDMarshal := pProvGUID == 0 ? IntPtr : Guid.Ptr
+
+    result := DllCall("certpoleng.dll\PstValidate", pTargetNameMarshal, pTargetName, BOOL, bIsClient, pRequestedIssuancePolicyMarshal, pRequestedIssuancePolicy, phAdditionalCertStoreMarshal, phAdditionalCertStore, CERT_CONTEXT.Ptr, pCert, pProvGUIDMarshal, pProvGUID, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -640,8 +647,8 @@ export PstValidate(pTargetName, bIsClient, pRequestedIssuancePolicy, phAdditiona
  * @since windows6.1
  */
 export PstMapCertificate(pCert, pTokenInformationType, ppTokenInformation) {
-    pTokenInformationTypeMarshal := pTokenInformationType is VarRef ? "int*" : "ptr"
-    ppTokenInformationMarshal := ppTokenInformation is VarRef ? "ptr*" : "ptr"
+    pTokenInformationTypeMarshal := pTokenInformationType is VarRef ? "int*" : IntPtr
+    ppTokenInformationMarshal := ppTokenInformation is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("certpoleng.dll\PstMapCertificate", CERT_CONTEXT.Ptr, pCert, pTokenInformationTypeMarshal, pTokenInformationType, ppTokenInformationMarshal, ppTokenInformation, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)

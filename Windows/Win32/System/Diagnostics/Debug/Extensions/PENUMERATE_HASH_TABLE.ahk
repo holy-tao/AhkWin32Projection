@@ -21,7 +21,6 @@ export default struct PENUMERATE_HASH_TABLE {
     }
 
     /**
-     * 
      * @param {IDebugClient} Client 
      * @param {Integer} HashTable 
      * @param {Pointer<EXTS_TABLE_ENTRY_CALLBACK>} Callback 
@@ -29,7 +28,8 @@ export default struct PENUMERATE_HASH_TABLE {
      * @returns {HRESULT} 
      */
     Call(Client, HashTable, Callback, _Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, "ptr", Client, Int64, HashTable, EXTS_TABLE_ENTRY_CALLBACK, Callback, _ContextMarshal, _Context, "HRESULT")
         return result

@@ -58,7 +58,7 @@ export default struct IObjectConstruct extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Construct := CallbackCreate(GetMethod(implObj, "Construct"), flags, 2)
+        this.vtbl.Construct := CallbackCreate(ObjBindMethod(implObj, "Construct"), flags, 2)
     }
 
     Dispose() {

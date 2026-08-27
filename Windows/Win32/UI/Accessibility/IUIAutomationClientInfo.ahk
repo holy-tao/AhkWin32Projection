@@ -52,7 +52,6 @@ export default struct IUIAutomationClientInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ProcessId() {
@@ -61,7 +60,6 @@ export default struct IUIAutomationClientInfo extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ProcessName() {
@@ -79,8 +77,8 @@ export default struct IUIAutomationClientInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ProcessId := CallbackCreate(GetMethod(implObj, "get_ProcessId"), flags, 2)
-        this.vtbl.get_ProcessName := CallbackCreate(GetMethod(implObj, "get_ProcessName"), flags, 2)
+        this.vtbl.get_ProcessId := CallbackCreate(ObjBindMethod(implObj, "get_ProcessId"), flags, 2)
+        this.vtbl.get_ProcessName := CallbackCreate(ObjBindMethod(implObj, "get_ProcessName"), flags, 2)
     }
 
     Dispose() {

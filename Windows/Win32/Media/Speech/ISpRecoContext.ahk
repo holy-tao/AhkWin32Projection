@@ -66,7 +66,6 @@ export default struct ISpRecoContext extends ISpEventSource {
     }
 
     /**
-     * 
      * @returns {ISpRecognizer} 
      */
     GetRecognizer() {
@@ -75,7 +74,6 @@ export default struct ISpRecoContext extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {Integer} ullGrammarId 
      * @returns {ISpRecoGrammar} 
      */
@@ -85,7 +83,6 @@ export default struct ISpRecoContext extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {Pointer<SPRECOCONTEXTSTATUS>} pStatus 
      * @returns {HRESULT} 
      */
@@ -95,19 +92,17 @@ export default struct ISpRecoContext extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pcAlternates 
      * @returns {HRESULT} 
      */
     GetMaxAlternates(pcAlternates) {
-        pcAlternatesMarshal := pcAlternates is VarRef ? "uint*" : "ptr"
+        pcAlternatesMarshal := pcAlternates is VarRef ? "uint*" : IntPtr
 
         result := ComCall(16, this, pcAlternatesMarshal, pcAlternates, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} cAlternates 
      * @returns {HRESULT} 
      */
@@ -117,7 +112,6 @@ export default struct ISpRecoContext extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {SPAUDIOOPTIONS} Options 
      * @param {Pointer<Guid>} pAudioFormatId 
      * @param {Pointer<WAVEFORMATEX>} pWaveFormatEx 
@@ -129,22 +123,20 @@ export default struct ISpRecoContext extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {Pointer<SPAUDIOOPTIONS>} pOptions 
      * @param {Pointer<Guid>} pAudioFormatId 
      * @param {Pointer<Pointer<WAVEFORMATEX>>} ppCoMemWFEX 
      * @returns {HRESULT} 
      */
     GetAudioOptions(pOptions, pAudioFormatId, ppCoMemWFEX) {
-        pOptionsMarshal := pOptions is VarRef ? "int*" : "ptr"
-        ppCoMemWFEXMarshal := ppCoMemWFEX is VarRef ? "ptr*" : "ptr"
+        pOptionsMarshal := pOptions is VarRef ? "int*" : IntPtr
+        ppCoMemWFEXMarshal := ppCoMemWFEX is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(19, this, pOptionsMarshal, pOptions, Guid.Ptr, pAudioFormatId, ppCoMemWFEXMarshal, ppCoMemWFEX, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<SPSERIALIZEDRESULT>} pSerializedResult 
      * @returns {ISpRecoResult} 
      */
@@ -154,7 +146,6 @@ export default struct ISpRecoContext extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {SPBOOKMARKOPTIONS} Options 
      * @param {Integer} ullStreamPosition 
      * @param {LPARAM} lparamEvent 
@@ -166,7 +157,6 @@ export default struct ISpRecoContext extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {PWSTR} pAdaptationData 
      * @param {Integer} cch 
      * @returns {HRESULT} 
@@ -203,7 +193,6 @@ export default struct ISpRecoContext extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {ISpVoice} pVoice 
      * @param {BOOL} fAllowFormatChanges 
      * @returns {HRESULT} 
@@ -214,7 +203,6 @@ export default struct ISpRecoContext extends ISpEventSource {
     }
 
     /**
-     * 
      * @returns {ISpVoice} 
      */
     GetVoice() {
@@ -223,7 +211,6 @@ export default struct ISpRecoContext extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {Integer} ullEventInterest 
      * @returns {HRESULT} 
      */
@@ -233,19 +220,17 @@ export default struct ISpRecoContext extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pullEventInterest 
      * @returns {HRESULT} 
      */
     GetVoicePurgeEvent(pullEventInterest) {
-        pullEventInterestMarshal := pullEventInterest is VarRef ? "uint*" : "ptr"
+        pullEventInterestMarshal := pullEventInterest is VarRef ? "uint*" : IntPtr
 
         result := ComCall(28, this, pullEventInterestMarshal, pullEventInterest, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {SPCONTEXTSTATE} eContextState 
      * @returns {HRESULT} 
      */
@@ -255,12 +240,11 @@ export default struct ISpRecoContext extends ISpEventSource {
     }
 
     /**
-     * 
      * @param {Pointer<SPCONTEXTSTATE>} peContextState 
      * @returns {HRESULT} 
      */
     GetContextState(peContextState) {
-        peContextStateMarshal := peContextState is VarRef ? "int*" : "ptr"
+        peContextStateMarshal := peContextState is VarRef ? "int*" : IntPtr
 
         result := ComCall(30, this, peContextStateMarshal, peContextState, "HRESULT")
         return result
@@ -275,24 +259,24 @@ export default struct ISpRecoContext extends ISpEventSource {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRecognizer := CallbackCreate(GetMethod(implObj, "GetRecognizer"), flags, 2)
-        this.vtbl.CreateGrammar := CallbackCreate(GetMethod(implObj, "CreateGrammar"), flags, 3)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
-        this.vtbl.GetMaxAlternates := CallbackCreate(GetMethod(implObj, "GetMaxAlternates"), flags, 2)
-        this.vtbl.SetMaxAlternates := CallbackCreate(GetMethod(implObj, "SetMaxAlternates"), flags, 2)
-        this.vtbl.SetAudioOptions := CallbackCreate(GetMethod(implObj, "SetAudioOptions"), flags, 4)
-        this.vtbl.GetAudioOptions := CallbackCreate(GetMethod(implObj, "GetAudioOptions"), flags, 4)
-        this.vtbl.DeserializeResult := CallbackCreate(GetMethod(implObj, "DeserializeResult"), flags, 3)
-        this.vtbl.Bookmark := CallbackCreate(GetMethod(implObj, "Bookmark"), flags, 4)
-        this.vtbl.SetAdaptationData := CallbackCreate(GetMethod(implObj, "SetAdaptationData"), flags, 3)
-        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 2)
-        this.vtbl.Resume := CallbackCreate(GetMethod(implObj, "Resume"), flags, 2)
-        this.vtbl.SetVoice := CallbackCreate(GetMethod(implObj, "SetVoice"), flags, 3)
-        this.vtbl.GetVoice := CallbackCreate(GetMethod(implObj, "GetVoice"), flags, 2)
-        this.vtbl.SetVoicePurgeEvent := CallbackCreate(GetMethod(implObj, "SetVoicePurgeEvent"), flags, 2)
-        this.vtbl.GetVoicePurgeEvent := CallbackCreate(GetMethod(implObj, "GetVoicePurgeEvent"), flags, 2)
-        this.vtbl.SetContextState := CallbackCreate(GetMethod(implObj, "SetContextState"), flags, 2)
-        this.vtbl.GetContextState := CallbackCreate(GetMethod(implObj, "GetContextState"), flags, 2)
+        this.vtbl.GetRecognizer := CallbackCreate(ObjBindMethod(implObj, "GetRecognizer"), flags, 2)
+        this.vtbl.CreateGrammar := CallbackCreate(ObjBindMethod(implObj, "CreateGrammar"), flags, 3)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.GetMaxAlternates := CallbackCreate(ObjBindMethod(implObj, "GetMaxAlternates"), flags, 2)
+        this.vtbl.SetMaxAlternates := CallbackCreate(ObjBindMethod(implObj, "SetMaxAlternates"), flags, 2)
+        this.vtbl.SetAudioOptions := CallbackCreate(ObjBindMethod(implObj, "SetAudioOptions"), flags, 4)
+        this.vtbl.GetAudioOptions := CallbackCreate(ObjBindMethod(implObj, "GetAudioOptions"), flags, 4)
+        this.vtbl.DeserializeResult := CallbackCreate(ObjBindMethod(implObj, "DeserializeResult"), flags, 3)
+        this.vtbl.Bookmark := CallbackCreate(ObjBindMethod(implObj, "Bookmark"), flags, 4)
+        this.vtbl.SetAdaptationData := CallbackCreate(ObjBindMethod(implObj, "SetAdaptationData"), flags, 3)
+        this.vtbl.Pause := CallbackCreate(ObjBindMethod(implObj, "Pause"), flags, 2)
+        this.vtbl.Resume := CallbackCreate(ObjBindMethod(implObj, "Resume"), flags, 2)
+        this.vtbl.SetVoice := CallbackCreate(ObjBindMethod(implObj, "SetVoice"), flags, 3)
+        this.vtbl.GetVoice := CallbackCreate(ObjBindMethod(implObj, "GetVoice"), flags, 2)
+        this.vtbl.SetVoicePurgeEvent := CallbackCreate(ObjBindMethod(implObj, "SetVoicePurgeEvent"), flags, 2)
+        this.vtbl.GetVoicePurgeEvent := CallbackCreate(ObjBindMethod(implObj, "GetVoicePurgeEvent"), flags, 2)
+        this.vtbl.SetContextState := CallbackCreate(ObjBindMethod(implObj, "SetContextState"), flags, 2)
+        this.vtbl.GetContextState := CallbackCreate(ObjBindMethod(implObj, "GetContextState"), flags, 2)
     }
 
     Dispose() {

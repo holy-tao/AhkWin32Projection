@@ -45,7 +45,6 @@ export default struct IModelKeyReference extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetKeyName() {
@@ -55,7 +54,6 @@ export default struct IModelKeyReference extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IModelObject} 
      */
     GetOriginalObject() {
@@ -64,7 +62,6 @@ export default struct IModelKeyReference extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IModelObject} 
      */
     GetContextObject() {
@@ -73,40 +70,45 @@ export default struct IModelKeyReference extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<IModelObject>} _object 
      * @param {Pointer<IKeyStore>} metadata 
      * @returns {HRESULT} 
      */
     GetKey(_object, metadata) {
-        result := ComCall(6, this, IModelObject.Ptr, _object, IKeyStore.Ptr, metadata, "HRESULT")
+        _objectMarshal := _object == 0 ? IntPtr : IModelObject.Ptr
+        metadataMarshal := metadata == 0 ? IntPtr : IKeyStore.Ptr
+
+        result := ComCall(6, this, _objectMarshal, _object, metadataMarshal, metadata, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<IModelObject>} _object 
      * @param {Pointer<IKeyStore>} metadata 
      * @returns {HRESULT} 
      */
     GetKeyValue(_object, metadata) {
-        result := ComCall(7, this, IModelObject.Ptr, _object, IKeyStore.Ptr, metadata, "HRESULT")
+        _objectMarshal := _object == 0 ? IntPtr : IModelObject.Ptr
+        metadataMarshal := metadata == 0 ? IntPtr : IKeyStore.Ptr
+
+        result := ComCall(7, this, _objectMarshal, _object, metadataMarshal, metadata, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IModelObject} _object 
      * @param {IKeyStore} metadata 
      * @returns {HRESULT} 
      */
     SetKey(_object, metadata) {
-        result := ComCall(8, this, "ptr", _object, "ptr", metadata, "HRESULT")
+        _objectMarshal := _object == 0 ? IntPtr : "ptr"
+        metadataMarshal := metadata == 0 ? IntPtr : "ptr"
+
+        result := ComCall(8, this, _objectMarshal, _object, metadataMarshal, metadata, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IModelObject} _object 
      * @returns {HRESULT} 
      */
@@ -124,13 +126,13 @@ export default struct IModelKeyReference extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetKeyName := CallbackCreate(GetMethod(implObj, "GetKeyName"), flags, 2)
-        this.vtbl.GetOriginalObject := CallbackCreate(GetMethod(implObj, "GetOriginalObject"), flags, 2)
-        this.vtbl.GetContextObject := CallbackCreate(GetMethod(implObj, "GetContextObject"), flags, 2)
-        this.vtbl.GetKey := CallbackCreate(GetMethod(implObj, "GetKey"), flags, 3)
-        this.vtbl.GetKeyValue := CallbackCreate(GetMethod(implObj, "GetKeyValue"), flags, 3)
-        this.vtbl.SetKey := CallbackCreate(GetMethod(implObj, "SetKey"), flags, 3)
-        this.vtbl.SetKeyValue := CallbackCreate(GetMethod(implObj, "SetKeyValue"), flags, 2)
+        this.vtbl.GetKeyName := CallbackCreate(ObjBindMethod(implObj, "GetKeyName"), flags, 2)
+        this.vtbl.GetOriginalObject := CallbackCreate(ObjBindMethod(implObj, "GetOriginalObject"), flags, 2)
+        this.vtbl.GetContextObject := CallbackCreate(ObjBindMethod(implObj, "GetContextObject"), flags, 2)
+        this.vtbl.GetKey := CallbackCreate(ObjBindMethod(implObj, "GetKey"), flags, 3)
+        this.vtbl.GetKeyValue := CallbackCreate(ObjBindMethod(implObj, "GetKeyValue"), flags, 3)
+        this.vtbl.SetKey := CallbackCreate(ObjBindMethod(implObj, "SetKey"), flags, 3)
+        this.vtbl.SetKeyValue := CallbackCreate(ObjBindMethod(implObj, "SetKeyValue"), flags, 2)
     }
 
     Dispose() {

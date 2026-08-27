@@ -19,7 +19,6 @@ export default struct PFLT_FILTER_UNLOAD_CALLBACK {
     }
 
     /**
-     * 
      * @param {Integer} Flags 
      * @returns {NTSTATUS} 
      */

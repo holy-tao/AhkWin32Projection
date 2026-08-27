@@ -40,7 +40,6 @@ export default struct IActiveScriptError extends IUnknown {
     }
 
     /**
-     * 
      * @returns {EXCEPINFO} 
      */
     GetExceptionInfo() {
@@ -50,23 +49,21 @@ export default struct IActiveScriptError extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwSourceContext 
      * @param {Pointer<Integer>} pulLineNumber 
      * @param {Pointer<Integer>} plCharacterPosition 
      * @returns {HRESULT} 
      */
     GetSourcePosition(pdwSourceContext, pulLineNumber, plCharacterPosition) {
-        pdwSourceContextMarshal := pdwSourceContext is VarRef ? "uint*" : "ptr"
-        pulLineNumberMarshal := pulLineNumber is VarRef ? "uint*" : "ptr"
-        plCharacterPositionMarshal := plCharacterPosition is VarRef ? "int*" : "ptr"
+        pdwSourceContextMarshal := pdwSourceContext is VarRef ? "uint*" : IntPtr
+        pulLineNumberMarshal := pulLineNumber is VarRef ? "uint*" : IntPtr
+        plCharacterPositionMarshal := plCharacterPosition is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, pdwSourceContextMarshal, pdwSourceContext, pulLineNumberMarshal, pulLineNumber, plCharacterPositionMarshal, plCharacterPosition, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetSourceLineText() {
@@ -84,9 +81,9 @@ export default struct IActiveScriptError extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetExceptionInfo := CallbackCreate(GetMethod(implObj, "GetExceptionInfo"), flags, 2)
-        this.vtbl.GetSourcePosition := CallbackCreate(GetMethod(implObj, "GetSourcePosition"), flags, 4)
-        this.vtbl.GetSourceLineText := CallbackCreate(GetMethod(implObj, "GetSourceLineText"), flags, 2)
+        this.vtbl.GetExceptionInfo := CallbackCreate(ObjBindMethod(implObj, "GetExceptionInfo"), flags, 2)
+        this.vtbl.GetSourcePosition := CallbackCreate(ObjBindMethod(implObj, "GetSourcePosition"), flags, 4)
+        this.vtbl.GetSourceLineText := CallbackCreate(ObjBindMethod(implObj, "GetSourceLineText"), flags, 2)
     }
 
     Dispose() {

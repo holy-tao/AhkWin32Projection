@@ -228,16 +228,16 @@ export default struct IMbnRegistration extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRegisterState := CallbackCreate(GetMethod(implObj, "GetRegisterState"), flags, 2)
-        this.vtbl.GetRegisterMode := CallbackCreate(GetMethod(implObj, "GetRegisterMode"), flags, 2)
-        this.vtbl.GetProviderID := CallbackCreate(GetMethod(implObj, "GetProviderID"), flags, 2)
-        this.vtbl.GetProviderName := CallbackCreate(GetMethod(implObj, "GetProviderName"), flags, 2)
-        this.vtbl.GetRoamingText := CallbackCreate(GetMethod(implObj, "GetRoamingText"), flags, 2)
-        this.vtbl.GetAvailableDataClasses := CallbackCreate(GetMethod(implObj, "GetAvailableDataClasses"), flags, 2)
-        this.vtbl.GetCurrentDataClass := CallbackCreate(GetMethod(implObj, "GetCurrentDataClass"), flags, 2)
-        this.vtbl.GetRegistrationNetworkError := CallbackCreate(GetMethod(implObj, "GetRegistrationNetworkError"), flags, 2)
-        this.vtbl.GetPacketAttachNetworkError := CallbackCreate(GetMethod(implObj, "GetPacketAttachNetworkError"), flags, 2)
-        this.vtbl.SetRegisterMode := CallbackCreate(GetMethod(implObj, "SetRegisterMode"), flags, 5)
+        this.vtbl.GetRegisterState := CallbackCreate(ObjBindMethod(implObj, "GetRegisterState"), flags, 2)
+        this.vtbl.GetRegisterMode := CallbackCreate(ObjBindMethod(implObj, "GetRegisterMode"), flags, 2)
+        this.vtbl.GetProviderID := CallbackCreate(ObjBindMethod(implObj, "GetProviderID"), flags, 2)
+        this.vtbl.GetProviderName := CallbackCreate(ObjBindMethod(implObj, "GetProviderName"), flags, 2)
+        this.vtbl.GetRoamingText := CallbackCreate(ObjBindMethod(implObj, "GetRoamingText"), flags, 2)
+        this.vtbl.GetAvailableDataClasses := CallbackCreate(ObjBindMethod(implObj, "GetAvailableDataClasses"), flags, 2)
+        this.vtbl.GetCurrentDataClass := CallbackCreate(ObjBindMethod(implObj, "GetCurrentDataClass"), flags, 2)
+        this.vtbl.GetRegistrationNetworkError := CallbackCreate(ObjBindMethod(implObj, "GetRegistrationNetworkError"), flags, 2)
+        this.vtbl.GetPacketAttachNetworkError := CallbackCreate(ObjBindMethod(implObj, "GetPacketAttachNetworkError"), flags, 2)
+        this.vtbl.SetRegisterMode := CallbackCreate(ObjBindMethod(implObj, "SetRegisterMode"), flags, 5)
     }
 
     Dispose() {

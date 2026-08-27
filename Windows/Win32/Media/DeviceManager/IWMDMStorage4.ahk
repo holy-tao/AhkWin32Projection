@@ -69,7 +69,9 @@ export default struct IWMDMStorage4 extends IWMDMStorage3 {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorage4-setreferences
      */
     SetReferences(dwRefs, ppIWMDMStorage) {
-        result := ComCall(19, this, UInt32, dwRefs, IWMDMStorage.Ptr, ppIWMDMStorage, "HRESULT")
+        ppIWMDMStorageMarshal := ppIWMDMStorage == 0 ? IntPtr : IWMDMStorage.Ptr
+
+        result := ComCall(19, this, UInt32, dwRefs, ppIWMDMStorageMarshal, ppIWMDMStorage, "HRESULT")
         return result
     }
 
@@ -92,8 +94,8 @@ export default struct IWMDMStorage4 extends IWMDMStorage3 {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorage4-getreferences
      */
     GetReferences(pdwRefs, pppIWMDMStorage) {
-        pdwRefsMarshal := pdwRefs is VarRef ? "uint*" : "ptr"
-        pppIWMDMStorageMarshal := pppIWMDMStorage is VarRef ? "ptr*" : "ptr"
+        pdwRefsMarshal := pdwRefs is VarRef ? "uint*" : IntPtr
+        pppIWMDMStorageMarshal := pppIWMDMStorage is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(20, this, pdwRefsMarshal, pdwRefs, pppIWMDMStorageMarshal, pppIWMDMStorage, "HRESULT")
         return result
@@ -123,10 +125,11 @@ export default struct IWMDMStorage4 extends IWMDMStorage3 {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorage4-getrightswithprogress
      */
     GetRightsWithProgress(pIProgressCallback, ppRights, pnRightsCount) {
-        ppRightsMarshal := ppRights is VarRef ? "ptr*" : "ptr"
-        pnRightsCountMarshal := pnRightsCount is VarRef ? "uint*" : "ptr"
+        pIProgressCallbackMarshal := pIProgressCallback == 0 ? IntPtr : "ptr"
+        ppRightsMarshal := ppRights is VarRef ? "ptr*" : IntPtr
+        pnRightsCountMarshal := pnRightsCount is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(21, this, "ptr", pIProgressCallback, ppRightsMarshal, ppRights, pnRightsCountMarshal, pnRightsCount, "HRESULT")
+        result := ComCall(21, this, pIProgressCallbackMarshal, pIProgressCallback, ppRightsMarshal, ppRights, pnRightsCountMarshal, pnRightsCount, "HRESULT")
         return result
     }
 
@@ -146,7 +149,7 @@ export default struct IWMDMStorage4 extends IWMDMStorage3 {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorage4-getspecifiedmetadata
      */
     GetSpecifiedMetadata(cProperties, ppwszPropNames) {
-        ppwszPropNamesMarshal := ppwszPropNames is VarRef ? "ptr*" : "ptr"
+        ppwszPropNamesMarshal := ppwszPropNames is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(22, this, UInt32, cProperties, ppwszPropNamesMarshal, ppwszPropNames, "ptr*", &ppMetadata := 0, "HRESULT")
         return IWMDMMetaData(ppMetadata)
@@ -193,12 +196,12 @@ export default struct IWMDMStorage4 extends IWMDMStorage3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetReferences := CallbackCreate(GetMethod(implObj, "SetReferences"), flags, 3)
-        this.vtbl.GetReferences := CallbackCreate(GetMethod(implObj, "GetReferences"), flags, 3)
-        this.vtbl.GetRightsWithProgress := CallbackCreate(GetMethod(implObj, "GetRightsWithProgress"), flags, 4)
-        this.vtbl.GetSpecifiedMetadata := CallbackCreate(GetMethod(implObj, "GetSpecifiedMetadata"), flags, 4)
-        this.vtbl.FindStorage := CallbackCreate(GetMethod(implObj, "FindStorage"), flags, 4)
-        this.vtbl.GetParent := CallbackCreate(GetMethod(implObj, "GetParent"), flags, 2)
+        this.vtbl.SetReferences := CallbackCreate(ObjBindMethod(implObj, "SetReferences"), flags, 3)
+        this.vtbl.GetReferences := CallbackCreate(ObjBindMethod(implObj, "GetReferences"), flags, 3)
+        this.vtbl.GetRightsWithProgress := CallbackCreate(ObjBindMethod(implObj, "GetRightsWithProgress"), flags, 4)
+        this.vtbl.GetSpecifiedMetadata := CallbackCreate(ObjBindMethod(implObj, "GetSpecifiedMetadata"), flags, 4)
+        this.vtbl.FindStorage := CallbackCreate(ObjBindMethod(implObj, "FindStorage"), flags, 4)
+        this.vtbl.GetParent := CallbackCreate(ObjBindMethod(implObj, "GetParent"), flags, 2)
     }
 
     Dispose() {

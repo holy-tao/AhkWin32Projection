@@ -20,14 +20,14 @@ export default struct PDEV_QUERY_RESULT_CALLBACK {
     }
 
     /**
-     * 
      * @param {HDEVQUERY} _hDevQuery 
      * @param {Pointer<Void>} pContext 
      * @param {Pointer<DEV_QUERY_RESULT_ACTION_DATA>} pActionData 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_hDevQuery, pContext, pActionData) {
-        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+        pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
+        pContextMarshal := pContext == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, HDEVQUERY, _hDevQuery, pContextMarshal, pContext, DEV_QUERY_RESULT_ACTION_DATA.Ptr, pActionData)
     }

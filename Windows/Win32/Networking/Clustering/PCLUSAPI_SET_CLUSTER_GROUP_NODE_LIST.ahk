@@ -20,14 +20,14 @@ export default struct PCLUSAPI_SET_CLUSTER_GROUP_NODE_LIST {
     }
 
     /**
-     * 
      * @param {HGROUP} _hGroup 
      * @param {Integer} NodeCount 
      * @param {Pointer<HNODE>} NodeList 
      * @returns {Integer} 
      */
     Call(_hGroup, NodeCount, NodeList) {
-        NodeListMarshal := NodeList is VarRef ? "ptr*" : "ptr"
+        NodeListMarshal := NodeList is VarRef ? "ptr*" : IntPtr
+        NodeListMarshal := NodeList == 0 ? IntPtr : HNODE.Ptr
 
         result := DllCall(this.value, HGROUP, _hGroup, UInt32, NodeCount, NodeListMarshal, NodeList, UInt32)
         return result

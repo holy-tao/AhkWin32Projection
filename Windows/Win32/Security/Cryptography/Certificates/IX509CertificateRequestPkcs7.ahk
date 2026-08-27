@@ -273,7 +273,9 @@ export default struct IX509CertificateRequestPkcs7 extends IX509CertificateReque
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7-initializefrominnerrequest
      */
     InitializeFromInnerRequest(pInnerRequest) {
-        result := ComCall(34, this, "ptr", pInnerRequest, "HRESULT")
+        pInnerRequestMarshal := pInnerRequest == 0 ? IntPtr : "ptr"
+
+        result := ComCall(34, this, pInnerRequestMarshal, pInnerRequest, "HRESULT")
         return result
     }
 
@@ -473,7 +475,9 @@ export default struct IX509CertificateRequestPkcs7 extends IX509CertificateReque
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs7-put_signercertificate
      */
     put_SignerCertificate(pValue) {
-        result := ComCall(39, this, "ptr", pValue, "HRESULT")
+        pValueMarshal := pValue == 0 ? IntPtr : "ptr"
+
+        result := ComCall(39, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -486,14 +490,14 @@ export default struct IX509CertificateRequestPkcs7 extends IX509CertificateReque
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeFromTemplateName := CallbackCreate(GetMethod(implObj, "InitializeFromTemplateName"), flags, 3)
-        this.vtbl.InitializeFromCertificate := CallbackCreate(GetMethod(implObj, "InitializeFromCertificate"), flags, 6)
-        this.vtbl.InitializeFromInnerRequest := CallbackCreate(GetMethod(implObj, "InitializeFromInnerRequest"), flags, 2)
-        this.vtbl.InitializeDecode := CallbackCreate(GetMethod(implObj, "InitializeDecode"), flags, 3)
-        this.vtbl.get_RequesterName := CallbackCreate(GetMethod(implObj, "get_RequesterName"), flags, 2)
-        this.vtbl.put_RequesterName := CallbackCreate(GetMethod(implObj, "put_RequesterName"), flags, 2)
-        this.vtbl.get_SignerCertificate := CallbackCreate(GetMethod(implObj, "get_SignerCertificate"), flags, 2)
-        this.vtbl.put_SignerCertificate := CallbackCreate(GetMethod(implObj, "put_SignerCertificate"), flags, 2)
+        this.vtbl.InitializeFromTemplateName := CallbackCreate(ObjBindMethod(implObj, "InitializeFromTemplateName"), flags, 3)
+        this.vtbl.InitializeFromCertificate := CallbackCreate(ObjBindMethod(implObj, "InitializeFromCertificate"), flags, 6)
+        this.vtbl.InitializeFromInnerRequest := CallbackCreate(ObjBindMethod(implObj, "InitializeFromInnerRequest"), flags, 2)
+        this.vtbl.InitializeDecode := CallbackCreate(ObjBindMethod(implObj, "InitializeDecode"), flags, 3)
+        this.vtbl.get_RequesterName := CallbackCreate(ObjBindMethod(implObj, "get_RequesterName"), flags, 2)
+        this.vtbl.put_RequesterName := CallbackCreate(ObjBindMethod(implObj, "put_RequesterName"), flags, 2)
+        this.vtbl.get_SignerCertificate := CallbackCreate(ObjBindMethod(implObj, "get_SignerCertificate"), flags, 2)
+        this.vtbl.put_SignerCertificate := CallbackCreate(ObjBindMethod(implObj, "put_SignerCertificate"), flags, 2)
     }
 
     Dispose() {

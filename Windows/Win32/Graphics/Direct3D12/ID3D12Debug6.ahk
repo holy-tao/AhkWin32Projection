@@ -56,7 +56,7 @@ export default struct ID3D12Debug6 extends ID3D12Debug5 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetForceLegacyBarrierValidation := CallbackCreate(GetMethod(implObj, "SetForceLegacyBarrierValidation"), flags, 2)
+        this.vtbl.SetForceLegacyBarrierValidation := CallbackCreate(ObjBindMethod(implObj, "SetForceLegacyBarrierValidation"), flags, 2)
     }
 
     Dispose() {

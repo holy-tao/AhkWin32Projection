@@ -40,7 +40,6 @@ export default struct IRowsetCopyRows extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} hSourceID 
      * @returns {HRESULT} 
      */
@@ -50,7 +49,6 @@ export default struct IRowsetCopyRows extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} hSourceID 
      * @param {Pointer} hReserved 
      * @param {Pointer} cRows 
@@ -59,14 +57,13 @@ export default struct IRowsetCopyRows extends IUnknown {
      * @returns {HRESULT} 
      */
     CopyByHROWS(hSourceID, hReserved, cRows, rghRows, bFlags) {
-        rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
+        rghRowsMarshal := rghRows is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, UInt16, hSourceID, IntPtr, hReserved, IntPtr, cRows, rghRowsMarshal, rghRows, UInt32, bFlags, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} hSourceID 
      * @param {Pointer} hReserved 
      * @param {Pointer} cRows 
@@ -79,7 +76,6 @@ export default struct IRowsetCopyRows extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRowset} pRowsetSource 
      * @param {Pointer} cColIds 
      * @param {Pointer<Pointer>} rgSourceColumns 
@@ -87,8 +83,8 @@ export default struct IRowsetCopyRows extends IUnknown {
      * @returns {Integer} 
      */
     DefineSource(pRowsetSource, cColIds, rgSourceColumns, rgTargetColumns) {
-        rgSourceColumnsMarshal := rgSourceColumns is VarRef ? "ptr*" : "ptr"
-        rgTargetColumnsMarshal := rgTargetColumns is VarRef ? "ptr*" : "ptr"
+        rgSourceColumnsMarshal := rgSourceColumns is VarRef ? "ptr*" : IntPtr
+        rgTargetColumnsMarshal := rgTargetColumns is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(6, this, "ptr", pRowsetSource, IntPtr, cColIds, rgSourceColumnsMarshal, rgSourceColumns, rgTargetColumnsMarshal, rgTargetColumns, "ushort*", &phSourceID := 0, "HRESULT")
         return phSourceID
@@ -103,10 +99,10 @@ export default struct IRowsetCopyRows extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CloseSource := CallbackCreate(GetMethod(implObj, "CloseSource"), flags, 2)
-        this.vtbl.CopyByHROWS := CallbackCreate(GetMethod(implObj, "CopyByHROWS"), flags, 6)
-        this.vtbl.CopyRows := CallbackCreate(GetMethod(implObj, "CopyRows"), flags, 6)
-        this.vtbl.DefineSource := CallbackCreate(GetMethod(implObj, "DefineSource"), flags, 6)
+        this.vtbl.CloseSource := CallbackCreate(ObjBindMethod(implObj, "CloseSource"), flags, 2)
+        this.vtbl.CopyByHROWS := CallbackCreate(ObjBindMethod(implObj, "CopyByHROWS"), flags, 6)
+        this.vtbl.CopyRows := CallbackCreate(ObjBindMethod(implObj, "CopyRows"), flags, 6)
+        this.vtbl.DefineSource := CallbackCreate(ObjBindMethod(implObj, "DefineSource"), flags, 6)
     }
 
     Dispose() {

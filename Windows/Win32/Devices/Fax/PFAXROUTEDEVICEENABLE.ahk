@@ -20,7 +20,6 @@ export default struct PFAXROUTEDEVICEENABLE {
     }
 
     /**
-     * 
      * @param {PWSTR} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 

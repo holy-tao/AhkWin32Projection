@@ -38,7 +38,6 @@ export default struct IActiveIMMRegistrar extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rclsid 
      * @param {Integer} lgid 
      * @param {PWSTR} pszIconFile 
@@ -54,7 +53,6 @@ export default struct IActiveIMMRegistrar extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} rclsid 
      * @returns {HRESULT} 
      */
@@ -72,8 +70,8 @@ export default struct IActiveIMMRegistrar extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterIME := CallbackCreate(GetMethod(implObj, "RegisterIME"), flags, 5)
-        this.vtbl.UnregisterIME := CallbackCreate(GetMethod(implObj, "UnregisterIME"), flags, 2)
+        this.vtbl.RegisterIME := CallbackCreate(ObjBindMethod(implObj, "RegisterIME"), flags, 5)
+        this.vtbl.UnregisterIME := CallbackCreate(ObjBindMethod(implObj, "UnregisterIME"), flags, 2)
     }
 
     Dispose() {

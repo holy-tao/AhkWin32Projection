@@ -26,14 +26,14 @@ export default struct WS_DURATION_COMPARISON_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<WS_DURATION>} duration1 A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_duration">WS_DURATION</a> structure representing the first duration to compare.
      * @param {Pointer<WS_DURATION>} duration2 A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_duration">WS_DURATION</a> structure representing the second duration.
      * @param {Pointer<WS_ERROR>} _error A pointer to  a <a href="https://docs.microsoft.com/windows/desktop/wsw/ws-error">WS_ERROR</a> handle where additional error information should be stored if the function fails.
      * @returns {Integer} 
      */
     Call(duration1, duration2, _error) {
-        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
+        _errorMarshal := _error is VarRef ? "ptr*" : IntPtr
+        _errorMarshal := _error == 0 ? IntPtr : WS_ERROR.Ptr
 
         result := DllCall(this.value, WS_DURATION.Ptr, duration1, WS_DURATION.Ptr, duration2, "int*", &result := 0, _errorMarshal, _error, "HRESULT")
         return result

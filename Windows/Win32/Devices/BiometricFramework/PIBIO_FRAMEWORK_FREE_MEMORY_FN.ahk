@@ -20,13 +20,12 @@ export default struct PIBIO_FRAMEWORK_FREE_MEMORY_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline 
      * @param {Pointer<Void>} _Address 
      * @returns {HRESULT} 
      */
     Call(Pipeline, _Address) {
-        _AddressMarshal := _Address is VarRef ? "ptr" : "ptr"
+        _AddressMarshal := _Address is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, WINBIO_PIPELINE.Ptr, Pipeline, _AddressMarshal, _Address, "HRESULT")
         return result

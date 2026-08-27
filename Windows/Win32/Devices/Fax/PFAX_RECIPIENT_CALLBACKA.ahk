@@ -42,7 +42,6 @@ export default struct PFAX_RECIPIENT_CALLBACKA {
     }
 
     /**
-     * 
      * @param {HANDLE} FaxHandle Type: <b>HANDLE</b>
      * 
      * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
@@ -65,7 +64,7 @@ export default struct PFAX_RECIPIENT_CALLBACKA {
      * The function returns a value of zero to indicate that there are no more fax transmission jobs to queue, and calls to <b>FAX_RECIPIENT_CALLBACK</b> should be terminated. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      */
     Call(FaxHandle, RecipientNumber, _Context, JobParams, CoverpageInfo) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, HANDLE, FaxHandle, UInt32, RecipientNumber, _ContextMarshal, _Context, FAX_JOB_PARAMA.Ptr, JobParams, FAX_COVERPAGE_INFOA.Ptr, CoverpageInfo, BOOL)
         return result

@@ -21,7 +21,6 @@ export default struct PIMAGEHLP_STATUS_ROUTINE64 {
     }
 
     /**
-     * 
      * @param {IMAGEHLP_STATUS_REASON} Reason 
      * @param {PSTR} ImageName 
      * @param {PSTR} DllName 

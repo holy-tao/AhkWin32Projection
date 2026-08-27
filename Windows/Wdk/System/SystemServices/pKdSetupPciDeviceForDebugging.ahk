@@ -20,13 +20,12 @@ export default struct pKdSetupPciDeviceForDebugging {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} LoaderBlock 
      * @param {Pointer<DEBUG_DEVICE_DESCRIPTOR>} PciDevice 
      * @returns {NTSTATUS} 
      */
     Call(LoaderBlock, PciDevice) {
-        LoaderBlockMarshal := LoaderBlock is VarRef ? "ptr" : "ptr"
+        LoaderBlockMarshal := LoaderBlock is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, LoaderBlockMarshal, LoaderBlock, DEBUG_DEVICE_DESCRIPTOR.Ptr, PciDevice, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

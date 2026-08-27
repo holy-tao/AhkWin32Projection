@@ -210,15 +210,15 @@ export default struct IUIAutomationCacheRequest extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddProperty := CallbackCreate(GetMethod(implObj, "AddProperty"), flags, 2)
-        this.vtbl.AddPattern := CallbackCreate(GetMethod(implObj, "AddPattern"), flags, 2)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
-        this.vtbl.get_TreeScope := CallbackCreate(GetMethod(implObj, "get_TreeScope"), flags, 2)
-        this.vtbl.put_TreeScope := CallbackCreate(GetMethod(implObj, "put_TreeScope"), flags, 2)
-        this.vtbl.get_TreeFilter := CallbackCreate(GetMethod(implObj, "get_TreeFilter"), flags, 2)
-        this.vtbl.put_TreeFilter := CallbackCreate(GetMethod(implObj, "put_TreeFilter"), flags, 2)
-        this.vtbl.get_AutomationElementMode := CallbackCreate(GetMethod(implObj, "get_AutomationElementMode"), flags, 2)
-        this.vtbl.put_AutomationElementMode := CallbackCreate(GetMethod(implObj, "put_AutomationElementMode"), flags, 2)
+        this.vtbl.AddProperty := CallbackCreate(ObjBindMethod(implObj, "AddProperty"), flags, 2)
+        this.vtbl.AddPattern := CallbackCreate(ObjBindMethod(implObj, "AddPattern"), flags, 2)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.get_TreeScope := CallbackCreate(ObjBindMethod(implObj, "get_TreeScope"), flags, 2)
+        this.vtbl.put_TreeScope := CallbackCreate(ObjBindMethod(implObj, "put_TreeScope"), flags, 2)
+        this.vtbl.get_TreeFilter := CallbackCreate(ObjBindMethod(implObj, "get_TreeFilter"), flags, 2)
+        this.vtbl.put_TreeFilter := CallbackCreate(ObjBindMethod(implObj, "put_TreeFilter"), flags, 2)
+        this.vtbl.get_AutomationElementMode := CallbackCreate(ObjBindMethod(implObj, "get_AutomationElementMode"), flags, 2)
+        this.vtbl.put_AutomationElementMode := CallbackCreate(ObjBindMethod(implObj, "put_AutomationElementMode"), flags, 2)
     }
 
     Dispose() {

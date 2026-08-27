@@ -88,7 +88,6 @@ export default struct PFN_CDF_PARSE_ERROR_CALLBACK {
     }
 
     /**
-     * 
      * @param {Integer} dwErrorArea A value that indicates in which area of the CDF the error occurred.
      * @param {Integer} dwLocalError A value that indicates the type of error.
      * @param {PWSTR} pwszLine A pointer to a null-terminated string that contains the CDF line in which the error occurred.

@@ -51,7 +51,6 @@ export default struct VERIFYSERVERCERT {
     }
 
     /**
-     * 
      * @param {Pointer<LDAP>} _Connection The session handle.
      * @param {Pointer<Pointer<CERT_CONTEXT>>} pServerCert 
      * @returns {BOOLEAN} If the function succeeds (the client approves the server certificate), the return value is <b>TRUE</b>.
@@ -59,7 +58,7 @@ export default struct VERIFYSERVERCERT {
      * If the function fails; the return value is <b>FALSE</b> and the secure connection is torn down.
      */
     Call(_Connection, pServerCert) {
-        pServerCertMarshal := pServerCert is VarRef ? "ptr*" : "ptr"
+        pServerCertMarshal := pServerCert is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, LDAP.Ptr, _Connection, pServerCertMarshal, pServerCert, BOOLEAN)
         return result

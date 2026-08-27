@@ -18,7 +18,6 @@ export default struct PFN_DrvDisableDriver {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

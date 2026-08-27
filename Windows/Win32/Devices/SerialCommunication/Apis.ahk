@@ -194,9 +194,11 @@ export ComDBClose(_HComDB) {
  * @see https://learn.microsoft.com/windows/win32/api/msports/nf-msports-comdbgetcurrentportusage
  */
 export ComDBGetCurrentPortUsage(_HComDB, _Buffer, BufferSize, ReportType, MaxPortsReported) {
-    MaxPortsReportedMarshal := MaxPortsReported is VarRef ? "uint*" : "ptr"
+    _BufferMarshal := _Buffer == 0 ? IntPtr : IntPtr
+    MaxPortsReportedMarshal := MaxPortsReported is VarRef ? "uint*" : IntPtr
+    MaxPortsReportedMarshal := MaxPortsReported == 0 ? IntPtr : "uint*"
 
-    result := DllCall("MSPORTS.dll\ComDBGetCurrentPortUsage", HCOMDB, _HComDB, IntPtr, _Buffer, UInt32, BufferSize, UInt32, ReportType, MaxPortsReportedMarshal, MaxPortsReported, Int32)
+    result := DllCall("MSPORTS.dll\ComDBGetCurrentPortUsage", HCOMDB, _HComDB, _BufferMarshal, _Buffer, UInt32, BufferSize, UInt32, ReportType, MaxPortsReportedMarshal, MaxPortsReported, Int32)
     return result
 }
 
@@ -287,7 +289,7 @@ export ComDBGetCurrentPortUsage(_HComDB, _Buffer, BufferSize, ReportType, MaxPor
  * @see https://learn.microsoft.com/windows/win32/api/msports/nf-msports-comdbclaimnextfreeport
  */
 export ComDBClaimNextFreePort(_HComDB, ComNumber) {
-    ComNumberMarshal := ComNumber is VarRef ? "uint*" : "ptr"
+    ComNumberMarshal := ComNumber is VarRef ? "uint*" : IntPtr
 
     result := DllCall("MSPORTS.dll\ComDBClaimNextFreePort", HCOMDB, _HComDB, ComNumberMarshal, ComNumber, Int32)
     return result
@@ -382,7 +384,8 @@ export ComDBClaimNextFreePort(_HComDB, ComNumber) {
  * @see https://learn.microsoft.com/windows/win32/api/msports/nf-msports-comdbclaimport
  */
 export ComDBClaimPort(_HComDB, ComNumber, ForceClaim, Forced) {
-    ForcedMarshal := Forced is VarRef ? "int*" : "ptr"
+    ForcedMarshal := Forced is VarRef ? "int*" : IntPtr
+    ForcedMarshal := Forced == 0 ? IntPtr : BOOL.Ptr
 
     result := DllCall("MSPORTS.dll\ComDBClaimPort", HCOMDB, _HComDB, UInt32, ComNumber, BOOL, ForceClaim, ForcedMarshal, Forced, Int32)
     return result

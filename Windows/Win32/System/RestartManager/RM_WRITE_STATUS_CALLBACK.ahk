@@ -20,7 +20,6 @@ export default struct RM_WRITE_STATUS_CALLBACK {
     }
 
     /**
-     * 
      * @param {Integer} nPercentComplete An integer value between 0 and 100 that indicates the percentage of the total number of applications that have either been shut down or restarted.
      * @returns {String} Nothing - always returns an empty string
      */

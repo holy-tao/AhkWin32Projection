@@ -108,8 +108,8 @@ export default struct ISpatialAudioClient2 extends ISpatialAudioClient {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsOffloadCapable := CallbackCreate(GetMethod(implObj, "IsOffloadCapable"), flags, 3)
-        this.vtbl.GetMaxFrameCountForCategory := CallbackCreate(GetMethod(implObj, "GetMaxFrameCountForCategory"), flags, 5)
+        this.vtbl.IsOffloadCapable := CallbackCreate(ObjBindMethod(implObj, "IsOffloadCapable"), flags, 3)
+        this.vtbl.GetMaxFrameCountForCategory := CallbackCreate(ObjBindMethod(implObj, "GetMaxFrameCountForCategory"), flags, 5)
     }
 
     Dispose() {

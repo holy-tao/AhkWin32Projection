@@ -68,7 +68,9 @@ export default struct IMFTimedText extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtext-registernotifications
      */
     RegisterNotifications(notify) {
-        result := ComCall(3, this, "ptr", notify, "HRESULT")
+        notifyMarshal := notify == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, notifyMarshal, notify, "HRESULT")
         return result
     }
 
@@ -116,7 +118,10 @@ export default struct IMFTimedText extends IUnknown {
         label := label is String ? StrPtr(label) : label
         language := language is String ? StrPtr(language) : language
 
-        result := ComCall(5, this, "ptr", byteStream, "ptr", label, "ptr", language, MF_TIMED_TEXT_TRACK_KIND, kind, BOOL, isDefault, "uint*", &trackId := 0, "HRESULT")
+        labelMarshal := label == 0 ? IntPtr : PWSTR
+        languageMarshal := language == 0 ? IntPtr : PWSTR
+
+        result := ComCall(5, this, "ptr", byteStream, labelMarshal, label, languageMarshal, language, MF_TIMED_TEXT_TRACK_KIND, kind, BOOL, isDefault, "uint*", &trackId := 0, "HRESULT")
         return trackId
     }
 
@@ -147,12 +152,14 @@ export default struct IMFTimedText extends IUnknown {
         label := label is String ? StrPtr(label) : label
         language := language is String ? StrPtr(language) : language
 
-        result := ComCall(6, this, "ptr", url, "ptr", label, "ptr", language, MF_TIMED_TEXT_TRACK_KIND, kind, BOOL, isDefault, "uint*", &trackId := 0, "HRESULT")
+        labelMarshal := label == 0 ? IntPtr : PWSTR
+        languageMarshal := language == 0 ? IntPtr : PWSTR
+
+        result := ComCall(6, this, "ptr", url, labelMarshal, label, languageMarshal, language, MF_TIMED_TEXT_TRACK_KIND, kind, BOOL, isDefault, "uint*", &trackId := 0, "HRESULT")
         return trackId
     }
 
     /**
-     * 
      * @param {PWSTR} label 
      * @param {PWSTR} language 
      * @param {MF_TIMED_TEXT_TRACK_KIND} kind 
@@ -162,7 +169,10 @@ export default struct IMFTimedText extends IUnknown {
         label := label is String ? StrPtr(label) : label
         language := language is String ? StrPtr(language) : language
 
-        result := ComCall(7, this, "ptr", label, "ptr", language, MF_TIMED_TEXT_TRACK_KIND, kind, "ptr*", &track := 0, "HRESULT")
+        labelMarshal := label == 0 ? IntPtr : PWSTR
+        languageMarshal := language == 0 ? IntPtr : PWSTR
+
+        result := ComCall(7, this, labelMarshal, label, languageMarshal, language, MF_TIMED_TEXT_TRACK_KIND, kind, "ptr*", &track := 0, "HRESULT")
         return IMFTimedTextTrack(track)
     }
 
@@ -296,20 +306,20 @@ export default struct IMFTimedText extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterNotifications := CallbackCreate(GetMethod(implObj, "RegisterNotifications"), flags, 2)
-        this.vtbl.SelectTrack := CallbackCreate(GetMethod(implObj, "SelectTrack"), flags, 3)
-        this.vtbl.AddDataSource := CallbackCreate(GetMethod(implObj, "AddDataSource"), flags, 7)
-        this.vtbl.AddDataSourceFromUrl := CallbackCreate(GetMethod(implObj, "AddDataSourceFromUrl"), flags, 7)
-        this.vtbl.AddTrack := CallbackCreate(GetMethod(implObj, "AddTrack"), flags, 5)
-        this.vtbl.RemoveTrack := CallbackCreate(GetMethod(implObj, "RemoveTrack"), flags, 2)
-        this.vtbl.GetCueTimeOffset := CallbackCreate(GetMethod(implObj, "GetCueTimeOffset"), flags, 2)
-        this.vtbl.SetCueTimeOffset := CallbackCreate(GetMethod(implObj, "SetCueTimeOffset"), flags, 2)
-        this.vtbl.GetTracks := CallbackCreate(GetMethod(implObj, "GetTracks"), flags, 2)
-        this.vtbl.GetActiveTracks := CallbackCreate(GetMethod(implObj, "GetActiveTracks"), flags, 2)
-        this.vtbl.GetTextTracks := CallbackCreate(GetMethod(implObj, "GetTextTracks"), flags, 2)
-        this.vtbl.GetMetadataTracks := CallbackCreate(GetMethod(implObj, "GetMetadataTracks"), flags, 2)
-        this.vtbl.SetInBandEnabled := CallbackCreate(GetMethod(implObj, "SetInBandEnabled"), flags, 2)
-        this.vtbl.IsInBandEnabled := CallbackCreate(GetMethod(implObj, "IsInBandEnabled"), flags, 1)
+        this.vtbl.RegisterNotifications := CallbackCreate(ObjBindMethod(implObj, "RegisterNotifications"), flags, 2)
+        this.vtbl.SelectTrack := CallbackCreate(ObjBindMethod(implObj, "SelectTrack"), flags, 3)
+        this.vtbl.AddDataSource := CallbackCreate(ObjBindMethod(implObj, "AddDataSource"), flags, 7)
+        this.vtbl.AddDataSourceFromUrl := CallbackCreate(ObjBindMethod(implObj, "AddDataSourceFromUrl"), flags, 7)
+        this.vtbl.AddTrack := CallbackCreate(ObjBindMethod(implObj, "AddTrack"), flags, 5)
+        this.vtbl.RemoveTrack := CallbackCreate(ObjBindMethod(implObj, "RemoveTrack"), flags, 2)
+        this.vtbl.GetCueTimeOffset := CallbackCreate(ObjBindMethod(implObj, "GetCueTimeOffset"), flags, 2)
+        this.vtbl.SetCueTimeOffset := CallbackCreate(ObjBindMethod(implObj, "SetCueTimeOffset"), flags, 2)
+        this.vtbl.GetTracks := CallbackCreate(ObjBindMethod(implObj, "GetTracks"), flags, 2)
+        this.vtbl.GetActiveTracks := CallbackCreate(ObjBindMethod(implObj, "GetActiveTracks"), flags, 2)
+        this.vtbl.GetTextTracks := CallbackCreate(ObjBindMethod(implObj, "GetTextTracks"), flags, 2)
+        this.vtbl.GetMetadataTracks := CallbackCreate(ObjBindMethod(implObj, "GetMetadataTracks"), flags, 2)
+        this.vtbl.SetInBandEnabled := CallbackCreate(ObjBindMethod(implObj, "SetInBandEnabled"), flags, 2)
+        this.vtbl.IsInBandEnabled := CallbackCreate(ObjBindMethod(implObj, "IsInBandEnabled"), flags, 1)
     }
 
     Dispose() {

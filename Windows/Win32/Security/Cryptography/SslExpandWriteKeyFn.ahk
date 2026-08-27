@@ -22,7 +22,6 @@ export default struct SslExpandWriteKeyFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} hSslProvider 
      * @param {NCRYPT_KEY_HANDLE} hBaseTrafficKey 
      * @param {Pointer<BCryptBufferDesc>} pParameterList 
@@ -30,8 +29,10 @@ export default struct SslExpandWriteKeyFn {
      * @returns {NCRYPT_KEY_HANDLE} 
      */
     Call(hSslProvider, hBaseTrafficKey, pParameterList, dwFlags) {
+        pParameterListMarshal := pParameterList == 0 ? IntPtr : BCryptBufferDesc.Ptr
+
         phWriteKey := NCRYPT_KEY_HANDLE.Owned()
-        result := DllCall(this.value, NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hBaseTrafficKey, NCRYPT_KEY_HANDLE.Ptr, phWriteKey, BCryptBufferDesc.Ptr, pParameterList, UInt32, dwFlags, "HRESULT")
+        result := DllCall(this.value, NCRYPT_PROV_HANDLE, hSslProvider, NCRYPT_KEY_HANDLE, hBaseTrafficKey, NCRYPT_KEY_HANDLE.Ptr, phWriteKey, pParameterListMarshal, pParameterList, UInt32, dwFlags, "HRESULT")
         return phWriteKey
     }
 

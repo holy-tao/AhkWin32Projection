@@ -41,7 +41,6 @@ export default struct IDBProperties extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cPropertyIDSets 
      * @param {Pointer<DBPROPIDSET>} rgPropertyIDSets 
      * @param {Pointer<Integer>} pcPropertySets 
@@ -49,10 +48,11 @@ export default struct IDBProperties extends IUnknown {
      * @returns {HRESULT} 
      */
     GetProperties(cPropertyIDSets, rgPropertyIDSets, pcPropertySets, prgPropertySets) {
-        pcPropertySetsMarshal := pcPropertySets is VarRef ? "uint*" : "ptr"
-        prgPropertySetsMarshal := prgPropertySets is VarRef ? "ptr*" : "ptr"
+        rgPropertyIDSetsMarshal := rgPropertyIDSets == 0 ? IntPtr : DBPROPIDSET.Ptr
+        pcPropertySetsMarshal := pcPropertySets is VarRef ? "uint*" : IntPtr
+        prgPropertySetsMarshal := prgPropertySets is VarRef ? "ptr*" : IntPtr
 
-        result := ComCall(3, this, UInt32, cPropertyIDSets, DBPROPIDSET.Ptr, rgPropertyIDSets, pcPropertySetsMarshal, pcPropertySets, prgPropertySetsMarshal, prgPropertySets, "HRESULT")
+        result := ComCall(3, this, UInt32, cPropertyIDSets, rgPropertyIDSetsMarshal, rgPropertyIDSets, pcPropertySetsMarshal, pcPropertySets, prgPropertySetsMarshal, prgPropertySets, "HRESULT")
         return result
     }
 
@@ -71,22 +71,25 @@ export default struct IDBProperties extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/NetMon2/getpropertyinfo
      */
     GetPropertyInfo(cPropertyIDSets, rgPropertyIDSets, pcPropertyInfoSets, prgPropertyInfoSets, ppDescBuffer) {
-        pcPropertyInfoSetsMarshal := pcPropertyInfoSets is VarRef ? "uint*" : "ptr"
-        prgPropertyInfoSetsMarshal := prgPropertyInfoSets is VarRef ? "ptr*" : "ptr"
-        ppDescBufferMarshal := ppDescBuffer is VarRef ? "ptr*" : "ptr"
+        rgPropertyIDSetsMarshal := rgPropertyIDSets == 0 ? IntPtr : DBPROPIDSET.Ptr
+        pcPropertyInfoSetsMarshal := pcPropertyInfoSets is VarRef ? "uint*" : IntPtr
+        prgPropertyInfoSetsMarshal := prgPropertyInfoSets is VarRef ? "ptr*" : IntPtr
+        ppDescBufferMarshal := ppDescBuffer is VarRef ? "ptr*" : IntPtr
+        ppDescBufferMarshal := ppDescBuffer == 0 ? IntPtr : "ptr*"
 
-        result := ComCall(4, this, UInt32, cPropertyIDSets, DBPROPIDSET.Ptr, rgPropertyIDSets, pcPropertyInfoSetsMarshal, pcPropertyInfoSets, prgPropertyInfoSetsMarshal, prgPropertyInfoSets, ppDescBufferMarshal, ppDescBuffer, "HRESULT")
+        result := ComCall(4, this, UInt32, cPropertyIDSets, rgPropertyIDSetsMarshal, rgPropertyIDSets, pcPropertyInfoSetsMarshal, pcPropertyInfoSets, prgPropertyInfoSetsMarshal, prgPropertyInfoSets, ppDescBufferMarshal, ppDescBuffer, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} cPropertySets 
      * @param {Pointer<DBPROPSET>} rgPropertySets 
      * @returns {HRESULT} 
      */
     SetProperties(cPropertySets, rgPropertySets) {
-        result := ComCall(5, this, UInt32, cPropertySets, DBPROPSET.Ptr, rgPropertySets, "HRESULT")
+        rgPropertySetsMarshal := rgPropertySets == 0 ? IntPtr : DBPROPSET.Ptr
+
+        result := ComCall(5, this, UInt32, cPropertySets, rgPropertySetsMarshal, rgPropertySets, "HRESULT")
         return result
     }
 
@@ -99,9 +102,9 @@ export default struct IDBProperties extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 5)
-        this.vtbl.GetPropertyInfo := CallbackCreate(GetMethod(implObj, "GetPropertyInfo"), flags, 6)
-        this.vtbl.SetProperties := CallbackCreate(GetMethod(implObj, "SetProperties"), flags, 3)
+        this.vtbl.GetProperties := CallbackCreate(ObjBindMethod(implObj, "GetProperties"), flags, 5)
+        this.vtbl.GetPropertyInfo := CallbackCreate(ObjBindMethod(implObj, "GetPropertyInfo"), flags, 6)
+        this.vtbl.SetProperties := CallbackCreate(ObjBindMethod(implObj, "SetProperties"), flags, 3)
     }
 
     Dispose() {

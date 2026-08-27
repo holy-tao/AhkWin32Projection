@@ -190,14 +190,14 @@ export default struct IUIAutomationSelectionPattern2 extends IUIAutomationSelect
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_CurrentFirstSelectedItem := CallbackCreate(GetMethod(implObj, "get_CurrentFirstSelectedItem"), flags, 2)
-        this.vtbl.get_CurrentLastSelectedItem := CallbackCreate(GetMethod(implObj, "get_CurrentLastSelectedItem"), flags, 2)
-        this.vtbl.get_CurrentCurrentSelectedItem := CallbackCreate(GetMethod(implObj, "get_CurrentCurrentSelectedItem"), flags, 2)
-        this.vtbl.get_CurrentItemCount := CallbackCreate(GetMethod(implObj, "get_CurrentItemCount"), flags, 2)
-        this.vtbl.get_CachedFirstSelectedItem := CallbackCreate(GetMethod(implObj, "get_CachedFirstSelectedItem"), flags, 2)
-        this.vtbl.get_CachedLastSelectedItem := CallbackCreate(GetMethod(implObj, "get_CachedLastSelectedItem"), flags, 2)
-        this.vtbl.get_CachedCurrentSelectedItem := CallbackCreate(GetMethod(implObj, "get_CachedCurrentSelectedItem"), flags, 2)
-        this.vtbl.get_CachedItemCount := CallbackCreate(GetMethod(implObj, "get_CachedItemCount"), flags, 2)
+        this.vtbl.get_CurrentFirstSelectedItem := CallbackCreate(ObjBindMethod(implObj, "get_CurrentFirstSelectedItem"), flags, 2)
+        this.vtbl.get_CurrentLastSelectedItem := CallbackCreate(ObjBindMethod(implObj, "get_CurrentLastSelectedItem"), flags, 2)
+        this.vtbl.get_CurrentCurrentSelectedItem := CallbackCreate(ObjBindMethod(implObj, "get_CurrentCurrentSelectedItem"), flags, 2)
+        this.vtbl.get_CurrentItemCount := CallbackCreate(ObjBindMethod(implObj, "get_CurrentItemCount"), flags, 2)
+        this.vtbl.get_CachedFirstSelectedItem := CallbackCreate(ObjBindMethod(implObj, "get_CachedFirstSelectedItem"), flags, 2)
+        this.vtbl.get_CachedLastSelectedItem := CallbackCreate(ObjBindMethod(implObj, "get_CachedLastSelectedItem"), flags, 2)
+        this.vtbl.get_CachedCurrentSelectedItem := CallbackCreate(ObjBindMethod(implObj, "get_CachedCurrentSelectedItem"), flags, 2)
+        this.vtbl.get_CachedItemCount := CallbackCreate(ObjBindMethod(implObj, "get_CachedItemCount"), flags, 2)
     }
 
     Dispose() {

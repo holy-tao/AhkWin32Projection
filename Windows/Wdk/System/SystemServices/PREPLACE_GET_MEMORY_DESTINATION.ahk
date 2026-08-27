@@ -19,15 +19,14 @@ export default struct PREPLACE_GET_MEMORY_DESTINATION {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Integer} SourceAddress 
      * @param {Pointer<Integer>} DestinationAddress 
      * @returns {NTSTATUS} 
      */
     Call(_Context, SourceAddress, DestinationAddress) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        DestinationAddressMarshal := DestinationAddress is VarRef ? "int64*" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        DestinationAddressMarshal := DestinationAddress is VarRef ? "int64*" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, Int64, SourceAddress, DestinationAddressMarshal, DestinationAddress, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

@@ -113,8 +113,8 @@ export default struct IAudioProcessingObjectConfiguration extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobjectconfiguration-lockforprocess
      */
     LockForProcess(u32NumInputConnections, ppInputConnections, u32NumOutputConnections, ppOutputConnections) {
-        ppInputConnectionsMarshal := ppInputConnections is VarRef ? "ptr*" : "ptr"
-        ppOutputConnectionsMarshal := ppOutputConnections is VarRef ? "ptr*" : "ptr"
+        ppInputConnectionsMarshal := ppInputConnections is VarRef ? "ptr*" : IntPtr
+        ppOutputConnectionsMarshal := ppOutputConnections is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, UInt32, u32NumInputConnections, ppInputConnectionsMarshal, ppInputConnections, UInt32, u32NumOutputConnections, ppOutputConnectionsMarshal, ppOutputConnections, "HRESULT")
         return result
@@ -141,8 +141,8 @@ export default struct IAudioProcessingObjectConfiguration extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LockForProcess := CallbackCreate(GetMethod(implObj, "LockForProcess"), flags, 5)
-        this.vtbl.UnlockForProcess := CallbackCreate(GetMethod(implObj, "UnlockForProcess"), flags, 1)
+        this.vtbl.LockForProcess := CallbackCreate(ObjBindMethod(implObj, "LockForProcess"), flags, 5)
+        this.vtbl.UnlockForProcess := CallbackCreate(ObjBindMethod(implObj, "UnlockForProcess"), flags, 1)
     }
 
     Dispose() {

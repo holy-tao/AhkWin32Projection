@@ -18,12 +18,11 @@ export default struct alljoyn_permissionconfigurationlistener_startmanagement_pt
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_context) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _contextMarshal, _context)
     }

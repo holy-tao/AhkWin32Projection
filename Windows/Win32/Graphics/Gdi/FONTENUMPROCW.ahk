@@ -22,7 +22,6 @@ export default struct FONTENUMPROCW {
     }
 
     /**
-     * 
      * @param {Pointer<LOGFONTW>} param0 
      * @param {Pointer<TEXTMETRICW>} param1 
      * @param {Integer} param2 

@@ -49,7 +49,7 @@ export default struct IGetVBAObject extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vbinterf/nf-vbinterf-igetvbaobject-getobject
      */
     GetObject(riid, ppvObj, dwReserved) {
-        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, Guid.Ptr, riid, ppvObjMarshal, ppvObj, UInt32, dwReserved, "HRESULT")
         return result
@@ -64,7 +64,7 @@ export default struct IGetVBAObject extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetObject := CallbackCreate(GetMethod(implObj, "GetObject"), flags, 4)
+        this.vtbl.GetObject := CallbackCreate(ObjBindMethod(implObj, "GetObject"), flags, 4)
     }
 
     Dispose() {

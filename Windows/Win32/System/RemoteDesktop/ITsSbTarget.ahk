@@ -247,7 +247,7 @@ export default struct ITsSbTarget extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-get_ipaddresses
      */
     get_IpAddresses(numAddresses) {
-        numAddressesMarshal := numAddresses is VarRef ? "uint*" : "ptr"
+        numAddressesMarshal := numAddresses is VarRef ? "uint*" : IntPtr
 
         _SOCKADDR := TSSD_ConnectionPoint()
         result := ComCall(11, this, TSSD_ConnectionPoint.Ptr, _SOCKADDR, numAddressesMarshal, numAddresses, "HRESULT")
@@ -379,25 +379,25 @@ export default struct ITsSbTarget extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_TargetName := CallbackCreate(GetMethod(implObj, "get_TargetName"), flags, 2)
-        this.vtbl.put_TargetName := CallbackCreate(GetMethod(implObj, "put_TargetName"), flags, 2)
-        this.vtbl.get_FarmName := CallbackCreate(GetMethod(implObj, "get_FarmName"), flags, 2)
-        this.vtbl.put_FarmName := CallbackCreate(GetMethod(implObj, "put_FarmName"), flags, 2)
-        this.vtbl.get_TargetFQDN := CallbackCreate(GetMethod(implObj, "get_TargetFQDN"), flags, 2)
-        this.vtbl.put_TargetFQDN := CallbackCreate(GetMethod(implObj, "put_TargetFQDN"), flags, 2)
-        this.vtbl.get_TargetNetbios := CallbackCreate(GetMethod(implObj, "get_TargetNetbios"), flags, 2)
-        this.vtbl.put_TargetNetbios := CallbackCreate(GetMethod(implObj, "put_TargetNetbios"), flags, 2)
-        this.vtbl.get_IpAddresses := CallbackCreate(GetMethod(implObj, "get_IpAddresses"), flags, 3)
-        this.vtbl.put_IpAddresses := CallbackCreate(GetMethod(implObj, "put_IpAddresses"), flags, 3)
-        this.vtbl.get_TargetState := CallbackCreate(GetMethod(implObj, "get_TargetState"), flags, 2)
-        this.vtbl.put_TargetState := CallbackCreate(GetMethod(implObj, "put_TargetState"), flags, 2)
-        this.vtbl.get_TargetPropertySet := CallbackCreate(GetMethod(implObj, "get_TargetPropertySet"), flags, 2)
-        this.vtbl.put_TargetPropertySet := CallbackCreate(GetMethod(implObj, "put_TargetPropertySet"), flags, 2)
-        this.vtbl.get_EnvironmentName := CallbackCreate(GetMethod(implObj, "get_EnvironmentName"), flags, 2)
-        this.vtbl.put_EnvironmentName := CallbackCreate(GetMethod(implObj, "put_EnvironmentName"), flags, 2)
-        this.vtbl.get_NumSessions := CallbackCreate(GetMethod(implObj, "get_NumSessions"), flags, 2)
-        this.vtbl.get_NumPendingConnections := CallbackCreate(GetMethod(implObj, "get_NumPendingConnections"), flags, 2)
-        this.vtbl.get_TargetLoad := CallbackCreate(GetMethod(implObj, "get_TargetLoad"), flags, 2)
+        this.vtbl.get_TargetName := CallbackCreate(ObjBindMethod(implObj, "get_TargetName"), flags, 2)
+        this.vtbl.put_TargetName := CallbackCreate(ObjBindMethod(implObj, "put_TargetName"), flags, 2)
+        this.vtbl.get_FarmName := CallbackCreate(ObjBindMethod(implObj, "get_FarmName"), flags, 2)
+        this.vtbl.put_FarmName := CallbackCreate(ObjBindMethod(implObj, "put_FarmName"), flags, 2)
+        this.vtbl.get_TargetFQDN := CallbackCreate(ObjBindMethod(implObj, "get_TargetFQDN"), flags, 2)
+        this.vtbl.put_TargetFQDN := CallbackCreate(ObjBindMethod(implObj, "put_TargetFQDN"), flags, 2)
+        this.vtbl.get_TargetNetbios := CallbackCreate(ObjBindMethod(implObj, "get_TargetNetbios"), flags, 2)
+        this.vtbl.put_TargetNetbios := CallbackCreate(ObjBindMethod(implObj, "put_TargetNetbios"), flags, 2)
+        this.vtbl.get_IpAddresses := CallbackCreate(ObjBindMethod(implObj, "get_IpAddresses"), flags, 3)
+        this.vtbl.put_IpAddresses := CallbackCreate(ObjBindMethod(implObj, "put_IpAddresses"), flags, 3)
+        this.vtbl.get_TargetState := CallbackCreate(ObjBindMethod(implObj, "get_TargetState"), flags, 2)
+        this.vtbl.put_TargetState := CallbackCreate(ObjBindMethod(implObj, "put_TargetState"), flags, 2)
+        this.vtbl.get_TargetPropertySet := CallbackCreate(ObjBindMethod(implObj, "get_TargetPropertySet"), flags, 2)
+        this.vtbl.put_TargetPropertySet := CallbackCreate(ObjBindMethod(implObj, "put_TargetPropertySet"), flags, 2)
+        this.vtbl.get_EnvironmentName := CallbackCreate(ObjBindMethod(implObj, "get_EnvironmentName"), flags, 2)
+        this.vtbl.put_EnvironmentName := CallbackCreate(ObjBindMethod(implObj, "put_EnvironmentName"), flags, 2)
+        this.vtbl.get_NumSessions := CallbackCreate(ObjBindMethod(implObj, "get_NumSessions"), flags, 2)
+        this.vtbl.get_NumPendingConnections := CallbackCreate(ObjBindMethod(implObj, "get_NumPendingConnections"), flags, 2)
+        this.vtbl.get_TargetLoad := CallbackCreate(ObjBindMethod(implObj, "get_TargetLoad"), flags, 2)
     }
 
     Dispose() {

@@ -106,7 +106,6 @@ export default struct IComObjectEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
      * @param {Integer} CtxtID 
      * @returns {HRESULT} 
@@ -125,12 +124,12 @@ export default struct IComObjectEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnObjectActivate := CallbackCreate(GetMethod(implObj, "OnObjectActivate"), flags, 4)
-        this.vtbl.OnObjectDeactivate := CallbackCreate(GetMethod(implObj, "OnObjectDeactivate"), flags, 4)
-        this.vtbl.OnDisableCommit := CallbackCreate(GetMethod(implObj, "OnDisableCommit"), flags, 3)
-        this.vtbl.OnEnableCommit := CallbackCreate(GetMethod(implObj, "OnEnableCommit"), flags, 3)
-        this.vtbl.OnSetComplete := CallbackCreate(GetMethod(implObj, "OnSetComplete"), flags, 3)
-        this.vtbl.OnSetAbort := CallbackCreate(GetMethod(implObj, "OnSetAbort"), flags, 3)
+        this.vtbl.OnObjectActivate := CallbackCreate(ObjBindMethod(implObj, "OnObjectActivate"), flags, 4)
+        this.vtbl.OnObjectDeactivate := CallbackCreate(ObjBindMethod(implObj, "OnObjectDeactivate"), flags, 4)
+        this.vtbl.OnDisableCommit := CallbackCreate(ObjBindMethod(implObj, "OnDisableCommit"), flags, 3)
+        this.vtbl.OnEnableCommit := CallbackCreate(ObjBindMethod(implObj, "OnEnableCommit"), flags, 3)
+        this.vtbl.OnSetComplete := CallbackCreate(ObjBindMethod(implObj, "OnSetComplete"), flags, 3)
+        this.vtbl.OnSetAbort := CallbackCreate(ObjBindMethod(implObj, "OnSetAbort"), flags, 3)
     }
 
     Dispose() {

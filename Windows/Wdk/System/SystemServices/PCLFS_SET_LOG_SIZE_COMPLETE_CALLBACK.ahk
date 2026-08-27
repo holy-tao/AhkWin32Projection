@@ -20,14 +20,13 @@ export default struct PCLFS_SET_LOG_SIZE_COMPLETE_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} LogFile 
      * @param {NTSTATUS} OperationStatus 
      * @param {Pointer<Void>} ClientData 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(LogFile, OperationStatus, ClientData) {
-        ClientDataMarshal := ClientData is VarRef ? "ptr" : "ptr"
+        ClientDataMarshal := ClientData is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, FILE_OBJECT.Ptr, LogFile, NTSTATUS, OperationStatus, ClientDataMarshal, ClientData)
     }

@@ -241,13 +241,17 @@ export default struct IDWriteTextAnalyzer extends IUnknown {
         textString := textString is String ? StrPtr(textString) : textString
         localeName := localeName is String ? StrPtr(localeName) : localeName
 
-        featuresMarshal := features is VarRef ? "ptr*" : "ptr"
-        featureRangeLengthsMarshal := featureRangeLengths is VarRef ? "uint*" : "ptr"
-        clusterMapMarshal := clusterMap is VarRef ? "ushort*" : "ptr"
-        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
-        actualGlyphCountMarshal := actualGlyphCount is VarRef ? "uint*" : "ptr"
+        localeNameMarshal := localeName == 0 ? IntPtr : PWSTR
+        numberSubstitutionMarshal := numberSubstitution == 0 ? IntPtr : "ptr"
+        featuresMarshal := features is VarRef ? "ptr*" : IntPtr
+        featuresMarshal := features == 0 ? IntPtr : "ptr*"
+        featureRangeLengthsMarshal := featureRangeLengths is VarRef ? "uint*" : IntPtr
+        featureRangeLengthsMarshal := featureRangeLengths == 0 ? IntPtr : "uint*"
+        clusterMapMarshal := clusterMap is VarRef ? "ushort*" : IntPtr
+        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : IntPtr
+        actualGlyphCountMarshal := actualGlyphCount is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(7, this, "ptr", textString, UInt32, textLength, "ptr", fontFace, BOOL, isSideways, BOOL, isRightToLeft, DWRITE_SCRIPT_ANALYSIS.Ptr, scriptAnalysis, "ptr", localeName, "ptr", numberSubstitution, featuresMarshal, features, featureRangeLengthsMarshal, featureRangeLengths, UInt32, featureRanges, UInt32, maxGlyphCount, clusterMapMarshal, clusterMap, DWRITE_SHAPING_TEXT_PROPERTIES.Ptr, textProps, glyphIndicesMarshal, glyphIndices, DWRITE_SHAPING_GLYPH_PROPERTIES.Ptr, glyphProps, actualGlyphCountMarshal, actualGlyphCount, "HRESULT")
+        result := ComCall(7, this, "ptr", textString, UInt32, textLength, "ptr", fontFace, BOOL, isSideways, BOOL, isRightToLeft, DWRITE_SCRIPT_ANALYSIS.Ptr, scriptAnalysis, localeNameMarshal, localeName, numberSubstitutionMarshal, numberSubstitution, featuresMarshal, features, featureRangeLengthsMarshal, featureRangeLengths, UInt32, featureRanges, UInt32, maxGlyphCount, clusterMapMarshal, clusterMap, DWRITE_SHAPING_TEXT_PROPERTIES.Ptr, textProps, glyphIndicesMarshal, glyphIndices, DWRITE_SHAPING_GLYPH_PROPERTIES.Ptr, glyphProps, actualGlyphCountMarshal, actualGlyphCount, "HRESULT")
         return result
     }
 
@@ -323,13 +327,16 @@ export default struct IDWriteTextAnalyzer extends IUnknown {
         textString := textString is String ? StrPtr(textString) : textString
         localeName := localeName is String ? StrPtr(localeName) : localeName
 
-        clusterMapMarshal := clusterMap is VarRef ? "ushort*" : "ptr"
-        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
-        featuresMarshal := features is VarRef ? "ptr*" : "ptr"
-        featureRangeLengthsMarshal := featureRangeLengths is VarRef ? "uint*" : "ptr"
-        glyphAdvancesMarshal := glyphAdvances is VarRef ? "float*" : "ptr"
+        clusterMapMarshal := clusterMap is VarRef ? "ushort*" : IntPtr
+        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : IntPtr
+        localeNameMarshal := localeName == 0 ? IntPtr : PWSTR
+        featuresMarshal := features is VarRef ? "ptr*" : IntPtr
+        featuresMarshal := features == 0 ? IntPtr : "ptr*"
+        featureRangeLengthsMarshal := featureRangeLengths is VarRef ? "uint*" : IntPtr
+        featureRangeLengthsMarshal := featureRangeLengths == 0 ? IntPtr : "uint*"
+        glyphAdvancesMarshal := glyphAdvances is VarRef ? "float*" : IntPtr
 
-        result := ComCall(8, this, "ptr", textString, clusterMapMarshal, clusterMap, DWRITE_SHAPING_TEXT_PROPERTIES.Ptr, textProps, UInt32, textLength, glyphIndicesMarshal, glyphIndices, DWRITE_SHAPING_GLYPH_PROPERTIES.Ptr, glyphProps, UInt32, glyphCount, "ptr", fontFace, Float32, fontEmSize, BOOL, isSideways, BOOL, isRightToLeft, DWRITE_SCRIPT_ANALYSIS.Ptr, scriptAnalysis, "ptr", localeName, featuresMarshal, features, featureRangeLengthsMarshal, featureRangeLengths, UInt32, featureRanges, glyphAdvancesMarshal, glyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, glyphOffsets, "HRESULT")
+        result := ComCall(8, this, "ptr", textString, clusterMapMarshal, clusterMap, DWRITE_SHAPING_TEXT_PROPERTIES.Ptr, textProps, UInt32, textLength, glyphIndicesMarshal, glyphIndices, DWRITE_SHAPING_GLYPH_PROPERTIES.Ptr, glyphProps, UInt32, glyphCount, "ptr", fontFace, Float32, fontEmSize, BOOL, isSideways, BOOL, isRightToLeft, DWRITE_SCRIPT_ANALYSIS.Ptr, scriptAnalysis, localeNameMarshal, localeName, featuresMarshal, features, featureRangeLengthsMarshal, featureRangeLengths, UInt32, featureRanges, glyphAdvancesMarshal, glyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, glyphOffsets, "HRESULT")
         return result
     }
 
@@ -407,13 +414,17 @@ export default struct IDWriteTextAnalyzer extends IUnknown {
         textString := textString is String ? StrPtr(textString) : textString
         localeName := localeName is String ? StrPtr(localeName) : localeName
 
-        clusterMapMarshal := clusterMap is VarRef ? "ushort*" : "ptr"
-        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
-        featuresMarshal := features is VarRef ? "ptr*" : "ptr"
-        featureRangeLengthsMarshal := featureRangeLengths is VarRef ? "uint*" : "ptr"
-        glyphAdvancesMarshal := glyphAdvances is VarRef ? "float*" : "ptr"
+        clusterMapMarshal := clusterMap is VarRef ? "ushort*" : IntPtr
+        glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : IntPtr
+        transformMarshal := transform == 0 ? IntPtr : DWRITE_MATRIX.Ptr
+        localeNameMarshal := localeName == 0 ? IntPtr : PWSTR
+        featuresMarshal := features is VarRef ? "ptr*" : IntPtr
+        featuresMarshal := features == 0 ? IntPtr : "ptr*"
+        featureRangeLengthsMarshal := featureRangeLengths is VarRef ? "uint*" : IntPtr
+        featureRangeLengthsMarshal := featureRangeLengths == 0 ? IntPtr : "uint*"
+        glyphAdvancesMarshal := glyphAdvances is VarRef ? "float*" : IntPtr
 
-        result := ComCall(9, this, "ptr", textString, clusterMapMarshal, clusterMap, DWRITE_SHAPING_TEXT_PROPERTIES.Ptr, textProps, UInt32, textLength, glyphIndicesMarshal, glyphIndices, DWRITE_SHAPING_GLYPH_PROPERTIES.Ptr, glyphProps, UInt32, glyphCount, "ptr", fontFace, Float32, fontEmSize, Float32, pixelsPerDip, DWRITE_MATRIX.Ptr, transform, BOOL, useGdiNatural, BOOL, isSideways, BOOL, isRightToLeft, DWRITE_SCRIPT_ANALYSIS.Ptr, scriptAnalysis, "ptr", localeName, featuresMarshal, features, featureRangeLengthsMarshal, featureRangeLengths, UInt32, featureRanges, glyphAdvancesMarshal, glyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, glyphOffsets, "HRESULT")
+        result := ComCall(9, this, "ptr", textString, clusterMapMarshal, clusterMap, DWRITE_SHAPING_TEXT_PROPERTIES.Ptr, textProps, UInt32, textLength, glyphIndicesMarshal, glyphIndices, DWRITE_SHAPING_GLYPH_PROPERTIES.Ptr, glyphProps, UInt32, glyphCount, "ptr", fontFace, Float32, fontEmSize, Float32, pixelsPerDip, transformMarshal, transform, BOOL, useGdiNatural, BOOL, isSideways, BOOL, isRightToLeft, DWRITE_SCRIPT_ANALYSIS.Ptr, scriptAnalysis, localeNameMarshal, localeName, featuresMarshal, features, featureRangeLengthsMarshal, featureRangeLengths, UInt32, featureRanges, glyphAdvancesMarshal, glyphAdvances, DWRITE_GLYPH_OFFSET.Ptr, glyphOffsets, "HRESULT")
         return result
     }
 
@@ -426,13 +437,13 @@ export default struct IDWriteTextAnalyzer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AnalyzeScript := CallbackCreate(GetMethod(implObj, "AnalyzeScript"), flags, 5)
-        this.vtbl.AnalyzeBidi := CallbackCreate(GetMethod(implObj, "AnalyzeBidi"), flags, 5)
-        this.vtbl.AnalyzeNumberSubstitution := CallbackCreate(GetMethod(implObj, "AnalyzeNumberSubstitution"), flags, 5)
-        this.vtbl.AnalyzeLineBreakpoints := CallbackCreate(GetMethod(implObj, "AnalyzeLineBreakpoints"), flags, 5)
-        this.vtbl.GetGlyphs := CallbackCreate(GetMethod(implObj, "GetGlyphs"), flags, 18)
-        this.vtbl.GetGlyphPlacements := CallbackCreate(GetMethod(implObj, "GetGlyphPlacements"), flags, 19)
-        this.vtbl.GetGdiCompatibleGlyphPlacements := CallbackCreate(GetMethod(implObj, "GetGdiCompatibleGlyphPlacements"), flags, 22)
+        this.vtbl.AnalyzeScript := CallbackCreate(ObjBindMethod(implObj, "AnalyzeScript"), flags, 5)
+        this.vtbl.AnalyzeBidi := CallbackCreate(ObjBindMethod(implObj, "AnalyzeBidi"), flags, 5)
+        this.vtbl.AnalyzeNumberSubstitution := CallbackCreate(ObjBindMethod(implObj, "AnalyzeNumberSubstitution"), flags, 5)
+        this.vtbl.AnalyzeLineBreakpoints := CallbackCreate(ObjBindMethod(implObj, "AnalyzeLineBreakpoints"), flags, 5)
+        this.vtbl.GetGlyphs := CallbackCreate(ObjBindMethod(implObj, "GetGlyphs"), flags, 18)
+        this.vtbl.GetGlyphPlacements := CallbackCreate(ObjBindMethod(implObj, "GetGlyphPlacements"), flags, 19)
+        this.vtbl.GetGdiCompatibleGlyphPlacements := CallbackCreate(ObjBindMethod(implObj, "GetGdiCompatibleGlyphPlacements"), flags, 22)
     }
 
     Dispose() {

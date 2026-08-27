@@ -20,7 +20,6 @@ export default struct PFN_DrvDescribePixelFormat {
     }
 
     /**
-     * 
      * @param {DHPDEV} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 

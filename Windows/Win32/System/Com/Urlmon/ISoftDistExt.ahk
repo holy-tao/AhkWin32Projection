@@ -44,7 +44,6 @@ export default struct ISoftDistExt extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} szCDFURL 
      * @param {IXMLElement} pSoftDistElement 
      * @param {Pointer<SOFTDISTINFO>} lpsdi 
@@ -58,35 +57,32 @@ export default struct ISoftDistExt extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PWSTR>} szCodeBase 
      * @param {Pointer<Integer>} dwMaxSize 
      * @returns {HRESULT} 
      */
     GetFirstCodeBase(szCodeBase, dwMaxSize) {
-        szCodeBaseMarshal := szCodeBase is VarRef ? "ptr*" : "ptr"
-        dwMaxSizeMarshal := dwMaxSize is VarRef ? "uint*" : "ptr"
+        szCodeBaseMarshal := szCodeBase is VarRef ? "ptr*" : IntPtr
+        dwMaxSizeMarshal := dwMaxSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, szCodeBaseMarshal, szCodeBase, dwMaxSizeMarshal, dwMaxSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<PWSTR>} szCodeBase 
      * @param {Pointer<Integer>} dwMaxSize 
      * @returns {HRESULT} 
      */
     GetNextCodeBase(szCodeBase, dwMaxSize) {
-        szCodeBaseMarshal := szCodeBase is VarRef ? "ptr*" : "ptr"
-        dwMaxSizeMarshal := dwMaxSize is VarRef ? "uint*" : "ptr"
+        szCodeBaseMarshal := szCodeBase is VarRef ? "ptr*" : IntPtr
+        dwMaxSizeMarshal := dwMaxSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, szCodeBaseMarshal, szCodeBase, dwMaxSizeMarshal, dwMaxSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IBindCtx} pbc 
      * @param {Pointer<Void>} pvReserved 
      * @param {Integer} flags 
@@ -94,7 +90,7 @@ export default struct ISoftDistExt extends IUnknown {
      * @returns {HRESULT} 
      */
     AsyncInstallDistributionUnit(pbc, pvReserved, flags, lpcbh) {
-        pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
+        pvReservedMarshal := pvReserved is VarRef ? "ptr" : IntPtr
 
         result := ComCall(6, this, "ptr", pbc, pvReservedMarshal, pvReserved, UInt32, flags, CODEBASEHOLD.Ptr, lpcbh, "HRESULT")
         return result
@@ -109,10 +105,10 @@ export default struct ISoftDistExt extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ProcessSoftDist := CallbackCreate(GetMethod(implObj, "ProcessSoftDist"), flags, 4)
-        this.vtbl.GetFirstCodeBase := CallbackCreate(GetMethod(implObj, "GetFirstCodeBase"), flags, 3)
-        this.vtbl.GetNextCodeBase := CallbackCreate(GetMethod(implObj, "GetNextCodeBase"), flags, 3)
-        this.vtbl.AsyncInstallDistributionUnit := CallbackCreate(GetMethod(implObj, "AsyncInstallDistributionUnit"), flags, 5)
+        this.vtbl.ProcessSoftDist := CallbackCreate(ObjBindMethod(implObj, "ProcessSoftDist"), flags, 4)
+        this.vtbl.GetFirstCodeBase := CallbackCreate(ObjBindMethod(implObj, "GetFirstCodeBase"), flags, 3)
+        this.vtbl.GetNextCodeBase := CallbackCreate(ObjBindMethod(implObj, "GetNextCodeBase"), flags, 3)
+        this.vtbl.AsyncInstallDistributionUnit := CallbackCreate(ObjBindMethod(implObj, "AsyncInstallDistributionUnit"), flags, 5)
     }
 
     Dispose() {

@@ -37,7 +37,6 @@ export default struct IMonitorGraphicsCaptureItemInterop extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<HMONITOR>} _monitor 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,7 @@ export default struct IMonitorGraphicsCaptureItemInterop extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMonitor := CallbackCreate(GetMethod(implObj, "GetMonitor"), flags, 2)
+        this.vtbl.GetMonitor := CallbackCreate(ObjBindMethod(implObj, "GetMonitor"), flags, 2)
     }
 
     Dispose() {

@@ -23,7 +23,6 @@ export default struct FAST_IO_UNLOCK_ALL {
     }
 
     /**
-     * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {PEPROCESS} ProcessId 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatus 

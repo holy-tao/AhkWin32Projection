@@ -76,7 +76,7 @@ export default struct IBlockRangeList extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_BlockRanges := CallbackCreate(GetMethod(implObj, "get_BlockRanges"), flags, 2)
+        this.vtbl.get_BlockRanges := CallbackCreate(ObjBindMethod(implObj, "get_BlockRanges"), flags, 2)
     }
 
     Dispose() {

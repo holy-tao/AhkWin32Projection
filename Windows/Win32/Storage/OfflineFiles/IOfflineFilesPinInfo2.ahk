@@ -59,7 +59,7 @@ export default struct IOfflineFilesPinInfo2 extends IOfflineFilesPinInfo {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsPartlyPinned := CallbackCreate(GetMethod(implObj, "IsPartlyPinned"), flags, 2)
+        this.vtbl.IsPartlyPinned := CallbackCreate(ObjBindMethod(implObj, "IsPartlyPinned"), flags, 2)
     }
 
     Dispose() {

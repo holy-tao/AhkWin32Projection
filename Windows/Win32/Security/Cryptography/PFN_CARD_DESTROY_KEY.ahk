@@ -19,7 +19,6 @@ export default struct PFN_CARD_DESTROY_KEY {
     }
 
     /**
-     * 
      * @param {Pointer<CARD_DATA>} pCardData 
      * @param {Pointer} _hKey 
      * @returns {Integer} 

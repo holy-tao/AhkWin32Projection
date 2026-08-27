@@ -78,7 +78,7 @@ export default struct IMbnServiceActivationEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnActivationComplete := CallbackCreate(GetMethod(implObj, "OnActivationComplete"), flags, 6)
+        this.vtbl.OnActivationComplete := CallbackCreate(ObjBindMethod(implObj, "OnActivationComplete"), flags, 6)
     }
 
     Dispose() {

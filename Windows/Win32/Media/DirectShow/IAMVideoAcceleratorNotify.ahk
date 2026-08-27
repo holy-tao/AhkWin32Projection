@@ -264,8 +264,8 @@ export default struct IAMVideoAcceleratorNotify extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoacceleratornotify-getcreatevideoacceleratordata
      */
     GetCreateVideoAcceleratorData(pGuid, pdwSizeMiscData, ppMiscData) {
-        pdwSizeMiscDataMarshal := pdwSizeMiscData is VarRef ? "uint*" : "ptr"
-        ppMiscDataMarshal := ppMiscData is VarRef ? "ptr*" : "ptr"
+        pdwSizeMiscDataMarshal := pdwSizeMiscData is VarRef ? "uint*" : IntPtr
+        ppMiscDataMarshal := ppMiscData is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, Guid.Ptr, pGuid, pdwSizeMiscDataMarshal, pdwSizeMiscData, ppMiscDataMarshal, ppMiscData, "HRESULT")
         return result
@@ -280,9 +280,9 @@ export default struct IAMVideoAcceleratorNotify extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetUncompSurfacesInfo := CallbackCreate(GetMethod(implObj, "GetUncompSurfacesInfo"), flags, 3)
-        this.vtbl.SetUncompSurfacesInfo := CallbackCreate(GetMethod(implObj, "SetUncompSurfacesInfo"), flags, 2)
-        this.vtbl.GetCreateVideoAcceleratorData := CallbackCreate(GetMethod(implObj, "GetCreateVideoAcceleratorData"), flags, 4)
+        this.vtbl.GetUncompSurfacesInfo := CallbackCreate(ObjBindMethod(implObj, "GetUncompSurfacesInfo"), flags, 3)
+        this.vtbl.SetUncompSurfacesInfo := CallbackCreate(ObjBindMethod(implObj, "SetUncompSurfacesInfo"), flags, 2)
+        this.vtbl.GetCreateVideoAcceleratorData := CallbackCreate(ObjBindMethod(implObj, "GetCreateVideoAcceleratorData"), flags, 4)
     }
 
     Dispose() {

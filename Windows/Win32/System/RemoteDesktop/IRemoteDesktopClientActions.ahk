@@ -99,10 +99,10 @@ export default struct IRemoteDesktopClientActions extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SuspendScreenUpdates := CallbackCreate(GetMethod(implObj, "SuspendScreenUpdates"), flags, 1)
-        this.vtbl.ResumeScreenUpdates := CallbackCreate(GetMethod(implObj, "ResumeScreenUpdates"), flags, 1)
-        this.vtbl.ExecuteRemoteAction := CallbackCreate(GetMethod(implObj, "ExecuteRemoteAction"), flags, 2)
-        this.vtbl.GetSnapshot := CallbackCreate(GetMethod(implObj, "GetSnapshot"), flags, 6)
+        this.vtbl.SuspendScreenUpdates := CallbackCreate(ObjBindMethod(implObj, "SuspendScreenUpdates"), flags, 1)
+        this.vtbl.ResumeScreenUpdates := CallbackCreate(ObjBindMethod(implObj, "ResumeScreenUpdates"), flags, 1)
+        this.vtbl.ExecuteRemoteAction := CallbackCreate(ObjBindMethod(implObj, "ExecuteRemoteAction"), flags, 2)
+        this.vtbl.GetSnapshot := CallbackCreate(ObjBindMethod(implObj, "GetSnapshot"), flags, 6)
     }
 
     Dispose() {

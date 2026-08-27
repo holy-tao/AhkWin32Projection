@@ -40,7 +40,6 @@ export default struct IMLangCodePages extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} chSrc 
      * @returns {Integer} 
      */
@@ -50,7 +49,6 @@ export default struct IMLangCodePages extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszSrc 
      * @param {Integer} cchSrc 
      * @param {Integer} dwPriorityCodePages 
@@ -61,15 +59,16 @@ export default struct IMLangCodePages extends IUnknown {
     GetStrCodePages(pszSrc, cchSrc, dwPriorityCodePages, pdwCodePages, pcchCodePages) {
         pszSrc := pszSrc is String ? StrPtr(pszSrc) : pszSrc
 
-        pdwCodePagesMarshal := pdwCodePages is VarRef ? "uint*" : "ptr"
-        pcchCodePagesMarshal := pcchCodePages is VarRef ? "int*" : "ptr"
+        pdwCodePagesMarshal := pdwCodePages is VarRef ? "uint*" : IntPtr
+        pdwCodePagesMarshal := pdwCodePages == 0 ? IntPtr : "uint*"
+        pcchCodePagesMarshal := pcchCodePages is VarRef ? "int*" : IntPtr
+        pcchCodePagesMarshal := pcchCodePages == 0 ? IntPtr : "int*"
 
         result := ComCall(4, this, "ptr", pszSrc, Int32, cchSrc, UInt32, dwPriorityCodePages, pdwCodePagesMarshal, pdwCodePages, pcchCodePagesMarshal, pcchCodePages, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} uCodePage 
      * @returns {Integer} 
      */
@@ -79,7 +78,6 @@ export default struct IMLangCodePages extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwCodePages 
      * @param {Integer} uDefaultCodePage 
      * @returns {Integer} 
@@ -98,10 +96,10 @@ export default struct IMLangCodePages extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCharCodePages := CallbackCreate(GetMethod(implObj, "GetCharCodePages"), flags, 3)
-        this.vtbl.GetStrCodePages := CallbackCreate(GetMethod(implObj, "GetStrCodePages"), flags, 6)
-        this.vtbl.CodePageToCodePages := CallbackCreate(GetMethod(implObj, "CodePageToCodePages"), flags, 3)
-        this.vtbl.CodePagesToCodePage := CallbackCreate(GetMethod(implObj, "CodePagesToCodePage"), flags, 4)
+        this.vtbl.GetCharCodePages := CallbackCreate(ObjBindMethod(implObj, "GetCharCodePages"), flags, 3)
+        this.vtbl.GetStrCodePages := CallbackCreate(ObjBindMethod(implObj, "GetStrCodePages"), flags, 6)
+        this.vtbl.CodePageToCodePages := CallbackCreate(ObjBindMethod(implObj, "CodePageToCodePages"), flags, 3)
+        this.vtbl.CodePagesToCodePage := CallbackCreate(ObjBindMethod(implObj, "CodePagesToCodePage"), flags, 4)
     }
 
     Dispose() {

@@ -21,7 +21,6 @@ export default struct JET_PFNSTATUS {
     }
 
     /**
-     * 
      * @param {JET_SESID} sesid 
      * @param {Integer} snp 
      * @param {Integer} snt 
@@ -29,7 +28,8 @@ export default struct JET_PFNSTATUS {
      * @returns {Integer} 
      */
     Call(sesid, snp, snt, pv) {
-        pvMarshal := pv is VarRef ? "ptr" : "ptr"
+        pvMarshal := pv is VarRef ? "ptr" : IntPtr
+        pvMarshal := pv == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, JET_SESID, sesid, UInt32, snp, UInt32, snt, pvMarshal, pv, Int32)
         return result

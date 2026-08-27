@@ -20,7 +20,6 @@ export default struct UCharIteratorGetIndex {
     }
 
     /**
-     * 
      * @param {Pointer<UCharIterator>} iter 
      * @param {UCharIteratorOrigin} origin 
      * @returns {Integer} 

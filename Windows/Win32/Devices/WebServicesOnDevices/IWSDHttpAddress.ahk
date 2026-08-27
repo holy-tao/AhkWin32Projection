@@ -197,10 +197,10 @@ export default struct IWSDHttpAddress extends IWSDTransportAddress {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSecure := CallbackCreate(GetMethod(implObj, "GetSecure"), flags, 1)
-        this.vtbl.SetSecure := CallbackCreate(GetMethod(implObj, "SetSecure"), flags, 2)
-        this.vtbl.GetPath := CallbackCreate(GetMethod(implObj, "GetPath"), flags, 2)
-        this.vtbl.SetPath := CallbackCreate(GetMethod(implObj, "SetPath"), flags, 2)
+        this.vtbl.GetSecure := CallbackCreate(ObjBindMethod(implObj, "GetSecure"), flags, 1)
+        this.vtbl.SetSecure := CallbackCreate(ObjBindMethod(implObj, "SetSecure"), flags, 2)
+        this.vtbl.GetPath := CallbackCreate(ObjBindMethod(implObj, "GetPath"), flags, 2)
+        this.vtbl.SetPath := CallbackCreate(ObjBindMethod(implObj, "SetPath"), flags, 2)
     }
 
     Dispose() {

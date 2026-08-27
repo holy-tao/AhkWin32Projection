@@ -66,7 +66,7 @@ export default struct ITunerCapEx extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Has608_708Caption := CallbackCreate(GetMethod(implObj, "get_Has608_708Caption"), flags, 2)
+        this.vtbl.get_Has608_708Caption := CallbackCreate(ObjBindMethod(implObj, "get_Has608_708Caption"), flags, 2)
     }
 
     Dispose() {

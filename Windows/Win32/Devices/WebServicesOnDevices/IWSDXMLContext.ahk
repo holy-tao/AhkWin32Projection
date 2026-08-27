@@ -142,7 +142,7 @@ export default struct IWSDXMLContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wsdxml/nf-wsdxml-iwsdxmlcontext-setnamespaces
      */
     SetNamespaces(pNamespaces, wNamespacesCount, bLayerNumber) {
-        pNamespacesMarshal := pNamespaces is VarRef ? "ptr*" : "ptr"
+        pNamespacesMarshal := pNamespaces is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, pNamespacesMarshal, pNamespaces, UInt16, wNamespacesCount, Int8, bLayerNumber, "HRESULT")
         return result
@@ -208,7 +208,7 @@ export default struct IWSDXMLContext extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wsdxml/nf-wsdxml-iwsdxmlcontext-settypes
      */
     SetTypes(pTypes, dwTypesCount, bLayerNumber) {
-        pTypesMarshal := pTypes is VarRef ? "ptr*" : "ptr"
+        pTypesMarshal := pTypes is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(6, this, pTypesMarshal, pTypes, UInt32, dwTypesCount, Int8, bLayerNumber, "HRESULT")
         return result
@@ -223,10 +223,10 @@ export default struct IWSDXMLContext extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddNamespace := CallbackCreate(GetMethod(implObj, "AddNamespace"), flags, 4)
-        this.vtbl.AddNameToNamespace := CallbackCreate(GetMethod(implObj, "AddNameToNamespace"), flags, 4)
-        this.vtbl.SetNamespaces := CallbackCreate(GetMethod(implObj, "SetNamespaces"), flags, 4)
-        this.vtbl.SetTypes := CallbackCreate(GetMethod(implObj, "SetTypes"), flags, 4)
+        this.vtbl.AddNamespace := CallbackCreate(ObjBindMethod(implObj, "AddNamespace"), flags, 4)
+        this.vtbl.AddNameToNamespace := CallbackCreate(ObjBindMethod(implObj, "AddNameToNamespace"), flags, 4)
+        this.vtbl.SetNamespaces := CallbackCreate(ObjBindMethod(implObj, "SetNamespaces"), flags, 4)
+        this.vtbl.SetTypes := CallbackCreate(ObjBindMethod(implObj, "SetTypes"), flags, 4)
     }
 
     Dispose() {

@@ -37,7 +37,6 @@ export default struct IIsolatedProcessLauncher2 extends IIsolatedProcessLauncher
     }
 
     /**
-     * 
      * @param {PWSTR} process 
      * @param {PWSTR} arguments 
      * @param {PWSTR} workingDirectory 
@@ -62,7 +61,7 @@ export default struct IIsolatedProcessLauncher2 extends IIsolatedProcessLauncher
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LaunchProcess2 := CallbackCreate(GetMethod(implObj, "LaunchProcess2"), flags, 5)
+        this.vtbl.LaunchProcess2 := CallbackCreate(ObjBindMethod(implObj, "LaunchProcess2"), flags, 5)
     }
 
     Dispose() {

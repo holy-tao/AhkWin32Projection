@@ -156,7 +156,7 @@ export default struct IWEExtendContextMenu extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddContextMenuItems := CallbackCreate(GetMethod(implObj, "AddContextMenuItems"), flags, 3)
+        this.vtbl.AddContextMenuItems := CallbackCreate(ObjBindMethod(implObj, "AddContextMenuItems"), flags, 3)
     }
 
     Dispose() {

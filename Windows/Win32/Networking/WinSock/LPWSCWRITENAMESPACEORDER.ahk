@@ -19,7 +19,6 @@ export default struct LPWSCWRITENAMESPACEORDER {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} lpProviderId 
      * @param {Integer} dwNumberOfEntries 
      * @returns {Integer} 

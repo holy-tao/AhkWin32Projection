@@ -110,9 +110,9 @@ export default struct IUIRibbon extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetHeight := CallbackCreate(GetMethod(implObj, "GetHeight"), flags, 2)
-        this.vtbl.LoadSettingsFromStream := CallbackCreate(GetMethod(implObj, "LoadSettingsFromStream"), flags, 2)
-        this.vtbl.SaveSettingsToStream := CallbackCreate(GetMethod(implObj, "SaveSettingsToStream"), flags, 2)
+        this.vtbl.GetHeight := CallbackCreate(ObjBindMethod(implObj, "GetHeight"), flags, 2)
+        this.vtbl.LoadSettingsFromStream := CallbackCreate(ObjBindMethod(implObj, "LoadSettingsFromStream"), flags, 2)
+        this.vtbl.SaveSettingsToStream := CallbackCreate(ObjBindMethod(implObj, "SaveSettingsToStream"), flags, 2)
     }
 
     Dispose() {

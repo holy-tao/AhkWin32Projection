@@ -43,7 +43,6 @@ export default struct ISelectionServicesListener extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     BeginSelectionUndo() {
@@ -52,7 +51,6 @@ export default struct ISelectionServicesListener extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     EndSelectionUndo() {
@@ -61,7 +59,6 @@ export default struct ISelectionServicesListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {IMarkupPointer} pIElementStart 
      * @param {IMarkupPointer} pIElementEnd 
      * @param {IMarkupPointer} pIElementContentStart 
@@ -74,7 +71,6 @@ export default struct ISelectionServicesListener extends IUnknown {
     }
 
     /**
-     * 
      * @param {SELECTION_TYPE} eType 
      * @param {ISelectionServicesListener} pIListener 
      * @returns {HRESULT} 
@@ -85,7 +81,6 @@ export default struct ISelectionServicesListener extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetTypeDetail() {
@@ -103,11 +98,11 @@ export default struct ISelectionServicesListener extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BeginSelectionUndo := CallbackCreate(GetMethod(implObj, "BeginSelectionUndo"), flags, 1)
-        this.vtbl.EndSelectionUndo := CallbackCreate(GetMethod(implObj, "EndSelectionUndo"), flags, 1)
-        this.vtbl.OnSelectedElementExit := CallbackCreate(GetMethod(implObj, "OnSelectedElementExit"), flags, 5)
-        this.vtbl.OnChangeType := CallbackCreate(GetMethod(implObj, "OnChangeType"), flags, 3)
-        this.vtbl.GetTypeDetail := CallbackCreate(GetMethod(implObj, "GetTypeDetail"), flags, 2)
+        this.vtbl.BeginSelectionUndo := CallbackCreate(ObjBindMethod(implObj, "BeginSelectionUndo"), flags, 1)
+        this.vtbl.EndSelectionUndo := CallbackCreate(ObjBindMethod(implObj, "EndSelectionUndo"), flags, 1)
+        this.vtbl.OnSelectedElementExit := CallbackCreate(ObjBindMethod(implObj, "OnSelectedElementExit"), flags, 5)
+        this.vtbl.OnChangeType := CallbackCreate(ObjBindMethod(implObj, "OnChangeType"), flags, 3)
+        this.vtbl.GetTypeDetail := CallbackCreate(ObjBindMethod(implObj, "GetTypeDetail"), flags, 2)
     }
 
     Dispose() {

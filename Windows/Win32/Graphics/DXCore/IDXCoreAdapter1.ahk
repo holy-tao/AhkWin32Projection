@@ -37,7 +37,6 @@ export default struct IDXCoreAdapter1 extends IDXCoreAdapter {
     }
 
     /**
-     * 
      * @param {DXCoreAdapterProperty} _property 
      * @param {Pointer} inputPropertyDetailsSize 
      * @param {Integer} inputPropertyDetails 
@@ -46,7 +45,9 @@ export default struct IDXCoreAdapter1 extends IDXCoreAdapter {
      * @returns {HRESULT} 
      */
     GetPropertyWithInput(_property, inputPropertyDetailsSize, inputPropertyDetails, outputBufferSize, outputBuffer) {
-        result := ComCall(13, this, DXCoreAdapterProperty, _property, IntPtr, inputPropertyDetailsSize, IntPtr, inputPropertyDetails, IntPtr, outputBufferSize, IntPtr, outputBuffer, "HRESULT")
+        inputPropertyDetailsMarshal := inputPropertyDetails == 0 ? IntPtr : IntPtr
+
+        result := ComCall(13, this, DXCoreAdapterProperty, _property, IntPtr, inputPropertyDetailsSize, inputPropertyDetailsMarshal, inputPropertyDetails, IntPtr, outputBufferSize, IntPtr, outputBuffer, "HRESULT")
         return result
     }
 
@@ -59,7 +60,7 @@ export default struct IDXCoreAdapter1 extends IDXCoreAdapter {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetPropertyWithInput := CallbackCreate(GetMethod(implObj, "GetPropertyWithInput"), flags, 6)
+        this.vtbl.GetPropertyWithInput := CallbackCreate(ObjBindMethod(implObj, "GetPropertyWithInput"), flags, 6)
     }
 
     Dispose() {

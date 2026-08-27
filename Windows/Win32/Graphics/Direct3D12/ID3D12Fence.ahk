@@ -102,9 +102,9 @@ export default struct ID3D12Fence extends ID3D12Pageable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCompletedValue := CallbackCreate(GetMethod(implObj, "GetCompletedValue"), flags, 1)
-        this.vtbl.SetEventOnCompletion := CallbackCreate(GetMethod(implObj, "SetEventOnCompletion"), flags, 3)
-        this.vtbl.Signal := CallbackCreate(GetMethod(implObj, "Signal"), flags, 2)
+        this.vtbl.GetCompletedValue := CallbackCreate(ObjBindMethod(implObj, "GetCompletedValue"), flags, 1)
+        this.vtbl.SetEventOnCompletion := CallbackCreate(ObjBindMethod(implObj, "SetEventOnCompletion"), flags, 3)
+        this.vtbl.Signal := CallbackCreate(ObjBindMethod(implObj, "Signal"), flags, 2)
     }
 
     Dispose() {

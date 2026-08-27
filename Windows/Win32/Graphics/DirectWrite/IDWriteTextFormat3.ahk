@@ -125,11 +125,11 @@ export default struct IDWriteTextFormat3 extends IDWriteTextFormat2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetFontAxisValues := CallbackCreate(GetMethod(implObj, "SetFontAxisValues"), flags, 3)
-        this.vtbl.GetFontAxisValueCount := CallbackCreate(GetMethod(implObj, "GetFontAxisValueCount"), flags, 1)
-        this.vtbl.GetFontAxisValues := CallbackCreate(GetMethod(implObj, "GetFontAxisValues"), flags, 3)
-        this.vtbl.GetAutomaticFontAxes := CallbackCreate(GetMethod(implObj, "GetAutomaticFontAxes"), flags, 1)
-        this.vtbl.SetAutomaticFontAxes := CallbackCreate(GetMethod(implObj, "SetAutomaticFontAxes"), flags, 2)
+        this.vtbl.SetFontAxisValues := CallbackCreate(ObjBindMethod(implObj, "SetFontAxisValues"), flags, 3)
+        this.vtbl.GetFontAxisValueCount := CallbackCreate(ObjBindMethod(implObj, "GetFontAxisValueCount"), flags, 1)
+        this.vtbl.GetFontAxisValues := CallbackCreate(ObjBindMethod(implObj, "GetFontAxisValues"), flags, 3)
+        this.vtbl.GetAutomaticFontAxes := CallbackCreate(ObjBindMethod(implObj, "GetAutomaticFontAxes"), flags, 1)
+        this.vtbl.SetAutomaticFontAxes := CallbackCreate(ObjBindMethod(implObj, "SetAutomaticFontAxes"), flags, 2)
     }
 
     Dispose() {

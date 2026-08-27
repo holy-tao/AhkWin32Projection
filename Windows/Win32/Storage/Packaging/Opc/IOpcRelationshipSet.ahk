@@ -257,13 +257,13 @@ export default struct IOpcRelationshipSet extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRelationship := CallbackCreate(GetMethod(implObj, "GetRelationship"), flags, 3)
-        this.vtbl.CreateRelationship := CallbackCreate(GetMethod(implObj, "CreateRelationship"), flags, 6)
-        this.vtbl.DeleteRelationship := CallbackCreate(GetMethod(implObj, "DeleteRelationship"), flags, 2)
-        this.vtbl.RelationshipExists := CallbackCreate(GetMethod(implObj, "RelationshipExists"), flags, 3)
-        this.vtbl.GetEnumerator := CallbackCreate(GetMethod(implObj, "GetEnumerator"), flags, 2)
-        this.vtbl.GetEnumeratorForType := CallbackCreate(GetMethod(implObj, "GetEnumeratorForType"), flags, 3)
-        this.vtbl.GetRelationshipsContentStream := CallbackCreate(GetMethod(implObj, "GetRelationshipsContentStream"), flags, 2)
+        this.vtbl.GetRelationship := CallbackCreate(ObjBindMethod(implObj, "GetRelationship"), flags, 3)
+        this.vtbl.CreateRelationship := CallbackCreate(ObjBindMethod(implObj, "CreateRelationship"), flags, 6)
+        this.vtbl.DeleteRelationship := CallbackCreate(ObjBindMethod(implObj, "DeleteRelationship"), flags, 2)
+        this.vtbl.RelationshipExists := CallbackCreate(ObjBindMethod(implObj, "RelationshipExists"), flags, 3)
+        this.vtbl.GetEnumerator := CallbackCreate(ObjBindMethod(implObj, "GetEnumerator"), flags, 2)
+        this.vtbl.GetEnumeratorForType := CallbackCreate(ObjBindMethod(implObj, "GetEnumeratorForType"), flags, 3)
+        this.vtbl.GetRelationshipsContentStream := CallbackCreate(ObjBindMethod(implObj, "GetRelationshipsContentStream"), flags, 2)
     }
 
     Dispose() {

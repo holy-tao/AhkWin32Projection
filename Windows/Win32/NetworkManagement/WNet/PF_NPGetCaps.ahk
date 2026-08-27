@@ -18,7 +18,6 @@ export default struct PF_NPGetCaps {
     }
 
     /**
-     * 
      * @param {Integer} ndex 
      * @returns {Integer} 
      */

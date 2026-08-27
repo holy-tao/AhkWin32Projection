@@ -96,7 +96,6 @@ export default struct ISVGRectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -106,7 +105,6 @@ export default struct ISVGRectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_x() {
@@ -115,7 +113,6 @@ export default struct ISVGRectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -125,7 +122,6 @@ export default struct ISVGRectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_y() {
@@ -134,7 +130,6 @@ export default struct ISVGRectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -144,7 +139,6 @@ export default struct ISVGRectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_width() {
@@ -153,7 +147,6 @@ export default struct ISVGRectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -163,7 +156,6 @@ export default struct ISVGRectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_height() {
@@ -172,7 +164,6 @@ export default struct ISVGRectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -182,7 +173,6 @@ export default struct ISVGRectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_rx() {
@@ -191,7 +181,6 @@ export default struct ISVGRectElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -201,7 +190,6 @@ export default struct ISVGRectElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_ry() {
@@ -218,18 +206,18 @@ export default struct ISVGRectElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.putref_x := CallbackCreate(GetMethod(implObj, "putref_x"), flags, 2)
-        this.vtbl.get_x := CallbackCreate(GetMethod(implObj, "get_x"), flags, 2)
-        this.vtbl.putref_y := CallbackCreate(GetMethod(implObj, "putref_y"), flags, 2)
-        this.vtbl.get_y := CallbackCreate(GetMethod(implObj, "get_y"), flags, 2)
-        this.vtbl.putref_width := CallbackCreate(GetMethod(implObj, "putref_width"), flags, 2)
-        this.vtbl.get_width := CallbackCreate(GetMethod(implObj, "get_width"), flags, 2)
-        this.vtbl.putref_height := CallbackCreate(GetMethod(implObj, "putref_height"), flags, 2)
-        this.vtbl.get_height := CallbackCreate(GetMethod(implObj, "get_height"), flags, 2)
-        this.vtbl.putref_rx := CallbackCreate(GetMethod(implObj, "putref_rx"), flags, 2)
-        this.vtbl.get_rx := CallbackCreate(GetMethod(implObj, "get_rx"), flags, 2)
-        this.vtbl.putref_ry := CallbackCreate(GetMethod(implObj, "putref_ry"), flags, 2)
-        this.vtbl.get_ry := CallbackCreate(GetMethod(implObj, "get_ry"), flags, 2)
+        this.vtbl.putref_x := CallbackCreate(ObjBindMethod(implObj, "putref_x"), flags, 2)
+        this.vtbl.get_x := CallbackCreate(ObjBindMethod(implObj, "get_x"), flags, 2)
+        this.vtbl.putref_y := CallbackCreate(ObjBindMethod(implObj, "putref_y"), flags, 2)
+        this.vtbl.get_y := CallbackCreate(ObjBindMethod(implObj, "get_y"), flags, 2)
+        this.vtbl.putref_width := CallbackCreate(ObjBindMethod(implObj, "putref_width"), flags, 2)
+        this.vtbl.get_width := CallbackCreate(ObjBindMethod(implObj, "get_width"), flags, 2)
+        this.vtbl.putref_height := CallbackCreate(ObjBindMethod(implObj, "putref_height"), flags, 2)
+        this.vtbl.get_height := CallbackCreate(ObjBindMethod(implObj, "get_height"), flags, 2)
+        this.vtbl.putref_rx := CallbackCreate(ObjBindMethod(implObj, "putref_rx"), flags, 2)
+        this.vtbl.get_rx := CallbackCreate(ObjBindMethod(implObj, "get_rx"), flags, 2)
+        this.vtbl.putref_ry := CallbackCreate(ObjBindMethod(implObj, "putref_ry"), flags, 2)
+        this.vtbl.get_ry := CallbackCreate(ObjBindMethod(implObj, "get_ry"), flags, 2)
     }
 
     Dispose() {

@@ -47,7 +47,6 @@ export default struct IADsSyntax extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_OleAutoDataType() {
@@ -56,7 +55,6 @@ export default struct IADsSyntax extends IADs {
     }
 
     /**
-     * 
      * @param {Integer} lnOleAutoDataType 
      * @returns {HRESULT} 
      */
@@ -74,8 +72,8 @@ export default struct IADsSyntax extends IADs {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_OleAutoDataType := CallbackCreate(GetMethod(implObj, "get_OleAutoDataType"), flags, 2)
-        this.vtbl.put_OleAutoDataType := CallbackCreate(GetMethod(implObj, "put_OleAutoDataType"), flags, 2)
+        this.vtbl.get_OleAutoDataType := CallbackCreate(ObjBindMethod(implObj, "get_OleAutoDataType"), flags, 2)
+        this.vtbl.put_OleAutoDataType := CallbackCreate(ObjBindMethod(implObj, "put_OleAutoDataType"), flags, 2)
     }
 
     Dispose() {

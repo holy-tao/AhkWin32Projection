@@ -59,7 +59,7 @@ export default struct IMFMediaSourceTopologyProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMediaSourceTopology := CallbackCreate(GetMethod(implObj, "GetMediaSourceTopology"), flags, 3)
+        this.vtbl.GetMediaSourceTopology := CallbackCreate(ObjBindMethod(implObj, "GetMediaSourceTopology"), flags, 3)
     }
 
     Dispose() {

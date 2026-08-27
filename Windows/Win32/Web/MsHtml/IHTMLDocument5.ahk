@@ -136,7 +136,6 @@ export default struct IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -146,7 +145,6 @@ export default struct IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onmousewheel() {
@@ -156,7 +154,6 @@ export default struct IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDOMNode} 
      */
     get_doctype() {
@@ -165,7 +162,6 @@ export default struct IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDOMImplementation} 
      */
     get_implementation() {
@@ -174,7 +170,6 @@ export default struct IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrattrName 
      * @returns {IHTMLDOMAttribute} 
      */
@@ -186,7 +181,6 @@ export default struct IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrdata 
      * @returns {IHTMLDOMNode} 
      */
@@ -198,7 +192,6 @@ export default struct IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -208,7 +201,6 @@ export default struct IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onfocusin() {
@@ -218,7 +210,6 @@ export default struct IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -228,7 +219,6 @@ export default struct IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onfocusout() {
@@ -238,7 +228,6 @@ export default struct IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -248,7 +237,6 @@ export default struct IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onactivate() {
@@ -258,7 +246,6 @@ export default struct IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -268,7 +255,6 @@ export default struct IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ondeactivate() {
@@ -278,7 +264,6 @@ export default struct IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -288,7 +273,6 @@ export default struct IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onbeforeactivate() {
@@ -298,7 +282,6 @@ export default struct IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -308,7 +291,6 @@ export default struct IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onbeforedeactivate() {
@@ -318,7 +300,6 @@ export default struct IHTMLDocument5 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_compatMode() {
@@ -336,25 +317,25 @@ export default struct IHTMLDocument5 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_onmousewheel := CallbackCreate(GetMethod(implObj, "put_onmousewheel"), flags, 2)
-        this.vtbl.get_onmousewheel := CallbackCreate(GetMethod(implObj, "get_onmousewheel"), flags, 2)
-        this.vtbl.get_doctype := CallbackCreate(GetMethod(implObj, "get_doctype"), flags, 2)
-        this.vtbl.get_implementation := CallbackCreate(GetMethod(implObj, "get_implementation"), flags, 2)
-        this.vtbl.createAttribute := CallbackCreate(GetMethod(implObj, "createAttribute"), flags, 3)
-        this.vtbl.createComment := CallbackCreate(GetMethod(implObj, "createComment"), flags, 3)
-        this.vtbl.put_onfocusin := CallbackCreate(GetMethod(implObj, "put_onfocusin"), flags, 2)
-        this.vtbl.get_onfocusin := CallbackCreate(GetMethod(implObj, "get_onfocusin"), flags, 2)
-        this.vtbl.put_onfocusout := CallbackCreate(GetMethod(implObj, "put_onfocusout"), flags, 2)
-        this.vtbl.get_onfocusout := CallbackCreate(GetMethod(implObj, "get_onfocusout"), flags, 2)
-        this.vtbl.put_onactivate := CallbackCreate(GetMethod(implObj, "put_onactivate"), flags, 2)
-        this.vtbl.get_onactivate := CallbackCreate(GetMethod(implObj, "get_onactivate"), flags, 2)
-        this.vtbl.put_ondeactivate := CallbackCreate(GetMethod(implObj, "put_ondeactivate"), flags, 2)
-        this.vtbl.get_ondeactivate := CallbackCreate(GetMethod(implObj, "get_ondeactivate"), flags, 2)
-        this.vtbl.put_onbeforeactivate := CallbackCreate(GetMethod(implObj, "put_onbeforeactivate"), flags, 2)
-        this.vtbl.get_onbeforeactivate := CallbackCreate(GetMethod(implObj, "get_onbeforeactivate"), flags, 2)
-        this.vtbl.put_onbeforedeactivate := CallbackCreate(GetMethod(implObj, "put_onbeforedeactivate"), flags, 2)
-        this.vtbl.get_onbeforedeactivate := CallbackCreate(GetMethod(implObj, "get_onbeforedeactivate"), flags, 2)
-        this.vtbl.get_compatMode := CallbackCreate(GetMethod(implObj, "get_compatMode"), flags, 2)
+        this.vtbl.put_onmousewheel := CallbackCreate(ObjBindMethod(implObj, "put_onmousewheel"), flags, 2)
+        this.vtbl.get_onmousewheel := CallbackCreate(ObjBindMethod(implObj, "get_onmousewheel"), flags, 2)
+        this.vtbl.get_doctype := CallbackCreate(ObjBindMethod(implObj, "get_doctype"), flags, 2)
+        this.vtbl.get_implementation := CallbackCreate(ObjBindMethod(implObj, "get_implementation"), flags, 2)
+        this.vtbl.createAttribute := CallbackCreate(ObjBindMethod(implObj, "createAttribute"), flags, 3)
+        this.vtbl.createComment := CallbackCreate(ObjBindMethod(implObj, "createComment"), flags, 3)
+        this.vtbl.put_onfocusin := CallbackCreate(ObjBindMethod(implObj, "put_onfocusin"), flags, 2)
+        this.vtbl.get_onfocusin := CallbackCreate(ObjBindMethod(implObj, "get_onfocusin"), flags, 2)
+        this.vtbl.put_onfocusout := CallbackCreate(ObjBindMethod(implObj, "put_onfocusout"), flags, 2)
+        this.vtbl.get_onfocusout := CallbackCreate(ObjBindMethod(implObj, "get_onfocusout"), flags, 2)
+        this.vtbl.put_onactivate := CallbackCreate(ObjBindMethod(implObj, "put_onactivate"), flags, 2)
+        this.vtbl.get_onactivate := CallbackCreate(ObjBindMethod(implObj, "get_onactivate"), flags, 2)
+        this.vtbl.put_ondeactivate := CallbackCreate(ObjBindMethod(implObj, "put_ondeactivate"), flags, 2)
+        this.vtbl.get_ondeactivate := CallbackCreate(ObjBindMethod(implObj, "get_ondeactivate"), flags, 2)
+        this.vtbl.put_onbeforeactivate := CallbackCreate(ObjBindMethod(implObj, "put_onbeforeactivate"), flags, 2)
+        this.vtbl.get_onbeforeactivate := CallbackCreate(ObjBindMethod(implObj, "get_onbeforeactivate"), flags, 2)
+        this.vtbl.put_onbeforedeactivate := CallbackCreate(ObjBindMethod(implObj, "put_onbeforedeactivate"), flags, 2)
+        this.vtbl.get_onbeforedeactivate := CallbackCreate(ObjBindMethod(implObj, "get_onbeforedeactivate"), flags, 2)
+        this.vtbl.get_compatMode := CallbackCreate(ObjBindMethod(implObj, "get_compatMode"), flags, 2)
     }
 
     Dispose() {

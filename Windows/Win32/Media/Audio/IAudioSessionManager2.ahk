@@ -259,11 +259,11 @@ export default struct IAudioSessionManager2 extends IAudioSessionManager {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSessionEnumerator := CallbackCreate(GetMethod(implObj, "GetSessionEnumerator"), flags, 2)
-        this.vtbl.RegisterSessionNotification := CallbackCreate(GetMethod(implObj, "RegisterSessionNotification"), flags, 2)
-        this.vtbl.UnregisterSessionNotification := CallbackCreate(GetMethod(implObj, "UnregisterSessionNotification"), flags, 2)
-        this.vtbl.RegisterDuckNotification := CallbackCreate(GetMethod(implObj, "RegisterDuckNotification"), flags, 3)
-        this.vtbl.UnregisterDuckNotification := CallbackCreate(GetMethod(implObj, "UnregisterDuckNotification"), flags, 2)
+        this.vtbl.GetSessionEnumerator := CallbackCreate(ObjBindMethod(implObj, "GetSessionEnumerator"), flags, 2)
+        this.vtbl.RegisterSessionNotification := CallbackCreate(ObjBindMethod(implObj, "RegisterSessionNotification"), flags, 2)
+        this.vtbl.UnregisterSessionNotification := CallbackCreate(ObjBindMethod(implObj, "UnregisterSessionNotification"), flags, 2)
+        this.vtbl.RegisterDuckNotification := CallbackCreate(ObjBindMethod(implObj, "RegisterDuckNotification"), flags, 3)
+        this.vtbl.UnregisterDuckNotification := CallbackCreate(ObjBindMethod(implObj, "UnregisterDuckNotification"), flags, 2)
     }
 
     Dispose() {

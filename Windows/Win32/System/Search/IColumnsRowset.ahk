@@ -39,21 +39,19 @@ export default struct IColumnsRowset extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} pcOptColumns 
      * @param {Pointer<Pointer<DBID>>} prgOptColumns 
      * @returns {HRESULT} 
      */
     GetAvailableColumns(pcOptColumns, prgOptColumns) {
-        pcOptColumnsMarshal := pcOptColumns is VarRef ? "ptr*" : "ptr"
-        prgOptColumnsMarshal := prgOptColumns is VarRef ? "ptr*" : "ptr"
+        pcOptColumnsMarshal := pcOptColumns is VarRef ? "ptr*" : IntPtr
+        prgOptColumnsMarshal := prgOptColumns is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, pcOptColumnsMarshal, pcOptColumns, prgOptColumnsMarshal, prgOptColumns, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer} cOptColumns 
      * @param {Pointer<DBID>} rgOptColumns 
@@ -63,7 +61,10 @@ export default struct IColumnsRowset extends IUnknown {
      * @returns {IUnknown} 
      */
     GetColumnsRowset(pUnkOuter, cOptColumns, rgOptColumns, riid, cPropertySets, rgPropertySets) {
-        result := ComCall(4, this, "ptr", pUnkOuter, IntPtr, cOptColumns, DBID.Ptr, rgOptColumns, Guid.Ptr, riid, UInt32, cPropertySets, DBPROPSET.Ptr, rgPropertySets, "ptr*", &ppColRowset := 0, "HRESULT")
+        pUnkOuterMarshal := pUnkOuter == 0 ? IntPtr : "ptr"
+        rgPropertySetsMarshal := rgPropertySets == 0 ? IntPtr : DBPROPSET.Ptr
+
+        result := ComCall(4, this, pUnkOuterMarshal, pUnkOuter, IntPtr, cOptColumns, DBID.Ptr, rgOptColumns, Guid.Ptr, riid, UInt32, cPropertySets, rgPropertySetsMarshal, rgPropertySets, "ptr*", &ppColRowset := 0, "HRESULT")
         return IUnknown(ppColRowset)
     }
 
@@ -76,8 +77,8 @@ export default struct IColumnsRowset extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAvailableColumns := CallbackCreate(GetMethod(implObj, "GetAvailableColumns"), flags, 3)
-        this.vtbl.GetColumnsRowset := CallbackCreate(GetMethod(implObj, "GetColumnsRowset"), flags, 8)
+        this.vtbl.GetAvailableColumns := CallbackCreate(ObjBindMethod(implObj, "GetAvailableColumns"), flags, 3)
+        this.vtbl.GetColumnsRowset := CallbackCreate(ObjBindMethod(implObj, "GetColumnsRowset"), flags, 8)
     }
 
     Dispose() {

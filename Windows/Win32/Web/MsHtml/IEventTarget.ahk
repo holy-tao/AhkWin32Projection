@@ -41,7 +41,6 @@ export default struct IEventTarget extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} type 
      * @param {IDispatch} listener 
      * @param {VARIANT_BOOL} useCapture 
@@ -55,7 +54,6 @@ export default struct IEventTarget extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} type 
      * @param {IDispatch} listener 
      * @param {VARIANT_BOOL} useCapture 
@@ -69,7 +67,6 @@ export default struct IEventTarget extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDOMEvent} evt 
      * @returns {VARIANT_BOOL} 
      */
@@ -87,9 +84,9 @@ export default struct IEventTarget extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.addEventListener := CallbackCreate(GetMethod(implObj, "addEventListener"), flags, 4)
-        this.vtbl.removeEventListener := CallbackCreate(GetMethod(implObj, "removeEventListener"), flags, 4)
-        this.vtbl.dispatchEvent := CallbackCreate(GetMethod(implObj, "dispatchEvent"), flags, 3)
+        this.vtbl.addEventListener := CallbackCreate(ObjBindMethod(implObj, "addEventListener"), flags, 4)
+        this.vtbl.removeEventListener := CallbackCreate(ObjBindMethod(implObj, "removeEventListener"), flags, 4)
+        this.vtbl.dispatchEvent := CallbackCreate(ObjBindMethod(implObj, "dispatchEvent"), flags, 3)
     }
 
     Dispose() {

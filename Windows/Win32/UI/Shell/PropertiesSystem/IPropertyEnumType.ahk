@@ -128,11 +128,11 @@ export default struct IPropertyEnumType extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetEnumType := CallbackCreate(GetMethod(implObj, "GetEnumType"), flags, 2)
-        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 2)
-        this.vtbl.GetRangeMinValue := CallbackCreate(GetMethod(implObj, "GetRangeMinValue"), flags, 2)
-        this.vtbl.GetRangeSetValue := CallbackCreate(GetMethod(implObj, "GetRangeSetValue"), flags, 2)
-        this.vtbl.GetDisplayText := CallbackCreate(GetMethod(implObj, "GetDisplayText"), flags, 2)
+        this.vtbl.GetEnumType := CallbackCreate(ObjBindMethod(implObj, "GetEnumType"), flags, 2)
+        this.vtbl.GetValue := CallbackCreate(ObjBindMethod(implObj, "GetValue"), flags, 2)
+        this.vtbl.GetRangeMinValue := CallbackCreate(ObjBindMethod(implObj, "GetRangeMinValue"), flags, 2)
+        this.vtbl.GetRangeSetValue := CallbackCreate(ObjBindMethod(implObj, "GetRangeSetValue"), flags, 2)
+        this.vtbl.GetDisplayText := CallbackCreate(ObjBindMethod(implObj, "GetDisplayText"), flags, 2)
     }
 
     Dispose() {

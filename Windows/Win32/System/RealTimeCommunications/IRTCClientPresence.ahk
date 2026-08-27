@@ -95,7 +95,6 @@ export default struct IRTCClientPresence extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fUseStorage 
      * @param {VARIANT} varStorage 
      * @returns {HRESULT} 
@@ -106,7 +105,6 @@ export default struct IRTCClientPresence extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT} varStorage 
      * @returns {HRESULT} 
      */
@@ -116,7 +114,6 @@ export default struct IRTCClientPresence extends IUnknown {
     }
 
     /**
-     * 
      * @param {VARIANT} varStorage 
      * @param {VARIANT_BOOL} fReplaceAll 
      * @returns {HRESULT} 
@@ -127,7 +124,6 @@ export default struct IRTCClientPresence extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRTCEnumBuddies} 
      */
     EnumerateBuddies() {
@@ -136,7 +132,6 @@ export default struct IRTCClientPresence extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRTCCollection} 
      */
     get_Buddies() {
@@ -145,7 +140,6 @@ export default struct IRTCClientPresence extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPresentityURI 
      * @returns {IRTCBuddy} 
      */
@@ -157,7 +151,6 @@ export default struct IRTCClientPresence extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPresentityURI 
      * @param {BSTR} bstrUserName 
      * @param {BSTR} bstrData 
@@ -176,7 +169,6 @@ export default struct IRTCClientPresence extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRTCBuddy} pBuddy 
      * @returns {HRESULT} 
      */
@@ -186,7 +178,6 @@ export default struct IRTCClientPresence extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRTCEnumWatchers} 
      */
     EnumerateWatchers() {
@@ -195,7 +186,6 @@ export default struct IRTCClientPresence extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRTCCollection} 
      */
     get_Watchers() {
@@ -204,7 +194,6 @@ export default struct IRTCClientPresence extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPresentityURI 
      * @returns {IRTCWatcher} 
      */
@@ -216,7 +205,6 @@ export default struct IRTCClientPresence extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrPresentityURI 
      * @param {BSTR} bstrUserName 
      * @param {BSTR} bstrData 
@@ -234,7 +222,6 @@ export default struct IRTCClientPresence extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRTCWatcher} pWatcher 
      * @returns {HRESULT} 
      */
@@ -244,7 +231,6 @@ export default struct IRTCClientPresence extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_PRESENCE_STATUS} enStatus 
      * @param {BSTR} bstrNotes 
      * @returns {HRESULT} 
@@ -257,7 +243,6 @@ export default struct IRTCClientPresence extends IUnknown {
     }
 
     /**
-     * 
      * @returns {RTC_OFFER_WATCHER_MODE} 
      */
     get_OfferWatcherMode() {
@@ -266,7 +251,6 @@ export default struct IRTCClientPresence extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_OFFER_WATCHER_MODE} enMode 
      * @returns {HRESULT} 
      */
@@ -276,7 +260,6 @@ export default struct IRTCClientPresence extends IUnknown {
     }
 
     /**
-     * 
      * @returns {RTC_PRIVACY_MODE} 
      */
     get_PrivacyMode() {
@@ -285,7 +268,6 @@ export default struct IRTCClientPresence extends IUnknown {
     }
 
     /**
-     * 
      * @param {RTC_PRIVACY_MODE} enMode 
      * @returns {HRESULT} 
      */
@@ -303,24 +285,24 @@ export default struct IRTCClientPresence extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnablePresence := CallbackCreate(GetMethod(implObj, "EnablePresence"), flags, 3)
-        this.vtbl.Export := CallbackCreate(GetMethod(implObj, "Export"), flags, 2)
-        this.vtbl.Import := CallbackCreate(GetMethod(implObj, "Import"), flags, 3)
-        this.vtbl.EnumerateBuddies := CallbackCreate(GetMethod(implObj, "EnumerateBuddies"), flags, 2)
-        this.vtbl.get_Buddies := CallbackCreate(GetMethod(implObj, "get_Buddies"), flags, 2)
-        this.vtbl.get_Buddy := CallbackCreate(GetMethod(implObj, "get_Buddy"), flags, 3)
-        this.vtbl.AddBuddy := CallbackCreate(GetMethod(implObj, "AddBuddy"), flags, 8)
-        this.vtbl.RemoveBuddy := CallbackCreate(GetMethod(implObj, "RemoveBuddy"), flags, 2)
-        this.vtbl.EnumerateWatchers := CallbackCreate(GetMethod(implObj, "EnumerateWatchers"), flags, 2)
-        this.vtbl.get_Watchers := CallbackCreate(GetMethod(implObj, "get_Watchers"), flags, 2)
-        this.vtbl.get_Watcher := CallbackCreate(GetMethod(implObj, "get_Watcher"), flags, 3)
-        this.vtbl.AddWatcher := CallbackCreate(GetMethod(implObj, "AddWatcher"), flags, 7)
-        this.vtbl.RemoveWatcher := CallbackCreate(GetMethod(implObj, "RemoveWatcher"), flags, 2)
-        this.vtbl.SetLocalPresenceInfo := CallbackCreate(GetMethod(implObj, "SetLocalPresenceInfo"), flags, 3)
-        this.vtbl.get_OfferWatcherMode := CallbackCreate(GetMethod(implObj, "get_OfferWatcherMode"), flags, 2)
-        this.vtbl.put_OfferWatcherMode := CallbackCreate(GetMethod(implObj, "put_OfferWatcherMode"), flags, 2)
-        this.vtbl.get_PrivacyMode := CallbackCreate(GetMethod(implObj, "get_PrivacyMode"), flags, 2)
-        this.vtbl.put_PrivacyMode := CallbackCreate(GetMethod(implObj, "put_PrivacyMode"), flags, 2)
+        this.vtbl.EnablePresence := CallbackCreate(ObjBindMethod(implObj, "EnablePresence"), flags, 3)
+        this.vtbl.Export := CallbackCreate(ObjBindMethod(implObj, "Export"), flags, 2)
+        this.vtbl.Import := CallbackCreate(ObjBindMethod(implObj, "Import"), flags, 3)
+        this.vtbl.EnumerateBuddies := CallbackCreate(ObjBindMethod(implObj, "EnumerateBuddies"), flags, 2)
+        this.vtbl.get_Buddies := CallbackCreate(ObjBindMethod(implObj, "get_Buddies"), flags, 2)
+        this.vtbl.get_Buddy := CallbackCreate(ObjBindMethod(implObj, "get_Buddy"), flags, 3)
+        this.vtbl.AddBuddy := CallbackCreate(ObjBindMethod(implObj, "AddBuddy"), flags, 8)
+        this.vtbl.RemoveBuddy := CallbackCreate(ObjBindMethod(implObj, "RemoveBuddy"), flags, 2)
+        this.vtbl.EnumerateWatchers := CallbackCreate(ObjBindMethod(implObj, "EnumerateWatchers"), flags, 2)
+        this.vtbl.get_Watchers := CallbackCreate(ObjBindMethod(implObj, "get_Watchers"), flags, 2)
+        this.vtbl.get_Watcher := CallbackCreate(ObjBindMethod(implObj, "get_Watcher"), flags, 3)
+        this.vtbl.AddWatcher := CallbackCreate(ObjBindMethod(implObj, "AddWatcher"), flags, 7)
+        this.vtbl.RemoveWatcher := CallbackCreate(ObjBindMethod(implObj, "RemoveWatcher"), flags, 2)
+        this.vtbl.SetLocalPresenceInfo := CallbackCreate(ObjBindMethod(implObj, "SetLocalPresenceInfo"), flags, 3)
+        this.vtbl.get_OfferWatcherMode := CallbackCreate(ObjBindMethod(implObj, "get_OfferWatcherMode"), flags, 2)
+        this.vtbl.put_OfferWatcherMode := CallbackCreate(ObjBindMethod(implObj, "put_OfferWatcherMode"), flags, 2)
+        this.vtbl.get_PrivacyMode := CallbackCreate(ObjBindMethod(implObj, "get_PrivacyMode"), flags, 2)
+        this.vtbl.put_PrivacyMode := CallbackCreate(ObjBindMethod(implObj, "put_PrivacyMode"), flags, 2)
     }
 
     Dispose() {

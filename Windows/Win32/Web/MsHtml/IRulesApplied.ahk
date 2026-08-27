@@ -73,7 +73,6 @@ export default struct IRulesApplied extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLElement} 
      */
     get_element() {
@@ -82,7 +81,6 @@ export default struct IRulesApplied extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStyle} 
      */
     get_inlineStyles() {
@@ -91,7 +89,6 @@ export default struct IRulesApplied extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStyleSheetRulesAppliedCollection} 
      */
     get_appliedRules() {
@@ -100,7 +97,6 @@ export default struct IRulesApplied extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {VARIANT_BOOL} 
      */
@@ -112,7 +108,6 @@ export default struct IRulesApplied extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} name 
      * @returns {VARIANT_BOOL} 
      */
@@ -124,7 +119,6 @@ export default struct IRulesApplied extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     hasInheritableProperty() {
@@ -141,12 +135,12 @@ export default struct IRulesApplied extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_element := CallbackCreate(GetMethod(implObj, "get_element"), flags, 2)
-        this.vtbl.get_inlineStyles := CallbackCreate(GetMethod(implObj, "get_inlineStyles"), flags, 2)
-        this.vtbl.get_appliedRules := CallbackCreate(GetMethod(implObj, "get_appliedRules"), flags, 2)
-        this.vtbl.propertyIsInline := CallbackCreate(GetMethod(implObj, "propertyIsInline"), flags, 3)
-        this.vtbl.propertyIsInheritable := CallbackCreate(GetMethod(implObj, "propertyIsInheritable"), flags, 3)
-        this.vtbl.hasInheritableProperty := CallbackCreate(GetMethod(implObj, "hasInheritableProperty"), flags, 2)
+        this.vtbl.get_element := CallbackCreate(ObjBindMethod(implObj, "get_element"), flags, 2)
+        this.vtbl.get_inlineStyles := CallbackCreate(ObjBindMethod(implObj, "get_inlineStyles"), flags, 2)
+        this.vtbl.get_appliedRules := CallbackCreate(ObjBindMethod(implObj, "get_appliedRules"), flags, 2)
+        this.vtbl.propertyIsInline := CallbackCreate(ObjBindMethod(implObj, "propertyIsInline"), flags, 3)
+        this.vtbl.propertyIsInheritable := CallbackCreate(ObjBindMethod(implObj, "propertyIsInheritable"), flags, 3)
+        this.vtbl.hasInheritableProperty := CallbackCreate(ObjBindMethod(implObj, "hasInheritableProperty"), flags, 2)
     }
 
     Dispose() {

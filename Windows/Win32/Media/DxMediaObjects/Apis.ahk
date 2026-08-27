@@ -183,8 +183,8 @@ export DMOEnum(guidCategory, dwFlags, cInTypes, pInTypes, cOutTypes, pOutTypes) 
  * @see https://learn.microsoft.com/windows/win32/api/dmoreg/nf-dmoreg-dmogettypes
  */
 export DMOGetTypes(clsidDMO, ulInputTypesRequested, pulInputTypesSupplied, pInputTypes, ulOutputTypesRequested, pulOutputTypesSupplied, pOutputTypes) {
-    pulInputTypesSuppliedMarshal := pulInputTypesSupplied is VarRef ? "uint*" : "ptr"
-    pulOutputTypesSuppliedMarshal := pulOutputTypesSupplied is VarRef ? "uint*" : "ptr"
+    pulInputTypesSuppliedMarshal := pulInputTypesSupplied is VarRef ? "uint*" : IntPtr
+    pulOutputTypesSuppliedMarshal := pulOutputTypesSupplied is VarRef ? "uint*" : IntPtr
 
     result := DllCall("msdmo.dll\DMOGetTypes", Guid.Ptr, clsidDMO, UInt32, ulInputTypesRequested, pulInputTypesSuppliedMarshal, pulInputTypesSupplied, DMO_PARTIAL_MEDIATYPE.Ptr, pInputTypes, UInt32, ulOutputTypesRequested, pulOutputTypesSuppliedMarshal, pulOutputTypesSupplied, DMO_PARTIAL_MEDIATYPE.Ptr, pOutputTypes, "HRESULT")
     return result
@@ -456,7 +456,7 @@ export MoCopyMediaType(pmtDest, pmtSrc) {
  * @see https://learn.microsoft.com/windows/win32/api/dmort/nf-dmort-mocreatemediatype
  */
 export MoCreateMediaType(ppmt, cbFormat) {
-    ppmtMarshal := ppmt is VarRef ? "ptr*" : "ptr"
+    ppmtMarshal := ppmt is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("msdmo.dll\MoCreateMediaType", ppmtMarshal, ppmt, UInt32, cbFormat, "HRESULT")
     return result
@@ -556,7 +556,7 @@ export MoDeleteMediaType(pmt) {
  * @see https://learn.microsoft.com/windows/win32/api/dmort/nf-dmort-moduplicatemediatype
  */
 export MoDuplicateMediaType(ppmtDest, pmtSrc) {
-    ppmtDestMarshal := ppmtDest is VarRef ? "ptr*" : "ptr"
+    ppmtDestMarshal := ppmtDest is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("msdmo.dll\MoDuplicateMediaType", ppmtDestMarshal, ppmtDest, DMO_MEDIA_TYPE.Ptr, pmtSrc, "HRESULT")
     return result

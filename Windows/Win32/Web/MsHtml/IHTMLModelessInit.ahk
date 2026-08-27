@@ -69,7 +69,6 @@ export default struct IHTMLModelessInit extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_parameters() {
@@ -79,7 +78,6 @@ export default struct IHTMLModelessInit extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_optionString() {
@@ -89,7 +87,6 @@ export default struct IHTMLModelessInit extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_moniker() {
@@ -98,7 +95,6 @@ export default struct IHTMLModelessInit extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     get_document() {
@@ -115,10 +111,10 @@ export default struct IHTMLModelessInit extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_parameters := CallbackCreate(GetMethod(implObj, "get_parameters"), flags, 2)
-        this.vtbl.get_optionString := CallbackCreate(GetMethod(implObj, "get_optionString"), flags, 2)
-        this.vtbl.get_moniker := CallbackCreate(GetMethod(implObj, "get_moniker"), flags, 2)
-        this.vtbl.get_document := CallbackCreate(GetMethod(implObj, "get_document"), flags, 2)
+        this.vtbl.get_parameters := CallbackCreate(ObjBindMethod(implObj, "get_parameters"), flags, 2)
+        this.vtbl.get_optionString := CallbackCreate(ObjBindMethod(implObj, "get_optionString"), flags, 2)
+        this.vtbl.get_moniker := CallbackCreate(ObjBindMethod(implObj, "get_moniker"), flags, 2)
+        this.vtbl.get_document := CallbackCreate(ObjBindMethod(implObj, "get_document"), flags, 2)
     }
 
     Dispose() {

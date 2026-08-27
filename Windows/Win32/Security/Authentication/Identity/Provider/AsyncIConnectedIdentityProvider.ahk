@@ -57,20 +57,18 @@ export default struct AsyncIConnectedIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} AuthBuffer 
      * @param {Integer} AuthBufferSize 
      * @returns {HRESULT} 
      */
     Begin_ConnectIdentity(AuthBuffer, AuthBufferSize) {
-        AuthBufferMarshal := AuthBuffer is VarRef ? "char*" : "ptr"
+        AuthBufferMarshal := AuthBuffer is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, AuthBufferMarshal, AuthBuffer, UInt32, AuthBufferSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_ConnectIdentity() {
@@ -79,7 +77,6 @@ export default struct AsyncIConnectedIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Begin_DisconnectIdentity() {
@@ -88,7 +85,6 @@ export default struct AsyncIConnectedIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_DisconnectIdentity() {
@@ -97,7 +93,6 @@ export default struct AsyncIConnectedIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Begin_IsConnected() {
@@ -106,7 +101,6 @@ export default struct AsyncIConnectedIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     Finish_IsConnected() {
@@ -115,31 +109,30 @@ export default struct AsyncIConnectedIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDENTITY_URL} Identifier 
      * @param {IBindCtx} _Context 
      * @returns {HRESULT} 
      */
     Begin_GetUrl(Identifier, _Context) {
-        result := ComCall(9, this, IDENTITY_URL, Identifier, "ptr", _Context, "HRESULT")
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
+
+        result := ComCall(9, this, IDENTITY_URL, Identifier, _ContextMarshal, _Context, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} PostData 
      * @param {Pointer<PWSTR>} Url 
      * @returns {HRESULT} 
      */
     Finish_GetUrl(PostData, Url) {
-        UrlMarshal := Url is VarRef ? "ptr*" : "ptr"
+        UrlMarshal := Url is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(10, this, VARIANT.Ptr, PostData, UrlMarshal, Url, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Begin_GetAccountState() {
@@ -148,7 +141,6 @@ export default struct AsyncIConnectedIdentityProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ACCOUNT_STATE} 
      */
     Finish_GetAccountState() {
@@ -165,16 +157,16 @@ export default struct AsyncIConnectedIdentityProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Begin_ConnectIdentity := CallbackCreate(GetMethod(implObj, "Begin_ConnectIdentity"), flags, 3)
-        this.vtbl.Finish_ConnectIdentity := CallbackCreate(GetMethod(implObj, "Finish_ConnectIdentity"), flags, 1)
-        this.vtbl.Begin_DisconnectIdentity := CallbackCreate(GetMethod(implObj, "Begin_DisconnectIdentity"), flags, 1)
-        this.vtbl.Finish_DisconnectIdentity := CallbackCreate(GetMethod(implObj, "Finish_DisconnectIdentity"), flags, 1)
-        this.vtbl.Begin_IsConnected := CallbackCreate(GetMethod(implObj, "Begin_IsConnected"), flags, 1)
-        this.vtbl.Finish_IsConnected := CallbackCreate(GetMethod(implObj, "Finish_IsConnected"), flags, 2)
-        this.vtbl.Begin_GetUrl := CallbackCreate(GetMethod(implObj, "Begin_GetUrl"), flags, 3)
-        this.vtbl.Finish_GetUrl := CallbackCreate(GetMethod(implObj, "Finish_GetUrl"), flags, 3)
-        this.vtbl.Begin_GetAccountState := CallbackCreate(GetMethod(implObj, "Begin_GetAccountState"), flags, 1)
-        this.vtbl.Finish_GetAccountState := CallbackCreate(GetMethod(implObj, "Finish_GetAccountState"), flags, 2)
+        this.vtbl.Begin_ConnectIdentity := CallbackCreate(ObjBindMethod(implObj, "Begin_ConnectIdentity"), flags, 3)
+        this.vtbl.Finish_ConnectIdentity := CallbackCreate(ObjBindMethod(implObj, "Finish_ConnectIdentity"), flags, 1)
+        this.vtbl.Begin_DisconnectIdentity := CallbackCreate(ObjBindMethod(implObj, "Begin_DisconnectIdentity"), flags, 1)
+        this.vtbl.Finish_DisconnectIdentity := CallbackCreate(ObjBindMethod(implObj, "Finish_DisconnectIdentity"), flags, 1)
+        this.vtbl.Begin_IsConnected := CallbackCreate(ObjBindMethod(implObj, "Begin_IsConnected"), flags, 1)
+        this.vtbl.Finish_IsConnected := CallbackCreate(ObjBindMethod(implObj, "Finish_IsConnected"), flags, 2)
+        this.vtbl.Begin_GetUrl := CallbackCreate(ObjBindMethod(implObj, "Begin_GetUrl"), flags, 3)
+        this.vtbl.Finish_GetUrl := CallbackCreate(ObjBindMethod(implObj, "Finish_GetUrl"), flags, 3)
+        this.vtbl.Begin_GetAccountState := CallbackCreate(ObjBindMethod(implObj, "Begin_GetAccountState"), flags, 1)
+        this.vtbl.Finish_GetAccountState := CallbackCreate(ObjBindMethod(implObj, "Finish_GetAccountState"), flags, 2)
     }
 
     Dispose() {

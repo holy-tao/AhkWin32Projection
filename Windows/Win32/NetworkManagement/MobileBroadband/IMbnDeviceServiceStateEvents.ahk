@@ -38,7 +38,6 @@ export default struct IMbnDeviceServiceStateEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} interfaceID 
      * @param {MBN_DEVICE_SERVICE_SESSIONS_STATE} stateChange 
      * @returns {HRESULT} 
@@ -59,7 +58,7 @@ export default struct IMbnDeviceServiceStateEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnSessionsStateChange := CallbackCreate(GetMethod(implObj, "OnSessionsStateChange"), flags, 3)
+        this.vtbl.OnSessionsStateChange := CallbackCreate(ObjBindMethod(implObj, "OnSessionsStateChange"), flags, 3)
     }
 
     Dispose() {

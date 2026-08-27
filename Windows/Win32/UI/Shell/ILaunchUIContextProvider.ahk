@@ -37,7 +37,6 @@ export default struct ILaunchUIContextProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {ILaunchUIContext} _context 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,7 @@ export default struct ILaunchUIContextProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.UpdateContext := CallbackCreate(GetMethod(implObj, "UpdateContext"), flags, 2)
+        this.vtbl.UpdateContext := CallbackCreate(ObjBindMethod(implObj, "UpdateContext"), flags, 2)
     }
 
     Dispose() {

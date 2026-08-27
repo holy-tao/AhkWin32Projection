@@ -330,13 +330,13 @@ export default struct IAMMultiMediaStream extends IMultiMediaStream {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
-        this.vtbl.GetFilterGraph := CallbackCreate(GetMethod(implObj, "GetFilterGraph"), flags, 2)
-        this.vtbl.GetFilter := CallbackCreate(GetMethod(implObj, "GetFilter"), flags, 2)
-        this.vtbl.AddMediaStream := CallbackCreate(GetMethod(implObj, "AddMediaStream"), flags, 5)
-        this.vtbl.OpenFile := CallbackCreate(GetMethod(implObj, "OpenFile"), flags, 3)
-        this.vtbl.OpenMoniker := CallbackCreate(GetMethod(implObj, "OpenMoniker"), flags, 4)
-        this.vtbl.Render := CallbackCreate(GetMethod(implObj, "Render"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 4)
+        this.vtbl.GetFilterGraph := CallbackCreate(ObjBindMethod(implObj, "GetFilterGraph"), flags, 2)
+        this.vtbl.GetFilter := CallbackCreate(ObjBindMethod(implObj, "GetFilter"), flags, 2)
+        this.vtbl.AddMediaStream := CallbackCreate(ObjBindMethod(implObj, "AddMediaStream"), flags, 5)
+        this.vtbl.OpenFile := CallbackCreate(ObjBindMethod(implObj, "OpenFile"), flags, 3)
+        this.vtbl.OpenMoniker := CallbackCreate(ObjBindMethod(implObj, "OpenMoniker"), flags, 4)
+        this.vtbl.Render := CallbackCreate(ObjBindMethod(implObj, "Render"), flags, 2)
     }
 
     Dispose() {

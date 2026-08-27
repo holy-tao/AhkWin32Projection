@@ -29,7 +29,6 @@ export default struct WS_CREATE_ENCODER_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} createContext The createContext that was specified in the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_channel_encoder">WS_CHANNEL_ENCODER</a> used during channel creation.
      * @param {Pointer<WS_WRITE_CALLBACK>} writeCallback The function that should be used to write the message data.  This callback
      *                   should only be used in response to the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_encoder_start_callback">WS_ENCODER_START_CALLBACK</a>,
@@ -40,9 +39,10 @@ export default struct WS_CREATE_ENCODER_CALLBACK {
      *                     passed to all of the encoder callbacks.
      */
     Call(createContext, writeCallback, writeContext, _error) {
-        createContextMarshal := createContext is VarRef ? "ptr" : "ptr"
-        writeContextMarshal := writeContext is VarRef ? "ptr" : "ptr"
-        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
+        createContextMarshal := createContext is VarRef ? "ptr" : IntPtr
+        writeContextMarshal := writeContext is VarRef ? "ptr" : IntPtr
+        _errorMarshal := _error is VarRef ? "ptr*" : IntPtr
+        _errorMarshal := _error == 0 ? IntPtr : WS_ERROR.Ptr
 
         result := DllCall(this.value, createContextMarshal, createContext, WS_WRITE_CALLBACK, writeCallback, writeContextMarshal, writeContext, "ptr*", &encoderContext := 0, _errorMarshal, _error, "HRESULT")
         return encoderContext

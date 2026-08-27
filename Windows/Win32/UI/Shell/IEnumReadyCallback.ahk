@@ -58,7 +58,7 @@ export default struct IEnumReadyCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumReady := CallbackCreate(GetMethod(implObj, "EnumReady"), flags, 1)
+        this.vtbl.EnumReady := CallbackCreate(ObjBindMethod(implObj, "EnumReady"), flags, 1)
     }
 
     Dispose() {

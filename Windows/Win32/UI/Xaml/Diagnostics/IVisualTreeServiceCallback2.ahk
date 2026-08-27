@@ -65,7 +65,7 @@ export default struct IVisualTreeServiceCallback2 extends IVisualTreeServiceCall
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnElementStateChanged := CallbackCreate(GetMethod(implObj, "OnElementStateChanged"), flags, 4)
+        this.vtbl.OnElementStateChanged := CallbackCreate(ObjBindMethod(implObj, "OnElementStateChanged"), flags, 4)
     }
 
     Dispose() {

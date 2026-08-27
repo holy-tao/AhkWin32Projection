@@ -67,7 +67,9 @@ export default struct ISensorManagerEvents extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensormanagerevents-onsensorenter
      */
     OnSensorEnter(pSensor, state) {
-        result := ComCall(3, this, "ptr", pSensor, SensorState, state, "HRESULT")
+        pSensorMarshal := pSensor == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pSensorMarshal, pSensor, SensorState, state, "HRESULT")
         return result
     }
 
@@ -80,7 +82,7 @@ export default struct ISensorManagerEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnSensorEnter := CallbackCreate(GetMethod(implObj, "OnSensorEnter"), flags, 3)
+        this.vtbl.OnSensorEnter := CallbackCreate(ObjBindMethod(implObj, "OnSensorEnter"), flags, 3)
     }
 
     Dispose() {

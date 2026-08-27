@@ -371,11 +371,11 @@ export default struct IOleCache extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Cache := CallbackCreate(GetMethod(implObj, "Cache"), flags, 4)
-        this.vtbl.Uncache := CallbackCreate(GetMethod(implObj, "Uncache"), flags, 2)
-        this.vtbl.EnumCache := CallbackCreate(GetMethod(implObj, "EnumCache"), flags, 2)
-        this.vtbl.InitCache := CallbackCreate(GetMethod(implObj, "InitCache"), flags, 2)
-        this.vtbl.SetData := CallbackCreate(GetMethod(implObj, "SetData"), flags, 4)
+        this.vtbl.Cache := CallbackCreate(ObjBindMethod(implObj, "Cache"), flags, 4)
+        this.vtbl.Uncache := CallbackCreate(ObjBindMethod(implObj, "Uncache"), flags, 2)
+        this.vtbl.EnumCache := CallbackCreate(ObjBindMethod(implObj, "EnumCache"), flags, 2)
+        this.vtbl.InitCache := CallbackCreate(ObjBindMethod(implObj, "InitCache"), flags, 2)
+        this.vtbl.SetData := CallbackCreate(ObjBindMethod(implObj, "SetData"), flags, 4)
     }
 
     Dispose() {

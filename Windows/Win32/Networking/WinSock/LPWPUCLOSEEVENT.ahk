@@ -20,13 +20,12 @@ export default struct LPWPUCLOSEEVENT {
     }
 
     /**
-     * 
      * @param {WSAEVENT} hEvent 
      * @param {Pointer<Integer>} lpErrno 
      * @returns {BOOL} 
      */
     Call(hEvent, lpErrno) {
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, WSAEVENT, hEvent, lpErrnoMarshal, lpErrno, BOOL)
         return result

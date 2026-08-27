@@ -58,7 +58,7 @@ export default struct IGraphVersion extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryVersion := CallbackCreate(GetMethod(implObj, "QueryVersion"), flags, 2)
+        this.vtbl.QueryVersion := CallbackCreate(ObjBindMethod(implObj, "QueryVersion"), flags, 2)
     }
 
     Dispose() {

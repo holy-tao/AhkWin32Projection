@@ -69,7 +69,9 @@ export default struct IModalWindow extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-imodalwindow-show
      */
     Show(hwndOwner) {
-        result := ComCall(3, this, HWND, hwndOwner, "HRESULT")
+        hwndOwnerMarshal := hwndOwner == 0 ? IntPtr : HWND
+
+        result := ComCall(3, this, hwndOwnerMarshal, hwndOwner, "HRESULT")
         return result
     }
 
@@ -82,7 +84,7 @@ export default struct IModalWindow extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Show := CallbackCreate(GetMethod(implObj, "Show"), flags, 2)
+        this.vtbl.Show := CallbackCreate(ObjBindMethod(implObj, "Show"), flags, 2)
     }
 
     Dispose() {

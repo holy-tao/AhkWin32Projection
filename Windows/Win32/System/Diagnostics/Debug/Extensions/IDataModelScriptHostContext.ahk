@@ -40,7 +40,6 @@ export default struct IDataModelScriptHostContext extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDataModelScript} script 
      * @param {ScriptChangeKind} _changeKind 
      * @returns {HRESULT} 
@@ -51,7 +50,6 @@ export default struct IDataModelScriptHostContext extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IModelObject} 
      */
     GetNamespaceObject() {
@@ -68,8 +66,8 @@ export default struct IDataModelScriptHostContext extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.NotifyScriptChange := CallbackCreate(GetMethod(implObj, "NotifyScriptChange"), flags, 3)
-        this.vtbl.GetNamespaceObject := CallbackCreate(GetMethod(implObj, "GetNamespaceObject"), flags, 2)
+        this.vtbl.NotifyScriptChange := CallbackCreate(ObjBindMethod(implObj, "NotifyScriptChange"), flags, 3)
+        this.vtbl.GetNamespaceObject := CallbackCreate(ObjBindMethod(implObj, "GetNamespaceObject"), flags, 2)
     }
 
     Dispose() {

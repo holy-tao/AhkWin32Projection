@@ -25,7 +25,6 @@ export default struct PRJ_END_DIRECTORY_ENUMERATION_CB {
     }
 
     /**
-     * 
      * @param {Pointer<PRJ_CALLBACK_DATA>} callbackData Information about the operation. 
      * 
      * 

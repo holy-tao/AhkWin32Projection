@@ -69,7 +69,9 @@ export default struct IDXVAHD_Device extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxvahd/nf-dxvahd-idxvahd_device-createvideosurface
      */
     CreateVideoSurface(Width, Height, Format, Pool, Usage, Type, NumSurfaces, pSharedHandle) {
-        result := ComCall(3, this, UInt32, Width, UInt32, Height, D3DFORMAT, Format, D3DPOOL, Pool, UInt32, Usage, DXVAHD_SURFACE_TYPE, Type, UInt32, NumSurfaces, "ptr*", &ppSurfaces := 0, HANDLE.Ptr, pSharedHandle, "HRESULT")
+        pSharedHandleMarshal := pSharedHandle == 0 ? IntPtr : HANDLE.Ptr
+
+        result := ComCall(3, this, UInt32, Width, UInt32, Height, D3DFORMAT, Format, D3DPOOL, Pool, UInt32, Usage, DXVAHD_SURFACE_TYPE, Type, UInt32, NumSurfaces, "ptr*", &ppSurfaces := 0, pSharedHandleMarshal, pSharedHandle, "HRESULT")
         return IDirect3DSurface9(ppSurfaces)
     }
 
@@ -169,14 +171,14 @@ export default struct IDXVAHD_Device extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateVideoSurface := CallbackCreate(GetMethod(implObj, "CreateVideoSurface"), flags, 10)
-        this.vtbl.GetVideoProcessorDeviceCaps := CallbackCreate(GetMethod(implObj, "GetVideoProcessorDeviceCaps"), flags, 2)
-        this.vtbl.GetVideoProcessorOutputFormats := CallbackCreate(GetMethod(implObj, "GetVideoProcessorOutputFormats"), flags, 3)
-        this.vtbl.GetVideoProcessorInputFormats := CallbackCreate(GetMethod(implObj, "GetVideoProcessorInputFormats"), flags, 3)
-        this.vtbl.GetVideoProcessorCaps := CallbackCreate(GetMethod(implObj, "GetVideoProcessorCaps"), flags, 3)
-        this.vtbl.GetVideoProcessorCustomRates := CallbackCreate(GetMethod(implObj, "GetVideoProcessorCustomRates"), flags, 4)
-        this.vtbl.GetVideoProcessorFilterRange := CallbackCreate(GetMethod(implObj, "GetVideoProcessorFilterRange"), flags, 3)
-        this.vtbl.CreateVideoProcessor := CallbackCreate(GetMethod(implObj, "CreateVideoProcessor"), flags, 3)
+        this.vtbl.CreateVideoSurface := CallbackCreate(ObjBindMethod(implObj, "CreateVideoSurface"), flags, 10)
+        this.vtbl.GetVideoProcessorDeviceCaps := CallbackCreate(ObjBindMethod(implObj, "GetVideoProcessorDeviceCaps"), flags, 2)
+        this.vtbl.GetVideoProcessorOutputFormats := CallbackCreate(ObjBindMethod(implObj, "GetVideoProcessorOutputFormats"), flags, 3)
+        this.vtbl.GetVideoProcessorInputFormats := CallbackCreate(ObjBindMethod(implObj, "GetVideoProcessorInputFormats"), flags, 3)
+        this.vtbl.GetVideoProcessorCaps := CallbackCreate(ObjBindMethod(implObj, "GetVideoProcessorCaps"), flags, 3)
+        this.vtbl.GetVideoProcessorCustomRates := CallbackCreate(ObjBindMethod(implObj, "GetVideoProcessorCustomRates"), flags, 4)
+        this.vtbl.GetVideoProcessorFilterRange := CallbackCreate(ObjBindMethod(implObj, "GetVideoProcessorFilterRange"), flags, 3)
+        this.vtbl.CreateVideoProcessor := CallbackCreate(ObjBindMethod(implObj, "CreateVideoProcessor"), flags, 3)
     }
 
     Dispose() {

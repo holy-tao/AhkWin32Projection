@@ -63,7 +63,7 @@ export default struct IWMPPluginEnable extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nf-wmpservices-iwmppluginenable-getenable
      */
     GetEnable(pfEnable) {
-        pfEnableMarshal := pfEnable is VarRef ? "int*" : "ptr"
+        pfEnableMarshal := pfEnable is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, pfEnableMarshal, pfEnable, "HRESULT")
         return result
@@ -78,8 +78,8 @@ export default struct IWMPPluginEnable extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetEnable := CallbackCreate(GetMethod(implObj, "SetEnable"), flags, 2)
-        this.vtbl.GetEnable := CallbackCreate(GetMethod(implObj, "GetEnable"), flags, 2)
+        this.vtbl.SetEnable := CallbackCreate(ObjBindMethod(implObj, "SetEnable"), flags, 2)
+        this.vtbl.GetEnable := CallbackCreate(ObjBindMethod(implObj, "GetEnable"), flags, 2)
     }
 
     Dispose() {

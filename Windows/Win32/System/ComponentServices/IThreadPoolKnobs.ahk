@@ -53,7 +53,7 @@ export default struct IThreadPoolKnobs extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-ithreadpoolknobs-getmaxthreads
      */
     GetMaxThreads(plcMaxThreads) {
-        plcMaxThreadsMarshal := plcMaxThreads is VarRef ? "int*" : "ptr"
+        plcMaxThreadsMarshal := plcMaxThreads is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, plcMaxThreadsMarshal, plcMaxThreads, "HRESULT")
         return result
@@ -66,7 +66,7 @@ export default struct IThreadPoolKnobs extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-ithreadpoolknobs-getcurrentthreads
      */
     GetCurrentThreads(plcCurrentThreads) {
-        plcCurrentThreadsMarshal := plcCurrentThreads is VarRef ? "int*" : "ptr"
+        plcCurrentThreadsMarshal := plcCurrentThreads is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, plcCurrentThreadsMarshal, plcCurrentThreads, "HRESULT")
         return result
@@ -90,7 +90,7 @@ export default struct IThreadPoolKnobs extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-ithreadpoolknobs-getdeletedelay
      */
     GetDeleteDelay(pmsecDeleteDelay) {
-        pmsecDeleteDelayMarshal := pmsecDeleteDelay is VarRef ? "int*" : "ptr"
+        pmsecDeleteDelayMarshal := pmsecDeleteDelay is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, pmsecDeleteDelayMarshal, pmsecDeleteDelay, "HRESULT")
         return result
@@ -114,7 +114,7 @@ export default struct IThreadPoolKnobs extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-ithreadpoolknobs-getmaxqueuedrequests
      */
     GetMaxQueuedRequests(plcMaxQueuedRequests) {
-        plcMaxQueuedRequestsMarshal := plcMaxQueuedRequests is VarRef ? "int*" : "ptr"
+        plcMaxQueuedRequestsMarshal := plcMaxQueuedRequests is VarRef ? "int*" : IntPtr
 
         result := ComCall(8, this, plcMaxQueuedRequestsMarshal, plcMaxQueuedRequests, "HRESULT")
         return result
@@ -127,7 +127,7 @@ export default struct IThreadPoolKnobs extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-ithreadpoolknobs-getcurrentqueuedrequests
      */
     GetCurrentQueuedRequests(plcCurrentQueuedRequests) {
-        plcCurrentQueuedRequestsMarshal := plcCurrentQueuedRequests is VarRef ? "int*" : "ptr"
+        plcCurrentQueuedRequestsMarshal := plcCurrentQueuedRequests is VarRef ? "int*" : IntPtr
 
         result := ComCall(9, this, plcCurrentQueuedRequestsMarshal, plcCurrentQueuedRequests, "HRESULT")
         return result
@@ -175,16 +175,16 @@ export default struct IThreadPoolKnobs extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMaxThreads := CallbackCreate(GetMethod(implObj, "GetMaxThreads"), flags, 2)
-        this.vtbl.GetCurrentThreads := CallbackCreate(GetMethod(implObj, "GetCurrentThreads"), flags, 2)
-        this.vtbl.SetMaxThreads := CallbackCreate(GetMethod(implObj, "SetMaxThreads"), flags, 2)
-        this.vtbl.GetDeleteDelay := CallbackCreate(GetMethod(implObj, "GetDeleteDelay"), flags, 2)
-        this.vtbl.SetDeleteDelay := CallbackCreate(GetMethod(implObj, "SetDeleteDelay"), flags, 2)
-        this.vtbl.GetMaxQueuedRequests := CallbackCreate(GetMethod(implObj, "GetMaxQueuedRequests"), flags, 2)
-        this.vtbl.GetCurrentQueuedRequests := CallbackCreate(GetMethod(implObj, "GetCurrentQueuedRequests"), flags, 2)
-        this.vtbl.SetMaxQueuedRequests := CallbackCreate(GetMethod(implObj, "SetMaxQueuedRequests"), flags, 2)
-        this.vtbl.SetMinThreads := CallbackCreate(GetMethod(implObj, "SetMinThreads"), flags, 2)
-        this.vtbl.SetQueueDepth := CallbackCreate(GetMethod(implObj, "SetQueueDepth"), flags, 2)
+        this.vtbl.GetMaxThreads := CallbackCreate(ObjBindMethod(implObj, "GetMaxThreads"), flags, 2)
+        this.vtbl.GetCurrentThreads := CallbackCreate(ObjBindMethod(implObj, "GetCurrentThreads"), flags, 2)
+        this.vtbl.SetMaxThreads := CallbackCreate(ObjBindMethod(implObj, "SetMaxThreads"), flags, 2)
+        this.vtbl.GetDeleteDelay := CallbackCreate(ObjBindMethod(implObj, "GetDeleteDelay"), flags, 2)
+        this.vtbl.SetDeleteDelay := CallbackCreate(ObjBindMethod(implObj, "SetDeleteDelay"), flags, 2)
+        this.vtbl.GetMaxQueuedRequests := CallbackCreate(ObjBindMethod(implObj, "GetMaxQueuedRequests"), flags, 2)
+        this.vtbl.GetCurrentQueuedRequests := CallbackCreate(ObjBindMethod(implObj, "GetCurrentQueuedRequests"), flags, 2)
+        this.vtbl.SetMaxQueuedRequests := CallbackCreate(ObjBindMethod(implObj, "SetMaxQueuedRequests"), flags, 2)
+        this.vtbl.SetMinThreads := CallbackCreate(ObjBindMethod(implObj, "SetMinThreads"), flags, 2)
+        this.vtbl.SetQueueDepth := CallbackCreate(ObjBindMethod(implObj, "SetQueueDepth"), flags, 2)
     }
 
     Dispose() {

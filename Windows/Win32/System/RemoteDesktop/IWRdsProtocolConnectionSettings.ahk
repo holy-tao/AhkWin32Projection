@@ -38,7 +38,6 @@ export default struct IWRdsProtocolConnectionSettings extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} PropertyID 
      * @param {Pointer<WTS_PROPERTY_VALUE>} pPropertyEntriesIn 
      * @returns {HRESULT} 
@@ -49,7 +48,6 @@ export default struct IWRdsProtocolConnectionSettings extends IUnknown {
     }
 
     /**
-     * 
      * @param {Guid} PropertyID 
      * @returns {WTS_PROPERTY_VALUE} 
      */
@@ -68,8 +66,8 @@ export default struct IWRdsProtocolConnectionSettings extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetConnectionSetting := CallbackCreate(GetMethod(implObj, "SetConnectionSetting"), flags, 3)
-        this.vtbl.GetConnectionSetting := CallbackCreate(GetMethod(implObj, "GetConnectionSetting"), flags, 3)
+        this.vtbl.SetConnectionSetting := CallbackCreate(ObjBindMethod(implObj, "SetConnectionSetting"), flags, 3)
+        this.vtbl.GetConnectionSetting := CallbackCreate(ObjBindMethod(implObj, "GetConnectionSetting"), flags, 3)
     }
 
     Dispose() {

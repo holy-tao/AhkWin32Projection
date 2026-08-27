@@ -31,7 +31,6 @@ export default struct PRJ_NOTIFICATION_CB {
     }
 
     /**
-     * 
      * @param {Pointer<PRJ_CALLBACK_DATA>} callbackData Information about the operation. The following <i>callbackData</i> members are necessary to implement this callback:<dl>
      * <dd><b>FilePathName</b> Identifies the path for the file or directory to which the notification pertains.
      * 
@@ -133,7 +132,9 @@ export default struct PRJ_NOTIFICATION_CB {
     Call(callbackData, isDirectory, _notification, destinationFileName, operationParameters) {
         destinationFileName := destinationFileName is String ? StrPtr(destinationFileName) : destinationFileName
 
-        result := DllCall(this.value, PRJ_CALLBACK_DATA.Ptr, callbackData, BOOLEAN, isDirectory, PRJ_NOTIFICATION, _notification, "ptr", destinationFileName, PRJ_NOTIFICATION_PARAMETERS.Ptr, operationParameters, "HRESULT")
+        destinationFileNameMarshal := destinationFileName == 0 ? IntPtr : PWSTR
+
+        result := DllCall(this.value, PRJ_CALLBACK_DATA.Ptr, callbackData, BOOLEAN, isDirectory, PRJ_NOTIFICATION, _notification, destinationFileNameMarshal, destinationFileName, PRJ_NOTIFICATION_PARAMETERS.Ptr, operationParameters, "HRESULT")
         return result
     }
 

@@ -19,7 +19,6 @@ export default struct PCLUSTER_ENCRYPT {
     }
 
     /**
-     * 
      * @param {HCLUSCRYPTPROVIDER} _hClusCryptProvider 
      * @param {Pointer<Integer>} pData 
      * @param {Integer} cbData 
@@ -28,9 +27,9 @@ export default struct PCLUSTER_ENCRYPT {
      * @returns {Integer} 
      */
     Call(_hClusCryptProvider, pData, cbData, ppData, pcbData) {
-        pDataMarshal := pData is VarRef ? "char*" : "ptr"
-        ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
-        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+        pDataMarshal := pData is VarRef ? "char*" : IntPtr
+        ppDataMarshal := ppData is VarRef ? "ptr*" : IntPtr
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HCLUSCRYPTPROVIDER, _hClusCryptProvider, pDataMarshal, pData, UInt32, cbData, ppDataMarshal, ppData, pcbDataMarshal, pcbData, UInt32)
         return result

@@ -199,12 +199,12 @@ export default struct IOleClientSite extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SaveObject := CallbackCreate(GetMethod(implObj, "SaveObject"), flags, 1)
-        this.vtbl.GetMoniker := CallbackCreate(GetMethod(implObj, "GetMoniker"), flags, 4)
-        this.vtbl.GetContainer := CallbackCreate(GetMethod(implObj, "GetContainer"), flags, 2)
-        this.vtbl.ShowObject := CallbackCreate(GetMethod(implObj, "ShowObject"), flags, 1)
-        this.vtbl.OnShowWindow := CallbackCreate(GetMethod(implObj, "OnShowWindow"), flags, 2)
-        this.vtbl.RequestNewObjectLayout := CallbackCreate(GetMethod(implObj, "RequestNewObjectLayout"), flags, 1)
+        this.vtbl.SaveObject := CallbackCreate(ObjBindMethod(implObj, "SaveObject"), flags, 1)
+        this.vtbl.GetMoniker := CallbackCreate(ObjBindMethod(implObj, "GetMoniker"), flags, 4)
+        this.vtbl.GetContainer := CallbackCreate(ObjBindMethod(implObj, "GetContainer"), flags, 2)
+        this.vtbl.ShowObject := CallbackCreate(ObjBindMethod(implObj, "ShowObject"), flags, 1)
+        this.vtbl.OnShowWindow := CallbackCreate(ObjBindMethod(implObj, "OnShowWindow"), flags, 2)
+        this.vtbl.RequestNewObjectLayout := CallbackCreate(ObjBindMethod(implObj, "RequestNewObjectLayout"), flags, 1)
     }
 
     Dispose() {

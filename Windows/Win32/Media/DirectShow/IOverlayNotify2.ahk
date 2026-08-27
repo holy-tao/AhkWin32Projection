@@ -58,7 +58,7 @@ export default struct IOverlayNotify2 extends IOverlayNotify {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnDisplayChange := CallbackCreate(GetMethod(implObj, "OnDisplayChange"), flags, 2)
+        this.vtbl.OnDisplayChange := CallbackCreate(ObjBindMethod(implObj, "OnDisplayChange"), flags, 2)
     }
 
     Dispose() {

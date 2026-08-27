@@ -22,7 +22,6 @@ export default struct NCryptSecretAgreementFn {
     }
 
     /**
-     * 
      * @param {NCRYPT_PROV_HANDLE} _hProvider 
      * @param {NCRYPT_KEY_HANDLE} hPrivKey 
      * @param {NCRYPT_KEY_HANDLE} hPubKey 

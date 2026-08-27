@@ -20,7 +20,6 @@ export default struct PFN_IMPORT_PRIV_KEY_FUNC {
     }
 
     /**
-     * 
      * @param {Pointer} hCryptProv 
      * @param {Pointer<CRYPT_PRIVATE_KEY_INFO>} pPrivateKeyInfo 
      * @param {Integer} dwFlags 
@@ -28,7 +27,8 @@ export default struct PFN_IMPORT_PRIV_KEY_FUNC {
      * @returns {BOOL} 
      */
     Call(hCryptProv, pPrivateKeyInfo, dwFlags, pvAuxInfo) {
-        pvAuxInfoMarshal := pvAuxInfo is VarRef ? "ptr" : "ptr"
+        pvAuxInfoMarshal := pvAuxInfo is VarRef ? "ptr" : IntPtr
+        pvAuxInfoMarshal := pvAuxInfo == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, IntPtr, hCryptProv, CRYPT_PRIVATE_KEY_INFO.Ptr, pPrivateKeyInfo, UInt32, dwFlags, pvAuxInfoMarshal, pvAuxInfo, BOOL)
         return result

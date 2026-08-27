@@ -57,7 +57,7 @@ export default struct IAppxManifestReader6 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetIsNonQualifiedResourcePackage := CallbackCreate(GetMethod(implObj, "GetIsNonQualifiedResourcePackage"), flags, 2)
+        this.vtbl.GetIsNonQualifiedResourcePackage := CallbackCreate(ObjBindMethod(implObj, "GetIsNonQualifiedResourcePackage"), flags, 2)
     }
 
     Dispose() {

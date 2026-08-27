@@ -114,7 +114,9 @@ export default struct ILocation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocation-registerforreport
      */
     RegisterForReport(pEvents, reportType, dwRequestedReportInterval) {
-        result := ComCall(3, this, "ptr", pEvents, Guid.Ptr, reportType, UInt32, dwRequestedReportInterval, "HRESULT")
+        pEventsMarshal := pEvents == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pEventsMarshal, pEvents, Guid.Ptr, reportType, UInt32, dwRequestedReportInterval, "HRESULT")
         return result
     }
 
@@ -471,7 +473,9 @@ export default struct ILocation extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocation-requestpermissions
      */
     RequestPermissions(hParent, pReportTypes, count, fModal) {
-        result := ComCall(11, this, HWND, hParent, Guid.Ptr, pReportTypes, UInt32, count, BOOL, fModal, "HRESULT")
+        hParentMarshal := hParent == 0 ? IntPtr : HWND
+
+        result := ComCall(11, this, hParentMarshal, hParent, Guid.Ptr, pReportTypes, UInt32, count, BOOL, fModal, "HRESULT")
         return result
     }
 
@@ -484,15 +488,15 @@ export default struct ILocation extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterForReport := CallbackCreate(GetMethod(implObj, "RegisterForReport"), flags, 4)
-        this.vtbl.UnregisterForReport := CallbackCreate(GetMethod(implObj, "UnregisterForReport"), flags, 2)
-        this.vtbl.GetReport := CallbackCreate(GetMethod(implObj, "GetReport"), flags, 3)
-        this.vtbl.GetReportStatus := CallbackCreate(GetMethod(implObj, "GetReportStatus"), flags, 3)
-        this.vtbl.GetReportInterval := CallbackCreate(GetMethod(implObj, "GetReportInterval"), flags, 3)
-        this.vtbl.SetReportInterval := CallbackCreate(GetMethod(implObj, "SetReportInterval"), flags, 3)
-        this.vtbl.GetDesiredAccuracy := CallbackCreate(GetMethod(implObj, "GetDesiredAccuracy"), flags, 3)
-        this.vtbl.SetDesiredAccuracy := CallbackCreate(GetMethod(implObj, "SetDesiredAccuracy"), flags, 3)
-        this.vtbl.RequestPermissions := CallbackCreate(GetMethod(implObj, "RequestPermissions"), flags, 5)
+        this.vtbl.RegisterForReport := CallbackCreate(ObjBindMethod(implObj, "RegisterForReport"), flags, 4)
+        this.vtbl.UnregisterForReport := CallbackCreate(ObjBindMethod(implObj, "UnregisterForReport"), flags, 2)
+        this.vtbl.GetReport := CallbackCreate(ObjBindMethod(implObj, "GetReport"), flags, 3)
+        this.vtbl.GetReportStatus := CallbackCreate(ObjBindMethod(implObj, "GetReportStatus"), flags, 3)
+        this.vtbl.GetReportInterval := CallbackCreate(ObjBindMethod(implObj, "GetReportInterval"), flags, 3)
+        this.vtbl.SetReportInterval := CallbackCreate(ObjBindMethod(implObj, "SetReportInterval"), flags, 3)
+        this.vtbl.GetDesiredAccuracy := CallbackCreate(ObjBindMethod(implObj, "GetDesiredAccuracy"), flags, 3)
+        this.vtbl.SetDesiredAccuracy := CallbackCreate(ObjBindMethod(implObj, "SetDesiredAccuracy"), flags, 3)
+        this.vtbl.RequestPermissions := CallbackCreate(ObjBindMethod(implObj, "RequestPermissions"), flags, 5)
     }
 
     Dispose() {

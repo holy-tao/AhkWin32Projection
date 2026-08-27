@@ -104,7 +104,7 @@ export default struct IVdsDisk2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetSANMode := CallbackCreate(GetMethod(implObj, "SetSANMode"), flags, 2)
+        this.vtbl.SetSANMode := CallbackCreate(ObjBindMethod(implObj, "SetSANMode"), flags, 2)
     }
 
     Dispose() {

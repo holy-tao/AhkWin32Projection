@@ -23,7 +23,6 @@ export default struct PFN_CERT_STORE_PROV_READ_CRL {
     }
 
     /**
-     * 
      * @param {HCERTSTOREPROV} hStoreProv Provider-specific value returned in 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_store_prov_info">CERT_STORE_PROV_INFO</a> by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pfn_cert_dll_open_store_prov_func">CertDllOpenStoreProv</a>.
@@ -35,7 +34,7 @@ export default struct PFN_CERT_STORE_PROV_READ_CRL {
      * @returns {BOOL} Returns TRUE if the CRL was successfully read.
      */
     Call(hStoreProv, pStoreCrlContext, dwFlags, ppProvCrlContext) {
-        ppProvCrlContextMarshal := ppProvCrlContext is VarRef ? "ptr*" : "ptr"
+        ppProvCrlContextMarshal := ppProvCrlContext is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, HCERTSTOREPROV, hStoreProv, CRL_CONTEXT.Ptr, pStoreCrlContext, UInt32, dwFlags, ppProvCrlContextMarshal, ppProvCrlContext, BOOL)
         return result

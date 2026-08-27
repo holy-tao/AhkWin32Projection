@@ -184,9 +184,10 @@ export default struct IMFNetProxyLocator extends IUnknown {
     GetCurrentProxy(pszStr, pcchStr) {
         pszStr := pszStr is String ? StrPtr(pszStr) : pszStr
 
-        pcchStrMarshal := pcchStr is VarRef ? "uint*" : "ptr"
+        pszStrMarshal := pszStr == 0 ? IntPtr : PWSTR
+        pcchStrMarshal := pcchStr is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(6, this, "ptr", pszStr, pcchStrMarshal, pcchStr, "HRESULT")
+        result := ComCall(6, this, pszStrMarshal, pszStr, pcchStrMarshal, pcchStr, "HRESULT")
         return result
     }
 
@@ -209,11 +210,11 @@ export default struct IMFNetProxyLocator extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FindFirstProxy := CallbackCreate(GetMethod(implObj, "FindFirstProxy"), flags, 4)
-        this.vtbl.FindNextProxy := CallbackCreate(GetMethod(implObj, "FindNextProxy"), flags, 1)
-        this.vtbl.RegisterProxyResult := CallbackCreate(GetMethod(implObj, "RegisterProxyResult"), flags, 2)
-        this.vtbl.GetCurrentProxy := CallbackCreate(GetMethod(implObj, "GetCurrentProxy"), flags, 3)
-        this.vtbl.Clone := CallbackCreate(GetMethod(implObj, "Clone"), flags, 2)
+        this.vtbl.FindFirstProxy := CallbackCreate(ObjBindMethod(implObj, "FindFirstProxy"), flags, 4)
+        this.vtbl.FindNextProxy := CallbackCreate(ObjBindMethod(implObj, "FindNextProxy"), flags, 1)
+        this.vtbl.RegisterProxyResult := CallbackCreate(ObjBindMethod(implObj, "RegisterProxyResult"), flags, 2)
+        this.vtbl.GetCurrentProxy := CallbackCreate(ObjBindMethod(implObj, "GetCurrentProxy"), flags, 3)
+        this.vtbl.Clone := CallbackCreate(ObjBindMethod(implObj, "Clone"), flags, 2)
     }
 
     Dispose() {

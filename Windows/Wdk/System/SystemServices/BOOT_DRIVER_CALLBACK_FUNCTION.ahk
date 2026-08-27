@@ -20,14 +20,14 @@ export default struct BOOT_DRIVER_CALLBACK_FUNCTION {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} CallbackContext 
      * @param {BDCB_CALLBACK_TYPE} Classification 
      * @param {Pointer<BDCB_IMAGE_INFORMATION>} ImageInformation 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(CallbackContext, Classification, ImageInformation) {
-        CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
+        CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : IntPtr
+        CallbackContextMarshal := CallbackContext == 0 ? IntPtr : "ptr"
 
         DllCall(this.value, CallbackContextMarshal, CallbackContext, BDCB_CALLBACK_TYPE, Classification, BDCB_IMAGE_INFORMATION.Ptr, ImageInformation)
     }

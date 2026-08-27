@@ -51,7 +51,6 @@ export default struct ISVGAElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedString} v 
      * @returns {HRESULT} 
      */
@@ -61,7 +60,6 @@ export default struct ISVGAElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedString} 
      */
     get_target() {
@@ -78,8 +76,8 @@ export default struct ISVGAElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.putref_target := CallbackCreate(GetMethod(implObj, "putref_target"), flags, 2)
-        this.vtbl.get_target := CallbackCreate(GetMethod(implObj, "get_target"), flags, 2)
+        this.vtbl.putref_target := CallbackCreate(ObjBindMethod(implObj, "putref_target"), flags, 2)
+        this.vtbl.get_target := CallbackCreate(ObjBindMethod(implObj, "get_target"), flags, 2)
     }
 
     Dispose() {

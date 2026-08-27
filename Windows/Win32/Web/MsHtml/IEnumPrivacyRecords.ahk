@@ -41,7 +41,6 @@ export default struct IEnumPrivacyRecords extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Reset() {
@@ -50,7 +49,6 @@ export default struct IEnumPrivacyRecords extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetSize() {
@@ -59,7 +57,6 @@ export default struct IEnumPrivacyRecords extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     GetPrivacyImpacted() {
@@ -68,7 +65,6 @@ export default struct IEnumPrivacyRecords extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrUrl 
      * @param {Pointer<BSTR>} pbstrPolicyRef 
      * @param {Pointer<Integer>} pdwReserved 
@@ -76,8 +72,8 @@ export default struct IEnumPrivacyRecords extends IUnknown {
      * @returns {HRESULT} 
      */
     Next(pbstrUrl, pbstrPolicyRef, pdwReserved, pdwPrivacyFlags) {
-        pdwReservedMarshal := pdwReserved is VarRef ? "int*" : "ptr"
-        pdwPrivacyFlagsMarshal := pdwPrivacyFlags is VarRef ? "uint*" : "ptr"
+        pdwReservedMarshal := pdwReserved is VarRef ? "int*" : IntPtr
+        pdwPrivacyFlagsMarshal := pdwPrivacyFlags is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, BSTR.Ptr, pbstrUrl, BSTR.Ptr, pbstrPolicyRef, pdwReservedMarshal, pdwReserved, pdwPrivacyFlagsMarshal, pdwPrivacyFlags, "HRESULT")
         return result
@@ -92,10 +88,10 @@ export default struct IEnumPrivacyRecords extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.GetSize := CallbackCreate(GetMethod(implObj, "GetSize"), flags, 2)
-        this.vtbl.GetPrivacyImpacted := CallbackCreate(GetMethod(implObj, "GetPrivacyImpacted"), flags, 2)
-        this.vtbl.Next := CallbackCreate(GetMethod(implObj, "Next"), flags, 5)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.GetSize := CallbackCreate(ObjBindMethod(implObj, "GetSize"), flags, 2)
+        this.vtbl.GetPrivacyImpacted := CallbackCreate(ObjBindMethod(implObj, "GetPrivacyImpacted"), flags, 2)
+        this.vtbl.Next := CallbackCreate(ObjBindMethod(implObj, "Next"), flags, 5)
     }
 
     Dispose() {

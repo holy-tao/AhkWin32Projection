@@ -49,7 +49,6 @@ export default struct UILANGUAGE_ENUMPROCA {
     }
 
     /**
-     * 
      * @param {PSTR} param0 
      * @param {Pointer} param1 
      * @returns {BOOL} Returns <b>TRUE</b> to continue enumeration or <b>FALSE</b> otherwise.

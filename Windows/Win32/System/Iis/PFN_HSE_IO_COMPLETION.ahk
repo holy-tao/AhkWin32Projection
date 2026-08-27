@@ -19,7 +19,6 @@ export default struct PFN_HSE_IO_COMPLETION {
     }
 
     /**
-     * 
      * @param {Pointer<EXTENSION_CONTROL_BLOCK>} pECB 
      * @param {Pointer<Void>} pContext 
      * @param {Integer} cbIO 
@@ -27,7 +26,7 @@ export default struct PFN_HSE_IO_COMPLETION {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(pECB, pContext, cbIO, dwError) {
-        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
+        pContextMarshal := pContext is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, EXTENSION_CONTROL_BLOCK.Ptr, pECB, pContextMarshal, pContext, UInt32, cbIO, UInt32, dwError)
     }

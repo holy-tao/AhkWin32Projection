@@ -26,7 +26,6 @@ export default struct PIBIO_SENSOR_QUERY_EXTENDED_INFO_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/ns-winbio_adapter-winbio_pipeline">WINBIO_PIPELINE</a> structure associated with the biometric unit performing the operation.
      * @param {Integer} SensorInfo Pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-extended-sensor-info">WINBIO_EXTENDED_SENSOR_INFO</a> structure that contains the sensor information returned by this function.
      * @param {Pointer} SensorInfoSize The specified size of the sensor information.

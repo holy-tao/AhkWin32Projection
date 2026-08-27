@@ -141,11 +141,11 @@ export default struct IUIAutomationElement7 extends IUIAutomationElement6 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FindFirstWithOptions := CallbackCreate(GetMethod(implObj, "FindFirstWithOptions"), flags, 6)
-        this.vtbl.FindAllWithOptions := CallbackCreate(GetMethod(implObj, "FindAllWithOptions"), flags, 6)
-        this.vtbl.FindFirstWithOptionsBuildCache := CallbackCreate(GetMethod(implObj, "FindFirstWithOptionsBuildCache"), flags, 7)
-        this.vtbl.FindAllWithOptionsBuildCache := CallbackCreate(GetMethod(implObj, "FindAllWithOptionsBuildCache"), flags, 7)
-        this.vtbl.GetCurrentMetadataValue := CallbackCreate(GetMethod(implObj, "GetCurrentMetadataValue"), flags, 4)
+        this.vtbl.FindFirstWithOptions := CallbackCreate(ObjBindMethod(implObj, "FindFirstWithOptions"), flags, 6)
+        this.vtbl.FindAllWithOptions := CallbackCreate(ObjBindMethod(implObj, "FindAllWithOptions"), flags, 6)
+        this.vtbl.FindFirstWithOptionsBuildCache := CallbackCreate(ObjBindMethod(implObj, "FindFirstWithOptionsBuildCache"), flags, 7)
+        this.vtbl.FindAllWithOptionsBuildCache := CallbackCreate(ObjBindMethod(implObj, "FindAllWithOptionsBuildCache"), flags, 7)
+        this.vtbl.GetCurrentMetadataValue := CallbackCreate(ObjBindMethod(implObj, "GetCurrentMetadataValue"), flags, 4)
     }
 
     Dispose() {

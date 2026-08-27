@@ -20,7 +20,6 @@ export default struct PFN_CARD_READ_FILE {
     }
 
     /**
-     * 
      * @param {Pointer<CARD_DATA>} pCardData 
      * @param {PSTR} pszDirectoryName 
      * @param {PSTR} pszFileName 
@@ -33,10 +32,12 @@ export default struct PFN_CARD_READ_FILE {
         pszDirectoryName := pszDirectoryName is String ? StrPtr(pszDirectoryName) : pszDirectoryName
         pszFileName := pszFileName is String ? StrPtr(pszFileName) : pszFileName
 
-        ppbDataMarshal := ppbData is VarRef ? "ptr*" : "ptr"
-        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+        pszDirectoryNameMarshal := pszDirectoryName == 0 ? IntPtr : PSTR
+        ppbDataMarshal := ppbData is VarRef ? "ptr*" : IntPtr
+        ppbDataMarshal := ppbData == 0 ? IntPtr : "ptr*"
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, CARD_DATA.Ptr, pCardData, "ptr", pszDirectoryName, "ptr", pszFileName, UInt32, dwFlags, ppbDataMarshal, ppbData, pcbDataMarshal, pcbData, UInt32)
+        result := DllCall(this.value, CARD_DATA.Ptr, pCardData, pszDirectoryNameMarshal, pszDirectoryName, "ptr", pszFileName, UInt32, dwFlags, ppbDataMarshal, ppbData, pcbDataMarshal, pcbData, UInt32)
         return result
     }
 

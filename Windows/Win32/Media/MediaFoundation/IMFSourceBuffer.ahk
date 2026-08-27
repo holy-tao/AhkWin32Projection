@@ -156,7 +156,8 @@ export default struct IMFSourceBuffer extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfsourcebuffer-appendbytestream
      */
     AppendByteStream(pStream, pMaxLen) {
-        pMaxLenMarshal := pMaxLen is VarRef ? "uint*" : "ptr"
+        pMaxLenMarshal := pMaxLen is VarRef ? "uint*" : IntPtr
+        pMaxLenMarshal := pMaxLen == 0 ? IntPtr : "uint*"
 
         result := ComCall(12, this, "ptr", pStream, pMaxLenMarshal, pMaxLen, "HRESULT")
         return result
@@ -193,18 +194,18 @@ export default struct IMFSourceBuffer extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetUpdating := CallbackCreate(GetMethod(implObj, "GetUpdating"), flags, 1)
-        this.vtbl.GetBuffered := CallbackCreate(GetMethod(implObj, "GetBuffered"), flags, 2)
-        this.vtbl.GetTimeStampOffset := CallbackCreate(GetMethod(implObj, "GetTimeStampOffset"), flags, 1)
-        this.vtbl.SetTimeStampOffset := CallbackCreate(GetMethod(implObj, "SetTimeStampOffset"), flags, 2)
-        this.vtbl.GetAppendWindowStart := CallbackCreate(GetMethod(implObj, "GetAppendWindowStart"), flags, 1)
-        this.vtbl.SetAppendWindowStart := CallbackCreate(GetMethod(implObj, "SetAppendWindowStart"), flags, 2)
-        this.vtbl.GetAppendWindowEnd := CallbackCreate(GetMethod(implObj, "GetAppendWindowEnd"), flags, 1)
-        this.vtbl.SetAppendWindowEnd := CallbackCreate(GetMethod(implObj, "SetAppendWindowEnd"), flags, 2)
-        this.vtbl.Append := CallbackCreate(GetMethod(implObj, "Append"), flags, 3)
-        this.vtbl.AppendByteStream := CallbackCreate(GetMethod(implObj, "AppendByteStream"), flags, 3)
-        this.vtbl.Abort := CallbackCreate(GetMethod(implObj, "Abort"), flags, 1)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 3)
+        this.vtbl.GetUpdating := CallbackCreate(ObjBindMethod(implObj, "GetUpdating"), flags, 1)
+        this.vtbl.GetBuffered := CallbackCreate(ObjBindMethod(implObj, "GetBuffered"), flags, 2)
+        this.vtbl.GetTimeStampOffset := CallbackCreate(ObjBindMethod(implObj, "GetTimeStampOffset"), flags, 1)
+        this.vtbl.SetTimeStampOffset := CallbackCreate(ObjBindMethod(implObj, "SetTimeStampOffset"), flags, 2)
+        this.vtbl.GetAppendWindowStart := CallbackCreate(ObjBindMethod(implObj, "GetAppendWindowStart"), flags, 1)
+        this.vtbl.SetAppendWindowStart := CallbackCreate(ObjBindMethod(implObj, "SetAppendWindowStart"), flags, 2)
+        this.vtbl.GetAppendWindowEnd := CallbackCreate(ObjBindMethod(implObj, "GetAppendWindowEnd"), flags, 1)
+        this.vtbl.SetAppendWindowEnd := CallbackCreate(ObjBindMethod(implObj, "SetAppendWindowEnd"), flags, 2)
+        this.vtbl.Append := CallbackCreate(ObjBindMethod(implObj, "Append"), flags, 3)
+        this.vtbl.AppendByteStream := CallbackCreate(ObjBindMethod(implObj, "AppendByteStream"), flags, 3)
+        this.vtbl.Abort := CallbackCreate(ObjBindMethod(implObj, "Abort"), flags, 1)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 3)
     }
 
     Dispose() {

@@ -36,7 +36,6 @@ export default struct PFN_CMSG_IMPORT_MAIL_LIST {
     }
 
     /**
-     * 
      * @param {Pointer<CRYPT_ALGORITHM_IDENTIFIER>} pContentEncryptionAlgorithm A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure that specifies the algorithm used to encrypt the message contents and any associated parameters.
      * @param {Pointer<CMSG_CTRL_MAIL_LIST_DECRYPT_PARA>} pMailListDecryptPara A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cmsg_ctrl_mail_list_decrypt_para">CMSG_CTRL_MAIL_LIST_DECRYPT_PARA</a> structure that contains information about the mailing list recipient.
      * @param {Integer} dwFlags This value is not used. Set it to zero.
@@ -50,7 +49,7 @@ export default struct PFN_CMSG_IMPORT_MAIL_LIST {
     Call(pContentEncryptionAlgorithm, pMailListDecryptPara, dwFlags, phContentEncryptKey) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
-        phContentEncryptKeyMarshal := phContentEncryptKey is VarRef ? "ptr*" : "ptr"
+        phContentEncryptKeyMarshal := phContentEncryptKey is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, CRYPT_ALGORITHM_IDENTIFIER.Ptr, pContentEncryptionAlgorithm, CMSG_CTRL_MAIL_LIST_DECRYPT_PARA.Ptr, pMailListDecryptPara, UInt32, dwFlags, "ptr", pvReserved, phContentEncryptKeyMarshal, phContentEncryptKey, BOOL)
         return result

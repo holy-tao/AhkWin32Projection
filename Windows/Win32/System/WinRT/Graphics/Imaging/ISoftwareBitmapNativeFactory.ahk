@@ -98,7 +98,9 @@ export default struct ISoftwareBitmapNativeFactory extends IInspectable {
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.imaging.interop/nf-windows-graphics-imaging-interop-isoftwarebitmapnativefactory-createfrommf2dbuffer2
      */
     CreateFromMF2DBuffer2(data, subtype, width, height, forceReadOnly, minDisplayAperture, riid) {
-        result := ComCall(7, this, "ptr", data, Guid.Ptr, subtype, UInt32, width, UInt32, height, BOOL, forceReadOnly, MFVideoArea.Ptr, minDisplayAperture, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
+        minDisplayApertureMarshal := minDisplayAperture == 0 ? IntPtr : MFVideoArea.Ptr
+
+        result := ComCall(7, this, "ptr", data, Guid.Ptr, subtype, UInt32, width, UInt32, height, BOOL, forceReadOnly, minDisplayApertureMarshal, minDisplayAperture, Guid.Ptr, riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -111,8 +113,8 @@ export default struct ISoftwareBitmapNativeFactory extends IInspectable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateFromWICBitmap := CallbackCreate(GetMethod(implObj, "CreateFromWICBitmap"), flags, 5)
-        this.vtbl.CreateFromMF2DBuffer2 := CallbackCreate(GetMethod(implObj, "CreateFromMF2DBuffer2"), flags, 9)
+        this.vtbl.CreateFromWICBitmap := CallbackCreate(ObjBindMethod(implObj, "CreateFromWICBitmap"), flags, 5)
+        this.vtbl.CreateFromMF2DBuffer2 := CallbackCreate(ObjBindMethod(implObj, "CreateFromMF2DBuffer2"), flags, 9)
     }
 
     Dispose() {

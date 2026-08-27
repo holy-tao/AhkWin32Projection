@@ -61,7 +61,7 @@ export default struct IMFMetadataProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMFMetadata := CallbackCreate(GetMethod(implObj, "GetMFMetadata"), flags, 5)
+        this.vtbl.GetMFMetadata := CallbackCreate(ObjBindMethod(implObj, "GetMFMetadata"), flags, 5)
     }
 
     Dispose() {

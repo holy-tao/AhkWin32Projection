@@ -40,7 +40,6 @@ export default struct IDCompositionDevice4 extends IDCompositionDevice3 {
     }
 
     /**
-     * 
      * @param {IUnknown} renderingDevice 
      * @returns {BOOL} 
      */
@@ -50,7 +49,6 @@ export default struct IDCompositionDevice4 extends IDCompositionDevice3 {
     }
 
     /**
-     * 
      * @param {IUnknown} d3dTexture 
      * @returns {IDCompositionTexture} 
      */
@@ -68,8 +66,8 @@ export default struct IDCompositionDevice4 extends IDCompositionDevice3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CheckCompositionTextureSupport := CallbackCreate(GetMethod(implObj, "CheckCompositionTextureSupport"), flags, 3)
-        this.vtbl.CreateCompositionTexture := CallbackCreate(GetMethod(implObj, "CreateCompositionTexture"), flags, 3)
+        this.vtbl.CheckCompositionTextureSupport := CallbackCreate(ObjBindMethod(implObj, "CheckCompositionTextureSupport"), flags, 3)
+        this.vtbl.CreateCompositionTexture := CallbackCreate(ObjBindMethod(implObj, "CreateCompositionTexture"), flags, 3)
     }
 
     Dispose() {

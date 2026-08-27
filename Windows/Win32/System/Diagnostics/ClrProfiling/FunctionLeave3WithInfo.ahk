@@ -19,7 +19,6 @@ export default struct FunctionLeave3WithInfo {
     }
 
     /**
-     * 
      * @param {FunctionIDOrClientID} _functionIDOrClientID 
      * @param {Pointer} eltInfo 
      * @returns {String} Nothing - always returns an empty string

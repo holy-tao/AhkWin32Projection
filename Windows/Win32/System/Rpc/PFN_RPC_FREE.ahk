@@ -18,12 +18,11 @@ export default struct PFN_RPC_FREE {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} param0 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(param0) {
-        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+        param0Marshal := param0 is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, param0Marshal, param0)
     }

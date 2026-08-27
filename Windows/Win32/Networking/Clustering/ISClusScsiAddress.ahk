@@ -68,7 +68,6 @@ export default struct ISClusScsiAddress extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_PortNumber() {
@@ -78,7 +77,6 @@ export default struct ISClusScsiAddress extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_PathId() {
@@ -88,7 +86,6 @@ export default struct ISClusScsiAddress extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_TargetId() {
@@ -98,7 +95,6 @@ export default struct ISClusScsiAddress extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_Lun() {
@@ -116,10 +112,10 @@ export default struct ISClusScsiAddress extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_PortNumber := CallbackCreate(GetMethod(implObj, "get_PortNumber"), flags, 2)
-        this.vtbl.get_PathId := CallbackCreate(GetMethod(implObj, "get_PathId"), flags, 2)
-        this.vtbl.get_TargetId := CallbackCreate(GetMethod(implObj, "get_TargetId"), flags, 2)
-        this.vtbl.get_Lun := CallbackCreate(GetMethod(implObj, "get_Lun"), flags, 2)
+        this.vtbl.get_PortNumber := CallbackCreate(ObjBindMethod(implObj, "get_PortNumber"), flags, 2)
+        this.vtbl.get_PathId := CallbackCreate(ObjBindMethod(implObj, "get_PathId"), flags, 2)
+        this.vtbl.get_TargetId := CallbackCreate(ObjBindMethod(implObj, "get_TargetId"), flags, 2)
+        this.vtbl.get_Lun := CallbackCreate(ObjBindMethod(implObj, "get_Lun"), flags, 2)
     }
 
     Dispose() {

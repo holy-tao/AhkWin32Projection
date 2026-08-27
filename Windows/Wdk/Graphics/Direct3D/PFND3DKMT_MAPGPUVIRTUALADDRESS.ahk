@@ -20,7 +20,6 @@ export default struct PFND3DKMT_MAPGPUVIRTUALADDRESS {
     }
 
     /**
-     * 
      * @param {Pointer<D3DDDI_MAPGPUVIRTUALADDRESS>} param0 
      * @returns {NTSTATUS} 
      */

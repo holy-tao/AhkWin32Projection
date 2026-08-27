@@ -60,7 +60,7 @@ export default struct IMFPluginControl2 extends IMFPluginControl {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetPolicy := CallbackCreate(GetMethod(implObj, "SetPolicy"), flags, 2)
+        this.vtbl.SetPolicy := CallbackCreate(ObjBindMethod(implObj, "SetPolicy"), flags, 2)
     }
 
     Dispose() {

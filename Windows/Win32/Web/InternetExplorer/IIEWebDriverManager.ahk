@@ -37,7 +37,6 @@ export default struct IIEWebDriverManager extends IDispatch {
     }
 
     /**
-     * 
      * @param {PWSTR} command 
      * @returns {PWSTR} 
      */
@@ -57,7 +56,7 @@ export default struct IIEWebDriverManager extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ExecuteCommand := CallbackCreate(GetMethod(implObj, "ExecuteCommand"), flags, 3)
+        this.vtbl.ExecuteCommand := CallbackCreate(ObjBindMethod(implObj, "ExecuteCommand"), flags, 3)
     }
 
     Dispose() {

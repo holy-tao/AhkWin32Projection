@@ -23,7 +23,6 @@ export default struct PDD_MOCOMPCB_GETCOMPBUFFINFO {
     }
 
     /**
-     * 
      * @param {Pointer<DD_GETMOCOMPCOMPBUFFDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_getmocompcompbuffdata">DD_GETMOCOMPCOMPBUFFDATA</a> structure that contains the compressed buffer information.
      * @returns {Integer} <b>DDMoCompGetBuffInfo</b> returns one of the following callback codes:
      */

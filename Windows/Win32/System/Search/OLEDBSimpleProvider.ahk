@@ -63,7 +63,6 @@ export default struct OLEDBSimpleProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     getRowCount() {
@@ -72,7 +71,6 @@ export default struct OLEDBSimpleProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     getColumnCount() {
@@ -81,7 +79,6 @@ export default struct OLEDBSimpleProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} _iRow 
      * @param {Pointer} iColumn 
      * @returns {OSPRW} 
@@ -92,7 +89,6 @@ export default struct OLEDBSimpleProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} _iRow 
      * @param {Pointer} iColumn 
      * @param {OSPFORMAT} format 
@@ -105,7 +101,6 @@ export default struct OLEDBSimpleProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} _iRow 
      * @param {Pointer} iColumn 
      * @param {OSPFORMAT} format 
@@ -118,7 +113,6 @@ export default struct OLEDBSimpleProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     getLocale() {
@@ -128,7 +122,6 @@ export default struct OLEDBSimpleProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} _iRow 
      * @param {Pointer} cRows 
      * @returns {Pointer} 
@@ -139,7 +132,6 @@ export default struct OLEDBSimpleProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} _iRow 
      * @param {Pointer} cRows 
      * @returns {Pointer} 
@@ -150,7 +142,6 @@ export default struct OLEDBSimpleProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} iRowStart 
      * @param {Pointer} iColumn 
      * @param {VARIANT} _val 
@@ -164,7 +155,6 @@ export default struct OLEDBSimpleProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {OLEDBSimpleProviderListener} pospIListener 
      * @returns {HRESULT} 
      */
@@ -174,7 +164,6 @@ export default struct OLEDBSimpleProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {OLEDBSimpleProviderListener} pospIListener 
      * @returns {HRESULT} 
      */
@@ -184,7 +173,6 @@ export default struct OLEDBSimpleProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     isAsync() {
@@ -193,7 +181,6 @@ export default struct OLEDBSimpleProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     getEstimatedRows() {
@@ -202,7 +189,6 @@ export default struct OLEDBSimpleProvider extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     stopTransfer() {
@@ -219,20 +205,20 @@ export default struct OLEDBSimpleProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.getRowCount := CallbackCreate(GetMethod(implObj, "getRowCount"), flags, 2)
-        this.vtbl.getColumnCount := CallbackCreate(GetMethod(implObj, "getColumnCount"), flags, 2)
-        this.vtbl.getRWStatus := CallbackCreate(GetMethod(implObj, "getRWStatus"), flags, 4)
-        this.vtbl.getVariant := CallbackCreate(GetMethod(implObj, "getVariant"), flags, 5)
-        this.vtbl.setVariant := CallbackCreate(GetMethod(implObj, "setVariant"), flags, 5)
-        this.vtbl.getLocale := CallbackCreate(GetMethod(implObj, "getLocale"), flags, 2)
-        this.vtbl.deleteRows := CallbackCreate(GetMethod(implObj, "deleteRows"), flags, 4)
-        this.vtbl.insertRows := CallbackCreate(GetMethod(implObj, "insertRows"), flags, 4)
-        this.vtbl.find := CallbackCreate(GetMethod(implObj, "find"), flags, 7)
-        this.vtbl.addOLEDBSimpleProviderListener := CallbackCreate(GetMethod(implObj, "addOLEDBSimpleProviderListener"), flags, 2)
-        this.vtbl.removeOLEDBSimpleProviderListener := CallbackCreate(GetMethod(implObj, "removeOLEDBSimpleProviderListener"), flags, 2)
-        this.vtbl.isAsync := CallbackCreate(GetMethod(implObj, "isAsync"), flags, 2)
-        this.vtbl.getEstimatedRows := CallbackCreate(GetMethod(implObj, "getEstimatedRows"), flags, 2)
-        this.vtbl.stopTransfer := CallbackCreate(GetMethod(implObj, "stopTransfer"), flags, 1)
+        this.vtbl.getRowCount := CallbackCreate(ObjBindMethod(implObj, "getRowCount"), flags, 2)
+        this.vtbl.getColumnCount := CallbackCreate(ObjBindMethod(implObj, "getColumnCount"), flags, 2)
+        this.vtbl.getRWStatus := CallbackCreate(ObjBindMethod(implObj, "getRWStatus"), flags, 4)
+        this.vtbl.getVariant := CallbackCreate(ObjBindMethod(implObj, "getVariant"), flags, 5)
+        this.vtbl.setVariant := CallbackCreate(ObjBindMethod(implObj, "setVariant"), flags, 5)
+        this.vtbl.getLocale := CallbackCreate(ObjBindMethod(implObj, "getLocale"), flags, 2)
+        this.vtbl.deleteRows := CallbackCreate(ObjBindMethod(implObj, "deleteRows"), flags, 4)
+        this.vtbl.insertRows := CallbackCreate(ObjBindMethod(implObj, "insertRows"), flags, 4)
+        this.vtbl.find := CallbackCreate(ObjBindMethod(implObj, "find"), flags, 7)
+        this.vtbl.addOLEDBSimpleProviderListener := CallbackCreate(ObjBindMethod(implObj, "addOLEDBSimpleProviderListener"), flags, 2)
+        this.vtbl.removeOLEDBSimpleProviderListener := CallbackCreate(ObjBindMethod(implObj, "removeOLEDBSimpleProviderListener"), flags, 2)
+        this.vtbl.isAsync := CallbackCreate(ObjBindMethod(implObj, "isAsync"), flags, 2)
+        this.vtbl.getEstimatedRows := CallbackCreate(ObjBindMethod(implObj, "getEstimatedRows"), flags, 2)
+        this.vtbl.stopTransfer := CallbackCreate(ObjBindMethod(implObj, "stopTransfer"), flags, 1)
     }
 
     Dispose() {

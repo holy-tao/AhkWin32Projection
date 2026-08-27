@@ -36,13 +36,12 @@ export default struct IAudioSourceProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwSampleCount 
      * @param {Pointer<Integer>} pdwChannelCount 
      * @returns {Float} 
      */
     ProvideInput(dwSampleCount, pdwChannelCount) {
-        pdwChannelCountMarshal := pdwChannelCount is VarRef ? "uint*" : "ptr"
+        pdwChannelCountMarshal := pdwChannelCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, UInt32, dwSampleCount, pdwChannelCountMarshal, pdwChannelCount, "float*", &pInterleavedAudioData := 0, "HRESULT")
         return pInterleavedAudioData
@@ -57,7 +56,7 @@ export default struct IAudioSourceProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ProvideInput := CallbackCreate(GetMethod(implObj, "ProvideInput"), flags, 4)
+        this.vtbl.ProvideInput := CallbackCreate(ObjBindMethod(implObj, "ProvideInput"), flags, 4)
     }
 
     Dispose() {

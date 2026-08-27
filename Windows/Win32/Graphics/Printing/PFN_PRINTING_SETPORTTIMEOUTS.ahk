@@ -21,7 +21,6 @@ export default struct PFN_PRINTING_SETPORTTIMEOUTS {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @param {Pointer<COMMTIMEOUTS>} param1 
      * @returns {BOOL} 

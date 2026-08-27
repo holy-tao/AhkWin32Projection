@@ -111,9 +111,9 @@ export default struct IMFByteStreamTimeSeek extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfbytestreamtimeseek-gettimeseekresult
      */
     GetTimeSeekResult(pqwStartTime, pqwStopTime, pqwDuration) {
-        pqwStartTimeMarshal := pqwStartTime is VarRef ? "uint*" : "ptr"
-        pqwStopTimeMarshal := pqwStopTime is VarRef ? "uint*" : "ptr"
-        pqwDurationMarshal := pqwDuration is VarRef ? "uint*" : "ptr"
+        pqwStartTimeMarshal := pqwStartTime is VarRef ? "uint*" : IntPtr
+        pqwStopTimeMarshal := pqwStopTime is VarRef ? "uint*" : IntPtr
+        pqwDurationMarshal := pqwDuration is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, pqwStartTimeMarshal, pqwStartTime, pqwStopTimeMarshal, pqwStopTime, pqwDurationMarshal, pqwDuration, "HRESULT")
         return result
@@ -128,9 +128,9 @@ export default struct IMFByteStreamTimeSeek extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsTimeSeekSupported := CallbackCreate(GetMethod(implObj, "IsTimeSeekSupported"), flags, 2)
-        this.vtbl.TimeSeek := CallbackCreate(GetMethod(implObj, "TimeSeek"), flags, 2)
-        this.vtbl.GetTimeSeekResult := CallbackCreate(GetMethod(implObj, "GetTimeSeekResult"), flags, 4)
+        this.vtbl.IsTimeSeekSupported := CallbackCreate(ObjBindMethod(implObj, "IsTimeSeekSupported"), flags, 2)
+        this.vtbl.TimeSeek := CallbackCreate(ObjBindMethod(implObj, "TimeSeek"), flags, 2)
+        this.vtbl.GetTimeSeekResult := CallbackCreate(ObjBindMethod(implObj, "GetTimeSeekResult"), flags, 4)
     }
 
     Dispose() {

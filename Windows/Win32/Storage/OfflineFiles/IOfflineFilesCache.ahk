@@ -169,9 +169,13 @@ export default struct IOfflineFilesCache extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilescache-synchronize
      */
     Synchronize(hwndParent, rgpszPaths, cPaths, bAsync, dwSyncControl, pISyncConflictHandler, pIProgress, pSyncId) {
-        rgpszPathsMarshal := rgpszPaths is VarRef ? "ptr*" : "ptr"
+        hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+        rgpszPathsMarshal := rgpszPaths is VarRef ? "ptr*" : IntPtr
+        pISyncConflictHandlerMarshal := pISyncConflictHandler == 0 ? IntPtr : "ptr"
+        pIProgressMarshal := pIProgress == 0 ? IntPtr : "ptr"
+        pSyncIdMarshal := pSyncId == 0 ? IntPtr : Guid.Ptr
 
-        result := ComCall(3, this, HWND, hwndParent, rgpszPathsMarshal, rgpszPaths, UInt32, cPaths, BOOL, bAsync, UInt32, dwSyncControl, "ptr", pISyncConflictHandler, "ptr", pIProgress, Guid.Ptr, pSyncId, "HRESULT")
+        result := ComCall(3, this, hwndParentMarshal, hwndParent, rgpszPathsMarshal, rgpszPaths, UInt32, cPaths, BOOL, bAsync, UInt32, dwSyncControl, pISyncConflictHandlerMarshal, pISyncConflictHandler, pIProgressMarshal, pIProgress, pSyncIdMarshal, pSyncId, "HRESULT")
         return result
     }
 
@@ -254,9 +258,10 @@ export default struct IOfflineFilesCache extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilescache-deleteitems
      */
     DeleteItems(rgpszPaths, cPaths, dwFlags, bAsync, pIProgress) {
-        rgpszPathsMarshal := rgpszPaths is VarRef ? "ptr*" : "ptr"
+        rgpszPathsMarshal := rgpszPaths is VarRef ? "ptr*" : IntPtr
+        pIProgressMarshal := pIProgress == 0 ? IntPtr : "ptr"
 
-        result := ComCall(4, this, rgpszPathsMarshal, rgpszPaths, UInt32, cPaths, UInt32, dwFlags, BOOL, bAsync, "ptr", pIProgress, "HRESULT")
+        result := ComCall(4, this, rgpszPathsMarshal, rgpszPaths, UInt32, cPaths, UInt32, dwFlags, BOOL, bAsync, pIProgressMarshal, pIProgress, "HRESULT")
         return result
     }
 
@@ -342,9 +347,10 @@ export default struct IOfflineFilesCache extends IUnknown {
     DeleteItemsForUser(pszUser, rgpszPaths, cPaths, dwFlags, bAsync, pIProgress) {
         pszUser := pszUser is String ? StrPtr(pszUser) : pszUser
 
-        rgpszPathsMarshal := rgpszPaths is VarRef ? "ptr*" : "ptr"
+        rgpszPathsMarshal := rgpszPaths is VarRef ? "ptr*" : IntPtr
+        pIProgressMarshal := pIProgress == 0 ? IntPtr : "ptr"
 
-        result := ComCall(5, this, "ptr", pszUser, rgpszPathsMarshal, rgpszPaths, UInt32, cPaths, UInt32, dwFlags, BOOL, bAsync, "ptr", pIProgress, "HRESULT")
+        result := ComCall(5, this, "ptr", pszUser, rgpszPathsMarshal, rgpszPaths, UInt32, cPaths, UInt32, dwFlags, BOOL, bAsync, pIProgressMarshal, pIProgress, "HRESULT")
         return result
     }
 
@@ -420,9 +426,11 @@ export default struct IOfflineFilesCache extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilescache-pin
      */
     Pin(hwndParent, rgpszPaths, cPaths, bDeep, bAsync, dwPinControlFlags, pIProgress) {
-        rgpszPathsMarshal := rgpszPaths is VarRef ? "ptr*" : "ptr"
+        hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+        rgpszPathsMarshal := rgpszPaths is VarRef ? "ptr*" : IntPtr
+        pIProgressMarshal := pIProgress == 0 ? IntPtr : "ptr"
 
-        result := ComCall(6, this, HWND, hwndParent, rgpszPathsMarshal, rgpszPaths, UInt32, cPaths, BOOL, bDeep, BOOL, bAsync, UInt32, dwPinControlFlags, "ptr", pIProgress, "HRESULT")
+        result := ComCall(6, this, hwndParentMarshal, hwndParent, rgpszPathsMarshal, rgpszPaths, UInt32, cPaths, BOOL, bDeep, BOOL, bAsync, UInt32, dwPinControlFlags, pIProgressMarshal, pIProgress, "HRESULT")
         return result
     }
 
@@ -498,9 +506,11 @@ export default struct IOfflineFilesCache extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilescache-unpin
      */
     Unpin(hwndParent, rgpszPaths, cPaths, bDeep, bAsync, dwPinControlFlags, pIProgress) {
-        rgpszPathsMarshal := rgpszPaths is VarRef ? "ptr*" : "ptr"
+        hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+        rgpszPathsMarshal := rgpszPaths is VarRef ? "ptr*" : IntPtr
+        pIProgressMarshal := pIProgress == 0 ? IntPtr : "ptr"
 
-        result := ComCall(7, this, HWND, hwndParent, rgpszPathsMarshal, rgpszPaths, UInt32, cPaths, BOOL, bDeep, BOOL, bAsync, UInt32, dwPinControlFlags, "ptr", pIProgress, "HRESULT")
+        result := ComCall(7, this, hwndParentMarshal, hwndParent, rgpszPathsMarshal, rgpszPaths, UInt32, cPaths, BOOL, bDeep, BOOL, bAsync, UInt32, dwPinControlFlags, pIProgressMarshal, pIProgress, "HRESULT")
         return result
     }
 
@@ -518,8 +528,8 @@ export default struct IOfflineFilesCache extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilescache-getencryptionstatus
      */
     GetEncryptionStatus(pbEncrypted, pbPartial) {
-        pbEncryptedMarshal := pbEncrypted is VarRef ? "int*" : "ptr"
-        pbPartialMarshal := pbPartial is VarRef ? "int*" : "ptr"
+        pbEncryptedMarshal := pbEncrypted is VarRef ? "int*" : IntPtr
+        pbPartialMarshal := pbPartial is VarRef ? "int*" : IntPtr
 
         result := ComCall(8, this, pbEncryptedMarshal, pbEncrypted, pbPartialMarshal, pbPartial, "HRESULT")
         return result
@@ -618,7 +628,10 @@ export default struct IOfflineFilesCache extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilescache-encrypt
      */
     Encrypt(hwndParent, bEncrypt, dwEncryptionControlFlags, bAsync, pIProgress) {
-        result := ComCall(9, this, HWND, hwndParent, BOOL, bEncrypt, UInt32, dwEncryptionControlFlags, BOOL, bAsync, "ptr", pIProgress, "HRESULT")
+        hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+        pIProgressMarshal := pIProgress == 0 ? IntPtr : "ptr"
+
+        result := ComCall(9, this, hwndParentMarshal, hwndParent, BOOL, bEncrypt, UInt32, dwEncryptionControlFlags, BOOL, bAsync, pIProgressMarshal, pIProgress, "HRESULT")
         return result
     }
 
@@ -654,7 +667,12 @@ export default struct IOfflineFilesCache extends IUnknown {
     FindItemEx(pszPath, pIncludeFileFilter, pIncludeDirFilter, pExcludeFileFilter, pExcludeDirFilter, dwQueryFlags) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(11, this, "ptr", pszPath, "ptr", pIncludeFileFilter, "ptr", pIncludeDirFilter, "ptr", pExcludeFileFilter, "ptr", pExcludeDirFilter, UInt32, dwQueryFlags, "ptr*", &ppItem := 0, "HRESULT")
+        pIncludeFileFilterMarshal := pIncludeFileFilter == 0 ? IntPtr : "ptr"
+        pIncludeDirFilterMarshal := pIncludeDirFilter == 0 ? IntPtr : "ptr"
+        pExcludeFileFilterMarshal := pExcludeFileFilter == 0 ? IntPtr : "ptr"
+        pExcludeDirFilterMarshal := pExcludeDirFilter == 0 ? IntPtr : "ptr"
+
+        result := ComCall(11, this, "ptr", pszPath, pIncludeFileFilterMarshal, pIncludeFileFilter, pIncludeDirFilterMarshal, pIncludeDirFilter, pExcludeFileFilterMarshal, pExcludeFileFilter, pExcludeDirFilterMarshal, pExcludeDirFilter, UInt32, dwQueryFlags, "ptr*", &ppItem := 0, "HRESULT")
         return IOfflineFilesItem(ppItem)
     }
 
@@ -705,11 +723,11 @@ export default struct IOfflineFilesCache extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilescache-getdiskspaceinformation
      */
     GetDiskSpaceInformation(pcbVolumeTotal, pcbLimit, pcbUsed, pcbUnpinnedLimit, pcbUnpinnedUsed) {
-        pcbVolumeTotalMarshal := pcbVolumeTotal is VarRef ? "uint*" : "ptr"
-        pcbLimitMarshal := pcbLimit is VarRef ? "uint*" : "ptr"
-        pcbUsedMarshal := pcbUsed is VarRef ? "uint*" : "ptr"
-        pcbUnpinnedLimitMarshal := pcbUnpinnedLimit is VarRef ? "uint*" : "ptr"
-        pcbUnpinnedUsedMarshal := pcbUnpinnedUsed is VarRef ? "uint*" : "ptr"
+        pcbVolumeTotalMarshal := pcbVolumeTotal is VarRef ? "uint*" : IntPtr
+        pcbLimitMarshal := pcbLimit is VarRef ? "uint*" : IntPtr
+        pcbUsedMarshal := pcbUsed is VarRef ? "uint*" : IntPtr
+        pcbUnpinnedLimitMarshal := pcbUnpinnedLimit is VarRef ? "uint*" : IntPtr
+        pcbUnpinnedUsedMarshal := pcbUnpinnedUsed is VarRef ? "uint*" : IntPtr
 
         result := ComCall(14, this, pcbVolumeTotalMarshal, pcbVolumeTotal, pcbLimitMarshal, pcbLimit, pcbUsedMarshal, pcbUsed, pcbUnpinnedLimitMarshal, pcbUnpinnedLimit, pcbUnpinnedUsedMarshal, pcbUnpinnedUsed, "HRESULT")
         return result
@@ -741,7 +759,10 @@ export default struct IOfflineFilesCache extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilescache-processadminpinpolicy
      */
     ProcessAdminPinPolicy(pPinProgress, pUnpinProgress) {
-        result := ComCall(16, this, "ptr", pPinProgress, "ptr", pUnpinProgress, "HRESULT")
+        pPinProgressMarshal := pPinProgress == 0 ? IntPtr : "ptr"
+        pUnpinProgressMarshal := pUnpinProgress == 0 ? IntPtr : "ptr"
+
+        result := ComCall(16, this, pPinProgressMarshal, pPinProgress, pUnpinProgressMarshal, pUnpinProgress, "HRESULT")
         return result
     }
 
@@ -813,8 +834,8 @@ export default struct IOfflineFilesCache extends IUnknown {
     IsPathCacheable(pszPath, pbCacheable, pShareCachingMode) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        pbCacheableMarshal := pbCacheable is VarRef ? "int*" : "ptr"
-        pShareCachingModeMarshal := pShareCachingMode is VarRef ? "int*" : "ptr"
+        pbCacheableMarshal := pbCacheable is VarRef ? "int*" : IntPtr
+        pShareCachingModeMarshal := pShareCachingMode is VarRef ? "int*" : IntPtr
 
         result := ComCall(19, this, "ptr", pszPath, pbCacheableMarshal, pbCacheable, pShareCachingModeMarshal, pShareCachingMode, "HRESULT")
         return result
@@ -829,23 +850,23 @@ export default struct IOfflineFilesCache extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Synchronize := CallbackCreate(GetMethod(implObj, "Synchronize"), flags, 9)
-        this.vtbl.DeleteItems := CallbackCreate(GetMethod(implObj, "DeleteItems"), flags, 6)
-        this.vtbl.DeleteItemsForUser := CallbackCreate(GetMethod(implObj, "DeleteItemsForUser"), flags, 7)
-        this.vtbl.Pin := CallbackCreate(GetMethod(implObj, "Pin"), flags, 8)
-        this.vtbl.Unpin := CallbackCreate(GetMethod(implObj, "Unpin"), flags, 8)
-        this.vtbl.GetEncryptionStatus := CallbackCreate(GetMethod(implObj, "GetEncryptionStatus"), flags, 3)
-        this.vtbl.Encrypt := CallbackCreate(GetMethod(implObj, "Encrypt"), flags, 6)
-        this.vtbl.FindItem := CallbackCreate(GetMethod(implObj, "FindItem"), flags, 4)
-        this.vtbl.FindItemEx := CallbackCreate(GetMethod(implObj, "FindItemEx"), flags, 8)
-        this.vtbl.RenameItem := CallbackCreate(GetMethod(implObj, "RenameItem"), flags, 4)
-        this.vtbl.GetLocation := CallbackCreate(GetMethod(implObj, "GetLocation"), flags, 2)
-        this.vtbl.GetDiskSpaceInformation := CallbackCreate(GetMethod(implObj, "GetDiskSpaceInformation"), flags, 6)
-        this.vtbl.SetDiskSpaceLimits := CallbackCreate(GetMethod(implObj, "SetDiskSpaceLimits"), flags, 3)
-        this.vtbl.ProcessAdminPinPolicy := CallbackCreate(GetMethod(implObj, "ProcessAdminPinPolicy"), flags, 3)
-        this.vtbl.GetSettingObject := CallbackCreate(GetMethod(implObj, "GetSettingObject"), flags, 3)
-        this.vtbl.EnumSettingObjects := CallbackCreate(GetMethod(implObj, "EnumSettingObjects"), flags, 2)
-        this.vtbl.IsPathCacheable := CallbackCreate(GetMethod(implObj, "IsPathCacheable"), flags, 4)
+        this.vtbl.Synchronize := CallbackCreate(ObjBindMethod(implObj, "Synchronize"), flags, 9)
+        this.vtbl.DeleteItems := CallbackCreate(ObjBindMethod(implObj, "DeleteItems"), flags, 6)
+        this.vtbl.DeleteItemsForUser := CallbackCreate(ObjBindMethod(implObj, "DeleteItemsForUser"), flags, 7)
+        this.vtbl.Pin := CallbackCreate(ObjBindMethod(implObj, "Pin"), flags, 8)
+        this.vtbl.Unpin := CallbackCreate(ObjBindMethod(implObj, "Unpin"), flags, 8)
+        this.vtbl.GetEncryptionStatus := CallbackCreate(ObjBindMethod(implObj, "GetEncryptionStatus"), flags, 3)
+        this.vtbl.Encrypt := CallbackCreate(ObjBindMethod(implObj, "Encrypt"), flags, 6)
+        this.vtbl.FindItem := CallbackCreate(ObjBindMethod(implObj, "FindItem"), flags, 4)
+        this.vtbl.FindItemEx := CallbackCreate(ObjBindMethod(implObj, "FindItemEx"), flags, 8)
+        this.vtbl.RenameItem := CallbackCreate(ObjBindMethod(implObj, "RenameItem"), flags, 4)
+        this.vtbl.GetLocation := CallbackCreate(ObjBindMethod(implObj, "GetLocation"), flags, 2)
+        this.vtbl.GetDiskSpaceInformation := CallbackCreate(ObjBindMethod(implObj, "GetDiskSpaceInformation"), flags, 6)
+        this.vtbl.SetDiskSpaceLimits := CallbackCreate(ObjBindMethod(implObj, "SetDiskSpaceLimits"), flags, 3)
+        this.vtbl.ProcessAdminPinPolicy := CallbackCreate(ObjBindMethod(implObj, "ProcessAdminPinPolicy"), flags, 3)
+        this.vtbl.GetSettingObject := CallbackCreate(ObjBindMethod(implObj, "GetSettingObject"), flags, 3)
+        this.vtbl.EnumSettingObjects := CallbackCreate(ObjBindMethod(implObj, "EnumSettingObjects"), flags, 2)
+        this.vtbl.IsPathCacheable := CallbackCreate(ObjBindMethod(implObj, "IsPathCacheable"), flags, 4)
     }
 
     Dispose() {

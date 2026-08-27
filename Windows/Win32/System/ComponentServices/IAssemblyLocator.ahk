@@ -65,7 +65,7 @@ export default struct IAssemblyLocator extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetModules := CallbackCreate(GetMethod(implObj, "GetModules"), flags, 5)
+        this.vtbl.GetModules := CallbackCreate(ObjBindMethod(implObj, "GetModules"), flags, 5)
     }
 
     Dispose() {

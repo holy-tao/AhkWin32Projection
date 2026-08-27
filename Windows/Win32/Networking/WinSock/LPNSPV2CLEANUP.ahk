@@ -45,7 +45,6 @@ export default struct LPNSPV2CLEANUP {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} lpProviderId A pointer to the GUID of the namespace provider to be notified.
      * @param {Pointer<Void>} pvClientSessionArg A pointer to the client session.
      * @returns {Integer} The function should return **NO_ERROR** (zero) if the routine succeeds. It should return **SOCKET_ERROR** (that is, 1) if the routine fails and it must set the appropriate error code using 
@@ -116,7 +115,7 @@ export default struct LPNSPV2CLEANUP {
      * </table>
      */
     Call(lpProviderId, pvClientSessionArg) {
-        pvClientSessionArgMarshal := pvClientSessionArg is VarRef ? "ptr" : "ptr"
+        pvClientSessionArgMarshal := pvClientSessionArg is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, Guid.Ptr, lpProviderId, pvClientSessionArgMarshal, pvClientSessionArg, Int32)
         return result

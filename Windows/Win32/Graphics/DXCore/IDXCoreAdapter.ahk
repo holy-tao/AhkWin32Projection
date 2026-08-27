@@ -175,7 +175,9 @@ export default struct IDXCoreAdapter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapter-querystate
      */
     QueryState(state, inputStateDetailsSize, inputStateDetails, outputBufferSize, outputBuffer) {
-        result := ComCall(9, this, DXCoreAdapterState, state, IntPtr, inputStateDetailsSize, IntPtr, inputStateDetails, IntPtr, outputBufferSize, IntPtr, outputBuffer, "HRESULT")
+        inputStateDetailsMarshal := inputStateDetails == 0 ? IntPtr : IntPtr
+
+        result := ComCall(9, this, DXCoreAdapterState, state, IntPtr, inputStateDetailsSize, inputStateDetailsMarshal, inputStateDetails, IntPtr, outputBufferSize, IntPtr, outputBuffer, "HRESULT")
         return result
     }
 
@@ -221,7 +223,9 @@ export default struct IDXCoreAdapter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapter-setstate
      */
     SetState(state, inputStateDetailsSize, inputStateDetails, inputDataSize, inputData) {
-        result := ComCall(11, this, DXCoreAdapterState, state, IntPtr, inputStateDetailsSize, IntPtr, inputStateDetails, IntPtr, inputDataSize, IntPtr, inputData, "HRESULT")
+        inputStateDetailsMarshal := inputStateDetails == 0 ? IntPtr : IntPtr
+
+        result := ComCall(11, this, DXCoreAdapterState, state, IntPtr, inputStateDetailsSize, inputStateDetailsMarshal, inputStateDetails, IntPtr, inputDataSize, IntPtr, inputData, "HRESULT")
         return result
     }
 
@@ -251,16 +255,16 @@ export default struct IDXCoreAdapter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsValid := CallbackCreate(GetMethod(implObj, "IsValid"), flags, 1)
-        this.vtbl.IsAttributeSupported := CallbackCreate(GetMethod(implObj, "IsAttributeSupported"), flags, 2)
-        this.vtbl.IsPropertySupported := CallbackCreate(GetMethod(implObj, "IsPropertySupported"), flags, 2)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 4)
-        this.vtbl.GetPropertySize := CallbackCreate(GetMethod(implObj, "GetPropertySize"), flags, 3)
-        this.vtbl.IsQueryStateSupported := CallbackCreate(GetMethod(implObj, "IsQueryStateSupported"), flags, 2)
-        this.vtbl.QueryState := CallbackCreate(GetMethod(implObj, "QueryState"), flags, 6)
-        this.vtbl.IsSetStateSupported := CallbackCreate(GetMethod(implObj, "IsSetStateSupported"), flags, 2)
-        this.vtbl.SetState := CallbackCreate(GetMethod(implObj, "SetState"), flags, 6)
-        this.vtbl.GetFactory := CallbackCreate(GetMethod(implObj, "GetFactory"), flags, 3)
+        this.vtbl.IsValid := CallbackCreate(ObjBindMethod(implObj, "IsValid"), flags, 1)
+        this.vtbl.IsAttributeSupported := CallbackCreate(ObjBindMethod(implObj, "IsAttributeSupported"), flags, 2)
+        this.vtbl.IsPropertySupported := CallbackCreate(ObjBindMethod(implObj, "IsPropertySupported"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 4)
+        this.vtbl.GetPropertySize := CallbackCreate(ObjBindMethod(implObj, "GetPropertySize"), flags, 3)
+        this.vtbl.IsQueryStateSupported := CallbackCreate(ObjBindMethod(implObj, "IsQueryStateSupported"), flags, 2)
+        this.vtbl.QueryState := CallbackCreate(ObjBindMethod(implObj, "QueryState"), flags, 6)
+        this.vtbl.IsSetStateSupported := CallbackCreate(ObjBindMethod(implObj, "IsSetStateSupported"), flags, 2)
+        this.vtbl.SetState := CallbackCreate(ObjBindMethod(implObj, "SetState"), flags, 6)
+        this.vtbl.GetFactory := CallbackCreate(ObjBindMethod(implObj, "GetFactory"), flags, 3)
     }
 
     Dispose() {

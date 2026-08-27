@@ -38,7 +38,6 @@ export default struct IDebugHostSymbols2 extends IDebugHostSymbols {
     }
 
     /**
-     * 
      * @param {IDebugHostSymbol} pSymbol 
      * @param {Integer} flags 
      * @returns {BSTR} 
@@ -58,7 +57,7 @@ export default struct IDebugHostSymbols2 extends IDebugHostSymbols {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.DemangleSymbolName := CallbackCreate(GetMethod(implObj, "DemangleSymbolName"), flags, 4)
+        this.vtbl.DemangleSymbolName := CallbackCreate(ObjBindMethod(implObj, "DemangleSymbolName"), flags, 4)
     }
 
     Dispose() {

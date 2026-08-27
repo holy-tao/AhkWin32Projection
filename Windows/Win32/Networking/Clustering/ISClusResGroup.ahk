@@ -137,7 +137,6 @@ export default struct ISClusResGroup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_CommonProperties() {
@@ -146,7 +145,6 @@ export default struct ISClusResGroup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_PrivateProperties() {
@@ -155,7 +153,6 @@ export default struct ISClusResGroup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_CommonROProperties() {
@@ -164,7 +161,6 @@ export default struct ISClusResGroup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusProperties} 
      */
     get_PrivateROProperties() {
@@ -173,7 +169,6 @@ export default struct ISClusResGroup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     get_Handle() {
@@ -182,7 +177,6 @@ export default struct ISClusResGroup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -192,7 +186,6 @@ export default struct ISClusResGroup extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrGroupName 
      * @returns {HRESULT} 
      */
@@ -204,7 +197,6 @@ export default struct ISClusResGroup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {CLUSTER_GROUP_STATE} 
      */
     get_State() {
@@ -213,7 +205,6 @@ export default struct ISClusResGroup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusNode} 
      */
     get_OwnerNode() {
@@ -222,7 +213,6 @@ export default struct ISClusResGroup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusResGroupResources} 
      */
     get_Resources() {
@@ -231,7 +221,6 @@ export default struct ISClusResGroup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISClusResGroupPreferredOwnerNodes} 
      */
     get_PreferredOwnerNodes() {
@@ -240,7 +229,6 @@ export default struct ISClusResGroup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Delete() {
@@ -249,7 +237,6 @@ export default struct ISClusResGroup extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varTimeout 
      * @param {VARIANT} varNode 
      * @returns {VARIANT} 
@@ -261,7 +248,6 @@ export default struct ISClusResGroup extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varTimeout 
      * @param {VARIANT} varNode 
      * @returns {VARIANT} 
@@ -273,7 +259,6 @@ export default struct ISClusResGroup extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varTimeout 
      * @returns {VARIANT} 
      */
@@ -284,7 +269,6 @@ export default struct ISClusResGroup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISCluster} 
      */
     get_Cluster() {
@@ -301,22 +285,22 @@ export default struct ISClusResGroup extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_CommonProperties := CallbackCreate(GetMethod(implObj, "get_CommonProperties"), flags, 2)
-        this.vtbl.get_PrivateProperties := CallbackCreate(GetMethod(implObj, "get_PrivateProperties"), flags, 2)
-        this.vtbl.get_CommonROProperties := CallbackCreate(GetMethod(implObj, "get_CommonROProperties"), flags, 2)
-        this.vtbl.get_PrivateROProperties := CallbackCreate(GetMethod(implObj, "get_PrivateROProperties"), flags, 2)
-        this.vtbl.get_Handle := CallbackCreate(GetMethod(implObj, "get_Handle"), flags, 2)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
-        this.vtbl.get_State := CallbackCreate(GetMethod(implObj, "get_State"), flags, 2)
-        this.vtbl.get_OwnerNode := CallbackCreate(GetMethod(implObj, "get_OwnerNode"), flags, 2)
-        this.vtbl.get_Resources := CallbackCreate(GetMethod(implObj, "get_Resources"), flags, 2)
-        this.vtbl.get_PreferredOwnerNodes := CallbackCreate(GetMethod(implObj, "get_PreferredOwnerNodes"), flags, 2)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
-        this.vtbl.Online := CallbackCreate(GetMethod(implObj, "Online"), flags, 4)
-        this.vtbl.Move := CallbackCreate(GetMethod(implObj, "Move"), flags, 4)
-        this.vtbl.Offline := CallbackCreate(GetMethod(implObj, "Offline"), flags, 3)
-        this.vtbl.get_Cluster := CallbackCreate(GetMethod(implObj, "get_Cluster"), flags, 2)
+        this.vtbl.get_CommonProperties := CallbackCreate(ObjBindMethod(implObj, "get_CommonProperties"), flags, 2)
+        this.vtbl.get_PrivateProperties := CallbackCreate(ObjBindMethod(implObj, "get_PrivateProperties"), flags, 2)
+        this.vtbl.get_CommonROProperties := CallbackCreate(ObjBindMethod(implObj, "get_CommonROProperties"), flags, 2)
+        this.vtbl.get_PrivateROProperties := CallbackCreate(ObjBindMethod(implObj, "get_PrivateROProperties"), flags, 2)
+        this.vtbl.get_Handle := CallbackCreate(ObjBindMethod(implObj, "get_Handle"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(ObjBindMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.get_State := CallbackCreate(ObjBindMethod(implObj, "get_State"), flags, 2)
+        this.vtbl.get_OwnerNode := CallbackCreate(ObjBindMethod(implObj, "get_OwnerNode"), flags, 2)
+        this.vtbl.get_Resources := CallbackCreate(ObjBindMethod(implObj, "get_Resources"), flags, 2)
+        this.vtbl.get_PreferredOwnerNodes := CallbackCreate(ObjBindMethod(implObj, "get_PreferredOwnerNodes"), flags, 2)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.Online := CallbackCreate(ObjBindMethod(implObj, "Online"), flags, 4)
+        this.vtbl.Move := CallbackCreate(ObjBindMethod(implObj, "Move"), flags, 4)
+        this.vtbl.Offline := CallbackCreate(ObjBindMethod(implObj, "Offline"), flags, 3)
+        this.vtbl.get_Cluster := CallbackCreate(ObjBindMethod(implObj, "get_Cluster"), flags, 2)
     }
 
     Dispose() {

@@ -144,11 +144,17 @@ export default struct ID3D11DeviceContext2 extends ID3D11DeviceContext1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_2/nf-d3d11_2-id3d11devicecontext2-updatetilemappings
      */
     UpdateTileMappings(pTiledResource, NumTiledResourceRegions, pTiledResourceRegionStartCoordinates, pTiledResourceRegionSizes, pTilePool, NumRanges, pRangeFlags, pTilePoolStartOffsets, pRangeTileCounts, Flags) {
-        pRangeFlagsMarshal := pRangeFlags is VarRef ? "uint*" : "ptr"
-        pTilePoolStartOffsetsMarshal := pTilePoolStartOffsets is VarRef ? "uint*" : "ptr"
-        pRangeTileCountsMarshal := pRangeTileCounts is VarRef ? "uint*" : "ptr"
+        pTiledResourceRegionStartCoordinatesMarshal := pTiledResourceRegionStartCoordinates == 0 ? IntPtr : D3D11_TILED_RESOURCE_COORDINATE.Ptr
+        pTiledResourceRegionSizesMarshal := pTiledResourceRegionSizes == 0 ? IntPtr : D3D11_TILE_REGION_SIZE.Ptr
+        pTilePoolMarshal := pTilePool == 0 ? IntPtr : "ptr"
+        pRangeFlagsMarshal := pRangeFlags is VarRef ? "uint*" : IntPtr
+        pRangeFlagsMarshal := pRangeFlags == 0 ? IntPtr : "uint*"
+        pTilePoolStartOffsetsMarshal := pTilePoolStartOffsets is VarRef ? "uint*" : IntPtr
+        pTilePoolStartOffsetsMarshal := pTilePoolStartOffsets == 0 ? IntPtr : "uint*"
+        pRangeTileCountsMarshal := pRangeTileCounts is VarRef ? "uint*" : IntPtr
+        pRangeTileCountsMarshal := pRangeTileCounts == 0 ? IntPtr : "uint*"
 
-        result := ComCall(134, this, "ptr", pTiledResource, UInt32, NumTiledResourceRegions, D3D11_TILED_RESOURCE_COORDINATE.Ptr, pTiledResourceRegionStartCoordinates, D3D11_TILE_REGION_SIZE.Ptr, pTiledResourceRegionSizes, "ptr", pTilePool, UInt32, NumRanges, pRangeFlagsMarshal, pRangeFlags, pTilePoolStartOffsetsMarshal, pTilePoolStartOffsets, pRangeTileCountsMarshal, pRangeTileCounts, UInt32, Flags, "HRESULT")
+        result := ComCall(134, this, "ptr", pTiledResource, UInt32, NumTiledResourceRegions, pTiledResourceRegionStartCoordinatesMarshal, pTiledResourceRegionStartCoordinates, pTiledResourceRegionSizesMarshal, pTiledResourceRegionSizes, pTilePoolMarshal, pTilePool, UInt32, NumRanges, pRangeFlagsMarshal, pRangeFlags, pTilePoolStartOffsetsMarshal, pTilePoolStartOffsets, pRangeTileCountsMarshal, pRangeTileCounts, UInt32, Flags, "HRESULT")
         return result
     }
 
@@ -273,7 +279,7 @@ export default struct ID3D11DeviceContext2 extends ID3D11DeviceContext1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_2/nf-d3d11_2-id3d11devicecontext2-updatetiles
      */
     UpdateTiles(pDestTiledResource, pDestTileRegionStartCoordinate, pDestTileRegionSize, pSourceTileData, Flags) {
-        pSourceTileDataMarshal := pSourceTileData is VarRef ? "ptr" : "ptr"
+        pSourceTileDataMarshal := pSourceTileData is VarRef ? "ptr" : IntPtr
 
         ComCall(137, this, "ptr", pDestTiledResource, D3D11_TILED_RESOURCE_COORDINATE.Ptr, pDestTileRegionStartCoordinate, D3D11_TILE_REGION_SIZE.Ptr, pDestTileRegionSize, pSourceTileDataMarshal, pSourceTileData, UInt32, Flags)
     }
@@ -347,7 +353,10 @@ export default struct ID3D11DeviceContext2 extends ID3D11DeviceContext1 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_2/nf-d3d11_2-id3d11devicecontext2-tiledresourcebarrier
      */
     TiledResourceBarrier(pTiledResourceOrViewAccessBeforeBarrier, pTiledResourceOrViewAccessAfterBarrier) {
-        ComCall(139, this, "ptr", pTiledResourceOrViewAccessBeforeBarrier, "ptr", pTiledResourceOrViewAccessAfterBarrier)
+        pTiledResourceOrViewAccessBeforeBarrierMarshal := pTiledResourceOrViewAccessBeforeBarrier == 0 ? IntPtr : "ptr"
+        pTiledResourceOrViewAccessAfterBarrierMarshal := pTiledResourceOrViewAccessAfterBarrier == 0 ? IntPtr : "ptr"
+
+        ComCall(139, this, pTiledResourceOrViewAccessBeforeBarrierMarshal, pTiledResourceOrViewAccessBeforeBarrier, pTiledResourceOrViewAccessAfterBarrierMarshal, pTiledResourceOrViewAccessAfterBarrier)
     }
 
     /**
@@ -414,16 +423,16 @@ export default struct ID3D11DeviceContext2 extends ID3D11DeviceContext1 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.UpdateTileMappings := CallbackCreate(GetMethod(implObj, "UpdateTileMappings"), flags, 11)
-        this.vtbl.CopyTileMappings := CallbackCreate(GetMethod(implObj, "CopyTileMappings"), flags, 7)
-        this.vtbl.CopyTiles := CallbackCreate(GetMethod(implObj, "CopyTiles"), flags, 7)
-        this.vtbl.UpdateTiles := CallbackCreate(GetMethod(implObj, "UpdateTiles"), flags, 6)
-        this.vtbl.ResizeTilePool := CallbackCreate(GetMethod(implObj, "ResizeTilePool"), flags, 3)
-        this.vtbl.TiledResourceBarrier := CallbackCreate(GetMethod(implObj, "TiledResourceBarrier"), flags, 3)
-        this.vtbl.IsAnnotationEnabled := CallbackCreate(GetMethod(implObj, "IsAnnotationEnabled"), flags, 1)
-        this.vtbl.SetMarkerInt := CallbackCreate(GetMethod(implObj, "SetMarkerInt"), flags, 3)
-        this.vtbl.BeginEventInt := CallbackCreate(GetMethod(implObj, "BeginEventInt"), flags, 3)
-        this.vtbl.EndEvent := CallbackCreate(GetMethod(implObj, "EndEvent"), flags, 1)
+        this.vtbl.UpdateTileMappings := CallbackCreate(ObjBindMethod(implObj, "UpdateTileMappings"), flags, 11)
+        this.vtbl.CopyTileMappings := CallbackCreate(ObjBindMethod(implObj, "CopyTileMappings"), flags, 7)
+        this.vtbl.CopyTiles := CallbackCreate(ObjBindMethod(implObj, "CopyTiles"), flags, 7)
+        this.vtbl.UpdateTiles := CallbackCreate(ObjBindMethod(implObj, "UpdateTiles"), flags, 6)
+        this.vtbl.ResizeTilePool := CallbackCreate(ObjBindMethod(implObj, "ResizeTilePool"), flags, 3)
+        this.vtbl.TiledResourceBarrier := CallbackCreate(ObjBindMethod(implObj, "TiledResourceBarrier"), flags, 3)
+        this.vtbl.IsAnnotationEnabled := CallbackCreate(ObjBindMethod(implObj, "IsAnnotationEnabled"), flags, 1)
+        this.vtbl.SetMarkerInt := CallbackCreate(ObjBindMethod(implObj, "SetMarkerInt"), flags, 3)
+        this.vtbl.BeginEventInt := CallbackCreate(ObjBindMethod(implObj, "BeginEventInt"), flags, 3)
+        this.vtbl.EndEvent := CallbackCreate(ObjBindMethod(implObj, "EndEvent"), flags, 1)
     }
 
     Dispose() {

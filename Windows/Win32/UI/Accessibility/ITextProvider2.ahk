@@ -71,7 +71,7 @@ export default struct ITextProvider2 extends ITextProvider {
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextprovider2-getcaretrange
      */
     GetCaretRange(isActive) {
-        isActiveMarshal := isActive is VarRef ? "int*" : "ptr"
+        isActiveMarshal := isActive is VarRef ? "int*" : IntPtr
 
         result := ComCall(10, this, isActiveMarshal, isActive, "ptr*", &pRetVal := 0, "HRESULT")
         return ITextRangeProvider(pRetVal)
@@ -86,8 +86,8 @@ export default struct ITextProvider2 extends ITextProvider {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RangeFromAnnotation := CallbackCreate(GetMethod(implObj, "RangeFromAnnotation"), flags, 3)
-        this.vtbl.GetCaretRange := CallbackCreate(GetMethod(implObj, "GetCaretRange"), flags, 3)
+        this.vtbl.RangeFromAnnotation := CallbackCreate(ObjBindMethod(implObj, "RangeFromAnnotation"), flags, 3)
+        this.vtbl.GetCaretRange := CallbackCreate(ObjBindMethod(implObj, "GetCaretRange"), flags, 3)
     }
 
     Dispose() {

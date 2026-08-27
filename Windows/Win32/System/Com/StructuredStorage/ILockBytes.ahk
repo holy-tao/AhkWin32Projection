@@ -229,13 +229,13 @@ export default struct ILockBytes extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ReadAt := CallbackCreate(GetMethod(implObj, "ReadAt"), flags, 5)
-        this.vtbl.WriteAt := CallbackCreate(GetMethod(implObj, "WriteAt"), flags, 5)
-        this.vtbl.Flush := CallbackCreate(GetMethod(implObj, "Flush"), flags, 1)
-        this.vtbl.SetSize := CallbackCreate(GetMethod(implObj, "SetSize"), flags, 2)
-        this.vtbl.LockRegion := CallbackCreate(GetMethod(implObj, "LockRegion"), flags, 4)
-        this.vtbl.UnlockRegion := CallbackCreate(GetMethod(implObj, "UnlockRegion"), flags, 4)
-        this.vtbl.Stat := CallbackCreate(GetMethod(implObj, "Stat"), flags, 3)
+        this.vtbl.ReadAt := CallbackCreate(ObjBindMethod(implObj, "ReadAt"), flags, 5)
+        this.vtbl.WriteAt := CallbackCreate(ObjBindMethod(implObj, "WriteAt"), flags, 5)
+        this.vtbl.Flush := CallbackCreate(ObjBindMethod(implObj, "Flush"), flags, 1)
+        this.vtbl.SetSize := CallbackCreate(ObjBindMethod(implObj, "SetSize"), flags, 2)
+        this.vtbl.LockRegion := CallbackCreate(ObjBindMethod(implObj, "LockRegion"), flags, 4)
+        this.vtbl.UnlockRegion := CallbackCreate(ObjBindMethod(implObj, "UnlockRegion"), flags, 4)
+        this.vtbl.Stat := CallbackCreate(ObjBindMethod(implObj, "Stat"), flags, 3)
     }
 
     Dispose() {

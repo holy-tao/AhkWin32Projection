@@ -19,7 +19,6 @@ export default struct PMPRADMINCONNECTIONHANGUPNOTIFICATIONEX {
     }
 
     /**
-     * 
      * @param {Pointer<RAS_CONNECTION_EX>} param0 
      * @returns {String} Nothing - always returns an empty string
      */

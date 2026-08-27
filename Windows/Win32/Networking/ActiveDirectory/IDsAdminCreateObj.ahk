@@ -82,8 +82,8 @@ export default struct IDsAdminCreateObj extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 4)
-        this.vtbl.CreateModal := CallbackCreate(GetMethod(implObj, "CreateModal"), flags, 3)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 4)
+        this.vtbl.CreateModal := CallbackCreate(ObjBindMethod(implObj, "CreateModal"), flags, 3)
     }
 
     Dispose() {

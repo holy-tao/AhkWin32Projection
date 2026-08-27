@@ -89,7 +89,6 @@ export default struct IADsReplicaPointer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ServerName() {
@@ -99,7 +98,6 @@ export default struct IADsReplicaPointer extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrServerName 
      * @returns {HRESULT} 
      */
@@ -111,7 +109,6 @@ export default struct IADsReplicaPointer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ReplicaType() {
@@ -120,7 +117,6 @@ export default struct IADsReplicaPointer extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnReplicaType 
      * @returns {HRESULT} 
      */
@@ -130,7 +126,6 @@ export default struct IADsReplicaPointer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_ReplicaNumber() {
@@ -139,7 +134,6 @@ export default struct IADsReplicaPointer extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnReplicaNumber 
      * @returns {HRESULT} 
      */
@@ -149,7 +143,6 @@ export default struct IADsReplicaPointer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Count() {
@@ -158,7 +151,6 @@ export default struct IADsReplicaPointer extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} lnCount 
      * @returns {HRESULT} 
      */
@@ -168,7 +160,6 @@ export default struct IADsReplicaPointer extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_ReplicaAddressHints() {
@@ -178,7 +169,6 @@ export default struct IADsReplicaPointer extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} vReplicaAddressHints 
      * @returns {HRESULT} 
      */
@@ -196,16 +186,16 @@ export default struct IADsReplicaPointer extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_ServerName := CallbackCreate(GetMethod(implObj, "get_ServerName"), flags, 2)
-        this.vtbl.put_ServerName := CallbackCreate(GetMethod(implObj, "put_ServerName"), flags, 2)
-        this.vtbl.get_ReplicaType := CallbackCreate(GetMethod(implObj, "get_ReplicaType"), flags, 2)
-        this.vtbl.put_ReplicaType := CallbackCreate(GetMethod(implObj, "put_ReplicaType"), flags, 2)
-        this.vtbl.get_ReplicaNumber := CallbackCreate(GetMethod(implObj, "get_ReplicaNumber"), flags, 2)
-        this.vtbl.put_ReplicaNumber := CallbackCreate(GetMethod(implObj, "put_ReplicaNumber"), flags, 2)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.put_Count := CallbackCreate(GetMethod(implObj, "put_Count"), flags, 2)
-        this.vtbl.get_ReplicaAddressHints := CallbackCreate(GetMethod(implObj, "get_ReplicaAddressHints"), flags, 2)
-        this.vtbl.put_ReplicaAddressHints := CallbackCreate(GetMethod(implObj, "put_ReplicaAddressHints"), flags, 2)
+        this.vtbl.get_ServerName := CallbackCreate(ObjBindMethod(implObj, "get_ServerName"), flags, 2)
+        this.vtbl.put_ServerName := CallbackCreate(ObjBindMethod(implObj, "put_ServerName"), flags, 2)
+        this.vtbl.get_ReplicaType := CallbackCreate(ObjBindMethod(implObj, "get_ReplicaType"), flags, 2)
+        this.vtbl.put_ReplicaType := CallbackCreate(ObjBindMethod(implObj, "put_ReplicaType"), flags, 2)
+        this.vtbl.get_ReplicaNumber := CallbackCreate(ObjBindMethod(implObj, "get_ReplicaNumber"), flags, 2)
+        this.vtbl.put_ReplicaNumber := CallbackCreate(ObjBindMethod(implObj, "put_ReplicaNumber"), flags, 2)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.put_Count := CallbackCreate(ObjBindMethod(implObj, "put_Count"), flags, 2)
+        this.vtbl.get_ReplicaAddressHints := CallbackCreate(ObjBindMethod(implObj, "get_ReplicaAddressHints"), flags, 2)
+        this.vtbl.put_ReplicaAddressHints := CallbackCreate(ObjBindMethod(implObj, "put_ReplicaAddressHints"), flags, 2)
     }
 
     Dispose() {

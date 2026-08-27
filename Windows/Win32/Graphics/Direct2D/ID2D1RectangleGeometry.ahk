@@ -65,7 +65,7 @@ export default struct ID2D1RectangleGeometry extends ID2D1Geometry {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRect := CallbackCreate(GetMethod(implObj, "GetRect"), flags, 2)
+        this.vtbl.GetRect := CallbackCreate(ObjBindMethod(implObj, "GetRect"), flags, 2)
     }
 
     Dispose() {

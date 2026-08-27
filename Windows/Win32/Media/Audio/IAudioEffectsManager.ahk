@@ -93,7 +93,7 @@ export default struct IAudioEffectsManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioeffectsmanager-getaudioeffects
      */
     GetAudioEffects(numEffects) {
-        numEffectsMarshal := numEffects is VarRef ? "uint*" : "ptr"
+        numEffectsMarshal := numEffects is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, "ptr*", &effects := 0, numEffectsMarshal, numEffects, "HRESULT")
         return effects
@@ -129,10 +129,10 @@ export default struct IAudioEffectsManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RegisterAudioEffectsChangedNotificationCallback := CallbackCreate(GetMethod(implObj, "RegisterAudioEffectsChangedNotificationCallback"), flags, 2)
-        this.vtbl.UnregisterAudioEffectsChangedNotificationCallback := CallbackCreate(GetMethod(implObj, "UnregisterAudioEffectsChangedNotificationCallback"), flags, 2)
-        this.vtbl.GetAudioEffects := CallbackCreate(GetMethod(implObj, "GetAudioEffects"), flags, 3)
-        this.vtbl.SetAudioEffectState := CallbackCreate(GetMethod(implObj, "SetAudioEffectState"), flags, 3)
+        this.vtbl.RegisterAudioEffectsChangedNotificationCallback := CallbackCreate(ObjBindMethod(implObj, "RegisterAudioEffectsChangedNotificationCallback"), flags, 2)
+        this.vtbl.UnregisterAudioEffectsChangedNotificationCallback := CallbackCreate(ObjBindMethod(implObj, "UnregisterAudioEffectsChangedNotificationCallback"), flags, 2)
+        this.vtbl.GetAudioEffects := CallbackCreate(ObjBindMethod(implObj, "GetAudioEffects"), flags, 3)
+        this.vtbl.SetAudioEffectState := CallbackCreate(ObjBindMethod(implObj, "SetAudioEffectState"), flags, 3)
     }
 
     Dispose() {

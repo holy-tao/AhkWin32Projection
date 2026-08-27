@@ -19,16 +19,17 @@ export default struct EX_CALLBACK_FUNCTION {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} CallbackContext 
      * @param {Pointer<Void>} Argument1 
      * @param {Pointer<Void>} Argument2 
      * @returns {NTSTATUS} 
      */
     Call(CallbackContext, Argument1, Argument2) {
-        CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
-        Argument1Marshal := Argument1 is VarRef ? "ptr" : "ptr"
-        Argument2Marshal := Argument2 is VarRef ? "ptr" : "ptr"
+        CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : IntPtr
+        Argument1Marshal := Argument1 is VarRef ? "ptr" : IntPtr
+        Argument1Marshal := Argument1 == 0 ? IntPtr : "ptr"
+        Argument2Marshal := Argument2 is VarRef ? "ptr" : IntPtr
+        Argument2Marshal := Argument2 == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, CallbackContextMarshal, CallbackContext, Argument1Marshal, Argument1, Argument2Marshal, Argument2, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

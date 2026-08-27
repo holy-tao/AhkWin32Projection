@@ -50,7 +50,6 @@ export default struct IDebugHostSymbols extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszModuleName 
      * @param {PWSTR} pwszMinVersion 
      * @param {PWSTR} pwszMaxVersion 
@@ -61,12 +60,14 @@ export default struct IDebugHostSymbols extends IUnknown {
         pwszMinVersion := pwszMinVersion is String ? StrPtr(pwszMinVersion) : pwszMinVersion
         pwszMaxVersion := pwszMaxVersion is String ? StrPtr(pwszMaxVersion) : pwszMaxVersion
 
-        result := ComCall(3, this, "ptr", pwszModuleName, "ptr", pwszMinVersion, "ptr", pwszMaxVersion, "ptr*", &ppModuleSignature := 0, "HRESULT")
+        pwszMinVersionMarshal := pwszMinVersion == 0 ? IntPtr : PWSTR
+        pwszMaxVersionMarshal := pwszMaxVersion == 0 ? IntPtr : PWSTR
+
+        result := ComCall(3, this, "ptr", pwszModuleName, pwszMinVersionMarshal, pwszMinVersion, pwszMaxVersionMarshal, pwszMaxVersion, "ptr*", &ppModuleSignature := 0, "HRESULT")
         return IDebugHostModuleSignature(ppModuleSignature)
     }
 
     /**
-     * 
      * @param {PWSTR} signatureSpecification 
      * @param {IDebugHostModule} module 
      * @returns {IDebugHostTypeSignature} 
@@ -74,12 +75,13 @@ export default struct IDebugHostSymbols extends IUnknown {
     CreateTypeSignature(signatureSpecification, module) {
         signatureSpecification := signatureSpecification is String ? StrPtr(signatureSpecification) : signatureSpecification
 
-        result := ComCall(4, this, "ptr", signatureSpecification, "ptr", module, "ptr*", &typeSignature := 0, "HRESULT")
+        moduleMarshal := module == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, "ptr", signatureSpecification, moduleMarshal, module, "ptr*", &typeSignature := 0, "HRESULT")
         return IDebugHostTypeSignature(typeSignature)
     }
 
     /**
-     * 
      * @param {PWSTR} signatureSpecification 
      * @param {PWSTR} moduleName 
      * @param {PWSTR} minVersion 
@@ -92,12 +94,14 @@ export default struct IDebugHostSymbols extends IUnknown {
         minVersion := minVersion is String ? StrPtr(minVersion) : minVersion
         maxVersion := maxVersion is String ? StrPtr(maxVersion) : maxVersion
 
-        result := ComCall(5, this, "ptr", signatureSpecification, "ptr", moduleName, "ptr", minVersion, "ptr", maxVersion, "ptr*", &typeSignature := 0, "HRESULT")
+        minVersionMarshal := minVersion == 0 ? IntPtr : PWSTR
+        maxVersionMarshal := maxVersion == 0 ? IntPtr : PWSTR
+
+        result := ComCall(5, this, "ptr", signatureSpecification, "ptr", moduleName, minVersionMarshal, minVersion, maxVersionMarshal, maxVersion, "ptr*", &typeSignature := 0, "HRESULT")
         return IDebugHostTypeSignature(typeSignature)
     }
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @returns {IDebugHostSymbolEnumerator} 
      */
@@ -107,7 +111,6 @@ export default struct IDebugHostSymbols extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @param {PWSTR} moduleName 
      * @returns {IDebugHostModule} 
@@ -120,7 +123,6 @@ export default struct IDebugHostSymbols extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @param {Location} moduleLocation 
      * @returns {IDebugHostModule} 
@@ -131,7 +133,6 @@ export default struct IDebugHostSymbols extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugHostContext} pContext 
      * @param {Location} _location 
      * @param {IDebugHostType} _objectType 
@@ -140,7 +141,9 @@ export default struct IDebugHostSymbols extends IUnknown {
      * @returns {HRESULT} 
      */
     GetMostDerivedObject(pContext, _location, _objectType, derivedLocation, derivedType) {
-        result := ComCall(9, this, "ptr", pContext, Location, _location, "ptr", _objectType, Location.Ptr, derivedLocation, IDebugHostType.Ptr, derivedType, "HRESULT")
+        pContextMarshal := pContext == 0 ? IntPtr : "ptr"
+
+        result := ComCall(9, this, pContextMarshal, pContext, Location, _location, "ptr", _objectType, Location.Ptr, derivedLocation, IDebugHostType.Ptr, derivedType, "HRESULT")
         return result
     }
 
@@ -153,13 +156,13 @@ export default struct IDebugHostSymbols extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateModuleSignature := CallbackCreate(GetMethod(implObj, "CreateModuleSignature"), flags, 5)
-        this.vtbl.CreateTypeSignature := CallbackCreate(GetMethod(implObj, "CreateTypeSignature"), flags, 4)
-        this.vtbl.CreateTypeSignatureForModuleRange := CallbackCreate(GetMethod(implObj, "CreateTypeSignatureForModuleRange"), flags, 6)
-        this.vtbl.EnumerateModules := CallbackCreate(GetMethod(implObj, "EnumerateModules"), flags, 3)
-        this.vtbl.FindModuleByName := CallbackCreate(GetMethod(implObj, "FindModuleByName"), flags, 4)
-        this.vtbl.FindModuleByLocation := CallbackCreate(GetMethod(implObj, "FindModuleByLocation"), flags, 4)
-        this.vtbl.GetMostDerivedObject := CallbackCreate(GetMethod(implObj, "GetMostDerivedObject"), flags, 6)
+        this.vtbl.CreateModuleSignature := CallbackCreate(ObjBindMethod(implObj, "CreateModuleSignature"), flags, 5)
+        this.vtbl.CreateTypeSignature := CallbackCreate(ObjBindMethod(implObj, "CreateTypeSignature"), flags, 4)
+        this.vtbl.CreateTypeSignatureForModuleRange := CallbackCreate(ObjBindMethod(implObj, "CreateTypeSignatureForModuleRange"), flags, 6)
+        this.vtbl.EnumerateModules := CallbackCreate(ObjBindMethod(implObj, "EnumerateModules"), flags, 3)
+        this.vtbl.FindModuleByName := CallbackCreate(ObjBindMethod(implObj, "FindModuleByName"), flags, 4)
+        this.vtbl.FindModuleByLocation := CallbackCreate(ObjBindMethod(implObj, "FindModuleByLocation"), flags, 4)
+        this.vtbl.GetMostDerivedObject := CallbackCreate(ObjBindMethod(implObj, "GetMostDerivedObject"), flags, 6)
     }
 
     Dispose() {

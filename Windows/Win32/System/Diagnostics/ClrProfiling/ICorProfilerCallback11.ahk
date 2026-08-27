@@ -37,12 +37,11 @@ export default struct ICorProfilerCallback11 extends ICorProfilerCallback10 {
     }
 
     /**
-     * 
      * @param {Pointer<BOOL>} pbNotificationOnly 
      * @returns {HRESULT} 
      */
     LoadAsNotificationOnly(pbNotificationOnly) {
-        pbNotificationOnlyMarshal := pbNotificationOnly is VarRef ? "int*" : "ptr"
+        pbNotificationOnlyMarshal := pbNotificationOnly is VarRef ? "int*" : IntPtr
 
         result := ComCall(97, this, pbNotificationOnlyMarshal, pbNotificationOnly, "HRESULT")
         return result
@@ -57,7 +56,7 @@ export default struct ICorProfilerCallback11 extends ICorProfilerCallback10 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LoadAsNotificationOnly := CallbackCreate(GetMethod(implObj, "LoadAsNotificationOnly"), flags, 2)
+        this.vtbl.LoadAsNotificationOnly := CallbackCreate(ObjBindMethod(implObj, "LoadAsNotificationOnly"), flags, 2)
     }
 
     Dispose() {

@@ -37,7 +37,6 @@ export default struct ICustomDoc extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDocHostUIHandler} pUIHandler 
      * @returns {HRESULT} 
      */
@@ -55,7 +54,7 @@ export default struct ICustomDoc extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetUIHandler := CallbackCreate(GetMethod(implObj, "SetUIHandler"), flags, 2)
+        this.vtbl.SetUIHandler := CallbackCreate(ObjBindMethod(implObj, "SetUIHandler"), flags, 2)
     }
 
     Dispose() {

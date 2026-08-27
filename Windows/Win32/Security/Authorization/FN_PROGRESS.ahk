@@ -21,7 +21,6 @@ export default struct FN_PROGRESS {
     }
 
     /**
-     * 
      * @param {PWSTR} pObjectName 
      * @param {Integer} _Status 
      * @param {Pointer<PROG_INVOKE_SETTING>} pInvokeSetting 
@@ -32,8 +31,8 @@ export default struct FN_PROGRESS {
     Call(pObjectName, _Status, pInvokeSetting, Args, SecuritySet) {
         pObjectName := pObjectName is String ? StrPtr(pObjectName) : pObjectName
 
-        pInvokeSettingMarshal := pInvokeSetting is VarRef ? "int*" : "ptr"
-        ArgsMarshal := Args is VarRef ? "ptr" : "ptr"
+        pInvokeSettingMarshal := pInvokeSetting is VarRef ? "int*" : IntPtr
+        ArgsMarshal := Args is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, "ptr", pObjectName, UInt32, _Status, pInvokeSettingMarshal, pInvokeSetting, ArgsMarshal, Args, BOOL, SecuritySet)
     }

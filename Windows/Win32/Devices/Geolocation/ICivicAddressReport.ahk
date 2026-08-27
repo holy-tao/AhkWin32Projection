@@ -141,13 +141,13 @@ export default struct ICivicAddressReport extends ILocationReport {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAddressLine1 := CallbackCreate(GetMethod(implObj, "GetAddressLine1"), flags, 2)
-        this.vtbl.GetAddressLine2 := CallbackCreate(GetMethod(implObj, "GetAddressLine2"), flags, 2)
-        this.vtbl.GetCity := CallbackCreate(GetMethod(implObj, "GetCity"), flags, 2)
-        this.vtbl.GetStateProvince := CallbackCreate(GetMethod(implObj, "GetStateProvince"), flags, 2)
-        this.vtbl.GetPostalCode := CallbackCreate(GetMethod(implObj, "GetPostalCode"), flags, 2)
-        this.vtbl.GetCountryRegion := CallbackCreate(GetMethod(implObj, "GetCountryRegion"), flags, 2)
-        this.vtbl.GetDetailLevel := CallbackCreate(GetMethod(implObj, "GetDetailLevel"), flags, 2)
+        this.vtbl.GetAddressLine1 := CallbackCreate(ObjBindMethod(implObj, "GetAddressLine1"), flags, 2)
+        this.vtbl.GetAddressLine2 := CallbackCreate(ObjBindMethod(implObj, "GetAddressLine2"), flags, 2)
+        this.vtbl.GetCity := CallbackCreate(ObjBindMethod(implObj, "GetCity"), flags, 2)
+        this.vtbl.GetStateProvince := CallbackCreate(ObjBindMethod(implObj, "GetStateProvince"), flags, 2)
+        this.vtbl.GetPostalCode := CallbackCreate(ObjBindMethod(implObj, "GetPostalCode"), flags, 2)
+        this.vtbl.GetCountryRegion := CallbackCreate(ObjBindMethod(implObj, "GetCountryRegion"), flags, 2)
+        this.vtbl.GetDetailLevel := CallbackCreate(ObjBindMethod(implObj, "GetDetailLevel"), flags, 2)
     }
 
     Dispose() {

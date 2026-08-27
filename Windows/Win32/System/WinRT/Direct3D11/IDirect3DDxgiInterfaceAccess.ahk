@@ -61,7 +61,7 @@ export default struct IDirect3DDxgiInterfaceAccess extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetInterface := CallbackCreate(GetMethod(implObj, "GetInterface"), flags, 3)
+        this.vtbl.GetInterface := CallbackCreate(ObjBindMethod(implObj, "GetInterface"), flags, 3)
     }
 
     Dispose() {

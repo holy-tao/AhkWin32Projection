@@ -146,7 +146,6 @@ export default struct IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLStyle} 
      */
     get_style() {
@@ -155,7 +154,6 @@ export default struct IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -165,7 +163,6 @@ export default struct IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_tabStop() {
@@ -174,7 +171,6 @@ export default struct IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -184,7 +180,6 @@ export default struct IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_viewInheritStyle() {
@@ -193,7 +188,6 @@ export default struct IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -203,7 +197,6 @@ export default struct IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_viewMasterTab() {
@@ -212,7 +205,6 @@ export default struct IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -222,7 +214,6 @@ export default struct IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_scrollSegmentX() {
@@ -231,7 +222,6 @@ export default struct IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -241,7 +231,6 @@ export default struct IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_scrollSegmentY() {
@@ -250,7 +239,6 @@ export default struct IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -260,7 +248,6 @@ export default struct IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_isMultiLine() {
@@ -269,7 +256,6 @@ export default struct IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -281,7 +267,6 @@ export default struct IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_contentEditable() {
@@ -291,7 +276,6 @@ export default struct IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -301,7 +285,6 @@ export default struct IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_canHaveHTML() {
@@ -310,7 +293,6 @@ export default struct IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDocument} v 
      * @returns {HRESULT} 
      */
@@ -320,7 +302,6 @@ export default struct IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDocument} 
      */
     get_viewLink() {
@@ -329,7 +310,6 @@ export default struct IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -339,7 +319,6 @@ export default struct IHTMLElementDefaults extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_frozen() {
@@ -356,27 +335,27 @@ export default struct IHTMLElementDefaults extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_style := CallbackCreate(GetMethod(implObj, "get_style"), flags, 2)
-        this.vtbl.put_tabStop := CallbackCreate(GetMethod(implObj, "put_tabStop"), flags, 2)
-        this.vtbl.get_tabStop := CallbackCreate(GetMethod(implObj, "get_tabStop"), flags, 2)
-        this.vtbl.put_viewInheritStyle := CallbackCreate(GetMethod(implObj, "put_viewInheritStyle"), flags, 2)
-        this.vtbl.get_viewInheritStyle := CallbackCreate(GetMethod(implObj, "get_viewInheritStyle"), flags, 2)
-        this.vtbl.put_viewMasterTab := CallbackCreate(GetMethod(implObj, "put_viewMasterTab"), flags, 2)
-        this.vtbl.get_viewMasterTab := CallbackCreate(GetMethod(implObj, "get_viewMasterTab"), flags, 2)
-        this.vtbl.put_scrollSegmentX := CallbackCreate(GetMethod(implObj, "put_scrollSegmentX"), flags, 2)
-        this.vtbl.get_scrollSegmentX := CallbackCreate(GetMethod(implObj, "get_scrollSegmentX"), flags, 2)
-        this.vtbl.put_scrollSegmentY := CallbackCreate(GetMethod(implObj, "put_scrollSegmentY"), flags, 2)
-        this.vtbl.get_scrollSegmentY := CallbackCreate(GetMethod(implObj, "get_scrollSegmentY"), flags, 2)
-        this.vtbl.put_isMultiLine := CallbackCreate(GetMethod(implObj, "put_isMultiLine"), flags, 2)
-        this.vtbl.get_isMultiLine := CallbackCreate(GetMethod(implObj, "get_isMultiLine"), flags, 2)
-        this.vtbl.put_contentEditable := CallbackCreate(GetMethod(implObj, "put_contentEditable"), flags, 2)
-        this.vtbl.get_contentEditable := CallbackCreate(GetMethod(implObj, "get_contentEditable"), flags, 2)
-        this.vtbl.put_canHaveHTML := CallbackCreate(GetMethod(implObj, "put_canHaveHTML"), flags, 2)
-        this.vtbl.get_canHaveHTML := CallbackCreate(GetMethod(implObj, "get_canHaveHTML"), flags, 2)
-        this.vtbl.putref_viewLink := CallbackCreate(GetMethod(implObj, "putref_viewLink"), flags, 2)
-        this.vtbl.get_viewLink := CallbackCreate(GetMethod(implObj, "get_viewLink"), flags, 2)
-        this.vtbl.put_frozen := CallbackCreate(GetMethod(implObj, "put_frozen"), flags, 2)
-        this.vtbl.get_frozen := CallbackCreate(GetMethod(implObj, "get_frozen"), flags, 2)
+        this.vtbl.get_style := CallbackCreate(ObjBindMethod(implObj, "get_style"), flags, 2)
+        this.vtbl.put_tabStop := CallbackCreate(ObjBindMethod(implObj, "put_tabStop"), flags, 2)
+        this.vtbl.get_tabStop := CallbackCreate(ObjBindMethod(implObj, "get_tabStop"), flags, 2)
+        this.vtbl.put_viewInheritStyle := CallbackCreate(ObjBindMethod(implObj, "put_viewInheritStyle"), flags, 2)
+        this.vtbl.get_viewInheritStyle := CallbackCreate(ObjBindMethod(implObj, "get_viewInheritStyle"), flags, 2)
+        this.vtbl.put_viewMasterTab := CallbackCreate(ObjBindMethod(implObj, "put_viewMasterTab"), flags, 2)
+        this.vtbl.get_viewMasterTab := CallbackCreate(ObjBindMethod(implObj, "get_viewMasterTab"), flags, 2)
+        this.vtbl.put_scrollSegmentX := CallbackCreate(ObjBindMethod(implObj, "put_scrollSegmentX"), flags, 2)
+        this.vtbl.get_scrollSegmentX := CallbackCreate(ObjBindMethod(implObj, "get_scrollSegmentX"), flags, 2)
+        this.vtbl.put_scrollSegmentY := CallbackCreate(ObjBindMethod(implObj, "put_scrollSegmentY"), flags, 2)
+        this.vtbl.get_scrollSegmentY := CallbackCreate(ObjBindMethod(implObj, "get_scrollSegmentY"), flags, 2)
+        this.vtbl.put_isMultiLine := CallbackCreate(ObjBindMethod(implObj, "put_isMultiLine"), flags, 2)
+        this.vtbl.get_isMultiLine := CallbackCreate(ObjBindMethod(implObj, "get_isMultiLine"), flags, 2)
+        this.vtbl.put_contentEditable := CallbackCreate(ObjBindMethod(implObj, "put_contentEditable"), flags, 2)
+        this.vtbl.get_contentEditable := CallbackCreate(ObjBindMethod(implObj, "get_contentEditable"), flags, 2)
+        this.vtbl.put_canHaveHTML := CallbackCreate(ObjBindMethod(implObj, "put_canHaveHTML"), flags, 2)
+        this.vtbl.get_canHaveHTML := CallbackCreate(ObjBindMethod(implObj, "get_canHaveHTML"), flags, 2)
+        this.vtbl.putref_viewLink := CallbackCreate(ObjBindMethod(implObj, "putref_viewLink"), flags, 2)
+        this.vtbl.get_viewLink := CallbackCreate(ObjBindMethod(implObj, "get_viewLink"), flags, 2)
+        this.vtbl.put_frozen := CallbackCreate(ObjBindMethod(implObj, "put_frozen"), flags, 2)
+        this.vtbl.get_frozen := CallbackCreate(ObjBindMethod(implObj, "get_frozen"), flags, 2)
     }
 
     Dispose() {

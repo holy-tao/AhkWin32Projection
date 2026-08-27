@@ -234,16 +234,16 @@ export default struct IPerformanceCounterDataCollector extends IDataCollector {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_DataSourceName := CallbackCreate(GetMethod(implObj, "get_DataSourceName"), flags, 2)
-        this.vtbl.put_DataSourceName := CallbackCreate(GetMethod(implObj, "put_DataSourceName"), flags, 2)
-        this.vtbl.get_PerformanceCounters := CallbackCreate(GetMethod(implObj, "get_PerformanceCounters"), flags, 2)
-        this.vtbl.put_PerformanceCounters := CallbackCreate(GetMethod(implObj, "put_PerformanceCounters"), flags, 2)
-        this.vtbl.get_LogFileFormat := CallbackCreate(GetMethod(implObj, "get_LogFileFormat"), flags, 2)
-        this.vtbl.put_LogFileFormat := CallbackCreate(GetMethod(implObj, "put_LogFileFormat"), flags, 2)
-        this.vtbl.get_SampleInterval := CallbackCreate(GetMethod(implObj, "get_SampleInterval"), flags, 2)
-        this.vtbl.put_SampleInterval := CallbackCreate(GetMethod(implObj, "put_SampleInterval"), flags, 2)
-        this.vtbl.get_SegmentMaxRecords := CallbackCreate(GetMethod(implObj, "get_SegmentMaxRecords"), flags, 2)
-        this.vtbl.put_SegmentMaxRecords := CallbackCreate(GetMethod(implObj, "put_SegmentMaxRecords"), flags, 2)
+        this.vtbl.get_DataSourceName := CallbackCreate(ObjBindMethod(implObj, "get_DataSourceName"), flags, 2)
+        this.vtbl.put_DataSourceName := CallbackCreate(ObjBindMethod(implObj, "put_DataSourceName"), flags, 2)
+        this.vtbl.get_PerformanceCounters := CallbackCreate(ObjBindMethod(implObj, "get_PerformanceCounters"), flags, 2)
+        this.vtbl.put_PerformanceCounters := CallbackCreate(ObjBindMethod(implObj, "put_PerformanceCounters"), flags, 2)
+        this.vtbl.get_LogFileFormat := CallbackCreate(ObjBindMethod(implObj, "get_LogFileFormat"), flags, 2)
+        this.vtbl.put_LogFileFormat := CallbackCreate(ObjBindMethod(implObj, "put_LogFileFormat"), flags, 2)
+        this.vtbl.get_SampleInterval := CallbackCreate(ObjBindMethod(implObj, "get_SampleInterval"), flags, 2)
+        this.vtbl.put_SampleInterval := CallbackCreate(ObjBindMethod(implObj, "put_SampleInterval"), flags, 2)
+        this.vtbl.get_SegmentMaxRecords := CallbackCreate(ObjBindMethod(implObj, "get_SegmentMaxRecords"), flags, 2)
+        this.vtbl.put_SegmentMaxRecords := CallbackCreate(ObjBindMethod(implObj, "put_SegmentMaxRecords"), flags, 2)
     }
 
     Dispose() {

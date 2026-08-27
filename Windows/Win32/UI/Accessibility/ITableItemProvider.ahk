@@ -86,8 +86,8 @@ export default struct ITableItemProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRowHeaderItems := CallbackCreate(GetMethod(implObj, "GetRowHeaderItems"), flags, 2)
-        this.vtbl.GetColumnHeaderItems := CallbackCreate(GetMethod(implObj, "GetColumnHeaderItems"), flags, 2)
+        this.vtbl.GetRowHeaderItems := CallbackCreate(ObjBindMethod(implObj, "GetRowHeaderItems"), flags, 2)
+        this.vtbl.GetColumnHeaderItems := CallbackCreate(ObjBindMethod(implObj, "GetColumnHeaderItems"), flags, 2)
     }
 
     Dispose() {

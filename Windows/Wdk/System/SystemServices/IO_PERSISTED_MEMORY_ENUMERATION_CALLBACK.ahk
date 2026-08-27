@@ -22,7 +22,6 @@ export default struct IO_PERSISTED_MEMORY_ENUMERATION_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
      * @param {Pointer<DEVICE_OBJECT>} PhysicalDeviceObject 
      * @param {Pointer<UNICODE_STRING>} PhysicalDeviceId 
@@ -32,11 +31,16 @@ export default struct IO_PERSISTED_MEMORY_ENUMERATION_CALLBACK {
      * @returns {NTSTATUS} 
      */
     Call(DriverObject, PhysicalDeviceObject, PhysicalDeviceId, DataTag, DataVersion, _Context) {
-        DataTagMarshal := DataTag is VarRef ? "ushort*" : "ptr"
-        DataVersionMarshal := DataVersion is VarRef ? "uint*" : "ptr"
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        PhysicalDeviceObjectMarshal := PhysicalDeviceObject == 0 ? IntPtr : DEVICE_OBJECT.Ptr
+        PhysicalDeviceIdMarshal := PhysicalDeviceId == 0 ? IntPtr : UNICODE_STRING.Ptr
+        DataTagMarshal := DataTag is VarRef ? "ushort*" : IntPtr
+        DataTagMarshal := DataTag == 0 ? IntPtr : "ushort*"
+        DataVersionMarshal := DataVersion is VarRef ? "uint*" : IntPtr
+        DataVersionMarshal := DataVersion == 0 ? IntPtr : "uint*"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
-        result := DllCall(this.value, DRIVER_OBJECT.Ptr, DriverObject, DEVICE_OBJECT.Ptr, PhysicalDeviceObject, UNICODE_STRING.Ptr, PhysicalDeviceId, DataTagMarshal, DataTag, DataVersionMarshal, DataVersion, _ContextMarshal, _Context, NTSTATUS)
+        result := DllCall(this.value, DRIVER_OBJECT.Ptr, DriverObject, PhysicalDeviceObjectMarshal, PhysicalDeviceObject, PhysicalDeviceIdMarshal, PhysicalDeviceId, DataTagMarshal, DataTag, DataVersionMarshal, DataVersion, _ContextMarshal, _Context, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

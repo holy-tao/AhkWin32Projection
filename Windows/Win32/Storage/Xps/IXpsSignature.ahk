@@ -112,8 +112,8 @@ export default struct IXpsSignature extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignature-getsignaturevalue
      */
     GetSignatureValue(signatureHashValue, count) {
-        signatureHashValueMarshal := signatureHashValue is VarRef ? "ptr*" : "ptr"
-        countMarshal := count is VarRef ? "uint*" : "ptr"
+        signatureHashValueMarshal := signatureHashValue is VarRef ? "ptr*" : IntPtr
+        countMarshal := count is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, signatureHashValueMarshal, signatureHashValue, countMarshal, count, "HRESULT")
         return result
@@ -263,8 +263,8 @@ export default struct IXpsSignature extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignature-getsignaturexml
      */
     GetSignatureXml(signatureXml, count) {
-        signatureXmlMarshal := signatureXml is VarRef ? "ptr*" : "ptr"
-        countMarshal := count is VarRef ? "uint*" : "ptr"
+        signatureXmlMarshal := signatureXml is VarRef ? "ptr*" : IntPtr
+        countMarshal := count is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, signatureXmlMarshal, signatureXml, countMarshal, count, "HRESULT")
         return result
@@ -325,7 +325,7 @@ export default struct IXpsSignature extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignature-setsignaturexml
      */
     SetSignatureXml(signatureXml, count) {
-        signatureXmlMarshal := signatureXml is VarRef ? "char*" : "ptr"
+        signatureXmlMarshal := signatureXml is VarRef ? "char*" : IntPtr
 
         result := ComCall(14, this, signatureXmlMarshal, signatureXml, UInt32, count, "HRESULT")
         return result
@@ -340,18 +340,18 @@ export default struct IXpsSignature extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSignatureId := CallbackCreate(GetMethod(implObj, "GetSignatureId"), flags, 2)
-        this.vtbl.GetSignatureValue := CallbackCreate(GetMethod(implObj, "GetSignatureValue"), flags, 3)
-        this.vtbl.GetCertificateEnumerator := CallbackCreate(GetMethod(implObj, "GetCertificateEnumerator"), flags, 2)
-        this.vtbl.GetSigningTime := CallbackCreate(GetMethod(implObj, "GetSigningTime"), flags, 2)
-        this.vtbl.GetSigningTimeFormat := CallbackCreate(GetMethod(implObj, "GetSigningTimeFormat"), flags, 2)
-        this.vtbl.GetSignaturePartName := CallbackCreate(GetMethod(implObj, "GetSignaturePartName"), flags, 2)
-        this.vtbl.Verify := CallbackCreate(GetMethod(implObj, "Verify"), flags, 3)
-        this.vtbl.GetPolicy := CallbackCreate(GetMethod(implObj, "GetPolicy"), flags, 2)
-        this.vtbl.GetCustomObjectEnumerator := CallbackCreate(GetMethod(implObj, "GetCustomObjectEnumerator"), flags, 2)
-        this.vtbl.GetCustomReferenceEnumerator := CallbackCreate(GetMethod(implObj, "GetCustomReferenceEnumerator"), flags, 2)
-        this.vtbl.GetSignatureXml := CallbackCreate(GetMethod(implObj, "GetSignatureXml"), flags, 3)
-        this.vtbl.SetSignatureXml := CallbackCreate(GetMethod(implObj, "SetSignatureXml"), flags, 3)
+        this.vtbl.GetSignatureId := CallbackCreate(ObjBindMethod(implObj, "GetSignatureId"), flags, 2)
+        this.vtbl.GetSignatureValue := CallbackCreate(ObjBindMethod(implObj, "GetSignatureValue"), flags, 3)
+        this.vtbl.GetCertificateEnumerator := CallbackCreate(ObjBindMethod(implObj, "GetCertificateEnumerator"), flags, 2)
+        this.vtbl.GetSigningTime := CallbackCreate(ObjBindMethod(implObj, "GetSigningTime"), flags, 2)
+        this.vtbl.GetSigningTimeFormat := CallbackCreate(ObjBindMethod(implObj, "GetSigningTimeFormat"), flags, 2)
+        this.vtbl.GetSignaturePartName := CallbackCreate(ObjBindMethod(implObj, "GetSignaturePartName"), flags, 2)
+        this.vtbl.Verify := CallbackCreate(ObjBindMethod(implObj, "Verify"), flags, 3)
+        this.vtbl.GetPolicy := CallbackCreate(ObjBindMethod(implObj, "GetPolicy"), flags, 2)
+        this.vtbl.GetCustomObjectEnumerator := CallbackCreate(ObjBindMethod(implObj, "GetCustomObjectEnumerator"), flags, 2)
+        this.vtbl.GetCustomReferenceEnumerator := CallbackCreate(ObjBindMethod(implObj, "GetCustomReferenceEnumerator"), flags, 2)
+        this.vtbl.GetSignatureXml := CallbackCreate(ObjBindMethod(implObj, "GetSignatureXml"), flags, 3)
+        this.vtbl.SetSignatureXml := CallbackCreate(ObjBindMethod(implObj, "SetSignatureXml"), flags, 3)
     }
 
     Dispose() {

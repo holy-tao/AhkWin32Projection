@@ -211,10 +211,10 @@ export default struct IAsynchronousDataRetriever extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetIdParameters := CallbackCreate(GetMethod(implObj, "GetIdParameters"), flags, 2)
-        this.vtbl.RegisterCallback := CallbackCreate(GetMethod(implObj, "RegisterCallback"), flags, 2)
-        this.vtbl.RevokeCallback := CallbackCreate(GetMethod(implObj, "RevokeCallback"), flags, 2)
-        this.vtbl.LoadChangeData := CallbackCreate(GetMethod(implObj, "LoadChangeData"), flags, 2)
+        this.vtbl.GetIdParameters := CallbackCreate(ObjBindMethod(implObj, "GetIdParameters"), flags, 2)
+        this.vtbl.RegisterCallback := CallbackCreate(ObjBindMethod(implObj, "RegisterCallback"), flags, 2)
+        this.vtbl.RevokeCallback := CallbackCreate(ObjBindMethod(implObj, "RevokeCallback"), flags, 2)
+        this.vtbl.LoadChangeData := CallbackCreate(ObjBindMethod(implObj, "LoadChangeData"), flags, 2)
     }
 
     Dispose() {

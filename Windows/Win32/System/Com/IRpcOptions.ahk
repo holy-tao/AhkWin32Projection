@@ -136,8 +136,8 @@ export default struct IRpcOptions extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Set := CallbackCreate(GetMethod(implObj, "Set"), flags, 4)
-        this.vtbl.Query := CallbackCreate(GetMethod(implObj, "Query"), flags, 4)
+        this.vtbl.Set := CallbackCreate(ObjBindMethod(implObj, "Set"), flags, 4)
+        this.vtbl.Query := CallbackCreate(ObjBindMethod(implObj, "Query"), flags, 4)
     }
 
     Dispose() {

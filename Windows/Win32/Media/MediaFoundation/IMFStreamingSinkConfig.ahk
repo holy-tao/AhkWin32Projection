@@ -87,7 +87,7 @@ export default struct IMFStreamingSinkConfig extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StartStreaming := CallbackCreate(GetMethod(implObj, "StartStreaming"), flags, 3)
+        this.vtbl.StartStreaming := CallbackCreate(ObjBindMethod(implObj, "StartStreaming"), flags, 3)
     }
 
     Dispose() {

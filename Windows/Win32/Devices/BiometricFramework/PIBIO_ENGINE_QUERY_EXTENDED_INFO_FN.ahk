@@ -26,7 +26,6 @@ export default struct PIBIO_ENGINE_QUERY_EXTENDED_INFO_FN {
     }
 
     /**
-     * 
      * @param {Pointer<WINBIO_PIPELINE>} Pipeline Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winbio_adapter/ns-winbio_adapter-winbio_pipeline">WINBIO_PIPELINE</a> structure associated with the biometric unit performing the operation.
      * @param {Integer} EngineInfo Pointer to the the <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-extended-engine-info">WINBIO_EXTENDED_ENGINE_INFO</a> structure that contains the engine information returned by this function.
      * @param {Pointer} EngineInfoSize The specified size in bytes of the engine information.

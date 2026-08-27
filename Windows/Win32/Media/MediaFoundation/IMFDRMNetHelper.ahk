@@ -102,9 +102,9 @@ export default struct IMFDRMNetHelper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfdrmnethelper-processlicenserequest
      */
     ProcessLicenseRequest(pLicenseRequest, cbLicenseRequest, ppLicenseResponse, pcbLicenseResponse, pbstrKID) {
-        pLicenseRequestMarshal := pLicenseRequest is VarRef ? "char*" : "ptr"
-        ppLicenseResponseMarshal := ppLicenseResponse is VarRef ? "ptr*" : "ptr"
-        pcbLicenseResponseMarshal := pcbLicenseResponse is VarRef ? "uint*" : "ptr"
+        pLicenseRequestMarshal := pLicenseRequest is VarRef ? "char*" : IntPtr
+        ppLicenseResponseMarshal := ppLicenseResponse is VarRef ? "ptr*" : IntPtr
+        pcbLicenseResponseMarshal := pcbLicenseResponse is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pLicenseRequestMarshal, pLicenseRequest, UInt32, cbLicenseRequest, ppLicenseResponseMarshal, ppLicenseResponse, pcbLicenseResponseMarshal, pcbLicenseResponse, BSTR.Ptr, pbstrKID, "HRESULT")
         return result
@@ -118,8 +118,8 @@ export default struct IMFDRMNetHelper extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfdrmnethelper-getchainedlicenseresponse
      */
     GetChainedLicenseResponse(ppLicenseResponse, pcbLicenseResponse) {
-        ppLicenseResponseMarshal := ppLicenseResponse is VarRef ? "ptr*" : "ptr"
-        pcbLicenseResponseMarshal := pcbLicenseResponse is VarRef ? "uint*" : "ptr"
+        ppLicenseResponseMarshal := ppLicenseResponse is VarRef ? "ptr*" : IntPtr
+        pcbLicenseResponseMarshal := pcbLicenseResponse is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, ppLicenseResponseMarshal, ppLicenseResponse, pcbLicenseResponseMarshal, pcbLicenseResponse, "HRESULT")
         return result
@@ -134,8 +134,8 @@ export default struct IMFDRMNetHelper extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ProcessLicenseRequest := CallbackCreate(GetMethod(implObj, "ProcessLicenseRequest"), flags, 6)
-        this.vtbl.GetChainedLicenseResponse := CallbackCreate(GetMethod(implObj, "GetChainedLicenseResponse"), flags, 3)
+        this.vtbl.ProcessLicenseRequest := CallbackCreate(ObjBindMethod(implObj, "ProcessLicenseRequest"), flags, 6)
+        this.vtbl.GetChainedLicenseResponse := CallbackCreate(ObjBindMethod(implObj, "GetChainedLicenseResponse"), flags, 3)
     }
 
     Dispose() {

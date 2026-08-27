@@ -91,8 +91,8 @@ export default struct IFaxLoggingOptions extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_EventLogging := CallbackCreate(GetMethod(implObj, "get_EventLogging"), flags, 2)
-        this.vtbl.get_ActivityLogging := CallbackCreate(GetMethod(implObj, "get_ActivityLogging"), flags, 2)
+        this.vtbl.get_EventLogging := CallbackCreate(ObjBindMethod(implObj, "get_EventLogging"), flags, 2)
+        this.vtbl.get_ActivityLogging := CallbackCreate(ObjBindMethod(implObj, "get_ActivityLogging"), flags, 2)
     }
 
     Dispose() {

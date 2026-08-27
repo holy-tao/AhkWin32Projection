@@ -37,7 +37,6 @@ export default struct IDebugHostConstant extends IDebugHostSymbol {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     GetValue() {
@@ -55,7 +54,7 @@ export default struct IDebugHostConstant extends IDebugHostSymbol {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetValue := CallbackCreate(GetMethod(implObj, "GetValue"), flags, 2)
+        this.vtbl.GetValue := CallbackCreate(ObjBindMethod(implObj, "GetValue"), flags, 2)
     }
 
     Dispose() {

@@ -21,7 +21,6 @@ export default struct PENUMERATE_JOB_PROCESSES {
     }
 
     /**
-     * 
      * @param {IDebugClient} Client 
      * @param {Integer} Job 
      * @param {Pointer<EXTS_JOB_PROCESS_CALLBACK>} Callback 
@@ -29,7 +28,8 @@ export default struct PENUMERATE_JOB_PROCESSES {
      * @returns {HRESULT} 
      */
     Call(Client, Job, Callback, _Context) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        _ContextMarshal := _Context == 0 ? IntPtr : "ptr"
 
         result := DllCall(this.value, "ptr", Client, Int64, Job, EXTS_JOB_PROCESS_CALLBACK, Callback, _ContextMarshal, _Context, "HRESULT")
         return result

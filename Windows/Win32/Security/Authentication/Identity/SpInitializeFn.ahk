@@ -31,7 +31,6 @@ export default struct SpInitializeFn {
     }
 
     /**
-     * 
      * @param {Pointer} PackageId A unique identifier the LSA assigns to each security package. The value is valid until the system is restarted.
      * @param {Pointer<SECPKG_PARAMETERS>} Parameters A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecpkg/ns-ntsecpkg-secpkg_parameters">SECPKG_PARAMETERS</a> structure containing primary domain and machine state information.

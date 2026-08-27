@@ -47,7 +47,6 @@ export default struct IBidiRequest extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszSchema 
      * @returns {HRESULT} 
      */
@@ -59,21 +58,19 @@ export default struct IBidiRequest extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwType 
      * @param {Pointer<Integer>} pData 
      * @param {Integer} uSize 
      * @returns {HRESULT} 
      */
     SetInputData(dwType, pData, uSize) {
-        pDataMarshal := pData is VarRef ? "char*" : "ptr"
+        pDataMarshal := pData is VarRef ? "char*" : IntPtr
 
         result := ComCall(4, this, UInt32, dwType, pDataMarshal, pData, UInt32, uSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     GetResult() {
@@ -82,7 +79,6 @@ export default struct IBidiRequest extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwIndex 
      * @param {Pointer<PWSTR>} ppszSchema 
      * @param {Pointer<Integer>} pdwType 
@@ -91,17 +87,16 @@ export default struct IBidiRequest extends IUnknown {
      * @returns {HRESULT} 
      */
     GetOutputData(dwIndex, ppszSchema, pdwType, ppData, uSize) {
-        ppszSchemaMarshal := ppszSchema is VarRef ? "ptr*" : "ptr"
-        pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
-        ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
-        uSizeMarshal := uSize is VarRef ? "uint*" : "ptr"
+        ppszSchemaMarshal := ppszSchema is VarRef ? "ptr*" : IntPtr
+        pdwTypeMarshal := pdwType is VarRef ? "uint*" : IntPtr
+        ppDataMarshal := ppData is VarRef ? "ptr*" : IntPtr
+        uSizeMarshal := uSize is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, UInt32, dwIndex, ppszSchemaMarshal, ppszSchema, pdwTypeMarshal, pdwType, ppDataMarshal, ppData, uSizeMarshal, uSize, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     GetEnumCount() {
@@ -118,11 +113,11 @@ export default struct IBidiRequest extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetSchema := CallbackCreate(GetMethod(implObj, "SetSchema"), flags, 2)
-        this.vtbl.SetInputData := CallbackCreate(GetMethod(implObj, "SetInputData"), flags, 4)
-        this.vtbl.GetResult := CallbackCreate(GetMethod(implObj, "GetResult"), flags, 2)
-        this.vtbl.GetOutputData := CallbackCreate(GetMethod(implObj, "GetOutputData"), flags, 6)
-        this.vtbl.GetEnumCount := CallbackCreate(GetMethod(implObj, "GetEnumCount"), flags, 2)
+        this.vtbl.SetSchema := CallbackCreate(ObjBindMethod(implObj, "SetSchema"), flags, 2)
+        this.vtbl.SetInputData := CallbackCreate(ObjBindMethod(implObj, "SetInputData"), flags, 4)
+        this.vtbl.GetResult := CallbackCreate(ObjBindMethod(implObj, "GetResult"), flags, 2)
+        this.vtbl.GetOutputData := CallbackCreate(ObjBindMethod(implObj, "GetOutputData"), flags, 6)
+        this.vtbl.GetEnumCount := CallbackCreate(ObjBindMethod(implObj, "GetEnumCount"), flags, 2)
     }
 
     Dispose() {

@@ -44,7 +44,6 @@ export default struct IDebugDocumentHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwTextStartCookie 
      * @param {PWSTR} pcharText 
      * @param {Pointer<Integer>} pstaTextAttr 
@@ -55,15 +54,14 @@ export default struct IDebugDocumentHost extends IUnknown {
     GetDeferredText(dwTextStartCookie, pcharText, pstaTextAttr, pcNumChars, cMaxChars) {
         pcharText := pcharText is String ? StrPtr(pcharText) : pcharText
 
-        pstaTextAttrMarshal := pstaTextAttr is VarRef ? "ushort*" : "ptr"
-        pcNumCharsMarshal := pcNumChars is VarRef ? "uint*" : "ptr"
+        pstaTextAttrMarshal := pstaTextAttr is VarRef ? "ushort*" : IntPtr
+        pcNumCharsMarshal := pcNumChars is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, UInt32, dwTextStartCookie, "ptr", pcharText, pstaTextAttrMarshal, pstaTextAttr, pcNumCharsMarshal, pcNumChars, UInt32, cMaxChars, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pstrCode 
      * @param {Integer} uNumCodeChars 
      * @param {PWSTR} pstrDelimiter 
@@ -75,14 +73,13 @@ export default struct IDebugDocumentHost extends IUnknown {
         pstrCode := pstrCode is String ? StrPtr(pstrCode) : pstrCode
         pstrDelimiter := pstrDelimiter is String ? StrPtr(pstrDelimiter) : pstrDelimiter
 
-        pattrMarshal := pattr is VarRef ? "ushort*" : "ptr"
+        pattrMarshal := pattr is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(4, this, "ptr", pstrCode, UInt32, uNumCodeChars, "ptr", pstrDelimiter, UInt32, dwFlags, pattrMarshal, pattr, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {IUnknown} 
      */
     OnCreateDocumentContext() {
@@ -91,20 +88,18 @@ export default struct IDebugDocumentHost extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pbstrLongName 
      * @param {Pointer<BOOL>} pfIsOriginalFile 
      * @returns {HRESULT} 
      */
     GetPathName(pbstrLongName, pfIsOriginalFile) {
-        pfIsOriginalFileMarshal := pfIsOriginalFile is VarRef ? "int*" : "ptr"
+        pfIsOriginalFileMarshal := pfIsOriginalFile is VarRef ? "int*" : IntPtr
 
         result := ComCall(6, this, BSTR.Ptr, pbstrLongName, pfIsOriginalFileMarshal, pfIsOriginalFile, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetFileName() {
@@ -114,7 +109,6 @@ export default struct IDebugDocumentHost extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     NotifyChanged() {
@@ -131,12 +125,12 @@ export default struct IDebugDocumentHost extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDeferredText := CallbackCreate(GetMethod(implObj, "GetDeferredText"), flags, 6)
-        this.vtbl.GetScriptTextAttributes := CallbackCreate(GetMethod(implObj, "GetScriptTextAttributes"), flags, 6)
-        this.vtbl.OnCreateDocumentContext := CallbackCreate(GetMethod(implObj, "OnCreateDocumentContext"), flags, 2)
-        this.vtbl.GetPathName := CallbackCreate(GetMethod(implObj, "GetPathName"), flags, 3)
-        this.vtbl.GetFileName := CallbackCreate(GetMethod(implObj, "GetFileName"), flags, 2)
-        this.vtbl.NotifyChanged := CallbackCreate(GetMethod(implObj, "NotifyChanged"), flags, 1)
+        this.vtbl.GetDeferredText := CallbackCreate(ObjBindMethod(implObj, "GetDeferredText"), flags, 6)
+        this.vtbl.GetScriptTextAttributes := CallbackCreate(ObjBindMethod(implObj, "GetScriptTextAttributes"), flags, 6)
+        this.vtbl.OnCreateDocumentContext := CallbackCreate(ObjBindMethod(implObj, "OnCreateDocumentContext"), flags, 2)
+        this.vtbl.GetPathName := CallbackCreate(ObjBindMethod(implObj, "GetPathName"), flags, 3)
+        this.vtbl.GetFileName := CallbackCreate(ObjBindMethod(implObj, "GetFileName"), flags, 2)
+        this.vtbl.NotifyChanged := CallbackCreate(ObjBindMethod(implObj, "NotifyChanged"), flags, 1)
     }
 
     Dispose() {

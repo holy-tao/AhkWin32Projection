@@ -19,7 +19,6 @@ export default struct LPDDHALSURFCB_SETOVERLAYPOSITION {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_SETOVERLAYPOSITIONDATA>} param0 
      * @returns {Integer} 
      */

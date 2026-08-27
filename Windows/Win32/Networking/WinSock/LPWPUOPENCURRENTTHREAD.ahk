@@ -19,13 +19,12 @@ export default struct LPWPUOPENCURRENTTHREAD {
     }
 
     /**
-     * 
      * @param {Pointer<WSATHREADID>} lpThreadId 
      * @param {Pointer<Integer>} lpErrno 
      * @returns {Integer} 
      */
     Call(lpThreadId, lpErrno) {
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, WSATHREADID.Ptr, lpThreadId, lpErrnoMarshal, lpErrno, Int32)
         return result

@@ -18,7 +18,6 @@ export default struct PIO_WORKITEM_ROUTINE_EX {
     }
 
     /**
-     * 
      * @returns {String} Nothing - always returns an empty string
      */
     Call() {

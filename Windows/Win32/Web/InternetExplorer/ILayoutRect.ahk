@@ -96,7 +96,6 @@ export default struct ILayoutRect extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bstrElementId 
      * @returns {HRESULT} 
      */
@@ -108,7 +107,6 @@ export default struct ILayoutRect extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_nextRect() {
@@ -118,7 +116,6 @@ export default struct ILayoutRect extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} varContentSrc 
      * @returns {HRESULT} 
      */
@@ -128,7 +125,6 @@ export default struct ILayoutRect extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_contentSrc() {
@@ -138,7 +134,6 @@ export default struct ILayoutRect extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -148,7 +143,6 @@ export default struct ILayoutRect extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_honorPageBreaks() {
@@ -157,7 +151,6 @@ export default struct ILayoutRect extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -167,7 +160,6 @@ export default struct ILayoutRect extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_honorPageRules() {
@@ -176,7 +168,6 @@ export default struct ILayoutRect extends IDispatch {
     }
 
     /**
-     * 
      * @param {IDispatch} pElem 
      * @returns {HRESULT} 
      */
@@ -186,7 +177,6 @@ export default struct ILayoutRect extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_nextRectElement() {
@@ -195,7 +185,6 @@ export default struct ILayoutRect extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_contentDocument() {
@@ -212,17 +201,17 @@ export default struct ILayoutRect extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_nextRect := CallbackCreate(GetMethod(implObj, "put_nextRect"), flags, 2)
-        this.vtbl.get_nextRect := CallbackCreate(GetMethod(implObj, "get_nextRect"), flags, 2)
-        this.vtbl.put_contentSrc := CallbackCreate(GetMethod(implObj, "put_contentSrc"), flags, 2)
-        this.vtbl.get_contentSrc := CallbackCreate(GetMethod(implObj, "get_contentSrc"), flags, 2)
-        this.vtbl.put_honorPageBreaks := CallbackCreate(GetMethod(implObj, "put_honorPageBreaks"), flags, 2)
-        this.vtbl.get_honorPageBreaks := CallbackCreate(GetMethod(implObj, "get_honorPageBreaks"), flags, 2)
-        this.vtbl.put_honorPageRules := CallbackCreate(GetMethod(implObj, "put_honorPageRules"), flags, 2)
-        this.vtbl.get_honorPageRules := CallbackCreate(GetMethod(implObj, "get_honorPageRules"), flags, 2)
-        this.vtbl.put_nextRectElement := CallbackCreate(GetMethod(implObj, "put_nextRectElement"), flags, 2)
-        this.vtbl.get_nextRectElement := CallbackCreate(GetMethod(implObj, "get_nextRectElement"), flags, 2)
-        this.vtbl.get_contentDocument := CallbackCreate(GetMethod(implObj, "get_contentDocument"), flags, 2)
+        this.vtbl.put_nextRect := CallbackCreate(ObjBindMethod(implObj, "put_nextRect"), flags, 2)
+        this.vtbl.get_nextRect := CallbackCreate(ObjBindMethod(implObj, "get_nextRect"), flags, 2)
+        this.vtbl.put_contentSrc := CallbackCreate(ObjBindMethod(implObj, "put_contentSrc"), flags, 2)
+        this.vtbl.get_contentSrc := CallbackCreate(ObjBindMethod(implObj, "get_contentSrc"), flags, 2)
+        this.vtbl.put_honorPageBreaks := CallbackCreate(ObjBindMethod(implObj, "put_honorPageBreaks"), flags, 2)
+        this.vtbl.get_honorPageBreaks := CallbackCreate(ObjBindMethod(implObj, "get_honorPageBreaks"), flags, 2)
+        this.vtbl.put_honorPageRules := CallbackCreate(ObjBindMethod(implObj, "put_honorPageRules"), flags, 2)
+        this.vtbl.get_honorPageRules := CallbackCreate(ObjBindMethod(implObj, "get_honorPageRules"), flags, 2)
+        this.vtbl.put_nextRectElement := CallbackCreate(ObjBindMethod(implObj, "put_nextRectElement"), flags, 2)
+        this.vtbl.get_nextRectElement := CallbackCreate(ObjBindMethod(implObj, "get_nextRectElement"), flags, 2)
+        this.vtbl.get_contentDocument := CallbackCreate(ObjBindMethod(implObj, "get_contentDocument"), flags, 2)
     }
 
     Dispose() {

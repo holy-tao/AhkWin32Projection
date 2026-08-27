@@ -118,7 +118,11 @@ export default struct IMFMediaEngineSrcElements extends IUnknown {
         pType := pType is String ? BSTR.Alloc(pType).Value : pType
         pMedia := pMedia is String ? BSTR.Alloc(pMedia).Value : pMedia
 
-        result := ComCall(7, this, BSTR, pURL, BSTR, pType, BSTR, pMedia, "HRESULT")
+        pURLMarshal := pURL == 0 ? IntPtr : BSTR
+        pTypeMarshal := pType == 0 ? IntPtr : BSTR
+        pMediaMarshal := pMedia == 0 ? IntPtr : BSTR
+
+        result := ComCall(7, this, pURLMarshal, pURL, pTypeMarshal, pType, pMediaMarshal, pMedia, "HRESULT")
         return result
     }
 
@@ -141,12 +145,12 @@ export default struct IMFMediaEngineSrcElements extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 1)
-        this.vtbl.GetURL := CallbackCreate(GetMethod(implObj, "GetURL"), flags, 3)
-        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 3)
-        this.vtbl.GetMedia := CallbackCreate(GetMethod(implObj, "GetMedia"), flags, 3)
-        this.vtbl.AddElement := CallbackCreate(GetMethod(implObj, "AddElement"), flags, 4)
-        this.vtbl.RemoveAllElements := CallbackCreate(GetMethod(implObj, "RemoveAllElements"), flags, 1)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 1)
+        this.vtbl.GetURL := CallbackCreate(ObjBindMethod(implObj, "GetURL"), flags, 3)
+        this.vtbl.GetType := CallbackCreate(ObjBindMethod(implObj, "GetType"), flags, 3)
+        this.vtbl.GetMedia := CallbackCreate(ObjBindMethod(implObj, "GetMedia"), flags, 3)
+        this.vtbl.AddElement := CallbackCreate(ObjBindMethod(implObj, "AddElement"), flags, 4)
+        this.vtbl.RemoveAllElements := CallbackCreate(ObjBindMethod(implObj, "RemoveAllElements"), flags, 1)
     }
 
     Dispose() {

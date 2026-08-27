@@ -173,7 +173,11 @@ export default struct IMFCaptureEngine extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcaptureengine-initialize
      */
     Initialize(pEventCallback, pAttributes, pAudioSource, pVideoSource) {
-        result := ComCall(3, this, "ptr", pEventCallback, "ptr", pAttributes, "ptr", pAudioSource, "ptr", pVideoSource, "HRESULT")
+        pAttributesMarshal := pAttributes == 0 ? IntPtr : "ptr"
+        pAudioSourceMarshal := pAudioSource == 0 ? IntPtr : "ptr"
+        pVideoSourceMarshal := pVideoSource == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, "ptr", pEventCallback, pAttributesMarshal, pAttributes, pAudioSourceMarshal, pAudioSource, pVideoSourceMarshal, pVideoSource, "HRESULT")
         return result
     }
 
@@ -366,14 +370,14 @@ export default struct IMFCaptureEngine extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 5)
-        this.vtbl.StartPreview := CallbackCreate(GetMethod(implObj, "StartPreview"), flags, 1)
-        this.vtbl.StopPreview := CallbackCreate(GetMethod(implObj, "StopPreview"), flags, 1)
-        this.vtbl.StartRecord := CallbackCreate(GetMethod(implObj, "StartRecord"), flags, 1)
-        this.vtbl.StopRecord := CallbackCreate(GetMethod(implObj, "StopRecord"), flags, 3)
-        this.vtbl.TakePhoto := CallbackCreate(GetMethod(implObj, "TakePhoto"), flags, 1)
-        this.vtbl.GetSink := CallbackCreate(GetMethod(implObj, "GetSink"), flags, 3)
-        this.vtbl.GetSource := CallbackCreate(GetMethod(implObj, "GetSource"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 5)
+        this.vtbl.StartPreview := CallbackCreate(ObjBindMethod(implObj, "StartPreview"), flags, 1)
+        this.vtbl.StopPreview := CallbackCreate(ObjBindMethod(implObj, "StopPreview"), flags, 1)
+        this.vtbl.StartRecord := CallbackCreate(ObjBindMethod(implObj, "StartRecord"), flags, 1)
+        this.vtbl.StopRecord := CallbackCreate(ObjBindMethod(implObj, "StopRecord"), flags, 3)
+        this.vtbl.TakePhoto := CallbackCreate(ObjBindMethod(implObj, "TakePhoto"), flags, 1)
+        this.vtbl.GetSink := CallbackCreate(ObjBindMethod(implObj, "GetSink"), flags, 3)
+        this.vtbl.GetSource := CallbackCreate(ObjBindMethod(implObj, "GetSource"), flags, 2)
     }
 
     Dispose() {

@@ -81,7 +81,6 @@ export default struct ISVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -93,7 +92,6 @@ export default struct ISVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_xmlbase() {
@@ -103,7 +101,6 @@ export default struct ISVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGSVGElement} v 
      * @returns {HRESULT} 
      */
@@ -113,7 +110,6 @@ export default struct ISVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGSVGElement} 
      */
     get_ownerSVGElement() {
@@ -122,7 +118,6 @@ export default struct ISVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGElement} v 
      * @returns {HRESULT} 
      */
@@ -132,7 +127,6 @@ export default struct ISVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGElement} 
      */
     get_viewportElement() {
@@ -141,7 +135,6 @@ export default struct ISVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedEnumeration} v 
      * @returns {HRESULT} 
      */
@@ -151,7 +144,6 @@ export default struct ISVGElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedEnumeration} 
      */
     get_focusable() {
@@ -168,14 +160,14 @@ export default struct ISVGElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_xmlbase := CallbackCreate(GetMethod(implObj, "put_xmlbase"), flags, 2)
-        this.vtbl.get_xmlbase := CallbackCreate(GetMethod(implObj, "get_xmlbase"), flags, 2)
-        this.vtbl.putref_ownerSVGElement := CallbackCreate(GetMethod(implObj, "putref_ownerSVGElement"), flags, 2)
-        this.vtbl.get_ownerSVGElement := CallbackCreate(GetMethod(implObj, "get_ownerSVGElement"), flags, 2)
-        this.vtbl.putref_viewportElement := CallbackCreate(GetMethod(implObj, "putref_viewportElement"), flags, 2)
-        this.vtbl.get_viewportElement := CallbackCreate(GetMethod(implObj, "get_viewportElement"), flags, 2)
-        this.vtbl.putref_focusable := CallbackCreate(GetMethod(implObj, "putref_focusable"), flags, 2)
-        this.vtbl.get_focusable := CallbackCreate(GetMethod(implObj, "get_focusable"), flags, 2)
+        this.vtbl.put_xmlbase := CallbackCreate(ObjBindMethod(implObj, "put_xmlbase"), flags, 2)
+        this.vtbl.get_xmlbase := CallbackCreate(ObjBindMethod(implObj, "get_xmlbase"), flags, 2)
+        this.vtbl.putref_ownerSVGElement := CallbackCreate(ObjBindMethod(implObj, "putref_ownerSVGElement"), flags, 2)
+        this.vtbl.get_ownerSVGElement := CallbackCreate(ObjBindMethod(implObj, "get_ownerSVGElement"), flags, 2)
+        this.vtbl.putref_viewportElement := CallbackCreate(ObjBindMethod(implObj, "putref_viewportElement"), flags, 2)
+        this.vtbl.get_viewportElement := CallbackCreate(ObjBindMethod(implObj, "get_viewportElement"), flags, 2)
+        this.vtbl.putref_focusable := CallbackCreate(ObjBindMethod(implObj, "putref_focusable"), flags, 2)
+        this.vtbl.get_focusable := CallbackCreate(ObjBindMethod(implObj, "get_focusable"), flags, 2)
     }
 
     Dispose() {

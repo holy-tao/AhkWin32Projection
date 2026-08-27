@@ -70,7 +70,6 @@ export default struct ISpeechPhraseAlternate extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechRecoResult} 
      */
     get_RecoResult() {
@@ -79,7 +78,6 @@ export default struct ISpeechPhraseAlternate extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_StartElementInResult() {
@@ -88,7 +86,6 @@ export default struct ISpeechPhraseAlternate extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_NumberOfElementsInResult() {
@@ -97,7 +94,6 @@ export default struct ISpeechPhraseAlternate extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISpeechPhraseInfo} 
      */
     get_PhraseInfo() {
@@ -106,7 +102,6 @@ export default struct ISpeechPhraseAlternate extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Commit() {
@@ -123,11 +118,11 @@ export default struct ISpeechPhraseAlternate extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_RecoResult := CallbackCreate(GetMethod(implObj, "get_RecoResult"), flags, 2)
-        this.vtbl.get_StartElementInResult := CallbackCreate(GetMethod(implObj, "get_StartElementInResult"), flags, 2)
-        this.vtbl.get_NumberOfElementsInResult := CallbackCreate(GetMethod(implObj, "get_NumberOfElementsInResult"), flags, 2)
-        this.vtbl.get_PhraseInfo := CallbackCreate(GetMethod(implObj, "get_PhraseInfo"), flags, 2)
-        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 1)
+        this.vtbl.get_RecoResult := CallbackCreate(ObjBindMethod(implObj, "get_RecoResult"), flags, 2)
+        this.vtbl.get_StartElementInResult := CallbackCreate(ObjBindMethod(implObj, "get_StartElementInResult"), flags, 2)
+        this.vtbl.get_NumberOfElementsInResult := CallbackCreate(ObjBindMethod(implObj, "get_NumberOfElementsInResult"), flags, 2)
+        this.vtbl.get_PhraseInfo := CallbackCreate(ObjBindMethod(implObj, "get_PhraseInfo"), flags, 2)
+        this.vtbl.Commit := CallbackCreate(ObjBindMethod(implObj, "Commit"), flags, 1)
     }
 
     Dispose() {

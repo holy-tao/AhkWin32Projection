@@ -46,7 +46,6 @@ export default struct PDD_WAITFORVERTICALBLANK {
     }
 
     /**
-     * 
      * @param {Pointer<DD_WAITFORVERTICALBLANKDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_waitforverticalblankdata">DD_WAITFORVERTICALBLANKDATA</a> structure that contains the information required to obtain the vertical blank status.
      * @returns {Integer} <b>DdWaitForVerticalBlank</b> returns one of the following callback codes:
      */

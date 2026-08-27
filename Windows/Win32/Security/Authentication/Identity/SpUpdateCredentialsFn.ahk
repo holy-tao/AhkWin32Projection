@@ -26,7 +26,6 @@ export default struct SpUpdateCredentialsFn {
     }
 
     /**
-     * 
      * @param {Pointer} ContextHandle A handle to the context to update.
      * @param {Pointer<Guid>} CredType 
      * @param {Integer} FlatCredUIContextLength The size, in characters, of the buffer specified by  the <i>FlatCredUIContext</i> parameter.

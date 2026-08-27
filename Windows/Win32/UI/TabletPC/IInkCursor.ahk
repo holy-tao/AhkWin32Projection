@@ -180,7 +180,9 @@ export default struct IInkCursor extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursor-putref_drawingattributes
      */
     putref_DrawingAttributes(Attributes) {
-        result := ComCall(11, this, "ptr", Attributes, "HRESULT")
+        AttributesMarshal := Attributes == 0 ? IntPtr : "ptr"
+
+        result := ComCall(11, this, AttributesMarshal, Attributes, "HRESULT")
         return result
     }
 
@@ -219,13 +221,13 @@ export default struct IInkCursor extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_Id := CallbackCreate(GetMethod(implObj, "get_Id"), flags, 2)
-        this.vtbl.get_Inverted := CallbackCreate(GetMethod(implObj, "get_Inverted"), flags, 2)
-        this.vtbl.get_DrawingAttributes := CallbackCreate(GetMethod(implObj, "get_DrawingAttributes"), flags, 2)
-        this.vtbl.putref_DrawingAttributes := CallbackCreate(GetMethod(implObj, "putref_DrawingAttributes"), flags, 2)
-        this.vtbl.get_Tablet := CallbackCreate(GetMethod(implObj, "get_Tablet"), flags, 2)
-        this.vtbl.get_Buttons := CallbackCreate(GetMethod(implObj, "get_Buttons"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_Id := CallbackCreate(ObjBindMethod(implObj, "get_Id"), flags, 2)
+        this.vtbl.get_Inverted := CallbackCreate(ObjBindMethod(implObj, "get_Inverted"), flags, 2)
+        this.vtbl.get_DrawingAttributes := CallbackCreate(ObjBindMethod(implObj, "get_DrawingAttributes"), flags, 2)
+        this.vtbl.putref_DrawingAttributes := CallbackCreate(ObjBindMethod(implObj, "putref_DrawingAttributes"), flags, 2)
+        this.vtbl.get_Tablet := CallbackCreate(ObjBindMethod(implObj, "get_Tablet"), flags, 2)
+        this.vtbl.get_Buttons := CallbackCreate(ObjBindMethod(implObj, "get_Buttons"), flags, 2)
     }
 
     Dispose() {

@@ -41,7 +41,6 @@ export default struct IMLangFontLink extends IMLangCodePages {
     }
 
     /**
-     * 
      * @param {HDC} _hDC 
      * @param {HFONT} _hFont 
      * @returns {Integer} 
@@ -52,7 +51,6 @@ export default struct IMLangFontLink extends IMLangCodePages {
     }
 
     /**
-     * 
      * @param {HDC} _hDC 
      * @param {Integer} dwCodePages 
      * @param {HFONT} hSrcFont 
@@ -65,7 +63,6 @@ export default struct IMLangFontLink extends IMLangCodePages {
     }
 
     /**
-     * 
      * @param {HFONT} _hFont 
      * @returns {HRESULT} 
      */
@@ -75,7 +72,6 @@ export default struct IMLangFontLink extends IMLangCodePages {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ResetFontMapping() {
@@ -92,10 +88,10 @@ export default struct IMLangFontLink extends IMLangCodePages {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetFontCodePages := CallbackCreate(GetMethod(implObj, "GetFontCodePages"), flags, 4)
-        this.vtbl.MapFont := CallbackCreate(GetMethod(implObj, "MapFont"), flags, 5)
-        this.vtbl.ReleaseFont := CallbackCreate(GetMethod(implObj, "ReleaseFont"), flags, 2)
-        this.vtbl.ResetFontMapping := CallbackCreate(GetMethod(implObj, "ResetFontMapping"), flags, 1)
+        this.vtbl.GetFontCodePages := CallbackCreate(ObjBindMethod(implObj, "GetFontCodePages"), flags, 4)
+        this.vtbl.MapFont := CallbackCreate(ObjBindMethod(implObj, "MapFont"), flags, 5)
+        this.vtbl.ReleaseFont := CallbackCreate(ObjBindMethod(implObj, "ReleaseFont"), flags, 2)
+        this.vtbl.ResetFontMapping := CallbackCreate(ObjBindMethod(implObj, "ResetFontMapping"), flags, 1)
     }
 
     Dispose() {

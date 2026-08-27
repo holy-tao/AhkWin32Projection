@@ -136,13 +136,13 @@ export default struct IDvbSubtitlingDescriptor extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTag := CallbackCreate(GetMethod(implObj, "GetTag"), flags, 2)
-        this.vtbl.GetLength := CallbackCreate(GetMethod(implObj, "GetLength"), flags, 2)
-        this.vtbl.GetCountOfRecords := CallbackCreate(GetMethod(implObj, "GetCountOfRecords"), flags, 2)
-        this.vtbl.GetRecordLangId := CallbackCreate(GetMethod(implObj, "GetRecordLangId"), flags, 3)
-        this.vtbl.GetRecordSubtitlingType := CallbackCreate(GetMethod(implObj, "GetRecordSubtitlingType"), flags, 3)
-        this.vtbl.GetRecordCompositionPageID := CallbackCreate(GetMethod(implObj, "GetRecordCompositionPageID"), flags, 3)
-        this.vtbl.GetRecordAncillaryPageID := CallbackCreate(GetMethod(implObj, "GetRecordAncillaryPageID"), flags, 3)
+        this.vtbl.GetTag := CallbackCreate(ObjBindMethod(implObj, "GetTag"), flags, 2)
+        this.vtbl.GetLength := CallbackCreate(ObjBindMethod(implObj, "GetLength"), flags, 2)
+        this.vtbl.GetCountOfRecords := CallbackCreate(ObjBindMethod(implObj, "GetCountOfRecords"), flags, 2)
+        this.vtbl.GetRecordLangId := CallbackCreate(ObjBindMethod(implObj, "GetRecordLangId"), flags, 3)
+        this.vtbl.GetRecordSubtitlingType := CallbackCreate(ObjBindMethod(implObj, "GetRecordSubtitlingType"), flags, 3)
+        this.vtbl.GetRecordCompositionPageID := CallbackCreate(ObjBindMethod(implObj, "GetRecordCompositionPageID"), flags, 3)
+        this.vtbl.GetRecordAncillaryPageID := CallbackCreate(ObjBindMethod(implObj, "GetRecordAncillaryPageID"), flags, 3)
     }
 
     Dispose() {

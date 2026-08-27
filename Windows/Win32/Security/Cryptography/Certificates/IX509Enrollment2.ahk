@@ -132,7 +132,10 @@ export default struct IX509Enrollment2 extends IX509Enrollment {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollment2-initializefromtemplate
      */
     InitializeFromTemplate(_context, pPolicyServer, pTemplate) {
-        result := ComCall(30, this, X509CertificateEnrollmentContext, _context, "ptr", pPolicyServer, "ptr", pTemplate, "HRESULT")
+        pPolicyServerMarshal := pPolicyServer == 0 ? IntPtr : "ptr"
+        pTemplateMarshal := pTemplate == 0 ? IntPtr : "ptr"
+
+        result := ComCall(30, this, X509CertificateEnrollmentContext, _context, pPolicyServerMarshal, pPolicyServer, pTemplateMarshal, pTemplate, "HRESULT")
         return result
     }
 
@@ -321,11 +324,11 @@ export default struct IX509Enrollment2 extends IX509Enrollment {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.InitializeFromTemplate := CallbackCreate(GetMethod(implObj, "InitializeFromTemplate"), flags, 4)
-        this.vtbl.InstallResponse2 := CallbackCreate(GetMethod(implObj, "InstallResponse2"), flags, 9)
-        this.vtbl.get_PolicyServer := CallbackCreate(GetMethod(implObj, "get_PolicyServer"), flags, 2)
-        this.vtbl.get_Template := CallbackCreate(GetMethod(implObj, "get_Template"), flags, 2)
-        this.vtbl.get_RequestIdString := CallbackCreate(GetMethod(implObj, "get_RequestIdString"), flags, 2)
+        this.vtbl.InitializeFromTemplate := CallbackCreate(ObjBindMethod(implObj, "InitializeFromTemplate"), flags, 4)
+        this.vtbl.InstallResponse2 := CallbackCreate(ObjBindMethod(implObj, "InstallResponse2"), flags, 9)
+        this.vtbl.get_PolicyServer := CallbackCreate(ObjBindMethod(implObj, "get_PolicyServer"), flags, 2)
+        this.vtbl.get_Template := CallbackCreate(ObjBindMethod(implObj, "get_Template"), flags, 2)
+        this.vtbl.get_RequestIdString := CallbackCreate(ObjBindMethod(implObj, "get_RequestIdString"), flags, 2)
     }
 
     Dispose() {

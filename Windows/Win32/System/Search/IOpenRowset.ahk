@@ -38,7 +38,6 @@ export default struct IOpenRowset extends IUnknown {
     }
 
     /**
-     * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<DBID>} pTableID 
      * @param {Pointer<DBID>} pIndexID 
@@ -48,7 +47,12 @@ export default struct IOpenRowset extends IUnknown {
      * @returns {IUnknown} 
      */
     OpenRowset(pUnkOuter, pTableID, pIndexID, riid, cPropertySets, rgPropertySets) {
-        result := ComCall(3, this, "ptr", pUnkOuter, DBID.Ptr, pTableID, DBID.Ptr, pIndexID, Guid.Ptr, riid, UInt32, cPropertySets, DBPROPSET.Ptr, rgPropertySets, "ptr*", &ppRowset := 0, "HRESULT")
+        pUnkOuterMarshal := pUnkOuter == 0 ? IntPtr : "ptr"
+        pTableIDMarshal := pTableID == 0 ? IntPtr : DBID.Ptr
+        pIndexIDMarshal := pIndexID == 0 ? IntPtr : DBID.Ptr
+        rgPropertySetsMarshal := rgPropertySets == 0 ? IntPtr : DBPROPSET.Ptr
+
+        result := ComCall(3, this, pUnkOuterMarshal, pUnkOuter, pTableIDMarshal, pTableID, pIndexIDMarshal, pIndexID, Guid.Ptr, riid, UInt32, cPropertySets, rgPropertySetsMarshal, rgPropertySets, "ptr*", &ppRowset := 0, "HRESULT")
         return IUnknown(ppRowset)
     }
 
@@ -61,7 +65,7 @@ export default struct IOpenRowset extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OpenRowset := CallbackCreate(GetMethod(implObj, "OpenRowset"), flags, 8)
+        this.vtbl.OpenRowset := CallbackCreate(ObjBindMethod(implObj, "OpenRowset"), flags, 8)
     }
 
     Dispose() {

@@ -70,7 +70,7 @@ export default struct IAudioClientDuckingControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetDuckingOptionsForCurrentStream := CallbackCreate(GetMethod(implObj, "SetDuckingOptionsForCurrentStream"), flags, 2)
+        this.vtbl.SetDuckingOptionsForCurrentStream := CallbackCreate(ObjBindMethod(implObj, "SetDuckingOptionsForCurrentStream"), flags, 2)
     }
 
     Dispose() {

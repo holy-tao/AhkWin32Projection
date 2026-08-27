@@ -65,7 +65,6 @@ export default struct ISpeechAudioBufferInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_MinNotification() {
@@ -74,7 +73,6 @@ export default struct ISpeechAudioBufferInfo extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} MinNotification 
      * @returns {HRESULT} 
      */
@@ -84,7 +82,6 @@ export default struct ISpeechAudioBufferInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_BufferSize() {
@@ -93,7 +90,6 @@ export default struct ISpeechAudioBufferInfo extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} BufferSize 
      * @returns {HRESULT} 
      */
@@ -103,7 +99,6 @@ export default struct ISpeechAudioBufferInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_EventBias() {
@@ -112,7 +107,6 @@ export default struct ISpeechAudioBufferInfo extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} EventBias 
      * @returns {HRESULT} 
      */
@@ -130,12 +124,12 @@ export default struct ISpeechAudioBufferInfo extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_MinNotification := CallbackCreate(GetMethod(implObj, "get_MinNotification"), flags, 2)
-        this.vtbl.put_MinNotification := CallbackCreate(GetMethod(implObj, "put_MinNotification"), flags, 2)
-        this.vtbl.get_BufferSize := CallbackCreate(GetMethod(implObj, "get_BufferSize"), flags, 2)
-        this.vtbl.put_BufferSize := CallbackCreate(GetMethod(implObj, "put_BufferSize"), flags, 2)
-        this.vtbl.get_EventBias := CallbackCreate(GetMethod(implObj, "get_EventBias"), flags, 2)
-        this.vtbl.put_EventBias := CallbackCreate(GetMethod(implObj, "put_EventBias"), flags, 2)
+        this.vtbl.get_MinNotification := CallbackCreate(ObjBindMethod(implObj, "get_MinNotification"), flags, 2)
+        this.vtbl.put_MinNotification := CallbackCreate(ObjBindMethod(implObj, "put_MinNotification"), flags, 2)
+        this.vtbl.get_BufferSize := CallbackCreate(ObjBindMethod(implObj, "get_BufferSize"), flags, 2)
+        this.vtbl.put_BufferSize := CallbackCreate(ObjBindMethod(implObj, "put_BufferSize"), flags, 2)
+        this.vtbl.get_EventBias := CallbackCreate(ObjBindMethod(implObj, "get_EventBias"), flags, 2)
+        this.vtbl.put_EventBias := CallbackCreate(ObjBindMethod(implObj, "put_EventBias"), flags, 2)
     }
 
     Dispose() {

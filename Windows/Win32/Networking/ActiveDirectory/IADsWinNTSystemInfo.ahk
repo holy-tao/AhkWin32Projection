@@ -70,7 +70,6 @@ export default struct IADsWinNTSystemInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_UserName() {
@@ -80,7 +79,6 @@ export default struct IADsWinNTSystemInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_ComputerName() {
@@ -90,7 +88,6 @@ export default struct IADsWinNTSystemInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_DomainName() {
@@ -100,7 +97,6 @@ export default struct IADsWinNTSystemInfo extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_PDC() {
@@ -118,10 +114,10 @@ export default struct IADsWinNTSystemInfo extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_UserName := CallbackCreate(GetMethod(implObj, "get_UserName"), flags, 2)
-        this.vtbl.get_ComputerName := CallbackCreate(GetMethod(implObj, "get_ComputerName"), flags, 2)
-        this.vtbl.get_DomainName := CallbackCreate(GetMethod(implObj, "get_DomainName"), flags, 2)
-        this.vtbl.get_PDC := CallbackCreate(GetMethod(implObj, "get_PDC"), flags, 2)
+        this.vtbl.get_UserName := CallbackCreate(ObjBindMethod(implObj, "get_UserName"), flags, 2)
+        this.vtbl.get_ComputerName := CallbackCreate(ObjBindMethod(implObj, "get_ComputerName"), flags, 2)
+        this.vtbl.get_DomainName := CallbackCreate(ObjBindMethod(implObj, "get_DomainName"), flags, 2)
+        this.vtbl.get_PDC := CallbackCreate(ObjBindMethod(implObj, "get_PDC"), flags, 2)
     }
 
     Dispose() {

@@ -99,7 +99,9 @@ export default struct ICertificatePolicy extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertificatepolicy-initialize
      */
     Initialize(pValue) {
-        result := ComCall(7, this, "ptr", pValue, "HRESULT")
+        pValueMarshal := pValue == 0 ? IntPtr : "ptr"
+
+        result := ComCall(7, this, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -136,9 +138,9 @@ export default struct ICertificatePolicy extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.get_ObjectId := CallbackCreate(GetMethod(implObj, "get_ObjectId"), flags, 2)
-        this.vtbl.get_PolicyQualifiers := CallbackCreate(GetMethod(implObj, "get_PolicyQualifiers"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.get_ObjectId := CallbackCreate(ObjBindMethod(implObj, "get_ObjectId"), flags, 2)
+        this.vtbl.get_PolicyQualifiers := CallbackCreate(ObjBindMethod(implObj, "get_PolicyQualifiers"), flags, 2)
     }
 
     Dispose() {

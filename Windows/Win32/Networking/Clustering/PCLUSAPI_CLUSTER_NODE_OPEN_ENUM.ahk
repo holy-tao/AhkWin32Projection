@@ -20,7 +20,6 @@ export default struct PCLUSAPI_CLUSTER_NODE_OPEN_ENUM {
     }
 
     /**
-     * 
      * @param {HNODE} _hNode 
      * @param {Integer} dwType 
      * @returns {HNODEENUM} 

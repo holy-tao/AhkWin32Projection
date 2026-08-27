@@ -192,7 +192,7 @@ export default struct IMDSPDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice-getserialnumber
      */
     GetSerialNumber(abMac) {
-        abMacMarshal := abMac is VarRef ? "char*" : "ptr"
+        abMacMarshal := abMac is VarRef ? "char*" : IntPtr
 
         pSerialNumber := WMDMID()
         result := ComCall(7, this, WMDMID.Ptr, pSerialNumber, abMacMarshal, abMac, "HRESULT")
@@ -247,8 +247,8 @@ export default struct IMDSPDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice-getpowersource
      */
     GetPowerSource(pdwPowerSource, pdwPercentRemaining) {
-        pdwPowerSourceMarshal := pdwPowerSource is VarRef ? "uint*" : "ptr"
-        pdwPercentRemainingMarshal := pdwPercentRemaining is VarRef ? "uint*" : "ptr"
+        pdwPowerSourceMarshal := pdwPowerSource is VarRef ? "uint*" : IntPtr
+        pdwPercentRemainingMarshal := pdwPercentRemaining is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, pdwPowerSourceMarshal, pdwPowerSource, pdwPercentRemainingMarshal, pdwPercentRemaining, "HRESULT")
         return result
@@ -372,10 +372,10 @@ export default struct IMDSPDevice extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice-getformatsupport
      */
     GetFormatSupport(pFormatEx, pnFormatCount, pppwszMimeType, pnMimeTypeCount) {
-        pFormatExMarshal := pFormatEx is VarRef ? "ptr*" : "ptr"
-        pnFormatCountMarshal := pnFormatCount is VarRef ? "uint*" : "ptr"
-        pppwszMimeTypeMarshal := pppwszMimeType is VarRef ? "ptr*" : "ptr"
-        pnMimeTypeCountMarshal := pnMimeTypeCount is VarRef ? "uint*" : "ptr"
+        pFormatExMarshal := pFormatEx is VarRef ? "ptr*" : IntPtr
+        pnFormatCountMarshal := pnFormatCount is VarRef ? "uint*" : IntPtr
+        pppwszMimeTypeMarshal := pppwszMimeType is VarRef ? "ptr*" : IntPtr
+        pnMimeTypeCountMarshal := pnMimeTypeCount is VarRef ? "uint*" : IntPtr
 
         result := ComCall(12, this, pFormatExMarshal, pFormatEx, pnFormatCountMarshal, pnFormatCount, pppwszMimeTypeMarshal, pppwszMimeType, pnMimeTypeCountMarshal, pnMimeTypeCount, "HRESULT")
         return result
@@ -412,17 +412,17 @@ export default struct IMDSPDevice extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 3)
-        this.vtbl.GetManufacturer := CallbackCreate(GetMethod(implObj, "GetManufacturer"), flags, 3)
-        this.vtbl.GetVersion := CallbackCreate(GetMethod(implObj, "GetVersion"), flags, 2)
-        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
-        this.vtbl.GetSerialNumber := CallbackCreate(GetMethod(implObj, "GetSerialNumber"), flags, 3)
-        this.vtbl.GetPowerSource := CallbackCreate(GetMethod(implObj, "GetPowerSource"), flags, 3)
-        this.vtbl.GetStatus := CallbackCreate(GetMethod(implObj, "GetStatus"), flags, 2)
-        this.vtbl.GetDeviceIcon := CallbackCreate(GetMethod(implObj, "GetDeviceIcon"), flags, 2)
-        this.vtbl.EnumStorage := CallbackCreate(GetMethod(implObj, "EnumStorage"), flags, 2)
-        this.vtbl.GetFormatSupport := CallbackCreate(GetMethod(implObj, "GetFormatSupport"), flags, 5)
-        this.vtbl.SendOpaqueCommand := CallbackCreate(GetMethod(implObj, "SendOpaqueCommand"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 3)
+        this.vtbl.GetManufacturer := CallbackCreate(ObjBindMethod(implObj, "GetManufacturer"), flags, 3)
+        this.vtbl.GetVersion := CallbackCreate(ObjBindMethod(implObj, "GetVersion"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(ObjBindMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.GetSerialNumber := CallbackCreate(ObjBindMethod(implObj, "GetSerialNumber"), flags, 3)
+        this.vtbl.GetPowerSource := CallbackCreate(ObjBindMethod(implObj, "GetPowerSource"), flags, 3)
+        this.vtbl.GetStatus := CallbackCreate(ObjBindMethod(implObj, "GetStatus"), flags, 2)
+        this.vtbl.GetDeviceIcon := CallbackCreate(ObjBindMethod(implObj, "GetDeviceIcon"), flags, 2)
+        this.vtbl.EnumStorage := CallbackCreate(ObjBindMethod(implObj, "EnumStorage"), flags, 2)
+        this.vtbl.GetFormatSupport := CallbackCreate(ObjBindMethod(implObj, "GetFormatSupport"), flags, 5)
+        this.vtbl.SendOpaqueCommand := CallbackCreate(ObjBindMethod(implObj, "SendOpaqueCommand"), flags, 2)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct PFN_HANDLE_CMD {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszMachine 
      * @param {Pointer<PWSTR>} ppwcArguments 
      * @param {Integer} dwCurrentIndex 
@@ -33,9 +32,9 @@ export default struct PFN_HANDLE_CMD {
     Call(pwszMachine, ppwcArguments, dwCurrentIndex, dwArgCount, dwFlags, pvData, pbDone) {
         pwszMachine := pwszMachine is String ? StrPtr(pwszMachine) : pwszMachine
 
-        ppwcArgumentsMarshal := ppwcArguments is VarRef ? "ptr*" : "ptr"
-        pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
-        pbDoneMarshal := pbDone is VarRef ? "int*" : "ptr"
+        ppwcArgumentsMarshal := ppwcArguments is VarRef ? "ptr*" : IntPtr
+        pvDataMarshal := pvData is VarRef ? "ptr" : IntPtr
+        pbDoneMarshal := pbDone is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, "ptr", pwszMachine, ppwcArgumentsMarshal, ppwcArguments, UInt32, dwCurrentIndex, UInt32, dwArgCount, UInt32, dwFlags, pvDataMarshal, pvData, pbDoneMarshal, pbDone, UInt32)
         return result

@@ -22,7 +22,6 @@ export default struct PCLUSAPI_ADD_CLUSTER_NODE_EX {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszNodeName 
      * @param {Integer} dwFlags 
@@ -33,9 +32,11 @@ export default struct PCLUSAPI_ADD_CLUSTER_NODE_EX {
     Call(_hCluster, lpszNodeName, dwFlags, pfnProgressCallback, pvCallbackArg) {
         lpszNodeName := lpszNodeName is String ? StrPtr(lpszNodeName) : lpszNodeName
 
-        pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : "ptr"
+        pfnProgressCallbackMarshal := pfnProgressCallback == 0 ? IntPtr : PCLUSTER_SETUP_PROGRESS_CALLBACK
+        pvCallbackArgMarshal := pvCallbackArg is VarRef ? "ptr" : IntPtr
+        pvCallbackArgMarshal := pvCallbackArg == 0 ? IntPtr : "ptr"
 
-        result := DllCall(this.value, HCLUSTER, _hCluster, "ptr", lpszNodeName, UInt32, dwFlags, PCLUSTER_SETUP_PROGRESS_CALLBACK, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, HNODE)
+        result := DllCall(this.value, HCLUSTER, _hCluster, "ptr", lpszNodeName, UInt32, dwFlags, pfnProgressCallbackMarshal, pfnProgressCallback, pvCallbackArgMarshal, pvCallbackArg, HNODE)
         return result
     }
 

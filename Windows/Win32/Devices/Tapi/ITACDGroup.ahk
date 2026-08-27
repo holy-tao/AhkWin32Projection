@@ -111,9 +111,9 @@ export default struct ITACDGroup extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.EnumerateQueues := CallbackCreate(GetMethod(implObj, "EnumerateQueues"), flags, 2)
-        this.vtbl.get_Queues := CallbackCreate(GetMethod(implObj, "get_Queues"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.EnumerateQueues := CallbackCreate(ObjBindMethod(implObj, "EnumerateQueues"), flags, 2)
+        this.vtbl.get_Queues := CallbackCreate(ObjBindMethod(implObj, "get_Queues"), flags, 2)
     }
 
     Dispose() {

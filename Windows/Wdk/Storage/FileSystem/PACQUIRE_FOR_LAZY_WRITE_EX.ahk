@@ -19,15 +19,14 @@ export default struct PACQUIRE_FOR_LAZY_WRITE_EX {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _Context 
      * @param {Integer} InFlags 
      * @param {Pointer<Integer>} OutFlags 
      * @returns {BOOLEAN} 
      */
     Call(_Context, InFlags, OutFlags) {
-        _ContextMarshal := _Context is VarRef ? "ptr" : "ptr"
-        OutFlagsMarshal := OutFlags is VarRef ? "uint*" : "ptr"
+        _ContextMarshal := _Context is VarRef ? "ptr" : IntPtr
+        OutFlagsMarshal := OutFlags is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, _ContextMarshal, _Context, UInt32, InFlags, OutFlagsMarshal, OutFlags, BOOLEAN)
         return result

@@ -45,7 +45,6 @@ export default struct AsyncIFtpAuthenticationProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszSessionId 
      * @param {PWSTR} pszSiteName 
      * @param {PWSTR} pszUserName 
@@ -63,14 +62,13 @@ export default struct AsyncIFtpAuthenticationProvider extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<PWSTR>} ppszCanonicalUserName 
      * @param {Pointer<BOOL>} pfAuthenticated 
      * @returns {HRESULT} 
      */
     Finish_AuthenticateUser(ppszCanonicalUserName, pfAuthenticated) {
-        ppszCanonicalUserNameMarshal := ppszCanonicalUserName is VarRef ? "ptr*" : "ptr"
-        pfAuthenticatedMarshal := pfAuthenticated is VarRef ? "int*" : "ptr"
+        ppszCanonicalUserNameMarshal := ppszCanonicalUserName is VarRef ? "ptr*" : IntPtr
+        pfAuthenticatedMarshal := pfAuthenticated is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, ppszCanonicalUserNameMarshal, ppszCanonicalUserName, pfAuthenticatedMarshal, pfAuthenticated, "HRESULT")
         return result
@@ -85,8 +83,8 @@ export default struct AsyncIFtpAuthenticationProvider extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Begin_AuthenticateUser := CallbackCreate(GetMethod(implObj, "Begin_AuthenticateUser"), flags, 5)
-        this.vtbl.Finish_AuthenticateUser := CallbackCreate(GetMethod(implObj, "Finish_AuthenticateUser"), flags, 3)
+        this.vtbl.Begin_AuthenticateUser := CallbackCreate(ObjBindMethod(implObj, "Begin_AuthenticateUser"), flags, 5)
+        this.vtbl.Finish_AuthenticateUser := CallbackCreate(ObjBindMethod(implObj, "Finish_AuthenticateUser"), flags, 3)
     }
 
     Dispose() {

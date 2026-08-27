@@ -19,7 +19,6 @@ export default struct PCLUSTER_REG_CLOSE_BATCH_NOTIFY_PORT {
     }
 
     /**
-     * 
      * @param {HREGBATCHPORT} hBatchNotifyPort 
      * @returns {Integer} 
      */

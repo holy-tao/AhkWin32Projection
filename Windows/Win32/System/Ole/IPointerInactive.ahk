@@ -144,9 +144,9 @@ export default struct IPointerInactive extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetActivationPolicy := CallbackCreate(GetMethod(implObj, "GetActivationPolicy"), flags, 2)
-        this.vtbl.OnInactiveMouseMove := CallbackCreate(GetMethod(implObj, "OnInactiveMouseMove"), flags, 5)
-        this.vtbl.OnInactiveSetCursor := CallbackCreate(GetMethod(implObj, "OnInactiveSetCursor"), flags, 6)
+        this.vtbl.GetActivationPolicy := CallbackCreate(ObjBindMethod(implObj, "GetActivationPolicy"), flags, 2)
+        this.vtbl.OnInactiveMouseMove := CallbackCreate(ObjBindMethod(implObj, "OnInactiveMouseMove"), flags, 5)
+        this.vtbl.OnInactiveSetCursor := CallbackCreate(ObjBindMethod(implObj, "OnInactiveSetCursor"), flags, 6)
     }
 
     Dispose() {

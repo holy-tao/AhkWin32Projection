@@ -77,7 +77,7 @@ export default struct IWMPSkinManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetVisualStyle := CallbackCreate(GetMethod(implObj, "SetVisualStyle"), flags, 2)
+        this.vtbl.SetVisualStyle := CallbackCreate(ObjBindMethod(implObj, "SetVisualStyle"), flags, 2)
     }
 
     Dispose() {

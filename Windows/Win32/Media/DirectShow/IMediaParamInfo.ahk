@@ -157,7 +157,7 @@ export default struct IMediaParamInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/medparam/nf-medparam-imediaparaminfo-getcurrenttimeformat
      */
     GetCurrentTimeFormat(pguidTimeFormat, pTimeData) {
-        pTimeDataMarshal := pTimeData is VarRef ? "uint*" : "ptr"
+        pTimeDataMarshal := pTimeData is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, Guid.Ptr, pguidTimeFormat, pTimeDataMarshal, pTimeData, "HRESULT")
         return result
@@ -172,12 +172,12 @@ export default struct IMediaParamInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetParamCount := CallbackCreate(GetMethod(implObj, "GetParamCount"), flags, 2)
-        this.vtbl.GetParamInfo := CallbackCreate(GetMethod(implObj, "GetParamInfo"), flags, 3)
-        this.vtbl.GetParamText := CallbackCreate(GetMethod(implObj, "GetParamText"), flags, 3)
-        this.vtbl.GetNumTimeFormats := CallbackCreate(GetMethod(implObj, "GetNumTimeFormats"), flags, 2)
-        this.vtbl.GetSupportedTimeFormat := CallbackCreate(GetMethod(implObj, "GetSupportedTimeFormat"), flags, 3)
-        this.vtbl.GetCurrentTimeFormat := CallbackCreate(GetMethod(implObj, "GetCurrentTimeFormat"), flags, 3)
+        this.vtbl.GetParamCount := CallbackCreate(ObjBindMethod(implObj, "GetParamCount"), flags, 2)
+        this.vtbl.GetParamInfo := CallbackCreate(ObjBindMethod(implObj, "GetParamInfo"), flags, 3)
+        this.vtbl.GetParamText := CallbackCreate(ObjBindMethod(implObj, "GetParamText"), flags, 3)
+        this.vtbl.GetNumTimeFormats := CallbackCreate(ObjBindMethod(implObj, "GetNumTimeFormats"), flags, 2)
+        this.vtbl.GetSupportedTimeFormat := CallbackCreate(ObjBindMethod(implObj, "GetSupportedTimeFormat"), flags, 3)
+        this.vtbl.GetCurrentTimeFormat := CallbackCreate(ObjBindMethod(implObj, "GetCurrentTimeFormat"), flags, 3)
     }
 
     Dispose() {

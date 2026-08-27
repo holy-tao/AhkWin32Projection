@@ -57,7 +57,6 @@ export default struct IXFeedItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {FEEDS_XML_INCLUDE_FLAGS} fxif 
      * @returns {IStream} 
      */
@@ -77,7 +76,6 @@ export default struct IXFeedItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     Link() {
@@ -106,7 +104,6 @@ export default struct IXFeedItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {SYSTEMTIME} 
      */
     PubDate() {
@@ -138,7 +135,6 @@ export default struct IXFeedItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
@@ -148,7 +144,6 @@ export default struct IXFeedItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsRead() {
@@ -157,7 +152,6 @@ export default struct IXFeedItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {BOOL} bIsRead 
      * @returns {HRESULT} 
      */
@@ -167,7 +161,6 @@ export default struct IXFeedItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     LocalId() {
@@ -176,7 +169,6 @@ export default struct IXFeedItem extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */
@@ -186,7 +178,6 @@ export default struct IXFeedItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Delete() {
@@ -195,7 +186,6 @@ export default struct IXFeedItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     DownloadUrl() {
@@ -204,7 +194,6 @@ export default struct IXFeedItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {SYSTEMTIME} 
      */
     LastDownloadTime() {
@@ -214,7 +203,6 @@ export default struct IXFeedItem extends IUnknown {
     }
 
     /**
-     * 
      * @returns {SYSTEMTIME} 
      */
     Modified() {
@@ -232,23 +220,23 @@ export default struct IXFeedItem extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Xml := CallbackCreate(GetMethod(implObj, "Xml"), flags, 3)
-        this.vtbl.Title := CallbackCreate(GetMethod(implObj, "Title"), flags, 2)
-        this.vtbl.Link := CallbackCreate(GetMethod(implObj, "Link"), flags, 2)
-        this.vtbl.Guid := CallbackCreate(GetMethod(implObj, "Guid"), flags, 2)
-        this.vtbl.Description := CallbackCreate(GetMethod(implObj, "Description"), flags, 2)
-        this.vtbl.PubDate := CallbackCreate(GetMethod(implObj, "PubDate"), flags, 2)
-        this.vtbl.Comments := CallbackCreate(GetMethod(implObj, "Comments"), flags, 2)
-        this.vtbl.Author := CallbackCreate(GetMethod(implObj, "Author"), flags, 2)
-        this.vtbl.Enclosure := CallbackCreate(GetMethod(implObj, "Enclosure"), flags, 3)
-        this.vtbl.IsRead := CallbackCreate(GetMethod(implObj, "IsRead"), flags, 2)
-        this.vtbl.SetIsRead := CallbackCreate(GetMethod(implObj, "SetIsRead"), flags, 2)
-        this.vtbl.LocalId := CallbackCreate(GetMethod(implObj, "LocalId"), flags, 2)
-        this.vtbl.Parent := CallbackCreate(GetMethod(implObj, "Parent"), flags, 3)
-        this.vtbl.Delete := CallbackCreate(GetMethod(implObj, "Delete"), flags, 1)
-        this.vtbl.DownloadUrl := CallbackCreate(GetMethod(implObj, "DownloadUrl"), flags, 2)
-        this.vtbl.LastDownloadTime := CallbackCreate(GetMethod(implObj, "LastDownloadTime"), flags, 2)
-        this.vtbl.Modified := CallbackCreate(GetMethod(implObj, "Modified"), flags, 2)
+        this.vtbl.Xml := CallbackCreate(ObjBindMethod(implObj, "Xml"), flags, 3)
+        this.vtbl.Title := CallbackCreate(ObjBindMethod(implObj, "Title"), flags, 2)
+        this.vtbl.Link := CallbackCreate(ObjBindMethod(implObj, "Link"), flags, 2)
+        this.vtbl.Guid := CallbackCreate(ObjBindMethod(implObj, "Guid"), flags, 2)
+        this.vtbl.Description := CallbackCreate(ObjBindMethod(implObj, "Description"), flags, 2)
+        this.vtbl.PubDate := CallbackCreate(ObjBindMethod(implObj, "PubDate"), flags, 2)
+        this.vtbl.Comments := CallbackCreate(ObjBindMethod(implObj, "Comments"), flags, 2)
+        this.vtbl.Author := CallbackCreate(ObjBindMethod(implObj, "Author"), flags, 2)
+        this.vtbl.Enclosure := CallbackCreate(ObjBindMethod(implObj, "Enclosure"), flags, 3)
+        this.vtbl.IsRead := CallbackCreate(ObjBindMethod(implObj, "IsRead"), flags, 2)
+        this.vtbl.SetIsRead := CallbackCreate(ObjBindMethod(implObj, "SetIsRead"), flags, 2)
+        this.vtbl.LocalId := CallbackCreate(ObjBindMethod(implObj, "LocalId"), flags, 2)
+        this.vtbl.Parent := CallbackCreate(ObjBindMethod(implObj, "Parent"), flags, 3)
+        this.vtbl.Delete := CallbackCreate(ObjBindMethod(implObj, "Delete"), flags, 1)
+        this.vtbl.DownloadUrl := CallbackCreate(ObjBindMethod(implObj, "DownloadUrl"), flags, 2)
+        this.vtbl.LastDownloadTime := CallbackCreate(ObjBindMethod(implObj, "LastDownloadTime"), flags, 2)
+        this.vtbl.Modified := CallbackCreate(ObjBindMethod(implObj, "Modified"), flags, 2)
     }
 
     Dispose() {

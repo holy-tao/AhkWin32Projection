@@ -19,7 +19,6 @@ export default struct PNS_CONTEXT_DUMP_FN {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszRouter 
      * @param {Pointer<PWSTR>} ppwcArguments 
      * @param {Integer} dwArgCount 
@@ -29,8 +28,8 @@ export default struct PNS_CONTEXT_DUMP_FN {
     Call(pwszRouter, ppwcArguments, dwArgCount, pvData) {
         pwszRouter := pwszRouter is String ? StrPtr(pwszRouter) : pwszRouter
 
-        ppwcArgumentsMarshal := ppwcArguments is VarRef ? "ptr*" : "ptr"
-        pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
+        ppwcArgumentsMarshal := ppwcArguments is VarRef ? "ptr*" : IntPtr
+        pvDataMarshal := pvData is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, "ptr", pwszRouter, ppwcArgumentsMarshal, ppwcArguments, UInt32, dwArgCount, pvDataMarshal, pvData, UInt32)
         return result

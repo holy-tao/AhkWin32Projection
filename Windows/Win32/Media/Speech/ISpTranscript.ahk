@@ -38,7 +38,6 @@ export default struct ISpTranscript extends IUnknown {
     }
 
     /**
-     * 
      * @returns {PWSTR} 
      */
     GetTranscript() {
@@ -47,7 +46,6 @@ export default struct ISpTranscript extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszTranscript 
      * @returns {HRESULT} 
      */
@@ -67,8 +65,8 @@ export default struct ISpTranscript extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTranscript := CallbackCreate(GetMethod(implObj, "GetTranscript"), flags, 2)
-        this.vtbl.AppendTranscript := CallbackCreate(GetMethod(implObj, "AppendTranscript"), flags, 2)
+        this.vtbl.GetTranscript := CallbackCreate(ObjBindMethod(implObj, "GetTranscript"), flags, 2)
+        this.vtbl.AppendTranscript := CallbackCreate(ObjBindMethod(implObj, "AppendTranscript"), flags, 2)
     }
 
     Dispose() {

@@ -83,8 +83,8 @@ export default struct IWindowsDriverUpdate4 extends IWindowsDriverUpdate3 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_WindowsDriverUpdateEntries := CallbackCreate(GetMethod(implObj, "get_WindowsDriverUpdateEntries"), flags, 2)
-        this.vtbl.get_PerUser := CallbackCreate(GetMethod(implObj, "get_PerUser"), flags, 2)
+        this.vtbl.get_WindowsDriverUpdateEntries := CallbackCreate(ObjBindMethod(implObj, "get_WindowsDriverUpdateEntries"), flags, 2)
+        this.vtbl.get_PerUser := CallbackCreate(ObjBindMethod(implObj, "get_PerUser"), flags, 2)
     }
 
     Dispose() {

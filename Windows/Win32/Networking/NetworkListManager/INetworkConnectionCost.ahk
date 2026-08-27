@@ -69,8 +69,8 @@ export default struct INetworkConnectionCost extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCost := CallbackCreate(GetMethod(implObj, "GetCost"), flags, 2)
-        this.vtbl.GetDataPlanStatus := CallbackCreate(GetMethod(implObj, "GetDataPlanStatus"), flags, 2)
+        this.vtbl.GetCost := CallbackCreate(ObjBindMethod(implObj, "GetCost"), flags, 2)
+        this.vtbl.GetDataPlanStatus := CallbackCreate(ObjBindMethod(implObj, "GetDataPlanStatus"), flags, 2)
     }
 
     Dispose() {

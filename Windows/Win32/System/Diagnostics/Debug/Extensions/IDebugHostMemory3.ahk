@@ -38,7 +38,6 @@ export default struct IDebugHostMemory3 extends IDebugHostMemory2 {
     }
 
     /**
-     * 
      * @param {IDebugHostContext} _context 
      * @param {Location} _location 
      * @returns {Location} 
@@ -58,7 +57,7 @@ export default struct IDebugHostMemory3 extends IDebugHostMemory2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CanonicalizeLocation := CallbackCreate(GetMethod(implObj, "CanonicalizeLocation"), flags, 4)
+        this.vtbl.CanonicalizeLocation := CallbackCreate(ObjBindMethod(implObj, "CanonicalizeLocation"), flags, 4)
     }
 
     Dispose() {

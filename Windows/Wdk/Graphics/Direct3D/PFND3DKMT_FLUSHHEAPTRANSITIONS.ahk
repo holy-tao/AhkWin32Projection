@@ -20,7 +20,6 @@ export default struct PFND3DKMT_FLUSHHEAPTRANSITIONS {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_FLUSHHEAPTRANSITIONS>} param0 
      * @returns {NTSTATUS} 
      */

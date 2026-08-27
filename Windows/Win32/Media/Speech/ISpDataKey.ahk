@@ -54,7 +54,6 @@ export default struct ISpDataKey extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszValueName 
      * @param {Integer} cbData 
      * @param {Pointer<Integer>} pData 
@@ -63,14 +62,13 @@ export default struct ISpDataKey extends IUnknown {
     SetData(pszValueName, cbData, pData) {
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
-        pDataMarshal := pData is VarRef ? "char*" : "ptr"
+        pDataMarshal := pData is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, "ptr", pszValueName, UInt32, cbData, pDataMarshal, pData, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pszValueName 
      * @param {Pointer<Integer>} pcbData 
      * @param {Pointer<Integer>} pData 
@@ -79,15 +77,14 @@ export default struct ISpDataKey extends IUnknown {
     GetData(pszValueName, pcbData, pData) {
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
-        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
-        pDataMarshal := pData is VarRef ? "char*" : "ptr"
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
+        pDataMarshal := pData is VarRef ? "char*" : IntPtr
 
         result := ComCall(4, this, "ptr", pszValueName, pcbDataMarshal, pcbData, pDataMarshal, pData, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pszValueName 
      * @param {PWSTR} pszValue 
      * @returns {HRESULT} 
@@ -96,24 +93,26 @@ export default struct ISpDataKey extends IUnknown {
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-        result := ComCall(5, this, "ptr", pszValueName, "ptr", pszValue, "HRESULT")
+        pszValueNameMarshal := pszValueName == 0 ? IntPtr : PWSTR
+
+        result := ComCall(5, this, pszValueNameMarshal, pszValueName, "ptr", pszValue, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pszValueName 
      * @returns {PWSTR} 
      */
     GetStringValue(pszValueName) {
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
-        result := ComCall(6, this, "ptr", pszValueName, PWSTR.Ptr, &ppszValue := 0, "HRESULT")
+        pszValueNameMarshal := pszValueName == 0 ? IntPtr : PWSTR
+
+        result := ComCall(6, this, pszValueNameMarshal, pszValueName, PWSTR.Ptr, &ppszValue := 0, "HRESULT")
         return ppszValue
     }
 
     /**
-     * 
      * @param {PWSTR} pszValueName 
      * @param {Integer} dwValue 
      * @returns {HRESULT} 
@@ -126,7 +125,6 @@ export default struct ISpDataKey extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszValueName 
      * @param {Pointer<Integer>} pdwValue 
      * @returns {HRESULT} 
@@ -134,14 +132,13 @@ export default struct ISpDataKey extends IUnknown {
     GetDWORD(pszValueName, pdwValue) {
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
-        pdwValueMarshal := pdwValue is VarRef ? "uint*" : "ptr"
+        pdwValueMarshal := pdwValue is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, "ptr", pszValueName, pdwValueMarshal, pdwValue, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {PWSTR} pszSubKeyName 
      * @returns {ISpDataKey} 
      */
@@ -153,7 +150,6 @@ export default struct ISpDataKey extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszSubKey 
      * @returns {ISpDataKey} 
      */
@@ -165,7 +161,6 @@ export default struct ISpDataKey extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszSubKey 
      * @returns {HRESULT} 
      */
@@ -177,7 +172,6 @@ export default struct ISpDataKey extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszValueName 
      * @returns {HRESULT} 
      */
@@ -189,7 +183,6 @@ export default struct ISpDataKey extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {PWSTR} 
      */
@@ -199,7 +192,6 @@ export default struct ISpDataKey extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} Index 
      * @returns {PWSTR} 
      */
@@ -217,18 +209,18 @@ export default struct ISpDataKey extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetData := CallbackCreate(GetMethod(implObj, "SetData"), flags, 4)
-        this.vtbl.GetData := CallbackCreate(GetMethod(implObj, "GetData"), flags, 4)
-        this.vtbl.SetStringValue := CallbackCreate(GetMethod(implObj, "SetStringValue"), flags, 3)
-        this.vtbl.GetStringValue := CallbackCreate(GetMethod(implObj, "GetStringValue"), flags, 3)
-        this.vtbl.SetDWORD := CallbackCreate(GetMethod(implObj, "SetDWORD"), flags, 3)
-        this.vtbl.GetDWORD := CallbackCreate(GetMethod(implObj, "GetDWORD"), flags, 3)
-        this.vtbl.OpenKey := CallbackCreate(GetMethod(implObj, "OpenKey"), flags, 3)
-        this.vtbl.CreateKey := CallbackCreate(GetMethod(implObj, "CreateKey"), flags, 3)
-        this.vtbl.DeleteKey := CallbackCreate(GetMethod(implObj, "DeleteKey"), flags, 2)
-        this.vtbl.DeleteValue := CallbackCreate(GetMethod(implObj, "DeleteValue"), flags, 2)
-        this.vtbl.EnumKeys := CallbackCreate(GetMethod(implObj, "EnumKeys"), flags, 3)
-        this.vtbl.EnumValues := CallbackCreate(GetMethod(implObj, "EnumValues"), flags, 3)
+        this.vtbl.SetData := CallbackCreate(ObjBindMethod(implObj, "SetData"), flags, 4)
+        this.vtbl.GetData := CallbackCreate(ObjBindMethod(implObj, "GetData"), flags, 4)
+        this.vtbl.SetStringValue := CallbackCreate(ObjBindMethod(implObj, "SetStringValue"), flags, 3)
+        this.vtbl.GetStringValue := CallbackCreate(ObjBindMethod(implObj, "GetStringValue"), flags, 3)
+        this.vtbl.SetDWORD := CallbackCreate(ObjBindMethod(implObj, "SetDWORD"), flags, 3)
+        this.vtbl.GetDWORD := CallbackCreate(ObjBindMethod(implObj, "GetDWORD"), flags, 3)
+        this.vtbl.OpenKey := CallbackCreate(ObjBindMethod(implObj, "OpenKey"), flags, 3)
+        this.vtbl.CreateKey := CallbackCreate(ObjBindMethod(implObj, "CreateKey"), flags, 3)
+        this.vtbl.DeleteKey := CallbackCreate(ObjBindMethod(implObj, "DeleteKey"), flags, 2)
+        this.vtbl.DeleteValue := CallbackCreate(ObjBindMethod(implObj, "DeleteValue"), flags, 2)
+        this.vtbl.EnumKeys := CallbackCreate(ObjBindMethod(implObj, "EnumKeys"), flags, 3)
+        this.vtbl.EnumValues := CallbackCreate(ObjBindMethod(implObj, "EnumValues"), flags, 3)
     }
 
     Dispose() {

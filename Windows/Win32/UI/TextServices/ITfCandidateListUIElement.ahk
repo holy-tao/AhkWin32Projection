@@ -214,8 +214,9 @@ export default struct ITfCandidateListUIElement extends ITfUIElement {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcandidatelistuielement-getpageindex
      */
     GetPageIndex(pIndex, uSize, puPageCnt) {
-        pIndexMarshal := pIndex is VarRef ? "uint*" : "ptr"
-        puPageCntMarshal := puPageCnt is VarRef ? "uint*" : "ptr"
+        pIndexMarshal := pIndex is VarRef ? "uint*" : IntPtr
+        pIndexMarshal := pIndex == 0 ? IntPtr : "uint*"
+        puPageCntMarshal := puPageCnt is VarRef ? "uint*" : IntPtr
 
         result := ComCall(12, this, pIndexMarshal, pIndex, UInt32, uSize, puPageCntMarshal, puPageCnt, "HRESULT")
         return result
@@ -269,7 +270,7 @@ export default struct ITfCandidateListUIElement extends ITfUIElement {
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcandidatelistuielement-setpageindex
      */
     SetPageIndex(pIndex, uPageCnt) {
-        pIndexMarshal := pIndex is VarRef ? "uint*" : "ptr"
+        pIndexMarshal := pIndex is VarRef ? "uint*" : IntPtr
 
         result := ComCall(13, this, pIndexMarshal, pIndex, UInt32, uPageCnt, "HRESULT")
         return result
@@ -294,14 +295,14 @@ export default struct ITfCandidateListUIElement extends ITfUIElement {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetUpdatedFlags := CallbackCreate(GetMethod(implObj, "GetUpdatedFlags"), flags, 2)
-        this.vtbl.GetDocumentMgr := CallbackCreate(GetMethod(implObj, "GetDocumentMgr"), flags, 2)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
-        this.vtbl.GetSelection := CallbackCreate(GetMethod(implObj, "GetSelection"), flags, 2)
-        this.vtbl.GetString := CallbackCreate(GetMethod(implObj, "GetString"), flags, 3)
-        this.vtbl.GetPageIndex := CallbackCreate(GetMethod(implObj, "GetPageIndex"), flags, 4)
-        this.vtbl.SetPageIndex := CallbackCreate(GetMethod(implObj, "SetPageIndex"), flags, 3)
-        this.vtbl.GetCurrentPage := CallbackCreate(GetMethod(implObj, "GetCurrentPage"), flags, 2)
+        this.vtbl.GetUpdatedFlags := CallbackCreate(ObjBindMethod(implObj, "GetUpdatedFlags"), flags, 2)
+        this.vtbl.GetDocumentMgr := CallbackCreate(ObjBindMethod(implObj, "GetDocumentMgr"), flags, 2)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetSelection := CallbackCreate(ObjBindMethod(implObj, "GetSelection"), flags, 2)
+        this.vtbl.GetString := CallbackCreate(ObjBindMethod(implObj, "GetString"), flags, 3)
+        this.vtbl.GetPageIndex := CallbackCreate(ObjBindMethod(implObj, "GetPageIndex"), flags, 4)
+        this.vtbl.SetPageIndex := CallbackCreate(ObjBindMethod(implObj, "SetPageIndex"), flags, 3)
+        this.vtbl.GetCurrentPage := CallbackCreate(ObjBindMethod(implObj, "GetCurrentPage"), flags, 2)
     }
 
     Dispose() {

@@ -20,7 +20,6 @@ export default struct SpVerifySignatureFn {
     }
 
     /**
-     * 
      * @param {Pointer} ContextHandle 
      * @param {Pointer<SecBufferDesc>} MessageBuffers 
      * @param {Integer} MessageSequenceNumber 
@@ -28,7 +27,8 @@ export default struct SpVerifySignatureFn {
      * @returns {NTSTATUS} 
      */
     Call(ContextHandle, MessageBuffers, MessageSequenceNumber, QualityOfProtection) {
-        QualityOfProtectionMarshal := QualityOfProtection is VarRef ? "uint*" : "ptr"
+        QualityOfProtectionMarshal := QualityOfProtection is VarRef ? "uint*" : IntPtr
+        QualityOfProtectionMarshal := QualityOfProtection == 0 ? IntPtr : "uint*"
 
         result := DllCall(this.value, IntPtr, ContextHandle, SecBufferDesc.Ptr, MessageBuffers, UInt32, MessageSequenceNumber, QualityOfProtectionMarshal, QualityOfProtection, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

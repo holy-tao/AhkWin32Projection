@@ -244,11 +244,11 @@ export default struct IOpcRelationship extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetId := CallbackCreate(GetMethod(implObj, "GetId"), flags, 2)
-        this.vtbl.GetRelationshipType := CallbackCreate(GetMethod(implObj, "GetRelationshipType"), flags, 2)
-        this.vtbl.GetSourceUri := CallbackCreate(GetMethod(implObj, "GetSourceUri"), flags, 2)
-        this.vtbl.GetTargetUri := CallbackCreate(GetMethod(implObj, "GetTargetUri"), flags, 2)
-        this.vtbl.GetTargetMode := CallbackCreate(GetMethod(implObj, "GetTargetMode"), flags, 2)
+        this.vtbl.GetId := CallbackCreate(ObjBindMethod(implObj, "GetId"), flags, 2)
+        this.vtbl.GetRelationshipType := CallbackCreate(ObjBindMethod(implObj, "GetRelationshipType"), flags, 2)
+        this.vtbl.GetSourceUri := CallbackCreate(ObjBindMethod(implObj, "GetSourceUri"), flags, 2)
+        this.vtbl.GetTargetUri := CallbackCreate(ObjBindMethod(implObj, "GetTargetUri"), flags, 2)
+        this.vtbl.GetTargetMode := CallbackCreate(ObjBindMethod(implObj, "GetTargetMode"), flags, 2)
     }
 
     Dispose() {

@@ -20,15 +20,14 @@ export default struct RTL_AVL_MATCH_FUNCTION {
     }
 
     /**
-     * 
      * @param {Pointer<RTL_AVL_TABLE>} Table 
      * @param {Pointer<Void>} _UserData 
      * @param {Pointer<Void>} MatchData 
      * @returns {NTSTATUS} 
      */
     Call(Table, _UserData, MatchData) {
-        _UserDataMarshal := _UserData is VarRef ? "ptr" : "ptr"
-        MatchDataMarshal := MatchData is VarRef ? "ptr" : "ptr"
+        _UserDataMarshal := _UserData is VarRef ? "ptr" : IntPtr
+        MatchDataMarshal := MatchData is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, RTL_AVL_TABLE.Ptr, Table, _UserDataMarshal, _UserData, MatchDataMarshal, MatchData, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

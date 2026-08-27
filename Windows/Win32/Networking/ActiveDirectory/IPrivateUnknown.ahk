@@ -38,7 +38,6 @@ export default struct IPrivateUnknown extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} lpszUserName 
      * @param {BSTR} lpszPassword 
      * @param {Integer} lnReserved 
@@ -53,7 +52,6 @@ export default struct IPrivateUnknown extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ADSIReleaseObject() {
@@ -70,8 +68,8 @@ export default struct IPrivateUnknown extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ADSIInitializeObject := CallbackCreate(GetMethod(implObj, "ADSIInitializeObject"), flags, 4)
-        this.vtbl.ADSIReleaseObject := CallbackCreate(GetMethod(implObj, "ADSIReleaseObject"), flags, 1)
+        this.vtbl.ADSIInitializeObject := CallbackCreate(ObjBindMethod(implObj, "ADSIInitializeObject"), flags, 4)
+        this.vtbl.ADSIReleaseObject := CallbackCreate(ObjBindMethod(implObj, "ADSIReleaseObject"), flags, 1)
     }
 
     Dispose() {

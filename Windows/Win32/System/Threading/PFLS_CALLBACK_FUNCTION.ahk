@@ -23,12 +23,11 @@ export default struct PFLS_CALLBACK_FUNCTION {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} lpFlsData The value stored in the FLS slot for the calling fiber.
      * @returns {String} Nothing - always returns an empty string
      */
     Call(lpFlsData) {
-        lpFlsDataMarshal := lpFlsData is VarRef ? "ptr" : "ptr"
+        lpFlsDataMarshal := lpFlsData is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, lpFlsDataMarshal, lpFlsData)
     }

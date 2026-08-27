@@ -84,7 +84,7 @@ export WnvOpen() {
  * @since windowsserver2012
  */
 export WnvRequestNotification(WnvHandle, NotificationParam, _Overlapped, BytesTransferred) {
-    BytesTransferredMarshal := BytesTransferred is VarRef ? "uint*" : "ptr"
+    BytesTransferredMarshal := BytesTransferred is VarRef ? "uint*" : IntPtr
 
     result := DllCall("wnvapi.dll\WnvRequestNotification", HANDLE, WnvHandle, WNV_NOTIFICATION_PARAM.Ptr, NotificationParam, OVERLAPPED.Ptr, _Overlapped, BytesTransferredMarshal, BytesTransferred, UInt32)
     return result

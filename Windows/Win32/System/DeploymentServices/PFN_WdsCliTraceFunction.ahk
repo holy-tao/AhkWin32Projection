@@ -21,7 +21,6 @@ export default struct PFN_WdsCliTraceFunction {
     }
 
     /**
-     * 
      * @param {PWSTR} pwszFormat A pointer to a null-terminated string value that contains a formatted string.
      * @param {Pointer<Integer>} Params A list of parameters used by the formatted string.
      * @returns {String} Nothing - always returns an empty string
@@ -29,7 +28,7 @@ export default struct PFN_WdsCliTraceFunction {
     Call(pwszFormat, Params) {
         pwszFormat := pwszFormat is String ? StrPtr(pwszFormat) : pwszFormat
 
-        ParamsMarshal := Params is VarRef ? "char*" : "ptr"
+        ParamsMarshal := Params is VarRef ? "char*" : IntPtr
 
         DllCall(this.value, "ptr", pwszFormat, ParamsMarshal, Params)
     }

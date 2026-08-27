@@ -41,20 +41,18 @@ export default struct IChannelHook extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} uExtent 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Integer>} pDataSize 
      * @returns {String} Nothing - always returns an empty string
      */
     ClientGetSize(uExtent, riid, pDataSize) {
-        pDataSizeMarshal := pDataSize is VarRef ? "uint*" : "ptr"
+        pDataSizeMarshal := pDataSize is VarRef ? "uint*" : IntPtr
 
         ComCall(3, this, Guid.Ptr, uExtent, Guid.Ptr, riid, pDataSizeMarshal, pDataSize)
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} uExtent 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Integer>} pDataSize 
@@ -62,14 +60,13 @@ export default struct IChannelHook extends IUnknown {
      * @returns {String} Nothing - always returns an empty string
      */
     ClientFillBuffer(uExtent, riid, pDataSize, pDataBuffer) {
-        pDataSizeMarshal := pDataSize is VarRef ? "uint*" : "ptr"
-        pDataBufferMarshal := pDataBuffer is VarRef ? "ptr" : "ptr"
+        pDataSizeMarshal := pDataSize is VarRef ? "uint*" : IntPtr
+        pDataBufferMarshal := pDataBuffer is VarRef ? "ptr" : IntPtr
 
         ComCall(4, this, Guid.Ptr, uExtent, Guid.Ptr, riid, pDataSizeMarshal, pDataSize, pDataBufferMarshal, pDataBuffer)
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} uExtent 
      * @param {Pointer<Guid>} riid 
      * @param {Integer} cbDataSize 
@@ -79,13 +76,12 @@ export default struct IChannelHook extends IUnknown {
      * @returns {String} Nothing - always returns an empty string
      */
     ClientNotify(uExtent, riid, cbDataSize, pDataBuffer, lDataRep, hrFault) {
-        pDataBufferMarshal := pDataBuffer is VarRef ? "ptr" : "ptr"
+        pDataBufferMarshal := pDataBuffer is VarRef ? "ptr" : IntPtr
 
         ComCall(5, this, Guid.Ptr, uExtent, Guid.Ptr, riid, UInt32, cbDataSize, pDataBufferMarshal, pDataBuffer, UInt32, lDataRep, "int", hrFault)
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} uExtent 
      * @param {Pointer<Guid>} riid 
      * @param {Integer} cbDataSize 
@@ -94,13 +90,12 @@ export default struct IChannelHook extends IUnknown {
      * @returns {String} Nothing - always returns an empty string
      */
     ServerNotify(uExtent, riid, cbDataSize, pDataBuffer, lDataRep) {
-        pDataBufferMarshal := pDataBuffer is VarRef ? "ptr" : "ptr"
+        pDataBufferMarshal := pDataBuffer is VarRef ? "ptr" : IntPtr
 
         ComCall(6, this, Guid.Ptr, uExtent, Guid.Ptr, riid, UInt32, cbDataSize, pDataBufferMarshal, pDataBuffer, UInt32, lDataRep)
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} uExtent 
      * @param {Pointer<Guid>} riid 
      * @param {HRESULT} hrFault 
@@ -108,13 +103,12 @@ export default struct IChannelHook extends IUnknown {
      * @returns {String} Nothing - always returns an empty string
      */
     ServerGetSize(uExtent, riid, hrFault, pDataSize) {
-        pDataSizeMarshal := pDataSize is VarRef ? "uint*" : "ptr"
+        pDataSizeMarshal := pDataSize is VarRef ? "uint*" : IntPtr
 
         ComCall(7, this, Guid.Ptr, uExtent, Guid.Ptr, riid, "int", hrFault, pDataSizeMarshal, pDataSize)
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} uExtent 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Integer>} pDataSize 
@@ -123,8 +117,8 @@ export default struct IChannelHook extends IUnknown {
      * @returns {String} Nothing - always returns an empty string
      */
     ServerFillBuffer(uExtent, riid, pDataSize, pDataBuffer, hrFault) {
-        pDataSizeMarshal := pDataSize is VarRef ? "uint*" : "ptr"
-        pDataBufferMarshal := pDataBuffer is VarRef ? "ptr" : "ptr"
+        pDataSizeMarshal := pDataSize is VarRef ? "uint*" : IntPtr
+        pDataBufferMarshal := pDataBuffer is VarRef ? "ptr" : IntPtr
 
         ComCall(8, this, Guid.Ptr, uExtent, Guid.Ptr, riid, pDataSizeMarshal, pDataSize, pDataBufferMarshal, pDataBuffer, "int", hrFault)
     }
@@ -138,12 +132,12 @@ export default struct IChannelHook extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ClientGetSize := CallbackCreate(GetMethod(implObj, "ClientGetSize"), flags, 4)
-        this.vtbl.ClientFillBuffer := CallbackCreate(GetMethod(implObj, "ClientFillBuffer"), flags, 5)
-        this.vtbl.ClientNotify := CallbackCreate(GetMethod(implObj, "ClientNotify"), flags, 7)
-        this.vtbl.ServerNotify := CallbackCreate(GetMethod(implObj, "ServerNotify"), flags, 6)
-        this.vtbl.ServerGetSize := CallbackCreate(GetMethod(implObj, "ServerGetSize"), flags, 5)
-        this.vtbl.ServerFillBuffer := CallbackCreate(GetMethod(implObj, "ServerFillBuffer"), flags, 6)
+        this.vtbl.ClientGetSize := CallbackCreate(ObjBindMethod(implObj, "ClientGetSize"), flags, 4)
+        this.vtbl.ClientFillBuffer := CallbackCreate(ObjBindMethod(implObj, "ClientFillBuffer"), flags, 5)
+        this.vtbl.ClientNotify := CallbackCreate(ObjBindMethod(implObj, "ClientNotify"), flags, 7)
+        this.vtbl.ServerNotify := CallbackCreate(ObjBindMethod(implObj, "ServerNotify"), flags, 6)
+        this.vtbl.ServerGetSize := CallbackCreate(ObjBindMethod(implObj, "ServerGetSize"), flags, 5)
+        this.vtbl.ServerFillBuffer := CallbackCreate(ObjBindMethod(implObj, "ServerFillBuffer"), flags, 6)
     }
 
     Dispose() {

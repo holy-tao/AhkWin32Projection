@@ -20,7 +20,6 @@ export default struct UTextClone {
     }
 
     /**
-     * 
      * @param {Pointer<UText>} dest 
      * @param {Pointer<UText>} src 
      * @param {Integer} deep 
@@ -28,7 +27,7 @@ export default struct UTextClone {
      * @returns {Pointer<UText>} 
      */
     Call(dest, src, deep, _status) {
-        _statusMarshal := _status is VarRef ? "int*" : "ptr"
+        _statusMarshal := _status is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, UText.Ptr, dest, UText.Ptr, src, Int8, deep, _statusMarshal, _status, UText.Ptr)
         return result

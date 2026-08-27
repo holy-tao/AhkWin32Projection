@@ -25,7 +25,6 @@ export default struct WS_READ_CALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} callbackState A   <b>void</b> pointer to the user-defined state value that was passed to the function that accepted this callback.
      * @param {Integer} bytes A <b>void</b> pointer to the location where the data should be placed.
      * @param {Integer} maxSize The maximum number of bytes that may be read.
@@ -35,10 +34,13 @@ export default struct WS_READ_CALLBACK {
      *           indicates that there is no more data.
      */
     Call(callbackState, bytes, maxSize, asyncContext, _error) {
-        callbackStateMarshal := callbackState is VarRef ? "ptr" : "ptr"
-        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
+        callbackStateMarshal := callbackState is VarRef ? "ptr" : IntPtr
+        callbackStateMarshal := callbackState == 0 ? IntPtr : "ptr"
+        asyncContextMarshal := asyncContext == 0 ? IntPtr : WS_ASYNC_CONTEXT.Ptr
+        _errorMarshal := _error is VarRef ? "ptr*" : IntPtr
+        _errorMarshal := _error == 0 ? IntPtr : WS_ERROR.Ptr
 
-        result := DllCall(this.value, callbackStateMarshal, callbackState, IntPtr, bytes, UInt32, maxSize, "uint*", &actualSize := 0, WS_ASYNC_CONTEXT.Ptr, asyncContext, _errorMarshal, _error, "HRESULT")
+        result := DllCall(this.value, callbackStateMarshal, callbackState, IntPtr, bytes, UInt32, maxSize, "uint*", &actualSize := 0, asyncContextMarshal, asyncContext, _errorMarshal, _error, "HRESULT")
         return actualSize
     }
 

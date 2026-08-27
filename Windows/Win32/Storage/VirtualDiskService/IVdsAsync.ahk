@@ -156,7 +156,7 @@ export default struct IVdsAsync extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsasync-wait
      */
     Wait(pHrResult, pAsyncOut) {
-        pHrResultMarshal := pHrResult is VarRef ? "int*" : "ptr"
+        pHrResultMarshal := pHrResult is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, pHrResultMarshal, pHrResult, VDS_ASYNC_OUTPUT.Ptr, pAsyncOut, "HRESULT")
         return result
@@ -208,8 +208,8 @@ export default struct IVdsAsync extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsasync-querystatus
      */
     QueryStatus(pHrResult, pulPercentCompleted) {
-        pHrResultMarshal := pHrResult is VarRef ? "int*" : "ptr"
-        pulPercentCompletedMarshal := pulPercentCompleted is VarRef ? "uint*" : "ptr"
+        pHrResultMarshal := pHrResult is VarRef ? "int*" : IntPtr
+        pulPercentCompletedMarshal := pulPercentCompleted is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, pHrResultMarshal, pHrResult, pulPercentCompletedMarshal, pulPercentCompleted, "HRESULT")
         return result
@@ -224,9 +224,9 @@ export default struct IVdsAsync extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Cancel := CallbackCreate(GetMethod(implObj, "Cancel"), flags, 1)
-        this.vtbl.Wait := CallbackCreate(GetMethod(implObj, "Wait"), flags, 3)
-        this.vtbl.QueryStatus := CallbackCreate(GetMethod(implObj, "QueryStatus"), flags, 3)
+        this.vtbl.Cancel := CallbackCreate(ObjBindMethod(implObj, "Cancel"), flags, 1)
+        this.vtbl.Wait := CallbackCreate(ObjBindMethod(implObj, "Wait"), flags, 3)
+        this.vtbl.QueryStatus := CallbackCreate(ObjBindMethod(implObj, "QueryStatus"), flags, 3)
     }
 
     Dispose() {

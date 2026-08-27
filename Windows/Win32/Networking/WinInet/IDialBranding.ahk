@@ -75,7 +75,6 @@ export default struct IDialBranding extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwIndex 
      * @returns {HBITMAP} 
      */
@@ -94,8 +93,8 @@ export default struct IDialBranding extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 2)
-        this.vtbl.GetBitmap := CallbackCreate(GetMethod(implObj, "GetBitmap"), flags, 3)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 2)
+        this.vtbl.GetBitmap := CallbackCreate(ObjBindMethod(implObj, "GetBitmap"), flags, 3)
     }
 
     Dispose() {

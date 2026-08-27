@@ -224,10 +224,10 @@ export default struct IX500DistinguishedName extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Decode := CallbackCreate(GetMethod(implObj, "Decode"), flags, 4)
-        this.vtbl.Encode := CallbackCreate(GetMethod(implObj, "Encode"), flags, 3)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.get_EncodedName := CallbackCreate(GetMethod(implObj, "get_EncodedName"), flags, 3)
+        this.vtbl.Decode := CallbackCreate(ObjBindMethod(implObj, "Decode"), flags, 4)
+        this.vtbl.Encode := CallbackCreate(ObjBindMethod(implObj, "Encode"), flags, 3)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.get_EncodedName := CallbackCreate(ObjBindMethod(implObj, "get_EncodedName"), flags, 3)
     }
 
     Dispose() {

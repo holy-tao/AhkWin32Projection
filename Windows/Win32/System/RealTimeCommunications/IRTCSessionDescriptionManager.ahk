@@ -38,7 +38,6 @@ export default struct IRTCSessionDescriptionManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrContentType 
      * @param {BSTR} bstrSessionDescription 
      * @param {Pointer<VARIANT_BOOL>} pfApplicationSession 
@@ -48,7 +47,7 @@ export default struct IRTCSessionDescriptionManager extends IUnknown {
         bstrContentType := bstrContentType is String ? BSTR.Alloc(bstrContentType).Value : bstrContentType
         bstrSessionDescription := bstrSessionDescription is String ? BSTR.Alloc(bstrSessionDescription).Value : bstrSessionDescription
 
-        pfApplicationSessionMarshal := pfApplicationSession is VarRef ? "short*" : "ptr"
+        pfApplicationSessionMarshal := pfApplicationSession is VarRef ? "short*" : IntPtr
 
         result := ComCall(3, this, BSTR, bstrContentType, BSTR, bstrSessionDescription, pfApplicationSessionMarshal, pfApplicationSession, "HRESULT")
         return result
@@ -63,7 +62,7 @@ export default struct IRTCSessionDescriptionManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EvaluateSessionDescription := CallbackCreate(GetMethod(implObj, "EvaluateSessionDescription"), flags, 4)
+        this.vtbl.EvaluateSessionDescription := CallbackCreate(ObjBindMethod(implObj, "EvaluateSessionDescription"), flags, 4)
     }
 
     Dispose() {

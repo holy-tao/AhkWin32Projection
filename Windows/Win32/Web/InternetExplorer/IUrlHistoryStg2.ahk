@@ -41,7 +41,6 @@ export default struct IUrlHistoryStg2 extends IUrlHistoryStg {
     }
 
     /**
-     * 
      * @param {PWSTR} pocsUrl 
      * @param {PWSTR} pocsTitle 
      * @param {Integer} dwFlags 
@@ -59,7 +58,6 @@ export default struct IUrlHistoryStg2 extends IUrlHistoryStg {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     ClearHistory() {
@@ -76,8 +74,8 @@ export default struct IUrlHistoryStg2 extends IUrlHistoryStg {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddUrlAndNotify := CallbackCreate(GetMethod(implObj, "AddUrlAndNotify"), flags, 7)
-        this.vtbl.ClearHistory := CallbackCreate(GetMethod(implObj, "ClearHistory"), flags, 1)
+        this.vtbl.AddUrlAndNotify := CallbackCreate(ObjBindMethod(implObj, "AddUrlAndNotify"), flags, 7)
+        this.vtbl.ClearHistory := CallbackCreate(ObjBindMethod(implObj, "ClearHistory"), flags, 1)
     }
 
     Dispose() {

@@ -76,8 +76,8 @@ export default struct ITCallInfo2 extends ITCallInfo {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_EventFilter := CallbackCreate(GetMethod(implObj, "get_EventFilter"), flags, 4)
-        this.vtbl.put_EventFilter := CallbackCreate(GetMethod(implObj, "put_EventFilter"), flags, 4)
+        this.vtbl.get_EventFilter := CallbackCreate(ObjBindMethod(implObj, "get_EventFilter"), flags, 4)
+        this.vtbl.put_EventFilter := CallbackCreate(ObjBindMethod(implObj, "put_EventFilter"), flags, 4)
     }
 
     Dispose() {

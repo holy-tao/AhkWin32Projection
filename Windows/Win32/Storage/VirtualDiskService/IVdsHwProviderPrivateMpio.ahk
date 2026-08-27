@@ -93,7 +93,7 @@ export default struct IVdsHwProviderPrivateMpio extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetAllPathStatusesFromHbaPort := CallbackCreate(GetMethod(implObj, "SetAllPathStatusesFromHbaPort"), flags, 3)
+        this.vtbl.SetAllPathStatusesFromHbaPort := CallbackCreate(ObjBindMethod(implObj, "SetAllPathStatusesFromHbaPort"), flags, 3)
     }
 
     Dispose() {

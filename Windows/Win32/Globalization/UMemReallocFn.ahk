@@ -18,15 +18,14 @@ export default struct UMemReallocFn {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {Pointer<Void>} mem 
      * @param {Pointer} _size 
      * @returns {Pointer<Void>} 
      */
     Call(_context, mem, _size) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
-        memMarshal := mem is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+        memMarshal := mem is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, _contextMarshal, _context, memMarshal, mem, IntPtr, _size, IntPtr)
         return result

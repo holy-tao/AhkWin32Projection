@@ -82,7 +82,7 @@ export default struct IUIAutomationTextEditTextChangedEventHandler extends IUnkn
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.HandleTextEditTextChangedEvent := CallbackCreate(GetMethod(implObj, "HandleTextEditTextChangedEvent"), flags, 4)
+        this.vtbl.HandleTextEditTextChangedEvent := CallbackCreate(ObjBindMethod(implObj, "HandleTextEditTextChangedEvent"), flags, 4)
     }
 
     Dispose() {

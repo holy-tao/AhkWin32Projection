@@ -19,7 +19,6 @@ export default struct LPDDHALMOCOMPCB_ENDFRAME {
     }
 
     /**
-     * 
      * @param {Pointer<DDHAL_ENDMOCOMPFRAMEDATA>} param0 
      * @returns {Integer} 
      */

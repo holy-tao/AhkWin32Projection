@@ -82,8 +82,8 @@ export default struct IPropertyDescriptionAliasInfo extends IPropertyDescription
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSortByAlias := CallbackCreate(GetMethod(implObj, "GetSortByAlias"), flags, 3)
-        this.vtbl.GetAdditionalSortByAliases := CallbackCreate(GetMethod(implObj, "GetAdditionalSortByAliases"), flags, 3)
+        this.vtbl.GetSortByAlias := CallbackCreate(ObjBindMethod(implObj, "GetSortByAlias"), flags, 3)
+        this.vtbl.GetAdditionalSortByAliases := CallbackCreate(ObjBindMethod(implObj, "GetAdditionalSortByAliases"), flags, 3)
     }
 
     Dispose() {

@@ -74,10 +74,10 @@ export default struct IWMLicenseRevocationAgent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmlicenserevocationagent-getlrbchallenge
      */
     GetLRBChallenge(pMachineID, dwMachineIDLength, pChallenge, dwChallengeLength, pChallengeOutput, pdwChallengeOutputLength) {
-        pMachineIDMarshal := pMachineID is VarRef ? "char*" : "ptr"
-        pChallengeMarshal := pChallenge is VarRef ? "char*" : "ptr"
-        pChallengeOutputMarshal := pChallengeOutput is VarRef ? "char*" : "ptr"
-        pdwChallengeOutputLengthMarshal := pdwChallengeOutputLength is VarRef ? "uint*" : "ptr"
+        pMachineIDMarshal := pMachineID is VarRef ? "char*" : IntPtr
+        pChallengeMarshal := pChallenge is VarRef ? "char*" : IntPtr
+        pChallengeOutputMarshal := pChallengeOutput is VarRef ? "char*" : IntPtr
+        pdwChallengeOutputLengthMarshal := pdwChallengeOutputLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pMachineIDMarshal, pMachineID, UInt32, dwMachineIDLength, pChallengeMarshal, pChallenge, UInt32, dwChallengeLength, pChallengeOutputMarshal, pChallengeOutput, pdwChallengeOutputLengthMarshal, pdwChallengeOutputLength, "HRESULT")
         return result
@@ -113,9 +113,9 @@ export default struct IWMLicenseRevocationAgent extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmlicenserevocationagent-processlrb
      */
     ProcessLRB(pSignedLRB, dwSignedLRBLength, pSignedACK, pdwSignedACKLength) {
-        pSignedLRBMarshal := pSignedLRB is VarRef ? "char*" : "ptr"
-        pSignedACKMarshal := pSignedACK is VarRef ? "char*" : "ptr"
-        pdwSignedACKLengthMarshal := pdwSignedACKLength is VarRef ? "uint*" : "ptr"
+        pSignedLRBMarshal := pSignedLRB is VarRef ? "char*" : IntPtr
+        pSignedACKMarshal := pSignedACK is VarRef ? "char*" : IntPtr
+        pdwSignedACKLengthMarshal := pdwSignedACKLength is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pSignedLRBMarshal, pSignedLRB, UInt32, dwSignedLRBLength, pSignedACKMarshal, pSignedACK, pdwSignedACKLengthMarshal, pdwSignedACKLength, "HRESULT")
         return result
@@ -130,8 +130,8 @@ export default struct IWMLicenseRevocationAgent extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLRBChallenge := CallbackCreate(GetMethod(implObj, "GetLRBChallenge"), flags, 7)
-        this.vtbl.ProcessLRB := CallbackCreate(GetMethod(implObj, "ProcessLRB"), flags, 5)
+        this.vtbl.GetLRBChallenge := CallbackCreate(ObjBindMethod(implObj, "GetLRBChallenge"), flags, 7)
+        this.vtbl.ProcessLRB := CallbackCreate(ObjBindMethod(implObj, "ProcessLRB"), flags, 5)
     }
 
     Dispose() {

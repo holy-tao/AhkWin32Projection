@@ -172,7 +172,6 @@ export default struct IWiaPropertyStorage extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cpspec 
      * @param {Pointer<PROPSPEC>} rgpspec 
      * @returns {PROPVARIANT} 
@@ -184,7 +183,6 @@ export default struct IWiaPropertyStorage extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cpspec 
      * @param {Pointer<PROPSPEC>} rgpspec 
      * @param {Pointer<PROPVARIANT>} rgpropvar 
@@ -197,7 +195,6 @@ export default struct IWiaPropertyStorage extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cpspec 
      * @param {Pointer<PROPSPEC>} rgpspec 
      * @returns {HRESULT} 
@@ -208,48 +205,44 @@ export default struct IWiaPropertyStorage extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cpropid 
      * @param {Pointer<Integer>} rgpropid 
      * @returns {PWSTR} 
      */
     ReadPropertyNames(cpropid, rgpropid) {
-        rgpropidMarshal := rgpropid is VarRef ? "uint*" : "ptr"
+        rgpropidMarshal := rgpropid is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, UInt32, cpropid, rgpropidMarshal, rgpropid, PWSTR.Ptr, &rglpwstrName := 0, "HRESULT")
         return rglpwstrName
     }
 
     /**
-     * 
      * @param {Integer} cpropid 
      * @param {Pointer<Integer>} rgpropid 
      * @param {Pointer<PWSTR>} rglpwstrName 
      * @returns {HRESULT} 
      */
     WritePropertyNames(cpropid, rgpropid, rglpwstrName) {
-        rgpropidMarshal := rgpropid is VarRef ? "uint*" : "ptr"
-        rglpwstrNameMarshal := rglpwstrName is VarRef ? "ptr*" : "ptr"
+        rgpropidMarshal := rgpropid is VarRef ? "uint*" : IntPtr
+        rglpwstrNameMarshal := rglpwstrName is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(7, this, UInt32, cpropid, rgpropidMarshal, rgpropid, rglpwstrNameMarshal, rglpwstrName, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} cpropid 
      * @param {Pointer<Integer>} rgpropid 
      * @returns {HRESULT} 
      */
     DeletePropertyNames(cpropid, rgpropid) {
-        rgpropidMarshal := rgpropid is VarRef ? "uint*" : "ptr"
+        rgpropidMarshal := rgpropid is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, UInt32, cpropid, rgpropidMarshal, rgpropid, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} grfCommitFlags 
      * @returns {HRESULT} 
      */
@@ -259,7 +252,6 @@ export default struct IWiaPropertyStorage extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Revert() {
@@ -268,7 +260,6 @@ export default struct IWiaPropertyStorage extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IEnumSTATPROPSTG} 
      */
     Enum() {
@@ -277,7 +268,6 @@ export default struct IWiaPropertyStorage extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<FILETIME>} pctime 
      * @param {Pointer<FILETIME>} patime 
      * @param {Pointer<FILETIME>} pmtime 
@@ -289,7 +279,6 @@ export default struct IWiaPropertyStorage extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} clsid 
      * @returns {HRESULT} 
      */
@@ -299,7 +288,6 @@ export default struct IWiaPropertyStorage extends IUnknown {
     }
 
     /**
-     * 
      * @returns {STATPROPSETSTG} 
      */
     Stat() {
@@ -456,7 +444,7 @@ export default struct IWiaPropertyStorage extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiapropertystorage-getpropertyattributes
      */
     GetPropertyAttributes(cpspec, rgpspec, rgflags, rgpropvar) {
-        rgflagsMarshal := rgflags is VarRef ? "uint*" : "ptr"
+        rgflagsMarshal := rgflags is VarRef ? "uint*" : IntPtr
 
         result := ComCall(15, this, UInt32, cpspec, PROPSPEC.Ptr, rgpspec, rgflagsMarshal, rgflags, PROPVARIANT.Ptr, rgpropvar, "HRESULT")
         return result
@@ -531,22 +519,22 @@ export default struct IWiaPropertyStorage extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ReadMultiple := CallbackCreate(GetMethod(implObj, "ReadMultiple"), flags, 4)
-        this.vtbl.WriteMultiple := CallbackCreate(GetMethod(implObj, "WriteMultiple"), flags, 5)
-        this.vtbl.DeleteMultiple := CallbackCreate(GetMethod(implObj, "DeleteMultiple"), flags, 3)
-        this.vtbl.ReadPropertyNames := CallbackCreate(GetMethod(implObj, "ReadPropertyNames"), flags, 4)
-        this.vtbl.WritePropertyNames := CallbackCreate(GetMethod(implObj, "WritePropertyNames"), flags, 4)
-        this.vtbl.DeletePropertyNames := CallbackCreate(GetMethod(implObj, "DeletePropertyNames"), flags, 3)
-        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 2)
-        this.vtbl.Revert := CallbackCreate(GetMethod(implObj, "Revert"), flags, 1)
-        this.vtbl.Enum := CallbackCreate(GetMethod(implObj, "Enum"), flags, 2)
-        this.vtbl.SetTimes := CallbackCreate(GetMethod(implObj, "SetTimes"), flags, 4)
-        this.vtbl.SetClass := CallbackCreate(GetMethod(implObj, "SetClass"), flags, 2)
-        this.vtbl.Stat := CallbackCreate(GetMethod(implObj, "Stat"), flags, 2)
-        this.vtbl.GetPropertyAttributes := CallbackCreate(GetMethod(implObj, "GetPropertyAttributes"), flags, 5)
-        this.vtbl.GetCount := CallbackCreate(GetMethod(implObj, "GetCount"), flags, 2)
-        this.vtbl.GetPropertyStream := CallbackCreate(GetMethod(implObj, "GetPropertyStream"), flags, 3)
-        this.vtbl.SetPropertyStream := CallbackCreate(GetMethod(implObj, "SetPropertyStream"), flags, 3)
+        this.vtbl.ReadMultiple := CallbackCreate(ObjBindMethod(implObj, "ReadMultiple"), flags, 4)
+        this.vtbl.WriteMultiple := CallbackCreate(ObjBindMethod(implObj, "WriteMultiple"), flags, 5)
+        this.vtbl.DeleteMultiple := CallbackCreate(ObjBindMethod(implObj, "DeleteMultiple"), flags, 3)
+        this.vtbl.ReadPropertyNames := CallbackCreate(ObjBindMethod(implObj, "ReadPropertyNames"), flags, 4)
+        this.vtbl.WritePropertyNames := CallbackCreate(ObjBindMethod(implObj, "WritePropertyNames"), flags, 4)
+        this.vtbl.DeletePropertyNames := CallbackCreate(ObjBindMethod(implObj, "DeletePropertyNames"), flags, 3)
+        this.vtbl.Commit := CallbackCreate(ObjBindMethod(implObj, "Commit"), flags, 2)
+        this.vtbl.Revert := CallbackCreate(ObjBindMethod(implObj, "Revert"), flags, 1)
+        this.vtbl.Enum := CallbackCreate(ObjBindMethod(implObj, "Enum"), flags, 2)
+        this.vtbl.SetTimes := CallbackCreate(ObjBindMethod(implObj, "SetTimes"), flags, 4)
+        this.vtbl.SetClass := CallbackCreate(ObjBindMethod(implObj, "SetClass"), flags, 2)
+        this.vtbl.Stat := CallbackCreate(ObjBindMethod(implObj, "Stat"), flags, 2)
+        this.vtbl.GetPropertyAttributes := CallbackCreate(ObjBindMethod(implObj, "GetPropertyAttributes"), flags, 5)
+        this.vtbl.GetCount := CallbackCreate(ObjBindMethod(implObj, "GetCount"), flags, 2)
+        this.vtbl.GetPropertyStream := CallbackCreate(ObjBindMethod(implObj, "GetPropertyStream"), flags, 3)
+        this.vtbl.SetPropertyStream := CallbackCreate(ObjBindMethod(implObj, "SetPropertyStream"), flags, 3)
     }
 
     Dispose() {

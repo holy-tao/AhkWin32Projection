@@ -246,14 +246,14 @@ export default struct INetFwRemoteAdminSettings extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_IpVersion := CallbackCreate(GetMethod(implObj, "get_IpVersion"), flags, 2)
-        this.vtbl.put_IpVersion := CallbackCreate(GetMethod(implObj, "put_IpVersion"), flags, 2)
-        this.vtbl.get_Scope := CallbackCreate(GetMethod(implObj, "get_Scope"), flags, 2)
-        this.vtbl.put_Scope := CallbackCreate(GetMethod(implObj, "put_Scope"), flags, 2)
-        this.vtbl.get_RemoteAddresses := CallbackCreate(GetMethod(implObj, "get_RemoteAddresses"), flags, 2)
-        this.vtbl.put_RemoteAddresses := CallbackCreate(GetMethod(implObj, "put_RemoteAddresses"), flags, 2)
-        this.vtbl.get_Enabled := CallbackCreate(GetMethod(implObj, "get_Enabled"), flags, 2)
-        this.vtbl.put_Enabled := CallbackCreate(GetMethod(implObj, "put_Enabled"), flags, 2)
+        this.vtbl.get_IpVersion := CallbackCreate(ObjBindMethod(implObj, "get_IpVersion"), flags, 2)
+        this.vtbl.put_IpVersion := CallbackCreate(ObjBindMethod(implObj, "put_IpVersion"), flags, 2)
+        this.vtbl.get_Scope := CallbackCreate(ObjBindMethod(implObj, "get_Scope"), flags, 2)
+        this.vtbl.put_Scope := CallbackCreate(ObjBindMethod(implObj, "put_Scope"), flags, 2)
+        this.vtbl.get_RemoteAddresses := CallbackCreate(ObjBindMethod(implObj, "get_RemoteAddresses"), flags, 2)
+        this.vtbl.put_RemoteAddresses := CallbackCreate(ObjBindMethod(implObj, "put_RemoteAddresses"), flags, 2)
+        this.vtbl.get_Enabled := CallbackCreate(ObjBindMethod(implObj, "get_Enabled"), flags, 2)
+        this.vtbl.put_Enabled := CallbackCreate(ObjBindMethod(implObj, "put_Enabled"), flags, 2)
     }
 
     Dispose() {

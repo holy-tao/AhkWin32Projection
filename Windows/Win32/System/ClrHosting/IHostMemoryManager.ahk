@@ -48,7 +48,6 @@ export default struct IHostMemoryManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwMallocType 
      * @returns {IHostMalloc} 
      */
@@ -88,7 +87,7 @@ export default struct IHostMemoryManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc
      */
     VirtualAlloc(pAddress, dwSize, flAllocationType, flProtect, eCriticalLevel) {
-        pAddressMarshal := pAddress is VarRef ? "ptr" : "ptr"
+        pAddressMarshal := pAddress is VarRef ? "ptr" : IntPtr
 
         result := ComCall(4, this, pAddressMarshal, pAddress, IntPtr, dwSize, UInt32, flAllocationType, UInt32, flProtect, EMemoryCriticalLevel, eCriticalLevel, "ptr*", &ppMem := 0, "HRESULT")
         return ppMem
@@ -129,7 +128,7 @@ export default struct IHostMemoryManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-virtualfree
      */
     VirtualFree(lpAddress, dwSize, dwFreeType) {
-        lpAddressMarshal := lpAddress is VarRef ? "ptr" : "ptr"
+        lpAddressMarshal := lpAddress is VarRef ? "ptr" : IntPtr
 
         result := ComCall(5, this, lpAddressMarshal, lpAddress, IntPtr, dwSize, UInt32, dwFreeType, "HRESULT")
         return result
@@ -166,9 +165,9 @@ export default struct IHostMemoryManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-virtualquery
      */
     VirtualQuery(lpAddress, lpBuffer, dwLength, pResult) {
-        lpAddressMarshal := lpAddress is VarRef ? "ptr" : "ptr"
-        lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
-        pResultMarshal := pResult is VarRef ? "ptr*" : "ptr"
+        lpAddressMarshal := lpAddress is VarRef ? "ptr" : IntPtr
+        lpBufferMarshal := lpBuffer is VarRef ? "ptr" : IntPtr
+        pResultMarshal := pResult is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(6, this, lpAddressMarshal, lpAddress, lpBufferMarshal, lpBuffer, IntPtr, dwLength, pResultMarshal, pResult, "HRESULT")
         return result
@@ -195,28 +194,26 @@ export default struct IHostMemoryManager extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-virtualprotect
      */
     VirtualProtect(lpAddress, dwSize, flNewProtect) {
-        lpAddressMarshal := lpAddress is VarRef ? "ptr" : "ptr"
+        lpAddressMarshal := lpAddress is VarRef ? "ptr" : IntPtr
 
         result := ComCall(7, this, lpAddressMarshal, lpAddress, IntPtr, dwSize, UInt32, flNewProtect, "uint*", &pflOldProtect := 0, "HRESULT")
         return pflOldProtect
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pMemoryLoad 
      * @param {Pointer<Pointer>} pAvailableBytes 
      * @returns {HRESULT} 
      */
     GetMemoryLoad(pMemoryLoad, pAvailableBytes) {
-        pMemoryLoadMarshal := pMemoryLoad is VarRef ? "uint*" : "ptr"
-        pAvailableBytesMarshal := pAvailableBytes is VarRef ? "ptr*" : "ptr"
+        pMemoryLoadMarshal := pMemoryLoad is VarRef ? "uint*" : IntPtr
+        pAvailableBytesMarshal := pAvailableBytes is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(8, this, pMemoryLoadMarshal, pMemoryLoad, pAvailableBytesMarshal, pAvailableBytes, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {ICLRMemoryNotificationCallback} pCallback 
      * @returns {HRESULT} 
      */
@@ -226,38 +223,35 @@ export default struct IHostMemoryManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} startAddress 
      * @param {Pointer} _size 
      * @returns {HRESULT} 
      */
     NeedsVirtualAddressSpace(startAddress, _size) {
-        startAddressMarshal := startAddress is VarRef ? "ptr" : "ptr"
+        startAddressMarshal := startAddress is VarRef ? "ptr" : IntPtr
 
         result := ComCall(10, this, startAddressMarshal, startAddress, IntPtr, _size, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} startAddress 
      * @param {Pointer} _size 
      * @returns {HRESULT} 
      */
     AcquiredVirtualAddressSpace(startAddress, _size) {
-        startAddressMarshal := startAddress is VarRef ? "ptr" : "ptr"
+        startAddressMarshal := startAddress is VarRef ? "ptr" : IntPtr
 
         result := ComCall(11, this, startAddressMarshal, startAddress, IntPtr, _size, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Void>} startAddress 
      * @returns {HRESULT} 
      */
     ReleasedVirtualAddressSpace(startAddress) {
-        startAddressMarshal := startAddress is VarRef ? "ptr" : "ptr"
+        startAddressMarshal := startAddress is VarRef ? "ptr" : IntPtr
 
         result := ComCall(12, this, startAddressMarshal, startAddress, "HRESULT")
         return result
@@ -272,16 +266,16 @@ export default struct IHostMemoryManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateMalloc := CallbackCreate(GetMethod(implObj, "CreateMalloc"), flags, 3)
-        this.vtbl.VirtualAlloc := CallbackCreate(GetMethod(implObj, "VirtualAlloc"), flags, 7)
-        this.vtbl.VirtualFree := CallbackCreate(GetMethod(implObj, "VirtualFree"), flags, 4)
-        this.vtbl.VirtualQuery := CallbackCreate(GetMethod(implObj, "VirtualQuery"), flags, 5)
-        this.vtbl.VirtualProtect := CallbackCreate(GetMethod(implObj, "VirtualProtect"), flags, 5)
-        this.vtbl.GetMemoryLoad := CallbackCreate(GetMethod(implObj, "GetMemoryLoad"), flags, 3)
-        this.vtbl.RegisterMemoryNotificationCallback := CallbackCreate(GetMethod(implObj, "RegisterMemoryNotificationCallback"), flags, 2)
-        this.vtbl.NeedsVirtualAddressSpace := CallbackCreate(GetMethod(implObj, "NeedsVirtualAddressSpace"), flags, 3)
-        this.vtbl.AcquiredVirtualAddressSpace := CallbackCreate(GetMethod(implObj, "AcquiredVirtualAddressSpace"), flags, 3)
-        this.vtbl.ReleasedVirtualAddressSpace := CallbackCreate(GetMethod(implObj, "ReleasedVirtualAddressSpace"), flags, 2)
+        this.vtbl.CreateMalloc := CallbackCreate(ObjBindMethod(implObj, "CreateMalloc"), flags, 3)
+        this.vtbl.VirtualAlloc := CallbackCreate(ObjBindMethod(implObj, "VirtualAlloc"), flags, 7)
+        this.vtbl.VirtualFree := CallbackCreate(ObjBindMethod(implObj, "VirtualFree"), flags, 4)
+        this.vtbl.VirtualQuery := CallbackCreate(ObjBindMethod(implObj, "VirtualQuery"), flags, 5)
+        this.vtbl.VirtualProtect := CallbackCreate(ObjBindMethod(implObj, "VirtualProtect"), flags, 5)
+        this.vtbl.GetMemoryLoad := CallbackCreate(ObjBindMethod(implObj, "GetMemoryLoad"), flags, 3)
+        this.vtbl.RegisterMemoryNotificationCallback := CallbackCreate(ObjBindMethod(implObj, "RegisterMemoryNotificationCallback"), flags, 2)
+        this.vtbl.NeedsVirtualAddressSpace := CallbackCreate(ObjBindMethod(implObj, "NeedsVirtualAddressSpace"), flags, 3)
+        this.vtbl.AcquiredVirtualAddressSpace := CallbackCreate(ObjBindMethod(implObj, "AcquiredVirtualAddressSpace"), flags, 3)
+        this.vtbl.ReleasedVirtualAddressSpace := CallbackCreate(ObjBindMethod(implObj, "ReleasedVirtualAddressSpace"), flags, 2)
     }
 
     Dispose() {

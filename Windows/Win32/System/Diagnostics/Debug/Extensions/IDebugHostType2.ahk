@@ -41,7 +41,6 @@ export default struct IDebugHostType2 extends IDebugHostType {
     }
 
     /**
-     * 
      * @returns {Boolean} 
      */
     IsTypedef() {
@@ -50,7 +49,6 @@ export default struct IDebugHostType2 extends IDebugHostType {
     }
 
     /**
-     * 
      * @returns {IDebugHostType2} 
      */
     GetTypedefBaseType() {
@@ -59,7 +57,6 @@ export default struct IDebugHostType2 extends IDebugHostType {
     }
 
     /**
-     * 
      * @returns {IDebugHostType2} 
      */
     GetTypedefFinalBaseType() {
@@ -68,7 +65,6 @@ export default struct IDebugHostType2 extends IDebugHostType {
     }
 
     /**
-     * 
      * @returns {VarArgsKind} 
      */
     GetFunctionVarArgsKind() {
@@ -77,7 +73,6 @@ export default struct IDebugHostType2 extends IDebugHostType {
     }
 
     /**
-     * 
      * @returns {IDebugHostType2} 
      */
     GetFunctionInstancePointerType() {
@@ -94,11 +89,11 @@ export default struct IDebugHostType2 extends IDebugHostType {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsTypedef := CallbackCreate(GetMethod(implObj, "IsTypedef"), flags, 2)
-        this.vtbl.GetTypedefBaseType := CallbackCreate(GetMethod(implObj, "GetTypedefBaseType"), flags, 2)
-        this.vtbl.GetTypedefFinalBaseType := CallbackCreate(GetMethod(implObj, "GetTypedefFinalBaseType"), flags, 2)
-        this.vtbl.GetFunctionVarArgsKind := CallbackCreate(GetMethod(implObj, "GetFunctionVarArgsKind"), flags, 2)
-        this.vtbl.GetFunctionInstancePointerType := CallbackCreate(GetMethod(implObj, "GetFunctionInstancePointerType"), flags, 2)
+        this.vtbl.IsTypedef := CallbackCreate(ObjBindMethod(implObj, "IsTypedef"), flags, 2)
+        this.vtbl.GetTypedefBaseType := CallbackCreate(ObjBindMethod(implObj, "GetTypedefBaseType"), flags, 2)
+        this.vtbl.GetTypedefFinalBaseType := CallbackCreate(ObjBindMethod(implObj, "GetTypedefFinalBaseType"), flags, 2)
+        this.vtbl.GetFunctionVarArgsKind := CallbackCreate(ObjBindMethod(implObj, "GetFunctionVarArgsKind"), flags, 2)
+        this.vtbl.GetFunctionInstancePointerType := CallbackCreate(ObjBindMethod(implObj, "GetFunctionInstancePointerType"), flags, 2)
     }
 
     Dispose() {

@@ -49,7 +49,6 @@ export default struct AsyncIBackgroundCopyCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {IBackgroundCopyJob} pJob 
      * @returns {HRESULT} 
      */
@@ -59,7 +58,6 @@ export default struct AsyncIBackgroundCopyCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_JobTransferred() {
@@ -68,7 +66,6 @@ export default struct AsyncIBackgroundCopyCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {IBackgroundCopyJob} pJob 
      * @param {IBackgroundCopyError} pError 
      * @returns {HRESULT} 
@@ -79,7 +76,6 @@ export default struct AsyncIBackgroundCopyCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_JobError() {
@@ -88,7 +84,6 @@ export default struct AsyncIBackgroundCopyCallback extends IUnknown {
     }
 
     /**
-     * 
      * @param {IBackgroundCopyJob} pJob 
      * @param {Integer} dwReserved 
      * @returns {HRESULT} 
@@ -99,7 +94,6 @@ export default struct AsyncIBackgroundCopyCallback extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Finish_JobModification() {
@@ -116,12 +110,12 @@ export default struct AsyncIBackgroundCopyCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Begin_JobTransferred := CallbackCreate(GetMethod(implObj, "Begin_JobTransferred"), flags, 2)
-        this.vtbl.Finish_JobTransferred := CallbackCreate(GetMethod(implObj, "Finish_JobTransferred"), flags, 1)
-        this.vtbl.Begin_JobError := CallbackCreate(GetMethod(implObj, "Begin_JobError"), flags, 3)
-        this.vtbl.Finish_JobError := CallbackCreate(GetMethod(implObj, "Finish_JobError"), flags, 1)
-        this.vtbl.Begin_JobModification := CallbackCreate(GetMethod(implObj, "Begin_JobModification"), flags, 3)
-        this.vtbl.Finish_JobModification := CallbackCreate(GetMethod(implObj, "Finish_JobModification"), flags, 1)
+        this.vtbl.Begin_JobTransferred := CallbackCreate(ObjBindMethod(implObj, "Begin_JobTransferred"), flags, 2)
+        this.vtbl.Finish_JobTransferred := CallbackCreate(ObjBindMethod(implObj, "Finish_JobTransferred"), flags, 1)
+        this.vtbl.Begin_JobError := CallbackCreate(ObjBindMethod(implObj, "Begin_JobError"), flags, 3)
+        this.vtbl.Finish_JobError := CallbackCreate(ObjBindMethod(implObj, "Finish_JobError"), flags, 1)
+        this.vtbl.Begin_JobModification := CallbackCreate(ObjBindMethod(implObj, "Begin_JobModification"), flags, 3)
+        this.vtbl.Finish_JobModification := CallbackCreate(ObjBindMethod(implObj, "Finish_JobModification"), flags, 1)
     }
 
     Dispose() {

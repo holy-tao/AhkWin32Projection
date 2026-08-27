@@ -18,13 +18,12 @@ export default struct PFLUSH_TO_LSN {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} LogHandle 
      * @param {Integer} Lsn 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(LogHandle, Lsn) {
-        LogHandleMarshal := LogHandle is VarRef ? "ptr" : "ptr"
+        LogHandleMarshal := LogHandle is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, LogHandleMarshal, LogHandle, Int64, Lsn)
     }

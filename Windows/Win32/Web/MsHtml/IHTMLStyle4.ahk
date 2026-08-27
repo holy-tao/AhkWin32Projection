@@ -57,7 +57,6 @@ export default struct IHTMLStyle4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -69,7 +68,6 @@ export default struct IHTMLStyle4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_textOverflow() {
@@ -79,7 +77,6 @@ export default struct IHTMLStyle4 extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -89,7 +86,6 @@ export default struct IHTMLStyle4 extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_minHeight() {
@@ -107,10 +103,10 @@ export default struct IHTMLStyle4 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_textOverflow := CallbackCreate(GetMethod(implObj, "put_textOverflow"), flags, 2)
-        this.vtbl.get_textOverflow := CallbackCreate(GetMethod(implObj, "get_textOverflow"), flags, 2)
-        this.vtbl.put_minHeight := CallbackCreate(GetMethod(implObj, "put_minHeight"), flags, 2)
-        this.vtbl.get_minHeight := CallbackCreate(GetMethod(implObj, "get_minHeight"), flags, 2)
+        this.vtbl.put_textOverflow := CallbackCreate(ObjBindMethod(implObj, "put_textOverflow"), flags, 2)
+        this.vtbl.get_textOverflow := CallbackCreate(ObjBindMethod(implObj, "get_textOverflow"), flags, 2)
+        this.vtbl.put_minHeight := CallbackCreate(ObjBindMethod(implObj, "put_minHeight"), flags, 2)
+        this.vtbl.get_minHeight := CallbackCreate(ObjBindMethod(implObj, "get_minHeight"), flags, 2)
     }
 
     Dispose() {

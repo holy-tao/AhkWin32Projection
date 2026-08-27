@@ -39,7 +39,6 @@ export default struct ITridentTouchInput extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} _msg 
      * @param {WPARAM} _wParam 
      * @param {LPARAM} _lParam 
@@ -59,7 +58,7 @@ export default struct ITridentTouchInput extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnPointerMessage := CallbackCreate(GetMethod(implObj, "OnPointerMessage"), flags, 5)
+        this.vtbl.OnPointerMessage := CallbackCreate(ObjBindMethod(implObj, "OnPointerMessage"), flags, 5)
     }
 
     Dispose() {

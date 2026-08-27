@@ -23,7 +23,6 @@ export default struct PCRYPT_ENCRYPT_PRIVATE_KEY_FUNC {
     }
 
     /**
-     * 
      * @param {Pointer<CRYPT_ALGORITHM_IDENTIFIER>} pAlgorithm A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure to receive the algorithm used to encrypt the PrivateKeyInfo ASN.1 type found in the PKCS #8 standard.
      * @param {Pointer<CRYPT_INTEGER_BLOB>} pClearTextPrivateKey A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_DATA_BLOB</a> structure that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">plaintext</a> private key to be encrypted.
      * @param {Integer} pbEncryptedKey A pointer to a <b>BYTE</b> buffer to receive the encrypted <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">private key BLOB</a>. If this parameter is <b>NULL</b>, <i>pcbEncryptedKey</i> will return the size, in bytes, of memory needed to contain the encrypted key on a subsequent call to this function.
@@ -38,10 +37,11 @@ export default struct PCRYPT_ENCRYPT_PRIVATE_KEY_FUNC {
      * If the function fails, it returns zero (<b>FALSE</b>).
      */
     Call(pAlgorithm, pClearTextPrivateKey, pbEncryptedKey, pcbEncryptedKey, pVoidEncryptFunc) {
-        pcbEncryptedKeyMarshal := pcbEncryptedKey is VarRef ? "uint*" : "ptr"
-        pVoidEncryptFuncMarshal := pVoidEncryptFunc is VarRef ? "ptr" : "ptr"
+        pbEncryptedKeyMarshal := pbEncryptedKey == 0 ? IntPtr : IntPtr
+        pcbEncryptedKeyMarshal := pcbEncryptedKey is VarRef ? "uint*" : IntPtr
+        pVoidEncryptFuncMarshal := pVoidEncryptFunc is VarRef ? "ptr" : IntPtr
 
-        result := DllCall(this.value, CRYPT_ALGORITHM_IDENTIFIER.Ptr, pAlgorithm, CRYPT_INTEGER_BLOB.Ptr, pClearTextPrivateKey, IntPtr, pbEncryptedKey, pcbEncryptedKeyMarshal, pcbEncryptedKey, pVoidEncryptFuncMarshal, pVoidEncryptFunc, BOOL)
+        result := DllCall(this.value, CRYPT_ALGORITHM_IDENTIFIER.Ptr, pAlgorithm, CRYPT_INTEGER_BLOB.Ptr, pClearTextPrivateKey, pbEncryptedKeyMarshal, pbEncryptedKey, pcbEncryptedKeyMarshal, pcbEncryptedKey, pVoidEncryptFuncMarshal, pVoidEncryptFunc, BOOL)
         return result
     }
 

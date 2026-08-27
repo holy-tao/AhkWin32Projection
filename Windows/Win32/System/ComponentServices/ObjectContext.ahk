@@ -394,19 +394,19 @@ export default struct ObjectContext extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateInstance := CallbackCreate(GetMethod(implObj, "CreateInstance"), flags, 3)
-        this.vtbl.SetComplete := CallbackCreate(GetMethod(implObj, "SetComplete"), flags, 1)
-        this.vtbl.SetAbort := CallbackCreate(GetMethod(implObj, "SetAbort"), flags, 1)
-        this.vtbl.EnableCommit := CallbackCreate(GetMethod(implObj, "EnableCommit"), flags, 1)
-        this.vtbl.DisableCommit := CallbackCreate(GetMethod(implObj, "DisableCommit"), flags, 1)
-        this.vtbl.IsInTransaction := CallbackCreate(GetMethod(implObj, "IsInTransaction"), flags, 2)
-        this.vtbl.IsSecurityEnabled := CallbackCreate(GetMethod(implObj, "IsSecurityEnabled"), flags, 2)
-        this.vtbl.IsCallerInRole := CallbackCreate(GetMethod(implObj, "IsCallerInRole"), flags, 3)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
-        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
-        this.vtbl.get_Security := CallbackCreate(GetMethod(implObj, "get_Security"), flags, 2)
-        this.vtbl.get_ContextInfo := CallbackCreate(GetMethod(implObj, "get_ContextInfo"), flags, 2)
+        this.vtbl.CreateInstance := CallbackCreate(ObjBindMethod(implObj, "CreateInstance"), flags, 3)
+        this.vtbl.SetComplete := CallbackCreate(ObjBindMethod(implObj, "SetComplete"), flags, 1)
+        this.vtbl.SetAbort := CallbackCreate(ObjBindMethod(implObj, "SetAbort"), flags, 1)
+        this.vtbl.EnableCommit := CallbackCreate(ObjBindMethod(implObj, "EnableCommit"), flags, 1)
+        this.vtbl.DisableCommit := CallbackCreate(ObjBindMethod(implObj, "DisableCommit"), flags, 1)
+        this.vtbl.IsInTransaction := CallbackCreate(ObjBindMethod(implObj, "IsInTransaction"), flags, 2)
+        this.vtbl.IsSecurityEnabled := CallbackCreate(ObjBindMethod(implObj, "IsSecurityEnabled"), flags, 2)
+        this.vtbl.IsCallerInRole := CallbackCreate(ObjBindMethod(implObj, "IsCallerInRole"), flags, 3)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(ObjBindMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.get__NewEnum := CallbackCreate(ObjBindMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Security := CallbackCreate(ObjBindMethod(implObj, "get_Security"), flags, 2)
+        this.vtbl.get_ContextInfo := CallbackCreate(ObjBindMethod(implObj, "get_ContextInfo"), flags, 2)
     }
 
     Dispose() {

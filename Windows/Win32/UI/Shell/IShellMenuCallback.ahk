@@ -75,7 +75,7 @@ export default struct IShellMenuCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CallbackSM := CallbackCreate(GetMethod(implObj, "CallbackSM"), flags, 5)
+        this.vtbl.CallbackSM := CallbackCreate(ObjBindMethod(implObj, "CallbackSM"), flags, 5)
     }
 
     Dispose() {

@@ -21,7 +21,6 @@ export default struct PCLUSAPI_OPEN_CLUSTER_NODE_EX {
     }
 
     /**
-     * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} lpszNodeName 
      * @param {Integer} dwDesiredAccess 
@@ -31,9 +30,11 @@ export default struct PCLUSAPI_OPEN_CLUSTER_NODE_EX {
     Call(_hCluster, lpszNodeName, dwDesiredAccess, lpdwGrantedAccess) {
         lpszNodeName := lpszNodeName is String ? StrPtr(lpszNodeName) : lpszNodeName
 
-        lpdwGrantedAccessMarshal := lpdwGrantedAccess is VarRef ? "uint*" : "ptr"
+        lpszNodeNameMarshal := lpszNodeName == 0 ? IntPtr : PWSTR
+        lpdwGrantedAccessMarshal := lpdwGrantedAccess is VarRef ? "uint*" : IntPtr
+        lpdwGrantedAccessMarshal := lpdwGrantedAccess == 0 ? IntPtr : "uint*"
 
-        result := DllCall(this.value, HCLUSTER, _hCluster, "ptr", lpszNodeName, UInt32, dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, HNODE)
+        result := DllCall(this.value, HCLUSTER, _hCluster, lpszNodeNameMarshal, lpszNodeName, UInt32, dwDesiredAccess, lpdwGrantedAccessMarshal, lpdwGrantedAccess, HNODE)
         return result
     }
 

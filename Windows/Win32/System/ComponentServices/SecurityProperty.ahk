@@ -119,10 +119,10 @@ export default struct SecurityProperty extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetDirectCallerName := CallbackCreate(GetMethod(implObj, "GetDirectCallerName"), flags, 2)
-        this.vtbl.GetDirectCreatorName := CallbackCreate(GetMethod(implObj, "GetDirectCreatorName"), flags, 2)
-        this.vtbl.GetOriginalCallerName := CallbackCreate(GetMethod(implObj, "GetOriginalCallerName"), flags, 2)
-        this.vtbl.GetOriginalCreatorName := CallbackCreate(GetMethod(implObj, "GetOriginalCreatorName"), flags, 2)
+        this.vtbl.GetDirectCallerName := CallbackCreate(ObjBindMethod(implObj, "GetDirectCallerName"), flags, 2)
+        this.vtbl.GetDirectCreatorName := CallbackCreate(ObjBindMethod(implObj, "GetDirectCreatorName"), flags, 2)
+        this.vtbl.GetOriginalCallerName := CallbackCreate(ObjBindMethod(implObj, "GetOriginalCallerName"), flags, 2)
+        this.vtbl.GetOriginalCreatorName := CallbackCreate(ObjBindMethod(implObj, "GetOriginalCreatorName"), flags, 2)
     }
 
     Dispose() {

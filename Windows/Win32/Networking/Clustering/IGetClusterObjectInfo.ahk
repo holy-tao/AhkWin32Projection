@@ -143,7 +143,7 @@ export default struct IGetClusterObjectInfo extends IUnknown {
     GetObjectName(lObjIndex, lpszName, pcchName) {
         lpszName := lpszName is String ? BSTR.Alloc(lpszName).Value : lpszName
 
-        pcchNameMarshal := pcchName is VarRef ? "int*" : "ptr"
+        pcchNameMarshal := pcchName is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, Int32, lObjIndex, BSTR, lpszName, pcchNameMarshal, pcchName, "HRESULT")
         return result
@@ -183,8 +183,8 @@ export default struct IGetClusterObjectInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetObjectName := CallbackCreate(GetMethod(implObj, "GetObjectName"), flags, 4)
-        this.vtbl.GetObjectType := CallbackCreate(GetMethod(implObj, "GetObjectType"), flags, 2)
+        this.vtbl.GetObjectName := CallbackCreate(ObjBindMethod(implObj, "GetObjectName"), flags, 4)
+        this.vtbl.GetObjectType := CallbackCreate(ObjBindMethod(implObj, "GetObjectType"), flags, 2)
     }
 
     Dispose() {

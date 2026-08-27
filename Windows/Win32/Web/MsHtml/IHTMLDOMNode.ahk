@@ -129,7 +129,6 @@ export default struct IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_nodeType() {
@@ -138,7 +137,6 @@ export default struct IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDOMNode} 
      */
     get_parentNode() {
@@ -147,7 +145,6 @@ export default struct IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     hasChildNodes() {
@@ -156,7 +153,6 @@ export default struct IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_childNodes() {
@@ -165,7 +161,6 @@ export default struct IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_attributes() {
@@ -174,7 +169,6 @@ export default struct IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMNode} newChild 
      * @param {VARIANT} refChild 
      * @returns {IHTMLDOMNode} 
@@ -185,7 +179,6 @@ export default struct IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMNode} oldChild 
      * @returns {IHTMLDOMNode} 
      */
@@ -195,7 +188,6 @@ export default struct IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMNode} newChild 
      * @param {IHTMLDOMNode} oldChild 
      * @returns {IHTMLDOMNode} 
@@ -206,7 +198,6 @@ export default struct IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fDeep 
      * @returns {IHTMLDOMNode} 
      */
@@ -216,7 +207,6 @@ export default struct IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} fDeep 
      * @returns {IHTMLDOMNode} 
      */
@@ -226,7 +216,6 @@ export default struct IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMNode} otherNode 
      * @returns {IHTMLDOMNode} 
      */
@@ -236,7 +225,6 @@ export default struct IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMNode} replacement 
      * @returns {IHTMLDOMNode} 
      */
@@ -246,7 +234,6 @@ export default struct IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {IHTMLDOMNode} newChild 
      * @returns {IHTMLDOMNode} 
      */
@@ -256,7 +243,6 @@ export default struct IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_nodeName() {
@@ -266,7 +252,6 @@ export default struct IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -276,7 +261,6 @@ export default struct IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_nodeValue() {
@@ -286,7 +270,6 @@ export default struct IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDOMNode} 
      */
     get_firstChild() {
@@ -295,7 +278,6 @@ export default struct IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDOMNode} 
      */
     get_lastChild() {
@@ -304,7 +286,6 @@ export default struct IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDOMNode} 
      */
     get_previousSibling() {
@@ -313,7 +294,6 @@ export default struct IHTMLDOMNode extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDOMNode} 
      */
     get_nextSibling() {
@@ -330,26 +310,26 @@ export default struct IHTMLDOMNode extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_nodeType := CallbackCreate(GetMethod(implObj, "get_nodeType"), flags, 2)
-        this.vtbl.get_parentNode := CallbackCreate(GetMethod(implObj, "get_parentNode"), flags, 2)
-        this.vtbl.hasChildNodes := CallbackCreate(GetMethod(implObj, "hasChildNodes"), flags, 2)
-        this.vtbl.get_childNodes := CallbackCreate(GetMethod(implObj, "get_childNodes"), flags, 2)
-        this.vtbl.get_attributes := CallbackCreate(GetMethod(implObj, "get_attributes"), flags, 2)
-        this.vtbl.insertBefore := CallbackCreate(GetMethod(implObj, "insertBefore"), flags, 4)
-        this.vtbl.removeChild := CallbackCreate(GetMethod(implObj, "removeChild"), flags, 3)
-        this.vtbl.replaceChild := CallbackCreate(GetMethod(implObj, "replaceChild"), flags, 4)
-        this.vtbl.cloneNode := CallbackCreate(GetMethod(implObj, "cloneNode"), flags, 3)
-        this.vtbl.removeNode := CallbackCreate(GetMethod(implObj, "removeNode"), flags, 3)
-        this.vtbl.swapNode := CallbackCreate(GetMethod(implObj, "swapNode"), flags, 3)
-        this.vtbl.replaceNode := CallbackCreate(GetMethod(implObj, "replaceNode"), flags, 3)
-        this.vtbl.appendChild := CallbackCreate(GetMethod(implObj, "appendChild"), flags, 3)
-        this.vtbl.get_nodeName := CallbackCreate(GetMethod(implObj, "get_nodeName"), flags, 2)
-        this.vtbl.put_nodeValue := CallbackCreate(GetMethod(implObj, "put_nodeValue"), flags, 2)
-        this.vtbl.get_nodeValue := CallbackCreate(GetMethod(implObj, "get_nodeValue"), flags, 2)
-        this.vtbl.get_firstChild := CallbackCreate(GetMethod(implObj, "get_firstChild"), flags, 2)
-        this.vtbl.get_lastChild := CallbackCreate(GetMethod(implObj, "get_lastChild"), flags, 2)
-        this.vtbl.get_previousSibling := CallbackCreate(GetMethod(implObj, "get_previousSibling"), flags, 2)
-        this.vtbl.get_nextSibling := CallbackCreate(GetMethod(implObj, "get_nextSibling"), flags, 2)
+        this.vtbl.get_nodeType := CallbackCreate(ObjBindMethod(implObj, "get_nodeType"), flags, 2)
+        this.vtbl.get_parentNode := CallbackCreate(ObjBindMethod(implObj, "get_parentNode"), flags, 2)
+        this.vtbl.hasChildNodes := CallbackCreate(ObjBindMethod(implObj, "hasChildNodes"), flags, 2)
+        this.vtbl.get_childNodes := CallbackCreate(ObjBindMethod(implObj, "get_childNodes"), flags, 2)
+        this.vtbl.get_attributes := CallbackCreate(ObjBindMethod(implObj, "get_attributes"), flags, 2)
+        this.vtbl.insertBefore := CallbackCreate(ObjBindMethod(implObj, "insertBefore"), flags, 4)
+        this.vtbl.removeChild := CallbackCreate(ObjBindMethod(implObj, "removeChild"), flags, 3)
+        this.vtbl.replaceChild := CallbackCreate(ObjBindMethod(implObj, "replaceChild"), flags, 4)
+        this.vtbl.cloneNode := CallbackCreate(ObjBindMethod(implObj, "cloneNode"), flags, 3)
+        this.vtbl.removeNode := CallbackCreate(ObjBindMethod(implObj, "removeNode"), flags, 3)
+        this.vtbl.swapNode := CallbackCreate(ObjBindMethod(implObj, "swapNode"), flags, 3)
+        this.vtbl.replaceNode := CallbackCreate(ObjBindMethod(implObj, "replaceNode"), flags, 3)
+        this.vtbl.appendChild := CallbackCreate(ObjBindMethod(implObj, "appendChild"), flags, 3)
+        this.vtbl.get_nodeName := CallbackCreate(ObjBindMethod(implObj, "get_nodeName"), flags, 2)
+        this.vtbl.put_nodeValue := CallbackCreate(ObjBindMethod(implObj, "put_nodeValue"), flags, 2)
+        this.vtbl.get_nodeValue := CallbackCreate(ObjBindMethod(implObj, "get_nodeValue"), flags, 2)
+        this.vtbl.get_firstChild := CallbackCreate(ObjBindMethod(implObj, "get_firstChild"), flags, 2)
+        this.vtbl.get_lastChild := CallbackCreate(ObjBindMethod(implObj, "get_lastChild"), flags, 2)
+        this.vtbl.get_previousSibling := CallbackCreate(ObjBindMethod(implObj, "get_previousSibling"), flags, 2)
+        this.vtbl.get_nextSibling := CallbackCreate(ObjBindMethod(implObj, "get_nextSibling"), flags, 2)
     }
 
     Dispose() {

@@ -89,7 +89,6 @@ export default struct IRTCUserSearchResultsEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCEnumUserSearchResults} 
      */
     EnumerateResults() {
@@ -98,7 +97,6 @@ export default struct IRTCUserSearchResultsEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCCollection} 
      */
     get_Results() {
@@ -107,7 +105,6 @@ export default struct IRTCUserSearchResultsEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCProfile2} 
      */
     get_Profile() {
@@ -116,7 +113,6 @@ export default struct IRTCUserSearchResultsEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IRTCUserSearchQuery} 
      */
     get_Query() {
@@ -125,7 +121,6 @@ export default struct IRTCUserSearchResultsEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Pointer} 
      */
     get_Cookie() {
@@ -134,7 +129,6 @@ export default struct IRTCUserSearchResultsEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_StatusCode() {
@@ -143,7 +137,6 @@ export default struct IRTCUserSearchResultsEvent extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_MoreAvailable() {
@@ -160,13 +153,13 @@ export default struct IRTCUserSearchResultsEvent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.EnumerateResults := CallbackCreate(GetMethod(implObj, "EnumerateResults"), flags, 2)
-        this.vtbl.get_Results := CallbackCreate(GetMethod(implObj, "get_Results"), flags, 2)
-        this.vtbl.get_Profile := CallbackCreate(GetMethod(implObj, "get_Profile"), flags, 2)
-        this.vtbl.get_Query := CallbackCreate(GetMethod(implObj, "get_Query"), flags, 2)
-        this.vtbl.get_Cookie := CallbackCreate(GetMethod(implObj, "get_Cookie"), flags, 2)
-        this.vtbl.get_StatusCode := CallbackCreate(GetMethod(implObj, "get_StatusCode"), flags, 2)
-        this.vtbl.get_MoreAvailable := CallbackCreate(GetMethod(implObj, "get_MoreAvailable"), flags, 2)
+        this.vtbl.EnumerateResults := CallbackCreate(ObjBindMethod(implObj, "EnumerateResults"), flags, 2)
+        this.vtbl.get_Results := CallbackCreate(ObjBindMethod(implObj, "get_Results"), flags, 2)
+        this.vtbl.get_Profile := CallbackCreate(ObjBindMethod(implObj, "get_Profile"), flags, 2)
+        this.vtbl.get_Query := CallbackCreate(ObjBindMethod(implObj, "get_Query"), flags, 2)
+        this.vtbl.get_Cookie := CallbackCreate(ObjBindMethod(implObj, "get_Cookie"), flags, 2)
+        this.vtbl.get_StatusCode := CallbackCreate(ObjBindMethod(implObj, "get_StatusCode"), flags, 2)
+        this.vtbl.get_MoreAvailable := CallbackCreate(ObjBindMethod(implObj, "get_MoreAvailable"), flags, 2)
     }
 
     Dispose() {

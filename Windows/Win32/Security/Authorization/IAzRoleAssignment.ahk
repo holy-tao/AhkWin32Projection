@@ -120,10 +120,10 @@ export default struct IAzRoleAssignment extends IAzRole {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddRoleDefinition := CallbackCreate(GetMethod(implObj, "AddRoleDefinition"), flags, 2)
-        this.vtbl.DeleteRoleDefinition := CallbackCreate(GetMethod(implObj, "DeleteRoleDefinition"), flags, 2)
-        this.vtbl.get_RoleDefinitions := CallbackCreate(GetMethod(implObj, "get_RoleDefinitions"), flags, 2)
-        this.vtbl.get_Scope := CallbackCreate(GetMethod(implObj, "get_Scope"), flags, 2)
+        this.vtbl.AddRoleDefinition := CallbackCreate(ObjBindMethod(implObj, "AddRoleDefinition"), flags, 2)
+        this.vtbl.DeleteRoleDefinition := CallbackCreate(ObjBindMethod(implObj, "DeleteRoleDefinition"), flags, 2)
+        this.vtbl.get_RoleDefinitions := CallbackCreate(ObjBindMethod(implObj, "get_RoleDefinitions"), flags, 2)
+        this.vtbl.get_Scope := CallbackCreate(ObjBindMethod(implObj, "get_Scope"), flags, 2)
     }
 
     Dispose() {

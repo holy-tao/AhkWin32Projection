@@ -44,7 +44,6 @@ export default struct IDWriteFactory8 extends IDWriteFactory7 {
     }
 
     /**
-     * 
      * @param {D2D_POINT_2F} baselineOrigin 
      * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun 
      * @param {Pointer<DWRITE_GLYPH_RUN_DESCRIPTION>} glyphRunDescription 
@@ -56,7 +55,10 @@ export default struct IDWriteFactory8 extends IDWriteFactory7 {
      * @returns {IDWriteColorGlyphRunEnumerator1} 
      */
     TranslateColorGlyphRun(baselineOrigin, _glyphRun, glyphRunDescription, desiredGlyphImageFormats, paintFeatureLevel, measuringMode, worldAndDpiTransform, colorPaletteIndex) {
-        result := ComCall(57, this, D2D_POINT_2F, baselineOrigin, DWRITE_GLYPH_RUN.Ptr, _glyphRun, DWRITE_GLYPH_RUN_DESCRIPTION.Ptr, glyphRunDescription, DWRITE_GLYPH_IMAGE_FORMATS, desiredGlyphImageFormats, DWRITE_PAINT_FEATURE_LEVEL, paintFeatureLevel, DWRITE_MEASURING_MODE, measuringMode, DWRITE_MATRIX.Ptr, worldAndDpiTransform, UInt32, colorPaletteIndex, "ptr*", &colorEnumerator := 0, "HRESULT")
+        glyphRunDescriptionMarshal := glyphRunDescription == 0 ? IntPtr : DWRITE_GLYPH_RUN_DESCRIPTION.Ptr
+        worldAndDpiTransformMarshal := worldAndDpiTransform == 0 ? IntPtr : DWRITE_MATRIX.Ptr
+
+        result := ComCall(57, this, D2D_POINT_2F, baselineOrigin, DWRITE_GLYPH_RUN.Ptr, _glyphRun, glyphRunDescriptionMarshal, glyphRunDescription, DWRITE_GLYPH_IMAGE_FORMATS, desiredGlyphImageFormats, DWRITE_PAINT_FEATURE_LEVEL, paintFeatureLevel, DWRITE_MEASURING_MODE, measuringMode, worldAndDpiTransformMarshal, worldAndDpiTransform, UInt32, colorPaletteIndex, "ptr*", &colorEnumerator := 0, "HRESULT")
         return IDWriteColorGlyphRunEnumerator1(colorEnumerator)
     }
 
@@ -69,7 +71,7 @@ export default struct IDWriteFactory8 extends IDWriteFactory7 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.TranslateColorGlyphRun := CallbackCreate(GetMethod(implObj, "TranslateColorGlyphRun"), flags, 10)
+        this.vtbl.TranslateColorGlyphRun := CallbackCreate(ObjBindMethod(implObj, "TranslateColorGlyphRun"), flags, 10)
     }
 
     Dispose() {

@@ -337,10 +337,10 @@ export default struct ITfProperty extends ITfReadOnlyProperty {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FindRange := CallbackCreate(GetMethod(implObj, "FindRange"), flags, 5)
-        this.vtbl.SetValueStore := CallbackCreate(GetMethod(implObj, "SetValueStore"), flags, 4)
-        this.vtbl.SetValue := CallbackCreate(GetMethod(implObj, "SetValue"), flags, 4)
-        this.vtbl.Clear := CallbackCreate(GetMethod(implObj, "Clear"), flags, 3)
+        this.vtbl.FindRange := CallbackCreate(ObjBindMethod(implObj, "FindRange"), flags, 5)
+        this.vtbl.SetValueStore := CallbackCreate(ObjBindMethod(implObj, "SetValueStore"), flags, 4)
+        this.vtbl.SetValue := CallbackCreate(ObjBindMethod(implObj, "SetValue"), flags, 4)
+        this.vtbl.Clear := CallbackCreate(ObjBindMethod(implObj, "Clear"), flags, 3)
     }
 
     Dispose() {

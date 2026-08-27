@@ -23,7 +23,6 @@ export default struct CryptXmlDllSignData {
     }
 
     /**
-     * 
      * @param {Pointer<CRYPT_XML_ALGORITHM>} pSignatureMethod A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_algorithm">CRYPT_XML_ALGORITHM</a> structure that specifies the algorithm.
      * @param {HCRYPTPROV_OR_NCRYPT_KEY_HANDLE} hCryptProvOrNCryptKey The handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic service provider</a> (CSP) that creates the signature. This handle must be an <b>HCRYPTPROV</b> handle that was obtained from a call to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptacquirecontexta">CryptAcquireContext</a> function or an <b>NCRYPT_KEY_HANDLE</b> handle that was created by using the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenkey">NCryptOpenKey</a> function. New applications should pass in an <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/hcryptprov-or-ncrypt-key-handle">NCRYPT_KEY_HANDLE</a> handle.
      * @param {Integer} dwKeySpec The private key to use from the provider's container. This key can be AT_KEYEXCHANGE or AT_SIGNATURE. This parameter is ignored if an <b>NCRYPT_KEY_HANDLE</b> handle is used in the <i>hCryptProvOrNCryptKey</i> parameter.
@@ -40,9 +39,10 @@ export default struct CryptXmlDllSignData {
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error.
      */
     Call(pSignatureMethod, hCryptProvOrNCryptKey, dwKeySpec, pbInput, cbInput, pbOutput, cbOutput, pcbResult) {
-        pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
+        pbOutputMarshal := pbOutput == 0 ? IntPtr : IntPtr
+        pcbResultMarshal := pcbResult is VarRef ? "uint*" : IntPtr
 
-        result := DllCall(this.value, CRYPT_XML_ALGORITHM.Ptr, pSignatureMethod, HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, hCryptProvOrNCryptKey, UInt32, dwKeySpec, IntPtr, pbInput, UInt32, cbInput, IntPtr, pbOutput, UInt32, cbOutput, pcbResultMarshal, pcbResult, "HRESULT")
+        result := DllCall(this.value, CRYPT_XML_ALGORITHM.Ptr, pSignatureMethod, HCRYPTPROV_OR_NCRYPT_KEY_HANDLE, hCryptProvOrNCryptKey, UInt32, dwKeySpec, IntPtr, pbInput, UInt32, cbInput, pbOutputMarshal, pbOutput, UInt32, cbOutput, pcbResultMarshal, pcbResult, "HRESULT")
         return result
     }
 

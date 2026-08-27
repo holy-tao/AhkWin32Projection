@@ -36,7 +36,6 @@ export default struct IWindowsDevicesAllJoynBusObjectFactoryInterop extends IIns
     }
 
     /**
-     * 
      * @param {Integer} win32handle 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
@@ -55,7 +54,7 @@ export default struct IWindowsDevicesAllJoynBusObjectFactoryInterop extends IIns
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateFromWin32Handle := CallbackCreate(GetMethod(implObj, "CreateFromWin32Handle"), flags, 4)
+        this.vtbl.CreateFromWin32Handle := CallbackCreate(ObjBindMethod(implObj, "CreateFromWin32Handle"), flags, 4)
     }
 
     Dispose() {

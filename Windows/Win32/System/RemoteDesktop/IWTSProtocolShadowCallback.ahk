@@ -75,12 +75,13 @@ export default struct IWTSProtocolShadowCallback extends IUnknown {
         pTargetServerName := pTargetServerName is String ? StrPtr(pTargetServerName) : pTargetServerName
         pClientName := pClientName is String ? StrPtr(pClientName) : pClientName
 
-        pParam1Marshal := pParam1 is VarRef ? "char*" : "ptr"
-        pParam2Marshal := pParam2 is VarRef ? "char*" : "ptr"
-        pParam3Marshal := pParam3 is VarRef ? "char*" : "ptr"
-        pParam4Marshal := pParam4 is VarRef ? "char*" : "ptr"
+        pTargetServerNameMarshal := pTargetServerName == 0 ? IntPtr : PWSTR
+        pParam1Marshal := pParam1 is VarRef ? "char*" : IntPtr
+        pParam2Marshal := pParam2 is VarRef ? "char*" : IntPtr
+        pParam3Marshal := pParam3 is VarRef ? "char*" : IntPtr
+        pParam4Marshal := pParam4 is VarRef ? "char*" : IntPtr
 
-        result := ComCall(4, this, "ptr", pTargetServerName, UInt32, TargetSessionId, pParam1Marshal, pParam1, UInt32, Param1Size, pParam2Marshal, pParam2, UInt32, Param2Size, pParam3Marshal, pParam3, UInt32, Param3Size, pParam4Marshal, pParam4, UInt32, Param4Size, "ptr", pClientName, "HRESULT")
+        result := ComCall(4, this, pTargetServerNameMarshal, pTargetServerName, UInt32, TargetSessionId, pParam1Marshal, pParam1, UInt32, Param1Size, pParam2Marshal, pParam2, UInt32, Param2Size, pParam3Marshal, pParam3, UInt32, Param3Size, pParam4Marshal, pParam4, UInt32, Param4Size, "ptr", pClientName, "HRESULT")
         return result
     }
 
@@ -93,8 +94,8 @@ export default struct IWTSProtocolShadowCallback extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StopShadow := CallbackCreate(GetMethod(implObj, "StopShadow"), flags, 1)
-        this.vtbl.InvokeTargetShadow := CallbackCreate(GetMethod(implObj, "InvokeTargetShadow"), flags, 12)
+        this.vtbl.StopShadow := CallbackCreate(ObjBindMethod(implObj, "StopShadow"), flags, 1)
+        this.vtbl.InvokeTargetShadow := CallbackCreate(ObjBindMethod(implObj, "InvokeTargetShadow"), flags, 12)
     }
 
     Dispose() {

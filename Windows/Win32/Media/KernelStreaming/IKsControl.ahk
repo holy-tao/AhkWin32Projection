@@ -39,7 +39,6 @@ export default struct IKsControl extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<KSIDENTIFIER>} _Property 
      * @param {Integer} PropertyLength 
      * @param {Pointer<Void>} PropertyData 
@@ -47,14 +46,13 @@ export default struct IKsControl extends IUnknown {
      * @returns {Integer} 
      */
     KsProperty(_Property, PropertyLength, PropertyData, DataLength) {
-        PropertyDataMarshal := PropertyData is VarRef ? "ptr" : "ptr"
+        PropertyDataMarshal := PropertyData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(3, this, KSIDENTIFIER.Ptr, _Property, UInt32, PropertyLength, PropertyDataMarshal, PropertyData, UInt32, DataLength, "uint*", &BytesReturned := 0, "HRESULT")
         return BytesReturned
     }
 
     /**
-     * 
      * @param {Pointer<KSIDENTIFIER>} Method 
      * @param {Integer} MethodLength 
      * @param {Pointer<Void>} _MethodData 
@@ -62,14 +60,13 @@ export default struct IKsControl extends IUnknown {
      * @returns {Integer} 
      */
     KsMethod(Method, MethodLength, _MethodData, DataLength) {
-        _MethodDataMarshal := _MethodData is VarRef ? "ptr" : "ptr"
+        _MethodDataMarshal := _MethodData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(4, this, KSIDENTIFIER.Ptr, Method, UInt32, MethodLength, _MethodDataMarshal, _MethodData, UInt32, DataLength, "uint*", &BytesReturned := 0, "HRESULT")
         return BytesReturned
     }
 
     /**
-     * 
      * @param {Pointer<KSIDENTIFIER>} Event 
      * @param {Integer} EventLength 
      * @param {Pointer<Void>} EventData 
@@ -77,7 +74,7 @@ export default struct IKsControl extends IUnknown {
      * @returns {Integer} 
      */
     KsEvent(Event, EventLength, EventData, DataLength) {
-        EventDataMarshal := EventData is VarRef ? "ptr" : "ptr"
+        EventDataMarshal := EventData is VarRef ? "ptr" : IntPtr
 
         result := ComCall(5, this, KSIDENTIFIER.Ptr, Event, UInt32, EventLength, EventDataMarshal, EventData, UInt32, DataLength, "uint*", &BytesReturned := 0, "HRESULT")
         return BytesReturned
@@ -92,9 +89,9 @@ export default struct IKsControl extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.KsProperty := CallbackCreate(GetMethod(implObj, "KsProperty"), flags, 6)
-        this.vtbl.KsMethod := CallbackCreate(GetMethod(implObj, "KsMethod"), flags, 6)
-        this.vtbl.KsEvent := CallbackCreate(GetMethod(implObj, "KsEvent"), flags, 6)
+        this.vtbl.KsProperty := CallbackCreate(ObjBindMethod(implObj, "KsProperty"), flags, 6)
+        this.vtbl.KsMethod := CallbackCreate(ObjBindMethod(implObj, "KsMethod"), flags, 6)
+        this.vtbl.KsEvent := CallbackCreate(ObjBindMethod(implObj, "KsEvent"), flags, 6)
     }
 
     Dispose() {

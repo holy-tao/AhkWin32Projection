@@ -79,7 +79,7 @@ export default struct IWorkspace2 extends IWorkspace {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StartRemoteApplicationEx := CallbackCreate(GetMethod(implObj, "StartRemoteApplicationEx"), flags, 7)
+        this.vtbl.StartRemoteApplicationEx := CallbackCreate(ObjBindMethod(implObj, "StartRemoteApplicationEx"), flags, 7)
     }
 
     Dispose() {

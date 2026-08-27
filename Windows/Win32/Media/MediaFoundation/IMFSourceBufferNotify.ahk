@@ -96,11 +96,11 @@ export default struct IMFSourceBufferNotify extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnUpdateStart := CallbackCreate(GetMethod(implObj, "OnUpdateStart"), flags, 1)
-        this.vtbl.OnAbort := CallbackCreate(GetMethod(implObj, "OnAbort"), flags, 1)
-        this.vtbl.OnError := CallbackCreate(GetMethod(implObj, "OnError"), flags, 2)
-        this.vtbl.OnUpdate := CallbackCreate(GetMethod(implObj, "OnUpdate"), flags, 1)
-        this.vtbl.OnUpdateEnd := CallbackCreate(GetMethod(implObj, "OnUpdateEnd"), flags, 1)
+        this.vtbl.OnUpdateStart := CallbackCreate(ObjBindMethod(implObj, "OnUpdateStart"), flags, 1)
+        this.vtbl.OnAbort := CallbackCreate(ObjBindMethod(implObj, "OnAbort"), flags, 1)
+        this.vtbl.OnError := CallbackCreate(ObjBindMethod(implObj, "OnError"), flags, 2)
+        this.vtbl.OnUpdate := CallbackCreate(ObjBindMethod(implObj, "OnUpdate"), flags, 1)
+        this.vtbl.OnUpdateEnd := CallbackCreate(ObjBindMethod(implObj, "OnUpdateEnd"), flags, 1)
     }
 
     Dispose() {

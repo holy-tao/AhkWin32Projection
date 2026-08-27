@@ -90,10 +90,11 @@ export default struct ID3D11VideoDevice1 extends ID3D11VideoDevice {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videodevice1-getcryptosessionprivatedatasize
      */
     GetCryptoSessionPrivateDataSize(pCryptoType, pDecoderProfile, pKeyExchangeType, pPrivateInputSize, pPrivateOutputSize) {
-        pPrivateInputSizeMarshal := pPrivateInputSize is VarRef ? "uint*" : "ptr"
-        pPrivateOutputSizeMarshal := pPrivateOutputSize is VarRef ? "uint*" : "ptr"
+        pDecoderProfileMarshal := pDecoderProfile == 0 ? IntPtr : Guid.Ptr
+        pPrivateInputSizeMarshal := pPrivateInputSize is VarRef ? "uint*" : IntPtr
+        pPrivateOutputSizeMarshal := pPrivateOutputSize is VarRef ? "uint*" : IntPtr
 
-        result := ComCall(20, this, Guid.Ptr, pCryptoType, Guid.Ptr, pDecoderProfile, Guid.Ptr, pKeyExchangeType, pPrivateInputSizeMarshal, pPrivateInputSize, pPrivateOutputSizeMarshal, pPrivateOutputSize, "HRESULT")
+        result := ComCall(20, this, Guid.Ptr, pCryptoType, pDecoderProfileMarshal, pDecoderProfile, Guid.Ptr, pKeyExchangeType, pPrivateInputSizeMarshal, pPrivateInputSize, pPrivateOutputSizeMarshal, pPrivateOutputSize, "HRESULT")
         return result
     }
 
@@ -123,7 +124,9 @@ export default struct ID3D11VideoDevice1 extends ID3D11VideoDevice {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videodevice1-getvideodecodercaps
      */
     GetVideoDecoderCaps(pDecoderProfile, SampleWidth, SampleHeight, pFrameRate, BitRate, pCryptoType) {
-        result := ComCall(21, this, Guid.Ptr, pDecoderProfile, UInt32, SampleWidth, UInt32, SampleHeight, DXGI_RATIONAL.Ptr, pFrameRate, UInt32, BitRate, Guid.Ptr, pCryptoType, "uint*", &pDecoderCaps := 0, "HRESULT")
+        pCryptoTypeMarshal := pCryptoType == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(21, this, Guid.Ptr, pDecoderProfile, UInt32, SampleWidth, UInt32, SampleHeight, DXGI_RATIONAL.Ptr, pFrameRate, UInt32, BitRate, pCryptoTypeMarshal, pCryptoType, "uint*", &pDecoderCaps := 0, "HRESULT")
         return pDecoderCaps
     }
 
@@ -169,8 +172,8 @@ export default struct ID3D11VideoDevice1 extends ID3D11VideoDevice {
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videodevice1-checkvideodecoderdownsampling
      */
     CheckVideoDecoderDownsampling(pInputDesc, InputColorSpace, pInputConfig, pFrameRate, pOutputDesc, pSupported, pRealTimeHint) {
-        pSupportedMarshal := pSupported is VarRef ? "int*" : "ptr"
-        pRealTimeHintMarshal := pRealTimeHint is VarRef ? "int*" : "ptr"
+        pSupportedMarshal := pSupported is VarRef ? "int*" : IntPtr
+        pRealTimeHintMarshal := pRealTimeHint is VarRef ? "int*" : IntPtr
 
         result := ComCall(22, this, D3D11_VIDEO_DECODER_DESC.Ptr, pInputDesc, DXGI_COLOR_SPACE_TYPE, InputColorSpace, D3D11_VIDEO_DECODER_CONFIG.Ptr, pInputConfig, DXGI_RATIONAL.Ptr, pFrameRate, D3D11_VIDEO_SAMPLE_DESC.Ptr, pOutputDesc, pSupportedMarshal, pSupported, pRealTimeHintMarshal, pRealTimeHint, "HRESULT")
         return result
@@ -212,10 +215,10 @@ export default struct ID3D11VideoDevice1 extends ID3D11VideoDevice {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetCryptoSessionPrivateDataSize := CallbackCreate(GetMethod(implObj, "GetCryptoSessionPrivateDataSize"), flags, 6)
-        this.vtbl.GetVideoDecoderCaps := CallbackCreate(GetMethod(implObj, "GetVideoDecoderCaps"), flags, 8)
-        this.vtbl.CheckVideoDecoderDownsampling := CallbackCreate(GetMethod(implObj, "CheckVideoDecoderDownsampling"), flags, 8)
-        this.vtbl.RecommendVideoDecoderDownsampleParameters := CallbackCreate(GetMethod(implObj, "RecommendVideoDecoderDownsampleParameters"), flags, 6)
+        this.vtbl.GetCryptoSessionPrivateDataSize := CallbackCreate(ObjBindMethod(implObj, "GetCryptoSessionPrivateDataSize"), flags, 6)
+        this.vtbl.GetVideoDecoderCaps := CallbackCreate(ObjBindMethod(implObj, "GetVideoDecoderCaps"), flags, 8)
+        this.vtbl.CheckVideoDecoderDownsampling := CallbackCreate(ObjBindMethod(implObj, "CheckVideoDecoderDownsampling"), flags, 8)
+        this.vtbl.RecommendVideoDecoderDownsampleParameters := CallbackCreate(ObjBindMethod(implObj, "RecommendVideoDecoderDownsampleParameters"), flags, 6)
     }
 
     Dispose() {

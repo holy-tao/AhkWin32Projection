@@ -79,9 +79,9 @@ export default struct IAppxManifestTargetDeviceFamily extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetName := CallbackCreate(GetMethod(implObj, "GetName"), flags, 2)
-        this.vtbl.GetMinVersion := CallbackCreate(GetMethod(implObj, "GetMinVersion"), flags, 2)
-        this.vtbl.GetMaxVersionTested := CallbackCreate(GetMethod(implObj, "GetMaxVersionTested"), flags, 2)
+        this.vtbl.GetName := CallbackCreate(ObjBindMethod(implObj, "GetName"), flags, 2)
+        this.vtbl.GetMinVersion := CallbackCreate(ObjBindMethod(implObj, "GetMinVersion"), flags, 2)
+        this.vtbl.GetMaxVersionTested := CallbackCreate(ObjBindMethod(implObj, "GetMaxVersionTested"), flags, 2)
     }
 
     Dispose() {

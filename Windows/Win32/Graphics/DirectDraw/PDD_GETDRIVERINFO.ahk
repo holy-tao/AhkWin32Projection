@@ -66,7 +66,6 @@ export default struct PDD_GETDRIVERINFO {
     }
 
     /**
-     * 
      * @param {Pointer<DD_GETDRIVERINFODATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_getdriverinfodata">DD_GETDRIVERINFODATA</a> structure that contains the information required to perform the query.
      * @returns {Integer} <i>DdGetDriverInfo</i> must return DDHAL_DRIVER_HANDLED.
      */

@@ -20,7 +20,6 @@ export default struct ETWENABLECALLBACK {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} SourceId 
      * @param {Integer} ControlCode 
      * @param {Integer} Level 
@@ -31,9 +30,11 @@ export default struct ETWENABLECALLBACK {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(SourceId, ControlCode, Level, MatchAnyKeyword, MatchAllKeyword, FilterData, CallbackContext) {
-        CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
+        FilterDataMarshal := FilterData == 0 ? IntPtr : EVENT_FILTER_DESCRIPTOR.Ptr
+        CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : IntPtr
+        CallbackContextMarshal := CallbackContext == 0 ? IntPtr : "ptr"
 
-        DllCall(this.value, Guid.Ptr, SourceId, UInt32, ControlCode, Int8, Level, Int64, MatchAnyKeyword, Int64, MatchAllKeyword, EVENT_FILTER_DESCRIPTOR.Ptr, FilterData, CallbackContextMarshal, CallbackContext)
+        DllCall(this.value, Guid.Ptr, SourceId, UInt32, ControlCode, Int8, Level, Int64, MatchAnyKeyword, Int64, MatchAllKeyword, FilterDataMarshal, FilterData, CallbackContextMarshal, CallbackContext)
     }
 
     /**

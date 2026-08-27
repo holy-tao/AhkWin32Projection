@@ -313,17 +313,17 @@ export default struct ITfThreadMgr extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Activate := CallbackCreate(GetMethod(implObj, "Activate"), flags, 2)
-        this.vtbl.Deactivate := CallbackCreate(GetMethod(implObj, "Deactivate"), flags, 1)
-        this.vtbl.CreateDocumentMgr := CallbackCreate(GetMethod(implObj, "CreateDocumentMgr"), flags, 2)
-        this.vtbl.EnumDocumentMgrs := CallbackCreate(GetMethod(implObj, "EnumDocumentMgrs"), flags, 2)
-        this.vtbl.GetFocus := CallbackCreate(GetMethod(implObj, "GetFocus"), flags, 2)
-        this.vtbl.SetFocus := CallbackCreate(GetMethod(implObj, "SetFocus"), flags, 2)
-        this.vtbl.AssociateFocus := CallbackCreate(GetMethod(implObj, "AssociateFocus"), flags, 4)
-        this.vtbl.IsThreadFocus := CallbackCreate(GetMethod(implObj, "IsThreadFocus"), flags, 2)
-        this.vtbl.GetFunctionProvider := CallbackCreate(GetMethod(implObj, "GetFunctionProvider"), flags, 3)
-        this.vtbl.EnumFunctionProviders := CallbackCreate(GetMethod(implObj, "EnumFunctionProviders"), flags, 2)
-        this.vtbl.GetGlobalCompartment := CallbackCreate(GetMethod(implObj, "GetGlobalCompartment"), flags, 2)
+        this.vtbl.Activate := CallbackCreate(ObjBindMethod(implObj, "Activate"), flags, 2)
+        this.vtbl.Deactivate := CallbackCreate(ObjBindMethod(implObj, "Deactivate"), flags, 1)
+        this.vtbl.CreateDocumentMgr := CallbackCreate(ObjBindMethod(implObj, "CreateDocumentMgr"), flags, 2)
+        this.vtbl.EnumDocumentMgrs := CallbackCreate(ObjBindMethod(implObj, "EnumDocumentMgrs"), flags, 2)
+        this.vtbl.GetFocus := CallbackCreate(ObjBindMethod(implObj, "GetFocus"), flags, 2)
+        this.vtbl.SetFocus := CallbackCreate(ObjBindMethod(implObj, "SetFocus"), flags, 2)
+        this.vtbl.AssociateFocus := CallbackCreate(ObjBindMethod(implObj, "AssociateFocus"), flags, 4)
+        this.vtbl.IsThreadFocus := CallbackCreate(ObjBindMethod(implObj, "IsThreadFocus"), flags, 2)
+        this.vtbl.GetFunctionProvider := CallbackCreate(ObjBindMethod(implObj, "GetFunctionProvider"), flags, 3)
+        this.vtbl.EnumFunctionProviders := CallbackCreate(ObjBindMethod(implObj, "EnumFunctionProviders"), flags, 2)
+        this.vtbl.GetGlobalCompartment := CallbackCreate(ObjBindMethod(implObj, "GetGlobalCompartment"), flags, 2)
     }
 
     Dispose() {

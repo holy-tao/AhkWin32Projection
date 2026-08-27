@@ -41,7 +41,6 @@ export default struct ISegmentList extends IUnknown {
     }
 
     /**
-     * 
      * @returns {ISegmentListIterator} 
      */
     CreateIterator() {
@@ -50,7 +49,6 @@ export default struct ISegmentList extends IUnknown {
     }
 
     /**
-     * 
      * @returns {SELECTION_TYPE} 
      */
     GetType() {
@@ -59,7 +57,6 @@ export default struct ISegmentList extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsEmpty() {
@@ -76,9 +73,9 @@ export default struct ISegmentList extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateIterator := CallbackCreate(GetMethod(implObj, "CreateIterator"), flags, 2)
-        this.vtbl.GetType := CallbackCreate(GetMethod(implObj, "GetType"), flags, 2)
-        this.vtbl.IsEmpty := CallbackCreate(GetMethod(implObj, "IsEmpty"), flags, 2)
+        this.vtbl.CreateIterator := CallbackCreate(ObjBindMethod(implObj, "CreateIterator"), flags, 2)
+        this.vtbl.GetType := CallbackCreate(ObjBindMethod(implObj, "GetType"), flags, 2)
+        this.vtbl.IsEmpty := CallbackCreate(ObjBindMethod(implObj, "IsEmpty"), flags, 2)
     }
 
     Dispose() {

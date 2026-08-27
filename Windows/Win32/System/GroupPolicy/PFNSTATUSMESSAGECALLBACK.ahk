@@ -38,7 +38,6 @@ export default struct PFNSTATUSMESSAGECALLBACK {
     }
 
     /**
-     * 
      * @param {BOOL} bVerbose Specifies whether the message is verbose. If this parameter is <b>TRUE</b>, the message is verbose. If this parameter is <b>FALSE</b>, the message is not verbose.
      * @param {PWSTR} lpMessage Pointer to a buffer that contains the message string.
      * @returns {Integer} If the message was displayed successfully, return <b>ERROR_SUCCESS</b>. Otherwise, return a 

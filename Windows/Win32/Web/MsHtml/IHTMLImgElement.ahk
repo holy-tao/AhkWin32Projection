@@ -308,7 +308,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 
      */
@@ -318,7 +317,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_isMap() {
@@ -327,7 +325,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -339,7 +336,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_useMap() {
@@ -349,7 +345,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_mimeType() {
@@ -359,7 +354,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fileSize() {
@@ -369,7 +363,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fileCreatedDate() {
@@ -379,7 +372,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fileModifiedDate() {
@@ -389,7 +381,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_fileUpdatedDate() {
@@ -399,7 +390,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_protocol() {
@@ -409,7 +399,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_href() {
@@ -419,7 +408,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_nameProp() {
@@ -429,7 +417,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -439,7 +426,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_border() {
@@ -449,7 +435,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -459,7 +444,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_vspace() {
@@ -468,7 +452,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -478,7 +461,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_hspace() {
@@ -487,7 +469,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -499,7 +480,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_alt() {
@@ -509,7 +489,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -521,7 +500,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_src() {
@@ -531,7 +509,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -543,7 +520,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_lowsrc() {
@@ -553,7 +529,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -565,7 +540,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_vrml() {
@@ -575,7 +549,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -587,7 +560,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_dynsrc() {
@@ -597,7 +569,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_readyState() {
@@ -607,7 +578,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_complete() {
@@ -616,7 +586,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -626,7 +595,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_loop() {
@@ -636,7 +604,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -648,7 +615,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_align() {
@@ -658,7 +624,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -668,7 +633,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onload() {
@@ -678,7 +642,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -688,7 +651,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onerror() {
@@ -698,7 +660,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 
      */
@@ -708,7 +669,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT} 
      */
     get_onabort() {
@@ -718,7 +678,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -730,7 +689,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -740,7 +698,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -750,7 +707,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_width() {
@@ -759,7 +715,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {Integer} v 
      * @returns {HRESULT} 
      */
@@ -769,7 +724,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_height() {
@@ -778,7 +732,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -790,7 +743,6 @@ export default struct IHTMLImgElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_start() {
@@ -808,54 +760,54 @@ export default struct IHTMLImgElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_isMap := CallbackCreate(GetMethod(implObj, "put_isMap"), flags, 2)
-        this.vtbl.get_isMap := CallbackCreate(GetMethod(implObj, "get_isMap"), flags, 2)
-        this.vtbl.put_useMap := CallbackCreate(GetMethod(implObj, "put_useMap"), flags, 2)
-        this.vtbl.get_useMap := CallbackCreate(GetMethod(implObj, "get_useMap"), flags, 2)
-        this.vtbl.get_mimeType := CallbackCreate(GetMethod(implObj, "get_mimeType"), flags, 2)
-        this.vtbl.get_fileSize := CallbackCreate(GetMethod(implObj, "get_fileSize"), flags, 2)
-        this.vtbl.get_fileCreatedDate := CallbackCreate(GetMethod(implObj, "get_fileCreatedDate"), flags, 2)
-        this.vtbl.get_fileModifiedDate := CallbackCreate(GetMethod(implObj, "get_fileModifiedDate"), flags, 2)
-        this.vtbl.get_fileUpdatedDate := CallbackCreate(GetMethod(implObj, "get_fileUpdatedDate"), flags, 2)
-        this.vtbl.get_protocol := CallbackCreate(GetMethod(implObj, "get_protocol"), flags, 2)
-        this.vtbl.get_href := CallbackCreate(GetMethod(implObj, "get_href"), flags, 2)
-        this.vtbl.get_nameProp := CallbackCreate(GetMethod(implObj, "get_nameProp"), flags, 2)
-        this.vtbl.put_border := CallbackCreate(GetMethod(implObj, "put_border"), flags, 2)
-        this.vtbl.get_border := CallbackCreate(GetMethod(implObj, "get_border"), flags, 2)
-        this.vtbl.put_vspace := CallbackCreate(GetMethod(implObj, "put_vspace"), flags, 2)
-        this.vtbl.get_vspace := CallbackCreate(GetMethod(implObj, "get_vspace"), flags, 2)
-        this.vtbl.put_hspace := CallbackCreate(GetMethod(implObj, "put_hspace"), flags, 2)
-        this.vtbl.get_hspace := CallbackCreate(GetMethod(implObj, "get_hspace"), flags, 2)
-        this.vtbl.put_alt := CallbackCreate(GetMethod(implObj, "put_alt"), flags, 2)
-        this.vtbl.get_alt := CallbackCreate(GetMethod(implObj, "get_alt"), flags, 2)
-        this.vtbl.put_src := CallbackCreate(GetMethod(implObj, "put_src"), flags, 2)
-        this.vtbl.get_src := CallbackCreate(GetMethod(implObj, "get_src"), flags, 2)
-        this.vtbl.put_lowsrc := CallbackCreate(GetMethod(implObj, "put_lowsrc"), flags, 2)
-        this.vtbl.get_lowsrc := CallbackCreate(GetMethod(implObj, "get_lowsrc"), flags, 2)
-        this.vtbl.put_vrml := CallbackCreate(GetMethod(implObj, "put_vrml"), flags, 2)
-        this.vtbl.get_vrml := CallbackCreate(GetMethod(implObj, "get_vrml"), flags, 2)
-        this.vtbl.put_dynsrc := CallbackCreate(GetMethod(implObj, "put_dynsrc"), flags, 2)
-        this.vtbl.get_dynsrc := CallbackCreate(GetMethod(implObj, "get_dynsrc"), flags, 2)
-        this.vtbl.get_readyState := CallbackCreate(GetMethod(implObj, "get_readyState"), flags, 2)
-        this.vtbl.get_complete := CallbackCreate(GetMethod(implObj, "get_complete"), flags, 2)
-        this.vtbl.put_loop := CallbackCreate(GetMethod(implObj, "put_loop"), flags, 2)
-        this.vtbl.get_loop := CallbackCreate(GetMethod(implObj, "get_loop"), flags, 2)
-        this.vtbl.put_align := CallbackCreate(GetMethod(implObj, "put_align"), flags, 2)
-        this.vtbl.get_align := CallbackCreate(GetMethod(implObj, "get_align"), flags, 2)
-        this.vtbl.put_onload := CallbackCreate(GetMethod(implObj, "put_onload"), flags, 2)
-        this.vtbl.get_onload := CallbackCreate(GetMethod(implObj, "get_onload"), flags, 2)
-        this.vtbl.put_onerror := CallbackCreate(GetMethod(implObj, "put_onerror"), flags, 2)
-        this.vtbl.get_onerror := CallbackCreate(GetMethod(implObj, "get_onerror"), flags, 2)
-        this.vtbl.put_onabort := CallbackCreate(GetMethod(implObj, "put_onabort"), flags, 2)
-        this.vtbl.get_onabort := CallbackCreate(GetMethod(implObj, "get_onabort"), flags, 2)
-        this.vtbl.put_name := CallbackCreate(GetMethod(implObj, "put_name"), flags, 2)
-        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
-        this.vtbl.put_width := CallbackCreate(GetMethod(implObj, "put_width"), flags, 2)
-        this.vtbl.get_width := CallbackCreate(GetMethod(implObj, "get_width"), flags, 2)
-        this.vtbl.put_height := CallbackCreate(GetMethod(implObj, "put_height"), flags, 2)
-        this.vtbl.get_height := CallbackCreate(GetMethod(implObj, "get_height"), flags, 2)
-        this.vtbl.put_start := CallbackCreate(GetMethod(implObj, "put_start"), flags, 2)
-        this.vtbl.get_start := CallbackCreate(GetMethod(implObj, "get_start"), flags, 2)
+        this.vtbl.put_isMap := CallbackCreate(ObjBindMethod(implObj, "put_isMap"), flags, 2)
+        this.vtbl.get_isMap := CallbackCreate(ObjBindMethod(implObj, "get_isMap"), flags, 2)
+        this.vtbl.put_useMap := CallbackCreate(ObjBindMethod(implObj, "put_useMap"), flags, 2)
+        this.vtbl.get_useMap := CallbackCreate(ObjBindMethod(implObj, "get_useMap"), flags, 2)
+        this.vtbl.get_mimeType := CallbackCreate(ObjBindMethod(implObj, "get_mimeType"), flags, 2)
+        this.vtbl.get_fileSize := CallbackCreate(ObjBindMethod(implObj, "get_fileSize"), flags, 2)
+        this.vtbl.get_fileCreatedDate := CallbackCreate(ObjBindMethod(implObj, "get_fileCreatedDate"), flags, 2)
+        this.vtbl.get_fileModifiedDate := CallbackCreate(ObjBindMethod(implObj, "get_fileModifiedDate"), flags, 2)
+        this.vtbl.get_fileUpdatedDate := CallbackCreate(ObjBindMethod(implObj, "get_fileUpdatedDate"), flags, 2)
+        this.vtbl.get_protocol := CallbackCreate(ObjBindMethod(implObj, "get_protocol"), flags, 2)
+        this.vtbl.get_href := CallbackCreate(ObjBindMethod(implObj, "get_href"), flags, 2)
+        this.vtbl.get_nameProp := CallbackCreate(ObjBindMethod(implObj, "get_nameProp"), flags, 2)
+        this.vtbl.put_border := CallbackCreate(ObjBindMethod(implObj, "put_border"), flags, 2)
+        this.vtbl.get_border := CallbackCreate(ObjBindMethod(implObj, "get_border"), flags, 2)
+        this.vtbl.put_vspace := CallbackCreate(ObjBindMethod(implObj, "put_vspace"), flags, 2)
+        this.vtbl.get_vspace := CallbackCreate(ObjBindMethod(implObj, "get_vspace"), flags, 2)
+        this.vtbl.put_hspace := CallbackCreate(ObjBindMethod(implObj, "put_hspace"), flags, 2)
+        this.vtbl.get_hspace := CallbackCreate(ObjBindMethod(implObj, "get_hspace"), flags, 2)
+        this.vtbl.put_alt := CallbackCreate(ObjBindMethod(implObj, "put_alt"), flags, 2)
+        this.vtbl.get_alt := CallbackCreate(ObjBindMethod(implObj, "get_alt"), flags, 2)
+        this.vtbl.put_src := CallbackCreate(ObjBindMethod(implObj, "put_src"), flags, 2)
+        this.vtbl.get_src := CallbackCreate(ObjBindMethod(implObj, "get_src"), flags, 2)
+        this.vtbl.put_lowsrc := CallbackCreate(ObjBindMethod(implObj, "put_lowsrc"), flags, 2)
+        this.vtbl.get_lowsrc := CallbackCreate(ObjBindMethod(implObj, "get_lowsrc"), flags, 2)
+        this.vtbl.put_vrml := CallbackCreate(ObjBindMethod(implObj, "put_vrml"), flags, 2)
+        this.vtbl.get_vrml := CallbackCreate(ObjBindMethod(implObj, "get_vrml"), flags, 2)
+        this.vtbl.put_dynsrc := CallbackCreate(ObjBindMethod(implObj, "put_dynsrc"), flags, 2)
+        this.vtbl.get_dynsrc := CallbackCreate(ObjBindMethod(implObj, "get_dynsrc"), flags, 2)
+        this.vtbl.get_readyState := CallbackCreate(ObjBindMethod(implObj, "get_readyState"), flags, 2)
+        this.vtbl.get_complete := CallbackCreate(ObjBindMethod(implObj, "get_complete"), flags, 2)
+        this.vtbl.put_loop := CallbackCreate(ObjBindMethod(implObj, "put_loop"), flags, 2)
+        this.vtbl.get_loop := CallbackCreate(ObjBindMethod(implObj, "get_loop"), flags, 2)
+        this.vtbl.put_align := CallbackCreate(ObjBindMethod(implObj, "put_align"), flags, 2)
+        this.vtbl.get_align := CallbackCreate(ObjBindMethod(implObj, "get_align"), flags, 2)
+        this.vtbl.put_onload := CallbackCreate(ObjBindMethod(implObj, "put_onload"), flags, 2)
+        this.vtbl.get_onload := CallbackCreate(ObjBindMethod(implObj, "get_onload"), flags, 2)
+        this.vtbl.put_onerror := CallbackCreate(ObjBindMethod(implObj, "put_onerror"), flags, 2)
+        this.vtbl.get_onerror := CallbackCreate(ObjBindMethod(implObj, "get_onerror"), flags, 2)
+        this.vtbl.put_onabort := CallbackCreate(ObjBindMethod(implObj, "put_onabort"), flags, 2)
+        this.vtbl.get_onabort := CallbackCreate(ObjBindMethod(implObj, "get_onabort"), flags, 2)
+        this.vtbl.put_name := CallbackCreate(ObjBindMethod(implObj, "put_name"), flags, 2)
+        this.vtbl.get_name := CallbackCreate(ObjBindMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.put_width := CallbackCreate(ObjBindMethod(implObj, "put_width"), flags, 2)
+        this.vtbl.get_width := CallbackCreate(ObjBindMethod(implObj, "get_width"), flags, 2)
+        this.vtbl.put_height := CallbackCreate(ObjBindMethod(implObj, "put_height"), flags, 2)
+        this.vtbl.get_height := CallbackCreate(ObjBindMethod(implObj, "get_height"), flags, 2)
+        this.vtbl.put_start := CallbackCreate(ObjBindMethod(implObj, "put_start"), flags, 2)
+        this.vtbl.get_start := CallbackCreate(ObjBindMethod(implObj, "get_start"), flags, 2)
     }
 
     Dispose() {

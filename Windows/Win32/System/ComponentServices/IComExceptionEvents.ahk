@@ -64,7 +64,7 @@ export default struct IComExceptionEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnExceptionUser := CallbackCreate(GetMethod(implObj, "OnExceptionUser"), flags, 5)
+        this.vtbl.OnExceptionUser := CallbackCreate(ObjBindMethod(implObj, "OnExceptionUser"), flags, 5)
     }
 
     Dispose() {

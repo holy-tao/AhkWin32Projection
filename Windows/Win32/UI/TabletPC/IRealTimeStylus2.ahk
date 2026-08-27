@@ -79,8 +79,8 @@ export default struct IRealTimeStylus2 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_FlicksEnabled := CallbackCreate(GetMethod(implObj, "get_FlicksEnabled"), flags, 2)
-        this.vtbl.put_FlicksEnabled := CallbackCreate(GetMethod(implObj, "put_FlicksEnabled"), flags, 2)
+        this.vtbl.get_FlicksEnabled := CallbackCreate(ObjBindMethod(implObj, "get_FlicksEnabled"), flags, 2)
+        this.vtbl.put_FlicksEnabled := CallbackCreate(ObjBindMethod(implObj, "put_FlicksEnabled"), flags, 2)
     }
 
     Dispose() {

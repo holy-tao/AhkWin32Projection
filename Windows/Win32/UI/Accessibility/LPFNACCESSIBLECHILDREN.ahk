@@ -21,7 +21,6 @@ export default struct LPFNACCESSIBLECHILDREN {
     }
 
     /**
-     * 
      * @param {IAccessible} paccContainer 
      * @param {Integer} iChildStart 
      * @param {Integer} cChildren 
@@ -30,7 +29,7 @@ export default struct LPFNACCESSIBLECHILDREN {
      * @returns {HRESULT} 
      */
     Call(paccContainer, iChildStart, cChildren, rgvarChildren, pcObtained) {
-        pcObtainedMarshal := pcObtained is VarRef ? "int*" : "ptr"
+        pcObtainedMarshal := pcObtained is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, "ptr", paccContainer, Int32, iChildStart, Int32, cChildren, VARIANT.Ptr, rgvarChildren, pcObtainedMarshal, pcObtained, "HRESULT")
         return result

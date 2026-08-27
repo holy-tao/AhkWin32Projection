@@ -110,7 +110,6 @@ export default struct ISVGMarkerElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -120,7 +119,6 @@ export default struct ISVGMarkerElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_refX() {
@@ -129,7 +127,6 @@ export default struct ISVGMarkerElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -139,7 +136,6 @@ export default struct ISVGMarkerElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_refY() {
@@ -148,7 +144,6 @@ export default struct ISVGMarkerElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedEnumeration} v 
      * @returns {HRESULT} 
      */
@@ -158,7 +153,6 @@ export default struct ISVGMarkerElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedEnumeration} 
      */
     get_markerUnits() {
@@ -167,7 +161,6 @@ export default struct ISVGMarkerElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -177,7 +170,6 @@ export default struct ISVGMarkerElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_markerWidth() {
@@ -186,7 +178,6 @@ export default struct ISVGMarkerElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 
      */
@@ -196,7 +187,6 @@ export default struct ISVGMarkerElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedLength} 
      */
     get_markerHeight() {
@@ -205,7 +195,6 @@ export default struct ISVGMarkerElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedEnumeration} v 
      * @returns {HRESULT} 
      */
@@ -215,7 +204,6 @@ export default struct ISVGMarkerElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedEnumeration} 
      */
     get_orientType() {
@@ -224,7 +212,6 @@ export default struct ISVGMarkerElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAnimatedAngle} v 
      * @returns {HRESULT} 
      */
@@ -234,7 +221,6 @@ export default struct ISVGMarkerElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {ISVGAnimatedAngle} 
      */
     get_orientAngle() {
@@ -243,7 +229,6 @@ export default struct ISVGMarkerElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     setOrientToAuto() {
@@ -252,7 +237,6 @@ export default struct ISVGMarkerElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {ISVGAngle} pSVGAngle 
      * @returns {HRESULT} 
      */
@@ -270,22 +254,22 @@ export default struct ISVGMarkerElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.putref_refX := CallbackCreate(GetMethod(implObj, "putref_refX"), flags, 2)
-        this.vtbl.get_refX := CallbackCreate(GetMethod(implObj, "get_refX"), flags, 2)
-        this.vtbl.putref_refY := CallbackCreate(GetMethod(implObj, "putref_refY"), flags, 2)
-        this.vtbl.get_refY := CallbackCreate(GetMethod(implObj, "get_refY"), flags, 2)
-        this.vtbl.putref_markerUnits := CallbackCreate(GetMethod(implObj, "putref_markerUnits"), flags, 2)
-        this.vtbl.get_markerUnits := CallbackCreate(GetMethod(implObj, "get_markerUnits"), flags, 2)
-        this.vtbl.putref_markerWidth := CallbackCreate(GetMethod(implObj, "putref_markerWidth"), flags, 2)
-        this.vtbl.get_markerWidth := CallbackCreate(GetMethod(implObj, "get_markerWidth"), flags, 2)
-        this.vtbl.putref_markerHeight := CallbackCreate(GetMethod(implObj, "putref_markerHeight"), flags, 2)
-        this.vtbl.get_markerHeight := CallbackCreate(GetMethod(implObj, "get_markerHeight"), flags, 2)
-        this.vtbl.putref_orientType := CallbackCreate(GetMethod(implObj, "putref_orientType"), flags, 2)
-        this.vtbl.get_orientType := CallbackCreate(GetMethod(implObj, "get_orientType"), flags, 2)
-        this.vtbl.putref_orientAngle := CallbackCreate(GetMethod(implObj, "putref_orientAngle"), flags, 2)
-        this.vtbl.get_orientAngle := CallbackCreate(GetMethod(implObj, "get_orientAngle"), flags, 2)
-        this.vtbl.setOrientToAuto := CallbackCreate(GetMethod(implObj, "setOrientToAuto"), flags, 1)
-        this.vtbl.setOrientToAngle := CallbackCreate(GetMethod(implObj, "setOrientToAngle"), flags, 2)
+        this.vtbl.putref_refX := CallbackCreate(ObjBindMethod(implObj, "putref_refX"), flags, 2)
+        this.vtbl.get_refX := CallbackCreate(ObjBindMethod(implObj, "get_refX"), flags, 2)
+        this.vtbl.putref_refY := CallbackCreate(ObjBindMethod(implObj, "putref_refY"), flags, 2)
+        this.vtbl.get_refY := CallbackCreate(ObjBindMethod(implObj, "get_refY"), flags, 2)
+        this.vtbl.putref_markerUnits := CallbackCreate(ObjBindMethod(implObj, "putref_markerUnits"), flags, 2)
+        this.vtbl.get_markerUnits := CallbackCreate(ObjBindMethod(implObj, "get_markerUnits"), flags, 2)
+        this.vtbl.putref_markerWidth := CallbackCreate(ObjBindMethod(implObj, "putref_markerWidth"), flags, 2)
+        this.vtbl.get_markerWidth := CallbackCreate(ObjBindMethod(implObj, "get_markerWidth"), flags, 2)
+        this.vtbl.putref_markerHeight := CallbackCreate(ObjBindMethod(implObj, "putref_markerHeight"), flags, 2)
+        this.vtbl.get_markerHeight := CallbackCreate(ObjBindMethod(implObj, "get_markerHeight"), flags, 2)
+        this.vtbl.putref_orientType := CallbackCreate(ObjBindMethod(implObj, "putref_orientType"), flags, 2)
+        this.vtbl.get_orientType := CallbackCreate(ObjBindMethod(implObj, "get_orientType"), flags, 2)
+        this.vtbl.putref_orientAngle := CallbackCreate(ObjBindMethod(implObj, "putref_orientAngle"), flags, 2)
+        this.vtbl.get_orientAngle := CallbackCreate(ObjBindMethod(implObj, "get_orientAngle"), flags, 2)
+        this.vtbl.setOrientToAuto := CallbackCreate(ObjBindMethod(implObj, "setOrientToAuto"), flags, 1)
+        this.vtbl.setOrientToAngle := CallbackCreate(ObjBindMethod(implObj, "setOrientToAngle"), flags, 2)
     }
 
     Dispose() {

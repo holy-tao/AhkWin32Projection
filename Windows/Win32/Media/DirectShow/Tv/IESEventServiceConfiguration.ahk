@@ -54,7 +54,9 @@ export default struct IESEventServiceConfiguration extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ieseventserviceconfiguration-setparent
      */
     SetParent(pEventService) {
-        result := ComCall(3, this, "ptr", pEventService, "HRESULT")
+        pEventServiceMarshal := pEventService == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pEventServiceMarshal, pEventService, "HRESULT")
         return result
     }
 
@@ -75,7 +77,9 @@ export default struct IESEventServiceConfiguration extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ieseventserviceconfiguration-setowner
      */
     SetOwner(pESEvents) {
-        result := ComCall(5, this, "ptr", pESEvents, "HRESULT")
+        pESEventsMarshal := pESEvents == 0 ? IntPtr : "ptr"
+
+        result := ComCall(5, this, pESEventsMarshal, pESEvents, "HRESULT")
         return result
     }
 
@@ -96,7 +100,9 @@ export default struct IESEventServiceConfiguration extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ieseventserviceconfiguration-setgraph
      */
     SetGraph(pGraph) {
-        result := ComCall(7, this, "ptr", pGraph, "HRESULT")
+        pGraphMarshal := pGraph == 0 ? IntPtr : "ptr"
+
+        result := ComCall(7, this, pGraphMarshal, pGraph, "HRESULT")
         return result
     }
 
@@ -107,7 +113,9 @@ export default struct IESEventServiceConfiguration extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ieseventserviceconfiguration-removegraph
      */
     RemoveGraph(pGraph) {
-        result := ComCall(8, this, "ptr", pGraph, "HRESULT")
+        pGraphMarshal := pGraph == 0 ? IntPtr : "ptr"
+
+        result := ComCall(8, this, pGraphMarshal, pGraph, "HRESULT")
         return result
     }
 
@@ -120,12 +128,12 @@ export default struct IESEventServiceConfiguration extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetParent := CallbackCreate(GetMethod(implObj, "SetParent"), flags, 2)
-        this.vtbl.RemoveParent := CallbackCreate(GetMethod(implObj, "RemoveParent"), flags, 1)
-        this.vtbl.SetOwner := CallbackCreate(GetMethod(implObj, "SetOwner"), flags, 2)
-        this.vtbl.RemoveOwner := CallbackCreate(GetMethod(implObj, "RemoveOwner"), flags, 1)
-        this.vtbl.SetGraph := CallbackCreate(GetMethod(implObj, "SetGraph"), flags, 2)
-        this.vtbl.RemoveGraph := CallbackCreate(GetMethod(implObj, "RemoveGraph"), flags, 2)
+        this.vtbl.SetParent := CallbackCreate(ObjBindMethod(implObj, "SetParent"), flags, 2)
+        this.vtbl.RemoveParent := CallbackCreate(ObjBindMethod(implObj, "RemoveParent"), flags, 1)
+        this.vtbl.SetOwner := CallbackCreate(ObjBindMethod(implObj, "SetOwner"), flags, 2)
+        this.vtbl.RemoveOwner := CallbackCreate(ObjBindMethod(implObj, "RemoveOwner"), flags, 1)
+        this.vtbl.SetGraph := CallbackCreate(ObjBindMethod(implObj, "SetGraph"), flags, 2)
+        this.vtbl.RemoveGraph := CallbackCreate(ObjBindMethod(implObj, "RemoveGraph"), flags, 2)
     }
 
     Dispose() {

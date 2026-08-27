@@ -40,7 +40,6 @@ export default struct IDebugApplicationNodeEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugApplicationNode} prddpChild 
      * @returns {HRESULT} 
      */
@@ -50,7 +49,6 @@ export default struct IDebugApplicationNodeEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugApplicationNode} prddpChild 
      * @returns {HRESULT} 
      */
@@ -60,7 +58,6 @@ export default struct IDebugApplicationNodeEvents extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     onDetach() {
@@ -69,7 +66,6 @@ export default struct IDebugApplicationNodeEvents extends IUnknown {
     }
 
     /**
-     * 
      * @param {IDebugApplicationNode} prddpParent 
      * @returns {HRESULT} 
      */
@@ -87,10 +83,10 @@ export default struct IDebugApplicationNodeEvents extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.onAddChild := CallbackCreate(GetMethod(implObj, "onAddChild"), flags, 2)
-        this.vtbl.onRemoveChild := CallbackCreate(GetMethod(implObj, "onRemoveChild"), flags, 2)
-        this.vtbl.onDetach := CallbackCreate(GetMethod(implObj, "onDetach"), flags, 1)
-        this.vtbl.onAttach := CallbackCreate(GetMethod(implObj, "onAttach"), flags, 2)
+        this.vtbl.onAddChild := CallbackCreate(ObjBindMethod(implObj, "onAddChild"), flags, 2)
+        this.vtbl.onRemoveChild := CallbackCreate(ObjBindMethod(implObj, "onRemoveChild"), flags, 2)
+        this.vtbl.onDetach := CallbackCreate(ObjBindMethod(implObj, "onDetach"), flags, 1)
+        this.vtbl.onAttach := CallbackCreate(ObjBindMethod(implObj, "onAttach"), flags, 2)
     }
 
     Dispose() {

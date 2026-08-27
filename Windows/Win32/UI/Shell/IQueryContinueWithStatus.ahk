@@ -68,7 +68,7 @@ export default struct IQueryContinueWithStatus extends IQueryContinue {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetStatusMessage := CallbackCreate(GetMethod(implObj, "SetStatusMessage"), flags, 2)
+        this.vtbl.SetStatusMessage := CallbackCreate(ObjBindMethod(implObj, "SetStatusMessage"), flags, 2)
     }
 
     Dispose() {

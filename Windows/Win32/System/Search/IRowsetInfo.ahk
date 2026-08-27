@@ -40,7 +40,6 @@ export default struct IRowsetInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} cPropertyIDSets 
      * @param {Pointer<DBPROPIDSET>} rgPropertyIDSets 
      * @param {Pointer<Integer>} pcPropertySets 
@@ -48,15 +47,15 @@ export default struct IRowsetInfo extends IUnknown {
      * @returns {HRESULT} 
      */
     GetProperties(cPropertyIDSets, rgPropertyIDSets, pcPropertySets, prgPropertySets) {
-        pcPropertySetsMarshal := pcPropertySets is VarRef ? "uint*" : "ptr"
-        prgPropertySetsMarshal := prgPropertySets is VarRef ? "ptr*" : "ptr"
+        rgPropertyIDSetsMarshal := rgPropertyIDSets == 0 ? IntPtr : DBPROPIDSET.Ptr
+        pcPropertySetsMarshal := pcPropertySets is VarRef ? "uint*" : IntPtr
+        prgPropertySetsMarshal := prgPropertySets is VarRef ? "ptr*" : IntPtr
 
-        result := ComCall(3, this, UInt32, cPropertyIDSets, DBPROPIDSET.Ptr, rgPropertyIDSets, pcPropertySetsMarshal, pcPropertySets, prgPropertySetsMarshal, prgPropertySets, "HRESULT")
+        result := ComCall(3, this, UInt32, cPropertyIDSets, rgPropertyIDSetsMarshal, rgPropertyIDSets, pcPropertySetsMarshal, pcPropertySets, prgPropertySetsMarshal, prgPropertySets, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer} iOrdinal 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
@@ -67,7 +66,6 @@ export default struct IRowsetInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
      */
@@ -85,9 +83,9 @@ export default struct IRowsetInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetProperties := CallbackCreate(GetMethod(implObj, "GetProperties"), flags, 5)
-        this.vtbl.GetReferencedRowset := CallbackCreate(GetMethod(implObj, "GetReferencedRowset"), flags, 4)
-        this.vtbl.GetSpecification := CallbackCreate(GetMethod(implObj, "GetSpecification"), flags, 3)
+        this.vtbl.GetProperties := CallbackCreate(ObjBindMethod(implObj, "GetProperties"), flags, 5)
+        this.vtbl.GetReferencedRowset := CallbackCreate(ObjBindMethod(implObj, "GetReferencedRowset"), flags, 4)
+        this.vtbl.GetSpecification := CallbackCreate(ObjBindMethod(implObj, "GetSpecification"), flags, 3)
     }
 
     Dispose() {

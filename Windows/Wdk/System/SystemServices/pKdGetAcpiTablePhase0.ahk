@@ -18,13 +18,12 @@ export default struct pKdGetAcpiTablePhase0 {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer>} LoaderBlock 
      * @param {Integer} Signature 
      * @returns {Pointer<Void>} 
      */
     Call(LoaderBlock, Signature) {
-        LoaderBlockMarshal := LoaderBlock is VarRef ? "ptr*" : "ptr"
+        LoaderBlockMarshal := LoaderBlock is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, LoaderBlockMarshal, LoaderBlock, UInt32, Signature, IntPtr)
         return result

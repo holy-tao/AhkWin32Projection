@@ -121,11 +121,11 @@ export default struct IDWriteRenderingParams extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetGamma := CallbackCreate(GetMethod(implObj, "GetGamma"), flags, 1)
-        this.vtbl.GetEnhancedContrast := CallbackCreate(GetMethod(implObj, "GetEnhancedContrast"), flags, 1)
-        this.vtbl.GetClearTypeLevel := CallbackCreate(GetMethod(implObj, "GetClearTypeLevel"), flags, 1)
-        this.vtbl.GetPixelGeometry := CallbackCreate(GetMethod(implObj, "GetPixelGeometry"), flags, 1)
-        this.vtbl.GetRenderingMode := CallbackCreate(GetMethod(implObj, "GetRenderingMode"), flags, 1)
+        this.vtbl.GetGamma := CallbackCreate(ObjBindMethod(implObj, "GetGamma"), flags, 1)
+        this.vtbl.GetEnhancedContrast := CallbackCreate(ObjBindMethod(implObj, "GetEnhancedContrast"), flags, 1)
+        this.vtbl.GetClearTypeLevel := CallbackCreate(ObjBindMethod(implObj, "GetClearTypeLevel"), flags, 1)
+        this.vtbl.GetPixelGeometry := CallbackCreate(ObjBindMethod(implObj, "GetPixelGeometry"), flags, 1)
+        this.vtbl.GetRenderingMode := CallbackCreate(ObjBindMethod(implObj, "GetRenderingMode"), flags, 1)
     }
 
     Dispose() {

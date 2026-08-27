@@ -51,7 +51,6 @@ export default struct IADsServiceOperations extends IADs {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Status() {
@@ -123,12 +122,12 @@ export default struct IADsServiceOperations extends IADs {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Status := CallbackCreate(GetMethod(implObj, "get_Status"), flags, 2)
-        this.vtbl.Start := CallbackCreate(GetMethod(implObj, "Start"), flags, 1)
-        this.vtbl.Stop := CallbackCreate(GetMethod(implObj, "Stop"), flags, 1)
-        this.vtbl.Pause := CallbackCreate(GetMethod(implObj, "Pause"), flags, 1)
-        this.vtbl.Continue := CallbackCreate(GetMethod(implObj, "Continue"), flags, 1)
-        this.vtbl.SetPassword := CallbackCreate(GetMethod(implObj, "SetPassword"), flags, 2)
+        this.vtbl.get_Status := CallbackCreate(ObjBindMethod(implObj, "get_Status"), flags, 2)
+        this.vtbl.Start := CallbackCreate(ObjBindMethod(implObj, "Start"), flags, 1)
+        this.vtbl.Stop := CallbackCreate(ObjBindMethod(implObj, "Stop"), flags, 1)
+        this.vtbl.Pause := CallbackCreate(ObjBindMethod(implObj, "Pause"), flags, 1)
+        this.vtbl.Continue := CallbackCreate(ObjBindMethod(implObj, "Continue"), flags, 1)
+        this.vtbl.SetPassword := CallbackCreate(ObjBindMethod(implObj, "SetPassword"), flags, 2)
     }
 
     Dispose() {

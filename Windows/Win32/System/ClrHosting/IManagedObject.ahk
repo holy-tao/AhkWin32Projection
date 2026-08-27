@@ -38,7 +38,6 @@ export default struct IManagedObject extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     GetSerializedBuffer() {
@@ -48,15 +47,14 @@ export default struct IManagedObject extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BSTR>} pBSTRGUID 
      * @param {Pointer<Integer>} AppDomainID 
      * @param {Pointer<Integer>} pCCW 
      * @returns {HRESULT} 
      */
     GetObjectIdentity(pBSTRGUID, AppDomainID, pCCW) {
-        AppDomainIDMarshal := AppDomainID is VarRef ? "int*" : "ptr"
-        pCCWMarshal := pCCW is VarRef ? "int*" : "ptr"
+        AppDomainIDMarshal := AppDomainID is VarRef ? "int*" : IntPtr
+        pCCWMarshal := pCCW is VarRef ? "int*" : IntPtr
 
         result := ComCall(4, this, BSTR.Ptr, pBSTRGUID, AppDomainIDMarshal, AppDomainID, pCCWMarshal, pCCW, "HRESULT")
         return result
@@ -71,8 +69,8 @@ export default struct IManagedObject extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSerializedBuffer := CallbackCreate(GetMethod(implObj, "GetSerializedBuffer"), flags, 2)
-        this.vtbl.GetObjectIdentity := CallbackCreate(GetMethod(implObj, "GetObjectIdentity"), flags, 4)
+        this.vtbl.GetSerializedBuffer := CallbackCreate(ObjBindMethod(implObj, "GetSerializedBuffer"), flags, 2)
+        this.vtbl.GetObjectIdentity := CallbackCreate(ObjBindMethod(implObj, "GetObjectIdentity"), flags, 4)
     }
 
     Dispose() {

@@ -63,9 +63,9 @@ export default struct ID2D1EffectContext1 extends ID2D1EffectContext {
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor_1/nf-d2d1effectauthor_1-id2d1effectcontext1-createlookuptable3d
      */
     CreateLookupTable3D(precision, extents, data, dataCount, strides) {
-        extentsMarshal := extents is VarRef ? "uint*" : "ptr"
-        dataMarshal := data is VarRef ? "char*" : "ptr"
-        stridesMarshal := strides is VarRef ? "uint*" : "ptr"
+        extentsMarshal := extents is VarRef ? "uint*" : IntPtr
+        dataMarshal := data is VarRef ? "char*" : IntPtr
+        stridesMarshal := strides is VarRef ? "uint*" : IntPtr
 
         result := ComCall(24, this, D2D1_BUFFER_PRECISION, precision, extentsMarshal, extents, dataMarshal, data, UInt32, dataCount, stridesMarshal, strides, "ptr*", &lookupTable := 0, "HRESULT")
         return ID2D1LookupTable3D(lookupTable)
@@ -80,7 +80,7 @@ export default struct ID2D1EffectContext1 extends ID2D1EffectContext {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateLookupTable3D := CallbackCreate(GetMethod(implObj, "CreateLookupTable3D"), flags, 7)
+        this.vtbl.CreateLookupTable3D := CallbackCreate(ObjBindMethod(implObj, "CreateLookupTable3D"), flags, 7)
     }
 
     Dispose() {

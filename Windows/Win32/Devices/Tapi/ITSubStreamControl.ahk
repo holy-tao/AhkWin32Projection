@@ -173,10 +173,10 @@ export default struct ITSubStreamControl extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateSubStream := CallbackCreate(GetMethod(implObj, "CreateSubStream"), flags, 2)
-        this.vtbl.RemoveSubStream := CallbackCreate(GetMethod(implObj, "RemoveSubStream"), flags, 2)
-        this.vtbl.EnumerateSubStreams := CallbackCreate(GetMethod(implObj, "EnumerateSubStreams"), flags, 2)
-        this.vtbl.get_SubStreams := CallbackCreate(GetMethod(implObj, "get_SubStreams"), flags, 2)
+        this.vtbl.CreateSubStream := CallbackCreate(ObjBindMethod(implObj, "CreateSubStream"), flags, 2)
+        this.vtbl.RemoveSubStream := CallbackCreate(ObjBindMethod(implObj, "RemoveSubStream"), flags, 2)
+        this.vtbl.EnumerateSubStreams := CallbackCreate(ObjBindMethod(implObj, "EnumerateSubStreams"), flags, 2)
+        this.vtbl.get_SubStreams := CallbackCreate(ObjBindMethod(implObj, "get_SubStreams"), flags, 2)
     }
 
     Dispose() {

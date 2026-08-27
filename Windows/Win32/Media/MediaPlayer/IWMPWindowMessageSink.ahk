@@ -40,7 +40,6 @@ export default struct IWMPWindowMessageSink extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} uMsg 
      * @param {WPARAM} _wparam 
      * @param {LPARAM} _lparam 
@@ -49,8 +48,8 @@ export default struct IWMPWindowMessageSink extends IUnknown {
      * @returns {HRESULT} 
      */
     OnWindowMessage(uMsg, _wparam, _lparam, plRet, pfHandled) {
-        plRetMarshal := plRet is VarRef ? "ptr*" : "ptr"
-        pfHandledMarshal := pfHandled is VarRef ? "int*" : "ptr"
+        plRetMarshal := plRet is VarRef ? "ptr*" : IntPtr
+        pfHandledMarshal := pfHandled is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, UInt32, uMsg, WPARAM, _wparam, LPARAM, _lparam, plRetMarshal, plRet, pfHandledMarshal, pfHandled, "HRESULT")
         return result
@@ -65,7 +64,7 @@ export default struct IWMPWindowMessageSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnWindowMessage := CallbackCreate(GetMethod(implObj, "OnWindowMessage"), flags, 6)
+        this.vtbl.OnWindowMessage := CallbackCreate(ObjBindMethod(implObj, "OnWindowMessage"), flags, 6)
     }
 
     Dispose() {

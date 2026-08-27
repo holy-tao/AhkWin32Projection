@@ -21,7 +21,6 @@ export default struct SslOpenProviderFn {
     }
 
     /**
-     * 
      * @param {PWSTR} pszProviderName 
      * @param {Integer} dwFlags 
      * @returns {NCRYPT_PROV_HANDLE} 

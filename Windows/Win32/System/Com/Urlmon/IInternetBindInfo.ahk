@@ -39,7 +39,6 @@ export default struct IInternetBindInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<BINDINFO>} pbindinfo 
      * @returns {Integer} 
      */
@@ -49,14 +48,13 @@ export default struct IInternetBindInfo extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} ulStringType 
      * @param {Integer} cEl 
      * @param {Pointer<Integer>} pcElFetched 
      * @returns {PWSTR} 
      */
     GetBindString(ulStringType, cEl, pcElFetched) {
-        pcElFetchedMarshal := pcElFetched is VarRef ? "uint*" : "ptr"
+        pcElFetchedMarshal := pcElFetched is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, UInt32, ulStringType, PWSTR.Ptr, &ppwzStr := 0, UInt32, cEl, pcElFetchedMarshal, pcElFetched, "HRESULT")
         return ppwzStr
@@ -71,8 +69,8 @@ export default struct IInternetBindInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetBindInfo := CallbackCreate(GetMethod(implObj, "GetBindInfo"), flags, 3)
-        this.vtbl.GetBindString := CallbackCreate(GetMethod(implObj, "GetBindString"), flags, 5)
+        this.vtbl.GetBindInfo := CallbackCreate(ObjBindMethod(implObj, "GetBindInfo"), flags, 3)
+        this.vtbl.GetBindString := CallbackCreate(ObjBindMethod(implObj, "GetBindString"), flags, 5)
     }
 
     Dispose() {

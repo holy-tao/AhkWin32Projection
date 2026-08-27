@@ -88,7 +88,10 @@ export default struct IDWriteFactory5 extends IDWriteFactory4 {
         referrerUrl := referrerUrl is String ? StrPtr(referrerUrl) : referrerUrl
         extraHeaders := extraHeaders is String ? StrPtr(extraHeaders) : extraHeaders
 
-        result := ComCall(45, this, "ptr", referrerUrl, "ptr", extraHeaders, "ptr*", &newLoader := 0, "HRESULT")
+        referrerUrlMarshal := referrerUrl == 0 ? IntPtr : PWSTR
+        extraHeadersMarshal := extraHeaders == 0 ? IntPtr : PWSTR
+
+        result := ComCall(45, this, referrerUrlMarshal, referrerUrl, extraHeadersMarshal, extraHeaders, "ptr*", &newLoader := 0, "HRESULT")
         return IDWriteRemoteFontFileLoader(newLoader)
     }
 
@@ -140,11 +143,11 @@ export default struct IDWriteFactory5 extends IDWriteFactory4 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateFontSetBuilder := CallbackCreate(GetMethod(implObj, "CreateFontSetBuilder"), flags, 2)
-        this.vtbl.CreateInMemoryFontFileLoader := CallbackCreate(GetMethod(implObj, "CreateInMemoryFontFileLoader"), flags, 2)
-        this.vtbl.CreateHttpFontFileLoader := CallbackCreate(GetMethod(implObj, "CreateHttpFontFileLoader"), flags, 4)
-        this.vtbl.AnalyzeContainerType := CallbackCreate(GetMethod(implObj, "AnalyzeContainerType"), flags, 3)
-        this.vtbl.UnpackFontFile := CallbackCreate(GetMethod(implObj, "UnpackFontFile"), flags, 5)
+        this.vtbl.CreateFontSetBuilder := CallbackCreate(ObjBindMethod(implObj, "CreateFontSetBuilder"), flags, 2)
+        this.vtbl.CreateInMemoryFontFileLoader := CallbackCreate(ObjBindMethod(implObj, "CreateInMemoryFontFileLoader"), flags, 2)
+        this.vtbl.CreateHttpFontFileLoader := CallbackCreate(ObjBindMethod(implObj, "CreateHttpFontFileLoader"), flags, 4)
+        this.vtbl.AnalyzeContainerType := CallbackCreate(ObjBindMethod(implObj, "AnalyzeContainerType"), flags, 3)
+        this.vtbl.UnpackFontFile := CallbackCreate(ObjBindMethod(implObj, "UnpackFontFile"), flags, 5)
     }
 
     Dispose() {

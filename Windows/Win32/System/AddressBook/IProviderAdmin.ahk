@@ -44,7 +44,6 @@ export default struct IProviderAdmin extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The **IProviderAdmin::GetLastError** method supplies information about a prior method call that failed. Callers can provide their users with detailed information about the error by including the data from the **MAPIERROR** structure in a dialog box.
      * @param {HRESULT} _hResult > [in] An HRESULT data type that contains the error value generated in the previous method call.
@@ -91,7 +90,6 @@ export default struct IProviderAdmin extends IUnknown {
     }
 
     /**
-     * 
      * @remarks
      * The **IProviderAdmin::CreateProvider** method adds a service provider to the message service. The  _lpszProvider_ parameter must point to the name of a provider that belongs to the message service. **CreateProvider** does not verify whether the name matches the name of a provider in the service; if the passed name does not match a service name, the call succeeds, but the results are unpredictable. Most message services do not allow providers to be added or deleted while the profile is in use. 
      *   
@@ -109,15 +107,15 @@ export default struct IProviderAdmin extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iprovideradmin-createprovider
      */
     CreateProvider(lpszProvider, cValues, lpProps, ulUIParam, ulFlags) {
-        lpszProviderMarshal := lpszProvider is VarRef ? "char*" : "ptr"
+        lpszProviderMarshal := lpszProvider is VarRef ? "char*" : IntPtr
+        ulUIParamMarshal := ulUIParam == 0 ? IntPtr : IntPtr
 
         lpUID := MAPIUID()
-        result := ComCall(5, this, lpszProviderMarshal, lpszProvider, UInt32, cValues, SPropValue.Ptr, lpProps, IntPtr, ulUIParam, UInt32, ulFlags, MAPIUID.Ptr, lpUID, "HRESULT")
+        result := ComCall(5, this, lpszProviderMarshal, lpszProvider, UInt32, cValues, SPropValue.Ptr, lpProps, ulUIParamMarshal, ulUIParam, UInt32, ulFlags, MAPIUID.Ptr, lpUID, "HRESULT")
         return lpUID
     }
 
     /**
-     * 
      * @remarks
      * The **IProviderAdmin::DeleteProvider** method deletes a service provider from the message service. **DeleteProvider** determines the service provider to delete by matching the **MAPIUID** structure pointed to by  _lpUID_ with the set of identifiers registered by the active service providers. 
      *   
@@ -172,7 +170,10 @@ export default struct IProviderAdmin extends IUnknown {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iprovideradmin-openprofilesection
      */
     OpenProfileSection(lpUID, lpInterface, ulFlags) {
-        result := ComCall(7, this, MAPIUID.Ptr, lpUID, Guid.Ptr, lpInterface, UInt32, ulFlags, "ptr*", &lppProfSect := 0, "HRESULT")
+        lpUIDMarshal := lpUID == 0 ? IntPtr : MAPIUID.Ptr
+        lpInterfaceMarshal := lpInterface == 0 ? IntPtr : Guid.Ptr
+
+        result := ComCall(7, this, lpUIDMarshal, lpUID, lpInterfaceMarshal, lpInterface, UInt32, ulFlags, "ptr*", &lppProfSect := 0, "HRESULT")
         return IProfSect(lppProfSect)
     }
 
@@ -185,11 +186,11 @@ export default struct IProviderAdmin extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetLastError := CallbackCreate(GetMethod(implObj, "GetLastError"), flags, 4)
-        this.vtbl.GetProviderTable := CallbackCreate(GetMethod(implObj, "GetProviderTable"), flags, 3)
-        this.vtbl.CreateProvider := CallbackCreate(GetMethod(implObj, "CreateProvider"), flags, 7)
-        this.vtbl.DeleteProvider := CallbackCreate(GetMethod(implObj, "DeleteProvider"), flags, 2)
-        this.vtbl.OpenProfileSection := CallbackCreate(GetMethod(implObj, "OpenProfileSection"), flags, 5)
+        this.vtbl.GetLastError := CallbackCreate(ObjBindMethod(implObj, "GetLastError"), flags, 4)
+        this.vtbl.GetProviderTable := CallbackCreate(ObjBindMethod(implObj, "GetProviderTable"), flags, 3)
+        this.vtbl.CreateProvider := CallbackCreate(ObjBindMethod(implObj, "CreateProvider"), flags, 7)
+        this.vtbl.DeleteProvider := CallbackCreate(ObjBindMethod(implObj, "DeleteProvider"), flags, 2)
+        this.vtbl.OpenProfileSection := CallbackCreate(ObjBindMethod(implObj, "OpenProfileSection"), flags, 5)
     }
 
     Dispose() {

@@ -20,14 +20,13 @@ export default struct IO_CSQ_PEEK_NEXT_IRP {
     }
 
     /**
-     * 
      * @param {Pointer<IO_CSQ>} Csq 
      * @param {Pointer<IRP>} _Irp 
      * @param {Pointer<Void>} PeekContext 
      * @returns {Pointer<IRP>} 
      */
     Call(Csq, _Irp, PeekContext) {
-        PeekContextMarshal := PeekContext is VarRef ? "ptr" : "ptr"
+        PeekContextMarshal := PeekContext is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, IO_CSQ.Ptr, Csq, IRP.Ptr, _Irp, PeekContextMarshal, PeekContext, IRP.Ptr)
         return result

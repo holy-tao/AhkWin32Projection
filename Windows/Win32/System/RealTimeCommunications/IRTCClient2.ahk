@@ -79,7 +79,6 @@ export default struct IRTCClient2 extends IRTCClient {
     }
 
     /**
-     * 
      * @param {RTC_SESSION_TYPE} enType 
      * @param {RTC_ANSWER_MODE} enMode 
      * @returns {HRESULT} 
@@ -90,7 +89,6 @@ export default struct IRTCClient2 extends IRTCClient {
     }
 
     /**
-     * 
      * @param {RTC_SESSION_TYPE} enType 
      * @returns {RTC_ANSWER_MODE} 
      */
@@ -100,7 +98,6 @@ export default struct IRTCClient2 extends IRTCClient {
     }
 
     /**
-     * 
      * @param {Pointer} hwndParent 
      * @param {VARIANT_BOOL} fAllowAudio 
      * @param {VARIANT_BOOL} fAllowVideo 
@@ -112,7 +109,6 @@ export default struct IRTCClient2 extends IRTCClient {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Version() {
@@ -121,7 +117,6 @@ export default struct IRTCClient2 extends IRTCClient {
     }
 
     /**
-     * 
      * @param {BSTR} bstrClientName 
      * @returns {HRESULT} 
      */
@@ -133,7 +128,6 @@ export default struct IRTCClient2 extends IRTCClient {
     }
 
     /**
-     * 
      * @param {BSTR} bstrClientCurVer 
      * @returns {HRESULT} 
      */
@@ -145,7 +139,6 @@ export default struct IRTCClient2 extends IRTCClient {
     }
 
     /**
-     * 
      * @param {Integer} lFlags 
      * @returns {HRESULT} 
      */
@@ -155,7 +148,6 @@ export default struct IRTCClient2 extends IRTCClient {
     }
 
     /**
-     * 
      * @param {BSTR} bstrContentType 
      * @param {BSTR} bstrSessionDescription 
      * @param {IRTCProfile} pProfile 
@@ -171,7 +163,6 @@ export default struct IRTCClient2 extends IRTCClient {
     }
 
     /**
-     * 
      * @param {IRTCSessionDescriptionManager} pSessionDescriptionManager 
      * @returns {HRESULT} 
      */
@@ -181,7 +172,6 @@ export default struct IRTCClient2 extends IRTCClient {
     }
 
     /**
-     * 
      * @param {RTC_SECURITY_TYPE} enSecurityType 
      * @param {RTC_SECURITY_LEVEL} enSecurityLevel 
      * @returns {HRESULT} 
@@ -192,7 +182,6 @@ export default struct IRTCClient2 extends IRTCClient {
     }
 
     /**
-     * 
      * @param {RTC_SECURITY_TYPE} enSecurityType 
      * @returns {RTC_SECURITY_LEVEL} 
      */
@@ -202,7 +191,6 @@ export default struct IRTCClient2 extends IRTCClient {
     }
 
     /**
-     * 
      * @param {Integer} lTransport 
      * @param {RTC_LISTEN_MODE} enListenMode 
      * @returns {HRESULT} 
@@ -213,7 +201,6 @@ export default struct IRTCClient2 extends IRTCClient {
     }
 
     /**
-     * 
      * @param {Integer} lTransport 
      * @returns {RTC_LISTEN_MODE} 
      */
@@ -231,19 +218,19 @@ export default struct IRTCClient2 extends IRTCClient {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_AnswerMode := CallbackCreate(GetMethod(implObj, "put_AnswerMode"), flags, 3)
-        this.vtbl.get_AnswerMode := CallbackCreate(GetMethod(implObj, "get_AnswerMode"), flags, 3)
-        this.vtbl.InvokeTuningWizardEx := CallbackCreate(GetMethod(implObj, "InvokeTuningWizardEx"), flags, 4)
-        this.vtbl.get_Version := CallbackCreate(GetMethod(implObj, "get_Version"), flags, 2)
-        this.vtbl.put_ClientName := CallbackCreate(GetMethod(implObj, "put_ClientName"), flags, 2)
-        this.vtbl.put_ClientCurVer := CallbackCreate(GetMethod(implObj, "put_ClientCurVer"), flags, 2)
-        this.vtbl.InitializeEx := CallbackCreate(GetMethod(implObj, "InitializeEx"), flags, 2)
-        this.vtbl.CreateSessionWithDescription := CallbackCreate(GetMethod(implObj, "CreateSessionWithDescription"), flags, 6)
-        this.vtbl.SetSessionDescriptionManager := CallbackCreate(GetMethod(implObj, "SetSessionDescriptionManager"), flags, 2)
-        this.vtbl.put_PreferredSecurityLevel := CallbackCreate(GetMethod(implObj, "put_PreferredSecurityLevel"), flags, 3)
-        this.vtbl.get_PreferredSecurityLevel := CallbackCreate(GetMethod(implObj, "get_PreferredSecurityLevel"), flags, 3)
-        this.vtbl.put_AllowedPorts := CallbackCreate(GetMethod(implObj, "put_AllowedPorts"), flags, 3)
-        this.vtbl.get_AllowedPorts := CallbackCreate(GetMethod(implObj, "get_AllowedPorts"), flags, 3)
+        this.vtbl.put_AnswerMode := CallbackCreate(ObjBindMethod(implObj, "put_AnswerMode"), flags, 3)
+        this.vtbl.get_AnswerMode := CallbackCreate(ObjBindMethod(implObj, "get_AnswerMode"), flags, 3)
+        this.vtbl.InvokeTuningWizardEx := CallbackCreate(ObjBindMethod(implObj, "InvokeTuningWizardEx"), flags, 4)
+        this.vtbl.get_Version := CallbackCreate(ObjBindMethod(implObj, "get_Version"), flags, 2)
+        this.vtbl.put_ClientName := CallbackCreate(ObjBindMethod(implObj, "put_ClientName"), flags, 2)
+        this.vtbl.put_ClientCurVer := CallbackCreate(ObjBindMethod(implObj, "put_ClientCurVer"), flags, 2)
+        this.vtbl.InitializeEx := CallbackCreate(ObjBindMethod(implObj, "InitializeEx"), flags, 2)
+        this.vtbl.CreateSessionWithDescription := CallbackCreate(ObjBindMethod(implObj, "CreateSessionWithDescription"), flags, 6)
+        this.vtbl.SetSessionDescriptionManager := CallbackCreate(ObjBindMethod(implObj, "SetSessionDescriptionManager"), flags, 2)
+        this.vtbl.put_PreferredSecurityLevel := CallbackCreate(ObjBindMethod(implObj, "put_PreferredSecurityLevel"), flags, 3)
+        this.vtbl.get_PreferredSecurityLevel := CallbackCreate(ObjBindMethod(implObj, "get_PreferredSecurityLevel"), flags, 3)
+        this.vtbl.put_AllowedPorts := CallbackCreate(ObjBindMethod(implObj, "put_AllowedPorts"), flags, 3)
+        this.vtbl.get_AllowedPorts := CallbackCreate(ObjBindMethod(implObj, "get_AllowedPorts"), flags, 3)
     }
 
     Dispose() {

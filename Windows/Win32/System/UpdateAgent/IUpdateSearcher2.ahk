@@ -83,8 +83,8 @@ export default struct IUpdateSearcher2 extends IUpdateSearcher {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_IgnoreDownloadPriority := CallbackCreate(GetMethod(implObj, "get_IgnoreDownloadPriority"), flags, 2)
-        this.vtbl.put_IgnoreDownloadPriority := CallbackCreate(GetMethod(implObj, "put_IgnoreDownloadPriority"), flags, 2)
+        this.vtbl.get_IgnoreDownloadPriority := CallbackCreate(ObjBindMethod(implObj, "get_IgnoreDownloadPriority"), flags, 2)
+        this.vtbl.put_IgnoreDownloadPriority := CallbackCreate(ObjBindMethod(implObj, "put_IgnoreDownloadPriority"), flags, 2)
     }
 
     Dispose() {

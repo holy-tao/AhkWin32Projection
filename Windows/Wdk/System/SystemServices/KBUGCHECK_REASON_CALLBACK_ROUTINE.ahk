@@ -20,7 +20,6 @@ export default struct KBUGCHECK_REASON_CALLBACK_ROUTINE {
     }
 
     /**
-     * 
      * @param {KBUGCHECK_CALLBACK_REASON} Reason 
      * @param {Pointer<KBUGCHECK_REASON_CALLBACK_RECORD>} Record 
      * @param {Pointer<Void>} ReasonSpecificData 
@@ -28,7 +27,7 @@ export default struct KBUGCHECK_REASON_CALLBACK_ROUTINE {
      * @returns {String} Nothing - always returns an empty string
      */
     Call(Reason, Record, ReasonSpecificData, ReasonSpecificDataLength) {
-        ReasonSpecificDataMarshal := ReasonSpecificData is VarRef ? "ptr" : "ptr"
+        ReasonSpecificDataMarshal := ReasonSpecificData is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, KBUGCHECK_CALLBACK_REASON, Reason, KBUGCHECK_REASON_CALLBACK_RECORD.Ptr, Record, ReasonSpecificDataMarshal, ReasonSpecificData, UInt32, ReasonSpecificDataLength)
     }

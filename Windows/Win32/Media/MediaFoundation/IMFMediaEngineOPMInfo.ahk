@@ -80,8 +80,8 @@ export default struct IMFMediaEngineOPMInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineopminfo-getopminfo
      */
     GetOPMInfo(pStatus, pConstricted) {
-        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
-        pConstrictedMarshal := pConstricted is VarRef ? "int*" : "ptr"
+        pStatusMarshal := pStatus is VarRef ? "int*" : IntPtr
+        pConstrictedMarshal := pConstricted is VarRef ? "int*" : IntPtr
 
         result := ComCall(3, this, pStatusMarshal, pStatus, pConstrictedMarshal, pConstricted, "HRESULT")
         return result
@@ -96,7 +96,7 @@ export default struct IMFMediaEngineOPMInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetOPMInfo := CallbackCreate(GetMethod(implObj, "GetOPMInfo"), flags, 3)
+        this.vtbl.GetOPMInfo := CallbackCreate(ObjBindMethod(implObj, "GetOPMInfo"), flags, 3)
     }
 
     Dispose() {

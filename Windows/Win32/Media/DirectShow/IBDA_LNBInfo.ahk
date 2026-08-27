@@ -86,7 +86,7 @@ export default struct IBDA_LNBInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_lnbinfo-get_localoscilatorfrequencylowband
      */
     get_LocalOscilatorFrequencyLowBand(pulLOFLow) {
-        pulLOFLowMarshal := pulLOFLow is VarRef ? "uint*" : "ptr"
+        pulLOFLowMarshal := pulLOFLow is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pulLOFLowMarshal, pulLOFLow, "HRESULT")
         return result
@@ -110,7 +110,7 @@ export default struct IBDA_LNBInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_lnbinfo-get_localoscilatorfrequencyhighband
      */
     get_LocalOscilatorFrequencyHighBand(pulLOFHigh) {
-        pulLOFHighMarshal := pulLOFHigh is VarRef ? "uint*" : "ptr"
+        pulLOFHighMarshal := pulLOFHigh is VarRef ? "uint*" : IntPtr
 
         result := ComCall(6, this, pulLOFHighMarshal, pulLOFHigh, "HRESULT")
         return result
@@ -134,7 +134,7 @@ export default struct IBDA_LNBInfo extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_lnbinfo-get_highlowswitchfrequency
      */
     get_HighLowSwitchFrequency(pulSwitchFrequency) {
-        pulSwitchFrequencyMarshal := pulSwitchFrequency is VarRef ? "uint*" : "ptr"
+        pulSwitchFrequencyMarshal := pulSwitchFrequency is VarRef ? "uint*" : IntPtr
 
         result := ComCall(8, this, pulSwitchFrequencyMarshal, pulSwitchFrequency, "HRESULT")
         return result
@@ -149,12 +149,12 @@ export default struct IBDA_LNBInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_LocalOscilatorFrequencyLowBand := CallbackCreate(GetMethod(implObj, "put_LocalOscilatorFrequencyLowBand"), flags, 2)
-        this.vtbl.get_LocalOscilatorFrequencyLowBand := CallbackCreate(GetMethod(implObj, "get_LocalOscilatorFrequencyLowBand"), flags, 2)
-        this.vtbl.put_LocalOscilatorFrequencyHighBand := CallbackCreate(GetMethod(implObj, "put_LocalOscilatorFrequencyHighBand"), flags, 2)
-        this.vtbl.get_LocalOscilatorFrequencyHighBand := CallbackCreate(GetMethod(implObj, "get_LocalOscilatorFrequencyHighBand"), flags, 2)
-        this.vtbl.put_HighLowSwitchFrequency := CallbackCreate(GetMethod(implObj, "put_HighLowSwitchFrequency"), flags, 2)
-        this.vtbl.get_HighLowSwitchFrequency := CallbackCreate(GetMethod(implObj, "get_HighLowSwitchFrequency"), flags, 2)
+        this.vtbl.put_LocalOscilatorFrequencyLowBand := CallbackCreate(ObjBindMethod(implObj, "put_LocalOscilatorFrequencyLowBand"), flags, 2)
+        this.vtbl.get_LocalOscilatorFrequencyLowBand := CallbackCreate(ObjBindMethod(implObj, "get_LocalOscilatorFrequencyLowBand"), flags, 2)
+        this.vtbl.put_LocalOscilatorFrequencyHighBand := CallbackCreate(ObjBindMethod(implObj, "put_LocalOscilatorFrequencyHighBand"), flags, 2)
+        this.vtbl.get_LocalOscilatorFrequencyHighBand := CallbackCreate(ObjBindMethod(implObj, "get_LocalOscilatorFrequencyHighBand"), flags, 2)
+        this.vtbl.put_HighLowSwitchFrequency := CallbackCreate(ObjBindMethod(implObj, "put_HighLowSwitchFrequency"), flags, 2)
+        this.vtbl.get_HighLowSwitchFrequency := CallbackCreate(ObjBindMethod(implObj, "get_HighLowSwitchFrequency"), flags, 2)
     }
 
     Dispose() {

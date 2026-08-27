@@ -77,7 +77,9 @@ export default struct ISyncProviderConfigUI extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderconfigui-init
      */
     Init(pguidInstanceId, pguidContentType, pConfigurationProperties) {
-        result := ComCall(3, this, Guid.Ptr, pguidInstanceId, Guid.Ptr, pguidContentType, "ptr", pConfigurationProperties, "HRESULT")
+        pConfigurationPropertiesMarshal := pConfigurationProperties == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, Guid.Ptr, pguidInstanceId, Guid.Ptr, pguidContentType, pConfigurationPropertiesMarshal, pConfigurationProperties, "HRESULT")
         return result
     }
 
@@ -100,7 +102,10 @@ export default struct ISyncProviderConfigUI extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderconfigui-createandregisternewsyncprovider
      */
     CreateAndRegisterNewSyncProvider(hwndParent, pUnkContext) {
-        result := ComCall(5, this, HWND, hwndParent, "ptr", pUnkContext, "ptr*", &ppProviderInfo := 0, "HRESULT")
+        hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+        pUnkContextMarshal := pUnkContext == 0 ? IntPtr : "ptr"
+
+        result := ComCall(5, this, hwndParentMarshal, hwndParent, pUnkContextMarshal, pUnkContext, "ptr*", &ppProviderInfo := 0, "HRESULT")
         return ISyncProviderInfo(ppProviderInfo)
     }
 
@@ -143,7 +148,11 @@ export default struct ISyncProviderConfigUI extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderconfigui-modifysyncprovider
      */
     ModifySyncProvider(hwndParent, pUnkContext, pProviderInfo) {
-        result := ComCall(6, this, HWND, hwndParent, "ptr", pUnkContext, "ptr", pProviderInfo, "HRESULT")
+        hwndParentMarshal := hwndParent == 0 ? IntPtr : HWND
+        pUnkContextMarshal := pUnkContext == 0 ? IntPtr : "ptr"
+        pProviderInfoMarshal := pProviderInfo == 0 ? IntPtr : "ptr"
+
+        result := ComCall(6, this, hwndParentMarshal, hwndParent, pUnkContextMarshal, pUnkContext, pProviderInfoMarshal, pProviderInfo, "HRESULT")
         return result
     }
 
@@ -156,10 +165,10 @@ export default struct ISyncProviderConfigUI extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 4)
-        this.vtbl.GetRegisteredProperties := CallbackCreate(GetMethod(implObj, "GetRegisteredProperties"), flags, 2)
-        this.vtbl.CreateAndRegisterNewSyncProvider := CallbackCreate(GetMethod(implObj, "CreateAndRegisterNewSyncProvider"), flags, 4)
-        this.vtbl.ModifySyncProvider := CallbackCreate(GetMethod(implObj, "ModifySyncProvider"), flags, 4)
+        this.vtbl.Init := CallbackCreate(ObjBindMethod(implObj, "Init"), flags, 4)
+        this.vtbl.GetRegisteredProperties := CallbackCreate(ObjBindMethod(implObj, "GetRegisteredProperties"), flags, 2)
+        this.vtbl.CreateAndRegisterNewSyncProvider := CallbackCreate(ObjBindMethod(implObj, "CreateAndRegisterNewSyncProvider"), flags, 4)
+        this.vtbl.ModifySyncProvider := CallbackCreate(ObjBindMethod(implObj, "ModifySyncProvider"), flags, 4)
     }
 
     Dispose() {

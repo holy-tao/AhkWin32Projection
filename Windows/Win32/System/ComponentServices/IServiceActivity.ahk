@@ -50,7 +50,9 @@ export default struct IServiceActivity extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iserviceactivity-synchronouscall
      */
     SynchronousCall(pIServiceCall) {
-        result := ComCall(3, this, "ptr", pIServiceCall, "HRESULT")
+        pIServiceCallMarshal := pIServiceCall == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, pIServiceCallMarshal, pIServiceCall, "HRESULT")
         return result
     }
 
@@ -93,7 +95,9 @@ export default struct IServiceActivity extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iserviceactivity-asynchronouscall
      */
     AsynchronousCall(pIServiceCall) {
-        result := ComCall(4, this, "ptr", pIServiceCall, "HRESULT")
+        pIServiceCallMarshal := pIServiceCall == 0 ? IntPtr : "ptr"
+
+        result := ComCall(4, this, pIServiceCallMarshal, pIServiceCall, "HRESULT")
         return result
     }
 
@@ -136,10 +140,10 @@ export default struct IServiceActivity extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SynchronousCall := CallbackCreate(GetMethod(implObj, "SynchronousCall"), flags, 2)
-        this.vtbl.AsynchronousCall := CallbackCreate(GetMethod(implObj, "AsynchronousCall"), flags, 2)
-        this.vtbl.BindToCurrentThread := CallbackCreate(GetMethod(implObj, "BindToCurrentThread"), flags, 1)
-        this.vtbl.UnbindFromThread := CallbackCreate(GetMethod(implObj, "UnbindFromThread"), flags, 1)
+        this.vtbl.SynchronousCall := CallbackCreate(ObjBindMethod(implObj, "SynchronousCall"), flags, 2)
+        this.vtbl.AsynchronousCall := CallbackCreate(ObjBindMethod(implObj, "AsynchronousCall"), flags, 2)
+        this.vtbl.BindToCurrentThread := CallbackCreate(ObjBindMethod(implObj, "BindToCurrentThread"), flags, 1)
+        this.vtbl.UnbindFromThread := CallbackCreate(ObjBindMethod(implObj, "UnbindFromThread"), flags, 1)
     }
 
     Dispose() {

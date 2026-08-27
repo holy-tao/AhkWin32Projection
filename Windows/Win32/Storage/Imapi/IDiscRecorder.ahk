@@ -76,7 +76,7 @@ export default struct IDiscRecorder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nn-imapi-idiscrecorder
      */
     Init(pbyUniqueID, nulIDSize, nulDriveNumber) {
-        pbyUniqueIDMarshal := pbyUniqueID is VarRef ? "char*" : "ptr"
+        pbyUniqueIDMarshal := pbyUniqueID is VarRef ? "char*" : IntPtr
 
         result := ComCall(3, this, pbyUniqueIDMarshal, pbyUniqueID, UInt32, nulIDSize, UInt32, nulDriveNumber, "HRESULT")
         return result
@@ -90,7 +90,8 @@ export default struct IDiscRecorder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-getrecorderguid
      */
     GetRecorderGUID(pbyUniqueID, ulBufferSize) {
-        pbyUniqueIDMarshal := pbyUniqueID is VarRef ? "char*" : "ptr"
+        pbyUniqueIDMarshal := pbyUniqueID is VarRef ? "char*" : IntPtr
+        pbyUniqueIDMarshal := pbyUniqueID == 0 ? IntPtr : "char*"
 
         result := ComCall(4, this, pbyUniqueIDMarshal, pbyUniqueID, UInt32, ulBufferSize, "uint*", &pulReturnSizeRequired := 0, "HRESULT")
         return pulReturnSizeRequired
@@ -120,7 +121,11 @@ export default struct IDiscRecorder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-getdisplaynames
      */
     GetDisplayNames(pbstrVendorID, pbstrProductID, pbstrRevision) {
-        result := ComCall(6, this, BSTR.Ptr, pbstrVendorID, BSTR.Ptr, pbstrProductID, BSTR.Ptr, pbstrRevision, "HRESULT")
+        pbstrVendorIDMarshal := pbstrVendorID == 0 ? IntPtr : BSTR.Ptr
+        pbstrProductIDMarshal := pbstrProductID == 0 ? IntPtr : BSTR.Ptr
+        pbstrRevisionMarshal := pbstrRevision == 0 ? IntPtr : BSTR.Ptr
+
+        result := ComCall(6, this, pbstrVendorIDMarshal, pbstrVendorID, pbstrProductIDMarshal, pbstrProductID, pbstrRevisionMarshal, pbstrRevision, "HRESULT")
         return result
     }
 
@@ -176,7 +181,9 @@ export default struct IDiscRecorder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-setrecorderproperties
      */
     SetRecorderProperties(pPropStg) {
-        result := ComCall(10, this, "ptr", pPropStg, "HRESULT")
+        pPropStgMarshal := pPropStg == 0 ? IntPtr : "ptr"
+
+        result := ComCall(10, this, pPropStgMarshal, pPropStg, "HRESULT")
         return result
     }
 
@@ -225,8 +232,8 @@ export default struct IDiscRecorder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-querymediatype
      */
     QueryMediaType(fMediaType, fMediaFlags) {
-        fMediaTypeMarshal := fMediaType is VarRef ? "int*" : "ptr"
-        fMediaFlagsMarshal := fMediaFlags is VarRef ? "int*" : "ptr"
+        fMediaTypeMarshal := fMediaType is VarRef ? "int*" : IntPtr
+        fMediaFlagsMarshal := fMediaFlags is VarRef ? "int*" : IntPtr
 
         result := ComCall(13, this, fMediaTypeMarshal, fMediaType, fMediaFlagsMarshal, fMediaFlags, "HRESULT")
         return result
@@ -245,11 +252,11 @@ export default struct IDiscRecorder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscrecorder-querymediainfo
      */
     QueryMediaInfo(pbSessions, pbLastTrack, ulStartAddress, ulNextWritable, ulFreeBlocks) {
-        pbSessionsMarshal := pbSessions is VarRef ? "char*" : "ptr"
-        pbLastTrackMarshal := pbLastTrack is VarRef ? "char*" : "ptr"
-        ulStartAddressMarshal := ulStartAddress is VarRef ? "uint*" : "ptr"
-        ulNextWritableMarshal := ulNextWritable is VarRef ? "uint*" : "ptr"
-        ulFreeBlocksMarshal := ulFreeBlocks is VarRef ? "uint*" : "ptr"
+        pbSessionsMarshal := pbSessions is VarRef ? "char*" : IntPtr
+        pbLastTrackMarshal := pbLastTrack is VarRef ? "char*" : IntPtr
+        ulStartAddressMarshal := ulStartAddress is VarRef ? "uint*" : IntPtr
+        ulNextWritableMarshal := ulNextWritable is VarRef ? "uint*" : IntPtr
+        ulFreeBlocksMarshal := ulFreeBlocks is VarRef ? "uint*" : IntPtr
 
         result := ComCall(14, this, pbSessionsMarshal, pbSessions, pbLastTrackMarshal, pbLastTrack, ulStartAddressMarshal, ulStartAddress, ulNextWritableMarshal, ulNextWritable, ulFreeBlocksMarshal, ulFreeBlocks, "HRESULT")
         return result
@@ -301,21 +308,21 @@ export default struct IDiscRecorder extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Init := CallbackCreate(GetMethod(implObj, "Init"), flags, 4)
-        this.vtbl.GetRecorderGUID := CallbackCreate(GetMethod(implObj, "GetRecorderGUID"), flags, 4)
-        this.vtbl.GetRecorderType := CallbackCreate(GetMethod(implObj, "GetRecorderType"), flags, 2)
-        this.vtbl.GetDisplayNames := CallbackCreate(GetMethod(implObj, "GetDisplayNames"), flags, 4)
-        this.vtbl.GetBasePnPID := CallbackCreate(GetMethod(implObj, "GetBasePnPID"), flags, 2)
-        this.vtbl.GetPath := CallbackCreate(GetMethod(implObj, "GetPath"), flags, 2)
-        this.vtbl.GetRecorderProperties := CallbackCreate(GetMethod(implObj, "GetRecorderProperties"), flags, 2)
-        this.vtbl.SetRecorderProperties := CallbackCreate(GetMethod(implObj, "SetRecorderProperties"), flags, 2)
-        this.vtbl.GetRecorderState := CallbackCreate(GetMethod(implObj, "GetRecorderState"), flags, 2)
-        this.vtbl.OpenExclusive := CallbackCreate(GetMethod(implObj, "OpenExclusive"), flags, 1)
-        this.vtbl.QueryMediaType := CallbackCreate(GetMethod(implObj, "QueryMediaType"), flags, 3)
-        this.vtbl.QueryMediaInfo := CallbackCreate(GetMethod(implObj, "QueryMediaInfo"), flags, 6)
-        this.vtbl.Eject := CallbackCreate(GetMethod(implObj, "Eject"), flags, 1)
-        this.vtbl.Erase := CallbackCreate(GetMethod(implObj, "Erase"), flags, 2)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
+        this.vtbl.Init := CallbackCreate(ObjBindMethod(implObj, "Init"), flags, 4)
+        this.vtbl.GetRecorderGUID := CallbackCreate(ObjBindMethod(implObj, "GetRecorderGUID"), flags, 4)
+        this.vtbl.GetRecorderType := CallbackCreate(ObjBindMethod(implObj, "GetRecorderType"), flags, 2)
+        this.vtbl.GetDisplayNames := CallbackCreate(ObjBindMethod(implObj, "GetDisplayNames"), flags, 4)
+        this.vtbl.GetBasePnPID := CallbackCreate(ObjBindMethod(implObj, "GetBasePnPID"), flags, 2)
+        this.vtbl.GetPath := CallbackCreate(ObjBindMethod(implObj, "GetPath"), flags, 2)
+        this.vtbl.GetRecorderProperties := CallbackCreate(ObjBindMethod(implObj, "GetRecorderProperties"), flags, 2)
+        this.vtbl.SetRecorderProperties := CallbackCreate(ObjBindMethod(implObj, "SetRecorderProperties"), flags, 2)
+        this.vtbl.GetRecorderState := CallbackCreate(ObjBindMethod(implObj, "GetRecorderState"), flags, 2)
+        this.vtbl.OpenExclusive := CallbackCreate(ObjBindMethod(implObj, "OpenExclusive"), flags, 1)
+        this.vtbl.QueryMediaType := CallbackCreate(ObjBindMethod(implObj, "QueryMediaType"), flags, 3)
+        this.vtbl.QueryMediaInfo := CallbackCreate(ObjBindMethod(implObj, "QueryMediaInfo"), flags, 6)
+        this.vtbl.Eject := CallbackCreate(ObjBindMethod(implObj, "Eject"), flags, 1)
+        this.vtbl.Erase := CallbackCreate(ObjBindMethod(implObj, "Erase"), flags, 2)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
     }
 
     Dispose() {

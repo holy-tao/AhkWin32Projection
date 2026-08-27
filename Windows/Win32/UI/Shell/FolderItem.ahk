@@ -157,7 +157,6 @@ export default struct FolderItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Application() {
@@ -166,7 +165,6 @@ export default struct FolderItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_Parent() {
@@ -175,7 +173,6 @@ export default struct FolderItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -185,7 +182,6 @@ export default struct FolderItem extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} bs 
      * @returns {HRESULT} 
      */
@@ -197,7 +193,6 @@ export default struct FolderItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Path() {
@@ -207,7 +202,6 @@ export default struct FolderItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_GetLink() {
@@ -216,7 +210,6 @@ export default struct FolderItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IDispatch} 
      */
     get_GetFolder() {
@@ -225,7 +218,6 @@ export default struct FolderItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsLink() {
@@ -234,7 +226,6 @@ export default struct FolderItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsFolder() {
@@ -243,7 +234,6 @@ export default struct FolderItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsFileSystem() {
@@ -252,7 +242,6 @@ export default struct FolderItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_IsBrowsable() {
@@ -261,7 +250,6 @@ export default struct FolderItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Float} 
      */
     get_ModifyDate() {
@@ -270,7 +258,6 @@ export default struct FolderItem extends IDispatch {
     }
 
     /**
-     * 
      * @param {Float} dt 
      * @returns {HRESULT} 
      */
@@ -280,7 +267,6 @@ export default struct FolderItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {Integer} 
      */
     get_Size() {
@@ -289,7 +275,6 @@ export default struct FolderItem extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Type() {
@@ -334,23 +319,23 @@ export default struct FolderItem extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Application := CallbackCreate(GetMethod(implObj, "get_Application"), flags, 2)
-        this.vtbl.get_Parent := CallbackCreate(GetMethod(implObj, "get_Parent"), flags, 2)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
-        this.vtbl.get_Path := CallbackCreate(GetMethod(implObj, "get_Path"), flags, 2)
-        this.vtbl.get_GetLink := CallbackCreate(GetMethod(implObj, "get_GetLink"), flags, 2)
-        this.vtbl.get_GetFolder := CallbackCreate(GetMethod(implObj, "get_GetFolder"), flags, 2)
-        this.vtbl.get_IsLink := CallbackCreate(GetMethod(implObj, "get_IsLink"), flags, 2)
-        this.vtbl.get_IsFolder := CallbackCreate(GetMethod(implObj, "get_IsFolder"), flags, 2)
-        this.vtbl.get_IsFileSystem := CallbackCreate(GetMethod(implObj, "get_IsFileSystem"), flags, 2)
-        this.vtbl.get_IsBrowsable := CallbackCreate(GetMethod(implObj, "get_IsBrowsable"), flags, 2)
-        this.vtbl.get_ModifyDate := CallbackCreate(GetMethod(implObj, "get_ModifyDate"), flags, 2)
-        this.vtbl.put_ModifyDate := CallbackCreate(GetMethod(implObj, "put_ModifyDate"), flags, 2)
-        this.vtbl.get_Size := CallbackCreate(GetMethod(implObj, "get_Size"), flags, 2)
-        this.vtbl.get_Type := CallbackCreate(GetMethod(implObj, "get_Type"), flags, 2)
-        this.vtbl.Verbs := CallbackCreate(GetMethod(implObj, "Verbs"), flags, 2)
-        this.vtbl.InvokeVerb := CallbackCreate(GetMethod(implObj, "InvokeVerb"), flags, 2)
+        this.vtbl.get_Application := CallbackCreate(ObjBindMethod(implObj, "get_Application"), flags, 2)
+        this.vtbl.get_Parent := CallbackCreate(ObjBindMethod(implObj, "get_Parent"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(ObjBindMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.get_Path := CallbackCreate(ObjBindMethod(implObj, "get_Path"), flags, 2)
+        this.vtbl.get_GetLink := CallbackCreate(ObjBindMethod(implObj, "get_GetLink"), flags, 2)
+        this.vtbl.get_GetFolder := CallbackCreate(ObjBindMethod(implObj, "get_GetFolder"), flags, 2)
+        this.vtbl.get_IsLink := CallbackCreate(ObjBindMethod(implObj, "get_IsLink"), flags, 2)
+        this.vtbl.get_IsFolder := CallbackCreate(ObjBindMethod(implObj, "get_IsFolder"), flags, 2)
+        this.vtbl.get_IsFileSystem := CallbackCreate(ObjBindMethod(implObj, "get_IsFileSystem"), flags, 2)
+        this.vtbl.get_IsBrowsable := CallbackCreate(ObjBindMethod(implObj, "get_IsBrowsable"), flags, 2)
+        this.vtbl.get_ModifyDate := CallbackCreate(ObjBindMethod(implObj, "get_ModifyDate"), flags, 2)
+        this.vtbl.put_ModifyDate := CallbackCreate(ObjBindMethod(implObj, "put_ModifyDate"), flags, 2)
+        this.vtbl.get_Size := CallbackCreate(ObjBindMethod(implObj, "get_Size"), flags, 2)
+        this.vtbl.get_Type := CallbackCreate(ObjBindMethod(implObj, "get_Type"), flags, 2)
+        this.vtbl.Verbs := CallbackCreate(ObjBindMethod(implObj, "Verbs"), flags, 2)
+        this.vtbl.InvokeVerb := CallbackCreate(ObjBindMethod(implObj, "InvokeVerb"), flags, 2)
     }
 
     Dispose() {

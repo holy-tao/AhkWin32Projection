@@ -87,13 +87,12 @@
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmfreememory0
  */
 export FwpmFreeMemory0(p) {
-    pMarshal := p is VarRef ? "ptr*" : "ptr"
+    pMarshal := p is VarRef ? "ptr*" : IntPtr
 
     DllCall("fwpuclnt.dll\FwpmFreeMemory0", pMarshal, p)
 }
 
 /**
- * 
  * @returns {FWPM_SERVICE_STATE} 
  */
 export FwpmBfeStateGet0() {
@@ -102,7 +101,6 @@ export FwpmBfeStateGet0() {
 }
 
 /**
- * 
  * @param {Pointer<Void>} deviceObject 
  * @param {Pointer<FWPM_SERVICE_STATE_CHANGE_CALLBACK0>} callback 
  * @param {Pointer<Void>} _context 
@@ -110,8 +108,9 @@ export FwpmBfeStateGet0() {
  * @returns {NTSTATUS} 
  */
 export FwpmBfeStateSubscribeChanges0(deviceObject, callback, _context, changeHandle) {
-    deviceObjectMarshal := deviceObject is VarRef ? "ptr" : "ptr"
-    _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+    deviceObjectMarshal := deviceObject is VarRef ? "ptr" : IntPtr
+    _contextMarshal := _context is VarRef ? "ptr" : IntPtr
+    _contextMarshal := _context == 0 ? IntPtr : "ptr"
 
     result := DllCall("fwpkclnt.sys\FwpmBfeStateSubscribeChanges0", deviceObjectMarshal, deviceObject, FWPM_SERVICE_STATE_CHANGE_CALLBACK0, callback, _contextMarshal, _context, HANDLE.Ptr, changeHandle, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -119,7 +118,6 @@ export FwpmBfeStateSubscribeChanges0(deviceObject, callback, _context, changeHan
 }
 
 /**
- * 
  * @param {HANDLE} changeHandle 
  * @returns {NTSTATUS} 
  */
@@ -220,7 +218,11 @@ export FwpmBfeStateUnsubscribeChanges0(changeHandle) {
 export FwpmEngineOpen0(serverName, authnService, authIdentity, session, engineHandle) {
     serverName := serverName is String ? StrPtr(serverName) : serverName
 
-    result := DllCall("fwpuclnt.dll\FwpmEngineOpen0", "ptr", serverName, UInt32, authnService, SEC_WINNT_AUTH_IDENTITY_W.Ptr, authIdentity, FWPM_SESSION0.Ptr, session, HANDLE.Ptr, engineHandle, NTSTATUS)
+    serverNameMarshal := serverName == 0 ? IntPtr : PWSTR
+    authIdentityMarshal := authIdentity == 0 ? IntPtr : SEC_WINNT_AUTH_IDENTITY_W.Ptr
+    sessionMarshal := session == 0 ? IntPtr : FWPM_SESSION0.Ptr
+
+    result := DllCall("fwpuclnt.dll\FwpmEngineOpen0", serverNameMarshal, serverName, UInt32, authnService, authIdentityMarshal, authIdentity, sessionMarshal, session, HANDLE.Ptr, engineHandle, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -388,7 +390,7 @@ export FwpmEngineClose0(engineHandle) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmenginegetoption0
  */
 export FwpmEngineGetOption0(engineHandle, option, value) {
-    valueMarshal := value is VarRef ? "ptr*" : "ptr"
+    valueMarshal := value is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmEngineGetOption0", HANDLE, engineHandle, FWPM_ENGINE_OPTION, option, valueMarshal, value, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -599,10 +601,10 @@ export FwpmEngineSetOption0(engineHandle, option, newValue) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmenginegetsecurityinfo0
  */
 export FwpmEngineGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
-    sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
-    sidGroupMarshal := sidGroup is VarRef ? "ptr*" : "ptr"
-    daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
-    saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
+    sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : IntPtr
+    sidGroupMarshal := sidGroup is VarRef ? "ptr*" : IntPtr
+    daclMarshal := dacl is VarRef ? "ptr*" : IntPtr
+    saclMarshal := sacl is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmEngineGetSecurityInfo0", HANDLE, engineHandle, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -683,7 +685,12 @@ export FwpmEngineGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmenginesetsecurityinfo0
  */
 export FwpmEngineSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
-    result := DllCall("fwpuclnt.dll\FwpmEngineSetSecurityInfo0", HANDLE, engineHandle, UInt32, securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, NTSTATUS)
+    sidOwnerMarshal := sidOwner == 0 ? IntPtr : SID.Ptr
+    sidGroupMarshal := sidGroup == 0 ? IntPtr : SID.Ptr
+    daclMarshal := dacl == 0 ? IntPtr : ACL.Ptr
+    saclMarshal := sacl == 0 ? IntPtr : ACL.Ptr
+
+    result := DllCall("fwpuclnt.dll\FwpmEngineSetSecurityInfo0", HANDLE, engineHandle, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -757,7 +764,9 @@ export FwpmEngineSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmsessioncreateenumhandle0
  */
 export FwpmSessionCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
-    result := DllCall("fwpuclnt.dll\FwpmSessionCreateEnumHandle0", HANDLE, engineHandle, FWPM_SESSION_ENUM_TEMPLATE0.Ptr, enumTemplate, HANDLE.Ptr, enumHandle, NTSTATUS)
+    enumTemplateMarshal := enumTemplate == 0 ? IntPtr : FWPM_SESSION_ENUM_TEMPLATE0.Ptr
+
+    result := DllCall("fwpuclnt.dll\FwpmSessionCreateEnumHandle0", HANDLE, engineHandle, enumTemplateMarshal, enumTemplate, HANDLE.Ptr, enumHandle, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -836,8 +845,8 @@ export FwpmSessionCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmsessionenum0
  */
 export FwpmSessionEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
-    entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
-    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
+    entriesMarshal := entries is VarRef ? "ptr*" : IntPtr
+    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmSessionEnum0", HANDLE, engineHandle, HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -1199,7 +1208,9 @@ export FwpmTransactionAbort0(engineHandle) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovideradd0
  */
 export FwpmProviderAdd0(engineHandle, provider, sd) {
-    result := DllCall("fwpuclnt.dll\FwpmProviderAdd0", HANDLE, engineHandle, FWPM_PROVIDER0.Ptr, provider, PSECURITY_DESCRIPTOR, sd, NTSTATUS)
+    sdMarshal := sd == 0 ? IntPtr : PSECURITY_DESCRIPTOR
+
+    result := DllCall("fwpuclnt.dll\FwpmProviderAdd0", HANDLE, engineHandle, FWPM_PROVIDER0.Ptr, provider, sdMarshal, sd, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -1337,7 +1348,7 @@ export FwpmProviderDeleteByKey0(engineHandle, key) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidergetbykey0
  */
 export FwpmProviderGetByKey0(engineHandle, key, provider) {
-    providerMarshal := provider is VarRef ? "ptr*" : "ptr"
+    providerMarshal := provider is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmProviderGetByKey0", HANDLE, engineHandle, Guid.Ptr, key, providerMarshal, provider, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -1412,7 +1423,9 @@ export FwpmProviderGetByKey0(engineHandle, key, provider) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercreateenumhandle0
  */
 export FwpmProviderCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
-    result := DllCall("fwpuclnt.dll\FwpmProviderCreateEnumHandle0", HANDLE, engineHandle, FWPM_PROVIDER_ENUM_TEMPLATE0.Ptr, enumTemplate, HANDLE.Ptr, enumHandle, NTSTATUS)
+    enumTemplateMarshal := enumTemplate == 0 ? IntPtr : FWPM_PROVIDER_ENUM_TEMPLATE0.Ptr
+
+    result := DllCall("fwpuclnt.dll\FwpmProviderCreateEnumHandle0", HANDLE, engineHandle, enumTemplateMarshal, enumTemplate, HANDLE.Ptr, enumHandle, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -1491,8 +1504,8 @@ export FwpmProviderCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmproviderenum0
  */
 export FwpmProviderEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
-    entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
-    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
+    entriesMarshal := entries is VarRef ? "ptr*" : IntPtr
+    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmProviderEnum0", HANDLE, engineHandle, HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -1642,12 +1655,13 @@ export FwpmProviderDestroyEnumHandle0(engineHandle, enumHandle) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidergetsecurityinfobykey0
  */
 export FwpmProviderGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
-    sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
-    sidGroupMarshal := sidGroup is VarRef ? "ptr*" : "ptr"
-    daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
-    saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
+    keyMarshal := key == 0 ? IntPtr : Guid.Ptr
+    sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : IntPtr
+    sidGroupMarshal := sidGroup is VarRef ? "ptr*" : IntPtr
+    daclMarshal := dacl is VarRef ? "ptr*" : IntPtr
+    saclMarshal := sacl is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("fwpuclnt.dll\FwpmProviderGetSecurityInfoByKey0", HANDLE, engineHandle, Guid.Ptr, key, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, NTSTATUS)
+    result := DllCall("fwpuclnt.dll\FwpmProviderGetSecurityInfoByKey0", HANDLE, engineHandle, keyMarshal, key, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -1733,7 +1747,13 @@ export FwpmProviderGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwn
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidersetsecurityinfobykey0
  */
 export FwpmProviderSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl) {
-    result := DllCall("fwpuclnt.dll\FwpmProviderSetSecurityInfoByKey0", HANDLE, engineHandle, Guid.Ptr, key, UInt32, securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, NTSTATUS)
+    keyMarshal := key == 0 ? IntPtr : Guid.Ptr
+    sidOwnerMarshal := sidOwner == 0 ? IntPtr : SID.Ptr
+    sidGroupMarshal := sidGroup == 0 ? IntPtr : SID.Ptr
+    daclMarshal := dacl == 0 ? IntPtr : ACL.Ptr
+    saclMarshal := sacl == 0 ? IntPtr : ACL.Ptr
+
+    result := DllCall("fwpuclnt.dll\FwpmProviderSetSecurityInfoByKey0", HANDLE, engineHandle, keyMarshal, key, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -1821,9 +1841,11 @@ export FwpmProviderSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwn
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextadd0
  */
 export FwpmProviderContextAdd0(engineHandle, providerContext, sd, id) {
-    idMarshal := id is VarRef ? "uint*" : "ptr"
+    sdMarshal := sd == 0 ? IntPtr : PSECURITY_DESCRIPTOR
+    idMarshal := id is VarRef ? "uint*" : IntPtr
+    idMarshal := id == 0 ? IntPtr : "uint*"
 
-    result := DllCall("fwpuclnt.dll\FwpmProviderContextAdd0", HANDLE, engineHandle, FWPM_PROVIDER_CONTEXT0.Ptr, providerContext, PSECURITY_DESCRIPTOR, sd, idMarshal, id, NTSTATUS)
+    result := DllCall("fwpuclnt.dll\FwpmProviderContextAdd0", HANDLE, engineHandle, FWPM_PROVIDER_CONTEXT0.Ptr, providerContext, sdMarshal, sd, idMarshal, id, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -1911,9 +1933,11 @@ export FwpmProviderContextAdd0(engineHandle, providerContext, sd, id) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextadd1
  */
 export FwpmProviderContextAdd1(engineHandle, providerContext, sd, id) {
-    idMarshal := id is VarRef ? "uint*" : "ptr"
+    sdMarshal := sd == 0 ? IntPtr : PSECURITY_DESCRIPTOR
+    idMarshal := id is VarRef ? "uint*" : IntPtr
+    idMarshal := id == 0 ? IntPtr : "uint*"
 
-    result := DllCall("fwpuclnt.dll\FwpmProviderContextAdd1", HANDLE, engineHandle, FWPM_PROVIDER_CONTEXT1.Ptr, providerContext, PSECURITY_DESCRIPTOR, sd, idMarshal, id, NTSTATUS)
+    result := DllCall("fwpuclnt.dll\FwpmProviderContextAdd1", HANDLE, engineHandle, FWPM_PROVIDER_CONTEXT1.Ptr, providerContext, sdMarshal, sd, idMarshal, id, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -2001,15 +2025,16 @@ export FwpmProviderContextAdd1(engineHandle, providerContext, sd, id) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextadd2
  */
 export FwpmProviderContextAdd2(engineHandle, providerContext, sd, id) {
-    idMarshal := id is VarRef ? "uint*" : "ptr"
+    sdMarshal := sd == 0 ? IntPtr : PSECURITY_DESCRIPTOR
+    idMarshal := id is VarRef ? "uint*" : IntPtr
+    idMarshal := id == 0 ? IntPtr : "uint*"
 
-    result := DllCall("fwpuclnt.dll\FwpmProviderContextAdd2", HANDLE, engineHandle, FWPM_PROVIDER_CONTEXT2.Ptr, providerContext, PSECURITY_DESCRIPTOR, sd, idMarshal, id, NTSTATUS)
+    result := DllCall("fwpuclnt.dll\FwpmProviderContextAdd2", HANDLE, engineHandle, FWPM_PROVIDER_CONTEXT2.Ptr, providerContext, sdMarshal, sd, idMarshal, id, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
 /**
- * 
  * @param {HANDLE} engineHandle 
  * @param {Pointer<FWPM_PROVIDER_CONTEXT3>} providerContext 
  * @param {PSECURITY_DESCRIPTOR} sd 
@@ -2017,9 +2042,11 @@ export FwpmProviderContextAdd2(engineHandle, providerContext, sd, id) {
  * @returns {NTSTATUS} 
  */
 export FwpmProviderContextAdd3(engineHandle, providerContext, sd, id) {
-    idMarshal := id is VarRef ? "uint*" : "ptr"
+    sdMarshal := sd == 0 ? IntPtr : PSECURITY_DESCRIPTOR
+    idMarshal := id is VarRef ? "uint*" : IntPtr
+    idMarshal := id == 0 ? IntPtr : "uint*"
 
-    result := DllCall("fwpuclnt.dll\FwpmProviderContextAdd3", HANDLE, engineHandle, FWPM_PROVIDER_CONTEXT3.Ptr, providerContext, PSECURITY_DESCRIPTOR, sd, idMarshal, id, NTSTATUS)
+    result := DllCall("fwpuclnt.dll\FwpmProviderContextAdd3", HANDLE, engineHandle, FWPM_PROVIDER_CONTEXT3.Ptr, providerContext, sdMarshal, sd, idMarshal, id, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -2224,7 +2251,7 @@ export FwpmProviderContextDeleteByKey0(engineHandle, key) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextgetbyid0
  */
 export FwpmProviderContextGetById0(engineHandle, id, providerContext) {
-    providerContextMarshal := providerContext is VarRef ? "ptr*" : "ptr"
+    providerContextMarshal := providerContext is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmProviderContextGetById0", HANDLE, engineHandle, Int64, id, providerContextMarshal, providerContext, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -2293,7 +2320,7 @@ export FwpmProviderContextGetById0(engineHandle, id, providerContext) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextgetbyid1
  */
 export FwpmProviderContextGetById1(engineHandle, id, providerContext) {
-    providerContextMarshal := providerContext is VarRef ? "ptr*" : "ptr"
+    providerContextMarshal := providerContext is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmProviderContextGetById1", HANDLE, engineHandle, Int64, id, providerContextMarshal, providerContext, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -2362,7 +2389,7 @@ export FwpmProviderContextGetById1(engineHandle, id, providerContext) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextgetbyid2
  */
 export FwpmProviderContextGetById2(engineHandle, id, providerContext) {
-    providerContextMarshal := providerContext is VarRef ? "ptr*" : "ptr"
+    providerContextMarshal := providerContext is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmProviderContextGetById2", HANDLE, engineHandle, Int64, id, providerContextMarshal, providerContext, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -2370,14 +2397,13 @@ export FwpmProviderContextGetById2(engineHandle, id, providerContext) {
 }
 
 /**
- * 
  * @param {HANDLE} engineHandle 
  * @param {Integer} id 
  * @param {Pointer<Pointer<FWPM_PROVIDER_CONTEXT3>>} providerContext 
  * @returns {NTSTATUS} 
  */
 export FwpmProviderContextGetById3(engineHandle, id, providerContext) {
-    providerContextMarshal := providerContext is VarRef ? "ptr*" : "ptr"
+    providerContextMarshal := providerContext is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmProviderContextGetById3", HANDLE, engineHandle, Int64, id, providerContextMarshal, providerContext, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -2446,7 +2472,7 @@ export FwpmProviderContextGetById3(engineHandle, id, providerContext) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextgetbykey0
  */
 export FwpmProviderContextGetByKey0(engineHandle, key, providerContext) {
-    providerContextMarshal := providerContext is VarRef ? "ptr*" : "ptr"
+    providerContextMarshal := providerContext is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmProviderContextGetByKey0", HANDLE, engineHandle, Guid.Ptr, key, providerContextMarshal, providerContext, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -2515,7 +2541,7 @@ export FwpmProviderContextGetByKey0(engineHandle, key, providerContext) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextgetbykey1
  */
 export FwpmProviderContextGetByKey1(engineHandle, key, providerContext) {
-    providerContextMarshal := providerContext is VarRef ? "ptr*" : "ptr"
+    providerContextMarshal := providerContext is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmProviderContextGetByKey1", HANDLE, engineHandle, Guid.Ptr, key, providerContextMarshal, providerContext, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -2584,7 +2610,7 @@ export FwpmProviderContextGetByKey1(engineHandle, key, providerContext) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextgetbykey2
  */
 export FwpmProviderContextGetByKey2(engineHandle, key, providerContext) {
-    providerContextMarshal := providerContext is VarRef ? "ptr*" : "ptr"
+    providerContextMarshal := providerContext is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmProviderContextGetByKey2", HANDLE, engineHandle, Guid.Ptr, key, providerContextMarshal, providerContext, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -2592,14 +2618,13 @@ export FwpmProviderContextGetByKey2(engineHandle, key, providerContext) {
 }
 
 /**
- * 
  * @param {HANDLE} engineHandle 
  * @param {Pointer<Guid>} key 
  * @param {Pointer<Pointer<FWPM_PROVIDER_CONTEXT3>>} providerContext 
  * @returns {NTSTATUS} 
  */
 export FwpmProviderContextGetByKey3(engineHandle, key, providerContext) {
-    providerContextMarshal := providerContext is VarRef ? "ptr*" : "ptr"
+    providerContextMarshal := providerContext is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmProviderContextGetByKey3", HANDLE, engineHandle, Guid.Ptr, key, providerContextMarshal, providerContext, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -2674,7 +2699,9 @@ export FwpmProviderContextGetByKey3(engineHandle, key, providerContext) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextcreateenumhandle0
  */
 export FwpmProviderContextCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
-    result := DllCall("fwpuclnt.dll\FwpmProviderContextCreateEnumHandle0", HANDLE, engineHandle, FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0.Ptr, enumTemplate, HANDLE.Ptr, enumHandle, NTSTATUS)
+    enumTemplateMarshal := enumTemplate == 0 ? IntPtr : FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0.Ptr
+
+    result := DllCall("fwpuclnt.dll\FwpmProviderContextCreateEnumHandle0", HANDLE, engineHandle, enumTemplateMarshal, enumTemplate, HANDLE.Ptr, enumHandle, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -2751,8 +2778,8 @@ export FwpmProviderContextCreateEnumHandle0(engineHandle, enumTemplate, enumHand
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextenum0
  */
 export FwpmProviderContextEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
-    entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
-    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
+    entriesMarshal := entries is VarRef ? "ptr*" : IntPtr
+    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmProviderContextEnum0", HANDLE, engineHandle, HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -2831,8 +2858,8 @@ export FwpmProviderContextEnum0(engineHandle, enumHandle, numEntriesRequested, e
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextenum1
  */
 export FwpmProviderContextEnum1(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
-    entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
-    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
+    entriesMarshal := entries is VarRef ? "ptr*" : IntPtr
+    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmProviderContextEnum1", HANDLE, engineHandle, HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -2911,8 +2938,8 @@ export FwpmProviderContextEnum1(engineHandle, enumHandle, numEntriesRequested, e
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextenum2
  */
 export FwpmProviderContextEnum2(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
-    entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
-    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
+    entriesMarshal := entries is VarRef ? "ptr*" : IntPtr
+    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmProviderContextEnum2", HANDLE, engineHandle, HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -2920,7 +2947,6 @@ export FwpmProviderContextEnum2(engineHandle, enumHandle, numEntriesRequested, e
 }
 
 /**
- * 
  * @param {HANDLE} engineHandle 
  * @param {HANDLE} enumHandle 
  * @param {Integer} numEntriesRequested 
@@ -2929,8 +2955,8 @@ export FwpmProviderContextEnum2(engineHandle, enumHandle, numEntriesRequested, e
  * @returns {NTSTATUS} 
  */
 export FwpmProviderContextEnum3(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
-    entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
-    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
+    entriesMarshal := entries is VarRef ? "ptr*" : IntPtr
+    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmProviderContextEnum3", HANDLE, engineHandle, HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -3080,12 +3106,13 @@ export FwpmProviderContextDestroyEnumHandle0(engineHandle, enumHandle) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextgetsecurityinfobykey0
  */
 export FwpmProviderContextGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
-    sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
-    sidGroupMarshal := sidGroup is VarRef ? "ptr*" : "ptr"
-    daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
-    saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
+    keyMarshal := key == 0 ? IntPtr : Guid.Ptr
+    sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : IntPtr
+    sidGroupMarshal := sidGroup is VarRef ? "ptr*" : IntPtr
+    daclMarshal := dacl is VarRef ? "ptr*" : IntPtr
+    saclMarshal := sacl is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("fwpuclnt.dll\FwpmProviderContextGetSecurityInfoByKey0", HANDLE, engineHandle, Guid.Ptr, key, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, NTSTATUS)
+    result := DllCall("fwpuclnt.dll\FwpmProviderContextGetSecurityInfoByKey0", HANDLE, engineHandle, keyMarshal, key, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -3171,7 +3198,13 @@ export FwpmProviderContextGetSecurityInfoByKey0(engineHandle, key, securityInfo,
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextsetsecurityinfobykey0
  */
 export FwpmProviderContextSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl) {
-    result := DllCall("fwpuclnt.dll\FwpmProviderContextSetSecurityInfoByKey0", HANDLE, engineHandle, Guid.Ptr, key, UInt32, securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, NTSTATUS)
+    keyMarshal := key == 0 ? IntPtr : Guid.Ptr
+    sidOwnerMarshal := sidOwner == 0 ? IntPtr : SID.Ptr
+    sidGroupMarshal := sidGroup == 0 ? IntPtr : SID.Ptr
+    daclMarshal := dacl == 0 ? IntPtr : ACL.Ptr
+    saclMarshal := sacl == 0 ? IntPtr : ACL.Ptr
+
+    result := DllCall("fwpuclnt.dll\FwpmProviderContextSetSecurityInfoByKey0", HANDLE, engineHandle, keyMarshal, key, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -3243,7 +3276,9 @@ export FwpmProviderContextSetSecurityInfoByKey0(engineHandle, key, securityInfo,
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmsublayeradd0
  */
 export FwpmSubLayerAdd0(engineHandle, subLayer, sd) {
-    result := DllCall("fwpuclnt.dll\FwpmSubLayerAdd0", HANDLE, engineHandle, FWPM_SUBLAYER0.Ptr, subLayer, PSECURITY_DESCRIPTOR, sd, NTSTATUS)
+    sdMarshal := sd == 0 ? IntPtr : PSECURITY_DESCRIPTOR
+
+    result := DllCall("fwpuclnt.dll\FwpmSubLayerAdd0", HANDLE, engineHandle, FWPM_SUBLAYER0.Ptr, subLayer, sdMarshal, sd, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -3381,7 +3416,7 @@ export FwpmSubLayerDeleteByKey0(engineHandle, key) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmsublayergetbykey0
  */
 export FwpmSubLayerGetByKey0(engineHandle, key, subLayer) {
-    subLayerMarshal := subLayer is VarRef ? "ptr*" : "ptr"
+    subLayerMarshal := subLayer is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmSubLayerGetByKey0", HANDLE, engineHandle, Guid.Ptr, key, subLayerMarshal, subLayer, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -3456,7 +3491,9 @@ export FwpmSubLayerGetByKey0(engineHandle, key, subLayer) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmsublayercreateenumhandle0
  */
 export FwpmSubLayerCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
-    result := DllCall("fwpuclnt.dll\FwpmSubLayerCreateEnumHandle0", HANDLE, engineHandle, FWPM_SUBLAYER_ENUM_TEMPLATE0.Ptr, enumTemplate, HANDLE.Ptr, enumHandle, NTSTATUS)
+    enumTemplateMarshal := enumTemplate == 0 ? IntPtr : FWPM_SUBLAYER_ENUM_TEMPLATE0.Ptr
+
+    result := DllCall("fwpuclnt.dll\FwpmSubLayerCreateEnumHandle0", HANDLE, engineHandle, enumTemplateMarshal, enumTemplate, HANDLE.Ptr, enumHandle, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -3535,8 +3572,8 @@ export FwpmSubLayerCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmsublayerenum0
  */
 export FwpmSubLayerEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
-    entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
-    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
+    entriesMarshal := entries is VarRef ? "ptr*" : IntPtr
+    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmSubLayerEnum0", HANDLE, engineHandle, HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -3686,12 +3723,13 @@ export FwpmSubLayerDestroyEnumHandle0(engineHandle, enumHandle) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmsublayergetsecurityinfobykey0
  */
 export FwpmSubLayerGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
-    sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
-    sidGroupMarshal := sidGroup is VarRef ? "ptr*" : "ptr"
-    daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
-    saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
+    keyMarshal := key == 0 ? IntPtr : Guid.Ptr
+    sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : IntPtr
+    sidGroupMarshal := sidGroup is VarRef ? "ptr*" : IntPtr
+    daclMarshal := dacl is VarRef ? "ptr*" : IntPtr
+    saclMarshal := sacl is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("fwpuclnt.dll\FwpmSubLayerGetSecurityInfoByKey0", HANDLE, engineHandle, Guid.Ptr, key, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, NTSTATUS)
+    result := DllCall("fwpuclnt.dll\FwpmSubLayerGetSecurityInfoByKey0", HANDLE, engineHandle, keyMarshal, key, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -3777,7 +3815,13 @@ export FwpmSubLayerGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwn
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmsublayersetsecurityinfobykey0
  */
 export FwpmSubLayerSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl) {
-    result := DllCall("fwpuclnt.dll\FwpmSubLayerSetSecurityInfoByKey0", HANDLE, engineHandle, Guid.Ptr, key, UInt32, securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, NTSTATUS)
+    keyMarshal := key == 0 ? IntPtr : Guid.Ptr
+    sidOwnerMarshal := sidOwner == 0 ? IntPtr : SID.Ptr
+    sidGroupMarshal := sidGroup == 0 ? IntPtr : SID.Ptr
+    daclMarshal := dacl == 0 ? IntPtr : ACL.Ptr
+    saclMarshal := sacl == 0 ? IntPtr : ACL.Ptr
+
+    result := DllCall("fwpuclnt.dll\FwpmSubLayerSetSecurityInfoByKey0", HANDLE, engineHandle, keyMarshal, key, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -3846,7 +3890,7 @@ export FwpmSubLayerSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwn
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmlayergetbyid0
  */
 export FwpmLayerGetById0(engineHandle, id, layer) {
-    layerMarshal := layer is VarRef ? "ptr*" : "ptr"
+    layerMarshal := layer is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmLayerGetById0", HANDLE, engineHandle, UInt16, id, layerMarshal, layer, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -3917,7 +3961,7 @@ export FwpmLayerGetById0(engineHandle, id, layer) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmlayergetbykey0
  */
 export FwpmLayerGetByKey0(engineHandle, key, layer) {
-    layerMarshal := layer is VarRef ? "ptr*" : "ptr"
+    layerMarshal := layer is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmLayerGetByKey0", HANDLE, engineHandle, Guid.Ptr, key, layerMarshal, layer, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -3992,7 +4036,9 @@ export FwpmLayerGetByKey0(engineHandle, key, layer) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmlayercreateenumhandle0
  */
 export FwpmLayerCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
-    result := DllCall("fwpuclnt.dll\FwpmLayerCreateEnumHandle0", HANDLE, engineHandle, FWPM_LAYER_ENUM_TEMPLATE0.Ptr, enumTemplate, HANDLE.Ptr, enumHandle, NTSTATUS)
+    enumTemplateMarshal := enumTemplate == 0 ? IntPtr : FWPM_LAYER_ENUM_TEMPLATE0.Ptr
+
+    result := DllCall("fwpuclnt.dll\FwpmLayerCreateEnumHandle0", HANDLE, engineHandle, enumTemplateMarshal, enumTemplate, HANDLE.Ptr, enumHandle, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -4069,8 +4115,8 @@ export FwpmLayerCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmlayerenum0
  */
 export FwpmLayerEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
-    entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
-    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
+    entriesMarshal := entries is VarRef ? "ptr*" : IntPtr
+    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmLayerEnum0", HANDLE, engineHandle, HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -4220,12 +4266,13 @@ export FwpmLayerDestroyEnumHandle0(engineHandle, enumHandle) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmlayergetsecurityinfobykey0
  */
 export FwpmLayerGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
-    sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
-    sidGroupMarshal := sidGroup is VarRef ? "ptr*" : "ptr"
-    daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
-    saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
+    keyMarshal := key == 0 ? IntPtr : Guid.Ptr
+    sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : IntPtr
+    sidGroupMarshal := sidGroup is VarRef ? "ptr*" : IntPtr
+    daclMarshal := dacl is VarRef ? "ptr*" : IntPtr
+    saclMarshal := sacl is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("fwpuclnt.dll\FwpmLayerGetSecurityInfoByKey0", HANDLE, engineHandle, Guid.Ptr, key, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, NTSTATUS)
+    result := DllCall("fwpuclnt.dll\FwpmLayerGetSecurityInfoByKey0", HANDLE, engineHandle, keyMarshal, key, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -4309,7 +4356,13 @@ export FwpmLayerGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner,
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmlayersetsecurityinfobykey0
  */
 export FwpmLayerSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl) {
-    result := DllCall("fwpuclnt.dll\FwpmLayerSetSecurityInfoByKey0", HANDLE, engineHandle, Guid.Ptr, key, UInt32, securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, NTSTATUS)
+    keyMarshal := key == 0 ? IntPtr : Guid.Ptr
+    sidOwnerMarshal := sidOwner == 0 ? IntPtr : SID.Ptr
+    sidGroupMarshal := sidGroup == 0 ? IntPtr : SID.Ptr
+    daclMarshal := dacl == 0 ? IntPtr : ACL.Ptr
+    saclMarshal := sacl == 0 ? IntPtr : ACL.Ptr
+
+    result := DllCall("fwpuclnt.dll\FwpmLayerSetSecurityInfoByKey0", HANDLE, engineHandle, keyMarshal, key, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -4409,9 +4462,11 @@ export FwpmLayerSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner,
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmcalloutadd0
  */
 export FwpmCalloutAdd0(engineHandle, callout, sd, id) {
-    idMarshal := id is VarRef ? "uint*" : "ptr"
+    sdMarshal := sd == 0 ? IntPtr : PSECURITY_DESCRIPTOR
+    idMarshal := id is VarRef ? "uint*" : IntPtr
+    idMarshal := id == 0 ? IntPtr : "uint*"
 
-    result := DllCall("fwpuclnt.dll\FwpmCalloutAdd0", HANDLE, engineHandle, FWPM_CALLOUT0.Ptr, callout, PSECURITY_DESCRIPTOR, sd, idMarshal, id, NTSTATUS)
+    result := DllCall("fwpuclnt.dll\FwpmCalloutAdd0", HANDLE, engineHandle, FWPM_CALLOUT0.Ptr, callout, sdMarshal, sd, idMarshal, id, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -4622,7 +4677,7 @@ export FwpmCalloutDeleteByKey0(engineHandle, key) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmcalloutgetbyid0
  */
 export FwpmCalloutGetById0(engineHandle, id, callout) {
-    calloutMarshal := callout is VarRef ? "ptr*" : "ptr"
+    calloutMarshal := callout is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmCalloutGetById0", HANDLE, engineHandle, UInt32, id, calloutMarshal, callout, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -4693,7 +4748,7 @@ export FwpmCalloutGetById0(engineHandle, id, callout) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmcalloutgetbykey0
  */
 export FwpmCalloutGetByKey0(engineHandle, key, callout) {
-    calloutMarshal := callout is VarRef ? "ptr*" : "ptr"
+    calloutMarshal := callout is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmCalloutGetByKey0", HANDLE, engineHandle, Guid.Ptr, key, calloutMarshal, callout, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -4768,7 +4823,9 @@ export FwpmCalloutGetByKey0(engineHandle, key, callout) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmcalloutcreateenumhandle0
  */
 export FwpmCalloutCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
-    result := DllCall("fwpuclnt.dll\FwpmCalloutCreateEnumHandle0", HANDLE, engineHandle, FWPM_CALLOUT_ENUM_TEMPLATE0.Ptr, enumTemplate, HANDLE.Ptr, enumHandle, NTSTATUS)
+    enumTemplateMarshal := enumTemplate == 0 ? IntPtr : FWPM_CALLOUT_ENUM_TEMPLATE0.Ptr
+
+    result := DllCall("fwpuclnt.dll\FwpmCalloutCreateEnumHandle0", HANDLE, engineHandle, enumTemplateMarshal, enumTemplate, HANDLE.Ptr, enumHandle, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -4847,8 +4904,8 @@ export FwpmCalloutCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmcalloutenum0
  */
 export FwpmCalloutEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
-    entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
-    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
+    entriesMarshal := entries is VarRef ? "ptr*" : IntPtr
+    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmCalloutEnum0", HANDLE, engineHandle, HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -4998,12 +5055,13 @@ export FwpmCalloutDestroyEnumHandle0(engineHandle, enumHandle) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmcalloutgetsecurityinfobykey0
  */
 export FwpmCalloutGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
-    sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
-    sidGroupMarshal := sidGroup is VarRef ? "ptr*" : "ptr"
-    daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
-    saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
+    keyMarshal := key == 0 ? IntPtr : Guid.Ptr
+    sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : IntPtr
+    sidGroupMarshal := sidGroup is VarRef ? "ptr*" : IntPtr
+    daclMarshal := dacl is VarRef ? "ptr*" : IntPtr
+    saclMarshal := sacl is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("fwpuclnt.dll\FwpmCalloutGetSecurityInfoByKey0", HANDLE, engineHandle, Guid.Ptr, key, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, NTSTATUS)
+    result := DllCall("fwpuclnt.dll\FwpmCalloutGetSecurityInfoByKey0", HANDLE, engineHandle, keyMarshal, key, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -5089,7 +5147,13 @@ export FwpmCalloutGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwne
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmcalloutsetsecurityinfobykey0
  */
 export FwpmCalloutSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl) {
-    result := DllCall("fwpuclnt.dll\FwpmCalloutSetSecurityInfoByKey0", HANDLE, engineHandle, Guid.Ptr, key, UInt32, securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, NTSTATUS)
+    keyMarshal := key == 0 ? IntPtr : Guid.Ptr
+    sidOwnerMarshal := sidOwner == 0 ? IntPtr : SID.Ptr
+    sidGroupMarshal := sidGroup == 0 ? IntPtr : SID.Ptr
+    daclMarshal := dacl == 0 ? IntPtr : ACL.Ptr
+    saclMarshal := sacl == 0 ? IntPtr : ACL.Ptr
+
+    result := DllCall("fwpuclnt.dll\FwpmCalloutSetSecurityInfoByKey0", HANDLE, engineHandle, keyMarshal, key, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -5156,9 +5220,11 @@ export FwpmCalloutSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwne
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmfilteradd0
  */
 export FwpmFilterAdd0(engineHandle, filter, sd, id) {
-    idMarshal := id is VarRef ? "uint*" : "ptr"
+    sdMarshal := sd == 0 ? IntPtr : PSECURITY_DESCRIPTOR
+    idMarshal := id is VarRef ? "uint*" : IntPtr
+    idMarshal := id == 0 ? IntPtr : "uint*"
 
-    result := DllCall("fwpuclnt.dll\FwpmFilterAdd0", HANDLE, engineHandle, FWPM_FILTER0.Ptr, filter, PSECURITY_DESCRIPTOR, sd, idMarshal, id, NTSTATUS)
+    result := DllCall("fwpuclnt.dll\FwpmFilterAdd0", HANDLE, engineHandle, FWPM_FILTER0.Ptr, filter, sdMarshal, sd, idMarshal, id, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -5365,7 +5431,7 @@ export FwpmFilterDeleteByKey0(engineHandle, key) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmfiltergetbyid0
  */
 export FwpmFilterGetById0(engineHandle, id, filter) {
-    filterMarshal := filter is VarRef ? "ptr*" : "ptr"
+    filterMarshal := filter is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmFilterGetById0", HANDLE, engineHandle, Int64, id, filterMarshal, filter, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -5436,7 +5502,7 @@ export FwpmFilterGetById0(engineHandle, id, filter) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmfiltergetbykey0
  */
 export FwpmFilterGetByKey0(engineHandle, key, filter) {
-    filterMarshal := filter is VarRef ? "ptr*" : "ptr"
+    filterMarshal := filter is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmFilterGetByKey0", HANDLE, engineHandle, Guid.Ptr, key, filterMarshal, filter, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -5511,7 +5577,9 @@ export FwpmFilterGetByKey0(engineHandle, key, filter) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmfiltercreateenumhandle0
  */
 export FwpmFilterCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
-    result := DllCall("fwpuclnt.dll\FwpmFilterCreateEnumHandle0", HANDLE, engineHandle, FWPM_FILTER_ENUM_TEMPLATE0.Ptr, enumTemplate, HANDLE.Ptr, enumHandle, NTSTATUS)
+    enumTemplateMarshal := enumTemplate == 0 ? IntPtr : FWPM_FILTER_ENUM_TEMPLATE0.Ptr
+
+    result := DllCall("fwpuclnt.dll\FwpmFilterCreateEnumHandle0", HANDLE, engineHandle, enumTemplateMarshal, enumTemplate, HANDLE.Ptr, enumHandle, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -5590,8 +5658,8 @@ export FwpmFilterCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmfilterenum0
  */
 export FwpmFilterEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
-    entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
-    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
+    entriesMarshal := entries is VarRef ? "ptr*" : IntPtr
+    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmFilterEnum0", HANDLE, engineHandle, HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -5741,12 +5809,13 @@ export FwpmFilterDestroyEnumHandle0(engineHandle, enumHandle) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmfiltergetsecurityinfobykey0
  */
 export FwpmFilterGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
-    sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
-    sidGroupMarshal := sidGroup is VarRef ? "ptr*" : "ptr"
-    daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
-    saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
+    keyMarshal := key == 0 ? IntPtr : Guid.Ptr
+    sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : IntPtr
+    sidGroupMarshal := sidGroup is VarRef ? "ptr*" : IntPtr
+    daclMarshal := dacl is VarRef ? "ptr*" : IntPtr
+    saclMarshal := sacl is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("fwpuclnt.dll\FwpmFilterGetSecurityInfoByKey0", HANDLE, engineHandle, Guid.Ptr, key, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, NTSTATUS)
+    result := DllCall("fwpuclnt.dll\FwpmFilterGetSecurityInfoByKey0", HANDLE, engineHandle, keyMarshal, key, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -5832,7 +5901,13 @@ export FwpmFilterGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmfiltersetsecurityinfobykey0
  */
 export FwpmFilterSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl) {
-    result := DllCall("fwpuclnt.dll\FwpmFilterSetSecurityInfoByKey0", HANDLE, engineHandle, Guid.Ptr, key, UInt32, securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, NTSTATUS)
+    keyMarshal := key == 0 ? IntPtr : Guid.Ptr
+    sidOwnerMarshal := sidOwner == 0 ? IntPtr : SID.Ptr
+    sidGroupMarshal := sidGroup == 0 ? IntPtr : SID.Ptr
+    daclMarshal := dacl == 0 ? IntPtr : ACL.Ptr
+    saclMarshal := sacl == 0 ? IntPtr : ACL.Ptr
+
+    result := DllCall("fwpuclnt.dll\FwpmFilterSetSecurityInfoByKey0", HANDLE, engineHandle, keyMarshal, key, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -5940,7 +6015,10 @@ export FwpmFilterSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmipsectunneladd0
  */
 export FwpmIPsecTunnelAdd0(engineHandle, flags, mainModePolicy, tunnelPolicy, numFilterConditions, filterConditions, sd) {
-    result := DllCall("fwpuclnt.dll\FwpmIPsecTunnelAdd0", HANDLE, engineHandle, UInt32, flags, FWPM_PROVIDER_CONTEXT0.Ptr, mainModePolicy, FWPM_PROVIDER_CONTEXT0.Ptr, tunnelPolicy, UInt32, numFilterConditions, FWPM_FILTER_CONDITION0.Ptr, filterConditions, PSECURITY_DESCRIPTOR, sd, NTSTATUS)
+    mainModePolicyMarshal := mainModePolicy == 0 ? IntPtr : FWPM_PROVIDER_CONTEXT0.Ptr
+    sdMarshal := sd == 0 ? IntPtr : PSECURITY_DESCRIPTOR
+
+    result := DllCall("fwpuclnt.dll\FwpmIPsecTunnelAdd0", HANDLE, engineHandle, UInt32, flags, mainModePolicyMarshal, mainModePolicy, FWPM_PROVIDER_CONTEXT0.Ptr, tunnelPolicy, UInt32, numFilterConditions, FWPM_FILTER_CONDITION0.Ptr, filterConditions, sdMarshal, sd, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -6063,7 +6141,11 @@ export FwpmIPsecTunnelAdd0(engineHandle, flags, mainModePolicy, tunnelPolicy, nu
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmipsectunneladd1
  */
 export FwpmIPsecTunnelAdd1(engineHandle, flags, mainModePolicy, tunnelPolicy, numFilterConditions, filterConditions, keyModKey, sd) {
-    result := DllCall("fwpuclnt.dll\FwpmIPsecTunnelAdd1", HANDLE, engineHandle, UInt32, flags, FWPM_PROVIDER_CONTEXT1.Ptr, mainModePolicy, FWPM_PROVIDER_CONTEXT1.Ptr, tunnelPolicy, UInt32, numFilterConditions, FWPM_FILTER_CONDITION0.Ptr, filterConditions, Guid.Ptr, keyModKey, PSECURITY_DESCRIPTOR, sd, NTSTATUS)
+    mainModePolicyMarshal := mainModePolicy == 0 ? IntPtr : FWPM_PROVIDER_CONTEXT1.Ptr
+    keyModKeyMarshal := keyModKey == 0 ? IntPtr : Guid.Ptr
+    sdMarshal := sd == 0 ? IntPtr : PSECURITY_DESCRIPTOR
+
+    result := DllCall("fwpuclnt.dll\FwpmIPsecTunnelAdd1", HANDLE, engineHandle, UInt32, flags, mainModePolicyMarshal, mainModePolicy, FWPM_PROVIDER_CONTEXT1.Ptr, tunnelPolicy, UInt32, numFilterConditions, FWPM_FILTER_CONDITION0.Ptr, filterConditions, keyModKeyMarshal, keyModKey, sdMarshal, sd, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -6186,13 +6268,16 @@ export FwpmIPsecTunnelAdd1(engineHandle, flags, mainModePolicy, tunnelPolicy, nu
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmipsectunneladd2
  */
 export FwpmIPsecTunnelAdd2(engineHandle, flags, mainModePolicy, tunnelPolicy, numFilterConditions, filterConditions, keyModKey, sd) {
-    result := DllCall("fwpuclnt.dll\FwpmIPsecTunnelAdd2", HANDLE, engineHandle, UInt32, flags, FWPM_PROVIDER_CONTEXT2.Ptr, mainModePolicy, FWPM_PROVIDER_CONTEXT2.Ptr, tunnelPolicy, UInt32, numFilterConditions, FWPM_FILTER_CONDITION0.Ptr, filterConditions, Guid.Ptr, keyModKey, PSECURITY_DESCRIPTOR, sd, NTSTATUS)
+    mainModePolicyMarshal := mainModePolicy == 0 ? IntPtr : FWPM_PROVIDER_CONTEXT2.Ptr
+    keyModKeyMarshal := keyModKey == 0 ? IntPtr : Guid.Ptr
+    sdMarshal := sd == 0 ? IntPtr : PSECURITY_DESCRIPTOR
+
+    result := DllCall("fwpuclnt.dll\FwpmIPsecTunnelAdd2", HANDLE, engineHandle, UInt32, flags, mainModePolicyMarshal, mainModePolicy, FWPM_PROVIDER_CONTEXT2.Ptr, tunnelPolicy, UInt32, numFilterConditions, FWPM_FILTER_CONDITION0.Ptr, filterConditions, keyModKeyMarshal, keyModKey, sdMarshal, sd, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
 
 /**
- * 
  * @param {HANDLE} engineHandle 
  * @param {Integer} flags 
  * @param {Pointer<FWPM_PROVIDER_CONTEXT3>} mainModePolicy 
@@ -6204,7 +6289,11 @@ export FwpmIPsecTunnelAdd2(engineHandle, flags, mainModePolicy, tunnelPolicy, nu
  * @returns {NTSTATUS} 
  */
 export FwpmIPsecTunnelAdd3(engineHandle, flags, mainModePolicy, tunnelPolicy, numFilterConditions, filterConditions, keyModKey, sd) {
-    result := DllCall("fwpuclnt.dll\FwpmIPsecTunnelAdd3", HANDLE, engineHandle, UInt32, flags, FWPM_PROVIDER_CONTEXT3.Ptr, mainModePolicy, FWPM_PROVIDER_CONTEXT3.Ptr, tunnelPolicy, UInt32, numFilterConditions, FWPM_FILTER_CONDITION0.Ptr, filterConditions, Guid.Ptr, keyModKey, PSECURITY_DESCRIPTOR, sd, NTSTATUS)
+    mainModePolicyMarshal := mainModePolicy == 0 ? IntPtr : FWPM_PROVIDER_CONTEXT3.Ptr
+    keyModKeyMarshal := keyModKey == 0 ? IntPtr : Guid.Ptr
+    sdMarshal := sd == 0 ? IntPtr : PSECURITY_DESCRIPTOR
+
+    result := DllCall("fwpuclnt.dll\FwpmIPsecTunnelAdd3", HANDLE, engineHandle, UInt32, flags, mainModePolicyMarshal, mainModePolicy, FWPM_PROVIDER_CONTEXT3.Ptr, tunnelPolicy, UInt32, numFilterConditions, FWPM_FILTER_CONDITION0.Ptr, filterConditions, keyModKeyMarshal, keyModKey, sdMarshal, sd, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -6472,8 +6561,9 @@ export IPsecGetStatistics1(engineHandle, ipsecStatistics) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextcreate0
  */
 export IPsecSaContextCreate0(engineHandle, outboundTraffic, inboundFilterId, id) {
-    inboundFilterIdMarshal := inboundFilterId is VarRef ? "uint*" : "ptr"
-    idMarshal := id is VarRef ? "uint*" : "ptr"
+    inboundFilterIdMarshal := inboundFilterId is VarRef ? "uint*" : IntPtr
+    inboundFilterIdMarshal := inboundFilterId == 0 ? IntPtr : "uint*"
+    idMarshal := id is VarRef ? "uint*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\IPsecSaContextCreate0", HANDLE, engineHandle, IPSEC_TRAFFIC0.Ptr, outboundTraffic, inboundFilterIdMarshal, inboundFilterId, idMarshal, id, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -6551,10 +6641,12 @@ export IPsecSaContextCreate0(engineHandle, outboundTraffic, inboundFilterId, id)
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextcreate1
  */
 export IPsecSaContextCreate1(engineHandle, outboundTraffic, virtualIfTunnelInfo, inboundFilterId, id) {
-    inboundFilterIdMarshal := inboundFilterId is VarRef ? "uint*" : "ptr"
-    idMarshal := id is VarRef ? "uint*" : "ptr"
+    virtualIfTunnelInfoMarshal := virtualIfTunnelInfo == 0 ? IntPtr : IPSEC_VIRTUAL_IF_TUNNEL_INFO0.Ptr
+    inboundFilterIdMarshal := inboundFilterId is VarRef ? "uint*" : IntPtr
+    inboundFilterIdMarshal := inboundFilterId == 0 ? IntPtr : "uint*"
+    idMarshal := id is VarRef ? "uint*" : IntPtr
 
-    result := DllCall("fwpuclnt.dll\IPsecSaContextCreate1", HANDLE, engineHandle, IPSEC_TRAFFIC1.Ptr, outboundTraffic, IPSEC_VIRTUAL_IF_TUNNEL_INFO0.Ptr, virtualIfTunnelInfo, inboundFilterIdMarshal, inboundFilterId, idMarshal, id, NTSTATUS)
+    result := DllCall("fwpuclnt.dll\IPsecSaContextCreate1", HANDLE, engineHandle, IPSEC_TRAFFIC1.Ptr, outboundTraffic, virtualIfTunnelInfoMarshal, virtualIfTunnelInfo, inboundFilterIdMarshal, inboundFilterId, idMarshal, id, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -6690,7 +6782,7 @@ export IPsecSaContextDeleteById0(engineHandle, id) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextgetbyid0
  */
 export IPsecSaContextGetById0(engineHandle, id, saContext) {
-    saContextMarshal := saContext is VarRef ? "ptr*" : "ptr"
+    saContextMarshal := saContext is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\IPsecSaContextGetById0", HANDLE, engineHandle, Int64, id, saContextMarshal, saContext, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -6759,7 +6851,7 @@ export IPsecSaContextGetById0(engineHandle, id, saContext) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextgetbyid1
  */
 export IPsecSaContextGetById1(engineHandle, id, saContext) {
-    saContextMarshal := saContext is VarRef ? "ptr*" : "ptr"
+    saContextMarshal := saContext is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\IPsecSaContextGetById1", HANDLE, engineHandle, Int64, id, saContextMarshal, saContext, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -6829,7 +6921,7 @@ export IPsecSaContextGetById1(engineHandle, id, saContext) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextgetspi0
  */
 export IPsecSaContextGetSpi0(engineHandle, id, getSpi, inboundSpi) {
-    inboundSpiMarshal := inboundSpi is VarRef ? "uint*" : "ptr"
+    inboundSpiMarshal := inboundSpi is VarRef ? "uint*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\IPsecSaContextGetSpi0", HANDLE, engineHandle, Int64, id, IPSEC_GETSPI0.Ptr, getSpi, inboundSpiMarshal, inboundSpi, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -6899,7 +6991,7 @@ export IPsecSaContextGetSpi0(engineHandle, id, getSpi, inboundSpi) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextgetspi1
  */
 export IPsecSaContextGetSpi1(engineHandle, id, getSpi, inboundSpi) {
-    inboundSpiMarshal := inboundSpi is VarRef ? "uint*" : "ptr"
+    inboundSpiMarshal := inboundSpi is VarRef ? "uint*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\IPsecSaContextGetSpi1", HANDLE, engineHandle, Int64, id, IPSEC_GETSPI1.Ptr, getSpi, inboundSpiMarshal, inboundSpi, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -7504,7 +7596,9 @@ export IPsecSaContextUpdate0(engineHandle, flags, newValues) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextcreateenumhandle0
  */
 export IPsecSaContextCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
-    result := DllCall("fwpuclnt.dll\IPsecSaContextCreateEnumHandle0", HANDLE, engineHandle, IPSEC_SA_CONTEXT_ENUM_TEMPLATE0.Ptr, enumTemplate, HANDLE.Ptr, enumHandle, NTSTATUS)
+    enumTemplateMarshal := enumTemplate == 0 ? IntPtr : IPSEC_SA_CONTEXT_ENUM_TEMPLATE0.Ptr
+
+    result := DllCall("fwpuclnt.dll\IPsecSaContextCreateEnumHandle0", HANDLE, engineHandle, enumTemplateMarshal, enumTemplate, HANDLE.Ptr, enumHandle, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -7577,8 +7671,8 @@ export IPsecSaContextCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextenum0
  */
 export IPsecSaContextEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
-    entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
-    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
+    entriesMarshal := entries is VarRef ? "ptr*" : IntPtr
+    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\IPsecSaContextEnum0", HANDLE, engineHandle, HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -7653,8 +7747,8 @@ export IPsecSaContextEnum0(engineHandle, enumHandle, numEntriesRequested, entrie
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextenum1
  */
 export IPsecSaContextEnum1(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
-    entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
-    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
+    entriesMarshal := entries is VarRef ? "ptr*" : IntPtr
+    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\IPsecSaContextEnum1", HANDLE, engineHandle, HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -7789,7 +7883,9 @@ export IPsecSaContextDestroyEnumHandle0(engineHandle, enumHandle) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacreateenumhandle0
  */
 export IPsecSaCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
-    result := DllCall("fwpuclnt.dll\IPsecSaCreateEnumHandle0", HANDLE, engineHandle, IPSEC_SA_ENUM_TEMPLATE0.Ptr, enumTemplate, HANDLE.Ptr, enumHandle, NTSTATUS)
+    enumTemplateMarshal := enumTemplate == 0 ? IntPtr : IPSEC_SA_ENUM_TEMPLATE0.Ptr
+
+    result := DllCall("fwpuclnt.dll\IPsecSaCreateEnumHandle0", HANDLE, engineHandle, enumTemplateMarshal, enumTemplate, HANDLE.Ptr, enumHandle, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -7866,8 +7962,8 @@ export IPsecSaCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsaenum0
  */
 export IPsecSaEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
-    entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
-    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
+    entriesMarshal := entries is VarRef ? "ptr*" : IntPtr
+    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\IPsecSaEnum0", HANDLE, engineHandle, HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -7946,8 +8042,8 @@ export IPsecSaEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numE
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsaenum1
  */
 export IPsecSaEnum1(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
-    entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
-    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
+    entriesMarshal := entries is VarRef ? "ptr*" : IntPtr
+    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\IPsecSaEnum1", HANDLE, engineHandle, HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -8092,10 +8188,10 @@ export IPsecSaDestroyEnumHandle0(engineHandle, enumHandle) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsadbgetsecurityinfo0
  */
 export IPsecSaDbGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
-    sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
-    sidGroupMarshal := sidGroup is VarRef ? "ptr*" : "ptr"
-    daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
-    saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
+    sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : IntPtr
+    sidGroupMarshal := sidGroup is VarRef ? "ptr*" : IntPtr
+    daclMarshal := dacl is VarRef ? "ptr*" : IntPtr
+    saclMarshal := sacl is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\IPsecSaDbGetSecurityInfo0", HANDLE, engineHandle, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -8173,7 +8269,12 @@ export IPsecSaDbGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup,
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsadbsetsecurityinfo0
  */
 export IPsecSaDbSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
-    result := DllCall("fwpuclnt.dll\IPsecSaDbSetSecurityInfo0", HANDLE, engineHandle, UInt32, securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, NTSTATUS)
+    sidOwnerMarshal := sidOwner == 0 ? IntPtr : SID.Ptr
+    sidGroupMarshal := sidGroup == 0 ? IntPtr : SID.Ptr
+    daclMarshal := dacl == 0 ? IntPtr : ACL.Ptr
+    saclMarshal := sacl == 0 ? IntPtr : ACL.Ptr
+
+    result := DllCall("fwpuclnt.dll\IPsecSaDbSetSecurityInfo0", HANDLE, engineHandle, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -8311,7 +8412,9 @@ export IPsecDospGetStatistics0(engineHandle, idpStatistics) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecdospstatecreateenumhandle0
  */
 export IPsecDospStateCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
-    result := DllCall("fwpuclnt.dll\IPsecDospStateCreateEnumHandle0", HANDLE, engineHandle, IPSEC_DOSP_STATE_ENUM_TEMPLATE0.Ptr, enumTemplate, HANDLE.Ptr, enumHandle, NTSTATUS)
+    enumTemplateMarshal := enumTemplate == 0 ? IntPtr : IPSEC_DOSP_STATE_ENUM_TEMPLATE0.Ptr
+
+    result := DllCall("fwpuclnt.dll\IPsecDospStateCreateEnumHandle0", HANDLE, engineHandle, enumTemplateMarshal, enumTemplate, HANDLE.Ptr, enumHandle, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -8388,8 +8491,8 @@ export IPsecDospStateCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecdospstateenum0
  */
 export IPsecDospStateEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntries) {
-    entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
-    numEntriesMarshal := numEntries is VarRef ? "uint*" : "ptr"
+    entriesMarshal := entries is VarRef ? "ptr*" : IntPtr
+    numEntriesMarshal := numEntries is VarRef ? "uint*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\IPsecDospStateEnum0", HANDLE, engineHandle, HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesMarshal, numEntries, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -8534,10 +8637,10 @@ export IPsecDospStateDestroyEnumHandle0(engineHandle, enumHandle) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecdospgetsecurityinfo0
  */
 export IPsecDospGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
-    sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
-    sidGroupMarshal := sidGroup is VarRef ? "ptr*" : "ptr"
-    daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
-    saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
+    sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : IntPtr
+    sidGroupMarshal := sidGroup is VarRef ? "ptr*" : IntPtr
+    daclMarshal := dacl is VarRef ? "ptr*" : IntPtr
+    saclMarshal := sacl is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\IPsecDospGetSecurityInfo0", HANDLE, engineHandle, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -8615,7 +8718,12 @@ export IPsecDospGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup,
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecdospsetsecurityinfo0
  */
 export IPsecDospSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
-    result := DllCall("fwpuclnt.dll\IPsecDospSetSecurityInfo0", HANDLE, engineHandle, UInt32, securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, NTSTATUS)
+    sidOwnerMarshal := sidOwner == 0 ? IntPtr : SID.Ptr
+    sidGroupMarshal := sidGroup == 0 ? IntPtr : SID.Ptr
+    daclMarshal := dacl == 0 ? IntPtr : ACL.Ptr
+    saclMarshal := sacl == 0 ? IntPtr : ACL.Ptr
+
+    result := DllCall("fwpuclnt.dll\IPsecDospSetSecurityInfo0", HANDLE, engineHandle, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -8868,7 +8976,7 @@ export IkeextSaDeleteById0(engineHandle, id) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextsagetbyid0
  */
 export IkeextSaGetById0(engineHandle, id, sa) {
-    saMarshal := sa is VarRef ? "ptr*" : "ptr"
+    saMarshal := sa is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\IkeextSaGetById0", HANDLE, engineHandle, Int64, id, saMarshal, sa, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -8940,9 +9048,10 @@ export IkeextSaGetById0(engineHandle, id, sa) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextsagetbyid1
  */
 export IkeextSaGetById1(engineHandle, id, saLookupContext, sa) {
-    saMarshal := sa is VarRef ? "ptr*" : "ptr"
+    saLookupContextMarshal := saLookupContext == 0 ? IntPtr : Guid.Ptr
+    saMarshal := sa is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("fwpuclnt.dll\IkeextSaGetById1", HANDLE, engineHandle, Int64, id, Guid.Ptr, saLookupContext, saMarshal, sa, NTSTATUS)
+    result := DllCall("fwpuclnt.dll\IkeextSaGetById1", HANDLE, engineHandle, Int64, id, saLookupContextMarshal, saLookupContext, saMarshal, sa, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -9012,9 +9121,10 @@ export IkeextSaGetById1(engineHandle, id, saLookupContext, sa) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextsagetbyid2
  */
 export IkeextSaGetById2(engineHandle, id, saLookupContext, sa) {
-    saMarshal := sa is VarRef ? "ptr*" : "ptr"
+    saLookupContextMarshal := saLookupContext == 0 ? IntPtr : Guid.Ptr
+    saMarshal := sa is VarRef ? "ptr*" : IntPtr
 
-    result := DllCall("fwpuclnt.dll\IkeextSaGetById2", HANDLE, engineHandle, Int64, id, Guid.Ptr, saLookupContext, saMarshal, sa, NTSTATUS)
+    result := DllCall("fwpuclnt.dll\IkeextSaGetById2", HANDLE, engineHandle, Int64, id, saLookupContextMarshal, saLookupContext, saMarshal, sa, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -9085,7 +9195,9 @@ export IkeextSaGetById2(engineHandle, id, saLookupContext, sa) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextsacreateenumhandle0
  */
 export IkeextSaCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
-    result := DllCall("fwpuclnt.dll\IkeextSaCreateEnumHandle0", HANDLE, engineHandle, IKEEXT_SA_ENUM_TEMPLATE0.Ptr, enumTemplate, HANDLE.Ptr, enumHandle, NTSTATUS)
+    enumTemplateMarshal := enumTemplate == 0 ? IntPtr : IKEEXT_SA_ENUM_TEMPLATE0.Ptr
+
+    result := DllCall("fwpuclnt.dll\IkeextSaCreateEnumHandle0", HANDLE, engineHandle, enumTemplateMarshal, enumTemplate, HANDLE.Ptr, enumHandle, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -9162,8 +9274,8 @@ export IkeextSaCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextsaenum0
  */
 export IkeextSaEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
-    entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
-    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
+    entriesMarshal := entries is VarRef ? "ptr*" : IntPtr
+    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\IkeextSaEnum0", HANDLE, engineHandle, HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -9242,8 +9354,8 @@ export IkeextSaEnum0(engineHandle, enumHandle, numEntriesRequested, entries, num
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextsaenum1
  */
 export IkeextSaEnum1(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
-    entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
-    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
+    entriesMarshal := entries is VarRef ? "ptr*" : IntPtr
+    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\IkeextSaEnum1", HANDLE, engineHandle, HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -9322,8 +9434,8 @@ export IkeextSaEnum1(engineHandle, enumHandle, numEntriesRequested, entries, num
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextsaenum2
  */
 export IkeextSaEnum2(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
-    entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
-    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
+    entriesMarshal := entries is VarRef ? "ptr*" : IntPtr
+    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\IkeextSaEnum2", HANDLE, engineHandle, HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -9468,10 +9580,10 @@ export IkeextSaDestroyEnumHandle0(engineHandle, enumHandle) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextsadbgetsecurityinfo0
  */
 export IkeextSaDbGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
-    sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
-    sidGroupMarshal := sidGroup is VarRef ? "ptr*" : "ptr"
-    daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
-    saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
+    sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : IntPtr
+    sidGroupMarshal := sidGroup is VarRef ? "ptr*" : IntPtr
+    daclMarshal := dacl is VarRef ? "ptr*" : IntPtr
+    saclMarshal := sacl is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\IkeextSaDbGetSecurityInfo0", HANDLE, engineHandle, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -9549,7 +9661,12 @@ export IkeextSaDbGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextsadbsetsecurityinfo0
  */
 export IkeextSaDbSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
-    result := DllCall("fwpuclnt.dll\IkeextSaDbSetSecurityInfo0", HANDLE, engineHandle, UInt32, securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, NTSTATUS)
+    sidOwnerMarshal := sidOwner == 0 ? IntPtr : SID.Ptr
+    sidGroupMarshal := sidGroup == 0 ? IntPtr : SID.Ptr
+    daclMarshal := dacl == 0 ? IntPtr : ACL.Ptr
+    saclMarshal := sacl == 0 ? IntPtr : ACL.Ptr
+
+    result := DllCall("fwpuclnt.dll\IkeextSaDbSetSecurityInfo0", HANDLE, engineHandle, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -9623,7 +9740,9 @@ export IkeextSaDbSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmneteventcreateenumhandle0
  */
 export FwpmNetEventCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
-    result := DllCall("fwpuclnt.dll\FwpmNetEventCreateEnumHandle0", HANDLE, engineHandle, FWPM_NET_EVENT_ENUM_TEMPLATE0.Ptr, enumTemplate, HANDLE.Ptr, enumHandle, NTSTATUS)
+    enumTemplateMarshal := enumTemplate == 0 ? IntPtr : FWPM_NET_EVENT_ENUM_TEMPLATE0.Ptr
+
+    result := DllCall("fwpuclnt.dll\FwpmNetEventCreateEnumHandle0", HANDLE, engineHandle, enumTemplateMarshal, enumTemplate, HANDLE.Ptr, enumHandle, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -9713,8 +9832,8 @@ export FwpmNetEventCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmneteventenum0
  */
 export FwpmNetEventEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
-    entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
-    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
+    entriesMarshal := entries is VarRef ? "ptr*" : IntPtr
+    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmNetEventEnum0", HANDLE, engineHandle, HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -9806,8 +9925,8 @@ export FwpmNetEventEnum0(engineHandle, enumHandle, numEntriesRequested, entries,
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmneteventenum1
  */
 export FwpmNetEventEnum1(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
-    entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
-    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
+    entriesMarshal := entries is VarRef ? "ptr*" : IntPtr
+    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmNetEventEnum1", HANDLE, engineHandle, HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -9899,8 +10018,8 @@ export FwpmNetEventEnum1(engineHandle, enumHandle, numEntriesRequested, entries,
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmneteventenum2
  */
 export FwpmNetEventEnum2(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
-    entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
-    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
+    entriesMarshal := entries is VarRef ? "ptr*" : IntPtr
+    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmNetEventEnum2", HANDLE, engineHandle, HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -9980,8 +10099,8 @@ export FwpmNetEventEnum2(engineHandle, enumHandle, numEntriesRequested, entries,
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmneteventenum3
  */
 export FwpmNetEventEnum3(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
-    entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
-    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
+    entriesMarshal := entries is VarRef ? "ptr*" : IntPtr
+    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmNetEventEnum3", HANDLE, engineHandle, HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -9989,7 +10108,6 @@ export FwpmNetEventEnum3(engineHandle, enumHandle, numEntriesRequested, entries,
 }
 
 /**
- * 
  * @param {HANDLE} engineHandle 
  * @param {HANDLE} enumHandle 
  * @param {Integer} numEntriesRequested 
@@ -9998,8 +10116,8 @@ export FwpmNetEventEnum3(engineHandle, enumHandle, numEntriesRequested, entries,
  * @returns {NTSTATUS} 
  */
 export FwpmNetEventEnum4(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
-    entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
-    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
+    entriesMarshal := entries is VarRef ? "ptr*" : IntPtr
+    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmNetEventEnum4", HANDLE, engineHandle, HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -10007,7 +10125,6 @@ export FwpmNetEventEnum4(engineHandle, enumHandle, numEntriesRequested, entries,
 }
 
 /**
- * 
  * @param {HANDLE} engineHandle 
  * @param {HANDLE} enumHandle 
  * @param {Integer} numEntriesRequested 
@@ -10016,8 +10133,8 @@ export FwpmNetEventEnum4(engineHandle, enumHandle, numEntriesRequested, entries,
  * @returns {NTSTATUS} 
  */
 export FwpmNetEventEnum5(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
-    entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
-    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
+    entriesMarshal := entries is VarRef ? "ptr*" : IntPtr
+    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmNetEventEnum5", HANDLE, engineHandle, HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -10166,10 +10283,10 @@ export FwpmNetEventDestroyEnumHandle0(engineHandle, enumHandle) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmneteventsgetsecurityinfo0
  */
 export FwpmNetEventsGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
-    sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
-    sidGroupMarshal := sidGroup is VarRef ? "ptr*" : "ptr"
-    daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
-    saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
+    sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : IntPtr
+    sidGroupMarshal := sidGroup is VarRef ? "ptr*" : IntPtr
+    daclMarshal := dacl is VarRef ? "ptr*" : IntPtr
+    saclMarshal := sacl is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmNetEventsGetSecurityInfo0", HANDLE, engineHandle, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -10253,7 +10370,12 @@ export FwpmNetEventsGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGr
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmneteventssetsecurityinfo0
  */
 export FwpmNetEventsSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
-    result := DllCall("fwpuclnt.dll\FwpmNetEventsSetSecurityInfo0", HANDLE, engineHandle, UInt32, securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, NTSTATUS)
+    sidOwnerMarshal := sidOwner == 0 ? IntPtr : SID.Ptr
+    sidGroupMarshal := sidGroup == 0 ? IntPtr : SID.Ptr
+    daclMarshal := dacl == 0 ? IntPtr : ACL.Ptr
+    saclMarshal := sacl == 0 ? IntPtr : ACL.Ptr
+
+    result := DllCall("fwpuclnt.dll\FwpmNetEventsSetSecurityInfo0", HANDLE, engineHandle, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -10320,7 +10442,7 @@ export FwpmNetEventsSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGr
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmconnectiongetbyid0
  */
 export FwpmConnectionGetById0(engineHandle, id, _connection) {
-    _connectionMarshal := _connection is VarRef ? "ptr*" : "ptr"
+    _connectionMarshal := _connection is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmConnectionGetById0", HANDLE, engineHandle, Int64, id, _connectionMarshal, _connection, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -10397,8 +10519,8 @@ export FwpmConnectionGetById0(engineHandle, id, _connection) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmconnectionenum0
  */
 export FwpmConnectionEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
-    entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
-    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
+    entriesMarshal := entries is VarRef ? "ptr*" : IntPtr
+    numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmConnectionEnum0", HANDLE, engineHandle, HANDLE, enumHandle, UInt32, numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -10469,7 +10591,9 @@ export FwpmConnectionEnum0(engineHandle, enumHandle, numEntriesRequested, entrie
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmconnectioncreateenumhandle0
  */
 export FwpmConnectionCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
-    result := DllCall("fwpuclnt.dll\FwpmConnectionCreateEnumHandle0", HANDLE, engineHandle, FWPM_CONNECTION_ENUM_TEMPLATE0.Ptr, enumTemplate, HANDLE.Ptr, enumHandle, NTSTATUS)
+    enumTemplateMarshal := enumTemplate == 0 ? IntPtr : FWPM_CONNECTION_ENUM_TEMPLATE0.Ptr
+
+    result := DllCall("fwpuclnt.dll\FwpmConnectionCreateEnumHandle0", HANDLE, engineHandle, enumTemplateMarshal, enumTemplate, HANDLE.Ptr, enumHandle, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -10608,10 +10732,10 @@ export FwpmConnectionDestroyEnumHandle0(engineHandle, enumHandle) {
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmconnectiongetsecurityinfo0
  */
 export FwpmConnectionGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
-    sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
-    sidGroupMarshal := sidGroup is VarRef ? "ptr*" : "ptr"
-    daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
-    saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
+    sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : IntPtr
+    sidGroupMarshal := sidGroup is VarRef ? "ptr*" : IntPtr
+    daclMarshal := dacl is VarRef ? "ptr*" : IntPtr
+    saclMarshal := sacl is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmConnectionGetSecurityInfo0", HANDLE, engineHandle, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -10693,7 +10817,12 @@ export FwpmConnectionGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidG
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmconnectionsetsecurityinfo0
  */
 export FwpmConnectionSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
-    result := DllCall("fwpuclnt.dll\FwpmConnectionSetSecurityInfo0", HANDLE, engineHandle, UInt32, securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, NTSTATUS)
+    sidOwnerMarshal := sidOwner == 0 ? IntPtr : SID.Ptr
+    sidGroupMarshal := sidGroup == 0 ? IntPtr : SID.Ptr
+    daclMarshal := dacl == 0 ? IntPtr : ACL.Ptr
+    saclMarshal := sacl == 0 ? IntPtr : ACL.Ptr
+
+    result := DllCall("fwpuclnt.dll\FwpmConnectionSetSecurityInfo0", HANDLE, engineHandle, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }
@@ -10774,10 +10903,10 @@ export FwpmConnectionSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidG
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmvswitcheventsgetsecurityinfo0
  */
 export FwpmvSwitchEventsGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, _securityDescriptor) {
-    sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
-    sidGroupMarshal := sidGroup is VarRef ? "ptr*" : "ptr"
-    daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
-    saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
+    sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : IntPtr
+    sidGroupMarshal := sidGroup is VarRef ? "ptr*" : IntPtr
+    daclMarshal := dacl is VarRef ? "ptr*" : IntPtr
+    saclMarshal := sacl is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("fwpuclnt.dll\FwpmvSwitchEventsGetSecurityInfo0", HANDLE, engineHandle, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, PSECURITY_DESCRIPTOR.Ptr, _securityDescriptor, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
@@ -10861,7 +10990,12 @@ export FwpmvSwitchEventsGetSecurityInfo0(engineHandle, securityInfo, sidOwner, s
  * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmvswitcheventssetsecurityinfo0
  */
 export FwpmvSwitchEventsSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
-    result := DllCall("fwpuclnt.dll\FwpmvSwitchEventsSetSecurityInfo0", HANDLE, engineHandle, UInt32, securityInfo, SID.Ptr, sidOwner, SID.Ptr, sidGroup, ACL.Ptr, dacl, ACL.Ptr, sacl, NTSTATUS)
+    sidOwnerMarshal := sidOwner == 0 ? IntPtr : SID.Ptr
+    sidGroupMarshal := sidGroup == 0 ? IntPtr : SID.Ptr
+    daclMarshal := dacl == 0 ? IntPtr : ACL.Ptr
+    saclMarshal := sacl == 0 ? IntPtr : ACL.Ptr
+
+    result := DllCall("fwpuclnt.dll\FwpmvSwitchEventsSetSecurityInfo0", HANDLE, engineHandle, UInt32, securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, NTSTATUS)
     NTSTATUS.ThrowIfError(result.value)
     return result
 }

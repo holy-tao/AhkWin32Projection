@@ -19,14 +19,13 @@ export default struct KspQueryAttributesFn {
     }
 
     /**
-     * 
      * @param {Pointer} ContextId 
      * @param {Integer} Attribute 
      * @param {Pointer<Void>} _Buffer 
      * @returns {NTSTATUS} 
      */
     Call(ContextId, Attribute, _Buffer) {
-        _BufferMarshal := _Buffer is VarRef ? "ptr" : "ptr"
+        _BufferMarshal := _Buffer is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, IntPtr, ContextId, UInt32, Attribute, _BufferMarshal, _Buffer, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

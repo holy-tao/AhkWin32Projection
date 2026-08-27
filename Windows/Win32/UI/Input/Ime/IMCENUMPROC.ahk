@@ -25,7 +25,6 @@ export default struct IMCENUMPROC {
     }
 
     /**
-     * 
      * @param {HIMC} param0 Handle to the input context.
      * @param {LPARAM} param1 Application-supplied data.
      * @returns {BOOL} Returns a nonzero value to continue enumeration, or 0 to stop enumeration.

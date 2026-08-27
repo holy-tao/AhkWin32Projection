@@ -56,7 +56,7 @@ export default struct IShellDispatch6 extends IShellDispatch5 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SearchCommand := CallbackCreate(GetMethod(implObj, "SearchCommand"), flags, 1)
+        this.vtbl.SearchCommand := CallbackCreate(ObjBindMethod(implObj, "SearchCommand"), flags, 1)
     }
 
     Dispose() {

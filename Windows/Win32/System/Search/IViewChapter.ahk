@@ -37,7 +37,6 @@ export default struct IViewChapter extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer<Guid>} riid 
      * @returns {IUnknown} 
      */
@@ -47,7 +46,6 @@ export default struct IViewChapter extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hSource 
      * @returns {Pointer} 
      */
@@ -65,8 +63,8 @@ export default struct IViewChapter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetSpecification := CallbackCreate(GetMethod(implObj, "GetSpecification"), flags, 3)
-        this.vtbl.OpenViewChapter := CallbackCreate(GetMethod(implObj, "OpenViewChapter"), flags, 3)
+        this.vtbl.GetSpecification := CallbackCreate(ObjBindMethod(implObj, "GetSpecification"), flags, 3)
+        this.vtbl.OpenViewChapter := CallbackCreate(ObjBindMethod(implObj, "OpenViewChapter"), flags, 3)
     }
 
     Dispose() {

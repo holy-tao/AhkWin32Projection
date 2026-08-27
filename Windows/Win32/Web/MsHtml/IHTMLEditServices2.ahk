@@ -41,7 +41,6 @@ export default struct IHTMLEditServices2 extends IHTMLEditServices {
     }
 
     /**
-     * 
      * @param {IDisplayPointer} pIStartAnchor 
      * @returns {HRESULT} 
      */
@@ -51,7 +50,6 @@ export default struct IHTMLEditServices2 extends IHTMLEditServices {
     }
 
     /**
-     * 
      * @param {IDisplayPointer} pIEndAnchor 
      * @returns {HRESULT} 
      */
@@ -61,7 +59,6 @@ export default struct IHTMLEditServices2 extends IHTMLEditServices {
     }
 
     /**
-     * 
      * @param {BOOL} fReCompute 
      * @returns {HRESULT} 
      */
@@ -71,7 +68,6 @@ export default struct IHTMLEditServices2 extends IHTMLEditServices {
     }
 
     /**
-     * 
      * @param {BOOL} fReset 
      * @returns {HRESULT} 
      */
@@ -89,10 +85,10 @@ export default struct IHTMLEditServices2 extends IHTMLEditServices {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.MoveToSelectionAnchorEx := CallbackCreate(GetMethod(implObj, "MoveToSelectionAnchorEx"), flags, 2)
-        this.vtbl.MoveToSelectionEndEx := CallbackCreate(GetMethod(implObj, "MoveToSelectionEndEx"), flags, 2)
-        this.vtbl.FreezeVirtualCaretPos := CallbackCreate(GetMethod(implObj, "FreezeVirtualCaretPos"), flags, 2)
-        this.vtbl.UnFreezeVirtualCaretPos := CallbackCreate(GetMethod(implObj, "UnFreezeVirtualCaretPos"), flags, 2)
+        this.vtbl.MoveToSelectionAnchorEx := CallbackCreate(ObjBindMethod(implObj, "MoveToSelectionAnchorEx"), flags, 2)
+        this.vtbl.MoveToSelectionEndEx := CallbackCreate(ObjBindMethod(implObj, "MoveToSelectionEndEx"), flags, 2)
+        this.vtbl.FreezeVirtualCaretPos := CallbackCreate(ObjBindMethod(implObj, "FreezeVirtualCaretPos"), flags, 2)
+        this.vtbl.UnFreezeVirtualCaretPos := CallbackCreate(ObjBindMethod(implObj, "UnFreezeVirtualCaretPos"), flags, 2)
     }
 
     Dispose() {

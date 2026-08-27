@@ -67,8 +67,8 @@ export default struct ILoadFilter extends IUnknown {
     LoadIFilter(pwcsPath, pFilteredSources, pUnkOuter, fUseDefault, pFilterClsid, SearchDecSize, pwcsSearchDesc, ppIFilt) {
         pwcsPath := pwcsPath is String ? StrPtr(pwcsPath) : pwcsPath
 
-        SearchDecSizeMarshal := SearchDecSize is VarRef ? "int*" : "ptr"
-        pwcsSearchDescMarshal := pwcsSearchDesc is VarRef ? "ptr*" : "ptr"
+        SearchDecSizeMarshal := SearchDecSize is VarRef ? "int*" : IntPtr
+        pwcsSearchDescMarshal := pwcsSearchDesc is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, "ptr", pwcsPath, FILTERED_DATA_SOURCES.Ptr, pFilteredSources, "ptr", pUnkOuter, BOOL, fUseDefault, Guid.Ptr, pFilterClsid, SearchDecSizeMarshal, SearchDecSize, pwcsSearchDescMarshal, pwcsSearchDesc, IFilter.Ptr, ppIFilt, "HRESULT")
         return result
@@ -90,8 +90,8 @@ export default struct ILoadFilter extends IUnknown {
     LoadIFilterFromStorage(pStg, pUnkOuter, pwcsOverride, fUseDefault, pFilterClsid, SearchDecSize, pwcsSearchDesc, ppIFilt) {
         pwcsOverride := pwcsOverride is String ? StrPtr(pwcsOverride) : pwcsOverride
 
-        SearchDecSizeMarshal := SearchDecSize is VarRef ? "int*" : "ptr"
-        pwcsSearchDescMarshal := pwcsSearchDesc is VarRef ? "ptr*" : "ptr"
+        SearchDecSizeMarshal := SearchDecSize is VarRef ? "int*" : IntPtr
+        pwcsSearchDescMarshal := pwcsSearchDesc is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(4, this, "ptr", pStg, "ptr", pUnkOuter, "ptr", pwcsOverride, BOOL, fUseDefault, Guid.Ptr, pFilterClsid, SearchDecSizeMarshal, SearchDecSize, pwcsSearchDescMarshal, pwcsSearchDesc, IFilter.Ptr, ppIFilt, "HRESULT")
         return result
@@ -111,8 +111,8 @@ export default struct ILoadFilter extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/filtereg/nf-filtereg-iloadfilter-loadifilterfromstream
      */
     LoadIFilterFromStream(pStm, pFilteredSources, pUnkOuter, fUseDefault, pFilterClsid, SearchDecSize, pwcsSearchDesc, ppIFilt) {
-        SearchDecSizeMarshal := SearchDecSize is VarRef ? "int*" : "ptr"
-        pwcsSearchDescMarshal := pwcsSearchDesc is VarRef ? "ptr*" : "ptr"
+        SearchDecSizeMarshal := SearchDecSize is VarRef ? "int*" : IntPtr
+        pwcsSearchDescMarshal := pwcsSearchDesc is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(5, this, "ptr", pStm, FILTERED_DATA_SOURCES.Ptr, pFilteredSources, "ptr", pUnkOuter, BOOL, fUseDefault, Guid.Ptr, pFilterClsid, SearchDecSizeMarshal, SearchDecSize, pwcsSearchDescMarshal, pwcsSearchDesc, IFilter.Ptr, ppIFilt, "HRESULT")
         return result
@@ -127,9 +127,9 @@ export default struct ILoadFilter extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LoadIFilter := CallbackCreate(GetMethod(implObj, "LoadIFilter"), flags, 9)
-        this.vtbl.LoadIFilterFromStorage := CallbackCreate(GetMethod(implObj, "LoadIFilterFromStorage"), flags, 9)
-        this.vtbl.LoadIFilterFromStream := CallbackCreate(GetMethod(implObj, "LoadIFilterFromStream"), flags, 9)
+        this.vtbl.LoadIFilter := CallbackCreate(ObjBindMethod(implObj, "LoadIFilter"), flags, 9)
+        this.vtbl.LoadIFilterFromStorage := CallbackCreate(ObjBindMethod(implObj, "LoadIFilterFromStorage"), flags, 9)
+        this.vtbl.LoadIFilterFromStream := CallbackCreate(ObjBindMethod(implObj, "LoadIFilterFromStream"), flags, 9)
     }
 
     Dispose() {

@@ -974,19 +974,19 @@ export default struct IAMMediaContent extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_AuthorName := CallbackCreate(GetMethod(implObj, "get_AuthorName"), flags, 2)
-        this.vtbl.get_Title := CallbackCreate(GetMethod(implObj, "get_Title"), flags, 2)
-        this.vtbl.get_Rating := CallbackCreate(GetMethod(implObj, "get_Rating"), flags, 2)
-        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
-        this.vtbl.get_Copyright := CallbackCreate(GetMethod(implObj, "get_Copyright"), flags, 2)
-        this.vtbl.get_BaseURL := CallbackCreate(GetMethod(implObj, "get_BaseURL"), flags, 2)
-        this.vtbl.get_LogoURL := CallbackCreate(GetMethod(implObj, "get_LogoURL"), flags, 2)
-        this.vtbl.get_LogoIconURL := CallbackCreate(GetMethod(implObj, "get_LogoIconURL"), flags, 2)
-        this.vtbl.get_WatermarkURL := CallbackCreate(GetMethod(implObj, "get_WatermarkURL"), flags, 2)
-        this.vtbl.get_MoreInfoURL := CallbackCreate(GetMethod(implObj, "get_MoreInfoURL"), flags, 2)
-        this.vtbl.get_MoreInfoBannerImage := CallbackCreate(GetMethod(implObj, "get_MoreInfoBannerImage"), flags, 2)
-        this.vtbl.get_MoreInfoBannerURL := CallbackCreate(GetMethod(implObj, "get_MoreInfoBannerURL"), flags, 2)
-        this.vtbl.get_MoreInfoText := CallbackCreate(GetMethod(implObj, "get_MoreInfoText"), flags, 2)
+        this.vtbl.get_AuthorName := CallbackCreate(ObjBindMethod(implObj, "get_AuthorName"), flags, 2)
+        this.vtbl.get_Title := CallbackCreate(ObjBindMethod(implObj, "get_Title"), flags, 2)
+        this.vtbl.get_Rating := CallbackCreate(ObjBindMethod(implObj, "get_Rating"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(ObjBindMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.get_Copyright := CallbackCreate(ObjBindMethod(implObj, "get_Copyright"), flags, 2)
+        this.vtbl.get_BaseURL := CallbackCreate(ObjBindMethod(implObj, "get_BaseURL"), flags, 2)
+        this.vtbl.get_LogoURL := CallbackCreate(ObjBindMethod(implObj, "get_LogoURL"), flags, 2)
+        this.vtbl.get_LogoIconURL := CallbackCreate(ObjBindMethod(implObj, "get_LogoIconURL"), flags, 2)
+        this.vtbl.get_WatermarkURL := CallbackCreate(ObjBindMethod(implObj, "get_WatermarkURL"), flags, 2)
+        this.vtbl.get_MoreInfoURL := CallbackCreate(ObjBindMethod(implObj, "get_MoreInfoURL"), flags, 2)
+        this.vtbl.get_MoreInfoBannerImage := CallbackCreate(ObjBindMethod(implObj, "get_MoreInfoBannerImage"), flags, 2)
+        this.vtbl.get_MoreInfoBannerURL := CallbackCreate(ObjBindMethod(implObj, "get_MoreInfoBannerURL"), flags, 2)
+        this.vtbl.get_MoreInfoText := CallbackCreate(ObjBindMethod(implObj, "get_MoreInfoText"), flags, 2)
     }
 
     Dispose() {

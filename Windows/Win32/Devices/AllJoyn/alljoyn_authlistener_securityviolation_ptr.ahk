@@ -20,14 +20,13 @@ export default struct alljoyn_authlistener_securityviolation_ptr {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} _context 
      * @param {QStatus} _status 
      * @param {alljoyn_message} _msg 
      * @returns {String} Nothing - always returns an empty string
      */
     Call(_context, _status, _msg) {
-        _contextMarshal := _context is VarRef ? "ptr" : "ptr"
+        _contextMarshal := _context is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, _contextMarshal, _context, QStatus, _status, alljoyn_message, _msg)
     }

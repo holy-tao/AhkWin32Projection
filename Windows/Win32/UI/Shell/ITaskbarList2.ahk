@@ -76,7 +76,7 @@ export default struct ITaskbarList2 extends ITaskbarList {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.MarkFullscreenWindow := CallbackCreate(GetMethod(implObj, "MarkFullscreenWindow"), flags, 3)
+        this.vtbl.MarkFullscreenWindow := CallbackCreate(ObjBindMethod(implObj, "MarkFullscreenWindow"), flags, 3)
     }
 
     Dispose() {

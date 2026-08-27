@@ -38,7 +38,6 @@ export default struct PDD_VPORTCB_COLORCONTROL {
     }
 
     /**
-     * 
      * @param {Pointer<DD_VPORTCOLORDATA>} param0 Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_vportcolordata">DD_VPORTCOLORDATA</a> structure that contains the information required for the driver to get the current VPE object color controls or to set new values.
      * @returns {Integer} <b>DdVideoPortColorControl</b> returns one of the following callback codes:
      */

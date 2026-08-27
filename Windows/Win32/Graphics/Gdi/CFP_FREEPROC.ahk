@@ -22,12 +22,11 @@ export default struct CFP_FREEPROC {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} param0 Previously allocated memory block to be freed.
      * @returns {String} Nothing - always returns an empty string
      */
     Call(param0) {
-        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+        param0Marshal := param0 is VarRef ? "ptr" : IntPtr
 
         DllCall(this.value, param0Marshal, param0)
     }

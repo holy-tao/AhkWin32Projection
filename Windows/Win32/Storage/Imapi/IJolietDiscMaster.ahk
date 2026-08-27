@@ -96,7 +96,9 @@ export default struct IJolietDiscMaster extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-ijolietdiscmaster-adddata
      */
     AddData(pStorage, lFileOverwrite) {
-        result := ComCall(6, this, "ptr", pStorage, Int32, lFileOverwrite, "HRESULT")
+        pStorageMarshal := pStorage == 0 ? IntPtr : "ptr"
+
+        result := ComCall(6, this, pStorageMarshal, pStorage, Int32, lFileOverwrite, "HRESULT")
         return result
     }
 
@@ -134,7 +136,9 @@ export default struct IJolietDiscMaster extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-ijolietdiscmaster-setjolietproperties
      */
     SetJolietProperties(pPropStg) {
-        result := ComCall(8, this, "ptr", pPropStg, "HRESULT")
+        pPropStgMarshal := pPropStg == 0 ? IntPtr : "ptr"
+
+        result := ComCall(8, this, pPropStgMarshal, pPropStg, "HRESULT")
         return result
     }
 
@@ -147,12 +151,12 @@ export default struct IJolietDiscMaster extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetTotalDataBlocks := CallbackCreate(GetMethod(implObj, "GetTotalDataBlocks"), flags, 2)
-        this.vtbl.GetUsedDataBlocks := CallbackCreate(GetMethod(implObj, "GetUsedDataBlocks"), flags, 2)
-        this.vtbl.GetDataBlockSize := CallbackCreate(GetMethod(implObj, "GetDataBlockSize"), flags, 2)
-        this.vtbl.AddData := CallbackCreate(GetMethod(implObj, "AddData"), flags, 3)
-        this.vtbl.GetJolietProperties := CallbackCreate(GetMethod(implObj, "GetJolietProperties"), flags, 2)
-        this.vtbl.SetJolietProperties := CallbackCreate(GetMethod(implObj, "SetJolietProperties"), flags, 2)
+        this.vtbl.GetTotalDataBlocks := CallbackCreate(ObjBindMethod(implObj, "GetTotalDataBlocks"), flags, 2)
+        this.vtbl.GetUsedDataBlocks := CallbackCreate(ObjBindMethod(implObj, "GetUsedDataBlocks"), flags, 2)
+        this.vtbl.GetDataBlockSize := CallbackCreate(ObjBindMethod(implObj, "GetDataBlockSize"), flags, 2)
+        this.vtbl.AddData := CallbackCreate(ObjBindMethod(implObj, "AddData"), flags, 3)
+        this.vtbl.GetJolietProperties := CallbackCreate(ObjBindMethod(implObj, "GetJolietProperties"), flags, 2)
+        this.vtbl.SetJolietProperties := CallbackCreate(ObjBindMethod(implObj, "SetJolietProperties"), flags, 2)
     }
 
     Dispose() {

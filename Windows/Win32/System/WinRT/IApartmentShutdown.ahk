@@ -57,7 +57,7 @@ export default struct IApartmentShutdown extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnUninitialize := CallbackCreate(GetMethod(implObj, "OnUninitialize"), flags, 2)
+        this.vtbl.OnUninitialize := CallbackCreate(ObjBindMethod(implObj, "OnUninitialize"), flags, 2)
     }
 
     Dispose() {

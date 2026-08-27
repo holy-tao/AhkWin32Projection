@@ -108,7 +108,7 @@ export default struct IUIAnimationVariableIntegerChangeHandler extends IUnknown 
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnIntegerValueChanged := CallbackCreate(GetMethod(implObj, "OnIntegerValueChanged"), flags, 5)
+        this.vtbl.OnIntegerValueChanged := CallbackCreate(ObjBindMethod(implObj, "OnIntegerValueChanged"), flags, 5)
     }
 
     Dispose() {

@@ -38,7 +38,6 @@ export default struct IPrintOemCommon extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwMode 
      * @param {Integer} pBuffer 
      * @param {Integer} cbSize 
@@ -50,7 +49,6 @@ export default struct IPrintOemCommon extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwMode 
      * @param {Pointer<OEMDMPARAM>} pOemDMParam 
      * @returns {HRESULT} 
@@ -69,8 +67,8 @@ export default struct IPrintOemCommon extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetInfo := CallbackCreate(GetMethod(implObj, "GetInfo"), flags, 5)
-        this.vtbl.DevMode := CallbackCreate(GetMethod(implObj, "DevMode"), flags, 3)
+        this.vtbl.GetInfo := CallbackCreate(ObjBindMethod(implObj, "GetInfo"), flags, 5)
+        this.vtbl.DevMode := CallbackCreate(ObjBindMethod(implObj, "DevMode"), flags, 3)
     }
 
     Dispose() {

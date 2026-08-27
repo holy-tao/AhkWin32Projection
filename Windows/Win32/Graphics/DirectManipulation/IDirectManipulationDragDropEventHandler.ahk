@@ -63,7 +63,7 @@ export default struct IDirectManipulationDragDropEventHandler extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.OnDragDropStatusChange := CallbackCreate(GetMethod(implObj, "OnDragDropStatusChange"), flags, 4)
+        this.vtbl.OnDragDropStatusChange := CallbackCreate(ObjBindMethod(implObj, "OnDragDropStatusChange"), flags, 4)
     }
 
     Dispose() {

@@ -135,10 +135,10 @@ export default struct IWMPMediaCollection2 extends IWMPMediaCollection {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.createQuery := CallbackCreate(GetMethod(implObj, "createQuery"), flags, 2)
-        this.vtbl.getPlaylistByQuery := CallbackCreate(GetMethod(implObj, "getPlaylistByQuery"), flags, 6)
-        this.vtbl.getStringCollectionByQuery := CallbackCreate(GetMethod(implObj, "getStringCollectionByQuery"), flags, 7)
-        this.vtbl.getByAttributeAndMediaType := CallbackCreate(GetMethod(implObj, "getByAttributeAndMediaType"), flags, 5)
+        this.vtbl.createQuery := CallbackCreate(ObjBindMethod(implObj, "createQuery"), flags, 2)
+        this.vtbl.getPlaylistByQuery := CallbackCreate(ObjBindMethod(implObj, "getPlaylistByQuery"), flags, 6)
+        this.vtbl.getStringCollectionByQuery := CallbackCreate(ObjBindMethod(implObj, "getStringCollectionByQuery"), flags, 7)
+        this.vtbl.getByAttributeAndMediaType := CallbackCreate(ObjBindMethod(implObj, "getByAttributeAndMediaType"), flags, 5)
     }
 
     Dispose() {

@@ -102,7 +102,7 @@ export default struct IHolder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iholder-allocresource
      */
     AllocResource(__MIDL__IHolder0000, __MIDL__IHolder0001) {
-        __MIDL__IHolder0001Marshal := __MIDL__IHolder0001 is VarRef ? "ptr*" : "ptr"
+        __MIDL__IHolder0001Marshal := __MIDL__IHolder0001 is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, IntPtr, __MIDL__IHolder0000, __MIDL__IHolder0001Marshal, __MIDL__IHolder0001, "HRESULT")
         return result
@@ -274,7 +274,7 @@ export default struct IHolder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iholder-trackresources
      */
     TrackResourceS(__MIDL__IHolder0004) {
-        __MIDL__IHolder0004Marshal := __MIDL__IHolder0004 is VarRef ? "ushort*" : "ptr"
+        __MIDL__IHolder0004Marshal := __MIDL__IHolder0004 is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(6, this, __MIDL__IHolder0004Marshal, __MIDL__IHolder0004, "HRESULT")
         return result
@@ -380,7 +380,7 @@ export default struct IHolder extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iholder-untrackresources
      */
     UntrackResourceS(__MIDL__IHolder0007, __MIDL__IHolder0008) {
-        __MIDL__IHolder0007Marshal := __MIDL__IHolder0007 is VarRef ? "ushort*" : "ptr"
+        __MIDL__IHolder0007Marshal := __MIDL__IHolder0007 is VarRef ? "ushort*" : IntPtr
 
         result := ComCall(8, this, __MIDL__IHolder0007Marshal, __MIDL__IHolder0007, BOOL, __MIDL__IHolder0008, "HRESULT")
         return result
@@ -486,14 +486,14 @@ export default struct IHolder extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AllocResource := CallbackCreate(GetMethod(implObj, "AllocResource"), flags, 3)
-        this.vtbl.FreeResource := CallbackCreate(GetMethod(implObj, "FreeResource"), flags, 2)
-        this.vtbl.TrackResource := CallbackCreate(GetMethod(implObj, "TrackResource"), flags, 2)
-        this.vtbl.TrackResourceS := CallbackCreate(GetMethod(implObj, "TrackResourceS"), flags, 2)
-        this.vtbl.UntrackResource := CallbackCreate(GetMethod(implObj, "UntrackResource"), flags, 3)
-        this.vtbl.UntrackResourceS := CallbackCreate(GetMethod(implObj, "UntrackResourceS"), flags, 3)
-        this.vtbl.Close := CallbackCreate(GetMethod(implObj, "Close"), flags, 1)
-        this.vtbl.RequestDestroyResource := CallbackCreate(GetMethod(implObj, "RequestDestroyResource"), flags, 2)
+        this.vtbl.AllocResource := CallbackCreate(ObjBindMethod(implObj, "AllocResource"), flags, 3)
+        this.vtbl.FreeResource := CallbackCreate(ObjBindMethod(implObj, "FreeResource"), flags, 2)
+        this.vtbl.TrackResource := CallbackCreate(ObjBindMethod(implObj, "TrackResource"), flags, 2)
+        this.vtbl.TrackResourceS := CallbackCreate(ObjBindMethod(implObj, "TrackResourceS"), flags, 2)
+        this.vtbl.UntrackResource := CallbackCreate(ObjBindMethod(implObj, "UntrackResource"), flags, 3)
+        this.vtbl.UntrackResourceS := CallbackCreate(ObjBindMethod(implObj, "UntrackResourceS"), flags, 3)
+        this.vtbl.Close := CallbackCreate(ObjBindMethod(implObj, "Close"), flags, 1)
+        this.vtbl.RequestDestroyResource := CallbackCreate(ObjBindMethod(implObj, "RequestDestroyResource"), flags, 2)
     }
 
     Dispose() {

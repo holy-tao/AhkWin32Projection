@@ -116,9 +116,9 @@ export default struct IProxyProviderWinEventSink extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddAutomationPropertyChangedEvent := CallbackCreate(GetMethod(implObj, "AddAutomationPropertyChangedEvent"), flags, 4)
-        this.vtbl.AddAutomationEvent := CallbackCreate(GetMethod(implObj, "AddAutomationEvent"), flags, 3)
-        this.vtbl.AddStructureChangedEvent := CallbackCreate(GetMethod(implObj, "AddStructureChangedEvent"), flags, 4)
+        this.vtbl.AddAutomationPropertyChangedEvent := CallbackCreate(ObjBindMethod(implObj, "AddAutomationPropertyChangedEvent"), flags, 4)
+        this.vtbl.AddAutomationEvent := CallbackCreate(ObjBindMethod(implObj, "AddAutomationEvent"), flags, 3)
+        this.vtbl.AddStructureChangedEvent := CallbackCreate(ObjBindMethod(implObj, "AddStructureChangedEvent"), flags, 4)
     }
 
     Dispose() {

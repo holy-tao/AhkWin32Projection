@@ -41,7 +41,6 @@ export default struct IDtcToXaMapper extends IUnknown {
     }
 
     /**
-     * 
      * @param {PSTR} pszDSN 
      * @param {PSTR} pszClientDllName 
      * @param {Pointer<Integer>} pdwRMCookie 
@@ -51,41 +50,38 @@ export default struct IDtcToXaMapper extends IUnknown {
         pszDSN := pszDSN is String ? StrPtr(pszDSN) : pszDSN
         pszClientDllName := pszClientDllName is String ? StrPtr(pszClientDllName) : pszClientDllName
 
-        pdwRMCookieMarshal := pdwRMCookie is VarRef ? "uint*" : "ptr"
+        pdwRMCookieMarshal := pdwRMCookie is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, "ptr", pszDSN, "ptr", pszClientDllName, pdwRMCookieMarshal, pdwRMCookie, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Pointer<Integer>} pdwITransaction 
      * @param {Integer} dwRMCookie 
      * @param {Pointer<XID>} pXid 
      * @returns {HRESULT} 
      */
     TranslateTridToXid(pdwITransaction, dwRMCookie, pXid) {
-        pdwITransactionMarshal := pdwITransaction is VarRef ? "uint*" : "ptr"
+        pdwITransactionMarshal := pdwITransaction is VarRef ? "uint*" : IntPtr
 
         result := ComCall(4, this, pdwITransactionMarshal, pdwITransaction, UInt32, dwRMCookie, XID.Ptr, pXid, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwRMCookie 
      * @param {Pointer<Integer>} pdwITransaction 
      * @returns {HRESULT} 
      */
     EnlistResourceManager(dwRMCookie, pdwITransaction) {
-        pdwITransactionMarshal := pdwITransaction is VarRef ? "uint*" : "ptr"
+        pdwITransactionMarshal := pdwITransaction is VarRef ? "uint*" : IntPtr
 
         result := ComCall(5, this, UInt32, dwRMCookie, pdwITransactionMarshal, pdwITransaction, "HRESULT")
         return result
     }
 
     /**
-     * 
      * @param {Integer} dwRMCookie 
      * @returns {HRESULT} 
      */
@@ -103,10 +99,10 @@ export default struct IDtcToXaMapper extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.RequestNewResourceManager := CallbackCreate(GetMethod(implObj, "RequestNewResourceManager"), flags, 4)
-        this.vtbl.TranslateTridToXid := CallbackCreate(GetMethod(implObj, "TranslateTridToXid"), flags, 4)
-        this.vtbl.EnlistResourceManager := CallbackCreate(GetMethod(implObj, "EnlistResourceManager"), flags, 3)
-        this.vtbl.ReleaseResourceManager := CallbackCreate(GetMethod(implObj, "ReleaseResourceManager"), flags, 2)
+        this.vtbl.RequestNewResourceManager := CallbackCreate(ObjBindMethod(implObj, "RequestNewResourceManager"), flags, 4)
+        this.vtbl.TranslateTridToXid := CallbackCreate(ObjBindMethod(implObj, "TranslateTridToXid"), flags, 4)
+        this.vtbl.EnlistResourceManager := CallbackCreate(ObjBindMethod(implObj, "EnlistResourceManager"), flags, 3)
+        this.vtbl.ReleaseResourceManager := CallbackCreate(ObjBindMethod(implObj, "ReleaseResourceManager"), flags, 2)
     }
 
     Dispose() {

@@ -46,7 +46,9 @@ export default struct IMFSharingEngineClassFactory extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/mfsharingengine/nf-mfsharingengine-imfsharingengineclassfactory-createinstance
      */
     CreateInstance(dwFlags, pAttr) {
-        result := ComCall(3, this, UInt32, dwFlags, "ptr", pAttr, "ptr*", &ppEngine := 0, "HRESULT")
+        pAttrMarshal := pAttr == 0 ? IntPtr : "ptr"
+
+        result := ComCall(3, this, UInt32, dwFlags, pAttrMarshal, pAttr, "ptr*", &ppEngine := 0, "HRESULT")
         return IUnknown(ppEngine)
     }
 
@@ -59,7 +61,7 @@ export default struct IMFSharingEngineClassFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.CreateInstance := CallbackCreate(GetMethod(implObj, "CreateInstance"), flags, 4)
+        this.vtbl.CreateInstance := CallbackCreate(ObjBindMethod(implObj, "CreateInstance"), flags, 4)
     }
 
     Dispose() {

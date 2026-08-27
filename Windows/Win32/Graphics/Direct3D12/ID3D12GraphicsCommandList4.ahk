@@ -63,7 +63,10 @@ export default struct ID3D12GraphicsCommandList4 extends ID3D12GraphicsCommandLi
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist4-beginrenderpass
      */
     BeginRenderPass(NumRenderTargets, pRenderTargets, pDepthStencil, Flags) {
-        ComCall(68, this, UInt32, NumRenderTargets, D3D12_RENDER_PASS_RENDER_TARGET_DESC.Ptr, pRenderTargets, D3D12_RENDER_PASS_DEPTH_STENCIL_DESC.Ptr, pDepthStencil, D3D12_RENDER_PASS_FLAGS, Flags)
+        pRenderTargetsMarshal := pRenderTargets == 0 ? IntPtr : D3D12_RENDER_PASS_RENDER_TARGET_DESC.Ptr
+        pDepthStencilMarshal := pDepthStencil == 0 ? IntPtr : D3D12_RENDER_PASS_DEPTH_STENCIL_DESC.Ptr
+
+        ComCall(68, this, UInt32, NumRenderTargets, pRenderTargetsMarshal, pRenderTargets, pDepthStencilMarshal, pDepthStencil, D3D12_RENDER_PASS_FLAGS, Flags)
     }
 
     /**
@@ -84,7 +87,9 @@ export default struct ID3D12GraphicsCommandList4 extends ID3D12GraphicsCommandLi
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist4-initializemetacommand
      */
     InitializeMetaCommand(pMetaCommand, pInitializationParametersData, InitializationParametersDataSizeInBytes) {
-        ComCall(70, this, "ptr", pMetaCommand, IntPtr, pInitializationParametersData, IntPtr, InitializationParametersDataSizeInBytes)
+        pInitializationParametersDataMarshal := pInitializationParametersData == 0 ? IntPtr : IntPtr
+
+        ComCall(70, this, "ptr", pMetaCommand, pInitializationParametersDataMarshal, pInitializationParametersData, IntPtr, InitializationParametersDataSizeInBytes)
     }
 
     /**
@@ -101,7 +106,9 @@ export default struct ID3D12GraphicsCommandList4 extends ID3D12GraphicsCommandLi
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist4-executemetacommand
      */
     ExecuteMetaCommand(pMetaCommand, pExecutionParametersData, ExecutionParametersDataSizeInBytes) {
-        ComCall(71, this, "ptr", pMetaCommand, IntPtr, pExecutionParametersData, IntPtr, ExecutionParametersDataSizeInBytes)
+        pExecutionParametersDataMarshal := pExecutionParametersData == 0 ? IntPtr : IntPtr
+
+        ComCall(71, this, "ptr", pMetaCommand, pExecutionParametersDataMarshal, pExecutionParametersData, IntPtr, ExecutionParametersDataSizeInBytes)
     }
 
     /**
@@ -117,7 +124,9 @@ export default struct ID3D12GraphicsCommandList4 extends ID3D12GraphicsCommandLi
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist4-buildraytracingaccelerationstructure
      */
     BuildRaytracingAccelerationStructure(pDesc, NumPostbuildInfoDescs, pPostbuildInfoDescs) {
-        ComCall(72, this, D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC.Ptr, pDesc, UInt32, NumPostbuildInfoDescs, D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC.Ptr, pPostbuildInfoDescs)
+        pPostbuildInfoDescsMarshal := pPostbuildInfoDescs == 0 ? IntPtr : D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC.Ptr
+
+        ComCall(72, this, D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_DESC.Ptr, pDesc, UInt32, NumPostbuildInfoDescs, pPostbuildInfoDescsMarshal, pPostbuildInfoDescs)
     }
 
     /**
@@ -135,7 +144,7 @@ export default struct ID3D12GraphicsCommandList4 extends ID3D12GraphicsCommandLi
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist4-emitraytracingaccelerationstructurepostbuildinfo
      */
     EmitRaytracingAccelerationStructurePostbuildInfo(pDesc, NumSourceAccelerationStructures, pSourceAccelerationStructureData) {
-        pSourceAccelerationStructureDataMarshal := pSourceAccelerationStructureData is VarRef ? "uint*" : "ptr"
+        pSourceAccelerationStructureDataMarshal := pSourceAccelerationStructureData is VarRef ? "uint*" : IntPtr
 
         ComCall(73, this, D3D12_RAYTRACING_ACCELERATION_STRUCTURE_POSTBUILD_INFO_DESC.Ptr, pDesc, UInt32, NumSourceAccelerationStructures, pSourceAccelerationStructureDataMarshal, pSourceAccelerationStructureData)
     }
@@ -208,15 +217,15 @@ export default struct ID3D12GraphicsCommandList4 extends ID3D12GraphicsCommandLi
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.BeginRenderPass := CallbackCreate(GetMethod(implObj, "BeginRenderPass"), flags, 5)
-        this.vtbl.EndRenderPass := CallbackCreate(GetMethod(implObj, "EndRenderPass"), flags, 1)
-        this.vtbl.InitializeMetaCommand := CallbackCreate(GetMethod(implObj, "InitializeMetaCommand"), flags, 4)
-        this.vtbl.ExecuteMetaCommand := CallbackCreate(GetMethod(implObj, "ExecuteMetaCommand"), flags, 4)
-        this.vtbl.BuildRaytracingAccelerationStructure := CallbackCreate(GetMethod(implObj, "BuildRaytracingAccelerationStructure"), flags, 4)
-        this.vtbl.EmitRaytracingAccelerationStructurePostbuildInfo := CallbackCreate(GetMethod(implObj, "EmitRaytracingAccelerationStructurePostbuildInfo"), flags, 4)
-        this.vtbl.CopyRaytracingAccelerationStructure := CallbackCreate(GetMethod(implObj, "CopyRaytracingAccelerationStructure"), flags, 4)
-        this.vtbl.SetPipelineState1 := CallbackCreate(GetMethod(implObj, "SetPipelineState1"), flags, 2)
-        this.vtbl.DispatchRays := CallbackCreate(GetMethod(implObj, "DispatchRays"), flags, 2)
+        this.vtbl.BeginRenderPass := CallbackCreate(ObjBindMethod(implObj, "BeginRenderPass"), flags, 5)
+        this.vtbl.EndRenderPass := CallbackCreate(ObjBindMethod(implObj, "EndRenderPass"), flags, 1)
+        this.vtbl.InitializeMetaCommand := CallbackCreate(ObjBindMethod(implObj, "InitializeMetaCommand"), flags, 4)
+        this.vtbl.ExecuteMetaCommand := CallbackCreate(ObjBindMethod(implObj, "ExecuteMetaCommand"), flags, 4)
+        this.vtbl.BuildRaytracingAccelerationStructure := CallbackCreate(ObjBindMethod(implObj, "BuildRaytracingAccelerationStructure"), flags, 4)
+        this.vtbl.EmitRaytracingAccelerationStructurePostbuildInfo := CallbackCreate(ObjBindMethod(implObj, "EmitRaytracingAccelerationStructurePostbuildInfo"), flags, 4)
+        this.vtbl.CopyRaytracingAccelerationStructure := CallbackCreate(ObjBindMethod(implObj, "CopyRaytracingAccelerationStructure"), flags, 4)
+        this.vtbl.SetPipelineState1 := CallbackCreate(ObjBindMethod(implObj, "SetPipelineState1"), flags, 2)
+        this.vtbl.DispatchRays := CallbackCreate(ObjBindMethod(implObj, "DispatchRays"), flags, 2)
     }
 
     Dispose() {

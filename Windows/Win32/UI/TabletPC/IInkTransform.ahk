@@ -439,12 +439,12 @@ export default struct IInkTransform extends IDispatch {
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktransform-gettransform
      */
     GetTransform(eM11, eM12, eM21, eM22, eDx, eDy) {
-        eM11Marshal := eM11 is VarRef ? "float*" : "ptr"
-        eM12Marshal := eM12 is VarRef ? "float*" : "ptr"
-        eM21Marshal := eM21 is VarRef ? "float*" : "ptr"
-        eM22Marshal := eM22 is VarRef ? "float*" : "ptr"
-        eDxMarshal := eDx is VarRef ? "float*" : "ptr"
-        eDyMarshal := eDy is VarRef ? "float*" : "ptr"
+        eM11Marshal := eM11 is VarRef ? "float*" : IntPtr
+        eM12Marshal := eM12 is VarRef ? "float*" : IntPtr
+        eM21Marshal := eM21 is VarRef ? "float*" : IntPtr
+        eM22Marshal := eM22 is VarRef ? "float*" : IntPtr
+        eDxMarshal := eDx is VarRef ? "float*" : IntPtr
+        eDyMarshal := eDy is VarRef ? "float*" : IntPtr
 
         result := ComCall(13, this, eM11Marshal, eM11, eM12Marshal, eM12, eM21Marshal, eM21, eM22Marshal, eM22, eDxMarshal, eDx, eDyMarshal, eDy, "HRESULT")
         return result
@@ -652,28 +652,28 @@ export default struct IInkTransform extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Reset := CallbackCreate(GetMethod(implObj, "Reset"), flags, 1)
-        this.vtbl.Translate := CallbackCreate(GetMethod(implObj, "Translate"), flags, 3)
-        this.vtbl.Rotate := CallbackCreate(GetMethod(implObj, "Rotate"), flags, 4)
-        this.vtbl.Reflect := CallbackCreate(GetMethod(implObj, "Reflect"), flags, 3)
-        this.vtbl.Shear := CallbackCreate(GetMethod(implObj, "Shear"), flags, 3)
-        this.vtbl.ScaleTransform := CallbackCreate(GetMethod(implObj, "ScaleTransform"), flags, 3)
-        this.vtbl.GetTransform := CallbackCreate(GetMethod(implObj, "GetTransform"), flags, 7)
-        this.vtbl.SetTransform := CallbackCreate(GetMethod(implObj, "SetTransform"), flags, 7)
-        this.vtbl.get_eM11 := CallbackCreate(GetMethod(implObj, "get_eM11"), flags, 2)
-        this.vtbl.put_eM11 := CallbackCreate(GetMethod(implObj, "put_eM11"), flags, 2)
-        this.vtbl.get_eM12 := CallbackCreate(GetMethod(implObj, "get_eM12"), flags, 2)
-        this.vtbl.put_eM12 := CallbackCreate(GetMethod(implObj, "put_eM12"), flags, 2)
-        this.vtbl.get_eM21 := CallbackCreate(GetMethod(implObj, "get_eM21"), flags, 2)
-        this.vtbl.put_eM21 := CallbackCreate(GetMethod(implObj, "put_eM21"), flags, 2)
-        this.vtbl.get_eM22 := CallbackCreate(GetMethod(implObj, "get_eM22"), flags, 2)
-        this.vtbl.put_eM22 := CallbackCreate(GetMethod(implObj, "put_eM22"), flags, 2)
-        this.vtbl.get_eDx := CallbackCreate(GetMethod(implObj, "get_eDx"), flags, 2)
-        this.vtbl.put_eDx := CallbackCreate(GetMethod(implObj, "put_eDx"), flags, 2)
-        this.vtbl.get_eDy := CallbackCreate(GetMethod(implObj, "get_eDy"), flags, 2)
-        this.vtbl.put_eDy := CallbackCreate(GetMethod(implObj, "put_eDy"), flags, 2)
-        this.vtbl.get_Data := CallbackCreate(GetMethod(implObj, "get_Data"), flags, 2)
-        this.vtbl.put_Data := CallbackCreate(GetMethod(implObj, "put_Data"), flags, 2)
+        this.vtbl.Reset := CallbackCreate(ObjBindMethod(implObj, "Reset"), flags, 1)
+        this.vtbl.Translate := CallbackCreate(ObjBindMethod(implObj, "Translate"), flags, 3)
+        this.vtbl.Rotate := CallbackCreate(ObjBindMethod(implObj, "Rotate"), flags, 4)
+        this.vtbl.Reflect := CallbackCreate(ObjBindMethod(implObj, "Reflect"), flags, 3)
+        this.vtbl.Shear := CallbackCreate(ObjBindMethod(implObj, "Shear"), flags, 3)
+        this.vtbl.ScaleTransform := CallbackCreate(ObjBindMethod(implObj, "ScaleTransform"), flags, 3)
+        this.vtbl.GetTransform := CallbackCreate(ObjBindMethod(implObj, "GetTransform"), flags, 7)
+        this.vtbl.SetTransform := CallbackCreate(ObjBindMethod(implObj, "SetTransform"), flags, 7)
+        this.vtbl.get_eM11 := CallbackCreate(ObjBindMethod(implObj, "get_eM11"), flags, 2)
+        this.vtbl.put_eM11 := CallbackCreate(ObjBindMethod(implObj, "put_eM11"), flags, 2)
+        this.vtbl.get_eM12 := CallbackCreate(ObjBindMethod(implObj, "get_eM12"), flags, 2)
+        this.vtbl.put_eM12 := CallbackCreate(ObjBindMethod(implObj, "put_eM12"), flags, 2)
+        this.vtbl.get_eM21 := CallbackCreate(ObjBindMethod(implObj, "get_eM21"), flags, 2)
+        this.vtbl.put_eM21 := CallbackCreate(ObjBindMethod(implObj, "put_eM21"), flags, 2)
+        this.vtbl.get_eM22 := CallbackCreate(ObjBindMethod(implObj, "get_eM22"), flags, 2)
+        this.vtbl.put_eM22 := CallbackCreate(ObjBindMethod(implObj, "put_eM22"), flags, 2)
+        this.vtbl.get_eDx := CallbackCreate(ObjBindMethod(implObj, "get_eDx"), flags, 2)
+        this.vtbl.put_eDx := CallbackCreate(ObjBindMethod(implObj, "put_eDx"), flags, 2)
+        this.vtbl.get_eDy := CallbackCreate(ObjBindMethod(implObj, "get_eDy"), flags, 2)
+        this.vtbl.put_eDy := CallbackCreate(ObjBindMethod(implObj, "put_eDy"), flags, 2)
+        this.vtbl.get_Data := CallbackCreate(ObjBindMethod(implObj, "get_Data"), flags, 2)
+        this.vtbl.put_Data := CallbackCreate(ObjBindMethod(implObj, "put_Data"), flags, 2)
     }
 
     Dispose() {

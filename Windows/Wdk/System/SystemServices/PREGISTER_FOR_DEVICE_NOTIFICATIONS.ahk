@@ -21,14 +21,13 @@ export default struct PREGISTER_FOR_DEVICE_NOTIFICATIONS {
     }
 
     /**
-     * 
      * @param {Pointer<DEVICE_OBJECT>} param0 
      * @param {Pointer<PDEVICE_NOTIFY_CALLBACK>} param1 
      * @param {Pointer<Void>} param2 
      * @returns {NTSTATUS} 
      */
     Call(param0, param1, param2) {
-        param2Marshal := param2 is VarRef ? "ptr" : "ptr"
+        param2Marshal := param2 is VarRef ? "ptr" : IntPtr
 
         result := DllCall(this.value, DEVICE_OBJECT.Ptr, param0, PDEVICE_NOTIFY_CALLBACK, param1, param2Marshal, param2, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

@@ -132,10 +132,10 @@ export default struct IMSVidEVR extends IMSVidVideoRenderer {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Presenter := CallbackCreate(GetMethod(implObj, "get_Presenter"), flags, 2)
-        this.vtbl.put_Presenter := CallbackCreate(GetMethod(implObj, "put_Presenter"), flags, 2)
-        this.vtbl.put_SuppressEffects := CallbackCreate(GetMethod(implObj, "put_SuppressEffects"), flags, 2)
-        this.vtbl.get_SuppressEffects := CallbackCreate(GetMethod(implObj, "get_SuppressEffects"), flags, 2)
+        this.vtbl.get_Presenter := CallbackCreate(ObjBindMethod(implObj, "get_Presenter"), flags, 2)
+        this.vtbl.put_Presenter := CallbackCreate(ObjBindMethod(implObj, "put_Presenter"), flags, 2)
+        this.vtbl.put_SuppressEffects := CallbackCreate(ObjBindMethod(implObj, "put_SuppressEffects"), flags, 2)
+        this.vtbl.get_SuppressEffects := CallbackCreate(ObjBindMethod(implObj, "get_SuppressEffects"), flags, 2)
     }
 
     Dispose() {

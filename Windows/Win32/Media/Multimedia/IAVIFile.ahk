@@ -160,7 +160,7 @@ export default struct IAVIFile extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavifile-readdata
      */
     ReadData(ckid, lpData, lpcbData) {
-        lpcbDataMarshal := lpcbData is VarRef ? "int*" : "ptr"
+        lpcbDataMarshal := lpcbData is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, UInt32, ckid, IntPtr, lpData, lpcbDataMarshal, lpcbData, "HRESULT")
         return result
@@ -189,7 +189,6 @@ export default struct IAVIFile extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} fccType 
      * @param {Integer} _lParam 
      * @returns {HRESULT} 
@@ -208,13 +207,13 @@ export default struct IAVIFile extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Info := CallbackCreate(GetMethod(implObj, "Info"), flags, 3)
-        this.vtbl.GetStream := CallbackCreate(GetMethod(implObj, "GetStream"), flags, 4)
-        this.vtbl.CreateStream := CallbackCreate(GetMethod(implObj, "CreateStream"), flags, 3)
-        this.vtbl.WriteData := CallbackCreate(GetMethod(implObj, "WriteData"), flags, 4)
-        this.vtbl.ReadData := CallbackCreate(GetMethod(implObj, "ReadData"), flags, 4)
-        this.vtbl.EndRecord := CallbackCreate(GetMethod(implObj, "EndRecord"), flags, 1)
-        this.vtbl.DeleteStream := CallbackCreate(GetMethod(implObj, "DeleteStream"), flags, 3)
+        this.vtbl.Info := CallbackCreate(ObjBindMethod(implObj, "Info"), flags, 3)
+        this.vtbl.GetStream := CallbackCreate(ObjBindMethod(implObj, "GetStream"), flags, 4)
+        this.vtbl.CreateStream := CallbackCreate(ObjBindMethod(implObj, "CreateStream"), flags, 3)
+        this.vtbl.WriteData := CallbackCreate(ObjBindMethod(implObj, "WriteData"), flags, 4)
+        this.vtbl.ReadData := CallbackCreate(ObjBindMethod(implObj, "ReadData"), flags, 4)
+        this.vtbl.EndRecord := CallbackCreate(ObjBindMethod(implObj, "EndRecord"), flags, 1)
+        this.vtbl.DeleteStream := CallbackCreate(ObjBindMethod(implObj, "DeleteStream"), flags, 3)
     }
 
     Dispose() {

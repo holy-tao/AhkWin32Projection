@@ -31,7 +31,6 @@ export default struct LPWSPLISTEN {
     }
 
     /**
-     * 
      * @param {SOCKET} s Descriptor identifying a bound, unconnected socket.
      * @param {Integer} backlog Maximum length to which the queue of pending connections can grow. If this value is SOMAXCONN, then the service provider should set the backlog to a maximum "reasonable" value. There is no standard provision to find out the actual backlog value.
      * @param {Pointer<Integer>} lpErrno Pointer to the error code.
@@ -144,7 +143,7 @@ export default struct LPWSPLISTEN {
      * </table>
      */
     Call(s, backlog, lpErrno) {
-        lpErrnoMarshal := lpErrno is VarRef ? "int*" : "ptr"
+        lpErrnoMarshal := lpErrno is VarRef ? "int*" : IntPtr
 
         result := DllCall(this.value, SOCKET, s, Int32, backlog, lpErrnoMarshal, lpErrno, Int32)
         return result

@@ -80,8 +80,8 @@ export default struct ITfCreatePropertyStore extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.IsStoreSerializable := CallbackCreate(GetMethod(implObj, "IsStoreSerializable"), flags, 5)
-        this.vtbl.CreatePropertyStore := CallbackCreate(GetMethod(implObj, "CreatePropertyStore"), flags, 6)
+        this.vtbl.IsStoreSerializable := CallbackCreate(ObjBindMethod(implObj, "IsStoreSerializable"), flags, 5)
+        this.vtbl.CreatePropertyStore := CallbackCreate(ObjBindMethod(implObj, "CreatePropertyStore"), flags, 6)
     }
 
     Dispose() {

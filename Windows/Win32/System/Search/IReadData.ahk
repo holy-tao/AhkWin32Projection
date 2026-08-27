@@ -38,7 +38,6 @@ export default struct IReadData extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} hChapter 
      * @param {Pointer} cbBookmark 
      * @param {Pointer<Integer>} pBookmark 
@@ -51,17 +50,16 @@ export default struct IReadData extends IUnknown {
      * @returns {Pointer} 
      */
     ReadData(hChapter, cbBookmark, pBookmark, lRowsOffset, _hAccessor, cRows, ppFixedData, pcbVariableTotal, ppVariableData) {
-        pBookmarkMarshal := pBookmark is VarRef ? "char*" : "ptr"
-        ppFixedDataMarshal := ppFixedData is VarRef ? "ptr*" : "ptr"
-        pcbVariableTotalMarshal := pcbVariableTotal is VarRef ? "ptr*" : "ptr"
-        ppVariableDataMarshal := ppVariableData is VarRef ? "ptr*" : "ptr"
+        pBookmarkMarshal := pBookmark is VarRef ? "char*" : IntPtr
+        ppFixedDataMarshal := ppFixedData is VarRef ? "ptr*" : IntPtr
+        pcbVariableTotalMarshal := pcbVariableTotal is VarRef ? "ptr*" : IntPtr
+        ppVariableDataMarshal := ppVariableData is VarRef ? "ptr*" : IntPtr
 
         result := ComCall(3, this, IntPtr, hChapter, IntPtr, cbBookmark, pBookmarkMarshal, pBookmark, IntPtr, lRowsOffset, HACCESSOR, _hAccessor, IntPtr, cRows, "ptr*", &pcRowsObtained := 0, ppFixedDataMarshal, ppFixedData, pcbVariableTotalMarshal, pcbVariableTotal, ppVariableDataMarshal, ppVariableData, "HRESULT")
         return pcRowsObtained
     }
 
     /**
-     * 
      * @param {Pointer} hChapter 
      * @returns {HRESULT} 
      */
@@ -79,8 +77,8 @@ export default struct IReadData extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ReadData := CallbackCreate(GetMethod(implObj, "ReadData"), flags, 11)
-        this.vtbl.ReleaseChapter := CallbackCreate(GetMethod(implObj, "ReleaseChapter"), flags, 2)
+        this.vtbl.ReadData := CallbackCreate(ObjBindMethod(implObj, "ReadData"), flags, 11)
+        this.vtbl.ReleaseChapter := CallbackCreate(ObjBindMethod(implObj, "ReleaseChapter"), flags, 2)
     }
 
     Dispose() {

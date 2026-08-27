@@ -78,8 +78,8 @@ export default struct ID3D10EffectStringVariable extends ID3D10EffectVariable {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetString := CallbackCreate(GetMethod(implObj, "GetString"), flags, 2)
-        this.vtbl.GetStringArray := CallbackCreate(GetMethod(implObj, "GetStringArray"), flags, 4)
+        this.vtbl.GetString := CallbackCreate(ObjBindMethod(implObj, "GetString"), flags, 2)
+        this.vtbl.GetStringArray := CallbackCreate(ObjBindMethod(implObj, "GetStringArray"), flags, 4)
     }
 
     Dispose() {

@@ -165,7 +165,6 @@ export default struct IGPMConstants2 extends IGPMConstants {
     }
 
     /**
-     * 
      * @returns {GPMBackupType} 
      */
     get_BackupTypeGPO() {
@@ -174,7 +173,6 @@ export default struct IGPMConstants2 extends IGPMConstants {
     }
 
     /**
-     * 
      * @returns {GPMBackupType} 
      */
     get_BackupTypeStarterGPO() {
@@ -183,7 +181,6 @@ export default struct IGPMConstants2 extends IGPMConstants {
     }
 
     /**
-     * 
      * @returns {GPMStarterGPOType} 
      */
     get_StarterGPOTypeSystem() {
@@ -192,7 +189,6 @@ export default struct IGPMConstants2 extends IGPMConstants {
     }
 
     /**
-     * 
      * @returns {GPMStarterGPOType} 
      */
     get_StarterGPOTypeCustom() {
@@ -201,7 +197,6 @@ export default struct IGPMConstants2 extends IGPMConstants {
     }
 
     /**
-     * 
      * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyStarterGPOPermissions() {
@@ -210,7 +205,6 @@ export default struct IGPMConstants2 extends IGPMConstants {
     }
 
     /**
-     * 
      * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyStarterGPOEffectivePermissions() {
@@ -219,7 +213,6 @@ export default struct IGPMConstants2 extends IGPMConstants {
     }
 
     /**
-     * 
      * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyStarterGPODisplayName() {
@@ -228,7 +221,6 @@ export default struct IGPMConstants2 extends IGPMConstants {
     }
 
     /**
-     * 
      * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyStarterGPOID() {
@@ -237,7 +229,6 @@ export default struct IGPMConstants2 extends IGPMConstants {
     }
 
     /**
-     * 
      * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyStarterGPODomain() {
@@ -246,7 +237,6 @@ export default struct IGPMConstants2 extends IGPMConstants {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_PermStarterGPORead() {
@@ -255,7 +245,6 @@ export default struct IGPMConstants2 extends IGPMConstants {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_PermStarterGPOEdit() {
@@ -264,7 +253,6 @@ export default struct IGPMConstants2 extends IGPMConstants {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_PermStarterGPOFullControl() {
@@ -273,7 +261,6 @@ export default struct IGPMConstants2 extends IGPMConstants {
     }
 
     /**
-     * 
      * @returns {GPMPermissionType} 
      */
     get_PermStarterGPOCustom() {
@@ -282,7 +269,6 @@ export default struct IGPMConstants2 extends IGPMConstants {
     }
 
     /**
-     * 
      * @returns {GPMReportingOptions} 
      */
     get_ReportLegacy() {
@@ -291,7 +277,6 @@ export default struct IGPMConstants2 extends IGPMConstants {
     }
 
     /**
-     * 
      * @returns {GPMReportingOptions} 
      */
     get_ReportComments() {
@@ -308,21 +293,21 @@ export default struct IGPMConstants2 extends IGPMConstants {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_BackupTypeGPO := CallbackCreate(GetMethod(implObj, "get_BackupTypeGPO"), flags, 2)
-        this.vtbl.get_BackupTypeStarterGPO := CallbackCreate(GetMethod(implObj, "get_BackupTypeStarterGPO"), flags, 2)
-        this.vtbl.get_StarterGPOTypeSystem := CallbackCreate(GetMethod(implObj, "get_StarterGPOTypeSystem"), flags, 2)
-        this.vtbl.get_StarterGPOTypeCustom := CallbackCreate(GetMethod(implObj, "get_StarterGPOTypeCustom"), flags, 2)
-        this.vtbl.get_SearchPropertyStarterGPOPermissions := CallbackCreate(GetMethod(implObj, "get_SearchPropertyStarterGPOPermissions"), flags, 2)
-        this.vtbl.get_SearchPropertyStarterGPOEffectivePermissions := CallbackCreate(GetMethod(implObj, "get_SearchPropertyStarterGPOEffectivePermissions"), flags, 2)
-        this.vtbl.get_SearchPropertyStarterGPODisplayName := CallbackCreate(GetMethod(implObj, "get_SearchPropertyStarterGPODisplayName"), flags, 2)
-        this.vtbl.get_SearchPropertyStarterGPOID := CallbackCreate(GetMethod(implObj, "get_SearchPropertyStarterGPOID"), flags, 2)
-        this.vtbl.get_SearchPropertyStarterGPODomain := CallbackCreate(GetMethod(implObj, "get_SearchPropertyStarterGPODomain"), flags, 2)
-        this.vtbl.get_PermStarterGPORead := CallbackCreate(GetMethod(implObj, "get_PermStarterGPORead"), flags, 2)
-        this.vtbl.get_PermStarterGPOEdit := CallbackCreate(GetMethod(implObj, "get_PermStarterGPOEdit"), flags, 2)
-        this.vtbl.get_PermStarterGPOFullControl := CallbackCreate(GetMethod(implObj, "get_PermStarterGPOFullControl"), flags, 2)
-        this.vtbl.get_PermStarterGPOCustom := CallbackCreate(GetMethod(implObj, "get_PermStarterGPOCustom"), flags, 2)
-        this.vtbl.get_ReportLegacy := CallbackCreate(GetMethod(implObj, "get_ReportLegacy"), flags, 2)
-        this.vtbl.get_ReportComments := CallbackCreate(GetMethod(implObj, "get_ReportComments"), flags, 2)
+        this.vtbl.get_BackupTypeGPO := CallbackCreate(ObjBindMethod(implObj, "get_BackupTypeGPO"), flags, 2)
+        this.vtbl.get_BackupTypeStarterGPO := CallbackCreate(ObjBindMethod(implObj, "get_BackupTypeStarterGPO"), flags, 2)
+        this.vtbl.get_StarterGPOTypeSystem := CallbackCreate(ObjBindMethod(implObj, "get_StarterGPOTypeSystem"), flags, 2)
+        this.vtbl.get_StarterGPOTypeCustom := CallbackCreate(ObjBindMethod(implObj, "get_StarterGPOTypeCustom"), flags, 2)
+        this.vtbl.get_SearchPropertyStarterGPOPermissions := CallbackCreate(ObjBindMethod(implObj, "get_SearchPropertyStarterGPOPermissions"), flags, 2)
+        this.vtbl.get_SearchPropertyStarterGPOEffectivePermissions := CallbackCreate(ObjBindMethod(implObj, "get_SearchPropertyStarterGPOEffectivePermissions"), flags, 2)
+        this.vtbl.get_SearchPropertyStarterGPODisplayName := CallbackCreate(ObjBindMethod(implObj, "get_SearchPropertyStarterGPODisplayName"), flags, 2)
+        this.vtbl.get_SearchPropertyStarterGPOID := CallbackCreate(ObjBindMethod(implObj, "get_SearchPropertyStarterGPOID"), flags, 2)
+        this.vtbl.get_SearchPropertyStarterGPODomain := CallbackCreate(ObjBindMethod(implObj, "get_SearchPropertyStarterGPODomain"), flags, 2)
+        this.vtbl.get_PermStarterGPORead := CallbackCreate(ObjBindMethod(implObj, "get_PermStarterGPORead"), flags, 2)
+        this.vtbl.get_PermStarterGPOEdit := CallbackCreate(ObjBindMethod(implObj, "get_PermStarterGPOEdit"), flags, 2)
+        this.vtbl.get_PermStarterGPOFullControl := CallbackCreate(ObjBindMethod(implObj, "get_PermStarterGPOFullControl"), flags, 2)
+        this.vtbl.get_PermStarterGPOCustom := CallbackCreate(ObjBindMethod(implObj, "get_PermStarterGPOCustom"), flags, 2)
+        this.vtbl.get_ReportLegacy := CallbackCreate(ObjBindMethod(implObj, "get_ReportLegacy"), flags, 2)
+        this.vtbl.get_ReportComments := CallbackCreate(ObjBindMethod(implObj, "get_ReportComments"), flags, 2)
     }
 
     Dispose() {

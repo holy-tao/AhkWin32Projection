@@ -44,7 +44,6 @@ export default struct IHTMLOptionElementFactory extends IDispatch {
     }
 
     /**
-     * 
      * @param {VARIANT} text 
      * @param {VARIANT} value 
      * @param {VARIANT} defaultselected 
@@ -65,7 +64,7 @@ export default struct IHTMLOptionElementFactory extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.create := CallbackCreate(GetMethod(implObj, "create"), flags, 6)
+        this.vtbl.create := CallbackCreate(ObjBindMethod(implObj, "create"), flags, 6)
     }
 
     Dispose() {

@@ -77,8 +77,8 @@ export default struct ITaskHandlerStatus extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.UpdateStatus := CallbackCreate(GetMethod(implObj, "UpdateStatus"), flags, 3)
-        this.vtbl.TaskCompleted := CallbackCreate(GetMethod(implObj, "TaskCompleted"), flags, 2)
+        this.vtbl.UpdateStatus := CallbackCreate(ObjBindMethod(implObj, "UpdateStatus"), flags, 3)
+        this.vtbl.TaskCompleted := CallbackCreate(ObjBindMethod(implObj, "TaskCompleted"), flags, 2)
     }
 
     Dispose() {

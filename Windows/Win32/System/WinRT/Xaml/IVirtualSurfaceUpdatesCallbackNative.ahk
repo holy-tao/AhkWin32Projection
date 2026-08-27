@@ -40,7 +40,6 @@ export default struct IVirtualSurfaceUpdatesCallbackNative extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     UpdatesNeeded() {
@@ -57,7 +56,7 @@ export default struct IVirtualSurfaceUpdatesCallbackNative extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.UpdatesNeeded := CallbackCreate(GetMethod(implObj, "UpdatesNeeded"), flags, 1)
+        this.vtbl.UpdatesNeeded := CallbackCreate(ObjBindMethod(implObj, "UpdatesNeeded"), flags, 1)
     }
 
     Dispose() {

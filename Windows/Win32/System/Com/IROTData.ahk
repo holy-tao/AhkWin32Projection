@@ -55,8 +55,8 @@ export default struct IROTData extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-irotdata-getcomparisondata
      */
     GetComparisonData(pbData, cbMax, pcbData) {
-        pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
-        pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
+        pbDataMarshal := pbData is VarRef ? "char*" : IntPtr
+        pcbDataMarshal := pcbData is VarRef ? "uint*" : IntPtr
 
         result := ComCall(3, this, pbDataMarshal, pbData, UInt32, cbMax, pcbDataMarshal, pcbData, "HRESULT")
         return result
@@ -71,7 +71,7 @@ export default struct IROTData extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetComparisonData := CallbackCreate(GetMethod(implObj, "GetComparisonData"), flags, 4)
+        this.vtbl.GetComparisonData := CallbackCreate(ObjBindMethod(implObj, "GetComparisonData"), flags, 4)
     }
 
     Dispose() {

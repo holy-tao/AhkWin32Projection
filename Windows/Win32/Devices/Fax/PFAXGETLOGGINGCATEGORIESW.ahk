@@ -22,15 +22,14 @@ export default struct PFAXGETLOGGINGCATEGORIESW {
     }
 
     /**
-     * 
      * @param {HANDLE} FaxHandle 
      * @param {Pointer<Pointer<FAX_LOG_CATEGORYW>>} Categories 
      * @param {Pointer<Integer>} NumberCategories 
      * @returns {BOOL} 
      */
     Call(FaxHandle, Categories, NumberCategories) {
-        CategoriesMarshal := Categories is VarRef ? "ptr*" : "ptr"
-        NumberCategoriesMarshal := NumberCategories is VarRef ? "uint*" : "ptr"
+        CategoriesMarshal := Categories is VarRef ? "ptr*" : IntPtr
+        NumberCategoriesMarshal := NumberCategories is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HANDLE, FaxHandle, CategoriesMarshal, Categories, NumberCategoriesMarshal, NumberCategories, BOOL)
         return result

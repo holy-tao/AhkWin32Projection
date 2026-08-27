@@ -21,7 +21,6 @@ export default struct BCryptCreateMultiHashFn {
     }
 
     /**
-     * 
      * @param {BCRYPT_ALG_HANDLE} hAlgorithm 
      * @param {Pointer<BCRYPT_HASH_HANDLE>} phHash 
      * @param {Integer} nHashes 
@@ -33,7 +32,10 @@ export default struct BCryptCreateMultiHashFn {
      * @returns {NTSTATUS} 
      */
     Call(hAlgorithm, phHash, nHashes, pbHashObject, cbHashObject, pbSecret, cbSecret, dwFlags) {
-        result := DllCall(this.value, BCRYPT_ALG_HANDLE, hAlgorithm, BCRYPT_HASH_HANDLE.Ptr, phHash, UInt32, nHashes, IntPtr, pbHashObject, UInt32, cbHashObject, IntPtr, pbSecret, UInt32, cbSecret, UInt32, dwFlags, NTSTATUS)
+        pbHashObjectMarshal := pbHashObject == 0 ? IntPtr : IntPtr
+        pbSecretMarshal := pbSecret == 0 ? IntPtr : IntPtr
+
+        result := DllCall(this.value, BCRYPT_ALG_HANDLE, hAlgorithm, BCRYPT_HASH_HANDLE.Ptr, phHash, UInt32, nHashes, pbHashObjectMarshal, pbHashObject, UInt32, cbHashObject, pbSecretMarshal, pbSecret, UInt32, cbSecret, UInt32, dwFlags, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)
         return result
     }

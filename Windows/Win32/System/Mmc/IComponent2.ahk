@@ -107,9 +107,9 @@ export default struct IComponent2 extends IComponent {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.QueryDispatch := CallbackCreate(GetMethod(implObj, "QueryDispatch"), flags, 4)
-        this.vtbl.GetResultViewType2 := CallbackCreate(GetMethod(implObj, "GetResultViewType2"), flags, 3)
-        this.vtbl.RestoreResultView := CallbackCreate(GetMethod(implObj, "RestoreResultView"), flags, 3)
+        this.vtbl.QueryDispatch := CallbackCreate(ObjBindMethod(implObj, "QueryDispatch"), flags, 4)
+        this.vtbl.GetResultViewType2 := CallbackCreate(ObjBindMethod(implObj, "GetResultViewType2"), flags, 3)
+        this.vtbl.RestoreResultView := CallbackCreate(ObjBindMethod(implObj, "RestoreResultView"), flags, 3)
     }
 
     Dispose() {

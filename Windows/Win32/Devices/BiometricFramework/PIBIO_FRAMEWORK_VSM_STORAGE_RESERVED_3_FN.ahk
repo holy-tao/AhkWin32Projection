@@ -20,7 +20,6 @@ export default struct PIBIO_FRAMEWORK_VSM_STORAGE_RESERVED_3_FN {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     Call() {

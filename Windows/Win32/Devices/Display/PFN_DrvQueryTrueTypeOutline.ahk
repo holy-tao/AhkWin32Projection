@@ -23,7 +23,6 @@ export default struct PFN_DrvQueryTrueTypeOutline {
     }
 
     /**
-     * 
      * @param {DHPDEV} param0 
      * @param {Pointer<FONTOBJ>} param1 
      * @param {Integer} param2 

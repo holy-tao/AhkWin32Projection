@@ -20,7 +20,6 @@ export default struct PFND3DKMT_UNLOCK {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_UNLOCK>} param0 
      * @returns {NTSTATUS} 
      */

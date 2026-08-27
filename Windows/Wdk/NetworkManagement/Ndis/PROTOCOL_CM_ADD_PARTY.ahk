@@ -19,7 +19,6 @@ export default struct PROTOCOL_CM_ADD_PARTY {
     }
 
     /**
-     * 
      * @param {Pointer<Void>} CallMgrVcContext 
      * @param {Pointer<CO_CALL_PARAMETERS>} CallParameters 
      * @param {Pointer<Void>} NdisPartyHandle 
@@ -27,10 +26,10 @@ export default struct PROTOCOL_CM_ADD_PARTY {
      * @returns {Integer} 
      */
     Call(CallMgrVcContext, CallParameters, NdisPartyHandle, CallMgrPartyContext) {
-        CallMgrVcContextMarshal := CallMgrVcContext is VarRef ? "ptr" : "ptr"
-        CallParametersMarshal := CallParameters is VarRef ? "ptr*" : "ptr"
-        NdisPartyHandleMarshal := NdisPartyHandle is VarRef ? "ptr" : "ptr"
-        CallMgrPartyContextMarshal := CallMgrPartyContext is VarRef ? "ptr*" : "ptr"
+        CallMgrVcContextMarshal := CallMgrVcContext is VarRef ? "ptr" : IntPtr
+        CallParametersMarshal := CallParameters is VarRef ? "ptr*" : IntPtr
+        NdisPartyHandleMarshal := NdisPartyHandle is VarRef ? "ptr" : IntPtr
+        CallMgrPartyContextMarshal := CallMgrPartyContext is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, CallMgrVcContextMarshal, CallMgrVcContext, CallParametersMarshal, CallParameters, NdisPartyHandleMarshal, NdisPartyHandle, CallMgrPartyContextMarshal, CallMgrPartyContext, Int32)
         return result

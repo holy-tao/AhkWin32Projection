@@ -63,7 +63,7 @@ export default struct ID2D1EllipseGeometry extends ID2D1Geometry {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetEllipse := CallbackCreate(GetMethod(implObj, "GetEllipse"), flags, 2)
+        this.vtbl.GetEllipse := CallbackCreate(ObjBindMethod(implObj, "GetEllipse"), flags, 2)
     }
 
     Dispose() {

@@ -19,7 +19,6 @@ export default struct VDMGETDBGFLAGSPROC {
     }
 
     /**
-     * 
      * @param {HANDLE} param0 
      * @returns {Integer} 
      */

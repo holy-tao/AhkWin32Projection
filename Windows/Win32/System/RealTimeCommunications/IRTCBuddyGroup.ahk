@@ -79,7 +79,6 @@ export default struct IRTCBuddyGroup extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Name() {
@@ -89,7 +88,6 @@ export default struct IRTCBuddyGroup extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrGroupName 
      * @returns {HRESULT} 
      */
@@ -101,7 +99,6 @@ export default struct IRTCBuddyGroup extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRTCBuddy} pBuddy 
      * @returns {HRESULT} 
      */
@@ -111,7 +108,6 @@ export default struct IRTCBuddyGroup extends IUnknown {
     }
 
     /**
-     * 
      * @param {IRTCBuddy} pBuddy 
      * @returns {HRESULT} 
      */
@@ -121,7 +117,6 @@ export default struct IRTCBuddyGroup extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRTCEnumBuddies} 
      */
     EnumerateBuddies() {
@@ -130,7 +125,6 @@ export default struct IRTCBuddyGroup extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRTCCollection} 
      */
     get_Buddies() {
@@ -139,7 +133,6 @@ export default struct IRTCBuddyGroup extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_Data() {
@@ -149,7 +142,6 @@ export default struct IRTCBuddyGroup extends IUnknown {
     }
 
     /**
-     * 
      * @param {BSTR} bstrData 
      * @returns {HRESULT} 
      */
@@ -161,7 +153,6 @@ export default struct IRTCBuddyGroup extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IRTCProfile2} 
      */
     get_Profile() {
@@ -178,15 +169,15 @@ export default struct IRTCBuddyGroup extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Name := CallbackCreate(GetMethod(implObj, "get_Name"), flags, 2)
-        this.vtbl.put_Name := CallbackCreate(GetMethod(implObj, "put_Name"), flags, 2)
-        this.vtbl.AddBuddy := CallbackCreate(GetMethod(implObj, "AddBuddy"), flags, 2)
-        this.vtbl.RemoveBuddy := CallbackCreate(GetMethod(implObj, "RemoveBuddy"), flags, 2)
-        this.vtbl.EnumerateBuddies := CallbackCreate(GetMethod(implObj, "EnumerateBuddies"), flags, 2)
-        this.vtbl.get_Buddies := CallbackCreate(GetMethod(implObj, "get_Buddies"), flags, 2)
-        this.vtbl.get_Data := CallbackCreate(GetMethod(implObj, "get_Data"), flags, 2)
-        this.vtbl.put_Data := CallbackCreate(GetMethod(implObj, "put_Data"), flags, 2)
-        this.vtbl.get_Profile := CallbackCreate(GetMethod(implObj, "get_Profile"), flags, 2)
+        this.vtbl.get_Name := CallbackCreate(ObjBindMethod(implObj, "get_Name"), flags, 2)
+        this.vtbl.put_Name := CallbackCreate(ObjBindMethod(implObj, "put_Name"), flags, 2)
+        this.vtbl.AddBuddy := CallbackCreate(ObjBindMethod(implObj, "AddBuddy"), flags, 2)
+        this.vtbl.RemoveBuddy := CallbackCreate(ObjBindMethod(implObj, "RemoveBuddy"), flags, 2)
+        this.vtbl.EnumerateBuddies := CallbackCreate(ObjBindMethod(implObj, "EnumerateBuddies"), flags, 2)
+        this.vtbl.get_Buddies := CallbackCreate(ObjBindMethod(implObj, "get_Buddies"), flags, 2)
+        this.vtbl.get_Data := CallbackCreate(ObjBindMethod(implObj, "get_Data"), flags, 2)
+        this.vtbl.put_Data := CallbackCreate(ObjBindMethod(implObj, "put_Data"), flags, 2)
+        this.vtbl.get_Profile := CallbackCreate(ObjBindMethod(implObj, "get_Profile"), flags, 2)
     }
 
     Dispose() {

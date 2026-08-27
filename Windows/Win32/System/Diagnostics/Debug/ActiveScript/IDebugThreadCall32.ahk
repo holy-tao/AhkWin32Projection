@@ -36,7 +36,6 @@ export default struct IDebugThreadCall32 extends IUnknown {
     }
 
     /**
-     * 
      * @param {Integer} dwParam1 
      * @param {Integer} dwParam2 
      * @param {Integer} dwParam3 
@@ -56,7 +55,7 @@ export default struct IDebugThreadCall32 extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ThreadCallHandler := CallbackCreate(GetMethod(implObj, "ThreadCallHandler"), flags, 4)
+        this.vtbl.ThreadCallHandler := CallbackCreate(ObjBindMethod(implObj, "ThreadCallHandler"), flags, 4)
     }
 
     Dispose() {

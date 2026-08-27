@@ -40,7 +40,6 @@ export default struct IEncodingFilterFactory extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzCodeIn 
      * @param {PWSTR} pwzCodeOut 
      * @param {DATAINFO} info 
@@ -55,7 +54,6 @@ export default struct IEncodingFilterFactory extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pwzCodeIn 
      * @param {PWSTR} pwzCodeOut 
      * @returns {IDataFilter} 
@@ -77,8 +75,8 @@ export default struct IEncodingFilterFactory extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.FindBestFilter := CallbackCreate(GetMethod(implObj, "FindBestFilter"), flags, 5)
-        this.vtbl.GetDefaultFilter := CallbackCreate(GetMethod(implObj, "GetDefaultFilter"), flags, 4)
+        this.vtbl.FindBestFilter := CallbackCreate(ObjBindMethod(implObj, "FindBestFilter"), flags, 5)
+        this.vtbl.GetDefaultFilter := CallbackCreate(ObjBindMethod(implObj, "GetDefaultFilter"), flags, 4)
     }
 
     Dispose() {

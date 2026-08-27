@@ -38,7 +38,6 @@ export default struct IActiveScriptAuthorProcedure extends IUnknown {
     }
 
     /**
-     * 
      * @param {PWSTR} pszCode 
      * @param {PWSTR} pszFormalParams 
      * @param {PWSTR} pszProcedureName 
@@ -69,7 +68,7 @@ export default struct IActiveScriptAuthorProcedure extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ParseProcedureText := CallbackCreate(GetMethod(implObj, "ParseProcedureText"), flags, 9)
+        this.vtbl.ParseProcedureText := CallbackCreate(ObjBindMethod(implObj, "ParseProcedureText"), flags, 9)
     }
 
     Dispose() {

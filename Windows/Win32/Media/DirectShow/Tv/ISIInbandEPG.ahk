@@ -39,7 +39,6 @@ export default struct ISIInbandEPG extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     StartSIEPGScan() {
@@ -48,7 +47,6 @@ export default struct ISIInbandEPG extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     StopSIEPGScan() {
@@ -57,7 +55,6 @@ export default struct ISIInbandEPG extends IUnknown {
     }
 
     /**
-     * 
      * @returns {BOOL} 
      */
     IsSIEPGScanRunning() {
@@ -74,9 +71,9 @@ export default struct ISIInbandEPG extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.StartSIEPGScan := CallbackCreate(GetMethod(implObj, "StartSIEPGScan"), flags, 1)
-        this.vtbl.StopSIEPGScan := CallbackCreate(GetMethod(implObj, "StopSIEPGScan"), flags, 1)
-        this.vtbl.IsSIEPGScanRunning := CallbackCreate(GetMethod(implObj, "IsSIEPGScanRunning"), flags, 2)
+        this.vtbl.StartSIEPGScan := CallbackCreate(ObjBindMethod(implObj, "StartSIEPGScan"), flags, 1)
+        this.vtbl.StopSIEPGScan := CallbackCreate(ObjBindMethod(implObj, "StopSIEPGScan"), flags, 1)
+        this.vtbl.IsSIEPGScanRunning := CallbackCreate(ObjBindMethod(implObj, "IsSIEPGScanRunning"), flags, 2)
     }
 
     Dispose() {

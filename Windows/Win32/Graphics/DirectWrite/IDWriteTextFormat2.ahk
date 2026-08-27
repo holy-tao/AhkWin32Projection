@@ -76,8 +76,8 @@ export default struct IDWriteTextFormat2 extends IDWriteTextFormat1 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetLineSpacing := CallbackCreate(GetMethod(implObj, "SetLineSpacing"), flags, 2)
-        this.vtbl.GetLineSpacing := CallbackCreate(GetMethod(implObj, "GetLineSpacing"), flags, 2)
+        this.vtbl.SetLineSpacing := CallbackCreate(ObjBindMethod(implObj, "SetLineSpacing"), flags, 2)
+        this.vtbl.GetLineSpacing := CallbackCreate(ObjBindMethod(implObj, "GetLineSpacing"), flags, 2)
     }
 
     Dispose() {

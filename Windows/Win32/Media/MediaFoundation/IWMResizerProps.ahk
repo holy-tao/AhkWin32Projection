@@ -253,14 +253,14 @@ export default struct IWMResizerProps extends IUnknown {
      * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmresizerprops-getfullcropregion
      */
     GetFullCropRegion(lClipOriXSrc, lClipOriYSrc, lClipWidthSrc, lClipHeightSrc, lClipOriXDst, lClipOriYDst, lClipWidthDst, lClipHeightDst) {
-        lClipOriXSrcMarshal := lClipOriXSrc is VarRef ? "int*" : "ptr"
-        lClipOriYSrcMarshal := lClipOriYSrc is VarRef ? "int*" : "ptr"
-        lClipWidthSrcMarshal := lClipWidthSrc is VarRef ? "int*" : "ptr"
-        lClipHeightSrcMarshal := lClipHeightSrc is VarRef ? "int*" : "ptr"
-        lClipOriXDstMarshal := lClipOriXDst is VarRef ? "int*" : "ptr"
-        lClipOriYDstMarshal := lClipOriYDst is VarRef ? "int*" : "ptr"
-        lClipWidthDstMarshal := lClipWidthDst is VarRef ? "int*" : "ptr"
-        lClipHeightDstMarshal := lClipHeightDst is VarRef ? "int*" : "ptr"
+        lClipOriXSrcMarshal := lClipOriXSrc is VarRef ? "int*" : IntPtr
+        lClipOriYSrcMarshal := lClipOriYSrc is VarRef ? "int*" : IntPtr
+        lClipWidthSrcMarshal := lClipWidthSrc is VarRef ? "int*" : IntPtr
+        lClipHeightSrcMarshal := lClipHeightSrc is VarRef ? "int*" : IntPtr
+        lClipOriXDstMarshal := lClipOriXDst is VarRef ? "int*" : IntPtr
+        lClipOriYDstMarshal := lClipOriYDst is VarRef ? "int*" : IntPtr
+        lClipWidthDstMarshal := lClipWidthDst is VarRef ? "int*" : IntPtr
+        lClipHeightDstMarshal := lClipHeightDst is VarRef ? "int*" : IntPtr
 
         result := ComCall(7, this, lClipOriXSrcMarshal, lClipOriXSrc, lClipOriYSrcMarshal, lClipOriYSrc, lClipWidthSrcMarshal, lClipWidthSrc, lClipHeightSrcMarshal, lClipHeightSrc, lClipOriXDstMarshal, lClipOriXDst, lClipOriYDstMarshal, lClipOriYDst, lClipWidthDstMarshal, lClipWidthDst, lClipHeightDstMarshal, lClipHeightDst, "HRESULT")
         return result
@@ -275,11 +275,11 @@ export default struct IWMResizerProps extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetResizerQuality := CallbackCreate(GetMethod(implObj, "SetResizerQuality"), flags, 2)
-        this.vtbl.SetInterlaceMode := CallbackCreate(GetMethod(implObj, "SetInterlaceMode"), flags, 2)
-        this.vtbl.SetClipRegion := CallbackCreate(GetMethod(implObj, "SetClipRegion"), flags, 5)
-        this.vtbl.SetFullCropRegion := CallbackCreate(GetMethod(implObj, "SetFullCropRegion"), flags, 9)
-        this.vtbl.GetFullCropRegion := CallbackCreate(GetMethod(implObj, "GetFullCropRegion"), flags, 9)
+        this.vtbl.SetResizerQuality := CallbackCreate(ObjBindMethod(implObj, "SetResizerQuality"), flags, 2)
+        this.vtbl.SetInterlaceMode := CallbackCreate(ObjBindMethod(implObj, "SetInterlaceMode"), flags, 2)
+        this.vtbl.SetClipRegion := CallbackCreate(ObjBindMethod(implObj, "SetClipRegion"), flags, 5)
+        this.vtbl.SetFullCropRegion := CallbackCreate(ObjBindMethod(implObj, "SetFullCropRegion"), flags, 9)
+        this.vtbl.GetFullCropRegion := CallbackCreate(ObjBindMethod(implObj, "GetFullCropRegion"), flags, 9)
     }
 
     Dispose() {

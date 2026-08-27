@@ -100,9 +100,9 @@ export DdqGetDiagnosticDataAccessLevelAllowed() {
  * @since windows10.0.19041
  */
 export DdqGetDiagnosticRecordStats(hSession, searchCriteria, recordCount, minRowId, maxRowId) {
-    recordCountMarshal := recordCount is VarRef ? "uint*" : "ptr"
-    minRowIdMarshal := minRowId is VarRef ? "int64*" : "ptr"
-    maxRowIdMarshal := maxRowId is VarRef ? "int64*" : "ptr"
+    recordCountMarshal := recordCount is VarRef ? "uint*" : IntPtr
+    minRowIdMarshal := minRowId is VarRef ? "int64*" : IntPtr
+    maxRowIdMarshal := maxRowId is VarRef ? "int64*" : IntPtr
 
     result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordStats", HDIAGNOSTIC_DATA_QUERY_SESSION, hSession, DIAGNOSTIC_DATA_SEARCH_CRITERIA.Ptr, searchCriteria, recordCountMarshal, recordCount, minRowIdMarshal, minRowId, maxRowIdMarshal, maxRowId, "HRESULT")
     return result
@@ -367,11 +367,15 @@ export DdqIsDiagnosticRecordSampledIn(hSession, providerGroup, providerId, provi
     providerName := providerName is String ? StrPtr(providerName) : providerName
     eventName := eventName is String ? StrPtr(eventName) : eventName
 
-    eventIdMarshal := eventId is VarRef ? "uint*" : "ptr"
-    eventVersionMarshal := eventVersion is VarRef ? "uint*" : "ptr"
-    eventKeywordsMarshal := eventKeywords is VarRef ? "uint*" : "ptr"
+    providerIdMarshal := providerId == 0 ? IntPtr : Guid.Ptr
+    eventIdMarshal := eventId is VarRef ? "uint*" : IntPtr
+    eventIdMarshal := eventId == 0 ? IntPtr : "uint*"
+    eventVersionMarshal := eventVersion is VarRef ? "uint*" : IntPtr
+    eventVersionMarshal := eventVersion == 0 ? IntPtr : "uint*"
+    eventKeywordsMarshal := eventKeywords is VarRef ? "uint*" : IntPtr
+    eventKeywordsMarshal := eventKeywords == 0 ? IntPtr : "uint*"
 
-    result := DllCall("DiagnosticDataQuery.dll\DdqIsDiagnosticRecordSampledIn", HDIAGNOSTIC_DATA_QUERY_SESSION, hSession, Guid.Ptr, providerGroup, Guid.Ptr, providerId, "ptr", providerName, eventIdMarshal, eventId, "ptr", eventName, eventVersionMarshal, eventVersion, eventKeywordsMarshal, eventKeywords, BOOL.Ptr, &isSampledIn := 0, "HRESULT")
+    result := DllCall("DiagnosticDataQuery.dll\DdqIsDiagnosticRecordSampledIn", HDIAGNOSTIC_DATA_QUERY_SESSION, hSession, Guid.Ptr, providerGroup, providerIdMarshal, providerId, "ptr", providerName, eventIdMarshal, eventId, "ptr", eventName, eventVersionMarshal, eventVersion, eventKeywordsMarshal, eventKeywords, BOOL.Ptr, &isSampledIn := 0, "HRESULT")
     return isSampledIn
 }
 
@@ -592,9 +596,9 @@ export DdqExtractDiagnosticReport(hSession, reportStoreType, reportKey, destinat
  * @since windows10.0.19041
  */
 export DdqGetDiagnosticRecordTagDistribution(hSession, producerNames, producerNameCount, tagStats, statCount) {
-    producerNamesMarshal := producerNames is VarRef ? "ptr*" : "ptr"
-    tagStatsMarshal := tagStats is VarRef ? "ptr*" : "ptr"
-    statCountMarshal := statCount is VarRef ? "uint*" : "ptr"
+    producerNamesMarshal := producerNames is VarRef ? "ptr*" : IntPtr
+    tagStatsMarshal := tagStats is VarRef ? "ptr*" : IntPtr
+    statCountMarshal := statCount is VarRef ? "uint*" : IntPtr
 
     result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordTagDistribution", HDIAGNOSTIC_DATA_QUERY_SESSION, hSession, producerNamesMarshal, producerNames, UInt32, producerNameCount, tagStatsMarshal, tagStats, statCountMarshal, statCount, "HRESULT")
     return result
@@ -620,9 +624,9 @@ export DdqGetDiagnosticRecordTagDistribution(hSession, producerNames, producerNa
  * @since windows10.0.19041
  */
 export DdqGetDiagnosticRecordBinaryDistribution(hSession, producerNames, producerNameCount, topNBinaries, binaryStats, statCount) {
-    producerNamesMarshal := producerNames is VarRef ? "ptr*" : "ptr"
-    binaryStatsMarshal := binaryStats is VarRef ? "ptr*" : "ptr"
-    statCountMarshal := statCount is VarRef ? "uint*" : "ptr"
+    producerNamesMarshal := producerNames is VarRef ? "ptr*" : IntPtr
+    binaryStatsMarshal := binaryStats is VarRef ? "ptr*" : IntPtr
+    statCountMarshal := statCount is VarRef ? "uint*" : IntPtr
 
     result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordBinaryDistribution", HDIAGNOSTIC_DATA_QUERY_SESSION, hSession, producerNamesMarshal, producerNames, UInt32, producerNameCount, UInt32, topNBinaries, binaryStatsMarshal, binaryStats, statCountMarshal, statCount, "HRESULT")
     return result
@@ -644,7 +648,7 @@ export DdqGetDiagnosticRecordBinaryDistribution(hSession, producerNames, produce
  * @since windows10.0.19041
  */
 export DdqGetDiagnosticRecordSummary(hSession, producerNames, producerNameCount, generalStats) {
-    producerNamesMarshal := producerNames is VarRef ? "ptr*" : "ptr"
+    producerNamesMarshal := producerNames is VarRef ? "ptr*" : IntPtr
 
     result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordSummary", HDIAGNOSTIC_DATA_QUERY_SESSION, hSession, producerNamesMarshal, producerNames, UInt32, producerNameCount, DIAGNOSTIC_DATA_GENERAL_STATS.Ptr, generalStats, "HRESULT")
     return result

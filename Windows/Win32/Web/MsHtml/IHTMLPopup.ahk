@@ -77,7 +77,6 @@ export default struct IHTMLPopup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     hide() {
@@ -86,7 +85,6 @@ export default struct IHTMLPopup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {IHTMLDocument} 
      */
     get_document() {
@@ -95,7 +93,6 @@ export default struct IHTMLPopup extends IDispatch {
     }
 
     /**
-     * 
      * @returns {VARIANT_BOOL} 
      */
     get_isOpen() {
@@ -112,10 +109,10 @@ export default struct IHTMLPopup extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.show := CallbackCreate(GetMethod(implObj, "show"), flags, 6)
-        this.vtbl.hide := CallbackCreate(GetMethod(implObj, "hide"), flags, 1)
-        this.vtbl.get_document := CallbackCreate(GetMethod(implObj, "get_document"), flags, 2)
-        this.vtbl.get_isOpen := CallbackCreate(GetMethod(implObj, "get_isOpen"), flags, 2)
+        this.vtbl.show := CallbackCreate(ObjBindMethod(implObj, "show"), flags, 6)
+        this.vtbl.hide := CallbackCreate(ObjBindMethod(implObj, "hide"), flags, 1)
+        this.vtbl.get_document := CallbackCreate(ObjBindMethod(implObj, "get_document"), flags, 2)
+        this.vtbl.get_isOpen := CallbackCreate(ObjBindMethod(implObj, "get_isOpen"), flags, 2)
     }
 
     Dispose() {

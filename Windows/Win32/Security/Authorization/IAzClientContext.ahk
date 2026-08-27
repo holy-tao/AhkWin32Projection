@@ -416,19 +416,19 @@ export default struct IAzClientContext extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AccessCheck := CallbackCreate(GetMethod(implObj, "AccessCheck"), flags, 10)
-        this.vtbl.GetBusinessRuleString := CallbackCreate(GetMethod(implObj, "GetBusinessRuleString"), flags, 2)
-        this.vtbl.get_UserDn := CallbackCreate(GetMethod(implObj, "get_UserDn"), flags, 2)
-        this.vtbl.get_UserSamCompat := CallbackCreate(GetMethod(implObj, "get_UserSamCompat"), flags, 2)
-        this.vtbl.get_UserDisplay := CallbackCreate(GetMethod(implObj, "get_UserDisplay"), flags, 2)
-        this.vtbl.get_UserGuid := CallbackCreate(GetMethod(implObj, "get_UserGuid"), flags, 2)
-        this.vtbl.get_UserCanonical := CallbackCreate(GetMethod(implObj, "get_UserCanonical"), flags, 2)
-        this.vtbl.get_UserUpn := CallbackCreate(GetMethod(implObj, "get_UserUpn"), flags, 2)
-        this.vtbl.get_UserDnsSamCompat := CallbackCreate(GetMethod(implObj, "get_UserDnsSamCompat"), flags, 2)
-        this.vtbl.GetProperty := CallbackCreate(GetMethod(implObj, "GetProperty"), flags, 4)
-        this.vtbl.GetRoles := CallbackCreate(GetMethod(implObj, "GetRoles"), flags, 3)
-        this.vtbl.get_RoleForAccessCheck := CallbackCreate(GetMethod(implObj, "get_RoleForAccessCheck"), flags, 2)
-        this.vtbl.put_RoleForAccessCheck := CallbackCreate(GetMethod(implObj, "put_RoleForAccessCheck"), flags, 2)
+        this.vtbl.AccessCheck := CallbackCreate(ObjBindMethod(implObj, "AccessCheck"), flags, 10)
+        this.vtbl.GetBusinessRuleString := CallbackCreate(ObjBindMethod(implObj, "GetBusinessRuleString"), flags, 2)
+        this.vtbl.get_UserDn := CallbackCreate(ObjBindMethod(implObj, "get_UserDn"), flags, 2)
+        this.vtbl.get_UserSamCompat := CallbackCreate(ObjBindMethod(implObj, "get_UserSamCompat"), flags, 2)
+        this.vtbl.get_UserDisplay := CallbackCreate(ObjBindMethod(implObj, "get_UserDisplay"), flags, 2)
+        this.vtbl.get_UserGuid := CallbackCreate(ObjBindMethod(implObj, "get_UserGuid"), flags, 2)
+        this.vtbl.get_UserCanonical := CallbackCreate(ObjBindMethod(implObj, "get_UserCanonical"), flags, 2)
+        this.vtbl.get_UserUpn := CallbackCreate(ObjBindMethod(implObj, "get_UserUpn"), flags, 2)
+        this.vtbl.get_UserDnsSamCompat := CallbackCreate(ObjBindMethod(implObj, "get_UserDnsSamCompat"), flags, 2)
+        this.vtbl.GetProperty := CallbackCreate(ObjBindMethod(implObj, "GetProperty"), flags, 4)
+        this.vtbl.GetRoles := CallbackCreate(ObjBindMethod(implObj, "GetRoles"), flags, 3)
+        this.vtbl.get_RoleForAccessCheck := CallbackCreate(ObjBindMethod(implObj, "get_RoleForAccessCheck"), flags, 2)
+        this.vtbl.put_RoleForAccessCheck := CallbackCreate(ObjBindMethod(implObj, "put_RoleForAccessCheck"), flags, 2)
     }
 
     Dispose() {

@@ -37,7 +37,6 @@ export default struct IRowChange extends IUnknown {
     }
 
     /**
-     * 
      * @param {Pointer} cColumns 
      * @param {Pointer<DBCOLUMNACCESS>} rgColumns 
      * @returns {HRESULT} 
@@ -56,7 +55,7 @@ export default struct IRowChange extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetColumns := CallbackCreate(GetMethod(implObj, "SetColumns"), flags, 3)
+        this.vtbl.SetColumns := CallbackCreate(ObjBindMethod(implObj, "SetColumns"), flags, 3)
     }
 
     Dispose() {

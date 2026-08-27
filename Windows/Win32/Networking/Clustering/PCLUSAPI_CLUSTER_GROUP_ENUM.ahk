@@ -20,7 +20,6 @@ export default struct PCLUSAPI_CLUSTER_GROUP_ENUM {
     }
 
     /**
-     * 
      * @param {HGROUPENUM} _hGroupEnum 
      * @param {Integer} dwIndex 
      * @param {Pointer<Integer>} lpdwType 
@@ -31,8 +30,8 @@ export default struct PCLUSAPI_CLUSTER_GROUP_ENUM {
     Call(_hGroupEnum, dwIndex, lpdwType, lpszResourceName, lpcchName) {
         lpszResourceName := lpszResourceName is String ? StrPtr(lpszResourceName) : lpszResourceName
 
-        lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : "ptr"
-        lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
+        lpdwTypeMarshal := lpdwType is VarRef ? "uint*" : IntPtr
+        lpcchNameMarshal := lpcchName is VarRef ? "uint*" : IntPtr
 
         result := DllCall(this.value, HGROUPENUM, _hGroupEnum, UInt32, dwIndex, lpdwTypeMarshal, lpdwType, "ptr", lpszResourceName, lpcchNameMarshal, lpcchName, UInt32)
         return result

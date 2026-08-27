@@ -44,7 +44,6 @@ export default struct IMSMQQuery extends IDispatch {
     }
 
     /**
-     * 
      * @param {Pointer<VARIANT>} QueueGuid 
      * @param {Pointer<VARIANT>} ServiceTypeGuid 
      * @param {Pointer<VARIANT>} Label 
@@ -70,7 +69,7 @@ export default struct IMSMQQuery extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.LookupQueue := CallbackCreate(GetMethod(implObj, "LookupQueue"), flags, 11)
+        this.vtbl.LookupQueue := CallbackCreate(ObjBindMethod(implObj, "LookupQueue"), flags, 11)
     }
 
     Dispose() {

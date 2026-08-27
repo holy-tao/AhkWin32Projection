@@ -20,16 +20,17 @@ export default struct PFLT_CALLBACK_DATA_QUEUE_PEEK_NEXT_IO {
     }
 
     /**
-     * 
      * @param {Pointer<FLT_CALLBACK_DATA_QUEUE>} Cbdq 
      * @param {Pointer<FLT_CALLBACK_DATA>} Cbd 
      * @param {Pointer<Void>} PeekContext 
      * @returns {Pointer<FLT_CALLBACK_DATA>} 
      */
     Call(Cbdq, Cbd, PeekContext) {
-        PeekContextMarshal := PeekContext is VarRef ? "ptr" : "ptr"
+        CbdMarshal := Cbd == 0 ? IntPtr : FLT_CALLBACK_DATA.Ptr
+        PeekContextMarshal := PeekContext is VarRef ? "ptr" : IntPtr
+        PeekContextMarshal := PeekContext == 0 ? IntPtr : "ptr"
 
-        result := DllCall(this.value, FLT_CALLBACK_DATA_QUEUE.Ptr, Cbdq, FLT_CALLBACK_DATA.Ptr, Cbd, PeekContextMarshal, PeekContext, FLT_CALLBACK_DATA.Ptr)
+        result := DllCall(this.value, FLT_CALLBACK_DATA_QUEUE.Ptr, Cbdq, CbdMarshal, Cbd, PeekContextMarshal, PeekContext, FLT_CALLBACK_DATA.Ptr)
         return result
     }
 

@@ -20,7 +20,6 @@ export default struct PFAXUNREGISTERSERVICEPROVIDERW {
     }
 
     /**
-     * 
      * @param {PWSTR} DeviceProvider 
      * @returns {BOOL} 
      */

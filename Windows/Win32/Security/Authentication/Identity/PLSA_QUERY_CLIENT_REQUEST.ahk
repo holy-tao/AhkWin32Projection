@@ -19,15 +19,14 @@ export default struct PLSA_QUERY_CLIENT_REQUEST {
     }
 
     /**
-     * 
      * @param {Pointer<Pointer<Void>>} ClientRequest 
      * @param {Integer} QueryType 
      * @param {Pointer<Pointer<Void>>} ReplyBuffer 
      * @returns {NTSTATUS} 
      */
     Call(ClientRequest, QueryType, ReplyBuffer) {
-        ClientRequestMarshal := ClientRequest is VarRef ? "ptr*" : "ptr"
-        ReplyBufferMarshal := ReplyBuffer is VarRef ? "ptr*" : "ptr"
+        ClientRequestMarshal := ClientRequest is VarRef ? "ptr*" : IntPtr
+        ReplyBufferMarshal := ReplyBuffer is VarRef ? "ptr*" : IntPtr
 
         result := DllCall(this.value, ClientRequestMarshal, ClientRequest, UInt32, QueryType, ReplyBufferMarshal, ReplyBuffer, NTSTATUS)
         NTSTATUS.ThrowIfError(result.value)

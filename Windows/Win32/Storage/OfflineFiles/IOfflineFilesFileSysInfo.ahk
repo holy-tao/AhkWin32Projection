@@ -95,9 +95,9 @@ export default struct IOfflineFilesFileSysInfo extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetAttributes := CallbackCreate(GetMethod(implObj, "GetAttributes"), flags, 3)
-        this.vtbl.GetTimes := CallbackCreate(GetMethod(implObj, "GetTimes"), flags, 6)
-        this.vtbl.GetFileSize := CallbackCreate(GetMethod(implObj, "GetFileSize"), flags, 3)
+        this.vtbl.GetAttributes := CallbackCreate(ObjBindMethod(implObj, "GetAttributes"), flags, 3)
+        this.vtbl.GetTimes := CallbackCreate(ObjBindMethod(implObj, "GetTimes"), flags, 6)
+        this.vtbl.GetFileSize := CallbackCreate(ObjBindMethod(implObj, "GetFileSize"), flags, 3)
     }
 
     Dispose() {

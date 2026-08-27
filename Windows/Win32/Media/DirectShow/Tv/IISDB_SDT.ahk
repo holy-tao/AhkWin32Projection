@@ -58,7 +58,7 @@ export default struct IISDB_SDT extends IDVB_SDT {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetRecordEITUserDefinedFlags := CallbackCreate(GetMethod(implObj, "GetRecordEITUserDefinedFlags"), flags, 3)
+        this.vtbl.GetRecordEITUserDefinedFlags := CallbackCreate(ObjBindMethod(implObj, "GetRecordEITUserDefinedFlags"), flags, 3)
     }
 
     Dispose() {

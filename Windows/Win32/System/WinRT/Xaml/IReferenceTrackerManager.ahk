@@ -98,10 +98,10 @@ export default struct IReferenceTrackerManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.ReferenceTrackingStarted := CallbackCreate(GetMethod(implObj, "ReferenceTrackingStarted"), flags, 1)
-        this.vtbl.FindTrackerTargetsCompleted := CallbackCreate(GetMethod(implObj, "FindTrackerTargetsCompleted"), flags, 2)
-        this.vtbl.ReferenceTrackingCompleted := CallbackCreate(GetMethod(implObj, "ReferenceTrackingCompleted"), flags, 1)
-        this.vtbl.SetReferenceTrackerHost := CallbackCreate(GetMethod(implObj, "SetReferenceTrackerHost"), flags, 2)
+        this.vtbl.ReferenceTrackingStarted := CallbackCreate(ObjBindMethod(implObj, "ReferenceTrackingStarted"), flags, 1)
+        this.vtbl.FindTrackerTargetsCompleted := CallbackCreate(ObjBindMethod(implObj, "FindTrackerTargetsCompleted"), flags, 2)
+        this.vtbl.ReferenceTrackingCompleted := CallbackCreate(ObjBindMethod(implObj, "ReferenceTrackingCompleted"), flags, 1)
+        this.vtbl.SetReferenceTrackerHost := CallbackCreate(ObjBindMethod(implObj, "SetReferenceTrackerHost"), flags, 2)
     }
 
     Dispose() {

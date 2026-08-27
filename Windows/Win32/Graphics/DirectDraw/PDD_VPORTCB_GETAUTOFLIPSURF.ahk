@@ -19,7 +19,6 @@ export default struct PDD_VPORTCB_GETAUTOFLIPSURF {
     }
 
     /**
-     * 
      * @param {PDD_GETVPORTAUTOFLIPSURFACEDATA} param0 
      * @returns {Integer} 
      */

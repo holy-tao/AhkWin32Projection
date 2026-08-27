@@ -38,7 +38,6 @@ export default struct ICLRHostProtectionManager extends IUnknown {
     }
 
     /**
-     * 
      * @param {EApiCategories} categories 
      * @returns {HRESULT} 
      */
@@ -48,7 +47,6 @@ export default struct ICLRHostProtectionManager extends IUnknown {
     }
 
     /**
-     * 
      * @returns {HRESULT} 
      */
     SetEagerSerializeGrantSets() {
@@ -65,8 +63,8 @@ export default struct ICLRHostProtectionManager extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetProtectedCategories := CallbackCreate(GetMethod(implObj, "SetProtectedCategories"), flags, 2)
-        this.vtbl.SetEagerSerializeGrantSets := CallbackCreate(GetMethod(implObj, "SetEagerSerializeGrantSets"), flags, 1)
+        this.vtbl.SetProtectedCategories := CallbackCreate(ObjBindMethod(implObj, "SetProtectedCategories"), flags, 2)
+        this.vtbl.SetEagerSerializeGrantSets := CallbackCreate(ObjBindMethod(implObj, "SetEagerSerializeGrantSets"), flags, 1)
     }
 
     Dispose() {

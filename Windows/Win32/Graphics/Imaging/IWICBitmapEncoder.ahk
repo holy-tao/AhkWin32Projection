@@ -284,16 +284,16 @@ export default struct IWICBitmapEncoder extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.Initialize := CallbackCreate(GetMethod(implObj, "Initialize"), flags, 3)
-        this.vtbl.GetContainerFormat := CallbackCreate(GetMethod(implObj, "GetContainerFormat"), flags, 2)
-        this.vtbl.GetEncoderInfo := CallbackCreate(GetMethod(implObj, "GetEncoderInfo"), flags, 2)
-        this.vtbl.SetColorContexts := CallbackCreate(GetMethod(implObj, "SetColorContexts"), flags, 3)
-        this.vtbl.SetPalette := CallbackCreate(GetMethod(implObj, "SetPalette"), flags, 2)
-        this.vtbl.SetThumbnail := CallbackCreate(GetMethod(implObj, "SetThumbnail"), flags, 2)
-        this.vtbl.SetPreview := CallbackCreate(GetMethod(implObj, "SetPreview"), flags, 2)
-        this.vtbl.CreateNewFrame := CallbackCreate(GetMethod(implObj, "CreateNewFrame"), flags, 3)
-        this.vtbl.Commit := CallbackCreate(GetMethod(implObj, "Commit"), flags, 1)
-        this.vtbl.GetMetadataQueryWriter := CallbackCreate(GetMethod(implObj, "GetMetadataQueryWriter"), flags, 2)
+        this.vtbl.Initialize := CallbackCreate(ObjBindMethod(implObj, "Initialize"), flags, 3)
+        this.vtbl.GetContainerFormat := CallbackCreate(ObjBindMethod(implObj, "GetContainerFormat"), flags, 2)
+        this.vtbl.GetEncoderInfo := CallbackCreate(ObjBindMethod(implObj, "GetEncoderInfo"), flags, 2)
+        this.vtbl.SetColorContexts := CallbackCreate(ObjBindMethod(implObj, "SetColorContexts"), flags, 3)
+        this.vtbl.SetPalette := CallbackCreate(ObjBindMethod(implObj, "SetPalette"), flags, 2)
+        this.vtbl.SetThumbnail := CallbackCreate(ObjBindMethod(implObj, "SetThumbnail"), flags, 2)
+        this.vtbl.SetPreview := CallbackCreate(ObjBindMethod(implObj, "SetPreview"), flags, 2)
+        this.vtbl.CreateNewFrame := CallbackCreate(ObjBindMethod(implObj, "CreateNewFrame"), flags, 3)
+        this.vtbl.Commit := CallbackCreate(ObjBindMethod(implObj, "Commit"), flags, 1)
+        this.vtbl.GetMetadataQueryWriter := CallbackCreate(ObjBindMethod(implObj, "GetMetadataQueryWriter"), flags, 2)
     }
 
     Dispose() {

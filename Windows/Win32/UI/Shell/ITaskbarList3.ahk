@@ -515,18 +515,18 @@ export default struct ITaskbarList3 extends ITaskbarList2 {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.SetProgressValue := CallbackCreate(GetMethod(implObj, "SetProgressValue"), flags, 4)
-        this.vtbl.SetProgressState := CallbackCreate(GetMethod(implObj, "SetProgressState"), flags, 3)
-        this.vtbl.RegisterTab := CallbackCreate(GetMethod(implObj, "RegisterTab"), flags, 3)
-        this.vtbl.UnregisterTab := CallbackCreate(GetMethod(implObj, "UnregisterTab"), flags, 2)
-        this.vtbl.SetTabOrder := CallbackCreate(GetMethod(implObj, "SetTabOrder"), flags, 3)
-        this.vtbl.SetTabActive := CallbackCreate(GetMethod(implObj, "SetTabActive"), flags, 4)
-        this.vtbl.ThumbBarAddButtons := CallbackCreate(GetMethod(implObj, "ThumbBarAddButtons"), flags, 4)
-        this.vtbl.ThumbBarUpdateButtons := CallbackCreate(GetMethod(implObj, "ThumbBarUpdateButtons"), flags, 4)
-        this.vtbl.ThumbBarSetImageList := CallbackCreate(GetMethod(implObj, "ThumbBarSetImageList"), flags, 3)
-        this.vtbl.SetOverlayIcon := CallbackCreate(GetMethod(implObj, "SetOverlayIcon"), flags, 4)
-        this.vtbl.SetThumbnailTooltip := CallbackCreate(GetMethod(implObj, "SetThumbnailTooltip"), flags, 3)
-        this.vtbl.SetThumbnailClip := CallbackCreate(GetMethod(implObj, "SetThumbnailClip"), flags, 3)
+        this.vtbl.SetProgressValue := CallbackCreate(ObjBindMethod(implObj, "SetProgressValue"), flags, 4)
+        this.vtbl.SetProgressState := CallbackCreate(ObjBindMethod(implObj, "SetProgressState"), flags, 3)
+        this.vtbl.RegisterTab := CallbackCreate(ObjBindMethod(implObj, "RegisterTab"), flags, 3)
+        this.vtbl.UnregisterTab := CallbackCreate(ObjBindMethod(implObj, "UnregisterTab"), flags, 2)
+        this.vtbl.SetTabOrder := CallbackCreate(ObjBindMethod(implObj, "SetTabOrder"), flags, 3)
+        this.vtbl.SetTabActive := CallbackCreate(ObjBindMethod(implObj, "SetTabActive"), flags, 4)
+        this.vtbl.ThumbBarAddButtons := CallbackCreate(ObjBindMethod(implObj, "ThumbBarAddButtons"), flags, 4)
+        this.vtbl.ThumbBarUpdateButtons := CallbackCreate(ObjBindMethod(implObj, "ThumbBarUpdateButtons"), flags, 4)
+        this.vtbl.ThumbBarSetImageList := CallbackCreate(ObjBindMethod(implObj, "ThumbBarSetImageList"), flags, 3)
+        this.vtbl.SetOverlayIcon := CallbackCreate(ObjBindMethod(implObj, "SetOverlayIcon"), flags, 4)
+        this.vtbl.SetThumbnailTooltip := CallbackCreate(ObjBindMethod(implObj, "SetThumbnailTooltip"), flags, 3)
+        this.vtbl.SetThumbnailClip := CallbackCreate(ObjBindMethod(implObj, "SetThumbnailClip"), flags, 3)
     }
 
     Dispose() {

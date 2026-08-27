@@ -82,7 +82,6 @@ export default struct IHTMLParamElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -94,7 +93,6 @@ export default struct IHTMLParamElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_name() {
@@ -104,7 +102,6 @@ export default struct IHTMLParamElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -116,7 +113,6 @@ export default struct IHTMLParamElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_value() {
@@ -126,7 +122,6 @@ export default struct IHTMLParamElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -138,7 +133,6 @@ export default struct IHTMLParamElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_type() {
@@ -148,7 +142,6 @@ export default struct IHTMLParamElement extends IDispatch {
     }
 
     /**
-     * 
      * @param {BSTR} v 
      * @returns {HRESULT} 
      */
@@ -160,7 +153,6 @@ export default struct IHTMLParamElement extends IDispatch {
     }
 
     /**
-     * 
      * @returns {BSTR} 
      */
     get_valueType() {
@@ -178,14 +170,14 @@ export default struct IHTMLParamElement extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.put_name := CallbackCreate(GetMethod(implObj, "put_name"), flags, 2)
-        this.vtbl.get_name := CallbackCreate(GetMethod(implObj, "get_name"), flags, 2)
-        this.vtbl.put_value := CallbackCreate(GetMethod(implObj, "put_value"), flags, 2)
-        this.vtbl.get_value := CallbackCreate(GetMethod(implObj, "get_value"), flags, 2)
-        this.vtbl.put_type := CallbackCreate(GetMethod(implObj, "put_type"), flags, 2)
-        this.vtbl.get_type := CallbackCreate(GetMethod(implObj, "get_type"), flags, 2)
-        this.vtbl.put_valueType := CallbackCreate(GetMethod(implObj, "put_valueType"), flags, 2)
-        this.vtbl.get_valueType := CallbackCreate(GetMethod(implObj, "get_valueType"), flags, 2)
+        this.vtbl.put_name := CallbackCreate(ObjBindMethod(implObj, "put_name"), flags, 2)
+        this.vtbl.get_name := CallbackCreate(ObjBindMethod(implObj, "get_name"), flags, 2)
+        this.vtbl.put_value := CallbackCreate(ObjBindMethod(implObj, "put_value"), flags, 2)
+        this.vtbl.get_value := CallbackCreate(ObjBindMethod(implObj, "get_value"), flags, 2)
+        this.vtbl.put_type := CallbackCreate(ObjBindMethod(implObj, "put_type"), flags, 2)
+        this.vtbl.get_type := CallbackCreate(ObjBindMethod(implObj, "get_type"), flags, 2)
+        this.vtbl.put_valueType := CallbackCreate(ObjBindMethod(implObj, "put_valueType"), flags, 2)
+        this.vtbl.get_valueType := CallbackCreate(ObjBindMethod(implObj, "get_valueType"), flags, 2)
     }
 
     Dispose() {

@@ -137,7 +137,7 @@ export default struct IInkWordList2 extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.AddWords := CallbackCreate(GetMethod(implObj, "AddWords"), flags, 2)
+        this.vtbl.AddWords := CallbackCreate(ObjBindMethod(implObj, "AddWords"), flags, 2)
     }
 
     Dispose() {

@@ -74,7 +74,7 @@ export default struct IExplorerCommandState extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetState := CallbackCreate(GetMethod(implObj, "GetState"), flags, 4)
+        this.vtbl.GetState := CallbackCreate(ObjBindMethod(implObj, "GetState"), flags, 4)
     }
 
     Dispose() {

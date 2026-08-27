@@ -37,7 +37,6 @@ export default struct IProvideMoniker extends IUnknown {
     }
 
     /**
-     * 
      * @returns {IMoniker} 
      */
     GetMoniker() {
@@ -54,7 +53,7 @@ export default struct IProvideMoniker extends IUnknown {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.GetMoniker := CallbackCreate(GetMethod(implObj, "GetMoniker"), flags, 2)
+        this.vtbl.GetMoniker := CallbackCreate(ObjBindMethod(implObj, "GetMoniker"), flags, 2)
     }
 
     Dispose() {

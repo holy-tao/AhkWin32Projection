@@ -205,13 +205,13 @@ export default struct IFaxOutboundRoutingRules extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get__NewEnum := CallbackCreate(GetMethod(implObj, "get__NewEnum"), flags, 2)
-        this.vtbl.get_Item := CallbackCreate(GetMethod(implObj, "get_Item"), flags, 3)
-        this.vtbl.get_Count := CallbackCreate(GetMethod(implObj, "get_Count"), flags, 2)
-        this.vtbl.ItemByCountryAndArea := CallbackCreate(GetMethod(implObj, "ItemByCountryAndArea"), flags, 4)
-        this.vtbl.RemoveByCountryAndArea := CallbackCreate(GetMethod(implObj, "RemoveByCountryAndArea"), flags, 3)
-        this.vtbl.Remove := CallbackCreate(GetMethod(implObj, "Remove"), flags, 2)
-        this.vtbl.Add := CallbackCreate(GetMethod(implObj, "Add"), flags, 7)
+        this.vtbl.get__NewEnum := CallbackCreate(ObjBindMethod(implObj, "get__NewEnum"), flags, 2)
+        this.vtbl.get_Item := CallbackCreate(ObjBindMethod(implObj, "get_Item"), flags, 3)
+        this.vtbl.get_Count := CallbackCreate(ObjBindMethod(implObj, "get_Count"), flags, 2)
+        this.vtbl.ItemByCountryAndArea := CallbackCreate(ObjBindMethod(implObj, "ItemByCountryAndArea"), flags, 4)
+        this.vtbl.RemoveByCountryAndArea := CallbackCreate(ObjBindMethod(implObj, "RemoveByCountryAndArea"), flags, 3)
+        this.vtbl.Remove := CallbackCreate(ObjBindMethod(implObj, "Remove"), flags, 2)
+        this.vtbl.Add := CallbackCreate(ObjBindMethod(implObj, "Add"), flags, 7)
     }
 
     Dispose() {

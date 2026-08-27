@@ -20,7 +20,6 @@ export default struct PFND3DKMT_QUERYADAPTERINFO {
     }
 
     /**
-     * 
      * @param {Pointer<D3DKMT_QUERYADAPTERINFO>} param0 
      * @returns {NTSTATUS} 
      */

@@ -227,16 +227,16 @@ export default struct IValueMapItem extends IDispatch {
 
     Implement(implObj, flags := "") {
         super.Implement(implObj, flags)
-        this.vtbl.get_Description := CallbackCreate(GetMethod(implObj, "get_Description"), flags, 2)
-        this.vtbl.put_Description := CallbackCreate(GetMethod(implObj, "put_Description"), flags, 2)
-        this.vtbl.get_Enabled := CallbackCreate(GetMethod(implObj, "get_Enabled"), flags, 2)
-        this.vtbl.put_Enabled := CallbackCreate(GetMethod(implObj, "put_Enabled"), flags, 2)
-        this.vtbl.get_Key := CallbackCreate(GetMethod(implObj, "get_Key"), flags, 2)
-        this.vtbl.put_Key := CallbackCreate(GetMethod(implObj, "put_Key"), flags, 2)
-        this.vtbl.get_Value := CallbackCreate(GetMethod(implObj, "get_Value"), flags, 2)
-        this.vtbl.put_Value := CallbackCreate(GetMethod(implObj, "put_Value"), flags, 2)
-        this.vtbl.get_ValueMapType := CallbackCreate(GetMethod(implObj, "get_ValueMapType"), flags, 2)
-        this.vtbl.put_ValueMapType := CallbackCreate(GetMethod(implObj, "put_ValueMapType"), flags, 2)
+        this.vtbl.get_Description := CallbackCreate(ObjBindMethod(implObj, "get_Description"), flags, 2)
+        this.vtbl.put_Description := CallbackCreate(ObjBindMethod(implObj, "put_Description"), flags, 2)
+        this.vtbl.get_Enabled := CallbackCreate(ObjBindMethod(implObj, "get_Enabled"), flags, 2)
+        this.vtbl.put_Enabled := CallbackCreate(ObjBindMethod(implObj, "put_Enabled"), flags, 2)
+        this.vtbl.get_Key := CallbackCreate(ObjBindMethod(implObj, "get_Key"), flags, 2)
+        this.vtbl.put_Key := CallbackCreate(ObjBindMethod(implObj, "put_Key"), flags, 2)
+        this.vtbl.get_Value := CallbackCreate(ObjBindMethod(implObj, "get_Value"), flags, 2)
+        this.vtbl.put_Value := CallbackCreate(ObjBindMethod(implObj, "put_Value"), flags, 2)
+        this.vtbl.get_ValueMapType := CallbackCreate(ObjBindMethod(implObj, "get_ValueMapType"), flags, 2)
+        this.vtbl.put_ValueMapType := CallbackCreate(ObjBindMethod(implObj, "put_ValueMapType"), flags, 2)
     }
 
     Dispose() {
